@@ -1,0 +1,1 @@
+Place Pluginfile into /components/com_jcomments/plugins
