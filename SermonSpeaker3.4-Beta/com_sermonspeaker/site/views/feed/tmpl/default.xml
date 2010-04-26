@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="FEED">
+		<message><![CDATA[FEED_DESC]]></message>
+	</layout>
+	<state>
+		<name>FEED</name>
+		<description>FEED_DESC</description>
+		<params>
+			<param name="catid" type="category" section="com_sermonspeaker" label="CATEGORY" description="CATEGORY_DESC" />
+		</params>
+	</state>
+</metadata>

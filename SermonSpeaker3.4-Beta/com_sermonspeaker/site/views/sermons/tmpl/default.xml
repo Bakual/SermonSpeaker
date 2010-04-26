@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="SERMONS">
+		<message><![CDATA[SERMONS_DESC]]></message>
+	</layout>
+	<state>
+		<name>SERMONS</name>
+		<description>SERMONS_DESC</description>
+		<params>
+			<param name="catid" type="category" section="com_sermonspeaker" label="CATEGORY" description="CATEGORY_DESC" />
+		</params>
+	</state>
+</metadata>

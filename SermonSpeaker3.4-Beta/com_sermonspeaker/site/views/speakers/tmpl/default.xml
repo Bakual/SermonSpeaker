@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="SPEAKERS">
+		<message><![CDATA[SPEAKERS_DESC]]></message>
+	</layout>
+	<state>
+		<name>SPEAKERS</name>
+		<description>SPEAKERS_DESC</description>
+		<params>
+			<param />
+		</params>
+	</state>
+</metadata>
