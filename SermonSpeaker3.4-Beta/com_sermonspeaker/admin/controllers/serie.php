@@ -50,6 +50,8 @@ class SermonspeakerControllerSerie extends SermonspeakerController
 
 		$row = &JTable::getInstance('series', 'Table');
 		$post = JRequest::get('post');
+		// get the Text Area 'series_description' again, but not full *cleaned* by JRequest.
+		$post['series_description'] = JRequest::getVar('series_description', '', 'post', 'string', JREQUEST_ALLOWRAW);
 		$success = $row->save($post);
 		if (!$success) {
 			JError::raiseError(500, $row->getError());
