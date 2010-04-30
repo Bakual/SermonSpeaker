@@ -64,17 +64,6 @@ function com_install() {
 	$database->setQuery( $query );
 	$database->Query();
 
-	// create avatar table -> no longer needed
-/*	$query = "CREATE TABLE IF NOT EXISTS  `#__sermon_avatars` ("
-		."\n`id` INT NOT NULL AUTO_INCREMENT,"
-		."\n`avatar_name` TEXT NOT NULL,"
-		."\n`avatar_location` TEXT ,"
-		."\nPRIMARY KEY (`id`)"
-		."\n)";
-	$database->setQuery( $query );
-	$database->Query();
-*/
-	
 	// create sermon table
 	$query = "CREATE TABLE IF NOT EXISTS  `#__sermon_sermons` ("
 		."\n`id` INT NOT NULL AUTO_INCREMENT,"
@@ -110,27 +99,10 @@ function com_install() {
 	$fields = $database->getTableFields('#__sermon_sermons');
 	$sermons = $fields['#__sermon_sermons'];
 
-	// Add the avatar column if it doesn't exist in the series table -> no longer needed
-/*	if (!array_key_exists('avatar_id',$series)) {
-		echo "Attempting to add column avatar_id to table sermon_series...";
-		$query = "ALTER TABLE #__sermon_series ADD COLUMN avatar_id INTEGER NOT NULL DEFAULT 0";
-		$database->setQuery( $query );
-		$database->Query();
-		if(strlen($database->getErrorMsg()) > 3){
-			echo "<span style=\"color: rgb(255, 0, 0); font-weight: bold;\">";
-			echo "<br>Failed to add the column.  Bad news.  Tell the database administrator.";
-			echo "<br>Error Message: ".$database->getErrorMsg();
-			echo "</span>";
-		} else {
-			echo "<br>Wow! I did it! This is good. Now we can insert avatars. Oh boy!";
-		}
-	}
-*/
-	
 	// Add more speakers columns if speaker4 doesn't exist in the series table
 	if (!array_key_exists('speaker4',$series)) {
 		echo "Attempting to add new speaker columns to table sermon_series...";
-		$query = "ALTER TABLE #__sermon_series ADD COLUMN speaker4 INTEGER NOT NULL DEFAULT 0, speaker5 INTEGER NOT NULL DEFAULT 0, speaker6 INTEGER NOT NULL DEFAULT 0, speaker7 INTEGER NOT NULL DEFAULT 0, speaker8 INTEGER NOT NULL DEFAULT 0, speaker9 INTEGER NOT NULL DEFAULT 0, speaker10 INTEGER NOT NULL DEFAULT 0, speaker11 INTEGER NOT NULL DEFAULT 0, speaker12 INTEGER NOT NULL DEFAULT 0, speaker13 INTEGER NOT NULL DEFAULT 0, speaker14 INTEGER NOT NULL DEFAULT 0, speaker15 INTEGER NOT NULL DEFAULT 0, speaker16 INTEGER NOT NULL DEFAULT 0, speaker17 INTEGER NOT NULL DEFAULT 0, speaker18 INTEGER NOT NULL DEFAULT 0, speaker19 INTEGER NOT NULL DEFAULT 0, speaker20 INTEGER NOT NULL DEFAULT 0, ";
+		$query = "ALTER TABLE #__sermon_series ADD COLUMN (speaker4 INTEGER NOT NULL DEFAULT 0, speaker5 INTEGER NOT NULL DEFAULT 0, speaker6 INTEGER NOT NULL DEFAULT 0, speaker7 INTEGER NOT NULL DEFAULT 0, speaker8 INTEGER NOT NULL DEFAULT 0, speaker9 INTEGER NOT NULL DEFAULT 0, speaker10 INTEGER NOT NULL DEFAULT 0, speaker11 INTEGER NOT NULL DEFAULT 0, speaker12 INTEGER NOT NULL DEFAULT 0, speaker13 INTEGER NOT NULL DEFAULT 0, speaker14 INTEGER NOT NULL DEFAULT 0, speaker15 INTEGER NOT NULL DEFAULT 0, speaker16 INTEGER NOT NULL DEFAULT 0, speaker17 INTEGER NOT NULL DEFAULT 0, speaker18 INTEGER NOT NULL DEFAULT 0, speaker19 INTEGER NOT NULL DEFAULT 0, speaker20 INTEGER NOT NULL DEFAULT 0)";
 		$database->setQuery( $query );
 		$database->Query();
 		if(strlen($database->getErrorMsg()) > 3){
