@@ -619,6 +619,7 @@ class HTML_speaker
       if ($config->hide_dl == "0" && strlen($row[0]->sermon_path) > 0) {
   			echo "<tr><td valign =\"top\"><b>".$lang->sermonName.":</b></td><td><a TITLE=\"".$lang->download_hoover_tag."\" href=\"".$lnk."\">".$row[0]->sermon_title."</a></tr>";
   			
+      $id = $row[0]->id;
   			if ($config->dl_button == "1") {
   			  echo "<tr><td></td>";
           echo HTML_speaker::insertdlbutton($option,$id,$Itemid,$row[0]->sermon_path);
@@ -638,17 +639,33 @@ class HTML_speaker
       echo "<tr><td valign =\"top\"><b>".$lang->series.":</b></td><td>".$series_title."</td></tr>";
     	
     	echo "<tr><td valign =\"top\"><b>".$lang->speaker.":</b></td><td>".$row2->name."</td></tr>";
-    	
-      echo "<tr><td></td><td><img height=150 src=\"" . $row2->pic . "\"></td></tr>";
-    
+    	if ($row2->pic) {
+			echo "<tr><td></td><td><img height=150 src=\"" . $row2->pic . "\"></td></tr>";
+		}
     	echo "<tr><td valign =\"top\"><b>".$lang->sermonTime.":</b></td><td>".substr($row[0]->sermon_time,1,4)." h"."</td></tr>";
     	
     	echo "<tr><td valign =\"top\"><b>"."Hits".":</b></td><td>".$hits."</td></tr>";
     	echo "<tr><td valign =\"top\"><b>".$lang->sermonNotes.":</b></td><td>".$row[0]->notes."</td><tr>";
 	    if ($config->client_col_player){
         echo "<tr><td></td><td><br /><center>";
-        if(strcasecmp(substr($lnk,-4),".mp3") == 0) {
-          echo "<embed src=\"".JURI::root()."components/com_sermonspeaker/media/player/player.swf\" width=\"200\" height=\"20\" allowfullscreen=\"true\" allowscriptaccess=\"always\" flashvars=\"&file=".$lnk."&autostart=".$start."&height=20&width=200".$callback."\" />";
+		$player = JURI::root()."components/com_sermonspeaker/media/player/player.swf";
+        if(strcasecmp(substr($lnk,-4),".mp3") == 0) { ?>
+					<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="250" height="20" id="player1" name="player1">
+				<param name="movie" value="<?php echo $player; ?>"/>
+				<param name="wmode" value="transparent"/>
+				<param name="allowfullscreen" value="true"/>
+				<param name="allowscriptaccess" value="always"/>
+				<param name="flashvars" value="file=<?php echo $lnk; ?>&autostart=<?php echo $start; ?>&height=20&width=200<?php echo $callback; ?>"/>
+				<embed src="<?php echo $player; ?>"
+					width="250"
+					height="20"
+					wmode="transparent"
+					allowscriptaccess="always"
+					allowfullscreen="true"
+					flashvars="file=<?php echo $lnk; ?>&autostart=<?php echo $start; ?>&height=20&width=200<?php echo $callback; ?>"
+				/>
+			</object>
+<?php
         }
         if(strcasecmp(substr($lnk,-4),".flv") == 0) {
           echo "<embed src=\"".JURI::root()."components/com_sermonspeaker/media/player/player.swf\" width=\"".$config->mp_width."\" height=\"".$config->mp_height."\" allowfullscreen=\"true\" allowscriptaccess=\"always\" flashvars=\"&file=".$lnk."&autostart=".$start."&height=".$config->mp_height."&width=".$config->mp_width.$callback."\" />";
@@ -699,7 +716,7 @@ class HTML_speaker
       echo "<img src='".HTML_speaker::makelink($location)."' >";
       }    
     echo "</th>\n";
-  	echo "<th align=\"left\">".$desc[0]->series_description."</th>\n";
+  	echo "<th align=\"left\">".$row[0]->series_description."</th>\n";
   	echo "</table>\n";
   	paginate($curr_page, $total_rows, $lang->page, $lang->of, $option, $task, $id, $Itemid, true);
     ?>
