@@ -51,19 +51,20 @@ class SermonspeakerViewSermon extends JView
 		$lsdir = strlen($root);
 		$sermons = array();
 		foreach($filesabs as $file) {
-			$sermons[]->file = substr($file,$lsdir);
+			$sermons[]->file = str_replace('\\','/',substr($file,$lsdir));
 		}
 		
-		// getting the files without extension $filters from $path and its subdirectories for addfiles
+		// getting the files with extension $filters from $path and its subdirectories for addfiles
+		$path_addfile = JPATH_ROOT.DS.$params->get('path_addfile');
 		$filters = array('.pdf','.bmp','.png','.jpg','.gif','.txt','.doc');
 		$filesabs = array();
 		foreach($filters as $filter) {
-			$filesabs = array_merge(JFolder::files($path, $filter, true, true),$filesabs);
+			$filesabs = array_merge(JFolder::files($path_addfile, $filter, true, true),$filesabs);
 		}
 		// changing the filepaths relativ to the joomla root
 		$addfiles = array();
 		foreach($filesabs as $file) {
-			$addfiles[]->file = substr($file,$lsdir);
+			$addfiles[]->file = str_replace('\\','/',substr($file,$lsdir));
 		}
 
 		$speakers = &$this->get('Speakers');

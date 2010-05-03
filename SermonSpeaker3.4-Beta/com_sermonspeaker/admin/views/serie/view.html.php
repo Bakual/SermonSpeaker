@@ -26,7 +26,7 @@ class SermonspeakerViewSerie extends JView
 
 
 		// getting the files with extension $filters from $path and its subdirectories for avatars
-		$path = JPATH_ROOT.DS.$params->get('path');
+		$path = JPATH_ROOT.DS.$params->get('path_avatar');
 		$path2 = JPATH_ROOT.DS.'components'.DS.'com_sermonspeaker'.DS.'media'.DS.'avatars';
 		$filters = array('.jpg','.gif','.png','.bmp');
 		$filesabs = array();
@@ -46,7 +46,7 @@ class SermonspeakerViewSerie extends JView
 		$i = 1;
 		foreach($filesabs as $file){
 			$avatars[$i]->name = trim(strrchr($file,DS),DS);
-			$avatars[$i]->file = substr($file,$lsdir);
+			$avatars[$i]->file = str_replace('\\','/',substr($file,$lsdir));
 			$i++;
 		}
 		$lists = array();

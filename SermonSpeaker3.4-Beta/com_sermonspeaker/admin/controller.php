@@ -75,8 +75,8 @@ class SermonSpeakerController extends JController {
 	// This will change the database entries in the fields sermon_path and addfile from $old_path to the path specified in the settings. Use on own risk (/administrator/index.php?option=com_sermonspeaker&task=convert will start it), a backup is recommended
 	function convert(){ 
 		$params	=& JComponentHelper::getParams('com_sermonspeaker');
-		$new_path = DS.trim($params->get('path'), DS).DS;
-		$old_path = "/components/com_sermonspeaker/media/";
+		$new_path = '/'.trim($params->get('path'), '/').'/';
+		$old_path = "images";
 		$db =& JFactory::getDBO();
 		$query = "SELECT id, sermon_path, addfile FROM #__sermon_sermons";
 		$db->setQuery($query);
