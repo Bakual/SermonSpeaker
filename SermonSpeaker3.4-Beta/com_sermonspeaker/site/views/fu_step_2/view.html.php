@@ -28,7 +28,6 @@ class SermonspeakerViewFu_step_2 extends JView
 		$notes = JRequest::getVar('notes','','','STRING',JREQUEST_ALLOWHTML);
 		if ($vars[published] != "") {
 			// Form was sumitted
-			
 			// todo: probably move Databasestuff to Model
 			$file = JRequest::getVar('filename');
 			$path = DS.$params->get('path').$params->get('fu_destdir').DS.$file;
@@ -71,7 +70,6 @@ class SermonspeakerViewFu_step_2 extends JView
 			$getID3 = new getID3;
 			$FileInfo = $getID3->analyze($path);
 			getid3_lib::CopyTagsToComments($FileInfo);
-
 			// todo: probably move Databasestuff to Model
 			$db =& JFactory::getDBO(); 
 			$query = "SELECT name,id FROM #__sermon_speakers";
@@ -82,6 +80,8 @@ class SermonspeakerViewFu_step_2 extends JView
 			$query = "SELECT series_title,id FROM #__sermon_series";
 			$db->setQuery( $query ); 
 			$series_title = $db->loadObjectList();
+			
+			$time = $FileInfo['playtime_string'];
 
 			if ($params->get('fu_id3_title') != "-") {
 				switch ($params->get('fu_id3_title')) {
@@ -188,7 +188,7 @@ class SermonspeakerViewFu_step_2 extends JView
 			// Push the Data to the Template
 			$this->assignRef('lists',$lists);
 			$this->assignRef('file',$file);
-			$this->assignRef('fileinfo',$fileinfo);
+			$this->assignRef('time',$time);
 			$this->assignRef('editor',$editor);
 			$this->assignRef('id3notes',$id3notes);
 			$this->assignRef('id3title',$id3title);

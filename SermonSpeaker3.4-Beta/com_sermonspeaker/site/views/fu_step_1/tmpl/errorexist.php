@@ -12,7 +12,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 	</tr>
 	<tr>
 		<td width ="50"></td>
-		<td><br/><a href="index.php?option=com_sermonspeaker&view=fu_step_1"><?php echo JText::_('FU_ANOTHER'); ?></a></td>
+		<td><br/><a href="<?php echo JURI::root().'index.php?option=com_sermonspeaker&view=fu_step_1'; ?>"><?php echo JText::_('FU_ANOTHER'); ?></a></td>
 	</tr>
 	<tr>
 		<td colspan ="4">&#160;</td>

@@ -108,10 +108,10 @@ class SermonspeakerControllerSermon extends SermonspeakerController
 			if (!$row->load($cid[$i])){
 				$msg .= $row->getError();
 			} else {
-				if(file_exists(JPATH_ROOT.$row->sermon_path)){
+				if($row->sermon_path && file_exists(JPATH_ROOT.$row->sermon_path)){
 					$check = unlink(JPATH_ROOT.$row->sermon_path);
 					if (!$check){
-						$msg .= 'Error while deleting '.$file.'<br>';
+						$msg .= ' - Error while deleting '.$file;
 					}
 				}
 			}
