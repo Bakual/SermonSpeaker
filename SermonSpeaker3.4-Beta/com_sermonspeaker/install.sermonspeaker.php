@@ -33,7 +33,6 @@ function com_install() {
 		."\n`speaker_id` INT NOT NULL,"
 		."\n`series_title` TEXT NOT NULL,"
 		."\n`series_description` TEXT NOT NULL,"
-		."\n`avatar_id` INT NOT NULL,"
 		."\n`published` TINYINT(1) NOT NULL,"
 		."\n`ordering` int(11) NOT NULL default '0',"
 		."\n`hits` INT DEFAULT '0' NOT NULL,"
@@ -58,6 +57,7 @@ function com_install() {
 		."\n`speaker18` int(11) NOT NULL,"
 		."\n`speaker19` int(11) NOT NULL,"
 		."\n`speaker20` int(11) NOT NULL,"
+		."\n`avatar` text,"
 		."\n`catid` INT NOT NULL,"
 		."\nPRIMARY KEY (`id`)"
 		."\n)";
@@ -228,21 +228,8 @@ function com_install() {
   
 		//Series
 		$query = "INSERT INTO `#__sermon_series` "
-			."(`id`, `speaker_id`, `series_title`, `series_description`, `avatar_id`, `published`, `ordering`, `hits`, `created_by`, `created_on`, `speaker2`, `speaker3`) VALUES"
-			."(9999, 9999, 'General Topics', 'Topics of general interest.', 1, 1, 0, 0, 0, '2006-03-28', 0, 0)";
-		$database->setQuery( $query );
-		$database->Query();
-  	
-		//Avatars
-		$query = "INSERT INTO `#__sermon_avatars` "
-			."(id,`avatar_name`,`avatar_location`) VALUES"
-			."(1,'None','')";
-		$database->setQuery( $query );
-		$database->Query();
-  	
-		$query = "INSERT INTO `#__sermon_avatars` "
-			."(id,`avatar_name`,`avatar_location`) VALUES"
-			."(2,'sharon','/components/com_sermonspeaker/media/avatars/sharon.jpg')";
+			."(`id`, `speaker_id`, `series_title`, `series_description`, `published`, `ordering`, `hits`, `created_by`, `created_on`, `speaker2`, `speaker3`) VALUES"
+			."(9999, 9999, 'General Topics', 'Topics of general interest.', 1, 0, 0, 0, '2006-03-28', 0, 0)";
 		$database->setQuery( $query );
 		$database->Query();
   	
