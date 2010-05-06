@@ -525,7 +525,7 @@ class HTML_speaker
         echo HTML_speaker::insertdlbutton($option,$id,$Itemid,$row[0]->sermon_path);
       }
       if ($config->popup_player == "1") {
-        echo "<td><input style=\"font-size:12px;color:#000066;font-family:verdana;\" type=\"button\" name=\"".$lang->popup_player."\" value=\"".$lang->popup_player."\" onClick=\"popup = window.open('".JRoute::_("index2.php?option=$option&task=popup_player&id=$id&Itemid=$Itemid")."', 'PopupPage', 'height=".$pp_h.",width=".$pp_w.",scrollbars=yes,resizable=yes'); return false\"></td>";
+        echo "<td><input style=\"font-size:12px;color:#000066;font-family:verdana;\" type=\"button\" name=\"".$lang->popup_player."\" value=\"".$lang->popup_player."\" onClick=\"popup = window.open('".JRoute::_("index.php?task=popup_player&id=$id&tmpl=component")."', 'PopupPage', 'height=".$pp_h.",width=".$pp_w.",scrollbars=yes,resizable=yes'); return false\"></td>";
       }
       echo "</tr></table>";
     } // end of sermonlayout == 1 
@@ -584,7 +584,7 @@ class HTML_speaker
         echo HTML_speaker::insertdlbutton($option,$id,$Itemid,$row[0]->sermon_path);
       }
       if ($config->popup_player == "1") {
-        echo "<td><input style=\"font-size:12px;color:#000066;font-family:verdana;\" type=\"button\" name=\"".$lang->popup_player."\" value=\"".$lang->popup_player."\" onClick=\"popup = window.open('".JRoute::_("index2.php?option=$option&task=popup_player&id=$id&Itemid=$Itemid")."', 'PopupPage', 'height=".$pp_h.",width=".$pp_w.",scrollbars=yes,resizable=yes'); return false\"></td>";
+        echo "<td><input style=\"font-size:12px;color:#000066;font-family:verdana;\" type=\"button\" name=\"".$lang->popup_player."\" value=\"".$lang->popup_player."\" onClick=\"popup = window.open('".JRoute::_("index.php?task=popup_player&id=$id&tmpl=component")."', 'PopupPage', 'height=".$pp_h.",width=".$pp_w.",scrollbars=yes,resizable=yes'); return false\"></td>";
       }
       $return = HTML_speaker::insertAddfile($row[0]->addfile, $row[0]->addfileDesc);
       if ($return != NULL) {
@@ -626,10 +626,9 @@ class HTML_speaker
           echo "</tr>";
         }
         if ($config->popup_player == "1") {
-          echo "<td><input style=\"font-size:12px;color:#000066;font-family:verdana;\" type=\"button\" name=\"".$lang->popup_player."\" value=\"".$lang->popup_player."\" onClick=\"popup = window.open('".JRoute::_("index2.php?option=$option&task=popup_player&id=$id&Itemid=$Itemid")."', 'PopupPage', 'height=".$pp_h.",width=".$pp_w.",scrollbars=yes,resizable=yes'); return false\"></td>";
+          echo "<td><input style=\"font-size:12px;color:#000066;font-family:verdana;\" type=\"button\" name=\"".$lang->popup_player."\" value=\"".$lang->popup_player."\" onClick=\"popup = window.open('".JRoute::_("index.php?task=popup_player&id=$id&tmpl=component")."', 'PopupPage', 'height=".$pp_h.",width=".$pp_w.",scrollbars=yes,resizable=yes'); return false\"></td>";
         }
-  			
-  		} else {
+	  } else {
         echo "<tr><td valign =\"top\"><b>".$lang->sermonName.":</b></td><td>".$row[0]->sermon_title."</tr>";
       }
       

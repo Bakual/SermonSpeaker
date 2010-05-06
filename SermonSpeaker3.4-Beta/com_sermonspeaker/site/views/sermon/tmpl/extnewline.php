@@ -27,12 +27,6 @@ $return = SermonspeakerHelperSermonspeaker::insertAddfile($this->row[0]->addfile
 			?>
 		</tr>
 		<?php }
-		if ($this->params->get('popup_player') == "1") { 
-		// todo: popup_player Button muss nach inserPlayer kommen wenn man $pp_h und $pp_w benutzen für die Fenstergroesse will!
-		?>
-			<tr><td></td>
-			<td><input style="font-size:12px;color:#000066;font-family:verdana;" type="button" name="<?php echo JText::_('POPUP_PLAYER'); ?>" value="<?php echo JText::_('POPUP_PLAYER'); ?>" onclick="popup = window.open('<?php echo JRoute::_("index2.php?option=$option&amp;view=sermon&amp;layout=popup&amp;id=$id&amp;Itemid=$Itemid"); ?>', 'PopupPage', 'height=<?php echo $pp_h.",width=".$pp_w; ?>,scrollbars=yes,resizable=yes'); return false" /></td></tr>
-		<?php }
 	} else { ?>
 		<tr>
 			<td valign ="top"><b><?php echo JText::_('SERMONNAME'); ?>:</b></td>
@@ -92,6 +86,12 @@ $return = SermonspeakerHelperSermonspeaker::insertAddfile($this->row[0]->addfile
 		</td>
 	</tr>
 	<?php } // if client_col_player
+	if ($this->params->get('popup_player') == "1") { 
+	// todo: popup_player Button muss nach inserPlayer kommen wenn man $pp_h und $pp_w benutzen für die Fenstergroesse will!
+	?>
+		<tr><td></td>
+		<td><input style="font-size:12px;color:#000066;font-family:verdana;" type="button" name="<?php echo JText::_('POPUP_PLAYER'); ?>" value="<?php echo JText::_('POPUP_PLAYER'); ?>" onclick="popup = window.open('<?php echo JRoute::_("index.php?view=sermon&layout=popup&id=$id&tmpl=component"); ?>', 'PopupPage', 'height=<?php echo $pp_h.",width=".$pp_w; ?>,scrollbars=yes,resizable=yes'); return false" /></td></tr>
+	<?php }
 	$return = SermonspeakerHelperSermonspeaker::insertAddfile($this->row[0]->addfile, $this->row[0]->addfileDesc);
 	if ($return != NULL) { ?>
 		<tr>
