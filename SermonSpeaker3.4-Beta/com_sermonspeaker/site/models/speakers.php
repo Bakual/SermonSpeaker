@@ -19,6 +19,13 @@ class SermonspeakerModelSpeakers extends JModel
 		global $mainframe, $option;
 		
 		$this->params = &JComponentHelper::getParams('com_sermonspeaker');
+		$cat['speaker'] = $this->params->get('speaker_cat', JRequest::getInt('speaker_cat', ''));
+
+		$this->catwhere = NULL;
+		if ($cat['speaker'] != 0){
+			$this->catwhere .= " AND catid = '".(int)$cat['speaker']."' \n";
+		}
+
 
 		// Get pagination request variables
 //		$limit = $mainframe->getUserStateFromRequest('global.list.limit', 'limit', $mainframe->getCfg('list_limit'), 'int');
@@ -36,7 +43,8 @@ class SermonspeakerModelSpeakers extends JModel
 		$database =& JFactory::getDBO();
 		$query 	= "SELECT count(*) \n"
 				. "FROM #__sermon_speakers \n"
-				. "WHERE published='1'";
+				. "WHERE published='1'"
+				.$this->catwhere;
 		$database->setQuery( $query );
 		$total_rows = $database->LoadResult();
 
@@ -57,6 +65,7 @@ class SermonspeakerModelSpeakers extends JModel
 		$query	= "SELECT * \n"
 				. "FROM #__sermon_speakers \n"
 				. "WHERE published='1' \n"
+				.$this->catwhere
 				. "ORDER BY ordering ASC, name \n"
 				. "LIMIT ".$this->getState('limitstart').','.$this->getState('limit');
 		$database->setQuery( $query );

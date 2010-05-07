@@ -19,11 +19,15 @@ class SermonspeakerModelSeries extends JModel
 		global $mainframe, $option;
 		
 		$params = &JComponentHelper::getParams('com_sermonspeaker');
-		$catid = $params->get('catid', JRequest::getInt('cat', ''));
+		$cat['series'] = $params->get('series_cat', JRequest::getInt('series_cat', ''));
+		$cat['speaker'] = $params->get('speaker_cat', JRequest::getInt('speaker_cat', ''));
 
 		$this->catwhere = NULL;
-		if ($catid != 0){
-			$this->catwhere = " AND catid = '".(int)$catid."' \n";
+		if ($cat['series'] != 0){
+			$this->catwhere .= " AND j.catid = '".(int)$cat['series']."' \n";
+		}
+		if ($cat['speaker'] != 0){
+			$this->catwhere .= " AND l.catid = '".(int)$cat['speaker']."' \n";
 		}
 
 		// Get pagination request variables
@@ -40,8 +44,11 @@ class SermonspeakerModelSeries extends JModel
 	function getAvatar()
 	{
 		$database =& JFactory::getDBO();
-		$query = "SELECT COUNT(*) FROM #__sermon_series WHERE published = 1 AND avatar != ''".$this->catwhere
+		$query = "SELECT COUNT(*) FROM #__sermon_series j \n"
+				."LEFT JOIN #__sermon_speakers l ON j.speaker_id = l.id \n"
+				."WHERE j.published = 1 AND j.avatar != ''".$this->catwhere
         . ' LIMIT '.$this->getState('limitstart').','.$this->getState('limit'); 
+
 		$database->setQuery( $query );
 		$av = $database->loadResult();
 
@@ -51,7 +58,9 @@ class SermonspeakerModelSeries extends JModel
 	function getTotal()
 	{
 		$database =& JFactory::getDBO();
-		$query = "SELECT count(*) FROM #__sermon_series WHERE published='1'".$this->catwhere;
+		$query = "SELECT count(*) FROM #__sermon_series j \n"
+				."LEFT JOIN #__sermon_speakers l ON j.speaker_id = l.id \n"
+				."WHERE j.published='1'".$this->catwhere;
 		$database->setQuery( $query );
 		$total_rows = $database->LoadResult();
 
@@ -69,15 +78,15 @@ class SermonspeakerModelSeries extends JModel
 	function getData()
 	{
 		$database =& JFactory::getDBO();
-		$query = 'SELECT j.id, speaker_id, l.name, series_title, series_description, j.published, j.ordering, j.hits, j.created_by, j.created_on, j.avatar'
-        . ' FROM #__sermon_series j, #__sermon_speakers l'
-        . ' WHERE speaker_id = l.id'
-        . ' AND j.published = \'1\''
+		$query = 'SELECT j.id, j.speaker_id, l.name, j.series_title, j.series_description, j.published, j.ordering, j.hits, j.created_by, j.created_on, j.avatar'
+        . ' FROM #__sermon_series j'
+        . ' LEFT JOIN #__sermon_speakers l ON j.speaker_id = l.id'
+        . ' WHERE j.published = \'1\''
 		.$this->catwhere
         . ' ORDER BY j.ordering, j.id desc, j.series_title'
         . ' LIMIT '.$this->getState('limitstart').','.$this->getState('limit'); 
-		
-		$database->setQuery( $query );
+
+		$database->setQuery($query);
 		$rows = $database->loadObjectList();
 
 		return $rows;

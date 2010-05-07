@@ -22,7 +22,10 @@
 		<param name="moduleclass_sfx" type="text" default="" label="Module Class Suffix" description="PARAMMODULECLASSSUFFIX" />
 		<param name="introtext" type="text" default="" label="INTROTEXT" description="INTROTEXT_DESC" />
 		<param type="spacer" />
-		<param name="feedcat" type="category" section="com_sermonspeaker" label="FEEDCAT" description="FEEDCAT_DESC" />
+		<param name="series_cat" type="category" section="com_sermonspeaker" label="SERIES_CATEGORY" description="CATEGORY_DESC" />
+		<param name="speaker_cat" type="category" section="com_sermonspeaker" label="SPEAKER_CATEGORY" description="CATEGORY_DESC" />
+		<param name="sermon_cat" type="category" section="com_sermonspeaker" label="SERMON_CATEGORY" description="CATEGORY_DESC" />
+		<param type="spacer" />
 		<param name="showpcast" type="radio" default="1" label="SHOWPCAST" description="SHOWPCAST_DESC">
 			<option value="0">NO</option>
 			<option value="1">YES</option>

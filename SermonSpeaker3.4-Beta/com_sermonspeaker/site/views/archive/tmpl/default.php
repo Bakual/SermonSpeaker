@@ -74,7 +74,7 @@ $sort	= JRequest::getWord('sort','sermondate');
 				<td align="left" valign="middle"><?php echo JHtml::Date($row->sermon_date,'%x'); ?></td>
 			<?php }
 			if ($this->params->get('client_col_sermon_time')){ ?>
-				<td align="center" valign="middle"><?php echo JHtml::Date($row->sermon_time, '%X'); ?></td>
+				<td align="center" valign="middle"><?php echo JHtml::Date($row->sermon_time, '%X', 0); ?></td>
 			<?php } ?>
 		</tr>
 	<?php }

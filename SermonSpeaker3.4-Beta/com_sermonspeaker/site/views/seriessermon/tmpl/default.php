@@ -33,7 +33,7 @@ $Itemid	= JRequest::getInt('Itemid');
 			</td>
 			<td style="width: 90%" align="left" valign="top">
 				<h3><?php echo $this->escape($row->series_title); ?></h3>
-				<p><?php echo $this->escape($row->series_description); ?></p>
+				<p><?php echo $row->series_description; ?></p>
 				<?php
 				foreach($sermons as $sermon) { ?>
 					<p><b><?php echo $this->escape($sermon->sermon_title); ?></b>

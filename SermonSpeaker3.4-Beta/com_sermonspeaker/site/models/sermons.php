@@ -19,13 +19,21 @@ class SermonspeakerModelSermons extends JModel
 		global $mainframe, $option;
 		
 		$params = &JComponentHelper::getParams('com_sermonspeaker');
-		$catid = $params->get('catid', JRequest::getInt('cat', ''));
+		$cat['series'] = $params->get('series_cat', JRequest::getInt('series_cat', ''));
+		$cat['speaker'] = $params->get('speaker_cat', JRequest::getInt('speaker_cat', ''));
+		$cat['sermon'] = $params->get('sermon_cat', JRequest::getInt('sermon_cat', ''));
 
 		$this->seriesjoin = NULL;
 		$this->catwhere = NULL;
-		if ($catid != 0){
+		if ($cat['series'] != 0){
 			$this->seriesjoin = " LEFT JOIN #__sermon_series AS ss ON j.series_id = ss.id \n";
-			$this->catwhere = " AND ss.catid = '".(int)$catid."' \n";
+			$this->catwhere .= " AND ss.catid = '".(int)$cat['series']."' \n";
+		}
+		if ($cat['speaker'] != 0){
+			$this->catwhere .= " AND k.catid = '".(int)$cat['speaker']."' \n";
+		}
+		if ($cat['sermon'] != 0){
+			$this->catwhere .= " AND j.catid = '".(int)$cat['sermon']."' \n";
 		}
 
 		// Get pagination request variables
@@ -44,6 +52,7 @@ class SermonspeakerModelSermons extends JModel
 		$database =& JFactory::getDBO();
 		$query	= "SELECT count(*) "
 				. "FROM #__sermon_sermons AS j "
+				. "LEFT JOIN #__sermon_speakers k ON j.speaker_id = k.id \n"
 				.$this->seriesjoin
 				. "WHERE j.published = '1'"
 				.$this->catwhere;

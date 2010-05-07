@@ -5,10 +5,16 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
 global $cur_template;
 
+// require_once(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_sermonspeaker'.DS.'sermoncastconfig.sermonspeaker.php');
+// $conf = & new sermonCastConfig;
+// neu mittels JoomlaParameter gelöst, $params wird automatisch von Joomla geliefert
+
 JHTML::_('behavior.tooltip');
 JHTML::_('behavior.modal');
 
-$feedcat 		= $params->get('feedcat');
+$cat['series'] 	= $params->get('series_cat');
+$cat['speaker']	= $params->get('speaker_cat');
+$cat['sermon'] 	= $params->get('sermon_cat');
 $otherlink 		= $params->get('otherlink');
 $otherimage 	= $params->get('otherimage');
 $text           = $params->get('introtext');
@@ -21,10 +27,18 @@ $moduleclass_sfx 	= $params->get('$moduleclass_sfx');
 $t_path = JURI::root().'templates'.DS.$cur_template.DS.'images'.DS;
 $d_path	= JURI::root().'images'.DS.'M_images'.DS;
 
-$cat = NULL;
-if ($feedcat){ $cat = '&cat='.(int)$feedcat; }
+$feedcat = NULL;
+if ($cat['series'] != 0){
+	$feedcat .= '&series_cat='.(int)$cat['series'];
+}
+if ($cat['speaker'] != 0){
+	$feedcat .= '&speaker_cat='.(int)$cat['speaker'];
+}
+if ($cat['sermon'] != 0){
+	$feedcat .= '&sermon_cat='.(int)$cat['sermon'];
+}
 
-$feedFile = "index.php?option=com_sermonspeaker&view=feed&feed=RSS2.0&tmpl=component".$cat;
+$feedFile = "index.php?option=com_sermonspeaker&view=feed&feed=RSS2.0&tmpl=component".$feedcat;
 
 if($showPcast) {
 	$u =& JURI::getInstance(JURI::root());

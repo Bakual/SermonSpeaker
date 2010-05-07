@@ -22,6 +22,7 @@ function com_install() {
 		."\n`hits` INT DEFAULT '0' NOT NULL,"
 		."\n`created_by` INT NOT NULL,"
 		."\n`created_on` VARCHAR(10) NOT NULL,"
+		."\n`catid` INT NOT NULL,"
 		."\nPRIMARY KEY (`id`)"
 		."\n)";
 	$database->setQuery( $query );
@@ -87,6 +88,7 @@ function com_install() {
 		."\n`podcast` tinyint(1) NOT NULL default '1',"
 		."\n`addfile` text NOT NULL,"
 		."\n`addfileDesc` text NOT NULL,"
+		."\n`catid` INT NOT NULL,"
 		."\nPRIMARY KEY (`id`)"
 		."\n)";
 	$database->setQuery( $query );
@@ -98,10 +100,12 @@ function com_install() {
 	$series = $fields['#__sermon_series'];
 	$fields = $database->getTableFields('#__sermon_sermons');
 	$sermons = $fields['#__sermon_sermons'];
+	$fields = $database->getTableFields('#__sermon_speakers');
+	$speakers = $fields['#__sermon_speakers'];
 
 	// Add more speakers columns if speaker4 doesn't exist in the series table
 	if (!array_key_exists('speaker4',$series)) {
-		echo "Attempting to add new speaker columns to table sermon_series...";
+		echo "<br>Attempting to add new speaker columns to table sermon_series...";
 		$query = "ALTER TABLE #__sermon_series ADD COLUMN (speaker4 INTEGER NOT NULL DEFAULT 0, speaker5 INTEGER NOT NULL DEFAULT 0, speaker6 INTEGER NOT NULL DEFAULT 0, speaker7 INTEGER NOT NULL DEFAULT 0, speaker8 INTEGER NOT NULL DEFAULT 0, speaker9 INTEGER NOT NULL DEFAULT 0, speaker10 INTEGER NOT NULL DEFAULT 0, speaker11 INTEGER NOT NULL DEFAULT 0, speaker12 INTEGER NOT NULL DEFAULT 0, speaker13 INTEGER NOT NULL DEFAULT 0, speaker14 INTEGER NOT NULL DEFAULT 0, speaker15 INTEGER NOT NULL DEFAULT 0, speaker16 INTEGER NOT NULL DEFAULT 0, speaker17 INTEGER NOT NULL DEFAULT 0, speaker18 INTEGER NOT NULL DEFAULT 0, speaker19 INTEGER NOT NULL DEFAULT 0, speaker20 INTEGER NOT NULL DEFAULT 0)";
 		$database->setQuery( $query );
 		$database->Query();
@@ -117,7 +121,7 @@ function com_install() {
 
 	// Add catid column if it doesn't exist in the series table
 	if (!array_key_exists('catid',$series)) {
-		echo "Attempting to add new catid column to table sermon_series...";
+		echo "<br>Attempting to add new catid column to table sermon_series...";
 		$query = "ALTER TABLE #__sermon_series ADD COLUMN catid INTEGER NOT NULL DEFAULT 0";
 		$database->setQuery( $query );
 		$database->Query();
@@ -133,7 +137,7 @@ function com_install() {
 	
 	// Add avatar column if it doesn't exist in the series table
 	if (!array_key_exists('avatar',$series)) {
-		echo "Attempting to add new avatar column to table sermon_series...";
+		echo "<br>Attempting to add new avatar column to table sermon_series...";
 		$query = "ALTER TABLE #__sermon_series ADD COLUMN avatar TEXT";
 		$database->setQuery( $query );
 		$database->Query();
@@ -201,9 +205,41 @@ function com_install() {
 		}
 	}
 	
+	// Add catid column if it doesn't exist in the speakers table
+	if (!array_key_exists('catid',$speakers)) {
+		echo "<br>Attempting to add new catid column to table sermon_speakers...";
+		$query = "ALTER TABLE #__sermon_speakers ADD COLUMN catid INTEGER NOT NULL DEFAULT 0";
+		$database->setQuery( $query );
+		$database->Query();
+		if(strlen($database->getErrorMsg()) > 3){
+			echo "<span style=\"color: rgb(255, 0, 0); font-weight: bold;\">";
+			echo "<br>Failed to add the column.  Bad news.  Tell the database administrator.";
+			echo "<br>Error Message: ".$database->getErrorMsg();
+			echo "</span>";
+		} else {
+			echo "<br>Wow! I did it! This is good. Now you can have categories for the speakers.";
+		}
+	}
+	
+	// Add catid column if it doesn't exist in the sermons table
+	if (!array_key_exists('catid',$sermons)) {
+		echo "<br>Attempting to add new catid column to table sermon_sermons...";
+		$query = "ALTER TABLE #__sermon_sermons ADD COLUMN catid INTEGER NOT NULL DEFAULT 0";
+		$database->setQuery( $query );
+		$database->Query();
+		if(strlen($database->getErrorMsg()) > 3){
+			echo "<span style=\"color: rgb(255, 0, 0); font-weight: bold;\">";
+			echo "<br>Failed to add the column.  Bad news.  Tell the database administrator.";
+			echo "<br>Error Message: ".$database->getErrorMsg();
+			echo "</span>";
+		} else {
+			echo "<br>Wow! I did it! This is good. Now you can have categories for the sermons.";
+		}
+	}
+	
 	// Add alias column if it doesn't exist in the sermons table
 	if (!array_key_exists('alias',$sermons)) {
-		echo "Attempting to add new alias column to table sermon_sermons...";
+		echo "<br>Attempting to add new alias column to table sermon_sermons...";
 		$query = "ALTER TABLE #__sermon_sermons ADD COLUMN alias VARCHAR(255) NOT NULL";
 		$database->setQuery( $query );
 		$database->Query();

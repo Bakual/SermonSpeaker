@@ -14,6 +14,7 @@ class SermonspeakerModelSermons extends JModel
 		$this->db				=& JFactory::getDBO();
 
 		$this->filter_state		= $mainframe->getUserStateFromRequest("$option.sermons.filter_state",'filter_state','','word');
+		$this->filter_catid		= $mainframe->getUserStateFromRequest("$option.sermons.filter_catid",'filter_catid','','int');
 		$this->filter_pcast		= $mainframe->getUserStateFromRequest("$option.sermons.filter_pcast",'filter_pcast','','word');
 		$this->filter_serie		= $mainframe->getUserStateFromRequest("$option.sermons.filter_serie",'filter_serie','','string');
 		$this->search			= $mainframe->getUserStateFromRequest("$option.sermons.search",'search','','string');
@@ -43,6 +44,9 @@ class SermonspeakerModelSermons extends JModel
 			else if ($this->filter_state == 'U') {
 				$where[] = 'sermons.published = 0';
 			}
+		}
+		if ($this->filter_catid) {
+			$where[] = 'cc.id = ' . (int) $this->filter_catid;
 		}
 		if ($this->filter_serie) {
 			$where[] = 'sermons.series_id = "' . $this->filter_serie . '"';
@@ -83,10 +87,11 @@ class SermonspeakerModelSermons extends JModel
 		$where	= $this->_buildWhere();
 		$orderby 	= ' ORDER BY '.$this->_order['order'].' '.$this->_order['order_Dir'];
 		// Query bilden
-        $query = "SELECT sermons.*, speaker.name, series.series_title \n"
+        $query = "SELECT sermons.*, speaker.name, series.series_title, cc.title \n"
 				."FROM #__sermon_sermons AS sermons \n"
 				."LEFT JOIN #__sermon_speakers AS speaker ON speaker_id = speaker.id \n"
 				."LEFT JOIN #__sermon_series AS series ON series_id = series.id \n"
+				."LEFT JOIN #__categories AS cc ON cc.id = sermons.catid \n"
 				.$where
 				.$orderby;
 		// Query ausführen (mehrzeiliges Resulat als Array)

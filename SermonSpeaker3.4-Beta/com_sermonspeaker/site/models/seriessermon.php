@@ -19,11 +19,15 @@ class SermonspeakerModelSeriessermon extends JModel
 		global $mainframe, $option;
 		
 		$params = &JComponentHelper::getParams('com_sermonspeaker');
-		$catid = $params->get('catid', JRequest::getInt('cat', ''));
+		$cat['series'] = $params->get('series_cat', JRequest::getInt('series_cat', ''));
+		$cat['speaker'] = $params->get('speaker_cat', JRequest::getInt('speaker_cat', ''));
 
 		$this->catwhere = NULL;
-		if ($catid != 0){
-			$this->catwhere = " AND j.catid = '".(int)$catid."' \n";
+		if ($cat['series'] != 0){
+			$this->catwhere .= " AND j.catid = '".(int)$cat['series']."' \n";
+		}
+		if ($cat['speaker'] != 0){
+			$this->catwhere .= " AND k.catid = '".(int)$cat['speaker']."' \n";
 		}
 
 		// Get pagination request variables
@@ -40,7 +44,10 @@ class SermonspeakerModelSeriessermon extends JModel
 	function getTotal()
 	{
 		$database =& JFactory::getDBO();
-		$query = "SELECT count(*) FROM #__sermon_series AS j WHERE published='1'".$this->catwhere;
+		$query = "SELECT count(*) \n"
+				."FROM #__sermon_series AS j \n"
+				."LEFT JOIN #__sermon_speakers k ON j.speaker_id = k.id \n"
+				."WHERE j.published='1'".$this->catwhere;
 		$database->setQuery( $query );
 		$total_rows = $database->LoadResult();
 
@@ -68,7 +75,6 @@ class SermonspeakerModelSeriessermon extends JModel
         . ' LIMIT '.$this->getState('limitstart').','.$this->getState('limit'); 
 		$database->setQuery( $query );
 		$rows = $database->loadObjectList();
-
 		return $rows;
 	}
 
@@ -83,7 +89,6 @@ class SermonspeakerModelSeriessermon extends JModel
 				. " ORDER BY ordering, (sermon_number+0) DESC, sermon_date DESC";
 		$database->setQuery( $query );
 		$sermons = $database->loadObjectList();
-		
 		return $sermons;
 	}
 }

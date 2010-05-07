@@ -31,6 +31,7 @@ $disabled = $ordering ?  '' : 'disabled="disabled"';
 		</td>
 		<td nowrap="nowrap">
 			<?php
+			echo $this->lists['catid'];
 			echo $this->lists['state'];
 			?>
 		</td>
@@ -43,12 +44,13 @@ $disabled = $ordering ?  '' : 'disabled="disabled"';
 			<th width="5"><?php echo JText::_( 'NUM' ); ?></th>
 			<th width="20"><input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count($this->items); ?>);" /></th>			
 			<th class="title"><?php echo JHTML::_('grid.sort', 'SPEAKERNAME', 'name', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
-			<th width="25%"><?php echo JHTML::_('grid.sort', 'WEBSITE', 'website', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
+			<th width="20%"><?php echo JHTML::_('grid.sort', 'WEBSITE', 'website', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
+			<th width="20%"><?php echo JHTML::_('grid.sort', 'CATEGORY', 'series.catid', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
 			<th width="10%">
 				<?php echo JHTML::_('grid.sort', 'ORDER', 'ordering', $this->lists['order_Dir'], $this->lists['order']); ?>
 				<?php echo JHTML::_('grid.order', $this->items); ?>
 			</th>
-			<th width="20%"><?php echo JHTML::_('grid.sort', 'PICTURE', 'pic', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
+			<th width="5%"><?php echo JHTML::_('grid.sort', 'PICTURE', 'pic', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
 			<th width="5%" nowrap="nowrap"><?php echo JHTML::_('grid.sort', 'Published', 'published', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
 			<th width="1%" nowrap="nowrap"><?php echo JHTML::_('grid.sort', 'ID', 'id', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
 		</tr> 
@@ -72,6 +74,7 @@ $disabled = $ordering ?  '' : 'disabled="disabled"';
 				<td><?php echo $checked; ?></td>
 				<td><a href="<?php echo $link; ?>"><?php echo $row->name; ?></a></td>
 				<td><?php echo $row->website; ?></td>
+				<td><?php echo $row->title; ?></td> 
 				<td class="order">
 					<span><?php echo $this->pagination->orderUpIcon($i, true, 'orderup', 'Move Up', $ordering); ?></span>
 					<span><?php echo $this->pagination->orderDownIcon($i, $n, true, 'orderdown', 'Move Down', $ordering); ?></span>

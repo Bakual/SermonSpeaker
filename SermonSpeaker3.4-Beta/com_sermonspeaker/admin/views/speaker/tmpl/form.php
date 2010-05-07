@@ -46,7 +46,11 @@ $editor =& JFactory::getEditor();
 			<td width="100" align="right" class="key"><?php echo JText::_('BIO'); ?></td>
 			<td><?php echo $editor->display('bio',$this->row->bio,'100%','300','40','10');	?></td>
 		</tr>    
-		<tr> 
+		<tr>
+			<td valign="top" align="right" class="key"><label for="catid"><?php echo JText::_( 'CATEGORY' ); ?>:</label></td>
+			<td><?php echo $this->lists['catid']; ?></td>
+		</tr>
+		<tr>
 			<td width="100" align="right" class="key"><?php echo JText::_('PUBLISHED'); ?></td>
 			<td><?php echo JHTML::_('select.booleanlist', 'published', 'class="inputbox"', $this->row->published); ?></td>
 		</tr>

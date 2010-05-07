@@ -7,7 +7,8 @@
 		<name>SERIESSERMONS</name>
 		<description>SERIESSERMONS_DESC</description>
 		<params>
-			<param name="catid" type="category" section="com_sermonspeaker" label="CATEGORY" description="CATEGORY_DESC" />
+			<param name="series_cat" type="category" section="com_sermonspeaker" label="SERIES_CATEGORY" description="CATEGORY_DESC" />
+			<param name="speaker_cat" type="category" section="com_sermonspeaker" label="SPEAKER_CATEGORY" description="CATEGORY_DESC" />
 		</params>
 	</state>
 </metadata>

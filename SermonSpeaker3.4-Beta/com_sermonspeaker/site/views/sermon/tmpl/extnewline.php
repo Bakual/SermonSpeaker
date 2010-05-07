@@ -57,9 +57,7 @@ $return = SermonspeakerHelperSermonspeaker::insertAddfile($this->row[0]->addfile
 	<?php } ?>
 	<tr>
 		<td valign="top"><b><?php echo JText::_('SERMONTIME'); ?>:</b></td>
-<!-- angucken ob Alternative
-		<td><?php // echo JHtml::_('date', $this->row[0]->sermon_time, '%X', 0); ?></td> -->
-		<td><?php echo substr($this->row[0]->sermon_time,1,4); ?> h</td>
+		<td><?php echo JHtml::Date($this->row[0]->sermon_time, '%X', 0); ?></td>
 	</tr>
 	<tr>
 		<td valign="top"><b>Hits:</b></td> <!-- Uebersetzung? -->
@@ -75,19 +73,18 @@ $return = SermonspeakerHelperSermonspeaker::insertAddfile($this->row[0]->addfile
 	<tr>
 		<td></td>
 		<td>
-			<br /><center>
+			<br />
 			<?php 
 			$ret = SermonspeakerHelperSermonspeaker::insertPlayer($this->lnk);
 			$pp_ret = explode("/",$ret);
 			$pp_h = $pp_ret[0];
 			$pp_w = $pp_ret[1];
 			?>
-			</center><br />
+			<br />
 		</td>
 	</tr>
 	<?php } // if client_col_player
 	if ($this->params->get('popup_player') == "1") { 
-	// todo: popup_player Button muss nach inserPlayer kommen wenn man $pp_h und $pp_w benutzen für die Fenstergroesse will!
 	?>
 		<tr><td></td>
 		<td><input style="font-size:12px;color:#000066;font-family:verdana;" type="button" name="<?php echo JText::_('POPUP_PLAYER'); ?>" value="<?php echo JText::_('POPUP_PLAYER'); ?>" onclick="popup = window.open('<?php echo JRoute::_("index.php?view=sermon&layout=popup&id=$id&tmpl=component"); ?>', 'PopupPage', 'height=<?php echo $pp_h.",width=".$pp_w; ?>,scrollbars=yes,resizable=yes'); return false" /></td></tr>

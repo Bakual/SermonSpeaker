@@ -20,7 +20,11 @@ class SermonspeakerViewSpeaker extends JView
 		$row = &JTable::getInstance('speakers', 'Table');
 		$row->load($id);
 		
+		// build list of categories
+		$lists['catid']		= JHTML::_('list.category',  'catid', 'com_sermonspeaker', intval( $row->catid ) );
+
 		$this->assignRef('row', $row);
+		$this->assignRef('lists', $lists);
 
 		parent::display($tpl);
 	}

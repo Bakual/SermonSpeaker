@@ -43,13 +43,14 @@ $disabled = $ordering ?  '' : 'disabled="disabled"';
 		<tr> 
 			<th width="5"><?php echo JText::_( 'NUM' ); ?></th>
 			<th width="20"><input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count( $this->items ); ?>);" /></th>			
-			<th class="title"><?php echo JHTML::_('grid.sort', 'SERIESTITLE', 'series.series_title', $this->lists['order_Dir'], $this->lists['order']); ?></th>
-			<th width="25%"><?php echo JHTML::_('grid.sort', 'SPEAKERNAME', 'speaker.name', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
-			<th width="25%"><?php echo JHTML::_('grid.sort', 'CATEGORY', 'series.catid', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
+			<th class="title" with="20%"><?php echo JHTML::_('grid.sort', 'SERIESTITLE', 'series.series_title', $this->lists['order_Dir'], $this->lists['order']); ?></th>
+			<th width="20%"><?php echo JHTML::_('grid.sort', 'SPEAKERNAME', 'speaker.name', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
+			<th width="20%"><?php echo JHTML::_('grid.sort', 'CATEGORY', 'series.catid', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
 			<th width="10%">
 				<?php echo JHTML::_('grid.sort', 'ORDER', 'ordering', $this->lists['order_Dir'], $this->lists['order']); ?>
 				<?php echo JHTML::_('grid.order', $this->items); ?>
 			</th>
+			<th width="5%"><?php echo JHTML::_('grid.sort', 'Avatar', 'pic', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
 			<th width="5%"><?php echo JHTML::_('grid.sort', 'Published', 'series.published', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
 			<th width="1%" nowrap="nowrap"><?php echo JHTML::_('grid.sort', 'ID', 'series.id', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
 		</tr> 
@@ -78,6 +79,18 @@ $disabled = $ordering ?  '' : 'disabled="disabled"';
 					<span><?php echo $this->pagination->orderUpIcon($i, true, 'orderup', 'Move Up', $ordering); ?></span>
 					<span><?php echo $this->pagination->orderDownIcon($i, $n, true, 'orderdown', 'Move Down', $ordering); ?></span>
 					<input type="text" name="order[]" size="5" value="<?php echo $row->ordering;?>"<?php echo $disabled ?> class="text_area" style="text-align: center" />
+				</td>
+				<td align="center">
+					<?php
+					if (substr($row->avatar,0,7) == "http://") {
+						$picture = $row->avatar;
+					} else {
+						$path = $row->avatar;
+						if (substr($path,0,1) == "." ) { $path = substr($path,1); }
+						if (substr($path,0,1) == "/" ) { $path = substr($path,1); }
+						$picture = JURI::root().$path;
+					} ?>
+					<img src="<?php echo $picture; ?>" border="1" width="50" height="50">
 				</td>
 				<td align="center"><?php echo $published;?></td> 
 				<td><?php echo $row->id; ?></td>

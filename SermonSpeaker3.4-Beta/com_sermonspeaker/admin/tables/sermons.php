@@ -24,6 +24,7 @@ class TableSermons extends JTable
 	var $podcast = null;
 	var $addfile = null;
 	var $addfileDesc = null;
+	var $catid = null;
 
 	function __construct(&$db)
 	{

@@ -67,9 +67,12 @@ class SermonspeakerViewSermon extends JView
 			$addfiles[]->file = str_replace('\\','/',substr($file,$lsdir));
 		}
 
+		$lists = array();
+		// build list of categories
+		$lists['catid']		= JHTML::_('list.category',  'catid', 'com_sermonspeaker', intval( $row->catid ) );
+
 		$speakers = &$this->get('Speakers');
 		$series = &$this->get('Series');
-		$lists = array();
 		$lists['sermon_path_choice'] = JHTML::_('select.genericlist', $sermons, 'sermon_path_choice', 'disabled="disabled"', 'file', 'file', $row->sermon_path);
 		$lists['addfile_choice'] = JHTML::_('select.genericlist', $addfiles, 'addfile_choice', 'disabled="disabled"', 'file', 'file', $row->addfile);
 		$lists['created_by'] = JHTML::_('list.users', 'created_by', $row->created_by, 0, '', 'name', 0);

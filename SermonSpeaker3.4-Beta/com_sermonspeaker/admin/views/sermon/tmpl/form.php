@@ -71,6 +71,11 @@ $editor =& JFactory::getEditor();
 		<tr>
 			<td width="100" align="right" class="key"><?php echo JText::_('NOTES'); ?></td>
 			<td><?php echo $editor->display('notes', $this->row->notes, '100%', '200', '40', '10');	?></td>
+		</tr>
+		<tr>
+			<td valign="top" align="right" class="key"><label for="catid"><?php echo JText::_( 'CATEGORY' ); ?>:</label></td>
+			<td><?php echo $this->lists['catid']; ?></td>
+		</tr>
 		<tr>
 			<td width="100" align="right" class="key"><?php echo JText::_('PUBLISHED'); ?></td>
 			<td><?php echo $this->lists['published']; ?></td>

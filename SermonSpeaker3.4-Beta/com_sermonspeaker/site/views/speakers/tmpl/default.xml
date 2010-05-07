@@ -7,7 +7,7 @@
 		<name>SPEAKERS</name>
 		<description>SPEAKERS_DESC</description>
 		<params>
-			<param />
+			<param name="speaker_cat" type="category" section="com_sermonspeaker" label="SPEAKER_CATEGORY" description="CATEGORY_DESC" />
 		</params>
 	</state>
 </metadata>

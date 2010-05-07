@@ -65,7 +65,7 @@ $sort	= JRequest::getWord('sort','sermondate');
 		if ($this->params->get('client_col_sermon_date')) {
 			echo "<td align=\"left\" valign=\"middle\">" . JHtml::_('date', $row->sermon_date, '%x', 0) . "</td>\n";
 		}
-		if ($this->params->get('client_col_sermon_time')) { echo "<td align=\"center\">".JHtml::_('date', $row->sermon_time, '%X', 0)."</td>\n"; }
+		if ($this->params->get('client_col_sermon_time')) { echo "<td align=\"center\">".JHtml::Date($row->sermon_time, '%X', 0)."</td>\n"; }
 		if ($this->params->get('client_col_sermon_addfile')) {
 			$return = SermonspeakerHelperSermonspeaker::insertAddfile($row->addfile, $row->addfileDesc);
 			if ($return != NULL) {

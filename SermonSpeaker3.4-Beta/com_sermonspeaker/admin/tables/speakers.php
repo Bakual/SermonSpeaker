@@ -14,6 +14,7 @@ class TableSpeakers extends JTable
 	var $hits = null;
 	var $created_by = null;
 	var $created_on = null;
+	var $catid = null;
 
 	function __construct(&$db)
 	{

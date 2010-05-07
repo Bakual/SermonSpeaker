@@ -14,6 +14,7 @@ class SermonspeakerModelSpeakers extends JModel
 		$this->db				=& JFactory::getDBO();
 
 		$this->filter_state		= $mainframe->getUserStateFromRequest("$option.speakers.filter_state",'filter_state','','word');
+		$this->filter_catid		= $mainframe->getUserStateFromRequest("$option.speakers.filter_catid",'filter_catid','','int');
 		$this->search			= $mainframe->getUserStateFromRequest("$option.speakers.search",'search','','string');
 		$this->search			= JString::strtolower($this->search);
 
@@ -41,6 +42,9 @@ class SermonspeakerModelSpeakers extends JModel
 			else if ($this->filter_state == 'U') {
 				$where[] = 'published = 0';
 			}
+		}
+		if ($this->filter_catid) {
+			$where[] = 'cc.id = ' . (int) $this->filter_catid;
 		}
 		if ($this->search) {
 			$where[] = 'LOWER(name) LIKE '.$this->db->Quote('%'.$this->db->getEscaped($this->search, true).'%', false);
@@ -70,8 +74,9 @@ class SermonspeakerModelSpeakers extends JModel
 		$where	= $this->_buildWhere();
 		$orderby 	= ' ORDER BY '.$this->_order['order'].' '.$this->_order['order_Dir'];
 		// Query bilden
-        $query = "SELECT * \n"
-				."FROM #__sermon_speakers \n"
+        $query = "SELECT speakers.*, cc.title \n"
+				."FROM #__sermon_speakers AS speakers \n"
+				."LEFT JOIN #__categories AS cc ON cc.id = speakers.catid \n"
 				.$where
 				.$orderby;
 		// Query ausführen (mehrzeiliges Resulat als Array)

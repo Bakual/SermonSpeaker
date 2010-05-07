@@ -12,6 +12,7 @@ class SermonspeakerViewSermons extends JView
 		$lists['order']		= $mainframe->getUserStateFromRequest("$option.sermons.filter_order",'filter_order','id','cmd' );
 		$lists['order_Dir']	= $mainframe->getUserStateFromRequest("$option.sermons.filter_order_Dir",'filter_order_Dir','','word' );
 		$filter_state		= $mainframe->getUserStateFromRequest("$option.sermons.filter_state",'filter_state','','word' );
+		$filter_catid		= $mainframe->getUserStateFromRequest("$option.sermons.filter_catid",'filter_catid','','int' );
 		$filter_pcast		= $mainframe->getUserStateFromRequest("$option.sermons.filter_pcast",'filter_pcast','SELECT ZONE','word' );
 		$filter_serie		= $mainframe->getUserStateFromRequest("$option.sermons.filter_serie",'filter_serie','SELECT ZONE','string' );
 		$search				= $mainframe->getUserStateFromRequest("$option.sermons.search",'search','','string' );
@@ -33,6 +34,10 @@ class SermonspeakerViewSermons extends JView
 		$pcast[]		= JHTML::_('select.option', 'P', JText::_('PUBLISHED'), 'value', 'text' );			// Option setzen
 		$pcast[]		= JHTML::_('select.option', 'U', JText::_('UNPUBLISHED'), 'value', 'text' );		// Option setzen
 		$lists['pcast']	= JHTML::_('select.genericlist', $pcast, 'filter_pcast', 'class="inputbox" size="1" '.$javascript ,'value', 'text', $filter_pcast);
+
+		// build list of categories (Funktion aus Joomla)
+		$javascript		= 'onchange="document.adminForm.submit();"';
+		$lists['catid'] = JHTML::_('list.category',  'filter_catid', 'com_sermonspeaker', (int) $filter_catid, $javascript );
 
 		// state filter (Funktion aus Joomla)
 		$lists['state']	= JHTML::_('grid.state',  $filter_state );
