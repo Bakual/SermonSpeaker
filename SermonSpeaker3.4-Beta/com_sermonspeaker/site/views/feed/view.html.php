@@ -19,11 +19,6 @@ class SermonspeakerViewFeed extends JView
 		$catID	= JRequest::getInt('catID');
 		$type 	= JFilterInput::clean(JRequest::getVar('type'),string);
   
-		// todo: Change to Joomla JHTML::date();
-		$JApp =& JFactory::getApplication();  
-		$now = date('Y-m-d H:i:s', time() + $JApp->getCfg('offset') * 3600 );
-
-		
 		// parameter initialization
 		$info['date']			= date('r');
 		$info['year']			= date('Y');
@@ -31,36 +26,41 @@ class SermonspeakerViewFeed extends JView
 		$info['cache']			= $params->get('cache');
 		$info['cache_time']		= $params->get('cache_time');
 		$info['count']			= $params->get('count');
-		$info['orderby']		= $params->get('orderby');
 		$info['title']			= $params->get('title');
-		$info['description']	 = $params->get('description');
-		$info['image_file']		= $params->get('image_file');
+		$info['description']	= $params->get('description');
 		$info['mimetype'] 		= $params->get('mimetype');
 		$info['copyright'] 		= $params->get('copyright');
-		if($info['image_file'] 	== -1) {
-			$info['image'] = NULL;
-		} else{
-			$info['image'] = JURI::root().'images/M_images/'.$info['image_file'];
-		}
-		$info['image_alt']		= $params->get('image_alt');
 		$info['limit_text']		= $params->get('limit_text');
 		$info['text_length'] 	= $params->get('text_length');
 		// get feed type from url
-		$info['feed'] 			= JRequest::getVar('feed','get',string);
-		// live bookmarks
-		$info['live_bookmark'] 	= $params->get('live_bookmark');
-		$info['bookmark_file'] 	= $params->get('bookmark_file');
-		// content to syndicate
-		$info['podcast_from'] 	= $params->get('podcast_from');
-		$info['section'] 		= $params->get('section');
+		$info['feed'] 			= JRequest::getString('feed','rss','get');
 
-		// todo: catID für Podcast?!?
+		// Parameters which aren't used (yet)
+		/*
+		$info['orderby']		= '';
+		$info['image_file']		= ''; // would be when selecting a picture from a Joomla picture-dropdown
+		if($info['image_file'] 	== -1) {
+			$info['image'] = NULL;
+		} else {
+			$info['image'] = JURI::root().'images/M_images/'.$info['image_file'];
+		}
+		$info['image_alt']		= '';
+		// live bookmarks
+		$info['live_bookmark'] 	= '';
+		$info['bookmark_file'] 	= '';
+		// content to syndicate
+		$info['podcast_from'] 	= '';
+		$info['section'] 		= '';
+		
 		if($catID != 0)
 			$pod = "podCat$catID";
 		else
+		*/
+
 			$pod = 'pod';
 
-		// todo: Live Bookmarks?
+		/*
+		// Live Bookmarks
 		// set filename for live bookmarks feed
 		if(!$showFeed && $info[ 'live_bookmark' ]) {
 			if($info['bookmark_file']) {
@@ -71,10 +71,13 @@ class SermonspeakerViewFeed extends JView
 				$info['file'] = JPATH_ROOT.DS.'cache'.DS.$pod.$info['live_bookmark'];
 			}
 		} else {
+		*/
+		
 			// set filename for rss feeds
 			$info['file'] = strtolower(str_replace('.', '', $info['feed']));
 			$info['file'] = JPATH_ROOT.DS.'cache'.DS.$pod.$info['file'].'.xml';
-		}
+
+//		}
 
 		// loads cache file
 		if($showFeed && $info['cache']) {
@@ -86,6 +89,7 @@ class SermonspeakerViewFeed extends JView
 		$image 	= new FeedImage();
 
 		// configuring image creator if needed and applying it to feed creator
+		/*
 		if($info['image']) {
 			$image->url		= $info['image'];
 			$image->link 	= $info['link'];
@@ -94,6 +98,8 @@ class SermonspeakerViewFeed extends JView
 			// loads image info into rss array
 			$rss->image		= $image;
 		}
+		*/
+		
 		// configuring feed creator
 		$rss->title 		= $info['title'];
 		$rss->description	= $info['description'];
@@ -103,13 +109,11 @@ class SermonspeakerViewFeed extends JView
 		$rss->cssStyleSheet = NULL;
 		$rss->encoding 		= $params->get('encoding'); // encoding set to UTF-8 by default, iTunes preferred
 		// iTunes specific tags
-		$rss->itBlock 		= $params->get('itBlock');
 		if($params->get('itOwnerEmail') != "" || $params->get('itOwnerName') != "") {
 			$rss->itOwner = array(); 
 			$rss->itOwner['email']	= $params->get('itOwnerEmail');
 			$rss->itOwner['name'] 	= $params->get('itOwnerName');
 		}
-		$rss->itExplicit 	= $params->get('itBlock');
 		$rss->itKeywords 	= $params->get('itKeywords');
 		if(!strstr($params->get('itImage'), 'http://') && !strstr($params->get('itImage'), 'https://')) {
 			$rss->itImage = JURI::root().$params->get('itImage');
@@ -121,10 +125,11 @@ class SermonspeakerViewFeed extends JView
 		$rss->itCategory3 	= $params->get('itCategory3');
 		$rss->itSubtitle 	= $params->get('itSubtitle');
 		$rss->itAuthor 		= $params->get('itAuthor');
-		$rss->itSummary 	= $params->get('itSummary');
 		$rss->language 		= $params->get('itLanguage');
 		$rss->newfeedurl 	= $params->get('itRedirect');
 		$rss->itExplicit 	= "1";
+		$rss->itBlock 		= '';
+		$rss->itSummary 	= '';
 
 		// get Data from Model (/models/feed.php)
         $rows = &$this->get('Data');
@@ -214,13 +219,16 @@ class SermonspeakerViewFeed extends JView
 			}
 
 			$item->itDuration = $itemduration;
+			
+			/* not used (yet)
 			if($row->itExplicit != "") $item->itExplicit = $row->itExplicit;
 			else $item->itExplicit = "no";
+			*/
+			$item->itExplicit = "1";
 				
 			$item->itSubtitle = $item_title; //use the title as subtitle as we don't have this information...
 			$item->itKeywords = $item_title.", ".$row->name; //lets create some keywords; maybe we should include keywords in the db...
 			$item->itSummary = strip_tags($row->notes); 
-			$item->itExplicit = "1"; // todo: warum auf 1 setzen wenn vorher mit if else Abfrage gesetzt?
 		
 			$item->addEnclosure($encl, $itemlength, $type);
 

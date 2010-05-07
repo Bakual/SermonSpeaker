@@ -43,7 +43,7 @@ JToolBarHelper::preferences('com_sermonspeaker',550);
 		<tr> 
 			<th width="5"><?php echo JText::_( 'NUM' ); ?></th>
 			<th width="20"><input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count( $this->items ); ?>);" /></th>			
-			<th width="20%" class="title"><?php echo JHTML::_('grid.sort', 'SERMONTITLE', 'sermons.sermon_title', $this->lists['order_Dir'], $this->lists['order']); ?></th>
+			<th class="title"><?php echo JHTML::_('grid.sort', 'SERMONTITLE', 'sermons.sermon_title', $this->lists['order_Dir'], $this->lists['order']); ?></th>
 			<th width="10%"><?php echo JHTML::_('grid.sort', 'SPEAKERNAME', 'speaker.name', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
 			<th width="10%"><?php echo JHTML::_('grid.sort', 'SCRIPTURE', 'sermons.sermon_scripture', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
 			<th width="10%"><?php echo JHTML::_('grid.sort', 'SERIES', 'series.series_title', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>

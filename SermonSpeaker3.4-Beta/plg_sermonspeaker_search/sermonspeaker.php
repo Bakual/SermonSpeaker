@@ -107,7 +107,7 @@ function plgSearchSermonspeaker( $text, $phrase='', $ordering='', $areas=null )
 				break;
 		}
 		
-		switch ( $ordering ) {
+		switch ($ordering) {
 			case 'oldest':
 				$order = 'a.sermon_date ASC';
 				break;
@@ -120,12 +120,9 @@ function plgSearchSermonspeaker( $text, $phrase='', $ordering='', $areas=null )
 				$order = 'c.series_name ASC, a.sermon_title ASC';
 				break;
       
-			/*
-			 * // TODO: uncomment for 1.1
 			case 'popular':
-        $order = 'a.hits DESC, a.sermon_title ASC';
-        break;
-			*/
+				$order = 'a.hits DESC, a.sermon_title ASC';
+				break;
 					
 			case 'newest':
 			default:
@@ -191,6 +188,10 @@ function plgSearchSermonspeaker( $text, $phrase='', $ordering='', $areas=null )
 				$order = 'series_title ASC';
 				break;
 
+			case 'popular':
+				$order = 'hits DESC, series_title ASC';
+				break;
+					
 			case 'newest':
 				$order = 'created_on ASC';
 				break;

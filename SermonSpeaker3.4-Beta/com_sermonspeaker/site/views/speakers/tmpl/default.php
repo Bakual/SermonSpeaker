@@ -57,10 +57,3 @@ $Itemid	= JRequest::getInt('Itemid');
 		<?php echo $this->pagination->getPagesLinks(); ?><br />
 	</div>
 </div>
-<?php if ($this->params->get('search')){ ?> <!-- todo: bessere Lösung suchen mit schlussendlich gleicher View -->
-	<hr style="width: 100%; height: 2px;">
-	<form action="<?php echo JRoute::_("index.php?task=search"); ?>" method="post">
-		<input class="inputbox" type="text" name="search">
-		&nbsp;&nbsp;&nbsp;<input type="submit" value="Search">
-	</form>
-<?php } ?>

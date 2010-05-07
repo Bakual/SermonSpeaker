@@ -60,7 +60,6 @@ $editor =& JFactory::getEditor();
 	<input type="hidden" name="option" value="<?php echo $option;?>" />
 	<input type="hidden" name="controller" value="speaker" />
 	<input type="hidden" name="view" value="speakers" />
-<!--	<input type="hidden" name="ordering" value="<?php echo $this->row->ordering; ?>" /> -->
 	<input type="hidden" name="task" value="" />
 	<?php echo JHTML::_('form.token'); ?>
 </form>

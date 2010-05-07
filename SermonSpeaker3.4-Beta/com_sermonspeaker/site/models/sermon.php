@@ -36,8 +36,7 @@ class SermonspeakerModelSermon extends JModel
 				. "FROM #__sermon_speakers \n"
 				. "WHERE id=".$speaker_id;
 		$database->setQuery($query);
-      	$rows = $database->loadObjectList();
-      	$speaker = $rows['0']; // todo: andere Abfrageform wählen, scheint mir etwas umständlich
+      	$speaker = $database->loadObject();
 		
        return $speaker;
 	}

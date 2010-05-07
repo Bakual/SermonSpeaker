@@ -15,7 +15,7 @@ $database->setQuery( $query, 0, $count );
 $rows = $database->loadObjectList();
 
 $menu = &JSite::getMenu();
-$menuitems = $menu->getItems('link', 'index.php?option=com_sermonspeaker&view=sermons'); //todo: search for default page first
+$menuitems = $menu->getItems('link', 'index.php?option=com_sermonspeaker&view=sermons');
 if ($menuitems == "") {
 	$menuitems = $menu->getItems('component', 'com_sermonspeaker');
 }
