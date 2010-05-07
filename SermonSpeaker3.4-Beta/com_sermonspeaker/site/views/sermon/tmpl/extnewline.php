@@ -60,7 +60,7 @@ $return = SermonspeakerHelperSermonspeaker::insertAddfile($this->row[0]->addfile
 		<td><?php echo JHtml::Date($this->row[0]->sermon_time, '%X', 0); ?></td>
 	</tr>
 	<tr>
-		<td valign="top"><b>Hits:</b></td> <!-- Uebersetzung? -->
+		<td valign="top"><b><?php echo JText::_('HITS'); ?>:</b></td>
 		<td><?php echo $this->row[0]->hits; ?></td>
 	</tr>
 	<?php if ($this->params->get('client_col_sermon_notes') && strlen($this->row[0]->notes) > 0){ ?>

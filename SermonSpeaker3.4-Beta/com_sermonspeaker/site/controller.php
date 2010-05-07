@@ -33,22 +33,9 @@ class SermonspeakerController extends JController
 	}
 	
 	function updateStat ($type, $id) {
-		switch($type) {
-			case "speakers" :
-				$db = "#__sermon_speakers";
-				break;
-			case "sermons" :
-				$db = "#__sermon_sermons";
-				break;
-			case "series" :
-				$db = "#__sermon_series";
-				break;
-		} // of switch
-		$database = &JFactory::getDBO();
-		$id = (int)$id;
-		$query = "UPDATE ".$db." SET hits=hits+1 WHERE id=$id;";
-		$database->setQuery( $query );
-		$database->query();
+		JTable::addIncludePath(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_sermonspeaker'.DS.'tables');
+		$table =& JTable::getInstance($type, 'Table');
+		$table->hit($id);
 	}
 
 	function download () {
