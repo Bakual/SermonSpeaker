@@ -67,8 +67,8 @@ Note: You may delete a speaker or a series, but the audio files will not be dele
 <h3>Using the Frontend Upload Wizard</h3>
 <p>To enable the frontent upload wizard, first enable it in the parameter settings for SermonSpeaker. You now have two ways how the frontend upload wizard can work:
 <ul>
-	<li>Set a strong password (a-z,A-Z,0-9) and set a taskname to something unique (eg "mychurchuploading") - this makes it harder for automated attack tools to start a passwort attack. The link to the wizard is then like (Keep this link private to increase security):<pre>http://www.mychurch.com/index=option&view=frontendupload&frup=mychurchuploading</pre></li>
-	<li>Set allowed usergroups. In this case no password is needed, but the user needs to be logged in. You have to specify every usergroup that needs access, 'Registered' doesn't include 'Author'. They now can access the wizard by a menu entry or the link <pre>http://www.mychurch.com/index=option&view=frontendupload</pre></li>
+	<li>Set a strong password (a-z,A-Z,0-9) and set a taskname to something unique (eg "mychurchuploading") - this makes it harder for automated attack tools to start a passwort attack. The link to the wizard is then like (Keep this link private to increase security):<pre>http://www.mychurch.com/index.php?option=com_sermonspeaker&view=frontendupload&frup=mychurchuploading</pre></li>
+	<li>Set allowed usergroups. In this case no password is needed, but the user needs to be logged in. You have to specify every usergroup that needs access, 'Registered' doesn't include 'Author'. They now can access the wizard by a menu entry or the link <pre>http://www.mychurch.com/index.php?option=com_sermonspeaker&view=frontendupload</pre></li>
 </ul>
 After uploading a MP3 file, SermonSpeaker can check and populate some fields according to the MP3 ID3 tags - if you don't need this feature set all ID3 tag configurations to "-".</p>
 <h2>4: Upgrades</h2>
