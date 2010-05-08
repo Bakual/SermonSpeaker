@@ -36,6 +36,7 @@ class SermonspeakerViewSpeaker extends JView
 			
 		} else {
 			$series	= &$this->get('Series');		// getting the Series from the Model
+			$av = &$this->get('Avatar');
 			$document->setTitle($document->getTitle() . ' | ' .JText::_('SINGLESPEAKER').' - '.$row->name);
 			$breadcrumbs->addItem( $row->name.": ".JText::_('SERIES'), '' );
 			$title = $row->name; 
@@ -50,6 +51,7 @@ class SermonspeakerViewSpeaker extends JView
 		$document->setMetaData("keywords",$title);
 
         // push data into the template
+		$this->assignRef('av',$av);             
 		$this->assignRef('row',$row);             
 		$this->assignRef('series',$series);             
 		$this->assignRef('sermons',$sermons);             

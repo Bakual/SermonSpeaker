@@ -82,6 +82,9 @@ $disabled = $ordering ?  '' : 'disabled="disabled"';
 				</td>
 				<td align="center">
 					<?php
+					if ($row->avatar == "") {
+						$row->avatar = JURI::root()."components/com_sermonspeaker/images/nopict.jpg";
+					}
 					if (substr($row->avatar,0,7) == "http://") {
 						$picture = $row->avatar;
 					} else {

@@ -18,6 +18,26 @@ class SermonspeakerModelSpeaker extends JModel
 		$this->id		= JRequest::getInt('id',$this->params->get('speaker_id'));
 	}
 
+	function getAvatar()
+	{
+		$database =& JFactory::getDBO();
+		$query = "SELECT COUNT(*) FROM #__sermon_series j \n"
+            . " WHERE (speaker_id='".$this->id."' OR speaker2='".$this->id."' OR speaker3='".$this->id
+			. "' OR speaker4='".$this->id."' OR speaker5='".$this->id."' OR speaker6='".$this->id
+			. "' OR speaker7='".$this->id."' OR speaker8='".$this->id."' OR speaker9='".$this->id
+			. "' OR speaker10='".$this->id."' OR speaker11='".$this->id."' OR speaker12='".$this->id
+			. "' OR speaker13='".$this->id."' OR speaker14='".$this->id."' OR speaker15='".$this->id
+			. "' OR speaker16='".$this->id."' OR speaker17='".$this->id."' OR speaker18='".$this->id
+			. "' OR speaker19='".$this->id."' OR speaker20='".$this->id."') \n"
+            . " AND published = '1' \n"
+			. " AND j.avatar != ''";
+
+		$database->setQuery( $query );
+		$av = $database->loadResult();
+
+        return $av;
+	}
+
 	function getSeries()
 	{
 		$database = &JFactory::getDBO();

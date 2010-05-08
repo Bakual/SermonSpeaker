@@ -5,9 +5,39 @@ $Itemid	= JRequest::getInt('Itemid');
 ?>
 <table width="100%" cellpadding="2" cellspacing="0">
 	<tr class="componentheading">
-		<th align="left" valign="bottom"><?php echo $this->row->name.": ".JText::_('LATEST_SERMONS'); ?></th>
+		<?php if ($this->params->get('limit_speaker') == 1){ ?>
+			<th align="left" valign="bottom"><?php echo $this->row->name.": ".$this->params->get('sermonresults').' '.JText::_('LATEST_SERMONS'); ?></th>
+		<?php } else { ?>
+			<th align="left" valign="bottom"><?php echo $this->row->name.": ".JText::_('SERMONS'); ?></th>
+		<?php } ?>
 	</tr>
 </table>
+<!-- Begin Data - Speaker -->
+<table cellpadding="2" cellspacing="0" width="100%">
+	<tr>
+		<?php if ($this->row->pic) { ?>
+			<td width="<?php echo $this->params->get('singlewidth'); ?>">
+			<img src="<?php echo $this->row->pic; ?>" border="0" alt="" />
+			</td>
+		<?php } ?>
+		<td align="left" valign="top">
+		<p>
+		<?php
+		if ($this->row->website && $this->row->website != "http://") { ?>
+			<br /><a href="<?php echo $this->row->website; ?>" target="_blank">
+			<?php echo JText::_('WEB_LINK_TAG')." ".$this->row->name; ?></a>
+		<?php }
+		if ($this->row->bio) { ?>
+			<br /> <?php echo JText::_('BIO'); ?>: <?php if($this->params->get('speaker_intro')) {
+				echo $this->row->intro.'<br />';
+			}
+			echo $this->row->bio;
+		} ?>
+		</p>
+		</td>
+	</tr>
+</table>
+<p></p>
 <!-- Begin Data -->
 <table cellpadding="2" cellspacing="0" width="100%">
 	<tr>

@@ -5,14 +5,11 @@ $Itemid	= JRequest::getInt('Itemid');
 ?>
 <table width="100%" cellpadding="2" cellspacing="0">
 	<tr class="componentheading">
-		<th align="left" valign="bottom"><?php echo JText::_('SINGLESPEAKER'); ?></th>
+		<th align="left" valign="bottom"><?php echo $this->row->name.": ".JText::_('SINGLESPEAKER'); ?></th>
 	</tr>
 </table>
 <!-- Begin Data - Speaker -->
 <table cellpadding="2" cellspacing="0" width="100%">
-	<tr>
-		<th colspan="2" align="left"><?php echo $this->row->name; ?></th>
-	</tr>
 	<tr>
 		<?php if ($this->row->pic) { ?>
 			<td width="<?php echo $this->params->get('singlewidth'); ?>">
@@ -41,7 +38,9 @@ $Itemid	= JRequest::getInt('Itemid');
 <?php if( $this->series ) { ?>
 	<table border="0" cellpadding="2" cellspacing="1" width="100%">
 		<tr>
-			<th align="left" ></th>
+			<?php if ($this->av > 0){ ?>
+				<th align="left" ></th>
+			<?php } ?>
 			<th align="left" ><?php echo JText::_('SERIESTITLE'); ?></th>		  
 			<th align="left" valign="bottom"><?php echo JText::_('SERIESDESCRIPTION'); ?></th>
 		</tr>
@@ -49,10 +48,12 @@ $Itemid	= JRequest::getInt('Itemid');
 		$i = 0;
 		foreach($this->series as $serie) {
 			echo "<tr class=\"row$i\">\n"; 
-			$i = 1 - $i; ?>
+			$i = 1 - $i;
+			if ($this->av > 0){ ?>
 				<td align="left" valign="top"  width="80">
 					<?php if ($serie->avatar != '') { echo "<img src='".SermonspeakerHelperSermonspeaker::makelink($serie->avatar)."' >";} ?>
 				</td>		  
+			<?php } ?>
 				<td align="left" valign="middle" width="125">
 					<a TITLE="<?php echo JText::_('SERIES_SELECT_HOOVER_TAG'); ?> " href="<?php echo JRoute::_("index.php?view=serie&id=$serie->id"); ?>">
 						<?php echo $serie->series_title; ?>
