@@ -19,8 +19,8 @@ class SermonspeakerViewSermons extends JView
 		// Set Meta
 		$document =& JFactory::getDocument();
 		$document->setTitle($document->getTitle() . ' | ' ." ". JText::_('SERMONLIST'));
-//		if ($desc) {$document->setMetaData("description",$desc);}
-//		if ($tags) {$document->setMetaData("keywords",$tags);}
+		$document->setMetaData("description",JText::_('SERMONLIST'));
+		$document->setMetaData("keywords",JText::_('SERMONLIST'));
 
 		// get Data from Model (/models/sermons.php)
         $rows		=& $this->get('Data');			// getting the Datarows from the Model

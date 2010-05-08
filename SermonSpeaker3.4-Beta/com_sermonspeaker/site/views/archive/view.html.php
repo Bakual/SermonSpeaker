@@ -27,8 +27,8 @@ class SermonspeakerViewArchive extends JView
 		// Set Meta
 		$document =& JFactory::getDocument();
 		$document->setTitle($document->getTitle() . ' | ' ." ". JText::_('SERMONLIST'));
-//		if ($desc) {$document->setMetaData("description",$desc);}
-//		if ($tags) {$document->setMetaData("keywords",$tags);}
+		$document->setMetaData("description",JText::_('SERMFROM')." ".JHtml::Date($this->rows[0]->sermon_date, '%B, %Y', 0));
+		$document->setMetaData("keywords",JText::_('SERMONLIST'));
 
 		// get Data from Model (/models/archive.php)
         $rows		=& $this->get('Data');			// getting the Datarows from the Model

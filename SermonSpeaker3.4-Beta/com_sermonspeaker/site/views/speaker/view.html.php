@@ -46,8 +46,8 @@ class SermonspeakerViewSpeaker extends JView
 		if ($params->get('track_speaker')) { SermonspeakerController::updateStat('speakers', $id); }
 		
 		// Set Meta
-		$document->setMetaData("description",$title);
-		$document->setMetaData("keywords",$row->intro);
+		$document->setMetaData("description",$row->intro);
+		$document->setMetaData("keywords",$title);
 
         // push data into the template
 		$this->assignRef('row',$row);             
