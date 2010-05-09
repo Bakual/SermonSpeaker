@@ -11,7 +11,7 @@ class SermonspeakerViewSpeaker extends JView
 	function display($tpl = null)
 	{
 		global $mainframe, $option;
-		
+
 		JHTML::stylesheet('sermonspeaker.css', 'components/com_sermonspeaker/');
 
 		$params	=& JComponentHelper::getParams('com_sermonspeaker');
@@ -26,36 +26,36 @@ class SermonspeakerViewSpeaker extends JView
 		if ($this->getLayout() == "latest-sermons") {
 			$sermons	= &$this->get('Sermons');		// getting the Sermons from the Model
 			$breadcrumbs->addItem( $row->name.": ".JText::_('LATEST_SERMONS'), '' );
-		  	if ($params->get('limit_speaker') == "1") { 
+		  	if ($params->get('limit_speaker') == "1") {
 				$title = JText::_('LATEST')." ".$params->get('sermonresults')." ".JText::_('SERMONS_OF')." ".$row->name;
 			} else {
-				$title = JText::_('SERMONS_OF')." ".$row->name; 
+				$title = JText::_('SERMONS_OF')." ".$row->name;
 			}
 			$document->setTitle($document->getTitle() . ' | ' .JText::_('LATEST_SERMONS').' - '.$row->name);
 		} elseif ($this->getLayout() == "popup") {
-			
+
 		} else {
 			$series	= &$this->get('Series');		// getting the Series from the Model
 			$av = &$this->get('Avatar');
+			$this->assignRef('av',$av);
 			$document->setTitle($document->getTitle() . ' | ' .JText::_('SINGLESPEAKER').' - '.$row->name);
 			$breadcrumbs->addItem( $row->name.": ".JText::_('SERIES'), '' );
-			$title = $row->name; 
+			$title = $row->name;
 		}
 
 		// Update Statistic
     	$id		= $row->id;
 		if ($params->get('track_speaker')) { SermonspeakerController::updateStat('speakers', $id); }
-		
+
 		// Set Meta
 		$document->setMetaData("description",$row->intro);
 		$document->setMetaData("keywords",$title);
 
         // push data into the template
-		$this->assignRef('av',$av);             
-		$this->assignRef('row',$row);             
-		$this->assignRef('series',$series);             
-		$this->assignRef('sermons',$sermons);             
-		$this->assignRef('params',$params);			// for Params
+		$this->assignRef('row',$row);
+		$this->assignRef('series',$series);
+		$this->assignRef('sermons',$sermons);
+		$this->assignRef('params',$params);		// for Params
 
 		parent::display($tpl);
 	}	
