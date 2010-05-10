@@ -13,27 +13,26 @@ $Itemid	= JRequest::getInt('Itemid');
 	</tr>
 </table>
 <!-- Begin Data - Speaker -->
-<table cellpadding="2" cellspacing="0" width="100%">
+<table border='0' cellpadding="2" cellspacing="0" width="100%">
 	<tr>
 		<?php if ($this->row->pic) { ?>
-			<td width="<?php echo $this->params->get('singlewidth'); ?>">
-			<img src="<?php echo $this->row->pic; ?>" border="0" alt="" />
+			<td valign="middle" align="center" width='30%'>
+				<img src="<?php echo $this->row->pic; ?>" border="0" alt="" />
 			</td>
 		<?php } ?>
 		<td align="left" valign="top">
-		<p>
 		<?php
 		if ($this->row->website && $this->row->website != "http://") { ?>
-			<br /><a href="<?php echo $this->row->website; ?>" target="_blank">
-			<?php echo JText::_('WEB_LINK_TAG')." ".$this->row->name; ?></a>
+			<a href="<?php echo $this->row->website; ?>" target="_blank" title="<?php echo JText::_('WEB_LINK_DESCRIPTION'); ?>"><?php echo JText::_('WEB_LINK_TAG').' '.$this->row->name; ?></a>
 		<?php }
-		if ($this->row->bio) { ?>
-			<br /> <?php echo JText::_('BIO'); ?>: <?php if($this->params->get('speaker_intro')) {
-				echo $this->row->intro.'<br />';
+		if ($this->row->bio || $this->row->intro) { ?>
+			<p><b><?php echo JText::_('BIO'); ?>:</b>
+			<?php if($this->params->get('speaker_intro')) {
+				echo $this->row->intro;
 			}
-			echo $this->row->bio;
-		} ?>
-		</p>
+			echo $this->row->bio; ?>
+			</p>
+		<?php } ?>
 		</td>
 	</tr>
 </table>
@@ -69,8 +68,16 @@ $Itemid	= JRequest::getInt('Itemid');
 					$i = 1 - $i;
 					if( $this->params->get('client_col_sermon_number')){
 						echo "<td align=\"left\" valign=\"middle\" > $sermon->sermon_number </td>";
-					}
-					echo "<td><a title=\"".JText::_('SINGLE_SERMON_HOOVER_TAG')."\" href=\"".JRoute::_("index.php?view=sermon&id=$sermon->slug")."\">".$sermon->sermon_title."</a></td>";
+					} ?>
+					<td align="left">
+						&nbsp;<a href="<?php echo JRoute::_("index.php?view=sermon&id=$sermon->slug"); ?>">
+							<img title="<?php echo JText::_('PLAYTOPLAY'); ?>" src="<?php echo JURI::root().'components/com_sermonspeaker/images/play.gif'; ?>" width='16' height='16' border='0' align='top' alt="" />
+						</a>
+						<a title="<?php echo JText::_('SINGLE_SERMON_HOOVER_TAG'); ?>" href="<?php echo JRoute::_("index.php?view=sermon&id=$sermon->slug"); ?>">
+							<?php echo $sermon->sermon_title; ?>
+						</a>
+					</td>
+					<?php
 					if( $this->params->get('client_col_sermon_scripture_reference')){
 						echo "<td align=\"left\" valign=\"middle\" >$sermon->sermon_scripture</td>";
 					}

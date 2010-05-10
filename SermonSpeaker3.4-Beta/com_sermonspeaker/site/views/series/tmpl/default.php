@@ -19,7 +19,7 @@ $Itemid	= JRequest::getInt('Itemid');
 <hr style="width: 100%; height: 2px;" />
 <table cellpadding="2" cellspacing="2" width="100%">
 	<tr>
-		<?php if($this->av) { echo "<th></th>"; } ?>
+		<?php if($this->av) { echo "<th width='10'></th>"; } ?>
 		<th align="left"><?php echo JText::_('SERMONNAME'); ?></th>
 		<th align="left"><?php echo JText::_('SPEAKER'); ?></th>
 	</tr>

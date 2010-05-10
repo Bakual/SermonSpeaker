@@ -9,27 +9,26 @@ $Itemid	= JRequest::getInt('Itemid');
 	</tr>
 </table>
 <!-- Begin Data - Speaker -->
-<table cellpadding="2" cellspacing="0" width="100%">
+<table border='0' cellpadding="2" cellspacing="0" width="100%">
 	<tr>
 		<?php if ($this->row->pic) { ?>
-			<td width="<?php echo $this->params->get('singlewidth'); ?>">
-			<img src="<?php echo $this->row->pic; ?>" border="0" alt="" />
+			<td valign="middle" align="center" width='30%'>
+				<img src="<?php echo $this->row->pic; ?>" border="0" alt="" />
 			</td>
 		<?php } ?>
 		<td align="left" valign="top">
-		<p>
 		<?php
 		if ($this->row->website && $this->row->website != "http://") { ?>
-			<br /><a href="<?php echo $this->row->website; ?>" target="_blank">
-			<?php echo JText::_('WEB_LINK_TAG')." ".$this->row->name; ?></a>
+			<a href="<?php echo $this->row->website; ?>" target="_blank" title="<?php echo JText::_('WEB_LINK_DESCRIPTION'); ?>"><?php echo JText::_('WEB_LINK_TAG').' '.$this->row->name; ?></a>
 		<?php }
-		if ($this->row->bio) { ?>
-			<br /> <?php echo JText::_('BIO'); ?>: <?php if($this->params->get('speaker_intro')) {
-				echo $this->row->intro.'<br />';
+		if ($this->row->bio || $this->row->intro) { ?>
+			<p><b><?php echo JText::_('BIO'); ?>:</b>
+			<?php if($this->params->get('speaker_intro')) {
+				echo $this->row->intro;
 			}
-			echo $this->row->bio;
-		} ?>
-		</p>
+			echo $this->row->bio; ?>
+			</p>
+		<?php } ?>
 		</td>
 	</tr>
 </table>

@@ -53,7 +53,14 @@ $sort	= JRequest::getWord('sort','sermondate');
 		if ($this->params->get('client_col_sermon_number')) { ?>
 			<td align="left" valign="middle"><?php echo $row->sermon_number; ?></td>
 		<?php } ?>
-		<td align="left">&nbsp;&nbsp;<a href="<?php echo JRoute::_("index.php?view=sermon&id=$row->slug"); ?>"><img title="<?php echo JText::_('PLAYTOPLAY'); ?>" src="<?php echo JURI::root().'components/com_sermonspeaker/images/play.gif'; ?>" width='16' height='16' border='0' alt="" /></a> &#40;<a title="<?php echo JText::_('DOWNLOAD_HOOVER_TAG'); ?>" href="<?php echo JRoute::_("index.php?view=sermon&id=$row->slug"); ?>" style="text-decoration:none"><?php echo JText::_('PLAY'); ?></a>&#41; <?php echo $row->sermon_title; ?></td>
+		<td align="left">
+			&nbsp;<a href="<?php echo JRoute::_("index.php?view=sermon&id=$row->slug"); ?>">
+				<img title="<?php echo JText::_('PLAYTOPLAY'); ?>" src="<?php echo JURI::root().'components/com_sermonspeaker/images/play.gif'; ?>" width='16' height='16' border='0' align='top' alt="" />
+			</a>
+			<a title="<?php echo JText::_('SINGLE_SERMON_HOOVER_TAG'); ?>" href="<?php echo JRoute::_("index.php?view=sermon&id=$row->slug"); ?>">
+				<?php echo $row->sermon_title; ?>
+			</a>
+		</td>
 		<?php if ($this->params->get('client_col_sermon_scripture_reference')) { echo "<td>".$this->escape($row->sermon_scripture)."</td>\n"; } ?>
 		<?php if ($row->pic == "") { $row->pic = JURI::root()."components/com_sermonspeaker/images/nopict.jpg"; }?>
 		<td>

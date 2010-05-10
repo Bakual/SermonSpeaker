@@ -26,8 +26,16 @@ class SermonspeakerViewSeries extends JView
 		// get Data from Model (/models/series.php)
         $rows		=& $this->get('Data');			// getting the Datarows from the Model
         $pagination	=& $this->get('Pagination');	// getting the JPaginationobject from the Model
-        $av			=& $this->get('Avatar');		// Let the Model check how many Avatarpictures there are
-
+		
+		// check if there are avatars at all, only showing column if needed
+		$av = null;
+		foreach ($rows as $row){
+			if (!empty($row->avatar)){ // breaking out of foreach if first avatar is found
+				$av = 1;
+				break;
+			}
+		}
+		
         // push data into the template
 		$this->assignRef('rows',$rows);             
 		$this->assignRef('pagination',$pagination);	// for JPagination

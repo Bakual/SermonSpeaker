@@ -41,20 +41,6 @@ class SermonspeakerModelSeries extends JModel
 		$this->setState('limitstart', $limitstart);
 	}
 
-	function getAvatar()
-	{
-		$database =& JFactory::getDBO();
-		$query = "SELECT COUNT(*) FROM #__sermon_series j \n"
-				."LEFT JOIN #__sermon_speakers l ON j.speaker_id = l.id \n"
-				."WHERE j.published = 1 AND j.avatar != ''".$this->catwhere
-        . ' LIMIT '.$this->getState('limitstart').','.$this->getState('limit'); 
-
-		$database->setQuery( $query );
-		$av = $database->loadResult();
-
-        return $av;
-	}
-
 	function getTotal()
 	{
 		$database =& JFactory::getDBO();

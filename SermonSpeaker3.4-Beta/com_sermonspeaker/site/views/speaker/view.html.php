@@ -36,7 +36,14 @@ class SermonspeakerViewSpeaker extends JView
 
 		} else {
 			$series	= &$this->get('Series');		// getting the Series from the Model
-			$av = &$this->get('Avatar');
+			// check if there are avatars at all, only showing column if needed
+			$av = null;
+			foreach ($series as $serie){
+				if (!empty($serie->avatar)){ // breaking out of foreach if first avatar is found
+					$av = 1;
+					break;
+				}
+			}
 			$this->assignRef('av',$av);
 			$document->setTitle($document->getTitle() . ' | ' .JText::_('SINGLESPEAKER').' - '.$row->name);
 			$breadcrumbs->addItem( $row->name.": ".JText::_('SERIES'), '' );
