@@ -54,16 +54,15 @@ JHTML::_('behavior.tooltip');
 				<td><?php echo $row->sermon_number; ?></td>
 			<?php } ?>
 				<td align="left">
-					&nbsp;<a href="<?php echo JRoute::_("index.php?view=sermon&id=$row->slug"); ?>">
-						<img title="<?php echo JText::_('PLAYTOPLAY'); ?>" src="<?php echo JURI::root().'components/com_sermonspeaker/images/play.gif'; ?>" width='16' height='16' border='0' align='top' alt="" />
-					</a>
+					&nbsp;<a href="<?php echo JRoute::_("index.php?view=sermon&id=$row->slug"); ?>"><img title="<?php echo JText::_('PLAYTOPLAY'); ?>" src="<?php echo JURI::root().'components/com_sermonspeaker/images/play.gif'; ?>" width='16' height='16' border='0' align='top' alt="" /></a>
 					<a title="<?php echo JText::_('SINGLE_SERMON_HOOVER_TAG'); ?>" href="<?php echo JRoute::_("index.php?view=sermon&id=$row->slug"); ?>">
 						<?php echo $row->sermon_title; ?>
 					</a>
 				</td>
+				<?php if ($row->pic == "") { $row->pic = JURI::root()."components/com_sermonspeaker/images/nopict.jpg"; }?>
 				<td align="left" valign="top">
 					<a class="modal" href="<?php echo JRoute::_('index.php?view=speaker&layout=popup&id='.$row->s_id.'&tmpl=component')?>" rel="{handler: 'iframe', size: {x: 700, y: 500}}">
-					<?php echo JHTML::tooltip('<img src="'.$row->pic.'" alt="'.$row->name.'"><br>'.$row->name,'','',$row->name); ?>
+					<?php echo JHTML::tooltip('<img src="'.$row->pic.'" alt="'.$row->name.'">',$row->name,'',$row->name); ?>
 					</a>
 				</td>
 				<?php if( $this->params->get('client_col_sermon_scripture_reference')){ ?>		

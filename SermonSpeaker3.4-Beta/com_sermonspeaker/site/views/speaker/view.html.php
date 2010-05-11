@@ -33,7 +33,7 @@ class SermonspeakerViewSpeaker extends JView
 			}
 			$document->setTitle($document->getTitle() . ' | ' .JText::_('LATEST_SERMONS').' - '.$row->name);
 		} elseif ($this->getLayout() == "popup") {
-
+			$title = $row->name;
 		} else {
 			$series	= &$this->get('Series');		// getting the Series from the Model
 			// check if there are avatars at all, only showing column if needed
@@ -55,7 +55,7 @@ class SermonspeakerViewSpeaker extends JView
 		if ($params->get('track_speaker')) { SermonspeakerController::updateStat('speakers', $id); }
 
 		// Set Meta
-		$document->setMetaData("description",$row->intro);
+		$document->setMetaData("description",strip_tags($row->intro));
 		$document->setMetaData("keywords",$title);
 
         // push data into the template
