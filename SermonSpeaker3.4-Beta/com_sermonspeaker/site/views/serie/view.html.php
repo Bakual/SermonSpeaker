@@ -30,7 +30,7 @@ class SermonspeakerViewSerie extends JView
 		$active = $menu->getActive();
 		$active_view = $active->query[view];
 		$itemid = $active->id;
-		if ($active_view == "speakers") {
+		if ($active_view == "speakers" || $active_view == "sermons") {
 			$menuitems = $menu->getItems('link', 'index.php?option=com_sermonspeaker&view=series');
 			if ($menuitems) {
 				$itemid = $menuitems[0]->id;
@@ -44,7 +44,7 @@ class SermonspeakerViewSerie extends JView
 
 		// Set Meta
 		$document =& JFactory::getDocument();
-		$document->setTitle($document->getTitle() . ' | ' ." ". $serie[0]->series_title.": ".JText::_('SINGLESERIES'));
+		$document->setTitle($document->getTitle().' | '.JText::_('SINGLESERIES').": ".$serie[0]->series_title);
 		$document->setMetaData("description",$serie[0]->series_description);
 		$document->setMetaData("keywords",$serie[0]->series_title);
 

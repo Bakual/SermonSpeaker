@@ -30,30 +30,35 @@ $return = SermonspeakerHelperSermonspeaker::insertAddfile($this->row[0]->addfile
 	if ($this->params->get('client_col_player') && strlen($this->row[0]->sermon_path) > 0){ ?>
 		<tr>
 			<td></td>
-			<td><center>
+			<td>
 			<?php
 			$ret = SermonspeakerHelperSermonspeaker::insertPlayer($this->lnk);
 			$pp_ret = explode("/",$ret);
 			$pp_h = $pp_ret[0];
 			$pp_w = $pp_ret[1];
 			?>
-		</center></td></tr>
+			</td>
+		</tr>
 	<?php } // if client_col_player
 	$this->lnk = str_replace('\\','/',$this->lnk); 
 	$id = $this->row[0]->id; ?>
-	<tr>
-		<td></td>
-		<?php if ($this->params->get('dl_button') == "1" && strlen($this->row[0]->sermon_path) > 0) {
-			echo SermonspeakerHelperSermonspeaker::insertdlbutton($option,$id,$Itemid,$this->row[0]->sermon_path);
-		}
-		if ($this->params->get('popup_player') == "1" && strlen($this->row[0]->sermon_path) > 0) { ?>
-			<td><input style="font-size:12px;color:#000066;font-family:verdana;" type="button" name="<?php echo JText::_('POPUP_PLAYER'); ?>" value="<?php echo JText::_('POPUP_PLAYER'); ?>" onClick="popup = window.open('<?php echo JRoute::_("index.php?view=sermon&layout=popup&id=$id&tmpl=component"); ?>', 'PopupPage', 'height=<?php echo $pp_h.",width=".$pp_w; ?>,scrollbars=yes,resizable=yes'); return false"></td>
+	<?php if ($this->params->get('dl_button') == "1" && strlen($this->row[0]->sermon_path) > 0) { ?>
+		<tr>
+			<td></td>
+			<?php echo SermonspeakerHelperSermonspeaker::insertdlbutton($option,$id,$Itemid,$this->row[0]->sermon_path); ?>
+		</tr>
 		<?php }
+		if ($this->params->get('popup_player') == "1" && strlen($this->row[0]->sermon_path) > 0) { ?>
+		<tr>
+			<td></td>
+			<td><input class="popup_btn" type="button" name="<?php echo JText::_('POPUP_PLAYER'); ?>" value="<?php echo JText::_('POPUP_PLAYER'); ?>" onClick="popup = window.open('<?php echo JRoute::_("index.php?view=sermon&layout=popup&id=$id&tmpl=component"); ?>', 'PopupPage', 'height=<?php echo $pp_h.",width=".$pp_w; ?>,scrollbars=yes,resizable=yes'); return false"></td>
+		</tr>
+		<?php } ?>
+	<?php
 		$return = SermonspeakerHelperSermonspeaker::insertAddfile($this->row[0]->addfile, $this->row[0]->addfileDesc);
 		if ($return != NULL) {
 			echo "<tr><td valign =\"top\"><b>".JText::_('ADDFILE').":</b></td><td>".$return."</td><tr>";
 		} ?>
-	</tr>
 		<?php if ($this->params->get('client_col_sermon_notes') && strlen($this->row[0]->notes) > 0){
 			echo "<tr><td valign =\"top\"><b>".JText::_('SERMONNOTES').":</b></td><td>".$this->row[0]->notes."</td><tr>";
 		} ?>

@@ -63,7 +63,7 @@ class SermonspeakerViewSermon extends JView
 
 		// Set Meta
 		$document =& JFactory::getDocument();
-		$document->setTitle($document->getTitle() . ' | ' .JText::_('SINGLESERMON').' - '.$row[0]->sermon_title);
+		$document->setTitle($document->getTitle().' | '.$row[0]->sermon_title);
 		$document->setMetaData("description",$row[0]->notes);
 		$document->setMetaData("keywords",$row[0]->sermon_title);
 

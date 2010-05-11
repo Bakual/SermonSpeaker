@@ -16,7 +16,7 @@ $return = SermonspeakerHelperSermonspeaker::insertAddfile($this->row[0]->addfile
 	<?php if ($this->params->get('hide_dl') == "0" && strlen($this->row[0]->sermon_path) > 0) { ?>
 		<tr>
 			<td valign="top"><b><?php echo JText::_('SERMONNAME'); ?>:</b></td>
-			<td><a title="<?php echo JText::_('DOWNLOAD_HOOVER_TAG'); ?>" href="<?php echo $this->lnk.'">'.$this->escape($this->row[0]->sermon_title); ?></a></td>
+			<td><a title="<?php echo JText::_('SINGLESERMON'); ?>" href="<?php echo $this->lnk.'">'.$this->escape($this->row[0]->sermon_title); ?></a></td>
 		</tr>
 		<?php if ($this->params->get('dl_button') == "1") { ?>
 		<tr>

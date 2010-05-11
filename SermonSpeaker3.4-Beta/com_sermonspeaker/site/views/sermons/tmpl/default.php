@@ -35,7 +35,7 @@ $sort	= JRequest::getWord('sort','sermondate');
 <table cellpadding="2" cellspacing="2" width="100%">
 	<tr>
 		<?php if ($this->params->get('client_col_sermon_number')) { ?>
-			<th width="5%" align="left" valign="bottom"><?php echo JText::_('SERMONNUMBER'); ?></th>
+			<th width="5%" align="left"><?php echo JText::_('SERMONNUMBER'); ?></th>
 		<?php } ?>
 		<th align="left"><?php echo JText::_('SERMONNAME');?></th>
 		<?php if ($this->params->get('client_col_sermon_scripture_reference')) { echo "<th align=\"left\">".JText::_('SCRIPTURE')."</th>\n"; } ?>
@@ -51,7 +51,7 @@ $sort	= JRequest::getWord('sort','sermondate');
 		echo "<tr class=\"row$i\">\n"; 
 		$i = 1 - $i;
 		if ($this->params->get('client_col_sermon_number')) { ?>
-			<td align="left" valign="middle"><?php echo $row->sermon_number; ?></td>
+			<td align="left"><?php echo $row->sermon_number; ?></td>
 		<?php } ?>
 		<td align="left">
 			&nbsp;<a href="<?php echo JRoute::_("index.php?view=sermon&id=$row->slug"); ?>"><img title="<?php echo JText::_('PLAYTOPLAY'); ?>" src="<?php echo JURI::root().'components/com_sermonspeaker/images/play.gif'; ?>" width='16' height='16' border='0' align='top' alt="" /></a>
@@ -59,8 +59,8 @@ $sort	= JRequest::getWord('sort','sermondate');
 				<?php echo $row->sermon_title; ?>
 			</a>
 		</td>
-		<?php if ($this->params->get('client_col_sermon_scripture_reference')) { echo "<td>".$this->escape($row->sermon_scripture)."</td>\n"; } ?>
-		<?php if ($row->pic == "") { $row->pic = JURI::root()."components/com_sermonspeaker/images/nopict.jpg"; }?>
+		<?php if ($this->params->get('client_col_sermon_scripture_reference')) { echo "<td>".$this->escape($row->sermon_scripture)."</td>\n"; }
+		if ($row->pic == "") { $row->pic = JURI::root()."components/com_sermonspeaker/images/nopict.jpg"; } ?>
 		<td>
 			<a class="modal" href="<?php echo JRoute::_('index.php?view=speaker&layout=popup&id='.$row->s_id.'&tmpl=component')?>" rel="{handler: 'iframe', size: {x: 700, y: 500}}">
 			<?php echo JHTML::tooltip('<img src="'.$row->pic.'" alt="'.$row->name.'">',$row->name,'',$row->name); ?>
@@ -71,14 +71,9 @@ $sort	= JRequest::getWord('sort','sermondate');
 			echo "<td align=\"left\" valign=\"middle\">" . JHtml::_('date', $row->sermon_date, '%x', 0) . "</td>\n";
 		}
 		if ($this->params->get('client_col_sermon_time')) { echo "<td align=\"center\">".JHtml::Date($row->sermon_time, '%X', 0)."</td>\n"; }
-		if ($this->params->get('client_col_sermon_addfile')) {
-			$return = SermonspeakerHelperSermonspeaker::insertAddfile($row->addfile, $row->addfileDesc);
-			if ($return != NULL) {
-				echo "<td>".$return."</td>";
-			} else {
-				echo "<td></td>";
-			}
-		}
+		if ($this->params->get('client_col_sermon_addfile')) { ?>
+			<td><?php echo SermonspeakerHelperSermonspeaker::insertAddfile($row->addfile, $row->addfileDesc); ?></td>
+		<?php }
 		echo "</tr>";
 	}
 	?>

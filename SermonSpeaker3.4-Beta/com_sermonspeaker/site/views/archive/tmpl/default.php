@@ -34,18 +34,20 @@ $sort	= JRequest::getWord('sort','sermondate');
 <table border="0" cellpadding="2" cellspacing="2" width="100%">
     <tr>
 		<?php if ($this->params->get('client_col_sermon_number')) { ?>
-			<th width="5%" align="left" valign="bottom"><?php echo JText::_('SERMONNUMBER'); ?></th>
+			<th width="5%" align="left"><?php echo JText::_('SERMONNUMBER'); ?></th>
 		<?php } ?>
-		<th width="380" align="left" valign="bottom"><?php echo JText::_('SERMONNAME'); ?></th>
+		<th width="380" align="left"><?php echo JText::_('SERMONNAME'); ?></th>
 		<?php if( $this->params->get('client_col_sermon_scripture_reference')){ ?>
-			<th align="left" valign="bottom"><?php echo JText::_('SCRIPTURE'); ?></th>
-		<?php }
-		if( $this->params->get('client_col_sermon_date')){ ?>
-			<th align="left" valign="bottom"><?php echo JText::_('SERMON_DATE'); ?></th>
+			<th align="left"><?php echo JText::_('SCRIPTURE'); ?></th>
+		<?php } ?>
+		<th align="left"><?php echo JText::_('SPEAKER');?></th>
+		<?php if( $this->params->get('client_col_sermon_date')){ ?>
+			<th align="left"><?php echo JText::_('SERMON_DATE'); ?></th>
 		<?php }
 		if( $this->params->get('client_col_sermon_time')){ ?>
-			<th align="center" valign="bottom"><?php echo JText::_('SERMONTIME'); ?></th>
+			<th align="center"><?php echo JText::_('SERMONTIME'); ?></th>
 		<?php } ?>
+		<?php if ($this->params->get('client_col_sermon_addfile')) { echo "<th align=\"left\">".JText::_('ADDFILE')."</th>\n"; }?>
 	</tr>
 <!-- Begin Data -->
     <?php if ($this->rows){
@@ -67,13 +69,22 @@ $sort	= JRequest::getWord('sort','sermondate');
 				<a title="<?php echo JText::_('PLAYTOPLAY'); ?>" href="<?php echo JRoute::_("index.php?view=sermon&id=$row->slug"); ?>" style="text-decoration:none"><?php echo $row->sermon_title; ?></a>
 			</td>
 			<?php if ($this->params->get('client_col_sermon_scripture_reference')){ ?>
-				<td align="left" valign="middle" ><?php echo $row->sermon_scripture; ?></td>
+				<td align="left" valign="middle"><?php echo $row->sermon_scripture; ?></td>
 			<?php }
-			if ($this->params->get('client_col_sermon_date')){ ?>
+			if ($row->pic == "") { $row->pic = JURI::root()."components/com_sermonspeaker/images/nopict.jpg"; } ?>
+			<td>
+				<a class="modal" href="<?php echo JRoute::_('index.php?view=speaker&layout=popup&id='.$row->s_id.'&tmpl=component')?>" rel="{handler: 'iframe', size: {x: 700, y: 500}}">
+				<?php echo JHTML::tooltip('<img src="'.$row->pic.'" alt="'.$row->name.'">',$row->name,'',$row->name); ?>
+				</a>
+			</td>
+			<?php if ($this->params->get('client_col_sermon_date')){ ?>
 				<td align="left" valign="middle"><?php echo JHtml::Date($row->sermon_date,'%x'); ?></td>
 			<?php }
 			if ($this->params->get('client_col_sermon_time')){ ?>
 				<td align="center" valign="middle"><?php echo JHtml::Date($row->sermon_time, '%X', 0); ?></td>
+			<?php }
+			if ($this->params->get('client_col_sermon_addfile')) { ?>
+				<td><?php echo SermonspeakerHelperSermonspeaker::insertAddfile($row->addfile, $row->addfileDesc); ?></td>
 			<?php } ?>
 		</tr>
 	<?php }

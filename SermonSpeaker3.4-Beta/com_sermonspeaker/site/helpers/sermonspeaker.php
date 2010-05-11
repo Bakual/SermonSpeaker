@@ -49,7 +49,7 @@ class SermonspeakerHelperSermonspeaker
 		} else { 
 			//File is locally
 			$fileurl = JURI::root()."index.php?option=$option&task=download&id=$id&Itemid=$Itemid";
-			$return = "<td><form><input type=\"button\" value=\"".JText::_('SEARCH_BOX_SINGLESERMON')."\" onclick=\"window.location.href='".$fileurl."'\"> </form><td>";
+			$return = "<td><form><input class=\"download_btn\" type=\"button\" value=\"".JText::_('SEARCH_BOX_SINGLESERMON')."\" onclick=\"window.location.href='".$fileurl."'\"> </form></td>";
 		}
 
 		return $return;
