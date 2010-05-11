@@ -20,19 +20,19 @@ class SermonspeakerModelSermon extends JModel
 	function getSerie($serie_id)
 	{
 		$database = &JFactory::getDBO();
-		$query	= "SELECT series_title \n"
+		$query	= "SELECT id, series_title \n"
 				. "FROM #__sermon_series \n"
 				. "WHERE id=".$serie_id;
 		$database->setQuery($query);
-		$seriesname = $database->loadResult();
+		$series = $database->loadObject();
 		
-       return $seriesname;
+       return $series;
 	}
 	
 	function getSpeaker($speaker_id)
 	{
 		$database = &JFactory::getDBO();
-      	$query	= "SELECT name,pic \n"
+      	$query	= "SELECT id, name, pic \n"
 				. "FROM #__sermon_speakers \n"
 				. "WHERE id=".$speaker_id;
 		$database->setQuery($query);

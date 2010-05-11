@@ -3,7 +3,7 @@ defined('_JEXEC') or die('Restricted access');
 
 JHTML::_('behavior.tooltip');
 
-JToolBarHelper::title(JText::_('SPEAKER MANAGER'), 'impressions.png' );
+JToolBarHelper::title(JText::_('SPEAKER MANAGER'), 'speakers' );
 JToolBarHelper::publishList();
 JToolBarHelper::unpublishList();
 JToolbarHelper::spacer();

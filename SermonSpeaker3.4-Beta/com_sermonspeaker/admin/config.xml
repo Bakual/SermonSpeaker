@@ -8,7 +8,7 @@
 			<option value="0">No</option>
 			<option value="1">Yes</option>
 		</param>
-		<param name="speaker_intro" type="radio" default="0" label="SPEAKER_INTRO" description="SPEAKER_INTRO_DESC">
+		<param name="speaker_intro" type="radio" default="1" label="SPEAKER_INTRO" description="SPEAKER_INTRO_DESC">
 			<option value="0">No</option>
 			<option value="1">Yes</option>
 		</param>

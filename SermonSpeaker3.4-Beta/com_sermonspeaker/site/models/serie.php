@@ -67,9 +67,10 @@ class SermonspeakerModelSerie extends JModel
 	function getData()
 	{
 		$database =& JFactory::getDBO();
-		$query	= "SELECT a.*, b.name "
+		$query	= "SELECT a.*, b.name, b.pic, b.id as s_id "
 				. ", CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(':', a.id, a.alias) ELSE a.id END as slug \n"
-				. "FROM #__sermon_sermons a, #__sermon_speakers b "
+				. "FROM #__sermon_sermons a \n"
+				. "LEFT JOIN #__sermon_speakers b ON a.speaker_id = b.id \n"
 				. "WHERE a.series_id='".$this->id."' "
 				. "AND a.speaker_id = b.id "
 				. "AND a.published='1' "

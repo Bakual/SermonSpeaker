@@ -26,7 +26,7 @@
 <p>This humble guide may not explain things adequately. In the event you have questions, please visit our forum at 
 <a href="http://joomlacode.org/gf/project/sermon_speaker/forum/" target=_new>Sermon Speaker Forum</a></p>
 <h2>1. Introduction / About this SermonSpeaker Software</h2>
-<p>This component allows upload of sermons to a Joomla website. You may track the activity of the hit counts for each speaker, each series, and each sermon that has been selected using the <a href="<?php echo JRoute::_('index.php?option=com_sermonspeaker&view=statistics'); ?>"><img src="<?php echo JURI::root(); ?>components/com_sermonspeaker/images/stats.png" height="20" width="20" border="0" title="Statistics" alt="Statistics" /></a> button or the "Statistics" menu entry.</p>
+<p>This component allows upload of sermons to a Joomla website. You may track the activity of the hit counts for each speaker, each series, and each sermon that has been selected using the <a href="<?php echo JRoute::_('index.php?option=com_sermonspeaker&view=statistics'); ?>"><img src="<?php echo JURI::base(); ?>components/com_sermonspeaker/images/stats-16.png" border="0" title="Statistics" alt="Statistics" /></a> button or the "Statistics" menu entry.</p>
 <h2>2. Setting up the configuration</h2>
 <p>You will have to check the php.ini file to be sure that the following parameters are set so that you can upload files that are as big as the sermon size:</p>
 <ul>
@@ -40,7 +40,7 @@
 <ol>
 	<li>First make sure you have saved the settings in SermonSpeaker once as it will give you all sort of errors if you didn't do that.</li>
 	<li>To add a new sermon (mp3, m4a, flv, mp4 and wmv files are currently supported), you first have to upload the file. For this you can use any FTP client, the SermonSpeaker frontend upload or the Joomla Media Manager, accessible in the "Site" Menu (You can set the directory for the Media Manager in the Joomla Global Configuration). Upload the file to the directory you have specified in the SermonSpeaker settings. Default is /images for new installations and /components/com_sermonspeaker/media for older ones.</li>
-	<li>After the file is placed onto the server click the <a href="<?php echo JRoute::_('index.php?option=com_sermonspeaker&view=sermons'); ?>"><img src="<?php echo JURI::root(); ?>components/com_sermonspeaker/images/sermon.png" height="20" width="20" border="0" title="Add/Edit Sermons" alt="Add/Edit Sermons" /></a> button or the Sermons menu entry.</li>
+	<li>After the file is placed onto the server click the <a href="<?php echo JRoute::_('index.php?option=com_sermonspeaker&view=sermons'); ?>"><img src="<?php echo JURI::base(); ?>components/com_sermonspeaker/images/sermon-16.png" border="0" title="Add/Edit Sermons" alt="Add/Edit Sermons" /></a> button or the Sermons menu entry.</li>
 	<li>There you use the "New" button to create a new sermon in SermonSpeaker.
 	<li>The only information that is important will be the Sermon Title, the Sermon Path, and the Speaker.</li>
 	<li>Then you need to select the publish/unpublish icons to set the disposition of your newly uploaded file. If you upload your files with an FTP client, specify the path relative to your Joomla installation directory (e.g. "images/sermons/sermon.mp3").</li>

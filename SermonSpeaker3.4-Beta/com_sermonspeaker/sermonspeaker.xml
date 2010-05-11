@@ -130,15 +130,7 @@
 		<filename>media/avatars/sharon.jpg</filename>
 		<filename>media/player/mediaplayer.swf</filename>
 		<filename>media/player/player.swf</filename>
-		<filename>images/controlpanel.png</filename>
-		<filename>images/help.png</filename>
-		<filename>images/series.png</filename>
-		<filename>images/sermon.png</filename>
-		<filename>images/speakers.png</filename>
-		<filename>images/stats.png</filename>
-		<filename>images/upload.png</filename>
 		<filename>images/play.gif</filename>
-		<filename>images/reset.png</filename>
 		<filename>images/nopict.jpg</filename>
 		<filename>icons/doc.png</filename>
 		<filename>icons/icon.png</filename>
@@ -164,18 +156,19 @@
 		<language tag="de-DE">de-DE.com_sermonspeaker.ini</language>
 	</languages>
 	<administration>
-		<menu>SermonSpeaker</menu>
+		<menu img="components/com_sermonspeaker/images/speakers-16.png" >SermonSpeaker</menu>
 		<submenu>
-			<menu view="series">SERIES</menu>
-			<menu view="speakers">SPEAKER</menu>
-			<menu view="sermons">SERMONS</menu>
+			<menu img="components/com_sermonspeaker/images/series-16.png" view="series">SERIES</menu>
+			<menu img="components/com_sermonspeaker/images/speakers-16.png" view="speakers">SPEAKER</menu>
+			<menu img="components/com_sermonspeaker/images/sermon-16.png" view="sermons">SERMONS</menu>
 			<menu img="category" link="option=com_categories&amp;section=com_sermonspeaker">CATEGORY</menu>
-			<menu view="statistics">STATISTICS</menu>
-			<menu view="help">HELP</menu>
+			<menu img="components/com_sermonspeaker/images/stats-16.png" view="statistics">STATISTICS</menu>
+			<menu img="components/com_sermonspeaker/images/help-16.png" view="help">HELP</menu>
 		</submenu>
 		<files folder="admin">
 			<filename>config.xml</filename>
 			<filename>sermonspeaker.php</filename>
+			<filename>sermonspeaker.css</filename>
 			<filename>controller.php</filename>
 			<filename>controllers/index.html</filename>
 			<filename>controllers/serie.php</filename>
@@ -231,6 +224,17 @@
 			<filename>tables/series.php</filename>
 			<filename>tables/sermons.php</filename>
 			<filename>tables/speakers.php</filename>
+			<filename>images/help.png</filename>
+			<filename>images/help-16.png</filename>
+			<filename>images/series.png</filename>
+			<filename>images/series-16.png</filename>
+			<filename>images/sermon.png</filename>
+			<filename>images/sermon-16.png</filename>
+			<filename>images/speakers.png</filename>
+			<filename>images/speakers-16.png</filename>
+			<filename>images/stats.png</filename>
+			<filename>images/stats-16.png</filename>
+			<filename>images/reset.png</filename>
 		</files>
 		<languages folder="admin/language">
 			<language tag="en-GB">en-GB.com_sermonspeaker.ini</language>

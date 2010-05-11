@@ -7,7 +7,7 @@ JArrayHelper::toInteger($cid, array(0));
 $edit = JRequest::getBool('edit', true);
 $text = ($edit ? JText::_('Edit') : JText::_('New'));
 
-JToolBarHelper::title(JText::_('SERIE').': <small><small>[ '.$text.' ]</small></small>');
+JToolBarHelper::title(JText::_('SERIE').': <small><small>[ '.$text.' ]</small></small>', 'series');
 JToolBarHelper::save();
 JToolBarHelper::apply();
 if ($edit) {

@@ -3,7 +3,7 @@ defined('_JEXEC') or die('Restricted access');
 
 JHTML::_('behavior.tooltip');
 
-JToolBarHelper::title(JText::_('STATISTICS'), 'impressions.png');
+JToolBarHelper::title(JText::_('STATISTICS'), 'statistics');
 JToolbarHelper::spacer();
 JToolbarHelper::divider();
 JToolbarHelper::spacer();
@@ -13,7 +13,7 @@ JToolBarHelper::preferences('com_sermonspeaker',550);
 <table border="0" cellpadding="2" cellspacing="0" width="40%" class="adminlist">
 	<tr>
 		<td style="background-color: #6D86BE; color: #CCC;" colspan="4">
-			<img src="<?php echo JURI::root(); ?>components/com_sermonspeaker/images/speakers.png" border="0" width="48" height="48" alt="<?php echo JText::_('SPEAKERS'); ?>" /> <?php echo JText::_('SPEAKERSTATS'); ?>
+			<img src="<?php echo JURI::base(); ?>components/com_sermonspeaker/images/speakers.png" border="0" width="48" height="48" alt="<?php echo JText::_('SPEAKERS'); ?>" /> <?php echo JText::_('SPEAKERSTATS'); ?>
 		</td>
 	</tr>
 	<tr>
@@ -32,7 +32,7 @@ JToolBarHelper::preferences('com_sermonspeaker',550);
 			<td align="left"><?php echo $row->hits; ?></td>
 			<td align="center">
 				<a href="index.php?option=<?php echo $option; ?>&controller=statistics&task=resetcount&table=speakers&id=<?php echo $row->id; ?>">
-					<img src="<?php echo JURI::root(); ?>components/com_sermonspeaker/images/reset.png" width="16" height="16" border="0" alt="Reset" />
+					<img src="<?php echo JURI::base(); ?>components/com_sermonspeaker/images/reset.png" width="16" height="16" border="0" alt="Reset" />
 				</a>
 			</td>
 		</tr>
@@ -43,7 +43,7 @@ JToolBarHelper::preferences('com_sermonspeaker',550);
 <table border="0" cellpadding="2" cellspacing="0" width="40%" class="adminlist">
 	<tr>
 		<td style="background-color: #6D86BE; color: #CCC;" colspan="4">
-			<img src="<?php echo JURI::root(); ?>components/com_sermonspeaker/images/series.png" border="0" width="48" height="48" alt="<?php echo JText::_('SERIES'); ?>" /> <?php echo JText::_('SERIESTATS'); ?>
+			<img src="<?php echo JURI::base(); ?>components/com_sermonspeaker/images/series.png" border="0" width="48" height="48" alt="<?php echo JText::_('SERIES'); ?>" /> <?php echo JText::_('SERIESTATS'); ?>
 		</td>
 	</tr>
 	<tr>
@@ -62,7 +62,7 @@ JToolBarHelper::preferences('com_sermonspeaker',550);
 			<td align="left"><?php echo $row->hits; ?></td>
 			<td align="center">
 				<a href="index.php?option=<?php echo $option; ?>&controller=statistics&task=resetcount&table=series&id=<?php echo $row->id; ?>">
-					<img src="<?php echo JURI::root(); ?>components/com_sermonspeaker/images/reset.png" width="16" height="16" border="0" alt="Reset" />
+					<img src="<?php echo JURI::base(); ?>components/com_sermonspeaker/images/reset.png" width="16" height="16" border="0" alt="Reset" />
 				</a>
 			</td>
 		</tr>
@@ -73,7 +73,7 @@ JToolBarHelper::preferences('com_sermonspeaker',550);
 <table border="0" cellpadding="2" cellspacing="0" width="40%" class="adminlist">
 	<tr>
 		<td style="background-color: #6D86BE; color: #CCC;" colspan="4">
-			<img src="<?php echo JURI::root(); ?>components/com_sermonspeaker/images/sermon.png" border="0" width="48" height="48" alt="<?php echo JText::_('SERMONS'); ?>" /> <?php echo JText::_('SERMONSTATS'); ?>
+			<img src="<?php echo JURI::base(); ?>components/com_sermonspeaker/images/sermon.png" border="0" width="48" height="48" alt="<?php echo JText::_('SERMONS'); ?>" /> <?php echo JText::_('SERMONSTATS'); ?>
 		</td>
 	</tr>
 	<tr>
@@ -92,7 +92,7 @@ JToolBarHelper::preferences('com_sermonspeaker',550);
 			<td align="left"><?php echo $row->hits; ?></td>
 			<td align="center">
 				<a href="index.php?option=<?php echo $option; ?>&controller=statistics&task=resetcount&table=sermons&id=<?php echo $row->id; ?>">
-					<img src="<?php echo JURI::root(); ?>components/com_sermonspeaker/images/reset.png" width="16" height="16" border="0" alt="Reset" />
+					<img src="<?php echo JURI::base(); ?>components/com_sermonspeaker/images/reset.png" width="16" height="16" border="0" alt="Reset" />
 				</a>
 			</td>
 		</tr>

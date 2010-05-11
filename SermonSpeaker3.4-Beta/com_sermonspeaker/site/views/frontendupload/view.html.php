@@ -49,10 +49,7 @@ class SermonspeakerViewFrontendupload extends JView
 			if ($params->get('fu_taskname') == $frup) {
 				if ($pwd) {
 					// Form was submitted
-					$parts	= explode(':', $params->get('fu_pwd'));
-					$salt	= $parts[1];
-					$pword	= sha1($pwd.$salt).":".$salt;
-					if ($pword == $params->get('fu_pwd')) {
+					if ($pwd == $params->get('fu_pwd')) {
 						$session->set('loggedin','loggedin');
 						header('HTTP/1.1 303 See Other');
 						header('Location: index.php?option=com_sermonspeaker&view=fu_step_1');

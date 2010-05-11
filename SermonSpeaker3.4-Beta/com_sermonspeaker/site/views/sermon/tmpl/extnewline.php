@@ -43,11 +43,19 @@ $return = SermonspeakerHelperSermonspeaker::insertAddfile($this->row[0]->addfile
 	</tr>
 	<tr>
 		<td valign="top"><b><?php echo JText::_('SERIES'); ?>:</b></td>
-		<td><?php echo $this->escape($this->serie); ?></td>
+		<td>
+			<a href="<?php echo JRoute::_('index.php?view=serie&id='.$this->serie->id); ?>">
+			<?php echo $this->escape($this->serie->series_title); ?>
+			</a>
+		</td>
 	</tr>
 	<tr>
 		<td valign="top"><b><?php echo JText::_('SPEAKER'); ?>:</b></td>
-		<td><?php echo $this->escape($this->speaker->name); ?></td>
+		<td>
+			<a class="modal" href="<?php echo JRoute::_('index.php?view=speaker&layout=popup&id='.$this->speaker->id.'&tmpl=component')?>" rel="{handler: 'iframe', size: {x: 700, y: 500}}">
+			<?php echo JHTML::tooltip('<img src="'.$this->speaker->pic.'" alt="'.$this->escape($this->speaker->name).'"><br>'.$this->escape($this->speaker->name),'','',$this->escape($this->speaker->name)); ?>
+			</a>
+		</td>
 	</tr>
 	<?php if ($this->speaker->pic) { ?>
 	<tr>
