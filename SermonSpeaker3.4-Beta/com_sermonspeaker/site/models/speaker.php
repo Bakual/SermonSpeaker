@@ -44,7 +44,7 @@ class SermonspeakerModelSpeaker extends JModel
 	{
 		$database	= &JFactory::getDBO();
 		if ($this->params->get('limit_speaker') == 1) { 
-			$query	= "SELECT id, sermon_number,sermon_scripture, sermon_title, sermon_time, notes,sermon_date \n"
+			$query	= "SELECT id, sermon_number,sermon_scripture, sermon_title, sermon_time, notes,sermon_date, addfile, addfileDesc \n"
 					. ", CASE WHEN CHAR_LENGTH(alias) THEN CONCAT_WS(':', id, alias) ELSE id END as slug \n"
 					. "FROM #__sermon_sermons \n"
 					. "WHERE  speaker_id='".$this->id."' \n"
@@ -52,7 +52,7 @@ class SermonspeakerModelSpeaker extends JModel
 					. "ORDER BY sermon_date DESC, (sermon_number+0) DESC \n"
 					. "LIMIT ".$this->params->get('sermonresults');
 		} else {
-			$query = "SELECT id, sermon_number,sermon_scripture, sermon_title, sermon_time, notes,sermon_date \n"
+			$query = "SELECT id, sermon_number,sermon_scripture, sermon_title, sermon_time, notes,sermon_date, addfile, addfileDesc \n"
 					. ", CASE WHEN CHAR_LENGTH(alias) THEN CONCAT_WS(':', id, alias) ELSE id END as slug \n"
 					. "FROM #__sermon_sermons \n"
 					. "WHERE  speaker_id='".$this->id."' \n"

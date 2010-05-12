@@ -75,7 +75,7 @@ JToolBarHelper::preferences('com_sermonspeaker',550);
 				<td><?php echo $row->name; ?></td> 
 				<td><?php echo $row->sermon_scripture; ?></td>
 				<td><?php echo $row->series_title; ?></td>
-				<td><?php echo JHtml::date($row->sermon_date,'%x'); ?></td>
+				<td><?php echo JHTML::date($row->sermon_date,'%x'); ?></td>
 				<td><?php echo $row->title; ?></td> 
 				<td align="center"><?php echo $published;?></td>
 				<td align="center"><?php

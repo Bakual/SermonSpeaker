@@ -6,7 +6,7 @@ $sort	= JRequest::getWord('sort','sermondate');
 ?>
 <table width="100%" cellpadding="2" cellspacing="0">
 	<tr class="componentheading">
-		<th align="left" valign="bottom"><?php echo JText::_('SERMFROM')." ".JHtml::Date($this->rows[0]->sermon_date, '%B, %Y', 0); ?></th>
+		<th align="left" valign="bottom"><?php echo JText::_('SERMFROM')." ".JHTML::date($this->rows[0]->sermon_date, '%B, %Y', 0); ?></th>
 	</tr>
 </table>
 <p />
@@ -70,18 +70,15 @@ $sort	= JRequest::getWord('sort','sermondate');
 			</td>
 			<?php if ($this->params->get('client_col_sermon_scripture_reference')){ ?>
 				<td align="left" valign="middle"><?php echo $row->sermon_scripture; ?></td>
-			<?php }
-			if ($row->pic == "") { $row->pic = JURI::root()."components/com_sermonspeaker/images/nopict.jpg"; } ?>
+			<?php } ?>
 			<td>
-				<a class="modal" href="<?php echo JRoute::_('index.php?view=speaker&layout=popup&id='.$row->s_id.'&tmpl=component')?>" rel="{handler: 'iframe', size: {x: 700, y: 500}}">
-				<?php echo JHTML::tooltip('<img src="'.$row->pic.'" alt="'.$row->name.'">',$row->name,'',$row->name); ?>
-				</a>
+				<?php echo SermonspeakerHelperSermonSpeaker::SpeakerTooltip($row->s_id, $row->pic, $row->name); ?>
 			</td>
 			<?php if ($this->params->get('client_col_sermon_date')){ ?>
-				<td align="left" valign="middle"><?php echo JHtml::Date($row->sermon_date,'%x'); ?></td>
+				<td align="left" valign="middle"><?php echo JHTML::date($row->sermon_date,'%x'); ?></td>
 			<?php }
 			if ($this->params->get('client_col_sermon_time')){ ?>
-				<td align="center" valign="middle"><?php echo JHtml::Date($row->sermon_time, '%X', 0); ?></td>
+				<td align="center" valign="middle"><?php echo SermonspeakerHelperSermonspeaker::insertTime($row->sermon_time); ?></td>
 			<?php }
 			if ($this->params->get('client_col_sermon_addfile')) { ?>
 				<td><?php echo SermonspeakerHelperSermonspeaker::insertAddfile($row->addfile, $row->addfileDesc); ?></td>

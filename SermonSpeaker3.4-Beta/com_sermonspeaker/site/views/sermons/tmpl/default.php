@@ -59,18 +59,15 @@ $sort	= JRequest::getWord('sort','sermondate');
 				<?php echo $row->sermon_title; ?>
 			</a>
 		</td>
-		<?php if ($this->params->get('client_col_sermon_scripture_reference')) { echo "<td>".$this->escape($row->sermon_scripture)."</td>\n"; }
-		if ($row->pic == "") { $row->pic = JURI::root()."components/com_sermonspeaker/images/nopict.jpg"; } ?>
+		<?php if ($this->params->get('client_col_sermon_scripture_reference')) { echo "<td>".$this->escape($row->sermon_scripture)."</td>\n"; } ?>
 		<td>
-			<a class="modal" href="<?php echo JRoute::_('index.php?view=speaker&layout=popup&id='.$row->s_id.'&tmpl=component')?>" rel="{handler: 'iframe', size: {x: 700, y: 500}}">
-			<?php echo JHTML::tooltip('<img src="'.$row->pic.'" alt="'.$row->name.'">',$row->name,'',$row->name); ?>
-			</a>
+			<?php echo SermonspeakerHelperSermonSpeaker::SpeakerTooltip($row->s_id, $row->pic, $row->name); ?>
 		</td>
 		<?php
 		if ($this->params->get('client_col_sermon_date')) {
-			echo "<td align=\"left\" valign=\"middle\">" . JHtml::_('date', $row->sermon_date, '%x', 0) . "</td>\n";
+			echo "<td align=\"left\" valign=\"middle\">" . JHTML::date($row->sermon_date, '%x', 0) . "</td>\n";
 		}
-		if ($this->params->get('client_col_sermon_time')) { echo "<td align=\"center\">".JHtml::Date($row->sermon_time, '%X', 0)."</td>\n"; }
+		if ($this->params->get('client_col_sermon_time')) { echo "<td align=\"center\">".SermonspeakerHelperSermonspeaker::insertTime($row->sermon_time)."</td>\n"; }
 		if ($this->params->get('client_col_sermon_addfile')) { ?>
 			<td><?php echo SermonspeakerHelperSermonspeaker::insertAddfile($row->addfile, $row->addfileDesc); ?></td>
 		<?php }

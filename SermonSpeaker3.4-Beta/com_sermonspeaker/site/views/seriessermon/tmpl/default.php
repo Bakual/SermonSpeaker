@@ -37,7 +37,7 @@ $Itemid	= JRequest::getInt('Itemid');
 				<?php
 				foreach($sermons as $sermon) { ?>
 					<p><b><?php echo $this->escape($sermon->sermon_title); ?></b>
-					(<?php echo JHtml::_('date', $sermon->sermon_date, '%x', 0); ?>)<br />
+					(<?php echo JHTML::date($sermon->sermon_date, '%x', 0); ?>)<br />
 					<?php echo $this->escape($sermon->notes); ?><br />
 					<?php $return = SermonspeakerHelperSermonspeaker::insertAddfile($sermon->addfile, $sermon->addfileDesc);
 					if ($return != NULL) {

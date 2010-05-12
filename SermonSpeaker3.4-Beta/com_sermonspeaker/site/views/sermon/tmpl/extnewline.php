@@ -35,7 +35,7 @@ $return = SermonspeakerHelperSermonspeaker::insertAddfile($this->row[0]->addfile
 	<?php } ?>
 	<tr>
 		<td valign="top"><b><?php echo JText::_('SERMON_DATE'); ?>:</b></td>
-		<td><?php echo JHtml::_('date', $this->row[0]->sermon_date, '%x', 0); ?></td>
+		<td><?php echo JHTML::date($this->row[0]->sermon_date, '%x', 0); ?></td>
 	</tr>
 	<tr>
 		<td valign="top"><b><?php echo JText::_('SCRIPTURE'); ?>:</b></td>
@@ -51,11 +51,8 @@ $return = SermonspeakerHelperSermonspeaker::insertAddfile($this->row[0]->addfile
 	</tr>
 	<tr>
 		<td valign="top"><b><?php echo JText::_('SPEAKER'); ?>:</b></td>
-		<?php if ($this->speaker->pic == "") { $this->speaker->pic = JURI::root()."components/com_sermonspeaker/images/nopict.jpg"; }?>
 		<td>
-			<a class="modal" href="<?php echo JRoute::_('index.php?view=speaker&layout=popup&id='.$this->speaker->id.'&tmpl=component')?>" rel="{handler: 'iframe', size: {x: 700, y: 500}}">
-			<?php echo JHTML::tooltip('<img src="'.$this->speaker->pic.'" alt="'.$this->escape($this->speaker->name).'">',$this->escape($this->speaker->name),'',$this->escape($this->speaker->name)); ?>
-			</a>
+			<?php echo SermonspeakerHelperSermonSpeaker::SpeakerTooltip($this->speaker->id, $this->speaker->pic, $this->speaker->name); ?>
 		</td>
 	</tr>
 	<?php if ($this->speaker->pic) { ?>
@@ -66,7 +63,7 @@ $return = SermonspeakerHelperSermonspeaker::insertAddfile($this->row[0]->addfile
 	<?php } ?>
 	<tr>
 		<td valign="top"><b><?php echo JText::_('SERMONTIME'); ?>:</b></td>
-		<td><?php echo JHtml::Date($this->row[0]->sermon_time, '%X', 0); ?></td>
+		<td><?php echo SermonspeakerHelperSermonspeaker::insertTime($this->row[0]->sermon_time); ?></td>
 	</tr>
 	<tr>
 		<td valign="top"><b><?php echo JText::_('HITS'); ?>:</b></td>

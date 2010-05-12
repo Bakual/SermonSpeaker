@@ -53,9 +53,6 @@ JHTML::_('behavior.tooltip');
 		foreach($this->rows as $row) { 
 			echo "<tr class=\"row$i\">\n"; 
 			$i = 1 - $i;
-			if ($row->pic == "") {
-				$row->pic = JURI::root()."components/com_sermonspeaker/images/nopict.jpg";
-			}
 			if( $this->params->get('client_col_sermon_number')){ ?>
 				<td><?php echo $row->sermon_number; ?></td>
 			<?php } ?>
@@ -69,15 +66,13 @@ JHTML::_('behavior.tooltip');
 					<td align="left" valign="top" ><?php echo $row->sermon_scripture; ?></td>
 				<?php } ?>
 				<td align="left" valign="top">
-					<a class="modal" href="<?php echo JRoute::_('index.php?view=speaker&layout=popup&id='.$row->s_id.'&tmpl=component')?>" rel="{handler: 'iframe', size: {x: 700, y: 500}}">
-					<?php echo JHTML::tooltip('<img src="'.$row->pic.'" alt="'.$row->name.'">',$row->name,'',$row->name); ?>
-					</a>
+					<?php echo SermonspeakerHelperSermonSpeaker::SpeakerTooltip($row->s_id, $row->pic, $row->name); ?>
 				</td>
 				<?php if( $this->params->get('client_col_sermon_date')){ ?>
-					<td align="left" valign="top" ><?php echo JHtml::_('date', $row->sermon_date, '%x', 0); ?></td>
+					<td align="left" valign="top" ><?php echo JHTML::date($row->sermon_date, '%x', 0); ?></td>
 				<?php }
 				if( $this->params->get('client_col_sermon_time')){ ?>
-					<td><?php echo JHtml::_('date', $row->sermon_time, '%X', 0); ?></td>
+					<td><?php echo SermonspeakerHelperSermonspeaker::insertTime($row->sermon_time); ?></td>
 				<?php }
 				if ($this->params->get('client_col_sermon_addfile')) { ?>
 					<td><?php echo SermonspeakerHelperSermonspeaker::insertAddfile($row->addfile, $row->addfileDesc); ?></td>

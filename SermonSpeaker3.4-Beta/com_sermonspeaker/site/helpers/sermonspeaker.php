@@ -6,6 +6,18 @@ defined('_JEXEC') or die('Restricted access');
  */
 class SermonspeakerHelperSermonspeaker
 {
+	function SpeakerTooltip($id, $pic, $name) {
+		if ($pic == "") { // check if there is no picture and set nopict.jpg
+			$pic = JURI::root().'components/com_sermonspeaker/images/nopict.jpg';
+		} elseif (substr($pic,0,7) != "http://"){ // check if the picture is locally and add the Root to it
+			$pic = JURI::root().$pic;
+		}
+		$speaker = '<a class="modal" href="'.JRoute::_('index.php?view=speaker&layout=popup&id='.$id.'&tmpl=component').'" rel="{handler: \'iframe\', size: {x: 700, y: 500}}">';
+		$speaker .= JHTML::tooltip('<img src="'.$pic.'" alt="'.$name.'">',$name,'',$name).'</a>';
+		
+		return $speaker;
+	}
+		
 	function insertAddfile($addfile, $addfileDesc) {
 		$params	=& JComponentHelper::getParams('com_sermonspeaker');
 		$path = $params->get('path');
@@ -124,7 +136,7 @@ class SermonspeakerHelperSermonspeaker
 		return ($pp_h."/".$pp_w);
 	}
 
-	function insertTime( $time ) {
+	function insertTime($time) {
 		$tmp = explode(":",$time);
 		if ($tmp[0] == 0) {
 			$return = $tmp[1].":".$tmp[2];

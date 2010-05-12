@@ -64,7 +64,7 @@ class SermonspeakerModelSeries extends JModel
 	function getData()
 	{
 		$database =& JFactory::getDBO();
-		$query = 'SELECT j.id, j.speaker_id, l.name, j.series_title, j.series_description, j.published, j.ordering, j.hits, j.created_by, j.created_on, j.avatar'
+		$query = 'SELECT j.id, j.speaker_id, l.name, j.series_title, j.series_description, j.published, j.ordering, j.hits, j.created_by, j.created_on, j.avatar, l.id as s_id, l.pic'
         . ' FROM #__sermon_series j'
         . ' LEFT JOIN #__sermon_speakers l ON j.speaker_id = l.id'
         . ' WHERE j.published = \'1\''

@@ -258,7 +258,7 @@ function com_install() {
 		//Speaker
 		$query = "INSERT INTO `#__sermon_speakers` "
 			."(`id`,`name`,`website`,`intro`,`bio`,`pic`,`published`,`ordering`,`hits`,`created_by`,`created_on`) VALUES"
-			."(9999,'Billy Sunday','http://joomlacode.org/gf/project/sermon_speaker/','Billy Sunday died in Chicago, November 6, 1935; services were held in the Moody Memorial Church with 4,400 present. Take 15 minutes each day to listen to God talking to you; take 15 minutes each day to talk to God; take 15 minutes each day to talk to others about God.','This young convert was deeply impressed and determined to make these the rules of his life. From that day onward throughout his life he made it a rule to spend the first moments of his day alone with God and God\'s Word. Before he read a letter, looked at a paper or even read a telegram, he went first to the Bible, that the first impression of the day might be what he got directly from God.','./components/com_sermonspeaker/media/default_speaker.jpg',1,0,9,62,'1901-03-28')";
+			."(9999,'Billy Sunday','http://joomlacode.org/gf/project/sermon_speaker/','Billy Sunday died in Chicago, November 6, 1935; services were held in the Moody Memorial Church with 4,400 present. Take 15 minutes each day to listen to God talking to you; take 15 minutes each day to talk to God; take 15 minutes each day to talk to others about God.','This young convert was deeply impressed and determined to make these the rules of his life. From that day onward throughout his life he made it a rule to spend the first moments of his day alone with God and God\'s Word. Before he read a letter, looked at a paper or even read a telegram, he went first to the Bible, that the first impression of the day might be what he got directly from God.','components/com_sermonspeaker/media/default_speaker.jpg',1,0,9,62,'1901-03-28')";
 		$database->setQuery( $query );
 		$database->Query();
   
@@ -326,6 +326,30 @@ function com_install() {
 	}
 	if (file_exists(JPATH_SITE.DS.'components'.DS.'com_sermonspeaker'.DS.'sermoncast.php')){ 
 		$files[] = JPATH_SITE.DS.'components'.DS.'com_sermonspeaker'.DS.'sermoncast.php';
+	}
+	if (file_exists(JPATH_SITE.DS.'components'.DS.'com_sermonspeaker'.DS.'images'.DS.'controlpanel.png')){ 
+		$files[] = JPATH_SITE.DS.'components'.DS.'com_sermonspeaker'.DS.'images'.DS.'controlpanel.png';
+	}
+	if (file_exists(JPATH_SITE.DS.'components'.DS.'com_sermonspeaker'.DS.'images'.DS.'help.png')){ 
+		$files[] = JPATH_SITE.DS.'components'.DS.'com_sermonspeaker'.DS.'images'.DS.'help.png';
+	}
+	if (file_exists(JPATH_SITE.DS.'components'.DS.'com_sermonspeaker'.DS.'images'.DS.'sermon.png')){ 
+		$files[] = JPATH_SITE.DS.'components'.DS.'com_sermonspeaker'.DS.'images'.DS.'sermon.png';
+	}
+	if (file_exists(JPATH_SITE.DS.'components'.DS.'com_sermonspeaker'.DS.'images'.DS.'series.png')){ 
+		$files[] = JPATH_SITE.DS.'components'.DS.'com_sermonspeaker'.DS.'images'.DS.'series.png';
+	}
+	if (file_exists(JPATH_SITE.DS.'components'.DS.'com_sermonspeaker'.DS.'images'.DS.'reset.png')){ 
+		$files[] = JPATH_SITE.DS.'components'.DS.'com_sermonspeaker'.DS.'images'.DS.'reset.png';
+	}
+	if (file_exists(JPATH_SITE.DS.'components'.DS.'com_sermonspeaker'.DS.'images'.DS.'speakers.png')){ 
+		$files[] = JPATH_SITE.DS.'components'.DS.'com_sermonspeaker'.DS.'images'.DS.'speakers.png';
+	}
+	if (file_exists(JPATH_SITE.DS.'components'.DS.'com_sermonspeaker'.DS.'images'.DS.'stats.png')){ 
+		$files[] = JPATH_SITE.DS.'components'.DS.'com_sermonspeaker'.DS.'images'.DS.'stats.png';
+	}
+	if (file_exists(JPATH_SITE.DS.'components'.DS.'com_sermonspeaker'.DS.'images'.DS.'upload.png')){ 
+		$files[] = JPATH_SITE.DS.'components'.DS.'com_sermonspeaker'.DS.'images'.DS.'upload.png';
 	}
 	if (isset($files)){
 		foreach ($files as $file){

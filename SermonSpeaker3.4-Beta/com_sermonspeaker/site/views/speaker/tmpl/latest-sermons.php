@@ -59,7 +59,8 @@ $Itemid	= JRequest::getInt('Itemid');
 					<?php }
 					if ($this->params->get('client_col_sermon_time')) { ?>
 					<th width="10%" align="center" valign="bottom"><?php echo JText::_('SERMONTIME'); ?></th>
-					<?php } ?>
+					<?php }
+					if ($this->params->get('client_col_sermon_addfile')) { echo "<th align=\"left\">".JText::_('ADDFILE')."</th>\n"; }?>
 				</tr>
 			<?php if( $this->sermons ) {
 			$i = 0;
@@ -80,11 +81,14 @@ $Itemid	= JRequest::getInt('Itemid');
 						echo "<td align=\"left\" valign=\"middle\" >$sermon->sermon_scripture</td>";
 					}
 					if( $this->params->get('client_col_sermon_date')){
-						echo "<td align=\"left\" valign=\"middle\">".JHtml::_('date',$sermon->sermon_date,'%x',0)."</td>";
+						echo "<td align=\"left\" valign=\"middle\">".JHTML::date($sermon->sermon_date,'%x',0)."</td>";
 					}
 					if( $this->params->get('client_col_sermon_time')){
 						echo "<td align=\"center\" valign=\"middle\">".SermonspeakerHelperSermonspeaker::insertTime($sermon->sermon_time)."</td>";
 					}
+					if ($this->params->get('client_col_sermon_addfile')) { ?>
+						<td><?php echo SermonspeakerHelperSermonspeaker::insertAddfile($sermon->addfile, $sermon->addfileDesc); ?></td>
+					<?php }
 					echo "</tr>";
 				} // end of foreach
 			} ?>

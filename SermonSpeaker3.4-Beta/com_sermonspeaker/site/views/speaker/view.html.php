@@ -25,13 +25,15 @@ class SermonspeakerViewSpeaker extends JView
 
 		if ($this->getLayout() == "latest-sermons") {
 			$sermons	= &$this->get('Sermons');		// getting the Sermons from the Model
-			$breadcrumbs->addItem( $row->name.": ".JText::_('LATEST_SERMONS'), '' );
-		  	if ($params->get('limit_speaker') == "1") {
+		  	if ($params->get('limit_speaker') == 1) {
 				$title = JText::_('LATEST')." ".$params->get('sermonresults')." ".JText::_('SERMONS_OF')." ".$row->name;
+				$bread = JText::_('LATEST')." ".$params->get('sermonresults')." ".JText::_('SERMONS');
 			} else {
 				$title = JText::_('SERMONS_OF')." ".$row->name;
+				$bread = JText::_('SERMONS');
 			}
-			$document->setTitle($document->getTitle() . ' | ' .JText::_('LATEST_SERMONS').' - '.$row->name);
+			$breadcrumbs->addItem($row->name.': '.$bread, '');
+			$document->setTitle($document->getTitle().' | '.$title);
 		} elseif ($this->getLayout() == "popup") {
 			$title = $row->name;
 		} else {
@@ -46,7 +48,7 @@ class SermonspeakerViewSpeaker extends JView
 			}
 			$this->assignRef('av',$av);
 			$document->setTitle($document->getTitle() . ' | ' .JText::_('SINGLESPEAKER').' - '.$row->name);
-			$breadcrumbs->addItem( $row->name.": ".JText::_('SERIES'), '' );
+			$breadcrumbs->addItem( $row->name.": ".JText::_('SINGLESPEAKER'), '' );
 			$title = $row->name;
 		}
 

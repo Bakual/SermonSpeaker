@@ -38,7 +38,9 @@ $Itemid	= JRequest::getInt('Itemid');
 			}
 			?> 
     		<td align="left"><a href="<?php echo JRoute::_( "index.php?option=$option&view=serie&id=$row->id&Itemid=$Itemid" ); ?>"><?php echo $row->series_title; ?></a></td>
-    		<td align="left"><?php echo $row->name; ?></td>
+    		<td align="left">
+				<?php echo SermonspeakerHelperSermonspeaker::SpeakerTooltip($row->s_id, $row->pic, $row->name); ?>
+			</td>
 			</tr>
     	<?php } ?>
 </table>
