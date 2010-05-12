@@ -2,12 +2,12 @@
 <install type="component" version="1.5" method="upgrade"> 
 	<name>SermonSpeaker</name>
 	<author>Martin Hess</author>
-	<creationDate>Maerz 2010</creationDate>
+	<creationDate>Mai 2010</creationDate>
 	<copyright>(C) 2010</copyright>
 	<authorEmail>martin.zh@gmail.com</authorEmail>
 	<authorUrl>http://joomlacode.org/gf/project/sermon_speaker/</authorUrl>
 	<version>3.4</version>
-	<license>Freeware</license>
+	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
 	<description><![CDATA[
 		<div align="center">
 			<table border="0" width="90%">

@@ -2,13 +2,13 @@
 <install type="module" version="1.5.0" method="upgrade">
 	<name>Sermoncast</name>
 	<author>Martin Hess</author>
-	<creationDate>Maerz 2010</creationDate>
-	<copyright>(C) 2008 - 2009</copyright>
+	<creationDate>Mai 2010</creationDate>
+	<copyright>(C) 2010</copyright>
 	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
 	<authorEmail>martin.zh@gmail.com</authorEmail>
 	<authorUrl>http://joomlacode.org/gf/project/sermon_speaker/</authorUrl>
 	<version>3.4</version>
-	<description>This module provides podcasting functionality for SermonSpeaker. It is based on the mod_podcast module from Joseph LeBlanc.</description>
+	<description>This module provides podcasting functionality for SermonSpeaker 3.4. It is based on the mod_podcast module from Joseph LeBlanc.</description>
 	<files>
 		<filename module="mod_sermoncast">mod_sermoncast.php</filename>
 		<filename>podcast-mini.gif</filename>

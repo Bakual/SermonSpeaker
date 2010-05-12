@@ -5,10 +5,6 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
 global $cur_template;
 
-// require_once(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_sermonspeaker'.DS.'sermoncastconfig.sermonspeaker.php');
-// $conf = & new sermonCastConfig;
-// neu mittels JoomlaParameter gelöst, $params wird automatisch von Joomla geliefert
-
 JHTML::_('behavior.tooltip');
 JHTML::_('behavior.modal');
 

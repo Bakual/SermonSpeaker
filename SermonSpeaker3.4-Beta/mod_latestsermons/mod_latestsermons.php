@@ -3,10 +3,6 @@
 defined( '_JEXEC' ) or die( 'Restricted access' );
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
-// require_once(JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_sermonspeaker'.DS.'config.sermonspeaker.php');
-// $config = new sermonConfig;
-// neu mittels JoomlaParameter gelöst, $params wird automatisch von Joomla geliefert
-
 if ($params->get('ls_show_mouseover')) { 
 	JHTML::_('behavior.tooltip');
 } //include only if needed...
