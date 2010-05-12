@@ -17,8 +17,6 @@ $sort	= JRequest::getWord('sort','sermondate');
 	$link = 'index.php?view=sermons&sort=';
 	if ($sort == "sermondate") { $sortheader = JText::_('SERDATE').' | '; }
 	else { $sortheader = '<a title="'.JText::_('SORTDATE').'" href="'.JRoute::_($link.'sermondate').'">'.JText::_('SERDATE').'</a> | '; }
-	if ($sort == "mostrecentlypublished") { $sortheader .= JText::_('SERPUB').' | '; }
-	else { $sortheader .= '<a title="'.JText::_('SORTPUB').'" href="'.JRoute::_($link.'mostrecentlypublished').'">'.JText::_('SERPUB').'</a> | '; }
 	if ($sort == "mostviewed") { $sortheader .= JText::_('SERVIEW').' | '; }
 	else { $sortheader .= '<a title="'.JText::_('SORTVIEW').'" href="'.JRoute::_($link.'mostviewed').'">'.JText::_('SERVIEW').'</a> | '; }
 	if ($sort == "alphabetically") { $sortheader .= JText::_('SERALPH').' | '; }

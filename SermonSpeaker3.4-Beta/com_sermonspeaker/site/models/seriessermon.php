@@ -69,7 +69,6 @@ class SermonspeakerModelSeriessermon extends JModel
         . ' FROM #__sermon_series j'
 		. ' LEFT JOIN #__sermon_speakers k ON j.speaker_id = k.id'
         . ' WHERE j.published = 1 '
-        . ' AND k.published = 1 '
 		.$this->catwhere
         . ' ORDER BY j.ordering , j.id desc '
         . ' LIMIT '.$this->getState('limitstart').','.$this->getState('limit'); 
