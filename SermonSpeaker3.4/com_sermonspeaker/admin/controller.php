@@ -3,7 +3,7 @@ defined('_JEXEC') or die('Restricted access');
 
 jimport('joomla.application.component.controller');
 
-class SermonSpeakerController extends JController { 
+class SermonspeakerController extends JController { 
 /*	function __construct() {
 		 registerDefaultTask('display');
 	} */
