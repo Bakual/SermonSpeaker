@@ -73,7 +73,7 @@ $sort	= JRequest::getWord('sort','sermondate');
 				<?php echo SermonspeakerHelperSermonSpeaker::SpeakerTooltip($row->s_id, $row->pic, $row->name); ?>
 			</td>
 			<?php if ($this->params->get('client_col_sermon_date')){ ?>
-				<td align="left" valign="middle"><?php echo JHTML::date($row->sermon_date,'%x'); ?></td>
+				<td align="left" valign="middle"><?php echo JHTML::date($row->sermon_date, '%x', 0); ?></td>
 			<?php }
 			if ($this->params->get('client_col_sermon_time')){ ?>
 				<td align="center" valign="middle"><?php echo SermonspeakerHelperSermonspeaker::insertTime($row->sermon_time); ?></td>

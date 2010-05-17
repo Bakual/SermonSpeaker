@@ -25,7 +25,7 @@ if(count($rows)) {
 	echo '<ul>';
 	foreach ( $rows as $row ) {
 		$link = 'index.php?option=com_sermonspeaker&amp;view=archive&amp;year='.$row->created_year.'&amp;month='.$row->created_month.'&amp;Itemid='.$sermonspeaker_itemid;
-		$text = JHTML::date($row->sermon_date, '%B').', '.JHTML::date($row->sermon_date, '%Y');
+		$text = JHTML::date($row->sermon_date, '%B', 0).', '.JHTML::date($row->sermon_date, '%Y', 0);
 		?>
 		<li><a href="<?php echo JURI::root().$link; ?>"><?php echo $text; ?></a></li>
 		<?php
