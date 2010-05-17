@@ -57,7 +57,7 @@ $disabled = $ordering ?  '' : 'disabled="disabled"';
 	</thead> 
 	<!-- Pagination Footer -->
 	<tfoot>
-		<tr><td colspan="10"><?php echo $this->pagination->getListFooter(); ?></td></tr>
+		<tr><td colspan="9"><?php echo $this->pagination->getListFooter(); ?></td></tr>
 	</tfoot>
 	<tbody>
 		<?php

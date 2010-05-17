@@ -56,7 +56,7 @@ JToolBarHelper::preferences('com_sermonspeaker',550);
 	</thead> 
 	<!-- Pagination Footer -->
 	<tfoot>
-		<tr><td colspan="10"><?php echo $this->pagination->getListFooter(); ?></td></tr>
+		<tr><td colspan="11"><?php echo $this->pagination->getListFooter(); ?></td></tr>
 	</tfoot>
 	<tbody>
 		<?php
