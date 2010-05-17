@@ -89,8 +89,8 @@ class SermonspeakerModelSermons extends JModel
 		// Query bilden
         $query = "SELECT sermons.*, speaker.name, series.series_title, cc.title \n"
 				."FROM #__sermon_sermons AS sermons \n"
-				."LEFT JOIN #__sermon_speakers AS speaker ON speaker_id = speaker.id \n"
-				."LEFT JOIN #__sermon_series AS series ON series_id = series.id \n"
+				."LEFT JOIN #__sermon_speakers AS speaker ON sermons.speaker_id = speaker.id \n"
+				."LEFT JOIN #__sermon_series AS series ON sermons.series_id = series.id \n"
 				."LEFT JOIN #__categories AS cc ON cc.id = sermons.catid \n"
 				.$where
 				.$orderby;
