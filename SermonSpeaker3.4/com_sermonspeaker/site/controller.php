@@ -41,7 +41,7 @@ class SermonspeakerController extends JController
 	function download () {
 		$id = JRequest::getInt('id');
 		$database =& JFactory::getDBO();
-		$query="SELECT sermon_path FROM #__sermon_sermons WHERE id=".$id.";";
+		$query="SELECT sermon_path FROM #__sermon_sermons WHERE id = ".$id;
 		$database->setQuery( $query );
 		$result = rtrim($database->loadResult());
 

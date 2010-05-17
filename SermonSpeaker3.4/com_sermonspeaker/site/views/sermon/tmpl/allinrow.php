@@ -67,7 +67,7 @@ $countcolumn = NULL; // will count optional columns so the popup button may span
 	<tr>
 		<?php
 		if ($this->params->get('dl_button') == "1" && strlen($this->row[0]->sermon_path) > 0) {
-			echo SermonspeakerHelperSermonspeaker::insertdlbutton($option,$id,$Itemid,$this->row[0]->sermon_path);
+			echo SermonspeakerHelperSermonspeaker::insertdlbutton($id, $this->row[0]->sermon_path);
 		}
 		if ($this->params->get('popup_player') == "1" && strlen($this->row[0]->sermon_path) > 0) {
 			echo "<td colspan='".$countcolumn."'><input class=\"popup_btn\" type=\"button\" name=\"".JText::_('POPUP_PLAYER')."\" value=\"".JText::_('POPUP_PLAYER')."\" onClick=\"popup = window.open('".JRoute::_("index.php?view=sermon&layout=popup&id=$id&tmpl=component")."', 'PopupPage', 'height=".$pp_h.",width=".$pp_w.",scrollbars=yes,resizable=yes'); return false\"></td>";

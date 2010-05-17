@@ -45,7 +45,7 @@ $return = SermonspeakerHelperSermonspeaker::insertAddfile($this->row[0]->addfile
 	<?php if ($this->params->get('dl_button') == "1" && strlen($this->row[0]->sermon_path) > 0) { ?>
 		<tr>
 			<td></td>
-			<?php echo SermonspeakerHelperSermonspeaker::insertdlbutton($option,$id,$Itemid,$this->row[0]->sermon_path); ?>
+			<?php echo SermonspeakerHelperSermonspeaker::insertdlbutton($id, $this->row[0]->sermon_path); ?>
 		</tr>
 		<?php }
 		if ($this->params->get('popup_player') == "1" && strlen($this->row[0]->sermon_path) > 0) { ?>

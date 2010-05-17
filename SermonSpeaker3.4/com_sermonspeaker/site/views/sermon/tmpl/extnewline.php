@@ -23,7 +23,7 @@ $return = SermonspeakerHelperSermonspeaker::insertAddfile($this->row[0]->addfile
 			<td></td>
 			<?php
 			$id = $this->row[0]->id;
-			echo SermonspeakerHelperSermonspeaker::insertdlbutton($option,$id,$Itemid,$this->row[0]->sermon_path);
+			echo SermonspeakerHelperSermonspeaker::insertdlbutton($id, $this->row[0]->sermon_path);
 			?>
 		</tr>
 		<?php }
@@ -93,7 +93,7 @@ $return = SermonspeakerHelperSermonspeaker::insertAddfile($this->row[0]->addfile
 	if ($this->params->get('popup_player') == "1") { 
 	?>
 		<tr><td></td>
-		<td><input style="font-size:12px;color:#000066;font-family:verdana;" type="button" name="<?php echo JText::_('POPUP_PLAYER'); ?>" value="<?php echo JText::_('POPUP_PLAYER'); ?>" onclick="popup = window.open('<?php echo JRoute::_("index.php?view=sermon&layout=popup&id=$id&tmpl=component"); ?>', 'PopupPage', 'height=<?php echo $pp_h.",width=".$pp_w; ?>,scrollbars=yes,resizable=yes'); return false" /></td></tr>
+		<td><input class="popup_btn" type="button" name="<?php echo JText::_('POPUP_PLAYER'); ?>" value="<?php echo JText::_('POPUP_PLAYER'); ?>" onclick="popup = window.open('<?php echo JRoute::_("index.php?view=sermon&layout=popup&id=$id&tmpl=component"); ?>', 'PopupPage', 'height=<?php echo $pp_h.",width=".$pp_w; ?>,scrollbars=yes,resizable=yes'); return false" /></td></tr>
 	<?php }
 	$return = SermonspeakerHelperSermonspeaker::insertAddfile($this->row[0]->addfile, $this->row[0]->addfileDesc);
 	if ($return != NULL) { ?>
