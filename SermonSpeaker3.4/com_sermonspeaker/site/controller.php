@@ -41,21 +41,21 @@ class SermonspeakerController extends JController
 	function download () {
 		$id = JRequest::getInt('id');
 		$database =& JFactory::getDBO();
-		$query="SELECT sermon_path FROM #__sermon_sermons WHERE id = ".$id;
-		$database->setQuery( $query );
+		$query = "SELECT sermon_path FROM #__sermon_sermons WHERE id = ".$id;
+		$database->setQuery($query);
 		$result = rtrim($database->loadResult());
 
-		if (substr($row[0]->sermon_path,0,7) == "http://"){
+		if (substr($result,0,7) == "http://"){ // cancel if link goes to an external source
 			exit;
 		}
-		$file = str_replace('\\','/',JPATH_ROOT.$result);
-		$filename = explode("/", $file ); 
+		$file = str_replace('\\', '/', JPATH_ROOT.$result);
+		$filename = explode("/", $file); 
 		$filename = array_reverse($filename); 
 
 		if(ini_get('zlib.output_compression')) {
 			ini_set('zlib.output_compression', 'Off');
 		}
-		if ( file_exists($file) ) {
+		if (file_exists($file)) {
 			header("Pragma: public");
 			header('Expires: '.gmdate('D, d M Y H:i:s').' GMT');
 			header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
