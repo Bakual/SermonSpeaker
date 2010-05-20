@@ -33,7 +33,8 @@ foreach($rows as $row) {
 			$tips[] = JText::_('SERIE').": ".trim($row->series_title);
 		}
 		if ($params->get('ls_show_mo_date')) {
-			$tips[] = JText::_('SERMON_DATE').": ".JHtml::_('date', $row->sermon_date, '%x', 0);
+			$date_format = $params->get('ls_date_format', '%x');
+			$tips[] = JText::_('SERMON_DATE').": ".JHtml::Date($row->sermon_date, $date_format, 0);
 		}
 		$tip = implode("<br>", $tips);
 		$title = htmlspecialchars(stripslashes($row->sermon_title),ENT_QUOTES);

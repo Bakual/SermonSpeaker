@@ -35,5 +35,6 @@
 			<option value="0">No</option>
 			<option value="1">Yes</option>
 		</param>
+		<param name="ls_date_format" type="text" default="" label="LS_DATE_FORMAT" description="LS_DATE_FORMAT_DESC" />
 	</params>
 </install>
