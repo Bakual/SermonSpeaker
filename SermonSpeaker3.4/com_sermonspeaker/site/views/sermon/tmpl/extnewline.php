@@ -5,6 +5,7 @@ $Itemid	= JRequest::getInt('Itemid');
 global $option;
 if ($this->params->get('ga')) { $callback = "&callback=".$this->params->get('ga'); }
 $return = SermonspeakerHelperSermonspeaker::insertAddfile($this->row[0]->addfile, $this->row[0]->addfileDesc);
+$id = $this->row[0]->id;
 ?>
 <table width="100%" cellpadding="2" cellspacing="0">
 	<tr class="componentheading">
@@ -22,7 +23,6 @@ $return = SermonspeakerHelperSermonspeaker::insertAddfile($this->row[0]->addfile
 		<tr>
 			<td></td>
 			<?php
-			$id = $this->row[0]->id;
 			echo SermonspeakerHelperSermonspeaker::insertdlbutton($id, $this->row[0]->sermon_path);
 			?>
 		</tr>
