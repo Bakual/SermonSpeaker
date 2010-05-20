@@ -72,7 +72,7 @@ $return = SermonspeakerHelperSermonspeaker::insertAddfile($this->row[0]->addfile
 	<?php if ($this->params->get('client_col_sermon_notes') && strlen($this->row[0]->notes) > 0){ ?>
 		<tr>
 			<td valign="top"><b><?php echo JText::_('SERMONNOTES'); ?>:</b></td>
-			<td><?php echo $this->escape($this->row[0]->notes); ?></td>
+			<td><?php echo $this->row[0]->notes; ?></td>
 		</tr>
 	<?php }
 	if ($this->params->get('client_col_player')){ ?>

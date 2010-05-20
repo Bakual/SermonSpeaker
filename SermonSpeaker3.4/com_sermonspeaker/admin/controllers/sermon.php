@@ -51,6 +51,8 @@ class SermonspeakerControllerSermon extends SermonspeakerController
 
 		$row = &JTable::getInstance('sermons', 'Table');
 		$post = JRequest::get('post');
+		// get the Text Area 'notes' again, but not full *cleaned* by JRequest.
+		$post['notes'] = JRequest::getVar('notes', '', 'post', 'string', JREQUEST_ALLOWRAW);
 		if ($post['sermon_path_choice']){
 			$post['sermon_path'] = $post['sermon_path_choice'];
 			unset($post['sermon_path_choice']);
