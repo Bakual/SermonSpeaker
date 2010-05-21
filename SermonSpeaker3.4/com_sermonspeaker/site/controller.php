@@ -63,7 +63,7 @@ class SermonspeakerController extends JController
 			ini_set('zlib.output_compression', 'Off');
 		}
 		if (file_exists($file)) {
-			if(ini_get('memory_limit'){
+			if(ini_get('memory_limit')){
 				ini_set('memory_limit','-1'); // if present overriding the memory_limit for php so big mp3 files can be downloaded.
 			}
 			header("Pragma: public");
