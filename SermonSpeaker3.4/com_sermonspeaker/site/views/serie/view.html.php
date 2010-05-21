@@ -45,7 +45,7 @@ class SermonspeakerViewSerie extends JView
 		// Set Meta
 		$document =& JFactory::getDocument();
 		$document->setTitle($document->getTitle().' | '.JText::_('SINGLESERIES').": ".$serie[0]->series_title);
-		$document->setMetaData("description",$serie[0]->series_description);
+		$document->setMetaData("description",strip_tags($serie[0]->series_description));
 		$document->setMetaData("keywords",$serie[0]->series_title);
 
         // push data into the template
