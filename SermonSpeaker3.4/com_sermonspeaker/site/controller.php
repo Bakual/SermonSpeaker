@@ -40,22 +40,32 @@ class SermonspeakerController extends JController
 
 	function download () {
 		$id = JRequest::getInt('id');
+		if ($id == ''){
+			die("<html><body OnLoad=\"javascript: alert('I have no clue what you want to download...');history.back();\" bgcolor=\"#F0F0F0\"></body></html>");
+		}
 		$database =& JFactory::getDBO();
 		$query = "SELECT sermon_path FROM #__sermon_sermons WHERE id = ".$id;
 		$database->setQuery($query);
-		$result = rtrim($database->loadResult());
+		$result = $database->loadResult() or die ("<html><body OnLoad=\"javascript: alert('Encountered an error while accessing the database');history.back();\" bgcolor=\"#F0F0F0\"></body></html>");
+		$result = rtrim($result);
 
 		if (substr($result,0,7) == "http://"){ // cancel if link goes to an external source
-			exit;
+			die("<html><body OnLoad=\"javascript: alert('This file points to an external source. I can't access it.');history.back();\" bgcolor=\"#F0F0F0\"></body></html>");
 		}
-		$file = str_replace('\\', '/', JPATH_ROOT.$result);
-		$filename = explode("/", $file); 
-		$filename = array_reverse($filename); 
+		$file = str_replace('\\', '/', JPATH_ROOT.$result); // replace \ with /
+		if (substr($result, 0, 1) != '/') { // add a leading slash to the sermonpath if not present.
+			$result = '/'.$result;
+		}
+		$filename = explode("/", $file);
+		$filename = array_reverse($filename);
 
 		if(ini_get('zlib.output_compression')) {
 			ini_set('zlib.output_compression', 'Off');
 		}
 		if (file_exists($file)) {
+			if(ini_get('memory_limit'){
+				ini_set('memory_limit','-1'); // if present overriding the memory_limit for php so big mp3 files can be downloaded.
+			}
 			header("Pragma: public");
 			header('Expires: '.gmdate('D, d M Y H:i:s').' GMT');
 			header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
@@ -65,7 +75,7 @@ class SermonspeakerController extends JController
 			header("Content-Transfer-Encoding: binary");
 			header("Content-Length: ".@filesize($file));
 			set_time_limit(0);
-			@readfile($file) OR die("<html><body OnLoad=\"javascript: alert('Unable to read file!');history.back();\" bgcolor=\"#F0F0F0\"></body></html>");
+			@readfile($file) OR die('Unable to read file!');
 			exit;
 		} else {
 			die("<html><body OnLoad=\"javascript: alert('File not found!');history.back();\" bgcolor=\"#F0F0F0\"></body></html>");
