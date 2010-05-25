@@ -10,25 +10,27 @@ class SermonspeakerController extends JController
 {
 	function display()
 	{
-		// Setting default view 
-		if ( ! JRequest::getCmd( 'view' ) ) {
+		if (!JRequest::getCmd('view')){	// Setting default view
 			$params	=& JComponentHelper::getParams('com_sermonspeaker');
-			switch ($params->get('startpage')) {
+			switch ($params->get('startpage')){
 				case "1" :
-					JRequest::setVar('view', 'speakers' );
+					JRequest::setVar('view', 'speakers');
 					break;
 				case "2" :
-					JRequest::setVar('view', 'series' );
+					JRequest::setVar('view', 'series');
 					break;
 				case "3" :
-					JRequest::setVar('view', 'sermons' );
+					JRequest::setVar('view', 'sermons');
 					break;
 				case "4" :
-					JRequest::setVar('view', 'seriessermon' );
+					JRequest::setVar('view', 'seriessermon');
 					break;
 			}
-					
+		} elseif (JRequest::getCmd('view') == 'podcast' && (JRequest::getCmd('format') != 'raw')){ // Changing the podcast format to raw output
+			$document =& JFactory::getDocument();
+			$document = $document->getInstance('raw');
 		}
+			
 		parent::display();
 	}
 	

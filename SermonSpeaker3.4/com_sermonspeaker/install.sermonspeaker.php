@@ -277,7 +277,7 @@ function com_install() {
 		$database->Query();
 	}
 	
-	$msg = '<table width="100%"><tr><td bgcolor="SpringGreen"><center><b>Successfull installed!<br>Please check and save the settings to apply them</b></center></td></tr>';
+	$msg = '<table width="100%"><tr><td bgcolor="SpringGreen"><center><b>Successfull installed!<br>Please check and save the settings to apply them</b><br>Don\'t forget to upgrade the associated modules as well or they will generate errors on your site!</center></td></tr>';
 	
 	// check for old configfiles
 	if (file_exists(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_sermonspeaker'.DS.'config.sermonspeaker.php') || file_exists(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_sermonspeaker'.DS.'sermoncastconfig.sermonspeaker.php')) { 
