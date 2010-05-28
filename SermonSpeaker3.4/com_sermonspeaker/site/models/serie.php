@@ -30,8 +30,21 @@ class SermonspeakerModelSerie extends JModel
  
 		$this->setState('limit', $limit);
 		$this->setState('limitstart', $limitstart);
+
+		// Get sorting order from Request and UserState
+		$this->lists['order']		= $mainframe->getUserStateFromRequest("$option.sermons.filter_order",'filter_order','sermon_date','cmd' );
+		$this->lists['order_Dir']	= $mainframe->getUserStateFromRequest("$option.sermons.filter_order_Dir",'filter_order_Dir','DESC','word' );
 	}
 
+	function getOrder()
+	{
+        return $this->lists;
+	}
+
+	function _buildContentOrderBy() {
+		return $this->lists['order'].' '.$this->lists['order_Dir'];
+	}
+	
 	function getTotal()
 	{
 		$database = &JFactory::getDBO();
@@ -66,6 +79,7 @@ class SermonspeakerModelSerie extends JModel
 	
 	function getData()
 	{
+		$orderby	= $this->_buildContentOrderBy();
 		$database =& JFactory::getDBO();
 		$query	= "SELECT a.*, b.name, b.pic, b.id as s_id "
 				. ", CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(':', a.id, a.alias) ELSE a.id END as slug \n"
@@ -74,7 +88,7 @@ class SermonspeakerModelSerie extends JModel
 				. "WHERE a.series_id='".$this->id."' "
 				. "AND a.speaker_id = b.id "
 				. "AND a.published='1' "
-				. "ORDER BY a.sermon_date, (sermon_number+0) DESC "
+				. "ORDER BY ".$orderby." \n"
 				. "LIMIT ".$this->getState('limitstart').", ".$this->getState('limit');
 		$database->setQuery( $query );
 		$rows = $database->loadObjectList();

@@ -18,6 +18,7 @@ class SermonspeakerViewSerie extends JView
 
 		// get Data from Model (/models/serie.php)
         $rows		= &$this->get('Data');			// getting the Datarows from the Model
+		$lists		=& $this->get('Order');
         $pagination	= &$this->get('Pagination');	// getting the JPaginationobject from the Model
 		$serie		= &$this->get('Serie');			// getting the Serie from the Model
 
@@ -51,6 +52,7 @@ class SermonspeakerViewSerie extends JView
         // push data into the template
 		$this->assignRef('rows',$rows);             
 		$this->assignRef('serie',$serie);             
+		$this->assignRef('lists',$lists);			// for Sorting
 		$this->assignRef('pagination',$pagination);	// for JPagination
 		$this->assignRef('params',$params);			// for Params
 		$this->assignRef('itemid',$itemid);

@@ -3,8 +3,17 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 JHTML::_('behavior.tooltip');
 JHTML::_('behavior.modal');
 $Itemid	= JRequest::getInt('Itemid');
-$sort	= JRequest::getWord('sort','sermondate');
+/* JS Script für Joomla Sortierung */
+JFactory::getDocument()->addScriptDeclaration( "
+	function tableOrdering( order, dir, task ) {
+		var form = document.adminForm;
+		form.filter_order.value = order;
+		form.filter_order_Dir.value = dir;
+		form.submit( task );
+	}"
+);
 ?>
+
 <table width="100%" cellpadding="2" cellspacing="0">
 	<tr class="componentheading">
 		<th align="left" valign="bottom"><?php echo JText::_('SERMONLIST'); ?></th>
@@ -12,17 +21,6 @@ $sort	= JRequest::getWord('sort','sermondate');
 </table>
 <p />
 <div class="Pages">
-	<b><?php echo JText::_('SERSORTBY'); ?></b>
-	<?php
-	$link = 'index.php?view=sermons&sort=';
-	if ($sort == "sermondate") { $sortheader = JText::_('SERDATE').' | '; }
-	else { $sortheader = '<a title="'.JText::_('SORTDATE').'" href="'.JRoute::_($link.'sermondate').'">'.JText::_('SERDATE').'</a> | '; }
-	if ($sort == "mostviewed") { $sortheader .= JText::_('SERVIEW').' | '; }
-	else { $sortheader .= '<a title="'.JText::_('SORTVIEW').'" href="'.JRoute::_($link.'mostviewed').'">'.JText::_('SERVIEW').'</a> | '; }
-	if ($sort == "alphabetically") { $sortheader .= JText::_('SERALPH').' | '; }
-	else { $sortheader .= '<a title="'.JText::_('SORTALPH').'" href="'.JRoute::_( $link.'alphabetically').'">'.JText::_('SERALPH').'</a>'; }
-	echo $sortheader;
-	?>
 	<div class="Paginator">
 		<?php echo $this->pagination->getResultsCounter(); ?><br />
 		<?php if ($this->pagination->getPagesCounter()) echo $this->pagination->getPagesCounter()."<br />"; ?>
@@ -30,18 +28,32 @@ $sort	= JRequest::getWord('sort','sermondate');
 	</div>
 </div>
 <hr style="width: 100%; height: 2px;" />
-<table cellpadding="2" cellspacing="2" width="100%">
+<form method="post" id="adminForm" name="adminForm">
+<table class="adminlist" cellpadding="2" cellspacing="2" width="100%">
+<!-- Tabellenkopf mit Sortierlinks erstellen -->
+<thead>
 	<tr>
 		<?php if ($this->params->get('client_col_sermon_number')) { ?>
-			<th width="5%" align="left"><?php echo JText::_('SERMONNUMBER'); ?></th>
+			<th width="5%" align="left"><?php echo JHTML::_('grid.sort', 'SERMONNUMBER', 'sermon_number', $this->lists['order_Dir'], $this->lists['order']); ?></th>
 		<?php } ?>
-		<th align="left"><?php echo JText::_('SERMONNAME');?></th>
-		<?php if ($this->params->get('client_col_sermon_scripture_reference')) { echo "<th align=\"left\">".JText::_('SCRIPTURE')."</th>\n"; } ?>
-		<th align="left"><?php echo JText::_('SPEAKER');?></th>
-		<?php if ($this->params->get('client_col_sermon_date')) { echo "<th align=\"left\">".JText::_('SERMON_DATE')."</th>\n"; } ?>
-		<?php if ($this->params->get('client_col_sermon_time')) { echo "<th align=\"center\">".JText::_('SERMONTIME')."</th>\n"; }?>
-		<?php if ($this->params->get('client_col_sermon_addfile')) { echo "<th align=\"left\">".JText::_('ADDFILE')."</th>\n"; }?>
+		<th align="left"><?php echo JHTML::_('grid.sort', 'SERMONNAME', 'sermon_title', $this->lists['order_Dir'], $this->lists['order']); ?></th>
+		<?php if ($this->params->get('client_col_sermon_scripture_reference')) { ?>
+			<th align="left"><?php echo JHTML::_('grid.sort', 'SCRIPTURE', 'sermon_scripture', $this->lists['order_Dir'], $this->lists['order']); ?></th>
+		<?php } ?>
+		<th align="left"><?php echo JHTML::_('grid.sort', 'SPEAKER', 'name', $this->lists['order_Dir'], $this->lists['order']); ?></th>
+		<?php if ($this->params->get('client_col_sermon_date')) { ?>
+			<th align="left">
+				<?php echo JHTML::_('grid.sort', 'SERMON_DATE', 'sermon_date', $this->lists['order_Dir'], $this->lists['order']); ?>
+			</th>
+		<?php }
+		if ($this->params->get('client_col_sermon_time')) { ?>
+		<th align="center"><?php echo JHTML::_('grid.sort', 'SERMONTIME', 'sermon_time', $this->lists['order_Dir'], $this->lists['order']); ?></th>
+		<?php }
+		if ($this->params->get('client_col_sermon_addfile')) { ?>
+		<th align="left"><?php echo JHTML::_('grid.sort', 'ADDFILE', 'addfileDesc', $this->lists['order_Dir'], $this->lists['order']); ?></th>
+		<?php } ?>
 	</tr>
+</thead>
 <!-- Begin Data -->
 	<?php
 	$i = 0;
@@ -75,6 +87,9 @@ $sort	= JRequest::getWord('sort','sermondate');
 
 
 </table>
+<input type="hidden" name="filter_order" value="<?php echo $this->lists['order']; ?>" />
+<input type="hidden" name="filter_order_Dir" value="<?php echo $this->lists['order_Dir']; ?>" />
+</form>
 <br />
 <div class="Pages">
 	<div class="Paginator">

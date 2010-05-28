@@ -17,6 +17,7 @@ class SermonspeakerViewSpeaker extends JView
 		$params	=& JComponentHelper::getParams('com_sermonspeaker');
 
 		// get Data from Model (/models/speaker.php)
+		$lists		=& $this->get('Order');
         $row		= &$this->get('Data');				// getting the Datarows from the Model
 
 		// Get Data and add Breadcrumbs and Meta according to chosen Template
@@ -62,6 +63,8 @@ class SermonspeakerViewSpeaker extends JView
 
         // push data into the template
 		$this->assignRef('row',$row);
+		$this->assignRef('title',$title);
+		$this->assignRef('lists',$lists);			// for Sorting
 		$this->assignRef('series',$series);
 		$this->assignRef('sermons',$sermons);
 		$this->assignRef('params',$params);		// for Params

@@ -45,8 +45,21 @@ class SermonspeakerModelSermons extends JModel
  
 		$this->setState('limit', $limit);
 		$this->setState('limitstart', $limitstart);
+
+		// Get sorting order from Request and UserState
+		$this->lists['order']		= $mainframe->getUserStateFromRequest("$option.sermons.filter_order",'filter_order','sermon_date','cmd' );
+		$this->lists['order_Dir']	= $mainframe->getUserStateFromRequest("$option.sermons.filter_order_Dir",'filter_order_Dir','DESC','word' );
 	}
 
+	function getOrder()
+	{
+        return $this->lists;
+	}
+
+	function _buildContentOrderBy() {
+		return $this->lists['order'].' '.$this->lists['order_Dir'];
+	}
+	
 	function getTotal()
 	{
 		$database =& JFactory::getDBO();
@@ -70,27 +83,9 @@ class SermonspeakerModelSermons extends JModel
         return $this->_pagination;
 	}
 	
-	function _buildOrder()
-	{
-		$sort = JRequest::getWord('sort');
-		if ($sort == "sermondate") {
-			$orderby = "j.sermon_date DESC, (j.sermon_number+0) DESC";
-		} else if ($sort == "mostrecentlypublished") {
-			$orderby = "j.id DESC, (j.sermon_number+0) DESC";
-		} else if ($sort == "mostviewed") {
-			$orderby = "j.hits DESC, (j.sermon_number+0) DESC";
-		} else if ($sort == "alphabetically") {
-			$orderby = "j.sermon_title ASC, (j.sermon_number+0) DESC";
-		} else {
-			$orderby = "j.sermon_date DESC, (j.sermon_number+0) DESC";
-		}
-	
-		return $orderby;
-	}
-	
 	function getData()
 	{
-		$orderby	= $this->_buildOrder();
+		$orderby	= $this->_buildContentOrderBy();
 		$database 	= &JFactory::getDBO();
 		$query		= "SELECT sermon_title, sermon_number, sermon_scripture, sermon_date, sermon_time, notes, k.name, k.pic, k.id as s_id, j.id, j.addfile, j.addfileDesc \n"
 					. ", CASE WHEN CHAR_LENGTH(j.alias) THEN CONCAT_WS(':', j.id, j.alias) ELSE j.id END as slug \n"

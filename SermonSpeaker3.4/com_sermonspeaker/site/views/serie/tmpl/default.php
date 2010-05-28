@@ -1,6 +1,15 @@
 <?php
 defined( '_JEXEC' ) or die( 'Restricted access' );
 JHTML::_('behavior.tooltip');
+/* JS Script für Joomla Sortierung */
+JFactory::getDocument()->addScriptDeclaration( "
+	function tableOrdering( order, dir, task ) {
+		var form = document.adminForm;
+		form.filter_order.value = order;
+		form.filter_order_Dir.value = dir;
+		form.submit( task );
+	}"
+);
 ?>
 <table width="100%" cellpadding="2" cellspacing="0">
 	<tr class="componentheading">
@@ -27,26 +36,33 @@ JHTML::_('behavior.tooltip');
 
 <hr style="width: 100%; height: 2px;">
 
-<table border="0" cellpadding="2" cellspacing="2" width="100%">
+<form method="post" id="adminForm" name="adminForm">
+<table class="adminlist" cellpadding="2" cellspacing="2" width="100%">
+<!-- Tabellenkopf mit Sortierlinks erstellen -->
+<thead>
 	<tr>
-		<?php if($this->params->get('client_col_sermon_number')){ ?>
-			<th width="5%" align="left" valign="bottom"><?php echo JText::_('SERMONNUMBER'); ?></th>
+		<?php if ($this->params->get('client_col_sermon_number')) { ?>
+			<th width="5%" align="left"><?php echo JHTML::_('grid.sort', 'SERMONNUMBER', 'sermon_number', $this->lists['order_Dir'], $this->lists['order']); ?></th>
 		<?php } ?>
-		<th width="40%" align="left" valign="bottom"> <?php echo JText::_('SERMONNAME'); ?></th>
-		<?php if( $this->params->get('client_col_sermon_scripture_reference')) { ?>
-			<th width="20%" align="left" valign="bottom"> <?php echo JText::_('SCRIPTURE'); ?></th>
+		<th align="left"><?php echo JHTML::_('grid.sort', 'SERMONNAME', 'sermon_title', $this->lists['order_Dir'], $this->lists['order']); ?></th>
+		<?php if ($this->params->get('client_col_sermon_scripture_reference')) { ?>
+			<th align="left"><?php echo JHTML::_('grid.sort', 'SCRIPTURE', 'sermon_scripture', $this->lists['order_Dir'], $this->lists['order']); ?></th>
 		<?php } ?>
-		<th width="20%" align="left" valign="bottom"> <?php echo JText::_('SPEAKER'); ?></th>
-		<?php if( $this->params->get('client_col_sermon_date')){ ?>
-			<th width="20%" align="left" valign="bottom"><?php echo JText::_('SERMON_DATE'); ?></th>
-		<?php } ?>
-		<?php if( $this->params->get('client_col_sermon_time')){ ?>
-			<th width="20%" align="left" valign="bottom"><?php echo JText::_('SERMONTIME'); ?></th>
-		<?php } ?>
-		<?php if ($this->params->get('client_col_sermon_addfile')) { ?>
-			<th align="left"><?php echo JText::_('ADDFILE'); ?></th>
+		<th align="left"><?php echo JHTML::_('grid.sort', 'SPEAKER', 'name', $this->lists['order_Dir'], $this->lists['order']); ?></th>
+		<?php if ($this->params->get('client_col_sermon_date')) { ?>
+			<th align="left">
+				<?php echo JHTML::_('grid.sort', 'SERMON_DATE', 'sermon_date', $this->lists['order_Dir'], $this->lists['order']); ?>
+			</th>
+		<?php }
+		if ($this->params->get('client_col_sermon_time')) { ?>
+		<th align="center"><?php echo JHTML::_('grid.sort', 'SERMONTIME', 'sermon_time', $this->lists['order_Dir'], $this->lists['order']); ?></th>
+		<?php }
+		if ($this->params->get('client_col_sermon_addfile')) { ?>
+		<th align="left"><?php echo JHTML::_('grid.sort', 'ADDFILE', 'addfileDesc', $this->lists['order_Dir'], $this->lists['order']); ?></th>
 		<?php } ?>
 	</tr>
+</thead>
+<!-- Begin Data -->
 	<?php
 	if($this->rows) {
 		$i = 0;
@@ -81,6 +97,9 @@ JHTML::_('behavior.tooltip');
 		<?php } ?>
 	<?php } ?>
 </table>
+<input type="hidden" name="filter_order" value="<?php echo $this->lists['order']; ?>" />
+<input type="hidden" name="filter_order_Dir" value="<?php echo $this->lists['order_Dir']; ?>" />
+</form>
 <br>
 <div class="Pages">
 	<div class="Paginator">

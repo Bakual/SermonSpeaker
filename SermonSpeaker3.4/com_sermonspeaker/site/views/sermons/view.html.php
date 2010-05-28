@@ -24,10 +24,12 @@ class SermonspeakerViewSermons extends JView
 
 		// get Data from Model (/models/sermons.php)
         $rows		=& $this->get('Data');			// getting the Datarows from the Model
+		$lists		=& $this->get('Order');
         $pagination	=& $this->get('Pagination');	// getting the JPaginationobject from the Model
 
         // push data into the template
 		$this->assignRef('rows',$rows);             
+		$this->assignRef('lists',$lists);			// for Sorting
 		$this->assignRef('pagination',$pagination);	// for JPagination
 		$this->assignRef('params',$params);			// for Params
 		parent::display($tpl);

@@ -16,8 +16,26 @@ class SermonspeakerModelSpeaker extends JModel
 		
 		$this->params = &JComponentHelper::getParams('com_sermonspeaker');
 		$this->id		= JRequest::getInt('id',$this->params->get('speaker_id'));
+
+		// Get sorting order from Request and UserState
+		$this->lists['order']		= $mainframe->getUserStateFromRequest("$option.sermons.filter_order",'filter_order','sermon_date','cmd' );
+		$this->lists['order_Dir']	= $mainframe->getUserStateFromRequest("$option.sermons.filter_order_Dir",'filter_order_Dir','DESC','word' );
+		// checking for invalid sorts from other views and change to default
+		if ($this->lists['order'] == 'name'){ // columns speaker isn't shown in speaker views, would be obviously always the same
+			$this->lists['order'] = 'sermon_date';
+			$this->lists['order_Dir'] = 'DESC';
+		}
 	}
 
+	function getOrder()
+	{
+        return $this->lists;
+	}
+
+	function _buildContentOrderBy() {
+		return $this->lists['order'].' '.$this->lists['order_Dir'];
+	}
+	
 	function getSeries()
 	{
 		$database = &JFactory::getDBO();
@@ -42,6 +60,7 @@ class SermonspeakerModelSpeaker extends JModel
 
 	function getSermons()
 	{
+		$orderby	= $this->_buildContentOrderBy();
 		$database	= &JFactory::getDBO();
 		if ($this->params->get('limit_speaker') == 1) { 
 			$query	= "SELECT id, sermon_number,sermon_scripture, sermon_title, sermon_time, notes,sermon_date, addfile, addfileDesc \n"
@@ -49,7 +68,7 @@ class SermonspeakerModelSpeaker extends JModel
 					. "FROM #__sermon_sermons \n"
 					. "WHERE  speaker_id='".$this->id."' \n"
 					. "AND published='1' \n"
-					. "ORDER BY sermon_date DESC, (sermon_number+0) DESC \n"
+					. "ORDER BY ".$orderby." \n"
 					. "LIMIT ".$this->params->get('sermonresults');
 		} else {
 			$query = "SELECT id, sermon_number,sermon_scripture, sermon_title, sermon_time, notes,sermon_date, addfile, addfileDesc \n"
@@ -57,7 +76,7 @@ class SermonspeakerModelSpeaker extends JModel
 					. "FROM #__sermon_sermons \n"
 					. "WHERE  speaker_id='".$this->id."' \n"
 					. "AND published='1' \n"
-					. "ORDER BY sermon_date DESC, (sermon_number+0) DESC";
+					. "ORDER BY ".$orderby." \n";
 		}
 		$database->setQuery($query);
    		$sermons	= $database->loadObjectList();
