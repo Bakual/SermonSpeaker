@@ -7,7 +7,7 @@ class SermonspeakerViewSermon extends JView
 {
 	function display( $tpl = null )
 	{
-		global $mainframe, $option;
+		global $option;
 
 		// add Javascript for Form Elements enable and disable
 		$js = 'var currentEnabled = null;

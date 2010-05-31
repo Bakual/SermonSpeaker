@@ -9,7 +9,7 @@ class SermonspeakerModelSermon extends JModel
 	{
 		parent::__construct();
 
-		global $mainframe, $option;
+		global $option;
 
 		$this->db				= &JFactory::getDBO();
 	}

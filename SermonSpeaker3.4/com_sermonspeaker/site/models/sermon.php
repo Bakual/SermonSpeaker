@@ -12,7 +12,8 @@ class SermonspeakerModelSermon extends JModel
 	{
 		parent::__construct();
  
-		global $mainframe, $option;
+		global $option;
+
 		$params = &JComponentHelper::getParams('com_sermonspeaker');
 		$this->id	= JRequest::getInt('id',$params->get('sermon_id'));
 	}

@@ -10,7 +10,7 @@ class SermonspeakerViewSerie extends JView
 {
 	function display($tpl = null)
 	{
-		global $mainframe, $option;
+		global $option;
 		
 		JHTML::stylesheet('sermonspeaker.css', 'components/com_sermonspeaker/');
 
@@ -40,7 +40,8 @@ class SermonspeakerViewSerie extends JView
 		}
 		
 		// add Breadcrumbs
-		$breadcrumbs	= &$mainframe->getPathWay();
+		$app 			= JFactory::getApplication();
+		$breadcrumbs	= &$app->getPathWay();
 		$breadcrumbs->addItem($serie[0]->series_title);
 
 		// Set Meta

@@ -22,8 +22,9 @@
 // no direct access
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
-$mainframe->registerEvent( 'onSearch', 'plgSearchSermonspeaker' );
-$mainframe->registerEvent( 'onSearchAreas', 'plgSearchSermonspeakerAreas' );
+$app = JFactory::getApplication();
+$app->registerEvent('onSearch', 'plgSearchSermonspeaker');
+$app->registerEvent('onSearchAreas', 'plgSearchSermonspeakerAreas');
 
 //Load the Plugin language file out of the administration
 JPlugin::loadLanguage( 'plg_search_sermonspeaker', JPATH_ADMINISTRATOR);

@@ -7,7 +7,7 @@ class SermonspeakerViewSpeaker extends JView
 {
 	function display( $tpl = null )
 	{
-		global $mainframe, $option;
+		global $option;
 
 		$edit = JRequest::getBool('edit', true);
 		if ($edit) {

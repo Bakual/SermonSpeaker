@@ -141,68 +141,66 @@ class SermonspeakerControllerSpeaker extends SermonspeakerController
 		$this->setRedirect('index.php?option='.$option.'&view=speakers', $msg );
 	}
 	
-	function saveorder(){   
-		global $mainframe;   
-	  
-		// Check for request forgeries   
-		JRequest::checkToken() or jexit( 'Invalid Token' );   
-	  
-		// Initialize variables   
-		$db =& JFactory::getDBO();   
-		$cid    = JRequest::getVar( 'cid', array(), 'post', 'array' );   
-	  
-		$total      = count( $cid );   
-		$order  = JRequest::getVar( 'order', array(0), 'post', 'array' );   
-		JArrayHelper::toInteger($order, array(0));   
-	  
-		$row        =& JTable::getInstance('speakers', 'Table');   
-	  
-		// update ordering values   
-		for( $i=0; $i < $total; $i++ )   
-		{   
-			$row->load( (int) $cid[$i] );   
-			// track sections   
-			if ($row->ordering != $order[$i])   
-			{   
-				$row->ordering = $order[$i];   
-				if (!$row->store())   
-				{   
-					JError::raiseError(500, $db->getErrorMsg());   
-				}   
-			}   
-		}//for   
-	  
-		$row->reorder();   
-	  
-		$msg    = JText::_( 'New ordering saved' );   
-		$mainframe->redirect('index.php?option=com_sermonspeaker&view=speakers', $msg);   
-	}
-
-	function _reOrder($direction) {
-		global $mainframe;
-
+	function saveorder(){
 		// Check for request forgeries
 		JRequest::checkToken() or jexit( 'Invalid Token' );
 
 		// Initialize variables
-		$db = & JFactory::getDBO();
-		$cid    = JRequest::getVar( 'cid', array(), 'post', 'array' );
+		$db =& JFactory::getDBO();
+		$cid    = JRequest::getVar('cid', array(), 'post', 'array');
 
-		if (isset( $cid[0] )){   
+		$total      = count($cid);
+		$order  = JRequest::getVar('order', array(0), 'post', 'array');
+		JArrayHelper::toInteger($order, array(0));
+
+		$row        =& JTable::getInstance('speakers', 'Table');
+
+		// update ordering values
+		for( $i=0; $i < $total; $i++ )
+		{
+			$row->load( (int) $cid[$i] );
+			// track sections
+			if ($row->ordering != $order[$i])
+			{
+				$row->ordering = $order[$i];
+				if (!$row->store())
+				{
+					JError::raiseError(500, $db->getErrorMsg());
+				}
+			}
+		}//for
+
+		$row->reorder();
+
+		$msg    = JText::_('New ordering saved');
+		$app = JFactory::getApplication();
+		$app->redirect('index.php?option=com_sermonspeaker&view=speakers', $msg);
+	}
+
+	function _reOrder($direction) {
+		// Check for request forgeries
+		JRequest::checkToken() or jexit('Invalid Token');
+
+		// Initialize variables
+		$db = & JFactory::getDBO();
+		$cid    = JRequest::getVar('cid', array(), 'post', 'array');
+
+		if (isset( $cid[0] )){
 			$row = & JTable::getInstance('speakers', 'Table');
-			$row->load( (int) $cid[0] );
+			$row->load((int)$cid[0]);
 			$row->move($direction);
 
 			$cache = & JFactory::getCache('com_sermonspeaker');
 			$cache->clean();
 		}
 
-		$mainframe->redirect('index.php?option=com_sermonspeaker&view=speakers');
+		$app = JFactory::getApplication();
+		$app->redirect('index.php?option=com_sermonspeaker&view=speakers');
 	}
 	
 	function orderup() {
-		global $mainframe;
-		$order = $mainframe->getUserStateFromRequest("$option.speakers.filter_order_Dir",'filter_order_Dir','','word' );
+		$app = JFactory::getApplication();
+		$order = $app->getUserStateFromRequest("$option.speakers.filter_order_Dir",'filter_order_Dir','','word' );
 		if ($order == 'desc') {
 			$this->_reOrder(1);
 		} else {
@@ -211,8 +209,8 @@ class SermonspeakerControllerSpeaker extends SermonspeakerController
 	}
 
 	function orderdown() {
-		global $mainframe;
-		$order = $mainframe->getUserStateFromRequest("$option.speakers.filter_order_Dir",'filter_order_Dir','','word' );
+		$app = JFactory::getApplication();
+		$order = $app->getUserStateFromRequest("$option.speakers.filter_order_Dir",'filter_order_Dir','','word' );
 		if ($order == 'desc') {
 			$this->_reOrder(-1);
 		} else {

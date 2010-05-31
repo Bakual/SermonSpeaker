@@ -10,7 +10,7 @@ class SermonspeakerViewFu_step_2 extends JView
 {
 	function display($tpl = null)
 	{
-		global $mainframe, $option;
+		global $option;
 		
 		JHTML::stylesheet('sermonspeaker.css', 'components/com_sermonspeaker/');
 

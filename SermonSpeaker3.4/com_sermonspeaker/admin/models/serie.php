@@ -9,9 +9,9 @@ class SermonspeakerModelSerie extends JModel
 	{
 		parent::__construct();
 
-		global $mainframe, $option;
+		global $option;
 
-		$this->db				= &JFactory::getDBO();
+		$this->db	= &JFactory::getDBO();
 	}
 
 	function getSpeakers()

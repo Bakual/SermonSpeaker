@@ -10,7 +10,7 @@ class SermonspeakerViewSermon extends JView
 {
 	function display($tpl = null)
 	{
-		global $mainframe, $option;
+		global $option;
 		
 		JHTML::stylesheet('sermonspeaker.css', 'components/com_sermonspeaker/');
 
@@ -49,7 +49,8 @@ class SermonspeakerViewSermon extends JView
 		$itemid = $active->id;
 
 		// add Breadcrumbs
-		$breadcrumbs = &$mainframe->getPathWay();
+		$app 			= JFactory::getApplication();
+		$breadcrumbs	= &$app->getPathWay();
 		if ($active_view == "series") {
 			$model		= &$this->getModel();
 			$serie		= &$model->getSerie($row[0]->series_id);		// getting the Serie from the Model

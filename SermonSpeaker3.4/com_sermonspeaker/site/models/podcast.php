@@ -12,7 +12,7 @@ class SermonspeakerModelPodcast extends JModel
 	{
 		parent::__construct();
  
-		global $mainframe, $option;
+		global $option;
 		
 		$this->params = &JComponentHelper::getParams('com_sermonspeaker');
 	}

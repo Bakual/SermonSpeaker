@@ -141,45 +141,42 @@ class SermonspeakerControllerSerie extends SermonspeakerController
 	}
 	
 	function saveorder(){   
-		global $mainframe;   
-	  
-		// Check for request forgeries   
-		JRequest::checkToken() or jexit( 'Invalid Token' );   
-	  
-		// Initialize variables   
-		$db =& JFactory::getDBO();   
-		$cid    = JRequest::getVar( 'cid', array(), 'post', 'array' );   
-	  
-		$total      = count( $cid );   
-		$order  = JRequest::getVar( 'order', array(0), 'post', 'array' );   
-		JArrayHelper::toInteger($order, array(0));   
-	  
-		$row        =& JTable::getInstance('series', 'Table');   
-	  
-		// update ordering values   
-		for( $i=0; $i < $total; $i++ )   
-		{   
-			$row->load( (int) $cid[$i] );   
-			// track sections   
-			if ($row->ordering != $order[$i])   
-			{   
-				$row->ordering = $order[$i];   
-				if (!$row->store())   
-				{   
-					JError::raiseError(500, $db->getErrorMsg());   
-				}   
-			}   
-		}//for   
-	  
-		$row->reorder();   
-	  
-		$msg    = JText::_( 'New ordering saved' );   
-		$mainframe->redirect('index.php?option=com_sermonspeaker&view=series', $msg);   
+		// Check for request forgeries
+		JRequest::checkToken() or jexit( 'Invalid Token' );
+
+		// Initialize variables
+		$db =& JFactory::getDBO();
+		$cid    = JRequest::getVar( 'cid', array(), 'post', 'array' );
+
+		$total      = count( $cid );
+		$order  = JRequest::getVar( 'order', array(0), 'post', 'array' );
+		JArrayHelper::toInteger($order, array(0));
+
+		$row        =& JTable::getInstance('series', 'Table');
+
+		// update ordering values
+		for( $i=0; $i < $total; $i++ )
+		{
+			$row->load( (int) $cid[$i] );
+			// track sections
+			if ($row->ordering != $order[$i])
+			{
+				$row->ordering = $order[$i];
+				if (!$row->store())
+				{
+					JError::raiseError(500, $db->getErrorMsg());
+				}
+			}
+		}//for
+
+		$row->reorder();
+
+		$msg    = JText::_('New ordering saved');
+		$app 	= JFactory::getApplication();
+		$app->redirect('index.php?option=com_sermonspeaker&view=series', $msg);
 	}
 
 	function _reOrder($direction) {
-		global $mainframe;
-
 		// Check for request forgeries
 		JRequest::checkToken() or jexit( 'Invalid Token' );
 
@@ -187,7 +184,7 @@ class SermonspeakerControllerSerie extends SermonspeakerController
 		$db = & JFactory::getDBO();
 		$cid    = JRequest::getVar( 'cid', array(), 'post', 'array' );
 
-		if (isset( $cid[0] )){   
+		if (isset( $cid[0] )){
 			$row = & JTable::getInstance('series', 'Table');
 			$row->load( (int) $cid[0] );
 			$row->move($direction);
@@ -196,12 +193,13 @@ class SermonspeakerControllerSerie extends SermonspeakerController
 			$cache->clean();
 		}
 
-		$mainframe->redirect('index.php?option=com_sermonspeaker&view=series');
+		$app = JFactory::getApplication();
+		$app->redirect('index.php?option=com_sermonspeaker&view=series');
 	}
 	
 	function orderup() {
-		global $mainframe;
-		$order = $mainframe->getUserStateFromRequest("$option.series.filter_order_Dir",'filter_order_Dir','','word' );
+		$app = JFactory::getApplication();
+		$order = $app->getUserStateFromRequest("$option.series.filter_order_Dir",'filter_order_Dir','','word' );
 		if ($order == 'desc') {
 			$this->_reOrder(1);
 		} else {
@@ -210,8 +208,8 @@ class SermonspeakerControllerSerie extends SermonspeakerController
 	}
 
 	function orderdown() {
-		global $mainframe;
-		$order = $mainframe->getUserStateFromRequest("$option.series.filter_order_Dir",'filter_order_Dir','','word' );
+		$app = JFactory::getApplication();
+		$order = $app->getUserStateFromRequest("$option.series.filter_order_Dir",'filter_order_Dir','','word' );
 		if ($order == 'desc') {
 			$this->_reOrder(-1);
 		} else {

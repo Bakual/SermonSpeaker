@@ -7,15 +7,17 @@ class SermonspeakerViewSermons extends JView
 {
 	function display( $tpl = null )
 	{
-		global $mainframe, $option;
+		global $option;
 
-		$lists['order']		= $mainframe->getUserStateFromRequest("$option.sermons.filter_order",'filter_order','id','cmd' );
-		$lists['order_Dir']	= $mainframe->getUserStateFromRequest("$option.sermons.filter_order_Dir",'filter_order_Dir','','word' );
-		$filter_state		= $mainframe->getUserStateFromRequest("$option.sermons.filter_state",'filter_state','','word' );
-		$filter_catid		= $mainframe->getUserStateFromRequest("$option.sermons.filter_catid",'filter_catid','','int' );
-		$filter_pcast		= $mainframe->getUserStateFromRequest("$option.sermons.filter_pcast",'filter_pcast','SELECT ZONE','word' );
-		$filter_serie		= $mainframe->getUserStateFromRequest("$option.sermons.filter_serie",'filter_serie','SELECT ZONE','string' );
-		$search				= $mainframe->getUserStateFromRequest("$option.sermons.search",'search','','string' );
+		$app = JFactory::getApplication();
+
+		$lists['order']		= $app->getUserStateFromRequest("$option.sermons.filter_order",'filter_order','id','cmd' );
+		$lists['order_Dir']	= $app->getUserStateFromRequest("$option.sermons.filter_order_Dir",'filter_order_Dir','','word' );
+		$filter_state		= $app->getUserStateFromRequest("$option.sermons.filter_state",'filter_state','','word' );
+		$filter_catid		= $app->getUserStateFromRequest("$option.sermons.filter_catid",'filter_catid','','int' );
+		$filter_pcast		= $app->getUserStateFromRequest("$option.sermons.filter_pcast",'filter_pcast','SELECT ZONE','word' );
+		$filter_serie		= $app->getUserStateFromRequest("$option.sermons.filter_serie",'filter_serie','SELECT ZONE','string' );
+		$search				= $app->getUserStateFromRequest("$option.sermons.search",'search','','string' );
 		$search				= JString::strtolower( $search );
 
 		$pagination =& $this->get('Pagination');	// Paginationwerte aus Model lesen

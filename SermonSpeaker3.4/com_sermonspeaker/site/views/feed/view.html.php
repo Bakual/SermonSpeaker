@@ -7,7 +7,7 @@ class SermonspeakerViewFeed extends JView
 {
 	function display($tpl = null)
 	{
-		global $mainframe, $option, $itemid;
+		global $option, $itemid;
 		JHTML::stylesheet('sermonspeaker.css', 'components/com_sermonspeaker/');
 
 		require_once(JPATH_COMPONENT.DS.'feedcreator.class.php');

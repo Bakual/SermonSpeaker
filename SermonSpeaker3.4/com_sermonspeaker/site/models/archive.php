@@ -16,8 +16,10 @@ class SermonspeakerModelArchive extends JModel
 	{
 		parent::__construct();
  
-		global $mainframe, $option;
+		global $option;
 		
+		$app = JFactory::getApplication();
+
 		$params = &JComponentHelper::getParams('com_sermonspeaker');
 		$cat['series'] = $params->get('series_cat', JRequest::getInt('series_cat', ''));
 		$cat['speaker'] = $params->get('speaker_cat', JRequest::getInt('speaker_cat', ''));
@@ -37,7 +39,7 @@ class SermonspeakerModelArchive extends JModel
 		}
 
 		// Get pagination request variables
-//		$limit = $mainframe->getUserStateFromRequest('global.list.limit', 'limit', $mainframe->getCfg('list_limit'), 'int');
+//		$limit = $app->getUserStateFromRequest('global.list.limit', 'limit', $app->getCfg('list_limit'), 'int');
 		$limit = $params->get('sermonresults');
 		$limitstart = JRequest::getInt('limitstart', 0);
  		// In case limit has been changed, adjust it
@@ -47,8 +49,8 @@ class SermonspeakerModelArchive extends JModel
 		$this->setState('limitstart', $limitstart);
 
 		// Get sorting order from Request and UserState
-		$this->lists['order']		= $mainframe->getUserStateFromRequest("$option.sermons.filter_order",'filter_order','sermon_date','cmd' );
-		$this->lists['order_Dir']	= $mainframe->getUserStateFromRequest("$option.sermons.filter_order_Dir",'filter_order_Dir','DESC','word' );
+		$this->lists['order']		= $app->getUserStateFromRequest("$option.sermons.filter_order",'filter_order','sermon_date','cmd' );
+		$this->lists['order_Dir']	= $app->getUserStateFromRequest("$option.sermons.filter_order_Dir",'filter_order_Dir','DESC','word' );
 
 		$date=getDate();
 		$month	= $params->get('month',$date[mon]);

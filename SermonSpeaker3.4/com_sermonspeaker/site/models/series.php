@@ -16,7 +16,7 @@ class SermonspeakerModelSeries extends JModel
 	{
 		parent::__construct();
  
-		global $mainframe, $option;
+		global $option;
 		
 		$params = &JComponentHelper::getParams('com_sermonspeaker');
 		$cat['series'] = $params->get('series_cat', JRequest::getInt('series_cat', ''));
@@ -31,7 +31,6 @@ class SermonspeakerModelSeries extends JModel
 		}
 
 		// Get pagination request variables
-//		$limit = $mainframe->getUserStateFromRequest('global.list.limit', 'limit', $mainframe->getCfg('list_limit'), 'int');
 		$limit = $params->get('sermonresults');
 		$limitstart = JRequest::getInt('limitstart', 0);
  		// In case limit has been changed, adjust it

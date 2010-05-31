@@ -10,7 +10,7 @@ class SermonspeakerViewSpeaker extends JView
 {
 	function display($tpl = null)
 	{
-		global $mainframe, $option;
+		global $option;
 
 		JHTML::stylesheet('sermonspeaker.css', 'components/com_sermonspeaker/');
 
@@ -21,8 +21,9 @@ class SermonspeakerViewSpeaker extends JView
         $row		= &$this->get('Data');				// getting the Datarows from the Model
 
 		// Get Data and add Breadcrumbs and Meta according to chosen Template
-		$breadcrumbs = &$mainframe->getPathWay();
-		$document =& JFactory::getDocument();
+		$app 			= JFactory::getApplication();
+		$breadcrumbs 	= &$app->getPathWay();
+		$document 		= &JFactory::getDocument();
 
 		if ($this->getLayout() == "latest-sermons") {
 			$sermons	= &$this->get('Sermons');		// getting the Sermons from the Model

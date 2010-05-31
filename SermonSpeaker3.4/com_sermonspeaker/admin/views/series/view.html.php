@@ -7,13 +7,15 @@ class SermonspeakerViewSeries extends JView
 {
 	function display( $tpl = null )
 	{
-		global $mainframe, $option;
+		global $option;
 
-		$lists['order']		= $mainframe->getUserStateFromRequest("$option.series.filter_order",'filter_order','id','cmd' );
-		$lists['order_Dir']	= $mainframe->getUserStateFromRequest("$option.series.filter_order_Dir",'filter_order_Dir','','word' );
-		$filter_state		= $mainframe->getUserStateFromRequest("$option.series.filter_state",'filter_state','','word' );
-		$filter_catid		= $mainframe->getUserStateFromRequest("$option.series.filter_catid",'filter_catid','','int' );
-		$search				= $mainframe->getUserStateFromRequest("$option.series.search",'search','','string' );
+		$app = JFactory::getApplication();
+
+		$lists['order']		= $app->getUserStateFromRequest("$option.series.filter_order",'filter_order','id','cmd' );
+		$lists['order_Dir']	= $app->getUserStateFromRequest("$option.series.filter_order_Dir",'filter_order_Dir','','word' );
+		$filter_state		= $app->getUserStateFromRequest("$option.series.filter_state",'filter_state','','word' );
+		$filter_catid		= $app->getUserStateFromRequest("$option.series.filter_catid",'filter_catid','','int' );
+		$search				= $app->getUserStateFromRequest("$option.series.search",'search','','string' );
 		$search				= JString::strtolower( $search );
 
 		$pagination =& $this->get('Pagination');	// Paginationwerte aus Model lesen

@@ -9,17 +9,18 @@ class SermonspeakerModelSpeakers extends JModel
 	{
 		parent::__construct();
 
-		global $mainframe, $option;
+		global $option;
 
-		$this->db				=& JFactory::getDBO();
+		$app 		= JFactory::getApplication();
+		$this->db	=& JFactory::getDBO();
 
-		$this->filter_state		= $mainframe->getUserStateFromRequest("$option.speakers.filter_state",'filter_state','','word');
-		$this->filter_catid		= $mainframe->getUserStateFromRequest("$option.speakers.filter_catid",'filter_catid','','int');
-		$this->search			= $mainframe->getUserStateFromRequest("$option.speakers.search",'search','','string');
+		$this->filter_state		= $app->getUserStateFromRequest("$option.speakers.filter_state",'filter_state','','word');
+		$this->filter_catid		= $app->getUserStateFromRequest("$option.speakers.filter_catid",'filter_catid','','int');
+		$this->search			= $app->getUserStateFromRequest("$option.speakers.search",'search','','string');
 		$this->search			= JString::strtolower($this->search);
 
 		// Get pagination request variables
-		$limit = $mainframe->getUserStateFromRequest('global.list.limit', 'limit', $mainframe->getCfg('list_limit'), 'int');
+		$limit = $app->getUserStateFromRequest('global.list.limit', 'limit', $app->getCfg('list_limit'), 'int');
 		$limitstart = JRequest::getInt('limitstart', 0);
  		// In case limit has been changed, adjust it
 		$limitstart = ($limit != 0 ? (floor($limitstart / $limit) * $limit) : 0);
@@ -28,8 +29,8 @@ class SermonspeakerModelSpeakers extends JModel
 		$this->setState('limitstart', $limitstart);
 
 		// Get sorting order from Request and UserState
-		$this->_order['order']		= $mainframe->getUserStateFromRequest("$option.speakers.filter_order",'filter_order','id','cmd' );
-		$this->_order['order_Dir']	= $mainframe->getUserStateFromRequest("$option.speakers.filter_order_Dir",'filter_order_Dir','DESC','word' );
+		$this->_order['order']		= $app->getUserStateFromRequest("$option.speakers.filter_order",'filter_order','id','cmd' );
+		$this->_order['order_Dir']	= $app->getUserStateFromRequest("$option.speakers.filter_order_Dir",'filter_order_Dir','DESC','word' );
 	}
 
 	function _buildWhere()

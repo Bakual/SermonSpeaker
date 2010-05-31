@@ -9,19 +9,20 @@ class SermonspeakerModelSermons extends JModel
 	{
 		parent::__construct();
 
-		global $mainframe, $option;
+		global $option;
 
-		$this->db				=& JFactory::getDBO();
+		$app 		= JFactory::getApplication();
+		$this->db	=& JFactory::getDBO();
 
-		$this->filter_state		= $mainframe->getUserStateFromRequest("$option.sermons.filter_state",'filter_state','','word');
-		$this->filter_catid		= $mainframe->getUserStateFromRequest("$option.sermons.filter_catid",'filter_catid','','int');
-		$this->filter_pcast		= $mainframe->getUserStateFromRequest("$option.sermons.filter_pcast",'filter_pcast','','word');
-		$this->filter_serie		= $mainframe->getUserStateFromRequest("$option.sermons.filter_serie",'filter_serie','','string');
-		$this->search			= $mainframe->getUserStateFromRequest("$option.sermons.search",'search','','string');
+		$this->filter_state		= $app->getUserStateFromRequest("$option.sermons.filter_state",'filter_state','','word');
+		$this->filter_catid		= $app->getUserStateFromRequest("$option.sermons.filter_catid",'filter_catid','','int');
+		$this->filter_pcast		= $app->getUserStateFromRequest("$option.sermons.filter_pcast",'filter_pcast','','word');
+		$this->filter_serie		= $app->getUserStateFromRequest("$option.sermons.filter_serie",'filter_serie','','string');
+		$this->search			= $app->getUserStateFromRequest("$option.sermons.search",'search','','string');
 		$this->search			= JString::strtolower($this->search);
 
 		// Get pagination request variables
-		$limit = $mainframe->getUserStateFromRequest('global.list.limit', 'limit', $mainframe->getCfg('list_limit'), 'int');
+		$limit = $app->getUserStateFromRequest('global.list.limit', 'limit', $app->getCfg('list_limit'), 'int');
 		$limitstart = JRequest::getInt('limitstart', 0);
  		// In case limit has been changed, adjust it
 		$limitstart = ($limit != 0 ? (floor($limitstart / $limit) * $limit) : 0);
@@ -30,8 +31,8 @@ class SermonspeakerModelSermons extends JModel
 		$this->setState('limitstart', $limitstart);
 
 		// Get sorting order from Request and UserState
-		$this->_order['order']		= $mainframe->getUserStateFromRequest("$option.sermons.filter_order",'filter_order','id','cmd' );
-		$this->_order['order_Dir']	= $mainframe->getUserStateFromRequest("$option.sermons.filter_order_Dir",'filter_order_Dir','DESC','word' );
+		$this->_order['order']		= $app->getUserStateFromRequest("$option.sermons.filter_order",'filter_order','id','cmd' );
+		$this->_order['order_Dir']	= $app->getUserStateFromRequest("$option.sermons.filter_order_Dir",'filter_order_Dir','DESC','word' );
 	}
 
 	function _buildWhere()
