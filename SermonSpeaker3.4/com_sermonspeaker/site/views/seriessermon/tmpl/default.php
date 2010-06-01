@@ -56,7 +56,7 @@ $Itemid	= JRequest::getInt('Itemid');
 						$pp_w = $pp_ret[1];
 					} else {
 						// if player is disabled show a link
-						echo JText::_('DOWNLOAD_HOOVER_TAG').": <a TITLE=\"".JText::_('DOWNLOAD_HOOVER_TAG')."\" href=\"".$lnk."\">".$this->escape($sermon->sermon_title)."</a>";
+						echo JText::_('DOWNLOAD_HOOVER_TAG').": <a title=\"".JText::_('DOWNLOAD_HOOVER_TAG')."\" href=\"".$lnk."\">".$this->escape($sermon->sermon_title)."</a>";
 					} ?>
 					</p>
 				<?php } ?>

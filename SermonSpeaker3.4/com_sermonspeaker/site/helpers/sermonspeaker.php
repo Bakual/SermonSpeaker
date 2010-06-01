@@ -60,8 +60,8 @@ class SermonspeakerHelperSermonspeaker
 			$return = "<td><button class=\"download_btn\" type=\"button\" onclick=\"location='".$path."'\">".JText::_('SEARCH_BOX_SINGLESERMON')."</button></td>";
 		} else { 
 			//File is locally
-			$fileurl = JURI::root()."index.php?option=com_sermonspeaker&task=download&id=$id";
-			$return = "<td><form><input class=\"download_btn\" type=\"button\" value=\"".JText::_('SEARCH_BOX_SINGLESERMON')."\" onclick=\"window.location.href='".$fileurl."'\"> </form></td>";
+			$fileurl = JURI::root()."index.php?option=com_sermonspeaker&amp;task=download&amp;id=$id";
+			$return = "<td><form><input class=\"download_btn\" type=\"button\" value=\"".JText::_('SEARCH_BOX_SINGLESERMON')."\" onclick=\"window.location.href='".$fileurl."'\" /> </form></td>";
 		}
 
 		return $return;

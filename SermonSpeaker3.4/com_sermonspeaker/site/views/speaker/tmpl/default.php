@@ -54,7 +54,7 @@ $Itemid	= JRequest::getInt('Itemid');
 				</td>		  
 			<?php } ?>
 				<td align="left" valign="middle" width="125">
-					<a TITLE="<?php echo JText::_('SERIES_SELECT_HOOVER_TAG'); ?> " href="<?php echo JRoute::_("index.php?view=serie&id=$serie->id"); ?>">
+					<a title="<?php echo JText::_('SERIES_SELECT_HOOVER_TAG'); ?> " href="<?php echo JRoute::_("index.php?view=serie&id=$serie->id"); ?>">
 						<?php echo $serie->series_title; ?>
 					</a>
 				</td>

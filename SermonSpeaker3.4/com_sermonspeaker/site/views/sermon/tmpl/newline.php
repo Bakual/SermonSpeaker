@@ -17,7 +17,7 @@ $id = $this->row[0]->id;
 	<tr>
 		<td valign="top"><b><?php echo JText::_('SERMONNAME'); ?>:</b></td><td>
 		<?php if ($this->params->get('hide_dl') == "0" && strlen($this->row[0]->sermon_path) > 0) {
-			echo "<a TITLE=\"".JText::_('DOWNLOAD_HOOVER_TAG')."\" href=\"".$this->lnk."\">".$this->row[0]->sermon_title."</a>";
+			echo "<a title=\"".JText::_('DOWNLOAD_HOOVER_TAG')."\" href=\"".$this->lnk."\">".$this->row[0]->sermon_title."</a>";
 		} else {
 			echo $this->row[0]->sermon_title;
 		} ?>
@@ -51,13 +51,13 @@ $id = $this->row[0]->id;
 		if ($this->params->get('popup_player') == "1" && strlen($this->row[0]->sermon_path) > 0) { ?>
 		<tr>
 			<td></td>
-			<td><input class="popup_btn" type="button" name="<?php echo JText::_('POPUP_PLAYER'); ?>" value="<?php echo JText::_('POPUP_PLAYER'); ?>" onClick="popup = window.open('<?php echo JRoute::_("index.php?view=sermon&layout=popup&id=$id&tmpl=component"); ?>', 'PopupPage', 'height=<?php echo $pp_h.",width=".$pp_w; ?>,scrollbars=yes,resizable=yes'); return false"></td>
+			<td><input class="popup_btn" type="button" name="<?php echo JText::_('POPUP_PLAYER'); ?>" value="<?php echo JText::_('POPUP_PLAYER'); ?>" onClick="popup = window.open('<?php echo JRoute::_("index.php?view=sermon&layout=popup&id=$id&tmpl=component"); ?>', 'PopupPage', 'height=<?php echo $pp_h.",width=".$pp_w; ?>,scrollbars=yes,resizable=yes'); return false" /></td>
 		</tr>
 		<?php } ?>
 	<?php
 		$return = SermonspeakerHelperSermonspeaker::insertAddfile($this->row[0]->addfile, $this->row[0]->addfileDesc);
 		if ($return != NULL) {
-			echo "<tr><td valign =\"top\"><b>".JText::_('ADDFILE').":</b></td><td>".$return."</td><tr>";
+			echo "<tr><td valign =\"top\"><b>".JText::_('ADDFILE').":</b></td><td>".$return."</td></tr>";
 		} ?>
 		<?php if ($this->params->get('client_col_sermon_notes') && strlen($this->row[0]->notes) > 0){
 			echo "<tr><td valign =\"top\"><b>".JText::_('SERMONNOTES').":</b></td><td>".$this->row[0]->notes."</td><tr>";
