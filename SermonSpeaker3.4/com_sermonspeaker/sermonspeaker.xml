@@ -33,6 +33,7 @@
 		<filename>helpers/index.html</filename>
 		<filename>helpers/sermonspeaker.php</filename>
 		<filename>views/index.html</filename>
+		<filename>models/index.html</filename>
 		<filename>views/archive/index.html</filename>
 		<filename>views/archive/view.html.php</filename>
 		<filename>views/archive/metadata.xml</filename>
@@ -40,7 +41,6 @@
 		<filename>views/archive/tmpl/default.php</filename>
 		<filename>views/archive/tmpl/default.xml</filename>
 		<filename>models/archive.php</filename>
-		<filename>views/index.html</filename>
 		<filename>views/feed/index.html</filename>
 		<filename>views/feed/view.html.php</filename>
 		<filename>views/feed/metadata.xml</filename>
@@ -48,7 +48,13 @@
 		<filename>views/feed/tmpl/default.php</filename>
 		<filename>views/feed/tmpl/default.xml</filename>
 		<filename>models/feed.php</filename>
-		<filename>views/index.html</filename>
+		<filename>views/podcast/index.html</filename>
+		<filename>views/podcast/view.html.php</filename>
+		<filename>views/podcast/metadata.xml</filename>
+		<filename>views/podcast/tmpl/index.html</filename>
+		<filename>views/podcast/tmpl/default.php</filename>
+		<filename>views/podcast/tmpl/default.xml</filename>
+		<filename>models/podcast.php</filename>
 		<filename>views/series/index.html</filename>
 		<filename>views/series/view.html.php</filename>
 		<filename>views/series/metadata.xml</filename>
