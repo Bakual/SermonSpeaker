@@ -20,8 +20,6 @@ class SermonspeakerControllerStatistics extends SermonspeakerController
 
 	function resetcount()
 	{
-		global $option;
-		
 		$database	= &JFactory::getDBO();
 		$id 		= JRequest::getInt('id', 0);
 		$table 		= JRequest::getWord('table', 0);
@@ -36,6 +34,6 @@ class SermonspeakerControllerStatistics extends SermonspeakerController
 			exit();
 		}
 
-	$this->setRedirect("index.php?option=".$option."&view=statistics");
+	$this->setRedirect("index.php?option=com_sermonspeaker&view=statistics");
 	}
 }

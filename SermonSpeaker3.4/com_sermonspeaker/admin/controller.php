@@ -17,7 +17,6 @@ class SermonspeakerController extends JController {
 	}
 	
 	function migrate() {
-		global $option;
 		$msg = NULL;
 		$configarr = NULL;
 		$castconfigarr = NULL;
@@ -53,7 +52,7 @@ class SermonspeakerController extends JController {
 		$db =& JFactory::getDBO();
 		$query = "UPDATE #__components \n"
 				."SET params = \"".$paramstr."\" \n"
-				."WHERE `option` = '".$option."' \n"
+				."WHERE `option` = 'com_sermonspeaker' \n"
 				."AND parent = 0 \n";
 		$db->setQuery($query);
 		$result = $db->query();

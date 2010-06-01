@@ -2,7 +2,6 @@
 defined( '_JEXEC' ) or die( 'Restricted access' );
 // JHTML::_('behavior.tooltip');
 $Itemid	= JRequest::getInt('Itemid');
-global $option;
 if ($this->params->get('ga')) { $callback = "&callback=".$this->params->get('ga'); }
 $return = SermonspeakerHelperSermonspeaker::insertAddfile($this->row[0]->addfile, $this->row[0]->addfileDesc);
 $countcolumn = NULL; // will count optional columns so the popup button may span all columns

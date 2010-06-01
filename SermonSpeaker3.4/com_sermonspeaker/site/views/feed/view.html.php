@@ -7,7 +7,7 @@ class SermonspeakerViewFeed extends JView
 {
 	function display($tpl = null)
 	{
-		global $option, $itemid;
+		global $itemid;
 		JHTML::stylesheet('sermonspeaker.css', 'components/com_sermonspeaker/');
 
 		require_once(JPATH_COMPONENT.DS.'feedcreator.class.php');
@@ -165,7 +165,7 @@ class SermonspeakerViewFeed extends JView
 			$encl = JRoute::_($encl);
 
 			// & used instead of &amp; as this is converted by feed creator
-			$item_link = JURI::root().'index.php?option='.$option.'&view=sermon&id='.$row->id.'&Itemid='.$itemid;
+			$item_link = JURI::root().'index.php?option=com_sermonspeaker&view=sermon&id='.$row->id.'&Itemid='.$itemid;
 
 			// removes all formating from the intro text for the description text
 			$item_description = strip_tags($row->notes);

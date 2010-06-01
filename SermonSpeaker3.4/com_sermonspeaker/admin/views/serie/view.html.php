@@ -7,8 +7,6 @@ class SermonspeakerViewSerie extends JView
 {
 	function display( $tpl = null )
 	{
-		global $option;
-
 		$params	=& JComponentHelper::getParams('com_sermonspeaker');
 
 		$edit = JRequest::getBool('edit', true);

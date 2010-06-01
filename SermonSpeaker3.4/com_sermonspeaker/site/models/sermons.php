@@ -16,8 +16,6 @@ class SermonspeakerModelSermons extends JModel
 	{
 		parent::__construct();
  
-		global $option;
-		
 		$params = &JComponentHelper::getParams('com_sermonspeaker');
 		$cat['series'] = $params->get('series_cat', JRequest::getInt('series_cat', ''));
 		$cat['speaker'] = $params->get('speaker_cat', JRequest::getInt('speaker_cat', ''));
@@ -47,8 +45,8 @@ class SermonspeakerModelSermons extends JModel
 
 		// Get sorting order from Request and UserState
 		$app = JFactory::getApplication();
-		$this->lists['order']		= $app->getUserStateFromRequest("$option.sermons.filter_order",'filter_order','sermon_date','cmd' );
-		$this->lists['order_Dir']	= $app->getUserStateFromRequest("$option.sermons.filter_order_Dir",'filter_order_Dir','DESC','word' );
+		$this->lists['order']		= $app->getUserStateFromRequest("com_sermonspeaker.sermons.filter_order",'filter_order','sermon_date','cmd' );
+		$this->lists['order_Dir']	= $app->getUserStateFromRequest("com_sermonspeaker.sermons.filter_order_Dir",'filter_order_Dir','DESC','word' );
 	}
 
 	function getOrder()

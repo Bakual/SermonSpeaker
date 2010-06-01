@@ -9,8 +9,6 @@ class SermonspeakerModelStatistics extends JModel
 	{
 		parent::__construct();
 
-		global $option;
-
 		$this->db =& JFactory::getDBO();
 	}
 

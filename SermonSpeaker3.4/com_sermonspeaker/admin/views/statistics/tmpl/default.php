@@ -31,7 +31,7 @@ JToolBarHelper::preferences('com_sermonspeaker',550);
 			<td align="left"><?php echo $row->name; ?></td>
 			<td align="left"><?php echo $row->hits; ?></td>
 			<td align="center">
-				<a href="index.php?option=<?php echo $option; ?>&controller=statistics&task=resetcount&table=speakers&id=<?php echo $row->id; ?>">
+				<a href="index.php?option=com_sermonspeaker&controller=statistics&task=resetcount&table=speakers&id=<?php echo $row->id; ?>">
 					<img src="<?php echo JURI::base(); ?>components/com_sermonspeaker/images/reset.png" width="16" height="16" border="0" alt="Reset" />
 				</a>
 			</td>
@@ -61,7 +61,7 @@ JToolBarHelper::preferences('com_sermonspeaker',550);
 			<td align="left"><?php echo $row->series_title; ?></td>
 			<td align="left"><?php echo $row->hits; ?></td>
 			<td align="center">
-				<a href="index.php?option=<?php echo $option; ?>&controller=statistics&task=resetcount&table=series&id=<?php echo $row->id; ?>">
+				<a href="index.php?option=com_sermonspeaker&controller=statistics&task=resetcount&table=series&id=<?php echo $row->id; ?>">
 					<img src="<?php echo JURI::base(); ?>components/com_sermonspeaker/images/reset.png" width="16" height="16" border="0" alt="Reset" />
 				</a>
 			</td>
@@ -91,7 +91,7 @@ JToolBarHelper::preferences('com_sermonspeaker',550);
 			<td align="left"><?php echo $row->sermon_title; ?></td>
 			<td align="left"><?php echo $row->hits; ?></td>
 			<td align="center">
-				<a href="index.php?option=<?php echo $option; ?>&controller=statistics&task=resetcount&table=sermons&id=<?php echo $row->id; ?>">
+				<a href="index.php?option=com_sermonspeaker&controller=statistics&task=resetcount&table=sermons&id=<?php echo $row->id; ?>">
 					<img src="<?php echo JURI::base(); ?>components/com_sermonspeaker/images/reset.png" width="16" height="16" border="0" alt="Reset" />
 				</a>
 			</td>

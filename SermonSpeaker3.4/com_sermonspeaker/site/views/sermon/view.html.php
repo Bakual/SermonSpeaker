@@ -10,8 +10,6 @@ class SermonspeakerViewSermon extends JView
 {
 	function display($tpl = null)
 	{
-		global $option;
-		
 		JHTML::stylesheet('sermonspeaker.css', 'components/com_sermonspeaker/');
 
 		$params	=& JComponentHelper::getParams('com_sermonspeaker');
@@ -54,11 +52,11 @@ class SermonspeakerViewSermon extends JView
 		if ($active_view == "series") {
 			$model		= &$this->getModel();
 			$serie		= &$model->getSerie($row[0]->series_id);		// getting the Serie from the Model
-	    	$breadcrumbs->addItem($serie->series_title, 'index.php?option='.$option.'&view=serie&id='.$row[0]->series_id.'&Itemid='.$itemid);
+	    	$breadcrumbs->addItem($serie->series_title, 'index.php?option=com_sermonspeaker&view=serie&id='.$row[0]->series_id.'&Itemid='.$itemid);
 		} elseif ($active_view == "speakers") {
 			$model		= &$this->getModel();
 			$speaker	= &$model->getSpeaker($row[0]->speaker_id);		// getting the Speaker from the Model
-	    	$breadcrumbs->addItem($speaker->name, 'index.php?option='.$option.'&view=speaker&id='.$row[0]->speaker_id.'&Itemid='.$itemid);
+	    	$breadcrumbs->addItem($speaker->name, 'index.php?option=com_sermonspeaker&view=speaker&id='.$row[0]->speaker_id.'&Itemid='.$itemid);
 		}
     	$breadcrumbs->addItem($row[0]->sermon_title, '');
 

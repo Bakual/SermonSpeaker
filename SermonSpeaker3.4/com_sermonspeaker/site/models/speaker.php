@@ -12,15 +12,13 @@ class SermonspeakerModelSpeaker extends JModel
 	{
 		parent::__construct();
  
-		global $option;
-		
 		$this->params = &JComponentHelper::getParams('com_sermonspeaker');
 		$this->id		= JRequest::getInt('id',$this->params->get('speaker_id'));
 
 		// Get sorting order from Request and UserState
 		$app = JFactory::getApplication();
-		$this->lists['order']		= $app->getUserStateFromRequest("$option.sermons.filter_order",'filter_order','sermon_date','cmd' );
-		$this->lists['order_Dir']	= $app->getUserStateFromRequest("$option.sermons.filter_order_Dir",'filter_order_Dir','DESC','word' );
+		$this->lists['order']		= $app->getUserStateFromRequest("com_sermonspeaker.sermons.filter_order",'filter_order','sermon_date','cmd' );
+		$this->lists['order_Dir']	= $app->getUserStateFromRequest("com_sermonspeaker.sermons.filter_order_Dir",'filter_order_Dir','DESC','word' );
 		// checking for invalid sorts from other views and change to default
 		if ($this->lists['order'] == 'name'){ // columns speaker isn't shown in speaker views, would be obviously always the same
 			$this->lists['order'] = 'sermon_date';

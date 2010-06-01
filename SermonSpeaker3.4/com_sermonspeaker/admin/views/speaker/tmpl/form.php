@@ -57,7 +57,7 @@ $editor =& JFactory::getEditor();
 	</table>
 	</fieldset>
 	<input type="hidden" name="id" value="<?php echo $this->row->id; ?>" />
-	<input type="hidden" name="option" value="<?php echo $option;?>" />
+	<input type="hidden" name="option" value="com_sermonspeaker" />
 	<input type="hidden" name="controller" value="speaker" />
 	<input type="hidden" name="view" value="speakers" />
 	<input type="hidden" name="task" value="" />

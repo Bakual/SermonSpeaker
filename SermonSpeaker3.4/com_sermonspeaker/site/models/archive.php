@@ -16,8 +16,6 @@ class SermonspeakerModelArchive extends JModel
 	{
 		parent::__construct();
  
-		global $option;
-		
 		$app = JFactory::getApplication();
 
 		$params = &JComponentHelper::getParams('com_sermonspeaker');
@@ -49,8 +47,8 @@ class SermonspeakerModelArchive extends JModel
 		$this->setState('limitstart', $limitstart);
 
 		// Get sorting order from Request and UserState
-		$this->lists['order']		= $app->getUserStateFromRequest("$option.sermons.filter_order",'filter_order','sermon_date','cmd' );
-		$this->lists['order_Dir']	= $app->getUserStateFromRequest("$option.sermons.filter_order_Dir",'filter_order_Dir','DESC','word' );
+		$this->lists['order']		= $app->getUserStateFromRequest("com_sermonspeaker.sermons.filter_order",'filter_order','sermon_date','cmd' );
+		$this->lists['order_Dir']	= $app->getUserStateFromRequest("com_sermonspeaker.sermons.filter_order_Dir",'filter_order_Dir','DESC','word' );
 
 		$date=getDate();
 		$month	= $params->get('month',$date[mon]);

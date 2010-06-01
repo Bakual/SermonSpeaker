@@ -47,8 +47,6 @@ class SermonspeakerControllerSermon extends SermonspeakerController
 		// Check for request forgeries
 		JRequest::checkToken() or jexit('Invalid Token');
 		
-		global $option;
-
 		$row = &JTable::getInstance('sermons', 'Table');
 		$post = JRequest::get('post');
 		// get the Text Area 'notes' again, but not full *cleaned* by JRequest.
@@ -81,13 +79,13 @@ class SermonspeakerControllerSermon extends SermonspeakerController
 		{
 			case 'apply':
 				$msg = JText::_('SERMON_APPLIED');
-				$link = 'index.php?option='.$option.'&controller=sermon&task=edit&cid[]='.$row->id;
+				$link = 'index.php?option=com_sermonspeaker&controller=sermon&task=edit&cid[]='.$row->id;
 				break;
 
 			case 'save':
 			default:
 				$msg = JText::_('SERMON_SAVED');
-				$link = 'index.php?option='.$option.'&view=sermons';
+				$link = 'index.php?option=com_sermonspeaker&view=sermons';
 				break;
 		}
 
@@ -99,8 +97,6 @@ class SermonspeakerControllerSermon extends SermonspeakerController
 		// Check for request forgeries
 		JRequest::checkToken() or jexit('Invalid Token');
 		
-		global $option;
-
 		$cid = JRequest::getVar('cid', array(), '', 'array');
 		JArrayHelper::toInteger($cid);
 
@@ -122,7 +118,7 @@ class SermonspeakerControllerSermon extends SermonspeakerController
 				$msg .= $row->getError();
 			}
 		}
-		$this->setRedirect('index.php?option='.$option.'&view=sermons', $msg);
+		$this->setRedirect('index.php?option=com_sermonspeaker&view=sermons', $msg);
 	}
 
 	/**
@@ -132,8 +128,6 @@ class SermonspeakerControllerSermon extends SermonspeakerController
 	{
 		// Check for request forgeries
 		JRequest::checkToken() or jexit('Invalid Token');
-
-		global $option;
 
 		$cid = JRequest::getVar('cid', array(), '', 'array');
 		JArrayHelper::toInteger($cid);
@@ -150,11 +144,10 @@ class SermonspeakerControllerSermon extends SermonspeakerController
 			$msg = $row->getError();
 		}
 		
-		$this->setRedirect('index.php?option='.$option.'&view=sermons', $msg);
+		$this->setRedirect('index.php?option=com_sermonspeaker&view=sermons', $msg);
 	}
 
 	function podcast() {
-		global $option;
 		$cid = JRequest::getVar('cid', array(), '', 'array');
 		JArrayHelper::toInteger($cid);
 		$podcast = ($this->getTask() == 'podcast' ? 1 : 0);
@@ -174,13 +167,11 @@ class SermonspeakerControllerSermon extends SermonspeakerController
 			$msg = $database->getErrorMsg();
 		}
 
-		$this->setRedirect('index.php?option='.$option.'&view=sermons', $msg);
+		$this->setRedirect('index.php?option=com_sermonspeaker&view=sermons', $msg);
 	}
 
 	function cancel()
 	{
-		global $option;
-
 		// Check for request forgeries
 		JRequest::checkToken() or jexit('Invalid Token');
 
@@ -189,6 +180,6 @@ class SermonspeakerControllerSermon extends SermonspeakerController
 		$row = &JTable::getInstance('sermons', 'Table');
 		$row->checkin($id);
 		$msg = JText::_('OPERATION CANCELED');
-		$this->setRedirect('index.php?option='.$option.'&view=sermons', $msg );
+		$this->setRedirect('index.php?option=com_sermonspeaker&view=sermons', $msg );
 	}
 }

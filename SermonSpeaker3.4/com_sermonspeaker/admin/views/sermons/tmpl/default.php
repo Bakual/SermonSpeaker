@@ -66,7 +66,7 @@ JToolBarHelper::preferences('com_sermonspeaker',550);
 			$row = &$this->items[$i];
 			$checked = JHTML::_('grid.id', $i, $row->id);
 			$published = JHTML::_('grid.published', $row, $i);
-			$link = JFilterOutput::ampReplace('index.php?option='.$option.'&controller=sermon&task=edit&cid[]='.$row->id);
+			$link = JFilterOutput::ampReplace('index.php?option=com_sermonspeaker&controller=sermon&task=edit&cid[]='.$row->id);
 			?> 
 			<tr class="<?php echo "row$k"; ?>"> 
 				<td><?php echo $this->pagination->getRowOffset($i); ?></td>
@@ -92,7 +92,7 @@ JToolBarHelper::preferences('com_sermonspeaker',550);
 		} ?>
 	</tbody>
 </table>
-	<input type="hidden" name="option" value="<?php echo $option; ?>" />
+	<input type="hidden" name="option" value="com_sermonspeaker" />
 	<input type="hidden" name="controller" value="sermon" />
 	<input type="hidden" name="view" value="sermons" />
 	<input type="hidden" name="task" value="" />

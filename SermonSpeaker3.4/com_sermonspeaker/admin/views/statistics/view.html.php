@@ -7,8 +7,6 @@ class SermonspeakerViewStatistics extends JView
 {
 	function display( $tpl = null )
 	{
-		global $option;
-
         // get data from the model
 		$series		=& $this->get('Series');
 		$speakers	=& $this->get('Speakers');

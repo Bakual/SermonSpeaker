@@ -12,8 +12,6 @@ class SermonspeakerModelFeed extends JModel
 	{
 		parent::__construct();
  
-		global $option;
-		
 		$this->params = &JComponentHelper::getParams('com_sermonspeaker');
 	}
 

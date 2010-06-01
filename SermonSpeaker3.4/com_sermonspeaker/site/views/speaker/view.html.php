@@ -10,8 +10,6 @@ class SermonspeakerViewSpeaker extends JView
 {
 	function display($tpl = null)
 	{
-		global $option;
-
 		JHTML::stylesheet('sermonspeaker.css', 'components/com_sermonspeaker/');
 
 		$params	=& JComponentHelper::getParams('com_sermonspeaker');

@@ -7,15 +7,13 @@ class SermonspeakerViewSpeakers extends JView
 {
 	function display( $tpl = null )
 	{
-		global $option;
-
 		$app = JFactory::getApplication();
 
-		$lists['order']		= $app->getUserStateFromRequest("$option.speakers.filter_order",'filter_order','id','cmd' );
-		$lists['order_Dir']	= $app->getUserStateFromRequest("$option.speakers.filter_order_Dir",'filter_order_Dir','','word' );
-		$filter_state		= $app->getUserStateFromRequest("$option.speakers.filter_state",'filter_state','','word' );
-		$filter_catid		= $app->getUserStateFromRequest("$option.speakers.filter_catid",'filter_catid','','int' );
-		$search				= $app->getUserStateFromRequest("$option.speakers.search",'search','','string' );
+		$lists['order']		= $app->getUserStateFromRequest("com_sermonspeaker.speakers.filter_order",'filter_order','id','cmd' );
+		$lists['order_Dir']	= $app->getUserStateFromRequest("com_sermonspeaker.speakers.filter_order_Dir",'filter_order_Dir','','word' );
+		$filter_state		= $app->getUserStateFromRequest("com_sermonspeaker.speakers.filter_state",'filter_state','','word' );
+		$filter_catid		= $app->getUserStateFromRequest("com_sermonspeaker.speakers.filter_catid",'filter_catid','','int' );
+		$search				= $app->getUserStateFromRequest("com_sermonspeaker.speakers.search",'search','','string' );
 		$search				= JString::strtolower( $search );
 
 		$pagination =& $this->get('Pagination');	// Paginationwerte aus Model lesen

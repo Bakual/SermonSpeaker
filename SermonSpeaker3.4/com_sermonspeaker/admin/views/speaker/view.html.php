@@ -7,8 +7,6 @@ class SermonspeakerViewSpeaker extends JView
 {
 	function display( $tpl = null )
 	{
-		global $option;
-
 		$edit = JRequest::getBool('edit', true);
 		if ($edit) {
 			$cid = JRequest::getVar('cid', array(0), '', 'array');

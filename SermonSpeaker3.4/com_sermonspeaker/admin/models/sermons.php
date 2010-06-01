@@ -9,16 +9,14 @@ class SermonspeakerModelSermons extends JModel
 	{
 		parent::__construct();
 
-		global $option;
-
 		$app 		= JFactory::getApplication();
 		$this->db	=& JFactory::getDBO();
 
-		$this->filter_state		= $app->getUserStateFromRequest("$option.sermons.filter_state",'filter_state','','word');
-		$this->filter_catid		= $app->getUserStateFromRequest("$option.sermons.filter_catid",'filter_catid','','int');
-		$this->filter_pcast		= $app->getUserStateFromRequest("$option.sermons.filter_pcast",'filter_pcast','','word');
-		$this->filter_serie		= $app->getUserStateFromRequest("$option.sermons.filter_serie",'filter_serie','','string');
-		$this->search			= $app->getUserStateFromRequest("$option.sermons.search",'search','','string');
+		$this->filter_state		= $app->getUserStateFromRequest("com_sermonspeaker.sermons.filter_state",'filter_state','','word');
+		$this->filter_catid		= $app->getUserStateFromRequest("com_sermonspeaker.sermons.filter_catid",'filter_catid','','int');
+		$this->filter_pcast		= $app->getUserStateFromRequest("com_sermonspeaker.sermons.filter_pcast",'filter_pcast','','word');
+		$this->filter_serie		= $app->getUserStateFromRequest("com_sermonspeaker.sermons.filter_serie",'filter_serie','','string');
+		$this->search			= $app->getUserStateFromRequest("com_sermonspeaker.sermons.search",'search','','string');
 		$this->search			= JString::strtolower($this->search);
 
 		// Get pagination request variables
@@ -31,8 +29,8 @@ class SermonspeakerModelSermons extends JModel
 		$this->setState('limitstart', $limitstart);
 
 		// Get sorting order from Request and UserState
-		$this->_order['order']		= $app->getUserStateFromRequest("$option.sermons.filter_order",'filter_order','id','cmd' );
-		$this->_order['order_Dir']	= $app->getUserStateFromRequest("$option.sermons.filter_order_Dir",'filter_order_Dir','DESC','word' );
+		$this->_order['order']		= $app->getUserStateFromRequest("com_sermonspeaker.sermons.filter_order",'filter_order','id','cmd' );
+		$this->_order['order_Dir']	= $app->getUserStateFromRequest("com_sermonspeaker.sermons.filter_order_Dir",'filter_order_Dir','DESC','word' );
 	}
 
 	function _buildWhere()

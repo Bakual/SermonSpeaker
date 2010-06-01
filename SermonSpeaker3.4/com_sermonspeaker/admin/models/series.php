@@ -9,14 +9,12 @@ class SermonspeakerModelSeries extends JModel
 	{
 		parent::__construct();
 
-		global $option;
-
 		$app 		= JFactory::getApplication();
 		$this->db	=& JFactory::getDBO();
 
-		$this->filter_state		= $app->getUserStateFromRequest("$option.series.filter_state",'filter_state','','word');
-		$this->filter_catid		= $app->getUserStateFromRequest("$option.series.filter_catid",'filter_catid','','int');
-		$this->search			= $app->getUserStateFromRequest("$option.series.search",'search','','string');
+		$this->filter_state		= $app->getUserStateFromRequest("com_sermonspeaker.series.filter_state",'filter_state','','word');
+		$this->filter_catid		= $app->getUserStateFromRequest("com_sermonspeaker.series.filter_catid",'filter_catid','','int');
+		$this->search			= $app->getUserStateFromRequest("com_sermonspeaker.series.search",'search','','string');
 		$this->search			= JString::strtolower($this->search);
 
 		// Get pagination request variables
@@ -29,8 +27,8 @@ class SermonspeakerModelSeries extends JModel
 		$this->setState('limitstart', $limitstart);
 
 		// Get sorting order from Request and UserState
-		$this->_order['order']		= $app->getUserStateFromRequest("$option.series.filter_order",'filter_order','id','cmd' );
-		$this->_order['order_Dir']	= $app->getUserStateFromRequest("$option.series.filter_order_Dir",'filter_order_Dir','DESC','word' );
+		$this->_order['order']		= $app->getUserStateFromRequest("com_sermonspeaker.series.filter_order",'filter_order','id','cmd' );
+		$this->_order['order_Dir']	= $app->getUserStateFromRequest("com_sermonspeaker.series.filter_order_Dir",'filter_order_Dir','DESC','word' );
 	}
 
 	function _buildWhere()
