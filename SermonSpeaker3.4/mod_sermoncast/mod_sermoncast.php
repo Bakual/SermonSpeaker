@@ -34,7 +34,7 @@ if ($cat['sermon'] != 0){
 	$feedcat .= '&sermon_cat='.(int)$cat['sermon'];
 }
 
-$feedFile = "index.php?option=com_sermonspeaker&view=feed&feed=RSS2.0&tmpl=component".$feedcat;
+$feedFile = "index.php?option=com_sermonspeaker&amp;view=feed&amp;feed=RSS2.0&amp;tmpl=component".$feedcat;
 
 if($showPcast) {
 	$u =& JURI::getInstance(JURI::root());
