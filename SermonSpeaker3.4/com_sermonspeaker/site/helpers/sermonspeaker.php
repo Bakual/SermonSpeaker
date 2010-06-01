@@ -81,14 +81,14 @@ class SermonspeakerHelperSermonspeaker
 				<param name="wmode" value="transparent"/>
 				<param name="allowfullscreen" value="true"/>
 				<param name="allowscriptaccess" value="always"/>
-				<param name="flashvars" value="file=<?php echo $lnk; ?>&autostart=<?php echo $start; ?>&height=20&width=200<?php echo $callback; ?>"/>
+				<param name="flashvars" value="file=<?php echo $lnk; ?>&amp;autostart=<?php echo $start; ?>&amp;height=20&amp;width=200<?php echo $callback; ?>"/>
 				<embed src="<?php echo $player; ?>"
 					width="250"
 					height="20"
 					wmode="transparent"
 					allowscriptaccess="always"
 					allowfullscreen="true"
-					flashvars="file=<?php echo $lnk; ?>&autostart=<?php echo $start; ?>&height=20&width=200<?php echo $callback; ?>"
+					flashvars="file=<?php echo $lnk; ?>&amp;autostart=<?php echo $start; ?>&amp;height=20&amp;width=200<?php echo $callback; ?>"
 				/>
 			</object>
 			<?php

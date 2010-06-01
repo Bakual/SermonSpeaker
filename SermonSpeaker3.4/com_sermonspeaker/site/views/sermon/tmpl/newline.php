@@ -21,7 +21,7 @@ $id = $this->row[0]->id;
 		} else {
 			echo $this->row[0]->sermon_title;
 		} ?>
-	</tr>
+	</td></tr>
 	<?php if ($this->params->get('client_col_sermon_scripture_reference')){ ?>
 		<tr>
 			<td valign="top"><b><?php echo JText::_('SCRIPTURE'); ?>:</b></td>
