@@ -75,7 +75,7 @@ class SermonspeakerHelperSermonspeaker
 		$player = JURI::root()."components/com_sermonspeaker/media/player/player.swf";
 
 		if((strcasecmp(substr($lnk,-4),".mp3") == 0) OR (strcasecmp(substr($lnk,-4),".m4a") == 0)) { ?>
-			<!-- Embed eingepackt in Object-Tag für Internet Explorer -->
+			<!-- Embed eingepackt in Object-Tag fuer Internet Explorer -->
 			<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="250" height="20" id="player1" name="player1">
 				<param name="movie" value="<?php echo $player; ?>"/>
 				<param name="wmode" value="transparent"/>
