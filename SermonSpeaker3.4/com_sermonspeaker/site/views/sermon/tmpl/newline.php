@@ -60,7 +60,7 @@ $id = $this->row[0]->id;
 			echo "<tr><td valign =\"top\"><b>".JText::_('ADDFILE').":</b></td><td>".$return."</td></tr>";
 		} ?>
 		<?php if ($this->params->get('client_col_sermon_notes') && strlen($this->row[0]->notes) > 0){
-			echo "<tr><td valign =\"top\"><b>".JText::_('SERMONNOTES').":</b></td><td>".$this->row[0]->notes."</td><tr>";
+			echo "<tr><td valign =\"top\"><b>".JText::_('SERMONNOTES').":</b></td><td>".$this->row[0]->notes."</td></tr>";
 		} ?>
 </table>
 <table width="100%">
