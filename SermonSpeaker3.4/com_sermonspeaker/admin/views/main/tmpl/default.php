@@ -39,7 +39,7 @@ JToolBarHelper::preferences('com_sermonspeaker',550);
 				</a>
 			</div></div>
 			<div style="float: left;"><div class="icon">
-				<a href="index2.php?option=com_sermonspeaker&view=help">
+				<a href="index.php?option=com_sermonspeaker&view=help">
 					<img border="0" align="middle" alt="<?php echo JText::_('HELP'); ?>" src="<?php echo JURI::base()."components/com_sermonspeaker/images/help.png"; ?>"/>
 					<span><?php echo JText::_('HELP'); ?></span>
 				</a>
