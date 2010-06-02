@@ -49,7 +49,7 @@
 		<filename>views/feed/tmpl/default.xml</filename>
 		<filename>models/feed.php</filename>
 		<filename>views/podcast/index.html</filename>
-		<filename>views/podcast/view.html.php</filename>
+		<filename>views/podcast/view.raw.php</filename>
 		<filename>views/podcast/metadata.xml</filename>
 		<filename>views/podcast/tmpl/index.html</filename>
 		<filename>views/podcast/tmpl/default.php</filename>
