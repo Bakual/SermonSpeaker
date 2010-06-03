@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="SERIE">
+		<message><![CDATA[SERIE_DESC]]></message>
+	</layout>
+	<state>
+		<name>SERIE</name>
+		<description>SERIE_DESC</description>
+		<params>
+			<param name="serie_id" type="sql" label="SELECT_SERIE" description="SELECT_SERIE_DESC" query="SELECT id, series_title FROM #__sermon_series" key_field="id" value_field="series_title" />
+		</params>
+	</state>
+</metadata>
