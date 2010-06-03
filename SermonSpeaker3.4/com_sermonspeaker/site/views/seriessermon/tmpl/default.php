@@ -1,6 +1,5 @@
 <?php
 defined( '_JEXEC' ) or die( 'Restricted access' );
-$Itemid	= JRequest::getInt('Itemid');
 ?>
 <table width="100%" cellpadding="2" cellspacing="0">
 	<tr class="componentheading">

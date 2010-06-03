@@ -1,7 +1,5 @@
 <?php
 defined( '_JEXEC' ) or die( 'Restricted access' );
-// JHTML::_('behavior.tooltip');
-$Itemid	= JRequest::getInt('Itemid');
 if ($this->params->get('ga')) { $callback = "&callback=".$this->params->get('ga'); }
 $return = SermonspeakerHelperSermonspeaker::insertAddfile($this->row[0]->addfile, $this->row[0]->addfileDesc);
 $id = $this->row[0]->id;

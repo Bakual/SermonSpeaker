@@ -1,6 +1,5 @@
 <?php
 defined( '_JEXEC' ) or die( 'Restricted access' );
-$Itemid	= JRequest::getInt('Itemid');
 ?>
 <table width="100%" cellpadding="2" cellspacing="0">
 	<tr class="componentheading">
@@ -37,7 +36,7 @@ $Itemid	= JRequest::getInt('Itemid');
 				} 
 			}
 			?> 
-    		<td align="left"><a href="<?php echo JRoute::_( "index.php?option=com_sermonspeaker&view=serie&id=$row->id&Itemid=$Itemid" ); ?>"><?php echo $row->series_title; ?></a></td>
+    		<td align="left"><a href="<?php echo JRoute::_("index.php?view=serie&id=$row->id" ); ?>"><?php echo $row->series_title; ?></a></td>
     		<td align="left">
 				<?php echo SermonspeakerHelperSermonspeaker::SpeakerTooltip($row->s_id, $row->pic, $row->name); ?>
 			</td>

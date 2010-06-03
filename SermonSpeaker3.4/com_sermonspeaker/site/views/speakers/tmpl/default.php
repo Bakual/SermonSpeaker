@@ -45,7 +45,7 @@ $Itemid	= JRequest::getInt('Itemid');
 			<th colspan="2" align="left"><a  title="<?php echo JText::_('SERIES_HOOVER_TAG'); ?>" href="<?php echo JRoute::_("index.php?view=speaker&id=$row->id" ); ?>"><?php echo JText::_('SERMON_SERIES'); ?></a></th>
 		</tr>
 		<tr>
-		<th colspan="2" align="left"><a title="<?php echo JText::_('SERMON_HOOVER_TAG'); ?>" href="<?php echo JRoute::_("index.php?option=com_sermonspeaker&view=speaker&layout=latest-sermons&id=$row->id&Itemid=$Itemid" ); ?>"><?php echo JText::_('SERMONS'); ?></a></th>
+		<th colspan="2" align="left"><a title="<?php echo JText::_('SERMON_HOOVER_TAG'); ?>" href="<?php echo JRoute::_("index.php?view=speaker&layout=latest-sermons&id=$row->id" ); ?>"><?php echo JText::_('SERMONS'); ?></a></th>
 		</tr>
 	</table>
 	<p></p>

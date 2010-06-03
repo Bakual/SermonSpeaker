@@ -1,7 +1,6 @@
 <?php
 defined( '_JEXEC' ) or die( 'Restricted access' );
 // JHTML::_('behavior.tooltip');
-$Itemid	= JRequest::getInt('Itemid');
 ?>
 <table width="100%" cellpadding="2" cellspacing="0">
 	<tr class="componentheading">

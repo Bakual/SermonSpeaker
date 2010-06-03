@@ -3,8 +3,6 @@
 defined( '_JEXEC' ) or die( 'Restricted access' );
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
-global $cur_template;
-
 JHTML::_('behavior.tooltip');
 JHTML::_('behavior.modal');
 
@@ -19,9 +17,6 @@ $showPlainlink  = $params->get('showplink');
 $prefix         = $params->get('pcast_prefix');
 $helpcontent	= $params->get('helpcontent');
 $moduleclass_sfx 	= $params->get('$moduleclass_sfx');
-
-$t_path = JURI::root().'templates'.DS.$cur_template.DS.'images'.DS;
-$d_path	= JURI::root().'images'.DS.'M_images'.DS;
 
 $feedcat = NULL;
 if ($cat['series'] != 0){
@@ -45,7 +40,7 @@ if($showPcast) {
 }
 ?>
 
-<div class="syndicate<?php echo $moduleclass_sfx; ?>" align="center">
+<div class="syndicate <?php echo $moduleclass_sfx; ?>" align="center">
 <?php
 echo '<p>'.$text.'</p>';
 if($otherlink != '') {

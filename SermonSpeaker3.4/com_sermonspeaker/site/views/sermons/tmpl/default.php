@@ -2,7 +2,6 @@
 defined( '_JEXEC' ) or die( 'Restricted access' );
 JHTML::_('behavior.tooltip');
 JHTML::_('behavior.modal');
-$Itemid	= JRequest::getInt('Itemid');
 /* JS Script für Joomla Sortierung */
 JFactory::getDocument()->addScriptDeclaration( "
 	function tableOrdering( order, dir, task ) {
