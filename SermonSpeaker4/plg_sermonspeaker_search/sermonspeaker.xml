@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<install version="1.5" type="plugin" group="search" method="upgrade">
+	<name>Search - SermonSpeaker</name>
+	<author>Phil Boucher</author>
+	<creationDate>Mai 2010</creationDate>
+	<copyright>(C) 2010</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+	<authorEmail>phil.boucher@tiscali.co.uk</authorEmail>
+	<authorUrl>http://joomlacode.org/gf/project/sermon_speaker/</authorUrl>
+	<version>3.4</version>
+	<description>Search Plugin for the SermonSpeaker 3.4 Component</description>
+	<files>
+		<filename plugin="sermonspeaker">sermonspeaker.php</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">languages/en-GB.plg_search_sermonspeaker.ini</language>
+		<language tag="de-DE">languages/de-DE.plg_search_sermonspeaker.ini</language>
+	</languages>
+	<params>
+		<param name="search_limit" type="text" size="5" default="50" label="SEARCH LIMIT" description="NUMBER ITEMS RETURN"/>
+	</params>
+</install>
