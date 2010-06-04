@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?> 
-<install type="component" version="1.5" method="upgrade"> 
+<extension type="component" version="1.6" method="upgrade"> 
 	<name>SermonSpeaker</name>
 	<author>Martin Hess</author>
 	<creationDate>Mai 2010</creationDate>
@@ -8,20 +8,7 @@
 	<authorUrl>http://joomlacode.org/gf/project/sermon_speaker/</authorUrl>
 	<version>3.4</version>
 	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
-	<description><![CDATA[
-		<div align="center">
-			<table border="0" width="90%">
-				<tr>
-					<td width="100%" colspan="2">
-					  <div align="center">
-						<h1>SermonSpeaker 3.4</h1>
-						Thank you for installing / upgrading SermonSpeaker! Please check out the help section!
-					  </div>
-					</td>
-				</tr>
-			</table>
-		</div>]]>
-	</description>
+	<description>COM_SERMONSPEAKER_DESCRIPTION</description>
  	<installfile>install.sermonspeaker.php</installfile>
 	<uninstallfile>uninstall.sermonspeaker.php</uninstallfile>
 	<files folder="site">
@@ -248,4 +235,4 @@
 			<language tag="de-DE">de-DE.com_sermonspeaker.menu.ini</language>
 		</languages>
 	</administration>
-</install>
+</extension>

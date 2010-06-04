@@ -1,172 +1,177 @@
-<root>
-	<params>
-		<param name="path" type="text" size="30" default="images" label="PATH" description="PATH_DESC" />
-		<param name="path_avatar" type="text" size="30" default="images" label="PATH_AVATAR" description="PATH_AVATAR_DESC" />
-		<param name="path_addfile" type="text" size="30" default="images" label="PATH_ADDFILE" description="PATH_ADDFILE_DESC" />
-		<param name="sermonresults" type="text" default="10" label="SERMONRESULTS" description="SERMONRESULTS_DESC" />
-		<param name="limit_speaker" type="radio" default="0" label="LIMIT_SPEAKER" description="LIMIT_SPEAKER_DESC">
-			<option value="0">No</option>
-			<option value="1">Yes</option>
-		</param>
-		<param name="speaker_intro" type="radio" default="1" label="SPEAKER_INTRO" description="SPEAKER_INTRO_DESC">
-			<option value="0">No</option>
-			<option value="1">Yes</option>
-		</param>
-		<param name="startpage" type="list" default="" label="STARTPAGE" description="STARTPAGE_DESC">
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+	<fieldset group="params" name="general" label="PARAM_GENERAL_TITLE" description="PARAM_GENERAL_DESC">
+		<field name="path" type="text" size="30" default="images" label="PATH" description="PATH_DESC" />
+		<field name="path_avatar" type="text" size="30" default="images" label="PATH_AVATAR" description="PATH_AVATAR_DESC" />
+		<field name="path_addfile" type="text" size="30" default="images" label="PATH_ADDFILE" description="PATH_ADDFILE_DESC" />
+		<field name="sermonresults" type="text" default="10" label="SERMONRESULTS" description="SERMONRESULTS_DESC" />
+		<field name="limit_speaker" type="radio" default="0" label="LIMIT_SPEAKER" description="LIMIT_SPEAKER_DESC">
+			<option value="0">JNo</option>
+			<option value="1">JYes</option>
+		</field>
+		<field name="speaker_intro" type="radio" default="1" label="SPEAKER_INTRO" description="SPEAKER_INTRO_DESC">
+			<option value="0">JNo</option>
+			<option value="1">JYes</option>
+		</field>
+		<field name="startpage" type="list" default="" label="STARTPAGE" description="STARTPAGE_DESC">
 			<option value="1">SPEAKERS</option>
 			<option value="2">SERIES</option>
 			<option value="3">SERMONS</option>
 			<option value="4">SERIESSERMONS</option>
-		</param>
-		<param type="spacer" default="CLIENT_COL" />
-		<param name="sermonlayout" type="list" default="1" label="SERMONLAYOUT" description="SERMONLAYOUT_DESC">
+		</field>
+	</fieldset>
+	<fieldset group="params" name="client_col" label="PARAM_CLIENT_COL_TITLE" description="PARAM_CLIENT_COL_DESC">
+		<field name="sermonlayout" type="list" default="1" label="SERMONLAYOUT" description="SERMONLAYOUT_DESC">
 			<option value="1">SERMON_ALLINROW</option>
 			<option value="2">SERMON_NEWLINE</option>
 			<option value="3">SERMON_EXTNEWLINE</option>
-		</param>
-		<param name="client_col_sermon_number" type="radio" default="1" label="CLIENT_COL_SERMON_NUMBER" description="CLIENT_COL_SERMON_NUMBER_DESC">
-			<option value="0">No</option>
-			<option value="1">Yes</option>
-		</param>
-		<param name="client_col_sermon_scripture_reference" type="radio" default="1" label="CLIENT_COL_SCRIPTURE_REFERENCE" description="CLIENT_COL_SCRIPTURE_REFERENCE_DESC">
-			<option value="0">No</option>
-			<option value="1">Yes</option>
-		</param>
-		<param name="client_col_sermon_date" type="radio" default="1" label="CLIENT_COL_SERMON_DATE" description="CLIENT_COL_SERMON_DATE_DESC">
-			<option value="0">No</option>
-			<option value="1">Yes</option>
-		</param>
-		<param name="client_col_sermon_time" type="radio" default="1" label="CLIENT_COL_SERMON_TIME" description="CLIENT_COL_SERMON_TIME_DESC">
-			<option value="0">No</option>
-			<option value="1">Yes</option>
-		</param>
-		<param name="client_col_sermon_notes" type="radio" default="1" label="CLIENT_COL_SERMON_NOTES" description="CLIENT_COL_SERMON_NOTES_DESC">
-			<option value="0">No</option>
-			<option value="1">Yes</option>
-		</param>
-		<param name="client_col_player" type="radio" default="1" label="CLIENT_COL_PLAYER" description="CLIENT_COL_PLAYER_DESC">
-			<option value="0">No</option>
-			<option value="1">Yes</option>
-		</param>
-		<param name="client_col_sermon_addfile" type="radio" default="1" label="CLIENT_COL_SERMON_ADDFILE" description="CLIENT_COL_SERMON_ADDFILE_DESC">
-			<option value="0">No</option>
-			<option value="1">Yes</option>
-		</param>
-		<param name="dl_button" type="radio" default="1" label="DL_BUTTON" description="DL_BUTTON_DESC">
-			<option value="0">No</option>
-			<option value="1">Yes</option>
-		</param>
-		<param name="popup_player" type="radio" default="1" label="POPUP_PLAYER" description="POPUP_PLAYER_DESC">
-			<option value="0">No</option>
-			<option value="1">Yes</option>
-		</param>
-		<param name="hide_dl" type="radio" default="0" label="HIDE_DL" description="HIDE_DL_DESC">
-			<option value="0">No</option>
-			<option value="1">Yes</option>
-		</param>
-		<param name="autostart" type="radio" default="1" label="AUTOSTART" description="AUTOSTART_DESC">
-			<option value="0">No</option>
-			<option value="1">Yes</option>
-		</param>
-		<param name="popup_color" type="text" default="FFFFFF" label="POPUP_COLOR" description="POPUP_COLOR_DESC" />
-		<param name="popup_height" type="text" default="150" label="POPUP_HEIGHT" description="POPUP_HEIGHT_DESC" />
-		<param name="mp_width" type="text" default="300" label="MP_WIDTH" description="MP_WIDTH_DESC" />
-		<param name="mp_height" type="text" default="300" label="MP_HEIGHT" description="MP_HEIGHT_DESC" />
-		<param name="ga" type="text" default="" label="GA" description="GA_DESC" />
-		<param type="spacer" default="STATISTICS" />
-		<param name="track_speaker" type="radio" default="1" label="TRACK_SPEAKER" description="TRACK_SPEAKER_DESC">
-			<option value="0">No</option>
-			<option value="1">Yes</option>
-		</param>
-		<param name="track_series" type="radio" default="1" label="TRACK_SERIES" description="TRACK_SERIES_DESC">
-			<option value="0">No</option>
-			<option value="1">Yes</option>
-		</param>
-		<param name="track_sermon" type="radio" default="1" label="TRACK_SERMON" description="TRACK_SERMON_DESC">
-			<option value="0">No</option>
-			<option value="1">Yes</option>
-		</param>
-		<param type="spacer" default="&lt;b&gt;Frontend Uploading&lt;b&gt;" />
-		<param name="fu_enable" type="radio" default="0" label="FRUP_ENABLE" description="FRUP_ENABLE_DESC">
-			<option value="0">No</option>
-			<option value="1">Yes</option>
-		</param>
-		<param name="fu_taskname" type="text" default="" label="FRUP_TASKNAME" description="FRUP_TASKNAME_DESC" />
-		<param name="fu_pwd" type="password" default="" label="FRUP_PWD" description="FRUP_PWD_DESC" />
-		<param name="fu_usergroup" type="usergroup" default="" multiple="yes" label="FRUP_USERGROUP" description="FRUP_USERGROUP_DESC" />
-		<param name="fu_destdir" type="text" default="" label="FRUP_DESTDIR" description="FRUP_DESTDIR_DESC" />
-		<param name="fu_id3_title" type="list" default="Title" label="FRUP_ID3_TITLE" description="FRUP_ID3_TITLE_DESC">
+		</field>
+		<field name="client_col_sermon_number" type="radio" default="1" label="CLIENT_COL_SERMON_NUMBER" description="CLIENT_COL_SERMON_NUMBER_DESC">
+			<option value="0">JNo</option>
+			<option value="1">JYes</option>
+		</field>
+		<field name="client_col_sermon_scripture_reference" type="radio" default="1" label="CLIENT_COL_SCRIPTURE_REFERENCE" description="CLIENT_COL_SCRIPTURE_REFERENCE_DESC">
+			<option value="0">JNo</option>
+			<option value="1">JYes</option>
+		</field>
+		<field name="client_col_sermon_date" type="radio" default="1" label="CLIENT_COL_SERMON_DATE" description="CLIENT_COL_SERMON_DATE_DESC">
+			<option value="0">JNo</option>
+			<option value="1">JYes</option>
+		</field>
+		<field name="client_col_sermon_time" type="radio" default="1" label="CLIENT_COL_SERMON_TIME" description="CLIENT_COL_SERMON_TIME_DESC">
+			<option value="0">JNo</option>
+			<option value="1">JYes</option>
+		</field>
+		<field name="client_col_sermon_JNotes" type="radio" default="1" label="CLIENT_COL_SERMON_NOTES" description="CLIENT_COL_SERMON_NOTES_DESC">
+			<option value="0">JNo</option>
+			<option value="1">JYes</option>
+		</field>
+		<field name="client_col_player" type="radio" default="1" label="CLIENT_COL_PLAYER" description="CLIENT_COL_PLAYER_DESC">
+			<option value="0">JNo</option>
+			<option value="1">JYes</option>
+		</field>
+		<field name="client_col_sermon_addfile" type="radio" default="1" label="CLIENT_COL_SERMON_ADDFILE" description="CLIENT_COL_SERMON_ADDFILE_DESC">
+			<option value="0">JNo</option>
+			<option value="1">JYes</option>
+		</field>
+		<field name="dl_button" type="radio" default="1" label="DL_BUTTON" description="DL_BUTTON_DESC">
+			<option value="0">JNo</option>
+			<option value="1">JYes</option>
+		</field>
+		<field name="popup_player" type="radio" default="1" label="POPUP_PLAYER" description="POPUP_PLAYER_DESC">
+			<option value="0">JNo</option>
+			<option value="1">JYes</option>
+		</field>
+		<field name="hide_dl" type="radio" default="0" label="HIDE_DL" description="HIDE_DL_DESC">
+			<option value="0">JNo</option>
+			<option value="1">JYes</option>
+		</field>
+		<field name="autostart" type="radio" default="1" label="AUTOSTART" description="AUTOSTART_DESC">
+			<option value="0">JNo</option>
+			<option value="1">JYes</option>
+		</field>
+		<field name="popup_color" type="text" default="FFFFFF" label="POPUP_COLOR" description="POPUP_COLOR_DESC" />
+		<field name="popup_height" type="text" default="150" label="POPUP_HEIGHT" description="POPUP_HEIGHT_DESC" />
+		<field name="mp_width" type="text" default="300" label="MP_WIDTH" description="MP_WIDTH_DESC" />
+		<field name="mp_height" type="text" default="300" label="MP_HEIGHT" description="MP_HEIGHT_DESC" />
+		<field name="ga" type="text" default="" label="GA" description="GA_DESC" />
+	</fieldset>
+	<fieldset group="params" name="statistics" label="PARAM_STATISTICS_TITLE" description="PARAM_STATISTICS_DESC">
+		<field name="track_speaker" type="radio" default="1" label="TRACK_SPEAKER" description="TRACK_SPEAKER_DESC">
+			<option value="0">JNo</option>
+			<option value="1">JYes</option>
+		</field><field name="track_series" type="radio" default="1" label="TRACK_SERIES" description="TRACK_SERIES_DESC">
+			<option value="0">JNo</option>
+			<option value="1">JYes</option>
+		</field>
+		<field name="track_sermon" type="radio" default="1" label="TRACK_SERMON" description="TRACK_SERMON_DESC">
+			<option value="0">JNo</option>
+			<option value="1">JYes</option>
+		</field>
+		<field type="spacer" default="&lt;b&gt;Frontend Uploading&lt;b&gt;" />
+	</fieldset>
+	<fieldset group="params" name="frontend" label="PARAM_FRONTEND_TITLE" description="PARAM_FRONTEND_DESC">
+		<field name="fu_enable" type="radio" default="0" label="FRUP_ENABLE" description="FRUP_ENABLE_DESC">
+			<option value="0">JNo</option>
+			<option value="1">JYes</option>
+		</field>
+		<field name="fu_taskname" type="text" default="" label="FRUP_TASKNAME" description="FRUP_TASKNAME_DESC" />
+		<field name="fu_pwd" type="password" default="" label="FRUP_PWD" description="FRUP_PWD_DESC" />
+		<field name="fu_usergroup" type="usergroup" default="" multiple="JYes" label="FRUP_USERGROUP" description="FRUP_USERGROUP_DESC" />
+		<field name="fu_destdir" type="text" default="" label="FRUP_DESTDIR" description="FRUP_DESTDIR_DESC" />
+		<field name="fu_id3_title" type="list" default="Title" label="FRUP_ID3_TITLE" description="FRUP_ID3_TITLE_DESC">
 			<option value="-">-</option>
 			<option value="Artist">Artist</option>
 			<option value="Title">Title</option>
 			<option value="Album">Album</option>
 			<option value="Track">Track</option>
 			<option value="Comment">Comment</option>
-		</param>
-		<param name="fu_id3_speaker" type="list" default="Artist" label="FRUP_ID3_SPEAKER" description="FRUP_ID3_SPEAKER_DESC">
+		</field>
+		<field name="fu_id3_speaker" type="list" default="Artist" label="FRUP_ID3_SPEAKER" description="FRUP_ID3_SPEAKER_DESC">
 			<option value="-">-</option>
 			<option value="Artist">Artist</option>
 			<option value="Title">Title</option>
 			<option value="Album">Album</option>
 			<option value="Track">Track</option>
 			<option value="Comment">Comment</option>
-		</param>
-		<param name="fu_id3_series" type="list" default="Album" label="FRUP_ID3_SERIES" description="FRUP_ID3_SERIES_DESC">
+		</field>
+		<field name="fu_id3_series" type="list" default="Album" label="FRUP_ID3_SERIES" description="FRUP_ID3_SERIES_DESC">
 			<option value="-">-</option>
 			<option value="Artist">Artist</option>
 			<option value="Title">Title</option>
 			<option value="Album">Album</option>
 			<option value="Track">Track</option>
 			<option value="Comment">Comment</option>
-		</param>
-		<param name="fu_id3_ref" type="list" default="-" label="FRUP_ID3_REF" description="FRUP_ID3_REF_DESC">
+		</field>
+		<field name="fu_id3_ref" type="list" default="-" label="FRUP_ID3_REF" description="FRUP_ID3_REF_DESC">
 			<option value="-">-</option>
 			<option value="Artist">Artist</option>
 			<option value="Title">Title</option>
 			<option value="Album">Album</option>
 			<option value="Track">Track</option>
 			<option value="Comment">Comment</option>
-		</param>
-		<param name="fu_id3_number" type="list" default="Track" label="FRUP_ID3_NUMBER" description="FRUP_ID3_NUMBER_DESC">
+		</field>
+		<field name="fu_id3_number" type="list" default="Track" label="FRUP_ID3_NUMBER" description="FRUP_ID3_NUMBER_DESC">
 			<option value="-">-</option>
 			<option value="Artist">Artist</option>
 			<option value="Title">Title</option>
 			<option value="Album">Album</option>
 			<option value="Track">Track</option>
 			<option value="Comment">Comment</option>
-		</param>
-		<param name="fu_id3_notes" type="list" default="Comment" label="FRUP_ID3_COMMENT" description="FRUP_ID3_COMMENT_DESC">
+		</field>
+		<field name="fu_id3_JNotes" type="list" default="Comment" label="FRUP_ID3_COMMENT" description="FRUP_ID3_COMMENT_DESC">
 			<option value="-">-</option>
 			<option value="Artist">Artist</option>
 			<option value="Title">Title</option>
 			<option value="Album">Album</option>
 			<option value="Track">Track</option>
 			<option value="Comment">Comment</option>
-		</param>
-		<param type="spacer" default="&lt;b&gt;SermonCast&lt;b&gt;" />
-		<param name="cache" type="radio" default="1" label="CACHE" description="CACHE_DESC">
-			<option value="0">No</option>
-			<option value="1">Yes</option>
-		</param>
-		<param name="cache_time" type="text" default="3600" label="CACHE_TIME" description="CACHE_TIME_DESC" />
-		<param name="mimetype" type="text" default="audio/mpeg" label="MIMETYPE" description="MIMETYPE_DESC" />
-		<param name="encoding" type="text" default="utf-8" label="ENCODING" description="ENCODING_DESC" />
-		<param name="count" type="text" default="10" label="COUNT" description="COUNT_DESC" />
-		<param name="title" type="text" default="MyChurch Podcast" label="TITLE" description="TITLE_DESC" />
-		<param name="description" type="text" default="Predigt / Sermon" label="DESCRIPTION" description="DESCRIPTION_DESC" />
-		<param name="copyright" type="text" default="(c) mychurch" label="COPYRIGHT" description="COPYRIGHT_DESC" />
-		<param name="limit_text" type="radio" default="1" label="LIMIT_TEXT" description="LIMIT_TEXT_DESC">
-			<option value="0">No</option>
-			<option value="1">Yes</option>
-		</param>
-		<param name="text_length" type="text" default="20" label="TEXT_LENGTH" description="TEXT_LENGTH_DESC" />
-		<param type="spacer" default="&lt;b&gt;SermonCast - iTunes&lt;b&gt;" />
-		<param name="itAuthor" type="text" default="MyChurch" label="ITAUTHOR" description="ITAUTHOR_DESC" />
-		<param name="itKeywords" type="text" default="MyChurch" label="ITKEYWORDS" description="ITKEYWORDS_DESC" />
-		<param name="itSubtitle" type="text" default="" label="ITSUBTITLE" description="ITSUBTITLE_DESC" />
-		<param name="itImage" type="text" default="" label="ITIMAGE" description="ITIMAGE_DESC" />
-		<param name="itCategory1" type="list" default="Religion &amp; Spirituality" label="ITCATEGORY1" description="ITCATEGORY1_DESC">
-			<option value="">(none)</option>
+		</field>
+	</fieldset>
+	<fieldset group="params" name="sermoncast" label="PARAM_SERMONCAST_TITLE" description="PARAM_SERMONCAST_DESC">
+		<field name="cache" type="radio" default="1" label="CACHE" description="CACHE_DESC">
+			<option value="0">JNo</option>
+			<option value="1">JYes</option>
+		</field>
+		<field name="cache_time" type="text" default="3600" label="CACHE_TIME" description="CACHE_TIME_DESC" />
+		<field name="mimetype" type="text" default="audio/mpeg" label="MIMETYPE" description="MIMETYPE_DESC" />
+		<field name="encoding" type="text" default="utf-8" label="ENCODING" description="ENCODING_DESC" />
+		<field name="count" type="text" default="10" label="COUNT" description="COUNT_DESC" />
+		<field name="title" type="text" default="MyChurch Podcast" label="TITLE" description="TITLE_DESC" />
+		<field name="description" type="text" default="Predigt / Sermon" label="DESCRIPTION" description="DESCRIPTION_DESC" />
+		<field name="copyright" type="text" default="(c) mychurch" label="COPYRIGHT" description="COPYRIGHT_DESC" />
+		<field name="limit_text" type="radio" default="1" label="LIMIT_TEXT" description="LIMIT_TEXT_DESC">
+			<option value="0">JNo</option>
+			<option value="1">JYes</option>
+		</field>
+		<field name="text_length" type="text" default="20" label="TEXT_LENGTH" description="TEXT_LENGTH_DESC" />
+		<field type="spacer" default="&lt;b&gt;SermonCast - iTunes&lt;b&gt;" />
+		<field name="itAuthor" type="text" default="MyChurch" label="ITAUTHOR" description="ITAUTHOR_DESC" />
+		<field name="itKeywords" type="text" default="MyChurch" label="ITKEYWORDS" description="ITKEYWORDS_DESC" />
+		<field name="itSubtitle" type="text" default="" label="ITSUBTITLE" description="ITSUBTITLE_DESC" />
+		<field name="itImage" type="text" default="" label="ITIMAGE" description="ITIMAGE_DESC" />
+		<field name="itCategory1" type="list" default="Religion &amp; Spirituality" label="ITCATEGORY1" description="ITCATEGORY1_DESC">
+			<option value="">(JNone)</option>
 			<option value="Education">Education</option>
 			<option value="Religion &amp; Spirituality">Religion &amp; Spirituality</option>
 			<option value="Religion &amp; Spirituality > Christianity">Religion &amp; Spirituality > Christianity</option>
@@ -177,9 +182,9 @@
 			<option value="Kids &amp; Family">Kids &amp; Family</option>
 			<option value="Sports &amp; Recreation">Sports &amp; Recreation</option>
 			<option value="Sports &amp; Recreation > Professional">Sports &amp; Recreation > Professional</option>
-		</param>
-		<param name="itCategory2" type="list" default="Religion &amp; Spirituality > Christianity" label="ITCATEGORY2" description="ITCATEGORY2_DESC">
-			<option value="">(none)</option>
+		</field>
+		<field name="itCategory2" type="list" default="Religion &amp; Spirituality > Christianity" label="ITCATEGORY2" description="ITCATEGORY2_DESC">
+			<option value="">(JNone)</option>
 			<option value="Education">Education</option>
 			<option value="Religion &amp; Spirituality">Religion &amp; Spirituality</option>
 			<option value="Religion &amp; Spirituality > Christianity">Religion &amp; Spirituality > Christianity</option>
@@ -190,9 +195,9 @@
 			<option value="Kids &amp; Family">Kids &amp; Family</option>
 			<option value="Sports &amp; Recreation">Sports &amp; Recreation</option>
 			<option value="Sports &amp; Recreation > Professional">Sports &amp; Recreation > Professional</option>
-		</param>
-		<param name="itCategory3" type="list" default="" label="ITCATEGORY3" description="ITCATEGORY3_DESC">
-			<option value="">(none)</option>
+		</field>
+		<field name="itCategory3" type="list" default="" label="ITCATEGORY3" description="ITCATEGORY3_DESC">
+			<option value="">(JNone)</option>
 			<option value="Education">Education</option>
 			<option value="Religion &amp; Spirituality">Religion &amp; Spirituality</option>
 			<option value="Religion &amp; Spirituality > Christianity">Religion &amp; Spirituality > Christianity</option>
@@ -203,10 +208,13 @@
 			<option value="Kids &amp; Family">Kids &amp; Family</option>
 			<option value="Sports &amp; Recreation">Sports &amp; Recreation</option>
 			<option value="Sports &amp; Recreation > Professional">Sports &amp; Recreation > Professional</option>
-		</param>
-		<param name="itOwnerName" type="text" default="" label="ITOWNERNAME" description="ITOWNERNAME_DESC" />
-		<param name="itOwnerEmail" type="text" default="admin@mychurch.com" label="ITOWNEREMAIL" description="ITOWNEREMAIL_DESC" />
-		<param name="itLanguage" type="text" default="en" label="ITLANGUAGE" description="ITLANGUAGE_DESC" />
-		<param name="itRedirect" type="text" default="" label="ITREDIRECT" description="ITREDIRECT_DESC" />
-	</params>
-</root>
+		</field>
+		<field name="itOwnerName" type="text" default="" label="ITOWNERNAME" description="ITOWNERNAME_DESC" />
+		<field name="itOwnerEmail" type="text" default="admin@mychurch.com" label="ITOWNEREMAIL" description="ITOWNEREMAIL_DESC" />
+		<field name="itLanguage" type="text" default="en" label="ITLANGUAGE" description="ITLANGUAGE_DESC" />
+		<field name="itRedirect" type="text" default="" label="ITREDIRECT" description="ITREDIRECT_DESC" />
+	</fieldset>
+	<fieldset name="permissions" label="JCONFIG_PERMISSIONS_LABEL" description="JCONFIG_PERMISSIONS_DESC" >
+		<field name="rules" type="rules" label="JCONFIG_PERMISSIONS_LABEL" class="inputbox" filter="rules" component="com_sermonspeaker" section="component" />
+	</fieldset>
+</config>
