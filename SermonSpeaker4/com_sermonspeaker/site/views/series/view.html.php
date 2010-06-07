@@ -25,6 +25,12 @@ class SermonspeakerViewSeries extends JView
         $rows		=& $this->get('Data');			// getting the Datarows from the Model
         $pagination	=& $this->get('Pagination');	// getting the JPaginationobject from the Model
 		
+ 		$cat = NULL;
+		if($params->get('series_cat') || $params->get('speaker_cat') || $params->get('sermon_cat')){
+			$cat	=& $this->get('Cat');
+			$cat	= ': '.$cat;
+		}
+
 		// check if there are avatars at all, only showing column if needed
 		$av = null;
 		foreach ($rows as $row){
@@ -39,6 +45,7 @@ class SermonspeakerViewSeries extends JView
 		$this->assignRef('pagination',$pagination);	// for JPagination
 		$this->assignRef('params',$params);			// for Params
 		$this->assignRef('av',$av);					// for Avatars
+		$this->assignRef('cat',$cat);				// for Category title
 
 		parent::display($tpl);
 	}	

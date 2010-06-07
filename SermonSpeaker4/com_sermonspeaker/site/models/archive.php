@@ -25,15 +25,19 @@ class SermonspeakerModelArchive extends JModel
 
 		$this->seriesjoin = NULL;
 		$this->catwhere = NULL;
+		$this->cat = array();
 		if ($cat['series'] != 0){
 			$this->seriesjoin = " LEFT JOIN #__sermon_series AS ss ON j.series_id = ss.id \n";
 			$this->catwhere .= " AND ss.catid = '".(int)$cat['series']."' \n";
+			$this->cat[] = $cat['series'];
 		}
 		if ($cat['speaker'] != 0){
 			$this->catwhere .= " AND k.catid = '".(int)$cat['speaker']."' \n";
+			$this->cat[] = $cat['speaker'];
 		}
 		if ($cat['sermon'] != 0){
 			$this->catwhere .= " AND j.catid = '".(int)$cat['sermon']."' \n";
+			$this->cat[] = $cat['sermon'];
 		}
 
 		// Get pagination request variables
@@ -55,6 +59,20 @@ class SermonspeakerModelArchive extends JModel
 		$year	= $params->get('year',$date[year]);
 		$this->year = JRequest::getInt('year', $year);
 		$this->month = JRequest::getInt('month', $month);
+	}
+
+	function getCat()
+	{
+		$database =& JFactory::getDBO();
+		$cats = array_unique($this->cat);
+		$title = array();
+		foreach ($cats as $cat){
+			$query = "SELECT title FROM #__categories WHERE id = ".$cat;
+			$database->setQuery( $query );
+			$title[] = $database->LoadResult();
+		}
+		$title = implode(' &amp; ', $title);
+		return $title;
 	}
 
 	function getOrder()

@@ -25,10 +25,17 @@ class SermonspeakerViewSeriessermon extends JView
         $rows		=& $this->get('Data');			// getting the Datarows from the Model
         $pagination	=& $this->get('Pagination');	// getting the JPaginationobject from the Model
 
-        // push data into the template
+ 		$cat = NULL;
+		if($params->get('series_cat') || $params->get('speaker_cat') || $params->get('sermon_cat')){
+			$cat	=& $this->get('Cat');
+			$cat	= ': '.$cat;
+		}
+
+       // push data into the template
 		$this->assignRef('rows',$rows);             
 		$this->assignRef('pagination',$pagination);	// for JPagination
 		$this->assignRef('params',$params);			// for Params
+		$this->assignRef('cat',$cat);				// for Category title
 
 		parent::display($tpl);
 	}	

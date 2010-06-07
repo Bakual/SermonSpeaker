@@ -14,7 +14,7 @@ JFactory::getDocument()->addScriptDeclaration( "
 ?>
 <table width="100%" cellpadding="2" cellspacing="0">
 	<tr class="componentheading">
-		<th align="left" valign="bottom"><?php echo JText::_('SERMFROM')." ".JHTML::date($this->rows[0]->sermon_date, '%B, %Y', 0); ?></th>
+		<th align="left" valign="bottom"><?php echo JText::_('SERMFROM')." ".JHTML::date($this->rows[0]->sermon_date, '%B, %Y', 0).$this->cat; ?></th>
 	</tr>
 </table>
 <p />

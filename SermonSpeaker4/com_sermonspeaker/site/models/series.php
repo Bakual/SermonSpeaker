@@ -21,11 +21,14 @@ class SermonspeakerModelSeries extends JModel
 		$cat['speaker'] = $params->get('speaker_cat', JRequest::getInt('speaker_cat', ''));
 
 		$this->catwhere = NULL;
+		$this->cat = array();
 		if ($cat['series'] != 0){
 			$this->catwhere .= " AND j.catid = '".(int)$cat['series']."' \n";
+			$this->cat[] = $cat['series'];
 		}
 		if ($cat['speaker'] != 0){
 			$this->catwhere .= " AND l.catid = '".(int)$cat['speaker']."' \n";
+			$this->cat[] = $cat['speaker'];
 		}
 
 		// Get pagination request variables
@@ -36,6 +39,20 @@ class SermonspeakerModelSeries extends JModel
  
 		$this->setState('limit', $limit);
 		$this->setState('limitstart', $limitstart);
+	}
+
+	function getCat()
+	{
+		$database =& JFactory::getDBO();
+		$cats = array_unique($this->cat);
+		$title = array();
+		foreach ($cats as $cat){
+			$query = "SELECT title FROM #__categories WHERE id = ".$cat;
+			$database->setQuery( $query );
+			$title[] = $database->LoadResult();
+		}
+		$title = implode(' &amp; ', $title);
+		return $title;
 	}
 
 	function getTotal()

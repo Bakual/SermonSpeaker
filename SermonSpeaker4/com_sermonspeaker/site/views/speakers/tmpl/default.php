@@ -6,7 +6,7 @@ $Itemid	= JRequest::getInt('Itemid');
 ?>
 <table width="100%" cellpadding="2" cellspacing="0">
 	<tr class="componentheading">
-		<th align="left" valign="bottom"><?php echo JText::_('SPEAKERMAIN'); ?></th>
+		<th align="left" valign="bottom"><?php echo JText::_('SPEAKERMAIN').$this->cat; ?></th>
 	</tr>
 </table>
 <p />

@@ -25,11 +25,19 @@ class SermonspeakerViewSermons extends JView
 		$lists		=& $this->get('Order');
         $pagination	=& $this->get('Pagination');	// getting the JPaginationobject from the Model
 
+		$cat = NULL;
+		if($params->get('series_cat') || $params->get('speaker_cat') || $params->get('sermon_cat')){
+			$cat	=& $this->get('Cat');
+			$cat	= ': '.$cat;
+		}
+
         // push data into the template
 		$this->assignRef('rows',$rows);             
 		$this->assignRef('lists',$lists);			// for Sorting
 		$this->assignRef('pagination',$pagination);	// for JPagination
 		$this->assignRef('params',$params);			// for Params
+		$this->assignRef('cat',$cat);				// for Category title
+
 		parent::display($tpl);
 	}	
 }
