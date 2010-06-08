@@ -36,17 +36,17 @@ class SermonspeakerModelSpeakers extends JModel
 		$where = NULL;
 		if ($this->filter_state) {
 			if ($this->filter_state == 'P') {
-				$where[] = 'published = 1';
+				$where[] = 'speakers.published = 1';
 			}
 			else if ($this->filter_state == 'U') {
-				$where[] = 'published = 0';
+				$where[] = 'speakers.published = 0';
 			}
 		}
 		if ($this->filter_catid) {
-			$where[] = 'cc.id = ' . (int) $this->filter_catid;
+			$where[] = 'speakers.catid = ' . (int) $this->filter_catid;
 		}
 		if ($this->search) {
-			$where[] = 'LOWER(name) LIKE '.$this->db->Quote('%'.$this->db->getEscaped($this->search, true).'%', false);
+			$where[] = 'LOWER(speakers.name) LIKE '.$this->db->Quote('%'.$this->db->getEscaped($this->search, true).'%', false);
 		}
 		$where = (count($where) ? ' WHERE '.implode(' AND ', $where) : '');
 
@@ -58,7 +58,7 @@ class SermonspeakerModelSpeakers extends JModel
 		$where	= $this->_buildWhere();
 		// Query bilden
 		$query = 'SELECT *'
-		.' FROM #__sermon_speakers'
+		.' FROM #__sermon_speakers AS speakers'
 		.$where
 		;
 		

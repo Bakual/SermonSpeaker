@@ -43,7 +43,7 @@ class SermonspeakerModelSeries extends JModel
 			}
 		}
 		if ($this->filter_catid) {
-			$where[] = 'cc.id = ' . (int) $this->filter_catid;
+			$where[] = 'series.catid = ' . (int) $this->filter_catid;
 		}
 		if ($this->search) {
 			$where[] = 'LOWER(series.series_title) LIKE '.$this->db->Quote('%'.$this->db->getEscaped($this->search, true).'%', false);

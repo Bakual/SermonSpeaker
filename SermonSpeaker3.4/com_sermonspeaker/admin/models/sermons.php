@@ -45,7 +45,7 @@ class SermonspeakerModelSermons extends JModel
 			}
 		}
 		if ($this->filter_catid) {
-			$where[] = 'cc.id = ' . (int) $this->filter_catid;
+			$where[] = 'sermons.catid = ' . (int) $this->filter_catid;
 		}
 		if ($this->filter_serie) {
 			$where[] = 'sermons.series_id = "' . $this->filter_serie . '"';
