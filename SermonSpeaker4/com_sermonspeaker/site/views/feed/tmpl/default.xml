@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <metadata>
-	<layout title="Test FEED">
+	<layout title="FEED">
 		<message><![CDATA[FEED_DESC]]></message>
 	</layout>
 	<state>

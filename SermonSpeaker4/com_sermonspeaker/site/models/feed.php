@@ -4,9 +4,9 @@ defined('_JEXEC') or die('Restricted access');
 jimport('joomla.application.component.model');
 
 /**
- * SermonSpeaker Component Series Model
+ * SermonSpeaker Component Feed Model
  */
-class SermonspeakerModelPodcast extends JModel
+class SermonspeakerModelFeed extends JModel
 {
 	function __construct()
 	{
@@ -21,32 +21,30 @@ class SermonspeakerModelPodcast extends JModel
 		$cat['speaker'] = $this->params->get('speaker_cat', JRequest::getInt('speaker_cat', ''));
 		$cat['sermon'] = $this->params->get('sermon_cat', JRequest::getInt('sermon_cat', ''));
 
-		$this->seriesjoin = NULL;
 		$this->catwhere = NULL;
 		if ($cat['series'] != 0){
-			$this->seriesjoin = " LEFT JOIN #__sermon_series AS ss ON a.series_id = ss.id \n";
-			$this->catwhere .= " AND ss.catid = '".(int)$cat['series']."' \n";
+			$this->catwhere .= " AND series.catid = '".(int)$cat['series']."' \n";
 		}
 		if ($cat['speaker'] != 0){
-			$this->catwhere .= " AND s.catid = '".(int)$cat['speaker']."' \n";
+			$this->catwhere .= " AND speakers.catid = '".(int)$cat['speaker']."' \n";
 		}
 		if ($cat['sermon'] != 0){
-			$this->catwhere .= " AND a.catid = '".(int)$cat['sermon']."' \n";
+			$this->catwhere .= " AND sermons.catid = '".(int)$cat['sermon']."' \n";
 		}
 
 		$database =& JFactory::getDBO();
 
 		$query = "SET character_set_results ='utf8';";
 		$database->setQuery($query);
-		$query = "SELECT UNIX_TIMESTAMP(sermon_date) AS pubdate, sermon_title, sermon_path, \n"
-				."notes, sermon_time, sermon_scripture, s.name, a.id \n"
-				."FROM #__sermon_sermons AS a \n"
-				."LEFT JOIN  #__sermon_speakers AS s ON a.speaker_id = s.id \n"
-				.$this->seriesjoin
-				."WHERE a.published='1' \n"
-				."AND a.podcast='1' \n"
+		$query = "SELECT sermons.sermon_date, sermons.sermon_title, sermons.sermon_path, series.series_title, \n"
+				."sermons.notes, sermons.sermon_time, sermons.sermon_scripture, speakers.name, sermons.id \n"
+				."FROM #__sermon_sermons AS sermons \n"
+				."LEFT JOIN  #__sermon_speakers AS speakers ON sermons.speaker_id = speakers.id \n"
+				."LEFT JOIN  #__sermon_series AS series ON sermons.series_id = series.id \n"
+				."WHERE sermons.published='1' \n"
+				."AND sermons.podcast='1' \n"
 				.$this->catwhere
-				."ORDER by pubdate desc";
+				."ORDER by sermons.sermon_date desc";
 		$database->setQuery($query);
 		$rows = $database->loadObjectList();
 		
