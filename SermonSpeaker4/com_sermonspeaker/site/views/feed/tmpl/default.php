@@ -54,7 +54,7 @@ if (is_array($this->channel->itOwner)) {
 }
 if ($this->channel->itImage != "") {
 	echo '
-	<itunes:image href="'.$this->channel->itImage.'"></itunes:image>
+	<itunes:image href="'.$this->channel->itImage.'" />
 	<image>
 		<url>'.$this->channel->itImage.'</url>
 		<title>'.$this->channel->title.'</title>

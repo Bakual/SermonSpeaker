@@ -42,7 +42,7 @@ class SermonspeakerViewFeed extends JView
 							.$this->make_itCat($params->get('itCategory3'));
 		$channel->itSubtitle 	= $this->make_xml_safe($params->get('itSubtitle'));
 		$channel->itSummary 	= $channel->description;
-		$channel->itAuthor 		= $channel->manEditor;
+		$channel->itAuthor 		= $this->make_xml_safe($params->get('editor');
 		$channel->itNewfeedurl 	= $params->get('itRedirect');
 
 		// get Data from Model (/models/feed.php)
@@ -75,8 +75,8 @@ class SermonspeakerViewFeed extends JView
 			$item->guid		= $item_link;
 			date_default_timezone_set(date_default_timezone_get()); // todo: maybe include the TZ from Joomla
 			$item->date		= date("r", strtotime($row->sermon_date));
-			$item->author 	= $row->name; // todo: add email of speaker if present (not yet in database), format is emailadress (name)
-			$item->category = $row->series_title; // using the series title as an item category
+			$item->author 	= $this->make_xml_safe($row->name); // todo: add email of speaker if present (not yet in database), format is emailadress (name)
+			$item->category = $this->make_xml_safe($row->series_title); // using the series title as an item category
 
 			// iTunes item specific tags
 			$item->itAuthor		= $row->name; // only speaker name here for iTunes
@@ -84,8 +84,8 @@ class SermonspeakerViewFeed extends JView
 			$item->itSubtitle 	= $item_notes_short;
 			$item->itSummary 	= $item_notes;
 			
-			// create keywords from title, speaker and scripture
-			$keywords = str_replace(' ', ',', $item->title.','.$item->itAuthor);
+			// create keywords from series_title and scripture (title and speaker are searchable anyway)
+			$keywords = str_replace(' ', ',', $item->category);
 			$item->itKeywords 	= $this->make_xml_safe(str_replace(',', ':', $row->sermon_scripture)).','.$keywords;
 
 			// Create Enclosure
