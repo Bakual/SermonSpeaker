@@ -29,6 +29,7 @@ class SermonspeakerController extends JController
 		} elseif (JRequest::getCmd('view') == 'feed' && (JRequest::getCmd('format') != 'raw')){ // Changing the podcast format to raw output
 			$document =& JFactory::getDocument();
 			$document = $document->getInstance('raw');
+			$document->setMimeEncoding('application/rss+xml');
 		}
 			
 		parent::display();

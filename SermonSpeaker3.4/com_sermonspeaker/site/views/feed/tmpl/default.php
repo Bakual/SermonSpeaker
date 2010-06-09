@@ -3,10 +3,11 @@ defined('_JEXEC') or die('Restricted access');
 
 // required channel elements
 echo '<?xml version="1.0" encoding="utf-8" ?>
-<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" version="2.0">
+<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:atom="http://www.w3.org/2005/Atom">
    <channel>
 	<title>'.$this->channel->title.'</title>
 	<link>'.$this->channel->link.'</link>
+	<atom:link href="'.$this->channel->link.'index.php?option=com_sermonspeaker&amp;view=feed&amp;Itemid=62" rel="self" type="application/rss+xml" />
 	<description>'.$this->channel->description.'</description>';
 // optional channel elements
 echo '

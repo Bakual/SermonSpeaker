@@ -19,7 +19,7 @@ class SermonspeakerViewFeed extends JView
 		$channel->description	= $this->make_xml_safe($params->get('description'));
 		$channel->copyright 	= $this->make_xml_safe($params->get('copyright'));
 		if ($params->get('editorEmail')){
-			$channel->manEditor 	= '<managingEditor>'.$this->make_xml_safe($params->get('editorEmail').' ('.$params->get('editor').')</managingEditor>');
+			$channel->manEditor 	= '<managingEditor>'.$this->make_xml_safe($params->get('editorEmail')).' ('.$params->get('editor').')</managingEditor>';
 		} else {
 			$channel->manEditor 	= '<dc:creator>'.$this->make_xml_safe($params->get('editor')).'</dc:creator>';
 		}
@@ -42,7 +42,7 @@ class SermonspeakerViewFeed extends JView
 							.$this->make_itCat($params->get('itCategory3'));
 		$channel->itSubtitle 	= $this->make_xml_safe($params->get('itSubtitle'));
 		$channel->itSummary 	= $channel->description;
-		$channel->itAuthor 		= $this->make_xml_safe($params->get('editor');
+		$channel->itAuthor 		= $this->make_xml_safe($params->get('editor'));
 		$channel->itNewfeedurl 	= $params->get('itRedirect');
 
 		// get Data from Model (/models/feed.php)
