@@ -3,7 +3,7 @@ defined('_JEXEC') or die('Restricted access');
 
 // required channel elements
 echo '<?xml version="1.0" encoding="utf-8" ?>
-<rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" version="2.0">
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" version="2.0">
    <channel>
 	<title>'.$this->channel->title.'</title>
 	<link>'.$this->channel->link.'</link>
@@ -18,7 +18,7 @@ if ($this->channel->language!="") {
 }
 if ($this->channel->manEditor != "") {
 	echo '
-	<managingEditor>'.$this->channel->manEditor.'</managingEditor>';
+	'.$this->channel->manEditor;
 }
 if ($this->channel->copyright!="") {
 	echo '
@@ -79,7 +79,7 @@ foreach ($this->items as $item) {
 		<title>'.$item->title.'</title>
 		<link>'.$item->link.'</link>
 		<guid>'.$item->guid.'</guid>
-		<author>'.$item->author.'</author>
+		'.$item->author.'
 		<description>'.$item->description.'</description>
 		<pubDate>'.$item->date.'</pubDate>';
 	if ($item->enclosure) {

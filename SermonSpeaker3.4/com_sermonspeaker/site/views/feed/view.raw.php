@@ -19,9 +19,9 @@ class SermonspeakerViewFeed extends JView
 		$channel->description	= $this->make_xml_safe($params->get('description'));
 		$channel->copyright 	= $this->make_xml_safe($params->get('copyright'));
 		if ($params->get('editorEmail')){
-			$channel->manEditor 	= $this->make_xml_safe($params->get('editorEmail').' ('.$params->get('editor').')');
+			$channel->manEditor 	= '<managingEditor>'.$this->make_xml_safe($params->get('editorEmail').' ('.$params->get('editor').')</managingEditor>');
 		} else {
-			$channel->manEditor 	= $this->make_xml_safe($params->get('editor'));
+			$channel->manEditor 	= '<dc:creator>'.$this->make_xml_safe($params->get('editor')).'</dc:creator>';
 		}
 		$channel->language 		= $this->make_xml_safe($params->get('itLanguage'));
 		
@@ -75,7 +75,7 @@ class SermonspeakerViewFeed extends JView
 			$item->guid		= $item_link;
 			date_default_timezone_set(date_default_timezone_get()); // todo: maybe include the TZ from Joomla
 			$item->date		= date("r", strtotime($row->sermon_date));
-			$item->author 	= $this->make_xml_safe($row->name); // todo: add email of speaker if present (not yet in database), format is emailadress (name)
+			$item->author 	= '<dc:creator>'.$this->make_xml_safe($row->name).'</dc:creator>'; // todo: maybe add email of speaker if present (not yet in database), format is emailadress (name) and then use author instead
 			$item->category = $this->make_xml_safe($row->series_title); // using the series title as an item category
 
 			// iTunes item specific tags
