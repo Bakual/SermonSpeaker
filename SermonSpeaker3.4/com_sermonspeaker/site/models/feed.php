@@ -4,9 +4,9 @@ defined('_JEXEC') or die('Restricted access');
 jimport('joomla.application.component.model');
 
 /**
- * SermonSpeaker Component Series Model
+ * SermonSpeaker Component Feed Model
  */
-class SermonspeakerModelPodcast extends JModel
+class SermonspeakerModelFeed extends JModel
 {
 	function __construct()
 	{

@@ -3,7 +3,7 @@ defined('_JEXEC') or die('Restricted access');
 
 jimport('joomla.application.component.view');
 
-class SermonspeakerViewPodcast extends JView
+class SermonspeakerViewFeed extends JView
 {
 	function display($tpl = null)
 	{

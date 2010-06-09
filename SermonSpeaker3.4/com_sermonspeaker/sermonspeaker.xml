@@ -28,7 +28,6 @@
 		<filename>router.php</filename>
 		<filename>sermonspeaker.css</filename>
 		<filename>sermonspeaker.php</filename>
-		<filename>feedcreator.class.php</filename>
 		<filename>controller.php</filename>
 		<filename>helpers/index.html</filename>
 		<filename>helpers/sermonspeaker.php</filename>
@@ -42,19 +41,12 @@
 		<filename>views/archive/tmpl/default.xml</filename>
 		<filename>models/archive.php</filename>
 		<filename>views/feed/index.html</filename>
-		<filename>views/feed/view.html.php</filename>
+		<filename>views/feed/view.raw.php</filename>
 		<filename>views/feed/metadata.xml</filename>
 		<filename>views/feed/tmpl/index.html</filename>
 		<filename>views/feed/tmpl/default.php</filename>
 		<filename>views/feed/tmpl/default.xml</filename>
 		<filename>models/feed.php</filename>
-		<filename>views/podcast/index.html</filename>
-		<filename>views/podcast/view.raw.php</filename>
-		<filename>views/podcast/metadata.xml</filename>
-		<filename>views/podcast/tmpl/index.html</filename>
-		<filename>views/podcast/tmpl/default.php</filename>
-		<filename>views/podcast/tmpl/default.xml</filename>
-		<filename>models/podcast.php</filename>
 		<filename>views/series/index.html</filename>
 		<filename>views/series/view.html.php</filename>
 		<filename>views/series/metadata.xml</filename>
