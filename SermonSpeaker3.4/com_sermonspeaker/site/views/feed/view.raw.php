@@ -45,7 +45,7 @@ class SermonspeakerViewFeed extends JView
 		$channel->itAuthor 		= $channel->manEditor;
 		$channel->itNewfeedurl 	= $params->get('itRedirect');
 
-		// get Data from Model (/models/podcast.php)
+		// get Data from Model (/models/feed.php)
         $rows = &$this->get('Data');
 
 		// Items
