@@ -44,7 +44,7 @@ class SermonspeakerViewFeed extends JView
 		$channel->itSubtitle 	= $this->make_xml_safe($params->get('itSubtitle'));
 		$channel->itSummary 	= $channel->description;
 		$channel->itAuthor 		= $this->make_xml_safe($params->get('editor'));
-		$channel->itNewfeedurl 	= $params->get('itRedirect');
+		$channel->itNewfeedurl 	= $this->make_xml_safe($params->get('itRedirect'));
 
 		// get Data from Model (/models/feed.php)
         $rows = &$this->get('Data');

@@ -71,7 +71,7 @@ if ($this->channel->itKeywords != "") {
 }
 if ($this->channel->itNewfeedurl) {
 	echo '
-	<itunes:new-feed-url>'.$this->channel->newfeedurl.'</itunes:new-feed-url>';
+	<itunes:new-feed-url>'.$this->channel->itNewfeedurl.'</itunes:new-feed-url>';
 }
 // starting with items
 foreach ($this->items as $item) {

@@ -4,7 +4,7 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
 if (JRequest::getString('task') == 'podcast') { // providing backward compatibilty to SermonSpeaker3.3.1
 	header('HTTP/1.1 301 Moved Permanently');
-	header('Location: '.JURI::root().'index.php?option=com_sermonspeaker&view=feed&feed=RSS2.0&tmpl=component');
+	header('Location: '.JURI::root().'index.php?option=com_sermonspeaker&view=feed');
 	return;
 }
 
