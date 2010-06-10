@@ -60,11 +60,11 @@ $editor =& JFactory::getEditor();
 			<td width="100" align="right" class="key"><?php echo JText::_('SPEAKER'); ?></td>
 			<td><?php echo $this->lists['speaker_id']; ?></td>
 		</tr> 
-		<tr> 
+		<tr>
 			<td width="100" align="right" class="key"><?php echo JText::_('SERIES'); ?></td>
 			<td><?php echo $this->lists['series_id']; ?></td>
-		</tr> 
-		<tr> 
+		</tr>
+		<tr>
 			<td width="100" align="right" class="key"><?php echo JText::_('NAMEENTEREDBY'); ?></td>
 			<td><?php echo $this->lists['created_by']; ?></td>
 		</tr>

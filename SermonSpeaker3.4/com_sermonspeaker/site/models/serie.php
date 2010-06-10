@@ -34,6 +34,11 @@ class SermonspeakerModelSerie extends JModel
 		// Get sorting order from Request and UserState
 		$this->lists['order']		= $app->getUserStateFromRequest("com_sermonspeaker.sermons.filter_order",'filter_order','sermon_date','cmd' );
 		$this->lists['order_Dir']	= $app->getUserStateFromRequest("com_sermonspeaker.sermons.filter_order_Dir",'filter_order_Dir','DESC','word' );
+		// checking for invalid sorts from other views and change to default
+		if ($this->lists['order'] == 'series_title'){ // columns series isn't shown in series views, would be obviously always the same
+			$this->lists['order'] = 'sermon_date';
+			$this->lists['order_Dir'] = 'DESC';
+		}
 	}
 
 	function getOrder()

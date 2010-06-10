@@ -40,6 +40,10 @@
 			<option value="0">No</option>
 			<option value="1">Yes</option>
 		</param>
+		<param name="client_col_sermon_series" type="radio" default="1" label="CLIENT_COL_SERMON_SERIES" description="CLIENT_COL_SERMON_SERIES_DESC">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
 		<param name="client_col_sermon_notes" type="radio" default="1" label="CLIENT_COL_SERMON_NOTES" description="CLIENT_COL_SERMON_NOTES_DESC">
 			<option value="0">No</option>
 			<option value="1">Yes</option>

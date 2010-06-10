@@ -9,7 +9,7 @@ class SermonspeakerViewMain extends JView
 	{
 		$migrate = NULL;
 		$params	=& JComponentHelper::getParams('com_sermonspeaker');
-		if (!$params->get('editorEmail')){
+		if (!$params->get('client_col_sermon_series')){
 			$migrate = '<thead>';
 			$migrate .= '<tr><td bgcolor="salmon"><center><strong>'.JText::_('NOT_SAVED').'</strong></center></td></tr>';
 			$migrate .= '</thead>';

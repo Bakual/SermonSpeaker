@@ -103,11 +103,11 @@ class SermonspeakerModelSermons extends JModel
 	{
 		$orderby	= $this->_buildContentOrderBy();
 		$database 	= &JFactory::getDBO();
-		$query		= "SELECT sermon_title, sermon_number, sermon_scripture, sermon_date, sermon_time, notes, k.name, k.pic, k.id as s_id, j.id, j.addfile, j.addfileDesc \n"
+		$query		= "SELECT sermon_title, sermon_number, sermon_scripture, sermon_date, sermon_time, notes, k.name, k.pic, k.id as s_id, j.id, j.addfile, j.addfileDesc, ss.id, ss.series_title \n"
 					. ", CASE WHEN CHAR_LENGTH(j.alias) THEN CONCAT_WS(':', j.id, j.alias) ELSE j.id END as slug \n"
 					. "FROM #__sermon_sermons j \n"
 					. "LEFT JOIN #__sermon_speakers k ON j.speaker_id = k.id \n"
-					.$this->seriesjoin
+					. "LEFT JOIN #__sermon_series AS ss ON j.series_id = ss.id \n"
 					. "WHERE j.published='1' \n"
 					.$this->catwhere
 					. "ORDER BY ".$orderby." \n"
