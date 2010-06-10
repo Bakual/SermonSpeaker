@@ -60,6 +60,9 @@ JFactory::getDocument()->addScriptDeclaration( "
 			if ($this->params->get('client_col_sermon_time')) { ?>
 			<th align="center"><?php echo JHTML::_('grid.sort', 'SERMONTIME', 'sermon_time', $this->lists['order_Dir'], $this->lists['order']); ?></th>
 			<?php }
+			if ($this->params->get('client_col_sermon_series')) { ?>
+			<th align="center"><?php echo JHTML::_('grid.sort', 'SERIES', 'series_title', $this->lists['order_Dir'], $this->lists['order']); ?></th>
+			<?php }
 			if ($this->params->get('client_col_sermon_addfile')) { ?>
 			<th align="left"><?php echo JHTML::_('grid.sort', 'ADDFILE', 'addfileDesc', $this->lists['order_Dir'], $this->lists['order']); ?></th>
 			<?php } ?>
@@ -90,6 +93,9 @@ JFactory::getDocument()->addScriptDeclaration( "
 			if( $this->params->get('client_col_sermon_time')){
 				echo "<td align=\"center\" valign=\"middle\">".SermonspeakerHelperSermonspeaker::insertTime($sermon->sermon_time)."</td>";
 			}
+			if ($this->params->get('client_col_sermon_series')) { ?>
+				<td align="center"><a href="<?php echo JRoute::_("index.php?view=serie&id=$sermon->series_id"); ?>"><?php echo $sermon->series_title; ?></a></td>
+			<?php }
 			if ($this->params->get('client_col_sermon_addfile')) { ?>
 				<td><?php echo SermonspeakerHelperSermonspeaker::insertAddfile($sermon->addfile, $sermon->addfileDesc); ?></td>
 			<?php }

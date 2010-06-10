@@ -61,21 +61,15 @@ class SermonspeakerModelSpeaker extends JModel
 	{
 		$orderby	= $this->_buildContentOrderBy();
 		$database	= &JFactory::getDBO();
+		$query	= "SELECT sermons.id as sermons_id, sermon_number,sermon_scripture, sermon_title, sermon_time, notes, sermon_date, addfile, addfileDesc, series.id as series_id, series_title \n"
+				. ", CASE WHEN CHAR_LENGTH(alias) THEN CONCAT_WS(':', sermons.id, alias) ELSE sermons.id END as slug \n"
+				. "FROM #__sermon_sermons AS sermons \n"
+				. "LEFT JOIN #__sermon_series AS series ON sermons.series_id = series.id \n"
+				. "WHERE sermons.speaker_id='".$this->id."' \n"
+				. "AND sermons.published='1' \n"
+				. "ORDER BY ".$orderby." \n";
 		if ($this->params->get('limit_speaker') == 1) { 
-			$query	= "SELECT id, sermon_number,sermon_scripture, sermon_title, sermon_time, notes,sermon_date, addfile, addfileDesc \n"
-					. ", CASE WHEN CHAR_LENGTH(alias) THEN CONCAT_WS(':', id, alias) ELSE id END as slug \n"
-					. "FROM #__sermon_sermons \n"
-					. "WHERE  speaker_id='".$this->id."' \n"
-					. "AND published='1' \n"
-					. "ORDER BY ".$orderby." \n"
-					. "LIMIT ".$this->params->get('sermonresults');
-		} else {
-			$query = "SELECT id, sermon_number,sermon_scripture, sermon_title, sermon_time, notes,sermon_date, addfile, addfileDesc \n"
-					. ", CASE WHEN CHAR_LENGTH(alias) THEN CONCAT_WS(':', id, alias) ELSE id END as slug \n"
-					. "FROM #__sermon_sermons \n"
-					. "WHERE  speaker_id='".$this->id."' \n"
-					. "AND published='1' \n"
-					. "ORDER BY ".$orderby." \n";
+			$query .= "LIMIT ".$this->params->get('sermonresults');
 		}
 		$database->setQuery($query);
    		$sermons	= $database->loadObjectList();
