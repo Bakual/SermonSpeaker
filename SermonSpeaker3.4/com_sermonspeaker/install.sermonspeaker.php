@@ -303,7 +303,7 @@ function com_install() {
 	if (file_exists(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_sermonspeaker'.DS.'toolbar.sermonspeaker.php')){ 
 		$files[] = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_sermonspeaker'.DS.'toolbar.sermonspeaker.php';
 	}
-	if (file_exists(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_sermonspeaker'.DS.'admin.language'.DS.'admin.english.php')){ 
+/*	if (file_exists(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_sermonspeaker'.DS.'admin.language'.DS.'admin.english.php')){ 
 		$files[] = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_sermonspeaker'.DS.'admin.language'.DS.'admin.english.php';
 	}
 	if (file_exists(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_sermonspeaker'.DS.'admin.help'.DS.'help.english.php')){ 
@@ -317,7 +317,7 @@ function com_install() {
 	}
 	if (file_exists(JPATH_SITE.DS.'components'.DS.'com_sermonspeaker'.DS.'client.language'.DS.'german.php')){ 
 		$files[] = JPATH_SITE.DS.'components'.DS.'com_sermonspeaker'.DS.'client.language'.DS.'german.php';
-	}
+	} */
 	if (file_exists(JPATH_SITE.DS.'components'.DS.'com_sermonspeaker'.DS.'sermonspeaker.html.php')){ 
 		$files[] = JPATH_SITE.DS.'components'.DS.'com_sermonspeaker'.DS.'sermonspeaker.html.php';
 	}
@@ -351,13 +351,12 @@ function com_install() {
 	if (file_exists(JPATH_SITE.DS.'components'.DS.'com_sermonspeaker'.DS.'images'.DS.'upload.png')){ 
 		$files[] = JPATH_SITE.DS.'components'.DS.'com_sermonspeaker'.DS.'images'.DS.'upload.png';
 	}
+	if (file_exists(JPATH_SITE.DS.'components'.DS.'com_sermonspeaker'.DS.'feedcreator.class.php')){ 
+		$files[] = JPATH_SITE.DS.'components'.DS.'com_sermonspeaker'.DS.'feedcreator.class.php';
+	}
 	if (isset($files)){
-		foreach ($files as $file){
-			$check = unlink($file);
-			if (!$check){
-				$msg .= 'Error while deleting '.$file.'<br>';
-			}
-		}
+		JImport('joomla.filesystem.file');
+		JFile::Delete($files);
 	}
 	if (file_exists(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_sermonspeaker'.DS.'admin.language')){ 
 		$dirs[] = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_sermonspeaker'.DS.'admin.language';
@@ -368,12 +367,13 @@ function com_install() {
 	if (is_dir(JPATH_SITE.DS.'components'.DS.'com_sermonspeaker'.DS.'client.language')){ 
 		$dirs[] = JPATH_SITE.DS.'components'.DS.'com_sermonspeaker'.DS.'client.language';
 	}
+	if (file_exists(JPATH_SITE.DS.'components'.DS.'com_sermonspeaker'.DS.'views'.DS.'podcast')){ 
+		$dirs[] = JPATH_SITE.DS.'components'.DS.'com_sermonspeaker'.DS.'views'.DS.'podcast';
+	}
 	if (isset($dirs)){
+		JImport('joomla.filesystem.folder');
 		foreach ($dirs as $dir){
-			$check = rmdir($dir);
-			if (!$check){
-				$msg .= 'Error while deleting '.$dir.'<br>';
-			}
+			JFolder::Delete($dir);
 		}
 	}
 	echo $msg;

@@ -103,15 +103,13 @@ class SermonspeakerControllerSermon extends SermonspeakerController
 		$msg = JText::_('SERMONS_DELETED');
 		$row = &JTable::getInstance('sermons', 'Table');
 
+		JImport('joomla.filesystem.file');
 		for ($i=0, $n=count($cid); $i < $n; $i++){
 			if (!$row->load($cid[$i])){
 				$msg .= $row->getError();
 			} else {
 				if($row->sermon_path && file_exists(JPATH_ROOT.$row->sermon_path)){
-					$check = unlink(JPATH_ROOT.$row->sermon_path);
-					if (!$check){
-						$msg .= ' - Error while deleting '.$file;
-					}
+					JFile::delete(JPATH_ROOT.$row->sermon_path);
 				}
 			}
 			if (!$row->delete($cid[$i])){

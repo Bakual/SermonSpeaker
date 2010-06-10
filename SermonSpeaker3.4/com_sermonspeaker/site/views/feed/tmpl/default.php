@@ -7,7 +7,7 @@ echo '<?xml version="1.0" encoding="utf-8" ?>
    <channel>
 	<title>'.$this->channel->title.'</title>
 	<link>'.$this->channel->link.'</link>
-	<atom:link href="'.$this->channel->link.'index.php?option=com_sermonspeaker&amp;view=feed&amp;Itemid=62" rel="self" type="application/rss+xml" />
+	<atom:link href="http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'].'" rel="self" type="application/rss+xml" />
 	<description>'.$this->channel->description.'</description>';
 // optional channel elements
 echo '
