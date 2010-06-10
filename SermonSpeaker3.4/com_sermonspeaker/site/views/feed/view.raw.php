@@ -16,6 +16,7 @@ class SermonspeakerViewFeed extends JView
 		// Save Parameters and stuff xmlsafe into $channel
 		$channel->title 		= $this->make_xml_safe($params->get('title'));
 		$channel->link 			= $link;
+		$channel->atomlink		= $this->make_xml_safe($_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
 		$channel->description	= $this->make_xml_safe($params->get('description'));
 		$channel->copyright 	= $this->make_xml_safe($params->get('copyright'));
 		if ($params->get('editorEmail')){
