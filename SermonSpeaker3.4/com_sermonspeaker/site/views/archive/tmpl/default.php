@@ -15,9 +15,9 @@ JFactory::getDocument()->addScriptDeclaration( "
 <table width="100%" cellpadding="2" cellspacing="0">
 	<tr class="componentheading">
 		<?php if ($this->month){
-			$date_format = '%Y';
-		} else {
 			$date_format = '%B, %Y';
+		} else {
+			$date_format = '%Y';
 		} ?>
 		<th align="left" valign="bottom"><?php echo JText::_('SERMFROM')." ".JHTML::date($this->rows[0]->sermon_date, $date_format, 0).$this->cat; ?></th>
 	</tr>

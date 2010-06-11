@@ -9,6 +9,14 @@ function SermonspeakerBuildRoute(&$query){
 		$segments[] = $query['id'];
 		unset($query['id']);
 	}
+	if (isset($query['year'])){
+		$segments[] = $query['year'];
+		unset($query['year']);
+	}
+	if (isset($query['month'])){
+		$segments[] = $query['month'];
+		unset($query['month']);
+	}
 	return $segments;
 }
 
@@ -44,6 +52,15 @@ function SermonspeakerParseRoute($segments){
 			break;
 		case 'frontendupload':
 			$vars['view'] = 'frontendupload';
+			break;
+		case 'archive':
+			$vars['view'] = 'archive';
+			if ($segments[1]){
+				$vars['year'] = (int)$segments[1];
+			}
+			if ($segments[2]){
+				$vars['month'] = (int)$segments[2];
+			}
 			break;
 		}
 	return $vars;
