@@ -64,7 +64,8 @@ class SermonspeakerViewSermon extends JView
 		$document =& JFactory::getDocument();
 		$document->setTitle($document->getTitle().' | '.$row[0]->sermon_title);
 		$document->setMetaData("description", strip_tags($row[0]->notes));
-		$document->setMetaData("keywords", $row[0]->sermon_title);
+		$keywords = $this->escape(str_replace(' ', ',', $row[0]->sermon_title).','.str_replace(',', ':', $row[0]->sermon_scripture));
+		$document->setMetaData("keywords", $keywords);
 
         // push data into the template
 		$this->assignRef('row',$row);             
