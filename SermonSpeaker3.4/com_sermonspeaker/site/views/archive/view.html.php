@@ -16,11 +16,14 @@ class SermonspeakerViewArchive extends JView
 
 		// Getting year/month from Request, if not present take from Parameter, if not present take actual year/month
 		$params = &JComponentHelper::getParams('com_sermonspeaker');
-		$date=getDate();
-		$pmonth	= $params->get('month',$date[mon]);
-		$pyear	= $params->get('year',$date[year]);
-		$month	= JRequest::getInt('month', $pmonth);
-		$year	= JRequest::getInt('year', $pyear);
+		$date = getDate();
+		if (JRequest::getInt('year') || JRequest::getInt('month')){
+			$year = JRequest::getInt('year', $date[year]);
+			$month = JRequest::getInt('month', '');
+		} else {
+			$year = $params->get('year', $date[year]);
+			$month = $params->get('month', $date[mon]);
+		}
 
 		// Set Meta
 		$document =& JFactory::getDocument();

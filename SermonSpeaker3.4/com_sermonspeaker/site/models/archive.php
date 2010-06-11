@@ -54,11 +54,17 @@ class SermonspeakerModelArchive extends JModel
 		$this->lists['order']		= $app->getUserStateFromRequest("com_sermonspeaker.sermons.filter_order",'filter_order','sermon_date','cmd' );
 		$this->lists['order_Dir']	= $app->getUserStateFromRequest("com_sermonspeaker.sermons.filter_order_Dir",'filter_order_Dir','DESC','word' );
 
-		$date=getDate();
-		$month	= $params->get('month',$date[mon]);
-		$year	= $params->get('year',$date[year]);
-		$this->year = JRequest::getInt('year', $year);
-		$this->month = JRequest::getInt('month', $month);
+		$date = getDate();
+		if (JRequest::getInt('year') || JRequest::getInt('month')){
+			$this->year = JRequest::getInt('year', $date[year]);
+			$this->month = JRequest::getInt('month', '');
+		} else {
+			$this->year = $params->get('year', $date[year]);
+			$this->month = $params->get('month', $date[mon]);
+		}
+		if ($this->month){
+			$this->and_m = "AND MONTH(j.sermon_date)='".$this->month."' \n";
+		}
 	}
 
 	function getCat()
@@ -92,8 +98,8 @@ class SermonspeakerModelArchive extends JModel
 				. "LEFT JOIN #__sermon_speakers k ON j.speaker_id = k.id \n"
 				.$this->seriesjoin
 				. "WHERE j.published = '1'"
-				. "AND YEAR( j.sermon_date )='".$this->year."' \n"
-				. "AND MONTH( j.sermon_date )='".$this->month."'"
+				. "AND YEAR(j.sermon_date)='".$this->year."' \n"
+				.$this->and_m
 				.$this->catwhere;
 		$database->setQuery( $query );
 		$total_rows = $database->LoadResult();
@@ -119,8 +125,8 @@ class SermonspeakerModelArchive extends JModel
 					. "LEFT JOIN #__sermon_speakers k ON j.speaker_id = k.id \n"
 					. "LEFT JOIN #__sermon_series AS ss ON j.series_id = ss.id \n"
 					. "WHERE j.published='1' \n"
-					. "AND YEAR( j.sermon_date )='".$this->year."' \n"
-					. "AND MONTH( j.sermon_date )='".$this->month."' \n"
+					. "AND YEAR(j.sermon_date)='".$this->year."' \n"
+					.$this->and_m
 					.$this->catwhere
 					. "ORDER BY ".$orderby." \n"
 					. "LIMIT ".$this->getState('limitstart').','.$this->getState('limit');

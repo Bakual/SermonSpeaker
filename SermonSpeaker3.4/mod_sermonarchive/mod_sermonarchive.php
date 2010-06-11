@@ -4,14 +4,23 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
 $count		= intval($params->get('count'));
+if ($params->get('switch') == 'month'){
+	$switch = TRUE;
+}
 $database 	= &JFactory::getDBO();
 
-$query	= "SELECT MONTH(sermon_date) AS created_month, sermon_date, YEAR(sermon_date) AS created_year \n"
+$select_m	= NULL;
+$group_m	= NULL;
+if ($switch){
+	$select_m	= ", MONTH(sermon_date) AS created_month";
+	$group_m 	= ", created_month DESC";
+}
+$query	= "SELECT sermon_date, YEAR(sermon_date) AS created_year".$select_m." \n"
 		. "FROM #__sermon_sermons \n"
 		. "WHERE (published = 1) \n"
-		. "GROUP BY created_year DESC, created_month DESC";
+		. "GROUP BY created_year DESC".$group_m;
 
-$database->setQuery( $query, 0, $count );
+$database->setQuery($query, 0, $count);
 $rows = $database->loadObjectList();
 
 $menu = &JSite::getMenu();
@@ -24,8 +33,14 @@ $sermonspeaker_itemid = $menuitems[0]->id;
 if(count($rows)) {
 	echo '<ul>';
 	foreach ( $rows as $row ) {
-		$link = 'index.php?option=com_sermonspeaker&amp;view=archive&amp;year='.$row->created_year.'&amp;month='.$row->created_month.'&amp;Itemid='.$sermonspeaker_itemid;
-		$text = JHTML::date($row->sermon_date, '%B', 0).', '.JHTML::date($row->sermon_date, '%Y', 0);
+		$request_m	= NULL;
+		$text_m		= NULL;
+		if ($switch){
+			$request_m	= '&amp;month='.$row->created_month;
+			$text_m		= JHTML::date($row->sermon_date, '%B', 0).', ';
+		}
+		$link = 'index.php?option=com_sermonspeaker&amp;view=archive&amp;year='.$row->created_year.$request_m.'&amp;Itemid='.$sermonspeaker_itemid;
+		$text = $text_m.JHTML::date($row->sermon_date, '%Y', 0);
 		?>
 		<li><a href="<?php echo JURI::root().$link; ?>"><?php echo $text; ?></a></li>
 		<?php

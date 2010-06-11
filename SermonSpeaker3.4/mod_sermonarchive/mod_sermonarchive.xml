@@ -20,5 +20,9 @@
 	<params>
 		<param name="moduleclass_sfx" type="text" default="" label="Module Class Suffix" description="PARAMMODULECLASSSUFFIX" />
 		<param name="count" type="text" default="" label="COUNT" description="COUNT_DESC" />
+		<param name="switch" type="list" default="month" label="SWITCH" description="SWITCH_DESC">
+			<option value="month">MONTH</option>
+			<option value="year">YEAR</option>
+		</param>
 	</params>
 </install>
