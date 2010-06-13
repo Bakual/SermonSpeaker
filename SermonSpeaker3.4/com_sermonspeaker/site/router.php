@@ -63,5 +63,9 @@ function SermonspeakerParseRoute($segments){
 			}
 			break;
 		}
+		case 'podcast':
+		case 'feed':
+			$vars['view'] = 'feed';
+			break;
 	return $vars;
 }
