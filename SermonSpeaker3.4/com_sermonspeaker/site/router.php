@@ -62,10 +62,12 @@ function SermonspeakerParseRoute($segments){
 				$vars['month'] = (int)$segments[2];
 			}
 			break;
-		}
-		case 'podcast':
 		case 'feed':
 			$vars['view'] = 'feed';
 			break;
+		case 'podcast': // provides backward compatibility to SermonSpeaker 3.3.1
+			$vars['task'] = 'podcast'; // will create a redirect 301 in sermonspeaker.php
+			break;
+		}
 	return $vars;
 }
