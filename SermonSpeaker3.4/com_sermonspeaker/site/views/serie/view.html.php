@@ -21,7 +21,7 @@ class SermonspeakerViewSerie extends JView
 		$serie		= &$this->get('Serie');			// getting the Serie from the Model
 
 		// Update Statistic
-    	$id		= $serie[0]->id;
+    	$id		= $serie->id;
 		if ($params->get('track_series')) { SermonspeakerController::updateStat('series', $id); }
 		
 		// get active View from Menuitem
@@ -40,13 +40,21 @@ class SermonspeakerViewSerie extends JView
 		// add Breadcrumbs
 		$app 			= JFactory::getApplication();
 		$breadcrumbs	= &$app->getPathWay();
-		$breadcrumbs->addItem($serie[0]->series_title);
+		$breadcrumbs->addItem($serie->series_title);
 
 		// Set Meta
 		$document =& JFactory::getDocument();
-		$document->setTitle($document->getTitle().' | '.JText::_('SINGLESERIES').": ".$serie[0]->series_title);
-		$document->setMetaData("description",strip_tags($serie[0]->series_description));
-		$document->setMetaData("keywords",$serie[0]->series_title);
+		$document->setTitle($document->getTitle().' | '.JText::_('SINGLESERIES').": ".$serie->series_title);
+		$document->setMetaData("description",strip_tags($serie->series_description));
+		$document->setMetaData("keywords",$serie->series_title);
+
+		// Support for Content Plugins
+		$dispatcher	= &JDispatcher::getInstance();
+		$item->params = clone($params);
+		JPluginHelper::importPlugin('content');
+		// Trigger Event for `series_description`
+		$item->text	= &$serie->series_description;
+		$dispatcher->trigger('onPrepareContent', array(&$item, &$item->params, 0));
 
         // push data into the template
 		$this->assignRef('rows',$rows);             

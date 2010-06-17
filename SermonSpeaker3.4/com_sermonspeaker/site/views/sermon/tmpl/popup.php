@@ -12,7 +12,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 	</tr>
 	<tr>
 		<td style="width: 20px;"></td>
-		<td><h3><?php echo $this->row[0]->sermon_title; ?></h3></td>
+		<td><h3><?php echo $this->row->sermon_title; ?></h3></td>
 	</tr>
 	<tr>
 		<td style="width: 20px;"></td>

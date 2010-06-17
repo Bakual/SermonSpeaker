@@ -31,6 +31,16 @@ class SermonspeakerViewSermons extends JView
 			$cat	= ': '.$cat;
 		}
 
+		// Support for Content Plugins
+		$dispatcher	= &JDispatcher::getInstance();
+		$item->params = clone($params);
+		JPluginHelper::importPlugin('content');
+		foreach($rows as $row){
+			// Trigger Event for `sermon_scripture`
+			$item->text	= &$row->sermon_scripture;
+			$dispatcher->trigger('onPrepareContent', array(&$item, &$item->params, 0));
+		}
+
         // push data into the template
 		$this->assignRef('rows',$rows);             
 		$this->assignRef('lists',$lists);			// for Sorting

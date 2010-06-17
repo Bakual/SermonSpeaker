@@ -1,9 +1,9 @@
 <?php
 defined( '_JEXEC' ) or die( 'Restricted access' );
 if ($this->params->get('ga')) { $callback = "&callback=".$this->params->get('ga'); }
-$return = SermonspeakerHelperSermonspeaker::insertAddfile($this->row[0]->addfile, $this->row[0]->addfileDesc);
+$return = SermonspeakerHelperSermonspeaker::insertAddfile($this->row->addfile, $this->row->addfileDesc);
 $countcolumn = NULL; // will count optional columns so the popup button may span all columns
-$id = $this->row[0]->id;
+$id = $this->row->id;
 ?>
 <table width="100%" cellpadding="2" cellspacing="0">
 	<tr class="componentheading">
@@ -18,7 +18,7 @@ $id = $this->row[0]->id;
 			$countcolumn++; ?>
 			<th align="left"><?php echo JText::_('SCRIPTURE'); ?></th>
 		<?php }
-		if ($this->params->get('client_col_sermon_notes') && strlen($this->row[0]->notes) > 0){ 
+		if ($this->params->get('client_col_sermon_notes') && strlen($this->row->notes) > 0){ 
 			$countcolumn++; ?>
 			<th align="left" valign="bottom"> <?php echo JText::_('SERMONNOTES'); ?></th>
 		<?php }
@@ -26,7 +26,7 @@ $id = $this->row[0]->id;
 			$countcolumn++; ?>
 			<th align="left" valign="bottom"><?php echo JText::_('ADDFILE'); ?></th>
 		<?php }
-		if ($this->params->get('client_col_player') && strlen($this->row[0]->sermon_path) > 0){
+		if ($this->params->get('client_col_player') && strlen($this->row->sermon_path) > 0){
 			$countcolumn++; ?>
 			<th align="left" valign="bottom"><?php echo JText::_('PLAY'); ?></th>
 		<?php } ?>
@@ -34,22 +34,22 @@ $id = $this->row[0]->id;
 <!-- Begin Data -->
 	<tr>
 		<td align='left' valign='top'>
-			<?php if ($this->params->get('hide_dl') == "0" && strlen($this->row[0]->sermon_path) > 0) { ?>
-				<a title='<?php echo JText::_('DOWNLOAD_HOOVER_TAG'); ?>' href='<?php echo $this->lnk; ?>'><?php echo $this->row[0]->sermon_title; ?></a>
+			<?php if ($this->params->get('hide_dl') == "0" && strlen($this->row->sermon_path) > 0) { ?>
+				<a title='<?php echo JText::_('DOWNLOAD_HOOVER_TAG'); ?>' href='<?php echo $this->lnk; ?>'><?php echo $this->row->sermon_title; ?></a>
 			<?php } else {
-				echo $this->row[0]->sermon_title;
+				echo $this->row->sermon_title;
 			} ?>
 		</td>
 		<?php if ($this->params->get('client_col_sermon_scripture_reference')){ ?>
-			<td align="left" valign="top"><?php echo $this->row[0]->sermon_scripture; ?></td>
+			<td align="left" valign="top"><?php echo $this->row->sermon_scripture; ?></td>
 		<?php }
-		if ($this->params->get('client_col_sermon_notes') && strlen($this->row[0]->notes) > 0){ ?>
-			<td align="left" valign="top"><?php echo $this->row[0]->notes; ?></td>
+		if ($this->params->get('client_col_sermon_notes') && strlen($this->row->notes) > 0){ ?>
+			<td align="left" valign="top"><?php echo $this->row->notes; ?></td>
 		<?php }
 		if ($return != NULL) { ?>
 			<td align="left" valign="top"><?php echo $return; ?></td>
 		<?php }
-		if ($this->params->get('client_col_player') && strlen($this->row[0]->sermon_path) > 0){ ?> 
+		if ($this->params->get('client_col_player') && strlen($this->row->sermon_path) > 0){ ?> 
 			<td align="center" valign="top">
 				<?php
 				$ret = SermonspeakerHelperSermonspeaker::insertPlayer($this->lnk);
@@ -63,10 +63,10 @@ $id = $this->row[0]->id;
 	<?php $this->lnk = str_replace('\\','/',$this->lnk); ?>
 	<tr>
 		<?php
-		if ($this->params->get('dl_button') == "1" && strlen($this->row[0]->sermon_path) > 0) {
-			echo SermonspeakerHelperSermonspeaker::insertdlbutton($id, $this->row[0]->sermon_path);
+		if ($this->params->get('dl_button') == "1" && strlen($this->row->sermon_path) > 0) {
+			echo SermonspeakerHelperSermonspeaker::insertdlbutton($id, $this->row->sermon_path);
 		}
-		if ($this->params->get('popup_player') == "1" && strlen($this->row[0]->sermon_path) > 0) {
+		if ($this->params->get('popup_player') == "1" && strlen($this->row->sermon_path) > 0) {
 			echo "<td colspan='".$countcolumn."'><input class=\"popup_btn\" type=\"button\" name=\"".JText::_('POPUP_PLAYER')."\" value=\"".JText::_('POPUP_PLAYER')."\" onClick=\"popup = window.open('".JRoute::_("index.php?view=sermon&layout=popup&id=$id&tmpl=component")."', 'PopupPage', 'height=".$pp_h.",width=".$pp_w.",scrollbars=yes,resizable=yes'); return false\"></td>";
 		}
 		?>
@@ -81,7 +81,7 @@ $id = $this->row[0]->id;
 		<tr><td><br></td></tr>
 		<tr>
 			<td>
-				<?php echo JComments::showComments($id, 'com_sermonspeaker', $this->row[0]->sermon_title); ?>
+				<?php echo JComments::showComments($id, 'com_sermonspeaker', $this->row->sermon_title); ?>
 			</td>
 		</tr>
 	<?php } ?>

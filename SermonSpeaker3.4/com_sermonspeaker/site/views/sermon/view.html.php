@@ -23,21 +23,21 @@ class SermonspeakerViewSermon extends JView
 		} 
 		if ($this->getLayout() == "extnewline") {
 			$model		= &$this->getModel();
-			$serie		= &$model->getSerie($row[0]->series_id);		// getting the Serie from the Model
+			$serie		= &$model->getSerie($row->series_id);		// getting the Serie from the Model
 			$this->assignRef('serie',$serie);
-			$speaker	= &$model->getSpeaker($row[0]->speaker_id);		// getting the Speaker from the Model
+			$speaker	= &$model->getSpeaker($row->speaker_id);		// getting the Speaker from the Model
 			$this->assignRef('speaker',$speaker);
 		}
 
 		// Update Statistic
-    	$id		= $row[0]->id;
+    	$id		= $row->id;
 		if ($params->get('track_sermon')) { SermonspeakerController::updateStat('sermons', $id); }
 		
 		//Check if link targets to an external source
-		if (substr($row[0]->sermon_path,0,7) == "http://"){
-			$lnk = $row[0]->sermon_path;
+		if (substr($row->sermon_path,0,7) == "http://"){
+			$lnk = $row->sermon_path;
 		} else {  
-			$lnk = SermonspeakerHelperSermonspeaker::makelink($row[0]->sermon_path); 
+			$lnk = SermonspeakerHelperSermonspeaker::makelink($row->sermon_path); 
 		}
 		
 		// get active View from Menuitem
@@ -51,25 +51,36 @@ class SermonspeakerViewSermon extends JView
 		$breadcrumbs	= &$app->getPathWay();
 		if ($active_view == "series") {
 			$model		= &$this->getModel();
-			$serie		= &$model->getSerie($row[0]->series_id);		// getting the Serie from the Model
-	    	$breadcrumbs->addItem($serie->series_title, 'index.php?option=com_sermonspeaker&view=serie&id='.$row[0]->series_id.'&Itemid='.$itemid);
+			$serie		= &$model->getSerie($row->series_id);		// getting the Serie from the Model
+	    	$breadcrumbs->addItem($serie->series_title, 'index.php?option=com_sermonspeaker&view=serie&id='.$row->series_id.'&Itemid='.$itemid);
 		} elseif ($active_view == "speakers") {
 			$model		= &$this->getModel();
-			$speaker	= &$model->getSpeaker($row[0]->speaker_id);		// getting the Speaker from the Model
-	    	$breadcrumbs->addItem($speaker->name, 'index.php?option=com_sermonspeaker&view=speaker&id='.$row[0]->speaker_id.'&Itemid='.$itemid);
+			$speaker	= &$model->getSpeaker($row->speaker_id);		// getting the Speaker from the Model
+	    	$breadcrumbs->addItem($speaker->name, 'index.php?option=com_sermonspeaker&view=speaker&id='.$row->speaker_id.'&Itemid='.$itemid);
 		}
-    	$breadcrumbs->addItem($row[0]->sermon_title, '');
+    	$breadcrumbs->addItem($row->sermon_title, '');
 
 		// Set Meta
 		$document =& JFactory::getDocument();
-		$document->setTitle($document->getTitle().' | '.$row[0]->sermon_title);
-		$document->setMetaData("description", strip_tags($row[0]->notes));
-		$keywords = $this->escape(str_replace(' ', ',', $row[0]->sermon_title).','.str_replace(',', ':', $row[0]->sermon_scripture));
+		$document->setTitle($document->getTitle().' | '.$row->sermon_title);
+		$document->setMetaData("description", strip_tags($row->text));
+		$keywords = $this->escape(str_replace(' ', ',', $row->sermon_title).','.str_replace(',', ':', $row->sermon_scripture));
 		$document->setMetaData("keywords", $keywords);
 
+		// Support for Content Plugins
+		$dispatcher	= &JDispatcher::getInstance();
+		$item->params = clone($params);
+		JPluginHelper::importPlugin('content');
+		// Trigger Event for `notes`
+		$item->text	= &$row->notes;
+		$dispatcher->trigger('onPrepareContent', array(&$item, &$item->params, 0));
+		// Trigger Event for `sermon_scripture`
+		$item->text	= &$row->sermon_scripture;
+		$dispatcher->trigger('onPrepareContent', array(&$item, &$item->params, 0));
+
         // push data into the template
-		$this->assignRef('row',$row);             
-		$this->assignRef('lnk',$lnk);             
+		$this->assignRef('row',$row);
+		$this->assignRef('lnk',$lnk);
 		$this->assignRef('params',$params);			// for Params
 
 		parent::display($tpl);

@@ -48,8 +48,8 @@ class SermonspeakerModelSermon extends JModel
 				. "FROM #__sermon_sermons \n"
 				. "WHERE id=".$this->id;
 		$database->setQuery($query);
-		$row	= $database->loadObjectList();
-		$row[0]->sermon_path = rtrim($row[0]->sermon_path);
+		$row	= $database->loadObject();
+		$row->sermon_path = rtrim($row->sermon_path);
 		return $row;
 	}
 }

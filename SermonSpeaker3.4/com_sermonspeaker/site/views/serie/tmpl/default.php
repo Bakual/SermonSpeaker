@@ -13,16 +13,16 @@ JFactory::getDocument()->addScriptDeclaration( "
 ?>
 <table width="100%" cellpadding="2" cellspacing="0">
 	<tr class="componentheading">
-		<th align="left" valign="bottom"><?php echo JText::_('SINGLESERIES').": ".$this->serie[0]->series_title; ?></th>
+		<th align="left" valign="bottom"><?php echo JText::_('SINGLESERIES').": ".$this->serie->series_title; ?></th>
 	</tr>
 </table>
 <table cellpadding="2" cellspacing="10">
 <tr>
-	<th><?php if ($this->serie[0]->avatar != "") {
-			echo "<img src='".SermonspeakerHelperSermonspeaker::makelink($this->serie[0]->avatar)."' >";
+	<th><?php if ($this->serie->avatar != "") {
+			echo "<img src='".SermonspeakerHelperSermonspeaker::makelink($this->serie->avatar)."' >";
         } ?>
 	</th>
-	<th align="left"><?php echo $this->serie[0]->series_description; ?></th>
+	<th align="left"><?php echo $this->serie->series_description; ?></th>
 </tr>
 </table>
 <p></p>

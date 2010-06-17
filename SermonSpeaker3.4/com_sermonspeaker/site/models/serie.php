@@ -77,7 +77,7 @@ class SermonspeakerModelSerie extends JModel
 		$database =& JFactory::getDBO();
 		$query = "SELECT * FROM #__sermon_series WHERE id='".$this->id."'";
 		$database->setQuery( $query );
-		$row = $database->loadObjectList();
+		$row = $database->loadObject();
 
        return $row;
 	}

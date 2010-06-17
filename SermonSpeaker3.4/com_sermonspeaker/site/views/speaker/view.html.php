@@ -60,6 +60,17 @@ class SermonspeakerViewSpeaker extends JView
 		$document->setMetaData("description",strip_tags($row->intro));
 		$document->setMetaData("keywords",$title);
 
+		// Support for Content Plugins
+		$dispatcher	= &JDispatcher::getInstance();
+		$item->params = clone($params);
+		JPluginHelper::importPlugin('content');
+		// Trigger Event for `intro`
+		$item->text	= &$row->intro;
+		$dispatcher->trigger('onPrepareContent', array(&$item, &$item->params, 0));
+		// Trigger Event for `bio`
+		$item->text	= &$row->bio;
+		$dispatcher->trigger('onPrepareContent', array(&$item, &$item->params, 0));
+
         // push data into the template
 		$this->assignRef('row',$row);
 		$this->assignRef('title',$title);
