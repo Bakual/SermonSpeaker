@@ -12,12 +12,6 @@
 			<option value="0">No</option>
 			<option value="1">Yes</option>
 		</param>
-		<param name="startpage" type="list" default="" label="STARTPAGE" description="STARTPAGE_DESC">
-			<option value="1">SPEAKERS</option>
-			<option value="2">SERIES</option>
-			<option value="3">SERMONS</option>
-			<option value="4">SERIESSERMONS</option>
-		</param>
 		<param type="spacer" default="CLIENT_COL" />
 		<param name="sermonlayout" type="list" default="1" label="SERMONLAYOUT" description="SERMONLAYOUT_DESC">
 			<option value="1">SERMON_ALLINROW</option>
