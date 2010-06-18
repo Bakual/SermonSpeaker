@@ -72,7 +72,7 @@ JFactory::getDocument()->addScriptDeclaration( "
 			</a>
 		</td>
 		<?php if ($this->params->get('client_col_sermon_scripture_reference')) { echo "<td>".$row->sermon_scripture."</td>\n"; } ?>
-		<td>
+		<td align="left">
 			<?php echo SermonspeakerHelperSermonSpeaker::SpeakerTooltip($row->s_id, $row->pic, $row->name); ?>
 		</td>
 		<?php
