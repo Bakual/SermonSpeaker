@@ -95,7 +95,7 @@ class SermonspeakerHelperSermonspeaker
 			$pp_h = $params->get('popup_height');
 			$pp_w = 380;
 		} //mp3
-
+		
 		if((strcasecmp(substr($lnk,-4),".flv") == 0) OR (strcasecmp(substr($lnk,-4),".mp4") == 0) OR (strcasecmp(substr($lnk,-4),".m4v") == 0)) { ?>
 			<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" <?php echo "width=\"".$params->get('mp_width')."\" height=\"".$params->get('mp_height'); ?> id="player1" name="player1">
 				<param name="movie" value="<?php echo $player; ?>"/>
