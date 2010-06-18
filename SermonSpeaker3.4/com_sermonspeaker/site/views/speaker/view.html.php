@@ -26,8 +26,9 @@ class SermonspeakerViewSpeaker extends JView
 		if ($this->getLayout() == "latest-sermons") {
 			$sermons	= &$this->get('Sermons');		// getting the Sermons from the Model
 		  	if ($params->get('limit_speaker') == 1) {
-				$title = JText::_('LATEST')." ".$params->get('sermonresults')." ".JText::_('SERMONS_OF')." ".$row->name;
-				$bread = JText::_('LATEST')." ".$params->get('sermonresults')." ".JText::_('SERMONS');
+				$limit = $app->getCfg('list_limit');
+				$title = JText::_('LATEST')." ".$limit." ".JText::_('SERMONS_OF')." ".$row->name;
+				$bread = JText::_('LATEST')." ".$limit." ".JText::_('SERMONS');
 			} else {
 				$title = JText::_('SERMONS_OF')." ".$row->name;
 				$bread = JText::_('SERMONS');

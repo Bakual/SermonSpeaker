@@ -18,6 +18,7 @@ $Itemid	= JRequest::getInt('Itemid');
 	</div>
 </div>
 <!-- begin Data -->
+<form action="http://<?php echo $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'] ?>" method="post" id="adminForm" name="adminForm">
 <?php foreach($this->rows as $row) { ?>
 	<hr style="width: 100%; height: 2px;" />
 	<?php echo "<h3>".$row->name."</h3>"; ?>
@@ -53,6 +54,7 @@ $Itemid	= JRequest::getInt('Itemid');
 <br />
 <div class="Pages">
 	<div class="Paginator">
-		<?php echo $this->pagination->getPagesLinks(); ?><br />
+		<?php echo $this->pagination->getListFooter(); ?><br />
 	</div>
 </div>
+</form>

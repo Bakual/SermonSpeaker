@@ -16,6 +16,8 @@ class SermonspeakerModelSeries extends JModel
 	{
 		parent::__construct();
  
+		$app = JFactory::getApplication();
+
 		$params = &JComponentHelper::getParams('com_sermonspeaker');
 		$cat['series'] = $params->get('series_cat', JRequest::getInt('series_cat', ''));
 		$cat['speaker'] = $params->get('speaker_cat', JRequest::getInt('speaker_cat', ''));
@@ -32,7 +34,7 @@ class SermonspeakerModelSeries extends JModel
 		}
 
 		// Get pagination request variables
-		$limit = $params->get('sermonresults');
+		$limit = $app->getUserStateFromRequest('global.list.limit', 'limit', $app->getCfg('list_limit'), 'int');
 		$limitstart = JRequest::getInt('limitstart', 0);
  		// In case limit has been changed, adjust it
 		$limitstart = ($limit != 0 ? (floor($limitstart / $limit) * $limit) : 0);
@@ -83,11 +85,8 @@ class SermonspeakerModelSeries extends JModel
         . ' LEFT JOIN #__sermon_speakers l ON j.speaker_id = l.id'
         . ' WHERE j.published = \'1\''
 		.$this->catwhere
-        . ' ORDER BY j.ordering, j.id desc, j.series_title'
-        . ' LIMIT '.$this->getState('limitstart').','.$this->getState('limit'); 
-
-		$database->setQuery($query);
-		$rows = $database->loadObjectList();
+        . ' ORDER BY j.ordering, j.id desc, j.series_title';
+		$rows = $this->_getList($query, $this->getState('limitstart'), $this->getState('limit')); 
 
 		return $rows;
 	}

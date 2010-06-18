@@ -17,6 +17,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 <hr style="width: 100%; height: 2px;" />
 <!-- Begin Data -->
+<form action="http://<?php echo $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'] ?>" method="post" id="adminForm" name="adminForm">
 <table style="width: 100%" cellpadding="10" cellspacing="0" width="100%">
 	<?php
 	$callback = NULL;
@@ -69,6 +70,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 <br />
 <div class="Pages">
 	<div class="Paginator">
-		<?php echo $this->pagination->getPagesLinks(); ?><br />
+		<?php echo $this->pagination->getListFooter(); ?><br />
 	</div>
 </div>
+</form>

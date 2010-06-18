@@ -27,7 +27,7 @@ JFactory::getDocument()->addScriptDeclaration( "
 	</div>
 </div>
 <hr style="width: 100%; height: 2px;" />
-<form method="post" id="adminForm" name="adminForm">
+<form action="http://<?php echo $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'] ?>" method="post" id="adminForm" name="adminForm">
 <table class="adminlist" cellpadding="2" cellspacing="2" width="100%">
 <!-- Tabellenkopf mit Sortierlinks erstellen -->
 <thead>
@@ -71,8 +71,8 @@ JFactory::getDocument()->addScriptDeclaration( "
 				<?php echo $row->sermon_title; ?>
 			</a>
 		</td>
-		<?php if ($this->params->get('client_col_sermon_scripture_reference')) { echo "<td>".$row->sermon_scripture."</td>\n"; } ?>
-		<td align="left">
+		<?php if ($this->params->get('client_col_sermon_scripture_reference')) { echo "<td align='left'>".$row->sermon_scripture."</td>\n"; } ?>
+		<td>
 			<?php echo SermonspeakerHelperSermonSpeaker::SpeakerTooltip($row->s_id, $row->pic, $row->name); ?>
 		</td>
 		<?php
@@ -94,10 +94,10 @@ JFactory::getDocument()->addScriptDeclaration( "
 </table>
 <input type="hidden" name="filter_order" value="<?php echo $this->lists['order']; ?>" />
 <input type="hidden" name="filter_order_Dir" value="<?php echo $this->lists['order_Dir']; ?>" />
-</form>
 <br />
 <div class="Pages">
 	<div class="Paginator">
-		<?php echo $this->pagination->getPagesLinks(); ?><br />
+		<?php echo $this->pagination->getListFooter(); ?><br />
 	</div>
 </div>
+</form>

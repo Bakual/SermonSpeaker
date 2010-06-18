@@ -3,7 +3,6 @@
 		<param name="path" type="text" size="30" default="images" label="PATH" description="PATH_DESC" />
 		<param name="path_avatar" type="text" size="30" default="images" label="PATH_AVATAR" description="PATH_AVATAR_DESC" />
 		<param name="path_addfile" type="text" size="30" default="images" label="PATH_ADDFILE" description="PATH_ADDFILE_DESC" />
-		<param name="sermonresults" type="text" default="10" label="SERMONRESULTS" description="SERMONRESULTS_DESC" />
 		<param name="limit_speaker" type="radio" default="0" label="LIMIT_SPEAKER" description="LIMIT_SPEAKER_DESC">
 			<option value="0">No</option>
 			<option value="1">Yes</option>

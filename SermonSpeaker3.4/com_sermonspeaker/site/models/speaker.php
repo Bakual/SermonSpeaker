@@ -12,11 +12,13 @@ class SermonspeakerModelSpeaker extends JModel
 	{
 		parent::__construct();
  
+		$app = JFactory::getApplication();
+
 		$this->params = &JComponentHelper::getParams('com_sermonspeaker');
 		$this->id		= JRequest::getInt('id',$this->params->get('speaker_id'));
 
+		$this->limit = $app->getCfg('list_limit');
 		// Get sorting order from Request and UserState
-		$app = JFactory::getApplication();
 		$this->lists['order']		= $app->getUserStateFromRequest("com_sermonspeaker.sermons.filter_order",'filter_order','sermon_date','cmd' );
 		$this->lists['order_Dir']	= $app->getUserStateFromRequest("com_sermonspeaker.sermons.filter_order_Dir",'filter_order_Dir','DESC','word' );
 		// checking for invalid sorts from other views and change to default
@@ -69,7 +71,7 @@ class SermonspeakerModelSpeaker extends JModel
 				. "AND sermons.published='1' \n"
 				. "ORDER BY ".$orderby." \n";
 		if ($this->params->get('limit_speaker') == 1) { 
-			$query .= "LIMIT ".$this->params->get('sermonresults');
+			$query .= "LIMIT ".$this->limit;
 		}
 		$database->setQuery($query);
    		$sermons	= $database->loadObjectList();

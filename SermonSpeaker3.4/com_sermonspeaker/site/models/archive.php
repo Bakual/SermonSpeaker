@@ -41,8 +41,7 @@ class SermonspeakerModelArchive extends JModel
 		}
 
 		// Get pagination request variables
-//		$limit = $app->getUserStateFromRequest('global.list.limit', 'limit', $app->getCfg('list_limit'), 'int');
-		$limit = $params->get('sermonresults');
+		$limit = $app->getUserStateFromRequest('global.list.limit', 'limit', $app->getCfg('list_limit'), 'int');
 		$limitstart = JRequest::getInt('limitstart', 0);
  		// In case limit has been changed, adjust it
 		$limitstart = ($limit != 0 ? (floor($limitstart / $limit) * $limit) : 0);
@@ -128,10 +127,8 @@ class SermonspeakerModelArchive extends JModel
 					. "AND YEAR(j.sermon_date)='".$this->year."' \n"
 					.$this->and_m
 					.$this->catwhere
-					. "ORDER BY ".$orderby." \n"
-					. "LIMIT ".$this->getState('limitstart').','.$this->getState('limit');
-		$database->setQuery( $query );
-		$rows		= $database->loadObjectList();
+					. "ORDER BY ".$orderby;
+		$rows = $this->_getList($query, $this->getState('limitstart'), $this->getState('limit')); 
 
 		return $rows;
 	}
