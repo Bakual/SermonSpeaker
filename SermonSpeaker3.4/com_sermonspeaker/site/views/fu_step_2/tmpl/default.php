@@ -17,20 +17,20 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 	<tr>
 		<td width ="50">&#160;</td>
 		<td align="right" class="key"> <?php echo JText::_('SERMONTITLE'); ?> </td> 
-		<td> &nbsp; <input class="text_area" type="text" name="sermon_title" id="sermon_title" size="50" maxlength="250" value="<?php echo $this->id3title;?>" /> </td>
+		<td> &nbsp; <input class="text_area" type="text" name="sermon_title" id="sermon_title" size="50" maxlength="250" value="<?php echo $this->id3['title'];?>" /> </td>
 		<td>&#160;</td>
 	</tr>
 	<tr>
 		<td width ="50">&#160;</td>
 		<td align="right" class="key"> <?php echo JText::_('SCRIPTURE'); ?> </td> 
-		<td> &nbsp; <input class="text_area" type="text" name="sermon_scripture" id="sermon_scripture" size="50" maxlength="250" value="<?php echo $this->id3ref;?>" /> </td>
+		<td> &nbsp; <input class="text_area" type="text" name="sermon_scripture" id="sermon_scripture" size="50" maxlength="250" value="<?php echo $this->id3['ref'];?>" /> </td>
 		<td>&#160;</td>
 	</tr>
 	<tr>
 		<td width ="50">&#160;</td>
 		<td align="right" class="key"> <?php echo JText::_('SERMON_DATE'); ?> </td> 
 		<td> &nbsp;
-			<input class="inputbox" type="text" name="sermon_date" id="sermon_date" size="25" maxlenght="20" value="" /> 
+			<input class="inputbox" type="text" name="sermon_date" id="sermon_date" size="25" maxlenght="20" value="<?php echo date('Y-m-d'); ?>" /> 
 			<img class="calendar" src="templates/system/images/calendar.png" alt="calendar" id="showCalendar" /> 
 			<script type="text/javascript">
 				Calendar.setup( {
@@ -44,14 +44,14 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 	</tr>
 	<tr>
 		<td width ="50">&#160;</td>
-		<td align="right" class="key"> <?php echo JText::_('SERMONNUMBER'); ?> </td> 
-		<td> &nbsp; <input class="text_area" type="text" name="sermon_number" id="sermon_number" size="10" maxlength="250" value="<?php echo $this->id3number;?>" /> </td>
+		<td align="right" class="key"> <?php echo JText::_('FU_SERMONNUMBER'); ?> </td> 
+		<td> &nbsp; <input class="text_area" type="text" name="sermon_number" id="sermon_number" size="10" maxlength="250" value="<?php echo $this->id3['number']; ?>" /> </td>
 		<td>&#160;</td>
 	</tr>
 	<tr>
 		<td width ="50">&#160;</td>
 		<td align="right" class="key"> <?php echo JText::_('SERMONTIME'); ?> </td> 
-		<td> &nbsp; <input class="text_area" type="text" name="sermon_time" id="sermon_time" size="10" maxlength="250" value="<?php echo $this->time;?>" /> </td>
+		<td> &nbsp; <input class="text_area" type="text" name="sermon_time" id="sermon_time" size="10" maxlength="250" value="<?php echo $this->id3['time']; ?>" /> </td>
 		<td align="left"><?php echo JText::_('FU_SERMONTIME_DESC'); ?></td>
 	</tr>
 	<tr>
@@ -69,7 +69,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 	<tr>
 		<td width ="50">&#160;</td>
 		<td align="right" class="key"> <?php echo JText::_('NOTES'); ?> </td> 
-		<td> &nbsp; <?php echo $this->editor->display('notes',$this->id3notes,'100%','200','40','10');	?> </td>
+		<td> &nbsp; <?php echo $this->editor->display('notes', $this->id3['notes'], '100%', '200', '40', '10');	?> </td>
 		<td>&#160;</td>
 	</tr>
 	<tr>

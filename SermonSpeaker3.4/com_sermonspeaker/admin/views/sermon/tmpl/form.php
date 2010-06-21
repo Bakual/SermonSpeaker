@@ -41,10 +41,10 @@ $editor =& JFactory::getEditor();
 		<tr>
 			<td width="100" align="right" class="key"><?php echo JText::_('SERMONPATH'); ?></td>
 			<td>
-				<input type="radio" name="sel" value="1" onclick="enableElement(this.form.elements['sermon_path_txt']);" checked>
+				<input type="radio" name="sel" value="1" onclick="enableElement(this.form.elements['sermon_path_txt'], this.form.elements['sermon_path_choice']);" checked>
 				<input class="text_area" type="text" name="sermon_path_txt" id="sermon_path_txt" size="130" maxlength="250" value="<?php echo $this->row->sermon_path;?>" />
 				<br>
-				<input type="radio" name="sel" value="2" onclick="disElement(this.form.elements['sermon_path_txt']);enableElement(this.form.elements['sermon_path_choice']);">
+				<input type="radio" name="sel" value="2" onclick="enableElement(this.form.elements['sermon_path_choice'], this.form.elements['sermon_path_txt']);">
 				<?php echo $this->lists['sermon_path_choice']; ?>
 			</td>
 		</tr>
@@ -87,10 +87,10 @@ $editor =& JFactory::getEditor();
 		<tr>
 			<td width="100" align="right" class="key"><?php echo JText::_('ADDFILE'); ?></td>
 			<td>
-				<input type="radio" name="seladdfile" value="1" onclick="enableElement(this.form.elements['addfile_txt']);" checked>
+				<input type="radio" name="seladdfile" value="1" onclick="enableElement(this.form.elements['addfile_txt'], this.form.elements['addfile_choice']);" checked>
 				<input class="text_area" type="text" name="addfile_txt" id="addfile_txt" size="130" maxlength="250" value="<?php echo $this->row->addfile;?>" />
 				<br>
-				<input type="radio" name="seladdfile" value="2" onclick="disElement(this.form.elements['addfile_txt']);enableElement(this.form.elements['addfile_choice']);">
+				<input type="radio" name="seladdfile" value="2" onclick="enableElement(this.form.elements['addfile_choice'], this.form.elements['addfile_txt']);">
 				<?php echo $this->lists['addfile_choice']; ?>
 			</td>
 		</tr>

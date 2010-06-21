@@ -8,18 +8,10 @@ class SermonspeakerViewSermon extends JView
 	function display( $tpl = null )
 	{
 		// add Javascript for Form Elements enable and disable
-		$js = 'var currentEnabled = null;
-        function enableElement(elem) {
-          if (currentEnabled) {
-            currentEnabled.disabled = true;
-          }
-          elem.disabled = false;
-          currentEnabled = elem;
-          
-        }
-        function disElement(elem) {
-          elem.disabled = true;
-        }';
+		$js = 'function enableElement(ena_elem, dis_elem) {
+			ena_elem.disabled = false;
+			dis_elem.disabled = true;
+		}';
 		$document =& JFactory::getDocument();
 		$document->addScriptDeclaration($js);
 

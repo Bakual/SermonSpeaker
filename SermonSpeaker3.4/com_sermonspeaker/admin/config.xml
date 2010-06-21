@@ -92,53 +92,9 @@
 		<param name="fu_pwd" type="password" default="" label="FRUP_PWD" description="FRUP_PWD_DESC" />
 		<param name="fu_usergroup" type="usergroup" default="" multiple="yes" label="FRUP_USERGROUP" description="FRUP_USERGROUP_DESC" />
 		<param name="fu_destdir" type="text" default="" label="FRUP_DESTDIR" description="FRUP_DESTDIR_DESC" />
-		<param name="fu_id3_title" type="list" default="Title" label="FRUP_ID3_TITLE" description="FRUP_ID3_TITLE_DESC">
-			<option value="-">-</option>
-			<option value="Artist">Artist</option>
-			<option value="Title">Title</option>
-			<option value="Album">Album</option>
-			<option value="Track">Track</option>
-			<option value="Comment">Comment</option>
-		</param>
-		<param name="fu_id3_speaker" type="list" default="Artist" label="FRUP_ID3_SPEAKER" description="FRUP_ID3_SPEAKER_DESC">
-			<option value="-">-</option>
-			<option value="Artist">Artist</option>
-			<option value="Title">Title</option>
-			<option value="Album">Album</option>
-			<option value="Track">Track</option>
-			<option value="Comment">Comment</option>
-		</param>
-		<param name="fu_id3_series" type="list" default="Album" label="FRUP_ID3_SERIES" description="FRUP_ID3_SERIES_DESC">
-			<option value="-">-</option>
-			<option value="Artist">Artist</option>
-			<option value="Title">Title</option>
-			<option value="Album">Album</option>
-			<option value="Track">Track</option>
-			<option value="Comment">Comment</option>
-		</param>
-		<param name="fu_id3_ref" type="list" default="-" label="FRUP_ID3_REF" description="FRUP_ID3_REF_DESC">
-			<option value="-">-</option>
-			<option value="Artist">Artist</option>
-			<option value="Title">Title</option>
-			<option value="Album">Album</option>
-			<option value="Track">Track</option>
-			<option value="Comment">Comment</option>
-		</param>
-		<param name="fu_id3_number" type="list" default="Track" label="FRUP_ID3_NUMBER" description="FRUP_ID3_NUMBER_DESC">
-			<option value="-">-</option>
-			<option value="Artist">Artist</option>
-			<option value="Title">Title</option>
-			<option value="Album">Album</option>
-			<option value="Track">Track</option>
-			<option value="Comment">Comment</option>
-		</param>
-		<param name="fu_id3_notes" type="list" default="Comment" label="FRUP_ID3_COMMENT" description="FRUP_ID3_COMMENT_DESC">
-			<option value="-">-</option>
-			<option value="Artist">Artist</option>
-			<option value="Title">Title</option>
-			<option value="Album">Album</option>
-			<option value="Track">Track</option>
-			<option value="Comment">Comment</option>
+		<param name="fu_id3_comments" type="list" default="Comment" label="FRUP_ID3_COMMENT" description="FRUP_ID3_COMMENT_DESC">
+			<option value="notes">Notes</option>
+			<option value="ref">Scripture</option>
 		</param>
 		<param type="spacer" default="&lt;b&gt;SermonCast&lt;b&gt;" />
 		<param name="count" type="text" default="10" label="COUNT" description="COUNT_DESC" />
