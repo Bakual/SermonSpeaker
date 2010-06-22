@@ -30,7 +30,12 @@ class SermonspeakerViewFu_step_2 extends JView
 			$sql['speaker_id'] 			= JRequest::getInt('speaker_id', '', 'POST');
 			$sql['series_id'] 			= JRequest::getInt('speaker_id', '', 'POST');
 			$file 						= JRequest::getString('filename', '', 'POST');
-			$sql['sermon_path']			= '/'.$params->get('path').'/'.$params->get('fu_destdir').'/'.$file;
+			if ($params->get('fu_destdir')){
+				$fu_destdir = '/'.trim($params->get('fu_destdir'),' /').'/';
+			} else {
+				$fu_destdir = '/';
+			}
+			$sql['sermon_path']			= '/'.$params->get('path').$fu_destdir.$file;
 			$sql['sermon_title']		= JRequest::getString('sermon_title', '', 'POST');
 			$sql['alias']				= JRequest::getCmd('alias', JFilterOutput::stringURLSafe($sql['sermon_title']), 'POST');
 			$sql['sermon_number']		= JRequest::getInt('sermon_number', '', 'POST');
@@ -53,6 +58,9 @@ class SermonspeakerViewFu_step_2 extends JView
 			$user =& JFactory::getUser();
 			$sql['created_by']	= $user->id;
 			$sql['created_on']	= date('Y-m-d');
+			$sql['catid']		= JRequest::getInt('catid', '0', 'POST');
+			$sql['addfile']		= JRequest::getString('addfile_choice', JRequest::getString('addfile_text', '', 'POST'), 'POST');
+			$sql['addfileDesc']	= JRequest::getString('addfileDesc', '', 'POST');
 
 			$keys	= implode('`,`', array_keys($sql));
 			$values = implode("','", $sql);
@@ -85,8 +93,8 @@ class SermonspeakerViewFu_step_2 extends JView
 			JHTML::_('behavior.modal', 'a.modal-button');
 			
 			$editor	=& JFactory::getEditor();
-			$file 	= JRequest::getString('filename', '');
-			$path 	= JPATH_SITE.DS.$params->get('path').DS.$params->get('fu_destdir').DS.$file;
+			$filename = JRequest::getString('filename', '');
+			$path 	= JPATH_SITE.DS.$params->get('path').DS.$params->get('fu_destdir').DS.$filename;
 			
 			// Reading ID3 Tags
 			require_once(JPATH_COMPONENT.DS.'id3'.DS.'getid3'.DS.'getid3.php');
@@ -136,14 +144,30 @@ class SermonspeakerViewFu_step_2 extends JView
 			$db->setQuery($query);
 			$series_title = $db->loadObjectList();
 			
+			// getting the files with extension $filters from $path and its subdirectories for addfiles
+			$path_addfile = JPATH_ROOT.DS.$params->get('path_addfile');
+			$filters = array('.pdf','.bmp','.png','.jpg','.gif','.txt','.doc');
+			$filesabs = array();
+			foreach($filters as $filter) {
+				$filesabs = array_merge(JFolder::files($path_addfile, $filter, true, true),$filesabs);
+			}
+			// changing the filepaths relativ to the joomla root
+			$lsdir = strlen(JPATH_ROOT);
+			$addfiles = array();
+			foreach($filesabs as $file) {
+				$addfiles[]->file = str_replace('\\','/',substr($file,$lsdir));
+			}
+
 			$lists['speaker_id']	= JHTML::_('select.genericlist', $speaker_names, 'speaker_id', '', 'id', 'name', $id3['speaker']);
 			$lists['series_id']		= JHTML::_('select.genericlist', $series_title, 'series_id', '', 'id', 'series_title', $id3['series']);
 			$lists['published']		= JHTML::_('select.booleanlist', 'published', 'class="inputbox"', '1');
 			$lists['podcast']		= JHTML::_('select.booleanlist', 'podcast', 'class="inputbox"', '1');
+			$lists['catid']			= JHTML::_('list.category', 'catid', 'com_sermonspeaker');
+			$lists['addfile_choice'] = JHTML::_('select.genericlist', $addfiles, 'addfile_choice', 'disabled="disabled"', 'file', 'file');
 			
 			// Push the Data to the Template
 			$this->assignRef('lists',$lists);
-			$this->assignRef('file',$file);
+			$this->assignRef('filename',$filename);
 			$this->assignRef('editor',$editor);
 			$this->assignRef('id3',$id3);
 		}
