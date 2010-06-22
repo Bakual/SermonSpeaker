@@ -16,12 +16,12 @@ class TableSermons extends JTable
 	var $play = null;
 	var $notes = null;
 	var $download = null;
-	var $published = null;
+	var $published = '1';
 	var $ordering = null;
 	var $hits = null;
 	var $created_by = null;
 	var $created_on = null;
-	var $podcast = null;
+	var $podcast = '1';
 	var $addfile = null;
 	var $addfileDesc = null;
 	var $catid = null;

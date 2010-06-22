@@ -5,7 +5,13 @@ $cid = JRequest::getVar('cid', array(0), '', 'array');
 JArrayHelper::toInteger($cid, array(0));
 
 $edit = JRequest::getBool('edit', true);
-$text = ($edit ? JText::_('Edit') : JText::_('New'));
+if($edit){
+	$text = JText::_('Edit');
+	$self = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+} else {
+	$text = JText::_('New');
+	$self = 'http://'.$_SERVER['HTTP_HOST'].'/administrator/index.php?option=com_sermonspeaker&controller=sermon&task=add';
+}
 
 JToolBarHelper::title(JText::_('SERMON').': <small><small>[ '.$text.' ]</small></small>', 'sermons');
 JToolBarHelper::save();
@@ -50,7 +56,7 @@ $editor =& JFactory::getEditor();
 				<br>
 				<input type="radio" name="sel" value="2" onclick="enableElement(this.form.elements['sermon_path_choice'], this.form.elements['sermon_path_txt']);">
 				<?php echo $this->lists['sermon_path_choice']; ?>
-				<img onClick="window.location.href='http://<?php echo $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'] ?>&amp;file='+document.adminForm.sermon_path_choice.value;" src='<?php echo JURI::root(); ?>/components/com_sermonspeaker/images/find.png' alt='lookup ID3' title='lookup ID3'>
+				<img onClick="window.location.href='<?php echo $self; ?>&amp;file='+document.adminForm.sermon_path_choice.value;" src='<?php echo JURI::root(); ?>/components/com_sermonspeaker/images/find.png' alt='lookup ID3' title='lookup ID3'>
 			</td>
 		</tr>
 		<tr>

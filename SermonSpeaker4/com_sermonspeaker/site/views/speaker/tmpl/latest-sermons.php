@@ -85,7 +85,7 @@ JFactory::getDocument()->addScriptDeclaration( "
 				echo "<td align=\"left\" valign=\"middle\" >$sermon->sermon_scripture</td>";
 			}
 			if( $this->params->get('client_col_sermon_date')){
-				echo "<td align=\"left\" valign=\"middle\">".JHTML::date($sermon->sermon_date,'%x',0)."</td>";
+				echo "<td align=\"left\" valign=\"middle\">".JHTML::date($sermon->sermon_date,JText::_('DATE_FORMAT_JS1'),0)."</td>";
 			}
 			if( $this->params->get('client_col_sermon_time')){
 				echo "<td align=\"center\" valign=\"middle\">".SermonspeakerHelperSermonspeaker::insertTime($sermon->sermon_time)."</td>";

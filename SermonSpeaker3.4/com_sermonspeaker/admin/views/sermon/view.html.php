@@ -36,6 +36,7 @@ class SermonspeakerViewSermon extends JView
 
 		if ($id3_file = JRequest::getString('file')){
 			// Reading ID3 Tags
+			$row->sermon_path = $id3_file;
 			require_once(JPATH_SITE.DS.'components'.DS.'com_sermonspeaker'.DS.'id3'.DS.'getid3'.DS.'getid3.php');
 			$getID3 	= new getID3;
 			$path		= JPATH_SITE.str_replace('/',DS,$id3_file);

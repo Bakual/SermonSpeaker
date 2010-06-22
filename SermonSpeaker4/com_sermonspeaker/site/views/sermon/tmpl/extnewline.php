@@ -32,7 +32,7 @@ $id = $this->row[0]->id;
 	<?php } ?>
 	<tr>
 		<td valign="top"><b><?php echo JText::_('SERMON_DATE'); ?>:</b></td>
-		<td><?php echo JHTML::date($this->row[0]->sermon_date, '%x', 0); ?></td>
+		<td><?php echo JHTML::date($this->row[0]->sermon_date, JText::_('DATE_FORMAT_JS1'), 0); ?></td>
 	</tr>
 	<tr>
 		<td valign="top"><b><?php echo JText::_('SCRIPTURE'); ?>:</b></td>
