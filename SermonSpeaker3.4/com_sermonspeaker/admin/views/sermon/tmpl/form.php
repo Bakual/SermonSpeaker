@@ -32,7 +32,11 @@ $editor =& JFactory::getEditor();
 		</tr>
 		<tr>
 			<td width="100" align="right" class="key"><?php echo JText::_('SCRIPTURE'); ?></td>
-			<td><input class="text_area" type="text" name="sermon_scripture" id="sermon_scripture" size="50" maxlength="250" value="<?php echo $this->row->sermon_scripture;?>" /></td>
+			<td>
+				<input class="text_area" type="text" name="sermon_scripture" id="sermon_scripture" size="50" maxlength="250" value="<?php echo $this->row->sermon_scripture;?>" />
+				<img onClick="sendText(document.adminForm.sermon_scripture,'{bib=','}')" src='<?php echo JURI::root(); ?>/components/com_sermonspeaker/images/blue_tag.png' title='insert Biblelink tag' alt='insert Biblelink tag'>
+				<img onClick="sendText(document.adminForm.sermon_scripture,'{bible}','{/bible}')" src='<?php echo JURI::root(); ?>/components/com_sermonspeaker/images/green_tag.png' title='insert ScriptureLink tag' alt='insert ScriptureLink tag'>
+			</td>
 		</tr>
 		<tr>
 			<td width="100" align="right" class="key"><?php echo JText::_('SERMON_DATE'); ?></td>

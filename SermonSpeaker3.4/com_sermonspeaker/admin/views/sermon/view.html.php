@@ -8,12 +8,17 @@ class SermonspeakerViewSermon extends JView
 	function display( $tpl = null )
 	{
 		// add Javascript for Form Elements enable and disable
-		$js = 'function enableElement(ena_elem, dis_elem) {
+		$enElem = 'function enableElement(ena_elem, dis_elem) {
 			ena_elem.disabled = false;
 			dis_elem.disabled = true;
 		}';
+		// add Javascript for Scripture Links buttons
+		$sendText = 'function sendText(elem, open, close) {
+			elem.value = open+elem.value+close;
+		}';
 		$document =& JFactory::getDocument();
-		$document->addScriptDeclaration($js);
+		$document->addScriptDeclaration($enElem);
+		$document->addScriptDeclaration($sendText);
 
 		$params	=& JComponentHelper::getParams('com_sermonspeaker');
 

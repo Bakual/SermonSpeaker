@@ -32,6 +32,7 @@ class SermonspeakerViewFu_step_2 extends JView
 			$file 						= JRequest::getString('filename', '', 'POST');
 			$sql['sermon_path']			= '/'.$params->get('path').'/'.$params->get('fu_destdir').'/'.$file;
 			$sql['sermon_title']		= JRequest::getString('sermon_title', '', 'POST');
+			$sql['alias']				= JRequest::getCmd('alias', JFilterOutput::stringURLSafe($sql['sermon_title']), 'POST');
 			$sql['sermon_number']		= JRequest::getInt('sermon_number', '', 'POST');
 			$sql['sermon_scripture']	= JRequest::getString('sermon_scripture', '', 'POST');
 			$sql['sermon_date']			= JRequest::getString('sermon_date', '', 'POST');
@@ -66,6 +67,20 @@ class SermonspeakerViewFu_step_2 extends JView
 		} else {
 			// Form wasn't submitted!
 			
+			// add Javascript for Form Elements enable and disable
+			$enElem = 'function enableElement(ena_elem, dis_elem) {
+				ena_elem.disabled = false;
+				dis_elem.disabled = true;
+			}';
+			// add Javascript for Scripture Links buttons
+			$sendText = 'function sendText(elem, open, close) {
+				elem.value = open+elem.value+close;
+			}';
+			
+			$document =& JFactory::getDocument();
+			$document->addScriptDeclaration($enElem);
+			$document->addScriptDeclaration($sendText);
+
 			JHTML::_('behavior.calendar'); 
 			JHTML::_('behavior.modal', 'a.modal-button');
 			
@@ -81,6 +96,7 @@ class SermonspeakerViewFu_step_2 extends JView
 			$id3 = array();
 			$id3['time']	= $FileInfo['playtime_string'];
 			$id3['title']	= $FileInfo['comments_html']['title'][0];
+			$id3['alias']	= JFilterOutput::stringURLSafe($FileInfo['comments_html']['title'][0]);
 			if ($FileInfo['comments_html']['track_number'][0] != ""){
 				$id3['number']	= $FileInfo['comments_html']['track_number'][0]; // ID3v2 Tag
 			} else {

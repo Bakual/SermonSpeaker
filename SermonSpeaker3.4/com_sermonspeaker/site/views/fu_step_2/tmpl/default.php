@@ -1,7 +1,7 @@
 <?php
 defined( '_JEXEC' ) or die( 'Restricted access' );
 ?>
-<form name="fu_createsermon" method="post" enctype="multipart/form-data" >
+<form name="fu_createsermon" id="fu_createsermon" method="post" enctype="multipart/form-data" >
 <table border="0">
 	<tr>
 		<td width ="50">&#160;</td>
@@ -22,9 +22,18 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 	</tr>
 	<tr>
 		<td width ="50">&#160;</td>
+		<td align="right" class="key"><?php echo JText::_('ALIAS'); ?></td>
+		<td> &nbsp; <input class="text_area" type="text" name="alias" id="alias" size="50" maxlength="250" value="<?php echo $this->id3['alias']; ?>" /></td>
+		<td>&#160;</td>
+	</tr>
+	<tr>
+		<td width ="50">&#160;</td>
 		<td align="right" class="key"> <?php echo JText::_('SCRIPTURE'); ?> </td> 
 		<td> &nbsp; <input class="text_area" type="text" name="sermon_scripture" id="sermon_scripture" size="50" maxlength="250" value="<?php echo $this->id3['ref'];?>" /> </td>
-		<td>&#160;</td>
+		<td>
+			<img onClick="sendText(document.fu_createsermon.sermon_scripture,'{bib=','}')" src='<?php echo JURI::root(); ?>/components/com_sermonspeaker/images/blue_tag.png' title='insert Biblelink tag' alt='insert Biblelink tag'>
+			<img onClick="sendText(document.fu_createsermon.sermon_scripture,'{bible}','{/bible}')" src='<?php echo JURI::root(); ?>/components/com_sermonspeaker/images/green_tag.png' title='insert ScriptureLink tag' alt='insert ScriptureLink tag'>
+		</td>
 	</tr>
 	<tr>
 		<td width ="50">&#160;</td>
