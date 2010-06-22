@@ -50,6 +50,7 @@ $editor =& JFactory::getEditor();
 				<br>
 				<input type="radio" name="sel" value="2" onclick="enableElement(this.form.elements['sermon_path_choice'], this.form.elements['sermon_path_txt']);">
 				<?php echo $this->lists['sermon_path_choice']; ?>
+				<img onClick="window.location.href='http://<?php echo $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'] ?>&amp;file='+document.adminForm.sermon_path_choice.value;" src='<?php echo JURI::root(); ?>/components/com_sermonspeaker/images/find.png' alt='lookup ID3' title='lookup ID3'>
 			</td>
 		</tr>
 		<tr>
