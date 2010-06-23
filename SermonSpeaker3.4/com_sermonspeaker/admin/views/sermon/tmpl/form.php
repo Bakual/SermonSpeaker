@@ -7,10 +7,11 @@ JArrayHelper::toInteger($cid, array(0));
 $edit = JRequest::getBool('edit', true);
 if($edit){
 	$text = JText::_('Edit');
-	$self = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+	$uri = JURI::getInstance();
+	$self = $uri->_uri;
 } else {
 	$text = JText::_('New');
-	$self = 'http://'.$_SERVER['HTTP_HOST'].'/administrator/index.php?option=com_sermonspeaker&controller=sermon&task=add';
+	$self = JURI::current().'?option=com_sermonspeaker&controller=sermon&task=add';
 }
 
 JToolBarHelper::title(JText::_('SERMON').': <small><small>[ '.$text.' ]</small></small>', 'sermons');
@@ -23,7 +24,6 @@ if ($edit) {
 }
 $editor =& JFactory::getEditor(); 
 ?>
-
 <form action="index.php" method="post" name="adminForm" id="adminForm" >
 	<fieldset class="adminform">
 	<legend><?php echo JText::_('SERMON'); ?></legend>
@@ -84,7 +84,7 @@ $editor =& JFactory::getEditor();
 			<td><?php echo $editor->display('notes', $this->row->notes, '100%', '200', '40', '10');	?></td>
 		</tr>
 		<tr>
-			<td valign="top" align="right" class="key"><label for="catid"><?php echo JText::_( 'CATEGORY' ); ?>:</label></td>
+			<td valign="top" align="right" class="key"><label for="catid"><?php echo JText::_('CATEGORY'); ?>:</label></td>
 			<td><?php echo $this->lists['catid']; ?></td>
 		</tr>
 		<tr>
@@ -112,6 +112,7 @@ $editor =& JFactory::getEditor();
 	</table> 
 	</fieldset> 
 	<input type="hidden" name="id" value="<?php echo $this->row->id; ?>" /> 
+	<input type="hidden" name="created_on" value="<?php echo $this->row->created_on; ?>" /> 
 	<input type="hidden" name="option" value="com_sermonspeaker" /> 
 	<input type="hidden" name="view" value="sermon" />
 	<input type="hidden" name="controller" value="sermon" />

@@ -21,18 +21,28 @@ class SermonspeakerViewSermon extends JView
 		$document->addScriptDeclaration($enElem);
 		$document->addScriptDeclaration($sendText);
 
-		$params	=& JComponentHelper::getParams('com_sermonspeaker');
+		$params	= &JComponentHelper::getParams('com_sermonspeaker');
 
+		$row = &JTable::getInstance('sermons', 'Table');
 		$edit = JRequest::getBool('edit', true);
 		if ($edit) {
 			$cid = JRequest::getVar('cid', array(0), '', 'array');
 			$id = $cid[0];
+			$row->load($id);
+			if (!$row->created_by){
+				$user =& JFactory::getUser();
+				$row->created_by = $user->id;
+			}
+			if (!$row->created_on){
+				$row->created_on = $row->sermon_date;
+			}
 		} else {
 			$id = 0;
+			$row->load($id);
+			$user =& JFactory::getUser();
+			$row->created_by = $user->id;
+			$row->created_on = date('Y-m-d H:i:s');
 		}
-
-		$row = &JTable::getInstance('sermons', 'Table');
-		$row->load($id);
 
 		if ($id3_file = JRequest::getString('file')){
 			// Reading ID3 Tags
@@ -119,7 +129,7 @@ class SermonspeakerViewSermon extends JView
 		$series = &$this->get('Series');
 		$lists['sermon_path_choice'] = JHTML::_('select.genericlist', $sermons, 'sermon_path_choice', 'disabled="disabled"', 'file', 'file', $row->sermon_path);
 		$lists['addfile_choice'] = JHTML::_('select.genericlist', $addfiles, 'addfile_choice', 'disabled="disabled"', 'file', 'file', $row->addfile);
-		$lists['created_by'] = JHTML::_('list.users', 'created_by', $row->created_by, 0, '', 'name', 0);
+		$lists['created_by'] = JHTML::_('list.users', 'created_by', $row->created_by, 1, '', 'name', 0);
 		$lists['speaker_id'] = JHTML::_('select.genericlist', $speakers, 'speaker_id', '','id', 'name', $row->speaker_id);
 		$lists['series_id'] = JHTML::_('select.genericlist', $series, 'series_id', '', 'id', 'series_title', $row->series_id);
 		$lists['published'] = JHTML::_('select.booleanlist', 'published', 'class="inputbox"', $row->published);

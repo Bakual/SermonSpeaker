@@ -21,7 +21,7 @@ function com_install() {
 		."\n`ordering` int(11) NOT NULL default '0',"
 		."\n`hits` INT DEFAULT '0' NOT NULL,"
 		."\n`created_by` INT NOT NULL,"
-		."\n`created_on` VARCHAR(10) NOT NULL,"
+		."\n`created_on` DATETIME NULL,"
 		."\n`catid` INT NOT NULL,"
 		."\nPRIMARY KEY (`id`)"
 		."\n)";
@@ -38,7 +38,7 @@ function com_install() {
 		."\n`ordering` int(11) NOT NULL default '0',"
 		."\n`hits` INT DEFAULT '0' NOT NULL,"
 		."\n`created_by` INT NOT NULL,"
-		."\n`created_on` VARCHAR(10) NOT NULL,"
+		."\n`created_on` DATETIME NULL,"
 		."\n`speaker2` int(11) NOT NULL,"
 		."\n`speaker3` int(11) NOT NULL,"
 		."\n`speaker4` int(11) NOT NULL,"
@@ -84,7 +84,7 @@ function com_install() {
 		."\n`ordering` int(11) NOT NULL default '0',"
 		."\n`hits` INT DEFAULT '0' NOT NULL,"
 		."\n`created_by` INT NOT NULL,"
-		."\n`created_on` VARCHAR(10) NOT NULL,"
+		."\n`created_on` DATETIME NULL,"
 		."\n`podcast` tinyint(1) NOT NULL default '1',"
 		."\n`addfile` text NOT NULL,"
 		."\n`addfileDesc` text NOT NULL,"
@@ -253,6 +253,50 @@ function com_install() {
 		}
 	}
 	
+	// Change database field created_on from varchar() to datetime
+	if ($sermons['created_on'] == 'varchar'){
+		echo "<br>Attempting to change the type of the field created_on in table sermon_sermons...";
+		$query = "ALTER TABLE #__sermon_sermons CHANGE created_on created_on DATETIME NULL";
+		$database->setQuery( $query );
+		$database->Query();
+		if(strlen($database->getErrorMsg()) > 3){
+			echo "<span style=\"color: rgb(255, 0, 0); font-weight: bold;\">";
+			echo "<br>Failed to change fieldtype.  Bad news.  Tell the database administrator.";
+			echo "<br>Error Message: ".$database->getErrorMsg();
+			echo "</span>";
+		} else {
+			echo "<br>Done! Created_on now holds DATETIME format";
+		}
+	}
+	if ($series['created_on'] == 'varchar'){
+		echo "<br>Attempting to change the type of the field created_on in table sermon_series...";
+		$query = "ALTER TABLE #__sermon_series CHANGE created_on created_on DATETIME NULL";
+		$database->setQuery( $query );
+		$database->Query();
+		if(strlen($database->getErrorMsg()) > 3){
+			echo "<span style=\"color: rgb(255, 0, 0); font-weight: bold;\">";
+			echo "<br>Failed to change fieldtype.  Bad news.  Tell the database administrator.";
+			echo "<br>Error Message: ".$database->getErrorMsg();
+			echo "</span>";
+		} else {
+			echo "<br>Done! Created_on now holds DATETIME format";
+		}
+	}
+	if ($speakers['created_on'] == 'varchar'){
+		echo "<br>Attempting to change the type of the field created_on in table sermon_speakers...";
+		$query = "ALTER TABLE #__sermon_speakers CHANGE created_on created_on DATETIME NULL";
+		$database->setQuery( $query );
+		$database->Query();
+		if(strlen($database->getErrorMsg()) > 3){
+			echo "<span style=\"color: rgb(255, 0, 0); font-weight: bold;\">";
+			echo "<br>Failed to change fieldtype.  Bad news.  Tell the database administrator.";
+			echo "<br>Error Message: ".$database->getErrorMsg();
+			echo "</span>";
+		} else {
+			echo "<br>Done! Created_on now holds DATETIME format";
+		}
+	}
+
 	//Add the demo sermon if needed
 	if ($demo == 1) {
 		//Speaker
@@ -303,21 +347,6 @@ function com_install() {
 	if (file_exists(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_sermonspeaker'.DS.'toolbar.sermonspeaker.php')){ 
 		$files[] = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_sermonspeaker'.DS.'toolbar.sermonspeaker.php';
 	}
-/*	if (file_exists(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_sermonspeaker'.DS.'admin.language'.DS.'admin.english.php')){ 
-		$files[] = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_sermonspeaker'.DS.'admin.language'.DS.'admin.english.php';
-	}
-	if (file_exists(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_sermonspeaker'.DS.'admin.help'.DS.'help.english.php')){ 
-		$files[] = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_sermonspeaker'.DS.'admin.help'.DS.'help.english.php';
-	}
-	if (file_exists(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_sermonspeaker'.DS.'admin.help'.DS.'help.german.php')){ 
-		$files[] = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_sermonspeaker'.DS.'admin.help'.DS.'help.german.php';
-	}
-	if (file_exists(JPATH_SITE.DS.'components'.DS.'com_sermonspeaker'.DS.'client.language'.DS.'english.php')){ 
-		$files[] = JPATH_SITE.DS.'components'.DS.'com_sermonspeaker'.DS.'client.language'.DS.'english.php';
-	}
-	if (file_exists(JPATH_SITE.DS.'components'.DS.'com_sermonspeaker'.DS.'client.language'.DS.'german.php')){ 
-		$files[] = JPATH_SITE.DS.'components'.DS.'com_sermonspeaker'.DS.'client.language'.DS.'german.php';
-	} */
 	if (file_exists(JPATH_SITE.DS.'components'.DS.'com_sermonspeaker'.DS.'sermonspeaker.html.php')){ 
 		$files[] = JPATH_SITE.DS.'components'.DS.'com_sermonspeaker'.DS.'sermonspeaker.html.php';
 	}
