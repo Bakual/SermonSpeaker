@@ -11,7 +11,16 @@
 			<option value="0">No</option>
 			<option value="1">Yes</option>
 		</param>
+		<param name="access" type="list" default="0" label="ACCESS" description="ACCESS_DESC">
+			<option value="0">PUBLIC</option>
+			<option value="1">REGISTERED</option>
+			<option value="2">SPECIAL</option>
+		</param>
 		<param type="spacer" default="CLIENT_COL" />
+		<param name="client_col_sermon_page" type="radio" default="1" label="CLIENT_COL_SERMON_PAGE" description="CLIENT_COL_SERMON_PAGE_DESC">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
 		<param name="sermonlayout" type="list" default="1" label="SERMONLAYOUT" description="SERMONLAYOUT_DESC">
 			<option value="1">SERMON_ALLINROW</option>
 			<option value="2">SERMON_NEWLINE</option>

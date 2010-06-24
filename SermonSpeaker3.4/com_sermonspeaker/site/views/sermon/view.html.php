@@ -12,8 +12,29 @@ class SermonspeakerViewSermon extends JView
 	{
 		JHTML::stylesheet('sermonspeaker.css', 'components/com_sermonspeaker/');
 
+		$app 	=& JFactory::getApplication();
+		$user	=& JFactory::getUser();
 		$params	=& JComponentHelper::getParams('com_sermonspeaker');
-		
+
+		// Check to see if the user has access to view the sermon
+		$aid	= $user->get('aid'); // 0 = public, 1 = registered, 2 = special
+
+		if ($params->get('access') > $aid){
+			if (!$aid){
+				// Redirect to login
+				$uri	= JFactory::getURI();
+				$return	= $uri->toString();
+
+				$url  = 'index.php?option=com_user&view=login&return='.base64_encode($return);
+
+				//$url	= JRoute::_($url, false);
+				$app->redirect($url, JText::_('You must login first'));
+			} else {
+				JError::raiseWarning(403, JText::_('ALERTNOTAUTH'));
+				return;
+			}
+		}
+
 		// get Data from Model (/models/sermon.php)
         $row = &$this->get('Data');			// getting the Datarows from the Model
 		if ($this->getLayout() == "default") {
@@ -47,7 +68,6 @@ class SermonspeakerViewSermon extends JView
 		$itemid = $active->id;
 
 		// add Breadcrumbs
-		$app 			= JFactory::getApplication();
 		$breadcrumbs	= &$app->getPathWay();
 		if ($active_view == "series") {
 			$model		= &$this->getModel();
