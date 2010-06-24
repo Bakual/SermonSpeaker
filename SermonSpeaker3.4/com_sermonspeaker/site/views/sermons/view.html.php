@@ -35,10 +35,21 @@ class SermonspeakerViewSermons extends JView
 		$dispatcher	= &JDispatcher::getInstance();
 		$item->params = clone($params);
 		JPluginHelper::importPlugin('content');
+		$direct_link = $params->get('list_direct_link');
 		foreach($rows as $row){
 			// Trigger Event for `sermon_scripture`
 			$item->text	= &$row->sermon_scripture;
 			$dispatcher->trigger('onPrepareContent', array(&$item, &$item->params, 0));
+			if ($direct_link){
+				//Check if link targets to an external source
+				if (substr($row->sermon_path,0,7) == "http://"){
+					$row->link = $row->sermon_path;
+				} else {
+					$row->link = SermonspeakerHelperSermonspeaker::makelink($row->sermon_path);
+				}
+			} else {
+				$row->link = JRoute::_("index.php?view=sermon&id=$row->slug");
+			}
 		}
 
         // push data into the template
