@@ -97,7 +97,6 @@
 			<option value="ref">Scripture</option>
 		</param>
 		<param type="spacer" default="&lt;b&gt;SermonCast&lt;b&gt;" />
-		<param name="count" type="text" default="10" label="COUNT" description="COUNT_DESC" />
 		<param name="title" type="text" default="MyChurch Podcast" label="TITLE" description="TITLE_DESC" />
 		<param name="description" type="text" default="Predigt / Sermon" label="DESCRIPTION" description="DESCRIPTION_DESC" />
 		<param name="copyright" type="text" default="(c) mychurch" label="COPYRIGHT" description="COPYRIGHT_DESC" />

@@ -12,14 +12,17 @@ class SermonspeakerModelFeed extends JModel
 	{
 		parent::__construct();
  
+		$app = JFactory::getApplication();
+		$this->limit = $app->getCfg('feed_limit');
+
 		$this->params = &JComponentHelper::getParams('com_sermonspeaker');
 	}
 
 	function getData()
 	{
-		$cat['series'] = $this->params->get('series_cat', JRequest::getInt('series_cat', ''));
+		$cat['series'] 	= $this->params->get('series_cat', JRequest::getInt('series_cat', ''));
 		$cat['speaker'] = $this->params->get('speaker_cat', JRequest::getInt('speaker_cat', ''));
-		$cat['sermon'] = $this->params->get('sermon_cat', JRequest::getInt('sermon_cat', ''));
+		$cat['sermon'] 	= $this->params->get('sermon_cat', JRequest::getInt('sermon_cat', ''));
 
 		$this->catwhere = NULL;
 		if ($cat['series'] != 0){
@@ -45,7 +48,7 @@ class SermonspeakerModelFeed extends JModel
 				."AND sermons.podcast='1' \n"
 				.$this->catwhere
 				."ORDER by sermons.sermon_date desc";
-		$database->setQuery($query);
+		$database->setQuery($query, '0', $this->limit);
 		$rows = $database->loadObjectList();
 		
 		if(!count($rows)) echo mysql_error();
