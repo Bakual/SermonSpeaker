@@ -13,7 +13,6 @@ class SermonspeakerViewSeries extends JView
 		JHTML::stylesheet('sermonspeaker.css', 'components/com_sermonspeaker/');
 
 		$params	=& JComponentHelper::getParams('com_sermonspeaker');
-
 		// Set Meta
 		$document =& JFactory::getDocument();
 		$document->setTitle($document->getTitle() . ' | ' ." ". JText::_('SERIESMAIN'));
@@ -22,8 +21,23 @@ class SermonspeakerViewSeries extends JView
 
 
 		// get Data from Model (/models/series.php)
+		$model		=& $this->getModel();
         $rows		=& $this->get('Data');			// getting the Datarows from the Model
         $pagination	=& $this->get('Pagination');	// getting the JPaginationobject from the Model
+
+		// getting the Speakers for each Series and check if there are avatars at all, only showing column if needed
+		$av = NULL;
+		foreach ($rows as $row){					
+			if (!$av && !empty($row->avatar)){
+				$av = 1;
+			}
+			$speakers	= $model->getSpeakers($row->id);
+			$popup = array();
+			foreach($speakers as $speaker){
+				$popup[] = SermonspeakerHelperSermonspeaker::SpeakerTooltip($speaker->speaker_id, $speaker->pic, $speaker->name);
+			}
+			$row->speakers = implode(', ', $popup);
+		}
 		
 		$cat = NULL;
 		if($params->get('series_cat') || $params->get('speaker_cat') || $params->get('sermon_cat')){
@@ -31,17 +45,8 @@ class SermonspeakerViewSeries extends JView
 			$cat	= ': '.$cat;
 		}
 
-		// check if there are avatars at all, only showing column if needed
-		$av = null;
-		foreach ($rows as $row){
-			if (!empty($row->avatar)){ // breaking out of foreach if first avatar is found
-				$av = 1;
-				break;
-			}
-		}
-		
         // push data into the template
-		$this->assignRef('rows',$rows);             
+		$this->assignRef('rows',$rows);
 		$this->assignRef('pagination',$pagination);	// for JPagination
 		$this->assignRef('params',$params);			// for Params
 		$this->assignRef('av',$av);					// for Avatars

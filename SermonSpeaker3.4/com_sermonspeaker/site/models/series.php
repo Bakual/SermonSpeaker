@@ -20,17 +20,12 @@ class SermonspeakerModelSeries extends JModel
 
 		$params = &JComponentHelper::getParams('com_sermonspeaker');
 		$cat['series'] = $params->get('series_cat', JRequest::getInt('series_cat', ''));
-		$cat['speaker'] = $params->get('speaker_cat', JRequest::getInt('speaker_cat', ''));
 
 		$this->catwhere = NULL;
 		$this->cat = array();
 		if ($cat['series'] != 0){
 			$this->catwhere .= " AND j.catid = '".(int)$cat['series']."' \n";
 			$this->cat[] = $cat['series'];
-		}
-		if ($cat['speaker'] != 0){
-			$this->catwhere .= " AND l.catid = '".(int)$cat['speaker']."' \n";
-			$this->cat[] = $cat['speaker'];
 		}
 
 		// Get pagination request variables
@@ -61,7 +56,6 @@ class SermonspeakerModelSeries extends JModel
 	{
 		$database =& JFactory::getDBO();
 		$query = "SELECT count(*) FROM #__sermon_series j \n"
-				."LEFT JOIN #__sermon_speakers l ON j.speaker_id = l.id \n"
 				."WHERE j.published='1'".$this->catwhere;
 		$database->setQuery( $query );
 		$total_rows = $database->LoadResult();
@@ -77,13 +71,28 @@ class SermonspeakerModelSeries extends JModel
         return $this->_pagination;
 	}
 	
+	function getSpeakers($series)
+	{
+		$db =& JFactory::getDBO();
+		$query = 'SELECT sermons.speaker_id, speakers.name, speakers.pic'
+        . ' FROM #__sermon_sermons AS sermons'
+        . ' LEFT JOIN #__sermon_speakers AS speakers ON sermons.speaker_id = speakers.id'
+        . " WHERE sermons.published = '1'"
+		. " AND sermons.series_id = '".$series."'"
+        . ' GROUP BY sermons.speaker_id'
+        . ' ORDER BY speakers.name';
+		$db->setQuery($query);
+		$speakers = $db->loadObjectList();
+
+		return $speakers;
+	}
+
 	function getData()
 	{
 		$database =& JFactory::getDBO();
-		$query = 'SELECT j.id, j.speaker_id, l.name, j.series_title, j.series_description, j.published, j.ordering, j.hits, j.created_by, j.created_on, j.avatar, l.id as s_id, l.pic'
+		$query = 'SELECT j.id, j.series_title, j.series_description, j.avatar'
         . ' FROM #__sermon_series j'
-        . ' LEFT JOIN #__sermon_speakers l ON j.speaker_id = l.id'
-        . ' WHERE j.published = \'1\''
+        . " WHERE j.published = '1'"
 		.$this->catwhere
         . ' ORDER BY j.ordering, j.id desc, j.series_title';
 		$rows = $this->_getList($query, $this->getState('limitstart'), $this->getState('limit')); 

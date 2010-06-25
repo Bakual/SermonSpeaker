@@ -37,9 +37,9 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 				} 
 			}
 			?> 
-    		<td align="left"><a href="<?php echo JRoute::_("index.php?view=serie&id=$row->id" ); ?>"><?php echo $row->series_title; ?></a></td>
+    		<td align="left" nowrap><a href="<?php echo JRoute::_("index.php?view=serie&id=$row->id" ); ?>"><?php echo $row->series_title; ?></a></td>
     		<td align="left">
-				<?php echo SermonspeakerHelperSermonspeaker::SpeakerTooltip($row->s_id, $row->pic, $row->name); ?>
+				<?php echo $row->speakers; ?>
 			</td>
 			</tr>
     	<?php } ?>
