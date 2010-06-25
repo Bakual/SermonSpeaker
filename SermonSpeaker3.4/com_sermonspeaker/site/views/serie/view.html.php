@@ -55,6 +55,45 @@ class SermonspeakerViewSerie extends JView
 		// Trigger Event for `series_description`
 		$item->text	= &$serie->series_description;
 		$dispatcher->trigger('onPrepareContent', array(&$item, &$item->params, 0));
+		$direct_link = $params->get('list_direct_link');
+		foreach($rows as $row){
+			// Trigger Event for `sermon_scripture`
+			$item->text	= &$row->sermon_scripture;
+			$dispatcher->trigger('onPrepareContent', array(&$item, &$item->params, 0));
+			switch ($direct_link){ // direct links to the file instead to the detailpage
+				case '00':
+					$row->link1 = JRoute::_("index.php?view=sermon&id=$row->slug");
+					$row->link2 = $row->link1;
+					break;
+				case '01':
+					$row->link1 = JRoute::_("index.php?view=sermon&id=$row->slug");
+					//Check if link targets to an external source
+					if (substr($row->sermon_path,0,7) == "http://"){
+						$row->link2 = $row->sermon_path;
+					} else {
+						$row->link2 = SermonspeakerHelperSermonspeaker::makelink($row->sermon_path);
+					}
+					break;
+				case '10':
+					//Check if link targets to an external source
+					if (substr($row->sermon_path,0,7) == "http://"){
+						$row->link1 = $row->sermon_path;
+					} else {
+						$row->link1 = SermonspeakerHelperSermonspeaker::makelink($row->sermon_path);
+					}
+					$row->link2 = JRoute::_("index.php?view=sermon&id=$row->slug");
+					break;
+				case '11':
+					//Check if link targets to an external source
+					if (substr($row->sermon_path,0,7) == "http://"){
+						$row->link1 = $row->sermon_path;
+					} else {
+						$row->link1 = SermonspeakerHelperSermonspeaker::makelink($row->sermon_path);
+					}
+					$row->link2 = $row->link1;
+					break;
+			}
+		}
 
         // push data into the template
 		$this->assignRef('rows',$rows);             

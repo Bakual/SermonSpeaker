@@ -76,8 +76,8 @@ JFactory::getDocument()->addScriptDeclaration( "
 				} else {
 					$lnk = $mosConfig_live_site . $row->sermon_path;
 				} ?>
-				&nbsp;&nbsp;<a href="<?php echo JRoute::_("index.php?view=sermon&id=$row->slug"); ?>"><img title="<?php echo JText::_('PLAYTOPLAY'); ?>" src="<?php echo JURI::root(); ?>/components/com_sermonspeaker/images/play.gif" width="16" height="16" border="0" alt="" /></a>
-				<a title="<?php echo JText::_('PLAYTOPLAY'); ?>" href="<?php echo JRoute::_("index.php?view=sermon&id=$row->slug"); ?>" style="text-decoration:none"><?php echo $row->sermon_title; ?></a>
+				&nbsp;&nbsp;<a href="<?php echo $row->link1; ?>"><img title="<?php echo JText::_('PLAYTOPLAY'); ?>" src="<?php echo JURI::root(); ?>/components/com_sermonspeaker/images/play.gif" width="16" height="16" border="0" alt="" /></a>
+				<a title="<?php echo JText::_('PLAYTOPLAY'); ?>" href="<?php echo $row->link2; ?>" style="text-decoration:none"><?php echo $row->sermon_title; ?></a>
 			</td>
 			<?php if ($this->params->get('client_col_sermon_scripture_reference')){ ?>
 				<td align="left" valign="middle"><?php echo $row->sermon_scripture; ?></td>

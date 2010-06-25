@@ -63,7 +63,7 @@ class SermonspeakerModelSpeaker extends JModel
 	{
 		$orderby	= $this->_buildContentOrderBy();
 		$database	= &JFactory::getDBO();
-		$query	= "SELECT sermons.id as sermons_id, sermon_number,sermon_scripture, sermon_title, sermon_time, notes, sermon_date, addfile, addfileDesc, series.id as series_id, series_title \n"
+		$query	= "SELECT sermons.id as sermons_id, sermon_number, sermon_scripture, sermon_title, sermon_time, sermon_path, notes, sermon_date, addfile, addfileDesc, series.id as series_id, series_title \n"
 				. ", CASE WHEN CHAR_LENGTH(alias) THEN CONCAT_WS(':', sermons.id, alias) ELSE sermons.id END as slug \n"
 				. "FROM #__sermon_sermons AS sermons \n"
 				. "LEFT JOIN #__sermon_series AS series ON sermons.series_id = series.id \n"

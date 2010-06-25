@@ -16,12 +16,18 @@
 			<option value="1">REGISTERED</option>
 			<option value="2">SPECIAL</option>
 		</param>
-		<param type="spacer" default="CLIENT_COL" />
+		<param name="list_direct_link" type="list" default="00" label="LIST_DIRECT_LINK" description="LIST_DIRECT_LINK_DESC">
+			<option value="00">LINK_NONE</option>
+			<option value="01">LINK_TITLE</option>
+			<option value="10">LINK_BUTTON</option>
+			<option value="11">LINK_BUTTON_TITLE</option>
+		</param>
 		<param name="sermonlayout" type="list" default="1" label="SERMONLAYOUT" description="SERMONLAYOUT_DESC">
 			<option value="1">SERMON_ALLINROW</option>
 			<option value="2">SERMON_NEWLINE</option>
 			<option value="3">SERMON_EXTNEWLINE</option>
 		</param>
+		<param type="spacer" default="CLIENT_COL" />
 		<param name="client_col_sermon_number" type="radio" default="1" label="CLIENT_COL_SERMON_NUMBER" description="CLIENT_COL_SERMON_NUMBER_DESC">
 			<option value="0">No</option>
 			<option value="1">Yes</option>
@@ -63,10 +69,6 @@
 			<option value="1">Yes</option>
 		</param>
 		<param name="hide_dl" type="radio" default="0" label="HIDE_DL" description="HIDE_DL_DESC">
-			<option value="0">No</option>
-			<option value="1">Yes</option>
-		</param>
-		<param name="list_direct_link" type="radio" default="0" label="LIST_DIRECT_LINK" description="LIST_DIRECT_LINK_DESC">
 			<option value="0">No</option>
 			<option value="1">Yes</option>
 		</param>

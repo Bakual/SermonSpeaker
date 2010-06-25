@@ -69,17 +69,17 @@ JFactory::getDocument()->addScriptDeclaration( "
 		</tr>
 	</thead>
 <!-- Begin Data -->
-	<?php if( $this->sermons ) {
+	<?php if($this->sermons) {
 	$i = 0;
-		foreach( $this->sermons as $sermon ) {
+		foreach($this->sermons as $sermon) {
 			echo "<tr class=\"row$i\">";
 			$i = 1 - $i;
 			if( $this->params->get('client_col_sermon_number')){
 				echo "<td align=\"left\" valign=\"middle\" > $sermon->sermon_number </td>";
 			} ?>
 			<td align="left">
-				&nbsp;<a href="<?php echo JRoute::_("index.php?view=sermon&id=$sermon->slug"); ?>"><img title="<?php echo JText::_('PLAYTOPLAY'); ?>" src="<?php echo JURI::root().'components/com_sermonspeaker/images/play.gif'; ?>" width='16' height='16' border='0' align='top' alt="" /></a>
-				<a title="<?php echo JText::_('SINGLE_SERMON_HOOVER_TAG'); ?>" href="<?php echo JRoute::_("index.php?view=sermon&id=$sermon->slug"); ?>">
+				&nbsp;<a href="<?php echo $sermon->link1; ?>"><img title="<?php echo JText::_('PLAYTOPLAY'); ?>" src="<?php echo JURI::root().'components/com_sermonspeaker/images/play.gif'; ?>" width='16' height='16' border='0' align='top' alt="" /></a>
+				<a title="<?php echo JText::_('SINGLE_SERMON_HOOVER_TAG'); ?>" href="<?php echo $sermon->link2; ?>">
 					<?php echo $sermon->sermon_title; ?>
 				</a>
 			</td>
