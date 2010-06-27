@@ -28,7 +28,7 @@ class SermonspeakerViewFu_step_2 extends JView
 			// Form was submitted
 
 			$sql['speaker_id'] 			= JRequest::getInt('speaker_id', '', 'POST');
-			$sql['series_id'] 			= JRequest::getInt('speaker_id', '', 'POST');
+			$sql['series_id'] 			= JRequest::getInt('series_id', '', 'POST');
 			$file 						= JRequest::getString('filename', '', 'POST');
 			if ($params->get('fu_destdir')){
 				$fu_destdir = '/'.trim($params->get('fu_destdir'),' /').'/';
