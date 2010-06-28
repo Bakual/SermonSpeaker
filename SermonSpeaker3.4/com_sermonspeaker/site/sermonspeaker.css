@@ -1,48 +1,3 @@
-/* PAGINATOR */
-.Pages { text-align: left; margin-bottom: 0px; margin-top: 0px; }
-.Paginator { font-size: 12px; padding-top: 10px; margin-left: auto; margin-right: auto;  }
-.Paginator a, .pageList .this-page { padding: 2px 6px; border: solid 1px #ddd; background: #fff; text-decoration: none; }
-.Paginator a:visited { padding: 2px 6px; border: solid 1px #ddd; background: #fff; text-decoration: none; }
-.Paginator .AtStart { /*margin-right: 20px;*/ padding: 2px 6px; border: solid 1px #ddd; background: #fff; color: #aaa; }
-.Paginator .Prev { /*margin-right: 20px;*/ padding: 2px 6px; border: solid 1px #ddd; background: #fff; }
-.Paginator .Next { /*margin-left: 20px;*/ padding: 2px 6px; border: solid 1px #ddd; background: #fff;}
-.Paginator .AtEnd { /*margin-left: 20px;*/ padding: 2px 6px; border: solid 1px #ddd; background: #fff; color: #aaa; }
-.Paginator .this-page {padding: 2px 6px; border: solid 1px border-color: #999; font-weight: bold; font-size: 13px; vertical-align: top; background: #fff; color: #000; }
-.Paginator a:hover {color: #000; background: #e4e4e4; border-color: #036; text-decoration: none;}
-.Pages div.Results { text-align: center; font: 11px/15px Arial, Helvetica; color: #aaa; margin-top: 8px; }
-
-.thumbnail{
-position: relative;
-z-index: 0;
-}
-
-.thumbnail:hover{
-background-color: transparent;
-z-index: 50;
-}
-
-.thumbnail span{ /*CSS for enlarged image*/
-position: absolute;
-background-color: lightyellow;
-padding: 5px;
-left: -1000px;
-border: 1px dashed gray;
-visibility: hidden;
-color: black;
-text-decoration: none;
-}
-
-.thumbnail span img{ /*CSS for enlarged image*/
-border-width: 0;
-padding: 2px;
-}
-
-.thumbnail:hover span{ /*CSS for enlarged image on hover*/
-visibility: visible;
-top: 0;
-left: 60px; /*position where enlarged image should offset horizontally */
-}
-
 .row0 {
 background-color: #dddddd;
 }
@@ -61,4 +16,8 @@ font-family: verdana;
 font-size: 12px;
 color: #000066;
 font-family: verdana;
+}
+
+.icon_play {
+vertical-align: middle;
 }
