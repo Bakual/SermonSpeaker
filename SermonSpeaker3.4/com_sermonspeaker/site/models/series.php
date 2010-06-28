@@ -78,6 +78,7 @@ class SermonspeakerModelSeries extends JModel
         . ' FROM #__sermon_sermons AS sermons'
         . ' LEFT JOIN #__sermon_speakers AS speakers ON sermons.speaker_id = speakers.id'
         . " WHERE sermons.published = '1'"
+        . " AND speakers.published = '1'"
 		. " AND sermons.series_id = '".$series."'"
         . ' GROUP BY sermons.speaker_id'
         . ' ORDER BY speakers.name';

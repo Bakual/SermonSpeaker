@@ -31,7 +31,6 @@ function com_install() {
 	//create series table
 	$query = "CREATE TABLE IF NOT EXISTS  `#__sermon_series` ("
 		."\n`id` INT NOT NULL AUTO_INCREMENT,"
-		."\n`speaker_id` INT NOT NULL,"
 		."\n`series_title` TEXT NOT NULL,"
 		."\n`series_description` TEXT NOT NULL,"
 		."\n`published` TINYINT(1) NOT NULL,"
@@ -39,25 +38,6 @@ function com_install() {
 		."\n`hits` INT DEFAULT '0' NOT NULL,"
 		."\n`created_by` INT NOT NULL,"
 		."\n`created_on` DATETIME NULL,"
-		."\n`speaker2` int(11) NOT NULL,"
-		."\n`speaker3` int(11) NOT NULL,"
-		."\n`speaker4` int(11) NOT NULL,"
-		."\n`speaker5` int(11) NOT NULL,"
-		."\n`speaker6` int(11) NOT NULL,"
-		."\n`speaker7` int(11) NOT NULL,"
-		."\n`speaker8` int(11) NOT NULL,"
-		."\n`speaker9` int(11) NOT NULL,"
-		."\n`speaker10` int(11) NOT NULL,"
-		."\n`speaker11` int(11) NOT NULL,"
-		."\n`speaker12` int(11) NOT NULL,"
-		."\n`speaker13` int(11) NOT NULL,"
-		."\n`speaker14` int(11) NOT NULL,"
-		."\n`speaker15` int(11) NOT NULL,"
-		."\n`speaker16` int(11) NOT NULL,"
-		."\n`speaker17` int(11) NOT NULL,"
-		."\n`speaker18` int(11) NOT NULL,"
-		."\n`speaker19` int(11) NOT NULL,"
-		."\n`speaker20` int(11) NOT NULL,"
 		."\n`avatar` text,"
 		."\n`catid` INT NOT NULL,"
 		."\nPRIMARY KEY (`id`)"
@@ -103,19 +83,38 @@ function com_install() {
 	$fields = $database->getTableFields('#__sermon_speakers');
 	$speakers = $fields['#__sermon_speakers'];
 
-	// Add more speakers columns if speaker4 doesn't exist in the series table
-	if (!array_key_exists('speaker4',$series)) {
-		echo "<br>Attempting to add new speaker columns to table sermon_series...";
-		$query = "ALTER TABLE #__sermon_series ADD COLUMN (speaker4 INTEGER NOT NULL DEFAULT 0, speaker5 INTEGER NOT NULL DEFAULT 0, speaker6 INTEGER NOT NULL DEFAULT 0, speaker7 INTEGER NOT NULL DEFAULT 0, speaker8 INTEGER NOT NULL DEFAULT 0, speaker9 INTEGER NOT NULL DEFAULT 0, speaker10 INTEGER NOT NULL DEFAULT 0, speaker11 INTEGER NOT NULL DEFAULT 0, speaker12 INTEGER NOT NULL DEFAULT 0, speaker13 INTEGER NOT NULL DEFAULT 0, speaker14 INTEGER NOT NULL DEFAULT 0, speaker15 INTEGER NOT NULL DEFAULT 0, speaker16 INTEGER NOT NULL DEFAULT 0, speaker17 INTEGER NOT NULL DEFAULT 0, speaker18 INTEGER NOT NULL DEFAULT 0, speaker19 INTEGER NOT NULL DEFAULT 0, speaker20 INTEGER NOT NULL DEFAULT 0)";
-		$database->setQuery( $query );
+	// Delete speaker fields in the series table as they are taken from sermons now.
+	if (array_key_exists('speaker20',$series)){ // If 20 speakers
+		echo "<br>Attempting to delete speaker columns from table sermon_series...";
+		$query = "ALTER TABLE #__sermon_series \n"
+				."DROP COLUMN speaker_id, DROP COLUMN speaker2, DROP COLUMN speaker3, DROP COLUMN speaker4, \n"
+				."DROP COLUMN speaker5, DROP COLUMN speaker6, DROP COLUMN speaker7, DROP COLUMN speaker8, \n"
+				."DROP COLUMN speaker9, DROP COLUMN speaker10, DROP COLUMN speaker11, DROP COLUMN speaker12, \n"
+				."DROP COLUMN speaker13, DROP COLUMN speaker14, DROP COLUMN speaker15, DROP COLUMN speaker16, \n"
+				."DROP COLUMN speaker17, DROP COLUMN speaker18, DROP COLUMN speaker19, DROP COLUMN speaker20";
+		$database->setQuery($query);
 		$database->Query();
 		if(strlen($database->getErrorMsg()) > 3){
 			echo "<span style=\"color: rgb(255, 0, 0); font-weight: bold;\">";
-			echo "<br>Failed to add the column.  Bad news.  Tell the database administrator.";
+			echo "<br>Failed to drop the column.  Everything will still work, you just got to many fields in your series table.";
 			echo "<br>Error Message: ".$database->getErrorMsg();
 			echo "</span>";
 		} else {
-			echo "<br>Wow! I did it! This is good. Now you can have up to 20 speakers per sermon. Oh boy!";
+			echo "<br>Great! I did it! No longer used database fields are gone!.";
+		}
+	} elseif (array_key_exists('speaker3',$series)){ // if 3 speakers
+		echo "<br>Attempting to delete speaker columns from table sermon_series...";
+		$query = "ALTER TABLE #__sermon_series \n"
+				."DROP COLUMN speaker_id, DROP COLUMN speaker2, DROP COLUMN speaker3";
+		$database->setQuery($query);
+		$database->Query();
+		if(strlen($database->getErrorMsg()) > 3){
+			echo "<span style=\"color: rgb(255, 0, 0); font-weight: bold;\">";
+			echo "<br>Failed to drop the column.  Everything will still work, you just got to many fields in your series table.";
+			echo "<br>Error Message: ".$database->getErrorMsg();
+			echo "</span>";
+		} else {
+			echo "<br>Great! I did it! No longer used database fields are gone!.";
 		}
 	}
 
@@ -308,8 +307,8 @@ function com_install() {
   
 		//Series
 		$query = "INSERT INTO `#__sermon_series` "
-			."(`id`, `speaker_id`, `series_title`, `series_description`, `published`, `ordering`, `hits`, `created_by`, `created_on`, `speaker2`, `speaker3`) VALUES"
-			."(9999, 9999, 'General Topics', 'Topics of general interest.', 1, 0, 0, 0, '2006-03-28', 0, 0)";
+			."(`id`, `series_title`, `series_description`, `published`, `ordering`, `hits`, `created_by`, `created_on`, `speaker2`, `speaker3`) VALUES"
+			."(9999, 'General Topics', 'Topics of general interest.', 1, 0, 0, 0, '2006-03-28', 0, 0)";
 		$database->setQuery( $query );
 		$database->Query();
   	

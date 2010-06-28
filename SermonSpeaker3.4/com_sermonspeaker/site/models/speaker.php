@@ -40,19 +40,15 @@ class SermonspeakerModelSpeaker extends JModel
 	function getSeries()
 	{
 		$database = &JFactory::getDBO();
-        $query	= "SELECT j.id, speaker_id, series_title, series_description, "
-            . " published, ordering, hits, created_by, created_on, j.avatar "
-            . " FROM #__sermon_series j \n"
-            . " WHERE (speaker_id='".$this->id."' OR speaker2='".$this->id."' OR speaker3='".$this->id
-			. "' OR speaker4='".$this->id."' OR speaker5='".$this->id."' OR speaker6='".$this->id
-			. "' OR speaker7='".$this->id."' OR speaker8='".$this->id."' OR speaker9='".$this->id
-			. "' OR speaker10='".$this->id."' OR speaker11='".$this->id."' OR speaker12='".$this->id
-			. "' OR speaker13='".$this->id."' OR speaker14='".$this->id."' OR speaker15='".$this->id
-			. "' OR speaker16='".$this->id."' OR speaker17='".$this->id."' OR speaker18='".$this->id
-			. "' OR speaker19='".$this->id."' OR speaker20='".$this->id."') \n"
-            . " AND published = '1' \n"
-			. " ORDER BY series_title";
-  
+		$query = "SELECT `series`.`id`, `series_title`, `series_description`, `avatar` \n"
+				."FROM `#__sermon_series` AS series \n"
+				."JOIN `#__sermon_sermons` AS sermons ON sermons.series_id = series.id \n"
+				."WHERE sermons.speaker_id = '".$this->id."' \n"
+				."AND series.published = '1' \n"
+				."AND sermons.published = '1' \n"
+				."GROUP BY series.id \n"
+				."ORDER BY series_title";
+
 		$database->setQuery($query);
    		$series = $database->loadObjectList();
 		
