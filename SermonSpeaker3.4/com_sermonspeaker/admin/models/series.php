@@ -73,9 +73,8 @@ class SermonspeakerModelSeries extends JModel
 		$where	= $this->_buildWhere();
 		$orderby 	= ' ORDER BY '.$this->_order['order'].' '.$this->_order['order_Dir'];
 		// Query bilden
-        $query = "SELECT series.*, speaker.name, cc.title \n"
+        $query = "SELECT series.*, cc.title \n"
 				."FROM #__sermon_series AS series \n"
-				."LEFT JOIN #__sermon_speakers AS speaker ON speaker_id = speaker.id \n"
 				."LEFT JOIN #__categories AS cc ON cc.id = series.catid \n"
 				.$where
 				.$orderby

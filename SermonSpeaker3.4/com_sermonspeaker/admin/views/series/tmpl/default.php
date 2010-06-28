@@ -44,7 +44,6 @@ $disabled = $ordering ?  '' : 'disabled="disabled"';
 			<th width="5"><?php echo JText::_( 'NUM' ); ?></th>
 			<th width="20"><input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count( $this->items ); ?>);" /></th>			
 			<th class="title" with="20%"><?php echo JHTML::_('grid.sort', 'SERIESTITLE', 'series.series_title', $this->lists['order_Dir'], $this->lists['order']); ?></th>
-			<th width="20%"><?php echo JHTML::_('grid.sort', 'SPEAKERNAME', 'speaker.name', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
 			<th width="20%"><?php echo JHTML::_('grid.sort', 'CATEGORY', 'series.catid', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
 			<th width="10%">
 				<?php echo JHTML::_('grid.sort', 'ORDER', 'ordering', $this->lists['order_Dir'], $this->lists['order']); ?>
@@ -73,7 +72,6 @@ $disabled = $ordering ?  '' : 'disabled="disabled"';
 				<td><?php echo $this->pagination->getRowOffset($i); ?></td>
 				<td><?php echo $checked; ?></td>
 				<td><a href="<?php echo $link; ?>"><?php echo $row->series_title; ?></a></td> 
-				<td><?php echo $row->name; ?></td> 
 				<td><?php echo $row->title; ?></td> 
 				<td class="order">
 					<span><?php echo $this->pagination->orderUpIcon($i, true, 'orderup', 'Move Up', $ordering); ?></span>

@@ -30,48 +30,6 @@ $editor =& JFactory::getEditor();
 			<td width="100" align="right" class="key"><?php echo JText::_('NAMEENTEREDBY'); ?></td>
 			<td><?php echo $this->lists['created_by']; ?></td>
 		</tr>
-		<tr> 
-			<td width="100" align="right" class="key"><?php echo JText::_('SPEAKERNAME'); ?></td>
-			<td>
-				<table>
-				<tr>
-				<td>1: <?php echo $this->lists['speaker_id']; ?></td> 
-				<td>2: <?php echo $this->lists['speaker2']; ?></td> 
-				<td>3: <?php echo $this->lists['speaker3']; ?></td>
-				</tr>
-				<tr>
-				<td>4: <?php echo $this->lists['speaker4']; ?></td> 
-				<td>5: <?php echo $this->lists['speaker5']; ?></td> 
-				<td>6: <?php echo $this->lists['speaker6']; ?></td>
-				</tr>
-				<tr>
-				<td>7: <?php echo $this->lists['speaker7']; ?></td> 
-				<td>8: <?php echo $this->lists['speaker8']; ?></td> 
-				<td>9: <?php echo $this->lists['speaker9']; ?></td>
-				</tr>
-				<tr>
-				<td>10: <?php echo $this->lists['speaker10']; ?></td> 
-				<td>11: <?php echo $this->lists['speaker11']; ?></td> 
-				<td>12: <?php echo $this->lists['speaker12']; ?></td>
-				</tr>
-				<tr>
-				<td>13: <?php echo $this->lists['speaker13']; ?></td> 
-				<td>14: <?php echo $this->lists['speaker14']; ?></td> 
-				<td>15: <?php echo $this->lists['speaker15']; ?></td>
-				</tr>
-				<tr>
-				<td>16: <?php echo $this->lists['speaker16']; ?></td> 
-				<td>17: <?php echo $this->lists['speaker17']; ?></td> 
-				<td>18: <?php echo $this->lists['speaker18']; ?></td>
-				</tr>
-				<tr>
-				<td>19: <?php echo $this->lists['speaker19']; ?></td> 
-				<td>20: <?php echo $this->lists['speaker20']; ?></td> 
-				<td></td>
-				</tr>
-				</table>
-			</td>
-		</tr> 
 		<tr>
 			<td width="100" align="right" class="key"><?php echo JText::_('SERIESDESCRIPTION'); ?></td>
 			<td><?php echo $editor->display('series_description', $this->row->series_description, '100%', '200', '40', '10'); ?></td>
@@ -81,7 +39,7 @@ $editor =& JFactory::getEditor();
 			<td><?php echo $this->lists['avatar']; ?></td>
 		</tr>
 		<tr>
-			<td valign="top" align="right" class="key"><label for="catid"><?php echo JText::_( 'CATEGORY' ); ?>:</label></td>
+			<td valign="top" align="right" class="key"><label for="catid"><?php echo JText::_('CATEGORY'); ?>:</label></td>
 			<td><?php echo $this->lists['catid']; ?></td>
 		</tr>
 		<tr>
@@ -91,6 +49,7 @@ $editor =& JFactory::getEditor();
 	</table> 
 	</fieldset> 
 	<input type="hidden" name="id" value="<?php echo $this->row->id; ?>" /> 
+	<input type="hidden" name="created_on" value="<?php echo $this->row->created_on; ?>" /> 
 	<input type="hidden" name="option" value="com_sermonspeaker" /> 
 	<input type="hidden" name="view" value="series" />
 	<input type="hidden" name="controller" value="serie" />
