@@ -1,10 +1,10 @@
 <?php
 // no direct access
-defined( '_JEXEC' ) or die( 'Restricted access' );
-error_reporting(E_ERROR | E_WARNING | E_PARSE);
+defined('_JEXEC') or die('Restricted access');
 
-$count		= intval($params->get('count'));
-if ($params->get('switch') == 'month'){
+$count		= (int)($params->get('archive_count');
+$switch 	= FALSE;
+if ($params->get('archive_switch') == 'month'){
 	$switch = TRUE;
 }
 $database 	= &JFactory::getDBO();
@@ -32,7 +32,7 @@ if ($menuitems == "") {
 $sermonspeaker_itemid = $menuitems[0]->id;
 if(count($rows)) {
 	echo '<ul>';
-	foreach ( $rows as $row ) {
+	foreach ($rows as $row) {
 		$request_m	= NULL;
 		$text_m		= NULL;
 		if ($switch){

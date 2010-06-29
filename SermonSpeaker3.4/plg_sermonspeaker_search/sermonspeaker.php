@@ -20,22 +20,22 @@
  */
 
 // no direct access
-defined( '_JEXEC' ) or die( 'Restricted access' );
+defined('_JEXEC') or die('Restricted access');
 
 $app = JFactory::getApplication();
 $app->registerEvent('onSearch', 'plgSearchSermonspeaker');
 $app->registerEvent('onSearchAreas', 'plgSearchSermonspeakerAreas');
 
 //Load the Plugin language file out of the administration
-JPlugin::loadLanguage( 'plg_search_sermonspeaker', JPATH_ADMINISTRATOR);
+JPlugin::loadLanguage('plg_search_sermonspeaker', JPATH_ADMINISTRATOR);
 
 /**
  * @return array An array of search areas
  */
 function &plgSearchSermonspeakerAreas() {
 	static $areas = array(
-	'spsermons' => 'SERMONS',
-	'spseries' => 'SERIES',
+		'spsermons' => 'PLG_SEARCH_SERMONSPEAKER_SERMONS',
+		'spseries' => 'PLG_SEARCH_SERMONSPEAKER_SERIES',
 	);
 	return $areas;
 }
@@ -51,13 +51,13 @@ function &plgSearchSermonspeakerAreas() {
  * @param string ordering option, newest|oldest|popular|alpha|category
  * @param mixed An array if restricted to areas, null if search all
  */
-function plgSearchSermonspeaker( $text, $phrase='', $ordering='', $areas=null )
+function plgSearchSermonspeaker($text, $phrase='', $ordering='', $areas=null)
 {
 	$db		=& JFactory::getDBO();
 	$user	=& JFactory::getUser();
 	
 	if (is_array( $areas )) {
-		if (!array_intersect( $areas, array_keys( plgSearchSermonspeakerAreas() ) )) {
+		if (!array_intersect($areas, array_keys(plgSearchSermonspeakerAreas()))) {
 			return array();
 		}
 	} else {
@@ -66,16 +66,16 @@ function plgSearchSermonspeaker( $text, $phrase='', $ordering='', $areas=null )
 
 	// load plugin params info
 	$plugin =& JPluginHelper::getPlugin('search', 'sermonspeaker');
-	$pluginParams = new JParameter( $plugin->params );
+	$pluginParams = new JParameter($plugin->params);
 
-	$limit = $pluginParams->def( 'search_limit', 50 );
+	$limit = $pluginParams->def('search_limit', 50);
 
-	$text = trim( $text );
+	$text = trim($text);
 	if ( $text == '' ) {
 		return array();
 	}
 
-	$searchSermonSpeaker = $db->Quote(JText::_( 'SERMONSPEAKER' ));
+	$searchSermonSpeaker = $db->Quote(JText::_('PLG_SEARCH_SERMONSPEAKER_SERMONS'));
 
 	$rows = array();
 

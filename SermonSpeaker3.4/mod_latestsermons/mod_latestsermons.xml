@@ -18,23 +18,23 @@
 	</languages>
 	<params>
 		<param name="moduleclass_sfx" type="text" default="" label="Module Class Suffix" description="PARAMMODULECLASSSUFFIX" />
-		<param name="ls_nbr_latest" type="text" default="3" label="LS_NBR_LATEST" description="LS_NBR_LATEST_DESC" />
-		<param name="ls_show_mouseover" type="radio" default="1" label="LS_SHOW_MOUSEOVER" description="LS_SHOW_MOUSEOVER_DESC">
+		<param name="ls_count" type="text" default="3" label="MOD_LATESTSERMONS_PARAM_COUNT" description="MOD_LATESTSERMONS_PARAM_COUNT_DESC" />
+		<param name="ls_show_mouseover" type="radio" default="1" label="MOD_LATESTSERMONS_PARAM_SHOW_MOUSEOVER" description="MOD_LATESTSERMONS_PARAM_SHOW_MOUSEOVER_DESC">
 			<option value="0">No</option>
 			<option value="1">Yes</option>
 		</param>
-		<param name="ls_show_mo_speaker" type="radio" default="1" label="LS_SHOW_MO_SPEAKER" description="LS_SHOW_MO_SPEAKER_DESC">
+		<param name="ls_show_mo_speaker" type="radio" default="1" label="MOD_LATESTSERMONS_PARAM_SHOW_MO_SPEAKER" description="MOD_LATESTSERMONS_PARAM_SHOW_MO_SPEAKER_DESC">
 			<option value="0">No</option>
 			<option value="1">Yes</option>
 		</param>
-		<param name="ls_show_mo_series" type="radio" default="1" label="LS_SHOW_SERIES" description="LS_SHOW_SERIES_DESC">
+		<param name="ls_show_mo_series" type="radio" default="1" label="MOD_LATESTSERMONS_PARAM_SHOW_MO_SERIES" description="MOD_LATESTSERMONS_PARAM_SHOW_MO_SERIES_DESC">
 			<option value="0">No</option>
 			<option value="1">Yes</option>
 		</param>
-		<param name="ls_show_mo_date" type="radio" default="1" label="LS_SHOW_DATE" description="LS_SHOW_DATE_DESC">
+		<param name="ls_show_mo_date" type="radio" default="1" label="MOD_LATESTSERMONS_PARAM_SHOW_MO_DATE" description="MOD_LATESTSERMONS_PARAM_SHOW_MO_DATE_DESC">
 			<option value="0">No</option>
 			<option value="1">Yes</option>
 		</param>
-		<param name="ls_date_format" type="text" default="" label="LS_DATE_FORMAT" description="LS_DATE_FORMAT_DESC" />
+		<param name="ls_mo_date_format" type="text" default="" label="MOD_LATESTSERMONS_PARAM_MO_DATE_FORMAT" description="MOD_LATESTSERMONS_PARAM_MO_DATE_FORMAT_DESC" />
 	</params>
 </install>

@@ -19,10 +19,10 @@
 
 	<params>
 		<param name="moduleclass_sfx" type="text" default="" label="Module Class Suffix" description="PARAMMODULECLASSSUFFIX" />
-		<param name="count" type="text" default="" label="COUNT" description="COUNT_DESC" />
-		<param name="switch" type="list" default="month" label="SWITCH" description="SWITCH_DESC">
-			<option value="month">MONTH</option>
-			<option value="year">YEAR</option>
+		<param name="archive_count" type="text" default="" label="MOD_SERMONARCHIVE_PARAM_COUNT" description="MOD_SERMONARCHIVE_PARAM_COUNT_DESC" />
+		<param name="archive_switch" type="list" default="month" label="MOD_SERMONARCHIVE_PARAM_SWITCH" description="MOD_SERMONARCHIVE_PARAM_SWITCH_DESC">
+			<option value="month">MOD_SERMONARCHIVE_PARAM_MONTH</option>
+			<option value="year">MOD_SERMONARCHIVE_PARAM_YEAR</option>
 		</param>
 	</params>
 </install>

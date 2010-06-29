@@ -1,32 +1,30 @@
 <?php
-
-defined( '_JEXEC' ) or die( 'Restricted access' );
-error_reporting(E_ERROR | E_WARNING | E_PARSE);
+defined('_JEXEC') or die('Restricted access');
 
 JHTML::_('behavior.tooltip');
 JHTML::_('behavior.modal');
 
-$cat['series'] 	= $params->get('series_cat');
-$cat['speaker']	= $params->get('speaker_cat');
-$cat['sermon'] 	= $params->get('sermon_cat');
+$cat['series'] 	= (int)$params->get('sc_series_cat');
+$cat['speaker']	= (int)$params->get('sc_speaker_cat');
+$cat['sermon'] 	= (int)$params->get('sc_sermon_cat');
 $otherlink 		= $params->get('otherlink');
 $otherimage 	= $params->get('otherimage');
-$text           = $params->get('introtext');
-$showPcast      = $params->get('showpcast');
-$showPlainlink  = $params->get('showplink');
+$text           = $params->get('sc_introtext');
+$showPcast      = $params->get('sc_showpcast');
+$showPlainlink  = $params->get('sc_showplink');
 $prefix         = $params->get('pcast_prefix');
 $helpcontent	= $params->get('helpcontent');
 $moduleclass_sfx 	= $params->get('$moduleclass_sfx');
 
 $feedcat = NULL;
 if ($cat['series'] != 0){
-	$feedcat .= '&series_cat='.(int)$cat['series'];
+	$feedcat .= '&series_cat='.$cat['series'];
 }
 if ($cat['speaker'] != 0){
-	$feedcat .= '&speaker_cat='.(int)$cat['speaker'];
+	$feedcat .= '&speaker_cat='.$cat['speaker'];
 }
 if ($cat['sermon'] != 0){
-	$feedcat .= '&sermon_cat='.(int)$cat['sermon'];
+	$feedcat .= '&sermon_cat='.$cat['sermon'];
 }
 
 $feedFile = "index.php?option=com_sermonspeaker&amp;view=feed".$feedcat;
@@ -58,12 +56,12 @@ if($showPcast) {
 	<?php 
 }
 if($showPlainlink) { ?>
-	<a href="<?php echo JURI::root().$feedFile; ?>"><?php echo JText::_('FULLFEED'); ?></a>
+	<a href="<?php echo JURI::root().$feedFile; ?>"><?php echo JText::_('MOD_SERMONCAST_FULLFEED'); ?></a>
 	<a href="<?php echo JURI::root().$feedFile; ?>"><img src="<?php echo JURI::root(); ?>modules/mod_sermoncast/feed_rss.gif" border="0" alt="rss feed" /></a><br />
 <?php } 
-if($params->get('showhelp') == "1") { ?>
+if($params->get('sc_showhelp') == "1") { ?>
 	<p><a class="modal" href="<?php echo JRoute::_('index.php?option=com_content&view=article&id='.$helpcontent.'&tmpl=component') ?>" rel="{handler: 'iframe', size: {x: <?php echo $params->get('helpwidth'); ?>, y: <?php echo $params->get('helpheight'); ?>}}">
-	<?php echo JText::_('SC_HELP'); ?>
+	<?php echo JText::_('MOD_SERMONCAST_HELP'); ?>
 	</a></p>
 	<?php
 } ?>
