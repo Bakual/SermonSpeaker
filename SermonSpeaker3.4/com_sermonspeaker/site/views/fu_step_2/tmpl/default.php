@@ -9,16 +9,16 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 		<col />
 	</colgroup>
 	<tr>
-		<td colspan="3"><h1><?php echo JText::_('FILENAME')." \"".$this->filename."\" ".JText::_('FU_UPLOADOK'); ?></h1></td>
+		<td colspan="3"><h1><?php echo JText::sprintf('COM_SERMONSPEAKER_FU_FILENAME', $this->filename); ?></h1></td>
 	</tr>
 	<tr>
-		<td colspan="3"><b><?php echo JText::_('FU_STEP'); ?> 2 : </b><?php echo JText::_('FU_STEP2'); ?></td>
+		<td colspan="3"><b><?php echo JText::_('COM_SERMONSPEAKER_FU_STEP'); ?> 2 : </b><?php echo JText::_('FU_STEP2'); ?></td>
 	</tr>
 	<tr>
 		<td colspan="3">&nbsp;</td>
 	</tr>
 	<tr>
-		<td align="right" class="key"><?php echo JText::_('SERMONTITLE'); ?></td>
+		<td align="right" class="key"><?php echo JText::_('COM_SERMONSPEAKER_FU_SERMONTITLE'); ?></td>
 		<td></td>
 		<td><input class="text_area" type="text" name="sermon_title" id="sermon_title" size="50" maxlength="250" value="<?php echo $this->id3['title'];?>" /></td>
 	</tr>
@@ -28,7 +28,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 		<td><input class="text_area" type="text" name="alias" id="alias" size="50" maxlength="250" value="<?php echo $this->id3['alias']; ?>" /></td>
 	</tr>
 	<tr>
-		<td align="right" class="key"> <?php echo JText::_('SCRIPTURE'); ?> </td> 
+		<td align="right" class="key"> <?php echo JText::_('COM_SERMONSPEAKER_SCRIPTURE'); ?> </td> 
 		<td></td>
 		<td>
 			<input class="text_area" type="text" name="sermon_scripture" id="sermon_scripture" size="50" maxlength="250" value="<?php echo $this->id3['ref'];?>" />
@@ -37,7 +37,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 		</td>
 	</tr>
 	<tr title='<?php echo JText::_('FU_DATE_DESC'); ?>'>
-		<td align='right' class='key'> <?php echo JText::_('SERMON_DATE'); ?> </td> 
+		<td align='right' class='key'> <?php echo JText::_('COM_SERMONSPEAKER_SERMONDATE'); ?> </td> 
 		<td></td>
 		<td>
 			<input class="inputbox" type="text" name="sermon_date" id="sermon_date" size="25" maxlenght="20" value="<?php echo date('Y-m-d'); ?>" /> 
@@ -52,22 +52,22 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 		</td>
 	</tr>
 	<tr>
-		<td align="right" class="key"> <?php echo JText::_('FU_SERMONNUMBER'); ?> </td> 
+		<td align="right" class="key"> <?php echo JText::_('COM_SERMONSPEAKER_FU_SERMONNUMBER'); ?> </td> 
 		<td></td>
 		<td><input class="text_area" type="text" name="sermon_number" id="sermon_number" size="10" maxlength="250" value="<?php echo $this->id3['number']; ?>" /> </td>
 	</tr>
 	<tr title='<?php echo JText::_('FU_SERMONTIME_DESC'); ?>'>
-		<td align="right" class="key"> <?php echo JText::_('SERMONTIME'); ?> </td> 
+		<td align="right" class="key"> <?php echo JText::_('COM_SERMONSPEAKER_SERMONTIME'); ?> </td> 
 		<td></td>
 		<td><input class="text_area" type="text" name="sermon_time" id="sermon_time" size="10" maxlength="250" value="<?php echo $this->id3['time']; ?>" /> </td>
 	</tr>
 	<tr>
-		<td align="right" class="key"> <?php echo JText::_('SPEAKER'); ?> </td> 
+		<td align="right" class="key"> <?php echo JText::_('COM_SERMONSPEAKER_SPEAKER'); ?> </td> 
 		<td></td>
 		<td><?php echo $this->lists['speaker_id']; ?> </td>
 	</tr>
 	<tr>
-		<td align="right" class="key"> <?php echo JText::_('SERIES'); ?> </td> 
+		<td align="right" class="key"> <?php echo JText::_('COM_SERMONSPEAKER_SERIES'); ?> </td> 
 		<td></td>
 		<td><?php echo $this->lists['series_id']; ?> </td>
 	</tr>
@@ -92,7 +92,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 		<td><?php echo $this->lists['podcast']; ?> </td>
 	</tr>
 	<tr>
-		<td align="right" class="key"><?php echo JText::_('ADDFILE'); ?></td>
+		<td align="right" class="key"><?php echo JText::_('COM_SERMONSPEAKER_ADDFILE'); ?></td>
 		<td></td>
 		<td>
 			<input type="radio" name="seladdfile" value="1" onclick="enableElement(this.form.elements['addfile_txt'], this.form.elements['addfile_choice']);" checked>
@@ -112,8 +112,8 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 	</tr>
 	<tr>
 		<td colspan='3'>
-			<input type="submit" value=" <?php echo JText::_('FU_SAVE'); ?> ">
-			<input type="reset" value=" <?php echo JText::_('FU_RESET'); ?> ">
+			<input type="submit" value=" <?php echo JText::_('COM_SERMONSPEAKER_FU_SAVE'); ?> ">
+			<input type="reset" value=" <?php echo JText::_('COM_SERMONSPEAKER_FU_RESET'); ?> ">
 			<input type="hidden" name="filename" value="<?php echo $this->filename; ?>">
 			<input type="hidden" name="submitted" value="true">
 		</td>

@@ -7,35 +7,35 @@ $id = $this->row->id;
 ?>
 <table width="100%" cellpadding="2" cellspacing="0">
 	<tr class="componentheading">
-		<th align="left" valign="bottom"><?php echo JText::_('SINGLESERMON'); ?></th>
+		<th align="left" valign="bottom"><?php echo JText::_('COM_SERMONSPEAKER_SERMON_TITLE'); ?></th>
 	</tr>
 </table>
 <!-- Begin Header -->
 <table border="0" cellpadding="2" cellspacing="0" width="100%">
 	<tr>
-		<th align="left"><?php echo JText::_('SERMONNAME'); ?></th>
+		<th align="left"><?php echo JText::_('COM_SERMONSPEAKER_SERMONTITLE'); ?></th>
 		<?php if ($this->params->get('client_col_sermon_scripture_reference')){ 
 			$countcolumn++; ?>
-			<th align="left"><?php echo JText::_('SCRIPTURE'); ?></th>
+			<th align="left"><?php echo JText::_('COM_SERMONSPEAKER_SCRIPTURE'); ?></th>
 		<?php }
 		if ($this->params->get('client_col_sermon_notes') && strlen($this->row->notes) > 0){ 
 			$countcolumn++; ?>
-			<th align="left" valign="bottom"> <?php echo JText::_('SERMONNOTES'); ?></th>
+			<th align="left" valign="bottom"> <?php echo JText::_('COM_SERMONSPEAKER_SERMONNOTES'); ?></th>
 		<?php }
 		if ($return != NULL) {
 			$countcolumn++; ?>
-			<th align="left" valign="bottom"><?php echo JText::_('ADDFILE'); ?></th>
+			<th align="left" valign="bottom"><?php echo JText::_('COM_SERMONSPEAKER_ADDFILE'); ?></th>
 		<?php }
 		if ($this->params->get('client_col_player') && strlen($this->row->sermon_path) > 0){
 			$countcolumn++; ?>
-			<th align="left" valign="bottom"><?php echo JText::_('PLAY'); ?></th>
+			<th align="left" valign="bottom"><?php echo JText::_('COM_SERMONSPEAKER_SERMON_PLAYER'); ?></th>
 		<?php } ?>
 	</tr>
 <!-- Begin Data -->
 	<tr>
 		<td align='left' valign='top'>
 			<?php if ($this->params->get('hide_dl') == "0" && strlen($this->row->sermon_path) > 0) { ?>
-				<a title='<?php echo JText::_('DOWNLOAD_HOOVER_TAG'); ?>' href='<?php echo $this->lnk; ?>'><?php echo $this->row->sermon_title; ?></a>
+				<a title='<?php echo JText::_('COM_SERMONSPEAKER_DIRECTLINK_HOOVER'); ?>' href='<?php echo $this->lnk; ?>'><?php echo $this->row->sermon_title; ?></a>
 			<?php } else {
 				echo $this->row->sermon_title;
 			} ?>
@@ -67,7 +67,7 @@ $id = $this->row->id;
 			echo SermonspeakerHelperSermonspeaker::insertdlbutton($id, $this->row->sermon_path);
 		}
 		if ($this->params->get('popup_player') == "1" && strlen($this->row->sermon_path) > 0) {
-			echo "<td colspan='".$countcolumn."'><input class=\"popup_btn\" type=\"button\" name=\"".JText::_('POPUP_PLAYER')."\" value=\"".JText::_('POPUP_PLAYER')."\" onClick=\"popup = window.open('".JRoute::_("index.php?view=sermon&layout=popup&id=$id&tmpl=component")."', 'PopupPage', 'height=".$pp_h.",width=".$pp_w.",scrollbars=yes,resizable=yes'); return false\"></td>";
+			echo "<td colspan='".$countcolumn."'><input class=\"popup_btn\" type=\"button\" name=\"".JText::_('COM_SERMONSPEAKER_POPUPPLAYER')."\" value=\"".JText::_('COM_SERMONSPEAKER_POPUPPLAYER')."\" onClick=\"popup = window.open('".JRoute::_("index.php?view=sermon&layout=popup&id=$id&tmpl=component")."', 'PopupPage', 'height=".$pp_h.",width=".$pp_w.",scrollbars=yes,resizable=yes'); return false\"></td>";
 		}
 		?>
 	</tr>

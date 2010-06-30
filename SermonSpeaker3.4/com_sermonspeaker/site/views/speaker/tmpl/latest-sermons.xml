@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <metadata>
 	<layout title="SPEAKER_LATEST">
-		<message><![CDATA[SPEAKER_LATEST_DESC]]></message>
+		<message><![CDATA[SPEAKER_LATEST]]></message>
 	</layout>
 	<state>
 		<name>SPEAKER_LATEST</name>
-		<description>SPEAKER_LATEST_DESC</description>
+		<description>SPEAKER_LATEST</description>
 		<params>
 			<param name="speaker_id" type="sql" label="SELECT_SPEAKER" description="SELECT_SPEAKER_DESC" query="SELECT id, name FROM #__sermon_speakers" key_field="id" value_field="name" />
 		</params>

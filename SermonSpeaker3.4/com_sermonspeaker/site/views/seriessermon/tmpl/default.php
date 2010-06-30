@@ -3,7 +3,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 ?>
 <table width="100%" cellpadding="2" cellspacing="0">
 	<tr class="componentheading">
-		<th align="left" valign="bottom"><?php echo JText::_('SERIESSERMONS').$this->cat; ?></th>
+		<th align="left" valign="bottom"><?php echo JText::_('COM_SERMONSPEAKER_SERIESSERMONS_TITLE').$this->cat; ?></th>
 	</tr>
 </table>
 <p />
@@ -41,7 +41,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 					<?php echo $sermon->notes; ?><br />
 					<?php $return = SermonspeakerHelperSermonspeaker::insertAddfile($sermon->addfile, $sermon->addfileDesc);
 					if ($return != NULL) {
-						echo "<b>".JText::_('ADDFILE')." : </b>".$return."<br />\n";
+						echo "<b>".JText::_('COM_SERMONSPEAKER_ADDFILE')." : </b>".$return."<br />\n";
 					}
 					if ($this->params->get('client_col_player')){
 						//Check if link targets to an external source
@@ -56,7 +56,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 						$pp_w = $pp_ret[1];
 					} else {
 						// if player is disabled show a link
-						echo JText::_('DOWNLOAD_HOOVER_TAG').": <a title=\"".JText::_('DOWNLOAD_HOOVER_TAG')."\" href=\"".$lnk."\">".$this->escape($sermon->sermon_title)."</a>";
+						echo JText::_('COM_SERMONSPEAKER_DIRECTLINK_HOOVER').": <a title=\"".JText::_('COM_SERMONSPEAKER_DIRECTLINK_HOOVER')."\" href=\"".$lnk."\">".$this->escape($sermon->sermon_title)."</a>";
 					} ?>
 					</p>
 				<?php } ?>

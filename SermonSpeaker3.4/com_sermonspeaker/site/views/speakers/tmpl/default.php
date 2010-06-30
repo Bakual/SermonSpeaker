@@ -6,7 +6,7 @@ $Itemid	= JRequest::getInt('Itemid');
 ?>
 <table width="100%" cellpadding="2" cellspacing="0">
 	<tr class="componentheading">
-		<th align="left" valign="bottom"><?php echo JText::_('SPEAKERMAIN').$this->cat; ?></th>
+		<th align="left" valign="bottom"><?php echo JText::_('COM_SERMONSPEAKER_SPEAKERS_TITLE').$this->cat; ?></th>
 	</tr>
 </table>
 <p />
@@ -34,7 +34,7 @@ $Itemid	= JRequest::getInt('Itemid');
 			<td valign="top" align="left">
 				<?php
 				if ($row->website && $row->website != "http://") {
-					echo '<a href="'.$row->website.'" target="_blank" title="'.JText::_('WEB_LINK_DESCRIPTION').'">'.JText::_('WEB_LINK_TAG').' '.$row->name.'</a>';
+					echo '<a href="'.$row->website.'" target="_blank" title="'.JText::_('COM_SERMONSPEAKER_SPEAKER_WEBLINK_HOOVER').'">'.JText::sprintf('COM_SERMONSPEAKER_SPEAKER_WEBLINK', $row->name).'</a>';
 				}
 				if($this->params->get('speaker_intro') && $row->intro) {
 					echo $row->intro;
@@ -43,10 +43,10 @@ $Itemid	= JRequest::getInt('Itemid');
 			</td>
 		</tr>
 		<tr>
-			<th colspan="2" align="left"><a  title="<?php echo JText::_('SERIES_HOOVER_TAG'); ?>" href="<?php echo JRoute::_("index.php?view=speaker&id=$row->id" ); ?>"><?php echo JText::_('SERMON_SERIES'); ?></a></th>
+			<th colspan="2" align="left"><a  title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKERS_SERIESLINK_HOOVER'); ?>" href="<?php echo JRoute::_("index.php?view=speaker&id=$row->id" ); ?>"><?php echo JText::_('COM_SERMONSPEAKER_SPEAKERS_SERIESLINK'); ?></a></th>
 		</tr>
 		<tr>
-		<th colspan="2" align="left"><a title="<?php echo JText::_('SERMON_HOOVER_TAG'); ?>" href="<?php echo JRoute::_("index.php?view=speaker&layout=latest-sermons&id=$row->id" ); ?>"><?php echo JText::_('SERMONS'); ?></a></th>
+		<th colspan="2" align="left"><a title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKERS_SERMONSLINK_HOOVER'); ?>" href="<?php echo JRoute::_("index.php?view=speaker&layout=latest-sermons&id=$row->id" ); ?>"><?php echo JText::_('COM_SERMONSPEAKER_SERMONS'); ?></a></th>
 		</tr>
 	</table>
 	<p></p>

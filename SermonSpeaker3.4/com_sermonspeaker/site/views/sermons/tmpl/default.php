@@ -15,7 +15,7 @@ JFactory::getDocument()->addScriptDeclaration( "
 
 <table width="100%" cellpadding="2" cellspacing="0">
 	<tr class="componentheading">
-		<th align="left" valign="bottom"><?php echo JText::_('SERMONLIST').$this->cat; ?></th>
+		<th align="left" valign="bottom"><?php echo JText::_('COM_SERMONSPEAKER_SERMONS_TITLE').$this->cat; ?></th>
 	</tr>
 </table>
 <p />
@@ -33,26 +33,26 @@ JFactory::getDocument()->addScriptDeclaration( "
 <thead>
 	<tr>
 		<?php if ($this->params->get('client_col_sermon_number')) { ?>
-			<th width="5%" align="left"><?php echo JHTML::_('grid.sort', 'SERMONNUMBER', 'sermon_number', $this->lists['order_Dir'], $this->lists['order']); ?></th>
+			<th width="5%" align="left"><?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SERMONNUMBER', 'sermon_number', $this->lists['order_Dir'], $this->lists['order']); ?></th>
 		<?php } ?>
-		<th align="left"><?php echo JHTML::_('grid.sort', 'SERMONNAME', 'sermon_title', $this->lists['order_Dir'], $this->lists['order']); ?></th>
+		<th align="left"><?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SERMONTITLE', 'sermon_title', $this->lists['order_Dir'], $this->lists['order']); ?></th>
 		<?php if ($this->params->get('client_col_sermon_scripture_reference')) { ?>
-			<th align="left"><?php echo JHTML::_('grid.sort', 'SCRIPTURE', 'sermon_scripture', $this->lists['order_Dir'], $this->lists['order']); ?></th>
+			<th align="left"><?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SCRIPTURE', 'sermon_scripture', $this->lists['order_Dir'], $this->lists['order']); ?></th>
 		<?php } ?>
-		<th align="left"><?php echo JHTML::_('grid.sort', 'SPEAKER', 'name', $this->lists['order_Dir'], $this->lists['order']); ?></th>
+		<th align="left"><?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SPEAKER', 'name', $this->lists['order_Dir'], $this->lists['order']); ?></th>
 		<?php if ($this->params->get('client_col_sermon_date')) { ?>
 			<th align="left">
-				<?php echo JHTML::_('grid.sort', 'SERMON_DATE', 'sermon_date', $this->lists['order_Dir'], $this->lists['order']); ?>
+				<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SERMONDATE', 'sermon_date', $this->lists['order_Dir'], $this->lists['order']); ?>
 			</th>
 		<?php }
 		if ($this->params->get('client_col_sermon_time')) { ?>
-		<th align="center"><?php echo JHTML::_('grid.sort', 'SERMONTIME', 'sermon_time', $this->lists['order_Dir'], $this->lists['order']); ?></th>
+		<th align="center"><?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SERMONTIME', 'sermon_time', $this->lists['order_Dir'], $this->lists['order']); ?></th>
 		<?php }
 		if ($this->params->get('client_col_sermon_series')) { ?>
-		<th align="center"><?php echo JHTML::_('grid.sort', 'SERIES', 'series_title', $this->lists['order_Dir'], $this->lists['order']); ?></th>
+		<th align="center"><?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SERIES', 'series_title', $this->lists['order_Dir'], $this->lists['order']); ?></th>
 		<?php }
 		if ($this->params->get('client_col_sermon_addfile')) { ?>
-		<th align="left"><?php echo JHTML::_('grid.sort', 'ADDFILE', 'addfileDesc', $this->lists['order_Dir'], $this->lists['order']); ?></th>
+		<th align="left"><?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_ADDFILE', 'addfileDesc', $this->lists['order_Dir'], $this->lists['order']); ?></th>
 		<?php } ?>
 	</tr>
 </thead>
@@ -66,8 +66,8 @@ JFactory::getDocument()->addScriptDeclaration( "
 			<td align="left"><?php echo $row->sermon_number; ?></td>
 		<?php } ?>
 		<td align="left">
-			&nbsp;<a href="<?php echo $row->link1; ?>"><img title="<?php echo JText::_('PLAYTOPLAY'); ?>" src="<?php echo JURI::root().'components/com_sermonspeaker/images/play.gif'; ?>" class='icon_play' width='16' height='16' border='0' alt="" /></a>
-			<a title="<?php echo JText::_('SINGLE_SERMON_HOOVER_TAG'); ?>" href="<?php echo $row->link2; ?>">
+			&nbsp;<a href="<?php echo $row->link1; ?>"><img title="<?php echo JText::_('COM_SERMONSPEAKER_PLAYICON_HOOVER'); ?>" src="<?php echo JURI::root().'components/com_sermonspeaker/images/play.gif'; ?>" class='icon_play' width='16' height='16' border='0' alt="" /></a>
+			<a title="<?php echo JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER'); ?>" href="<?php echo $row->link2; ?>">
 				<?php echo $row->sermon_title; ?>
 			</a>
 		</td>

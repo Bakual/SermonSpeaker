@@ -15,10 +15,10 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 			<td>
 				<?php
 				if ($this->row->website) {
-					echo '<br /><a href="'.$this->row->website.'" target="_blank" title="'.JText::_('WEB_LINK_DESCRIPTION').'">'.JText::_('WEB_LINK_TAG').' '.$this->row->name.'</a><br />';
+					echo '<br /><a href="'.$this->row->website.'" target="_blank" title="'.JText::_('COM_SERMONSPEAKER_SPEAKER_WEBLINK_HOOVER').'">'.JText::sprintf('COM_SERMONSPEAKER_SPEAKER_WEBLINK', $this->row->name).'</a><br />';
 				}
 				if ($this->row->intro || $this->row->bio){
-					echo '<br /><b>'.JText::_('BIO').':</b>';
+					echo '<br /><b>'.JText::_('COM_SERMONSPEAKER_SPEAKER_BIO').':</b>';
 					echo $this->row->intro;
 					echo $this->row->bio;
 				}

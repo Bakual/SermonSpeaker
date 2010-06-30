@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <metadata>
-	<view title="SERIES">
+	<view title="COM_SERMONSPEAKER_SERIES">
 		<message><![CDATA[SERIES_DESC]]></message>
 	</view>
 </metadata>

@@ -27,11 +27,11 @@ class SermonspeakerViewSpeaker extends JView
 			$sermons	= &$this->get('Sermons');		// getting the Sermons from the Model
 		  	if ($params->get('limit_speaker') == 1) {
 				$limit = $app->getCfg('list_limit');
-				$title = JText::_('LATEST')." ".$limit." ".JText::_('SERMONS_OF')." ".$row->name;
-				$bread = JText::_('LATEST')." ".$limit." ".JText::_('SERMONS');
+				$title = JText::sprintf('COM_SERMONSPEAKER_SPEAKER_LATESTSERMONSOF', $limit, $row->name);
+				$bread = JText::sprintf('COM_SERMONSPEAKER_SPEAKER_LATESTSERMONS', $limit);
 			} else {
-				$title = JText::_('SERMONS_OF')." ".$row->name;
-				$bread = JText::_('SERMONS');
+				$title = JText::sprintf('COM_SERMONSPEAKER_SPEAKER_SERMONSOF', $row->name);
+				$bread = JText::_('COM_SERMONSPEAKER_SERMONS');
 			}
 			$breadcrumbs->addItem($row->name.': '.$bread, '');
 			$document->setTitle($document->getTitle().' | '.$title);
@@ -48,8 +48,8 @@ class SermonspeakerViewSpeaker extends JView
 				}
 			}
 			$this->assignRef('av',$av);
-			$document->setTitle($document->getTitle() . ' | ' .JText::_('SINGLESPEAKER').' - '.$row->name);
-			$breadcrumbs->addItem( $row->name.": ".JText::_('SINGLESPEAKER'), '' );
+			$document->setTitle($document->getTitle() . ' | ' .JText::_('COM_SERMONSPEAKER_SPEAKER_TITLE').' - '.$row->name);
+			$breadcrumbs->addItem( $row->name.": ".JText::_('COM_SERMONSPEAKER_SPEAKER_TITLE'), '' );
 			$title = $row->name;
 		}
 

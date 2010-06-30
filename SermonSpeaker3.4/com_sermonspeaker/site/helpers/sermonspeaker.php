@@ -57,11 +57,11 @@ class SermonspeakerHelperSermonspeaker
 		//Check if link targets to an external source
 		if (substr($path,0,7) == "http://"){
 			//File is external
-			$return = "<td><button class=\"download_btn\" type=\"button\" onclick=\"location='".$path."'\">".JText::_('SEARCH_BOX_SINGLESERMON')."</button></td>";
+			$return = "<td><button class=\"download_btn\" type=\"button\" onclick=\"location='".$path."'\">".JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON')."</button></td>";
 		} else { 
 			//File is locally
 			$fileurl = JURI::root()."index.php?option=com_sermonspeaker&amp;task=download&amp;id=$id";
-			$return = "<td><form><input class=\"download_btn\" type=\"button\" value=\"".JText::_('SEARCH_BOX_SINGLESERMON')."\" onclick=\"window.location.href='".$fileurl."'\" /> </form></td>";
+			$return = "<td><form><input class=\"download_btn\" type=\"button\" value=\"".JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON')."\" onclick=\"window.location.href='".$fileurl."'\" /> </form></td>";
 		}
 
 		return $return;
@@ -148,7 +148,7 @@ class SermonspeakerHelperSermonspeaker
 	} // end of insertTime
 
 	function fu_logoffbtn () {
-		$str = "<FORM><INPUT TYPE=\"BUTTON\" VALUE=\"".JText::_('FU_LOGOUT')."\" ONCLICK=\"window.location.href='index.php?option=com_sermonspeaker&task=fu_logout'\"> </FORM>";
+		$str = "<FORM><INPUT TYPE=\"BUTTON\" VALUE=\"".JText::_('COM_SERMONSPEAKER_FU_LOGOUT')."\" ONCLICK=\"window.location.href='index.php?option=com_sermonspeaker&task=fu_logout'\"> </FORM>";
 		return $str;
 	} // end of fu_logoffbtn
 }

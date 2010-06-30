@@ -3,7 +3,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 ?>
 <table width="100%" cellpadding="2" cellspacing="0">
 	<tr class="componentheading">
-		<th align="left" valign="bottom"><?php echo JText::_('SERIESMAIN').$this->cat; ?></th>
+		<th align="left" valign="bottom"><?php echo JText::_('COM_SERMONSPEAKER_SERIES_TITLE').$this->cat; ?></th>
 	</tr>
 </table>
 <p />
@@ -20,8 +20,8 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 <table cellpadding="2" cellspacing="2" width="100%">
 	<tr>
 		<?php if($this->av) { echo "<th width='10'> </th>"; } ?>
-		<th align="left"><?php echo JText::_('SERMONNAME'); ?></th>
-		<th align="left"><?php echo JText::_('SPEAKER'); ?></th>
+		<th align="left"><?php echo JText::_('COM_SERMONSPEAKER_SERIESTITLE'); ?></th>
+		<th align="left"><?php echo JText::_('COM_SERMONSPEAKER_SPEAKER'); ?></th>
 	</tr>
 	<?php
 	$i = 0;
@@ -37,7 +37,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 				} 
 			}
 			?> 
-    		<td align="left" nowrap><a href="<?php echo JRoute::_("index.php?view=serie&id=$row->id" ); ?>"><?php echo $row->series_title; ?></a></td>
+    		<td align="left" nowrap><a title='<?php echo JText::_('COM_SERMONSPEAKER_SERIESLINK_HOOVER'); ?>' href="<?php echo JRoute::_("index.php?view=serie&id=$row->id" ); ?>"><?php echo $row->series_title; ?></a></td>
     		<td align="left">
 				<?php echo $row->speakers; ?>
 			</td>

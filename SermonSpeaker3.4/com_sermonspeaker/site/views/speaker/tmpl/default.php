@@ -4,7 +4,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 ?>
 <table width="100%" cellpadding="2" cellspacing="0">
 	<tr class="componentheading">
-		<th align="left" valign="bottom"><?php echo $this->row->name.": ".JText::_('SINGLESPEAKER'); ?></th>
+		<th align="left" valign="bottom"><?php echo $this->row->name.": ".JText::_('COM_SERMONSPEAKER_SPEAKER_TITLE'); ?></th>
 	</tr>
 </table>
 <!-- Begin Data - Speaker -->
@@ -18,10 +18,10 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 		<td align="left" valign="top">
 		<?php
 		if ($this->row->website && $this->row->website != "http://") { ?>
-			<a href="<?php echo $this->row->website; ?>" target="_blank" title="<?php echo JText::_('WEB_LINK_DESCRIPTION'); ?>"><?php echo JText::_('WEB_LINK_TAG').' '.$this->row->name; ?></a>
+			<a href="<?php echo $this->row->website; ?>" target="_blank" title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKER_WEBLINK_HOOVER'); ?>"><?php echo JText::sprintf('COM_SERMONSPEAKER_SPEAKER_WEBLINK', $this->row->name); ?></a>
 		<?php }
 		if ($this->row->bio || $this->row->intro) { ?>
-			<p><b><?php echo JText::_('BIO'); ?>:</b>
+			<p><b><?php echo JText::_('COM_SERMONSPEAKER_SPEAKER_BIO'); ?>:</b>
 			<?php if($this->params->get('speaker_intro')) {
 				echo $this->row->intro;
 			}
@@ -39,8 +39,8 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 			<?php if ($this->av > 0){ ?>
 				<th align="left" ></th>
 			<?php } ?>
-			<th align="left" ><?php echo JText::_('SERIESTITLE'); ?></th>		  
-			<th align="left" valign="bottom"><?php echo JText::_('SERIESDESCRIPTION'); ?></th>
+			<th align="left" ><?php echo JText::_('COM_SERMONSPEAKER_SERIESTITLE'); ?></th>		  
+			<th align="left" valign="bottom"><?php echo JText::_('COM_SERMONSPEAKER_SERIESDESCRIPTION'); ?></th>
 		</tr>
 		<?php
 		$i = 0;
@@ -53,7 +53,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 				</td>		  
 			<?php } ?>
 				<td align="left" valign="middle" width="125">
-					<a title="<?php echo JText::_('SERIES_SELECT_HOOVER_TAG'); ?> " href="<?php echo JRoute::_("index.php?view=serie&id=$serie->id"); ?>">
+					<a title='<?php echo JText::_('COM_SERMONSPEAKER_SERIESLINK_HOOVER'); ?>' href="<?php echo JRoute::_("index.php?view=serie&id=$serie->id"); ?>">
 						<?php echo $serie->series_title; ?>
 					</a>
 				</td>

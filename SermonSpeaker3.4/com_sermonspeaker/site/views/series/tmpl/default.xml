@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <metadata>
-	<layout title="SERIES">
+	<layout title="COM_SERMONSPEAKER_SERIES">
 		<message><![CDATA[SERIES_DESC]]></message>
 	</layout>
 	<state>
-		<name>SERIES</name>
+		<name>COM_SERMONSPEAKER_SERIES</name>
 		<description>SERIES_DESC</description>
 		<params>
 			<param name="series_cat" type="category" section="com_sermonspeaker" label="SERIES_CATEGORY" description="CATEGORY_DESC" />
