@@ -63,7 +63,7 @@ $id = $this->row->id;
 		<td><?php echo SermonspeakerHelperSermonspeaker::insertTime($this->row->sermon_time); ?></td>
 	</tr>
 	<tr>
-		<td valign="top"><b><?php echo JText::_('HITS'); ?>:</b></td>
+		<td valign="top"><b><?php echo JText::_('COM_SERMONSPEAKER_HITS'); ?>:</b></td>
 		<td><?php echo $this->row->hits; ?></td>
 	</tr>
 	<?php if ($this->params->get('client_col_sermon_notes') && strlen($this->row->notes) > 0){ ?>

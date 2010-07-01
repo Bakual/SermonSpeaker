@@ -19,7 +19,7 @@ JFactory::getDocument()->addScriptDeclaration( "
 		} else {
 			$date_format = '%Y';
 		} ?>
-		<th align="left" valign="bottom"><?php echo JText::_('SERMFROM')." ".JHTML::date($this->rows[0]->sermon_date, $date_format, 0).$this->cat; ?></th>
+		<th align="left" valign="bottom"><?php echo JText::_('COM_SERMONSPEAKER_ARCHIVE_TITLE')." ".JHTML::date($this->rows[0]->sermon_date, $date_format, 0).$this->cat; ?></th>
 	</tr>
 </table>
 <p />

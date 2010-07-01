@@ -8,7 +8,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 	</tr>
 	<tr>
 		<td width ="50"></td>
-		<td><b><?php echo JText::_('FU_EXISTS')."</b>"; ?></b></td>
+		<td><b><?php echo JText::_('COM_SERMONSPEAKER_FU_ERROR_EXISTS')."</b>"; ?></b></td>
 	</tr>
 	<tr>
 		<td width ="50"></td>

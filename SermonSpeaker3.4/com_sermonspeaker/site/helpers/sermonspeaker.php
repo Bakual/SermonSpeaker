@@ -35,7 +35,7 @@ class SermonspeakerHelperSermonspeaker
 			$file = JURI::root().'components/com_sermonspeaker/icons/icon.png';
 		}
 		if ($addfile) {
-			$return = '<a title="'.JText::_('ADDFILE_HOOVER_TAG').'" href="'.$link.'" target="_blank"><img src="'.$file.'" width="18" height="20" alt="" /></a>&nbsp;<a title="'.JText::_('ADDFILE_HOOVER_TAG').'" href="'.$link.'" target="_blank">'.$addfileDesc.'</a>';
+			$return = '<a title="'.JText::_('COM_SERMONSPEAKER_ADDFILE_HOOVER').'" href="'.$link.'" target="_blank"><img src="'.$file.'" width="18" height="20" alt="" /></a>&nbsp;<a title="'.JText::_('COM_SERMONSPEAKER_ADDFILE_HOOVER').'" href="'.$link.'" target="_blank">'.$addfileDesc.'</a>';
 
 		return $return;
 		} else { 
