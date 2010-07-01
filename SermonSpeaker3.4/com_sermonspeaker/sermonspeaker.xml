@@ -159,7 +159,7 @@
 		<menu img="components/com_sermonspeaker/images/speakers-16.png" >SermonSpeaker</menu>
 		<submenu>
 			<menu img="components/com_sermonspeaker/images/series-16.png" view="series">SERIES</menu>
-			<menu img="components/com_sermonspeaker/images/speakers-16.png" view="speakers">SPEAKER</menu>
+			<menu img="components/com_sermonspeaker/images/speakers-16.png" view="speakers">SPEAKERS</menu>
 			<menu img="components/com_sermonspeaker/images/sermon-16.png" view="sermons">SERMONS</menu>
 			<menu img="category" link="option=com_categories&amp;section=com_sermonspeaker">CATEGORY</menu>
 			<menu img="components/com_sermonspeaker/images/stats-16.png" view="statistics">STATISTICS</menu>
@@ -237,9 +237,9 @@
 		</files>
 		<languages folder="admin/language">
 			<language tag="en-GB">en-GB.com_sermonspeaker.ini</language>
-			<language tag="en-GB">en-GB.com_sermonspeaker.menu.ini</language>
+			<language tag="en-GB">en-GB.com_sermonspeaker.sys.ini</language>
 			<language tag="de-DE">de-DE.com_sermonspeaker.ini</language>
-			<language tag="de-DE">de-DE.com_sermonspeaker.menu.ini</language>
+			<language tag="de-DE">de-DE.com_sermonspeaker.sys.ini</language>
 		</languages>
 	</administration>
 </install>

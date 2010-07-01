@@ -13,7 +13,7 @@ JToolBarHelper::preferences('com_sermonspeaker',550);
 <table border="0" cellpadding="2" cellspacing="0" width="40%" class="adminlist">
 	<tr>
 		<td style="background-color: #6D86BE; color: #CCC;" colspan="4">
-			<img src="<?php echo JURI::base(); ?>components/com_sermonspeaker/images/speakers.png" border="0" width="48" height="48" alt="<?php echo JText::_('SPEAKERS'); ?>" /> <?php echo JText::_('SPEAKERSTATS'); ?>
+			<img src="<?php echo JURI::base(); ?>components/com_sermonspeaker/images/speakers.png" border="0" width="48" height="48" alt="" /> <?php echo JText::_('SPEAKERSTATS'); ?>
 		</td>
 	</tr>
 	<tr>

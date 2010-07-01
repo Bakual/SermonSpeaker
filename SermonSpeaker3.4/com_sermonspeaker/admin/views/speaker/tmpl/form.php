@@ -20,7 +20,7 @@ $editor =& JFactory::getEditor();
 
 <form action="index.php" method="post" name="adminForm" id="adminForm">
 	<fieldset class="adminform">
-	<legend><?php echo JText::_('SPEAKERS'); ?></legend>
+	<legend><?php echo JText::_('SPEAKER'); ?></legend>
 	<table class="admintable">
 		<tr>
 			<td width="100" align="right" class="key"><?php echo JText::_('NAME'); ?></td>
