@@ -3,7 +3,7 @@ defined('_JEXEC') or die('Restricted access');
 
 JHTML::_('behavior.tooltip');
 
-JToolBarHelper::title(JText::_('SERIES MANAGER'), 'series');
+JToolBarHelper::title(JText::_('COM_SERMONSPEAKER_SERIES_TITLE'), 'series');
 JToolBarHelper::publishList();
 JToolBarHelper::unpublishList();
 JToolbarHelper::spacer();
@@ -43,7 +43,7 @@ $disabled = $ordering ?  '' : 'disabled="disabled"';
 		<tr> 
 			<th width="5"><?php echo JText::_( 'NUM' ); ?></th>
 			<th width="20"><input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count( $this->items ); ?>);" /></th>			
-			<th class="title" with="20%"><?php echo JHTML::_('grid.sort', 'SERIESTITLE', 'series.series_title', $this->lists['order_Dir'], $this->lists['order']); ?></th>
+			<th class="title" with="20%"><?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SERIESTITLE', 'series.series_title', $this->lists['order_Dir'], $this->lists['order']); ?></th>
 			<th width="20%"><?php echo JHTML::_('grid.sort', 'CATEGORY', 'series.catid', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
 			<th width="10%">
 				<?php echo JHTML::_('grid.sort', 'ORDER', 'ordering', $this->lists['order_Dir'], $this->lists['order']); ?>
@@ -51,7 +51,7 @@ $disabled = $ordering ?  '' : 'disabled="disabled"';
 			</th>
 			<th width="5%"><?php echo JHTML::_('grid.sort', 'Avatar', 'pic', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
 			<th width="5%"><?php echo JHTML::_('grid.sort', 'Published', 'series.published', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
-			<th width="1%" nowrap="nowrap"><?php echo JHTML::_('grid.sort', 'ID', 'series.id', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
+			<th width="1%" nowrap="nowrap"><?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_ID', 'series.id', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
 		</tr> 
 	</thead> 
 	<!-- Pagination Footer -->

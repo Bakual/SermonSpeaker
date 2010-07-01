@@ -7,7 +7,7 @@ JArrayHelper::toInteger($cid, array(0));
 $edit = JRequest::getBool('edit', true);
 $text = ($edit ? JText::_('Edit') : JText::_('New'));
 
-JToolBarHelper::title(JText::_('SPEAKER').': <small><small>[ '.$text.' ]</small></small>', 'speakers');
+JToolBarHelper::title(JText::_('COM_SERMONSPEAKER_SPEAKER').': <small><small>[ '.$text.' ]</small></small>', 'speakers');
 JToolBarHelper::save();
 JToolBarHelper::apply();
 if ($edit) {
@@ -20,7 +20,7 @@ $editor =& JFactory::getEditor();
 
 <form action="index.php" method="post" name="adminForm" id="adminForm">
 	<fieldset class="adminform">
-	<legend><?php echo JText::_('SPEAKER'); ?></legend>
+	<legend><?php echo JText::_('COM_SERMONSPEAKER_SPEAKER'); ?></legend>
 	<table class="admintable">
 		<tr>
 			<td width="100" align="right" class="key"><?php echo JText::_('NAME'); ?></td>
@@ -31,11 +31,11 @@ $editor =& JFactory::getEditor();
 			<td><?php echo JHTML::_('list.users', 'created_by', $this->row->created_by, 0, '', 'name', 0); ?></td>
 		</tr>
 		<tr>
-			<td width="100" align="right" class="key"><?php echo JText::_('WEBSITE'); ?></td>
+			<td width="100" align="right" class="key"><?php echo JText::_('COM_SERMONSPEAKER_WEBSITE'); ?></td>
 			<td><input class="text_area" type="text" name="website" id="website" size="90" maxlength="250" value="<?php echo $this->row->website;?>" /></td>
 		</tr>
 		<tr>
-			<td width="100" align="right" class="key"><?php echo JText::_('PICTURE'); ?></td>
+			<td width="100" align="right" class="key"><?php echo JText::_('COM_SERMONSPEAKER_PICTURE'); ?></td>
 			<td><input class="text_area" type="text" name="pic" id="pic" size="90" maxlength="250" value="<?php echo $this->row->pic;?>" /></td>
 		</tr>
 		<tr>

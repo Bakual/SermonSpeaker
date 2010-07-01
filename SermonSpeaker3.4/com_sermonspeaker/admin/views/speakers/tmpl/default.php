@@ -3,7 +3,7 @@ defined('_JEXEC') or die('Restricted access');
 
 JHTML::_('behavior.tooltip');
 
-JToolBarHelper::title(JText::_('SPEAKER MANAGER'), 'speakers' );
+JToolBarHelper::title(JText::_('COM_SERMONSPEAKER_SPEAKERS_TITLE'), 'speakers' );
 JToolBarHelper::publishList();
 JToolBarHelper::unpublishList();
 JToolbarHelper::spacer();
@@ -43,16 +43,16 @@ $disabled = $ordering ?  '' : 'disabled="disabled"';
 		<tr> 
 			<th width="5"><?php echo JText::_( 'NUM' ); ?></th>
 			<th width="20"><input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count($this->items); ?>);" /></th>			
-			<th class="title"><?php echo JHTML::_('grid.sort', 'SPEAKERNAME', 'name', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
-			<th width="20%"><?php echo JHTML::_('grid.sort', 'WEBSITE', 'website', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
+			<th class="title"><?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SPEAKERNAME', 'name', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
+			<th width="20%"><?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_WEBSITE', 'website', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
 			<th width="20%"><?php echo JHTML::_('grid.sort', 'CATEGORY', 'series.catid', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
 			<th width="10%">
 				<?php echo JHTML::_('grid.sort', 'ORDER', 'ordering', $this->lists['order_Dir'], $this->lists['order']); ?>
 				<?php echo JHTML::_('grid.order', $this->items); ?>
 			</th>
-			<th width="5%"><?php echo JHTML::_('grid.sort', 'PICTURE', 'pic', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
+			<th width="5%"><?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_PICTURE', 'pic', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
 			<th width="5%" nowrap="nowrap"><?php echo JHTML::_('grid.sort', 'Published', 'published', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
-			<th width="1%" nowrap="nowrap"><?php echo JHTML::_('grid.sort', 'ID', 'id', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
+			<th width="1%" nowrap="nowrap"><?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_ID', 'id', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
 		</tr> 
 	</thead> 
 	<!-- Pagination Footer -->

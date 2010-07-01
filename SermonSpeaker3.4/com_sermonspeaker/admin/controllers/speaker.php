@@ -111,7 +111,7 @@ class SermonspeakerControllerSpeaker extends SermonspeakerController
 			JError::raiseError(500, JText::_('SELECT_ITEM_TO'.$action, true));
 		}
 
-		$msg = $publish ? JText::_('SPEAKER').' '.JText::_('PUBLISHED') : JText::_('SPEAKER').' '.JText::_('UNPUBLISHED');
+		$msg = $publish ? JText::_('COM_SERMONSPEAKER_SPEAKER').' '.JText::_('PUBLISHED') : JText::_('COM_SERMONSPEAKER_SPEAKER').' '.JText::_('UNPUBLISHED');
 		$row = &JTable::getInstance('speakers', 'Table');
 		if (!$row->publish($cid,$publish)) {
 			$msg = $row->getError();

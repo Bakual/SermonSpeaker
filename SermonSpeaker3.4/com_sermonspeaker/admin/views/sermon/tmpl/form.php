@@ -29,7 +29,7 @@ $editor =& JFactory::getEditor();
 	<legend><?php echo JText::_('SERMON'); ?></legend>
 	<table class="admintable"> 
 		<tr>
-			<td width="100" align="right" class="key"><?php echo JText::_('SERMONTITLE'); ?></td>
+			<td width="100" align="right" class="key"><?php echo JText::_('COM_SERMONSPEAKER_SERMONTITLE'); ?></td>
 			<td><input class="text_area" type="text" name="sermon_title" id="sermon_title" size="50" maxlength="250" value="<?php echo $this->row->sermon_title;?>" /></td>
 		</tr>
 		<tr>
@@ -37,7 +37,7 @@ $editor =& JFactory::getEditor();
 			<td><input class="text_area" type="text" name="alias" id="alias" size="50" maxlength="250" value="<?php echo $this->row->alias;?>" /></td>
 		</tr>
 		<tr>
-			<td width="100" align="right" class="key"><?php echo JText::_('SCRIPTURE'); ?></td>
+			<td width="100" align="right" class="key"><?php echo JText::_('COM_SERMONSPEAKER_SCRIPTURE'); ?></td>
 			<td>
 				<input class="text_area" type="text" name="sermon_scripture" id="sermon_scripture" size="50" maxlength="250" value="<?php echo $this->row->sermon_scripture;?>" />
 				<img onClick="sendText(document.adminForm.sermon_scripture,'{bib=','}')" src='<?php echo JURI::root(); ?>/components/com_sermonspeaker/images/blue_tag.png' title='insert Biblelink tag' alt='insert Biblelink tag'>
@@ -45,7 +45,7 @@ $editor =& JFactory::getEditor();
 			</td>
 		</tr>
 		<tr>
-			<td width="100" align="right" class="key"><?php echo JText::_('SERMON_DATE'); ?></td>
+			<td width="100" align="right" class="key"><?php echo JText::_('COM_SERMONSPEAKER_SERMONDATE'); ?></td>
             <td><?php echo JHTML::Calendar($this->row->sermon_date, 'sermon_date', 'sermon_date').' '.JText::_('FORMAT YYYY-MM-DD'); ?></td>
 		</tr>
 		<tr>
@@ -68,11 +68,11 @@ $editor =& JFactory::getEditor();
 			<td><input class="text_area" type="text" name="sermon_time" id="sermon_time" size="50" maxlength="250" value="<?php echo $this->row->sermon_time;?>" /></td>
 		</tr>
 		<tr>
-			<td width="100" align="right" class="key"><?php echo JText::_('SPEAKER'); ?></td>
+			<td width="100" align="right" class="key"><?php echo JText::_('COM_SERMONSPEAKER_SPEAKER'); ?></td>
 			<td><?php echo $this->lists['speaker_id']; ?></td>
 		</tr> 
 		<tr>
-			<td width="100" align="right" class="key"><?php echo JText::_('SERIES'); ?></td>
+			<td width="100" align="right" class="key"><?php echo JText::_('COM_SERMONSPEAKER_SERIES'); ?></td>
 			<td><?php echo $this->lists['series_id']; ?></td>
 		</tr>
 		<tr>
@@ -92,7 +92,7 @@ $editor =& JFactory::getEditor();
 			<td><?php echo $this->lists['published']; ?></td>
 		</tr>
 		<tr>
-			<td width="100" align="right" class="key"><?php echo JText::_('SERMONCAST'); ?></td>
+			<td width="100" align="right" class="key"><?php echo JText::_('COM_SERMONSPEAKER_SERMONCAST'); ?></td>
 			<td><?php echo $this->lists['podcast']; ?></td>
 		</tr>
 		<tr>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <metadata>
-	<layout title="COM_SERMONSPEAKER_SERIES_VIEW_DEFAULT_TITLE">
-		<message><![CDATA[COM_SERMONSPEAKER_SERIES_VIEW_DEFAULT_DESC]]></message>
+	<layout title="COM_SERMONSPEAKER_SERIES_VIEW_TITLE">
+		<message><![CDATA[COM_SERMONSPEAKER_SERIES_VIEW_DESC]]></message>
 	</layout>
 	<state>
-		<name>COM_SERMONSPEAKER_SERIES_VIEW_DEFAULT_TITLE</name>
-		<description>COM_SERMONSPEAKER_SERIES_VIEW_DEFAULT_DESC</description>
+		<name>COM_SERMONSPEAKER_SERIES_VIEW_TITLE</name>
+		<description>COM_SERMONSPEAKER_SERIES_VIEW_DESC</description>
 		<params>
 			<param name="series_cat" type="category" section="com_sermonspeaker" label="SERIES_CATEGORY" description="CATEGORY_DESC" />
 		</params>

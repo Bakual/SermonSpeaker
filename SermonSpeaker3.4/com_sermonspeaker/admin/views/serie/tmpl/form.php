@@ -20,10 +20,10 @@ $editor =& JFactory::getEditor();
 
 <form action="index.php" method="post" name="adminForm" id="adminForm"> 
 	<fieldset class="adminform">
-	<legend><?php echo JText::_('SERIES'); ?></legend>
+	<legend><?php echo JText::_('COM_SERMONSPEAKER_SERIES'); ?></legend>
 	<table class="admintable">
 		<tr>
-			<td width="100" align="right" class="key"><?php echo JText::_('SERIESTITLE'); ?></td> 
+			<td width="100" align="right" class="key"><?php echo JText::_('COM_SERMONSPEAKER_SERIESTITLE'); ?></td> 
 			<td><input class="text_area" type="text" name="series_title" id="series_title" size="50" maxlength="250" value="<?php echo $this->row->series_title;?>" /></td> 
 		</tr>
 		<tr>
