@@ -2,7 +2,7 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-$count		= (int)($params->get('archive_count');
+$count		= (int)$params->get('archive_count');
 $switch 	= FALSE;
 if ($params->get('archive_switch') == 'month'){
 	$switch = TRUE;
