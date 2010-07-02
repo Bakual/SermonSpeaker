@@ -59,13 +59,13 @@ class SermonspeakerControllerSpeaker extends SermonspeakerController
 		switch ($this->_task)
 		{
 			case 'apply':
-				$msg = JText::_('SPEAKER_APPLIED');
+				$msg = JText::_('COM_SERMONSPEAKER_SPEAKER_APPLIED');
 				$link = 'index.php?option=com_sermonspeaker&controller=speaker&task=edit&cid[]='.$row->id;
 				break;
 
 			case 'save':
 			default:
-				$msg = JText::_('SPEAKER_SAVED');
+				$msg = JText::_('COM_SERMONSPEAKER_SPEAKER_SAVED');
 				$link = 'index.php?option=com_sermonspeaker&view=speakers';
 				break;
 		}
@@ -81,7 +81,7 @@ class SermonspeakerControllerSpeaker extends SermonspeakerController
 		$cid = JRequest::getVar('cid', array(), '', 'array');
 		JArrayHelper::toInteger($cid);
 
-		$msg = JText::_('SPEAKERS_DELETED');
+		$msg = JText::_('COM_SERMONSPEAKER_SPEAKERS_DELETED');
 		$row = &JTable::getInstance('speakers', 'Table');
 
 		for ($i=0, $n=count($cid); $i < $n; $i++)
@@ -129,7 +129,7 @@ class SermonspeakerControllerSpeaker extends SermonspeakerController
 		$db	= &JFactory::getDBO();
 		$row = &JTable::getInstance('speakers', 'Table');
 		$row->checkin($id);
-		$msg = JText::_('OPERATION CANCELED');
+		$msg = JText::_('COM_SERMONSPEAKER_CANCELED');
 		$this->setRedirect('index.php?option=com_sermonspeaker&view=speakers', $msg );
 	}
 	

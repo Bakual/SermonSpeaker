@@ -16,26 +16,26 @@ JToolBarHelper::preferences('com_sermonspeaker',550);
 		<div id="cpanel">
 			<div style="float: left;"><div class="icon">
 				<a href="index.php?option=com_sermonspeaker&view=series">
-					<img border="0" align="middle" alt="<?php echo JText::_('SERIESNAV'); ?>" src="<?php echo JURI::base()."components/com_sermonspeaker/images/series.png"; ?>"/>
-					<span><?php echo JText::_('SERIESNAV'); ?></span>
+					<img border="0" align="middle" alt="<?php echo JText::_('COM_SERMONSPEAKER_MAIN_SERIES'); ?>" src="<?php echo JURI::base()."components/com_sermonspeaker/images/series.png"; ?>"/>
+					<span><?php echo JText::_('COM_SERMONSPEAKER_MAIN_SERIES'); ?></span>
 				</a>
 			</div></div>
 			<div style="float: left;"><div class="icon">
 				<a href="index.php?option=com_sermonspeaker&view=speakers">
-					<img border="0" align="middle" alt="<?php echo JText::_('SPEAKERSNAV'); ?>" src="<?php echo JURI::base()."components/com_sermonspeaker/images/speakers.png"; ?>"/>
-					<span><?php echo JText::_('SPEAKERSNAV'); ?></span>
+					<img border="0" align="middle" alt="<?php echo JText::_('COM_SERMONSPEAKER_MAIN_SPEAKERS'); ?>" src="<?php echo JURI::base()."components/com_sermonspeaker/images/speakers.png"; ?>"/>
+					<span><?php echo JText::_('COM_SERMONSPEAKER_MAIN_SPEAKERS'); ?></span>
 				</a>
 			</div></div>
 			<div style="float: left;"><div class="icon">
 				<a href="index.php?option=com_sermonspeaker&view=sermons">
-					<img border="0" align="middle" alt="<?php echo JText::_('SERMONSNAV'); ?>" src="<?php echo JURI::base()."components/com_sermonspeaker/images/sermon.png"; ?>"/>
-					<span><?php echo JText::_('SERMONSNAV'); ?></span>
+					<img border="0" align="middle" alt="<?php echo JText::_('COM_SERMONSPEAKER_MAIN_SERMONS'); ?>" src="<?php echo JURI::base()."components/com_sermonspeaker/images/sermon.png"; ?>"/>
+					<span><?php echo JText::_('COM_SERMONSPEAKER_MAIN_SERMONS'); ?></span>
 				</a>
 			</div></div>
 			<div style="float: left;"><div class="icon">
 				<a href="index.php?option=com_sermonspeaker&view=statistics">
-					<img border="0" align="middle" alt="<?php echo JText::_('STATISTICS'); ?>" src="<?php echo JURI::base()."components/com_sermonspeaker/images/stats.png"; ?>"/>
-					<span><?php echo JText::_('STATISTICS'); ?></span>
+					<img border="0" align="middle" alt="<?php echo JText::_('COM_SERMONSPEAKER_STATISTICS_TITLE'); ?>" src="<?php echo JURI::base()."components/com_sermonspeaker/images/stats.png"; ?>"/>
+					<span><?php echo JText::_('COM_SERMONSPEAKER_STATISTICS_TITLE'); ?></span>
 				</a>
 			</div></div>
 			<div style="float: left;"><div class="icon">

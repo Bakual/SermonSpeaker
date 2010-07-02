@@ -7,7 +7,7 @@
 		<name>COM_SERMONSPEAKER_SERIES_VIEW_TITLE</name>
 		<description>COM_SERMONSPEAKER_SERIES_VIEW_DESC</description>
 		<params>
-			<param name="series_cat" type="category" section="com_sermonspeaker" label="SERIES_CATEGORY" description="CATEGORY_DESC" />
+			<param name="series_cat" type="category" section="com_sermonspeaker" label="COM_SERMONSPEAKER_PARAM_CATEGORY_SERIES" description="COM_SERMONSPEAKER_PARAM_CATEGORY_DESC" />
 		</params>
 	</state>
 </metadata>

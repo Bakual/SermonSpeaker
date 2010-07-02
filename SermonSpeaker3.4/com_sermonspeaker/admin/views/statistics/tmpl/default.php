@@ -3,7 +3,7 @@ defined('_JEXEC') or die('Restricted access');
 
 JHTML::_('behavior.tooltip');
 
-JToolBarHelper::title(JText::_('STATISTICS'), 'statistics');
+JToolBarHelper::title(JText::_('COM_SERMONSPEAKER_STATISTICS_TITLE'), 'statistics');
 JToolbarHelper::spacer();
 JToolbarHelper::divider();
 JToolbarHelper::spacer();
@@ -43,12 +43,12 @@ JToolBarHelper::preferences('com_sermonspeaker',550);
 <table border="0" cellpadding="2" cellspacing="0" width="40%" class="adminlist">
 	<tr>
 		<td style="background-color: #6D86BE; color: #CCC;" colspan="4">
-			<img src="<?php echo JURI::base(); ?>components/com_sermonspeaker/images/series.png" border="0" width="48" height="48" alt="<?php echo JText::_('COM_SERMONSPEAKER_SERIES'); ?>" /> <?php echo JText::_('COM_SERMONSPEAKER_STATS_SERIES'); ?>
+			<img src="<?php echo JURI::base(); ?>components/com_sermonspeaker/images/series.png" border="0" width="48" height="48" alt="<?php echo JText::_('COM_SERMONSPEAKER_SERIE'); ?>" /> <?php echo JText::_('COM_SERMONSPEAKER_STATS_SERIES'); ?>
 		</td>
 	</tr>
 	<tr>
 		<th width="20" align="left"><?pCOM_SERMONSPEAKER_ID echo JText::_('ID'); ?></th>
-		<th align="left"><?php echo JText::_('COM_SERMONSPEAKER_SERIES'); ?></th>
+		<th align="left"><?php echo JText::_('COM_SERMONSPEAKER_SERIE'); ?></th>
 		<th width="20" align="left"><?php echo JText::_('COM_SERMONSPEAKER_HITS'); ?></th>
 		<th width="20" align="left"><?php echo JText::_('RESET'); ?></th>
 	</tr>
@@ -73,7 +73,7 @@ JToolBarHelper::preferences('com_sermonspeaker',550);
 <table border="0" cellpadding="2" cellspacing="0" width="40%" class="adminlist">
 	<tr>
 		<td style="background-color: #6D86BE; color: #CCC;" colspan="4">
-			<img src="<?php echo JURI::base(); ?>components/com_sermonspeaker/images/sermon.png" border="0" width="48" height="48" alt="<?php echo JText::_('COM_SERMONSPEAKER_SERMONS'); ?>" /> <?php echo JText::_('COM_SERMONSPEAKER_STATS_SERMONS'); ?>
+			<img src="<?php echo JURI::base(); ?>components/com_sermonspeaker/images/sermon.png" border="0" width="48" height="48" alt="<?php echo JText::_('COM_SERMONSPEAKER_SERMON'); ?>" /> <?php echo JText::_('COM_SERMONSPEAKER_STATS_SERMONS'); ?>
 		</td>
 	</tr>
 	<tr>

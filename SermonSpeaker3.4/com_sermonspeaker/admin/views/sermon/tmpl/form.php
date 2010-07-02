@@ -14,7 +14,7 @@ if($edit){
 	$self = JURI::current().'?option=com_sermonspeaker&controller=sermon&task=add';
 }
 
-JToolBarHelper::title(JText::_('SERMON').': <small><small>[ '.$text.' ]</small></small>', 'sermons');
+JToolBarHelper::title(JText::_('COM_SERMONSPEAKER_SERMON').': <small><small>[ '.$text.' ]</small></small>', 'sermons');
 JToolBarHelper::save();
 JToolBarHelper::apply();
 if ($edit) {
@@ -26,7 +26,7 @@ $editor =& JFactory::getEditor();
 ?>
 <form action="index.php" method="post" name="adminForm" id="adminForm" >
 	<fieldset class="adminform">
-	<legend><?php echo JText::_('SERMON'); ?></legend>
+	<legend><?php echo JText::_('COM_SERMONSPEAKER_SERMON'); ?></legend>
 	<table class="admintable"> 
 		<tr>
 			<td width="100" align="right" class="key"><?php echo JText::_('COM_SERMONSPEAKER_SERMONTITLE'); ?></td>
@@ -46,10 +46,10 @@ $editor =& JFactory::getEditor();
 		</tr>
 		<tr>
 			<td width="100" align="right" class="key"><?php echo JText::_('COM_SERMONSPEAKER_SERMONDATE'); ?></td>
-            <td><?php echo JHTML::Calendar($this->row->sermon_date, 'sermon_date', 'sermon_date').' '.JText::_('FORMAT YYYY-MM-DD'); ?></td>
+            <td><?php echo JHTML::Calendar($this->row->sermon_date, 'sermon_date', 'sermon_date').' '.JText::_('COM_SERMONSPEAKER_DATEFORMAT'); ?></td>
 		</tr>
 		<tr>
-			<td width="100" align="right" class="key"><?php echo JText::_('SERMONPATH'); ?></td>
+			<td width="100" align="right" class="key"><?php echo JText::_('COM_SERMONSPEAKER_SERMONPATH'); ?></td>
 			<td>
 				<input type="radio" name="sel" value="1" onclick="enableElement(this.form.elements['sermon_path_txt'], this.form.elements['sermon_path_choice']);" checked>
 				<input class="text_area" type="text" name="sermon_path_txt" id="sermon_path_txt" size="130" maxlength="250" value="<?php echo $this->row->sermon_path;?>" />
@@ -60,11 +60,11 @@ $editor =& JFactory::getEditor();
 			</td>
 		</tr>
 		<tr>
-			<td width="100" align="right" class="key"><?php echo JText::_('SERMONNUMBER'); ?></td>
+			<td width="100" align="right" class="key"><?php echo JText::_('COM_SERMONSPEAKER_SERMONNUMBER'); ?></td>
 			<td><input class="text_area" type="text" name="sermon_number" id="sermon_number" size="10" maxlength="250" value="<?php echo $this->row->sermon_number;?>" /></td>
 		</tr>
 		<tr>
-			<td width="100" align="right" class="key"><?php echo JText::_('SERMONTIME'); ?></td>
+			<td width="100" align="right" class="key"><?php echo JText::_('COM_SERMONSPEAKER_SERMONTIME'); ?></td>
 			<td><input class="text_area" type="text" name="sermon_time" id="sermon_time" size="50" maxlength="250" value="<?php echo $this->row->sermon_time;?>" /></td>
 		</tr>
 		<tr>
@@ -72,15 +72,15 @@ $editor =& JFactory::getEditor();
 			<td><?php echo $this->lists['speaker_id']; ?></td>
 		</tr> 
 		<tr>
-			<td width="100" align="right" class="key"><?php echo JText::_('COM_SERMONSPEAKER_SERIES'); ?></td>
+			<td width="100" align="right" class="key"><?php echo JText::_('COM_SERMONSPEAKER_SERIE'); ?></td>
 			<td><?php echo $this->lists['series_id']; ?></td>
 		</tr>
 		<tr>
-			<td width="100" align="right" class="key"><?php echo JText::_('NAMEENTEREDBY'); ?></td>
+			<td width="100" align="right" class="key"><?php echo JText::_('COM_SERMONSPEAKER_ENTEREDBY'); ?></td>
 			<td><?php echo $this->lists['created_by']; ?></td>
 		</tr>
 		<tr>
-			<td width="100" align="right" class="key"><?php echo JText::_('NOTES'); ?></td>
+			<td width="100" align="right" class="key"><?php echo JText::_('COM_SERMONSPEAKER_SERMONNOTES'); ?></td>
 			<td><?php echo $editor->display('notes', $this->row->notes, '100%', '200', '40', '10');	?></td>
 		</tr>
 		<tr>
@@ -96,7 +96,7 @@ $editor =& JFactory::getEditor();
 			<td><?php echo $this->lists['podcast']; ?></td>
 		</tr>
 		<tr>
-			<td width="100" align="right" class="key"><?php echo JText::_('ADDFILE'); ?></td>
+			<td width="100" align="right" class="key"><?php echo JText::_('COM_SERMONSPEAKER_ADDFILE'); ?></td>
 			<td>
 				<input type="radio" name="seladdfile" value="1" onclick="enableElement(this.form.elements['addfile_txt'], this.form.elements['addfile_choice']);" checked>
 				<input class="text_area" type="text" name="addfile_txt" id="addfile_txt" size="130" maxlength="250" value="<?php echo $this->row->addfile;?>" />
@@ -106,7 +106,7 @@ $editor =& JFactory::getEditor();
 			</td>
 		</tr>
 		<tr>
-			<td width="100" align="right" class="key"><?php echo JText::_('ADDFILEDESC'); ?></td>
+			<td width="100" align="right" class="key"><?php echo JText::_('COM_SERMONSPEAKER_ADDFILEDESC'); ?></td>
 			<td><input class="text_area" type="text" name="addfileDesc" id="addfileDesc" size="80" maxlength="250" value="<?php echo $this->row->addfileDesc;?>" /></td>
 		</tr>
 	</table> 

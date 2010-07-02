@@ -78,13 +78,13 @@ class SermonspeakerControllerSermon extends SermonspeakerController
 		switch ($this->_task)
 		{
 			case 'apply':
-				$msg = JText::_('SERMON_APPLIED');
+				$msg = JText::_('COM_SERMONSPEAKER_SERMON_APPLIED');
 				$link = 'index.php?option=com_sermonspeaker&controller=sermon&task=edit&cid[]='.$row->id;
 				break;
 
 			case 'save':
 			default:
-				$msg = JText::_('SERMON_SAVED');
+				$msg = JText::_('COM_SERMONSPEAKER_SERMON_SAVED');
 				$link = 'index.php?option=com_sermonspeaker&view=sermons';
 				break;
 		}
@@ -100,7 +100,7 @@ class SermonspeakerControllerSermon extends SermonspeakerController
 		$cid = JRequest::getVar('cid', array(), '', 'array');
 		JArrayHelper::toInteger($cid);
 
-		$msg = JText::_('SERMONS_DELETED');
+		$msg = JText::_('COM_SERMONSPEAKER_SERMONS_DELETED');
 		$row = &JTable::getInstance('sermons', 'Table');
 
 		JImport('joomla.filesystem.file');
@@ -154,7 +154,7 @@ class SermonspeakerControllerSermon extends SermonspeakerController
 			$action = $podcast ? JText::_('PODCAST') : JText::_('UNPODCAST');
 			JError::raiseError(500, JText::_('SELECT_ITEM_TO'.$action, true));
 		}
-		$msg = $podcast ? JText::_('SERMON').' '.JText::_('PODCASTED') : JText::_('SERMON').' '.JText::_('UNPODCASTED');
+		$msg = $podcast ? JText::_('SERMON').' '.JText::_('COM_SERMONSPEAKER_PODCASTED') : JText::_('SERMON').' '.JText::_('COM_SERMONSPEAKER_UNPODCASTED');
 		$ids = (implode(', ',$cid));
 
 		$database =& JFactory::getDBO();
@@ -177,7 +177,7 @@ class SermonspeakerControllerSermon extends SermonspeakerController
 		$db	= &JFactory::getDBO();
 		$row = &JTable::getInstance('sermons', 'Table');
 		$row->checkin($id);
-		$msg = JText::_('OPERATION CANCELED');
+		$msg = JText::_('COM_SERMONSPEAKER_CANCELED');
 		$this->setRedirect('index.php?option=com_sermonspeaker&view=sermons', $msg );
 	}
 }

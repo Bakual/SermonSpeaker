@@ -24,13 +24,13 @@ class SermonspeakerViewSermons extends JView
 		$javascript		= 'onchange="document.adminForm.submit();"';
 		// build list of series
 		// JHTML::_('select.option',  'Value', 'Text', 'Value Name (Objektattribut)', 'Text Name (Objektattribut)' )
-		$serielist[]		= JHTML::_('select.option',  '0', JText::_( 'SELECT SERIE' ), 'id', 'series_title' );		// Default Option setzen
+		$serielist[]		= JHTML::_('select.option',  '0', JText::_( 'COM_SERMONSPEAKER_SELECT_SERIES' ), 'id', 'series_title' );		// Default Option setzen
 		$serielist			= array_merge( $serielist, $this->get('SerieList') );									// Restlichen Optionen füllen mit Daten aus Model
 		// JHTML::_('select.genericlist', $SQL Ergebnis, 'Select name und id', 'Select Attribute', 'Value' , 'Text' , Selectedwert )
 		$lists['series']		= JHTML::_('select.genericlist', $serielist, 'filter_serie', 'class="inputbox" size="1" '.$javascript ,'id', 'series_title', $filter_serie);
 		
 		// pcast filter
-		$pcast[]		= JHTML::_('select.option', '0', JText::_('SELECT PCAST'), 'value', 'text' );		// Default Option setzen
+		$pcast[]		= JHTML::_('select.option', '0', JText::_('COM_SERMONSPEAKER_SELECT_PCAST'), 'value', 'text' );		// Default Option setzen
 		$pcast[]		= JHTML::_('select.option', 'P', JText::_('PUBLISHED'), 'value', 'text' );			// Option setzen
 		$pcast[]		= JHTML::_('select.option', 'U', JText::_('UNPUBLISHED'), 'value', 'text' );		// Option setzen
 		$lists['pcast']	= JHTML::_('select.genericlist', $pcast, 'filter_pcast', 'class="inputbox" size="1" '.$javascript ,'value', 'text', $filter_pcast);

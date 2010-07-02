@@ -46,7 +46,7 @@ class SermonspeakerViewSerie extends JView
 		$root = JPATH_ROOT;
 		$lsdir = strlen($root);
 		$avatars = array();
-		$avatars[0]->name = JText::_('NOAVATAR');
+		$avatars[0]->name = JText::_('COM_SERMONSPEAKER_SELECT_NOAVATAR');
 		$avatars[0]->file = '';
 		$i = 1;
 		foreach($filesabs as $file){

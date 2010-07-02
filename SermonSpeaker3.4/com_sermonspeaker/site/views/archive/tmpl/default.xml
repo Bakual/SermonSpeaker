@@ -9,9 +9,9 @@
 		<params>
 			<param name="month" type="sql" label="COM_SERMONSPEAKER_PARAM_SELECT_MONTH" description="COM_SERMONSPEAKER_PARAM_SELECT_MONTH_DESC" query="SELECT DISTINCT MONTH(sermon_date) as month FROM #__sermon_sermons ORDER BY month ASC" key_field="month" value_field="month" />
 			<param name="year" type="sql" label="COM_SERMONSPEAKER_PARAM_SELECT_YEAR" description="COM_SERMONSPEAKER_PARAM_SELECT_YEAR_DESC" query="SELECT DISTINCT YEAR(sermon_date) as year FROM #__sermon_sermons ORDER BY year ASC" key_field="year" value_field="year" />
-			<param name="series_cat" type="category" section="com_sermonspeaker" label="SERIES_CATEGORY" description="CATEGORY_DESC" />
-			<param name="speaker_cat" type="category" section="com_sermonspeaker" label="SPEAKER_CATEGORY" description="CATEGORY_DESC" />
-			<param name="sermon_cat" type="category" section="com_sermonspeaker" label="SERMON_CATEGORY" description="CATEGORY_DESC" />
+			<param name="series_cat" type="category" section="com_sermonspeaker" label="COM_SERMONSPEAKER_PARAM_CATEGORY_SERIES" description="COM_SERMONSPEAKER_PARAM_CATEGORY_DESC" />
+			<param name="speaker_cat" type="category" section="com_sermonspeaker" label="COM_SERMONSPEAKER_PARAM_CATEGORY_SPEAKER" description="COM_SERMONSPEAKER_PARAM_CATEGORY_DESC" />
+			<param name="sermon_cat" type="category" section="com_sermonspeaker" label="COM_SERMONSPEAKER_PARAM_CATEGORY_SERMON" description="COM_SERMONSPEAKER_PARAM_CATEGORY_DESC" />
 		</params>
 	</state>
 </metadata>

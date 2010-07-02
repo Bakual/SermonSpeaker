@@ -65,7 +65,7 @@ class SermonspeakerController extends JController {
 					$msg .= 'Error while deleting '.$file.'<br>';
 				}
 			}
-			$msg .= JText::_('MIGRATED');
+			$msg .= JText::_('COM_SERMONSPEAKER_MIGRATED');
 		}
 		$link = 'index.php?option=com_sermonspeaker&view=main';
 		$this->setRedirect($link, $msg);

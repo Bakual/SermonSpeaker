@@ -46,7 +46,7 @@ JToolBarHelper::preferences('com_sermonspeaker',550);
 			<th class="title"><?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SERMONTITLE', 'sermons.sermon_title', $this->lists['order_Dir'], $this->lists['order']); ?></th>
 			<th width="10%"><?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SPEAKERNAME', 'speaker.name', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
 			<th width="10%"><?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SCRIPTURE', 'sermons.sermon_scripture', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
-			<th width="10%"><?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SERIES', 'series.series_title', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
+			<th width="10%"><?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SERIE', 'series.series_title', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
 			<th width="10%"><?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SERMONDATE', 'sermons.sermon_date', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
 			<th width="10%"><?php echo JHTML::_('grid.sort', 'CATEGORY', 'series.catid', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
 			<th width="5%" nowrap="nowrap"><?php echo JHTML::_('grid.sort', 'Published', 'sermons.published', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>

@@ -27,7 +27,7 @@ $editor =& JFactory::getEditor();
 			<td><input class="text_area" type="text" name="name" id="name" size="50" maxlength="250" value="<?php echo $this->row->name; ?>" /></td> 
 		</tr> 
 		<tr>
-			<td width="100" align="right" class="key"><?php echo JText::_('NAMEENTEREDBY'); ?></td>
+			<td width="100" align="right" class="key"><?php echo JText::_('COM_SERMONSPEAKER_ENTEREDBY'); ?></td>
 			<td><?php echo JHTML::_('list.users', 'created_by', $this->row->created_by, 0, '', 'name', 0); ?></td>
 		</tr>
 		<tr>
@@ -39,11 +39,11 @@ $editor =& JFactory::getEditor();
 			<td><input class="text_area" type="text" name="pic" id="pic" size="90" maxlength="250" value="<?php echo $this->row->pic;?>" /></td>
 		</tr>
 		<tr>
-			<td width="100" align="right" class="key"><?php echo JText::_('INTRO'); ?></td>
+			<td width="100" align="right" class="key"><?php echo JText::_('COM_SERMONSPEAKER_SPEAKERINTRO'); ?></td>
 			<td><?php echo $editor->display('intro',$this->row->intro,'100%','200','40','10'); ?></td>
 		</tr>
 		<tr> 
-			<td width="100" align="right" class="key"><?php echo JText::_('BIO'); ?></td>
+			<td width="100" align="right" class="key"><?php echo JText::_('COM_SERMONSPEAKER_SPEAKERBIO'); ?></td>
 			<td><?php echo $editor->display('bio',$this->row->bio,'100%','300','40','10');	?></td>
 		</tr>    
 		<tr>
