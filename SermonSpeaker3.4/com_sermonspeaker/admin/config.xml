@@ -24,8 +24,8 @@
 		</param>
 		<param name="sermonlayout" type="list" default="1" label="COM_SERMONSPEAKER_PARAM_SERMONLAYOUT" description="COM_SERMONSPEAKER_PARAM_SERMONLAYOUT_DESC">
 			<option value="1">COM_SERMONSPEAKER_SERMON_VIEW_ALLINROW_TITLE</option>
-			<option value="2">COM_SERMONSPEAKER_SERMON_VIEW_EXTNEWLINE_TITLE</option>
-			<option value="3">COM_SERMONSPEAKER_SERMON_VIEW_NEWLINE_TITLE</option>
+			<option value="2">COM_SERMONSPEAKER_SERMON_VIEW_NEWLINE_TITLE</option>
+			<option value="3">COM_SERMONSPEAKER_SERMON_VIEW_EXTNEWLINE_TITLE</option>
 		</param>
 		<param type="spacer" default="COM_SERMONSPEAKER_SPACER_CLIENTCOL" />
 		<param name="client_col_sermon_number" type="radio" default="1" label="COM_SERMONSPEAKER_PARAM_COL_SERMONNUMBER" description="COM_SERMONSPEAKER_PARAM_COL_SERMONNUMBER_DESC">
