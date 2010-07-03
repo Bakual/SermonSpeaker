@@ -22,20 +22,6 @@ class SermonspeakerViewFu_step_1 extends JView
 			exit;
 		}
 		
-		// add Javascript to prevent Submit button clicked more than once
-		$submitOnce = 'var submitted = 0;
-			function submitOnce(form) {
-				if (submitted) {
-					alert("Form already submitted, please be patient");
-					return false;}
-				if (!submitted) {
-					form.submitit.disabled=true;
-					submitted = 1;
-					form.submit();}
-			} ';
-		$document =& JFactory::getDocument();
-		$document->addScriptDeclaration($submitOnce);
-
 		$file = JRequest::getVar('upload', null, 'files', 'array');
   
 		if ($file) {
@@ -67,6 +53,20 @@ class SermonspeakerViewFu_step_1 extends JView
 			}
 
 		} else { // First call...
+			// add Javascript to prevent Submit button clicked more than once
+			$submitOnce = 'var submitted = 0;
+				function submitOnce(form) {
+					if (submitted) {
+						alert("Form already submitted, please be patient");
+						return false;}
+					if (!submitted) {
+						form.submitit.disabled=true;
+						submitted = 1;
+						form.submit();}
+				} ';
+			$document =& JFactory::getDocument();
+			$document->addScriptDeclaration($submitOnce);
+
 			parent::display($tpl);
 		}
 	}	
