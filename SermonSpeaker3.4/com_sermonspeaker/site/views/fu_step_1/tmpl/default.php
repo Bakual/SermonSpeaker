@@ -20,7 +20,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 				<?php echo JText::_('COM_SERMONSPEAKER_FU_UPLOAD'); ?>
 				<input class="inputbox" type="file" name="upload" id="upload" size="60">
 				<br>
-				<input type="submit" value=" <?php echo JText::_('COM_SERMONSPEAKER_FU_SAVE'); ?> ">&nbsp;
+				<input type="submit" name="submitit" onclick="submitOnce(fu_uploader);return false;" value=" <?php echo JText::_('COM_SERMONSPEAKER_FU_SAVE'); ?> ">&nbsp;
 				<input type="reset" value=" <?php echo JText::_('COM_SERMONSPEAKER_FU_RESET'); ?> ">
 			</form>
 			<br/>&nbsp;<br/>
