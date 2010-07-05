@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="COM_SERMONSPEAKER_SERMON_VIEW_NEWLINE_TITLE">
+		<message><![CDATA[COM_SERMONSPEAKER_SERMON_VIEW_NEWLINE_DESC]]></message>
+	</layout>
+	<state>
+		<name>COM_SERMONSPEAKER_SERMON_VIEW_NEWLINE_TITLE</name>
+		<description>COM_SERMONSPEAKER_SERMON_VIEW_NEWLINE_DESC</description>
+		<params>
+			<param name="sermon_id" type="sql" label="COM_SERMONSPEAKER_PARAM_SELECT_SERMON" description="COM_SERMONSPEAKER_PARAM_SELECT_SERMON_DESC" query="SELECT id, sermon_title FROM #__sermon_sermons" key_field="id" value_field="sermon_title" />
+		</params>
+	</state>
+</metadata>
