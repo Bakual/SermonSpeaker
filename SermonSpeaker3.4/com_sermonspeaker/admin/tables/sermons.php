@@ -11,6 +11,8 @@ class TableSermons extends JTable
 	var $alias = null;
 	var $sermon_number = null;
 	var $sermon_scripture = null;
+	var $custom1 = null;
+	var $custom2 = null;
 	var $sermon_date = null;
 	var $sermon_time = null;
 	var $play = null;

@@ -60,6 +60,14 @@
 			<option value="0">No</option>
 			<option value="1">Yes</option>
 		</param>
+		<param name="client_col_custom1" type="radio" default="0" label="COM_SERMONSPEAKER_PARAM_COL_CUSTOM1" description="COM_SERMONSPEAKER_PARAM_COL_CUSTOM1_DESC">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
+		<param name="client_col_custom2" type="radio" default="0" label="COM_SERMONSPEAKER_PARAM_COL_CUSTOM2" description="COM_SERMONSPEAKER_PARAM_COL_CUSTOM2_DESC">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
 		<param name="dl_button" type="radio" default="1" label="COM_SERMONSPEAKER_PARAM_DOWNLOADBTN" description="COM_SERMONSPEAKER_PARAM_DOWNLOADBTN_DESC">
 			<option value="0">No</option>
 			<option value="1">Yes</option>

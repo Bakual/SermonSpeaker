@@ -55,6 +55,8 @@ function com_install() {
 		."\n`alias` TEXT NOT NULL,"
 		."\n`sermon_number` TEXT NOT NULL,"
 		."\n`sermon_scripture` TEXT NOT NULL,"
+		."\n`custom1` TEXT NOT NULL,"
+		."\n`custom2` TEXT NOT NULL,"
 		."\n`sermon_date` date NOT NULL,"
 		."\n`sermon_time` TIME,"
 		."\n`play` TINYINT(1) NOT NULL,"
@@ -249,6 +251,22 @@ function com_install() {
 			echo "</span>";
 		} else {
 			echo "<br>Wow! I did it! This is good. Now you can have alias for the sermons. Oh boy!";
+		}
+	}
+	
+	// Add custom columns if they don't exist in the sermons table
+	if (!array_key_exists('custom1',$sermons)) {
+		echo "<br>Attempting to add new custom columns to table sermon_sermons...";
+		$query = "ALTER TABLE #__sermon_sermons ADD COLUMN custom1 VARCHAR(255) NOT NULL, ADD COLUMN custom2 VARCHAR(255) NOT NULL";
+		$database->setQuery( $query );
+		$database->Query();
+		if(strlen($database->getErrorMsg()) > 3){
+			echo "<span style=\"color: rgb(255, 0, 0); font-weight: bold;\">";
+			echo "<br>Failed to add the columns.  Bad news.  Tell the database administrator.";
+			echo "<br>Error Message: ".$database->getErrorMsg();
+			echo "</span>";
+		} else {
+			echo "<br>I did it! Now you can have customized columns for the sermons.";
 		}
 	}
 	

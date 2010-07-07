@@ -45,6 +45,14 @@ $editor =& JFactory::getEditor();
 			</td>
 		</tr>
 		<tr>
+			<td width="100" align="right" class="key"><?php echo JText::_('COM_SERMONSPEAKER_CUSTOM1'); ?></td>
+            <td><input class="text_area" type="text" name="custom1" id="custom1" size="50" maxlength="250" value="<?php echo $this->row->custom1;?>" /></td>
+		</tr>
+		<tr>
+			<td width="100" align="right" class="key"><?php echo JText::_('COM_SERMONSPEAKER_CUSTOM2'); ?></td>
+            <td><input class="text_area" type="text" name="custom2" id="custom2" size="50" maxlength="250" value="<?php echo $this->row->custom2;?>" /></td>
+		</tr>
+		<tr>
 			<td width="100" align="right" class="key"><?php echo JText::_('COM_SERMONSPEAKER_SERMONDATE'); ?></td>
             <td><?php echo JHTML::Calendar($this->row->sermon_date, 'sermon_date', 'sermon_date').' '.JText::_('COM_SERMONSPEAKER_DATEFORMAT'); ?></td>
 		</tr>

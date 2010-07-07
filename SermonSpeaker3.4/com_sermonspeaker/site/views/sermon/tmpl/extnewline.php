@@ -14,7 +14,7 @@ $id = $this->row->id;
 	<?php if ($this->params->get('hide_dl') == "0" && strlen($this->row->sermon_path) > 0) { ?>
 		<tr>
 			<td valign="top"><b><?php echo JText::_('COM_SERMONSPEAKER_SERMONTITLE'); ?>:</b></td>
-			<td><a title="<?pCOM_SERMONSPEAKER_SERMON_TITLEt::_('SINGLESERMON'); ?>" href="<?php echo $this->lnk.'">'.$this->escape($this->row->sermon_title); ?></a></td>
+			<td><a title="<? echo JText::_('COM_SERMONSPEAKER_DIRECTLINK_HOOVER'); ?>" href="<?php echo $this->lnk.'">'.$this->escape($this->row->sermon_title); ?></a></td>
 		</tr>
 		<?php if ($this->params->get('dl_button') == "1") { ?>
 		<tr>
@@ -38,6 +38,18 @@ $id = $this->row->id;
 		<td valign="top"><b><?php echo JText::_('COM_SERMONSPEAKER_SCRIPTURE'); ?>:</b></td>
 		<td><?php echo $this->row->sermon_scripture; ?></td>
 	</tr>
+	<?php if ($this->params->get('client_col_custom1') == "1" && strlen($this->row->custom1) > 0) { ?>
+		<tr>
+			<td valign="top"><b><?php echo JText::_('COM_SERMONSPEAKER_CUSTOM1'); ?>:</b></td>
+			<td><?php echo $this->row->custom1; ?></td>
+		</tr>
+	<?php }
+	if ($this->params->get('client_col_custom2') == "1" && strlen($this->row->custom2) > 0) { ?>
+		<tr>
+			<td valign="top"><b><?php echo JText::_('COM_SERMONSPEAKER_CUSTOM2'); ?>:</b></td>
+			<td><?php echo $this->row->custom2; ?></td>
+		</tr>
+	<?php } ?>
 	<tr>
 		<td valign="top"><b><?php echo JText::_('COM_SERMONSPEAKER_SERIES'); ?>:</b></td>
 		<td>
