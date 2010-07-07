@@ -20,19 +20,23 @@ class SermonspeakerModelFeed extends JModel
 
 	function getData()
 	{
-		$cat['series'] 	= $this->params->get('series_cat', JRequest::getInt('series_cat', ''));
-		$cat['speaker'] = $this->params->get('speaker_cat', JRequest::getInt('speaker_cat', ''));
-		$cat['sermon'] 	= $this->params->get('sermon_cat', JRequest::getInt('sermon_cat', ''));
+		$cat['series'] 	= (int)$this->params->get('series_cat', JRequest::getInt('series_cat', ''));
+		$cat['speaker'] = (int)$this->params->get('speaker_cat', JRequest::getInt('speaker_cat', ''));
+		$cat['sermon'] 	= (int)$this->params->get('sermon_cat', JRequest::getInt('sermon_cat', ''));
+		$series		 	= (int)$this->params->get('series_id', JRequest::getInt('series_id', ''));
 
 		$this->catwhere = NULL;
 		if ($cat['series'] != 0){
-			$this->catwhere .= " AND series.catid = '".(int)$cat['series']."' \n";
+			$this->catwhere .= " AND series.catid = '".$cat['series']."' \n";
 		}
 		if ($cat['speaker'] != 0){
-			$this->catwhere .= " AND speakers.catid = '".(int)$cat['speaker']."' \n";
+			$this->catwhere .= " AND speakers.catid = '".$cat['speaker']."' \n";
 		}
 		if ($cat['sermon'] != 0){
-			$this->catwhere .= " AND sermons.catid = '".(int)$cat['sermon']."' \n";
+			$this->catwhere .= " AND sermons.catid = '".$cat['sermon']."' \n";
+		}
+		if ($series != 0){
+			$this->catwhere .= " AND sermons.series_id = '".$series."' \n";
 		}
 
 		$database =& JFactory::getDBO();

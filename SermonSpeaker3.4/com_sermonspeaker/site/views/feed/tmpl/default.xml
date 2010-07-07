@@ -6,10 +6,13 @@
 	<state>
 		<name>COM_SERMONSPEAKER_FEED_VIEW_TITLE</name>
 		<description>COM_SERMONSPEAKER_FEED_VIEW_DESC</description>
-		<params>
+		<params addpath="/administrator/components/com_sermonspeaker/elements">
 			<param name="series_cat" type="category" section="com_sermonspeaker" label="COM_SERMONSPEAKER_PARAM_CATEGORY_SERIES" description="COM_SERMONSPEAKER_PARAM_CATEGORY_DESC" />
 			<param name="speaker_cat" type="category" section="com_sermonspeaker" label="COM_SERMONSPEAKER_PARAM_CATEGORY_SPEAKER" description="COM_SERMONSPEAKER_PARAM_CATEGORY_DESC" />
 			<param name="sermon_cat" type="category" section="com_sermonspeaker" label="COM_SERMONSPEAKER_PARAM_CATEGORY_SERMON" description="COM_SERMONSPEAKER_PARAM_CATEGORY_DESC" />
+			<param name="series_id" type="sqlmultilistx" sql="SELECT id, series_title FROM #__sermon_series" key_field="id" value_field="series_title" label="COM_SERMONSPEAKER_PARAM_SERIES" description="COM_SERMONSPEAKER_PARAM_SERIES_DESC">
+				<option value="0">COM_SERMONSPEAKER_PARAM_NOSERIES</option>
+			</param>
 		</params>
 	</state>
 </metadata>

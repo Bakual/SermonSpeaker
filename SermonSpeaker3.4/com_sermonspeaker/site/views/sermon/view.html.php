@@ -97,6 +97,13 @@ class SermonspeakerViewSermon extends JView
 		// Trigger Event for `sermon_scripture`
 		$item->text	= &$row->sermon_scripture;
 		$dispatcher->trigger('onPrepareContent', array(&$item, &$item->params, 0));
+		// enable this lines if you want to parse the custom 1 and 2 fields by content plugins
+		// Trigger Event for `custom1`
+//		$item->text	= &$row->custom1;
+//		$dispatcher->trigger('onPrepareContent', array(&$item, &$item->params, 0));
+		// Trigger Event for `custom2`
+//		$item->text	= &$row->custom2;
+//		$dispatcher->trigger('onPrepareContent', array(&$item, &$item->params, 0));
 
         // push data into the template
 		$this->assignRef('row',$row);

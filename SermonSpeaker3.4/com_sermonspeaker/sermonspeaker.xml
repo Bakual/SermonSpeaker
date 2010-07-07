@@ -175,6 +175,7 @@
 			<filename>controllers/speaker.php</filename>
 			<filename>controllers/sermon.php</filename>
 			<filename>controllers/statistics.php</filename>
+			<filename>elements/sqlmultilistx.php</filename>
 			<filename>models/index.html</filename>
 			<filename>models/series.php</filename>
 			<filename>models/sermon.php</filename>
