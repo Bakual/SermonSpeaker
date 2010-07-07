@@ -73,65 +73,84 @@ class SermonspeakerHelperSermonspeaker
 		if ($params->get('autostart') == "1" && $view != "seriessermon") {$start="true"; $startwmp="1";} else {$start="false"; $startwmp="0";}
 		if ($params->get('ga')) { $callback = "&callback=".$params->get('ga'); }
 		$player = JURI::root()."components/com_sermonspeaker/media/player/player.swf";
-
-		if((strcasecmp(substr($lnk,-4),".mp3") == 0) OR (strcasecmp(substr($lnk,-4),".m4a") == 0)) { ?>
+		if(strcasecmp(substr($lnk,0,9),"index.php") == 0){
+			$flashvars = 'playlistfile='.$lnk.'&amp;playlist=bottom&amp;playlistsize=60&amp;autostart='.$start.$callback; ?>
 			<!-- Embed eingepackt in Object-Tag fuer Internet Explorer -->
-			<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="250" height="20" id="player1" name="player1">
+			<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width='100%' height='84' id="player1" name="player1">
 				<param name="movie" value="<?php echo $player; ?>"/>
 				<param name="wmode" value="transparent"/>
 				<param name="allowfullscreen" value="true"/>
 				<param name="allowscriptaccess" value="always"/>
-				<param name="flashvars" value="file=<?php echo $lnk; ?>&amp;autostart=<?php echo $start; ?>&amp;height=20&amp;width=200<?php echo $callback; ?>"/>
-				<embed src="<?php echo $player; ?>"
-					width="250"
-					height="20"
+				<param name="flashvars" value="<?php echo $flashvars; ?>"/>
+				<embed src='<?php echo $player; ?>' 
+					width='100%' 
+					height='84' 
 					wmode="transparent"
-					allowscriptaccess="always"
-					allowfullscreen="true"
-					flashvars="file=<?php echo $lnk; ?>&amp;autostart=<?php echo $start; ?>&amp;height=20&amp;width=200<?php echo $callback; ?>"
+					allowscriptaccess='always'
+					allowfullscreen='true'
+					flashvars='<?php echo $flashvars; ?>'
 				/>
 			</object>
 			<?php
 			$pp_h = $params->get('popup_height');
 			$pp_w = 380;
-		} //mp3
-		
-		if((strcasecmp(substr($lnk,-4),".flv") == 0) OR (strcasecmp(substr($lnk,-4),".mp4") == 0) OR (strcasecmp(substr($lnk,-4),".m4v") == 0)) { ?>
-			<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" <?php echo "width=\"".$params->get('mp_width')."\" height=\"".$params->get('mp_height'); ?> id="player1" name="player1">
-				<param name="movie" value="<?php echo $player; ?>"/>
+		} else {
+			$flashvars = 'file='.$lnk."&amp;autostart=".$start.$callback;
+			if((strcasecmp(substr($lnk,-4),".mp3") == 0) OR (strcasecmp(substr($lnk,-4),".m4a") == 0)) { ?>
+				<!-- Embed eingepackt in Object-Tag fuer Internet Explorer -->
+				<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="250" height="24" id="player1" name="player1">
+					<param name="movie" value="<?php echo $player; ?>"/>
 					<param name="wmode" value="transparent"/>
 					<param name="allowfullscreen" value="true"/>
 					<param name="allowscriptaccess" value="always"/>
-					<param name="flashvars" value="file=<?php echo $lnk."&autostart=".$start."&height=".$params->get('mp_height')."&width=".$params->get('mp_width').$callback; ?>"/>
+					<param name="flashvars" value="<?php echo $flashvars; ?>"/>
 					<embed src="<?php echo $player; ?>"
-						width="<?php echo $params->get('mp_width'); ?>"
-						height="<?php echo $params->get('mp_height'); ?>"
+						width="250"
+						height="24"
 						wmode="transparent"
 						allowscriptaccess="always"
 						allowfullscreen="true"
-						flashvars="file=<?php echo $lnk."&autostart=".$start."&height=".$params->get('mp_height')."&width=".$params->get('mp_width').$callback; ?>"
+						flashvars="<?php echo $flashvars; ?>"
 					/>
-			</object>
-			<?php
-			$pp_h = $params->get('mp_height') + 100 + $params->get('popup_height');
-			$pp_w = $params->get('mp_width') + 130;
-		} //flv
-
-		if(strcasecmp(substr($lnk,-4),".wmv") == 0) {
-			echo "<object id=mediaplayer width=400 height=323 classid=clsid:22d6f312-b0f6-11d0-94ab-0080c74c7e95 22d6f312-b0f6-11d0-94ab-0080c74c7e95 type=application/x-oleobject>
-			<param name=filename value=$lnk>
-			<param name=autostart value=".$start.">
-			<param name=transparentatstart value=true>
-			<param name=showcontrols value=1>
-			<param name=showdisplay value=0>
-			<param name=showstatusbar value=1>
-			<param name=autosize value=1>
-			<param name=animationatstart value=false>
-			<embed name=\"MediaPlayer\" src=$lnk width=".$params->get('mp_width')." height=".$params->get('mp_height')." type=application/x-mplayer2 autostart=".$startwmp." showcontrols=1 showstatusbar=1 transparentatstart=1 animationatstart=0 loop=false pluginspage=http://www.microsoft.com/windows/windowsmedia/download/default.asp></embed>
-			</object>";
-			$pp_h = $params->get('mp_height') + 100 + $params->get('popup_height');
-			$pp_w = $params->get('mp_width') + 130;
-		} //wmv
+				</object>
+				<?php
+				$pp_h = $params->get('popup_height');
+				$pp_w = 380;
+			} elseif((strcasecmp(substr($lnk,-4),".flv") == 0) OR (strcasecmp(substr($lnk,-4),".mp4") == 0) OR (strcasecmp(substr($lnk,-4),".m4v") == 0)) { ?>
+				<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" <?php echo "width=\"".$params->get('mp_width')."\" height=\"".$params->get('mp_height'); ?> id="player1" name="player1">
+					<param name="movie" value="<?php echo $player; ?>"/>
+						<param name="wmode" value="transparent"/>
+						<param name="allowfullscreen" value="true"/>
+						<param name="allowscriptaccess" value="always"/>
+						<param name="flashvars" value="<?php echo $flashvars; ?>"/>
+						<embed src="<?php echo $player; ?>"
+							width="<?php echo $params->get('mp_width'); ?>"
+							height="<?php echo $params->get('mp_height'); ?>"
+							wmode="transparent"
+							allowscriptaccess="always"
+							allowfullscreen="true"
+							flashvars="<?php echo $flashvars; ?>"
+						/>
+				</object>
+				<?php
+				$pp_h = $params->get('mp_height') + 100 + $params->get('popup_height');
+				$pp_w = $params->get('mp_width') + 130;
+			} elseif(strcasecmp(substr($lnk,-4),".wmv") == 0) {
+				echo "<object id=mediaplayer width=400 height=323 classid=clsid:22d6f312-b0f6-11d0-94ab-0080c74c7e95 22d6f312-b0f6-11d0-94ab-0080c74c7e95 type=application/x-oleobject>
+				<param name=filename value=$lnk>
+				<param name=autostart value=".$start.">
+				<param name=transparentatstart value=true>
+				<param name=showcontrols value=1>
+				<param name=showdisplay value=0>
+				<param name=showstatusbar value=1>
+				<param name=autosize value=1>
+				<param name=animationatstart value=false>
+				<embed name=\"MediaPlayer\" src=$lnk width=".$params->get('mp_width')." height=".$params->get('mp_height')." type=application/x-mplayer2 autostart=".$startwmp." showcontrols=1 showstatusbar=1 transparentatstart=1 animationatstart=0 loop=false pluginspage=http://www.microsoft.com/windows/windowsmedia/download/default.asp></embed>
+				</object>";
+				$pp_h = $params->get('mp_height') + 100 + $params->get('popup_height');
+				$pp_w = $params->get('mp_width') + 130;
+			}
+		}
 
 		return ($pp_h."/".$pp_w);
 	}

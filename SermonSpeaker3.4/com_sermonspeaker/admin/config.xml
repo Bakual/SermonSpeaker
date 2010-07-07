@@ -27,6 +27,10 @@
 			<option value="2">COM_SERMONSPEAKER_SERMON_VIEW_NEWLINE_TITLE</option>
 			<option value="3">COM_SERMONSPEAKER_SERMON_VIEW_EXTNEWLINE_TITLE</option>
 		</param>
+		<param name="series_player" type="radio" default="0" label="COM_SERMONSPEAKER_PARAM_SERIES_PLAYER" description="COM_SERMONSPEAKER_PARAM_SERIES_PLAYER_DESC">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
 		<param type="spacer" default="COM_SERMONSPEAKER_SPACER_CLIENTCOL" />
 		<param name="client_col_sermon_number" type="radio" default="1" label="COM_SERMONSPEAKER_PARAM_COL_SERMONNUMBER" description="COM_SERMONSPEAKER_PARAM_COL_SERMONNUMBER_DESC">
 			<option value="0">No</option>
