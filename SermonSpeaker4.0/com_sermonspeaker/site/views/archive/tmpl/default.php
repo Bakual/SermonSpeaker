@@ -15,9 +15,9 @@ JFactory::getDocument()->addScriptDeclaration( "
 <table width="100%" cellpadding="2" cellspacing="0">
 	<tr class="componentheading">
 		<?php if ($this->month){
-			$date_format = '%B, %Y';
+			$date_format = 'F, Y';
 		} else {
-			$date_format = '%Y';
+			$date_format = 'Y';
 		} ?>
 		<th align="left" valign="bottom"><?php echo JText::_('COM_SERMONSPEAKER_ARCHIVE_TITLE')." ".JHTML::date($this->rows[0]->sermon_date, $date_format, 0).$this->cat; ?></th>
 	</tr>
@@ -86,7 +86,7 @@ JFactory::getDocument()->addScriptDeclaration( "
 				<?php echo SermonspeakerHelperSermonSpeaker::SpeakerTooltip($row->s_id, $row->pic, $row->name); ?>
 			</td>
 			<?php if ($this->params->get('client_col_sermon_date')){ ?>
-				<td align="left" valign="middle"><?php echo JHTML::date($row->sermon_date, '%x', 0); ?></td>
+				<td align="left" valign="middle"><?php echo JHTML::date($row->sermon_date, JText::_('DATE_FORMAT_JS1'), 0); ?></td>
 			<?php }
 			if ($this->params->get('client_col_sermon_time')){ ?>
 				<td align="center" valign="middle"><?php echo SermonspeakerHelperSermonspeaker::insertTime($row->sermon_time); ?></td>

@@ -37,7 +37,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 				<?php
 				foreach($sermons as $sermon) { ?>
 					<p><b><?php echo $this->escape($sermon->sermon_title); ?></b>
-					(<?php echo JHTML::date($sermon->sermon_date, '%x', 0); ?>)<br />
+					(<?php echo JHTML::date($sermon->sermon_date, JText::_('DATE_FORMAT_JS1'), 0); ?>)<br />
 					<?php echo $sermon->notes; ?><br />
 					<?php $return = SermonspeakerHelperSermonspeaker::insertAddfile($sermon->addfile, $sermon->addfileDesc);
 					if ($return != NULL) {

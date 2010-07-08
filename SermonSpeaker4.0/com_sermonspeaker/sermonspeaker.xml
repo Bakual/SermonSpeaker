@@ -237,9 +237,9 @@
 		</files>
 		<languages folder="admin/language">
 			<language tag="en-GB">en-GB.com_sermonspeaker.ini</language>
-			<language tag="en-GB">en-GB.com_sermonspeaker.menu.ini</language>
+			<language tag="en-GB">en-GB.com_sermonspeaker.sys.ini</language>
 			<language tag="de-DE">de-DE.com_sermonspeaker.ini</language>
-			<language tag="de-DE">de-DE.com_sermonspeaker.menu.ini</language>
+			<language tag="de-DE">de-DE.com_sermonspeaker.sys.ini</language>
 		</languages>
 	</administration>
 </install>
