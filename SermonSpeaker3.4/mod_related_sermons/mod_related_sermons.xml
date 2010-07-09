@@ -7,7 +7,7 @@
 	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
 	<authorEmail>bakual@bakual.ch</authorEmail>
 	<authorUrl>http://joomlacode.org/gf/project/sermon_speaker/</authorUrl>
-	<version>3.4.1</version>
+	<version>3.4.2</version>
 	<description>Module to show related sermons</description>
 	<files>
 		<filename module="mod_related_sermons">mod_related_sermons.php</filename>
@@ -16,12 +16,16 @@
 		<filename>tmpl/default.php</filename>
 		<filename>tmpl/index.html</filename>
 	</files>
+	<languages folder="language">
+		<language tag="en-GB">en-GB.mod_related_sermons.ini</language>
+		<language tag="de-DE">de-DE.mod_related_sermons.ini</language>
+	</languages>
 	<params>
-		<param name="showDate" type="radio" default="0" label="Show date" description="Show/Hide date">
+		<param name="showDate" type="radio" default="0" label="MOD_RELATED_SERMONS_PARAM_SHOWDATE" description="MOD_LATESTSERMONS_PARAM_SHOWDATE_DESC">
 			<option value="0">Hide</option>
 			<option value="1">Show</option>
 		</param>
-		<param name="supportArticles" type="radio" default="0" label="Support article" description="Support articles">
+		<param name="supportArticles" type="radio" default="0" label="MOD_RELATED_SERMONS_PARAM_SUPPORT_ARTICLES" description="MOD_RELATED_SERMONS_PARAM_SUPPORT_ARTICLES_DESC">
 			<option value="0">No</option>
 			<option value="1">Yes</option>
 		</param>
