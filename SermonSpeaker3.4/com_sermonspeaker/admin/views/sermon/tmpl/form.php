@@ -117,6 +117,10 @@ $editor =& JFactory::getEditor();
 			<td width="100" align="right" class="key"><?php echo JText::_('COM_SERMONSPEAKER_ADDFILEDESC'); ?></td>
 			<td><input class="text_area" type="text" name="addfileDesc" id="addfileDesc" size="80" maxlength="250" value="<?php echo $this->row->addfileDesc;?>" /></td>
 		</tr>
+		<tr>
+			<td width="100" align="right" class="key"><?php echo JText::_('COM_SERMONSPEAKER_METAKEY'); ?></td>
+			<td><input class="text_area" type="text" name="metakey" id="metakey" size="80" maxlength="250" value="<?php echo $this->row->metakey;?>" /></td>
+		</tr>
 	</table> 
 	</fieldset> 
 	<input type="hidden" name="id" value="<?php echo $this->row->id; ?>" /> 

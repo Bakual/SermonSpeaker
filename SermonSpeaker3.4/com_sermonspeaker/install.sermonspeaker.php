@@ -71,6 +71,7 @@ function com_install() {
 		."\n`addfile` text NOT NULL,"
 		."\n`addfileDesc` text NOT NULL,"
 		."\n`catid` INT NOT NULL,"
+		."\n`metakey` TEXT NOT NULL,"
 		."\nPRIMARY KEY (`id`)"
 		."\n)";
 	$database->setQuery( $query );
@@ -267,6 +268,22 @@ function com_install() {
 			echo "</span>";
 		} else {
 			echo "<br>I did it! Now you can have customized columns for the sermons.";
+		}
+	}
+	
+	// Add metakey column if it doesn't exist in the sermons table
+	if (!array_key_exists('metakey',$sermons)) {
+		echo "<br>Attempting to add new metakey column to table sermon_sermons...";
+		$query = "ALTER TABLE #__sermon_sermons ADD COLUMN metakey text NOT NULL";
+		$database->setQuery( $query );
+		$database->Query();
+		if(strlen($database->getErrorMsg()) > 3){
+			echo "<span style=\"color: rgb(255, 0, 0); font-weight: bold;\">";
+			echo "<br>Failed to add the columns.  Bad news.  Tell the database administrator.";
+			echo "<br>Error Message: ".$database->getErrorMsg();
+			echo "</span>";
+		} else {
+			echo "<br>I did it! Now you have metakey columns for the sermons.";
 		}
 	}
 	
