@@ -15,7 +15,11 @@ class SermonspeakerViewSermon extends JView
 		$app 	=& JFactory::getApplication();
 		$user	=& JFactory::getUser();
 		$params	=& JComponentHelper::getParams('com_sermonspeaker');
+		$document =& JFactory::getDocument();
 
+		// Add swfobject-javascript for player
+		$document->addScript(JURI::root()."components/com_sermonspeaker/media/player/swfobject.js");
+		
 		// Check to see if the user has access to view the sermon
 		$aid	= $user->get('aid'); // 0 = public, 1 = registered, 2 = special
 
@@ -81,7 +85,6 @@ class SermonspeakerViewSermon extends JView
     	$breadcrumbs->addItem($row->sermon_title, '');
 
 		// Set Meta
-		$document =& JFactory::getDocument();
 		$document->setTitle($document->getTitle().' | '.$row->sermon_title);
 		$document->setMetaData("description", strip_tags($row->notes));
 		$keywords = $this->escape(str_replace(' ', ',', $row->sermon_title).','.str_replace(',', ':', $row->sermon_scripture));

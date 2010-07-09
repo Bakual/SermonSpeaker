@@ -13,7 +13,11 @@ class SermonspeakerViewSerie extends JView
 		JHTML::stylesheet('sermonspeaker.css', 'components/com_sermonspeaker/');
 
 		$params	=& JComponentHelper::getParams('com_sermonspeaker');
+		$document =& JFactory::getDocument();
 
+		// Add swfobject-javascript for player
+		$document->addScript(JURI::root()."components/com_sermonspeaker/media/player/swfobject.js");
+		
 		// get Data from Model (/models/serie.php)
         $rows		= &$this->get('Data');			// getting the Datarows from the Model
 		$lists		=& $this->get('Order');
@@ -43,7 +47,6 @@ class SermonspeakerViewSerie extends JView
 		$breadcrumbs->addItem($serie->series_title);
 
 		// Set Meta
-		$document =& JFactory::getDocument();
 		$document->setTitle($document->getTitle().' | '.JText::_('COM_SERMONSPEAKER_SERIE_TITLE').": ".$serie->series_title);
 		$document->setMetaData("description",strip_tags($serie->series_description));
 		$document->setMetaData("keywords",$serie->series_title);

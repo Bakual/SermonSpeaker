@@ -70,68 +70,66 @@ class SermonspeakerHelperSermonspeaker
 	function insertPlayer($lnk) {
 		$params	=& JComponentHelper::getParams('com_sermonspeaker');
 		$view = JRequest::getCmd('view');
-		if ($params->get('autostart') == "1" && $view != "seriessermon") {$start="true"; $startwmp="1";} else {$start="false"; $startwmp="0";}
-		if ($params->get('ga')) { $callback = "&callback=".$params->get('ga'); }
-		$player = JURI::root()."components/com_sermonspeaker/media/player/player.swf";
-		if(strcasecmp(substr($lnk,0,9),"index.php") == 0){
-			$flashvars = 'playlistfile='.$lnk.'&amp;playlist=bottom&amp;playlistsize=60&amp;autostart='.$start.$callback; ?>
-			<!-- Embed eingepackt in Object-Tag fuer Internet Explorer -->
-			<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width='100%' height='84' id="player1" name="player1">
-				<param name="movie" value="<?php echo $player; ?>"/>
-				<param name="wmode" value="transparent"/>
-				<param name="allowfullscreen" value="true"/>
-				<param name="allowscriptaccess" value="always"/>
-				<param name="flashvars" value="<?php echo $flashvars; ?>"/>
-				<embed src='<?php echo $player; ?>' 
-					width='100%' 
-					height='84' 
-					wmode="transparent"
-					allowscriptaccess='always'
-					allowfullscreen='true'
-					flashvars='<?php echo $flashvars; ?>'
-				/>
-			</object>
+		if ($params->get('autostart') == "1" && $view != "seriessermon") {
+			$start="true"; 
+			$startwmp="1";
+		} else {
+			$start="false"; $startwmp="0";
+		}
+		if ($params->get('ga')) { 
+			$callback = "&callback=".$params->get('ga');
+			$callback_test = "so.addVariable('callback','".$params->get('ga')."');";
+		}
+		$player = JURI::root().'components/com_sermonspeaker/media/player/player.swf';
+		if(strcasecmp(substr($lnk,0,9),"index.php") == 0){ ?>
+			<!-- Playlist -->
+			<div id='mediaspace1' align='center'>Flashplayer needs Javascript turned on</div>
+			<script type='text/javascript'>
+				var so = new SWFObject('<?php echo $player; ?>','player1','80%','84','9');
+				so.addParam('allowfullscreen','true');
+				so.addParam('allowscriptaccess','always');
+				so.addParam('wmode','transparent');
+				so.addVariable('playlistfile','<?php echo $lnk; ?>');
+				so.addVariable('playlistsize','60');
+				so.addVariable('playlist','bottom');
+				so.addVariable('autostart','<?php echo $start; ?>');
+				<?php echo $callback_test; ?>
+				so.write('mediaspace1');
+			</script>
 			<?php
 			$pp_h = $params->get('popup_height');
 			$pp_w = 380;
 		} else {
-			$flashvars = 'file='.$lnk."&amp;autostart=".$start.$callback;
+			// Single File
 			if((strcasecmp(substr($lnk,-4),".mp3") == 0) OR (strcasecmp(substr($lnk,-4),".m4a") == 0)) { ?>
-				<!-- Embed eingepackt in Object-Tag fuer Internet Explorer -->
-				<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="250" height="24" id="player1" name="player1">
-					<param name="movie" value="<?php echo $player; ?>"/>
-					<param name="wmode" value="transparent"/>
-					<param name="allowfullscreen" value="true"/>
-					<param name="allowscriptaccess" value="always"/>
-					<param name="flashvars" value="<?php echo $flashvars; ?>"/>
-					<embed src="<?php echo $player; ?>"
-						width="250"
-						height="24"
-						wmode="transparent"
-						allowscriptaccess="always"
-						allowfullscreen="true"
-						flashvars="<?php echo $flashvars; ?>"
-					/>
-				</object>
+				<!-- File is an audio format -->
+				<div id='mediaspace1'>Flashplayer needs Javascript turned on</div>
+				<script type='text/javascript'>
+					var so = new SWFObject('<?php echo $player; ?>','player1','250','24','9');
+					so.addParam('allowfullscreen','true');
+					so.addParam('allowscriptaccess','always');
+					so.addParam('wmode','opaque');
+					so.addVariable('file','<?php echo $lnk; ?>');
+					so.addVariable('autostart','<?php echo $start; ?>');
+					<?php echo $callback_test; ?>
+					so.write('mediaspace1');
+				</script>
 				<?php
 				$pp_h = $params->get('popup_height');
 				$pp_w = 380;
 			} elseif((strcasecmp(substr($lnk,-4),".flv") == 0) OR (strcasecmp(substr($lnk,-4),".mp4") == 0) OR (strcasecmp(substr($lnk,-4),".m4v") == 0)) { ?>
-				<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" <?php echo "width=\"".$params->get('mp_width')."\" height=\"".$params->get('mp_height'); ?> id="player1" name="player1">
-					<param name="movie" value="<?php echo $player; ?>"/>
-						<param name="wmode" value="transparent"/>
-						<param name="allowfullscreen" value="true"/>
-						<param name="allowscriptaccess" value="always"/>
-						<param name="flashvars" value="<?php echo $flashvars; ?>"/>
-						<embed src="<?php echo $player; ?>"
-							width="<?php echo $params->get('mp_width'); ?>"
-							height="<?php echo $params->get('mp_height'); ?>"
-							wmode="transparent"
-							allowscriptaccess="always"
-							allowfullscreen="true"
-							flashvars="<?php echo $flashvars; ?>"
-						/>
-				</object>
+				<!--  File is a video format -->
+				<div id='mediaspace1'>Flashplayer needs Javascript turned on</div>
+				<script type='text/javascript'>
+					var so = new SWFObject('<?php echo $player; ?>','player1','<?php echo $params->get('mp_width'); ?>','<?php echo $params->get('mp_height'); ?>','9');
+					so.addParam('allowfullscreen','true');
+					so.addParam('allowscriptaccess','always');
+					so.addParam('wmode','opaque');
+					so.addVariable('file','<?php echo $lnk; ?>');
+					so.addVariable('autostart','<?php echo $start; ?>');
+					<?php echo $callback_test; ?>
+					so.write('mediaspace1');
+				</script>
 				<?php
 				$pp_h = $params->get('mp_height') + 100 + $params->get('popup_height');
 				$pp_w = $params->get('mp_width') + 130;

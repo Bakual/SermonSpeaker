@@ -14,7 +14,7 @@ $id = $this->row->id;
 	<?php if ($this->params->get('hide_dl') == "0" && strlen($this->row->sermon_path) > 0) { ?>
 		<tr>
 			<td valign="top"><b><?php echo JText::_('COM_SERMONSPEAKER_SERMONTITLE'); ?>:</b></td>
-			<td><a title="<? echo JText::_('COM_SERMONSPEAKER_DIRECTLINK_HOOVER'); ?>" href="<?php echo $this->lnk.'">'.$this->escape($this->row->sermon_title); ?></a></td>
+			<td><a title="<?php echo JText::_('COM_SERMONSPEAKER_DIRECTLINK_HOOVER'); ?>" href="<?php echo $this->lnk.'">'.$this->escape($this->row->sermon_title); ?></a></td>
 		</tr>
 		<?php if ($this->params->get('dl_button') == "1") { ?>
 		<tr>
