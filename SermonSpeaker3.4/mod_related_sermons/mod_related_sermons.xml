@@ -21,7 +21,7 @@
 		<language tag="de-DE">de-DE.mod_related_sermons.ini</language>
 	</languages>
 	<params>
-		<param name="showDate" type="radio" default="0" label="MOD_RELATED_SERMONS_PARAM_SHOWDATE" description="MOD_LATESTSERMONS_PARAM_SHOWDATE_DESC">
+		<param name="showDate" type="radio" default="0" label="MOD_RELATED_SERMONS_PARAM_SHOWDATE" description="MOD_RELATED_SERMONS_PARAM_SHOWDATE_DESC">
 			<option value="0">Hide</option>
 			<option value="1">Show</option>
 		</param>
