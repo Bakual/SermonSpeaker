@@ -32,7 +32,7 @@ $id = $this->row->id;
 	<?php } ?>
 	<tr>
 		<td valign="top"><b><?php echo JText::_('COM_SERMONSPEAKER_SERMONDATE'); ?>:</b></td>
-		<td><?php echo JHTML::date($this->row->sermon_date, '%x', 0); ?></td>
+		<td><?php echo JHTML::date($this->row->sermon_date, JText::_('DATE_FORMAT_JS1'), 0); ?></td>
 	</tr>
 	<tr>
 		<td valign="top"><b><?php echo JText::_('COM_SERMONSPEAKER_SCRIPTURE'); ?>:</b></td>
@@ -102,7 +102,7 @@ $id = $this->row->id;
 	if ($this->params->get('popup_player') == "1") { 
 	?>
 		<tr><td></td>
-		<td><input class="popup_btn" type="button" name="<?php echo JText::_('COM_SERMONSPEAKER_POPUPPLAYER'); ?>" value="<?php echo JText::_('COM_SERMONSPEAKER_POPUPPLAYER'); ?>" onclick="popup = window.open('<?php echo JRoute::_("index.php?view=sermon&layout=popup&id=$id&tmpl=component"); ?>', 'PopupPage', 'height=<?php echo $pp_h.",width=".$pp_w; ?>,scrollbars=yes,resizable=yes'); return false" /></td></tr>
+		<td><input class="popup_btn button" type="button" name="<?php echo JText::_('COM_SERMONSPEAKER_POPUPPLAYER'); ?>" value="<?php echo JText::_('COM_SERMONSPEAKER_POPUPPLAYER'); ?>" onclick="popup = window.open('<?php echo JRoute::_("index.php?view=sermon&layout=popup&id=$id&tmpl=component"); ?>', 'PopupPage', 'height=<?php echo $pp_h.",width=".$pp_w; ?>,scrollbars=yes,resizable=yes'); return false" /></td></tr>
 	<?php }
 	$return = SermonspeakerHelperSermonspeaker::insertAddfile($this->row->addfile, $this->row->addfileDesc);
 	if ($return != NULL) { ?>
@@ -112,6 +112,25 @@ $id = $this->row->id;
 		</tr>
 	<?php } ?>
 </table>
+<?php 
+// Code from Douglas Machado
+// Experimental
+echo '<label>Tags: </label>';
+			$keywords=explode(',',$this->row[0]->keywords);
+			$keyTotal = count($keywords);
+			$rowCount =1;
+			$html ='';
+			//echo '<pre>'; print_r($keywords); echo '</pre>'; exit;
+			foreach($keywords as $keyword){
+				$keyword = trim($keyword);
+				$html .= '<a '
+				.'href="'.JRoute::_( "index.php?option=com_search&task=search&searchword=".$keyword."&Itemid=$Itemid" ).'" >'
+				.$keyword.'</a>';
+				if($keyTotal != $rowCount) $html .= ', ';
+				$rowCount++;
+			}
+			echo $html;
+?>
 <table width="100%">
 	<?php
 	// Support for JComments

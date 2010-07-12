@@ -271,10 +271,10 @@ function com_install() {
 		}
 	}
 	
-	// Add metakey column if it doesn't exist in the sermons table
+	// Add metakey and metadesc column if it doesn't exist in the sermons table
 	if (!array_key_exists('metakey',$sermons)) {
 		echo "<br>Attempting to add new metakey column to table sermon_sermons...";
-		$query = "ALTER TABLE #__sermon_sermons ADD COLUMN metakey text NOT NULL";
+		$query = "ALTER TABLE #__sermon_sermons ADD COLUMN metakey text NOT NULL, ADD metadesc text NOT NULL";
 		$database->setQuery( $query );
 		$database->Query();
 		if(strlen($database->getErrorMsg()) > 3){
@@ -283,7 +283,7 @@ function com_install() {
 			echo "<br>Error Message: ".$database->getErrorMsg();
 			echo "</span>";
 		} else {
-			echo "<br>I did it! Now you have metakey columns for the sermons.";
+			echo "<br>I did it! Now you have metakey and metadesc columns for the sermons.";
 		}
 	}
 	

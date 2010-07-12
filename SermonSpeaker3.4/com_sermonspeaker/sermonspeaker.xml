@@ -155,6 +155,9 @@
 	<languages folder="site/language">
 		<language tag="en-GB">en-GB.com_sermonspeaker.ini</language>
 		<language tag="de-DE">de-DE.com_sermonspeaker.ini</language>
+		<language tag="de-DE">pt-BR.com_sermonspeaker.ini</language>
+		<language tag="de-DE">ru-RU.com_sermonspeaker.ini</language>
+		<language tag="de-DE">es-ES.com_sermonspeaker.ini</language>
 	</languages>
 	<administration>
 		<menu img="components/com_sermonspeaker/images/speakers-16.png" >SermonSpeaker</menu>

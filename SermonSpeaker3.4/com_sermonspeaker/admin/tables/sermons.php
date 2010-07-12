@@ -28,6 +28,7 @@ class TableSermons extends JTable
 	var $addfileDesc = null;
 	var $catid = null;
 	var $metakey = null;
+	var $metadesc = null;
 
 	function __construct(&$db)
 	{

@@ -67,7 +67,7 @@ $id = $this->row->id;
 			echo SermonspeakerHelperSermonspeaker::insertdlbutton($id, $this->row->sermon_path);
 		}
 		if ($this->params->get('popup_player') == "1" && strlen($this->row->sermon_path) > 0) {
-			echo "<td colspan='".$countcolumn."'><input class=\"popup_btn\" type=\"button\" name=\"".JText::_('COM_SERMONSPEAKER_POPUPPLAYER')."\" value=\"".JText::_('COM_SERMONSPEAKER_POPUPPLAYER')."\" onClick=\"popup = window.open('".JRoute::_("index.php?view=sermon&layout=popup&id=$id&tmpl=component")."', 'PopupPage', 'height=".$pp_h.",width=".$pp_w.",scrollbars=yes,resizable=yes'); return false\"></td>";
+			echo "<td colspan='".$countcolumn."'><input class=\"popup_btn button\" type=\"button\" name=\"".JText::_('COM_SERMONSPEAKER_POPUPPLAYER')."\" value=\"".JText::_('COM_SERMONSPEAKER_POPUPPLAYER')."\" onClick=\"popup = window.open('".JRoute::_("index.php?view=sermon&layout=popup&id=$id&tmpl=component")."', 'PopupPage', 'height=".$pp_h.",width=".$pp_w.",scrollbars=yes,resizable=yes'); return false\"></td>";
 		}
 		?>
 	</tr>

@@ -119,7 +119,11 @@ $editor =& JFactory::getEditor();
 		</tr>
 		<tr>
 			<td width="100" align="right" class="key"><?php echo JText::_('COM_SERMONSPEAKER_METAKEY'); ?></td>
-			<td><input class="text_area" type="text" name="metakey" id="metakey" size="80" maxlength="250" value="<?php echo $this->row->metakey;?>" /></td>
+			<td><textarea class="text_area" type="text" name="metakey" cols='80' rows='5' id="metakey"><?php echo $this->row->metakey;?></textarea></td>
+		</tr>
+		<tr>
+			<td width="100" align="right" class="key"><?php echo JText::_('COM_SERMONSPEAKER_METADESC'); ?></td>
+			<td><textarea class="text_area" type="text" name="metadesc" cols='80' rows='5' id="metadesc"><?php echo $this->row->metadesc;?></textarea></td>
 		</tr>
 	</table> 
 	</fieldset> 

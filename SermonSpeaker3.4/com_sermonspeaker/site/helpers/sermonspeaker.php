@@ -57,11 +57,11 @@ class SermonspeakerHelperSermonspeaker
 		//Check if link targets to an external source
 		if (substr($path,0,7) == "http://"){
 			//File is external
-			$return = "<td><button class=\"download_btn\" type=\"button\" onclick=\"location='".$path."'\">".JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON')."</button></td>";
+			$return = "<td><button class=\"download_btn button\" type=\"button\" onclick=\"location='".$path."'\">".JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON')."</button></td>";
 		} else { 
 			//File is locally
 			$fileurl = JURI::root()."index.php?option=com_sermonspeaker&amp;task=download&amp;id=$id";
-			$return = "<td><form><input class=\"download_btn\" type=\"button\" value=\"".JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON')."\" onclick=\"window.location.href='".$fileurl."'\" /> </form></td>";
+			$return = "<td><form><input class=\"download_btn button\" type=\"button\" value=\"".JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON')."\" onclick=\"window.location.href='".$fileurl."'\" /> </form></td>";
 		}
 
 		return $return;
