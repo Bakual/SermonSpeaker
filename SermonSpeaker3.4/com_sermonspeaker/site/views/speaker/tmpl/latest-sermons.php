@@ -40,6 +40,7 @@ JFactory::getDocument()->addScriptDeclaration( "
 	</tr>
 </table>
 <p></p>
+<?php if($this->sermons) { ?>
 <form method="post" id="adminForm" name="adminForm">
 <table class="adminlist" cellpadding="2" cellspacing="2" width="100%">
 <!-- Tabellenkopf mit Sortierlinks erstellen -->
@@ -69,40 +70,42 @@ JFactory::getDocument()->addScriptDeclaration( "
 		</tr>
 	</thead>
 <!-- Begin Data -->
-	<?php if($this->sermons) {
-	$i = 0;
-		foreach($this->sermons as $sermon) {
-			echo "<tr class=\"row$i\">";
-			$i = 1 - $i;
-			if( $this->params->get('client_col_sermon_number')){
-				echo "<td align=\"left\" valign=\"middle\" > $sermon->sermon_number </td>";
-			} ?>
-			<td align="left">
-				&nbsp;<a href="<?php echo $sermon->link1; ?>"><img title="<?php echo JText::_('COM_SERMONSPEAKER_PLAYICON_HOOVER'); ?>" src="<?php echo JURI::root().'components/com_sermonspeaker/images/play.gif'; ?>" class='icon_play' width='16' height='16' border='0' alt="" /></a>
-				<a title="<?php echo JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER'); ?>" href="<?php echo $sermon->link2; ?>">
-					<?php echo $sermon->sermon_title; ?>
-				</a>
-			</td>
-			<?php
-			if( $this->params->get('client_col_sermon_scripture_reference')){
-				echo "<td align=\"left\" valign=\"middle\" >$sermon->sermon_scripture</td>";
-			}
-			if( $this->params->get('client_col_sermon_date')){
-				echo "<td align=\"left\" valign=\"middle\">".JHTML::date($sermon->sermon_date, JText::_('%Y-%M-%D'), 0)."</td>";
-			}
-			if( $this->params->get('client_col_sermon_time')){
-				echo "<td align=\"center\" valign=\"middle\">".SermonspeakerHelperSermonspeaker::insertTime($sermon->sermon_time)."</td>";
-			}
-			if ($this->params->get('client_col_sermon_series')) { ?>
-				<td align="center"><a href="<?php echo JRoute::_("index.php?view=serie&id=$sermon->series_id"); ?>"><?php echo $sermon->series_title; ?></a></td>
-			<?php }
-			if ($this->params->get('client_col_sermon_addfile')) { ?>
-				<td><?php echo SermonspeakerHelperSermonspeaker::insertAddfile($sermon->addfile, $sermon->addfileDesc); ?></td>
-			<?php }
-			echo "</tr>";
-		} // end of foreach
-	} ?>
+<?php
+$i = 0;
+	foreach($this->sermons as $sermon) {
+		echo "<tr class=\"row$i\">";
+		$i = 1 - $i;
+		if( $this->params->get('client_col_sermon_number')){
+			echo "<td align=\"left\" valign=\"middle\" > $sermon->sermon_number </td>";
+		} ?>
+		<td align="left">
+			&nbsp;<a href="<?php echo $sermon->link1; ?>"><img title="<?php echo JText::_('COM_SERMONSPEAKER_PLAYICON_HOOVER'); ?>" src="<?php echo JURI::root().'components/com_sermonspeaker/images/play.gif'; ?>" class='icon_play' width='16' height='16' border='0' alt="" /></a>
+			<a title="<?php echo JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER'); ?>" href="<?php echo $sermon->link2; ?>">
+				<?php echo $sermon->sermon_title; ?>
+			</a>
+		</td>
+		<?php
+		if( $this->params->get('client_col_sermon_scripture_reference')){
+			echo "<td align=\"left\" valign=\"middle\" >$sermon->sermon_scripture</td>";
+		}
+		if( $this->params->get('client_col_sermon_date')){
+			echo "<td align=\"left\" valign=\"middle\">".JHTML::date($sermon->sermon_date, JText::_('%Y-%M-%D'), 0)."</td>";
+		}
+		if( $this->params->get('client_col_sermon_time')){
+			echo "<td align=\"center\" valign=\"middle\">".SermonspeakerHelperSermonspeaker::insertTime($sermon->sermon_time)."</td>";
+		}
+		if ($this->params->get('client_col_sermon_series')) { ?>
+			<td align="center"><a href="<?php echo JRoute::_("index.php?view=serie&id=$sermon->series_id"); ?>"><?php echo $sermon->series_title; ?></a></td>
+		<?php }
+		if ($this->params->get('client_col_sermon_addfile')) { ?>
+			<td><?php echo SermonspeakerHelperSermonspeaker::insertAddfile($sermon->addfile, $sermon->addfileDesc); ?></td>
+		<?php }
+		echo "</tr>";
+	} // end of foreach ?>
 </table>
 <input type="hidden" name="filter_order" value="<?php echo $this->lists['order']; ?>" />
 <input type="hidden" name="filter_order_Dir" value="<?php echo $this->lists['order_Dir']; ?>" />
 </form>
+<?php } else { ?>
+	<div class="no_entries"><?php echo JText::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', JText::_('COM_SERMONSPEAKER_SERMONS')); ?></div>
+<?php } ?>

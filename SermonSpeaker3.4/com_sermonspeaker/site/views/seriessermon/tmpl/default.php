@@ -7,6 +7,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 	</tr>
 </table>
 <p />
+<?php if ($this->rows){ ?>
 <div class="Pages">
 	<div class="Paginator">
 		<?php echo $this->pagination->getResultsCounter(); ?><br />
@@ -14,7 +15,6 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 		<?php if ($this->pagination->getPagesLinks()) echo $this->pagination->getPagesLinks()."<br />"; ?>
 	</div>
 </div>
-
 <hr style="width: 100%; height: 2px;" />
 <!-- Begin Data -->
 <form action="http://<?php echo $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'] ?>" method="post" id="adminForm" name="adminForm">
@@ -74,3 +74,6 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 	</div>
 </div>
 </form>
+<?php } else { ?>
+	<div class="no_entries"><?php echo JText::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', JText::_('COM_SERMONSPEAKER_SERIES')); ?></div>
+<?php } ?>

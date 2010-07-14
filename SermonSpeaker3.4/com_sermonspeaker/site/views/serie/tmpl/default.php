@@ -22,6 +22,7 @@ JFactory::getDocument()->addScriptDeclaration( "
 	<?php echo $this->serie->series_description; ?>
 </div>
 <br style="clear:both" />
+<?php if ($this->rows){ ?>
 <?php if ($this->params->get('series_player')){ ?>
 	<hr style="width: 80%; height: 1px; text-align: center;">
 	<?php
@@ -42,7 +43,6 @@ JFactory::getDocument()->addScriptDeclaration( "
 </div>
 
 <hr style="width: 100%; height: 2px;">
-
 <form action="http://<?php echo $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'] ?>" method="post" id="adminForm" name="adminForm">
 <table class="adminlist" cellpadding="2" cellspacing="2" width="100%">
 <!-- Tabellenkopf mit Sortierlinks erstellen -->
@@ -71,37 +71,35 @@ JFactory::getDocument()->addScriptDeclaration( "
 </thead>
 <!-- Begin Data -->
 	<?php
-	if($this->rows) {
-		$i = 0;
-		foreach($this->rows as $row) { 
-			echo "<tr class=\"row$i\">\n"; 
-			$i = 1 - $i;
-			if( $this->params->get('client_col_sermon_number')){ ?>
-				<td><?php echo $row->sermon_number; ?></td>
-			<?php } ?>
-				<td align="left">
-					&nbsp;<a href="<?php echo $row->link1; ?>"><img title="<?php echo JText::_('COM_SERMONSPEAKER_PLAYICON_HOOVER'); ?>" src="<?php echo JURI::root().'components/com_sermonspeaker/images/play.gif'; ?>" class='icon_play' width='16' height='16' border='0' alt="" /></a>
-					<a title="<?php echo JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER'); ?>" href="<?php echo $row->link2; ?>">
-						<?php echo $row->sermon_title; ?>
-					</a>
-				</td>
-				<?php if( $this->params->get('client_col_sermon_scripture_reference')){ ?>		
-					<td align="left" valign="top" ><?php echo $row->sermon_scripture; ?></td>
-				<?php } ?>
-				<td align="left" valign="top">
-					<?php echo SermonspeakerHelperSermonSpeaker::SpeakerTooltip($row->s_id, $row->pic, $row->name); ?>
-				</td>
-				<?php if( $this->params->get('client_col_sermon_date')){ ?>
-					<td align="left" valign="top" ><?php echo JHTML::date($row->sermon_date, JText::_('%Y-%M-%D'), 0); ?></td>
-				<?php }
-				if( $this->params->get('client_col_sermon_time')){ ?>
-					<td><?php echo SermonspeakerHelperSermonspeaker::insertTime($row->sermon_time); ?></td>
-				<?php }
-				if ($this->params->get('client_col_sermon_addfile')) { ?>
-					<td><?php echo SermonspeakerHelperSermonspeaker::insertAddfile($row->addfile, $row->addfileDesc); ?></td>
-				<?php } ?>
-			</tr>
+	$i = 0;
+	foreach($this->rows as $row) { 
+		echo "<tr class=\"row$i\">\n"; 
+		$i = 1 - $i;
+		if( $this->params->get('client_col_sermon_number')){ ?>
+			<td><?php echo $row->sermon_number; ?></td>
 		<?php } ?>
+			<td align="left">
+				&nbsp;<a href="<?php echo $row->link1; ?>"><img title="<?php echo JText::_('COM_SERMONSPEAKER_PLAYICON_HOOVER'); ?>" src="<?php echo JURI::root().'components/com_sermonspeaker/images/play.gif'; ?>" class='icon_play' width='16' height='16' border='0' alt="" /></a>
+				<a title="<?php echo JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER'); ?>" href="<?php echo $row->link2; ?>">
+					<?php echo $row->sermon_title; ?>
+				</a>
+			</td>
+			<?php if( $this->params->get('client_col_sermon_scripture_reference')){ ?>		
+				<td align="left" valign="top" ><?php echo $row->sermon_scripture; ?></td>
+			<?php } ?>
+			<td align="left" valign="top">
+				<?php echo SermonspeakerHelperSermonSpeaker::SpeakerTooltip($row->s_id, $row->pic, $row->name); ?>
+			</td>
+			<?php if( $this->params->get('client_col_sermon_date')){ ?>
+				<td align="left" valign="top" ><?php echo JHTML::date($row->sermon_date, JText::_('%Y-%M-%D'), 0); ?></td>
+			<?php }
+			if( $this->params->get('client_col_sermon_time')){ ?>
+				<td><?php echo SermonspeakerHelperSermonspeaker::insertTime($row->sermon_time); ?></td>
+			<?php }
+			if ($this->params->get('client_col_sermon_addfile')) { ?>
+				<td><?php echo SermonspeakerHelperSermonspeaker::insertAddfile($row->addfile, $row->addfileDesc); ?></td>
+			<?php } ?>
+		</tr>
 	<?php } ?>
 </table>
 <input type="hidden" name="filter_order" value="<?php echo $this->lists['order']; ?>" />
@@ -113,4 +111,7 @@ JFactory::getDocument()->addScriptDeclaration( "
 	</div>
 </div>
 </form>
+<?php } else { ?>
+	<div class="no_entries"><?php echo JText::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', JText::_('COM_SERMONSPEAKER_SERMONS')); ?></div>
+<?php } ?>
 </div>

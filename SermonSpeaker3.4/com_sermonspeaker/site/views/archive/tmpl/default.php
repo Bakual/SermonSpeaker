@@ -18,6 +18,7 @@ JFactory::getDocument()->addScriptDeclaration( "
 	</tr>
 </table>
 <p />
+<?php if ($this->rows){ ?>
 <div class="Pages">
 	<div class="Paginator">
 		<?php echo $this->pagination->getResultsCounter(); ?><br />
@@ -56,7 +57,7 @@ JFactory::getDocument()->addScriptDeclaration( "
 	</tr>
 </thead>
 <!-- Begin Data -->
-    <?php if ($this->rows){
+	<?php
 	$i = 0;
 	foreach( $this->rows as $row ){ ?>
 		<tr class="row<?php echo $i; ?>">
@@ -93,8 +94,7 @@ JFactory::getDocument()->addScriptDeclaration( "
 				<td><?php echo SermonspeakerHelperSermonspeaker::insertAddfile($row->addfile, $row->addfileDesc); ?></td>
 			<?php } ?>
 		</tr>
-	<?php }
-	} ?>
+	<?php } ?>
 </table>
 <input type="hidden" name="filter_order" value="<?php echo $this->lists['order']; ?>" />
 <input type="hidden" name="filter_order_Dir" value="<?php echo $this->lists['order_Dir']; ?>" />
@@ -105,3 +105,6 @@ JFactory::getDocument()->addScriptDeclaration( "
 	</div>
 </div>
 </form>
+<?php } else { ?>
+	<div class="no_entries"><?php echo JText::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', JText::_('COM_SERMONSPEAKER_SERMONS')); ?></div>
+<?php } ?>

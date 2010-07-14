@@ -34,7 +34,7 @@ class SermonspeakerViewSpeaker extends JView
 				$bread = JText::_('COM_SERMONSPEAKER_SERMONS');
 			}
 			$breadcrumbs->addItem($row->name.': '.$bread, '');
-			$document->setTitle($document->getTitle().' | '.$title);
+			$document->setTitle($title.' | '.$document->getTitle());
 		} elseif ($this->getLayout() == "popup") {
 			$title = $row->name;
 		} else {

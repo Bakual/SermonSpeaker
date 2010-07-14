@@ -5,6 +5,7 @@ JHTML::_('behavior.modal');
 $Itemid	= JRequest::getInt('Itemid');
 ?>
 <h1 class="componentheading"><?php echo JText::_('COM_SERMONSPEAKER_SPEAKERS_TITLE'); ?></h1>
+<?php if ($this->rows){ ?>
 <!-- begin Data -->
 <form action="http://<?php echo $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'] ?>" method="post" id="adminForm" name="adminForm">
 <?php foreach($this->rows as $row) { ?>
@@ -42,3 +43,6 @@ $Itemid	= JRequest::getInt('Itemid');
 	</div>
 </div>
 </form>
+<?php } else { ?>
+	<div class="no_entries"><?php echo JText::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', JText::_('COM_SERMONSPEAKER_SPEAKERS')); ?></div>
+<?php } ?>

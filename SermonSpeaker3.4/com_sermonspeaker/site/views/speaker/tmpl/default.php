@@ -33,7 +33,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 </table>
 <p></p>
 <!-- Begin Data - Series -->
-<?php if( $this->series ) { ?>
+<?php if($this->series) { ?>
 	<table border="0" cellpadding="2" cellspacing="1" width="100%">
 		<tr>
 			<?php if ($this->av > 0){ ?>
@@ -63,4 +63,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 			</tr>
 		<?php } ?>
 	</table>
+<?php } else { ?>
+	<div class="no_entries"><?php echo JText::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', JText::_('COM_SERMONSPEAKER_SERIES')); ?></div>
 <?php } ?>
+
