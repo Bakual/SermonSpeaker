@@ -9,10 +9,14 @@ jimport('joomla.application.component.controller');
 class SermonspeakerController extends JController
 {
 	function display() {
+		$app = &JFactory::getApplication();
+		$document =& JFactory::getDocument();
+		if (strpos($document->getTitle(), $app->getCfg('sitename')) === FALSE){ // Set document title to sitename, if not already present
+			$document->setTitle($document->getTitle().' | '.$app->getCfg('sitename'));
+		}
 		if (!JRequest::getCmd('view')){	// Setting default view
 			JRequest::setVar('view', 'sermons');
 		} elseif (JRequest::getCmd('view') == 'feed' && (JRequest::getCmd('format') != 'raw')){ // Changing the podcast format to raw output
-			$document =& JFactory::getDocument();
 			$document = $document->getInstance('raw');
 			$document->setMimeEncoding('application/rss+xml');
 		}

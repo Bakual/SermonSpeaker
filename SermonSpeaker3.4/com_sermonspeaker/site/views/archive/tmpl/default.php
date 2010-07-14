@@ -14,12 +14,7 @@ JFactory::getDocument()->addScriptDeclaration( "
 ?>
 <table width="100%" cellpadding="2" cellspacing="0">
 	<tr class="componentheading">
-		<?php if ($this->month){
-			$date_format = '%B, %Y';
-		} else {
-			$date_format = '%Y';
-		} ?>
-		<th align="left" valign="bottom"><?php echo JText::_('COM_SERMONSPEAKER_ARCHIVE_TITLE')." ".JHTML::date($this->rows[0]->sermon_date, $date_format, 0).$this->cat; ?></th>
+		<th align="left" valign="bottom"><?php echo $this->title; ?></th>
 	</tr>
 </table>
 <p />

@@ -25,12 +25,6 @@ class SermonspeakerViewArchive extends JView
 			$month = $params->get('month', $date[mon]);
 		}
 
-		// Set Meta
-		$document =& JFactory::getDocument();
-		$document->setTitle($document->getTitle() . ' | ' ." ". JText::_('COM_SERMONSPEAKER_SERMONS_TITLE'));
-		$document->setMetaData("description",JText::_('COM_SERMONSPEAKER_ARCHIVE_TITLE')." ".JHTML::date($this->rows[0]->sermon_date, '%B, %Y', 0));
-		$document->setMetaData("keywords",JText::_('COM_SERMONSPEAKER_SERMONS_TITLE'));
-
 		// get Data from Model (/models/archive.php)
         $rows		=& $this->get('Data');			// getting the Datarows from the Model
 		$lists		=& $this->get('Order');
@@ -41,6 +35,20 @@ class SermonspeakerViewArchive extends JView
 			$cat	=& $this->get('Cat');
 			$cat	= ': '.$cat;
 		}
+
+		// Create title
+		if ($month){
+			$date_format = '%B, %Y';
+		} else {
+			$date_format = '%Y';
+		}
+		$title = JText::_('COM_SERMONSPEAKER_ARCHIVE_TITLE')." ".JHTML::date($rows[0]->sermon_date, $date_format, 0).$cat;
+
+		// Set Meta
+		$document =& JFactory::getDocument();
+		$document->setTitle($title.' | '.$document->getTitle());
+		$document->setMetaData("description",JText::_('COM_SERMONSPEAKER_ARCHIVE_TITLE')." ".JHTML::date($this->rows[0]->sermon_date, '%B, %Y', 0));
+		$document->setMetaData("keywords",JText::_('COM_SERMONSPEAKER_SERMONS_TITLE'));
 
 		// Support for Content Plugins
 		$dispatcher	= &JDispatcher::getInstance();
@@ -91,9 +99,7 @@ class SermonspeakerViewArchive extends JView
 		$this->assignRef('lists',$lists);			// for Sorting
 		$this->assignRef('pagination',$pagination);	// for JPagination
 		$this->assignRef('params',$params);			// for Params
-		$this->assignRef('month',$month);			// for Filtering
-		$this->assignRef('year',$year);				// for Filtering
-		$this->assignRef('cat',$cat);				// for Category title
+		$this->assignRef('title',$title);			// for Title
 
 		parent::display($tpl);
 	}

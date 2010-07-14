@@ -11,21 +11,17 @@ JFactory::getDocument()->addScriptDeclaration( "
 	}"
 );
 ?>
-<table width="100%" cellpadding="2" cellspacing="0">
-	<tr class="componentheading">
-		<th align="left" valign="bottom"><?php echo JText::_('COM_SERMONSPEAKER_SERIE_TITLE').": ".$this->serie->series_title; ?></th>
-	</tr>
-</table>
-<table cellpadding="2" cellspacing="10">
-<tr>
-	<th><?php if ($this->serie->avatar != "") {
-			echo "<img src='".SermonspeakerHelperSermonspeaker::makelink($this->serie->avatar)."' >";
-        } ?>
-	</th>
-	<th align="left"><?php echo $this->serie->series_description; ?></th>
-</tr>
-</table>
-<p></p>
+<div id="ss-serie-container">
+<h1 class="componentheading"><?php echo JText::_('COM_SERMONSPEAKER_SERIE_TITLE').": ".$this->serie->series_title; ?></h1>
+
+<div class="ss-serie-desc">
+	<span class="ss-avatar"><?php if ($this->serie->avatar != "") {
+				echo "<img src='".SermonspeakerHelperSermonspeaker::makelink($this->serie->avatar)."' >";
+	        } ?>
+	</span>
+	<?php echo $this->serie->series_description; ?>
+</div>
+<br style="clear:both" />
 <?php if ($this->params->get('series_player')){ ?>
 	<hr style="width: 80%; height: 1px; text-align: center;">
 	<?php
@@ -117,3 +113,4 @@ JFactory::getDocument()->addScriptDeclaration( "
 	</div>
 </div>
 </form>
+</div>

@@ -15,7 +15,7 @@ class SermonspeakerViewSeries extends JView
 		$params	=& JComponentHelper::getParams('com_sermonspeaker');
 		// Set Meta
 		$document =& JFactory::getDocument();
-		$document->setTitle($document->getTitle() . ' | ' ." ". JText::_('COM_SERMONSPEAKER_SERIES_TITLE'));
+		$document->setTitle(JText::_('COM_SERMONSPEAKER_SERIES_TITLE').' | '.$document->getTitle());
 		$document->setMetaData("description",JText::_('COM_SERMONSPEAKER_SERIES_TITLE'));
 		$document->setMetaData("keywords",JText::_('COM_SERMONSPEAKER_SERIES_TITLE'));
 

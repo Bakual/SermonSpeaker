@@ -48,7 +48,7 @@ class SermonspeakerViewSpeaker extends JView
 				}
 			}
 			$this->assignRef('av',$av);
-			$document->setTitle($document->getTitle() . ' | ' .JText::_('COM_SERMONSPEAKER_SPEAKER_TITLE').' - '.$row->name);
+			$document->setTitle(JText::_('COM_SERMONSPEAKER_SPEAKER_TITLE').' - '.$row->name.' | '.$document->getTitle());
 			$breadcrumbs->addItem( $row->name.": ".JText::_('COM_SERMONSPEAKER_SPEAKER_TITLE'), '' );
 			$title = $row->name;
 		}

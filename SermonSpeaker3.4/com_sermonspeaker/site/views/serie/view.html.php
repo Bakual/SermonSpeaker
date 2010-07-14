@@ -47,7 +47,7 @@ class SermonspeakerViewSerie extends JView
 		$breadcrumbs->addItem($serie->series_title);
 
 		// Set Meta
-		$document->setTitle($document->getTitle().' | '.JText::_('COM_SERMONSPEAKER_SERIE_TITLE').": ".$serie->series_title);
+		$document->setTitle(JText::_('COM_SERMONSPEAKER_SERIE_TITLE').": ".$serie->series_title.' | '.$document->getTitle());
 		$document->setMetaData("description",strip_tags($serie->series_description));
 		$document->setMetaData("keywords",$serie->series_title);
 
