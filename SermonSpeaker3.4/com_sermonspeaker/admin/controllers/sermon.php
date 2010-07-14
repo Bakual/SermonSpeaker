@@ -180,4 +180,22 @@ class SermonspeakerControllerSermon extends SermonspeakerController
 		$msg = JText::_('COM_SERMONSPEAKER_CANCELED');
 		$this->setRedirect('index.php?option=com_sermonspeaker&view=sermons', $msg );
 	}
+
+	function resetcount()
+	{
+		$database	= &JFactory::getDBO();
+		$id 		= JRequest::getInt('id', 0);
+
+		$query	= "UPDATE #__sermon_sermons \n"
+				. "SET hits='0' \n"
+				. "WHERE id='".$id."'"
+				;
+		$database->setQuery( $query );
+		if (!$database->query()) {
+			echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";
+			exit();
+		}
+
+	$this->setRedirect("index.php?option=com_sermonspeaker&controller=sermon&task=edit&cid[]=".$id);
+	}
 }

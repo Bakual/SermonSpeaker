@@ -33,7 +33,7 @@ class SermonspeakerViewSermon extends JView
 				$user =& JFactory::getUser();
 				$row->created_by = $user->id;
 			}
-			if (!$row->created_on){
+			if ($row->created_on == '0000-00-00 00:00:00' || !$row->created_on){
 				$row->created_on = $row->sermon_date;
 			}
 		} else {

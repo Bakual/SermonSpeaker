@@ -32,7 +32,7 @@ foreach($rows as $row) {
 			$tips[] = JText::_('MOD_LATESTSERMONS_SERIE').": ".trim($row->series_title);
 		}
 		if ($params->get('ls_show_mo_date')) {
-			$date_format = $params->get('ls_mo_date_format', JText::_('DATE_FORMAT_JS1'));
+			$date_format = $params->get('ls_mo_date_format', JText::_('%Y-%M-%D'));
 			$tips[] = JText::_('MOD_LATESTSERMONS_DATE').": ".JHtml::Date($row->sermon_date, $date_format, 0);
 		}
 		$tip = implode('<br>', $tips);

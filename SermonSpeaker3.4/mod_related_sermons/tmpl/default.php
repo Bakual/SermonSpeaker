@@ -4,7 +4,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 <?php foreach ($list as $item) :	?>
 <li>
 	<a href="<?php echo $item->route; ?>">
-		<?php if ($showDate) echo JHTML::Date($item->created, JText::_('DATE_FORMAT_JS1')) . " - "; ?>
+		<?php if ($showDate) echo JHTML::Date($item->created, JText::_('%Y-%M-%D')) . " - "; ?>
 		<?php echo $item->title; ?></a>
 </li>
 <?php endforeach; ?>

@@ -20,7 +20,7 @@ class TableSermons extends JTable
 	var $download = null;
 	var $published = '1';
 	var $ordering = null;
-	var $hits = null;
+	var $hits = '0';
 	var $created_by = null;
 	var $created_on = null;
 	var $podcast = '1';

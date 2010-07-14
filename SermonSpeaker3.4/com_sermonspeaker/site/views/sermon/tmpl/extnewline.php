@@ -32,7 +32,7 @@ $id = $this->row->id;
 	<?php } ?>
 	<tr>
 		<td valign="top"><b><?php echo JText::_('COM_SERMONSPEAKER_SERMONDATE'); ?>:</b></td>
-		<td><?php echo JHTML::date($this->row->sermon_date, JText::_('DATE_FORMAT_JS1'), 0); ?></td>
+		<td><?php echo JHTML::date($this->row->sermon_date, JText::_('%Y-%M-%D'), 0); ?></td>
 	</tr>
 	<tr>
 		<td valign="top"><b><?php echo JText::_('COM_SERMONSPEAKER_SCRIPTURE'); ?>:</b></td>
@@ -113,23 +113,24 @@ $id = $this->row->id;
 	<?php } ?>
 </table>
 <?php 
+/*
 // Code from Douglas Machado
-// Experimental
-echo '<label>Tags: </label>';
-			$keywords=explode(',',$this->row[0]->keywords);
-			$keyTotal = count($keywords);
-			$rowCount =1;
-			$html ='';
-			//echo '<pre>'; print_r($keywords); echo '</pre>'; exit;
-			foreach($keywords as $keyword){
-				$keyword = trim($keyword);
-				$html .= '<a '
-				.'href="'.JRoute::_( "index.php?option=com_search&task=search&searchword=".$keyword."&Itemid=$Itemid" ).'" >'
-				.$keyword.'</a>';
-				if($keyTotal != $rowCount) $html .= ', ';
-				$rowCount++;
-			}
-			echo $html;
+// Shows Tags on bottom of site if some are present.
+// experimental
+	$keywords=explode(',',$this->row->metakey);
+	$keyTotal = count($keywords);
+	if ($keyTotal > '1'){
+		$rowCount = 1;
+		$html = "<label>Tags: </label>\r";
+		foreach($keywords as $keyword){
+			$keyword = trim($keyword);
+			$html .= '<a href="'.JRoute::_( "index.php?option=com_search&ordering=newest&searchphrase=all&searchword=".$keyword).'" >'.$keyword.'</a>';
+			if($keyTotal != $rowCount) $html .= ', ';
+			$rowCount++;
+		}
+		echo $html;
+	}
+*/
 ?>
 <table width="100%">
 	<?php

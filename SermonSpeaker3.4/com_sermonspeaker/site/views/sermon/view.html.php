@@ -86,8 +86,8 @@ class SermonspeakerViewSermon extends JView
 
 		// Set Meta
 		$document->setTitle($document->getTitle().' | '.$row->sermon_title);
-		$document->setMetaData("description", strip_tags($row->notes));
-		$keywords = $this->escape(str_replace(' ', ',', $row->sermon_title).','.str_replace(',', ':', $row->sermon_scripture));
+		$document->setMetaData("description", strip_tags($row->notes.' '.$row->description));
+		$keywords = $this->escape(str_replace(' ', ',', $row->sermon_title).','.str_replace(',', ':', $row->sermon_scripture).','.$row->keywords);
 		$document->setMetaData("keywords", $keywords);
 
 		// Support for Content Plugins
