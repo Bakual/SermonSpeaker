@@ -1,6 +1,7 @@
 <?php
 defined( '_JEXEC' ) or die( 'Restricted access' );
 JHTML::_('behavior.tooltip');
+JHTML::_('behavior.modal');
 /* JS Script für Joomla Sortierung */
 JFactory::getDocument()->addScriptDeclaration( "
 	function tableOrdering( order, dir, task ) {

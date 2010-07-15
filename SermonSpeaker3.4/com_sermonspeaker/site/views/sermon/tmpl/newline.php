@@ -3,6 +3,8 @@ defined('_JEXEC') or die('Restricted access');
 if ($this->params->get('ga')) { $callback = "&callback=".$this->params->get('ga'); }
 $return = SermonspeakerHelperSermonspeaker::insertAddfile($this->row->addfile, $this->row->addfileDesc);
 $id = $this->row->id;
+JHTML::_('behavior.tooltip');
+JHTML::_('behavior.modal');
 ?>
 <div id="ss-sermon-container">
 <h1 class="componentheading"><?php echo JText::_('COM_SERMONSPEAKER_SERMON_TITLE'); ?></h1>

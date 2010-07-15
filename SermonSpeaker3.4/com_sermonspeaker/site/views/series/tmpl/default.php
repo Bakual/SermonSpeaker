@@ -1,5 +1,7 @@
 <?php
 defined('_JEXEC') or die('Restricted access');
+JHTML::_('behavior.tooltip');
+JHTML::_('behavior.modal');
 ?>
 <div id="ss-series-container">
 <h1 class="componentheading">
