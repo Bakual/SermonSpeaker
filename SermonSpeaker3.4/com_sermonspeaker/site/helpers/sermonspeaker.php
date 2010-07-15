@@ -67,7 +67,7 @@ class SermonspeakerHelperSermonspeaker
 		return $return;
 	}
 	
-	function insertPlayer($lnk) {
+	function insertPlayer($lnk, $time = NULL, $count = '1') {
 		$params	=& JComponentHelper::getParams('com_sermonspeaker');
 		$view = JRequest::getCmd('view');
 		if ($params->get('autostart') == "1" && $view != "seriessermon") {
@@ -77,13 +77,17 @@ class SermonspeakerHelperSermonspeaker
 			$start="false"; $startwmp="0";
 		}
 		if ($params->get('ga')) { 
-			$callback = "&callback=".$params->get('ga');
-			$callback_test = "so.addVariable('callback','".$params->get('ga')."');";
+			$callback = "so.addVariable('callback','".$params->get('ga')."');";
+		}
+		if ($time){
+			$duration = "so.addVariable('duration','".$time."');";
+		} else {
+			$duration = NULL;
 		}
 		$player = JURI::root().'components/com_sermonspeaker/media/player/player.swf';
 		if(strcasecmp(substr($lnk,0,9),"index.php") == 0){ ?>
 			<!-- Playlist -->
-			<div id='mediaspace1' align='center'>Flashplayer needs Javascript turned on</div>
+			<div id='mediaspace<?php echo $count; ?>' align='center'>Flashplayer needs Javascript turned on</div>
 			<script type='text/javascript'>
 				var so = new SWFObject('<?php echo $player; ?>','player1','80%','84','9');
 				so.addParam('allowfullscreen','true');
@@ -93,8 +97,8 @@ class SermonspeakerHelperSermonspeaker
 				so.addVariable('playlistsize','60');
 				so.addVariable('playlist','bottom');
 				so.addVariable('autostart','<?php echo $start; ?>');
-				<?php echo $callback_test; ?>
-				so.write('mediaspace1');
+				<?php echo $callback; ?>
+				so.write('mediaspace<?php echo $count; ?>');
 			</script>
 			<?php
 			$pp_h = $params->get('popup_height');
@@ -103,7 +107,7 @@ class SermonspeakerHelperSermonspeaker
 			// Single File
 			if((strcasecmp(substr($lnk,-4),".mp3") == 0) OR (strcasecmp(substr($lnk,-4),".m4a") == 0)) { ?>
 				<!-- File is an audio format -->
-				<div id='mediaspace1'>Flashplayer needs Javascript turned on</div>
+				<div id='mediaspace<?php echo $count; ?>'>Flashplayer needs Javascript turned on</div>
 				<script type='text/javascript'>
 					var so = new SWFObject('<?php echo $player; ?>','player1','250','24','9');
 					so.addParam('allowfullscreen','true');
@@ -111,15 +115,16 @@ class SermonspeakerHelperSermonspeaker
 					so.addParam('wmode','opaque');
 					so.addVariable('file','<?php echo $lnk; ?>');
 					so.addVariable('autostart','<?php echo $start; ?>');
-					<?php echo $callback_test; ?>
-					so.write('mediaspace1');
+					<?php echo $duration;
+					echo $callback; ?>
+					so.write('mediaspace<?php echo $count; ?>');
 				</script>
 				<?php
 				$pp_h = $params->get('popup_height');
 				$pp_w = 380;
 			} elseif((strcasecmp(substr($lnk,-4),".flv") == 0) OR (strcasecmp(substr($lnk,-4),".mp4") == 0) OR (strcasecmp(substr($lnk,-4),".m4v") == 0)) { ?>
 				<!--  File is a video format -->
-				<div id='mediaspace1'>Flashplayer needs Javascript turned on</div>
+				<div id='mediaspace<?php echo $count; ?>'>Flashplayer needs Javascript turned on</div>
 				<script type='text/javascript'>
 					var so = new SWFObject('<?php echo $player; ?>','player1','<?php echo $params->get('mp_width'); ?>','<?php echo $params->get('mp_height'); ?>','9');
 					so.addParam('allowfullscreen','true');
@@ -127,8 +132,8 @@ class SermonspeakerHelperSermonspeaker
 					so.addParam('wmode','opaque');
 					so.addVariable('file','<?php echo $lnk; ?>');
 					so.addVariable('autostart','<?php echo $start; ?>');
-					<?php echo $callback_test; ?>
-					so.write('mediaspace1');
+					<?php echo $callback; ?>
+					so.write('mediaspace<?php echo $count; ?>');
 				</script>
 				<?php
 				$pp_h = $params->get('mp_height') + 100 + $params->get('popup_height');

@@ -1,5 +1,5 @@
 <?php
-defined( '_JEXEC' ) or die( 'Restricted access' );
+defined('_JEXEC') or die('Restricted access');
 /* JS Script für Joomla Sortierung */
 JFactory::getDocument()->addScriptDeclaration( "
 	function tableOrdering( order, dir, task ) {
@@ -10,36 +10,26 @@ JFactory::getDocument()->addScriptDeclaration( "
 	}"
 );
 ?>
-<table width="100%" cellpadding="2" cellspacing="0">
-	<tr class="componentheading">
-		<th align="left" valign="bottom"><?php echo $this->title ?></th>
-	</tr>
-</table>
+<div class="ss-speaker-container" >
+<h1 class="componentheading"><?php echo $this->title ?></h1>
 <!-- Begin Data - Speaker -->
-<table border='0' cellpadding="2" cellspacing="0" width="100%">
-	<tr>
-		<?php if ($this->row->pic) { ?>
-			<td valign="middle" align="center" width='30%'>
-				<img src="<?php echo $this->row->pic; ?>" border="0" alt="" />
-			</td>
-		<?php } ?>
-		<td align="left" valign="top">
-		<?php
-		if ($this->row->website && $this->row->website != "http://") { ?>
-			<a href="<?php echo $this->row->website; ?>" target="_blank" title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKER_WEBLINK_HOOVER'); ?>"><?php echo JText::sprintf('COM_SERMONSPEAKER_SPEAKER_WEBLINK', $this->row->name); ?></a>
-		<?php }
-		if ($this->row->bio || $this->row->intro) { ?>
-			<p><b><?php echo JText::_('COM_SERMONSPEAKER_SPEAKER_BIO'); ?>:</b>
-			<?php if($this->params->get('speaker_intro')) {
-				echo $this->row->intro;
-			}
-			echo $this->row->bio; ?>
-			</p>
-		<?php } ?>
-		</td>
-	</tr>
-</table>
-<p></p>
+<?php if($this->row->pic) { ?>
+	<a href="<?php echo JRoute::_('index.php?view=speaker&id='.$row->id); ?>">
+		<img class="speaker" src="<?php echo $this->row->pic; ?>" title="<?php echo $this->row->name; ?>" alt="<?php echo $this->row->name; ?>" />
+	</a>
+<?php }
+if ($this->row->bio || ($this->row->intro && $this->params->get('speaker_intro'))) { ?>
+	<h3 class="contentheading"><?php echo JText::_('COM_SERMONSPEAKER_SPEAKER_BIO'); ?></h3>
+	<?php
+	echo $this->row->intro;
+	echo $this->row->bio; ?>
+	</p>
+<?php }
+if ($this->row->website && $this->row->website != "http://") { ?>
+	<a href="<?php echo $this->row->website; ?>" target="_blank" title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKER_WEBLINK_HOOVER'); ?>"><?php echo JText::sprintf('COM_SERMONSPEAKER_SPEAKER_WEBLINK', $this->row->name); ?></a>
+<?php } ?>
+<br style="clear:both" />
+<!-- Begin Data - Sermons -->
 <?php if($this->sermons) { ?>
 <form method="post" id="adminForm" name="adminForm">
 <table class="adminlist" cellpadding="2" cellspacing="2" width="100%">
@@ -109,3 +99,4 @@ $i = 0;
 <?php } else { ?>
 	<div class="no_entries"><?php echo JText::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', JText::_('COM_SERMONSPEAKER_SERMONS')); ?></div>
 <?php } ?>
+</div>

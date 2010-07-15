@@ -1,5 +1,5 @@
 <?php
-defined( '_JEXEC' ) or die( 'Restricted access' );
+defined('_JEXEC') or die('Restricted access');
 JHTML::_('behavior.tooltip');
 JHTML::_('behavior.modal');
 /* JS Script für Joomla Sortierung */
@@ -12,11 +12,10 @@ JFactory::getDocument()->addScriptDeclaration( "
 	}"
 );
 ?>
-<table width="100%" cellpadding="2" cellspacing="0">
-	<tr class="componentheading">
-		<th align="left" valign="bottom"><?php echo $this->title; ?></th>
-	</tr>
-</table>
+<div id="ss-sermons-container">
+<h1 class="componentheading">
+	<?php echo $this->title; ?>
+</h1>
 <p />
 <?php if ($this->rows){ ?>
 <div class="Pages">
@@ -108,3 +107,4 @@ JFactory::getDocument()->addScriptDeclaration( "
 <?php } else { ?>
 	<div class="no_entries"><?php echo JText::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', JText::_('COM_SERMONSPEAKER_SERMONS')); ?></div>
 <?php } ?>
+</div>

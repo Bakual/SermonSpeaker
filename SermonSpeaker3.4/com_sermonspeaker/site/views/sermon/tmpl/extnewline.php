@@ -1,14 +1,11 @@
 <?php
-defined( '_JEXEC' ) or die( 'Restricted access' );
+defined('_JEXEC') or die('Restricted access');
 if ($this->params->get('ga')) { $callback = "&callback=".$this->params->get('ga'); }
 $return = SermonspeakerHelperSermonspeaker::insertAddfile($this->row->addfile, $this->row->addfileDesc);
 $id = $this->row->id;
 ?>
-<table width="100%" cellpadding="2" cellspacing="0">
-	<tr class="componentheading">
-		<th align="left" valign="bottom"><?php echo JText::_('COM_SERMONSPEAKER_SERMON_TITLE'); ?></th>
-	</tr>
-</table>
+<div id="ss-sermon-container">
+<h1 class="componentheading"><?php echo JText::_('COM_SERMONSPEAKER_SERMON_TITLE'); ?></h1>
 <!-- Begin Data -->
 <table border="0" cellpadding="2" cellspacing="2" width="100%">
 	<?php if ($this->params->get('hide_dl') == "0" && strlen($this->row->sermon_path) > 0) { ?>
@@ -90,7 +87,7 @@ $id = $this->row->id;
 		<td>
 			<br />
 			<?php 
-			$ret = SermonspeakerHelperSermonspeaker::insertPlayer($this->lnk);
+			$ret = SermonspeakerHelperSermonspeaker::insertPlayer($this->lnk, $this->row->sermon_time);
 			$pp_ret = explode("/",$ret);
 			$pp_h = $pp_ret[0];
 			$pp_w = $pp_ret[1];
@@ -146,3 +143,4 @@ $id = $this->row->id;
 		</tr>
 	<?php } ?>
 </table>
+</div>

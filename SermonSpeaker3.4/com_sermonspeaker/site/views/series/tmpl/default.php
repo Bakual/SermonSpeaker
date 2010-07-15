@@ -1,11 +1,10 @@
 <?php
-defined( '_JEXEC' ) or die( 'Restricted access' );
+defined('_JEXEC') or die('Restricted access');
 ?>
-<table width="100%" cellpadding="2" cellspacing="0">
-	<tr class="componentheading">
-		<th align="left" valign="bottom"><?php echo JText::_('COM_SERMONSPEAKER_SERIES_TITLE').$this->cat; ?></th>
-	</tr>
-</table>
+<div id="ss-series-container">
+<h1 class="componentheading">
+	<?php echo JText::_('COM_SERMONSPEAKER_SERIES_TITLE').$this->cat; ?>
+</h1>
 <p />
 <?php if ($this->rows){ ?>
 <div class="Pages">
@@ -54,3 +53,4 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 <?php } else { ?>
 	<div class="no_entries"><?php echo JText::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', JText::_('COM_SERMONSPEAKER_SERIES')); ?></div>
 <?php } ?>
+</div>

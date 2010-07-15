@@ -273,7 +273,7 @@ function com_install() {
 	
 	// Add metakey and metadesc column if it doesn't exist in the sermons table
 	if (!array_key_exists('metakey',$sermons)) {
-		echo "<br>Attempting to add new metakey column to table sermon_sermons...";
+		echo "<br>Attempting to add new metakey and metadesc columns to table sermon_sermons...";
 		$query = "ALTER TABLE #__sermon_sermons ADD COLUMN metakey text NOT NULL, ADD metadesc text NOT NULL";
 		$database->setQuery( $query );
 		$database->Query();

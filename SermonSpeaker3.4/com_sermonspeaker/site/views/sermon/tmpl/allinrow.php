@@ -1,15 +1,14 @@
 <?php
-defined( '_JEXEC' ) or die( 'Restricted access' );
+defined('_JEXEC') or die('Restricted access');
 if ($this->params->get('ga')) { $callback = "&callback=".$this->params->get('ga'); }
 $return = SermonspeakerHelperSermonspeaker::insertAddfile($this->row->addfile, $this->row->addfileDesc);
 $countcolumn = NULL; // will count optional columns so the popup button may span all columns
 $id = $this->row->id;
 ?>
-<table width="100%" cellpadding="2" cellspacing="0">
-	<tr class="componentheading">
-		<th align="left" valign="bottom"><?php echo JText::_('COM_SERMONSPEAKER_SERMON_TITLE'); ?></th>
-	</tr>
-</table>
+<div id="ss-sermon-container">
+<h1 class="componentheading">
+	<?php echo JText::_('COM_SERMONSPEAKER_SERMON_TITLE'); ?>
+</h1>
 <!-- Begin Header -->
 <table border="0" cellpadding="2" cellspacing="0" width="100%">
 	<tr>
@@ -52,7 +51,7 @@ $id = $this->row->id;
 		if ($this->params->get('client_col_player') && strlen($this->row->sermon_path) > 0){ ?> 
 			<td align="center" valign="top">
 				<?php
-				$ret = SermonspeakerHelperSermonspeaker::insertPlayer($this->lnk);
+				$ret = SermonspeakerHelperSermonspeaker::insertPlayer($this->lnk, $this->row->sermon_time);
 				$pp_ret = explode("/",$ret);
 				$pp_h = $pp_ret[0];
 				$pp_w = $pp_ret[1];
@@ -86,3 +85,4 @@ $id = $this->row->id;
 		</tr>
 	<?php } ?>
 </table>
+</div>

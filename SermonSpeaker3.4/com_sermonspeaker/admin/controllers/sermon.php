@@ -66,9 +66,20 @@ class SermonspeakerControllerSermon extends SermonspeakerController
 			unset($post['addfile_txt']);
 		}
 		if(empty($post['alias'])) {
-				$post['alias'] = $post['sermon_title'];
+			$post['alias'] = $post['sermon_title'];
 		}
 		$post['alias'] = JFilterOutput::stringURLSafe($post['alias']);
+		// making sure that the time is valid formatted
+		$tarr = explode(':', $post['sermon_time']);
+		foreach ($tarr as $tar){
+			$tar = (int)$tar;
+			$tar = str_pad($tar, 2, '0', STR_PAD_LEFT);
+		}
+		if (count($tarr) == 2) {
+			$post['sermon_time'] = '00:'.$tarr[0].':'.$tarr[1];
+		} elseif (count($tarr) == 3) {
+			$post['sermon_time'] = $tarr[0].':'.$tarr[1].':'.$tarr[2];
+		}
 
 		$success = $row->save($post);
 		if (!$success) {

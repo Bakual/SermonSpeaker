@@ -1,9 +1,7 @@
 <?php
-defined( '_JEXEC' ) or die( 'Restricted access' );
-JHTML::_('behavior.tooltip');
-JHTML::_('behavior.modal');
-$Itemid	= JRequest::getInt('Itemid');
+defined('_JEXEC') or die('Restricted access');
 ?>
+<div class="ss-speakers-container" >
 <h1 class="componentheading"><?php echo JText::_('COM_SERMONSPEAKER_SPEAKERS_TITLE'); ?></h1>
 <?php if ($this->rows){ ?>
 <!-- begin Data -->
@@ -12,7 +10,6 @@ $Itemid	= JRequest::getInt('Itemid');
 	<h3 class="contentheading">
 		<?php echo '<a href="'.JRoute::_('index.php?view=speaker&id='.$row->id).'" title="'.$row->name.'">'.$row->name.'</a>'; ?>
 	</h3>
-	<div class="ss-speaker-container" >
 		<?php if($row->pic) { ?>
 			<a href="<?php echo JRoute::_('index.php?view=speaker&id='.$row->id); ?>">
 				<img class="speaker" src="<?php echo $row->pic; ?>" title="$row->name; ?>" alt="<?php echo $row->name; ?>" />
@@ -34,7 +31,6 @@ $Itemid	= JRequest::getInt('Itemid');
 		<?php if ($row->website && $row->website != "http://"){
 			echo ' | <a href="'.$row->website.'" target="_blank" title="'.JText::_('COM_SERMONSPEAKER_SPEAKER_WEBLINK_HOOVER').'">'.JText::sprintf('COM_SERMONSPEAKER_SPEAKER_WEBLINK', $row->name).'</a>';
 		} ?>
-	</div>
 	<hr style="width: 100%; height: 2px;" />
 <?php } ?>
 <div class="Pages">
@@ -46,3 +42,4 @@ $Itemid	= JRequest::getInt('Itemid');
 <?php } else { ?>
 	<div class="no_entries"><?php echo JText::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', JText::_('COM_SERMONSPEAKER_SPEAKERS')); ?></div>
 <?php } ?>
+</div>
