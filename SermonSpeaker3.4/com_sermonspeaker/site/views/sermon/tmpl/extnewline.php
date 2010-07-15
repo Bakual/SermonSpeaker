@@ -16,9 +16,7 @@ $id = $this->row->id;
 		<?php if ($this->params->get('dl_button') == "1") { ?>
 		<tr>
 			<td></td>
-			<?php
-			echo SermonspeakerHelperSermonspeaker::insertdlbutton($id, $this->row->sermon_path);
-			?>
+			<td><?php echo SermonspeakerHelperSermonspeaker::insertdlbutton($id, $this->row->sermon_path); ?></td>
 		</tr>
 		<?php }
 	} else { ?>
