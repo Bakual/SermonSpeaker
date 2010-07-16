@@ -31,11 +31,9 @@ $feedFile = "index.php?option=com_sermonspeaker&amp;view=feed".$feedcat;
 
 if($showPcast) {
 	$u =& JURI::getInstance(JURI::root());
-	$host = $u->getHost();
-	$pcast = $prefix.$host.'/'.ltrim($feedFile,'/');
-} else {
-	$pcast = JURI::root().$feedFile;
+	$u->setScheme($prefix);
 }
+$pcast = JURI::root().$feedFile;
 ?>
 
 <div class="syndicate <?php echo $moduleclass_sfx; ?>" align="center">
