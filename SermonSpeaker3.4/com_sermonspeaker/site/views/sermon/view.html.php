@@ -45,8 +45,9 @@ class SermonspeakerViewSermon extends JView
 			if ($params->get('sermonlayout') == 1) { $this->setLayout('allinrow'); }
 			elseif ($params->get('sermonlayout') == 2) { $this->setLayout('newline'); }
 			elseif ($params->get('sermonlayout') == 3) { $this->setLayout('extnewline'); }
+			elseif ($params->get('sermonlayout') == 4) { $this->setLayout('icon'); }
 		} 
-		if ($this->getLayout() == "extnewline") {
+		if ($this->getLayout() == "extnewline" || $this->getLayout() == "icon") {
 			$model		= &$this->getModel();
 			$serie		= &$model->getSerie($row->series_id);		// getting the Serie from the Model
 			$this->assignRef('serie',$serie);
@@ -86,8 +87,8 @@ class SermonspeakerViewSermon extends JView
 
 		// Set Meta
 		$document->setTitle($row->sermon_title.' | '.$document->getTitle());
-		$document->setMetaData("description", strip_tags($row->notes.' '.$row->description));
-		$keywords = $this->escape(str_replace(' ', ',', $row->sermon_title).','.str_replace(',', ':', $row->sermon_scripture).','.$row->keywords);
+		$document->setMetaData("description", strip_tags($row->notes.' '.$row->metadesc));
+		$keywords = $this->escape(str_replace(' ', ',', $row->sermon_title).','.str_replace(',', ':', $row->sermon_scripture).','.$row->metakey);
 		$document->setMetaData("keywords", $keywords);
 
 		// Support for Content Plugins

@@ -26,6 +26,7 @@
 			<option value="1">COM_SERMONSPEAKER_SERMON_VIEW_ALLINROW_TITLE</option>
 			<option value="2">COM_SERMONSPEAKER_SERMON_VIEW_NEWLINE_TITLE</option>
 			<option value="3">COM_SERMONSPEAKER_SERMON_VIEW_EXTNEWLINE_TITLE</option>
+			<option value="4">COM_SERMONSPEAKER_SERMON_VIEW_ICON_TITLE</option>
 		</param>
 		<param name="series_player" type="radio" default="0" label="COM_SERMONSPEAKER_PARAM_SERIES_PLAYER" description="COM_SERMONSPEAKER_PARAM_SERIES_PLAYER_DESC">
 			<option value="0">No</option>

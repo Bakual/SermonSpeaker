@@ -78,6 +78,8 @@
 		<filename>views/sermon/tmpl/newline.xml</filename>
 		<filename>views/sermon/tmpl/extnewline.php</filename>
 		<filename>views/sermon/tmpl/extnewline.xml</filename>
+		<filename>views/sermon/tmpl/icon.php</filename>
+		<filename>views/sermon/tmpl/icon.xml</filename>
 		<filename>views/sermon/tmpl/popup.php</filename>
 		<filename>views/sermon/tmpl/popup.xml</filename>
 		<filename>models/sermon.php</filename>
@@ -128,8 +130,11 @@
 		<filename>media/avatars/sharon.jpg</filename>
 		<filename>media/player/player.swf</filename>
 		<filename>media/player/swfobject.js</filename>
+		<filename>media/player/1pixelout/player.swf</filename>
+		<filename>media/player/1pixelout/audio-player.js</filename>
 		<filename>images/play.gif</filename>
 		<filename>images/nopict.jpg</filename>
+		<filename>images/player-wrapper.png</filename>
 		<filename>images/blue_tag.png</filename>
 		<filename>images/green_tag.png</filename>
 		<filename>images/find.png</filename>
@@ -138,6 +143,19 @@
 		<filename>icons/pdf.png</filename>
 		<filename>icons/ppt.png</filename>
 		<filename>icons/zip.png</filename>
+		<filename>icons/16/icon-download-blue.png</filename>
+		<filename>icons/16/icon-download-green.png</filename>
+		<filename>icons/16/icon-download-orange.png</filename>
+		<filename>icons/16/icon-new-window.png</filename>
+		<filename>icons/32/bible.png</filename>
+		<filename>icons/32/calendar.png</filename>
+		<filename>icons/32/clock.png</filename>
+		<filename>icons/32/document.png</filename>
+		<filename>icons/32/folders.png</filename>
+		<filename>icons/32/rss.png</filename>
+		<filename>icons/32/speaker.png</filename>
+		<filename>icons/32/statistics.png</filename>
+		<filename>icons/32/tag.png</filename>
 		<filename>id3/getid3/getid3.lib.php</filename>
 		<filename>id3/getid3/getid3.php</filename>
 		<filename>id3/getid3/module.audio.mp3.php</filename>

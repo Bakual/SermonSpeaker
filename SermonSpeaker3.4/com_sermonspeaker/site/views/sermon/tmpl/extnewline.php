@@ -101,11 +101,10 @@ JHTML::_('behavior.modal');
 		<tr><td></td>
 		<td><input class="popup_btn button" type="button" name="<?php echo JText::_('COM_SERMONSPEAKER_POPUPPLAYER'); ?>" value="<?php echo JText::_('COM_SERMONSPEAKER_POPUPPLAYER'); ?>" onclick="popup = window.open('<?php echo JRoute::_("index.php?view=sermon&layout=popup&id=$id&tmpl=component"); ?>', 'PopupPage', 'height=<?php echo $pp_h.",width=".$pp_w; ?>,scrollbars=yes,resizable=yes'); return false" /></td></tr>
 	<?php }
-	$return = SermonspeakerHelperSermonspeaker::insertAddfile($this->row->addfile, $this->row->addfileDesc);
-	if ($return != NULL) { ?>
+	if ($this->row->addfile && $this->row->addfileDesc) { ?>
 		<tr>
 			<td valign="top"><b><?php echo JText::_('COM_SERMONSPEAKER_ADDFILE'); ?>:</b></td>
-			<td><?php echo $return; ?></td>
+			<td><?php echo SermonspeakerHelperSermonspeaker::insertAddfile($this->row->addfile, $this->row->addfileDesc); ?></td>
 		</tr>
 	<?php } ?>
 </table>
@@ -121,7 +120,7 @@ JHTML::_('behavior.modal');
 		$html = "<label>Tags: </label>\r";
 		foreach($keywords as $keyword){
 			$keyword = trim($keyword);
-			$html .= '<a href="'.JRoute::_( "index.php?option=com_search&ordering=newest&searchphrase=all&searchword=".$keyword).'" >'.$keyword.'</a>';
+			$html .= '<a href="'.JRoute::_("index.php?option=com_search&ordering=newest&searchphrase=all&searchword=".$keyword).'" >'.$keyword.'</a>';
 			if($keyTotal != $rowCount) $html .= ', ';
 			$rowCount++;
 		}
