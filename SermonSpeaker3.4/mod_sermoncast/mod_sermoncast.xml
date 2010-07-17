@@ -31,9 +31,9 @@
 			<option value="1">YES</option>
 		</param>
 		<param name="sc_pcast_prefix" type="list" default="itpc" label="MOD_SERMONCAST_PARAM_PCAST_PREFIX" description="MOD_SERMONCAST_PARAM_PCAST_PREFIX_DESC">
-			<option value="http://">http://</option>
-			<option value="itpc://">itpc://</option>
-			<option value="pcast://">pcast://</option>
+			<option value="http">http://</option>
+			<option value="itpc">itpc://</option>
+			<option value="pcast">pcast://</option>
 		</param>
 		<param name="sc_otherlink" type="text" default="" label="MOD_SERMONCAST_PARAM_OTHERLINK" description="MOD_SERMONCAST_PARAM_OTHERLINK_DESC" />
 		<param name="sc_otherimage" type="text" default="" label="MOD_SERMONCAST_PARAM_OTHERIMAGE" description="MOD_SERMONCAST_PARAM_OTHERIMAGE_DESC" />

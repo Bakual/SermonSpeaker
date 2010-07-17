@@ -7,13 +7,13 @@ JHTML::_('behavior.modal');
 $cat['series'] 	= (int)$params->get('sc_series_cat');
 $cat['speaker']	= (int)$params->get('sc_speaker_cat');
 $cat['sermon'] 	= (int)$params->get('sc_sermon_cat');
-$otherlink 		= $params->get('otherlink');
-$otherimage 	= $params->get('otherimage');
+$otherlink 		= $params->get('sc_otherlink');
+$otherimage 	= $params->get('sc_otherimage');
 $text           = $params->get('sc_introtext');
 $showPcast      = $params->get('sc_showpcast');
 $showPlainlink  = $params->get('sc_showplink');
-$prefix         = $params->get('pcast_prefix');
-$helpcontent	= $params->get('helpcontent');
+$prefix         = $params->get('sc_pcast_prefix');
+$helpcontent	= $params->get('sc_helpcontent');
 $moduleclass_sfx 	= $params->get('$moduleclass_sfx');
 
 $feedcat = NULL;
@@ -28,12 +28,12 @@ if ($cat['sermon'] != 0){
 }
 
 $feedFile = "index.php?option=com_sermonspeaker&amp;view=feed".$feedcat;
-
-if($showPcast) {
-	$u =& JURI::getInstance(JURI::root());
-	$u->setScheme($prefix);
-}
 $pcast = JURI::root().$feedFile;
+if($showPcast) {
+	$u =& JURI::getInstance($pcast);
+	$u->setScheme($prefix);
+	$pcast = $u->toString();
+}
 ?>
 
 <div class="syndicate <?php echo $moduleclass_sfx; ?>" align="center">
