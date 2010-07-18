@@ -48,7 +48,7 @@ JHTML::_('behavior.modal');
 		</tr>
 	<?php } ?>
 	<tr>
-		<td valign="top"><b><?php echo JText::_('COM_SERMONSPEAKER_SERIES'); ?>:</b></td>
+		<td valign="top"><b><?php echo JText::_('COM_SERMONSPEAKER_SERIE_TITLE'); ?>:</b></td>
 		<td>
 			<a href="<?php echo JRoute::_('index.php?view=serie&id='.$this->serie->id); ?>">
 			<?php echo $this->escape($this->serie->series_title); ?>

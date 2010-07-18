@@ -35,8 +35,8 @@ padding:5px;
 border:2px dashed #fa8072;
 }
 
-/* EXTICON view */
-#sermon-infobox{-moz-border-radius:15px 15px 15px 15px;background:none repeat scroll 0 0 #F6F6F6;border:2px solid #D58400;margin:0;padding:5px;width:97%}
+/* ICON view */
+#sermon-infobox{-moz-border-radius:15px 15px 15px 15px;background:none repeat scroll 0 0 #F6F6F6;border:2px solid #AAA;margin:0;padding:5px;width:97%}
 #sermon-player-container{}
 #sermon-player-container div.ss-player{background:url(images/player-wrapper.png) no-repeat;height:40px;margin:5px;float:left;width:350px}
 #sermon-player-container object{margin:7px 0 0 50px}
@@ -50,7 +50,7 @@ a.download{background:url(icons/16/icon-download-orange.png) no-repeat center le
 #sermon-infobox .field-calendar{background:url(icons/32/calendar.png) no-repeat center left}
 #sermon-infobox .field-time{background:url(icons/32/clock.png) no-repeat center left}
 #sermon-infobox .field-series{background:url(icons/32/folders.png) no-repeat center left}
-#sermon-infobox .field-addfile{background:url(icons/32/document.png) no-repeat center left}
+#sermon-infobox .field-addfile{padding-left:8px}
 div.tag, div.hits{line-height:32px;padding:0 0 0 32px;vertical-align:middle}
 div.tag{background:url(icons/32/tag.png) no-repeat center left}
 div.hits{background:url(icons/32/statistics.png) no-repeat center left}
