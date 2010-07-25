@@ -37,7 +37,8 @@ class SermonspeakerViewFu_step_2 extends JView
 			}
 			$sql['sermon_path']			= '/'.$params->get('path').$fu_destdir.$file;
 			$sql['sermon_title']		= JRequest::getString('sermon_title', '', 'POST');
-			$sql['alias']				= JRequest::getCmd('alias', JFilterOutput::stringURLSafe($sql['sermon_title']), 'POST');
+			$sql['alias']				= JRequest::getString('alias', $sql['sermon_title'], 'POST');
+			$sql['alias']				= JFilterOutput::stringURLSafe($sql['alias']);
 			$sql['sermon_number']		= JRequest::getInt('sermon_number', '', 'POST');
 			$sql['sermon_scripture']	= JRequest::getString('sermon_scripture', '', 'POST');
 			$sql['sermon_date']			= JRequest::getString('sermon_date', '', 'POST');
