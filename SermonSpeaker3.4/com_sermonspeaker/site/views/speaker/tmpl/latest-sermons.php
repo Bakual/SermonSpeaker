@@ -79,7 +79,7 @@ $i = 0;
 			echo "<td align=\"left\" valign=\"middle\" >$sermon->sermon_scripture</td>";
 		}
 		if( $this->params->get('client_col_sermon_date')){
-			echo "<td align=\"left\" valign=\"middle\">".JHTML::date($sermon->sermon_date, JText::_('%Y-%M-%D'), 0)."</td>";
+			echo "<td align=\"left\" valign=\"middle\">".JHTML::date($sermon->sermon_date, JText::_($this->params->get('date_format')), 0)."</td>";
 		}
 		if( $this->params->get('client_col_sermon_time')){
 			echo "<td align=\"center\" valign=\"middle\">".SermonspeakerHelperSermonspeaker::insertTime($sermon->sermon_time)."</td>";

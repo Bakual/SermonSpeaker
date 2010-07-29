@@ -85,14 +85,14 @@ JFactory::getDocument()->addScriptDeclaration( "
 					<?php echo $row->sermon_title; ?>
 				</a>
 			</td>
-			<?php if( $this->params->get('client_col_sermon_scripture_reference')){ ?>		
+			<?php if($this->params->get('client_col_sermon_scripture_reference')){ ?>		
 				<td align="left" valign="top" ><?php echo $row->sermon_scripture; ?></td>
 			<?php } ?>
 			<td align="left" valign="top">
 				<?php echo SermonspeakerHelperSermonSpeaker::SpeakerTooltip($row->s_id, $row->pic, $row->name); ?>
 			</td>
 			<?php if( $this->params->get('client_col_sermon_date')){ ?>
-				<td align="left" valign="top" ><?php echo JHTML::date($row->sermon_date, JText::_('%Y-%M-%D'), 0); ?></td>
+				<td align="left" valign="top" ><?php echo JHTML::date($row->sermon_date, JText::_($this->params->get('date_format')), 0); ?></td>
 			<?php }
 			if( $this->params->get('client_col_sermon_time')){ ?>
 				<td><?php echo SermonspeakerHelperSermonspeaker::insertTime($row->sermon_time); ?></td>

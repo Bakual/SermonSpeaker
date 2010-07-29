@@ -33,7 +33,7 @@ foreach($this->rows as $row) {
 	<div style="margin-left:10%;">
 	<?php foreach($sermons as $sermon) { 
 		$count ++;?>
-		<h4 style="margin-left:-5%;"><?php echo $this->escape($sermon->sermon_title).'('.JHTML::date($sermon->sermon_date, JText::_('%Y-%M-%D'), 0).')'; ?></h4>
+		<h4 style="margin-left:-5%;"><?php echo $this->escape($sermon->sermon_title).'('.JHTML::date($sermon->sermon_date, JText::_($this->params->get('date_format')), 0).')'; ?></h4>
 		<?php echo $sermon->notes;
 		if ($sermon->addfile && $sermon->addfileDesc){
 			echo '<b>'.JText::_('COM_SERMONSPEAKER_ADDFILE').' : </b>';

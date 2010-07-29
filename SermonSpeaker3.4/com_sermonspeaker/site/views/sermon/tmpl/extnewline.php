@@ -29,7 +29,7 @@ JHTML::_('behavior.modal');
 	<?php } ?>
 	<tr>
 		<td valign="top"><b><?php echo JText::_('COM_SERMONSPEAKER_SERMONDATE'); ?>:</b></td>
-		<td><?php echo JHTML::date($this->row->sermon_date, JText::_('%Y-%M-%D'), 0); ?></td>
+		<td><?php echo JHTML::date($this->row->sermon_date, JText::_($this->params->get('date_format')), 0); ?></td>
 	</tr>
 	<tr>
 		<td valign="top"><b><?php echo JText::_('COM_SERMONSPEAKER_SCRIPTURE'); ?>:</b></td>

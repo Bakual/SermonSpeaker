@@ -28,6 +28,15 @@
 			<option value="3">COM_SERMONSPEAKER_SERMON_VIEW_EXTNEWLINE_TITLE</option>
 			<option value="4">COM_SERMONSPEAKER_SERMON_VIEW_ICON_TITLE</option>
 		</param>
+		<param name="date_format" type="list" default="%Y-%M-%D" label="COM_SERMONSPEAKER_PARAM_DATE_FORMAT" description="COM_SERMONSPEAKER_PARAM_DATE_FORMAT_DESC">
+			<option value="DATE_FORMAT_LC">DATE_FORMAT_LC</option>
+			<option value="DATE_FORMAT_LC1">DATE_FORMAT_LC1</option>
+			<option value="DATE_FORMAT_LC2">DATE_FORMAT_LC2</option>
+			<option value="DATE_FORMAT_LC3">DATE_FORMAT_LC3</option>
+			<option value="DATE_FORMAT_LC4">DATE_FORMAT_LC4</option>
+			<option value="%Y-%M-%D">%Y-%M-%D</option>
+			<option value="%A, %B %E">%A, %B %E</option>
+		</param>
 		<param name="series_player" type="radio" default="0" label="COM_SERMONSPEAKER_PARAM_SERIES_PLAYER" description="COM_SERMONSPEAKER_PARAM_SERIES_PLAYER_DESC">
 			<option value="0">No</option>
 			<option value="1">Yes</option>
