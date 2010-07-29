@@ -35,6 +35,18 @@
 			<option value="0">No</option>
 			<option value="1">Yes</option>
 		</param>
-		<param name="ls_mo_date_format" type="text" default="" label="MOD_LATESTSERMONS_PARAM_MO_DATE_FORMAT" description="MOD_LATESTSERMONS_PARAM_MO_DATE_FORMAT_DESC" />
+		<param name="ls_mo_date_format" type="list" default="%Y-%M-%D" label="MOD_LATESTSERMONS_PARAM_MO_DATE_FORMAT" description="MOD_LATESTSERMONS_PARAM_MO_DATE_FORMAT_DESC">
+			<option value="DATE_FORMAT_LC">DATE_FORMAT_LC</option>
+			<option value="DATE_FORMAT_LC1">DATE_FORMAT_LC1</option>
+			<option value="DATE_FORMAT_LC2">DATE_FORMAT_LC2</option>
+			<option value="DATE_FORMAT_LC3">DATE_FORMAT_LC3</option>
+			<option value="DATE_FORMAT_LC4">DATE_FORMAT_LC4</option>
+			<option value="%Y-%M-%D">%Y-%M-%D</option>
+			<option value="%A, %B %E">%A, %B %E</option>
+		</param>
+		<param name="ls_show_mo_link" type="radio" default="0" label="MOD_LATESTSERMONS_PARAM_SHOW_MO_LINK" description="MOD_LATESTSERMONS_PARAM_SHOW_MO_LINK_DESC">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
 	</params>
 </install>

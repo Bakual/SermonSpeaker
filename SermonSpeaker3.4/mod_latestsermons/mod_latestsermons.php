@@ -1,6 +1,5 @@
 <?php
 defined('_JEXEC') or die('Restricted access');
-error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
 if ($params->get('ls_show_mouseover')) {
 	JHTML::_('behavior.tooltip');
@@ -19,11 +18,11 @@ $query 	= 'SELECT a.sermon_title, a.id, a.sermon_date, b.name, c.series_title'
 
 $database->setQuery($query);
 $rows = $database->loadObjectList();
-
-echo '<ul class="'.$params->get('moduleclass_sfx')."\">\n";
-foreach($rows as $row) {
-	echo '<li class="'.$params->get('moduleclass_sfx').'">';
-	if ($params->get('ls_show_mouseover')) {
+?>
+<ul class="<?php echo $params->get('moduleclass_sfx'); ?>">
+<?php foreach($rows as $row) { ?>
+	<li class="<?php echo $params->get('moduleclass_sfx'); ?>">
+	<?php if ($params->get('ls_show_mouseover')) {
 		$tips = NULL;
 		if ($params->get('ls_show_mo_speaker')) {
 			$tips[] = JText::_('MOD_LATESTSERMONS_SPEAKER').": ".$row->name;
@@ -32,15 +31,19 @@ foreach($rows as $row) {
 			$tips[] = JText::_('MOD_LATESTSERMONS_SERIE').": ".trim($row->series_title);
 		}
 		if ($params->get('ls_show_mo_date')) {
-			$date_format = $params->get('ls_mo_date_format', JText::_('%Y-%M-%D'));
+			$date_format = JText::_($params->get('ls_mo_date_format', '%Y-%M-%D'));
 			$tips[] = JText::_('MOD_LATESTSERMONS_DATE').": ".JHtml::Date($row->sermon_date, $date_format, 0);
 		}
 		$tip = implode('<br>', $tips);
-		$title = htmlspecialchars(stripslashes($row->sermon_title),ENT_QUOTES);
-		echo JHTML::tooltip($tip, '', '', $title, JRoute::_('index.php?option=com_sermonspeaker&view=sermon&id='.$row->slug));
-		echo "</li>\n";
-	} else {
-		echo '<a href="'.JRoute::_('index.php?option=com_sermonspeaker&view=sermon&id='.$row->slug).'">'.stripslashes($row->sermon_title)."</a></li>\n";
-	} // if mouseover
-}
-echo "</ul>\n";
+		$title = htmlspecialchars(stripslashes($row->sermon_title), ENT_QUOTES);
+		echo JHTML::tooltip($tip, '', '', $title, JRoute::_('index.php?option=com_sermonspeaker&view=sermon&id='.$row->slug)); ?>
+		</li>
+	<?php } else { ?>
+		<a href="<?php echo JRoute::_('index.php?option=com_sermonspeaker&view=sermon&id='.$row->slug); ?>"><?php echo stripslashes($row->sermon_title); ?></a></li>
+	<?php } // if mouseover
+} ?>
+</ul>
+<?php if ($params->get('ls_show_mo_link')) { ?>
+	<br>
+	<a href="<?php echo JRoute::_('index.php?option=com_sermonspeaker&view=sermons'); ?>"><?php echo JText::_('MOD_LATESTSERMONS_LINK'); ?></a>
+<?php } ?>
