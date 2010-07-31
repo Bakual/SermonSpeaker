@@ -4,7 +4,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 <table border="0">
 	<tr>
 		<td width ="50"></td>
-		<td><h1><?php echo $lang->fu_failed; ?></h1></td>
+		<td><h1><?php echo JText::_('FU_FAILED'); ?></h1></td>
 	</tr>
 	<tr>
 		<td width ="50"></td>
