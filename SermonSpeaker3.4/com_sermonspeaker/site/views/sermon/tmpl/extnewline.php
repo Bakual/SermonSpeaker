@@ -9,24 +9,12 @@ JHTML::_('behavior.modal');
 <div id="ss-sermon-container">
 <h1 class="componentheading"><?php echo JText::_('COM_SERMONSPEAKER_SERMON_TITLE'); ?></h1>
 <!-- Begin Data -->
+<?php if ($this->params->get('hide_dl') == "0" && strlen($this->row->sermon_path) > 0) { ?>
+	<h3 class="contentheading"><a title="<?php echo JText::_('COM_SERMONSPEAKER_DIRECTLINK_HOOVER'); ?>" href="<?php echo $this->lnk.'">'.$this->escape($this->row->sermon_title); ?></a></h3>
+<?php } else { ?>
+	<h3 class="contentheading"><?php echo $this->escape($this->row->sermon_title); ?></h3>
+<?php } ?>
 <table border="0" cellpadding="2" cellspacing="2" width="100%">
-	<?php if ($this->params->get('hide_dl') == "0" && strlen($this->row->sermon_path) > 0) { ?>
-		<tr>
-			<td valign="top"><b><?php echo JText::_('COM_SERMONSPEAKER_SERMONTITLE'); ?>:</b></td>
-			<td><a title="<?php echo JText::_('COM_SERMONSPEAKER_DIRECTLINK_HOOVER'); ?>" href="<?php echo $this->lnk.'">'.$this->escape($this->row->sermon_title); ?></a></td>
-		</tr>
-		<?php if ($this->params->get('dl_button') == "1") { ?>
-		<tr>
-			<td></td>
-			<td><?php echo SermonspeakerHelperSermonspeaker::insertdlbutton($id, $this->row->sermon_path); ?></td>
-		</tr>
-		<?php }
-	} else { ?>
-		<tr>
-			<td valign ="top"><b><?php echo JText::_('COM_SERMONSPEAKER_SERMONTITLE'); ?>:</b></td>
-			<td><?php echo $this->escape($this->row->sermon_title); ?></td>
-		</tr>
-	<?php } ?>
 	<tr>
 		<td valign="top"><b><?php echo JText::_('COM_SERMONSPEAKER_SERMONDATE'); ?>:</b></td>
 		<td><?php echo JHTML::date($this->row->sermon_date, JText::_($this->params->get('date_format')), 0); ?></td>
@@ -100,6 +88,11 @@ JHTML::_('behavior.modal');
 	?>
 		<tr><td></td>
 		<td><input class="popup_btn button" type="button" name="<?php echo JText::_('COM_SERMONSPEAKER_POPUPPLAYER'); ?>" value="<?php echo JText::_('COM_SERMONSPEAKER_POPUPPLAYER'); ?>" onclick="popup = window.open('<?php echo JRoute::_("index.php?view=sermon&layout=popup&id=$id&tmpl=component"); ?>', 'PopupPage', 'height=<?php echo $pp_h.",width=".$pp_w; ?>,scrollbars=yes,resizable=yes'); return false" /></td></tr>
+	<?php }
+	if ($this->params->get('dl_button') == "1") { ?>
+		<tr><td></td>
+		<td><?php echo SermonspeakerHelperSermonspeaker::insertdlbutton($id, $this->row->sermon_path); ?></td>
+		</tr>
 	<?php }
 	if ($this->row->addfile && $this->row->addfileDesc) { ?>
 		<tr>

@@ -7,11 +7,17 @@ JHTML::_('behavior.modal');
 <div id="ss-sermon-container">
 <h1 class="componentheading"><?php echo JText::_('COM_SERMONSPEAKER_SERMON_TITLE'); ?></h1>
 <!-- Begin Header -->
+<h3 class="contentheading">
+<?php if ($this->params->get('hide_dl') == "0" && strlen($this->row->sermon_path) > 0) { ?>
+	<a title='<?php echo JText::_('COM_SERMONSPEAKER_DIRECTLINK_HOOVER'); ?>' href='<?php echo $this->lnk; ?>'><?php echo $this->row->sermon_title; ?></a>
+<?php } else {
+	echo $this->row->sermon_title;
+} ?>
+</h3>
 <table border="0" cellpadding="2" cellspacing="0" width="100%">
 	<tr>
-		<th align="left"><?php echo JText::_('COM_SERMONSPEAKER_SERMONTITLE'); ?></th>
 		<?php if ($this->params->get('client_col_sermon_scripture_reference')){ ?>
-			<th align="left"><?php echo JText::_('COM_SERMONSPEAKER_SCRIPTURE'); ?></th>
+			<th align="left" valign="bottom"><?php echo JText::_('COM_SERMONSPEAKER_SCRIPTURE'); ?></th>
 		<?php }
 		if ($this->params->get('client_col_sermon_notes') && strlen($this->row->notes) > 0){ ?>
 			<th align="left" valign="bottom"> <?php echo JText::_('COM_SERMONSPEAKER_SERMONNOTES'); ?></th>
@@ -25,13 +31,6 @@ JHTML::_('behavior.modal');
 	</tr> 
 <!-- Begin Data -->
 	<tr>
-		<td align='left' valign='top'>
-			<?php if ($this->params->get('hide_dl') == "0" && strlen($this->row->sermon_path) > 0) { ?>
-				<a title='<?php echo JText::_('COM_SERMONSPEAKER_DIRECTLINK_HOOVER'); ?>' href='<?php echo $this->lnk; ?>'><?php echo $this->row->sermon_title; ?></a>
-			<?php } else {
-				echo $this->row->sermon_title;
-			} ?>
-		</td>
 		<?php if ($this->params->get('client_col_sermon_scripture_reference')){ ?>
 			<td align="left" valign="top"><?php echo $this->row->sermon_scripture; ?></td>
 		<?php }

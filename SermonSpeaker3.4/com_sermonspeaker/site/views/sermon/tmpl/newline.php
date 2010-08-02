@@ -9,17 +9,12 @@ JHTML::_('behavior.modal');
 <div id="ss-sermon-container">
 <h1 class="componentheading"><?php echo JText::_('COM_SERMONSPEAKER_SERMON_TITLE'); ?></h1>
 <!-- Begin Data -->
+<?php if ($this->params->get('hide_dl') == "0" && strlen($this->row->sermon_path) > 0) {
+	echo '<h3 class="contentheading"><a title="'.JText::_('COM_SERMONSPEAKER_DIRECTLINK_HOOVER').'" href="'.$this->lnk."\">".$this->row->sermon_title.'</a></h3>';
+} else {
+	echo '<h3 class="contentheading">'.$this->row->sermon_title.'</h3>';
+} ?>
 <table border="0" cellpadding="7" cellspacing="7">
-	<tr>
-		<td valign="top"><b><?php echo JText::_('COM_SERMONSPEAKER_SERMONTITLE'); ?>:</b></td>
-		<td>
-		<?php if ($this->params->get('hide_dl') == "0" && strlen($this->row->sermon_path) > 0) {
-			echo "<a title=\"".JText::_('COM_SERMONSPEAKER_DIRECTLINK_HOOVER')."\" href=\"".$this->lnk."\">".$this->row->sermon_title."</a>";
-		} else {
-			echo $this->row->sermon_title;
-		} ?>
-		</td>
-	</tr>
 	<?php if ($this->params->get('client_col_sermon_scripture_reference')){ ?>
 		<tr>
 			<td valign="top"><b><?php echo JText::_('COM_SERMONSPEAKER_SCRIPTURE'); ?>:</b></td>
