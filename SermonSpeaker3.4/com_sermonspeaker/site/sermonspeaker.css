@@ -44,7 +44,7 @@ border:2px dashed #fa8072;
 a.new-window{background:url(icons/16/icon-new-window.png) no-repeat center left;padding-left:18px}
 a.download{background:url(icons/16/icon-download-orange.png) no-repeat center left;padding-left:18px}
 .ss-fields-container{clear:both}
-#sermon-infobox .ss-field{width:43%;float:left;height:40px;padding:20px 0 0 40px;font-size:140%;font-weight:bolder}
+#sermon-infobox .ss-field{width:43%;float:left;height:40px;padding:20px 0 0 40px;font-size:140%;font-weight:bolder;text-align:left}
 #sermon-infobox .field-speaker{background:url(icons/32/speaker.png) no-repeat center left}
 #sermon-infobox .field-bible{background:url(icons/32/bible.png) no-repeat center left}
 #sermon-infobox .field-calendar{background:url(icons/32/calendar.png) no-repeat center left}
