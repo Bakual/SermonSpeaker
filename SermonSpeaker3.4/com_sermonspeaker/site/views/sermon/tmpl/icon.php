@@ -11,19 +11,15 @@ JHTML::_('behavior.modal');
 		title="<?php echo JText::_('COM_SERMONSPEAKER_SERMONTITLE').':: '.$this->escape($this->row->sermon_title); ?>" 
 		href="<?php echo JRoute::_('index.php?view=sermon&id='.$this->row->slug); ?>"><?php echo $this->escape($this->row->sermon_title); ?></a></h1>
 	<div id="sermon-infobox">
-		<?php if ($this->params->get('client_col_player')){
-			$playerPath	= JURI::base().'components/com_sermonspeaker/media/player/1pixelout/';
-			$doc	=& JFactory::getDocument();
-			$doc->addScript($playerPath.'audio-player.js'); ?>
+		<?php if ($this->params->get('client_col_player')){ ?>
 			<div id="sermon-player-container">
 				<div class="ss-player">
-					<object type="application/x-shockwave-flash" data="<?php echo $playerPath; ?>player.swf" id="audioplayer1" height="24" width="290">
-						<param name="movie" value="<?php echo $playerPath;	?>player.swf">
-						<param name="FlashVars" value="playerID=audioplayer1&soundFile=<?php echo $this->lnk; ?>">
-						<param name="quality" value="high">
-						<param name="menu" value="false">
-						<param name="wmode" value="transparent">
-					</object>
+					<?php 
+					$ret = SermonspeakerHelperSermonspeaker::insertPlayer($this->lnk, $this->row->sermon_time);
+					$pp_ret = explode("/",$ret);
+					$pp_h = $pp_ret[0];
+					$pp_w = $pp_ret[1];
+					?>
 				</div>
 				<?php if ($this->params->get('popup_player') || $this->params->get('dl_button')){ ?>
 					<div class="ss-mp3-links">

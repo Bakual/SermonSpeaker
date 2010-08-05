@@ -71,10 +71,9 @@ class SermonspeakerHelperSermonspeaker
 		$params	=& JComponentHelper::getParams('com_sermonspeaker');
 		$view = JRequest::getCmd('view');
 		if ($params->get('autostart') == "1" && $view != "seriessermon") {
-			$start="true"; 
-			$startwmp="1";
+			$start="true"; $startwmp="1"; $startaudio="yes";
 		} else {
-			$start="false"; $startwmp="0";
+			$start="false"; $startwmp="0"; $startaudio="no";
 		}
 		if ($params->get('ga')) { 
 			$callback = "so.addVariable('callback','".$params->get('ga')."');";
@@ -84,8 +83,12 @@ class SermonspeakerHelperSermonspeaker
 		} else {
 			$duration = NULL;
 		}
-		$player = JURI::root().'components/com_sermonspeaker/media/player/player.swf';
-		if(strcasecmp(substr($lnk,0,9),"index.php") == 0){ ?>
+		if ($params->get('alt_player')){
+			$player = JURI::root().'components/com_sermonspeaker/media/player/audio_player/player.swf';
+		} else {
+			$player = JURI::root().'components/com_sermonspeaker/media/player/player.swf';
+		}
+		if(strcasecmp(substr($lnk,0,9),'index.php') == 0){ ?>
 			<!-- Playlist -->
 			<div id='mediaspace<?php echo $count; ?>' align='center'>Flashplayer needs Javascript turned on</div>
 			<script type='text/javascript'>
@@ -108,6 +111,14 @@ class SermonspeakerHelperSermonspeaker
 			if((strcasecmp(substr($lnk,-4),".mp3") == 0) OR (strcasecmp(substr($lnk,-4),".m4a") == 0)) { ?>
 				<!-- File is an audio format -->
 				<div id='mediaspace<?php echo $count; ?>'>Flashplayer needs Javascript turned on</div>
+				<?php if ($params->get('alt_player')){ ?>
+				<script type='text/javascript'>
+					AudioPlayer.embed("mediaspace<?php echo $count; ?>", {
+						soundFile: "<?php echo $lnk; ?>",
+						autostart: "<?php echo $startaudio; ?>"
+					});
+				</script>
+				<?php } else { ?>
 				<script type='text/javascript'>
 					var so = new SWFObject('<?php echo $player; ?>','player1','250','24','9');
 					so.addParam('allowfullscreen','true');
@@ -119,7 +130,7 @@ class SermonspeakerHelperSermonspeaker
 					echo $callback; ?>
 					so.write('mediaspace<?php echo $count; ?>');
 				</script>
-				<?php
+				<?php }
 				$pp_h = $params->get('popup_height');
 				$pp_w = 380;
 			} elseif((strcasecmp(substr($lnk,-4),".flv") == 0) OR (strcasecmp(substr($lnk,-4),".mp4") == 0) OR (strcasecmp(substr($lnk,-4),".m4v") == 0)) { ?>

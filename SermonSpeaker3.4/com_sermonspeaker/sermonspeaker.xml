@@ -130,8 +130,8 @@
 		<filename>media/avatars/sharon.jpg</filename>
 		<filename>media/player/player.swf</filename>
 		<filename>media/player/swfobject.js</filename>
-		<filename>media/player/1pixelout/player.swf</filename>
-		<filename>media/player/1pixelout/audio-player.js</filename>
+		<filename>media/player/audio_player/player.swf</filename>
+		<filename>media/player/audio_player/audio-player.js</filename>
 		<filename>images/play.gif</filename>
 		<filename>images/nopict.jpg</filename>
 		<filename>images/player-wrapper.png</filename>

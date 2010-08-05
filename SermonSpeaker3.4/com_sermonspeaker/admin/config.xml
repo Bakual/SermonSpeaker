@@ -3,6 +3,10 @@
 		<param name="path" type="text" size="30" default="images" label="COM_SERMONSPEAKER_PARAM_PATH_SERMONS" description="COM_SERMONSPEAKER_PARAM_PATH_SERMONS_DESC" />
 		<param name="path_avatar" type="text" size="30" default="images" label="COM_SERMONSPEAKER_PARAM_PATH_AVATAR" description="COM_SERMONSPEAKER_PARAM_PATH_AVATAR_DESC" />
 		<param name="path_addfile" type="text" size="30" default="images" label="COM_SERMONSPEAKER_PARAM_PATH_ADDFILE" description="COM_SERMONSPEAKER_PARAM_PATH_ADDFILE_DESC" />
+		<param name="alt_player" type="radio" default="0" label="COM_SERMONSPEAKER_PARAM_ALT_PLAYER" description="COM_SERMONSPEAKER_PARAM_ALT_PLAYER_DESC">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
 		<param name="limit_speaker" type="radio" default="0" label="COM_SERMONSPEAKER_PARAM_LIMITSPEAKER" description="COM_SERMONSPEAKER_PARAM_LIMITSPEAKER_DESC">
 			<option value="0">No</option>
 			<option value="1">Yes</option>
