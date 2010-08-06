@@ -17,9 +17,6 @@ class SermonspeakerViewSeriessermon extends JView
 		$document =& JFactory::getDocument();
 		$params	=& JComponentHelper::getParams('com_sermonspeaker');
 
-		// Add swfobject-javascript for player
-		$document->addScript(JURI::root()."components/com_sermonspeaker/media/player/swfobject.js");
-		
 		// Check to see if the user has access to view the sermon
 		$aid	= $user->get('aid'); // 0 = public, 1 = registered, 2 = special
 
@@ -39,6 +36,23 @@ class SermonspeakerViewSeriessermon extends JView
 			}
 		}
 
+		// Add swfobject-javascript for player if needed
+		if ($params->get('client_col_player')){
+			if ($params->get('alt_player')){
+				$document->addScript(JURI::root()."components/com_sermonspeaker/media/player/audio_player/audio-player.js");
+				$document->addScriptDeclaration('
+				AudioPlayer.setup("'.JURI::root().'components/com_sermonspeaker/media/player/audio_player/player.swf", {
+					width: 290,
+					initialvolume: 100,
+					transparentpagebg: "yes",
+					left: "000000",
+					lefticon: "FFFFFF"
+				});');
+			} else {
+				$document->addScript(JURI::root()."components/com_sermonspeaker/media/player/swfobject.js");
+			}
+		}
+		
 		// Set Meta
 		$document->setTitle(JText::_('COM_SERMONSPEAKER_SERIESSERMONS_TITLE').' | '.$document->getTitle());
 		$document->setMetaData("description",JText::_('COM_SERMONSPEAKER_SERIESSERMONS_TITLE'));

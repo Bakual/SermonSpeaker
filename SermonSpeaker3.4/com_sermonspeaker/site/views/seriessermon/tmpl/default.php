@@ -47,7 +47,7 @@ foreach($this->rows as $row) {
 			} else {
 				$lnk = SermonspeakerHelperSermonspeaker::makelink($sermon->sermon_path); 
 			}
-			SermonspeakerHelperSermonspeaker::insertPlayer($lnk, $sermon->sermon_time, $count);
+			SermonspeakerHelperSermonspeaker::insertPlayer($lnk, $sermon->sermon_time, $count, $sermon->sermon_title);
 		} else {
 			// if player is disabled show a link
 			echo JText::_('COM_SERMONSPEAKER_DIRECTLINK_HOOVER').": <a title=\"".JText::_('COM_SERMONSPEAKER_DIRECTLINK_HOOVER')."\" href=\"".$lnk."\">".$this->escape($sermon->sermon_title)."</a>";

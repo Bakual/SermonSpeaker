@@ -43,7 +43,7 @@ JHTML::_('behavior.modal');
 		if ($this->params->get('client_col_player') && strlen($this->row->sermon_path) > 0){ ?> 
 			<td align="center" valign="top">
 				<?php
-				$ret = SermonspeakerHelperSermonspeaker::insertPlayer($this->lnk, $this->row->sermon_time);
+				$ret = SermonspeakerHelperSermonspeaker::insertPlayer($this->lnk, $this->row->sermon_time, 1, $this->row->sermon_title, $this->speaker->name);
 				$pp_ret = explode("/",$ret);
 				$pp_h = $pp_ret[0];
 				$pp_w = $pp_ret[1];

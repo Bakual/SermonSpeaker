@@ -15,7 +15,7 @@ JHTML::_('behavior.modal');
 			<div id="sermon-player-container">
 				<div class="ss-player">
 					<?php 
-					$ret = SermonspeakerHelperSermonspeaker::insertPlayer($this->lnk, $this->row->sermon_time);
+					$ret = SermonspeakerHelperSermonspeaker::insertPlayer($this->lnk, $this->row->sermon_time, 1, $this->row->sermon_title, $this->speaker->name);
 					$pp_ret = explode("/",$ret);
 					$pp_h = $pp_ret[0];
 					$pp_w = $pp_ret[1];
