@@ -29,7 +29,7 @@ JHTML::_('behavior.modal');
 						if (substr($this->row->sermon_path, 0, 7) == 'http://'){ //File is external
 							$fileurl = $this->row->sermon_path;
 						} else { //File is locally 
-							$fileurl = JURI::root().'index.php?option=com_sermonspeaker&amp;task=download&amp;id='.$id;
+							$fileurl = JURI::root().'index.php?option=com_sermonspeaker&amp;task=download&amp;id='.$this->row->id;
 						} ?>
 						<a href="<?php echo $fileurl; ?>" class="download">
 							<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON'); ?>
