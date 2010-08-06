@@ -181,9 +181,17 @@ class modRelatedSermonsHelper
 
 				if (count($temp))
 				{
+					// set a menu item
+					$menu = &JSite::getMenu();
+					$menuitems = $menu->getItems('link', 'index.php?option=com_sermonspeaker&view=sermons');
+					if ($menuitems == '') {
+						$menuitems = $menu->getItems('component', 'com_sermonspeaker');
+					}
+					$ss_itemid = $menuitems[0]->id;
+
 					foreach ($temp as $row)
 					{
-						$row->route = JRoute::_('index.php?option=com_sermonspeaker&view=sermon&id='.$row->slug);
+						$row->route = JRoute::_('index.php?option=com_sermonspeaker&view=sermon&id='.$row->slug.'&Itemid='.$ss_itemdid);
 						$related[] = $row;
 					}
 				}

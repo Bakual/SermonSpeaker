@@ -146,8 +146,16 @@ function plgSearchSermonspeaker($text, $phrase='', $ordering='', $areas=null)
 		$db->setQuery( $query, 0, $limit );
 		$list = $db->loadObjectList();
 
+		// set a menu item
+		$menu = &JSite::getMenu();
+		$menuitems = $menu->getItems('link', 'index.php?option=com_sermonspeaker&view=sermons');
+		if ($menuitems == '') {
+			$menuitems = $menu->getItems('component', 'com_sermonspeaker');
+		}
+		$ss_itemid = $menuitems[0]->id;
+
 		foreach($list as $key => $row) {
-			$list[$key]->href = 'index.php?option=com_sermonspeaker&view=sermon&id='.$row->slug;
+			$list[$key]->href = 'index.php?option=com_sermonspeaker&view=sermon&id='.$row->slug.'&Itemid='.$ss_itemid;
 		}
 
 		$rows[] = $list;
@@ -214,8 +222,16 @@ function plgSearchSermonspeaker($text, $phrase='', $ordering='', $areas=null)
 		$db->setQuery( $query, 0, $limit );
 		$list2 = $db->loadObjectList();
     
+		// set a menu item
+		$menu = &JSite::getMenu();
+		$menuitems = $menu->getItems('link', 'index.php?option=com_sermonspeaker&view=series');
+		if ($menuitems == '') {
+			$menuitems = $menu->getItems('component', 'com_sermonspeaker');
+		}
+		$ss_itemid = $menuitems[0]->id;
+
 		foreach($list2 as $key => $row) {
-			$list2[$key]->href = 'index.php?option=com_sermonspeaker&view=serie&id='.$row->slug;
+			$list2[$key]->href = 'index.php?option=com_sermonspeaker&view=serie&id='.$row->slug.'&Itemid='.$ss_itemid;
 		}
 
 		$rows[] = $list2;

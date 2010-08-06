@@ -18,6 +18,14 @@ $query 	= 'SELECT a.sermon_title, a.id, a.sermon_date, b.name, c.series_title'
 
 $database->setQuery($query);
 $rows = $database->loadObjectList();
+
+// set a menu item
+$menu = &JSite::getMenu();
+$menuitems = $menu->getItems('link', 'index.php?option=com_sermonspeaker&view=sermons');
+if ($menuitems == '') {
+	$menuitems = $menu->getItems('component', 'com_sermonspeaker');
+}
+$ss_itemid = $menuitems[0]->id;
 ?>
 <ul class="<?php echo $params->get('moduleclass_sfx'); ?>">
 <?php foreach($rows as $row) { ?>
@@ -36,14 +44,14 @@ $rows = $database->loadObjectList();
 		}
 		$tip = implode('<br>', $tips);
 		$title = htmlspecialchars(stripslashes($row->sermon_title), ENT_QUOTES);
-		echo JHTML::tooltip($tip, '', '', $title, JRoute::_('index.php?option=com_sermonspeaker&view=sermon&id='.$row->slug)); ?>
+		echo JHTML::tooltip($tip, '', '', $title, JRoute::_('index.php?option=com_sermonspeaker&view=sermon&id='.$row->slug.'&Itemid='.ss_itemid)); ?>
 		</li>
 	<?php } else { ?>
-		<a href="<?php echo JRoute::_('index.php?option=com_sermonspeaker&view=sermon&id='.$row->slug); ?>"><?php echo stripslashes($row->sermon_title); ?></a></li>
+		<a href="<?php echo JRoute::_('index.php?option=com_sermonspeaker&view=sermon&id='.$row->slug.'&Itemid='.ss_itemid); ?>"><?php echo stripslashes($row->sermon_title); ?></a></li>
 	<?php } // if mouseover
 } ?>
 </ul>
 <?php if ($params->get('ls_show_mo_link')) { ?>
 	<br>
-	<a href="<?php echo JRoute::_('index.php?option=com_sermonspeaker&view=sermons'); ?>"><?php echo JText::_('MOD_LATESTSERMONS_LINK'); ?></a>
+	<a href="<?php echo JRoute::_('index.php?option=com_sermonspeaker&view=sermons&Itemid='.ss_itemid); ?>"><?php echo JText::_('MOD_LATESTSERMONS_LINK'); ?></a>
 <?php } ?>
