@@ -65,7 +65,7 @@ JHTML::_('behavior.modal');
 	$comments = JPATH_BASE.DS.'components'.DS.'com_jcomments'.DS.'jcomments.php';
 	if (file_exists($comments)) {
 		require_once($comments); ?>
-		<tr><td><br></td></tr>
+		<tr><td><br /></td></tr>
 		<tr>
 			<td>
 				<?php echo JComments::showComments($this->row->id, 'com_sermonspeaker', $this->row->sermon_title); ?>

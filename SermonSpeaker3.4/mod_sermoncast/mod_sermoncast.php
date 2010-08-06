@@ -50,7 +50,7 @@ if($showPcast) {
 	} else {
 		$img = '<img src="'.JURI::root().'modules/mod_sermoncast/podcast-mini.gif" border="0" alt="Podcast"/>'; 	
 	} ?>
-	<a href="<?php echo $link; ?>"><?php echo $img ?> </a><br />
+	<a href="<?php echo htmlspecialchars($link); ?>"><?php echo $img ?> </a><br />
 	<?php 
 }
 if($showPlainlink) { ?>

@@ -18,14 +18,22 @@ JHTML::_('behavior.modal');
 				</div>
 				<?php if ($this->params->get('popup_player') || $this->params->get('dl_button')){ ?>
 					<div class="ss-mp3-links">
-					<?php if ($this->params->get('popup_player')){
-						echo SermonspeakerHelperSermonspeaker::insertPopupButton($this->row->id, $ret);	
-					}
+					<?php if ($this->params->get('popup_player')){ ?>
+						<a href="<?php echo JURI::current(); ?>" class="new-window" onclick="popup = window.open('<?php echo JRoute::_('index.php?view=sermon&layout=popup&id='.$this->row->id.'&tmpl=component'); ?>', 'PopupPage', 'height=300,width=350,scrollbars=yes,resizable=yes'); return false"><?php echo JText::_('COM_SERMONSPEAKER_POPUPPLAYER'); ?></a>
+					<?php }
 					if ($this->params->get('popup_player') && $this->params->get('dl_button')){ ?>
 						<br />
 					<?php }
-					if ($this->params->get('dl_button')){ ?>
-						<a href="<?php echo $this->lnk; ?>" class="download"><?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON'); ?></a>
+					if ($this->params->get('dl_button')){
+						//Check if link targets to an external source
+						if (substr($this->row->sermon_path, 0, 7) == 'http://'){ //File is external
+							$fileurl = $this->row->sermon_path;
+						} else { //File is locally 
+							$fileurl = JURI::root().'index.php?option=com_sermonspeaker&amp;task=download&amp;id='.$id;
+						} ?>
+						<a href="<?php echo $fileurl; ?>" class="download">
+							<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON'); ?>
+						</a>
 					<?php } ?>
 					</div>
 				<?php } ?>
@@ -100,7 +108,7 @@ if ($this->row->hits){ ?>
 	$comments = JPATH_BASE.DS.'components'.DS.'com_jcomments'.DS.'jcomments.php';
 	if (file_exists($comments)) {
 		require_once($comments); ?>
-		<tr><td><br></td></tr>
+		<tr><td><br /></td></tr>
 		<tr>
 			<td>
 				<?php echo JComments::showComments($this->row->id, 'com_sermonspeaker', $this->row->sermon_title); ?>
