@@ -1,6 +1,5 @@
 <?php
 defined('_JEXEC') or die('Restricted access');
-if ($this->params->get('ga')) { $callback = "&callback=".$this->params->get('ga'); }
 JHTML::_('behavior.tooltip');
 JHTML::_('behavior.modal');
 ?>
@@ -44,9 +43,6 @@ JHTML::_('behavior.modal');
 			<td align="center" valign="top">
 				<?php
 				$ret = SermonspeakerHelperSermonspeaker::insertPlayer($this->lnk, $this->row->sermon_time, 1, $this->row->sermon_title, $this->speaker->name);
-				$pp_ret = explode("/",$ret);
-				$pp_h = $pp_ret[0];
-				$pp_w = $pp_ret[1];
 				?>
 			</td>
 		<?php } ?>
@@ -59,9 +55,9 @@ JHTML::_('behavior.modal');
 	} ?>
 </div>
 <div style="float:right;">
-	<?php if ($this->params->get('popup_player') == "1" && strlen($this->row->sermon_path) > 0) { ?>
-	<input class="popup_btn button" type="button" name="<?php echo JText::_('COM_SERMONSPEAKER_POPUPPLAYER'); ?>" value="<?php echo JText::_('COM_SERMONSPEAKER_POPUPPLAYER'); ?>" onClick="popup=window.open('<?php echo JRoute::_('index.php?view=sermon&layout=popup&id='.$this->row->id.'&tmpl=component'); ?>', 'PopupPage','height=<?php echo $pp_h; ?>,width=<?php echo $pp_w; ?>,scrollbars=yes,resizable=yes'); return false;">
-	<?php } ?>
+	<?php if ($this->params->get('popup_player') == "1" && strlen($this->row->sermon_path) > 0) {
+		echo SermonspeakerHelperSermonspeaker::insertPopupButton($this->row->id, $ret);
+	} ?>
 </div>
 <table width="100%" style="clear:both;">
 	<?php

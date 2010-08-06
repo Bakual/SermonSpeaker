@@ -1,8 +1,5 @@
 <?php
 defined('_JEXEC') or die('Restricted access');
-if ($this->params->get('ga')) { $callback = "&callback=".$this->params->get('ga'); }
-$return = SermonspeakerHelperSermonspeaker::insertAddfile($this->row->addfile, $this->row->addfileDesc);
-$id = $this->row->id;
 JHTML::_('behavior.tooltip');
 JHTML::_('behavior.modal');
 ?>
@@ -14,93 +11,60 @@ JHTML::_('behavior.modal');
 <?php } else { ?>
 	<h3 class="contentheading"><?php echo $this->escape($this->row->sermon_title); ?></h3>
 <?php } ?>
-<table border="0" cellpadding="2" cellspacing="2" width="100%">
-	<tr>
-		<td valign="top"><b><?php echo JText::_('COM_SERMONSPEAKER_SERMONDATE'); ?>:</b></td>
-		<td><?php echo JHTML::date($this->row->sermon_date, JText::_($this->params->get('date_format')), 0); ?></td>
-	</tr>
-	<tr>
-		<td valign="top"><b><?php echo JText::_('COM_SERMONSPEAKER_SCRIPTURE'); ?>:</b></td>
-		<td><?php echo $this->row->sermon_scripture; ?></td>
-	</tr>
+<div class="ss-sermondetail-container">
+	<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_SERMONDATE'); ?>:</div>
+	<div class="ss-sermondetail-text"><?php echo JHTML::date($this->row->sermon_date, JText::_($this->params->get('date_format')), 0); ?></div>
+	<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_SCRIPTURE'); ?>:</div>
+	<div class="ss-sermondetail-text"><?php echo $this->row->sermon_scripture; ?></div>
 	<?php if ($this->params->get('client_col_custom1') == "1" && strlen($this->row->custom1) > 0) { ?>
-		<tr>
-			<td valign="top"><b><?php echo JText::_('COM_SERMONSPEAKER_CUSTOM1'); ?>:</b></td>
-			<td><?php echo $this->row->custom1; ?></td>
-		</tr>
+		<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_CUSTOM1'); ?>:</div>
+		<div class="ss-sermondetail-text"><?php echo $this->row->custom1; ?></div>
 	<?php }
 	if ($this->params->get('client_col_custom2') == "1" && strlen($this->row->custom2) > 0) { ?>
-		<tr>
-			<td valign="top"><b><?php echo JText::_('COM_SERMONSPEAKER_CUSTOM2'); ?>:</b></td>
-			<td><?php echo $this->row->custom2; ?></td>
-		</tr>
+		<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_CUSTOM2'); ?>:</div>
+		<div class="ss-sermondetail-text"><?php echo $this->row->custom2; ?></div>
 	<?php } ?>
-	<tr>
-		<td valign="top"><b><?php echo JText::_('COM_SERMONSPEAKER_SERIE_TITLE'); ?>:</b></td>
-		<td>
-			<a href="<?php echo JRoute::_('index.php?view=serie&id='.$this->serie->id); ?>">
-			<?php echo $this->escape($this->serie->series_title); ?>
-			</a>
-		</td>
-	</tr>
-	<tr>
-		<td valign="top"><b><?php echo JText::_('COM_SERMONSPEAKER_SPEAKER'); ?>:</b></td>
-		<td>
-			<?php echo SermonspeakerHelperSermonSpeaker::SpeakerTooltip($this->speaker->id, $this->speaker->pic, $this->speaker->name); ?>
-		</td>
-	</tr>
+	<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_SERIE_TITLE'); ?>:</div>
+	<div class="ss-sermondetail-text"><a href="<?php echo JRoute::_('index.php?view=serie&id='.$this->serie->id); ?>">
+		<?php echo $this->escape($this->serie->series_title); ?></a>
+	</div>
+	<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_SPEAKER'); ?>:</div>
+	<div class="ss-sermondetail-text">
+		<?php echo SermonspeakerHelperSermonSpeaker::SpeakerTooltip($this->speaker->id, $this->speaker->pic, $this->speaker->name); ?>
+	</div>
 	<?php if ($this->speaker->pic) { ?>
-	<tr>
-		<td></td>
-		<td><img height=150 src="<?php echo $this->speaker->pic; ?>"></td>
-	</tr>
+		<div class="ss-sermondetail-label"></div>
+		<div class="ss-sermondetail-text"><img height=150 src="<?php echo $this->speaker->pic; ?>"></div>
 	<?php } ?>
-	<tr>
-		<td valign="top"><b><?php echo JText::_('COM_SERMONSPEAKER_SERMONTIME'); ?>:</b></td>
-		<td><?php echo SermonspeakerHelperSermonspeaker::insertTime($this->row->sermon_time); ?></td>
-	</tr>
-	<tr>
-		<td valign="top"><b><?php echo JText::_('COM_SERMONSPEAKER_HITS'); ?>:</b></td>
-		<td><?php echo $this->row->hits; ?></td>
-	</tr>
+	<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_SERMONTIME'); ?>:</div>
+	<div class="ss-sermondetail-text"><?php echo SermonspeakerHelperSermonspeaker::insertTime($this->row->sermon_time); ?></div>
+	<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_HITS'); ?>:</div>
+	<div class="ss-sermondetail-text"><?php echo $this->row->hits; ?></div>
 	<?php if ($this->params->get('client_col_sermon_notes') && strlen($this->row->notes) > 0){ ?>
-		<tr>
-			<td valign="top"><b><?php echo JText::_('COM_SERMONSPEAKER_SERMONNOTES'); ?>:</b></td>
-			<td><?php echo $this->row->notes; ?></td>
-		</tr>
+		<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_SERMONNOTES'); ?>:</div>
+		<div class="ss-sermondetail-text"><?php echo $this->row->notes; ?></div>
 	<?php }
 	if ($this->params->get('client_col_player')){ ?>
-	<tr>
-		<td></td>
-		<td>
-			<br />
-			<?php 
-			$ret = SermonspeakerHelperSermonspeaker::insertPlayer($this->lnk, $this->row->sermon_time, 1, $this->row->sermon_title, $this->speaker->name);
-			$pp_ret = explode('/', $ret);
-			$pp_h = $pp_ret[0];
-			$pp_w = $pp_ret[1];
-			?>
-			<br />
-		</td>
-	</tr>
+		<div class="ss-sermondetail-label"></div>
+		<div class="ss-sermondetail-text ss-sermon-player">
+			<?php $ret = SermonspeakerHelperSermonspeaker::insertPlayer($this->lnk, $this->row->sermon_time, 1, $this->row->sermon_title, $this->speaker->name); ?>
+		</div>
 	<?php } // if client_col_player
-	if ($this->params->get('popup_player') == "1") { 
-	?>
-		<tr><td></td>
-		<td><input class="popup_btn button" type="button" name="<?php echo JText::_('COM_SERMONSPEAKER_POPUPPLAYER'); ?>" value="<?php echo JText::_('COM_SERMONSPEAKER_POPUPPLAYER'); ?>" onclick="popup = window.open('<?php echo JRoute::_("index.php?view=sermon&layout=popup&id=$id&tmpl=component"); ?>', 'PopupPage', 'height=<?php echo $pp_h.",width=".$pp_w; ?>,scrollbars=yes,resizable=yes'); return false" /></td></tr>
+	if ($this->params->get('popup_player') == '1') { ?>
+		<div class="ss-sermondetail-label"></div>
+		<div class="ss-sermondetail-text"><?php echo SermonspeakerHelperSermonspeaker::insertPopupButton($this->row->id, $ret); ?></div>
 	<?php }
 	if ($this->params->get('dl_button') == "1") { ?>
-		<tr><td></td>
-		<td><?php echo SermonspeakerHelperSermonspeaker::insertdlbutton($id, $this->row->sermon_path); ?></td>
-		</tr>
+		<div class="ss-sermondetail-label"></div>
+		<div class="ss-sermondetail-text"><?php echo SermonspeakerHelperSermonspeaker::insertdlbutton($this->row->id, $this->row->sermon_path); ?></div>
 	<?php }
 	if ($this->row->addfile && $this->row->addfileDesc) { ?>
-		<tr>
-			<td valign="top"><b><?php echo JText::_('COM_SERMONSPEAKER_ADDFILE'); ?>:</b></td>
-			<td><?php echo SermonspeakerHelperSermonspeaker::insertAddfile($this->row->addfile, $this->row->addfileDesc); ?></td>
-		</tr>
+		<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_ADDFILE'); ?>:</div>
+		<div class="ss-sermondetail-text">
+			<?php echo SermonspeakerHelperSermonspeaker::insertAddfile($this->row->addfile, $this->row->addfileDesc); ?>
+		</div>
 	<?php } ?>
-</table>
+</div>
 <?php 
 /*
 // Code from Douglas Machado
@@ -130,7 +94,7 @@ JHTML::_('behavior.modal');
 		<tr><td><br></td></tr>
 		<tr>
 			<td>
-				<?php echo JComments::showComments($id, 'com_sermonspeaker', $this->row->sermon_title); ?>
+				<?php echo JComments::showComments($this->row->id, 'com_sermonspeaker', $this->row->sermon_title); ?>
 			</td>
 		</tr>
 	<?php } ?>

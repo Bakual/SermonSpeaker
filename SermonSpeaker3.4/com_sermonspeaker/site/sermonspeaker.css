@@ -35,6 +35,28 @@ padding:5px;
 border:2px dashed #fa8072;
 }
 
+.ss-sermondetail-container{
+width:100%;
+margin:15px;
+}
+
+.ss-sermondetail-label{
+padding-top:5px;
+float:left;
+width:30%;
+font-weight:bold;
+}
+
+.ss-sermondetail-text{
+padding-top:5px;
+margin-left:31%;
+}
+
+.ss-sermon-player{
+margin-top:10px;
+margin-bottom:10px;
+}
+
 /* ICON view */
 #sermon-infobox{-moz-border-radius:15px 15px 15px 15px;background:none repeat scroll 0 0 #F6F6F6;border:2px solid #AAA;margin:0;padding:5px;width:97%}
 #sermon-player-container{}

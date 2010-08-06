@@ -1,8 +1,6 @@
 <?php
 defined('_JEXEC') or die('Restricted access');
-if ($this->params->get('ga')) { $callback = "&callback=".$this->params->get('ga'); }
 $return = SermonspeakerHelperSermonspeaker::insertAddfile($this->row->addfile, $this->row->addfileDesc);
-$id = $this->row->id;
 JHTML::_('behavior.tooltip');
 JHTML::_('behavior.modal');
 ?>
@@ -16,16 +14,13 @@ JHTML::_('behavior.modal');
 				<div class="ss-player">
 					<?php 
 					$ret = SermonspeakerHelperSermonspeaker::insertPlayer($this->lnk, $this->row->sermon_time, 1, $this->row->sermon_title, $this->speaker->name);
-					$pp_ret = explode("/",$ret);
-					$pp_h = $pp_ret[0];
-					$pp_w = $pp_ret[1];
 					?>
 				</div>
 				<?php if ($this->params->get('popup_player') || $this->params->get('dl_button')){ ?>
 					<div class="ss-mp3-links">
-					<?php if ($this->params->get('popup_player')){ ?>
-						<a href="<?php echo JURI::current(); ?>" class="new-window" onclick="popup = window.open('<?php echo JRoute::_("index.php?view=sermon&layout=popup&id=$id&tmpl=component"); ?>', 'PopupPage', 'height=300,width=350,scrollbars=yes,resizable=yes'); return false"><?php echo JText::_('COM_SERMONSPEAKER_POPUPPLAYER'); ?></a>
-					<?php }
+					<?php if ($this->params->get('popup_player')){
+						echo SermonspeakerHelperSermonspeaker::insertPopupButton($this->row->id, $ret);	
+					}
 					if ($this->params->get('popup_player') && $this->params->get('dl_button')){ ?>
 						<br />
 					<?php }
@@ -108,7 +103,7 @@ if ($this->row->hits){ ?>
 		<tr><td><br></td></tr>
 		<tr>
 			<td>
-				<?php echo JComments::showComments($id, 'com_sermonspeaker', $this->row->sermon_title); ?>
+				<?php echo JComments::showComments($this->row->id, 'com_sermonspeaker', $this->row->sermon_title); ?>
 			</td>
 		</tr>
 	<?php } ?>
