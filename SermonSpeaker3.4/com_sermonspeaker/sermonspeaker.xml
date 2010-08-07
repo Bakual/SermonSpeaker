@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?> 
 <install type="component" version="1.5" method="upgrade"> 
 	<name>SermonSpeaker</name>
-	<author>Martin Hess</author>
-	<creationDate>Mai 2010</creationDate>
+	<author>Martin Hess, Thomas Hunziker</author>
+	<creationDate>August 2010</creationDate>
 	<copyright>(C) 2010</copyright>
 	<authorEmail>martin.zh@gmail.com</authorEmail>
 	<authorUrl>http://joomlacode.org/gf/project/sermon_speaker/</authorUrl>
-	<version>3.4.1</version>
+	<version>3.4.2</version>
 	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
 	<description><![CDATA[
 		<div align="center">
@@ -14,7 +14,7 @@
 				<tr>
 					<td width="100%" colspan="2">
 					  <div align="center">
-						<h1>SermonSpeaker 3.4.1</h1>
+						<h1>SermonSpeaker 3.4.2</h1>
 						Thank you for installing / upgrading SermonSpeaker! Please check out the help section!
 					  </div>
 					</td>

@@ -2,7 +2,7 @@
 <install type="module" version="1.5.0" method="upgrade">
 	<name>Related Sermons</name>
 	<author>Thomas Hunziker</author>
-	<creationDate>July 2010</creationDate>
+	<creationDate>August 2010</creationDate>
 	<copyright>Copyright (C) 2010. All rights reserved.</copyright>
 	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
 	<authorEmail>bakual@bakual.ch</authorEmail>
