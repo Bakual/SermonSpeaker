@@ -15,7 +15,7 @@ JHTML::_('behavior.modal');
 </h3>
 <table border="0" cellpadding="2" cellspacing="0" width="100%">
 	<tr>
-		<?php if ($this->params->get('client_col_sermon_scripture_reference')){ ?>
+		<?php if ($this->params->get('client_col_sermon_scripture_reference') && $this->row->sermon_scripture){ ?>
 			<th align="left" valign="bottom"><?php echo JText::_('COM_SERMONSPEAKER_SCRIPTURE'); ?></th>
 		<?php }
 		if ($this->params->get('client_col_sermon_notes') && strlen($this->row->notes) > 0){ ?>
@@ -30,7 +30,7 @@ JHTML::_('behavior.modal');
 	</tr> 
 <!-- Begin Data -->
 	<tr>
-		<?php if ($this->params->get('client_col_sermon_scripture_reference')){ ?>
+		<?php if ($this->params->get('client_col_sermon_scripture_reference') && $this->row->sermon_scripture){ ?>
 			<td align="left" valign="top"><?php echo $this->row->sermon_scripture; ?></td>
 		<?php }
 		if ($this->params->get('client_col_sermon_notes') && strlen($this->row->notes) > 0){ ?>

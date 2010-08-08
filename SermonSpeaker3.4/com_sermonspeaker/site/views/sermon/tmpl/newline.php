@@ -12,7 +12,7 @@ JHTML::_('behavior.modal');
 	echo '<h3 class="contentheading">'.$this->row->sermon_title.'</h3>';
 } ?>
 <div class="ss-sermondetail-container">
-	<?php if ($this->params->get('client_col_sermon_scripture_reference')){ ?>
+	<?php if ($this->params->get('client_col_sermon_scripture_reference') && $this->row->sermon_scripture){ ?>
 		<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_SCRIPTURE'); ?>:</div>
 		<div class="ss-sermondetail-text"><?php echo $this->row->sermon_scripture; ?></div>
 	<?php }

@@ -14,9 +14,11 @@ JHTML::_('behavior.modal');
 <div class="ss-sermondetail-container">
 	<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_SERMONDATE'); ?>:</div>
 	<div class="ss-sermondetail-text"><?php echo JHTML::date($this->row->sermon_date, JText::_($this->params->get('date_format')), 0); ?></div>
-	<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_SCRIPTURE'); ?>:</div>
-	<div class="ss-sermondetail-text"><?php echo $this->row->sermon_scripture; ?></div>
-	<?php if ($this->params->get('client_col_custom1') == "1" && strlen($this->row->custom1) > 0) { ?>
+	<?php if ($this->params->get('client_col_sermon_scripture_reference') && $this->row->sermon_scripture) { ?>
+		<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_SCRIPTURE'); ?>:</div>
+		<div class="ss-sermondetail-text"><?php echo $this->row->sermon_scripture; ?></div>
+	<?php }
+	if ($this->params->get('client_col_custom1') == "1" && strlen($this->row->custom1) > 0) { ?>
 		<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_CUSTOM1'); ?>:</div>
 		<div class="ss-sermondetail-text"><?php echo $this->row->custom1; ?></div>
 	<?php }

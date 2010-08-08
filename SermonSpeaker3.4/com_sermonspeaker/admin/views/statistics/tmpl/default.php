@@ -47,7 +47,7 @@ JToolBarHelper::preferences('com_sermonspeaker',550);
 		</td>
 	</tr>
 	<tr>
-		<th width="20" align="left"><?pCOM_SERMONSPEAKER_ID echo JText::_('ID'); ?></th>
+		<th width="20" align="left"><?php echo JText::_('COM_SERMONSPEAKER_ID'); ?></th>
 		<th align="left"><?php echo JText::_('COM_SERMONSPEAKER_SERIE'); ?></th>
 		<th width="20" align="left"><?php echo JText::_('COM_SERMONSPEAKER_HITS'); ?></th>
 		<th width="20" align="left"><?php echo JText::_('RESET'); ?></th>
