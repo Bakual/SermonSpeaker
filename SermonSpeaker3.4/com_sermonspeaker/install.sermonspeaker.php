@@ -72,6 +72,7 @@ function com_install() {
 		."\n`addfileDesc` text NOT NULL,"
 		."\n`catid` INT NOT NULL,"
 		."\n`metakey` TEXT NOT NULL,"
+		."\n`metadesc` TEXT NOT NULL,"
 		."\nPRIMARY KEY (`id`)"
 		."\n)";
 	$database->setQuery( $query );
