@@ -103,7 +103,11 @@ class SermonspeakerViewFeed extends JView
 			// iTunes item specific tags
 			$item->itAuthor		= $row->name; // only speaker name here for iTunes
 			$item->itDuration 	= SermonspeakerHelperSermonSpeaker::insertTime($row->sermon_time);
-			$item->itSubtitle 	= $item_notes_short;
+			if (strlen($item_notes_short) > 255){
+				$item->itSubtitle 	= substr($item_notes_short, 0, 252).'...';
+			} else {
+				$item->itSubtitle 	= $item_notes_short;
+			}
 			$item->itSummary 	= $item_notes;
 			
 			// create keywords from series_title and scripture (title and speaker are searchable anyway)
