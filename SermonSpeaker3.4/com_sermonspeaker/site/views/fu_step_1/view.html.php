@@ -30,6 +30,7 @@ class SermonspeakerViewFu_step_1 extends JView
 			jimport('joomla.client.helper');
 			JClientHelper::setCredentialsFromRequest('ftp');
 			$filename = JFile::makeSafe($file['name']);
+			$filename = str_replace(' ', '_', $filename); // replace spaces with underscore in filename
 			$dest = JPATH_ROOT.DS.$params->get('path').DS.$params->get('fu_destdir').DS.$filename;
 			if (file_exists($dest)) { // file exists already
 
