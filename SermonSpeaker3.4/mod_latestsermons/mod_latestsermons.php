@@ -44,14 +44,14 @@ $ss_itemid = $menuitems[0]->id;
 		}
 		$tip = implode('<br>', $tips);
 		$title = htmlspecialchars(stripslashes($row->sermon_title), ENT_QUOTES);
-		echo JHTML::tooltip($tip, '', '', $title, JRoute::_('index.php?option=com_sermonspeaker&view=sermon&id='.$row->slug.'&Itemid='.ss_itemid)); ?>
+		echo JHTML::tooltip($tip, '', '', $title, JRoute::_('index.php?option=com_sermonspeaker&view=sermon&id='.$row->slug.'&Itemid='.$ss_itemid)); ?>
 		</li>
 	<?php } else { ?>
-		<a href="<?php echo JRoute::_('index.php?option=com_sermonspeaker&view=sermon&id='.$row->slug.'&Itemid='.ss_itemid); ?>"><?php echo stripslashes($row->sermon_title); ?></a></li>
+		<a href="<?php echo JRoute::_('index.php?option=com_sermonspeaker&view=sermon&id='.$row->slug.'&Itemid='.$ss_itemid); ?>"><?php echo stripslashes($row->sermon_title); ?></a></li>
 	<?php } // if mouseover
 } ?>
 </ul>
 <?php if ($params->get('ls_show_mo_link')) { ?>
 	<br>
-	<a href="<?php echo JRoute::_('index.php?option=com_sermonspeaker&view=sermons&Itemid='.ss_itemid); ?>"><?php echo JText::_('MOD_LATESTSERMONS_LINK'); ?></a>
+	<a href="<?php echo JRoute::_('index.php?option=com_sermonspeaker&view=sermons&Itemid='.$ss_itemid); ?>"><?php echo JText::_('MOD_LATESTSERMONS_LINK'); ?></a>
 <?php } ?>
