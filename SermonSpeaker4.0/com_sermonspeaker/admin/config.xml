@@ -1,11 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <config>
-	<fields name="params">
-		<field name="path" type="text" size="30" default="images" label="COM_SERMONSPEAKER_PARAM_PATH_SERMONS" description="COM_SERMONSPEAKER_PARAM_PATH_SERMONS_DESC" />
-		<field name="path_avatar" type="text" size="30" default="images" label="COM_SERMONSPEAKER_PARAM_PATH_AVATAR" description="COM_SERMONSPEAKER_PARAM_PATH_AVATAR_DESC" />
-		<field name="path_addfile" type="text" size="30" default="images" label="COM_SERMONSPEAKER_PARAM_PATH_ADDFILE" description="COM_SERMONSPEAKER_PARAM_PATH_ADDFILE_DESC" />
-		<field name="alt_player" type="radio" default="0" label="COM_SERMONSPEAKER_PARAM_ALT_PLAYER" description="COM_SERMONSPEAKER_PARAM_ALT_PLAYER_DESC">
-			<option value="0">No</option>
-			<option value="1">Yes</option>
+	<fieldset name="component"
+		label="COM_SERMONSPEAKER_COMPONENT_LABEL"
+		description="COM_SERMONSPEAKER_COMPONENT_DESC">
+		<field name="path" 
+			type="text" 
+			size="30" 
+			default="images" 
+			label="COM_SERMONSPEAKER_PARAM_PATH_SERMONS" 
+			description="COM_SERMONSPEAKER_PARAM_PATH_SERMONS_DESC" />
+		<field name="path_avatar"
+			type="text"
+			size="30"
+			default="images"
+			label="COM_SERMONSPEAKER_PARAM_PATH_AVATAR"
+			description="COM_SERMONSPEAKER_PARAM_PATH_AVATAR_DESC" />
+		<field name="path_addfile" 
+			type="text" 
+			size="30" 
+			default="images" 
+			label="COM_SERMONSPEAKER_PARAM_PATH_ADDFILE" 
+			description="COM_SERMONSPEAKER_PARAM_PATH_ADDFILE_DESC" />
+		<field name="alt_player" 
+			type="radio" 
+			default="0" 
+			label="COM_SERMONSPEAKER_PARAM_ALT_PLAYER" 
+			description="COM_SERMONSPEAKER_PARAM_ALT_PLAYER_DESC">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
 		</field>
 		<field name="limit_speaker" type="radio" default="0" label="COM_SERMONSPEAKER_PARAM_LIMITSPEAKER" description="COM_SERMONSPEAKER_PARAM_LIMITSPEAKER_DESC">
 			<option value="0">No</option>
@@ -45,7 +67,8 @@
 			<option value="0">No</option>
 			<option value="1">Yes</option>
 		</field>
-		<param type="spacer" default="COM_SERMONSPEAKER_SPACER_CLIENTCOL" />
+	</fieldset>
+	<fieldset name="COM_SERMONSPEAKER_SPACER_CLIENTCOL">
 		<field name="client_col_sermon_number" type="radio" default="1" label="COM_SERMONSPEAKER_PARAM_COL_SERMONNUMBER" description="COM_SERMONSPEAKER_PARAM_COL_SERMONNUMBER_DESC">
 			<option value="0">No</option>
 			<option value="1">Yes</option>
@@ -107,7 +130,8 @@
 		<field name="mp_width" type="text" default="300" label="COM_SERMONSPEAKER_PARAM_VIDEOWIDTH" description="COM_SERMONSPEAKER_PARAM_VIDEOWIDTH_DESC" />
 		<field name="mp_height" type="text" default="300" label="COM_SERMONSPEAKER_PARAM_VIDEOHEIGHT" description="COM_SERMONSPEAKER_PARAM_VIDEOHEIGHT_DESC" />
 		<field name="ga" type="text" default="" label="COM_SERMONSPEAKER_PARAM_GOOGLEANALYTICS" description="COM_SERMONSPEAKER_PARAM_GOOGLEANALYTICS_DESC" />
-		<param type="spacer" default="COM_SERMONSPEAKER_SPACER_STATISTICS" />
+	</fieldset>
+	<fieldset name="COM_SERMONSPEAKER_SPACER_STATISTICS">
 		<field name="track_speaker" type="radio" default="1" label="COM_SERMONSPEAKER_PARAM_TRACKSPEAKER" description="COM_SERMONSPEAKER_PARAM_TRACKSPEAKER_DESC">
 			<option value="0">No</option>
 			<option value="1">Yes</option>
@@ -120,7 +144,8 @@
 			<option value="0">No</option>
 			<option value="1">Yes</option>
 		</field>
-		<param type="spacer" default="&lt;b&gt;Frontend Uploading&lt;b&gt;" />
+	</fieldset>
+	<fieldset name="&lt;b&gt;Frontend Uploading&lt;b&gt;">
 		<field name="fu_enable" type="radio" default="0" label="COM_SERMONSPEAKER_PARAM_FU_ENABLE" description="COM_SERMONSPEAKER_PARAM_FU_ENABLE_DESC">
 			<option value="0">No</option>
 			<option value="1">Yes</option>
@@ -133,7 +158,8 @@
 			<option value="notes">Notes</option>
 			<option value="ref">Scripture</option>
 		</field>
-		<param type="spacer" default="&lt;b&gt;SermonCast&lt;b&gt;" />
+	</fieldset>
+	<fieldset name="&lt;b&gt;SermonCast&lt;b&gt;">
 		<field name="title" type="text" default="MyChurch Podcast" label="TITLE" description="COM_SERMONSPEAKER_PARAM_FEED_TITLE_DESC" />
 		<field name="description" type="text" default="Predigt / Sermon" label="DESCRIPTION" description="COM_SERMONSPEAKER_PARAM_FEED_DESCRIPTION_DESC" />
 		<field name="copyright" type="text" default="(c) mychurch" label="COPYRIGHT" description="COM_SERMONSPEAKER_PARAM_FEED_COPYRIGHT_DESC" />
@@ -144,7 +170,8 @@
 			<option value="1">Yes</option>
 		</field>
 		<field name="text_length" type="text" default="20" label="COM_SERMONSPEAKER_PARAM_FEED_TEXTLENGTH" description="COM_SERMONSPEAKER_PARAM_FEED_TEXTLENGTH_DESC" />
-		<param type="spacer" default="&lt;b&gt;SermonCast - iTunes&lt;b&gt;" />
+	</fieldset>
+	<fieldset name="&lt;b&gt;SermonCast - iTunes&lt;b&gt;">
 		<field name="itKeywords" type="text" default="MyChurch" label="COM_SERMONSPEAKER_PARAM_FEED_ITKEYWORDS" description="COM_SERMONSPEAKER_PARAM_FEED_ITKEYWORDS_DESC" />
 		<field name="itSubtitle" type="text" default="" label="COM_SERMONSPEAKER_PARAM_FEED_ITSUBTITLE" description="COM_SERMONSPEAKER_PARAM_FEED_ITSUBTITLE_DESC" />
 		<field name="itImage" type="text" default="" label="COM_SERMONSPEAKER_PARAM_FEED_ITIMAGE" description="COM_SERMONSPEAKER_PARAM_FEED_ITIMAGE_DESC" />
@@ -191,5 +218,5 @@
 		<field name="itOwnerEmail" type="text" default="admin@mychurch.com" label="COM_SERMONSPEAKER_PARAM_FEED_ITOWNEREMAIL" description="COM_SERMONSPEAKER_PARAM_FEED_ITOWNEREMAIL_DESC" />
 		<field name="itLanguage" type="text" default="en" label="COM_SERMONSPEAKER_PARAM_FEED_ITLANGUAGE" description="COM_SERMONSPEAKER_PARAM_FEED_ITLANGUAGE_DESC" />
 		<field name="itRedirect" type="text" default="" label="COM_SERMONSPEAKER_PARAM_FEED_ITREDIRECT" description="COM_SERMONSPEAKER_PARAM_FEED_ITREDIRECT_DESC" />
-	</fields>
+	</fieldset>
 </config>

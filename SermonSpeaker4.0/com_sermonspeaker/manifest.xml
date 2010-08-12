@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extension type="component" version="1.6" method="upgrade">
+	<name>SermonSpeaker</name>
+	<author>Martin Hess, Thomas Hunziker</author>
+	<creationDate>August 2010</creationDate>
+	<copyright>(C) 2010</copyright>
+	<authorEmail>martin.zh@gmail.com</authorEmail>
+	<authorUrl>http://joomlacode.org/gf/project/sermon_speaker/</authorUrl>
+	<version>4.0</version>
+	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
+	<description>COM_SERMONSPEAKER_DESCRIPTION</description>
+ 	<installfile>install.sermonspeaker.php</installfile>
+	<uninstallfile>uninstall.sermonspeaker.php</uninstallfile>
+	<files folder="site">
+		<filename>router.php</filename>
+		<filename>sermonspeaker.css</filename>
+		<filename>sermonspeaker.php</filename>
+		<filename>controller.php</filename>
+		<folder>helpers</folder>
+		<folder>views</folder>
+		<folder>models</folder>
+		<folder>images</folder>
+		<folder>icons</folder>
+		<folder>language</folder>
+		<filename>media/default_sermon.mp3</filename>
+		<filename>media/default_speaker.jpg</filename>
+		<filename>media/avatars/sharon.jpg</filename>
+		<filename>media/player/player.swf</filename>
+		<filename>media/player/swfobject.js</filename>
+		<filename>media/player/audio_player/player.swf</filename>
+		<filename>media/player/audio_player/audio-player.js</filename>
+		<filename>id3/getid3/getid3.lib.php</filename>
+		<filename>id3/getid3/getid3.php</filename>
+		<filename>id3/getid3/module.audio.mp3.php</filename>
+		<filename>id3/getid3/module.tag.apetag.php</filename>
+		<filename>id3/getid3/module.tag.id3v1.php</filename>
+		<filename>id3/getid3/module.tag.id3v2.php</filename>
+		<filename>id3/getid3/module.tag.lyrics3.php</filename>
+		<filename>id3/getid3/write.id3v1.php</filename>
+		<filename>id3/getid3/write.id3v2.php</filename>
+		<filename>id3/getid3/write.php</filename>
+		<filename>id3/getid3/write.real.php</filename>
+		<filename>id3/getid3/write.vorbiscomment.php</filename>
+	</files>
+	<administration>
+		<menu img="components/com_sermonspeaker/images/speakers-16.png">COM_SERMONSPEAKER</menu>
+		<submenu>
+			<menu img="components/com_sermonspeaker/images/series-16.png" view="series">COM_SERMONSPEAKER_MENU_SERIES</menu>
+			<menu img="components/com_sermonspeaker/images/speakers-16.png" view="speakers">COM_SERMONSPEAKER_MENU_SPEAKERS</menu>
+			<menu img="components/com_sermonspeaker/images/sermon-16.png" view="sermons">COM_SERMONSPEAKER_MENU_SERMONS</menu>
+			<menu img="category" link="option=com_categories&amp;section=com_sermonspeaker">COM_SERMONSPEAKER_MENU_CATEGORY</menu>
+			<menu img="components/com_sermonspeaker/images/stats-16.png" view="statistics">COM_SERMONSPEAKER_MENU_STATISTICS</menu>
+			<menu img="components/com_sermonspeaker/images/help-16.png" view="help">COM_SERMONSPEAKER_MENU_HELP</menu>
+		</submenu>
+		<files folder="admin">
+			<filename>config.xml</filename>
+			<filename>sermonspeaker.php</filename>
+			<filename>sermonspeaker.css</filename>
+			<filename>controller.php</filename>
+			<folder>controllers</folder>
+			<folder>elements</folder>
+			<folder>models</folder>
+			<folder>views</folder>
+			<folder>tables</folder>
+			<folder>images</folder>
+			<folder>language</folder>
+		</files>
+	</administration>
+</extension>
