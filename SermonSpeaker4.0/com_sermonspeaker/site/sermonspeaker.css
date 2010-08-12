@@ -1,0 +1,78 @@
+.row0 {
+background-color: #dddddd;
+}
+
+.row1 {
+background-color: #ffffff;
+}
+
+.download_btn {
+font-size: 12px;
+color: #000066;
+font-family: verdana;
+}
+
+.popup_btn {
+font-size: 12px;
+color: #000066;
+font-family: verdana;
+}
+
+.icon_play {
+vertical-align: middle;
+}
+
+img.speaker{
+float:left;
+padding:5px;
+margin:5px;
+border:1px solid #808080;
+}
+
+.no_entries{
+background-color: #eeeeee;
+padding:5px;
+border:2px dashed #fa8072;
+}
+
+.ss-sermondetail-container{
+width:100%;
+margin:15px;
+}
+
+.ss-sermondetail-label{
+padding-top:5px;
+float:left;
+width:30%;
+font-weight:bold;
+}
+
+.ss-sermondetail-text{
+padding-top:5px;
+margin-left:31%;
+}
+
+.ss-sermon-player{
+margin-top:10px;
+margin-bottom:10px;
+}
+
+/* ICON view */
+#sermon-infobox{-moz-border-radius:15px 15px 15px 15px;background:none repeat scroll 0 0 #F6F6F6;border:2px solid #AAA;margin:0;padding:5px;width:97%}
+#sermon-player-container{}
+#sermon-player-container div.ss-player{background:url(images/player-wrapper.png) no-repeat;height:40px;margin:5px;padding:7px 0 0 50px;float:left;width:350px}
+.ss-mp3-links{float:left;margin:0 0 0 10px}
+a.new-window{background:url(icons/16/icon-new-window.png) no-repeat center left;padding-left:18px}
+a.download{background:url(icons/16/icon-download-orange.png) no-repeat center left;padding-left:18px}
+.ss-fields-container{clear:both}
+#sermon-infobox .ss-field{width:43%;float:left;height:40px;padding:20px 0 0 40px;font-size:140%;font-weight:bolder;text-align:left}
+#sermon-infobox .field-speaker{background:url(icons/32/speaker.png) no-repeat center left}
+#sermon-infobox .field-bible{background:url(icons/32/bible.png) no-repeat center left}
+#sermon-infobox .field-calendar{background:url(icons/32/calendar.png) no-repeat center left}
+#sermon-infobox .field-time{background:url(icons/32/clock.png) no-repeat center left}
+#sermon-infobox .field-series{background:url(icons/32/folders.png) no-repeat center left}
+#sermon-infobox .field-addfile{padding-left:8px}
+div.tag, div.hits{line-height:32px;padding:0 0 0 32px;vertical-align:middle}
+div.tag{background:url(icons/32/tag.png) no-repeat center left}
+div.hits{background:url(icons/32/statistics.png) no-repeat center left}
+/* END EXTICON view */

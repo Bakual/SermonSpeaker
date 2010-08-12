@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<install type="component" version="1.5" method="upgrade"> 
+	<name>SermonSpeaker</name>
+	<author>Martin Hess, Thomas Hunziker</author>
+	<creationDate>August 2010</creationDate>
+	<copyright>(C) 2010</copyright>
+	<authorEmail>martin.zh@gmail.com</authorEmail>
+	<authorUrl>http://joomlacode.org/gf/project/sermon_speaker/</authorUrl>
+	<version>3.4.2</version>
+	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
+	<description><![CDATA[
+		<div align="center">
+			<table border="0" width="90%">
+				<tr>
+					<td width="100%" colspan="2">
+					  <div align="center">
+						<h1>SermonSpeaker 3.4.2</h1>
+						Thank you for installing / upgrading SermonSpeaker! Please check out the help section!
+					  </div>
+					</td>
+				</tr>
+			</table>
+		</div>]]>
+	</description>
+ 	<installfile>install.sermonspeaker.php</installfile>
+	<uninstallfile>uninstall.sermonspeaker.php</uninstallfile>
+	<files folder="site">
+		<filename>router.php</filename>
+		<filename>sermonspeaker.css</filename>
+		<filename>sermonspeaker.php</filename>
+		<filename>controller.php</filename>
+		<filename>helpers/index.html</filename>
+		<filename>helpers/sermonspeaker.php</filename>
+		<filename>views/index.html</filename>
+		<filename>models/index.html</filename>
+		<filename>views/archive/index.html</filename>
+		<filename>views/archive/view.html.php</filename>
+		<filename>views/archive/metadata.xml</filename>
+		<filename>views/archive/tmpl/index.html</filename>
+		<filename>views/archive/tmpl/default.php</filename>
+		<filename>views/archive/tmpl/default.xml</filename>
+		<filename>models/archive.php</filename>
+		<filename>views/feed/index.html</filename>
+		<filename>views/feed/view.raw.php</filename>
+		<filename>views/feed/metadata.xml</filename>
+		<filename>views/feed/tmpl/index.html</filename>
+		<filename>views/feed/tmpl/default.php</filename>
+		<filename>views/feed/tmpl/default.xml</filename>
+		<filename>models/feed.php</filename>
+		<filename>views/series/index.html</filename>
+		<filename>views/series/view.html.php</filename>
+		<filename>views/series/metadata.xml</filename>
+		<filename>views/series/tmpl/index.html</filename>
+		<filename>views/series/tmpl/default.php</filename>
+		<filename>views/series/tmpl/default.xml</filename>
+		<filename>models/series.php</filename>
+		<filename>views/serie/index.html</filename>
+		<filename>views/serie/view.html.php</filename>
+		<filename>views/serie/metadata.xml</filename>
+		<filename>views/serie/tmpl/index.html</filename>
+		<filename>views/serie/tmpl/default.php</filename>
+		<filename>views/serie/tmpl/default.xml</filename>
+		<filename>models/serie.php</filename>
+		<filename>views/sermons/index.html</filename>
+		<filename>views/sermons/view.html.php</filename>
+		<filename>views/sermons/metadata.xml</filename>
+		<filename>views/sermons/tmpl/index.html</filename>
+		<filename>views/sermons/tmpl/default.php</filename>
+		<filename>views/sermons/tmpl/default.xml</filename>
+		<filename>models/sermons.php</filename>
+		<filename>views/sermon/index.html</filename>
+		<filename>views/sermon/view.html.php</filename>
+		<filename>views/sermon/metadata.xml</filename>
+		<filename>views/sermon/tmpl/index.html</filename>
+		<filename>views/sermon/tmpl/allinrow.php</filename>
+		<filename>views/sermon/tmpl/allinrow.xml</filename>
+		<filename>views/sermon/tmpl/newline.php</filename>
+		<filename>views/sermon/tmpl/newline.xml</filename>
+		<filename>views/sermon/tmpl/extnewline.php</filename>
+		<filename>views/sermon/tmpl/extnewline.xml</filename>
+		<filename>views/sermon/tmpl/icon.php</filename>
+		<filename>views/sermon/tmpl/icon.xml</filename>
+		<filename>views/sermon/tmpl/popup.php</filename>
+		<filename>views/sermon/tmpl/popup.xml</filename>
+		<filename>models/sermon.php</filename>
+		<filename>views/speakers/index.html</filename>
+		<filename>views/speakers/view.html.php</filename>
+		<filename>views/speakers/metadata.xml</filename>
+		<filename>views/speakers/tmpl/index.html</filename>
+		<filename>views/speakers/tmpl/default.php</filename>
+		<filename>views/speakers/tmpl/default.xml</filename>
+		<filename>models/speakers.php</filename>
+		<filename>views/speaker/index.html</filename>
+		<filename>views/speaker/view.html.php</filename>
+		<filename>views/speaker/metadata.xml</filename>
+		<filename>views/speaker/tmpl/index.html</filename>
+		<filename>views/speaker/tmpl/default.php</filename>
+		<filename>views/speaker/tmpl/default.xml</filename>
+		<filename>views/speaker/tmpl/latest-sermons.php</filename>
+		<filename>views/speaker/tmpl/latest-sermons.xml</filename>
+		<filename>views/speaker/tmpl/popup.php</filename>
+		<filename>views/speaker/tmpl/popup.xml</filename>
+		<filename>models/speaker.php</filename>
+		<filename>views/seriessermon/index.html</filename>
+		<filename>views/seriessermon/view.html.php</filename>
+		<filename>views/seriessermon/metadata.xml</filename>
+		<filename>views/seriessermon/tmpl/index.html</filename>
+		<filename>views/seriessermon/tmpl/default.php</filename>
+		<filename>views/seriessermon/tmpl/default.xml</filename>
+		<filename>models/seriessermon.php</filename>
+		<filename>views/frontendupload/index.html</filename>
+		<filename>views/frontendupload/view.html.php</filename>
+		<filename>views/frontendupload/metadata.xml</filename>
+		<filename>views/frontendupload/tmpl/index.html</filename>
+		<filename>views/frontendupload/tmpl/default.php</filename>
+		<filename>views/frontendupload/tmpl/default.xml</filename>
+		<filename>views/fu_step_1/index.html</filename>
+		<filename>views/fu_step_1/view.html.php</filename>
+		<filename>views/fu_step_1/tmpl/index.html</filename>
+		<filename>views/fu_step_1/tmpl/default.php</filename>
+		<filename>views/fu_step_1/tmpl/errorexist.php</filename>
+		<filename>views/fu_step_1/tmpl/errorextension.php</filename>
+		<filename>views/fu_step_2/index.html</filename>
+		<filename>views/fu_step_2/view.html.php</filename>
+		<filename>views/fu_step_2/tmpl/index.html</filename>
+		<filename>views/fu_step_2/tmpl/default.php</filename>
+		<filename>views/fu_step_2/tmpl/saved.php</filename>
+		<filename>media/default_sermon.mp3</filename>
+		<filename>media/default_speaker.jpg</filename>
+		<filename>media/avatars/sharon.jpg</filename>
+		<filename>media/player/player.swf</filename>
+		<filename>media/player/swfobject.js</filename>
+		<filename>media/player/audio_player/player.swf</filename>
+		<filename>media/player/audio_player/audio-player.js</filename>
+		<filename>images/play.gif</filename>
+		<filename>images/nopict.jpg</filename>
+		<filename>images/player-wrapper.png</filename>
+		<filename>images/blue_tag.png</filename>
+		<filename>images/green_tag.png</filename>
+		<filename>images/find.png</filename>
+		<filename>icons/doc.png</filename>
+		<filename>icons/icon.png</filename>
+		<filename>icons/pdf.png</filename>
+		<filename>icons/ppt.png</filename>
+		<filename>icons/zip.png</filename>
+		<filename>icons/16/icon-download-blue.png</filename>
+		<filename>icons/16/icon-download-green.png</filename>
+		<filename>icons/16/icon-download-orange.png</filename>
+		<filename>icons/16/icon-new-window.png</filename>
+		<filename>icons/32/bible.png</filename>
+		<filename>icons/32/calendar.png</filename>
+		<filename>icons/32/clock.png</filename>
+		<filename>icons/32/document.png</filename>
+		<filename>icons/32/folders.png</filename>
+		<filename>icons/32/rss.png</filename>
+		<filename>icons/32/speaker.png</filename>
+		<filename>icons/32/statistics.png</filename>
+		<filename>icons/32/tag.png</filename>
+		<filename>id3/getid3/getid3.lib.php</filename>
+		<filename>id3/getid3/getid3.php</filename>
+		<filename>id3/getid3/module.audio.mp3.php</filename>
+		<filename>id3/getid3/module.tag.apetag.php</filename>
+		<filename>id3/getid3/module.tag.id3v1.php</filename>
+		<filename>id3/getid3/module.tag.id3v2.php</filename>
+		<filename>id3/getid3/module.tag.lyrics3.php</filename>
+		<filename>id3/getid3/write.id3v1.php</filename>
+		<filename>id3/getid3/write.id3v2.php</filename>
+		<filename>id3/getid3/write.php</filename>
+		<filename>id3/getid3/write.real.php</filename>
+		<filename>id3/getid3/write.vorbiscomment.php</filename>
+		<filename>id3/helperapps/index.html</filename>
+	</files>
+	<languages folder="site/language">
+		<language tag="en-GB">en-GB.com_sermonspeaker.ini</language>
+		<language tag="de-DE">de-DE.com_sermonspeaker.ini</language>
+		<language tag="pt-BR">pt-BR.com_sermonspeaker.ini</language>
+		<language tag="ru-RU">ru-RU.com_sermonspeaker.ini</language>
+		<language tag="es-ES">es-ES.com_sermonspeaker.ini</language>
+	</languages>
+	<administration>
+		<menu img="components/com_sermonspeaker/images/speakers-16.png" >SermonSpeaker</menu>
+		<submenu>
+			<menu img="components/com_sermonspeaker/images/series-16.png" view="series">SERIES</menu>
+			<menu img="components/com_sermonspeaker/images/speakers-16.png" view="speakers">SPEAKERS</menu>
+			<menu img="components/com_sermonspeaker/images/sermon-16.png" view="sermons">SERMONS</menu>
+			<menu img="category" link="option=com_categories&amp;section=com_sermonspeaker">CATEGORY</menu>
+			<menu img="components/com_sermonspeaker/images/stats-16.png" view="statistics">STATISTICS</menu>
+			<menu img="components/com_sermonspeaker/images/help-16.png" view="help">HELP</menu>
+		</submenu>
+		<files folder="admin">
+			<filename>config.xml</filename>
+			<filename>sermonspeaker.php</filename>
+			<filename>sermonspeaker.css</filename>
+			<filename>controller.php</filename>
+			<filename>controllers/index.html</filename>
+			<filename>controllers/serie.php</filename>
+			<filename>controllers/speaker.php</filename>
+			<filename>controllers/sermon.php</filename>
+			<filename>controllers/statistics.php</filename>
+			<filename>elements/sqlmultilistx.php</filename>
+			<filename>models/index.html</filename>
+			<filename>models/series.php</filename>
+			<filename>models/sermon.php</filename>
+			<filename>models/sermons.php</filename>
+			<filename>models/speakers.php</filename>
+			<filename>models/statistics.php</filename>
+			<filename>views/index.html</filename>
+			<filename>views/serie/index.html</filename>
+			<filename>views/serie/view.html.php</filename>
+			<filename>views/serie/tmpl/index.html</filename>
+			<filename>views/serie/tmpl/form.php</filename>
+			<filename>views/series/index.html</filename>
+			<filename>views/series/view.html.php</filename>
+			<filename>views/series/tmpl/index.html</filename>
+			<filename>views/series/tmpl/default.php</filename>
+			<filename>views/sermon/index.html</filename>
+			<filename>views/sermon/view.html.php</filename>
+			<filename>views/sermon/tmpl/index.html</filename>
+			<filename>views/sermon/tmpl/form.php</filename>
+			<filename>views/sermons/index.html</filename>
+			<filename>views/sermons/view.html.php</filename>
+			<filename>views/sermons/tmpl/index.html</filename>
+			<filename>views/sermons/tmpl/default.php</filename>
+			<filename>views/speaker/index.html</filename>
+			<filename>views/speaker/view.html.php</filename>
+			<filename>views/speaker/tmpl/index.html</filename>
+			<filename>views/speaker/tmpl/form.php</filename>
+			<filename>views/speakers/index.html</filename>
+			<filename>views/speakers/view.html.php</filename>
+			<filename>views/speakers/tmpl/index.html</filename>
+			<filename>views/speakers/tmpl/default.php</filename>
+			<filename>views/statistics/index.html</filename>
+			<filename>views/statistics/view.html.php</filename>
+			<filename>views/statistics/tmpl/index.html</filename>
+			<filename>views/statistics/tmpl/default.php</filename>
+			<filename>views/help/index.html</filename>
+			<filename>views/help/view.html.php</filename>
+			<filename>views/help/tmpl/index.html</filename>
+			<filename>views/help/tmpl/default.php</filename>
+			<filename>views/help/tmpl/en-GB.help.php</filename>
+			<filename>views/main/index.html</filename>
+			<filename>views/main/view.html.php</filename>
+			<filename>views/main/tmpl/index.html</filename>
+			<filename>views/main/tmpl/default.php</filename>
+			<filename>tables/index.html</filename>
+			<filename>tables/series.php</filename>
+			<filename>tables/sermons.php</filename>
+			<filename>tables/speakers.php</filename>
+			<filename>images/help.png</filename>
+			<filename>images/help-16.png</filename>
+			<filename>images/series.png</filename>
+			<filename>images/series-16.png</filename>
+			<filename>images/sermon.png</filename>
+			<filename>images/sermon-16.png</filename>
+			<filename>images/speakers.png</filename>
+			<filename>images/speakers-16.png</filename>
+			<filename>images/stats.png</filename>
+			<filename>images/stats-16.png</filename>
+			<filename>images/reset.png</filename>
+		</files>
+		<languages folder="admin/language">
+			<language tag="en-GB">en-GB.com_sermonspeaker.ini</language>
+			<language tag="en-GB">en-GB.com_sermonspeaker.sys.ini</language>
+			<language tag="de-DE">de-DE.com_sermonspeaker.ini</language>
+			<language tag="de-DE">de-DE.com_sermonspeaker.sys.ini</language>
+			<language tag="es-ES">es-ES.com_sermonspeaker.ini</language>
+			<language tag="es-ES">es-ES.com_sermonspeaker.sys.ini</language>
+		</languages>
+	</administration>
+</install>

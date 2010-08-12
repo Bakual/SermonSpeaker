@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install type="module" version="1.5.0" method="upgrade">
+	<name>Latest Sermons</name>
+	<author>Martin Hess, Thomas Hunziker</author>
+	<creationDate>August 2010</creationDate>
+	<copyright>(C) 2010</copyright>
+	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
+	<authorEmail>martin.zh@gmail.com</authorEmail>
+	<authorUrl>http://joomlacode.org/gf/project/sermon_speaker/</authorUrl>
+	<version>3.4.2</version>
+	<description>This module provides an short overview over the latest sermons.</description>
+	<files>
+		<filename module="mod_latestsermons">mod_latestsermons.php</filename>
+	</files>
+	<languages folder="language">
+		<language tag="en-GB">en-GB.mod_latestsermons.ini</language>
+		<language tag="de-DE">de-DE.mod_latestsermons.ini</language>
+		<language tag="ru-RU">ru-RU.mod_latestsermons.ini</language>
+	</languages>
+	<params>
+		<param name="moduleclass_sfx" type="text" default="" label="Module Class Suffix" description="PARAMMODULECLASSSUFFIX" />
+		<param name="ls_count" type="text" default="3" label="MOD_LATESTSERMONS_PARAM_COUNT" description="MOD_LATESTSERMONS_PARAM_COUNT_DESC" />
+		<param name="ls_show_mouseover" type="radio" default="1" label="MOD_LATESTSERMONS_PARAM_SHOW_MOUSEOVER" description="MOD_LATESTSERMONS_PARAM_SHOW_MOUSEOVER_DESC">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
+		<param name="ls_show_mo_speaker" type="radio" default="1" label="MOD_LATESTSERMONS_PARAM_SHOW_MO_SPEAKER" description="MOD_LATESTSERMONS_PARAM_SHOW_MO_SPEAKER_DESC">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
+		<param name="ls_show_mo_series" type="radio" default="1" label="MOD_LATESTSERMONS_PARAM_SHOW_MO_SERIES" description="MOD_LATESTSERMONS_PARAM_SHOW_MO_SERIES_DESC">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
+		<param name="ls_show_mo_date" type="radio" default="1" label="MOD_LATESTSERMONS_PARAM_SHOW_MO_DATE" description="MOD_LATESTSERMONS_PARAM_SHOW_MO_DATE_DESC">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
+		<param name="ls_mo_date_format" type="list" default="%Y-%M-%D" label="MOD_LATESTSERMONS_PARAM_MO_DATE_FORMAT" description="MOD_LATESTSERMONS_PARAM_MO_DATE_FORMAT_DESC">
+			<option value="DATE_FORMAT_LC">DATE_FORMAT_LC</option>
+			<option value="DATE_FORMAT_LC1">DATE_FORMAT_LC1</option>
+			<option value="DATE_FORMAT_LC2">DATE_FORMAT_LC2</option>
+			<option value="DATE_FORMAT_LC3">DATE_FORMAT_LC3</option>
+			<option value="DATE_FORMAT_LC4">DATE_FORMAT_LC4</option>
+			<option value="%Y-%M-%D">%Y-%M-%D</option>
+			<option value="%A, %B %E">%A, %B %E</option>
+		</param>
+		<param name="ls_show_mo_link" type="radio" default="0" label="MOD_LATESTSERMONS_PARAM_SHOW_MO_LINK" description="MOD_LATESTSERMONS_PARAM_SHOW_MO_LINK_DESC">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
+	</params>
+</install>
