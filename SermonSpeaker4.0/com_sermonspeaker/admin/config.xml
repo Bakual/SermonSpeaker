@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
 	<fieldset name="component"
-		label="COM_SERMONSPEAKER_COMPONENT_LABEL"
-		description="COM_SERMONSPEAKER_COMPONENT_DESC">
+		label="COM_SERMONSPEAKER_FIELDSET_COMPONENT_LABEL"
+		description="COM_SERMONSPEAKER_FIELDSET_COMPONENT_DESC">
 		<field name="path" 
 			type="text" 
 			size="30" 
@@ -29,32 +29,56 @@
 			<option value="0">JNO</option>
 			<option value="1">JYES</option>
 		</field>
-		<field name="limit_speaker" type="radio" default="0" label="COM_SERMONSPEAKER_PARAM_LIMITSPEAKER" description="COM_SERMONSPEAKER_PARAM_LIMITSPEAKER_DESC">
-			<option value="0">No</option>
-			<option value="1">Yes</option>
+		<field name="limit_speaker" 
+			type="radio" 
+			default="0" 
+			label="COM_SERMONSPEAKER_PARAM_LIMITSPEAKER" 
+			description="COM_SERMONSPEAKER_PARAM_LIMITSPEAKER_DESC">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
 		</field>
-		<field name="speaker_intro" type="radio" default="1" label="COM_SERMONSPEAKER_PARAM_SPEAKERINTRO" description="COM_SERMONSPEAKER_PARAM_SPEAKERINTRO_DESC">
-			<option value="0">No</option>
-			<option value="1">Yes</option>
+		<field name="speaker_intro" 
+			type="radio" 
+			default="1" 
+			label="COM_SERMONSPEAKER_PARAM_SPEAKERINTRO" 
+			description="COM_SERMONSPEAKER_PARAM_SPEAKERINTRO_DESC">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
 		</field>
-		<field name="access" type="list" default="0" label="COM_SERMONSPEAKER_PARAM_ACCESS" description="COM_SERMONSPEAKER_PARAM_ACCESS_DESC">
-			<option value="0">PUBLIC</option>
-			<option value="1">REGISTERED</option>
-			<option value="2">SPECIAL</option>
+		<field name="access" 
+			type="list" 
+			default="0" 
+			label="COM_SERMONSPEAKER_PARAM_ACCESS" 
+			description="COM_SERMONSPEAKER_PARAM_ACCESS_DESC">
+			<option value="0">JPUBLIC</option>
+			<option value="1">JREGISTERED</option>
+			<option value="2">JSPECIAL</option>
 		</field>
-		<field name="list_direct_link" type="list" default="00" label="COM_SERMONSPEAKER_PARAM_LIST_DIRECT_LINK" description="COM_SERMONSPEAKER_PARAM_LIST_DIRECT_LINK_DESC">
+		<field name="list_direct_link" 
+			type="list" 
+			default="00" 
+			label="COM_SERMONSPEAKER_PARAM_LIST_DIRECT_LINK" 
+			description="COM_SERMONSPEAKER_PARAM_LIST_DIRECT_LINK_DESC">
 			<option value="00">COM_SERMONSPEAKER_PARAM_LIST_DIRECT_LINK_NONE</option>
 			<option value="01">COM_SERMONSPEAKER_PARAM_LIST_DIRECT_LINK_TITLE</option>
 			<option value="10">COM_SERMONSPEAKER_PARAM_LIST_DIRECT_LINK_BUTTON</option>
 			<option value="11">COM_SERMONSPEAKER_PARAM_LIST_DIRECT_LINK_BUTTON_TITLE</option>
 		</field>
-		<field name="sermonlayout" type="list" default="1" label="COM_SERMONSPEAKER_PARAM_SERMONLAYOUT" description="COM_SERMONSPEAKER_PARAM_SERMONLAYOUT_DESC">
+		<field name="sermonlayout" 
+			type="list" 
+			default="1" 
+			label="COM_SERMONSPEAKER_PARAM_SERMONLAYOUT" 
+			description="COM_SERMONSPEAKER_PARAM_SERMONLAYOUT_DESC">
 			<option value="1">COM_SERMONSPEAKER_SERMON_VIEW_ALLINROW_TITLE</option>
 			<option value="2">COM_SERMONSPEAKER_SERMON_VIEW_NEWLINE_TITLE</option>
 			<option value="3">COM_SERMONSPEAKER_SERMON_VIEW_EXTNEWLINE_TITLE</option>
 			<option value="4">COM_SERMONSPEAKER_SERMON_VIEW_ICON_TITLE</option>
 		</field>
-		<field name="date_format" type="list" default="%Y-%M-%D" label="COM_SERMONSPEAKER_PARAM_DATE_FORMAT" description="COM_SERMONSPEAKER_PARAM_DATE_FORMAT_DESC">
+		<field name="date_format" 
+			type="list" 
+			default="%Y-%M-%D" 
+			label="COM_SERMONSPEAKER_PARAM_DATE_FORMAT" 
+			description="COM_SERMONSPEAKER_PARAM_DATE_FORMAT_DESC">
 			<option value="DATE_FORMAT_LC">DATE_FORMAT_LC</option>
 			<option value="DATE_FORMAT_LC1">DATE_FORMAT_LC1</option>
 			<option value="DATE_FORMAT_LC2">DATE_FORMAT_LC2</option>
@@ -63,119 +87,290 @@
 			<option value="%Y-%M-%D">%Y-%M-%D</option>
 			<option value="%A, %B %E">%A, %B %E</option>
 		</field>
-		<field name="series_player" type="radio" default="0" label="COM_SERMONSPEAKER_PARAM_SERIES_PLAYER" description="COM_SERMONSPEAKER_PARAM_SERIES_PLAYER_DESC">
-			<option value="0">No</option>
-			<option value="1">Yes</option>
+		<field name="series_player" 
+			type="radio" 
+			default="0" 
+			label="COM_SERMONSPEAKER_PARAM_SERIES_PLAYER" 
+			description="COM_SERMONSPEAKER_PARAM_SERIES_PLAYER_DESC">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
 		</field>
 	</fieldset>
-	<fieldset name="COM_SERMONSPEAKER_SPACER_CLIENTCOL">
-		<field name="client_col_sermon_number" type="radio" default="1" label="COM_SERMONSPEAKER_PARAM_COL_SERMONNUMBER" description="COM_SERMONSPEAKER_PARAM_COL_SERMONNUMBER_DESC">
-			<option value="0">No</option>
-			<option value="1">Yes</option>
+	<fieldset name="clientcol"
+		label="COM_SERMONSPEAKER_FIELDSET_CLIENTCOL_LABEL"
+		description="COM_SERMONSPEAKER_FIELDSET_CLIENTCOL_DESC">
+		<field name="client_col_sermon_number" 
+			type="radio" 
+			default="1" 
+			label="COM_SERMONSPEAKER_PARAM_COL_SERMONNUMBER" 
+			description="COM_SERMONSPEAKER_PARAM_COL_SERMONNUMBER_DESC">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
 		</field>
-		<field name="client_col_sermon_scripture_reference" type="radio" default="1" label="COM_SERMONSPEAKER_PARAM_COL_SCRIPTURE" description="COM_SERMONSPEAKER_PARAM_COL_SCRIPTURE_DESC">
-			<option value="0">No</option>
-			<option value="1">Yes</option>
+		<field name="client_col_sermon_scripture_reference" 
+			type="radio" 
+			default="1" 
+			label="COM_SERMONSPEAKER_PARAM_COL_SCRIPTURE" 
+			description="COM_SERMONSPEAKER_PARAM_COL_SCRIPTURE_DESC">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
 		</field>
-		<field name="client_col_sermon_date" type="radio" default="1" label="COM_SERMONSPEAKER_PARAM_COL_SERMONDATE" description="COM_SERMONSPEAKER_PARAM_COL_SERMONDATE_DESC">
-			<option value="0">No</option>
-			<option value="1">Yes</option>
+		<field name="client_col_sermon_date" 
+			type="radio" 
+			default="1" 
+			label="COM_SERMONSPEAKER_PARAM_COL_SERMONDATE" 
+			description="COM_SERMONSPEAKER_PARAM_COL_SERMONDATE_DESC">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
 		</field>
-		<field name="client_col_sermon_time" type="radio" default="1" label="COM_SERMONSPEAKER_PARAM_COL_SERMONTIME" description="COM_SERMONSPEAKER_PARAM_COL_SERMONTIME_DESC">
-			<option value="0">No</option>
-			<option value="1">Yes</option>
+		<field name="client_col_sermon_time" 
+			type="radio" 
+			default="1" 
+			label="COM_SERMONSPEAKER_PARAM_COL_SERMONTIME" 
+			description="COM_SERMONSPEAKER_PARAM_COL_SERMONTIME_DESC">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
 		</field>
-		<field name="client_col_sermon_series" type="radio" default="1" label="COM_SERMONSPEAKER_PARAM_COL_SERIES" description="COM_SERMONSPEAKER_PARAM_COL_SERIES_DESC">
-			<option value="0">No</option>
-			<option value="1">Yes</option>
+		<field name="client_col_sermon_series" 
+			type="radio" 
+			default="1" 
+			label="COM_SERMONSPEAKER_PARAM_COL_SERIES" 
+			description="COM_SERMONSPEAKER_PARAM_COL_SERIES_DESC">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
 		</field>
-		<field name="client_col_sermon_notes" type="radio" default="1" label="COM_SERMONSPEAKER_PARAM_COL_SERMONNOTES" description="COM_SERMONSPEAKER_PARAM_COL_SERMONNOTES_DESC">
-			<option value="0">No</option>
-			<option value="1">Yes</option>
+		<field name="client_col_sermon_notes" 
+			type="radio" 
+			default="1" 
+			label="COM_SERMONSPEAKER_PARAM_COL_SERMONNOTES" 
+			description="COM_SERMONSPEAKER_PARAM_COL_SERMONNOTES_DESC">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
 		</field>
-		<field name="client_col_player" type="radio" default="1" label="COM_SERMONSPEAKER_PARAM_COL_PLAYER" description="COM_SERMONSPEAKER_PARAM_COL_PLAYER_DESC">
-			<option value="0">No</option>
-			<option value="1">Yes</option>
+		<field name="client_col_player" 
+			type="radio" 
+			default="1" 
+			label="COM_SERMONSPEAKER_PARAM_COL_PLAYER" 
+			description="COM_SERMONSPEAKER_PARAM_COL_PLAYER_DESC">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
 		</field>
-		<field name="client_col_sermon_addfile" type="radio" default="1" label="COM_SERMONSPEAKER_PARAM_COL_ADDFILE" description="COM_SERMONSPEAKER_PARAM_COL_ADDFILE_DESC">
-			<option value="0">No</option>
-			<option value="1">Yes</option>
+		<field name="client_col_sermon_addfile" 
+			type="radio" 
+			default="1" 
+			label="COM_SERMONSPEAKER_PARAM_COL_ADDFILE" 
+			description="COM_SERMONSPEAKER_PARAM_COL_ADDFILE_DESC">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
 		</field>
-		<field name="client_col_custom1" type="radio" default="0" label="COM_SERMONSPEAKER_PARAM_COL_CUSTOM1" description="COM_SERMONSPEAKER_PARAM_COL_CUSTOM1_DESC">
-			<option value="0">No</option>
-			<option value="1">Yes</option>
+		<field name="client_col_custom1" 
+			type="radio" 
+			default="0" 
+			label="COM_SERMONSPEAKER_PARAM_COL_CUSTOM1" 
+			description="COM_SERMONSPEAKER_PARAM_COL_CUSTOM1_DESC">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
 		</field>
-		<field name="client_col_custom2" type="radio" default="0" label="COM_SERMONSPEAKER_PARAM_COL_CUSTOM2" description="COM_SERMONSPEAKER_PARAM_COL_CUSTOM2_DESC">
-			<option value="0">No</option>
-			<option value="1">Yes</option>
+		<field name="client_col_custom2" 
+			type="radio" 
+			default="0" 
+			label="COM_SERMONSPEAKER_PARAM_COL_CUSTOM2" 
+			description="COM_SERMONSPEAKER_PARAM_COL_CUSTOM2_DESC">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
 		</field>
-		<field name="dl_button" type="radio" default="1" label="COM_SERMONSPEAKER_PARAM_DOWNLOADBTN" description="COM_SERMONSPEAKER_PARAM_DOWNLOADBTN_DESC">
-			<option value="0">No</option>
-			<option value="1">Yes</option>
+		<field name="dl_button" 
+			type="radio" 
+			default="1" 
+			label="COM_SERMONSPEAKER_PARAM_DOWNLOADBTN" 
+			description="COM_SERMONSPEAKER_PARAM_DOWNLOADBTN_DESC">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
 		</field>
-		<field name="popup_player" type="radio" default="1" label="COM_SERMONSPEAKER_PARAM_POPUPBTN" description="COM_SERMONSPEAKER_PARAM_POPUPBTN_DESC">
-			<option value="0">No</option>
-			<option value="1">Yes</option>
+		<field name="popup_player" 
+			type="radio" 
+			default="1" 
+			label="COM_SERMONSPEAKER_PARAM_POPUPBTN" 
+			description="COM_SERMONSPEAKER_PARAM_POPUPBTN_DESC">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
 		</field>
-		<field name="hide_dl" type="radio" default="0" label="COM_SERMONSPEAKER_PARAM_HIDEDL" description="COM_SERMONSPEAKER_PARAM_HIDEDL_DESC">
-			<option value="0">No</option>
-			<option value="1">Yes</option>
+		<field name="hide_dl" 
+			type="radio" 
+			default="0" 
+			label="COM_SERMONSPEAKER_PARAM_HIDEDL" 
+			description="COM_SERMONSPEAKER_PARAM_HIDEDL_DESC">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
 		</field>
-		<field name="autostart" type="radio" default="1" label="COM_SERMONSPEAKER_PARAM_AUTOSTART" description="COM_SERMONSPEAKER_PARAM_AUTOSTART_DESC">
-			<option value="0">No</option>
-			<option value="1">Yes</option>
+		<field name="autostart" 
+			type="radio" 
+			default="1" 
+			label="COM_SERMONSPEAKER_PARAM_AUTOSTART" 
+			description="COM_SERMONSPEAKER_PARAM_AUTOSTART_DESC">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
 		</field>
-		<field name="popup_color" type="text" default="FFFFFF" label="COM_SERMONSPEAKER_PARAM_POPUPCOLOR" description="COM_SERMONSPEAKER_PARAM_POPUPCOLOR_DESC" />
-		<field name="popup_height" type="text" default="150" label="COM_SERMONSPEAKER_PARAM_POPUPHEIGHT" description="COM_SERMONSPEAKER_PARAM_POPUPHEIGHT_DESC" />
-		<field name="mp_width" type="text" default="300" label="COM_SERMONSPEAKER_PARAM_VIDEOWIDTH" description="COM_SERMONSPEAKER_PARAM_VIDEOWIDTH_DESC" />
-		<field name="mp_height" type="text" default="300" label="COM_SERMONSPEAKER_PARAM_VIDEOHEIGHT" description="COM_SERMONSPEAKER_PARAM_VIDEOHEIGHT_DESC" />
-		<field name="ga" type="text" default="" label="COM_SERMONSPEAKER_PARAM_GOOGLEANALYTICS" description="COM_SERMONSPEAKER_PARAM_GOOGLEANALYTICS_DESC" />
+		<field name="popup_color" 
+			type="text" 
+			default="FFFFFF" 
+			label="COM_SERMONSPEAKER_PARAM_POPUPCOLOR" 
+			description="COM_SERMONSPEAKER_PARAM_POPUPCOLOR_DESC" />
+		<field name="popup_height" 
+			type="text" 
+			default="150" 
+			label="COM_SERMONSPEAKER_PARAM_POPUPHEIGHT" 
+			description="COM_SERMONSPEAKER_PARAM_POPUPHEIGHT_DESC" />
+		<field name="mp_width" 
+			type="text" 
+			default="300" 
+			label="COM_SERMONSPEAKER_PARAM_VIDEOWIDTH" 
+			description="COM_SERMONSPEAKER_PARAM_VIDEOWIDTH_DESC" />
+		<field name="mp_height" 
+			type="text" 
+			default="300" 
+			label="COM_SERMONSPEAKER_PARAM_VIDEOHEIGHT" 
+			description="COM_SERMONSPEAKER_PARAM_VIDEOHEIGHT_DESC" />
+		<field name="ga" 
+			type="text" 
+			default="" 
+			label="COM_SERMONSPEAKER_PARAM_GOOGLEANALYTICS" 
+			description="COM_SERMONSPEAKER_PARAM_GOOGLEANALYTICS_DESC" />
 	</fieldset>
-	<fieldset name="COM_SERMONSPEAKER_SPACER_STATISTICS">
-		<field name="track_speaker" type="radio" default="1" label="COM_SERMONSPEAKER_PARAM_TRACKSPEAKER" description="COM_SERMONSPEAKER_PARAM_TRACKSPEAKER_DESC">
-			<option value="0">No</option>
-			<option value="1">Yes</option>
+	<fieldset name="statistics"
+		label="COM_SERMONSPEAKER_FIELDSET_STATISTICS_LABEL"
+		description="COM_SERMONSPEAKER_FIELDSET_STATISTICS_DESC">
+		<field name="track_speaker" 
+			type="radio" 
+			default="1" 
+			label="COM_SERMONSPEAKER_PARAM_TRACKSPEAKER" 
+			description="COM_SERMONSPEAKER_PARAM_TRACKSPEAKER_DESC">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
 		</field>
-		<field name="track_series" type="radio" default="1" label="COM_SERMONSPEAKER_PARAM_TRACKSERIES" description="COM_SERMONSPEAKER_PARAM_TRACKSERIES_DESC">
-			<option value="0">No</option>
-			<option value="1">Yes</option>
+		<field name="track_series" 
+			type="radio" 
+			default="1" 
+			label="COM_SERMONSPEAKER_PARAM_TRACKSERIES" 
+			description="COM_SERMONSPEAKER_PARAM_TRACKSERIES_DESC">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
 		</field>
-		<field name="track_sermon" type="radio" default="1" label="COM_SERMONSPEAKER_PARAM_TRACKSERMON" description="COM_SERMONSPEAKER_PARAM_TRACKSERMON_DESC">
-			<option value="0">No</option>
-			<option value="1">Yes</option>
+		<field name="track_sermon" 
+			type="radio" 
+			default="1" 
+			label="COM_SERMONSPEAKER_PARAM_TRACKSERMON" 
+			description="COM_SERMONSPEAKER_PARAM_TRACKSERMON_DESC">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
 		</field>
 	</fieldset>
-	<fieldset name="&lt;b&gt;Frontend Uploading&lt;b&gt;">
-		<field name="fu_enable" type="radio" default="0" label="COM_SERMONSPEAKER_PARAM_FU_ENABLE" description="COM_SERMONSPEAKER_PARAM_FU_ENABLE_DESC">
-			<option value="0">No</option>
-			<option value="1">Yes</option>
+	<fieldset name="frup"
+		label="COM_SERMONSPEAKER_FIELDSET_FRUP_LABEL"
+		description="COM_SERMONSPEAKER_FIELDSET_FRUP_DESC">
+		<field name="fu_enable" 
+			type="radio" 
+			default="0" 
+			label="COM_SERMONSPEAKER_PARAM_FU_ENABLE" 
+			description="COM_SERMONSPEAKER_PARAM_FU_ENABLE_DESC">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
 		</field>
-		<field name="fu_taskname" type="text" default="" label="COM_SERMONSPEAKER_PARAM_FU_TASKNAME" description="COM_SERMONSPEAKER_PARAM_FU_TASKNAME_DESC" />
-		<field name="fu_pwd" type="password" default="" label="COM_SERMONSPEAKER_PARAM_FU_PWD" description="COM_SERMONSPEAKER_PARAM_FU_PWD_DESC" />
-		<field name="fu_usergroup" type="usergroup" default="" multiple="yes" label="COM_SERMONSPEAKER_PARAM_FU_USERGROUP" description="COM_SERMONSPEAKER_PARAM_FU_USERGROUP_DESC" />
-		<field name="fu_destdir" type="text" default="" label="COM_SERMONSPEAKER_PARAM_FU_DESTDIR" description="COM_SERMONSPEAKER_PARAM_FU_DESTDIR_DESC" />
-		<field name="fu_id3_comments" type="list" default="Comment" label="COM_SERMONSPEAKER_PARAM_FU_ID3_COMMENT" description="COM_SERMONSPEAKER_PARAM_FU_ID3_COMMENT_DESC">
+		<field name="fu_taskname" 
+			type="text" 
+			default="" 
+			label="COM_SERMONSPEAKER_PARAM_FU_TASKNAME" 
+			description="COM_SERMONSPEAKER_PARAM_FU_TASKNAME_DESC" />
+		<field name="fu_pwd" 
+			type="password" 
+			default="" 
+			label="COM_SERMONSPEAKER_PARAM_FU_PWD" 
+			description="COM_SERMONSPEAKER_PARAM_FU_PWD_DESC" />
+		<field name="fu_usergroup" 
+			type="usergroup" 
+			default="" 
+			multiple="yes" 
+			label="COM_SERMONSPEAKER_PARAM_FU_USERGROUP" 
+			description="COM_SERMONSPEAKER_PARAM_FU_USERGROUP_DESC" />
+		<field name="fu_destdir" 
+			type="text" 
+			default="" 
+			label="COM_SERMONSPEAKER_PARAM_FU_DESTDIR" 
+			description="COM_SERMONSPEAKER_PARAM_FU_DESTDIR_DESC" />
+		<field name="fu_id3_comments" 
+			type="list" 
+			default="Comment" 
+			label="COM_SERMONSPEAKER_PARAM_FU_ID3_COMMENT" 
+			description="COM_SERMONSPEAKER_PARAM_FU_ID3_COMMENT_DESC">
 			<option value="notes">Notes</option>
 			<option value="ref">Scripture</option>
 		</field>
 	</fieldset>
-	<fieldset name="&lt;b&gt;SermonCast&lt;b&gt;">
-		<field name="title" type="text" default="MyChurch Podcast" label="TITLE" description="COM_SERMONSPEAKER_PARAM_FEED_TITLE_DESC" />
-		<field name="description" type="text" default="Predigt / Sermon" label="DESCRIPTION" description="COM_SERMONSPEAKER_PARAM_FEED_DESCRIPTION_DESC" />
-		<field name="copyright" type="text" default="(c) mychurch" label="COPYRIGHT" description="COM_SERMONSPEAKER_PARAM_FEED_COPYRIGHT_DESC" />
-		<field name="editor" type="text" default="MyChurch" label="COM_SERMONSPEAKER_PARAM_FEED_EDITOR" description="COM_SERMONSPEAKER_PARAM_FEED_EDITOR_DESC" />
-		<field name="editorEmail" type="text" default="admin@mychurch.com" label="COM_SERMONSPEAKER_PARAM_FEED_EDITOREMAIL" description="COM_SERMONSPEAKER_PARAM_FEED_EDITOREMAIL_DESC" />
-		<field name="limit_text" type="radio" default="1" label="COM_SERMONSPEAKER_PARAM_FEED_LIMITTEXT" description="COM_SERMONSPEAKER_PARAM_FEED_LIMITTEXT_DESC">
-			<option value="0">No</option>
-			<option value="1">Yes</option>
+	<fieldset name="sermoncast"
+		label="COM_SERMONSPEAKER_FIELDSET_SERMONCAST_LABEL"
+		description="COM_SERMONSPEAKER_FIELDSET_SERMONCAST_DESC">
+		<field name="title" 
+			type="text" 
+			default="MyChurch Podcast" 
+			label="TITLE" 
+			description="COM_SERMONSPEAKER_PARAM_FEED_TITLE_DESC" />
+		<field name="description" 
+			type="text" 
+			default="Predigt / Sermon" 
+			label="DESCRIPTION" 
+			description="COM_SERMONSPEAKER_PARAM_FEED_DESCRIPTION_DESC" />
+		<field name="copyright" 
+			type="text" 
+			default="(c) mychurch" 
+			label="COPYRIGHT" 
+			description="COM_SERMONSPEAKER_PARAM_FEED_COPYRIGHT_DESC" />
+		<field name="editor" 
+			type="text" 
+			default="MyChurch" 
+			label="COM_SERMONSPEAKER_PARAM_FEED_EDITOR" 
+			description="COM_SERMONSPEAKER_PARAM_FEED_EDITOR_DESC" />
+		<field name="editorEmail" 
+			type="text" 
+			default="admin@mychurch.com" 
+			label="COM_SERMONSPEAKER_PARAM_FEED_EDITOREMAIL" 
+			description="COM_SERMONSPEAKER_PARAM_FEED_EDITOREMAIL_DESC" />
+		<field name="limit_text" 
+			type="radio" 
+			default="1" 
+			label="COM_SERMONSPEAKER_PARAM_FEED_LIMITTEXT" 
+			description="COM_SERMONSPEAKER_PARAM_FEED_LIMITTEXT_DESC">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
 		</field>
-		<field name="text_length" type="text" default="20" label="COM_SERMONSPEAKER_PARAM_FEED_TEXTLENGTH" description="COM_SERMONSPEAKER_PARAM_FEED_TEXTLENGTH_DESC" />
+		<field name="text_length" 
+			type="text" 
+			default="20" 
+			label="COM_SERMONSPEAKER_PARAM_FEED_TEXTLENGTH" 
+			description="COM_SERMONSPEAKER_PARAM_FEED_TEXTLENGTH_DESC" />
 	</fieldset>
-	<fieldset name="&lt;b&gt;SermonCast - iTunes&lt;b&gt;">
-		<field name="itKeywords" type="text" default="MyChurch" label="COM_SERMONSPEAKER_PARAM_FEED_ITKEYWORDS" description="COM_SERMONSPEAKER_PARAM_FEED_ITKEYWORDS_DESC" />
-		<field name="itSubtitle" type="text" default="" label="COM_SERMONSPEAKER_PARAM_FEED_ITSUBTITLE" description="COM_SERMONSPEAKER_PARAM_FEED_ITSUBTITLE_DESC" />
-		<field name="itImage" type="text" default="" label="COM_SERMONSPEAKER_PARAM_FEED_ITIMAGE" description="COM_SERMONSPEAKER_PARAM_FEED_ITIMAGE_DESC" />
-		<field name="itCategory1" type="list" default="Religion &amp; Spirituality" label="COM_SERMONSPEAKER_PARAM_FEED_ITCATEGORY1" description="COM_SERMONSPEAKER_PARAM_FEED_ITCATEGORY1_DESC">
+	<fieldset name="itunes"
+		label="COM_SERMONSPEAKER_FIELDSET_ITUNES_LABEL"
+		description="COM_SERMONSPEAKER_FIELDSET_ITUNES_DESC">
+		<field name="itKeywords" 
+			type="text" 
+			default="MyChurch" 
+			label="COM_SERMONSPEAKER_PARAM_FEED_ITKEYWORDS" 
+			description="COM_SERMONSPEAKER_PARAM_FEED_ITKEYWORDS_DESC" />
+		<field name="itSubtitle" 
+			type="text" 
+			default="" 
+			label="COM_SERMONSPEAKER_PARAM_FEED_ITSUBTITLE" 
+			description="COM_SERMONSPEAKER_PARAM_FEED_ITSUBTITLE_DESC" />
+		<field name="itImage" 
+			type="text" 
+			default="" 
+			label="COM_SERMONSPEAKER_PARAM_FEED_ITIMAGE" 
+			description="COM_SERMONSPEAKER_PARAM_FEED_ITIMAGE_DESC" />
+		<field name="itCategory1" 
+			type="list" 
+			default="Religion &amp; Spirituality" 
+			label="COM_SERMONSPEAKER_PARAM_FEED_ITCATEGORY1" 
+			description="COM_SERMONSPEAKER_PARAM_FEED_ITCATEGORY1_DESC">
 			<option value="">(none)</option>
 			<option value="Education">Education</option>
 			<option value="Religion &amp; Spirituality">Religion &amp; Spirituality</option>
@@ -188,7 +383,11 @@
 			<option value="Sports &amp; Recreation">Sports &amp; Recreation</option>
 			<option value="Sports &amp; Recreation > Professional">Sports &amp; Recreation > Professional</option>
 		</field>
-		<field name="itCategory2" type="list" default="Religion &amp; Spirituality > Christianity" label="COM_SERMONSPEAKER_PARAM_FEED_ITCATEGORY2" description="COM_SERMONSPEAKER_PARAM_FEED_ITCATEGORY2_DESC">
+		<field name="itCategory2" 
+			type="list" 
+			default="Religion &amp; Spirituality > Christianity" 
+			label="COM_SERMONSPEAKER_PARAM_FEED_ITCATEGORY2" 
+			description="COM_SERMONSPEAKER_PARAM_FEED_ITCATEGORY2_DESC">
 			<option value="">(none)</option>
 			<option value="Education">Education</option>
 			<option value="Religion &amp; Spirituality">Religion &amp; Spirituality</option>
@@ -201,7 +400,11 @@
 			<option value="Sports &amp; Recreation">Sports &amp; Recreation</option>
 			<option value="Sports &amp; Recreation > Professional">Sports &amp; Recreation > Professional</option>
 		</field>
-		<field name="itCategory3" type="list" default="" label="COM_SERMONSPEAKER_PARAM_FEED_ITCATEGORY3" description="COM_SERMONSPEAKER_PARAM_FEED_ITCATEGORY3_DESC">
+		<field name="itCategory3" 
+			type="list" 
+			default="" 
+			label="COM_SERMONSPEAKER_PARAM_FEED_ITCATEGORY3" 
+			description="COM_SERMONSPEAKER_PARAM_FEED_ITCATEGORY3_DESC">
 			<option value="">(none)</option>
 			<option value="Education">Education</option>
 			<option value="Religion &amp; Spirituality">Religion &amp; Spirituality</option>
@@ -214,9 +417,25 @@
 			<option value="Sports &amp; Recreation">Sports &amp; Recreation</option>
 			<option value="Sports &amp; Recreation > Professional">Sports &amp; Recreation > Professional</option>
 		</field>
-		<field name="itOwnerName" type="text" default="" label="COM_SERMONSPEAKER_PARAM_FEED_ITOWNERNAME" description="COM_SERMONSPEAKER_PARAM_FEED_ITOWNERNAME_DESC" />
-		<field name="itOwnerEmail" type="text" default="admin@mychurch.com" label="COM_SERMONSPEAKER_PARAM_FEED_ITOWNEREMAIL" description="COM_SERMONSPEAKER_PARAM_FEED_ITOWNEREMAIL_DESC" />
-		<field name="itLanguage" type="text" default="en" label="COM_SERMONSPEAKER_PARAM_FEED_ITLANGUAGE" description="COM_SERMONSPEAKER_PARAM_FEED_ITLANGUAGE_DESC" />
-		<field name="itRedirect" type="text" default="" label="COM_SERMONSPEAKER_PARAM_FEED_ITREDIRECT" description="COM_SERMONSPEAKER_PARAM_FEED_ITREDIRECT_DESC" />
+		<field name="itOwnerName" 
+			type="text" 
+			default="" 
+			label="COM_SERMONSPEAKER_PARAM_FEED_ITOWNERNAME" 
+			description="COM_SERMONSPEAKER_PARAM_FEED_ITOWNERNAME_DESC" />
+		<field name="itOwnerEmail" 
+			type="text" 
+			default="admin@mychurch.com" 
+			label="COM_SERMONSPEAKER_PARAM_FEED_ITOWNEREMAIL" 
+			description="COM_SERMONSPEAKER_PARAM_FEED_ITOWNEREMAIL_DESC" />
+		<field name="itLanguage" 
+			type="text" 
+			default="en" 
+			label="COM_SERMONSPEAKER_PARAM_FEED_ITLANGUAGE" 
+			description="COM_SERMONSPEAKER_PARAM_FEED_ITLANGUAGE_DESC" />
+		<field name="itRedirect" 
+			type="text" 
+			default="" 
+			label="COM_SERMONSPEAKER_PARAM_FEED_ITREDIRECT" 
+			description="COM_SERMONSPEAKER_PARAM_FEED_ITREDIRECT_DESC" />
 	</fieldset>
 </config>
