@@ -48,7 +48,7 @@
 			<menu img="components/com_sermonspeaker/images/series-16.png" view="series">COM_SERMONSPEAKER_MENU_SERIES</menu>
 			<menu img="components/com_sermonspeaker/images/speakers-16.png" view="speakers">COM_SERMONSPEAKER_MENU_SPEAKERS</menu>
 			<menu img="components/com_sermonspeaker/images/sermon-16.png" view="sermons">COM_SERMONSPEAKER_MENU_SERMONS</menu>
-			<menu img="category" link="option=com_categories&amp;section=com_sermonspeaker">COM_SERMONSPEAKER_MENU_CATEGORY</menu>
+			<menu img="category" link="option=com_categories&amp;extension=com_sermonspeaker">COM_SERMONSPEAKER_MENU_CATEGORY</menu>
 			<menu img="components/com_sermonspeaker/images/stats-16.png" view="statistics">COM_SERMONSPEAKER_MENU_STATISTICS</menu>
 			<menu img="components/com_sermonspeaker/images/help-16.png" view="help">COM_SERMONSPEAKER_MENU_HELP</menu>
 		</submenu>
@@ -63,6 +63,7 @@
 			<folder>views</folder>
 			<folder>tables</folder>
 			<folder>images</folder>
+			<folder>helpers</folder>
 			<folder>language</folder>
 		</files>
 	</administration>
