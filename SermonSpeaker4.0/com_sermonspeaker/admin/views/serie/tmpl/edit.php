@@ -35,6 +35,10 @@ JHtml::_('behavior.formvalidation');
 			<li><?php echo $this->form->getLabel('ordering'); ?>
 			<?php echo $this->form->getInput('ordering'); ?></li>
 
+			<li><?php echo $this->form->getLabel('avatar'); ?>
+			<?php echo $this->avatarlist; ?></li>
+			</ul>
+
 			<li><?php echo $this->form->getLabel('id'); ?>
 			<?php echo $this->form->getInput('id'); ?></li>
 			</ul>
@@ -57,6 +61,9 @@ JHtml::_('behavior.formvalidation');
 
 				<li><?php echo $this->form->getLabel('created_on'); ?>
 				<?php echo $this->form->getInput('created_on'); ?></li>
+
+				<li><?php echo $this->form->getLabel('hits'); ?>
+				<?php echo $this->form->getInput('hits'); ?></li>
 			</ul>
 		</fieldset>
 

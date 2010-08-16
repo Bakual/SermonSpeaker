@@ -73,7 +73,7 @@ class SermonspeakerModelSeries extends JModelList
 			$this->getState(
 				'list.select',
 				'series.id, series.series_title, series.catid,' .
-				'series.hits,' .
+				'series.hits, series.avatar,' .
 				'series.published, series.ordering'
 			)
 		);

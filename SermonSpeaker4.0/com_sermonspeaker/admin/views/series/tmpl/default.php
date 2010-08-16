@@ -54,6 +54,9 @@ $saveOrder	= $listOrder == 'series.ordering';
 					<?php endif; ?>
 				</th>
 				<th width="5%">
+					<?php echo JHtml::_('grid.sort',  'AVATAR', 'series.avatar', $listDirn, $listOrder); ?>
+				</th>
+				<th width="5%">
 					<?php echo JHtml::_('grid.sort',  'JGLOBAL_HITS', 'series.hits', $listDirn, $listOrder); ?>
 				</th>
 				<th width="1%" class="nowrap">
@@ -94,6 +97,15 @@ $saveOrder	= $listOrder == 'series.ordering';
 					<?php endif; ?>
 					<?php $disabled = $saveOrder ?  '' : 'disabled="disabled"'; ?>
 					<input type="text" name="order[]" size="5" value="<?php echo $item->ordering;?>" <?php echo $disabled ?> class="text-area-order" />
+				</td>
+				<td class="center">
+					<?php if (!$item->avatar){
+						$item->avatar = JURI::root().'components/com_sermonspeaker/images/nopict.jpg';
+					}
+					if (substr($item->avatar, 0, 7) != 'http://') {
+						$item->avatar = JURI::root().trim($item->avatar, '/.');
+					} ?>
+					<img src="<?php echo $item->avatar; ?>" border="1" width="50" height="50">
 				</td>
 				<td class="center">
 					<?php echo $item->hits; ?>

@@ -5,7 +5,7 @@ defined('_JEXEC') or die;
 // Include dependancies
 jimport('joomla.application.component.controller');
 
-JHTML::stylesheet('sermonspeaker.css', 'administrator/components/com_sermonspeaker/');
+JHTML::stylesheet('administrator/components/com_sermonspeaker/sermonspeaker.css');
 
 $controller	= JController::getInstance('Sermonspeaker');
 $controller->execute(JRequest::getCmd('task'));
