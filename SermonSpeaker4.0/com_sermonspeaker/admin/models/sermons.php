@@ -1,124 +1,131 @@
 <?php
-defined('_JEXEC') or die('Restricted access');
+defined('_JEXEC') or die;
 
-jimport('joomla.application.component.model');
+jimport('joomla.application.component.modellist');
 
-class SermonspeakerModelSermons extends JModel
+class SermonspeakerModelSermons extends JModelList
 {
-	function __construct()
+	/**
+	 * Method to auto-populate the model state.
+	 *
+	 * Note. Calling getState in this method will result in recursion.
+	 *
+	 * @since	1.6
+	 */
+	protected function populateState()
 	{
-		parent::__construct();
+		// Initialise variables.
+		$app = JFactory::getApplication();
 
-		$app 		= JFactory::getApplication();
-		$this->db	=& JFactory::getDBO();
+		// Load the filter state.
+		$search = $app->getUserStateFromRequest($this->context.'.filter.search', 'filter_search');
+		$this->setState('filter.search', $search);
 
-		$this->filter_state		= $app->getUserStateFromRequest("com_sermonspeaker.sermons.filter_state",'filter_state','','word');
-		$this->filter_catid		= $app->getUserStateFromRequest("com_sermonspeaker.sermons.filter_catid",'filter_catid','','int');
-		$this->filter_pcast		= $app->getUserStateFromRequest("com_sermonspeaker.sermons.filter_pcast",'filter_pcast','','word');
-		$this->filter_serie		= $app->getUserStateFromRequest("com_sermonspeaker.sermons.filter_serie",'filter_serie','','string');
-		$this->search			= $app->getUserStateFromRequest("com_sermonspeaker.sermons.search",'search','','string');
-		$this->search			= JString::strtolower($this->search);
+		$published = $app->getUserStateFromRequest($this->context.'.filter.state', 'filter_published', '', 'string');
+		$this->setState('filter.state', $published);
 
-		// Get pagination request variables
-		$limit = $app->getUserStateFromRequest('global.list.limit', 'limit', $app->getCfg('list_limit'), 'int');
-		$limitstart = JRequest::getInt('limitstart', 0);
- 		// In case limit has been changed, adjust it
-		$limitstart = ($limit != 0 ? (floor($limitstart / $limit) * $limit) : 0);
- 
-		$this->setState('limit', $limit);
-		$this->setState('limitstart', $limitstart);
+		$podcast = $app->getUserStateFromRequest($this->context.'.filter.podcast', 'filter_podcast', '', 'string');
+		$this->setState('filter.podcast', $podcast);
 
-		// Get sorting order from Request and UserState
-		$this->_order['order']		= $app->getUserStateFromRequest("com_sermonspeaker.sermons.filter_order",'filter_order','id','cmd' );
-		$this->_order['order_Dir']	= $app->getUserStateFromRequest("com_sermonspeaker.sermons.filter_order_Dir",'filter_order_Dir','DESC','word' );
+		$categoryId = $app->getUserStateFromRequest($this->context.'.filter.category_id', 'filter_category_id', '');
+		$this->setState('filter.category_id', $categoryId);
+
+		// Load the parameters.
+		$params = JComponentHelper::getParams('com_sermonspeaker');
+		$this->setState('params', $params);
+
+		// List state information.
+		parent::populateState('sermons.sermon_title', 'asc');
 	}
 
-	function _buildWhere()
+	/**
+	 * Method to get a store id based on model configuration state.
+	 *
+	 * This is necessary because the model is used by the component and
+	 * different modules that might need different sets of data or different
+	 * ordering requirements.
+	 *
+	 * @param	string		$id	A prefix for the store id.
+	 * @return	string		A store id.
+	 * @since	1.6
+	 */
+	protected function getStoreId($id = '')
 	{
-		$where = NULL;
-		if ($this->filter_state) {
-			if ($this->filter_state == 'P') {
-				$where[] = 'sermons.published = 1';
+		// Compile the store id.
+		$id.= ':' . $this->getState('filter.search');
+		$id.= ':' . $this->getState('filter.state');
+		$id.= ':' . $this->getState('filter.podcast');
+		$id.= ':' . $this->getState('filter.category_id');
+
+		return parent::getStoreId($id);
+	}
+
+	/**
+	 * Build an SQL query to load the list data.
+	 *
+	 * @return	JDatabaseQuery
+	 * @since	1.6
+	 */
+	protected function getListQuery()
+	{
+		// Create a new query object.
+		$db		= $this->getDbo();
+		$query	= $db->getQuery(true);
+
+		// Select the required fields from the table.
+		$query->select(
+			$this->getState(
+				'list.select',
+				'sermons.id, sermons.sermon_title, sermons.catid,' .
+				'sermons.hits, sermons.notes, sermons.sermon_scripture,' .
+				'sermons.published, sermons.ordering, sermons.podcast'
+			)
+		);
+		$query->from('`#__sermon_sermons` AS sermons');
+
+		// Join over the categories.
+		$query->select('c.title AS category_title');
+		$query->join('LEFT', '#__categories AS c ON c.id = sermons.catid');
+
+		// Filter by published state
+		$published = $this->getState('filter.state');
+		if (is_numeric($published)) {
+			$query->where('sermons.published = '.(int) $published);
+		} else if ($published === '') {
+			$query->where('(sermons.published IN (0, 1))');
+		}
+
+		// Filter by podcast state
+		$podcast = $this->getState('filter.podcast');
+		if (is_numeric($podcast)) {
+			$query->where('sermons.podcast = '.(int) $podcast);
+		}
+
+		// Filter by category.
+		$categoryId = $this->getState('filter.category_id');
+		if (is_numeric($categoryId)) {
+			$query->where('sermons.catid = '.(int) $categoryId);
+		}
+
+		// Filter by search in title
+		$search = $this->getState('filter.search');
+		if (!empty($search)) {
+			if (stripos($search, 'id:') === 0) {
+				$query->where('sermons.id = '.(int) substr($search, 3));
+			} else {
+				$search = $db->Quote('%'.$db->getEscaped($search, true).'%');
+				$query->where('(sermons.sermon_title LIKE '.$search.')');
 			}
-			else if ($this->filter_state == 'U') {
-				$where[] = 'sermons.published = 0';
-			}
 		}
-		if ($this->filter_catid) {
-			$where[] = 'sermons.catid = ' . (int) $this->filter_catid;
+
+		// Add the list ordering clause.
+		$orderCol	= $this->state->get('list.ordering');
+		$orderDirn	= $this->state->get('list.direction');
+		if ($orderCol == 'sermons.ordering' || $orderCol == 'category_title') {
+			$orderCol = 'category_title '.$orderDirn.', sermons.ordering';
 		}
-		if ($this->filter_serie) {
-			$where[] = 'sermons.series_id = "' . $this->filter_serie . '"';
-		}
-		if ($this->filter_pcast) {
-			if ($this->filter_pcast == 'P') {
-				$where[] = 'sermons.podcast = 1';
-			}
-			else if ($this->filter_pcast == 'U') {
-				$where[] = 'sermons.podcast = 0';
-			}
-		}
-		if ($this->search) {
-			$where[] = 'LOWER(sermons.sermon_title) LIKE '.$this->db->Quote('%'.$this->db->getEscaped($this->search, true).'%', false);
-		}
-		$where = (count($where) ? ' WHERE '.implode(' AND ', $where) : '');
+		$query->order($db->getEscaped($orderCol.' '.$orderDirn));
 
-		return $where;
-	}
-	
-	function getTotal()
-	{
-		$where	= $this->_buildWhere();
-		// Query bilden
-		$query = 'SELECT sermons.*'
-		.' FROM #__sermon_sermons AS sermons'
-		.$where
-		;
-		
-		// Query ausführen und Einträge zählen (einzeiliges Resultat als Integer)
-		$total = $this->_getListCount($query);    
-
-        return $total;
-	}
-
-	function getSermons()
-	{
-		$where	= $this->_buildWhere();
-		$orderby 	= ' ORDER BY '.$this->_order['order'].' '.$this->_order['order_Dir'];
-		// Query bilden
-        $query = "SELECT sermons.*, speaker.name, series.series_title, cc.title \n"
-				."FROM #__sermon_sermons AS sermons \n"
-				."LEFT JOIN #__sermon_speakers AS speaker ON sermons.speaker_id = speaker.id \n"
-				."LEFT JOIN #__sermon_series AS series ON sermons.series_id = series.id \n"
-				."LEFT JOIN #__categories AS cc ON cc.id = sermons.catid \n"
-				.$where
-				.$orderby;
-		// Query ausführen (mehrzeiliges Resulat als Array)
-		$rows = $this->_getList($query, $this->getState('limitstart'), $this->getState('limit')); 
-
-        return $rows;
-	}
-
-	function getSerieList()
-	{
-		$query = 'SELECT series_title, id '
-		. ' FROM #__sermon_series'
-		. ' ORDER BY ordering ASC'
-		;
-		
-		// Query ausführen (mehrzeiliges Resulat als Array)
-		$series	= $this->_getList($query);
-
-        return $series;
-	}
-
-	function getPagination()
-	{
-        // Load the content if it doesn't already exist
-        if (empty($this->_pagination)) {
-            jimport('joomla.html.pagination');
-            $this->_pagination = new JPagination($this->getTotal(), $this->getState('limitstart'), $this->getState('limit') );
-        }
-        return $this->_pagination;
+		return $query;
 	}
 }

@@ -5,52 +5,57 @@ jimport('joomla.application.component.view');
 
 class SermonspeakerViewSermons extends JView
 {
-	function display( $tpl = null )
+	protected $items;
+	protected $pagination;
+	protected $state;
+
+	/**
+	 * Display the view
+	 */
+	public function display($tpl = null)
 	{
-		$app = JFactory::getApplication();
+		$this->state		= $this->get('State');
+		$this->items		= $this->get('Items');
+		$this->pagination	= $this->get('Pagination');
 
-		$lists['order']		= $app->getUserStateFromRequest("com_sermonspeaker.sermons.filter_order",'filter_order','id','cmd' );
-		$lists['order_Dir']	= $app->getUserStateFromRequest("com_sermonspeaker.sermons.filter_order_Dir",'filter_order_Dir','','word' );
-		$filter_state		= $app->getUserStateFromRequest("com_sermonspeaker.sermons.filter_state",'filter_state','','word' );
-		$filter_catid		= $app->getUserStateFromRequest("com_sermonspeaker.sermons.filter_catid",'filter_catid','','int' );
-		$filter_pcast		= $app->getUserStateFromRequest("com_sermonspeaker.sermons.filter_pcast",'filter_pcast','SELECT ZONE','word' );
-		$filter_serie		= $app->getUserStateFromRequest("com_sermonspeaker.sermons.filter_serie",'filter_serie','SELECT ZONE','string' );
-		$search				= $app->getUserStateFromRequest("com_sermonspeaker.sermons.search",'search','','string' );
-		$search				= JString::strtolower( $search );
+		// Check for errors.
+		if (count($errors = $this->get('Errors'))) {
+			JError::raiseError(500, implode("\n", $errors));
+			return false;
+		}
 
-		$pagination =& $this->get('Pagination');	// Paginationwerte aus Model lesen
-		$items	=& $this->get('Sermons');			// Daten aus Model lesen
-
-		$javascript		= 'onchange="document.adminForm.submit();"';
-		// build list of series
-		// JHTML::_('select.option',  'Value', 'Text', 'Value Name (Objektattribut)', 'Text Name (Objektattribut)' )
-		$serielist[]		= JHTML::_('select.option',  '0', JText::_( 'COM_SERMONSPEAKER_SELECT_SERIES' ), 'id', 'series_title' );		// Default Option setzen
-		$serielist			= array_merge( $serielist, $this->get('SerieList') );									// Restlichen Optionen füllen mit Daten aus Model
-		// JHTML::_('select.genericlist', $SQL Ergebnis, 'Select name und id', 'Select Attribute', 'Value' , 'Text' , Selectedwert )
-		$lists['series']		= JHTML::_('select.genericlist', $serielist, 'filter_serie', 'class="inputbox" size="1" '.$javascript ,'id', 'series_title', $filter_serie);
-		
-		// pcast filter
-		$pcast[]		= JHTML::_('select.option', '0', JText::_('COM_SERMONSPEAKER_SELECT_PCAST'), 'value', 'text' );		// Default Option setzen
-		$pcast[]		= JHTML::_('select.option', 'P', JText::_('PUBLISHED'), 'value', 'text' );			// Option setzen
-		$pcast[]		= JHTML::_('select.option', 'U', JText::_('UNPUBLISHED'), 'value', 'text' );		// Option setzen
-		$lists['pcast']	= JHTML::_('select.genericlist', $pcast, 'filter_pcast', 'class="inputbox" size="1" '.$javascript ,'value', 'text', $filter_pcast);
-
-		// build list of categories (Funktion aus Joomla)
-		$javascript		= 'onchange="document.adminForm.submit();"';
-		$lists['catid'] = JHTML::_('list.category',  'filter_catid', 'com_sermonspeaker', (int) $filter_catid, $javascript );
-
-		// state filter (Funktion aus Joomla)
-		$lists['state']	= JHTML::_('grid.state',  $filter_state );
-
-		// search filter
-		$lists['search']= $search;
-
-        // push data into the template
-		$this->assignRef('user',		JFactory::getUser());
-		$this->assignRef('lists',		$lists);
-		$this->assignRef('items',		$items);
-		$this->assignRef('pagination',	$pagination);
-
+		$this->addToolbar();
 		parent::display($tpl);
+	}
+
+	/**
+	 * Add the page title and toolbar.
+	 */
+	protected function addToolbar()
+	{
+		$state	= $this->get('State');
+
+		JToolBarHelper::title(JText::_('COM_SERMONSPEAKER_SERMONS_TITLE'), 'sermons');
+		JToolBarHelper::addNew('sermon.add','JTOOLBAR_NEW');
+		JToolBarHelper::editList('sermon.edit','JTOOLBAR_EDIT');
+		JToolBarHelper::divider();
+		JToolBarHelper::custom('sermons.publish', 'publish.png', 'publish_f2.png','JTOOLBAR_PUBLISH', true);
+		JToolBarHelper::custom('sermons.unpublish', 'unpublish.png', 'unpublish_f2.png', 'JTOOLBAR_UNPUBLISH', true);
+		if ($state->get('filter.state') != -1 ) {
+			JToolBarHelper::divider();
+			if ($state->get('filter.state') != 2) {
+				JToolBarHelper::archiveList('sermons.archive','JTOOLBAR_ARCHIVE');
+			}
+			else if ($state->get('filter.state') == 2) {
+				JToolBarHelper::unarchiveList('sermons.publish', 'JTOOLBAR_UNARCHIVE');
+			}
+		}
+		if ($state->get('filter.state') == -2) {
+			JToolBarHelper::deleteList('', 'sermons.delete','JTOOLBAR_EMPTY_TRASH');
+		} else {
+			JToolBarHelper::trash('sermons.trash','JTOOLBAR_TRASH');
+		}
+		JToolBarHelper::divider();
+		JToolBarHelper::preferences('com_sermonspeaker');
 	}
 }
