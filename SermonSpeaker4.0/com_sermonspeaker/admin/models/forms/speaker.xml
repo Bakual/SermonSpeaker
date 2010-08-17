@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset>
+		<field name="id" type="text" default="0" label="JGLOBAL_FIELD_ID_LABEL" required="true"
+			readonly="true" class="readonly" />
+
+		<field name="name" type="text" class="inputbox"
+			size="40" label="JGLOBAL_TITLE"
+			description="COM_SERMONSPEAKER_FIELD_TITLE_DESC" required="true" />
+
+		<field name="catid" type="category" extension="com_sermonspeaker"
+			label="JCATEGORY" description="COM_SERMONSPEAKER_FIELD_CATEGORY_DESC"
+			class="inputbox"
+		>
+		</field>
+
+		<field name="intro" type="editor" buttons="true" hide="pagebreak,readmore"
+			class="inputbox"
+			filter="safehtml"
+			label="JGLOBAL_DESCRIPTION" description="COM_SERMONSPEAKER_FIELD_INTRO_DESC" />
+
+		<field name="bio" type="editor" buttons="true" hide="pagebreak,readmore"
+			class="inputbox"
+			filter="safehtml"
+			label="JGLOBAL_DESCRIPTION" description="COM_SERMONSPEAKER_FIELD_BIO_DESC" />
+
+		<field name="hits" type="Text" class="inputbox"
+			size="6" label="COM_SERMONSPEAKER_FIELD_HITS_LABEL"
+			description="COM_SERMONSPEAKER_FIELD_HITS_DESC" readonly="true" filter="unset" />
+
+		<field name="website" type="Text" class="inputbox"
+			label="COM_SERMONSPEAKER_FIELD_WEBSITE_LABEL"
+			description="COM_SERMONSPEAKER_FIELD_WEBSITE_DESC" />
+
+		<field name="pic" type="text" class="inputbox"
+			label="COM_SERMONSPEAKER_FIELD_AVATAR_LABEL"
+			description="COM_SERMONSPEAKER_FIELD_AVATAR_DESC" />
+
+		<field
+			name="published"
+			type="list"
+			label="JGLOBAL_STATE"
+			description="COM_SERMONSPEAKER_FIELD_PUBLISHED_DESC"
+			class="inputbox"
+			size="1"
+			default="1">
+			<option
+				value="1">JPUBLISHED</option>
+			<option
+				value="0">JUNPUBLISHED</option>
+			<option
+				value="2">JARCHIVED</option>
+			<option
+				value="-2">JTRASH</option>
+		</field>
+
+		<field name="ordering" type="Ordering" class="inputbox"
+			label="COM_SERMONSPEAKER_FIELD_ORDERING_LABEL"
+			description="COM_SERMONSPEAKER_FIELD_ORDERING_DESC" />
+
+		<field name="created_on" type="calendar"
+			label="JGLOBAL_FIELD_CREATED_LABEL" description="JGLOBAL_FIELD_CREATED_DESC"
+			class="inputbox" size="20" format="%Y-%m-%d %H:%M:%S"
+			filter="user_utc" />
+
+		<field name="created_by" type="user"
+			label="JGLOBAL_FIELD_CREATED_BY_LABEL" description="JGLOBAL_FIELD_CREATED_BY_DESC" />
+
+	</fieldset>
+</form>
