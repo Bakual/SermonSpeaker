@@ -48,5 +48,12 @@ class SermonspeakerHelper
 			'index.php?option=com_sermonspeaker&view=help',
 			$vName == 'help'
 		);
+
+		$document = JFactory::getDocument();
+		if ($vName == 'categories'){
+			$document->addStyleDeclaration('.icon-48-sermonspeaker-categories {
+				background-image: url(components/com_sermonspeaker/images/category.png); }');
+			JToolBarHelper::preferences('com_sermonspeaker');
+		}
 	}
 }
