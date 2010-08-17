@@ -3,7 +3,7 @@ defined('_JEXEC') or die;
 
 jimport('joomla.application.component.modellist');
 
-class SermonspeakerModelSeries extends JModelList
+class SermonspeakerModelSpeakers extends JModelList
 {
 	/**
 	 * Method to auto-populate the model state.

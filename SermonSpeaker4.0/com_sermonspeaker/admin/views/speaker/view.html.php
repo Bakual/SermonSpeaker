@@ -30,7 +30,6 @@ class SermonspeakerViewSpeaker extends JView
 			return false;
 		}
 
-		$this->avatarlist = $this->getFiles();
 		$this->addToolbar();
 		parent::display($tpl);
 	}

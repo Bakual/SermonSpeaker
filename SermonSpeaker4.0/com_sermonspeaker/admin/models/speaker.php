@@ -126,7 +126,7 @@ class SermonspeakerModelSpeaker extends JModelAdmin
 	{
 		jimport('joomla.filter.output');
 
-		$table->series_title		= htmlspecialchars_decode($table->series_title, ENT_QUOTES);
+		$table->name		= htmlspecialchars_decode($table->name, ENT_QUOTES);
 
 		if (empty($table->id)) {
 			// Set ordering to the last item if not set

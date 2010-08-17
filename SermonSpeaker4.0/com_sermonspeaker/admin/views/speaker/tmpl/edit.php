@@ -9,7 +9,8 @@ JHtml::_('behavior.formvalidation');
 	function submitbutton(task)
 	{
 		if (task == 'speaker.cancel' || document.formvalidator.isValid(document.id('speaker-form'))) {
-			<?php echo $this->form->getField('name')->save(); ?>
+			<?php echo $this->form->getField('intro')->save(); ?>
+			<?php echo $this->form->getField('bio')->save(); ?>
 			submitform(task);
 		}
 		else {

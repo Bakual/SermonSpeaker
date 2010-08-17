@@ -17,12 +17,12 @@
 		<field name="intro" type="editor" buttons="true" hide="pagebreak,readmore"
 			class="inputbox"
 			filter="safehtml"
-			label="JGLOBAL_DESCRIPTION" description="COM_SERMONSPEAKER_FIELD_INTRO_DESC" />
+			label="COM_SERMONSPEAKER_FIELD_INTRO_LABEL" description="COM_SERMONSPEAKER_FIELD_INTRO_DESC" />
 
 		<field name="bio" type="editor" buttons="true" hide="pagebreak,readmore"
 			class="inputbox"
 			filter="safehtml"
-			label="JGLOBAL_DESCRIPTION" description="COM_SERMONSPEAKER_FIELD_BIO_DESC" />
+			label="COM_SERMONSPEAKER_FIELD_BIO_LABEL" description="COM_SERMONSPEAKER_FIELD_BIO_DESC" />
 
 		<field name="hits" type="Text" class="inputbox"
 			size="6" label="COM_SERMONSPEAKER_FIELD_HITS_LABEL"
@@ -33,8 +33,8 @@
 			description="COM_SERMONSPEAKER_FIELD_WEBSITE_DESC" />
 
 		<field name="pic" type="text" class="inputbox"
-			label="COM_SERMONSPEAKER_FIELD_AVATAR_LABEL"
-			description="COM_SERMONSPEAKER_FIELD_AVATAR_DESC" />
+			label="COM_SERMONSPEAKER_FIELD_PCITURE_LABEL"
+			description="COM_SERMONSPEAKER_FIELD_PICTURE_DESC" />
 
 		<field
 			name="published"

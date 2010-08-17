@@ -54,7 +54,7 @@ $saveOrder	= $listOrder == 'speakers.ordering';
 					<?php endif; ?>
 				</th>
 				<th width="5%">
-					<?php echo JHtml::_('grid.sort',  'AVATAR', 'speakers.pic', $listDirn, $listOrder); ?>
+					<?php echo JHtml::_('grid.sort',  'COM_SERMONSPEAKER_PICTURE', 'speakers.pic', $listDirn, $listOrder); ?>
 				</th>
 				<th width="5%">
 					<?php echo JHtml::_('grid.sort',  'JGLOBAL_HITS', 'speakers.hits', $listDirn, $listOrder); ?>
@@ -82,7 +82,7 @@ $saveOrder	= $listOrder == 'speakers.ordering';
 				</td>
 				<td>
 					<a href="<?php echo JRoute::_('index.php?option=com_sermonspeaker&task=speaker.edit&id='.(int) $item->id); ?>">
-						<?php echo $this->escape($item->series_title); ?></a>
+						<?php echo $this->escape($item->name); ?></a>
 				</td>
 				<td class="center">
 					<?php echo JHtml::_('jgrid.published', $item->published, $i, 'speakers.', true);?>
