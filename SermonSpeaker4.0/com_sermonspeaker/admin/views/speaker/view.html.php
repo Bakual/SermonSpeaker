@@ -45,7 +45,7 @@ class SermonspeakerViewSpeaker extends JView
 
 		$isNew		= ($this->item->id == 0);
 
-		JToolBarHelper::title(JText::_('COM_SERMONSPEAKER_MANAGER_SPEAKER'), 'speakers');
+		JToolBarHelper::title(JText::_('COM_SERMONSPEAKER_SPEAKERS_TITLE'), 'speakers');
 
 		JToolBarHelper::apply('speaker.apply', 'JTOOLBAR_APPLY');
 		JToolBarHelper::save('speaker.save', 'JTOOLBAR_SAVE');

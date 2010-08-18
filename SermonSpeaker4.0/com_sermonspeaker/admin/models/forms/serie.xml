@@ -20,11 +20,11 @@
 			label="JGLOBAL_DESCRIPTION" description="COM_SERMONSPEAKER_FIELD_SERIES_DESCRIPTION_DESC" />
 
 		<field name="hits" type="Text" class="inputbox"
-			size="6" label="COM_SERMONSPEAKER_FIELD_HITS_LABEL"
+			size="6" label="COM_SERMONSPEAKER_HITS"
 			description="COM_SERMONSPEAKER_FIELD_HITS_DESC" readonly="true" filter="unset" />
 
 		<field name="avatar" type="list" class="inputbox"
-			label="COM_SERMONSPEAKER_FIELD_AVATAR_LABEL"
+			label="COM_SERMONSPEAKER_SERIESAVATAR"
 			description="COM_SERMONSPEAKER_FIELD_AVATAR_DESC" />
 
 		<field
@@ -45,7 +45,7 @@
 				value="-2">JTRASH</option>
 		</field>
 
-		<field name="ordering" type="Ordering" class="inputbox"
+		<field name="ordering" type="Seriesordering" class="inputbox"
 			label="COM_SERMONSPEAKER_FIELD_ORDERING_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_ORDERING_DESC" />
 

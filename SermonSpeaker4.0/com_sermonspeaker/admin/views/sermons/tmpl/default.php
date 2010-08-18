@@ -19,6 +19,16 @@ $saveOrder	= $listOrder == 'sermons.ordering';
 			<button type="button" onclick="document.id('filter_search').value='';this.form.submit();"><?php echo JText::_('JSEARCH_FILTER_CLEAR'); ?></button>
 		</div>
 		<div class="filter-select fltrt">
+			<select name="filter_speaker" class="inputbox" onchange="this.form.submit()">
+				<option value=""><?php echo JText::_('COM_SERMONSPEAKER_SELECT_SPEAKER');?></option>
+				<?php echo JHtml::_('select.options', $this->speakers, 'id', 'name', $this->state->get('filter.speaker'), true);?>
+			</select>
+
+			<select name="filter_series" class="inputbox" onchange="this.form.submit()">
+				<option value=""><?php echo JText::_('COM_SERMONSPEAKER_SELECT_SERIES');?></option>
+				<?php echo JHtml::_('select.options', $this->series, 'id', 'series_title', $this->state->get('filter.series'), true);?>
+			</select>
+
 			<select name="filter_published" class="inputbox" onchange="this.form.submit()">
 				<option value=""><?php echo JText::_('JOPTION_SELECT_PUBLISHED');?></option>
 				<?php echo JHtml::_('select.options', JHtml::_('jgrid.publishedOptions'), 'value', 'text', $this->state->get('filter.state'), true);?>
@@ -26,7 +36,7 @@ $saveOrder	= $listOrder == 'sermons.ordering';
 
 			<select name="filter_podcast" class="inputbox" onchange="this.form.submit()">
 				<option value=""><?php echo JText::_('COM_SERMONSPEAKER_SELECT_PCAST');?></option>
-				<?php echo JHtml::_('select.options', JHtml::_('jgrid.publishedOptions'), 'value', 'text', $this->state->get('filter.podcast'), true);?>
+				<?php echo JHtml::_('select.options', array('0'=>JText::_('JUNPUBLISHED'), '1'=>JText::_('JPUBLISHED')), 'value', 'text', $this->state->get('filter.podcast'), true);?>
 			</select>
 
 			<select name="filter_category_id" class="inputbox" onchange="this.form.submit()">
@@ -46,14 +56,23 @@ $saveOrder	= $listOrder == 'sermons.ordering';
 				<th class="title">
 					<?php echo JHtml::_('grid.sort',  'JGLOBAL_TITLE', 'sermons.sermon_title', $listDirn, $listOrder); ?>
 				</th>
-				<th width="5%">
-					<?php echo JHtml::_('grid.sort',  'JFIELD_ALIAS_LABEL', 'sermons.alias', $listDirn, $listOrder); ?>
+				<th width="10%">
+					<?php echo JHtml::_('grid.sort',  'COM_SERMONSPEAKER_SPEAKER', 'name', $listDirn, $listOrder); ?>
+				</th>
+				<th width="10%">
+					<?php echo JHtml::_('grid.sort',  'COM_SERMONSPEAKER_SCRIPTURE', 'sermon_scripture', $listDirn, $listOrder); ?>
+				</th>
+				<th width="10%">
+					<?php echo JHtml::_('grid.sort',  'COM_SERMONSPEAKER_SERIE', 'series_title', $listDirn, $listOrder); ?>
+				</th>
+				<th width="10%">
+					<?php echo JHtml::_('grid.sort',  'COM_SERMONSPEAKER_SERMONDATE', 'sermon_date', $listDirn, $listOrder); ?>
 				</th>
 				<th width="5%">
 					<?php echo JHtml::_('grid.sort',  'JPUBLISHED', 'sermons.published', $listDirn, $listOrder); ?>
 				</th>
 				<th width="5%">
-					<?php echo JHtml::_('grid.sort',  'PODCAST', 'sermons.podcast', $listDirn, $listOrder); ?>
+					<?php echo JHtml::_('grid.sort',  'COM_SERMONSPEAKER_SERMONCAST', 'sermons.podcast', $listDirn, $listOrder); ?>
 				</th>
 				<th width="20%">
 					<?php echo JHtml::_('grid.sort',  'JGRID_HEADING_CATEGORY', 'category_title', $listDirn, $listOrder); ?>
@@ -91,15 +110,26 @@ $saveOrder	= $listOrder == 'sermons.ordering';
 				<td>
 					<a href="<?php echo JRoute::_('index.php?option=com_sermonspeaker&task=sermon.edit&id='.(int) $item->id); ?>">
 						<?php echo $this->escape($item->sermon_title); ?></a>
+					<p class="smallsub">
+						<?php echo JText::sprintf('JGLOBAL_LIST_ALIAS', $this->escape($item->alias));?></p>
 				</td>
 				<td class="center">
-					<img src="<?php echo $item->alias; ?>" border="1" width="50" height="50">
+					<?php echo $this->escape($item->name); ?>
+				</td>
+				<td class="center">
+					<?php echo $this->escape($item->sermon_scripture); ?>
+				</td>
+				<td class="center">
+					<?php echo $this->escape($item->series_title); ?>
+				</td>
+				<td class="center">
+					<?php echo $this->escape($item->sermon_date); ?>
 				</td>
 				<td class="center">
 					<?php echo JHtml::_('jgrid.published', $item->published, $i, 'sermons.', true);?>
 				</td>
 				<td class="center">
-					<?php echo JHtml::_('jgrid.published', $item->podcast, $i, 'sermons.', true);?>
+					<?php echo JHtml::_('jgrid.published', $item->podcast, $i, 'sermons.podcast_', true);?>
 				</td>
 				<td class="center">
 					<?php echo $this->escape($item->category_title); ?>

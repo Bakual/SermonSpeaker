@@ -21,10 +21,10 @@
 		<field name="notes" type="editor" buttons="true" hide="pagebreak,readmore"
 			class="inputbox"
 			filter="safehtml"
-			label="COM_SERMONSPEAKER_FIELD_NOTES_LABEL" description="COM_SERMONSPEAKER_FIELD_NOTES_DESC" />
+			label="COM_SERMONSPEAKER_SERMONNOTES" description="COM_SERMONSPEAKER_FIELD_NOTES_DESC" />
 
 		<field name="hits" type="Text" class="inputbox"
-			size="6" label="COM_SERMONSPEAKER_FIELD_HITS_LABEL"
+			size="6" label="COM_SERMONSPEAKER_HITS"
 			description="COM_SERMONSPEAKER_FIELD_HITS_DESC" readonly="true" filter="unset" />
 
 		<field
@@ -59,9 +59,13 @@
 				value="0">JUNPUBLISHED</option>
 		</field>
 
-		<field name="ordering" type="Ordering" class="inputbox"
+		<field name="ordering" type="Sermonordering" class="inputbox"
 			label="COM_SERMONSPEAKER_FIELD_ORDERING_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_ORDERING_DESC" />
+
+		<field name="sermon_date" type="calendar"
+			label="COM_SERMONSPEAKER_SERMONDATE" description="COM_SERMONSPEAKER_SERMONDATE_DESC"
+			class="inputbox" size="20" format="%Y-%m-%d" />
 
 		<field name="created_on" type="calendar"
 			label="JGLOBAL_FIELD_CREATED_LABEL" description="JGLOBAL_FIELD_CREATED_DESC"

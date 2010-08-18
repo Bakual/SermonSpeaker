@@ -17,6 +17,8 @@ class SermonspeakerViewSermons extends JView
 		$this->state		= $this->get('State');
 		$this->items		= $this->get('Items');
 		$this->pagination	= $this->get('Pagination');
+		$this->speakers		= $this->get('Speakers');
+		$this->series		= $this->get('Series');
 
 		// Check for errors.
 		if (count($errors = $this->get('Errors'))) {
@@ -35,7 +37,7 @@ class SermonspeakerViewSermons extends JView
 	{
 		$state	= $this->get('State');
 
-		JToolBarHelper::title(JText::_('COM_SERMONSPEAKER_SERMONS_TITLE'), 'sermons');
+		JToolBarHelper::title(JText::_('COM_SERMONSPEAKER_SERMON_TITLE'), 'sermons');
 		JToolBarHelper::addNew('sermon.add','JTOOLBAR_NEW');
 		JToolBarHelper::editList('sermon.edit','JTOOLBAR_EDIT');
 		JToolBarHelper::divider();

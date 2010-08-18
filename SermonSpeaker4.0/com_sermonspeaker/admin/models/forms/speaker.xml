@@ -17,15 +17,15 @@
 		<field name="intro" type="editor" buttons="true" hide="pagebreak,readmore"
 			class="inputbox"
 			filter="safehtml"
-			label="COM_SERMONSPEAKER_FIELD_INTRO_LABEL" description="COM_SERMONSPEAKER_FIELD_INTRO_DESC" />
+			label="COM_SERMONSPEAKER_SPEAKERINTRO" description="COM_SERMONSPEAKER_FIELD_INTRO_DESC" />
 
 		<field name="bio" type="editor" buttons="true" hide="pagebreak,readmore"
 			class="inputbox"
 			filter="safehtml"
-			label="COM_SERMONSPEAKER_FIELD_BIO_LABEL" description="COM_SERMONSPEAKER_FIELD_BIO_DESC" />
+			label="COM_SERMONSPEAKER_SPEAKERBIO" description="COM_SERMONSPEAKER_FIELD_BIO_DESC" />
 
 		<field name="hits" type="Text" class="inputbox"
-			size="6" label="COM_SERMONSPEAKER_FIELD_HITS_LABEL"
+			size="6" label="COM_SERMONSPEAKER_HITS"
 			description="COM_SERMONSPEAKER_FIELD_HITS_DESC" readonly="true" filter="unset" />
 
 		<field name="website" type="Text" class="inputbox"
@@ -33,7 +33,7 @@
 			description="COM_SERMONSPEAKER_FIELD_WEBSITE_DESC" />
 
 		<field name="pic" type="text" class="inputbox"
-			label="COM_SERMONSPEAKER_FIELD_PCITURE_LABEL"
+			label="COM_SERMONSPEAKER_PICTURE"
 			description="COM_SERMONSPEAKER_FIELD_PICTURE_DESC" />
 
 		<field
@@ -54,7 +54,7 @@
 				value="-2">JTRASH</option>
 		</field>
 
-		<field name="ordering" type="Ordering" class="inputbox"
+		<field name="ordering" type="Speakerordering" class="inputbox"
 			label="COM_SERMONSPEAKER_FIELD_ORDERING_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_ORDERING_DESC" />
 
