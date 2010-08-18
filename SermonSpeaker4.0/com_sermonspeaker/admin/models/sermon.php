@@ -199,4 +199,34 @@ class SermonspeakerModelSermon extends JModelAdmin
 
 		return true;
 	}
+
+	public function getSpeakers()
+	{
+		// Create a new query object.
+		$db		= $this->getDbo();
+
+		$query	= "SELECT speakers.id, speakers.name \n"
+				. "FROM `#__sermon_speakers` AS speakers \n"
+				. "ORDER BY speakers.name ASC";
+
+		$db->setQuery($query);
+		$result = $db->loadObjectList();
+
+		return $result;
+	}
+
+	public function getSeries()
+	{
+		// Create a new query object.
+		$db		= $this->getDbo();
+
+		$query	= "SELECT series.id, series.series_title \n"
+				. "FROM `#__sermon_series` AS series \n"
+				. "ORDER BY series.series_title ASC";
+
+		$db->setQuery($query);
+		$result = $db->loadObjectList();
+
+		return $result;
+	}
 }

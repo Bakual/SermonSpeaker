@@ -26,6 +26,10 @@ JHtml::_('behavior.formvalidation');
 			<li><?php echo $this->form->getLabel('sermon_title'); ?>
 			<?php echo $this->form->getInput('sermon_title'); ?></li>
 
+			<li><?php echo $this->form->getLabel('alias'); ?>
+			<?php echo $this->form->getInput('alias'); ?></li>
+			</ul>
+
 			<li><?php echo $this->form->getLabel('published'); ?>
 			<?php echo $this->form->getInput('published'); ?></li>
 
@@ -34,10 +38,6 @@ JHtml::_('behavior.formvalidation');
 
 			<li><?php echo $this->form->getLabel('ordering'); ?>
 			<?php echo $this->form->getInput('ordering'); ?></li>
-
-			<li><?php echo $this->form->getLabel('alias'); ?>
-			<?php echo $this->form->getInput('alias'); ?></li>
-			</ul>
 
 			<li><?php echo $this->form->getLabel('id'); ?>
 			<?php echo $this->form->getInput('id'); ?></li>
@@ -51,9 +51,7 @@ JHtml::_('behavior.formvalidation');
 	</div>
 	<div class="width-40 fltrt">
 		<?php echo JHtml::_('sliders.start','newsfeed-sliders-'.$this->item->id, array('useCookie'=>1)); ?>
-
 		<?php echo JHtml::_('sliders.panel',JText::_('JGLOBAL_FIELDSET_PUBLISHING'), 'publishing-details'); ?>
-
 		<fieldset class="panelform">
 			<ul class="adminformlist">
 				<li><?php echo $this->form->getLabel('created_by'); ?>
@@ -67,6 +65,30 @@ JHtml::_('behavior.formvalidation');
 			</ul>
 		</fieldset>
 
+		<?php echo JHtml::_('sliders.panel',JText::_('COM_SERMONSPEAKER_GENERAL'), 'general-details'); ?>
+		<fieldset class="panelform">
+			<ul class="adminformlist">
+				<li><?php echo $this->form->getLabel('sermon_date'); ?>
+				<?php echo $this->form->getInput('sermon_date'); ?></li>
+
+				<li><?php echo $this->form->getLabel('series'); ?>
+				<?php echo $this->series; ?></li>
+
+				<li><?php echo $this->form->getLabel('speaker'); ?>
+				<?php echo $this->speakers; ?></li>
+			</ul>
+		</fieldset>
+
+		<?php echo JHtml::_('sliders.panel',JText::_('JGLOBAL_FIELDSET_METADATA_OPTIONS'), 'meta-options'); ?>
+		<fieldset class="panelform">
+			<?php echo $this->form->getLabel('metadesc'); ?>
+			<?php echo $this->form->getInput('metadesc'); ?>
+
+			<?php echo $this->form->getLabel('metakey'); ?>
+			<?php echo $this->form->getInput('metakey'); ?>
+		</fieldset>
+
+		<?php echo JHtml::_('sliders.end'); ?>
 		<input type="hidden" name="task" value="" />
 		<?php echo JHtml::_('form.token'); ?>
 	</div>

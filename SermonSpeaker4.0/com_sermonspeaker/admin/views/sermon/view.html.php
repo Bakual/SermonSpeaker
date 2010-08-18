@@ -23,6 +23,11 @@ class SermonspeakerViewSermon extends JView
 		$this->state	= $this->get('State');
 		$this->item		= $this->get('Item');
 		$this->form		= $this->get('Form');
+		$speakers		= $this->get('Speakers');
+		$series			= $this->get('Series');
+
+		$this->speakers = JHTML::_('select.genericlist', $speakers, 'jform[speaker]', '', 'id', 'name', $this->item->speaker_id, 'jform_speaker');
+		$this->series	= JHTML::_('select.genericlist', $series, 'jform[series]', '', 'id', 'series_title', $this->item->series_id, 'jform_series');
 
 		// Check for errors.
 		if (count($errors = $this->get('Errors'))) {
