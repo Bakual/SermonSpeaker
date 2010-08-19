@@ -28,19 +28,12 @@ JHtml::_('behavior.formvalidation');
 
 			<li><?php echo $this->form->getLabel('alias'); ?>
 			<?php echo $this->form->getInput('alias'); ?></li>
-			</ul>
 
 			<li><?php echo $this->form->getLabel('published'); ?>
 			<?php echo $this->form->getInput('published'); ?></li>
 
-			<li><?php echo $this->form->getLabel('catid'); ?>
-			<?php echo $this->form->getInput('catid'); ?></li>
-
 			<li><?php echo $this->form->getLabel('ordering'); ?>
 			<?php echo $this->form->getInput('ordering'); ?></li>
-
-			<li><?php echo $this->form->getLabel('id'); ?>
-			<?php echo $this->form->getInput('id'); ?></li>
 			</ul>
 
 			<?php echo $this->form->getLabel('notes'); ?>
@@ -50,10 +43,11 @@ JHtml::_('behavior.formvalidation');
 		</fieldset>
 	</div>
 	<div class="width-40 fltrt">
-		<?php echo JHtml::_('sliders.start','newsfeed-sliders-'.$this->item->id, array('useCookie'=>1)); ?>
-		<?php echo JHtml::_('sliders.panel',JText::_('JGLOBAL_FIELDSET_PUBLISHING'), 'publishing-details'); ?>
-		<fieldset class="panelform">
+		<fieldset class="adminform" style="border: 1px dashed silver; padding: 5px; margin: 18px 0px 10px;">
 			<ul class="adminformlist">
+				<li><?php echo $this->form->getLabel('id'); ?>
+				<?php echo $this->form->getInput('id'); ?></li>
+
 				<li><?php echo $this->form->getLabel('created_by'); ?>
 				<?php echo $this->form->getInput('created_by'); ?></li>
 
@@ -64,22 +58,42 @@ JHtml::_('behavior.formvalidation');
 				<?php echo $this->form->getInput('hits'); ?></li>
 			</ul>
 		</fieldset>
-
-		<?php echo JHtml::_('sliders.panel',JText::_('COM_SERMONSPEAKER_GENERAL'), 'general-details'); ?>
+		<?php echo JHtml::_('sliders.start','sermon-sliders-'.$this->item->id, array('useCookie'=>1)); ?>
+		<?php echo JHtml::_('sliders.panel',JText::_('COM_SERMONSPEAKER_GENERAL'), 'general-panel'); ?>
 		<fieldset class="panelform">
 			<ul class="adminformlist">
+				<li><?php echo $this->form->getLabel('sermon_number'); ?>
+				<?php echo $this->form->getInput('sermon_number'); ?></li>
+
 				<li><?php echo $this->form->getLabel('sermon_date'); ?>
 				<?php echo $this->form->getInput('sermon_date'); ?></li>
+
+				<li><?php echo $this->form->getLabel('sermon_time'); ?>
+				<?php echo $this->form->getInput('sermon_time'); ?></li>
+
+				<li><?php echo $this->form->getLabel('speaker'); ?>
+				<?php echo $this->speakers; ?></li>
 
 				<li><?php echo $this->form->getLabel('series'); ?>
 				<?php echo $this->series; ?></li>
 
-				<li><?php echo $this->form->getLabel('speaker'); ?>
-				<?php echo $this->speakers; ?></li>
+				<li><?php echo $this->form->getLabel('catid'); ?>
+				<?php echo $this->form->getInput('catid'); ?></li>
 			</ul>
 		</fieldset>
 
-		<?php echo JHtml::_('sliders.panel',JText::_('JGLOBAL_FIELDSET_METADATA_OPTIONS'), 'meta-options'); ?>
+		<?php echo JHtml::_('sliders.panel',JText::_('COM_SERMONSPEAKER_CUSTOM'), 'custom-panel'); ?>
+		<fieldset class="panelform">
+			<ul class="adminformlist">
+				<li><?php echo $this->form->getLabel('custom1'); ?>
+				<?php echo $this->form->getInput('custom1'); ?></li>
+
+				<li><?php echo $this->form->getLabel('custom2'); ?>
+				<?php echo $this->form->getInput('custom2'); ?></li>
+			</ul>
+		</fieldset>
+
+		<?php echo JHtml::_('sliders.panel',JText::_('JGLOBAL_FIELDSET_METADATA_OPTIONS'), 'meta-panel'); ?>
 		<fieldset class="panelform">
 			<?php echo $this->form->getLabel('metadesc'); ?>
 			<?php echo $this->form->getInput('metadesc'); ?>
