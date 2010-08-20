@@ -22,6 +22,10 @@
 			size="40" label="COM_SERMONSPEAKER_ADDFILE"
 			description="COM_SERMONSPEAKER_ADDFILE_DESC" />
 
+		<field name="addfiledesc" type="text" class="inputbox"
+			size="100" label="COM_SERMONSPEAKER_ADDFILEDESC"
+			description="COM_SERMONSPEAKER_ADDFILEDESC_DESC" />
+
 		<field name="sermon_number"  type="text" class="inputbox"
 			label="COM_SERMONSPEAKER_SERMONNUMBER" description ="COM_SERMONSPEAKER_SERMONNUMBER_DESC"
 			size="5" />

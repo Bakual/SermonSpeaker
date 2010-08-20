@@ -4,6 +4,13 @@ defined('_JEXEC') or die;
 
 JHtml::_('behavior.tooltip');
 JHtml::_('behavior.formvalidation');
+
+if(empty($this->item->id)){
+	$self = JURI::current().'?option=com_sermonspeaker&controller=sermon&task=add';
+} else {
+	$uri = JURI::getInstance();
+	$self = $uri->toString();
+}
 ?>
 <script type="text/javascript">
 	function submitbutton(task)
@@ -38,9 +45,9 @@ JHtml::_('behavior.formvalidation');
 			<li><?php echo $this->form->getLabel('ordering'); ?>
 			<?php echo $this->form->getInput('ordering'); ?></li>
 			</ul>
-
-			<?php echo $this->form->getLabel('sermon_path'); ?>
-			<div class="clr"></div>
+		</fieldset>
+		<fieldset class="adminform">
+			<legend><?php echo JText::_('COM_SERMONSPEAKER_SERMONPATH'); ?></legend>
 			<input type="radio" name="sel" value="1" onclick="enableElement(this.form.elements['sermon_path_txt'], this.form.elements['sermon_path_choice']);" checked>
 			<input class="text_area" type="text" name="sermon_path_txt" id="sermon_path_txt" size="100" maxlength="250" value="<?php echo $this->item->sermon_path;?>" />
 			<div class="clr"></div>
@@ -48,11 +55,23 @@ JHtml::_('behavior.formvalidation');
 			<input type="radio" name="sel" value="2" onclick="enableElement(this.form.elements['sermon_path_choice'], this.form.elements['sermon_path_txt']);">
 			<?php echo $this->sermon_files; ?>
 			<img onClick="window.location.href='<?php echo $self; ?>&amp;file='+document.adminForm.sermon_path_choice.value;" src='<?php echo JURI::root(); ?>/components/com_sermonspeaker/images/find.png' alt='lookup ID3' title='lookup ID3'>
-
-			<?php echo $this->form->getLabel('notes'); ?>
+		</fieldset>
+		<fieldset class="adminform">
+			<legend><?php echo JText::_('COM_SERMONSPEAKER_SERMONNOTES'); ?></legend>
 			<div class="clr"></div>
 			<?php echo $this->form->getInput('notes'); ?>
-
+		</fieldset>
+		<fieldset class="adminform">
+			<legend><?php echo JText::_('COM_SERMONSPEAKER_ADDFILE'); ?></legend>
+			<input type="radio" name="seladdfile" value="1" onclick="enableElement(this.form.elements['addfile_txt'], this.form.elements['addfile_choice']);" checked>
+			<input class="text_area" type="text" name="addfile_txt" id="addfile_txt" size="100" maxlength="250" value="<?php echo $this->item->addfile;?>" />
+			<div class="clr"></div>
+			<input type="radio" name="seladdfile" value="2" onclick="enableElement(this.form.elements['addfile_choice'], this.form.elements['addfile_txt']);">
+			<?php echo $this->addfiles; ?>
+			<ul>
+			<li><?php echo $this->form->getLabel('addfiledesc'); ?>
+			<?php echo $this->form->getInput('addfiledesc'); ?></li>
+			</ul>
 		</fieldset>
 	</div>
 	<div class="width-40 fltrt">

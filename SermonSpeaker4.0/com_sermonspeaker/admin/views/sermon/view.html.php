@@ -42,6 +42,63 @@ class SermonspeakerViewSermon extends JView
 		$document->addScriptDeclaration($enElem);
 		$document->addScriptDeclaration($sendText);
 		
+		// Reading ID3 Tags if the Lookup Button was pressed
+		if ($id3_file = JRequest::getString('file')){ // TODO: Does this belong to the view?
+			$this->item->sermon_path = $id3_file;
+			require_once(JPATH_SITE.DS.'components'.DS.'com_sermonspeaker'.DS.'id3'.DS.'getid3'.DS.'getid3.php');
+			$getID3 	= new getID3;
+			$path		= JPATH_SITE.str_replace('/',DS,$id3_file);
+			$FileInfo	= $getID3->analyze($path);
+			getid3_lib::CopyTagsToComments($FileInfo);
+			$id3 = array();
+			if (array_key_exists('playtime_string', $FileInfo)){
+				$id3['sermon_time']		= $FileInfo['playtime_string'];
+			}
+			if (array_key_exists('comments_html', $FileInfo)){
+				if (array_key_exists('title', $FileInfo['comments_html'])){
+					$id3['sermon_title']	= $FileInfo['comments_html']['title'][0];
+				}
+				if (array_key_exists('track_number', $FileInfo['comments_html'])){
+					$id3['sermon_number']	= $FileInfo['comments_html']['track_number'][0]; // ID3v2 Tag
+				} elseif (array_key_exists('track', $FileInfo['comments_html'])) {
+					$id3['sermon_number']	= $FileInfo['comments_html']['track'][0]; // ID3v1 Tag
+				}
+
+				if (array_key_exists('comments', $FileInfo['comments_html'])){
+					if ($params->get('fu_id3_comments') == 'ref'){
+						if ($FileInfo['comments_html']['comments'][0] != ""){
+							$id3['sermon_scripture'] = $FileInfo['comments_html']['comments'][0]; // ID3v2 Tag
+						} else {
+							$id3['sermon_scripture'] = $FileInfo['comments_html']['comment'][0]; // ID3v1 Tag
+						}
+					} else {
+						if ($FileInfo['comments_html']['comments'][0] != ""){
+							$id3['notes'] = $FileInfo['comments_html']['comments'][0]; // ID3v2 Tag
+						} else {
+							$id3['notes'] = $FileInfo['comments_html']['comment'][0]; // ID3v1 Tag
+						}
+					}
+				}
+				$db =& JFactory::getDBO();
+				if (array_key_exists('album', $FileInfo['comments_html'])){
+					$query = "SELECT id FROM #__sermon_series WHERE series_title like '".$FileInfo['comments_html']['album'][0]."';";
+					$db->setQuery($query);
+					$id3['series_id'] 	= $db->loadRow();
+				}
+				if (array_key_exists('artist', $FileInfo['comments_html'])){
+					$query = "SELECT id FROM #__sermon_speakers WHERE name like '".$FileInfo['comments_html']['artist'][0]."';";
+					$db->setQuery($query);
+					$id3['speaker_id']	= $db->loadRow();
+				}
+			}
+
+			foreach ($id3 as $key => $value){
+				if ($value){
+					$this->item->$key = $value;
+				}
+			}
+		}
+
 		// getting the files with extension $filters from $path and its subdirectories for sermons
 		$path = JPATH_ROOT.DS.$params->get('path');
 		$filters = array('.mp3','.m4a','.flv','.mp4','.wmv');
