@@ -9,8 +9,7 @@
 	<version>4.0</version>
 	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
 	<description>COM_SERMONSPEAKER_DESCRIPTION</description>
- 	<installfile>install.sermonspeaker.php</installfile>
-	<uninstallfile>uninstall.sermonspeaker.php</uninstallfile>
+	<scriptfile>file.script.php</scriptfile>
 	<files folder="site">
 		<filename>router.php</filename>
 		<filename>sermonspeaker.css</filename>
@@ -67,4 +66,9 @@
 			<folder>language</folder>
 		</files>
 	</administration>
+	<tables>
+		<table>#__sermon_sermons</table>
+		<table>#__sermon_speakers</table>
+		<table>#__sermon_series</table>
+	</tables>
 </extension>

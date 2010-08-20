@@ -65,7 +65,7 @@ $saveOrder	= $listOrder == 'sermons.ordering';
 				<th width="10%">
 					<?php echo JHtml::_('grid.sort',  'COM_SERMONSPEAKER_SERIE', 'series_title', $listDirn, $listOrder); ?>
 				</th>
-				<th width="10%">
+				<th width="7%">
 					<?php echo JHtml::_('grid.sort',  'COM_SERMONSPEAKER_SERMONDATE', 'sermon_date', $listDirn, $listOrder); ?>
 				</th>
 				<th width="5%">
@@ -74,7 +74,7 @@ $saveOrder	= $listOrder == 'sermons.ordering';
 				<th width="5%">
 					<?php echo JHtml::_('grid.sort',  'COM_SERMONSPEAKER_SERMONCAST', 'sermons.podcast', $listDirn, $listOrder); ?>
 				</th>
-				<th width="20%">
+				<th width="10%">
 					<?php echo JHtml::_('grid.sort',  'JGRID_HEADING_CATEGORY', 'category_title', $listDirn, $listOrder); ?>
 				</th>
 				<th width="10%">
@@ -83,7 +83,7 @@ $saveOrder	= $listOrder == 'sermons.ordering';
 						<?php echo JHtml::_('grid.order',  $this->items, 'filesave.png', 'sermons.saveorder'); ?>
 					<?php endif; ?>
 				</th>
-				<th width="5%">
+				<th width="1%">
 					<?php echo JHtml::_('grid.sort',  'JGLOBAL_HITS', 'sermons.hits', $listDirn, $listOrder); ?>
 				</th>
 				<th width="1%" class="nowrap">
@@ -93,7 +93,7 @@ $saveOrder	= $listOrder == 'sermons.ordering';
 		</thead>
 		<tfoot>
 			<tr>
-				<td colspan="10">
+				<td colspan="12">
 					<?php echo $this->pagination->getListFooter(); ?>
 				</td>
 			</tr>

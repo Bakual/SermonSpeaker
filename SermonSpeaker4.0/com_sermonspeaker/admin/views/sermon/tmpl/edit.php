@@ -32,9 +32,22 @@ JHtml::_('behavior.formvalidation');
 			<li><?php echo $this->form->getLabel('published'); ?>
 			<?php echo $this->form->getInput('published'); ?></li>
 
+			<li><?php echo $this->form->getLabel('podcast'); ?>
+			<?php echo $this->form->getInput('podcast'); ?></li>
+
 			<li><?php echo $this->form->getLabel('ordering'); ?>
 			<?php echo $this->form->getInput('ordering'); ?></li>
 			</ul>
+
+			<?php echo $this->form->getLabel('sermon_path'); ?>
+			<div class="clr"></div>
+			<input type="radio" name="sel" value="1" onclick="enableElement(this.form.elements['sermon_path_txt'], this.form.elements['sermon_path_choice']);" checked>
+			<input class="text_area" type="text" name="sermon_path_txt" id="sermon_path_txt" size="100" maxlength="250" value="<?php echo $this->item->sermon_path;?>" />
+			<div class="clr"></div>
+			<?php echo $this->form->getLabel(''); ?>
+			<input type="radio" name="sel" value="2" onclick="enableElement(this.form.elements['sermon_path_choice'], this.form.elements['sermon_path_txt']);">
+			<?php echo $this->sermon_files; ?>
+			<img onClick="window.location.href='<?php echo $self; ?>&amp;file='+document.adminForm.sermon_path_choice.value;" src='<?php echo JURI::root(); ?>/components/com_sermonspeaker/images/find.png' alt='lookup ID3' title='lookup ID3'>
 
 			<?php echo $this->form->getLabel('notes'); ?>
 			<div class="clr"></div>
@@ -51,11 +64,17 @@ JHtml::_('behavior.formvalidation');
 				<li><?php echo $this->form->getLabel('created_by'); ?>
 				<?php echo $this->form->getInput('created_by'); ?></li>
 
-				<li><?php echo $this->form->getLabel('created_on'); ?>
-				<?php echo $this->form->getInput('created_on'); ?></li>
+				<li><?php echo $this->form->getLabel('created'); ?>
+				<?php echo $this->form->getInput('created'); ?></li>
 
 				<li><?php echo $this->form->getLabel('hits'); ?>
-				<?php echo $this->form->getInput('hits'); ?></li>
+				<?php echo $this->form->getInput('hits'); ?>
+				<?php if ($this->item->hits) { ?>
+					<a href="index.php?option=com_sermonspeaker&task=sermon.resetcount&id=<?php echo $this->item->id; ?>">
+						<img src="<?php echo JURI::base(); ?>components/com_sermonspeaker/images/reset.png" width="16" height="16" border="0" title="<?php echo JText::_('JSEARCH_RESET'); ?>" alt="Reset" />
+					</a>
+				<?php } ?></li>
+
 			</ul>
 		</fieldset>
 		<?php echo JHtml::_('sliders.start','sermon-sliders-'.$this->item->id, array('useCookie'=>1)); ?>
@@ -71,10 +90,16 @@ JHtml::_('behavior.formvalidation');
 				<li><?php echo $this->form->getLabel('sermon_time'); ?>
 				<?php echo $this->form->getInput('sermon_time'); ?></li>
 
-				<li><?php echo $this->form->getLabel('speaker'); ?>
+				<li><?php echo $this->form->getLabel('sermon_scripture'); ?>
+				<?php echo $this->form->getInput('sermon_scripture'); ?>
+				<img onClick="sendText(document.adminForm.jform_sermon_scripture,'{bib=','}')" src='<?php echo JURI::root(); ?>/components/com_sermonspeaker/images/blue_tag.png' title='insert Biblelink tag' alt='insert Biblelink tag'>
+				<img onClick="sendText(document.adminForm.jform_sermon_scripture,'{bible}','{/bible}')" src='<?php echo JURI::root(); ?>/components/com_sermonspeaker/images/green_tag.png' title='insert ScriptureLink tag' alt='insert ScriptureLink tag'>
+				</li>
+
+				<li><?php echo $this->form->getLabel('speaker_id'); ?>
 				<?php echo $this->speakers; ?></li>
 
-				<li><?php echo $this->form->getLabel('series'); ?>
+				<li><?php echo $this->form->getLabel('series_id'); ?>
 				<?php echo $this->series; ?></li>
 
 				<li><?php echo $this->form->getLabel('catid'); ?>

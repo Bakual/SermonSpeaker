@@ -126,7 +126,29 @@ class SermonspeakerModelSermon extends JModelAdmin
 	{
 		jimport('joomla.filter.output');
 
-		$table->sermon_title		= htmlspecialchars_decode($table->sermon_title, ENT_QUOTES);
+		$table->sermon_title	= htmlspecialchars_decode($table->sermon_title, ENT_QUOTES);
+		$table->alias			= JApplication::stringURLSafe($table->alias);
+
+		if (empty($table->alias)) {
+			$table->alias = JApplication::stringURLSafe($table->sermon_title);
+		}
+		if (trim(str_replace('-','',$this->alias)) == '') {
+			$this->alias = JFactory::getDate()->format("Y-m-d-H-i-s");
+		}
+
+		if (!empty($this->metakey)) {
+			// only process if not empty
+			$bad_characters = array("\n", "\r", "\"", "<", ">"); // array of characters to remove
+			$after_clean = JString::str_ireplace($bad_characters, "", $this->metakey); // remove bad characters
+			$keys = explode(',', $after_clean); // create array using commas as delimiter
+			$clean_keys = array();
+			foreach($keys as $key) {
+				if (trim($key)) {  // ignore blank keywords
+					$clean_keys[] = trim($key);
+				}
+			}
+			$this->metakey = implode(", ", $clean_keys); // put array back together delimited by ", "
+		}
 
 		if (empty($table->id)) {
 			// Set ordering to the last item if not set

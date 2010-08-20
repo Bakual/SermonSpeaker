@@ -36,4 +36,22 @@ class SermonspeakerControllerSermon extends JControllerForm
 	{
 		return true;
 	}
+
+	public function resetcount()
+	{
+		$database	= &JFactory::getDBO();
+		$id 		= JRequest::getInt('id', 0);
+
+		$query	= "UPDATE #__sermon_sermons \n"
+				. "SET hits='0' \n"
+				. "WHERE id='".$id."'"
+				;
+		$database->setQuery($query);
+		if (!$database->query()) {
+			echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";
+			exit();
+		}
+
+	$this->setRedirect('index.php?option=com_sermonspeaker&task=sermon.edit&id='.$id);
+	}
 }

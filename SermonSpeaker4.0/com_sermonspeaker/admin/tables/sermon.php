@@ -20,6 +20,36 @@ class SermonspeakerTableSermon extends JTable
 	}
 
 	/**
+	 * Overload the store method for the Sermons table.
+	 *
+	 * @param	boolean	Toggle whether null values should be updated.
+	 * @return	boolean	True on success, false on failure.
+	 * @since	1.6
+	 */
+	public function store($updateNulls = false)
+	{
+		$date	= JFactory::getDate();
+		$user	= JFactory::getUser();
+		if (empty($this->created_by)) {
+			$this->created_by = $user->get('id');
+		}
+		if ($this->id) {
+			// Existing sermon
+			if (!intval($this->created)) {
+				$this->created = $this->sermon_date;
+			}
+		} else {
+			// New sermon.
+			if (!intval($this->created)) {
+				$this->created = $date->toMySQL();
+			}
+		}
+			
+		// Attempt to store the user data.
+		return parent::store($updateNulls);
+	}
+
+	/**
 	 * Method to set the publishing state for a row or list of rows in the database
 	 * table.  The method respects checked out rows by other users and will attempt
 	 * to checkin rows that it can after adjustments are made.
