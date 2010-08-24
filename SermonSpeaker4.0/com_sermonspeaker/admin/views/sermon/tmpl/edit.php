@@ -5,12 +5,8 @@ defined('_JEXEC') or die;
 JHtml::_('behavior.tooltip');
 JHtml::_('behavior.formvalidation');
 
-if(empty($this->item->id)){
-	$self = JURI::current().'?option=com_sermonspeaker&controller=sermon&task=add';
-} else {
-	$uri = JURI::getInstance();
-	$self = $uri->toString();
-}
+$uri = JURI::getInstance();
+$self = $uri->toString();
 ?>
 <script type="text/javascript">
 	function submitbutton(task)

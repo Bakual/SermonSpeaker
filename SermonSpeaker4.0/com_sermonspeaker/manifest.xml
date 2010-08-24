@@ -28,6 +28,7 @@
 		<filename>media/player/swfobject.js</filename>
 		<filename>media/player/audio_player/player.swf</filename>
 		<filename>media/player/audio_player/audio-player.js</filename>
+		<folder>id3/helperapps</folder>
 		<filename>id3/getid3/getid3.lib.php</filename>
 		<filename>id3/getid3/getid3.php</filename>
 		<filename>id3/getid3/module.audio.mp3.php</filename>
