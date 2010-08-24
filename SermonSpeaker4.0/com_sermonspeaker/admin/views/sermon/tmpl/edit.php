@@ -44,13 +44,13 @@ $self = $uri->toString();
 		</fieldset>
 		<fieldset class="adminform">
 			<legend><?php echo JText::_('COM_SERMONSPEAKER_SERMONPATH'); ?></legend>
-			<input type="radio" name="sel" value="1" onclick="enableElement(this.form.elements['sermon_path_txt'], this.form.elements['sermon_path_choice']);" checked>
-			<input class="text_area" type="text" name="sermon_path_txt" id="sermon_path_txt" size="100" maxlength="250" value="<?php echo $this->item->sermon_path;?>" />
+			<input type="radio" name="sel" value="1" onclick="enableElement(this.form.elements['jform_sermon_path_txt'], this.form.elements['jform_sermon_path_choice']);" checked>
+			<input class="text_area" type="text" name="jform[sermon_path]" id="jform_sermon_path_txt" size="100" maxlength="250" value="<?php echo $this->item->sermon_path;?>" />
 			<div class="clr"></div>
 			<?php echo $this->form->getLabel(''); ?>
-			<input type="radio" name="sel" value="2" onclick="enableElement(this.form.elements['sermon_path_choice'], this.form.elements['sermon_path_txt']);">
+			<input type="radio" name="sel" value="2" onclick="enableElement(this.form.elements['jform_sermon_path_choice'], this.form.elements['jform_sermon_path_txt']);">
 			<?php echo $this->sermon_files; ?>
-			<img onClick="window.location.href='<?php echo $self; ?>&amp;file='+document.adminForm.sermon_path_choice.value;" src='<?php echo JURI::root(); ?>/components/com_sermonspeaker/images/find.png' alt='lookup ID3' title='lookup ID3'>
+			<img onClick="window.location.href='<?php echo $self; ?>&amp;file='+document.adminForm.jform_sermon_path_choice.value;" src='<?php echo JURI::root(); ?>/components/com_sermonspeaker/images/find.png' alt='lookup ID3' title='lookup ID3'>
 		</fieldset>
 		<fieldset class="adminform">
 			<legend><?php echo JText::_('COM_SERMONSPEAKER_SERMONNOTES'); ?></legend>
@@ -59,14 +59,14 @@ $self = $uri->toString();
 		</fieldset>
 		<fieldset class="adminform">
 			<legend><?php echo JText::_('COM_SERMONSPEAKER_ADDFILE'); ?></legend>
-			<input type="radio" name="seladdfile" value="1" onclick="enableElement(this.form.elements['addfile_txt'], this.form.elements['addfile_choice']);" checked>
-			<input class="text_area" type="text" name="addfile_txt" id="addfile_txt" size="100" maxlength="250" value="<?php echo $this->item->addfile;?>" />
+			<input type="radio" name="jform[seladdfile]" value="1" onclick="enableElement(this.form.elements['jform_addfile_txt'], this.form.elements['jform_addfile_choice']);" checked>
+			<input class="text_area" type="text" name="jform[addfile]" id="jform_addfile_txt" size="100" maxlength="250" value="<?php echo $this->item->addfile;?>" />
 			<div class="clr"></div>
-			<input type="radio" name="seladdfile" value="2" onclick="enableElement(this.form.elements['addfile_choice'], this.form.elements['addfile_txt']);">
+			<input type="radio" name="jform[seladdfile]" value="2" onclick="enableElement(this.form.elements['jform_addfile_choice'], this.form.elements['jform_addfile_txt']);">
 			<?php echo $this->addfiles; ?>
 			<ul>
-			<li><?php echo $this->form->getLabel('addfiledesc'); ?>
-			<?php echo $this->form->getInput('addfiledesc'); ?></li>
+			<li><?php echo $this->form->getLabel('addfileDesc'); ?>
+			<?php echo $this->form->getInput('addfileDesc'); ?></li>
 			</ul>
 		</fieldset>
 	</div>

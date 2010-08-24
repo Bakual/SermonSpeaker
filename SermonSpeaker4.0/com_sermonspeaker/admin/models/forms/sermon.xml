@@ -18,11 +18,11 @@
 			size="40" label="COM_SERMONSPEAKER_SERMONPATH"
 			description="COM_SERMONSPEAKER_SERMONPATH_DESC" />
 
-		<field name="addfile_path" type="text" class="inputbox"
+		<field name="addfile" type="text" class="inputbox"
 			size="40" label="COM_SERMONSPEAKER_ADDFILE"
 			description="COM_SERMONSPEAKER_ADDFILE_DESC" />
 
-		<field name="addfiledesc" type="text" class="inputbox"
+		<field name="addfileDesc" type="text" class="inputbox"
 			size="100" label="COM_SERMONSPEAKER_ADDFILEDESC"
 			description="COM_SERMONSPEAKER_ADDFILEDESC_DESC" />
 

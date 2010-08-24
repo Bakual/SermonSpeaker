@@ -47,7 +47,7 @@ class SermonspeakerTableSermon extends JTable
 				$this->created = $date->toMySQL();
 			}
 		}
-			
+
 		// Attempt to store the user data.
 		return parent::store($updateNulls);
 	}

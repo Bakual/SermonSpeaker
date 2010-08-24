@@ -102,7 +102,7 @@ class SermonspeakerModelSermon extends JModelAdmin
 		// Reading ID3 Tags if the Lookup Button was pressed
 		if ($id3_file = JRequest::getString('file')){
 			$data->sermon_path = $id3_file;
-			require_once(JPATH_SITE.DS.'components'.DS.'com_sermonspeaker'.DS.'id3'.DS.'getid3-2'.DS.'getid3.php');
+			require_once(JPATH_SITE.DS.'components'.DS.'com_sermonspeaker'.DS.'id3'.DS.'getid3'.DS.'getid3.php');
 			$getID3 	= new getID3;
 			$path		= JPATH_SITE.str_replace('/', DS, $id3_file);
 			$FileInfo	= $getID3->Analyze($path);
@@ -189,6 +189,16 @@ class SermonspeakerModelSermon extends JModelAdmin
 			if (empty($table->alias)) {
 				$table->alias = JFactory::getDate()->format("Y-m-d-H-i-s");
 			}
+		}
+		$time_arr = explode(':', $table->sermon_time);
+		foreach ($time_arr as $time_int){
+			$time_int = (int)$time_int;
+			$time_int = str_pad($time_int, 2, '0', STR_PAD_LEFT);
+		}
+		if (count($time_arr) == 2) {
+			$table->sermon_time = '00:'.$time_arr[0].':'.$time_arr[1];
+		} elseif (count($tarr) == 3) {
+			$table->sermon_time = $time_arr[0].':'.$time_arr[1].':'.$time_arr[2];
 		}
 		if (!empty($table->metakey)) {
 			// only process if not empty

@@ -21,6 +21,7 @@
 		<folder>images</folder>
 		<folder>icons</folder>
 		<folder>language</folder>
+		<folder>id3</folder>
 		<filename>media/default_sermon.mp3</filename>
 		<filename>media/default_speaker.jpg</filename>
 		<filename>media/avatars/sharon.jpg</filename>
@@ -28,19 +29,6 @@
 		<filename>media/player/swfobject.js</filename>
 		<filename>media/player/audio_player/player.swf</filename>
 		<filename>media/player/audio_player/audio-player.js</filename>
-		<folder>id3/helperapps</folder>
-		<filename>id3/getid3/getid3.lib.php</filename>
-		<filename>id3/getid3/getid3.php</filename>
-		<filename>id3/getid3/module.audio.mp3.php</filename>
-		<filename>id3/getid3/module.tag.apetag.php</filename>
-		<filename>id3/getid3/module.tag.id3v1.php</filename>
-		<filename>id3/getid3/module.tag.id3v2.php</filename>
-		<filename>id3/getid3/module.tag.lyrics3.php</filename>
-		<filename>id3/getid3/write.id3v1.php</filename>
-		<filename>id3/getid3/write.id3v2.php</filename>
-		<filename>id3/getid3/write.php</filename>
-		<filename>id3/getid3/write.real.php</filename>
-		<filename>id3/getid3/write.vorbiscomment.php</filename>
 	</files>
 	<administration>
 		<menu img="components/com_sermonspeaker/images/speakers-16.png">COM_SERMONSPEAKER</menu>
