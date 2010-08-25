@@ -15,11 +15,11 @@
 			description="COM_SERMONSPEAKER_FIELD_ALIAS_DESC" />
 
 		<field name="sermon_path" type="text" class="inputbox"
-			size="40" label="COM_SERMONSPEAKER_SERMONPATH"
+			size="100" label="COM_SERMONSPEAKER_SERMONPATH"
 			description="COM_SERMONSPEAKER_SERMONPATH_DESC" />
 
 		<field name="addfile" type="text" class="inputbox"
-			size="40" label="COM_SERMONSPEAKER_ADDFILE"
+			size="100" label="COM_SERMONSPEAKER_ADDFILE"
 			description="COM_SERMONSPEAKER_ADDFILE_DESC" />
 
 		<field name="addfileDesc" type="text" class="inputbox"
