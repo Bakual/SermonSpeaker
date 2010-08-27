@@ -15,6 +15,7 @@
 	<languages>
 		<language tag="en-GB">languages/en-GB.plg_search_sermonspeaker.ini</language>
 		<language tag="de-DE">languages/de-DE.plg_search_sermonspeaker.ini</language>
+		<language tag="ru-RU">languages/ru-RU.plg_search_sermonspeaker.ini</language>
 	</languages>
 	<params>
 		<param name="search_limit" type="text" size="5" default="50" label="PLG_SEARCH_SERMONSPEAKER_PARAM_SEARCH_LIMIT" description="PLG_SEARCH_SERMONSPEAKER_PARAM_SEARCH_LIMIT_DESC"/>

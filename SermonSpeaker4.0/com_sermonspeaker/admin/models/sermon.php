@@ -140,12 +140,12 @@ class SermonspeakerModelSermon extends JModelAdmin
 				if (array_key_exists('album', $FileInfo['comments'])){
 					$query = "SELECT id FROM #__sermon_series WHERE series_title like '".$FileInfo['comments']['album'][0]."';";
 					$db->setQuery($query);
-					$id3['series_id'] 	= $db->loadRow();
+					$id3['series_id'] 	= $db->loadResult();
 				}
 				if (array_key_exists('artist', $FileInfo['comments'])){
 					$query = "SELECT id FROM #__sermon_speakers WHERE name like '".$FileInfo['comments']['artist'][0]."';";
 					$db->setQuery($query);
-					$id3['speaker_id']	= $db->loadRow();
+					$id3['speaker_id']	= $db->loadResult();
 				}
 			}
 			foreach ($id3 as $key => $value){
@@ -284,35 +284,5 @@ class SermonspeakerModelSermon extends JModelAdmin
 		}
 
 		return true;
-	}
-
-	public function getSpeakers()
-	{
-		// Create a new query object.
-		$db		= $this->getDbo();
-
-		$query	= "SELECT speakers.id, speakers.name \n"
-				. "FROM `#__sermon_speakers` AS speakers \n"
-				. "ORDER BY speakers.name ASC";
-
-		$db->setQuery($query);
-		$result = $db->loadObjectList();
-
-		return $result;
-	}
-
-	public function getSeries()
-	{
-		// Create a new query object.
-		$db		= $this->getDbo();
-
-		$query	= "SELECT series.id, series.series_title \n"
-				. "FROM `#__sermon_series` AS series \n"
-				. "ORDER BY series.series_title ASC";
-
-		$db->setQuery($query);
-		$result = $db->loadObjectList();
-
-		return $result;
 	}
 }

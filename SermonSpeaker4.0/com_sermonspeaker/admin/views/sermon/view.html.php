@@ -11,7 +11,7 @@ jimport('joomla.application.component.view');
  */
 class SermonspeakerViewSermon extends JView
 {
-	protected $state;
+//	protected $state;
 	protected $item;
 	protected $form;
 
@@ -20,11 +20,9 @@ class SermonspeakerViewSermon extends JView
 	 */
 	public function display($tpl = null)
 	{
-		$this->state	= $this->get('State');
+//		$this->state	= $this->get('State');
 		$this->item		= $this->get('Item');
 		$this->form		= $this->get('Form');
-		$speakers		= $this->get('Speakers');
-		$series			= $this->get('Series');
 
 		// add Javascript for Form Elements enable and disable
 		$enElem = 'function enableElement(ena_elem, dis_elem) {
@@ -73,8 +71,6 @@ class SermonspeakerViewSermon extends JView
 
 		$this->sermon_files	= JHTML::_('select.genericlist', $sermons, 'jform[sermon_path]', 'disabled="disabled"', 'file', 'file', $this->item->sermon_path, 'jform_sermon_path_choice');
 		$this->addfiles = JHTML::_('select.genericlist', $addfiles, 'jform[addfile]', 'disabled="disabled"', 'file', 'file', $this->item->addfile, 'jform_addfile_choice');
-		$this->speakers = JHTML::_('select.genericlist', $speakers, 'jform[speaker_id]', '', 'id', 'name', $this->item->speaker_id, 'jform_speaker_id');
-		$this->series	= JHTML::_('select.genericlist', $series, 'jform[series_id]', '', 'id', 'series_title', $this->item->series_id, 'jform_series_id');
 
 		// Check for errors.
 		if (count($errors = $this->get('Errors'))) {

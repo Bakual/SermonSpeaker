@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <form>
-	<fieldset>
-		<field name="id"  type="text"
-			label="JGLOBAL_FIELD_ID_LABEL" description ="JGLOBAL_FIELD_ID_DESC"
-			size="10" default="0" required="true"
-			readonly="true" />
-
+	<fieldset name="detail">
 		<field name="sermon_title" type="text" class="inputbox"
 			size="40" label="JGLOBAL_TITLE"
 			description="COM_SERMONSPEAKER_FIELD_TITLE_DESC" required="true" />
@@ -26,30 +21,6 @@
 			size="100" label="COM_SERMONSPEAKER_ADDFILEDESC"
 			description="COM_SERMONSPEAKER_ADDFILEDESC_DESC" />
 
-		<field name="sermon_number"  type="text" class="inputbox"
-			label="COM_SERMONSPEAKER_SERMONNUMBER" description ="COM_SERMONSPEAKER_SERMONNUMBER_DESC"
-			size="5" />
-
-		<field name="sermon_time"  type="text" class="inputbox"
-			label="COM_SERMONSPEAKER_SERMONTIME" description ="COM_SERMONSPEAKER_SERMONTIME_DESC"
-			size="10" default="00:00:00" />
-
-		<field name="sermon_scripture"  type="text" class="inputbox"
-			label="COM_SERMONSPEAKER_SCRIPTURE" description ="COM_SERMONSPEAKER_SCRIPTURE_DESC"
-			size="20" />
-
-		<field name="catid" type="category" extension="com_sermonspeaker"
-			label="JCATEGORY" description="COM_SERMONSPEAKER_FIELD_CATEGORY_DESC"
-			class="inputbox" />
-
-		<field name="custom1"  type="text" class="inputbox"
-			label="COM_SERMONSPEAKER_CUSTOM1" description ="COM_SERMONSPEAKER_CUSTOM1_DESC"
-			size="50" />
-
-		<field name="custom2"  type="text" class="inputbox"
-			label="COM_SERMONSPEAKER_CUSTOM2" description ="COM_SERMONSPEAKER_CUSTOM2_DESC"
-			size="50" />
-
 		<field name="notes" type="editor" buttons="true" hide="pagebreak,readmore"
 			class="inputbox"
 			filter="safehtml"
@@ -62,18 +33,6 @@
 			<option value="0">JNO</option>
 			<option value="1">JYES</option>
 		</field>
-
-		<field name="created" type="text" class="readonly"
-			label="JGLOBAL_FIELD_CREATED_LABEL" description="JGLOBAL_FIELD_CREATED_DESC"
-			readonly="true" />
-
-		<field name="created_by" type="text" class="readonly"
-			label="JGLOBAL_FIELD_CREATED_BY_LABEL" description="JGLOBAL_FIELD_CREATED_BY_DESC"
-			readonly="true" />
-
-		<field name="hits" type="text" class="readonly"
-			label="COM_SERMONSPEAKER_HITS" description="COM_SERMONSPEAKER_FIELD_HITS_DESC" 
-			readonly="true" />
 
 		<field
 			name="published"
@@ -93,22 +52,71 @@
 				value="-2">JTRASH</option>
 		</field>
 
-		<field name="speaker_id" type="list" class="inputbox"
-			label="COM_SERMONSPEAKER_SPEAKER"
-			description="COM_SERMONSPEAKER_FIELD_SPEAKER_DESC" />
-
-		<field name="series_id" type="list" class="inputbox"
-			label="COM_SERMONSPEAKER_SERIE"
-			description="COM_SERMONSPEAKER_FIELD_SERIE_DESC" />
-
 		<field name="ordering" type="Sermonordering" class="inputbox"
 			label="COM_SERMONSPEAKER_FIELD_ORDERING_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_ORDERING_DESC" />
+
+	</fieldset>
+
+	<fieldset name="info">
+		<field name="id"  type="text"
+			label="JGLOBAL_FIELD_ID_LABEL" description ="JGLOBAL_FIELD_ID_DESC"
+			size="10" default="0" required="true"
+			readonly="true" />
+
+		<field name="created_by" type="text" class="readonly"
+			label="JGLOBAL_FIELD_CREATED_BY_LABEL" description="JGLOBAL_FIELD_CREATED_BY_DESC"
+			readonly="true" />
+
+		<field name="created" type="text" class="readonly"
+			label="JGLOBAL_FIELD_CREATED_LABEL" description="JGLOBAL_FIELD_CREATED_DESC"
+			readonly="true" />
+
+		<field name="hits" type="hits" class="readonly"
+			label="COM_SERMONSPEAKER_HITS" description="COM_SERMONSPEAKER_FIELD_HITS_DESC" />
+	</fieldset>
+
+	<fieldset name="general" label="COM_SERMONSPEAKER_GENERAL">
+		<field name="sermon_number"  type="text" class="inputbox"
+			label="COM_SERMONSPEAKER_SERMONNUMBER" description ="COM_SERMONSPEAKER_SERMONNUMBER_DESC"
+			size="5" />
 
 		<field name="sermon_date" type="calendar"
 			label="COM_SERMONSPEAKER_SERMONDATE" description="COM_SERMONSPEAKER_SERMONDATE_DESC"
 			class="inputbox" size="20" format="%Y-%m-%d" />
 
+		<field name="sermon_time"  type="text" class="inputbox"
+			label="COM_SERMONSPEAKER_SERMONTIME" description ="COM_SERMONSPEAKER_SERMONTIME_DESC"
+			size="10" default="00:00:00" />
+
+		<field name="sermon_scripture"  type="scripture" class="inputbox"
+			label="COM_SERMONSPEAKER_SCRIPTURE" description ="COM_SERMONSPEAKER_SCRIPTURE_DESC"
+			size="20" />
+
+		<field name="speaker_id" type="speakerlist" class="inputbox"
+			label="COM_SERMONSPEAKER_SPEAKER" description="COM_SERMONSPEAKER_FIELD_SPEAKER_DESC" />
+
+		<field name="series_id" type="serieslist" class="inputbox"
+			label="COM_SERMONSPEAKER_SERIE" description="COM_SERMONSPEAKER_FIELD_SERIE_DESC" />
+
+		<field name="catid" type="category" extension="com_sermonspeaker"
+			label="JCATEGORY" description="COM_SERMONSPEAKER_FIELD_CATEGORY_DESC"
+			class="inputbox" />
+
+	</fieldset>
+
+	<fieldset name="custom" label="COM_SERMONSPEAKER_CUSTOM">
+		<field name="custom1"  type="text" class="inputbox"
+			label="COM_SERMONSPEAKER_CUSTOM1" description ="COM_SERMONSPEAKER_CUSTOM1_DESC"
+			size="50" />
+
+		<field name="custom2"  type="text" class="inputbox"
+			label="COM_SERMONSPEAKER_CUSTOM2" description ="COM_SERMONSPEAKER_CUSTOM2_DESC"
+			size="50" />
+
+	</fieldset>
+
+	<fieldset name="metadata" label="JGLOBAL_FIELDSET_METADATA_OPTIONS">
 		<field name="metakey" type="textarea"
 			label="JFIELD_META_KEYWORDS_LABEL" description="JFIELD_META_KEYWORDS_DESC"
 			class="inputbox" rows="3" cols="30" />

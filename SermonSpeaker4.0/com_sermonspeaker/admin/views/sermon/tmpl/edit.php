@@ -73,73 +73,57 @@ $self = $uri->toString();
 	<div class="width-40 fltrt">
 		<fieldset class="adminform" style="border: 1px dashed silver; padding: 5px; margin: 18px 0px 10px;">
 			<ul class="adminformlist">
-				<li><?php echo $this->form->getLabel('id'); ?>
-				<?php echo $this->form->getInput('id'); ?></li>
-
-				<li><?php echo $this->form->getLabel('created_by'); ?>
-				<?php echo $this->form->getInput('created_by'); ?></li>
-
-				<li><?php echo $this->form->getLabel('created'); ?>
-				<?php echo $this->form->getInput('created'); ?></li>
-
-				<li><?php echo $this->form->getLabel('hits'); ?>
-				<?php echo $this->form->getInput('hits'); ?>
-				<?php if ($this->item->hits) { ?>
-					<a href="index.php?option=com_sermonspeaker&task=sermon.resetcount&id=<?php echo $this->item->id; ?>">
-						<img src="<?php echo JURI::base(); ?>components/com_sermonspeaker/images/reset.png" width="16" height="16" border="0" title="<?php echo JText::_('JSEARCH_RESET'); ?>" alt="Reset" />
-					</a>
-				<?php } ?></li>
-
+			<?php foreach($this->form->getFieldset('info') as $field): ?>
+				<li>
+					<?php if (!$field->hidden): ?>
+						<?php echo $field->label; ?>
+					<?php endif; ?>
+					<?php echo $field->input; ?>
+				</li>
+			<?php endforeach; ?>
 			</ul>
 		</fieldset>
 		<?php echo JHtml::_('sliders.start','sermon-sliders-'.$this->item->id, array('useCookie'=>1)); ?>
 		<?php echo JHtml::_('sliders.panel',JText::_('COM_SERMONSPEAKER_GENERAL'), 'general-panel'); ?>
 		<fieldset class="panelform">
 			<ul class="adminformlist">
-				<li><?php echo $this->form->getLabel('sermon_number'); ?>
-				<?php echo $this->form->getInput('sermon_number'); ?></li>
-
-				<li><?php echo $this->form->getLabel('sermon_date'); ?>
-				<?php echo $this->form->getInput('sermon_date'); ?></li>
-
-				<li><?php echo $this->form->getLabel('sermon_time'); ?>
-				<?php echo $this->form->getInput('sermon_time'); ?></li>
-
-				<li><?php echo $this->form->getLabel('sermon_scripture'); ?>
-				<?php echo $this->form->getInput('sermon_scripture'); ?>
-				<img onClick="sendText(document.adminForm.jform_sermon_scripture,'{bib=','}')" src='<?php echo JURI::root(); ?>/components/com_sermonspeaker/images/blue_tag.png' title='insert Biblelink tag' alt='insert Biblelink tag'>
-				<img onClick="sendText(document.adminForm.jform_sermon_scripture,'{bible}','{/bible}')" src='<?php echo JURI::root(); ?>/components/com_sermonspeaker/images/green_tag.png' title='insert ScriptureLink tag' alt='insert ScriptureLink tag'>
+			<?php foreach($this->form->getFieldset('general') as $field): ?>
+				<li>
+					<?php if (!$field->hidden): ?>
+						<?php echo $field->label; ?>
+					<?php endif; ?>
+					<?php echo $field->input; ?>
 				</li>
-
-				<li><?php echo $this->form->getLabel('speaker_id'); ?>
-				<?php echo $this->speakers; ?></li>
-
-				<li><?php echo $this->form->getLabel('series_id'); ?>
-				<?php echo $this->series; ?></li>
-
-				<li><?php echo $this->form->getLabel('catid'); ?>
-				<?php echo $this->form->getInput('catid'); ?></li>
+			<?php endforeach; ?>
 			</ul>
 		</fieldset>
 
 		<?php echo JHtml::_('sliders.panel',JText::_('COM_SERMONSPEAKER_CUSTOM'), 'custom-panel'); ?>
 		<fieldset class="panelform">
 			<ul class="adminformlist">
-				<li><?php echo $this->form->getLabel('custom1'); ?>
-				<?php echo $this->form->getInput('custom1'); ?></li>
-
-				<li><?php echo $this->form->getLabel('custom2'); ?>
-				<?php echo $this->form->getInput('custom2'); ?></li>
+			<?php foreach($this->form->getFieldset('custom') as $field): ?>
+				<li>
+					<?php if (!$field->hidden): ?>
+						<?php echo $field->label; ?>
+					<?php endif; ?>
+					<?php echo $field->input; ?>
+				</li>
+			<?php endforeach; ?>
 			</ul>
 		</fieldset>
 
 		<?php echo JHtml::_('sliders.panel',JText::_('JGLOBAL_FIELDSET_METADATA_OPTIONS'), 'meta-panel'); ?>
 		<fieldset class="panelform">
-			<?php echo $this->form->getLabel('metadesc'); ?>
-			<?php echo $this->form->getInput('metadesc'); ?>
-
-			<?php echo $this->form->getLabel('metakey'); ?>
-			<?php echo $this->form->getInput('metakey'); ?>
+			<ul class="adminformlist">
+			<?php foreach($this->form->getFieldset('metadata') as $field): ?>
+				<li>
+					<?php if (!$field->hidden): ?>
+						<?php echo $field->label; ?>
+					<?php endif; ?>
+					<?php echo $field->input; ?>
+				</li>
+			<?php endforeach; ?>
+			</ul>
 		</fieldset>
 
 		<?php echo JHtml::_('sliders.end'); ?>
