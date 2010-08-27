@@ -6,7 +6,7 @@ class Com_SermonspeakerInstallerScript {
 		
 		//first check if Sermonspeaker tables are already present; if they are we don't need to insert the demo sermon again...
 		$query = "SELECT id FROM `#__sermon_speakers` LIMIT 1";
-		$database->setQuery( $query );
+		$database->setQuery($query);
 		$database->Query();
 		$result = $database->loadResult();
 		if (!$result) {$demo = 1;} else {$demo = 0;}
@@ -170,23 +170,23 @@ class Com_SermonspeakerInstallerScript {
 		if ($demo == 1) {
 			//Speaker
 			$query = "INSERT INTO `#__sermon_speakers` "
-				."(`id`,`name`,`website`,`intro`,`bio`,`pic`,`published`,`ordering`,`hits`,`created_by`,`created`) VALUES"
-				."(9999,'Billy Sunday','http://joomlacode.org/gf/project/sermon_speaker/','Billy Sunday died in Chicago, November 6, 1935; services were held in the Moody Memorial Church with 4,400 present. Take 15 minutes each day to listen to God talking to you; take 15 minutes each day to talk to God; take 15 minutes each day to talk to others about God.','This young convert was deeply impressed and determined to make these the rules of his life. From that day onward throughout his life he made it a rule to spend the first moments of his day alone with God and God\'s Word. Before he read a letter, looked at a paper or even read a telegram, he went first to the Bible, that the first impression of the day might be what he got directly from God.','components/com_sermonspeaker/media/default_speaker.jpg',1,0,9,62,'1901-03-28')";
-			$database->setQuery( $query );
+				."(`id`,`name`,`website`,`intro`,`bio`,`pic`,`published`,`ordering`,`created_by`,`created`) VALUES"
+				."(1,'Billy Sunday','http://joomlacode.org/gf/project/sermon_speaker/','Billy Sunday died in Chicago, November 6, 1935; services were held in the Moody Memorial Church with 4,400 present. Take 15 minutes each day to listen to God talking to you; take 15 minutes each day to talk to God; take 15 minutes each day to talk to others about God.','This young convert was deeply impressed and determined to make these the rules of his life. From that day onward throughout his life he made it a rule to spend the first moments of his day alone with God and God\'s Word. Before he read a letter, looked at a paper or even read a telegram, he went first to the Bible, that the first impression of the day might be what he got directly from God.','components/com_sermonspeaker/media/default_speaker.jpg',1,1,62,'2006-03-28')";
+			$database->setQuery($query);
 			$database->Query();
 	  
 			//Series
 			$query = "INSERT INTO `#__sermon_series` "
-				."(`id`, `series_title`, `series_description`, `published`, `ordering`, `hits`, `created_by`, `created`, `speaker2`, `speaker3`) VALUES"
-				."(9999, 'General Topics', 'Topics of general interest.', 1, 0, 0, 0, '2006-03-28', 0, 0)";
-			$database->setQuery( $query );
+				."(`id`, `series_title`, `series_description`, `published`, `ordering`, `created_by`, `created`) VALUES"
+				."(1, 'General Topics', 'Topics of general interest.', 1, 1, 62, '2006-03-28')";
+			$database->setQuery($query);
 			$database->Query();
 		
 			//Sermon
 			$query = "INSERT INTO `#__sermon_sermons` "
-			."(`id`, `speaker_id`, `series_id`, `sermon_path`, `sermon_title`, `sermon_number`, `sermon_scripture`, `sermon_date`, `sermon_time`, `notes`, `download`, `ordering`, `hits`, `created_by`, `created`, `podcast`, `addfile`, `addfileDesc`) VALUES"
-			."(9999, 9999, 9999, '/components/com_sermonspeaker/media/default_sermon.mp3', 'The Sin of Booze', '1', 'none', '2006-03-28', '00:00:05', 0, 'Borrowed from sermonaudio.com', 1, 1, 0, 0, 62, '2006-03-28', 1, '', '')";
-			$database->setQuery( $query );
+			."(`id`, `speaker_id`, `series_id`, `sermon_path`, `sermon_title`, `sermon_number`, `sermon_date`, `sermon_time`, `notes`, `ordering`, `created_by`, `created`, `published`) VALUES"
+			."(1, 1, 1, '/components/com_sermonspeaker/media/default_sermon.mp3', 'The Sin of Booze', '1', '2006-03-28', '00:00:05', 'Borrowed from sermonaudio.com', 1, 62, '2006-03-28', 1)";
+			$database->setQuery($query);
 			$database->Query();
 		}
 		
