@@ -5,7 +5,7 @@ class Com_SermonspeakerInstallerScript {
 		$database =& JFactory::getDBO();
 		
 		//first check if Sermonspeaker tables are already present; if they are we don't need to insert the demo sermon again...
-		$query = "SELECT id FROM `#__sermon_speakers` LIMIT 1";
+		$query = "SELECT id FROM `#__sermon_sermons` LIMIT 1";
 		$database->setQuery($query);
 		$database->Query();
 		$result = $database->loadResult();
@@ -15,6 +15,7 @@ class Com_SermonspeakerInstallerScript {
 		$query = "CREATE TABLE IF NOT EXISTS `#__sermon_speakers` ("
 			."\n`id` INT NOT NULL AUTO_INCREMENT,"
 			."\n`name` TEXT NOT NULL,"
+			."\n`alias` TEXT NOT NULL,"
 			."\n`website` TEXT,"
 			."\n`intro` TEXT,"
 			."\n`bio` LONGTEXT,"
@@ -25,6 +26,8 @@ class Com_SermonspeakerInstallerScript {
 			."\n`created_by` INT NOT NULL,"
 			."\n`created` DATETIME NULL,"
 			."\n`catid` INT NOT NULL,"
+			."\n`metakey` TEXT NOT NULL,"
+			."\n`metadesc` TEXT NOT NULL,"
 			."\nPRIMARY KEY (`id`)"
 			."\n)";
 		$database->setQuery( $query );
@@ -34,6 +37,7 @@ class Com_SermonspeakerInstallerScript {
 		$query = "CREATE TABLE IF NOT EXISTS  `#__sermon_series` ("
 			."\n`id` INT NOT NULL AUTO_INCREMENT,"
 			."\n`series_title` TEXT NOT NULL,"
+			."\n`alias` TEXT NOT NULL,"
 			."\n`series_description` TEXT NOT NULL,"
 			."\n`published` TINYINT(1) NOT NULL,"
 			."\n`ordering` int(11) NOT NULL default '0',"
@@ -42,6 +46,8 @@ class Com_SermonspeakerInstallerScript {
 			."\n`created` DATETIME NULL,"
 			."\n`avatar` text,"
 			."\n`catid` INT NOT NULL,"
+			."\n`metakey` TEXT NOT NULL,"
+			."\n`metadesc` TEXT NOT NULL,"
 			."\nPRIMARY KEY (`id`)"
 			."\n)";
 		$database->setQuery( $query );
@@ -102,6 +108,22 @@ class Com_SermonspeakerInstallerScript {
 			}
 		}
 		
+		// Add alias, metakey and metadesc columns to the series table if they don't exist
+		if (!array_key_exists('alias', $series)) {
+			echo "<br>Attempting to add `alias`, `metakey` and `metadesc` columns to table sermon_series...";
+			$query = "ALTER TABLE #__sermon_series ADD (`alias` TEXT NOT NULL, `metakey` TEXT NOT NULL, `metadesc` TEXT NOT NULL)";
+			$database->setQuery($query);
+			$database->Query();
+			if(strlen($database->getErrorMsg()) > 3){
+				echo "<span style=\"color: rgb(255, 0, 0); font-weight: bold;\">";
+				echo "<br>Failed to add the columns.  Bad news.  Tell the database administrator.";
+				echo "<br>Error Message: ".$database->getErrorMsg();
+				echo "</span>";
+			} else {
+				echo "<br>Successfully added these colums! We're going to use this for improved SEF.";
+			}
+		}
+		
 		// Rename `created_on` column to `created` if it does exist in the speakers table
 		if (array_key_exists('created_on', $speakers)) {
 			echo "<br>Attempting to rename `created_on` column in table sermon_speakers...";
@@ -115,6 +137,22 @@ class Com_SermonspeakerInstallerScript {
 				echo "</span>";
 			} else {
 				echo "<br>Successfully changed the name! We're closer to the Joomla standard naming now.";
+			}
+		}
+		
+		// Add alias, metakey and metadesc columns to the speakers table if they don't exist
+		if (!array_key_exists('alias', $speakers)) {
+			echo "<br>Attempting to add `alias`, `metakey` and `metadesc` columns to table sermon_speakers...";
+			$query = "ALTER TABLE #__sermon_speakers ADD (`alias` TEXT NOT NULL, `metakey` TEXT NOT NULL, `metadesc` TEXT NOT NULL)";
+			$database->setQuery($query);
+			$database->Query();
+			if(strlen($database->getErrorMsg()) > 3){
+				echo "<span style=\"color: rgb(255, 0, 0); font-weight: bold;\">";
+				echo "<br>Failed to add the columns.  Bad news.  Tell the database administrator.";
+				echo "<br>Error Message: ".$database->getErrorMsg();
+				echo "</span>";
+			} else {
+				echo "<br>Successfully added these colums! We're going to use this for improved SEF.";
 			}
 		}
 		
@@ -213,6 +251,7 @@ class Com_SermonspeakerInstallerScript {
 		$query = "CREATE TABLE IF NOT EXISTS `#__sermon_speakers` ("
 			."\n`id` INT NOT NULL AUTO_INCREMENT,"
 			."\n`name` TEXT NOT NULL,"
+			."\n`alias` TEXT NOT NULL,"
 			."\n`website` TEXT,"
 			."\n`intro` TEXT,"
 			."\n`bio` LONGTEXT,"
@@ -223,6 +262,8 @@ class Com_SermonspeakerInstallerScript {
 			."\n`created_by` INT NOT NULL,"
 			."\n`created` DATETIME NULL,"
 			."\n`catid` INT NOT NULL,"
+			."\n`metakey` TEXT NOT NULL,"
+			."\n`metadesc` TEXT NOT NULL,"
 			."\nPRIMARY KEY (`id`)"
 			."\n)";
 		$database->setQuery( $query );
@@ -232,6 +273,7 @@ class Com_SermonspeakerInstallerScript {
 		$query = "CREATE TABLE IF NOT EXISTS  `#__sermon_series` ("
 			."\n`id` INT NOT NULL AUTO_INCREMENT,"
 			."\n`series_title` TEXT NOT NULL,"
+			."\n`alias` TEXT NOT NULL,"
 			."\n`series_description` TEXT NOT NULL,"
 			."\n`published` TINYINT(1) NOT NULL,"
 			."\n`ordering` int(11) NOT NULL default '0',"
@@ -240,6 +282,8 @@ class Com_SermonspeakerInstallerScript {
 			."\n`created` DATETIME NULL,"
 			."\n`avatar` text,"
 			."\n`catid` INT NOT NULL,"
+			."\n`metakey` TEXT NOT NULL,"
+			."\n`metadesc` TEXT NOT NULL,"
 			."\nPRIMARY KEY (`id`)"
 			."\n)";
 		$database->setQuery( $query );
@@ -301,6 +345,22 @@ class Com_SermonspeakerInstallerScript {
 			}
 		}
 		
+		// Add alias, metakey and metadesc columns to the series table if they don't exist
+		if (!array_key_exists('alias', $series)) {
+			echo "<br>Attempting to add `alias`, `metakey` and `metadesc` columns to table sermon_series...";
+			$query = "ALTER TABLE #__sermon_series ADD (`alias` TEXT NOT NULL, `metakey` TEXT NOT NULL, `metadesc` TEXT NOT NULL)";
+			$database->setQuery($query);
+			$database->Query();
+			if(strlen($database->getErrorMsg()) > 3){
+				echo "<span style=\"color: rgb(255, 0, 0); font-weight: bold;\">";
+				echo "<br>Failed to add the columns.  Bad news.  Tell the database administrator.";
+				echo "<br>Error Message: ".$database->getErrorMsg();
+				echo "</span>";
+			} else {
+				echo "<br>Successfully added these colums! We're going to use this for improved SEF.";
+			}
+		}
+		
 		// Rename `created_on` column to `created` if it does exist in the speakers table
 		if (array_key_exists('created_on', $speakers)) {
 			echo "<br>Attempting to rename `created_on` column in table sermon_speakers...";
@@ -314,6 +374,22 @@ class Com_SermonspeakerInstallerScript {
 				echo "</span>";
 			} else {
 				echo "<br>Successfully changed the name! We're closer to the Joomla standard naming now.";
+			}
+		}
+		
+		// Add alias, metakey and metadesc columns to the speakers table if they don't exist
+		if (!array_key_exists('alias', $speakers)) {
+			echo "<br>Attempting to add `alias`, `metakey` and `metadesc` columns to table sermon_speakers...";
+			$query = "ALTER TABLE #__sermon_speakers ADD (`alias` TEXT NOT NULL, `metakey` TEXT NOT NULL, `metadesc` TEXT NOT NULL)";
+			$database->setQuery($query);
+			$database->Query();
+			if(strlen($database->getErrorMsg()) > 3){
+				echo "<span style=\"color: rgb(255, 0, 0); font-weight: bold;\">";
+				echo "<br>Failed to add the columns.  Bad news.  Tell the database administrator.";
+				echo "<br>Error Message: ".$database->getErrorMsg();
+				echo "</span>";
+			} else {
+				echo "<br>Successfully added these colums! We're going to use this for improved SEF.";
 			}
 		}
 		

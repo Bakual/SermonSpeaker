@@ -27,31 +27,26 @@ JHtml::_('behavior.formvalidation');
 			<li><?php echo $this->form->getLabel('name'); ?>
 			<?php echo $this->form->getInput('name'); ?></li>
 
+			<li><?php echo $this->form->getLabel('alias'); ?>
+			<?php echo $this->form->getInput('alias'); ?></li>
+
 			<li><?php echo $this->form->getLabel('published'); ?>
 			<?php echo $this->form->getInput('published'); ?></li>
 
-			<li><?php echo $this->form->getLabel('catid'); ?>
-			<?php echo $this->form->getInput('catid'); ?></li>
-
 			<li><?php echo $this->form->getLabel('ordering'); ?>
 			<?php echo $this->form->getInput('ordering'); ?></li>
+		</fieldset>
 
-			<li><?php echo $this->form->getLabel('pic'); ?>
-			<?php echo $this->form->getInput('pic'); ?></li>
-			</ul>
-
-			<li><?php echo $this->form->getLabel('id'); ?>
-			<?php echo $this->form->getInput('id'); ?></li>
-			</ul>
-
-			<?php echo $this->form->getLabel('intro'); ?>
+		<fieldset class="adminform">
+			<legend><?php echo JText::_('COM_SERMONSPEAKER_SPEAKERINTRO'); ?></legend>
 			<div class="clr"></div>
 			<?php echo $this->form->getInput('intro'); ?>
-
-			<?php echo $this->form->getLabel('bio'); ?>
+		</fieldset>
+		
+		<fieldset class="adminform">
+			<legend><?php echo JText::_('COM_SERMONSPEAKER_SPEAKERBIO'); ?></legend>
 			<div class="clr"></div>
 			<?php echo $this->form->getInput('bio'); ?>
-
 		</fieldset>
 	</div>
 	<div class="width-40 fltrt">

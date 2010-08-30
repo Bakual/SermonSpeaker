@@ -64,7 +64,7 @@
 			size="10" default="0" required="true"
 			readonly="true" />
 
-		<field name="created_by" type="text" class="readonly"
+		<field name="created_by" type="user" class="readonly"
 			label="JGLOBAL_FIELD_CREATED_BY_LABEL" description="JGLOBAL_FIELD_CREATED_BY_DESC"
 			readonly="true" />
 

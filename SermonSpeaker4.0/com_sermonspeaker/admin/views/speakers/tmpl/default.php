@@ -83,6 +83,8 @@ $saveOrder	= $listOrder == 'speakers.ordering';
 				<td>
 					<a href="<?php echo JRoute::_('index.php?option=com_sermonspeaker&task=speaker.edit&id='.(int) $item->id); ?>">
 						<?php echo $this->escape($item->name); ?></a>
+					<p class="smallsub">
+						<?php echo JText::sprintf('JGLOBAL_LIST_ALIAS', $this->escape($item->alias));?></p>
 				</td>
 				<td class="center">
 					<?php echo JHtml::_('jgrid.published', $item->published, $i, 'speakers.', true);?>

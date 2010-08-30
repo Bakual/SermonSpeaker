@@ -19,6 +19,21 @@ class SermonspeakerTableSpeaker extends JTable
 		parent::__construct('#__sermon_speakers', 'id', $db);
 	}
 
+	public function store($updateNulls = false)
+	{
+		$date	= JFactory::getDate();
+		$user	= JFactory::getUser();
+		if (empty($this->created_by)) {
+			$this->created_by = $user->get('id');
+		}
+		if (!intval($this->created)) {
+			$this->created = $date->toMySQL();
+		}
+
+		// Attempt to store the user data.
+		return parent::store($updateNulls);
+	}
+
 	/**
 	 * Method to set the publishing state for a row or list of rows in the database
 	 * table.  The method respects checked out rows by other users and will attempt

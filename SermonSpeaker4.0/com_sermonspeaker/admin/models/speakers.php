@@ -74,7 +74,7 @@ class SermonspeakerModelSpeakers extends JModelList
 				'list.select',
 				'speakers.id, speakers.name, speakers.catid,' .
 				'speakers.hits, speakers.pic, speakers.website,' .
-				'speakers.published, speakers.ordering'
+				'speakers.alias, speakers.published, speakers.ordering'
 			)
 		);
 		$query->from('`#__sermon_speakers` AS speakers');

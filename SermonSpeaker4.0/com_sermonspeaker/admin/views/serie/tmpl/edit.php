@@ -26,27 +26,21 @@ JHtml::_('behavior.formvalidation');
 			<li><?php echo $this->form->getLabel('series_title'); ?>
 			<?php echo $this->form->getInput('series_title'); ?></li>
 
+			<li><?php echo $this->form->getLabel('alias'); ?>
+			<?php echo $this->form->getInput('alias'); ?></li>
+
 			<li><?php echo $this->form->getLabel('published'); ?>
 			<?php echo $this->form->getInput('published'); ?></li>
 
-			<li><?php echo $this->form->getLabel('catid'); ?>
-			<?php echo $this->form->getInput('catid'); ?></li>
-
 			<li><?php echo $this->form->getLabel('ordering'); ?>
 			<?php echo $this->form->getInput('ordering'); ?></li>
-
-			<li><?php echo $this->form->getLabel('avatar'); ?>
-			<?php echo $this->avatarlist; ?></li>
 			</ul>
+		</fieldset>
 
-			<li><?php echo $this->form->getLabel('id'); ?>
-			<?php echo $this->form->getInput('id'); ?></li>
-			</ul>
-
-			<?php echo $this->form->getLabel('series_description'); ?>
+		<fieldset class="adminform">
+			<legend><?php echo JText::_('COM_SERMONSPEAKER_SERIESDESCRIPTION'); ?></legend>
 			<div class="clr"></div>
 			<?php echo $this->form->getInput('series_description'); ?>
-
 		</fieldset>
 	</div>
 	<div class="width-40 fltrt">
