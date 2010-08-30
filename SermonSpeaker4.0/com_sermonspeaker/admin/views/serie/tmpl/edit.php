@@ -50,23 +50,48 @@ JHtml::_('behavior.formvalidation');
 		</fieldset>
 	</div>
 	<div class="width-40 fltrt">
-		<?php echo JHtml::_('sliders.start','newsfeed-sliders-'.$this->item->id, array('useCookie'=>1)); ?>
-
-		<?php echo JHtml::_('sliders.panel',JText::_('JGLOBAL_FIELDSET_PUBLISHING'), 'publishing-details'); ?>
-
+		<fieldset class="adminform" style="border: 1px dashed silver; padding: 5px; margin: 18px 0px 10px;">
+			<ul class="adminformlist">
+			<?php foreach($this->form->getFieldset('info') as $field): ?>
+				<li>
+					<?php if (!$field->hidden): ?>
+						<?php echo $field->label; ?>
+					<?php endif; ?>
+					<?php echo $field->input; ?>
+				</li>
+			<?php endforeach; ?>
+			</ul>
+		</fieldset>
+		<?php echo JHtml::_('sliders.start','sermon-sliders-'.$this->item->id, array('useCookie'=>1)); ?>
+		<?php echo JHtml::_('sliders.panel',JText::_('COM_SERMONSPEAKER_DETAIL'), 'detail-panel'); ?>
 		<fieldset class="panelform">
 			<ul class="adminformlist">
-				<li><?php echo $this->form->getLabel('created_by'); ?>
-				<?php echo $this->form->getInput('created_by'); ?></li>
-
-				<li><?php echo $this->form->getLabel('created_on'); ?>
-				<?php echo $this->form->getInput('created_on'); ?></li>
-
-				<li><?php echo $this->form->getLabel('hits'); ?>
-				<?php echo $this->form->getInput('hits'); ?></li>
+			<?php foreach($this->form->getFieldset('detail') as $field): ?>
+				<li>
+					<?php if (!$field->hidden): ?>
+						<?php echo $field->label; ?>
+					<?php endif; ?>
+					<?php echo $field->input; ?>
+				</li>
+			<?php endforeach; ?>
 			</ul>
 		</fieldset>
 
+		<?php echo JHtml::_('sliders.panel',JText::_('JGLOBAL_FIELDSET_METADATA_OPTIONS'), 'meta-panel'); ?>
+		<fieldset class="panelform">
+			<ul class="adminformlist">
+			<?php foreach($this->form->getFieldset('metadata') as $field): ?>
+				<li>
+					<?php if (!$field->hidden): ?>
+						<?php echo $field->label; ?>
+					<?php endif; ?>
+					<?php echo $field->input; ?>
+				</li>
+			<?php endforeach; ?>
+			</ul>
+		</fieldset>
+
+		<?php echo JHtml::_('sliders.end'); ?>
 		<input type="hidden" name="task" value="" />
 		<?php echo JHtml::_('form.token'); ?>
 	</div>

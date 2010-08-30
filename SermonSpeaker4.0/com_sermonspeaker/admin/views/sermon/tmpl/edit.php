@@ -84,10 +84,10 @@ $self = $uri->toString();
 			</ul>
 		</fieldset>
 		<?php echo JHtml::_('sliders.start','sermon-sliders-'.$this->item->id, array('useCookie'=>1)); ?>
-		<?php echo JHtml::_('sliders.panel',JText::_('COM_SERMONSPEAKER_GENERAL'), 'general-panel'); ?>
+		<?php echo JHtml::_('sliders.panel',JText::_('COM_SERMONSPEAKER_DETAIL'), 'detail-panel'); ?>
 		<fieldset class="panelform">
 			<ul class="adminformlist">
-			<?php foreach($this->form->getFieldset('general') as $field): ?>
+			<?php foreach($this->form->getFieldset('detail') as $field): ?>
 				<li>
 					<?php if (!$field->hidden): ?>
 						<?php echo $field->label; ?>

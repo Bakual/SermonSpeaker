@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <form>
-	<fieldset name="detail">
+	<fieldset name="general">
 		<field name="sermon_title" type="text" class="inputbox"
 			size="40" label="JGLOBAL_TITLE"
 			description="COM_SERMONSPEAKER_FIELD_TITLE_DESC" required="true" />
@@ -8,31 +8,6 @@
 		<field name="alias" type="text" class="inputbox"
 			size="40" label="JFIELD_ALIAS_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_ALIAS_DESC" />
-
-		<field name="sermon_path" type="text" class="inputbox"
-			size="100" label="COM_SERMONSPEAKER_SERMONPATH"
-			description="COM_SERMONSPEAKER_SERMONPATH_DESC" />
-
-		<field name="addfile" type="text" class="inputbox"
-			size="100" label="COM_SERMONSPEAKER_ADDFILE"
-			description="COM_SERMONSPEAKER_ADDFILE_DESC" />
-
-		<field name="addfileDesc" type="text" class="inputbox"
-			size="100" label="COM_SERMONSPEAKER_ADDFILEDESC"
-			description="COM_SERMONSPEAKER_ADDFILEDESC_DESC" />
-
-		<field name="notes" type="editor" buttons="true" hide="pagebreak,readmore"
-			class="inputbox"
-			filter="safehtml"
-			label="COM_SERMONSPEAKER_SERMONNOTES" description="COM_SERMONSPEAKER_FIELD_NOTES_DESC" />
-
-		<field name="podcast" type="radio"
-			label="COM_SERMONSPEAKER_SERMONCAST"
-			description="COM_SERMONSPEAKER_SERMONCAST_DESC"
-			default="1">
-			<option value="0">JNO</option>
-			<option value="1">JYES</option>
-		</field>
 
 		<field
 			name="published"
@@ -52,14 +27,39 @@
 				value="-2">JTRASH</option>
 		</field>
 
+		<field name="podcast" type="radio"
+			label="COM_SERMONSPEAKER_SERMONCAST"
+			description="COM_SERMONSPEAKER_SERMONCAST_DESC"
+			default="1">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
+		</field>
+
 		<field name="ordering" type="Sermonordering" class="inputbox"
 			label="COM_SERMONSPEAKER_FIELD_ORDERING_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_ORDERING_DESC" />
 
+		<field name="sermon_path" type="text" class="inputbox"
+			size="100" label="COM_SERMONSPEAKER_SERMONPATH"
+			description="COM_SERMONSPEAKER_SERMONPATH_DESC" />
+
+		<field name="notes" type="editor" buttons="true" hide="pagebreak,readmore"
+			class="inputbox"
+			filter="safehtml"
+			label="COM_SERMONSPEAKER_SERMONNOTES" description="COM_SERMONSPEAKER_FIELD_NOTES_DESC" />
+
+		<field name="addfile" type="text" class="inputbox"
+			size="100" label="COM_SERMONSPEAKER_ADDFILE"
+			description="COM_SERMONSPEAKER_ADDFILE_DESC" />
+
+		<field name="addfileDesc" type="text" class="inputbox"
+			size="100" label="COM_SERMONSPEAKER_ADDFILEDESC"
+			description="COM_SERMONSPEAKER_ADDFILEDESC_DESC" />
+
 	</fieldset>
 
 	<fieldset name="info">
-		<field name="id"  type="text"
+		<field name="id"  type="text" class="readonly"
 			label="JGLOBAL_FIELD_ID_LABEL" description ="JGLOBAL_FIELD_ID_DESC"
 			size="10" default="0" required="true"
 			readonly="true" />
@@ -74,9 +74,10 @@
 
 		<field name="hits" type="hits" class="readonly"
 			label="COM_SERMONSPEAKER_HITS" description="COM_SERMONSPEAKER_FIELD_HITS_DESC" />
+
 	</fieldset>
 
-	<fieldset name="general" label="COM_SERMONSPEAKER_GENERAL">
+	<fieldset name="detail" label="COM_SERMONSPEAKER_DETAIL">
 		<field name="sermon_number"  type="text" class="inputbox"
 			label="COM_SERMONSPEAKER_SERMONNUMBER" description ="COM_SERMONSPEAKER_SERMONNUMBER_DESC"
 			size="5" />

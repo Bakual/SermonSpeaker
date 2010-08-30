@@ -1,31 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <form>
-	<fieldset>
-		<field name="id" type="text" default="0" label="JGLOBAL_FIELD_ID_LABEL" required="true"
-			readonly="true" class="readonly" />
-
+	<fieldset name="general">
 		<field name="series_title" type="text" class="inputbox"
 			size="40" label="JGLOBAL_TITLE"
 			description="COM_SERMONSPEAKER_FIELD_TITLE_DESC" required="true" />
 
-		<field name="catid" type="category" extension="com_sermonspeaker"
-			label="JCATEGORY" description="COM_SERMONSPEAKER_FIELD_CATEGORY_DESC"
-			class="inputbox"
-		>
-		</field>
-
-		<field name="series_description" type="editor" buttons="true" hide="pagebreak,readmore"
-			class="inputbox"
-			filter="safehtml"
-			label="JGLOBAL_DESCRIPTION" description="COM_SERMONSPEAKER_FIELD_SERIES_DESCRIPTION_DESC" />
-
-		<field name="hits" type="Text" class="inputbox"
-			size="6" label="COM_SERMONSPEAKER_HITS"
-			description="COM_SERMONSPEAKER_FIELD_HITS_DESC" readonly="true" filter="unset" />
-
-		<field name="avatar" type="list" class="inputbox"
-			label="COM_SERMONSPEAKER_SERIESAVATAR"
-			description="COM_SERMONSPEAKER_FIELD_AVATAR_DESC" />
+		<field name="alias" type="text" class="inputbox"
+			size="40" label="JFIELD_ALIAS_LABEL"
+			description="COM_SERMONSPEAKER_FIELD_ALIAS_DESC" />
 
 		<field
 			name="published"
@@ -49,13 +31,53 @@
 			label="COM_SERMONSPEAKER_FIELD_ORDERING_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_ORDERING_DESC" />
 
-		<field name="created" type="calendar"
-			label="JGLOBAL_FIELD_CREATED_LABEL" description="JGLOBAL_FIELD_CREATED_DESC"
-			class="inputbox" size="20" format="%Y-%m-%d %H:%M:%S"
-			filter="user_utc" />
+		<field name="series_description" type="editor" buttons="true" hide="pagebreak,readmore"
+			class="inputbox"
+			filter="safehtml"
+			label="JGLOBAL_DESCRIPTION" description="COM_SERMONSPEAKER_FIELD_SERIES_DESCRIPTION_DESC" />
 
-		<field name="created_by" type="user"
-			label="JGLOBAL_FIELD_CREATED_BY_LABEL" description="JGLOBAL_FIELD_CREATED_BY_DESC" />
+	</fieldset>
+
+	<fieldset name="info">
+		<field name="id"  type="text" class="readonly"
+			label="JGLOBAL_FIELD_ID_LABEL" description ="JGLOBAL_FIELD_ID_DESC"
+			size="10" default="0" required="true"
+			readonly="true" />
+
+		<field name="created_by" type="text" class="readonly"
+			label="JGLOBAL_FIELD_CREATED_BY_LABEL" description="JGLOBAL_FIELD_CREATED_BY_DESC"
+			readonly="true" />
+
+		<field name="created" type="text" class="readonly"
+			label="JGLOBAL_FIELD_CREATED_LABEL" description="JGLOBAL_FIELD_CREATED_DESC"
+			readonly="true" />
+
+		<field name="hits" type="hits" class="readonly"
+			label="COM_SERMONSPEAKER_HITS" description="COM_SERMONSPEAKER_FIELD_HITS_DESC" />
+
+	</fieldset>
+
+	<fieldset name="detail">
+		<field name="avatar" type="list" class="inputbox"
+			label="COM_SERMONSPEAKER_SERIESAVATAR"
+			description="COM_SERMONSPEAKER_FIELD_AVATAR_DESC" />
+
+		<field name="catid" type="category" extension="com_sermonspeaker"
+			label="JCATEGORY" description="COM_SERMONSPEAKER_FIELD_CATEGORY_DESC"
+			class="inputbox"
+		>
+		</field>
+
+	</fieldset>
+
+	<fieldset name="metadata" label="JGLOBAL_FIELDSET_METADATA_OPTIONS">
+		<field name="metakey" type="textarea"
+			label="JFIELD_META_KEYWORDS_LABEL" description="JFIELD_META_KEYWORDS_DESC"
+			class="inputbox" rows="3" cols="30" />
+
+		<field name="metadesc" type="textarea"
+			label="JFIELD_META_DESCRIPTION_LABEL" description="JFIELD_META_DESCRIPTION_DESC"
+			class="inputbox" rows="3" cols="30" />
 
 	</fieldset>
 </form>
