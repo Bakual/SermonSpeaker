@@ -58,7 +58,7 @@
 	</fieldset>
 
 	<fieldset name="detail">
-		<field name="avatar" type="list" class="inputbox"
+		<field name="avatar" type="Avatarlist" class="inputbox"
 			label="COM_SERMONSPEAKER_SERIESAVATAR"
 			description="COM_SERMONSPEAKER_FIELD_AVATAR_DESC" />
 
