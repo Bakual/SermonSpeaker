@@ -58,7 +58,7 @@ class SermonspeakerViewFu_step_2 extends JView
 			$sql['podcast']		= JRequest::getInt('podcast', '0', 'POST');
 			$user =& JFactory::getUser();
 			$sql['created_by']	= $user->id;
-			$sql['created_on']	= date('Y-m-d');
+			$sql['created']		= date('Y-m-d');
 			$sql['catid']		= JRequest::getInt('catid', '0', 'POST');
 			$sql['addfile']		= JRequest::getString('addfile_choice', JRequest::getString('addfile_text', '', 'POST'), 'POST');
 			$sql['addfileDesc']	= JRequest::getString('addfileDesc', '', 'POST');
