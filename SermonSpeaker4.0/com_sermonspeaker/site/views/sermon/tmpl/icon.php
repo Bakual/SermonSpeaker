@@ -52,7 +52,7 @@ JHTML::_('behavior.modal');
 		<div class="ss-fields-container">
 			<?php if ($this->params->get('client_col_sermon_date') && ($this->row->sermon_date != "0000-00-00")){ ?>
 				<div class="ss-field field-calendar" title="<?php echo JText::_('COM_SERMONSPEAKER_SERMONDATE'); ?>">
-					<?php echo JHTML::date($this->row->sermon_date, JText::_('DATE_FORMAT_LC1'), 0); ?>
+					<?php echo JHTML::date($this->row->sermon_date, JText::_('DATE_FORMAT_LC1')); ?>
 				</div>
 			<?php }
 			if ($this->params->get('client_col_sermon_time') && ($this->row->sermon_time != "00:00:00")){ ?>

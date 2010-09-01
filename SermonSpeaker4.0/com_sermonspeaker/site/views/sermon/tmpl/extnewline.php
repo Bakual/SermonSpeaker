@@ -12,8 +12,8 @@ JHTML::_('behavior.modal');
 	<h3 class="contentheading"><?php echo $this->escape($this->row->sermon_title); ?></h3>
 <?php } ?>
 <div class="ss-sermondetail-container">
-	<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_SERMONDATE'); ?>:</div>
-	<div class="ss-sermondetail-text"><?php echo JHTML::date($this->row->sermon_date, JText::_($this->params->get('date_format')), 0); ?></div>
+	<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_SERMON'); ?>:</div>
+	<div class="ss-sermondetail-text"><?php echo JHTML::date($this->row->sermon_date, JText::_($this->params->get('date_format'))); ?></div>
 	<?php if ($this->params->get('client_col_sermon_scripture_reference') && $this->row->sermon_scripture) { ?>
 		<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_SCRIPTURE'); ?>:</div>
 		<div class="ss-sermondetail-text"><?php echo $this->row->sermon_scripture; ?></div>

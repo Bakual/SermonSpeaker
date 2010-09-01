@@ -1,6 +1,5 @@
 <?php
 defined('_JEXEC') or die('Restricted access');
-error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
 if (JRequest::getString('task') == 'podcast') { // providing backward compatibilty to SermonSpeaker3.3.1
 	header('HTTP/1.1 301 Moved Permanently');
@@ -8,27 +7,11 @@ if (JRequest::getString('task') == 'podcast') { // providing backward compatibil
 	return;
 }
 
+jimport('joomla.application.component.controller');
+
+require_once JPATH_COMPONENT.'/helpers/route.php';
 require_once(JPATH_COMPONENT.DS.'helpers'.DS.'sermonspeaker.php');
 
-// laden des Joomla! Basis Controllers
-require_once (JPATH_COMPONENT.DS.'controller.php');
-
-// Einlesen weiterer Controller falls vorhanden
-if($controller = JRequest::getWord('controller')) {
-    $path = JPATH_COMPONENT.DS.'controllers'.DS.$controller.'.php';
-    if (file_exists($path)) {
-        require_once $path;
-    } else {
-        $controller = '';
-    }
-}
-
-// Einen eigenen Controller erzeugen
-$classname	= 'SermonspeakerController'.$controller;
-$controller = new $classname();
-
-// Nachsehen, ob Parameter angekommen sind (Requests)
+$controller	= JController::getInstance('Sermonspeaker');
 $controller->execute(JRequest::getCmd('task'));
-
-// Umleitung innerhalb des Controllers
 $controller->redirect();

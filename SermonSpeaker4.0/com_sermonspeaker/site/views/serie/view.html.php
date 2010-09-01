@@ -26,12 +26,12 @@ class SermonspeakerViewSerie extends JView
 
 		// Update Statistic
     	$id		= $serie->id;
-		if ($params->get('track_series')) { SermonspeakerController::updateStat('series', $id); }
+		if ($params->get('track_series')) { SermonspeakerController::updateStat('serie', $id); }
 		
 		// get active View from Menuitem
 		$menu = &JSite::getMenu();
 		$active = $menu->getActive();
-		$active_view = $active->query[view];
+		$active_view = $active->query['view'];
 		$itemid = $active->id;
 		if ($active_view == "speakers" || $active_view == "sermons") {
 			$menuitems = $menu->getItems('link', 'index.php?option=com_sermonspeaker&view=series');

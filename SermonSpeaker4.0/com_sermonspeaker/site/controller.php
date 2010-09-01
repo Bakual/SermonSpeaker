@@ -8,22 +8,34 @@ jimport('joomla.application.component.controller');
  */
 class SermonspeakerController extends JController
 {
-	function display() {
-		$app = &JFactory::getApplication();
-		$document =& JFactory::getDocument();
-		if (strpos($document->getTitle(), $app->getCfg('sitename')) === FALSE){ // Set document title to sitename, if not already present
-			$document->setTitle($document->getTitle().' | '.$app->getCfg('sitename'));
-		}
-		if (!JRequest::getCmd('view')){	// Setting default view
-			JRequest::setVar('view', 'sermons');
-		} elseif (JRequest::getCmd('view') == 'feed' && (JRequest::getCmd('format') != 'raw')){ // Changing the podcast format to raw output
+	public function display($cachable = false, $urlparams = false)
+	{
+		$cachable = true;
+
+		// Get the document object.
+		$document = JFactory::getDocument();
+
+		// Set the default view name and format from the Request.
+		$vName		= JRequest::getWord('view', 'sermons');
+		JRequest::setVar('view', $vName);
+
+		if (JRequest::getCmd('view') == 'feed' && (JRequest::getCmd('format') != 'raw')){ // Changing the podcast format to raw output
 			$document = $document->getInstance('raw');
 			$document->setMimeEncoding('application/rss+xml');
 		}
 
-		parent::display();
+		/* Let's see what Joomla 1.6 does here first
+		$app = &JFactory::getApplication();
+		if (strpos($document->getTitle(), $app->getCfg('sitename')) === FALSE){ // Set document title to sitename, if not already present
+			$document->setTitle($document->getTitle().' | '.$app->getCfg('sitename'));
+		}
+		*/
+
+		$safeurlparams = array('id'=>'INT','limit'=>'INT','limitstart'=>'INT','filter_order'=>'CMD','filter_order_Dir'=>'CMD','lang'=>'CMD','year'=>'INT','month'=>'INT');
+
+		return parent::display($cachable,$safeurlparams);
 	}
-	
+
 	function updateStat ($type, $id) {
 		JTable::addIncludePath(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_sermonspeaker'.DS.'tables');
 		$table =& JTable::getInstance($type, 'Table');

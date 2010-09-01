@@ -172,6 +172,22 @@ class Com_SermonspeakerInstallerScript {
 			}
 		}
 		
+		// Change database field sermon_number from text to integer
+		if ($sermons['sermon_number'] == 'text'){
+			echo "<br>Attempting to change the type of the field sermon_number in table sermon_sermons...";
+			$query = "ALTER TABLE #__sermon_sermons CHANGE sermon_number sermon_number INT NULL";
+			$database->setQuery( $query );
+			$database->Query();
+			if(strlen($database->getErrorMsg()) > 3){
+				echo "<span style=\"color: rgb(255, 0, 0); font-weight: bold;\">";
+				echo "<br>Failed to change fieldtype.  Bad news.  Tell the database administrator.";
+				echo "<br>Error Message: ".$database->getErrorMsg();
+				echo "</span>";
+			} else {
+				echo "<br>Done! Sermon_number now holds INT format";
+			}
+		}
+
 		// Remove `play` column if it does exist in the sermons table
 		if (array_key_exists('play', $sermons)) {
 			echo "<br>Attempting to remove `play` column in table sermon_sermons...";

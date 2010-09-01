@@ -23,7 +23,8 @@
 				value="-2">JTRASH</option>
 		</field>
 
-		<field name="ordering" type="Speakerordering" class="inputbox"
+		<field name="ordering" type="sermonordering" class="inputbox"
+			table="sermon_speakers" field="name"
 			label="COM_SERMONSPEAKER_FIELD_ORDERING_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_ORDERING_DESC" />
 

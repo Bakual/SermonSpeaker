@@ -71,7 +71,7 @@ class SermonspeakerViewSermon extends JView
 
 		// Update Statistic
     	$id		= $row->id;
-		if ($params->get('track_sermon')) { SermonspeakerController::updateStat('sermons', $id); }
+		if ($params->get('track_sermon')) { SermonspeakerController::updateStat('sermon', $id); }
 		
 		//Check if link targets to an external source
 		if (substr($row->sermon_path,0,7) == "http://"){
@@ -83,7 +83,7 @@ class SermonspeakerViewSermon extends JView
 		// get active View from Menuitem
 		$menu = &JSite::getMenu();
 		$active = $menu->getActive();
-		$active_view = $active->query[view];
+		$active_view = $active->query['view'];
 		$itemid = $active->id;
 
 		// add Breadcrumbs

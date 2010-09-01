@@ -76,7 +76,7 @@
 		</field>
 		<field name="date_format" 
 			type="list" 
-			default="%Y-%M-%D" 
+			default="DATE_FORMAT_LC4" 
 			label="COM_SERMONSPEAKER_PARAM_DATE_FORMAT" 
 			description="COM_SERMONSPEAKER_PARAM_DATE_FORMAT_DESC">
 			<option value="DATE_FORMAT_LC">DATE_FORMAT_LC</option>
@@ -84,8 +84,6 @@
 			<option value="DATE_FORMAT_LC2">DATE_FORMAT_LC2</option>
 			<option value="DATE_FORMAT_LC3">DATE_FORMAT_LC3</option>
 			<option value="DATE_FORMAT_LC4">DATE_FORMAT_LC4</option>
-			<option value="%Y-%M-%D">%Y-%M-%D</option>
-			<option value="%A, %B %E">%A, %B %E</option>
 		</field>
 		<field name="series_player" 
 			type="radio" 

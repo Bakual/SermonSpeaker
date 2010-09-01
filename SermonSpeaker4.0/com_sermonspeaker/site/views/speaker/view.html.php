@@ -55,7 +55,7 @@ class SermonspeakerViewSpeaker extends JView
 
 		// Update Statistic
     	$id		= $row->id;
-		if ($params->get('track_speaker')) { SermonspeakerController::updateStat('speakers', $id); }
+		if ($params->get('track_speaker')) { SermonspeakerController::updateStat('speaker', $id); }
 
 		// Set Meta
 		$document->setMetaData("description",strip_tags($row->intro));
