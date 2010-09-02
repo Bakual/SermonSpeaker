@@ -41,12 +41,7 @@ foreach($this->rows as $row) {
 			echo "<br />\n";
 		}
 		if ($this->params->get('client_col_player')){
-			//Check if link targets to an external source
-			if (substr($sermon->sermon_path,0,7) == "http://"){
-				$lnk = $sermon->sermon_path;
-			} else {
-				$lnk = SermonspeakerHelperSermonspeaker::makelink($sermon->sermon_path); 
-			}
+			$lnk = SermonspeakerHelperSermonspeaker::makelink($sermon->sermon_path); 
 			SermonspeakerHelperSermonspeaker::insertPlayer($lnk, $sermon->sermon_time, $count, $sermon->sermon_title);
 		} else {
 			// if player is disabled show a link

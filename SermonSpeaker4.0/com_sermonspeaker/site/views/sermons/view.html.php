@@ -10,9 +10,16 @@ class SermonspeakerViewSermons extends JView
 {
 	function display($tpl = null)
 	{
+		// Applying CSS file
 		JHTML::stylesheet('sermonspeaker.css', 'components/com_sermonspeaker/');
 
-		$params	=& JComponentHelper::getParams('com_sermonspeaker');
+		$app		= JFactory::getApplication();
+		$params		= $app->getParams();
+
+		// Get some data from the models
+		$state		= $this->get('State');
+		$items		= $this->get('Items');
+		$pagination	= $this->get('Pagination');
 
 		// Set Meta
 		$document =& JFactory::getDocument();
@@ -20,68 +27,52 @@ class SermonspeakerViewSermons extends JView
 		$document->setMetaData("description",JText::_('COM_SERMONSPEAKER_SERMONS_TITLE'));
 		$document->setMetaData("keywords",JText::_('COM_SERMONSPEAKER_SERMONS_TITLE'));
 
-		// get Data from Model (/models/sermons.php)
-        $rows		=& $this->get('Data');			// getting the Datarows from the Model
-		$lists		=& $this->get('Order');
-        $pagination	=& $this->get('Pagination');	// getting the JPaginationobject from the Model
-
-		$cat = NULL;
-		if($params->get('series_cat') || $params->get('speaker_cat') || $params->get('sermon_cat')){
-			$cat	=& $this->get('Cat');
-			$cat	= ': '.$cat;
+		// Check for errors.
+		if (count($errors = $this->get('Errors'))) {
+			JError::raiseError(500, implode("\n", $errors));
+			return false;
 		}
 
-		// Support for Content Plugins
+		// Check whether category access level allows access.
+/*		$user	= JFactory::getUser();
+		$groups	= $user->authorisedLevels();
+		if (!in_array($category->access, $groups)) {
+			return JError::raiseError(403, JText::_("JERROR_ALERTNOAUTHOR"));
+		}
+*/
+
+		// Loop through each item and create links
 		$dispatcher	= &JDispatcher::getInstance();
 		$item->params = clone($params);
 		JPluginHelper::importPlugin('content');
 		$direct_link = $params->get('list_direct_link');
-		foreach($rows as $row){
-			// Trigger Event for `sermon_scripture`
-			$item->text	= &$row->sermon_scripture;
-			$dispatcher->trigger('onPrepareContent', array(&$item, &$item->params, 0));
+		foreach($items as $item){
 			switch ($direct_link){ // direct links to the file instead to the detailpage
 				case '00':
-					$row->link1 = JRoute::_("index.php?view=sermon&id=$row->slug");
-					$row->link2 = $row->link1;
+					$item->link1 = JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug));
+					$item->link2 = $item->link1;
 					break;
 				case '01':
-					$row->link1 = JRoute::_("index.php?view=sermon&id=$row->slug");
-					//Check if link targets to an external source
-					if (substr($row->sermon_path,0,7) == "http://"){
-						$row->link2 = $row->sermon_path;
-					} else {
-						$row->link2 = SermonspeakerHelperSermonspeaker::makelink($row->sermon_path);
-					}
+					$item->link1 = JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug));
+					$item->link2 = SermonspeakerHelperSermonspeaker::makelink($item->sermon_path);
 					break;
 				case '10':
-					//Check if link targets to an external source
-					if (substr($row->sermon_path,0,7) == "http://"){
-						$row->link1 = $row->sermon_path;
-					} else {
-						$row->link1 = SermonspeakerHelperSermonspeaker::makelink($row->sermon_path);
-					}
-					$row->link2 = JRoute::_("index.php?view=sermon&id=$row->slug");
+					$item->link1 = SermonspeakerHelperSermonspeaker::makelink($item->sermon_path);
+					$item->link2 = JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug));
 					break;
 				case '11':
-					//Check if link targets to an external source
-					if (substr($row->sermon_path,0,7) == "http://"){
-						$row->link1 = $row->sermon_path;
-					} else {
-						$row->link1 = SermonspeakerHelperSermonspeaker::makelink($row->sermon_path);
-					}
-					$row->link2 = $row->link1;
+					$item->link1 = SermonspeakerHelperSermonspeaker::makelink($item->sermon_path);
+					$item->link2 = $item->link1;
 					break;
 			}
 		}
 
         // push data into the template
-		$this->assignRef('rows',$rows);             
-		$this->assignRef('lists',$lists);			// for Sorting
-		$this->assignRef('pagination',$pagination);	// for JPagination
-		$this->assignRef('params',$params);			// for Params
-		$this->assignRef('cat',$cat);				// for Category title
+		$this->assignRef('state',		$state);
+		$this->assignRef('items',		$items);
+		$this->assignRef('params',		$params);
+		$this->assignRef('pagination',	$pagination);
 
 		parent::display($tpl);
-	}	
+	}
 }

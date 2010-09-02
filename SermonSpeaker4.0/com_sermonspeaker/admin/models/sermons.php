@@ -100,7 +100,7 @@ class SermonspeakerModelSermons extends JModelList
 		$query->select('speakers.name AS name');
 		$query->join('LEFT', '#__sermon_speakers AS speakers ON speakers.id = sermons.speaker_id');
 
-		// Join over the speakers.
+		// Join over the series.
 		$query->select('series.series_title AS series_title');
 		$query->join('LEFT', '#__sermon_series AS series ON series.id = sermons.series_id');
 
@@ -124,7 +124,7 @@ class SermonspeakerModelSermons extends JModelList
 			$query->where('sermons.speaker_id = '.(int) $speaker);
 		}
 
-		// Filter by speaker
+		// Filter by series
 		$series = $this->getState('filter.series');
 		if (is_numeric($series)) {
 			$query->where('sermons.series_id = '.(int) $series);

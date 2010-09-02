@@ -22,12 +22,8 @@ class SermonspeakerHelperSermonspeaker
 		$params	=& JComponentHelper::getParams('com_sermonspeaker');
 		$path = $params->get('path');
 
-		//Check if link targets to an external source
-		if (substr($addfile,0,7) == "http://"){
-			$link = $addfile;
-		} else {
-			$link = SermonspeakerHelperSermonspeaker::makelink($addfile); 
-		}
+		$link = SermonspeakerHelperSermonspeaker::makelink($addfile); 
+
 		$filetype = trim(strrchr($addfile, '.'), '.');
 		if (file_exists(JPATH_COMPONENT.DS.'icons'.DS.$filetype.'.png')) {
 			$file = JURI::root().'components/com_sermonspeaker/icons/'.$filetype.'.png';
@@ -44,10 +40,14 @@ class SermonspeakerHelperSermonspeaker
 	}
 	
 	function makelink($path) {
-		if (substr($path, 0, 1) == '/') {
-			$path = substr($path, 1);
+		if (substr($path, 0, 7) == 'http://'){
+			$link = $path;
+		} else {
+			if (substr($path, 0, 1) == '/') {
+				$path = substr($path, 1);
+			}
+			$link = JURI::root().$path;
 		}
-		$link = JURI::root().$path;
 
 		return $link;
 	}

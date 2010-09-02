@@ -1,4 +1,6 @@
 <?php
+defined('_JEXEC') or die;
+
 function SermonspeakerBuildRoute(&$query){
 	$segments = array();
 	if (isset($query['view'])){
