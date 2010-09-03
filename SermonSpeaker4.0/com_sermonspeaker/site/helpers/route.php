@@ -22,13 +22,13 @@ abstract class SermonspeakerHelperRoute
 {
 	protected static $lookup;
 
-	public static function getSermonsRoute($id)
+	public static function getSermonsRoute()
 	{
 		$needles = array(
-			'sermons'  => array((int) $id) // needle = view
+			'sermons'
 		);
 		//Create the link
-		$link = 'index.php?option=com_sermonspeaker&view=sermons&id='. $id;
+		$link = 'index.php?option=com_sermonspeaker&view=sermons';
 
 		if ($item = SermonspeakerHelperRoute::_findItem($needles)) { // Check if there is a menu entry for this link
 			$link .= '&Itemid='.$item;
@@ -40,7 +40,7 @@ abstract class SermonspeakerHelperRoute
 	public static function getSermonRoute($id)
 	{
 		$needles = array(
-			'sermon'  => array((int) $id) // needle = view
+			'sermon'  => array((int) $id)
 		);
 		//Create the link
 		$link = 'index.php?option=com_sermonspeaker&view=sermon&id='. $id;
@@ -52,13 +52,13 @@ abstract class SermonspeakerHelperRoute
 		return $link;
 	}
 
-	public static function getSeriesRoute($id)
+	public static function getSeriesRoute()
 	{
 		$needles = array(
-			'series'  => array((int) $id)
+			'series'
 		);
 		//Create the link
-		$link = 'index.php?option=com_sermonspeaker&view=series&id='. $id;
+		$link = 'index.php?option=com_sermonspeaker&view=series';
 
 		if ($item = SermonspeakerHelperRoute::_findItem($needles)) {
 			$link .= '&Itemid='.$item;
@@ -85,10 +85,10 @@ abstract class SermonspeakerHelperRoute
 	public static function getSpeakersRoute($id)
 	{
 		$needles = array(
-			'speakers'  => array((int) $id)
+			'speakers'
 		);
 		//Create the link
-		$link = 'index.php?option=com_sermonspeaker&view=speakers&id='. $id;
+		$link = 'index.php?option=com_sermonspeaker&view=speakers';
 
 		if ($item = SermonspeakerHelperRoute::_findItem($needles)) {
 			$link .= '&Itemid='.$item;

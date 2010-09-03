@@ -45,15 +45,9 @@
 			<option value="0">JNO</option>
 			<option value="1">JYES</option>
 		</field>
-		<field name="access" 
-			type="list" 
-			default="0" 
-			label="COM_SERMONSPEAKER_PARAM_ACCESS" 
-			description="COM_SERMONSPEAKER_PARAM_ACCESS_DESC">
-			<option value="0">JPUBLIC</option>
-			<option value="1">JREGISTERED</option>
-			<option value="2">JSPECIAL</option>
-		</field>
+		<field name="access" type="accesslevel"
+			label="COM_SERMONSPEAKER_PARAM_ACCESS" description="COM_SERMONSPEAKER_PARAM_ACCESS_DESC"
+			default="1" />
 		<field name="list_direct_link" 
 			type="list" 
 			default="00" 
@@ -92,6 +86,16 @@
 			description="COM_SERMONSPEAKER_PARAM_SERIES_PLAYER_DESC">
 			<option value="0">JNO</option>
 			<option value="1">JYES</option>
+		</field>
+	</fieldset>
+	<fieldset name="test2"
+		addfieldpath="/administrator/components/com_sermonspeaker/models/fields"
+		label="Test"
+		description="Test Desc">
+		<field name="check_col2" type="columns">
+			<option value="sermons">Sermons List</option>
+			<option value="sermon">Single Sermon</option>
+			<option value="serie">Single Series</option>
 		</field>
 	</fieldset>
 	<fieldset name="clientcol"
