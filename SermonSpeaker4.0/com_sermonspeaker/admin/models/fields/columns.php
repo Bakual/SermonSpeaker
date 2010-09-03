@@ -33,29 +33,6 @@ class JFormFieldColumns extends JFormField
 	protected $forceMultiple = true;
 
 	/**
-	 * Method to get the field Label.
-	 *
-	 * @return	array	The field Label.
-	 * @since	1.6
-	 */
-	protected function getLabel()
-	{
-		$html[] = '<table style="width:100%;">';
-		$html[] = '<thead><tr>';
-		$html[] = '<th style="height: 25px; background: #F4F4F4; border-bottom: 1px solid silver; vertical-align:middle;">View</th>';
-		$html[] = '<th style="height: 25px; background: #F4F4F4; border-bottom: 1px solid silver; vertical-align:middle;">Num</th>';
-		$html[] = '<th style="height: 25px; background: #F4F4F4; border-bottom: 1px solid silver; vertical-align:middle;">Series</th>';
-		$html[] = '<th style="height: 25px; background: #F4F4F4; border-bottom: 1px solid silver; vertical-align:middle;">Scripture</th>';
-		$html[] = '<th style="height: 25px; background: #F4F4F4; border-bottom: 1px solid silver; vertical-align:middle;">Notes</th>';
-		$html[] = '<th style="height: 25px; background: #F4F4F4; border-bottom: 1px solid silver; vertical-align:middle;">Date</th>';
-		$html[] = '<th style="height: 25px; background: #F4F4F4; border-bottom: 1px solid silver; vertical-align:middle;">Length</th>';
-		$html[] = '<th style="height: 25px; background: #F4F4F4; border-bottom: 1px solid silver; vertical-align:middle;">AddFile</th>';
-		$html[] = '</tr></thead>';
-
-		return implode($html);
-	}
-
-	/**
 	 * Method to get the field input markup.
 	 *
 	 * @return	string	The field input markup.
@@ -63,30 +40,29 @@ class JFormFieldColumns extends JFormField
 	 */
 	protected function getInput()
 	{
-		// define the columns
-		$columns = array(
-			'Num',
-			'Series',
-			'Scripture',
-			'Notes',
-			'Date',
-			'Length',
-			'AddFile'
-		);
-		
 		// Initialize some field attributes.
 		$class = $this->element['class'] ? ' class="checkboxes '.(string) $this->element['class'].'"' : ' class="checkboxes"';
 
 		// Initialize JavaScript field attributes.
 		$onclick	= $this->element['onclick'] ? ' onclick="'.(string) $this->element['onclick'].'"' : '';
 
-		// Start the table body.
-		$html[] = '<tbody>';
-		
 		// Get the field options.
 		$options = $this->getOptions();
 
-		// Build the table rows.
+		// Get the field columns.
+		$columns = $this->getColumns();
+
+		// Start the table.
+		$html[] = '<tbody>';
+		$html[] = '<table style="width:100%;">';
+		$html[] = '<thead><tr>';
+		$html[] = '<th style="height: 25px; background: #F4F4F4; border-bottom: 1px solid silver; vertical-align:middle;">View</th>';
+		foreach ($columns as $column => $name){
+			$html[] = '<th style="height: 25px; background: #F4F4F4; border-bottom: 1px solid silver; vertical-align:middle;" title="'.JText::_($name.'_DESC').'">'.JText::_($name.'_LABEL').'</th>';
+		}
+		$html[] = '</tr></thead>';
+		
+		// Build the table datarows.
 		foreach ($options as $i => $option) {
 
 			// Initialize some option attributes.
@@ -98,7 +74,7 @@ class JFormFieldColumns extends JFormField
 
 			$html[] = '<tr>';
 			$html[] = '<th style="height: 25px; background: #F4F4F4; border-bottom: 1px solid silver; vertical-align:middle;">'.$option->text.'</th>';
-			foreach ($columns as $column){
+			foreach ($columns as $column => $name){
 				// Initialize some option attributes.
 				$checked	= (in_array((string)$option->value.'['.$column.']', (array)$this->value) ? ' checked="checked"' : '');
 				$html[] = '<td align="center">';
@@ -109,7 +85,7 @@ class JFormFieldColumns extends JFormField
 			$html[] = '</tr>';
 		}
 
-		// End the table body.
+		// End the table.
 		$html[] = '</tbody>';
 		$html[] = '</table>';
 
@@ -141,7 +117,7 @@ class JFormFieldColumns extends JFormField
 
 			// Set some JavaScript option attributes.
 			$tmp->onclick = (string) $option['onclick'];
-
+			
 			// Add the option object to the result set.
 			$options[] = $tmp;
 		}
@@ -149,5 +125,25 @@ class JFormFieldColumns extends JFormField
 		reset($options);
 
 		return $options;
+	}
+	
+	protected function getColumns()
+	{
+		// define the columns
+		$columns = array(
+			'num' => 'COM_SERMONSPEAKER_FIELD_COL_SERMONNUMBER',
+			'scripture' => 'COM_SERMONSPEAKER_FIELD_COL_SCRIPTURE',
+			'date' => 'COM_SERMONSPEAKER_FIELD_COL_SERMONDATE',
+			'length' => 'COM_SERMONSPEAKER_FIELD_COL_SERMONTIME',
+			'series' => 'COM_SERMONSPEAKER_FIELD_COL_SERIES',
+			'addfile' => 'COM_SERMONSPEAKER_FIELD_COL_ADDFILE',
+			'notes' => 'COM_SERMONSPEAKER_FIELD_COL_SERMONNOTES',
+			'player' => 'COM_SERMONSPEAKER_FIELD_COL_PLAYER',
+			'custom1' => 'COM_SERMONSPEAKER_FIELD_COL_CUSTOM1',
+			'custom2' => 'COM_SERMONSPEAKER_FIELD_COL_CUSTOM2'
+		);
+		reset($columns);
+		
+		return $columns;
 	}
 }
