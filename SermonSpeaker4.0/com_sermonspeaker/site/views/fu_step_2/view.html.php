@@ -54,7 +54,7 @@ class SermonspeakerViewFu_step_2 extends JView
 				$sql['sermon_time'] = $tarr[0].':'.$tarr[1].':'.$tarr[2];
 			}
 			$sql['notes']		= JRequest::getVar('notes', '', '', 'STRING', JREQUEST_ALLOWHTML);
-			$sql['published']	= JRequest::getInt('published', '0', 'POST');
+			$sql['state']	= JRequest::getInt('state', '0', 'POST');
 			$sql['podcast']		= JRequest::getInt('podcast', '0', 'POST');
 			$user =& JFactory::getUser();
 			$sql['created_by']	= $user->id;
@@ -161,7 +161,7 @@ class SermonspeakerViewFu_step_2 extends JView
 
 			$lists['speaker_id']	= JHTML::_('select.genericlist', $speaker_names, 'speaker_id', '', 'id', 'name', $id3['speaker']);
 			$lists['series_id']		= JHTML::_('select.genericlist', $series_title, 'series_id', '', 'id', 'series_title', $id3['series']);
-			$lists['published']		= JHTML::_('select.booleanlist', 'published', 'class="inputbox"', '1');
+			$lists['state']			= JHTML::_('select.booleanlist', 'state', 'class="inputbox"', '1');
 			$lists['podcast']		= JHTML::_('select.booleanlist', 'podcast', 'class="inputbox"', '1');
 			$lists['catid']			= JHTML::_('list.category', 'catid', 'com_sermonspeaker');
 			$lists['addfile_choice'] = JHTML::_('select.genericlist', $addfiles, 'addfile_choice', 'disabled="disabled"', 'file', 'file');

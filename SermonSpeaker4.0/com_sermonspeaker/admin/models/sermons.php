@@ -87,7 +87,7 @@ class SermonspeakerModelSermons extends JModelList
 				'sermons.id, sermons.sermon_title, sermons.catid,' .
 				'sermons.hits, sermons.notes, sermons.sermon_scripture,' .
 				'sermons.sermon_date, sermons.alias,' .
-				'sermons.published, sermons.ordering, sermons.podcast'
+				'sermons.state, sermons.ordering, sermons.podcast'
 			)
 		);
 		$query->from('`#__sermon_sermons` AS sermons');
@@ -107,9 +107,9 @@ class SermonspeakerModelSermons extends JModelList
 		// Filter by published state
 		$published = $this->getState('filter.state');
 		if (is_numeric($published)) {
-			$query->where('sermons.published = '.(int) $published);
+			$query->where('sermons.state = '.(int) $published);
 		} else if ($published === '') {
-			$query->where('(sermons.published IN (0, 1))');
+			$query->where('(sermons.state IN (0, 1))');
 		}
 
 		// Filter by podcast state

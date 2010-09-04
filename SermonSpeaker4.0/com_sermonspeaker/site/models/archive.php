@@ -96,7 +96,7 @@ class SermonspeakerModelArchive extends JModel
 				. "FROM #__sermon_sermons AS j "
 				. "LEFT JOIN #__sermon_speakers k ON j.speaker_id = k.id \n"
 				.$this->seriesjoin
-				. "WHERE j.published = '1'"
+				. "WHERE j.state = '1'"
 				. "AND YEAR(j.sermon_date)='".$this->year."' \n"
 				.$this->and_m
 				.$this->catwhere;
@@ -123,7 +123,7 @@ class SermonspeakerModelArchive extends JModel
 					. "FROM #__sermon_sermons j \n"
 					. "LEFT JOIN #__sermon_speakers k ON j.speaker_id = k.id \n"
 					. "LEFT JOIN #__sermon_series AS ss ON j.series_id = ss.id \n"
-					. "WHERE j.published='1' \n"
+					. "WHERE j.state='1' \n"
 					. "AND YEAR(j.sermon_date)='".$this->year."' \n"
 					.$this->and_m
 					.$this->catwhere

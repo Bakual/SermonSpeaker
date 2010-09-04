@@ -4,6 +4,7 @@ JHtml::core();
 JHTML::_('behavior.tooltip');
 JHTML::_('behavior.modal');
 
+$columns = $this->params->get('col');
 // TODO show category name in header
 $this->cat = '';
 
@@ -29,7 +30,7 @@ $listDirn	= $this->state->get('list.direction');
 	<table class="adminlist" cellpadding="2" cellspacing="2" width="100%">
 	<!-- Create the headers with sorting links -->
 		<thead><tr>
-			<?php if ($this->params->get('client_col_sermon_number')) : ?>
+			<?php if (in_array('sermons:num', $columns)) : ?>
 				<th class="ss-num">
 					<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SERMONNUMBER', 'sermon_number', $listDirn, $listOrder); ?>
 				</th>
@@ -37,7 +38,7 @@ $listDirn	= $this->state->get('list.direction');
 			<th class="ss-title">
 				<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SERMONTITLE', 'sermon_title', $listDirn, $listOrder); ?>
 			</th>
-			<?php if ($this->params->get('client_col_sermon_scripture_reference')) : ?>
+			<?php if (in_array('sermons:scripture', $columns)) : ?>
 				<th class="ss-col">
 					<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SCRIPTURE', 'sermon_scripture', $listDirn, $listOrder); ?>
 				</th>
@@ -45,22 +46,22 @@ $listDirn	= $this->state->get('list.direction');
 			<th class="ss-col">
 				<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SPEAKER', 'name', $listDirn, $listOrder); ?>
 			</th>
-			<?php if ($this->params->get('client_col_sermon_date')) : ?>
+			<?php if (in_array('sermons:date', $columns)) : ?>
 				<th class="ss-col">
 					<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SERMONDATE', 'sermon_date', $listDirn, $listOrder); ?>
 				</th>
 			<?php endif;
-			if ($this->params->get('client_col_sermon_time')) : ?>
+			if (in_array('sermons:length', $columns)) : ?>
 				<th class="ss-col">
 					<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SERMONTIME', 'sermon_time', $listDirn, $listOrder); ?>
 				</th>
 			<?php endif;
-			if ($this->params->get('client_col_sermon_series')) : ?>
+			if (in_array('sermons:series', $columns)) : ?>
 				<th class="ss-col">
 					<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SERIES', 'series_title', $listDirn, $listOrder); ?>
 				</th>
 			<?php endif;
-			if ($this->params->get('client_col_sermon_addfile')) : ?>
+			if (in_array('sermons:addfile', $columns)) : ?>
 				<th class="ss-col">
 					<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_ADDFILE', 'addfileDesc', $listDirn, $listOrder); ?>
 				</th>
@@ -70,7 +71,7 @@ $listDirn	= $this->state->get('list.direction');
 		<tbody>
 			<?php foreach($this->items as $i => $item) : ?>
 				<tr class="<?php echo ($i % 2) ? "odd" : "even"; ?>">
-					<?php if ($this->params->get('client_col_sermon_number')) : ?>
+					<?php if (in_array('sermons:num', $columns)) : ?>
 						<td class="ss-num">
 							<?php echo $item->sermon_number; ?>
 						</td>
@@ -83,7 +84,7 @@ $listDirn	= $this->state->get('list.direction');
 							<?php echo $item->sermon_title; ?>
 						</a>
 					</td>
-					<?php if ($this->params->get('client_col_sermon_scripture_reference')) : ?>
+					<?php if (in_array('sermons:scripture', $columns)) : ?>
 						<td class="ss-col">
 							<?php echo JHTML::_('content.prepare', $item->sermon_scripture); ?>
 						</td>
@@ -91,22 +92,22 @@ $listDirn	= $this->state->get('list.direction');
 					<td class="ss_col">
 						<?php echo SermonspeakerHelperSermonSpeaker::SpeakerTooltip($item->speaker_slug, $item->pic, $item->name); ?>
 					</td>
-					<?php if ($this->params->get('client_col_sermon_date')) : ?>
+					<?php if (in_array('sermons:date', $columns)) : ?>
 						<td class="ss_col">
 							<?php echo JHTML::date($item->sermon_date, JText::_($this->params->get('date_format'))); ?>
 						</td>
 					<?php endif;
-					if ($this->params->get('client_col_sermon_time')) : ?>
+					if (in_array('sermons:length', $columns)) : ?>
 						<td class="ss_col">
 							<?php echo SermonspeakerHelperSermonspeaker::insertTime($item->sermon_time); ?>
 						</td>
 					<?php endif;
-					if ($this->params->get('client_col_sermon_series')) : ?>
+					if (in_array('sermons:series', $columns)) : ?>
 						<td class="ss_col">
 							<?php echo JHTML::link('index.php?view=serie&id='.$item->series_slug, $item->series_title); ?>
 						</td>
 					<?php endif;
-					if ($this->params->get('client_col_sermon_addfile')) : ?>
+					if (in_array('sermons:addfile', $columns)) : ?>
 						<td class="ss_col">
 							<?php echo SermonspeakerHelperSermonspeaker::insertAddfile($item->addfile, $item->addfileDesc); ?>
 						</td>

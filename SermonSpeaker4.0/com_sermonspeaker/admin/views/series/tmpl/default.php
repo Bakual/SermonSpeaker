@@ -42,7 +42,7 @@ $saveOrder	= $listOrder == 'series.ordering';
 					<?php echo JHtml::_('grid.sort',  'JGLOBAL_TITLE', 'series.series_title', $listDirn, $listOrder); ?>
 				</th>
 				<th width="5%">
-					<?php echo JHtml::_('grid.sort',  'JPUBLISHED', 'series.published', $listDirn, $listOrder); ?>
+					<?php echo JHtml::_('grid.sort',  'JPUBLISHED', 'series.state', $listDirn, $listOrder); ?>
 				</th>
 				<th width="20%">
 					<?php echo JHtml::_('grid.sort',  'JGRID_HEADING_CATEGORY', 'category_title', $listDirn, $listOrder); ?>
@@ -87,7 +87,7 @@ $saveOrder	= $listOrder == 'series.ordering';
 						<?php echo JText::sprintf('JGLOBAL_LIST_ALIAS', $this->escape($item->alias));?></p>
 				</td>
 				<td class="center">
-					<?php echo JHtml::_('jgrid.published', $item->published, $i, 'series.', true);?>
+					<?php echo JHtml::_('jgrid.published', $item->state, $i, 'series.', true);?>
 				</td>
 				<td class="center">
 					<?php echo $this->escape($item->category_title); ?>

@@ -44,8 +44,8 @@ class SermonspeakerModelSpeaker extends JModel
 				."FROM `#__sermon_series` AS series \n"
 				."JOIN `#__sermon_sermons` AS sermons ON sermons.series_id = series.id \n"
 				."WHERE sermons.speaker_id = '".$this->id."' \n"
-				."AND series.published = '1' \n"
-				."AND sermons.published = '1' \n"
+				."AND series.state = '1' \n"
+				."AND sermons.state = '1' \n"
 				."GROUP BY series.id \n"
 				."ORDER BY series_title";
 
@@ -64,7 +64,7 @@ class SermonspeakerModelSpeaker extends JModel
 				. "FROM #__sermon_sermons AS sermons \n"
 				. "LEFT JOIN #__sermon_series AS series ON sermons.series_id = series.id \n"
 				. "WHERE sermons.speaker_id='".$this->id."' \n"
-				. "AND sermons.published='1' \n"
+				. "AND sermons.state='1' \n"
 				. "ORDER BY ".$orderby." \n";
 		if ($this->params->get('limit_speaker') == 1) { 
 			$query .= "LIMIT ".$this->limit;

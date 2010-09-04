@@ -83,7 +83,7 @@ class SermonspeakerTableSpeaker extends JTable
 		// Update the publishing state for rows with the given primary keys.
 		$this->_db->setQuery(
 			'UPDATE `'.$this->_tbl.'`' .
-			' SET `published` = '.(int) $state .
+			' SET `state` = '.(int) $state .
 			' WHERE ('.$where.')' .
 			$checkin
 		);

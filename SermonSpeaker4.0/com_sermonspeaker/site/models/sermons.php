@@ -32,7 +32,7 @@ class SermonspeakerModelSermons extends JModelList
 				'CASE WHEN CHAR_LENGTH(sermons.alias) THEN CONCAT_WS(\':\', sermons.id, sermons.alias) ELSE sermons.id END as slug,' .
 				'sermons.hits, sermons.notes, sermons.sermon_scripture,' .
 				'sermons.sermon_date, sermons.alias, sermons.sermon_time,' .
-				'sermons.published, sermons.ordering, sermons.podcast,' .
+				'sermons.state, sermons.ordering, sermons.podcast,' .
 				'sermons.sermon_number, sermons.addfile, sermons.addfileDesc'
 			)
 		);
@@ -79,7 +79,7 @@ class SermonspeakerModelSermons extends JModelList
 		// Filter by state
 		$state = $this->getState('filter.state');
 		if (is_numeric($state)) {
-			$query->where('sermons.published = '.(int) $state);
+			$query->where('sermons.state = '.(int) $state);
 		}
 
 		// Add the list ordering clause.
@@ -123,7 +123,7 @@ class SermonspeakerModelSermons extends JModelList
 		$id = JRequest::getVar('series_cat', 0, '', 'int');
 		$this->setState('series_category.id', $id);
 
-		$this->setState('filter.published',	1);
+		$this->setState('filter.state',	1);
 
 		// Load the parameters.
 		$this->setState('params', $params);

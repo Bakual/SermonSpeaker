@@ -76,10 +76,10 @@ class JFormFieldColumns extends JFormField
 			$html[] = '<th style="height: 25px; background: #F4F4F4; border-bottom: 1px solid silver; vertical-align:middle;">'.$option->text.'</th>';
 			foreach ($columns as $column => $name){
 				// Initialize some option attributes.
-				$checked	= (in_array((string)$option->value.'['.$column.']', (array)$this->value) ? ' checked="checked"' : '');
+				$checked	= (in_array((string)$option->value.':'.$column, (array)$this->value) ? ' checked="checked"' : '');
 				$html[] = '<td align="center">';
 				$html[] = '<input style="float:none; margin:0;" type="checkbox" id="'.$this->id.$i.'" name="'.$this->name.'"' .
-						' value="'.htmlspecialchars($option->value.'['.$column.']', ENT_COMPAT, 'UTF-8').'"'.$checked.$class.$onclick.$disabled.'/>';
+						' value="'.htmlspecialchars($option->value.':'.$column, ENT_COMPAT, 'UTF-8').'"'.$checked.$class.$onclick.$disabled.'/>';
 				$html[] = '</td>';
 			}
 			$html[] = '</tr>';

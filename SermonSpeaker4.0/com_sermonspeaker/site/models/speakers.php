@@ -57,7 +57,7 @@ class SermonspeakerModelSpeakers extends JModel
 		$database =& JFactory::getDBO();
 		$query 	= "SELECT count(*) \n"
 				. "FROM #__sermon_speakers \n"
-				. "WHERE published='1'"
+				. "WHERE state='1'"
 				.$this->catwhere;
 		$database->setQuery( $query );
 		$total_rows = $database->LoadResult();
@@ -78,7 +78,7 @@ class SermonspeakerModelSpeakers extends JModel
 		$database 	= &JFactory::getDBO();
 		$query	= "SELECT * \n"
 				. "FROM #__sermon_speakers \n"
-				. "WHERE published='1' \n"
+				. "WHERE state='1' \n"
 				.$this->catwhere
 				. "ORDER BY ordering ASC, name";
 		$rows = $this->_getList($query, $this->getState('limitstart'), $this->getState('limit')); 

@@ -69,7 +69,7 @@ $saveOrder	= $listOrder == 'sermons.ordering';
 					<?php echo JHtml::_('grid.sort',  'COM_SERMONSPEAKER_SERMONDATE', 'sermon_date', $listDirn, $listOrder); ?>
 				</th>
 				<th width="5%">
-					<?php echo JHtml::_('grid.sort',  'JPUBLISHED', 'sermons.published', $listDirn, $listOrder); ?>
+					<?php echo JHtml::_('grid.sort',  'JPUBLISHED', 'sermons.state', $listDirn, $listOrder); ?>
 				</th>
 				<th width="5%">
 					<?php echo JHtml::_('grid.sort',  'COM_SERMONSPEAKER_SERMONCAST', 'sermons.podcast', $listDirn, $listOrder); ?>
@@ -126,7 +126,7 @@ $saveOrder	= $listOrder == 'sermons.ordering';
 					<?php echo JHTML::Date($item->sermon_date, JText::_('DATE_FORMAT_LC4')); ?>
 				</td>
 				<td class="center">
-					<?php echo JHtml::_('jgrid.published', $item->published, $i, 'sermons.', true);?>
+					<?php echo JHtml::_('jgrid.published', $item->state, $i, 'sermons.', true);?>
 				</td>
 				<td class="center">
 					<?php echo JHtml::_('jgrid.published', $item->podcast, $i, 'sermons.podcast_', true);?>

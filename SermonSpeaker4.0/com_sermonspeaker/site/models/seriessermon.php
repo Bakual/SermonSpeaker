@@ -57,7 +57,7 @@ class SermonspeakerModelSeriessermon extends JModel
 		$database =& JFactory::getDBO();
 		$query = "SELECT count(*) \n"
 				."FROM #__sermon_series AS j \n"
-				."WHERE j.published='1'".$this->catwhere;
+				."WHERE j.state='1'".$this->catwhere;
 		$database->setQuery( $query );
 		$total_rows = $database->LoadResult();
 
@@ -77,7 +77,7 @@ class SermonspeakerModelSeriessermon extends JModel
 		$database =& JFactory::getDBO();
 		$query = 'SELECT j.id, j.series_title, j.series_description, j.avatar'
         . ' FROM #__sermon_series j'
-        . ' WHERE j.published = 1 '
+        . ' WHERE j.state = 1 '
 		.$this->catwhere
         . ' ORDER BY j.ordering , j.id desc';
 
@@ -92,7 +92,7 @@ class SermonspeakerModelSeriessermon extends JModel
 				. ", CASE WHEN CHAR_LENGTH(alias) THEN CONCAT_WS(':', id, alias) ELSE id END as slug \n"
 				. " FROM #__sermon_sermons \n"
 				. " WHERE series_id=".$serieid." \n"
-				. " AND published = \"1\" \n"
+				. " AND state = \"1\" \n"
 				. " ORDER BY ordering, (sermon_number+0) DESC, sermon_date DESC";
 		$database->setQuery( $query );
 		$sermons = $database->loadObjectList();

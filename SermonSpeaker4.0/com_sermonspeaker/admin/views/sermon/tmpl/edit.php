@@ -32,8 +32,8 @@ $self = $uri->toString();
 			<li><?php echo $this->form->getLabel('alias'); ?>
 			<?php echo $this->form->getInput('alias'); ?></li>
 
-			<li><?php echo $this->form->getLabel('published'); ?>
-			<?php echo $this->form->getInput('published'); ?></li>
+			<li><?php echo $this->form->getLabel('state'); ?>
+			<?php echo $this->form->getInput('state'); ?></li>
 
 			<li><?php echo $this->form->getLabel('podcast'); ?>
 			<?php echo $this->form->getInput('podcast'); ?></li>

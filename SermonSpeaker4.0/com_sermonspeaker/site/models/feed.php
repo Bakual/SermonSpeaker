@@ -48,7 +48,7 @@ class SermonspeakerModelFeed extends JModel
 				."FROM #__sermon_sermons AS sermons \n"
 				."LEFT JOIN  #__sermon_speakers AS speakers ON sermons.speaker_id = speakers.id \n"
 				."LEFT JOIN  #__sermon_series AS series ON sermons.series_id = series.id \n"
-				."WHERE sermons.published='1' \n"
+				."WHERE sermons.state='1' \n"
 				."AND sermons.podcast='1' \n"
 				.$this->catwhere
 				."ORDER by sermons.sermon_date desc";

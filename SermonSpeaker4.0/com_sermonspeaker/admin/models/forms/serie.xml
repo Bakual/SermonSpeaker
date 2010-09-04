@@ -10,7 +10,7 @@
 			description="COM_SERMONSPEAKER_FIELD_ALIAS_DESC" />
 
 		<field
-			name="published"
+			name="state"
 			type="list"
 			label="JGLOBAL_STATE"
 			description="COM_SERMONSPEAKER_FIELD_PUBLISHED_DESC"

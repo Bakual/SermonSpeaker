@@ -56,7 +56,7 @@ class SermonspeakerModelSeries extends JModel
 	{
 		$database =& JFactory::getDBO();
 		$query = "SELECT count(*) FROM #__sermon_series j \n"
-				."WHERE j.published='1'".$this->catwhere;
+				."WHERE j.state='1'".$this->catwhere;
 		$database->setQuery( $query );
 		$total_rows = $database->LoadResult();
 
@@ -77,8 +77,8 @@ class SermonspeakerModelSeries extends JModel
 		$query = 'SELECT sermons.speaker_id, speakers.name, speakers.pic'
         . ' FROM #__sermon_sermons AS sermons'
         . ' LEFT JOIN #__sermon_speakers AS speakers ON sermons.speaker_id = speakers.id'
-        . " WHERE sermons.published = '1'"
-        . " AND speakers.published = '1'"
+        . " WHERE sermons.state = '1'"
+        . " AND speakers.state = '1'"
 		. " AND sermons.series_id = '".$series."'"
         . ' GROUP BY sermons.speaker_id'
         . ' ORDER BY speakers.name';
@@ -93,7 +93,7 @@ class SermonspeakerModelSeries extends JModel
 		$database =& JFactory::getDBO();
 		$query = 'SELECT j.id, j.series_title, j.series_description, j.avatar'
         . ' FROM #__sermon_series j'
-        . " WHERE j.published = '1'"
+        . " WHERE j.state = '1'"
 		.$this->catwhere
         . ' ORDER BY j.ordering, j.id desc, j.series_title';
 		$rows = $this->_getList($query, $this->getState('limitstart'), $this->getState('limit')); 

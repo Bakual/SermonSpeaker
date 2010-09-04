@@ -74,7 +74,7 @@ class SermonspeakerModelSpeakers extends JModelList
 				'list.select',
 				'speakers.id, speakers.name, speakers.catid,' .
 				'speakers.hits, speakers.pic, speakers.website,' .
-				'speakers.alias, speakers.published, speakers.ordering'
+				'speakers.alias, speakers.state, speakers.ordering'
 			)
 		);
 		$query->from('`#__sermon_speakers` AS speakers');
@@ -86,9 +86,9 @@ class SermonspeakerModelSpeakers extends JModelList
 		// Filter by published state
 		$published = $this->getState('filter.state');
 		if (is_numeric($published)) {
-			$query->where('speakers.published = '.(int) $published);
+			$query->where('speakers.state = '.(int) $published);
 		} else if ($published === '') {
-			$query->where('(speakers.published IN (0, 1))');
+			$query->where('(speakers.state IN (0, 1))');
 		}
 
 		// Filter by category.

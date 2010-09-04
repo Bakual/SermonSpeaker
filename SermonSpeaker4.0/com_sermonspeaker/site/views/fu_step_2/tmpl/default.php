@@ -82,9 +82,9 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 		<td><?php echo $this->lists['catid']; ?></td>
 	</tr>
 	<tr title='<?php echo JText::_('COM_SERMONSPEAKER_FU_PUBLISHED_DESC'); ?>'>
-		<td align="right" class="key"> <?php echo JText::_('published'); ?> </td> 
+		<td align="right" class="key"> <?php echo JText::_('state'); ?> </td> 
 		<td></td>
-		<td><?php echo $this->lists['published']; ?> </td>
+		<td><?php echo $this->lists['state']; ?> </td>
 	</tr>
 	<tr title='<?php echo JText::_('COM_SERMONSPEAKER_FU_SERMONCAST_DESC'); ?>'>
 		<td align="right" class="key"> <?php echo JText::_('COM_SERMONSPEAKER_FU_SERMONCAST'); ?> </td> 

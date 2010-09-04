@@ -74,7 +74,7 @@ class SermonspeakerModelSeries extends JModelList
 				'list.select',
 				'series.id, series.series_title, series.catid,' .
 				'series.hits, series.alias, series.avatar,' .
-				'series.published, series.ordering'
+				'series.state, series.ordering'
 			)
 		);
 		$query->from('`#__sermon_series` AS series');
@@ -86,9 +86,9 @@ class SermonspeakerModelSeries extends JModelList
 		// Filter by published state
 		$published = $this->getState('filter.state');
 		if (is_numeric($published)) {
-			$query->where('series.published = '.(int) $published);
+			$query->where('series.state = '.(int) $published);
 		} else if ($published === '') {
-			$query->where('(series.published IN (0, 1))');
+			$query->where('(series.state IN (0, 1))');
 		}
 
 		// Filter by category.

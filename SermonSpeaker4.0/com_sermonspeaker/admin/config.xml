@@ -88,98 +88,18 @@
 			<option value="1">JYES</option>
 		</field>
 	</fieldset>
-	<fieldset name="test2"
+	<fieldset name="clientcol"
 		addfieldpath="/administrator/components/com_sermonspeaker/models/fields"
-		label="Test"
-		description="Test Desc">
-		<field name="check_col2" type="columns">
+		label="COM_SERMONSPEAKER_FIELDSET_CLIENTCOL_LABEL"
+		description="COM_SERMONSPEAKER_FIELDSET_CLIENTCOL_DESC">
+		<field name="col" type="columns"
+			label="COM_SERMONSPEAKER_FIELD_COL_LABEL" 
+			description="COM_SERMONSPEAKER_FIELD_COL_DESC">
 			<option value="sermons">Sermons List</option>
 			<option value="sermon">Single Sermon</option>
 			<option value="serie">Single Series</option>
-		</field>
-	</fieldset>
-	<fieldset name="clientcol"
-		label="COM_SERMONSPEAKER_FIELDSET_CLIENTCOL_LABEL"
-		description="COM_SERMONSPEAKER_FIELDSET_CLIENTCOL_DESC">
-		<field name="client_col_sermon_number" 
-			type="radio" 
-			default="1" 
-			label="COM_SERMONSPEAKER_PARAM_COL_SERMONNUMBER" 
-			description="COM_SERMONSPEAKER_PARAM_COL_SERMONNUMBER_DESC">
-			<option value="0">JNO</option>
-			<option value="1">JYES</option>
-		</field>
-		<field name="client_col_sermon_scripture_reference" 
-			type="radio" 
-			default="1" 
-			label="COM_SERMONSPEAKER_PARAM_COL_SCRIPTURE" 
-			description="COM_SERMONSPEAKER_PARAM_COL_SCRIPTURE_DESC">
-			<option value="0">JNO</option>
-			<option value="1">JYES</option>
-		</field>
-		<field name="client_col_sermon_date" 
-			type="radio" 
-			default="1" 
-			label="COM_SERMONSPEAKER_PARAM_COL_SERMONDATE" 
-			description="COM_SERMONSPEAKER_PARAM_COL_SERMONDATE_DESC">
-			<option value="0">JNO</option>
-			<option value="1">JYES</option>
-		</field>
-		<field name="client_col_sermon_time" 
-			type="radio" 
-			default="1" 
-			label="COM_SERMONSPEAKER_PARAM_COL_SERMONTIME" 
-			description="COM_SERMONSPEAKER_PARAM_COL_SERMONTIME_DESC">
-			<option value="0">JNO</option>
-			<option value="1">JYES</option>
-		</field>
-		<field name="client_col_sermon_series" 
-			type="radio" 
-			default="1" 
-			label="COM_SERMONSPEAKER_PARAM_COL_SERIES" 
-			description="COM_SERMONSPEAKER_PARAM_COL_SERIES_DESC">
-			<option value="0">JNO</option>
-			<option value="1">JYES</option>
-		</field>
-		<field name="client_col_sermon_notes" 
-			type="radio" 
-			default="1" 
-			label="COM_SERMONSPEAKER_PARAM_COL_SERMONNOTES" 
-			description="COM_SERMONSPEAKER_PARAM_COL_SERMONNOTES_DESC">
-			<option value="0">JNO</option>
-			<option value="1">JYES</option>
-		</field>
-		<field name="client_col_player" 
-			type="radio" 
-			default="1" 
-			label="COM_SERMONSPEAKER_PARAM_COL_PLAYER" 
-			description="COM_SERMONSPEAKER_PARAM_COL_PLAYER_DESC">
-			<option value="0">JNO</option>
-			<option value="1">JYES</option>
-		</field>
-		<field name="client_col_sermon_addfile" 
-			type="radio" 
-			default="1" 
-			label="COM_SERMONSPEAKER_PARAM_COL_ADDFILE" 
-			description="COM_SERMONSPEAKER_PARAM_COL_ADDFILE_DESC">
-			<option value="0">JNO</option>
-			<option value="1">JYES</option>
-		</field>
-		<field name="client_col_custom1" 
-			type="radio" 
-			default="0" 
-			label="COM_SERMONSPEAKER_PARAM_COL_CUSTOM1" 
-			description="COM_SERMONSPEAKER_PARAM_COL_CUSTOM1_DESC">
-			<option value="0">JNO</option>
-			<option value="1">JYES</option>
-		</field>
-		<field name="client_col_custom2" 
-			type="radio" 
-			default="0" 
-			label="COM_SERMONSPEAKER_PARAM_COL_CUSTOM2" 
-			description="COM_SERMONSPEAKER_PARAM_COL_CUSTOM2_DESC">
-			<option value="0">JNO</option>
-			<option value="1">JYES</option>
+			<option value="speaker">Single Speaker (Latest Sermons)</option>
+			<option value="archive">Sermons Archive List</option>
 		</field>
 		<field name="dl_button" 
 			type="radio" 
