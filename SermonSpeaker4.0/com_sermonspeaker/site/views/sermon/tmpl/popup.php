@@ -1,8 +1,8 @@
 <?php
 defined('_JEXEC') or die('Restricted access');
-if ($this->params->get('popup_color')) {
+if ($this->params->get('popup_color')) :
 	$bgcolor = 'background-color:#'.$this->params->get('popup_color').';';
-}
+endif;
 ?>
 <body style="<?php echo $bgcolor; ?>">
 <div style="padding: 10px; text-align:center;">
