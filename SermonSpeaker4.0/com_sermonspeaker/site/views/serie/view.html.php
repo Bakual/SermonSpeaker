@@ -10,87 +10,84 @@ class SermonspeakerViewSerie extends JView
 {
 	function display($tpl = null)
 	{
-		JHTML::stylesheet('sermonspeaker.css', 'components/com_sermonspeaker/');
+		$app		= JFactory::getApplication();
+		$params		= $app->getParams();
 
-		$params	=& JComponentHelper::getParams('com_sermonspeaker');
+		// Get some data from the models
+		$state		= $this->get('State');
+		$items		= $this->get('Items');
+		$pagination	= $this->get('Pagination');
+
+		// Set Meta
 		$document =& JFactory::getDocument();
+		$document->setTitle(JText::_('COM_SERMONSPEAKER_SERIE_TITLE').' | '.$document->getTitle());
+		$document->setMetaData("description",JText::_('COM_SERMONSPEAKER_SERIE_TITLE'));
+		$document->setMetaData("keywords",JText::_('COM_SERMONSPEAKER_SERIE_TITLE'));
+
+		// add Breadcrumbs
+/*
+		$breadcrumbs	= &$app->getPathWay();
+		$breadcrumbs->addItem($serie->series_title);
+*/
 
 		// Add swfobject-javascript for player
 		$document->addScript(JURI::root()."components/com_sermonspeaker/media/player/swfobject.js");
 		
-		// get Data from Model (/models/serie.php)
-        $rows		= &$this->get('Data');			// getting the Datarows from the Model
-		$lists		=& $this->get('Order');
-        $pagination	= &$this->get('Pagination');	// getting the JPaginationobject from the Model
-		$serie		= &$this->get('Serie');			// getting the Serie from the Model
+		// Applying CSS file
+		JHTML::stylesheet('sermonspeaker.css', 'components/com_sermonspeaker/');
 
 		// Update Statistic
+/*
     	$id		= $serie->id;
 		if ($params->get('track_series')) { SermonspeakerController::updateStat('serie', $id); }
+*/
 		
-		// get active View from Menuitem
-		$menu = &JSite::getMenu();
-		$active = $menu->getActive();
-		$active_view = $active->query['view'];
-		$itemid = $active->id;
-		if ($active_view == "speakers" || $active_view == "sermons") {
-			$menuitems = $menu->getItems('link', 'index.php?option=com_sermonspeaker&view=series');
-			if ($menuitems) {
-				$itemid = $menuitems[0]->id;
-				$menu->setActive($itemid); // set active menu to Series View if a menu for this exists, otherwise leave it as it is for now
-			}
+		// Check for errors.
+		if (count($errors = $this->get('Errors'))) {
+			JError::raiseError(500, implode("\n", $errors));
+			return false;
 		}
-		
-		// add Breadcrumbs
-		$app 			= JFactory::getApplication();
-		$breadcrumbs	= &$app->getPathWay();
-		$breadcrumbs->addItem($serie->series_title);
 
-		// Set Meta
-		$document->setTitle(JText::_('COM_SERMONSPEAKER_SERIE_TITLE').": ".$serie->series_title.' | '.$document->getTitle());
-		$document->setMetaData("description",strip_tags($serie->series_description));
-		$document->setMetaData("keywords",$serie->series_title);
+		// Check whether category access level allows access.
+/*		$user	= JFactory::getUser();
+		$groups	= $user->authorisedLevels();
+		if (!in_array($category->access, $groups)) {
+			return JError::raiseError(403, JText::_("JERROR_ALERTNOAUTHOR"));
+		}
+*/
 
-		// Support for Content Plugins
+		// Loop through each item and create links
 		$dispatcher	= &JDispatcher::getInstance();
 		$item->params = clone($params);
 		JPluginHelper::importPlugin('content');
-		// Trigger Event for `series_description`
-		$item->text	= &$serie->series_description;
-		$dispatcher->trigger('onPrepareContent', array(&$item, &$item->params, 0));
 		$direct_link = $params->get('list_direct_link');
-		foreach($rows as $row){
-			// Trigger Event for `sermon_scripture`
-			$item->text	= &$row->sermon_scripture;
-			$dispatcher->trigger('onPrepareContent', array(&$item, &$item->params, 0));
+		foreach($items as $item){
 			switch ($direct_link){ // direct links to the file instead to the detailpage
 				case '00':
-					$row->link1 = JRoute::_(SermonspeakerHelperRoute::getSermonRoute($row->slug));
-					$row->link2 = $row->link1;
+					$item->link1 = JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug));
+					$item->link2 = $item->link1;
 					break;
 				case '01':
-					$row->link1 = JRoute::_(SermonspeakerHelperRoute::getSermonRoute($row->slug));
-					$row->link2 = SermonspeakerHelperSermonspeaker::makelink($row->sermon_path);
+					$item->link1 = JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug));
+					$item->link2 = SermonspeakerHelperSermonspeaker::makelink($item->sermon_path);
 					break;
 				case '10':
-					$row->link1 = SermonspeakerHelperSermonspeaker::makelink($row->sermon_path);
-					$row->link2 = JRoute::_(SermonspeakerHelperRoute::getSermonRoute($row->slug));
+					$item->link1 = SermonspeakerHelperSermonspeaker::makelink($item->sermon_path);
+					$item->link2 = JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug));
 					break;
 				case '11':
-					$row->link1 = SermonspeakerHelperSermonspeaker::makelink($row->sermon_path);
-					$row->link2 = $item->link1;
+					$item->link1 = SermonspeakerHelperSermonspeaker::makelink($item->sermon_path);
+					$item->link2 = $item->link1;
 					break;
 			}
 		}
 
         // push data into the template
-		$this->assignRef('rows',$rows);             
-		$this->assignRef('serie',$serie);             
-		$this->assignRef('lists',$lists);			// for Sorting
-		$this->assignRef('pagination',$pagination);	// for JPagination
-		$this->assignRef('params',$params);			// for Params
-		$this->assignRef('itemid',$itemid);
+		$this->assignRef('state',		$state);
+		$this->assignRef('items',		$items);
+		$this->assignRef('params',		$params);
+		$this->assignRef('pagination',	$pagination);
 
 		parent::display($tpl);
-	}	
+	}
 }
