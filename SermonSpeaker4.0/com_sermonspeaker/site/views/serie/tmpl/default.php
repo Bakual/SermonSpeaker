@@ -23,7 +23,7 @@ $listDirn	= $this->state->get('list.direction');
 	<?php echo $this->serie->series_description; ?>
 </div>
 <br style="clear:both" />
-<?php if ($this->params->get('series_player')) : ?>
+<?php if (in_array('serie:player', $columns)) : ?>
 	<hr style="width: 80%; height: 1px; text-align: center;">
 	<?php
 	$lnk = "index.php%3Foption%3Dcom_sermonspeaker%26view%3Dfeed%26series_id%3D".$this->serie->id;
@@ -64,9 +64,13 @@ $listDirn	= $this->state->get('list.direction');
 					<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SCRIPTURE', 'sermon_scripture', $listDirn, $listOrder); ?>
 				</th>
 			<?php endif; ?>
-			<th class="ss-col">
-				<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SPEAKER', 'name', $listDirn, $listOrder); ?>
-			</th>
+			<?php endif;
+			if (in_array('serie:speaker', $columns)) : ?>
+				<th class="ss-col">
+					<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SPEAKER', 'name', $listDirn, $listOrder); ?>
+				</th>
+			<?php endif;
+			if (in_array('serie:date', $columns)) : ?>
 			<?php if (in_array('serie:date', $columns)) : ?>
 				<th class="ss-col">
 					<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SERMONDATE', 'sermon_date', $listDirn, $listOrder); ?>
@@ -75,11 +79,6 @@ $listDirn	= $this->state->get('list.direction');
 			if (in_array('serie:length', $columns)) : ?>
 				<th class="ss-col">
 					<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SERMONTIME', 'sermon_time', $listDirn, $listOrder); ?>
-				</th>
-			<?php endif;
-			if (in_array('serie:series', $columns)) : ?>
-				<th class="ss-col">
-					<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SERIES', 'series_title', $listDirn, $listOrder); ?>
 				</th>
 			<?php endif;
 			if (in_array('serie:addfile', $columns)) : ?>
@@ -109,11 +108,13 @@ $listDirn	= $this->state->get('list.direction');
 						<td class="ss-col">
 							<?php echo JHTML::_('content.prepare', $item->sermon_scripture); ?>
 						</td>
-					<?php endif; ?>
-					<td class="ss_col">
-						<?php echo SermonspeakerHelperSermonSpeaker::SpeakerTooltip($item->speaker_slug, $item->pic, $item->name); ?>
-					</td>
-					<?php if (in_array('serie:date', $columns)) : ?>
+					<?php endif;
+					if (in_array('serie:speaker', $columns)) : ?>
+						<td class="ss_col">
+							<?php echo SermonspeakerHelperSermonSpeaker::SpeakerTooltip($item->speaker_slug, $item->pic, $item->name); ?>
+						</td>
+					<?php endif;
+					if (in_array('serie:date', $columns)) : ?>
 						<td class="ss_col">
 							<?php echo JHTML::date($item->sermon_date, JText::_($this->params->get('date_format'))); ?>
 						</td>
@@ -121,11 +122,6 @@ $listDirn	= $this->state->get('list.direction');
 					if (in_array('serie:length', $columns)) : ?>
 						<td class="ss_col">
 							<?php echo SermonspeakerHelperSermonspeaker::insertTime($item->sermon_time); ?>
-						</td>
-					<?php endif;
-					if (in_array('serie:series', $columns)) : ?>
-						<td class="ss_col">
-							<?php echo JHTML::link('index.php?view=serie&id='.$item->series_slug, $item->series_title); ?>
 						</td>
 					<?php endif;
 					if (in_array('serie:addfile', $columns)) : ?>

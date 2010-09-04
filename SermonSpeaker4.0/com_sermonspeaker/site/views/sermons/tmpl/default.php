@@ -42,11 +42,13 @@ $listDirn	= $this->state->get('list.direction');
 				<th class="ss-col">
 					<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SCRIPTURE', 'sermon_scripture', $listDirn, $listOrder); ?>
 				</th>
-			<?php endif; ?>
-			<th class="ss-col">
-				<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SPEAKER', 'name', $listDirn, $listOrder); ?>
-			</th>
-			<?php if (in_array('sermons:date', $columns)) : ?>
+			<?php endif;
+			if (in_array('sermons:speaker', $columns)) : ?>
+				<th class="ss-col">
+					<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SPEAKER', 'name', $listDirn, $listOrder); ?>
+				</th>
+			<?php endif;
+			if (in_array('sermons:date', $columns)) : ?>
 				<th class="ss-col">
 					<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SERMONDATE', 'sermon_date', $listDirn, $listOrder); ?>
 				</th>
@@ -88,11 +90,13 @@ $listDirn	= $this->state->get('list.direction');
 						<td class="ss-col">
 							<?php echo JHTML::_('content.prepare', $item->sermon_scripture); ?>
 						</td>
-					<?php endif; ?>
-					<td class="ss_col">
-						<?php echo SermonspeakerHelperSermonSpeaker::SpeakerTooltip($item->speaker_slug, $item->pic, $item->name); ?>
-					</td>
-					<?php if (in_array('sermons:date', $columns)) : ?>
+					<?php endif;
+					if (in_array('sermons:speaker', $columns)) : ?>
+						<td class="ss_col">
+							<?php echo SermonspeakerHelperSermonSpeaker::SpeakerTooltip($item->speaker_slug, $item->pic, $item->name); ?>
+						</td>
+					<?php endif;
+					if (in_array('sermons:date', $columns)) : ?>
 						<td class="ss_col">
 							<?php echo JHTML::date($item->sermon_date, JText::_($this->params->get('date_format'))); ?>
 						</td>

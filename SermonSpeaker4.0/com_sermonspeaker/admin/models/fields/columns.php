@@ -53,14 +53,14 @@ class JFormFieldColumns extends JFormField
 		$columns = $this->getColumns();
 
 		// Start the table.
-		$html[] = '<tbody>';
-		$html[] = '<table style="width:100%;">';
+		$html[] = '<table style="width:100%; clear:left;">';
 		$html[] = '<thead><tr>';
 		$html[] = '<th style="height: 25px; background: #F4F4F4; border-bottom: 1px solid silver; vertical-align:middle;">View</th>';
 		foreach ($columns as $column => $name){
 			$html[] = '<th style="height: 25px; background: #F4F4F4; border-bottom: 1px solid silver; vertical-align:middle;" title="'.JText::_($name.'_DESC').'">'.JText::_($name.'_LABEL').'</th>';
 		}
 		$html[] = '</tr></thead>';
+		$html[] = '<tbody>';
 		
 		// Build the table datarows.
 		foreach ($options as $i => $option) {
@@ -77,6 +77,8 @@ class JFormFieldColumns extends JFormField
 			foreach ($columns as $column => $name){
 				// Initialize some option attributes.
 				$checked	= (in_array((string)$option->value.':'.$column, (array)$this->value) ? ' checked="checked"' : '');
+				$disabled	= in_array($column, (array)$option->exclude) ? ' disabled="disabled"' : '';
+
 				$html[] = '<td align="center">';
 				$html[] = '<input style="float:none; margin:0;" type="checkbox" id="'.$this->id.$i.'" name="'.$this->name.'"' .
 						' value="'.htmlspecialchars($option->value.':'.$column, ENT_COMPAT, 'UTF-8').'"'.$checked.$class.$onclick.$disabled.'/>';
@@ -118,6 +120,10 @@ class JFormFieldColumns extends JFormField
 			// Set some JavaScript option attributes.
 			$tmp->onclick = (string) $option['onclick'];
 			
+			// Get the Excludes
+			$excludes = explode(',', $option['exclude']);
+			$tmp->exclude = $excludes;
+
 			// Add the option object to the result set.
 			$options[] = $tmp;
 		}
@@ -133,6 +139,7 @@ class JFormFieldColumns extends JFormField
 		$columns = array(
 			'num' => 'COM_SERMONSPEAKER_FIELD_COL_SERMONNUMBER',
 			'scripture' => 'COM_SERMONSPEAKER_FIELD_COL_SCRIPTURE',
+			'speaker' => 'COM_SERMONSPEAKER_FIELD_COL_SPEAKER',
 			'date' => 'COM_SERMONSPEAKER_FIELD_COL_SERMONDATE',
 			'length' => 'COM_SERMONSPEAKER_FIELD_COL_SERMONTIME',
 			'series' => 'COM_SERMONSPEAKER_FIELD_COL_SERIES',
