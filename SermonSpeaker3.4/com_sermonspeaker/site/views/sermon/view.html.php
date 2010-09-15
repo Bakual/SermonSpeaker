@@ -53,19 +53,23 @@ class SermonspeakerViewSermon extends JView
 			}
 		}
 		
-		// get Data from Model (/models/sermon.php)
-        $row = &$this->get('Data');			// getting the Datarows from the Model
+		// Setting defaultlayout according to the setting
 		if ($this->getLayout() == "default") {
 			if ($params->get('sermonlayout') == 1) { $this->setLayout('allinrow'); }
 			elseif ($params->get('sermonlayout') == 2) { $this->setLayout('newline'); }
 			elseif ($params->get('sermonlayout') == 3) { $this->setLayout('extnewline'); }
 			elseif ($params->get('sermonlayout') == 4) { $this->setLayout('icon'); }
-		} 
+		}
+
+		// get Data from Model (/models/sermon.php)
+        $row = &$this->get('Data');			// getting the Datarows from the Model
 		if ($this->getLayout() == "extnewline" || $this->getLayout() == "icon") {
 			$model		= &$this->getModel();
 			$serie		= &$model->getSerie($row->series_id);		// getting the Serie from the Model
 			$this->assignRef('serie',$serie);
-			$speaker	= &$model->getSpeaker($row->speaker_id);		// getting the Speaker from the Model
+		}
+		if ($this->getLayout() == "extnewline" || $this->getLayout() == "icon" || $params->get('client_col_player')) {
+			$speaker	= &$model->getSpeaker($row->speaker_id);	// getting the Speaker from the Model
 			$this->assignRef('speaker',$speaker);
 		}
 
@@ -94,7 +98,7 @@ class SermonspeakerViewSermon extends JView
 	    	$breadcrumbs->addItem($serie->series_title, 'index.php?option=com_sermonspeaker&view=serie&id='.$row->series_id.'&Itemid='.$itemid);
 		} elseif ($active_view == "speakers") {
 			$model		= &$this->getModel();
-			$speaker	= &$model->getSpeaker($row->speaker_id);		// getting the Speaker from the Model
+			$speaker	= &$model->getSpeaker($row->speaker_id);	// getting the Speaker from the Model
 	    	$breadcrumbs->addItem($speaker->name, 'index.php?option=com_sermonspeaker&view=speaker&id='.$row->speaker_id.'&Itemid='.$itemid);
 		}
     	$breadcrumbs->addItem($row->sermon_title, '');
