@@ -100,6 +100,7 @@ class SermonspeakerViewArchive extends JView
 		$this->assignRef('pagination',$pagination);	// for JPagination
 		$this->assignRef('params',$params);			// for Params
 		$this->assignRef('title',$title);			// for Title
+		$this->assignRef('document',$document);
 
 		parent::display($tpl);
 	}

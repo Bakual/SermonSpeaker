@@ -121,6 +121,7 @@ class SermonspeakerViewSpeaker extends JView
 		$this->assignRef('series',$series);
 		$this->assignRef('sermons',$sermons);
 		$this->assignRef('params',$params);		// for Params
+		$this->assignRef('document',$document);
 
 		parent::display($tpl);
 	}	

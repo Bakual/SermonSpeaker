@@ -81,6 +81,7 @@ class SermonspeakerViewSermons extends JView
 		$this->assignRef('pagination',$pagination);	// for JPagination
 		$this->assignRef('params',$params);			// for Params
 		$this->assignRef('cat',$cat);				// for Category title
+		$this->assignRef('document',$document);
 
 		parent::display($tpl);
 	}	

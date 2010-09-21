@@ -1,7 +1,7 @@
 <?php
 defined('_JEXEC') or die('Restricted access');
 /* JS Script für Joomla Sortierung */
-JFactory::getDocument()->addScriptDeclaration( "
+$this->document->addScriptDeclaration( "
 	function tableOrdering( order, dir, task ) {
 		var form = document.adminForm;
 		form.filter_order.value = order;
