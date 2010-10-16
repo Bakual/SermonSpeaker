@@ -63,14 +63,14 @@ class SermonspeakerViewSermon extends JView
 
 		// get Data from Model (/models/sermon.php)
         $row = &$this->get('Data');			// getting the Datarows from the Model
-		if ($this->getLayout() == "extnewline" || $this->getLayout() == "icon") {
-			$model		= &$this->getModel();
-			$serie		= &$model->getSerie($row->series_id);		// getting the Serie from the Model
-			$this->assignRef('serie',$serie);
-		}
 		if ($this->getLayout() == "extnewline" || $this->getLayout() == "icon" || $params->get('client_col_player')) {
+			$model		= &$this->getModel();
 			$speaker	= &$model->getSpeaker($row->speaker_id);	// getting the Speaker from the Model
 			$this->assignRef('speaker',$speaker);
+		}
+		if ($this->getLayout() == "extnewline" || $this->getLayout() == "icon") {
+			$serie		= &$model->getSerie($row->series_id);		// getting the Serie from the Model
+			$this->assignRef('serie',$serie);
 		}
 
 		// Update Statistic
