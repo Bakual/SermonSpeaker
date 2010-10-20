@@ -59,14 +59,14 @@ class SermonspeakerHelperSermonspeaker
 		} else { //File is locally
 			$fileurl = JURI::root().'index.php?option=com_sermonspeaker&amp;task=download&amp;id='.$id;
 		}
-		$return = '<input class="download_btn button" type="button" value="'.JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON').'" onclick="window.location.href=\''.$fileurl.'\'" />';
+		$return = '<input class="button download_btn" type="button" value="'.JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON').'" onclick="window.location.href=\''.$fileurl.'\'" />';
 
 		return $return;
 	}
 	
 	function insertPopupButton($id = NULL, $ret = NULL) {
 		$ret_arr = explode('/', $ret);
-		$return = '<input class="popup_btn button" type="button" name="'.JText::_('COM_SERMONSPEAKER_POPUPPLAYER').'" value="'.JText::_('COM_SERMONSPEAKER_POPUPPLAYER').'" onclick="popup=window.open(\''.JRoute::_('index.php?view=sermon&layout=popup&id='.$id.'&tmpl=component').'\', \'PopupPage\', \'height='.$ret_arr[0].',width='.$ret_arr[1].',scrollbars=yes,resizable=yes\'); return false" />';
+		$return = '<input class="button popup_btn" type="button" name="'.JText::_('COM_SERMONSPEAKER_POPUPPLAYER').'" value="'.JText::_('COM_SERMONSPEAKER_POPUPPLAYER').'" onclick="popup=window.open(\''.JRoute::_('index.php?view=sermon&layout=popup&id='.$id.'&tmpl=component').'\', \'PopupPage\', \'height='.$ret_arr[0].',width='.$ret_arr[1].',scrollbars=yes,resizable=yes\'); return false" />';
 
 		return $return;
 	}
