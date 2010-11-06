@@ -26,6 +26,10 @@ if ($cat['speaker'] != 0){
 if ($cat['sermon'] != 0){
 	$feedcat .= '&sermon_cat='.$cat['sermon'];
 }
+$menuitem	= (int)$params->get('sc_menuitem');
+if ($menuitem){
+	$feedcat .= '&Itemid='.$menuitem;
+}
 
 $feedFile = "index.php?option=com_sermonspeaker&amp;view=feed".$feedcat;
 $pcast = JURI::root().$feedFile;

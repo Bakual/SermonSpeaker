@@ -25,6 +25,7 @@
 		<param name="sc_series_cat" type="category" section="com_sermonspeaker" label="MOD_SERMONCAST_PARAM_SERIES_CATEGORY" description="MOD_SERMONCAST_PARAM_CATEGORY_DESC" />
 		<param name="sc_speaker_cat" type="category" section="com_sermonspeaker" label="MOD_SERMONCAST_PARAM_SPEAKER_CATEGORY" description="MOD_SERMONCAST_PARAM_CATEGORY_DESC" />
 		<param name="sc_sermon_cat" type="category" section="com_sermonspeaker" label="MOD_SERMONCAST_PARAM_SERMON_CATEGORY" description="MOD_SERMONCAST_PARAM_CATEGORY_DESC" />
+		<param name="sc_menuitem" type="menuitem" label="MOD_SERMONCAST_PARAM_MENUITEM" description="MOD_SERMONCAST_PARAM_MENUITEM_DESC" />
 		<param type="spacer" />
 		<param name="sc_showpcast" type="radio" default="1" label="MOD_SERMONCAST_PARAM_SHOWPCAST" description="MOD_SERMONCAST_PARAM_SHOWPCAST_DESC">
 			<option value="0">NO</option>
