@@ -45,7 +45,7 @@ $saveOrder	= $listOrder == 'speakers.ordering';
 					<?php echo JHtml::_('grid.sort',  'JPUBLISHED', 'speakers.state', $listDirn, $listOrder); ?>
 				</th>
 				<th width="20%">
-					<?php echo JHtml::_('grid.sort',  'JGRID_HEADING_CATEGORY', 'category_title', $listDirn, $listOrder); ?>
+					<?php echo JHtml::_('grid.sort',  'JCATEGORY', 'category_title', $listDirn, $listOrder); ?>
 				</th>
 				<th width="10%">
 					<?php echo JHtml::_('grid.sort',  'JGRID_HEADING_ORDERING', 'speakers.ordering', $listDirn, $listOrder); ?>
