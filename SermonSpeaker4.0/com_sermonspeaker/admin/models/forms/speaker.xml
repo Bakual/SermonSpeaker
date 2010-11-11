@@ -69,7 +69,7 @@
 			label="COM_SERMONSPEAKER_PICTURE" description="COM_SERMONSPEAKER_FIELD_PICTURE_DESC"
 			size="40" />
 
-		<field name="catid" type="category" extension="com_sermonspeaker"
+		<field name="catid" type="category" extension="com_sermonspeaker" show_root="true"
 			label="JCATEGORY" description="COM_SERMONSPEAKER_FIELD_CATEGORY_DESC"
 			class="inputbox"
 		>

@@ -63,7 +63,7 @@
 			label="COM_SERMONSPEAKER_SERIESAVATAR"
 			description="COM_SERMONSPEAKER_FIELD_AVATAR_DESC" />
 
-		<field name="catid" type="category" extension="com_sermonspeaker"
+		<field name="catid" type="category" extension="com_sermonspeaker" show_root="true"
 			label="JCATEGORY" description="COM_SERMONSPEAKER_FIELD_CATEGORY_DESC"
 			class="inputbox"
 		>
