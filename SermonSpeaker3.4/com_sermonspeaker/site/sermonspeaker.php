@@ -1,6 +1,5 @@
 <?php
 defined('_JEXEC') or die('Restricted access');
-error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
 if (JRequest::getString('task') == 'podcast') { // providing backward compatibilty to SermonSpeaker3.3.1
 	header('HTTP/1.1 301 Moved Permanently');
