@@ -38,7 +38,7 @@ JHtml::_('behavior.formvalidation');
 		</fieldset>
 
 		<fieldset class="adminform">
-			<legend><?php echo JText::_('COM_SERMONSPEAKER_SERIESDESCRIPTION'); ?></legend>
+			<legend><?php echo JText::_('JGLOBAL_DESCRIPTION'); ?></legend>
 			<div class="clr"></div>
 			<?php echo $this->form->getInput('series_description'); ?>
 		</fieldset>

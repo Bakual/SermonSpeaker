@@ -7,13 +7,13 @@
 
 		<field name="alias" type="text" class="inputbox"
 			size="40" label="JFIELD_ALIAS_LABEL"
-			description="COM_SERMONSPEAKER_FIELD_ALIAS_DESC" />
+			description="JFIELD_ALIAS_DESC" />
 
 		<field
 			name="state"
 			type="list"
 			label="JGLOBAL_STATE"
-			description="COM_SERMONSPEAKER_FIELD_PUBLISHED_DESC"
+			description="JFIELD_PUBLISHED_DESC"
 			class="inputbox"
 			size="1"
 			default="1">
@@ -29,13 +29,13 @@
 
 		<field name="ordering" type="sermonordering" class="inputbox"
 			table="sermon_series" field="series_title"
-			label="COM_SERMONSPEAKER_FIELD_ORDERING_LABEL"
-			description="COM_SERMONSPEAKER_FIELD_ORDERING_DESC" />
+			label="JFIELD_ORDERING_LABEL"
+			description="JFIELD_ORDERING_DESC" />
 
 		<field name="series_description" type="editor" buttons="true" hide="pagebreak,readmore"
 			class="inputbox"
 			filter="safehtml"
-			label="JGLOBAL_DESCRIPTION" description="COM_SERMONSPEAKER_FIELD_SERIES_DESCRIPTION_DESC" />
+			label="JGLOBAL_DESCRIPTION" />
 
 	</fieldset>
 
@@ -54,17 +54,17 @@
 			readonly="true" />
 
 		<field name="hits" type="hits" class="readonly"
-			label="COM_SERMONSPEAKER_HITS" description="COM_SERMONSPEAKER_FIELD_HITS_DESC" />
+			label="JGLOBAL_HITS" description="COM_SERMONSPEAKER_FIELD_HITS_DESC" />
 
 	</fieldset>
 
 	<fieldset name="detail">
 		<field name="avatar" type="Avatarlist" class="inputbox"
-			label="COM_SERMONSPEAKER_SERIESAVATAR"
-			description="COM_SERMONSPEAKER_FIELD_AVATAR_DESC" />
+			label="COM_SERMONSPEAKER_FIELD_PICTURE_LABEL"
+			description="COM_SERMONSPEAKER_FIELD_PICTURE_DESC" />
 
 		<field name="catid" type="category" extension="com_sermonspeaker" show_root="true"
-			label="JCATEGORY" description="COM_SERMONSPEAKER_FIELD_CATEGORY_DESC"
+			label="JCATEGORY" description="JFIELD_CATEGORY_DESC"
 			class="inputbox"
 		>
 		</field>

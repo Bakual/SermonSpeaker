@@ -54,7 +54,7 @@ $saveOrder	= $listOrder == 'speakers.ordering';
 					<?php endif; ?>
 				</th>
 				<th width="5%">
-					<?php echo JHtml::_('grid.sort',  'COM_SERMONSPEAKER_PICTURE', 'speakers.pic', $listDirn, $listOrder); ?>
+					<?php echo JHtml::_('grid.sort',  'COM_SERMONSPEAKER_FIELD_PICTURE_LABEL', 'speakers.pic', $listDirn, $listOrder); ?>
 				</th>
 				<th width="5%">
 					<?php echo JHtml::_('grid.sort',  'JGLOBAL_HITS', 'speakers.hits', $listDirn, $listOrder); ?>
