@@ -62,7 +62,7 @@ if($showPlainlink) { ?>
 	<a href="<?php echo JURI::root().$feedFile; ?>"><img src="<?php echo JURI::root(); ?>modules/mod_sermoncast/feed_rss.gif" border="0" alt="rss feed" /></a><br />
 <?php } 
 if($params->get('sc_showhelp') == "1") { ?>
-	<p><a class="modal" href="<?php echo JRoute::_('index.php?option=com_content&view=article&id='.$helpcontent.'&tmpl=component') ?>" rel="{handler: 'iframe', size: {x: <?php echo $params->get('helpwidth'); ?>, y: <?php echo $params->get('helpheight'); ?>}}">
+	<p><a class="modal" href="<?php echo JRoute::_('index.php?option=com_content&view=article&id='.$helpcontent.'&tmpl=component') ?>" rel="{handler: 'iframe', size: {x: <?php echo $params->get('sc_helpwidth'); ?>, y: <?php echo $params->get('sc_helpheight'); ?>}}">
 	<?php echo JText::_('MOD_SERMONCAST_HELP'); ?>
 	</a></p>
 	<?php
