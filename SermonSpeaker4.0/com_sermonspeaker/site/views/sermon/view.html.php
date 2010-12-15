@@ -93,6 +93,9 @@ class SermonspeakerViewSermon extends JView
 
 		// Add swfobject-javascript for player if needed
 		$columns = $this->params->get('col');
+		if (!$columns){
+			$columns = array();
+		}
 		if (in_array('sermon:player', $columns)){
 			if ($this->params->get('alt_player')){
 				$this->document->addScript(JURI::root()."components/com_sermonspeaker/media/player/audio_player/audio-player.js");

@@ -4,6 +4,9 @@ JHTML::_('behavior.tooltip');
 JHTML::_('behavior.modal');
 
 $columns = $this->params->get('col');
+if (!$columns){
+	$columns = array();
+}
 ?>
 <div id="ss-sermon-container">
 <h1 class="componentheading"><?php echo JText::_('COM_SERMONSPEAKER_SERMON_TITLE'); ?></h1>
