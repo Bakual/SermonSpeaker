@@ -1,61 +1,57 @@
 <?php
 defined('_JEXEC') or die('Restricted access');
 
-jimport('joomla.application.component.view');
+jimport( 'joomla.application.component.view');
 
+/**
+ * HTML View class for the SermonSpeaker Component
+ */
 class SermonspeakerViewSeries extends JView
 {
-	protected $items;
-	protected $pagination;
-	protected $state;
-
-	/**
-	 * Display the view
-	 */
-	public function display($tpl = null)
+	function display($tpl = null)
 	{
-		$this->state		= $this->get('State');
-		$this->items		= $this->get('Items');
-		$this->pagination	= $this->get('Pagination');
+		JHTML::stylesheet('sermonspeaker.css', 'components/com_sermonspeaker/');
 
-		// Check for errors.
-		if (count($errors = $this->get('Errors'))) {
-			JError::raiseError(500, implode("\n", $errors));
-			return false;
+		$params	=& JComponentHelper::getParams('com_sermonspeaker');
+		// Set Meta
+		$document =& JFactory::getDocument();
+		$document->setTitle(JText::_('COM_SERMONSPEAKER_SERIES_TITLE').' | '.$document->getTitle());
+		$document->setMetaData("description",JText::_('COM_SERMONSPEAKER_SERIES_TITLE'));
+		$document->setMetaData("keywords",JText::_('COM_SERMONSPEAKER_SERIES_TITLE'));
+
+
+		// get Data from Model (/models/series.php)
+		$model		=& $this->getModel();
+        $rows		=& $this->get('Data');			// getting the Datarows from the Model
+        $pagination	=& $this->get('Pagination');	// getting the JPaginationobject from the Model
+
+		// getting the Speakers for each Series and check if there are avatars at all, only showing column if needed
+		$av = NULL;
+		foreach ($rows as $row){					
+			if (!$av && !empty($row->avatar)){
+				$av = 1;
+			}
+			$speakers	= $model->getSpeakers($row->id);
+			$popup = array();
+			foreach($speakers as $speaker){
+				$popup[] = SermonspeakerHelperSermonspeaker::SpeakerTooltip($speaker->speaker_id, $speaker->pic, $speaker->name);
+			}
+			$row->speakers = implode(', ', $popup);
+		}
+		
+		$cat = NULL;
+		if($params->get('series_cat') || $params->get('speaker_cat') || $params->get('sermon_cat')){
+			$cat	=& $this->get('Cat');
+			$cat	= ': '.$cat;
 		}
 
-		$this->addToolbar();
+        // push data into the template
+		$this->assignRef('rows',$rows);
+		$this->assignRef('pagination',$pagination);	// for JPagination
+		$this->assignRef('params',$params);			// for Params
+		$this->assignRef('av',$av);					// for Avatars
+		$this->assignRef('cat',$cat);				// for Category title
+
 		parent::display($tpl);
-	}
-
-	/**
-	 * Add the page title and toolbar.
-	 */
-	protected function addToolbar()
-	{
-		$state	= $this->get('State');
-
-		JToolBarHelper::title(JText::_('COM_SERMONSPEAKER_SERIES_TITLE'), 'series');
-		JToolBarHelper::addNew('serie.add','JTOOLBAR_NEW');
-		JToolBarHelper::editList('serie.edit','JTOOLBAR_EDIT');
-		JToolBarHelper::divider();
-		JToolBarHelper::custom('series.publish', 'publish.png', 'publish_f2.png','JTOOLBAR_PUBLISH', true);
-		JToolBarHelper::custom('series.unpublish', 'unpublish.png', 'unpublish_f2.png', 'JTOOLBAR_UNPUBLISH', true);
-		if ($state->get('filter.state') != -1 ) {
-			JToolBarHelper::divider();
-			if ($state->get('filter.state') != 2) {
-				JToolBarHelper::archiveList('series.archive','JTOOLBAR_ARCHIVE');
-			}
-			else if ($state->get('filter.state') == 2) {
-				JToolBarHelper::unarchiveList('series.publish', 'JTOOLBAR_UNARCHIVE');
-			}
-		}
-		if ($state->get('filter.state') == -2) {
-			JToolBarHelper::deleteList('', 'series.delete','JTOOLBAR_EMPTY_TRASH');
-		} else {
-			JToolBarHelper::trash('series.trash','JTOOLBAR_TRASH');
-		}
-		JToolBarHelper::divider();
-		JToolBarHelper::preferences('com_sermonspeaker');
-	}
+	}	
 }
