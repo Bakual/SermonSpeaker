@@ -1,135 +1,163 @@
 <?php
 defined('_JEXEC') or die('Restricted access');
-JHtml::core();
+
 JHTML::_('behavior.tooltip');
-JHTML::_('behavior.modal');
-
-$columns = $this->params->get('col');
-// TODO show category name in header
-$this->cat = '';
-
+JHTML::_('script','system/multiselect.js',false,true);
+$user	= JFactory::getUser();
+$userId	= $user->get('id');
 $listOrder	= $this->state->get('list.ordering');
 $listDirn	= $this->state->get('list.direction');
+$saveOrder	= $listOrder == 'sermons.ordering';
 ?>
-<div id="ss-sermons-container">
-<h1 class="componentheading"><?php echo JText::_('COM_SERMONSPEAKER_SERMONS_TITLE').$this->cat; ?></h1>
-<p />
-<?php if (empty($this->items)) : ?>
-	<div class="no_entries"><?php echo JText::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', JText::_('COM_SERMONSPEAKER_SERMONS')); ?></div>
-<?php else : ?>
 
-<form action="<?php echo JFilterOutput::ampReplace(JFactory::getURI()->toString()); ?>" method="post" id="adminForm" name="adminForm">
-	<fieldset class="filters">
-	<legend class="hidelabeltxt"><?php echo JText::_('JGLOBAL_FILTER_LABEL'); ?></legend>
-		<div class="display-limit">
-			<?php echo JText::_('JGLOBAL_DISPLAY_NUM'); ?>&#160;
-			<?php echo $this->pagination->getLimitBox(); ?>
+<form action="<?php echo JRoute::_('index.php?option=com_sermonspeaker&view=sermons'); ?>" method="post" name="adminForm" id="adminForm">
+	<fieldset id="filter-bar">
+		<div class="filter-search fltlft">
+			<label class="filter-search-lbl" for="filter_search"><?php echo JText::_('JSEARCH_FILTER_LABEL'); ?></label>
+			<input type="text" name="filter_search" id="filter_search" value="<?php echo $this->state->get('filter.search'); ?>" title="<?php echo JText::_('COM_SERMONSPEAKER_SEARCH_IN_TITLE'); ?>" />
+			<button type="submit"><?php echo JText::_('JSEARCH_FILTER_SUBMIT'); ?></button>
+			<button type="button" onclick="document.id('filter_search').value='';this.form.submit();"><?php echo JText::_('JSEARCH_FILTER_CLEAR'); ?></button>
+		</div>
+		<div class="filter-select fltrt">
+			<select name="filter_speaker" class="inputbox" onchange="this.form.submit()">
+				<option value=""><?php echo JText::_('COM_SERMONSPEAKER_SELECT_SPEAKER');?></option>
+				<?php echo JHtml::_('select.options', $this->speakers, 'id', 'name', $this->state->get('filter.speaker'), true);?>
+			</select>
+
+			<select name="filter_series" class="inputbox" onchange="this.form.submit()">
+				<option value=""><?php echo JText::_('COM_SERMONSPEAKER_SELECT_SERIES');?></option>
+				<?php echo JHtml::_('select.options', $this->series, 'id', 'series_title', $this->state->get('filter.series'), true);?>
+			</select>
+
+			<select name="filter_published" class="inputbox" onchange="this.form.submit()">
+				<option value=""><?php echo JText::_('JOPTION_SELECT_PUBLISHED');?></option>
+				<?php echo JHtml::_('select.options', JHtml::_('jgrid.publishedOptions'), 'value', 'text', $this->state->get('filter.state'), true);?>
+			</select>
+
+			<select name="filter_podcast" class="inputbox" onchange="this.form.submit()">
+				<option value=""><?php echo JText::_('COM_SERMONSPEAKER_SELECT_PCAST');?></option>
+				<?php echo JHtml::_('select.options', array('0'=>JText::_('JUNPUBLISHED'), '1'=>JText::_('JPUBLISHED')), 'value', 'text', $this->state->get('filter.podcast'), true);?>
+			</select>
+
+			<select name="filter_category_id" class="inputbox" onchange="this.form.submit()">
+				<option value=""><?php echo JText::_('JOPTION_SELECT_CATEGORY');?></option>
+				<?php echo JHtml::_('select.options', JHtml::_('category.options', 'com_sermonspeaker'), 'value', 'text', $this->state->get('filter.category_id'));?>
+			</select>
 		</div>
 	</fieldset>
+	<div class="clr"> </div>
 
-	<table class="adminlist" cellpadding="2" cellspacing="2" width="100%">
-	<!-- Create the headers with sorting links -->
-		<thead><tr>
-			<?php if (in_array('sermons:num', $columns)) : ?>
-				<th class="ss-num">
-					<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SERMONNUMBER', 'sermon_number', $listDirn, $listOrder); ?>
+	<table class="adminlist">
+		<thead>
+			<tr>
+				<th width="1%">
+					<input type="checkbox" name="checkall-toggle" value="" onclick="checkAll(this)" />
 				</th>
-			<?php endif; ?>
-			<th class="ss-title">
-				<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SERMONTITLE', 'sermon_title', $listDirn, $listOrder); ?>
-			</th>
-			<?php if (in_array('sermons:scripture', $columns)) : ?>
-				<th class="ss-col">
-					<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SCRIPTURE', 'sermon_scripture', $listDirn, $listOrder); ?>
+				<th class="title">
+					<?php echo JHtml::_('grid.sort',  'JGLOBAL_TITLE', 'sermons.sermon_title', $listDirn, $listOrder); ?>
 				</th>
-			<?php endif;
-			if (in_array('sermons:speaker', $columns)) : ?>
-				<th class="ss-col">
-					<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SPEAKER', 'name', $listDirn, $listOrder); ?>
+				<th width="10%">
+					<?php echo JHtml::_('grid.sort',  'COM_SERMONSPEAKER_SPEAKER', 'name', $listDirn, $listOrder); ?>
 				</th>
-			<?php endif;
-			if (in_array('sermons:date', $columns)) : ?>
-				<th class="ss-col">
-					<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SERMONDATE', 'sermon_date', $listDirn, $listOrder); ?>
+				<th width="10%">
+					<?php echo JHtml::_('grid.sort',  'COM_SERMONSPEAKER_SCRIPTURE', 'sermon_scripture', $listDirn, $listOrder); ?>
 				</th>
-			<?php endif;
-			if (in_array('sermons:length', $columns)) : ?>
-				<th class="ss-col">
-					<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SERMONTIME', 'sermon_time', $listDirn, $listOrder); ?>
+				<th width="10%">
+					<?php echo JHtml::_('grid.sort',  'COM_SERMONSPEAKER_SERIE', 'series_title', $listDirn, $listOrder); ?>
 				</th>
-			<?php endif;
-			if (in_array('sermons:series', $columns)) : ?>
-				<th class="ss-col">
-					<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SERIES', 'series_title', $listDirn, $listOrder); ?>
+				<th width="7%">
+					<?php echo JHtml::_('grid.sort',  'COM_SERMONSPEAKER_SERMONDATE', 'sermon_date', $listDirn, $listOrder); ?>
 				</th>
-			<?php endif;
-			if (in_array('sermons:addfile', $columns)) : ?>
-				<th class="ss-col">
-					<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_ADDFILE', 'addfileDesc', $listDirn, $listOrder); ?>
+				<th width="5%">
+					<?php echo JHtml::_('grid.sort',  'JPUBLISHED', 'sermons.state', $listDirn, $listOrder); ?>
 				</th>
-			<?php endif; ?>
-		</tr></thead>
-	<!-- Begin Data -->
+				<th width="5%">
+					<?php echo JHtml::_('grid.sort',  'COM_SERMONSPEAKER_SERMONCAST', 'sermons.podcast', $listDirn, $listOrder); ?>
+				</th>
+				<th width="10%">
+					<?php echo JHtml::_('grid.sort',  'JCATEGORY', 'category_title', $listDirn, $listOrder); ?>
+				</th>
+				<th width="10%">
+					<?php echo JHtml::_('grid.sort',  'JGRID_HEADING_ORDERING', 'sermons.ordering', $listDirn, $listOrder); ?>
+					<?php if ($saveOrder) :?>
+						<?php echo JHtml::_('grid.order',  $this->items, 'filesave.png', 'sermons.saveorder'); ?>
+					<?php endif; ?>
+				</th>
+				<th width="1%">
+					<?php echo JHtml::_('grid.sort',  'JGLOBAL_HITS', 'sermons.hits', $listDirn, $listOrder); ?>
+				</th>
+				<th width="1%" class="nowrap">
+					<?php echo JHtml::_('grid.sort',  'JGRID_HEADING_ID', 'sermons.id', $listDirn, $listOrder); ?>
+				</th>
+			</tr>
+		</thead>
+		<tfoot>
+			<tr>
+				<td colspan="12">
+					<?php echo $this->pagination->getListFooter(); ?>
+				</td>
+			</tr>
+		</tfoot>
 		<tbody>
-			<?php foreach($this->items as $i => $item) : ?>
-				<tr class="<?php echo ($i % 2) ? "odd" : "even"; ?>">
-					<?php if (in_array('sermons:num', $columns)) : ?>
-						<td class="ss-num">
-							<?php echo $item->sermon_number; ?>
-						</td>
+		<?php foreach ($this->items as $i => $item) :
+			$ordering	= ($listOrder == 'sermons.ordering');
+			$item->cat_link	= JRoute::_('index.php?option=com_categories&extension=com_sermonspeaker&task=edit&type=other&cid[]='. $item->catid);
+			?>
+			<tr class="row<?php echo $i % 2; ?>">
+				<td class="center">
+					<?php echo JHtml::_('grid.id', $i, $item->id); ?>
+				</td>
+				<td>
+					<a href="<?php echo JRoute::_('index.php?option=com_sermonspeaker&task=sermon.edit&id='.(int) $item->id); ?>">
+						<?php echo $this->escape($item->sermon_title); ?></a>
+					<p class="smallsub">
+						<?php echo JText::sprintf('JGLOBAL_LIST_ALIAS', $this->escape($item->alias));?></p>
+				</td>
+				<td class="center">
+					<?php echo $this->escape($item->name); ?>
+				</td>
+				<td class="center">
+					<?php echo $this->escape($item->sermon_scripture); ?>
+				</td>
+				<td class="center">
+					<?php echo $this->escape($item->series_title); ?>
+				</td>
+				<td class="center">
+					<?php echo JHTML::Date($item->sermon_date, JText::_('DATE_FORMAT_LC4')); ?>
+				</td>
+				<td class="center">
+					<?php echo JHtml::_('jgrid.published', $item->state, $i, 'sermons.', true);?>
+				</td>
+				<td class="center">
+					<?php echo JHtml::_('jgrid.published', $item->podcast, $i, 'sermons.podcast_', true);?>
+				</td>
+				<td class="center">
+					<?php echo $this->escape($item->category_title); ?>
+				</td>
+				<td class="order">
+					<?php if ($saveOrder) :?>
+						<span><?php echo $this->pagination->orderUpIcon($i, ($item->catid == @$this->items[$i-1]->catid), 'sermons.orderup', 'JLIB_HTML_MOVE_UP', $ordering); ?></span>
+						<span><?php echo $this->pagination->orderDownIcon($i, $this->pagination->total, ($item->catid == @$this->items[$i+1]->catid), 'sermons.orderdown', 'JLIB_HTML_MOVE_DOWN', $ordering); ?></span>
 					<?php endif; ?>
-					<td class="ss-title">
-						<a href="<?php echo $item->link1; ?>">
-							<img title="<?php echo JText::_('COM_SERMONSPEAKER_PLAYICON_HOOVER'); ?>" src="<?php echo JURI::root().'components/com_sermonspeaker/images/play.gif'; ?>" class='icon_play' alt="" />
-						</a>
-						<a title="<?php echo JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER'); ?>" href="<?php echo $item->link2; ?>">
-							<?php echo $item->sermon_title; ?>
-						</a>
-					</td>
-					<?php if (in_array('sermons:scripture', $columns)) : ?>
-						<td class="ss-col">
-							<?php echo JHTML::_('content.prepare', $item->sermon_scripture); ?>
-						</td>
-					<?php endif;
-					if (in_array('sermons:speaker', $columns)) : ?>
-						<td class="ss_col">
-							<?php echo SermonspeakerHelperSermonSpeaker::SpeakerTooltip($item->speaker_slug, $item->pic, $item->name); ?>
-						</td>
-					<?php endif;
-					if (in_array('sermons:date', $columns)) : ?>
-						<td class="ss_col">
-							<?php echo JHTML::date($item->sermon_date, JText::_($this->params->get('date_format'))); ?>
-						</td>
-					<?php endif;
-					if (in_array('sermons:length', $columns)) : ?>
-						<td class="ss_col">
-							<?php echo SermonspeakerHelperSermonspeaker::insertTime($item->sermon_time); ?>
-						</td>
-					<?php endif;
-					if (in_array('sermons:series', $columns)) : ?>
-						<td class="ss_col">
-							<?php echo JHTML::link('index.php?view=serie&id='.$item->series_slug, $item->series_title); ?>
-						</td>
-					<?php endif;
-					if (in_array('sermons:addfile', $columns)) : ?>
-						<td class="ss_col">
-							<?php echo SermonspeakerHelperSermonspeaker::insertAddfile($item->addfile, $item->addfileDesc); ?>
-						</td>
-					<?php endif; ?>
-				</tr>
+					<?php $disabled = $saveOrder ?  '' : 'disabled="disabled"'; ?>
+					<input type="text" name="order[]" size="5" value="<?php echo $item->ordering;?>" <?php echo $disabled ?> class="text-area-order" />
+				</td>
+				<td class="center">
+					<?php echo $item->hits; ?>
+				</td>
+				<td class="center">
+					<?php echo (int) $item->id; ?>
+				</td>
+			</tr>
 			<?php endforeach; ?>
 		</tbody>
 	</table>
-	<div class="pagination">
-		<p class="counter">
-			<?php echo $this->pagination->getPagesCounter(); ?>
-		</p>
-		<?php echo $this->pagination->getPagesLinks(); ?>
-	</div>
+
 	<div>
+		<input type="hidden" name="task" value="" />
+		<input type="hidden" name="boxchecked" value="0" />
 		<input type="hidden" name="filter_order" value="<?php echo $listOrder; ?>" />
 		<input type="hidden" name="filter_order_Dir" value="<?php echo $listDirn; ?>" />
+		<?php echo JHtml::_('form.token'); ?>
 	</div>
 </form>
-</div>
-<?php endif; ?>

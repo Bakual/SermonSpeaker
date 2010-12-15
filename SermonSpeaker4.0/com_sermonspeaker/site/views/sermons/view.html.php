@@ -1,31 +1,24 @@
 <?php
 defined('_JEXEC') or die('Restricted access');
 
-jimport( 'joomla.application.component.view');
+jimport('joomla.application.component.view');
 
-/**
- * HTML View class for the SermonSpeaker Component
- */
 class SermonspeakerViewSermons extends JView
 {
-	function display($tpl = null)
+	protected $items;
+	protected $pagination;
+	protected $state;
+
+	/**
+	 * Display the view
+	 */
+	public function display($tpl = null)
 	{
-		// Applying CSS file
-		JHTML::stylesheet('sermonspeaker.css', 'components/com_sermonspeaker/');
-
-		$app		= JFactory::getApplication();
-		$params		= $app->getParams();
-
-		// Get some data from the models
-		$state		= $this->get('State');
-		$items		= $this->get('Items');
-		$pagination	= $this->get('Pagination');
-
-		// Set Meta
-		$document =& JFactory::getDocument();
-		$document->setTitle(JText::_('COM_SERMONSPEAKER_SERMONS_TITLE').' | '.$document->getTitle());
-		$document->setMetaData("description",JText::_('COM_SERMONSPEAKER_SERMONS_TITLE'));
-		$document->setMetaData("keywords",JText::_('COM_SERMONSPEAKER_SERMONS_TITLE'));
+		$this->state		= $this->get('State');
+		$this->items		= $this->get('Items');
+		$this->pagination	= $this->get('Pagination');
+		$this->speakers		= $this->get('Speakers');
+		$this->series		= $this->get('Series');
 
 		// Check for errors.
 		if (count($errors = $this->get('Errors'))) {
@@ -33,46 +26,38 @@ class SermonspeakerViewSermons extends JView
 			return false;
 		}
 
-		// Check whether category access level allows access.
-/*		$user	= JFactory::getUser();
-		$groups	= $user->authorisedLevels();
-		if (!in_array($category->access, $groups)) {
-			return JError::raiseError(403, JText::_("JERROR_ALERTNOAUTHOR"));
-		}
-*/
+		$this->addToolbar();
+		parent::display($tpl);
+	}
 
-		// Loop through each item and create links
-		$dispatcher	= &JDispatcher::getInstance();
-		$item->params = clone($params);
-		JPluginHelper::importPlugin('content');
-		$direct_link = $params->get('list_direct_link');
-		foreach($items as $item){
-			switch ($direct_link){ // direct links to the file instead to the detailpage
-				case '00':
-					$item->link1 = JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug));
-					$item->link2 = $item->link1;
-					break;
-				case '01':
-					$item->link1 = JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug));
-					$item->link2 = SermonspeakerHelperSermonspeaker::makelink($item->sermon_path);
-					break;
-				case '10':
-					$item->link1 = SermonspeakerHelperSermonspeaker::makelink($item->sermon_path);
-					$item->link2 = JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug));
-					break;
-				case '11':
-					$item->link1 = SermonspeakerHelperSermonspeaker::makelink($item->sermon_path);
-					$item->link2 = $item->link1;
-					break;
+	/**
+	 * Add the page title and toolbar.
+	 */
+	protected function addToolbar()
+	{
+		$state	= $this->get('State');
+
+		JToolBarHelper::title(JText::_('COM_SERMONSPEAKER_SERMON_TITLE'), 'sermons');
+		JToolBarHelper::addNew('sermon.add','JTOOLBAR_NEW');
+		JToolBarHelper::editList('sermon.edit','JTOOLBAR_EDIT');
+		JToolBarHelper::divider();
+		JToolBarHelper::custom('sermons.publish', 'publish.png', 'publish_f2.png','JTOOLBAR_PUBLISH', true);
+		JToolBarHelper::custom('sermons.unpublish', 'unpublish.png', 'unpublish_f2.png', 'JTOOLBAR_UNPUBLISH', true);
+		if ($state->get('filter.state') != -1 ) {
+			JToolBarHelper::divider();
+			if ($state->get('filter.state') != 2) {
+				JToolBarHelper::archiveList('sermons.archive','JTOOLBAR_ARCHIVE');
+			}
+			else if ($state->get('filter.state') == 2) {
+				JToolBarHelper::unarchiveList('sermons.publish', 'JTOOLBAR_UNARCHIVE');
 			}
 		}
-
-        // push data into the template
-		$this->assignRef('state',		$state);
-		$this->assignRef('items',		$items);
-		$this->assignRef('params',		$params);
-		$this->assignRef('pagination',	$pagination);
-
-		parent::display($tpl);
+		if ($state->get('filter.state') == -2) {
+			JToolBarHelper::deleteList('', 'sermons.delete','JTOOLBAR_EMPTY_TRASH');
+		} else {
+			JToolBarHelper::trash('sermons.trash','JTOOLBAR_TRASH');
+		}
+		JToolBarHelper::divider();
+		JToolBarHelper::preferences('com_sermonspeaker');
 	}
 }

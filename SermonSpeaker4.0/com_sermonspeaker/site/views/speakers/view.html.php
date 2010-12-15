@@ -1,54 +1,61 @@
 <?php
 defined('_JEXEC') or die('Restricted access');
 
-jimport( 'joomla.application.component.view');
+jimport('joomla.application.component.view');
 
-/**
- * HTML View class for the SermonSpeaker Component
- */
 class SermonspeakerViewSpeakers extends JView
 {
-	function display($tpl = null)
+	protected $items;
+	protected $pagination;
+	protected $state;
+
+	/**
+	 * Display the view
+	 */
+	public function display($tpl = null)
 	{
-		JHTML::stylesheet('sermonspeaker.css', 'components/com_sermonspeaker/');
+		$this->state		= $this->get('State');
+		$this->items		= $this->get('Items');
+		$this->pagination	= $this->get('Pagination');
 
-		$params	=& JComponentHelper::getParams('com_sermonspeaker');
-
-		// Set Meta
-		$document =& JFactory::getDocument();
-		$document->setTitle(JText::_('COM_SERMONSPEAKER_SPEAKERS_TITLE').' | '.$document->getTitle());
-		$document->setMetaData("description",JText::_('COM_SERMONSPEAKER_SPEAKERS_TITLE'));
-		$document->setMetaData("keywords",JText::_('COM_SERMONSPEAKER_SPEAKERS_TITLE'));
-
-		// get Data from Model (/models/sermons.php)
-        $rows		=& $this->get('Data');			// getting the Datarows from the Model
-        $pagination	=& $this->get('Pagination');	// getting the JPaginationobject from the Model
-
-		$cat = NULL;
-		if($params->get('series_cat') || $params->get('speaker_cat') || $params->get('sermon_cat')){
-			$cat	=& $this->get('Cat');
-			$cat	= ': '.$cat;
+		// Check for errors.
+		if (count($errors = $this->get('Errors'))) {
+			JError::raiseError(500, implode("\n", $errors));
+			return false;
 		}
 
-		// Support for Content Plugins
-		$dispatcher	= &JDispatcher::getInstance();
-		$item->params = clone($params);
-		JPluginHelper::importPlugin('content');
-		foreach($rows as $row){
-			// Trigger Event for `intro`
-			$item->text	= &$row->intro;
-			$dispatcher->trigger('onPrepareContent', array(&$item, &$item->params, 0));
-			// Trigger Event for `bio`
-			$item->text	= &$row->bio;
-			$dispatcher->trigger('onPrepareContent', array(&$item, &$item->params, 0));
-		}
-
-        // push data into the template
-		$this->assignRef('rows',$rows);             
-		$this->assignRef('pagination',$pagination);	// for JPagination
-		$this->assignRef('params',$params);			// for Params
-		$this->assignRef('cat',$cat);				// for Category title
-
+		$this->addToolbar();
 		parent::display($tpl);
-	}	
+	}
+
+	/**
+	 * Add the page title and toolbar.
+	 */
+	protected function addToolbar()
+	{
+		$state	= $this->get('State');
+
+		JToolBarHelper::title(JText::_('COM_SERMONSPEAKER_SPEAKERS_TITLE'), 'speakers');
+		JToolBarHelper::addNew('speaker.add','JTOOLBAR_NEW');
+		JToolBarHelper::editList('speaker.edit','JTOOLBAR_EDIT');
+		JToolBarHelper::divider();
+		JToolBarHelper::custom('speakers.publish', 'publish.png', 'publish_f2.png','JTOOLBAR_PUBLISH', true);
+		JToolBarHelper::custom('speakers.unpublish', 'unpublish.png', 'unpublish_f2.png', 'JTOOLBAR_UNPUBLISH', true);
+		if ($state->get('filter.state') != -1 ) {
+			JToolBarHelper::divider();
+			if ($state->get('filter.state') != 2) {
+				JToolBarHelper::archiveList('speakers.archive','JTOOLBAR_ARCHIVE');
+			}
+			else if ($state->get('filter.state') == 2) {
+				JToolBarHelper::unarchiveList('speakers.publish', 'JTOOLBAR_UNARCHIVE');
+			}
+		}
+		if ($state->get('filter.state') == -2) {
+			JToolBarHelper::deleteList('', 'speakers.delete','JTOOLBAR_EMPTY_TRASH');
+		} else {
+			JToolBarHelper::trash('speakers.trash','JTOOLBAR_TRASH');
+		}
+		JToolBarHelper::divider();
+		JToolBarHelper::preferences('com_sermonspeaker');
+	}
 }
