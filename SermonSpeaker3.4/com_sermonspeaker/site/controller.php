@@ -44,10 +44,11 @@ class SermonspeakerController extends JController
 		if (substr($result,0,7) == "http://"){ // cancel if link goes to an external source
 			die("<html><body OnLoad=\"javascript: alert('This file points to an external source. I can't access it.');history.back();\" bgcolor=\"#F0F0F0\"></body></html>");
 		}
+		$result = str_replace('\\', '/', $result); // replace \ with /
 		if (substr($result, 0, 1) != '/') { // add a leading slash to the sermonpath if not present.
 			$result = '/'.$result;
 		}
-		$file = str_replace('\\', '/', JPATH_ROOT.$result); // replace \ with /
+		$file = JPATH_ROOT.$result;
 		$filename = explode("/", $file);
 		$filename = array_reverse($filename);
 
