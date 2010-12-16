@@ -16,6 +16,7 @@ class SermonspeakerViewSerie extends JView
 		// Get some data from the models
 		$state		= $this->get('State');
 		$items		= $this->get('Items');
+		$serie		= $this->get('Serie');
 		$pagination	= $this->get('Pagination');
 
 		// Set Meta
@@ -87,6 +88,7 @@ class SermonspeakerViewSerie extends JView
 		$this->assignRef('items',		$items);
 		$this->assignRef('params',		$params);
 		$this->assignRef('pagination',	$pagination);
+		$this->assignRef('serie',		$serie);
 
 		parent::display($tpl);
 	}

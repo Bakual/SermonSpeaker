@@ -137,4 +137,14 @@ class SermonspeakerModelSerie extends JModelList
 		// Load the parameters.
 		$this->setState('params', $params);
 	}
+	
+	function getSerie()
+	{
+		$database =& JFactory::getDBO();
+		$query = "SELECT * FROM #__sermon_series WHERE id='".$this->getState('series.id')."'";
+		$database->setQuery($query);
+		$row = $database->loadObject();
+
+       return $row;
+	}
 }

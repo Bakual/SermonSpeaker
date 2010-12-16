@@ -19,7 +19,7 @@ $listDirn	= $this->state->get('list.direction');
 
 <div class="ss-serie-desc">
 	<span class="ss-avatar">
-		<?php if ($this->serie->avatar != "") : ?>
+		<?php if ($this->serie->avatar != '') : ?>
 			<img src="<?php echo SermonspeakerHelperSermonspeaker::makelink($this->serie->avatar); ?>">
 		<?php endif; ?>
 	</span>
@@ -66,7 +66,6 @@ $listDirn	= $this->state->get('list.direction');
 				<th class="ss-col">
 					<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SCRIPTURE', 'sermon_scripture', $listDirn, $listOrder); ?>
 				</th>
-			<?php endif; ?>
 			<?php endif;
 			if (in_array('serie:speaker', $columns)) : ?>
 				<th class="ss-col">
@@ -74,7 +73,6 @@ $listDirn	= $this->state->get('list.direction');
 				</th>
 			<?php endif;
 			if (in_array('serie:date', $columns)) : ?>
-			<?php if (in_array('serie:date', $columns)) : ?>
 				<th class="ss-col">
 					<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SERMONDATE', 'sermon_date', $listDirn, $listOrder); ?>
 				</th>
