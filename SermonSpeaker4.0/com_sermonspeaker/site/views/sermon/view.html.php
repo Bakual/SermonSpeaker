@@ -31,6 +31,13 @@ class SermonspeakerViewSermon extends JView
 		$state = $this->get('State');
 		$item = $this->get('Item');
 		
+		//Check if link targets to an external source
+		if (substr($item->sermon_path,0,7) == 'http://'){
+			$lnk = $item->sermon_path;
+		} else {  
+			$lnk = SermonspeakerHelperSermonspeaker::makelink($item->sermon_path); 
+		}
+		
 		// Get Serie Model data
 /*		if ($item)
 		{
@@ -40,6 +47,7 @@ class SermonspeakerViewSermon extends JView
 			$categoryModel->setState('list.direction', 'asc');		
 			$contacts = $categoryModel->getItems();
 		} */
+
 		// Check for errors.
 		if (count($errors = $this->get('Errors'))) {
 			JError::raiseWarning(500, implode("\n", $errors));
@@ -51,12 +59,35 @@ class SermonspeakerViewSermon extends JView
 		$menu	= $menus->getActive();
 		$params	= $app->getParams();
 
+		$columns = $params->get('col');
+		if (!$columns){
+			$columns = array();
+		}
+
 		if ($this->getLayout() == "default") {
 			if ($params->get('sermonlayout') == 1) { $this->setLayout('allinrow'); }
 			elseif ($params->get('sermonlayout') == 2) { $this->setLayout('newline'); }
 			elseif ($params->get('sermonlayout') == 3) { $this->setLayout('extnewline'); }
 			elseif ($params->get('sermonlayout') == 4) { $this->setLayout('icon'); }
 		} 
+
+		// get additional Data if needed
+		if ($this->getLayout() == "extnewline" || $this->getLayout() == "icon" || in_array('sermon:player', $columns)) {
+/*			$model		= &$this->getModel();
+			$speaker	= &$model->getSpeaker($row->speaker_id);	// getting the Speaker from the Model
+			$this->assignRef('speaker', $speaker);
+*/
+		}
+		if ($this->getLayout() == "extnewline" || $this->getLayout() == "icon") {
+/*			$serie		= &$model->getSerie($row->series_id);		// getting the Serie from the Model
+			$this->assignRef('serie', $serie);
+*/
+		}
+
+		// Update Statistic
+/* 		$id		= $item->id;
+		if ($params->get('track_sermon')) { SermonspeakerController::updateStat('sermons', $id); }
+*/
 
 		// check if access is not public
 /*		$groups	= $user->authorisedLevels();
@@ -75,6 +106,8 @@ class SermonspeakerViewSermon extends JView
 		$this->assignRef('state', 		$state);
 		$this->assignRef('item', 		$item);
 		$this->assignRef('user', 		$user);
+		$this->assignRef('lnk', 		$lnk);
+		$this->assignRef('columns', 	$columns);
 
 		$this->_prepareDocument();
 
@@ -92,11 +125,7 @@ class SermonspeakerViewSermon extends JView
 		$title 		= null;
 
 		// Add swfobject-javascript for player if needed
-		$columns = $this->params->get('col');
-		if (!$columns){
-			$columns = array();
-		}
-		if (in_array('sermon:player', $columns)){
+		if (in_array('sermon:player', $this->columns)){
 			if ($this->params->get('alt_player')){
 				$this->document->addScript(JURI::root()."components/com_sermonspeaker/media/player/audio_player/audio-player.js");
 				$this->document->addScriptDeclaration('
