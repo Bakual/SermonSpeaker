@@ -1,47 +1,101 @@
 <?php
-defined('_JEXEC') or die('Restricted access');
+/**
+ * @copyright	Copyright (C) 2005 - 2010 Open Source Matters, Inc. All rights reserved.
+ * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ */
 
-jimport('joomla.application.component.model');
+// No direct access
+defined('_JEXEC') or die;
+
+jimport('joomla.application.component.modellist');
 
 /**
- * SermonSpeaker Component Sermons Model
+ * @package		SermonSpeaker
  */
-class SermonspeakerModelSpeakers extends JModel
+// Based on com_contact
+class SermonspeakerModelspeakers extends JModelList
 {
-	// Variablen for JPagination
-	var $_total = null;
- 	var $_pagination = null;
-
-	function __construct()
+	protected function getListQuery()
 	{
-		parent::__construct();
- 
-		$app = JFactory::getApplication();
+		$user	= JFactory::getUser();
+		$groups	= implode(',', $user->authorisedLevels());
 
-		$this->params = &JComponentHelper::getParams('com_sermonspeaker');
-		$cat['speaker'] = $this->params->get('speaker_cat', JRequest::getInt('speaker_cat', ''));
+		// Create a new query object.
+		$db		= $this->getDbo();
+		$query	= $db->getQuery(true);
 
-		$this->catwhere = NULL;
-		$this->cat = array();
-		if ($cat['speaker'] != 0){
-			$this->catwhere .= " AND catid = '".(int)$cat['speaker']."' \n";
-			$this->cat[] = $cat['speaker'];
+				// Select required fields from the table.
+		$query->select(
+			$this->getState(
+				'list.select',
+				'speakers.id, speakers.name, speakers.catid, speakers.pic, ' .
+				'CASE WHEN CHAR_LENGTH(speakers.alias) THEN CONCAT_WS(\':\', speakers.id, speakers.alias) ELSE speakers.id END as slug, ' .
+				'speakers.hits, speakers.intro, speakers.bio, speakers.website, speakers.alias, ' .
+				'speakers.state, speakers.ordering'
+			)
+		);
+		$query->from('`#__sermon_speakers` AS speakers');
+
+		// Join over speakers Category.
+		if ($categoryId = $this->getState('speakers_category.id')) {
+			$query->select('CASE WHEN CHAR_LENGTH(c.alias) THEN CONCAT_WS(\':\', c.id, c.alias) ELSE c.id END AS catslug ');
+			$query->join('LEFT', '#__categories AS c ON c.id = speakers.catid');
+			$query->where('speakers.catid = '.(int) $categoryId);
+			$query->where('c.access IN ('.$groups.')');
 		}
 
-		// Get pagination request variables
-		$limit = $app->getUserStateFromRequest('global.list.limit', 'limit', $app->getCfg('list_limit'), 'int');
-		$limitstart = JRequest::getInt('limitstart', 0);
- 		// In case limit has been changed, adjust it
-		$limitstart = ($limit != 0 ? (floor($limitstart / $limit) * $limit) : 0);
- 
-		$this->setState('limit', $limit);
-		$this->setState('limitstart', $limitstart);
+		// Filter by state
+		$state = $this->getState('filter.state');
+		if (is_numeric($state)) {
+			$query->where('speakers.state = '.(int) $state);
+		}
+
+		// Add the list ordering clause.
+		$query->order($db->getEscaped($this->getState('list.ordering', 'speakers.ordering')).' '.$db->getEscaped($this->getState('list.direction', 'ASC')));
+
+		return $query;
+	}
+
+	/**
+	 * Method to auto-populate the model state.
+	 *
+	 * Note. Calling getState in this method will result in recursion.
+	 *
+	 * @since	1.6
+	 */
+	protected function populateState()
+	{
+		// Initialise variables.
+		$app	= JFactory::getApplication();
+		$params	= JComponentHelper::getParams('com_sermonspeaker');
+
+		// List state information
+		$limit = $app->getUserStateFromRequest('global.list.limit', 'limit', $app->getCfg('list_limit'));
+		$this->setState('list.limit', $limit);
+
+		$limitstart = JRequest::getVar('limitstart', 0, '', 'int');
+		$this->setState('list.start', $limitstart);
+
+		$orderCol	= JRequest::getCmd('filter_order', 'ordering');
+		$this->setState('list.ordering', $orderCol);
+
+		$listOrder	=  JRequest::getCmd('filter_order_Dir', 'ASC');
+		$this->setState('list.direction', $listOrder);
+
+		$id = JRequest::getVar('speakers_cat', 0, '', 'int');
+		$this->setState('speakers_category.id', $id);
+
+		$this->setState('filter.state',	1);
+
+		// Load the parameters.
+		$this->setState('params', $params);
 	}
 
 	function getCat()
 	{
 		$database =& JFactory::getDBO();
-		$cats = array_unique($this->cat);
+		$cats[] = $this->getState('speakers_category.id');
+		$cats = array_unique($cats);
 		$title = array();
 		foreach ($cats as $cat){
 			$query = "SELECT title FROM #__categories WHERE id = ".$cat;
@@ -50,39 +104,5 @@ class SermonspeakerModelSpeakers extends JModel
 		}
 		$title = implode(' &amp; ', $title);
 		return $title;
-	}
-
-	function getTotal()
-	{
-		$database =& JFactory::getDBO();
-		$query 	= "SELECT count(*) \n"
-				. "FROM #__sermon_speakers \n"
-				. "WHERE state='1'"
-				.$this->catwhere;
-		$database->setQuery( $query );
-		$total_rows = $database->LoadResult();
-
-        return $total_rows;
-	}
-
-	function getPagination()
-	{
-		jimport('joomla.html.pagination');
-		$this->_pagination = new JPagination($this->getTotal(), $this->getState('limitstart'), $this->getState('limit') );
-
-        return $this->_pagination;
-	}
-	
-	function getData()
-	{
-		$database 	= &JFactory::getDBO();
-		$query	= "SELECT * \n"
-				. "FROM #__sermon_speakers \n"
-				. "WHERE state='1' \n"
-				.$this->catwhere
-				. "ORDER BY ordering ASC, name";
-		$rows = $this->_getList($query, $this->getState('limitstart'), $this->getState('limit')); 
-
-		return $rows;
 	}
 }

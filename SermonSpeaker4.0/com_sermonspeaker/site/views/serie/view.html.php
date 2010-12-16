@@ -26,10 +26,9 @@ class SermonspeakerViewSerie extends JView
 		$document->setMetaData("keywords",JText::_('COM_SERMONSPEAKER_SERIE_TITLE'));
 
 		// add Breadcrumbs
-/*
 		$breadcrumbs	= &$app->getPathWay();
 		$breadcrumbs->addItem($serie->series_title);
-*/
+
 
 		// Add swfobject-javascript for player
 		$document->addScript(JURI::root()."components/com_sermonspeaker/media/player/swfobject.js");
@@ -38,10 +37,10 @@ class SermonspeakerViewSerie extends JView
 		JHTML::stylesheet('sermonspeaker.css', 'components/com_sermonspeaker/');
 
 		// Update Statistic
-/*
-    	$id		= $serie->id;
-		if ($params->get('track_series')) { SermonspeakerController::updateStat('serie', $id); }
-*/
+		if ($params->get('track_series')) {
+			$model = $this->getModel();
+			$model->hit();
+		}
 		
 		// Check for errors.
 		if (count($errors = $this->get('Errors'))) {

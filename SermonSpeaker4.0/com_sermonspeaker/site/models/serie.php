@@ -53,7 +53,7 @@ class SermonspeakerModelSerie extends JModelList
 		$query->join('LEFT', '#__sermon_series AS series ON series.id = sermons.series_id');
 
 		// Filter by series
-		if ($seriesId = $this->getState('series.id')) {
+		if ($seriesId = $this->getState('serie.id')) {
 			$query->where('sermons.series_id = '.(int) $seriesId);
 		}
 
@@ -130,7 +130,7 @@ class SermonspeakerModelSerie extends JModelList
 		$this->setState('series_category.id', $id);
 
 		$id = JRequest::getVar('id', 0, '', 'int');
-		$this->setState('series.id', $id);
+		$this->setState('serie.id', $id);
 
 		$this->setState('filter.state',	1);
 
@@ -141,10 +141,27 @@ class SermonspeakerModelSerie extends JModelList
 	function getSerie()
 	{
 		$database =& JFactory::getDBO();
-		$query = "SELECT * FROM #__sermon_series WHERE id='".$this->getState('series.id')."'";
+		$query = "SELECT * FROM #__sermon_series WHERE id='".$this->getState('serie.id')."'";
 		$database->setQuery($query);
 		$row = $database->loadObject();
 
        return $row;
+	}
+
+	/**
+	 * Method to increment the hit counter for the series
+	 *
+	 * @param	int		Optional ID of the series.
+	 * @return	boolean	True on success
+	 * @since	1.5
+	 */
+	public function hit($id = null)
+	{
+		if (empty($id)) {
+			$id = $this->getState('serie.id');
+		}
+
+		$serie = $this->getTable('Serie', 'SermonspeakerTable');
+		return $serie->hit($id);
 	}
 }

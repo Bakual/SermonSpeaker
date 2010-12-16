@@ -87,9 +87,9 @@ class SermonspeakerModelSermon extends JModelItem
 	}
 
 	/**
-	 * Method to increment the hit counter for the weblink
+	 * Method to increment the hit counter for the sermon
 	 *
-	 * @param	int		Optional ID of the weblink.
+	 * @param	int		Optional ID of the sermon.
 	 * @return	boolean	True on success
 	 * @since	1.5
 	 */

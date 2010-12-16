@@ -111,7 +111,8 @@ class SermonspeakerModelSeries extends JModelList
 	function getCat()
 	{
 		$database =& JFactory::getDBO();
-		$cats = array_unique($this->cat);
+		$cats[] = $this->getState('series_category.id');
+		$cats = array_unique($cats);
 		$title = array();
 		foreach ($cats as $cat){
 			$query = "SELECT title FROM #__categories WHERE id = ".$cat;
