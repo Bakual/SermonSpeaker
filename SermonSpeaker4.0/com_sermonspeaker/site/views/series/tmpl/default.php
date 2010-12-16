@@ -62,5 +62,5 @@ $listDirn	= $this->state->get('list.direction');
 		<input type="hidden" name="filter_order_Dir" value="<?php echo $listDirn; ?>" />
 	</div>
 </form>
-</div>
 <?php endif; ?>
+</div>

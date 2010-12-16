@@ -56,28 +56,33 @@ class SermonspeakerViewSerie extends JView
 		}
 */
 
-		// Loop through each item and create links
+		// Support for Content Plugins
 		$dispatcher	= &JDispatcher::getInstance();
 		$item->params = clone($params);
 		JPluginHelper::importPlugin('content');
+		// Trigger Event for `series_description`
+		$item->text	= &$serie->series_description;
+		$dispatcher->trigger('onPrepareContent', array(&$item, &$item->params, 0));
+
+		// Loop through each item and create links
 		$direct_link = $params->get('list_direct_link');
-		foreach($items as $item){
+		foreach($items as $row){
 			switch ($direct_link){ // direct links to the file instead to the detailpage
 				case '00':
-					$item->link1 = JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug));
-					$item->link2 = $item->link1;
+					$row->link1 = JRoute::_(SermonspeakerHelperRoute::getSermonRoute($row->slug));
+					$row->link2 = $row->link1;
 					break;
 				case '01':
-					$item->link1 = JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug));
-					$item->link2 = SermonspeakerHelperSermonspeaker::makelink($item->sermon_path);
+					$row->link1 = JRoute::_(SermonspeakerHelperRoute::getSermonRoute($row->slug));
+					$row->link2 = SermonspeakerHelperSermonspeaker::makelink($row->sermon_path);
 					break;
 				case '10':
-					$item->link1 = SermonspeakerHelperSermonspeaker::makelink($item->sermon_path);
-					$item->link2 = JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug));
+					$row->link1 = SermonspeakerHelperSermonspeaker::makelink($row->sermon_path);
+					$row->link2 = JRoute::_(SermonspeakerHelperRoute::getSermonRoute($row->slug));
 					break;
 				case '11':
-					$item->link1 = SermonspeakerHelperSermonspeaker::makelink($item->sermon_path);
-					$item->link2 = $item->link1;
+					$row->link1 = SermonspeakerHelperSermonspeaker::makelink($row->sermon_path);
+					$row->link2 = $row->link1;
 					break;
 			}
 		}

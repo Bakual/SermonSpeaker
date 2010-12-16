@@ -6,77 +6,99 @@ jimport( 'joomla.application.component.view');
 /**
  * HTML View class for the SermonSpeaker Component
  */
-class SermonspeakerViewSpeaker extends JView
+class SermonspeakerViewspeaker extends JView
 {
 	function display($tpl = null)
 	{
-		JHTML::stylesheet('sermonspeaker.css', 'components/com_sermonspeaker/');
+		$app		= JFactory::getApplication();
+		$params		= $app->getParams();
 
-		$params	=& JComponentHelper::getParams('com_sermonspeaker');
+		$model = $this->getModel();
+		$model->setState('speaker.layout', $this->getLayout());
 
-		// get Data from Model (/models/speaker.php)
-		$lists		=& $this->get('Order');
-        $row		= &$this->get('Data');				// getting the Datarows from the Model
+		// Get some data from the models
+		$state		= $this->get('State');
+		$items		= $this->get('Items');
+		$speaker	= $this->get('Speaker');
+		$pagination	= $this->get('Pagination');
 
-		// Get Data and add Breadcrumbs and Meta according to chosen Template
-		$app 			= JFactory::getApplication();
-		$breadcrumbs 	= &$app->getPathWay();
-		$document 		= &JFactory::getDocument();
-
+		// add breadcrumbs and page title according to chosen layout
+		$document 	=& JFactory::getDocument();
+		$breadcrumbs	= &$app->getPathWay();
 		if ($this->getLayout() == "latest-sermons") {
-			$sermons	= &$this->get('Sermons');		// getting the Sermons from the Model
 		  	if ($params->get('limit_speaker') == 1) {
 				$limit = $app->getCfg('list_limit');
-				$title = JText::sprintf('COM_SERMONSPEAKER_SPEAKER_LATESTSERMONSOF', $limit, $row->name);
+				$title = JText::sprintf('COM_SERMONSPEAKER_SPEAKER_LATESTSERMONSOF', $limit, $speaker->name);
 				$bread = JText::sprintf('COM_SERMONSPEAKER_SPEAKER_LATESTSERMONS', $limit);
 			} else {
-				$title = JText::sprintf('COM_SERMONSPEAKER_SPEAKER_SERMONSOF', $row->name);
+				$title = JText::sprintf('COM_SERMONSPEAKER_SPEAKER_SERMONSOF', $speaker->name);
 				$bread = JText::_('COM_SERMONSPEAKER_SERMONS');
 			}
-			$breadcrumbs->addItem($row->name.': '.$bread, '');
+			$breadcrumbs->addItem($speaker->name.': '.$bread, '');
 			$document->setTitle($title.' | '.$document->getTitle());
 		} elseif ($this->getLayout() == "popup") {
-			$title = $row->name;
+			$title = $speaker->name;
 		} else {
-			$series	= &$this->get('Series');		// getting the Series from the Model
 			// check if there are avatars at all, only showing column if needed
 			$av = null;
-			foreach ($series as $serie){
-				if (!empty($serie->avatar)){ // breaking out of foreach if first avatar is found
+			foreach ($items as $item){
+				if (!empty($item->avatar)){ // breaking out of foreach if first avatar is found
 					$av = 1;
 					break;
 				}
 			}
-			$this->assignRef('av',$av);
-			$document->setTitle(JText::_('COM_SERMONSPEAKER_SPEAKER_TITLE').' - '.$row->name.' | '.$document->getTitle());
-			$breadcrumbs->addItem( $row->name.": ".JText::_('COM_SERMONSPEAKER_SPEAKER_TITLE'), '' );
-			$title = $row->name;
+			$this->assignRef('av', $av);
+			$document->setTitle(JText::_('COM_SERMONSPEAKER_SPEAKER_TITLE').' - '.$speaker->name.' | '.$document->getTitle());
+			$breadcrumbs->addItem($speaker->name.': '.JText::_('COM_SERMONSPEAKER_SPEAKER_TITLE'), '');
+			$title = $speaker->name;
 		}
 
-		// Update Statistic
-    	$id		= $row->id;
-		if ($params->get('track_speaker')) { SermonspeakerController::updateStat('speaker', $id); }
-
 		// Set Meta
-		$document->setMetaData("description",strip_tags($row->intro));
-		$document->setMetaData("keywords",$title);
+		$document->setMetaData("description", strip_tags($speaker->intro));
+		$document->setMetaData("keywords", $title);
+
+		// Add swfobject-javascript for player
+		$document->addScript(JURI::root()."components/com_sermonspeaker/media/player/swfobject.js");
+		
+		// Applying CSS file
+		JHTML::stylesheet('sermonspeaker.css', 'components/com_sermonspeaker/');
+
+		// Update Statistic
+		if ($params->get('track_speaker')) {
+			$model = $this->getModel();
+			$model->hit();
+		}
+		
+		// Check for errors.
+		if (count($errors = $this->get('Errors'))) {
+			JError::raiseError(500, implode("\n", $errors));
+			return false;
+		}
+
+		// Check whether category access level allows access.
+/*		$user	= JFactory::getUser();
+		$groups	= $user->authorisedLevels();
+		if (!in_array($category->access, $groups)) {
+			return JError::raiseError(403, JText::_("JERROR_ALERTNOAUTHOR"));
+		}
+*/
 
 		// Support for Content Plugins
 		$dispatcher	= &JDispatcher::getInstance();
 		$item->params = clone($params);
 		JPluginHelper::importPlugin('content');
 		// Trigger Event for `intro`
-		$item->text	= &$row->intro;
+		$item->text	= &$speaker->intro;
 		$dispatcher->trigger('onPrepareContent', array(&$item, &$item->params, 0));
 		// Trigger Event for `bio`
-		$item->text	= &$row->bio;
+		$item->text	= &$speaker->bio;
 		$dispatcher->trigger('onPrepareContent', array(&$item, &$item->params, 0));
 
 		if ($this->getLayout() == "latest-sermons"){
 			$direct_link = $params->get('list_direct_link');
-			foreach($sermons as $sermon){
+			foreach($items as $row){
 				// Trigger Event for `sermon_scripture`
-				$item->text	= &$sermon->sermon_scripture;
+				$item->text	= &$row->sermon_scripture;
 				$dispatcher->trigger('onPrepareContent', array(&$item, &$item->params, 0));
 				switch ($direct_link){ // direct links to the file instead to the detailpage
 					case '00':
@@ -93,20 +115,20 @@ class SermonspeakerViewSpeaker extends JView
 						break;
 					case '11':
 						$row->link1 = SermonspeakerHelperSermonspeaker::makelink($row->sermon_path);
-						$row->link2 = $item->link1;
+						$row->link2 = $row->link1;
 						break;
 				}
 			}
 		}
 
-		// push data into the template
-		$this->assignRef('row',$row);
-		$this->assignRef('title',$title);
-		$this->assignRef('lists',$lists);			// for Sorting
-		$this->assignRef('series',$series);
-		$this->assignRef('sermons',$sermons);
-		$this->assignRef('params',$params);		// for Params
+        // push data into the template
+		$this->assignRef('state',		$state);
+		$this->assignRef('items',		$items);
+		$this->assignRef('params',		$params);
+		$this->assignRef('pagination',	$pagination);
+		$this->assignRef('speaker',		$speaker);
+		$this->assignRef('title',		$title);
 
 		parent::display($tpl);
-	}	
+	}
 }

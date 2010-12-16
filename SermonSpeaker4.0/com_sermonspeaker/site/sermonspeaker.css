@@ -57,6 +57,10 @@ margin-top:10px;
 margin-bottom:10px;
 }
 
+.ss-title{
+width:20%;
+}
+
 /* ICON view */
 #sermon-infobox{-moz-border-radius:15px 15px 15px 15px;background:none repeat scroll 0 0 #F6F6F6;border:2px solid #AAA;margin:0;padding:5px;width:97%}
 #sermon-player-container{}
