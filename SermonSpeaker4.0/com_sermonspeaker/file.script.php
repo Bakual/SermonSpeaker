@@ -123,7 +123,7 @@ class Com_SermonspeakerInstallerScript {
 			."\n`sermon_path` TEXT NOT NULL,"
 			."\n`sermon_title` TEXT NOT NULL,"
 			."\n`alias` TEXT NOT NULL,"
-			."\n`sermon_number` TEXT NOT NULL,"
+			."\n`sermon_number` INT NULL,"
 			."\n`sermon_scripture` TEXT NOT NULL,"
 			."\n`custom1` TEXT NOT NULL,"
 			."\n`custom2` TEXT NOT NULL,"
