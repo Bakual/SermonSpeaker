@@ -24,30 +24,31 @@ class SermonspeakerViewSermon extends JView
 	{
 		// Initialise variables.
 		$app		= JFactory::getApplication();
-		$user		= JFactory::getUser();
-		$dispatcher =& JDispatcher::getInstance();
+		$params		= $app->getParams();
 
-		// Get model data.
+		$columns = $params->get('col');
+		if (!$columns){
+			$columns = array();
+		}
+
+		// Get model data (/models/sermon.php) 
 		$state = $this->get('State');
 		$item = $this->get('Item');
 		
+		$model		= &$this->getModel();
+		$speaker	= &$model->getSpeaker($item->speaker_id);	// getting the Speaker from the Model
+		if (in_array('sermon:series', $columns)) {
+			$serie	= &$model->getSerie($item->series_id);		// getting the Serie from the Model
+			$this->assignRef('serie', $serie);
+		}
+
 		//Check if link targets to an external source
-		if (substr($item->sermon_path,0,7) == 'http://'){
+		if (substr($item->sermon_path, 0, 7) == 'http://'){
 			$lnk = $item->sermon_path;
 		} else {  
 			$lnk = SermonspeakerHelperSermonspeaker::makelink($item->sermon_path); 
 		}
 		
-		// Get Serie Model data
-/*		if ($item)
-		{
-			$categoryModel = JModel::getInstance('Serie', 'SermonspeakerModel', array('ignore_request' => true));
-			$categoryModel->setState('serie.id', $item->series_id);
-			$categoryModel->setState('list.ordering', 'a.series_title');
-			$categoryModel->setState('list.direction', 'asc');		
-			$contacts = $categoryModel->getItems();
-		} */
-
 		// Check for errors.
 		if (count($errors = $this->get('Errors'))) {
 			JError::raiseWarning(500, implode("\n", $errors));
@@ -59,11 +60,6 @@ class SermonspeakerViewSermon extends JView
 		$menu	= $menus->getActive();
 		$params	= $app->getParams();
 
-		$columns = $params->get('col');
-		if (!$columns){
-			$columns = array();
-		}
-
 		if ($this->getLayout() == "default") {
 			if ($params->get('sermonlayout') == 1) { $this->setLayout('allinrow'); }
 			elseif ($params->get('sermonlayout') == 2) { $this->setLayout('newline'); }
@@ -71,24 +67,12 @@ class SermonspeakerViewSermon extends JView
 			elseif ($params->get('sermonlayout') == 4) { $this->setLayout('icon'); }
 		} 
 
-		// get additional Data if needed
-		if ($this->getLayout() == "extnewline" || $this->getLayout() == "icon" || in_array('sermon:player', $columns)) {
-/*			$model		= &$this->getModel();
-			$speaker	= &$model->getSpeaker($row->speaker_id);	// getting the Speaker from the Model
-			$this->assignRef('speaker', $speaker);
-*/
-		}
-		if ($this->getLayout() == "extnewline" || $this->getLayout() == "icon") {
-/*			$serie		= &$model->getSerie($row->series_id);		// getting the Serie from the Model
-			$this->assignRef('serie', $serie);
-*/
-		}
-
 		// Update Statistic
-/* 		$id		= $item->id;
-		if ($params->get('track_sermon')) { SermonspeakerController::updateStat('sermons', $id); }
-*/
-
+		if ($params->get('track_series')) {
+			$model = $this->getModel();
+			$model->hit();
+		}
+		
 		// check if access is not public
 /*		$groups	= $user->authorisedLevels();
 
@@ -108,6 +92,7 @@ class SermonspeakerViewSermon extends JView
 		$this->assignRef('user', 		$user);
 		$this->assignRef('lnk', 		$lnk);
 		$this->assignRef('columns', 	$columns);
+		$this->assignRef('speaker',		$speaker);
 
 		$this->_prepareDocument();
 

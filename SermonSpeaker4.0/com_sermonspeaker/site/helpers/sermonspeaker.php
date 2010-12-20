@@ -64,9 +64,8 @@ class SermonspeakerHelperSermonspeaker
 		return $return;
 	}
 	
-	function insertPopupButton($id = NULL, $ret = NULL) {
-		$ret_arr = explode('/', $ret);
-		$return = '<input class="button popup_btn" type="button" name="'.JText::_('COM_SERMONSPEAKER_POPUPPLAYER').'" value="'.JText::_('COM_SERMONSPEAKER_POPUPPLAYER').'" onclick="popup=window.open(\''.JRoute::_('index.php?view=sermon&layout=popup&id='.$id.'&tmpl=component').'\', \'PopupPage\', \'height='.$ret_arr[0].',width='.$ret_arr[1].',scrollbars=yes,resizable=yes\'); return false" />';
+	function insertPopupButton($id = NULL, $player) {
+		$return = '<input class="button popup_btn" type="button" name="'.JText::_('COM_SERMONSPEAKER_POPUPPLAYER').'" value="'.JText::_('COM_SERMONSPEAKER_POPUPPLAYER').'" onclick="popup=window.open(\''.JRoute::_('index.php?view=sermon&layout=popup&id='.$id.'&tmpl=component').'\', \'PopupPage\', \'height='.$player['height'].',width='.$player['width'].',scrollbars=yes,resizable=yes\'); return false" />';
 
 		return $return;
 	}
@@ -74,6 +73,7 @@ class SermonspeakerHelperSermonspeaker
 	function insertPlayer($lnk, $time = NULL, $count = '1', $title = NULL, $artist = NULL) {
 		$params	=& JComponentHelper::getParams('com_sermonspeaker');
 		$view = JRequest::getCmd('view');
+		$callback = NULL;
 		if ($params->get('autostart') == '1' && $view != 'seriessermon') {
 			$start[0]='true'; $start[1]='1'; $start[2]='yes';
 		} else {
@@ -92,6 +92,8 @@ class SermonspeakerHelperSermonspeaker
 			$player = JURI::root().'components/com_sermonspeaker/media/player/player.swf';
 			if ($params->get('ga')) {
 				$callback = "so.addVariable('callback','".$params->get('ga')."');";
+			} else {
+				$callback = NULL;
 			}
 			if ($time){
 				$duration = "so.addVariable('duration','".$time."');";
@@ -100,88 +102,86 @@ class SermonspeakerHelperSermonspeaker
 			}
 		}
 		if(substr_compare($lnk, 'index.php', 0, 9, true) == 0){
-			// Playlist ?>
-			<div id='mediaspace<?php echo $count; ?>' align='center'>Flashplayer needs Javascript turned on</div>
-			<script type='text/javascript'>
-				var so = new SWFObject('<?php echo $player; ?>','player1','80%','84','9');
-				so.addParam('allowfullscreen','true');
-				so.addParam('allowscriptaccess','always');
-				so.addParam('wmode','transparent');
-				so.addVariable('playlistfile','<?php echo $lnk; ?>');
-				so.addVariable('playlistsize','60');
-				so.addVariable('playlist','bottom');
-				so.addVariable('autostart','<?php echo $start; ?>');
-				<?php echo $callback; ?>
-				so.write('mediaspace<?php echo $count; ?>');
-			</script>
-			<?php
-			$pp_h = $params->get('popup_height');
-			$pp_w = 380;
+			// Playlist
+			$return['mspace'] = '<div id="mediaspace'.$count.'" align="center">Flashplayer needs Javascript turned on</div>';
+			$return['script'] = '<script type="text/javascript">'
+								."	var so = new SWFObject('".$player."','player1','80%','84','9');"
+								."	so.addParam('allowfullscreen','true');"
+								."	so.addParam('allowscriptaccess','always');"
+								."	so.addParam('wmode','transparent');"
+								."	so.addVariable('playlistfile','".$lnk."');"
+								."	so.addVariable('playlistsize','60');"
+								."	so.addVariable('playlist','bottom');"
+								."	so.addVariable('autostart','".$start."');"
+								.'	'.$callback
+								."	so.write('mediaspace".$count."');"
+								.'</script>';
+			$return['height'] = $params->get('popup_height');
+			$return['width']  = '380';
 		} else {
 			// Single File
 			if((substr_compare($lnk, '.mp3', -4, 4, true) == 0) || (substr_compare($lnk, '.m4a', -4, 4, true) == 0)) { 
-				// Audio File ?>
-				<div id='mediaspace<?php echo $count; ?>'>Flashplayer needs Javascript turned on</div>
-				<?php if ($params->get('alt_player') && (substr_compare($lnk, '.mp3', -4, 4, true) == 0)){ ?>
-					<script type='text/javascript'>
-						AudioPlayer.embed("mediaspace<?php echo $count; ?>", {
-							soundFile: "<?php echo urlencode($lnk); ?>",
-							<?php echo $options; ?>
-							autostart: "<?php echo $start[2]; ?>"
-						});
-					</script>
-				<?php } else { ?>
-					<script type='text/javascript'>
-						var so = new SWFObject('<?php echo $player; ?>','player1','250','24','9');
-						so.addParam('allowfullscreen','true');
-						so.addParam('allowscriptaccess','always');
-						so.addParam('wmode','opaque');
-						so.addVariable('file','<?php echo $lnk; ?>');
-						so.addVariable('autostart','<?php echo $start[0]; ?>');
-						<?php echo $duration;
-						echo $callback; ?>
-						so.write('mediaspace<?php echo $count; ?>');
-					</script>
-				<?php }
-				$pp_h = $params->get('popup_height');
-				$pp_w = 380;
+				// Audio File
+				$return['mspace'] = '<div id="mediaspace'.$count.'" align="center">Flashplayer needs Javascript turned on</div>';
+				if ($params->get('alt_player') && (substr_compare($lnk, '.mp3', -4, 4, true) == 0)){
+					$return['script'] = '<script type="text/javascript">'
+										.'	AudioPlayer.embed("mediaspace'.$count.'", {'
+										.'		soundFile: "'.urlencode($lnk).'",'
+										.'		'.$options
+										.'		autostart: "'.$start[2].'"'
+										.'	})'
+										.'</script>';
+				} else {
+					$return['script'] = '<script type="text/javascript">'
+										."	var so = new SWFObject('".$player."','player1','250','24','9');"
+										."	so.addParam('allowfullscreen','true');"
+										."	so.addParam('allowscriptaccess','always');"
+										."	so.addParam('wmode','opaque');"
+										."	so.addVariable('file','".$lnk."');"
+										."	so.addVariable('autostart','".$start[0]."');"
+										.'	'.$duration
+										.'	'.$callback
+										."	so.write('mediaspace".$count."');"
+										.'</script>';
+				}
+				$return['height'] = $params->get('popup_height');
+				$return['width']  = '380';
 			} elseif((substr_compare($lnk, '.flv', -4, 4, true) == 0) || (substr_compare($lnk, '.mp4', -4, 4, true) == 0) || (substr_compare($lnk, '.m4v', -4, 4, true) == 0)) { 
-				// Video File ?>
-				<div id='mediaspace<?php echo $count; ?>'>Flashplayer needs Javascript turned on</div>
-				<script type='text/javascript'>
-					var so = new SWFObject('<?php echo $player; ?>','player1','<?php echo $params->get('mp_width'); ?>','<?php echo $params->get('mp_height'); ?>','9');
-					so.addParam('allowfullscreen','true');
-					so.addParam('allowscriptaccess','always');
-					so.addParam('wmode','opaque');
-					so.addVariable('file','<?php echo $lnk; ?>');
-					so.addVariable('autostart','<?php echo $start[0]; ?>');
-					<?php echo $callback; ?>
-					so.write('mediaspace<?php echo $count; ?>');
-				</script>
-				<?php
-				$pp_h = $params->get('mp_height') + 100 + $params->get('popup_height');
-				$pp_w = $params->get('mp_width') + 130;
+				// Video File
+				$return['mspace'] = '<div id="mediaspace'.$count.'" align="center">Flashplayer needs Javascript turned on</div>';
+				$return['script'] = '<script type="text/javascript">'
+									."	var so = new SWFObject('".$player."','player1','".$params->get('mp_width')."','".$params->get('mp_height')."','9');"
+									."	so.addParam('allowfullscreen','true');"
+									."	so.addParam('allowscriptaccess','always');"
+									."	so.addParam('wmode','opaque');"
+									."	so.addVariable('file','".$lnk."');"
+									."	so.addVariable('autostart','".$start[0]."');"
+									.'	'.$callback
+									."	so.write('mediaspace".$count."');"
+									.'</script>';
+				$return['height'] = $params->get('mp_height') + 100 + $params->get('popup_height');
+				$return['width']  = $params->get('mp_width') + 130;
 			} elseif(strcasecmp(substr($lnk,-4),".wmv") == 0) {
-				// WMV File ?>
-				<object id="mediaplayer" width="400" height="323" classid="clsid:22d6f312-b0f6-11d0-94ab-0080c74c7e95 22d6f312-b0f6-11d0-94ab-0080c74c7e95" type="application/x-oleobject">
-					<param name="filename" value="<?php echo $lnk; ?>">
-					<param name="autostart" value="<?php echo $start[1]; ?>">
-					<param name="transparentatstart" value="true">
-					<param name="showcontrols" value="1">
-					<param name="showdisplay" value="0">
-					<param name="showstatusbar" value="1">
-					<param name="autosize" value="1">
-					<param name="animationatstart" value="false">
-					<embed name="MediaPlayer" src=<?php echo $lnk; ?> width="<?php echo $params->get('mp_width'); ?>" height="<?php echo $params->get('mp_height'); ?>" type="application/x-mplayer2" autostart="<?php echo $start[1]; ?>" showcontrols="1" showstatusbar="1" transparentatstart="1" animationatstart="0" loop="false" pluginspage="http://www.microsoft.com/windows/windowsmedia/download/default.asp">
-					</embed>
-				</object>
-				<?php
-				$pp_h = $params->get('mp_height') + 100 + $params->get('popup_height');
-				$pp_w = $params->get('mp_width') + 130;
+				// WMV File
+				$return['mspace'] = '<object id="mediaplayer" width="400" height="323" classid="clsid:22d6f312-b0f6-11d0-94ab-0080c74c7e95 22d6f312-b0f6-11d0-94ab-0080c74c7e95" type="application/x-oleobject">'
+									.'	<param name="filename" value="'.$lnk.'">'
+									.'	<param name="autostart" value="'.$start[1].'">'
+									.'	<param name="transparentatstart" value="true">'
+									.'	<param name="showcontrols" value="1">'
+									.'	<param name="showdisplay" value="0">'
+									.'	<param name="showstatusbar" value="1">'
+									.'	<param name="autosize" value="1">'
+									.'	<param name="animationatstart" value="false">'
+									.'	<embed name="MediaPlayer" src="'.$lnk.'" width="'.$params->get('mp_width').'" height="'.$params->get('mp_height').'" type="application/x-mplayer2" autostart="'.$start[1].'" showcontrols="1" showstatusbar="1" transparentatstart="1" animationatstart="0" loop="false" pluginspage="http://www.microsoft.com/windows/windowsmedia/download/default.asp">'
+									.'	</embed>'
+									.'</object>';
+				$return['script'] = NULL;
+				$return['height'] = $params->get('mp_height') + 100 + $params->get('popup_height');
+				$return['width']  = $params->get('mp_width') + 130;
 			}
 		}
 
-		return ($pp_h.'/'.$pp_w);
+		return $return;
 	}
 
 	function insertTime($time) {
@@ -191,7 +191,7 @@ class SermonspeakerHelperSermonspeaker
 		} else {
 			$return = $tmp[0].':'.$tmp[1].':'.$tmp[2];
 		}
-		
+
 		return($return);
 	} // end of insertTime
 

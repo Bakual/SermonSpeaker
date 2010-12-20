@@ -3,10 +3,7 @@ defined('_JEXEC') or die('Restricted access');
 JHTML::_('behavior.tooltip');
 JHTML::_('behavior.modal');
 
-$columns = $this->params->get('col');
-if (!$columns){
-	$columns = array();
-}
+$player = SermonspeakerHelperSermonspeaker::insertPlayer($this->lnk, $this->item->sermon_time, 1, $this->item->sermon_title, $this->speaker->name);
 ?>
 <div id="ss-sermon-container">
 <h1 class="componentheading"><?php echo JText::_('COM_SERMONSPEAKER_SERMON_TITLE'); ?></h1>
@@ -17,18 +14,16 @@ else :
 	echo '<h3 class="contentheading">'.$this->item->sermon_title.'</h3>';
 endif; ?>
 <div class="ss-sermondetail-container">
-	<?php if (in_array('sermon:scripture', $columns) && $this->item->sermon_scripture) : ?>
+	<?php if (in_array('sermon:scripture', $this->columns) && $this->item->sermon_scripture) : ?>
 		<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_SCRIPTURE'); ?>:</div>
 		<div class="ss-sermondetail-text"><?php echo $this->item->sermon_scripture; ?></div>
 	<?php endif;
-	if (in_array('sermon:player', $columns) && strlen($this->item->sermon_path) > 0) : ?>
+	if (in_array('sermon:player', $this->columns) && strlen($this->item->sermon_path) > 0) : ?>
 		<div class="ss-sermondetail-label"></div>
 		<div class="ss-sermondetail-text ss-sermon-player">
-			<?php
-			$ret = SermonspeakerHelperSermonspeaker::insertPlayer($this->lnk, $this->item->sermon_time, 1, $this->item->sermon_title, $this->speaker->name);
-			$pp_ret = explode("/",$ret);
-			$pp_h = $pp_ret[0];
-			$pp_w = $pp_ret[1];
+			<?php 
+			echo $player['mspace'];
+			echo $player['script'];
 			?>
 		</div>
 	<?php endif;
@@ -39,15 +34,15 @@ endif; ?>
 	<?php endif;
 	if ($this->params->get('popup_player') == "1" && strlen($this->item->sermon_path) > 0) : ?>
 		<div class="ss-sermondetail-label"></div>
-		<div class="ss-sermondetail-text"><?php echo SermonspeakerHelperSermonspeaker::insertPopupButton($this->item->id, $ret); ?></div>
+		<div class="ss-sermondetail-text"><?php echo SermonspeakerHelperSermonspeaker::insertPopupButton($this->item->id, $player); ?></div>
 	<?php endif;
-	if (in_array('sermon:addfile', $columns) && $this->item->addfile && $this->item->addfileDesc) : ?>
+	if (in_array('sermon:addfile', $this->columns) && $this->item->addfile && $this->item->addfileDesc) : ?>
 		<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_ADDFILE'); ?>:</div>
 		<div class="ss-sermondetail-text">
 			<?php echo SermonspeakerHelperSermonspeaker::insertAddfile($this->item->addfile, $this->item->addfileDesc); ?>
 		</div>
 	<?php endif;
-	if (in_array('sermon:notes', $columns) && strlen($this->item->notes) > 0) : ?>
+	if (in_array('sermon:notes', $this->columns) && strlen($this->item->notes) > 0) : ?>
 		<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_SERMONNOTES'); ?>:</div>
 		<div class="ss-sermondetail-text"><?php echo $this->item->notes; ?></div>
 	<?php endif; ?>

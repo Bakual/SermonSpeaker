@@ -86,6 +86,30 @@ class SermonspeakerModelSermon extends JModelItem
 		return $this->_item;
 	}
 
+	function getSerie($serie_id)
+	{
+		$database = &JFactory::getDBO();
+		$query	= "SELECT id, series_title \n"
+				. "FROM #__sermon_series \n"
+				. "WHERE id=".$serie_id;
+		$database->setQuery($query);
+		$series = $database->loadObject();
+		
+       return $series;
+	}
+	
+	function getSpeaker($speaker_id)
+	{
+		$database = &JFactory::getDBO();
+      	$query	= "SELECT id, name, pic \n"
+				. "FROM #__sermon_speakers \n"
+				. "WHERE id=".$speaker_id;
+		$database->setQuery($query);
+      	$speaker = $database->loadObject();
+		
+       return $speaker;
+	}
+
 	/**
 	 * Method to increment the hit counter for the sermon
 	 *

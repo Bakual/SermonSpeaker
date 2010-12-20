@@ -10,6 +10,7 @@ class SermonspeakerViewSerie extends JView
 {
 	function display($tpl = null)
 	{
+		// Initialise variables.
 		$app		= JFactory::getApplication();
 		$params		= $app->getParams();
 
