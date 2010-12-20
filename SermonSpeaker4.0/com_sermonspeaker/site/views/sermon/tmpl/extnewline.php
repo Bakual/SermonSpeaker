@@ -14,9 +14,11 @@ $player = SermonspeakerHelperSermonspeaker::insertPlayer($this->lnk, $this->item
 	<h3 class="contentheading"><?php echo $this->escape($this->item->sermon_title); ?></h3>
 <?php endif; ?>
 <div class="ss-sermondetail-container">
-	<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_SERMON'); ?>:</div>
-	<div class="ss-sermondetail-text"><?php echo JHTML::date($this->item->sermon_date, JText::_($this->params->get('date_format'))); ?></div>
-	<?php if (in_array('sermon:scripture', $this->columns) && $this->item->sermon_scripture) : ?>
+	<?php if (in_array('sermon:date', $this->columns)) : ?>
+		<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_SERMONDATE'); ?>:</div>
+		<div class="ss-sermondetail-text"><?php echo JHTML::date($this->item->sermon_date, JText::_($this->params->get('date_format'))); ?></div>
+	<?php endif;
+	if (in_array('sermon:scripture', $this->columns) && $this->item->sermon_scripture) : ?>
 		<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_SCRIPTURE'); ?>:</div>
 		<div class="ss-sermondetail-text"><?php echo $this->item->sermon_scripture; ?></div>
 	<?php endif;
@@ -43,12 +45,16 @@ $player = SermonspeakerHelperSermonspeaker::insertPlayer($this->lnk, $this->item
 			<div class="ss-sermondetail-label"></div>
 			<div class="ss-sermondetail-text"><img height=150 src="<?php echo $this->speaker->pic; ?>"></div>
 		<?php endif;
-	endif; ?>
-	<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_SERMONTIME'); ?>:</div>
-	<div class="ss-sermondetail-text"><?php echo SermonspeakerHelperSermonspeaker::insertTime($this->item->sermon_time); ?></div>
-	<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_HITS'); ?>:</div>
-	<div class="ss-sermondetail-text"><?php echo $this->item->hits; ?></div>
-	<?php if (in_array('sermon:notes', $this->columns) && strlen($this->item->notes) > 0) : ?>
+	endif;
+	if (in_array('sermon:length', $this->columns)) : ?>
+		<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_SERMONTIME'); ?>:</div>
+		<div class="ss-sermondetail-text"><?php echo SermonspeakerHelperSermonspeaker::insertTime($this->item->sermon_time); ?></div>
+	<?php endif;
+	if (in_array('sermon:hits', $this->columns)) : ?>
+		<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_HITS'); ?>:</div>
+		<div class="ss-sermondetail-text"><?php echo $this->item->hits; ?></div>
+	<?php endif;
+	if (in_array('sermon:notes', $this->columns) && strlen($this->item->notes) > 0) : ?>
 		<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_SERMONNOTES'); ?>:</div>
 		<div class="ss-sermondetail-text"><?php echo $this->item->notes; ?></div>
 	<?php endif;
@@ -69,7 +75,7 @@ $player = SermonspeakerHelperSermonspeaker::insertPlayer($this->lnk, $this->item
 		<div class="ss-sermondetail-label"></div>
 		<div class="ss-sermondetail-text"><?php echo SermonspeakerHelperSermonspeaker::insertdlbutton($this->item->id, $this->item->sermon_path); ?></div>
 	<?php endif;
-	if ($this->item->addfile && $this->item->addfileDesc) : ?>
+	if (in_array('sermon:addfile', $this->columns) && $this->item->addfile && $this->item->addfileDesc) : ?>
 		<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_ADDFILE'); ?>:</div>
 		<div class="ss-sermondetail-text">
 			<?php echo SermonspeakerHelperSermonspeaker::insertAddfile($this->item->addfile, $this->item->addfileDesc); ?>

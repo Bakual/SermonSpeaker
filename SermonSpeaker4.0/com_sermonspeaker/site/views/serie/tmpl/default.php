@@ -30,10 +30,9 @@ $listDirn	= $this->state->get('list.direction');
 	<hr style="width: 80%; height: 1px; text-align: center;">
 	<?php
 	$lnk = "index.php%3Foption%3Dcom_sermonspeaker%26view%3Dfeed%26series_id%3D".$this->serie->id;
-	$ret = SermonspeakerHelperSermonspeaker::insertPlayer($lnk);
-	$pp_ret = explode("/",$ret);
-	$pp_h = $pp_ret[0];
-	$pp_w = $pp_ret[1];
+	$player = SermonspeakerHelperSermonspeaker::insertPlayer($lnk);
+	echo $player['mspace'];
+	echo $player['script'];
 	?>
 	<hr style="width: 80%; height: 1px; text-align: center;">
 <?php endif; ?>

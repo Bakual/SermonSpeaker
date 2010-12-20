@@ -4,22 +4,20 @@ $return = SermonspeakerHelperSermonspeaker::insertAddfile($this->item->addfile, 
 JHTML::_('behavior.tooltip');
 JHTML::_('behavior.modal');
 
-$columns = $this->params->get('col');
-if (!$columns){
-	$columns = array();
-}
+$player = SermonspeakerHelperSermonspeaker::insertPlayer($this->lnk, $this->item->sermon_time, 1, $this->item->sermon_title, $this->speaker->name);
 ?>
 <div id="sermon-container">
 	<h1 class="componentheading"><a 
 		title="<?php echo JText::_('COM_SERMONSPEAKER_SERMONTITLE').':: '.$this->escape($this->item->sermon_title); ?>" 
 		href="<?php echo JRoute::_('index.php?view=sermon&id='.$this->item->slug); ?>"><?php echo $this->escape($this->item->sermon_title); ?></a></h1>
 	<div id="sermon-infobox">
-		<?php if (in_array('sermon:player', $columns)) : ?>
+		<?php if (in_array('sermon:player', $this->columns)) : ?>
 			<div id="sermon-player-container">
 				<div class="ss-player">
-					<?php 
-					$ret = SermonspeakerHelperSermonspeaker::insertPlayer($this->lnk, $this->item->sermon_time, 1, $this->item->sermon_title, $this->speaker->name);
-					?>
+				<?php 
+				echo $player['mspace'];
+				echo $player['script'];
+				?>
 				</div>
 				<?php if ($this->params->get('popup_player') || $this->params->get('dl_button')) : ?>
 					<div class="ss-mp3-links">
@@ -48,32 +46,32 @@ if (!$columns){
 			<div class="ss-field field-speaker" title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKER'); ?>">
 				<?php echo SermonspeakerHelperSermonSpeaker::SpeakerTooltip($this->speaker->id, $this->speaker->pic, $this->speaker->name); ?>
 			</div>
-			<?php if (in_array('sermon:scripture', $columns) && $this->item->sermon_scripture) : ?>
+			<?php if (in_array('sermon:scripture', $this->columns) && $this->item->sermon_scripture) : ?>
 				<div class="ss-field field-bible" title="<?php echo JText::_('COM_SERMONSPEAKER_SCRIPTURE'); ?>">
 					<?php echo $this->item->sermon_scripture; ?>
 				</div>
 			<?php endif; ?>
 		</div>
 		<div class="ss-fields-container">
-			<?php if (in_array('sermon:date', $columns) && ($this->item->sermon_date != "0000-00-00")) : ?>
+			<?php if (in_array('sermon:date', $this->columns) && ($this->item->sermon_date != "0000-00-00")) : ?>
 				<div class="ss-field field-calendar" title="<?php echo JText::_('COM_SERMONSPEAKER_SERMONDATE'); ?>">
 					<?php echo JHTML::date($this->item->sermon_date, JText::_('DATE_FORMAT_LC1')); ?>
 				</div>
 			<?php endif;
-			if (in_array('sermon:length', $columns) && ($this->item->sermon_time != "00:00:00")) : ?>
+			if (in_array('sermon:length', $this->columns) && ($this->item->sermon_time != "00:00:00")) : ?>
 				<div class="ss-field field-time" title="<?php echo JText::_('COM_SERMONSPEAKER_SERMONTIME'); ?>">
 					<?php echo SermonspeakerHelperSermonspeaker::insertTime($this->item->sermon_time); ?>
 				</div>
 			<?php endif; ?>
 		</div>
 		<div class="ss-fields-container">
-			<?php if (in_array('sermon:series', $columns) && $this->serie->series_title) : ?>
+			<?php if (in_array('sermon:series', $this->columns) && $this->serie->series_title) : ?>
 				<div class="ss-field field-series" title="<?php echo JText::_('COM_SERMONSPEAKER_SERIE_TITLE'); ?>">
 					<a href="<?php echo JRoute::_('index.php?view=serie&id='.$this->serie->id); ?>"><?php 
 						echo $this->escape($this->serie->series_title); ?></a>
 				</div>
 			<?php endif;
-			if (in_array('sermon:addfile', $columns) && $this->item->addfile && $this->item->addfileDesc) : ?>
+			if (in_array('sermon:addfile', $this->columns) && $this->item->addfile && $this->item->addfileDesc) : ?>
 				<div class="ss-field field-addfile" title="<?php echo JText::_('COM_SERMONSPEAKER_ADDFILE'); ?>">
 					<?php echo SermonspeakerHelperSermonspeaker::insertAddfile($this->item->addfile, $this->item->addfileDesc); ?>
 				</div>
@@ -82,7 +80,7 @@ if (!$columns){
 		<br style="clear:both" />
 	</div>
 </div>
-<?php if (in_array('sermon:notes', $columns) && strlen($this->item->notes) > 0) : ?>
+<?php if (in_array('sermon:notes', $this->columns) && strlen($this->item->notes) > 0) : ?>
 	<div class="ss-notes">
 		<?php echo $this->item->notes; ?>
 	</div>
