@@ -57,7 +57,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 		<td><input class="text_area" type="text" name="sermon_number" id="sermon_number" size="10" maxlength="250" value="<?php echo $this->id3['number']; ?>" /> </td>
 	</tr>
 	<tr title='<?php echo JText::_('COM_SERMONSPEAKER_FU_SERMONTIME_DESC'); ?>'>
-		<td align="right" class="key"> <?php echo JText::_('COM_SERMONSPEAKER_SERMONTIME'); ?> </td> 
+		<td align="right" class="key"> <?php echo JText::_('COM_SERMONSPEAKER_SERMONLENGTH'); ?> </td> 
 		<td></td>
 		<td><input class="text_area" type="text" name="sermon_time" id="sermon_time" size="10" maxlength="250" value="<?php echo $this->id3['time']; ?>" /> </td>
 	</tr>

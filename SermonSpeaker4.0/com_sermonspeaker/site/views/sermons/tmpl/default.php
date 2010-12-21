@@ -58,7 +58,7 @@ $listDirn	= $this->state->get('list.direction');
 			<?php endif;
 			if (in_array('sermons:length', $columns)) : ?>
 				<th class="ss-col">
-					<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SERMONTIME', 'sermon_time', $listDirn, $listOrder); ?>
+					<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SERMONLENGTH', 'sermon_time', $listDirn, $listOrder); ?>
 				</th>
 			<?php endif;
 			if (in_array('sermons:series', $columns)) : ?>

@@ -34,6 +34,11 @@ class SermonspeakerViewSermon extends JView
 		// Get model data (/models/sermon.php) 
 		$state = $this->get('State');
 		$item = $this->get('Item');
+		if ($item->alias){
+			$item->slug = $item->id.':'.$item->alias;
+		} else {
+			$item->slug = $item->id;
+		}
 		
 		$model		= &$this->getModel();
 		$speaker	= &$model->getSpeaker($item->speaker_id);	// getting the Speaker from the Model
@@ -66,6 +71,9 @@ class SermonspeakerViewSermon extends JView
 			elseif ($params->get('sermonlayout') == 3) { $this->setLayout('extnewline'); }
 			elseif ($params->get('sermonlayout') == 4) { $this->setLayout('icon'); }
 		} 
+
+		// Applying CSS file
+		JHTML::stylesheet('sermonspeaker.css', 'components/com_sermonspeaker/');
 
 		// Update Statistic
 		if ($params->get('track_series')) {

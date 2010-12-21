@@ -69,7 +69,7 @@ if ($this->speaker->website && $this->speaker->website != "http://") : ?>
 			<?php endif;
 			if (in_array('speaker:length', $columns)) : ?>
 				<th class="ss-col">
-					<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SERMONTIME', 'sermon_time', $listDirn, $listOrder); ?>
+					<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SERMONLENGTH', 'sermon_time', $listDirn, $listOrder); ?>
 				</th>
 			<?php endif;
 			if (in_array('speaker:series', $columns)) : ?>

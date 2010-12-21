@@ -11,41 +11,43 @@ $player = SermonspeakerHelperSermonspeaker::insertPlayer($this->lnk, $this->item
 		title="<?php echo JText::_('COM_SERMONSPEAKER_SERMONTITLE').':: '.$this->escape($this->item->sermon_title); ?>" 
 		href="<?php echo JRoute::_('index.php?view=sermon&id='.$this->item->slug); ?>"><?php echo $this->escape($this->item->sermon_title); ?></a></h1>
 	<div id="sermon-infobox">
-		<?php if (in_array('sermon:player', $this->columns)) : ?>
-			<div id="sermon-player-container">
+		<div id="sermon-player-container">
+			<?php if (in_array('sermon:player', $this->columns)) : ?>
 				<div class="ss-player">
 				<?php 
 				echo $player['mspace'];
 				echo $player['script'];
 				?>
 				</div>
-				<?php if ($this->params->get('popup_player') || $this->params->get('dl_button')) : ?>
-					<div class="ss-mp3-links">
-					<?php if ($this->params->get('popup_player')) : ?>
-						<a href="<?php echo JURI::current(); ?>" class="new-window" onclick="popup = window.open('<?php echo JRoute::_('index.php?view=sermon&layout=popup&id='.$this->item->id.'&tmpl=component'); ?>', 'PopupPage', 'height=300,width=350,scrollbars=yes,resizable=yes'); return false"><?php echo JText::_('COM_SERMONSPEAKER_POPUPPLAYER'); ?></a>
-					<?php endif;
-					if ($this->params->get('popup_player') && $this->params->get('dl_button')) : ?>
-						<br />
-					<?php endif;
-					if ($this->params->get('dl_button')) :
-						//Check if link targets to an external source
-						if (substr($this->item->sermon_path, 0, 7) == 'http://') : //File is external
-							$fileurl = $this->item->sermon_path;
-						else : //File is locally 
-							$fileurl = JURI::root().'index.php?option=com_sermonspeaker&amp;task=download&amp;id='.$this->item->id;
-						endif; ?>
-						<a href="<?php echo $fileurl; ?>" class="download">
-							<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON'); ?>
-						</a>
-					<?php endif; ?>
-					</div>
+			<?php endif; ?>
+			<?php if ($this->params->get('popup_player') || $this->params->get('dl_button')) : ?>
+				<div class="ss-mp3-links">
+				<?php if ($this->params->get('popup_player')) : ?>
+					<a href="<?php echo JURI::current(); ?>" class="new-window" onclick="popup = window.open('<?php echo JRoute::_('index.php?view=sermon&layout=popup&id='.$this->item->id.'&tmpl=component'); ?>', 'PopupPage', 'height=300,width=350,scrollbars=yes,resizable=yes'); return false"><?php echo JText::_('COM_SERMONSPEAKER_POPUPPLAYER'); ?></a>
+				<?php endif;
+				if ($this->params->get('popup_player') && $this->params->get('dl_button')) : ?>
+					<br />
+				<?php endif;
+				if ($this->params->get('dl_button')) :
+					//Check if link targets to an external source
+					if (substr($this->item->sermon_path, 0, 7) == 'http://') : //File is external
+						$fileurl = $this->item->sermon_path;
+					else : //File is locally 
+						$fileurl = JURI::root().'index.php?option=com_sermonspeaker&amp;task=download&amp;id='.$this->item->id;
+					endif; ?>
+					<a href="<?php echo $fileurl; ?>" class="download">
+						<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON'); ?>
+					</a>
 				<?php endif; ?>
-			</div>
-		<?php endif; ?>
+				</div>
+			<?php endif; ?>
+		</div>
 		<div class="ss-fields-container">
-			<div class="ss-field field-speaker" title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKER'); ?>">
-				<?php echo SermonspeakerHelperSermonSpeaker::SpeakerTooltip($this->speaker->id, $this->speaker->pic, $this->speaker->name); ?>
-			</div>
+			<?php if (in_array('sermon:speaker', $this->columns)): ?>
+				<div class="ss-field field-speaker" title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKER'); ?>">
+					<?php echo SermonspeakerHelperSermonSpeaker::SpeakerTooltip($this->speaker->slug, $this->speaker->pic, $this->speaker->name); ?>
+				</div>
+			<?php endif; ?>
 			<?php if (in_array('sermon:scripture', $this->columns) && $this->item->sermon_scripture) : ?>
 				<div class="ss-field field-bible" title="<?php echo JText::_('COM_SERMONSPEAKER_SCRIPTURE'); ?>">
 					<?php echo $this->item->sermon_scripture; ?>
@@ -59,7 +61,7 @@ $player = SermonspeakerHelperSermonspeaker::insertPlayer($this->lnk, $this->item
 				</div>
 			<?php endif;
 			if (in_array('sermon:length', $this->columns) && ($this->item->sermon_time != "00:00:00")) : ?>
-				<div class="ss-field field-time" title="<?php echo JText::_('COM_SERMONSPEAKER_SERMONTIME'); ?>">
+				<div class="ss-field field-time" title="<?php echo JText::_('COM_SERMONSPEAKER_SERMONLENGTH'); ?>">
 					<?php echo SermonspeakerHelperSermonspeaker::insertTime($this->item->sermon_time); ?>
 				</div>
 			<?php endif; ?>
@@ -67,7 +69,7 @@ $player = SermonspeakerHelperSermonspeaker::insertPlayer($this->lnk, $this->item
 		<div class="ss-fields-container">
 			<?php if (in_array('sermon:series', $this->columns) && $this->serie->series_title) : ?>
 				<div class="ss-field field-series" title="<?php echo JText::_('COM_SERMONSPEAKER_SERIE_TITLE'); ?>">
-					<a href="<?php echo JRoute::_('index.php?view=serie&id='.$this->serie->id); ?>"><?php 
+					<a href="<?php echo JRoute::_('index.php?view=serie&id='.$this->serie->slug); ?>"><?php 
 						echo $this->escape($this->serie->series_title); ?></a>
 				</div>
 			<?php endif;

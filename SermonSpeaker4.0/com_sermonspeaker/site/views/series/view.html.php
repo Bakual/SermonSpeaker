@@ -51,7 +51,7 @@ class SermonspeakerViewSeries extends JView
 			$speakers	= $model->getSpeakers($item->id);
 			$popup = array();
 			foreach($speakers as $speaker){
-				$popup[] = SermonspeakerHelperSermonspeaker::SpeakerTooltip($speaker->speaker_id, $speaker->pic, $speaker->name);
+				$popup[] = SermonspeakerHelperSermonspeaker::SpeakerTooltip($speaker->slug, $speaker->pic, $speaker->name);
 			}
 			$item->speakers = implode(', ', $popup);
 		}

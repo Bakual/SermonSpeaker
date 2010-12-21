@@ -29,7 +29,7 @@ $listDirn	= $this->state->get('list.direction');
 <?php if (in_array('serie:player', $columns)) : ?>
 	<hr style="width: 80%; height: 1px; text-align: center;">
 	<?php
-	$lnk = "index.php%3Foption%3Dcom_sermonspeaker%26view%3Dfeed%26series_id%3D".$this->serie->id;
+	$lnk = "index.php%3Foption%3Dcom_sermonspeaker%26view%3Dfeed%26format%3Draw%26series_id%3D".$this->serie->id;
 	$player = SermonspeakerHelperSermonspeaker::insertPlayer($lnk);
 	echo $player['mspace'];
 	echo $player['script'];
@@ -78,7 +78,7 @@ $listDirn	= $this->state->get('list.direction');
 			<?php endif;
 			if (in_array('serie:length', $columns)) : ?>
 				<th class="ss-col">
-					<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SERMONTIME', 'sermon_time', $listDirn, $listOrder); ?>
+					<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SERMONLENGTH', 'sermon_time', $listDirn, $listOrder); ?>
 				</th>
 			<?php endif;
 			if (in_array('serie:addfile', $columns)) : ?>

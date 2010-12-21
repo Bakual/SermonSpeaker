@@ -47,7 +47,7 @@ $player = SermonspeakerHelperSermonspeaker::insertPlayer($this->lnk, $this->item
 		<?php endif;
 	endif;
 	if (in_array('sermon:length', $this->columns)) : ?>
-		<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_SERMONTIME'); ?>:</div>
+		<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_SERMONLENGTH'); ?>:</div>
 		<div class="ss-sermondetail-text"><?php echo SermonspeakerHelperSermonspeaker::insertTime($this->item->sermon_time); ?></div>
 	<?php endif;
 	if (in_array('sermon:hits', $this->columns)) : ?>

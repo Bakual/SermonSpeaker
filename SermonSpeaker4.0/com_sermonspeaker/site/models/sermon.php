@@ -89,7 +89,8 @@ class SermonspeakerModelSermon extends JModelItem
 	function getSerie($serie_id)
 	{
 		$database = &JFactory::getDBO();
-		$query	= "SELECT id, series_title \n"
+		$query	= "SELECT id, series_title, \n"
+				. "CASE WHEN CHAR_LENGTH(alias) THEN CONCAT_WS(':', id, alias) ELSE id END as slug \n"
 				. "FROM #__sermon_series \n"
 				. "WHERE id=".$serie_id;
 		$database->setQuery($query);
@@ -101,7 +102,8 @@ class SermonspeakerModelSermon extends JModelItem
 	function getSpeaker($speaker_id)
 	{
 		$database = &JFactory::getDBO();
-      	$query	= "SELECT id, name, pic \n"
+      	$query	= "SELECT id, name, pic, \n"
+				. "CASE WHEN CHAR_LENGTH(alias) THEN CONCAT_WS(':', id, alias) ELSE id END as slug \n"
 				. "FROM #__sermon_speakers \n"
 				. "WHERE id=".$speaker_id;
 		$database->setQuery($query);

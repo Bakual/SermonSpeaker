@@ -41,12 +41,16 @@ class SermonspeakerViewSermons extends JView
 		}
 */
 
-		// Loop through each item and create links
+		// Support for Content Plugins
 		$dispatcher	= &JDispatcher::getInstance();
-		$item->params = clone($params);
+		$temp_item->params = clone($params);
 		JPluginHelper::importPlugin('content');
+		// Loop through each item and create links
 		$direct_link = $params->get('list_direct_link');
 		foreach($items as $item){
+			// Trigger Event for `sermon_scripture`
+			$temp_item->text	= &$item->sermon_scripture;
+			$dispatcher->trigger('onPrepareContent', array(&$temp_item, &$temp_item->params, 0));
 			switch ($direct_link){ // direct links to the file instead to the detailpage
 				case '00':
 					$item->link1 = JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug));
