@@ -100,6 +100,7 @@
 			<option value="serie" exclude="series,notes,custom1,custom2">Single Series</option>
 			<option value="speaker" exclude="speaker,player,notes,custom1,custom2">Single Speaker (Latest Sermons)</option>
 			<option value="archive" exclude="player,notes,custom1,custom2">Sermons Archive List</option>
+			<option value="seriessermon" exclude="num,scripture,speaker,length,series,custom1,custom2">Series/Sermons</option>
 		</field>
 		<field name="dl_button" 
 			type="radio" 

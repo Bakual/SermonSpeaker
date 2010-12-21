@@ -103,7 +103,7 @@ class SermonspeakerHelperSermonspeaker
 		}
 		if(substr_compare($lnk, 'index.php', 0, 9, true) == 0){
 			// Playlist
-			$return['mspace'] = '<div id="mediaspace'.$count.'" align="center">Flashplayer needs Javascript turned on</div>';
+			$return['mspace'] = '<div id="mediaspace'.$count.'" style="text-align:center;">Flashplayer needs Javascript turned on</div>';
 			$return['script'] = '<script type="text/javascript">'
 								."	var so = new SWFObject('".$player."','player1','80%','84','9');"
 								."	so.addParam('allowfullscreen','true');"

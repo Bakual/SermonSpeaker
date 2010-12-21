@@ -95,7 +95,7 @@ class SermonspeakerViewspeaker extends JView
 		$dispatcher->trigger('onPrepareContent', array(&$item, &$item->params, 0));
 
 		if ($this->getLayout() == "latest-sermons"){
-			$direct_link = $params->get('list_direct_link');
+			$direct_link = $params->get('list_direct_link', '00');
 			foreach($items as $row){
 				// Trigger Event for `sermon_scripture`
 				$item->text	= &$row->sermon_scripture;

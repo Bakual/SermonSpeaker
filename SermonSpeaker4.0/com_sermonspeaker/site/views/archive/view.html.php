@@ -61,7 +61,7 @@ class SermonspeakerViewArchive extends JView
 		$temp_item->params = clone($params);
 		JPluginHelper::importPlugin('content');
 		// Loop through each item and create links
-		$direct_link = $params->get('list_direct_link');
+		$direct_link = $params->get('list_direct_link', '00');
 		foreach($items as $item){
 			// Trigger Event for `sermon_scripture`
 			$temp_item->text	= &$item->sermon_scripture;

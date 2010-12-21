@@ -66,7 +66,7 @@ class SermonspeakerViewSerie extends JView
 		$dispatcher->trigger('onPrepareContent', array(&$item, &$item->params, 0));
 
 		// Loop through each item and create links
-		$direct_link = $params->get('list_direct_link');
+		$direct_link = $params->get('list_direct_link', '00');
 		foreach($items as $row){
 			switch ($direct_link){ // direct links to the file instead to the detailpage
 				case '00':
