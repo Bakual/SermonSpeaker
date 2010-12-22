@@ -22,6 +22,9 @@ class SermonspeakerHelperSermonspeaker
 		$params	=& JComponentHelper::getParams('com_sermonspeaker');
 		$path = $params->get('path');
 
+		if (!$addfileDesc){
+			$addfileDesc = end(explode('/', $addfile));
+		}
 		//Check if link targets to an external source
 		if (substr($addfile,0,7) == "http://"){
 			$link = $addfile;

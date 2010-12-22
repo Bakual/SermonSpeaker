@@ -237,8 +237,12 @@ $pane	=& JPane::getInstance('sliders', array('allowAllClose' => true));
 			</td>
 		</tr>
 		<tr>
-			<td width="100" align="right" class="key"><?php echo JText::_('COM_SERMONSPEAKER_ADDFILEDESC'); ?></td>
-			<td><input class="text_area" type="text" name="addfileDesc" id="addfileDesc" size="80" maxlength="250" value="<?php echo $this->row->addfileDesc;?>" /></td>
+			<td width="100" align="right" class="key" title="<?php echo JText::_('COM_SERMONSPEAKER_ADDFILETEXT_DESC'); ?>">
+				<?php echo JText::_('COM_SERMONSPEAKER_ADDFILETEXT_LABEL'); ?>
+			</td>
+			<td title="<?php echo JText::_('COM_SERMONSPEAKER_ADDFILETEXT_DESC'); ?>">
+				<input class="text_area" type="text" name="addfileDesc" id="addfileDesc" size="80" maxlength="250" value="<?php echo $this->row->addfileDesc;?>" />
+			</td>
 		</tr>
 	</table> 
 	</fieldset>

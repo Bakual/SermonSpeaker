@@ -60,7 +60,7 @@ JHTML::_('behavior.modal');
 		<div class="ss-sermondetail-label"></div>
 		<div class="ss-sermondetail-text"><?php echo SermonspeakerHelperSermonspeaker::insertdlbutton($this->row->id, $this->row->sermon_path); ?></div>
 	<?php }
-	if ($this->row->addfile && $this->row->addfileDesc) { ?>
+	if ($this->row->addfile) { ?>
 		<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_ADDFILE'); ?>:</div>
 		<div class="ss-sermondetail-text">
 			<?php echo SermonspeakerHelperSermonspeaker::insertAddfile($this->row->addfile, $this->row->addfileDesc); ?>

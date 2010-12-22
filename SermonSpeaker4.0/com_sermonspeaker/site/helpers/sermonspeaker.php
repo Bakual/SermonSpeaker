@@ -22,6 +22,9 @@ class SermonspeakerHelperSermonspeaker
 		$params	=& JComponentHelper::getParams('com_sermonspeaker');
 		$path = $params->get('path');
 
+		if (!$addfileDesc){
+			$addfileDesc = end(explode('/', $addfile));
+		}
 		$link = SermonspeakerHelperSermonspeaker::makelink($addfile); 
 
 		$filetype = trim(strrchr($addfile, '.'), '.');

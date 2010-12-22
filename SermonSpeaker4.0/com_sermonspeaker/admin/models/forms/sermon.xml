@@ -54,8 +54,8 @@
 			description="COM_SERMONSPEAKER_ADDFILE_DESC" />
 
 		<field name="addfileDesc" type="text" class="inputbox"
-			size="100" label="COM_SERMONSPEAKER_ADDFILEDESC"
-			description="COM_SERMONSPEAKER_ADDFILEDESC_DESC" />
+			size="100" label="COM_SERMONSPEAKER_ADDFILETEXT_LABEL"
+			description="COM_SERMONSPEAKER_ADDFILETEXT_DESC" />
 
 	</fieldset>
 

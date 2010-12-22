@@ -21,7 +21,7 @@ JHTML::_('behavior.modal');
 		if ($this->params->get('client_col_sermon_notes') && strlen($this->row->notes) > 0){ ?>
 			<th align="left" valign="bottom"> <?php echo JText::_('COM_SERMONSPEAKER_SERMONNOTES'); ?></th>
 		<?php }
-		if ($this->params->get('client_col_sermon_addfile') && $this->row->addfile && $this->row->addfileDesc) { ?>
+		if ($this->params->get('client_col_sermon_addfile') && $this->row->addfile) { ?>
 			<th align="left" valign="bottom"><?php echo JText::_('COM_SERMONSPEAKER_ADDFILE'); ?></th>
 		<?php }
 		if ($this->params->get('client_col_player') && strlen($this->row->sermon_path) > 0){ ?>
@@ -36,7 +36,7 @@ JHTML::_('behavior.modal');
 		if ($this->params->get('client_col_sermon_notes') && strlen($this->row->notes) > 0){ ?>
 			<td align="left" valign="top"><?php echo $this->row->notes; ?></td>
 		<?php }
-		if ($this->params->get('client_col_sermon_addfile') && $this->row->addfile && $this->row->addfileDesc) { ?>
+		if ($this->params->get('client_col_sermon_addfile') && $this->row->addfile) { ?>
 			<td align="left" valign="top"><?php echo SermonspeakerHelperSermonspeaker::insertAddfile($this->row->addfile, $this->row->addfileDesc); ?></td>
 		<?php }
 		if ($this->params->get('client_col_player') && strlen($this->row->sermon_path) > 0){ ?> 
