@@ -11,6 +11,19 @@ class SermonspeakerViewFeed extends JView
 		$user	=& JFactory::getUser();
 		$params	=& JComponentHelper::getParams('com_sermonspeaker');
 
+		// Get the timezone offset from the global config and change the form to +0100.
+		$offset = $app->getCfg('offset');
+		$offset_arr = explode('.', $offset);
+		if (isset($offset_arr[1])){
+			$offset_arr[1] = $offset_arr[1]*0.6;
+		}
+		$offset = implode('.', $offset_arr)*100;
+		if (substr($offset, 0, 1) == '-'){
+			$offset = ' -'.str_pad(substr($offset, 1), 4, '0', STR_PAD_LEFT);
+		} else {
+			$offset = ' +'.str_pad(substr($offset, 0), 4, '0', STR_PAD_LEFT);
+		}
+
 		// Check to see if the user has access to view the sermon
 		$aid	= $user->get('aid'); // 0 = public, 1 = registered, 2 = special
 
@@ -95,8 +108,9 @@ class SermonspeakerViewFeed extends JView
 			$item->title	= $this->make_xml_safe($row->sermon_title);
 			$item->link		= $item_link; // todo: maybe make this link with JRoute to have a SEF link
 			$item->guid		= $item_link;
-			date_default_timezone_set(date_default_timezone_get()); // todo: maybe include the TZ from Joomla
-			$item->date		= date("r", strtotime($row->sermon_date));
+			date_default_timezone_set(date_default_timezone_get()); // only here to avoid PHP notices.
+			$item->date		= date('D, d M Y H:i:s', strtotime($row->sermon_date)).$offset;
+//			$item->date		= date('r', strtotime($row->sermon_date));
 			$item->author 	= '<dc:creator>'.$this->make_xml_safe($row->name).'</dc:creator>'; // todo: maybe add email of speaker if present (not yet in database), format is emailadress (name) and then use author instead
 			$item->category = $this->make_xml_safe($row->series_title); // using the series title as an item category
 
