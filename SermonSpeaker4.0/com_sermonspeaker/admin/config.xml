@@ -79,14 +79,37 @@
 			<option value="DATE_FORMAT_LC3">DATE_FORMAT_LC3</option>
 			<option value="DATE_FORMAT_LC4">DATE_FORMAT_LC4</option>
 		</field>
-		<field name="series_player" 
+		<field name="hide_dl" 
 			type="radio" 
 			default="0" 
-			label="COM_SERMONSPEAKER_PARAM_SERIES_PLAYER" 
-			description="COM_SERMONSPEAKER_PARAM_SERIES_PLAYER_DESC">
+			label="COM_SERMONSPEAKER_PARAM_HIDEDL" 
+			description="COM_SERMONSPEAKER_PARAM_HIDEDL_DESC">
 			<option value="0">JNO</option>
 			<option value="1">JYES</option>
 		</field>
+		<field name="autostart" 
+			type="radio" 
+			default="1" 
+			label="COM_SERMONSPEAKER_PARAM_AUTOSTART" 
+			description="COM_SERMONSPEAKER_PARAM_AUTOSTART_DESC">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
+		</field>
+		<field name="mp_width" 
+			type="text" 
+			default="300" 
+			label="COM_SERMONSPEAKER_PARAM_VIDEOWIDTH" 
+			description="COM_SERMONSPEAKER_PARAM_VIDEOWIDTH_DESC" />
+		<field name="mp_height" 
+			type="text" 
+			default="300" 
+			label="COM_SERMONSPEAKER_PARAM_VIDEOHEIGHT" 
+			description="COM_SERMONSPEAKER_PARAM_VIDEOHEIGHT_DESC" />
+		<field name="ga" 
+			type="text" 
+			default="" 
+			label="COM_SERMONSPEAKER_PARAM_GOOGLEANALYTICS" 
+			description="COM_SERMONSPEAKER_PARAM_GOOGLEANALYTICS_DESC" />
 	</fieldset>
 	<fieldset name="clientcol"
 		addfieldpath="/administrator/components/com_sermonspeaker/models/fields"
@@ -118,22 +141,6 @@
 			<option value="0">JNO</option>
 			<option value="1">JYES</option>
 		</field>
-		<field name="hide_dl" 
-			type="radio" 
-			default="0" 
-			label="COM_SERMONSPEAKER_PARAM_HIDEDL" 
-			description="COM_SERMONSPEAKER_PARAM_HIDEDL_DESC">
-			<option value="0">JNO</option>
-			<option value="1">JYES</option>
-		</field>
-		<field name="autostart" 
-			type="radio" 
-			default="1" 
-			label="COM_SERMONSPEAKER_PARAM_AUTOSTART" 
-			description="COM_SERMONSPEAKER_PARAM_AUTOSTART_DESC">
-			<option value="0">JNO</option>
-			<option value="1">JYES</option>
-		</field>
 		<field name="popup_color" 
 			type="text" 
 			default="FFFFFF" 
@@ -144,21 +151,6 @@
 			default="150" 
 			label="COM_SERMONSPEAKER_PARAM_POPUPHEIGHT" 
 			description="COM_SERMONSPEAKER_PARAM_POPUPHEIGHT_DESC" />
-		<field name="mp_width" 
-			type="text" 
-			default="300" 
-			label="COM_SERMONSPEAKER_PARAM_VIDEOWIDTH" 
-			description="COM_SERMONSPEAKER_PARAM_VIDEOWIDTH_DESC" />
-		<field name="mp_height" 
-			type="text" 
-			default="300" 
-			label="COM_SERMONSPEAKER_PARAM_VIDEOHEIGHT" 
-			description="COM_SERMONSPEAKER_PARAM_VIDEOHEIGHT_DESC" />
-		<field name="ga" 
-			type="text" 
-			default="" 
-			label="COM_SERMONSPEAKER_PARAM_GOOGLEANALYTICS" 
-			description="COM_SERMONSPEAKER_PARAM_GOOGLEANALYTICS_DESC" />
 	</fieldset>
 	<fieldset name="statistics"
 		label="COM_SERMONSPEAKER_FIELDSET_STATISTICS_LABEL"
@@ -232,20 +224,20 @@
 	<fieldset name="sermoncast"
 		label="COM_SERMONSPEAKER_FIELDSET_SERMONCAST_LABEL"
 		description="COM_SERMONSPEAKER_FIELDSET_SERMONCAST_DESC">
-		<field name="title" 
+		<field name="sc_title" 
 			type="text" 
 			default="MyChurch Podcast" 
-			label="TITLE" 
+			label="COM_SERMONSPEAKER_PARAM_FEED_TITLE_LABEL" 
 			description="COM_SERMONSPEAKER_PARAM_FEED_TITLE_DESC" />
 		<field name="description" 
 			type="text" 
 			default="Predigt / Sermon" 
-			label="DESCRIPTION" 
+			label="COM_SERMONSPEAKER_PARAM_FEED_DESCRIPTION_LABEL" 
 			description="COM_SERMONSPEAKER_PARAM_FEED_DESCRIPTION_DESC" />
 		<field name="copyright" 
 			type="text" 
 			default="(c) mychurch" 
-			label="COPYRIGHT" 
+			label="COM_SERMONSPEAKER_PARAM_FEED_COPYRIGHT_LABEL" 
 			description="COM_SERMONSPEAKER_PARAM_FEED_COPYRIGHT_DESC" />
 		<field name="editor" 
 			type="text" 

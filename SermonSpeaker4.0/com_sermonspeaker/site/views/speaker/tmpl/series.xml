@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <metadata>
-	<layout title="COM_SERMONSPEAKER_SPEAKER_VIEW_POPUP_TITLE">
-		<message><![CDATA[COM_SERMONSPEAKER_SPEAKER_VIEW_POPUP_DESC]]></message>
+	<layout title="COM_SERMONSPEAKER_SPEAKER_VIEW_SERIES_TITLE">
+		<message><![CDATA[COM_SERMONSPEAKER_SPEAKER_VIEW_SERIES_DESC]]></message>
 	</layout>
 
 	<!-- Add fields to the request variables for the layout. -->

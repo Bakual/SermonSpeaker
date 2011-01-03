@@ -12,6 +12,10 @@ class SermonspeakerViewspeaker extends JView
 	{
 		$app		= JFactory::getApplication();
 		$params		= $app->getParams();
+		
+		if ($this->getLayout() == 'default') {
+			$this->setLayout('series');
+		} 
 
 		$model = $this->getModel();
 		$model->setState('speaker.layout', $this->getLayout());

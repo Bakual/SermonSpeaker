@@ -22,9 +22,6 @@ class SermonspeakerViewSermon extends JView
 
 	function display($tpl = null)
 	{
-		// Applying CSS file
-		JHTML::stylesheet('sermonspeaker.css', 'components/com_sermonspeaker/');
-
 		// Initialise variables.
 		$app		= JFactory::getApplication();
 		$params		= $app->getParams();
@@ -74,6 +71,9 @@ class SermonspeakerViewSermon extends JView
 			elseif ($params->get('sermonlayout') == 3) { $this->setLayout('extnewline'); }
 			elseif ($params->get('sermonlayout') == 4) { $this->setLayout('icon'); }
 		} 
+
+		// Applying CSS file
+		JHTML::stylesheet('sermonspeaker.css', 'components/com_sermonspeaker/');
 
 		// Update Statistic
 		if ($params->get('track_series')) {

@@ -28,13 +28,15 @@ class SermonspeakerViewArchive extends JView
 		}
 
 		// Create title
-		$date = $state->get('date.year').'-'.$state->get('date.month');
 		if ($state->get('date.month')){
+			$date = $state->get('date.year').'-'.$state->get('date.month');
 			$date_format = 'F, Y';
+			$title = JText::_('COM_SERMONSPEAKER_ARCHIVE_TITLE')." ".JHTML::date($date, $date_format, false).$cat;
 		} else {
+			$date = $state->get('date.year').'-01';
 			$date_format = 'Y';
+			$title = JText::_('COM_SERMONSPEAKER_ARCHIVE_TITLE')." ".JHTML::date($date, $date_format, false).$cat;
 		}
-		$title = JText::_('COM_SERMONSPEAKER_ARCHIVE_TITLE')." ".JHTML::date($date, $date_format, false).$cat;
 
 		// Set Meta
 		$document =& JFactory::getDocument();

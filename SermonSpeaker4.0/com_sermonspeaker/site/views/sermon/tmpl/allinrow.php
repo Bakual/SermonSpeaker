@@ -23,7 +23,7 @@ endif; ?>
 		if (in_array('sermon:notes', $this->columns) && strlen($this->item->notes) > 0) : ?>
 			<th align="left" valign="bottom"> <?php echo JText::_('COM_SERMONSPEAKER_SERMONNOTES'); ?></th>
 		<?php endif;
-		if (in_array('sermon:addfile', $this->columns) && $this->item->addfile) : ?>
+		if (in_array('sermon:addfile', $this->columns) && $this->item->addfile && $this->item->addfileDesc) : ?>
 			<th align="left" valign="bottom"><?php echo JText::_('COM_SERMONSPEAKER_ADDFILE'); ?></th>
 		<?php endif;
 		if (in_array('sermon:player', $this->columns) && strlen($this->item->sermon_path) > 0) : ?>
@@ -38,7 +38,7 @@ endif; ?>
 		if (in_array('sermon:notes', $this->columns) && strlen($this->item->notes) > 0) : ?>
 			<td align="left" valign="top"><?php echo $this->item->notes; ?></td>
 		<?php endif;
-		if (in_array('sermon:addfile', $this->columns) && $this->item->addfile) : ?>
+		if (in_array('sermon:addfile', $this->columns) && $this->item->addfile && $this->item->addfileDesc) : ?>
 			<td align="left" valign="top"><?php echo SermonspeakerHelperSermonspeaker::insertAddfile($this->item->addfile, $this->item->addfileDesc); ?></td>
 		<?php endif;
 		if (in_array('sermon:player', $this->columns) && strlen($this->item->sermon_path) > 0) : ?> 

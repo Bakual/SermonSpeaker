@@ -30,17 +30,12 @@ class SermonspeakerViewFeed extends JView
 			}
 		}
 */
-/*
-echo '<pre>';
-print_r($params);
-echo '</pre>';
-*/
 		$link = JURI::root();
 
 		// Channel
   
 		// Save Parameters and stuff xmlsafe into $channel
-		$channel->title 		= $this->make_xml_safe($params->get('title'));
+		$channel->title 		= $this->make_xml_safe($params->get('sc_title'));
 		$channel->link 			= $link;
 		$channel->atomlink		= $this->make_xml_safe($_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
 		$channel->description	= $this->make_xml_safe($params->get('description'));
@@ -100,8 +95,7 @@ echo '</pre>';
 			$item->title	= $this->make_xml_safe($row->sermon_title);
 			$item->link		= $item_link; // todo: maybe make this link with JRoute to have a SEF link
 			$item->guid		= $item_link;
-			date_default_timezone_set(date_default_timezone_get()); // todo: maybe include the TZ from Joomla
-			$item->date		= date("r", strtotime($row->sermon_date));
+			$item->date		= JHTML::date($row->sermon_date, 'r', true);
 			$item->author 	= '<dc:creator>'.$this->make_xml_safe($row->name).'</dc:creator>'; // todo: maybe add email of speaker if present (not yet in database), format is emailadress (name) and then use author instead
 			$item->category = $this->make_xml_safe($row->series_title); // using the series title as an item category
 
