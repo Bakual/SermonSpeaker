@@ -15,6 +15,7 @@
 	<languages folder="language">
 		<language tag="en-GB">en-GB.mod_sermonarchive.ini</language>
 		<language tag="de-DE">de-DE.mod_sermonarchive.ini</language>
+		<language tag="nl-NL">nl-NL.mod_sermonarchive.ini</language>
 	</languages>
 
 	<params>

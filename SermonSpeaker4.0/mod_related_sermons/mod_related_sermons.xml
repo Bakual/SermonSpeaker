@@ -19,6 +19,7 @@
 	<languages folder="language">
 		<language tag="en-GB">en-GB.mod_related_sermons.ini</language>
 		<language tag="de-DE">de-DE.mod_related_sermons.ini</language>
+		<language tag="nl-NL">nl-NL.mod_related_sermons.ini</language>
 	</languages>
 	<params>
 		<param name="showDate" type="radio" default="0" label="MOD_RELATED_SERMONS_PARAM_SHOWDATE" description="MOD_RELATED_SERMONS_PARAM_SHOWDATE_DESC">
