@@ -11,6 +11,9 @@ class SermonspeakerViewFeed extends JView
 		$user	=& JFactory::getUser();
 		$params	=& JComponentHelper::getParams('com_sermonspeaker');
 
+		// Check to see if the user has access to view the sermon
+		$aid	= $user->get('aid'); // 0 = public, 1 = registered, 2 = special
+
 		// Get the timezone offset from the global config and change the form to +0100.
 		$offset = $app->getCfg('offset');
 		$offset_arr = explode('.', $offset);
@@ -23,9 +26,6 @@ class SermonspeakerViewFeed extends JView
 		} else {
 			$offset = ' +'.str_pad(substr($offset, 0), 4, '0', STR_PAD_LEFT);
 		}
-
-		// Check to see if the user has access to view the sermon
-		$aid	= $user->get('aid'); // 0 = public, 1 = registered, 2 = special
 
 		if ($params->get('access') > $aid){
 			if (!$aid){
