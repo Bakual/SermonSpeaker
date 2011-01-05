@@ -10,16 +10,19 @@ class SermonspeakerViewFrontendupload extends JView
 {
 	function display($tpl = null)
 	{
+		// Applying CSS file
 		JHTML::stylesheet('sermonspeaker.css', 'components/com_sermonspeaker/');
 
-		$params	=& JComponentHelper::getParams('com_sermonspeaker');
+		$app		= JFactory::getApplication();
+		$params		= $app->getParams();
+
 		$session	=& JFactory::getSession();
 		
 		// get the allowed Usergroups from Settings
 		$groups = $params->get('fu_usergroup');
 
 		// check if groups are defined and frontendupload enabled and logged in user authorized
-		if ($groups != "" && $params->get('fu_enable') == "1") {
+		if ($groups && $params->get('fu_enable')) {
 			// creating the ACLs based on the config
 			$auth =& JFactory::getACL();
 			if (is_array($groups)){
@@ -41,36 +44,28 @@ class SermonspeakerViewFrontendupload extends JView
 		}
 		
 		// check if taskname is defined and frontendupload enabled and delivered taskname correct
-		if ($params->get('fu_taskname') != "" && $params->get('fu_enable') == "1") {
-			$frup	= JRequest::getVar('frup',"");
-			$pwd 	= JFilterInput::clean(JRequest::getVar('pwd'),string);
+		if ($params->get('fu_taskname') && $params->get('fu_enable')) {
+			$frup	= JRequest::getVar('frup', '');
+			$pwd 	= JRequest::getString('pwd', '');
 			if ($params->get('fu_taskname') == $frup) {
 				if ($pwd) {
 					// Form was submitted
 					if ($pwd == $params->get('fu_pwd')) {
-						$session->set('loggedin','loggedin');
-						header('HTTP/1.1 303 See Other');
-						header('Location: index.php?option=com_sermonspeaker&view=fu_step_1');
-						return;
+						$session->set('loggedin', 'loggedin');
+						$app->redirect('index.php?option=com_sermonspeaker&view=fu_step_1');
 					} else {
-						header('HTTP/1.1 303 See Other');
-						header('Location: index.php?option=com_sermonspeaker&view=frontendupload&frup='.$frup);
-						return;
+						$app->redirect('index.php?option=com_sermonspeaker&view=frontendupload&frup='.$frup);
 					}
 				} else {
 					// display Form
-					$this->assignRef('frup',$frup);
+					$this->assignRef('frup', $frup);
 					parent::display($tpl);
 				}
 			} else {
-				header('HTTP/1.1 303 See Other');
-				header('Location: index.php');
-				return;
+				$app->redirect('index.php', JText::_('JGLOBAL_AUTH_ACCESS_DENIED'), 'error');
 			}
 		} else {
-			header('HTTP/1.1 303 See Other');
-			header('Location: index.php');
-			return;
+			$app->redirect('index.php', JText::_('JGLOBAL_AUTH_ACCESS_DENIED'), 'error');
 		}
 	}	
 }
