@@ -8,6 +8,10 @@
 	<fields name="request">
 		<fieldset name="request">
 
+			<field name="format" type="hidden"
+				default="raw"
+			/>
+
 			<field name="series_cat" type="category" 
 				label="COM_SERMONSPEAKER_FIELD_CATEGORY_SERIES_LABEL" 
 				description="COM_SERMONSPEAKER_FIELD_CATEGORY_DESC" 

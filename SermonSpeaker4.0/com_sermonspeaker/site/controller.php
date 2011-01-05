@@ -21,12 +21,8 @@ class SermonspeakerController extends JController
 
 		if (JRequest::getCmd('view') == 'feed' && (JRequest::getCmd('format') != 'raw')){
 			header('HTTP/1.1 301 Moved Permanently');
-			if (JRequest::getInt('Itemid')){
-				header('Location: '.JRoute::_('index.php?format=raw'));
-			} else {
-				header('Location: '.JURI::root().'index.php?option=com_sermonspeaker&view=feed&format=raw');
-			}
-			return;
+			header('Location: '.JURI::root().'index.php?option=com_sermonspeaker&view=feed&format=raw');
+			exit;
 			// Changing the podcast format to raw output, doesn't work anymore in J1.6 RC1 it seems.
 			/*
 			$document->getInstance('raw');
