@@ -353,4 +353,17 @@
 			label="COM_SERMONSPEAKER_PARAM_FEED_ITREDIRECT" 
 			description="COM_SERMONSPEAKER_PARAM_FEED_ITREDIRECT_DESC" />
 	</fieldset>
+	<fieldset name="permissions"
+		label="JCONFIG_PERMISSIONS_LABEL"
+		description="JCONFIG_PERMISSIONS_DESC" >
+		<field name="rules"
+			type="rules"
+			label="JCONFIG_PERMISSIONS_LABEL"
+			class="inputbox"
+			validate="rules"
+			filter="rules"
+			component="com_sermonspeaker"
+			section="component"
+		/>
+	</fieldset>
 </config>

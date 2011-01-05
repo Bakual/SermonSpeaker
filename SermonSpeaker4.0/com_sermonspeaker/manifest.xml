@@ -42,6 +42,7 @@
 		</submenu>
 		<files folder="admin">
 			<filename>config.xml</filename>
+			<filename>access.xml</filename>
 			<filename>sermonspeaker.php</filename>
 			<filename>sermonspeaker.css</filename>
 			<filename>controller.php</filename>

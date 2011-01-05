@@ -1,8 +1,17 @@
-<?php 
-// no direct access
-defined('_JEXEC') or die;
+<?php
+// No direct access to this file
+defined('_JEXEC') or die('Restricted access');
 
-// Include dependancies
+// Access check.
+if (!JFactory::getUser()->authorise('core.manage', 'com_sermonspeaker')) 
+{
+        return JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
+}
+ 
+// require helper file
+JLoader::register('SermonspeakerHelper', dirname(__FILE__).DS.'helpers'.DS.'sermonspeaker.php');
+
+// import joomla controller library
 jimport('joomla.application.component.controller');
 
 JHTML::stylesheet('administrator/components/com_sermonspeaker/sermonspeaker.css');
