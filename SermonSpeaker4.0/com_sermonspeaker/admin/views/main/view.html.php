@@ -24,6 +24,22 @@ class SermonspeakerViewMain extends JView
 		}
 		$this->assignRef('migrate', $migrate);
 
+		$this->addToolbar();
 		parent::display($tpl);
+	}
+
+	/**
+	 * Add the page title and toolbar.
+	 */
+	protected function addToolbar()
+	{
+		$canDo 	= SermonspeakerHelper::getActions();
+
+		JToolBarHelper::title(JText::_('COM_SERMONSPEAKER_STATISTICS_TITLE'), 'statistics');
+
+		if ($canDo->get('core.admin')) {
+			JToolbarHelper::divider();
+			JToolBarHelper::preferences('com_sermonspeaker', 550, 800);
+		}
 	}
 }

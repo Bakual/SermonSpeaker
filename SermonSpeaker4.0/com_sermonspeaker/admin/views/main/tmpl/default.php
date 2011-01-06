@@ -2,12 +2,6 @@
 defined('_JEXEC') or die('Restricted access');
 
 JHTML::_('behavior.tooltip');
-
-JToolBarHelper::title('SermonSpeaker', 'generic');
-JToolbarHelper::spacer();
-JToolbarHelper::divider();
-JToolbarHelper::spacer();
-JToolBarHelper::preferences('com_sermonspeaker',550);
 ?>
 
 <table class="adminform">

@@ -33,29 +33,40 @@ class SermonspeakerViewSpeakers extends JView
 	 */
 	protected function addToolbar()
 	{
-		$state	= $this->get('State');
+		$canDo 	= SermonspeakerHelper::getActions();
 
 		JToolBarHelper::title(JText::_('COM_SERMONSPEAKER_SPEAKERS_TITLE'), 'speakers');
-		JToolBarHelper::addNew('speaker.add','JTOOLBAR_NEW');
-		JToolBarHelper::editList('speaker.edit','JTOOLBAR_EDIT');
-		JToolBarHelper::divider();
-		JToolBarHelper::custom('speakers.publish', 'publish.png', 'publish_f2.png','JTOOLBAR_PUBLISH', true);
-		JToolBarHelper::custom('speakers.unpublish', 'unpublish.png', 'unpublish_f2.png', 'JTOOLBAR_UNPUBLISH', true);
-		if ($state->get('filter.state') != -1 ) {
+
+		if ($canDo->get('core.create')) {
+			JToolBarHelper::addNew('sermon.add','JTOOLBAR_NEW');
+		}
+
+		if (($canDo->get('core.edit')) || ($canDo->get('core.edit.own'))) {
+			JToolBarHelper::editList('sermon.edit','JTOOLBAR_EDIT');
+		}
+
+		if ($canDo->get('core.edit.state')) {
 			JToolBarHelper::divider();
-			if ($state->get('filter.state') != 2) {
+			JToolBarHelper::custom('speakers.publish', 'publish.png', 'publish_f2.png','JTOOLBAR_PUBLISH', true);
+			JToolBarHelper::custom('speakers.unpublish', 'unpublish.png', 'unpublish_f2.png', 'JTOOLBAR_UNPUBLISH', true);
+			JToolBarHelper::divider();
+			if ($this->state->get('filter.state') != 2) {
 				JToolBarHelper::archiveList('speakers.archive','JTOOLBAR_ARCHIVE');
-			}
-			else if ($state->get('filter.state') == 2) {
+			} else {
 				JToolBarHelper::unarchiveList('speakers.publish', 'JTOOLBAR_UNARCHIVE');
 			}
 		}
-		if ($state->get('filter.state') == -2) {
+
+		if ($this->state->get('filter.state') == -2 && $canDo->get('core.delete')) {
 			JToolBarHelper::deleteList('', 'speakers.delete','JTOOLBAR_EMPTY_TRASH');
-		} else {
+			JToolBarHelper::divider();
+		} else if ($canDo->get('core.edit.state')) {
 			JToolBarHelper::trash('speakers.trash','JTOOLBAR_TRASH');
+			JToolBarHelper::divider();
 		}
-		JToolBarHelper::divider();
-		JToolBarHelper::preferences('com_sermonspeaker');
+
+		if ($canDo->get('core.admin')) {
+			JToolBarHelper::preferences('com_sermonspeaker', 550, 800);
+		}
 	}
 }

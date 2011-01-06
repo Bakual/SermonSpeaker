@@ -2,12 +2,6 @@
 defined('_JEXEC') or die('Restricted access');
 
 JHTML::_('behavior.tooltip');
-
-JToolBarHelper::title(JText::_('COM_SERMONSPEAKER_STATISTICS_TITLE'), 'statistics');
-JToolbarHelper::spacer();
-JToolbarHelper::divider();
-JToolbarHelper::spacer();
-JToolBarHelper::preferences('com_sermonspeaker',550);
 ?>
 
 <table border="0" cellpadding="2" cellspacing="0" width="40%" class="adminlist">
@@ -17,10 +11,10 @@ JToolBarHelper::preferences('com_sermonspeaker',550);
 		</td>
 	</tr>
 	<tr>
-		<th width="20" align="left"><?php echo JText::_('COM_SERMONSPEAKER_ID'); ?></th>
+		<th width="20" align="left"><?php echo JText::_('JGRID_HEADING_ID'); ?></th>
 		<th align="left"><?php echo JText::_('COM_SERMONSPEAKER_SPEAKER'); ?></th>
-		<th width="20" align="left"><?php echo JText::_('COM_SERMONSPEAKER_HITS'); ?></th>
-		<th width="20" align="left"><?php echo JText::_('RESET'); ?></th>
+		<th width="20" align="left"><?php echo JText::_('JGLOBAL_HITS'); ?></th>
+		<th width="20" align="left"><?php echo JText::_('JSEARCH_RESET'); ?></th>
 	</tr>
 	<?php
 	$k = 0;
@@ -47,10 +41,10 @@ JToolBarHelper::preferences('com_sermonspeaker',550);
 		</td>
 	</tr>
 	<tr>
-		<th width="20" align="left"><?php echo JText::_('COM_SERMONSPEAKER_ID'); ?></th>
+		<th width="20" align="left"><?php echo JText::_('JGRID_HEADING_ID'); ?></th>
 		<th align="left"><?php echo JText::_('COM_SERMONSPEAKER_SERIE'); ?></th>
-		<th width="20" align="left"><?php echo JText::_('COM_SERMONSPEAKER_HITS'); ?></th>
-		<th width="20" align="left"><?php echo JText::_('RESET'); ?></th>
+		<th width="20" align="left"><?php echo JText::_('JGLOBAL_HITS'); ?></th>
+		<th width="20" align="left"><?php echo JText::_('JSEARCH_RESET'); ?></th>
 	</tr>
 	<?php
 	$k = 0;
@@ -77,10 +71,10 @@ JToolBarHelper::preferences('com_sermonspeaker',550);
 		</td>
 	</tr>
 	<tr>
-		<th width="20COM_SERMONSPEAKER_IDalign="left"><?php echo JText::_('ID'); ?></th>
-		<th align="left"><?php echo JText::_('SERMON'); ?></th>
-		<th width="20" align="left"><?php echo JText::_('COM_SERMONSPEAKER_HITS'); ?></th>
-		<th width="20" align="left"><?php echo JText::_('RESET'); ?></th>
+		<th width="20" align="left"><?php echo JText::_('JGRID_HEADING_ID'); ?></th>
+		<th align="left"><?php echo JText::_('COM_SERMONSPEAKER_SERMON'); ?></th>
+		<th width="20" align="left"><?php echo JText::_('JGLOBAL_HITS'); ?></th>
+		<th width="20" align="left"><?php echo JText::_('JSEARCH_RESET'); ?></th>
 	</tr>
 	<?php
 	$k = 0;

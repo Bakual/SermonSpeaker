@@ -13,7 +13,7 @@
 			name="state"
 			type="list"
 			label="JGLOBAL_STATE"
-			description="COM_SERMONSPEAKER_FIELD_PUBLISHED_DESC"
+			description="JFIELD_PUBLISHED_DESC"
 			class="inputbox"
 			size="1"
 			default="1">
@@ -24,15 +24,15 @@
 			<option
 				value="2">JARCHIVED</option>
 			<option
-				value="-2">JTRASH</option>
+				value="-2">JTRASHED</option>
 		</field>
 
-		<field name="podcast" type="radio"
+		<field name="podcast" type="list"
 			label="COM_SERMONSPEAKER_SERMONCAST"
 			description="COM_SERMONSPEAKER_SERMONCAST_DESC"
 			default="1">
-			<option value="0">JNO</option>
-			<option value="1">JYES</option>
+			<option value="1">JPUBLISHED</option>
+			<option value="0">JUNPUBLISHED</option>
 		</field>
 
 		<field name="ordering" type="sermonordering" class="inputbox"

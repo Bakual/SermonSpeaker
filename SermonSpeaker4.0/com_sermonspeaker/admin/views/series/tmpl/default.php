@@ -74,31 +74,46 @@ $saveOrder	= $listOrder == 'series.ordering';
 		<tbody>
 		<?php foreach ($this->items as $i => $item) :
 			$ordering	= ($listOrder == 'series.ordering');
-			$item->cat_link	= JRoute::_('index.php?option=com_categories&extension=com_sermonspeaker&task=edit&type=other&cid[]='. $item->catid);
+			$canEdit	= $user->authorise('core.edit', 'com_sermonspeaker.category.'.$item->catid);
+			$canEditOwn	= $user->authorise('core.edit.own', 'com_sermonspeaker.category.'.$item->catid) && $item->created_by == $userId;
+			$canChange	= $user->authorise('core.edit.state', 'com_sermonspeaker.category.'.$item->catid);
 			?>
 			<tr class="row<?php echo $i % 2; ?>">
 				<td class="center">
 					<?php echo JHtml::_('grid.id', $i, $item->id); ?>
 				</td>
 				<td>
-					<a href="<?php echo JRoute::_('index.php?option=com_sermonspeaker&task=serie.edit&id='.(int) $item->id); ?>">
-						<?php echo $this->escape($item->series_title); ?></a>
+					<?php if ($canEdit || $canEditOwn) : ?>
+						<a href="<?php echo JRoute::_('index.php?option=com_sermonspeaker&task=serie.edit&id='.(int) $item->id); ?>">
+							<?php echo $this->escape($item->series_title); ?></a>
+					<?php else : ?>
+						<?php echo $this->escape($item->series_title); ?>
+					<?php endif; ?>
 					<p class="smallsub">
 						<?php echo JText::sprintf('JGLOBAL_LIST_ALIAS', $this->escape($item->alias));?></p>
 				</td>
 				<td class="center">
-					<?php echo JHtml::_('jgrid.published', $item->state, $i, 'series.', true);?>
+					<?php echo JHtml::_('jgrid.published', $item->state, $i, 'series.', $canChange);?>
 				</td>
 				<td class="center">
 					<?php echo $this->escape($item->category_title); ?>
 				</td>
 				<td class="order">
-					<?php if ($saveOrder) :?>
-						<span><?php echo $this->pagination->orderUpIcon($i, ($item->catid == @$this->items[$i-1]->catid), 'series.orderup', 'JLIB_HTML_MOVE_UP', $ordering); ?></span>
-						<span><?php echo $this->pagination->orderDownIcon($i, $this->pagination->total, ($item->catid == @$this->items[$i+1]->catid), 'series.orderdown', 'JLIB_HTML_MOVE_DOWN', $ordering); ?></span>
+					<?php if ($canChange) : ?>
+						<?php if ($saveOrder) :?>
+							<?php if ($listDirn == 'asc') : ?>
+								<span><?php echo $this->pagination->orderUpIcon($i, ($item->catid == @$this->items[$i-1]->catid), 'series.orderup', 'JLIB_HTML_MOVE_UP', $ordering); ?></span>
+								<span><?php echo $this->pagination->orderDownIcon($i, $this->pagination->total, ($item->catid == @$this->items[$i+1]->catid), 'series.orderdown', 'JLIB_HTML_MOVE_DOWN', $ordering); ?></span>
+							<?php elseif ($listDirn == 'desc') : ?>
+								<span><?php echo $this->pagination->orderUpIcon($i, ($item->catid == @$this->items[$i-1]->catid),'series.orderdown', 'JLIB_HTML_MOVE_UP', $ordering); ?></span>
+								<span><?php echo $this->pagination->orderDownIcon($i, $n, ($item->catid == @$this->items[$i+1]->catid), 'series.orderup', 'JLIB_HTML_MOVE_DOWN', $ordering); ?></span>
+							<?php endif; ?>
+						<?php endif; ?>
+						<?php $disabled = $saveOrder ?  '' : 'disabled="disabled"'; ?>
+						<input type="text" name="order[]" size="5" value="<?php echo $item->ordering;?>" <?php echo $disabled ?> class="text-area-order" />
+					<?php else : ?>
+						<?php echo $item->ordering; ?>
 					<?php endif; ?>
-					<?php $disabled = $saveOrder ?  '' : 'disabled="disabled"'; ?>
-					<input type="text" name="order[]" size="5" value="<?php echo $item->ordering;?>" <?php echo $disabled ?> class="text-area-order" />
 				</td>
 				<td class="center">
 					<?php if (!$item->avatar){

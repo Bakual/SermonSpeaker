@@ -60,19 +60,15 @@ class SermonspeakerHelper
 	/**
 	 * Get the actions for ACL
 	 */
-	public static function getActions($categoryId = 0, $sermonId = 0)
+	public static function getActions($categoryId = 0)
 	{
 		$user  	= JFactory::getUser();
 		$result	= new JObject;
 
-		if (empty($sermonId) && empty($categoryId)) {
-			$assetName = 'com_content';
-		}
-		else if (empty($sermonId)) {
-			$assetName = 'com_content.category.'.(int) $categoryId;
-		}
-		else {
-			$assetName = 'com_content.sermon.'.(int) $sermonId;
+		if (empty($categoryId)) {
+			$assetName = 'com_sermonspeaker';
+		} else {
+			$assetName = 'com_sermonspeaker.category.'.(int) $categoryId;
 		}
 
 		$actions = array(

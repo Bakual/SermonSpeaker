@@ -72,8 +72,8 @@ class SermonspeakerModelSpeakers extends JModelList
 		$query->select(
 			$this->getState(
 				'list.select',
-				'speakers.id, speakers.name, speakers.catid,' .
-				'speakers.hits, speakers.pic, speakers.website,' .
+				'speakers.id, speakers.name, speakers.catid, created_by, '.
+				'speakers.hits, speakers.pic, speakers.website, '.
 				'speakers.alias, speakers.state, speakers.ordering'
 			)
 		);

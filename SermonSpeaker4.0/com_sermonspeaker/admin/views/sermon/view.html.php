@@ -90,20 +90,36 @@ class SermonspeakerViewSermon extends JView
 	{
 		JRequest::setVar('hidemainmenu', true);
 
+		$user		= JFactory::getUser();
+		$userId		= $user->get('id');
 		$isNew		= ($this->item->id == 0);
+		$canDo		= SermonspeakerHelper::getActions();
 
 		JToolBarHelper::title(JText::_('COM_SERMONSPEAKER_SERMON_TITLE'), 'sermons');
 
-		JToolBarHelper::apply('sermon.apply', 'JTOOLBAR_APPLY');
-		JToolBarHelper::save('sermon.save', 'JTOOLBAR_SAVE');
-		JToolBarHelper::custom('sermon.save2new', 'save-new.png', 'save-new_f2.png', 'JTOOLBAR_SAVE_AND_NEW', false);
-		// If an existing item, can save to a copy.
-		if (!$isNew) {
-			JToolBarHelper::custom('sermon.save2copy', 'save-copy.png', 'save-copy_f2.png', 'JTOOLBAR_SAVE_AS_COPY', false);
-		}
-		if (empty($this->item->id)) {
+		// Built the actions for new and existing records.
+		if ($isNew)  {
+			// For new records, check the create permission.
+			if ($canDo->get('core.create')) {
+				JToolBarHelper::apply('sermon.apply', 'JTOOLBAR_APPLY');
+				JToolBarHelper::save('sermon.save', 'JTOOLBAR_SAVE');
+				JToolBarHelper::custom('sermon.save2new', 'save-new.png', 'save-new_f2.png', 'JTOOLBAR_SAVE_AND_NEW', false);
+			}
+
 			JToolBarHelper::cancel('sermon.cancel', 'JTOOLBAR_CANCEL');
 		} else {
+			// Since it's an existing record, check the edit permission, or fall back to edit own if the owner.
+			if ($canDo->get('core.edit') || ($canDo->get('core.edit.own') && $this->item->created_by == $userId)) {
+				JToolBarHelper::apply('sermon.apply', 'JTOOLBAR_APPLY');
+				JToolBarHelper::save('sermon.save', 'JTOOLBAR_SAVE');
+
+				// We can save this record as copy, but check the create permission first.
+				if ($canDo->get('core.create')) {
+					JToolBarHelper::custom('sermon.save2new', 'save-new.png', 'save-new_f2.png', 'JTOOLBAR_SAVE_AND_NEW', false);
+					JToolBarHelper::custom('sermon.save2copy', 'save-copy.png', 'save-copy_f2.png', 'JTOOLBAR_SAVE_AS_COPY', false);
+				}
+			}
+
 			JToolBarHelper::cancel('sermon.cancel', 'JTOOLBAR_CLOSE');
 		}
 	}

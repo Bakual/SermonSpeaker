@@ -37,7 +37,16 @@ class SermonspeakerModelSerie extends JModelAdmin
 	 */
 	protected function canEditState($record)
 	{
-		return true;
+		$user = JFactory::getUser();
+
+		// Check against the category.
+		if (!empty($record->catid)) {
+			return $user->authorise('core.edit.state', 'com_sermonspeaker.category.'.(int) $record->catid);
+		}
+		// Default to component settings if neither article nor category known.
+		else {
+			return parent::canEditState($record);
+		}
 	}
 	/**
 	 * Returns a reference to the a Table object, always creating it.
@@ -79,6 +88,18 @@ class SermonspeakerModelSerie extends JModelAdmin
 		} else {
 			// New record. Can only create in selected categories.
 			$form->setFieldAttribute('catid', 'action', 'core.create');
+		}
+
+		// Modify the form based on Edit State access controls.
+		if (!$this->canEditState((object) $data)) {
+			// Disable fields for display.
+			$form->setFieldAttribute('ordering', 'disabled', 'true');
+			$form->setFieldAttribute('state', 'disabled', 'true');
+
+			// Disable fields while saving.
+			// The controller has already verified this is an article you can edit.
+			$form->setFieldAttribute('ordering', 'filter', 'unset');
+			$form->setFieldAttribute('state', 'filter', 'unset');
 		}
 
 		return $form;

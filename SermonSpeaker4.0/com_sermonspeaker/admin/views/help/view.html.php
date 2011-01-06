@@ -7,17 +7,22 @@ class SermonspeakerViewHelp extends JView
 {
 	function display( $tpl = null )
 	{
-		$lg = &JFactory::getLanguage();
-		$language = $lg->_lang;
-
-		if (file_exists(JPATH_COMPONENT.DS.'views'.DS.'help'.DS.'tmpl'.DS.$language.'.help.php')) {
-			$help = JPATH_COMPONENT.DS.'views'.DS.'help'.DS.'tmpl'.DS.$language.'.help.php';
-		} else {
-			$help = JPATH_COMPONENT.DS.'views'.DS.'help'.DS.'tmpl'.DS.'en-GB.help.php';
-		}
-		
-		$this->assignRef('help', $help);
-	
+		$this->addToolbar();
 		parent::display($tpl);
+	}
+
+	/**
+	 * Add the page title and toolbar.
+	 */
+	protected function addToolbar()
+	{
+		$canDo 	= SermonspeakerHelper::getActions();
+
+		JToolBarHelper::title(JText::_('JHELP'), 'sermonhelp');
+
+		if ($canDo->get('core.admin')) {
+			JToolbarHelper::divider();
+			JToolBarHelper::preferences('com_sermonspeaker', 550, 800);
+		}
 	}
 }
