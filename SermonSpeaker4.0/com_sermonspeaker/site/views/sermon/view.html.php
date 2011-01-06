@@ -8,7 +8,6 @@
 defined('_JEXEC') or die;
 
 jimport('joomla.application.component.view');
-// require_once JPATH_COMPONENT.'/models/category.php';
 	
 /**
  * HTML Sermon View class for the Sermonspeaker component
@@ -34,12 +33,31 @@ class SermonspeakerViewSermon extends JView
 		// Get model data (/models/sermon.php) 
 		$state = $this->get('State');
 		$item = $this->get('Item');
+
 		if ($item->alias){
 			$item->slug = $item->id.':'.$item->alias;
 		} else {
 			$item->slug = $item->id;
 		}
 		
+		// check if access is not public
+		$user = JFactory::getUser();
+		$groups	= $user->getAuthorisedViewLevels();
+		
+		// Set ROOT category to public
+		if ($item->category_access === NULL){
+			$item->category_access = 1;
+		}
+
+		$return = '';
+		if ((!in_array($params->get('access'), $groups)) || (!in_array($item->category_access, $groups))) {
+			$uri		= JFactory::getURI();
+			$return		= (string)$uri;
+
+			JError::raiseWarning(403, JText::_('JERROR_ALERTNOAUTHOR'));
+			return;
+		}
+
 		$model		= &$this->getModel();
 		$speaker	= &$model->getSpeaker($item->speaker_id);	// getting the Speaker from the Model
 		if (in_array('sermon:series', $columns)) {
@@ -81,19 +99,6 @@ class SermonspeakerViewSermon extends JView
 			$model->hit();
 		}
 		
-		// check if access is not public
-/*		$groups	= $user->authorisedLevels();
-
-		$return = '';
-		if ((!in_array($item->access, $groups)) || (!in_array($item->category_access, $groups))) {
-			$uri		= JFactory::getURI();
-			$return		= (string)$uri;
-
-				JError::raiseWarning(403, JText::_('JERROR_ALERTNOAUTHOR'));
-				return;
-			
-		} */
-
 		$this->assignRef('params',		$params);
 		$this->assignRef('state', 		$state);
 		$this->assignRef('item', 		$item);

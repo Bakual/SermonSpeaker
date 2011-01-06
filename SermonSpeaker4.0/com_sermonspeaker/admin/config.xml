@@ -46,7 +46,8 @@
 			<option value="1">JYES</option>
 		</field>
 		<field name="access" type="accesslevel"
-			label="COM_SERMONSPEAKER_PARAM_ACCESS" description="COM_SERMONSPEAKER_PARAM_ACCESS_DESC"
+			label="COM_SERMONSPEAKER_PARAM_ACCESS" 
+			description="COM_SERMONSPEAKER_PARAM_ACCESS_DESC"
 			default="1" />
 		<field name="list_direct_link" 
 			type="list" 

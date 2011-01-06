@@ -53,37 +53,65 @@ class SermonspeakerModelSermon extends JModelItem
 	 */
 	public function &getItem($id = null)
 	{
-		if ($this->_item === null)
-		{
-			$this->_item = false;
+		// Initialise variables.
+		$id = (!empty($id)) ? $id : (int) $this->getState('sermon.id');
 
-			if (empty($id)) {
-				$id = $this->getState('sermon.id');
-			}
+		if ($this->_item === null) {
+			$this->_item = array();
+		}
 
-			// Get a level row instance.
-			$table = JTable::getInstance('Sermon', 'SermonspeakerTable');
+		if (!isset($this->_item[$id])) {
 
-			// Attempt to load the row.
-			if ($table->load($id))
-			{
-				// Check published state.
-				if ($published = $this->getState('filter.published'))
-				{
-					if ($table->state != $published) {
-						return $this->_item;
-					}
+			try {
+				$db = $this->getDbo();
+				$query = $db->getQuery(true);
+
+				$query->select(
+					$this->getState(
+						'item.select',
+						'sermon.id, sermon.speaker_id, sermon.series_id, sermon.alias, '.
+						'sermon.sermon_path, sermon.sermon_title, sermon.sermon_number, '.
+						'sermon.sermon_scripture, sermon.sermon_date, sermon.sermon_date, '.
+						'sermon.sermon_time, sermon.notes, sermon.state, '.
+						'sermon.hits, sermon.addfile, sermon.addfileDesc, '.
+						'sermon.metakey, sermon.metadesc, sermon.custom1, sermon.custom2'
+					)
+				);
+				$query->from('#__sermon_sermons AS sermon');
+
+				// Join on category table.
+				$query->select('c.title AS category_title, c.alias AS category_alias, c.access AS category_access');
+				$query->join('LEFT', '#__categories AS c on c.id = sermon.catid');
+
+				// Join over the categories to get parent category titles
+				$query->select('parent.title as parent_title, parent.id as parent_id, parent.path as parent_route, parent.alias as parent_alias');
+				$query->join('LEFT', '#__categories as parent ON parent.id = c.parent_id');
+
+				$query->where('sermon.id = '.(int)$id);
+				$query->where('sermon.state = 1');
+
+				$db->setQuery($query);
+
+				$data = $db->loadObject();
+
+				if ($error = $db->getErrorMsg()) {
+					throw new Exception($error);
 				}
 
-				// Convert the JTable to a clean JObject.
-				$this->_item = JArrayHelper::toObject($table->getProperties(1), 'JObject');
+				if (empty($data)) {
+					throw new JException(JText::_('JGLOBAL_RESOURCE_NOT_FOUND'), 404);
+				}
+
+				$this->_item[$id] = $data;
 			}
-			else if ($error = $table->getError()) {
-				$this->setError($error);
+			catch (JException $e)
+			{
+				$this->setError($e);
+				$this->_item[$id] = false;
 			}
 		}
 
-		return $this->_item;
+		return $this->_item[$id];
 	}
 
 	function getSerie($serie_id)
