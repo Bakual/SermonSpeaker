@@ -95,7 +95,7 @@ class SermonspeakerViewSermon extends JView
 		$isNew		= ($this->item->id == 0);
 		$canDo		= SermonspeakerHelper::getActions();
 
-		JToolBarHelper::title(JText::_('COM_SERMONSPEAKER_SERMON_TITLE'), 'sermons');
+		JToolBarHelper::title(JText::_('COM_SERMONSPEAKER_SERMONS_TITLE'), 'sermons');
 
 		// Built the actions for new and existing records.
 		if ($isNew)  {

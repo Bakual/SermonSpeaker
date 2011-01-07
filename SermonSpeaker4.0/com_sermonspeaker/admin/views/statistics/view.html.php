@@ -28,7 +28,7 @@ class SermonspeakerViewStatistics extends JView
 	{
 		$canDo 	= SermonspeakerHelper::getActions();
 
-		JToolBarHelper::title(JText::_('SermonSpeaker'), 'generic');
+		JToolBarHelper::title(JText::_('COM_SERMONSPEAKER_STATISTICS_TITLE'), 'statistics');
 
 		if ($canDo->get('core.admin')) {
 			JToolbarHelper::divider();

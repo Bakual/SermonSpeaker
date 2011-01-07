@@ -5,7 +5,7 @@ JHTML::_('behavior.tooltip');
 ?>
 
 <table class="adminform">
-	<?php echo $this->migrate; ?>
+	<?php echo $this->notsaved; ?>
 	<tbody><tr><td valign="top">
 		<div id="cpanel">
 			<div style="float: left;"><div class="icon">

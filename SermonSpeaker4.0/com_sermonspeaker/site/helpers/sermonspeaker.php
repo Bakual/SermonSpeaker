@@ -24,6 +24,12 @@ class SermonspeakerHelperSermonspeaker
 
 		$link = SermonspeakerHelperSermonspeaker::makelink($addfile); 
 
+		// Show filename if no addfileDesc is set
+		if (!$addfileDesc){
+			$file_arr = explode('/', $addfile);
+			$addfileDesc = end($file_arr);
+		}
+
 		$filetype = trim(strrchr($addfile, '.'), '.');
 		if (file_exists(JPATH_COMPONENT.DS.'icons'.DS.$filetype.'.png')) {
 			$file = JURI::root().'components/com_sermonspeaker/icons/'.$filetype.'.png';

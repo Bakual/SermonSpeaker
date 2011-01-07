@@ -47,7 +47,7 @@ $self = $uri->toString();
 			</ul>
 		</fieldset>
 		<fieldset class="adminform">
-			<legend><?php echo JText::_('COM_SERMONSPEAKER_SERMONPATH'); ?></legend>
+			<legend><?php echo JText::_('COM_SERMONSPEAKER_FIELD_SERMONPATH_LABEL'); ?></legend>
 			<input type="radio" name="sel" value="1" onclick="enableElement(this.form.elements['jform_sermon_path'], this.form.elements['jform_sermon_path_choice']);" checked>
 			<?php echo $this->form->getInput('sermon_path'); ?>
 			<div class="clr"></div>
@@ -57,12 +57,12 @@ $self = $uri->toString();
 			<img onClick="window.location.href='<?php echo $self; ?>&amp;file='+document.adminForm.jform_sermon_path_choice.value;" src='<?php echo JURI::root(); ?>/components/com_sermonspeaker/images/find.png' alt='lookup ID3' title='lookup ID3'>
 		</fieldset>
 		<fieldset class="adminform">
-			<legend><?php echo JText::_('COM_SERMONSPEAKER_SERMONNOTES'); ?></legend>
+			<legend><?php echo JText::_('COM_SERMONSPEAKER_FIELD_SERMONNOTES_LABEL'); ?></legend>
 			<div class="clr"></div>
 			<?php echo $this->form->getInput('notes'); ?>
 		</fieldset>
 		<fieldset class="adminform">
-			<legend><?php echo JText::_('COM_SERMONSPEAKER_ADDFILE'); ?></legend>
+			<legend><?php echo JText::_('COM_SERMONSPEAKER_FIELD_ADDFILE_LABEL'); ?></legend>
 			<input type="radio" name="jform[seladdfile]" value="1" onclick="enableElement(this.form.elements['jform_addfile'], this.form.elements['jform_addfile_choice']);" checked>
 			<?php echo $this->form->getInput('addfile'); ?>
 			<div class="clr"></div>
@@ -102,7 +102,7 @@ $self = $uri->toString();
 			</ul>
 		</fieldset>
 
-		<?php echo JHtml::_('sliders.panel',JText::_('COM_SERMONSPEAKER_CUSTOM'), 'custom-panel'); ?>
+		<?php echo JHtml::_('sliders.panel',JText::_('COM_SERMONSPEAKER_FIELDSET_CUSTOM_LABEL'), 'custom-panel'); ?>
 		<fieldset class="panelform">
 			<ul class="adminformlist">
 			<?php foreach($this->form->getFieldset('custom') as $field): ?>
