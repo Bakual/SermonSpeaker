@@ -97,7 +97,7 @@ class SermonspeakerViewSermon extends JView
 
 		JToolBarHelper::title(JText::_('COM_SERMONSPEAKER_SERMONS_TITLE'), 'sermons');
 
-		// Built the actions for new and existing records.
+		// Build the actions for new and existing records.
 		if ($isNew)  {
 			// For new records, check the create permission.
 			if ($canDo->get('core.create')) {

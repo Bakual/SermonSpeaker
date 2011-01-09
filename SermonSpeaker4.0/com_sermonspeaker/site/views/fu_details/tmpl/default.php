@@ -20,7 +20,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 	<tr>
 		<td align="right" class="key"><?php echo JText::_('COM_SERMONSPEAKER_FU_SERMONTITLE'); ?></td>
 		<td></td>
-		<td><input class="text_area" type="text" name="sermon_title" id="sermon_title" size="50" maxlength="250" value="<?php echo $this->id3['title'];?>" /></td>
+		<td><input class="text_area" type="text" name="sermon_title" id="sermon_title" size="50" maxlength="250" value="<?php echo $this->id3['sermon_title'];?>" /></td>
 	</tr>
 	<tr>
 		<td align="right" class="key"><?php echo JText::_('COM_SERMONSPEAKER_FU_ALIAS'); ?></td>
@@ -31,7 +31,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 		<td align="right" class="key"> <?php echo JText::_('COM_SERMONSPEAKER_SCRIPTURE'); ?> </td> 
 		<td></td>
 		<td>
-			<input class="text_area" type="text" name="sermon_scripture" id="sermon_scripture" size="50" maxlength="250" value="<?php echo $this->id3['ref'];?>" />
+			<input class="text_area" type="text" name="sermon_scripture" id="sermon_scripture" size="50" maxlength="250" value="<?php echo $this->id3['sermon_scripture'];?>" />
 			<img onClick="sendText(document.fu_createsermon.sermon_scripture,'{bib=','}')" src='<?php echo JURI::root(); ?>/components/com_sermonspeaker/images/blue_tag.png' title='insert Biblelink tag' alt='insert Biblelink tag'>
 			<img onClick="sendText(document.fu_createsermon.sermon_scripture,'{bible}','{/bible}')" src='<?php echo JURI::root(); ?>/components/com_sermonspeaker/images/green_tag.png' title='insert ScriptureLink tag' alt='insert ScriptureLink tag'>
 		</td>
@@ -54,12 +54,12 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 	<tr>
 		<td align="right" class="key"> <?php echo JText::_('COM_SERMONSPEAKER_FU_SERMONNUMBER'); ?> </td> 
 		<td></td>
-		<td><input class="text_area" type="text" name="sermon_number" id="sermon_number" size="10" maxlength="250" value="<?php echo $this->id3['number']; ?>" /> </td>
+		<td><input class="text_area" type="text" name="sermon_number" id="sermon_number" size="10" maxlength="250" value="<?php echo $this->id3['sermon_number']; ?>" /> </td>
 	</tr>
 	<tr title='<?php echo JText::_('COM_SERMONSPEAKER_FU_SERMONTIME_DESC'); ?>'>
 		<td align="right" class="key"> <?php echo JText::_('COM_SERMONSPEAKER_SERMONLENGTH'); ?> </td> 
 		<td></td>
-		<td><input class="text_area" type="text" name="sermon_time" id="sermon_time" size="10" maxlength="250" value="<?php echo $this->id3['time']; ?>" /> </td>
+		<td><input class="text_area" type="text" name="sermon_time" id="sermon_time" size="10" maxlength="250" value="<?php echo $this->id3['sermon_time']; ?>" /> </td>
 	</tr>
 	<tr>
 		<td align="right" class="key"> <?php echo JText::_('COM_SERMONSPEAKER_SPEAKER'); ?> </td> 
@@ -77,12 +77,12 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 		<td><?php echo $this->editor->display('notes', $this->id3['notes'], '100%', '200', '40', '10');	?> </td>
 	</tr>
 	<tr>
-		<td align="right" class="key"> <?php echo JText::_('CATEGORY'); ?> </td>
+		<td align="right" class="key"> <?php echo JText::_('JCATEGORY'); ?> </td>
 		<td></td>
 		<td><?php echo $this->lists['catid']; ?></td>
 	</tr>
 	<tr title='<?php echo JText::_('COM_SERMONSPEAKER_FU_PUBLISHED_DESC'); ?>'>
-		<td align="right" class="key"> <?php echo JText::_('state'); ?> </td> 
+		<td align="right" class="key"> <?php echo JText::_('JGLOBAL_STATE'); ?> </td> 
 		<td></td>
 		<td><?php echo $this->lists['state']; ?> </td>
 	</tr>

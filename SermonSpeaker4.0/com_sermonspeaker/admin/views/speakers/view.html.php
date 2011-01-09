@@ -38,11 +38,11 @@ class SermonspeakerViewSpeakers extends JView
 		JToolBarHelper::title(JText::_('COM_SERMONSPEAKER_SPEAKERS_TITLE'), 'speakers');
 
 		if ($canDo->get('core.create')) {
-			JToolBarHelper::addNew('sermon.add','JTOOLBAR_NEW');
+			JToolBarHelper::addNew('speaker.add','JTOOLBAR_NEW');
 		}
 
 		if (($canDo->get('core.edit')) || ($canDo->get('core.edit.own'))) {
-			JToolBarHelper::editList('sermon.edit','JTOOLBAR_EDIT');
+			JToolBarHelper::editList('speaker.edit','JTOOLBAR_EDIT');
 		}
 
 		if ($canDo->get('core.edit.state')) {

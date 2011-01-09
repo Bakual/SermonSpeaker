@@ -16,7 +16,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 	<tr>
 		<td width ="50"></td>
 		<td>
-			<?php echo "<FORM><INPUT TYPE=\"BUTTON\" VALUE=\"".JText::_('COM_SERMONSPEAKER_FU_ANOTHER')."\" ONCLICK=\"window.location.href='index.php?option=com_sermonspeaker&view=fu_step_1'\"> </FORM>";
+			<?php echo "<FORM><INPUT TYPE=\"BUTTON\" VALUE=\"".JText::_('COM_SERMONSPEAKER_FU_ANOTHER')."\" ONCLICK=\"window.location.href='index.php?option=com_sermonspeaker&view=frontendupload'\"> </FORM>";
 			echo "&nbsp;&nbsp;";
 			echo SermonspeakerHelperSermonspeaker::fu_logoffbtn(); ?>
 		</td>
