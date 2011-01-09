@@ -32,20 +32,16 @@ class JFormFieldScripture extends JFormField
 	 */
 	protected function getInput()
 	{
-		$onclick	= ' onclick="document.id(\''.$this->id.'\').value=\'0\';"';
 		if (JPluginHelper::isEnabled('content', 'biblelinkxt')){
 			$biblelinkxt = 'title="insert Biblelink tag" alt="insert Biblelink tag"';
 		} else {
 			$biblelinkxt = 'class="transparent" title="insert Biblelink tag, Plugin not enabled" alt="insert Biblelink tag, Plugin not enabled"';
 		}
-		$onclick	= ' onclick="document.id(\''.$this->id.'\').value=\'0\';"';
 		if (JPluginHelper::isEnabled('content', 'scripturelinks')){
 			$scripturelink = 'title="insert ScriptureLink tag" alt="insert ScriptureLink tag"';
 		} else {
 			$scripturelink = 'class="transparent" title="insert ScriptureLink tag, Plugin not enabled" alt="insert ScriptureLink tag, Plugin not enabled"';
 		}
-		
-
 		
 		$html 	= '<input type="text" name="'.$this->name.'" id="'.$this->id.'" value="'.htmlspecialchars($this->value, ENT_COMPAT, 'UTF-8').'" class="inputbox" />'
 				. '<img '.$biblelinkxt.' onClick="sendText(document.adminForm.jform_sermon_scripture,\'{bib=\',\'}\')" src="'.JURI::root().'/components/com_sermonspeaker/images/blue_tag.png">'
