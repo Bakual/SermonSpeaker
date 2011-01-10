@@ -37,7 +37,7 @@
 		<section>Testing Section</section>
 		<targetplatform name="joomla" version="1.6" />
 		<client>site</client>
-		<!-- <group> not required for components -->
+		<!-- <folder> not required for components -->
 		<!-- no <relationships> are defined but they could be! -->
 	</update>
 </updates>
