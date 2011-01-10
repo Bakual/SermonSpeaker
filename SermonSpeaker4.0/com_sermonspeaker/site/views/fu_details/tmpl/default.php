@@ -12,7 +12,11 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 		<td colspan="3"><h1><?php echo JText::sprintf('COM_SERMONSPEAKER_FU_FILENAME', $this->filename); ?></h1></td>
 	</tr>
 	<tr>
-		<td colspan="3"><b><?php echo JText::_('COM_SERMONSPEAKER_FU_STEP'); ?> 2 : </b><?php echo JText::_('COM_SERMONSPEAKER_FU_STEP2'); ?></td>
+		<td colspan="3">
+			<?php echo JText::_('COM_SERMONSPEAKER_FU_STEP'); ?> 1: <?php echo JText::_('COM_SERMONSPEAKER_FU_STEP1'); ?> | 
+			<b><u><?php echo JText::_('COM_SERMONSPEAKER_FU_STEP'); ?> 2: <?php echo JText::_('COM_SERMONSPEAKER_FU_STEP2'); ?></u></b> | 
+			<?php echo JText::_('COM_SERMONSPEAKER_FU_STEP'); ?> 3: <?php echo JText::_('COM_SERMONSPEAKER_FU_STEP3'); ?>
+		</td>
 	</tr>
 	<tr>
 		<td colspan="3">&nbsp;</td>

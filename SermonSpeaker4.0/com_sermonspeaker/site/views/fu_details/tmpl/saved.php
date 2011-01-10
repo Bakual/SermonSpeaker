@@ -8,7 +8,11 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 	</tr>
 	<tr>
 		<td width ="50">&#160;</td>
-		<td colspan="3"><b><?php echo JText::_('COM_SERMONSPEAKER_FU_STEP'); ?> 3 : </b><?php echo JText::_('COM_SERMONSPEAKER_FU_STEP3'); ?></td>
+		<td colspan="3">
+			<?php echo JText::_('COM_SERMONSPEAKER_FU_STEP'); ?> 1: <?php echo JText::_('COM_SERMONSPEAKER_FU_STEP1'); ?> | 
+			<?php echo JText::_('COM_SERMONSPEAKER_FU_STEP'); ?> 2: <?php echo JText::_('COM_SERMONSPEAKER_FU_STEP2'); ?> | 
+			<b><u><?php echo JText::_('COM_SERMONSPEAKER_FU_STEP'); ?> 3: <?php echo JText::_('COM_SERMONSPEAKER_FU_STEP3'); ?></u></b>
+		</td>
 	</tr>
 	<tr>
 		<td colspan ="4">&#160;</td>

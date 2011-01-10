@@ -60,16 +60,19 @@ class SermonspeakerViewFrontendupload extends JView
 					// file exists already
 					JError::raiseWarning(100, JText::_('COM_SERMONSPEAKER_FU_ERROR_EXISTS'));
 					parent::display($tpl);
+					return;
 				}
 				$allowed = array('mp3', 'm4a', 'flv', 'mp4', 'm4v', 'wmv' );
 				if (!in_array(strtolower(JFile::getExt($filename)), $allowed)) {
 					// file extension not supported
 					JError::raiseWarning(100, JText::_('COM_SERMONSPEAKER_FU_ERROR_EXT'));
 					parent::display($tpl);
+					return;
 				} else {
 					if (!JFile::upload($file['tmp_name'], $dest)) {
 						JError::raiseWarning(100, JText::_('COM_SERMONSPEAKER_FU_FAILED'));
 						parent::display($tpl);
+						return;
 					} else {
 						$app->redirect('index.php?option=com_sermonspeaker&view=fu_details&filename='.$filename);
 					}
