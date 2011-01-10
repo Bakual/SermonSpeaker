@@ -16,7 +16,7 @@
 		<folder>language</folder>
 	</files>
 	<updateservers>
-		<server type="extension" priority="1" name="Extension Update Site">http://www.sermonspeaker.net/update/component/com_sermonspeaker</server>
+		<server type="extension" priority="1" name="Extension Update Site">http://www.sermonspeaker.net/update/modules/mod_latestsermons</server>
 	</updateservers>
 	<config>
 		<fields name="params">

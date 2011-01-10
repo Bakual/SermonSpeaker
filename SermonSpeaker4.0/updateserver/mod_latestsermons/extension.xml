@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <updates>
 	<update>
-		<name>SermonSpeaker</name>
-		<description>SermonSpeaker 4.0</description>
-		<element>com_sermonspeaker</element>
-		<type>component</type>
+		<name>SermonSpeaker Latest Sermons</name>
+		<description>SermonSpeaker Latest Sermons Module 4.0</description>
+		<element>mod_latestsermons</element>
+		<type>module</type>
 		<version>4.0</version>
 		<infourl title="SermonSpeaker Homepage">http://www.sermonspeaker.net</infourl>
 		<downloads>
-			<downloadurl type="full" format="zip">http://www.sermonspeaker.net/files/SermonSpeaker4/Component/com_sermonspeaker.zip</downloadurl>
+			<downloadurl type="full" format="zip">http://www.sermonspeaker.net/files/SermonSpeaker4/Modules/mod_latestsermons.zip</downloadurl>
 		</downloads>
 		<tags>
 			<tag>Testing Tag</tag>
@@ -17,16 +17,17 @@
 		<maintainerurl>http://www.bakual.ch</maintainerurl>
 		<section>Testing Section</section>
 		<targetplatform name="joomla" version="1.6" />
+		<client>site</client>
 	</update>
 	<update>
-		<name>SermonSpeaker</name>
-		<description>SermonSpeaker 4.0</description>
-		<element>com_sermonspeaker</element>
-		<type>component</type>
+		<name>SermonSpeaker Latest Sermons</name>
+		<description>SermonSpeaker Latest Sermons Module 4.0</description>
+		<element>mod_latestsermons</element>
+		<type>module</type>
 		<version>4.0.beta</version>
 		<infourl title="SermonSpeaker Homepage">http://www.sermonspeaker.net</infourl>
 		<downloads>
-			<downloadurl type="full" format="zip">http://www.sermonspeaker.net/files/SermonSpeaker4/Component/com_sermonspeaker.zip</downloadurl>
+			<downloadurl type="full" format="zip">http://www.sermonspeaker.net/files/SermonSpeaker4/Modules/mod_latestsermons.zip</downloadurl>
 		</downloads>
 		<tags>
 			<tag>Testing Tag</tag>
@@ -35,7 +36,7 @@
 		<maintainerurl>http://www.bakual.ch</maintainerurl>
 		<section>Testing Section</section>
 		<targetplatform name="joomla" version="1.6" />
-		<!-- <client> not required for components -->
+		<client>site</client>
 		<!-- <group> not required for components -->
 		<!-- no <relationships> are defined but they could be! -->
 	</update>
