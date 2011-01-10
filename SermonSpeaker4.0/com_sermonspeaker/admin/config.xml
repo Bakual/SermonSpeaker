@@ -192,22 +192,6 @@
 			<option value="0">JNO</option>
 			<option value="1">JYES</option>
 		</field>
-		<field name="fu_taskname" 
-			type="text" 
-			default="" 
-			label="COM_SERMONSPEAKER_PARAM_FU_TASKNAME" 
-			description="COM_SERMONSPEAKER_PARAM_FU_TASKNAME_DESC" />
-		<field name="fu_pwd" 
-			type="password" 
-			default="" 
-			label="COM_SERMONSPEAKER_PARAM_FU_PWD" 
-			description="COM_SERMONSPEAKER_PARAM_FU_PWD_DESC" />
-		<field name="fu_usergroup" 
-			type="usergroup" 
-			default="" 
-			multiple="yes" 
-			label="COM_SERMONSPEAKER_PARAM_FU_USERGROUP" 
-			description="COM_SERMONSPEAKER_PARAM_FU_USERGROUP_DESC" />
 		<field name="fu_destdir" 
 			type="text" 
 			default="" 

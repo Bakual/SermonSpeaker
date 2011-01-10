@@ -30,7 +30,7 @@ $listDirn	= $this->state->get('list.direction');
 				<th width='10'> </th>
 			<?php endif; ?>
 			<th class="ss-title">
-				<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SERIESTITLE', 'series_title', $listDirn, $listOrder); ?>
+				<?php echo JHTML::_('grid.sort', 'JGLOBAL_TITLE', 'series_title', $listDirn, $listOrder); ?>
 			</th>
 			<th align="left"><?php echo JText::_('COM_SERMONSPEAKER_SPEAKER'); ?></th>
 		</tr></thead>

@@ -55,7 +55,7 @@ if ($this->speaker->website && $this->speaker->website != "http://") : ?>
 				</th>
 			<?php endif; ?>
 			<th class="ss-title">
-				<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SERMONTITLE', 'sermon_title', $listDirn, $listOrder); ?>
+				<?php echo JHTML::_('grid.sort', 'JGLOBAL_TITLE', 'sermon_title', $listDirn, $listOrder); ?>
 			</th>
 			<?php if (in_array('speaker:scripture', $columns)) : ?>
 				<th class="ss-col">

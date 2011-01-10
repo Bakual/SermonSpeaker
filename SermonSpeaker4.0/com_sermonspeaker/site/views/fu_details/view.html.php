@@ -52,7 +52,7 @@ class SermonspeakerViewFu_details extends JView
 				// Reading ID3 Tags
 				$path 	= DS.$params->get('path').DS.$params->get('fu_destdir').DS.$filename;
 				require_once JPATH_COMPONENT_SITE.DS.'helpers'.DS.'id3.php';
-				$id3 = SermonspeakerHelperId3::getID3($path);
+				$id3 = SermonspeakerHelperId3::getID3($path, $params);
 
 				// Preparing Dropdown Lists
 				// todo: probably move Databasestuff to Model

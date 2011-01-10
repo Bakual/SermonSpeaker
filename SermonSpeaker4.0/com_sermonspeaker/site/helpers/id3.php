@@ -6,7 +6,7 @@ defined('_JEXEC') or die('Restricted access');
  */
 class SermonspeakerHelperId3
 {
-	function getID3($file) {
+	function getID3($file, $params) {
 		require_once(JPATH_COMPONENT_SITE.DS.'id3'.DS.'getid3'.DS.'getid3.php');
 		$getID3 	= new getID3;
 		$path		= JPATH_SITE.str_replace('/', DS, $file);
@@ -15,7 +15,9 @@ class SermonspeakerHelperId3
 
 		$id3 = array();
 		if (array_key_exists('playtime_string', $FileInfo)){
-			$id3['sermon_time']		= $FileInfo['playtime_string'];
+			$id3['sermon_time']	= $FileInfo['playtime_string'];
+		} else {
+			$id3['sermon_time']	= '';
 		}
 		if (array_key_exists('comments', $FileInfo)){
 			if (array_key_exists('title', $FileInfo['comments'])){
@@ -25,25 +27,18 @@ class SermonspeakerHelperId3
 				$id3['sermon_title']	= JFile::stripExt(JFile::getName($file));
 			}
 			$id3['alias'] = JFilterOutput::stringURLSafe($id3['sermon_title']);
-			if (array_key_exists('track_number', $FileInfo['comments'])){
-				$id3['sermon_number']	= $FileInfo['comments']['track_number'][0]; // ID3v2 Tag
-			} elseif (array_key_exists('track', $FileInfo['comments'])) {
-				$id3['sermon_number']	= $FileInfo['comments']['track'][0]; // ID3v1 Tag
+			if (array_key_exists('track', $FileInfo['comments'])){
+				$id3['sermon_number']	= $FileInfo['comments']['track'][0];
+			} else {
+				$id3['sermon_number']	= '';
 			}
-
-			if (array_key_exists('comments', $FileInfo['comments'])){
+			if (array_key_exists('comment', $FileInfo['comments'])){
 				if ($params->get('fu_id3_comments') == 'ref'){
-					if ($FileInfo['comments']['comments'][0] != ""){
-						$id3['sermon_scripture'] = $FileInfo['comments']['comments'][0]; // ID3v2 Tag
-					} else {
-						$id3['sermon_scripture'] = $FileInfo['comments']['comment'][0]; // ID3v1 Tag
-					}
+					$id3['sermon_scripture'] = $FileInfo['comments']['comment'][0];
+					$id3['notes'] 			 = '';
 				} else {
-					if ($FileInfo['comments']['comments'][0] != ""){
-						$id3['notes'] = $FileInfo['comments']['comments'][0]; // ID3v2 Tag
-					} else {
-						$id3['notes'] = $FileInfo['comments']['comment'][0]; // ID3v1 Tag
-					}
+					$id3['notes']			 = $FileInfo['comments']['comment'][0];
+					$id3['sermon_scripture'] = '';
 				}
 			}
 			$db =& JFactory::getDBO();
@@ -51,12 +46,26 @@ class SermonspeakerHelperId3
 				$query = "SELECT id FROM #__sermon_series WHERE series_title like '".$FileInfo['comments']['album'][0]."';";
 				$db->setQuery($query);
 				$id3['series_id'] 	= $db->loadResult();
+			} else {
+				$id3['series_id'] 	= '';
 			}
 			if (array_key_exists('artist', $FileInfo['comments'])){
 				$query = "SELECT id FROM #__sermon_speakers WHERE name like '".$FileInfo['comments']['artist'][0]."';";
 				$db->setQuery($query);
 				$id3['speaker_id']	= $db->loadResult();
+			} else {
+				$id3['speaker_id']	= '';
 			}
+		} else {
+			jimport('joomla.filesystem.file');
+			$id3['sermon_time']		= '';
+			$id3['sermon_title']	= JFile::stripExt(JFile::getName($file));
+			$id3['alias'] 			= JFilterOutput::stringURLSafe($id3['sermon_title']);
+			$id3['sermon_number']	= '';
+			$id3['notes'] 			= '';
+			$id3['sermon_scripture'] = '';
+			$id3['series_id'] 		= '';
+			$id3['speaker_id']		= '';
 		}
 
 		return $id3;

@@ -9,8 +9,8 @@
 		<fieldset name="request">
 
 			<field name="speakers_cat" type="category" 
-				label="COM_SERMONSPEAKER_FIELD_CATEGORY_SPEAKER_LABEL" 
-				description="COM_SERMONSPEAKER_FIELD_CATEGORY_DESC" 
+				label="COM_SERMONSPEAKER_PARAM_CATEGORY_SPEAKER_LABEL" 
+				description="COM_SERMONSPEAKER_PARAM_CATEGORY_DESC" 
 				extension="com_sermonspeaker" 
 				show_root="true"
 			/>

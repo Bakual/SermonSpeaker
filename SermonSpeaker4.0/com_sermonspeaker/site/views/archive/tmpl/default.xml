@@ -26,22 +26,22 @@
 			/>
 
 			<field name="series_cat" type="category" 
-				label="COM_SERMONSPEAKER_FIELD_CATEGORY_SERIES_LABEL" 
-				description="COM_SERMONSPEAKER_FIELD_CATEGORY_DESC" 
+				label="COM_SERMONSPEAKER_PARAM_CATEGORY_SERIES_LABEL" 
+				description="COM_SERMONSPEAKER_PARAM_CATEGORY_DESC" 
 				extension="com_sermonspeaker" 
 				show_root="true"
 			/>
 
 			<field name="speaker_cat" type="category" 
-				label="COM_SERMONSPEAKER_FIELD_CATEGORY_SPEAKER_LABEL" 
-				description="COM_SERMONSPEAKER_FIELD_CATEGORY_DESC" 
+				label="COM_SERMONSPEAKER_PARAM_CATEGORY_SPEAKER_LABEL" 
+				description="COM_SERMONSPEAKER_PARAM_CATEGORY_DESC" 
 				extension="com_sermonspeaker" 
 				show_root="true"
 			/>
 
 			<field name="sermon_cat" type="category" 
-				label="COM_SERMONSPEAKER_FIELD_CATEGORY_SERMON_LABEL" 
-				description="COM_SERMONSPEAKER_FIELD_CATEGORY_DESC" 
+				label="COM_SERMONSPEAKER_PARAM_CATEGORY_SERMON_LABEL" 
+				description="COM_SERMONSPEAKER_PARAM_CATEGORY_DESC" 
 				extension="com_sermonspeaker" 
 				show_root="true"
 			/>

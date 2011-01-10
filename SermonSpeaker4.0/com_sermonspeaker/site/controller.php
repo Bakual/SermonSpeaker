@@ -92,12 +92,4 @@ class SermonspeakerController extends JController
 			die("<html><body OnLoad=\"javascript: alert('File not found!');history.back();\" bgcolor=\"#F0F0F0\"></body></html>");
 		}
 	} // end of download
-
-	function fu_logout () {
-		$session = &JFactory::getSession();
-		$session->set('loggedin','');
-		header('HTTP/1.1 303 See Other');
-		header('Location: index.php?option=com_user&task=logout&return=aW5kZXgucGhw'); //redirects to index.php after logging the user out
-		return;
-	} // end of fu_logoff
 }

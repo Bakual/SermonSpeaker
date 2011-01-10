@@ -199,10 +199,12 @@ class SermonspeakerHelperSermonspeaker
 		}
 
 		return($return);
-	} // end of insertTime
+	}
 
 	function fu_logoffbtn () {
-		$str = '<FORM><INPUT TYPE="BUTTON" VALUE="'.JText::_('COM_SERMONSPEAKER_FU_LOGOUT').'" ONCLICK="window.location.href=\'index.php?option=com_sermonspeaker&amp;task=fu_logout\'"> </FORM>';
-		return $str;
-	} // end of fu_logoffbtn
+		$html 	= '<form>'
+				. '<input type="button" value="'.JText::_('JLOGOUT').'" onclick="window.location.href=\''.JRoute::_('index.php?option=com_users&task=user.logout').'\'">'
+				. '</form>';
+		return $html;
+	}
 }

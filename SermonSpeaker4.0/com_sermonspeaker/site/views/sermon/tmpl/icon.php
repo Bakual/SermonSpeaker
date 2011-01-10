@@ -8,7 +8,7 @@ $player = SermonspeakerHelperSermonspeaker::insertPlayer($this->lnk, $this->item
 ?>
 <div id="sermon-container">
 	<h1 class="componentheading"><a 
-		title="<?php echo JText::_('COM_SERMONSPEAKER_SERMONTITLE').':: '.$this->escape($this->item->sermon_title); ?>" 
+		title="<?php echo JText::_('JGLOBAL_TITLE').':: '.$this->escape($this->item->sermon_title); ?>" 
 		href="<?php echo JRoute::_('index.php?view=sermon&id='.$this->item->slug); ?>"><?php echo $this->escape($this->item->sermon_title); ?></a></h1>
 	<div id="sermon-infobox">
 		<div id="sermon-player-container">
@@ -103,8 +103,8 @@ if ($keywords[0]): ?>
 	</div>
 <?php endif;
 if ($this->item->hits) : ?>
-	<div class="hits" title="<?php echo JText::_('COM_SERMONSPEAKER_HITS'); ?>">
-		<?php echo JText::_('COM_SERMONSPEAKER_HITS').': '.$this->item->hits; ?>
+	<div class="hits" title="<?php echo JText::_('JGLOBAL_HITS'); ?>">
+		<?php echo JText::_('JGLOBAL_HITS').': '.$this->item->hits; ?>
 	</div>
 <?php endif; ?>
 <table width="100%">

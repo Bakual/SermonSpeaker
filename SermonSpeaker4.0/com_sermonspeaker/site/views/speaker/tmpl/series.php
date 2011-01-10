@@ -49,7 +49,7 @@ if ($this->speaker->website && $this->speaker->website != "http://") : ?>
 				<th width='10'> </th>
 			<?php endif; ?>
 			<th class="ss-title">
-				<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SERIESTITLE', 'series_title', $listDirn, $listOrder); ?>
+				<?php echo JHTML::_('grid.sort', 'JGLOBAL_TITLE', 'series_title', $listDirn, $listOrder); ?>
 			</th>
 			<th class="ss-col">
 				<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SERIESDESCRIPTION', 'series_description', $listDirn, $listOrder); ?>

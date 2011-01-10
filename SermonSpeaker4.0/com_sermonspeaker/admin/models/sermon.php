@@ -27,6 +27,34 @@ class SermonspeakerModelSermon extends JModelAdmin
 	{
 		return true;
 	}
+	
+	public function delete(&$pks)
+	{
+		// Initialise variables.
+		$pks		= (array) $pks;
+		$table		= $this->getTable();
+
+		JImport('joomla.filesystem.file');
+		// Iterate the items to delete the files.
+		foreach ($pks as $i => $pk) {
+			if ($table->load($pk)) {
+				if ($this->canDelete($table)) {
+					if($table->sermon_path && file_exists(JPATH_ROOT.$table->sermon_path)){
+						if (!JFile::delete(JPATH_ROOT.$table->sermon_path)){
+							$this->setError('Could not delete: '.JPATH_ROOT.$table->sermon_path);
+						}
+					}
+				}
+			} else {
+				$this->setError($table->getError());
+				return false;
+			}
+		}
+		
+		// Call parent function to delete the database records
+		parent::delete($pks);
+		return true;
+	}
 
 	/**
 	 * Method to test whether a records state can be changed.
@@ -126,8 +154,9 @@ class SermonspeakerModelSermon extends JModelAdmin
 		if ($id3_file = JRequest::getString('file')){
 			$data->sermon_path = $id3_file;
 			require_once JPATH_COMPONENT_SITE.DS.'helpers'.DS.'id3.php';
+			$params = JComponentHelper::getParams('com_sermonspeaker');
 
-			$id3 = SermonspeakerHelperId3::getID3($id3_file);
+			$id3 = SermonspeakerHelperId3::getID3($id3_file, $params);
 			foreach ($id3 as $key => $value){
 				if ($value){
 					$data->$key = $value;

@@ -18,12 +18,12 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 		<td colspan="3">&nbsp;</td>
 	</tr>
 	<tr>
-		<td align="right" class="key"><?php echo JText::_('COM_SERMONSPEAKER_FU_SERMONTITLE'); ?></td>
+		<td align="right" class="key"><?php echo JText::_('JGLOBAL_TITLE'); ?></td>
 		<td></td>
 		<td><input class="text_area" type="text" name="sermon_title" id="sermon_title" size="50" maxlength="250" value="<?php echo $this->id3['sermon_title'];?>" /></td>
 	</tr>
 	<tr>
-		<td align="right" class="key"><?php echo JText::_('COM_SERMONSPEAKER_FU_ALIAS'); ?></td>
+		<td align="right" class="key"><?php echo JText::_('JFIELD_ALIAS_LABEL'); ?></td>
 		<td></td>
 		<td><input class="text_area" type="text" name="alias" id="alias" size="50" maxlength="250" value="<?php echo $this->id3['alias']; ?>" /></td>
 	</tr>
@@ -91,8 +91,8 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 		<td></td>
 		<td><?php echo $this->lists['catid']; ?></td>
 	</tr>
-	<tr title='<?php echo JText::_('COM_SERMONSPEAKER_FU_PUBLISHED_DESC'); ?>'>
-		<td align="right" class="key"> <?php echo JText::_('JGLOBAL_STATE'); ?> </td> 
+	<tr title='<?php echo JText::_('JFIELD_PUBLISHED_DESC'); ?>'>
+		<td align="right" class="key"> <?php echo JText::_('JPUBLISHED'); ?> </td> 
 		<td></td>
 		<td><?php echo $this->lists['state']; ?> </td>
 	</tr>
@@ -122,7 +122,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 	</tr>
 	<tr>
 		<td colspan='3'>
-			<input type="submit" value=" <?php echo JText::_('COM_SERMONSPEAKER_FU_SAVE'); ?> ">
+			<input type="submit" value=" <?php echo JText::_('JSAVE'); ?> ">
 			<input type="reset" value=" <?php echo JText::_('COM_SERMONSPEAKER_FU_RESET'); ?> ">
 			<input type="hidden" name="filename" value="<?php echo $this->filename; ?>">
 			<input type="hidden" name="submitted" value="true">
