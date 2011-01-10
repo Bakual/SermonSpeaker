@@ -35,15 +35,15 @@ class SermonspeakerViewFu_step_2 extends JView
 			} else {
 				$fu_destdir = '/';
 			}
-			$sql['sermon_path']			= '/'.$params->get('path').$fu_destdir.$file;
-			$sql['sermon_title']		= JRequest::getString('sermon_title', '', 'POST');
+			$sql['sermon_path']			= $db->getEscaped('/'.$params->get('path').$fu_destdir.$file);
+			$sql['sermon_title']		= $db->getEscaped(JRequest::getString('sermon_title', '', 'POST'));
 			$sql['alias']				= JRequest::getString('alias', $sql['sermon_title'], 'POST');
-			$sql['alias']				= JFilterOutput::stringURLSafe($sql['alias']);
+			$sql['alias']				= $db->getEscaped(JFilterOutput::stringURLSafe($sql['alias']));
 			$sql['sermon_number']		= JRequest::getInt('sermon_number', '', 'POST');
-			$sql['sermon_scripture']	= JRequest::getString('sermon_scripture', '', 'POST');
-			$sql['sermon_date']			= JRequest::getString('sermon_date', '', 'POST');
+			$sql['sermon_scripture']	= $db->getEscaped(JRequest::getString('sermon_scripture', '', 'POST'));
+			$sql['sermon_date']			= $db->getEscaped(JRequest::getString('sermon_date', '', 'POST'));
 			// making sure that the time is valid formatted
-			$tarr = explode(':',JRequest::getString('sermon_time', '', 'POST'));
+			$tarr = explode(':', JRequest::getString('sermon_time', '', 'POST'));
 			foreach ($tarr as $tar){
 				$tar = (int)$tar;
 				$tar = str_pad($tar, 2, '0', STR_PAD_LEFT);
@@ -53,15 +53,15 @@ class SermonspeakerViewFu_step_2 extends JView
 			} elseif (count($tarr) == 3) {
 				$sql['sermon_time'] = $tarr[0].':'.$tarr[1].':'.$tarr[2];
 			}
-			$sql['notes']		= JRequest::getVar('notes', '', '', 'STRING', JREQUEST_ALLOWHTML);
+			$sql['notes']		= $db->getEscaped(JRequest::getVar('notes', '', '', 'STRING', JREQUEST_ALLOWHTML));
 			$sql['published']	= JRequest::getInt('published', '0', 'POST');
 			$sql['podcast']		= JRequest::getInt('podcast', '0', 'POST');
 			$user =& JFactory::getUser();
 			$sql['created_by']	= $user->id;
 			$sql['created']		= date('Y-m-d');
 			$sql['catid']		= JRequest::getInt('catid', '0', 'POST');
-			$sql['addfile']		= JRequest::getString('addfile_choice', JRequest::getString('addfile_text', '', 'POST'), 'POST');
-			$sql['addfileDesc']	= JRequest::getString('addfileDesc', '', 'POST');
+			$sql['addfile']		= $db->getEscaped(JRequest::getString('addfile_choice', JRequest::getString('addfile_text', '', 'POST'), 'POST'));
+			$sql['addfileDesc']	= $db->getEscaped(JRequest::getString('addfileDesc', '', 'POST'));
 
 			$keys	= implode('`,`', array_keys($sql));
 			$values = implode("','", $sql);
