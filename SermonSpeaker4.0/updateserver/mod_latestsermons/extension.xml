@@ -17,14 +17,13 @@
 		<maintainerurl>http://www.bakual.ch</maintainerurl>
 		<section>Testing Section</section>
 		<targetplatform name="joomla" version="1.6" />
-		<client>site</client>
 	</update>
 	<update>
 		<name>SermonSpeaker Latest Sermons</name>
 		<description>SermonSpeaker Latest Sermons Module 4.0</description>
 		<element>mod_latestsermons</element>
 		<type>module</type>
-		<version>4.0.beta</version>
+		<version>4.0beta</version>
 		<infourl title="SermonSpeaker Homepage">http://www.sermonspeaker.net</infourl>
 		<downloads>
 			<downloadurl type="full" format="zip">http://www.sermonspeaker.net/files/SermonSpeaker4/Modules/mod_latestsermons.zip</downloadurl>
@@ -36,7 +35,6 @@
 		<maintainerurl>http://www.bakual.ch</maintainerurl>
 		<section>Testing Section</section>
 		<targetplatform name="joomla" version="1.6" />
-		<client>site</client>
 		<!-- <folder> not required for components -->
 		<!-- no <relationships> are defined but they could be! -->
 	</update>

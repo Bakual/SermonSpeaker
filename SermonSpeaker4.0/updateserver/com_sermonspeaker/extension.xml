@@ -23,7 +23,7 @@
 		<description>SermonSpeaker 4.0</description>
 		<element>com_sermonspeaker</element>
 		<type>component</type>
-		<version>4.0.beta</version>
+		<version>4.0beta</version>
 		<infourl title="SermonSpeaker Homepage">http://www.sermonspeaker.net</infourl>
 		<downloads>
 			<downloadurl type="full" format="zip">http://www.sermonspeaker.net/files/SermonSpeaker4/Component/com_sermonspeaker.zip</downloadurl>

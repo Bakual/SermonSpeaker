@@ -6,7 +6,7 @@
 	<copyright>(C) 2010</copyright>
 	<authorEmail>martin.zh@gmail.com</authorEmail>
 	<authorUrl>http://joomlacode.org/gf/project/sermon_speaker/</authorUrl>
-	<version>4.0.beta</version>
+	<version>4.0beta</version>
 	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
 	<description>COM_SERMONSPEAKER_DESCRIPTION</description>
 	<scriptfile>file.script.php</scriptfile>
