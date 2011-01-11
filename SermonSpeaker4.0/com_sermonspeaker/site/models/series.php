@@ -67,7 +67,7 @@ class SermonspeakerModelSeries extends JModelList
 	{
 		// Initialise variables.
 		$app	= JFactory::getApplication();
-		$params	= JComponentHelper::getParams('com_sermonspeaker');
+		$params	= $app->getParams();
 
 		// List state information
 		$limit = $app->getUserStateFromRequest('global.list.limit', 'limit', $app->getCfg('list_limit'));
@@ -82,7 +82,7 @@ class SermonspeakerModelSeries extends JModelList
 		$listOrder	=  JRequest::getCmd('filter_order_Dir', 'ASC');
 		$this->setState('list.direction', $listOrder);
 
-		$id = JRequest::getVar('series_cat', 0, '', 'int');
+		$id = (int)$params->get('series_cat', 0);
 		$this->setState('series_category.id', $id);
 
 		$this->setState('filter.state',	1);

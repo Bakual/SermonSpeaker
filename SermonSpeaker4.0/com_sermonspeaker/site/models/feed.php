@@ -15,7 +15,7 @@ class SermonspeakerModelFeed extends JModel
 		$app = JFactory::getApplication();
 		$this->limit = $app->getCfg('feed_limit');
 
-		$this->params = &JComponentHelper::getParams('com_sermonspeaker');
+		$this->params = $app->getParams();
 	}
 
 	function getData()
