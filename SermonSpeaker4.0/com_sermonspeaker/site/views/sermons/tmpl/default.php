@@ -13,6 +13,7 @@ $this->cat = '';
 
 $listOrder	= $this->state->get('list.ordering');
 $listDirn	= $this->state->get('list.direction');
+$limit 		= (int)$this->params->get('limit', '');
 ?>
 <div id="ss-sermons-container">
 <h1 class="componentheading"><?php echo JText::_('COM_SERMONSPEAKER_SERMONS_TITLE').$this->cat; ?></h1>
@@ -35,40 +36,72 @@ $listDirn	= $this->state->get('list.direction');
 		<thead><tr>
 			<?php if (in_array('sermons:num', $columns)) : ?>
 				<th class="ss-num">
-					<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SERMONNUMBER', 'sermon_number', $listDirn, $listOrder); ?>
+					<?php if (!$limit) :
+						echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SERMONNUMBER', 'sermon_number', $listDirn, $listOrder);
+					else :
+						echo JText::_('COM_SERMONSPEAKER_SERMONNUMBER');
+					endif; ?>
 				</th>
 			<?php endif; ?>
 			<th class="ss-title">
-				<?php echo JHTML::_('grid.sort', 'JGLOBAL_TITLE', 'sermon_title', $listDirn, $listOrder); ?>
+				<?php if (!$limit) :
+					echo JHTML::_('grid.sort', 'JGLOBAL_TITLE', 'sermon_title', $listDirn, $listOrder);
+				else :
+					echo JText::_('JGLOBAL_TITLE');
+				endif; ?>
 			</th>
 			<?php if (in_array('sermons:scripture', $columns)) : ?>
 				<th class="ss-col">
-					<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SCRIPTURE', 'sermon_scripture', $listDirn, $listOrder); ?>
+					<?php if (!$limit) :
+						echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SCRIPTURE', 'sermon_scripture', $listDirn, $listOrder);
+					else :
+						echo JText::_('COM_SERMONSPEAKER_SCRIPTURE');
+					endif; ?>
 				</th>
 			<?php endif;
 			if (in_array('sermons:speaker', $columns)) : ?>
 				<th class="ss-col">
-					<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SPEAKER', 'name', $listDirn, $listOrder); ?>
+					<?php if (!$limit) :
+						 echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SPEAKER', 'name', $listDirn, $listOrder);
+					else :
+						echo JText::_('COM_SERMONSPEAKER_SPEAKER');
+					endif; ?>
 				</th>
 			<?php endif;
 			if (in_array('sermons:date', $columns)) : ?>
 				<th class="ss-col">
-					<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SERMONDATE', 'sermon_date', $listDirn, $listOrder); ?>
+					<?php if (!$limit) :
+						 echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SERMONDATE', 'sermon_date', $listDirn, $listOrder);
+					else :
+						echo JText::_('COM_SERMONSPEAKER_SERMONDATE');
+					endif; ?>
 				</th>
 			<?php endif;
 			if (in_array('sermons:length', $columns)) : ?>
 				<th class="ss-col">
-					<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SERMONLENGTH', 'sermon_time', $listDirn, $listOrder); ?>
+					<?php if (!$limit) :
+						 echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SERMONLENGTH', 'sermon_time', $listDirn, $listOrder);
+					else :
+						echo JText::_('COM_SERMONSPEAKER_SERMONLENGTH');
+					endif; ?>
 				</th>
 			<?php endif;
 			if (in_array('sermons:series', $columns)) : ?>
 				<th class="ss-col">
-					<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SERIES', 'series_title', $listDirn, $listOrder); ?>
+					<?php if (!$limit) :
+						 echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SERIES', 'series_title', $listDirn, $listOrder);
+					else :
+						echo JText::_('COM_SERMONSPEAKER_SERIES');
+					endif; ?>
 				</th>
 			<?php endif;
 			if (in_array('sermons:addfile', $columns)) : ?>
 				<th class="ss-col">
-					<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_ADDFILE', 'addfileDesc', $listDirn, $listOrder); ?>
+					<?php if (!$limit) :
+						 echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_ADDFILE', 'addfileDesc', $listDirn, $listOrder);
+					else :
+						echo JText::_('COM_SERMONSPEAKER_ADDFILE');
+					endif; ?>
 				</th>
 			<?php endif; ?>
 		</tr></thead>

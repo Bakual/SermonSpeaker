@@ -99,28 +99,36 @@ class SermonspeakerModelSermons extends JModelList
 	{
 		// Initialise variables.
 		$app	= JFactory::getApplication();
-		$params	= JComponentHelper::getParams('com_sermonspeaker');
+		$params	= $app->getParams();
 
+		$limit	= (int)$params->get('limit', '');
 		// List state information
-		$limit = $app->getUserStateFromRequest('global.list.limit', 'limit', $app->getCfg('list_limit'));
-		$this->setState('list.limit', $limit);
+		if ($limit){
+			$this->setState('list.limit', $limit);
+			$this->setState('list.start', 0);
+			$this->setState('list.ordering', 'sermons.sermon_date');
+			$this->setState('list.direction', 'DESC');
+		} else {
+			$limit = $app->getUserStateFromRequest('global.list.limit', 'limit', $app->getCfg('list_limit'));
+			$this->setState('list.limit', $limit);
 
-		$limitstart = JRequest::getVar('limitstart', 0, '', 'int');
-		$this->setState('list.start', $limitstart);
+			$limitstart = JRequest::getVar('limitstart', 0, '', 'int');
+			$this->setState('list.start', $limitstart);
 
-		$orderCol	= JRequest::getCmd('filter_order', 'ordering');
-		$this->setState('list.ordering', $orderCol);
+			$orderCol	= JRequest::getCmd('filter_order', 'ordering');
+			$this->setState('list.ordering', $orderCol);
 
-		$listOrder	=  JRequest::getCmd('filter_order_Dir', 'ASC');
-		$this->setState('list.direction', $listOrder);
+			$listOrder	=  JRequest::getCmd('filter_order_Dir', 'ASC');
+			$this->setState('list.direction', $listOrder);
+		}
 
-		$id = JRequest::getVar('sermon_cat', 0, '', 'int');
+		$id = (int)$params->get('sermon_cat', 0);
 		$this->setState('sermons_category.id', $id);
 
-		$id = JRequest::getVar('speaker_cat', 0, '', 'int');
+		$id = (int)$params->get('speaker_cat', 0);
 		$this->setState('speakers_category.id', $id);
 
-		$id = JRequest::getVar('series_cat', 0, '', 'int');
+		$id = (int)$params->get('series_cat', 0);
 		$this->setState('series_category.id', $id);
 
 		$this->setState('filter.state',	1);
