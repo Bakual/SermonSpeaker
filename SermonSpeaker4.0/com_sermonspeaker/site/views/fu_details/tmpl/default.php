@@ -36,18 +36,11 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 		<td></td>
 		<td>
 			<input class="text_area" type="text" name="sermon_scripture" id="sermon_scripture" size="50" maxlength="250" value="<?php echo $this->id3['sermon_scripture'];?>" />
-			<?php if (JPluginHelper::isEnabled('content', 'biblelinkxt')){
-				$biblelinkxt = 'title="insert Biblelink tag" alt="insert Biblelink tag"';
-			} else {
-				$biblelinkxt = 'class="transparent" title="insert Biblelink tag, Plugin not enabled" alt="insert Biblelink tag, Plugin not enabled"';
-			}
-			if (JPluginHelper::isEnabled('content', 'scripturelinks')){
-				$scripturelink = 'title="insert ScriptureLink tag" alt="insert ScriptureLink tag"';
-			} else {
-				$scripturelink = 'class="transparent" title="insert ScriptureLink tag, Plugin not enabled" alt="insert ScriptureLink tag, Plugin not enabled"';
-			} ?>
-			<img <?php echo $biblelinkxt; ?> onClick="sendText(document.fu_createsermon.sermon_scripture,'{bib=','}')" src='<?php echo JURI::root(); ?>/components/com_sermonspeaker/images/blue_tag.png'>
-			<img <?php echo $scripturelink; ?> onClick="sendText(document.fu_createsermon.sermon_scripture,'{bible}','{/bible}')" src='<?php echo JURI::root(); ?>/components/com_sermonspeaker/images/green_tag.png'>
+			<?php 
+			$start	= $this->params->get('plugin_open');
+			$end	= $this->params->get('plugin_close');
+			?>
+			<img onClick="sendText(document.fu_createsermon.sermon_scripture,'<?php echo $start; ?>','<?php echo $end; ?>')" src='<?php echo JURI::root(); ?>/components/com_sermonspeaker/images/blue_tag.png'>
 		</td>
 	</tr>
 	<tr title='<?php echo JText::_('COM_SERMONSPEAKER_FU_DATE_DESC'); ?>'>

@@ -111,6 +111,16 @@
 			default="" 
 			label="COM_SERMONSPEAKER_PARAM_GOOGLEANALYTICS" 
 			description="COM_SERMONSPEAKER_PARAM_GOOGLEANALYTICS_DESC" />
+		<field name="plugin_open" 
+			type="text" 
+			default="{bib=" 
+			label="COM_SERMONSPEAKER_PARAM_PLUGIN_OPEN_LABEL" 
+			description="COM_SERMONSPEAKER_PARAM_PLUGIN_OPEN_DESC" />
+		<field name="plugin_close" 
+			type="text" 
+			default="}" 
+			label="COM_SERMONSPEAKER_PARAM_PLUGIN_CLOSE_LABEL" 
+			description="COM_SERMONSPEAKER_PARAM_PLUGIN_OPEN_DESC" />
 	</fieldset>
 	<fieldset name="clientcol"
 		addfieldpath="/administrator/components/com_sermonspeaker/models/fields"

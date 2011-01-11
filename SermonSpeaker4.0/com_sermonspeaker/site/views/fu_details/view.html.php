@@ -92,6 +92,7 @@ class SermonspeakerViewFu_details extends JView
 				$this->assignRef('filename',	$filename);
 				$this->assignRef('editor',		$editor);
 				$this->assignRef('id3',			$id3);
+				$this->assignRef('params',		$params);
 
 				parent::display($tpl);
 			} else {
