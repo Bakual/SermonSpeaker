@@ -41,10 +41,11 @@ class SermonspeakerViewSermons extends JView
 		}
 */
 
+
 		// Support for Content Plugins
-		$dispatcher	= &JDispatcher::getInstance();
-		$temp_item->params = clone($params);
+		$dispatcher	= JDispatcher::getInstance();
 		JPluginHelper::importPlugin('content');
+		$temp_item->params = clone($params);
 		// Loop through each item and create links
 		$direct_link = $params->get('list_direct_link', '00');
 		foreach($items as $item){

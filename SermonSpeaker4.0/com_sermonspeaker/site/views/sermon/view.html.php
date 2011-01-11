@@ -72,6 +72,14 @@ class SermonspeakerViewSermon extends JView
 			$lnk = SermonspeakerHelperSermonspeaker::makelink($item->sermon_path); 
 		}
 		
+		// Process the content plugins.
+		$dispatcher	= JDispatcher::getInstance();
+		JPluginHelper::importPlugin('content');
+		$item->text = &$item->notes;
+		$results = $dispatcher->trigger('onContentPrepare', array ('com_sermonspeaker.sermon', &$item, &$this->params));
+		$item->text = &$item->sermon_scripture;
+		$results = $dispatcher->trigger('onContentPrepare', array ('com_sermonspeaker.sermon', &$item, &$this->params));
+
 		// Check for errors.
 		if (count($errors = $this->get('Errors'))) {
 			JError::raiseWarning(500, implode("\n", $errors));

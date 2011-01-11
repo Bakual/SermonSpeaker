@@ -70,10 +70,21 @@ class SermonspeakerViewFeed extends JView
 		// get Data from Model (/models/feed.php)
         $rows = &$this->get('Data');
 
+		// Support for Content Plugins
+		$dispatcher	= &JDispatcher::getInstance();
+		JPluginHelper::importPlugin('content');
+		$temp_item->params = clone($params);
+
 		// Items
 		
 		$items = array();
 		foreach($rows as $row) {
+			// Trigger Event for `notes` and `sermon_scripture`
+			$temp_item->text	= &$row->notes;
+			$dispatcher->trigger('onContentPrepare', array('com_sermonspeaker.sermon', &$temp_item, &$temp_item->params, 0));
+			$temp_item->text	= &$row->sermon_scripture;
+			$dispatcher->trigger('onContentPrepare', array('com_sermonspeaker.sermon', &$temp_item, &$temp_item->params, 0));
+
 			$item = NULL;
 			// todo: ItemId des Predigten Menupunkts suchen und an Link anhängen
 			$item_link = $link.'index.php?option=com_sermonspeaker&amp;view=sermon&amp;id='.$row->id;
