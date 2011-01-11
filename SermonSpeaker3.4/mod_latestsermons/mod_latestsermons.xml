@@ -50,5 +50,14 @@
 			<option value="0">No</option>
 			<option value="1">Yes</option>
 		</param>
+		<param name="ls_mo_menuitem" type="menuitem" 
+			default=""
+			label="MOD_LATESTSERMONS_PARAM_MO_MENUITEM" 
+			description="MOD_LATESTSERMONS_PARAM_MO_MENUITEM_DESC" 
+			state="1"
+		/>
+		<param name="series_cat" type="category" section="com_sermonspeaker" label="MOD_LATESTSERMONS_PARAM_CATEGORY_SERIES_LABEL" description="MOD_LATESTSERMONS_PARAM_CATEGORY_DESC" />
+		<param name="speaker_cat" type="category" section="com_sermonspeaker" label="MOD_LATESTSERMONS_PARAM_CATEGORY_SPEAKER_LABEL" description="MOD_LATESTSERMONS_PARAM_CATEGORY_DESC" />
+		<param name="sermon_cat" type="category" section="com_sermonspeaker" label="MOD_LATESTSERMONS_PARAM_CATEGORY_SERMON_LABEL" description="MOD_LATESTSERMONS_PARAM_CATEGORY_DESC" />
 	</params>
 </install>

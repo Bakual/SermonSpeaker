@@ -74,6 +74,34 @@
 					<option value="0">No</option>
 					<option value="1">Yes</option>
 				</field>
+				<field name="ls_mo_menuitem" type="menuitem" 
+					default=""
+					label="MOD_LATESTSERMONS_PARAM_MO_MENUITEM" 
+					description="MOD_LATESTSERMONS_PARAM_MO_MENUITEM_DESC" 
+					state="1"
+				/>
+			</fieldset>
+			<fieldset name="advanced">
+				<field name="series_cat" type="category" 
+					label="MOD_LATESTSERMONS_PARAM_CATEGORY_SERIES_LABEL" 
+					description="MOD_LATESTSERMONS_PARAM_CATEGORY_DESC" 
+					extension="com_sermonspeaker" 
+					show_root="true"
+				/>
+
+				<field name="speaker_cat" type="category" 
+					label="MOD_LATESTSERMONS_PARAM_CATEGORY_SPEAKER_LABEL" 
+					description="MOD_LATESTSERMONS_PARAM_CATEGORY_DESC" 
+					extension="com_sermonspeaker" 
+					show_root="true"
+				/>
+
+				<field name="sermon_cat" type="category" 
+					label="MOD_LATESTSERMONS_PARAM_CATEGORY_SERMON_LABEL" 
+					description="MOD_LATESTSERMONS_PARAM_CATEGORY_DESC" 
+					extension="com_sermonspeaker" 
+					show_root="true"
+				/>
 			</fieldset>
 		</fields>
 	</config>

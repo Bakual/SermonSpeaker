@@ -8,24 +8,31 @@ if ($params->get('ls_show_mouseover')) {
 
 $db = JFactory::getDBO();
 
+$where = '';
+if ($params->get('sermon_cat')){
+	$where = ' AND a.catid = '.(int)$params->get('sermon_cat');
+}
+if ($params->get('speaker_cat')){
+	$where .= ' AND b.catid = '.(int)$params->get('speaker_cat');
+}
+if ($params->get('series_cat')){
+	$where .= ' AND c.catid = '.(int)$params->get('series_cat');
+}
+
 $query 	= 'SELECT a.sermon_title, a.id, a.sermon_date, b.name, c.series_title'
 		. ", CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(':', a.id, a.alias) ELSE a.id END as slug \n"
 		. ' FROM #__sermon_sermons a'
 		. ' LEFT JOIN #__sermon_speakers b ON a.speaker_id = b.id'
 		. ' LEFT JOIN #__sermon_series c ON a.series_id = c.id'
 		. ' WHERE a.state = 1'
+		.$where
 		. ' ORDER BY sermon_date DESC, (sermon_number+0) DESC'
 		. ' LIMIT '.(int)$params->get('ls_count');
 $db->setQuery($query);
 $rows = $db->loadObjectList();
 
-// set a menu item
-$menu = &JSite::getMenu();
-$menuitems = $menu->getItems('link', 'index.php?option=com_sermonspeaker&view=sermons');
-if ($menuitems == '') {
-	$menuitems = $menu->getItems('component', 'com_sermonspeaker');
-}
-$ss_itemid = $menuitems[0]->id;
+// get the menu item from the params
+$ss_itemid = $params->get('ls_mo_menuitem');
 ?>
 <ul class="<?php echo $params->get('moduleclass_sfx'); ?>">
 <?php foreach($rows as $row) { ?>
