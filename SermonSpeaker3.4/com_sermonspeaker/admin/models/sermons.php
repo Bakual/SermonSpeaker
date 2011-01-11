@@ -103,7 +103,7 @@ class SermonspeakerModelSermons extends JModel
 	{
 		$query = 'SELECT series_title, id '
 		. ' FROM #__sermon_series'
-		. ' ORDER BY ordering ASC'
+		. ' ORDER BY series_title ASC'
 		;
 		
 		// Query ausführen (mehrzeiliges Resulat als Array)

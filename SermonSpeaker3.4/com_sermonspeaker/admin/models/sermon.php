@@ -27,7 +27,7 @@ class SermonspeakerModelSermon extends JModel
 	{
         $query = "SELECT id, series_title \n"
 				."FROM #__sermon_series \n"
-				."ORDER BY id"
+				."ORDER BY series_title"
 				;
 		$rows = $this->_getList($query); 
 
