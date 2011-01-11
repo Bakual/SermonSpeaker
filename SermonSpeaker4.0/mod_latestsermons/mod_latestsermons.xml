@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <extension type="module" version="1.6" method="upgrade">
 	<name>Latest Sermons</name>
-	<author>Martin Hess, Thomas Hunziker</author>
-	<creationDate>August 2010</creationDate>
-	<copyright>(C) 2010</copyright>
-	<authorEmail>martin.zh@gmail.com</authorEmail>
-	<authorUrl>http://joomlacode.org/gf/project/sermon_speaker/</authorUrl>
-	<version>4.0.beta</version>
-	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
+	<author>Thomas Hunziker, Martin Hess</author>
+	<creationDate>January 2011</creationDate>
+	<copyright>(C) 2011</copyright>
+	<authorEmail>admin@sermonspeaker.net</authorEmail>
+	<authorUrl>http://www.sermonspeaker.net</authorUrl>
+	<version>4.0beta</version>
+	<license>http://www.gnu.org/licenses/gpl.html</license>
 	<description>MOD_LATESTSERMONS_XML_DESCRIPTION</description>
 	<files>
 		<filename module="mod_latestsermons">mod_latestsermons.php</filename>
@@ -16,7 +16,7 @@
 		<folder>language</folder>
 	</files>
 	<updateservers>
-		<server type="extension" priority="1" name="Extension Update Site">http://www.sermonspeaker.net/update/modules/mod_latestsermons</server>
+		<server type="extension" priority="1" name="SermonSpeaker.net">http://www.sermonspeaker.net/update/modules/mod_latestsermons</server>
 	</updateservers>
 	<config>
 		<fields name="params">

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <extension type="component" version="1.6" method="upgrade">
 	<name>com_sermonspeaker</name>
-	<author>Martin Hess, Thomas Hunziker</author>
-	<creationDate>August 2010</creationDate>
-	<copyright>(C) 2010</copyright>
-	<authorEmail>martin.zh@gmail.com</authorEmail>
-	<authorUrl>http://joomlacode.org/gf/project/sermon_speaker/</authorUrl>
+	<author>Thomas Hunziker, Martin Hess</author>
+	<creationDate>January 2011</creationDate>
+	<copyright>(C) 2011</copyright>
+	<authorEmail>admin@sermonspeaker.net</authorEmail>
+	<authorUrl>http://www.sermonspeaker.net</authorUrl>
 	<version>4.0beta</version>
-	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
+	<license>http://www.gnu.org/licenses/gpl.html</license>
 	<description>COM_SERMONSPEAKER_DESCRIPTION</description>
 	<scriptfile>file.script.php</scriptfile>
 	<files folder="site">
@@ -62,6 +62,6 @@
 		<table>#__sermon_series</table>
 	</tables>
 	<updateservers>
-		<server type="extension" priority="1" name="Extension Update Site">http://www.sermonspeaker.net/update/component/com_sermonspeaker</server>
+		<server type="extension" priority="1" name="SermonSpeaker.net">http://www.sermonspeaker.net/update/component/com_sermonspeaker</server>
 	</updateservers>
 </extension>
