@@ -6,6 +6,38 @@ jimport('joomla.application.component.modellist');
 class SermonspeakerModelSermons extends JModelList
 {
 	/**
+	 * Constructor.
+	 *
+	 * @param	array	An optional associative array of configuration settings.
+	 * @see		JController
+	 * @since	1.6
+	 */
+	public function __construct($config = array())
+	{
+		if (empty($config['filter_fields'])) {
+			$config['filter_fields'] = array(
+				'id', 'sermons.id',
+				'sermon_title', 'sermons.sermon_title',
+				'alias', 'sermons.alias',
+				'name', 'speakers.name',
+				'catid', 'sermons.catid', 'category_title',
+				'state', 'sermons.state',
+				'podcast', 'sermons.podcast',
+				'access', 'sermons.access', 'access_level',
+				'created', 'sermons.created',
+				'created_by', 'sermons.created_by',
+				'ordering', 'sermons.ordering',
+				'sermon_date', 'sermons.sermon_date',
+				'hits', 'sermons.hits',
+				'series_title', 'series.series_title',
+				'sermon_scripture', 'sermons.sermon_scripture',
+			);
+		}
+
+		parent::__construct($config);
+	}
+
+	/**
 	 * Method to auto-populate the model state.
 	 *
 	 * Note. Calling getState in this method will result in recursion.
