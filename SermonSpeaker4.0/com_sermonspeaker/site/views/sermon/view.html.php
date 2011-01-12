@@ -119,7 +119,6 @@ class SermonspeakerViewSermon extends JView
 
 		parent::display($tpl);
 	}
-
 	/**
 	 * Prepares the document
 	 */
@@ -131,7 +130,7 @@ class SermonspeakerViewSermon extends JView
 		$title 		= null;
 
 		// Add swfobject-javascript for player if needed
-		if (in_array('sermon:player', $this->columns)){
+		if (in_array('sermon:player', $this->columns) || JRequest::getCmd('layout', '') == 'popup'){
 			if ($this->params->get('alt_player')){
 				$this->document->addScript(JURI::root()."components/com_sermonspeaker/media/player/audio_player/audio-player.js");
 				$this->document->addScriptDeclaration('

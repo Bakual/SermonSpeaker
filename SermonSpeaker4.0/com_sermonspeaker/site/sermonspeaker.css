@@ -24,6 +24,11 @@ color: #000066;
 font-family: verdana;
 }
 
+div.popup{
+padding: 5px; 
+text-align: center;
+}
+
 .icon_play {
 vertical-align: middle;
 border: none;
