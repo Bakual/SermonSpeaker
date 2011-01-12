@@ -3,7 +3,7 @@
 	<update>
 		<name>SermonSpeaker Sermon Archive</name>
 		<description>SermonSpeaker Sermon Archive Module 4.0</description>
-		<element>mod_latestsermons</element>
+		<element>mod_sermonarchive</element>
 		<type>module</type>
 		<version>4.0beta2</version>
 		<infourl title="SermonSpeaker Homepage">http://www.sermonspeaker.net</infourl>
@@ -19,9 +19,9 @@
 		<targetplatform name="joomla" version="1.6" />
 	</update>
 	<update>
-		<name>SermonSpeaker Latest Sermons</name>
-		<description>SermonSpeaker Latest Sermons Module 4.0</description>
-		<element>mod_latestsermons</element>
+		<name>SermonSpeaker Sermon Archive</name>
+		<description>SermonSpeaker Sermon Archive Module 4.0</description>
+		<element>mod_sermonarchive</element>
 		<type>module</type>
 		<version>4.0beta</version>
 		<infourl title="SermonSpeaker Homepage">http://www.sermonspeaker.net</infourl>
