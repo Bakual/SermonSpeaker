@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <updates>
 	<update>
-		<name>SermonSpeaker Sermon Archive</name>
-		<description>SermonSpeaker Sermon Archive Module 4.0</description>
+		<name>SermonSpeaker Latest Sermons</name>
+		<description>SermonSpeaker Latest Sermons Module 4.0</description>
 		<element>mod_latestsermons</element>
 		<type>module</type>
 		<version>4.0beta2</version>
