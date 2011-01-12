@@ -37,10 +37,9 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 		<td>
 			<input class="text_area" type="text" name="sermon_scripture" id="sermon_scripture" size="50" maxlength="250" value="<?php echo $this->id3['sermon_scripture'];?>" />
 			<?php 
-			$start	= $this->params->get('plugin_open');
-			$end	= $this->params->get('plugin_close');
+			$tag	= $this->params->get('plugin_tag');
 			?>
-			<img onClick="sendText(document.fu_createsermon.sermon_scripture,'<?php echo $start; ?>','<?php echo $end; ?>')" src='<?php echo JURI::root(); ?>/components/com_sermonspeaker/images/blue_tag.png'>
+			<img onClick="sendText(document.fu_createsermon.sermon_scripture,'<?php echo $tag[0]; ?>','<?php echo $tag[1]; ?>')" src='<?php echo JURI::root(); ?>/components/com_sermonspeaker/images/blue_tag.png'>
 		</td>
 	</tr>
 	<tr title='<?php echo JText::_('COM_SERMONSPEAKER_FU_DATE_DESC'); ?>'>

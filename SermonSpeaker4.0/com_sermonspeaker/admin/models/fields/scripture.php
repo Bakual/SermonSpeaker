@@ -33,12 +33,11 @@ class JFormFieldScripture extends JFormField
 	protected function getInput()
 	{
 		$params	= &JComponentHelper::getParams('com_sermonspeaker');
-		$start 	= $params->get('plugin_open');
-		$end	= $params->get('plugin_close');
+		$tag 	= $params->get('plugin_tag');
 		
 		$html 	= '<input type="text" name="'.$this->name.'" id="'.$this->id.'" value="'.htmlspecialchars($this->value, ENT_COMPAT, 'UTF-8').'" class="inputbox" />'
 				. '<img title="insert Plugin tag" alt="insert Plugin tag" onClick="sendText(document.adminForm.jform_sermon_scripture,\''
-				. $start.'\',\''.$end
+				. $tag[0].'\',\''.$tag[1]
 				. '\')" src="'.JURI::root().'/components/com_sermonspeaker/images/blue_tag.png">';
 
 		return $html;
