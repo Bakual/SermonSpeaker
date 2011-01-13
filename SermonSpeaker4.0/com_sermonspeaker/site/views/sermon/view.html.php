@@ -79,7 +79,7 @@ class SermonspeakerViewSermon extends JView
 		} elseif ($menu_view == 'speakers') {
 			$model		= &$this->getModel();
 			$speaker	= &$model->getSpeaker($item->speaker_id);	// getting the Speaker from the Model
-	    	$breadcrumbs->addItem($speaker->name, JRoute::_('index.php?view=speaker&id='.$item->speaker_id); // TODO: Add slug
+	    	$breadcrumbs->addItem($speaker->name, JRoute::_('index.php?view=speaker&id='.$item->speaker_id)); // TODO: Add slug
 		}
     	$breadcrumbs->addItem($item->sermon_title, '');
 
@@ -176,7 +176,7 @@ class SermonspeakerViewSermon extends JView
 		if ($this->item->metakey) {
 			$keywords .= $this->item->metakey;
 		} else {
-			$keywords .= $this->escape(str_replace(' ', ',', $row->sermon_title).','.str_replace(',', ':', $row->sermon_scripture));
+			$keywords .= $this->escape(str_replace(' ', ',', $this->item->sermon_title).','.str_replace(',', ':', $this->item->sermon_scripture));
 		}
 		$this->document->setMetaData('keywords', $keywords);
 	}
