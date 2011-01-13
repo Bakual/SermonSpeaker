@@ -10,9 +10,17 @@ class SermonspeakerViewSerie extends JView
 {
 	function display($tpl = null)
 	{
+		// Applying CSS file
+		JHTML::stylesheet('sermonspeaker.css', 'components/com_sermonspeaker/');
+
 		// Initialise variables.
 		$app		= JFactory::getApplication();
 		$params		= $app->getParams();
+
+		$columns = $params->get('col');
+		if (!$columns){
+			$columns = array();
+		}
 
 		// Get some data from the models
 		$state		= $this->get('State');
@@ -20,22 +28,9 @@ class SermonspeakerViewSerie extends JView
 		$serie		= $this->get('Serie');
 		$pagination	= $this->get('Pagination');
 
-		// Set Meta
-		$document =& JFactory::getDocument();
-		$document->setTitle(JText::_('COM_SERMONSPEAKER_SERIE_TITLE').' | '.$document->getTitle());
-		$document->setMetaData("description",JText::_('COM_SERMONSPEAKER_SERIE_TITLE'));
-		$document->setMetaData("keywords",JText::_('COM_SERMONSPEAKER_SERIE_TITLE'));
-
 		// add Breadcrumbs
 		$breadcrumbs	= &$app->getPathWay();
 		$breadcrumbs->addItem($serie->series_title);
-
-
-		// Add swfobject-javascript for player
-		$document->addScript(JURI::root()."components/com_sermonspeaker/media/player/swfobject.js");
-		
-		// Applying CSS file
-		JHTML::stylesheet('sermonspeaker.css', 'components/com_sermonspeaker/');
 
 		// Update Statistic
 		if ($params->get('track_series')) {
@@ -48,14 +43,6 @@ class SermonspeakerViewSerie extends JView
 			JError::raiseError(500, implode("\n", $errors));
 			return false;
 		}
-
-		// Check whether category access level allows access.
-/*		$user	= JFactory::getUser();
-		$groups	= $user->authorisedLevels();
-		if (!in_array($category->access, $groups)) {
-			return JError::raiseError(403, JText::_("JERROR_ALERTNOAUTHOR"));
-		}
-*/
 
 		// Support for Content Plugins
 		$dispatcher	= &JDispatcher::getInstance();
@@ -93,8 +80,47 @@ class SermonspeakerViewSerie extends JView
 		$this->assignRef('items',		$items);
 		$this->assignRef('params',		$params);
 		$this->assignRef('pagination',	$pagination);
+		$this->assignRef('columns', 	$columns);
 		$this->assignRef('serie',		$serie);
 
+		$this->_prepareDocument();
+
 		parent::display($tpl);
+	}
+
+	/**
+	 * Prepares the document
+	 */
+	protected function _prepareDocument()
+	{
+		$app	= JFactory::getApplication();
+
+		// Add swfobject-javascript for player if needed
+		if (in_array('sermon:player', $this->columns)){
+			$this->document->addScript(JURI::root()."components/com_sermonspeaker/media/player/swfobject.js");
+		}
+		
+		// Set Pagetitle
+		$title 	= $this->params->get('page_title', '');
+		if (empty($title)) {
+			$title = $app->getCfg('sitename');
+		} elseif ($app->getCfg('sitename_pagetitles', 0)) {
+			$title = JText::sprintf('JPAGETITLE', $app->getCfg('sitename'), $title);
+		}
+		$title = JText::sprintf('JPAGETITLE', $title, JText::_('COM_SERMONSPEAKER_SERIE_TITLE'));
+		$this->document->setTitle($title);
+
+		// Set MetaData
+		$description = $this->document->getMetaData('description');
+		if ($description){
+			$description .= ' ';
+		}
+		$this->document->setMetaData('description', $description.JText::_('COM_SERMONSPEAKER_SERIE_TITLE'));
+
+		$keywords = $this->document->getMetaData('keywords');
+		if ($keywords){
+			$keywords = $keywords.', ';
+		}
+		$this->document->setMetaData('keywords', $keywords.JText::_('COM_SERMONSPEAKER_SERIE_TITLE'));
 	}
 }

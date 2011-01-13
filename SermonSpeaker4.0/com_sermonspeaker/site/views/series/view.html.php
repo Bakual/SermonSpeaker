@@ -21,25 +21,11 @@ class SermonspeakerViewSeries extends JView
 		$items		= $this->get('Items');
 		$pagination	= $this->get('Pagination');
 
-		// Set Meta
-		$document =& JFactory::getDocument();
-		$document->setTitle(JText::_('COM_SERMONSPEAKER_SERIES_TITLE').' | '.$document->getTitle());
-		$document->setMetaData("description",JText::_('COM_SERMONSPEAKER_SERIES_TITLE'));
-		$document->setMetaData("keywords",JText::_('COM_SERMONSPEAKER_SERIES_TITLE'));
-
 		// Check for errors.
 		if (count($errors = $this->get('Errors'))) {
 			JError::raiseError(500, implode("\n", $errors));
 			return false;
 		}
-
-		// Check whether category access level allows access.
-/*		$user	= JFactory::getUser();
-		$groups	= $user->authorisedLevels();
-		if (!in_array($category->access, $groups)) {
-			return JError::raiseError(403, JText::_("JERROR_ALERTNOAUTHOR"));
-		}
-*/
 
 		// getting the Speakers for each Series and check if there are avatars at all, only showing column if needed
 		$av = NULL;
@@ -70,6 +56,39 @@ class SermonspeakerViewSeries extends JView
 		$this->assignRef('av',			$av);			// for Avatars
 		$this->assignRef('cat',			$cat);			// for Category title
 
+		$this->_prepareDocument();
+
 		parent::display($tpl);
+	}
+
+	/**
+	 * Prepares the document
+	 */
+	protected function _prepareDocument()
+	{
+		$app	= JFactory::getApplication();
+
+		// Set Pagetitle
+		$title 	= $this->params->get('page_title', '');
+		if (empty($title)) {
+			$title = $app->getCfg('sitename');
+		} elseif ($app->getCfg('sitename_pagetitles', 0)) {
+			$title = JText::sprintf('JPAGETITLE', $app->getCfg('sitename'), $title);
+		}
+		$title = JText::sprintf('JPAGETITLE', $title, JText::_('COM_SERMONSPEAKER_SERIES_TITLE'));
+		$this->document->setTitle($title);
+
+		// Set MetaData
+		$description = $this->document->getMetaData('description');
+		if ($description){
+			$description = $description.' ';
+		}
+		$this->document->setMetaData('description', $description.JText::_('COM_SERMONSPEAKER_SERIES_TITLE'));
+
+		$keywords = $this->document->getMetaData('keywords');
+		if ($keywords){
+			$keywords = $keywords.', ';
+		}
+		$this->document->setMetaData('keywords', $keywords.JText::_('COM_SERMONSPEAKER_SERIES_TITLE'));
 	}
 }

@@ -10,6 +10,9 @@ class SermonspeakerViewspeaker extends JView
 {
 	function display($tpl = null)
 	{
+		// Applying CSS file
+		JHTML::stylesheet('sermonspeaker.css', 'components/com_sermonspeaker/');
+
 		$app		= JFactory::getApplication();
 		$params		= $app->getParams();
 		
@@ -26,10 +29,9 @@ class SermonspeakerViewspeaker extends JView
 		$speaker	= $this->get('Speaker');
 		$pagination	= $this->get('Pagination');
 
-		// add breadcrumbs and page title according to chosen layout
-		$document 	=& JFactory::getDocument();
-		$breadcrumbs	= &$app->getPathWay();
-		if ($this->getLayout() == "latest-sermons") {
+		// add breadcrumbs and define page title according to chosen layout
+		$breadcrumbs = $app->getPathWay();
+		if ($this->getLayout() == 'latest-sermons') {
 		  	if ($params->get('limit_speaker') == 1) {
 				$limit = $app->getCfg('list_limit');
 				$title = JText::sprintf('COM_SERMONSPEAKER_SPEAKER_LATESTSERMONSOF', $limit, $speaker->name);
@@ -38,13 +40,11 @@ class SermonspeakerViewspeaker extends JView
 				$title = JText::sprintf('COM_SERMONSPEAKER_SPEAKER_SERMONSOF', $speaker->name);
 				$bread = JText::_('COM_SERMONSPEAKER_SERMONS');
 			}
+			// Add Breadcrumbs
 			$breadcrumbs->addItem($speaker->name.': '.$bread, '');
-			$document->setTitle($title.' | '.$document->getTitle());
-		} elseif ($this->getLayout() == "popup") {
-			$title = $speaker->name;
-		} else {
+		} elseif ($this->getLayout() == 'series') {
 			// check if there are avatars at all, only showing column if needed
-			$av = null;
+			$av = 0;
 			foreach ($items as $item){
 				if (!empty($item->avatar)){ // breaking out of foreach if first avatar is found
 					$av = 1;
@@ -52,20 +52,12 @@ class SermonspeakerViewspeaker extends JView
 				}
 			}
 			$this->assignRef('av', $av);
-			$document->setTitle(JText::_('COM_SERMONSPEAKER_SPEAKER_TITLE').' - '.$speaker->name.' | '.$document->getTitle());
+			$title = JText::sprintf('JPAGETITLE', $speaker->name, JText::_('COM_SERMONSPEAKER_SPEAKER_TITLE'));
+			// Add Breadcrumbs
 			$breadcrumbs->addItem($speaker->name.': '.JText::_('COM_SERMONSPEAKER_SPEAKER_TITLE'), '');
+		} else {
 			$title = $speaker->name;
 		}
-
-		// Set Meta
-		$document->setMetaData("description", strip_tags($speaker->intro));
-		$document->setMetaData("keywords", $title);
-
-		// Add swfobject-javascript for player
-		$document->addScript(JURI::root()."components/com_sermonspeaker/media/player/swfobject.js");
-		
-		// Applying CSS file
-		JHTML::stylesheet('sermonspeaker.css', 'components/com_sermonspeaker/');
 
 		// Update Statistic
 		if ($params->get('track_speaker')) {
@@ -78,14 +70,6 @@ class SermonspeakerViewspeaker extends JView
 			JError::raiseError(500, implode("\n", $errors));
 			return false;
 		}
-
-		// Check whether category access level allows access.
-/*		$user	= JFactory::getUser();
-		$groups	= $user->authorisedLevels();
-		if (!in_array($category->access, $groups)) {
-			return JError::raiseError(403, JText::_("JERROR_ALERTNOAUTHOR"));
-		}
-*/
 
 		// Support for Content Plugins
 		$dispatcher	= &JDispatcher::getInstance();
@@ -133,6 +117,39 @@ class SermonspeakerViewspeaker extends JView
 		$this->assignRef('speaker',		$speaker);
 		$this->assignRef('title',		$title);
 
+		$this->_prepareDocument();
+
 		parent::display($tpl);
+	}
+
+	/**
+	 * Prepares the document
+	 */
+	protected function _prepareDocument()
+	{
+		$app	= JFactory::getApplication();
+
+		// Set Pagetitle
+		$title 	= $this->params->get('page_title', '');
+		if (empty($title)) {
+			$title = $app->getCfg('sitename');
+		} elseif ($app->getCfg('sitename_pagetitles', 0)) {
+			$title = JText::sprintf('JPAGETITLE', $app->getCfg('sitename'), $title);
+		}
+		$title = JText::sprintf('JPAGETITLE', $title, $this->title);
+		$this->document->setTitle($title);
+
+		// Set MetaData
+		$description = $this->document->getMetaData('description');
+		if ($description){
+			$description = $description.' ';
+		}
+		$this->document->setMetaData('description', $description.strip_tags($this->speaker->intro));
+
+		$keywords = $this->document->getMetaData('keywords');
+		if ($keywords){
+			$keywords = $keywords.', ';
+		}
+		$this->document->setMetaData('keywords', $keywords.$this->title);
 	}
 }

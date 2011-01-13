@@ -4,10 +4,6 @@ JHtml::core();
 JHTML::_('behavior.tooltip');
 JHTML::_('behavior.modal');
 
-$columns = $this->params->get('col');
-if (!$columns){
-	$columns = array();
-}
 // TODO show category name in header
 $this->cat = '';
 
@@ -26,7 +22,7 @@ $listDirn	= $this->state->get('list.direction');
 	<?php echo $this->serie->series_description; ?>
 </div>
 <br style="clear:both" />
-<?php if (in_array('serie:player', $columns)) : ?>
+<?php if (in_array('serie:player', $this->columns)) : ?>
 	<hr style="width: 80%; height: 1px; text-align: center;">
 	<?php
 	$lnk = "index.php%3Foption%3Dcom_sermonspeaker%26view%3Dfeed%26format%3Draw%26series_id%3D".$this->serie->id;
@@ -53,7 +49,7 @@ $listDirn	= $this->state->get('list.direction');
 	<table class="adminlist" cellpadding="2" cellspacing="2" width="100%">
 	<!-- Create the headers with sorting links -->
 		<thead><tr>
-			<?php if (in_array('serie:num', $columns)) : ?>
+			<?php if (in_array('serie:num', $this->columns)) : ?>
 				<th class="ss-num">
 					<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SERMONNUMBER', 'sermon_number', $listDirn, $listOrder); ?>
 				</th>
@@ -61,27 +57,27 @@ $listDirn	= $this->state->get('list.direction');
 			<th class="ss-title">
 				<?php echo JHTML::_('grid.sort', 'JGLOBAL_TITLE', 'sermon_title', $listDirn, $listOrder); ?>
 			</th>
-			<?php if (in_array('serie:scripture', $columns)) : ?>
+			<?php if (in_array('serie:scripture', $this->columns)) : ?>
 				<th class="ss-col">
 					<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SCRIPTURE', 'sermon_scripture', $listDirn, $listOrder); ?>
 				</th>
 			<?php endif;
-			if (in_array('serie:speaker', $columns)) : ?>
+			if (in_array('serie:speaker', $this->columns)) : ?>
 				<th class="ss-col">
 					<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SPEAKER', 'name', $listDirn, $listOrder); ?>
 				</th>
 			<?php endif;
-			if (in_array('serie:date', $columns)) : ?>
+			if (in_array('serie:date', $this->columns)) : ?>
 				<th class="ss-col">
 					<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SERMONDATE', 'sermon_date', $listDirn, $listOrder); ?>
 				</th>
 			<?php endif;
-			if (in_array('serie:length', $columns)) : ?>
+			if (in_array('serie:length', $this->columns)) : ?>
 				<th class="ss-col">
 					<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SERMONLENGTH', 'sermon_time', $listDirn, $listOrder); ?>
 				</th>
 			<?php endif;
-			if (in_array('serie:addfile', $columns)) : ?>
+			if (in_array('serie:addfile', $this->columns)) : ?>
 				<th class="ss-col">
 					<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_ADDFILE', 'addfileDesc', $listDirn, $listOrder); ?>
 				</th>
@@ -91,7 +87,7 @@ $listDirn	= $this->state->get('list.direction');
 		<tbody>
 			<?php foreach($this->items as $i => $item) : ?>
 				<tr class="<?php echo ($i % 2) ? "odd" : "even"; ?>">
-					<?php if (in_array('serie:num', $columns)) : ?>
+					<?php if (in_array('serie:num', $this->columns)) : ?>
 						<td class="ss-num">
 							<?php echo $item->sermon_number; ?>
 						</td>
@@ -104,27 +100,27 @@ $listDirn	= $this->state->get('list.direction');
 							<?php echo $item->sermon_title; ?>
 						</a>
 					</td>
-					<?php if (in_array('serie:scripture', $columns)) : ?>
+					<?php if (in_array('serie:scripture', $this->columns)) : ?>
 						<td class="ss-col">
 							<?php echo JHTML::_('content.prepare', $item->sermon_scripture); ?>
 						</td>
 					<?php endif;
-					if (in_array('serie:speaker', $columns)) : ?>
+					if (in_array('serie:speaker', $this->columns)) : ?>
 						<td class="ss_col">
 							<?php echo SermonspeakerHelperSermonSpeaker::SpeakerTooltip($item->speaker_slug, $item->pic, $item->name); ?>
 						</td>
 					<?php endif;
-					if (in_array('serie:date', $columns)) : ?>
+					if (in_array('serie:date', $this->columns)) : ?>
 						<td class="ss_col">
 							<?php echo JHTML::date($item->sermon_date, JText::_($this->params->get('date_format'))); ?>
 						</td>
 					<?php endif;
-					if (in_array('serie:length', $columns)) : ?>
+					if (in_array('serie:length', $this->columns)) : ?>
 						<td class="ss_col">
 							<?php echo SermonspeakerHelperSermonspeaker::insertTime($item->sermon_time); ?>
 						</td>
 					<?php endif;
-					if (in_array('serie:addfile', $columns)) : ?>
+					if (in_array('serie:addfile', $this->columns)) : ?>
 						<td class="ss_col">
 							<?php echo SermonspeakerHelperSermonspeaker::insertAddfile($item->addfile, $item->addfileDesc); ?>
 						</td>

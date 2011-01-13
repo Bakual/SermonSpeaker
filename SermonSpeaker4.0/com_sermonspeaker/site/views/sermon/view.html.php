@@ -21,6 +21,9 @@ class SermonspeakerViewSermon extends JView
 
 	function display($tpl = null)
 	{
+		// Applying CSS file
+		JHTML::stylesheet('sermonspeaker.css', 'components/com_sermonspeaker/');
+
 		// Initialise variables.
 		$app		= JFactory::getApplication();
 		$params		= $app->getParams();
@@ -31,15 +34,9 @@ class SermonspeakerViewSermon extends JView
 		}
 
 		// Get model data (/models/sermon.php) 
-		$state = $this->get('State');
-		$item = $this->get('Item');
+		$state 	= $this->get('State');
+		$item 	= $this->get('Item');
 
-		if ($item->alias){
-			$item->slug = $item->id.':'.$item->alias;
-		} else {
-			$item->slug = $item->id;
-		}
-		
 		// check if access is not public
 		$user = JFactory::getUser();
 		$groups	= $user->getAuthorisedViewLevels();
@@ -49,11 +46,7 @@ class SermonspeakerViewSermon extends JView
 			$item->category_access = 1;
 		}
 
-		$return = '';
 		if ((!in_array($params->get('access'), $groups)) || (!in_array($item->category_access, $groups))) {
-			$uri		= JFactory::getURI();
-			$return		= (string)$uri;
-
 			JError::raiseWarning(403, JText::_('JERROR_ALERTNOAUTHOR'));
 			return;
 		}
@@ -72,6 +65,24 @@ class SermonspeakerViewSermon extends JView
 			$lnk = SermonspeakerHelperSermonspeaker::makelink($item->sermon_path); 
 		}
 		
+		// get active View from Menuitem
+		$menus	= $app->getMenu();
+		$menu	= $menus->getActive();
+		$menu_view = $menu->query['view'];
+
+		// add Breadcrumbs
+		$breadcrumbs	= $app->getPathWay();
+		if ($menu_view == 'series') {
+			$model		= &$this->getModel();
+			$serie		= &$model->getSerie($item->series_id);		// getting the Serie from the Model
+	    	$breadcrumbs->addItem($serie->series_title, JRoute::_('index.php?view=serie&id='.$item->series_id)); // TODO: Add slug
+		} elseif ($menu_view == 'speakers') {
+			$model		= &$this->getModel();
+			$speaker	= &$model->getSpeaker($item->speaker_id);	// getting the Speaker from the Model
+	    	$breadcrumbs->addItem($speaker->name, JRoute::_('index.php?view=speaker&id='.$item->speaker_id); // TODO: Add slug
+		}
+    	$breadcrumbs->addItem($item->sermon_title, '');
+
 		// Process the content plugins.
 		$dispatcher	= JDispatcher::getInstance();
 		JPluginHelper::importPlugin('content');
@@ -86,20 +97,12 @@ class SermonspeakerViewSermon extends JView
 			return false;
 		}
 
-		// Get the parameters of the active menu item
-		$menus	= $app->getMenu();
-		$menu	= $menus->getActive();
-		$params	= $app->getParams();
-
 		if ($this->getLayout() == "default") {
 			if ($params->get('sermonlayout') == 1) { $this->setLayout('allinrow'); }
 			elseif ($params->get('sermonlayout') == 2) { $this->setLayout('newline'); }
 			elseif ($params->get('sermonlayout') == 3) { $this->setLayout('extnewline'); }
 			elseif ($params->get('sermonlayout') == 4) { $this->setLayout('icon'); }
 		} 
-
-		// Applying CSS file
-		JHTML::stylesheet('sermonspeaker.css', 'components/com_sermonspeaker/');
 
 		// Update Statistic
 		if ($params->get('track_series')) {
@@ -119,15 +122,13 @@ class SermonspeakerViewSermon extends JView
 
 		parent::display($tpl);
 	}
+
 	/**
 	 * Prepares the document
 	 */
 	protected function _prepareDocument()
 	{
-		$app		= JFactory::getApplication();
-		$menus		= $app->getMenu();
-		$pathway	= $app->getPathway();
-		$title 		= null;
+		$app	= JFactory::getApplication();
 
 		// Add swfobject-javascript for player if needed
 		if (in_array('sermon:player', $this->columns) || JRequest::getCmd('layout', '') == 'popup'){
@@ -146,54 +147,37 @@ class SermonspeakerViewSermon extends JView
 			}
 		}
 		
-		// Because the application sets a default page title,
-		// we need to get it from the menu item itself
-		$menu = $menus->getActive();
-		if($menu) {
-			$this->params->def('page_heading', $this->params->get('page_title', $menu->title));
-		} else {
-			$this->params->def('page_heading', JText::_('COM_SERMONSPEAKER_DEFAULT_PAGE_TITLE'));
-		}
-		if($menu && $menu->query['view'] != 'sermon') {
-			$id = (int) @$menu->query['id'];
-			$path = array($this->item->sermon_title => '');
-			foreach($path as $name => $link)
-			{
-				$pathway->addItem($title, $link);
-			}
-		}
-
-		$title = $this->params->get('page_title', '');
+		// Set Pagetitle
+		$title 	= $this->params->get('page_title', '');
 		if (empty($title)) {
-			$title = htmlspecialchars_decode($app->getCfg('sitename'));
+			$title = $app->getCfg('sitename');
+		} elseif ($app->getCfg('sitename_pagetitles', 0)) {
+			$title = JText::sprintf('JPAGETITLE', $app->getCfg('sitename'), $title);
 		}
-		elseif ($app->getCfg('sitename_pagetitles', 0)) {
-			$title = JText::sprintf('JPAGETITLE', htmlspecialchars_decode($app->getCfg('sitename')), $title);
-		}
+		$title = JText::sprintf('JPAGETITLE', $title, $this->item->sermon_title);
 		$this->document->setTitle($title);
 
-		if ($menu && $menu->query['view'] != 'sermon')
-		{
-			$id = (int) @$menu->query['id'];
-			$path = array($this->item->sermon_title => '');
-			$path = array_reverse($path);
+		// Set MetaData
+		$description = $this->document->getMetaData('description');
+		if ($description){
+			$description .= ' ';
 		}
-
-		if (empty($title))
-		{
-			$title = $this->item->sermon_title;
-			$this->document->setTitle($title);
+		if ($this->item->metadesc) {
+			$description .= $this->item->metadesc;
+		} else {
+			$description .= strip_tags($this->item->notes);
 		}
+		$this->document->setMetaData('description', $description);
 
-
-		if ($this->item->metadesc)
-		{
-			$this->document->setDescription($this->item->metadesc);
+		$keywords = $this->document->getMetaData('keywords');
+		if ($keywords){
+			$keywords .= ', ';
 		}
-
-		if ($this->item->metakey)
-		{
-			$this->document->setMetadata('keywords', $this->item->metakey);
+		if ($this->item->metakey) {
+			$keywords .= $this->item->metakey;
+		} else {
+			$keywords .= $this->escape(str_replace(' ', ',', $row->sermon_title).','.str_replace(',', ':', $row->sermon_scripture));
 		}
+		$this->document->setMetaData('keywords', $keywords);
 	}
 }

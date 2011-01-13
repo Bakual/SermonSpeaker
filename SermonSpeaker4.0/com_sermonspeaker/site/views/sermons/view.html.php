@@ -21,26 +21,11 @@ class SermonspeakerViewSermons extends JView
 		$items		= $this->get('Items');
 		$pagination	= $this->get('Pagination');
 
-		// Set Meta
-		$document =& JFactory::getDocument();
-		$document->setTitle(JText::_('COM_SERMONSPEAKER_SERMONS_TITLE').' | '.$document->getTitle());
-		$document->setMetaData("description",JText::_('COM_SERMONSPEAKER_SERMONS_TITLE'));
-		$document->setMetaData("keywords",JText::_('COM_SERMONSPEAKER_SERMONS_TITLE'));
-
 		// Check for errors.
 		if (count($errors = $this->get('Errors'))) {
 			JError::raiseError(500, implode("\n", $errors));
 			return false;
 		}
-
-		// Check whether category access level allows access.
-/*		$user	= JFactory::getUser();
-		$groups	= $user->authorisedLevels();
-		if (!in_array($category->access, $groups)) {
-			return JError::raiseError(403, JText::_("JERROR_ALERTNOAUTHOR"));
-		}
-*/
-
 
 		// Support for Content Plugins
 		$dispatcher	= JDispatcher::getInstance();
@@ -79,6 +64,39 @@ class SermonspeakerViewSermons extends JView
 		$this->assignRef('params',		$params);
 		$this->assignRef('pagination',	$pagination);
 
+		$this->_prepareDocument();
+
 		parent::display($tpl);
+	}
+
+	/**
+	 * Prepares the document
+	 */
+	protected function _prepareDocument()
+	{
+		$app	= JFactory::getApplication();
+
+		// Set Pagetitle
+		$title 	= $this->params->get('page_title', '');
+		if (empty($title)) {
+			$title = $app->getCfg('sitename');
+		} elseif ($app->getCfg('sitename_pagetitles', 0)) {
+			$title = JText::sprintf('JPAGETITLE', $app->getCfg('sitename'), $title);
+		}
+		$title = JText::sprintf('JPAGETITLE', $title, JText::_('COM_SERMONSPEAKER_SERMONS_TITLE'));
+		$this->document->setTitle($title);
+
+		// Set MetaData
+		$description = $this->document->getMetaData('description');
+		if ($description){
+			$description .= ' ';
+		}
+		$this->document->setMetaData('description', $description.JText::_('COM_SERMONSPEAKER_SERMONS_TITLE'));
+
+		$keywords = $this->document->getMetaData('keywords');
+		if ($keywords){
+			$keywords = $keywords.', ';
+		}
+		$this->document->setMetaData('keywords', $keywords.JText::_('COM_SERMONSPEAKER_SERMONS_TITLE'));
 	}
 }

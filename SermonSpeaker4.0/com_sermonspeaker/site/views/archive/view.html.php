@@ -31,32 +31,17 @@ class SermonspeakerViewArchive extends JView
 		if ($state->get('date.month')){
 			$date = $state->get('date.year').'-'.$state->get('date.month');
 			$date_format = 'F, Y';
-			$title = JText::_('COM_SERMONSPEAKER_ARCHIVE_TITLE')." ".JHTML::date($date, $date_format, false).$cat;
 		} else {
 			$date = $state->get('date.year').'-01';
 			$date_format = 'Y';
-			$title = JText::_('COM_SERMONSPEAKER_ARCHIVE_TITLE')." ".JHTML::date($date, $date_format, false).$cat;
 		}
-
-		// Set Meta
-		$document =& JFactory::getDocument();
-		$document->setTitle($title.' | '.$document->getTitle());
-		$document->setMetaData("description",JText::_('COM_SERMONSPEAKER_ARCHIVE_TITLE')." ".JHTML::date($date, $date_format, false));
-		$document->setMetaData("keywords",JText::_('COM_SERMONSPEAKER_SERMONS_TITLE'));
+		$title = JText::_('COM_SERMONSPEAKER_ARCHIVE_TITLE').' '.JHTML::date($date, $date_format, false).$cat;
 
 		// Check for errors.
 		if (count($errors = $this->get('Errors'))) {
 			JError::raiseError(500, implode("\n", $errors));
 			return false;
 		}
-
-		// Check whether category access level allows access.
-/*		$user	= JFactory::getUser();
-		$groups	= $user->authorisedLevels();
-		if (!in_array($category->access, $groups)) {
-			return JError::raiseError(403, JText::_("JERROR_ALERTNOAUTHOR"));
-		}
-*/
 
 		// Support for Content Plugins
 		$dispatcher	= &JDispatcher::getInstance();
@@ -95,6 +80,39 @@ class SermonspeakerViewArchive extends JView
 		$this->assignRef('pagination',	$pagination);
 		$this->assignRef('title',		$title);
 
+		$this->_prepareDocument();
+
 		parent::display($tpl);
+	}
+
+	/**
+	 * Prepares the document
+	 */
+	protected function _prepareDocument()
+	{
+		$app	= JFactory::getApplication();
+
+		// Set Pagetitle
+		$title 	= $this->params->get('page_title', '');
+		if (empty($title)) {
+			$title = $app->getCfg('sitename');
+		} elseif ($app->getCfg('sitename_pagetitles', 0)) {
+			$title = JText::sprintf('JPAGETITLE', $app->getCfg('sitename'), $title);
+		}
+		$title = JText::sprintf('JPAGETITLE', $title, $this->title);
+		$this->document->setTitle($title);
+
+		// Set MetaData
+		$description = $this->document->getMetaData('description');
+		if ($description){
+			$description .= ' ';
+		}
+		$this->document->setMetaData('description', $description.$this->title);
+
+		$keywords = $this->document->getMetaData('keywords');
+		if ($keywords){
+			$keywords = $keywords.', ';
+		}
+		$this->document->setMetaData('keywords', $keywords.JText::_('COM_SERMONSPEAKER_SERMONS_TITLE'));
 	}
 }
