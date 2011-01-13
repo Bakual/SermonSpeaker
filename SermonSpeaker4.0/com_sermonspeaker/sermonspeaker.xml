@@ -62,6 +62,6 @@
 		<table>#__sermon_series</table>
 	</tables>
 	<updateservers>
-		<server type="extension" priority="1" name="SermonSpeaker.net">http://www.sermonspeaker.net/update/component/com_sermonspeaker</server>
+		<server type="extension" priority="1" name="SermonSpeaker.net">http://www.sermonspeaker.net/update/com_sermonspeaker.xml</server>
 	</updateservers>
 </extension>
