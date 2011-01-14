@@ -14,10 +14,7 @@ abstract class modRelatedSermonsHelper
 {
 	public static function getList($params)
 	{
-		$db			= JFactory::getDbo();
-		$user			= JFactory::getUser();
-		$groups			= implode(',', $user->getAuthorisedViewLevels());
-		$date			= JFactory::getDate();
+		$db				= JFactory::getDbo();
 
 		$option			= JRequest::getCmd('option');
 		$view			= JRequest::getCmd('view');
@@ -27,11 +24,12 @@ abstract class modRelatedSermonsHelper
 		$related		= array();
 
 		$supportArticles = $params->get('supportArticles', 0);
+		$ss_itemid 		 = (int)$params->get('menuitem');
 
 		$related = array();
 		if (($supportArticles && $option == 'com_content' && $view == 'article') || ($option == 'com_sermonspeaker' && $view == 'sermon') && $id)
 		{
-			$related = modRelatedSermonsHelper::getRelatedSermonsById($db, $option, $id);
+			$related = modRelatedSermonsHelper::getRelatedSermonsById($db, $option, $id, $ss_itemid);
 			if ($supportArticles){
 				$articles = modRelatedSermonsHelper::getRelatedItemsById($db, $option, $id);
 				$related = array_merge($related, $articles);
@@ -42,7 +40,11 @@ abstract class modRelatedSermonsHelper
 	}
 
 	protected function getRelatedItemsById($db, $option, $id) {
+		$user			= JFactory::getUser();
+		$groups			= implode(',', $user->getAuthorisedViewLevels());
+
 		$nullDate		= $db->getNullDate();
+		$date			= JFactory::getDate();
 		$now			= $date->toMySQL();
 
 		$query		= $db->getQuery(true);
@@ -116,11 +118,12 @@ abstract class modRelatedSermonsHelper
 				unset ($temp);
 			}
 		}
+
 		return $related;
 	}
 	
 	// Search the sermons
-	protected function getRelatedSermonsById($db, $option, $id) {
+	protected function getRelatedSermonsById($db, $option, $id, $ss_itemid) {
 		$query		= $db->getQuery(true);
 		$related 	= array();
 
@@ -154,15 +157,9 @@ abstract class modRelatedSermonsHelper
 			if (count($likes)) {
 				// select other items based on the metakey field 'like' the keys found
 				$query->clear();
-				$query = 'SELECT id, sermon_title AS title, sermon_date AS created,' .
-						' CASE WHEN CHAR_LENGTH(alias) THEN CONCAT_WS(":", id, alias) ELSE id END as slug'.
-						' FROM #__sermon_sermons' .
-						' WHERE id != '.(int) $id .
-						' AND published = 1' .
-						' AND ( CONCAT(",", REPLACE(metakey,", ",","),",") LIKE "%'.implode('%" OR CONCAT(",", REPLACE(metakey,", ",","),",") LIKE "%', $likes).'%" )'; //remove single space after commas in keywords
 				$db->setQuery($query);
 				$query->select('a.id');
-				$query->select('a.sermon_title AS a.title');
+				$query->select('a.sermon_title AS title');
 				$query->select('DATE_FORMAT(a.created, "%Y-%m-%d") as created');
 				$query->select('a.catid');
 				$query->select('cc.access AS cat_access');
@@ -179,10 +176,11 @@ abstract class modRelatedSermonsHelper
 				$temp = $db->loadObjectList();
 
 				if (count($temp)) {
-					$ss_itemid = (int)$params->get('menuitem');
 					foreach ($temp as $row) {
+						if ($row->catid == 0){
+							$row->cat_state = 1;
+						}
 						if ($row->cat_state == 1) {
-						
 							// TODO: include Route Helper
 							// $row->route = JRoute::_(SermonspeakerHelperRoute::getSermonRoute($row->slug));
 							$row->route = JRoute::_('index.php?option=com_sermonspeaker&view=sermon&id='.$row->slug.'&Itemid='.$ss_itemid);
