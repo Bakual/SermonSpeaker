@@ -13,11 +13,10 @@ require_once (dirname(__FILE__).DS.'helper.php');
 
 $cacheparams = new stdClass;
 $cacheparams->cachemode = 'safeuri';
-$cacheparams->class = 'modRelatedItemsHelper';
+$cacheparams->class = 'modRelatedSermonsHelper';
 $cacheparams->method = 'getList';
 $cacheparams->methodparams = $params;
 $cacheparams->modeparams = array('id'=>'int','Itemid'=>'int');
-
 $list = JModuleHelper::moduleCache ($module, $params, $cacheparams);
 
 if (!count($list)) {
