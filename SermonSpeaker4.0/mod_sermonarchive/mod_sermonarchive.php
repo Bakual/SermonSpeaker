@@ -24,9 +24,9 @@ $rows = $db->loadObjectList();
 // get the menu item from the params
 $ss_itemid = $params->get('menuitem');
 
-if(count($rows)) {
-	echo '<ul>';
-	foreach ($rows as $row) {
+if(count($rows)) { ?>
+	<ul class="sermonarchive<?php echo $moduleclass_sfx; ?>">
+	<?php foreach ($rows as $row) {
 		$request_m	= NULL;
 		$text_m		= NULL;
 		if ($switch){
@@ -38,7 +38,6 @@ if(count($rows)) {
 		?>
 		<li><a href="<?php echo $link; ?>"><?php echo $text; ?></a></li>
 		<?php
-	}
-	echo '</ul>';
-} // end of if
-?>
+	} ?>
+	</ul>
+<?php } ?>

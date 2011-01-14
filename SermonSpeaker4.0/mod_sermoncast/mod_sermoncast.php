@@ -7,62 +7,55 @@ JHTML::_('behavior.modal');
 $cat['series'] 	= (int)$params->get('sc_series_cat');
 $cat['speaker']	= (int)$params->get('sc_speaker_cat');
 $cat['sermon'] 	= (int)$params->get('sc_sermon_cat');
+$series			= (int)$params->get('series_id');
+$menuitem		= (int)$params->get('sc_menuitem');
 $otherlink 		= $params->get('sc_otherlink');
 $otherimage 	= $params->get('sc_otherimage');
-$text           = $params->get('sc_introtext');
-$showPcast      = $params->get('sc_showpcast');
-$showPlainlink  = $params->get('sc_showplink');
-$prefix         = $params->get('sc_pcast_prefix');
-$helpcontent	= $params->get('sc_helpcontent');
-$moduleclass_sfx 	= $params->get('$moduleclass_sfx');
 
-$feedcat = NULL;
-if ($cat['series'] != 0){
-	$feedcat .= '&series_cat='.$cat['series'];
+$options = '';
+if ($cat['series']){
+	$options .= '&series_cat='.$cat['series'];
 }
-if ($cat['speaker'] != 0){
-	$feedcat .= '&speaker_cat='.$cat['speaker'];
+if ($cat['speaker']){
+	$options .= '&speaker_cat='.$cat['speaker'];
 }
-if ($cat['sermon'] != 0){
-	$feedcat .= '&sermon_cat='.$cat['sermon'];
+if ($cat['sermon']){
+	$options .= '&sermon_cat='.$cat['sermon'];
 }
-$menuitem	= (int)$params->get('sc_menuitem');
+if ($series){
+	$options .= '&series_id='.$series;
+}
 if ($menuitem){
-	$feedcat .= '&Itemid='.$menuitem;
+	$options .= '&Itemid='.$menuitem;
 }
 
-$feedFile = "index.php?option=com_sermonspeaker&amp;view=feed".$feedcat;
-$pcast = JURI::root().$feedFile;
-if($showPcast) {
-	$u =& JURI::getInstance($pcast);
-	$u->setScheme($prefix);
-	$pcast = $u->toString();
-}
+$feedFile = JURI::root().'index.php?option=com_sermonspeaker&amp;view=feed&amp;format=raw'.$options;
 ?>
 
-<div class="syndicate <?php echo $moduleclass_sfx; ?>" align="center">
+<div class="syndicate<?php echo $params->get('$moduleclass_sfx'); ?>" align="center">
+<p><?php echo $params->get('sc_introtext'); ?></p>
 <?php
-echo '<p>'.$text.'</p>';
-if($otherlink != '') {
-	$link = $otherlink;
-} else {
-	$link = $pcast;
-}
-if($showPcast) {
-	if($otherimage != '') {
+if($params->get('sc_showpcast')) {
+	if($otherlink) {
+		$link = $otherlink;
+	} else {
+		$u =& JURI::getInstance($feedFile);
+		$u->setScheme($params->get('sc_pcast_prefix'));
+		$link = $u->toString();
+	}
+	if($otherimage) {
 		$img = '<img src="'.$otherimage.'" border="0" alt="Podcast"/>';
 	} else {
 		$img = '<img src="'.JURI::root().'modules/mod_sermoncast/podcast-mini.gif" border="0" alt="Podcast"/>'; 	
 	} ?>
-	<a href="<?php echo htmlspecialchars($link); ?>"><?php echo $img ?> </a><br />
-	<?php 
-}
-if($showPlainlink) { ?>
-	<a href="<?php echo JURI::root().$feedFile; ?>"><?php echo JText::_('MOD_SERMONCAST_FULLFEED'); ?></a>
-	<a href="<?php echo JURI::root().$feedFile; ?>"><img src="<?php echo JURI::root(); ?>modules/mod_sermoncast/feed_rss.gif" border="0" alt="rss feed" /></a><br />
+	<a href="<?php echo htmlspecialchars($link); ?>"><?php echo $img; ?> </a><br />
+<?php }
+if($params->get('sc_showplink')) { ?>
+	<a href="<?php echo $feedFile; ?>"><?php echo JText::_('MOD_SERMONCAST_FULLFEED'); ?></a>
+	<a href="<?php echo $feedFile; ?>"><img src="<?php echo JURI::root(); ?>modules/mod_sermoncast/feed_rss.gif" border="0" alt="rss feed" /></a><br />
 <?php } 
-if($params->get('sc_showhelp') == "1") { ?>
-	<p><a class="modal" href="<?php echo JRoute::_('index.php?option=com_content&view=article&id='.$helpcontent.'&tmpl=component') ?>" rel="{handler: 'iframe', size: {x: <?php echo $params->get('helpwidth'); ?>, y: <?php echo $params->get('helpheight'); ?>}}">
+if($params->get('sc_showhelp')) { ?>
+	<p><a class="modal" href="<?php echo JRoute::_('index.php?option=com_content&view=article&id='.(int)$params->get('sc_helpcontent').'&tmpl=component') ?>" rel="{handler: 'iframe', size: {x: <?php echo (int)$params->get('sc_helpwidth'); ?>, y: <?php echo (int)$params->get('sc_helpheight'); ?>}}">
 	<?php echo JText::_('MOD_SERMONCAST_HELP'); ?>
 	</a></p>
 	<?php

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <extension type="module" version="1.6" method="upgrade">
-	<name>Sermoncast</name>
+	<name>SermonCast</name>
 	<author>Thomas Hunziker, Martin Hess</author>
 	<creationDate>January 2011</creationDate>
 	<copyright>(C) 2011</copyright>
@@ -32,18 +32,6 @@
 					label="MOD_SERMONCAST_PARAM_INTROTEXT" 
 					description="MOD_SERMONCAST_PARAM_INTROTEXT_DESC" />
 				<field type="spacer" />
-				<field name="sc_series_cat" type="category" 
-					section="com_sermonspeaker" 
-					label="MOD_SERMONCAST_PARAM_SERIES_CATEGORY" 
-					description="MOD_SERMONCAST_PARAM_CATEGORY_DESC" />
-				<field name="sc_speaker_cat" type="category" 
-					section="com_sermonspeaker" 
-					label="MOD_SERMONCAST_PARAM_SPEAKER_CATEGORY" 
-					description="MOD_SERMONCAST_PARAM_CATEGORY_DESC" />
-				<field name="sc_sermon_cat" type="category" 
-					section="com_sermonspeaker" 
-					label="MOD_SERMONCAST_PARAM_SERMON_CATEGORY" 
-					description="MOD_SERMONCAST_PARAM_CATEGORY_DESC" />
 				<field name="sc_menuitem" type="menuitem" 
 					label="MOD_SERMONCAST_PARAM_MENUITEM" 
 					description="MOD_SERMONCAST_PARAM_MENUITEM_DESC" />
@@ -100,6 +88,31 @@
 					label="MOD_SERMONCAST_PARAM_HELPCONTENT" 
 					description="MOD_SERMONCAST_PARAM_HELPCONTENT_DESC" />
 			</fieldset>
+			<fieldset name="advanced">
+				<field name="sc_series_cat" type="category" 
+					label="MOD_SERMONCAST_PARAM_SERIES_CATEGORY" 
+					description="MOD_SERMONCAST_PARAM_CATEGORY_DESC"
+					extension="com_sermonspeaker" 
+					show_root="true" />
+				<field name="sc_speaker_cat" type="category" 
+					label="MOD_SERMONCAST_PARAM_SPEAKER_CATEGORY" 
+					description="MOD_SERMONCAST_PARAM_CATEGORY_DESC"
+					extension="com_sermonspeaker" 
+					show_root="true" />
+				<field name="sc_sermon_cat" type="category" 
+					label="MOD_SERMONCAST_PARAM_SERMON_CATEGORY" 
+					description="MOD_SERMONCAST_PARAM_CATEGORY_DESC"
+					extension="com_sermonspeaker" 
+					show_root="true" />
+			</fieldset>
+			<field name="series_id" type="sql" 
+				label="MOD_SERMONCAST_PARAM_SERIES" 
+				description="MOD_SERMONCAST_PARAM_SERIES_DESC"
+				query="SELECT id, series_title FROM #__sermon_series" 
+				key_field="id" 
+				value_field="series_title" >
+				<option value="0">MOD_SERMONCAST_SELECT_SERIES</option>
+			</field>
 		</fields>
 	</config>
 </extension>

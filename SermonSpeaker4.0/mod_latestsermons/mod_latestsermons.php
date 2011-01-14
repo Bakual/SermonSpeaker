@@ -34,7 +34,7 @@ $rows = $db->loadObjectList();
 // get the menu item from the params
 $ss_itemid = $params->get('ls_mo_menuitem');
 ?>
-<ul class="<?php echo $params->get('moduleclass_sfx'); ?>">
+<ul class="latestsermons<?php echo $params->get('moduleclass_sfx'); ?>">
 <?php foreach($rows as $row) { ?>
 	<li class="<?php echo $params->get('moduleclass_sfx'); ?>">
 	<?php if ($params->get('ls_show_mouseover')) {
