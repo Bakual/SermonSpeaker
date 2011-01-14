@@ -48,6 +48,13 @@ class SermonspeakerTableSermon extends JTable
 			}
 		}
 
+		// Verify that the alias is unique
+		$table = JTable::getInstance('sermon', 'SermonspeakerTable');
+		if ($table->load(array('alias' => $this->alias)) && ($table->id != $this->id || $this->id == 0)) {
+			$this->setError(JText::_('COM_SERMONSPEAKER_ERROR_ALIAS'));
+			return false;
+		}
+
 		// Attempt to store the user data.
 		return parent::store($updateNulls);
 	}

@@ -206,7 +206,7 @@ class SermonspeakerModelSermon extends JModelAdmin
 		}
 		if (count($time_arr) == 2) {
 			$table->sermon_time = '00:'.$time_arr[0].':'.$time_arr[1];
-		} elseif (count($tarr) == 3) {
+		} elseif (count($time_arr) == 3) {
 			$table->sermon_time = $time_arr[0].':'.$time_arr[1].':'.$time_arr[2];
 		}
 		if (!empty($table->metakey)) {

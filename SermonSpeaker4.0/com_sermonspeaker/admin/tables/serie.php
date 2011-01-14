@@ -30,6 +30,15 @@ class SermonspeakerTableSerie extends JTable
 			$this->created = $date->toMySQL();
 		}
 
+		// Verify that the alias is unique
+		$table = JTable::getInstance('serie', 'SermonspeakerTable');
+		if ($table->load(array('alias' => $this->alias)) && ($table->id != $this->id || $this->id == 0)) {
+			$this->setError(JText::_('COM_SERMONSPEAKER_ERROR_ALIAS'));
+			return false;
+		}
+
+		// Attempt to store the user data.
+		return parent::store($updateNulls);
 		// Attempt to store the user data.
 		return parent::store($updateNulls);
 	}
