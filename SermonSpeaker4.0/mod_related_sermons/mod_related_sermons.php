@@ -26,6 +26,6 @@ if (!count($list)) {
 
 
 $moduleclass_sfx = htmlspecialchars($params->get('moduleclass_sfx'));
-$showDate = $params->get('showDate', 0);
+$showDate 		 = $params->get('showDate', 0);
 
 require JModuleHelper::getLayoutPath('mod_related_sermons', $params->get('layout', 'default'));
