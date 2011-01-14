@@ -39,9 +39,9 @@ class SermonspeakerHelperSermonspeaker
 		if ($addfile) {
 			$return = '<a title="'.JText::_('COM_SERMONSPEAKER_ADDFILE_HOOVER').'" href="'.$link.'" target="_blank"><img src="'.$file.'" width="18" height="20" alt="" /></a>&nbsp;<a title="'.JText::_('COM_SERMONSPEAKER_ADDFILE_HOOVER').'" href="'.$link.'" target="_blank">'.$addfileDesc.'</a>';
 
-		return $return;
+			return $return;
 		} else { 
-		return(NULL);
+			return(NULL);
 		}
 	}
 	

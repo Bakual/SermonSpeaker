@@ -36,7 +36,7 @@ endif; ?>
 		<div class="ss-sermondetail-label"></div>
 		<div class="ss-sermondetail-text"><?php echo SermonspeakerHelperSermonspeaker::insertPopupButton($this->item->id, $player); ?></div>
 	<?php endif;
-	if (in_array('sermon:addfile', $this->columns) && $this->item->addfile && $this->item->addfileDesc) : ?>
+	if (in_array('sermon:addfile', $this->columns) && $this->item->addfile) : ?>
 		<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_ADDFILE'); ?>:</div>
 		<div class="ss-sermondetail-text">
 			<?php echo SermonspeakerHelperSermonspeaker::insertAddfile($this->item->addfile, $this->item->addfileDesc); ?>

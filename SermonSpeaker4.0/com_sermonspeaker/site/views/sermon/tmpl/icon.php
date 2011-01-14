@@ -1,6 +1,5 @@
 <?php
 defined('_JEXEC') or die('Restricted access');
-$return = SermonspeakerHelperSermonspeaker::insertAddfile($this->item->addfile, $this->item->addfileDesc);
 JHTML::_('behavior.tooltip');
 JHTML::_('behavior.modal');
 
@@ -73,7 +72,7 @@ $player = SermonspeakerHelperSermonspeaker::insertPlayer($this->lnk, $this->item
 						echo $this->escape($this->serie->series_title); ?></a>
 				</div>
 			<?php endif;
-			if (in_array('sermon:addfile', $this->columns) && $this->item->addfile && $this->item->addfileDesc) : ?>
+			if (in_array('sermon:addfile', $this->columns) && $this->item->addfile) : ?>
 				<div class="ss-field field-addfile" title="<?php echo JText::_('COM_SERMONSPEAKER_ADDFILE'); ?>">
 					<?php echo SermonspeakerHelperSermonspeaker::insertAddfile($this->item->addfile, $this->item->addfileDesc); ?>
 				</div>
