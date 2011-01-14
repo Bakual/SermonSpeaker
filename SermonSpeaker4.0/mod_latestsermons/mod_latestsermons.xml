@@ -20,7 +20,8 @@
 	</updateservers>
 	<config>
 		<fields name="params">
-			<fieldset name="basic">
+			<fieldset name="basic"
+				addfieldpath="/administrator/components/com_sermonspeaker/models/fields">
 				<field name="moduleclass_sfx" type="text" 
 					default="" 
 					label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL" 
@@ -57,15 +58,10 @@
 					<option value="0">No</option>
 					<option value="1">Yes</option>
 				</field>
-				<field name="ls_mo_date_format" type="list" 
+				<field name="ls_mo_date_format" type="dateformat" 
 					default="DATE_FORMAT_LC4" 
 					label="MOD_LATESTSERMONS_PARAM_MO_DATE_FORMAT" 
 					description="MOD_LATESTSERMONS_PARAM_MO_DATE_FORMAT_DESC">
-					<option value="DATE_FORMAT_LC">DATE_FORMAT_LC</option>
-					<option value="DATE_FORMAT_LC1">DATE_FORMAT_LC1</option>
-					<option value="DATE_FORMAT_LC2">DATE_FORMAT_LC2</option>
-					<option value="DATE_FORMAT_LC3">DATE_FORMAT_LC3</option>
-					<option value="DATE_FORMAT_LC4">DATE_FORMAT_LC4</option>
 				</field>
 				<field name="ls_show_mo_link" type="radio" 
 					default="0" 

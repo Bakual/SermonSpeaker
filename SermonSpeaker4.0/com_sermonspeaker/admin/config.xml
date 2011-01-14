@@ -70,15 +70,10 @@
 			<option value="4">COM_SERMONSPEAKER_SERMON_VIEW_ICON_TITLE</option>
 		</field>
 		<field name="date_format" 
-			type="list" 
+			type="dateformat" 
 			default="DATE_FORMAT_LC4" 
 			label="COM_SERMONSPEAKER_PARAM_DATE_FORMAT" 
 			description="COM_SERMONSPEAKER_PARAM_DATE_FORMAT_DESC">
-			<option value="DATE_FORMAT_LC">DATE_FORMAT_LC</option>
-			<option value="DATE_FORMAT_LC1">DATE_FORMAT_LC1</option>
-			<option value="DATE_FORMAT_LC2">DATE_FORMAT_LC2</option>
-			<option value="DATE_FORMAT_LC3">DATE_FORMAT_LC3</option>
-			<option value="DATE_FORMAT_LC4">DATE_FORMAT_LC4</option>
 		</field>
 		<field name="hide_dl" 
 			type="radio" 
