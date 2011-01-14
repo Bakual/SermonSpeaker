@@ -13,9 +13,9 @@
 		</fieldset>
 	</fields>
 
-			<!-- Add fields to the parameters object for the layout. -->
+	<!-- Add fields to the parameters object for the layout. -->
 	<fields name="params">
-		<fieldset name="basic" label="JGLOBAL_FIELDSET_DISPLAY_OPTIONS">
+		<fieldset name="filter" label="COM_SERMONSPEAKER_FIELDSET_FILTER_LABEL">
 			<field name="series_cat" type="category" 
 				label="COM_SERMONSPEAKER_PARAM_CATEGORY_SERIES_LABEL" 
 				description="COM_SERMONSPEAKER_PARAM_CATEGORY_DESC" 
@@ -46,6 +46,120 @@
 				<option value="0">COM_SERMONSPEAKER_SELECT_SERIES</option>
 			</field>
 
+		</fieldset>
+		<fieldset name="sermoncast" label="COM_SERMONSPEAKER_FIELDSET_SERMONCAST_LABEL">
+			<field name="sc_title" 
+				type="text" 
+				label="COM_SERMONSPEAKER_PARAM_FEED_TITLE_LABEL" 
+				description="COM_SERMONSPEAKER_PARAM_FEED_TITLE_DESC" />
+			<field name="description" 
+				type="text" 
+				label="COM_SERMONSPEAKER_PARAM_FEED_DESCRIPTION_LABEL" 
+				description="COM_SERMONSPEAKER_PARAM_FEED_DESCRIPTION_DESC" />
+			<field name="copyright" 
+				type="text" 
+				label="COM_SERMONSPEAKER_PARAM_FEED_COPYRIGHT_LABEL" 
+				description="COM_SERMONSPEAKER_PARAM_FEED_COPYRIGHT_DESC" />
+			<field name="editor" 
+				type="text" 
+				label="COM_SERMONSPEAKER_PARAM_FEED_EDITOR" 
+				description="COM_SERMONSPEAKER_PARAM_FEED_EDITOR_DESC" />
+			<field name="editorEmail" 
+				type="text" 
+				label="COM_SERMONSPEAKER_PARAM_FEED_EDITOREMAIL" 
+				description="COM_SERMONSPEAKER_PARAM_FEED_EDITOREMAIL_DESC" />
+			<field name="limit_text" 
+				type="list" 
+				label="COM_SERMONSPEAKER_PARAM_FEED_LIMITTEXT" 
+				description="COM_SERMONSPEAKER_PARAM_FEED_LIMITTEXT_DESC">
+				<option value="">JGLOBAL_USE_GLOBAL</option>
+				<option value="0">JNO</option>
+				<option value="1">JYES</option>
+			</field>
+			<field name="text_length" 
+				type="text" 
+				label="COM_SERMONSPEAKER_PARAM_FEED_TEXTLENGTH" 
+				description="COM_SERMONSPEAKER_PARAM_FEED_TEXTLENGTH_DESC" />
+			
+			<field type="spacer" />
+			
+			<field name="itKeywords" 
+				type="text" 
+				label="COM_SERMONSPEAKER_PARAM_FEED_ITKEYWORDS" 
+				description="COM_SERMONSPEAKER_PARAM_FEED_ITKEYWORDS_DESC" />
+			<field name="itSubtitle" 
+				type="text" 
+				label="COM_SERMONSPEAKER_PARAM_FEED_ITSUBTITLE" 
+				description="COM_SERMONSPEAKER_PARAM_FEED_ITSUBTITLE_DESC" />
+			<field name="itImage" 
+				type="text" 
+				label="COM_SERMONSPEAKER_PARAM_FEED_ITIMAGE" 
+				description="COM_SERMONSPEAKER_PARAM_FEED_ITIMAGE_DESC" />
+			<field name="itCategory1" 
+				type="list" 
+				label="COM_SERMONSPEAKER_PARAM_FEED_ITCATEGORY1" 
+				description="COM_SERMONSPEAKER_PARAM_FEED_ITCATEGORY1_DESC">
+				<option value="">JGLOBAL_USE_GLOBAL</option>
+				<option value="Education">Education</option>
+				<option value="Religion &amp; Spirituality">Religion &amp; Spirituality</option>
+				<option value="Religion &amp; Spirituality > Christianity">Religion &amp; Spirituality > Christianity</option>
+				<option value="Religion &amp; Spirituality > Judaism">Religion &amp; Spirituality > Judaism</option>
+				<option value="Religion &amp; Spirituality > Other">Religion &amp; Spirituality > Other</option>
+				<option value="Religion &amp; Spirituality > Spirituality">Religion &amp; Spirituality > Spirituality</option>
+				<option value="Music">Music</option>
+				<option value="Kids &amp; Family">Kids &amp; Family</option>
+				<option value="Sports &amp; Recreation">Sports &amp; Recreation</option>
+				<option value="Sports &amp; Recreation > Professional">Sports &amp; Recreation > Professional</option>
+			</field>
+			<field name="itCategory2" 
+				type="list" 
+				label="COM_SERMONSPEAKER_PARAM_FEED_ITCATEGORY2" 
+				description="COM_SERMONSPEAKER_PARAM_FEED_ITCATEGORY2_DESC">
+				<option value="">JGLOBAL_USE_GLOBAL</option>
+				<option value="Education">Education</option>
+				<option value="Religion &amp; Spirituality">Religion &amp; Spirituality</option>
+				<option value="Religion &amp; Spirituality > Christianity">Religion &amp; Spirituality > Christianity</option>
+				<option value="Religion &amp; Spirituality > Judaism">Religion &amp; Spirituality > Judaism</option>
+				<option value="Religion &amp; Spirituality > Other">Religion &amp; Spirituality > Other</option>
+				<option value="Religion &amp; Spirituality > Spirituality">Religion &amp; Spirituality > Spirituality</option>
+				<option value="Music">Music</option>
+				<option value="Kids &amp; Family">Kids &amp; Family</option>
+				<option value="Sports &amp; Recreation">Sports &amp; Recreation</option>
+				<option value="Sports &amp; Recreation > Professional">Sports &amp; Recreation > Professional</option>
+			</field>
+			<field name="itCategory3" 
+				type="list" 
+				label="COM_SERMONSPEAKER_PARAM_FEED_ITCATEGORY3" 
+				description="COM_SERMONSPEAKER_PARAM_FEED_ITCATEGORY3_DESC">
+				<option value="">JGLOBAL_USE_GLOBAL</option>
+				<option value="Education">Education</option>
+				<option value="Religion &amp; Spirituality">Religion &amp; Spirituality</option>
+				<option value="Religion &amp; Spirituality > Christianity">Religion &amp; Spirituality > Christianity</option>
+				<option value="Religion &amp; Spirituality > Judaism">Religion &amp; Spirituality > Judaism</option>
+				<option value="Religion &amp; Spirituality > Other">Religion &amp; Spirituality > Other</option>
+				<option value="Religion &amp; Spirituality > Spirituality">Religion &amp; Spirituality > Spirituality</option>
+				<option value="Music">Music</option>
+				<option value="Kids &amp; Family">Kids &amp; Family</option>
+				<option value="Sports &amp; Recreation">Sports &amp; Recreation</option>
+				<option value="Sports &amp; Recreation > Professional">Sports &amp; Recreation > Professional</option>
+			</field>
+			<field name="itOwnerName" 
+				type="text" 
+				label="COM_SERMONSPEAKER_PARAM_FEED_ITOWNERNAME" 
+				description="COM_SERMONSPEAKER_PARAM_FEED_ITOWNERNAME_DESC" />
+			<field name="itOwnerEmail" 
+				type="text" 
+				label="COM_SERMONSPEAKER_PARAM_FEED_ITOWNEREMAIL" 
+				description="COM_SERMONSPEAKER_PARAM_FEED_ITOWNEREMAIL_DESC" />
+			<field name="itLanguage" 
+				type="text" 
+				label="COM_SERMONSPEAKER_PARAM_FEED_ITLANGUAGE" 
+				description="COM_SERMONSPEAKER_PARAM_FEED_ITLANGUAGE_DESC" />
+			<field name="itRedirect" 
+				type="text" 
+				label="COM_SERMONSPEAKER_PARAM_FEED_ITREDIRECT" 
+				description="COM_SERMONSPEAKER_PARAM_FEED_ITREDIRECT_DESC" />
+			
 		</fieldset>
 	</fields>
 </metadata>

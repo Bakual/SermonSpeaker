@@ -9,7 +9,7 @@ class SermonspeakerViewFeed extends JView
 	{
 		$app 	=& JFactory::getApplication();
 		$user	=& JFactory::getUser();
-		$params	=& JComponentHelper::getParams('com_sermonspeaker');
+		$params = $app->getParams();
 
 		// Get the log in credentials.
 		$credentials = array();

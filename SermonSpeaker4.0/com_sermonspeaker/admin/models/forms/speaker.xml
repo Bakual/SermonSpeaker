@@ -82,12 +82,12 @@
 	</fieldset>
 
 	<fieldset name="metadata" label="JGLOBAL_FIELDSET_METADATA_OPTIONS">
-		<field name="metakey" type="textarea"
-			label="JFIELD_META_KEYWORDS_LABEL" description="JFIELD_META_KEYWORDS_DESC"
-			class="inputbox" rows="3" cols="30" />
-
 		<field name="metadesc" type="textarea"
 			label="JFIELD_META_DESCRIPTION_LABEL" description="JFIELD_META_DESCRIPTION_DESC"
+			class="inputbox" rows="3" cols="30" />
+
+		<field name="metakey" type="textarea"
+			label="JFIELD_META_KEYWORDS_LABEL" description="JFIELD_META_KEYWORDS_DESC"
 			class="inputbox" rows="3" cols="30" />
 
 	</fieldset>
