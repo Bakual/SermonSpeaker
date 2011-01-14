@@ -22,11 +22,6 @@ class SermonspeakerController extends JController
 		if (JRequest::getCmd('view') == 'feed' && (JRequest::getCmd('format') != 'raw')){
 			$this->setRedirect('index.php?option=com_sermonspeaker&view=feed&format=raw');
 			return;
-			// Changing the podcast format to raw output, doesn't work anymore in J1.6 RC1 it seems.
-			/*
-			$document->getInstance('raw');
-			$document->setMimeEncoding('application/rss+xml');
-			*/
 		}
 
 		$safeurlparams = array('id'=>'INT','limit'=>'INT','limitstart'=>'INT','filter_order'=>'CMD','filter_order_Dir'=>'CMD','lang'=>'CMD','year'=>'INT','month'=>'INT');
