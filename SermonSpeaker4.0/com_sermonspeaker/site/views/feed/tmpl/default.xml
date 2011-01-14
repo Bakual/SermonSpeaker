@@ -43,7 +43,7 @@
 				query="SELECT id, series_title FROM #__sermon_series" 
 				key_field="id" 
 				value_field="series_title" >
-				<option value="0">COM_SERMONSPEAKER_PARAM_NOSERIES</option>
+				<option value="0">COM_SERMONSPEAKER_SELECT_SERIES</option>
 			</field>
 
 		</fieldset>
