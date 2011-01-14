@@ -10,115 +10,105 @@ defined('_JEXEC') or die('Restricted access');
 
 require_once (JPATH_SITE.DS.'components'.DS.'com_content'.DS.'helpers'.DS.'route.php');
 
-class modRelatedSermonsHelper
+abstract class modRelatedSermonsHelper
 {
-	function getList($params)
+	public static function getList($params)
 	{
-		global $mainframe;
+		$this->db		= JFactory::getDbo();
+		$this->app		= JFactory::getApplication();
+		$user			= JFactory::getUser();
+		$groups			= implode(',', $user->getAuthorisedViewLevels());
+		$date			= JFactory::getDate();
 
-		$db					=& JFactory::getDBO();
-		$user =& JFactory::getUser();
+		$this->option	= JRequest::getCmd('option');
+		$view			= JRequest::getCmd('view');
 
-		$option				= JRequest::getCmd('option');
-		$view				= JRequest::getCmd('view');
+		$this->id		= JRequest::getInt('id');
 
-		$temp				= JRequest::getString('id');
-		$temp				= explode(':', $temp);
-		$id					= $temp[0];
+		$nullDate		= $this->db->getNullDate();
+		$this->now		= $date->toMySQL();
+		$related		= array();
 
-		$aid = $user->get('aid', 0);
-
-		$showDate			= $params->get('showDate', 0);
-		$supportArticles		= $params->get('supportArticles', 0);
-		$conf =& JFactory::getConfig();
+		$supportArticles = $params->get('supportArticles', 0);
+		$this->ss_itemid = (int)$params->get('menuitem');
 		
 		$related = array();
-		if (($supportArticles && $option == 'com_content' && $view == 'article') || ($option == 'com_sermonspeaker' && $view == 'sermon') && $id)
+		if (($supportArticles && $this->option == 'com_content' && $view == 'article') || ($this->option == 'com_sermonspeaker' && $view == 'sermon') && $this->id)
 		{
-			if ($params->get('cache_items', 0)==1 && $conf->getValue( 'config.caching' )) {
-				$cache =& JFactory::getCache('mod_related_items', 'callback');
-				$cache->setLifeTime( $params->get( 'cache_time', $conf->getValue( 'config.cachetime' ) * 60 ) );
-				$cache->setCacheValidation(true);
-				$related = $cache->get(array('modRelatedSermonsHelper', 'getRelatedSermonsById'), array($id, $aid, $showDate, $option));
-				if ($supportArticles){
-					$articles = $cache->get(array('modRelatedSermonsHelper', 'getRelatedItemsById'), array($id, $aid, $showDate, $option));
-					$related = array_merge($related, $articles);
-				}
-			} else {
-				$related = modRelatedSermonsHelper::getRelatedSermonsById($id, $aid, $showDate, $option);
-				if ($supportArticles){
-					$articles = modRelatedSermonsHelper::getRelatedItemsById($id, $aid, $showDate, $option);
-					$related = array_merge($related, $articles);
-				}
+			$related = modRelatedSermonsHelper::getRelatedSermonsById();
+			if ($supportArticles){
+				$articles = modRelatedSermonsHelper::getRelatedItemsById();
+				$related = array_merge($related, $articles);
 			}
 		}
 		
 		return $related;
 	}
 
-	function getRelatedItemsById($id, $aid, $showDate, $option) {
-		$db =& JFactory::getDBO();
-		$user =& JFactory::getUser();
-		$date =& JFactory::getDate();
+	protected function getRelatedItemsById() {
+		$query		= $this->db->getQuery(true);
+		$related 	= array();
 
-		$related = array();
-
-		$nullDate = $db->getNullDate();
-		$now  = $date->toMySQL();
-
-		// select the meta keywords from the item
 		if ($option == 'com_content'){
-			$query = 'SELECT metakey' .
-					' FROM #__content' .
-					' WHERE id = '.(int) $id;
+			// select the meta keywords from the article
+			$query->select('metakey');
+			$query->from('#__content');
+			$query->where('id = '.$this->id);
+			$this->db->setQuery($query);
 		} elseif ($option == 'com_sermonspeaker'){
-			$query = 'SELECT metakey' .
-					' FROM #__sermon_sermons' .
-					' WHERE id = '.(int) $id;
+			// select the meta keywords from the sermon
+			$query->select('metakey');
+			$query->from('#__sermon_sermons');
+			$query->where('id = '.$this->id);
+			$this->db->setQuery($query);
 		}
-		$db->setQuery($query);
 
-		if ($metakey = trim($db->loadResult()))
-		{
+		if ($metakey = trim($this->db->loadResult())) {
 			// explode the meta keys on a comma
 			$keys = explode(',', $metakey);
 			$likes = array ();
 
 			// assemble any non-blank word(s)
-			foreach ($keys as $key)
-			{
+			foreach ($keys as $key) {
 				$key = trim($key);
 				if ($key) {
-					$likes[] = ',' . $db->getEscaped($key) . ','; // surround with commas so first and last items have surrounding commas
+					$likes[] = ','.$this->db->getEscaped($key).','; // surround with commas so first and last items have surrounding commas
 				}
 			}
 
-			if (count($likes))
-			{
+			if (count($likes)) {
 				// select other items based on the metakey field 'like' the keys found
-				$query = 'SELECT a.id, a.title, DATE_FORMAT(a.created, "%Y-%m-%d") AS created, a.sectionid, a.catid, cc.access AS cat_access, s.access AS sec_access, cc.published AS cat_state, s.published AS sec_state,' .
-						' CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(":", a.id, a.alias) ELSE a.id END as slug,'.
-						' CASE WHEN CHAR_LENGTH(cc.alias) THEN CONCAT_WS(":", cc.id, cc.alias) ELSE cc.id END as catslug'.
-						' FROM #__content AS a' .
-						' LEFT JOIN #__content_frontpage AS f ON f.content_id = a.id' .
-						' LEFT JOIN #__categories AS cc ON cc.id = a.catid' .
-						' LEFT JOIN #__sections AS s ON s.id = a.sectionid' .
-						' WHERE a.id != '.(int) $id .
-						' AND a.state = 1' .
-						' AND a.access <= ' .(int) $user->get('aid', 0) .
-						' AND ( CONCAT(",", REPLACE(a.metakey,", ",","),",") LIKE "%'.implode('%" OR CONCAT(",", REPLACE(a.metakey,", ",","),",") LIKE "%', $likes).'%" )' . //remove single space after commas in keywords
-						' AND ( a.publish_up = '.$db->Quote($nullDate).' OR a.publish_up <= '.$db->Quote($now).' )' .
-						' AND ( a.publish_down = '.$db->Quote($nullDate).' OR a.publish_down >= '.$db->Quote($now).' )';
-				$db->setQuery($query);
-				$temp = $db->loadObjectList();
+				$query->clear();
+				$query->select('a.id');
+				$query->select('a.title');
+				$query->select('DATE_FORMAT(a.created, "%Y-%m-%d") as created');
+				$query->select('a.catid');
+				$query->select('cc.access AS cat_access');
+				$query->select('cc.published AS cat_state');
+				$query->select('CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(":", a.id, a.alias) ELSE a.id END as slug');
+				$query->select('CASE WHEN CHAR_LENGTH(cc.alias) THEN CONCAT_WS(":", cc.id, cc.alias) ELSE cc.id END as catslug');
+				$query->from('#__content AS a');
+				$query->leftJoin('#__content_frontpage AS f ON f.content_id = a.id');
+				$query->leftJoin('#__categories AS cc ON cc.id = a.catid');
+				$query->where('a.id != '.$this->id);
+				$query->where('a.state = 1');
+				$query->where('a.access IN ('.$groups.')');
+				$query->where('(CONCAT(",", REPLACE(a.metakey, ", ", ","), ",") LIKE "%'.implode('%" OR CONCAT(",", REPLACE(a.metakey, ", ", ","), ",") LIKE "%', $likes).'%")'); //remove single space after commas in keywords)
+				$query->where('(a.publish_up = '.$this->db->Quote($nullDate).' OR a.publish_up <= '.$this->db->Quote($now).')');
+				$query->where('(a.publish_down = '.$this->db->Quote($nullDate).' OR a.publish_down >= '.$this->db->Quote($now).')');
 
-				if (count($temp))
-				{
-					foreach ($temp as $row)
-					{
-						if (($row->cat_state == 1 || $row->cat_state == '') && ($row->sec_state == 1 || $row->sec_state == '') && ($row->cat_access <= $user->get('aid', 0) || $row->cat_access == '') && ($row->sec_access <= $user->get('aid', 0) || $row->sec_access == ''))
-						{
-							$row->route = JRoute::_(ContentHelperRoute::getArticleRoute($row->slug, $row->catslug, $row->sectionid));
+				// Filter by language
+				if ($app->getLanguageFilter()) {
+					$query->where('a.language in ('.$this->db->Quote(JFactory::getLanguage()->getTag()).','.$this->db->Quote('*').')');
+				}
+
+				$this->db->setQuery($query);
+				$temp = $this->db->loadObjectList();
+
+				if (count($temp)) {
+					foreach ($temp as $row) {
+						if ($row->cat_state == 1) {
+							$row->route = JRoute::_(ContentHelperRoute::getArticleRoute($row->slug, $row->catslug));
 							$related[] = $row;
 						}
 					}
@@ -126,73 +116,77 @@ class modRelatedSermonsHelper
 				unset ($temp);
 			}
 		}
-
 		return $related;
 	}
 	
 	// Search the sermons
-	function getRelatedSermonsById($id, $aid, $showDate, $option) {
-		$db =& JFactory::getDBO();
-		$user =& JFactory::getUser();
-		$date =& JFactory::getDate();
+	protected function getRelatedSermonsById() {
+		$query		= $this->db->getQuery(true);
+		$related 	= array();
 
-		$related = array();
-
-		$nullDate = $db->getNullDate();
-		$now  = $date->toMySQL();
-
-		// select the meta keywords from the item
 		if ($option == 'com_content'){
-			$query = 'SELECT metakey' .
-					' FROM #__content' .
-					' WHERE id = '.(int) $id;
+			// select the meta keywords from the article
+			$query->select('metakey');
+			$query->from('#__content');
+			$query->where('id = '.$this->id);
+			$this->db->setQuery($query);
 		} elseif ($option == 'com_sermonspeaker'){
-			$query = 'SELECT metakey' .
-					' FROM #__sermon_sermons' .
-					' WHERE id = '.(int) $id;
+			// select the meta keywords from the sermon
+			$query->select('metakey');
+			$query->from('#__sermon_sermons');
+			$query->where('id = '.$this->id);
+			$this->db->setQuery($query);
 		}
-		$db->setQuery($query);
 
-		if ($metakey = trim($db->loadResult()))
-		{
+		if ($metakey = trim($this->db->loadResult())) {
 			// explode the meta keys on a comma
 			$keys = explode(',', $metakey);
 			$likes = array ();
 
 			// assemble any non-blank word(s)
-			foreach ($keys as $key)
-			{
+			foreach ($keys as $key) {
 				$key = trim($key);
 				if ($key) {
-					$likes[] = ',' . $db->getEscaped($key) . ','; // surround with commas so first and last items have surrounding commas
+					$likes[] = ','.$this->db->getEscaped($key).','; // surround with commas so first and last items have surrounding commas
 				}
 			}
-			if (count($likes))
-			{
+
+			if (count($likes)) {
 				// select other items based on the metakey field 'like' the keys found
+				$query->clear();
 				$query = 'SELECT id, sermon_title AS title, sermon_date AS created,' .
 						' CASE WHEN CHAR_LENGTH(alias) THEN CONCAT_WS(":", id, alias) ELSE id END as slug'.
 						' FROM #__sermon_sermons' .
-						' WHERE id != '.(int) $id .
+						' WHERE id != '.(int) $this->id .
 						' AND published = 1' .
 						' AND ( CONCAT(",", REPLACE(metakey,", ",","),",") LIKE "%'.implode('%" OR CONCAT(",", REPLACE(metakey,", ",","),",") LIKE "%', $likes).'%" )'; //remove single space after commas in keywords
-				$db->setQuery($query);
-				$temp = $db->loadObjectList();
+				$this->db->setQuery($query);
+				$query->select('a.id');
+				$query->select('a.sermon_title AS a.title');
+				$query->select('DATE_FORMAT(a.created, "%Y-%m-%d") as created');
+				$query->select('a.catid');
+				$query->select('cc.access AS cat_access');
+				$query->select('cc.published AS cat_state');
+				$query->select('CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(":", a.id, a.alias) ELSE a.id END as slug');
+				$query->select('CASE WHEN CHAR_LENGTH(cc.alias) THEN CONCAT_WS(":", cc.id, cc.alias) ELSE cc.id END as catslug');
+				$query->from('#__sermon_sermons AS a');
+				$query->leftJoin('#__categories AS cc ON cc.id = a.catid');
+				$query->where('a.id != '.$this->id);
+				$query->where('a.state = 1');
+				$query->where('(CONCAT(",", REPLACE(a.metakey, ", ", ","), ",") LIKE "%'.implode('%" OR CONCAT(",", REPLACE(a.metakey, ", ", ","), ",") LIKE "%', $likes).'%")'); //remove single space after commas in keywords)
 
-				if (count($temp))
-				{
-					// set a menu item
-					$menu = &JSite::getMenu();
-					$menuitems = $menu->getItems('link', 'index.php?option=com_sermonspeaker&view=sermons');
-					if ($menuitems == '') {
-						$menuitems = $menu->getItems('component', 'com_sermonspeaker');
-					}
-					$ss_itemid = $menuitems[0]->id;
+				$this->db->setQuery($query);
+				$temp = $this->db->loadObjectList();
 
-					foreach ($temp as $row)
-					{
-						$row->route = JRoute::_('index.php?option=com_sermonspeaker&view=sermon&id='.$row->slug.'&Itemid='.$ss_itemdid);
-						$related[] = $row;
+				if (count($temp)) {
+					foreach ($temp as $row) {
+						if ($row->cat_state == 1) {
+						
+							// TODO: include Route Helper
+							// $row->route = JRoute::_(SermonspeakerHelperRoute::getSermonRoute($row->slug));
+							$row->route = JRoute::_('index.php?option=com_sermonspeaker&view=sermon&id='.$row->slug.'&Itemid='.$this->ss_itemid);
+							$related[] = $row;
+						}
 					}
 				}
 				unset ($temp);

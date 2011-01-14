@@ -1,43 +1,64 @@
-<?xml version="1.0" encoding="utf-8"?>
-<install type="module" version="1.5.0" method="upgrade">
+<?xml version="1.0" encoding="UTF-8"?>
+<extension type="module" version="1.6" method="upgrade">
 	<name>Related Sermons</name>
 	<author>Thomas Hunziker</author>
-	<creationDate>August 2010</creationDate>
-	<copyright>Copyright (C) 2010. All rights reserved.</copyright>
-	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
-	<authorEmail>bakual@bakual.ch</authorEmail>
-	<authorUrl>http://joomlacode.org/gf/project/sermon_speaker/</authorUrl>
-	<version>3.4.2</version>
-	<description>Module to show related sermons</description>
+	<creationDate>January 2011</creationDate>
+	<copyright>(C) 2011</copyright>
+	<authorEmail>admin@sermonspeaker.net</authorEmail>
+	<authorUrl>http://www.sermonspeaker.net</authorUrl>
+	<version>4.0beta</version>
+	<license>http://www.gnu.org/licenses/gpl.html</license>
+	<description>MOD_RELATED_SERMONS_XML_DESCRIPTION</description>
 	<files>
 		<filename module="mod_related_sermons">mod_related_sermons.php</filename>
+		<filename>mod_related_sermons.xml</filename>
 		<filename>helper.php</filename>
 		<filename>index.html</filename>
-		<filename>tmpl/default.php</filename>
-		<filename>tmpl/index.html</filename>
+		<folder>tmpl</folder>
+		<folder>language</folder>
 	</files>
-	<languages folder="language">
-		<language tag="en-GB">en-GB.mod_related_sermons.ini</language>
-		<language tag="de-DE">de-DE.mod_related_sermons.ini</language>
-		<language tag="nl-NL">nl-NL.mod_related_sermons.ini</language>
-	</languages>
-	<params>
-		<param name="showDate" type="radio" default="0" label="MOD_RELATED_SERMONS_PARAM_SHOWDATE" description="MOD_RELATED_SERMONS_PARAM_SHOWDATE_DESC">
-			<option value="0">Hide</option>
-			<option value="1">Show</option>
-		</param>
-		<param name="supportArticles" type="radio" default="0" label="MOD_RELATED_SERMONS_PARAM_SUPPORT_ARTICLES" description="MOD_RELATED_SERMONS_PARAM_SUPPORT_ARTICLES_DESC">
-			<option value="0">No</option>
-			<option value="1">Yes</option>
-		</param>
-		<param name="@spacer" type="spacer" default="" label="" description="" />
-		<param name="moduleclass_sfx" type="text" default="" label="Module Class Suffix" description="PARAMMODULECLASSSUFFIX" />
-	</params>
-	<params group="advanced">
-		<param name="cache_items" type="list" default="0" label="Caching" description="Select whether to cache the content of this module">
-			<option value="1">Use global</option>
-			<option value="0">No caching</option>
-		</param>
-		<param name="cache_time" type="text" default="900" label="Cache Time" description="The time before the module is recached" />
-	</params>
-</install>
+	<updateservers>
+		<server type="extension" priority="1" name="SermonSpeaker.net">http://www.sermonspeaker.net/update/mod_related_sermons.xml</server>
+	</updateservers>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="showDate" type="radio" 
+					default="0" 
+					label="MOD_RELATED_SERMONS_PARAM_SHOWDATE" 
+					description="MOD_RELATED_SERMONS_PARAM_SHOWDATE_DESC">
+					<option value="0">JHIDE</option>
+					<option value="1">JSHOW</option>
+				</field>
+				<field name="supportArticles" type="radio" 
+					default="0" 
+					label="MOD_RELATED_SERMONS_PARAM_SUPPORT_ARTICLES" 
+					description="MOD_RELATED_SERMONS_PARAM_SUPPORT_ARTICLES_DESC">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+				<field name="menuitem" type="menuitem" 
+					default=""
+					label="MOD_RELATED_SERMONS_PARAM_MENUITEM" 
+					description="MOD_RELATED_SERMONS_PARAM_MENUITEM_DESC" 
+					state="1"
+				/>
+			</fieldset>
+			<fieldset name="advanced">
+				<field name="layout" type="modulelayout"
+					label="JFIELD_ALT_LAYOUT_LABEL"
+					description="JFIELD_ALT_MODULE_LAYOUT_DESC" />
+				<field name="moduleclass_sfx" type="text"
+					label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL"
+					description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC" />
+				<field name="cache_items" type="list" 
+					default="0" 
+					label="COM_MODULES_FIELD_CACHING_LABEL"
+					description="COM_MODULES_FIELD_CACHING_DESC">
+					<option value="1">JGLOBAL_USE_GLOBAL</option>
+					<option value="0">COM_MODULES_FIELD_VALUE_NOCACHING</option>
+				</field>
+			</fieldset>
+		</fields>
+	</config>
+</extension>

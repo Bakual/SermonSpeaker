@@ -11,11 +11,21 @@ defined('_JEXEC') or die('Restricted access');
 // Include the syndicate functions only once
 require_once (dirname(__FILE__).DS.'helper.php');
 
-$list = modRelatedSermonsHelper::getList($params);
+$cacheparams = new stdClass;
+$cacheparams->cachemode = 'safeuri';
+$cacheparams->class = 'modRelatedItemsHelper';
+$cacheparams->method = 'getList';
+$cacheparams->methodparams = $params;
+$cacheparams->modeparams = array('id'=>'int','Itemid'=>'int');
+
+$list = JModuleHelper::moduleCache ($module, $params, $cacheparams);
 
 if (!count($list)) {
 	return;
 }
 
+
+$moduleclass_sfx = htmlspecialchars($params->get('moduleclass_sfx'));
 $showDate = $params->get('showDate', 0);
-require(JModuleHelper::getLayoutPath('mod_related_sermons'));
+
+require JModuleHelper::getLayoutPath('mod_related_sermons', $params->get('layout', 'default'));
