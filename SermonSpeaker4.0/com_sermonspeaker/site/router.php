@@ -66,9 +66,7 @@ function SermonspeakerParseRoute($segments){
 			break;
 		case 'feed':
 			$vars['view'] = 'feed';
-			break;
-		case 'podcast': // provides backward compatibility to SermonSpeaker 3.3.1
-			$vars['task'] = 'podcast'; // will create a redirect 301 in sermonspeaker.php
+			$vars['format'] = 'raw';
 			break;
 		}
 	return $vars;

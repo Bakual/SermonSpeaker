@@ -20,22 +20,14 @@ class SermonspeakerController extends JController
 		JRequest::setVar('view', $vName);
 
 		if (JRequest::getCmd('view') == 'feed' && (JRequest::getCmd('format') != 'raw')){
-			header('HTTP/1.1 301 Moved Permanently');
-			header('Location: '.JURI::root().'index.php?option=com_sermonspeaker&view=feed&format=raw');
-			exit;
+			$this->setRedirect('index.php?option=com_sermonspeaker&view=feed&format=raw');
+			return;
 			// Changing the podcast format to raw output, doesn't work anymore in J1.6 RC1 it seems.
 			/*
 			$document->getInstance('raw');
 			$document->setMimeEncoding('application/rss+xml');
 			*/
 		}
-
-		/* Let's see what Joomla 1.6 does here first
-		$app = &JFactory::getApplication();
-		if (strpos($document->getTitle(), $app->getCfg('sitename')) === FALSE){ // Set document title to sitename, if not already present
-			$document->setTitle($document->getTitle().' | '.$app->getCfg('sitename'));
-		}
-		*/
 
 		$safeurlparams = array('id'=>'INT','limit'=>'INT','limitstart'=>'INT','filter_order'=>'CMD','filter_order_Dir'=>'CMD','lang'=>'CMD','year'=>'INT','month'=>'INT');
 
