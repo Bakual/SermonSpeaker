@@ -11,25 +11,24 @@ class SermonspeakerViewFeed extends JView
 		$user	=& JFactory::getUser();
 		$params	=& JComponentHelper::getParams('com_sermonspeaker');
 
-		// Check to see if the user has access to view the sermon
-		$aid	= $user->get('aid'); // 0 = public, 1 = registered, 2 = special
+		// Get the log in credentials.
+		$credentials = array();
+		$credentials['username'] = JRequest::getVar('username', '', 'get', 'username');
+		$credentials['password'] = JRequest::getString('password', '', 'get', JREQUEST_ALLOWRAW);
 
-/*		if ($params->get('access') > $aid){
-			if (!$aid){
-				// Redirect to login
-				$uri	= JFactory::getURI();
-				$return	= $uri->toString();
-
-				$url  = 'index.php?option=com_user&view=login&return='.base64_encode($return);
-
-				//$url	= JRoute::_($url, false);
-				$app->redirect($url, JText::_('You must login first'));
-			} else {
-				JError::raiseWarning(403, JText::_('ALERTNOTAUTH'));
-				return;
-			}
+		// Perform the log in.
+		if ($credentials['username'] && $credentials['password']){
+			$app->login($credentials);
 		}
-*/
+
+		// check if access is not public
+		$user = JFactory::getUser();
+		$groups	= $user->getAuthorisedViewLevels();
+		
+		if (!in_array($params->get('access'), $groups)) {
+			$app->redirect('', JText::_('JERROR_ALERTNOAUTHOR'), 'error');
+		}
+
 		$link = JURI::root();
 
 		// Channel
