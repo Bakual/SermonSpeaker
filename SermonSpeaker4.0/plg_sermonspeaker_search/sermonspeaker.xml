@@ -11,15 +11,8 @@
 	<description>PLG_SEARCH_SERMONSPEAKER_XML_DESCRIPTION</description>
 	<files>
 		<filename plugin="sermonspeaker">sermonspeaker.php</filename>
-		<folder>languages</folder>
+		<folder>language</folder>
 	</files>
-	<languages>
-		<language tag="en-GB">languages/en-GB/en-GB.plg_search_sermonspeaker.ini</language>
-		<language tag="en-GB">languages/en-GB/en-GB.plg_search_sermonspeaker.sys.ini</language>
-		<language tag="de-DE">languages/de-DE/de-DE.plg_search_sermonspeaker.ini</language>
-		<language tag="de-DE">languages/de-DE/de-DE.plg_search_sermonspeaker.sys.ini</language>
-		<language tag="ru-RU">languages/ru-RU/ru-RU.plg_search_sermonspeaker.ini</language>
-	</languages>
 	<config>
 		<fields name="params">
 
