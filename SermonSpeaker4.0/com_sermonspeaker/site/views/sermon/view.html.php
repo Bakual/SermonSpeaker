@@ -97,11 +97,8 @@ class SermonspeakerViewSermon extends JView
 			return false;
 		}
 
-		if ($this->getLayout() == "default") {
-			if ($params->get('sermonlayout') == 1) { $this->setLayout('allinrow'); }
-			elseif ($params->get('sermonlayout') == 2) { $this->setLayout('newline'); }
-			elseif ($params->get('sermonlayout') == 3) { $this->setLayout('extnewline'); }
-			elseif ($params->get('sermonlayout') == 4) { $this->setLayout('icon'); }
+		if ($this->getLayout() == 'default') {
+			$this->setLayout($params->get('sermonlayout', 'icon'));
 		} 
 
 		// Update Statistic

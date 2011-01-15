@@ -59,16 +59,14 @@
 			<option value="10">COM_SERMONSPEAKER_PARAM_LIST_DIRECT_LINK_BUTTON</option>
 			<option value="11">COM_SERMONSPEAKER_PARAM_LIST_DIRECT_LINK_BUTTON_TITLE</option>
 		</field>
-		<field name="sermonlayout" 
-			type="list" 
-			default="1" 
-			label="COM_SERMONSPEAKER_PARAM_SERMONLAYOUT" 
-			description="COM_SERMONSPEAKER_PARAM_SERMONLAYOUT_DESC">
-			<option value="1">COM_SERMONSPEAKER_SERMON_VIEW_ALLINROW_TITLE</option>
-			<option value="2">COM_SERMONSPEAKER_SERMON_VIEW_NEWLINE_TITLE</option>
-			<option value="3">COM_SERMONSPEAKER_SERMON_VIEW_EXTNEWLINE_TITLE</option>
-			<option value="4">COM_SERMONSPEAKER_SERMON_VIEW_ICON_TITLE</option>
-		</field>
+		<field
+			name="sermonlayout" type="componentlayout"
+			label="COM_SERMONSPEAKER_PARAM_SERMONLAYOUT"
+			description="COM_SERMONSPEAKER_PARAM_SERMONLAYOUT_DESC"
+			useglobal="false"
+			extension="com_sermonspeaker"
+			view="sermon"
+		/>
 		<field name="date_format" 
 			type="dateformat" 
 			default="DATE_FORMAT_LC4" 
