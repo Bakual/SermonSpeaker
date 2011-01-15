@@ -1,23 +1,54 @@
-<?xml version="1.0" encoding="UTF-8"?> 
-<install version="1.5" type="plugin" group="search" method="upgrade">
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.6" type="plugin" group="search" method="upgrade">
 	<name>Search - SermonSpeaker</name>
-	<author>Phil Boucher, Thomas Hunziker</author>
-	<creationDate>August 2010</creationDate>
-	<copyright>(C) 2010</copyright>
-	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
-	<authorEmail>phil.boucher@tiscali.co.uk</authorEmail>
-	<authorUrl>http://joomlacode.org/gf/project/sermon_speaker/</authorUrl>
-	<version>3.4.2</version>
-	<description>Search Plugin for the SermonSpeaker 3.4.2 Component</description>
+	<author>Thomas Hunziker, Phil Boucher</author>
+	<creationDate>January 2011</creationDate>
+	<copyright>(C) 2011</copyright>
+	<authorEmail>admin@sermonspeaker.net</authorEmail>
+	<authorUrl>http://www.sermonspeaker.net</authorUrl>
+	<version>4.0beta</version>
+	<license>http://www.gnu.org/licenses/gpl.html</license>
+	<description>PLG_SEARCH_SERMONSPEAKER_XML_DESCRIPTION</description>
 	<files>
 		<filename plugin="sermonspeaker">sermonspeaker.php</filename>
+		<folder>languages</folder>
 	</files>
 	<languages>
-		<language tag="en-GB">languages/en-GB.plg_search_sermonspeaker.ini</language>
-		<language tag="de-DE">languages/de-DE.plg_search_sermonspeaker.ini</language>
-		<language tag="ru-RU">languages/ru-RU.plg_search_sermonspeaker.ini</language>
+		<language tag="en-GB">languages/en-GB/en-GB.plg_search_sermonspeaker.ini</language>
+		<language tag="en-GB">languages/en-GB/en-GB.plg_search_sermonspeaker.sys.ini</language>
+		<language tag="de-DE">languages/de-DE/de-DE.plg_search_sermonspeaker.ini</language>
+		<language tag="de-DE">languages/de-DE/de-DE.plg_search_sermonspeaker.sys.ini</language>
+		<language tag="ru-RU">languages/ru-RU/ru-RU.plg_search_sermonspeaker.ini</language>
 	</languages>
-	<params>
-		<param name="search_limit" type="text" size="5" default="50" label="PLG_SEARCH_SERMONSPEAKER_PARAM_SEARCH_LIMIT" description="PLG_SEARCH_SERMONSPEAKER_PARAM_SEARCH_LIMIT_DESC"/>
-	</params>
-</install>
+	<config>
+		<fields name="params">
+
+			<fieldset name="basic">
+				<field name="search_limit" type="text"
+					default="50"
+					description="JFIELD_PLG_SEARCH_SEARCHLIMIT_DESC"
+					label="JFIELD_PLG_SEARCH_SEARCHLIMIT_LABEL"
+					size="5"
+				/>
+
+				<field name="search_content" type="radio"
+					default="0"
+					description="JFIELD_PLG_SEARCH_ALL_DESC"
+					label="JFIELD_PLG_SEARCH_ALL_LABEL"
+				>
+					<option value="0">JOFF</option>
+					<option value="1">JON</option>
+				</field>
+
+				<field name="search_archived" type="radio"
+					default="0"
+					description="JFIELD_PLG_SEARCH_ARCHIVED_DESC"
+					label="JFIELD_PLG_SEARCH_ARCHIVED_LABEL"
+				>
+					<option value="0">JOFF</option>
+					<option value="1">JON</option>
+				</field>
+			</fieldset>
+		</fields>
+	</config>
+</extension>
