@@ -55,8 +55,15 @@ margin-top:10px;
 margin-bottom:10px;
 }
 
-.player{
-text-align:center;
+.ss-serie-player{
+text-align: center;
+}
+
+hr.ss-serie-player{
+margin: auto;
+width: 80%; 
+height: 1px; 
+text-align: center;
 }
 
 .ss-title{

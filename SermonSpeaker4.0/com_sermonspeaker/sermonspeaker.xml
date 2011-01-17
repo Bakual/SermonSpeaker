@@ -24,11 +24,14 @@
 		<folder>id3</folder>
 		<filename>media/default_sermon.mp3</filename>
 		<filename>media/default_speaker.jpg</filename>
-		<filename>media/avatars/sharon.jpg</filename>
-		<filename>media/player/player.swf</filename>
-		<filename>media/player/swfobject.js</filename>
-		<filename>media/player/audio_player/player.swf</filename>
+		<filename>media/index.html</filename>
+		<folder>media/avatars</folder>
 		<filename>media/player/audio_player/audio-player.js</filename>
+		<filename>media/player/audio_player/player.swf</filename>
+		<filename>media/player/jwplayer/jwplayer.js</filename>
+		<filename>media/player/jwplayer/player.swf</filename>
+		<filename>media/player/jwplayer/swfobject.js</filename>
+		<filename>media/player/jwplayer/yt.swf</filename>
 	</files>
 	<administration>
 		<menu img="components/com_sermonspeaker/images/speakers-16.png">COM_SERMONSPEAKER</menu>

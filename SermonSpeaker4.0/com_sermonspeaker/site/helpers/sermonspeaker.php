@@ -77,6 +77,9 @@ class SermonspeakerHelperSermonspeaker
 	}
 	
 	function insertPlayer($lnk, $time = NULL, $count = '1', $title = NULL, $artist = NULL) {
+		$app		= JFactory::getApplication();
+		$params		= $app->getParams();
+
 		// Get extension of file
 		jimport('joomla.filesystem.file');
 		$ext = JFile::getExt($lnk);
@@ -99,13 +102,7 @@ class SermonspeakerHelperSermonspeaker
 			$player = JURI::root().'components/com_sermonspeaker/media/player/jwplayer/player.swf';
 			if ($time){
 				$time_arr = explode(':', $time);
-				if (count($time_arr) == 3){
-					$seconds = ($time_arr[0] * 3600) + ($time_arr[1] * 60) + $time_arr[3];
-				} elseif (count($time_arr) == 2){
-					$seconds = ($time_arr[0] * 60) + $time_arr[1];
-				} else {
-					$seconds = $time_arr[0];
-				}
+				$seconds = ($time_arr[0] * 3600) + ($time_arr[1] * 60) + $time_arr[2];
 				$duration = '	  duration: '.$seconds.',';
 			} else {
 				$duration = '';
@@ -115,15 +112,16 @@ class SermonspeakerHelperSermonspeaker
 			// Playlist
 			$return['mspace'] = '<div id="mediaspace'.$count.'" style="text-align:center;">Flashplayer needs Javascript turned on</div>';
 			$return['script'] = '<script type="text/javascript">'
-								."	var so = new SWFObject('".$player."','player1','80%','84','9');"
-								."	so.addParam('allowfullscreen','true');"
-								."	so.addParam('allowscriptaccess','always');"
-								."	so.addParam('wmode','transparent');"
-								."	so.addVariable('playlistfile','".$lnk."');"
-								."	so.addVariable('playlistsize','60');"
-								."	so.addVariable('playlist','bottom');"
-								."	so.addVariable('autostart','".$start."');"
-								."	so.write('mediaspace".$count."');"
+								.'	jwplayer("mediaspace'.$count.'").setup({'
+								.'	  flashplayer: "'.$player.'",'
+								.'	  playlistfile: "'.JURI::root().$lnk.'",'
+								.'	  playlistsize: 60,'
+								.'	  playlist: "top",'
+								.'	  autostart: '.$start[0].','
+								.'	  controlbar: "bottom",'
+								.'	  width: "80%",'
+								.'	  height: 80'
+								.'	});'
 								.'</script>';
 			$return['height'] = $params->get('popup_height');
 			$return['width']  = '380';
@@ -133,11 +131,10 @@ class SermonspeakerHelperSermonspeaker
 			// Declare the supported file extensions
 			$audio_ext = array('aac', 'm4a', 'mp3');
 			$video_ext = array('mp4', 'mov', 'f4v', 'flv', '3gp', '3g2');
-			$params	=& JComponentHelper::getParams('com_sermonspeaker'); // TODO: Needed?
 			if(in_array($ext, $audio_ext)) {
 				// Audio File
-				$return['mspace'] = '<div class="player" id="mediaspace'.$count.'">Flashplayer needs Javascript turned on</div>';
-				if ($params->get('alt_player') && ($ext == 'mp3'){
+				$return['mspace'] = '<div id="mediaspace'.$count.'">Flashplayer needs Javascript turned on</div>';
+				if ($params->get('alt_player') && ($ext == 'mp3')){
 					$return['script'] = '<script type="text/javascript">'
 										.'	AudioPlayer.embed("mediaspace'.$count.'", {'
 										.'		soundFile: "'.urlencode($lnk).'",'
@@ -149,11 +146,12 @@ class SermonspeakerHelperSermonspeaker
 					$return['script'] = '<script type="text/javascript">'
 										.'	jwplayer("mediaspace'.$count.'").setup({'
 										.'	  flashplayer: "'.$player.'",'
-										.'	  file: "'.$lnk.'"'
+										.'	  file: "'.$lnk.'",'
 										.'	  autostart: '.$start[0].','
 										.$duration
+										.'	  controlbar: "bottom",'
 										.'	  width: 250,'
-										.'	  height: 24'
+										.'	  height: 23'
 										.'	});'
 										.'</script>';
 				}
@@ -161,11 +159,11 @@ class SermonspeakerHelperSermonspeaker
 				$return['width']  = '380';
 			} elseif(in_array($ext, $video_ext)) {
 				// Video File
-				$return['mspace'] = '<div class="player" id="mediaspace'.$count.'">Flashplayer needs Javascript turned on</div>';
+				$return['mspace'] = '<div id="mediaspace'.$count.'">Flashplayer needs Javascript turned on</div>';
 				$return['script'] = '<script type="text/javascript">'
 									.'	jwplayer("mediaspace'.$count.'").setup({'
 									.'	  flashplayer: "'.$player.'",'
-									.'	  file: "'.$lnk.'"'
+									.'	  file: "'.$lnk.'",'
 									.'	  autostart: '.$start[0].','
 									.$duration
 									.'	  width: '.$params->get('mp_width').','
