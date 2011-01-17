@@ -18,11 +18,11 @@ class SermonspeakerViewArchive extends JView
 		$params = &JComponentHelper::getParams('com_sermonspeaker');
 		$date = getDate();
 		if (JRequest::getInt('year') || JRequest::getInt('month')){
-			$year = JRequest::getInt('year', $date[year]);
+			$year = JRequest::getInt('year', $date['year']);
 			$month = JRequest::getInt('month', '');
 		} else {
-			$year = $params->get('year', $date[year]);
-			$month = $params->get('month', $date[mon]);
+			$year = $params->get('year', $date['year']);
+			$month = $params->get('month', $date['mon']);
 		}
 
 		// get Data from Model (/models/archive.php)
@@ -47,7 +47,7 @@ class SermonspeakerViewArchive extends JView
 		// Set Meta
 		$document =& JFactory::getDocument();
 		$document->setTitle($title.' | '.$document->getTitle());
-		$document->setMetaData("description",JText::_('COM_SERMONSPEAKER_ARCHIVE_TITLE')." ".JHTML::date($this->rows[0]->sermon_date, '%B, %Y', 0));
+		$document->setMetaData("description",JText::_('COM_SERMONSPEAKER_ARCHIVE_TITLE')." ".JHTML::date($rows[0]->sermon_date, '%B, %Y', 0));
 		$document->setMetaData("keywords",JText::_('COM_SERMONSPEAKER_SERMONS_TITLE'));
 
 		// Support for Content Plugins

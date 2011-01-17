@@ -93,6 +93,7 @@ class SermonspeakerHelperSermonspeaker
 			}
 		} else {
 			$player = JURI::root().'components/com_sermonspeaker/media/player/player.swf';
+			$callback = '';
 			if ($params->get('ga')) {
 				$callback = "so.addVariable('callback','".$params->get('ga')."');";
 			}

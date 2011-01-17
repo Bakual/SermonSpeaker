@@ -55,11 +55,11 @@ class SermonspeakerModelArchive extends JModel
 
 		$date = getDate();
 		if (JRequest::getInt('year') || JRequest::getInt('month')){
-			$this->year = JRequest::getInt('year', $date[year]);
+			$this->year = JRequest::getInt('year', $date['year']);
 			$this->month = JRequest::getInt('month', '');
 		} else {
-			$this->year = $params->get('year', $date[year]);
-			$this->month = $params->get('month', $date[mon]);
+			$this->year = $params->get('year', $date['year']);
+			$this->month = $params->get('month', $date['mon']);
 		}
 		if ($this->month){
 			$this->and_m = "AND MONTH(j.sermon_date)='".$this->month."' \n";

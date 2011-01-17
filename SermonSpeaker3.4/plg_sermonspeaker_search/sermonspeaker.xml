@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?> 
 <install version="1.5" type="plugin" group="search" method="upgrade">
 	<name>Search - SermonSpeaker</name>
-	<author>Phil Boucher, Thomas Hunziker</author>
-	<creationDate>August 2010</creationDate>
-	<copyright>(C) 2010</copyright>
-	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
-	<authorEmail>phil.boucher@tiscali.co.uk</authorEmail>
-	<authorUrl>http://joomlacode.org/gf/project/sermon_speaker/</authorUrl>
-	<version>3.4.2</version>
-	<description>Search Plugin for the SermonSpeaker 3.4.2 Component</description>
+	<author>Thomas Hunziker, Phil Boucher</author>
+	<creationDate>January 2011</creationDate>
+	<copyright>(C) 2011</copyright>
+	<authorEmail>admin@sermonspeaker.net</authorEmail>
+	<authorUrl>http://www.sermonspeaker.net</authorUrl>
+	<version>3.4.3</version>
+	<license>http://www.gnu.org/licenses/gpl.html</license>
+	<description>Search Plugin for the SermonSpeaker 3.4.3 Component</description>
 	<files>
 		<filename plugin="sermonspeaker">sermonspeaker.php</filename>
 	</files>

@@ -87,7 +87,7 @@ class SermonspeakerViewSermon extends JView
 		// get active View from Menuitem
 		$menu = &JSite::getMenu();
 		$active = $menu->getActive();
-		$active_view = $active->query[view];
+		$active_view = $active->query['view'];
 		$itemid = $active->id;
 
 		// add Breadcrumbs

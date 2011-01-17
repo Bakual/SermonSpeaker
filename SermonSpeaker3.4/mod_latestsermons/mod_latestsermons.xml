@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <install type="module" version="1.5.0" method="upgrade">
 	<name>Latest Sermons</name>
-	<author>Martin Hess, Thomas Hunziker</author>
-	<creationDate>August 2010</creationDate>
-	<copyright>(C) 2010</copyright>
-	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
-	<authorEmail>martin.zh@gmail.com</authorEmail>
-	<authorUrl>http://joomlacode.org/gf/project/sermon_speaker/</authorUrl>
-	<version>3.4.2</version>
+	<author>Thomas Hunziker, Martin Hess</author>
+	<creationDate>January 2011</creationDate>
+	<copyright>(C) 2011</copyright>
+	<authorEmail>admin@sermonspeaker.net</authorEmail>
+	<authorUrl>http://www.sermonspeaker.net</authorUrl>
+	<version>3.4.3</version>
+	<license>http://www.gnu.org/licenses/gpl.html</license>
 	<description>This module provides an short overview over the latest sermons.</description>
 	<files>
 		<filename module="mod_latestsermons">mod_latestsermons.php</filename>

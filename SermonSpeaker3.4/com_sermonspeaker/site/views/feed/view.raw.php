@@ -93,7 +93,7 @@ class SermonspeakerViewFeed extends JView
 			$item_notes = str_replace(array("\r","\n",'  '), ' ', $this->make_xml_safe($row->notes));
 			$text_length = $params->get('text_length', '10');
 			$item_notes_array = explode(' ', $item_notes, $text_length + 1);
-			if ($item_notes_array[$text_length]) {
+			if (isset($item_notes_array[$text_length])) {
 				$item_notes_array[$text_length] = '...';
 			}
 			$item_notes_short = implode(' ', $item_notes_array);
@@ -194,12 +194,12 @@ class SermonspeakerViewFeed extends JView
 		if($cat == '') {
 			return '';
 		}
-		list($parent, $child) = explode(' > ', $cat);
-		if($child == ''){
-			$tags = "\n".'	<itunes:category text="'.htmlspecialchars($parent).'" />';
+		$cat_array = explode(' > ', $cat);
+		if(!isset($cat_array[1])){
+			$tags = "\n".'	<itunes:category text="'.htmlspecialchars($cat_array[0]).'" />';
 		} else {
-			$tags = "\n".'	<itunes:category text="'.htmlspecialchars($parent).'">'."\n";
-			$tags .= '		<itunes:category text="'.htmlspecialchars($child).'" />'."\n";
+			$tags = "\n".'	<itunes:category text="'.htmlspecialchars($cat_array[0]).'">'."\n";
+			$tags .= '		<itunes:category text="'.htmlspecialchars($cat_array[1]).'" />'."\n";
 			$tags .= '	</itunes:category>';
 		}
 		

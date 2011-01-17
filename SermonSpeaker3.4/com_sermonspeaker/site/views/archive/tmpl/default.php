@@ -69,7 +69,7 @@ $this->document->addScriptDeclaration( "
 				if (substr($row->sermon_path,0,7) == "http://") {
 					$lnk = $row->sermon_path;
 				} else {
-					$lnk = $mosConfig_live_site . $row->sermon_path;
+					$lnk = JURI::root().$row->sermon_path;
 				} ?>
 				&nbsp;&nbsp;<a href="<?php echo $row->link1; ?>"><img title="<?php echo JText::_('COM_SERMONSPEAKER_PLAYICON_HOOVER'); ?>" src="<?php echo JURI::root(); ?>/components/com_sermonspeaker/images/play.gif" class='icon_play' width="16" height="16" border="0" alt="" /></a>
 				<a title="<?php echo JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER'); ?>" href="<?php echo $row->link2; ?>" style="text-decoration:none"><?php echo $row->sermon_title; ?></a>
