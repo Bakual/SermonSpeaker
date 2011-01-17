@@ -77,7 +77,6 @@ class SermonspeakerHelperSermonspeaker
 	}
 	
 	function insertPlayer($lnk, $time = NULL, $count = '1', $title = NULL, $artist = NULL) {
-		$params	=& JComponentHelper::getParams('com_sermonspeaker');
 		$view = JRequest::getCmd('view');
 		$callback = NULL;
 		if ($params->get('autostart') == '1' && $view != 'seriessermon') {
@@ -103,7 +102,7 @@ class SermonspeakerHelperSermonspeaker
 			}
 			if ($time){
 //				$duration = "so.addVariable('duration','".$time."');";
-				$duration = '	  duration: '.$time.',';
+				$duration = '	  duration: '.$time.','; // TODO: check to see if in seconds.
 			} else {
 				$duration = NULL;
 			}
@@ -127,10 +126,17 @@ class SermonspeakerHelperSermonspeaker
 			$return['width']  = '380';
 		} else {
 			// Single File
-			if((substr_compare($lnk, '.mp3', -4, 4, true) == 0) || (substr_compare($lnk, '.m4a', -4, 4, true) == 0)) { 
+			// Declare the supported file extensions
+			$audio_ext = array('aac', 'm4a', 'mp3');
+			$video_ext = array('mp4', 'mov', 'f4v', 'flv', '3gp', '3g2');
+			// Get extension of file
+			jimport('joomla.filesystem.file');
+			$ext = JFile::getExt($lnk);
+			$params	=& JComponentHelper::getParams('com_sermonspeaker'); // TODO: Needed?
+			if(in_array($ext, $audio_ext)) {
 				// Audio File
 				$return['mspace'] = '<div id="mediaspace'.$count.'" align="center">Flashplayer needs Javascript turned on</div>';
-				if ($params->get('alt_player') && (substr_compare($lnk, '.mp3', -4, 4, true) == 0)){
+				if ($params->get('alt_player') && ($ext == 'mp3'){
 					$return['script'] = '<script type="text/javascript">'
 										.'	AudioPlayer.embed("mediaspace'.$count.'", {'
 										.'		soundFile: "'.urlencode($lnk).'",'
@@ -148,8 +154,7 @@ class SermonspeakerHelperSermonspeaker
 										.'	  width: 250'
 										.'	});'
 										.'</script>';
-				}
-//					$return['script'] = '<script type="text/javascript">'
+/*					$return['script'] = '<script type="text/javascript">'
 										."	var so = new SWFObject('".$player."','player1','250','24','9');"
 										."	so.addParam('allowfullscreen','true');"
 										."	so.addParam('allowscriptaccess','always');"
@@ -159,11 +164,11 @@ class SermonspeakerHelperSermonspeaker
 										.'	'.$duration
 										.'	'.$callback
 										."	so.write('mediaspace".$count."');"
-										.'</script>';
+										.'</script>'; */
 				}
 				$return['height'] = $params->get('popup_height');
 				$return['width']  = '380';
-			} elseif((substr_compare($lnk, '.flv', -4, 4, true) == 0) || (substr_compare($lnk, '.mp4', -4, 4, true) == 0) || (substr_compare($lnk, '.m4v', -4, 4, true) == 0)) { 
+			} elseif(in_array($ext, $video_ext)) {
 				// Video File
 				$return['mspace'] = '<div id="mediaspace'.$count.'" align="center">Flashplayer needs Javascript turned on</div>';
 				$return['script'] = '<script type="text/javascript">'
