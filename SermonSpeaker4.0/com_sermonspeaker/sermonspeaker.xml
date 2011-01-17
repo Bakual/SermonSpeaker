@@ -9,7 +9,23 @@
 	<version>4.0beta</version>
 	<license>http://www.gnu.org/licenses/gpl.html</license>
 	<description>COM_SERMONSPEAKER_DESCRIPTION</description>
-	<scriptfile>file.script.php</scriptfile>
+	<scriptfile>script.php</scriptfile>
+	<install>
+		<sql>
+			<file driver="mysql" charset="utf8">sql/install.mysql.utf8.sql</file>
+		</sql>
+	</install>
+	<uninstall>
+		<sql>
+			<file driver="mysql" charset="utf8">sql/uninstall.mysql.utf8.sql</file>
+		</sql>
+	</uninstall>
+	<update>
+		<schemas>
+			<schemapath type="mysql">sql/updates/mysql</schemapath>
+		</schemas>
+	</update>
+
 	<files folder="site">
 		<filename>router.php</filename>
 		<filename>sermonspeaker.css</filename>
@@ -52,11 +68,12 @@
 			<folder>controllers</folder>
 			<folder>elements</folder>
 			<folder>models</folder>
-			<folder>views</folder>
+			<folder>sql</folder>
 			<folder>tables</folder>
 			<folder>images</folder>
 			<folder>helpers</folder>
 			<folder>language</folder>
+			<folder>views</folder>
 		</files>
 	</administration>
 	<tables>

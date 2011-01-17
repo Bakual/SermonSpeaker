@@ -13,16 +13,19 @@ function com_install() {
 	$query = "CREATE TABLE IF NOT EXISTS `#__sermon_speakers` ("
 		."\n`id` INT NOT NULL AUTO_INCREMENT,"
 		."\n`name` TEXT NOT NULL,"
+		."\n`alias` TEXT NOT NULL,"
 		."\n`website` TEXT,"
 		."\n`intro` TEXT,"
 		."\n`bio` LONGTEXT,"
 		."\n`pic` TEXT,"
-		."\n`published` tinyint(1) NOT NULL default '0',"
+		."\n`state` tinyint(3) NOT NULL default '0',"
 		."\n`ordering` int(11) NOT NULL default '0',"
 		."\n`hits` INT DEFAULT '0' NOT NULL,"
 		."\n`created_by` INT NOT NULL,"
-		."\n`created_on` DATETIME NULL,"
+		."\n`created` DATETIME NULL,"
 		."\n`catid` INT NOT NULL,"
+		."\n`metakey` TEXT NOT NULL,"
+		."\n`metadesc` TEXT NOT NULL,"
 		."\nPRIMARY KEY (`id`)"
 		."\n)";
 	$database->setQuery( $query );
@@ -32,14 +35,17 @@ function com_install() {
 	$query = "CREATE TABLE IF NOT EXISTS  `#__sermon_series` ("
 		."\n`id` INT NOT NULL AUTO_INCREMENT,"
 		."\n`series_title` TEXT NOT NULL,"
+		."\n`alias` TEXT NOT NULL,"
 		."\n`series_description` TEXT NOT NULL,"
-		."\n`published` TINYINT(1) NOT NULL,"
+		."\n`state` TINYINT(3) NOT NULL,"
 		."\n`ordering` int(11) NOT NULL default '0',"
 		."\n`hits` INT DEFAULT '0' NOT NULL,"
 		."\n`created_by` INT NOT NULL,"
-		."\n`created_on` DATETIME NULL,"
+		."\n`created` DATETIME NULL,"
 		."\n`avatar` text,"
 		."\n`catid` INT NOT NULL,"
+		."\n`metakey` TEXT NOT NULL,"
+		."\n`metadesc` TEXT NOT NULL,"
 		."\nPRIMARY KEY (`id`)"
 		."\n)";
 	$database->setQuery( $query );
@@ -53,20 +59,18 @@ function com_install() {
 		."\n`sermon_path` TEXT NOT NULL,"
 		."\n`sermon_title` TEXT NOT NULL,"
 		."\n`alias` TEXT NOT NULL,"
-		."\n`sermon_number` TEXT NOT NULL,"
+		."\n`sermon_number` INT NULL,"
 		."\n`sermon_scripture` TEXT NOT NULL,"
 		."\n`custom1` TEXT NOT NULL,"
 		."\n`custom2` TEXT NOT NULL,"
 		."\n`sermon_date` date NOT NULL,"
 		."\n`sermon_time` TIME,"
-		."\n`play` TINYINT(1) NOT NULL,"
 		."\n`notes` LONGTEXT NOT NULL,"
-		."\n`download` TINYINT(1) NOT NULL,"
-		."\n`published` TINYINT(1) NOT NULL,"
+		."\n`state` TINYINT(3) NOT NULL,"
 		."\n`ordering` int(11) NOT NULL default '0',"
 		."\n`hits` INT DEFAULT '0' NOT NULL,"
 		."\n`created_by` INT NOT NULL,"
-		."\n`created_on` DATETIME NULL,"
+		."\n`created` DATETIME NULL,"
 		."\n`podcast` tinyint(1) NOT NULL default '1',"
 		."\n`addfile` text NOT NULL,"
 		."\n`addfileDesc` text NOT NULL,"
@@ -77,7 +81,6 @@ function com_install() {
 		."\n)";
 	$database->setQuery( $query );
 	$database->Query();
-	
   
 	// Check the tables for completeness
 	$fields = $database->getTableFields('#__sermon_series');
@@ -86,6 +89,39 @@ function com_install() {
 	$sermons = $fields['#__sermon_sermons'];
 	$fields = $database->getTableFields('#__sermon_speakers');
 	$speakers = $fields['#__sermon_speakers'];
+
+	// Delete play field in the sermons table as it's not used at all.
+	if (array_key_exists('play',$sermons)){
+		echo "<br>Attempting to delete play and download column from table sermon_sermons...";
+		$query = "ALTER TABLE #__sermon_sermons \n"
+				."DROP COLUMN play, DROP COLUMN download";
+		$database->setQuery($query);
+		$database->Query();
+		if(strlen($database->getErrorMsg()) > 3){
+			echo "<span style=\"color: rgb(255, 0, 0); font-weight: bold;\">";
+			echo "<br>Failed to drop the column.  Everything will still work, you just got to many fields in your sermons table.";
+			echo "<br>Error Message: ".$database->getErrorMsg();
+			echo "</span>";
+		} else {
+			echo "<br>Great! I did it! No longer used database fields are gone!.";
+		}
+	}
+
+	// Change database field sermon_number from text to integer
+	if ($sermons['sermon_number'] == 'text'){
+		echo "<br>Attempting to change the type of the field sermon_number in table sermon_sermons...";
+		$query = "ALTER TABLE #__sermon_sermons CHANGE sermon_number sermon_number INT NULL";
+		$database->setQuery( $query );
+		$database->Query();
+		if(strlen($database->getErrorMsg()) > 3){
+			echo "<span style=\"color: rgb(255, 0, 0); font-weight: bold;\">";
+			echo "<br>Failed to change fieldtype.  Bad news.  Tell the database administrator.";
+			echo "<br>Error Message: ".$database->getErrorMsg();
+			echo "</span>";
+		} else {
+			echo "<br>Done! Sermon_number now holds INT format";
+		}
+	}
 
 	// Delete speaker fields in the series table as they are taken from sermons now.
 	if (array_key_exists('speaker20',$series)){ // If 20 speakers
@@ -256,6 +292,38 @@ function com_install() {
 		}
 	}
 	
+	// Add alias column if it doesn't exist in the speakers table
+	if (!array_key_exists('alias',$speakers)) {
+		echo "<br>Attempting to add new alias column to table sermon_speakers...";
+		$query = "ALTER TABLE #__sermon_speakers ADD COLUMN alias VARCHAR(255) NOT NULL";
+		$database->setQuery( $query );
+		$database->Query();
+		if(strlen($database->getErrorMsg()) > 3){
+			echo "<span style=\"color: rgb(255, 0, 0); font-weight: bold;\">";
+			echo "<br>Failed to add the column.  Bad news.  Tell the database administrator.";
+			echo "<br>Error Message: ".$database->getErrorMsg();
+			echo "</span>";
+		} else {
+			echo "<br>Wow! I did it! This is good. Now you can have alias for the speakers. Oh boy!";
+		}
+	}
+	
+	// Add alias column if it doesn't exist in the series table
+	if (!array_key_exists('alias',$series)) {
+		echo "<br>Attempting to add new alias column to table sermon_series...";
+		$query = "ALTER TABLE #__sermon_series ADD COLUMN alias VARCHAR(255) NOT NULL";
+		$database->setQuery( $query );
+		$database->Query();
+		if(strlen($database->getErrorMsg()) > 3){
+			echo "<span style=\"color: rgb(255, 0, 0); font-weight: bold;\">";
+			echo "<br>Failed to add the column.  Bad news.  Tell the database administrator.";
+			echo "<br>Error Message: ".$database->getErrorMsg();
+			echo "</span>";
+		} else {
+			echo "<br>Wow! I did it! This is good. Now you can have alias for the series. Oh boy!";
+		}
+	}
+	
 	// Add custom columns if they don't exist in the sermons table
 	if (!array_key_exists('custom1',$sermons)) {
 		echo "<br>Attempting to add new custom columns to table sermon_sermons...";
@@ -272,7 +340,7 @@ function com_install() {
 		}
 	}
 	
-	// Add metakey and metadesc column if it doesn't exist in the sermons table
+	// Add metakey and metadesc column if it doesn't exist
 	if (!array_key_exists('metakey',$sermons)) {
 		echo "<br>Attempting to add new metakey and metadesc columns to table sermon_sermons...";
 		$query = "ALTER TABLE #__sermon_sermons ADD COLUMN metakey text NOT NULL, ADD metadesc text NOT NULL";
@@ -287,11 +355,39 @@ function com_install() {
 			echo "<br>I did it! Now you have metakey and metadesc columns for the sermons.";
 		}
 	}
-	
-	// Change database field created_on from varchar() to datetime
-	if ($sermons['created_on'] == 'varchar'){
+	if (!array_key_exists('metakey',$speakers)) {
+		echo "<br>Attempting to add new metakey and metadesc columns to table sermon_speakers...";
+		$query = "ALTER TABLE #__sermon_speakers ADD COLUMN metakey text NOT NULL, ADD metadesc text NOT NULL";
+		$database->setQuery( $query );
+		$database->Query();
+		if(strlen($database->getErrorMsg()) > 3){
+			echo "<span style=\"color: rgb(255, 0, 0); font-weight: bold;\">";
+			echo "<br>Failed to add the columns.  Bad news.  Tell the database administrator.";
+			echo "<br>Error Message: ".$database->getErrorMsg();
+			echo "</span>";
+		} else {
+			echo "<br>I did it! Now you have metakey and metadesc columns for the speakers.";
+		}
+	}
+	if (!array_key_exists('metakey',$series)) {
+		echo "<br>Attempting to add new metakey and metadesc columns to table sermon_series...";
+		$query = "ALTER TABLE #__sermon_series ADD COLUMN metakey text NOT NULL, ADD metadesc text NOT NULL";
+		$database->setQuery( $query );
+		$database->Query();
+		if(strlen($database->getErrorMsg()) > 3){
+			echo "<span style=\"color: rgb(255, 0, 0); font-weight: bold;\">";
+			echo "<br>Failed to add the columns.  Bad news.  Tell the database administrator.";
+			echo "<br>Error Message: ".$database->getErrorMsg();
+			echo "</span>";
+		} else {
+			echo "<br>I did it! Now you have metakey and metadesc columns for the series.";
+		}
+	}
+
+	// Change database field created_on from varchar() to datetime and rename it
+	if (array_key_exists('created_on', $sermons)){
 		echo "<br>Attempting to change the type of the field created_on in table sermon_sermons...";
-		$query = "ALTER TABLE #__sermon_sermons CHANGE created_on created_on DATETIME NULL";
+		$query = "ALTER TABLE #__sermon_sermons CHANGE created_on created DATETIME NULL";
 		$database->setQuery( $query );
 		$database->Query();
 		if(strlen($database->getErrorMsg()) > 3){
@@ -300,12 +396,12 @@ function com_install() {
 			echo "<br>Error Message: ".$database->getErrorMsg();
 			echo "</span>";
 		} else {
-			echo "<br>Done! Created_on now holds DATETIME format";
+			echo "<br>Done! Created_on is now created and holds DATETIME format";
 		}
 	}
-	if ($series['created_on'] == 'varchar'){
+	if (array_key_exists('created_on', $series)){
 		echo "<br>Attempting to change the type of the field created_on in table sermon_series...";
-		$query = "ALTER TABLE #__sermon_series CHANGE created_on created_on DATETIME NULL";
+		$query = "ALTER TABLE #__sermon_series CHANGE created_on created DATETIME NULL";
 		$database->setQuery( $query );
 		$database->Query();
 		if(strlen($database->getErrorMsg()) > 3){
@@ -314,12 +410,12 @@ function com_install() {
 			echo "<br>Error Message: ".$database->getErrorMsg();
 			echo "</span>";
 		} else {
-			echo "<br>Done! Created_on now holds DATETIME format";
+			echo "<br>Done! Created_on is now created and holds DATETIME format";
 		}
 	}
-	if ($speakers['created_on'] == 'varchar'){
-		echo "<br>Attempting to change the type of the field created_on in table sermon_speakers...";
-		$query = "ALTER TABLE #__sermon_speakers CHANGE created_on created_on DATETIME NULL";
+	if (array_key_exists('created_on', $speakers)){
+		echo "<br>Attempting to change the field created_on in table sermon_speakers...";
+		$query = "ALTER TABLE #__sermon_speakers CHANGE created_on created DATETIME NULL";
 		$database->setQuery( $query );
 		$database->Query();
 		if(strlen($database->getErrorMsg()) > 3){
@@ -328,7 +424,51 @@ function com_install() {
 			echo "<br>Error Message: ".$database->getErrorMsg();
 			echo "</span>";
 		} else {
-			echo "<br>Done! Created_on now holds DATETIME format";
+			echo "<br>Done! Created_on is now created and holds DATETIME format";
+		}
+	}
+
+	// Rename published to state
+	if (array_key_exists('published', $sermons)){
+		echo "<br>Attempting to change the field published to state in table sermon_sermons...";
+		$query = "ALTER TABLE #__sermon_sermons CHANGE published state TINYINT(3) NOT NULL";
+		$database->setQuery( $query );
+		$database->Query();
+		if(strlen($database->getErrorMsg()) > 3){
+			echo "<span style=\"color: rgb(255, 0, 0); font-weight: bold;\">";
+			echo "<br>Failed to change fieldtype.  Bad news.  Tell the database administrator.";
+			echo "<br>Error Message: ".$database->getErrorMsg();
+			echo "</span>";
+		} else {
+			echo "<br>Done! Published is now called State";
+		}
+	}
+	if (array_key_exists('published', $speakers)){
+		echo "<br>Attempting to change the field published to state in table sermon_speakers...";
+		$query = "ALTER TABLE #__sermon_speakers CHANGE published state TINYINT(3) NOT NULL";
+		$database->setQuery( $query );
+		$database->Query();
+		if(strlen($database->getErrorMsg()) > 3){
+			echo "<span style=\"color: rgb(255, 0, 0); font-weight: bold;\">";
+			echo "<br>Failed to change fieldtype.  Bad news.  Tell the database administrator.";
+			echo "<br>Error Message: ".$database->getErrorMsg();
+			echo "</span>";
+		} else {
+			echo "<br>Done! Published is now called State";
+		}
+	}
+	if (array_key_exists('published', $series)){
+		echo "<br>Attempting to change the field published to state in table sermon_series...";
+		$query = "ALTER TABLE #__sermon_series CHANGE published state TINYINT(3) NOT NULL";
+		$database->setQuery( $query );
+		$database->Query();
+		if(strlen($database->getErrorMsg()) > 3){
+			echo "<span style=\"color: rgb(255, 0, 0); font-weight: bold;\">";
+			echo "<br>Failed to change fieldtype.  Bad news.  Tell the database administrator.";
+			echo "<br>Error Message: ".$database->getErrorMsg();
+			echo "</span>";
+		} else {
+			echo "<br>Done! Published is now called State";
 		}
 	}
 
@@ -336,21 +476,21 @@ function com_install() {
 	if ($demo == 1) {
 		//Speaker
 		$query = "INSERT INTO `#__sermon_speakers` "
-			."(`id`,`name`,`website`,`intro`,`bio`,`pic`,`published`,`ordering`,`hits`,`created_by`,`created_on`) VALUES"
+			."(`id`,`name`,`website`,`intro`,`bio`,`pic`,`state`,`ordering`,`hits`,`created_by`,`created`) VALUES"
 			."(9999,'Billy Sunday','http://joomlacode.org/gf/project/sermon_speaker/','Billy Sunday died in Chicago, November 6, 1935; services were held in the Moody Memorial Church with 4,400 present. Take 15 minutes each day to listen to God talking to you; take 15 minutes each day to talk to God; take 15 minutes each day to talk to others about God.','This young convert was deeply impressed and determined to make these the rules of his life. From that day onward throughout his life he made it a rule to spend the first moments of his day alone with God and God\'s Word. Before he read a letter, looked at a paper or even read a telegram, he went first to the Bible, that the first impression of the day might be what he got directly from God.','components/com_sermonspeaker/media/default_speaker.jpg',1,0,9,62,'1901-03-28')";
 		$database->setQuery( $query );
 		$database->Query();
   
 		//Series
 		$query = "INSERT INTO `#__sermon_series` "
-			."(`id`, `series_title`, `series_description`, `published`, `ordering`, `hits`, `created_by`, `created_on`, `speaker2`, `speaker3`) VALUES"
+			."(`id`, `series_title`, `series_description`, `state`, `ordering`, `hits`, `created_by`, `created`, `speaker2`, `speaker3`) VALUES"
 			."(9999, 'General Topics', 'Topics of general interest.', 1, 0, 0, 0, '2006-03-28', 0, 0)";
 		$database->setQuery( $query );
 		$database->Query();
   	
 		//Sermon
 		$query = "INSERT INTO `#__sermon_sermons` "
-		."(`id`, `speaker_id`, `series_id`, `sermon_path`, `sermon_title`, `sermon_number`, `sermon_scripture`, `sermon_date`, `sermon_time`, `play`, `notes`, `download`, `published`, `ordering`, `hits`, `created_by`, `created_on`, `podcast`, `addfile`, `addfileDesc`) VALUES"
+		."(`id`, `speaker_id`, `series_id`, `sermon_path`, `sermon_title`, `sermon_number`, `sermon_scripture`, `sermon_date`, `sermon_time`, `play`, `notes`, `download`, `state`, `ordering`, `hits`, `created_by`, `created`, `podcast`, `addfile`, `addfileDesc`) VALUES"
 		."(9999, 9999, 9999, '/components/com_sermonspeaker/media/default_sermon.mp3', 'The Sin of Booze', '1', 'none', '2006-03-28', '00:00:05', 0, 'Borrowed from sermonaudio.com', 1, 1, 0, 0, 62, '2006-03-28', 1, '', '')";
 		$database->setQuery( $query );
 		$database->Query();
