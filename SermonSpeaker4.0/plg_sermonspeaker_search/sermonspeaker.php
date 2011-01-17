@@ -155,8 +155,10 @@ class plgSearchSermonspeaker extends JPlugin
 							.'CASE WHEN CHAR_LENGTH(c.alias) THEN CONCAT_WS(\':\', c.id, c.alias) ELSE c.id END as catslug, '
 							.'CONCAT_WS(" / ", '.$db->Quote($section).', c.title) AS section, "1" AS browsernav');
 				$query->from('#__sermon_sermons AS a');
-				$query->innerJoin('#__categories AS c ON c.id = a.catid');
-				$query->where('('.$where.')' . ' AND a.state in ('.implode(',',$state).') AND  c.published=1 AND  c.access IN ('.$groups.')');
+				$query->leftJoin('#__categories AS c ON c.id = a.catid');
+				$query->where('('.$where.')');
+				$query->where('a.state in ('.implode(',',$state).')');
+//				$query->where ('(c.published=1 AND c.access IN ('.$groups.'))');
 				$query->order($order);
 
 				// Filter by language
@@ -240,8 +242,10 @@ class plgSearchSermonspeaker extends JPlugin
 							.'CASE WHEN CHAR_LENGTH(c.alias) THEN CONCAT_WS(\':\', c.id, c.alias) ELSE c.id END as catslug, '
 							.'CONCAT_WS(" / ", '.$db->Quote($section).', c.title) AS section, "1" AS browsernav');
 				$query->from('#__sermon_series AS a');
-				$query->innerJoin('#__categories AS c ON c.id = a.catid');
-				$query->where('('.$where.')' . ' AND a.state in ('.implode(',',$state).') AND  c.published=1 AND  c.access IN ('.$groups.')');
+				$query->leftJoin('#__categories AS c ON c.id = a.catid');
+				$query->where('('.$where.')');
+				$query->where('a.state in ('.implode(',',$state).')');
+//				$query->where ('(c.published=1 AND c.access IN ('.$groups.'))');
 				$query->order($order);
 
 				// Filter by language
