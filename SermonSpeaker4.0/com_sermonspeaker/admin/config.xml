@@ -99,11 +99,6 @@
 			default="300" 
 			label="COM_SERMONSPEAKER_PARAM_VIDEOHEIGHT" 
 			description="COM_SERMONSPEAKER_PARAM_VIDEOHEIGHT_DESC" />
-		<field name="ga" 
-			type="text" 
-			default="" 
-			label="COM_SERMONSPEAKER_PARAM_GOOGLEANALYTICS" 
-			description="COM_SERMONSPEAKER_PARAM_GOOGLEANALYTICS_DESC" />
 		<field name="plugin_tag" 
 			type="tag" 
 			label="COM_SERMONSPEAKER_PARAM_PLUGIN_LABEL" 

@@ -77,14 +77,16 @@ class SermonspeakerHelperSermonspeaker
 	}
 	
 	function insertPlayer($lnk, $time = NULL, $count = '1', $title = NULL, $artist = NULL) {
+		// Get extension of file
+		jimport('joomla.filesystem.file');
+		$ext = JFile::getExt($lnk);
 		$view = JRequest::getCmd('view');
-		$callback = NULL;
 		if ($params->get('autostart') == '1' && $view != 'seriessermon') {
 			$start[0]='true'; $start[1]='1'; $start[2]='yes';
 		} else {
 			$start[0]='false'; $start[1]='0'; $start[2]='no';
 		}
-		if ($params->get('alt_player') && (substr_compare($lnk, '.mp3', -4, 4, true) == 0)){
+		if ($params->get('alt_player') && ($ext == 'mp3')){
 			$player = JURI::root().'components/com_sermonspeaker/media/player/audio_player/player.swf';
 			$options = NULL;
 			if ($title){
@@ -95,16 +97,18 @@ class SermonspeakerHelperSermonspeaker
 			}
 		} else {
 			$player = JURI::root().'components/com_sermonspeaker/media/player/jwplayer/player.swf';
-			if ($params->get('ga')) {
-				$callback = "so.addVariable('callback','".$params->get('ga')."');";
-			} else {
-				$callback = NULL;
-			}
 			if ($time){
-//				$duration = "so.addVariable('duration','".$time."');";
-				$duration = '	  duration: '.$time.','; // TODO: check to see if in seconds.
+				$time_arr = explode(':', $time);
+				if (count($time_arr) == 3){
+					$seconds = ($time_arr[0] * 3600) + ($time_arr[1] * 60) + $time_arr[3];
+				} elseif (count($time_arr) == 2){
+					$seconds = ($time_arr[0] * 60) + $time_arr[1];
+				} else {
+					$seconds = $time_arr[0];
+				}
+				$duration = '	  duration: '.$seconds.',';
 			} else {
-				$duration = NULL;
+				$duration = '';
 			}
 		}
 		if(substr_compare($lnk, 'index.php', 0, 9, true) == 0){
@@ -119,23 +123,20 @@ class SermonspeakerHelperSermonspeaker
 								."	so.addVariable('playlistsize','60');"
 								."	so.addVariable('playlist','bottom');"
 								."	so.addVariable('autostart','".$start."');"
-								.'	'.$callback
 								."	so.write('mediaspace".$count."');"
 								.'</script>';
 			$return['height'] = $params->get('popup_height');
 			$return['width']  = '380';
 		} else {
 			// Single File
+
 			// Declare the supported file extensions
 			$audio_ext = array('aac', 'm4a', 'mp3');
 			$video_ext = array('mp4', 'mov', 'f4v', 'flv', '3gp', '3g2');
-			// Get extension of file
-			jimport('joomla.filesystem.file');
-			$ext = JFile::getExt($lnk);
 			$params	=& JComponentHelper::getParams('com_sermonspeaker'); // TODO: Needed?
 			if(in_array($ext, $audio_ext)) {
 				// Audio File
-				$return['mspace'] = '<div id="mediaspace'.$count.'" align="center">Flashplayer needs Javascript turned on</div>';
+				$return['mspace'] = '<div class="player" id="mediaspace'.$count.'">Flashplayer needs Javascript turned on</div>';
 				if ($params->get('alt_player') && ($ext == 'mp3'){
 					$return['script'] = '<script type="text/javascript">'
 										.'	AudioPlayer.embed("mediaspace'.$count.'", {'
@@ -151,39 +152,29 @@ class SermonspeakerHelperSermonspeaker
 										.'	  file: "'.$lnk.'"'
 										.'	  autostart: '.$start[0].','
 										.$duration
-										.'	  width: 250'
+										.'	  width: 250,'
+										.'	  height: 24'
 										.'	});'
 										.'</script>';
-/*					$return['script'] = '<script type="text/javascript">'
-										."	var so = new SWFObject('".$player."','player1','250','24','9');"
-										."	so.addParam('allowfullscreen','true');"
-										."	so.addParam('allowscriptaccess','always');"
-										."	so.addParam('wmode','opaque');"
-										."	so.addVariable('file','".$lnk."');"
-										."	so.addVariable('autostart','".$start[0]."');"
-										.'	'.$duration
-										.'	'.$callback
-										."	so.write('mediaspace".$count."');"
-										.'</script>'; */
 				}
 				$return['height'] = $params->get('popup_height');
 				$return['width']  = '380';
 			} elseif(in_array($ext, $video_ext)) {
 				// Video File
-				$return['mspace'] = '<div id="mediaspace'.$count.'" align="center">Flashplayer needs Javascript turned on</div>';
+				$return['mspace'] = '<div class="player" id="mediaspace'.$count.'">Flashplayer needs Javascript turned on</div>';
 				$return['script'] = '<script type="text/javascript">'
-									."	var so = new SWFObject('".$player."','player1','".$params->get('mp_width')."','".$params->get('mp_height')."','9');"
-									."	so.addParam('allowfullscreen','true');"
-									."	so.addParam('allowscriptaccess','always');"
-									."	so.addParam('wmode','opaque');"
-									."	so.addVariable('file','".$lnk."');"
-									."	so.addVariable('autostart','".$start[0]."');"
-									.'	'.$callback
-									."	so.write('mediaspace".$count."');"
+									.'	jwplayer("mediaspace'.$count.'").setup({'
+									.'	  flashplayer: "'.$player.'",'
+									.'	  file: "'.$lnk.'"'
+									.'	  autostart: '.$start[0].','
+									.$duration
+									.'	  width: '.$params->get('mp_width').','
+									.'	  height: '.$params->get('mp_height')
+									.'	});'
 									.'</script>';
 				$return['height'] = $params->get('mp_height') + 100 + $params->get('popup_height');
 				$return['width']  = $params->get('mp_width') + 130;
-			} elseif(strcasecmp(substr($lnk,-4),".wmv") == 0) {
+			} elseif($ext == 'wmv'){ // TODO: is anyone using this? Could switch to Longtail Silverlight player fpr wmv and wma support
 				// WMV File
 				$return['mspace'] = '<object id="mediaplayer" width="400" height="323" classid="clsid:22d6f312-b0f6-11d0-94ab-0080c74c7e95 22d6f312-b0f6-11d0-94ab-0080c74c7e95" type="application/x-oleobject">'
 									.'	<param name="filename" value="'.$lnk.'">'
