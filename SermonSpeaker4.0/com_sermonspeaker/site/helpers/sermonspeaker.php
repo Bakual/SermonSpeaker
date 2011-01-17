@@ -95,14 +95,15 @@ class SermonspeakerHelperSermonspeaker
 				$options .= 'artists: "'.$artist.'",';
 			}
 		} else {
-			$player = JURI::root().'components/com_sermonspeaker/media/player/player.swf';
+			$player = JURI::root().'components/com_sermonspeaker/media/player/jwplayer/player.swf';
 			if ($params->get('ga')) {
 				$callback = "so.addVariable('callback','".$params->get('ga')."');";
 			} else {
 				$callback = NULL;
 			}
 			if ($time){
-				$duration = "so.addVariable('duration','".$time."');";
+//				$duration = "so.addVariable('duration','".$time."');";
+				$duration = '	  duration: '.$time.',';
 			} else {
 				$duration = NULL;
 			}
@@ -139,6 +140,16 @@ class SermonspeakerHelperSermonspeaker
 										.'</script>';
 				} else {
 					$return['script'] = '<script type="text/javascript">'
+										.'	jwplayer("mediaspace'.$count.'").setup({'
+										.'	  flashplayer: "'.$player.'",'
+										.'	  file: "'.$lnk.'"'
+										.'	  autostart: '.$start[0].','
+										.$duration
+										.'	  width: 250'
+										.'	});'
+										.'</script>';
+				}
+//					$return['script'] = '<script type="text/javascript">'
 										."	var so = new SWFObject('".$player."','player1','250','24','9');"
 										."	so.addParam('allowfullscreen','true');"
 										."	so.addParam('allowscriptaccess','always');"

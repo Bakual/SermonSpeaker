@@ -140,7 +140,8 @@ class SermonspeakerViewSermon extends JView
 					lefticon: "FFFFFF"
 				});');
 			} else {
-				$this->document->addScript(JURI::root()."components/com_sermonspeaker/media/player/swfobject.js");
+//				$this->document->addScript(JURI::root().'components/com_sermonspeaker/media/player/jwplayer/swfobject.js');
+				$this->document->addScript(JURI::root().'components/com_sermonspeaker/media/player/jwplayer/jwplayer.js');
 			}
 		}
 		

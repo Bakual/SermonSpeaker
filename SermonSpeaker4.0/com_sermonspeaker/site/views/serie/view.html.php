@@ -97,7 +97,8 @@ class SermonspeakerViewSerie extends JView
 
 		// Add swfobject-javascript for player if needed
 		if (in_array('sermon:player', $this->columns)){
-			$this->document->addScript(JURI::root()."components/com_sermonspeaker/media/player/swfobject.js");
+//			$this->document->addScript(JURI::root().'components/com_sermonspeaker/media/player/jwplayer/swfobject.js');
+			$this->document->addScript(JURI::root().'components/com_sermonspeaker/media/player/jwplayer/jwplayer.js');
 		}
 		
 		// Set Pagetitle
