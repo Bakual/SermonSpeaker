@@ -64,8 +64,8 @@
 
 		<field name="catid" type="category" extension="com_sermonspeaker" show_root="true"
 			label="JCATEGORY" description="JFIELD_CATEGORY_DESC"
-			class="inputbox"
-		>
+			class="inputbox" >
+			<option value="">JOPTION_SELECT_CATEGORY</option>
 		</field>
 
 	</fieldset>
