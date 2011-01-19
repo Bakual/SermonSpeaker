@@ -85,7 +85,7 @@ class SermonspeakerViewFeed extends JView
 			$dispatcher->trigger('onContentPrepare', array('com_sermonspeaker.sermon', &$temp_item, &$temp_item->params, 0));
 
 			$item = NULL;
-			// todo: ItemId des Predigten Menupunkts suchen und an Link anhängen
+			// todo: ItemId des Predigten Menupunkts suchen und an Link anhängen, maybe use HelperRoute (check if feed will be valid then)
 			$item_link = $link.'index.php?option=com_sermonspeaker&amp;view=sermon&amp;id='.$row->id;
 
 			// limits notes text to x words for itDescription and RSS (if set)

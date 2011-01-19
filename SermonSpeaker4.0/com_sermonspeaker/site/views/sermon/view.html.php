@@ -68,18 +68,22 @@ class SermonspeakerViewSermon extends JView
 		// get active View from Menuitem
 		$menus	= $app->getMenu();
 		$menu	= $menus->getActive();
-		$menu_view = $menu->query['view'];
+		if ($menu){
+			$menu_view = $menu->query['view'];
+		} else {
+			$menu_view = '';
+		}
 
 		// add Breadcrumbs
 		$breadcrumbs	= $app->getPathWay();
 		if ($menu_view == 'series') {
 			$model		= &$this->getModel();
 			$serie		= &$model->getSerie($item->series_id);		// getting the Serie from the Model
-	    	$breadcrumbs->addItem($serie->series_title, JRoute::_('index.php?view=serie&id='.$item->series_id)); // TODO: Add slug
+	    	$breadcrumbs->addItem($serie->series_title, JRoute::_(SermonspeakerHelperRoute::getSerieRoute($serie->slug));
 		} elseif ($menu_view == 'speakers') {
 			$model		= &$this->getModel();
 			$speaker	= &$model->getSpeaker($item->speaker_id);	// getting the Speaker from the Model
-	    	$breadcrumbs->addItem($speaker->name, JRoute::_('index.php?view=speaker&id='.$item->speaker_id)); // TODO: Add slug
+	    	$breadcrumbs->addItem($speaker->name, JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($speaker->slug));
 		}
     	$breadcrumbs->addItem($item->sermon_title, '');
 

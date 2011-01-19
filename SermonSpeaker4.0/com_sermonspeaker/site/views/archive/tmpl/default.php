@@ -101,7 +101,7 @@ $listDirn	= $this->state->get('list.direction');
 					<?php endif;
 					if (in_array('archive:date', $columns)) : ?>
 						<td class="ss_col">
-							<?php echo JHTML::date($item->sermon_date, JText::_($this->params->get('date_format'))); ?>
+							<?php echo JHTML::Date($item->sermon_date, JText::_($this->params->get('date_format'))); ?>
 						</td>
 					<?php endif;
 					if (in_array('archive:length', $columns)) : ?>
@@ -111,7 +111,9 @@ $listDirn	= $this->state->get('list.direction');
 					<?php endif;
 					if (in_array('archive:series', $columns)) : ?>
 						<td class="ss_col">
-							<?php echo JHTML::link('index.php?view=serie&id='.$item->series_slug, $item->series_title); ?>
+							<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->series_slug)); ?>">
+								<?php echo $item->series_title; ?>
+							</a>
 						</td>
 					<?php endif;
 					if (in_array('archive:addfile', $columns)) : ?>

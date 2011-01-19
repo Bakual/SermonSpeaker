@@ -18,7 +18,7 @@ $listDirn	= $this->state->get('list.direction');
 <h1 class="componentheading"><?php echo $this->title ?></h1>
 
 <?php if($this->speaker->pic) : ?>
-	<a href="<?php echo JRoute::_('index.php?view=speaker&id='.$this->speaker->slug); ?>">
+	<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($this->speaker->slug)); ?>">
 		<img class="speaker" src="<?php echo $this->speaker->pic; ?>" title="<?php echo $this->speaker->name; ?>" alt="<?php echo $this->speaker->name; ?>" />
 	</a>
 <?php endif;
@@ -117,7 +117,7 @@ if ($this->speaker->website && $this->speaker->website != "http://") : ?>
 					<?php endif;
 					if (in_array('speaker:series', $columns)) : ?>
 						<td class="ss_col">
-							<a href="<?php echo JRoute::_("index.php?view=serie&id=$item->series_slug"); ?>">
+							<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->series_slug)); ?>">
 								<?php echo $item->series_title; ?>
 							</a>
 						</td>

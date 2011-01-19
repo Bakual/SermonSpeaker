@@ -30,24 +30,35 @@ abstract class SermonspeakerHelperRoute
 		//Create the link
 		$link = 'index.php?option=com_sermonspeaker&view=sermons';
 
-		if ($item = SermonspeakerHelperRoute::_findItem($needles)) { // Check if there is a menu entry for this link
+		if ($item = SermonspeakerHelperRoute::_findItem($needles)) {
 			$link .= '&Itemid='.$item;
 		};
 
 		return $link;
 	}
 
-	public static function getSermonRoute($id)
+	public static function getSermonRoute($id, $catid = 0)
 	{
 		$needles = array(
-			'sermon'  => array((int) $id)
+			'sermon'  => array((int)$id)
 		);
 		//Create the link
-		$link = 'index.php?option=com_sermonspeaker&view=sermon&id='. $id;
+		$link = 'index.php?option=com_sermonspeaker&view=sermon&id='.$id;
+		if ((int)$catid > 1) {
+			$categories = JCategories::getInstance('Sermonspeaker');
+			$category 	= $categories->get((int)$catid);
+			if($category) {
+				$needles['category']	= array_reverse($category->getPath());
+				$needles['categories'] 	= $needles['category'];
+				$link 	.= '&catid='.$catid;
+			}
+		}
 
-		if ($item = SermonspeakerHelperRoute::_findItem($needles)) { // Check if there is a menu entry for this link
+		if ($item = self::_findItem($needles)) {
 			$link .= '&Itemid='.$item;
-		};
+		} elseif ($item = self::_findItem()) {
+			$link .= '&Itemid='.$item;
+		}
 
 		return $link;
 	}
@@ -67,22 +78,33 @@ abstract class SermonspeakerHelperRoute
 		return $link;
 	}
 
-	public static function getSerieRoute($id)
+	public static function getSerieRoute($id, $catid = 0)
 	{
 		$needles = array(
-			'serie'  => array((int) $id)
+			'serie'  => array((int)$id)
 		);
 		//Create the link
-		$link = 'index.php?option=com_sermonspeaker&view=serie&id='. $id;
+		$link = 'index.php?option=com_sermonspeaker&view=serie&id='.$id;
+		if ((int)$catid > 1) {
+			$categories = JCategories::getInstance('Sermonspeaker');
+			$category 	= $categories->get((int)$catid);
+			if($category) {
+				$needles['category']	= array_reverse($category->getPath());
+				$needles['categories'] 	= $needles['category'];
+				$link 	.= '&catid='.$catid;
+			}
+		}
 
-		if ($item = SermonspeakerHelperRoute::_findItem($needles)) {
+		if ($item = self::_findItem($needles)) {
 			$link .= '&Itemid='.$item;
-		};
+		} elseif ($item = self::_findItem()) {
+			$link .= '&Itemid='.$item;
+		}
 
 		return $link;
 	}
 
-	public static function getSpeakersRoute($id)
+	public static function getSpeakersRoute()
 	{
 		$needles = array(
 			'speakers'
@@ -97,55 +119,72 @@ abstract class SermonspeakerHelperRoute
 		return $link;
 	}
 
-	public static function getSpeakerRoute($id)
+	public static function getSpeakerRoute($id, $catid = 0)
 	{
 		$needles = array(
-			'speaker'  => array((int) $id)
+			'speaker'  => array((int)$id)
 		);
 		//Create the link
-		$link = 'index.php?option=com_sermonspeaker&view=speaker&id='. $id;
+		$link = 'index.php?option=com_sermonspeaker&view=speaker&id='.$id;
+		if ((int)$catid > 1) {
+			$categories = JCategories::getInstance('Sermonspeaker');
+			$category 	= $categories->get((int)$catid);
+			if($category) {
+				$needles['category']	= array_reverse($category->getPath());
+				$needles['categories'] 	= $needles['category'];
+				$link 	.= '&catid='.$catid;
+			}
+		}
 
-		if ($item = SermonspeakerHelperRoute::_findItem($needles)) {
+		if ($item = self::_findItem($needles)) {
 			$link .= '&Itemid='.$item;
-		};
+		} elseif ($item = self::_findItem()) {
+			$link .= '&Itemid='.$item;
+		}
 
 		return $link;
 	}
 
-	protected static function _findItem($needles) // searches for an existing menu entry for a given view and id
+	protected static function _findItem($needles = null)
 	{
+		$app		= JFactory::getApplication();
+		$menus		= $app->getMenu('site');
+
 		// Prepare the reverse lookup array.
-		if (self::$lookup === null)
-		{
+		if (self::$lookup === null) {
 			self::$lookup = array();
 
 			$component	= JComponentHelper::getComponent('com_sermonspeaker');
-			$menus		= JApplication::getMenu('site');
-			$items		= $menus->getItems('component_id', $component->id);
-			foreach ($items as $item)
-			{
-				if (isset($item->query) && isset($item->query['view']))
-				{ // compile an array $lookup[view][id] = ItemID
-					$view = $item->query['view'];
-					if (!isset(self::$lookup[$view])) {
-						self::$lookup[$view] = array();
-					}
-					if (isset($item->query['id'])) {
-						self::$lookup[$view][$item->query['id']] = $item->id;
+			$items = $menus->getItems('component_id', $component->id);
+			if ($items){
+				foreach ($items as $item) {
+					if (isset($item->query) && isset($item->query['view'])) {
+						$view = $item->query['view'];
+						if (!isset(self::$lookup[$view])) {
+							self::$lookup[$view] = array();
+						}
+						if (isset($item->query['id'])) {
+							self::$lookup[$view][$item->query['id']] = $item->id;
+						}
 					}
 				}
 			}
 		}
-		foreach ($needles as $view => $ids)
-		{ // search $lookup for $view and $id and return ItemID if found
-			if (isset(self::$lookup[$view]))
-			{
-				foreach($ids as $id)
-				{
-					if (isset(self::$lookup[$view][(int)$id])) {
-						return self::$lookup[$view][(int)$id];
+
+		if ($needles) {
+			foreach ($needles as $view => $ids) {
+				if (isset(self::$lookup[$view])) {
+					foreach($ids as $id) {
+						if (isset(self::$lookup[$view][(int)$id])) {
+							return self::$lookup[$view][(int)$id];
+						}
 					}
 				}
+			}
+		} else {
+			$active = $menus->getActive();
+			if ($active && $active->component == 'com_content') {
+				return $active->id;
 			}
 		}
 

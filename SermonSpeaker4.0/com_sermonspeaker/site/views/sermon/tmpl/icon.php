@@ -6,9 +6,11 @@ JHTML::_('behavior.modal');
 $player = SermonspeakerHelperSermonspeaker::insertPlayer($this->lnk, $this->item->sermon_time, 1, $this->item->sermon_title, $this->speaker->name);
 ?>
 <div id="sermon-container">
-	<h1 class="componentheading"><a 
-		title="<?php echo JText::_('JGLOBAL_TITLE').':: '.$this->escape($this->item->sermon_title); ?>" 
-		href="<?php echo JRoute::_('index.php?view=sermon&id='.$this->item->slug); ?>"><?php echo $this->escape($this->item->sermon_title); ?></a></h1>
+	<h1 class="componentheading">
+		<a title="<?php echo JText::_('JGLOBAL_TITLE').':: '.$this->escape($this->item->sermon_title); ?>" href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonRoute($this->item->slug)); ?>">
+			<?php echo $this->escape($this->item->sermon_title); ?>
+		</a>
+	</h1>
 	<div id="sermon-infobox">
 		<div id="sermon-player-container">
 			<?php if (in_array('sermon:player', $this->columns)) : ?>
@@ -22,7 +24,9 @@ $player = SermonspeakerHelperSermonspeaker::insertPlayer($this->lnk, $this->item
 			<?php if ($this->params->get('popup_player') || $this->params->get('dl_button')) : ?>
 				<div class="ss-mp3-links">
 				<?php if ($this->params->get('popup_player')) : ?>
-					<a href="<?php echo JURI::current(); ?>" class="new-window" onclick="popup = window.open('<?php echo JRoute::_('index.php?view=sermon&layout=popup&id='.$this->item->id.'&tmpl=component'); ?>', 'PopupPage', 'height=300,width=350,scrollbars=yes,resizable=yes'); return false"><?php echo JText::_('COM_SERMONSPEAKER_POPUPPLAYER'); ?></a>
+					<a href="<?php echo JURI::current(); ?>" class="new-window" onclick="popup = window.open('<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonRoute($this->item->slug).'&layout=popup&tmpl=component'); ?>', 'PopupPage', 'height=300,width=350,scrollbars=yes,resizable=yes'); return false">
+						<?php echo JText::_('COM_SERMONSPEAKER_POPUPPLAYER'); ?>
+					</a>
 				<?php endif;
 				if ($this->params->get('popup_player') && $this->params->get('dl_button')) : ?>
 					<br />
@@ -68,8 +72,9 @@ $player = SermonspeakerHelperSermonspeaker::insertPlayer($this->lnk, $this->item
 		<div class="ss-fields-container">
 			<?php if (in_array('sermon:series', $this->columns) && $this->serie->series_title) : ?>
 				<div class="ss-field field-series" title="<?php echo JText::_('COM_SERMONSPEAKER_SERIE_TITLE'); ?>">
-					<a href="<?php echo JRoute::_('index.php?view=serie&id='.$this->serie->slug); ?>"><?php 
-						echo $this->escape($this->serie->series_title); ?></a>
+					<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($this->serie->slug)); ?>">
+						<?php echo $this->escape($this->serie->series_title); ?>
+					</a>
 				</div>
 			<?php endif;
 			if (in_array('sermon:addfile', $this->columns) && $this->item->addfile) : ?>

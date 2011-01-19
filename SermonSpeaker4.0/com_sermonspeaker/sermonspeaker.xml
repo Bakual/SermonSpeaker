@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <extension type="component" version="1.6" method="upgrade">
-	<name>com_sermonspeaker</name>
+	<name>SermonSpeaker</name>
 	<author>Thomas Hunziker, Martin Hess</author>
 	<creationDate>January 2011</creationDate>
 	<copyright>(C) 2011</copyright>

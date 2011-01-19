@@ -45,7 +45,11 @@ $listDirn	= $this->state->get('list.direction');
 							<td class="ss-col"></td>
 						<?php endif;
 					endif; ?>
-					<td class="ss-title"><a title='<?php echo JText::_('COM_SERMONSPEAKER_SERIESLINK_HOOVER'); ?>' href="<?php echo JRoute::_("index.php?view=serie&id=$item->slug" ); ?>"><?php echo $item->series_title; ?></a></td>
+					<td class="ss-title">
+						<a title='<?php echo JText::_('COM_SERMONSPEAKER_SERIESLINK_HOOVER'); ?>' href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->slug)); ?>">
+							<?php echo $item->series_title; ?>
+						</a>
+					</td>
 					<td  class="ss-col"><?php echo $item->speakers; ?></td>
 				</tr>
 			<?php endforeach; ?>

@@ -14,7 +14,7 @@ $listDirn	= $this->state->get('list.direction');
 <h1 class="componentheading"><?php echo $this->speaker->name.": ".JText::_('COM_SERMONSPEAKER_SPEAKER_TITLE'); ?></h1>
 
 <?php if($this->speaker->pic) : ?>
-	<a href="<?php echo JRoute::_('index.php?view=speaker&id='.$this->speaker->slug); ?>">
+	<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($this->speaker->slug)); ?>">
 		<img class="speaker" src="<?php echo $this->speaker->pic; ?>" title="<?php echo $this->speaker->name; ?>" alt="<?php echo $this->speaker->name; ?>" />
 	</a>
 <?php endif;
@@ -66,7 +66,7 @@ if ($this->speaker->website && $this->speaker->website != "http://") : ?>
 							<td class="ss-col"></td>
 						<?php endif;
 					endif; ?>
-					<td class="ss-title"><a title='<?php echo JText::_('COM_SERMONSPEAKER_SERIESLINK_HOOVER'); ?>' href="<?php echo JRoute::_("index.php?view=serie&id=$item->slug" ); ?>"><?php echo $item->series_title; ?></a></td>
+					<td class="ss-title"><a title='<?php echo JText::_('COM_SERMONSPEAKER_SERIESLINK_HOOVER'); ?>' href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->slug)); ?>"><?php echo $item->series_title; ?></a></td>
 					<td  class="ss-col"><?php echo $item->series_description; ?></td>
 				</tr>
 			<?php endforeach; ?>

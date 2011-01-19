@@ -4,7 +4,7 @@ if ($this->speaker->pic == "") { $this->speaker->pic = JURI::root().'components/
 ?>
 <!-- Begin Data -->
 <div id="ss-speaker-container" style="padding:20px;">
-<a href="<?php echo JRoute::_('index.php?view=speaker&id='.$this->speaker->slug); ?>" target="_parent">
+<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($this->speaker->slug)); ?>" target="_parent">
 	<img class="speaker" style="float:right;" src="<?php echo $this->speaker->pic; ?>" title="<?php echo $this->speaker->name; ?>" alt="<?php echo $this->speaker->name; ?>" />
 </a>
 <h1 class="componentheading"><?php echo $this->speaker->name ?></h1>

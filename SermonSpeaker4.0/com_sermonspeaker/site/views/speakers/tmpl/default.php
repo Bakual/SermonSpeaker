@@ -24,10 +24,10 @@ $listDirn	= $this->state->get('list.direction');
 
 <?php foreach($this->items as $item) : ?>
 	<h3 class="contentheading">
-		<?php echo '<a href="'.JRoute::_('index.php?view=speaker&id='.$item->slug).'" title="'.$item->name.'">'.$item->name.'</a>'; ?>
+		<?php echo '<a href="'.JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug));.'" title="'.$item->name.'">'.$item->name.'</a>'; ?>
 	</h3>
 		<?php if($item->pic) : ?>
-			<a href="<?php echo JRoute::_('index.php?view=speaker&id='.$item->slug); ?>">
+			<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug)); ?>">
 				<img class="speaker" src="<?php echo $item->pic; ?>" title="$item->name; ?>" alt="<?php echo $item->name; ?>" />
 			</a>
 		<?php endif;
@@ -37,11 +37,11 @@ $listDirn	= $this->state->get('list.direction');
 		<?php if($item->pic) : ?>
 			<br style="clear:both" />
 		<?php endif; ?>
-		<a title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKERS_SERIESLINK_HOOVER'); ?>" href="<?php echo JRoute::_('index.php?view=speaker&id='.$item->slug); ?>">
+		<a title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKERS_SERIESLINK_HOOVER'); ?>" href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug)); ?>">
 			<?php echo JText::_('COM_SERMONSPEAKER_SPEAKERS_SERIESLINK'); ?>
 		</a>
 		 | 
-		<a title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKERS_SERMONSLINK_HOOVER'); ?>" href="<?php echo JRoute::_('index.php?view=speaker&layout=latest-sermons&id='.$item->slug); ?>">
+		<a title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKERS_SERMONSLINK_HOOVER'); ?>" href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->slug)).'&layout=latest-sermons'; ?>">
 			<?php echo JText::_('COM_SERMONSPEAKER_SERMONS'); ?>
 		</a>
 		<?php if ($item->website && $item->website != "http://") : ?>
