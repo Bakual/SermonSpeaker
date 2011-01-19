@@ -81,9 +81,9 @@ class SermonspeakerViewSeriessermon extends JView
 
 		// Add swfobject-javascript for player if needed
 		if (in_array('seriessermon:player', $this->columns)){
-			if ($params->get('alt_player')){
-				$document->addScript(JURI::root()."components/com_sermonspeaker/media/player/audio_player/audio-player.js");
-				$document->addScriptDeclaration('
+			if ($this->params->get('alt_player')){
+				$this->document->addScript(JURI::root()."components/com_sermonspeaker/media/player/audio_player/audio-player.js");
+				$this->document->addScriptDeclaration('
 				AudioPlayer.setup("'.JURI::root().'components/com_sermonspeaker/media/player/audio_player/player.swf", {
 					width: 290,
 					initialvolume: 100,
@@ -92,7 +92,7 @@ class SermonspeakerViewSeriessermon extends JView
 					lefticon: "FFFFFF"
 				});');
 			} else {
-				$document->addScript(JURI::root()."components/com_sermonspeaker/media/player/swfobject.js");
+				$this->document->addScript(JURI::root().'components/com_sermonspeaker/media/player/jwplayer/jwplayer.js');
 			}
 		}
 		

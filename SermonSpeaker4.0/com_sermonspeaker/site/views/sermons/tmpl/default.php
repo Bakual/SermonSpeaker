@@ -144,7 +144,7 @@ $limit 		= (int)$this->params->get('limit', '');
 					<?php endif;
 					if (in_array('sermons:series', $columns)) : ?>
 						<td class="ss_col">
-							<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->series_slug); ?>">
+							<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->series_slug)); ?>">
 								<?php echo $item->series_title; ?>
 							</a>
 						</td>

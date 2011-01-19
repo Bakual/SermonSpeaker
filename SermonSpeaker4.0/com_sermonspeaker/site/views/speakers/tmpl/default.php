@@ -24,7 +24,9 @@ $listDirn	= $this->state->get('list.direction');
 
 <?php foreach($this->items as $item) : ?>
 	<h3 class="contentheading">
-		<?php echo '<a href="'.JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug));.'" title="'.$item->name.'">'.$item->name.'</a>'; ?>
+		<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug)); ?>" title="<?php echo $item->name; ?>">
+			<?php echo $item->name; ?>
+		</a>
 	</h3>
 		<?php if($item->pic) : ?>
 			<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug)); ?>">

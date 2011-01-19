@@ -79,11 +79,11 @@ class SermonspeakerViewSermon extends JView
 		if ($menu_view == 'series') {
 			$model		= &$this->getModel();
 			$serie		= &$model->getSerie($item->series_id);		// getting the Serie from the Model
-	    	$breadcrumbs->addItem($serie->series_title, JRoute::_(SermonspeakerHelperRoute::getSerieRoute($serie->slug));
+	    	$breadcrumbs->addItem($serie->series_title, JRoute::_(SermonspeakerHelperRoute::getSerieRoute($serie->slug)));
 		} elseif ($menu_view == 'speakers') {
 			$model		= &$this->getModel();
 			$speaker	= &$model->getSpeaker($item->speaker_id);	// getting the Speaker from the Model
-	    	$breadcrumbs->addItem($speaker->name, JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($speaker->slug));
+	    	$breadcrumbs->addItem($speaker->name, JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($speaker->slug)));
 		}
     	$breadcrumbs->addItem($item->sermon_title, '');
 
