@@ -92,43 +92,39 @@ class SermonspeakerHelperSermonspeaker
 		$app		= JFactory::getApplication();
 		$params		= $app->getParams();
 
-		// Get extension of file
-		jimport('joomla.filesystem.file');
-		$ext = JFile::getExt($lnk);
 		$view = JRequest::getCmd('view');
 		if ($params->get('autostart') == '1' && $view != 'seriessermon') {
 			$start[0]='true'; $start[1]='1'; $start[2]='yes';
 		} else {
 			$start[0]='false'; $start[1]='0'; $start[2]='no';
 		}
-		if ($params->get('alt_player') && ($ext == 'mp3')){
-			$player = JURI::root().'components/com_sermonspeaker/media/player/audio_player/player.swf';
-			$options = NULL;
-			if ($title){
-				$options = 'titles: "'.$title.'",';
-			}
-			if ($artist){
-				$options .= 'artists: "'.$artist.'",';
-			}
-		} else {
-			$player = JURI::root().'components/com_sermonspeaker/media/player/jwplayer/player.swf';
-			if ($time){
-				$time_arr = explode(':', $time);
-				$seconds = ($time_arr[0] * 3600) + ($time_arr[1] * 60) + $time_arr[2];
-				$duration = '	  duration: '.$seconds.',';
-			} else {
-				$duration = '';
-			}
-		}
-		if(substr_compare($lnk, 'index.php', 0, 9, true) == 0){
+		if(is_array($lnk)){
 			// Playlist
+			$player = JURI::root().'components/com_sermonspeaker/media/player/jwplayer/player.swf';
+			
+			foreach ($lnk as $item){
+				$entry = 'file: "'.SermonspeakerHelperSermonspeaker::makelink($item->sermon_path).'"';
+				$entry .= ', title: "'.$item->sermon_title.'"';
+				if ($item->sermon_time){
+					$time_arr = explode(':', $item->sermon_time);
+					$seconds = ($time_arr[0] * 3600) + ($time_arr[1] * 60) + $time_arr[2];
+					$entry .= ', duration: '.$seconds;
+				}
+				if ($item->sermon_date){
+					$entry .= ', description: "'.JHTML::date($item->sermon_date, JText::_($this->params->get('date_format'))).'"';
+				}
+				$entries[] = '{'.$entry.'}';
+			}
+			$playlist = implode(',', $entries);
 			$return['mspace'] = '<div id="mediaspace'.$count.'" style="text-align:center;">Flashplayer needs Javascript turned on</div>';
 			$return['script'] = '<script type="text/javascript">'
 								.'	jwplayer("mediaspace'.$count.'").setup({'
 								.'	  flashplayer: "'.$player.'",'
-								.'	  playlistfile: "'.JURI::root().$lnk.'",'
-								.'	  playlistsize: 60,'
-								.'	  playlist: "top",'
+								.'	  playlist: ['
+								.$playlist
+								.'	  ],'
+								.'	  "playlist.size": 60,'
+								.'	  "playlist.position": "top",'
 								.'	  autostart: '.$start[0].','
 								.'	  controlbar: "bottom",'
 								.'	  width: "80%",'
@@ -139,6 +135,30 @@ class SermonspeakerHelperSermonspeaker
 			$return['width']  = '380';
 		} else {
 			// Single File
+
+			// Get extension of file
+			jimport('joomla.filesystem.file');
+			$ext = JFile::getExt($lnk);
+
+			if ($params->get('alt_player') && ($ext == 'mp3')){
+				$player = JURI::root().'components/com_sermonspeaker/media/player/audio_player/player.swf';
+				$options = NULL;
+				if ($title){
+					$options = 'titles: "'.$title.'",';
+				}
+				if ($artist){
+					$options .= 'artists: "'.$artist.'",';
+				}
+			} else {
+				$player = JURI::root().'components/com_sermonspeaker/media/player/jwplayer/player.swf';
+				if ($time){
+					$time_arr = explode(':', $time);
+					$seconds = ($time_arr[0] * 3600) + ($time_arr[1] * 60) + $time_arr[2];
+					$duration = '	  duration: '.$seconds.',';
+				} else {
+					$duration = '';
+				}
+			}
 
 			// Declare the supported file extensions
 			$audio_ext = array('aac', 'm4a', 'mp3');
