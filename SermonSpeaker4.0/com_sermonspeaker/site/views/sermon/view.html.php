@@ -59,11 +59,7 @@ class SermonspeakerViewSermon extends JView
 		}
 
 		//Check if link targets to an external source
-		if (substr($item->sermon_path, 0, 7) == 'http://'){
-			$lnk = $item->sermon_path;
-		} else {  
-			$lnk = SermonspeakerHelperSermonspeaker::makelink($item->sermon_path); 
-		}
+		$lnk = SermonspeakerHelperSermonspeaker::makelink($item->sermon_path); 
 		
 		// get active View from Menuitem
 		$menus	= $app->getMenu();

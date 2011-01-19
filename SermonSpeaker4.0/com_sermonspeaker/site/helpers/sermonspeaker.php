@@ -7,41 +7,53 @@ defined('_JEXEC') or die('Restricted access');
 class SermonspeakerHelperSermonspeaker
 {
 	function SpeakerTooltip($id, $pic, $name) {
-		if ($pic == "") { // check if there is no picture and set nopict.jpg
-			$pic = JURI::root().'components/com_sermonspeaker/images/nopict.jpg';
-		} elseif (substr($pic,0,7) != "http://"){ // check if the picture is locally and add the Root to it
-			$pic = JURI::root().$pic;
+		if ($id){
+			if (!$pic) { 
+				// check if there is no picture and set nopict.jpg
+				$pic = JURI::root().'components/com_sermonspeaker/images/nopict.jpg';
+			} else {
+				$pic = SermonspeakerHelperSermonspeaker::makelink($pic);
+			}
+			$html = '<a class="modal" href="'.JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($id).'&layout=popup&tmpl=component').'" rel="{handler: \'iframe\', size: {x: 700, y: 500}}">';
+			$html .= JHTML::tooltip('<img src="'.$pic.'" alt="'.$name.'">',$name,'',$name).'</a>';
+		} else {
+			$html = '';
 		}
-		$html = '<a class="modal" href="'.JRoute::_('index.php?view=speaker&layout=popup&id='.$id.'&tmpl=component').'" rel="{handler: \'iframe\', size: {x: 700, y: 500}}">';
-		$html .= JHTML::tooltip('<img src="'.$pic.'" alt="'.$name.'">',$name,'',$name).'</a>';
-		
+
 		return $html;
 	}
 		
 	function insertAddfile($addfile, $addfileDesc) {
-		$params	=& JComponentHelper::getParams('com_sermonspeaker');
-		$path = $params->get('path');
-
-		$link = SermonspeakerHelperSermonspeaker::makelink($addfile); 
-
-		// Show filename if no addfileDesc is set
-		if (!$addfileDesc){
-			$file_arr = explode('/', $addfile);
-			$addfileDesc = end($file_arr);
-		}
-
-		$filetype = trim(strrchr($addfile, '.'), '.');
-		if (file_exists(JPATH_COMPONENT.DS.'icons'.DS.$filetype.'.png')) {
-			$file = JURI::root().'components/com_sermonspeaker/icons/'.$filetype.'.png';
-		} else {
-			$file = JURI::root().'components/com_sermonspeaker/icons/icon.png';
-		}
 		if ($addfile) {
-			$return = '<a title="'.JText::_('COM_SERMONSPEAKER_ADDFILE_HOOVER').'" href="'.$link.'" target="_blank"><img src="'.$file.'" width="18" height="20" alt="" /></a>&nbsp;<a title="'.JText::_('COM_SERMONSPEAKER_ADDFILE_HOOVER').'" href="'.$link.'" target="_blank">'.$addfileDesc.'</a>';
+			$app		= JFactory::getApplication();
+			$params		= $app->getParams();
 
-			return $return;
-		} else { 
-			return(NULL);
+			$path = $params->get('path');
+
+			$link = SermonspeakerHelperSermonspeaker::makelink($addfile); 
+
+			// Show filename if no addfileDesc is set
+			if (!$addfileDesc){
+				$slash = strrpos($addfile, '/');
+				if ($slash !== false) {
+					$addfileDesc = substr($addfile, $slash + 1);
+				} else {
+					$addfileDesc = $addfile;
+				}
+			}
+
+			$dot = strrpos($addfile, '.') + 1;
+			$filetype = substr($addfile, $dot);
+			if (file_exists(JPATH_COMPONENT.DS.'icons'.DS.$filetype.'.png')) {
+				$file = JURI::root().'components/com_sermonspeaker/icons/'.$filetype.'.png';
+			} else {
+				$file = JURI::root().'components/com_sermonspeaker/icons/icon.png';
+			}
+			$html = '<a title="'.JText::_('COM_SERMONSPEAKER_ADDFILE_HOOVER').'" href="'.$link.'" target="_blank"><img src="'.$file.'" width="18" height="20" alt="" /></a>&nbsp;<a title="'.JText::_('COM_SERMONSPEAKER_ADDFILE_HOOVER').'" href="'.$link.'" target="_blank">'.$addfileDesc.'</a>';
+
+			return $html;
+		} else {
+			return;
 		}
 	}
 	
@@ -65,15 +77,15 @@ class SermonspeakerHelperSermonspeaker
 		} else { //File is locally
 			$fileurl = JURI::root().'index.php?option=com_sermonspeaker&amp;task=download&amp;id='.$id;
 		}
-		$return = '<input class="button download_btn" type="button" value="'.JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON').'" onclick="window.location.href=\''.$fileurl.'\'" />';
+		$html = '<input class="button download_btn" type="button" value="'.JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON').'" onclick="window.location.href=\''.$fileurl.'\'" />';
 
-		return $return;
+		return $html;
 	}
 	
 	function insertPopupButton($id = NULL, $player) {
-		$return = '<input class="button popup_btn" type="button" name="'.JText::_('COM_SERMONSPEAKER_POPUPPLAYER').'" value="'.JText::_('COM_SERMONSPEAKER_POPUPPLAYER').'" onclick="popup=window.open(\''.JRoute::_('index.php?view=sermon&layout=popup&id='.$id.'&tmpl=component').'\', \'PopupPage\', \'height='.$player['height'].',width='.$player['width'].',scrollbars=yes,resizable=yes\'); return false" />';
+		$html = '<input class="button popup_btn" type="button" name="'.JText::_('COM_SERMONSPEAKER_POPUPPLAYER').'" value="'.JText::_('COM_SERMONSPEAKER_POPUPPLAYER').'" onclick="popup=window.open(\''.JRoute::_('index.php?view=sermon&layout=popup&id='.$id.'&tmpl=component').'\', \'PopupPage\', \'height='.$player['height'].',width='.$player['width'].',scrollbars=yes,resizable=yes\'); return false" />';
 
-		return $return;
+		return $html;
 	}
 	
 	function insertPlayer($lnk, $time = NULL, $count = '1', $title = NULL, $artist = NULL) {
@@ -198,12 +210,12 @@ class SermonspeakerHelperSermonspeaker
 	function insertTime($time) {
 		$tmp = explode(':', $time);
 		if ($tmp[0] == 0) {
-			$return = $tmp[1].':'.$tmp[2];
+			$html = $tmp[1].':'.$tmp[2];
 		} else {
-			$return = $tmp[0].':'.$tmp[1].':'.$tmp[2];
+			$html = $tmp[0].':'.$tmp[1].':'.$tmp[2];
 		}
 
-		return($return);
+		return $html;
 	}
 
 	function fu_logoffbtn () {

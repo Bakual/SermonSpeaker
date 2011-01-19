@@ -29,7 +29,7 @@ if ($this->speaker->bio || ($this->speaker->intro && $this->params->get('speaker
 	echo $this->speaker->bio; ?>
 	</p>
 <?php endif;
-if ($this->speaker->website && $this->speaker->website != "http://") : ?>
+if ($this->speaker->website && $this->speaker->website != 'http://') : ?>
 	<a href="<?php echo $this->speaker->website; ?>" target="_blank" title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKER_WEBLINK_HOOVER'); ?>"><?php echo JText::sprintf('COM_SERMONSPEAKER_SPEAKER_WEBLINK', $this->speaker->name); ?></a>
 <?php endif; ?>
 <br style="clear:both" />

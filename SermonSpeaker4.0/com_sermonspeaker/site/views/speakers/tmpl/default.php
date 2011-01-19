@@ -43,10 +43,10 @@ $listDirn	= $this->state->get('list.direction');
 			<?php echo JText::_('COM_SERMONSPEAKER_SPEAKERS_SERIESLINK'); ?>
 		</a>
 		 | 
-		<a title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKERS_SERMONSLINK_HOOVER'); ?>" href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->slug)).'&layout=latest-sermons'; ?>">
+		<a title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKERS_SERMONSLINK_HOOVER'); ?>" href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug)).'&layout=latest-sermons'; ?>">
 			<?php echo JText::_('COM_SERMONSPEAKER_SERMONS'); ?>
 		</a>
-		<?php if ($item->website && $item->website != "http://") : ?>
+		<?php if ($item->website && $item->website != 'http://') : ?>
 			 | <a href="<?php echo $item->website; ?>" target="_blank" title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKER_WEBLINK_HOOVER'); ?>">
 				<?php echo JText::sprintf('COM_SERMONSPEAKER_SPEAKER_WEBLINK', $item->name); ?></a>
 		<?php endif; ?>
