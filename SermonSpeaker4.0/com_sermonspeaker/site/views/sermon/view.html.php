@@ -21,6 +21,11 @@ class SermonspeakerViewSermon extends JView
 
 	function display($tpl = null)
 	{
+		if (!JRequest::getInt('id', 0)){
+			JError::raiseWarning(404, JText::_('JGLOBAL_RESOURCE_NOT_FOUND'));
+			return;
+		}
+
 		// Applying CSS file
 		JHTML::stylesheet('sermonspeaker.css', 'components/com_sermonspeaker/');
 

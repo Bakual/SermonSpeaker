@@ -22,12 +22,12 @@ $listDirn	= $this->state->get('list.direction');
 	<?php echo $this->serie->series_description; ?>
 </div>
 <br style="clear:both" />
-<?php if (in_array('serie:player', $this->columns)) : ?>
+<?php if (in_array('serie:player', $this->columns) && count($this->items)) : ?>
 	<div class="ss-serie-player">
 		<hr class="ss-serie-player">
 	<?php
 	$lnk = "index.php?option=com_sermonspeaker&view=feed&format=raw&series_id=".$this->serie->id;
-	$player = SermonspeakerHelperSermonspeaker::insertPlayer($lnk);
+	$player = SermonspeakerHelperSermonspeaker::insertPlayer($this->items);
 	echo $player['mspace'];
 	echo $player['script'];
 	?>
