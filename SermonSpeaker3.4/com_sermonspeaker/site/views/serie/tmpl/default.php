@@ -22,10 +22,10 @@ $this->document->addScriptDeclaration( "
 	</span>
 	<?php echo $this->serie->series_description; ?>
 </div>
-<br style="clear:both" />
+<br />
 <?php if ($this->rows){ ?>
 <?php if ($this->params->get('series_player')){ ?>
-	<hr style="width: 80%; height: 1px; text-align: center;">
+	<hr style="width: 80%; height: 1px; margin:auto;">
 	<?php
 	$lnk = "index.php%3Foption%3Dcom_sermonspeaker%26view%3Dfeed%26series_id%3D".$this->serie->id;
 	$ret = SermonspeakerHelperSermonspeaker::insertPlayer($lnk);
@@ -33,7 +33,7 @@ $this->document->addScriptDeclaration( "
 	$pp_h = $pp_ret[0];
 	$pp_w = $pp_ret[1];
 	?>
-	<hr style="width: 80%; height: 1px; text-align: center;">
+	<hr style="width: 80%; height: 1px; margin:auto;">
 <?php } ?>
 <div class="Pages">
 	<div class="Paginator">

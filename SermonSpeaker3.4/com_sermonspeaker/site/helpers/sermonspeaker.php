@@ -107,7 +107,7 @@ class SermonspeakerHelperSermonspeaker
 			// Playlist ?>
 			<div id='mediaspace<?php echo $count; ?>' align='center'>Flashplayer needs Javascript turned on</div>
 			<script type='text/javascript'>
-				var so = new SWFObject('<?php echo $player; ?>','player1','80%','84','9');
+				var so = new SWFObject('<?php echo $player; ?>','player1','80%','80','9');
 				so.addParam('allowfullscreen','true');
 				so.addParam('allowscriptaccess','always');
 				so.addParam('wmode','transparent');
@@ -136,7 +136,7 @@ class SermonspeakerHelperSermonspeaker
 					</script>
 				<?php } else { ?>
 					<script type='text/javascript'>
-						var so = new SWFObject('<?php echo $player; ?>','player1','250','24','9');
+						var so = new SWFObject('<?php echo $player; ?>','player1','250','23','9');
 						so.addParam('allowfullscreen','true');
 						so.addParam('allowscriptaccess','always');
 						so.addParam('wmode','opaque');
