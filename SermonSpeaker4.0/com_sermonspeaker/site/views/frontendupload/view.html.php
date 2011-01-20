@@ -14,8 +14,6 @@ class SermonspeakerViewFrontendupload extends JView
 
 		// Initialise variables.
 		$app		= JFactory::getApplication();
-		$user		= JFactory::getUser();
-		$userId		= $user->get('id');
 
 		$params		= $app->getParams();
 //		$params	= $this->state->get('params'); // TODO: Maybe work with state for params.
@@ -29,6 +27,8 @@ class SermonspeakerViewFrontendupload extends JView
 		if ($credentials['username'] && $credentials['password']){
 			$app->login($credentials);
 		}
+
+		$user		= JFactory::getUser();
 
 		// Check for errors.
 		if (count($errors = $this->get('Errors'))) {
