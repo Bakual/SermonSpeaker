@@ -9,3 +9,4 @@ ALTER TABLE jos_sermon_sermons CHANGE `published` `state` TINYINT(3) NOT NULL DE
 ALTER TABLE jos_sermon_speakers CHANGE `published` `state` TINYINT(3) NOT NULL DEFAULT '0';
 ALTER TABLE jos_sermon_series CHANGE `published` `state` TINYINT(3) NOT NULL DEFAULT '0';
 ALTER TABLE jos_sermon_sermons DROP COLUMN `play`, DROP COLUMN `download`;
+ALTER TABLE jos_sermon_sermons CHANGE `sermon_number` `sermon_number` INT(10) NOT NULL DEFAULT '0';
