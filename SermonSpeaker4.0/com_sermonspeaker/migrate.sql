@@ -1,0 +1,11 @@
+ALTER TABLE jos_sermon_speakers ADD COLUMN `alias` VARCHAR(255) NOT NULL;
+ALTER TABLE jos_sermon_series ADD COLUMN `alias` VARCHAR(255) NOT NULL;
+ALTER TABLE jos_sermon_speakers ADD COLUMN `metakey` TEXT NOT NULL, ADD `metadesc` TEXT NOT NULL;
+ALTER TABLE jos_sermon_series ADD COLUMN `metakey` TEXT NOT NULL, ADD `metadesc` TEXT NOT NULL;
+ALTER TABLE jos_sermon_sermons CHANGE `created_on` `created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00';
+ALTER TABLE jos_sermon_series CHANGE `created_on` `created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00';
+ALTER TABLE jos_sermon_speakers CHANGE `created_on` `created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00';
+ALTER TABLE jos_sermon_sermons CHANGE `published` `state` TINYINT(3) NOT NULL DEFAULT '0';
+ALTER TABLE jos_sermon_speakers CHANGE `published` `state` TINYINT(3) NOT NULL DEFAULT '0';
+ALTER TABLE jos_sermon_series CHANGE `published` `state` TINYINT(3) NOT NULL DEFAULT '0';
+ALTER TABLE jos_sermon_sermons DROP COLUMN `play`, DROP COLUMN `download`;
