@@ -23,13 +23,9 @@ $query	= "SELECT sermon_date, YEAR(sermon_date) AS created_year".$select_m." \n"
 $database->setQuery($query, 0, $count);
 $rows = $database->loadObjectList();
 
-$menu = &JSite::getMenu();
-$menuitems = $menu->getItems('link', 'index.php?option=com_sermonspeaker&view=sermons');
-if ($menuitems == "") {
-	$menuitems = $menu->getItems('component', 'com_sermonspeaker');
-}
+// get the menu item from the params
+$sermonspeaker_itemid = $params->get('menuitem');
 
-$sermonspeaker_itemid = $menuitems[0]->id;
 if(count($rows)) {
 	echo '<ul>';
 	foreach ($rows as $row) {

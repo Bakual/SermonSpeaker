@@ -25,5 +25,11 @@
 			<option value="month">MOD_SERMONARCHIVE_PARAM_MONTH</option>
 			<option value="year">MOD_SERMONARCHIVE_PARAM_YEAR</option>
 		</param>
+		<param name="menuitem" type="menuitem" 
+			default=""
+			label="MOD_SERMONARCHIVE_PARAM_MENUITEM" 
+			description="MOD_SERMONARCHIVE_PARAM_MENUITEM_DESC" 
+			state="1"
+		/>
 	</params>
 </install>
