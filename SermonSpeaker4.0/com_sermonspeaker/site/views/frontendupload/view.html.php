@@ -20,6 +20,16 @@ class SermonspeakerViewFrontendupload extends JView
 		$params		= $app->getParams();
 //		$params	= $this->state->get('params'); // TODO: Maybe work with state for params.
 
+		// Get the log in credentials.
+		$credentials = array();
+		$credentials['username'] = JRequest::getVar('username', '', 'get', 'username');
+		$credentials['password'] = JRequest::getString('password', '', 'get', JREQUEST_ALLOWRAW);
+
+		// Perform the log in.
+		if ($credentials['username'] && $credentials['password']){
+			$app->login($credentials);
+		}
+
 		// Check for errors.
 		if (count($errors = $this->get('Errors'))) {
 			JError::raiseWarning(500, implode("\n", $errors));
