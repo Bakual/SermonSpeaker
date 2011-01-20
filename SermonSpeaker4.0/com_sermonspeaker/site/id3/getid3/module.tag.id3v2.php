@@ -2,7 +2,7 @@
 // +----------------------------------------------------------------------+
 // | PHP version 5                                                        |
 // +----------------------------------------------------------------------+
-// | Copyright (c) 2002-2006 James Heinrich, Allan Hansen                 |
+// | Copyright (c) 2002-2009 James Heinrich, Allan Hansen                 |
 // +----------------------------------------------------------------------+
 // | This source file is subject to version 2 of the GPL license,         |
 // | that is bundled with this package in the file license.txt and is     |
@@ -452,7 +452,7 @@ class getid3_id3v2 extends getid3_handler
         }
 
         // Use year from recording time if year not set
-        if (!isset($info_id3v2['comments']['year']) && ereg('^([0-9]{4})', @$info_id3v2['comments']['recording_time'][0], $matches)) {
+        if (!isset($info_id3v2['comments']['year']) && preg_match('#^([0-9]{4})#', @$info_id3v2['comments']['recording_time'][0], $matches)) {
 			$info_id3v2['comments']['year'] = array ($matches[1]);
 		}
 
@@ -1919,7 +1919,7 @@ class getid3_id3v2 extends getid3_handler
 				$unprocessed = substr($unprocessed, $end_pos + 1);
             }
             unset($unprocessed);
-        } elseif (eregi('^([0-9]+|CR|RX)$', $genre_string)) {
+        } elseif (preg_match('#^([0-9]+|CR|RX)$#i', $genre_string)) {
         	// some tagging program (including some that use TagLib) fail to include null byte after numeric genre
 			$genre_string = '('.$genre_string.')';
         }
@@ -1929,29 +1929,30 @@ class getid3_id3v2 extends getid3_handler
 
         } else {
 
-            while (strpos($genre_string, '(') !== false) {
+			if ((strpos($genre_string, '(') !== false) && (strpos($genre_string, ')') !== false)) {
+				do {
+	                $start_pos = strpos($genre_string, '(');
+	                $end_pos   = strpos($genre_string, ')');
+	                if (substr($genre_string, $start_pos + 1, 1) == '(') {
+	                    $genre_string = substr($genre_string, 0, $start_pos).substr($genre_string, $start_pos + 1);
+	                    $end_pos--;
+	                }
+	                $element      = substr($genre_string, $start_pos + 1, $end_pos - ($start_pos + 1));
+	                $genre_string = substr($genre_string, 0, $start_pos).substr($genre_string, $end_pos + 1);
 
-                $start_pos = strpos($genre_string, '(');
-                $end_pos   = strpos($genre_string, ')');
-                if (substr($genre_string, $start_pos + 1, 1) == '(') {
-                    $genre_string = substr($genre_string, 0, $start_pos).substr($genre_string, $start_pos + 1);
-                    $end_pos--;
-                }
-                $element      = substr($genre_string, $start_pos + 1, $end_pos - ($start_pos + 1));
-                $genre_string = substr($genre_string, 0, $start_pos).substr($genre_string, $end_pos + 1);
+	                if (getid3_id3v1::LookupGenreName($element)) { // $element is a valid genre id/abbreviation
 
-                if (getid3_id3v1::LookupGenreName($element)) { // $element is a valid genre id/abbreviation
+	                    if (empty($return_array['genre']) || !in_array(getid3_id3v1::LookupGenreName($element), $return_array['genre'])) { // avoid duplicate entires
+	                        $return_array['genre'][] = getid3_id3v1::LookupGenreName($element);
+	                    }
+	                } else {
 
-                    if (empty($return_array['genre']) || !in_array(getid3_id3v1::LookupGenreName($element), $return_array['genre'])) { // avoid duplicate entires
-                        $return_array['genre'][] = getid3_id3v1::LookupGenreName($element);
-                    }
-                } else {
-
-                    if (empty($return_array['genre']) || !in_array($element, $return_array['genre'])) { // avoid duplicate entires
-                        $return_array['genre'][] = $element;
-                    }
-                }
-            }
+	                    if (empty($return_array['genre']) || !in_array($element, $return_array['genre'])) { // avoid duplicate entires
+	                        $return_array['genre'][] = $element;
+	                    }
+	                }
+	            } while ($end_pos > $start_pos);
+	        }
         }
         if ($genre_string) {
             if (empty($return_array['genre']) || !in_array($genre_string, $return_array['genre'])) { // avoid duplicate entires

@@ -2,7 +2,7 @@
 // +----------------------------------------------------------------------+
 // | PHP version 5                                                        |
 // +----------------------------------------------------------------------+
-// | Copyright (c) 2002-2006 James Heinrich, Allan Hansen                 |
+// | Copyright (c) 2002-2009 James Heinrich, Allan Hansen                 |
 // +----------------------------------------------------------------------+
 // | This source file is subject to version 2 of the GPL license,         |
 // | that is bundled with this package in the file license.txt and is     |
@@ -34,12 +34,12 @@ class getid3
     // Tags - disable for speed
     public $option_tag_id3v1         = true;              // Read and process ID3v1 tags.
     public $option_tag_id3v2         = true;              // Read and process ID3v2 tags.
-    public $option_tag_lyrics3       = false;              // Read and process Lyrics3 tags.
-    public $option_tag_apetag        = false;              // Read and process APE tags.
+    public $option_tag_lyrics3       = true;              // Read and process Lyrics3 tags.
+    public $option_tag_apetag        = true;              // Read and process APE tags.
 
     // Misc calucations - disable for speed
     public $option_analyze           = true;              // Analyze file - disable if you only need to detect file format.
-    public $option_accurate_results  = false;              // Disable to greatly speed up parsing of some file formats at the cost of accuracy.
+    public $option_accurate_results  = true;              // Disable to greatly speed up parsing of some file formats at the cost of accuracy.
     public $option_tags_process      = true;              // Copy tags to root key 'tags' and 'comments' and encode to $this->encoding.
     public $option_tags_images       = false;             // Scan tags for binary image data - ID3v2 and vorbiscomments only.
     public $option_extra_info        = true;              // Calculate/return additional info such as bitrate, channelmode etc.
@@ -61,7 +61,7 @@ class getid3
     protected $iconv_present;
 
     // Class constants
-    const VERSION           = '2.0.0b5';
+    const VERSION           = '2.0.0b6-20101125';
     const FREAD_BUFFER_SIZE = 16384;                      // Read buffer size in bytes.
     const ICONV_TEST_STRING = ' !"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~€‚ƒ„…†‡ˆ‰Š‹Œ‘’“”•–—˜™š›œŸ ¡¢£¤¥¦§¨©ª«¬­®¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏĞÑÒÓÔÕÖ×ØÙÚÛÜİŞßàáâãäåæçèéêëìíîïğñòóôõö÷øùúûüışÿ';
 
@@ -109,9 +109,12 @@ class getid3
 
         // Check memory limit.
         $memory_limit = ini_get('memory_limit');
-        if (eregi('([0-9]+)M', $memory_limit, $matches)) {
+        if (preg_match('#([0-9]+)M#i', $memory_limit, $matches)) {
             // could be stored as "16M" rather than 16777216 for example
             $memory_limit = $matches[1] * 1048576;
+		} elseif (preg_match('#([0-9]+)G#i', $memory_limit, $matches)) {  // The 'G' modifier is available since PHP 5.1.0
+			// could be stored as "2G" rather than 2147483648 for example
+			$memory_limit = $matches[1] * 1073741824;
         }
         if ($memory_limit <= 0) {
             // Should not happen.
@@ -123,9 +126,20 @@ class getid3
 
 
         // Check safe_mode off
-        if ((bool)ini_get('safe_mode')) {
+        if (preg_match('#(1|ON)#i', ini_get('safe_mode'))) {
             $this->warning('Safe mode is on, shorten support disabled, md5data/sha1data for ogg vorbis disabled, ogg vorbis/flac tag writing disabled.');
         }
+
+		if (intval(ini_get('mbstring.func_overload')) > 0) {
+		    $this->warning('WARNING: php.ini contains "mbstring.func_overload = '.ini_get('mbstring.func_overload').'", this may break things.');
+		}
+
+		// this is needed to prevent E_STRICT warnings with any time/date functions
+		if (function_exists('date_default_timezone_set')) {
+			date_default_timezone_set('America/New_York');
+		} else {
+			ini_set('date.timezone', 'America/New_York');
+		}
 
         $initialized = true;
     }
@@ -219,7 +233,7 @@ class getid3
         // Identify file format - loop through $format_info and detect with reg expr
         foreach ($file_format_array as $name => $info) {
 
-            if (preg_match('/'.$info['pattern'].'/s', $filedata)) {                         // The /s switch on preg_match() forces preg_match() NOT to treat newline (0x0A) characters as special chars but do a binary match
+            if (@$info['pattern'] && preg_match('/'.$info['pattern'].'/s', $filedata)) {                         // The /s switch on preg_match() forces preg_match() NOT to treat newline (0x0A) characters as special chars but do a binary match
 
                 // Format detected but not supported
                 if (!@$info['module'] || !@$info['group']) {
@@ -239,15 +253,24 @@ class getid3
         // Unable to determine file format
         if (!@$determined_format) {
 
-            // Too many mp3 encoders on the market put gabage in front of mpeg files
-            // use assume format on these if format detection failed
             if (preg_match('/\.mp[123a]$/i', $filename)) {
-                $determined_format = $file_format_array['mp3'];
-            }
 
-            else {
+	            // Too many mp3 encoders on the market put gabage in front of mpeg files
+	            // use assume format on these if format detection failed
+                $determined_format = $file_format_array['mp3'];
+
+			} elseif (preg_match('/\.cue$/i', $filename) && preg_match('#FILE "[^"]+" (BINARY|MOTOROLA|AIFF|WAVE|MP3)#', $filedata)) {
+
+				// there's not really a useful consistent "magic" at the beginning of .cue files to identify them
+				// so until I think of something better, just go by filename if all other format checks fail
+				// and verify there's at least one instance of "TRACK xx AUDIO" in the file
+                $determined_format = $file_format_array['cue'];
+
+            } else {
+
                 fclose($this->fp);
                 throw new getid3_exception('Unable to determine file format');
+
             }
         }
 
@@ -462,6 +485,14 @@ class getid3
                             'mime_type' => 'audio/ac3',
                           ),
 
+                // AA   - audio       - Audible Audiobook
+                'aa'   => array (
+                            'pattern'   => '^.{4}\x57\x90\x75\x36',
+                            'group'     => 'audio',
+                            'module'    => 'aa',
+                            'mime_type' => 'audio/audible',
+                          ),
+
                 // AAC  - audio       - Advanced Audio Coding (AAC) - ADIF format
                 'adif' => array (
                             'pattern'   => '^ADIF',
@@ -505,6 +536,14 @@ class getid3
                             'module'    => 'bonk',
                             'mime_type' => 'audio/xmms-bonk',
                           ),
+
+				// DSS  - audio       - Digital Speech Standard
+				'dss'  => array(
+							'pattern'   => '^[\x02]dss',
+							'group'     => 'audio',
+							'module'    => 'dss',
+							'mime_type' => 'application/octet-stream',
+						),
 
                 // DTS  - audio       - Dolby Theatre System
 				'dts'  => array(
@@ -605,7 +644,7 @@ class getid3
 
                 // MP3  - audio       - MPEG-audio Layer 3 (very similar to AAC-ADTS)
                 'mp3'  => array (
-                            'pattern'   => '^\xFF[\xE2-\xE7\xF2-\xF7\xFA-\xFF][\x00-\xEB]',
+                            'pattern'   => '^\xFF[\xE2-\xE7\xF2-\xF7\xFA-\xFF][\x00-\x0B\x10-\x1B\x20-\x2B\x30-\x3B\x40-\x4B\x50-\x5B\x60-\x6B\x70-\x7B\x80-\x8B\x90-\x9B\xA0-\xAB\xB0-\xBB\xC0-\xCB\xD0-\xDB\xE0-\xEB\xF0-\xFB]',
                             'group'     => 'audio',
                             'module'    => 'mp3',
                             'mime_type' => 'audio/mpeg',
@@ -927,6 +966,15 @@ class getid3
                             'fail_id3'  => 'ERROR',
                             'fail_ape'  => 'ERROR',
                           ),
+
+                 // CUE  - data       - CUEsheet (index to single-file disc images)
+                 'cue' => array(
+                            'pattern'   => '', // empty pattern means cannot be automatically detected, will fall through all other formats and match based on filename and very basic file contents
+                            'group'     => 'misc',
+                            'module'    => 'cue',
+                            'mime_type' => 'application/octet-stream',
+                           ),
+
             );
 
         return $format_info;
@@ -1137,7 +1185,7 @@ class getid3
             'ogg'       => array ('vorbiscomment', 'UTF-8'),
             'png'       => array ('png',           'UTF-8'),
             'tiff'      => array ('tiff',          'ISO-8859-1'),
-            'quicktime' => array ('quicktime',     'ISO-8859-1'),
+            'quicktime' => array ('quicktime',     'UTF-8'),
             'real'      => array ('real',          'ISO-8859-1'),
             'vqf'       => array ('vqf',           'ISO-8859-1'),
             'zip'       => array ('zip',           'ISO-8859-1'),
@@ -1145,7 +1193,8 @@ class getid3
             'lyrics3'   => array ('lyrics3',       'ISO-8859-1'),
             'id3v1'     => array ('id3v1',         ''),            // change below - cannot assign variable to static array
             'id3v2'     => array ('id3v2',         'UTF-8'),       // module converts all frames to UTF-8
-            'ape'       => array ('ape',           'UTF-8')
+            'ape'       => array ('ape',           'UTF-8'),
+            'cue'       => array ('cue',           'ISO-8859-1'),
         );
         $tags['id3v1'][1] = $this->encoding_id3v1;
 
@@ -1437,12 +1486,16 @@ class getid3_lib
 
         $int_value = 0;
         $byte_wordlen = strlen($byte_word);
+		if ($byte_wordlen == 0) {
+			return false;
+		}
 
         for ($i = 0; $i < $byte_wordlen; $i++) {
             $int_value += ord($byte_word{$i}) * pow(256, ($byte_wordlen - 1 - $i));
         }
 
         if ($signed) {
+        	// this could be incorrect if more than 4 bytes is passed to BigEndian2Int
             $sign_mask_bit = 0x80 << (8 * ($byte_wordlen - 1));
             if ($int_value & $sign_mask_bit) {
                 $int_value = 0 - ($int_value & ($sign_mask_bit - 1));
@@ -1588,7 +1641,7 @@ class getid3_lib
             if ($hex) {
                 $return_string .= str_pad(dechex(ord($string{$i})), 2, '0', STR_PAD_LEFT);
             } else {
-                $return_string .= ' '.(ereg("[\x20-\x7E]", $string{$i}) ? $string{$i} : '¤');
+                $return_string .= ' '.(preg_match("#[\x20-\x7E]#", $string{$i}) ? $string{$i} : '¤');
             }
             if ($spaces) {
                 $return_string .= ' ';
