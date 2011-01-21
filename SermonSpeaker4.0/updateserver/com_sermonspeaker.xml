@@ -5,41 +5,17 @@
 		<description>SermonSpeaker 4.0</description>
 		<element>com_sermonspeaker</element>
 		<type>component</type>
-		<version>4.0beta2</version>
+		<version>4.0</version>
 		<infourl title="SermonSpeaker Homepage">http://www.sermonspeaker.net</infourl>
 		<downloads>
 			<downloadurl type="full" format="zip">http://www.sermonspeaker.net/files/SermonSpeaker4/Component/com_sermonspeaker.zip</downloadurl>
 		</downloads>
-		<tags>
-			<tag>Testing Tag</tag>
-		</tags>
 		<maintainer>Thomas Hunziker</maintainer>
 		<maintainerurl>http://www.bakual.ch</maintainerurl>
-		<section>Testing Section</section>
-		<targetplatform name="joomla" version="1.6" />
-	</update>
-	<update>
-		<name>SermonSpeaker</name>
-		<description>SermonSpeaker 4.0</description>
-		<element>com_sermonspeaker</element>
-		<type>component</type>
-		<version>4.0beta</version>
-		<infourl title="SermonSpeaker Homepage">http://www.sermonspeaker.net</infourl>
-		<downloads>
-			<downloadurl type="full" format="zip">http://www.sermonspeaker.net/files/SermonSpeaker4/Component/com_sermonspeaker.zip</downloadurl>
-		</downloads>
 		<tags>
-			<tag>Testing Tag</tag>
+			<tag>SermonSpeaker</tag>
 		</tags>
-		<maintainer>Thomas Hunziker</maintainer>
-		<maintainerurl>http://www.bakual.ch</maintainerurl>
-		<section>Testing Section</section>
+		<section>SermonSpeaker</section>
 		<targetplatform name="joomla" version="1.6" />
-		<!-- <client> not required for components -->
-		<!-- <group> not required for components -->
-		<!-- no <relationships> are defined but they could be! -->
 	</update>
 </updates>
-
-
-
