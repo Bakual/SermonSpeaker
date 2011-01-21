@@ -29,6 +29,8 @@ class Com_SermonspeakerInstallerScript {
 	 */
 	function update($parent) {
 		echo JText::_('COM_SERMONSPEAKER_UPDATE_TEXT');
+
+		$this->_migrate();
 	}
 
 	/**
@@ -47,5 +49,44 @@ class Com_SermonspeakerInstallerScript {
 	 */
  	function postflight($type, $parent) {
 		echo JText::sprintf('COM_SERMONSPEAKER_POSTFLIGHT', $type);
+	}
+
+	/**
+	 * method to run if tables are from SermonSpeaker 3.4.2. Will apply the needed changes for SermonSpeaker 4.0
+	 *
+	 * @return void
+	 */
+	function _migrate(){
+		$db =& JFactory::getDBO();
+		$fields = $db->getTableFields('#__sermon_sermons');
+		$sermons = $fields['#__sermon_sermons'];
+		if (array_key_exists('published', $sermons)){
+			$sqlfile = dirname(__FILE__).DS.'migrate.sql';
+			$buffer = file_get_contents($sqlfile);
+			jimport('joomla.installer.helper');
+			$queries = JInstallerHelper::splitSql($buffer);
+			if (count($queries)) {
+				foreach ($queries as $query) {
+					$query = trim($query);
+					if ($query != '' && $query{0} != '#') {
+						$db->setQuery($query);
+						if (!$db->query()) {
+							JError::raiseWarning(1, JText::sprintf('JLIB_INSTALLER_ERROR_SQL_ERROR', $db->stderr(true)));
+							return;
+						}
+					}
+				}
+				if (array_key_exists('play', $sermons)){
+					$query = "ALTER TABLE #__sermon_sermons DROP COLUMN `play`, DROP COLUMN `download`";
+					$db->setQuery($query);
+					if (!$db->query()) {
+						JError::raiseWarning(1, JText::sprintf('JLIB_INSTALLER_ERROR_SQL_ERROR', $db->stderr(true)));
+						return;
+					}
+				}
+				echo JText::_('COM_SERMONSPEAKER_MIGRATION_TEXT');
+			}
+		}
+		return;
 	}
 }
