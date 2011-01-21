@@ -19,7 +19,7 @@ class Com_SermonspeakerInstallerScript {
 	 * @return void
 	 */
 	function uninstall($parent) {
-		echo JText::_('COM_SERMONSPEAKER_UNINSTALL_TEXT');
+		echo '<div>'.JText::_('COM_SERMONSPEAKER_UNINSTALL_TEXT').'</div>';
 	}
 
 	/**
@@ -28,7 +28,7 @@ class Com_SermonspeakerInstallerScript {
 	 * @return void
 	 */
 	function update($parent) {
-		echo JText::_('COM_SERMONSPEAKER_UPDATE_TEXT');
+		echo '<div>'.JText::_('COM_SERMONSPEAKER_UPDATE_TEXT').'</div>';
 
 		$this->_migrate();
 	}
@@ -84,7 +84,7 @@ class Com_SermonspeakerInstallerScript {
 						return;
 					}
 				}
-				echo JText::_('COM_SERMONSPEAKER_MIGRATION_TEXT');
+				echo '<div style="background-color:orange;">'.JText::_('COM_SERMONSPEAKER_MIGRATION_TEXT').'</div>';
 			}
 		}
 		return;
