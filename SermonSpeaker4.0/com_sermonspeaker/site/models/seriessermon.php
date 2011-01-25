@@ -92,7 +92,7 @@ class SermonspeakerModelSeriessermon extends JModelList
 	function getSermons($serieid)
 	{
 		$database =& JFactory::getDBO();
-		$query	= "SELECT sermon_path, sermon_title, sermon_number, sermon_time, notes, sermon_date, addfile, addfileDesc \n"
+		$query	= "SELECT audiofile, videofile, sermon_title, sermon_number, sermon_time, notes, sermon_date, addfile, addfileDesc \n"
 				. ", CASE WHEN CHAR_LENGTH(alias) THEN CONCAT_WS(':', id, alias) ELSE id END as slug \n"
 				. " FROM #__sermon_sermons \n"
 				. " WHERE series_id=".$serieid." \n"

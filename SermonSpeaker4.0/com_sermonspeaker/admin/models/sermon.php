@@ -39,9 +39,14 @@ class SermonspeakerModelSermon extends JModelAdmin
 		foreach ($pks as $i => $pk) {
 			if ($table->load($pk)) {
 				if ($this->canDelete($table)) {
-					if($table->sermon_path && file_exists(JPATH_ROOT.$table->sermon_path)){
-						if (!JFile::delete(JPATH_ROOT.$table->sermon_path)){
-							$this->setError('Could not delete: '.JPATH_ROOT.$table->sermon_path);
+					if($table->audiofile && file_exists(JPATH_ROOT.$table->audiofile)){
+						if (!JFile::delete(JPATH_ROOT.$table->audiofile)){
+							$this->setError('Could not delete: '.JPATH_ROOT.$table->audiofile);
+						}
+					}
+					if($table->videofile && file_exists(JPATH_ROOT.$table->videofile)){
+						if (!JFile::delete(JPATH_ROOT.$table->videofile)){
+							$this->setError('Could not delete: '.JPATH_ROOT.$table->videofile);
 						}
 					}
 				}
@@ -152,7 +157,7 @@ class SermonspeakerModelSermon extends JModelAdmin
 
 		// Reading ID3 Tags if the Lookup Button was pressed
 		if ($id3_file = JRequest::getString('file')){
-			$data->sermon_path = $id3_file;
+			$data->audiofile = $id3_file;
 			require_once JPATH_COMPONENT_SITE.DS.'helpers'.DS.'id3.php';
 			$params = JComponentHelper::getParams('com_sermonspeaker');
 

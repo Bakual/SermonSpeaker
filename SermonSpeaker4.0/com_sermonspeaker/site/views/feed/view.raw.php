@@ -125,27 +125,27 @@ class SermonspeakerViewFeed extends JView
 			// Create Enclosure
 			
 			//check if url is external
-			if (substr($row->sermon_path,0,7) == "http://") {
+			if (substr($row->audiofile, 0, 7) == 'http://') {
 				//external link
-				$item->enclosure['url'] = $row->sermon_path;
+				$item->enclosure['url'] = $row->audiofile;
 				$item->enclosure['length'] = 1;
 			} else {
 				//internal link
 				//url to play
-				$path = str_replace(array(' ', '%20'), array('%20','%20'), $row->sermon_path); //fix for spaces in the filename
+				$path = str_replace(array(' ', '%20'), array('%20','%20'), $row->audiofile); //fix for spaces in the filename
 				if(substr($path,0,1) == "/" ) {
 					$path = substr($path,1);
 				}
 				$item->enclosure['url'] = $link.$path;
 				// Filesize for length
-				if(file_exists(JPATH_ROOT.$row->sermon_path)) {
-					$item->enclosure['length'] = filesize(JPATH_ROOT.$row->sermon_path);
+				if(file_exists(JPATH_ROOT.$row->audiofile)) {
+					$item->enclosure['length'] = filesize(JPATH_ROOT.$row->audiofile);
 				} else {
 					$item->enclosure['length'] = 0;
 				}
 			}
 			// MIME type for content
-			$extension = substr($row->sermon_path, strrpos($row->sermon_path, '.'));
+			$extension = substr($row->audiofile, strrpos($row->audiofile, '.'));
 			switch ($extension) {
 				case '.mp3':
 					$item->enclosure['type'] = 'audio/mpeg';

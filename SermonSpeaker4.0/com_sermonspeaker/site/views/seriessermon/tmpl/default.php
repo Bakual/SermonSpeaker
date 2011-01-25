@@ -52,7 +52,7 @@ $listDirn	= $this->state->get('list.direction');
 					echo SermonspeakerHelperSermonspeaker::insertAddfile($sermon->addfile, $sermon->addfileDesc);
 					echo "<br />\n";
 				endif;
-				$lnk = SermonspeakerHelperSermonspeaker::makelink($sermon->sermon_path); 
+				$lnk = SermonspeakerHelperSermonspeaker::makelink($sermon->audiofile); 
 				if (in_array('seriessermon:player', $this->columns)):
 					$player = SermonspeakerHelperSermonspeaker::insertPlayer($lnk, $sermon->sermon_time, $count, $sermon->sermon_title);
 					echo $player['mspace'];

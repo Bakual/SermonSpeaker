@@ -71,7 +71,7 @@ class SermonspeakerModelSermon extends JModelItem
 						'item.select',
 						'sermon.id, sermon.speaker_id, sermon.series_id, sermon.alias, '.
 						'CASE WHEN CHAR_LENGTH(sermon.alias) THEN CONCAT_WS(\':\', sermon.id, sermon.alias) ELSE sermon.id END as slug,' .
-						'sermon.sermon_path, sermon.sermon_title, sermon.sermon_number, '.
+						'sermon.audiofile, sermon.videofile, sermon.sermon_title, sermon.sermon_number, '.
 						'sermon.sermon_scripture, sermon.sermon_date, sermon.sermon_date, '.
 						'sermon.sermon_time, sermon.notes, sermon.state, '.
 						'sermon.hits, sermon.addfile, sermon.addfileDesc, '.

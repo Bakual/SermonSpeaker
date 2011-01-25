@@ -106,7 +106,7 @@ class SermonspeakerViewFu_details extends JView
 				} else {
 					$fu_destdir = '/';
 				}
-				$sql['sermon_path']			= $db->getEscaped('/'.$params->get('path').$fu_destdir.$file);
+				$sql['audiofile']			= $db->getEscaped('/'.$params->get('path').$fu_destdir.$file);
 				$sql['sermon_title']		= $db->getEscaped(JRequest::getString('sermon_title', '', 'POST'));
 				$sql['alias']				= JRequest::getString('alias', $sql['sermon_title'], 'POST');
 				$sql['alias']				= $db->getEscaped(JFilterOutput::stringURLSafe($sql['alias']));

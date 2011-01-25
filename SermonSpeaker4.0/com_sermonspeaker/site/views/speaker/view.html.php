@@ -100,14 +100,14 @@ class SermonspeakerViewspeaker extends JView
 						break;
 					case '01':
 						$row->link1 = JRoute::_(SermonspeakerHelperRoute::getSermonRoute($row->slug));
-						$row->link2 = SermonspeakerHelperSermonspeaker::makelink($row->sermon_path);
+						$row->link2 = SermonspeakerHelperSermonspeaker::makelink($row->audiofile);
 						break;
 					case '10':
-						$row->link1 = SermonspeakerHelperSermonspeaker::makelink($row->sermon_path);
+						$row->link1 = SermonspeakerHelperSermonspeaker::makelink($row->audiofile);
 						$row->link2 = JRoute::_(SermonspeakerHelperRoute::getSermonRoute($row->slug));
 						break;
 					case '11':
-						$row->link1 = SermonspeakerHelperSermonspeaker::makelink($row->sermon_path);
+						$row->link1 = SermonspeakerHelperSermonspeaker::makelink($row->audiofile);
 						$row->link2 = $row->link1;
 						break;
 				}

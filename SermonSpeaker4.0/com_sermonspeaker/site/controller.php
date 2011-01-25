@@ -41,7 +41,7 @@ class SermonspeakerController extends JController
 			die("<html><body OnLoad=\"javascript: alert('I have no clue what you want to download...');history.back();\" bgcolor=\"#F0F0F0\"></body></html>");
 		}
 		$database =& JFactory::getDBO();
-		$query = "SELECT sermon_path FROM #__sermon_sermons WHERE id = ".$id;
+		$query = "SELECT audiofile FROM #__sermon_sermons WHERE id = ".$id;
 		$database->setQuery($query);
 		$result = $database->loadResult() or die ("<html><body OnLoad=\"javascript: alert('Encountered an error while accessing the database');history.back();\" bgcolor=\"#F0F0F0\"></body></html>");
 		$result = rtrim($result);

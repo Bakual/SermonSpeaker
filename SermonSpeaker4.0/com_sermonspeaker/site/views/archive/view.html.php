@@ -60,14 +60,14 @@ class SermonspeakerViewArchive extends JView
 					break;
 				case '01':
 					$item->link1 = JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug));
-					$item->link2 = SermonspeakerHelperSermonspeaker::makelink($item->sermon_path);
+					$item->link2 = SermonspeakerHelperSermonspeaker::makelink($item->audiofile);
 					break;
 				case '10':
-					$item->link1 = SermonspeakerHelperSermonspeaker::makelink($item->sermon_path);
+					$item->link1 = SermonspeakerHelperSermonspeaker::makelink($item->audiofile);
 					$item->link2 = JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug));
 					break;
 				case '11':
-					$item->link1 = SermonspeakerHelperSermonspeaker::makelink($item->sermon_path);
+					$item->link1 = SermonspeakerHelperSermonspeaker::makelink($item->audiofile);
 					$item->link2 = $item->link1;
 					break;
 			}

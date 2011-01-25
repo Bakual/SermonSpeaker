@@ -7,7 +7,7 @@ $player = SermonspeakerHelperSermonspeaker::insertPlayer($this->lnk, $this->item
 <div id="ss-sermon-container">
 <h1 class="componentheading"><?php echo JText::_('COM_SERMONSPEAKER_SERMON_TITLE'); ?></h1>
 <!-- Begin Data -->
-<?php if ($this->params->get('hide_dl') == "0" && strlen($this->item->sermon_path) > 0) : ?>
+<?php if ($this->params->get('hide_dl') == "0" && strlen($this->item->audiofile) > 0) : ?>
 	<h3 class="contentheading"><a title="<?php echo JText::_('COM_SERMONSPEAKER_DIRECTLINK_HOOVER'); ?>" href="<?php echo $this->lnk; ?>"><?php echo $this->escape($this->item->sermon_title); ?></a></h3>
 <?php else : ?>
 	<h3 class="contentheading"><?php echo $this->escape($this->item->sermon_title); ?></h3>
@@ -72,7 +72,7 @@ $player = SermonspeakerHelperSermonspeaker::insertPlayer($this->lnk, $this->item
 	<?php endif;
 	if ($this->params->get('dl_button') == "1") : ?>
 		<div class="ss-sermondetail-label"></div>
-		<div class="ss-sermondetail-text"><?php echo SermonspeakerHelperSermonspeaker::insertdlbutton($this->item->id, $this->item->sermon_path); ?></div>
+		<div class="ss-sermondetail-text"><?php echo SermonspeakerHelperSermonspeaker::insertdlbutton($this->item->id, $this->item->audiofile); ?></div>
 	<?php endif;
 	if (in_array('sermon:addfile', $this->columns) && $this->item->addfile) : ?>
 		<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_ADDFILE'); ?>:</div>

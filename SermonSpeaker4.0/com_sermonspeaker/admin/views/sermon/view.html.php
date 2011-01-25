@@ -39,9 +39,10 @@ class SermonspeakerViewSermon extends JView
 		$document->addScriptDeclaration($enElem);
 		$document->addScriptDeclaration($sendText);
 
+		// Audiofiles
 		// getting the files with extension $filters from $path and its subdirectories for sermons
+		$filters = array('.aac', '.m4a', '.mp3');
 		$path = JPATH_ROOT.DS.$params->get('path');
-		$filters = array('.mp3','.m4a','.flv','.mp4','.wmv');
 		$filesabs = array();
 		foreach($filters as $filter) {
 			$filesabs = array_merge(JFolder::files($path, $filter, true, true),$filesabs);
@@ -50,11 +51,29 @@ class SermonspeakerViewSermon extends JView
 		// changing the filepaths relativ to the joomla root
 		$root = JPATH_ROOT;
 		$lsdir = strlen($root);
-		$sermons = array();
+		$audios = array();
 		foreach($filesabs as $file) {
-			$sermons[]->file = str_replace('\\','/',substr($file,$lsdir));
+			$audios[]->file = str_replace('\\','/',substr($file,$lsdir));
 		}
 
+		// Videofiles
+		// getting the files with extension $filters from $path and its subdirectories for sermons
+		$filters = array('.mp4', '.mov', '.f4v', '.flv', '.3gp', '.3g2', '.wmv');
+		$path = JPATH_ROOT.DS.$params->get('path');
+		$filesabs = array();
+		foreach($filters as $filter) {
+			$filesabs = array_merge(JFolder::files($path, $filter, true, true),$filesabs);
+		}
+		
+		// changing the filepaths relativ to the joomla root
+		$root = JPATH_ROOT;
+		$lsdir = strlen($root);
+		$videos = array();
+		foreach($filesabs as $file) {
+			$videos[]->file = str_replace('\\','/',substr($file,$lsdir));
+		}
+
+		// Addfiles
 		// getting the files with extension $filters from $path and its subdirectories for addfiles
 		$path_addfile = JPATH_ROOT.DS.$params->get('path_addfile');
 		$filters = array('.pdf','.bmp','.png','.jpg','.gif','.txt','.doc');
@@ -68,7 +87,8 @@ class SermonspeakerViewSermon extends JView
 			$addfiles[]->file = str_replace('\\','/',substr($file,$lsdir));
 		}
 
-		$this->sermon_files	= JHTML::_('select.genericlist', $sermons, 'jform[sermon_path]', 'disabled="disabled"', 'file', 'file', $this->item->sermon_path, 'jform_sermon_path_choice');
+		$this->audio_files	= JHTML::_('select.genericlist', $audios, 'jform[audiofile]', 'disabled="disabled"', 'file', 'file', $this->item->audiofile, 'jform_audiofile_choice');
+		$this->video_files	= JHTML::_('select.genericlist', $videos, 'jform[videofile]', 'disabled="disabled"', 'file', 'file', $this->item->videofile, 'jform_videofile_choice');
 		$this->addfiles = JHTML::_('select.genericlist', $addfiles, 'jform[addfile]', 'disabled="disabled"', 'file', 'file', $this->item->addfile, 'jform_addfile_choice');
 
 		// Check for errors.

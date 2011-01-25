@@ -7,7 +7,7 @@ $player = SermonspeakerHelperSermonspeaker::insertPlayer($this->lnk, $this->item
 <div id="ss-sermon-container">
 <h1 class="componentheading"><?php echo JText::_('COM_SERMONSPEAKER_SERMON_TITLE'); ?></h1>
 <!-- Begin Data -->
-<?php if ($this->params->get('hide_dl') == "0" && strlen($this->item->sermon_path) > 0) :
+<?php if ($this->params->get('hide_dl') == "0" && strlen($this->item->audiofile) > 0) :
 	echo '<h3 class="contentheading"><a title="'.JText::_('COM_SERMONSPEAKER_DIRECTLINK_HOOVER').'" href="'.$this->lnk."\">".$this->item->sermon_title.'</a></h3>';
 else :
 	echo '<h3 class="contentheading">'.$this->item->sermon_title.'</h3>';
@@ -17,7 +17,7 @@ endif; ?>
 		<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_SCRIPTURE'); ?>:</div>
 		<div class="ss-sermondetail-text"><?php echo $this->item->sermon_scripture; ?></div>
 	<?php endif;
-	if (in_array('sermon:player', $this->columns) && strlen($this->item->sermon_path) > 0) : ?>
+	if (in_array('sermon:player', $this->columns) && strlen($this->item->audiofile) > 0) : ?>
 		<div class="ss-sermondetail-label"></div>
 		<div class="ss-sermondetail-text ss-sermon-player">
 			<?php 
@@ -27,11 +27,11 @@ endif; ?>
 		</div>
 	<?php endif;
 	$this->lnk = str_replace('\\','/',$this->lnk);
-	if ($this->params->get('dl_button') == "1" && strlen($this->item->sermon_path) > 0) : ?>
+	if ($this->params->get('dl_button') == "1" && strlen($this->item->audiofile) > 0) : ?>
 		<div class="ss-sermondetail-label"></div>
-		<div class="ss-sermondetail-text"><?php echo SermonspeakerHelperSermonspeaker::insertdlbutton($this->item->id, $this->item->sermon_path); ?></div>
+		<div class="ss-sermondetail-text"><?php echo SermonspeakerHelperSermonspeaker::insertdlbutton($this->item->id, $this->item->audiofile); ?></div>
 	<?php endif;
-	if ($this->params->get('popup_player') == "1" && strlen($this->item->sermon_path) > 0) : ?>
+	if ($this->params->get('popup_player') == "1" && strlen($this->item->audiofile) > 0) : ?>
 		<div class="ss-sermondetail-label"></div>
 		<div class="ss-sermondetail-text"><?php echo SermonspeakerHelperSermonspeaker::insertPopupButton($this->item->id, $player); ?></div>
 	<?php endif;

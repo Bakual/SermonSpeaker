@@ -103,7 +103,7 @@ class SermonspeakerHelperSermonspeaker
 			$player = JURI::root().'components/com_sermonspeaker/media/player/jwplayer/player.swf';
 			
 			foreach ($lnk as $item){
-				$entry = 'file: "'.SermonspeakerHelperSermonspeaker::makelink($item->sermon_path).'"';
+				$entry = 'file: "'.SermonspeakerHelperSermonspeaker::makelink($item->audiofile).'"';
 				$entry .= ', title: "'.$item->sermon_title.'"';
 				if ($item->sermon_time){
 					$time_arr = explode(':', $item->sermon_time);

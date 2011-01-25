@@ -40,9 +40,13 @@
 			label="JFIELD_ORDERING_LABEL"
 			description="JFIELD_ORDERING_DESC" />
 
-		<field name="sermon_path" type="text" class="inputbox"
+		<field name="audiofile" type="text" class="inputbox"
 			size="100" 
-			label="COM_SERMONSPEAKER_FIELD_SERMONPATH_LABEL" />
+			label="COM_SERMONSPEAKER_FIELD_AUDIOFILE_LABEL" />
+
+		<field name="videofile" type="text" class="inputbox"
+			size="100" 
+			label="COM_SERMONSPEAKER_FIELD_VIDEOFILE_LABEL" />
 
 		<field name="notes" type="editor" buttons="true" hide="pagebreak,readmore"
 			class="inputbox"

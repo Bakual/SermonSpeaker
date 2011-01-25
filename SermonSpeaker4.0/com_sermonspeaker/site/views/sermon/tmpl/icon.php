@@ -32,8 +32,8 @@ $player = SermonspeakerHelperSermonspeaker::insertPlayer($this->lnk, $this->item
 				<?php endif;
 				if ($this->params->get('dl_button')) :
 					//Check if link targets to an external source
-					if (substr($this->item->sermon_path, 0, 7) == 'http://') : //File is external
-						$fileurl = $this->item->sermon_path;
+					if (substr($this->item->audiofile, 0, 7) == 'http://') : //File is external
+						$fileurl = $this->item->audiofile;
 					else : //File is locally 
 						$fileurl = JURI::root().'index.php?option=com_sermonspeaker&amp;task=download&amp;id='.$this->item->id;
 					endif; ?>

@@ -43,7 +43,7 @@ class SermonspeakerModelFeed extends JModel
 
 		$query = "SET character_set_results ='utf8';";
 		$database->setQuery($query);
-		$query = "SELECT sermons.sermon_date, sermons.sermon_title, sermons.sermon_path, series.series_title, \n"
+		$query = "SELECT sermons.sermon_date, sermons.sermon_title, sermons.audiofile, sermons.videofile, series.series_title, \n"
 				."sermons.notes, sermons.sermon_time, sermons.sermon_scripture, speakers.name, sermons.id \n"
 				."FROM #__sermon_sermons AS sermons \n"
 				."LEFT JOIN  #__sermon_speakers AS speakers ON sermons.speaker_id = speakers.id \n"

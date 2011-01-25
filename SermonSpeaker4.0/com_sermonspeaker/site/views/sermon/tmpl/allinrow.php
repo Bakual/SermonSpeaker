@@ -8,7 +8,7 @@ $player = SermonspeakerHelperSermonspeaker::insertPlayer($this->lnk, $this->item
 <h1 class="componentheading"><?php echo JText::_('COM_SERMONSPEAKER_SERMON_TITLE'); ?></h1>
 <!-- Begin Header -->
 <h3 class="contentheading">
-<?php if ($this->params->get('hide_dl') == "0" && strlen($this->item->sermon_path) > 0) : ?>
+<?php if ($this->params->get('hide_dl') == "0" && strlen($this->item->audiofile) > 0) : ?>
 	<a title='<?php echo JText::_('COM_SERMONSPEAKER_DIRECTLINK_HOOVER'); ?>' href='<?php echo $this->lnk; ?>'><?php echo $this->item->sermon_title; ?></a>
 <?php else :
 	echo $this->item->sermon_title;
@@ -25,7 +25,7 @@ endif; ?>
 		if (in_array('sermon:addfile', $this->columns) && $this->item->addfile) : ?>
 			<th align="left" valign="bottom"><?php echo JText::_('COM_SERMONSPEAKER_ADDFILE'); ?></th>
 		<?php endif;
-		if (in_array('sermon:player', $this->columns) && strlen($this->item->sermon_path) > 0) : ?>
+		if (in_array('sermon:player', $this->columns) && strlen($this->item->audiofile) > 0) : ?>
 			<th align="left" valign="bottom"><?php echo JText::_('COM_SERMONSPEAKER_SERMON_PLAYER'); ?></th>
 		<?php endif; ?>
 	</tr> 
@@ -40,7 +40,7 @@ endif; ?>
 		if (in_array('sermon:addfile', $this->columns) && $this->item->addfile) : ?>
 			<td align="left" valign="top"><?php echo SermonspeakerHelperSermonspeaker::insertAddfile($this->item->addfile, $this->item->addfileDesc); ?></td>
 		<?php endif;
-		if (in_array('sermon:player', $this->columns) && strlen($this->item->sermon_path) > 0) : ?> 
+		if (in_array('sermon:player', $this->columns) && strlen($this->item->audiofile) > 0) : ?> 
 			<td align="center" valign="top">
 				<?php 
 				echo $player['mspace'];
@@ -51,12 +51,12 @@ endif; ?>
 	</tr>
 </table>
 <div style="float:left;">
-	<?php if ($this->params->get('dl_button') == "1" && strlen($this->item->sermon_path) > 0) :
-		echo SermonspeakerHelperSermonspeaker::insertdlbutton($this->item->id, $this->item->sermon_path);
+	<?php if ($this->params->get('dl_button') == "1" && strlen($this->item->audiofile) > 0) :
+		echo SermonspeakerHelperSermonspeaker::insertdlbutton($this->item->id, $this->item->audiofile);
 	endif; ?>
 </div>
 <div style="float:right;">
-	<?php if ($this->params->get('popup_player') == "1" && strlen($this->item->sermon_path) > 0) :
+	<?php if ($this->params->get('popup_player') == "1" && strlen($this->item->audiofile) > 0) :
 		echo SermonspeakerHelperSermonspeaker::insertPopupButton($this->item->id, $player);
 	endif; ?>
 </div>
