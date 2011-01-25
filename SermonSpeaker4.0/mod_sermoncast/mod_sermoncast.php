@@ -9,8 +9,6 @@ $cat['speaker']	= (int)$params->get('sc_speaker_cat');
 $cat['sermon'] 	= (int)$params->get('sc_sermon_cat');
 $series			= (int)$params->get('series_id');
 $menuitem		= (int)$params->get('sc_menuitem');
-$otherlink 		= $params->get('sc_otherlink');
-$otherimage 	= $params->get('sc_otherimage');
 
 $options = '';
 if ($cat['series']){
@@ -36,6 +34,7 @@ $feedFile = JURI::root().'index.php?option=com_sermonspeaker&amp;view=feed&amp;f
 <p><?php echo $params->get('sc_introtext'); ?></p>
 <?php
 if($params->get('sc_showpcast')) {
+	$otherlink = $params->get('sc_otherlink');
 	if($otherlink) {
 		$link = $otherlink;
 	} else {
@@ -43,6 +42,7 @@ if($params->get('sc_showpcast')) {
 		$u->setScheme($params->get('sc_pcast_prefix'));
 		$link = $u->toString();
 	}
+	$otherimage = $params->get('sc_otherimage');
 	if($otherimage) {
 		$img = '<img src="'.$otherimage.'" border="0" alt="Podcast"/>';
 	} else {
