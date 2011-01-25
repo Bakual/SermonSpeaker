@@ -113,6 +113,9 @@ class SermonspeakerHelperSermonspeaker
 				if ($temp_item->sermon_date){
 					$entry .= ', description: "'.JHTML::date($temp_item->sermon_date, JText::_($this->params->get('date_format'))).'"';
 				}
+				if ($temp_item->picture){
+					$entry .= ', image: "'.SermonspeakerHelperSermonspeaker::makelink($temp_item->picture).'"';
+				}
 				$entries[] = '{'.$entry.'}';
 			}
 			$playlist = implode(',', $entries);
