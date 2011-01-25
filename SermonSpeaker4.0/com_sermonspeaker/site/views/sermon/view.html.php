@@ -59,7 +59,10 @@ class SermonspeakerViewSermon extends JView
 		$model = &$this->getModel();
 		if ($item->speaker_id) {
 			$speaker = &$model->getSpeaker($item->speaker_id);	// getting the Speaker from the Model
-			$this->assignRef('speaker',		$speaker);
+		} else {
+			$speaker->name = '';
+			$speaker->id = 0;
+			$speaker->pic = '';
 		}
 		if ($item->series_id) {
 			$serie	= &$model->getSerie($item->series_id);		// getting the Serie from the Model
@@ -117,6 +120,7 @@ class SermonspeakerViewSermon extends JView
 		$this->assignRef('user', 		$user);
 		$this->assignRef('lnk', 		$lnk);
 		$this->assignRef('columns', 	$columns);
+		$this->assignRef('speaker',		$speaker);
 
 		$this->_prepareDocument();
 

@@ -17,7 +17,7 @@ class SermonspeakerHelperSermonspeaker
 			$html = '<a class="modal" href="'.JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($id).'&layout=popup&tmpl=component').'" rel="{handler: \'iframe\', size: {x: 700, y: 500}}">';
 			$html .= JHTML::tooltip('<img src="'.$pic.'" alt="'.$name.'">',$name,'',$name).'</a>';
 		} else {
-			$html = '';
+			$html = JText::_('COM_SERMONSPEAKER_NO_SPEAKER');
 		}
 
 		return $html;
