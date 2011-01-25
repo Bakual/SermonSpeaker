@@ -18,7 +18,7 @@ JFormHelper::loadFieldClass('list');
  * @package		SermonSpeaker
  * @since		4.0
  */
-class JFormFieldAvatarlist extends JFormFieldList
+class JFormFieldSpeakerpic extends JFormFieldList
 {
 	/**
 	 * The form field type.
@@ -26,7 +26,7 @@ class JFormFieldAvatarlist extends JFormFieldList
 	 * @var		string
 	 * @since	1.6
 	 */
-	protected $type = 'Avatarlist';
+	protected $type = 'Sermonpic';
 
 	/**
 	 * Method to get the field options.
@@ -36,9 +36,9 @@ class JFormFieldAvatarlist extends JFormFieldList
 	 */
 	public function getInput()
 	{
-		// getting the files with extension $filters from $path and its subdirectories for avatars
+		// getting the files with extension $filters from $path and its subdirectories for images
 		$params	=& JComponentHelper::getParams('com_sermonspeaker');
-		$path = JPATH_ROOT.DS.$params->get('path_avatar');
+		$path = JPATH_ROOT.DS.$params->get('path_speakerpic');
 		$filters = array('.jpg','.gif','.png','.bmp');
 		$filesabs = array();
 		foreach($filters as $filter) {
@@ -48,15 +48,15 @@ class JFormFieldAvatarlist extends JFormFieldList
 		// changing the filepaths relativ to the joomla root
 		$root = JPATH_ROOT;
 		$lsdir = strlen($root);
-		$avatars = array();
-		$avatars[0]->name = JText::_('JOPTION_SELECT_IMAGE');
-		$avatars[0]->file = '';
+		$images = array();
+		$images[0]->name = JText::_('JOPTION_SELECT_IMAGE');
+		$images[0]->file = '';
 		$i = 1;
 		foreach($filesabs as $file){
-			$avatars[$i]->name = trim(strrchr($file,DS),DS);
-			$avatars[$i]->file = str_replace('\\','/',substr($file,$lsdir));
+			$images[$i]->name = trim(strrchr($file,DS),DS);
+			$images[$i]->file = str_replace('\\','/',substr($file,$lsdir));
 			$i++;
 		}
-		return JHTML::_('select.genericlist', $avatars, 'jform[avatar]', '', 'file', 'name', $this->value, 'jform_avatar');
+		return JHTML::_('select.genericlist', $images, 'jform[pic]', '', 'file', 'name', $this->value, 'jform_pic');
 	}
 }

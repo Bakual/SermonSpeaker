@@ -68,7 +68,7 @@
 			description="COM_SERMONSPEAKER_FIELD_WEBSITE_DESC"
 			size="40" />
 
-		<field name="pic" type="text" class="inputbox"
+		<field name="pic" type="speakerpic" class="inputbox"
 			label="COM_SERMONSPEAKER_FIELD_PICTURE_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_PICTURE_DESC"
 			size="40" />
