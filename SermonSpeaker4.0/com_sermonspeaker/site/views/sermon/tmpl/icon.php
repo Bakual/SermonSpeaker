@@ -106,7 +106,7 @@ if ($keywords[0]): ?>
 		echo $html; ?>
 	</div>
 <?php endif;
-if ($this->item->hits) : ?>
+if (in_array('sermon:hits', $this->columns) && $this->item->hits) : ?>
 	<div class="hits" title="<?php echo JText::_('JGLOBAL_HITS'); ?>">
 		<?php echo JText::_('JGLOBAL_HITS').': '.$this->item->hits; ?>
 	</div>

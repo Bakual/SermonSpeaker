@@ -148,6 +148,7 @@ class JFormFieldColumns extends JFormField
 			'player' => 'COM_SERMONSPEAKER_FIELD_COL_PLAYER',
 			'custom1' => 'COM_SERMONSPEAKER_FIELD_CUSTOM1',
 			'custom2' => 'COM_SERMONSPEAKER_FIELD_CUSTOM2'
+			'hits' => 'COM_SERMONSPEAKER_FIELD_HITS'
 		);
 		reset($columns);
 		

@@ -111,12 +111,12 @@
 		<field name="col" type="columns"
 			label="COM_SERMONSPEAKER_FIELD_COL_LABEL" 
 			description="COM_SERMONSPEAKER_FIELD_COL_DESC">
-			<option value="sermons" exclude="player,notes,custom1,custom2">Sermons List</option>
+			<option value="sermons" exclude="player,notes,custom1,custom2,hits">Sermons List</option>
 			<option value="sermon">Single Sermon</option>
-			<option value="serie" exclude="series,notes,custom1,custom2">Single Series</option>
-			<option value="speaker" exclude="speaker,player,notes,custom1,custom2">Single Speaker (Latest Sermons)</option>
-			<option value="archive" exclude="player,notes,custom1,custom2">Sermons Archive List</option>
-			<option value="seriessermon" exclude="num,scripture,speaker,length,series,custom1,custom2">Series/Sermons</option>
+			<option value="serie" exclude="series,notes,custom1,custom2,hits">Single Series</option>
+			<option value="speaker" exclude="speaker,player,notes,custom1,custom2,hits">Single Speaker (Latest Sermons)</option>
+			<option value="archive" exclude="player,notes,custom1,custom2,hits">Sermons Archive List</option>
+			<option value="seriessermon" exclude="num,scripture,speaker,length,series,custom1,custom2,hits">Series/Sermons</option>
 		</field>
 		<field name="dl_button" 
 			type="radio" 
