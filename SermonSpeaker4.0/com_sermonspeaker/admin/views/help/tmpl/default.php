@@ -4,7 +4,7 @@ defined('_JEXEC') or die('Restricted access');
 JHTML::_('behavior.tooltip');
 ?>
 
-<h1>SermonSpeaker 4.0</h1>
+<h1>SermonSpeaker 4.1</h1>
 <h2>Support</h2>
 <div>If you need help with SermonSpeaker, the following links may be helpful for you:
 	<ul>
