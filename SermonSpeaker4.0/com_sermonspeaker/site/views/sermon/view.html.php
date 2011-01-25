@@ -70,7 +70,7 @@ class SermonspeakerViewSermon extends JView
 		}
 
 		//Check if link targets to an external source
-		if {$params->get('fileprio')){
+		if ($params->get('fileprio')){
 			$lnk = SermonspeakerHelperSermonspeaker::makelink($item->videofile);
 		} else {
 			$lnk = SermonspeakerHelperSermonspeaker::makelink($item->audiofile);

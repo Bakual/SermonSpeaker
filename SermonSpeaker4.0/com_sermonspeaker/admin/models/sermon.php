@@ -157,7 +157,11 @@ class SermonspeakerModelSermon extends JModelAdmin
 
 		// Reading ID3 Tags if the Lookup Button was pressed
 		if ($id3_file = JRequest::getString('file')){
-			$data->audiofile = $id3_file;
+			if (JRequest::getCmd('type') == 'video'){
+				$data->videofile = $id3_file;
+			} else {
+				$data->audiofile = $id3_file;
+			}
 			require_once JPATH_COMPONENT_SITE.DS.'helpers'.DS.'id3.php';
 			$params = JComponentHelper::getParams('com_sermonspeaker');
 
