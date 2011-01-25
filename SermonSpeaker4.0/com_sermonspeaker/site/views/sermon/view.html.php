@@ -56,9 +56,12 @@ class SermonspeakerViewSermon extends JView
 			return;
 		}
 
-		$model		= &$this->getModel();
-		$speaker	= &$model->getSpeaker($item->speaker_id);	// getting the Speaker from the Model
-		if (in_array('sermon:series', $columns)) {
+		$model = &$this->getModel();
+		if ($item->speaker_id) {
+			$speaker = &$model->getSpeaker($item->speaker_id);	// getting the Speaker from the Model
+			$this->assignRef('speaker',		$speaker);
+		}
+		if ($item->series_id) {
 			$serie	= &$model->getSerie($item->series_id);		// getting the Serie from the Model
 			$this->assignRef('serie', $serie);
 		}
@@ -78,12 +81,8 @@ class SermonspeakerViewSermon extends JView
 		// add Breadcrumbs
 		$breadcrumbs	= $app->getPathWay();
 		if ($menu_view == 'series') {
-			$model		= &$this->getModel();
-			$serie		= &$model->getSerie($item->series_id);		// getting the Serie from the Model
 	    	$breadcrumbs->addItem($serie->series_title, JRoute::_(SermonspeakerHelperRoute::getSerieRoute($serie->slug)));
 		} elseif ($menu_view == 'speakers') {
-			$model		= &$this->getModel();
-			$speaker	= &$model->getSpeaker($item->speaker_id);	// getting the Speaker from the Model
 	    	$breadcrumbs->addItem($speaker->name, JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($speaker->slug)));
 		}
     	$breadcrumbs->addItem($item->sermon_title, '');
@@ -118,7 +117,6 @@ class SermonspeakerViewSermon extends JView
 		$this->assignRef('user', 		$user);
 		$this->assignRef('lnk', 		$lnk);
 		$this->assignRef('columns', 	$columns);
-		$this->assignRef('speaker',		$speaker);
 
 		$this->_prepareDocument();
 

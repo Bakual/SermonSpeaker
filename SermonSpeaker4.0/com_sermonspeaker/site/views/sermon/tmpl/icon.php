@@ -2,8 +2,10 @@
 defined('_JEXEC') or die('Restricted access');
 JHTML::_('behavior.tooltip');
 JHTML::_('behavior.modal');
-
-$player = SermonspeakerHelperSermonspeaker::insertPlayer($this->lnk, $this->item->sermon_time, 1, $this->item->sermon_title, $this->speaker->name);
+if ($this->speaker->name) : $name = $this->speaker->name;
+else : $name = '';
+endif;
+$player = SermonspeakerHelperSermonspeaker::insertPlayer($this->lnk, $this->item->sermon_time, 1, $this->item->sermon_title, $name);
 ?>
 <div id="sermon-container">
 	<h1 class="componentheading">
