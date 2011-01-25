@@ -2,7 +2,7 @@
 defined('_JEXEC') or die('Restricted access');
 JHTML::_('behavior.tooltip');
 JHTML::_('behavior.modal');
-if ($this->speaker->name) : $name = $this->speaker->name;
+if (isset($this->speaker)) : $name = $this->speaker->name;
 else : $name = '';
 endif;
 $player = SermonspeakerHelperSermonspeaker::insertPlayer($this->lnk, $this->item->sermon_time, 1, $this->item->sermon_title, $name);
