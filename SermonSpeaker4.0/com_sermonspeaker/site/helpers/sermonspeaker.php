@@ -88,7 +88,7 @@ class SermonspeakerHelperSermonspeaker
 		return $html;
 	}
 	
-	function insertPlayer($lnk, $time = NULL, $count = '1', $title = NULL, $artist = NULL) {
+	function insertPlayer($item, $artist = '', $count = '1') {
 		$app		= JFactory::getApplication();
 		$params		= $app->getParams();
 
@@ -98,20 +98,20 @@ class SermonspeakerHelperSermonspeaker
 		} else {
 			$start[0]='false'; $start[1]='0'; $start[2]='no';
 		}
-		if(is_array($lnk)){
+		if($view == 'series'){
 			// Playlist
 			$player = JURI::root().'components/com_sermonspeaker/media/player/jwplayer/player.swf';
 			
-			foreach ($lnk as $item){
-				$entry = 'file: "'.SermonspeakerHelperSermonspeaker::makelink($item->audiofile).'"';
-				$entry .= ', title: "'.$item->sermon_title.'"';
-				if ($item->sermon_time){
-					$time_arr = explode(':', $item->sermon_time);
+			foreach ($item as $temp_item){
+				$entry = 'file: "'.SermonspeakerHelperSermonspeaker::makelink($temp_item->audiofile).'"';
+				$entry .= ', title: "'.$temp_item->sermon_title.'"';
+				if ($temp_item->sermon_time){
+					$time_arr = explode(':', $temp_item->sermon_time);
 					$seconds = ($time_arr[0] * 3600) + ($time_arr[1] * 60) + $time_arr[2];
 					$entry .= ', duration: '.$seconds;
 				}
-				if ($item->sermon_date){
-					$entry .= ', description: "'.JHTML::date($item->sermon_date, JText::_($this->params->get('date_format'))).'"';
+				if ($temp_item->sermon_date){
+					$entry .= ', description: "'.JHTML::date($temp_item->sermon_date, JText::_($this->params->get('date_format'))).'"';
 				}
 				$entries[] = '{'.$entry.'}';
 			}
@@ -135,7 +135,12 @@ class SermonspeakerHelperSermonspeaker
 			$return['width']  = '380';
 		} else {
 			// Single File
-
+			// Define link (audio or video)
+			if ($params->get('fileprio'){
+				$lnk = $item->videofile;
+			} else {
+				$lnk = $item->audiofile;
+			}
 			// Get extension of file
 			jimport('joomla.filesystem.file');
 			$ext = JFile::getExt($lnk);
@@ -143,16 +148,16 @@ class SermonspeakerHelperSermonspeaker
 			if ($params->get('alt_player') && ($ext == 'mp3')){
 				$player = JURI::root().'components/com_sermonspeaker/media/player/audio_player/player.swf';
 				$options = NULL;
-				if ($title){
-					$options = 'titles: "'.$title.'",';
+				if ($item->sermon_title){
+					$options = 'titles: "'.$item->sermon_title.'",';
 				}
 				if ($artist){
 					$options .= 'artists: "'.$artist.'",';
 				}
 			} else {
 				$player = JURI::root().'components/com_sermonspeaker/media/player/jwplayer/player.swf';
-				if ($time){
-					$time_arr = explode(':', $time);
+				if ($item->sermon_time){
+					$time_arr = explode(':', $item->sermon_time);
 					$seconds = ($time_arr[0] * 3600) + ($time_arr[1] * 60) + $time_arr[2];
 					$duration = '	  duration: '.$seconds.',';
 				} else {

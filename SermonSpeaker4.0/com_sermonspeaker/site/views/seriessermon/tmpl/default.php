@@ -54,7 +54,7 @@ $listDirn	= $this->state->get('list.direction');
 				endif;
 				$lnk = SermonspeakerHelperSermonspeaker::makelink($sermon->audiofile); 
 				if (in_array('seriessermon:player', $this->columns)):
-					$player = SermonspeakerHelperSermonspeaker::insertPlayer($lnk, $sermon->sermon_time, $count, $sermon->sermon_title);
+					$player = SermonspeakerHelperSermonspeaker::insertPlayer($sermon, '', $count);
 					echo $player['mspace'];
 					echo $player['script'];
 				else :

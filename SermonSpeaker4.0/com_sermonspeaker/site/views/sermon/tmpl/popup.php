@@ -3,7 +3,7 @@ defined('_JEXEC') or die('Restricted access');
 if ($this->params->get('popup_color')) :
 	$bgcolor = 'background-color:#'.$this->params->get('popup_color').';';
 endif;
-$player = SermonspeakerHelperSermonspeaker::insertPlayer($this->lnk, $this->item->sermon_time, 1, $this->item->sermon_title, $this->speaker->name);
+$player = SermonspeakerHelperSermonspeaker::insertPlayer($this->item, $this->speaker->name);
 ?>
 <body style="<?php echo $bgcolor; ?>">
 <div class="popup">
