@@ -98,7 +98,7 @@ class SermonspeakerHelperSermonspeaker
 		} else {
 			$start[0]='false'; $start[1]='0'; $start[2]='no';
 		}
-		if($view == 'series'){
+		if($view == 'serie'){
 			// Playlist
 			$player = JURI::root().'components/com_sermonspeaker/media/player/jwplayer/player.swf';
 			
@@ -136,10 +136,10 @@ class SermonspeakerHelperSermonspeaker
 		} else {
 			// Single File
 			// Define link (audio or video)
-			if ($params->get('fileprio'){
-				$lnk = $item->videofile;
+			if ($params->get('fileprio')){
+				$lnk = SermonspeakerHelperSermonspeaker::makelink($item->videofile);
 			} else {
-				$lnk = $item->audiofile;
+				$lnk = SermonspeakerHelperSermonspeaker::makelink($item->audiofile);
 			}
 			// Get extension of file
 			jimport('joomla.filesystem.file');
