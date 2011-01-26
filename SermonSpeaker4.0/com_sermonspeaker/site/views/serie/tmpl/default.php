@@ -21,13 +21,13 @@ $listDirn	= $this->state->get('list.direction');
 </div>
 <?php if (in_array('serie:player', $this->columns) && count($this->items)) : ?>
 	<div class="ss-serie-player">
-		<hr class="ss-serie-player">
+		<hr class="ss-serie-player" />
 	<?php
 	$player = SermonspeakerHelperSermonspeaker::insertPlayer($this->items);
 	echo $player['mspace'];
 	echo $player['script'];
 	?>
-		<hr class="ss-serie-player">
+		<hr class="ss-serie-player" />
 	</div>
 <?php endif; ?>
 <?php if (empty($this->items)) : ?>

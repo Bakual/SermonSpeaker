@@ -51,7 +51,7 @@ if ($this->speaker->website && $this->speaker->website != "http://") : ?>
 			<th class="ss-col">
 				<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SERIESDESCRIPTION', 'series_description', $listDirn, $listOrder); ?>
 			</th>
-		</tr><thead>
+		</tr></thead>
 	<!-- Begin Data -->
 		<tbody>
 			<?php foreach($this->items as $i => $item) : ?>

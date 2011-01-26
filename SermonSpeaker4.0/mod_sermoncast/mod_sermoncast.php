@@ -15,16 +15,16 @@ if ($cat['series']){
 	$options .= '&series_cat='.$cat['series'];
 }
 if ($cat['speaker']){
-	$options .= '&speaker_cat='.$cat['speaker'];
+	$options .= '&amp;speaker_cat='.$cat['speaker'];
 }
 if ($cat['sermon']){
-	$options .= '&sermon_cat='.$cat['sermon'];
+	$options .= '&amp;sermon_cat='.$cat['sermon'];
 }
 if ($series){
-	$options .= '&series_id='.$series;
+	$options .= '&amp;series_id='.$series;
 }
 if ($menuitem){
-	$options .= '&Itemid='.$menuitem;
+	$options .= '&amp;Itemid='.$menuitem;
 }
 
 $feedFile = JURI::root().'index.php?option=com_sermonspeaker&amp;view=feed&amp;format=raw'.$options;

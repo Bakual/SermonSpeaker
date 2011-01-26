@@ -15,13 +15,13 @@ $limit 		= (int)$this->params->get('limit', '');
 <h1 class="componentheading"><?php echo JText::_('COM_SERMONSPEAKER_SERMONS_TITLE').$this->cat; ?></h1>
 <?php if (in_array('sermons:player', $this->columns) && count($this->items)) : ?>
 	<div class="ss-sermons-player">
-		<hr class="ss-sermons-player">
+		<hr class="ss-sermons-player" />
 	<?php
 	$player = SermonspeakerHelperSermonspeaker::insertPlayer($this->items);
 	echo $player['mspace'];
 	echo $player['script'];
 	?>
-		<hr class="ss-sermons-player">
+		<hr class="ss-sermons-player" />
 	</div>
 <?php endif; ?>
 <?php if (empty($this->items)) : ?>

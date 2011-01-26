@@ -30,13 +30,13 @@ $listDirn	= $this->state->get('list.direction');
 </div>
 <?php if (in_array('speaker:player', $this->columns) && count($this->items)) : ?>
 	<div class="ss-speaker-player">
-		<hr class="ss-speaker-player">
+		<hr class="ss-speaker-player" />
 	<?php
 	$player = SermonspeakerHelperSermonspeaker::insertPlayer($this->items);
 	echo $player['mspace'];
 	echo $player['script'];
 	?>
-		<hr class="ss-speaker-player">
+		<hr class="ss-speaker-player" />
 	</div>
 <?php endif; ?>
 <!-- Begin Data - Sermons -->

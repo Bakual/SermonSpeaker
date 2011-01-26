@@ -66,12 +66,6 @@ $listDirn	= $this->state->get('list.direction');
 		<br style="clear:both;" />
 		<hr size="2" width="100%" />
 		<?php endforeach; ?>
-	<br />
-	<div class="Pages">
-		<div class="Paginator">
-			<?php echo $this->pagination->getListFooter(); ?><br />
-		</div>
-	</div>
 </form>
 <?php endif; ?>
 </div>

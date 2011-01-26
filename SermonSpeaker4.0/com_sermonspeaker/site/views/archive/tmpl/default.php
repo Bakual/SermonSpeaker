@@ -14,13 +14,13 @@ $listDirn	= $this->state->get('list.direction');
 <h1 class="componentheading"><?php echo $this->title; ?></h1>
 <?php if (in_array('archive:player', $this->columns) && count($this->items)) : ?>
 	<div class="ss-archive-player">
-		<hr class="ss-archive-player">
+		<hr class="ss-archive-player" />
 	<?php
 	$player = SermonspeakerHelperSermonspeaker::insertPlayer($this->items);
 	echo $player['mspace'];
 	echo $player['script'];
 	?>
-		<hr class="ss-archive-player">
+		<hr class="ss-archive-player" />
 	</div>
 <?php endif; ?>
 <?php if (empty($this->items)) :?>
