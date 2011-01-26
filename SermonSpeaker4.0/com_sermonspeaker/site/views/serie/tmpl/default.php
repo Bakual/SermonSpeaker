@@ -21,7 +21,6 @@ $listDirn	= $this->state->get('list.direction');
 	</span>
 	<?php echo $this->serie->series_description; ?>
 </div>
-<br />
 <?php if (in_array('serie:player', $this->columns) && count($this->items)) : ?>
 	<div class="ss-serie-player">
 		<hr class="ss-serie-player">
@@ -38,19 +37,17 @@ $listDirn	= $this->state->get('list.direction');
 <?php else : ?>
 
 <form action="<?php echo JFilterOutput::ampReplace(JFactory::getURI()->toString()); ?>" method="post" id="adminForm" name="adminForm">
-	<fieldset class="filters">
-	<legend class="hidelabeltxt"><?php echo JText::_('JGLOBAL_FILTER_LABEL'); ?></legend>
-		<div class="display-limit">
-			<?php echo JText::_('JGLOBAL_DISPLAY_NUM'); ?>&#160;
-			<?php echo $this->pagination->getLimitBox(); ?>
-		</div>
-	</fieldset>
-
-	<table class="adminlist" cellpadding="2" cellspacing="2" width="100%">
+	<?php if ($this->params->get('show_pagination_limit')) : ?>
+	<div class="display-limit">
+		<?php echo JText::_('JGLOBAL_DISPLAY_NUM'); ?>&#160;
+		<?php echo $this->pagination->getLimitBox(); ?>
+	</div>
+	<?php endif; ?>
+	<table class="category">
 	<!-- Create the headers with sorting links -->
 		<thead><tr>
 			<?php if (in_array('serie:num', $this->columns)) : ?>
-				<th class="ss-num">
+				<th class="num">
 					<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SERMONNUMBER', 'sermon_number', $listDirn, $listOrder); ?>
 				</th>
 			<?php endif; ?>
@@ -88,7 +85,7 @@ $listDirn	= $this->state->get('list.direction');
 			<?php foreach($this->items as $i => $item) : ?>
 				<tr class="<?php echo ($i % 2) ? "odd" : "even"; ?>">
 					<?php if (in_array('serie:num', $this->columns)) : ?>
-						<td class="ss-num">
+						<td class="num">
 							<?php echo $item->sermon_number; ?>
 						</td>
 					<?php endif; ?>
@@ -129,12 +126,17 @@ $listDirn	= $this->state->get('list.direction');
 			<?php endforeach; ?>
 		</tbody>
 	</table>
+	<?php if (($this->params->def('show_pagination', 2) == 1  || ($this->params->get('show_pagination') == 2)) && ($this->pagination->get('pages.total') > 1)) : ?>
 	<div class="pagination">
-		<p class="counter">
-			<?php echo $this->pagination->getPagesCounter(); ?>
-		</p>
+		<?php if ($this->params->def('show_pagination_results', 1)) : ?>
+		 	<p class="counter">
+				<?php echo $this->pagination->getPagesCounter(); ?>
+			</p>
+		<?php endif; ?>
+
 		<?php echo $this->pagination->getPagesLinks(); ?>
 	</div>
+	<?php endif; ?>
 	<div>
 		<input type="hidden" name="filter_order" value="<?php echo $listOrder; ?>" />
 		<input type="hidden" name="filter_order_Dir" value="<?php echo $listDirn; ?>" />

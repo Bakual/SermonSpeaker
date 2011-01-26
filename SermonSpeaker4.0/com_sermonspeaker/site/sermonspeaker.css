@@ -55,22 +55,12 @@ margin-top:10px;
 margin-bottom:10px;
 }
 
-.ss-serie-player{
+.ss-serie-player, .ss-sermons-player{
 text-align: center;
+margin-bottom:10px;
 }
 
-hr.ss-serie-player{
-margin: auto;
-width: 80%; 
-height: 1px; 
-text-align: center;
-}
-
-.ss-sermons-player{
-text-align: center;
-}
-
-hr.ss-sermons-player{
+hr.ss-serie-player, hr.ss-sermons-player{
 margin: auto;
 width: 80%; 
 height: 1px; 

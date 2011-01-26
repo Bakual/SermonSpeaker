@@ -15,7 +15,7 @@ $listDirn	= $this->state->get('list.direction');
 
 <?php if($this->speaker->pic) : ?>
 	<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($this->speaker->slug)); ?>">
-		<img class="speaker" src="<?php echo $this->speaker->pic; ?>" title="<?php echo $this->speaker->name; ?>" alt="<?php echo $this->speaker->name; ?>" />
+		<img class="speaker" src="<?php echo SermonspeakerHelperSermonspeaker::makelink($this->speaker->pic); ?>" title="<?php echo $this->speaker->name; ?>" alt="<?php echo $this->speaker->name; ?>" />
 	</a>
 <?php endif;
 if ($this->speaker->bio || ($this->speaker->intro && $this->params->get('speaker_intro'))) : ?>
@@ -23,26 +23,23 @@ if ($this->speaker->bio || ($this->speaker->intro && $this->params->get('speaker
 	<?php
 	echo $this->speaker->intro;
 	echo $this->speaker->bio; ?>
-	</p>
 <?php endif;
 if ($this->speaker->website && $this->speaker->website != "http://") : ?>
 	<a href="<?php echo $this->speaker->website; ?>" target="_blank" title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKER_WEBLINK_HOOVER'); ?>"><?php echo JText::sprintf('COM_SERMONSPEAKER_SPEAKER_WEBLINK', $this->speaker->name); ?></a>
 <?php endif; ?>
-<br style="clear:both" />
+<div></div>
 <!-- Begin Data - Sermons -->
 <?php if (empty($this->items)) : ?>
 	<div class="no_entries"><?php echo JText::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', JText::_('COM_SERMONSPEAKER_SERMONS')); ?></div>
 <?php else : ?>
 <form action="<?php echo JFilterOutput::ampReplace(JFactory::getURI()->toString()); ?>" method="post" id="adminForm" name="adminForm">
-	<fieldset class="filters">
-	<legend class="hidelabeltxt"><?php echo JText::_('JGLOBAL_FILTER_LABEL'); ?></legend>
-		<div class="display-limit">
-			<?php echo JText::_('JGLOBAL_DISPLAY_NUM'); ?>&#160;
-			<?php echo $this->pagination->getLimitBox(); ?>
-		</div>
-	</fieldset>
-
-	<table class="adminlist" cellpadding="2" cellspacing="2" width="100%">
+	<?php if ($this->params->get('show_pagination_limit')) : ?>
+	<div class="display-limit">
+		<?php echo JText::_('JGLOBAL_DISPLAY_NUM'); ?>&#160;
+		<?php echo $this->pagination->getLimitBox(); ?>
+	</div>
+	<?php endif; ?>
+	<table class="category">
 	<!-- Tabellenkopf mit Sortierlinks erstellen -->
 		<thead><tr>
 			<?php if ($this->av > 0) : ?>
@@ -72,12 +69,17 @@ if ($this->speaker->website && $this->speaker->website != "http://") : ?>
 			<?php endforeach; ?>
 		</tbody>
 	</table>
+	<?php if (($this->params->def('show_pagination', 2) == 1  || ($this->params->get('show_pagination') == 2)) && ($this->pagination->get('pages.total') > 1)) : ?>
 	<div class="pagination">
-		<p class="counter">
-			<?php echo $this->pagination->getPagesCounter(); ?>
-		</p>
+		<?php if ($this->params->def('show_pagination_results', 1)) : ?>
+		 	<p class="counter">
+				<?php echo $this->pagination->getPagesCounter(); ?>
+			</p>
+		<?php endif; ?>
+
 		<?php echo $this->pagination->getPagesLinks(); ?>
 	</div>
+	<?php endif; ?>
 	<div>
 		<input type="hidden" name="filter_order" value="<?php echo $listOrder; ?>" />
 		<input type="hidden" name="filter_order_Dir" value="<?php echo $listDirn; ?>" />

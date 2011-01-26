@@ -14,14 +14,12 @@ $listDirn	= $this->state->get('list.direction');
 <?php else : 
 // Begin Data ?>
 <form action="<?php echo JFilterOutput::ampReplace(JFactory::getURI()->toString()); ?>" method="post" id="adminForm" name="adminForm">
-	<fieldset class="filters">
-	<legend class="hidelabeltxt"><?php echo JText::_('JGLOBAL_FILTER_LABEL'); ?></legend>
-		<div class="display-limit">
-			<?php echo JText::_('JGLOBAL_DISPLAY_NUM'); ?>&#160;
-			<?php echo $this->pagination->getLimitBox(); ?>
-		</div>
-	</fieldset>
-
+	<?php if ($this->params->get('show_pagination_limit')) : ?>
+	<div class="display-limit">
+		<?php echo JText::_('JGLOBAL_DISPLAY_NUM'); ?>&#160;
+		<?php echo $this->pagination->getLimitBox(); ?>
+	</div>
+	<?php endif; ?>
 <?php foreach($this->items as $item) : ?>
 	<h3 class="contentheading">
 		<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug)); ?>" title="<?php echo $item->name; ?>">
@@ -30,7 +28,7 @@ $listDirn	= $this->state->get('list.direction');
 	</h3>
 		<?php if($item->pic) : ?>
 			<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug)); ?>">
-				<img class="speaker" src="<?php echo $item->pic; ?>" title="$item->name; ?>" alt="<?php echo $item->name; ?>" />
+				<img class="speaker" src="<?php echo SermonspeakerHelperSermonSpeaker::makelink($item->pic); ?>" title="<?php echo $item->name; ?>" alt="<?php echo $item->name; ?>" />
 			</a>
 		<?php endif;
 		if($this->params->get('speaker_intro') && $item->intro) : ?>
@@ -52,11 +50,17 @@ $listDirn	= $this->state->get('list.direction');
 		<?php endif; ?>
 	<hr style="width: 100%; height: 2px;" />
 <?php endforeach; ?>
-<div class="Pages">
-	<div class="Paginator">
-		<?php echo $this->pagination->getListFooter(); ?><br />
-	</div>
+<?php if (($this->params->def('show_pagination', 2) == 1  || ($this->params->get('show_pagination') == 2)) && ($this->pagination->get('pages.total') > 1)) : ?>
+<div class="pagination">
+	<?php if ($this->params->def('show_pagination_results', 1)) : ?>
+		<p class="counter">
+			<?php echo $this->pagination->getPagesCounter(); ?>
+		</p>
+	<?php endif; ?>
+
+	<?php echo $this->pagination->getPagesLinks(); ?>
 </div>
+<?php endif; ?>
 </form>
 <?php endif; ?>
 </div>

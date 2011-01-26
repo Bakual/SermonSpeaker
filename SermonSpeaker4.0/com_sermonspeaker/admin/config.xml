@@ -93,6 +93,33 @@
 			type="tag" 
 			label="COM_SERMONSPEAKER_PARAM_PLUGIN_LABEL" 
 			description="COM_SERMONSPEAKER_PARAM_PLUGIN_DESC" />
+
+		<field name="show_pagination_limit"
+			type="radio" default="1"
+			label="JGLOBAL_DISPLAY_SELECT_LABEL"
+			description="JGLOBAL_DISPLAY_SELECT_DESC">
+				<option value="0">JHIDE</option>
+				<option value="1">JSHOW</option>
+		</field>
+
+		<field name="show_pagination"
+			type="list"
+			default="2"
+			label="JGLOBAL_Pagination_Label"
+			description="JGLOBAL_Pagination_Desc">
+				<option value="0">JHIDE</option>
+				<option value="1">JSHOW</option>
+				<option value="2">JGLOBAL_AUTO</option>
+		</field>
+		<field name="show_pagination_results"
+			type="radio"
+			default="1"
+			label="JGLOBAL_PAGINATION_RESULTS_LABEL"
+			description="JGLOBAL_PAGINATION_RESULTS_DESC">
+				<option value="0">JHIDE</option>
+				<option value="1">JSHOW</option>
+		</field>
+
 	</fieldset>
 	<fieldset name="paths"
 		label="COM_SERMONSPEAKER_FIELDSET_PATHS_LABEL"

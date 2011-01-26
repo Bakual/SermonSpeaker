@@ -25,7 +25,7 @@ $player = SermonspeakerHelperSermonspeaker::insertPlayer($this->item, $this->spe
 		<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_CUSTOM1'); ?>:</div>
 		<div class="ss-sermondetail-text"><?php echo $this->item->custom1; ?></div>
 	<?php endif;
-	if ($this->params->get('custom2') && $this->item->custom2)) : ?>
+	if ($this->params->get('custom2') && $this->item->custom2) : ?>
 		<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_CUSTOM2'); ?>:</div>
 		<div class="ss-sermondetail-text"><?php echo $this->item->custom2; ?></div>
 	<?php endif;
