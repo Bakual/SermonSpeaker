@@ -136,7 +136,7 @@
 		<field name="col" type="columns"
 			label="COM_SERMONSPEAKER_FIELD_COL_LABEL" 
 			description="COM_SERMONSPEAKER_FIELD_COL_DESC">
-			<option value="sermons" exclude="player,notes,custom1,custom2,hits">COM_SERMONSPEAKER_SERMONS_VIEW_DEFAULT_TITLE</option>
+			<option value="sermons" exclude="notes,hits">COM_SERMONSPEAKER_SERMONS_VIEW_DEFAULT_TITLE</option>
 			<option value="sermon">COM_SERMONSPEAKER_SERMON_VIEW_DEFAULT_TITLE</option>
 			<option value="serie" exclude="series,notes,hits">COM_SERMONSPEAKER_SERIE_VIEW_DEFAULT_TITLE</option>
 			<option value="speaker" exclude="speaker,player,notes,hits">COM_SERMONSPEAKER_SPEAKER_VIEW_LATEST-SERMONS_TITLE</option>
@@ -163,6 +163,16 @@
 			<option value="0">JNO</option>
 			<option value="1">JYES</option>
 		</field>
+		<field name="popup_color" 
+			type="text" 
+			default="FFFFFF" 
+			label="COM_SERMONSPEAKER_PARAM_POPUPCOLOR" 
+			description="COM_SERMONSPEAKER_PARAM_POPUPCOLOR_DESC" />
+		<field name="popup_height" 
+			type="text" 
+			default="150" 
+			label="COM_SERMONSPEAKER_PARAM_POPUPHEIGHT" 
+			description="COM_SERMONSPEAKER_PARAM_POPUPHEIGHT_DESC" />
 		<field name="custom1" 
 			type="radio" 
 			default="0" 
@@ -179,16 +189,6 @@
 			<option value="0">JNO</option>
 			<option value="1">JYES</option>
 		</field>
-		<field name="popup_color" 
-			type="text" 
-			default="FFFFFF" 
-			label="COM_SERMONSPEAKER_PARAM_POPUPCOLOR" 
-			description="COM_SERMONSPEAKER_PARAM_POPUPCOLOR_DESC" />
-		<field name="popup_height" 
-			type="text" 
-			default="150" 
-			label="COM_SERMONSPEAKER_PARAM_POPUPHEIGHT" 
-			description="COM_SERMONSPEAKER_PARAM_POPUPHEIGHT_DESC" />
 	</fieldset>
 	<fieldset name="statistics"
 		label="COM_SERMONSPEAKER_FIELDSET_STATISTICS_LABEL"

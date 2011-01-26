@@ -16,6 +16,11 @@ class SermonspeakerViewSermons extends JView
 		$app		= JFactory::getApplication();
 		$params		= $app->getParams();
 
+		$columns = $params->get('col');
+		if (!$columns){
+			$columns = array();
+		}
+
 		// Get some data from the models
 		$state		= $this->get('State');
 		$items		= $this->get('Items');
@@ -62,6 +67,7 @@ class SermonspeakerViewSermons extends JView
 		$this->assignRef('state',		$state);
 		$this->assignRef('items',		$items);
 		$this->assignRef('params',		$params);
+		$this->assignRef('columns', 	$columns);
 		$this->assignRef('pagination',	$pagination);
 
 		$this->_prepareDocument();
@@ -76,6 +82,11 @@ class SermonspeakerViewSermons extends JView
 	{
 		$app	= JFactory::getApplication();
 
+		// Add javascript for player if needed
+		if (in_array('sermons:player', $this->columns)){
+			$this->document->addScript(JURI::root().'components/com_sermonspeaker/media/player/jwplayer/jwplayer.js');
+		}
+		
 		// Set Pagetitle
 		$title 	= $this->params->get('page_title', '');
 		if (empty($title)) {

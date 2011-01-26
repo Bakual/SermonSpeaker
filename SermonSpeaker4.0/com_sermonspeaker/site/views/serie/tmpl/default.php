@@ -21,12 +21,11 @@ $listDirn	= $this->state->get('list.direction');
 	</span>
 	<?php echo $this->serie->series_description; ?>
 </div>
-<br style="clear:both" />
+<br />
 <?php if (in_array('serie:player', $this->columns) && count($this->items)) : ?>
 	<div class="ss-serie-player">
 		<hr class="ss-serie-player">
 	<?php
-	$lnk = "index.php?option=com_sermonspeaker&view=feed&format=raw&series_id=".$this->serie->id;
 	$player = SermonspeakerHelperSermonspeaker::insertPlayer($this->items);
 	echo $player['mspace'];
 	echo $player['script'];
@@ -34,7 +33,6 @@ $listDirn	= $this->state->get('list.direction');
 		<hr class="ss-serie-player">
 	</div>
 <?php endif; ?>
-
 <?php if (empty($this->items)) : ?>
 	<div class="no_entries"><?php echo JText::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', JText::_('COM_SERMONSPEAKER_SERMONS')); ?></div>
 <?php else : ?>

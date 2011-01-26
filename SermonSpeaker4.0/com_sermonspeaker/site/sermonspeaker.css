@@ -66,6 +66,17 @@ height: 1px;
 text-align: center;
 }
 
+.ss-sermons-player{
+text-align: center;
+}
+
+hr.ss-sermons-player{
+margin: auto;
+width: 80%; 
+height: 1px; 
+text-align: center;
+}
+
 .ss-title{
 width:20%;
 }

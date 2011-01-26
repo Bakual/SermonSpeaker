@@ -98,7 +98,7 @@ class SermonspeakerHelperSermonspeaker
 		} else {
 			$start[0]='false'; $start[1]='0'; $start[2]='no';
 		}
-		if($view == 'serie'){
+		if($view == 'serie' || $view == 'sermons'){
 			// Playlist
 			$player = JURI::root().'components/com_sermonspeaker/media/player/jwplayer/player.swf';
 			
