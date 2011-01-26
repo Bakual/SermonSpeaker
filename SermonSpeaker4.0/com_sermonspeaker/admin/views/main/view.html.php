@@ -29,7 +29,7 @@ class SermonspeakerViewMain extends JView
 
 		if ($canDo->get('core.admin')) {
 			JToolbarHelper::divider();
-			JToolBarHelper::preferences('com_sermonspeaker', 550, 800);
+			JToolBarHelper::preferences('com_sermonspeaker', 600, 800);
 		}
 	}
 }

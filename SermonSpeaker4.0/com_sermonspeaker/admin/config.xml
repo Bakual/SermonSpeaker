@@ -136,13 +136,17 @@
 		<field name="col" type="columns"
 			label="COM_SERMONSPEAKER_FIELD_COL_LABEL" 
 			description="COM_SERMONSPEAKER_FIELD_COL_DESC">
-			<option value="sermons" exclude="player,notes,custom1,custom2,hits">Sermons List</option>
-			<option value="sermon">Single Sermon</option>
-			<option value="serie" exclude="series,notes,custom1,custom2,hits">Single Series</option>
-			<option value="speaker" exclude="speaker,player,notes,custom1,custom2,hits">Single Speaker (Latest Sermons)</option>
-			<option value="archive" exclude="player,notes,custom1,custom2,hits">Sermons Archive List</option>
-			<option value="seriessermon" exclude="num,scripture,speaker,length,series,custom1,custom2,hits">Series/Sermons</option>
+			<option value="sermons" exclude="player,notes,custom1,custom2,hits">COM_SERMONSPEAKER_SERMONS_VIEW_DEFAULT_TITLE</option>
+			<option value="sermon">COM_SERMONSPEAKER_SERMON_VIEW_DEFAULT_TITLE</option>
+			<option value="serie" exclude="series,notes,hits">COM_SERMONSPEAKER_SERIE_VIEW_DEFAULT_TITLE</option>
+			<option value="speaker" exclude="speaker,player,notes,hits">COM_SERMONSPEAKER_SPEAKER_VIEW_LATEST-SERMONS_TITLE</option>
+			<option value="archive" exclude="player,notes,hits">COM_SERMONSPEAKER_ARCHIVE_VIEW_DEFAULT_TITLE</option>
+			<option value="seriessermon" exclude="num,scripture,speaker,length,series,hits">COM_SERMONSPEAKER_SERIESSERMON_VIEW_DEFAULT_TITLE</option>
 		</field>
+		<field name="spacer1" 
+			type="spacer" 
+			hr="false"
+			label="COM_SERMONSPEAKER_FIELD_SPACER1" />
 		<field name="dl_button" 
 			type="radio" 
 			default="1" 
@@ -156,6 +160,22 @@
 			default="1" 
 			label="COM_SERMONSPEAKER_PARAM_POPUPBTN" 
 			description="COM_SERMONSPEAKER_PARAM_POPUPBTN_DESC">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
+		</field>
+		<field name="custom1" 
+			type="radio" 
+			default="0" 
+			label="COM_SERMONSPEAKER_FIELD_CUSTOM1_LABEL" 
+			description="COM_SERMONSPEAKER_FIELD_CUSTOM1_DESC">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
+		</field>
+		<field name="custom2" 
+			type="radio" 
+			default="0" 
+			label="COM_SERMONSPEAKER_FIELD_CUSTOM2_LABEL" 
+			description="COM_SERMONSPEAKER_FIELD_CUSTOM2_DESC">
 			<option value="0">JNO</option>
 			<option value="1">JYES</option>
 		</field>

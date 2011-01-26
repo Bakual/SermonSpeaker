@@ -7,7 +7,7 @@ $player = SermonspeakerHelperSermonspeaker::insertPlayer($this->item, $this->spe
 <div id="ss-sermon-container">
 <h1 class="componentheading"><?php echo JText::_('COM_SERMONSPEAKER_SERMON_TITLE'); ?></h1>
 <!-- Begin Data -->
-<?php if ($this->params->get('hide_dl') == "0" && strlen($this->item->audiofile) > 0) : ?>
+<?php if (!$this->params->get('hide_dl') && $this->lnk) : ?>
 	<h3 class="contentheading"><a title="<?php echo JText::_('COM_SERMONSPEAKER_DIRECTLINK_HOOVER'); ?>" href="<?php echo $this->lnk; ?>"><?php echo $this->escape($this->item->sermon_title); ?></a></h3>
 <?php else : ?>
 	<h3 class="contentheading"><?php echo $this->escape($this->item->sermon_title); ?></h3>
@@ -21,11 +21,11 @@ $player = SermonspeakerHelperSermonspeaker::insertPlayer($this->item, $this->spe
 		<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_SCRIPTURE'); ?>:</div>
 		<div class="ss-sermondetail-text"><?php echo $this->item->sermon_scripture; ?></div>
 	<?php endif;
-	if (in_array('sermon:custom1', $this->columns) && strlen($this->item->custom1) > 0) : ?>
+	if ($this->params->get('custom1') && $this->item->custom1) : ?>
 		<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_CUSTOM1'); ?>:</div>
 		<div class="ss-sermondetail-text"><?php echo $this->item->custom1; ?></div>
 	<?php endif;
-	if (in_array('sermon:custom2', $this->columns) && strlen($this->item->custom2) > 0) : ?>
+	if ($this->params->get('custom2') && $this->item->custom2)) : ?>
 		<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_CUSTOM2'); ?>:</div>
 		<div class="ss-sermondetail-text"><?php echo $this->item->custom2; ?></div>
 	<?php endif;
