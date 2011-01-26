@@ -86,7 +86,7 @@ class SermonspeakerViewSermons extends JView
 		if (in_array('sermons:player', $this->columns)){
 			$this->document->addScript(JURI::root().'components/com_sermonspeaker/media/player/jwplayer/jwplayer.js');
 		}
-		
+
 		// Set Pagetitle
 		$title 	= $this->params->get('page_title', '');
 		if (empty($title)) {

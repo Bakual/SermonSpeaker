@@ -4,10 +4,6 @@ JHtml::core();
 JHTML::_('behavior.tooltip');
 JHTML::_('behavior.modal');
 
-$columns = $this->params->get('col');
-if (!$columns):
-	$columns = array();
-endif;
 // TODO show category name in header
 $this->cat = '';
 
@@ -16,20 +12,32 @@ $listDirn	= $this->state->get('list.direction');
 ?>
 <div id="ss-speaker-container" >
 <h1 class="componentheading"><?php echo $this->title ?></h1>
-
-<?php if($this->speaker->pic) : ?>
-	<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($this->speaker->slug)); ?>">
-		<img class="speaker" src="<?php echo SermonspeakerHelperSermonspeaker::makelink($this->speaker->pic); ?>" title="<?php echo $this->speaker->name; ?>" alt="<?php echo $this->speaker->name; ?>" />
-	</a>
-<?php endif;
-if ($this->speaker->bio || ($this->speaker->intro && $this->params->get('speaker_intro'))) : ?>
-	<h3 class="contentheading"><?php echo JText::_('COM_SERMONSPEAKER_SPEAKER_BIO'); ?></h3>
+<div class="ss-speaker-text">
+	<?php if($this->speaker->pic) : ?>
+		<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($this->speaker->slug)); ?>">
+			<img class="speaker" src="<?php echo SermonspeakerHelperSermonspeaker::makelink($this->speaker->pic); ?>" title="<?php echo $this->speaker->name; ?>" alt="<?php echo $this->speaker->name; ?>" />
+		</a>
+	<?php endif;
+	if ($this->speaker->bio || ($this->speaker->intro && $this->params->get('speaker_intro'))) : ?>
+		<h3 class="contentheading"><?php echo JText::_('COM_SERMONSPEAKER_SPEAKER_BIO'); ?></h3>
+		<?php
+		echo $this->speaker->intro;
+		echo $this->speaker->bio; ?>
+	<?php endif;
+	if ($this->speaker->website && $this->speaker->website != 'http://') : ?>
+		<a href="<?php echo $this->speaker->website; ?>" target="_blank" title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKER_WEBLINK_HOOVER'); ?>"><?php echo JText::sprintf('COM_SERMONSPEAKER_SPEAKER_WEBLINK', $this->speaker->name); ?></a>
+	<?php endif; ?>
+</div>
+<?php if (in_array('speaker:player', $this->columns) && count($this->items)) : ?>
+	<div class="ss-speaker-player">
+		<hr class="ss-speaker-player">
 	<?php
-	echo $this->speaker->intro;
-	echo $this->speaker->bio; ?>
-<?php endif;
-if ($this->speaker->website && $this->speaker->website != 'http://') : ?>
-	<a href="<?php echo $this->speaker->website; ?>" target="_blank" title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKER_WEBLINK_HOOVER'); ?>"><?php echo JText::sprintf('COM_SERMONSPEAKER_SPEAKER_WEBLINK', $this->speaker->name); ?></a>
+	$player = SermonspeakerHelperSermonspeaker::insertPlayer($this->items);
+	echo $player['mspace'];
+	echo $player['script'];
+	?>
+		<hr class="ss-speaker-player">
+	</div>
 <?php endif; ?>
 <!-- Begin Data - Sermons -->
 <?php if (empty($this->items)) : ?>
@@ -45,7 +53,7 @@ if ($this->speaker->website && $this->speaker->website != 'http://') : ?>
 	<table class="category">
 	<!-- Tabellenkopf mit Sortierlinks erstellen -->
 		<thead><tr>
-			<?php if (in_array('speaker:num', $columns)) : ?>
+			<?php if (in_array('speaker:num', $this->columns)) : ?>
 				<th class="num">
 					<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SERMONNUMBER', 'sermon_number', $listDirn, $listOrder); ?>
 				</th>
@@ -53,27 +61,27 @@ if ($this->speaker->website && $this->speaker->website != 'http://') : ?>
 			<th class="ss-title">
 				<?php echo JHTML::_('grid.sort', 'JGLOBAL_TITLE', 'sermon_title', $listDirn, $listOrder); ?>
 			</th>
-			<?php if (in_array('speaker:scripture', $columns)) : ?>
+			<?php if (in_array('speaker:scripture', $this->columns)) : ?>
 				<th class="ss-col">
 					<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SCRIPTURE', 'sermon_scripture', $listDirn, $listOrder); ?>
 				</th>
 			<?php endif;
-			if (in_array('speaker:date', $columns)) : ?>
+			if (in_array('speaker:date', $this->columns)) : ?>
 				<th class="ss-col">
 					<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SERMONDATE', 'sermon_date', $listDirn, $listOrder); ?>
 				</th>
 			<?php endif;
-			if (in_array('speaker:length', $columns)) : ?>
+			if (in_array('speaker:length', $this->columns)) : ?>
 				<th class="ss-col">
 					<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SERMONLENGTH', 'sermon_time', $listDirn, $listOrder); ?>
 				</th>
 			<?php endif;
-			if (in_array('speaker:series', $columns)) : ?>
+			if (in_array('speaker:series', $this->columns)) : ?>
 				<th class="ss-col">
 					<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SERIES', 'series_title', $listDirn, $listOrder); ?>
 				</th>
 			<?php endif;
-			if (in_array('speaker:addfile', $columns)) : ?>
+			if (in_array('speaker:addfile', $this->columns)) : ?>
 				<th class="ss-col">
 					<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_ADDFILE', 'addfileDesc', $listDirn, $listOrder); ?>
 				</th>
@@ -83,7 +91,7 @@ if ($this->speaker->website && $this->speaker->website != 'http://') : ?>
 		<tbody>
 			<?php foreach($this->items as $i => $item) : ?>
 				<tr class="<?php echo ($i % 2) ? "odd" : "even"; ?>">
-					<?php if (in_array('speaker:num', $columns)) : ?>
+					<?php if (in_array('speaker:num', $this->columns)) : ?>
 						<td class="num">
 							<?php echo $item->sermon_number; ?>
 						</td>
@@ -96,29 +104,29 @@ if ($this->speaker->website && $this->speaker->website != 'http://') : ?>
 							<?php echo $item->sermon_title; ?>
 						</a>
 					</td>
-					<?php if (in_array('speaker:scripture', $columns)) : ?>
+					<?php if (in_array('speaker:scripture', $this->columns)) : ?>
 						<td class="ss-col">
 							<?php echo JHTML::_('content.prepare', $item->sermon_scripture); ?>
 						</td>
 					<?php endif;
-					if (in_array('speaker:date', $columns)) : ?>
+					if (in_array('speaker:date', $this->columns)) : ?>
 						<td class="ss_col">
 							<?php echo JHTML::date($item->sermon_date, JText::_($this->params->get('date_format'))); ?>
 						</td>
 					<?php endif;
-					if (in_array('speaker:length', $columns)) : ?>
+					if (in_array('speaker:length', $this->columns)) : ?>
 						<td class="ss_col">
 							<?php echo SermonspeakerHelperSermonspeaker::insertTime($item->sermon_time); ?>
 						</td>
 					<?php endif;
-					if (in_array('speaker:series', $columns)) : ?>
+					if (in_array('speaker:series', $this->columns)) : ?>
 						<td class="ss_col">
 							<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->series_slug)); ?>">
 								<?php echo $item->series_title; ?>
 							</a>
 						</td>
 					<?php endif;
-					if (in_array('speaker:addfile', $columns)) : ?>
+					if (in_array('speaker:addfile', $this->columns)) : ?>
 						<td class="ss_col">
 							<?php echo SermonspeakerHelperSermonspeaker::insertAddfile($item->addfile, $item->addfileDesc); ?>
 						</td>

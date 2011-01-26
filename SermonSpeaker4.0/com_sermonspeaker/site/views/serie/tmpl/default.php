@@ -14,11 +14,9 @@ $listDirn	= $this->state->get('list.direction');
 <h1 class="componentheading"><?php echo JText::_('COM_SERMONSPEAKER_SERIE_TITLE').": ".$this->serie->series_title; ?></h1>
 
 <div class="ss-serie-desc">
-	<span class="ss-avatar">
-		<?php if ($this->serie->avatar != '') : ?>
-			<img src="<?php echo SermonspeakerHelperSermonspeaker::makelink($this->serie->avatar); ?>">
-		<?php endif; ?>
-	</span>
+	<?php if ($this->serie->avatar != '') : ?>
+		<img class="ss-avatar" src="<?php echo SermonspeakerHelperSermonspeaker::makelink($this->serie->avatar); ?>">
+	<?php endif; ?>
 	<?php echo $this->serie->series_description; ?>
 </div>
 <?php if (in_array('serie:player', $this->columns) && count($this->items)) : ?>

@@ -20,11 +20,15 @@ vertical-align: middle;
 border: none;
 }
 
-img.speaker{
+img.speaker, img.ss-avatar{
 float:left;
 padding:5px;
-margin:5px;
+margin: 5px 15px 5px 5px;
 border:1px solid #808080;
+}
+
+.ss-serie-desc, .ss-speaker-text{
+margin:15px;
 }
 
 .no_entries{
@@ -55,12 +59,13 @@ margin-top:10px;
 margin-bottom:10px;
 }
 
-.ss-serie-player, .ss-sermons-player{
+.ss-serie-player, .ss-sermons-player, .ss-archive-player, .ss-speaker-player{
 text-align: center;
 margin-bottom:10px;
+clear:left;
 }
 
-hr.ss-serie-player, hr.ss-sermons-player{
+hr.ss-serie-player, hr.ss-sermons-player, hr.ss-archive-player, hr.ss-speaker-player{
 margin: auto;
 width: 80%; 
 height: 1px; 

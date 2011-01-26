@@ -26,6 +26,7 @@ $listDirn	= $this->state->get('list.direction');
 			<?php echo $item->name; ?>
 		</a>
 	</h3>
+	<div class="ss-speaker-text">
 		<?php if($item->pic) : ?>
 			<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug)); ?>">
 				<img class="speaker" src="<?php echo SermonspeakerHelperSermonSpeaker::makelink($item->pic); ?>" title="<?php echo $item->name; ?>" alt="<?php echo $item->name; ?>" />
@@ -48,6 +49,7 @@ $listDirn	= $this->state->get('list.direction');
 			 | <a href="<?php echo $item->website; ?>" target="_blank" title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKER_WEBLINK_HOOVER'); ?>">
 				<?php echo JText::sprintf('COM_SERMONSPEAKER_SPEAKER_WEBLINK', $item->name); ?></a>
 		<?php endif; ?>
+	</div>
 	<hr style="width: 100%; height: 2px;" />
 <?php endforeach; ?>
 <?php if (($this->params->def('show_pagination', 2) == 1  || ($this->params->get('show_pagination') == 2)) && ($this->pagination->get('pages.total') > 1)) : ?>

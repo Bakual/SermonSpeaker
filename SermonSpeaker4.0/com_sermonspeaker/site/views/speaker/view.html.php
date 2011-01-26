@@ -21,6 +21,11 @@ class SermonspeakerViewspeaker extends JView
 		$app		= JFactory::getApplication();
 		$params		= $app->getParams();
 		
+		$columns = $params->get('col');
+		if (!$columns){
+			$columns = array();
+		}
+
 		if ($this->getLayout() == 'default') {
 			$this->setLayout('series');
 		} 
@@ -118,6 +123,7 @@ class SermonspeakerViewspeaker extends JView
 		$this->assignRef('state',		$state);
 		$this->assignRef('items',		$items);
 		$this->assignRef('params',		$params);
+		$this->assignRef('columns', 	$columns);
 		$this->assignRef('pagination',	$pagination);
 		$this->assignRef('speaker',		$speaker);
 		$this->assignRef('title',		$title);
@@ -134,6 +140,11 @@ class SermonspeakerViewspeaker extends JView
 	{
 		$app	= JFactory::getApplication();
 
+		// Add javascript for player if needed
+		if (in_array('speaker:player', $this->columns) || $this->getLayout() == 'latest-sermons'){
+			$this->document->addScript(JURI::root().'components/com_sermonspeaker/media/player/jwplayer/jwplayer.js');
+		}
+		
 		// Set Pagetitle
 		$title 	= $this->params->get('page_title', '');
 		if (empty($title)) {
