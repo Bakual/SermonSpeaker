@@ -78,7 +78,7 @@ $this->document->addScriptDeclaration( "
 		}
 		if ($this->params->get('client_col_sermon_time')) { echo "<td align=\"center\">".SermonspeakerHelperSermonspeaker::insertTime($row->sermon_time)."</td>\n"; }
 		if ($this->params->get('client_col_sermon_series')) { ?>
-			<td align="center"><a href="<?php echo JRoute::_("index.php?view=serie&id=$row->id"); ?>"><?php echo $row->series_title; ?></a></td>
+			<td align="center"><a href="<?php echo JRoute::_("index.php?view=serie&id=$row->ss_id"); ?>"><?php echo $row->series_title; ?></a></td>
 		<?php }
 		if ($this->params->get('client_col_sermon_addfile')) { ?>
 			<td><?php echo SermonspeakerHelperSermonspeaker::insertAddfile($row->addfile, $row->addfileDesc); ?></td>
