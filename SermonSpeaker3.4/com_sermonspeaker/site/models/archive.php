@@ -118,8 +118,9 @@ class SermonspeakerModelArchive extends JModel
 	{
 		$orderby	= $this->_buildContentOrderBy();
 		$database 	= &JFactory::getDBO();
-		$query		= "SELECT *, k.id as s_id, ss.id as ss_id, ss.series_title \n"
-					. ", CASE WHEN CHAR_LENGTH(alias) THEN CONCAT_WS(':', j.id, j.alias) ELSE j.id END as slug \n"
+		$query		= "SELECT sermon_title, sermon_number, sermon_scripture, sermon_date, sermon_time, sermon_path, notes \n" 
+					. ", k.name, k.pic, k.id as s_id, j.id, j.addfile, j.addfileDesc, ss.id as ss_id, ss.series_title \n"
+					. ", CASE WHEN CHAR_LENGTH(j.alias) THEN CONCAT_WS(':', j.id, j.alias) ELSE j.id END as slug \n"
 					. "FROM #__sermon_sermons j \n"
 					. "LEFT JOIN #__sermon_speakers k ON j.speaker_id = k.id \n"
 					. "LEFT JOIN #__sermon_series AS ss ON j.series_id = ss.id \n"
