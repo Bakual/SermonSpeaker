@@ -29,7 +29,7 @@ $this->document->addScriptDeclaration( "
 <form action="http://<?php echo $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'] ?>" method="post" id="adminForm" name="adminForm">
 <table class="adminlist" cellpadding="2" cellspacing="2" width="100%">
 <!-- Tabellenkopf mit Sortierlinks erstellen -->
-<thead>
+<thead class="sectiontableheader">
 	<tr>
 		<?php if ($this->params->get('client_col_sermon_number')) { ?>
 			<th width="5%" align="left"><?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SERMONNUMBER', 'sermon_number', $this->lists['order_Dir'], $this->lists['order']); ?></th>

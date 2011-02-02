@@ -18,12 +18,14 @@ JHTML::_('behavior.modal');
 </div>
 <hr style="width: 100%; height: 2px;" />
 <form action="http://<?php echo $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'] ?>" method="post" id="adminForm" name="adminForm">
-<table cellpadding="2" cellspacing="2" width="100%">
+<table class="adminlist" cellpadding="2" cellspacing="2" width="100%">
+<thead class="sectiontableheader">
 	<tr>
 		<?php if($this->av) { echo "<th width='10'> </th>"; } ?>
 		<th align="left"><?php echo JText::_('COM_SERMONSPEAKER_SERIESTITLE'); ?></th>
 		<th align="left"><?php echo JText::_('COM_SERMONSPEAKER_SPEAKER'); ?></th>
 	</tr>
+</thead>
 	<?php
 	$i = 0;
 	$base = JURI::root();
