@@ -12,7 +12,7 @@ defined('_JEXEC') or die('Restricted access');
 	</h3>
 		<?php if($row->pic) { ?>
 			<a href="<?php echo JRoute::_('index.php?view=speaker&id='.$row->id); ?>">
-				<img class="speaker" src="<?php echo $row->pic; ?>" title="$row->name; ?>" alt="<?php echo $row->name; ?>" />
+				<img class="speaker" src="<?php echo $row->pic; ?>" title="<?php $row->name; ?>" alt="<?php echo $row->name; ?>" />
 			</a>
 		<?php }
 		if($this->params->get('speaker_intro') && $row->intro) {
