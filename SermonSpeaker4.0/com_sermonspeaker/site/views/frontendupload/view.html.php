@@ -43,19 +43,41 @@ class SermonspeakerViewFrontendupload extends JView
 		} else {
 			$file = JRequest::getVar('upload', null, 'files', 'array');
  			if (!$file) {
-				// add Javascript to prevent Submit button clicked more than once
-				$submitOnce = 'var submitted = 0;
-					function submitOnce(form) {
-						if (submitted) {
-							alert("Form already submitted, please be patient");
-							return false;}
-						if (!submitted) {
-							form.submitit.disabled=true;
-							submitted = 1;
-							form.submit();}
-					} ';
-				$document =& JFactory::getDocument();
-				$document->addScriptDeclaration($submitOnce);
+				JHTML::_('stylesheet','media/mediamanager.css', array(), true);
+
+				$displayTypes = '*.aac, *.m4a, *.mp3, *.mp4, *.mov, *.f4v, *.flv, *.3gp, *.3g2';
+				$filterTypes = '*.aac; *.m4a; *.mp3; *.mp4; *.mov; *.f4v; *.flv; *.3gp; *.3g2';
+				$typeString = '{ \''.JText::_('COM_SERMONSPEAKER_FU_FILES', 'true').' ('.$displayTypes.')\': \''.$filterTypes.'\' }';
+
+				$js =  "function(file, response) {
+							var json = new Hash(JSON.decode(response, true) || {});
+							if (json.get('status') == '1') {
+								window.location = 'index.php?option=com_sermonspeaker&view=fu_details&filename=' + json.get('filename');
+								file.element.addClass('file-success');
+								file.info.set('html', '<strong>' + Joomla.JText._('JLIB_HTML_BEHAVIOR_UPLOADER_FILE_SUCCESSFULLY_UPLOADED') + '</strong>');
+							} else {
+								file.element.addClass('file-failed');
+								file.info.set('html', '<strong>' + Joomla.JText._('JLIB_HTML_BEHAVIOR_UPLOADER_ERROR_OCCURRED', 'An Error Occurred').substitute({ error: json.get('error') }) + '</strong>');
+								test.info.set('html', '<strong>' + Joomla.JText._('JLIB_HTML_BEHAVIOR_UPLOADER_ERROR_OCCURRED', 'An Error Occurred').substitute({ error: json.get('error') }) + '</strong>');
+							}
+						}";
+				JHtml::_('behavior.uploader', 'upload-flash',
+					array(
+						'onBeforeStart' => 'function(){ Uploader.setOptions({url: $(\'uploadForm\').action}); }',
+						'onFileSuccess'	=> $js,
+						'targetURL' 	=> '\\$(\'uploadForm\').action',
+						'typeFilter' 	=> $typeString,
+						'fileSizeMax'	=> 0,
+						'multiple'		=> false,
+						'queued'		=> false,
+						'instantStart'	=> true,
+					)
+				);
+
+				$session	= JFactory::getSession();
+				$this->assignRef('session', $session);
+				
+				$this->filename 	= JRequest::getString('filename', '', 'GET');
 
 				parent::display($tpl);
 			} else { 			

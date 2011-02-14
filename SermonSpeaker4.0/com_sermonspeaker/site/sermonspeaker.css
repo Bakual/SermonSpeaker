@@ -75,6 +75,22 @@ text-align: center;
 .ss-title{
 width:20%;
 }
+.clr{
+clear:both;
+}
+.ss-hide{
+display:none;
+}
+#ss-frup-form .key{
+	padding: 2px 0;
+	margin-right:10px;
+	clear:left;
+	float:left;
+}
+#ss-frup-form .value{
+	padding: 2px 0;
+	margin-left:120px;
+}
 
 /* ICON view */
 #sermon-infobox{-moz-border-radius:15px 15px 15px 15px;background:none repeat scroll 0 0 #F6F6F6;border:2px solid #AAA;margin:0;padding:5px;width:97%}
