@@ -45,7 +45,10 @@ class SermonspeakerControllerFile extends JController
 
 		// Get some data from the request
 		$file		= JRequest::getVar('Filedata', '', 'files', 'array');
-		$folder		= JPATH_ROOT.DS.$params->get('path').DS.$params->get('fu_destdir');
+		if ($fu_destdir = $params->get('fu_destdir')) {
+			$fu_destdir .= '/';
+		}
+		$folder		= JPATH_ROOT.DS.$params->get('path').DS.$fu_destdir;
 
 		// Set FTP credentials, if given
 		jimport('joomla.client.helper');
@@ -57,7 +60,7 @@ class SermonspeakerControllerFile extends JController
 		if (isset($file['name'])) {
 			// The request is valid
 			$err = null;
-			$filepath = JPath::clean($folder.DS.strtolower($file['name']));
+			$filepath = JPath::clean($folder.strtolower($file['name']));
 
 			$object_file = new JObject($file);
 			$object_file->filepath = $filepath;
@@ -92,7 +95,8 @@ class SermonspeakerControllerFile extends JController
 			} else {
 				$response = array(
 					'status' => '1',
-					'filename' => $file['name'],
+					'filename' => strtolower($file['name']),
+					'path' => '/'.$params->get('path').'/'.$fu_destdir.strtolower($file['name']),
 					'error' => JText::sprintf('COM_SERMONSPEAKER_FU_FILENAME', substr($file['filepath'], strlen(JPATH_ROOT)))
 				);
 				echo json_encode($response);
