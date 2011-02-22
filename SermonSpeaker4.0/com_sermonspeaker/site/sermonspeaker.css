@@ -65,7 +65,7 @@ margin-bottom:10px;
 clear:left;
 }
 
-hr.ss-serie-player, hr.ss-sermons-player, hr.ss-archive-player, hr.ss-speaker-player{
+hr.ss-serie-player, hr.ss-sermons-player, hr.ss-archive-player, hr.ss-speaker-player, hr.ss-frup{
 margin: auto;
 width: 80%; 
 height: 1px; 
@@ -78,20 +78,53 @@ width:20%;
 .clr{
 clear:both;
 }
-.ss-hide{
+.ss-hide, .hide{
 display:none;
 }
 
 /* FRUP */
-#ss-frup-form .key{
-	padding: 2px 0;
-	margin-right:10px;
+#ss-frup-form br{
 	clear:left;
+}
+#ss-frup-form label, #ss-frup-form .label {
+	float:left;
+	width:9em;
+	text-align:right;
+	margin-right:0.5em;
+}
+#ss-frup-form input, #ss-frup-form select {
+	margin-bottom:5px;
+}
+#ss-frup-form select {
+	min-width:10em;
+}
+#editor-xtd-buttons, #ss-frup-form textarea, #ss-frup-form .intend{
+	margin-left:9.6em;
+}
+#ss-frup-form .submit{
+	margin-left:9em;
+}
+#ss-frup-form .radio label{
+	margin-left:0.5em;
+	margin-right:1em;
+	width:auto;
+}
+#ss-frup-form .radio input{
+	margin-left:0.5em;
 	float:left;
 }
-#ss-frup-form .value{
-	padding: 2px 0;
-	margin-left:120px;
+#ss-frup-form input.radio {
+	margin-left:0.5em;
+}
+
+#upload-noflash{
+	border:1px solid grey;
+	padding:5px;
+}
+#upload-browse{
+	width:5em;
+	margin-left:8.7em;
+	margin-bottom:2px;
 }
 
 /* ICON view */

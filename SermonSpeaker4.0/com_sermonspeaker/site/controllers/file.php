@@ -28,14 +28,7 @@ class SermonspeakerControllerFile extends JController
 	function upload()
 	{
 		// Check for request forgeries
-		if (!JRequest::checkToken('request')) {
-			$response = array(
-				'status' => '0',
-				'error' => JText::_('JINVALID_TOKEN')
-			);
-			echo json_encode($response);
-			return;
-		}
+		JRequest::checkToken('request') or jexit(JText::_('JINVALID_TOKEN'));
 
 		// Initialise variables.
 		$app		= JFactory::getApplication();
@@ -50,15 +43,21 @@ class SermonspeakerControllerFile extends JController
 			$fu_destdir .= '/';
 		}
 		$folder		= JPATH_ROOT.DS.$params->get('path').DS.$fu_destdir;
+		$return		= JRequest::getVar('return-url', null, 'post', 'base64');
 
 		// Set FTP credentials, if given
 		jimport('joomla.client.helper');
 		JClientHelper::setCredentialsFromRequest('ftp');
 
+		// Set the redirect
+		if ($return) {
+			$this->setRedirect(base64_decode($return));
+		}
+
 		// Make the filename safe
 		$file['name']	= JFile::makeSafe($file['name']);
 
-		if (isset($file['name'])) {
+		if (isset($file['name'])){
 			// The request is valid
 			$err = null;
 			$filepath = JPath::clean($folder.strtolower($file['name']));
@@ -68,49 +67,27 @@ class SermonspeakerControllerFile extends JController
 
 			if (JFile::exists($filepath)) {
 				// File exists
-				$response = array(
-					'status' => '0',
-					'error' => JText::_('COM_SERMONSPEAKER_FU_ERROR_EXISTS')
-				);
-				echo json_encode($response);
-				return;
+				JError::raiseWarning(100, JText::_('COM_SERMONSPEAKER_FU_ERROR_EXISTS'));
+				return false;
 			} elseif (!$params->get('fu_enable') || !$user->authorise('core.create', 'com_sermonspeaker')) {
 				// File does not exist and user is not authorised to create
-				$response = array(
-					'status' => '0',
-					'error' => JText::_('JGLOBAL_AUTH_ACCESS_DENIED')
-				);
-				echo json_encode($response);
-				return;
+				JError::raiseWarning(403, JText::_('JGLOBAL_AUTH_ACCESS_DENIED'));
+				return false;
 			}
 
 			$file = (array) $object_file;
 			if (!JFile::upload($file['tmp_name'], $file['filepath'])) {
 				// Error in upload
-				$response = array(
-					'status' => '0',
-					'error' => JText::_('COM_SERMONSPEAKER_FU_ERROR_UNABLE_TO_UPLOAD_FILE')
-				);
-				echo json_encode($response);
-				return;
+				JError::raiseWarning(100, JText::_('COM_SERMONSPEAKER_FU_ERROR_UNABLE_TO_UPLOAD_FILE'));
+				return false;
 			} else {
-				$response = array(
-					'status' => '1',
-					'filename' => strtolower($file['name']),
-					'path' => '/'.$params->get('path').'/'.$fu_destdir.strtolower($file['name']),
-					'error' => JText::sprintf('COM_SERMONSPEAKER_FU_FILENAME', substr($file['filepath'], strlen(JPATH_ROOT)))
-				);
-				echo json_encode($response);
-				return;
+				$this->setMessage(JText::sprintf('COM_SERMONSPEAKER_FU_FILENAME', substr($file['filepath'], strlen(JPATH_ROOT))));
+				$this->setRedirect(base64_decode($return).'&file=/'.$params->get('path').'/'.$fu_destdir.strtolower($file['name']));
+				return true;
 			}
 		} else {
-			$response = array(
-				'status' => '0',
-				'error' => JText::_('COM_SERMONSPEAKER_FU_FAILED')
-			);
-
-			echo json_encode($response);
-			return;
+			$this->setRedirect('index.php', JText::_('JERROR_AN_ERROR_HAS_OCCURRED'), 'error');
+			return false;
 		}
 	}
 }

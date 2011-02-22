@@ -51,7 +51,7 @@ class SermonspeakerViewFrontendupload extends JView
 				$sendText = 'function sendText(elem, open, close) {
 					elem.value = open+elem.value+close;
 				}';
-				
+
 				$document =& JFactory::getDocument();
 				$document->addScriptDeclaration($enElem);
 				$document->addScriptDeclaration($sendText);
@@ -149,8 +149,11 @@ class SermonspeakerViewFrontendupload extends JView
 					array(
 						'onFileSuccess'	=> $js,
 						'onStart'		=> "function() {
-												document.getElementById('upload-flash').style.display='block';
+												document.getElementById('status-bar').style.display='block';
 												document.getElementById('upload-queue').style.display='block';
+												}",
+						'onBeforeStart'	=> "function() {
+												document.getElementById('upload-browse').style.display='block';
 												}",
 						'targetURL' 	=> $targetURL,
 						'typeFilter' 	=> $typeString,

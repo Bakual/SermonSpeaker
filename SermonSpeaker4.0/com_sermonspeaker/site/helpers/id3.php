@@ -59,7 +59,7 @@ class SermonspeakerHelperId3
 		} else {
 			jimport('joomla.filesystem.file');
 			$id3['sermon_time']		= '';
-			$id3['sermon_title']	= JFile::stripExt(JFile::getName($file));
+			$id3['sermon_title']	= JFile::stripExt(JFile::getName($path));
 			$id3['alias'] 			= JFilterOutput::stringURLSafe($id3['sermon_title']);
 			$id3['sermon_number']	= '';
 			$id3['notes'] 			= '';
