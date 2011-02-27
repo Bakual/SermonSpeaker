@@ -34,10 +34,10 @@ class SermonspeakerViewArchive extends JView
 
 		// Create title
 		if ($state->get('date.month')){
-			$date = $state->get('date.year').'-'.$state->get('date.month');
+			$date = $state->get('date.year').'-'.$state->get('date.month').'-15';
 			$date_format = 'F, Y';
 		} else {
-			$date = $state->get('date.year').'-01';
+			$date = $state->get('date.year').'-01-15';
 			$date_format = 'Y';
 		}
 		$title = JText::_('COM_SERMONSPEAKER_ARCHIVE_TITLE').' '.JHTML::date($date, $date_format, false).$cat;
