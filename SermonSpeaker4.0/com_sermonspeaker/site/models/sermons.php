@@ -54,26 +54,23 @@ class SermonspeakerModelSermons extends JModelList
 
 		// Join over Sermons Category.
 		if ($categoryId = $this->getState('sermons_category.id')) {
-			$query->select('CASE WHEN CHAR_LENGTH(c.alias) THEN CONCAT_WS(\':\', c.id, c.alias) ELSE c.id END AS catslug ');
-			$query->join('LEFT', '#__categories AS c ON c.id = sermons.catid');
+			$query->join('LEFT', '#__categories AS c_sermons ON c_sermons.id = sermons.catid');
 			$query->where('sermons.catid = '.(int) $categoryId);
-			$query->where('c.access IN ('.$groups.')');
+			$query->where('c_sermons.access IN ('.$groups.')');
 		}
 
 		// Join over Speakers Category.
 		if ($categoryId = $this->getState('speakers_category.id')) {
-			$query->select('CASE WHEN CHAR_LENGTH(c.alias) THEN CONCAT_WS(\':\', c.id, c.alias) ELSE c.id END AS catslug ');
-			$query->join('LEFT', '#__categories AS c ON c.id = speakers.catid');
+			$query->join('LEFT', '#__categories AS c_speaker ON c_speaker.id = speakers.catid');
 			$query->where('speakers.catid = '.(int) $categoryId);
-			$query->where('c.access IN ('.$groups.')');
+			$query->where('c_speaker.access IN ('.$groups.')');
 		}
 
 		// Join over Series Category.
 		if ($categoryId = $this->getState('series_category.id')) {
-			$query->select('CASE WHEN CHAR_LENGTH(c.alias) THEN CONCAT_WS(\':\', c.id, c.alias) ELSE c.id END AS catslug ');
-			$query->join('LEFT', '#__categories AS c ON c.id = series.catid');
+			$query->join('LEFT', '#__categories AS c_series ON c_series.id = series.catid');
 			$query->where('series.catid = '.(int) $categoryId);
-			$query->where('c.access IN ('.$groups.')');
+			$query->where('c_series.access IN ('.$groups.')');
 		}
 
 		// Filter by state
@@ -123,17 +120,49 @@ class SermonspeakerModelSermons extends JModelList
 		}
 
 		$id = (int)$params->get('sermon_cat', 0);
+		if (!$id){ $id = JRequest::getInt('sermon_cat', 0); }
 		$this->setState('sermons_category.id', $id);
 
 		$id = (int)$params->get('speaker_cat', 0);
+		if (!$id){ $id = JRequest::getInt('speaker_cat', 0); }
 		$this->setState('speakers_category.id', $id);
 
 		$id = (int)$params->get('series_cat', 0);
+		if (!$id){ $id = JRequest::getInt('series_cat', 0); }
 		$this->setState('series_category.id', $id);
 
 		$this->setState('filter.state',	1);
 
 		// Load the parameters.
 		$this->setState('params', $params);
+	}
+
+	/**
+	 * Method to get the name of the category.
+	 *
+	 * @since	1.6
+	 */
+	public function getCat()
+	{
+		$cat_arr = array();
+		if($categoryId = $this->getState('sermons_category.id')){
+			$cat_arr[] = $categoryId;
+		}
+		if($categoryId = $this->getState('series_category.id')){
+			$cat_arr[] = $categoryId;
+		}
+		if($categoryId = $this->getState('speakers_category.id')){
+			$cat_arr[] = $categoryId;
+		}
+		$cat_arr 	= array_unique($cat_arr);
+		$db		= $this->getDbo();
+		$title = array();
+		foreach ($cat_arr as $cat){
+			$query = "SELECT title FROM #__categories WHERE id = ".$cat;
+			$db->setQuery( $query );
+			$title[] = $db->LoadResult();
+		}
+		$title = ': '.implode(' &amp; ', $title);
+		return $title;
 	}
 }

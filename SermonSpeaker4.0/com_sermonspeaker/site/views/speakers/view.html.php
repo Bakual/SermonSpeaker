@@ -21,19 +21,20 @@ class SermonspeakerViewSpeakers extends JView
 		$items		= $this->get('Items');
 		$pagination	= $this->get('Pagination');
 
+		// Get the category name(s)
+		if($state->get('speakers_category.id')){
+			$cat	= $this->get('Cat');
+		} else {
+			$cat 	= '';
+		}
+
 		// Check for errors.
 		if (count($errors = $this->get('Errors'))) {
 			JError::raiseError(500, implode("\n", $errors));
 			return false;
 		}
 
- 		$cat = NULL;
-		if($params->get('series_cat') || $params->get('speaker_cat') || $params->get('sermon_cat')){
-			$cat	=& $this->get('Cat');
-			$cat	= ': '.$cat;
-		}
-
-		// Support for Content Plugins
+ 		// Support for Content Plugins
 		$dispatcher	= &JDispatcher::getInstance();
 		$item->params = clone($params);
 		JPluginHelper::importPlugin('content');

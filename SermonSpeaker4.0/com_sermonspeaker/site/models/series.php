@@ -38,10 +38,9 @@ class SermonspeakerModelSeries extends JModelList
 
 		// Join over Series Category.
 		if ($categoryId = $this->getState('series_category.id')) {
-			$query->select('CASE WHEN CHAR_LENGTH(c.alias) THEN CONCAT_WS(\':\', c.id, c.alias) ELSE c.id END AS catslug ');
-			$query->join('LEFT', '#__categories AS c ON c.id = series.catid');
+			$query->join('LEFT', '#__categories AS c_series ON c_series.id = series.catid');
 			$query->where('series.catid = '.(int) $categoryId);
-			$query->where('c.access IN ('.$groups.')');
+			$query->where('c_series.access IN ('.$groups.')');
 		}
 
 		// Filter by state
@@ -83,6 +82,7 @@ class SermonspeakerModelSeries extends JModelList
 		$this->setState('list.direction', $listOrder);
 
 		$id = (int)$params->get('series_cat', 0);
+		if (!$id){ $id = JRequest::getInt('series_cat', 0); }
 		$this->setState('series_category.id', $id);
 
 		$this->setState('filter.state',	1);
@@ -109,18 +109,21 @@ class SermonspeakerModelSeries extends JModelList
 		return $speakers;
 	}
 
-	function getCat()
+	/**
+	 * Method to get the name of the category.
+	 *
+	 * @since	1.6
+	 */
+	public function getCat()
 	{
-		$database =& JFactory::getDBO();
-		$cats[] = $this->getState('series_category.id');
-		$cats = array_unique($cats);
-		$title = array();
-		foreach ($cats as $cat){
-			$query = "SELECT title FROM #__categories WHERE id = ".$cat;
-			$database->setQuery( $query );
-			$title[] = $database->LoadResult();
+		$categoryId = $this->getState('series_category.id');
+		if (!$categoryId) { 
+			return false; 
 		}
-		$title = implode(' &amp; ', $title);
+		$db		= $this->getDbo();
+		$query = "SELECT title FROM #__categories WHERE id = ".$categoryId;
+		$db->setQuery($query);
+		$title = ': '.$db->LoadResult();
 		return $title;
 	}
 }

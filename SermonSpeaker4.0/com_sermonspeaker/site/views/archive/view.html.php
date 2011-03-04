@@ -26,10 +26,11 @@ class SermonspeakerViewArchive extends JView
 		$items		= $this->get('Items');
 		$pagination	= $this->get('Pagination');
 
- 		$cat = NULL;
+		// Get the category name(s)
 		if($state->get('sermons_category.id') || $state->get('speakers_category.id') || $state->get('series_category.id')){
-			$cat	=& $this->get('Cat'); // TODO: missing in model
-			$cat	= ': '.$cat;
+			$cat	= $this->get('Cat');
+		} else {
+			$cat 	= '';
 		}
 
 		// Create title

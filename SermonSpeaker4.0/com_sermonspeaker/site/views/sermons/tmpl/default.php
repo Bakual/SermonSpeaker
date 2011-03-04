@@ -4,9 +4,6 @@ JHtml::core();
 JHTML::_('behavior.tooltip');
 JHTML::_('behavior.modal');
 
-// TODO show category name in header
-$this->cat = '';
-
 $listOrder	= $this->state->get('list.ordering');
 $listDirn	= $this->state->get('list.direction');
 $limit 		= (int)$this->params->get('limit', '');

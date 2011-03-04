@@ -7,7 +7,7 @@
 	<!-- Add fields to the parameters object for the layout. -->
 	<fields name="params">
 		<fieldset name="basic" label="JGLOBAL_FIELDSET_DISPLAY_OPTIONS">
-			<field name="speakers_cat" type="category" 
+			<field name="speaker_cat" type="category" 
 				label="COM_SERMONSPEAKER_PARAM_CATEGORY_SPEAKER_LABEL" 
 				description="COM_SERMONSPEAKER_PARAM_CATEGORY_DESC" 
 				extension="com_sermonspeaker" 

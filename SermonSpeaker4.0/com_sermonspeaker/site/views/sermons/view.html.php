@@ -26,6 +26,13 @@ class SermonspeakerViewSermons extends JView
 		$items		= $this->get('Items');
 		$pagination	= $this->get('Pagination');
 
+		// Get the category name(s)
+		if($state->get('sermons_category.id') || $state->get('speakers_category.id') || $state->get('series_category.id')){
+			$cat	= $this->get('Cat');
+		} else {
+			$cat 	= '';
+		}
+
 		// Check for errors.
 		if (count($errors = $this->get('Errors'))) {
 			JError::raiseError(500, implode("\n", $errors));
@@ -69,6 +76,7 @@ class SermonspeakerViewSermons extends JView
 		$this->assignRef('params',		$params);
 		$this->assignRef('columns', 	$columns);
 		$this->assignRef('pagination',	$pagination);
+		$this->assignRef('cat',			$cat);
 
 		$this->_prepareDocument();
 

@@ -36,12 +36,11 @@ class SermonspeakerModelspeakers extends JModelList
 		);
 		$query->from('`#__sermon_speakers` AS speakers');
 
-		// Join over speakers Category.
+		// Join over Speakers Category.
 		if ($categoryId = $this->getState('speakers_category.id')) {
-			$query->select('CASE WHEN CHAR_LENGTH(c.alias) THEN CONCAT_WS(\':\', c.id, c.alias) ELSE c.id END AS catslug ');
-			$query->join('LEFT', '#__categories AS c ON c.id = speakers.catid');
+			$query->join('LEFT', '#__categories AS c_speaker ON c_speaker.id = speakers.catid');
 			$query->where('speakers.catid = '.(int) $categoryId);
-			$query->where('c.access IN ('.$groups.')');
+			$query->where('c_speaker.access IN ('.$groups.')');
 		}
 
 		// Filter by state
@@ -83,6 +82,7 @@ class SermonspeakerModelspeakers extends JModelList
 		$this->setState('list.direction', $listOrder);
 
 		$id = (int)$params->get('speaker_cat', 0);
+		if (!$id){ $id = JRequest::getInt('speaker_cat', 0); }
 		$this->setState('speakers_category.id', $id);
 
 		$this->setState('filter.state',	1);
@@ -91,18 +91,21 @@ class SermonspeakerModelspeakers extends JModelList
 		$this->setState('params', $params);
 	}
 
-	function getCat()
+	/**
+	 * Method to get the name of the category.
+	 *
+	 * @since	1.6
+	 */
+	public function getCat()
 	{
-		$database =& JFactory::getDBO();
-		$cats[] = $this->getState('speakers_category.id');
-		$cats = array_unique($cats);
-		$title = array();
-		foreach ($cats as $cat){
-			$query = "SELECT title FROM #__categories WHERE id = ".$cat;
-			$database->setQuery( $query );
-			$title[] = $database->LoadResult();
+		$categoryId = $this->getState('speakers_category.id');
+		if (!$categoryId) { 
+			return false; 
 		}
-		$title = implode(' &amp; ', $title);
+		$db		= $this->getDbo();
+		$query = "SELECT title FROM #__categories WHERE id = ".$categoryId;
+		$db->setQuery($query);
+		$title = ': '.$db->LoadResult();
 		return $title;
 	}
 }
