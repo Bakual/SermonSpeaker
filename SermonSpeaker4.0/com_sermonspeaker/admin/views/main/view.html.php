@@ -7,7 +7,7 @@ class SermonspeakerViewMain extends JView
 {
 	function display( $tpl = null )
 	{
-		$params	=& JComponentHelper::getParams('com_sermonspeaker');
+		$params	= $app->getParams();
 		if ($params->get('alt_player') == ''){
 			JError::raiseWarning(100, JText::_('COM_SERMONSPEAKER_NOTSAVED'));
 			$app = JFactory::getApplication();

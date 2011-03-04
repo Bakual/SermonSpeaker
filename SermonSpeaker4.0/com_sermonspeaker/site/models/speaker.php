@@ -103,7 +103,7 @@ class SermonspeakerModelSpeaker extends JModelList
 	{
 		// Initialise variables.
 		$app	= JFactory::getApplication();
-		$params	= JComponentHelper::getParams('com_sermonspeaker');
+		$params	= $app->getParams();
 
 		// List state information
 		$limit = $app->getUserStateFromRequest('global.list.limit', 'limit', $app->getCfg('list_limit'));
