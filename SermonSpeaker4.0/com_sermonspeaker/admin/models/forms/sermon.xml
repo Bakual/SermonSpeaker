@@ -88,7 +88,7 @@
 
 		<field name="sermon_date" type="calendar"
 			label="COM_SERMONSPEAKER_FIELD_SERMONDATE_LABEL" description="COM_SERMONSPEAKER_FIELD_SERMONDATE_DESC"
-			class="inputbox" size="20" format="%Y-%m-%d" />
+			class="inputbox" size="25" format="%Y-%m-%d %H:%M:%S" />
 
 		<field name="sermon_time"  type="text" class="inputbox"
 			label="COM_SERMONSPEAKER_FIELD_SERMONTIME_LABEL" description ="COM_SERMONSPEAKER_FIELD_SERMONTIME_DESC"

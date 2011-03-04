@@ -48,21 +48,21 @@ $self = $uri->toString();
 		</fieldset>
 		<fieldset class="adminform">
 			<legend><?php echo JText::_('COM_SERMONSPEAKER_FIELD_AUDIOFILE_LABEL'); ?></legend>
-			<input type="radio" name="sel" value="1" onclick="enableElement(this.form.elements['jform_audiofile'], this.form.elements['jform_audiofile_choice']);" checked>
+			<input type="radio" name="sel1" value="1" onclick="enableElement(this.form.elements['jform_audiofile'], this.form.elements['jform_audiofile_choice']);" checked>
 			<?php echo $this->form->getInput('audiofile'); ?>
 			<div class="clr"></div>
 			<?php echo $this->form->getLabel(''); ?>
-			<input type="radio" name="sel" value="2" onclick="enableElement(this.form.elements['jform_audiofile_choice'], this.form.elements['jform_audiofile']);">
+			<input type="radio" name="sel1" value="2" onclick="enableElement(this.form.elements['jform_audiofile_choice'], this.form.elements['jform_audiofile']);">
 			<?php echo $this->audio_files; ?>
 			<img onClick="window.location.href='<?php echo $self; ?>&amp;type=audio&amp;file='+document.adminForm.jform_audiofile_choice.value;" src='<?php echo JURI::root(); ?>/components/com_sermonspeaker/images/find.png' alt='lookup ID3' title='lookup ID3'>
 		</fieldset>
 		<fieldset class="adminform">
 			<legend><?php echo JText::_('COM_SERMONSPEAKER_FIELD_VIDEOFILE_LABEL'); ?></legend>
-			<input type="radio" name="sel" value="1" onclick="enableElement(this.form.elements['jform_videofile'], this.form.elements['jform_videofile_choice']);" checked>
+			<input type="radio" name="sel2" value="1" onclick="enableElement(this.form.elements['jform_videofile'], this.form.elements['jform_videofile_choice']);" checked>
 			<?php echo $this->form->getInput('videofile'); ?>
 			<div class="clr"></div>
 			<?php echo $this->form->getLabel(''); ?>
-			<input type="radio" name="sel" value="2" onclick="enableElement(this.form.elements['jform_videofile_choice'], this.form.elements['jform_videofile']);">
+			<input type="radio" name="sel2" value="2" onclick="enableElement(this.form.elements['jform_videofile_choice'], this.form.elements['jform_videofile']);">
 			<?php echo $this->video_files; ?>
 			<img onClick="window.location.href='<?php echo $self; ?>&amp;type=video&amp;file='+document.adminForm.jform_videofile_choice.value;" src='<?php echo JURI::root(); ?>/components/com_sermonspeaker/images/find.png' alt='lookup ID3' title='lookup ID3'>
 		</fieldset>
