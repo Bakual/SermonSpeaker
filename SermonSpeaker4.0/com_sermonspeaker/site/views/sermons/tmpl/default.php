@@ -138,7 +138,7 @@ $limit 		= (int)$this->params->get('limit', '');
 					<?php endif;
 					if (in_array('sermons:date', $this->columns)) : ?>
 						<td class="ss_col">
-							<?php echo JHTML::date($item->sermon_date, JText::_($this->params->get('date_format'))); ?>
+							<?php echo JHTML::date($item->sermon_date, JText::_($this->params->get('date_format')), 'UTC'); ?>
 						</td>
 					<?php endif;
 					if (in_array('sermons:length', $this->columns)) : ?>

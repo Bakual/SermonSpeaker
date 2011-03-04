@@ -111,7 +111,7 @@ $listDirn	= $this->state->get('list.direction');
 					<?php endif;
 					if (in_array('speaker:date', $this->columns)) : ?>
 						<td class="ss_col">
-							<?php echo JHTML::date($item->sermon_date, JText::_($this->params->get('date_format'))); ?>
+							<?php echo JHTML::date($item->sermon_date, JText::_($this->params->get('date_format')), 'UTC'); ?>
 						</td>
 					<?php endif;
 					if (in_array('speaker:length', $this->columns)) : ?>

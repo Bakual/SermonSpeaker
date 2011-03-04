@@ -40,7 +40,7 @@ class SermonspeakerViewArchive extends JView
 			$date = $state->get('date.year').'-01-15';
 			$date_format = 'Y';
 		}
-		$title = JText::_('COM_SERMONSPEAKER_ARCHIVE_TITLE').' '.JHTML::date($date, $date_format, false).$cat;
+		$title = JText::_('COM_SERMONSPEAKER_ARCHIVE_TITLE').' '.JHTML::Date($date, $date_format, 'UTC').$cat;
 
 		// Check for errors.
 		if (count($errors = $this->get('Errors'))) {

@@ -59,7 +59,7 @@ $player = SermonspeakerHelperSermonspeaker::insertPlayer($this->item, $this->spe
 		<div class="ss-fields-container">
 			<?php if (in_array('sermon:date', $this->columns) && ($this->item->sermon_date != "0000-00-00")) : ?>
 				<div class="ss-field field-calendar" title="<?php echo JText::_('COM_SERMONSPEAKER_SERMONDATE'); ?>">
-					<?php echo JHTML::date($this->item->sermon_date, JText::_('DATE_FORMAT_LC1')); ?>
+					<?php echo JHTML::Date($this->item->sermon_date, JText::_('DATE_FORMAT_LC1'), 'UTC'); ?>
 				</div>
 			<?php endif;
 			if (in_array('sermon:length', $this->columns) && ($this->item->sermon_time != "00:00:00")) : ?>

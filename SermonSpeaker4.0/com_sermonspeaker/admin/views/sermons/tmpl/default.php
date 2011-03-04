@@ -129,7 +129,7 @@ $saveOrder	= $listOrder == 'sermons.ordering';
 					<?php echo $this->escape($item->series_title); ?>
 				</td>
 				<td class="center">
-					<?php echo JHTML::Date($item->sermon_date, JText::_('DATE_FORMAT_LC4')); ?>
+					<?php echo JHTML::Date($item->sermon_date, JText::_('DATE_FORMAT_LC4'), 'UTC'); ?>
 				</td>
 				<td class="center">
 					<?php echo JHtml::_('jgrid.published', $item->state, $i, 'sermons.', $canChange);?>

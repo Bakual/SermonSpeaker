@@ -111,7 +111,7 @@ class SermonspeakerHelperSermonspeaker
 					$entry .= ', duration: '.$seconds;
 				}
 				if ($temp_item->sermon_date){
-					$entry .= ', description: "'.JHTML::date($temp_item->sermon_date, JText::_($this->params->get('date_format'))).'"';
+					$entry .= ', description: "'.JHTML::Date($temp_item->sermon_date, JText::_($this->params->get('date_format')), 'UTC').'"';
 				}
 				if ($temp_item->picture){
 					$entry .= ', image: "'.SermonspeakerHelperSermonspeaker::makelink($temp_item->picture).'"';

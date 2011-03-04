@@ -41,7 +41,7 @@ $listDirn	= $this->state->get('list.direction');
 				<h4 style="margin-left:-5%;">
 					<?php echo $this->escape($sermon->sermon_title);
 					if (in_array('seriessermon:date', $this->columns)):
-						echo ' ('.JHTML::date($sermon->sermon_date, JText::_($this->params->get('date_format')), false).')';
+						echo ' ('.JHTML::Date($sermon->sermon_date, JText::_($this->params->get('date_format')), 'UTC').')';
 					endif; ?>
 				</h4>
 				<?php if (in_array('seriessermon:notes', $this->columns)):

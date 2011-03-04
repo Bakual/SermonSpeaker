@@ -15,7 +15,7 @@ $player = SermonspeakerHelperSermonspeaker::insertPlayer($this->item, $this->spe
 <div class="ss-sermondetail-container">
 	<?php if (in_array('sermon:date', $this->columns)) : ?>
 		<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_SERMONDATE'); ?>:</div>
-		<div class="ss-sermondetail-text"><?php echo JHTML::date($this->item->sermon_date, JText::_($this->params->get('date_format'))); ?></div>
+		<div class="ss-sermondetail-text"><?php echo JHTML::Date($this->item->sermon_date, JText::_($this->params->get('date_format')), 'UTC'); ?></div>
 	<?php endif;
 	if (in_array('sermon:scripture', $this->columns) && $this->item->sermon_scripture) : ?>
 		<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_SCRIPTURE'); ?>:</div>
