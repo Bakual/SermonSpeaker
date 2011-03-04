@@ -33,6 +33,13 @@ class SermonspeakerViewSerie extends JView
 		$serie		= $this->get('Serie');
 		$pagination	= $this->get('Pagination');
 
+		// Get the category name(s)
+		if($state->get('sermons_category.id') || $state->get('speakers_category.id') || $state->get('series_category.id')){
+			$cat	= $this->get('Cat');
+		} else {
+			$cat 	= '';
+		}
+
 		// add Breadcrumbs
 		$breadcrumbs	= &$app->getPathWay();
 		$breadcrumbs->addItem($serie->series_title);
@@ -87,6 +94,7 @@ class SermonspeakerViewSerie extends JView
 		$this->assignRef('pagination',	$pagination);
 		$this->assignRef('columns', 	$columns);
 		$this->assignRef('serie',		$serie);
+		$this->assignRef('cat',			$cat);
 
 		$this->_prepareDocument();
 

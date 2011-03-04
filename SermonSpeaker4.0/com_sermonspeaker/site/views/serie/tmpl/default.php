@@ -4,14 +4,11 @@ JHtml::core();
 JHTML::_('behavior.tooltip');
 JHTML::_('behavior.modal');
 
-// TODO show category name in header
-$this->cat = '';
-
 $listOrder	= $this->state->get('list.ordering');
 $listDirn	= $this->state->get('list.direction');
 ?>
 <div id="ss-serie-container">
-<h1 class="componentheading"><?php echo JText::_('COM_SERMONSPEAKER_SERIE_TITLE').": ".$this->serie->series_title; ?></h1>
+<h1 class="componentheading"><?php echo JText::_('COM_SERMONSPEAKER_SERIE_TITLE').": ".$this->serie->series_title.$this->cat; ?></h1>
 
 <div class="ss-serie-desc">
 	<?php if ($this->serie->avatar != '') : ?>
