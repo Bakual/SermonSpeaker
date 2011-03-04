@@ -33,7 +33,7 @@ class SermonspeakerViewSermon extends JView
 			elem.value = open+elem.value+close;
 		}';
 
-		$params	= $app->getParams();
+		$params	= &JComponentHelper::getParams('com_sermonspeaker');
 
 		$document =& JFactory::getDocument();
 		$document->addScriptDeclaration($enElem);
