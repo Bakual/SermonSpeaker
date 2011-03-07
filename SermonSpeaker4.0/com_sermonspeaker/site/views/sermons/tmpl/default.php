@@ -119,9 +119,9 @@ $limit 		= (int)$this->params->get('limit', '');
 						</td>
 					<?php endif; ?>
 					<td class="ss-title">
-						<a href="" onClick="jwplayer().playlistItem(<?php echo $i; ?>)">
+						<span onMouseover="this.style.cursor='pointer'" onClick="jwplayer().playlistItem(<?php echo $i; ?>)">
 							<img title="<?php echo JText::_('COM_SERMONSPEAKER_PLAYICON_HOOVER'); ?>" src="<?php echo JURI::root().'components/com_sermonspeaker/images/play.gif'; ?>" class='icon_play' alt=""  />
-						</a>
+						</span>
 						<a title="<?php echo JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER'); ?>" href="<?php echo $item->link2; ?>">
 							<?php echo $item->sermon_title; ?>
 						</a>
