@@ -91,6 +91,7 @@ class SermonspeakerHelperSermonspeaker
 	function insertPlayer($item, $artist = '', $count = '1') {
 		$app		= JFactory::getApplication();
 		$params		= $app->getParams();
+		$prio		= $params->get('fileprio', 0);
 
 		$view = JRequest::getCmd('view');
 		if ($params->get('autostart') == '1' && $view != 'seriessermon') {
@@ -103,8 +104,13 @@ class SermonspeakerHelperSermonspeaker
 			$player = JURI::root().'components/com_sermonspeaker/media/player/jwplayer/player.swf';
 			
 			foreach ($item as $temp_item){
-				$entry = 'file: "'.SermonspeakerHelperSermonspeaker::makelink($temp_item->audiofile).'"';
-				$entry .= ', title: "'.$temp_item->sermon_title.'"';
+				// Choosing the default file to play based on prio and availabilty
+				if (($temp_item->audiofile && !$prio) || ($temp_item->audiofile && !$temp_item->videofile)){
+					$file = 'file: "'.SermonspeakerHelperSermonspeaker::makelink($temp_item->audiofile).'"';
+				} elseif (($temp_item->videofile && $prio) || ($temp_item->videofile && !$temp_item->audiofile)){
+					$file = 'file: "'.SermonspeakerHelperSermonspeaker::makelink($temp_item->videofile).'"';
+				}
+				$entry = ', title: "'.$temp_item->sermon_title.'"';
 				if ($temp_item->sermon_time){
 					$time_arr = explode(':', $temp_item->sermon_time);
 					$seconds = ($time_arr[0] * 3600) + ($time_arr[1] * 60) + $time_arr[2];
@@ -116,7 +122,20 @@ class SermonspeakerHelperSermonspeaker
 				if ($temp_item->picture){
 					$entry .= ', image: "'.SermonspeakerHelperSermonspeaker::makelink($temp_item->picture).'"';
 				}
-				$entries[] = '{'.$entry.'}';
+				$entries[] = '{'.$file.$entry.'}';
+ 				// Preparing specific playlists for audio and video
+				if ($temp_item->audiofile){
+					$audio = '{file: "'.SermonspeakerHelperSermonspeaker::makelink($temp_item->audiofile).'"'.$entry.'}';
+					$audios[] = $audio;
+				} else {
+					$audios[] = '{file: "'.JURI::root().'", title: "'.JText::_('JGLOBAL_RESOURCE_NOT_FOUND').'"}';
+				}
+				if ($temp_item->videofile){
+					$video = '{file: "'.SermonspeakerHelperSermonspeaker::makelink($temp_item->videofile).'"'.$entry.'}';
+					$videos[] = $video;
+				} else {
+					$videos[] = '{file: "'.JURI::root().'", title: "'.JText::_('JGLOBAL_RESOURCE_NOT_FOUND').'"}';
+				}
 			}
 			$playlist = implode(',', $entries);
 			$return['mspace'] = '<div id="mediaspace'.$count.'" style="text-align:center;">Flashplayer needs Javascript turned on</div>';
@@ -136,6 +155,9 @@ class SermonspeakerHelperSermonspeaker
 								.'</script>';
 			$return['height'] = $params->get('popup_height');
 			$return['width']  = '380';
+			$return['default-pl'] = $playlist;
+			$return['audio-pl'] = implode(',',$audios);
+			$return['video-pl'] = implode(',',$videos);
 		} else {
 			// Single File
 			// Define link (audio or video)
