@@ -1,0 +1,243 @@
+.download_btn {
+font-size: 12px;
+color: #000066;
+font-family: verdana;
+}
+
+.popup_btn {
+font-size: 12px;
+color: #000066;
+font-family: verdana;
+}
+
+div.popup{
+padding: 5px; 
+text-align: center;
+}
+
+.icon_play {
+vertical-align: middle;
+border: none;
+}
+
+img.speaker, img.ss-avatar{
+float:left;
+padding:5px;
+margin: 5px 15px 5px 5px;
+border:1px solid #808080;
+}
+
+.ss-serie-desc, .ss-speaker-text{
+margin:15px;
+}
+
+.no_entries{
+background-color: #eeeeee;
+padding:5px;
+border:2px dashed #fa8072;
+}
+
+.ss-sermondetail-container{
+width:100%;
+margin:15px;
+}
+
+.ss-sermondetail-label{
+padding-top:5px;
+float:left;
+width:30%;
+font-weight:bold;
+}
+
+.ss-sermondetail-text{
+padding-top:5px;
+margin-left:31%;
+}
+
+.ss-sermon-player{
+margin-top:10px;
+margin-bottom:10px;
+}
+
+.ss-serie-player, .ss-sermons-player, .ss-archive-player, .ss-speaker-player{
+text-align: center;
+margin-bottom:10px;
+clear:left;
+}
+
+hr.ss-serie-player, hr.ss-sermons-player, hr.ss-archive-player, hr.ss-speaker-player, hr.ss-frup{
+margin: auto;
+width: 80%; 
+height: 1px; 
+text-align: center;
+}
+
+.ss-title{
+width:20%;
+}
+.clr{
+clear:both;
+}
+.ss-hide, .hide{
+display:none;
+}
+
+/* FRUP */
+#ss-frup-form br{
+	clear:left;
+}
+#ss-frup-form label, #ss-frup-form .label {
+	float:left;
+	width:9em;
+	text-align:right;
+	margin-right:0.5em;
+}
+#ss-frup-form input, #ss-frup-form select {
+	margin-bottom:5px;
+}
+#ss-frup-form select {
+	min-width:10em;
+}
+#editor-xtd-buttons, #ss-frup-form textarea, #ss-frup-form .intend{
+	margin-left:9.6em;
+}
+#ss-frup-form .submit{
+	margin-left:9em;
+}
+#ss-frup-form .radio label{
+	margin-left:0.5em;
+	margin-right:1em;
+	width:auto;
+}
+#ss-frup-form .radio input{
+	margin-left:0.5em;
+	float:left;
+}
+#ss-frup-form input.radio {
+	margin-left:0.5em;
+}
+
+#upload-noflash{
+	border:1px solid grey;
+	padding:5px;
+}
+/* Frontend Upload */
+.progressWrapper {
+	width: 357px;
+	overflow: hidden;
+}
+
+.progressContainer {
+	margin: 5px;
+	padding: 4px;
+	border: solid 1px #E8E8E8;
+	background-color: #F7F7F7;
+	overflow: hidden;
+}
+/* Message */
+.message {
+	margin: 1em 0;
+	padding: 10px 20px;
+	border: solid 1px #FFDD99;
+	background-color: #FFFFCC;
+	overflow: hidden;
+}
+/* Error */
+.red {
+	border: solid 1px #B50000;
+	background-color: #FFEBEB;
+}
+
+/* Current */
+.green {
+	border: solid 1px #DDF0DD;
+	background-color: #EBFFEB;
+}
+
+/* Complete */
+.blue {
+	border: solid 1px #CEE2F2;
+	background-color: #F0F5FF;
+}
+
+.progressName {
+	font-size: 8pt;
+	font-weight: 700;
+	color: #555;
+	width: 323px;
+	height: 14px;
+	text-align: left;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.progressBarInProgress,
+.progressBarComplete,
+.progressBarError {
+	font-size: 0;
+	width: 0%;
+	height: 2px;
+	background-color: blue;
+	margin-top: 2px;
+}
+
+.progressBarComplete {
+	width: 100%;
+	background-color: green;
+	visibility: hidden;
+}
+
+.progressBarError {
+	width: 100%;
+	background-color: red;
+	visibility: hidden;
+}
+
+.progressBarStatus {
+	margin-top: 2px;
+	width: 337px;
+	font-size: 7pt;
+	font-family: Arial;
+	text-align: left;
+	white-space: nowrap;
+}
+
+a.progressCancel {
+	font-size: 0;
+	display: block;
+	height: 14px;
+	width: 14px;
+	background-image: url(../images/cancelbutton.gif);
+	background-repeat: no-repeat;
+	background-position: -14px 0px;
+	float: right;
+}
+
+a.progressCancel:hover {
+	background-position: 0px 0px;
+}
+
+
+/* -- SWFUpload Object Styles ------------------------------- */
+.swfupload {
+	vertical-align: top;
+}
+/* ICON view */
+#sermon-infobox{-moz-border-radius:15px 15px 15px 15px;background:none repeat scroll 0 0 #F6F6F6;border:2px solid #AAA;margin:0;padding:5px;width:97%}
+#sermon-player-container{}
+#sermon-player-container div.ss-player{background:url(images/player-wrapper.png) no-repeat;height:40px;margin:5px;padding:7px 0 0 50px;float:left;width:350px}
+.ss-mp3-links{float:left;margin:0 0 0 10px}
+a.new-window{background:url(icons/16/icon-new-window.png) no-repeat center left;padding-left:18px}
+a.download{background:url(icons/16/icon-download-orange.png) no-repeat center left;padding-left:18px}
+.ss-fields-container{clear:both}
+#sermon-infobox .ss-field{width:43%;float:left;height:40px;padding:20px 0 0 40px;font-size:140%;font-weight:bolder;text-align:left}
+#sermon-infobox .field-speaker{background:url(icons/32/speaker.png) no-repeat center left}
+#sermon-infobox .field-bible{background:url(icons/32/bible.png) no-repeat center left}
+#sermon-infobox .field-calendar{background:url(icons/32/calendar.png) no-repeat center left}
+#sermon-infobox .field-time{background:url(icons/32/clock.png) no-repeat center left}
+#sermon-infobox .field-series{background:url(icons/32/folders.png) no-repeat center left}
+#sermon-infobox .field-addfile{padding-left:8px}
+div.tag, div.hits{line-height:32px;padding:0 0 0 32px;vertical-align:middle}
+div.tag{background:url(icons/32/tag.png) no-repeat center left}
+div.hits{background:url(icons/32/statistics.png) no-repeat center left}
+/* END EXTICON view */
