@@ -81,7 +81,9 @@ clear:both;
 .ss-hide, .hide{
 display:none;
 }
-
+tr.ss-current td{
+	background:#EBFFEB;
+}
 /* FRUP */
 #ss-frup-form br{
 	clear:left;

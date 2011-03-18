@@ -60,19 +60,21 @@ $player = SermonspeakerHelperSermonspeaker::insertPlayer($this->item, $this->spe
 	if (in_array('sermon:player', $this->columns)) : ?>
 		<div class="ss-sermondetail-label"></div>
 		<div class="ss-sermondetail-text ss-sermon-player">
-			<?php 
-			echo $player['mspace'];
-			echo $player['script'];
-			?>
+			<?php if ($player['status'] == 'error'): ?>
+				<span class="no_entries"><?php echo $player['error']; ?></span>
+			<?php else:
+				echo $player['mspace'];
+				echo $player['script'];
+			endif; ?>
 		</div>
 	<?php endif;
-	if ($this->params->get('popup_player') == '1') : ?>
+	if ($this->params->get('popup_player') && ($player['status'] != 'error')) : ?>
 		<div class="ss-sermondetail-label"></div>
 		<div class="ss-sermondetail-text"><?php echo SermonspeakerHelperSermonspeaker::insertPopupButton($this->item->id, $player); ?></div>
 	<?php endif;
-	if ($this->params->get('dl_button') == "1") : ?>
+	if ($this->params->get('dl_button') && $this->file) : ?>
 		<div class="ss-sermondetail-label"></div>
-		<div class="ss-sermondetail-text"><?php echo SermonspeakerHelperSermonspeaker::insertdlbutton($this->item->id, $this->item->audiofile); ?></div>
+		<div class="ss-sermondetail-text"><?php echo SermonspeakerHelperSermonspeaker::insertdlbutton($this->item->id, $this->file); ?></div>
 	<?php endif;
 	if (in_array('sermon:addfile', $this->columns) && $this->item->addfile) : ?>
 		<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_ADDFILE'); ?>:</div>

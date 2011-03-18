@@ -107,34 +107,37 @@ class SermonspeakerHelperSermonspeaker
 				// Choosing the default file to play based on prio and availabilty
 				if (($temp_item->audiofile && !$prio) || ($temp_item->audiofile && !$temp_item->videofile)){
 					$file = 'file: "'.SermonspeakerHelperSermonspeaker::makelink($temp_item->audiofile).'"';
+					$title = ', title: "'.$temp_item->sermon_title.'"';
 				} elseif (($temp_item->videofile && $prio) || ($temp_item->videofile && !$temp_item->audiofile)){
 					$file = 'file: "'.SermonspeakerHelperSermonspeaker::makelink($temp_item->videofile).'"';
+					$title = ', title: "'.$temp_item->sermon_title.'"';
+				} else {
+					$file = 'file: "'.JURI::root().'"';
+					$title = ', title: "'.JText::_('JGLOBAL_RESOURCE_NOT_FOUND').'"';
 				}
-				$entry = ', title: "'.$temp_item->sermon_title.'"';
+				$meta = '';
 				if ($temp_item->sermon_time){
 					$time_arr = explode(':', $temp_item->sermon_time);
 					$seconds = ($time_arr[0] * 3600) + ($time_arr[1] * 60) + $time_arr[2];
-					$entry .= ', duration: '.$seconds;
+					$meta .= ', duration: '.$seconds;
 				}
 				if ($temp_item->sermon_date){
-					$entry .= ', description: "'.JHTML::Date($temp_item->sermon_date, JText::_($this->params->get('date_format')), 'UTC').'"';
+					$meta .= ', description: "'.JHTML::Date($temp_item->sermon_date, JText::_($this->params->get('date_format')), 'UTC').'"';
 				}
 				if ($temp_item->picture){
-					$entry .= ', image: "'.SermonspeakerHelperSermonspeaker::makelink($temp_item->picture).'"';
+					$meta .= ', image: "'.SermonspeakerHelperSermonspeaker::makelink($temp_item->picture).'"';
 				}
-				$entries[] = '{'.$file.$entry.'}';
+				$entries[] = '{'.$file.$title.$meta.'}';
  				// Preparing specific playlists for audio and video
 				if ($temp_item->audiofile){
-					$audio = '{file: "'.SermonspeakerHelperSermonspeaker::makelink($temp_item->audiofile).'"'.$entry.'}';
-					$audios[] = $audio;
+					$audios[] = '{file: "'.SermonspeakerHelperSermonspeaker::makelink($temp_item->audiofile).'"'.$title.$meta.'}';
 				} else {
-					$audios[] = '{file: "'.JURI::root().'", title: "'.JText::_('JGLOBAL_RESOURCE_NOT_FOUND').'"}';
+					$audios[] = '{file: "'.JURI::root().'", title: "'.JText::_('JGLOBAL_RESOURCE_NOT_FOUND').'"'.$meta.'}';
 				}
 				if ($temp_item->videofile){
-					$video = '{file: "'.SermonspeakerHelperSermonspeaker::makelink($temp_item->videofile).'"'.$entry.'}';
-					$videos[] = $video;
+					$videos[] = '{file: "'.SermonspeakerHelperSermonspeaker::makelink($temp_item->videofile).'"'.$title.$meta.'}';
 				} else {
-					$videos[] = '{file: "'.JURI::root().'", title: "'.JText::_('JGLOBAL_RESOURCE_NOT_FOUND').'"}';
+					$videos[] = '{file: "'.JURI::root().'", title: "'.JText::_('JGLOBAL_RESOURCE_NOT_FOUND').'"'.$meta.'}';
 				}
 			}
 			$playlist = implode(',', $entries);
@@ -150,7 +153,17 @@ class SermonspeakerHelperSermonspeaker
 								.'	  autostart: '.$start[0].','
 								.'	  controlbar: "bottom",'
 								.'	  width: "80%",'
-								.'	  height: 80'
+								.'	  height: 80,'
+								.'	  events: {'
+								.'		onPlaylistItem: function(event){'
+								.'		  var i = 0;'
+								.'		  while (document.id("sermon"+i)){'
+								.'			document.id("sermon"+i).removeClass("ss-current");'
+								.'			i++;'
+								.'		  }'
+								.'	  document.id("sermon"+event.index).addClass("ss-current");'
+								.'	  }'
+								.'	  }'
 								.'	});'
 								.'</script>';
 			$return['height'] = $params->get('popup_height');
@@ -158,13 +171,16 @@ class SermonspeakerHelperSermonspeaker
 			$return['default-pl'] = $playlist;
 			$return['audio-pl'] = implode(',',$audios);
 			$return['video-pl'] = implode(',',$videos);
+			$return['status']	= 'playlist';
 		} else {
 			// Single File
-			// Define link (audio or video)
-			if ($params->get('fileprio')){
+			// Choosing the default file to play based on prio and availabilty
+			if (($item->audiofile && !$prio) || ($item->audiofile && !$item->videofile)){
+				$lnk = SermonspeakerHelperSermonspeaker::makelink($item->audiofile);
+			} elseif (($item->videofile && $prio) || ($item->videofile && !$item->audiofile)){
 				$lnk = SermonspeakerHelperSermonspeaker::makelink($item->videofile);
 			} else {
-				$lnk = SermonspeakerHelperSermonspeaker::makelink($item->audiofile);
+				
 			}
 			// Get extension of file
 			jimport('joomla.filesystem.file');
@@ -193,7 +209,7 @@ class SermonspeakerHelperSermonspeaker
 			// Declare the supported file extensions
 			$audio_ext = array('aac', 'm4a', 'mp3');
 			$video_ext = array('mp4', 'mov', 'f4v', 'flv', '3gp', '3g2');
-			if(in_array($ext, $audio_ext)) {
+			if(in_array($ext, $audio_ext)){
 				// Audio File
 				$return['mspace'] = '<div id="mediaspace'.$count.'">Flashplayer needs Javascript turned on</div>';
 				if ($params->get('alt_player') && ($ext == 'mp3')){
@@ -219,6 +235,7 @@ class SermonspeakerHelperSermonspeaker
 				}
 				$return['height'] = $params->get('popup_height');
 				$return['width']  = '380';
+				$return['status'] = 'audio';
 			} elseif(in_array($ext, $video_ext)) {
 				// Video File
 				$return['mspace'] = '<div id="mediaspace'.$count.'">Flashplayer needs Javascript turned on</div>';
@@ -234,6 +251,7 @@ class SermonspeakerHelperSermonspeaker
 									.'</script>';
 				$return['height'] = $params->get('mp_height') + 100 + $params->get('popup_height');
 				$return['width']  = $params->get('mp_width') + 130;
+				$return['status'] = 'video';
 			} elseif($ext == 'wmv'){ // TODO: is anyone using this? Could switch to Longtail Silverlight player fpr wmv and wma support
 				// WMV File
 				$return['mspace'] = '<object id="mediaplayer" width="400" height="323" classid="clsid:22d6f312-b0f6-11d0-94ab-0080c74c7e95 22d6f312-b0f6-11d0-94ab-0080c74c7e95" type="application/x-oleobject">'
@@ -248,9 +266,17 @@ class SermonspeakerHelperSermonspeaker
 									.'	<embed name="MediaPlayer" src="'.$lnk.'" width="'.$params->get('mp_width').'" height="'.$params->get('mp_height').'" type="application/x-mplayer2" autostart="'.$start[1].'" showcontrols="1" showstatusbar="1" transparentatstart="1" animationatstart="0" loop="false" pluginspage="http://www.microsoft.com/windows/windowsmedia/download/default.asp">'
 									.'	</embed>'
 									.'</object>';
-				$return['script'] = NULL;
+				$return['script'] = '';
 				$return['height'] = $params->get('mp_height') + 100 + $params->get('popup_height');
 				$return['width']  = $params->get('mp_width') + 130;
+				$return['status'] = 'wmv file';
+			} else {
+				$return['mspace'] = '';
+				$return['script'] = '';
+				$return['height'] = 0;
+				$return['width']  = 0;
+				$return['status'] = 'error';
+				$return['error']  = 'Unsupported Filetype';
 			}
 		}
 

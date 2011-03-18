@@ -112,7 +112,7 @@ $limit 		= (int)$this->params->get('limit', '');
 	<!-- Begin Data -->
 		<tbody>
 			<?php foreach($this->items as $i => $item) : ?>
-				<tr class="<?php echo ($i % 2) ? "odd" : "even"; ?>">
+				<tr id="sermon<?php echo $i; ?>" class="<?php echo ($i % 2) ? "odd" : "even"; ?>">
 					<?php if (in_array('sermons:num', $this->columns)) : ?>
 						<td class="num">
 							<?php echo $item->sermon_number; ?>

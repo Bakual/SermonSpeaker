@@ -69,12 +69,13 @@ class SermonspeakerViewSermon extends JView
 			$this->assignRef('serie', $serie);
 		}
 
-		//Check if link targets to an external source
+		// Decide which file to show (audio or video)
 		if ($params->get('fileprio')){
-			$lnk = SermonspeakerHelperSermonspeaker::makelink($item->videofile);
+			$file = $item->videofile;
 		} else {
-			$lnk = SermonspeakerHelperSermonspeaker::makelink($item->audiofile);
+			$file = $item->audiofile;
 		}
+		$lnk = SermonspeakerHelperSermonspeaker::makelink($item->videofile);
 
 		// get active View from Menuitem
 		$menus	= $app->getMenu();
@@ -123,6 +124,7 @@ class SermonspeakerViewSermon extends JView
 		$this->assignRef('item', 		$item);
 		$this->assignRef('user', 		$user);
 		$this->assignRef('lnk', 		$lnk);
+		$this->assignRef('file', 		$file);
 		$this->assignRef('columns', 	$columns);
 		$this->assignRef('speaker',		$speaker);
 
