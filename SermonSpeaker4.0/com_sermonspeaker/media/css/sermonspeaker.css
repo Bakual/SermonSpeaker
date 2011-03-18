@@ -84,6 +84,10 @@ display:none;
 tr.ss-current td{
 	background:#EBFFEB;
 }
+
+.pointer{
+	cursor:pointer;
+}
 /* FRUP */
 #ss-frup-form br{
 	clear:left;

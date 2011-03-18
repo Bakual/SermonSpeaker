@@ -19,6 +19,14 @@
 			<option value="0">COM_SERMONSPEAKER_AUDIO</option>
 			<option value="1">COM_SERMONSPEAKER_VIDEO</option>
 		</field>
+		<field name="fileswitch" 
+			type="radio"
+			default="0"
+			label="COM_SERMONSPEAKER_PARAM_FILESWITCH_LABEL"
+			description="COM_SERMONSPEAKER_PARAM_FILESWITCH_DESC">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
+		</field>
 		<field name="limit_speaker" 
 			type="radio" 
 			default="0" 

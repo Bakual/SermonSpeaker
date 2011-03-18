@@ -128,16 +128,20 @@ class SermonspeakerHelperSermonspeaker
 					$meta .= ', image: "'.SermonspeakerHelperSermonspeaker::makelink($temp_item->picture).'"';
 				}
 				$entries[] = '{'.$file.$title.$meta.'}';
- 				// Preparing specific playlists for audio and video
-				if ($temp_item->audiofile){
-					$audios[] = '{file: "'.SermonspeakerHelperSermonspeaker::makelink($temp_item->audiofile).'"'.$title.$meta.'}';
-				} else {
-					$audios[] = '{file: "'.JURI::root().'", title: "'.JText::_('JGLOBAL_RESOURCE_NOT_FOUND').'"'.$meta.'}';
-				}
-				if ($temp_item->videofile){
-					$videos[] = '{file: "'.SermonspeakerHelperSermonspeaker::makelink($temp_item->videofile).'"'.$title.$meta.'}';
-				} else {
-					$videos[] = '{file: "'.JURI::root().'", title: "'.JText::_('JGLOBAL_RESOURCE_NOT_FOUND').'"'.$meta.'}';
+				if ($params->get('fileswitch')){
+					// Preparing specific playlists for audio and video
+					if ($temp_item->audiofile){
+						$audios[] = '{file: "'.SermonspeakerHelperSermonspeaker::makelink($temp_item->audiofile).'"'.$title.$meta.'}';
+					} else {
+						$audios[] = '{file: "'.JURI::root().'", title: "'.JText::_('JGLOBAL_RESOURCE_NOT_FOUND').'"'.$meta.'}';
+					}
+					$return['audio-pl'] = implode(',',$audios);
+					if ($temp_item->videofile){
+						$videos[] = '{file: "'.SermonspeakerHelperSermonspeaker::makelink($temp_item->videofile).'"'.$title.$meta.'}';
+					} else {
+						$videos[] = '{file: "'.JURI::root().'", title: "'.JText::_('JGLOBAL_RESOURCE_NOT_FOUND').'"'.$meta.'}';
+					}
+					$return['video-pl'] = implode(',',$videos);
 				}
 			}
 			$playlist = implode(',', $entries);
@@ -169,8 +173,6 @@ class SermonspeakerHelperSermonspeaker
 			$return['height'] = $params->get('popup_height');
 			$return['width']  = '380';
 			$return['default-pl'] = $playlist;
-			$return['audio-pl'] = implode(',',$audios);
-			$return['video-pl'] = implode(',',$videos);
 			$return['status']	= 'playlist';
 		} else {
 			// Single File
@@ -180,7 +182,13 @@ class SermonspeakerHelperSermonspeaker
 			} elseif (($item->videofile && $prio) || ($item->videofile && !$item->audiofile)){
 				$lnk = SermonspeakerHelperSermonspeaker::makelink($item->videofile);
 			} else {
-				
+				$return['mspace'] = '';
+				$return['script'] = '';
+				$return['height'] = 0;
+				$return['width']  = 0;
+				$return['status'] = 'error';
+				$return['error']  = JText::_('JGLOBAL_RESOURCE_NOT_FOUND');
+				return $return;
 			}
 			// Get extension of file
 			jimport('joomla.filesystem.file');

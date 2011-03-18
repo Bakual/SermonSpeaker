@@ -94,16 +94,18 @@ class SermonspeakerViewSermons extends JView
 		if (in_array('sermons:player', $this->columns)){
 			JHTML::Script('media/com_sermonspeaker/player/jwplayer/jwplayer.js', true);
 			$this->player = SermonspeakerHelperSermonspeaker::insertPlayer($this->items);
-			$this->document->addScriptDeclaration('
-				function Video() {
-					jwplayer().load(['.$this->player['video-pl'].']);
-				}
-			');
-			$this->document->addScriptDeclaration('
-				function Audio() {
-					jwplayer().load(['.$this->player['audio-pl'].']);
-				}
-			');
+			if($this->params->get('fileswitch')){
+				$this->document->addScriptDeclaration('
+					function Video() {
+						jwplayer().load(['.$this->player['video-pl'].']);
+					}
+				');
+				$this->document->addScriptDeclaration('
+					function Audio() {
+						jwplayer().load(['.$this->player['audio-pl'].']);
+					}
+				');
+			}
 		}
 
 		// Set Pagetitle
