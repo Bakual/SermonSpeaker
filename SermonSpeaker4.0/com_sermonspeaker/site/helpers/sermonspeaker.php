@@ -44,7 +44,7 @@ class SermonspeakerHelperSermonspeaker
 
 			$dot = strrpos($addfile, '.') + 1;
 			$filetype = substr($addfile, $dot);
-			if (file_exists('media'.DS.'com_sermonspeaker'.DS.'icons'.DS.$filetype.'.png')) {
+			if (file_exists(JPATH_SITE.DS.'media'.DS.'com_sermonspeaker'.DS.'icons'.DS.$filetype.'.png')) {
 				$file = JURI::root().'media/com_sermonspeaker/icons/'.$filetype.'.png';
 			} else {
 				$file = JURI::root().'media/com_sermonspeaker/icons/icon.png';
