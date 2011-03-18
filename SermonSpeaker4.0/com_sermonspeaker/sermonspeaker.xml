@@ -28,7 +28,6 @@
 
 	<files folder="site">
 		<filename>router.php</filename>
-		<filename>sermonspeaker.css</filename>
 		<filename>sermonspeaker.php</filename>
 		<filename>controller.php</filename>
 		<folder>controllers</folder>
