@@ -31,7 +31,7 @@ class SermonspeakerControllerFile extends JController
 		if (!JRequest::checkToken('request')) {
 			$response = array(
 				'status' => '0',
-				'error' => JText::_('JINVALID_TOKEN')
+				'error' => JText::_('JINVALID_TOKEN'),
 			);
 			echo json_encode($response);
 			return;

@@ -61,12 +61,15 @@ class SermonspeakerViewFrontendupload extends JView
 
 				$editor	=& JFactory::getEditor();
 
-				// Reading ID3 Tags if the Lookup Button was pressed
-				if ($id3_file = JRequest::getString('file')){
-					if (JRequest::getCmd('type') == 'video'){
-						$data['videofile'] = $id3_file;
+				// Reading ID3 Tags if the Lookup Button was pressed or a file was uploaded, priority on audiofile if both are present
+				$data = array();
+				$data['audiofile'] = JRequest::getString('file0');
+				$data['videofile'] = JRequest::getString('file1');
+				if ($data['audiofile'] || $data['videofile']){
+					if ($data['audiofile'] && (JRequest::getCmd('type') != 'video')){
+						$id3_file = $data['audiofile'];
 					} else {
-						$data['audiofile'] = $id3_file;
+						$id3_file = $data['videofile'];
 					}
 					require_once JPATH_COMPONENT_SITE.DS.'helpers'.DS.'id3.php';
 
@@ -75,9 +78,6 @@ class SermonspeakerViewFrontendupload extends JView
 						$data[$key] = $value;
 					}
 				} else {
-					$data = array();
-					$data['audiofile'] 		= '';
-					$data['videofile'] 		= '';
 					$data['speaker_id'] 	= 0;
 					$data['series_id'] 		= 0;
 					$data['sermon_time']	= '';
@@ -123,46 +123,118 @@ class SermonspeakerViewFrontendupload extends JView
 				$lists['catid']			= JHTML::_('list.category', 'catid', 'com_sermonspeaker');
 				$lists['addfile_choice'] = JHTML::_('select.genericlist', $addfiles, 'addfile_choice', 'disabled="disabled"', 'file', 'file');
 				
-				// Prepare Flashuploader
-				JHTML::_('stylesheet','media/mediamanager.css', array(), true);
-
-				$displayTypes = '*.aac, *.m4a, *.mp3, *.mp4, *.mov, *.f4v, *.flv, *.3gp, *.3g2';
-				$filterTypes = '*.aac; *.m4a; *.mp3; *.mp4; *.mov; *.f4v; *.flv; *.3gp; *.3g2';
-				$typeString = "{ '".JText::_('COM_SERMONSPEAKER_FU_FILES', 'true').' ('.$displayTypes.")': '".$filterTypes."' }";
 				$session	= JFactory::getSession();
-				
-				$targetURL = JURI::base().'index.php?option=com_sermonspeaker&amp;task=file.upload&amp;tmpl=component&amp;'.$session->getName().'='.$session->getId().'&amp;'.JUtility::getToken().'=1&amp;format=json';
-
-				$js =  "function(file, response) {
-							var json = new Hash(JSON.decode(response, true) || {});
-							if (json.get('status') == '1') {
-								document.fu_createsermon.audiofile.value = json.get('path');
-								file.element.addClass('file-success');
-								file.info.set('html', '<strong>' + Joomla.JText._('JLIB_HTML_BEHAVIOR_UPLOADER_FILE_SUCCESSFULLY_UPLOADED') + '</strong>');
-							} else {
-								file.element.addClass('file-failed');
-								file.info.set('html', '<strong>' + Joomla.JText._('JLIB_HTML_BEHAVIOR_UPLOADER_ERROR_OCCURRED', 'An Error Occurred').substitute({ error: json.get('error') }) + '</strong>');
-								test.info.set('html', '<strong>' + Joomla.JText._('JLIB_HTML_BEHAVIOR_UPLOADER_ERROR_OCCURRED', 'An Error Occurred').substitute({ error: json.get('error') }) + '</strong>');
-							}
-						}";
-				JHtml::_('behavior.uploader', 'upload-flash',
-					array(
-						'onFileSuccess'	=> $js,
-						'onStart'		=> "function() {
-												document.getElementById('status-bar').style.display='block';
-												document.getElementById('upload-queue').style.display='block';
-												}",
-						'onBeforeStart'	=> "function() {
-												document.getElementById('upload-browse').style.display='block';
-												}",
-						'targetURL' 	=> $targetURL,
-						'typeFilter' 	=> $typeString,
-						'fileSizeMax'	=> 0,
-						'multiple'		=> false,
-						'queued'		=> false,
-						'instantStart'	=> true,
-					)
-				);
+				if($params->get('enable_flash')){
+					// Prepare Flashuploader
+					$audioTypes = '*.aac; *.m4a; *.mp3';
+					$videoTypes = '*.mp4; *.mov; *.f4v; *.flv; *.3gp; *.3g2';
+					$targetURL 	= JURI::base().'index.php?option=com_sermonspeaker&task=file.upload&'.$session->getName().'='.$session->getId().'&'.JUtility::getToken().'=1&format=json';
+					// SWFUpload
+					JHTML::Script('components/com_sermonspeaker/media/uploader/swfupload.js');
+					JHTML::Script('components/com_sermonspeaker/media/uploader/swfupload.queue.js');
+					JHTML::Script('components/com_sermonspeaker/media/uploader/fileprogress.js');
+					JHTML::Script('components/com_sermonspeaker/media/uploader/handlers.js', true);
+					$uploader_script = '
+						window.onload = function() {
+							upload1 = new SWFUpload({
+								upload_url: "'.$targetURL.'",
+								flash_url : "components/com_sermonspeaker/media/uploader/swfupload.swf",
+								file_size_limit : "102400",
+								file_types : "'.$audioTypes.'",
+								file_types_description : "'.JText::_('COM_SERMONSPEAKER_FIELD_AUDIOFILE_LABEL', 'true').'",
+								file_upload_limit : "0",
+								file_queue_limit : "0",
+								button_image_url : "'.JURI::root(true).'/components/com_sermonspeaker/media/uploader/XPButtonUploadText_61x22.png",
+								button_placeholder_id : "btnUpload1",
+								button_width: 61,
+								button_height: 22,
+								debug: false,
+								swfupload_loaded_handler: function() {
+									document.id(\'btnCancel1\').removeClass(\'hide\');
+								},
+								file_dialog_start_handler : fileDialogStart,
+								file_queued_handler : fileQueued,
+								file_queue_error_handler : fileQueueError,
+								file_dialog_complete_handler : fileDialogComplete,
+								upload_start_handler : uploadStart,
+								upload_progress_handler : uploadProgress,
+								upload_error_handler : uploadError,
+								upload_success_handler : function uploadSuccess(file, serverData) {
+									try {
+										var progress = new FileProgress(file, this.customSettings.progressTarget);
+										var data = JSON.decode(serverData);
+										if (data.status == "1") {
+											progress.setComplete();
+											progress.setStatus(data.error);
+											document.id("audiofile").value = data.path;
+										} else {
+											progress.setError();
+											progress.setStatus(data.error);
+										}
+										progress.toggleCancel(false);
+									} catch (ex) {
+										this.debug(ex);
+									}
+								},
+								upload_complete_handler : uploadComplete,
+								custom_settings : {
+									progressTarget : "infoUpload1",
+									cancelButtonId : "btnCancel1"
+								}
+									
+							});
+							upload2 = new SWFUpload({
+								upload_url: "'.$targetURL.'",
+								flash_url : "components/com_sermonspeaker/media/uploader/swfupload.swf",
+								file_size_limit : "102400",
+								file_types : "'.$videoTypes.'",
+								file_types_description : "'.JText::_('COM_SERMONSPEAKER_FIELD_VIDEOFILE_LABEL', 'true').'",
+								file_upload_limit : "0",
+								file_queue_limit : "0",
+								button_image_url : "'.JURI::root(true).'/components/com_sermonspeaker/media/uploader/XPButtonUploadText_61x22.png",
+								button_placeholder_id : "btnUpload2",
+								button_width: 61,
+								button_height: 22,
+								debug: false,
+								swfupload_loaded_handler: function() {
+									document.id(\'upload-noflash\').destroy();
+									document.id(\'btnCancel2\').removeClass(\'hide\');
+								},
+								file_dialog_start_handler : fileDialogStart,
+								file_queued_handler : fileQueued,
+								file_queue_error_handler : fileQueueError,
+								file_dialog_complete_handler : fileDialogComplete,
+								upload_start_handler : uploadStart,
+								upload_progress_handler : uploadProgress,
+								upload_error_handler : uploadError,
+								upload_success_handler : function uploadSuccess(file, serverData) {
+									try {
+										var progress = new FileProgress(file, this.customSettings.progressTarget);
+										var data = JSON.decode(serverData);
+										if (data.status == "1") {
+											progress.setComplete();
+											progress.setStatus(data.error);
+											document.id("videofile").value = data.path;
+										} else {
+											progress.setError();
+											progress.setStatus(data.error);
+										}
+										progress.toggleCancel(false);
+									} catch (ex) {
+										this.debug(ex);
+									}
+								},
+								upload_complete_handler : uploadComplete,
+								custom_settings : {
+									progressTarget : "infoUpload2",
+									cancelButtonId : "btnCancel2"
+								}
+									
+							});
+						}
+					';
+					$document->addScriptDeclaration($uploader_script);
+				}
 
 				// Push the Data to the Template
 				$this->assignRef('lists',		$lists);
@@ -171,7 +243,7 @@ class SermonspeakerViewFrontendupload extends JView
 				$this->assignRef('editor',		$editor);
 				$this->assignRef('data',		$data);
 				$this->assignRef('params',		$params);
-				$this->assignRef('session', $session);
+				$this->assignRef('session',		$session);
 
 				parent::display($tpl);
 			} else {

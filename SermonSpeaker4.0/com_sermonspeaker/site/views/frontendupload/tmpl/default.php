@@ -1,7 +1,9 @@
 <?php
 defined( '_JEXEC' ) or die( 'Restricted access' );
 $uri = JURI::getInstance();
-$uri->delVar('file');
+$uri->delVar('file0');
+$uri->delVar('file1');
+$uri->delVar('type');
 $self = $uri->toString();
 ?>
 <div id="ss-frup-container">
@@ -10,8 +12,10 @@ $self = $uri->toString();
 		<form action="<?php echo JURI::base(); ?>index.php?option=com_sermonspeaker&amp;task=file.upload&amp;tmpl=component&amp;<?php echo $this->session->getName().'='.$this->session->getId(); ?>&amp;<?php echo JUtility::getToken();?>=1" id="uploadForm" name="uploadForm" method="post" enctype="multipart/form-data">
 			<fieldset id="upload-noflash" class="actions">
 				<legend><?php echo JText::_('COM_SERMONSPEAKER_FU_STEP1'); ?></legend>
-				<label for="upload-file" class="label"><?php echo JText::_('COM_SERMONSPEAKER_FU_UPLOAD'); ?></label>
-				<input type="file" size="50" id="upload-file" name="Filedata" /><br />
+				<label for="upload-file" class="label"><?php echo JText::_('COM_SERMONSPEAKER_FIELD_AUDIOFILE_LABEL'); ?></label>
+				<input type="file" size="50" id="upload-file" name="Filedata[]" /><br />
+				<label for="upload-file" class="label"><?php echo JText::_('COM_SERMONSPEAKER_FIELD_VIDEOFILE_LABEL'); ?></label>
+				<input type="file" size="50" id="upload-file" name="Filedata[]" /><br />
 				<input type="submit" class="submit" value="<?php echo JText::_('COM_SERMONSPEAKER_FU_START_UPLOAD'); ?>" />
 				<input type="hidden" name="return-url" value="<?php echo base64_encode($self); ?>" />
 			</fieldset>
@@ -23,23 +27,18 @@ $self = $uri->toString();
 			<input class="text_area" type="text" name="alias" id="alias" size="50" maxlength="250" value="<?php echo $this->data['alias']; ?>" /><br />
 			<label for="audiofile"><?php echo JText::_('COM_SERMONSPEAKER_FIELD_AUDIOFILE_LABEL'); ?></label>
 			<input class="text_area" type="text" name="audiofile" id="audiofile" size="50" maxlength="250" value="<?php echo $this->data['audiofile']; ?>" />
-				<img onClick="window.location.href='<?php echo $self; ?>&amp;type=audio&amp;file='+document.fu_createsermon.audiofile.value;" src='<?php echo JURI::root(); ?>/components/com_sermonspeaker/images/find.png' alt='lookup ID3' title='lookup ID3'><br />
-			<div id="upload-flash" class="hide">
-				<button id="upload-browse" type="button"><img src="<?php echo JURI::root(); ?>/components/com_sermonspeaker/images/upload.png" /></button>
-				<div onClick="this.style.display='none';" id="status-bar" class="ss-hide intend">
-					<p class="overall-title"></p>
-					<?php echo JHTML::_('image','media/bar.gif', '', array('class' => 'progress overall-progress'), true); ?>
-					<div class="clr"> </div>
-					<div class="ss-hide">
-						<p class="current-title"></p>
-						<?php echo JHTML::_('image','media/bar.gif', '', array('class' => 'progress current-progress'), true); ?>
-					</div>
-					<p class="current-text"></p>
+				<img onClick="window.location.href='<?php echo $self; ?>&amp;type=audio&amp;file0='+document.fu_createsermon.audiofile.value+'&amp;file1='+document.fu_createsermon.videofile.value;" src='<?php echo JURI::root(); ?>/components/com_sermonspeaker/images/find.png' alt='lookup ID3' title='lookup ID3'><br />
+				<div id="infoUpload1" class="intend">
+					<span id="btnUpload1"></span>
+					<button id="btnCancel1" type="button" onclick="cancelQueue(upload1);" class="hide" disabled="disabled">Cancel</button>
 				</div>
-			</div>
-			<ul class="upload-queue ss-hide" id="upload-queue">
-				<li style="display:none;"></li>
-			</ul>
+			<label for="videofile"><?php echo JText::_('COM_SERMONSPEAKER_FIELD_VIDEOFILE_LABEL'); ?></label>
+			<input class="text_area" type="text" name="videofile" id="videofile" size="50" maxlength="250" value="<?php echo $this->data['videofile']; ?>" />
+				<img onClick="window.location.href='<?php echo $self; ?>&amp;type=video&amp;file0='+document.fu_createsermon.audiofile.value+'&amp;file1='+document.fu_createsermon.videofile.value;" src='<?php echo JURI::root(); ?>/components/com_sermonspeaker/images/find.png' alt='lookup ID3' title='lookup ID3'>
+				<div id="infoUpload2" class="intend">
+					<span id="btnUpload2"></span>
+					<button id="btnCancel2" type="button" onclick="cancelQueue(upload1);" class="hide" disabled="disabled">Cancel</button>
+				</div>
 			<label for="sermon_scripture"><?php echo JText::_('COM_SERMONSPEAKER_SCRIPTURE'); ?></label>
 			<input class="text_area" type="text" name="sermon_scripture" id="sermon_scripture" size="50" maxlength="250" value="<?php echo $this->data['sermon_scripture'];?>" />
 				<?php $tag = $this->params->get('plugin_tag'); ?>

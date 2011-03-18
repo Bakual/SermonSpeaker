@@ -38,56 +38,65 @@ class SermonspeakerControllerFile extends JController
 		$user		= JFactory::getUser();
 
 		// Get some data from the request
-		$file		= JRequest::getVar('Filedata', '', 'files', 'array');
+		$files		= JRequest::getVar('Filedata', '', 'files', 'array');
 		if ($fu_destdir = $params->get('fu_destdir')) {
 			$fu_destdir .= '/';
 		}
-		$folder		= JPATH_ROOT.DS.$params->get('path').DS.$fu_destdir;
+		$folder		= $params->get('path').DS.$fu_destdir;
 		$return		= JRequest::getVar('return-url', null, 'post', 'base64');
 
 		// Set FTP credentials, if given
 		jimport('joomla.client.helper');
 		JClientHelper::setCredentialsFromRequest('ftp');
 
-		// Set the redirect
 		if ($return) {
 			$this->setRedirect(base64_decode($return));
 		}
-
-		// Make the filename safe
-		$file['name']	= JFile::makeSafe($file['name']);
-
-		if (isset($file['name'])){
-			// The request is valid
-			$err = null;
-			$filepath = JPath::clean($folder.strtolower($file['name']));
-
-			$object_file = new JObject($file);
-			$object_file->filepath = $filepath;
-
-			if (JFile::exists($filepath)) {
-				// File exists
-				JError::raiseWarning(100, JText::_('COM_SERMONSPEAKER_FU_ERROR_EXISTS'));
-				return false;
-			} elseif (!$params->get('fu_enable') || !$user->authorise('core.create', 'com_sermonspeaker')) {
-				// File does not exist and user is not authorised to create
-				JError::raiseWarning(403, JText::_('JGLOBAL_AUTH_ACCESS_DENIED'));
-				return false;
-			}
-
-			$file = (array) $object_file;
-			if (!JFile::upload($file['tmp_name'], $file['filepath'])) {
-				// Error in upload
-				JError::raiseWarning(100, JText::_('COM_SERMONSPEAKER_FU_ERROR_UNABLE_TO_UPLOAD_FILE'));
-				return false;
-			} else {
-				$this->setMessage(JText::sprintf('COM_SERMONSPEAKER_FU_FILENAME', substr($file['filepath'], strlen(JPATH_ROOT))));
-				$this->setRedirect(base64_decode($return).'&file=/'.$params->get('path').'/'.$fu_destdir.strtolower($file['name']));
-				return true;
-			}
-		} else {
-			$this->setRedirect('index.php', JText::_('JERROR_AN_ERROR_HAS_OCCURRED'), 'error');
+		if (!$params->get('fu_enable') || !$user->authorise('core.create', 'com_sermonspeaker')) {
+			JError::raiseWarning(403, JText::_('JGLOBAL_AUTH_ACCESS_DENIED'));
 			return false;
 		}
+
+		$success = false;
+		$warning = array();
+		$message = array();
+		$redirect = '';
+		for($i = 0; $i != 2; $i++){
+			// Make the filename safe
+			$files['name'][$i] = JFile::makeSafe($files['name'][$i]);
+
+			if ($files['name'][$i]){
+				// The request is valid
+				$err = null;
+				$filepath = JPath::clean($folder.strtolower($files['name'][$i]));
+
+				$files['filepath'][$i] = $filepath;
+
+				if (JFile::exists($filepath)) {
+					// File exists
+					$warning[] = JText::_('COM_SERMONSPEAKER_FU_ERROR_EXISTS');
+					continue;
+				}
+				if (!JFile::upload($files['tmp_name'][$i], JPATH_ROOT.DS.$files['filepath'][$i])) {
+					// Error in upload
+					$warning[] = JText::_('COM_SERMONSPEAKER_FU_ERROR_UNABLE_TO_UPLOAD_FILE');
+					continue;
+				} else {
+					$message[] = JText::sprintf('COM_SERMONSPEAKER_FU_FILENAME', $files['filepath'][$i]);
+					$redirect .= '&file'.$i.'=/'.str_replace('\\', '/', $files['filepath'][$i]);
+					$success = true;
+				}
+			}
+		}
+		if($warning){
+			JError::raiseWarning(100, implode('<br>', $warning));
+		}
+		if($message){
+			$this->setMessage(implode('<br>', $message));
+		}
+		if ($success){
+			$this->setRedirect(base64_decode($return).$redirect);
+		}
+		return $success;
 	}
 }

@@ -47,7 +47,7 @@ $ss_itemid = $params->get('ls_mo_menuitem');
 		}
 		if ($params->get('ls_show_mo_date')) {
 			$date_format = JText::_($params->get('ls_mo_date_format', 'DATE_FORMAT_LC4'));
-			$tips[] = JText::_('JDATE').": ".JHtml::Date($row->sermon_date, $date_format);
+			$tips[] = JText::_('JDATE').": ".JHtml::Date($row->sermon_date, $date_format, 'UTC');
 		}
 		$tip = implode('<br>', $tips);
 		$title = htmlspecialchars(stripslashes($row->sermon_title), ENT_QUOTES);
