@@ -35,21 +35,18 @@
 		<folder>helpers</folder>
 		<folder>views</folder>
 		<folder>models</folder>
-		<folder>images</folder>
 		<folder>icons</folder>
 		<folder>language</folder>
 		<folder>id3</folder>
-		<filename>media/default_sermon.mp3</filename>
-		<filename>media/default_speaker.jpg</filename>
-		<filename>media/index.html</filename>
-		<folder>media/avatars</folder>
-		<filename>media/player/audio_player/audio-player.js</filename>
-		<filename>media/player/audio_player/player.swf</filename>
-		<filename>media/player/jwplayer/jwplayer.js</filename>
-		<filename>media/player/jwplayer/player.swf</filename>
-		<filename>media/player/jwplayer/swfobject.js</filename>
-		<filename>media/player/jwplayer/yt.swf</filename>
 	</files>
+	<media destination="com_sermonspeaker" folder="media">
+		<folder>avatars</folder>
+		<folder>css</folder>
+		<folder>images</folder>
+		<folder>swfupload</folder>
+		<folder>player</folder>
+		<folder>uploader</folder>
+	</media>
 	<administration>
 		<menu img="components/com_sermonspeaker/images/speakers-16.png">COM_SERMONSPEAKER</menu>
 		<submenu>
