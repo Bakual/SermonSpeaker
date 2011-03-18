@@ -11,7 +11,7 @@ class SermonspeakerViewSermons extends JView
 	function display($tpl = null)
 	{
 		// Applying CSS file
-		JHTML::stylesheet('sermonspeaker.css', 'components/com_sermonspeaker/');
+		JHTML::stylesheet('sermonspeaker.css', 'media/com_sermonspeaker/css/');
 
 		$app		= JFactory::getApplication();
 		$params		= $app->getParams();
@@ -92,7 +92,7 @@ class SermonspeakerViewSermons extends JView
 
 		// Add javascript for player if needed
 		if (in_array('sermons:player', $this->columns)){
-			$this->document->addScript(JURI::root().'components/com_sermonspeaker/media/player/jwplayer/jwplayer.js');
+			$this->document->addScript(JURI::root().'media/com_sermonspeaker/player/jwplayer/jwplayer.js');
 			$this->player = SermonspeakerHelperSermonspeaker::insertPlayer($this->items);
 			$this->document->addScriptDeclaration('
 				function Video() {

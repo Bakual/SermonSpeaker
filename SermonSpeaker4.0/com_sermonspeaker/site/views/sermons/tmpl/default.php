@@ -19,8 +19,8 @@ $limit 		= (int)$this->params->get('limit', '');
 	?>
 		<hr class="ss-sermons-player" />
 		<div>
-			<img src="<?php echo JURI::root().'components/com_sermonspeaker/images/Video.png'; ?>" onClick="Video()" Alt="Video" />
-			<img src="<?php echo JURI::root().'components/com_sermonspeaker/images/Sound.png'; ?>" onClick="Audio()" Alt="Audio" />
+			<img src="<?php echo JURI::root().'media/com_sermonspeaker/images/Video.png'; ?>" onClick="Video()" Alt="Video" />
+			<img src="<?php echo JURI::root().'media/com_sermonspeaker/images/Sound.png'; ?>" onClick="Audio()" Alt="Audio" />
 		</div>
 	</div>
 <?php endif; ?>
@@ -120,7 +120,7 @@ $limit 		= (int)$this->params->get('limit', '');
 					<?php endif; ?>
 					<td class="ss-title">
 						<span onMouseover="this.style.cursor='pointer'" onClick="jwplayer().playlistItem(<?php echo $i; ?>)">
-							<img title="<?php echo JText::_('COM_SERMONSPEAKER_PLAYICON_HOOVER'); ?>" src="<?php echo JURI::root().'components/com_sermonspeaker/images/play.gif'; ?>" class='icon_play' alt=""  />
+							<img title="<?php echo JText::_('COM_SERMONSPEAKER_PLAYICON_HOOVER'); ?>" src="<?php echo JURI::root().'media/com_sermonspeaker/images/play.gif'; ?>" class='icon_play' alt=""  />
 						</span>
 						<a title="<?php echo JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER'); ?>" href="<?php echo $item->link2; ?>">
 							<?php echo $item->sermon_title; ?>

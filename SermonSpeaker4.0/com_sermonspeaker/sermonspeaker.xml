@@ -34,17 +34,17 @@
 		<folder>helpers</folder>
 		<folder>views</folder>
 		<folder>models</folder>
-		<folder>icons</folder>
 		<folder>language</folder>
 		<folder>id3</folder>
+		<folder>media</folder>
 	</files>
 	<media destination="com_sermonspeaker" folder="media">
 		<folder>avatars</folder>
 		<folder>css</folder>
+		<folder>icons</folder>
 		<folder>images</folder>
-		<folder>swfupload</folder>
 		<folder>player</folder>
-		<folder>uploader</folder>
+		<folder>swfupload</folder>
 	</media>
 	<administration>
 		<menu img="components/com_sermonspeaker/images/speakers-16.png">COM_SERMONSPEAKER</menu>

@@ -1,7 +1,7 @@
 <?php
 defined( '_JEXEC' ) or die( 'Restricted access' );
 if (!$this->speaker->pic):
-	$this->speaker->pic = JURI::root().'components/com_sermonspeaker/images/nopict.jpg';
+	$this->speaker->pic = JURI::root().'media/com_sermonspeaker/images/nopict.jpg';
 endif;
 ?>
 <!-- Begin Data -->

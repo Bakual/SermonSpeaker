@@ -11,7 +11,7 @@ class SermonspeakerViewSeries extends JView
 	function display($tpl = null)
 	{
 		// Applying CSS file
-		JHTML::stylesheet('sermonspeaker.css', 'components/com_sermonspeaker/');
+		JHTML::stylesheet('sermonspeaker.css', 'media/com_sermonspeaker/css/');
 
 		$app		= JFactory::getApplication();
 		$params		= $app->getParams();

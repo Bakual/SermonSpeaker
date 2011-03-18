@@ -98,7 +98,7 @@ $listDirn	= $this->state->get('list.direction');
 					<?php endif; ?>
 					<td class="ss-title">
 						<a href="<?php echo $item->link1; ?>">
-							<img title="<?php echo JText::_('COM_SERMONSPEAKER_PLAYICON_HOOVER'); ?>" src="<?php echo JURI::root().'components/com_sermonspeaker/images/play.gif'; ?>" class='icon_play' alt="" />
+							<img title="<?php echo JText::_('COM_SERMONSPEAKER_PLAYICON_HOOVER'); ?>" src="<?php echo JURI::root().'media/com_sermonspeaker/images/play.gif'; ?>" class='icon_play' alt="" />
 						</a>
 						<a title="<?php echo JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER'); ?>" href="<?php echo $item->link2; ?>">
 							<?php echo $item->sermon_title; ?>

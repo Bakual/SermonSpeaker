@@ -10,7 +10,7 @@ class SermonspeakerHelperSermonspeaker
 		if ($id){
 			if (!$pic) { 
 				// check if there is no picture and set nopict.jpg
-				$pic = JURI::root().'components/com_sermonspeaker/images/nopict.jpg';
+				$pic = JURI::root().'media/com_sermonspeaker/images/nopict.jpg';
 			} else {
 				$pic = SermonspeakerHelperSermonspeaker::makelink($pic);
 			}
@@ -44,10 +44,10 @@ class SermonspeakerHelperSermonspeaker
 
 			$dot = strrpos($addfile, '.') + 1;
 			$filetype = substr($addfile, $dot);
-			if (file_exists(JPATH_COMPONENT.DS.'icons'.DS.$filetype.'.png')) {
-				$file = JURI::root().'components/com_sermonspeaker/icons/'.$filetype.'.png';
+			if (file_exists('media'.DS.'com_sermonspeaker'.DS.'icons'.DS.$filetype.'.png')) {
+				$file = JURI::root().'media/com_sermonspeaker/icons/'.$filetype.'.png';
 			} else {
-				$file = JURI::root().'components/com_sermonspeaker/icons/icon.png';
+				$file = JURI::root().'media/com_sermonspeaker/icons/icon.png';
 			}
 			$html = '<a title="'.JText::_('COM_SERMONSPEAKER_ADDFILE_HOOVER').'" href="'.$link.'" target="_blank"><img src="'.$file.'" width="18" height="20" alt="" /></a>&nbsp;<a title="'.JText::_('COM_SERMONSPEAKER_ADDFILE_HOOVER').'" href="'.$link.'" target="_blank">'.$addfileDesc.'</a>';
 
@@ -101,7 +101,7 @@ class SermonspeakerHelperSermonspeaker
 		}
 		if($view == 'serie' || $view == 'sermons' || $view == 'archive' || $view == 'speaker'){
 			// Playlist
-			$player = JURI::root().'components/com_sermonspeaker/media/player/jwplayer/player.swf';
+			$player = JURI::root().'media/com_sermonspeaker/player/jwplayer/player.swf';
 			
 			foreach ($item as $temp_item){
 				// Choosing the default file to play based on prio and availabilty
@@ -171,7 +171,7 @@ class SermonspeakerHelperSermonspeaker
 			$ext = JFile::getExt($lnk);
 
 			if ($params->get('alt_player') && ($ext == 'mp3')){
-				$player = JURI::root().'components/com_sermonspeaker/media/player/audio_player/player.swf';
+				$player = JURI::root().'media/com_sermonspeaker/player/audio_player/player.swf';
 				$options = NULL;
 				if ($item->sermon_title){
 					$options = 'titles: "'.$item->sermon_title.'",';
@@ -180,7 +180,7 @@ class SermonspeakerHelperSermonspeaker
 					$options .= 'artists: "'.$artist.'",';
 				}
 			} else {
-				$player = JURI::root().'components/com_sermonspeaker/media/player/jwplayer/player.swf';
+				$player = JURI::root().'media/com_sermonspeaker/player/jwplayer/player.swf';
 				if ($item->sermon_time){
 					$time_arr = explode(':', $item->sermon_time);
 					$seconds = ($time_arr[0] * 3600) + ($time_arr[1] * 60) + $time_arr[2];

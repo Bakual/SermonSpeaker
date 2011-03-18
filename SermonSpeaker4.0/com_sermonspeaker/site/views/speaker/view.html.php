@@ -16,7 +16,7 @@ class SermonspeakerViewspeaker extends JView
 		}
 
 		// Applying CSS file
-		JHTML::stylesheet('sermonspeaker.css', 'components/com_sermonspeaker/');
+		JHTML::stylesheet('sermonspeaker.css', 'media/com_sermonspeaker/css/');
 
 		$app		= JFactory::getApplication();
 		$params		= $app->getParams();
@@ -142,7 +142,7 @@ class SermonspeakerViewspeaker extends JView
 
 		// Add javascript for player if needed
 		if (in_array('speaker:player', $this->columns) || $this->getLayout() == 'latest-sermons'){
-			$this->document->addScript(JURI::root().'components/com_sermonspeaker/media/player/jwplayer/jwplayer.js');
+			$this->document->addScript(JURI::root().'media/com_sermonspeaker/player/jwplayer/jwplayer.js');
 		}
 		
 		// Set Pagetitle

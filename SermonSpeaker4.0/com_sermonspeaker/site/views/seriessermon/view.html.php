@@ -11,7 +11,7 @@ class SermonspeakerViewSeriessermon extends JView
 	function display($tpl = null)
 	{
 		// Applying CSS file
-		JHTML::stylesheet('sermonspeaker.css', 'components/com_sermonspeaker/');
+		JHTML::stylesheet('sermonspeaker.css', 'media/com_sermonspeaker/css/');
 
 		$app		= JFactory::getApplication();
 		$params		= $app->getParams();
@@ -83,9 +83,9 @@ class SermonspeakerViewSeriessermon extends JView
 		// Add swfobject-javascript for player if needed
 		if (in_array('seriessermon:player', $this->columns)){
 			if ($this->params->get('alt_player')){
-				$this->document->addScript(JURI::root()."components/com_sermonspeaker/media/player/audio_player/audio-player.js");
+				$this->document->addScript(JURI::root()."media/com_sermonspeaker/player/audio_player/audio-player.js");
 				$this->document->addScriptDeclaration('
-				AudioPlayer.setup("'.JURI::root().'components/com_sermonspeaker/media/player/audio_player/player.swf", {
+				AudioPlayer.setup("'.JURI::root().'media/com_sermonspeaker/player/audio_player/player.swf", {
 					width: 290,
 					initialvolume: 100,
 					transparentpagebg: "yes",
@@ -93,7 +93,7 @@ class SermonspeakerViewSeriessermon extends JView
 					lefticon: "FFFFFF"
 				});');
 			} else {
-				$this->document->addScript(JURI::root().'components/com_sermonspeaker/media/player/jwplayer/jwplayer.js');
+				$this->document->addScript(JURI::root().'media/com_sermonspeaker/player/jwplayer/jwplayer.js');
 			}
 		}
 		

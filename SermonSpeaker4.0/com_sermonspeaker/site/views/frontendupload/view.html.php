@@ -10,7 +10,7 @@ class SermonspeakerViewFrontendupload extends JView
 {
 	function display($tpl = null)
 	{
-		JHTML::stylesheet('sermonspeaker.css', 'components/com_sermonspeaker/');
+		JHTML::stylesheet('sermonspeaker.css', 'media/com_sermonspeaker/css/');
 
 		// Initialise variables.
 		$app		= JFactory::getApplication();
@@ -130,21 +130,21 @@ class SermonspeakerViewFrontendupload extends JView
 					$videoTypes = '*.mp4; *.mov; *.f4v; *.flv; *.3gp; *.3g2';
 					$targetURL 	= JURI::base().'index.php?option=com_sermonspeaker&task=file.upload&'.$session->getName().'='.$session->getId().'&'.JUtility::getToken().'=1&format=json';
 					// SWFUpload
-					JHTML::Script('components/com_sermonspeaker/media/uploader/swfupload.js');
-					JHTML::Script('components/com_sermonspeaker/media/uploader/swfupload.queue.js');
-					JHTML::Script('components/com_sermonspeaker/media/uploader/fileprogress.js');
-					JHTML::Script('components/com_sermonspeaker/media/uploader/handlers.js', true);
+					JHTML::Script('media/com_sermonspeaker/swfupload/swfupload.js');
+					JHTML::Script('media/com_sermonspeaker/swfupload/swfupload.queue.js');
+					JHTML::Script('media/com_sermonspeaker/swfupload/fileprogress.js');
+					JHTML::Script('media/com_sermonspeaker/swfupload/handlers.js', true);
 					$uploader_script = '
 						window.onload = function() {
 							upload1 = new SWFUpload({
 								upload_url: "'.$targetURL.'",
-								flash_url : "components/com_sermonspeaker/media/uploader/swfupload.swf",
+								flash_url : "media/com_sermonspeaker/swfupload/swfupload.swf",
 								file_size_limit : "102400",
 								file_types : "'.$audioTypes.'",
 								file_types_description : "'.JText::_('COM_SERMONSPEAKER_FIELD_AUDIOFILE_LABEL', 'true').'",
 								file_upload_limit : "0",
 								file_queue_limit : "0",
-								button_image_url : "'.JURI::root(true).'/components/com_sermonspeaker/media/uploader/XPButtonUploadText_61x22.png",
+								button_image_url : "'.JURI::root(true).'/media/com_sermonspeaker/swfupload/XPButtonUploadText_61x22.png",
 								button_placeholder_id : "btnUpload1",
 								button_width: 61,
 								button_height: 22,
@@ -185,13 +185,13 @@ class SermonspeakerViewFrontendupload extends JView
 							});
 							upload2 = new SWFUpload({
 								upload_url: "'.$targetURL.'",
-								flash_url : "components/com_sermonspeaker/media/uploader/swfupload.swf",
+								flash_url : "media/com_sermonspeaker/swfupload/swfupload.swf",
 								file_size_limit : "102400",
 								file_types : "'.$videoTypes.'",
 								file_types_description : "'.JText::_('COM_SERMONSPEAKER_FIELD_VIDEOFILE_LABEL', 'true').'",
 								file_upload_limit : "0",
 								file_queue_limit : "0",
-								button_image_url : "'.JURI::root(true).'/components/com_sermonspeaker/media/uploader/XPButtonUploadText_61x22.png",
+								button_image_url : "'.JURI::root(true).'/media/com_sermonspeaker/swfupload/XPButtonUploadText_61x22.png",
 								button_placeholder_id : "btnUpload2",
 								button_width: 61,
 								button_height: 22,
