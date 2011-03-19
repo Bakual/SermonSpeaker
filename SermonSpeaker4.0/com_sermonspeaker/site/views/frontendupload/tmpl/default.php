@@ -27,14 +27,14 @@ $self = $uri->toString();
 			<input class="text_area" type="text" name="alias" id="alias" size="50" maxlength="250" value="<?php echo $this->data['alias']; ?>" /><br />
 			<label for="audiofile"><?php echo JText::_('COM_SERMONSPEAKER_FIELD_AUDIOFILE_LABEL'); ?></label>
 			<input class="text_area" type="text" name="audiofile" id="audiofile" size="50" maxlength="250" value="<?php echo $this->data['audiofile']; ?>" />
-				<img onClick="window.location.href='<?php echo $self; ?>&amp;type=audio&amp;file0='+document.fu_createsermon.audiofile.value+'&amp;file1='+document.fu_createsermon.videofile.value;" src='<?php echo JURI::root(); ?>/media/com_sermonspeaker/images/find.png' alt='lookup ID3' title='lookup ID3'><br />
+				<img onClick="window.location.href='<?php echo JRoute::_("index.php?view=frontendupload&amp;type=audio") ;?>&amp;file0='+document.fu_createsermon.audiofile.value+'&amp;file1='+document.fu_createsermon.videofile.value;" src='<?php echo JURI::root(); ?>/media/com_sermonspeaker/images/find.png' alt='lookup ID3' title='lookup ID3'><br />
 				<div id="infoUpload1" class="intend">
 					<span id="btnUpload1"></span>
 					<button id="btnCancel1" type="button" onclick="cancelQueue(upload1);" class="hide" disabled="disabled">Cancel</button>
 				</div>
 			<label for="videofile"><?php echo JText::_('COM_SERMONSPEAKER_FIELD_VIDEOFILE_LABEL'); ?></label>
 			<input class="text_area" type="text" name="videofile" id="videofile" size="50" maxlength="250" value="<?php echo $this->data['videofile']; ?>" />
-				<img onClick="window.location.href='<?php echo $self; ?>&amp;type=video&amp;file0='+document.fu_createsermon.audiofile.value+'&amp;file1='+document.fu_createsermon.videofile.value;" src='<?php echo JURI::root(); ?>/media/com_sermonspeaker/images/find.png' alt='lookup ID3' title='lookup ID3'>
+				<img onClick="window.location.href='<?php echo JRoute::_("index.php?view=frontendupload&amp;type=video") ;?>&amp;file0='+document.fu_createsermon.audiofile.value+'&amp;file1='+document.fu_createsermon.videofile.value;" src='<?php echo JURI::root(); ?>/media/com_sermonspeaker/images/find.png' alt='lookup ID3' title='lookup ID3'>
 				<div id="infoUpload2" class="intend">
 					<span id="btnUpload2"></span>
 					<button id="btnCancel2" type="button" onclick="cancelQueue(upload1);" class="hide" disabled="disabled">Cancel</button>

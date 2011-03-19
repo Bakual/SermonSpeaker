@@ -89,7 +89,6 @@ class SermonspeakerViewFrontendupload extends JView
 					$data['series_id'] 		= '';
 					$data['speaker_id']		= '';
 				}
-
 				// Preparing Dropdown Lists
 				// todo: probably move Databasestuff to Model
 				$db =& JFactory::getDBO();
@@ -138,13 +137,13 @@ class SermonspeakerViewFrontendupload extends JView
 						window.onload = function() {
 							upload1 = new SWFUpload({
 								upload_url: "'.$targetURL.'",
-								flash_url : "media/com_sermonspeaker/swfupload/swfupload.swf",
-								file_size_limit : "102400",
+								flash_url : "/media/com_sermonspeaker/swfupload/swfupload.swf",
+								file_size_limit : "100MB",
 								file_types : "'.$audioTypes.'",
 								file_types_description : "'.JText::_('COM_SERMONSPEAKER_FIELD_AUDIOFILE_LABEL', 'true').'",
 								file_upload_limit : "0",
 								file_queue_limit : "0",
-								button_image_url : "'.JURI::root(true).'/media/com_sermonspeaker/swfupload/XPButtonUploadText_61x22.png",
+								button_image_url : "/media/com_sermonspeaker/swfupload/XPButtonUploadText_61x22.png",
 								button_placeholder_id : "btnUpload1",
 								button_width: 61,
 								button_height: 22,
@@ -185,8 +184,8 @@ class SermonspeakerViewFrontendupload extends JView
 							});
 							upload2 = new SWFUpload({
 								upload_url: "'.$targetURL.'",
-								flash_url : "media/com_sermonspeaker/swfupload/swfupload.swf",
-								file_size_limit : "102400",
+								flash_url : "/media/com_sermonspeaker/swfupload/swfupload.swf",
+								file_size_limit : "100MB",
 								file_types : "'.$videoTypes.'",
 								file_types_description : "'.JText::_('COM_SERMONSPEAKER_FIELD_VIDEOFILE_LABEL', 'true').'",
 								file_upload_limit : "0",
@@ -238,8 +237,6 @@ class SermonspeakerViewFrontendupload extends JView
 
 				// Push the Data to the Template
 				$this->assignRef('lists',		$lists);
-				$this->assignRef('filename',	$filename);
-				$this->assignRef('path',		$path);
 				$this->assignRef('editor',		$editor);
 				$this->assignRef('data',		$data);
 				$this->assignRef('params',		$params);
@@ -251,13 +248,8 @@ class SermonspeakerViewFrontendupload extends JView
 				$db =& JFactory::getDBO();
 				$sql['speaker_id'] 			= JRequest::getInt('speaker_id', '', 'POST');
 				$sql['series_id'] 			= JRequest::getInt('series_id', '', 'POST');
-				$file 						= JRequest::getString('filename', '', 'POST');
-				if ($params->get('fu_destdir')){
-					$fu_destdir = '/'.trim($params->get('fu_destdir'),' /').'/';
-				} else {
-					$fu_destdir = '/';
-				}
-				$sql['audiofile']			= $db->getEscaped('/'.$params->get('path').$fu_destdir.$file);
+				$sql['audiofile']			= $db->getEscaped(JRequest::getString('audiofile', '', 'POST'));
+				$sql['videofile']			= $db->getEscaped(JRequest::getString('videofile', '', 'POST'));
 				$sql['sermon_title']		= $db->getEscaped(JRequest::getString('sermon_title', '', 'POST'));
 				$sql['alias']				= JRequest::getString('alias', $sql['sermon_title'], 'POST');
 				$sql['alias']				= $db->getEscaped(JFilterOutput::stringURLSafe($sql['alias']));

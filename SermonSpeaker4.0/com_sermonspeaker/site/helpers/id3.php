@@ -40,6 +40,9 @@ class SermonspeakerHelperId3
 					$id3['notes']			 = $FileInfo['comments']['comment'][0];
 					$id3['sermon_scripture'] = '';
 				}
+			} else {
+				$id3['notes']			 = '';
+				$id3['sermon_scripture'] = '';
 			}
 			$db =& JFactory::getDBO();
 			if (array_key_exists('album', $FileInfo['comments'])){
