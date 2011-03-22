@@ -86,7 +86,6 @@ class SermonspeakerViewSermon extends JView
 		foreach($filesabs as $file) {
 			$addfiles[]->file = str_replace('\\','/',substr($file,$lsdir));
 		}
-
 		$this->audio_files	= JHTML::_('select.genericlist', $audios, 'jform[audiofile]', 'disabled="disabled"', 'file', 'file', $this->item->audiofile, 'jform_audiofile_choice');
 		$this->video_files	= JHTML::_('select.genericlist', $videos, 'jform[videofile]', 'disabled="disabled"', 'file', 'file', $this->item->videofile, 'jform_videofile_choice');
 		$this->addfiles = JHTML::_('select.genericlist', $addfiles, 'jform[addfile]', 'disabled="disabled"', 'file', 'file', $this->item->addfile, 'jform_addfile_choice');

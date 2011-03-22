@@ -33,7 +33,7 @@ $listDirn	= $this->state->get('list.direction');
 				<img src="<?php echo SermonspeakerHelperSermonspeaker::makelink($item->avatar); ?>" style="float:right; margin-top:25px;">
 			<?php endif; ?>
 			<h3 class="contentheading"><?php echo $this->escape($item->series_title); ?></h3>
-			<p><?php echo $item->series_description; ?></p>
+			<p><?php echo JHTML::_('content.prepare', $item->series_description); ?></p>
 		</div>
 		<div style="margin-left:10%;">
 			<?php foreach($sermons as $sermon) { 

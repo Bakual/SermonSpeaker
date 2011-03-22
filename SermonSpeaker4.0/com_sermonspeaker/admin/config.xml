@@ -3,30 +3,6 @@
 	<fieldset name="component"
 		label="COM_SERMONSPEAKER_FIELDSET_COMPONENT_LABEL"
 		description="COM_SERMONSPEAKER_FIELDSET_COMPONENT_DESC">
-		<field name="alt_player" 
-			type="radio" 
-			default="0" 
-			label="COM_SERMONSPEAKER_PARAM_ALT_PLAYER" 
-			description="COM_SERMONSPEAKER_PARAM_ALT_PLAYER_DESC">
-			<option value="0">JNO</option>
-			<option value="1">JYES</option>
-		</field>
-		<field name="fileprio" 
-			type="list" 
-			default="0" 
-			label="COM_SERMONSPEAKER_PARAM_FILEPRIO_LABEL" 
-			description="COM_SERMONSPEAKER_PARAM_FILEPRIO_DESC">
-			<option value="0">COM_SERMONSPEAKER_AUDIO</option>
-			<option value="1">COM_SERMONSPEAKER_VIDEO</option>
-		</field>
-		<field name="fileswitch" 
-			type="radio"
-			default="0"
-			label="COM_SERMONSPEAKER_PARAM_FILESWITCH_LABEL"
-			description="COM_SERMONSPEAKER_PARAM_FILESWITCH_DESC">
-			<option value="0">JNO</option>
-			<option value="1">JYES</option>
-		</field>
 		<field name="limit_speaker" 
 			type="radio" 
 			default="0" 
@@ -43,19 +19,13 @@
 			<option value="0">JNO</option>
 			<option value="1">JYES</option>
 		</field>
-		<field name="access" type="accesslevel"
-			label="COM_SERMONSPEAKER_PARAM_ACCESS" 
-			description="COM_SERMONSPEAKER_PARAM_ACCESS_DESC"
-			default="1" />
 		<field name="list_direct_link" 
-			type="list" 
-			default="00" 
+			type="radio" 
+			default="0" 
 			label="COM_SERMONSPEAKER_PARAM_LIST_DIRECT_LINK" 
 			description="COM_SERMONSPEAKER_PARAM_LIST_DIRECT_LINK_DESC">
-			<option value="00">COM_SERMONSPEAKER_PARAM_LIST_DIRECT_LINK_NONE</option>
-			<option value="01">COM_SERMONSPEAKER_PARAM_LIST_DIRECT_LINK_TITLE</option>
-			<option value="10">COM_SERMONSPEAKER_PARAM_LIST_DIRECT_LINK_BUTTON</option>
-			<option value="11">COM_SERMONSPEAKER_PARAM_LIST_DIRECT_LINK_BUTTON_TITLE</option>
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
 		</field>
 		<field
 			name="sermonlayout" type="componentlayout"
@@ -79,24 +49,6 @@
 			<option value="0">JNO</option>
 			<option value="1">JYES</option>
 		</field>
-		<field name="autostart" 
-			type="radio" 
-			default="1" 
-			label="COM_SERMONSPEAKER_PARAM_AUTOSTART" 
-			description="COM_SERMONSPEAKER_PARAM_AUTOSTART_DESC">
-			<option value="0">JNO</option>
-			<option value="1">JYES</option>
-		</field>
-		<field name="mp_width" 
-			type="text" 
-			default="300" 
-			label="COM_SERMONSPEAKER_PARAM_VIDEOWIDTH" 
-			description="COM_SERMONSPEAKER_PARAM_VIDEOWIDTH_DESC" />
-		<field name="mp_height" 
-			type="text" 
-			default="300" 
-			label="COM_SERMONSPEAKER_PARAM_VIDEOHEIGHT" 
-			description="COM_SERMONSPEAKER_PARAM_VIDEOHEIGHT_DESC" />
 		<field name="plugin_tag" 
 			type="tag" 
 			label="COM_SERMONSPEAKER_PARAM_PLUGIN_LABEL" 
@@ -164,6 +116,52 @@
 			description="COM_SERMONSPEAKER_PARAM_PATH_SERMONPIC_DESC" />
 		
 	</fieldset>
+	<fieldset name="player"
+		label="COM_SERMONSPEAKER_FIELDSET_PLAYER_LABEL"
+		description="COM_SERMONSPEAKER_FIELDSET_PLAYER_DESC">
+		<field name="alt_player" 
+			type="radio" 
+			default="0" 
+			label="COM_SERMONSPEAKER_PARAM_ALT_PLAYER" 
+			description="COM_SERMONSPEAKER_PARAM_ALT_PLAYER_DESC">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
+		</field>
+		<field name="autostart" 
+			type="radio" 
+			default="1" 
+			label="COM_SERMONSPEAKER_PARAM_AUTOSTART" 
+			description="COM_SERMONSPEAKER_PARAM_AUTOSTART_DESC">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
+		</field>
+		<field name="mp_width" 
+			type="text" 
+			default="300" 
+			label="COM_SERMONSPEAKER_PARAM_VIDEOWIDTH" 
+			description="COM_SERMONSPEAKER_PARAM_VIDEOWIDTH_DESC" />
+		<field name="mp_height" 
+			type="text" 
+			default="300" 
+			label="COM_SERMONSPEAKER_PARAM_VIDEOHEIGHT" 
+			description="COM_SERMONSPEAKER_PARAM_VIDEOHEIGHT_DESC" />
+		<field name="fileprio" 
+			type="list" 
+			default="0" 
+			label="COM_SERMONSPEAKER_PARAM_FILEPRIO_LABEL" 
+			description="COM_SERMONSPEAKER_PARAM_FILEPRIO_DESC">
+			<option value="0">COM_SERMONSPEAKER_AUDIO</option>
+			<option value="1">COM_SERMONSPEAKER_VIDEO</option>
+		</field>
+		<field name="fileswitch" 
+			type="radio"
+			default="0"
+			label="COM_SERMONSPEAKER_PARAM_FILESWITCH_LABEL"
+			description="COM_SERMONSPEAKER_PARAM_FILESWITCH_DESC">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
+		</field>
+	</fieldset>
 	<fieldset name="clientcol"
 		addfieldpath="/administrator/components/com_sermonspeaker/models/fields"
 		label="COM_SERMONSPEAKER_FIELDSET_CLIENTCOL_LABEL"
@@ -224,6 +222,10 @@
 			<option value="0">JNO</option>
 			<option value="1">JYES</option>
 		</field>
+		<field name="access" type="accesslevel"
+			label="COM_SERMONSPEAKER_PARAM_ACCESS" 
+			description="COM_SERMONSPEAKER_PARAM_ACCESS_DESC"
+			default="1" />
 	</fieldset>
 	<fieldset name="statistics"
 		label="COM_SERMONSPEAKER_FIELDSET_STATISTICS_LABEL"

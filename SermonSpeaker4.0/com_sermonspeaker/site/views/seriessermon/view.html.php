@@ -49,16 +49,6 @@ class SermonspeakerViewSeriessermon extends JView
 			return false;
 		}
 
- 		// Support for Content Plugins
-		$dispatcher	= &JDispatcher::getInstance();
-		$temp_item->params = clone($params);
-		JPluginHelper::importPlugin('content');
-		foreach($items as $item){
-			// Trigger Event for `series_description`
-			$temp_item->text	= &$row->series_description;
-			$dispatcher->trigger('onPrepareContent', array(&$temp_item, &$temp_item->params, 0));
-		}
-
         // push data into the template
 		$this->assignRef('state',		$state);
 		$this->assignRef('items',		$items);

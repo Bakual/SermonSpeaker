@@ -54,7 +54,7 @@ $self = $uri->toString();
 			<?php echo $this->form->getLabel(''); ?>
 			<input type="radio" name="sel1" value="2" onclick="enableElement(this.form.elements['jform_audiofile_choice'], this.form.elements['jform_audiofile']);">
 			<?php echo $this->audio_files; ?>
-			<img onClick="window.location.href='<?php echo $self; ?>&amp;type=audio&amp;file='+document.adminForm.jform_audiofile_choice.value;" src='<?php echo JURI::root(); ?>/components/com_sermonspeaker/images/find.png' alt='lookup ID3' title='lookup ID3'>
+			<img class="pointer" onClick="window.location.href='<?php echo $self; ?>&amp;type=audio&amp;file='+document.adminForm.jform_audiofile_choice.value;" src='<?php echo JURI::root(); ?>/media/com_sermonspeaker/images/find.png' alt='lookup ID3' title='lookup ID3'>
 		</fieldset>
 		<fieldset class="adminform">
 			<legend><?php echo JText::_('COM_SERMONSPEAKER_FIELD_VIDEOFILE_LABEL'); ?></legend>
@@ -64,7 +64,7 @@ $self = $uri->toString();
 			<?php echo $this->form->getLabel(''); ?>
 			<input type="radio" name="sel2" value="2" onclick="enableElement(this.form.elements['jform_videofile_choice'], this.form.elements['jform_videofile']);">
 			<?php echo $this->video_files; ?>
-			<img onClick="window.location.href='<?php echo $self; ?>&amp;type=video&amp;file='+document.adminForm.jform_videofile_choice.value;" src='<?php echo JURI::root(); ?>/components/com_sermonspeaker/images/find.png' alt='lookup ID3' title='lookup ID3'>
+			<img class="pointer" onClick="window.location.href='<?php echo $self; ?>&amp;type=video&amp;file='+document.adminForm.jform_videofile_choice.value;" src='<?php echo JURI::root(); ?>/media/com_sermonspeaker/images/find.png' alt='lookup ID3' title='lookup ID3'>
 		</fieldset>
 		<fieldset class="adminform">
 			<legend><?php echo JText::_('COM_SERMONSPEAKER_FIELD_SERMONNOTES_LABEL'); ?></legend>

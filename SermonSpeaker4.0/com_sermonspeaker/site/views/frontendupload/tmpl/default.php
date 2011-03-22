@@ -1,11 +1,28 @@
 <?php
 defined( '_JEXEC' ) or die( 'Restricted access' );
+JHtml::_('behavior.tooltip');
+JHtml::_('behavior.formvalidation');
+JHtml::_('behavior.keepalive');
+
 $uri = JURI::getInstance();
 $uri->delVar('file0');
 $uri->delVar('file1');
 $uri->delVar('type');
 $self = $uri->toString();
 ?>
+<script type="text/javascript">
+	function submitbutton(task)
+	{
+		if (task == 'sermon.cancel' || document.formvalidator.isValid(document.id('sermon-form'))) {
+			<?php echo $this->form->getField('notes')->save(); ?>
+			submitform(task);
+		}
+		else {
+			alert('<?php echo $this->escape(JText::_('JGLOBAL_VALIDATION_FORM_FAILED'));?>');
+		}
+	}
+</script>
+
 <div id="ss-frup-container">
 	<h1><?php echo JText::_('COM_SERMONSPEAKER_FU_NEWSERMON'); ?></h1>
 	<div id="ss-frup-form">
@@ -20,76 +37,85 @@ $self = $uri->toString();
 				<input type="hidden" name="return-url" value="<?php echo base64_encode($self); ?>" />
 			</fieldset>
 		</form>
-		<form name="fu_createsermon" id="fu_createsermon" method="post" enctype="multipart/form-data" >
-			<label for="sermon_title"><?php echo JText::_('JGLOBAL_TITLE'); ?></label>
-			<input class="text_area" type="text" name="sermon_title" id="sermon_title" size="50" maxlength="250" value="<?php echo $this->data['sermon_title'];?>" /><br />
-			<label for="alias"><?php echo JText::_('JFIELD_ALIAS_LABEL'); ?></label>
-			<input class="text_area" type="text" name="alias" id="alias" size="50" maxlength="250" value="<?php echo $this->data['alias']; ?>" /><br />
+		<form action="<?php echo JRoute::_('index.php?view=frontendupload&task=frontendupload.save'); ?>" name="fu_createsermon" id="fu_createsermon" method="post" enctype="multipart/form-data" class="form-validate">
+			<?php echo $this->form->getLabel('sermon_title'); ?>
+			<?php echo $this->form->getInput('sermon_title'); ?>
+			<br />
+			<?php echo $this->form->getLabel('alias'); ?>
+			<?php echo $this->form->getInput('alias'); ?>
+			<br />
+
 			<label for="audiofile"><?php echo JText::_('COM_SERMONSPEAKER_FIELD_AUDIOFILE_LABEL'); ?></label>
-			<input class="text_area" type="text" name="audiofile" id="audiofile" size="50" maxlength="250" value="<?php echo $this->data['audiofile']; ?>" />
-				<img onClick="window.location.href='<?php echo JRoute::_("index.php?view=frontendupload&amp;type=audio") ;?>&amp;file0='+document.fu_createsermon.audiofile.value+'&amp;file1='+document.fu_createsermon.videofile.value;" src='<?php echo JURI::root(); ?>/media/com_sermonspeaker/images/find.png' alt='lookup ID3' title='lookup ID3'><br />
+			<input type="radio" name="sel1" value="1" onclick="enableElement(this.form.elements['jform_audiofile'], this.form.elements['jform_audiofile_choice']);" checked>
+				<input class="text_area" type="text" name="jform[audiofile]" id="jform_audiofile" size="47" maxlength="250" value="<?php echo $this->form->getValue('audiofile'); ?>" />
+					<img class="pointer" onClick="window.location.href='<?php echo JRoute::_('index.php?view=frontendupload&amp;type=audio') ;?>&amp;file0='+document.fu_createsermon.jform_audiofile.value+'&amp;file1='+document.fu_createsermon.jform_videofile.value;" src="media/com_sermonspeaker/images/find.png" alt="lookup ID3" title="lookup ID3"><br />
+			<div class="label">&nbsp;</div>
+			<input type="radio" name="sel1" value="2" onclick="enableElement(this.form.elements['jform_audiofile_choice'], this.form.elements['jform_audiofile']);">
+				<?php echo $this->audio_files; ?><img class="pointer" onClick="window.location.href='<?php echo JRoute::_('index.php?view=frontendupload&amp;type=audio') ;?>&amp;file0='+document.fu_createsermon.jform_audiofile_choice.value+'&amp;file1='+document.fu_createsermon.jform_videofile_choice.value;" src="media/com_sermonspeaker/images/find.png" alt="lookup ID3" title="lookup ID3">
 				<div id="infoUpload1" class="intend">
 					<span id="btnUpload1"></span>
 					<button id="btnCancel1" type="button" onclick="cancelQueue(upload1);" class="hide" disabled="disabled">Cancel</button>
 				</div>
+			<div class="clr"></div>
+			
 			<label for="videofile"><?php echo JText::_('COM_SERMONSPEAKER_FIELD_VIDEOFILE_LABEL'); ?></label>
-			<input class="text_area" type="text" name="videofile" id="videofile" size="50" maxlength="250" value="<?php echo $this->data['videofile']; ?>" />
-				<img onClick="window.location.href='<?php echo JRoute::_("index.php?view=frontendupload&amp;type=video") ;?>&amp;file0='+document.fu_createsermon.audiofile.value+'&amp;file1='+document.fu_createsermon.videofile.value;" src='<?php echo JURI::root(); ?>/media/com_sermonspeaker/images/find.png' alt='lookup ID3' title='lookup ID3'>
+			<input type="radio" name="sel2" value="1" onclick="enableElement(this.form.elements['jform_videofile'], this.form.elements['jform_videofile_choice']);" checked>
+				<input class="text_area" type="text" name="jform[videofile]" id="jform_videofile" size="47" maxlength="250" value="<?php echo $this->form->getValue('videofile'); ?>" />
+					<img class="pointer" onClick="window.location.href='<?php echo JRoute::_('index.php?view=frontendupload&amp;type=video') ;?>&amp;file0='+document.fu_createsermon.jform_audiofile.value+'&amp;file1='+document.fu_createsermon.jform_videofile.value;" src="media/com_sermonspeaker/images/find.png" alt="lookup ID3" title="lookup ID3"><br />
+			<div class="label">&nbsp;</div>
+			<input type="radio" name="sel2" value="2" onclick="enableElement(this.form.elements['jform_videofile_choice'], this.form.elements['jform_videofile']);">
+				<?php echo $this->video_files; ?><img class="pointer" onClick="window.location.href='<?php echo JRoute::_('index.php?view=frontendupload&amp;type=video') ;?>&amp;file0='+document.fu_createsermon.jform_audiofile_choice.value+'&amp;file1='+document.fu_createsermon.jform_videofile_choice.value;" src="media/com_sermonspeaker/images/find.png" alt="lookup ID3" title="lookup ID3">
 				<div id="infoUpload2" class="intend">
 					<span id="btnUpload2"></span>
 					<button id="btnCancel2" type="button" onclick="cancelQueue(upload1);" class="hide" disabled="disabled">Cancel</button>
 				</div>
+			<div class="clr"></div>
+
 			<label for="sermon_scripture"><?php echo JText::_('COM_SERMONSPEAKER_SCRIPTURE'); ?></label>
-			<input class="text_area" type="text" name="sermon_scripture" id="sermon_scripture" size="50" maxlength="250" value="<?php echo $this->data['sermon_scripture'];?>" />
+			<input class="text_area" type="text" name="sermon_scripture" id="sermon_scripture" size="50" maxlength="250" value="<?php echo $this->form->getValue('sermon_scripture'); ?>" />
 				<?php $tag = $this->params->get('plugin_tag'); ?>
-				<img onClick="sendText(document.fu_createsermon.sermon_scripture,'<?php echo $tag[0]; ?>','<?php echo $tag[1]; ?>')" src='<?php echo JURI::root(); ?>/media/com_sermonspeaker/images/blue_tag.png'><br />
-			<div title='<?php echo JText::_('COM_SERMONSPEAKER_FU_DATE_DESC'); ?>'>
-				<label for="sermon_date"><?php echo JText::_('COM_SERMONSPEAKER_SERMONDATE'); ?></label>
-				<input class="inputbox" type="text" name="sermon_date" id="sermon_date" size="25" maxlenght="20" value="<?php echo date('Y-m-d'); ?>" />
-					<img class="calendar" src="templates/system/images/calendar.png" alt="calendar" id="showCalendar" /> 
-					<script type="text/javascript">
-						Calendar.setup( {
-						inputField  : "sermon_date",
-						ifFormat    : "%Y-%m-%d",
-						button      : "showCalendar"
-						} );
-					</script><br />
-			</div>
-			<label for="sermon_number"><?php echo JText::_('COM_SERMONSPEAKER_FU_SERMONNUMBER'); ?></label>
-			<input class="text_area" type="text" name="sermon_number" id="sermon_number" size="10" maxlength="250" value="<?php echo $this->data['sermon_number']; ?>" /><br />
-			<div title="<?php echo JText::_('COM_SERMONSPEAKER_FU_SERMONTIME_DESC'); ?>">
-				<label for="sermon_time"><?php echo JText::_('COM_SERMONSPEAKER_SERMONLENGTH'); ?></label>
-				<input class="text_area" type="text" name="sermon_time" id="sermon_time" size="10" maxlength="250" value="<?php echo $this->data['sermon_time']; ?>" /><br />
-			</div>
-			<label for="speaker_id"><?php echo JText::_('COM_SERMONSPEAKER_SPEAKER'); ?></label>
-			<?php echo $this->lists['speaker_id']; ?><br />
-			<label for="series_id"><?php echo JText::_('COM_SERMONSPEAKER_SERIES'); ?></label>
-			<?php echo $this->lists['series_id']; ?><br />
-			<label for="notes"><?php echo JText::_('COM_SERMONSPEAKER_FU_NOTES'); ?></label>
-			<?php echo $this->editor->display('notes', $this->data['notes'], '500', '200', '40', '10'); ?><br />
+				<img class="pointer" onClick="sendText(document.fu_createsermon.sermon_scripture,'<?php echo $tag[0]; ?>','<?php echo $tag[1]; ?>')" src='<?php echo JURI::root(); ?>/media/com_sermonspeaker/images/blue_tag.png'><br />
+			<?php echo $this->form->getLabel('sermon_date'); ?>
+			<?php echo $this->form->getInput('sermon_date'); ?>
 			<br />
-			<label for="catid"><?php echo JText::_('JCATEGORY'); ?></label>
-			<?php echo $this->lists['catid']; ?><br />
-			<div class="radio" title="<?php echo JText::_('JFIELD_PUBLISHED_DESC'); ?>">
-				<div class="label"><?php echo JText::_('JPUBLISHED'); ?></div>
-				<?php echo $this->lists['state']; ?><br />
-			</div>
-			<div class="radio" title="<?php echo JText::_('COM_SERMONSPEAKER_FU_SERMONCAST_DESC'); ?>">
-				<div class="label"><?php echo JText::_('COM_SERMONSPEAKER_FU_SERMONCAST'); ?></div>
-				<?php echo $this->lists['podcast']; ?><br />
-			</div>
+			<?php echo $this->form->getLabel('sermon_number'); ?>
+			<?php echo $this->form->getInput('sermon_number'); ?>
+			<br />
+			<?php echo $this->form->getLabel('sermon_time'); ?>
+			<?php echo $this->form->getInput('sermon_time'); ?>
+			<br />
+			<?php echo $this->form->getLabel('speaker_id'); ?>
+			<?php echo $this->form->getInput('speaker_id'); ?>
+			<br />
+			<?php echo $this->form->getLabel('series_id'); ?>
+			<?php echo $this->form->getInput('series_id'); ?>
+			<br />
+			<?php echo $this->form->getLabel('notes'); ?>
+			<?php echo $this->form->getInput('notes'); ?>
+			<br /><br />
+			<?php echo $this->form->getLabel('catid'); ?>
+			<?php echo $this->form->getInput('catid'); ?>
+			<br />
+			<?php echo $this->form->getLabel('state'); ?>
+			<?php echo $this->form->getInput('state'); ?>
+			<br />
+			<?php echo $this->form->getLabel('podcast'); ?>
+			<?php echo $this->form->getInput('podcast'); ?>
+			<br />
+
 			<label for="addfile_txt"><?php echo JText::_('COM_SERMONSPEAKER_ADDFILE'); ?></label>
-			<input type="radio" class="radio" name="seladdfile" value="1" onclick="enableElement(this.form.elements['addfile_txt'], this.form.elements['addfile_choice']);" checked>
-				<input class="text_area" type="text" name="addfile_txt" id="addfile_txt" size="46" maxlength="250" value="" /><br />
-			<input type="radio" class="intend" name="seladdfile" value="2" onclick="enableElement(this.form.elements['addfile_choice'], this.form.elements['addfile_txt']);">
-				<?php echo $this->lists['addfile_choice']; ?><br />
+			<input type="radio" name="sel3" value="1" onclick="enableElement(this.form.elements['jform_addfile'], this.form.elements['jform_addfile_choice']);" checked>
+				<input class="text_area" type="text" name="jform[addfile]" id="jform_addfile" size="47" maxlength="250" value="" /><br />
+			<div class="label">&nbsp;</div>
+			<input type="radio" name="sel3" value="2" onclick="enableElement(this.form.elements['jform_addfile_choice'], this.form.elements['jform_addfile']);">
+				<?php echo $this->addfiles; ?>
+			<br />
 			<label for="addfileDesc"><?php echo JText::_('COM_SERMONSPEAKER_FU_ADDFILEDESC'); ?></label>
 			<input class="text_area" type="text" name="addfileDesc" id="addfileDesc" size="50" maxlength="250" value="" /><br />
 			<div>
+				<?php echo JHtml::_('form.token'); ?>
 				<input type="submit" class="submit" value="<?php echo JText::_('JSAVE'); ?>">
 				<input type="reset" value=" <?php echo JText::_('COM_SERMONSPEAKER_FU_RESET'); ?> ">
-				<input type="hidden" name="filename" value="<?php echo $this->filename; ?>">
-				<input type="hidden" name="submitted" value="true">
 			</div>
 		</form>
 	</div>

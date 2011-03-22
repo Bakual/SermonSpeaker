@@ -4,3 +4,7 @@
 .icon-48-sermons 		{ background-image: url(images/sermon.png); }
 .icon-48-statistics 		{ background-image: url(images/stats.png); }
 .icon-48-sermonhelp 		{ background-image: url(images/help.png); }
+
+.pointer{
+	cursor:pointer;
+}

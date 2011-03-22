@@ -232,15 +232,9 @@ class SermonspeakerModelSermon extends JModelAdmin
 			$table->metakey = implode(", ", $clean_keys); // put array back together delimited by ", "
 		}
 
+		// Reorder the articles within the category so the new article is first
 		if (empty($table->id)) {
-			// Set ordering to the last item if not set
-			if (empty($table->ordering)) {
-				$db = JFactory::getDbo();
-				$db->setQuery('SELECT MAX(ordering) FROM #__sermon_sermons');
-				$max = $db->loadResult();
-
-				$table->ordering = $max+1;
-			}
+			$table->reorder('catid = '.(int) $table->catid.' AND state >= 0');
 		}
 	}
 

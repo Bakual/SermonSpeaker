@@ -7,17 +7,22 @@ JHTML::_('behavior.modal');
 $listOrder	= $this->state->get('list.ordering');
 $listDirn	= $this->state->get('list.direction');
 ?>
-<div id="ss-sermons-container">
+<div id="ss-archive-container">
 <h1 class="componentheading"><?php echo $this->title; ?></h1>
 <?php if (in_array('archive:player', $this->columns) && count($this->items)) : ?>
 	<div class="ss-archive-player">
 		<hr class="ss-archive-player" />
 	<?php
-	$player = SermonspeakerHelperSermonspeaker::insertPlayer($this->items);
-	echo $player['mspace'];
-	echo $player['script'];
+	echo $this->player['mspace'];
+	echo $this->player['script'];
 	?>
 		<hr class="ss-archive-player" />
+	<?php if ($this->params->get('fileswitch')): ?>
+		<div>
+			<img class="pointer" src="media/com_sermonspeaker/images/Video.png" onClick="Video()" Alt="Video" />
+			<img class="pointer" src="media/com_sermonspeaker/images/Sound.png" onClick="Audio()" Alt="Audio" />
+		</div>
+	<?php endif; ?>
 	</div>
 <?php endif; ?>
 <?php if (empty($this->items)) :?>
@@ -75,18 +80,29 @@ $listDirn	= $this->state->get('list.direction');
 		</tr></thead>
 	<!-- Begin Data -->
 		<tbody>
-			<?php foreach($this->items as $i => $item) : ?>
-				<tr class="<?php echo ($i % 2) ? "odd" : "even"; ?>">
+			<?php
+			$direct = $this->params->get('list_direct_link');
+			foreach($this->items as $i => $item) :
+				if($direct):
+					$link = SermonspeakerHelperSermonspeaker::makelink($item->audiofile);
+				else :
+					$link = JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug));
+				endif; ?>
+				<tr id="sermon<?php echo $i; ?>" class="<?php echo ($i % 2) ? "odd" : "even"; ?>">
 					<?php if (in_array('archive:num', $this->columns)) : ?>
 						<td class="num">
 							<?php echo $item->sermon_number; ?>
 						</td>
 					<?php endif; ?>
 					<td class="ss-title">
-						<a href="<?php echo $item->link1; ?>">
-							<img title="<?php echo JText::_('COM_SERMONSPEAKER_PLAYICON_HOOVER'); ?>" src="<?php echo JURI::root().'media/com_sermonspeaker/images/play.gif'; ?>" class='icon_play' alt="" />
-						</a>
-						<a title="<?php echo JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER'); ?>" href="<?php echo $item->link2; ?>">
+						<?php if (in_array('archive:player', $this->columns)) : ?>
+							<img onClick="jwplayer().playlistItem(<?php echo $i; ?>)" title="<?php echo JText::_('COM_SERMONSPEAKER_PLAYICON_HOOVER'); ?>" src="media/com_sermonspeaker/images/play.gif" class="icon_play pointer" alt="" />
+						<?php else : ?>
+							<a title="<?php echo JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER'); ?>" href="<?php echo $link; ?>">
+								<img title="<?php echo JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER'); ?>" src="media/com_sermonspeaker/images/play.gif" class="icon_play" alt="" />
+							</a>
+						<?php endif; ?>
+						<a title="<?php echo JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER'); ?>" href="<?php echo $link; ?>">
 							<?php echo $item->sermon_title; ?>
 						</a>
 					</td>

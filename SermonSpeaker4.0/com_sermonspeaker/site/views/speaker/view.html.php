@@ -81,44 +81,6 @@ class SermonspeakerViewspeaker extends JView
 			return false;
 		}
 
-		// Support for Content Plugins
-		$dispatcher	= &JDispatcher::getInstance();
-		$item->params = clone($params);
-		JPluginHelper::importPlugin('content');
-		// Trigger Event for `intro`
-		$item->text	= &$speaker->intro;
-		$dispatcher->trigger('onPrepareContent', array(&$item, &$item->params, 0));
-		// Trigger Event for `bio`
-		$item->text	= &$speaker->bio;
-		$dispatcher->trigger('onPrepareContent', array(&$item, &$item->params, 0));
-
-		if ($this->getLayout() == "latest-sermons"){
-			$direct_link = $params->get('list_direct_link', '00');
-			foreach($items as $row){
-				// Trigger Event for `sermon_scripture`
-				$item->text	= &$row->sermon_scripture;
-				$dispatcher->trigger('onPrepareContent', array(&$item, &$item->params, 0));
-				switch ($direct_link){ // direct links to the file instead to the detailpage
-					case '00':
-						$row->link1 = JRoute::_(SermonspeakerHelperRoute::getSermonRoute($row->slug));
-						$row->link2 = $row->link1;
-						break;
-					case '01':
-						$row->link1 = JRoute::_(SermonspeakerHelperRoute::getSermonRoute($row->slug));
-						$row->link2 = SermonspeakerHelperSermonspeaker::makelink($row->audiofile);
-						break;
-					case '10':
-						$row->link1 = SermonspeakerHelperSermonspeaker::makelink($row->audiofile);
-						$row->link2 = JRoute::_(SermonspeakerHelperRoute::getSermonRoute($row->slug));
-						break;
-					case '11':
-						$row->link1 = SermonspeakerHelperSermonspeaker::makelink($row->audiofile);
-						$row->link2 = $row->link1;
-						break;
-				}
-			}
-		}
-
         // push data into the template
 		$this->assignRef('state',		$state);
 		$this->assignRef('items',		$items);
@@ -142,7 +104,20 @@ class SermonspeakerViewspeaker extends JView
 
 		// Add javascript for player if needed
 		if (in_array('speaker:player', $this->columns) || $this->getLayout() == 'latest-sermons'){
-			$this->document->addScript(JURI::root().'media/com_sermonspeaker/player/jwplayer/jwplayer.js');
+			JHTML::Script('media/com_sermonspeaker/player/jwplayer/jwplayer.js', true);
+			$this->player = SermonspeakerHelperSermonspeaker::insertPlayer($this->items);
+			if($this->params->get('fileswitch')){
+				$this->document->addScriptDeclaration('
+					function Video() {
+						jwplayer().load(['.$this->player['video-pl'].']);
+					}
+				');
+				$this->document->addScriptDeclaration('
+					function Audio() {
+						jwplayer().load(['.$this->player['audio-pl'].']);
+					}
+				');
+			}
 		}
 		
 		// Set Pagetitle

@@ -36,9 +36,9 @@ class JFormFieldScripture extends JFormField
 		$tag 	= $params->get('plugin_tag');
 		
 		$html 	= '<input type="text" name="'.$this->name.'" id="'.$this->id.'" value="'.htmlspecialchars($this->value, ENT_COMPAT, 'UTF-8').'" class="inputbox" />'
-				. '<img title="insert Plugin tag" alt="insert Plugin tag" onClick="sendText(document.adminForm.jform_sermon_scripture,\''
+				. '<img class="pointer" title="insert Plugin tag" alt="insert Plugin tag" onClick="sendText(document.adminForm.jform_sermon_scripture,\''
 				. $tag[0].'\',\''.$tag[1]
-				. '\')" src="'.JURI::root().'/components/com_sermonspeaker/images/blue_tag.png">';
+				. '\')" src="'.JURI::root().'/media/com_sermonspeaker/images/blue_tag.png">';
 
 		return $html;
 	}

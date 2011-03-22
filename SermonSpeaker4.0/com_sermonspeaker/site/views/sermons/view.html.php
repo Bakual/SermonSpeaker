@@ -39,37 +39,6 @@ class SermonspeakerViewSermons extends JView
 			return false;
 		}
 
-		// Support for Content Plugins
-		$dispatcher	= JDispatcher::getInstance();
-		JPluginHelper::importPlugin('content');
-		$temp_item->params = clone($params);
-		// Loop through each item and create links
-		$direct_link = $params->get('list_direct_link', '00');
-		foreach($items as $item){
-			$item->link1 = '1';
-			// Trigger Event for `sermon_scripture`
-			$temp_item->text	= &$item->sermon_scripture;
-			$dispatcher->trigger('onPrepareContent', array(&$temp_item, &$temp_item->params, 0));
-			switch ($direct_link){ // direct links to the file instead to the detailpage
-				case '00':
-					$item->link1 = JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug));
-					$item->link2 = $item->link1;
-					break;
-				case '01':
-					$item->link1 = JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug));
-					$item->link2 = SermonspeakerHelperSermonspeaker::makelink($item->audiofile);
-					break;
-				case '10':
-					$item->link1 = SermonspeakerHelperSermonspeaker::makelink($item->audiofile);
-					$item->link2 = JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug));
-					break;
-				case '11':
-					$item->link1 = SermonspeakerHelperSermonspeaker::makelink($item->audiofile);
-					$item->link2 = $item->link1;
-					break;
-			}
-		}
-
         // push data into the template
 		$this->assignRef('state',		$state);
 		$this->assignRef('items',		$items);
