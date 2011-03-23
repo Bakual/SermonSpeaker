@@ -208,6 +208,17 @@ class SermonspeakerModelSermon extends JModelAdmin
 				$table->alias = JFactory::getDate()->format("Y-m-d-H-i-s");
 			}
 		}
+		$params	= &JComponentHelper::getParams('com_sermonspeaker');
+		if(Jrequest::getInt('sel1')){
+			$table->audiofile = '/'.$params->get('path').'/'.$table->audiofile;
+		}
+		if(Jrequest::getInt('sel2')){
+			$table->videofile = '/'.$params->get('path').'/'.$table->videofile;
+		}
+		if(Jrequest::getInt('sel3')){
+			$table->addfile = '/'.$params->get('path_addfile').'/'.$table->addfile;
+		}
+		$table->picture = '/'.$params->get('path_sermonpic').'/'.$table->picture;
 		$time_arr = explode(':', $table->sermon_time);
 		foreach ($time_arr as $time_int){
 			$time_int = (int)$time_int;

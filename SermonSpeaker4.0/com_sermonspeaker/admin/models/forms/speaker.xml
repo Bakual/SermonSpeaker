@@ -68,10 +68,12 @@
 			description="COM_SERMONSPEAKER_FIELD_WEBSITE_DESC"
 			size="40" />
 
-		<field name="pic" type="speakerpic" class="inputbox"
+		<field name="pic" type="customfilelist" class="inputbox"
+			path="path_speakerpic" 
+			filter="\.jpg$|\.gif$|\.png$|\.bmp$"
+			hide_default="true"
 			label="COM_SERMONSPEAKER_FIELD_PICTURE_LABEL"
-			description="COM_SERMONSPEAKER_FIELD_PICTURE_DESC"
-			size="40" />
+			description="COM_SERMONSPEAKER_FIELD_PICTURE_DESC" />
 
 		<field name="catid" type="category" extension="com_sermonspeaker"
 			label="JCATEGORY" description="JFIELD_CATEGORY_DESC"
