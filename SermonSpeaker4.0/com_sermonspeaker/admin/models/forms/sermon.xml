@@ -44,6 +44,7 @@
 			path="path" 
 			filter="\.aac$|\.m4a$|\.mp3$"
 			hide_default="true"
+			hide_none="true"
 			disabled="true"
 			label="COM_SERMONSPEAKER_FIELD_AUDIOFILE_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_AUDIOFILE_DESC" />
@@ -52,6 +53,7 @@
 			path="path" 
 			filter="\.mp4$|\.mov$|\.f4v$|\.3gp$|\.3g2$|\.wmv$|\.flv$"
 			hide_default="true"
+			hide_none="true"
 			disabled="true"
 			label="COM_SERMONSPEAKER_FIELD_VIDEOFILE_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_VIDEOFILE_DESC" />
@@ -65,6 +67,7 @@
 			path="path_addfile" 
 			filter="\.png$|\.gif$|\.jpg$|\.bmp$|\.pdf$|\.txt$|\.doc$"
 			hide_default="true"
+			hide_none="true"
 			disabled="true"
 			label="COM_SERMONSPEAKER_FIELD_ADDFILE_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_ADDFILE_LABEL_DESC" />
