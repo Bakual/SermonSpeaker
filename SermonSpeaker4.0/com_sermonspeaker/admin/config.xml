@@ -27,6 +27,24 @@
 			<option value="0">JNO</option>
 			<option value="1">JYES</option>
 		</field>
+		<field name="default_order" 
+			type="list" 
+			default="ordering" 
+			label="COM_SERMONSPEAKER_PARAM_DEFAULT_ORDER_LABEL" 
+			description="COM_SERMONSPEAKER_PARAM_DEFAULT_ORDER_DESC">
+			<option value="ordering">COM_SERMONSPEAKER_PARAM_DEFAULT_ORDER_OPTION_ORDERING</option>
+			<option value="sermon_date">COM_SERMONSPEAKER_PARAM_DEFAULT_ORDER_OPTION_DATE</option>
+			<option value="sermon_title">COM_SERMONSPEAKER_PARAM_DEFAULT_ORDER_OPTION_TITLE</option>
+		</field>
+		<field name="default_order_dir" 
+			type="list" 
+			default="ASC" 
+			label="COM_SERMONSPEAKER_PARAM_DEFAULT_ORDER_DIR_LABEL" 
+			description="COM_SERMONSPEAKER_PARAM_DEFAULT_ORDER_DIR_DESC">
+			<option value="ASC">COM_SERMONSPEAKER_PARAM_DEFAULT_ORDER_DIR_OPTION_ASC</option>
+			<option value="DESC">COM_SERMONSPEAKER_PARAM_DEFAULT_ORDER_DIR_OPTION_DESC</option>
+		</field>
+
 		<field
 			name="sermonlayout" type="componentlayout"
 			label="COM_SERMONSPEAKER_PARAM_SERMONLAYOUT"

@@ -112,10 +112,10 @@ class SermonspeakerModelSermons extends JModelList
 			$limitstart = JRequest::getVar('limitstart', 0, '', 'int');
 			$this->setState('list.start', $limitstart);
 
-			$orderCol	= JRequest::getCmd('filter_order', 'ordering');
+			$orderCol	= JRequest::getCmd('filter_order', $params->get('default_order', 'ordering'));
 			$this->setState('list.ordering', $orderCol);
 
-			$listOrder	=  JRequest::getCmd('filter_order_Dir', 'ASC');
+			$listOrder	=  JRequest::getCmd('filter_order_Dir', $params->get('default_order_dir', 'ASC'));
 			$this->setState('list.direction', $listOrder);
 		}
 
