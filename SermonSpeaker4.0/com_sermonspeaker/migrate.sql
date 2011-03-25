@@ -9,3 +9,8 @@ ALTER TABLE #__sermon_sermons CHANGE `published` `state` TINYINT(3) NOT NULL DEF
 ALTER TABLE #__sermon_speakers CHANGE `published` `state` TINYINT(3) NOT NULL DEFAULT '0';
 ALTER TABLE #__sermon_series CHANGE `published` `state` TINYINT(3) NOT NULL DEFAULT '0';
 ALTER TABLE #__sermon_sermons CHANGE `sermon_number` `sermon_number` INT(10) NOT NULL DEFAULT '0';
+# SS4.1
+ALTER TABLE #__sermon_sermons CHANGE `sermon_path` `audiofile` TEXT NOT NULL DEFAULT '';
+ALTER TABLE #__sermon_sermons ADD `videofile` TEXT NOT NULL DEFAULT '';
+ALTER TABLE #__sermon_sermons ADD `picture` TEXT NOT NULL DEFAULT '';
+ALTER TABLE #__sermon_sermons CHANGE `sermon_date` `sermon_date` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00';
