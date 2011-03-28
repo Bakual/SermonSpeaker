@@ -113,8 +113,7 @@ $limit 		= (int)$this->params->get('limit', '');
 		</tr></thead>
 	<!-- Begin Data -->
 		<tbody>
-			<?php
-			foreach($this->items as $i => $item) : ?>
+			<?php foreach($this->items as $i => $item) : ?>
 				<tr id="sermon<?php echo $i; ?>" class="<?php echo ($i % 2) ? "odd" : "even"; ?>">
 					<?php if (in_array('sermons:num', $this->columns)) : ?>
 						<td class="num">
@@ -122,7 +121,7 @@ $limit 		= (int)$this->params->get('limit', '');
 						</td>
 					<?php endif; ?>
 					<td class="ss-title">
-						<?php echo $item->link1.' '.$item->link2; ?>
+						<?php echo SermonspeakerHelperSermonspeaker::insertSermonTitle($i, $item); ?>
 					</td>
 					<?php if (in_array('sermons:scripture', $this->columns)) : ?>
 						<td class="ss-col">

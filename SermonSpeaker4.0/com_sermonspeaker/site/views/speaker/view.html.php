@@ -103,7 +103,7 @@ class SermonspeakerViewspeaker extends JView
 		$app	= JFactory::getApplication();
 
 		// Add javascript for player if needed
-		if (in_array('speaker:player', $this->columns) || $this->getLayout() == 'latest-sermons'){
+		if (in_array('speaker:player', $this->columns) && $this->getLayout() == 'latest-sermons'){
 			JHTML::Script('media/com_sermonspeaker/player/jwplayer/jwplayer.js', true);
 			$this->player = SermonspeakerHelperSermonspeaker::insertPlayer($this->items);
 			if($this->params->get('fileswitch')){

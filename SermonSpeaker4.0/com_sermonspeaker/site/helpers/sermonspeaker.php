@@ -25,13 +25,7 @@ class SermonspeakerHelperSermonspeaker
 		
 	function insertAddfile($addfile, $addfileDesc) {
 		if ($addfile) {
-			$app		= JFactory::getApplication();
-			$params		= $app->getParams();
-
-			$path = $params->get('path');
-
 			$link = SermonspeakerHelperSermonspeaker::makelink($addfile); 
-
 			// Show filename if no addfileDesc is set
 			if (!$addfileDesc){
 				$slash = strrpos($addfile, '/');
@@ -41,11 +35,11 @@ class SermonspeakerHelperSermonspeaker
 					$addfileDesc = $addfile;
 				}
 			}
-
-			$dot = strrpos($addfile, '.') + 1;
-			$filetype = substr($addfile, $dot);
-			if (file_exists(JPATH_SITE.DS.'media'.DS.'com_sermonspeaker'.DS.'icons'.DS.$filetype.'.png')) {
-				$file = JURI::root().'media/com_sermonspeaker/icons/'.$filetype.'.png';
+			// Get extension of file
+			jimport('joomla.filesystem.file');
+			$ext = JFile::getExt($addfile);
+			if (file_exists(JPATH_SITE.DS.'media'.DS.'com_sermonspeaker'.DS.'icons'.DS.$ext.'.png')) {
+				$file = JURI::root().'media/com_sermonspeaker/icons/'.$ext.'.png';
 			} else {
 				$file = JURI::root().'media/com_sermonspeaker/icons/icon.png';
 			}
@@ -89,12 +83,10 @@ class SermonspeakerHelperSermonspeaker
 	}
 	
 	function insertPlayer($item, $artist = '', $count = '1') {
-		$app		= JFactory::getApplication();
-		$params		= $app->getParams();
-		$prio		= $params->get('fileprio', 0);
+		$prio		= $this->params->get('fileprio', 0);
 
 		$view = JRequest::getCmd('view');
-		if ($params->get('autostart') == '1' && $view != 'seriessermon') {
+		if ($this->params->get('autostart') == '1' && $view != 'seriessermon') {
 			$start[0]='true'; $start[1]='1'; $start[2]='yes';
 		} else {
 			$start[0]='false'; $start[1]='0'; $start[2]='no';
@@ -128,7 +120,7 @@ class SermonspeakerHelperSermonspeaker
 					$meta .= ', image: "'.SermonspeakerHelperSermonspeaker::makelink($temp_item->picture).'"';
 				}
 				$entries[] = '{'.$file.$title.$meta.'}';
-				if ($params->get('fileswitch')){
+				if ($this->params->get('fileswitch')){
 					// Preparing specific playlists for audio and video
 					if ($temp_item->audiofile){
 						$audios[] = '{file: "'.SermonspeakerHelperSermonspeaker::makelink($temp_item->audiofile).'"'.$title.$meta.'}';
@@ -170,7 +162,7 @@ class SermonspeakerHelperSermonspeaker
 								.'	  }'
 								.'	});'
 								.'</script>';
-			$return['height'] = $params->get('popup_height');
+			$return['height'] = $this->params->get('popup_height');
 			$return['width']  = '380';
 			$return['default-pl'] = $playlist;
 			$return['status']	= 'playlist';
@@ -194,7 +186,7 @@ class SermonspeakerHelperSermonspeaker
 			jimport('joomla.filesystem.file');
 			$ext = JFile::getExt($lnk);
 
-			if ($params->get('alt_player') && ($ext == 'mp3')){
+			if ($this->params->get('alt_player') && ($ext == 'mp3')){
 				$player = JURI::root().'media/com_sermonspeaker/player/audio_player/player.swf';
 				$options = NULL;
 				if ($item->sermon_title){
@@ -220,7 +212,7 @@ class SermonspeakerHelperSermonspeaker
 			if(in_array($ext, $audio_ext)){
 				// Audio File
 				$return['mspace'] = '<div id="mediaspace'.$count.'">Flashplayer needs Javascript turned on</div>';
-				if ($params->get('alt_player') && ($ext == 'mp3')){
+				if ($this->params->get('alt_player') && ($ext == 'mp3')){
 					$return['script'] = '<script type="text/javascript">'
 										.'	AudioPlayer.embed("mediaspace'.$count.'", {'
 										.'		soundFile: "'.urlencode($lnk).'",'
@@ -241,7 +233,7 @@ class SermonspeakerHelperSermonspeaker
 										.'	});'
 										.'</script>';
 				}
-				$return['height'] = $params->get('popup_height');
+				$return['height'] = $this->params->get('popup_height');
 				$return['width']  = '380';
 				$return['status'] = 'audio';
 			} elseif(in_array($ext, $video_ext)) {
@@ -253,12 +245,12 @@ class SermonspeakerHelperSermonspeaker
 									.'	  file: "'.$lnk.'",'
 									.'	  autostart: '.$start[0].','
 									.$duration
-									.'	  width: '.$params->get('mp_width').','
-									.'	  height: '.$params->get('mp_height')
+									.'	  width: '.$this->params->get('mp_width').','
+									.'	  height: '.$this->params->get('mp_height')
 									.'	});'
 									.'</script>';
-				$return['height'] = $params->get('mp_height') + 100 + $params->get('popup_height');
-				$return['width']  = $params->get('mp_width') + 130;
+				$return['height'] = $this->params->get('mp_height') + 100 + $this->params->get('popup_height');
+				$return['width']  = $this->params->get('mp_width') + 130;
 				$return['status'] = 'video';
 			} elseif($ext == 'wmv'){ // TODO: is anyone using this? Could switch to Longtail Silverlight player fpr wmv and wma support
 				// WMV File
@@ -271,12 +263,12 @@ class SermonspeakerHelperSermonspeaker
 									.'	<param name="showstatusbar" value="1">'
 									.'	<param name="autosize" value="1">'
 									.'	<param name="animationatstart" value="false">'
-									.'	<embed name="MediaPlayer" src="'.$lnk.'" width="'.$params->get('mp_width').'" height="'.$params->get('mp_height').'" type="application/x-mplayer2" autostart="'.$start[1].'" showcontrols="1" showstatusbar="1" transparentatstart="1" animationatstart="0" loop="false" pluginspage="http://www.microsoft.com/windows/windowsmedia/download/default.asp">'
+									.'	<embed name="MediaPlayer" src="'.$lnk.'" width="'.$this->params->get('mp_width').'" height="'.$this->params->get('mp_height').'" type="application/x-mplayer2" autostart="'.$start[1].'" showcontrols="1" showstatusbar="1" transparentatstart="1" animationatstart="0" loop="false" pluginspage="http://www.microsoft.com/windows/windowsmedia/download/default.asp">'
 									.'	</embed>'
 									.'</object>';
 				$return['script'] = '';
-				$return['height'] = $params->get('mp_height') + 100 + $params->get('popup_height');
-				$return['width']  = $params->get('mp_width') + 130;
+				$return['height'] = $this->params->get('mp_height') + 100 + $this->params->get('popup_height');
+				$return['width']  = $this->params->get('mp_width') + 130;
 				$return['status'] = 'wmv file';
 			} else {
 				$return['mspace'] = '';
@@ -307,5 +299,58 @@ class SermonspeakerHelperSermonspeaker
 				. '<input type="button" value="'.JText::_('JLOGOUT').'" onclick="window.location.href=\''.JRoute::_('index.php?option=com_users&task=user.logout').'\'">'
 				. '</form>';
 		return $html;
+	}
+	
+	function insertSermonTitle($i, $item){
+		$return = '';
+		// Prepare play icon function
+		switch ($this->params->get('list_icon_function', 3)){
+			case 0:
+				$options['title'] = JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER');
+				$pic = JHTML::Image('media/com_sermonspeaker/images/play.gif', JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER'), $options);
+				$return .= JHTML::Link(JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug)), $pic);
+				break;
+			case 1:
+				$options['title'] = JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER');
+				$pic = JHTML::Image('media/com_sermonspeaker/images/play.gif', JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER'), $options);
+				$return .= JHTML::Link(SermonspeakerHelperSermonspeaker::makelink($item->audiofile), $pic);
+				break;
+			case 2:
+				$options['onClick'] = 'jwplayer().playlistItem('.$i.')';
+				$options['title'] = JText::_('COM_SERMONSPEAKER_PLAYICON_HOOVER');
+				$options['class'] = 'icon_play pointer';
+				$return .= JHTML::Image('media/com_sermonspeaker/images/play.gif', JText::_('COM_SERMONSPEAKER_PLAYICON_HOOVER'), $options);
+				break;
+			case 3:
+				$options['onClick'] = "popup=window.open('".JRoute::_('index.php?view=sermon&layout=popup&id='.$item->id.'&tmpl=component')."', 'PopupPage', 'height=".$this->params->get('popup_height').',width='.$this->params->get('mp_width').",scrollbars=yes,resizable=yes'); return false";
+				$options['title'] = JText::_('COM_SERMONSPEAKER_POPUPPLAYER');
+				$options['class'] = 'icon_play pointer';
+				$return .= JHTML::Image('media/com_sermonspeaker/images/play.gif', JText::_('COM_SERMONSPEAKER_POPUPPLAYER'), $options);
+				break;
+		}
+		$return .= ' ';
+		// Prepare title link function
+		switch ($this->params->get('list_title_function', 0)){
+			case 0:
+				$options['title'] = JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER');
+				$return .= JHTML::Link(JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug)), $item->sermon_title, $options);
+				break;
+			case 1:
+				$options['title'] = JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER');
+				$pic = JHTML::Image('media/com_sermonspeaker/images/play.gif', JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER'), $options);
+				$return .= JHTML::Link(SermonspeakerHelperSermonspeaker::makelink($item->audiofile), $item->sermon_title, $options);
+				break;
+			case 2:
+				$options['onClick'] = 'jwplayer().playlistItem('.$i.')';
+				$options['title'] = JText::_('COM_SERMONSPEAKER_PLAYICON_HOOVER');
+				$return .= JHTML::Link('#', $item->sermon_title, $options);
+				break;
+			case 3:
+				$options['onClick'] = "popup=window.open('".JRoute::_('index.php?view=sermon&layout=popup&id='.$item->id.'&tmpl=component')."', 'PopupPage', 'height=".$this->params->get('popup_height').',width='.$this->params->get('mp_width').",scrollbars=yes,resizable=yes'); return false";
+				$options['title'] = JText::_('COM_SERMONSPEAKER_POPUPPLAYER');
+				$return .= JHTML::Link('#', $item->sermon_title, $options);
+				break;
+		}
+		return $return;
 	}
 }

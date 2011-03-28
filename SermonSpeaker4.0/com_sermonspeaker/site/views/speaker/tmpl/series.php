@@ -30,7 +30,7 @@ if ($this->speaker->website && $this->speaker->website != "http://") : ?>
 <div></div>
 <!-- Begin Data - Sermons -->
 <?php if (empty($this->items)) : ?>
-	<div class="no_entries"><?php echo JText::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', JText::_('COM_SERMONSPEAKER_SERMONS')); ?></div>
+	<div class="no_entries"><?php echo JText::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', JText::_('COM_SERMONSPEAKER_SERIES')); ?></div>
 <?php else : ?>
 <form action="<?php echo JFilterOutput::ampReplace(JFactory::getURI()->toString()); ?>" method="post" id="adminForm" name="adminForm">
 	<?php if ($this->params->get('show_pagination_limit')) : ?>

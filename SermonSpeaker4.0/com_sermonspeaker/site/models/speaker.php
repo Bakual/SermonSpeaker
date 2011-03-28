@@ -55,7 +55,7 @@ class SermonspeakerModelSpeaker extends JModelList
 			}
 
 			// Add the list ordering clause.
-			$query->order($db->getEscaped($this->getState('list.ordering', 'sermons.ordering')).' '.$db->getEscaped($this->getState('list.direction', 'ASC')));
+			$query->order('sermons.'.$db->getEscaped($this->getState('list.ordering', 'ordering')).' '.$db->getEscaped($this->getState('list.direction', 'ASC')));
 		} else {
 			// Select required fields from the table.
 			$query->select(
@@ -87,7 +87,7 @@ class SermonspeakerModelSpeaker extends JModelList
 			$query->group('series.id');
 
 			// Add the list ordering clause.
-			$query->order($db->getEscaped($this->getState('list.ordering', 'series.ordering')).' '.$db->getEscaped($this->getState('list.direction', 'ASC')));
+			$query->order('series.'.$db->getEscaped($this->getState('list.ordering', 'ordering')).' '.$db->getEscaped($this->getState('list.direction', 'ASC')));
 		}
 		return $query;
 	}
@@ -112,10 +112,18 @@ class SermonspeakerModelSpeaker extends JModelList
 		$limitstart = JRequest::getVar('limitstart', 0, '', 'int');
 		$this->setState('list.start', $limitstart);
 
-		$orderCol	= JRequest::getCmd('filter_order', $params->get('default_order', 'ordering'));
+		if (JRequest::getCmd('layout') == 'latest-sermons'){
+			$orderCol	= JRequest::getCmd('filter_order', $params->get('default_order', 'ordering'));
+		} else {
+			$orderCol	= JRequest::getCmd('filter_order', 'ordering');
+		}
 		$this->setState('list.ordering', $orderCol);
 
-		$listOrder	=  JRequest::getCmd('filter_order_Dir', $params->get('default_order_dir', 'ASC'));
+		if (JRequest::getCmd('layout') == 'latest-sermons'){
+			$listOrder	=  JRequest::getCmd('filter_order_Dir', $params->get('default_order_dir', 'ASC'));
+		} else {
+			$listOrder	=  JRequest::getCmd('filter_order_Dir', 'ASC');
+		}
 		$this->setState('list.direction', $listOrder);
 
 		$id = JRequest::getVar('sermon_cat', 0, '', 'int');

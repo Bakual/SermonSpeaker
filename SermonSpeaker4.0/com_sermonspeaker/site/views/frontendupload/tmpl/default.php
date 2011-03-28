@@ -22,7 +22,6 @@ $self = $uri->toString();
 		}
 	}
 </script>
-
 <div id="ss-frup-container">
 	<h1><?php echo JText::_('COM_SERMONSPEAKER_FU_NEWSERMON'); ?></h1>
 	<div id="ss-frup-form">

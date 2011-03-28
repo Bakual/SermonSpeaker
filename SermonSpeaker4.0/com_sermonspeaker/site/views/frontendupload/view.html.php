@@ -77,7 +77,7 @@ class SermonspeakerViewFrontendupload extends JView
 						file_types_description : "'.JText::_('COM_SERMONSPEAKER_FIELD_AUDIOFILE_LABEL', 'true').'",
 						file_upload_limit : "0",
 						file_queue_limit : "0",
-						button_image_url : "media/com_sermonspeaker/swfupload/XPButtonUploadText_61x22.png",
+						button_image_url : "'.JURI::root().'media/com_sermonspeaker/swfupload/XPButtonUploadText_61x22.png",
 						button_placeholder_id : "btnUpload1",
 						button_width: 61,
 						button_height: 22,
@@ -124,7 +124,7 @@ class SermonspeakerViewFrontendupload extends JView
 						file_types_description : "'.JText::_('COM_SERMONSPEAKER_FIELD_VIDEOFILE_LABEL', 'true').'",
 						file_upload_limit : "0",
 						file_queue_limit : "0",
-						button_image_url : "media/com_sermonspeaker/swfupload/XPButtonUploadText_61x22.png",
+						button_image_url : "'.JURI::root().'media/com_sermonspeaker/swfupload/XPButtonUploadText_61x22.png",
 						button_placeholder_id : "btnUpload2",
 						button_width: 61,
 						button_height: 22,
@@ -176,7 +176,6 @@ class SermonspeakerViewFrontendupload extends JView
 		}
 
 		// Push the Data to the Template
-		$this->assignRef('data',		$data);
 		$this->assignRef('params',		$params);
 		$this->assignRef('session',		$session);
 
