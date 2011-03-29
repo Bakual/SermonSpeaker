@@ -1,8 +1,6 @@
 <?php
 defined('_JEXEC') or die('Restricted access');
-
 jimport( 'joomla.application.component.view');
-
 /**
  * HTML View class for the SermonSpeaker Component
  */
@@ -71,7 +69,7 @@ class SermonspeakerViewFrontendupload extends JView
 				window.onload = function() {
 					upload1 = new SWFUpload({
 						upload_url: "'.$targetURL.'",
-						flash_url : "media/com_sermonspeaker/swfupload/swfupload.swf",
+						flash_url : "'.JURI::root().'media/com_sermonspeaker/swfupload/swfupload.swf",
 						file_size_limit : "100MB",
 						file_types : "'.$audioTypes.'",
 						file_types_description : "'.JText::_('COM_SERMONSPEAKER_FIELD_AUDIOFILE_LABEL', 'true').'",
@@ -118,7 +116,7 @@ class SermonspeakerViewFrontendupload extends JView
 					});
 					upload2 = new SWFUpload({
 						upload_url: "'.$targetURL.'",
-						flash_url : "media/com_sermonspeaker/swfupload/swfupload.swf",
+						flash_url : "'.JURI::root().'media/com_sermonspeaker/swfupload/swfupload.swf",
 						file_size_limit : "100MB",
 						file_types : "'.$videoTypes.'",
 						file_types_description : "'.JText::_('COM_SERMONSPEAKER_FIELD_VIDEOFILE_LABEL', 'true').'",

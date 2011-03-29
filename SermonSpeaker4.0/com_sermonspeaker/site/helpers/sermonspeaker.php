@@ -249,7 +249,7 @@ class SermonspeakerHelperSermonspeaker
 									.'	  height: '.$this->params->get('mp_height')
 									.'	});'
 									.'</script>';
-				$return['height'] = $this->params->get('mp_height') + 100 + $this->params->get('popup_height');
+				$return['height'] = $this->params->get('mp_height') + $this->params->get('popup_height');
 				$return['width']  = $this->params->get('mp_width') + 130;
 				$return['status'] = 'video';
 			} elseif($ext == 'wmv'){ // TODO: is anyone using this? Could switch to Longtail Silverlight player fpr wmv and wma support
@@ -267,7 +267,7 @@ class SermonspeakerHelperSermonspeaker
 									.'	</embed>'
 									.'</object>';
 				$return['script'] = '';
-				$return['height'] = $this->params->get('mp_height') + 100 + $this->params->get('popup_height');
+				$return['height'] = $this->params->get('mp_height') + $this->params->get('popup_height');
 				$return['width']  = $this->params->get('mp_width') + 130;
 				$return['status'] = 'wmv file';
 			} else {
@@ -304,6 +304,7 @@ class SermonspeakerHelperSermonspeaker
 	function insertSermonTitle($i, $item){
 		$return = '';
 		// Prepare play icon function
+		$options = array();
 		switch ($this->params->get('list_icon_function', 3)){
 			case 0:
 				$options['title'] = JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER');
@@ -330,6 +331,7 @@ class SermonspeakerHelperSermonspeaker
 		}
 		$return .= ' ';
 		// Prepare title link function
+		$options = array();
 		switch ($this->params->get('list_title_function', 0)){
 			case 0:
 				$options['title'] = JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER');
