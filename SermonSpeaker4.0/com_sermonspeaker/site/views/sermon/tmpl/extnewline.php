@@ -29,7 +29,7 @@ JHTML::_('behavior.modal');
 		<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_CUSTOM2'); ?>:</div>
 		<div class="ss-sermondetail-text"><?php echo $this->item->custom2; ?></div>
 	<?php endif;
-	if (in_array('sermon:series', $this->columns)) : ?>
+	if (in_array('sermon:series', $this->columns) && $this->item->series_id) : ?>
 		<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_SERIE_TITLE'); ?>:</div>
 		<div class="ss-sermondetail-text"><a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($this->serie->slug)); ?>">
 			<?php echo $this->escape($this->serie->series_title); ?></a>

@@ -11,8 +11,7 @@ $listDirn	= $this->state->get('list.direction');
 <h1 class="componentheading"><?php echo JText::_('COM_SERMONSPEAKER_SPEAKERS_TITLE'); ?></h1>
 <?php if (empty($this->items)) : ?>
 	<div class="no_entries"><?php echo JText::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', JText::_('COM_SERMONSPEAKER_SERMONS')); ?></div>
-<?php else : 
-// Begin Data ?>
+<?php else : ?>
 <form action="<?php echo JFilterOutput::ampReplace(JFactory::getURI()->toString()); ?>" method="post" id="adminForm" name="adminForm">
 	<?php if ($this->params->get('show_pagination_limit')) : ?>
 	<div class="display-limit">
@@ -33,7 +32,7 @@ $listDirn	= $this->state->get('list.direction');
 			</a>
 		<?php endif;
 		if($this->params->get('speaker_intro') && $item->intro) : ?>
-			<p><?php echo $item->intro; ?></p>
+			<p><?php echo JHTML::_('content.prepare', $item->intro); ?></p>
 		<?php endif; ?>
 		<?php if($item->pic) : ?>
 			<br style="clear:both" />

@@ -34,19 +34,6 @@ class SermonspeakerViewSpeakers extends JView
 			return false;
 		}
 
- 		// Support for Content Plugins
-		$dispatcher	= &JDispatcher::getInstance();
-		$item->params = clone($params);
-		JPluginHelper::importPlugin('content');
-		foreach($items as $item){
-			// Trigger Event for `intro`
-			$item->text	= &$item->intro;
-			$dispatcher->trigger('onPrepareContent', array(&$item, &$item->params, 0));
-			// Trigger Event for `bio`
-			$item->text	= &$item->bio;
-			$dispatcher->trigger('onPrepareContent', array(&$item, &$item->params, 0));
-		}
-
 		// push data into the template
 		$this->assignRef('state',		$state);
 		$this->assignRef('items',		$items);

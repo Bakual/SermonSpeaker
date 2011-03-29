@@ -46,7 +46,7 @@ JHTML::_('behavior.modal');
 			<?php endif; ?>
 		</div>
 		<div class="ss-fields-container">
-			<?php if (in_array('sermon:speaker', $this->columns)): ?>
+			<?php if (in_array('sermon:speaker', $this->columns) && $this->item->speaker_id): ?>
 				<div class="ss-field field-speaker" title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKER'); ?>">
 					<?php echo SermonspeakerHelperSermonSpeaker::SpeakerTooltip($this->speaker->slug, $this->speaker->pic, $this->speaker->name); ?>
 				</div>
@@ -70,7 +70,7 @@ JHTML::_('behavior.modal');
 			<?php endif; ?>
 		</div>
 		<div class="ss-fields-container">
-			<?php if (in_array('sermon:series', $this->columns) && $this->serie->series_title) : ?>
+			<?php if (in_array('sermon:series', $this->columns) && $this->item->series_id) : ?>
 				<div class="ss-field field-series" title="<?php echo JText::_('COM_SERMONSPEAKER_SERIE_TITLE'); ?>">
 					<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($this->serie->slug)); ?>">
 						<?php echo $this->escape($this->serie->series_title); ?>

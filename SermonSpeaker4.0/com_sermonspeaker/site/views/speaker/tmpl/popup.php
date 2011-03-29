@@ -14,8 +14,8 @@ endif;
 		<?php if ($this->speaker->bio || ($this->speaker->intro && $this->params->get('speaker_intro'))) { ?>
 			<h3 class="contentheading"><?php echo JText::_('COM_SERMONSPEAKER_SPEAKER_BIO'); ?></h3>
 			<?php
-			echo $this->speaker->intro;
-			echo $this->speaker->bio; ?>
+			echo JHTML::_('content.prepare', $this->speaker->intro);
+			echo JHTML::_('content.prepare', $this->speaker->bio); ?>
 		<?php }
 		if ($this->speaker->website && $this->speaker->website != 'http://') { ?>
 			<a href="<?php echo $this->speaker->website; ?>" target="_blank" title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKER_WEBLINK_HOOVER'); ?>"><?php echo JText::sprintf('COM_SERMONSPEAKER_SPEAKER_WEBLINK', $this->speaker->name); ?></a>
