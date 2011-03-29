@@ -228,7 +228,7 @@
 		</field>
 		<field name="popup_color" 
 			type="text" 
-			default="FFFFFF" 
+			default="#FFFFFF" 
 			label="COM_SERMONSPEAKER_PARAM_POPUPCOLOR" 
 			description="COM_SERMONSPEAKER_PARAM_POPUPCOLOR_DESC" />
 		<field name="popup_height" 
