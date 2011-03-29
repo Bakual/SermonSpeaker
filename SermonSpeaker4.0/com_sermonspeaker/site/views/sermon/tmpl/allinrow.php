@@ -2,18 +2,17 @@
 defined('_JEXEC') or die('Restricted access');
 JHTML::_('behavior.tooltip');
 JHTML::_('behavior.modal');
-$player = SermonspeakerHelperSermonspeaker::insertPlayer($this->item, $this->speaker->name);
 ?>
 <div id="ss-sermon-container">
 <h1 class="componentheading"><?php echo JText::_('COM_SERMONSPEAKER_SERMON_TITLE'); ?></h1>
+<?php if (!$this->params->get('hide_dl') && $this->player['file']) : ?>
+	<h3 class="contentheading">
+		<a title="<?php echo JText::_('COM_SERMONSPEAKER_DIRECTLINK_HOOVER'); ?>" href="<?php echo $this->player['file']; ?>"><?php echo $this->item->sermon_title; ?></a>
+	</h3>
+<?php else : ?>
+	<h3 class="contentheading"><?php echo $this->item->sermon_title; ?></h3>
+<?php endif; ?>
 <!-- Begin Header -->
-<h3 class="contentheading">
-<?php if ($this->params->get('hide_dl') == "0" && strlen($this->item->audiofile) > 0) : ?>
-	<a title='<?php echo JText::_('COM_SERMONSPEAKER_DIRECTLINK_HOOVER'); ?>' href='<?php echo $this->lnk; ?>'><?php echo $this->item->sermon_title; ?></a>
-<?php else :
-	echo $this->item->sermon_title;
-endif; ?>
-</h3>
 <table border="0" cellpadding="2" cellspacing="0" width="100%">
 	<tr>
 		<?php if (in_array('sermon:scripture', $this->columns) && $this->item->sermon_scripture) : ?>
@@ -25,39 +24,41 @@ endif; ?>
 		if (in_array('sermon:addfile', $this->columns) && $this->item->addfile) : ?>
 			<th align="left" valign="bottom"><?php echo JText::_('COM_SERMONSPEAKER_ADDFILE'); ?></th>
 		<?php endif;
-		if (in_array('sermon:player', $this->columns) && strlen($this->item->audiofile) > 0) : ?>
+		if (in_array('sermon:player', $this->columns)) : ?>
 			<th align="left" valign="bottom"><?php echo JText::_('COM_SERMONSPEAKER_SERMON_PLAYER'); ?></th>
 		<?php endif; ?>
 	</tr> 
 <!-- Begin Data -->
 	<tr>
 		<?php if (in_array('sermon:scripture', $this->columns) && $this->item->sermon_scripture) : ?>
-			<td align="left" valign="top"><?php echo $this->item->sermon_scripture; ?></td>
+			<td align="left" valign="top"><?php echo JHTML::_('content.prepare', $this->item->sermon_scripture); ?></td>
 		<?php endif;
 		if (in_array('sermon:notes', $this->columns) && strlen($this->item->notes) > 0) : ?>
-			<td align="left" valign="top"><?php echo $this->item->notes; ?></td>
+			<td align="left" valign="top"><?php echo JHTML::_('content.prepare', $this->item->notes); ?></td>
 		<?php endif;
 		if (in_array('sermon:addfile', $this->columns) && $this->item->addfile) : ?>
 			<td align="left" valign="top"><?php echo SermonspeakerHelperSermonspeaker::insertAddfile($this->item->addfile, $this->item->addfileDesc); ?></td>
 		<?php endif;
-		if (in_array('sermon:player', $this->columns) && strlen($this->item->audiofile) > 0) : ?> 
+		if (in_array('sermon:player', $this->columns)) : ?> 
 			<td align="center" valign="top">
-				<?php 
-				echo $player['mspace'];
-				echo $player['script'];
-				?>
+				<?php if ($this->player['status'] == 'error'): ?>
+					<span class="no_entries"><?php echo $this->player['error']; ?></span>
+				<?php else:
+					echo $this->player['mspace'];
+					echo $this->player['script'];
+				endif; ?>
 			</td>
 		<?php endif; ?>
 	</tr>
 </table>
 <div style="float:left;">
-	<?php if ($this->params->get('dl_button') == "1" && strlen($this->item->audiofile) > 0) :
-		echo SermonspeakerHelperSermonspeaker::insertdlbutton($this->item->id, $this->item->audiofile);
+	<?php if ($this->params->get('dl_button') && $this->player['file']) :
+		echo SermonspeakerHelperSermonspeaker::insertdlbutton($this->item->id, $this->player['file']);
 	endif; ?>
 </div>
 <div style="float:right;">
 	<?php if ($this->params->get('popup_player') == "1" && strlen($this->item->audiofile) > 0) :
-		echo SermonspeakerHelperSermonspeaker::insertPopupButton($this->item->id, $player);
+		echo SermonspeakerHelperSermonspeaker::insertPopupButton($this->item->id, $this->player);
 	endif; ?>
 </div>
 <table width="100%" style="clear:both;">

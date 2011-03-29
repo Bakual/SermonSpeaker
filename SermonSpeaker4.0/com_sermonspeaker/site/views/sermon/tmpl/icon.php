@@ -2,7 +2,6 @@
 defined('_JEXEC') or die('Restricted access');
 JHTML::_('behavior.tooltip');
 JHTML::_('behavior.modal');
-$player = SermonspeakerHelperSermonspeaker::insertPlayer($this->item, $this->speaker->name);
 ?>
 <div id="sermon-container">
 	<h1 class="componentheading">
@@ -14,16 +13,18 @@ $player = SermonspeakerHelperSermonspeaker::insertPlayer($this->item, $this->spe
 		<div id="sermon-player-container">
 			<?php if (in_array('sermon:player', $this->columns)) : ?>
 				<div class="ss-player">
-				<?php 
-				echo $player['mspace'];
-				echo $player['script'];
-				?>
+					<?php if ($this->player['status'] == 'error'): ?>
+						<span class="no_entries"><?php echo $this->player['error']; ?></span>
+					<?php else:
+						echo $this->player['mspace'];
+						echo $this->player['script'];
+					endif; ?>
 				</div>
 			<?php endif; ?>
 			<?php if ($this->params->get('popup_player') || $this->params->get('dl_button')) : ?>
 				<div class="ss-mp3-links">
 				<?php if ($this->params->get('popup_player')) : ?>
-					<a href="<?php echo JURI::current(); ?>" class="new-window" onclick="popup = window.open('<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonRoute($this->item->slug).'&layout=popup&tmpl=component'); ?>', 'PopupPage', 'height=300,width=350,scrollbars=yes,resizable=yes'); return false">
+					<a href="<?php echo JURI::current(); ?>" class="new-window" onclick="popup = window.open('<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonRoute($this->item->slug).'&layout=popup&tmpl=component'); ?>', 'PopupPage', 'height=<?php echo $this->player['height']; ?>,width=<?php echo $this->player['width']; ?>,scrollbars=yes,resizable=yes'); return false">
 						<?php echo JText::_('COM_SERMONSPEAKER_POPUPPLAYER'); ?>
 					</a>
 				<?php endif;
@@ -32,8 +33,8 @@ $player = SermonspeakerHelperSermonspeaker::insertPlayer($this->item, $this->spe
 				<?php endif;
 				if ($this->params->get('dl_button')) :
 					//Check if link targets to an external source
-					if (substr($this->item->audiofile, 0, 7) == 'http://') : //File is external
-						$fileurl = $this->item->audiofile;
+					if ((substr($this->player['file'], 0, 7) == 'http://') && (strpos($this->player['file'], JURI::root()) !== 0)) : //File is external
+						$fileurl = $this->player['file'];
 					else : //File is locally 
 						$fileurl = JURI::root().'index.php?option=com_sermonspeaker&amp;task=download&amp;id='.$this->item->id;
 					endif; ?>
@@ -52,17 +53,17 @@ $player = SermonspeakerHelperSermonspeaker::insertPlayer($this->item, $this->spe
 			<?php endif; ?>
 			<?php if (in_array('sermon:scripture', $this->columns) && $this->item->sermon_scripture) : ?>
 				<div class="ss-field field-bible" title="<?php echo JText::_('COM_SERMONSPEAKER_SCRIPTURE'); ?>">
-					<?php echo $this->item->sermon_scripture; ?>
+					<?php echo JHTML::_('content.prepare', $this->item->sermon_scripture); ?>
 				</div>
 			<?php endif; ?>
 		</div>
 		<div class="ss-fields-container">
-			<?php if (in_array('sermon:date', $this->columns) && ($this->item->sermon_date != "0000-00-00")) : ?>
+			<?php if (in_array('sermon:date', $this->columns) && ($this->item->sermon_date != '0000-00-00')) : ?>
 				<div class="ss-field field-calendar" title="<?php echo JText::_('COM_SERMONSPEAKER_SERMONDATE'); ?>">
 					<?php echo JHTML::Date($this->item->sermon_date, JText::_('DATE_FORMAT_LC1'), 'UTC'); ?>
 				</div>
 			<?php endif;
-			if (in_array('sermon:length', $this->columns) && ($this->item->sermon_time != "00:00:00")) : ?>
+			if (in_array('sermon:length', $this->columns) && ($this->item->sermon_time != '00:00:00')) : ?>
 				<div class="ss-field field-time" title="<?php echo JText::_('COM_SERMONSPEAKER_SERMONLENGTH'); ?>">
 					<?php echo SermonspeakerHelperSermonspeaker::insertTime($this->item->sermon_time); ?>
 				</div>
@@ -85,9 +86,9 @@ $player = SermonspeakerHelperSermonspeaker::insertPlayer($this->item, $this->spe
 		<br style="clear:both" />
 	</div>
 </div>
-<?php if (in_array('sermon:notes', $this->columns) && strlen($this->item->notes) > 0) : ?>
+<?php if (in_array('sermon:notes', $this->columns) && $this->item->notes) : ?>
 	<div class="ss-notes">
-		<?php echo $this->item->notes; ?>
+		<?php echo JHTML::_('content.prepare', $this->item->notes); ?>
 	</div>
 <?php endif;
 $keywords = explode(',', $this->item->metakey);

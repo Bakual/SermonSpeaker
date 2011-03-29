@@ -69,14 +69,6 @@ class SermonspeakerViewSermon extends JView
 			$this->assignRef('serie', $serie);
 		}
 
-		// Decide which file to show (audio or video)
-		if ($params->get('fileprio')){
-			$file = $item->videofile;
-		} else {
-			$file = $item->audiofile;
-		}
-		$lnk = SermonspeakerHelperSermonspeaker::makelink($item->videofile);
-
 		// get active View from Menuitem
 		$menus	= $app->getMenu();
 		$menu	= $menus->getActive();
@@ -95,14 +87,6 @@ class SermonspeakerViewSermon extends JView
 		}
     	$breadcrumbs->addItem($item->sermon_title, '');
 
-		// Process the content plugins.
-		$dispatcher	= JDispatcher::getInstance();
-		JPluginHelper::importPlugin('content');
-		$item->text = &$item->notes;
-		$results = $dispatcher->trigger('onContentPrepare', array ('com_sermonspeaker.sermon', &$item, &$this->params));
-		$item->text = &$item->sermon_scripture;
-		$results = $dispatcher->trigger('onContentPrepare', array ('com_sermonspeaker.sermon', &$item, &$this->params));
-
 		// Check for errors.
 		if (count($errors = $this->get('Errors'))) {
 			JError::raiseWarning(500, implode("\n", $errors));
@@ -118,13 +102,10 @@ class SermonspeakerViewSermon extends JView
 			$model = $this->getModel();
 			$model->hit();
 		}
-		
 		$this->assignRef('params',		$params);
 		$this->assignRef('state', 		$state);
 		$this->assignRef('item', 		$item);
 		$this->assignRef('user', 		$user);
-		$this->assignRef('lnk', 		$lnk);
-		$this->assignRef('file', 		$file);
 		$this->assignRef('columns', 	$columns);
 		$this->assignRef('speaker',		$speaker);
 
@@ -140,10 +121,11 @@ class SermonspeakerViewSermon extends JView
 	{
 		$app	= JFactory::getApplication();
 
-		// Add swfobject-javascript for player if needed
+		// Add javascript for player if needed
 		if (in_array('sermon:player', $this->columns) || JRequest::getCmd('layout', '') == 'popup'){
-			if ($this->params->get('alt_player')){
-				$this->document->addScript(JURI::root()."media/com_sermonspeaker/player/audio_player/audio-player.js");
+			$this->player = SermonspeakerHelperSermonspeaker::insertPlayer($this->item, $this->speaker->name);
+			if ($this->player['player'] == 'PixelOut'){
+				JHTML::Script('media/com_sermonspeaker/player/audio_player/audio-player.js');
 				$this->document->addScriptDeclaration('
 				AudioPlayer.setup("'.JURI::root().'media/com_sermonspeaker/player/audio_player/player.swf", {
 					width: 290,
@@ -152,9 +134,8 @@ class SermonspeakerViewSermon extends JView
 					left: "000000",
 					lefticon: "FFFFFF"
 				});');
-			} else {
-//				$this->document->addScript(JURI::root().'media/com_sermonspeaker/player/jwplayer/swfobject.js');
-				$this->document->addScript(JURI::root().'media/com_sermonspeaker/player/jwplayer/jwplayer.js');
+			} elseif ($this->player['player'] == 'JWPlayer'){
+				JHTML::Script('media/com_sermonspeaker/player/jwplayer/jwplayer.js');
 			}
 		}
 		

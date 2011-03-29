@@ -61,7 +61,7 @@ class SermonspeakerViewSermons extends JView
 
 		// Add javascript for player if needed
 		if (in_array('sermons:player', $this->columns)){
-			JHTML::Script('media/com_sermonspeaker/player/jwplayer/jwplayer.js', true);
+			JHTML::Script('media/com_sermonspeaker/player/jwplayer/jwplayer.js');
 			$this->player = SermonspeakerHelperSermonspeaker::insertPlayer($this->items);
 			if($this->params->get('fileswitch')){
 				$this->document->addScriptDeclaration('

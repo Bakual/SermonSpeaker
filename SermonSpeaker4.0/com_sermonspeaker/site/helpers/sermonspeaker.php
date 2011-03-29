@@ -66,7 +66,7 @@ class SermonspeakerHelperSermonspeaker
 
 	function insertdlbutton($id, $path) {
 		//Check if link targets to an external source
-		if (substr($path, 0, 7) == 'http://'){ //File is external
+		if (substr($path, 0, 7) == 'http://' && (strpos($path, JURI::root()) !== 0)){ //File is external
 			$fileurl = $path;
 		} else { //File is locally
 			$fileurl = JURI::root().'index.php?option=com_sermonspeaker&amp;task=download&amp;id='.$id;
@@ -86,12 +86,12 @@ class SermonspeakerHelperSermonspeaker
 		$prio		= $this->params->get('fileprio', 0);
 
 		$view = JRequest::getCmd('view');
-		if ($this->params->get('autostart') == '1' && $view != 'seriessermon') {
+		if ($this->params->get('autostart') && ($view != 'seriessermon')){
 			$start[0]='true'; $start[1]='1'; $start[2]='yes';
 		} else {
 			$start[0]='false'; $start[1]='0'; $start[2]='no';
 		}
-		if($view == 'serie' || $view == 'sermons' || $view == 'archive' || $view == 'speaker'){
+		if(($view == 'serie') || ($view == 'sermons') || ($view == 'archive') || ($view == 'speaker')){
 			// Playlist
 			$player = JURI::root().'media/com_sermonspeaker/player/jwplayer/player.swf';
 			
@@ -170,10 +170,12 @@ class SermonspeakerHelperSermonspeaker
 			// Single File
 			// Choosing the default file to play based on prio and availabilty
 			if (($item->audiofile && !$prio) || ($item->audiofile && !$item->videofile)){
-				$lnk = SermonspeakerHelperSermonspeaker::makelink($item->audiofile);
+				$return['file'] = SermonspeakerHelperSermonspeaker::makelink($item->audiofile);
 			} elseif (($item->videofile && $prio) || ($item->videofile && !$item->audiofile)){
-				$lnk = SermonspeakerHelperSermonspeaker::makelink($item->videofile);
+				$return['file'] = SermonspeakerHelperSermonspeaker::makelink($item->videofile);
 			} else {
+				$return['file']   = '';
+				$return['player'] = '';
 				$return['mspace'] = '';
 				$return['script'] = '';
 				$return['height'] = 0;
@@ -184,18 +186,9 @@ class SermonspeakerHelperSermonspeaker
 			}
 			// Get extension of file
 			jimport('joomla.filesystem.file');
-			$ext = JFile::getExt($lnk);
+			$ext = JFile::getExt($return['file']);
 
-			if ($this->params->get('alt_player') && ($ext == 'mp3')){
-				$player = JURI::root().'media/com_sermonspeaker/player/audio_player/player.swf';
-				$options = NULL;
-				if ($item->sermon_title){
-					$options = 'titles: "'.$item->sermon_title.'",';
-				}
-				if ($artist){
-					$options .= 'artists: "'.$artist.'",';
-				}
-			} else {
+			if (!$this->params->get('alt_player') || ($ext != 'mp3')){
 				$player = JURI::root().'media/com_sermonspeaker/player/jwplayer/player.swf';
 				if ($item->sermon_time){
 					$time_arr = explode(':', $item->sermon_time);
@@ -213,18 +206,27 @@ class SermonspeakerHelperSermonspeaker
 				// Audio File
 				$return['mspace'] = '<div id="mediaspace'.$count.'">Flashplayer needs Javascript turned on</div>';
 				if ($this->params->get('alt_player') && ($ext == 'mp3')){
+					$options = '';
+					if ($item->sermon_title){
+						$options .= 'titles: "'.$item->sermon_title.'",';
+					}
+					if ($artist){
+						$options .= 'artists: "'.$artist.'",';
+					}
+					$return['player'] = 'PixelOut';
 					$return['script'] = '<script type="text/javascript">'
 										.'	AudioPlayer.embed("mediaspace'.$count.'", {'
-										.'		soundFile: "'.urlencode($lnk).'",'
+										.'		soundFile: "'.urlencode($return['file']).'",'
 										.'		'.$options
 										.'		autostart: "'.$start[2].'"'
 										.'	})'
 										.'</script>';
 				} else {
+					$return['player'] = 'JWPlayer';
 					$return['script'] = '<script type="text/javascript">'
 										.'	jwplayer("mediaspace'.$count.'").setup({'
 										.'	  flashplayer: "'.$player.'",'
-										.'	  file: "'.$lnk.'",'
+										.'	  file: "'.$return['file'].'",'
 										.'	  autostart: '.$start[0].','
 										.$duration
 										.'	  controlbar: "bottom",'
@@ -238,11 +240,12 @@ class SermonspeakerHelperSermonspeaker
 				$return['status'] = 'audio';
 			} elseif(in_array($ext, $video_ext)) {
 				// Video File
+				$return['player'] = 'JWPlayer';
 				$return['mspace'] = '<div id="mediaspace'.$count.'">Flashplayer needs Javascript turned on</div>';
 				$return['script'] = '<script type="text/javascript">'
 									.'	jwplayer("mediaspace'.$count.'").setup({'
 									.'	  flashplayer: "'.$player.'",'
-									.'	  file: "'.$lnk.'",'
+									.'	  file: "'.$return['file'].'",'
 									.'	  autostart: '.$start[0].','
 									.$duration
 									.'	  width: '.$this->params->get('mp_width').','
@@ -254,8 +257,9 @@ class SermonspeakerHelperSermonspeaker
 				$return['status'] = 'video';
 			} elseif($ext == 'wmv'){ // TODO: is anyone using this? Could switch to Longtail Silverlight player fpr wmv and wma support
 				// WMV File
+				$return['player'] = 'Windows';
 				$return['mspace'] = '<object id="mediaplayer" width="400" height="323" classid="clsid:22d6f312-b0f6-11d0-94ab-0080c74c7e95 22d6f312-b0f6-11d0-94ab-0080c74c7e95" type="application/x-oleobject">'
-									.'	<param name="filename" value="'.$lnk.'">'
+									.'	<param name="filename" value="'.$return['file'].'">'
 									.'	<param name="autostart" value="'.$start[1].'">'
 									.'	<param name="transparentatstart" value="true">'
 									.'	<param name="showcontrols" value="1">'
@@ -263,7 +267,7 @@ class SermonspeakerHelperSermonspeaker
 									.'	<param name="showstatusbar" value="1">'
 									.'	<param name="autosize" value="1">'
 									.'	<param name="animationatstart" value="false">'
-									.'	<embed name="MediaPlayer" src="'.$lnk.'" width="'.$this->params->get('mp_width').'" height="'.$this->params->get('mp_height').'" type="application/x-mplayer2" autostart="'.$start[1].'" showcontrols="1" showstatusbar="1" transparentatstart="1" animationatstart="0" loop="false" pluginspage="http://www.microsoft.com/windows/windowsmedia/download/default.asp">'
+									.'	<embed name="MediaPlayer" src="'.$return['file'].'" width="'.$this->params->get('mp_width').'" height="'.$this->params->get('mp_height').'" type="application/x-mplayer2" autostart="'.$start[1].'" showcontrols="1" showstatusbar="1" transparentatstart="1" animationatstart="0" loop="false" pluginspage="http://www.microsoft.com/windows/windowsmedia/download/default.asp">'
 									.'	</embed>'
 									.'</object>';
 				$return['script'] = '';
@@ -271,6 +275,7 @@ class SermonspeakerHelperSermonspeaker
 				$return['width']  = $this->params->get('mp_width') + 130;
 				$return['status'] = 'wmv file';
 			} else {
+				$return['player'] = '';
 				$return['mspace'] = '';
 				$return['script'] = '';
 				$return['height'] = 0;
