@@ -60,7 +60,7 @@ class SermonspeakerViewSermons extends JView
 		$app	= JFactory::getApplication();
 
 		// Add javascript for player if needed
-		if (in_array('sermons:player', $this->columns)){
+		if (in_array('sermons:player', $this->columns) && count($this->items)){
 			JHTML::Script('media/com_sermonspeaker/player/jwplayer/jwplayer.js');
 			$this->player = SermonspeakerHelperSermonspeaker::insertPlayer($this->items);
 			if($this->params->get('fileswitch')){
@@ -77,27 +77,30 @@ class SermonspeakerViewSermons extends JView
 			}
 		}
 
+		// Set Page Header from menu if active, otherwise a default value
+		$menus	= $app->getMenu();
+		$menu 	= $menus->getActive();
+		if ($menu) {
+			$this->params->def('page_heading', $this->params->get('page_title', $menu->title));
+		} else {
+			$this->params->def('page_heading', JText::_('COM_SERMONSPEAKER_SERMONS_TITLE'));
+		}
+
 		// Set Pagetitle
 		$title 	= $this->params->get('page_title', '');
-		if (empty($title)) {
-			$title = $app->getCfg('sitename');
+		if ($title == $app->getCfg('sitename')) {
+			$title = JText::sprintf('JPAGETITLE', $app->getCfg('sitename'), JText::_('COM_SERMONSPEAKER_SERMONS_TITLE'));
 		} elseif ($app->getCfg('sitename_pagetitles', 0)) {
 			$title = JText::sprintf('JPAGETITLE', $app->getCfg('sitename'), $title);
 		}
-		$title = JText::sprintf('JPAGETITLE', $title, JText::_('COM_SERMONSPEAKER_SERMONS_TITLE'));
 		$this->document->setTitle($title);
 
-		// Set MetaData
-		$description = $this->document->getMetaData('description');
-		if ($description){
-			$description .= ' ';
+		// Set MetaData from menu entry if available
+		if ($this->params->get('menu-meta_description')){
+			$this->document->setMetaData('description', $this->params->get('menu-meta_description'));
 		}
-		$this->document->setMetaData('description', $description.JText::_('COM_SERMONSPEAKER_SERMONS_TITLE'));
-
-		$keywords = $this->document->getMetaData('keywords');
-		if ($keywords){
-			$keywords = $keywords.', ';
+		if ($this->params->get('menu-meta_keywords')){
+			$this->document->setMetaData('keywords', $this->params->get('menu-meta_keywords'));
 		}
-		$this->document->setMetaData('keywords', $keywords.JText::_('COM_SERMONSPEAKER_SERMONS_TITLE'));
 	}
 }

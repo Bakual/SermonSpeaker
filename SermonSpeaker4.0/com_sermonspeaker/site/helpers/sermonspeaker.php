@@ -95,6 +95,7 @@ class SermonspeakerHelperSermonspeaker
 			// Playlist
 			$player = JURI::root().'media/com_sermonspeaker/player/jwplayer/player.swf';
 			
+			$entries = array();
 			foreach ($item as $temp_item){
 				// Choosing the default file to play based on prio and availabilty
 				if (($temp_item->audiofile && !$prio) || ($temp_item->audiofile && !$temp_item->videofile)){
@@ -165,7 +166,7 @@ class SermonspeakerHelperSermonspeaker
 			$return['height'] = $this->params->get('popup_height');
 			$return['width']  = '380';
 			$return['default-pl'] = $playlist;
-			$return['status']	= 'playlist';
+			$return['status'] = 'playlist';
 		} else {
 			// Single File
 			// Choosing the default file to play based on prio and availabilty
