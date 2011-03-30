@@ -252,6 +252,14 @@
 			<option value="0">JNO</option>
 			<option value="1">JYES</option>
 		</field>
+		<field name="enable_keywords" 
+			type="radio" 
+			default="0" 
+			label="COM_SERMONSPEAKER_FIELD_ENABLE_KEYWORDS_LABEL" 
+			description="COM_SERMONSPEAKER_FIELD_ENABLE_KEYWORDS_DESC">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
+		</field>
 		<field name="access" type="accesslevel"
 			label="COM_SERMONSPEAKER_PARAM_ACCESS" 
 			description="COM_SERMONSPEAKER_PARAM_ACCESS_DESC"
@@ -359,10 +367,11 @@
 			default="20" 
 			label="COM_SERMONSPEAKER_PARAM_FEED_TEXTLENGTH" 
 			description="COM_SERMONSPEAKER_PARAM_FEED_TEXTLENGTH_DESC" />
-	</fieldset>
-	<fieldset name="itunes"
-		label="COM_SERMONSPEAKER_FIELDSET_ITUNES_LABEL"
-		description="COM_SERMONSPEAKER_FIELDSET_ITUNES_DESC">
+		<field name="spacer_itunes"
+			type="spacer"
+			hr="false"
+			label="COM_SERMONSPEAKER_FIELDSET_ITUNES_LABEL"
+			description="COM_SERMONSPEAKER_FIELDSET_ITUNES_DESC" />
 		<field name="itKeywords" 
 			type="text" 
 			default="MyChurch" 
@@ -449,6 +458,17 @@
 			default="" 
 			label="COM_SERMONSPEAKER_PARAM_FEED_ITREDIRECT" 
 			description="COM_SERMONSPEAKER_PARAM_FEED_ITREDIRECT_DESC" />
+	</fieldset>
+	<fieldset name="integration"
+		label="JGLOBAL_INTEGRATION_LABEL" >
+		<field name="enable_jcomments"
+			type="radio"
+			default="0"
+			label="COM_SERMONSPEAKER_FIELD_ENABLE_JCOMMENTS_LABEL"
+			description="COM_SERMONSPEAKER_FIELD_ENABLE_JCOMMENTS_DESC">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
+		</field>
 	</fieldset>
 	<fieldset name="permissions"
 		label="JCONFIG_PERMISSIONS_LABEL"

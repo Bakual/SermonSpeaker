@@ -61,18 +61,21 @@ JHTML::_('behavior.modal');
 		echo SermonspeakerHelperSermonspeaker::insertPopupButton($this->item->id, $this->player);
 	endif; ?>
 </div>
-<table width="100%" style="clear:both;">
-	<?php
-	// Support for JComments
-	$comments = JPATH_BASE.DS.'components'.DS.'com_jcomments'.DS.'jcomments.php';
-	if (file_exists($comments)) :
-		require_once($comments); ?>
-		<tr><td><br /></td></tr>
-		<tr>
-			<td>
-				<?php echo JComments::showComments($this->item->id, 'com_sermonspeaker', $this->item->sermon_title); ?>
-			</td>
-		</tr>
-	<?php endif; ?>
+<?php
+if ($this->params->get('enable_keywords')):
+	$tags = SermonspeakerHelperSermonspeaker::insertSearchTags($this->item->metakey); 
+	if ($tags): ?>
+		<div class="tag"><?php echo JText::_('COM_SERMONSPEAKER_TAGS').' '.$tags; ?></div>
+	<?php endif;
+endif;
+// Support for JComments
+$comments = JPATH_BASE.DS.'components'.DS.'com_jcomments'.DS.'jcomments.php';
+if ($this->params->get('enable_jcomments') && file_exists($comments)) : ?>
+	<div class="jcomments">
+		<?php
+		require_once($comments);
+		echo JComments::showComments($this->item->id, 'com_sermonspeaker', $this->item->sermon_title); ?>
+	</div>
+<?php endif; ?>
 </table>
 </div>

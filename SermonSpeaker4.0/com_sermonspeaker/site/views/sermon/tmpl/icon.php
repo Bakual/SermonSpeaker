@@ -91,37 +91,23 @@ JHTML::_('behavior.modal');
 		<?php echo JHTML::_('content.prepare', $this->item->notes); ?>
 	</div>
 <?php endif;
-$keywords = explode(',', $this->item->metakey);
-$keyTotal = count($keywords);
-$rowCount = 1;
-$html = '';
-if ($keywords[0]): ?>
-	<div class="tag">Tags: <?php
-		foreach($keywords as $keyword) :
-			$keyword = trim($keyword);
-			$html .= '<a href="'.JRoute::_("index.php?option=com_search&ordering=newest&searchphrase=all&searchword=".$keyword).'" >'.$keyword.'</a>';
-			if($keyTotal != $rowCount) $html .= ', ';
-			$rowCount++;
-		endforeach;
-		echo $html; ?>
-	</div>
-<?php endif;
+if ($this->params->get('enable_keywords')):
+	$tags = SermonspeakerHelperSermonspeaker::insertSearchTags($this->item->metakey); 
+	if ($tags): ?>
+		<div class="tag"><?php echo JText::_('COM_SERMONSPEAKER_TAGS').' '.$tags; ?></div>
+	<?php endif;
+endif;
 if (in_array('sermon:hits', $this->columns) && $this->item->hits) : ?>
 	<div class="hits" title="<?php echo JText::_('JGLOBAL_HITS'); ?>">
 		<?php echo JText::_('JGLOBAL_HITS').': '.$this->item->hits; ?>
 	</div>
+<?php endif;
+// Support for JComments
+$comments = JPATH_BASE.DS.'components'.DS.'com_jcomments'.DS.'jcomments.php';
+if ($this->params->get('enable_jcomments') && file_exists($comments)) : ?>
+	<div class="jcomments">
+		<?php
+		require_once($comments);
+		echo JComments::showComments($this->item->id, 'com_sermonspeaker', $this->item->sermon_title); ?>
+	</div>
 <?php endif; ?>
-<table width="100%">
-	<?php
-	// Support for JComments
-	$comments = JPATH_BASE.DS.'components'.DS.'com_jcomments'.DS.'jcomments.php';
-	if (file_exists($comments)) :
-		require_once($comments); ?>
-		<tr><td><br /></td></tr>
-		<tr>
-			<td>
-				<?php echo JComments::showComments($this->item->id, 'com_sermonspeaker', $this->item->sermon_title); ?>
-			</td>
-		</tr>
-	<?php endif; ?>
-</table>

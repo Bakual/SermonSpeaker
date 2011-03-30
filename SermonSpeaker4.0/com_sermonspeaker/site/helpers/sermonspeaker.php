@@ -360,4 +360,17 @@ class SermonspeakerHelperSermonspeaker
 		}
 		return $return;
 	}
+	
+	function insertSearchTags($metakey){
+		// Code from Douglas Machado
+		$links = array();
+		$keywords = explode(',', $metakey);
+		foreach($keywords as $keyword){
+			$keyword = trim($keyword);
+			if ($keyword){
+				$links[] = '<a href="'.JRoute::_('index.php?option=com_search&ordering=newest&searchphrase=all&searchword='.$keyword).'" >'.$keyword.'</a>';
+			}
+		}
+		return implode(', ', $links);
+	}
 }
