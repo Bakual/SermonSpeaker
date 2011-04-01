@@ -54,27 +54,32 @@ class SermonspeakerViewSpeakers extends JView
 	{
 		$app	= JFactory::getApplication();
 
+		// Set Page Header if not already set in the menu entry
+		$menus	= $app->getMenu();
+		$menu 	= $menus->getActive();
+		if ($menu){
+			$this->params->def('page_heading', $menu->title);
+		} else {
+			$this->params->def('page_heading', JText::_('COM_SERMONSPEAKER_SPEAKERS_TITLE'));
+		}
+
 		// Set Pagetitle
-		$title 	= $this->params->get('page_title', '');
-		if (empty($title)) {
-			$title = $app->getCfg('sitename');
-		} elseif ($app->getCfg('sitename_pagetitles', 0)) {
+		if (!$menu) {
+			$title = JText::_('COM_SERMONSPEAKER_SPEAKERS_TITLE');
+		} else {
+			$title = $this->params->get('page_title', '');
+		}
+		if ($app->getCfg('sitename_pagetitles', 0)) {
 			$title = JText::sprintf('JPAGETITLE', $app->getCfg('sitename'), $title);
 		}
-		$title = JText::sprintf('JPAGETITLE', $title, JText::_('COM_SERMONSPEAKER_SPEAKERS_TITLE'));
 		$this->document->setTitle($title);
 
-		// Set MetaData
-		$description = $this->document->getMetaData('description');
-		if ($description){
-			$description = $description.' ';
+		// Set MetaData from menu entry if available
+		if ($this->params->get('menu-meta_description')){
+			$this->document->setDescription($this->params->get('menu-meta_description'));
 		}
-		$this->document->setMetaData('description', $description.JText::_('COM_SERMONSPEAKER_SPEAKERS_TITLE'));
-
-		$keywords = $this->document->getMetaData('keywords');
-		if ($keywords){
-			$keywords = $keywords.', ';
+		if ($this->params->get('menu-meta_keywords')){
+			$this->document->setMetaData('keywords', $this->params->get('menu-meta_keywords'));
 		}
-		$this->document->setMetaData('keywords', $keywords.JText::_('COM_SERMONSPEAKER_SPEAKERS_TITLE'));
 	}
 }

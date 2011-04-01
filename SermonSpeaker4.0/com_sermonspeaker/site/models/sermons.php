@@ -177,7 +177,7 @@ class SermonspeakerModelSermons extends JModelList
 			$db->setQuery( $query );
 			$title[] = $db->LoadResult();
 		}
-		$title = ': '.implode(' &amp; ', $title);
+		$title = implode(' &amp; ', $title);
 		return $title;
 	}
 }

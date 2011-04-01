@@ -40,10 +40,6 @@ class SermonspeakerViewSerie extends JView
 			$cat 	= '';
 		}
 
-		// add Breadcrumbs
-		$breadcrumbs	= &$app->getPathWay();
-		$breadcrumbs->addItem($serie->series_title);
-
 		// Update Statistic
 		if ($params->get('track_series')) {
 			$model = $this->getModel();
@@ -78,7 +74,7 @@ class SermonspeakerViewSerie extends JView
 		$app	= JFactory::getApplication();
 
 		// Add javascript for player if needed
-		if (in_array('serie:player', $this->columns)){
+		if (in_array('serie:player', $this->columns) && count($this->items)){
 			JHTML::Script('media/com_sermonspeaker/player/jwplayer/jwplayer.js', true);
 			$this->player = SermonspeakerHelperSermonspeaker::insertPlayer($this->items);
 			if($this->params->get('fileswitch')){
@@ -95,27 +91,43 @@ class SermonspeakerViewSerie extends JView
 			}
 		}
 		
+		// Set Page Header if not already set in the menu entry
+		$menus	= $app->getMenu();
+		$menu 	= $menus->getActive();
+		if ($menu){
+			$this->params->def('page_heading', $menu->title);
+		} else {
+			$this->params->def('page_heading', JText::_('COM_SERMONSPEAKER_SERIE_TITLE'));
+		}
+
 		// Set Pagetitle
-		$title 	= $this->params->get('page_title', '');
-		if (empty($title)) {
-			$title = $app->getCfg('sitename');
-		} elseif ($app->getCfg('sitename_pagetitles', 0)) {
+		if ($this->serie->series_title && (!$menu || $menu->query['option'] != 'com_sermonspeaker' || $menu->query['view'] != 'serie' || $menu->query['id'] != $this->item->id)){
+			$title = $this->serie->series_title;
+		} else {
+			$title = $this->params->get('page_title', '');
+		}
+		if ($app->getCfg('sitename_pagetitles', 0)) {
 			$title = JText::sprintf('JPAGETITLE', $app->getCfg('sitename'), $title);
 		}
-		$title = JText::sprintf('JPAGETITLE', $title, JText::_('COM_SERMONSPEAKER_SERIE_TITLE'));
 		$this->document->setTitle($title);
 
-		// Set MetaData
-		$description = $this->document->getMetaData('description');
-		if ($description){
-			$description .= ' ';
-		}
-		$this->document->setMetaData('description', $description.JText::_('COM_SERMONSPEAKER_SERIE_TITLE'));
+		// add Breadcrumbs
+		$pathway = $app->getPathway();
+		$pathway->addItem($this->serie->series_title);
 
-		$keywords = $this->document->getMetaData('keywords');
-		if ($keywords){
-			$keywords = $keywords.', ';
+		// Set MetaData
+		if ($this->serie->metadesc){
+			$this->document->setDescription($this->serie->metadesc);
+		} elseif ($this->params->get('menu-meta_description')) {
+			$this->document->setDescription($this->params->get('menu-meta_description'));
 		}
-		$this->document->setMetaData('keywords', $keywords.JText::_('COM_SERMONSPEAKER_SERIE_TITLE'));
+		if ($this->serie->metakey){
+			$this->document->setMetadata('keywords', $this->serie->metakey);
+		} elseif ($this->params->get('menu-meta_keywords')) {
+			$this->document->setMetadata('keywords', $this->params->get('menu-meta_keywords'));
+		}
+		if ($app->getCfg('MetaTitle')){
+			$this->document->setMetaData('title', $this->serie->series_title);
+		}
 	}
 }

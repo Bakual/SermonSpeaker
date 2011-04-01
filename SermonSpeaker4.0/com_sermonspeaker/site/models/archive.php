@@ -52,6 +52,18 @@ class SermonspeakerModelArchive extends JModelList
 		);
 		$query->join('LEFT', '#__sermon_series AS series ON series.id = sermons.series_id');
 
+		// Filter by search in title or scripture (with ref:)
+		$search = $this->getState('filter.search');
+		if (!empty($search)) {
+			if (stripos($search, 'ref:') === 0) {
+				$search = $db->Quote('%'.$db->getEscaped(substr($search, 4), true).'%');
+				$query->where('(sermons.sermon_scripture LIKE '.$search.')');
+			} else {
+				$search = $db->Quote('%'.$db->getEscaped($search, true).'%');
+				$query->where('(sermons.sermon_title LIKE '.$search.')');
+			}
+		}
+
 		// Join over Sermons Category.
 		if ($categoryId = $this->getState('sermons_category.id')) {
 			$query->join('LEFT', '#__categories AS c_sermons ON c_sermons.id = sermons.catid');
@@ -107,6 +119,9 @@ class SermonspeakerModelArchive extends JModelList
 		$params	= $app->getParams();
 
 		// List state information
+		$search = JRequest::getString('filter-search', '');
+		$this->setState('filter.search', $search);
+
 		$limit = $app->getUserStateFromRequest('global.list.limit', 'limit', $app->getCfg('list_limit'));
 		$this->setState('list.limit', $limit);
 
@@ -173,7 +188,7 @@ class SermonspeakerModelArchive extends JModelList
 			$db->setQuery( $query );
 			$title[] = $db->LoadResult();
 		}
-		$title = ': '.implode(' &amp; ', $title);
+		$title = implode(' &amp; ', $title);
 		return $title;
 	}
 }

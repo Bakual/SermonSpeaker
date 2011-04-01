@@ -123,7 +123,7 @@ class SermonspeakerModelSeries extends JModelList
 		$db		= $this->getDbo();
 		$query = "SELECT title FROM #__categories WHERE id = ".$categoryId;
 		$db->setQuery($query);
-		$title = ': '.$db->LoadResult();
+		$title = $db->LoadResult();
 		return $title;
 	}
 }

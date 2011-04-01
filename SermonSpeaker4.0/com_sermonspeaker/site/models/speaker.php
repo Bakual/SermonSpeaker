@@ -48,6 +48,18 @@ class SermonspeakerModelSpeaker extends JModelList
 				$query->where('sermons.speaker_id = '.(int) $speakerId);
 			}
 
+			// Filter by search in title or scripture (with ref:)
+			$search = $this->getState('filter.search');
+			if (!empty($search)) {
+				if (stripos($search, 'ref:') === 0) {
+					$search = $db->Quote('%'.$db->getEscaped(substr($search, 4), true).'%');
+					$query->where('(sermons.sermon_scripture LIKE '.$search.')');
+				} else {
+					$search = $db->Quote('%'.$db->getEscaped($search, true).'%');
+					$query->where('(sermons.sermon_title LIKE '.$search.')');
+				}
+			}
+
 			// Filter by state
 			$state = $this->getState('filter.state');
 			if (is_numeric($state)) {
@@ -114,26 +126,18 @@ class SermonspeakerModelSpeaker extends JModelList
 
 		if (JRequest::getCmd('layout') == 'latest-sermons'){
 			$orderCol	= JRequest::getCmd('filter_order', $params->get('default_order', 'ordering'));
+
+			$listOrder	=  JRequest::getCmd('filter_order_Dir', $params->get('default_order_dir', 'ASC'));
+
+			$search = JRequest::getString('filter-search', '');
+			$this->setState('filter.search', $search);
 		} else {
+			$listOrder	=  JRequest::getCmd('filter_order_Dir', 'ASC');
+
 			$orderCol	= JRequest::getCmd('filter_order', 'ordering');
 		}
 		$this->setState('list.ordering', $orderCol);
-
-		if (JRequest::getCmd('layout') == 'latest-sermons'){
-			$listOrder	=  JRequest::getCmd('filter_order_Dir', $params->get('default_order_dir', 'ASC'));
-		} else {
-			$listOrder	=  JRequest::getCmd('filter_order_Dir', 'ASC');
-		}
 		$this->setState('list.direction', $listOrder);
-
-		$id = JRequest::getVar('sermon_cat', 0, '', 'int');
-		$this->setState('sermons_category.id', $id);
-
-		$id = JRequest::getVar('speaker_cat', 0, '', 'int');
-		$this->setState('speakers_category.id', $id);
-
-		$id = JRequest::getVar('series_cat', 0, '', 'int');
-		$this->setState('series_category.id', $id);
 
 		$id = JRequest::getVar('id', 0, '', 'int');
 		$this->setState('speaker.id', $id);

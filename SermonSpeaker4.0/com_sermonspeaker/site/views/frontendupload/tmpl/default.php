@@ -22,7 +22,7 @@ $self = $uri->toString();
 		}
 	}
 </script>
-<div id="ss-frup-container">
+<div class="ss-frup-container<?php echo htmlspecialchars($this->params->get('pageclass_sfx')); ?>">
 	<h1><?php echo JText::_('COM_SERMONSPEAKER_FU_NEWSERMON'); ?></h1>
 	<div id="ss-frup-form">
 		<form action="<?php echo JURI::base(); ?>index.php?option=com_sermonspeaker&amp;task=file.upload&amp;tmpl=component&amp;<?php echo $this->session->getName().'='.$this->session->getId(); ?>&amp;<?php echo JUtility::getToken();?>=1" id="uploadForm" name="uploadForm" method="post" enctype="multipart/form-data">

@@ -1,20 +1,37 @@
 <?php
 defined('_JEXEC') or die('Restricted access');
-JHtml::core();
 JHTML::_('behavior.tooltip');
 JHTML::_('behavior.modal');
-
 $listOrder	= $this->state->get('list.ordering');
 $listDirn	= $this->state->get('list.direction');
 ?>
-<div id="ss-serie-container">
-<h1 class="componentheading"><?php echo JText::_('COM_SERMONSPEAKER_SERIE_TITLE').": ".$this->serie->series_title.$this->cat; ?></h1>
-
-<div class="ss-serie-desc">
-	<?php if ($this->serie->avatar != '') : ?>
-		<img class="ss-avatar" src="<?php echo SermonspeakerHelperSermonspeaker::makelink($this->serie->avatar); ?>">
-	<?php endif; ?>
+<div class="ss-serie-container<?php echo htmlspecialchars($this->params->get('pageclass_sfx')); ?>">
+<?php if ($this->params->get('show_page_heading', 1)) : ?>
+	<h1><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
+<?php endif; ?>
+<h2><a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($this->serie->slug)); ?>"><?php echo $this->serie->series_title; ?></a></h2>
+<?php if ($this->cat || in_array('serie:hits', $this->columns)): ?>
+	<dl class="article-info">
+	<dt class="article-info-term"><?php  echo JText::_('JDETAILS'); ?></dt>
+	<?php if ($this->cat): ?>
+		<dd class="category-name">
+			<?php echo JText::_('JCATEGORY').': '.$this->cat; ?>
+		</dd>
+	<?php endif;
+	if (in_array('serie:hits', $this->columns)): ?>
+		<dd class="hits">
+			<?php echo JText::_('JGLOBAL_HITS').': '.$this->serie->hits; ?>
+		</dd>
+	<?php endif;
+endif; ?>
+<div class="category-desc">
+	<div class="ss-avatar">
+		<?php if ($this->serie->avatar) : ?>
+			<img src="<?php echo SermonspeakerHelperSermonspeaker::makelink($this->serie->avatar); ?>">
+		<?php endif; ?>
+	</div>
 	<?php echo JHTML::_('content.prepare', $this->serie->series_description); ?>
+	<div class="clear-left"></div>
 </div>
 <?php if (in_array('serie:player', $this->columns) && count($this->items)) : ?>
 	<div class="ss-serie-player">
@@ -32,110 +49,119 @@ $listDirn	= $this->state->get('list.direction');
 	<?php endif; ?>
 	</div>
 <?php endif; ?>
-<?php if (empty($this->items)) : ?>
-	<div class="no_entries"><?php echo JText::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', JText::_('COM_SERMONSPEAKER_SERMONS')); ?></div>
-<?php else : ?>
-
 <form action="<?php echo JFilterOutput::ampReplace(JFactory::getURI()->toString()); ?>" method="post" id="adminForm" name="adminForm">
-	<?php if ($this->params->get('show_pagination_limit')) : ?>
-	<div class="display-limit">
-		<?php echo JText::_('JGLOBAL_DISPLAY_NUM'); ?>&#160;
-		<?php echo $this->pagination->getLimitBox(); ?>
-	</div>
+	<?php if ($this->params->get('filter_field')) :?>
+		<fieldset class="filters">
+			<legend class="hidelabeltxt">
+				<?php echo JText::_('JGLOBAL_FILTER_LABEL'); ?>
+			</legend>
+			<div class="filter-search">
+				<label class="filter-search-lbl" for="filter-search"><?php echo JText::_('JGLOBAL_FILTER_LABEL').'&nbsp;'; ?></label>
+				<input type="text" name="filter-search" id="filter-search" value="<?php echo $this->escape($this->state->get('filter.search')); ?>" class="inputbox" onchange="document.adminForm.submit();" title="<?php echo JText::_('COM_SERMONSPEAKER_FILTER_SEARCH_DESC'); ?>" />
+			</div>
+	<?php endif;
+	if ($this->params->get('show_pagination_limit')) : ?>
+			<div class="display-limit">
+				<?php echo JText::_('JGLOBAL_DISPLAY_NUM'); ?>&nbsp;
+				<?php echo $this->pagination->getLimitBox(); ?>
+			</div>
+	<?php endif;
+	if ($this->params->get('filter_field')) : ?>
+		</fieldset>
 	<?php endif; ?>
-	<table class="category">
-	<!-- Create the headers with sorting links -->
-		<thead><tr>
-			<?php if (in_array('serie:num', $this->columns)) : ?>
-				<th class="num">
-					<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SERMONNUMBER', 'sermon_number', $listDirn, $listOrder); ?>
+	<?php if (!count($this->items)) : ?>
+		<div class="no_entries"><?php echo JText::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', JText::_('COM_SERMONSPEAKER_SERMONS')); ?></div>
+	<?php else : ?>
+		<table class="category">
+		<!-- Create the headers with sorting links -->
+			<thead><tr>
+				<?php if (in_array('serie:num', $this->columns)) : ?>
+					<th class="num">
+						<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SERMONNUMBER', 'sermon_number', $listDirn, $listOrder); ?>
+					</th>
+				<?php endif; ?>
+				<th class="ss-title">
+					<?php echo JHTML::_('grid.sort', 'JGLOBAL_TITLE', 'sermon_title', $listDirn, $listOrder); ?>
 				</th>
-			<?php endif; ?>
-			<th class="ss-title">
-				<?php echo JHTML::_('grid.sort', 'JGLOBAL_TITLE', 'sermon_title', $listDirn, $listOrder); ?>
-			</th>
-			<?php if (in_array('serie:scripture', $this->columns)) : ?>
-				<th class="ss-col">
-					<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SCRIPTURE', 'sermon_scripture', $listDirn, $listOrder); ?>
-				</th>
+				<?php if (in_array('serie:scripture', $this->columns)) : ?>
+					<th class="ss-col">
+						<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SCRIPTURE', 'sermon_scripture', $listDirn, $listOrder); ?>
+					</th>
+				<?php endif;
+				if (in_array('serie:speaker', $this->columns)) : ?>
+					<th class="ss-col">
+						<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SPEAKER', 'name', $listDirn, $listOrder); ?>
+					</th>
+				<?php endif;
+				if (in_array('serie:date', $this->columns)) : ?>
+					<th class="ss-col">
+						<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SERMONDATE', 'sermon_date', $listDirn, $listOrder); ?>
+					</th>
+				<?php endif;
+				if (in_array('serie:length', $this->columns)) : ?>
+					<th class="ss-col">
+						<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SERMONLENGTH', 'sermon_time', $listDirn, $listOrder); ?>
+					</th>
+				<?php endif;
+				if (in_array('serie:addfile', $this->columns)) : ?>
+					<th class="ss-col">
+						<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_ADDFILE', 'addfileDesc', $listDirn, $listOrder); ?>
+					</th>
+				<?php endif; ?>
+			</tr></thead>
+		<!-- Begin Data -->
+			<tbody>
+				<?php foreach($this->items as $i => $item) : ?>
+					<tr id="sermon<?php echo $i; ?>" class="<?php echo ($i % 2) ? "odd" : "even"; ?>">
+						<?php if (in_array('serie:num', $this->columns)) : ?>
+							<td class="num">
+								<?php echo $item->sermon_number; ?>
+							</td>
+						<?php endif; ?>
+						<td class="ss-title">
+							<?php echo SermonspeakerHelperSermonspeaker::insertSermonTitle($i, $item); ?>
+						</td>
+						<?php if (in_array('serie:scripture', $this->columns)) : ?>
+							<td class="ss-col">
+								<?php echo JHTML::_('content.prepare', $item->sermon_scripture); ?>
+							</td>
+						<?php endif;
+						if (in_array('serie:speaker', $this->columns)) : ?>
+							<td class="ss_col">
+								<?php echo SermonspeakerHelperSermonSpeaker::SpeakerTooltip($item->speaker_slug, $item->pic, $item->name); ?>
+							</td>
+						<?php endif;
+						if (in_array('serie:date', $this->columns)) : ?>
+							<td class="ss_col">
+								<?php echo JHTML::Date($item->sermon_date, JText::_($this->params->get('date_format')), 'UTC'); ?>
+							</td>
+						<?php endif;
+						if (in_array('serie:length', $this->columns)) : ?>
+							<td class="ss_col">
+								<?php echo SermonspeakerHelperSermonspeaker::insertTime($item->sermon_time); ?>
+							</td>
+						<?php endif;
+						if (in_array('serie:addfile', $this->columns)) : ?>
+							<td class="ss_col">
+								<?php echo SermonspeakerHelperSermonspeaker::insertAddfile($item->addfile, $item->addfileDesc); ?>
+							</td>
+						<?php endif; ?>
+					</tr>
+				<?php endforeach; ?>
+			</tbody>
+		</table>
+	<?php endif;
+	if ($this->params->get('show_pagination') && ($this->pagination->get('pages.total') > 1)) : ?>
+		<div class="pagination">
+			<?php if ($this->params->get('show_pagination_results', 1)) : ?>
+				<p class="counter">
+					<?php echo $this->pagination->getPagesCounter(); ?>
+				</p>
 			<?php endif;
-			if (in_array('serie:speaker', $this->columns)) : ?>
-				<th class="ss-col">
-					<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SPEAKER', 'name', $listDirn, $listOrder); ?>
-				</th>
-			<?php endif;
-			if (in_array('serie:date', $this->columns)) : ?>
-				<th class="ss-col">
-					<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SERMONDATE', 'sermon_date', $listDirn, $listOrder); ?>
-				</th>
-			<?php endif;
-			if (in_array('serie:length', $this->columns)) : ?>
-				<th class="ss-col">
-					<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SERMONLENGTH', 'sermon_time', $listDirn, $listOrder); ?>
-				</th>
-			<?php endif;
-			if (in_array('serie:addfile', $this->columns)) : ?>
-				<th class="ss-col">
-					<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_ADDFILE', 'addfileDesc', $listDirn, $listOrder); ?>
-				</th>
-			<?php endif; ?>
-		</tr></thead>
-	<!-- Begin Data -->
-		<tbody>
-			<?php foreach($this->items as $i => $item) : ?>
-				<tr id="sermon<?php echo $i; ?>" class="<?php echo ($i % 2) ? "odd" : "even"; ?>">
-					<?php if (in_array('serie:num', $this->columns)) : ?>
-						<td class="num">
-							<?php echo $item->sermon_number; ?>
-						</td>
-					<?php endif; ?>
-					<td class="ss-title">
-						<?php echo SermonspeakerHelperSermonspeaker::insertSermonTitle($i, $item); ?>
-					</td>
-					<?php if (in_array('serie:scripture', $this->columns)) : ?>
-						<td class="ss-col">
-							<?php echo JHTML::_('content.prepare', $item->sermon_scripture); ?>
-						</td>
-					<?php endif;
-					if (in_array('serie:speaker', $this->columns)) : ?>
-						<td class="ss_col">
-							<?php echo SermonspeakerHelperSermonSpeaker::SpeakerTooltip($item->speaker_slug, $item->pic, $item->name); ?>
-						</td>
-					<?php endif;
-					if (in_array('serie:date', $this->columns)) : ?>
-						<td class="ss_col">
-							<?php echo JHTML::Date($item->sermon_date, JText::_($this->params->get('date_format')), 'UTC'); ?>
-						</td>
-					<?php endif;
-					if (in_array('serie:length', $this->columns)) : ?>
-						<td class="ss_col">
-							<?php echo SermonspeakerHelperSermonspeaker::insertTime($item->sermon_time); ?>
-						</td>
-					<?php endif;
-					if (in_array('serie:addfile', $this->columns)) : ?>
-						<td class="ss_col">
-							<?php echo SermonspeakerHelperSermonspeaker::insertAddfile($item->addfile, $item->addfileDesc); ?>
-						</td>
-					<?php endif; ?>
-				</tr>
-			<?php endforeach; ?>
-		</tbody>
-	</table>
-	<?php if (($this->params->def('show_pagination', 2) == 1  || ($this->params->get('show_pagination') == 2)) && ($this->pagination->get('pages.total') > 1)) : ?>
-	<div class="pagination">
-		<?php if ($this->params->def('show_pagination_results', 1)) : ?>
-		 	<p class="counter">
-				<?php echo $this->pagination->getPagesCounter(); ?>
-			</p>
-		<?php endif; ?>
-
-		<?php echo $this->pagination->getPagesLinks(); ?>
-	</div>
+			echo $this->pagination->getPagesLinks(); ?>
+		</div>
 	<?php endif; ?>
-	<div>
-		<input type="hidden" name="filter_order" value="<?php echo $listOrder; ?>" />
-		<input type="hidden" name="filter_order_Dir" value="<?php echo $listDirn; ?>" />
-	</div>
+	<input type="hidden" name="filter_order" value="<?php echo $listOrder; ?>" />
+	<input type="hidden" name="filter_order_Dir" value="<?php echo $listDirn; ?>" />
 </form>
-<?php endif; ?>
 </div>

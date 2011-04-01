@@ -1,29 +1,30 @@
 <?php
 defined('_JEXEC') or die('Restricted access');
-JHTML::core();
 JHTML::_('behavior.tooltip');
 JHTML::_('behavior.modal');
-
 $listOrder	= $this->state->get('list.ordering');
 $listDirn	= $this->state->get('list.direction');
 $limit 		= (int)$this->params->get('limit', '');
 ?>
-<div id="ss-sermons-container<?php echo htmlspecialchars($this->params->get('pageclass_sfx')); ?>">
-	<?php if ($this->params->get('show_page_heading', 1)) : ?>
-		<h1><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
-	<?php endif; ?>
-<?php if (in_array('sermons:player', $this->columns) && count($this->items)) : ?>
+<div class="ss-sermons-container<?php echo htmlspecialchars($this->params->get('pageclass_sfx')); ?>">
+<?php if ($this->params->get('show_page_heading', 1)) : ?>
+	<h1><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
+<?php endif;
+if ($this->cat): ?>
+	<h2><span class="subheading-category"><?php echo $this->cat; ?></span></h2>
+<?php endif;
+if (in_array('sermons:player', $this->columns) && count($this->items)) : ?>
 	<div class="ss-sermons-player">
 		<hr class="ss-sermons-player" />
-	<?php
-	echo $this->player['mspace'];
-	echo $this->player['script'];
-	?>
+		<?php
+		echo $this->player['mspace'];
+		echo $this->player['script'];
+		?>
 		<hr class="ss-sermons-player" />
 	<?php if ($this->params->get('fileswitch')): ?>
 		<div>
-			<img class="pointer" src="media/com_sermonspeaker/images/Video.png" onClick="Video()" Alt="Video" />
-			<img class="pointer" src="media/com_sermonspeaker/images/Sound.png" onClick="Audio()" Alt="Audio" />
+			<img class="pointer" src="media/com_sermonspeaker/images/Video.png" onclick="Video()" alt="Video" />
+			<img class="pointer" src="media/com_sermonspeaker/images/Sound.png" onclick="Audio()" alt="Audio" />
 		</div>
 	<?php endif; ?>
 	</div>

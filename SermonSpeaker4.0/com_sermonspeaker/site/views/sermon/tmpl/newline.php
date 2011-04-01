@@ -3,15 +3,11 @@ defined('_JEXEC') or die('Restricted access');
 JHTML::_('behavior.tooltip');
 JHTML::_('behavior.modal');
 ?>
-<div id="ss-sermon-container">
-<h1 class="componentheading"><?php echo JText::_('COM_SERMONSPEAKER_SERMON_TITLE'); ?></h1>
-<?php if (!$this->params->get('hide_dl') && $this->player['file']) : ?>
-	<h3 class="contentheading">
-		<a title="<?php echo JText::_('COM_SERMONSPEAKER_DIRECTLINK_HOOVER'); ?>" href="<?php echo $this->player['file']; ?>"><?php echo $this->item->sermon_title; ?></a>
-	</h3>
-<?php else : ?>
-	<h3 class="contentheading"><?php echo $this->item->sermon_title; ?></h3>
+<div class="ss-sermon-container<?php echo htmlspecialchars($this->params->get('pageclass_sfx')); ?>">
+<?php if ($this->params->get('show_page_heading', 1)) : ?>
+	<h1><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
 <?php endif; ?>
+<h2><a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonRoute($this->item->slug)); ?>"><?php echo $this->item->sermon_title; ?></a></h2>
 <!-- Begin Data -->
 <div class="ss-sermondetail-container">
 	<?php if (in_array('sermon:scripture', $this->columns) && $this->item->sermon_scripture) : ?>

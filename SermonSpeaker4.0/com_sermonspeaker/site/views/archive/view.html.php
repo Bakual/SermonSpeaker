@@ -33,7 +33,7 @@ class SermonspeakerViewArchive extends JView
 			$cat 	= '';
 		}
 
-		// Create title
+		// Create Daterange
 		if ($state->get('date.month')){
 			$date = $state->get('date.year').'-'.$state->get('date.month').'-15';
 			$date_format = 'F, Y';
@@ -41,7 +41,7 @@ class SermonspeakerViewArchive extends JView
 			$date = $state->get('date.year').'-01-15';
 			$date_format = 'Y';
 		}
-		$title = JText::_('COM_SERMONSPEAKER_ARCHIVE_TITLE').' '.JHTML::Date($date, $date_format, 'UTC').$cat;
+		$range = JText::sprintf('COM_SERMONSPEAKER_ARCHIVE_RANGE', JHTML::Date($date, $date_format, 'UTC'));
 
 		// Check for errors.
 		if (count($errors = $this->get('Errors'))) {
@@ -55,7 +55,8 @@ class SermonspeakerViewArchive extends JView
 		$this->assignRef('params',		$params);
 		$this->assignRef('columns', 	$columns);
 		$this->assignRef('pagination',	$pagination);
-		$this->assignRef('title',		$title);
+		$this->assignRef('cat',			$cat);
+		$this->assignRef('range',		$range);
 
 		$this->_prepareDocument();
 
@@ -70,8 +71,8 @@ class SermonspeakerViewArchive extends JView
 		$app	= JFactory::getApplication();
 
 		// Add javascript for player if needed
-		if (in_array('archive:player', $this->columns)){
-			JHTML::Script('media/com_sermonspeaker/player/jwplayer/jwplayer.js', true);
+		if (in_array('archive:player', $this->columns) && count($this->items)){
+			JHTML::Script('media/com_sermonspeaker/player/jwplayer/jwplayer.js');
 			$this->player = SermonspeakerHelperSermonspeaker::insertPlayer($this->items);
 			if($this->params->get('fileswitch')){
 				$this->document->addScriptDeclaration('
@@ -87,27 +88,36 @@ class SermonspeakerViewArchive extends JView
 			}
 		}
 		
+		// Set Page Header if not already set in the menu entry
+		$menus	= $app->getMenu();
+		$menu 	= $menus->getActive();
+		if ($menu){
+			$this->params->def('page_heading', $menu->title);
+		} else {
+			$this->params->def('page_heading', JText::_('COM_SERMONSPEAKER_ARCHIVE_TITLE'));
+		}
+
 		// Set Pagetitle
-		$title 	= $this->params->get('page_title', '');
-		if (empty($title)) {
-			$title = $app->getCfg('sitename');
-		} elseif ($app->getCfg('sitename_pagetitles', 0)) {
+		if (!$menu) {
+			$title = JText::_('COM_SERMONSPEAKER_ARCHIVE_TITLE');
+		} else {
+			$title = $this->params->get('page_title', '');
+		}
+		if ($app->getCfg('sitename_pagetitles', 0)) {
 			$title = JText::sprintf('JPAGETITLE', $app->getCfg('sitename'), $title);
 		}
-		$title = JText::sprintf('JPAGETITLE', $title, $this->title);
 		$this->document->setTitle($title);
 
-		// Set MetaData
-		$description = $this->document->getMetaData('description');
-		if ($description){
-			$description .= ' ';
-		}
-		$this->document->setMetaData('description', $description.$this->title);
+		// add Breadcrumbs
+//		$pathway = $app->getPathway();
+//		$pathway->addItem($this->serie->series_title);
 
-		$keywords = $this->document->getMetaData('keywords');
-		if ($keywords){
-			$keywords = $keywords.', ';
+		// Set MetaData from menu entry if available
+		if ($this->params->get('menu-meta_description')){
+			$this->document->setDescription($this->params->get('menu-meta_description'));
 		}
-		$this->document->setMetaData('keywords', $keywords.JText::_('COM_SERMONSPEAKER_SERMONS_TITLE'));
+		if ($this->params->get('menu-meta_keywords')){
+			$this->document->setMetaData('keywords', $this->params->get('menu-meta_keywords'));
+		}
 	}
 }

@@ -8,10 +8,12 @@ defined('_JEXEC') or die('Restricted access');
 		document.body.style.backgroundColor='<?php echo $this->params->get('popup_color', '#fff'); ?>';
 	}
 </script>
-<div class="popup">
-	<h3 class="contentheading"><?php echo $this->item->sermon_title; ?></h3>
-	<?php 
-	echo $this->player['mspace'];
-	echo $this->player['script'];
-	?>
+<div class="ss-sermon-container<?php echo htmlspecialchars($this->params->get('pageclass_sfx')); ?>">
+	<div class="popup">
+		<h2><?php echo $this->item->sermon_title; ?></h2>
+		<?php 
+		echo $this->player['mspace'];
+		echo $this->player['script'];
+		?>
+	</div>
 </div>

@@ -7,7 +7,7 @@ JHTML::_('behavior.modal');
 $listOrder	= $this->state->get('list.ordering');
 $listDirn	= $this->state->get('list.direction');
 ?>
-<div id="ss-sermons-container">
+<div class="ss-sermons-container<?php echo htmlspecialchars($this->params->get('pageclass_sfx')); ?>">
 <h1 class="componentheading"><?php echo JText::_('COM_SERMONSPEAKER_SERIESSERMONS_TITLE').$this->cat; ?></h1>
 <p />
 <?php if (empty($this->items)) : ?>

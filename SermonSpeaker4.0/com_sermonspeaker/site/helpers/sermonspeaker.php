@@ -323,13 +323,13 @@ class SermonspeakerHelperSermonspeaker
 				$return .= JHTML::Link(SermonspeakerHelperSermonspeaker::makelink($item->audiofile), $pic);
 				break;
 			case 2:
-				$options['onClick'] = 'jwplayer().playlistItem('.$i.')';
+				$options['onclick'] = 'jwplayer().playlistItem('.$i.')';
 				$options['title'] = JText::_('COM_SERMONSPEAKER_PLAYICON_HOOVER');
 				$options['class'] = 'icon_play pointer';
 				$return .= JHTML::Image('media/com_sermonspeaker/images/play.gif', JText::_('COM_SERMONSPEAKER_PLAYICON_HOOVER'), $options);
 				break;
 			case 3:
-				$options['onClick'] = "popup=window.open('".JRoute::_('index.php?view=sermon&layout=popup&id='.$item->id.'&tmpl=component')."', 'PopupPage', 'height=".$this->params->get('popup_height').',width='.$this->params->get('mp_width').",scrollbars=yes,resizable=yes'); return false";
+				$options['onclick'] = "popup=window.open('".JRoute::_('index.php?view=sermon&layout=popup&id='.$item->id.'&tmpl=component')."', 'PopupPage', 'height=".$this->params->get('popup_height').',width='.$this->params->get('mp_width').",scrollbars=yes,resizable=yes'); return false";
 				$options['title'] = JText::_('COM_SERMONSPEAKER_POPUPPLAYER');
 				$options['class'] = 'icon_play pointer';
 				$return .= JHTML::Image('media/com_sermonspeaker/images/play.gif', JText::_('COM_SERMONSPEAKER_POPUPPLAYER'), $options);
@@ -349,12 +349,12 @@ class SermonspeakerHelperSermonspeaker
 				$return .= JHTML::Link(SermonspeakerHelperSermonspeaker::makelink($item->audiofile), $item->sermon_title, $options);
 				break;
 			case 2:
-				$options['onClick'] = 'jwplayer().playlistItem('.$i.')';
+				$options['onclick'] = 'jwplayer().playlistItem('.$i.')';
 				$options['title'] = JText::_('COM_SERMONSPEAKER_PLAYICON_HOOVER');
 				$return .= JHTML::Link('#', $item->sermon_title, $options);
 				break;
 			case 3:
-				$options['onClick'] = "popup=window.open('".JRoute::_('index.php?view=sermon&layout=popup&id='.$item->id.'&tmpl=component')."', 'PopupPage', 'height=".$this->params->get('popup_height').',width='.$this->params->get('mp_width').",scrollbars=yes,resizable=yes'); return false";
+				$options['onclick'] = "popup=window.open('".JRoute::_('index.php?view=sermon&layout=popup&id='.$item->id.'&tmpl=component')."', 'PopupPage', 'height=".$this->params->get('popup_height').',width='.$this->params->get('mp_width').",scrollbars=yes,resizable=yes'); return false";
 				$options['title'] = JText::_('COM_SERMONSPEAKER_POPUPPLAYER');
 				$return .= JHTML::Link('#', $item->sermon_title, $options);
 				break;

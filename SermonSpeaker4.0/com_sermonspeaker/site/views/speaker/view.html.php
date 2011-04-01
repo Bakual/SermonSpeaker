@@ -39,20 +39,7 @@ class SermonspeakerViewspeaker extends JView
 		$speaker	= $this->get('Speaker');
 		$pagination	= $this->get('Pagination');
 
-		// add breadcrumbs and define page title according to chosen layout
-		$breadcrumbs = $app->getPathWay();
-		if ($this->getLayout() == 'latest-sermons') {
-		  	if ($params->get('limit_speaker') == 1) {
-				$limit = $app->getCfg('list_limit');
-				$title = JText::sprintf('COM_SERMONSPEAKER_SPEAKER_LATESTSERMONSOF', $limit, $speaker->name);
-				$bread = JText::sprintf('COM_SERMONSPEAKER_SPEAKER_LATESTSERMONS', $limit);
-			} else {
-				$title = JText::sprintf('COM_SERMONSPEAKER_SPEAKER_SERMONSOF', $speaker->name);
-				$bread = JText::_('COM_SERMONSPEAKER_SERMONS');
-			}
-			// Add Breadcrumbs
-			$breadcrumbs->addItem($speaker->name.': '.$bread, '');
-		} elseif ($this->getLayout() == 'series') {
+		if ($this->getLayout() == 'series') {
 			// check if there are avatars at all, only showing column if needed
 			$av = 0;
 			foreach ($items as $item){
@@ -62,11 +49,6 @@ class SermonspeakerViewspeaker extends JView
 				}
 			}
 			$this->assignRef('av', $av);
-			$title = JText::sprintf('JPAGETITLE', $speaker->name, JText::_('COM_SERMONSPEAKER_SPEAKER_TITLE'));
-			// Add Breadcrumbs
-			$breadcrumbs->addItem($speaker->name.': '.JText::_('COM_SERMONSPEAKER_SPEAKER_TITLE'), '');
-		} else {
-			$title = $speaker->name;
 		}
 
 		// Update Statistic
@@ -103,7 +85,7 @@ class SermonspeakerViewspeaker extends JView
 		$app	= JFactory::getApplication();
 
 		// Add javascript for player if needed
-		if (in_array('speaker:player', $this->columns) && $this->getLayout() == 'latest-sermons'){
+		if (in_array('speaker:player', $this->columns) && ($this->getLayout() == 'latest-sermons') && count($this->items)){
 			JHTML::Script('media/com_sermonspeaker/player/jwplayer/jwplayer.js', true);
 			$this->player = SermonspeakerHelperSermonspeaker::insertPlayer($this->items);
 			if($this->params->get('fileswitch')){
@@ -120,27 +102,43 @@ class SermonspeakerViewspeaker extends JView
 			}
 		}
 		
+		// Set Page Header if not already set in the menu entry
+		$menus	= $app->getMenu();
+		$menu 	= $menus->getActive();
+		if ($menu){
+			$this->params->def('page_heading', $menu->title);
+		} else {
+			$this->params->def('page_heading', JText::_('COM_SERMONSPEAKER_SPEAKER_TITLE'));
+		}
+
 		// Set Pagetitle
-		$title 	= $this->params->get('page_title', '');
-		if (empty($title)) {
-			$title = $app->getCfg('sitename');
-		} elseif ($app->getCfg('sitename_pagetitles', 0)) {
+		if ($this->speaker->name && (!$menu || $menu->query['option'] != 'com_sermonspeaker' || $menu->query['view'] != 'speaker' || $menu->query['id'] != $this->item->id)){
+			$title = $this->speaker->name;
+		} else {
+			$title = $this->params->get('page_title', '');
+		}
+		if ($app->getCfg('sitename_pagetitles', 0)) {
 			$title = JText::sprintf('JPAGETITLE', $app->getCfg('sitename'), $title);
 		}
-		$title = JText::sprintf('JPAGETITLE', $title, $this->title);
 		$this->document->setTitle($title);
 
-		// Set MetaData
-		$description = $this->document->getMetaData('description');
-		if ($description){
-			$description = $description.' ';
-		}
-		$this->document->setMetaData('description', $description.strip_tags($this->speaker->intro));
+		// add Breadcrumbs
+		$pathway = $app->getPathway();
+		$pathway->addItem($this->speaker->name);
 
-		$keywords = $this->document->getMetaData('keywords');
-		if ($keywords){
-			$keywords = $keywords.', ';
+		// Set MetaData
+		if ($this->speaker->metadesc){
+			$this->document->setDescription($this->speaker->metadesc);
+		} elseif ($this->params->get('menu-meta_description')) {
+			$this->document->setDescription($this->params->get('menu-meta_description'));
 		}
-		$this->document->setMetaData('keywords', $keywords.$this->title);
+		if ($this->speaker->metakey){
+			$this->document->setMetadata('keywords', $this->speaker->metakey);
+		} elseif ($this->params->get('menu-meta_keywords')) {
+			$this->document->setMetadata('keywords', $this->params->get('menu-meta_keywords'));
+		}
+		if ($app->getCfg('MetaAuthor')){
+			$this->document->setMetaData('author', $this->speaker->name);
+		}
 	}
 }

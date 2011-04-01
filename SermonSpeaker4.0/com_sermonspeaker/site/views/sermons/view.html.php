@@ -13,24 +13,22 @@ class SermonspeakerViewSermons extends JView
 		// Applying CSS file
 		JHTML::stylesheet('sermonspeaker.css', 'media/com_sermonspeaker/css/');
 
-		$app		= JFactory::getApplication();
-		$params		= $app->getParams();
-
-		$columns = $params->get('col');
-		if (!$columns){
-			$columns = array();
-		}
-
 		// Get some data from the models
 		$state		= $this->get('State');
 		$items		= $this->get('Items');
 		$pagination	= $this->get('Pagination');
 
+		$params = $state->get('params');
+		$columns = $params->get('col');
+		if (!$columns){
+			$columns = array();
+		}
+
 		// Get the category name(s)
 		if($state->get('sermons_category.id') || $state->get('speakers_category.id') || $state->get('series_category.id')){
-			$cat	= $this->get('Cat');
+			$cat = $this->get('Cat');
 		} else {
-			$cat 	= '';
+			$cat = '';
 		}
 		
 		// Check for errors.
@@ -42,10 +40,10 @@ class SermonspeakerViewSermons extends JView
         // push data into the template
 		$this->assignRef('state',		$state);
 		$this->assignRef('items',		$items);
-		$this->assignRef('params',		$params);
 		$this->assignRef('columns', 	$columns);
 		$this->assignRef('pagination',	$pagination);
 		$this->assignRef('cat',			$cat);
+		$this->assignRef('params',		$params);
 
 		$this->_prepareDocument();
 
@@ -77,27 +75,29 @@ class SermonspeakerViewSermons extends JView
 			}
 		}
 
-		// Set Page Header from menu if active, otherwise a default value
+		// Set Page Header if not already set in the menu entry
 		$menus	= $app->getMenu();
 		$menu 	= $menus->getActive();
-		if ($menu) {
-			$this->params->def('page_heading', $this->params->get('page_title', $menu->title));
+		if ($menu){
+			$this->params->def('page_heading', $menu->title);
 		} else {
 			$this->params->def('page_heading', JText::_('COM_SERMONSPEAKER_SERMONS_TITLE'));
 		}
 
 		// Set Pagetitle
-		$title 	= $this->params->get('page_title', '');
-		if ($title == $app->getCfg('sitename')) {
-			$title = JText::sprintf('JPAGETITLE', $app->getCfg('sitename'), JText::_('COM_SERMONSPEAKER_SERMONS_TITLE'));
-		} elseif ($app->getCfg('sitename_pagetitles', 0)) {
+		if (!$menu) {
+			$title = JText::_('COM_SERMONSPEAKER_SERMONS_TITLE');
+		} else {
+			$title = $this->params->get('page_title', '');
+		}
+		if ($app->getCfg('sitename_pagetitles', 0)) {
 			$title = JText::sprintf('JPAGETITLE', $app->getCfg('sitename'), $title);
 		}
 		$this->document->setTitle($title);
 
 		// Set MetaData from menu entry if available
 		if ($this->params->get('menu-meta_description')){
-			$this->document->setMetaData('description', $this->params->get('menu-meta_description'));
+			$this->document->setDescription($this->params->get('menu-meta_description'));
 		}
 		if ($this->params->get('menu-meta_keywords')){
 			$this->document->setMetaData('keywords', $this->params->get('menu-meta_keywords'));

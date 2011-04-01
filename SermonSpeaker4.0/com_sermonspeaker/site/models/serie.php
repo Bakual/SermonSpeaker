@@ -57,6 +57,18 @@ class SermonspeakerModelSerie extends JModelList
 			$query->where('sermons.series_id = '.(int) $seriesId);
 		}
 
+		// Filter by search in title or scripture (with ref:)
+		$search = $this->getState('filter.search');
+		if (!empty($search)) {
+			if (stripos($search, 'ref:') === 0) {
+				$search = $db->Quote('%'.$db->getEscaped(substr($search, 4), true).'%');
+				$query->where('(sermons.sermon_scripture LIKE '.$search.')');
+			} else {
+				$search = $db->Quote('%'.$db->getEscaped($search, true).'%');
+				$query->where('(sermons.sermon_title LIKE '.$search.')');
+			}
+		}
+
 		// Join over Sermons Category.
 		if ($categoryId = $this->getState('sermons_category.id')) {
 			$query->join('LEFT', '#__categories AS c_sermons ON c_sermons.id = sermons.catid');
@@ -104,6 +116,9 @@ class SermonspeakerModelSerie extends JModelList
 		$params	= $app->getParams();
 
 		// List state information
+		$search = JRequest::getString('filter-search', '');
+		$this->setState('filter.search', $search);
+
 		$limit = $app->getUserStateFromRequest('global.list.limit', 'limit', $app->getCfg('list_limit'));
 		$this->setState('list.limit', $limit);
 
@@ -140,7 +155,9 @@ class SermonspeakerModelSerie extends JModelList
 	function getSerie()
 	{
 		$database =& JFactory::getDBO();
-		$query = "SELECT * FROM #__sermon_series WHERE id='".$this->getState('serie.id')."'";
+		$query 	= "SELECT *, CASE WHEN CHAR_LENGTH(alias) THEN CONCAT_WS(':', id, alias) ELSE id END as slug \n"
+				. "FROM #__sermon_series \n"
+				. "WHERE id='".$this->getState('serie.id')."'";
 		$database->setQuery($query);
 		$row = $database->loadObject();
 
@@ -189,7 +206,7 @@ class SermonspeakerModelSerie extends JModelList
 			$db->setQuery( $query );
 			$title[] = $db->LoadResult();
 		}
-		$title = ': '.implode(' &amp; ', $title);
+		$title = implode(' &amp; ', $title);
 		return $title;
 	}
 }
