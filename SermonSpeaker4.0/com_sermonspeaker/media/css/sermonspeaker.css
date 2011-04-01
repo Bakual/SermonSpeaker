@@ -20,8 +20,10 @@ vertical-align: middle;
 border: none;
 }
 
-img.speaker, img.ss-avatar{
-float:left;
+.ss-avatar, .ss-pic{
+	float:left;
+}
+.ss-avatar img, .ss-pic img{
 padding:5px;
 margin: 5px 15px 5px 5px;
 border:1px solid #808080;
@@ -62,7 +64,12 @@ margin-bottom:10px;
 .ss-serie-player, .ss-sermons-player, .ss-archive-player, .ss-speaker-player{
 text-align: center;
 margin-bottom:10px;
-clear:left;
+}
+.float-left{
+	float:left;
+}
+.clear-left{
+	clear:left;
 }
 
 hr.ss-serie-player, hr.ss-sermons-player, hr.ss-archive-player, hr.ss-speaker-player, hr.ss-frup{
@@ -71,7 +78,6 @@ width: 80%;
 height: 1px; 
 text-align: center;
 }
-
 .ss-title{
 width:20%;
 }

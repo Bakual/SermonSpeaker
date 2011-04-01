@@ -156,7 +156,11 @@ class SermonspeakerModelSerie extends JModelAdmin
 			}
 		}
 		$params	= &JComponentHelper::getParams('com_sermonspeaker');
-		$table->avatar = '/'.$params->get('path_avatar').'/'.$table->avatar;
+		if (($table->avatar != '-1') && $table->avatar){
+			$table->avatar = '/'.$params->get('path_avatar').'/'.$table->avatar;
+		} else {
+			$table->avatar = '';
+		}
 
 		if (!empty($table->metakey)) {
 			// only process if not empty
