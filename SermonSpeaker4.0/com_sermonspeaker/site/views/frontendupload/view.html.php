@@ -179,6 +179,44 @@ class SermonspeakerViewFrontendupload extends JView
 		$this->assignRef('params',		$params);
 		$this->assignRef('session',		$session);
 
+		$this->_prepareDocument();
+
 		parent::display($tpl);
+	}
+
+	/**
+	 * Prepares the document
+	 */
+	protected function _prepareDocument()
+	{
+		$app	= JFactory::getApplication();
+
+		// Set Page Header if not already set in the menu entry
+		$menus	= $app->getMenu();
+		$menu 	= $menus->getActive();
+		if ($menu){
+			$this->params->def('page_heading', $menu->title);
+		} else {
+			$this->params->def('page_heading', JText::_('COM_SERMONSPEAKER_FU_NEWSERMON'));
+		}
+
+		// Set Pagetitle
+		if (!$menu) {
+			$title = JText::_('COM_SERMONSPEAKER_FU_NEWSERMON');
+		} else {
+			$title = $this->params->get('page_title', '');
+		}
+		if ($app->getCfg('sitename_pagetitles', 0)) {
+			$title = JText::sprintf('JPAGETITLE', $app->getCfg('sitename'), $title);
+		}
+		$this->document->setTitle($title);
+
+		// Set MetaData from menu entry if available
+		if ($this->params->get('menu-meta_description')){
+			$this->document->setDescription($this->params->get('menu-meta_description'));
+		}
+		if ($this->params->get('menu-meta_keywords')){
+			$this->document->setMetaData('keywords', $this->params->get('menu-meta_keywords'));
+		}
 	}
 }

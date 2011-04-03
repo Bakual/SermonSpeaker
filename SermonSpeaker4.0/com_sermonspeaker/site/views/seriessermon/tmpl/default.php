@@ -1,27 +1,27 @@
 <?php
 defined('_JEXEC') or die('Restricted access');
-JHtml::core();
 JHTML::_('behavior.tooltip');
 JHTML::_('behavior.modal');
-
 $listOrder	= $this->state->get('list.ordering');
 $listDirn	= $this->state->get('list.direction');
 ?>
 <div class="ss-sermons-container<?php echo htmlspecialchars($this->params->get('pageclass_sfx')); ?>">
-<h1 class="componentheading"><?php echo JText::_('COM_SERMONSPEAKER_SERIESSERMONS_TITLE').$this->cat; ?></h1>
-<p />
-<?php if (empty($this->items)) : ?>
+<?php if ($this->params->get('show_page_heading', 1)) : ?>
+	<h1><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
+<?php endif;
+if ($this->cat): ?>
+	<h2><span class="subheading-category"><?php echo $this->cat; ?></span></h2>
+<?php endif;
+if (empty($this->items)) : ?>
 	<div class="no_entries"><?php echo JText::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', JText::_('COM_SERMONSPEAKER_SERIES')); ?></div>
 <?php else : ?>
-
 <form action="<?php echo JFilterOutput::ampReplace(JFactory::getURI()->toString()); ?>" method="post" id="adminForm" name="adminForm">
-	<fieldset class="filters">
-	<legend class="hidelabeltxt"><?php echo JText::_('JGLOBAL_FILTER_LABEL'); ?></legend>
-		<div class="display-limit">
-			<?php echo JText::_('JGLOBAL_DISPLAY_NUM'); ?>&#160;
-			<?php echo $this->pagination->getLimitBox(); ?>
-		</div>
-	</fieldset>
+	<?php if ($this->params->get('show_pagination_limit')) : ?>
+	<div class="display-limit">
+		<?php echo JText::_('JGLOBAL_DISPLAY_NUM'); ?>&#160;
+		<?php echo $this->pagination->getLimitBox(); ?>
+	</div>
+	<?php endif; ?>
 	<!-- Begin Data -->
 	<?php
 	$count = NULL;

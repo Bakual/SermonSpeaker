@@ -39,7 +39,7 @@ $saveOrder	= $listOrder == 'speakers.ordering';
 					<input type="checkbox" name="checkall-toggle" value="" onclick="checkAll(this)" />
 				</th>
 				<th class="title">
-					<?php echo JHtml::_('grid.sort',  'JGLOBAL_TITLE', 'speakers.name', $listDirn, $listOrder); ?>
+					<?php echo JHtml::_('grid.sort',  'COM_SERMONSPEAKER_FIELD_NAME_LABEL', 'speakers.name', $listDirn, $listOrder); ?>
 				</th>
 				<th width="5%">
 					<?php echo JHtml::_('grid.sort',  'JPUBLISHED', 'speakers.state', $listDirn, $listOrder); ?>

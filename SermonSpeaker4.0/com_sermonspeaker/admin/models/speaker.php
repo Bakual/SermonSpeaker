@@ -156,7 +156,11 @@ class SermonspeakerModelSpeaker extends JModelAdmin
 			}
 		}
 		$params	= &JComponentHelper::getParams('com_sermonspeaker');
-		$table->pic = '/'.$params->get('path_speakerpic').'/'.$table->pic;
+		if (($table->pic != '-1') && $table->pic){
+			$table->pic = '/'.$params->get('path_speakerpic').'/'.$table->pic;
+		} else {
+			$table->pic = '';
+		}
 
 		if (!empty($table->metakey)) {
 			// only process if not empty

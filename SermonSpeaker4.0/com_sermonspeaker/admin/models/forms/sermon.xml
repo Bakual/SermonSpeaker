@@ -61,7 +61,8 @@
 		<field name="notes" type="editor" buttons="true" hide="pagebreak,readmore"
 			class="inputbox"
 			filter="safehtml"
-			label="COM_SERMONSPEAKER_FIELD_SERMONNOTES_LABEL" />
+			label="COM_SERMONSPEAKER_FIELD_SERMONNOTES_LABEL"
+			description="COM_SERMONSPEAKER_FIELD_SERMONNOTES_DESC" />
 
 		<field name="addfile" type="customfilelist" class="inputbox"
 			path="path_addfile" 
@@ -70,7 +71,7 @@
 			hide_none="true"
 			disabled="true"
 			label="COM_SERMONSPEAKER_FIELD_ADDFILE_LABEL"
-			description="COM_SERMONSPEAKER_FIELD_ADDFILE_LABEL_DESC" />
+			description="COM_SERMONSPEAKER_FIELD_ADDFILE_DESC" />
 
 		<field name="addfileDesc" type="text" class="inputbox"
 			size="100" label="COM_SERMONSPEAKER_FIELD_ADDFILEDESC_LABEL"

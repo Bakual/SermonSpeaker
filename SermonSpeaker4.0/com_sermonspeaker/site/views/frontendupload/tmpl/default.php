@@ -23,7 +23,9 @@ $self = $uri->toString();
 	}
 </script>
 <div class="ss-frup-container<?php echo htmlspecialchars($this->params->get('pageclass_sfx')); ?>">
-	<h1><?php echo JText::_('COM_SERMONSPEAKER_FU_NEWSERMON'); ?></h1>
+<?php if ($this->params->get('show_page_heading', 1)) : ?>
+	<h1><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
+<?php endif; ?>
 	<div id="ss-frup-form">
 		<form action="<?php echo JURI::base(); ?>index.php?option=com_sermonspeaker&amp;task=file.upload&amp;tmpl=component&amp;<?php echo $this->session->getName().'='.$this->session->getId(); ?>&amp;<?php echo JUtility::getToken();?>=1" id="uploadForm" name="uploadForm" method="post" enctype="multipart/form-data">
 			<fieldset id="upload-noflash" class="actions">
@@ -44,7 +46,7 @@ $self = $uri->toString();
 			<?php echo $this->form->getInput('alias'); ?>
 			<br />
 
-			<label for="audiofile"><?php echo JText::_('COM_SERMONSPEAKER_FIELD_AUDIOFILE_LABEL'); ?></label>
+			<?php echo $this->form->getLabel('audiofile'); ?>
 			<input type="radio" name="sel1" value="0" onclick="enableElement(this.form.elements['jform_audiofile_text'], this.form.elements['jform_audiofile']);" checked>
 				<input class="text_area" type="text" name="jform[audiofile]" id="jform_audiofile_text" size="47" maxlength="250" value="<?php echo $this->form->getValue('audiofile'); ?>" />
 					<img class="pointer" onClick="window.location.href='<?php echo JRoute::_('index.php?view=frontendupload&amp;type=audio') ;?>&amp;file0='+document.fu_createsermon.jform_audiofile_text.value+'&amp;file1='+document.fu_createsermon.jform_videofile_text.value;" src="media/com_sermonspeaker/images/find.png" alt="lookup ID3" title="lookup ID3"><br />
@@ -58,7 +60,7 @@ $self = $uri->toString();
 				</div>
 			<div class="clr"></div>
 			
-			<label for="videofile"><?php echo JText::_('COM_SERMONSPEAKER_FIELD_VIDEOFILE_LABEL'); ?></label>
+			<?php echo $this->form->getLabel('videofile'); ?>
 			<input type="radio" name="sel2" value="0" onclick="enableElement(this.form.elements['jform_videofile_text'], this.form.elements['jform_videofile']);" checked>
 				<input class="text_area" type="text" name="jform[videofile]" id="jform_videofile_text" size="47" maxlength="250" value="<?php echo $this->form->getValue('videofile'); ?>" />
 					<img class="pointer" onClick="window.location.href='<?php echo JRoute::_('index.php?view=frontendupload&amp;type=video') ;?>&amp;file0='+document.fu_createsermon.jform_audiofile_text.value+'&amp;file1='+document.fu_createsermon.jform_videofile_text.value;" src="media/com_sermonspeaker/images/find.png" alt="lookup ID3" title="lookup ID3"><br />
@@ -72,7 +74,7 @@ $self = $uri->toString();
 				</div>
 			<div class="clr"></div>
 
-			<label for="sermon_scripture"><?php echo JText::_('COM_SERMONSPEAKER_SCRIPTURE'); ?></label>
+			<?php echo $this->form->getLabel('sermon_scripture'); ?>
 			<input class="text_area" type="text" name="sermon_scripture" id="sermon_scripture" size="50" maxlength="250" value="<?php echo $this->form->getValue('sermon_scripture'); ?>" />
 				<?php $tag = $this->params->get('plugin_tag'); ?>
 				<img class="pointer" onClick="sendText(document.fu_createsermon.sermon_scripture,'<?php echo $tag[0]; ?>','<?php echo $tag[1]; ?>')" src='<?php echo JURI::root(); ?>/media/com_sermonspeaker/images/blue_tag.png'><br />
@@ -104,14 +106,14 @@ $self = $uri->toString();
 			<?php echo $this->form->getInput('podcast'); ?>
 			<br />
 
-			<label for="addfile_txt"><?php echo JText::_('COM_SERMONSPEAKER_ADDFILE'); ?></label>
+			<?php echo $this->form->getLabel('addfile'); ?>
 			<input type="radio" name="sel3" value="0" onclick="enableElement(this.form.elements['jform_addfile_text'], this.form.elements['jform_addfile']);" checked>
 				<input class="text_area" type="text" name="jform[addfile]" id="jform_addfile_text" size="47" maxlength="250" value="" /><br />
 			<div class="label">&nbsp;</div>
 			<input type="radio" name="sel3" value="1" onclick="enableElement(this.form.elements['jform_addfile'], this.form.elements['jform_addfile_text']);">
 				<?php echo $this->form->getInput('addfile'); ?>
 			<br />
-			<label for="addfileDesc"><?php echo JText::_('COM_SERMONSPEAKER_FU_ADDFILEDESC'); ?></label>
+			<?php echo $this->form->getLabel('addfileDesc'); ?>
 			<input class="text_area" type="text" name="addfileDesc" id="addfileDesc" size="50" maxlength="250" value="" /><br />
 			<div>
 				<?php echo JHtml::_('form.token'); ?>

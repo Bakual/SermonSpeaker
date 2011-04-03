@@ -218,7 +218,6 @@ class SermonspeakerModelSermon extends JModelAdmin
 		if(Jrequest::getInt('sel3')){
 			$table->addfile = '/'.$params->get('path_addfile').'/'.$table->addfile;
 		}
-		$table->picture = '/'.$params->get('path_sermonpic').'/'.$table->picture;
 		$time_arr = explode(':', $table->sermon_time);
 		foreach ($time_arr as $time_int){
 			$time_int = (int)$time_int;
@@ -229,6 +228,12 @@ class SermonspeakerModelSermon extends JModelAdmin
 		} elseif (count($time_arr) == 3) {
 			$table->sermon_time = $time_arr[0].':'.$time_arr[1].':'.$time_arr[2];
 		}
+		if (($table->picture != '-1') && $table->picture){
+			$table->picture = '/'.$params->get('path_sermonpic').'/'.$table->picture;
+		} else {
+			$table->picture = '';
+		}
+
 		if (!empty($table->metakey)) {
 			// only process if not empty
 			$bad_characters = array("\n", "\r", "\"", "<", ">"); // array of characters to remove
@@ -297,15 +302,6 @@ class SermonspeakerModelSermon extends JModelAdmin
 		}
 
 		$context = $this->option.'.'.$this->name;
-
-		// Trigger the onContentChangeState event.
-//		$result = $dispatcher->trigger($this->event_change_state, array($context, $pks, $value));
-
-		if (in_array(false, $result, true)) {
-			$this->setError($table->getError());
-			return false;
-		}
-
 		return true;
 	}
 }

@@ -65,7 +65,7 @@
 			label="COM_SERMONSPEAKER_FIELD_PICTURE_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_PICTURE_DESC" />
 
-		<field name="catid" type="category" extension="com_sermonspeaker" show_root="true"
+		<field name="catid" type="category" extension="com_sermonspeaker"
 			label="JCATEGORY" description="JFIELD_CATEGORY_DESC"
 			class="inputbox" >
 			<option value="">JOPTION_SELECT_CATEGORY</option>
