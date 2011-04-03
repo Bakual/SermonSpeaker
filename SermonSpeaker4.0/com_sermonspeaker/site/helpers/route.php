@@ -183,7 +183,7 @@ abstract class SermonspeakerHelperRoute
 			}
 		} else {
 			$active = $menus->getActive();
-			if ($active && $active->component == 'com_content') {
+			if ($active && $active->component == 'com_sermonspeaker') {
 				return $active->id;
 			}
 		}

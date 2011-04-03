@@ -79,6 +79,7 @@ class SermonspeakerViewFrontendupload extends JView
 						button_placeholder_id : "btnUpload1",
 						button_width: 61,
 						button_height: 22,
+						button_window_mode: "transparent",
 						debug: false,
 						swfupload_loaded_handler: function() {
 							document.id(\'btnCancel1\').removeClass(\'hide\');
@@ -126,6 +127,7 @@ class SermonspeakerViewFrontendupload extends JView
 						button_placeholder_id : "btnUpload2",
 						button_width: 61,
 						button_height: 22,
+						button_window_mode: "transparent",
 						debug: false,
 						swfupload_loaded_handler: function() {
 							document.id(\'upload-noflash\').destroy();
