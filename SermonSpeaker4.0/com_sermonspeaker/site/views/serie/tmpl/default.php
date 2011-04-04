@@ -22,8 +22,9 @@ $listDirn	= $this->state->get('list.direction');
 		<dd class="hits">
 			<?php echo JText::_('JGLOBAL_HITS').': '.$this->serie->hits; ?>
 		</dd>
-	<?php endif;
-endif; ?>
+	<?php endif; ?>
+	</dl>
+<?php endif; ?>
 <div class="category-desc">
 	<div class="ss-avatar">
 		<?php if ($this->serie->avatar) : ?>
@@ -43,8 +44,8 @@ endif; ?>
 		<hr class="ss-serie-player" />
 	<?php if ($this->params->get('fileswitch')): ?>
 		<div>
-			<img class="pointer" src="media/com_sermonspeaker/images/Video.png" onClick="Video()" Alt="Video" />
-			<img class="pointer" src="media/com_sermonspeaker/images/Sound.png" onClick="Audio()" Alt="Audio" />
+			<img class="pointer" src="media/com_sermonspeaker/images/Video.png" onclick="Video()" alt="Video" />
+			<img class="pointer" src="media/com_sermonspeaker/images/Sound.png" onclick="Audio()" alt="Audio" />
 		</div>
 	<?php endif; ?>
 	</div>

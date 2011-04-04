@@ -28,7 +28,7 @@
 				/>
 
 				<field name="search_content" type="radio"
-					default="0"
+					default="1"
 					description="JFIELD_PLG_SEARCH_ALL_DESC"
 					label="JFIELD_PLG_SEARCH_ALL_LABEL"
 				>

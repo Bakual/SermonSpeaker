@@ -39,26 +39,26 @@ $ss_itemid = $params->get('ls_mo_menuitem');
 	<li class="<?php echo $params->get('moduleclass_sfx'); ?>">
 	<?php if ($params->get('ls_show_mouseover')) {
 		$tips = array();
-		if ($params->get('ls_show_mo_speaker')) {
+		if ($params->get('ls_show_mo_speaker') && $row->name) {
 			$tips[] = JText::_('MOD_LATESTSERMONS_SPEAKER').": ".$row->name;
 		}
-		if ($params->get('ls_show_mo_series')) {
+		if ($params->get('ls_show_mo_series') && $row->series_title) {
 			$tips[] = JText::_('MOD_LATESTSERMONS_SERIE').": ".trim($row->series_title);
 		}
-		if ($params->get('ls_show_mo_date')) {
+		if ($params->get('ls_show_mo_date') && $row->sermon_date) {
 			$date_format = JText::_($params->get('ls_mo_date_format', 'DATE_FORMAT_LC4'));
 			$tips[] = JText::_('JDATE').": ".JHtml::Date($row->sermon_date, $date_format, 'UTC');
 		}
-		$tip = implode('<br>', $tips);
+		$tip = implode('<br />', $tips);
 		$title = htmlspecialchars(stripslashes($row->sermon_title), ENT_QUOTES);
 		echo JHTML::tooltip($tip, '', '', $title, JRoute::_('index.php?option=com_sermonspeaker&view=sermon&id='.$row->slug.'&Itemid='.$ss_itemid)); ?>
-		</li>
 	<?php } else { ?>
-		<a href="<?php echo JRoute::_('index.php?option=com_sermonspeaker&view=sermon&id='.$row->slug.'&Itemid='.$ss_itemid); ?>"><?php echo stripslashes($row->sermon_title); ?></a></li>
-	<?php } // if mouseover
-} ?>
+		<a href="<?php echo JRoute::_('index.php?option=com_sermonspeaker&view=sermon&id='.$row->slug.'&Itemid='.$ss_itemid); ?>"><?php echo stripslashes($row->sermon_title); ?></a>
+	<?php } ?>
+	</li>
+<?php } ?>
 </ul>
 <?php if ($params->get('ls_show_mo_link')) { ?>
-	<br>
+	<br />
 	<a href="<?php echo JRoute::_('index.php?option=com_sermonspeaker&view=sermons&Itemid='.$ss_itemid); ?>"><?php echo JText::_('MOD_LATESTSERMONS_LINK'); ?></a>
 <?php } ?>

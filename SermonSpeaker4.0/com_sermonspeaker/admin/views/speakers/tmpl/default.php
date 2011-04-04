@@ -117,7 +117,7 @@ $saveOrder	= $listOrder == 'speakers.ordering';
 				</td>
 				<td class="center">
 					<?php if (!$item->pic){
-						$item->pic = JURI::root().'components/com_sermonspeaker/images/nopict.jpg';
+						$item->pic = JURI::root().'media/com_sermonspeaker/images/nopict.jpg';
 					}
 					if (substr($item->pic, 0, 7) != 'http://') {
 						$item->pic = JURI::root().trim($item->pic, '/.');

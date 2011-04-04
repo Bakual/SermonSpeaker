@@ -17,8 +17,9 @@ $listDirn	= $this->state->get('list.direction');
 		<dd class="hits">
 			<?php echo JText::_('JGLOBAL_HITS').': '.$this->speaker->hits; ?>
 		</dd>
-	<?php endif;
-endif; ?>
+	<?php endif; ?>
+	</dl>
+<?php endif; ?>
 <div class="category-desc">
 	<div class="ss-pic">
 		<?php if ($this->speaker->pic) : ?>

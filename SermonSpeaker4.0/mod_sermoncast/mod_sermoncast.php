@@ -1,15 +1,12 @@
 <?php
 defined('_JEXEC') or die('Restricted access');
-
 JHTML::_('behavior.tooltip');
 JHTML::_('behavior.modal');
-
 $cat['series'] 	= (int)$params->get('sc_series_cat');
 $cat['speaker']	= (int)$params->get('sc_speaker_cat');
 $cat['sermon'] 	= (int)$params->get('sc_sermon_cat');
 $series			= (int)$params->get('series_id');
 $menuitem		= (int)$params->get('sc_menuitem');
-
 $options = '';
 if ($cat['series']){
 	$options .= '&series_cat='.$cat['series'];
@@ -30,13 +27,12 @@ if ($menuitem){
 $feedFile = JURI::root().'index.php?option=com_sermonspeaker&amp;view=feed&amp;format=raw'.$options;
 ?>
 
-<div class="syndicate<?php echo $params->get('$moduleclass_sfx'); ?>" align="center">
+<div class="syndicate<?php echo $params->get('$moduleclass_sfx'); ?>">
 <p><?php echo $params->get('sc_introtext'); ?></p>
 <?php
 if($params->get('sc_showpcast')) {
-	$otherlink = $params->get('sc_otherlink');
-	if($otherlink) {
-		$link = $otherlink;
+	if($params->get('sc_otherlink')) {
+		$link = $params->get('sc_otherlink');
 	} else {
 		$u =& JURI::getInstance($feedFile);
 		$u->setScheme($params->get('sc_pcast_prefix'));

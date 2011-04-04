@@ -25,7 +25,7 @@ $rows = $db->loadObjectList();
 $ss_itemid = $params->get('menuitem');
 
 if(count($rows)) { ?>
-	<ul class="sermonarchive<?php echo $moduleclass_sfx; ?>">
+	<ul class="sermonarchive<?php echo $params->get('moduleclass_sfx'); ?>">
 	<?php foreach ($rows as $row) {
 		$request_m	= NULL;
 		$text_m		= NULL;
