@@ -50,14 +50,14 @@ class JFormFieldColumns extends JFormField
 		$options = $this->getOptions();
 
 		// Get the field columns.
-		$columns = $this->getColumns();
+		$columns = explode(',', (string)$this->element['cols']);
 
 		// Start the table.
 		$html[] = '<table style="width:100%; clear:left;">';
 		$html[] = '<thead><tr>';
 		$html[] = '<th style="height: 25px; background: #F4F4F4; border-bottom: 1px solid silver; vertical-align:middle;">View</th>';
-		foreach ($columns as $column => $name){
-			$html[] = '<th style="height: 25px; background: #F4F4F4; border-bottom: 1px solid silver; vertical-align:middle;" title="'.JText::_($name.'_DESC').'">'.JText::_($name.'_LABEL').'</th>';
+		foreach ($columns as $column){
+			$html[] = '<th style="height: 25px; background: #F4F4F4; border-bottom: 1px solid silver; vertical-align:middle;" title="'.JText::_('COM_SERMONSPEAKER_FIELD_COL_'.strtoupper($column).'_DESC').'">'.JText::_('COM_SERMONSPEAKER_FIELD_COL_'.strtoupper($column).'_LABEL').'</th>';
 		}
 		$html[] = '</tr></thead>';
 		$html[] = '<tbody>';
@@ -74,7 +74,7 @@ class JFormFieldColumns extends JFormField
 
 			$html[] = '<tr>';
 			$html[] = '<th style="height: 25px; background: #F4F4F4; border-bottom: 1px solid silver; vertical-align:middle;">'.$option->text.'</th>';
-			foreach ($columns as $column => $name){
+			foreach ($columns as $column){
 				// Initialize some option attributes.
 				$checked	= (in_array((string)$option->value.':'.$column, (array)$this->value) ? ' checked="checked"' : '');
 				$disabled	= in_array($column, (array)$option->exclude) ? ' disabled="disabled"' : '';
@@ -105,7 +105,6 @@ class JFormFieldColumns extends JFormField
 		// Initialize variables.
 		$options = array();
 		foreach ($this->element->children() as $option) {
-
 			// Only add <option /> elements.
 			if ($option->getName() != 'option') {
 				continue;

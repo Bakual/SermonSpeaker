@@ -10,7 +10,7 @@ $listDirn	= $this->state->get('list.direction');
 	<h1><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
 <?php endif; ?>
 <h2><a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($this->serie->slug)); ?>"><?php echo $this->serie->series_title; ?></a></h2>
-<?php if ($this->cat || in_array('serie:hits', $this->columns)): ?>
+<?php if ($this->cat || $this->params->get('show_serieshit_detail')): ?>
 	<dl class="article-info">
 	<dt class="article-info-term"><?php  echo JText::_('JDETAILS'); ?></dt>
 	<?php if ($this->cat): ?>
@@ -18,7 +18,7 @@ $listDirn	= $this->state->get('list.direction');
 			<?php echo JText::_('JCATEGORY').': '.$this->cat; ?>
 		</dd>
 	<?php endif;
-	if (in_array('serie:hits', $this->columns)): ?>
+	if ($this->params->get('show_serieshit_detail')): ?>
 		<dd class="hits">
 			<?php echo JText::_('JGLOBAL_HITS').': '.$this->serie->hits; ?>
 		</dd>
@@ -108,6 +108,11 @@ $listDirn	= $this->state->get('list.direction');
 					<th class="ss-col">
 						<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_ADDFILE', 'addfileDesc', $listDirn, $listOrder); ?>
 					</th>
+				<?php endif;
+				if ($this->params->get('show_sermonhit_list')) : ?>
+					<th class="ss-col">
+						<?php echo JHTML::_('grid.sort', 'JGLOBAL_HITS', 'hits', $listDirn, $listOrder); ?>
+					</th>
 				<?php endif; ?>
 			</tr></thead>
 		<!-- Begin Data -->
@@ -145,6 +150,11 @@ $listDirn	= $this->state->get('list.direction');
 						if (in_array('serie:addfile', $this->columns)) : ?>
 							<td class="ss_col">
 								<?php echo SermonspeakerHelperSermonspeaker::insertAddfile($item->addfile, $item->addfileDesc); ?>
+							</td>
+						<?php endif;
+						if ($this->params->get('show_sermonhit_list')) : ?>
+							<td class="ss_col">
+								<?php echo $item->hits; ?>
 							</td>
 						<?php endif; ?>
 					</tr>
