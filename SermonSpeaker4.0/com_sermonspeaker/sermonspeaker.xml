@@ -53,7 +53,7 @@
 			<menu img="components/com_sermonspeaker/images/speakers-16.png" view="speakers">COM_SERMONSPEAKER_MENU_SPEAKERS</menu>
 			<menu img="components/com_sermonspeaker/images/sermon-16.png" view="sermons">COM_SERMONSPEAKER_MENU_SERMONS</menu>
 			<menu img="category" link="option=com_categories&amp;extension=com_sermonspeaker">COM_SERMONSPEAKER_MENU_CATEGORY</menu>
-			<menu img="components/com_sermonspeaker/images/stats-16.png" view="statistics" format="raw">COM_SERMONSPEAKER_MENU_STATISTICS</menu>
+			<menu img="components/com_sermonspeaker/images/stats-16.png" link="option=com_sermonspeaker&amp;view=statistics&amp;format=raw">COM_SERMONSPEAKER_MENU_STATISTICS</menu>
 			<menu img="components/com_sermonspeaker/images/help-16.png" view="help">COM_SERMONSPEAKER_MENU_HELP</menu>
 		</submenu>
 		<files folder="admin">

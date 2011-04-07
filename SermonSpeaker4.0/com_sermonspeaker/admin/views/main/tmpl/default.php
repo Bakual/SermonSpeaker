@@ -32,7 +32,7 @@ JHTML::_('behavior.tooltip');
 				</a>
 			</div>
 			<div class="icon">
-				<a href="index.php?option=com_sermonspeaker&view=statistics">
+				<a href="index.php?option=com_sermonspeaker&view=statistics&format=raw">
 					<img border="0" align="middle" alt="<?php echo JText::_('COM_SERMONSPEAKER_STATISTICS_TITLE'); ?>" src="<?php echo JURI::base()."components/com_sermonspeaker/images/stats.png"; ?>"/>
 					<span><?php echo JText::_('COM_SERMONSPEAKER_STATISTICS_TITLE'); ?></span>
 				</a>
