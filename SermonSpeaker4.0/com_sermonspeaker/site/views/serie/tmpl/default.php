@@ -22,6 +22,13 @@ $listDirn	= $this->state->get('list.direction');
 		<dd class="hits">
 			<?php echo JText::_('JGLOBAL_HITS').': '.$this->serie->hits; ?>
 		</dd>
+	<?php endif;
+	if (in_array('serie:download', $this->col_serie)) : ?>
+		<dd class="hits">
+			<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADSERIES_LABEL').': '; ?>
+			<a href="<?php echo JRoute::_('index.php?task=download_serie&id='.$this->serie->id); ?>" title="<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADSERIES_DESC'); ?>">
+			<img src="media/com_sermonspeaker/images/download.png" alt="<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADSERIES_LABEL'); ?>" />
+		</a></dd>
 	<?php endif; ?>
 	</dl>
 <?php endif;

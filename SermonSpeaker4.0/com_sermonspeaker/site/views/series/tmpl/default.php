@@ -66,8 +66,8 @@ if (empty($this->items)) : ?>
 						<td class="ss-col"><?php echo $item->hits; ?></td>
 					<?php endif;
 					if (in_array('series:download', $this->col_serie)) : ?>
-						<td class="num"><a href="<?php echo JRoute::_('index.php?task=download_serie&id='.$item->id); ?>">
-							<img src="media/com_sermonspeaker/images/download.png" alt="<?php echo JText::_('COM_SERMONSPEAKER_DIRECTLINK_HOOVER'); ?>" />
+						<td class="num"><a href="<?php echo JRoute::_('index.php?task=download_serie&id='.$item->id); ?>" title="<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADSERIES_DESC'); ?>">
+							<img src="media/com_sermonspeaker/images/download.png" alt="<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADSERIES_LABEL'); ?>" />
 						</a></td>
 					<?php endif; ?>
 				</tr>

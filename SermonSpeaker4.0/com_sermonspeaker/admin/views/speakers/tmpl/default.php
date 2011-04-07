@@ -126,6 +126,9 @@ $saveOrder	= $listOrder == 'speakers.ordering';
 				</td>
 				<td class="center">
 					<?php echo $item->hits; ?>
+					<?php if ($canEdit || $canEditOwn) : ?>
+						&nbsp;<a href="index.php?option=com_sermonspeaker&task=speaker.reset&id=<?php echo $item->id; ?>" title="<?php echo JText::_('JSEARCH_RESET'); ?>"><img src="<?php echo JURI::base(); ?>components/com_sermonspeaker/images/reset.png" width="16" height="16" border="0" alt="<?php echo JText::_('JSEARCH_RESET'); ?>" /></a>
+					<?php endif; ?>
 				</td>
 				<td class="center">
 					<?php echo (int) $item->id; ?>

@@ -85,21 +85,35 @@ class SermonspeakerControllerSermon extends JControllerForm
 		return parent::allowEdit($data, $key);
 	}
 
-	public function resetcount()
+	public function reset()
 	{
-		$database	= &JFactory::getDBO();
-		$id 		= JRequest::getInt('id', 0);
-
-		$query	= "UPDATE #__sermon_sermons \n"
-				. "SET hits='0' \n"
-				. "WHERE id='".$id."'"
-				;
-		$database->setQuery($query);
-		if (!$database->query()) {
-			echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";
-			exit();
+		$app	= JFactory::getApplication();
+		$db		= JFactory::getDBO();
+		$id 	= JRequest::getInt('id', 0);
+		if (!$id){
+			$app->redirect('index.php?option=com_sermonspeaker&view=sermons', JText::_('JERROR_AN_ERROR_HAS_OCCURRED'), 'error');
+			return;
 		}
-
-	$this->setRedirect('index.php?option=com_sermonspeaker&task=sermon.edit&id='.$id);
+		$model 	= $this->getModel();
+		$item 	= $model->getItem($id);
+		$user	= JFactory::getUser();
+		$canEdit	= $user->authorise('core.edit', 'com_sermonspeaker.category.'.$item->catid);
+		$canEditOwn	= $user->authorise('core.edit.own', 'com_sermonspeaker.category.'.$item->catid) && $item->created_by == $userId;
+		if ($canEdit || $canEditOwn){
+			$query	= "UPDATE #__sermon_sermons \n"
+					. "SET hits='0' \n"
+					. "WHERE id='".$id."'"
+					;
+			$db->setQuery($query);
+			if (!$db->query()) {
+				echo "<script> alert('".$db->getErrorMsg()."'); window.history.go(-1); </script>\n";
+				exit();
+			}
+			$app->redirect('index.php?option=com_sermonspeaker&view=sermons', JText::sprintf('COM_SERMONSPEAKER_RESET_OK', JText::_('COM_SERMONSPEAKER_SERMON'), $item->sermon_title));
+			return;
+		} else {
+			$app->redirect('index.php?option=com_sermonspeaker&view=sermons', JText::_('JERROR_ALERTNOAUTHOR'), 'error');
+			return;
+		}
 	}
 }

@@ -83,10 +83,11 @@ class SermonspeakerViewSermon extends JView
 		}
 
 		// Update Statistic
-		if ($params->get('track_series')) {
-			$model = $this->getModel();
+		if ($params->get('track_sermon') && !$user->authorise('com_sermonspeaker.hit', 'com_sermonspeaker')) {
+			$model 	= $this->getModel();
 			$model->hit();
 		}
+		
 		$this->assignRef('params',		$params);
 		$this->assignRef('state', 		$state);
 		$this->assignRef('item', 		$item);

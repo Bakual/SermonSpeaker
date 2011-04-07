@@ -40,7 +40,7 @@ class SermonspeakerHelper
 		}
 		JSubMenuHelper::addEntry(
 			JText::_('COM_SERMONSPEAKER_MENU_STATISTICS'),
-			'index.php?option=com_sermonspeaker&view=statistics',
+			'index.php?option=com_sermonspeaker&view=statistics&format=raw',
 			$vName == 'statistics'
 		);
 		JSubMenuHelper::addEntry(

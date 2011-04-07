@@ -14,7 +14,7 @@ class SermonspeakerModelStatistics extends JModel
 
 	function getSpeakers()
 	{
-		$query = "SELECT * FROM #__sermon_speakers \n"
+		$query = "SELECT id, name, hits FROM #__sermon_speakers \n"
 				."ORDER BY id"
 				;
 				
@@ -25,7 +25,7 @@ class SermonspeakerModelStatistics extends JModel
 
 	function getSeries()
 	{
-		$query = "SELECT * FROM #__sermon_series \n"
+		$query = "SELECT id, series_title, hits FROM #__sermon_series \n"
 				."ORDER BY id"
 				;
 
@@ -36,7 +36,7 @@ class SermonspeakerModelStatistics extends JModel
 
 	function getSermons()
 	{
-		$query = "SELECT * FROM #__sermon_sermons \n"
+		$query = "SELECT id, sermon_title, hits FROM #__sermon_sermons \n"
 				."ORDER BY id"
 				;
 

@@ -46,8 +46,11 @@ class SermonspeakerViewSerie extends JView
 
 		// Update Statistic
 		if ($params->get('track_series')) {
-			$model = $this->getModel();
-			$model->hit();
+			$user	= JFactory::getUser();
+			if (!$user->authorise('com_sermonspeaker.hit', 'com_sermonspeaker')){
+				$model 	= $this->getModel();
+				$model->hit();
+			}
 		}
 		
 		// Check for errors.

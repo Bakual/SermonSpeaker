@@ -7,7 +7,10 @@ class SermonspeakerViewStatistics extends JView
 {
 	function display( $tpl = null )
 	{
-        // get data from the model
+		$document =& JFactory::getDocument();
+		$document->setMimeEncoding('text/xml');
+
+		// get data from the model
 		$series		=& $this->get('Series');
 		$speakers	=& $this->get('Speakers');
 		$sermons	=& $this->get('Sermons');
@@ -17,22 +20,6 @@ class SermonspeakerViewStatistics extends JView
 		$this->assignRef('speakers', $speakers);
 		$this->assignRef('sermons',	$sermons);
 
-		$this->addToolbar();
 		parent::display($tpl);
-	}
-
-	/**
-	 * Add the page title and toolbar.
-	 */
-	protected function addToolbar()
-	{
-		$canDo 	= SermonspeakerHelper::getActions();
-
-		JToolBarHelper::title(JText::_('COM_SERMONSPEAKER_STATISTICS_TITLE'), 'statistics');
-
-		if ($canDo->get('core.admin')) {
-			JToolbarHelper::divider();
-			JToolBarHelper::preferences('com_sermonspeaker', 600, 800);;
-		}
 	}
 }

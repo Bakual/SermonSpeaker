@@ -253,7 +253,7 @@
 			description="COM_SERMONSPEAKER_FIELD_COL_DESC"
 			cols="description,speaker,hits,download" >
 			<option value="series" exclude="description">COM_SERMONSPEAKER_SERIES_VIEW_DEFAULT_TITLE</option>
-			<option value="serie" exclude="speaker,download">COM_SERMONSPEAKER_SERIE_VIEW_DEFAULT_TITLE</option>
+			<option value="serie" exclude="speaker">COM_SERMONSPEAKER_SERIE_VIEW_DEFAULT_TITLE</option>
 			<option value="speaker" exclude="speaker">COM_SERMONSPEAKER_SPEAKER_VIEW_DEFAULT_TITLE</option>
 			<option value="seriessermon" exclude="speaker,hits,download">COM_SERMONSPEAKER_SERIESSERMON_VIEW_DEFAULT_TITLE</option>
 		</field>

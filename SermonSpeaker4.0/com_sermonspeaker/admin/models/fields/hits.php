@@ -36,7 +36,7 @@ class JFormFieldHits extends JFormField
 		
 		$return = '<input style="border:0;" type="text" name="'.$this->name.'" id="'.$this->id.'" value="'.htmlspecialchars($this->value, ENT_COMPAT, 'UTF-8').'" readonly="readonly" class="readonly" size="5" />';
 		if ($this->value){
-			$return .= '<img src="'.JURI::base().'components/com_sermonspeaker/images/reset.png"'.$onclick.' width="16" height="16" border="0" title="'.JText::_('JSEARCH_RESET').'" alt="Reset" />';
+			$return .= '<img src="'.JURI::base().'components/com_sermonspeaker/images/reset.png"'.$onclick.' class="pointer" width="16" height="16" border="0" title="'.JText::_('JSEARCH_RESET').'" alt="Reset" />';
 		}
 
 		return $return;
