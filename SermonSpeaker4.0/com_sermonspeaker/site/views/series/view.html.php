@@ -16,6 +16,11 @@ class SermonspeakerViewSeries extends JView
 		$app		= JFactory::getApplication();
 		$params		= $app->getParams();
 
+		$col_serie = $params->get('col_serie');
+		if (!$col_serie){
+			$col_serie = array();
+		}
+
 		// Get some data from the models
 		$state		= $this->get('State');
 		$items		= $this->get('Items');
@@ -41,12 +46,14 @@ class SermonspeakerViewSeries extends JView
 			if (!$av && !empty($item->avatar)){
 				$av = 1;
 			}
-			$speakers	= $model->getSpeakers($item->id);
-			$popup = array();
-			foreach($speakers as $speaker){
-				$popup[] = SermonspeakerHelperSermonspeaker::SpeakerTooltip($speaker->slug, $speaker->pic, $speaker->name);
+			if (in_array('series:speaker', $col_serie)){
+				$speakers	= $model->getSpeakers($item->id);
+				$popup = array();
+				foreach($speakers as $speaker){
+					$popup[] = SermonspeakerHelperSermonspeaker::SpeakerTooltip($speaker->slug, $speaker->pic, $speaker->name);
+				}
+				$item->speakers = implode(', ', $popup);
 			}
-			$item->speakers = implode(', ', $popup);
 		}
 		
        // push data into the template
@@ -56,6 +63,7 @@ class SermonspeakerViewSeries extends JView
 		$this->assignRef('pagination',	$pagination);
 		$this->assignRef('av',			$av);			// for Avatars
 		$this->assignRef('cat',			$cat);			// for Category title
+		$this->assignRef('col_serie', 	$col_serie);
 
 		$this->_prepareDocument();
 

@@ -66,7 +66,7 @@ $self = $uri->toString();
 			<img class="pointer" onClick="window.location.href='<?php echo $self; ?>&amp;type=video&amp;file=<?php echo '/'.$this->params->get('path').'/'; ?>'+document.adminForm.jform_videofile.value;" src='<?php echo JURI::root(); ?>/media/com_sermonspeaker/images/find.png' alt='lookup ID3' title='lookup ID3'>
 		</fieldset>
 		<fieldset class="adminform">
-			<legend><?php echo JText::_('COM_SERMONSPEAKER_FIELD_SERMONNOTES_LABEL'); ?></legend>
+			<legend><?php echo JText::_('COM_SERMONSPEAKER_FIELD_NOTES_LABEL'); ?></legend>
 			<div class="clr"></div>
 			<?php echo $this->form->getInput('notes'); ?>
 		</fieldset>

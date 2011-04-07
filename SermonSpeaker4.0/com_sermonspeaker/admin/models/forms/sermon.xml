@@ -61,8 +61,8 @@
 		<field name="notes" type="editor" buttons="true" hide="pagebreak,readmore"
 			class="inputbox"
 			filter="safehtml"
-			label="COM_SERMONSPEAKER_FIELD_SERMONNOTES_LABEL"
-			description="COM_SERMONSPEAKER_FIELD_SERMONNOTES_DESC" />
+			label="COM_SERMONSPEAKER_FIELD_NOTES_LABEL"
+			description="COM_SERMONSPEAKER_FIELD_NOTES_DESC" />
 
 		<field name="addfile" type="customfilelist" class="inputbox"
 			path="path_addfile" 
@@ -99,15 +99,15 @@
 
 	<fieldset name="detail" label="COM_SERMONSPEAKER_DETAIL">
 		<field name="sermon_number"  type="text" class="inputbox"
-			label="COM_SERMONSPEAKER_FIELD_SERMONNUMBER_LABEL" description ="COM_SERMONSPEAKER_FIELD_SERMONNUMBER_DESC"
+			label="COM_SERMONSPEAKER_FIELD_NUM_LABEL" description ="COM_SERMONSPEAKER_FIELD_NUM_DESC"
 			size="5" />
 
 		<field name="sermon_date" type="calendar"
-			label="COM_SERMONSPEAKER_FIELD_SERMONDATE_LABEL" description="COM_SERMONSPEAKER_FIELD_SERMONDATE_DESC"
+			label="COM_SERMONSPEAKER_FIELD_DATE_LABEL" description="COM_SERMONSPEAKER_FIELD_DATE_DESC"
 			class="inputbox" size="25" format="%Y-%m-%d %H:%M:%S" />
 
 		<field name="sermon_time"  type="text" class="inputbox"
-			label="COM_SERMONSPEAKER_FIELD_SERMONTIME_LABEL" description ="COM_SERMONSPEAKER_FIELD_SERMONTIME_DESC"
+			label="COM_SERMONSPEAKER_FIELD_LENGTH_LABEL" description ="COM_SERMONSPEAKER_FIELD_LENGTH_DESC"
 			size="10" default="00:00:00" />
 
 		<field name="sermon_scripture"  type="scripture" class="inputbox"

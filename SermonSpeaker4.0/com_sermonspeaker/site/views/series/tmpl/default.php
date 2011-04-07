@@ -31,8 +31,17 @@ if (empty($this->items)) : ?>
 			<th class="ss-title">
 				<?php echo JHTML::_('grid.sort', 'JGLOBAL_TITLE', 'series_title', $listDirn, $listOrder); ?>
 			</th>
-			<th class="ss-col"><?php echo JText::_('COM_SERMONSPEAKER_SPEAKER'); ?></th>
-			<th></th>
+			<?php if (in_array('series:speaker', $this->col_serie)) : ?>
+				<th class="ss-col"><?php echo JText::_('COM_SERMONSPEAKER_SPEAKER'); ?></th>
+			<?php endif;
+			if (in_array('series:hits', $this->col_serie)) : ?>
+				<th class="ss-col">
+					<?php echo JHTML::_('grid.sort', 'JGLOBAL_HITS', 'hits', $listDirn, $listOrder); ?>
+				</th>
+			<?php endif;
+			if (in_array('series:download', $this->col_serie)) : ?>
+				<th></th>
+			<?php endif; ?>
 		</tr></thead>
 	<!-- Begin Data -->
 		<tbody>
@@ -50,10 +59,17 @@ if (empty($this->items)) : ?>
 							<?php echo $item->series_title; ?>
 						</a>
 					</td>
-					<td class="ss-col"><?php echo $item->speakers; ?></td>
-					<td class="num"><a href="<?php echo JRoute::_('index.php?task=download_serie&id='.$item->id); ?>">
-						<img src="media/com_sermonspeaker/images/download.png" alt="<?php echo JText::_('COM_SERMONSPEAKER_DIRECTLINK_HOOVER'); ?>" />
-					</a></td>
+					<?php if (in_array('series:speaker', $this->col_serie)) : ?>
+						<td class="ss-col"><?php echo $item->speakers; ?></td>
+					<?php endif;
+					if (in_array('series:hits', $this->col_serie)) : ?>
+						<td class="ss-col"><?php echo $item->hits; ?></td>
+					<?php endif;
+					if (in_array('series:download', $this->col_serie)) : ?>
+						<td class="num"><a href="<?php echo JRoute::_('index.php?task=download_serie&id='.$item->id); ?>">
+							<img src="media/com_sermonspeaker/images/download.png" alt="<?php echo JText::_('COM_SERMONSPEAKER_DIRECTLINK_HOOVER'); ?>" />
+						</a></td>
+					<?php endif; ?>
 				</tr>
 			<?php endforeach; ?>
 		</tbody>

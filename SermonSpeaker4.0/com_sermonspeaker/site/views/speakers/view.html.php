@@ -16,6 +16,11 @@ class SermonspeakerViewSpeakers extends JView
 		$app		= JFactory::getApplication();
 		$params		= $app->getParams();
 
+		$col_speaker = $params->get('col_speaker');
+		if (!$col_speaker){
+			$col_speaker = array();
+		}
+
 		// Get some data from the models
 		$state		= $this->get('State');
 		$items		= $this->get('Items');
@@ -41,6 +46,7 @@ class SermonspeakerViewSpeakers extends JView
 		$this->assignRef('pagination',	$pagination);
 		$this->assignRef('av',			$av);			// for Avatars
 		$this->assignRef('cat',			$cat);			// for Category title
+		$this->assignRef('col_speaker',	$col_speaker);
 
 		$this->_prepareDocument();
 

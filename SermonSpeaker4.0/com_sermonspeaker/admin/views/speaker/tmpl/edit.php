@@ -38,13 +38,13 @@ JHtml::_('behavior.formvalidation');
 		</fieldset>
 
 		<fieldset class="adminform">
-			<legend><?php echo JText::_('COM_SERMONSPEAKER_FIELD_SPEAKERINTRO_LABEL'); ?></legend>
+			<legend><?php echo JText::_('COM_SERMONSPEAKER_FIELD_INTRO_LABEL'); ?></legend>
 			<div class="clr"></div>
 			<?php echo $this->form->getInput('intro'); ?>
 		</fieldset>
 		
 		<fieldset class="adminform">
-			<legend><?php echo JText::_('COM_SERMONSPEAKER_FIELD_SPEAKERBIO_LABEL'); ?></legend>
+			<legend><?php echo JText::_('COM_SERMONSPEAKER_FIELD_BIO_LABEL'); ?></legend>
 			<div class="clr"></div>
 			<?php echo $this->form->getInput('bio'); ?>
 		</fieldset>

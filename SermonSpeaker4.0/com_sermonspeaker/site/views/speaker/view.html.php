@@ -25,6 +25,10 @@ class SermonspeakerViewspeaker extends JView
 		if (!$columns){
 			$columns = array();
 		}
+		$col_speaker = $params->get('col_speaker');
+		if (!$col_speaker){
+			$col_speaker = array();
+		}
 
 		if ($this->getLayout() == 'default') {
 			$this->setLayout('series');
@@ -49,6 +53,11 @@ class SermonspeakerViewspeaker extends JView
 				}
 			}
 			$this->assignRef('av', $av);
+			$col_serie = $params->get('col_serie');
+			if (!$col_serie){
+				$col_serie = array();
+			}
+			$this->assignRef('col_serie', $col_serie);
 		}
 
 		// Update Statistic
@@ -68,6 +77,7 @@ class SermonspeakerViewspeaker extends JView
 		$this->assignRef('items',		$items);
 		$this->assignRef('params',		$params);
 		$this->assignRef('columns', 	$columns);
+		$this->assignRef('col_speaker', $col_speaker);
 		$this->assignRef('pagination',	$pagination);
 		$this->assignRef('speaker',		$speaker);
 		$this->assignRef('title',		$title);

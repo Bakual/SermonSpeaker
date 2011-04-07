@@ -12,10 +12,10 @@ JHTML::_('behavior.modal');
 <table border="0" cellpadding="2" cellspacing="0" width="100%">
 	<tr>
 		<?php if (in_array('sermon:scripture', $this->columns) && $this->item->sermon_scripture) : ?>
-			<th align="left" valign="bottom"><?php echo JText::_('COM_SERMONSPEAKER_SCRIPTURE'); ?></th>
+			<th align="left" valign="bottom"><?php echo JText::_('COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL'); ?></th>
 		<?php endif;
 		if (in_array('sermon:notes', $this->columns) && strlen($this->item->notes) > 0) : ?>
-			<th align="left" valign="bottom"> <?php echo JText::_('COM_SERMONSPEAKER_SERMONNOTES'); ?></th>
+			<th align="left" valign="bottom"> <?php echo JText::_('COM_SERMONSPEAKER_FIELD_NOTES_LABEL'); ?></th>
 		<?php endif;
 		if (in_array('sermon:addfile', $this->columns) && $this->item->addfile) : ?>
 			<th align="left" valign="bottom"><?php echo JText::_('COM_SERMONSPEAKER_ADDFILE'); ?></th>

@@ -15,11 +15,14 @@ class SermonspeakerViewSeriessermon extends JView
 
 		$app		= JFactory::getApplication();
 		$params		= $app->getParams();
-//		$user	=& JFactory::getUser();
 
 		$columns = $params->get('col');
 		if (!$columns){
 			$columns = array();
+		}
+		$col_serie = $params->get('col_serie');
+		if (!$col_serie){
+			$col_serie = array();
 		}
 
 		// check if access is not public
@@ -57,6 +60,7 @@ class SermonspeakerViewSeriessermon extends JView
 		$this->assignRef('serie',		$serie);
 		$this->assignRef('cat',			$cat);
 		$this->assignRef('columns', 	$columns);
+		$this->assignRef('col_serie', 	$col_serie);
 
 		$this->_prepareDocument();
 

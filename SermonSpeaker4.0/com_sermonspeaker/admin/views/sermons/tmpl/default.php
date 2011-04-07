@@ -66,7 +66,7 @@ $saveOrder	= $listOrder == 'sermons.ordering';
 					<?php echo JHtml::_('grid.sort',  'COM_SERMONSPEAKER_SERIE', 'series_title', $listDirn, $listOrder); ?>
 				</th>
 				<th width="7%">
-					<?php echo JHtml::_('grid.sort',  'COM_SERMONSPEAKER_FIELD_SERMONDATE_LABEL', 'sermon_date', $listDirn, $listOrder); ?>
+					<?php echo JHtml::_('grid.sort',  'COM_SERMONSPEAKER_FIELD_DATE_LABEL', 'sermon_date', $listDirn, $listOrder); ?>
 				</th>
 				<th width="5%">
 					<?php echo JHtml::_('grid.sort',  'JPUBLISHED', 'sermons.state', $listDirn, $listOrder); ?>

@@ -65,7 +65,7 @@ if ($this->cat): ?>
 				</th>
 				<?php if (in_array('archive:scripture', $this->columns)) : ?>
 					<th class="ss-col">
-						<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SCRIPTURE', 'sermon_scripture', $listDirn, $listOrder); ?>
+						<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL', 'sermon_scripture', $listDirn, $listOrder); ?>
 					</th>
 				<?php endif;
 				if (in_array('archive:speaker', $this->columns)) : ?>
@@ -75,12 +75,12 @@ if ($this->cat): ?>
 				<?php endif;
 				if (in_array('archive:date', $this->columns)) : ?>
 					<th class="ss-col">
-						<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SERMONDATE', 'sermon_date', $listDirn, $listOrder); ?>
+						<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_FIELD_DATE_LABEL', 'sermon_date', $listDirn, $listOrder); ?>
 					</th>
 				<?php endif;
 				if (in_array('archive:length', $this->columns)) : ?>
 					<th class="ss-col">
-						<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SERMONLENGTH', 'sermon_time', $listDirn, $listOrder); ?>
+						<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_FIELD_LENGTH_LABEL', 'sermon_time', $listDirn, $listOrder); ?>
 					</th>
 				<?php endif;
 				if (in_array('archive:series', $this->columns)) : ?>
@@ -91,6 +91,11 @@ if ($this->cat): ?>
 				if (in_array('archive:addfile', $this->columns)) : ?>
 					<th class="ss-col">
 						<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_ADDFILE', 'addfileDesc', $listDirn, $listOrder); ?>
+					</th>
+				<?php endif;
+				if (in_array('archive:hits', $this->columns)) : ?>
+					<th class="ss-col">
+						<?php echo JHTML::_('grid.sort', 'JGLOBAL_HITS', 'hits', $listDirn, $listOrder); ?>
 					</th>
 				<?php endif; ?>
 			</tr></thead>
@@ -136,6 +141,11 @@ if ($this->cat): ?>
 						if (in_array('archive:addfile', $this->columns)) : ?>
 							<td class="ss_col">
 								<?php echo SermonspeakerHelperSermonspeaker::insertAddfile($item->addfile, $item->addfileDesc); ?>
+							</td>
+						<?php endif;
+						if (in_array('archive:hits', $this->columns)) : ?>
+							<td class="ss_col">
+								<?php echo $item->hits; ?>
 							</td>
 						<?php endif; ?>
 					</tr>

@@ -11,7 +11,7 @@ JHTML::_('behavior.modal');
 <!-- Begin Data -->
 <div class="ss-sermondetail-container">
 	<?php if (in_array('sermon:scripture', $this->columns) && $this->item->sermon_scripture) : ?>
-		<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_SCRIPTURE'); ?>:</div>
+		<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL'); ?>:</div>
 		<div class="ss-sermondetail-text"><?php echo JHTML::_('content.prepare', $this->item->sermon_scripture); ?></div>
 	<?php endif;
 	if (in_array('sermon:player', $this->columns)) : ?>
@@ -39,7 +39,7 @@ JHTML::_('behavior.modal');
 		</div>
 	<?php endif;
 	if (in_array('sermon:notes', $this->columns) && strlen($this->item->notes) > 0) : ?>
-		<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_SERMONNOTES'); ?>:</div>
+		<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_FIELD_NOTES_LABEL'); ?>:</div>
 		<div class="ss-sermondetail-text"><?php echo JHTML::_('content.prepare', $this->item->notes); ?></div>
 	<?php endif; ?>
 </div>

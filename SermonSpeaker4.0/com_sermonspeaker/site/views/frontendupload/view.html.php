@@ -11,7 +11,7 @@ class SermonspeakerViewFrontendupload extends JView
 
 	function display($tpl = null)
 	{
-		JHTML::stylesheet('sermonspeaker.css', 'media/com_sermonspeaker/css/');
+		JHTML::stylesheet('frontendupload.css', 'media/com_sermonspeaker/css/');
 
 		// Initialise variables.
 		$app		= JFactory::getApplication();
@@ -82,7 +82,7 @@ class SermonspeakerViewFrontendupload extends JView
 						button_window_mode: "transparent",
 						debug: false,
 						swfupload_loaded_handler: function() {
-							document.id(\'btnCancel1\').removeClass(\'hide\');
+							document.id(\'btnCancel1\').removeClass(\'ss-hide\');
 						},
 						file_dialog_start_handler : fileDialogStart,
 						file_queued_handler : fileQueued,
@@ -131,7 +131,7 @@ class SermonspeakerViewFrontendupload extends JView
 						debug: false,
 						swfupload_loaded_handler: function() {
 							document.id(\'upload-noflash\').destroy();
-							document.id(\'btnCancel2\').removeClass(\'hide\');
+							document.id(\'btnCancel2\').removeClass(\'ss-hide\');
 						},
 						file_dialog_start_handler : fileDialogStart,
 						file_queued_handler : fileQueued,
@@ -197,12 +197,12 @@ class SermonspeakerViewFrontendupload extends JView
 		if ($menu){
 			$this->params->def('page_heading', $menu->title);
 		} else {
-			$this->params->def('page_heading', JText::_('COM_SERMONSPEAKER_FU_NEWSERMON'));
+			$this->params->def('page_heading', JText::_('COM_SERMONSPEAKER_FU_TITLE'));
 		}
 
 		// Set Pagetitle
 		if (!$menu) {
-			$title = JText::_('COM_SERMONSPEAKER_FU_NEWSERMON');
+			$title = JText::_('COM_SERMONSPEAKER_FU_TITLE');
 		} else {
 			$title = $this->params->get('page_title', '');
 		}

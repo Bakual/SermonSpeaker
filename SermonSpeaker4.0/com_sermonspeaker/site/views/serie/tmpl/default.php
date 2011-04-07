@@ -10,7 +10,7 @@ $listDirn	= $this->state->get('list.direction');
 	<h1><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
 <?php endif; ?>
 <h2><a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($this->serie->slug)); ?>"><?php echo $this->serie->series_title; ?></a></h2>
-<?php if ($this->cat || $this->params->get('show_serieshit_detail')): ?>
+<?php if ($this->cat || in_array('serie:hits', $this->col_serie)): ?>
 	<dl class="article-info">
 	<dt class="article-info-term"><?php  echo JText::_('JDETAILS'); ?></dt>
 	<?php if ($this->cat): ?>
@@ -18,23 +18,25 @@ $listDirn	= $this->state->get('list.direction');
 			<?php echo JText::_('JCATEGORY').': '.$this->cat; ?>
 		</dd>
 	<?php endif;
-	if ($this->params->get('show_serieshit_detail')): ?>
+	if (in_array('serie:hits', $this->col_serie)): ?>
 		<dd class="hits">
 			<?php echo JText::_('JGLOBAL_HITS').': '.$this->serie->hits; ?>
 		</dd>
 	<?php endif; ?>
 	</dl>
-<?php endif; ?>
-<div class="category-desc">
-	<div class="ss-avatar">
-		<?php if ($this->serie->avatar) : ?>
-			<img src="<?php echo SermonspeakerHelperSermonspeaker::makelink($this->serie->avatar); ?>">
-		<?php endif; ?>
+<?php endif;
+if (in_array('serie:description', $this->col_serie)): ?>
+	<div class="category-desc">
+		<div class="ss-avatar">
+			<?php if ($this->serie->avatar) : ?>
+				<img src="<?php echo SermonspeakerHelperSermonspeaker::makelink($this->serie->avatar); ?>">
+			<?php endif; ?>
+		</div>
+		<?php echo JHTML::_('content.prepare', $this->serie->series_description); ?>
+		<div class="clear-left"></div>
 	</div>
-	<?php echo JHTML::_('content.prepare', $this->serie->series_description); ?>
-	<div class="clear-left"></div>
-</div>
-<?php if (in_array('serie:player', $this->columns) && count($this->items)) : ?>
+<?php endif;
+if (in_array('serie:player', $this->columns) && count($this->items)) : ?>
 	<div class="ss-serie-player">
 		<hr class="ss-serie-player" />
 	<?php
@@ -86,7 +88,7 @@ $listDirn	= $this->state->get('list.direction');
 				</th>
 				<?php if (in_array('serie:scripture', $this->columns)) : ?>
 					<th class="ss-col">
-						<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SCRIPTURE', 'sermon_scripture', $listDirn, $listOrder); ?>
+						<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL', 'sermon_scripture', $listDirn, $listOrder); ?>
 					</th>
 				<?php endif;
 				if (in_array('serie:speaker', $this->columns)) : ?>
@@ -96,12 +98,12 @@ $listDirn	= $this->state->get('list.direction');
 				<?php endif;
 				if (in_array('serie:date', $this->columns)) : ?>
 					<th class="ss-col">
-						<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SERMONDATE', 'sermon_date', $listDirn, $listOrder); ?>
+						<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_FIELD_DATE_LABEL', 'sermon_date', $listDirn, $listOrder); ?>
 					</th>
 				<?php endif;
 				if (in_array('serie:length', $this->columns)) : ?>
 					<th class="ss-col">
-						<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SERMONLENGTH', 'sermon_time', $listDirn, $listOrder); ?>
+						<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_FIELD_LENGTH_LABEL', 'sermon_time', $listDirn, $listOrder); ?>
 					</th>
 				<?php endif;
 				if (in_array('serie:addfile', $this->columns)) : ?>
@@ -109,7 +111,7 @@ $listDirn	= $this->state->get('list.direction');
 						<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_ADDFILE', 'addfileDesc', $listDirn, $listOrder); ?>
 					</th>
 				<?php endif;
-				if ($this->params->get('show_sermonhit_list')) : ?>
+				if (in_array('serie:hits', $this->columns)) : ?>
 					<th class="ss-col">
 						<?php echo JHTML::_('grid.sort', 'JGLOBAL_HITS', 'hits', $listDirn, $listOrder); ?>
 					</th>
@@ -152,7 +154,7 @@ $listDirn	= $this->state->get('list.direction');
 								<?php echo SermonspeakerHelperSermonspeaker::insertAddfile($item->addfile, $item->addfileDesc); ?>
 							</td>
 						<?php endif;
-						if ($this->params->get('show_sermonhit_list')) : ?>
+						if (in_array('serie:hits', $this->columns)) : ?>
 							<td class="ss_col">
 								<?php echo $item->hits; ?>
 							</td>

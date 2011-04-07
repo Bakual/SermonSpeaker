@@ -35,12 +35,12 @@
 		<field name="intro" type="editor" buttons="true" hide="pagebreak,readmore"
 			class="inputbox"
 			filter="safehtml"
-			label="COM_SERMONSPEAKER_FIELD_SPEAKERINTRO_LABEL" />
+			label="COM_SERMONSPEAKER_FIELD_INTRO_LABEL" />
 
 		<field name="bio" type="editor" buttons="true" hide="pagebreak,readmore"
 			class="inputbox"
 			filter="safehtml"
-			label="COM_SERMONSPEAKER_FIELD_SPEAKERBIO_LABEL" />
+			label="COM_SERMONSPEAKER_FIELD_BIO_LABEL" />
 
 	</fieldset>
 

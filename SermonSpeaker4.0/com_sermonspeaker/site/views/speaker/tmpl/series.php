@@ -57,9 +57,19 @@ $listDirn	= $this->state->get('list.direction');
 			<th class="ss-title">
 				<?php echo JHTML::_('grid.sort', 'JGLOBAL_TITLE', 'series_title', $listDirn, $listOrder); ?>
 			</th>
-			<th class="ss-col">
-				<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SERIESDESCRIPTION', 'series_description', $listDirn, $listOrder); ?>
-			</th>
+			<?php if (in_array('speaker:description', $this->col_serie)): ?>
+				<th class="ss-col">
+					<?php echo JHTML::_('grid.sort', 'JGLOBAL_DESCRIPTION', 'series_description', $listDirn, $listOrder); ?>
+				</th>
+			<?php endif;
+			if (in_array('speaker:hits', $this->col_serie)) : ?>
+				<th class="ss-col">
+					<?php echo JHTML::_('grid.sort', 'JGLOBAL_HITS', 'hits', $listDirn, $listOrder); ?>
+				</th>
+			<?php endif;
+			if (in_array('speaker:download', $this->col_serie)) : ?>
+				<th></th>
+			<?php endif; ?>
 		</tr></thead>
 	<!-- Begin Data -->
 		<tbody>
@@ -73,7 +83,17 @@ $listDirn	= $this->state->get('list.direction');
 						<?php endif;
 					endif; ?>
 					<td class="ss-title"><a title='<?php echo JText::_('COM_SERMONSPEAKER_SERIESLINK_HOOVER'); ?>' href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->slug)); ?>"><?php echo $item->series_title; ?></a></td>
-					<td  class="ss-col"><?php echo JHTML::_('content.prepare', $item->series_description); ?></td>
+					<?php if (in_array('speaker:description', $this->col_serie)): ?>
+						<td class="ss-col"><?php echo JHTML::_('content.prepare', $item->series_description); ?></td>
+					<?php endif;
+					if (in_array('speaker:hits', $this->col_serie)) : ?>
+						<td class="ss-col"><?php echo $item->hits; ?></td>
+					<?php endif;
+					if (in_array('speaker:download', $this->col_serie)) : ?>
+						<td class="num"><a href="<?php echo JRoute::_('index.php?task=download_serie&id='.$item->id); ?>">
+							<img src="media/com_sermonspeaker/images/download.png" alt="<?php echo JText::_('COM_SERMONSPEAKER_DIRECTLINK_HOOVER'); ?>" />
+						</a></td>
+					<?php endif; ?>
 				</tr>
 			<?php endforeach; ?>
 		</tbody>

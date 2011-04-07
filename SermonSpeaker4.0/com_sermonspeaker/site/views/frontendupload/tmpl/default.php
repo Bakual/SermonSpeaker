@@ -29,7 +29,7 @@ $self = $uri->toString();
 	<div id="ss-frup-form">
 		<form action="<?php echo JURI::base(); ?>index.php?option=com_sermonspeaker&amp;task=file.upload&amp;tmpl=component&amp;<?php echo $this->session->getName().'='.$this->session->getId(); ?>&amp;<?php echo JUtility::getToken();?>=1" id="uploadForm" name="uploadForm" method="post" enctype="multipart/form-data">
 			<fieldset id="upload-noflash" class="actions">
-				<legend><?php echo JText::_('COM_SERMONSPEAKER_FU_STEP1'); ?></legend>
+				<legend><?php echo JText::_('COM_SERMONSPEAKER_FU_SELECTFILE'); ?></legend>
 				<label for="upload-file" class="label"><?php echo JText::_('COM_SERMONSPEAKER_FIELD_AUDIOFILE_LABEL'); ?></label>
 				<input type="file" size="50" id="upload-file" name="Filedata[]" /><br />
 				<label for="upload-file" class="label"><?php echo JText::_('COM_SERMONSPEAKER_FIELD_VIDEOFILE_LABEL'); ?></label>
@@ -56,7 +56,7 @@ $self = $uri->toString();
 					<img class="pointer" onClick="window.location.href='<?php echo JRoute::_('index.php?view=frontendupload&amp;type=audio') ;?>&amp;file0=<?php echo '/'.$this->params->get('path').'/'; ?>'+document.fu_createsermon.jform_audiofile.value+'&amp;file1='+document.fu_createsermon.jform_videofile_text.value;" src="media/com_sermonspeaker/images/find.png" alt="lookup ID3" title="lookup ID3">
 				<div id="infoUpload1" class="intend">
 					<span id="btnUpload1"></span>
-					<button id="btnCancel1" type="button" onclick="cancelQueue(upload1);" class="hide" disabled="disabled">Cancel</button>
+					<button id="btnCancel1" type="button" onclick="cancelQueue(upload1);" class="ss-hide" disabled="disabled">Cancel</button>
 				</div>
 			<div class="clr"></div>
 			
@@ -70,7 +70,7 @@ $self = $uri->toString();
 				<img class="pointer" onClick="window.location.href='<?php echo JRoute::_('index.php?view=frontendupload&amp;type=video') ;?>&amp;file0='+document.fu_createsermon.jform_audiofile_text.value+'&amp;file1=<?php echo '/'.$this->params->get('path').'/'; ?>'+document.fu_createsermon.jform_videofile.value;" src="media/com_sermonspeaker/images/find.png" alt="lookup ID3" title="lookup ID3">
 				<div id="infoUpload2" class="intend">
 					<span id="btnUpload2"></span>
-					<button id="btnCancel2" type="button" onclick="cancelQueue(upload1);" class="hide" disabled="disabled">Cancel</button>
+					<button id="btnCancel2" type="button" onclick="cancelQueue(upload1);" class="ss-hide" disabled="disabled">Cancel</button>
 				</div>
 			<div class="clr"></div>
 

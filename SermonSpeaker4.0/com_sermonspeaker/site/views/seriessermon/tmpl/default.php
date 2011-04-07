@@ -33,7 +33,9 @@ if (empty($this->items)) : ?>
 				<img src="<?php echo SermonspeakerHelperSermonspeaker::makelink($item->avatar); ?>" style="float:right; margin-top:25px;">
 			<?php endif; ?>
 			<h3 class="contentheading"><?php echo $this->escape($item->series_title); ?></h3>
-			<p><?php echo JHTML::_('content.prepare', $item->series_description); ?></p>
+			<?php if (in_array('seriessermon:description', $this->col_serie)): ?>
+				<p><?php echo JHTML::_('content.prepare', $item->series_description); ?></p>
+			<?php endif; ?>
 		</div>
 		<div style="margin-left:10%;">
 			<?php foreach($sermons as $sermon) { 

@@ -26,6 +26,10 @@ class SermonspeakerViewSerie extends JView
 		if (!$columns){
 			$columns = array();
 		}
+		$col_serie = $params->get('col_serie');
+		if (!$col_serie){
+			$col_serie = array();
+		}
 
 		// Get some data from the models
 		$state		= $this->get('State');
@@ -58,6 +62,7 @@ class SermonspeakerViewSerie extends JView
 		$this->assignRef('params',		$params);
 		$this->assignRef('pagination',	$pagination);
 		$this->assignRef('columns', 	$columns);
+		$this->assignRef('col_serie', 	$col_serie);
 		$this->assignRef('serie',		$serie);
 		$this->assignRef('cat',			$cat);
 

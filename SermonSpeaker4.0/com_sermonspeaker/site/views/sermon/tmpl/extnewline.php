@@ -10,11 +10,11 @@ JHTML::_('behavior.modal');
 <h2><a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonRoute($this->item->slug)); ?>"><?php echo $this->item->sermon_title; ?></a></h2>
 <div class="ss-sermondetail-container">
 	<?php if (in_array('sermon:date', $this->columns)) : ?>
-		<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_SERMONDATE'); ?>:</div>
+		<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL'); ?>:</div>
 		<div class="ss-sermondetail-text"><?php echo JHTML::Date($this->item->sermon_date, JText::_($this->params->get('date_format')), 'UTC'); ?></div>
 	<?php endif;
 	if (in_array('sermon:scripture', $this->columns) && $this->item->sermon_scripture) : ?>
-		<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_SCRIPTURE'); ?>:</div>
+		<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL'); ?>:</div>
 		<div class="ss-sermondetail-text"><?php echo JHTML::_('content.prepare', $this->item->sermon_scripture); ?></div>
 	<?php endif;
 	if ($this->params->get('custom1') && $this->item->custom1) : ?>
@@ -42,7 +42,7 @@ JHTML::_('behavior.modal');
 		<?php endif;
 	endif;
 	if (in_array('sermon:length', $this->columns)) : ?>
-		<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_SERMONLENGTH'); ?>:</div>
+		<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_FIELD_LENGTH_LABEL'); ?>:</div>
 		<div class="ss-sermondetail-text"><?php echo SermonspeakerHelperSermonspeaker::insertTime($this->item->sermon_time); ?></div>
 	<?php endif;
 	if (in_array('sermon:hits', $this->columns)) : ?>
@@ -50,7 +50,7 @@ JHTML::_('behavior.modal');
 		<div class="ss-sermondetail-text"><?php echo $this->item->hits; ?></div>
 	<?php endif;
 	if (in_array('sermon:notes', $this->columns) && strlen($this->item->notes) > 0) : ?>
-		<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_SERMONNOTES'); ?>:</div>
+		<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_FIELD_NOTES_LABEL'); ?>:</div>
 		<div class="ss-sermondetail-text"><?php echo JHTML::_('content.prepare', $this->item->notes); ?></div>
 	<?php endif;
 	if (in_array('sermon:player', $this->columns)) : ?>

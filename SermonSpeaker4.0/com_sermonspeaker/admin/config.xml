@@ -1,23 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
 	<fieldset name="component"
-		label="COM_SERMONSPEAKER_FIELDSET_COMPONENT_LABEL"
-		description="COM_SERMONSPEAKER_FIELDSET_COMPONENT_DESC">
-		<field name="limit_speaker" 
-			type="radio" 
-			default="0" 
-			label="COM_SERMONSPEAKER_PARAM_LIMITSPEAKER" 
-			description="COM_SERMONSPEAKER_PARAM_LIMITSPEAKER_DESC">
-			<option value="0">JNO</option>
-			<option value="1">JYES</option>
+		label="COM_SERMONSPEAKER_FIELDSET_COMPONENT_LABEL" >
+		<field name="date_format" 
+			type="dateformat" 
+			default="DATE_FORMAT_LC4" 
+			label="COM_SERMONSPEAKER_PARAM_DATE_FORMAT" 
+			description="COM_SERMONSPEAKER_PARAM_DATE_FORMAT_DESC">
 		</field>
-		<field name="speaker_intro" 
-			type="radio" 
-			default="1" 
-			label="COM_SERMONSPEAKER_PARAM_SPEAKERINTRO" 
-			description="COM_SERMONSPEAKER_PARAM_SPEAKERINTRO_DESC">
-			<option value="0">JNO</option>
-			<option value="1">JYES</option>
+		<field name="plugin_tag" 
+			type="tag" 
+			label="COM_SERMONSPEAKER_PARAM_PLUGIN_LABEL" 
+			description="COM_SERMONSPEAKER_PARAM_PLUGIN_DESC" />
+		<field name="spacer1"
+			type="spacer"
+			hr="true" />
+		<field name="default_order" 
+			type="list" 
+			default="ordering" 
+			label="COM_SERMONSPEAKER_PARAM_DEFAULT_ORDER_LABEL" 
+			description="COM_SERMONSPEAKER_PARAM_DEFAULT_ORDER_DESC">
+			<option value="ordering">COM_SERMONSPEAKER_PARAM_DEFAULT_ORDER_OPTION_ORDERING</option>
+			<option value="sermon_date">COM_SERMONSPEAKER_PARAM_DEFAULT_ORDER_OPTION_DATE</option>
+			<option value="sermon_title">COM_SERMONSPEAKER_PARAM_DEFAULT_ORDER_OPTION_TITLE</option>
+		</field>
+		<field name="default_order_dir" 
+			type="list" 
+			default="ASC" 
+			label="COM_SERMONSPEAKER_PARAM_DEFAULT_ORDER_DIR_LABEL" 
+			description="COM_SERMONSPEAKER_PARAM_DEFAULT_ORDER_DIR_DESC">
+			<option value="ASC">COM_SERMONSPEAKER_PARAM_DEFAULT_ORDER_DIR_OPTION_ASC</option>
+			<option value="DESC">COM_SERMONSPEAKER_PARAM_DEFAULT_ORDER_DIR_OPTION_DESC</option>
 		</field>
 		<field name="list_icon_function" 
 			type="list" 
@@ -39,51 +52,6 @@
 			<option value="2">COM_SERMONSPEAKER_PARAM_LIST_OPTION_PLAYER</option>
 			<option value="3">COM_SERMONSPEAKER_PARAM_LIST_OPTION_POPUP</option>
 		</field>
-		<field name="default_order" 
-			type="list" 
-			default="ordering" 
-			label="COM_SERMONSPEAKER_PARAM_DEFAULT_ORDER_LABEL" 
-			description="COM_SERMONSPEAKER_PARAM_DEFAULT_ORDER_DESC">
-			<option value="ordering">COM_SERMONSPEAKER_PARAM_DEFAULT_ORDER_OPTION_ORDERING</option>
-			<option value="sermon_date">COM_SERMONSPEAKER_PARAM_DEFAULT_ORDER_OPTION_DATE</option>
-			<option value="sermon_title">COM_SERMONSPEAKER_PARAM_DEFAULT_ORDER_OPTION_TITLE</option>
-		</field>
-		<field name="default_order_dir" 
-			type="list" 
-			default="ASC" 
-			label="COM_SERMONSPEAKER_PARAM_DEFAULT_ORDER_DIR_LABEL" 
-			description="COM_SERMONSPEAKER_PARAM_DEFAULT_ORDER_DIR_DESC">
-			<option value="ASC">COM_SERMONSPEAKER_PARAM_DEFAULT_ORDER_DIR_OPTION_ASC</option>
-			<option value="DESC">COM_SERMONSPEAKER_PARAM_DEFAULT_ORDER_DIR_OPTION_DESC</option>
-		</field>
-
-		<field
-			name="sermonlayout" type="componentlayout"
-			label="COM_SERMONSPEAKER_PARAM_SERMONLAYOUT"
-			description="COM_SERMONSPEAKER_PARAM_SERMONLAYOUT_DESC"
-			useglobal="false"
-			extension="com_sermonspeaker"
-			view="sermon"
-		/>
-		<field name="date_format" 
-			type="dateformat" 
-			default="DATE_FORMAT_LC4" 
-			label="COM_SERMONSPEAKER_PARAM_DATE_FORMAT" 
-			description="COM_SERMONSPEAKER_PARAM_DATE_FORMAT_DESC">
-		</field>
-		<field name="hide_dl" 
-			type="radio" 
-			default="0" 
-			label="COM_SERMONSPEAKER_PARAM_HIDEDL" 
-			description="COM_SERMONSPEAKER_PARAM_HIDEDL_DESC">
-			<option value="0">JNO</option>
-			<option value="1">JYES</option>
-		</field>
-		<field name="plugin_tag" 
-			type="tag" 
-			label="COM_SERMONSPEAKER_PARAM_PLUGIN_LABEL" 
-			description="COM_SERMONSPEAKER_PARAM_PLUGIN_DESC" />
-
 		<field name="filter_field"
 			type="radio"
 			default="0"
@@ -200,32 +168,17 @@
 			<option value="1">JYES</option>
 		</field>
 	</fieldset>
-	<fieldset name="clientcol"
-		addfieldpath="/administrator/components/com_sermonspeaker/models/fields"
-		label="COM_SERMONSPEAKER_FIELDSET_CLIENTCOL_LABEL"
-		description="COM_SERMONSPEAKER_FIELDSET_CLIENTCOL_DESC">
-		<field name="col" type="columns"
-			label="COM_SERMONSPEAKER_FIELD_COL_LABEL" 
-			description="COM_SERMONSPEAKER_FIELD_COL_DESC"
-			cols="num,scripture,speaker,date,length,series,addfile,notes,player,hits" >
-			<option value="sermons" exclude="notes,hits">COM_SERMONSPEAKER_SERMONS_VIEW_DEFAULT_TITLE</option>
-			<option value="sermon">COM_SERMONSPEAKER_SERMON_VIEW_DEFAULT_TITLE</option>
-			<option value="serie" exclude="series,notes">COM_SERMONSPEAKER_SERIE_VIEW_DEFAULT_TITLE</option>
-			<option value="speaker" exclude="speaker,notes">COM_SERMONSPEAKER_SPEAKER_VIEW_DEFAULT_TITLE</option>
-			<option value="archive" exclude="notes,hits">COM_SERMONSPEAKER_ARCHIVE_VIEW_DEFAULT_TITLE</option>
-			<option value="seriessermon" exclude="num,scripture,speaker,length,series,hits">COM_SERMONSPEAKER_SERIESSERMON_VIEW_DEFAULT_TITLE</option>
-		</field>
-		<field name="col_series" type="columns"
-			label="COM_SERMONSPEAKER_FIELD_COL_LABEL" 
-			description="COM_SERMONSPEAKER_FIELD_COL_DESC"
-			cols="speaker,hits" >
-			<option value="series">COM_SERMONSPEAKER_SERIES_VIEW_DEFAULT_TITLE</option>
-			<option value="serie">COM_SERMONSPEAKER_SERIE_VIEW_DEFAULT_TITLE</option>
-		</field>
-	</fieldset>
 	<fieldset name="detailpage"
 		label="COM_SERMONSPEAKER_FIELDSET_DETAILPAGE_LABEL"
 		description="COM_SERMONSPEAKER_FIELDSET_DETAILPAGE_DESC">
+		<field
+			name="sermonlayout" type="componentlayout"
+			label="COM_SERMONSPEAKER_PARAM_SERMONLAYOUT"
+			description="COM_SERMONSPEAKER_PARAM_SERMONLAYOUT_DESC"
+			useglobal="false"
+			extension="com_sermonspeaker"
+			view="sermon"
+		/>
 		<field name="dl_button" 
 			type="radio" 
 			default="1" 
@@ -281,6 +234,37 @@
 			description="COM_SERMONSPEAKER_PARAM_ACCESS_DESC"
 			default="1" />
 	</fieldset>
+	<fieldset name="clientcol"
+		addfieldpath="/administrator/components/com_sermonspeaker/models/fields"
+		label="COM_SERMONSPEAKER_FIELDSET_CLIENTCOL_LABEL">
+		<field name="col" type="columns"
+			label="COM_SERMONSPEAKER_SERMON" 
+			description="COM_SERMONSPEAKER_FIELD_COL_DESC"
+			cols="num,scripture,speaker,date,length,series,addfile,notes,player,hits" >
+			<option value="sermons" exclude="notes">COM_SERMONSPEAKER_SERMONS_VIEW_DEFAULT_TITLE</option>
+			<option value="sermon">COM_SERMONSPEAKER_SERMON_VIEW_DEFAULT_TITLE</option>
+			<option value="serie" exclude="series,notes">COM_SERMONSPEAKER_SERIE_VIEW_DEFAULT_TITLE</option>
+			<option value="speaker" exclude="speaker,notes">COM_SERMONSPEAKER_SPEAKER_VIEW_DEFAULT_TITLE</option>
+			<option value="archive" exclude="notes">COM_SERMONSPEAKER_ARCHIVE_VIEW_DEFAULT_TITLE</option>
+			<option value="seriessermon" exclude="num,scripture,speaker,length,series,hits">COM_SERMONSPEAKER_SERIESSERMON_VIEW_DEFAULT_TITLE</option>
+		</field>
+		<field name="col_serie" type="columns"
+			label="COM_SERMONSPEAKER_SERIE" 
+			description="COM_SERMONSPEAKER_FIELD_COL_DESC"
+			cols="description,speaker,hits,download" >
+			<option value="series" exclude="description">COM_SERMONSPEAKER_SERIES_VIEW_DEFAULT_TITLE</option>
+			<option value="serie" exclude="speaker,download">COM_SERMONSPEAKER_SERIE_VIEW_DEFAULT_TITLE</option>
+			<option value="speaker" exclude="speaker">COM_SERMONSPEAKER_SPEAKER_VIEW_DEFAULT_TITLE</option>
+			<option value="seriessermon" exclude="speaker,hits,download">COM_SERMONSPEAKER_SERIESSERMON_VIEW_DEFAULT_TITLE</option>
+		</field>
+		<field name="col_speaker" type="columns"
+			label="COM_SERMONSPEAKER_SPEAKER" 
+			description="COM_SERMONSPEAKER_FIELD_COL_DESC"
+			cols="intro,bio,hits" >
+			<option value="speakers" exclude="hits">COM_SERMONSPEAKER_SPEAKERS_VIEW_DEFAULT_TITLE</option>
+			<option value="speaker">COM_SERMONSPEAKER_SPEAKER_VIEW_DEFAULT_TITLE</option>
+		</field>
+	</fieldset>
 	<fieldset name="statistics"
 		label="COM_SERMONSPEAKER_FIELDSET_STATISTICS_LABEL"
 		description="COM_SERMONSPEAKER_FIELDSET_STATISTICS_DESC">
@@ -292,22 +276,6 @@
 			<option value="0">JNO</option>
 			<option value="1">JYES</option>
 		</field>
-		<field name="show_speakerhit_list"
-			type="list"
-			default="0"
-			label="COM_SERMONSPEAKER_PARAM_SHOWHITLIST_LABEL"
-			description="COM_SERMONSPEAKER_PARAM_SHOWHITLIST_DESC">
-			<option value="0">JHIDE</option>
-			<option value="1">JSHOW</option>
-		</field>
-		<field name="show_speakerhit_detail"
-			type="list"
-			default="0"
-			label="COM_SERMONSPEAKER_PARAM_SHOWHITDETAIL_LABEL"
-			description="COM_SERMONSPEAKER_PARAM_SHOWHITDETAIL_DESC">
-			<option value="0">JHIDE</option>
-			<option value="1">JSHOW</option>
-		</field>
 		<field name="track_series" 
 			type="radio" 
 			default="1" 
@@ -316,22 +284,6 @@
 			<option value="0">JNO</option>
 			<option value="1">JYES</option>
 		</field>
-		<field name="show_serieshit_list"
-			type="list"
-			default="0"
-			label="COM_SERMONSPEAKER_PARAM_SHOWHITLIST_LABEL"
-			description="COM_SERMONSPEAKER_PARAM_SHOWHITLIST_DESC">
-			<option value="0">JHIDE</option>
-			<option value="1">JSHOW</option>
-		</field>
-		<field name="show_serieshit_detail"
-			type="list"
-			default="0"
-			label="COM_SERMONSPEAKER_PARAM_SHOWHITDETAIL_LABEL"
-			description="COM_SERMONSPEAKER_PARAM_SHOWHITDETAIL_DESC">
-			<option value="0">JHIDE</option>
-			<option value="1">JSHOW</option>
-		</field>
 		<field name="track_sermon" 
 			type="radio" 
 			default="1" 
@@ -339,22 +291,6 @@
 			description="COM_SERMONSPEAKER_PARAM_TRACKSERMON_DESC">
 			<option value="0">JNO</option>
 			<option value="1">JYES</option>
-		</field>
-		<field name="show_sermonhit_list"
-			type="list"
-			default="0"
-			label="COM_SERMONSPEAKER_PARAM_SHOWHITLIST_LABEL"
-			description="COM_SERMONSPEAKER_PARAM_SHOWHITLIST_DESC">
-			<option value="0">JHIDE</option>
-			<option value="1">JSHOW</option>
-		</field>
-		<field name="show_sermonhit_detail"
-			type="list"
-			default="0"
-			label="COM_SERMONSPEAKER_PARAM_SHOWHITDETAIL_LABEL"
-			description="COM_SERMONSPEAKER_PARAM_SHOWHITDETAIL_DESC">
-			<option value="0">JHIDE</option>
-			<option value="1">JSHOW</option>
 		</field>
 	</fieldset>
 	<fieldset name="frup"

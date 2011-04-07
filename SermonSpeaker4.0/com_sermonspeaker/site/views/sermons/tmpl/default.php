@@ -74,9 +74,9 @@ if (in_array('sermons:player', $this->columns) && count($this->items)) : ?>
 				<?php if (in_array('sermons:scripture', $this->columns)) : ?>
 					<th class="ss-col">
 						<?php if (!$limit) :
-							echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SCRIPTURE', 'sermon_scripture', $listDirn, $listOrder);
+							echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL', 'sermon_scripture', $listDirn, $listOrder);
 						else :
-							echo JText::_('COM_SERMONSPEAKER_SCRIPTURE');
+							echo JText::_('COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL');
 						endif; ?>
 					</th>
 				<?php endif;
@@ -92,18 +92,18 @@ if (in_array('sermons:player', $this->columns) && count($this->items)) : ?>
 				if (in_array('sermons:date', $this->columns)) : ?>
 					<th class="ss-col">
 						<?php if (!$limit) :
-							 echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SERMONDATE', 'sermon_date', $listDirn, $listOrder);
+							 echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_FIELD_DATE_LABEL', 'sermon_date', $listDirn, $listOrder);
 						else :
-							echo JText::_('COM_SERMONSPEAKER_SERMONDATE');
+							echo JText::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL');
 						endif; ?>
 					</th>
 				<?php endif;
 				if (in_array('sermons:length', $this->columns)) : ?>
 					<th class="ss-col">
 						<?php if (!$limit) :
-							 echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SERMONLENGTH', 'sermon_time', $listDirn, $listOrder);
+							 echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_FIELD_LENGTH_LABEL', 'sermon_time', $listDirn, $listOrder);
 						else :
-							echo JText::_('COM_SERMONSPEAKER_SERMONLENGTH');
+							echo JText::_('COM_SERMONSPEAKER_FIELD_LENGTH_LABEL');
 						endif; ?>
 					</th>
 				<?php endif;
@@ -122,6 +122,15 @@ if (in_array('sermons:player', $this->columns) && count($this->items)) : ?>
 							 echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_ADDFILE', 'addfileDesc', $listDirn, $listOrder);
 						else :
 							echo JText::_('COM_SERMONSPEAKER_ADDFILE');
+						endif; ?>
+					</th>
+				<?php endif;
+				if (in_array('sermons:hits', $this->columns)) : ?>
+					<th class="ss-col">
+						<?php if (!$limit) :
+							echo JHTML::_('grid.sort', 'JGLOBAL_HITS', 'hits', $listDirn, $listOrder);
+						else :
+							echo JText::_('JGLOBAL_HITS');
 						endif; ?>
 					</th>
 				<?php endif; ?>
@@ -168,6 +177,11 @@ if (in_array('sermons:player', $this->columns) && count($this->items)) : ?>
 						if (in_array('sermons:addfile', $this->columns)) : ?>
 							<td class="ss_col">
 								<?php echo SermonspeakerHelperSermonspeaker::insertAddfile($item->addfile, $item->addfileDesc); ?>
+							</td>
+						<?php endif;
+						if (in_array('sermons:hits', $this->columns)) : ?>
+							<td class="ss_col">
+								<?php echo $item->hits; ?>
 							</td>
 						<?php endif; ?>
 					</tr>

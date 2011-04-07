@@ -51,19 +51,19 @@ JHTML::_('behavior.modal');
 			</div>
 		<?php endif; ?>
 		<?php if (in_array('sermon:scripture', $this->columns) && $this->item->sermon_scripture) : ?>
-			<div class="ss-field field-bible" title="<?php echo JText::_('COM_SERMONSPEAKER_SCRIPTURE'); ?>">
+			<div class="ss-field field-bible" title="<?php echo JText::_('COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL'); ?>">
 				<?php echo JHTML::_('content.prepare', $this->item->sermon_scripture); ?>
 			</div>
 		<?php endif; ?>
 	</div>
 	<div class="ss-fields-container">
 		<?php if (in_array('sermon:date', $this->columns) && ($this->item->sermon_date != '0000-00-00')) : ?>
-			<div class="ss-field field-calendar" title="<?php echo JText::_('COM_SERMONSPEAKER_SERMONDATE'); ?>">
+			<div class="ss-field field-calendar" title="<?php echo JText::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL'); ?>">
 				<?php echo JHTML::Date($this->item->sermon_date, JText::_('DATE_FORMAT_LC1'), 'UTC'); ?>
 			</div>
 		<?php endif;
 		if (in_array('sermon:length', $this->columns) && ($this->item->sermon_time != '00:00:00')) : ?>
-			<div class="ss-field field-time" title="<?php echo JText::_('COM_SERMONSPEAKER_SERMONLENGTH'); ?>">
+			<div class="ss-field field-time" title="<?php echo JText::_('COM_SERMONSPEAKER_FIELD_LENGTH_LABEL'); ?>">
 				<?php echo SermonspeakerHelperSermonspeaker::insertTime($this->item->sermon_time); ?>
 			</div>
 		<?php endif; ?>

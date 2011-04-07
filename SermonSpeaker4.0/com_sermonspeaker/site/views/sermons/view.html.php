@@ -19,6 +19,12 @@ class SermonspeakerViewSermons extends JView
 		$pagination	= $this->get('Pagination');
 
 		$params = $state->get('params');
+		if ((int)$params->get('limit', '')){
+			$params->set('filter_field', 0);
+			$params->set('show_pagination_limit', 0);
+			$params->set('show_pagination', 0);
+			$params->set('show_pagination_results', 0);
+		}
 		$columns = $params->get('col');
 		if (!$columns){
 			$columns = array();

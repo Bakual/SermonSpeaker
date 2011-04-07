@@ -57,7 +57,7 @@ class JFormFieldColumns extends JFormField
 		$html[] = '<thead><tr>';
 		$html[] = '<th style="height: 25px; background: #F4F4F4; border-bottom: 1px solid silver; vertical-align:middle;">View</th>';
 		foreach ($columns as $column){
-			$html[] = '<th style="height: 25px; background: #F4F4F4; border-bottom: 1px solid silver; vertical-align:middle;" title="'.JText::_('COM_SERMONSPEAKER_FIELD_COL_'.strtoupper($column).'_DESC').'">'.JText::_('COM_SERMONSPEAKER_FIELD_COL_'.strtoupper($column).'_LABEL').'</th>';
+			$html[] = '<th style="height: 25px; background: #F4F4F4; border-bottom: 1px solid silver; vertical-align:middle;">'.JText::_('COM_SERMONSPEAKER_FIELD_'.strtoupper($column).'_LABEL').'</th>';
 		}
 		$html[] = '</tr></thead>';
 		$html[] = '<tbody>';
@@ -136,15 +136,15 @@ class JFormFieldColumns extends JFormField
 	{
 		// define the columns
 		$columns = array(
-			'num' => 'COM_SERMONSPEAKER_FIELD_SERMONNUMBER',
+			'num' => 'COM_SERMONSPEAKER_FIELD_NUM',
 			'scripture' => 'COM_SERMONSPEAKER_FIELD_SCRIPTURE',
-			'speaker' => 'COM_SERMONSPEAKER_FIELD_COL_SPEAKER',
-			'date' => 'COM_SERMONSPEAKER_FIELD_SERMONDATE',
-			'length' => 'COM_SERMONSPEAKER_FIELD_SERMONTIME',
-			'series' => 'COM_SERMONSPEAKER_FIELD_COL_SERIES',
-			'addfile' => 'COM_SERMONSPEAKER_FIELD_COL_ADDFILE',
-			'notes' => 'COM_SERMONSPEAKER_FIELD_SERMONNOTES',
-			'player' => 'COM_SERMONSPEAKER_FIELD_COL_PLAYER',
+			'speaker' => 'COM_SERMONSPEAKER_FIELD_SPEAKER',
+			'date' => 'COM_SERMONSPEAKER_FIELD_DATE',
+			'length' => 'COM_SERMONSPEAKER_FIELD_LENGTH',
+			'series' => 'COM_SERMONSPEAKER_FIELD_SERIES',
+			'addfile' => 'COM_SERMONSPEAKER_FIELD_ADDFILE',
+			'notes' => 'COM_SERMONSPEAKER_FIELD_NOTES',
+			'player' => 'COM_SERMONSPEAKER_FIELD_PLAYER',
 			'hits' => 'COM_SERMONSPEAKER_FIELD_HITS',
 		);
 		reset($columns);

@@ -32,12 +32,15 @@ if (empty($this->items)) : ?>
 					</a>
 				<?php endif; ?>
 			</div>
-			<?php if($this->params->get('speaker_intro') && $item->intro) : ?>
-				<p><?php echo JHTML::_('content.prepare', $item->intro); ?></p>
-			<?php endif; ?>
+			<?php if(in_array('speakers:intro', $this->col_speaker) && $item->intro) :
+				echo JHTML::_('content.prepare', $item->intro);
+			endif;
+			if(in_array('speakers:bio', $this->col_speaker) && $item->bio) :
+				echo JHTML::_('content.prepare', $item->bio);
+			endif; ?>
 			<div class="clear-left"></div>
 			<a title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKERS_SERIESLINK_HOOVER'); ?>" href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug)); ?>">
-				<?php echo JText::_('COM_SERMONSPEAKER_SPEAKERS_SERIESLINK'); ?>
+				<?php echo JText::_('COM_SERMONSPEAKER_SERIES'); ?>
 			</a>
 			 | 
 			<a title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKERS_SERMONSLINK_HOOVER'); ?>" href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug).'&layout=latest-sermons'); ?>">
