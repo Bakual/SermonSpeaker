@@ -37,11 +37,11 @@ class SermonspeakerModelSeries extends JModelList
 		$query->from('`#__sermon_series` AS series');
 
 		// Join over Series Category.
+		$query->join('LEFT', '#__categories AS c_series ON c_series.id = series.catid');
 		if ($categoryId = $this->getState('series_category.id')) {
-			$query->join('LEFT', '#__categories AS c_series ON c_series.id = series.catid');
 			$query->where('series.catid = '.(int) $categoryId);
-			$query->where('c_series.access IN ('.$groups.')');
 		}
+		$query->where('(series.catid = 0 OR (c_series.access IN ('.$groups.') AND c_series.published = 1))');
 
 		// Filter by state
 		$state = $this->getState('filter.state');

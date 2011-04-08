@@ -35,11 +35,11 @@ class SermonspeakerModelSeriessermon extends JModelList
 		$query->from('`#__sermon_series` AS series');
 
 		// Join over Series Category.
+		$query->join('LEFT', '#__categories AS c_series ON c_series.id = series.catid');
 		if ($categoryId = $this->getState('series_category.id')) {
-			$query->join('LEFT', '#__categories AS c_series ON c_series.id = series.catid');
 			$query->where('series.catid = '.(int) $categoryId);
-			$query->where('c_series.access IN ('.$groups.')');
 		}
+		$query->where('(series.catid = 0 OR (c_series.access IN ('.$groups.') AND c_series.published = 1))');
 
 		// Filter by state
 		$state = $this->getState('filter.state');
@@ -48,7 +48,7 @@ class SermonspeakerModelSeriessermon extends JModelList
 		}
 
 		// Add the list ordering clause.
-		$query->order($db->getEscaped($this->getState('list.ordering', 'sermons.ordering')).' '.$db->getEscaped($this->getState('list.direction', 'ASC')));
+		$query->order('series.ordering ASC');
 
 		return $query;
 	}
@@ -73,10 +73,10 @@ class SermonspeakerModelSeriessermon extends JModelList
 		$limitstart = JRequest::getVar('limitstart', 0, '', 'int');
 		$this->setState('list.start', $limitstart);
 
-		$orderCol	= JRequest::getCmd('filter_order', 'ordering');
+		$orderCol	= JRequest::getCmd('filter_order', $params->get('default_order', 'ordering'));
 		$this->setState('list.ordering', $orderCol);
 
-		$listOrder	=  JRequest::getCmd('filter_order_Dir', 'ASC');
+		$listOrder	=  JRequest::getCmd('filter_order_Dir', $params->get('default_order_dir', 'ASC'));
 		$this->setState('list.direction', $listOrder);
 
 		$id = (int)$params->get('series_cat', 0);
@@ -91,15 +91,23 @@ class SermonspeakerModelSeriessermon extends JModelList
 
 	function getSermons($serieid)
 	{
-		$database =& JFactory::getDBO();
+		$user	= JFactory::getUser();
+		$groups	= implode(',', $user->authorisedLevels());
+
+		$db =& JFactory::getDBO();
 		$query	= "SELECT audiofile, videofile, sermon_title, sermon_number, sermon_time, notes, sermon_date, addfile, addfileDesc \n"
-				. ", CASE WHEN CHAR_LENGTH(alias) THEN CONCAT_WS(':', id, alias) ELSE id END as slug \n"
-				. " FROM #__sermon_sermons \n"
+				. ", CASE WHEN CHAR_LENGTH(sermons.alias) THEN CONCAT_WS(':', sermons.id, sermons.alias) ELSE sermons.id END as slug \n"
+				. " FROM #__sermon_sermons as sermons \n"
+				. " LEFT JOIN #__sermon_speakers AS speakers ON speakers.id = sermons.speaker_id \n"
+				. " LEFT JOIN #__categories AS c_speaker ON c_speaker.id = speakers.catid \n"
+				. " LEFT JOIN #__categories AS c_sermons ON c_sermons.id = sermons.catid \n"
 				. " WHERE series_id=".$serieid." \n"
-				. " AND state = '1' \n"
-				. " ORDER BY ordering, (sermon_number+0) DESC, sermon_date DESC";
-		$database->setQuery( $query );
-		$sermons = $database->loadObjectList();
+				. " AND (sermons.catid = 0 OR (c_sermons.access IN (".$groups.") AND c_sermons.published = 1)) \n"
+				. " AND (sermons.speaker_id = 0 OR speakers.catid = 0 OR (c_speaker.access IN (".$groups.") AND c_speaker.published = 1)) \n"
+				. " AND sermons.state = '1' \n"
+				. " ORDER BY sermons.".$db->getEscaped($this->getState('list.ordering', 'ordering')).' '.$db->getEscaped($this->getState('list.direction', 'ASC'));
+		$db->setQuery( $query );
+		$sermons = $db->loadObjectList();
 		return $sermons;
 	}
 

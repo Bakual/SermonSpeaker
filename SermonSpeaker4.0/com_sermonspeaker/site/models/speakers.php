@@ -37,11 +37,11 @@ class SermonspeakerModelspeakers extends JModelList
 		$query->from('`#__sermon_speakers` AS speakers');
 
 		// Join over Speakers Category.
+		$query->join('LEFT', '#__categories AS c_speaker ON c_speaker.id = speakers.catid');
 		if ($categoryId = $this->getState('speakers_category.id')) {
-			$query->join('LEFT', '#__categories AS c_speaker ON c_speaker.id = speakers.catid');
 			$query->where('speakers.catid = '.(int) $categoryId);
-			$query->where('c_speaker.access IN ('.$groups.')');
 		}
+		$query->where('(speakers.catid = 0 OR (c_speaker.access IN ('.$groups.') AND c_speaker.published = 1))');
 
 		// Filter by state
 		$state = $this->getState('filter.state');

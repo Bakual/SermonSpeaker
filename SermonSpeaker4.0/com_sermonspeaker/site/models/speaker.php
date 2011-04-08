@@ -38,7 +38,7 @@ class SermonspeakerModelSpeaker extends JModelList
 
 			// Join over Series
 			$query->select(
-				'series.series_title AS series_title,' .
+				'series.series_title AS series_title, series.state as series_state, ' .
 				'CASE WHEN CHAR_LENGTH(series.alias) THEN CONCAT_WS(\':\', series.id, series.alias) ELSE series.id END as series_slug'
 			);
 			$query->join('LEFT', '#__sermon_series AS series ON series.id = sermons.series_id');
@@ -59,6 +59,20 @@ class SermonspeakerModelSpeaker extends JModelList
 					$query->where('(sermons.sermon_title LIKE '.$search.')');
 				}
 			}
+
+			// Join over Sermons Category.
+			$query->join('LEFT', '#__categories AS c_sermons ON c_sermons.id = sermons.catid');
+			if ($categoryId = $this->getState('sermons_category.id')) {
+				$query->where('sermons.catid = '.(int) $categoryId);
+			}
+			$query->where('(sermons.catid = 0 OR (c_sermons.access IN ('.$groups.') AND c_sermons.published = 1))');
+
+			// Join over Series Category.
+			$query->join('LEFT', '#__categories AS c_series ON c_series.id = series.catid');
+			if ($categoryId = $this->getState('series_category.id')) {
+				$query->where('series.catid = '.(int) $categoryId);
+			}
+			$query->where('(sermons.series_id = 0 OR series.catid = 0 OR (c_series.access IN ('.$groups.') AND c_series.published = 1))');
 
 			// Filter by state
 			$state = $this->getState('filter.state');
@@ -87,6 +101,13 @@ class SermonspeakerModelSpeaker extends JModelList
 			if ($speakerId = $this->getState('speaker.id')) {
 				$query->where('sermons.speaker_id = '.(int) $speakerId);
 			}
+
+			// Join over Series Category.
+			$query->join('LEFT', '#__categories AS c_series ON c_series.id = series.catid');
+			if ($categoryId = $this->getState('series_category.id')) {
+				$query->where('series.catid = '.(int) $categoryId);
+			}
+			$query->where('(series.catid = 0 OR (c_series.access IN ('.$groups.') AND c_series.published = 1))');
 
 			// Filter by state
 			$state = $this->getState('filter.state');
@@ -136,6 +157,14 @@ class SermonspeakerModelSpeaker extends JModelList
 
 			$orderCol	= JRequest::getCmd('filter_order', 'ordering');
 		}
+		$id = (int)$params->get('sermon_cat', 0);
+		if (!$id){ $id = JRequest::getInt('sermon_cat', 0); }
+		$this->setState('sermons_category.id', $id);
+
+		$id = (int)$params->get('series_cat', 0);
+		if (!$id){ $id = JRequest::getInt('series_cat', 0); }
+		$this->setState('series_category.id', $id);
+
 		$this->setState('list.ordering', $orderCol);
 		$this->setState('list.direction', $listOrder);
 

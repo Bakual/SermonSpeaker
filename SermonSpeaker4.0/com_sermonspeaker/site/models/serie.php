@@ -40,7 +40,7 @@ class SermonspeakerModelSerie extends JModelList
 
 		// Join over Speaker
 		$query->select(
-			'speakers.name AS name, speakers.pic AS pic,' .
+			'speakers.name AS name, speakers.pic AS pic, speakers.state as speaker_state, ' .
 			'CASE WHEN CHAR_LENGTH(speakers.alias) THEN CONCAT_WS(\':\', speakers.id, speakers.alias) ELSE speakers.id END as speaker_slug'
 		);
 		$query->join('LEFT', '#__sermon_speakers AS speakers ON speakers.id = sermons.speaker_id');
@@ -70,25 +70,18 @@ class SermonspeakerModelSerie extends JModelList
 		}
 
 		// Join over Sermons Category.
+		$query->join('LEFT', '#__categories AS c_sermons ON c_sermons.id = sermons.catid');
 		if ($categoryId = $this->getState('sermons_category.id')) {
-			$query->join('LEFT', '#__categories AS c_sermons ON c_sermons.id = sermons.catid');
 			$query->where('sermons.catid = '.(int) $categoryId);
-			$query->where('c_sermons.access IN ('.$groups.')');
 		}
+		$query->where('(sermons.catid = 0 OR (c_sermons.access IN ('.$groups.') AND c_sermons.published = 1))');
 
 		// Join over Speakers Category.
+		$query->join('LEFT', '#__categories AS c_speaker ON c_speaker.id = speakers.catid');
 		if ($categoryId = $this->getState('speakers_category.id')) {
-			$query->join('LEFT', '#__categories AS c_speaker ON c_speaker.id = speakers.catid');
 			$query->where('speakers.catid = '.(int) $categoryId);
-			$query->where('c_speaker.access IN ('.$groups.')');
 		}
-
-		// Join over Series Category.
-		if ($categoryId = $this->getState('series_category.id')) {
-			$query->join('LEFT', '#__categories AS c_series ON c_series.id = series.catid');
-			$query->where('series.catid = '.(int) $categoryId);
-			$query->where('c_series.access IN ('.$groups.')');
-		}
+		$query->where('(sermons.speaker_id = 0 OR speakers.catid = 0 OR (c_speaker.access IN ('.$groups.') AND c_speaker.published = 1))');
 
 		// Filter by state
 		$state = $this->getState('filter.state');
@@ -138,10 +131,6 @@ class SermonspeakerModelSerie extends JModelList
 		$id = (int)$params->get('speaker_cat', 0);
 		if (!$id){ $id = JRequest::getInt('speaker_cat', 0); }
 		$this->setState('speakers_category.id', $id);
-
-		$id = (int)$params->get('series_cat', 0);
-		if (!$id){ $id = JRequest::getInt('series_cat', 0); }
-		$this->setState('series_category.id', $id);
 
 		$id = JRequest::getVar('id', 0, '', 'int');
 		$this->setState('serie.id', $id);

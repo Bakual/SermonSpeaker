@@ -40,14 +40,14 @@ class SermonspeakerModelSermons extends JModelList
 
 		// Join over Speaker
 		$query->select(
-			'speakers.name AS name, speakers.pic AS pic,' .
+			'speakers.name AS name, speakers.pic AS pic, speakers.state as speaker_state, ' .
 			'CASE WHEN CHAR_LENGTH(speakers.alias) THEN CONCAT_WS(\':\', speakers.id, speakers.alias) ELSE speakers.id END as speaker_slug'
 		);
 		$query->join('LEFT', '#__sermon_speakers AS speakers ON speakers.id = sermons.speaker_id');
 
 		// Join over Series
 		$query->select(
-			'series.series_title AS series_title,' .
+			'series.series_title AS series_title, series.state as series_state, ' .
 			'CASE WHEN CHAR_LENGTH(series.alias) THEN CONCAT_WS(\':\', series.id, series.alias) ELSE series.id END as series_slug'
 		);
 		$query->join('LEFT', '#__sermon_series AS series ON series.id = sermons.series_id');
@@ -65,25 +65,25 @@ class SermonspeakerModelSermons extends JModelList
 		}
 
 		// Join over Sermons Category.
+		$query->join('LEFT', '#__categories AS c_sermons ON c_sermons.id = sermons.catid');
 		if ($categoryId = $this->getState('sermons_category.id')) {
-			$query->join('LEFT', '#__categories AS c_sermons ON c_sermons.id = sermons.catid');
 			$query->where('sermons.catid = '.(int) $categoryId);
-			$query->where('c_sermons.access IN ('.$groups.')');
 		}
+		$query->where('(sermons.catid = 0 OR (c_sermons.access IN ('.$groups.') AND c_sermons.published = 1))');
 
 		// Join over Speakers Category.
+		$query->join('LEFT', '#__categories AS c_speaker ON c_speaker.id = speakers.catid');
 		if ($categoryId = $this->getState('speakers_category.id')) {
-			$query->join('LEFT', '#__categories AS c_speaker ON c_speaker.id = speakers.catid');
 			$query->where('speakers.catid = '.(int) $categoryId);
-			$query->where('c_speaker.access IN ('.$groups.')');
 		}
+		$query->where('(sermons.speaker_id = 0 OR speakers.catid = 0 OR (c_speaker.access IN ('.$groups.') AND c_speaker.published = 1))');
 
 		// Join over Series Category.
+		$query->join('LEFT', '#__categories AS c_series ON c_series.id = series.catid');
 		if ($categoryId = $this->getState('series_category.id')) {
-			$query->join('LEFT', '#__categories AS c_series ON c_series.id = series.catid');
 			$query->where('series.catid = '.(int) $categoryId);
-			$query->where('c_series.access IN ('.$groups.')');
 		}
+		$query->where('(sermons.series_id = 0 OR series.catid = 0 OR (c_series.access IN ('.$groups.') AND c_series.published = 1))');
 
 		// Filter by state
 		$state = $this->getState('filter.state');

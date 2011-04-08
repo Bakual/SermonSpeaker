@@ -143,7 +143,11 @@ if (in_array('serie:player', $this->columns) && count($this->items)) : ?>
 						<?php endif;
 						if (in_array('serie:speaker', $this->columns)) : ?>
 							<td class="ss_col">
-								<?php echo SermonspeakerHelperSermonSpeaker::SpeakerTooltip($item->speaker_slug, $item->pic, $item->name); ?>
+								<?php if ($item->speaker_state):
+									echo SermonspeakerHelperSermonSpeaker::SpeakerTooltip($item->speaker_slug, $item->pic, $item->name);
+								else:
+									echo $item->name;
+								endif; ?>
 							</td>
 						<?php endif;
 						if (in_array('serie:date', $this->columns)) : ?>

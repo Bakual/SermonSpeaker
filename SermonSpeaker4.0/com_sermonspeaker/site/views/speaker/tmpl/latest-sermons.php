@@ -152,9 +152,13 @@ $listDirn	= $this->state->get('list.direction');
 						<?php endif;
 						if (in_array('speaker:series', $this->columns)) : ?>
 							<td class="ss_col">
-								<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->series_slug)); ?>">
-									<?php echo $item->series_title; ?>
-								</a>
+								<?php if ($item->series_state): ?>
+									<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->series_slug)); ?>">
+										<?php echo $item->series_title; ?>
+									</a>
+								<?php else:
+									echo $item->series_title;
+								endif; ?>
 							</td>
 						<?php endif;
 						if (in_array('speaker:addfile', $this->columns)) : ?>

@@ -118,7 +118,11 @@ if ($this->cat): ?>
 						<?php endif;
 						if (in_array('archive:speaker', $this->columns)) : ?>
 							<td class="ss_col">
-								<?php echo SermonspeakerHelperSermonSpeaker::SpeakerTooltip($item->speaker_slug, $item->pic, $item->name); ?>
+								<?php if ($item->speaker_state):
+									echo SermonspeakerHelperSermonSpeaker::SpeakerTooltip($item->speaker_slug, $item->pic, $item->name);
+								else:
+									echo $item->name;
+								endif; ?>
 							</td>
 						<?php endif;
 						if (in_array('archive:date', $this->columns)) : ?>
@@ -133,9 +137,13 @@ if ($this->cat): ?>
 						<?php endif;
 						if (in_array('archive:series', $this->columns)) : ?>
 							<td class="ss_col">
-								<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->series_slug)); ?>">
-									<?php echo $item->series_title; ?>
-								</a>
+								<?php if ($item->series_state): ?>
+									<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->series_slug)); ?>">
+										<?php echo $item->series_title; ?>
+									</a>
+								<?php else:
+									echo $item->series_title;
+								endif; ?>
 							</td>
 						<?php endif;
 						if (in_array('archive:addfile', $this->columns)) : ?>

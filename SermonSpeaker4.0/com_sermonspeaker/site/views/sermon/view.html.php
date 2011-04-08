@@ -107,9 +107,10 @@ class SermonspeakerViewSermon extends JView
 	{
 		$app	= JFactory::getApplication();
 
+		// Call Playerhelper anyway, since we assume we either have a download button, popup button or player in any case.
+		$this->player = SermonspeakerHelperSermonspeaker::insertPlayer($this->item, $this->speaker->name);
 		// Add javascript for player if needed
 		if (in_array('sermon:player', $this->columns) || JRequest::getCmd('layout', '') == 'popup'){
-			$this->player = SermonspeakerHelperSermonspeaker::insertPlayer($this->item, $this->speaker->name);
 			if ($this->player['player'] == 'PixelOut'){
 				JHTML::Script('media/com_sermonspeaker/player/audio_player/audio-player.js');
 				$this->document->addScriptDeclaration('
