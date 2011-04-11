@@ -47,7 +47,11 @@ JHTML::_('behavior.modal');
 	<div class="ss-fields-container">
 		<?php if (in_array('sermon:speaker', $this->columns) && $this->item->speaker_id): ?>
 			<div class="ss-field field-speaker" title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKER'); ?>">
-				<?php echo SermonspeakerHelperSermonSpeaker::SpeakerTooltip($this->speaker->slug, $this->speaker->pic, $this->speaker->name); ?>
+				<?php if ($this->item->speaker_state):
+					echo SermonspeakerHelperSermonSpeaker::SpeakerTooltip($this->item->speaker_slug, $this->item->speaker_pic, $this->item->speaker_name); 
+				else: 
+					echo $this->item->speaker_name;
+				endif; ?>
 			</div>
 		<?php endif; ?>
 		<?php if (in_array('sermon:scripture', $this->columns) && $this->item->sermon_scripture) : ?>
@@ -71,8 +75,8 @@ JHTML::_('behavior.modal');
 	<div class="ss-fields-container">
 		<?php if (in_array('sermon:series', $this->columns) && $this->item->series_id) : ?>
 			<div class="ss-field field-series" title="<?php echo JText::_('COM_SERMONSPEAKER_SERIE_TITLE'); ?>">
-				<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($this->serie->slug)); ?>">
-					<?php echo $this->escape($this->serie->series_title); ?>
+				<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($this->item->series_slug)); ?>">
+					<?php echo $this->escape($this->item->series_title); ?>
 				</a>
 			</div>
 		<?php endif;

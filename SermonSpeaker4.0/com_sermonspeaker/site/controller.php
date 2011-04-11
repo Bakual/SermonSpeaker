@@ -29,63 +29,6 @@ class SermonspeakerController extends JController
 		return parent::display($cachable,$safeurlparams);
 	}
 
-	function updateStat ($type, $id) {
-		JTable::addIncludePath(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_sermonspeaker'.DS.'tables');
-		$table =& JTable::getInstance($type, 'Table');
-		$table->hit($id);
-	}
-	
-	function download_serie(){
-		$id = JRequest::getInt('id');
-		if ($id == ''){
-			die("<html><body OnLoad=\"javascript: alert('I have no clue what you want to download...');history.back();\" bgcolor=\"#F0F0F0\"></body></html>");
-		}
-		$db =& JFactory::getDBO();
-		$query = "SELECT audiofile, videofile FROM #__sermon_sermons WHERE series_id = ".$id;
-		$db->setQuery($query);
-		$rows = $db->loadAssocList();
-		jimport('joomla.filesystem.file');
-		$files = array();
-		foreach ($rows as $row){
-			if ($row['audiofile'] && (substr($row['audiofile'], 0, 7) != 'http://') && JFile::exists(JPATH_BASE.DS.$row['audiofile'])){
-				$file['path'] = JPATH_BASE.DS.$row['audiofile'];
-				$slash = strrpos($row['audiofile'], '/');
-				if ($slash !== false) {
-					$file['name'] = substr($row['audiofile'], $slash + 1);
-				} else {
-					$file['name'] = $row['audiofile'];
-				}
-				$files[] = $file;
-			}
-			if ($row['videofile'] && (substr($row['videofile'], 0, 7) != 'http://') && JFile::exists(JPATH_BASE.DS.$row['videofile'])){
-				$file['path'] = JPATH_BASE.DS.$row['videofile'];
-				$slash = strrpos($row['videofile'], '/');
-				if ($slash !== false) {
-					$file['name'] = substr($row['videofile'], $slash + 1);
-				} else {
-					$file['name'] = $row['videofile'];
-				}
-				$files[] = $file;
-			}
-		}
-		if (count($files)){
-			$query = "SELECT series_title FROM #__sermon_series WHERE id = ".$id;
-			$db->setQuery($query);
-			$name = JFile::makeSafe($db->loadResult().'.zip');
-			$filename = JPATH_BASE.DS.'images'.DS.$name;
-			$zip = new ZipArchive();
-			if ($zip->open($filename, ZIPARCHIVE::OVERWRITE)!==TRUE) {
-				exit("cannot open <$filename>\n");
-			}
-			foreach ($files as $file){
-				$zip->addFile($file['path'], $file['name']);
-			}
-			$zip->close();
-			$app = JFactory::getApplication();
-			$app->redirect(JURI::root().'/images/'.$name);
-		}
-	}
-
 	function download () {
 		$id = JRequest::getInt('id');
 		if ($id == ''){

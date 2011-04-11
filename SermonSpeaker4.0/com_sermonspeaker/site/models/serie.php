@@ -144,13 +144,16 @@ class SermonspeakerModelSerie extends JModelList
 	function getSerie()
 	{
 		$database =& JFactory::getDBO();
-		$query 	= "SELECT *, CASE WHEN CHAR_LENGTH(alias) THEN CONCAT_WS(':', id, alias) ELSE id END as slug \n"
-				. "FROM #__sermon_series \n"
-				. "WHERE id='".$this->getState('serie.id')."'";
+		$query 	= "SELECT series.*, c.access AS category_access, \n"
+				. "CASE WHEN CHAR_LENGTH(series.alias) THEN CONCAT_WS(':', series.id, series.alias) ELSE series.id END as slug \n"
+				. "FROM #__sermon_series as series \n"
+				. "LEFT JOIN #__categories AS c ON c.id = series.catid \n"
+				. "WHERE series.id='".$this->getState('serie.id')."' \n"
+				. "AND series.state = 1 \n"
+				. "AND (series.catid = 0 OR c.published = 1)";
 		$database->setQuery($query);
 		$row = $database->loadObject();
-
-       return $row;
+		return $row;
 	}
 
 	/**

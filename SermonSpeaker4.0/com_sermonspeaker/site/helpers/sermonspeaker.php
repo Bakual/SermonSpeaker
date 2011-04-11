@@ -7,18 +7,14 @@ defined('_JEXEC') or die('Restricted access');
 class SermonspeakerHelperSermonspeaker
 {
 	function SpeakerTooltip($id, $pic, $name) {
-		if ($id){
-			if (!$pic) { 
-				// check if there is no picture and set nopict.jpg
-				$pic = JURI::root().'media/com_sermonspeaker/images/nopict.jpg';
-			} else {
-				$pic = SermonspeakerHelperSermonspeaker::makelink($pic);
-			}
-			$html = '<a class="modal" href="'.JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($id).'&layout=popup&tmpl=component').'" rel="{handler: \'iframe\', size: {x: 700, y: 500}}">';
-			$html .= JHTML::tooltip('<img src="'.$pic.'" alt="'.$name.'">',$name,'',$name).'</a>';
+		if (!$pic) { 
+			// check if there is no picture and set nopict.jpg
+			$pic = JURI::root().'media/com_sermonspeaker/images/nopict.jpg';
 		} else {
-			$html = JText::_('COM_SERMONSPEAKER_NO_SPEAKER');
+			$pic = SermonspeakerHelperSermonspeaker::makelink($pic);
 		}
+		$html = '<a class="modal" href="'.JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($id).'&layout=popup&tmpl=component').'" rel="{handler: \'iframe\', size: {x: 700, y: 500}}">';
+		$html .= JHTML::tooltip('<img src="'.$pic.'" alt="'.$name.'">',$name,'',$name).'</a>';
 
 		return $html;
 	}

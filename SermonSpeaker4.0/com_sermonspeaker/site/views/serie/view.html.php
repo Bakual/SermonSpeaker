@@ -1,6 +1,5 @@
 <?php
 defined('_JEXEC') or die('Restricted access');
-
 jimport( 'joomla.application.component.view');
 
 /**
@@ -10,17 +9,17 @@ class SermonspeakerViewSerie extends JView
 {
 	function display($tpl = null)
 	{
+		$app		= JFactory::getApplication();
 		if (!JRequest::getInt('id', 0)){
-			JError::raiseWarning(404, JText::_('JGLOBAL_RESOURCE_NOT_FOUND'));
-			return;
+			$app->redirect(JRoute::_('index.php?view=series'), JText::_('JGLOBAL_RESOURCE_NOT_FOUND'), 'error');
 		}
 
 		// Applying CSS file
 		JHTML::stylesheet('sermonspeaker.css', 'media/com_sermonspeaker/css/');
 
 		// Initialise variables.
-		$app		= JFactory::getApplication();
 		$params		= $app->getParams();
+		$user		= JFactory::getUser();
 
 		$columns = $params->get('col');
 		if (!$columns){
@@ -33,8 +32,21 @@ class SermonspeakerViewSerie extends JView
 
 		// Get some data from the models
 		$state		= $this->get('State');
-		$items		= $this->get('Items');
 		$serie		= $this->get('Serie');
+		if(!$serie){
+			$app->redirect(JRoute::_('index.php?view=series'), JText::_('JGLOBAL_RESOURCE_NOT_FOUND'), 'error');
+		}
+
+		// check if access is not public
+		if ($serie->category_access){
+			$groups	= $user->getAuthorisedViewLevels();
+			if (!in_array($serie->category_access, $groups)) {
+				$app->redirect(JRoute::_('index.php?view=series'), JText::_('JERROR_ALERTNOAUTHOR'), 'error');
+			}
+		}
+
+		// Get more data from the models
+		$items		= $this->get('Items');
 		$pagination	= $this->get('Pagination');
 
 		// Get the category name(s)
@@ -46,13 +58,12 @@ class SermonspeakerViewSerie extends JView
 
 		// Update Statistic
 		if ($params->get('track_series')) {
-			$user	= JFactory::getUser();
 			if (!$user->authorise('com_sermonspeaker.hit', 'com_sermonspeaker')){
 				$model 	= $this->getModel();
 				$model->hit();
 			}
 		}
-		
+
 		// Check for errors.
 		if (count($errors = $this->get('Errors'))) {
 			JError::raiseError(500, implode("\n", $errors));

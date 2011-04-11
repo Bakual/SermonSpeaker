@@ -179,11 +179,14 @@ class SermonspeakerModelSpeaker extends JModelList
 	
 	function getSpeaker()
 	{
-		$speakerID = $this->getState('speaker.id');
 		$database =& JFactory::getDBO();
-		$query = "SELECT *, "
-				."CASE WHEN CHAR_LENGTH(alias) THEN CONCAT_WS(':', id, alias) ELSE id END as slug "
-				."FROM #__sermon_speakers WHERE id='".$speakerID."'";
+		$query 	= "SELECT speaker.*, c.access AS category_access, \n"
+				. "CASE WHEN CHAR_LENGTH(speaker.alias) THEN CONCAT_WS(':', speaker.id, speaker.alias) ELSE speaker.id END as slug \n"
+				. "FROM #__sermon_speakers as speaker \n"
+				. "LEFT JOIN #__categories AS c ON c.id = speaker.catid \n"
+				. "WHERE speaker.id='".$this->getState('speaker.id')."' \n"
+				. "AND speaker.state = 1 \n"
+				. "AND (speaker.catid = 0 OR c.published = 1)";
 		$database->setQuery($query);
 		$row = $database->loadObject();
 

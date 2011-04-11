@@ -6,7 +6,6 @@
 
 // No direct access
 defined('_JEXEC') or die;
-
 jimport('joomla.application.component.view');
 	
 /**
@@ -32,6 +31,13 @@ class SermonspeakerViewSermon extends JView
 		// Initialise variables.
 		$app		= JFactory::getApplication();
 		$params		= $app->getParams();
+		$user		= JFactory::getUser();
+		$groups		= $user->getAuthorisedViewLevels();
+
+		// check if access is not public
+		if (!in_array($params->get('access'), $groups)) {
+			$app->redirect(JRoute::_('index.php?view=sermons'), JText::_('JERROR_ALERTNOAUTHOR'), 'error');
+		}
 
 		$columns = $params->get('col');
 		if (!$columns){
@@ -41,32 +47,25 @@ class SermonspeakerViewSermon extends JView
 		// Get model data (/models/sermon.php) 
 		$state 	= $this->get('State');
 		$item 	= $this->get('Item');
-
-		// check if access is not public
-		$user = JFactory::getUser();
-		$groups	= $user->getAuthorisedViewLevels();
-		
-		// Set ROOT category to public
-		if ($item->category_access === NULL){
-			$item->category_access = 1;
+		if(!$item){
+			$app->redirect(JRoute::_('index.php?view=sermons'), JText::_('JGLOBAL_RESOURCE_NOT_FOUND'), 'error');
 		}
 
-		if ((!in_array($params->get('access'), $groups)) || (!in_array($item->category_access, $groups))) {
-			JError::raiseWarning(403, JText::_('JERROR_ALERTNOAUTHOR'));
-			return;
+		// Check for category ACL
+		if ($item->category_access){
+			if (!in_array($item->category_access, $groups)) {
+				$app->redirect(JRoute::_('index.php?view=sermons'), JText::_('JERROR_ALERTNOAUTHOR'), 'error');
+			}
 		}
-
-		$model = &$this->getModel();
-		if ($item->speaker_id) {
-			$speaker = &$model->getSpeaker($item->speaker_id);	// getting the Speaker from the Model
-		} else {
-			$speaker->name = '';
-			$speaker->id = 0;
-			$speaker->pic = '';
+		if ($item->speaker_category_access){
+			if (!in_array($item->speaker_category_access, $groups)) {
+				$app->redirect(JRoute::_('index.php?view=sermons'), JText::_('JERROR_ALERTNOAUTHOR'), 'error');
+			}
 		}
-		if ($item->series_id) {
-			$serie	= &$model->getSerie($item->series_id);		// getting the Serie from the Model
-			$this->assignRef('serie', $serie);
+		if ($item->series_category_access){
+			if (!in_array($item->series_category_access, $groups)) {
+				$app->redirect(JRoute::_('index.php?view=sermons'), JText::_('JERROR_ALERTNOAUTHOR'), 'error');
+			}
 		}
 
 		// Check for errors.
@@ -93,7 +92,6 @@ class SermonspeakerViewSermon extends JView
 		$this->assignRef('item', 		$item);
 		$this->assignRef('user', 		$user);
 		$this->assignRef('columns', 	$columns);
-		$this->assignRef('speaker',		$speaker);
 
 		$this->_prepareDocument();
 
@@ -108,7 +106,7 @@ class SermonspeakerViewSermon extends JView
 		$app	= JFactory::getApplication();
 
 		// Call Playerhelper anyway, since we assume we either have a download button, popup button or player in any case.
-		$this->player = SermonspeakerHelperSermonspeaker::insertPlayer($this->item, $this->speaker->name);
+		$this->player = SermonspeakerHelperSermonspeaker::insertPlayer($this->item, $this->item->speaker_name);
 		// Add javascript for player if needed
 		if (in_array('sermon:player', $this->columns) || JRequest::getCmd('layout', '') == 'popup'){
 			if ($this->player['player'] == 'PixelOut'){
@@ -149,9 +147,9 @@ class SermonspeakerViewSermon extends JView
 		// add Breadcrumbs
 		$pathway = $app->getPathway();
 		if ($menu && ($menu->query['view'] == 'series')) {
-	    	$pathway->addItem($this->serie->series_title, JRoute::_(SermonspeakerHelperRoute::getSerieRoute($this->serie->slug)));
+	    	$pathway->addItem($this->item->series_title, JRoute::_(SermonspeakerHelperRoute::getSerieRoute($this->item->series_slug)));
 		} elseif ($menu && ($menu->query['view'] == 'speakers')) {
-	    	$pathway->addItem($this->speaker->name, JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($this->speaker->slug)));
+	    	$pathway->addItem($this->item->speaker_name, JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($this->item->speaker_slug)));
 		}
     	$pathway->addItem($this->item->sermon_title, '');
 
@@ -170,7 +168,7 @@ class SermonspeakerViewSermon extends JView
 			$this->document->setMetaData('title', $this->item->sermon_title);
 		}
 		if ($app->getCfg('MetaAuthor')){
-			$this->document->setMetaData('author', $this->speaker->name);
+			$this->document->setMetaData('author', $this->item->speaker_name);
 		}
 	}
 }

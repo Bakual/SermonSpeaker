@@ -6,7 +6,6 @@
 
 // No direct access
 defined('_JEXEC') or die;
-
 jimport('joomla.application.component.modelitem');
 
 /**
@@ -81,12 +80,32 @@ class SermonspeakerModelSermon extends JModelItem
 				$query->from('#__sermon_sermons AS sermon');
 
 				// Join on category table.
-				$query->select('c.title AS category_title, c.alias AS category_alias, c.access AS category_access');
+				$query->select('c.access AS category_access');
 				$query->join('LEFT', '#__categories AS c on c.id = sermon.catid');
 
-				// Join over the categories to get parent category titles
-				$query->select('parent.title as parent_title, parent.id as parent_id, parent.path as parent_route, parent.alias as parent_alias');
-				$query->join('LEFT', '#__categories as parent ON parent.id = c.parent_id');
+				// Join on speakers table.
+				$query->select(
+						'speakers.name AS speaker_name, speakers.pic AS speaker_pic, speakers.state as speaker_state, '.
+						"CASE WHEN CHAR_LENGTH(speakers.alias) THEN CONCAT_WS(':', speakers.id, speakers.alias) ELSE speakers.id END as speaker_slug "
+				);
+				$query->join('LEFT', '#__sermon_speakers AS speakers on speakers.id = sermon.speaker_id');
+
+				// Join on category table for speaker
+				$query->select('c_speaker.access AS speaker_category_access');
+				$query->join('LEFT', '#__categories AS c_speaker on c_speaker.id = speakers.catid');
+				$query->where('(sermon.speaker_id = 0 OR speakers.catid = 0 OR c_speaker.published = 1)');
+
+				// Join on series table.
+				$query->select(
+						'series.series_title, series.state as series_state, '.
+						"CASE WHEN CHAR_LENGTH(series.alias) THEN CONCAT_WS(':', series.id, series.alias) ELSE series.id END as series_slug "
+				);
+				$query->join('LEFT', '#__sermon_series AS series on series.id = sermon.series_id');
+
+				// Join on category table for series
+				$query->select('c_series.access AS series_category_access');
+				$query->join('LEFT', '#__categories AS c_series on c_series.id = series.catid');
+				$query->where('(sermon.series_id = 0 OR series.catid = 0 OR c_series.published = 1)');
 
 				$query->where('sermon.id = '.(int)$id);
 				$query->where('sermon.state = 1');
@@ -113,32 +132,6 @@ class SermonspeakerModelSermon extends JModelItem
 		}
 
 		return $this->_item[$id];
-	}
-
-	function getSerie($serie_id)
-	{
-		$database = &JFactory::getDBO();
-		$query	= "SELECT id, series_title, \n"
-				. "CASE WHEN CHAR_LENGTH(alias) THEN CONCAT_WS(':', id, alias) ELSE id END as slug \n"
-				. "FROM #__sermon_series \n"
-				. "WHERE id=".$serie_id;
-		$database->setQuery($query);
-		$series = $database->loadObject();
-		
-       return $series;
-	}
-	
-	function getSpeaker($speaker_id)
-	{
-		$database = &JFactory::getDBO();
-      	$query	= "SELECT id, name, pic, \n"
-				. "CASE WHEN CHAR_LENGTH(alias) THEN CONCAT_WS(':', id, alias) ELSE id END as slug \n"
-				. "FROM #__sermon_speakers \n"
-				. "WHERE id=".$speaker_id;
-		$database->setQuery($query);
-      	$speaker = $database->loadObject();
-		
-       return $speaker;
 	}
 
 	/**

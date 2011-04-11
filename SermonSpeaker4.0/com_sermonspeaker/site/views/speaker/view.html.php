@@ -1,6 +1,5 @@
 <?php
 defined('_JEXEC') or die('Restricted access');
-
 jimport( 'joomla.application.component.view');
 
 /**
@@ -10,16 +9,16 @@ class SermonspeakerViewspeaker extends JView
 {
 	function display($tpl = null)
 	{
+		$app		= JFactory::getApplication();
 		if (!JRequest::getInt('id', 0)){
-			JError::raiseWarning(404, JText::_('JGLOBAL_RESOURCE_NOT_FOUND'));
-			return;
+			$app->redirect(JRoute::_('index.php?view=speakers'), JText::_('JGLOBAL_RESOURCE_NOT_FOUND'), 'error');
 		}
 
 		// Applying CSS file
 		JHTML::stylesheet('sermonspeaker.css', 'media/com_sermonspeaker/css/');
 
-		$app		= JFactory::getApplication();
 		$params		= $app->getParams();
+		$user		= JFactory::getUser();
 		
 		$columns = $params->get('col');
 		if (!$columns){
@@ -39,8 +38,21 @@ class SermonspeakerViewspeaker extends JView
 
 		// Get some data from the models
 		$state		= $this->get('State');
-		$items		= $this->get('Items');
 		$speaker	= $this->get('Speaker');
+		if(!$speaker){
+			$app->redirect(JRoute::_('index.php?view=speakers'), JText::_('JGLOBAL_RESOURCE_NOT_FOUND'), 'error');
+		}
+
+		// check if access is not public
+		if ($speaker->category_access){
+			$groups	= $user->getAuthorisedViewLevels();
+			if (!in_array($speaker->category_access, $groups)) {
+				$app->redirect(JRoute::_('index.php?view=speakers'), JText::_('JERROR_ALERTNOAUTHOR'), 'error');
+			}
+		}
+
+		// Get more data from the models
+		$items		= $this->get('Items');
 		$pagination	= $this->get('Pagination');
 
 		if ($this->getLayout() == 'series') {
