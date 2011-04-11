@@ -3,17 +3,27 @@
 	<layout title="COM_SERMONSPEAKER_SPEAKER_VIEW_LATEST-SERMONS_TITLE">
 		<message><![CDATA[COM_SERMONSPEAKER_SPEAKER_VIEW_LATEST-SERMONS_DESC]]></message>
 	</layout>
-
 	<!-- Add fields to the request variables for the layout. -->
 	<fields name="request">
 		<fieldset name="request">
-
 			<field name="id" type="sql" 
 				label="COM_SERMONSPEAKER_PARAM_SELECT_SPEAKER" 
 				description="COM_SERMONSPEAKER_PARAM_SELECT_SPEAKER_DESC" 
 				query="SELECT id, name FROM #__sermon_speakers" 
 				key_field="id" 
 				value_field="name" 
+			/>
+			<field name="series_cat" type="category" 
+				label="COM_SERMONSPEAKER_PARAM_CATEGORY_SERIES_LABEL" 
+				description="COM_SERMONSPEAKER_PARAM_CATEGORY_DESC" 
+				extension="com_sermonspeaker" 
+				show_root="true"
+			/>
+			<field name="sermon_cat" type="category" 
+				label="COM_SERMONSPEAKER_PARAM_CATEGORY_SERMON_LABEL" 
+				description="COM_SERMONSPEAKER_PARAM_CATEGORY_DESC" 
+				extension="com_sermonspeaker" 
+				show_root="true"
 			/>
 		</fieldset>
 	</fields>
