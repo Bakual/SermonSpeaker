@@ -75,14 +75,17 @@ JHTML::_('behavior.modal');
 	<div class="ss-fields-container">
 		<?php if (in_array('sermon:series', $this->columns) && $this->item->series_id) : ?>
 			<div class="ss-field field-series" title="<?php echo JText::_('COM_SERMONSPEAKER_SERIE_TITLE'); ?>">
-				<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($this->item->series_slug)); ?>">
-					<?php echo $this->escape($this->item->series_title); ?>
-				</a>
+				<?php if ($this->item->series_state) : ?>
+					<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($this->item->series_slug)); ?>">
+				<?php echo $this->escape($this->item->series_title); ?></a>
+				<?php else :
+					echo $this->escape($this->item->series_title);
+				endif; ?>
 			</div>
 		<?php endif;
 		if (in_array('sermon:addfile', $this->columns) && $this->item->addfile) : ?>
 			<div class="ss-field field-addfile" title="<?php echo JText::_('COM_SERMONSPEAKER_ADDFILE'); ?>">
-				<?php echo SermonspeakerHelperSermonspeaker::insertAddfile($this->item->addfile, $this->item->addfileDesc); ?>
+				<?php echo SermonspeakerHelperSermonspeaker::insertAddfile($this->item->addfile, $this->item->addfileDesc, 1); ?>
 			</div>
 		<?php endif; ?>
 	</div>

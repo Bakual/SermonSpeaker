@@ -27,8 +27,13 @@ JHTML::_('behavior.modal');
 	<?php endif;
 	if (in_array('sermon:series', $this->columns) && $this->item->series_id) : ?>
 		<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_SERIE_TITLE'); ?>:</div>
-		<div class="ss-sermondetail-text"><a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($this->item->series_slug)); ?>">
+		<div class="ss-sermondetail-text">
+			<?php if ($this->item->series_state) : ?>
+				<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($this->item->series_slug)); ?>">
 			<?php echo $this->escape($this->item->series_title); ?></a>
+			<?php else :
+				echo $this->escape($this->item->series_title);
+			endif; ?>
 		</div>
 	<?php endif;
 	if (in_array('sermon:speaker', $this->columns) && $this->item->speaker_id) : ?>
@@ -78,7 +83,7 @@ JHTML::_('behavior.modal');
 	if (in_array('sermon:addfile', $this->columns) && $this->item->addfile) : ?>
 		<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_ADDFILE'); ?>:</div>
 		<div class="ss-sermondetail-text">
-			<?php echo SermonspeakerHelperSermonspeaker::insertAddfile($this->item->addfile, $this->item->addfileDesc); ?>
+			<?php echo SermonspeakerHelperSermonspeaker::insertAddfile($this->item->addfile, $this->item->addfileDesc, 1); ?>
 		</div>
 	<?php endif; ?>
 </div>

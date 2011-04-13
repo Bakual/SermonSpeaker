@@ -68,6 +68,10 @@ div.popup{
 .clear-left{
 	clear:left;
 }
+.ss-sermon-container .article-info .hasTip{
+	padding:0;
+	margin:0;
+}
 
 hr.ss-serie-player, hr.ss-sermons-player, hr.ss-archive-player, hr.ss-speaker-player{
 	margin: auto;
