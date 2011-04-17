@@ -58,7 +58,7 @@ class SermonspeakerControllerFile extends JController
 		// Make the filename safe
 		$file['name']	= JFile::makeSafe($file['name']);
 
-		if (isset($file['name'])) {
+		if ($file['name']) {
 			// The request is valid
 			$err = null;
 			$filepath = JPath::clean($folder.strtolower($file['name']));
