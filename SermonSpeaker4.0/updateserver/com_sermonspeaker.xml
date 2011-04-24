@@ -17,5 +17,6 @@
 		</tags>
 		<section>SermonSpeaker</section>
 		<targetplatform name="joomla" version="1.6" />
+		<client_id>1</client_id>
 	</update>
 </updates>
