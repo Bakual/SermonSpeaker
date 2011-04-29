@@ -111,19 +111,21 @@ $self = $uri->toString();
 			</ul>
 		</fieldset>
 
-		<?php echo JHtml::_('sliders.panel',JText::_('COM_SERMONSPEAKER_FIELDSET_CUSTOM_LABEL'), 'custom-panel'); ?>
-		<fieldset class="panelform">
-			<ul class="adminformlist">
-			<?php foreach($this->form->getFieldset('custom') as $field): ?>
-				<li>
-					<?php if (!$field->hidden): ?>
-						<?php echo $field->label; ?>
-					<?php endif; ?>
-					<?php echo $field->input; ?>
-				</li>
-			<?php endforeach; ?>
-			</ul>
-		</fieldset>
+		<?php if ($this->params->get('custom1') OR $this->params->get('custom2')):
+			echo JHtml::_('sliders.panel',JText::_('COM_SERMONSPEAKER_FIELDSET_CUSTOM_LABEL'), 'custom-panel'); ?>
+			<fieldset class="panelform">
+				<ul class="adminformlist">
+				<?php foreach($this->form->getFieldset('custom') as $field): ?>
+					<li>
+						<?php if (!$field->hidden): ?>
+							<?php echo $field->label; ?>
+						<?php endif; ?>
+						<?php echo $field->input; ?>
+					</li>
+				<?php endforeach; ?>
+				</ul>
+			</fieldset>
+		<?php endif; ?>
 
 		<?php echo JHtml::_('sliders.panel',JText::_('JGLOBAL_FIELDSET_METADATA_OPTIONS'), 'meta-panel'); ?>
 		<fieldset class="panelform">
