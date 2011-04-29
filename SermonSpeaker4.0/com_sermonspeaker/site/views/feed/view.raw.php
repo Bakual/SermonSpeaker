@@ -170,6 +170,10 @@ class SermonspeakerViewFeed extends JView
 					break;
 			}
 
+			// Add sermonlink to the description
+			if($params->get('include_link')) {
+				$item->description = '&lt;a href=&quot;'.$item->enclosure['url'].'&quot;&gt;'.JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON').'&lt;/a&gt;&lt;br&gt;'.$item->description;
+			}
 			// loads item info into items array
 			$items[] = $item;
 		}
