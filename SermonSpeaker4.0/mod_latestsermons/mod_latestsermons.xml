@@ -34,29 +34,29 @@
 					default="1" 
 					label="MOD_LATESTSERMONS_PARAM_SHOW_MOUSEOVER" 
 					description="MOD_LATESTSERMONS_PARAM_SHOW_MOUSEOVER_DESC">
-					<option value="0">No</option>
-					<option value="1">Yes</option>
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
 				<field name="ls_show_mo_speaker" type="radio" 
 					default="1" 
 					label="MOD_LATESTSERMONS_PARAM_SHOW_MO_SPEAKER" 
 					description="MOD_LATESTSERMONS_PARAM_SHOW_MO_SPEAKER_DESC">
-					<option value="0">No</option>
-					<option value="1">Yes</option>
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
 				<field name="ls_show_mo_series" type="radio" 
 					default="1" 
 					label="MOD_LATESTSERMONS_PARAM_SHOW_MO_SERIES" 
 					description="MOD_LATESTSERMONS_PARAM_SHOW_MO_SERIES_DESC">
-					<option value="0">No</option>
-					<option value="1">Yes</option>
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
 				<field name="ls_show_mo_date" type="radio" 
 					default="1" 
 					label="MOD_LATESTSERMONS_PARAM_SHOW_MO_DATE" 
 					description="MOD_LATESTSERMONS_PARAM_SHOW_MO_DATE_DESC">
-					<option value="0">No</option>
-					<option value="1">Yes</option>
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
 				<field name="ls_mo_date_format" type="dateformat" 
 					default="DATE_FORMAT_LC4" 
@@ -67,8 +67,8 @@
 					default="0" 
 					label="MOD_LATESTSERMONS_PARAM_SHOW_MO_LINK" 
 					description="MOD_LATESTSERMONS_PARAM_SHOW_MO_LINK_DESC">
-					<option value="0">No</option>
-					<option value="1">Yes</option>
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
 				<field name="ls_mo_menuitem" type="menuitem" 
 					default=""
