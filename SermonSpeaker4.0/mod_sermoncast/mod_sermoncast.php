@@ -27,9 +27,10 @@ if ($menuitem){
 $feedFile = JURI::root().'index.php?option=com_sermonspeaker&amp;view=feed&amp;format=raw'.$options;
 ?>
 
-<div class="syndicate<?php echo $params->get('$moduleclass_sfx'); ?>">
-<p><?php echo $params->get('sc_introtext'); ?></p>
-<?php
+<div class="syndicate-module<?php echo $params->get('$moduleclass_sfx'); ?>">
+<?php if ($params->get('sc_introtext')): ?>
+	<p><?php echo $params->get('sc_introtext'); ?></p>
+<?php endif;
 if($params->get('sc_showpcast')) {
 	if($params->get('sc_otherlink')) {
 		$link = $params->get('sc_otherlink');
