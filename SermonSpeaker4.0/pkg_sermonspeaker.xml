@@ -2,7 +2,7 @@
 <extension type="package" version="1.6" method="upgrade">
 	<name>SermonSpeaker Package</name>
 	<packagename>sermonspeaker</packagename>
-	<version>4.0</version>
+	<version>4.1</version>
 	<url>http://www.sermonspeaker.net</url>
 	<packager>Thomas Hunziker</packager>
 	<packagerurl>http://www.sermonspeaker.net</packagerurl>
