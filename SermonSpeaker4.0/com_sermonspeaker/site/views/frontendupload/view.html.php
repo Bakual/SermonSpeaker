@@ -59,7 +59,7 @@ class SermonspeakerViewFrontendupload extends JView
 			// Prepare Flashuploader
 			$audioTypes = '*.aac; *.m4a; *.mp3';
 			$videoTypes = '*.mp4; *.mov; *.f4v; *.flv; *.3gp; *.3g2';
-			$targetURL 	= JRoute::_('index.php?option=com_sermonspeaker&task=file.upload&'.$session->getName().'='.$session->getId().'&'.JUtility::getToken().'=1&format=json');
+			$targetURL 	= JURI::root().'index.php?option=com_sermonspeaker&task=file.upload&'.$session->getName().'='.$session->getId().'&'.JUtility::getToken().'=1&format=json';
 			// SWFUpload
 			JHTML::Script('media/com_sermonspeaker/swfupload/swfupload.js');
 			JHTML::Script('media/com_sermonspeaker/swfupload/swfupload.queue.js');
