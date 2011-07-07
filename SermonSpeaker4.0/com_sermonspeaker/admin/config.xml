@@ -34,7 +34,7 @@
 		</field>
 		<field name="list_icon_function" 
 			type="list" 
-			default="2" 
+			default="3" 
 			label="COM_SERMONSPEAKER_PARAM_LIST_ICON_FUNCTION_LABEL" 
 			description="COM_SERMONSPEAKER_PARAM_LIST_ICON_FUNCTION_DESC">
 			<option value="0">COM_SERMONSPEAKER_PARAM_LIST_OPTION_DETAIL</option>
