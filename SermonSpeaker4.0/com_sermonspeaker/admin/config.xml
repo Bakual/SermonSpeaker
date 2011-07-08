@@ -136,15 +136,21 @@
 		<field name="s3_access_key" 
 			type="text" 
 			size="50" 
-			default="XXXX" 
+			default="" 
 			label="COM_SERMONSPEAKER_FIELD_S3_ACCESS_KEY_LABEL" 
 			description="COM_SERMONSPEAKER_FIELD_S3_ACCESS_KEY_DESC" />
 		<field name="s3_secret_key" 
 			type="text" 
 			size="50" 
-			default="XXXX" 
+			default="" 
 			label="COM_SERMONSPEAKER_FIELD_S3_SECRET_KEY_LABEL" 
 			description="COM_SERMONSPEAKER_FIELD_S3_SECRET_KEY_DESC" />
+		<field name="s3_bucket" 
+			type="text" 
+			size="50" 
+			default="" 
+			label="COM_SERMONSPEAKER_FIELD_S3_BUCKET_LABEL" 
+			description="COM_SERMONSPEAKER_FIELD_S3_BUCKET_DESC" />
 		
 		
 	</fieldset>

@@ -66,6 +66,7 @@
 			<folder>elements</folder>
 			<folder>models</folder>
 			<folder>sql</folder>
+			<folder>s3</folder>
 			<folder>tables</folder>
 			<folder>images</folder>
 			<folder>helpers</folder>

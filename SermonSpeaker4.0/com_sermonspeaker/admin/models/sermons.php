@@ -69,7 +69,7 @@ class SermonspeakerModelSermons extends JModelList
 		$this->setState('filter.category_id', $categoryId);
 
 		// Load the parameters.
-		$params	= $app->getParams();
+		$params = JComponentHelper::getParams('com_sermonspeaker');
 		$this->setState('params', $params);
 
 		// List state information.

@@ -41,23 +41,22 @@ class JFormFieldS3list extends JFormFieldList
 
 		$params	=& JComponentHelper::getParams('com_sermonspeaker');
 		//include the S3 class   
-		require_once('../../s3/S3.php');
+		require_once JPATH_COMPONENT.'/s3/S3.php';
 		//AWS access info   
 		$awsAccessKey 	= $params->get('s3_access_key');
 		$awsSecretKey 	= $params->get('s3_secret_key');
-		$bucket			= $params->get('path');
+		$bucket			= $params->get('s3_bucket');
 		//instantiate the class
-		$s3 = new S3(awsAccessKey, awsSecretKey);
+		$s3 = new S3($awsAccessKey, $awsSecretKey);
 
 		$bucket_contents = $s3->getBucket($bucket);
 		foreach ($bucket_contents as $file){
 			$fname = $file['name'];
-			$furl = 'http://'.$bucket'.s3.amazonaws.com/'.$fname;
-			$options[]['value'] = $furl;
-			$options[]['text'] = $fname;
+			$furl = 'http://'.$bucket.'.s3.amazonaws.com/'.$fname;
+			$option['value'] = $furl;
+			$option['text'] = $fname;
+			$options[] = $option;
 		}   
-
-		$options = $db->loadObjectList();
 
 		// Merge any additional options in the XML definition.
 		//$options = array_merge(parent::getOptions(), $options);
