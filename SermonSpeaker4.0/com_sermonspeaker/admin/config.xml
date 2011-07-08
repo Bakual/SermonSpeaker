@@ -34,7 +34,7 @@
 		</field>
 		<field name="list_icon_function" 
 			type="list" 
-			default="3" 
+			default="2" 
 			label="COM_SERMONSPEAKER_PARAM_LIST_ICON_FUNCTION_LABEL" 
 			description="COM_SERMONSPEAKER_PARAM_LIST_ICON_FUNCTION_DESC">
 			<option value="0">COM_SERMONSPEAKER_PARAM_LIST_OPTION_DETAIL</option>
@@ -90,12 +90,6 @@
 	<fieldset name="paths"
 		label="COM_SERMONSPEAKER_FIELDSET_PATHS_LABEL"
 		description="COM_SERMONSPEAKER_FIELDSET_PATHS_DESC">
-		<field name="path" 
-			type="text" 
-			size="50" 
-			default="images" 
-			label="COM_SERMONSPEAKER_PARAM_PATH_SERMONS" 
-			description="COM_SERMONSPEAKER_PARAM_PATH_SERMONS_DESC" />
 		<field name="path_avatar"
 			type="text"
 			size="50"
@@ -120,6 +114,38 @@
 			default="images" 
 			label="COM_SERMONSPEAKER_PARAM_PATH_SERMONPIC_LABEL" 
 			description="COM_SERMONSPEAKER_PARAM_PATH_SERMONPIC_DESC" />
+		<field name="spacer_path"
+			type="spacer" 
+			label="COM_SERMONSPEAKER_PARAM_PATH_SERMONS" 
+			description="COM_SERMONSPEAKER_PARAM_PATH_SERMONS_DESC" />
+		<field name="path_mode"
+			type="list"
+			default="0"
+			label="COM_SERMONSPEAKER_FIELD_PATH_MODE_LABEL"
+			description="COM_SERMONSPEAKER_FIELD_PATH_MODE_DESC">
+			<option value="0">COM_SERMONSPEAKER_FIELD_PATH_MODE_DEFAULT</option>
+			<option value="1">COM_SERMONSPEAKER_FIELD_PATH_MODE_S3</option>
+			<option value="2">COM_SERMONSPEAKER_FIELD_PATH_MODE_EXTERNAL</option>
+		</field>
+		<field name="path" 
+			type="text" 
+			size="50" 
+			default="images" 
+			label="COM_SERMONSPEAKER_PARAM_PATH_SERMONS" 
+			description="COM_SERMONSPEAKER_PARAM_PATH_SERMONS_DESC" />
+		<field name="s3_access_key" 
+			type="text" 
+			size="50" 
+			default="XXXX" 
+			label="COM_SERMONSPEAKER_FIELD_S3_ACCESS_KEY_LABEL" 
+			description="COM_SERMONSPEAKER_FIELD_S3_ACCESS_KEY_DESC" />
+		<field name="s3_secret_key" 
+			type="text" 
+			size="50" 
+			default="XXXX" 
+			label="COM_SERMONSPEAKER_FIELD_S3_SECRET_KEY_LABEL" 
+			description="COM_SERMONSPEAKER_FIELD_S3_SECRET_KEY_DESC" />
+		
 		
 	</fieldset>
 	<fieldset name="player"
@@ -394,15 +420,15 @@
 			description="COM_SERMONSPEAKER_PARAM_FEED_ITCATEGORY1_DESC">
 			<option value="">(none)</option>
 			<option value="Education">Education</option>
-			<option value="Religion &amp; Spirituality">Religion + Spirituality</option>
-			<option value="Religion &amp; Spirituality > Christianity">Religion + Spirituality > Christianity</option>
-			<option value="Religion &amp; Spirituality > Judaism">Religion + Spirituality > Judaism</option>
-			<option value="Religion &amp; Spirituality > Other">Religion + Spirituality > Other</option>
-			<option value="Religion &amp; Spirituality > Spirituality">Religion + Spirituality > Spirituality</option>
+			<option value="Religion &amp; Spirituality">Religion &amp; Spirituality</option>
+			<option value="Religion &amp; Spirituality > Christianity">Religion &amp; Spirituality > Christianity</option>
+			<option value="Religion &amp; Spirituality > Judaism">Religion &amp; Spirituality > Judaism</option>
+			<option value="Religion &amp; Spirituality > Other">Religion &amp; Spirituality > Other</option>
+			<option value="Religion &amp; Spirituality > Spirituality">Religion &amp; Spirituality > Spirituality</option>
 			<option value="Music">Music</option>
-			<option value="Kids &amp; Family">Kids + Family</option>
-			<option value="Sports &amp; Recreation">Sports + Recreation</option>
-			<option value="Sports &amp; Recreation > Professional">Sports + Recreation > Professional</option>
+			<option value="Kids &amp; Family">Kids &amp; Family</option>
+			<option value="Sports &amp; Recreation">Sports &amp; Recreation</option>
+			<option value="Sports &amp; Recreation > Professional">Sports &amp; Recreation > Professional</option>
 		</field>
 		<field name="itCategory2" 
 			type="list" 
@@ -411,15 +437,15 @@
 			description="COM_SERMONSPEAKER_PARAM_FEED_ITCATEGORY2_DESC">
 			<option value="">(none)</option>
 			<option value="Education">Education</option>
-			<option value="Religion &amp; Spirituality">Religion + Spirituality</option>
-			<option value="Religion &amp; Spirituality > Christianity">Religion + Spirituality > Christianity</option>
-			<option value="Religion &amp; Spirituality > Judaism">Religion + Spirituality > Judaism</option>
-			<option value="Religion &amp; Spirituality > Other">Religion + Spirituality > Other</option>
-			<option value="Religion &amp; Spirituality > Spirituality">Religion + Spirituality > Spirituality</option>
+			<option value="Religion &amp; Spirituality">Religion &amp; Spirituality</option>
+			<option value="Religion &amp; Spirituality > Christianity">Religion &amp; Spirituality > Christianity</option>
+			<option value="Religion &amp; Spirituality > Judaism">Religion &amp; Spirituality > Judaism</option>
+			<option value="Religion &amp; Spirituality > Other">Religion &amp; Spirituality > Other</option>
+			<option value="Religion &amp; Spirituality > Spirituality">Religion &amp; Spirituality > Spirituality</option>
 			<option value="Music">Music</option>
-			<option value="Kids &amp; Family">Kids + Family</option>
-			<option value="Sports &amp; Recreation">Sports + Recreation</option>
-			<option value="Sports &amp; Recreation > Professional">Sports + Recreation > Professional</option>
+			<option value="Kids &amp; Family">Kids &amp; Family</option>
+			<option value="Sports &amp; Recreation">Sports &amp; Recreation</option>
+			<option value="Sports &amp; Recreation > Professional">Sports &amp; Recreation > Professional</option>
 		</field>
 		<field name="itCategory3" 
 			type="list" 
@@ -428,15 +454,15 @@
 			description="COM_SERMONSPEAKER_PARAM_FEED_ITCATEGORY3_DESC">
 			<option value="">(none)</option>
 			<option value="Education">Education</option>
-			<option value="Religion &amp; Spirituality">Religion + Spirituality</option>
-			<option value="Religion &amp; Spirituality > Christianity">Religion + Spirituality > Christianity</option>
-			<option value="Religion &amp; Spirituality > Judaism">Religion + Spirituality > Judaism</option>
-			<option value="Religion &amp; Spirituality > Other">Religion + Spirituality > Other</option>
-			<option value="Religion &amp; Spirituality > Spirituality">Religion + Spirituality > Spirituality</option>
+			<option value="Religion &amp; Spirituality">Religion &amp; Spirituality</option>
+			<option value="Religion &amp; Spirituality > Christianity">Religion &amp; Spirituality > Christianity</option>
+			<option value="Religion &amp; Spirituality > Judaism">Religion &amp; Spirituality > Judaism</option>
+			<option value="Religion &amp; Spirituality > Other">Religion &amp; Spirituality > Other</option>
+			<option value="Religion &amp; Spirituality > Spirituality">Religion &amp; Spirituality > Spirituality</option>
 			<option value="Music">Music</option>
-			<option value="Kids &amp; Family">Kids + Family</option>
-			<option value="Sports &amp; Recreation">Sports + Recreation</option>
-			<option value="Sports &amp; Recreation > Professional">Sports + Recreation > Professional</option>
+			<option value="Kids &amp; Family">Kids &amp; Family</option>
+			<option value="Sports &amp; Recreation">Sports &amp; Recreation</option>
+			<option value="Sports &amp; Recreation > Professional">Sports &amp; Recreation > Professional</option>
 		</field>
 		<field name="itOwnerName" 
 			type="text" 
