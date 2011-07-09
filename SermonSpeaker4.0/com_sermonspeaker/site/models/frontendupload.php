@@ -184,13 +184,14 @@ class SermonspeakerModelFrontendupload extends JModelAdmin
 			}
 		}
 		$params	= &JComponentHelper::getParams('com_sermonspeaker');
-		if(Jrequest::getInt('sel1')){
+		$mode = $params->get('path_mode', 0);
+		if(!$mode && JRequest::getInt('sel1')){
 			$table->audiofile = '/'.$params->get('path').'/'.$table->audiofile;
 		}
-		if(Jrequest::getInt('sel2')){
+		if(!$mode && JRequest::getInt('sel2')){
 			$table->videofile = '/'.$params->get('path').'/'.$table->videofile;
 		}
-		if(Jrequest::getInt('sel3')){
+		if(JRequest::getInt('sel3')){
 			$table->addfile = '/'.$params->get('path_addfile').'/'.$table->addfile;
 		}
 		$time_arr = explode(':', $table->sermon_time);

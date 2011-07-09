@@ -90,6 +90,12 @@
 	<fieldset name="paths"
 		label="COM_SERMONSPEAKER_FIELDSET_PATHS_LABEL"
 		description="COM_SERMONSPEAKER_FIELDSET_PATHS_DESC">
+		<field name="path" 
+			type="text" 
+			size="50" 
+			default="images" 
+			label="COM_SERMONSPEAKER_PARAM_PATH_SERMONS" 
+			description="COM_SERMONSPEAKER_PARAM_PATH_SERMONS_DESC" />
 		<field name="path_avatar"
 			type="text"
 			size="50"
@@ -114,25 +120,28 @@
 			default="images" 
 			label="COM_SERMONSPEAKER_PARAM_PATH_SERMONPIC_LABEL" 
 			description="COM_SERMONSPEAKER_PARAM_PATH_SERMONPIC_DESC" />
+		<field name="spacer"
+			type="spacer" 
+			hr="true" />
 		<field name="spacer_path"
 			type="spacer" 
-			label="COM_SERMONSPEAKER_PARAM_PATH_SERMONS" 
-			description="COM_SERMONSPEAKER_PARAM_PATH_SERMONS_DESC" />
+			label="COM_SERMONSPEAKER_SPACER_SERMON_LABEL" 
+			description="COM_SERMONSPEAKER_SPACER_SERMON_DESC" />
 		<field name="path_mode"
 			type="list"
 			default="0"
 			label="COM_SERMONSPEAKER_FIELD_PATH_MODE_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_PATH_MODE_DESC">
-			<option value="0">COM_SERMONSPEAKER_FIELD_PATH_MODE_DEFAULT</option>
+			<option value="0">JDEFAULT</option>
 			<option value="1">COM_SERMONSPEAKER_FIELD_PATH_MODE_S3</option>
 			<option value="2">COM_SERMONSPEAKER_FIELD_PATH_MODE_EXTERNAL</option>
 		</field>
-		<field name="path" 
+		<field name="s3_bucket" 
 			type="text" 
 			size="50" 
-			default="images" 
-			label="COM_SERMONSPEAKER_PARAM_PATH_SERMONS" 
-			description="COM_SERMONSPEAKER_PARAM_PATH_SERMONS_DESC" />
+			default="" 
+			label="COM_SERMONSPEAKER_FIELD_S3_BUCKET_LABEL" 
+			description="COM_SERMONSPEAKER_FIELD_S3_BUCKET_DESC" />
 		<field name="s3_access_key" 
 			type="text" 
 			size="50" 
@@ -145,13 +154,12 @@
 			default="" 
 			label="COM_SERMONSPEAKER_FIELD_S3_SECRET_KEY_LABEL" 
 			description="COM_SERMONSPEAKER_FIELD_S3_SECRET_KEY_DESC" />
-		<field name="s3_bucket" 
+		<field name="extern_path" 
 			type="text" 
 			size="50" 
 			default="" 
-			label="COM_SERMONSPEAKER_FIELD_S3_BUCKET_LABEL" 
-			description="COM_SERMONSPEAKER_FIELD_S3_BUCKET_DESC" />
-		
+			label="COM_SERMONSPEAKER_FIELD_EXTERN_PATH_LABEL" 
+			description="COM_SERMONSPEAKER_FIELD_EXTERN_PATH_DESC" />
 		
 	</fieldset>
 	<fieldset name="player"

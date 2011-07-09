@@ -41,6 +41,9 @@ $self = $uri->toString();
 			<li><?php echo $this->form->getLabel('podcast'); ?>
 			<?php echo $this->form->getInput('podcast'); ?></li>
 
+			<li><?php echo $this->form->getLabel('s3file'); ?>
+			<?php echo $this->form->getInput('s3file'); ?></li>
+
 			<li><?php echo $this->form->getLabel('ordering'); ?>
 			<?php echo $this->form->getInput('ordering'); ?></li>
 			</ul>
@@ -52,8 +55,10 @@ $self = $uri->toString();
 			<div class="clr"></div>
 			<?php echo $this->form->getLabel(''); ?>
 			<input type="radio" name="sel1" value="1" onclick="enableElement(this.form.elements['jform_audiofile'], this.form.elements['jform_audiofile_text']);">
-			<?php echo $this->form->getInput('audiofile'); ?>
-			<img class="pointer" onClick="window.location.href='<?php echo $self; ?>&amp;type=audio&amp;file=<?php echo '/'.$this->params->get('path').'/'; ?>'+document.adminForm.jform_audiofile.value;" src='<?php echo JURI::root(); ?>/media/com_sermonspeaker/images/find.png' alt='lookup ID3' title='lookup ID3'>
+			<?php echo $this->form->getInput('audiofile');
+			if (!$this->params->get('path_mode', 0)) { ?>
+				<img class="pointer" onClick="window.location.href='<?php echo $self; ?>&amp;type=audio&amp;file=<?php echo '/'.$this->params->get('path').'/'; ?>'+document.adminForm.jform_audiofile.value;" src='<?php echo JURI::root(); ?>/media/com_sermonspeaker/icons/16/glasses.png' alt='lookup ID3' title='lookup ID3'>
+			<?php } ?>
 		</fieldset>
 		<fieldset class="adminform">
 			<legend><?php echo JText::_('COM_SERMONSPEAKER_FIELD_VIDEOFILE_LABEL'); ?></legend>
@@ -62,8 +67,10 @@ $self = $uri->toString();
 			<div class="clr"></div>
 			<?php echo $this->form->getLabel(''); ?>
 			<input type="radio" name="sel2" value="1" onclick="enableElement(this.form.elements['jform_videofile'], this.form.elements['jform_videofile_text']);">
-			<?php echo $this->form->getInput('videofile'); ?>
-			<img class="pointer" onClick="window.location.href='<?php echo $self; ?>&amp;type=video&amp;file=<?php echo '/'.$this->params->get('path').'/'; ?>'+document.adminForm.jform_videofile.value;" src='<?php echo JURI::root(); ?>/media/com_sermonspeaker/images/find.png' alt='lookup ID3' title='lookup ID3'>
+			<?php echo $this->form->getInput('videofile'); 
+			if (!$this->params->get('path_mode', 0)) { ?>
+				<img class="pointer" onClick="window.location.href='<?php echo $self; ?>&amp;type=video&amp;file=<?php echo '/'.$this->params->get('path').'/'; ?>'+document.adminForm.jform_videofile.value;" src='<?php echo JURI::root(); ?>/media/com_sermonspeaker/icons/16/glasses.png' alt='lookup ID3' title='lookup ID3'>
+			<?php } ?>
 		</fieldset>
 		<fieldset class="adminform">
 			<legend><?php echo JText::_('COM_SERMONSPEAKER_FIELD_NOTES_LABEL'); ?></legend>

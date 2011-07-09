@@ -52,8 +52,10 @@ $self = $uri->toString();
 					<img class="pointer" onClick="window.location.href='<?php echo JRoute::_('index.php?view=frontendupload&amp;type=audio') ;?>&amp;file0='+document.fu_createsermon.jform_audiofile_text.value+'&amp;file1='+document.fu_createsermon.jform_videofile_text.value;" src="media/com_sermonspeaker/images/find.png" alt="lookup ID3" title="lookup ID3"><br />
 			<div class="label">&nbsp;</div>
 			<input type="radio" name="sel1" value="1" onclick="enableElement(this.form.elements['jform_audiofile'], this.form.elements['jform_audiofile_text']);">
-				<?php echo $this->form->getInput('audiofile'); ?>
+				<?php echo $this->form->getInput('audiofile');
+				if (!$this->params->get('path_mode', 0)){ ?>
 					<img class="pointer" onClick="window.location.href='<?php echo JRoute::_('index.php?view=frontendupload&amp;type=audio') ;?>&amp;file0=<?php echo '/'.$this->params->get('path').'/'; ?>'+document.fu_createsermon.jform_audiofile.value+'&amp;file1='+document.fu_createsermon.jform_videofile_text.value;" src="media/com_sermonspeaker/images/find.png" alt="lookup ID3" title="lookup ID3">
+				<?php } ?>
 				<div id="infoUpload1" class="intend">
 					<span id="btnUpload1"></span>
 					<button id="btnCancel1" type="button" onclick="cancelQueue(upload1);" class="ss-hide" disabled="disabled">Cancel</button>
@@ -66,8 +68,10 @@ $self = $uri->toString();
 					<img class="pointer" onClick="window.location.href='<?php echo JRoute::_('index.php?view=frontendupload&amp;type=video') ;?>&amp;file0='+document.fu_createsermon.jform_audiofile_text.value+'&amp;file1='+document.fu_createsermon.jform_videofile_text.value;" src="media/com_sermonspeaker/images/find.png" alt="lookup ID3" title="lookup ID3"><br />
 			<div class="label">&nbsp;</div>
 			<input type="radio" name="sel2" value="1" onclick="enableElement(this.form.elements['jform_videofile'], this.form.elements['jform_videofile_text']);">
-				<?php echo $this->form->getInput('videofile'); ?>
-				<img class="pointer" onClick="window.location.href='<?php echo JRoute::_('index.php?view=frontendupload&amp;type=video') ;?>&amp;file0='+document.fu_createsermon.jform_audiofile_text.value+'&amp;file1=<?php echo '/'.$this->params->get('path').'/'; ?>'+document.fu_createsermon.jform_videofile.value;" src="media/com_sermonspeaker/images/find.png" alt="lookup ID3" title="lookup ID3">
+				<?php echo $this->form->getInput('videofile');
+				if (!$this->params->get('path_mode', 0)){ ?>
+					<img class="pointer" onClick="window.location.href='<?php echo JRoute::_('index.php?view=frontendupload&amp;type=video') ;?>&amp;file0='+document.fu_createsermon.jform_audiofile_text.value+'&amp;file1=<?php echo '/'.$this->params->get('path').'/'; ?>'+document.fu_createsermon.jform_videofile.value;" src="media/com_sermonspeaker/images/find.png" alt="lookup ID3" title="lookup ID3">
+				<?php } ?>
 				<div id="infoUpload2" class="intend">
 					<span id="btnUpload2"></span>
 					<button id="btnCancel2" type="button" onclick="cancelQueue(upload1);" class="ss-hide" disabled="disabled">Cancel</button>

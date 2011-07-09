@@ -39,9 +39,15 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 	 */
 	protected function getInput()
 	{
-		// Strip the path from the value so a matching filename gets selected.
-		$this->value = substr(strrchr($this->value, '/'), 1);
-
+		$this->params = JComponentHelper::getParams('com_sermonspeaker');
+		$this->mode = $this->params->get('path_mode', 0);
+		if ($this->mode && $this->fieldname != 'audiofile' && $this->fieldname != 'videofile'){
+			$this->mode = 0;
+		}
+		if (!$this->mode){
+			// Strip the path from the value so a matching filename gets selected.
+			$this->value = substr(strrchr($this->value, '/'), 1);
+		}
 		return parent::getInput();
 	}
 
@@ -53,15 +59,39 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 	 */
 	protected function getOptions()
 	{
-		$params	=& JComponentHelper::getParams('com_sermonspeaker');
-		// Define the image file type filter.
-		$path	= (string) $this->element['path'];
-		$dir	= $params->get($path);
-		
-		// Set the form field element attribute for file type filter.
-		$this->element->addAttribute('directory', $dir);
+		if (!$this->mode){
+			// Define the image file type filter.
+			$path	= (string) $this->element['path'];
+			$dir	= $this->params->get($path);
+			
+			// Set the form field element attribute for file type filter.
+			$this->element->addAttribute('directory', $dir);
 
-		// Get the field options.
-		return parent::getOptions();
+			// Get the field options.
+			return parent::getOptions();
+		} else {
+			// Initialize variables.
+			$options = array();
+
+			//include the S3 class   
+			require_once JPATH_COMPONENT_ADMINISTRATOR.'/s3/S3.php';
+			//AWS access info   
+			$awsAccessKey 	= $this->params->get('s3_access_key');
+			$awsSecretKey 	= $this->params->get('s3_secret_key');
+			$bucket			= $this->params->get('s3_bucket');
+			//instantiate the class
+			$s3 = new S3($awsAccessKey, $awsSecretKey);
+
+			$bucket_contents = $s3->getBucket($bucket);
+			foreach ($bucket_contents as $file){
+				$fname = $file['name'];
+				$furl = 'http://'.$bucket.'.s3.amazonaws.com/'.$fname;
+				$option['value'] = $furl;
+				$option['text'] = $fname;
+				$options[] = $option;
+			}   
+
+			return $options;
+		}
 	}
 }
