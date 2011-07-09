@@ -69,7 +69,7 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 
 			// Get the field options.
 			return parent::getOptions();
-		} else {
+		} elseif ($this->mode == 1){
 			// Initialize variables.
 			$options = array();
 
@@ -92,6 +92,18 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 			}   
 
 			return $options;
+		} else {
+			$options = array();
+			$url = $this->params->get('extern_path');
+			if ($xml = simplexml_load_file($url)){
+				foreach ($xml->file as $file) {
+					$option['value'] = $file->URL;
+					$option['text'] = $file->name;
+					$options[] = $option;
+				}   
+
+				return $options;
+			}
 		}
 	}
 }
