@@ -53,7 +53,7 @@ if (is_array($this->channel->itOwner)) {
 	echo '
 	</itunes:owner>';
 }
-if ($this->channel->itImage != "") {
+if ($this->channel->itImage) {
 	echo '
 	<itunes:image href="'.$this->channel->itImage.'" />
 	<image>
@@ -95,6 +95,7 @@ foreach ($this->items as $item) {
 		<itunes:keywords>'.$item->itKeywords.'</itunes:keywords>
 		<itunes:subtitle>'.$item->itSubtitle.'</itunes:subtitle>
 		<itunes:summary>'.$item->itSummary.'</itunes:summary>
+		<itunes:image>'.$item->itImage.'</itunes:image>
 	</item>';
 }
 echo '

@@ -52,10 +52,13 @@ class SermonspeakerViewFeed extends JView
 			$channel->itOwner['name'] 	= $this->make_xml_safe($params->get('itOwnerName'));
 		}
 		$channel->itKeywords 	= $this->make_xml_safe($params->get('itKeywords'));
-		if(!strstr($params->get('itImage'), 'http://') && !strstr($params->get('itImage'), 'https://')) {
-			$channel->itImage = $link.$params->get('itImage');
+		$itImage = $params->get('itImage');
+		if ($itImage && !strstr($itImage, 'http://') && !strstr($itImage, 'https://')) {
+			$channel->itImage = $link.$itImage;
+		} elseif ($itImage){
+			$channel->itImage = $itImage;
 		} else {
-			$channel->itImage = $params->get('itImage');
+			$channel->itImage = '';
 		}
 		$channel->itCategories	= $this->make_itCat($params->get('itCategory1'))
 							.$this->make_itCat($params->get('itCategory2'))
@@ -117,6 +120,14 @@ class SermonspeakerViewFeed extends JView
 				$item->itSubtitle 	= $item_notes_short;
 			}
 			$item->itSummary 	= $item_notes;
+			if ($row->picture){
+				if(substr($row->picture, 0, 1) == '/' ) {
+					$row->picture = substr($row->picture, 1);
+				}
+				$item->itImage	= $link.$row->picture;
+			} else {
+				$item->itImage	= $channel->itImage;
+			}
 			
 			// create keywords from series_title and scripture (title and speaker are searchable anyway)
 			$keywords = str_replace(' ', ',', $item->category);
