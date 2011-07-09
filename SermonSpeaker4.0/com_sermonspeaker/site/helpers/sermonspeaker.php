@@ -109,7 +109,7 @@ class SermonspeakerHelperSermonspeaker
 					$title = ', title: "'.JText::_('JGLOBAL_RESOURCE_NOT_FOUND').'"';
 				}
 				$meta = '';
-				if ($temp_item->sermon_time){
+				if ($temp_item->sermon_time != '00:00:00'){
 					$time_arr = explode(':', $temp_item->sermon_time);
 					$seconds = ($time_arr[0] * 3600) + ($time_arr[1] * 60) + $time_arr[2];
 					$meta .= ', duration: '.$seconds;
@@ -191,7 +191,7 @@ class SermonspeakerHelperSermonspeaker
 
 			if (!$this->params->get('alt_player') || ($ext != 'mp3')){
 				$player = JURI::root().'media/com_sermonspeaker/player/jwplayer/player.swf';
-				if ($item->sermon_time){
+				if ($item->sermon_time != '00:00:00'){
 					$time_arr = explode(':', $item->sermon_time);
 					$seconds = ($time_arr[0] * 3600) + ($time_arr[1] * 60) + $time_arr[2];
 					$duration = '	  duration: '.$seconds.',';
