@@ -97,7 +97,7 @@ class SermonspeakerHelperSermonspeaker
 			if ($params->get('ga')) {
 				$callback = "so.addVariable('callback','".$params->get('ga')."');";
 			}
-			if ($time){
+			if ($time != '00:00:00'){
 				$duration = "so.addVariable('duration','".$time."');";
 			} else {
 				$duration = NULL;
