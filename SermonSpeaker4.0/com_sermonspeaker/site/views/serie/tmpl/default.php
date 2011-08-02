@@ -26,7 +26,7 @@ $listDirn	= $this->state->get('list.direction');
 	if (in_array('serie:download', $this->col_serie)) : ?>
 		<dd class="hits">
 			<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADSERIES_LABEL').': '; ?>
-			<a href="<?php echo JRoute::_('index.php?task=serie.download&id='.$this->serie->id); ?>" title="<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADSERIES_DESC'); ?>">
+			<a href="<?php echo JRoute::_('index.php?task=serie.download&id='.$this->serie->slug); ?>" title="<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADSERIES_DESC'); ?>">
 			<img src="media/com_sermonspeaker/images/download.png" alt="<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADSERIES_LABEL'); ?>" />
 		</a></dd>
 	<?php endif; ?>

@@ -35,7 +35,7 @@ JHTML::_('behavior.modal');
 				if ((substr($this->player['file'], 0, 7) == 'http://') && (strpos($this->player['file'], JURI::root()) !== 0)) : //File is external
 					$fileurl = $this->player['file'];
 				else : //File is locally 
-					$fileurl = JURI::root().'index.php?option=com_sermonspeaker&amp;task=download&amp;id='.$this->item->id;
+					$fileurl = JRoute::_('index.php?task=download&id='.$this->item->slug);
 				endif; ?>
 				<a href="<?php echo $fileurl; ?>" class="download">
 					<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON'); ?>

@@ -69,7 +69,7 @@ class SermonspeakerHelperSermonspeaker
 		if (substr($path, 0, 7) == 'http://' && (strpos($path, JURI::root()) !== 0)){ //File is external
 			$fileurl = $path;
 		} else { //File is locally
-			$fileurl = JURI::root().'index.php?option=com_sermonspeaker&amp;task=download&amp;id='.$id;
+			$fileurl = JRoute::_('index.php?&task=download&id='.$id);
 		}
 		$html = '<input class="button download_btn" type="button" value="'.JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON').'" onclick="window.location.href=\''.$fileurl.'\'" />';
 
