@@ -2,8 +2,8 @@
 /* Will create an XML containing all files in a directory */
 
 // Adjust directory here
-$path	= '/home/www/web338/html/bakual/images'; // intern directory path
-$URL	= 'http://www.bakual.ch/images'; // public URL to the directory
+$path	= '/server/path/to/html/images/stories'; // intern directory path
+$URL	= 'http://www.yourdomain.com/images/folder'; // public URL to the directory
 
 // Don't change anything below here, except if you know what you do.
 $declaration = '<?xml version="1.0" encoding="UTF-8"?>
