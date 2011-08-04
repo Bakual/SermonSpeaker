@@ -6,7 +6,9 @@
 	<!-- Add fields to the request variables for the layout. -->
 	<fields name="request">
 		<fieldset name="request">
-
+			<field name="tmpl" type="hidden"
+				default="component"
+			/>
 			<field name="id" type="sql" 
 				label="COM_SERMONSPEAKER_PARAM_SELECT_SERMON" 
 				description="COM_SERMONSPEAKER_PARAM_SELECT_SERMON_DESC" 
