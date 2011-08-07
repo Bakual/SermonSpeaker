@@ -27,7 +27,7 @@ $self = $uri->toString();
 	<h1><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
 <?php endif; ?>
 	<div id="ss-frup-form">
-		<form action="<?php echo JURI::base(); ?>index.php?option=com_sermonspeaker&amp;task=file.upload&amp;tmpl=component&amp;<?php echo $this->session->getName().'='.$this->session->getId(); ?>&amp;<?php echo JUtility::getToken();?>=1" id="uploadForm" name="uploadForm" method="post" enctype="multipart/form-data">
+		<form action="<?php echo JURI::root(); ?>index.php?option=com_sermonspeaker&amp;task=file.upload&amp;tmpl=component&amp;<?php echo $this->session->getName().'='.$this->session->getId(); ?>&amp;<?php echo JUtility::getToken();?>=1" id="uploadForm" name="uploadForm" method="post" enctype="multipart/form-data">
 			<fieldset id="upload-noflash" class="actions">
 				<legend><?php echo JText::_('COM_SERMONSPEAKER_FU_SELECTFILE'); ?></legend>
 				<label for="upload-file" class="label"><?php echo JText::_('COM_SERMONSPEAKER_FIELD_AUDIOFILE_LABEL'); ?></label>
@@ -38,7 +38,7 @@ $self = $uri->toString();
 				<input type="hidden" name="return-url" value="<?php echo base64_encode($self); ?>" />
 			</fieldset>
 		</form>
-		<form action="<?php echo JRoute::_('index.php?view=frontendupload&task=frontendupload.save'); ?>" name="fu_createsermon" id="fu_createsermon" method="post" enctype="multipart/form-data" class="form-validate">
+		<form action="<?php echo JURI::root(); ?>index.php?option=com_sermonspeaker&amp;view=frontendupload&amp;task=frontendupload.save" name="fu_createsermon" id="fu_createsermon" method="post" enctype="multipart/form-data" class="form-validate">
 			<?php echo $this->form->getLabel('sermon_title'); ?>
 			<?php echo $this->form->getInput('sermon_title'); ?>
 			<br />

@@ -83,7 +83,7 @@ class SermonspeakerControllerFile extends JController
 					continue;
 				} else {
 					$message[] = JText::sprintf('COM_SERMONSPEAKER_FU_FILENAME', $files['filepath'][$i]);
-					$redirect .= '&file'.$i.'=/'.str_replace('\\', '/', $files['filepath'][$i]);
+					$redirect .= 'file'.$i.'=/'.str_replace('\\', '/', $files['filepath'][$i]);
 					$success = true;
 				}
 			}
@@ -95,7 +95,12 @@ class SermonspeakerControllerFile extends JController
 			$this->setMessage(implode('<br>', $message));
 		}
 		if ($success){
-			$this->setRedirect(base64_decode($return).$redirect);
+			$return_url = base64_decode($return);
+			if(strpos($return_url, '?')){
+				$this->setRedirect(base64_decode($return).'&'.$redirect);
+			} else {
+				$this->setRedirect(base64_decode($return).'?'.$redirect);
+			}
 		}
 		return $success;
 	}
