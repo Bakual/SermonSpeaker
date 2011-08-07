@@ -170,23 +170,39 @@ class SermonspeakerViewSermon extends JView
 		if ($app->getCfg('MetaAuthor')){
 			$this->document->setMetaData('author', $this->item->speaker_name);
 		}
-
+		
 		// Add Metadata for Facebook Open Graph API
-		$this->document->addCustomTag('<meta property="og:title" content="'.$this->item->sermon_title.'"/>');
-		$this->document->addCustomTag('<meta property="og:description" content="'.$this->document->getDescription().'"/>');
-//		$this->document->addCustomTag('<meta property="og:url" content="'.JURI::root().JRoute::_(SermonspeakerHelperRoute::getSermonRoute($this->item->slug)).'"/>');
-		$this->document->addCustomTag('<meta property="og:image" content="'.SermonSpeakerHelperSermonSpeaker::makelink($this->item->speaker_pic).'"/>');
-		$this->document->addCustomTag('<meta property="og:site_name" content="'.$app->getCfg('sitename').'"/>');
-		$this->document->addCustomTag('<meta property="og:'.$this->player['status'].'" content="'.$this->player['file'].'"/>');
-		$this->document->addCustomTag('<meta property="fb:admins" content="1598431230"/>'); // adjust to your ID
-		if($this->player['status'] == 'audio'){
-			$this->document->addCustomTag('<meta property="og:type" content="song"/>');
-			$this->document->addCustomTag('<meta property="og:audio:title" content="'.$this->item->sermon_title.'"/>');
-			$this->document->addCustomTag('<meta property="og:audio:artist" content="'.$this->item->speaker_name.'"/>');
-			$this->document->addCustomTag('<meta property="og:audio:album" content="'.$this->item->series_title.'"/>');
-			$this->document->addCustomTag('<meta property="og:audio:type" content="application/mp3"/>');
-		} else {
-			$this->document->addCustomTag('<meta property="og:type" content="movie"/>');
+		$fbadmins	= $this->params->get('fbadmins', '');
+		$fbapp_id	= $this->params->get('fbapp_id', '');
+		if ($fbadmins || $fbapp_id){
+			$this->document->addCustomTag('<meta property="og:title" content="'.$this->item->sermon_title.'"/>');
+			$this->document->addCustomTag('<meta property="og:url" content="'.JURI::getInstance()->toString().'"/>');
+			$this->document->addCustomTag('<meta property="og:description" content="'.$this->document->getDescription().'"/>');
+			if ($this->item->picture){
+				$this->document->addCustomTag('<meta property="og:image" content="'.SermonSpeakerHelperSermonSpeaker::makelink($this->item->picture).'"/>');
+			} elseif ($this->item->speaker_pic){
+				$this->document->addCustomTag('<meta property="og:image" content="'.SermonSpeakerHelperSermonSpeaker::makelink($this->item->speaker_pic).'"/>');
+			}
+			$this->document->addCustomTag('<meta property="og:site_name" content="'.$app->getCfg('sitename').'"/>');
+			$this->document->addCustomTag('<meta property="og:'.$this->player['status'].'" content="'.$this->player['file'].'"/>');
+			if($this->player['status'] == 'audio'){
+				$this->document->addCustomTag('<meta property="og:type" content="song"/>');
+				$this->document->addCustomTag('<meta property="og:audio:title" content="'.$this->item->sermon_title.'"/>');
+				if ($this->item->speaker_name){
+					$this->document->addCustomTag('<meta property="og:audio:artist" content="'.$this->item->speaker_name.'"/>');
+				}
+				if ($this->item->series_title){
+					$this->document->addCustomTag('<meta property="og:audio:album" content="'.$this->item->series_title.'"/>');
+				}
+			} else {
+				$this->document->addCustomTag('<meta property="og:type" content="movie"/>');
+			}
+			if ($fbadmins){
+				$this->document->addCustomTag('<meta property="fb:admins" content="'.$fbadmins.'"/>');
+			}
+			if ($fbapp_id){
+				$this->document->addCustomTag('<meta property="fb:app_id" content="'.$fbapp_id.'"/>');
+			}
 		}
 	}
 }

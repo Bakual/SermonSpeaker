@@ -509,6 +509,24 @@
 			<option value="0">JNO</option>
 			<option value="1">JYES</option>
 		</field>
+		<field name="facebook_spacer1" 
+			type="spacer"
+			hr="true"/>
+		<field name="facebook_spacer2" 
+			type="spacer"
+			label="COM_SERMONSPEAKER_FIELD_FBSPACER_LABEL"
+			description="COM_SERMONSPEAKER_FIELD_FBSPACER_DESC" />
+		<field name="fbadmins" 
+			type="text" 
+			default="" 
+			label="COM_SERMONSPEAKER_FIELD_FBADMINS_LABEL" 
+			description="COM_SERMONSPEAKER_FIELD_FBADMINS_DESC" />
+		<field name="fbapp_id" 
+			type="text" 
+			default="" 
+			label="COM_SERMONSPEAKER_FIELD_FBAPPID_LABEL" 
+			description="COM_SERMONSPEAKER_FIELD_FBAPPID_DESC" />
+
 	</fieldset>
 	<fieldset name="permissions"
 		label="JCONFIG_PERMISSIONS_LABEL"
