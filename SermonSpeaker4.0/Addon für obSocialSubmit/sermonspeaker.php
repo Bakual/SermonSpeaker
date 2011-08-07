@@ -96,9 +96,6 @@ class OBSSInAddonSermonspeaker {
 			$text	= preg_replace('/{bible(.*)}(.*){\/bible}/U', '$2', $text);
 			if ($mode){
 				$text	= "\n".$text;
-				if ($speaker[0]){
-					$text	= $speaker[0].$text;
-				}
 			}
 		}
 
