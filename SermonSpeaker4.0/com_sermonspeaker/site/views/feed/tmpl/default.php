@@ -95,7 +95,7 @@ foreach ($this->items as $item) {
 		<itunes:keywords>'.$item->itKeywords.'</itunes:keywords>
 		<itunes:subtitle>'.$item->itSubtitle.'</itunes:subtitle>
 		<itunes:summary>'.$item->itSummary.'</itunes:summary>
-		<itunes:image>'.$item->itImage.'</itunes:image>
+		<itunes:image href="'.$item->itImage.'" />
 	</item>';
 }
 echo '
