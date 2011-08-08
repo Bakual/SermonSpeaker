@@ -11,7 +11,8 @@ class SermonspeakerHelperId3
 		$getID3 	= new getID3;
 		$path		= JPATH_SITE.str_replace('/', DS, $file);
 		$path		= str_replace(DS.DS, DS, $path);
-		$FileInfo	= $getID3->Analyze($path);
+		$FileInfo	= $getID3->analyze($path);
+		getid3_lib::CopyTagsToComments($FileInfo);
 
 		$id3 = array();
 		if (array_key_exists('playtime_string', $FileInfo)){
