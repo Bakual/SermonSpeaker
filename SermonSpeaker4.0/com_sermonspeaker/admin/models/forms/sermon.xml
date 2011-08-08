@@ -30,6 +30,7 @@
 		<field name="podcast" type="list"
 			label="COM_SERMONSPEAKER_FIELD_SERMONCAST_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_SERMONCAST_DESC"
+			class="inputbox"
 			default="1">
 			<option value="1">JPUBLISHED</option>
 			<option value="0">JUNPUBLISHED</option>
@@ -74,7 +75,7 @@
 			description="COM_SERMONSPEAKER_FIELD_ADDFILE_DESC" />
 
 		<field name="addfileDesc" type="text" class="inputbox"
-			size="100" label="COM_SERMONSPEAKER_FIELD_ADDFILEDESC_LABEL"
+			size="50" label="COM_SERMONSPEAKER_FIELD_ADDFILEDESC_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_ADDFILEDESC_DESC" />
 
 	</fieldset>

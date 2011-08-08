@@ -48,7 +48,7 @@ $self = $uri->toString();
 
 			<?php echo $this->form->getLabel('audiofile'); ?>
 			<input type="radio" name="sel1" value="0" onclick="enableElement(this.form.elements['jform_audiofile_text'], this.form.elements['jform_audiofile']);" checked>
-				<input class="text_area" type="text" name="jform[audiofile]" id="jform_audiofile_text" size="47" maxlength="250" value="<?php echo $this->form->getValue('audiofile'); ?>" />
+				<input class="inputbox" type="text" name="jform[audiofile]" id="jform_audiofile_text" size="47" maxlength="250" value="<?php echo $this->form->getValue('audiofile'); ?>" />
 					<img class="pointer" onClick="window.location.href='<?php echo JRoute::_('index.php?view=frontendupload&amp;type=audio') ;?>&amp;file0='+document.fu_createsermon.jform_audiofile_text.value+'&amp;file1='+document.fu_createsermon.jform_videofile_text.value;" src="media/com_sermonspeaker/images/find.png" alt="lookup ID3" title="lookup ID3"><br />
 			<div class="label">&nbsp;</div>
 			<input type="radio" name="sel1" value="1" onclick="enableElement(this.form.elements['jform_audiofile'], this.form.elements['jform_audiofile_text']);">
@@ -64,7 +64,7 @@ $self = $uri->toString();
 			
 			<?php echo $this->form->getLabel('videofile'); ?>
 			<input type="radio" name="sel2" value="0" onclick="enableElement(this.form.elements['jform_videofile_text'], this.form.elements['jform_videofile']);" checked>
-				<input class="text_area" type="text" name="jform[videofile]" id="jform_videofile_text" size="47" maxlength="250" value="<?php echo $this->form->getValue('videofile'); ?>" />
+				<input class="inputbox" type="text" name="jform[videofile]" id="jform_videofile_text" size="47" maxlength="250" value="<?php echo $this->form->getValue('videofile'); ?>" />
 					<img class="pointer" onClick="window.location.href='<?php echo JRoute::_('index.php?view=frontendupload&amp;type=video') ;?>&amp;file0='+document.fu_createsermon.jform_audiofile_text.value+'&amp;file1='+document.fu_createsermon.jform_videofile_text.value;" src="media/com_sermonspeaker/images/find.png" alt="lookup ID3" title="lookup ID3"><br />
 			<div class="label">&nbsp;</div>
 			<input type="radio" name="sel2" value="1" onclick="enableElement(this.form.elements['jform_videofile'], this.form.elements['jform_videofile_text']);">
@@ -79,7 +79,7 @@ $self = $uri->toString();
 			<div class="clr"></div>
 
 			<?php echo $this->form->getLabel('sermon_scripture'); ?>
-			<input class="text_area" type="text" name="sermon_scripture" id="sermon_scripture" size="50" maxlength="250" value="<?php echo $this->form->getValue('sermon_scripture'); ?>" />
+			<input class="inputbox" type="text" name="sermon_scripture" id="sermon_scripture" size="50" maxlength="250" value="<?php echo $this->form->getValue('sermon_scripture'); ?>" />
 				<?php $tag = $this->params->get('plugin_tag'); ?>
 				<img class="pointer" onClick="sendText(document.fu_createsermon.sermon_scripture,'<?php echo $tag[0]; ?>','<?php echo $tag[1]; ?>')" src='<?php echo JURI::root(); ?>/media/com_sermonspeaker/images/blue_tag.png'><br />
 			<?php echo $this->form->getLabel('sermon_date'); ?>
@@ -112,13 +112,14 @@ $self = $uri->toString();
 
 			<?php echo $this->form->getLabel('addfile'); ?>
 			<input type="radio" name="sel3" value="0" onclick="enableElement(this.form.elements['jform_addfile_text'], this.form.elements['jform_addfile']);" checked>
-				<input class="text_area" type="text" name="jform[addfile]" id="jform_addfile_text" size="47" maxlength="250" value="" /><br />
+				<input class="inputbox" type="text" name="jform[addfile]" id="jform_addfile_text" size="47" maxlength="250" value="" /><br />
 			<div class="label">&nbsp;</div>
 			<input type="radio" name="sel3" value="1" onclick="enableElement(this.form.elements['jform_addfile'], this.form.elements['jform_addfile_text']);">
 				<?php echo $this->form->getInput('addfile'); ?>
 			<br />
 			<?php echo $this->form->getLabel('addfileDesc'); ?>
-			<input class="text_area" type="text" name="addfileDesc" id="addfileDesc" size="50" maxlength="250" value="" /><br />
+			<?php echo $this->form->getInput('addfileDesc'); ?>
+			<br />
 			<div>
 				<?php echo JHtml::_('form.token'); ?>
 				<input type="submit" class="submit" value="<?php echo JText::_('JSAVE'); ?>">
