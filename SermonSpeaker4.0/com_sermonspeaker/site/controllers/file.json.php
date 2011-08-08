@@ -57,6 +57,7 @@ class SermonspeakerControllerFile extends JController
 
 		// Make the filename safe
 		$file['name']	= JFile::makeSafe($file['name']);
+		$file['name']	= str_replace(' ', '_', $file['name']); // Replace spaces in filename as long as makeSafe doesn't do this.
 
 		if ($file['name']) {
 			// The request is valid
