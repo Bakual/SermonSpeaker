@@ -33,11 +33,6 @@ class SermonspeakerHelper
 			'index.php?option=com_categories&extension=com_sermonspeaker',
 			$vName == 'categories'
 		);
-		if ($vName=='categories') {
-			JToolBarHelper::title(
-				JText::sprintf('COM_CATEGORIES_CATEGORIES_TITLE',JText::_('com_sermonspeaker')),
-				'sermonspeaker-categories');
-		}
 		JSubMenuHelper::addEntry(
 			JText::_('COM_SERMONSPEAKER_MENU_STATISTICS'),
 			'index.php?option=com_sermonspeaker&view=statistics&format=raw',
@@ -48,13 +43,6 @@ class SermonspeakerHelper
 			'index.php?option=com_sermonspeaker&view=help',
 			$vName == 'help'
 		);
-
-		$document = JFactory::getDocument();
-		if ($vName == 'categories'){
-			$document->addStyleDeclaration('.icon-48-sermonspeaker-categories {
-				background-image: url(components/com_sermonspeaker/images/category.png); }');
-			JToolBarHelper::preferences('com_sermonspeaker');
-		}
 	}
 	
 	/**
