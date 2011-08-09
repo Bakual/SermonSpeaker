@@ -38,7 +38,12 @@ if (in_array('sermon:speaker', $this->columns) && $this->item->speaker_id) : ?>
 		endif; ?>
 	</dd>
 <?php endif;	
-if (in_array('sermon:scripture', $this->columns) && $this->item->sermon_scripture) : ?>
+if (in_array('sermon:hits', $this->columns)) : ?>
+	<dd class="hits">
+		<?php echo JText::_('JGLOBAL_HITS'); ?>: 
+		<?php echo $this->item->hits; ?>
+	</dd>
+<?php endif;if (in_array('sermon:scripture', $this->columns) && $this->item->sermon_scripture) : ?>
 	<dd class="ss-sermondetail-info">
 		<?php echo JText::_('COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL'); ?>:
 		<?php echo JHTML::_('content.prepare', $this->item->sermon_scripture); ?>
@@ -75,14 +80,8 @@ if ($this->params->get('enable_keywords')):
 			<?php echo JText::_('COM_SERMONSPEAKER_TAGS').' '.$tags; ?>
 		</dd>
 	<?php endif;
-endif;
-if (in_array('sermon:hits', $this->columns)) : ?>
-	<dd class="hits">
-		<?php echo JText::_('JGLOBAL_HITS'); ?>: 
-		<?php echo $this->item->hits; ?>
-	</dd>
-<?php endif; ?>
-
+endif; ?>
+</dl>
 <div class="ss-sermondetail-container">
 	<?php if (in_array('sermon:player', $this->columns)) : ?>
 		<div class="ss-sermon-player">
