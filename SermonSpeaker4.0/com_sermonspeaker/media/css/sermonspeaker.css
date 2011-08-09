@@ -65,6 +65,9 @@ div.popup{
 	text-align: center;
 	margin-bottom:10px;
 }
+.ss-serie-player div, .ss-sermons-player div, .ss-archive-player div, .ss-speaker-player div{
+	margin:auto;
+}
 .clear-left{
 	clear:left;
 }

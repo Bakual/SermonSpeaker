@@ -143,7 +143,7 @@ class SermonspeakerHelperSermonspeaker
 				}
 			}
 			$playlist = implode(',', $entries);
-			$return['mspace'] = '<div id="mediaspace'.$count.'" style="text-align:center;">Flashplayer needs Javascript turned on</div>';
+			$return['mspace'] = '<div id="mediaspace'.$count.'">Flashplayer needs Javascript turned on</div>';
 			$return['script'] = '<script type="text/javascript">'
 								.'	jwplayer("mediaspace'.$count.'").setup({'
 								.'	  flashplayer: "'.$player.'",'
