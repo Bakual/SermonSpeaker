@@ -183,12 +183,12 @@
 		</field>
 		<field name="mp_width" 
 			type="text" 
-			default="300" 
+			default="80%" 
 			label="COM_SERMONSPEAKER_PARAM_VIDEOWIDTH" 
 			description="COM_SERMONSPEAKER_PARAM_VIDEOWIDTH_DESC" />
 		<field name="mp_height" 
 			type="text" 
-			default="300" 
+			default="300px" 
 			label="COM_SERMONSPEAKER_PARAM_VIDEOHEIGHT" 
 			description="COM_SERMONSPEAKER_PARAM_VIDEOHEIGHT_DESC" />
 		<field name="fileprio" 
