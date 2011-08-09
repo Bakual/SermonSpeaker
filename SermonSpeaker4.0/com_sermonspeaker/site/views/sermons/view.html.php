@@ -70,12 +70,12 @@ class SermonspeakerViewSermons extends JView
 			if($this->params->get('fileswitch')){
 				$this->document->addScriptDeclaration('
 					function Video() {
-						jwplayer().load(['.$this->player['video-pl'].']);
+						jwplayer().load(['.$this->player['video-pl'].']).resize("'.$this->params->get('mp_width', '80%').'","'.$this->params->get('mp_height', '400').'");
 					}
 				');
 				$this->document->addScriptDeclaration('
 					function Audio() {
-						jwplayer().load(['.$this->player['audio-pl'].']);
+						jwplayer().load(['.$this->player['audio-pl'].']).resize("80%",80);
 					}
 				');
 			}

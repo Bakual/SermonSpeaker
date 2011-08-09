@@ -207,6 +207,12 @@
 			<option value="0">JNO</option>
 			<option value="1">JYES</option>
 		</field>
+		<field name="jwskin" 
+			type="text" 
+			default="" 
+			size="75"
+			label="COM_SERMONSPEAKER_FIELD_JWSKIN_LABEL" 
+			description="COM_SERMONSPEAKER_FIELD_JWSKIN_DESC" />
 	</fieldset>
 	<fieldset name="detailpage"
 		label="COM_SERMONSPEAKER_FIELDSET_DETAILPAGE_LABEL"

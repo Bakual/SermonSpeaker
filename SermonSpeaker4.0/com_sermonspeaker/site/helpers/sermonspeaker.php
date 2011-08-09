@@ -94,7 +94,10 @@ class SermonspeakerHelperSermonspeaker
 		if(($view == 'serie') || ($view == 'sermons') || ($view == 'archive') || ($view == 'speaker')){
 			// Playlist
 			$player = JURI::root().'media/com_sermonspeaker/player/jwplayer/player.swf';
-			
+			$skin	= $this->params->get('jwskin', '');
+			if ($skin){
+				$skin = '	  skin: "'.$skin.'",';
+			}
 			$entries = array();
 			foreach ($item as $temp_item){
 				// Choosing the default file to play based on prio and availabilty
@@ -151,6 +154,7 @@ class SermonspeakerHelperSermonspeaker
 								.'	  controlbar: "bottom",'
 								.'	  width: "80%",'
 								.'	  height: 80,'
+								.$skin
 								.'	  events: {'
 								.'		onPlaylistItem: function(event){'
 								.'		  var i = 0;'
@@ -191,6 +195,10 @@ class SermonspeakerHelperSermonspeaker
 
 			if (!$this->params->get('alt_player') || ($ext != 'mp3')){
 				$player = JURI::root().'media/com_sermonspeaker/player/jwplayer/player.swf';
+				$skin	= $this->params->get('jwskin', '');
+				if ($skin){
+					$skin = '	  skin: "'.$skin.'",';
+				}
 				if ($item->sermon_time != '00:00:00'){
 					$time_arr = explode(':', $item->sermon_time);
 					$seconds = ($time_arr[0] * 3600) + ($time_arr[1] * 60) + $time_arr[2];
@@ -230,6 +238,7 @@ class SermonspeakerHelperSermonspeaker
 										.'	  file: "'.$return['file'].'",'
 										.'	  autostart: '.$start[0].','
 										.$duration
+										.$skin
 										.'	  controlbar: "bottom",'
 										.'	  width: 250,'
 										.'	  height: 23'
@@ -249,6 +258,7 @@ class SermonspeakerHelperSermonspeaker
 									.'	  file: "'.$return['file'].'",'
 									.'	  autostart: '.$start[0].','
 									.$duration
+									.$skin
 									.'	  width: '.$this->params->get('mp_width').','
 									.'	  height: '.$this->params->get('mp_height')
 									.'	});'
