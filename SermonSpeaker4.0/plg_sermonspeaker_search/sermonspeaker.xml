@@ -44,6 +44,15 @@
 					<option value="0">JOFF</option>
 					<option value="1">JON</option>
 				</field>
+
+				<field name="sermons_speaker" type="radio"
+					default="0"
+					label="PLG_SEARCH_SERMONSPEAKER_SERMONS_SPEAKER_LABEL"
+					description="PLG_SEARCH_SERMONSPEAKER_SERMONS_SPEAKER_DESC"
+				>
+					<option value="0">JOFF</option>
+					<option value="1">JON</option>
+				</field>
 			</fieldset>
 		</fields>
 	</config>

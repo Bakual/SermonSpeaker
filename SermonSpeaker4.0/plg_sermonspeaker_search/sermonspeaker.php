@@ -40,11 +40,20 @@ class plgSearchSermonspeaker extends JPlugin
 	 * @return array An array of search areas
 	 */
 	function onContentSearchAreas() {
-		static $areas = array(
-			'spsermons' => 'PLG_SEARCH_SERMONSPEAKER_SERMONS',
-			'spseries' => 'PLG_SEARCH_SERMONSPEAKER_SERIES',
-			);
-			return $areas;
+		static $areas = array();
+		$areas['spsermons'] = 'PLG_SEARCH_SERMONSPEAKER_SERMONS';
+		if($this->params->get('sermons_speaker', 0)){
+			$db		= JFactory::getDbo();
+			$query	= "SELECT `id`, `name` FROM #__sermon_speakers WHERE state = '1'";
+			$db->setQuery($query);
+			$speakers	= $db->loadAssocList();
+			foreach ($speakers as $speaker){
+				$areas['spspeakers-'.$speaker['id']] = JText::sprintf('PLG_SEARCH_SERMONSPEAKER_SERMONS_FROM', $speaker['name']);
+			}
+		}
+		$areas['spseries'] = 'PLG_SEARCH_SERMONSPEAKER_SERIES';
+
+		return $areas;
 	}
 
 	/**
@@ -91,8 +100,17 @@ class plgSearchSermonspeaker extends JPlugin
 		}
 		$section	= JText::_('PLG_SEARCH_SERMONSPEAKER_SERMONS');
 
+		$speakers = array();
+		if($this->params->get('sermons_speaker', 0)){
+			foreach($areas as $key => $value){
+				if (strpos($value, 'spspeakers-') === 0){
+					$speakers[] = (int)substr($value, 11);
+				}
+			}
+		}
+
 		$rows = array();
-		if(in_array('spsermons', $areas)) {
+		if(in_array('spsermons', $areas) || $speakers) {
 
 			$wheres	= array();
 			switch ($phrase)
@@ -157,7 +175,11 @@ class plgSearchSermonspeaker extends JPlugin
 				$query->from('#__sermon_sermons AS a');
 				$query->leftJoin('#__categories AS c ON c.id = a.catid');
 				$query->where('('.$where.')');
-				$query->where('a.state in ('.implode(',',$state).')');
+				$query->where('a.state in ('.implode(',', $state).')');
+				
+				if (!in_array('spsermons', $areas)){
+					$query->where('a.speaker_id in ('.implode(',', $speakers).')');
+				}
 //				$query->where ('(c.published=1 AND c.access IN ('.$groups.'))');
 				$query->order($order);
 
