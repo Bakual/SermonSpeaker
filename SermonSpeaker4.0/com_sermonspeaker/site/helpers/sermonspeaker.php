@@ -122,6 +122,8 @@ class SermonspeakerHelperSermonspeaker
 				}
 				if ($temp_item->picture){
 					$meta .= ', image: "'.SermonspeakerHelperSermonspeaker::makelink($temp_item->picture).'"';
+				} elseif ($temp_item->pic){
+					$meta .= ', image: "'.SermonspeakerHelperSermonspeaker::makelink($temp_item->pic).'"';
 				}
 				$entries[] = '{'.$file.$title.$meta.'}';
 				if ($this->params->get('fileswitch')){

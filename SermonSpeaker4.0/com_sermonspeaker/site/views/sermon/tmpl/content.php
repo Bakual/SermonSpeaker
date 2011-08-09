@@ -83,6 +83,9 @@ if ($this->params->get('enable_keywords')):
 endif; ?>
 </dl>
 <div class="ss-sermondetail-container">
+	<?php if ($this->item->picture): ?>
+		<img src="<?php echo SermonSpeakerHelperSermonSpeaker::makelink($this->item->picture); ?>" alt="" />
+	<?php endif; ?>
 	<?php if (in_array('sermon:player', $this->columns)) : ?>
 		<div class="ss-sermon-player">
 			<?php if ($this->player['status'] == 'error'): ?>
