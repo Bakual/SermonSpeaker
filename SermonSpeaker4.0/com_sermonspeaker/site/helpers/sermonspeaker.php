@@ -276,7 +276,7 @@ class SermonspeakerHelperSermonspeaker
 				$return['height'] = $this->params->get('popup_height') + 23;
 				$return['width']  = '380';
 				$return['status'] = 'audio';
-			} elseif(in_array($ext, $video_ext)) {
+			} elseif(in_array($ext, $video_ext) || (strpos($return['file'], 'http://www.youtube.com') === 0)) {
 				// Video File
 				$image = '';
 				if ($item->picture){
