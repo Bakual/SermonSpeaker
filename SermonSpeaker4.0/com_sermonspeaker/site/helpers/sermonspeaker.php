@@ -175,11 +175,22 @@ class SermonspeakerHelperSermonspeaker
 			$return['status'] = 'playlist';
 		} else {
 			// Single File
-			// Choosing the default file to play based on prio and availabilty
+			// Choosing the default file to play based on prio and availabilty, also check if Fileswitch is possible
+			$return['switch']	= false;
 			if (($item->audiofile && !$prio) || ($item->audiofile && !$item->videofile)){
 				$return['file'] = SermonspeakerHelperSermonspeaker::makelink($item->audiofile);
+				if ($this->params->get('fileswitch') && $item->videofile){
+					$return['audio']	= '{file: "'.$return['file'].'"}';
+					$return['video']	= '{file: "'.SermonspeakerHelperSermonspeaker::makelink($item->videofile).'"}';
+					$return['switch']	= true;
+				}
 			} elseif (($item->videofile && $prio) || ($item->videofile && !$item->audiofile)){
 				$return['file'] = SermonspeakerHelperSermonspeaker::makelink($item->videofile);
+				if ($this->params->get('fileswitch') && $item->audiofile){
+					$return['audio']	= '{file: "'.SermonspeakerHelperSermonspeaker::makelink($item->audiofile).'"}';
+					$return['video']	= '{file: "'.$return['file'].'"}';
+					$return['switch']	= true;
+				}
 			} else {
 				$return['file']   = '';
 				$return['player'] = '';
@@ -232,7 +243,14 @@ class SermonspeakerHelperSermonspeaker
 										.'		autostart: "'.$start[2].'"'
 										.'	})'
 										.'</script>';
+					$return['switch'] = false;
 				} else {
+					$image = '';
+					if ($item->picture){
+						$image .= '	  image: "'.SermonspeakerHelperSermonspeaker::makelink($item->picture).'",';
+					} elseif ($item->pic){
+						$image .= '	  image: "'.SermonspeakerHelperSermonspeaker::makelink($item->pic).'",';
+					}
 					$return['player'] = 'JWPlayer';
 					$return['script'] = '<script type="text/javascript">'
 										.'	jwplayer("mediaspace'.$count.'").setup({'
@@ -241,17 +259,24 @@ class SermonspeakerHelperSermonspeaker
 										.'	  autostart: '.$start[0].','
 										.$duration
 										.$skin
+										.$image
 										.'	  controlbar: "bottom",'
 										.'	  width: 250,'
 										.'	  height: 23'
 										.'	});'
 										.'</script>';
 				}
-				$return['height'] = $this->params->get('popup_height');
+				$return['height'] = $this->params->get('popup_height') + 23;
 				$return['width']  = '380';
 				$return['status'] = 'audio';
 			} elseif(in_array($ext, $video_ext)) {
 				// Video File
+				$image = '';
+				if ($item->picture){
+					$image .= '	  image: "'.SermonspeakerHelperSermonspeaker::makelink($item->picture).'",';
+				} elseif ($item->pic){
+					$image .= '	  image: "'.SermonspeakerHelperSermonspeaker::makelink($item->pic).'",';
+				}
 				$return['player'] = 'JWPlayer';
 				$return['mspace'] = '<div id="mediaspace'.$count.'">Flashplayer needs Javascript turned on</div>';
 				$return['script'] = '<script type="text/javascript">'
@@ -261,12 +286,17 @@ class SermonspeakerHelperSermonspeaker
 									.'	  autostart: '.$start[0].','
 									.$duration
 									.$skin
-									.'	  width: '.$this->params->get('mp_width').','
-									.'	  height: '.$this->params->get('mp_height')
+									.$image
+									.'	  width: "'.$this->params->get('mp_width').'",'
+									.'	  height: "'.$this->params->get('mp_height').'"'
 									.'	});'
 									.'</script>';
 				$return['height'] = $this->params->get('mp_height') + $this->params->get('popup_height');
-				$return['width']  = $this->params->get('mp_width') + 130;
+				if (strpos($this->params->get('mp_width'), '%')){
+					$return['width'] = 500;
+				} else {
+					$return['width'] = $this->params->get('mp_width') + 130;
+				}
 				$return['status'] = 'video';
 			} elseif($ext == 'wmv'){ // TODO: is anyone using this? Could switch to Longtail Silverlight player fpr wmv and wma support
 				// WMV File
@@ -287,6 +317,7 @@ class SermonspeakerHelperSermonspeaker
 				$return['height'] = $this->params->get('mp_height') + $this->params->get('popup_height');
 				$return['width']  = $this->params->get('mp_width') + 130;
 				$return['status'] = 'wmv file';
+				$return['switch'] = false;
 			} else {
 				$return['player'] = '';
 				$return['mspace'] = '';
@@ -295,6 +326,7 @@ class SermonspeakerHelperSermonspeaker
 				$return['width']  = 0;
 				$return['status'] = 'error';
 				$return['error']  = 'Unsupported Filetype';
+				$return['switch'] = false;
 			}
 		}
 

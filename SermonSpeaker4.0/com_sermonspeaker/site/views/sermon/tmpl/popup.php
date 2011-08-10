@@ -14,6 +14,11 @@ defined('_JEXEC') or die('Restricted access');
 		<?php 
 		echo $this->player['mspace'];
 		echo $this->player['script'];
-		?>
+		if ($this->player['switch']): ?>
+			<div class="ss-sermon-switch">
+				<img class="pointer" src="media/com_sermonspeaker/images/Video.png" onclick="Video()" alt="Video" />
+				<img class="pointer" src="media/com_sermonspeaker/images/Sound.png" onclick="Audio()" alt="Audio" />
+			</div>
+		<?php endif; ?>
 	</div>
 </div>
