@@ -56,7 +56,7 @@ if (empty($this->items)) : ?>
 				endif;
 				$lnk = SermonspeakerHelperSermonspeaker::makelink($sermon->audiofile); 
 				if (in_array('seriessermon:player', $this->columns)):
-					$player = SermonspeakerHelperSermonspeaker::insertPlayer($sermon, $count);
+					$player = $helper->insertPlayer($sermon, $this->params, $count);
 					echo $player['mspace'];
 					echo $player['script'];
 				else :

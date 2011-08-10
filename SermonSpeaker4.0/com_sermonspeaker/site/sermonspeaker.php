@@ -9,7 +9,7 @@ if (JRequest::getString('task') == 'podcast') { // providing backward compatibil
 
 jimport('joomla.application.component.controller');
 
-require_once JPATH_COMPONENT.'/helpers/route.php';
+require_once JPATH_COMPONENT.DS.'helpers'.DS.'route.php';
 require_once(JPATH_COMPONENT.DS.'helpers'.DS.'sermonspeaker.php');
 
 $controller	= JController::getInstance('Sermonspeaker');
