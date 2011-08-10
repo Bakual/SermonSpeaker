@@ -116,14 +116,14 @@ class SermonspeakerViewspeaker extends JView
 			if($this->params->get('fileswitch')){
 				$this->document->addScriptDeclaration('
 					function Video() {
-						jwplayer().load(['.$this->player['video-pl'].']).resize("'.$this->params->get('mp_width', '80%').'","'.$this->params->get('mp_height', '400px').'");
-						document.getElementById("mediaspace1_wrapper").style.width="'.$this->params->get('mp_width', '80%').'";
+						jwplayer().load(['.$this->player['video-pl'].']).resize("'.$this->params->get('mp_width', '100%').'","'.$this->params->get('mp_height', '400px').'");
+						document.getElementById("mediaspace1_wrapper").style.width="'.$this->params->get('mp_width', '100%').'";
 						document.getElementById("mediaspace1_wrapper").style.height="'.$this->params->get('mp_height', '400px').'";
 					}
 				');
 				$this->document->addScriptDeclaration('
 					function Audio() {
-						jwplayer().load(['.$this->player['audio-pl'].']).resize("80%","80px");
+						jwplayer().load(['.$this->player['audio-pl'].']).resize("100%","80px");
 						document.getElementById("mediaspace1_wrapper").style.width="100%";
 						document.getElementById("mediaspace1_wrapper").style.height="80px";
 					}

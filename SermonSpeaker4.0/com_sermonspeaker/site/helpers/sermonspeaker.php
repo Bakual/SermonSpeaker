@@ -154,7 +154,7 @@ class SermonspeakerHelperSermonspeaker
 								.'	  "playlist.position": "top",'
 								.'	  autostart: '.$start[0].','
 								.'	  controlbar: "bottom",'
-								.'	  width: "80%",'
+								.'	  width: "100%",'
 								.'	  height: 80,'
 								.$skin
 								.'	  events: {'

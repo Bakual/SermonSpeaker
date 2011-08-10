@@ -61,11 +61,13 @@ div.popup{
 	margin-bottom:10px;
 }
 
-.ss-serie-player, .ss-sermons-player, .ss-archive-player, .ss-speaker-player{
+div.ss-serie-player, div.ss-sermons-player, div.ss-archive-player, div.ss-speaker-player{
 	text-align: center;
+	margin:auto;
+	width:80%;
 	margin-bottom:10px;
 }
-.ss-serie-player div, .ss-sermons-player div, .ss-archive-player div, .ss-speaker-player div{
+div.ss-serie-player div, div.ss-sermons-player div, div.ss-archive-player div, div.ss-speaker-player div{
 	margin:auto;
 }
 .clear-left{
@@ -78,7 +80,6 @@ div.popup{
 
 hr.ss-serie-player, hr.ss-sermons-player, hr.ss-archive-player, hr.ss-speaker-player{
 	margin: auto;
-	width: 80%; 
 	height: 1px; 
 	text-align: center;
 }
