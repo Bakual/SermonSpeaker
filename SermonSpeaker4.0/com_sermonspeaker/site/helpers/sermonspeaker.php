@@ -100,7 +100,7 @@ class SermonspeakerHelperSermonspeaker
 			}
 			$entries = array();
 			foreach ($item as $temp_item){
-				// Choosing the default file to play based on prio and availabilty
+			// Choosing the default file to play based on prio and availabilty
 				if (($temp_item->audiofile && !$prio) || ($temp_item->audiofile && !$temp_item->videofile)){
 					$file = 'file: "'.SermonspeakerHelperSermonspeaker::makelink($temp_item->audiofile).'"';
 					$title = ', title: "'.$temp_item->sermon_title.'"';
@@ -112,13 +112,20 @@ class SermonspeakerHelperSermonspeaker
 					$title = ', title: "'.JText::_('JGLOBAL_RESOURCE_NOT_FOUND').'"';
 				}
 				$meta = '';
+				$desc = '';
+				if ($temp_item->sermon_date){
+					$desc[] = JText::_('JDATE').': '.JHTML::Date($temp_item->sermon_date, JText::_($this->params->get('date_format')), 'UTC');
+				}
+				if ($temp_item->name){
+					$desc[] = JText::_('COM_SERMONSPEAKER_SPEAKER').': '.$temp_item->name;
+				}
+				if ($desc){
+					$meta .= ', description: "'.implode('<br/>', $desc).'"';
+				}
 				if ($temp_item->sermon_time != '00:00:00'){
 					$time_arr = explode(':', $temp_item->sermon_time);
 					$seconds = ($time_arr[0] * 3600) + ($time_arr[1] * 60) + $time_arr[2];
 					$meta .= ', duration: '.$seconds;
-				}
-				if ($temp_item->sermon_date){
-					$meta .= ', description: "'.JHTML::Date($temp_item->sermon_date, JText::_($this->params->get('date_format')), 'UTC').'"';
 				}
 				if ($temp_item->picture){
 					$meta .= ', image: "'.SermonspeakerHelperSermonspeaker::makelink($temp_item->picture).'"';
@@ -285,6 +292,7 @@ class SermonspeakerHelperSermonspeaker
 									.'	  file: "'.$return['file'].'",'
 									.'	  autostart: '.$start[0].','
 									.$duration
+									.$speaker
 									.$skin
 									.$image
 									.'	  width: "'.$this->params->get('mp_width').'",'
