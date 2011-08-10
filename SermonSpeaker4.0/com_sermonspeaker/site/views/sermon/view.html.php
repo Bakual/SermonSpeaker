@@ -106,7 +106,7 @@ class SermonspeakerViewSermon extends JView
 		$app	= JFactory::getApplication();
 
 		// Call Playerhelper anyway, since we assume we either have a download button, popup button or player in any case.
-		$this->player = SermonspeakerHelperSermonspeaker::insertPlayer($this->item, $this->item->speaker_name);
+		$this->player = SermonspeakerHelperSermonspeaker::insertPlayer($this->item);
 		// Add javascript for player if needed
 		if (in_array('sermon:player', $this->columns) || JRequest::getCmd('layout', '') == 'popup'){
 			if ($this->player['player'] == 'PixelOut'){
@@ -196,8 +196,8 @@ class SermonspeakerViewSermon extends JView
 			$this->document->addCustomTag('<meta property="og:description" content="'.$this->document->getDescription().'"/>');
 			if ($this->item->picture){
 				$this->document->addCustomTag('<meta property="og:image" content="'.SermonSpeakerHelperSermonSpeaker::makelink($this->item->picture).'"/>');
-			} elseif ($this->item->speaker_pic){
-				$this->document->addCustomTag('<meta property="og:image" content="'.SermonSpeakerHelperSermonSpeaker::makelink($this->item->speaker_pic).'"/>');
+			} elseif ($this->item->pic){
+				$this->document->addCustomTag('<meta property="og:image" content="'.SermonSpeakerHelperSermonSpeaker::makelink($this->item->pic).'"/>');
 			}
 			$this->document->addCustomTag('<meta property="og:site_name" content="'.$app->getCfg('sitename').'"/>');
 			$this->document->addCustomTag('<meta property="og:'.$this->player['status'].'" content="'.$this->player['file'].'"/>');

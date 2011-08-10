@@ -82,7 +82,7 @@ class SermonspeakerHelperSermonspeaker
 		return $html;
 	}
 	
-	function insertPlayer($item, $artist = '', $count = '1') {
+	function insertPlayer($item, $count = '1') {
 		$prio		= $this->params->get('fileprio', 0);
 
 		$view = JRequest::getCmd('view');
@@ -91,7 +91,7 @@ class SermonspeakerHelperSermonspeaker
 		} else {
 			$start[0]='false'; $start[1]='0'; $start[2]='no';
 		}
-		if(($view == 'serie') || ($view == 'sermons') || ($view == 'archive') || ($view == 'speaker')){
+		if(is_array($item)){
 			// Playlist
 			$player = JURI::root().'media/com_sermonspeaker/player/jwplayer/player.swf';
 			$skin	= $this->params->get('jwskin', '');
@@ -232,8 +232,8 @@ class SermonspeakerHelperSermonspeaker
 					if ($item->sermon_title){
 						$options .= 'titles: "'.$item->sermon_title.'",';
 					}
-					if ($artist){
-						$options .= 'artists: "'.$artist.'",';
+					if ($item->speaker_name){
+						$options .= 'artists: "'.$item->speaker_name.'",';
 					}
 					$return['player'] = 'PixelOut';
 					$return['script'] = '<script type="text/javascript">'

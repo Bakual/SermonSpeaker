@@ -48,7 +48,7 @@ JHTML::_('behavior.modal');
 		<?php if (in_array('sermon:speaker', $this->columns) && $this->item->speaker_id): ?>
 			<div class="ss-field field-speaker" title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKER'); ?>">
 				<?php if ($this->item->speaker_state):
-					echo SermonspeakerHelperSermonSpeaker::SpeakerTooltip($this->item->speaker_slug, $this->item->speaker_pic, $this->item->speaker_name); 
+					echo SermonspeakerHelperSermonSpeaker::SpeakerTooltip($this->item->speaker_slug, $this->item->pic, $this->item->speaker_name); 
 				else: 
 					echo $this->item->speaker_name;
 				endif; ?>

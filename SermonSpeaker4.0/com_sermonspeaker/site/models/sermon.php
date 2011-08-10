@@ -85,7 +85,7 @@ class SermonspeakerModelSermon extends JModelItem
 
 				// Join on speakers table.
 				$query->select(
-						'speakers.name AS speaker_name, speakers.pic AS speaker_pic, speakers.state as speaker_state, '.
+						'speakers.name AS speaker_name, speakers.pic AS pic, speakers.state as speaker_state, '.
 						"CASE WHEN CHAR_LENGTH(speakers.alias) THEN CONCAT_WS(':', speakers.id, speakers.alias) ELSE speakers.id END as speaker_slug "
 				);
 				$query->join('LEFT', '#__sermon_speakers AS speakers on speakers.id = sermon.speaker_id');

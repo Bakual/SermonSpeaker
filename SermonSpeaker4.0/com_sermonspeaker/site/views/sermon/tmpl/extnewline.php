@@ -40,14 +40,14 @@ JHTML::_('behavior.modal');
 		<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_SPEAKER'); ?>:</div>
 		<div class="ss-sermondetail-text">
 			<?php if ($this->item->speaker_state):
-				echo SermonspeakerHelperSermonSpeaker::SpeakerTooltip($this->item->speaker_slug, $this->item->speaker_pic, $this->item->speaker_name); 
+				echo SermonspeakerHelperSermonSpeaker::SpeakerTooltip($this->item->speaker_slug, $this->item->pic, $this->item->speaker_name); 
 			else: 
 				echo $this->item->speaker_name;
 			endif; ?>
 		</div>
-		<?php if ($this->item->speaker_pic) : ?>
+		<?php if ($this->item->pic) : ?>
 			<div class="ss-sermondetail-label"></div>
-			<div class="ss-sermondetail-text"><img height="150" src="<?php echo SermonSpeakerHelperSermonSpeaker::makelink($this->item->speaker_pic); ?>"></div>
+			<div class="ss-sermondetail-text"><img height="150" src="<?php echo SermonSpeakerHelperSermonSpeaker::makelink($this->item->pic); ?>"></div>
 		<?php endif;
 	endif;
 	if (in_array('sermon:length', $this->columns)) : ?>
