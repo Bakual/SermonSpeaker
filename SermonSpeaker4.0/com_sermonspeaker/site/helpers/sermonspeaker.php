@@ -292,7 +292,6 @@ class SermonspeakerHelperSermonspeaker
 									.'	  file: "'.$return['file'].'",'
 									.'	  autostart: '.$start[0].','
 									.$duration
-									.$speaker
 									.$skin
 									.$image
 									.'	  width: "'.$this->params->get('mp_width').'",'
