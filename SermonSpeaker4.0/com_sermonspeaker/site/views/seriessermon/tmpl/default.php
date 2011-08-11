@@ -57,8 +57,8 @@ if (empty($this->items)) : ?>
 				$lnk = SermonspeakerHelperSermonspeaker::makelink($sermon->audiofile); 
 				if (in_array('seriessermon:player', $this->columns)):
 					$this->player->prepare($sermon, $count);
-					echo $player->mspace;
-					echo $player->script;
+					echo $this->player->mspace;
+					echo $this->player->script;
 				else :
 					// if player is disabled show a link
 					echo JText::_('COM_SERMONSPEAKER_DIRECTLINK_HOOVER').': <a title="'.JText::_('COM_SERMONSPEAKER_DIRECTLINK_HOOVER').'" href="'.$lnk.'">'.$this->escape($sermon->sermon_title).'</a>';

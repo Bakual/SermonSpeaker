@@ -95,7 +95,7 @@ class SermonspeakerModelSeriessermon extends JModelList
 		$groups	= implode(',', $user->authorisedLevels());
 
 		$db =& JFactory::getDBO();
-		$query	= "SELECT audiofile, videofile, sermon_title, sermon_number, sermon_time, notes, sermon_date, addfile, addfileDesc \n"
+		$query	= "SELECT audiofile, videofile, sermon_title, sermon_number, sermon_time, notes, sermon_date, addfile, addfileDesc, pic, name, picture \n"
 				. ", CASE WHEN CHAR_LENGTH(sermons.alias) THEN CONCAT_WS(':', sermons.id, sermons.alias) ELSE sermons.id END as slug \n"
 				. " FROM #__sermon_sermons as sermons \n"
 				. " LEFT JOIN #__sermon_speakers AS speakers ON speakers.id = sermons.speaker_id \n"
