@@ -53,7 +53,11 @@ class SermonspeakerHelperPlayer {
 		// JWPlayer
 		$player	= JURI::root().'media/com_sermonspeaker/player/jwplayer/player.swf';
 		if (!$this->height){
-			$this->height	= '80px';
+			if($this->prio){
+				$this->height	= $this->params->get('mp_height');
+			} else {
+				$this->height	= '80px';
+			}
 		}
 		if (!$this->width){
 			$this->width	= '100%';
@@ -252,10 +256,10 @@ class SermonspeakerHelperPlayer {
 		} elseif(in_array($ext, $video_ext) || (strpos($this->file, 'http://www.youtube.com') === 0)) {
 			// Video File
 			if (!$this->height){
-				$this->height	= $this->params->get('mp_width');
+				$this->height	= $this->params->get('mp_height');
 			}
 			if (!$this->width){
-				$this->width	= $this->params->get('mp_height');
+				$this->width	= $this->params->get('mp_width');
 			}
 			$image = '';
 			if ($this->item->picture){
@@ -273,6 +277,7 @@ class SermonspeakerHelperPlayer {
 								.$duration
 								.$skin
 								.$image
+								.'	  controlbar: "bottom",'
 								.'	  width: "'.$this->width.'",'
 								.'	  height: "'.$this->height.'"'
 								.'	});'
@@ -287,10 +292,10 @@ class SermonspeakerHelperPlayer {
 		} elseif($ext == 'wmv'){ // TODO: is anyone using this? Could switch to Longtail Silverlight player fpr wmv and wma support
 			// WMV File
 			if (!$this->height){
-				$this->height	= $this->params->get('mp_width');
+				$this->height	= $this->params->get('mp_height');
 			}
 			if (!$this->width){
-				$this->width	= $this->params->get('mp_height');
+				$this->width	= $this->params->get('mp_width');
 			}
 			$this->player = 'Windows';
 			$this->mspace = '<object id="mediaplayer" width="'.$this->width.'" height="'.$this->height.'" classid="clsid:22d6f312-b0f6-11d0-94ab-0080c74c7e95 22d6f312-b0f6-11d0-94ab-0080c74c7e95" type="application/x-oleobject">'
