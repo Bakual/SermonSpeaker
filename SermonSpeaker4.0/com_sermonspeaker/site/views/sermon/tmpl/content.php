@@ -88,13 +88,13 @@ endif; ?>
 	<?php endif; ?>
 	<?php if (in_array('sermon:player', $this->columns)) : ?>
 		<div class="ss-sermon-player">
-			<?php if ($this->player['status'] == 'error'): ?>
-				<span class="no_entries"><?php echo $this->player['error']; ?></span>
+			<?php if (!$this->player->status): ?>
+				<span class="no_entries"><?php echo $this->player->error; ?></span>
 			<?php else:
-				echo $this->player['mspace'];
-				echo $this->player['script'];
+				echo $this->player->mspace;
+				echo $this->player->script;
 			endif;
-			if ($this->player['switch']): ?>
+			if ($this->player->toggle): ?>
 				<div class="ss-sermon-switch">
 					<img class="pointer" src="media/com_sermonspeaker/images/Video.png" onclick="Video()" alt="Video" />
 					<img class="pointer" src="media/com_sermonspeaker/images/Sound.png" onclick="Audio()" alt="Audio" />
@@ -102,10 +102,10 @@ endif; ?>
 			<?php endif; ?>
 		</div>
 	<?php endif;
-	if ($this->params->get('dl_button') && ($this->player['status'] != 'error')) : ?>
+	if ($this->params->get('dl_button') && ($this->player->status)) : ?>
 		<span><?php echo SermonspeakerHelperSermonspeaker::insertdlbutton($this->item->slug, $this->item->audiofile); ?></span>
 	<?php endif;
-	if ($this->params->get('popup_player') && $this->player['file']) : ?>
+	if ($this->params->get('popup_player') && $this->player->file) : ?>
 		<span><?php echo SermonspeakerHelperSermonspeaker::insertPopupButton($this->item->id, $this->player); ?></span>
 	<?php endif;
 	if (in_array('sermon:notes', $this->columns) && strlen($this->item->notes) > 0) : ?>

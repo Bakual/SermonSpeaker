@@ -43,6 +43,12 @@ class SermonspeakerModelSpeaker extends JModelList
 			);
 			$query->join('LEFT', '#__sermon_series AS series ON series.id = sermons.series_id');
 
+			// Join over Speaker (for Flashplayer)
+			$query->select(
+				'speakers.name, speakers.pic'
+			);
+			$query->join('LEFT', '#__sermon_speakers AS speakers ON speakers.id = sermons.speaker_id');
+
 			// Filter by speaker
 			if ($speakerId = $this->getState('speaker.id')) {
 				$query->where('sermons.speaker_id = '.(int) $speakerId);

@@ -45,8 +45,8 @@ $listDirn	= $this->state->get('list.direction');
 	<div class="ss-speaker-player">
 		<hr class="ss-speaker-player" />
 	<?php
-	echo $this->player['mspace'];
-	echo $this->player['script'];
+	echo $this->player->mspace;
+	echo $this->player->script;
 	?>
 		<hr class="ss-speaker-player" />
 	<?php if ($this->params->get('fileswitch')): ?>

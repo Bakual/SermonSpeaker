@@ -95,20 +95,20 @@ class SermonspeakerViewSerie extends JView
 		// Add javascript for player if needed
 		if (in_array('serie:player', $this->columns) && count($this->items)){
 			require_once(JPATH_COMPONENT.DS.'helpers'.DS.'player.php');
-			$helper = new SermonspeakerHelperPlayer;
+			$this->player = new SermonspeakerHelperPlayer($this->params);
 			JHTML::Script('media/com_sermonspeaker/player/jwplayer/jwplayer.js', true);
-			$this->player = $helper->insertPlayer($this->items,$this->params);
+			$this->player->prepare($this->items);
 			if($this->params->get('fileswitch')){
 				$this->document->addScriptDeclaration('
 					function Video() {
-						jwplayer().load(['.$this->player['video-pl'].']).resize("'.$this->params->get('mp_width', '100%').'","'.$this->params->get('mp_height', '400px').'");
+						jwplayer().load(['.$this->player->playlist['video'].']).resize("'.$this->params->get('mp_width', '100%').'","'.$this->params->get('mp_height', '400px').'");
 						document.getElementById("mediaspace1_wrapper").style.width="'.$this->params->get('mp_width', '100%').'";
 						document.getElementById("mediaspace1_wrapper").style.height="'.$this->params->get('mp_height', '400px').'";
 					}
 				');
 				$this->document->addScriptDeclaration('
 					function Audio() {
-						jwplayer().load(['.$this->player['audio-pl'].']).resize("100%","80px");
+						jwplayer().load(['.$this->player->playlist['audio'].']).resize("100%","80px");
 						document.getElementById("mediaspace1_wrapper").style.width="100%";
 						document.getElementById("mediaspace1_wrapper").style.height="80px";
 					}

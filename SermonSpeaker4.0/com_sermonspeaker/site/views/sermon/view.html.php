@@ -107,11 +107,11 @@ class SermonspeakerViewSermon extends JView
 
 		// Call Playerhelper anyway, since we assume we either have a download button, popup button or player in any case.
 		require_once(JPATH_COMPONENT.DS.'helpers'.DS.'player.php');
-		$helper = new SermonspeakerHelperPlayer;
-		$this->player = $helper->insertPlayer($this->item, $this->params);
+		$this->player = new SermonspeakerHelperPlayer($this->params);
+		$this->player->prepare($this->item);
 		// Add javascript for player if needed
 		if (in_array('sermon:player', $this->columns) || JRequest::getCmd('layout', '') == 'popup'){
-			if ($this->player['player'] == 'PixelOut'){
+			if ($this->player->player == 'PixelOut'){
 				JHTML::Script('media/com_sermonspeaker/player/audio_player/audio-player.js');
 				$this->document->addScriptDeclaration('
 				AudioPlayer.setup("'.JURI::root().'media/com_sermonspeaker/player/audio_player/player.swf", {
@@ -121,19 +121,19 @@ class SermonspeakerViewSermon extends JView
 					left: "000000",
 					lefticon: "FFFFFF"
 				});');
-			} elseif ($this->player['player'] == 'JWPlayer'){
+			} elseif ($this->player->player == 'JWPlayer'){
 				JHTML::Script('media/com_sermonspeaker/player/jwplayer/jwplayer.js');
-				if($this->player['switch']){
+				if($this->player->toggle){
 					$this->document->addScriptDeclaration('
 						function Video() {
-							jwplayer().load(['.$this->player['video'].']).resize("'.$this->params->get('mp_width', '100%').'","'.$this->params->get('mp_height', '400px').'");
+							jwplayer().load(['.$this->player->playlist['video'].']).resize("'.$this->params->get('mp_width', '100%').'","'.$this->params->get('mp_height', '400px').'");
 							document.getElementById("mediaspace1_wrapper").style.width="'.$this->params->get('mp_width', '100%').'";
 							document.getElementById("mediaspace1_wrapper").style.height="'.$this->params->get('mp_height', '400px').'";
 						}
 					');
 					$this->document->addScriptDeclaration('
 						function Audio() {
-							jwplayer().load(['.$this->player['audio'].']).resize("250","23px");
+							jwplayer().load(['.$this->player->playlist['audio'].']).resize("250","23px");
 							document.getElementById("mediaspace1_wrapper").style.width="250px";
 							document.getElementById("mediaspace1_wrapper").style.height="23px";
 						}
@@ -202,8 +202,8 @@ class SermonspeakerViewSermon extends JView
 				$this->document->addCustomTag('<meta property="og:image" content="'.SermonSpeakerHelperSermonSpeaker::makelink($this->item->pic).'"/>');
 			}
 			$this->document->addCustomTag('<meta property="og:site_name" content="'.$app->getCfg('sitename').'"/>');
-			$this->document->addCustomTag('<meta property="og:'.$this->player['status'].'" content="'.$this->player['file'].'"/>');
-			if($this->player['status'] == 'audio'){
+			if($this->player->status == 'audio'){
+				$this->document->addCustomTag('<meta property="og:audio" content="'.$this->player->file.'"/>');
 				$this->document->addCustomTag('<meta property="og:type" content="song"/>');
 				$this->document->addCustomTag('<meta property="og:audio:title" content="'.$this->item->sermon_title.'"/>');
 				if ($this->item->speaker_name){
@@ -213,6 +213,7 @@ class SermonspeakerViewSermon extends JView
 					$this->document->addCustomTag('<meta property="og:audio:album" content="'.$this->item->series_title.'"/>');
 				}
 			} else {
+				$this->document->addCustomTag('<meta property="og:video" content="'.$this->player->file.'"/>');
 				$this->document->addCustomTag('<meta property="og:type" content="movie"/>');
 			}
 			if ($fbadmins){

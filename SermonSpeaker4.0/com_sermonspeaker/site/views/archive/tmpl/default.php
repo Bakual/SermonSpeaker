@@ -17,8 +17,8 @@ if ($this->cat): ?>
 	<div class="ss-archive-player">
 		<hr class="ss-archive-player" />
 		<?php
-		echo $this->player['mspace'];
-		echo $this->player['script'];
+		echo $this->player->mspace;
+		echo $this->player->script;
 		?>
 		<hr class="ss-archive-player" />
 	<?php if ($this->params->get('fileswitch')): ?>

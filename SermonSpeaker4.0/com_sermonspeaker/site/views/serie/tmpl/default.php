@@ -47,8 +47,8 @@ if (in_array('serie:player', $this->columns) && count($this->items)) : ?>
 	<div class="ss-serie-player">
 		<hr class="ss-serie-player" />
 	<?php
-	echo $this->player['mspace'];
-	echo $this->player['script'];
+	echo $this->player->mspace;
+	echo $this->player->script;
 	?>
 		<hr class="ss-serie-player" />
 	<?php if ($this->params->get('fileswitch')): ?>

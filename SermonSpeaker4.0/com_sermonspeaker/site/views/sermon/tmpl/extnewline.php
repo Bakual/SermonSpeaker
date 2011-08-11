@@ -64,13 +64,13 @@ JHTML::_('behavior.modal');
 	<?php endif;
 	if (in_array('sermon:player', $this->columns)) : ?>
 		<div class="ss-sermondetail-text ss-sermon-player">
-			<?php if ($this->player['status'] == 'error'): ?>
-				<span class="no_entries"><?php echo $this->player['error']; ?></span>
+			<?php if (!$this->player->status): ?>
+				<span class="no_entries"><?php echo $this->player->error; ?></span>
 			<?php else:
-				echo $this->player['mspace'];
-				echo $this->player['script'];
+				echo $this->player->mspace;
+				echo $this->player->script;
 			endif;
-			if ($this->player['switch']): ?>
+			if ($this->player->toggle): ?>
 				<div class="ss-sermon-switch">
 					<img class="pointer" src="media/com_sermonspeaker/images/Video.png" onclick="Video()" alt="Video" />
 					<img class="pointer" src="media/com_sermonspeaker/images/Sound.png" onclick="Audio()" alt="Audio" />
@@ -78,13 +78,13 @@ JHTML::_('behavior.modal');
 			<?php endif; ?>
 		</div>
 	<?php endif;
-	if ($this->params->get('popup_player') && ($this->player['status'] != 'error')) : ?>
+	if ($this->params->get('popup_player') && ($this->player->status)) : ?>
 		<div class="ss-sermondetail-label"></div>
 		<div class="ss-sermondetail-text"><?php echo SermonspeakerHelperSermonspeaker::insertPopupButton($this->item->id, $this->player); ?></div>
 	<?php endif;
-	if ($this->params->get('dl_button') && $this->player['file']) : ?>
+	if ($this->params->get('dl_button') && $this->player->file) : ?>
 		<div class="ss-sermondetail-label"></div>
-		<div class="ss-sermondetail-text"><?php echo SermonspeakerHelperSermonspeaker::insertdlbutton($this->item->slug, $this->player['file']); ?></div>
+		<div class="ss-sermondetail-text"><?php echo SermonspeakerHelperSermonspeaker::insertdlbutton($this->item->slug, $this->player->file); ?></div>
 	<?php endif;
 	if (in_array('sermon:addfile', $this->columns) && $this->item->addfile) : ?>
 		<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_ADDFILE'); ?>:</div>

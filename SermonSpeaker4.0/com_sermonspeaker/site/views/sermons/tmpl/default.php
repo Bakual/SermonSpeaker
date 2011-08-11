@@ -17,8 +17,8 @@ if (in_array('sermons:player', $this->columns) && count($this->items)) : ?>
 	<div class="ss-sermons-player">
 		<hr class="ss-sermons-player" />
 		<?php
-		echo $this->player['mspace'];
-		echo $this->player['script'];
+		echo $this->player->mspace;
+		echo $this->player->script;
 		?>
 		<hr class="ss-sermons-player" />
 	<?php if ($this->params->get('fileswitch')): ?>
