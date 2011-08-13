@@ -199,16 +199,16 @@ class SermonspeakerHelperPlayer {
 		$video_ext = array('mp4', 'mov', 'f4v', 'flv', '3gp', '3g2');
 		if(in_array($ext, $audio_ext)){
 			// Audio File
-			$this->height	= ($this->height) ?: '23px';
-			$this->width	= ($this->width) ?: '250px';
+			$this->height	= ($this->height) ? $this->height : '23px';
+			$this->width	= ($this->width) ? $this->width : '250px';
 			$this->popup['height']	= $this->params->get('popup_height') + 23;
 			$this->popup['width']	= '380';
 			$this->status = 'audio';
 			$this->JWPlayer();
 		} elseif(in_array($ext, $video_ext) || (strpos($this->file, 'http://www.youtube.com') === 0)) {
 			// Video File
-			$this->height	= ($this->height) ?: $this->params->get('mp_height');
-			$this->width	= ($this->width) ?: $this->params->get('mp_width');
+			$this->height	= ($this->height) ? $this->height : $this->params->get('mp_height');
+			$this->width	= ($this->width) ? $this->width : $this->params->get('mp_width');
 			$this->popup['height']	= $this->params->get('popup_height') + $this->height;
 			if (strpos($this->width, '%')){
 				$this->popup['width'] = 500;
@@ -322,8 +322,8 @@ class SermonspeakerHelperPlayer {
 
 	private function MediaPlayer(){
 		$this->player = 'MediaPlayer';
-		$this->height	= ($this->height) ?: $this->params->get('mp_height');
-		$this->width	= ($this->width) ?: $this->params->get('mp_width');
+		$this->height	= ($this->height) ? $this->height : $this->params->get('mp_height');
+		$this->width	= ($this->width) ? $this->width : $this->params->get('mp_width');
 		$this->mspace = '<object id="mediaplayer" width="'.$this->width.'" height="'.$this->height.'" classid="clsid:22d6f312-b0f6-11d0-94ab-0080c74c7e95 22d6f312-b0f6-11d0-94ab-0080c74c7e95" type="application/x-oleobject">'
 							.'	<param name="filename" value="'.$this->file.'">'
 							.'	<param name="autostart" value="'.$this->start[1].'">'
@@ -346,8 +346,8 @@ class SermonspeakerHelperPlayer {
 
 	private function Vimeo(){
 		$this->player = 'Vimeo';
-		$this->height	= ($this->height) ?: $this->params->get('mp_height');
-		$this->width	= ($this->width) ?: $this->params->get('mp_width');
+		$this->height	= ($this->height) ? $this->height : $this->params->get('mp_height');
+		$this->width	= ($this->width) ? $this->width : $this->params->get('mp_width');
 		$this->mspace = '<iframe id="mediaspace'.$this->count.'" width="'.$this->width.'" height="'.$this->height.'" '
 						.'src="'.$this->file.'?title=0&byline=0&portrait=0&autplay='.$this->start[1].'&player_id="vimeo'.$this->count.'">'
 						.'</iframe>';
