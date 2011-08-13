@@ -21,7 +21,7 @@ if ($this->cat): ?>
 		echo $this->player->script;
 		?>
 		<hr class="ss-archive-player" />
-	<?php if ($this->params->get('fileswitch')): ?>
+	<?php if ($this->player->toggle): ?>
 		<div>
 			<img class="pointer" src="media/com_sermonspeaker/images/Video.png" onClick="Video()" alt="Video" />
 			<img class="pointer" src="media/com_sermonspeaker/images/Sound.png" onClick="Audio()" alt="Audio" />

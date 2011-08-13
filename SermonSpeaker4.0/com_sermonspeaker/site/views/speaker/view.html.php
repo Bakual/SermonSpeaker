@@ -113,23 +113,35 @@ class SermonspeakerViewspeaker extends JView
 		if (in_array('speaker:player', $this->columns) && ($this->getLayout() == 'latest-sermons') && count($this->items)){
 			require_once(JPATH_COMPONENT.DS.'helpers'.DS.'player.php');
 			$this->player = new SermonspeakerHelperPlayer($this->params);
-			JHTML::Script('media/com_sermonspeaker/player/jwplayer/jwplayer.js', true);
 			$this->player->prepare($this->items);
-			if($this->params->get('fileswitch')){
+			if ($this->player->player == 'PixelOut'){
+				JHTML::Script('media/com_sermonspeaker/player/audio_player/audio-player.js');
 				$this->document->addScriptDeclaration('
-					function Video() {
-						jwplayer().load(['.$this->player->playlist['video'].']).resize("'.$this->params->get('mp_width', '100%').'","'.$this->params->get('mp_height', '400px').'");
-						document.getElementById("mediaspace1_wrapper").style.width="'.$this->params->get('mp_width', '100%').'";
-						document.getElementById("mediaspace1_wrapper").style.height="'.$this->params->get('mp_height', '400px').'";
-					}
-				');
-				$this->document->addScriptDeclaration('
-					function Audio() {
-						jwplayer().load(['.$this->player->playlist['audio'].']).resize("100%","80px");
-						document.getElementById("mediaspace1_wrapper").style.width="100%";
-						document.getElementById("mediaspace1_wrapper").style.height="80px";
-					}
-				');
+				AudioPlayer.setup("'.JURI::root().'media/com_sermonspeaker/player/audio_player/player.swf", {
+					width: "100%",
+					initialvolume: 100,
+					transparentpagebg: "yes",
+					left: "000000",
+					lefticon: "FFFFFF"
+				});');
+			} elseif ($this->player->player == 'JWPlayer'){
+				JHTML::Script('media/com_sermonspeaker/player/jwplayer/jwplayer.js');
+				if($this->player->toggle){
+					$this->document->addScriptDeclaration('
+						function Video() {
+							jwplayer().load(['.$this->player->playlist['video'].']).resize("'.$this->params->get('mp_width', '100%').'","'.$this->params->get('mp_height', '400px').'");
+							document.getElementById("mediaspace1_wrapper").style.width="'.$this->params->get('mp_width', '100%').'";
+							document.getElementById("mediaspace1_wrapper").style.height="'.$this->params->get('mp_height', '400px').'";
+						}
+					');
+					$this->document->addScriptDeclaration('
+						function Audio() {
+							jwplayer().load(['.$this->player->playlist['audio'].']).resize("100%","80px");
+							document.getElementById("mediaspace1_wrapper").style.width="100%";
+							document.getElementById("mediaspace1_wrapper").style.height="80px";
+						}
+					');
+				}
 			}
 		}
 		

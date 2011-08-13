@@ -40,9 +40,9 @@ JHTML::_('behavior.modal');
 		<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_SPEAKER'); ?>:</div>
 		<div class="ss-sermondetail-text">
 			<?php if ($this->item->speaker_state):
-				echo SermonspeakerHelperSermonSpeaker::SpeakerTooltip($this->item->speaker_slug, $this->item->pic, $this->item->speaker_name); 
+				echo SermonspeakerHelperSermonSpeaker::SpeakerTooltip($this->item->speaker_slug, $this->item->pic, $this->item->name); 
 			else: 
-				echo $this->item->speaker_name;
+				echo $this->item->name;
 			endif; ?>
 		</div>
 		<?php if ($this->item->pic) : ?>

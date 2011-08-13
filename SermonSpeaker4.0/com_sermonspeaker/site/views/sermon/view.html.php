@@ -167,7 +167,7 @@ class SermonspeakerViewSermon extends JView
 		if ($menu && ($menu->query['view'] == 'series')) {
 	    	$pathway->addItem($this->item->series_title, JRoute::_(SermonspeakerHelperRoute::getSerieRoute($this->item->series_slug)));
 		} elseif ($menu && ($menu->query['view'] == 'speakers')) {
-	    	$pathway->addItem($this->item->speaker_name, JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($this->item->speaker_slug)));
+	    	$pathway->addItem($this->item->name, JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($this->item->speaker_slug)));
 		}
     	$pathway->addItem($this->item->sermon_title, '');
 
@@ -186,7 +186,7 @@ class SermonspeakerViewSermon extends JView
 			$this->document->setMetaData('title', $this->item->sermon_title);
 		}
 		if ($app->getCfg('MetaAuthor')){
-			$this->document->setMetaData('author', $this->item->speaker_name);
+			$this->document->setMetaData('author', $this->item->name);
 		}
 		
 		// Add Metadata for Facebook Open Graph API
@@ -206,8 +206,8 @@ class SermonspeakerViewSermon extends JView
 				$this->document->addCustomTag('<meta property="og:audio" content="'.$this->player->file.'"/>');
 				$this->document->addCustomTag('<meta property="og:type" content="song"/>');
 				$this->document->addCustomTag('<meta property="og:audio:title" content="'.$this->item->sermon_title.'"/>');
-				if ($this->item->speaker_name){
-					$this->document->addCustomTag('<meta property="og:audio:artist" content="'.$this->item->speaker_name.'"/>');
+				if ($this->item->name){
+					$this->document->addCustomTag('<meta property="og:audio:artist" content="'.$this->item->name.'"/>');
 				}
 				if ($this->item->series_title){
 					$this->document->addCustomTag('<meta property="og:audio:album" content="'.$this->item->series_title.'"/>');

@@ -50,7 +50,13 @@ class SermonspeakerHelperPlayer {
 	}
 
 	private function PlaylistPlayer(){
+		if($this->params->get('alt_player')){
+			$this->PixelOut(1);
+			return;
+		}
 		// JWPlayer
+		$this->toggle = ($this->params->get('fileswitch', 0)) ? true : false;
+		$this->player = 'JWPlayer';
 		$player	= JURI::root().'media/com_sermonspeaker/player/jwplayer/player.swf';
 		if (!$this->height){
 			if($this->prio){
@@ -102,7 +108,7 @@ class SermonspeakerHelperPlayer {
 				$meta .= ', image: "'.SermonspeakerHelperSermonspeaker::makelink($temp_item->pic).'"';
 			}
 			$entries[] = '{'.$file.$title.$meta.'}';
-			if ($this->params->get('fileswitch', 0)){
+			if ($this->toggle){
 				// Preparing specific playlists for audio and video
 				if ($temp_item->audiofile){
 					$audios[] = '{file: "'.SermonspeakerHelperSermonspeaker::makelink($temp_item->audiofile).'"'.$title.$meta.'}';
@@ -202,26 +208,11 @@ class SermonspeakerHelperPlayer {
 		$video_ext = array('mp4', 'mov', 'f4v', 'flv', '3gp', '3g2');
 		if(in_array($ext, $audio_ext)){
 			// Audio File
-			$this->mspace = '<div id="mediaspace'.$this->count.'">Flashplayer needs Javascript turned on</div>';
 			if (($ext == 'mp3') && $this->params->get('alt_player')){
 				// PixelOut
-				$options = '';
-				if ($this->item->sermon_title){
-					$options .= 'titles: "'.$this->item->sermon_title.'",';
-				}
-				if ($this->item->speaker_name){
-					$options .= 'artists: "'.$this->item->speaker_name.'",';
-				}
-				$this->player = 'PixelOut';
-				$this->script = '<script type="text/javascript">'
-									.'	AudioPlayer.embed("mediaspace'.$this->count.'", {'
-									.'		soundFile: "'.urlencode($this->file).'",'
-									.'		'.$options
-									.'		autostart: "'.$this->start[2].'"'
-									.'	})'
-									.'</script>';
-				$this->toggle = false;
+				$this->PixelOut(0);
 			} else {
+				$this->mspace = '<div id="mediaspace'.$this->count.'">Flashplayer needs Javascript turned on</div>';
 				// JW Player
 				if (!$this->height){
 					$this->height	= '23px';
@@ -289,32 +280,10 @@ class SermonspeakerHelperPlayer {
 				$this->popup['width'] = $this->width + 130;
 			}
 			$this->status = 'video';
-		} elseif($ext == 'wmv'){ // TODO: is anyone using this? Could switch to Longtail Silverlight player fpr wmv and wma support
+		} elseif($ext == 'wmv'){
 			// WMV File
-			if (!$this->height){
-				$this->height	= $this->params->get('mp_height');
-			}
-			if (!$this->width){
-				$this->width	= $this->params->get('mp_width');
-			}
-			$this->player = 'Windows';
-			$this->mspace = '<object id="mediaplayer" width="'.$this->width.'" height="'.$this->height.'" classid="clsid:22d6f312-b0f6-11d0-94ab-0080c74c7e95 22d6f312-b0f6-11d0-94ab-0080c74c7e95" type="application/x-oleobject">'
-								.'	<param name="filename" value="'.$this->file.'">'
-								.'	<param name="autostart" value="'.$this->start[1].'">'
-								.'	<param name="transparentatstart" value="true">'
-								.'	<param name="showcontrols" value="1">'
-								.'	<param name="showdisplay" value="0">'
-								.'	<param name="showstatusbar" value="1">'
-								.'	<param name="autosize" value="1">'
-								.'	<param name="animationatstart" value="false">'
-								.'	<embed name="MediaPlayer" src="'.$this->file.'" width="'.$this->width.'" height="'.$this->height.'" type="application/x-mplayer2" autostart="'.$this->start[1].'" showcontrols="1" showstatusbar="1" transparentatstart="1" animationatstart="0" loop="false" pluginspage="http://www.microsoft.com/windows/windowsmedia/download/default.asp">'
-								.'	</embed>'
-								.'</object>';
-			$this->script = '';
-			$this->popup['height'] = $this->height + $this->params->get('popup_height');
-			$this->popup['width']  = $this->width + 130;
-			$this->status = 'wmv file';
-			$this->toggle = false;
+			// TODO: Switch to Longtail Silverlight player for wmv and wma support
+			$this->MediaPlayer();
 		} else {
 			$this->player = '';
 			$this->mspace = '';
@@ -325,6 +294,78 @@ class SermonspeakerHelperPlayer {
 			$this->error  = 'Unsupported Filetype';
 			$this->toggle = false;
 		}
+		return;
+	}
+
+	private function JWPlayer($multi=0){
+		return;
+	}
+
+	private function PixelOut($multi=0){
+		$this->mspace = '<div id="mediaspace'.$this->count.'">Flashplayer needs Javascript turned on</div>';
+		if($multi){
+			$files		= array();
+			$titles		= array();
+			$artists	= array();
+			foreach($this->item as $item){
+				if (($item->audiofile && !$this->prio) || ($item->audiofile && !$item->videofile)){
+					$files[]	= urlencode(SermonspeakerHelperSermonspeaker::makelink($item->audiofile));
+				} elseif (($item->videofile && $this->prio) || ($item->videofile && !$item->audiofile)){
+					$files[]	= urlencode(SermonspeakerHelperSermonspeaker::makelink($item->videofile));
+				} else {
+					$files[]	= urlencode(JURI::root());
+					$titles[]	= JText::_('JGLOBAL_RESOURCE_NOT_FOUND');
+					$artists	= '';
+					continue;
+				}
+				$titles[]	= ($item->sermon_title) ? $item->sermon_title : '';
+				$artists[]	= ($item->name) ? $item->name : '';
+			}
+			$file	= implode(',',$files);
+			$title	= 'titles: "'.implode(',',$titles).'",';
+			$artist	= 'artists: "'.implode(',',$artists).'",';
+		} else {
+			$file	= urlencode($this->file);
+			$title	= ($this->item->sermon_title) ? 'titles: "'.$this->item->sermon_title.'",' : '';
+			$artist	= ($this->item->name) ? 'artists: "'.$this->item->name.'",' : '';
+		}
+		$this->player = 'PixelOut';
+		$this->script = '<script type="text/javascript">'
+							.'AudioPlayer.embed("mediaspace'.$this->count.'", {'
+								.'soundFile: "'.$file.'",'
+								.$title.$artist
+								.'autostart: "'.$this->start[2].'"'
+							.'})'
+						.'</script>';
+		$this->toggle = false;
+		return;
+	}
+
+	private function MediaPlayer(){
+		if (!$this->height){
+			$this->height	= $this->params->get('mp_height');
+		}
+		if (!$this->width){
+			$this->width	= $this->params->get('mp_width');
+		}
+		$this->player = 'MediaPlayer';
+		$this->mspace = '<object id="mediaplayer" width="'.$this->width.'" height="'.$this->height.'" classid="clsid:22d6f312-b0f6-11d0-94ab-0080c74c7e95 22d6f312-b0f6-11d0-94ab-0080c74c7e95" type="application/x-oleobject">'
+							.'	<param name="filename" value="'.$this->file.'">'
+							.'	<param name="autostart" value="'.$this->start[1].'">'
+							.'	<param name="transparentatstart" value="true">'
+							.'	<param name="showcontrols" value="1">'
+							.'	<param name="showdisplay" value="0">'
+							.'	<param name="showstatusbar" value="1">'
+							.'	<param name="autosize" value="1">'
+							.'	<param name="animationatstart" value="false">'
+							.'	<embed name="MediaPlayer" src="'.$this->file.'" width="'.$this->width.'" height="'.$this->height.'" type="application/x-mplayer2" autostart="'.$this->start[1].'" showcontrols="1" showstatusbar="1" transparentatstart="1" animationatstart="0" loop="false" pluginspage="http://www.microsoft.com/windows/windowsmedia/download/default.asp">'
+							.'	</embed>'
+							.'</object>';
+		$this->script = '';
+		$this->popup['height'] = $this->height + $this->params->get('popup_height');
+		$this->popup['width']  = $this->width + 130;
+		$this->status = 'video';
+		$this->toggle = false;
 		return;
 	}
 }

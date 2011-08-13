@@ -46,9 +46,11 @@ if (empty($this->items)) : ?>
 						echo ' ('.JHTML::Date($sermon->sermon_date, JText::_($this->params->get('date_format')), 'UTC').')';
 					endif; ?>
 				</h4>
-				<?php if (in_array('seriessermon:notes', $this->columns)):
-					echo $sermon->notes;
-				endif;
+				<?php if (in_array('seriessermon:notes', $this->columns)): ?>
+				<div>
+					<?php echo $sermon->notes; ?>
+				</div>
+				<?php endif;
 				if ($sermon->addfile && $sermon->addfileDesc && in_array('seriessermon:addfile', $this->columns)):
 					echo '<b>'.JText::_('COM_SERMONSPEAKER_ADDFILE').' : </b>';
 					echo SermonspeakerHelperSermonspeaker::insertAddfile($sermon->addfile, $sermon->addfileDesc);

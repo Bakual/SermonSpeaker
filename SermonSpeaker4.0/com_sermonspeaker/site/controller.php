@@ -67,7 +67,21 @@ class SermonspeakerController extends JController
 			header("Content-Transfer-Encoding: binary");
 			header("Content-Length: ".@filesize($file));
 			set_time_limit(0);
-			@readfile($file) OR die('Unable to read file!');
+			$fSize = @filesize($file);
+			$chunksize = 3 * (1024 * 1024); // how many bytes per chunk
+			if ($fSize > $chunksize) {
+				$handle = fopen($file, 'rb');
+				$buffer = '';
+				while (!feof($handle)) {
+					$buffer = fread($handle, $chunksize);
+					echo $buffer;
+					ob_flush();
+					flush();
+				}
+				fclose($handle);
+			} else {
+				@readfile($file) OR die('Unable to read file!');
+			}
 			exit;
 		} else {
 			die("<html><body OnLoad=\"javascript: alert('File not found!');history.back();\" bgcolor=\"#F0F0F0\"></body></html>");

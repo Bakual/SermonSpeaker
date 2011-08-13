@@ -21,7 +21,7 @@ if (in_array('sermons:player', $this->columns) && count($this->items)) : ?>
 		echo $this->player->script;
 		?>
 		<hr class="ss-sermons-player" />
-	<?php if ($this->params->get('fileswitch')): ?>
+	<?php if ($this->player->toggle): ?>
 		<div>
 			<img class="pointer" src="media/com_sermonspeaker/images/Video.png" onclick="Video()" alt="Video" />
 			<img class="pointer" src="media/com_sermonspeaker/images/Sound.png" onclick="Audio()" alt="Audio" />
