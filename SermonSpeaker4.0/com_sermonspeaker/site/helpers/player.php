@@ -188,102 +188,42 @@ class SermonspeakerHelperPlayer {
 		jimport('joomla.filesystem.file');
 		$ext = JFile::getExt($this->file);
 
-		if (!$this->params->get('alt_player') || ($ext != 'mp3')){
-			$player = JURI::root().'media/com_sermonspeaker/player/jwplayer/player.swf';
-			$skin	= $this->params->get('jwskin', '');
-			if ($skin){
-				$skin = '	  skin: "'.$skin.'",';
-			}
-			if ($this->item->sermon_time != '00:00:00'){
-				$time_arr = explode(':', $this->item->sermon_time);
-				$seconds = ($time_arr[0] * 3600) + ($time_arr[1] * 60) + $time_arr[2];
-				$duration = '	  duration: '.$seconds.',';
-			} else {
-				$duration = '';
-			}
+		if (($ext == 'mp3') && $this->params->get('alt_player')){
+			// PixelOut
+			$this->PixelOut();
+			return;
 		}
 
-		// Declare the supported file extensions
+		// Declare the supported file extensions for JW Player
 		$audio_ext = array('aac', 'm4a', 'mp3');
 		$video_ext = array('mp4', 'mov', 'f4v', 'flv', '3gp', '3g2');
 		if(in_array($ext, $audio_ext)){
 			// Audio File
-			if (($ext == 'mp3') && $this->params->get('alt_player')){
-				// PixelOut
-				$this->PixelOut(0);
-			} else {
-				$this->mspace = '<div id="mediaspace'.$this->count.'">Flashplayer needs Javascript turned on</div>';
-				// JW Player
-				if (!$this->height){
-					$this->height	= '23px';
-				}
-				if (!$this->width){
-					$this->width	= '250px';
-				}
-				$image = '';
-				if ($this->item->picture){
-					$image .= '	  image: "'.SermonspeakerHelperSermonspeaker::makelink($this->item->picture).'",';
-				} elseif ($this->item->pic){
-					$image .= '	  image: "'.SermonspeakerHelperSermonspeaker::makelink($this->item->pic).'",';
-				}
-				$this->player = 'JWPlayer';
-				$this->script = '<script type="text/javascript">'
-									.'	jwplayer("mediaspace'.$this->count.'").setup({'
-									.'	  flashplayer: "'.$player.'",'
-									.'	  file: "'.$this->file.'",'
-									.'	  autostart: '.$this->start[0].','
-									.$duration
-									.$skin
-									.$image
-									.'	  controlbar: "bottom",'
-									.'	  width: "'.$this->width.'",'
-									.'	  height: "'.$this->height.'"'
-									.'	});'
-									.'</script>';
-			}
-			$this->popup['height'] = $this->params->get('popup_height') + 23;
-			$this->popup['width']  = '380';
+			$this->height	= ($this->height) ?: '23px';
+			$this->width	= ($this->width) ?: '250px';
+			$this->popup['height']	= $this->params->get('popup_height') + 23;
+			$this->popup['width']	= '380';
 			$this->status = 'audio';
+			$this->JWPlayer();
 		} elseif(in_array($ext, $video_ext) || (strpos($this->file, 'http://www.youtube.com') === 0)) {
 			// Video File
-			if (!$this->height){
-				$this->height	= $this->params->get('mp_height');
-			}
-			if (!$this->width){
-				$this->width	= $this->params->get('mp_width');
-			}
-			$image = '';
-			if ($this->item->picture){
-				$image .= '	  image: "'.SermonspeakerHelperSermonspeaker::makelink($this->item->picture).'",';
-			} elseif ($this->item->pic){
-				$image .= '	  image: "'.SermonspeakerHelperSermonspeaker::makelink($this->item->pic).'",';
-			}
-			$this->player = 'JWPlayer';
-			$this->mspace = '<div id="mediaspace'.$this->count.'">Flashplayer needs Javascript turned on</div>';
-			$this->script = '<script type="text/javascript">'
-								.'	jwplayer("mediaspace'.$this->count.'").setup({'
-								.'	  flashplayer: "'.$player.'",'
-								.'	  file: "'.$this->file.'",'
-								.'	  autostart: '.$this->start[0].','
-								.$duration
-								.$skin
-								.$image
-								.'	  controlbar: "bottom",'
-								.'	  width: "'.$this->width.'",'
-								.'	  height: "'.$this->height.'"'
-								.'	});'
-								.'</script>';
-			$this->popup['height'] = $this->height + $this->params->get('popup_height');
+			$this->height	= ($this->height) ?: $this->params->get('mp_height');
+			$this->width	= ($this->width) ?: $this->params->get('mp_width');
+			$this->popup['height']	= $this->params->get('popup_height') + $this->height;
 			if (strpos($this->width, '%')){
 				$this->popup['width'] = 500;
 			} else {
 				$this->popup['width'] = $this->width + 130;
 			}
 			$this->status = 'video';
+			$this->JWPlayer();
 		} elseif($ext == 'wmv'){
 			// WMV File
 			// TODO: Switch to Longtail Silverlight player for wmv and wma support
 			$this->MediaPlayer();
+		} elseif(strpos($this->file, 'http://player.vimeo.com') === 0){
+			// Vimeo
+			$this->Vimeo();
 		} else {
 			$this->player = '';
 			$this->mspace = '';
@@ -298,10 +238,47 @@ class SermonspeakerHelperPlayer {
 	}
 
 	private function JWPlayer($multi=0){
+		$this->player = 'JWPlayer';
+		$this->mspace = '<div id="mediaspace'.$this->count.'">Flashplayer needs Javascript turned on</div>';
+		$player = JURI::root().'media/com_sermonspeaker/player/jwplayer/player.swf';
+		if($multi){
+		} else {
+			$image = '';
+			if ($this->item->picture){
+				$image .= '	  image: "'.SermonspeakerHelperSermonspeaker::makelink($this->item->picture).'",';
+			} elseif ($this->item->pic){
+				$image .= '	  image: "'.SermonspeakerHelperSermonspeaker::makelink($this->item->pic).'",';
+			}
+			$skin	= $this->params->get('jwskin', '');
+			if ($skin){
+				$skin = '	  skin: "'.$skin.'",';
+			}
+			if ($this->item->sermon_time != '00:00:00'){
+				$time_arr = explode(':', $this->item->sermon_time);
+				$seconds = ($time_arr[0] * 3600) + ($time_arr[1] * 60) + $time_arr[2];
+				$duration = '	  duration: '.$seconds.',';
+			} else {
+				$duration = '';
+			}
+		}
+		$this->script = '<script type="text/javascript">'
+							.'	jwplayer("mediaspace'.$this->count.'").setup({'
+							.'	  flashplayer: "'.$player.'",'
+							.'	  file: "'.$this->file.'",'
+							.'	  autostart: '.$this->start[0].','
+							.$duration
+							.$skin
+							.$image
+							.'	  controlbar: "bottom",'
+							.'	  width: "'.$this->width.'",'
+							.'	  height: "'.$this->height.'"'
+							.'	});'
+							.'</script>';
 		return;
 	}
 
 	private function PixelOut($multi=0){
+		$this->player = 'PixelOut';
 		$this->mspace = '<div id="mediaspace'.$this->count.'">Flashplayer needs Javascript turned on</div>';
 		if($multi){
 			$files		= array();
@@ -329,7 +306,6 @@ class SermonspeakerHelperPlayer {
 			$title	= ($this->item->sermon_title) ? 'titles: "'.$this->item->sermon_title.'",' : '';
 			$artist	= ($this->item->name) ? 'artists: "'.$this->item->name.'",' : '';
 		}
-		$this->player = 'PixelOut';
 		$this->script = '<script type="text/javascript">'
 							.'AudioPlayer.embed("mediaspace'.$this->count.'", {'
 								.'soundFile: "'.$file.'",'
@@ -338,17 +314,16 @@ class SermonspeakerHelperPlayer {
 							.'})'
 						.'</script>';
 		$this->toggle = false;
+		$this->popup['height'] = $this->params->get('popup_height') + 23;
+		$this->popup['width']  = '380';
+		$this->status = 'audio';
 		return;
 	}
 
 	private function MediaPlayer(){
-		if (!$this->height){
-			$this->height	= $this->params->get('mp_height');
-		}
-		if (!$this->width){
-			$this->width	= $this->params->get('mp_width');
-		}
 		$this->player = 'MediaPlayer';
+		$this->height	= ($this->height) ?: $this->params->get('mp_height');
+		$this->width	= ($this->width) ?: $this->params->get('mp_width');
 		$this->mspace = '<object id="mediaplayer" width="'.$this->width.'" height="'.$this->height.'" classid="clsid:22d6f312-b0f6-11d0-94ab-0080c74c7e95 22d6f312-b0f6-11d0-94ab-0080c74c7e95" type="application/x-oleobject">'
 							.'	<param name="filename" value="'.$this->file.'">'
 							.'	<param name="autostart" value="'.$this->start[1].'">'
@@ -361,6 +336,21 @@ class SermonspeakerHelperPlayer {
 							.'	<embed name="MediaPlayer" src="'.$this->file.'" width="'.$this->width.'" height="'.$this->height.'" type="application/x-mplayer2" autostart="'.$this->start[1].'" showcontrols="1" showstatusbar="1" transparentatstart="1" animationatstart="0" loop="false" pluginspage="http://www.microsoft.com/windows/windowsmedia/download/default.asp">'
 							.'	</embed>'
 							.'</object>';
+		$this->script = '';
+		$this->popup['height'] = $this->height + $this->params->get('popup_height');
+		$this->popup['width']  = $this->width + 130;
+		$this->status = 'video';
+		$this->toggle = false;
+		return;
+	}
+
+	private function Vimeo(){
+		$this->player = 'Vimeo';
+		$this->height	= ($this->height) ?: $this->params->get('mp_height');
+		$this->width	= ($this->width) ?: $this->params->get('mp_width');
+		$this->mspace = '<iframe id="mediaspace'.$this->count.'" width="'.$this->width.'" height="'.$this->height.'" '
+						.'src="'.$this->file.'?title=0&byline=0&portrait=0&autplay='.$this->start[1].'&player_id="vimeo'.$this->count.'">'
+						.'</iframe>';
 		$this->script = '';
 		$this->popup['height'] = $this->height + $this->params->get('popup_height');
 		$this->popup['width']  = $this->width + 130;
