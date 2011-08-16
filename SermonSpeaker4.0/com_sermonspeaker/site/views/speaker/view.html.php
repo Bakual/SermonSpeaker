@@ -127,11 +127,15 @@ class SermonspeakerViewspeaker extends JView
 			} elseif ($this->player->player == 'JWPlayer'){
 				JHTML::Script('media/com_sermonspeaker/player/jwplayer/jwplayer.js');
 				if($this->player->toggle){
+					$width = $this->params->get('mp_width', '100%');
+					if (is_numeric($width)){ $width .= 'px'; }
+					$height = $this->params->get('mp_height', '400px');
+					if (is_numeric($height)){ $height .= 'px'; }
 					$this->document->addScriptDeclaration('
 						function Video() {
-							jwplayer().load(['.$this->player->playlist['video'].']).resize("'.$this->params->get('mp_width', '100%').'","'.$this->params->get('mp_height', '400px').'");
-							document.getElementById("mediaspace1_wrapper").style.width="'.$this->params->get('mp_width', '100%').'";
-							document.getElementById("mediaspace1_wrapper").style.height="'.$this->params->get('mp_height', '400px').'";
+							jwplayer().load(['.$this->player->playlist['video'].']).resize("'.$width.'","'.$height.'");
+							document.getElementById("mediaspace1_wrapper").style.width="'.$width.'";
+							document.getElementById("mediaspace1_wrapper").style.height="'.$height.'";
 						}
 					');
 					$this->document->addScriptDeclaration('
