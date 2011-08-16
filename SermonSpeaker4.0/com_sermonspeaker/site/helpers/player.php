@@ -221,7 +221,7 @@ class SermonspeakerHelperPlayer {
 			// WMV File
 			// TODO: Switch to Longtail Silverlight player for wmv and wma support
 			$this->MediaPlayer();
-		} elseif(strpos($this->file, 'http://player.vimeo.com') === 0){
+		} elseif(strpos($this->file, 'http://vimeo.com') === 0 || (strpos($this->file, 'http://player.vimeo.com') === 0)){
 			// Vimeo
 			$this->Vimeo();
 		} else {
@@ -345,17 +345,19 @@ class SermonspeakerHelperPlayer {
 	}
 
 	private function Vimeo(){
-		$this->player = 'Vimeo';
+		$this->player	= 'Vimeo';
+		$id				= trim(strrchr($this->file, '/'), '/ ');
+		$this->file		= 'http://vimeo.com/'.$id;
 		$this->height	= ($this->height) ? $this->height : $this->params->get('mp_height');
 		$this->width	= ($this->width) ? $this->width : $this->params->get('mp_width');
 		$this->mspace = '<iframe id="mediaspace'.$this->count.'" width="'.$this->width.'" height="'.$this->height.'" '
-						.'src="'.$this->file.'?title=0&byline=0&portrait=0&autplay='.$this->start[1].'&player_id="vimeo'.$this->count.'">'
+						.'src="http://player.vimeo.com/video/'.$id.'?title=0&byline=0&portrait=0&autoplay='.$this->start[1].'&player_id="vimeo'.$this->count.'">'
 						.'</iframe>';
-		$this->script = '';
+		$this->script	= '';
 		$this->popup['height'] = $this->height + $this->params->get('popup_height');
 		$this->popup['width']  = $this->width + 130;
-		$this->status = 'video';
-		$this->toggle = false;
+		$this->status	= 'video';
+		$this->toggle	= false;
 		return;
 	}
 }
