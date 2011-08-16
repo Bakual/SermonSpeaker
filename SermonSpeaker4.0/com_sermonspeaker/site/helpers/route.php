@@ -45,7 +45,7 @@ abstract class SermonspeakerHelperRoute
 		//Create the link
 		$link = 'index.php?option=com_sermonspeaker&view=sermon&id='.$id;
 		if ((int)$catid > 1) {
-			$categories = JCategories::getInstance('Sermonspeaker');
+			$categories = JCategories::getInstance('Sermonspeaker', array('table'=>'#__sermon_sermons'));
 			$category 	= $categories->get((int)$catid);
 			if($category) {
 				$needles['category']	= array_reverse($category->getPath());
@@ -86,7 +86,7 @@ abstract class SermonspeakerHelperRoute
 		//Create the link
 		$link = 'index.php?option=com_sermonspeaker&view=serie&id='.$id;
 		if ((int)$catid > 1) {
-			$categories = JCategories::getInstance('Sermonspeaker');
+			$categories = JCategories::getInstance('Sermonspeaker', array('table'=>'#__sermon_series'));
 			$category 	= $categories->get((int)$catid);
 			if($category) {
 				$needles['category']	= array_reverse($category->getPath());
@@ -127,7 +127,7 @@ abstract class SermonspeakerHelperRoute
 		//Create the link
 		$link = 'index.php?option=com_sermonspeaker&view=speaker&id='.$id;
 		if ((int)$catid > 1) {
-			$categories = JCategories::getInstance('Sermonspeaker');
+			$categories = JCategories::getInstance('Sermonspeaker', array('table'=>'#__sermon_speakers'));
 			$category 	= $categories->get((int)$catid);
 			if($category) {
 				$needles['category']	= array_reverse($category->getPath());
