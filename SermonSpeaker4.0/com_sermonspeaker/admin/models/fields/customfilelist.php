@@ -70,6 +70,18 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 			// Get the field options.
 			return parent::getOptions();
 		} elseif ($this->mode == 1){
+			$options = array();
+			$url = 'http://vimeo.com/api/v2/'.$this->params->get('vimeo_id').'/videos.xml';
+			if ($xml = simplexml_load_file($url)){
+				foreach ($xml->video as $video) {
+					$option['value'] = $video->url;
+					$option['text'] = $video->title;
+					$options[] = $option;
+				}   
+
+				return $options;
+			}
+		} elseif ($this->mode == 2){
 			// Initialize variables.
 			$options = array();
 
@@ -92,7 +104,7 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 			}   
 
 			return $options;
-		} else {
+		} elseif ($this->mode == 3){
 			$options = array();
 			$url = $this->params->get('extern_path');
 			if ($xml = simplexml_load_file($url)){

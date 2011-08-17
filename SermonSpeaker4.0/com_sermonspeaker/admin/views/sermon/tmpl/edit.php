@@ -56,8 +56,9 @@ $self = $uri->toString();
 			<?php echo $this->form->getLabel(''); ?>
 			<input type="radio" name="sel1" value="1" onclick="enableElement(this.form.elements['jform_audiofile'], this.form.elements['jform_audiofile_text']);">
 			<?php echo $this->form->getInput('audiofile');
-			if (!$this->params->get('path_mode', 0)) { ?>
-				<img class="pointer" onClick="window.location.href='<?php echo $self; ?>&amp;type=audio&amp;file=<?php echo '/'.$this->params->get('path').'/'; ?>'+document.adminForm.jform_audiofile.value;" src='<?php echo JURI::root(); ?>/media/com_sermonspeaker/icons/16/glasses.png' alt='lookup ID3' title='lookup ID3'>
+			if ($this->params->get('path_mode', 0) < 2) {
+				$path = !$this->params->get('path_mode', 0) ? '/'.$this->params->get('path').'/' : ''; ?>
+				<img class="pointer" onClick="window.location.href='<?php echo $self; ?>&amp;type=audio&amp;file=<?php echo $path; ?>'+document.adminForm.jform_audiofile.value;" src='<?php echo JURI::root(); ?>/media/com_sermonspeaker/icons/16/glasses.png' alt='lookup ID3' title='lookup ID3'>
 			<?php } ?>
 		</fieldset>
 		<fieldset class="adminform">
@@ -68,8 +69,9 @@ $self = $uri->toString();
 			<?php echo $this->form->getLabel(''); ?>
 			<input type="radio" name="sel2" value="1" onclick="enableElement(this.form.elements['jform_videofile'], this.form.elements['jform_videofile_text']);">
 			<?php echo $this->form->getInput('videofile'); 
-			if (!$this->params->get('path_mode', 0)) { ?>
-				<img class="pointer" onClick="window.location.href='<?php echo $self; ?>&amp;type=video&amp;file=<?php echo '/'.$this->params->get('path').'/'; ?>'+document.adminForm.jform_videofile.value;" src='<?php echo JURI::root(); ?>/media/com_sermonspeaker/icons/16/glasses.png' alt='lookup ID3' title='lookup ID3'>
+			if ($this->params->get('path_mode', 0) < 2) {
+				$path = !$this->params->get('path_mode', 0) ? '/'.$this->params->get('path').'/' : ''; ?>
+				<img class="pointer" onClick="window.location.href='<?php echo $self; ?>&amp;type=video&amp;file=<?php echo $path; ?>'+document.adminForm.jform_videofile.value;" src='<?php echo JURI::root(); ?>/media/com_sermonspeaker/icons/16/glasses.png' alt='lookup ID3' title='lookup ID3'>
 			<?php } ?>
 		</fieldset>
 		<fieldset class="adminform">

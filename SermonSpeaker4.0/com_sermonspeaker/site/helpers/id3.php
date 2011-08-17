@@ -7,6 +7,9 @@ defined('_JEXEC') or die('Restricted access');
 class SermonspeakerHelperId3
 {
 	function getID3($file, $params) {
+		if ($params->get('path_mode', 0) == 1){
+			return SermonspeakerHelperId3::getVimeo($file);
+		}
 		require_once(JPATH_COMPONENT_SITE.DS.'id3'.DS.'getid3'.DS.'getid3.php');
 		$getID3 	= new getID3;
 		$path		= JPATH_SITE.str_replace('/', DS, $file);
@@ -73,5 +76,28 @@ class SermonspeakerHelperId3
 		}
 
 		return $id3;
+	}
+	private function getVimeo($file){
+		$id		= trim(strrchr($file, '/'), '/ ');
+		$url	= 'http://vimeo.com/api/v2/video/'.$id.'.xml';
+		$xml	= simplexml_load_file($url);
+		$video	= $xml->video;
+		if (is_object($video)){
+			$minutes	= floor((string)$video->duration / 60);
+			$hours		= floor($minutes / 60);
+			$seconds	= $video->duration - $minutes * 60;
+			$id3['sermon_time']		= $hours.':'.$minutes.':'.$seconds;
+			$id3['sermon_title']	= $video->title;
+			$id3['alias'] 			= JFilterOutput::stringURLSafe($id3['sermon_title']);
+			$id3['sermon_date']		= $video->upload_date;
+			$id3['notes'] 			= $video->description;
+			$id3['pic']				= $video->thumbnail_medium;
+			$id3['sermon_number']	= '';
+			$id3['sermon_scripture'] = '';
+			$id3['series_id'] 		= '';
+			$id3['speaker_id']		= '';
+
+			return $id3;
+		}
 	}
 }

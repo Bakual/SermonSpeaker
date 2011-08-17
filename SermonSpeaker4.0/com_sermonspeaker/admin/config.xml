@@ -133,8 +133,9 @@
 			label="COM_SERMONSPEAKER_FIELD_PATH_MODE_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_PATH_MODE_DESC">
 			<option value="0">JDEFAULT</option>
-			<option value="1">COM_SERMONSPEAKER_FIELD_PATH_MODE_S3</option>
-			<option value="2">COM_SERMONSPEAKER_FIELD_PATH_MODE_EXTERNAL</option>
+			<option value="1">COM_SERMONSPEAKER_FIELD_PATH_MODE_VIMEO</option>
+			<option value="2">COM_SERMONSPEAKER_FIELD_PATH_MODE_S3</option>
+			<option value="3">COM_SERMONSPEAKER_FIELD_PATH_MODE_EXTERNAL</option>
 		</field>
 		<field name="s3_bucket" 
 			type="text" 
@@ -160,6 +161,12 @@
 			default="" 
 			label="COM_SERMONSPEAKER_FIELD_EXTERN_PATH_LABEL" 
 			description="COM_SERMONSPEAKER_FIELD_EXTERN_PATH_DESC" />
+		<field name="vimeo_id" 
+			type="text" 
+			size="50" 
+			default="" 
+			label="COM_SERMONSPEAKER_FIELD_VIMEO_ID_LABEL" 
+			description="COM_SERMONSPEAKER_FIELD_VIMEO_ID_DESC" />
 		
 	</fieldset>
 	<fieldset name="player"
