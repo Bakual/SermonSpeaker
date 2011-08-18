@@ -76,7 +76,7 @@ $self = $uri->toString();
 				<?php } ?>
 				<div id="infoUpload2" class="intend">
 					<span id="btnUpload2"></span>
-					<button id="btnCancel2" type="button" onclick="cancelQueue(upload1);" class="ss-hide" disabled="disabled">Cancel</button>
+					<button id="btnCancel2" type="button" onclick="cancelQueue(upload2);" class="ss-hide" disabled="disabled">Cancel</button>
 				</div>
 			<div class="clr"></div>
 
@@ -118,6 +118,10 @@ $self = $uri->toString();
 			<div class="label">&nbsp;</div>
 			<input type="radio" name="sel3" value="1" onclick="enableElement(this.form.elements['jform_addfile'], this.form.elements['jform_addfile_text']);">
 				<?php echo $this->form->getInput('addfile'); ?>
+				<div id="infoUpload3" class="intend">
+					<span id="btnUpload3"></span>
+					<button id="btnCancel3" type="button" onclick="cancelQueue(upload3);" class="ss-hide" disabled="disabled">Cancel</button>
+				</div>
 			<br />
 			<?php echo $this->form->getLabel('addfileDesc'); ?>
 			<?php echo $this->form->getInput('addfileDesc'); ?>

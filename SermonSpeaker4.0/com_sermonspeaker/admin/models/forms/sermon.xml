@@ -67,7 +67,7 @@
 
 		<field name="addfile" type="customfilelist" class="inputbox"
 			path="path_addfile" 
-			filter="\.png$|\.gif$|\.jpg$|\.bmp$|\.pdf$|\.txt$|\.doc$"
+			filter="\.png$|\.gif$|\.jpg$|\.bmp$|\.pdf$|\.txt$|\.doc$|\.docx$|"
 			hide_default="true"
 			hide_none="true"
 			disabled="true"

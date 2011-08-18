@@ -41,9 +41,6 @@ $self = $uri->toString();
 			<li><?php echo $this->form->getLabel('podcast'); ?>
 			<?php echo $this->form->getInput('podcast'); ?></li>
 
-			<li><?php echo $this->form->getLabel('s3file'); ?>
-			<?php echo $this->form->getInput('s3file'); ?></li>
-
 			<li><?php echo $this->form->getLabel('ordering'); ?>
 			<?php echo $this->form->getInput('ordering'); ?></li>
 			</ul>
@@ -60,6 +57,10 @@ $self = $uri->toString();
 				$path = !$this->params->get('path_mode_audio', 0) ? '/'.$this->params->get('path').'/' : ''; ?>
 				<img class="pointer" onClick="window.location.href='<?php echo $self; ?>&amp;type=audio&amp;file=<?php echo $path; ?>'+document.adminForm.jform_audiofile.value;" src='<?php echo JURI::root(); ?>/media/com_sermonspeaker/icons/16/glasses.png' alt='lookup ID3' title='lookup ID3'>
 			<?php } ?>
+			<div id="infoUpload1" class="intend">
+				<span id="btnUpload1"></span>
+				<button id="btnCancel1" type="button" onclick="cancelQueue(upload1);" class="ss-hide upload_button" disabled="disabled">Cancel</button>
+			</div>
 		</fieldset>
 		<fieldset class="adminform">
 			<legend><?php echo JText::_('COM_SERMONSPEAKER_FIELD_VIDEOFILE_LABEL'); ?></legend>
@@ -73,6 +74,10 @@ $self = $uri->toString();
 				$path = !$this->params->get('path_mode_video', 0) ? '/'.$this->params->get('path').'/' : ''; ?>
 				<img class="pointer" onClick="window.location.href='<?php echo $self; ?>&amp;type=video&amp;file=<?php echo $path; ?>'+document.adminForm.jform_videofile.value;" src='<?php echo JURI::root(); ?>/media/com_sermonspeaker/icons/16/glasses.png' alt='lookup ID3' title='lookup ID3'>
 			<?php } ?>
+			<div id="infoUpload2" class="intend">
+				<span id="btnUpload2"></span>
+				<button id="btnCancel2" type="button" onclick="cancelQueue(upload2);" class="ss-hide upload_button" disabled="disabled">Cancel</button>
+			</div>
 		</fieldset>
 		<fieldset class="adminform">
 			<legend><?php echo JText::_('COM_SERMONSPEAKER_FIELD_NOTES_LABEL'); ?></legend>
@@ -86,6 +91,10 @@ $self = $uri->toString();
 			<div class="clr"></div>
 			<input type="radio" name="sel3" value="1" onclick="enableElement(this.form.elements['jform_addfile'], this.form.elements['jform_addfile_text']);">
 			<?php echo $this->form->getInput('addfile'); ?>
+			<div id="infoUpload3" class="intend">
+				<span id="btnUpload3"></span>
+				<button id="btnCancel3" type="button" onclick="cancelQueue(upload3);" class="ss-hide upload_button" disabled="disabled">Cancel</button>
+			</div>
 			<ul>
 			<li><?php echo $this->form->getLabel('addfileDesc'); ?>
 			<?php echo $this->form->getInput('addfileDesc'); ?></li>

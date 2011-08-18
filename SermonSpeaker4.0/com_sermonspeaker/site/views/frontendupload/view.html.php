@@ -130,7 +130,6 @@ class SermonspeakerViewFrontendupload extends JView
 						button_window_mode: "transparent",
 						debug: false,
 						swfupload_loaded_handler: function() {
-							document.id(\'upload-noflash\').destroy();
 							document.id(\'btnCancel2\').removeClass(\'ss-hide\');
 						},
 						file_dialog_start_handler : fileDialogStart,
@@ -161,6 +160,53 @@ class SermonspeakerViewFrontendupload extends JView
 						custom_settings : {
 							progressTarget : "infoUpload2",
 							cancelButtonId : "btnCancel2"
+						}
+							
+					});
+					upload3 = new SWFUpload({
+						upload_url: "'.$targetURL.'&addfile=true",
+						flash_url : "'.JURI::root().'media/com_sermonspeaker/swfupload/swfupload.swf",
+						file_size_limit : "100MB",
+						file_upload_limit : "0",
+						file_queue_limit : "0",
+						button_image_url : "'.JURI::root().'media/com_sermonspeaker/swfupload/XPButtonUploadText_61x22.png",
+						button_placeholder_id : "btnUpload3",
+						button_width: 61,
+						button_height: 22,
+						button_window_mode: "transparent",
+						debug: false,
+						swfupload_loaded_handler: function() {
+							document.id(\'upload-noflash\').destroy();
+							document.id(\'btnCancel3\').removeClass(\'ss-hide\');
+						},
+						file_dialog_start_handler : fileDialogStart,
+						file_queued_handler : fileQueued,
+						file_queue_error_handler : fileQueueError,
+						file_dialog_complete_handler : fileDialogComplete,
+						upload_start_handler : uploadStart,
+						upload_progress_handler : uploadProgress,
+						upload_error_handler : uploadError,
+						upload_success_handler : function uploadSuccess(file, serverData) {
+							try {
+								var progress = new FileProgress(file, this.customSettings.progressTarget);
+								var data = JSON.decode(serverData);
+								if (data.status == "1") {
+									progress.setComplete();
+									progress.setStatus(data.error);
+									document.id("jform_addfile_text").value = data.path;
+								} else {
+									progress.setError();
+									progress.setStatus(data.error);
+								}
+								progress.toggleCancel(false);
+							} catch (ex) {
+								this.debug(ex);
+							}
+						},
+						upload_complete_handler : uploadComplete,
+						custom_settings : {
+							progressTarget : "infoUpload3",
+							cancelButtonId : "btnCancel3"
 						}
 							
 					});
