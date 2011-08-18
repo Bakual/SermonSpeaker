@@ -139,10 +139,14 @@ class SermonspeakerModelFrontendupload extends JModelAdmin
 			$params	= &JComponentHelper::getParams('com_sermonspeaker');
 
 			$id3 = SermonspeakerHelperId3::getID3($id3_file, $params);
-			foreach ($id3 as $key => $value){
-				if ($value){
-					$data->$key = $value;
+			if ($id3){
+				foreach ($id3 as $key => $value){
+					if ($value){
+						$data->$key = $value;
+					}
 				}
+			} else {
+				JError::raiseNotice(100, JText::_('COM_SERMONSPEAKER_ERROR_ID3'));
 			}
 			if (!$data->sermon_date){
 				$data->sermon_date = JHTML::Date('', 'Y-m-d H:m:s', true);

@@ -38,8 +38,7 @@ class SermonspeakerControllerFile extends JController
 		}
 
 		// Initialise variables.
-		$app		= JFactory::getApplication();
-		$params		= $app->getParams();
+		$params		= JComponentHelper::getParams('com_sermonspeaker');
 
 		// Get the user
 		$user		= JFactory::getUser();

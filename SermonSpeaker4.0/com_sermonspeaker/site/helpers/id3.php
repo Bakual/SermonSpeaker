@@ -14,6 +14,9 @@ class SermonspeakerHelperId3
 		$getID3 	= new getID3;
 		$path		= JPATH_SITE.str_replace('/', DS, $file);
 		$path		= str_replace(DS.DS, DS, $path);
+		if(!file_exists($path)){
+			return false;
+		}
 		$FileInfo	= $getID3->analyze($path);
 		getid3_lib::CopyTagsToComments($FileInfo);
 
