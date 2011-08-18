@@ -121,10 +121,7 @@
 		<field name="series_id" type="serieslist" class="inputbox"
 			label="COM_SERMONSPEAKER_SERIE" description="COM_SERMONSPEAKER_FIELD_SERIE_DESC" />
 
-		<field name="picture" type="customfilelist" class="inputbox"
-			path="path_sermonpic" 
-			filter="\.jpg$|\.gif$|\.png$|\.bmp$"
-			hide_default="true"
+		<field name="picture" type="mediawrapper" class="inputbox"
 			label="COM_SERMONSPEAKER_FIELD_PICTURE_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_PICTURE_DESC" />
 

@@ -40,9 +40,16 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 	protected function getInput()
 	{
 		$this->params = JComponentHelper::getParams('com_sermonspeaker');
-		$this->mode = $this->params->get('path_mode', 0);
-		if ($this->mode && $this->fieldname != 'audiofile' && $this->fieldname != 'videofile'){
-			$this->mode = 0;
+		switch ($this->fieldname){
+			case 'audiofile':
+				$this->mode = $this->params->get('path_mode_audio', 0);
+				break;
+			case 'videofile':
+				$this->mode = $this->params->get('path_mode_video', 0);
+				break;
+			default:
+				$this->mode = 0;
+				break;
 		}
 		if (!$this->mode){
 			// Strip the path from the value so a matching filename gets selected.

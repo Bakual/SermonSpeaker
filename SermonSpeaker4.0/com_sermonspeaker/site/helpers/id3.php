@@ -7,7 +7,7 @@ defined('_JEXEC') or die('Restricted access');
 class SermonspeakerHelperId3
 {
 	function getID3($file, $params) {
-		if ($params->get('path_mode', 0) == 1){
+		if ($params->get('path_mode_video', 0) == 1 && (if(strpos($file, 'http://vimeo.com') === 0 || (strpos($file, 'http://player.vimeo.com') === 0)))){
 			return SermonspeakerHelperId3::getVimeo($file);
 		}
 		require_once(JPATH_COMPONENT_SITE.DS.'id3'.DS.'getid3'.DS.'getid3.php');

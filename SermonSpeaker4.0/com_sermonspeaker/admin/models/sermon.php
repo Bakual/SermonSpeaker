@@ -220,12 +220,11 @@ class SermonspeakerModelSermon extends JModelAdmin
 			}
 		}
 		$params	= &JComponentHelper::getParams('com_sermonspeaker');
-		$mode	= $params->get('path_mode', 0);
 
-		if(!$mode && JRequest::getInt('sel1')){
+		if(!$params->get('path_mode_audio', 0) && JRequest::getInt('sel1')){
 			$table->audiofile = '/'.$params->get('path').'/'.$table->audiofile;
 		}
-		if(!$mode && JRequest::getInt('sel2')){
+		if(!$params->get('path_mode_video', 0) && JRequest::getInt('sel2')){
 			$table->videofile = '/'.$params->get('path').'/'.$table->videofile;
 		}
 		if(JRequest::getInt('sel3')){

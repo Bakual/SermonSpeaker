@@ -68,10 +68,7 @@
 			description="COM_SERMONSPEAKER_FIELD_WEBSITE_DESC"
 			size="40" />
 
-		<field name="pic" type="customfilelist" class="inputbox"
-			path="path_speakerpic" 
-			filter="\.jpg$|\.gif$|\.png$|\.bmp$"
-			hide_default="true"
+		<field name="pic" type="mediawrapper" class="inputbox"
 			label="COM_SERMONSPEAKER_FIELD_PICTURE_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_PICTURE_DESC" />
 
