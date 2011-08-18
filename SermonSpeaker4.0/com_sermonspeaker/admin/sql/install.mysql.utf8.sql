@@ -51,7 +51,7 @@ CREATE TABLE `#__sermon_sermons` (
 	`sermon_scripture` MEDIUMTEXT NOT NULL,
 	`custom1` MEDIUMTEXT NOT NULL,
 	`custom2` MEDIUMTEXT NOT NULL,
-	`sermon_date` DATE NOT NULL DEFAULT '0000-00-00',
+	`sermon_date` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
 	`sermon_time` TIME NOT NULL DEFAULT '00:00:00',
 	`notes` LONGTEXT NOT NULL,
 	`state` TINYINT(3) NOT NULL DEFAULT '0',

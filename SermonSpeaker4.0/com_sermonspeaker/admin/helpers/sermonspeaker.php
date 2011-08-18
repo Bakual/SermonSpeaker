@@ -34,6 +34,11 @@ class SermonspeakerHelper
 			$vName == 'categories'
 		);
 		JSubMenuHelper::addEntry(
+			JText::_('COM_SERMONSPEAKER_MENU_TOOLS'),
+			'index.php?option=com_sermonspeaker&view=tools',
+			$vName == 'tools'
+		);
+		JSubMenuHelper::addEntry(
 			JText::_('COM_SERMONSPEAKER_MENU_STATISTICS'),
 			'index.php?option=com_sermonspeaker&view=statistics&format=raw',
 			$vName == 'statistics'
