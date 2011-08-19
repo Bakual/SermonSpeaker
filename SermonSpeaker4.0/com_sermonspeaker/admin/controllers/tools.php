@@ -47,20 +47,21 @@ class SermonspeakerControllerTools extends JController
 		$db->setQuery($query);
 		$items	= $db->loadObjectList();
 		$user	= JFactory::getUser();
+		require_once(JPATH_COMPONENT_SITE.DS.'id3'.DS.'getid3'.DS.'getid3.php');
+		$getID3		= new getID3;
+		$getID3->setOption(array('encoding'=>'UTF-8'));
+		require_once(JPATH_COMPONENT_SITE.DS.'id3'.DS.'getid3'.DS.'write.php');
+		$writer		= new getid3_writetags;
+		$writer->tagformats		= array('id3v2.3');
+		$writer->overwrite_tags	= true;
+		$writer->tag_encoding	= 'UTF-8';
 		foreach($items as $item){
 			$canEdit	= $user->authorise('core.edit', 'com_sermonspeaker.category.'.$item->catid);
 			$canEditOwn	= $user->authorise('core.edit.own', 'com_sermonspeaker.category.'.$item->catid) && $item->created_by == $user->id;
 			if ($canEdit || $canEditOwn){
+				$files		= array();
 				$files[]	= $item->audiofile;
 				$files[]	= $item->videofile;
-				require_once(JPATH_COMPONENT_SITE.DS.'id3'.DS.'getid3'.DS.'getid3.php');
-				$getID3		= new getID3;
-				$getID3->setOption(array('encoding'=>'UTF-8'));
-				require_once(JPATH_COMPONENT_SITE.DS.'id3'.DS.'getid3'.DS.'write.php');
-				$writer		= new getid3_writetags;
-				$writer->tagformats		= array('id3v2.3');
-				$writer->overwrite_tags	= true;
-				$writer->tag_encoding	= 'UTF-8';
 				$TagData = array(
 					'title'   => array($item->sermon_title),
 					'artist'  => array($item->name),
@@ -71,7 +72,6 @@ class SermonspeakerControllerTools extends JController
 				);
 				$writer->tag_data = $TagData;
 				foreach ($files as $file){
-					set_time_limit(30);
 					if (!$file){
 						continue;
 					}
