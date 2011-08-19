@@ -73,7 +73,7 @@ class SermonspeakerModelSermons extends JModelList
 		$this->setState('params', $params);
 
 		// List state information.
-		parent::populateState('sermons.sermon_title', 'asc');
+		parent::populateState('sermons.ordering', 'desc');
 	}
 
 	/**

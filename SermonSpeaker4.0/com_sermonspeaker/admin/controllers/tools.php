@@ -71,6 +71,7 @@ class SermonspeakerControllerTools extends JController
 				);
 				$writer->tag_data = $TagData;
 				foreach ($files as $file){
+					set_time_limit(30);
 					if (!$file){
 						continue;
 					}
