@@ -128,11 +128,13 @@ class SermonspeakerViewSermon extends JView
 					if (is_numeric($width)){ $width .= 'px'; }
 					$height = $this->params->get('mp_height', '400px');
 					if (is_numeric($height)){ $height .= 'px'; }
+					$url = 'index.php?&task=download&id='.$this->item->slug.'&type=';
 					$this->document->addScriptDeclaration('
 						function Video() {
 							jwplayer().load(['.$this->player->playlist['video'].']).resize("'.$width.'","'.$height.'");
 							document.getElementById("mediaspace1_wrapper").style.width="'.$width.'";
 							document.getElementById("mediaspace1_wrapper").style.height="'.$height.'";
+							document.getElementById("sermon_download").onclick=function(){window.location.href=\''.JRoute::_($url.'video').'\'};
 						}
 					');
 					$this->document->addScriptDeclaration('
@@ -140,6 +142,7 @@ class SermonspeakerViewSermon extends JView
 							jwplayer().load(['.$this->player->playlist['audio'].']).resize("250","23px");
 							document.getElementById("mediaspace1_wrapper").style.width="250px";
 							document.getElementById("mediaspace1_wrapper").style.height="23px";
+							document.getElementById("sermon_download").onclick=function(){window.location.href=\''.JRoute::_($url.'audio').'\'};
 						}
 					');
 				}

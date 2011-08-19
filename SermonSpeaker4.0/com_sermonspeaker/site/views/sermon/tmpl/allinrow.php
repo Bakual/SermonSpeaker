@@ -55,7 +55,7 @@ JHTML::_('behavior.modal');
 </table>
 <div style="float:left;">
 	<?php if ($this->params->get('dl_button') && $this->player->file) :
-		echo SermonspeakerHelperSermonspeaker::insertdlbutton($this->item->slug, $this->player->file);
+		echo SermonspeakerHelperSermonspeaker::insertdlbutton($this->item->slug, $this->player->status);
 	endif; ?>
 </div>
 <div style="float:right;">

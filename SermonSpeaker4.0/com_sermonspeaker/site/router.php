@@ -9,6 +9,10 @@ function SermonspeakerBuildRoute(&$query){
 	}
 	if (isset($query['task'])){
 		$segments[] = $query['task'];
+		if (isset($query['type'])){
+			$segments[] = $query['type'];
+			unset($query['type']);
+		}
 		unset($query['task']);
 	}
 	if (isset($query['id'])){
@@ -82,7 +86,8 @@ function SermonspeakerParseRoute($segments){
 			break;
 		case 'download':
 			$vars['task'] = 'download';
-			$id = explode(':', $segments[1]);
+			$vars['type'] = $segments[1];
+			$id = explode(':', $segments[2]);
 			$vars['id'] = (int)$id[0];
 			break;
 		}

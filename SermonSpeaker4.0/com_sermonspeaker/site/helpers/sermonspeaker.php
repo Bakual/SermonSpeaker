@@ -64,14 +64,9 @@ class SermonspeakerHelperSermonspeaker
 		return $link;
 	}
 
-	function insertdlbutton($id, $path) {
-		//Check if link targets to an external source
-		if (substr($path, 0, 7) == 'http://' && (strpos($path, JURI::root()) !== 0)){ //File is external
-			$fileurl = $path;
-		} else { //File is locally
-			$fileurl = JRoute::_('index.php?&task=download&id='.$id);
-		}
-		$html = '<input class="button download_btn" type="button" value="'.JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON').'" onclick="window.location.href=\''.$fileurl.'\'" />';
+	function insertdlbutton($id, $type='audio') {
+		$fileurl = JRoute::_('index.php?&task=download&id='.$id.'&type='.$type);
+		$html = '<input id="sermon_download" class="button download_btn" type="button" value="'.JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON').'" onclick="window.location.href=\''.$fileurl.'\'" />';
 
 		return $html;
 	}

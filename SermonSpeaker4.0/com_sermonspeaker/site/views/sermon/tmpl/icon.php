@@ -30,14 +30,8 @@ JHTML::_('behavior.modal');
 			if ($this->params->get('popup_player') && $this->params->get('dl_button')) : ?>
 				<br />
 			<?php endif;
-			if ($this->params->get('dl_button')) :
-				//Check if link targets to an external source
-				if ((substr($this->player->file, 0, 7) == 'http://') && (strpos($this->player->file, JURI::root()) !== 0)) : //File is external
-					$fileurl = $this->player->file;
-				else : //File is locally 
-					$fileurl = JRoute::_('index.php?task=download&id='.$this->item->slug);
-				endif; ?>
-				<a href="<?php echo $fileurl; ?>" class="download">
+			if ($this->params->get('dl_button')) : ?>
+				<a id="sermon_download" href="<?php echo JRoute::_('index.php?task=download&id='.$this->item->slug.'&type='.$this->player->status); ?>" class="download">
 					<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON'); ?>
 				</a>
 			<?php endif; ?>

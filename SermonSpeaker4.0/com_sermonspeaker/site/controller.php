@@ -35,13 +35,19 @@ class SermonspeakerController extends JController
 			die("<html><body OnLoad=\"javascript: alert('I have no clue what you want to download...');history.back();\" bgcolor=\"#F0F0F0\"></body></html>");
 		}
 		$db =& JFactory::getDBO();
-		$query = "SELECT audiofile FROM #__sermon_sermons WHERE id = ".$id;
+		if (JRequest::getWord('type') == 'video'){
+			$query = "SELECT videofile FROM #__sermon_sermons WHERE id = ".$id;
+		} else {
+			$query = "SELECT audiofile FROM #__sermon_sermons WHERE id = ".$id;
+		}
 		$db->setQuery($query);
 		$result = $db->loadResult() or die ("<html><body OnLoad=\"javascript: alert('Encountered an error while accessing the database');history.back();\" bgcolor=\"#F0F0F0\"></body></html>");
 		$result = rtrim($result);
 
-		if (substr($result, 0, 7) == 'http://'){ // cancel if link goes to an external source
-			die('<html><body OnLoad="javascript: alert(\'This file points to an external source. I can\'t access it.\');history.back();" bgcolor="#F0F0F0"></body></html>');
+		if (substr($result, 0, 7) == 'http://'){ // redirect if link goes to an external source
+			$result = str_replace('http://player.vimeo.com/video/', 'http://vimeo.com/', $result);
+			$this->setRedirect($result);
+			return;
 		}
 		$result = str_replace('\\', '/', $result); // replace \ with /
 		if (substr($result, 0, 1) != '/') { // add a leading slash to the sermonpath if not present.
