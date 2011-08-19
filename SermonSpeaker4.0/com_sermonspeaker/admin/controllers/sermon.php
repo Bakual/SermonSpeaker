@@ -144,7 +144,7 @@ class SermonspeakerControllerSermon extends JControllerForm
 			$getID3->setOption(array('encoding'=>'UTF-8'));
 			require_once(JPATH_COMPONENT_SITE.DS.'id3'.DS.'getid3'.DS.'write.php');
 			$writer		= new getid3_writetags;
-			$writer->tagformats		= array('id3v2.4');
+			$writer->tagformats		= array('id3v2.3');
 			$writer->overwrite_tags	= true;
 			$writer->tag_encoding	= 'UTF-8';
 			$TagData = array(
@@ -155,7 +155,7 @@ class SermonspeakerControllerSermon extends JControllerForm
 				'comment' => array($item->notes),
 				'track'   => array($item->sermon_number),
 			);
-			$tagwriter->tag_data = $TagData;
+			$writer->tag_data = $TagData;
 			foreach ($files as $file){
 				if (!$file){
 					continue;
