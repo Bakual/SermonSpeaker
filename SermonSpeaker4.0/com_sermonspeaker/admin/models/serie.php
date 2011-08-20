@@ -155,12 +155,6 @@ class SermonspeakerModelSerie extends JModelAdmin
 				$table->alias = JFactory::getDate()->format("Y-m-d-H-i-s");
 			}
 		}
-		$params	= &JComponentHelper::getParams('com_sermonspeaker');
-		if (($table->avatar != '-1') && $table->avatar){
-			$table->avatar = '/'.$params->get('path_avatar').'/'.$table->avatar;
-		} else {
-			$table->avatar = '';
-		}
 
 		if (!empty($table->metakey)) {
 			// only process if not empty

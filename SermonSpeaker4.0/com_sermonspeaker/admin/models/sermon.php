@@ -244,11 +244,6 @@ class SermonspeakerModelSermon extends JModelAdmin
 		} elseif (count($time_arr) == 3) {
 			$table->sermon_time = $time_arr[0].':'.$time_arr[1].':'.$time_arr[2];
 		}
-		if (($table->picture != '-1') && $table->picture){
-			$table->picture = '/'.$params->get('path_sermonpic').'/'.$table->picture;
-		} else {
-			$table->picture = '';
-		}
 
 		if (!empty($table->metakey)) {
 			// only process if not empty
