@@ -351,7 +351,7 @@ class SermonspeakerHelperPlayer {
 		$this->height	= ($this->height) ? $this->height : $this->params->get('mp_height');
 		$this->width	= ($this->width) ? $this->width : $this->params->get('mp_width');
 		$this->mspace = '<iframe id="mediaspace'.$this->count.'" width="'.$this->width.'" height="'.$this->height.'" '
-						.'src="http://player.vimeo.com/video/'.$id.'?title=0&byline=0&portrait=0&autoplay='.$this->start[1].'&player_id="vimeo'.$this->count.'">'
+						.'src="http://player.vimeo.com/video/'.$id.'?title=0&byline=0&portrait=0&border=0&autoplay='.$this->start[1].'&player_id="vimeo'.$this->count.'">'
 						.'</iframe>';
 		$this->script	= '';
 		$this->popup['height'] = $this->height + $this->params->get('popup_height');
