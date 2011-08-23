@@ -49,6 +49,7 @@ div.popup div{
 .ss-sermondetail-label{
 	padding-top:5px;
 	float:left;
+	clear:left;
 	width:30%;
 	font-weight:bold;
 }
