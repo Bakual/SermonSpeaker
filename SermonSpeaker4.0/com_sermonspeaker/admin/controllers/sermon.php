@@ -116,7 +116,13 @@ class SermonspeakerControllerSermon extends JControllerForm
 			return;
 		}
 	}
-	
+
+	protected function postSaveHook(JModel &$model, $validData = array()){
+		$app	= JFactory::getApplication();
+		$app->enqueueMessage($this->setMessage(''));
+		return $this->write_id3();
+	}
+
 	public function write_id3(){
 		$app	= JFactory::getApplication();
 		$id		= JRequest::getInt('id', 0);
@@ -168,6 +174,7 @@ class SermonspeakerControllerSermon extends JControllerForm
 				$writer->filename	= $path;
 				if ($writer->WriteTags()) {
 					$app->enqueueMessage('Successfully wrote tags to "'.$file.'"');
+					$this->setMessage('Successfully wrote tags to "'.$file.'"');
 					if (!empty($writer->warnings)) {
 						JError::raiseNotice(100, 'There were some warnings:<br>'.implode(', ', $writer->warnings));
 					}
