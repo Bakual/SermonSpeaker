@@ -9,7 +9,7 @@ $listDirn	= $this->state->get('list.direction');
 <?php if ($this->params->get('show_page_heading', 1)) : ?>
 	<h1><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
 <?php endif; ?>
-<h2><a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($this->speaker->slug)); ?>"><?php echo $this->speaker->name; ?></a></h2>
+<h2><a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($this->speaker->slug).'&layout=latest-sermons'); ?>"><?php echo $this->speaker->name; ?></a></h2>
 <?php if (in_array('speaker:hits', $this->col_speaker)): ?>
 	<dl class="article-info">
 	<dt class="article-info-term"><?php  echo JText::_('JDETAILS'); ?></dt>
