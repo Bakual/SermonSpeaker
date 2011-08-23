@@ -90,7 +90,7 @@ $listDirn	= $this->state->get('list.direction');
 						<td class="ss-col"><?php echo $item->hits; ?></td>
 					<?php endif;
 					if (in_array('speaker:download', $this->col_serie)) : ?>
-						<td class="num"><a href="<?php echo JRoute::_('index.php?task=download_serie&id='.$item->id); ?>">
+						<td class="num"><a href="<?php echo JRoute::_('index.php?task=serie.download&id='.$item->slug); ?>">
 							<img src="media/com_sermonspeaker/images/download.png" alt="<?php echo JText::_('COM_SERMONSPEAKER_DIRECTLINK_HOOVER'); ?>" />
 						</a></td>
 					<?php endif; ?>
