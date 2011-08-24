@@ -118,9 +118,12 @@ class SermonspeakerControllerSermon extends JControllerForm
 	}
 
 	protected function postSaveHook(JModel &$model, $validData = array()){
-		$app	= JFactory::getApplication();
-		$app->enqueueMessage($this->setMessage(''));
-		return $this->write_id3();
+		$params	= JComponentHelper::getParams('com_sermonspeaker');
+		if($params->get('write_id3', 0)){
+			$app	= JFactory::getApplication();
+			$app->enqueueMessage($this->setMessage(''));
+			return $this->write_id3();
+		}
 	}
 
 	public function write_id3(){
@@ -173,13 +176,12 @@ class SermonspeakerControllerSermon extends JControllerForm
 				}
 				$writer->filename	= $path;
 				if ($writer->WriteTags()) {
-					$app->enqueueMessage('Successfully wrote tags to "'.$file.'"');
-					$this->setMessage('Successfully wrote tags to "'.$file.'"');
+					$app->enqueueMessage('Successfully wrote id3 tags to "'.$file.'"');
 					if (!empty($writer->warnings)) {
 						JError::raiseNotice(100, 'There were some warnings:<br>'.implode(', ', $writer->warnings));
 					}
 				} else {
-					JError::raiseWarning(100, 'Failed to write tags to "'.$file.'"! '.implode(', ', $writer->errors));
+					JError::raiseWarning(100, 'Failed to write id3 tags to "'.$file.'"! '.implode(', ', $writer->errors));
 				}
 			}
 			$app->redirect('index.php?option=com_sermonspeaker&view=sermon&layout=edit&id='.$id);
