@@ -220,7 +220,11 @@ class SermonspeakerViewSermon extends JView
 					$this->document->addCustomTag('<meta property="og:audio:album" content="'.$this->item->series_title.'"/>');
 				}
 			} else {
-				$this->document->addCustomTag('<meta property="og:video" content="'.$this->player->file.'"/>');
+				if($this->player->player == 'Vimeo'){
+					$this->document->addCustomTag('<meta property="og:video" content="'.$this->player->fb_file.'"/>');
+				} else {
+					$this->document->addCustomTag('<meta property="og:video" content="'.$this->player->file.'"/>');
+				}
 				$this->document->addCustomTag('<meta property="og:type" content="movie"/>');
 			}
 			if ($fbadmins){

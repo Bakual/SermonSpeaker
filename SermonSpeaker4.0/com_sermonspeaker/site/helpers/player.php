@@ -348,6 +348,7 @@ class SermonspeakerHelperPlayer {
 		$this->player	= 'Vimeo';
 		$id				= trim(strrchr($this->file, '/'), '/ ');
 		$this->file		= 'http://vimeo.com/'.$id;
+		$this->fb_file	= 'http://vimeo.com/moogaloop.swf?clip_id='.$id.'&amp;server=vimeo.com&amp;show_title=0&amp;show_byline=0&amp;show_portrait=0&amp;color=00adef&amp;fullscreen=1&amp;autoplay=0&amp;loop=0';
 		$this->height	= ($this->height) ? $this->height : $this->params->get('mp_height');
 		$this->width	= ($this->width) ? $this->width : $this->params->get('mp_width');
 		$this->mspace = '<iframe id="mediaspace'.$this->count.'" width="'.$this->width.'" height="'.$this->height.'" '
