@@ -118,17 +118,17 @@ class SermonspeakerControllerSermon extends JControllerForm
 	}
 
 	protected function postSaveHook(JModel &$model, $validData = array()){
+		$recordId = $model->getState($this->context.'.id');
 		$params	= JComponentHelper::getParams('com_sermonspeaker');
 		if($params->get('write_id3', 0)){
 			$app	= JFactory::getApplication();
 			$app->enqueueMessage($this->setMessage(''));
-			return $this->write_id3();
+			return $this->write_id3($recordId);
 		}
 	}
 
-	public function write_id3(){
+	public function write_id3($id){
 		$app	= JFactory::getApplication();
-		$id		= JRequest::getInt('id', 0);
 		if (!$id){
 			$app->redirect('index.php?option=com_sermonspeaker&view=sermons', JText::_('JERROR_AN_ERROR_HAS_OCCURRED'), 'error');
 			return;
