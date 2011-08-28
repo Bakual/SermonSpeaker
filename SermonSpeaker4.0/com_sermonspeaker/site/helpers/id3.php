@@ -28,7 +28,7 @@ class SermonspeakerHelperId3
 		}
 		if (array_key_exists('comments', $FileInfo)){
 			if (array_key_exists('title', $FileInfo['comments'])){
-				$id3['sermon_title']	= $FileInfo['comments']['title'][0];
+				$id3['sermon_title']	= utf8_encode($FileInfo['comments']['title'][0]);
 			} else {
 				jimport('joomla.filesystem.file');
 				$id3['sermon_title']	= JFile::stripExt(JFile::getName($file));
@@ -41,10 +41,10 @@ class SermonspeakerHelperId3
 			}
 			if (array_key_exists('comment', $FileInfo['comments'])){
 				if ($params->get('fu_id3_comments') == 'ref'){
-					$id3['sermon_scripture'] = $FileInfo['comments']['comment'][0];
+					$id3['sermon_scripture'] = utf8_encode($FileInfo['comments']['comment'][0]);
 					$id3['notes'] 			 = '';
 				} else {
-					$id3['notes']			 = $FileInfo['comments']['comment'][0];
+					$id3['notes']			 = utf8_encode($FileInfo['comments']['comment'][0]);
 					$id3['sermon_scripture'] = '';
 				}
 			} else {
