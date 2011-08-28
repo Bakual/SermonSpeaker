@@ -238,7 +238,7 @@ class SermonspeakerViewSermon extends JView
 		} else {
 			// Since it's an existing record, check the edit permission, or fall back to edit own if the owner.
 			if ($canDo->get('core.edit') || ($canDo->get('core.edit.own') && $this->item->created_by == $userId)) {
-				JToolBarHelper::custom('sermon.write_id3', 'export.png', 'export_f2.png', 'Write ID3', false);
+				JToolBarHelper::custom('sermon.id3', 'export.png', 'export_f2.png', 'Write ID3', false);
 				JToolBarHelper::divider();
 				JToolBarHelper::apply('sermon.apply', 'JTOOLBAR_APPLY');
 				JToolBarHelper::save('sermon.save', 'JTOOLBAR_SAVE');

@@ -125,6 +125,16 @@ class SermonspeakerControllerSermon extends JControllerForm
 			$app->enqueueMessage($this->setMessage(''));
 			return $this->write_id3($recordId);
 		}
+
+		return;
+	}
+
+	public function id3(){
+		$id = JRequest::getInt('id');
+		$this->write_id3($id);
+		$app	= JFactory::getApplication();
+		$app->redirect('index.php?option=com_sermonspeaker&view=sermon&layout=edit&id='.$id);
+		return;
 	}
 
 	public function write_id3($id){
@@ -184,8 +194,7 @@ class SermonspeakerControllerSermon extends JControllerForm
 					JError::raiseWarning(100, 'Failed to write id3 tags to "'.$file.'"! '.implode(', ', $writer->errors));
 				}
 			}
-			$app->redirect('index.php?option=com_sermonspeaker&view=sermon&layout=edit&id='.$id);
-			return;
+			return true;
 		} else {
 			$app->redirect('index.php?option=com_sermonspeaker&view=sermons', JText::_('JERROR_ALERTNOAUTHOR'), 'error');
 			return;
