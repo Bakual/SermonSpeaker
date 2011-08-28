@@ -37,6 +37,9 @@ $self = $uri->toString();
 				<input type="submit" class="submit" value="<?php echo JText::_('COM_SERMONSPEAKER_FU_START_UPLOAD'); ?>" />
 				<input type="hidden" name="return-url" value="<?php echo base64_encode($self); ?>" />
 			</fieldset>
+			<?php if($this->params->get('enable_flash')): ?>
+				<div id="loading" class="message">Flash is loading... please wait...</div>
+			<?php endif; ?>
 		</form>
 		<form action="<?php echo JURI::root(); ?>index.php?option=com_sermonspeaker&amp;view=frontendupload&amp;task=frontendupload.save" name="fu_createsermon" id="fu_createsermon" method="post" enctype="multipart/form-data" class="form-validate">
 			<?php echo $this->form->getLabel('sermon_title'); ?>

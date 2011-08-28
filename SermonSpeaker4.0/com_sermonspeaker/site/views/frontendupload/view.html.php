@@ -178,6 +178,7 @@ class SermonspeakerViewFrontendupload extends JView
 						swfupload_loaded_handler: function() {
 							document.id(\'upload-noflash\').destroy();
 							document.id(\'btnCancel3\').removeClass(\'ss-hide\');
+							document.id(\'loading\').destroy();
 						},
 						file_dialog_start_handler : fileDialogStart,
 						file_queued_handler : fileQueued,
@@ -214,6 +215,11 @@ class SermonspeakerViewFrontendupload extends JView
 			';
 			$document->addScriptDeclaration($uploader_script);
 		}
+//		$loading = "
+//				window.onload = function() {
+//					document.getElementByID('loading').style.display = 'none';
+//				}";
+//		$document->addScriptDeclaration($loading);
 
 		// Check for errors.
 		if (count($errors = $this->get('Errors'))) {
