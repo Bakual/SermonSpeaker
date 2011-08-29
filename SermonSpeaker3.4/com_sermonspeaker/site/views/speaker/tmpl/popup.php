@@ -4,7 +4,7 @@ if ($this->row->pic == "") { $this->row->pic = JURI::root().'components/com_serm
 ?>
 <!-- Begin Data -->
 <div class="ss-speaker-container" style="padding:20px;">
-<a href="<?php echo JRoute::_('index.php?view=speaker&id='.$this->row->id); ?>" target="_parent>
+<a href="<?php echo JRoute::_('index.php?view=speaker&id='.$this->row->id); ?>" target="_parent">
 	<img class="speaker" style="float:right;" src="<?php echo $this->row->pic; ?>" title="<?php echo $this->row->name; ?>" alt="<?php echo $this->row->name; ?>" />
 </a>
 <h1 class="componentheading"><?php echo $this->row->name ?></h1>
