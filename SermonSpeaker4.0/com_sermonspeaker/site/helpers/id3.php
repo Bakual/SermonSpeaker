@@ -19,10 +19,13 @@ class SermonspeakerHelperId3
 		}
 		$FileInfo	= $getID3->analyze($path);
 		getid3_lib::CopyTagsToComments($FileInfo);
-
 		$id3 = array();
-		if (array_key_exists('playtime_string', $FileInfo)){
-			$id3['sermon_time']	= $FileInfo['playtime_string'];
+		if (array_key_exists('playtime_seconds', $FileInfo)){
+			$lenght	= $FileInfo['playtime_seconds'];
+			$hrs = floor($lenght / 3600);
+			$min = floor(($lenght - $hrs * 3600) / 60);
+			$sec = round($lenght - $hrs * 3600 - $min * 60);
+			$id3['sermon_time']	= $hrs.':'.sprintf('%02d',$min).':'.sprintf('%02d', $sec);
 		} else {
 			$id3['sermon_time']	= '';
 		}

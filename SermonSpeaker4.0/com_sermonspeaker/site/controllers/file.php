@@ -39,10 +39,10 @@ class SermonspeakerControllerFile extends JController
 
 		// Get some data from the request
 		$files		= JRequest::getVar('Filedata', '', 'files', 'array');
-		if ($fu_destdir = $params->get('fu_destdir')) {
-			$fu_destdir .= '/';
-		}
-		$folder		= $params->get('path').DS.$fu_destdir;
+		$path	= (JRequest::getBool('addfile', false)) ? $params->get('path_addfile') : $params->get('path');
+		$append	= ($params->get('append_path', 0)) ? DS.date('Y').DS.date('m') : '';
+		$folder	= JPATH_ROOT.DS.$path.$append;
+
 		$return		= JRequest::getVar('return-url', null, 'post', 'base64');
 
 		// Set FTP credentials, if given
