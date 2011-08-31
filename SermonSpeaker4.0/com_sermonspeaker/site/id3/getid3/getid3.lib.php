@@ -14,7 +14,7 @@
 class getid3_lib
 {
 
-	static function PrintHexBytes($string, $hex=true, $spaces=true, $htmlsafe=true) {
+	static function PrintHexBytes($string, $hex=true, $spaces=true, $htmlencoding='UTF-8') {
 		$returnstring = '';
 		for ($i = 0; $i < strlen($string); $i++) {
 			if ($hex) {
@@ -26,8 +26,11 @@ class getid3_lib
 				$returnstring .= ' ';
 			}
 		}
-		if ($htmlsafe) {
-			$returnstring = htmlentities($returnstring);
+		if (!empty($htmlsafe)) {
+			if ($htmlencoding === true) {
+				$htmlencoding = 'UTF-8';
+			}
+			$returnstring = htmlentities($returnstring, ENT_QUOTES, $htmlencoding);
 		}
 		return $returnstring;
 	}

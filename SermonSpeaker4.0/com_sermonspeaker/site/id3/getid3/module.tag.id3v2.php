@@ -643,12 +643,8 @@ class getid3_id3v2 extends getid3_handler
 			$parsedFrame['encoding']   = $this->TextEncodingNameLookup($frame_textencoding);
 
 			if (!empty($parsedFrame['framenameshort']) && !empty($parsedFrame['data'])) {
-
-				// remove possible terminating \x00 (put by encoding id or software bug)
 				$string = getid3_lib::iconv_fallback($parsedFrame['encoding'], $info['id3v2']['encoding'], $parsedFrame['data']);
-				if ($string[strlen($string) - 1] == "\x00") {
-					$string = substr($string, 0, strlen($string) - 1);
-				}
+				$string = rtrim($string, "\x00"); // remove possible terminating null (put by encoding id or software bug)
 				$info['id3v2']['comments'][$parsedFrame['framenameshort']][] = $string;
 				unset($string);
 			}
@@ -1247,84 +1243,88 @@ class getid3_id3v2 extends getid3_handler
 
 			$frame_picturetype = ord(substr($parsedFrame['data'], $frame_offset++, 1));
 
-			$frame_terminatorpos = strpos($parsedFrame['data'], $this->TextEncodingTerminatorLookup($frame_textencoding), $frame_offset);
-			if (ord(substr($parsedFrame['data'], $frame_terminatorpos + strlen($this->TextEncodingTerminatorLookup($frame_textencoding)), 1)) === 0) {
-				$frame_terminatorpos++; // strpos() fooled because 2nd byte of Unicode chars are often 0x00
-			}
-			$frame_description = substr($parsedFrame['data'], $frame_offset, $frame_terminatorpos - $frame_offset);
-			if (ord($frame_description) === 0) {
-				$frame_description = '';
-			}
-			$parsedFrame['encodingid']       = $frame_textencoding;
-			$parsedFrame['encoding']         = $this->TextEncodingNameLookup($frame_textencoding);
-
-			if ($id3v2_majorversion == 2) {
-				$parsedFrame['imagetype']    = $frame_imagetype;
+			if ($frame_offset >= $parsedFrame['datalength']) {
+				$info['warning'][] = 'data portion of APIC frame is missing at offset '.($parsedFrame['dataoffset'] + 8 + $frame_offset);
 			} else {
-				$parsedFrame['mime']         = $frame_mimetype;
-			}
-			$parsedFrame['picturetypeid']    = $frame_picturetype;
-			$parsedFrame['picturetype']      = $this->APICPictureTypeLookup($frame_picturetype);
-			$parsedFrame['description']      = $frame_description;
-			$parsedFrame['data']             = substr($parsedFrame['data'], $frame_terminatorpos + strlen($this->TextEncodingTerminatorLookup($frame_textencoding)));
-			$parsedFrame['datalength']       = strlen($parsedFrame['data']);
+				$frame_terminatorpos = strpos($parsedFrame['data'], $this->TextEncodingTerminatorLookup($frame_textencoding), $frame_offset);
+				if (ord(substr($parsedFrame['data'], $frame_terminatorpos + strlen($this->TextEncodingTerminatorLookup($frame_textencoding)), 1)) === 0) {
+					$frame_terminatorpos++; // strpos() fooled because 2nd byte of Unicode chars are often 0x00
+				}
+				$frame_description = substr($parsedFrame['data'], $frame_offset, $frame_terminatorpos - $frame_offset);
+				if (ord($frame_description) === 0) {
+					$frame_description = '';
+				}
+				$parsedFrame['encodingid']       = $frame_textencoding;
+				$parsedFrame['encoding']         = $this->TextEncodingNameLookup($frame_textencoding);
 
-			$parsedFrame['image_mime'] = '';
-			$imageinfo = array();
-			$imagechunkcheck = getid3_lib::GetDataImageSize($parsedFrame['data'], $imageinfo);
-			if (($imagechunkcheck[2] >= 1) && ($imagechunkcheck[2] <= 3)) {
-				$parsedFrame['image_mime']       = 'image/'.getid3_lib::ImageTypesLookup($imagechunkcheck[2]);
-				if ($imagechunkcheck[0]) {
-					$parsedFrame['image_width']  = $imagechunkcheck[0];
-				}
-				if ($imagechunkcheck[1]) {
-					$parsedFrame['image_height'] = $imagechunkcheck[1];
-				}
-			}
-
-			do {
-				if ($this->inline_attachments === false) {
-					// skip entirely
-					unset($parsedFrame['data']);
-					break;
-				}
-				if ($this->inline_attachments === true) {
-					// great
-				} elseif (is_int($this->inline_attachments)) {
-					if ($this->inline_attachments < $parsedFrame['data_length']) {
-						// too big, skip
-						$info['warning'][] = 'attachment at '.$frame_offset.' is too large to process inline ('.number_format($parsedFrame['data_length']).' bytes)';
-						unset($parsedFrame['data']);
-						break;
-					}
-				} elseif (is_string($this->inline_attachments)) {
-					$this->inline_attachments = rtrim(str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $this->inline_attachments), DIRECTORY_SEPARATOR);
-					if (!is_dir($this->inline_attachments) || !is_writable($this->inline_attachments)) {
-						// cannot write, skip
-						$info['warning'][] = 'attachment at '.$frame_offset.' cannot be saved to "'.$this->inline_attachments.'" (not writable)';
-						unset($parsedFrame['data']);
-						break;
-					}
-				}
-				// if we get this far, must be OK
-				if (is_string($this->inline_attachments)) {
-					$destination_filename = $this->inline_attachments.DIRECTORY_SEPARATOR.md5($info['filenamepath']).'_'.$frame_offset;
-					if (!file_exists($destination_filename) || is_writable($destination_filename)) {
-						file_put_contents($destination_filename, $parsedFrame['data']);
-					} else {
-						$info['warning'][] = 'attachment at '.$frame_offset.' cannot be saved to "'.$destination_filename.'" (not writable)';
-					}
-					$parsedFrame['data_filename'] = $destination_filename;
-					unset($parsedFrame['data']);
+				if ($id3v2_majorversion == 2) {
+					$parsedFrame['imagetype']    = $frame_imagetype;
 				} else {
-					if (!empty($parsedFrame['framenameshort']) && !empty($parsedFrame['data'])) {
-						if (!isset($info['id3v2']['comments']['picture'])) {
-							$info['id3v2']['comments']['picture'] = array();
-						}
-						$info['id3v2']['comments']['picture'][] = array('data'=>$parsedFrame['data'], 'image_mime'=>$parsedFrame['image_mime']);
+					$parsedFrame['mime']         = $frame_mimetype;
+				}
+				$parsedFrame['picturetypeid']    = $frame_picturetype;
+				$parsedFrame['picturetype']      = $this->APICPictureTypeLookup($frame_picturetype);
+				$parsedFrame['description']      = $frame_description;
+				$parsedFrame['data']             = substr($parsedFrame['data'], $frame_terminatorpos + strlen($this->TextEncodingTerminatorLookup($frame_textencoding)));
+				$parsedFrame['datalength']       = strlen($parsedFrame['data']);
+
+				$parsedFrame['image_mime'] = '';
+				$imageinfo = array();
+				$imagechunkcheck = getid3_lib::GetDataImageSize($parsedFrame['data'], $imageinfo);
+				if (($imagechunkcheck[2] >= 1) && ($imagechunkcheck[2] <= 3)) {
+					$parsedFrame['image_mime']       = 'image/'.getid3_lib::ImageTypesLookup($imagechunkcheck[2]);
+					if ($imagechunkcheck[0]) {
+						$parsedFrame['image_width']  = $imagechunkcheck[0];
+					}
+					if ($imagechunkcheck[1]) {
+						$parsedFrame['image_height'] = $imagechunkcheck[1];
 					}
 				}
-			} while (false);
+
+				do {
+					if ($this->inline_attachments === false) {
+						// skip entirely
+						unset($parsedFrame['data']);
+						break;
+					}
+					if ($this->inline_attachments === true) {
+						// great
+					} elseif (is_int($this->inline_attachments)) {
+						if ($this->inline_attachments < $parsedFrame['data_length']) {
+							// too big, skip
+							$info['warning'][] = 'attachment at '.$frame_offset.' is too large to process inline ('.number_format($parsedFrame['data_length']).' bytes)';
+							unset($parsedFrame['data']);
+							break;
+						}
+					} elseif (is_string($this->inline_attachments)) {
+						$this->inline_attachments = rtrim(str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $this->inline_attachments), DIRECTORY_SEPARATOR);
+						if (!is_dir($this->inline_attachments) || !is_writable($this->inline_attachments)) {
+							// cannot write, skip
+							$info['warning'][] = 'attachment at '.$frame_offset.' cannot be saved to "'.$this->inline_attachments.'" (not writable)';
+							unset($parsedFrame['data']);
+							break;
+						}
+					}
+					// if we get this far, must be OK
+					if (is_string($this->inline_attachments)) {
+						$destination_filename = $this->inline_attachments.DIRECTORY_SEPARATOR.md5($info['filenamepath']).'_'.$frame_offset;
+						if (!file_exists($destination_filename) || is_writable($destination_filename)) {
+							file_put_contents($destination_filename, $parsedFrame['data']);
+						} else {
+							$info['warning'][] = 'attachment at '.$frame_offset.' cannot be saved to "'.$destination_filename.'" (not writable)';
+						}
+						$parsedFrame['data_filename'] = $destination_filename;
+						unset($parsedFrame['data']);
+					} else {
+						if (!empty($parsedFrame['framenameshort']) && !empty($parsedFrame['data'])) {
+							if (!isset($info['id3v2']['comments']['picture'])) {
+								$info['id3v2']['comments']['picture'] = array();
+							}
+							$info['id3v2']['comments']['picture'][] = array('data'=>$parsedFrame['data'], 'image_mime'=>$parsedFrame['image_mime']);
+						}
+					}
+				} while (false);
+			}
 
 		} elseif ((($id3v2_majorversion >= 3) && ($parsedFrame['frame_name'] == 'GEOB')) || // 4.15  GEOB General encapsulated object
 				(($id3v2_majorversion == 2) && ($parsedFrame['frame_name'] == 'GEO'))) {     // 4.16  GEO  General encapsulated object
@@ -3043,8 +3043,8 @@ class getid3_id3v2 extends getid3_handler
 			ASPI	audio_seek_point_index
 			BUF	recommended_buffer_size
 			CNT	play_counter
-			COM	comments
-			COMM	comments
+			COM	comment
+			COMM	comment
 			COMR	commercial_frame
 			CRA	audio_encryption
 			CRM	encrypted_meta_frame

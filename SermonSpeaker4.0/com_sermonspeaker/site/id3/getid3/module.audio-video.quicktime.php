@@ -760,7 +760,7 @@ class getid3_quicktime extends getid3_handler
 						case 'div4':
 						case 'div5':
 						case 'div6':
-							$TDIVXileInfo['video']['dataformat'] = 'divx';
+							$info['video']['dataformat'] = 'divx';
 							break;
 
 						default:
@@ -1313,7 +1313,11 @@ class getid3_quicktime extends getid3_handler
 				// some kind of metacontainer, may contain a big data dump such as:
 				// mdta keys  mdtacom.apple.quicktime.make (mdtacom.apple.quicktime.creationdate ,mdtacom.apple.quicktime.location.ISO6709 $mdtacom.apple.quicktime.software !mdtacom.apple.quicktime.model ilst   data DEApple 0  (data DE2011-05-11T17:54:04+0200 2  *data DE+52.4936+013.3897+040.247/   data DE4.3.1  data DEiPhone 4
 				// http://www.geocities.com/xhelmboyx/quicktime/formats/qti-layout.txt
-				$atom_structure['subatoms']  = $this->QuicktimeParseContainerAtom($atom_data, $baseoffset + 8, $atomHierarchy, $ParseAllPossibleAtoms);
+
+	            $atom_structure['version']   =          getid3_lib::BigEndian2Int(substr($atom_data, 0, 1));
+	            $atom_structure['flags_raw'] =          getid3_lib::BigEndian2Int(substr($atom_data, 1, 3));
+	            $atom_structure['subatoms']  = $this->QuicktimeParseContainerAtom(substr($atom_data, 4), $baseoffset + 8, $atomHierarchy, $ParseAllPossibleAtoms);
+				//$atom_structure['subatoms']  = $this->QuicktimeParseContainerAtom($atom_data, $baseoffset + 8, $atomHierarchy, $ParseAllPossibleAtoms);
 				break;
 
 			case 'data': // metaDATA atom
@@ -1814,7 +1818,7 @@ class getid3_quicktime extends getid3_handler
 			$QuicktimeStoreFrontCodeLookup[143444] = 'United Kingdom';
 			$QuicktimeStoreFrontCodeLookup[143441] = 'United States';
 		}
-		return (isset($QuicktimeStoreCountryCodeLookup[$sfid]) ? $QuicktimeStoreCountryCodeLookup[$sfid] : 'invalid');
+		return (isset($QuicktimeStoreFrontCodeLookup[$sfid]) ? $QuicktimeStoreFrontCodeLookup[$sfid] : 'invalid');
 	}
 
 	function QuicktimeParseNikonNCTG($atom_data) {
@@ -2048,7 +2052,7 @@ echo 'QuicktimeParseNikonNCTG()::unknown $data_size_type: '.$data_size_type.'<br
 			$handyatomtranslatorarray['tmpo'] = 'bpm';              // iTunes 4.0
 			$handyatomtranslatorarray['cprt'] = 'copyright';        // iTunes 4.0?
 			$handyatomtranslatorarray['cpil'] = 'compilation';      // iTunes 4.0
-			$handyatomtranslatorarray['covr'] = 'artwork';          // iTunes 4.0
+			$handyatomtranslatorarray['covr'] = 'picture';          // iTunes 4.0
 			$handyatomtranslatorarray['rtng'] = 'rating';           // iTunes 4.0
 			$handyatomtranslatorarray['©grp'] = 'grouping';         // iTunes 4.2
 			$handyatomtranslatorarray['stik'] = 'stik';             // iTunes 4.9
@@ -2085,10 +2089,29 @@ echo 'QuicktimeParseNikonNCTG()::unknown $data_size_type: '.$data_size_type.'<br
 			$handyatomtranslatorarray['MusicBrainz Disc Id']         = 'MusicBrainz Disc Id';
 		}
 		$info = &$this->getid3->info;
+		$comment_key = '';
 		if ($boxname && ($boxname != $keyname) && isset($handyatomtranslatorarray[$boxname])) {
-			$info['quicktime']['comments'][$handyatomtranslatorarray[$boxname]][] = $data;
+			$comment_key = $handyatomtranslatorarray[$boxname];
 		} elseif (isset($handyatomtranslatorarray[$keyname])) {
-			$info['quicktime']['comments'][$handyatomtranslatorarray[$keyname]][] = $data;
+			$comment_key = $handyatomtranslatorarray[$keyname];
+		}
+		if ($comment_key) {
+			if ($comment_key == 'picture') {
+				if (!is_array($data)) {
+					$image_mime = '';
+					if (preg_match('#^\x89\x50\x4E\x47\x0D\x0A\x1A\x0A#', $data)) {
+						$image_mime = 'image/png';
+					} elseif (preg_match('#^\xFF\xD8\xFF#', $data)) {
+						$image_mime = 'image/jpeg';
+					} elseif (preg_match('#^GIF#', $data)) {
+						$image_mime = 'image/gif';
+					} elseif (preg_match('#^BM#', $data)) {
+						$image_mime = 'image/bmp';
+					}
+					$data = array('data'=>$data, 'image_mime'=>$image_mime);
+				}
+			}
+			$info['quicktime']['comments'][$comment_key][] = $data;
 		}
 		return true;
 	}
