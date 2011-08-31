@@ -96,7 +96,7 @@ class SermonspeakerControllerFile extends JController
 				$response = array(
 					'status' => '1',
 					'filename' => strtolower($file['name']),
-					'path' => '/'.$path.$append.'/'.strtolower($file['name']),
+					'path' => str_replace('\\', '/', '/'.$path.$append.'/'.strtolower($file['name'])),
 					'error' => JText::sprintf('COM_SERMONSPEAKER_FU_FILENAME', substr($file['filepath'], strlen(JPATH_ROOT)))
 				);
 				echo json_encode($response);

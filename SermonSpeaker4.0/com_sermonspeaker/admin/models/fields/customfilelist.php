@@ -70,11 +70,20 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 			// Define the image file type filter.
 			$path	= (string) $this->element['path'];
 			$dir	= $this->params->get($path);
-			
+
 			// Set the form field element attribute for file type filter.
+
+			// Add year/month to the directory if enabled.
+			if ($this->params->get('append_path', 0)){
+				// In case of an edit, we check for the sermon_date and choose the year/month of the sermon.
+				$append = ($ts = strtotime($this->form->getValue('sermon_date'))) ? $append	= DS.date('Y', $ts).DS.date('m', $ts) : $append = DS.date('Y').DS.date('m');
+				// check if directory exists, fallback to base directory if not.
+				$dir = is_dir(JPATH_ROOT.'/'.$dir.$append) ? $dir.$append : $dir;
+			}
 			$this->element->addAttribute('directory', $dir);
 
 			// Get the field options.
+
 			return parent::getOptions();
 		} elseif ($this->mode == 1){
 			$options = array();
@@ -120,7 +129,6 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 					$option['text'] = $file->name;
 					$options[] = $option;
 				}   
-
 				return $options;
 			}
 		}
