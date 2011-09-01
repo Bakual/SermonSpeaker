@@ -233,7 +233,6 @@ class SermonspeakerModelSermon extends JModelAdmin
 		} elseif (count($time_arr) == 3) {
 			$table->sermon_time = $time_arr[0].':'.$time_arr[1].':'.$time_arr[2];
 		}
-
 		if (!empty($table->metakey)) {
 			// only process if not empty
 			$bad_characters = array("\n", "\r", "\"", "<", ">"); // array of characters to remove
