@@ -187,16 +187,6 @@ class SermonspeakerModelFrontendupload extends JModelAdmin
 				$table->alias = JFactory::getDate()->format("Y-m-d-H-i-s");
 			}
 		}
-		$params	= &JComponentHelper::getParams('com_sermonspeaker');
-		if(!$params->get('path_mode_audio', 0) && JRequest::getInt('sel1')){
-			$table->audiofile = '/'.$params->get('path').'/'.$table->audiofile;
-		}
-		if(!$params->get('path_mode_video', 0) && JRequest::getInt('sel2')){
-			$table->videofile = '/'.$params->get('path').'/'.$table->videofile;
-		}
-		if(JRequest::getInt('sel3')){
-			$table->addfile = '/'.$params->get('path_addfile').'/'.$table->addfile;
-		}
 		$time_arr = explode(':', $table->sermon_time);
 		foreach ($time_arr as $time_int){
 			$time_int = (int)$time_int;

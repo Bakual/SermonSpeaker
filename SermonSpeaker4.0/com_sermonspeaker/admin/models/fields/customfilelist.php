@@ -51,10 +51,6 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 				$this->mode = 0;
 				break;
 		}
-		if (!$this->mode){
-			// Strip the path from the value so a matching filename gets selected.
-			$this->value = substr(strrchr($this->value, '/'), 1);
-		}
 		return parent::getInput();
 	}
 
@@ -76,15 +72,20 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 			// Add year/month to the directory if enabled.
 			if ($this->params->get('append_path', 0)){
 				// In case of an edit, we check for the sermon_date and choose the year/month of the sermon.
-				$append = ($ts = strtotime($this->form->getValue('sermon_date'))) ? $append	= DS.date('Y', $ts).DS.date('m', $ts) : $append = DS.date('Y').DS.date('m');
+				$append = ($ts = strtotime($this->form->getValue('sermon_date'))) ? $append	= '/'.date('Y', $ts).'/'.date('m', $ts) : $append = '/'.date('Y').'/'.date('m');
 				// check if directory exists, fallback to base directory if not.
 				$dir = is_dir(JPATH_ROOT.'/'.$dir.$append) ? $dir.$append : $dir;
 			}
 			$this->element->addAttribute('directory', $dir);
 
 			// Get the field options.
+			$options = parent::getOptions();
 
-			return parent::getOptions();
+			// Add directory to the value.
+			foreach ($options as $option){
+				$option->value = '/'.$dir.'/'.$option->value;
+			}
+			return $options;
 		} elseif ($this->mode == 1){
 			$options = array();
 			$url = 'http://vimeo.com/api/v2/'.$this->params->get('vimeo_id').'/videos.xml';

@@ -56,9 +56,8 @@ $self = $uri->toString();
 			<div class="label">&nbsp;</div>
 			<input type="radio" name="sel1" value="1" onclick="enableElement(this.form.elements['jform_audiofile'], this.form.elements['jform_audiofile_text']);">
 				<?php echo $this->form->getInput('audiofile');
-				if (!$this->params->get('path_mode_audio', 0)) {
-				$path = !$this->params->get('path_mode_audio', 0) ? '/'.$this->params->get('path').'/' : ''; ?>
-					<img class="pointer" onClick="window.location.href='<?php echo JRoute::_('index.php?view=frontendupload&type=audio') ;?>&amp;file0=<?php echo $path; ?>'+document.fu_createsermon.jform_audiofile.value+'&amp;file1='+document.fu_createsermon.jform_videofile_text.value;" src="media/com_sermonspeaker/icons/16/glasses.png" alt="lookup ID3" title="lookup ID3">
+				if (!$this->params->get('path_mode_audio', 0)) { ?>
+					<img class="pointer" onClick="window.location.href='<?php echo JRoute::_('index.php?view=frontendupload&type=audio') ;?>&amp;file0='+document.fu_createsermon.jform_audiofile.value+'&amp;file1='+document.fu_createsermon.jform_videofile_text.value;" src="media/com_sermonspeaker/icons/16/glasses.png" alt="lookup ID3" title="lookup ID3">
 				<?php } ?>
 				<div id="infoUpload1" class="intend">
 					<span id="btnUpload1"></span>
@@ -73,9 +72,8 @@ $self = $uri->toString();
 			<div class="label">&nbsp;</div>
 			<input type="radio" name="sel2" value="1" onclick="enableElement(this.form.elements['jform_videofile'], this.form.elements['jform_videofile_text']);">
 				<?php echo $this->form->getInput('videofile');
-				if ($this->params->get('path_mode_video', 0) < 2) {
-				$path = !$this->params->get('path_mode_video', 0) ? '/'.$this->params->get('path').'/' : ''; ?>
-					<img class="pointer" onClick="window.location.href='<?php echo JRoute::_('index.php?view=frontendupload&type=video') ;?>&amp;file0='+document.fu_createsermon.jform_audiofile_text.value+'&amp;file1=<?php echo $path; ?>'+document.fu_createsermon.jform_videofile.value;" src="media/com_sermonspeaker/icons/16/glasses.png" alt="lookup ID3" title="lookup ID3">
+				if ($this->params->get('path_mode_video', 0) < 2) { ?>
+					<img class="pointer" onClick="window.location.href='<?php echo JRoute::_('index.php?view=frontendupload&type=video') ;?>&amp;file0='+document.fu_createsermon.jform_audiofile_text.value+'&amp;file1='+document.fu_createsermon.jform_videofile.value;" src="media/com_sermonspeaker/icons/16/glasses.png" alt="lookup ID3" title="lookup ID3">
 				<?php } ?>
 				<div id="infoUpload2" class="intend">
 					<span id="btnUpload2"></span>

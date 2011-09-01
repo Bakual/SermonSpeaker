@@ -171,9 +171,11 @@ class SermonspeakerControllerSermon extends JControllerForm
 				'artist'  => array($item->name),
 				'album'   => array($item->series_title),
 				'year'    => array($item->date),
-				'comment' => array($item->notes),
 				'track'   => array($item->sermon_number),
 			);
+			$params	= JComponentHelper::getParams('com_sermonspeaker');
+			$comments = ($params->get('fu_id3_comments', 'notes')) ? $item->notes : $item->sermon_scripture;
+			$TagData['comment'] = array(strip_tags(JHTML::_('content.prepare', $comments)));
 			$writer->tag_data = $TagData;
 			foreach ($files as $file){
 				if (!$file){
