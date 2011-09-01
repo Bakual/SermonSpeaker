@@ -28,10 +28,12 @@ class SermonspeakerViewFeed extends JView
 			$app->redirect('', JText::_('JERROR_ALERTNOAUTHOR'), 'error');
 		}
 
+		$this->document->setMimeEncoding('application/rss+xml'); 
+
 		$link = JURI::root();
 
 		// Channel
-  
+
 		// Save Parameters and stuff xmlsafe into $channel
 		$channel->title 		= $this->make_xml_safe($params->get('sc_title'));
 		$channel->link 			= $link;
