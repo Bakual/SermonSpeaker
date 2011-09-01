@@ -39,7 +39,7 @@ class SermonspeakerControllerTools extends JController
 		JRequest::checkToken('request') or jexit(JText::_('JINVALID_TOKEN'));
 		$app	= JFactory::getApplication();
 		$db =& JFactory::getDBO();
-		$query	= "SELECT audiofile, videofile, sermons.created_by, sermons.catid, sermon_title, name, series_title, YEAR(sermon_date) AS date, notes, sermon_number \n"
+		$query	= "SELECT audiofile, videofile, sermons.created_by, sermons.catid, sermon_title, name, series_title, YEAR(sermon_date) AS date, notes, sermon_number, picture \n"
 				. "FROM #__sermon_sermons AS sermons \n"
 				. "LEFT JOIN #__sermon_speakers AS speakers ON speaker_id = speakers.id \n"
 				. "LEFT JOIN #__sermon_series AS series ON series_id = series.id \n"
@@ -67,9 +67,38 @@ class SermonspeakerControllerTools extends JController
 					'artist'  => array($item->name),
 					'album'   => array($item->series_title),
 					'year'    => array($item->date),
-					'comment' => array($item->notes),
 					'track'   => array($item->sermon_number),
 				);
+				$params	= JComponentHelper::getParams('com_sermonspeaker');
+				$comments = ($params->get('fu_id3_comments', 'notes')) ? $item->notes : $item->sermon_scripture;
+				$TagData['comment'] = array(strip_tags(JHTML::_('content.prepare', $comments)));
+
+				JImport('joomla.filesystem.file');
+				// Adding the picture to the id3 tags, taken from getID3 Demos -> demo.write.php
+				if ($item->picture && (substr($item->picture, 0, 7) != 'http://')) {
+					ob_start();
+					$pic = $item->picture;
+					if (substr($pic, 0, 1) == '/') {
+						$pic = substr($pic, 1);
+					}
+					$pic = JPATH_ROOT.DS.$pic;
+					if ($fd = fopen($pic, 'rb')) {
+						ob_end_clean();
+						$APICdata = fread($fd, filesize($pic));
+						fclose ($fd);
+						$image = getimagesize($pic);
+						if (($image[2] > 0) && ($image[2] < 4)) { // 1 = gif, 2 = jpg, 3 = png
+							$TagData['attached_picture'][0]['data']          = $APICdata;
+							$TagData['attached_picture'][0]['picturetypeid'] = 0;
+							$TagData['attached_picture'][0]['description']   = JFile::getName($pic);
+							$TagData['attached_picture'][0]['mime']          = $image['mime'];
+						}
+					} else {
+						$errormessage = ob_get_contents();
+						ob_end_clean();
+						JError::raiseNotice(100, 'Couldn\'t open the picture: '.$pic);
+					}
+				}
 				$writer->tag_data = $TagData;
 				foreach ($files as $file){
 					if (!$file){
