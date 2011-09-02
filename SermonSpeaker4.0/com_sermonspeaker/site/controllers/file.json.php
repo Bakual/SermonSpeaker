@@ -58,6 +58,11 @@ class SermonspeakerControllerFile extends JController
 		$file['name']	= JFile::makeSafe($file['name']);
 		$file['name']	= str_replace(' ', '_', $file['name']); // Replace spaces in filename as long as makeSafe doesn't do this.
 
+		// Check if filename has more chars than only underscores, making a new filename based on current date/time if not.
+		if (count_chars(JFile::stripExt($file['name']), 3) == '_') {
+			$file['name'] = JFactory::getDate()->format("Y-m-d-H-i-s").'.'.JFile::getExt($file['name']);
+		}
+
 		if ($file['name']) {
 			// The request is valid
 			$err = null;

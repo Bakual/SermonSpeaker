@@ -400,7 +400,7 @@
 		</field>
 		<field name="enable_flash"
 			type="radio"
-			default="0"
+			default="1"
 			label="COM_SERMONSPEAKER_FIELD_ENABLE_FLASH_UPLOADER_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_ENABLE_FLASH_UPLOADER_DESC">
 			<option value="0">JNO</option>

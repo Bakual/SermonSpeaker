@@ -66,10 +66,15 @@ class SermonspeakerControllerFile extends JController
 			$files['name'][$i] = JFile::makeSafe($files['name'][$i]);
 			$files['name'][$i] = str_replace(' ', '_', $files['name'][$i]); // Replace spaces in filename as long as makeSafe doesn't do this.
 
+			// Check if filename has more chars than only underscores, making a new filename based on current date/time if not.
+			if (count_chars(JFile::stripExt($files['name'][$i]), 3) == '_') {
+				$files['name'][$i] = JFactory::getDate()->format("Y-m-d-H-i-s").'.'.JFile::getExt($files['name'][$i]);
+			}
+
 			if ($files['name'][$i]){
 				// The request is valid
 				$err = null;
-				$filepath = JPath::clean($folder.strtolower($files['name'][$i]));
+				$filepath = JPath::clean($folder.DS.strtolower($files['name'][$i]));
 
 				$files['filepath'][$i] = $filepath;
 
@@ -78,13 +83,13 @@ class SermonspeakerControllerFile extends JController
 					$warning[] = JText::_('COM_SERMONSPEAKER_FU_ERROR_EXISTS');
 					continue;
 				}
-				if (!JFile::upload($files['tmp_name'][$i], JPATH_ROOT.DS.$files['filepath'][$i])) {
+				if (!JFile::upload($files['tmp_name'][$i], $files['filepath'][$i])) {
 					// Error in upload
 					$warning[] = JText::_('COM_SERMONSPEAKER_FU_ERROR_UNABLE_TO_UPLOAD_FILE');
 					continue;
 				} else {
 					$message[] = JText::sprintf('COM_SERMONSPEAKER_FU_FILENAME', $files['filepath'][$i]);
-					$redirect .= 'file'.$i.'=/'.str_replace('\\', '/', $files['filepath'][$i]);
+					$redirect .= 'file'.$i.'=/'.str_replace('\\', '/', substr($files['filepath'][$i], strlen(JPATH_ROOT.DS)));
 					$success = true;
 				}
 			}
