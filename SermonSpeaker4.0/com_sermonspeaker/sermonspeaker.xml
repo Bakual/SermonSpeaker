@@ -30,6 +30,7 @@
 		<filename>router.php</filename>
 		<filename>sermonspeaker.php</filename>
 		<filename>controller.php</filename>
+		<filename>index.html</filename>
 		<folder>controllers</folder>
 		<folder>helpers</folder>
 		<folder>views</folder>
@@ -63,6 +64,7 @@
 			<filename>sermonspeaker.php</filename>
 			<filename>sermonspeaker.css</filename>
 			<filename>controller.php</filename>
+			<filename>index.html</filename>
 			<folder>controllers</folder>
 			<folder>elements</folder>
 			<folder>models</folder>
