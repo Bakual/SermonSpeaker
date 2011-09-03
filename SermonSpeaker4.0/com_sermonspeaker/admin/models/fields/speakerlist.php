@@ -43,18 +43,39 @@ class JFormFieldSpeakerlist extends JFormFieldList
 		$query	= $db->getQuery(true);
 
 		$query->select('id As value, name As text');
-		$query->from('#__sermon_speakers AS a');
-		$query->order('a.name');
+		$query->from('#__sermon_speakers');
+		$query->where('state = 1');
+		$query->order('name');
 
 		// Get the options.
 		$db->setQuery($query);
 
-		$options = $db->loadObjectList();
+		$published = $db->loadObjectList();
 
+		$query	= $db->getQuery(true);
+
+		$query->select('id As value, name As text');
+		$query->from('#__sermon_speakers');
+		$query->where('state = 0');
+		$query->order('name');
+
+		// Get the options.
+		$db->setQuery($query);
+
+		$unpublished = $db->loadObjectList();
+		if (count($unpublished)){
+			if (count($published)){
+				array_unshift($published, JHtml::_('select.optgroup', JText::_('JPUBLISHED')));
+				array_push($published, JHtml::_('select.optgroup', JText::_('JPUBLISHED')));
+			}
+			array_unshift($unpublished, JHtml::_('select.optgroup', JText::_('JUNPUBLISHED')));
+			array_push($unpublished, JHtml::_('select.optgroup', JText::_('JUNPUBLISHED')));
+		}
 		// Check for a database error.
 		if ($db->getErrorNum()) {
 			JError::raiseWarning(500, $db->getErrorMsg());
 		}
+		$options = array_merge($published, $unpublished);
 
 		// Merge any additional options in the XML definition.
 		//$options = array_merge(parent::getOptions(), $options);

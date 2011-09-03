@@ -27,6 +27,7 @@ class JFormFieldSerieslist extends JFormFieldList
 	 * @since	1.6
 	 */
 	protected $type = 'Serieslist';
+	protected $translateLabel = false;
 
 	/**
 	 * Method to get the field options.
@@ -43,18 +44,39 @@ class JFormFieldSerieslist extends JFormFieldList
 		$query	= $db->getQuery(true);
 
 		$query->select('id As value, series_title As text');
-		$query->from('#__sermon_series AS a');
-		$query->order('a.series_title');
+		$query->from('#__sermon_series');
+		$query->where('state = 1');
+		$query->order('series_title');
 
 		// Get the options.
 		$db->setQuery($query);
 
-		$options = $db->loadObjectList();
+		$published = $db->loadObjectList();
 
+		$query	= $db->getQuery(true);
+
+		$query->select('id As value, series_title As text');
+		$query->from('#__sermon_series');
+		$query->where('state = 0');
+		$query->order('series_title');
+
+		// Get the options.
+		$db->setQuery($query);
+
+		$unpublished = $db->loadObjectList();
+		if (count($unpublished)){
+			if (count($published)){
+				array_unshift($published, JHtml::_('select.optgroup', JText::_('JPUBLISHED')));
+				array_push($published, JHtml::_('select.optgroup', JText::_('JPUBLISHED')));
+			}
+			array_unshift($unpublished, JHtml::_('select.optgroup', JText::_('JUNPUBLISHED')));
+			array_push($unpublished, JHtml::_('select.optgroup', JText::_('JUNPUBLISHED')));
+		}
 		// Check for a database error.
 		if ($db->getErrorNum()) {
 			JError::raiseWarning(500, $db->getErrorMsg());
 		}
+		$options = array_merge($published, $unpublished);
 
 		// Merge any additional options in the XML definition.
 		//$options = array_merge(parent::getOptions(), $options);
