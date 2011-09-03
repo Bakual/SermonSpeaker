@@ -61,8 +61,21 @@ class SermonspeakerControllerSerie extends JController
 			}
 		}
 		if (count($files)){
-			$name = JFile::makeSafe($rows[0]['series_title'].'.zip');
-			$filename = JPATH_BASE.DS.'images'.DS.$name;
+			jimport('joomla.filesystem.folder');
+			$name = JFile::makeSafe($rows[0]['series_title']);
+			$name = str_replace(' ', '_', $name); // Replace spaces in filename as long as makeSafe doesn't do this.
+
+			// Check if filename has more chars than only underscores, making a new filename based on series id if not.
+			if (count_chars($name, 3) == '_') {
+				$name = 'series-'.$id;
+			}
+
+			$params		= JComponentHelper::getParams('com_sermonspeaker');
+			$folder		= $params->get('path');
+			if (!JFolder::exists($folder.DS.'series')){
+				JFolder::create($folder.DS.'series');
+			}
+			$filename	= JPATH_BASE.str_replace(DS.DS, DS, DS.$folder.DS.'series').DS.$name.'.zip';
 			$zip = new ZipArchive();
 			if ($zip->open($filename, ZIPARCHIVE::OVERWRITE)!==TRUE) {
 				exit("cannot open <$filename>\n");
@@ -72,7 +85,9 @@ class SermonspeakerControllerSerie extends JController
 			}
 			$zip->close();
 			$app = JFactory::getApplication();
-			$app->redirect(JURI::root().'/images/'.$name);
+			$app->redirect(JURI::root().str_replace('//', '/', $folder.'/series/'.$name.'.zip'));
+		} else {
+			JError::raiseNotice(100, JText::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', JText::_('COM_SERMONSPEAKER_SERMONS')));
 		}
 	}
 }
