@@ -117,7 +117,7 @@ class SermonspeakerViewFeed extends JView
 			$item->itAuthor		= $row->name; // only speaker name here for iTunes
 			$item->itDuration 	= SermonspeakerHelperSermonSpeaker::insertTime($row->sermon_time);
 			if (strlen($item_notes_short) > 255){
-				$item->itSubtitle 	= substr($item_notes_short, 0, 252).'...';
+				$item->itSubtitle 	= mb_substr($item_notes_short, 0, 252, 'UTF-8').'...';
 			} else {
 				$item->itSubtitle 	= $item_notes_short;
 			}

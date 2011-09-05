@@ -55,6 +55,7 @@ class SermonspeakerModelFeed extends JModel
 				."LEFT JOIN #__categories AS c_speaker ON c_speaker.id = speakers.catid \n"
 				."LEFT JOIN #__categories AS c_series ON c_series.id = series.catid \n"
 				."WHERE sermons.podcast='1' \n"
+				."AND sermons.state != '-2' \n"
 				."AND (sermons.catid = 0 OR (c_sermons.access IN (".$groups.") AND c_sermons.published = 1)) \n"
 				."AND (sermons.speaker_id = 0 OR speakers.catid = 0 OR (c_speaker.access IN (".$groups.") AND c_speaker.published = 1)) \n"
 				."AND (sermons.series_id = 0 OR series.catid = 0 OR (c_series.access IN (".$groups.") AND c_series.published = 1)) \n"
