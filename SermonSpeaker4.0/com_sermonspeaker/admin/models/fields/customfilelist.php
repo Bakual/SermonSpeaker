@@ -65,7 +65,7 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 		if (!$this->mode){
 			// Define the image file type filter.
 			$path	= (string) $this->element['path'];
-			$dir	= $this->params->get($path);
+			$dir	= trim($this->params->get($path), '/');
 
 			// Set the form field element attribute for file type filter.
 
