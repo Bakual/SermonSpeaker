@@ -72,6 +72,7 @@ class SermonspeakerControllerSerie extends JController
 
 			$params		= JComponentHelper::getParams('com_sermonspeaker');
 			$folder		= $params->get('path');
+			$folder		= trim($folder, '/');
 			if (!JFolder::exists($folder.DS.'series')){
 				JFolder::create($folder.DS.'series');
 			}

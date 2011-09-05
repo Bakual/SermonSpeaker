@@ -47,6 +47,7 @@ class SermonspeakerControllerFile extends JController
 		// Get some data from the request
 		$file	= JRequest::getVar('Filedata', '', 'files', 'array');
 		$path	= (JRequest::getBool('addfile', false)) ? $params->get('path_addfile') : $params->get('path');
+		$path	= trim($path, '/');
 		$append	= ($params->get('append_path', 0)) ? DS.date('Y').DS.date('m') : '';
 		$folder	= JPATH_ROOT.DS.$path.$append;
 
