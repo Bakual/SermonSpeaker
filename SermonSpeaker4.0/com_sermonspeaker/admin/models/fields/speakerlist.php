@@ -42,10 +42,12 @@ class JFormFieldSpeakerlist extends JFormFieldList
 		$db		= JFactory::getDbo();
 		$query	= $db->getQuery(true);
 
-		$query->select('id As value, name As text');
-		$query->from('#__sermon_speakers');
-		$query->where('state = 1');
-		$query->order('name');
+		$query->select('speakers.id As value');
+		$query->select('CASE WHEN CHAR_LENGTH(c_speakers.title) THEN CONCAT(speakers.name, " (", c_speakers.title, ")") ELSE speakers.name END AS text');
+		$query->from('#__sermon_speakers AS speakers');
+		$query->join('LEFT', '#__categories AS c_speakers ON c_speakers.id = speakers.catid');
+		$query->where('speakers.state = 1');
+		$query->order('speakers.name');
 
 		// Get the options.
 		$db->setQuery($query);
@@ -54,10 +56,12 @@ class JFormFieldSpeakerlist extends JFormFieldList
 
 		$query	= $db->getQuery(true);
 
-		$query->select('id As value, name As text');
-		$query->from('#__sermon_speakers');
-		$query->where('state = 0');
-		$query->order('name');
+		$query->select('speakers.id As value');
+		$query->select('CASE WHEN CHAR_LENGTH(c_speakers.title) THEN CONCAT(speakers.name, " (", c_speakers.title, ")") ELSE speakers.name END AS text');
+		$query->from('#__sermon_speakers AS speakers');
+		$query->join('LEFT', '#__categories AS c_speakers ON c_speakers.id = speakers.catid');
+		$query->where('speakers.state = 0');
+		$query->order('speakers.name');
 
 		// Get the options.
 		$db->setQuery($query);

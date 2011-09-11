@@ -43,10 +43,12 @@ class JFormFieldSerieslist extends JFormFieldList
 		$db		= JFactory::getDbo();
 		$query	= $db->getQuery(true);
 
-		$query->select('id As value, series_title As text');
-		$query->from('#__sermon_series');
-		$query->where('state = 1');
-		$query->order('series_title');
+		$query->select('series.id As value');
+		$query->select('CASE WHEN CHAR_LENGTH(c_series.title) THEN CONCAT(series.series_title, " (", c_series.title, ")") ELSE series.series_title END AS text');
+		$query->from('#__sermon_series AS series');
+		$query->join('LEFT', '#__categories AS c_series ON c_series.id = series.catid');
+		$query->where('series.state = 1');
+		$query->order('series.series_title');
 
 		// Get the options.
 		$db->setQuery($query);
@@ -55,10 +57,12 @@ class JFormFieldSerieslist extends JFormFieldList
 
 		$query	= $db->getQuery(true);
 
-		$query->select('id As value, series_title As text');
-		$query->from('#__sermon_series');
-		$query->where('state = 0');
-		$query->order('series_title');
+		$query->select('series.id As value');
+		$query->select('CASE WHEN CHAR_LENGTH(c_series.title) THEN CONCAT(series.series_title, " (", c_series.title, ")") ELSE series.series_title END AS text');
+		$query->from('#__sermon_series AS series');
+		$query->join('LEFT', '#__categories AS c_series ON c_series.id = series.catid');
+		$query->where('series.state = 0');
+		$query->order('series.series_title');
 
 		// Get the options.
 		$db->setQuery($query);
