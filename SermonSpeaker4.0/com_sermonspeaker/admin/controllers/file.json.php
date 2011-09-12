@@ -79,7 +79,7 @@ class SermonspeakerControllerFile extends JController
 				);
 				echo json_encode($response);
 				return;
-			} elseif (!$params->get('fu_enable') || !$user->authorise('core.create', 'com_sermonspeaker')) {
+			} elseif (!$user->authorise('core.create', 'com_sermonspeaker')) {
 				// File does not exist and user is not authorised to create
 				$response = array(
 					'status' => '0',
