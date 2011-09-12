@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <extension type="package" version="1.6" method="upgrade">
 	<name>SermonSpeaker Package</name>
+	<author>Thomas Hunziker</author>
+	<creationDate>September 2011</creationDate>
+	<copyright>(C) 2011</copyright>
+	<authorEmail>admin@sermonspeaker.net</authorEmail>
+	<authorUrl>http://www.sermonspeaker.net</authorUrl>
+	<version>4.2</version>
+	<license>http://www.gnu.org/licenses/gpl.html</license>
 	<packagename>sermonspeaker</packagename>
-	<version>4.1</version>
 	<url>http://www.sermonspeaker.net</url>
 	<packager>Thomas Hunziker</packager>
 	<packagerurl>http://www.sermonspeaker.net</packagerurl>
@@ -15,5 +21,9 @@
 		<file type="module" id="mod_sermonarchive" client="site">mod_sermonarchive.zip</file>
 		<file type="module" id="mod_sermoncast" client="site">mod_sermoncast.zip</file>
 		<file type="plugin" id="plg_sermonspeaker_search" client="site">plg_sermonspeaker_search.zip</file>
+		<file type="plugin" id="plg_editors_xtd_sermonspeaker" client="admin">plg_editors_xtd_sermonspeaker.zip</file>
 	</files>
+	<updateservers>
+		<server type="collection" priority="1" name="SermonSpeaker.net">http://www.sermonspeaker.net/update/package.xml</server>
+	</updateservers>
 </extension>
