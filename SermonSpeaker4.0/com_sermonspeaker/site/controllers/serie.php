@@ -66,7 +66,7 @@ class SermonspeakerControllerSerie extends JController
 			$name = str_replace(' ', '_', $name); // Replace spaces in filename as long as makeSafe doesn't do this.
 
 			// Check if filename has more chars than only underscores, making a new filename based on series id if not.
-			if (count_chars($name, 3) == '_') {
+			if (!$name || (count_chars($name, 3) == '_')) {
 				$name = 'series-'.$id;
 			}
 
