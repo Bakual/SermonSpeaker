@@ -6,7 +6,7 @@
 	<copyright>(C) 2011</copyright>
 	<authorEmail>admin@sermonspeaker.net</authorEmail>
 	<authorUrl>http://www.sermonspeaker.net</authorUrl>
-	<version>4.2</version>
+	<version>4.2.1</version>
 	<license>http://www.gnu.org/licenses/gpl.html</license>
 	<description>PLG_SEARCH_SERMONSPEAKER_XML_DESCRIPTION</description>
 	<files>
@@ -40,6 +40,24 @@
 					default="0"
 					description="JFIELD_PLG_SEARCH_ARCHIVED_DESC"
 					label="JFIELD_PLG_SEARCH_ARCHIVED_LABEL"
+				>
+					<option value="0">JOFF</option>
+					<option value="1">JON</option>
+				</field>
+
+				<field name="search_series" type="radio"
+					default="1"
+					label="PLG_SEARCH_SERMONSPEAKER_SEARCH_SERIES_LABEL"
+					description="PLG_SEARCH_SERMONSPEAKER_SEARCH_SERIES_DESC"
+				>
+					<option value="0">JOFF</option>
+					<option value="1">JON</option>
+				</field>
+
+				<field name="search_speakers" type="radio"
+					default="1"
+					label="PLG_SEARCH_SERMONSPEAKER_SEARCH_SPEAKERS_LABEL"
+					description="PLG_SEARCH_SERMONSPEAKER_SEARCH_SPEAKERS_DESC"
 				>
 					<option value="0">JOFF</option>
 					<option value="1">JON</option>

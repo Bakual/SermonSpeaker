@@ -42,6 +42,12 @@ class plgSearchSermonspeaker extends JPlugin
 	function onContentSearchAreas() {
 		static $areas = array();
 		$areas['spsermons'] = 'PLG_SEARCH_SERMONSPEAKER_SERMONS';
+		if($this->params->get('search_series', 1)){
+			$areas['spseries'] = 'PLG_SEARCH_SERMONSPEAKER_SERIES';
+		}
+		if($this->params->get('search_speakers', 1)){
+			$areas['spspeakers'] = 'PLG_SEARCH_SERMONSPEAKER_SPEAKERS';
+		}
 		if($this->params->get('sermons_speaker', 0)){
 			$db		= JFactory::getDbo();
 			$query	= "SELECT `id`, `name` FROM #__sermon_speakers WHERE state = '1'";
@@ -51,7 +57,6 @@ class plgSearchSermonspeaker extends JPlugin
 				$areas['spspeakers-'.$speaker['id']] = JText::sprintf('PLG_SEARCH_SERMONSPEAKER_SERMONS_FROM', $speaker['name']);
 			}
 		}
-		$areas['spseries'] = 'PLG_SEARCH_SERMONSPEAKER_SERIES';
 
 		return $areas;
 	}
@@ -284,6 +289,91 @@ class plgSearchSermonspeaker extends JPlugin
 					foreach($list as $key => $item)
 					{
 						$list[$key]->href = SermonspeakerHelperRoute::getSerieRoute($item->slug, $item->catslug);
+					}
+				}
+				$rows[] = $list;
+			}
+		}
+
+		if(in_array('spspeakers', $areas)) {
+
+			$wheres	= array();
+			switch ($phrase)
+			{
+				case 'exact':
+					$text		= $db->Quote('%'.$db->getEscaped($text, true).'%', false);
+					$wheres2	= array();
+					$wheres2[]	= 'a.name LIKE '.$text;
+					$where		= '(' . implode(') OR (', $wheres2) . ')';
+					break;
+
+				case 'all':
+				case 'any':
+				default:
+					$words	= explode(' ', $text);
+					$wheres = array();
+					foreach ($words as $word)
+					{
+						$word		= $db->Quote('%'.$db->getEscaped($word, true).'%', false);
+						$wheres2	= array();
+						$wheres2[]	= 'a.name LIKE '.$word;
+						$wheres[]	= implode(' OR ', $wheres2);
+					}
+					$where	= '(' . implode(($phrase == 'all' ? ') AND (' : ') OR ('), $wheres) . ')';
+					break;
+			}
+
+			switch ($ordering)
+			{
+				case 'oldest':
+					$order = 'a.created ASC';
+					break;
+
+				case 'popular':
+					$order = 'a.hits DESC';
+					break;
+
+				case 'alpha':
+					$order = 'a.name ASC';
+					break;
+
+				case 'category':
+					$order = 'c.title ASC, a.name ASC';
+					$morder = 'a.name ASC';
+					break;
+
+				case 'newest':
+				default:
+					$order = 'a.created DESC';
+			}
+
+			if (!empty($state)) {
+				$query	= $db->getQuery(true);
+				$query->select('a.name AS title, CONCAT_WS(" ", a.intro, a.bio) AS text, a.created AS created, '
+							.'CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(\':\', a.id, a.alias) ELSE a.id END as slug, '
+							.'CASE WHEN CHAR_LENGTH(c.alias) THEN CONCAT_WS(\':\', c.id, c.alias) ELSE c.id END as catslug, '
+							.'CONCAT_WS(" / ", '.$db->Quote($section).', c.title) AS section, "1" AS browsernav');
+				$query->from('#__sermon_speakers AS a');
+				$query->leftJoin('#__categories AS c ON c.id = a.catid');
+				$query->where('('.$where.')');
+				$query->where('a.state in ('.implode(',',$state).')');
+//				$query->where ('(c.published=1 AND c.access IN ('.$groups.'))');
+				$query->order($order);
+
+				// Filter by language
+				if ($app->isSite() && $app->getLanguageFilter()) {
+					$tag = JFactory::getLanguage()->getTag();
+					$query->where('c.language in (' . $db->Quote($tag) . ',' . $db->Quote('*') . ')');
+				}
+
+				$db->setQuery($query, 0, $limit);
+				$list = $db->loadObjectList();
+
+				if (isset($list))
+				{
+					foreach($list as $key => $item)
+					{
+						$list[$key]->href = SermonspeakerHelperRoute::getSpeakerRoute($item->slug, $item->catslug);
 					}
 				}
 				$rows[] = $list;
