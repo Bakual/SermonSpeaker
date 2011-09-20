@@ -82,6 +82,7 @@ class SermonspeakerControllerSerie extends JController
 				exit("cannot open <$filename>\n");
 			}
 			foreach ($files as $file){
+				set_time_limit(0);
 				$zip->addFile($file['path'], $file['name']);
 			}
 			$zip->close();
