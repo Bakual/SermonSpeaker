@@ -308,7 +308,6 @@ class plgSearchSermonspeaker extends JPlugin
 					$wheres2[]	= 'a.bio LIKE '.$text;
 					$where		= '(' . implode(') OR (', $wheres2) . ')';
 					break;
-
 				case 'all':
 				case 'any':
 				default:
@@ -319,6 +318,8 @@ class plgSearchSermonspeaker extends JPlugin
 						$word		= $db->Quote('%'.$db->getEscaped($word, true).'%', false);
 						$wheres2	= array();
 						$wheres2[]	= 'a.name LIKE '.$word;
+						$wheres2[]	= 'a.intro LIKE '.$word;
+						$wheres2[]	= 'a.bio LIKE '.$word;
 						$wheres[]	= implode(' OR ', $wheres2);
 					}
 					$where	= '(' . implode(($phrase == 'all' ? ') AND (' : ') OR ('), $wheres) . ')';
