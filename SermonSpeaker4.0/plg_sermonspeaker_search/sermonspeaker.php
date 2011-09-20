@@ -304,6 +304,8 @@ class plgSearchSermonspeaker extends JPlugin
 					$text		= $db->Quote('%'.$db->getEscaped($text, true).'%', false);
 					$wheres2	= array();
 					$wheres2[]	= 'a.name LIKE '.$text;
+					$wheres2[]	= 'a.intro LIKE '.$text;
+					$wheres2[]	= 'a.bio LIKE '.$text;
 					$where		= '(' . implode(') OR (', $wheres2) . ')';
 					break;
 
