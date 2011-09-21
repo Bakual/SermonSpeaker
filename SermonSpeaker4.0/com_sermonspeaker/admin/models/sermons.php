@@ -194,31 +194,101 @@ class SermonspeakerModelSermons extends JModelList
 
 	public function getSpeakers()
 	{
-		// Create a new query object.
-		$db		= $this->getDbo();
+		// Initialize variables.
+		$options = array();
 
-		$query	= "SELECT speakers.id, speakers.name \n"
-				. "FROM `#__sermon_speakers` AS speakers \n"
-				. "ORDER BY speakers.name ASC";
+		$db		= JFactory::getDbo();
+		$query	= $db->getQuery(true);
 
+		$query->select('speakers.id As value');
+		$query->select('CASE WHEN CHAR_LENGTH(c_speakers.title) THEN CONCAT(speakers.name, " (", c_speakers.title, ")") ELSE speakers.name END AS text');
+		$query->from('#__sermon_speakers AS speakers');
+		$query->join('LEFT', '#__categories AS c_speakers ON c_speakers.id = speakers.catid');
+		$query->where('speakers.state = 1');
+		$query->order('speakers.name');
+
+		// Get the options.
 		$db->setQuery($query);
-		$result = $db->loadObjectList();
 
-		return $result;
+		$published = $db->loadObjectList();
+
+		$query	= $db->getQuery(true);
+
+		$query->select('speakers.id As value');
+		$query->select('CASE WHEN CHAR_LENGTH(c_speakers.title) THEN CONCAT(speakers.name, " (", c_speakers.title, ")") ELSE speakers.name END AS text');
+		$query->from('#__sermon_speakers AS speakers');
+		$query->join('LEFT', '#__categories AS c_speakers ON c_speakers.id = speakers.catid');
+		$query->where('speakers.state = 0');
+		$query->order('speakers.name');
+
+		// Get the options.
+		$db->setQuery($query);
+
+		$unpublished = $db->loadObjectList();
+		if (count($unpublished)){
+			if (count($published)){
+				array_unshift($published, JHtml::_('select.optgroup', JText::_('JPUBLISHED')));
+				array_push($published, JHtml::_('select.optgroup', JText::_('JPUBLISHED')));
+			}
+			array_unshift($unpublished, JHtml::_('select.optgroup', JText::_('JUNPUBLISHED')));
+			array_push($unpublished, JHtml::_('select.optgroup', JText::_('JUNPUBLISHED')));
+		}
+		// Check for a database error.
+		if ($db->getErrorNum()) {
+			JError::raiseWarning(500, $db->getErrorMsg());
+		}
+		$options = array_merge($published, $unpublished);
+
+		return $options;
 	}
 
 	public function getSeries()
 	{
-		// Create a new query object.
+		// Initialize variables.
+		$options = array();
+
 		$db		= $this->getDbo();
+		$query	= $db->getQuery(true);
 
-		$query	= "SELECT series.id, series.series_title \n"
-				. "FROM `#__sermon_series` AS series \n"
-				. "ORDER BY series.series_title ASC";
+		$query->select('series.id As value');
+		$query->select('CASE WHEN CHAR_LENGTH(c_series.title) THEN CONCAT(series.series_title, " (", c_series.title, ")") ELSE series.series_title END AS text');
+		$query->from('#__sermon_series AS series');
+		$query->join('LEFT', '#__categories AS c_series ON c_series.id = series.catid');
+		$query->where('series.state = 1');
+		$query->order('series.series_title');
 
+		// Get the options.
 		$db->setQuery($query);
-		$result = $db->loadObjectList();
 
-		return $result;
+		$published = $db->loadObjectList();
+
+		$query	= $db->getQuery(true);
+
+		$query->select('series.id As value');
+		$query->select('CASE WHEN CHAR_LENGTH(c_series.title) THEN CONCAT(series.series_title, " (", c_series.title, ")") ELSE series.series_title END AS text');
+		$query->from('#__sermon_series AS series');
+		$query->join('LEFT', '#__categories AS c_series ON c_series.id = series.catid');
+		$query->where('series.state = 0');
+		$query->order('series.series_title');
+
+		// Get the options.
+		$db->setQuery($query);
+
+		$unpublished = $db->loadObjectList();
+		if (count($unpublished)){
+			if (count($published)){
+				array_unshift($published, JHtml::_('select.optgroup', JText::_('JPUBLISHED')));
+				array_push($published, JHtml::_('select.optgroup', JText::_('JPUBLISHED')));
+			}
+			array_unshift($unpublished, JHtml::_('select.optgroup', JText::_('JUNPUBLISHED')));
+			array_push($unpublished, JHtml::_('select.optgroup', JText::_('JUNPUBLISHED')));
+		}
+		// Check for a database error.
+		if ($db->getErrorNum()) {
+			JError::raiseWarning(500, $db->getErrorMsg());
+		}
+		$options = array_merge($published, $unpublished);
+
+		return $options;
 	}
 }

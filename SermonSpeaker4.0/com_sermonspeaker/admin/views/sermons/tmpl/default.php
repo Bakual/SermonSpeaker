@@ -21,12 +21,12 @@ $saveOrder	= $listOrder == 'sermons.ordering';
 		<div class="filter-select fltrt">
 			<select name="filter_speaker" class="inputbox" onchange="this.form.submit()">
 				<option value=""><?php echo JText::_('COM_SERMONSPEAKER_SELECT_SPEAKER');?></option>
-				<?php echo JHtml::_('select.options', $this->speakers, 'id', 'name', $this->state->get('filter.speaker'), true);?>
+				<?php echo JHtml::_('select.options', $this->speakers, 'value', 'text', $this->state->get('filter.speaker'), true);?>
 			</select>
 
 			<select name="filter_series" class="inputbox" onchange="this.form.submit()">
 				<option value=""><?php echo JText::_('COM_SERMONSPEAKER_SELECT_SERIES');?></option>
-				<?php echo JHtml::_('select.options', $this->series, 'id', 'series_title', $this->state->get('filter.series'), true);?>
+				<?php echo JHtml::_('select.options', $this->series, 'value', 'text', $this->state->get('filter.series'), true);?>
 			</select>
 
 			<select name="filter_published" class="inputbox" onchange="this.form.submit()">
