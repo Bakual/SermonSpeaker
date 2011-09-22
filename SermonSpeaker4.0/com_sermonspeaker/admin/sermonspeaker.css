@@ -123,3 +123,8 @@ a.progressCancel:hover {
 .swfupload {
 	vertical-align: middle;
 }
+
+/* Setting the max-width of the speaker and series filterfield */
+#filter_series, #filter_speaker{
+	max-width: 16em;
+}

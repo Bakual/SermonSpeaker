@@ -19,12 +19,12 @@ $saveOrder	= $listOrder == 'sermons.ordering';
 			<button type="button" onclick="document.id('filter_search').value='';this.form.submit();"><?php echo JText::_('JSEARCH_FILTER_CLEAR'); ?></button>
 		</div>
 		<div class="filter-select fltrt">
-			<select name="filter_speaker" class="inputbox" onchange="this.form.submit()">
+			<select name="filter_speaker" id="filter_speaker" class="inputbox" onchange="this.form.submit()">
 				<option value=""><?php echo JText::_('COM_SERMONSPEAKER_SELECT_SPEAKER');?></option>
 				<?php echo JHtml::_('select.options', $this->speakers, 'value', 'text', $this->state->get('filter.speaker'), true);?>
 			</select>
 
-			<select name="filter_series" class="inputbox" onchange="this.form.submit()">
+			<select name="filter_series" id="filter_series" class="inputbox" onchange="this.form.submit()">
 				<option value=""><?php echo JText::_('COM_SERMONSPEAKER_SELECT_SERIES');?></option>
 				<?php echo JHtml::_('select.options', $this->series, 'value', 'text', $this->state->get('filter.series'), true);?>
 			</select>
