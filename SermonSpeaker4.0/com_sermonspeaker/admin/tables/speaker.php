@@ -39,8 +39,6 @@ class SermonspeakerTableSpeaker extends JTable
 
 		// Attempt to store the user data.
 		return parent::store($updateNulls);
-		// Attempt to store the user data.
-		return parent::store($updateNulls);
 	}
 
 	/**
