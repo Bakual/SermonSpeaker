@@ -8,7 +8,7 @@ JHtml::_('behavior.formvalidation');
 <script type="text/javascript">
 	function submitbutton(task)
 	{
-		if (task == 'serie.cancel' || document.formvalidator.isValid(document.id('serie-form'))) {
+		if (task == 'serie.cancel' || document.formvalidator.isValid(document.id('adminForm'))) {
 			<?php echo $this->form->getField('series_description')->save(); ?>
 			submitform(task);
 		}
@@ -18,7 +18,7 @@ JHtml::_('behavior.formvalidation');
 	}
 </script>
 
-<form action="<?php JRoute::_('index.php?option=com_sermonspeaker'); ?>" method="post" name="adminForm" id="serie-form" class="form-validate">
+<form action="<?php JRoute::_('index.php?option=com_sermonspeaker'); ?>" method="post" name="adminForm" id="adminForm" class="form-validate">
 	<div class="width-60 fltlft">
 		<fieldset class="adminform">
 			<legend><?php echo empty($this->item->id) ? JText::_('COM_SERMONSPEAKER_NEW_SERIE') : JText::sprintf('COM_SERMONSPEAKER_EDIT_SERIE', $this->item->id); ?></legend>
