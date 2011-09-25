@@ -39,6 +39,16 @@ if ($this->cat): ?>
 				<label class="filter-search-lbl" for="filter-search"><?php echo JText::_('JGLOBAL_FILTER_LABEL').'&nbsp;'; ?></label>
 				<input type="text" name="filter-search" id="filter-search" value="<?php echo $this->escape($this->state->get('filter.search')); ?>" class="inputbox" onchange="document.adminForm.submit();" title="<?php echo JText::_('COM_SERMONSPEAKER_FILTER_SEARCH_DESC'); ?>" />
 			</div>
+			<div class="filter-select">
+				<label class="filter-select-lbl" for="filter-select"><?php echo JText::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL').'&nbsp;'; ?></label>
+				<select name="month" id="filter_months" class="inputbox" onchange="this.form.submit()">
+					<option value="0">-</option>
+					<?php echo JHtml::_('select.options', $this->months, 'value', 'text', $this->state->get('date.month'), true);?>
+				</select>
+				<select name="year" id="filter_years" class="inputbox" onchange="this.form.submit()">
+					<?php echo JHtml::_('select.options', $this->years, 'year', 'year', $this->state->get('date.year'), true);?>
+				</select>
+			</div>
 	<?php endif;
 	if ($this->params->get('show_pagination_limit')) : ?>
 			<div class="display-limit">

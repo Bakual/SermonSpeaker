@@ -15,6 +15,26 @@ jimport('joomla.application.component.modellist');
 // Based on com_contact
 class SermonspeakerModelArchive extends JModelList
 {
+	public function __construct($config = array())
+	{
+		if (empty($config['filter_fields'])) {
+			$config['filter_fields'] = array(
+				'sermon_number', 'sermons.sermon_number',
+				'sermon_title', 'sermons.sermon_title',
+				'sermon_scripture', 'sermons.sermon_scripture',
+				'sermon_date', 'sermons.sermon_date',
+				'sermon_time', 'sermons.sermon_time',
+				'addfileDesc', 'sermons.addfileDesc',
+				'hits', 'sermons.hits',
+				'ordering', 'sermons.ordering',
+				'name', 'speakers.name',
+				'series_title', 'series.series_title',
+			);
+		}
+
+		parent::__construct($config);
+	}
+
 	protected function getListQuery()
 	{
 		$user	= JFactory::getUser();
@@ -100,7 +120,7 @@ class SermonspeakerModelArchive extends JModelList
 		}
 
 		// Add the list ordering clause.
-		$query->order($db->getEscaped($this->getState('list.ordering', 'sermons.ordering')).' '.$db->getEscaped($this->getState('list.direction', 'ASC')));
+		$query->order($db->getEscaped($this->getState('list.ordering', 'ordering')).' '.$db->getEscaped($this->getState('list.direction', 'ASC')));
 
 		return $query;
 	}
@@ -114,25 +134,12 @@ class SermonspeakerModelArchive extends JModelList
 	 */
 	protected function populateState()
 	{
-		// Initialise variables.
 		$app	= JFactory::getApplication();
 		$params	= $app->getParams();
+		$this->setState('params', $params);
 
-		// List state information
-		$search = JRequest::getString('filter-search', '');
+		$search = $app->getUserStateFromRequest($this->context.'.filter.search', 'filter-search', '', 'STRING');
 		$this->setState('filter.search', $search);
-
-		$limit = $app->getUserStateFromRequest('global.list.limit', 'limit', $app->getCfg('list_limit'));
-		$this->setState('list.limit', $limit);
-
-		$limitstart = JRequest::getVar('limitstart', 0, '', 'int');
-		$this->setState('list.start', $limitstart);
-
-		$orderCol	= JRequest::getCmd('filter_order', $params->get('default_order', 'ordering'));
-		$this->setState('list.ordering', $orderCol);
-
-		$listOrder	=  JRequest::getCmd('filter_order_Dir', $params->get('default_order_dir', 'ASC'));
-		$this->setState('list.direction', $listOrder);
 
 		$id = (int)$params->get('sermon_cat', 0);
 		if (!$id){ $id = JRequest::getInt('sermon_cat', 0); }
@@ -146,21 +153,28 @@ class SermonspeakerModelArchive extends JModelList
 		if (!$id){ $id = JRequest::getInt('series_cat', 0); }
 		$this->setState('series_category.id', $id);
 
-		$date = getDate();
-		if (JRequest::getInt('year') || JRequest::getInt('month')){
-			$year = JRequest::getInt('year', $date['year']);
-			$month = JRequest::getInt('month', 0);
+		$date	= getDate();
+		$year	= $app->getUserStateFromRequest($this->context.'.date.year', 'year', 0, 'INT');
+		$month	= $app->getUserStateFromRequest($this->context.'.date.month', 'month', 0, 'INT');
+		if ($year || $month){
+			if (!$year){
+				$year	= $date['year'];
+				$app->setUserState($this->context.'.date.year', $year);
+			}
 		} else {
-			$year = $params->get('year', $date['year']);
-			$month = $params->get('month', $date['mon']);
+			$year	= $params->get('year', $date['year']);
+			$month	= $params->get('month', $date['mon']);
+			$app->setUserState($this->context.'.date.year', $year);
+			$app->setUserState($this->context.'.date.month', $month);
 		}
 		$this->setState('date.year', $year);
 		$this->setState('date.month', $month);
 
 		$this->setState('filter.state',	1);
 
-		// Load the parameters.
-		$this->setState('params', $params);
+		$order	= $params->get('default_order', 'ordering');
+		$dir	= $params->get('default_order_dir', 'ASC');
+		parent::populateState($order, $dir);
 	}
 
 	/**
@@ -190,5 +204,58 @@ class SermonspeakerModelArchive extends JModelList
 		}
 		$title = implode(' &amp; ', $title);
 		return $title;
+	}
+
+	/**
+	 * Method to get the available Months.
+	 *
+	 * @since	1.6
+	 */
+	public function getMonths()
+	{
+		$months	= array(
+			1 => 'JANUARY',
+			2 => 'FEBRUARY',
+			3 => 'MARCH',
+			4 => 'APRIL',
+			5 => 'MAY',
+			6 => 'JUNE',
+			7 => 'JULY',
+			8 => 'AUGUST',
+			9 => 'SEPTEMBER',
+			10 => 'OCTOBER',
+			11 => 'NOVEMBER',
+			12 => 'DECEMBER',
+		);
+
+		$db	= $this->getDbo();
+		$query = "SELECT DISTINCT MONTH(sermon_date) AS `value` \n"
+				."FROM #__sermon_sermons \n"
+				."ORDER BY `value` ASC";
+		$db->setQuery($query);
+		$options = $db->loadAssocList();
+
+		foreach($options as &$option){
+			$option['text']	= $months[$option['value']];
+		}
+
+		return $options;
+	}
+
+	/**
+	 * Method to get the available Months.
+	 *
+	 * @since	1.6
+	 */
+	public function getYears()
+	{
+		$db	= $this->getDbo();
+		$query = "SELECT DISTINCT YEAR(sermon_date) AS year \n"
+				."FROM #__sermon_sermons \n"
+				."ORDER BY `year` ASC";
+		$db->setQuery($query);
+		$options = $db->loadAssocList();
+
+		return $options;
 	}
 }

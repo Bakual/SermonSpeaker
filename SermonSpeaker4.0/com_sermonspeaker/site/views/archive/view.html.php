@@ -25,6 +25,8 @@ class SermonspeakerViewArchive extends JView
 		$state		= $this->get('State');
 		$items		= $this->get('Items');
 		$pagination	= $this->get('Pagination');
+		$years		= $this->get('Years');
+		$months		= $this->get('Months');
 
 		// Get the category name(s)
 		if($state->get('sermons_category.id') || $state->get('speakers_category.id') || $state->get('series_category.id')){
@@ -57,6 +59,8 @@ class SermonspeakerViewArchive extends JView
 		$this->assignRef('pagination',	$pagination);
 		$this->assignRef('cat',			$cat);
 		$this->assignRef('range',		$range);
+		$this->assignRef('years',		$years);
+		$this->assignRef('months',		$months);
 
 		$this->_prepareDocument();
 

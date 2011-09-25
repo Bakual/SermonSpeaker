@@ -15,6 +15,27 @@ jimport('joomla.application.component.modellist');
 // Based on com_contact
 class SermonspeakerModelSpeaker extends JModelList
 {
+	public function __construct($config = array())
+	{
+		if (empty($config['filter_fields'])) {
+			$config['filter_fields'] = array(
+				'sermon_number', 'sermons.sermon_number',
+				'sermon_title', 'sermons.sermon_title',
+				'sermon_scripture', 'sermons.sermon_scripture',
+				'sermon_date', 'sermons.sermon_date',
+				'sermon_time', 'sermons.sermon_time',
+				'addfileDesc', 'sermons.addfileDesc',
+				'hits', 'sermons.hits', 'series.hits',
+				'ordering', 'sermons.ordering',
+				'name', 'speakers.name',
+				'series_title', 'series.series_title',
+				'series_description', 'series.series_description',
+			);
+		}
+
+		parent::__construct($config);
+	}
+
 	protected function getListQuery()
 	{
 		$user	= JFactory::getUser();
@@ -87,7 +108,7 @@ class SermonspeakerModelSpeaker extends JModelList
 			}
 
 			// Add the list ordering clause.
-			$query->order('sermons.'.$db->getEscaped($this->getState('list.ordering', 'ordering')).' '.$db->getEscaped($this->getState('list.direction', 'ASC')));
+			$query->order($db->getEscaped($this->getState('list.ordering', 'ordering')).' '.$db->getEscaped($this->getState('list.direction', 'ASC')));
 		} else {
 			// Select required fields from the table.
 			$query->select(
@@ -142,26 +163,8 @@ class SermonspeakerModelSpeaker extends JModelList
 		// Initialise variables.
 		$app	= JFactory::getApplication();
 		$params	= $app->getParams();
+		$this->setState('params', $params);
 
-		// List state information
-		$limit = $app->getUserStateFromRequest('global.list.limit', 'limit', $app->getCfg('list_limit'));
-		$this->setState('list.limit', $limit);
-
-		$limitstart = JRequest::getVar('limitstart', 0, '', 'int');
-		$this->setState('list.start', $limitstart);
-
-		if (JRequest::getCmd('layout') == 'latest-sermons'){
-			$orderCol	= JRequest::getCmd('filter_order', $params->get('default_order', 'ordering'));
-
-			$listOrder	=  JRequest::getCmd('filter_order_Dir', $params->get('default_order_dir', 'ASC'));
-
-			$search = JRequest::getString('filter-search', '');
-			$this->setState('filter.search', $search);
-		} else {
-			$listOrder	=  JRequest::getCmd('filter_order_Dir', 'ASC');
-
-			$orderCol	= JRequest::getCmd('filter_order', 'ordering');
-		}
 		$id = (int)$params->get('sermon_cat', 0);
 		if (!$id){ $id = JRequest::getInt('sermon_cat', 0); }
 		$this->setState('sermons_category.id', $id);
@@ -170,16 +173,21 @@ class SermonspeakerModelSpeaker extends JModelList
 		if (!$id){ $id = JRequest::getInt('series_cat', 0); }
 		$this->setState('series_category.id', $id);
 
-		$this->setState('list.ordering', $orderCol);
-		$this->setState('list.direction', $listOrder);
-
-		$id = JRequest::getVar('id', 0, '', 'int');
+		$id = $app->getUserStateFromRequest($this->context.'.filter.speaker', 'id', 0, 'INT');
 		$this->setState('speaker.id', $id);
 
 		$this->setState('filter.state',	1);
 
-		// Load the parameters.
-		$this->setState('params', $params);
+		if (JRequest::getCmd('layout') == 'latest-sermons'){
+			$search = $app->getUserStateFromRequest($this->context.'.filter.search', 'filter-search', '', 'STRING');
+			$this->setState('filter.search', $search);
+
+			$order	= $params->get('default_order', 'ordering');
+			$dir	= $params->get('default_order_dir', 'ASC');
+			parent::populateState($order, $dir);
+		} else {
+			parent::populateState('ordering', 'ASC');
+		}
 	}
 	
 	function getSpeaker()

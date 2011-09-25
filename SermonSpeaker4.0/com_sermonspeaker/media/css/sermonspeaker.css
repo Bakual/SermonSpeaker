@@ -94,3 +94,7 @@ tr.ss-current td{
 .pointer{
 	cursor:pointer;
 }
+div.filter-select{
+	float:left;
+	margin-left:15px;
+}
