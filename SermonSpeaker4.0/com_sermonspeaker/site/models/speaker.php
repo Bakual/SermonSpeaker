@@ -146,7 +146,7 @@ class SermonspeakerModelSpeaker extends JModelList
 			$query->group('series.id');
 
 			// Add the list ordering clause.
-			$query->order('series.'.$db->getEscaped($this->getState('list.ordering', 'ordering')).' '.$db->getEscaped($this->getState('list.direction', 'ASC')));
+			$query->order($db->getEscaped($this->getState('list.ordering', 'ordering')).' '.$db->getEscaped($this->getState('list.direction', 'ASC')));
 		}
 		return $query;
 	}
