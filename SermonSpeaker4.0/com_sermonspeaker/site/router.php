@@ -71,7 +71,7 @@ function SermonspeakerParseRoute($segments){
 			if ($segments[1]){
 				$vars['year'] = (int)$segments[1];
 			}
-			if ($segments[2]){
+			if (isset($segments[2]) && $segments[2]){
 				$vars['month'] = (int)$segments[2];
 			}
 			break;
