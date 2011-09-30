@@ -68,7 +68,7 @@ function SermonspeakerParseRoute($segments){
 			break;
 		case 'archive':
 			$vars['view'] = 'archive';
-			if ($segments[1]){
+			if (isset($segments[1]) && $segments[1]){
 				$vars['year'] = (int)$segments[1];
 			}
 			if (isset($segments[2]) && $segments[2]){
