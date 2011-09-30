@@ -27,7 +27,7 @@ $ss_itemid = $params->get('menuitem');
 if(count($rows)) { ?>
 	<ul class="sermonarchive<?php echo $params->get('moduleclass_sfx'); ?>">
 	<?php foreach ($rows as $row) {
-		$request_m	= NULL;
+		$request_m	= '&amp;month=all';
 		$text_m		= NULL;
 		if ($switch){
 			$request_m	= '&amp;month='.$row->created_month;
