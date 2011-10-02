@@ -52,7 +52,12 @@ class SermonspeakerViewSeriessermon extends JView
 			return false;
 		}
 
-        // push data into the template
+		// Set layout from parameters if not already set elsewhere
+		if (!JRequest::getVar('layout', '') || $this->getLayout() == '_default') {
+			$this->setLayout($params->get('seriessermonlayout', 'default'));
+		}
+
+		// push data into the template
 		$this->assignRef('state',		$state);
 		$this->assignRef('items',		$items);
 		$this->assignRef('params',		$params);

@@ -26,7 +26,7 @@ if (empty($this->items)) : ?>
 	<?php
 	$count = NULL;
 	$model	= &$this->getModel();
-	echo JHtml::_('sliders.start', 'series', array('useCookie'=>1));
+	echo JHtml::_('sliders.start', 'contact-slider', array('useCookie'=>1));
 	foreach($this->items as $item) :
 		echo JHtml::_('sliders.panel', $item->series_title, 'series-'.$item->id);
 		$sermons = &$model->getSermons($item->id); ?>

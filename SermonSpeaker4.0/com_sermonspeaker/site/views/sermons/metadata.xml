@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<view title="COM_SERMONSPEAKER_SERMONS_VIEW_TITLE">
+		<message><![CDATA[COM_SERMONSPEAKER_SERMONS_VIEW_DESC]]></message>
+		<options var="layout">
+			<option
+				name="COM_SERMONSPEAKER_SERMONS_VIEW_TITLE" 
+				msg="COM_SERMONSPEAKER_SERMONS_VIEW_DESC"
+				value="_default" />
+		</options>
+	</view>
+	<!-- using private dummy layout _default for params because Joomla 1.7.1 has a bug (Tracker #26910) with view manifest.xml. As soon as it is fixed params can be moved here -->
+</metadata>

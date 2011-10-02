@@ -94,7 +94,105 @@
 				<option value="0">JHIDE</option>
 				<option value="1">JSHOW</option>
 		</field>
-
+	</fieldset>
+	<fieldset name="layouts"
+		label="COM_SERMONSPEAKER_FIELDSET_LAYOUTS_LABEL"
+		description="COM_SERMONSPEAKER_FIELDSET_LAYOUTS_DESC">
+		<field
+			name="sermonslayout" type="componentlayout"
+			label="COM_SERMONSPEAKER_SERMONS_VIEW_TITLE"
+			description="COM_SERMONSPEAKER_FIELD_LAYOUT_DESC"
+			useglobal="false"
+			extension="com_sermonspeaker"
+			view="sermons"
+		/>
+		<field
+			name="sermonlayout" type="componentlayout"
+			label="COM_SERMONSPEAKER_SERMON_VIEW_TITLE"
+			description="COM_SERMONSPEAKER_FIELD_LAYOUT_DESC"
+			useglobal="false"
+			extension="com_sermonspeaker"
+			view="sermon"
+		/>
+		<field
+			name="serieslayout" type="componentlayout"
+			label="COM_SERMONSPEAKER_SERIES_VIEW_TITLE"
+			description="COM_SERMONSPEAKER_FIELD_LAYOUT_DESC"
+			useglobal="false"
+			extension="com_sermonspeaker"
+			view="series"
+		/>
+		<field
+			name="serielayout" type="componentlayout"
+			label="COM_SERMONSPEAKER_SERIE_VIEW_TITLE"
+			description="COM_SERMONSPEAKER_FIELD_LAYOUT_DESC"
+			useglobal="false"
+			extension="com_sermonspeaker"
+			view="serie"
+		/>
+		<field
+			name="speakerslayout" type="componentlayout"
+			label="COM_SERMONSPEAKER_SPEAKERS_VIEW_TITLE"
+			description="COM_SERMONSPEAKER_FIELD_LAYOUT_DESC"
+			useglobal="false"
+			extension="com_sermonspeaker"
+			view="speakers"
+		/>
+		<field
+			name="speakerlayout" type="componentlayout"
+			label="COM_SERMONSPEAKER_SPEAKER_VIEW_TITLE"
+			description="COM_SERMONSPEAKER_FIELD_LAYOUT_DESC"
+			useglobal="false"
+			extension="com_sermonspeaker"
+			view="speaker"
+		/>
+		<field
+			name="seriessermonlayout" type="componentlayout"
+			label="COM_SERMONSPEAKER_SERIESSERMON_VIEW_TITLE"
+			description="COM_SERMONSPEAKER_FIELD_LAYOUT_DESC"
+			useglobal="false"
+			extension="com_sermonspeaker"
+			view="seriessermon"
+		/>
+		<field
+			name="archivelayout" type="componentlayout"
+			label="COM_SERMONSPEAKER_ARCHIVE_VIEW_TITLE"
+			description="COM_SERMONSPEAKER_FIELD_LAYOUT_DESC"
+			useglobal="false"
+			extension="com_sermonspeaker"
+			view="archive"
+		/>
+	</fieldset>
+	<fieldset name="clientcol"
+		addfieldpath="/administrator/components/com_sermonspeaker/models/fields"
+		label="COM_SERMONSPEAKER_FIELDSET_CLIENTCOL_LABEL">
+		<field name="col" type="columns"
+			label="COM_SERMONSPEAKER_SERMON" 
+			description="COM_SERMONSPEAKER_FIELD_COL_DESC"
+			cols="num,scripture,speaker,date,length,series,addfile,notes,player,hits" >
+			<option value="sermons" exclude="notes">COM_SERMONSPEAKER_SERMONS_VIEW_TITLE</option>
+			<option value="sermon">COM_SERMONSPEAKER_SERMON_VIEW_TITLE</option>
+			<option value="serie" exclude="series,notes">COM_SERMONSPEAKER_SERIE_VIEW_TITLE</option>
+			<option value="speaker" exclude="speaker,notes">COM_SERMONSPEAKER_SPEAKER_VIEW_TITLE</option>
+			<option value="archive" exclude="notes">COM_SERMONSPEAKER_ARCHIVE_VIEW_TITLE</option>
+			<option value="seriessermon" exclude="num,scripture,speaker,length,series,hits">COM_SERMONSPEAKER_SERIESSERMON_VIEW_TITLE</option>
+		</field>
+		<field name="col_serie" type="columns"
+			label="COM_SERMONSPEAKER_SERIE" 
+			description="COM_SERMONSPEAKER_FIELD_COL_DESC"
+			cols="description,speaker,hits,download" >
+			<option value="series" exclude="description">COM_SERMONSPEAKER_SERIES_VIEW_TITLE</option>
+			<option value="serie" exclude="speaker">COM_SERMONSPEAKER_SERIE_VIEW_TITLE</option>
+			<option value="speaker" exclude="speaker">COM_SERMONSPEAKER_SPEAKER_VIEW_TITLE</option>
+			<option value="seriessermon" exclude="speaker,hits,download">COM_SERMONSPEAKER_SERIESSERMON_VIEW_TITLE</option>
+		</field>
+		<field name="col_speaker" type="columns"
+			label="COM_SERMONSPEAKER_SPEAKER" 
+			description="COM_SERMONSPEAKER_FIELD_COL_DESC"
+			cols="intro,bio,hits" >
+			<option value="speakers" exclude="hits">COM_SERMONSPEAKER_SPEAKERS_VIEW_TITLE</option>
+			<option value="speaker">COM_SERMONSPEAKER_SPEAKER_VIEW_TITLE</option>
+		</field>
 	</fieldset>
 	<fieldset name="paths"
 		label="COM_SERMONSPEAKER_FIELDSET_PATHS_LABEL"
@@ -257,14 +355,6 @@
 	<fieldset name="detailpage"
 		label="COM_SERMONSPEAKER_FIELDSET_DETAILPAGE_LABEL"
 		description="COM_SERMONSPEAKER_FIELDSET_DETAILPAGE_DESC">
-		<field
-			name="sermonlayout" type="componentlayout"
-			label="COM_SERMONSPEAKER_PARAM_SERMONLAYOUT"
-			description="COM_SERMONSPEAKER_PARAM_SERMONLAYOUT_DESC"
-			useglobal="false"
-			extension="com_sermonspeaker"
-			view="sermon"
-		/>
 		<field name="dl_button" 
 			type="radio" 
 			default="1" 
@@ -319,37 +409,6 @@
 			label="COM_SERMONSPEAKER_PARAM_ACCESS" 
 			description="COM_SERMONSPEAKER_PARAM_ACCESS_DESC"
 			default="1" />
-	</fieldset>
-	<fieldset name="clientcol"
-		addfieldpath="/administrator/components/com_sermonspeaker/models/fields"
-		label="COM_SERMONSPEAKER_FIELDSET_CLIENTCOL_LABEL">
-		<field name="col" type="columns"
-			label="COM_SERMONSPEAKER_SERMON" 
-			description="COM_SERMONSPEAKER_FIELD_COL_DESC"
-			cols="num,scripture,speaker,date,length,series,addfile,notes,player,hits" >
-			<option value="sermons" exclude="notes">COM_SERMONSPEAKER_SERMONS_VIEW_DEFAULT_TITLE</option>
-			<option value="sermon">COM_SERMONSPEAKER_SERMON_VIEW_DEFAULT_TITLE</option>
-			<option value="serie" exclude="series,notes">COM_SERMONSPEAKER_SERIE_VIEW_DEFAULT_TITLE</option>
-			<option value="speaker" exclude="speaker,notes">COM_SERMONSPEAKER_SPEAKER_VIEW_DEFAULT_TITLE</option>
-			<option value="archive" exclude="notes">COM_SERMONSPEAKER_ARCHIVE_VIEW_DEFAULT_TITLE</option>
-			<option value="seriessermon" exclude="num,scripture,speaker,length,series,hits">COM_SERMONSPEAKER_SERIESSERMON_VIEW_DEFAULT_TITLE</option>
-		</field>
-		<field name="col_serie" type="columns"
-			label="COM_SERMONSPEAKER_SERIE" 
-			description="COM_SERMONSPEAKER_FIELD_COL_DESC"
-			cols="description,speaker,hits,download" >
-			<option value="series" exclude="description">COM_SERMONSPEAKER_SERIES_VIEW_DEFAULT_TITLE</option>
-			<option value="serie" exclude="speaker">COM_SERMONSPEAKER_SERIE_VIEW_DEFAULT_TITLE</option>
-			<option value="speaker" exclude="speaker">COM_SERMONSPEAKER_SPEAKER_VIEW_DEFAULT_TITLE</option>
-			<option value="seriessermon" exclude="speaker,hits,download">COM_SERMONSPEAKER_SERIESSERMON_VIEW_DEFAULT_TITLE</option>
-		</field>
-		<field name="col_speaker" type="columns"
-			label="COM_SERMONSPEAKER_SPEAKER" 
-			description="COM_SERMONSPEAKER_FIELD_COL_DESC"
-			cols="intro,bio,hits" >
-			<option value="speakers" exclude="hits">COM_SERMONSPEAKER_SPEAKERS_VIEW_DEFAULT_TITLE</option>
-			<option value="speaker">COM_SERMONSPEAKER_SPEAKER_VIEW_DEFAULT_TITLE</option>
-		</field>
 	</fieldset>
 	<fieldset name="statistics"
 		label="COM_SERMONSPEAKER_FIELDSET_STATISTICS_LABEL"
