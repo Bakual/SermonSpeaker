@@ -8,6 +8,12 @@ jimport( 'joomla.application.component.view');
  */
 class SermonspeakerViewSeries extends JView
 {
+	public function __construct($config = array()){
+		$config['layout']	= '_default';
+
+		parent::__construct($config);
+	}
+
 	function display($tpl = null)
 	{
 		// Applying CSS file
@@ -42,7 +48,7 @@ class SermonspeakerViewSeries extends JView
 		// getting the Speakers for each Series and check if there are avatars at all, only showing column if needed
 		$av = NULL;
 		$model = $this->getModel();
-		foreach ($items as $item){					
+		foreach ($items as $item){
 			if (!$av && !empty($item->avatar)){
 				$av = 1;
 			}
@@ -55,8 +61,14 @@ class SermonspeakerViewSeries extends JView
 				$item->speakers = implode(', ', $popup);
 			}
 		}
-		
-       // push data into the template
+
+		// Set layout from parameters if not already set elsewhere
+		// check for JRequest only needed as long as Joomla doesn't recognize the default value from the constructor
+		if (!JRequest::getVar('layout', '') || $this->getLayout() == '_default') {
+			$this->setLayout($params->get('serieslayout', 'default'));
+		}
+
+		// push data into the template
 		$this->assignRef('state',		$state);
 		$this->assignRef('items',		$items);
 		$this->assignRef('params',		$params);
