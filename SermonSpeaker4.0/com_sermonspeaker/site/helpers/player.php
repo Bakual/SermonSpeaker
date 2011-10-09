@@ -172,36 +172,6 @@ class SermonspeakerHelperPlayer {
 		$this->player = 'JWPlayer';
 		$this->mspace = '<div id="mediaspace'.$this->config['count'].'">Flashplayer needs Javascript turned on</div>';
 		$player = JURI::root().'media/com_sermonspeaker/player/jwplayer/player.swf';
-		// Loading needed Javascript only once
-		if (!self::$jwscript){
-			JHTML::Script('media/com_sermonspeaker/player/jwplayer/jwplayer.js');
-			if ($this->toggle){
-				// Needs more work in case of custom height by the layout
-				$width = $this->params->get('mp_width', '100%');
-				if (is_numeric($width)){ $width .= 'px'; }
-				$height = $this->params->get('mp_height', '400px');
-				if (is_numeric($height)){ $height .= 'px'; }
-				$url = 'index.php?&task=download&id='.$this->item->slug.'&type=';
-				$doc = JFactory::getDocument();
-				$doc->addScriptDeclaration('
-					function Video() {
-						jwplayer().load(['.$this->player->playlist['video'].']).resize("'.$width.'","'.$height.'");
-						document.getElementById("mediaspace'.$this->config['count'].'_wrapper").style.width="'.$width.'";
-						document.getElementById("mediaspace'.$this->config['count'].'_wrapper").style.height="'.$height.'";
-						document.getElementById("sermon_download").onclick=function(){window.location.href=\''.JRoute::_($url.'video').'\'};
-					}
-				');
-				$doc->addScriptDeclaration('
-					function Audio() {
-						jwplayer().load(['.$this->player->playlist['audio'].']).resize("250","23px");
-						document.getElementById("mediaspace'.$this->config['count'].'_wrapper").style.width="250px";
-						document.getElementById("mediaspace'.$this->config['count'].'_wrapper").style.height="23px";
-						document.getElementById("sermon_download").onclick=function(){window.location.href=\''.JRoute::_($url.'audio').'\'};
-					}
-				');
-			}
-			self::$jwscript = 1;
-		}
 		$skin	= $this->params->get('jwskin', '');
 		if ($skin){
 			$skin = '	  skin: "'.$skin.'",';
@@ -300,8 +270,6 @@ class SermonspeakerHelperPlayer {
 								.'	});'
 								.'</script>';
 			$this->status	= 'playlist';
-			
-			return;
 		} else {
 			$image = '';
 			if ($this->item->picture){
@@ -329,8 +297,46 @@ class SermonspeakerHelperPlayer {
 								.'	  height: "'.$this->config['height'].'"'
 								.'	});'
 								.'</script>';
-			return;
 		}
+
+		// Loading needed Javascript only once
+		if (!self::$jwscript){
+			JHTML::Script('media/com_sermonspeaker/player/jwplayer/jwplayer.js');
+			if ($this->toggle){
+				// Needs more work in case of custom height by the layout
+				$width = $this->params->get('mp_width', '100%');
+				if (is_numeric($width)){ $width .= 'px'; }
+				$height = $this->params->get('mp_height', '400px');
+				if (is_numeric($height)){ $height .= 'px'; }
+				if (!$multi){
+					$url = 'index.php?&task=download&id='.$this->item->slug.'&type=';
+					$download_video = 'document.getElementById("sermon_download").onclick=function(){window.location.href=\''.JRoute::_($url.'video').'\'};';
+					$download_audio = 'document.getElementById("sermon_download").onclick=function(){window.location.href=\''.JRoute::_($url.'audio').'\'};';
+				} else {
+					$download_video = '';
+					$download_audio = '';
+				}
+				$doc = JFactory::getDocument();
+				$doc->addScriptDeclaration('
+					function Video() {
+						jwplayer().load(['.$this->playlist['video'].']).resize("'.$width.'","'.$height.'");
+						document.getElementById("mediaspace'.$this->config['count'].'_wrapper").style.width="'.$width.'";
+						document.getElementById("mediaspace'.$this->config['count'].'_wrapper").style.height="'.$height.'";
+						'.$download_video.'
+					}
+				');
+				$doc->addScriptDeclaration('
+					function Audio() {
+						jwplayer().load(['.$this->playlist['audio'].']).resize("'.$width.'","23px");
+						document.getElementById("mediaspace'.$this->config['count'].'_wrapper").style.width="'.$width.'";
+						document.getElementById("mediaspace'.$this->config['count'].'_wrapper").style.height="23px";
+						'.$download_audio.'
+					}
+				');
+			}
+			self::$jwscript = 1;
+		}
+		return;
 	}
 
 	private function PixelOut($multi=0){
@@ -361,7 +367,7 @@ class SermonspeakerHelperPlayer {
 			foreach($this->item as $item){
 				if (($this->config['type'] != 'video') && ($item->audiofile && (!$this->prio || ($this->config['type'] == 'audio') || !$item->videofile))){
 					$files[]	= urlencode(SermonspeakerHelperSermonspeaker::makelink($item->audiofile));
-				} elseif (($this->config['type'] != 'audio') && ($this->item->videofile && ($this->prio || ($this->config['type'] == 'video') || !$this->item->audiofile))){
+				} elseif (($this->config['type'] != 'audio') && ($item->videofile && ($this->prio || ($this->config['type'] == 'video') || !$item->audiofile))){
 					$files[]	= urlencode(SermonspeakerHelperSermonspeaker::makelink($item->videofile));
 				} else {
 					$files[]	= urlencode(JURI::root());
@@ -412,7 +418,7 @@ class SermonspeakerHelperPlayer {
 							.'	<param name="showstatusbar" value="1">'
 							.'	<param name="autosize" value="1">'
 							.'	<param name="animationatstart" value="false">'
-							.'	<embed name="MediaPlayer" src="'.$this->file.'" width="'.$this->config['width'].'" height="'.$this->config['height'].'" type="application/x-mplayer2" autostart="'.$this->start[1].'" showcontrols="1" showstatusbar="1" transparentatstart="1" animationatstart="0" loop="false" pluginspage="http://www.microsoft.com/windows/windowsmedia/download/default.asp">'
+							.'	<embed name="MediaPlayer" src="'.$this->file.'" width="'.$this->config['width'].'" height="'.$this->config['height'].'" type="application/x-mplayer2" autostart="'.$start.'" showcontrols="1" showstatusbar="1" transparentatstart="1" animationatstart="0" loop="false" pluginspage="http://www.microsoft.com/windows/windowsmedia/download/default.asp">'
 							.'	</embed>'
 							.'</object>';
 		$this->script = '';
