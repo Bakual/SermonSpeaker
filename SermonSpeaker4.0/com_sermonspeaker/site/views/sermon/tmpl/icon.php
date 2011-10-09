@@ -2,6 +2,11 @@
 defined('_JEXEC') or die('Restricted access');
 JHTML::_('behavior.tooltip');
 JHTML::_('behavior.modal');
+$config = array(
+		'alt_player' => 1,
+		'count' => 1
+	);
+$player = new SermonspeakerHelperPlayer($this->item, $config);
 ?>
 <div class="ss-sermon-container<?php echo htmlspecialchars($this->params->get('pageclass_sfx')); ?>">
 <?php if ($this->params->get('show_page_heading', 1)) : ?>
@@ -12,18 +17,18 @@ JHTML::_('behavior.modal');
 	<div id="sermon-player-container">
 		<?php if (in_array('sermon:player', $this->columns)) : ?>
 			<div class="ss-player">
-				<?php if (!$this->player->status): ?>
-					<span class="no_entries"><?php echo $this->player->error; ?></span>
+				<?php if (!$player->status): ?>
+					<span class="no_entries"><?php echo $player->error; ?></span>
 				<?php else:
-					echo $this->player->mspace;
-					echo $this->player->script;
+					echo $player->mspace;
+					echo $player->script;
 				endif; ?>
 			</div>
 		<?php endif; ?>
 		<?php if ($this->params->get('popup_player') || $this->params->get('dl_button')) : ?>
 			<div class="ss-mp3-links">
 			<?php if ($this->params->get('popup_player')) : ?>
-				<a href="<?php echo JURI::current(); ?>" class="new-window" onclick="popup = window.open('<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonRoute($this->item->slug).'&layout=popup&tmpl=component'); ?>', 'PopupPage', 'height=<?php echo $this->player->popup['height']; ?>,width=<?php echo $this->player->popup['width']; ?>,scrollbars=yes,resizable=yes'); return false">
+				<a href="<?php echo JURI::current(); ?>" class="new-window" onclick="popup = window.open('<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonRoute($this->item->slug).'&layout=popup&tmpl=component'); ?>', 'PopupPage', 'height=<?php echo $player->popup['height']; ?>,width=<?php echo $player->popup['width']; ?>,scrollbars=yes,resizable=yes'); return false">
 					<?php echo JText::_('COM_SERMONSPEAKER_POPUPPLAYER'); ?>
 				</a>
 			<?php endif;
@@ -31,7 +36,7 @@ JHTML::_('behavior.modal');
 				<br />
 			<?php endif;
 			if ($this->params->get('dl_button')) : ?>
-				<a id="sermon_download" href="<?php echo JRoute::_('index.php?task=download&id='.$this->item->slug.'&type='.$this->player->status); ?>" class="download">
+				<a id="sermon_download" href="<?php echo JRoute::_('index.php?task=download&id='.$this->item->slug.'&type='.$player->status); ?>" class="download">
 					<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON'); ?>
 				</a>
 			<?php endif; ?>

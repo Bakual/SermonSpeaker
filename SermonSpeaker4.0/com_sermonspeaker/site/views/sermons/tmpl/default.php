@@ -13,15 +13,21 @@ $limit 		= (int)$this->params->get('limit', '');
 if ($this->cat): ?>
 	<h2><span class="subheading-category"><?php echo $this->cat; ?></span></h2>
 <?php endif;
-if (in_array('sermons:player', $this->columns) && count($this->items)) : ?>
+if (in_array('sermons:player', $this->columns) && count($this->items)) : 
+	$config = array(
+			'width' => '100%',
+			'count' => 1
+		);
+	$player = new SermonspeakerHelperPlayer($this->items, $config);
+	?>
 	<div class="ss-sermons-player">
 		<hr class="ss-sermons-player" />
 		<?php
-		echo $this->player->mspace;
-		echo $this->player->script;
+		echo $player->mspace;
+		echo $player->script;
 		?>
 		<hr class="ss-sermons-player" />
-	<?php if ($this->player->toggle): ?>
+	<?php if ($player->toggle): ?>
 		<div>
 			<img class="pointer" src="media/com_sermonspeaker/images/Video.png" onclick="Video()" alt="Video" title="<?php echo JText::_('COM_SERMONSPEAKER_SWITCH_VIDEO'); ?>" />
 			<img class="pointer" src="media/com_sermonspeaker/images/Sound.png" onclick="Audio()" alt="Audio" title="<?php echo JText::_('COM_SERMONSPEAKER_SWITCH_AUDIO'); ?>" />

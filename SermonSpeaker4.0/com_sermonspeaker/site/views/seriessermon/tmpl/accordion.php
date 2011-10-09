@@ -4,6 +4,7 @@ JHTML::_('behavior.tooltip');
 JHTML::_('behavior.modal');
 $listOrder	= $this->state->get('list.ordering');
 $listDirn	= $this->state->get('list.direction');
+$config['autostart']	= 0;
 ?>
 <div class="ss-sermons-container<?php echo htmlspecialchars($this->params->get('pageclass_sfx')); ?>">
 <?php if ($this->params->get('show_page_heading', 1)) : ?>
@@ -24,7 +25,7 @@ if (empty($this->items)) : ?>
 	<?php endif; ?>
 	<!-- Begin Data -->
 	<?php
-	$count = NULL;
+	$config['count'] = 0;
 	$model	= &$this->getModel();
 	echo JHtml::_('sliders.start', 'contact-slider', array('useCookie'=>1));
 	foreach($this->items as $item) :
@@ -40,7 +41,7 @@ if (empty($this->items)) : ?>
 		</div>
 		<div style="margin-left:10%;">
 			<?php foreach($sermons as $sermon) :
-				$count ++;?>
+				$config['count'] ++;?>
 				<h4 style="margin-left:-5%;">
 					<?php echo $this->escape($sermon->sermon_title);
 					if (in_array('seriessermon:date', $this->columns)):
@@ -59,9 +60,9 @@ if (empty($this->items)) : ?>
 				endif;
 				$lnk = SermonspeakerHelperSermonspeaker::makelink($sermon->audiofile); 
 				if (in_array('seriessermon:player', $this->columns)):
-					$this->player->prepare($sermon, $count);
-					echo $this->player->mspace;
-					echo $this->player->script;
+					$player = new SermonspeakerHelperPlayer($sermon, $config);
+					echo $player->mspace;
+					echo $player->script;
 				else :
 					// if player is disabled show a link
 					echo JText::_('COM_SERMONSPEAKER_DIRECTLINK_HOOVER').': <a title="'.JText::_('COM_SERMONSPEAKER_DIRECTLINK_HOOVER').'" href="'.$lnk.'">'.$this->escape($sermon->sermon_title).'</a>';

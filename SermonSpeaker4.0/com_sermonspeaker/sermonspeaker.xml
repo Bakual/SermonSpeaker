@@ -66,7 +66,6 @@
 			<filename>controller.php</filename>
 			<filename>index.html</filename>
 			<folder>controllers</folder>
-			<folder>elements</folder>
 			<folder>models</folder>
 			<folder>sql</folder>
 			<folder>s3</folder>

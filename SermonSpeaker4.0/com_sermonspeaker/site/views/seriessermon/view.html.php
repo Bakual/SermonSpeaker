@@ -86,23 +86,8 @@ class SermonspeakerViewSeriessermon extends JView
 	{
 		$app	= JFactory::getApplication();
 
-		// Add swfobject-javascript for player if needed
 		if (in_array('seriessermon:player', $this->columns)){
 			require_once(JPATH_COMPONENT.DS.'helpers'.DS.'player.php');
-			$this->player = new SermonspeakerHelperPlayer($this->params);
-			if ($this->params->get('alt_player')){
-				$this->document->addScript(JURI::root()."media/com_sermonspeaker/player/audio_player/audio-player.js");
-				$this->document->addScriptDeclaration('
-				AudioPlayer.setup("'.JURI::root().'media/com_sermonspeaker/player/audio_player/player.swf", {
-					width: 290,
-					initialvolume: 100,
-					transparentpagebg: "yes",
-					left: "000000",
-					lefticon: "FFFFFF"
-				});');
-			} else {
-				$this->document->addScript(JURI::root().'media/com_sermonspeaker/player/jwplayer/jwplayer.js');
-			}
 		}
 		
 		// Set Page Header if not already set in the menu entry

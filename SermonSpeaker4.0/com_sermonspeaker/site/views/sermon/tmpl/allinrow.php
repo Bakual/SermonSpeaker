@@ -2,6 +2,7 @@
 defined('_JEXEC') or die('Restricted access');
 JHTML::_('behavior.tooltip');
 JHTML::_('behavior.modal');
+$player = new SermonspeakerHelperPlayer($this->item);
 ?>
 <div class="ss-sermon-container<?php echo htmlspecialchars($this->params->get('pageclass_sfx')); ?>">
 <?php if ($this->params->get('show_page_heading', 1)) : ?>
@@ -37,13 +38,13 @@ JHTML::_('behavior.modal');
 		<?php endif;
 		if (in_array('sermon:player', $this->columns)) : ?> 
 			<td align="center" valign="top">
-				<?php if (!$this->player->status): ?>
-					<span class="no_entries"><?php echo $this->player->error; ?></span>
+				<?php if (!$player->status): ?>
+					<span class="no_entries"><?php echo $player->error; ?></span>
 				<?php else:
-					echo $this->player->mspace;
-					echo $this->player->script;
+					echo $player->mspace;
+					echo $player->script;
 				endif;
-				if ($this->player->toggle): ?>
+				if ($player->toggle): ?>
 					<div class="ss-sermon-switch">
 						<img class="pointer" src="media/com_sermonspeaker/images/Video.png" onclick="Video()" alt="Video" title="<?php echo JText::_('COM_SERMONSPEAKER_SWITCH_VIDEO'); ?>" />
 						<img class="pointer" src="media/com_sermonspeaker/images/Sound.png" onclick="Audio()" alt="Audio" title="<?php echo JText::_('COM_SERMONSPEAKER_SWITCH_AUDIO'); ?>" />
@@ -54,13 +55,13 @@ JHTML::_('behavior.modal');
 	</tr>
 </table>
 <div style="float:left;">
-	<?php if ($this->params->get('dl_button') && $this->player->file) :
-		echo SermonspeakerHelperSermonspeaker::insertdlbutton($this->item->slug, $this->player->status);
+	<?php if ($this->params->get('dl_button') && $player->file) :
+		echo SermonspeakerHelperSermonspeaker::insertdlbutton($this->item->slug, $player->status);
 	endif; ?>
 </div>
 <div style="float:right;">
 	<?php if ($this->params->get('popup_player') == "1" && strlen($this->item->audiofile) > 0) :
-		echo SermonspeakerHelperSermonspeaker::insertPopupButton($this->item->id, $this->player);
+		echo SermonspeakerHelperSermonspeaker::insertPopupButton($this->item->id, $player);
 	endif; ?>
 </div>
 <?php

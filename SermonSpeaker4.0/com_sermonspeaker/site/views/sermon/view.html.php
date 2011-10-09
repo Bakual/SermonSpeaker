@@ -33,6 +33,7 @@ class SermonspeakerViewSermon extends JView
 
 		// Applying CSS file
 		JHTML::stylesheet('sermonspeaker.css', 'media/com_sermonspeaker/css/');
+		require_once(JPATH_COMPONENT.DS.'helpers'.DS.'player.php');
 
 		// Initialise variables.
 		$app		= JFactory::getApplication();
@@ -113,50 +114,6 @@ class SermonspeakerViewSermon extends JView
 	{
 		$app	= JFactory::getApplication();
 
-		// Call Playerhelper anyway, since we assume we either have a download button, popup button or player in any case.
-		require_once(JPATH_COMPONENT.DS.'helpers'.DS.'player.php');
-		$this->player = new SermonspeakerHelperPlayer($this->params);
-		$this->player->prepare($this->item);
-		// Add javascript for player if needed
-		if (in_array('sermon:player', $this->columns) || JRequest::getCmd('layout', '') == 'popup'){
-			if ($this->player->player == 'PixelOut'){
-				JHTML::Script('media/com_sermonspeaker/player/audio_player/audio-player.js');
-				$this->document->addScriptDeclaration('
-				AudioPlayer.setup("'.JURI::root().'media/com_sermonspeaker/player/audio_player/player.swf", {
-					width: 290,
-					initialvolume: 100,
-					transparentpagebg: "yes",
-					left: "000000",
-					lefticon: "FFFFFF"
-				});');
-			} elseif ($this->player->player == 'JWPlayer'){
-				JHTML::Script('media/com_sermonspeaker/player/jwplayer/jwplayer.js');
-				if($this->player->toggle){
-					$width = $this->params->get('mp_width', '100%');
-					if (is_numeric($width)){ $width .= 'px'; }
-					$height = $this->params->get('mp_height', '400px');
-					if (is_numeric($height)){ $height .= 'px'; }
-					$url = 'index.php?&task=download&id='.$this->item->slug.'&type=';
-					$this->document->addScriptDeclaration('
-						function Video() {
-							jwplayer().load(['.$this->player->playlist['video'].']).resize("'.$width.'","'.$height.'");
-							document.getElementById("mediaspace1_wrapper").style.width="'.$width.'";
-							document.getElementById("mediaspace1_wrapper").style.height="'.$height.'";
-							document.getElementById("sermon_download").onclick=function(){window.location.href=\''.JRoute::_($url.'video').'\'};
-						}
-					');
-					$this->document->addScriptDeclaration('
-						function Audio() {
-							jwplayer().load(['.$this->player->playlist['audio'].']).resize("250","23px");
-							document.getElementById("mediaspace1_wrapper").style.width="250px";
-							document.getElementById("mediaspace1_wrapper").style.height="23px";
-							document.getElementById("sermon_download").onclick=function(){window.location.href=\''.JRoute::_($url.'audio').'\'};
-						}
-					');
-				}
-			}
-		}
-		
 		// Set Page Header if not already set in the menu entry
 		$menus	= $app->getMenu();
 		$menu 	= $menus->getActive();
