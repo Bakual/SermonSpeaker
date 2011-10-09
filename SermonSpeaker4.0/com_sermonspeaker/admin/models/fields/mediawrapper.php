@@ -37,6 +37,8 @@ class JFormFieldMediaWrapper extends JFormFieldMedia
 		}
 		$this->element['directory'] = $directory;
 
+		$this->value = trim($this->value, ' /');
+
 		return parent::getInput();
 	}
 }
