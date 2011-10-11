@@ -5,6 +5,7 @@ JHTML::_('behavior.modal');
 $listOrder	= $this->state->get('list.ordering');
 $listDirn	= $this->state->get('list.direction');
 $limit 		= (int)$this->params->get('limit', '');
+$player = new SermonspeakerHelperPlayer($this->items);
 ?>
 <div class="ss-sermons-container<?php echo htmlspecialchars($this->params->get('pageclass_sfx')); ?>">
 <?php if ($this->params->get('show_page_heading', 1)) : ?>
@@ -13,13 +14,7 @@ $limit 		= (int)$this->params->get('limit', '');
 if ($this->cat): ?>
 	<h2><span class="subheading-category"><?php echo $this->cat; ?></span></h2>
 <?php endif;
-if (in_array('sermons:player', $this->columns) && count($this->items)) : 
-	$config = array(
-			'width' => '100%',
-			'count' => 1
-		);
-	$player = new SermonspeakerHelperPlayer($this->items, $config);
-	?>
+if (in_array('sermons:player', $this->columns) && count($this->items)) : ?>
 	<div class="ss-sermons-player">
 		<hr class="ss-sermons-player" />
 		<?php
@@ -151,7 +146,7 @@ if (in_array('sermons:player', $this->columns) && count($this->items)) :
 							</td>
 						<?php endif; ?>
 						<td class="ss-title">
-							<?php echo SermonspeakerHelperSermonspeaker::insertSermonTitle($i, $item); ?>
+							<?php echo SermonspeakerHelperSermonspeaker::insertSermonTitle($i, $item, $player); ?>
 						</td>
 						<?php if (in_array('sermons:scripture', $this->columns)) : ?>
 							<td class="ss-col">

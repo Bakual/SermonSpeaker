@@ -4,6 +4,7 @@ JHTML::_('behavior.tooltip');
 JHTML::_('behavior.modal');
 $listOrder	= $this->state->get('list.ordering');
 $listDirn	= $this->state->get('list.direction');
+$player = new SermonspeakerHelperPlayer($this->items);
 ?>
 <div class="ss-archive-container<?php echo htmlspecialchars($this->params->get('pageclass_sfx')); ?>">
 <?php if ($this->params->get('show_page_heading', 1)) : ?>
@@ -17,11 +18,11 @@ if ($this->cat): ?>
 	<div class="ss-archive-player">
 		<hr class="ss-archive-player" />
 		<?php
-		echo $this->player->mspace;
-		echo $this->player->script;
+		echo $player->mspace;
+		echo $player->script;
 		?>
 		<hr class="ss-archive-player" />
-	<?php if ($this->player->toggle): ?>
+	<?php if ($player->toggle): ?>
 		<div>
 			<img class="pointer" src="media/com_sermonspeaker/images/Video.png" onclick="Video()" alt="Video" title="<?php echo JText::_('COM_SERMONSPEAKER_SWITCH_VIDEO'); ?>" />
 			<img class="pointer" src="media/com_sermonspeaker/images/Sound.png" onclick="Audio()" alt="Audio" title="<?php echo JText::_('COM_SERMONSPEAKER_SWITCH_AUDIO'); ?>" />
@@ -119,7 +120,7 @@ if ($this->cat): ?>
 							</td>
 						<?php endif; ?>
 						<td class="ss-title">
-							<?php echo SermonspeakerHelperSermonspeaker::insertSermonTitle($i, $item); ?>
+							<?php echo SermonspeakerHelperSermonspeaker::insertSermonTitle($i, $item, $player); ?>
 						</td>
 						<?php if (in_array('archive:scripture', $this->columns)) : ?>
 							<td class="ss-col">

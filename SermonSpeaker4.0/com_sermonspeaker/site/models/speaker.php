@@ -184,7 +184,7 @@ class SermonspeakerModelSpeaker extends JModelList
 
 			$order	= $params->get('default_order', 'ordering');
 			$dir	= $params->get('default_order_dir', 'ASC');
-			parent::populateState($order, $dir);
+			parent::populateState('sermons.'.$order, $dir);
 		} else {
 			parent::populateState('ordering', 'ASC');
 		}

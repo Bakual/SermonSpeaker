@@ -39,7 +39,7 @@ if (empty($this->items)) : ?>
 				echo JHTML::_('content.prepare', $item->bio);
 			endif; ?>
 			<div class="clear-left"></div>
-			<a title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKERS_SERIESLINK_HOOVER'); ?>" href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug)); ?>">
+			<a title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKERS_SERIESLINK_HOOVER'); ?>" href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug).'&layout=series'); ?>">
 				<?php echo JText::_('COM_SERMONSPEAKER_SERIES'); ?>
 			</a>
 			 | 

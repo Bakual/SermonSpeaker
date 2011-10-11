@@ -1,4 +1,4 @@
--<?php
+<?php
 defined('_JEXEC') or die('Restricted access');
 
 /**
@@ -24,7 +24,7 @@ class SermonspeakerHelperPlayer {
 	private static $jwscript;
 	private static $poscript;
 
-	public function __construct($item, $count = 1) {
+	public function __construct($item, $config = array()) {
 		// Get params
 		$app = JFactory::getApplication();
 		$this->params	= $app->getParams();
@@ -32,14 +32,13 @@ class SermonspeakerHelperPlayer {
 		// defining some variables
 		$this->item		= $item;
 
-		if (is_array($count)){
-			$config = $count;
-			unset($count);
-			if(!isset($config['count'])){
-				$config['count'] = 1;
-			}
-		} else {
-			$config['count']	= $count;
+		if (!is_array($config)){
+			JError::raiseWarning(100, 'Wrong calling of player helper, second parameter needs to be an array');
+			$config = array();
+		}
+
+		if(!isset($config['count'])){
+			$config['count'] = 1;
 		}
 
 		// Allow a fixed value for the type; may be audio, video or auto. "Auto" is default behaviour and takes care of the "prio" param.
@@ -63,14 +62,14 @@ class SermonspeakerHelperPlayer {
 		// Dispatching
 		if(is_array($this->item)){
 			// Playlist
+			$this->status	= 'playlist';
 			if($config['alt_player']){
-				$this->PixelOut(1);
+				$this->PixelOut();
 				return;
 			} else {
-				$this->JWPlayer(1);
+				$this->JWPlayer();
 				return;
 			}
-			return;
 		} else {
 			// Single File
 			$this->SinglePlayer();
@@ -82,6 +81,7 @@ class SermonspeakerHelperPlayer {
 		// Choosing the default file to play based on prio and availablity, also check if Fileswitch is possible
 		$this->toggle	= false;
 		if (($this->config['type'] != 'video') && ($this->item->audiofile && (!$this->prio || ($this->config['type'] == 'audio') || !$this->item->videofile))){
+			// We take the audiofile
 			$this->file = SermonspeakerHelperSermonspeaker::makelink($this->item->audiofile);
 			if ($this->params->get('fileswitch') && $this->item->videofile){
 				$this->playlist['audio']	= '{file: "'.$this->file.'"}';
@@ -89,6 +89,7 @@ class SermonspeakerHelperPlayer {
 				$this->toggle	= true;
 			}
 		} elseif (($this->config['type'] != 'audio') && ($this->item->videofile && ($this->prio || ($this->config['type'] == 'video') || !$this->item->audiofile))){
+			// We take the videofile
 			$this->file = SermonspeakerHelperSermonspeaker::makelink($this->item->videofile);
 			if ($this->params->get('fileswitch') && $this->item->audiofile){
 				$this->playlist['audio']	= '{file: "'.SermonspeakerHelperSermonspeaker::makelink($this->item->audiofile).'"}';
@@ -96,6 +97,7 @@ class SermonspeakerHelperPlayer {
 				$this->toggle	= true;
 			}
 		} else {
+			// Nothing available
 			$this->file   = '';
 			$this->player = '';
 			$this->mspace = '';
@@ -120,32 +122,15 @@ class SermonspeakerHelperPlayer {
 		// Declare the supported file extensions for JW Player
 		$audio_ext = array('aac', 'm4a', 'mp3');
 		$video_ext = array('mp4', 'mov', 'f4v', 'flv', '3gp', '3g2');
+		$this->setDimensions('23px', '250px');
 		if(in_array($ext, $audio_ext)){
 			// Audio File
-			if (!isset($this->config['height'])){
-				$this->config['height']	= '23px';
-			}
-			if (!isset($this->config['width'])){
-				$this->config['width']	= '250px';
-			}
-			$this->popup['height']	= $this->params->get('popup_height') + (int)$this->config['height'];
-			$this->popup['width']	= '380';
+			$this->setPopup();
 			$this->status = 'audio';
 			$this->JWPlayer();
 		} elseif(in_array($ext, $video_ext) || (strpos($this->file, 'http://www.youtube.com') === 0)) {
 			// Video File
-			if (!isset($this->config['height'])){
-				$this->config['height']	= $this->params->get('mp_height');
-			}
-			if (!isset($this->config['width'])){
-				$this->config['width']	= $this->params->get('mp_width');
-			}
-			$this->popup['height']	= $this->params->get('popup_height') + (int)$this->config['height'];
-			if (strpos($this->config['width'], '%')){
-				$this->popup['width'] = 500;
-			} else {
-				$this->popup['width'] = $this->config['width'] + 130;
-			}
+			$this->setPopup('v');
 			$this->status = 'video';
 			$this->JWPlayer();
 		} elseif($ext == 'wmv'){
@@ -168,7 +153,7 @@ class SermonspeakerHelperPlayer {
 		return;
 	}
 
-	private function JWPlayer($multi=0){
+	private function JWPlayer(){
 		$this->player = 'JWPlayer';
 		$this->mspace = '<div id="mediaspace'.$this->config['count'].'">Flashplayer needs Javascript turned on</div>';
 		$player = JURI::root().'media/com_sermonspeaker/player/jwplayer/player.swf';
@@ -178,18 +163,11 @@ class SermonspeakerHelperPlayer {
 		}
 		$start = $this->config['autostart'] ? 'true' : 'false';
 
-		if($multi){
+		if($this->status == 'playlist'){
 			$this->toggle = $this->params->get('fileswitch', 0);
-			if (!isset($this->config['height'])){
-				if(($this->config['type'] == 'video') || ($this->config['type'] == 'auto' && $this->prio)){
-					$this->config['height']	= $this->params->get('mp_height');
-				} else {
-					$this->config['height']	= '80px';
-				}
-			}
-			if (!isset($this->config['width'])){
-				$this->config['width']	= '100%';
-			}
+			$this->setDimensions('80px', '100%');
+			$type	= ($this->config['type'] == 'audio' || ($this->config['type'] == 'auto' && !$this->prio)) ? 'a' : 'v';
+			$this->setPopup($type);
 
 			$entries = array();
 			foreach ($this->item as $temp_item){
@@ -239,7 +217,7 @@ class SermonspeakerHelperPlayer {
 					} else {
 						$videos[] = '{file: "'.JURI::root().'", title: "'.JText::_('JGLOBAL_RESOURCE_NOT_FOUND').'"'.$meta.'}';
 					}
-					$this->playlist['video'] = implode(',',$videos);
+					$this->playlist['video'] = implode(',', $videos);
 				}
 			}
 			$this->playlist['default'] = implode(',', $entries);
@@ -254,8 +232,8 @@ class SermonspeakerHelperPlayer {
 								.'	  "playlist.position": "top",'
 								.'	  autostart: '.$start.','
 								.'	  controlbar: "bottom",'
-								.'	  width: "'.$this->config['width'].'",'
-								.'	  height: "'.$this->config['height'].'",'
+								.'	  width: "'.$this->config[$type.'width'].'",'
+								.'	  height: "'.$this->config[$type.'height'].'",'
 								.$skin
 								.'	  events: {'
 								.'		onPlaylistItem: function(event){'
@@ -269,8 +247,8 @@ class SermonspeakerHelperPlayer {
 								.'	  }'
 								.'	});'
 								.'</script>';
-			$this->status	= 'playlist';
 		} else {
+			$type	= ($this->status == 'audio') ? 'a' : 'v';
 			$image = '';
 			if ($this->item->picture){
 				$image .= '	  image: "'.SermonspeakerHelperSermonspeaker::makelink($this->item->picture).'",';
@@ -293,8 +271,8 @@ class SermonspeakerHelperPlayer {
 								.$skin
 								.$image
 								.'	  controlbar: "bottom",'
-								.'	  width: "'.$this->config['width'].'",'
-								.'	  height: "'.$this->config['height'].'"'
+								.'	  width: "'.$this->config[$type.'width'].'",'
+								.'	  height: "'.$this->config[$type.'height'].'"'
 								.'	});'
 								.'</script>';
 		}
@@ -303,12 +281,11 @@ class SermonspeakerHelperPlayer {
 		if (!self::$jwscript){
 			JHTML::Script('media/com_sermonspeaker/player/jwplayer/jwplayer.js');
 			if ($this->toggle){
-				// Needs more work in case of custom height by the layout
-				$width = $this->params->get('mp_width', '100%');
-				if (is_numeric($width)){ $width .= 'px'; }
-				$height = $this->params->get('mp_height', '400px');
-				if (is_numeric($height)){ $height .= 'px'; }
-				if (!$multi){
+				$awidth		= is_numeric($this->config['awidth']) ? $this->config['awidth'].'px' : $this->config['awidth'];
+				$aheight	= is_numeric($this->config['aheight']) ? $this->config['aheight'].'px' : $this->config['aheight'];
+				$vwidth		= is_numeric($this->config['vwidth']) ? $this->config['vwidth'].'px' : $this->config['vwidth'];
+				$vheight	= is_numeric($this->config['vheight']) ? $this->config['vheight'].'px' : $this->config['vheight'];
+				if ($this->status != 'playlist'){
 					$url = 'index.php?&task=download&id='.$this->item->slug.'&type=';
 					$download_video = 'document.getElementById("sermon_download").onclick=function(){window.location.href=\''.JRoute::_($url.'video').'\'};';
 					$download_audio = 'document.getElementById("sermon_download").onclick=function(){window.location.href=\''.JRoute::_($url.'audio').'\'};';
@@ -319,17 +296,17 @@ class SermonspeakerHelperPlayer {
 				$doc = JFactory::getDocument();
 				$doc->addScriptDeclaration('
 					function Video() {
-						jwplayer().load(['.$this->playlist['video'].']).resize("'.$width.'","'.$height.'");
-						document.getElementById("mediaspace'.$this->config['count'].'_wrapper").style.width="'.$width.'";
-						document.getElementById("mediaspace'.$this->config['count'].'_wrapper").style.height="'.$height.'";
+						jwplayer().load(['.$this->playlist['video'].']).resize("'.$vwidth.'","'.$vheight.'");
+						document.getElementById("mediaspace'.$this->config['count'].'_wrapper").style.width="'.$vwidth.'";
+						document.getElementById("mediaspace'.$this->config['count'].'_wrapper").style.height="'.$vheight.'";
 						'.$download_video.'
 					}
 				');
 				$doc->addScriptDeclaration('
 					function Audio() {
-						jwplayer().load(['.$this->playlist['audio'].']).resize("'.$width.'","23px");
-						document.getElementById("mediaspace'.$this->config['count'].'_wrapper").style.width="'.$width.'";
-						document.getElementById("mediaspace'.$this->config['count'].'_wrapper").style.height="23px";
+						jwplayer().load(['.$this->playlist['audio'].']).resize("'.$awidth.'","'.$aheight.'");
+						document.getElementById("mediaspace'.$this->config['count'].'_wrapper").style.width="'.$awidth.'";
+						document.getElementById("mediaspace'.$this->config['count'].'_wrapper").style.height="'.$aheight.'";
 						'.$download_audio.'
 					}
 				');
@@ -339,11 +316,9 @@ class SermonspeakerHelperPlayer {
 		return;
 	}
 
-	private function PixelOut($multi=0){
+	private function PixelOut(){
 		$this->player = 'PixelOut';
-		if (!isset($this->config['width'])){
-			$this->config['width']	= '290';
-		}
+		$this->setDimensions(23, 290);
 		$this->mspace = '<div id="mediaspace'.$this->config['count'].'">Flashplayer needs Javascript turned on</div>';
 		// Loading needed Javascript only once
 		if (!self::$poscript){
@@ -351,7 +326,7 @@ class SermonspeakerHelperPlayer {
 			$doc = JFactory::getDocument();
 			$doc->addScriptDeclaration('
 				AudioPlayer.setup("'.JURI::root().'media/com_sermonspeaker/player/audio_player/player.swf", {
-					width: "'.$this->config['width'].'",
+					width: "'.$this->config['awidth'].'",
 					initialvolume: 100,
 					transparentpagebg: "yes",
 					left: "000000",
@@ -360,7 +335,7 @@ class SermonspeakerHelperPlayer {
 			self::$poscript = 1;
 		}
 		$start = $this->config['autostart'] ? 'yes' : 'no';
-		if($multi){
+		if($this->status == 'playlist'){
 			$files		= array();
 			$titles		= array();
 			$artists	= array();
@@ -394,22 +369,16 @@ class SermonspeakerHelperPlayer {
 							.'})'
 						.'</script>';
 		$this->toggle = false;
-		$this->popup['height'] = $this->params->get('popup_height') + 23;
-		$this->popup['width']  = '380';
+		$this->setPopup();
 		$this->status = 'audio';
 		return;
 	}
 
 	private function MediaPlayer(){
 		$this->player = 'MediaPlayer';
-		if (!isset($this->config['height'])){
-			$this->config['height']	= $this->params->get('mp_height');
-		}
-		if (!isset($this->config['width'])){
-			$this->config['width']	= $this->params->get('mp_width');
-		}
+		$this->setDimensions(50, '100%');
 		$start = $this->config['autostart'] ? 1 : 0;
-		$this->mspace = '<object id="mediaplayer" width="'.$this->config['width'].'" height="'.$this->config['height'].'" classid="clsid:22d6f312-b0f6-11d0-94ab-0080c74c7e95 22d6f312-b0f6-11d0-94ab-0080c74c7e95" type="application/x-oleobject">'
+		$this->mspace = '<object id="mediaplayer" width="'.$this->config['vwidth'].'" height="'.$this->config['vheight'].'" classid="clsid:22d6f312-b0f6-11d0-94ab-0080c74c7e95 22d6f312-b0f6-11d0-94ab-0080c74c7e95" type="application/x-oleobject">'
 							.'	<param name="filename" value="'.$this->file.'">'
 							.'	<param name="autostart" value="'.$start.'">'
 							.'	<param name="transparentatstart" value="true">'
@@ -418,12 +387,11 @@ class SermonspeakerHelperPlayer {
 							.'	<param name="showstatusbar" value="1">'
 							.'	<param name="autosize" value="1">'
 							.'	<param name="animationatstart" value="false">'
-							.'	<embed name="MediaPlayer" src="'.$this->file.'" width="'.$this->config['width'].'" height="'.$this->config['height'].'" type="application/x-mplayer2" autostart="'.$start.'" showcontrols="1" showstatusbar="1" transparentatstart="1" animationatstart="0" loop="false" pluginspage="http://www.microsoft.com/windows/windowsmedia/download/default.asp">'
+							.'	<embed name="MediaPlayer" src="'.$this->file.'" width="'.$this->config['vwidth'].'" height="'.$this->config['vheight'].'" type="application/x-mplayer2" autostart="'.$start.'" showcontrols="1" showstatusbar="1" transparentatstart="1" animationatstart="0" loop="false" pluginspage="http://www.microsoft.com/windows/windowsmedia/download/default.asp">'
 							.'	</embed>'
 							.'</object>';
 		$this->script = '';
-		$this->popup['height'] = $this->config['height'] + $this->params->get('popup_height');
-		$this->popup['width']  = $this->config['width'] + 130;
+		$this->setPopup('v');
 		$this->status = 'video';
 		$this->toggle = false;
 		return;
@@ -434,21 +402,42 @@ class SermonspeakerHelperPlayer {
 		$id				= trim(strrchr($this->file, '/'), '/ ');
 		$this->file		= 'http://vimeo.com/'.$id;
 		$this->fb_file	= 'http://vimeo.com/moogaloop.swf?clip_id='.$id.'&amp;server=vimeo.com&amp;show_title=0&amp;show_byline=0&amp;show_portrait=0&amp;color=00adef&amp;fullscreen=1&amp;autoplay=0&amp;loop=0';
-		if (!isset($this->config['height'])){
-			$this->config['height']	= $this->params->get('mp_height');
-		}
-		if (!isset($this->config['width'])){
-			$this->config['width']	= $this->params->get('mp_width');
-		}
+		$this->setDimensions(50, '100%');
 		$start = $this->config['autostart'] ? 1 : 0;
-		$this->mspace = '<iframe id="mediaspace'.$this->config['count'].'" width="'.$this->config['width'].'" height="'.$this->config['height'].'" '
+		$this->mspace = '<iframe id="mediaspace'.$this->config['count'].'" width="'.$this->config['vwidth'].'" height="'.$this->config['vheight'].'" '
 						.'src="http://player.vimeo.com/video/'.$id.'?title=0&byline=0&portrait=0&border=0&autoplay='.$start.'&player_id="vimeo'.$this->config['count'].'">'
 						.'</iframe>';
 		$this->script	= '';
-		$this->popup['height'] = $this->config['height'] + $this->params->get('popup_height');
-		$this->popup['width']  = $this->config['width']+ 130;
+		$this->setPopup('v');
 		$this->status	= 'video';
 		$this->toggle	= false;
 		return;
+	}
+
+	// Sets the dimensions of the player for audio and video. $height and $width are default values.
+	private function setDimensions($height, $width){
+		if (!isset($this->config['aheight'])){
+			$this->config['aheight']	= $height;
+		}
+		if (!isset($this->config['awidth'])){
+			$this->config['awidth']	= $width;
+		}
+		if (!isset($this->config['vheight'])){
+			$this->config['vheight']	= $this->params->get('mp_height');
+		}
+		if (!isset($this->config['vwidth'])){
+			$this->config['vwidth']		= $this->params->get('mp_width');
+		}
+		return;
+	}
+
+	// Sets the dimensions of the Popup window. $type can be 'a' (audio) or 'v' (video)
+	private function setPopup($type = 'a'){
+		if (strpos($this->config[$type.'width'], '%')){
+			$this->popup['width'] = 500;
+		} else {
+			$this->popup['width'] = $this->config[$type.'width'] + 130;
+		}
+		$this->popup['height'] = $this->config[$type.'height'] + $this->params->get('popup_height');
 	}
 }
