@@ -120,7 +120,7 @@ $saveOrder	= $listOrder == 'series.ordering';
 				</td>
 				<td class="center">
 					<?php if (!$item->avatar){
-						$item->avatar = JURI::root().'components/com_sermonspeaker/images/nopict.jpg';
+						$item->avatar = JURI::root().'media/com_sermonspeaker/images/nopict.jpg';
 					}
 					if (substr($item->avatar, 0, 7) != 'http://') {
 						$item->avatar = JURI::root().trim($item->avatar, '/.');

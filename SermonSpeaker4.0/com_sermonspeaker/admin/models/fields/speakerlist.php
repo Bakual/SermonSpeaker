@@ -42,7 +42,7 @@ class JFormFieldSpeakerlist extends JFormFieldList
 		$db		= JFactory::getDbo();
 		$query	= $db->getQuery(true);
 
-		$query->select('speakers.id As value');
+		$query->select('speakers.id As value, home');
 		$query->select('CASE WHEN CHAR_LENGTH(c_speakers.title) THEN CONCAT(speakers.name, " (", c_speakers.title, ")") ELSE speakers.name END AS text');
 		$query->from('#__sermon_speakers AS speakers');
 		$query->join('LEFT', '#__categories AS c_speakers ON c_speakers.id = speakers.catid');
@@ -56,7 +56,7 @@ class JFormFieldSpeakerlist extends JFormFieldList
 
 		$query	= $db->getQuery(true);
 
-		$query->select('speakers.id As value');
+		$query->select('speakers.id As value, home');
 		$query->select('CASE WHEN CHAR_LENGTH(c_speakers.title) THEN CONCAT(speakers.name, " (", c_speakers.title, ")") ELSE speakers.name END AS text');
 		$query->from('#__sermon_speakers AS speakers');
 		$query->join('LEFT', '#__categories AS c_speakers ON c_speakers.id = speakers.catid');
@@ -85,7 +85,12 @@ class JFormFieldSpeakerlist extends JFormFieldList
 		//$options = array_merge(parent::getOptions(), $options);
 
 		if ($this->value === ''){
-			
+			foreach ($options as $option){
+				if ($option->home){
+					$this->value = $option->value;
+					break;
+				}
+			}
 		}
 
 		array_unshift($options, JHtml::_('select.option', '0', JText::_('COM_SERMONSPEAKER_SELECT_SPEAKER')));

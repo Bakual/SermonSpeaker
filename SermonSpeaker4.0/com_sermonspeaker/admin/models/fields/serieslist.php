@@ -43,7 +43,7 @@ class JFormFieldSerieslist extends JFormFieldList
 		$db		= JFactory::getDbo();
 		$query	= $db->getQuery(true);
 
-		$query->select('series.id As value');
+		$query->select('series.id As value, home');
 		$query->select('CASE WHEN CHAR_LENGTH(c_series.title) THEN CONCAT(series.series_title, " (", c_series.title, ")") ELSE series.series_title END AS text');
 		$query->from('#__sermon_series AS series');
 		$query->join('LEFT', '#__categories AS c_series ON c_series.id = series.catid');
@@ -57,7 +57,7 @@ class JFormFieldSerieslist extends JFormFieldList
 
 		$query	= $db->getQuery(true);
 
-		$query->select('series.id As value');
+		$query->select('series.id As value, home');
 		$query->select('CASE WHEN CHAR_LENGTH(c_series.title) THEN CONCAT(series.series_title, " (", c_series.title, ")") ELSE series.series_title END AS text');
 		$query->from('#__sermon_series AS series');
 		$query->join('LEFT', '#__categories AS c_series ON c_series.id = series.catid');
@@ -84,6 +84,15 @@ class JFormFieldSerieslist extends JFormFieldList
 
 		// Merge any additional options in the XML definition.
 		//$options = array_merge(parent::getOptions(), $options);
+
+		if ($this->value === ''){
+			foreach ($options as $option){
+				if ($option->home){
+					$this->value = $option->value;
+					break;
+				}
+			}
+		}
 
 		array_unshift($options, JHtml::_('select.option', '0', JText::_('COM_SERMONSPEAKER_SELECT_SERIES')));
 
