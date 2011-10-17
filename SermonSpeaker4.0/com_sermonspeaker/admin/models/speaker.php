@@ -195,4 +195,52 @@ class SermonspeakerModelSpeaker extends JModelAdmin
 		$condition[] = 'catid = '.(int) $table->catid;
 		return $condition;
 	}
+
+	/**
+	 * Method to set a default speaker.
+	 * Copied from template style.
+	 *
+	 * @param	int		The primary key ID for the speaker.
+	 *
+	 * @return	boolean	True if successful.
+	 * @throws	Exception
+	 */
+	public function setDefault($id = 0)
+	{
+		// Initialise variables.
+		$user	= JFactory::getUser();
+		$db		= $this->getDbo();
+
+		// Access checks.
+		if (!$user->authorise('core.edit.state', 'com_templates')) {
+			throw new Exception(JText::_('JLIB_APPLICATION_ERROR_EDITSTATE_NOT_PERMITTED'));
+		}
+
+		// Reset the home fields for the client_id.
+		$db->setQuery(
+			'UPDATE #__sermon_speakers'.
+			" SET home = '0'".
+			" WHERE home = '1'"
+		);
+
+		if (!$db->query()) {
+			throw new Exception($db->getErrorMsg());
+		}
+
+		// Set the new home style.
+		$db->setQuery(
+			'UPDATE #__sermon_speakers'.
+			" SET home = '1'".
+			' WHERE id = '.(int) $id
+		);
+
+		if (!$db->query()) {
+			throw new Exception($db->getErrorMsg());
+		}
+
+		// Clean the cache.
+		$this->cleanCache();
+
+		return true;
+	}
 }

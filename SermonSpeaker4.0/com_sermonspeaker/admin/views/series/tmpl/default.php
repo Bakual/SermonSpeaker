@@ -57,6 +57,9 @@ $saveOrder	= $listOrder == 'series.ordering';
 					<?php echo JHtml::_('grid.sort',  'COM_SERMONSPEAKER_FIELD_PICTURE_LABEL', 'series.avatar', $listDirn, $listOrder); ?>
 				</th>
 				<th width="5%">
+					<?php echo JHtml::_('grid.sort', 'JDEFAULT', 'series.home', $listDirn, $listOrder); ?>
+				</th>
+				<th width="5%">
 					<?php echo JHtml::_('grid.sort',  'JGLOBAL_HITS', 'series.hits', $listDirn, $listOrder); ?>
 				</th>
 				<th width="1%" class="nowrap">
@@ -123,6 +126,9 @@ $saveOrder	= $listOrder == 'series.ordering';
 						$item->avatar = JURI::root().trim($item->avatar, '/.');
 					} ?>
 					<img src="<?php echo $item->avatar; ?>" border="1" width="50" height="50">
+				</td>
+				<td class="center">
+					<?php echo JHtml::_('jgrid.isdefault', $item->home, $i, 'series.', $canChange && !$item->home);?>
 				</td>
 				<td class="center">
 					<?php echo $item->hits; ?>

@@ -84,6 +84,10 @@ class JFormFieldSpeakerlist extends JFormFieldList
 		// Merge any additional options in the XML definition.
 		//$options = array_merge(parent::getOptions(), $options);
 
+		if ($this->value === ''){
+			
+		}
+
 		array_unshift($options, JHtml::_('select.option', '0', JText::_('COM_SERMONSPEAKER_SELECT_SPEAKER')));
 
 		return $options;

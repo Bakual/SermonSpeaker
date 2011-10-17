@@ -26,6 +26,7 @@ class SermonspeakerModelSeries extends JModelList
 				'created_by', 'series.created_by',
 				'ordering', 'series.ordering',
 				'avatar', 'series.avatar',
+				'home', 'series.home',
 				'hits', 'series.hits',
 			);
 		}
@@ -101,7 +102,7 @@ class SermonspeakerModelSeries extends JModelList
 			$this->getState(
 				'list.select',
 				'series.id, series.series_title, series.catid, '.
-				'series.hits, series.alias, series.avatar, '.
+				'series.hits, series.home, series.alias, series.avatar, '.
 				'series.state, series.ordering, created_by'
 			)
 		);
