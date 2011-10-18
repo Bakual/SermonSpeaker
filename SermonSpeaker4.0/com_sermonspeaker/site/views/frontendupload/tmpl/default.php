@@ -82,9 +82,8 @@ $self = $uri->toString();
 			<div class="clr"></div>
 
 			<?php echo $this->form->getLabel('sermon_scripture'); ?>
-			<input class="inputbox" type="text" name="sermon_scripture" id="sermon_scripture" size="50" maxlength="250" value="<?php echo $this->form->getValue('sermon_scripture'); ?>" />
-				<?php $tag = $this->params->get('plugin_tag'); ?>
-				<img class="pointer" onClick="sendText(document.fu_createsermon.sermon_scripture,'<?php echo $tag[0]; ?>','<?php echo $tag[1]; ?>')" src='<?php echo JURI::root(); ?>/media/com_sermonspeaker/images/blue_tag.png'><br />
+			<?php echo $this->form->getInput('sermon_scripture'); ?>
+			<br />
 			<?php echo $this->form->getLabel('sermon_date'); ?>
 			<?php echo $this->form->getInput('sermon_date'); ?>
 			<br />

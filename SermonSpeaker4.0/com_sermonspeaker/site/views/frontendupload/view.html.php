@@ -47,7 +47,7 @@ class SermonspeakerViewFrontendupload extends JView
 		}';
 		// add Javascript for Scripture Links buttons
 		$sendText = 'function sendText(elem, open, close) {
-			elem.value = open+elem.value+close;
+			document.getElementById(elem).value = open+document.getElementById(elem).value+close;
 		}';
 
 		$document =& JFactory::getDocument();
