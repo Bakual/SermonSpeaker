@@ -38,7 +38,7 @@ if (in_array('sermon:speaker', $this->columns) && $this->item->speaker_id) : ?>
 			echo $this->item->name;
 		endif; ?>
 	</dd>
-<?php endif;	
+<?php endif;
 if (in_array('sermon:hits', $this->columns)) : ?>
 	<dd class="hits">
 		<?php echo JText::_('JGLOBAL_HITS'); ?>: 

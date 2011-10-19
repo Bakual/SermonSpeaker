@@ -168,6 +168,16 @@ class SermonspeakerHelperPlayer {
 			$this->setDimensions('80px', '100%');
 			$type	= ($this->config['type'] == 'audio' || ($this->config['type'] == 'auto' && !$this->prio)) ? 'a' : 'v';
 			$this->setPopup($type);
+			if (!isset($this->config['ui'])) {
+				$ui	= '	  "playlist.size": 60,'
+					.'	  "playlist.position": "top",'
+					.'	  controlbar: "bottom",';
+			} else {
+				$ui	= '	  "playlist.size": "'.$this->config['ui']['pl_size'].'",'
+					.'	  "playlist.position": "'.$this->config['ui']['pl_pos'].'",'
+					.'	  controlbar: "'.$this->config['ui']['ctrl_pos'].'",';
+			}
+
 
 			$entries = array();
 			foreach ($this->item as $temp_item){
@@ -228,10 +238,8 @@ class SermonspeakerHelperPlayer {
 								.'	  playlist: ['
 								.$this->playlist['default']
 								.'	  ],'
-								.'	  "playlist.size": 60,'
-								.'	  "playlist.position": "top",'
+								.$ui
 								.'	  autostart: '.$start.','
-								.'	  controlbar: "bottom",'
 								.'	  width: "'.$this->config[$type.'width'].'",'
 								.'	  height: "'.$this->config[$type.'height'].'",'
 								.$skin
