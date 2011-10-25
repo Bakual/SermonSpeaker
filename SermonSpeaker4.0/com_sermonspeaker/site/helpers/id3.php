@@ -7,7 +7,7 @@ defined('_JEXEC') or die('Restricted access');
 class SermonspeakerHelperId3
 {
 	function getID3($file, $params) {
-		if (($params->get('path_mode_video', 0) == 1) && (strpos($file, 'http://vimeo.com') === 0 || (strpos($file, 'http://player.vimeo.com') === 0))){
+		if (strpos($file, 'http://vimeo.com') === 0 || strpos($file, 'http://player.vimeo.com') === 0){
 			return SermonspeakerHelperId3::getVimeo($file);
 		}
 		require_once(JPATH_COMPONENT_SITE.DS.'id3'.DS.'getid3'.DS.'getid3.php');
@@ -88,9 +88,10 @@ class SermonspeakerHelperId3
 		$xml	= simplexml_load_file($url);
 		$video	= $xml->video;
 		if (is_object($video)){
-			$minutes	= floor((string)$video->duration / 60);
-			$hours		= floor($minutes / 60);
-			$seconds	= $video->duration - $minutes * 60;
+			$duration	= (string)$video->duration;
+			$hours		= floor($duration / 3600);
+			$minutes	= floor(($duration - $hours * 3600) / 60);
+			$seconds	= $video->duration - $hours * 3600 - $minutes * 60;
 			$id3['sermon_time']		= $hours.':'.$minutes.':'.$seconds;
 			$id3['sermon_title']	= $video->title;
 			$id3['alias'] 			= JApplication::stringURLSafe($id3['sermon_title']);
