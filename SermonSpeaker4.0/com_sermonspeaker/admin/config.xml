@@ -312,12 +312,13 @@
 		label="COM_SERMONSPEAKER_FIELDSET_PLAYER_LABEL"
 		description="COM_SERMONSPEAKER_FIELDSET_PLAYER_DESC">
 		<field name="alt_player" 
-			type="radio" 
+			type="list" 
 			default="0" 
 			label="COM_SERMONSPEAKER_PARAM_ALT_PLAYER" 
 			description="COM_SERMONSPEAKER_PARAM_ALT_PLAYER_DESC">
-			<option value="0">JNO</option>
-			<option value="1">JYES</option>
+			<option value="0">JW Player</option>
+			<option value="2">FlowPlayer</option>
+			<option value="1">1PixelOut</option>
 		</field>
 		<field name="autostart" 
 			type="radio" 

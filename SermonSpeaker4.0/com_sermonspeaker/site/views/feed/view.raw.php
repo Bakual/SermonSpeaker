@@ -23,11 +23,13 @@ class SermonspeakerViewFeed extends JView
 		// check if access is not public
 		$user = JFactory::getUser();
 		$groups	= $user->getAuthorisedViewLevels();
-		
+
 		if (!in_array($params->get('access'), $groups)) {
 			$app->redirect('', JText::_('JERROR_ALERTNOAUTHOR'), 'error');
 		}
 
+		$type	= JRequest::getCmd('type', 'auto');
+		$prio	= $params->get('fileprio', 0);
 		$this->document->setMimeEncoding('application/rss+xml'); 
 
 		$link = JURI::root();
@@ -76,17 +78,17 @@ class SermonspeakerViewFeed extends JView
 		// Support for Content Plugins
 		$dispatcher	= &JDispatcher::getInstance();
 		JPluginHelper::importPlugin('content');
-		$temp_item->params = clone($params);
+		$row->params = clone($params);
 
 		// Items
 		
 		$items = array();
 		foreach($rows as $row) {
 			// Trigger Event for `notes` and `sermon_scripture`
-			$temp_item->text	= &$row->notes;
-			$dispatcher->trigger('onContentPrepare', array('com_sermonspeaker.sermon', &$temp_item, &$temp_item->params, 0));
-			$temp_item->text	= &$row->sermon_scripture;
-			$dispatcher->trigger('onContentPrepare', array('com_sermonspeaker.sermon', &$temp_item, &$temp_item->params, 0));
+			$row->text	= &$row->notes;
+			$dispatcher->trigger('onContentPrepare', array('com_sermonspeaker.sermon', &$row, &$row->params, 0));
+			$row->text	= &$row->sermon_scripture;
+			$dispatcher->trigger('onContentPrepare', array('com_sermonspeaker.sermon', &$row, &$row->params, 0));
 
 			$item = NULL;
 			// todo: ItemId des Predigten Menupunkts suchen und an Link anhängen, maybe use HelperRoute (check if feed will be valid then)
@@ -138,44 +140,51 @@ class SermonspeakerViewFeed extends JView
 			// Create Enclosure
 			
 			//check if url is external
-			if (substr($row->audiofile, 0, 7) == 'http://') {
+			if (($type != 'video') && ($row->audiofile && (!$prio || ($type == 'audio') || !$row->videofile))){
+				$file = $row->audiofile;
+			} elseif (($type != 'audio') && ($row->videofile && ($prio || ($type == 'video') || !$row->audiofile))){
+				$file = $row->videofile;
+			} else {
+				$file = JURI::root();
+			}
+
+			if (substr($file, 0, 7) == 'http://') {
 				//external link
-				$item->enclosure['url'] = $row->audiofile;
+				$item->enclosure['url'] = $file;
 				$item->enclosure['length'] = 1;
 			} else {
 				//internal link
 				//url to play
-				$path = str_replace(array(' ', '%20'), array('%20','%20'), $row->audiofile); //fix for spaces in the filename
-				if(substr($path,0,1) == "/" ) {
-					$path = substr($path,1);
-				}
+				$path = str_replace(array(' ', '%20'), array('%20', '%20'), $file); //fix for spaces in the filename
+				$path = trim($path, ' /');
 				$item->enclosure['url'] = $link.$path;
 				// Filesize for length
-				if(file_exists(JPATH_ROOT.$row->audiofile)) {
-					$item->enclosure['length'] = filesize(JPATH_ROOT.$row->audiofile);
+				if(file_exists(JPATH_ROOT.$file)) {
+					$item->enclosure['length'] = filesize(JPATH_ROOT.$file);
 				} else {
 					$item->enclosure['length'] = 0;
 				}
 			}
 			// MIME type for content
-			$extension = substr($row->audiofile, strrpos($row->audiofile, '.'));
-			switch ($extension) {
-				case '.mp3':
+			jimport('joomla.filesystem.file');
+			$ext = JFile::getExt($file);
+			switch ($ext) {
+				case 'mp3':
 					$item->enclosure['type'] = 'audio/mpeg';
 					break;
-				case '.m4a':
+				case 'm4a':
 					$item->enclosure['type'] = 'audio/x-m4a';
 					break;
-				case '.mp4':
+				case 'mp4':
 					$item->enclosure['type'] = 'video/mp4';
 					break;
-				case '.m4v':
+				case 'm4v':
 					$item->enclosure['type'] = 'video/x-m4v';
 					break;
-				case '.mov':
+				case 'mov':
 					$item->enclosure['type'] = 'video/quicktime';
 					break;
-				case '.pdf':
+				case 'pdf':
 					$item->enclosure['type'] = 'application/pdf';
 					break;
 				default:

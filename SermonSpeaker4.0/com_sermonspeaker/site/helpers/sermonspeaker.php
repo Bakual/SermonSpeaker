@@ -55,10 +55,7 @@ class SermonspeakerHelperSermonspeaker
 		if (substr($path, 0, 7) == 'http://'){
 			$link = $path;
 		} else {
-			if (substr($path, 0, 1) == '/') {
-				$path = substr($path, 1);
-			}
-			$link = JURI::root().$path;
+			$link = JURI::root().trim($path, ' /');
 		}
 
 		return $link;

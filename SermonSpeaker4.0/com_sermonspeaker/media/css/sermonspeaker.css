@@ -88,9 +88,52 @@ hr.ss-serie-player, hr.ss-sermons-player, hr.ss-archive-player, hr.ss-speaker-pl
 .ss-title{
 	width:20%;
 }
-tr.ss-current td{
+.ss-current{
 	background:#EBFFEB;
 }
 .pointer{
 	cursor:pointer;
+}
+dd.createdby span.hasTip{
+	margin:0;
+	padding:0;
+}
+div.ss-picture{
+	float:right;
+	padding:5px;
+	margin: 20px 15px 5px 15px;
+	border:1px solid #808080;
+}
+.ss-entry{
+	padding:5px;
+}
+#playing{
+	width:100%;
+	height:60px;
+	text-align:left;
+}
+#playing img.picture{
+	height:100%;
+	float:left;
+}
+#playing .text{
+	float:left;
+}
+#playing .title{
+	margin:5px 0 0 10px;
+	display:block;
+	font-size:15px;
+	font-weight:bold;
+}
+#playing .desc{
+	margin:5px 0 0 10px;
+	display:block;
+	font-size:10px;
+	line-height:1em;
+}
+#playing .duration{
+	margin:5px;
+	font-weight:bold;
+	font-size:10px;
+	float:right;
 }
