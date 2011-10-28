@@ -18,7 +18,14 @@ if (in_array('sermons:player', $this->columns) && count($this->items)) : ?>
 	<div class="ss-sermons-player">
 		<hr class="ss-sermons-player" />
 		<?php if ($player->player != 'PixelOut'): ?>
-			<div id="playing"></div>
+			<div id="playing">
+				<img id="playing-pic" class="picture" src="" />
+				<span id="playing-duration" class="duration"></span>
+				<div class="text">
+					<span id="playing-title" class="title"></span>
+					<span id="playing-desc" class="desc"></span>
+				</div>
+			</div>
 		<?php endif;
 		echo $player->mspace;
 		echo $player->script;
@@ -34,7 +41,7 @@ if (in_array('sermons:player', $this->columns) && count($this->items)) : ?>
 <?php endif; ?>
 <form action="<?php echo JFilterOutput::ampReplace(JFactory::getURI()->toString()); ?>" method="post" id="adminForm" name="adminForm">
 	<?php foreach($this->items as $i => $item) : ?>
-		<div id="sermon<?php echo $i; ?>" class="ss-entry" onclick="jwplayer().playlistItem('<?php echo $i; ?>')">
+		<div id="sermon<?php echo $i; ?>" class="ss-entry" onclick="ss_play('<?php echo $i; ?>')">
 			<?php if ($item->picture): ?>
 				<div class="ss-picture"><img src="<?php echo SermonspeakerHelperSermonspeaker::makelink($item->picture); ?>"></div>
 			<?php elseif ($item->pic): ?>

@@ -17,7 +17,16 @@ if ($this->cat): ?>
 <?php if (in_array('archive:player', $this->columns) && count($this->items)) : ?>
 	<div class="ss-archive-player">
 		<hr class="ss-archive-player" />
-		<?php
+		<?php if ($player->player != 'PixelOut'): ?>
+			<div id="playing">
+				<img id="playing-pic" class="picture" src="" />
+				<span id="playing-duration" class="duration"></span>
+				<div class="text">
+					<span id="playing-title" class="title"></span>
+					<span id="playing-desc" class="desc"></span>
+				</div>
+			</div>
+		<?php endif;
 		echo $player->mspace;
 		echo $player->script;
 		?>

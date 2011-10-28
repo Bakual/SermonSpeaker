@@ -175,8 +175,8 @@ class SermonspeakerHelperPlayer {
 	}
 
 	private function JWPlayer(){
-		$this->player = 'JWPlayer';
-		$this->mspace = '<div id="mediaspace'.$this->config['count'].'">Flashplayer needs Javascript turned on</div>';
+		$this->player	= 'JWPlayer';
+		$this->mspace	= '<div id="mediaspace'.$this->config['count'].'">Flashplayer needs Javascript turned on</div>';
 		$player = JURI::root().'media/com_sermonspeaker/player/jwplayer/player.swf';
 		// Setting some general player options
 		$start = $this->config['autostart'] ? 'true' : 'false';
@@ -206,7 +206,10 @@ class SermonspeakerHelperPlayer {
 									.'if (min > 0){time.push(min);}'
 									.'time.push(item.duration - hrs * 3600 - min * 60);'
 									.'var duration = time.join(":");'
-									."document.id('playing').innerHTML = '<img src=\"'+item.image+'\" class=\"picture\" /><span class=\"duration\">'+duration+'</span><div class=\"text\"><span class=\"title\">'+item.title+'</span><span class=\"desc\">'+item.description+'</span></div>';"
+									.'document.id("playing-pic").src = item.image;'
+									.'document.id("playing-duration").innerHTML = duration;'
+									.'document.id("playing-title").innerHTML = item.title;'
+									.'document.id("playing-desc").innerHTML = item.description;'
 								.'}'
 							.'},';
 			$entries = array();
@@ -291,6 +294,12 @@ class SermonspeakerHelperPlayer {
 		// Loading needed Javascript only once
 		if (!self::$jwscript){
 			JHTML::Script('media/com_sermonspeaker/player/jwplayer/jwplayer.js');
+			$doc = JFactory::getDocument();
+			$doc->addScriptDeclaration('
+				function ss_play(id) {
+					jwplayer().playlistItem(id);
+				}
+			');
 			if ($this->toggle){
 				$awidth		= is_numeric($this->config['awidth']) ? $this->config['awidth'].'px' : $this->config['awidth'];
 				$aheight	= is_numeric($this->config['aheight']) ? $this->config['aheight'].'px' : $this->config['aheight'];
@@ -304,7 +313,6 @@ class SermonspeakerHelperPlayer {
 					$download_video = '';
 					$download_audio = '';
 				}
-				$doc = JFactory::getDocument();
 				$doc->addScriptDeclaration('
 					function Video() {
 						jwplayer().load(['.$this->playlist['video'].']).resize("'.$vwidth.'","'.$vheight.'");
@@ -366,16 +374,44 @@ class SermonspeakerHelperPlayer {
 							.'		}'
 							.'	  },'
 							.'	clip: {'
+							.'	  autoBuffering: true,'
 							.'	  autoPlay: '.$start
 							.'	  },'
 							.'	playlist: ['
 							.'	  '.$playlist
-							.'	  ]'
+							.'	  ],'
+							.'onStart: function(){'
+								.'var i = 0;'
+								.'while (document.id("sermon"+i)){'
+									.'document.id("sermon"+i).removeClass("ss-current");'
+										.'i++;'
+									.'}'
+								.'item = flowplayer().getClip();'
+								.'console.log(item);'
+								.'document.id("sermon"+item.index).addClass("ss-current");'
+								.'time = new Array();'
+								.'var hrs = Math.floor(item.duration/3600);'
+								.'if (hrs > 0){time.push(hrs);}'
+								.'var min = Math.floor((item.duration - hrs * 3600)/60);'
+								.'if (min > 0){time.push(min);}'
+								.'time.push(item.duration - hrs * 3600 - min * 60);'
+								.'var duration = time.join(":");'
+								.'document.id("playing-pic").src = item.image;'
+								.'document.id("playing-duration").innerHTML = duration;'
+								.'document.id("playing-title").innerHTML = item.title;'
+								.'document.id("playing-desc").innerHTML = item.description;'
+							.'}'
 							.'	});'
 							.'</script>';
 
 		// Loading needed Javascript only once
 		if (!self::$jwscript){
+			$doc = JFactory::getDocument();
+			$doc->addScriptDeclaration('
+				function ss_play(id) {
+					flowplayer().play(parseInt(id));
+				}
+			');
 			JHTML::Script('media/com_sermonspeaker/player/flowplayer/flowplayer-3.2.6.min.js');
 			self::$jwscript = 1;
 		}

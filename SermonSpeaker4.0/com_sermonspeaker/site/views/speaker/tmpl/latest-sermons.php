@@ -45,10 +45,19 @@ $player = new SermonspeakerHelperPlayer($this->items);
 <?php if (in_array('speaker:player', $this->columns) && count($this->items)) : ?>
 	<div class="ss-speaker-player">
 		<hr class="ss-speaker-player" />
-	<?php
-	echo $player->mspace;
-	echo $player->script;
-	?>
+		<?php if ($player->player != 'PixelOut'): ?>
+			<div id="playing">
+				<img id="playing-pic" class="picture" src="" />
+				<span id="playing-duration" class="duration"></span>
+				<div class="text">
+					<span id="playing-title" class="title"></span>
+					<span id="playing-desc" class="desc"></span>
+				</div>
+			</div>
+		<?php endif;
+		echo $player->mspace;
+		echo $player->script;
+		?>
 		<hr class="ss-speaker-player" />
 	<?php if ($player->toggle): ?>
 		<div>

@@ -47,7 +47,16 @@ if (in_array('serie:description', $this->col_serie)): ?>
 if (in_array('serie:player', $this->columns) && count($this->items)) : ?>
 	<div class="ss-serie-player">
 		<hr class="ss-serie-player" />
-	<?php
+		<?php if ($player->player != 'PixelOut'): ?>
+			<div id="playing">
+				<img id="playing-pic" class="picture" src="" />
+				<span id="playing-duration" class="duration"></span>
+				<div class="text">
+					<span id="playing-title" class="title"></span>
+					<span id="playing-desc" class="desc"></span>
+				</div>
+			</div>
+		<?php endif;
 	echo $player->mspace;
 	echo $player->script;
 	?>
