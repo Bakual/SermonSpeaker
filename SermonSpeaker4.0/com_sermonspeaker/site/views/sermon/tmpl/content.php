@@ -10,7 +10,7 @@ $player = new SermonspeakerHelperPlayer($this->item);
 <?php endif; ?>
 <h2><a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonRoute($this->item->slug)); ?>"><?php echo $this->item->sermon_title; ?></a></h2>
 <!-- Begin Data -->
-<dl class="article-info">
+<dl class="article-info sermon-info">
 <dt class="article-info-term"><?php  echo JText::_('JDETAILS'); ?></dt>
 <?php if (in_array('sermon:series', $this->columns) && $this->item->series_title) : ?>
 	<dd class="category-name">

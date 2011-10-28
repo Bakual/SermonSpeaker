@@ -25,6 +25,7 @@ if (in_array('sermons:player', $this->columns) && count($this->items)) : ?>
 					<span id="playing-title" class="title"></span>
 					<span id="playing-desc" class="desc"></span>
 				</div>
+				<span id="playing-error" class="error"></span>
 			</div>
 		<?php endif;
 		echo $player->mspace;
@@ -48,7 +49,7 @@ if (in_array('sermons:player', $this->columns) && count($this->items)) : ?>
 				<div class="ss-picture"><img src="<?php echo SermonspeakerHelperSermonspeaker::makelink($item->pic); ?>"></div>
 			<?php endif; ?>
 			<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug)); ?>"><h3><?php echo $item->sermon_title; ?></h3></a>
-			<dl class="article-info" style="float:left">
+			<dl class="article-info sermon-info">
 			<dt class="article-info-term"><?php echo JText::_('JDETAILS'); ?></dt>
 			<?php if (in_array('sermons:series', $this->columns) && $item->series_title) : ?>
 				<dd class="category-name">

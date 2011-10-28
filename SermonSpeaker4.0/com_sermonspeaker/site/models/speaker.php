@@ -45,7 +45,7 @@ class SermonspeakerModelSpeaker extends JModelList
 		$db		= $this->getDbo();
 		$query	= $db->getQuery(true);
 
-		if ($this->getState('speaker.layout') == 'latest-sermons'){
+		if ($this->getState('speaker.layout') == 'sermons'){
 			// Select required fields from the table.
 			$query->select(
 				$this->getState(
@@ -178,7 +178,7 @@ class SermonspeakerModelSpeaker extends JModelList
 
 		$this->setState('filter.state',	1);
 
-		if (JRequest::getCmd('layout') == 'latest-sermons'){
+		if (JRequest::getCmd('layout') == 'sermons'){
 			$search = $app->getUserStateFromRequest($this->context.'.filter.search', 'filter-search', '', 'STRING');
 			$this->setState('filter.search', $search);
 

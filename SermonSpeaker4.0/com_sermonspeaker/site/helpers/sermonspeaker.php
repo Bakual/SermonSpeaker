@@ -108,7 +108,7 @@ class SermonspeakerHelperSermonspeaker
 				$return .= JHTML::Link(SermonspeakerHelperSermonspeaker::makelink($item->audiofile), $pic);
 				break;
 			case 2:
-				$options['onclick'] = 'jwplayer().playlistItem('.$i.')';
+				$options['onclick'] = 'ss_play('.$i.')';
 				$options['title'] = JText::_('COM_SERMONSPEAKER_PLAYICON_HOOVER');
 				$options['class'] = 'icon_play pointer';
 				$return .= JHTML::Image('media/com_sermonspeaker/images/play.gif', JText::_('COM_SERMONSPEAKER_PLAYICON_HOOVER'), $options);

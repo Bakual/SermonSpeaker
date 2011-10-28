@@ -147,7 +147,7 @@
 			name="speakerlayout" type="componentlayout"
 			label="COM_SERMONSPEAKER_SPEAKER_VIEW_TITLE"
 			description="COM_SERMONSPEAKER_FIELD_LAYOUT_DESC"
-			default="_:latest-sermons"
+			default="_:sermons"
 			useglobal="false"
 			extension="com_sermonspeaker"
 			view="speaker"
@@ -314,11 +314,11 @@
 		<field name="alt_player" 
 			type="list" 
 			default="0" 
-			label="COM_SERMONSPEAKER_PARAM_ALT_PLAYER" 
-			description="COM_SERMONSPEAKER_PARAM_ALT_PLAYER_DESC">
+			label="COM_SERMONSPEAKER_FIELD_ALT_PLAYER_LABEL" 
+			description="COM_SERMONSPEAKER_FIELD_ALT_PLAYER_DESC">
 			<option value="0">JW Player</option>
 			<option value="2">FlowPlayer</option>
-			<option value="1">1PixelOut</option>
+			<option value="1">PixelOut</option>
 		</field>
 		<field name="autostart" 
 			type="radio" 
@@ -328,18 +328,8 @@
 			<option value="0">JNO</option>
 			<option value="1">JYES</option>
 		</field>
-		<field name="mp_width" 
-			type="text" 
-			default="100%" 
-			label="COM_SERMONSPEAKER_PARAM_VIDEOWIDTH" 
-			description="COM_SERMONSPEAKER_PARAM_VIDEOWIDTH_DESC" />
-		<field name="mp_height" 
-			type="text" 
-			default="300px" 
-			label="COM_SERMONSPEAKER_PARAM_VIDEOHEIGHT" 
-			description="COM_SERMONSPEAKER_PARAM_VIDEOHEIGHT_DESC" />
-		<field name="fileprio" 
-			type="list" 
+		<field name="fileprio"
+			type="list"
 			default="0" 
 			label="COM_SERMONSPEAKER_PARAM_FILEPRIO_LABEL" 
 			description="COM_SERMONSPEAKER_PARAM_FILEPRIO_DESC">

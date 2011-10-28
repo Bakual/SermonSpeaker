@@ -43,7 +43,7 @@ if (empty($this->items)) : ?>
 				<?php echo JText::_('COM_SERMONSPEAKER_SERIES'); ?>
 			</a>
 			 | 
-			<a title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKERS_SERMONSLINK_HOOVER'); ?>" href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug).'&layout=latest-sermons'); ?>">
+			<a title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKERS_SERMONSLINK_HOOVER'); ?>" href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug).'&layout=sermons'); ?>">
 				<?php echo JText::_('COM_SERMONSPEAKER_SERMONS'); ?>
 			</a>
 			<?php if ($item->website && $item->website != 'http://') : ?>

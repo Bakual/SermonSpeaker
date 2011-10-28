@@ -5,6 +5,7 @@ function SermonspeakerBuildRoute(&$query){
 	$segments = array();
 	if (isset($query['view'])){
 		$segments[] = $query['view'];
+		$view = $query['view'];
 		unset($query['view']);
 	}
 	if (isset($query['task'])){
@@ -26,6 +27,10 @@ function SermonspeakerBuildRoute(&$query){
 	if (isset($query['month'])){
 		$segments[] = $query['month'];
 		unset($query['month']);
+	}
+	if(isset($view) && ($view == 'speaker') && isset($query['layout'])){
+		$segments[] = $query['layout'];
+		unset($query['layout']);
 	}
 	if (isset($query['format'])){
 		unset($query['format']);
@@ -62,6 +67,9 @@ function SermonspeakerParseRoute($segments){
 			$vars['view'] = 'speaker';
 			$id = explode(':', $segments[1]);
 			$vars['id'] = (int)$id[0];
+			if(isset($segments[2])){
+				$vars['layout'] = $segments[2];
+			}
 			break;
 		case 'frontendupload':
 			$vars['view'] = 'frontendupload';
