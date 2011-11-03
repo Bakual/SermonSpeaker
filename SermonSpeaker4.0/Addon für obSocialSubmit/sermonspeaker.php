@@ -8,35 +8,36 @@
 
 defined('_JEXEC') or die('Restricted access');
 
-class OBSSInAddonSermonspeaker {
-	public $configs	= null;
-	public $event 	= '';
-	function __construct($event = 'onAfterContentSave'){
-		$this->event = $event;
+require_once JPATH_SITE.DS.'components'.DS.'com_obsocialsubmit'.DS.'helpers'.DS.'class.internaddon.php';
+class OBSSInAddonSermonspeaker extends OBSSInAddon{
+
+	function __construct($data=null) {
+		$this->data 	= $data;
+		$this->revent 	= array('onAfterContentSave');
 	}
 
-	public function onAfterContentSave(&$item, $isNew=false){
+	public function onAfterContentSave(&$params){
 		if (JRequest::getVar('option') != 'com_sermonspeaker'){
-			return null;
+			return;
 		}
+		$item	= &$params['article'];
 		if (!isset($item->sermon_title)){
-			return null;
+			return;
 		}
-
-		$mainframe 	= &JFactory::getApplication('administrator');
+		$isNew	= &$params['isNew'];
 		$configs 	= $this->getConfigs();
 
 		$mode	= $configs->get('mode');
 		// Checking if I should do something based on action (new/edit) and category
 		$action = $configs->get('action');
 		if(($isNew && $action=='edit') || (!$isNew && $action=='new')){
-			return null;
+			return;
 		}
 		if ($configs->get('filter')){
 			$categories = $configs->get('category');
 			$categories = is_array($categories) ? $categories : array($categories);
 			if(!in_array($item->catid, $categories)){
-				return null;
+				return;
 			}
 		}
 
@@ -62,14 +63,45 @@ class OBSSInAddonSermonspeaker {
 		}
 		$link = JURI::root().'index.php?option=com_sermonspeaker&view=sermon&id='.$slug;
 
-		if ($item->audiofile){
+		if ($item->audiofile and $mode == 'audio')
+		{
 			$file = $this->makeLink($item->audiofile);
 			$type = 'song';
-		} else {
+		} 
+		elseif ($item->videofile and $mode == 'video') 
+		{
 			$file = $this->makeLink($item->videofile);
+			
 			$type = 'movie';
+			$fileisVimeoFlg =  substr_count($file, 'vimeo.com');
+			if($fileisVimeoFlg >= 1 )
+			{
+				$fileID = str_replace('http://player.vimeo.com/video/','',$file);
+				$fileID = str_replace('?title=0&byline=0&portrait=0','',$fileID);
+				$fileID = str_replace('http://vimeo.com/','',$fileID);
+				$file = 'http://vimeo.com/moogaloop.swf?clip_id='. $fileID.'&amp;server=vimeo.com&amp;show_title=0&amp;show_byline=0&amp;show_portrait=0&amp;color=00adef&amp;fullscreen=1&amp;autoplay=0&amp;loop=0';				
+			}
+			
 		}
-
+		elseif ($item->videofile == '' and $mode == 'video') 
+		{
+			$file = $this->makeLink($item->audiofile);
+			$type = 'song';			
+		}
+		else
+		{
+			$file = $this->makeLink($item->videofile);
+			
+			$type = 'movie';
+			$fileisVimeoFlg =  substr_count($file, 'vimeo.com');
+			if($fileisVimeoFlg >= 1 )
+			{
+				$fileID = str_replace('http://player.vimeo.com/video/','',$file);
+				$fileID = str_replace('?title=0&byline=0&portrait=0','',$fileID);
+				$fileID = str_replace('http://vimeo.com/','',$fileID);
+				$file = 'http://vimeo.com/moogaloop.swf?clip_id='. $fileID.'&amp;server=vimeo.com&amp;show_title=0&amp;show_byline=0&amp;show_portrait=0&amp;color=00adef&amp;fullscreen=1&amp;autoplay=0&amp;loop=0';				
+			}		
+		}
 		if ($configs->get('fullurl', 0)){
 			$url 	= $file;
 		} else {
@@ -94,7 +126,7 @@ class OBSSInAddonSermonspeaker {
 			$text 	= strip_tags($item->notes);
 			$text	= preg_replace('/{bib=(.*)}/U', '$1', $text);
 			$text	= preg_replace('/{bible(.*)}(.*){\/bible}/U', '$2', $text);
-			if ($mode){
+			if ($mode == 'audio'){
 				$text	= "\n".$text;
 			}
 		}
@@ -108,7 +140,7 @@ class OBSSInAddonSermonspeaker {
 		$post_obj->description 	= $text;
 		$post_obj->img 			= $img;
 		$post_obj->template 	= $template;
-		if ($mode){
+		if ($mode!= 'article'){
 			$post_obj->video_url	= $file;
 			$post_obj->type		 	= $type;
 		}
