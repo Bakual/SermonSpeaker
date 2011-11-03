@@ -53,25 +53,26 @@ class SermonspeakerController extends JController
 		if (substr($result, 0, 1) != '/') { // add a leading slash to the sermonpath if not present.
 			$result = '/'.$result;
 		}
+		// Loading Joomla Filefunctions
+		jimport('joomla.filesystem.file');
 		$file = JPATH_ROOT.$result;
-		$filename = explode("/", $file);
-		$filename = array_reverse($filename);
+		$mime = SermonspeakerHelperSermonspeaker::getMime(JFile::getExt($file));
 
 		if(ini_get('zlib.output_compression')) {
 			ini_set('zlib.output_compression', 'Off');
 		}
-		if (file_exists($file)) {
+		if (JFile::exists($file)) {
 			if(ini_get('memory_limit')){
-				ini_set('memory_limit','-1'); // if present overriding the memory_limit for php so big mp3 files can be downloaded.
+				ini_set('memory_limit','-1'); // if present overriding the memory_limit for php so big files can be downloaded.
 			}
-			header("Pragma: public");
+			header('Pragma: public');
 			header('Expires: '.gmdate('D, d M Y H:i:s').' GMT');
-			header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
-			header("Cache-Control: private",false);
-			header("Content-Type: application/mp3");
-			header('Content-Disposition: attachment; filename="'.$filename[0].'"');
-			header("Content-Transfer-Encoding: binary");
-			header("Content-Length: ".@filesize($file));
+			header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+			header('Cache-Control: private',false);
+			header('Content-Type: '.$mime);
+			header('Content-Disposition: attachment; filename="'.JFile::getName($file).'"');
+			header('Content-Transfer-Encoding: binary');
+			header('Content-Length: '.@filesize($file));
 			set_time_limit(0);
 			$fSize = @filesize($file);
 			$chunksize = 3 * (1024 * 1024); // how many bytes per chunk

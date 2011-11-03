@@ -228,13 +228,24 @@ class SermonspeakerHelperPlayer {
 			$entries = array();
 			foreach ($this->item as $temp_item){
 				$entry = array();
+				// Choose picture to show
+				$img = '';
+				if ($temp_item->picture){
+					$img = SermonspeakerHelperSermonspeaker::makelink($temp_item->picture);
+				} elseif ($temp_item->pic){
+					$img = SermonspeakerHelperSermonspeaker::makelink($temp_item->pic);
+				}
 				// Choosing the default file to play based on prio and availabilty
 				if (($this->config['type'] != 'video') && ($temp_item->audiofile && (!$this->prio || ($this->config['type'] == 'audio') || !$temp_item->videofile))){
 					$entry['file']	= 'file: "'.SermonspeakerHelperSermonspeaker::makelink($temp_item->audiofile).'"';
 				} elseif (($this->config['type'] != 'audio') && ($temp_item->videofile && ($this->prio || ($this->config['type'] == 'video') || !$temp_item->audiofile))){
 					$entry['file']	= 'file: "'.SermonspeakerHelperSermonspeaker::makelink($temp_item->videofile).'"';
 				} else {
-					$entry['file']	= 'file: "'.JURI::root().'"';
+					if ($img){
+						$entry['file']	= 'file: "'.$img.'"';
+					} else {
+						$entry['file']	= 'file: "'.JURI::root().'/media/com_sermonspeaker/images/nopict.jpg"';
+					}
 					$entry['error']	= 'error: "'.JText::_('JGLOBAL_RESOURCE_NOT_FOUND').'"';
 				}
 				$entry[]	= 'title: "'.$temp_item->sermon_title.'"';
@@ -251,10 +262,8 @@ class SermonspeakerHelperPlayer {
 					$seconds = ($time_arr[0] * 3600) + ($time_arr[1] * 60) + $time_arr[2];
 					$entry[] = 'duration: '.$seconds;
 				}
-				if ($temp_item->picture){
-					$entry[] = 'image: "'.SermonspeakerHelperSermonspeaker::makelink($temp_item->picture).'"';
-				} elseif ($temp_item->pic){
-					$entry[] = 'image: "'.SermonspeakerHelperSermonspeaker::makelink($temp_item->pic).'"';
+				if ($img){
+					$entry[] = 'image: "'.$img.'"';
 				}
 				$entries[] = '{'.implode(',', $entry).'}';
 				if ($this->toggle){
@@ -263,7 +272,11 @@ class SermonspeakerHelperPlayer {
 						$entry['file']	= 'file: "'.SermonspeakerHelperSermonspeaker::makelink($temp_item->audiofile).'"';
 						$entry['error']	= '';
 					} else {
-						$entry['file']	= 'file: "'.JURI::root().'"';
+						if ($img){
+							$entry['file']	= 'file: "'.$img.'"';
+						} else {
+							$entry['file']	= 'file: "'.JURI::root().'/media/com_sermonspeaker/images/nopict.jpg"';
+						}
 						$entry['error']	= 'error: "'.JText::_('JGLOBAL_RESOURCE_NOT_FOUND').'"';
 					}
 					$audios[] = '{'.implode(',', $entry).'}';
@@ -271,7 +284,11 @@ class SermonspeakerHelperPlayer {
 						$entry['file']	= 'file: "'.SermonspeakerHelperSermonspeaker::makelink($temp_item->videofile).'"';
 						$entry['error']	= '';
 					} else {
-						$entry['file']	= 'file: "'.JURI::root().'"';
+						if ($img){
+							$entry['file']	= 'file: "'.$img.'"';
+						} else {
+							$entry['file']	= 'file: "'.JURI::root().'/media/com_sermonspeaker/images/nopict.jpg"';
+						}
 						$entry['error']	= 'error: "'.JText::_('JGLOBAL_RESOURCE_NOT_FOUND').'"';
 					}
 					$videos[] = '{'.implode(',', $entry).'}';
@@ -397,13 +414,24 @@ class SermonspeakerHelperPlayer {
 			$type	= ($this->config['type'] == 'audio' || ($this->config['type'] == 'auto' && !$this->prio)) ? 'a' : 'v';
 			foreach ($this->item as $temp_item){
 				$entry = array();
+				// Choose picture to show
+				$img = '';
+				if ($temp_item->picture){
+					$img = SermonspeakerHelperSermonspeaker::makelink($temp_item->picture);
+				} elseif ($temp_item->pic){
+					$img = SermonspeakerHelperSermonspeaker::makelink($temp_item->pic);
+				}
 				// Choosing the default file to play based on prio and availabilty
 				if (($this->config['type'] != 'video') && ($temp_item->audiofile && (!$this->prio || ($this->config['type'] == 'audio') || !$temp_item->videofile))){
 					$entry['file']	= 'url:"'.SermonspeakerHelperSermonspeaker::makelink($temp_item->audiofile).'"';
 				} elseif (($this->config['type'] != 'audio') && ($temp_item->videofile && ($this->prio || ($this->config['type'] == 'video') || !$temp_item->audiofile))){
 					$entry['file']	= 'url:"'.SermonspeakerHelperSermonspeaker::makelink($temp_item->videofile).'"';
 				} else {
-					$entry['file']	= 'url:"'. JURI::root().'"';
+					if ($img){
+						$entry['file']	= 'url: "'.$img.'"';
+					} else {
+						$entry['file']	= 'url: "'.JURI::root().'/media/com_sermonspeaker/images/nopict.jpg"';
+					}
 					$entry['error']	= 'error: "'.JText::_('JGLOBAL_RESOURCE_NOT_FOUND').'"';
 				}
 				$entry[]	= 'title: "'.$temp_item->sermon_title.'"';
@@ -412,10 +440,8 @@ class SermonspeakerHelperPlayer {
 					$seconds	= ($time_arr[0] * 3600) + ($time_arr[1] * 60) + $time_arr[2];
 					$entry[]	= 'duration: "'.$seconds.'"';
 				}
-				if ($temp_item->picture){
-					$entry[]	= 'coverImage: "'.SermonspeakerHelperSermonspeaker::makelink($temp_item->picture).'"';
-				} elseif ($temp_item->pic){
-					$entry[]	= 'coverImage: "'.SermonspeakerHelperSermonspeaker::makelink($temp_item->pic).'"';
+				if ($img){
+					$entry[]	= 'coverImage: "'.$img.'"';
 				}
 				$desc = array();
 				if ($temp_item->sermon_date){
@@ -433,7 +459,11 @@ class SermonspeakerHelperPlayer {
 						$entry['file']	= 'url: "'.SermonspeakerHelperSermonspeaker::makelink($temp_item->audiofile).'"';
 						$entry['error']	= '';
 					} else {
-						$entry['file']	= 'url: "'.JURI::root().'"';
+						if ($img){
+							$entry['file']	= 'url: "'.$img.'"';
+						} else {
+							$entry['file']	= 'url: "'.JURI::root().'/media/com_sermonspeaker/images/nopict.jpg"';
+						}
 						$entry['error']	= 'error: "'.JText::_('JGLOBAL_RESOURCE_NOT_FOUND').'"';
 					}
 					$audios[] = implode(',', $entry);
@@ -441,7 +471,11 @@ class SermonspeakerHelperPlayer {
 						$entry['file']	= 'url: "'.SermonspeakerHelperSermonspeaker::makelink($temp_item->videofile).'"';
 						$entry['error']	= '';
 					} else {
-						$entry['file']	= 'url: "'.JURI::root().'"';
+						if ($img){
+							$entry['file']	= 'url: "'.$img.'"';
+						} else {
+							$entry['file']	= 'url: "'.JURI::root().'/media/com_sermonspeaker/images/nopict.jpg"';
+						}
 						$entry['error']	= 'error: "'.JText::_('JGLOBAL_RESOURCE_NOT_FOUND').'"';
 					}
 					$videos[] = implode(',', $entry);

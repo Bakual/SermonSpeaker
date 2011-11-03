@@ -34,6 +34,9 @@ class SermonspeakerViewFeed extends JView
 
 		$link = JURI::root();
 
+		// Loading Joomla Filefunctions
+		jimport('joomla.filesystem.file');
+
 		// Channel
 
 		// Save Parameters and stuff xmlsafe into $channel
@@ -132,64 +135,43 @@ class SermonspeakerViewFeed extends JView
 			} else {
 				$item->itImage	= $channel->itImage;
 			}
-			
+
 			// create keywords from series_title and scripture (title and speaker are searchable anyway)
 			$keywords = str_replace(' ', ',', $item->category);
 			$item->itKeywords 	= $this->make_xml_safe(str_replace(',', ':', $row->sermon_scripture)).','.$keywords;
 
 			// Create Enclosure
-			
-			//check if url is external
+
 			if (($type != 'video') && ($row->audiofile && (!$prio || ($type == 'audio') || !$row->videofile))){
 				$file = $row->audiofile;
 			} elseif (($type != 'audio') && ($row->videofile && ($prio || ($type == 'video') || !$row->audiofile))){
 				$file = $row->videofile;
 			} else {
-				$file = JURI::root();
+				$file = '';
 			}
 
-			if (substr($file, 0, 7) == 'http://') {
-				//external link
-				$item->enclosure['url'] = $file;
-				$item->enclosure['length'] = 1;
-			} else {
-				//internal link
-				//url to play
-				$path = str_replace(array(' ', '%20'), array('%20', '%20'), $file); //fix for spaces in the filename
-				$path = trim($path, ' /');
-				$item->enclosure['url'] = $link.$path;
-				// Filesize for length
-				if(file_exists(JPATH_ROOT.$file)) {
-					$item->enclosure['length'] = filesize(JPATH_ROOT.$file);
+			if($file){
+				if (substr($file, 0, 7) == 'http://') {
+					//external link
+					$item->enclosure['url'] = $file;
+					$item->enclosure['length'] = 1;
 				} else {
-					$item->enclosure['length'] = 0;
+					//internal link
+					//url to play
+					$path = str_replace(array(' ', '%20'), array('%20', '%20'), $file); //fix for spaces in the filename
+					$path = trim($path, ' /');
+					$item->enclosure['url'] = $link.$path;
+					// Filesize for length
+					if(file_exists(JPATH_ROOT.$file)) {
+						$item->enclosure['length'] = filesize(JPATH_ROOT.$file);
+					} else {
+						$item->enclosure['length'] = 0;
+					}
 				}
-			}
-			// MIME type for content
-			jimport('joomla.filesystem.file');
-			$ext = JFile::getExt($file);
-			switch ($ext) {
-				case 'mp3':
-					$item->enclosure['type'] = 'audio/mpeg';
-					break;
-				case 'm4a':
-					$item->enclosure['type'] = 'audio/x-m4a';
-					break;
-				case 'mp4':
-					$item->enclosure['type'] = 'video/mp4';
-					break;
-				case 'm4v':
-					$item->enclosure['type'] = 'video/x-m4v';
-					break;
-				case 'mov':
-					$item->enclosure['type'] = 'video/quicktime';
-					break;
-				case 'pdf':
-					$item->enclosure['type'] = 'application/pdf';
-					break;
-				default:
-					$item->enclosure['type'] = 'audio/mpeg';
-					break;
+				// MIME type for content
+				$item->enclosure['type'] = SermonspeakerhelperSermonspeaker::getMime(JFile::getExt($file));
+			} else {
+				$item->enclosure = '';
 			}
 
 			// Add sermonlink to the description
