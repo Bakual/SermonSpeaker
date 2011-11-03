@@ -35,6 +35,14 @@
 				<field name="sc_menuitem" type="menuitem" 
 					label="MOD_SERMONCAST_PARAM_MENUITEM" 
 					description="MOD_SERMONCAST_PARAM_MENUITEM_DESC" />
+				<field name="sc_type" type="list" 
+					label="MOD_SERMONCAST_FIELD_TYPE_LABEL" 
+					description="MOD_SERMONCAST_FIELD_TYPE_DESC"
+					default="">
+					<option value="">Auto</option>
+					<option value="audio">Audio</option>
+					<option value="video">Video</option>
+				</field>
 				<field type="spacer" />
 				<field name="sc_showpcast" type="radio" 
 					default="1" 

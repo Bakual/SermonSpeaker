@@ -6,6 +6,7 @@ $cat['series'] 	= (int)$params->get('sc_series_cat');
 $cat['speaker']	= (int)$params->get('sc_speaker_cat');
 $cat['sermon'] 	= (int)$params->get('sc_sermon_cat');
 $series			= (int)$params->get('series_id');
+$type			= $params->get('sc_type');
 $menuitem		= (int)$params->get('sc_menuitem');
 $options = '';
 if ($cat['series']){
@@ -19,6 +20,9 @@ if ($cat['sermon']){
 }
 if ($series){
 	$options .= '&amp;series_id='.$series;
+}
+if ($type){
+	$options .= '&amp;type='.$type;
 }
 if ($menuitem){
 	$options .= '&amp;Itemid='.$menuitem;
