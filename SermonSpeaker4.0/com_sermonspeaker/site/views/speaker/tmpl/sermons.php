@@ -53,6 +53,7 @@ $player = new SermonspeakerHelperPlayer($this->items);
 					<span id="playing-title" class="title"></span>
 					<span id="playing-desc" class="desc"></span>
 				</div>
+				<span id="playing-error" class="error"></span>
 			</div>
 		<?php endif;
 		echo $player->mspace;
