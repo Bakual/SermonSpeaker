@@ -318,7 +318,7 @@
 			description="COM_SERMONSPEAKER_FIELD_ALT_PLAYER_DESC">
 			<option value="0">JW Player</option>
 			<option value="2">FlowPlayer</option>
-			<option value="1">PixelOut</option>
+			<option value="1">Wordpress Audio Player</option>
 		</field>
 		<field name="autostart" 
 			type="radio" 
