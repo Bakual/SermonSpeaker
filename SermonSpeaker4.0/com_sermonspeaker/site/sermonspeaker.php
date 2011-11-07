@@ -1,7 +1,8 @@
 <?php
 defined('_JEXEC') or die('Restricted access');
 
-if (JRequest::getString('task') == 'podcast') { // providing backward compatibilty to SermonSpeaker3.3.1
+// providing backward compatibilty to older SermonSpeaker versions
+if ((JRequest::getCmd('view') == 'feed' && (JRequest::getCmd('format') != 'raw')) || (JRequest::getString('task') == 'podcast')) {
 	header('HTTP/1.1 301 Moved Permanently');
 	header('Location: '.JURI::root().'index.php?option=com_sermonspeaker&view=feed&format=raw');
 	return;

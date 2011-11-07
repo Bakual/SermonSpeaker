@@ -19,11 +19,6 @@ class SermonspeakerController extends JController
 		$vName		= JRequest::getWord('view', 'sermons');
 		JRequest::setVar('view', $vName);
 
-		if (JRequest::getCmd('view') == 'feed' && (JRequest::getCmd('format') != 'raw')){
-			$this->setRedirect('index.php?option=com_sermonspeaker&view=feed&format=raw');
-			return;
-		}
-
 		$safeurlparams = array('id'=>'INT','limit'=>'INT','limitstart'=>'INT','filter_order'=>'CMD','filter_order_Dir'=>'CMD','lang'=>'CMD','year'=>'INT','month'=>'INT');
 
 		return parent::display($cachable,$safeurlparams);

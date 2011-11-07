@@ -30,6 +30,11 @@ class Com_SermonspeakerInstallerScript {
 	function update($parent) {
 		echo '<div>'.JText::_('COM_SERMONSPEAKER_UPDATE_TEXT').'</div>';
 
+		jimport('joomla.filesystem.file');
+		$files[]	= JPATH_SITE.'components/com_sermonspeaker/views/speaker/tmpl/latest-sermons.php';
+		$files[]	= JPATH_SITE.'components/com_sermonspeaker/views/speaker/tmpl/latest-sermons.xml';
+		JFile::Delete($files);
+
 		$this->_migrate();
 	}
 

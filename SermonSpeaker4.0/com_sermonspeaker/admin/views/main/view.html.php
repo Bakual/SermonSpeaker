@@ -8,7 +8,7 @@ class SermonspeakerViewMain extends JView
 	function display( $tpl = null )
 	{
 		$params	= &JComponentHelper::getParams('com_sermonspeaker');
-		if ($params->get('path_mode_video') == ''){
+		if ($params->get('sermonslayout') == ''){
 			JError::raiseWarning(100, JText::_('COM_SERMONSPEAKER_NOTSAVED'));
 			$app = JFactory::getApplication();
 			$app->enqueueMessage(JText::_('COM_SERMONSPEAKER_RELOAD'));
