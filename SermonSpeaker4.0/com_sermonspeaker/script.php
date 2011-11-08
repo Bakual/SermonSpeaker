@@ -33,7 +33,9 @@ class Com_SermonspeakerInstallerScript {
 		jimport('joomla.filesystem.file');
 		$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/speaker/tmpl/latest-sermons.php';
 		$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/speaker/tmpl/latest-sermons.xml';
-		JFile::Delete($files);
+		if(JFile::exists($files[1])){
+			JFile::delete($files);
+		}
 
 		$this->_migrate();
 	}

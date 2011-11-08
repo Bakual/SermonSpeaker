@@ -83,7 +83,7 @@ if ($this->params->get('enable_keywords')):
 	<?php endif;
 endif; ?>
 </dl>
-<div class="ss-sermondetail-container">
+<div class="ss-sermondetail-container" style="clear:left">
 	<?php if ($this->item->picture): ?>
 		<img src="<?php echo SermonSpeakerHelperSermonSpeaker::makelink($this->item->picture); ?>" alt="" />
 	<?php endif; ?>
