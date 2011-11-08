@@ -13,6 +13,7 @@ class SermonspeakerHelperPlayer {
 	public $toggle;
 	public $player;
 	public $file;
+	public $fb_file;
 
 	private $params;
 	private $prio;

@@ -10,6 +10,14 @@
 			<field name="format" type="hidden"
 				default="raw"
 			/>
+			<field name="type" type="list" 
+				label="COM_SERMONSPEAKER_FIELD_TYPE_LABEL" 
+				description="COM_SERMONSPEAKER_FIELD_TYPE_DESC"
+				default="">
+				<option value="">Auto</option>
+				<option value="audio">Audio</option>
+				<option value="video">Video</option>
+			</field>
 		</fieldset>
 	</fields>
 
