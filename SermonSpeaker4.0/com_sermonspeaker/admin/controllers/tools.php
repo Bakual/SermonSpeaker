@@ -171,16 +171,16 @@ class SermonspeakerControllerTools extends JController
 		$query->select('c.teacher_name');
 		$query->join('LEFT', '#__piteachers AS c ON c.id = a.teacher');
 		// Join over the audio path.
-		$query->select('CONCAT("/", d.folder, a.audio_link) AS audiofile');
+		$query->select('IF (LEFT(d.folder, 7) = "http://", CONCAT(d.folder, a.audio_link), CONCAT("/", d.folder, a.audio_link)) AS audiofile');
 		$query->join('LEFT', '#__pifilepath AS d ON d.id = a.audio_folder');
 		// Join over the video path.
-		$query->select('CONCAT("/", e.folder, a.video_link) AS videofile');
+		$query->select('IF (LEFT(e.folder, 7) = "http://", CONCAT(e.folder, a.video_link), CONCAT("/", e.folder, a.video_link)) AS videofile');
 		$query->join('LEFT', '#__pifilepath AS e ON e.id = a.video_folder');
 		// Join over the study pic path.
-		$query->select('CONCAT("/", f.folder, a.imagelrg) AS study_pic');
+		$query->select('IF (LEFT(f.folder, 7) = "http://", CONCAT(f.folder, a.imagelrg), CONCAT("/", f.folder, a.imagelrg)) AS study_pic');
 		$query->join('LEFT', '#__pifilepath AS f ON f.id = a.image_folderlrg');
 		// Join over the study notes path.
-		$query->select('CONCAT("/", g.folder, a.notes_link ) AS addfile');
+		$query->select('IF (LEFT(g.folder, 7) = "http://", CONCAT(g.folder, a.notes_link), CONCAT("/", g.folder, a.notes_link)) AS addfile');
 		$query->join('LEFT', '#__pifilepath AS g ON g.id = a.notes_folder');
 		// Join over the study book 1.
 		$query->select('j.display_name AS book1, j.shortform AS book_short1');
@@ -195,7 +195,7 @@ class SermonspeakerControllerTools extends JController
 		$query	= "INSERT INTO #__sermon_series \n"
 				."(series_title, alias, series_description, state, ordering, created_by, avatar) \n"
 				."SELECT a.series_name, a.series_alias, a.series_description, a.published, a.ordering, a.user, \n"
-				."CONCAT('/', b.folder, a.series_image_lrg) \n"
+				."IF (LEFT(b.folder, 7) = 'http://', CONCAT(b.folder, a.series_image_lrg), CONCAT('/', b.folder, a.series_image_lrg)) \n"
 				."FROM #__piseries AS a \n"
 				."LEFT JOIN #__pifilepath AS b ON b.id = a.image_folderlrg \n";
 		$db->setQuery($query);
@@ -210,7 +210,7 @@ class SermonspeakerControllerTools extends JController
 		$query	= "INSERT INTO #__sermon_speakers \n"
 				."(name, alias, website, intro, state, ordering, created_by, pic) \n"
 				."SELECT a.teacher_name, a.teacher_alias, a.teacher_website, a.teacher_description, a.published, a.ordering, a.user, \n"
-				."CONCAT('/', b.folder, a.teacher_image_lrg) \n"
+				."IF (LEFT(b.folder, 7) = 'http://', CONCAT(b.folder, a.teacher_image_lrg), CONCAT('/', b.folder, a.teacher_image_lrg)) \n"
 				."FROM #__piteachers AS a \n"
 				."LEFT JOIN #__pifilepath AS b ON b.id = a.image_folderlrg \n";
 		$db->setQuery($query);
@@ -259,8 +259,8 @@ class SermonspeakerControllerTools extends JController
 			$scripture	= implode('; ', $scripture);
 
 			$query	= "INSERT INTO #__sermon_sermons \n"
-					."(audiofile, videofile, picture, sermon_title, alias, sermon_scripture, sermon_date, sermon_time, notes, state, hits, created_by, addfile) \n"
-					."VALUES ('".$study->audiofile."','".$study->videofile."','".$study->study_pic."','".$study->study_name."','".$study->study_alias."','".$scripture."','".$study->study_date."','".$study->duration."','".$study->study_description."',".$study->published.",".$study->hits.",".$study->user.",'".$study->addfile."')";
+					."(audiofile, videofile, picture, sermon_title, alias, sermon_scripture, sermon_date, sermon_time, notes, state, hits, created_by, addfile, podcast) \n"
+					."VALUES ('".$study->audiofile."','".$study->videofile."','".$study->study_pic."','".$study->study_name."','".$study->study_alias."','".$scripture."','".$study->study_date."','".$study->duration."','".$study->study_description."',".$study->published.",".$study->hits.",".$study->user.",'".$study->addfile."', 1)";
 			$db->setQuery($query);
 			$db->query();
 			if ($db->getErrorMsg()){

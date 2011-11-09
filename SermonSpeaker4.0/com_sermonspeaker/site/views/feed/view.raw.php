@@ -141,7 +141,6 @@ class SermonspeakerViewFeed extends JView
 			$item->itKeywords 	= $this->make_xml_safe(str_replace(',', ':', $row->sermon_scripture)).','.$keywords;
 
 			// Create Enclosure
-
 			if (($type != 'video') && ($row->audiofile && (!$prio || ($type == 'audio') || !$row->videofile))){
 				$file = $row->audiofile;
 			} elseif (($type != 'audio') && ($row->videofile && ($prio || ($type == 'video') || !$row->audiofile))){
@@ -151,8 +150,16 @@ class SermonspeakerViewFeed extends JView
 			}
 
 			if($file){
-				if (substr($file, 0, 7) == 'http://') {
+				// MIME type for content
+				$item->enclosure['type'] = SermonspeakerhelperSermonspeaker::getMime(JFile::getExt($file));
+				if (strpos($file, 'http://') === 0) {
 					//external link
+					if ((strpos($file, 'http://vimeo.com') === 0) || (strpos($file, 'http://player.vimeo.com') === 0)){
+						// Vimeo
+						$id		= trim(strrchr($file, '/'), '/ ');
+						$file	= 'http://vimeo.com/moogaloop.swf?clip_id='.$id;
+						$item->enclosure['type'] = 'application/x-shockwave-flash';
+					}
 					$item->enclosure['url'] = $file;
 					$item->enclosure['length'] = 1;
 				} else {
@@ -168,8 +175,6 @@ class SermonspeakerViewFeed extends JView
 						$item->enclosure['length'] = 0;
 					}
 				}
-				// MIME type for content
-				$item->enclosure['type'] = SermonspeakerhelperSermonspeaker::getMime(JFile::getExt($file));
 			} else {
 				$item->enclosure = '';
 			}

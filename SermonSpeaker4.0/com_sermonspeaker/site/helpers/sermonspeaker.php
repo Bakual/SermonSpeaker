@@ -52,7 +52,7 @@ class SermonspeakerHelperSermonspeaker
 	}
 
 	function makelink($path) {
-		if (substr($path, 0, 7) == 'http://'){
+		if (strpos($path, 'http://') === 0){
 			$link = $path;
 		} else {
 			$link = JURI::root().trim($path, ' /');

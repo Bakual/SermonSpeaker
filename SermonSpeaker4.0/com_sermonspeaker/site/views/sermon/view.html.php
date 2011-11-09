@@ -168,15 +168,15 @@ class SermonspeakerViewSermon extends JView
 			$this->document->addCustomTag('<meta property="og:title" content="'.$this->item->sermon_title.'"/>');
 			$this->document->addCustomTag('<meta property="og:url" content="'.JURI::getInstance()->toString().'"/>');
 			$this->document->addCustomTag('<meta property="og:description" content="'.$this->document->getDescription().'"/>');
+			$this->document->addCustomTag('<meta property="og:site_name" content="'.$app->getCfg('sitename').'"/>');
+			$this->document->addCustomTag('<meta property="og:type" content="sermon"/>');
 			if ($this->item->picture){
 				$this->document->addCustomTag('<meta property="og:image" content="'.SermonSpeakerHelperSermonSpeaker::makelink($this->item->picture).'"/>');
 			} elseif ($this->item->pic){
 				$this->document->addCustomTag('<meta property="og:image" content="'.SermonSpeakerHelperSermonSpeaker::makelink($this->item->pic).'"/>');
 			}
-			$this->document->addCustomTag('<meta property="og:site_name" content="'.$app->getCfg('sitename').'"/>');
-			if($this->player->status == 'audio'){
-				$this->document->addCustomTag('<meta property="og:audio" content="'.$this->player->file.'"/>');
-				$this->document->addCustomTag('<meta property="og:type" content="song"/>');
+			if($this->item->audiofile){
+				$this->document->addCustomTag('<meta property="og:audio" content="'.SermonSpeakerHelperSermonSpeaker::makelink($this->item->audiofile).'"/>');
 				$this->document->addCustomTag('<meta property="og:audio:title" content="'.$this->item->sermon_title.'"/>');
 				if ($this->item->name){
 					$this->document->addCustomTag('<meta property="og:audio:artist" content="'.$this->item->name.'"/>');
@@ -184,13 +184,15 @@ class SermonspeakerViewSermon extends JView
 				if ($this->item->series_title){
 					$this->document->addCustomTag('<meta property="og:audio:album" content="'.$this->item->series_title.'"/>');
 				}
-			} else {
-				if($this->player->player == 'Vimeo'){
-					$this->document->addCustomTag('<meta property="og:video" content="'.$this->player->fb_file.'"/>');
+			}
+			if($this->item->videofile){
+				if((strpos($this->item->videofile, 'http://vimeo.com') === 0) || (strpos($this->item->videofile, 'http://player.vimeo.com') === 0)){
+					$id			= trim(strrchr($this->item->videofile, '/'), '/ ');
+					$file	= 'http://vimeo.com/moogaloop.swf?clip_id='.$id.'&amp;server=vimeo.com&amp;show_title=0&amp;show_byline=0&amp;show_portrait=0&amp;color=00adef&amp;fullscreen=1&amp;autoplay=0&amp;loop=0';
+					$this->document->addCustomTag('<meta property="og:video" content="'.$file.'"/>');
 				} else {
-					$this->document->addCustomTag('<meta property="og:video" content="'.$this->player->file.'"/>');
+					$this->document->addCustomTag('<meta property="og:video" content="'.SermonSpeakerHelperSermonSpeaker::makelink($this->item->videofile).'"/>');
 				}
-				$this->document->addCustomTag('<meta property="og:type" content="movie"/>');
 			}
 			if ($fbadmins){
 				$this->document->addCustomTag('<meta property="fb:admins" content="'.$fbadmins.'"/>');

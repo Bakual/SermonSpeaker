@@ -164,7 +164,7 @@ class SermonspeakerHelperPlayer {
 			// WMV File
 			// TODO: Switch to Longtail Silverlight player for wmv and wma support
 			$this->MediaPlayer();
-		} elseif(strpos($this->file, 'http://vimeo.com') === 0 || (strpos($this->file, 'http://player.vimeo.com') === 0)){
+		} elseif((strpos($this->file, 'http://vimeo.com') === 0) || (strpos($this->file, 'http://player.vimeo.com') === 0)){
 			// Vimeo
 			$this->Vimeo();
 		} else {

@@ -128,7 +128,7 @@ class SermonspeakerViewspeaker extends JView
 		}
 
 		// Set Pagetitle
-		if ($this->speaker->name && (!$menu || $menu->query['option'] != 'com_sermonspeaker' || $menu->query['view'] != 'speaker' || $menu->query['id'] != $this->item->id)){
+		if ($this->speaker->name && (!$menu || $menu->query['option'] != 'com_sermonspeaker' || $menu->query['view'] != 'speaker' || $menu->query['id'] != $this->speaker->id)){
 			$title = $this->speaker->name;
 		} else {
 			$title = $this->params->get('page_title', '');
