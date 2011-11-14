@@ -2,12 +2,34 @@
 <metadata>
 	<view title="COM_SERMONSPEAKER_SPEAKER_VIEW_TITLE">
 		<message><![CDATA[COM_SERMONSPEAKER_SPEAKER_VIEW_DESC]]></message>
-		<options var="layout">
-			<option
-				name="COM_SERMONSPEAKER_SPEAKER_VIEW_TITLE" 
-				msg="COM_SERMONSPEAKER_SPEAKER_VIEW_DESC"
-				value="_default" />
-		</options>
 	</view>
-	<!-- using private dummy layout _default for params because Joomla 1.7.1 has a bug (Tracker #26910) with view manifest.xml. As soon as it is fixed params can be moved here -->
+	<!-- Add fields to the request variables for the layout. -->
+	<fields name="request">
+		<fieldset name="request">
+			<field name="format" type="text"
+				default="raw"
+			/>
+			<field name="id" type="sql" 
+				label="COM_SERMONSPEAKER_PARAM_SELECT_SPEAKER" 
+				description="COM_SERMONSPEAKER_PARAM_SELECT_SPEAKER_DESC" 
+				query="SELECT id, name FROM #__sermon_speakers" 
+				key_field="id" 
+				value_field="name" 
+				required="true"
+			/>
+		</fieldset>
+	</fields>
+	<!-- Add fields to the parameters object for the layout. -->
+	<fields name="params">
+		<fieldset name="basic">
+			<field
+				name="speakerlayout" type="componentlayout"
+				label="JGLOBAL_CATEGORY_LAYOUT_LABEL"
+				description="JGLOBAL_CATEGORY_LAYOUT_DESC"
+				useglobal="true"
+				extension="com_sermonspeaker"
+				view="speaker"
+			/>
+		</fieldset>
+	</fields>
 </metadata>
