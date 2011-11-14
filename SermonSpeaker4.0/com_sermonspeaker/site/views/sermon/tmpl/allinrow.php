@@ -80,5 +80,4 @@ if ($this->params->get('enable_jcomments') && file_exists($comments)) : ?>
 		echo JComments::showComments($this->item->id, 'com_sermonspeaker', $this->item->sermon_title); ?>
 	</div>
 <?php endif; ?>
-</table>
 </div>
