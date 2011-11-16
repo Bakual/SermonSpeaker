@@ -110,7 +110,7 @@ endif; ?>
 		<span><?php echo SermonspeakerHelperSermonspeaker::insertPopupButton($this->item->id, $player); ?></span>
 	<?php endif;
 	if (in_array('sermon:notes', $this->columns) && strlen($this->item->notes) > 0) : ?>
-		<div>
+		<div class="ss-sermon-notes">
 			<?php echo JHTML::_('content.prepare', $this->item->notes); ?>
 		</div>
 	<?php endif; ?>
