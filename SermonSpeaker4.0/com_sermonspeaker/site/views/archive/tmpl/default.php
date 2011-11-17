@@ -138,7 +138,7 @@ if ($this->cat): ?>
 							</td>
 						<?php endif;
 						if (in_array('archive:speaker', $this->columns)) : ?>
-							<td class="ss_col">
+							<td class="ss-col">
 								<?php if ($item->speaker_state):
 									echo SermonspeakerHelperSermonSpeaker::SpeakerTooltip($item->speaker_slug, $item->pic, $item->name);
 								else:
@@ -147,17 +147,17 @@ if ($this->cat): ?>
 							</td>
 						<?php endif;
 						if (in_array('archive:date', $this->columns)) : ?>
-							<td class="ss_col">
+							<td class="ss-col">
 								<?php echo JHTML::Date($item->sermon_date, JText::_($this->params->get('date_format')), 'UTC'); ?>
 							</td>
 						<?php endif;
 						if (in_array('archive:length', $this->columns)) : ?>
-							<td class="ss_col">
+							<td class="ss-col">
 								<?php echo SermonspeakerHelperSermonspeaker::insertTime($item->sermon_time); ?>
 							</td>
 						<?php endif;
 						if (in_array('archive:series', $this->columns)) : ?>
-							<td class="ss_col">
+							<td class="ss-col">
 								<?php if ($item->series_state): ?>
 									<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->series_slug)); ?>">
 										<?php echo $item->series_title; ?>
@@ -168,12 +168,12 @@ if ($this->cat): ?>
 							</td>
 						<?php endif;
 						if (in_array('archive:addfile', $this->columns)) : ?>
-							<td class="ss_col">
+							<td class="ss-col">
 								<?php echo SermonspeakerHelperSermonspeaker::insertAddfile($item->addfile, $item->addfileDesc); ?>
 							</td>
 						<?php endif;
 						if (in_array('archive:hits', $this->columns)) : ?>
-							<td class="ss_col">
+							<td class="ss-col">
 								<?php echo $item->hits; ?>
 							</td>
 						<?php endif; ?>

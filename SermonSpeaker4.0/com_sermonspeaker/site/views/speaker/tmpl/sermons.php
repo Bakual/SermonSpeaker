@@ -152,17 +152,17 @@ $player = new SermonspeakerHelperPlayer($this->items);
 							</td>
 						<?php endif;
 						if (in_array('speaker:date', $this->columns)) : ?>
-							<td class="ss_col">
+							<td class="ss-col">
 								<?php echo JHTML::date($item->sermon_date, JText::_($this->params->get('date_format')), 'UTC'); ?>
 							</td>
 						<?php endif;
 						if (in_array('speaker:length', $this->columns)) : ?>
-							<td class="ss_col">
+							<td class="ss-col">
 								<?php echo SermonspeakerHelperSermonspeaker::insertTime($item->sermon_time); ?>
 							</td>
 						<?php endif;
 						if (in_array('speaker:series', $this->columns)) : ?>
-							<td class="ss_col">
+							<td class="ss-col">
 								<?php if ($item->series_state): ?>
 									<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->series_slug)); ?>">
 										<?php echo $item->series_title; ?>
@@ -173,12 +173,12 @@ $player = new SermonspeakerHelperPlayer($this->items);
 							</td>
 						<?php endif;
 						if (in_array('speaker:addfile', $this->columns)) : ?>
-							<td class="ss_col">
+							<td class="ss-col">
 								<?php echo SermonspeakerHelperSermonspeaker::insertAddfile($item->addfile, $item->addfileDesc); ?>
 							</td>
 						<?php endif;
 						if (in_array('speaker:hits', $this->columns)) : ?>
-							<td class="ss_col">
+							<td class="ss-col">
 								<?php echo $item->hits; ?>
 							</td>
 						<?php endif; ?>

@@ -153,7 +153,7 @@ if (in_array('serie:player', $this->columns) && count($this->items)) : ?>
 							</td>
 						<?php endif;
 						if (in_array('serie:speaker', $this->columns)) : ?>
-							<td class="ss_col">
+							<td class="ss-col">
 								<?php if ($item->speaker_state):
 									echo SermonspeakerHelperSermonSpeaker::SpeakerTooltip($item->speaker_slug, $item->pic, $item->name);
 								else:
@@ -162,22 +162,22 @@ if (in_array('serie:player', $this->columns) && count($this->items)) : ?>
 							</td>
 						<?php endif;
 						if (in_array('serie:date', $this->columns)) : ?>
-							<td class="ss_col">
+							<td class="ss-col">
 								<?php echo JHTML::Date($item->sermon_date, JText::_($this->params->get('date_format')), 'UTC'); ?>
 							</td>
 						<?php endif;
 						if (in_array('serie:length', $this->columns)) : ?>
-							<td class="ss_col">
+							<td class="ss-col">
 								<?php echo SermonspeakerHelperSermonspeaker::insertTime($item->sermon_time); ?>
 							</td>
 						<?php endif;
 						if (in_array('serie:addfile', $this->columns)) : ?>
-							<td class="ss_col">
+							<td class="ss-col">
 								<?php echo SermonspeakerHelperSermonspeaker::insertAddfile($item->addfile, $item->addfileDesc); ?>
 							</td>
 						<?php endif;
 						if (in_array('serie:hits', $this->columns)) : ?>
-							<td class="ss_col">
+							<td class="ss-col">
 								<?php echo $item->hits; ?>
 							</td>
 						<?php endif; ?>
