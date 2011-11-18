@@ -33,6 +33,18 @@ class Com_SermonspeakerInstallerScript {
 		jimport('joomla.filesystem.file');
 		$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/speaker/tmpl/latest-sermons.php';
 		$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/speaker/tmpl/latest-sermons.xml';
+		$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/archive/tmpl/default.php';
+		$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/archive/tmpl/default.xml';
+		$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/serie/tmpl/default.php';
+		$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/serie/tmpl/default.xml';
+		$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/series/tmpl/default.php';
+		$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/series/tmpl/default.xml';
+		$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/seriessermon/tmpl/default.php';
+		$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/seriessermon/tmpl/default.xml';
+		$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/sermons/tmpl/default.php';
+		$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/sermons/tmpl/default.xml';
+		$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/speakers/tmpl/default.php';
+		$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/speakers/tmpl/default.xml';
 		if(JFile::exists($files[1])){
 			JFile::delete($files);
 		}
