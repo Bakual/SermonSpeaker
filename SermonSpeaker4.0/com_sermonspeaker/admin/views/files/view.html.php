@@ -9,6 +9,7 @@ class SermonspeakerViewFiles extends JView
 	{
 		$files		= $this->get('files');
 		$sermons	= $this->get('sermons');
+		$this->state	= $this->get('state');
 
 		jimport('joomla.filesystem.folder');
 		jimport('joomla.filesystem.file');
