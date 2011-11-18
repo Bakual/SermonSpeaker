@@ -37,7 +37,7 @@ $player = new SermonspeakerHelperPlayer($this->item, $config);
 			<?php endif;
 			if ($this->params->get('dl_button')) : ?>
 				<a id="sermon_download" href="<?php echo JRoute::_('index.php?task=download&id='.$this->item->slug.'&type='.$player->status); ?>" class="download">
-					<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON'); ?>
+					<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_AUDIO'); ?>
 				</a>
 			<?php endif; ?>
 			</div>

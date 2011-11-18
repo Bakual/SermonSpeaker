@@ -63,7 +63,7 @@ class SermonspeakerHelperSermonspeaker
 
 	function insertdlbutton($id, $type='audio') {
 		$fileurl = JRoute::_('index.php?&task=download&id='.$id.'&type='.$type);
-		$html = '<input id="sermon_download" class="button download_btn" type="button" value="'.JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON').'" onclick="window.location.href=\''.$fileurl.'\'" />';
+		$html = '<input id="sermon_download" class="button download_btn" type="button" value="'.JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_'.$type).'" onclick="window.location.href=\''.$fileurl.'\'" />';
 
 		return $html;
 	}
