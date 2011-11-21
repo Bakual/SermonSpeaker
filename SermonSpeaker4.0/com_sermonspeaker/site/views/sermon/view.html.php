@@ -175,6 +175,15 @@ class SermonspeakerViewSermon extends JView
 			} elseif ($this->item->pic){
 				$this->document->addCustomTag('<meta property="og:image" content="'.SermonSpeakerHelperSermonSpeaker::makelink($this->item->pic).'"/>');
 			}
+			if($this->item->videofile){
+				if((strpos($this->item->videofile, 'http://vimeo.com') === 0) || (strpos($this->item->videofile, 'http://player.vimeo.com') === 0)){
+					$id			= trim(strrchr($this->item->videofile, '/'), '/ ');
+					$file	= 'http://vimeo.com/moogaloop.swf?clip_id='.$id.'&amp;server=vimeo.com&amp;show_title=0&amp;show_byline=0&amp;show_portrait=0&amp;color=00adef&amp;fullscreen=1&amp;autoplay=0&amp;loop=0';
+					$this->document->addCustomTag('<meta property="og:video" content="'.$file.'"/>');
+				} else {
+					$this->document->addCustomTag('<meta property="og:video" content="'.SermonSpeakerHelperSermonSpeaker::makelink($this->item->videofile).'"/>');
+				}
+			}
 			if($this->item->audiofile){
 				$this->document->addCustomTag('<meta property="og:audio" content="'.SermonSpeakerHelperSermonSpeaker::makelink($this->item->audiofile).'"/>');
 				$this->document->addCustomTag('<meta property="og:audio:title" content="'.$this->item->sermon_title.'"/>');
@@ -183,15 +192,6 @@ class SermonspeakerViewSermon extends JView
 				}
 				if ($this->item->series_title){
 					$this->document->addCustomTag('<meta property="og:audio:album" content="'.$this->item->series_title.'"/>');
-				}
-			}
-			if($this->item->videofile){
-				if((strpos($this->item->videofile, 'http://vimeo.com') === 0) || (strpos($this->item->videofile, 'http://player.vimeo.com') === 0)){
-					$id			= trim(strrchr($this->item->videofile, '/'), '/ ');
-					$file	= 'http://vimeo.com/moogaloop.swf?clip_id='.$id.'&amp;server=vimeo.com&amp;show_title=0&amp;show_byline=0&amp;show_portrait=0&amp;color=00adef&amp;fullscreen=1&amp;autoplay=0&amp;loop=0';
-					$this->document->addCustomTag('<meta property="og:video" content="'.$file.'"/>');
-				} else {
-					$this->document->addCustomTag('<meta property="og:video" content="'.SermonSpeakerHelperSermonSpeaker::makelink($this->item->videofile).'"/>');
 				}
 			}
 			if ($fbadmins){
