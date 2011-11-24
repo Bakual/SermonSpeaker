@@ -48,7 +48,7 @@ if (in_array('sermons:player', $this->columns) && count($this->items)) : ?>
 			<?php elseif ($item->pic): ?>
 				<div class="ss-picture"><img src="<?php echo SermonspeakerHelperSermonspeaker::makelink($item->pic); ?>"></div>
 			<?php endif; ?>
-			<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug)); ?>"><h3><?php echo $item->sermon_title; ?></h3></a>
+			<h3><a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug)); ?>"><?php echo $item->sermon_title; ?></a></h3>
 			<dl class="article-info sermon-info">
 			<dt class="article-info-term"><?php echo JText::_('JDETAILS'); ?></dt>
 			<?php if (in_array('sermons:series', $this->columns) && $item->series_title) : ?>

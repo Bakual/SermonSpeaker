@@ -35,6 +35,7 @@ JHtml::_('behavior.formvalidation');
 
 			<li><?php echo $this->form->getLabel('ordering'); ?>
 			<?php echo $this->form->getInput('ordering'); ?></li>
+			</ul>
 		</fieldset>
 
 		<fieldset class="adminform">

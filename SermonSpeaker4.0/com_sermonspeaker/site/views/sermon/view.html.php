@@ -19,7 +19,6 @@ class SermonspeakerViewSermon extends JView
 	protected $item;
 
 	public function __construct($config = array()){
-		$config['layout']	= '_default';
 
 		parent::__construct($config);
 	}
@@ -82,8 +81,7 @@ class SermonspeakerViewSermon extends JView
 		}
 
 		// Set layout from parameters if not already set elsewhere
-		// check for 'default' only needed as long as Joomla doesn't recognize the default value from the constructor
-		if ($this->getLayout() == 'default' || $this->getLayout() == '_default') {
+		if ($this->getLayout() == 'default') {
 			$this->setLayout($params->get('sermonlayout', 'icon'));
 		}
 		if ($this->getLayout() == 'icon') {

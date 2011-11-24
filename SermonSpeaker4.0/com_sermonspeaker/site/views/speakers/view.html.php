@@ -9,7 +9,6 @@ jimport( 'joomla.application.component.view');
 class SermonspeakerViewSpeakers extends JView
 {
 	public function __construct($config = array()){
-		$config['layout']	= '_default';
 
 		parent::__construct($config);
 	}
@@ -46,9 +45,8 @@ class SermonspeakerViewSpeakers extends JView
 		}
 
 		// Set layout from parameters if not already set elsewhere
-		// check for JRequest only needed as long as Joomla doesn't recognize the default value from the constructor
-		if (!JRequest::getVar('layout', '') || $this->getLayout() == '_default') {
-			$this->setLayout($params->get('speakerslayout', 'default'));
+		if ($this->getLayout() == 'default') {
+			$this->setLayout($params->get('speakerslayout', 'normal'));
 		}
 
 		// push data into the template
