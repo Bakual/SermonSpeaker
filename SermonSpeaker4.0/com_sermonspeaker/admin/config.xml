@@ -189,7 +189,7 @@
 			label="COM_SERMONSPEAKER_SERIE" 
 			description="COM_SERMONSPEAKER_FIELD_COL_DESC"
 			cols="description,speaker,hits,download" >
-			<option value="series" exclude="description">COM_SERMONSPEAKER_SERIES_VIEW_TITLE</option>
+			<option value="series">COM_SERMONSPEAKER_SERIES_VIEW_TITLE</option>
 			<option value="serie" exclude="speaker">COM_SERMONSPEAKER_SERIE_VIEW_TITLE</option>
 			<option value="speaker" exclude="speaker">COM_SERMONSPEAKER_SPEAKER_VIEW_TITLE</option>
 			<option value="seriessermon" exclude="speaker,hits,download">COM_SERMONSPEAKER_SERIESSERMON_VIEW_TITLE</option>

@@ -25,14 +25,18 @@ class SermonspeakerViewspeaker extends JView
 
 		$params		= $app->getParams();
 		$user		= JFactory::getUser();
-		
-		$columns = $params->get('col');
+
+		$columns = $params->get('col_speaker');
 		if (!$columns){
 			$columns = array();
 		}
-		$col_speaker = $params->get('col_speaker');
-		if (!$col_speaker){
-			$col_speaker = array();
+		$col_sermon = $params->get('col');
+		if (!$col_sermon){
+			$col_sermon = array();
+		}
+		$col_serie = $params->get('col_serie');
+		if (!$col_serie){
+			$col_serie = array();
 		}
 
 		// Set layout from parameters if not already set elsewhere
@@ -40,44 +44,39 @@ class SermonspeakerViewspeaker extends JView
 			$this->setLayout($params->get('speakerlayout', 'series'));
 		}
 
-		$model = $this->getModel();
-		$model->setState('speaker.layout', $this->getLayout());
-
-		// Get some data from the models
+		// Get data from the model
 		$state		= $this->get('State');
-		$speaker	= $this->get('Speaker');
-		if(!$speaker){
+		$item		= $this->get('Item');
+
+		if(!$item){
 			$app->redirect(JRoute::_('index.php?view=speakers'), JText::_('JGLOBAL_RESOURCE_NOT_FOUND'), 'error');
 		}
-
 		// check if access is not public
-		if ($speaker->category_access){
+		if ($item->category_access){
 			$groups	= $user->getAuthorisedViewLevels();
-			if (!in_array($speaker->category_access, $groups)) {
+			if (!in_array($item->category_access, $groups)) {
 				$app->redirect(JRoute::_('index.php?view=speakers'), JText::_('JERROR_ALERTNOAUTHOR'), 'error');
 			}
 		}
 
-		// Get more data from the models
-		$items		= $this->get('Items');
-		$pagination	= $this->get('Pagination');
+		// Get sermons data from the sermons model
+		$sermons				= $this->get('Items', 'Sermons');
+		$this->pag_sermons		= $this->get('Pagination', 'Sermons');
+		$this->state_sermons	= $this->get('State', 'Sermons');
 
-		if ($this->getLayout() == 'series') {
-			// check if there are avatars at all, only showing column if needed
-			$av = 0;
-			foreach ($items as $item){
-				if (!empty($item->avatar)){ // breaking out of foreach if first avatar is found
-					$av = 1;
-					break;
-				}
+		// Get series data from the series model
+		$series					= $this->get('Items', 'Series');
+		$this->pag_series		= $this->get('Pagination', 'Series');
+		$this->state_series		= $this->get('State', 'Series');
+		// check if there are avatars at all, only showing column if needed
+		$av = 0;
+		foreach ($series as $serie){
+			if (!empty($serie->avatar)){ // breaking out of foreach if first avatar is found
+				$av = 1;
+				break;
 			}
-			$this->assignRef('av', $av);
-			$col_serie = $params->get('col_serie');
-			if (!$col_serie){
-				$col_serie = array();
-			}
-			$this->assignRef('col_serie', $col_serie);
 		}
+		$this->assignRef('av', $av);
 
 		// Update Statistic
 		if ($params->get('track_speaker')) {
@@ -96,13 +95,13 @@ class SermonspeakerViewspeaker extends JView
 
         // push data into the template
 		$this->assignRef('state',		$state);
-		$this->assignRef('items',		$items);
 		$this->assignRef('params',		$params);
-		$this->assignRef('columns', 	$columns);
-		$this->assignRef('col_speaker', $col_speaker);
-		$this->assignRef('pagination',	$pagination);
-		$this->assignRef('speaker',		$speaker);
-		$this->assignRef('title',		$title);
+		$this->assignRef('columns',		$columns);
+		$this->assignRef('col_sermon',	$col_sermon);
+		$this->assignRef('col_serie',	$col_serie);
+		$this->assignRef('item',		$item);
+		$this->assignRef('sermons',		$sermons);
+		$this->assignRef('series',		$series);
 
 		$this->_prepareDocument();
 
@@ -126,8 +125,8 @@ class SermonspeakerViewspeaker extends JView
 		}
 
 		// Set Pagetitle
-		if ($this->speaker->name && (!$menu || $menu->query['option'] != 'com_sermonspeaker' || $menu->query['view'] != 'speaker' || $menu->query['id'] != $this->speaker->id)){
-			$title = $this->speaker->name;
+		if ($this->item->name && (!$menu || $menu->query['option'] != 'com_sermonspeaker' || $menu->query['view'] != 'speaker' || $menu->query['id'] != $this->item->id)){
+			$title = $this->item->name;
 		} else {
 			$title = $this->params->get('page_title', '');
 		}
@@ -138,21 +137,21 @@ class SermonspeakerViewspeaker extends JView
 
 		// add Breadcrumbs
 		$pathway = $app->getPathway();
-		$pathway->addItem($this->speaker->name);
+		$pathway->addItem($this->item->name);
 
 		// Set MetaData
-		if ($this->speaker->metadesc){
-			$this->document->setDescription($this->speaker->metadesc);
+		if ($this->item->metadesc){
+			$this->document->setDescription($this->item->metadesc);
 		} elseif ($this->params->get('menu-meta_description')) {
 			$this->document->setDescription($this->params->get('menu-meta_description'));
 		}
-		if ($this->speaker->metakey){
-			$this->document->setMetadata('keywords', $this->speaker->metakey);
+		if ($this->item->metakey){
+			$this->document->setMetadata('keywords', $this->item->metakey);
 		} elseif ($this->params->get('menu-meta_keywords')) {
 			$this->document->setMetadata('keywords', $this->params->get('menu-meta_keywords'));
 		}
 		if ($app->getCfg('MetaAuthor')){
-			$this->document->setMetaData('author', $this->speaker->name);
+			$this->document->setMetaData('author', $this->item->name);
 		}
 	}
 }

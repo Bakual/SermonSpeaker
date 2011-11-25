@@ -111,6 +111,11 @@ class SermonspeakerModelSermons extends JModelList
 			$query->where('sermons.state = '.(int) $state);
 		}
 
+		// Filter by speaker (needed in speaker view)
+		if ($speakerId = $this->getState('speaker.id')) {
+			$query->where('sermons.speaker_id = '.(int) $speakerId);
+		}
+
 		// Add the list ordering clause.
 		$query->order($db->getEscaped($this->getState('list.ordering', 'ordering')).' '.$db->getEscaped($this->getState('list.direction', 'ASC')));
 
@@ -143,6 +148,12 @@ class SermonspeakerModelSermons extends JModelList
 		$this->setState('series_category.id', $id);
 
 		$this->setState('filter.state',	1);
+
+		// Speakerfilter
+		if(JRequest::getCmd('view') == 'speaker'){
+			$id = $app->getUserStateFromRequest($this->context.'.filter.speaker', 'id', 0, 'INT');
+			$this->setState('speaker.id', $id);
+		}
 
 		$limit	= (int)$params->get('limit', '');
 		if ($limit){

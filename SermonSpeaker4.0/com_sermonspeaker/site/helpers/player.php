@@ -75,6 +75,13 @@ class SermonspeakerHelperPlayer {
 		// Dispatching
 		if(is_array($this->item)){
 			// Playlist
+			if(!count($this->item)){
+				// Nothing available
+				$this->popup['height']	= 0;
+				$this->popup['width']	= 0;
+				$this->error	= JText::_('JGLOBAL_RESOURCE_NOT_FOUND');
+				return;
+			}
 			$this->status	= 'playlist';
 			switch ($config['alt_player']){
 				case 1:

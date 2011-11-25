@@ -31,7 +31,12 @@ if (empty($this->items)) : ?>
 			<th class="ss-title">
 				<?php echo JHTML::_('grid.sort', 'JGLOBAL_TITLE', 'series_title', $listDirn, $listOrder); ?>
 			</th>
-			<?php if (in_array('series:speaker', $this->col_serie)) : ?>
+			<?php if (in_array('series:description', $this->col_serie)): ?>
+				<th class="ss-col">
+					<?php echo JHTML::_('grid.sort', 'JGLOBAL_DESCRIPTION', 'series_description', $listDirn, $listOrder); ?>
+				</th>
+			<?php endif;
+			if (in_array('series:speaker', $this->col_serie)) : ?>
 				<th class="ss-col"><?php echo JText::_('COM_SERMONSPEAKER_SPEAKER'); ?></th>
 			<?php endif;
 			if (in_array('series:hits', $this->col_serie)) : ?>
@@ -59,7 +64,10 @@ if (empty($this->items)) : ?>
 							<?php echo $item->series_title; ?>
 						</a>
 					</td>
-					<?php if (in_array('series:speaker', $this->col_serie)) : ?>
+					<?php if (in_array('series:description', $this->col_serie)): ?>
+						<td class="ss-col"><?php echo JHTML::_('content.prepare', $item->series_description); ?></td>
+					<?php endif;
+					if (in_array('series:speaker', $this->col_serie)) : ?>
 						<td class="ss-col"><?php echo $item->speakers; ?></td>
 					<?php endif;
 					if (in_array('series:hits', $this->col_serie)) : ?>

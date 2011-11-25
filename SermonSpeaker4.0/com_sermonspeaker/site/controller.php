@@ -11,17 +11,16 @@ class SermonspeakerController extends JController
 	public function display($cachable = false, $urlparams = false)
 	{
 		$cachable = true;
-
-		// Get the document object.
-		$document = JFactory::getDocument();
-
-		// Set the default view name and format from the Request.
-		$vName		= JRequest::getWord('view', 'sermons');
-		JRequest::setVar('view', $vName);
-
 		$safeurlparams = array('id'=>'INT','limit'=>'INT','limitstart'=>'INT','filter_order'=>'CMD','filter_order_Dir'=>'CMD','lang'=>'CMD','year'=>'INT','month'=>'INT');
 
-		return parent::display($cachable,$safeurlparams);
+		$viewName	= JRequest::getCmd('view', $this->default_view);
+		if ($viewName == 'speaker'){
+			$view = &$this->getView('speaker', 'html');
+			$view->setModel($this->getModel('series'));
+			$view->setModel($this->getModel('sermons'));
+		}
+
+		return parent::display($cachable, $safeurlparams);
 	}
 
 	function download () {

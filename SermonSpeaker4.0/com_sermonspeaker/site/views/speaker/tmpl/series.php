@@ -2,54 +2,54 @@
 defined('_JEXEC') or die('Restricted access');
 JHTML::_('behavior.tooltip');
 JHTML::_('behavior.modal');
-$listOrder	= $this->state->get('list.ordering');
-$listDirn	= $this->state->get('list.direction');
+$listOrder	= $this->state_series->get('list.ordering');
+$listDirn	= $this->state_series->get('list.direction');
 ?>
 <div class="ss-speaker-container<?php echo htmlspecialchars($this->params->get('pageclass_sfx')); ?>" >
 <?php if ($this->params->get('show_page_heading', 1)) : ?>
 	<h1><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
 <?php endif; ?>
-<h2><a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($this->speaker->slug)); ?>"><?php echo $this->speaker->name; ?></a></h2>
+<h2><a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($this->item->slug)); ?>"><?php echo $this->item->name; ?></a></h2>
 <?php if (in_array('speaker:hits', $this->columns)): ?>
 	<dl class="article-info">
 	<dt class="article-info-term"><?php  echo JText::_('JDETAILS'); ?></dt>
 	<?php if (in_array('serie:hits', $this->columns)): ?>
 		<dd class="hits">
-			<?php echo JText::_('JGLOBAL_HITS').': '.$this->speaker->hits; ?>
+			<?php echo JText::_('JGLOBAL_HITS').': '.$this->item->hits; ?>
 		</dd>
 	<?php endif; ?>
 	</dl>
 <?php endif; ?>
 <div class="category-desc">
 	<div class="ss-pic">
-		<?php if ($this->speaker->pic) : ?>
-			<img src="<?php echo SermonspeakerHelperSermonspeaker::makelink($this->speaker->pic); ?>" title="<?php echo $this->speaker->name; ?>" alt="<?php echo $this->speaker->name; ?>" />
+		<?php if ($this->item->pic) : ?>
+			<img src="<?php echo SermonspeakerHelperSermonspeaker::makelink($this->item->pic); ?>" title="<?php echo $this->item->name; ?>" alt="<?php echo $this->item->name; ?>" />
 		<?php endif; ?>
 	</div>
-	<?php if (($this->speaker->bio && in_array('speaker:bio', $this->col_speaker)) || ($this->speaker->intro && in_array('speaker:intro', $this->col_speaker))) : ?>
+	<?php if (($this->item->bio && in_array('speaker:bio', $this->columns)) || ($this->item->intro && in_array('speaker:intro', $this->columns))) : ?>
 		<h3><?php echo JText::_('COM_SERMONSPEAKER_SPEAKER_BIO'); ?></h3>
 		<?php 
-		if (in_array('speaker:intro', $this->col_speaker)):
-			echo JHTML::_('content.prepare', $this->speaker->intro);
+		if (in_array('speaker:intro', $this->columns)):
+			echo JHTML::_('content.prepare', $this->item->intro);
 		endif;
-		if (in_array('speaker:bio', $this->col_speaker)):
-			echo JHTML::_('content.prepare', $this->speaker->bio);
+		if (in_array('speaker:bio', $this->columns)):
+			echo JHTML::_('content.prepare', $this->item->bio);
 		endif;
 	endif; ?>
 	<div class="clear-left"></div>
-	<?php if ($this->speaker->website && $this->speaker->website != 'http://') : ?>
-		<a href="<?php echo $this->speaker->website; ?>" target="_blank" title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKER_WEBLINK_HOOVER'); ?>"><?php echo JText::sprintf('COM_SERMONSPEAKER_SPEAKER_WEBLINK', $this->speaker->name); ?></a>
+	<?php if ($this->item->website && $this->item->website != 'http://') : ?>
+		<a href="<?php echo $this->item->website; ?>" target="_blank" title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKER_WEBLINK_HOOVER'); ?>"><?php echo JText::sprintf('COM_SERMONSPEAKER_SPEAKER_WEBLINK', $this->item->name); ?></a>
 	<?php endif; ?>
 </div>
 <!-- Begin Data - Series -->
-<?php if (empty($this->items)) : ?>
+<?php if (empty($this->series)) : ?>
 	<div class="no_entries"><?php echo JText::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', JText::_('COM_SERMONSPEAKER_SERIES')); ?></div>
 <?php else : ?>
 <form action="<?php echo JFilterOutput::ampReplace(JFactory::getURI()->toString()); ?>" method="post" id="adminForm" name="adminForm">
 	<?php if ($this->params->get('show_pagination_limit')) : ?>
 	<div class="display-limit">
 		<?php echo JText::_('JGLOBAL_DISPLAY_NUM'); ?>&#160;
-		<?php echo $this->pagination->getLimitBox(); ?>
+		<?php echo $this->pag_series->getLimitBox(); ?>
 	</div>
 	<?php endif; ?>
 	<table class="category">
@@ -77,7 +77,7 @@ $listDirn	= $this->state->get('list.direction');
 		</tr></thead>
 	<!-- Begin Data -->
 		<tbody>
-			<?php foreach($this->items as $i => $item) : ?>
+			<?php foreach($this->series as $i => $item) : ?>
 				<tr class="<?php echo ($i % 2) ? "odd" : "even"; ?>">
 					<?php if ($this->av) :
 						if ($item->avatar) : ?>
@@ -102,14 +102,14 @@ $listDirn	= $this->state->get('list.direction');
 			<?php endforeach; ?>
 		</tbody>
 	</table>
-	<?php if ($this->params->get('show_pagination') && ($this->pagination->get('pages.total') > 1)) : ?>
+	<?php if ($this->params->get('show_pagination') && ($this->pag_series->get('pages.total') > 1)) : ?>
 		<div class="pagination">
 			<?php if ($this->params->get('show_pagination_results', 1)) : ?>
 				<p class="counter">
-					<?php echo $this->pagination->getPagesCounter(); ?>
+					<?php echo $this->pag_series->getPagesCounter(); ?>
 				</p>
 			<?php endif;
-			echo $this->pagination->getPagesLinks(); ?>
+			echo $this->pag_series->getPagesLinks(); ?>
 		</div>
 	<?php endif; ?>
 	<input type="hidden" name="filter_order" value="<?php echo $listOrder; ?>" />
