@@ -56,6 +56,13 @@ class SermonspeakerModelspeakers extends JModelList
 		}
 		$query->where('(speakers.catid = 0 OR (c_speaker.access IN ('.$groups.') AND c_speaker.published = 1))');
 
+		// Subquerie to get counts of sermons and series
+		$query->select('(SELECT COUNT(DISTINCT sermons.id) FROM #__sermon_sermons AS sermons WHERE sermons.speaker_id = speakers.id AND sermons.id > 0) AS sermons');
+		$query->select('(SELECT COUNT(DISTINCT sermons2.series_id) FROM #__sermon_sermons AS sermons2 WHERE sermons2.speaker_id = speakers.id AND sermons2.series_id > 0) AS series');
+
+		// Grouping by speaker
+		$query->group('speakers.id');
+
 		// Filter by state
 		$state = $this->getState('filter.state');
 		if (is_numeric($state)) {
