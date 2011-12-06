@@ -85,37 +85,37 @@ if ($this->cat): ?>
 					<?php echo JHTML::_('grid.sort', 'JGLOBAL_TITLE', 'sermon_title', $listDirn, $listOrder); ?>
 				</th>
 				<?php if (in_array('archive:scripture', $this->columns)) : ?>
-					<th class="ss-col">
+					<th class="ss-col ss-scripture">
 						<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL', 'sermon_scripture', $listDirn, $listOrder); ?>
 					</th>
 				<?php endif;
 				if (in_array('archive:speaker', $this->columns)) : ?>
-					<th class="ss-col">
+					<th class="ss-col ss-speaker">
 						<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SPEAKER', 'name', $listDirn, $listOrder); ?>
 					</th>
 				<?php endif;
 				if (in_array('archive:date', $this->columns)) : ?>
-					<th class="ss-col">
+					<th class="ss-col ss-date">
 						<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_FIELD_DATE_LABEL', 'sermon_date', $listDirn, $listOrder); ?>
 					</th>
 				<?php endif;
 				if (in_array('archive:length', $this->columns)) : ?>
-					<th class="ss-col">
+					<th class="ss-col ss-length">
 						<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_FIELD_LENGTH_LABEL', 'sermon_time', $listDirn, $listOrder); ?>
 					</th>
 				<?php endif;
 				if (in_array('archive:series', $this->columns)) : ?>
-					<th class="ss-col">
+					<th class="ss-col ss-series">
 						<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SERIES', 'series_title', $listDirn, $listOrder); ?>
 					</th>
 				<?php endif;
 				if (in_array('archive:addfile', $this->columns)) : ?>
-					<th class="ss-col">
+					<th class="ss-col ss-addfile">
 						<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_ADDFILE', 'addfileDesc', $listDirn, $listOrder); ?>
 					</th>
 				<?php endif;
 				if (in_array('archive:hits', $this->columns)) : ?>
-					<th class="ss-col">
+					<th class="ss-col ss-hits">
 						<?php echo JHTML::_('grid.sort', 'JGLOBAL_HITS', 'hits', $listDirn, $listOrder); ?>
 					</th>
 				<?php endif; ?>
@@ -133,12 +133,12 @@ if ($this->cat): ?>
 							<?php echo SermonspeakerHelperSermonspeaker::insertSermonTitle($i, $item, $player); ?>
 						</td>
 						<?php if (in_array('archive:scripture', $this->columns)) : ?>
-							<td class="ss-col">
+							<td class="ss-col ss-scripture">
 								<?php echo JHTML::_('content.prepare', $item->sermon_scripture); ?>
 							</td>
 						<?php endif;
 						if (in_array('archive:speaker', $this->columns)) : ?>
-							<td class="ss-col">
+							<td class="ss-col ss-speaker">
 								<?php if ($item->speaker_state):
 									echo SermonspeakerHelperSermonSpeaker::SpeakerTooltip($item->speaker_slug, $item->pic, $item->name);
 								else:
@@ -147,17 +147,17 @@ if ($this->cat): ?>
 							</td>
 						<?php endif;
 						if (in_array('archive:date', $this->columns)) : ?>
-							<td class="ss-col">
+							<td class="ss-col ss-date">
 								<?php echo JHTML::Date($item->sermon_date, JText::_($this->params->get('date_format')), 'UTC'); ?>
 							</td>
 						<?php endif;
 						if (in_array('archive:length', $this->columns)) : ?>
-							<td class="ss-col">
+							<td class="ss-col ss-length">
 								<?php echo SermonspeakerHelperSermonspeaker::insertTime($item->sermon_time); ?>
 							</td>
 						<?php endif;
 						if (in_array('archive:series', $this->columns)) : ?>
-							<td class="ss-col">
+							<td class="ss-col ss-series">
 								<?php if ($item->series_state): ?>
 									<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->series_slug)); ?>">
 										<?php echo $item->series_title; ?>
@@ -168,12 +168,12 @@ if ($this->cat): ?>
 							</td>
 						<?php endif;
 						if (in_array('archive:addfile', $this->columns)) : ?>
-							<td class="ss-col">
+							<td class="ss-col ss-addfile">
 								<?php echo SermonspeakerHelperSermonspeaker::insertAddfile($item->addfile, $item->addfileDesc); ?>
 							</td>
 						<?php endif;
 						if (in_array('archive:hits', $this->columns)) : ?>
-							<td class="ss-col">
+							<td class="ss-col ss-hits">
 								<?php echo $item->hits; ?>
 							</td>
 						<?php endif; ?>

@@ -32,15 +32,15 @@ if (empty($this->items)) : ?>
 				<?php echo JHTML::_('grid.sort', 'JGLOBAL_TITLE', 'series_title', $listDirn, $listOrder); ?>
 			</th>
 			<?php if (in_array('series:description', $this->col_serie)): ?>
-				<th class="ss-col">
+				<th class="ss-col ss-series_desc">
 					<?php echo JHTML::_('grid.sort', 'JGLOBAL_DESCRIPTION', 'series_description', $listDirn, $listOrder); ?>
 				</th>
 			<?php endif;
 			if (in_array('series:speaker', $this->col_serie)) : ?>
-				<th class="ss-col"><?php echo JText::_('COM_SERMONSPEAKER_SPEAKER'); ?></th>
+				<th class="ss-col ss-speakers"><?php echo JText::_('COM_SERMONSPEAKER_SPEAKER'); ?></th>
 			<?php endif;
 			if (in_array('series:hits', $this->col_serie)) : ?>
-				<th class="ss-col">
+				<th class="ss-col ss-hits">
 					<?php echo JHTML::_('grid.sort', 'JGLOBAL_HITS', 'hits', $listDirn, $listOrder); ?>
 				</th>
 			<?php endif;
@@ -54,9 +54,9 @@ if (empty($this->items)) : ?>
 				<tr class="<?php echo ($i % 2) ? "odd" : "even"; ?>">
 					<?php if ($this->av) :
 						if ($item->avatar) : ?>
-							<td class="ss-col"><img src="<?php echo SermonspeakerHelperSermonspeaker::makelink($item->avatar); ?>"></td>
+							<td class="ss-col ss-avatar"><img src="<?php echo SermonspeakerHelperSermonspeaker::makelink($item->avatar); ?>"></td>
 						<?php else : ?>
-							<td class="ss-col"></td>
+							<td class="ss-col ss-avatar"></td>
 						<?php endif;
 					endif; ?>
 					<td class="ss-title">
@@ -65,16 +65,16 @@ if (empty($this->items)) : ?>
 						</a>
 					</td>
 					<?php if (in_array('series:description', $this->col_serie)): ?>
-						<td class="ss-col"><?php echo JHTML::_('content.prepare', $item->series_description); ?></td>
+						<td class="ss-col ss-series_desc"><?php echo JHTML::_('content.prepare', $item->series_description); ?></td>
 					<?php endif;
 					if (in_array('series:speaker', $this->col_serie)) : ?>
-						<td class="ss-col"><?php echo $item->speakers; ?></td>
+						<td class="ss-col ss-speakers"><?php echo $item->speakers; ?></td>
 					<?php endif;
 					if (in_array('series:hits', $this->col_serie)) : ?>
-						<td class="ss-col"><?php echo $item->hits; ?></td>
+						<td class="ss-col ss-hits"><?php echo $item->hits; ?></td>
 					<?php endif;
 					if (in_array('series:download', $this->col_serie)) : ?>
-						<td class="ss-col"><a href="<?php echo JRoute::_('index.php?task=serie.download&id='.$item->slug); ?>" target="_new" title="<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADSERIES_DESC'); ?>">
+						<td class="ss-col ss-dl"><a href="<?php echo JRoute::_('index.php?task=serie.download&id='.$item->slug); ?>" target="_new" title="<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADSERIES_DESC'); ?>">
 							<img src="media/com_sermonspeaker/images/download.png" alt="<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADSERIES_LABEL'); ?>" />
 						</a></td>
 					<?php endif; ?>

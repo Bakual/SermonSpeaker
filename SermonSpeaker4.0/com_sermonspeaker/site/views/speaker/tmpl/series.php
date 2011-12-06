@@ -62,12 +62,12 @@ $listDirn	= $this->state_series->get('list.direction');
 				<?php echo JHTML::_('grid.sort', 'JGLOBAL_TITLE', 'series_title', $listDirn, $listOrder); ?>
 			</th>
 			<?php if (in_array('speaker:description', $this->col_serie)): ?>
-				<th class="ss-col">
+				<th class="ss-col ss-series_desc">
 					<?php echo JHTML::_('grid.sort', 'JGLOBAL_DESCRIPTION', 'series_description', $listDirn, $listOrder); ?>
 				</th>
 			<?php endif;
 			if (in_array('speaker:hits', $this->col_serie)) : ?>
-				<th class="ss-col">
+				<th class="ss-col ss-hits">
 					<?php echo JHTML::_('grid.sort', 'JGLOBAL_HITS', 'hits', $listDirn, $listOrder); ?>
 				</th>
 			<?php endif;
@@ -81,20 +81,20 @@ $listDirn	= $this->state_series->get('list.direction');
 				<tr class="<?php echo ($i % 2) ? "odd" : "even"; ?>">
 					<?php if ($this->av) :
 						if ($item->avatar) : ?>
-							<td class="ss-col"><img src="<?php echo SermonspeakerHelperSermonspeaker::makelink($item->avatar); ?>"></td>
+							<td class="ss-col ss-avatar"><img src="<?php echo SermonspeakerHelperSermonspeaker::makelink($item->avatar); ?>"></td>
 						<?php else : ?>
-							<td class="ss-col"></td>
+							<td class="ss-col ss-avatar"></td>
 						<?php endif;
 					endif; ?>
 					<td class="ss-title"><a title='<?php echo JText::_('COM_SERMONSPEAKER_SERIESLINK_HOOVER'); ?>' href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->slug)); ?>"><?php echo $item->series_title; ?></a></td>
 					<?php if (in_array('speaker:description', $this->col_serie)): ?>
-						<td class="ss-col"><?php echo JHTML::_('content.prepare', $item->series_description); ?></td>
+						<td class="ss-col ss-series_desc"><?php echo JHTML::_('content.prepare', $item->series_description); ?></td>
 					<?php endif;
 					if (in_array('speaker:hits', $this->col_serie)) : ?>
-						<td class="ss-col"><?php echo $item->hits; ?></td>
+						<td class="ss-col ss-hits"><?php echo $item->hits; ?></td>
 					<?php endif;
 					if (in_array('speaker:download', $this->col_serie)) : ?>
-						<td class="num"><a href="<?php echo JRoute::_('index.php?task=serie.download&id='.$item->slug); ?>">
+						<td class="ss-col ss-dl"><a href="<?php echo JRoute::_('index.php?task=serie.download&id='.$item->slug); ?>">
 							<img src="media/com_sermonspeaker/images/download.png" alt="<?php echo JText::_('COM_SERMONSPEAKER_DIRECTLINK_HOOVER'); ?>" />
 						</a></td>
 					<?php endif; ?>
