@@ -114,7 +114,7 @@ class SermonspeakerHelperSermonspeaker
 				so.addVariable('playlistfile','<?php echo $lnk; ?>');
 				so.addVariable('playlistsize','60');
 				so.addVariable('playlist','bottom');
-				so.addVariable('autostart','<?php echo $start; ?>');
+				so.addVariable('autostart','<?php echo $start[0]; ?>');
 				<?php echo $callback; ?>
 				so.write('mediaspace<?php echo $count; ?>');
 			</script>
