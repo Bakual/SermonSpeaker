@@ -688,7 +688,7 @@ class SermonspeakerHelperPlayer {
 		$this->setDimensions(50, '100%');
 		$start = $this->config['autostart'] ? 1 : 0;
 		$this->mspace = '<iframe id="mediaspace'.$this->config['count'].'" width="'.$this->config['vwidth'].'" height="'.$this->config['vheight'].'" '
-						.'src="http://player.vimeo.com/video/'.$id.'?title=0&byline=0&portrait=0&border=0&autoplay='.$start.'&player_id=vimeo'.$this->config['count'].'&api=1>'
+						.'src="http://player.vimeo.com/video/'.$id.'?title=0&byline=0&portrait=0&border=0&autoplay='.$start.'&player_id=vimeo'.$this->config['count'].'&api=1">'
 						.'</iframe>';
 		$this->script	= '';
 		$this->setPopup('v');
