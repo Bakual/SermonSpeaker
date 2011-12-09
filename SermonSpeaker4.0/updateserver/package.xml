@@ -7,5 +7,5 @@
 	<extension name="SermonArchive Module" element="mod_sermonarchive" type="module" version="4.3" detailsurl="http://www.sermonspeaker.net/update/mod_sermonarchive.xml"/>
 	<extension name="SermonCast" element="mod_sermoncast" type="module" version="4.3" detailsurl="http://www.sermonspeaker.net/update/mod_sermoncast.xml"/>
 	<extension name="SermonSpeaker Editor Button Plugin" element="sermonspeaker" type="plugin" folder="editors-xtd" version="4.2" detailsurl="http://www.sermonspeaker.net/update/plg_editors_xtd_sermonspeaker.xml"/>
-	<extension name="SermonSpeaker Search Plugin" element="sermonspeaker" type="plugin" folder="search" version="4.2.1" detailsurl="http://www.sermonspeaker.net/update/plg_sermonspeaker_search.xml"/>
+	<extension name="SermonSpeaker Search Plugin" element="sermonspeaker" type="plugin" folder="search" version="4.3" detailsurl="http://www.sermonspeaker.net/update/plg_sermonspeaker_search.xml"/>
 </extensionset>

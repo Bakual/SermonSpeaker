@@ -17,6 +17,7 @@
 	<files>
 		<file type="component" id="com_sermonspeaker" >com_sermonspeaker.zip</file>
 		<file type="module" id="mod_latestsermons" client="site">mod_latestsermons.zip</file>
+		<file type="module" id="mod_sermonspeaker" client="site">mod_sermonspeaker.zip</file>
 		<file type="module" id="mod_related_sermons" client="site">mod_related_sermons.zip</file>
 		<file type="module" id="mod_sermonarchive" client="site">mod_sermonarchive.zip</file>
 		<file type="module" id="mod_sermoncast" client="site">mod_sermoncast.zip</file>
