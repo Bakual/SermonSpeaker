@@ -2,7 +2,25 @@
 <updates>
 	<update>
 		<name>SermonSpeaker SermonCast</name>
-		<description>SermonSpeaker SermonCast Module 4.0</description>
+		<description>SermonSpeaker SermonCast Module 4.3</description>
+		<element>mod_sermoncast</element>
+		<type>module</type>
+		<version>4.3</version>
+		<infourl title="SermonSpeaker Homepage">http://www.sermonspeaker.net</infourl>
+		<downloads>
+			<downloadurl type="full" format="zip">http://www.sermonspeaker.net/files/SermonSpeaker4/Modules/mod_sermoncast43.zip</downloadurl>
+		</downloads>
+		<maintainer>Thomas Hunziker</maintainer>
+		<maintainerurl>http://www.bakual.ch</maintainerurl>
+		<targetplatform name="joomla" version="1.7" />
+		<tags>
+			<tag>SermonSpeaker</tag>
+		</tags>
+		<section>SermonSpeaker</section>
+	</update>
+	<update>
+		<name>SermonSpeaker SermonCast</name>
+		<description>SermonSpeaker SermonCast Module 4.1</description>
 		<element>mod_sermoncast</element>
 		<type>module</type>
 		<version>4.1</version>
