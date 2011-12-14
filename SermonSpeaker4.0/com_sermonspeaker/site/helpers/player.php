@@ -268,13 +268,13 @@ class SermonspeakerHelperPlayer {
 					}
 					$entry['error']	= 'error: "'.JText::_('JGLOBAL_RESOURCE_NOT_FOUND').'"';
 				}
-				$entry[]	= 'title: "'.$temp_item->sermon_title.'"';
+				$entry[]	= 'title: "'.addslashes($temp_item->sermon_title).'"';
 				$desc = array();
 				if ($temp_item->sermon_date){
 					$desc[] = JText::_('JDATE').': '.JHTML::Date($temp_item->sermon_date, JText::_($this->params->get('date_format')), 'UTC');
 				}
 				if ($temp_item->name){
-					$desc[] = JText::_('COM_SERMONSPEAKER_SPEAKER').': '.$temp_item->name;
+					$desc[] = JText::_('COM_SERMONSPEAKER_SPEAKER').': '.addslashes($temp_item->name);
 				}
 				$entry[] = 'description: "'.implode('<br/>', $desc).'"';
 				if ($temp_item->sermon_time != '00:00:00'){
@@ -467,7 +467,7 @@ class SermonspeakerHelperPlayer {
 					}
 					$entry['error']	= 'error: "'.JText::_('JGLOBAL_RESOURCE_NOT_FOUND').'"';
 				}
-				$entry[]	= 'title: "'.$temp_item->sermon_title.'"';
+				$entry[]	= 'title: "'.addslashes($temp_item->sermon_title).'"';
 				if ($temp_item->sermon_time != '00:00:00'){
 					$time_arr	= explode(':', $temp_item->sermon_time);
 					$seconds	= ($time_arr[0] * 3600) + ($time_arr[1] * 60) + $time_arr[2];
@@ -481,7 +481,7 @@ class SermonspeakerHelperPlayer {
 					$desc[] = JText::_('JDATE').': '.JHTML::Date($temp_item->sermon_date, JText::_($this->params->get('date_format')), 'UTC');
 				}
 				if ($temp_item->name){
-					$desc[] = JText::_('COM_SERMONSPEAKER_SPEAKER').': '.$temp_item->name;
+					$desc[] = JText::_('COM_SERMONSPEAKER_SPEAKER').': '.addslashes($temp_item->name);
 				}
 				$entry[]	= 'description: "'.implode('<br/>', $desc).'"';
 				$entries[] = implode(',', $entry);
@@ -617,8 +617,8 @@ class SermonspeakerHelperPlayer {
 					$artists	= '';
 					continue;
 				}
-				$titles[]	= ($item->sermon_title) ? $item->sermon_title : '';
-				$artists[]	= ($item->name) ? $item->name : '';
+				$titles[]	= ($item->sermon_title) ? urlencode($item->sermon_title) : '';
+				$artists[]	= ($item->name) ? urlencode($item->name) : '';
 			}
 			$file	= implode(',',$files);
 			$title	= 'titles: "'.implode(',',$titles).'",';
@@ -626,8 +626,8 @@ class SermonspeakerHelperPlayer {
 		} else {
 			$this->setDimensions(23, 290);
 			$file	= urlencode($this->file);
-			$title	= ($this->item->sermon_title) ? 'titles: "'.$this->item->sermon_title.'",' : '';
-			$artist	= ($this->item->name) ? 'artists: "'.$this->item->name.'",' : '';
+			$title	= ($this->item->sermon_title) ? 'titles: "'.urlencode($this->item->sermon_title).'",' : '';
+			$artist	= ($this->item->name) ? 'artists: "'.urlencode($this->item->name).'",' : '';
 		}
 		$this->script = '<script type="text/javascript">'
 							.'AudioPlayer.embed("mediaspace'.$this->config['count'].'", {'
