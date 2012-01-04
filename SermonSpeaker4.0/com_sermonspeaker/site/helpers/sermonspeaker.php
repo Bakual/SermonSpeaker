@@ -22,15 +22,6 @@ class SermonspeakerHelperSermonspeaker
 	function insertAddfile($addfile, $addfileDesc, $show_icon = 0) {
 		if ($addfile) {
 			$link = SermonspeakerHelperSermonspeaker::makelink($addfile); 
-			// Show filename if no addfileDesc is set
-			if (!$addfileDesc){
-				$slash = strrpos($addfile, '/');
-				if ($slash !== false) {
-					$addfileDesc = substr($addfile, $slash + 1);
-				} else {
-					$addfileDesc = $addfile;
-				}
-			}
 			$html = '';
 			if($show_icon){
 				// Get extension of file
@@ -43,8 +34,18 @@ class SermonspeakerHelperSermonspeaker
 				}
 				$html .= '<a title="'.JText::_('COM_SERMONSPEAKER_ADDFILE_HOOVER').'" href="'.$link.'" target="_blank"><img src="'.$file.'" width="18" height="20" alt="" /></a>&nbsp;';
 			}
-			$html .= '<a title="'.JText::_('COM_SERMONSPEAKER_ADDFILE_HOOVER').'" href="'.$link.'" target="_blank">'.$addfileDesc.'</a>';
-
+			if($show_icon != 2){
+				// Show filename if no addfileDesc is set
+				if (!$addfileDesc){
+					$slash = strrpos($addfile, '/');
+					if ($slash !== false) {
+						$addfileDesc = substr($addfile, $slash + 1);
+					} else {
+						$addfileDesc = $addfile;
+					}
+				}
+				$html .= '<a title="'.JText::_('COM_SERMONSPEAKER_ADDFILE_HOOVER').'" href="'.$link.'" target="_blank">'.$addfileDesc.'</a>';
+			}
 			return $html;
 		} else {
 			return;
