@@ -86,6 +86,10 @@ foreach ($this->items as $item) {
         echo '
 		<enclosure url="'.$item->enclosure['url'].'" length="'.$item->enclosure['length'].'" type="'.$item->enclosure['type'].'"></enclosure>';
 	}
+	if ($item->itImage) {
+        echo '
+		<itunes:image href="'.$item->itImage.'" />';
+	}
 	// iTunes specific: per item
 		echo '
 		<itunes:author>'.$item->itAuthor.'</itunes:author>
@@ -94,7 +98,6 @@ foreach ($this->items as $item) {
 		<itunes:keywords>'.$item->itKeywords.'</itunes:keywords>
 		<itunes:subtitle>'.$item->itSubtitle.'</itunes:subtitle>
 		<itunes:summary>'.$item->itSummary.'</itunes:summary>
-		<itunes:image href="'.$item->itImage.'" />
 	</item>';
 }
 echo '
