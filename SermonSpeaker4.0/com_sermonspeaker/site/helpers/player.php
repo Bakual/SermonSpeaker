@@ -290,7 +290,7 @@ class SermonspeakerHelperPlayer {
 					// Preparing specific playlists for audio and video
 					if ($temp_item->audiofile){
 						$entry['file']	= 'file: "'.SermonspeakerHelperSermonspeaker::makelink($temp_item->audiofile).'"';
-						$entry['error']	= '';
+						unset($entry['error']);
 					} else {
 						if ($img){
 							$entry['file']	= 'file: "'.$img.'"';
@@ -302,7 +302,7 @@ class SermonspeakerHelperPlayer {
 					$audios[] = '{'.implode(',', $entry).'}';
 					if ($temp_item->videofile){
 						$entry['file']	= 'file: "'.SermonspeakerHelperSermonspeaker::makelink($temp_item->videofile).'"';
-						$entry['error']	= '';
+						unset($entry['error']);
 					} else {
 						if ($img){
 							$entry['file']	= 'file: "'.$img.'"';
@@ -490,7 +490,7 @@ class SermonspeakerHelperPlayer {
 					// Preparing specific playlists for audio and video
 					if ($temp_item->audiofile){
 						$entry['file']	= 'url: "'.SermonspeakerHelperSermonspeaker::makelink($temp_item->audiofile).'"';
-						$entry['error']	= '';
+						unset($entry['error']);
 					} else {
 						if ($img){
 							$entry['file']	= 'url: "'.$img.'"';
@@ -502,7 +502,7 @@ class SermonspeakerHelperPlayer {
 					$audios[] = implode(',', $entry);
 					if ($temp_item->videofile){
 						$entry['file']	= 'url: "'.SermonspeakerHelperSermonspeaker::makelink($temp_item->videofile).'"';
-						$entry['error']	= '';
+						unset($entry['error']);
 					} else {
 						if ($img){
 							$entry['file']	= 'url: "'.$img.'"';
