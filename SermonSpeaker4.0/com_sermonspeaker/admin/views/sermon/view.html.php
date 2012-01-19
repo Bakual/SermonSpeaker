@@ -41,8 +41,8 @@ class SermonspeakerViewSermon extends JView
 
 		$session	= JFactory::getSession();
 		// Prepare Flashuploader
-		$audioTypes = '*.aac; *.m4a; *.mp3';
-		$videoTypes = '*.mp4; *.mov; *.f4v; *.flv; *.3gp; *.3g2';
+		$audioTypes = '*.aac; *.m4a; *.mp3; *.wma';
+		$videoTypes = '*.mp4; *.mov; *.f4v; *.flv; *.3gp; *.3g2; *.wmv';
 		$targetURL 	= JURI::root().'administrator/index.php?option=com_sermonspeaker&task=file.upload&'.$session->getName().'='.$session->getId().'&'.JUtility::getToken().'=1&format=json';
 		// SWFUpload
 		JHTML::Script('media/com_sermonspeaker/swfupload/swfupload.js');
