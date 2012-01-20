@@ -24,6 +24,7 @@ class SermonspeakerHelperPlayer {
 	private static $jwscript;
 	private static $poscript;
 	private static $fwscript;
+	private static $wmvscript;
 
 	/**
 	 * Constructor 
@@ -142,9 +143,9 @@ class SermonspeakerHelperPlayer {
 		// Declare the supported file extensions for Flash
 		$audio_ext = array('aac', 'm4a', 'mp3');
 		$video_ext = array('mp4', 'mov', 'f4v', 'flv', '3gp', '3g2');
-		$this->setDimensions('23px', '250px');
 		if(in_array($ext, $audio_ext)){
 			// Audio File
+			$this->setDimensions('23px', '250px');
 			$this->setPopup('a');
 			$this->status = 'audio';
 			if (($this->config['alt_player'] == 2) && ($ext == 'mp3')){
@@ -154,6 +155,7 @@ class SermonspeakerHelperPlayer {
 			}
 		} elseif(in_array($ext, $video_ext)) {
 			// Video File
+			$this->setDimensions('23px', '250px');
 			$this->setPopup('v');
 			$this->status = 'video';
 			if ($this->config['alt_player'] == 2){
@@ -163,17 +165,28 @@ class SermonspeakerHelperPlayer {
 			}
 		} elseif(strpos($this->file, 'http://www.youtube.com') === 0){
 			// Youtube File, can only be played by JW Player
+			$this->setDimensions('23px', '250px');
 			$this->setPopup('v');
 			$this->status = 'video';
 			$this->JWPlayer();
 		} elseif($ext == 'wmv'){
 			// WMV File
-			// TODO: Switch to Longtail Silverlight player for wmv and wma support
-			$this->MediaPlayer();
+			$this->setDimensions('21px', '250px');
+			$this->setPopup('v');
+			$this->status = 'video';
+			$this->WMVPlayer();
+		} elseif($ext == 'wma'){
+			// WMA File
+			$this->setDimensions('21px', '250px');
+			$this->setPopup('a');
+			$this->status = 'audio';
+			$this->WMVPlayer();
 		} elseif((strpos($this->file, 'http://vimeo.com') === 0) || (strpos($this->file, 'http://player.vimeo.com') === 0)){
 			// Vimeo
+			$this->setDimensions('23px', '250px');
 			$this->Vimeo();
 		} else {
+			$this->setDimensions('23px', '250px');
 			$this->popup['height'] = 0;
 			$this->popup['width']  = 0;
 			$this->error  = 'Unsupported Filetype';
@@ -653,6 +666,48 @@ class SermonspeakerHelperPlayer {
 					lefticon: "FFFFFF"
 				});');
 			self::$poscript = 1;
+		}
+		return;
+	}
+
+	private function WMVPlayer(){
+		$this->player = 'WMVPlayer';
+		$player	= JURI::root().'media/com_sermonspeaker/player/wmvplayer/wmvplayer.xaml';
+		$start	= $this->config['autostart'] ? 1 : 0;
+		$type	= ($this->status == 'audio') ? 'a' : 'v';
+		$this->mspace	= '<div id="mediaspace'.$this->config['count'].'">Silverlight needs Javascript turned on</div>';
+		$image = '';
+		if ($this->item->picture){
+			$image = 'image: "'.SermonspeakerHelperSermonspeaker::makelink($this->item->picture).'",';
+		} elseif ($this->item->pic){
+			$image = 'image: "'.SermonspeakerHelperSermonspeaker::makelink($this->item->pic).'",';
+		}
+		$duration = '';
+		if ($this->item->sermon_time != '00:00:00'){
+			$time_arr = explode(':', $this->item->sermon_time);
+			$seconds = ($time_arr[0] * 3600) + ($time_arr[1] * 60) + $time_arr[2];
+			$duration = 'duration: '.$seconds.',';
+		}
+		$start = $this->config['autostart'] ? 'true' : 'false';
+		$this->script	= '<script type="text/javascript">'
+							.'var elm = document.getElementById("mediaspace'.$this->config['count'].'");'
+							.'var cfg = {'
+							."	file:'".$this->file."',"
+							.'	autostart:'.$start.','
+							.$duration
+							.$image
+							."	width: '".$this->config[$type.'width']."',"
+							."	height: '".$this->config[$type.'height']."'"
+							.'};'
+							."var ply = new jeroenwijering.Player(elm,'".$player."',cfg);"
+						.'</script>';
+		$this->toggle = false;
+
+		// Loading needed Javascript only once
+		if (!self::$wmvscript){
+			JHTML::Script('media/com_sermonspeaker/player/wmvplayer/silverlight.js');
+			JHTML::Script('media/com_sermonspeaker/player/wmvplayer/wmvplayer.js');
+			self::$wmvscript = 1;
 		}
 		return;
 	}
