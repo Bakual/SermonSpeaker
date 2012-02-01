@@ -9,7 +9,6 @@
 			/>
 		</options>
 	</view>
-	<!-- Add fields to the request variables for the layout. -->
 	<fields name="request">
 		<fieldset name="request">
 			<field name="id" type="sql" 
@@ -22,17 +21,8 @@
 			/>
 		</fieldset>
 	</fields>
-	<!-- Add fields to the parameters object for the layout. -->
 	<fields name="params">
 		<fieldset name="basic">
-			<field
-				name="speakerlayout" type="componentlayout"
-				label="JGLOBAL_CATEGORY_LAYOUT_LABEL"
-				description="JGLOBAL_CATEGORY_LAYOUT_DESC"
-				useglobal="true"
-				extension="com_sermonspeaker"
-				view="speaker"
-			/>
 			<field name="series_cat" type="category" 
 				label="COM_SERMONSPEAKER_PARAM_CATEGORY_SERIES_LABEL" 
 				description="COM_SERMONSPEAKER_PARAM_CATEGORY_DESC" 
@@ -44,6 +34,74 @@
 				description="COM_SERMONSPEAKER_PARAM_CATEGORY_DESC" 
 				extension="com_sermonspeaker" 
 				show_root="true"
+			/>
+		</fieldset>
+		<fieldset name="layout" 
+			label="COM_SERMONSPEAKER_FIELDSET_LAYOUTS_LABEL" 
+			description="COM_SERMONSPEAKER_FIELDSET_LAYOUTS_DESC" >
+			<field
+				name="sermonslayout" type="componentlayout"
+				label="COM_SERMONSPEAKER_SERMONS_VIEW_TITLE"
+				description="COM_SERMONSPEAKER_FIELD_LAYOUT_DESC"
+				useglobal="true"
+				extension="com_sermonspeaker"
+				view="sermons"
+			/>
+			<field
+				name="sermonlayout" type="componentlayout"
+				label="COM_SERMONSPEAKER_SERMON_VIEW_TITLE"
+				description="COM_SERMONSPEAKER_FIELD_LAYOUT_DESC"
+				useglobal="true"
+				extension="com_sermonspeaker"
+				view="sermon"
+			/>
+			<field
+				name="serieslayout" type="componentlayout"
+				label="COM_SERMONSPEAKER_SERIES_VIEW_TITLE"
+				description="COM_SERMONSPEAKER_FIELD_LAYOUT_DESC"
+				useglobal="true"
+				extension="com_sermonspeaker"
+				view="series"
+			/>
+			<field
+				name="serielayout" type="componentlayout"
+				label="COM_SERMONSPEAKER_SERIE_VIEW_TITLE"
+				description="COM_SERMONSPEAKER_FIELD_LAYOUT_DESC"
+				useglobal="true"
+				extension="com_sermonspeaker"
+				view="serie"
+			/>
+			<field
+				name="speakerslayout" type="componentlayout"
+				label="COM_SERMONSPEAKER_SPEAKERS_VIEW_TITLE"
+				description="COM_SERMONSPEAKER_FIELD_LAYOUT_DESC"
+				useglobal="true"
+				extension="com_sermonspeaker"
+				view="speakers"
+			/>
+			<field
+				name="speakerlayout" type="componentlayout"
+				label="COM_SERMONSPEAKER_SPEAKER_VIEW_TITLE"
+				description="COM_SERMONSPEAKER_FIELD_LAYOUT_DESC"
+				useglobal="true"
+				extension="com_sermonspeaker"
+				view="speaker"
+			/>
+			<field
+				name="seriessermonlayout" type="componentlayout"
+				label="COM_SERMONSPEAKER_SERIESSERMON_VIEW_TITLE"
+				description="COM_SERMONSPEAKER_FIELD_LAYOUT_DESC"
+				useglobal="true"
+				extension="com_sermonspeaker"
+				view="seriessermon"
+			/>
+			<field
+				name="archivelayout" type="componentlayout"
+				label="COM_SERMONSPEAKER_ARCHIVE_VIEW_TITLE"
+				description="COM_SERMONSPEAKER_FIELD_LAYOUT_DESC"
+				useglobal="true"
+				extension="com_sermonspeaker"
+				view="archive"
 			/>
 		</fieldset>
 	</fields>
