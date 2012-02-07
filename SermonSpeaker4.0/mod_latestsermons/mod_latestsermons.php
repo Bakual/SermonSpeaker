@@ -68,7 +68,7 @@ if ($params->get('show_list')){ ?>
 	$c_params = JComponentHelper::getParams('com_sermonspeaker');
 	$config['autostart']	= 0;
 	$config['count']		= 'ls';
-	$config['type'] 		= 'audio';
+	$config['type']			= $c_params->get('fileprio') ? 'video' : 'audio';
 	$config['alt_player']	= $c_params->get('alt_player');
 	$player = new SermonspeakerHelperPlayer($rows, $config);
 	echo $player->mspace;
