@@ -30,6 +30,13 @@
 					default="3" 
 					label="MOD_LATESTSERMONS_PARAM_COUNT" 
 					description="MOD_LATESTSERMONS_PARAM_COUNT_DESC" />
+				<field name="show_list" type="radio" 
+					default="1" 
+					label="MOD_LATESTSERMONS_PARAM_SHOW_LIST_LABEL" 
+					description="MOD_LATESTSERMONS_PARAM_SHOW_LIST_DESC">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
 				<field name="ls_show_mouseover" type="radio" 
 					default="1" 
 					label="MOD_LATESTSERMONS_PARAM_SHOW_MOUSEOVER" 
@@ -62,6 +69,13 @@
 					default="DATE_FORMAT_LC4" 
 					label="MOD_LATESTSERMONS_PARAM_MO_DATE_FORMAT" 
 					description="MOD_LATESTSERMONS_PARAM_MO_DATE_FORMAT_DESC">
+				</field>
+				<field name="show_player" type="radio" 
+					default="0" 
+					label="MOD_LATESTSERMONS_PARAM_SHOW_PLAYER_LABEL" 
+					description="MOD_LATESTSERMONS_PARAM_SHOW_PLAYER_DESC">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
 				<field name="ls_show_mo_link" type="radio" 
 					default="0" 
