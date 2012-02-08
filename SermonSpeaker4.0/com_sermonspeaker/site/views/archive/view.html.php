@@ -37,9 +37,7 @@ class SermonspeakerViewArchive extends JView
 		// Add filter to pagination
 		$pagination->setAdditionalUrlParam('view', 'archive');
 		$pagination->setAdditionalUrlParam('year', $state->get('date.year'));
-		if($state->get('date.month')){
-			$pagination->setAdditionalUrlParam('month', $state->get('date.month'));
-		}
+		$pagination->setAdditionalUrlParam('month', $state->get('date.month'));
 
 		// Get the category name(s)
 		if($state->get('sermons_category.id') || $state->get('speakers_category.id') || $state->get('series_category.id')){
