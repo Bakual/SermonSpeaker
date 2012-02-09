@@ -8,6 +8,7 @@ abstract class modSermonspeakerHelper
 	{
 		// Collect params
 		$mode	= (int)$params->get('mode');
+		$cat_id	= (int)$params->get('cat');
 
 		$db		= JFactory::getDbo();
 		$query	= $db->getQuery(true);
@@ -21,6 +22,9 @@ abstract class modSermonspeakerHelper
 			$query->order('name ASC'); // Add param here: ordering / name
 		}
 		$query->where('state = 1');
+		if ($cat_id){
+			$query->where('catid = '.$cat_id);
+		}
 		$db->setQuery($query);
 		$items	= $db->loadObjectList();
 

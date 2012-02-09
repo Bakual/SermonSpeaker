@@ -43,6 +43,11 @@
 					description="MOD_SERMONSPEAKER_PARAM_MENUITEM_DESC" 
 					state="1"
 				/>
+				<field name="cat" type="category" 
+					label="JCATEGORY" 
+					description="MOD_SERMONSPEAKER_PARAM_CATEGORY_DESC"
+					extension="com_sermonspeaker" 
+					show_root="true" />			
 			</fieldset>
 			<fieldset name="advanced">
 				<field name="layout" type="modulelayout"
