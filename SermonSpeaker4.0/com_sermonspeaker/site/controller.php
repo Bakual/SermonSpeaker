@@ -15,6 +15,8 @@ class SermonspeakerController extends JController
 
 		$viewName	= JRequest::getCmd('view', $this->default_view);
 		if ($viewName == 'speaker'){
+			$viewLayout = JRequest::getCmd('layout', 'default');
+			$view = $this->getView($viewName, 'html', '', array('base_path' => $this->basePath, 'layout' => $viewLayout));
 			$view = &$this->getView('speaker', 'html');
 			$view->setModel($this->getModel('series'));
 			$view->setModel($this->getModel('sermons'));
