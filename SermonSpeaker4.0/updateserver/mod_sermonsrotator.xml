@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<updates>
+	<update>
+		<name>SermonSpeaker Sermons Rotator</name>
+		<description>SermonSpeaker Sermons Rotator Module 4.3</description>
+		<element>mod_sermonarchive</element>
+		<type>module</type>
+		<version>4.3.1</version>
+		<infourl title="SermonSpeaker Homepage">http://www.sermonspeaker.net</infourl>
+		<downloads>
+			<downloadurl type="full" format="zip">http://www.sermonspeaker.net/files/SermonSpeaker4/Modules/mod_sermonsrotator431.zip</downloadurl>
+		</downloads>
+		<maintainer> Andrei Chernyshev</maintainer>
+		<targetplatform name="joomla" version="1.7" />
+		<tags>
+			<tag>SermonSpeaker</tag>
+		</tags>
+		<section>SermonSpeaker</section>
+	</update>
+	<update>
+		<name>SermonSpeaker Sermons Rotator</name>
+		<description>SermonSpeaker Sermons Rotator Module 4.3</description>
+		<element>mod_sermonarchive</element>
+		<type>module</type>
+		<version>4.3.1</version>
+		<infourl title="SermonSpeaker Homepage">http://www.sermonspeaker.net</infourl>
+		<downloads>
+			<downloadurl type="full" format="zip">http://www.sermonspeaker.net/files/SermonSpeaker4/Modules/mod_sermonsrotator431.zip</downloadurl>
+		</downloads>
+		<maintainer> Andrei Chernyshev</maintainer>
+		<targetplatform name="joomla" version="1.7" />
+		<tags>
+			<tag>SermonSpeaker</tag>
+		</tags>
+		<section>SermonSpeaker</section>
+	</update>
+</updates>
