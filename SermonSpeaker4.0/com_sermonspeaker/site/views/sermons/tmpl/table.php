@@ -59,8 +59,8 @@ if (in_array('sermons:player', $this->columns) && count($this->items)) : ?>
 	<?php endif;
 	if ($this->params->get('filter_field')) : ?>
 		</fieldset>
-	<?php endif; ?>
-	<?php if (!count($this->items)) : ?>
+	<?php endif;
+	if (!count($this->items)) : ?>
 		<div class="no_entries"><?php echo JText::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', JText::_('COM_SERMONSPEAKER_SERMONS')); ?></div>
 	<?php else : ?>
 		<table class="category">

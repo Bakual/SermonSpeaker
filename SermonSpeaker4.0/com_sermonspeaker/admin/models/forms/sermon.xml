@@ -89,8 +89,9 @@
 		<field name="created_by" type="user"
 			label="JGLOBAL_FIELD_CREATED_BY_LABEL" description="JGLOBAL_FIELD_CREATED_BY_DESC" />
 
-		<field name="created" type="text" class="readonly"
+		<field name="created" type="calendar" class="readonly"
 			label="JGLOBAL_FIELD_CREATED_LABEL" description="JGLOBAL_FIELD_CREATED_DESC"
+			format="%Y-%m-%d %H:%M:%S" filter="user_utc"
 			readonly="true" />
 
 		<field name="hits" type="hits" class="readonly"
@@ -105,7 +106,7 @@
 
 		<field name="sermon_date" type="calendar"
 			label="COM_SERMONSPEAKER_FIELD_DATE_LABEL" description="COM_SERMONSPEAKER_FIELD_DATE_DESC"
-			class="inputbox" size="25" format="%Y-%m-%d %H:%M:%S" />
+			class="inputbox" size="25" format="%Y-%m-%d %H:%M:%S" filter="user_utc" />
 
 		<field name="sermon_time"  type="text" class="inputbox"
 			label="COM_SERMONSPEAKER_FIELD_LENGTH_LABEL" description ="COM_SERMONSPEAKER_FIELD_LENGTH_DESC"

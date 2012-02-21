@@ -53,8 +53,9 @@
 		<field name="created_by" type="user"
 			label="JGLOBAL_FIELD_CREATED_BY_LABEL" description="JGLOBAL_FIELD_CREATED_BY_DESC" />
 
-		<field name="created" type="text" class="readonly"
+		<field name="created" type="calendar" class="readonly"
 			label="JGLOBAL_FIELD_CREATED_LABEL" description="JGLOBAL_FIELD_CREATED_DESC"
+			format="%Y-%m-%d %H:%M:%S" filter="user_utc"
 			readonly="true" />
 
 		<field name="hits" type="hits" class="readonly"

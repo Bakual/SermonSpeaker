@@ -114,7 +114,7 @@ class SermonspeakerViewFeed extends JView
 			$item->title	= $this->make_xml_safe($row->sermon_title);
 			$item->link		= $item_link; // todo: maybe make this link with JRoute to have a SEF link
 			$item->guid		= $item_link;
-			$item->date		= JHTML::Date($row->sermon_date, 'r', 'UTC');
+			$item->date		= JHTML::Date($row->sermon_date, 'r', true);
 			$item->author 	= '<dc:creator>'.$this->make_xml_safe($row->name).'</dc:creator>'; // todo: maybe add email of speaker if present (not yet in database), format is emailadress (name) and then use author instead
 			$item->category = $this->make_xml_safe($row->series_title); // using the series title as an item category
 
