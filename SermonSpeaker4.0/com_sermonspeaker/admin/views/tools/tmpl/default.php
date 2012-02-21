@@ -28,6 +28,12 @@ $session	= JFactory::getSession();
 					<span><?php echo JText::_('COM_SERMONSPEAKER_TOOLS_FIND'); ?></span>
 				</a>
 			</div>
+			<div class="icon">
+				<a class="modal" href="index.php?option=com_sermonspeaker&view=tools&layout=time&tmpl=component" rel="{handler: 'iframe', size: {x: 300, y: 150}}">
+					<img border="0" align="middle" alt="<?php echo JText::_('COM_SERMONSPEAKER_TOOLS_TIME'); ?>" src="<?php echo JURI::base()."components/com_sermonspeaker/images/clock.png"; ?>"/>
+					<span><?php echo JText::_('COM_SERMONSPEAKER_TOOLS_TIME'); ?></span>
+				</a>
+			</div>
 			<?php if($this->pi): ?>
 				<div class="icon">
 					<a href="index.php?option=com_sermonspeaker&task=tools.piimport&<?php echo $session->getName().'='.$session->getId().'&'.JUtility::getToken(); ?>=1">

@@ -300,4 +300,18 @@ class SermonspeakerControllerTools extends JController
 		$app->redirect('index.php?option=com_sermonspeaker&view=tools');
 		return;
 	}
+
+	// Function to adjust the sermon time
+	public function time(){
+		// Check for request forgeries
+		JRequest::checkToken('request') or jexit(JText::_('JINVALID_TOKEN'));
+		$app	= JFactory::getApplication();
+		$db		=& JFactory::getDBO();
+		$mode	= JRequest::getCmd('mode');
+
+		$app->enqueueMessage('time adjusted!'.$mode);
+
+		$app->redirect('index.php?option=com_sermonspeaker&view=tools');
+		return;
+	}
 }
