@@ -307,9 +307,45 @@ class SermonspeakerControllerTools extends JController
 		JRequest::checkToken('request') or jexit(JText::_('JINVALID_TOKEN'));
 		$app	= JFactory::getApplication();
 		$db		=& JFactory::getDBO();
-		$mode	= JRequest::getCmd('mode');
+		$mode	= JRequest::getVar('submit');
 
-		$app->enqueueMessage('time adjusted!'.$mode);
+		if(isset($mode['diff'])){
+			$diff	= JRequest::getFloat('diff');
+			$mins	= abs(($diff - intval($diff))*60);
+			$hrs	= abs(intval($diff));
+			$minus	= ($diff < 0) ? '-' : '';
+			$query	= "UPDATE #__sermon_sermons \n"
+					."SET sermon_date = DATE_ADD(sermon_date, INTERVAL '".$minus.$hrs.":".$mins."' HOUR_MINUTE) \n"
+					."WHERE sermon_date != '0000-00-00 00:00:00'";
+			$db->setQuery($query);
+			$db->query();
+			if ($db->getErrorMsg()){
+				$app->enqueueMessage($db->getErrorMsg(), 'error');
+			} else {
+				if ($minus){
+					$app->enqueueMessage('Successfully substracted '.$hrs.' hours and '.$mins.' minutes from the sermon date!');
+				} else {
+					$app->enqueueMessage('Successfully added '.$hrs.' hours and '.$mins.' minutes to the sermon date!');
+				}
+			}
+		} elseif (isset($mode['time'])){
+			$time	= JRequest::getString('time');
+			$config = JFactory::getConfig();
+			$user	= JFactory::getUser();
+			$date	= JFactory::getDate($time, $user->getParam('timezone', $config->get('offset')));
+			$date->setTimeZone(new DateTimeZone('UTC'));
+			$t_utc	= $date->format('H:i:s', true);
+			$query	= "UPDATE #__sermon_sermons \n"
+					."SET sermon_date = CONCAT(DATE(sermon_date), ' ".$t_utc."') \n"
+					."WHERE sermon_date != '0000-00-00 00:00:00'";
+			$db->setQuery($query);
+			$db->query();
+			if ($db->getErrorMsg()){
+				$app->enqueueMessage($db->getErrorMsg(), 'error');
+			} else {
+				$app->enqueueMessage('Successfully set time to '.$t_utc.' for each sermon date!');
+			}
+		}
 
 		$app->redirect('index.php?option=com_sermonspeaker&view=tools');
 		return;
