@@ -12,7 +12,7 @@ $player = new SermonspeakerHelperPlayer($this->item);
 <div class="ss-sermondetail-container">
 	<?php if (in_array('sermon:date', $this->columns)) : ?>
 		<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL'); ?>:</div>
-		<div class="ss-sermondetail-text"><?php echo JHTML::Date($this->item->sermon_date, JText::_($this->params->get('date_format')), 'UTC'); ?></div>
+		<div class="ss-sermondetail-text"><?php echo JHTML::Date($this->item->sermon_date, JText::_($this->params->get('date_format')), true); ?></div>
 	<?php endif;
 	if (in_array('sermon:scripture', $this->columns) && $this->item->sermon_scripture) : ?>
 		<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL'); ?>:</div>

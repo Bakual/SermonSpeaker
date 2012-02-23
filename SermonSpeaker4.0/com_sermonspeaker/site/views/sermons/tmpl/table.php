@@ -174,7 +174,7 @@ if (in_array('sermons:player', $this->columns) && count($this->items)) : ?>
 						<?php endif;
 						if (in_array('sermons:date', $this->columns)) : ?>
 							<td class="ss-col ss-date">
-								<?php echo JHTML::date($item->sermon_date, JText::_($this->params->get('date_format')), 'UTC'); ?>
+								<?php echo JHTML::date($item->sermon_date, JText::_($this->params->get('date_format')), true); ?>
 							</td>
 						<?php endif;
 						if (in_array('sermons:length', $this->columns)) : ?>

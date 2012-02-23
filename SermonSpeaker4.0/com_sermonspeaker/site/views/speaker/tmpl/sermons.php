@@ -153,7 +153,7 @@ $player = new SermonspeakerHelperPlayer($this->sermons);
 						<?php endif;
 						if (in_array('speaker:date', $this->col_sermon)) : ?>
 							<td class="ss-col ss-date">
-								<?php echo JHTML::date($item->sermon_date, JText::_($this->params->get('date_format')), 'UTC'); ?>
+								<?php echo JHTML::date($item->sermon_date, JText::_($this->params->get('date_format')), true); ?>
 							</td>
 						<?php endif;
 						if (in_array('speaker:length', $this->col_sermon)) : ?>

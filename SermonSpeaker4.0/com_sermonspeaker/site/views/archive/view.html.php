@@ -54,7 +54,7 @@ class SermonspeakerViewArchive extends JView
 			$date = $state->get('date.year').'-01-15';
 			$date_format = 'Y';
 		}
-		$range = JText::sprintf('COM_SERMONSPEAKER_ARCHIVE_RANGE', JHTML::Date($date, $date_format, 'UTC'));
+		$range = JText::sprintf('COM_SERMONSPEAKER_ARCHIVE_RANGE', JHTML::Date($date, $date_format, true));
 
 		// Check for errors.
 		if (count($errors = $this->get('Errors'))) {

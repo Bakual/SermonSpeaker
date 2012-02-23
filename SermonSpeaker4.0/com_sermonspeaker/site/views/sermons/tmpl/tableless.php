@@ -87,7 +87,7 @@ if (in_array('sermons:player', $this->columns) && count($this->items)) : ?>
 				if (in_array('sermons:date', $this->columns)) : ?>
 					<dd class="create">
 						<?php echo JText::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL'); ?>:
-						<?php echo JHTML::Date($item->sermon_date, JText::_($this->params->get('date_format')), 'UTC'); ?>
+						<?php echo JHTML::Date($item->sermon_date, JText::_($this->params->get('date_format')), true); ?>
 					</dd>
 				<?php endif;
 				if (in_array('sermons:speaker', $this->columns) && $item->name) : ?>

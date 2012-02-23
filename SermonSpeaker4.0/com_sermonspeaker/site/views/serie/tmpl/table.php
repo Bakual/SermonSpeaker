@@ -163,7 +163,7 @@ if (in_array('serie:player', $this->columns) && count($this->items)) : ?>
 						<?php endif;
 						if (in_array('serie:date', $this->columns)) : ?>
 							<td class="ss-col ss-date">
-								<?php echo JHTML::Date($item->sermon_date, JText::_($this->params->get('date_format')), 'UTC'); ?>
+								<?php echo JHTML::Date($item->sermon_date, JText::_($this->params->get('date_format')), true); ?>
 							</td>
 						<?php endif;
 						if (in_array('serie:length', $this->columns)) : ?>

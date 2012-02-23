@@ -284,7 +284,7 @@ class SermonspeakerHelperPlayer {
 				$entry[]	= 'title: "'.addslashes($temp_item->sermon_title).'"';
 				$desc = array();
 				if ($temp_item->sermon_date){
-					$desc[] = JText::_('JDATE').': '.JHTML::Date($temp_item->sermon_date, JText::_($this->params->get('date_format')), 'UTC');
+					$desc[] = JText::_('JDATE').': '.JHTML::Date($temp_item->sermon_date, JText::_($this->params->get('date_format')), true);
 				}
 				if ($temp_item->name){
 					$desc[] = JText::_('COM_SERMONSPEAKER_SPEAKER').': '.addslashes($temp_item->name);
@@ -491,7 +491,7 @@ class SermonspeakerHelperPlayer {
 				}
 				$desc = array();
 				if ($temp_item->sermon_date){
-					$desc[] = JText::_('JDATE').': '.JHTML::Date($temp_item->sermon_date, JText::_($this->params->get('date_format')), 'UTC');
+					$desc[] = JText::_('JDATE').': '.JHTML::Date($temp_item->sermon_date, JText::_($this->params->get('date_format')), true);
 				}
 				if ($temp_item->name){
 					$desc[] = JText::_('COM_SERMONSPEAKER_SPEAKER').': '.addslashes($temp_item->name);

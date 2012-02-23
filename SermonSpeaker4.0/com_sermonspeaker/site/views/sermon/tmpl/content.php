@@ -26,7 +26,7 @@ $player = new SermonspeakerHelperPlayer($this->item);
 if (in_array('sermon:date', $this->columns)) : ?>
 	<dd class="create">
 		<?php echo JText::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL'); ?>:
-		<?php echo JHTML::Date($this->item->sermon_date, JText::_($this->params->get('date_format')), 'UTC'); ?>
+		<?php echo JHTML::Date($this->item->sermon_date, JText::_($this->params->get('date_format')), true); ?>
 	</dd>
 <?php endif;
 if (in_array('sermon:speaker', $this->columns) && $this->item->speaker_id) : ?>
