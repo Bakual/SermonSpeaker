@@ -1,5 +1,5 @@
-.clr{
-	clear:both;
+.intend{
+	margin-left:13em;
 }
 .ss-hide{
 	display:none;
@@ -7,40 +7,6 @@
 .pointer{
 	cursor:pointer;
 }
-#ss-frup-form br{
-	clear:left;
-}
-#ss-frup-form label, #ss-frup-form .label {
-	float:left;
-	width:9em;
-	text-align:right;
-	margin-right:0.5em;
-}
-#ss-frup-form input, #ss-frup-form select {
-	margin-bottom:5px;
-}
-#ss-frup-form select {
-	min-width:10em;
-}
-#editor-xtd-buttons, #ss-frup-form textarea, #ss-frup-form .intend{
-	margin-left:9.6em;
-}
-#ss-frup-form .submit{
-	margin-left:9em;
-}
-#ss-frup-form .radio label{
-	margin-left:0.5em;
-	margin-right:1em;
-	width:auto;
-}
-#ss-frup-form .radio input{
-	margin-left:0.5em;
-	float:left;
-}
-#ss-frup-form input.radio {
-	margin-left:0.5em;
-}
-
 #upload-noflash{
 	border:1px solid grey;
 	padding:5px;
