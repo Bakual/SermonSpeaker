@@ -103,7 +103,7 @@ endif; ?>
 			<?php endif; ?>
 		</div>
 	<?php endif;
-	if ($this->params->get('dl_button') && ($player->status)) : ?>
+	if (in_array('sermon:download', $this->columns) && ($player->status)) : ?>
 		<span><?php echo SermonspeakerHelperSermonspeaker::insertdlbutton($this->item->slug, $player->status); ?></span>
 	<?php endif;
 	if ($this->params->get('popup_player') && $player->file) : ?>

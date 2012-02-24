@@ -141,6 +141,16 @@ if (in_array('sermons:player', $this->columns) && count($this->items)) : ?>
 					<div>
 						<?php echo JHTML::_('content.prepare', $item->notes); ?>
 					</div>
+				<?php endif;
+				if (in_array('sermons:download', $this->columns)) : ?>
+					<div class="ss-dl">
+						<?php if ($item->audiofile):
+							echo SermonspeakerHelperSermonspeaker::insertdlbutton($item->slug, 'audio', 0);
+						endif;
+						if ($item->videofile):
+							echo SermonspeakerHelperSermonspeaker::insertdlbutton($item->slug, 'video', 0);
+						endif; ?>
+					</div>
 				<?php endif; ?>
 			</div>
 			<hr class="ss-sermons-player" style="clear:both" />

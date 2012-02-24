@@ -11,7 +11,7 @@ $listDirn	= $this->state_series->get('list.direction');
 <?php endif; ?>
 <h2><a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($this->item->slug)); ?>"><?php echo $this->item->name; ?></a></h2>
 <?php if (in_array('speaker:hits', $this->columns)): ?>
-	<dl class="article-info">
+	<dl class="article-info speaker-info">
 	<dt class="article-info-term"><?php  echo JText::_('JDETAILS'); ?></dt>
 	<?php if (in_array('serie:hits', $this->columns)): ?>
 		<dd class="hits">

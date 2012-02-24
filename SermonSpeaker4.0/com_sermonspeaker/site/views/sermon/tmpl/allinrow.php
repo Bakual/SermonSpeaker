@@ -55,7 +55,7 @@ $player = new SermonspeakerHelperPlayer($this->item);
 	</tr>
 </table>
 <div style="float:left;">
-	<?php if ($this->params->get('dl_button') && $player->file) :
+	<?php if (in_array('sermon:download', $this->columns) && $player->file) :
 		echo SermonspeakerHelperSermonspeaker::insertdlbutton($this->item->slug, $player->status);
 	endif; ?>
 </div>

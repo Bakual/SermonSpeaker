@@ -156,3 +156,6 @@ dl.sermon-info{
 	float:left;
 	max-width:50%;
 }
+div.ss-dl input{
+	margin:5px 5px 0 0;
+}

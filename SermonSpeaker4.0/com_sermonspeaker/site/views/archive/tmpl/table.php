@@ -118,6 +118,10 @@ if ($this->cat): ?>
 					<th class="ss-col ss-hits">
 						<?php echo JHTML::_('grid.sort', 'JGLOBAL_HITS', 'hits', $listDirn, $listOrder); ?>
 					</th>
+				<?php endif;
+				if (in_array('archive:download', $this->columns)) : 
+					$prio	= $this->params->get('fileprio'); ?>
+					<th class="ss-col ss-dl"></th>
 				<?php endif; ?>
 			</tr></thead>
 		<!-- Begin Data -->
@@ -175,6 +179,12 @@ if ($this->cat): ?>
 						if (in_array('archive:hits', $this->columns)) : ?>
 							<td class="ss-col ss-hits">
 								<?php echo $item->hits; ?>
+							</td>
+						<?php endif;
+						if (in_array('archive:download', $this->columns)) : 
+							$file = ($item->videofile && ($prio || !$item->audiofile)) ? 'video' : 'audio'; ?>
+							<td class="ss-col ss-dl">
+								<?php echo SermonspeakerHelperSermonspeaker::insertdlbutton($item->slug, $file, 1); ?>
 							</td>
 						<?php endif; ?>
 					</tr>

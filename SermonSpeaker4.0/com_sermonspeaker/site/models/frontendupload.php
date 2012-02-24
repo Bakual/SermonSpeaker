@@ -149,7 +149,7 @@ class SermonspeakerModelFrontendupload extends JModelAdmin
 				JError::raiseNotice(100, JText::_('COM_SERMONSPEAKER_ERROR_ID3'));
 			}
 			if (!$data->sermon_date){
-				$data->sermon_date = JHTML::Date('', 'Y-m-d H:m:s', 'UTC');
+				$data->sermon_date = JHTML::Date('', 'Y-m-d H:m:s', true);
 			}
 		}
 		return $data;

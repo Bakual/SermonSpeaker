@@ -39,34 +39,42 @@ if (empty($this->items)) : ?>
 			<?php endif; ?>
 		</div>
 		<div style="margin-left:10%;">
-			<?php foreach($sermons as $sermon) { 
+			<?php foreach($sermons as $sermon) : 
 				$config['count'] ++;?>
 				<h4 style="margin-left:-5%;">
-					<?php echo $this->escape($sermon->sermon_title);
-					if (in_array('seriessermon:date', $this->columns)):
-						echo ' ('.JHTML::Date($sermon->sermon_date, JText::_($this->params->get('date_format')), true).')';
-					endif; ?>
+					<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonRoute($sermon->slug)); ?>">
+						<?php echo $this->escape($sermon->sermon_title);
+						if (in_array('seriessermon:date', $this->columns)):
+							echo ' ('.JHTML::Date($sermon->sermon_date, JText::_($this->params->get('date_format')), true).')';
+						endif; ?>
+					</a>
 				</h4>
 				<?php if (in_array('seriessermon:notes', $this->columns)): ?>
 				<div>
 					<?php echo $sermon->notes; ?>
 				</div>
 				<?php endif;
-				if ($sermon->addfile && $sermon->addfileDesc && in_array('seriessermon:addfile', $this->columns)):
-					echo '<b>'.JText::_('COM_SERMONSPEAKER_ADDFILE').' : </b>';
-					echo SermonspeakerHelperSermonspeaker::insertAddfile($sermon->addfile, $sermon->addfileDesc);
-					echo "<br />\n";
-				endif;
-				$lnk = SermonspeakerHelperSermonspeaker::makelink($sermon->audiofile); 
+				if ($sermon->addfile && $sermon->addfileDesc && in_array('seriessermon:addfile', $this->columns)): ?>
+					<b><?php echo JText::_('COM_SERMONSPEAKER_ADDFILE'); ?> : </b>
+					<?php echo SermonspeakerHelperSermonspeaker::insertAddfile($sermon->addfile, $sermon->addfileDesc); ?>
+					<br />
+				<?php endif;
 				if (in_array('seriessermon:player', $this->columns)):
 					$player = new SermonspeakerHelperPlayer($sermon, $config);
 					echo $player->mspace;
 					echo $player->script;
-				else :
-					// if player is disabled show a link
-					echo JText::_('COM_SERMONSPEAKER_DIRECTLINK_HOOVER').': <a title="'.JText::_('COM_SERMONSPEAKER_DIRECTLINK_HOOVER').'" href="'.$lnk.'">'.$this->escape($sermon->sermon_title).'</a>';
-				endif; ?>
-			<?php } ?>
+				endif;
+				if (in_array('seriessermon:download', $this->columns)) : ?>
+					<div class="ss-dl">
+						<?php if ($sermon->audiofile):
+							echo SermonspeakerHelperSermonspeaker::insertdlbutton($sermon->slug, 'audio');
+						endif;
+						if ($sermon->videofile):
+							echo SermonspeakerHelperSermonspeaker::insertdlbutton($sermon->slug, 'video');
+						endif; ?>
+					</div>
+				<?php endif;
+			endforeach; ?>
 		</div>
 		<br style="clear:both;" />
 		<hr size="2" width="100%" />

@@ -5,7 +5,7 @@ JHTML::_('behavior.modal');
 $listOrder	= $this->state->get('list.ordering');
 $listDirn	= $this->state->get('list.direction');
 $limit 		= (int)$this->params->get('limit', '');
-$player = new SermonspeakerHelperPlayer($this->items);
+$player	= new SermonspeakerHelperPlayer($this->items);
 ?>
 <div class="ss-sermons-container<?php echo htmlspecialchars($this->params->get('pageclass_sfx')); ?>">
 <?php if ($this->params->get('show_page_heading', 1)) : ?>
@@ -144,6 +144,10 @@ if (in_array('sermons:player', $this->columns) && count($this->items)) : ?>
 							echo JText::_('JGLOBAL_HITS');
 						endif; ?>
 					</th>
+				<?php endif;
+				if (in_array('sermons:download', $this->columns)) : 
+					$prio	= $this->params->get('fileprio'); ?>
+					<th class="ss-col ss-dl"></th>
 				<?php endif; ?>
 			</tr></thead>
 		<!-- Begin Data -->
@@ -201,6 +205,12 @@ if (in_array('sermons:player', $this->columns) && count($this->items)) : ?>
 						if (in_array('sermons:hits', $this->columns)) : ?>
 							<td class="ss-col ss-hits">
 								<?php echo $item->hits; ?>
+							</td>
+						<?php endif;
+						if (in_array('sermons:download', $this->columns)) : 
+							$file = ($item->videofile && ($prio || !$item->audiofile)) ? 'video' : 'audio'; ?>
+							<td class="ss-col ss-dl">
+								<?php echo SermonspeakerHelperSermonspeaker::insertdlbutton($item->slug, $file, 1); ?>
 							</td>
 						<?php endif; ?>
 					</tr>

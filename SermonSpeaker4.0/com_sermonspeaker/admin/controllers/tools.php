@@ -343,7 +343,7 @@ class SermonspeakerControllerTools extends JController
 			if ($db->getErrorMsg()){
 				$app->enqueueMessage($db->getErrorMsg(), 'error');
 			} else {
-				$app->enqueueMessage('Successfully set time to '.$t_utc.' for each sermon date!');
+				$app->enqueueMessage('Successfully set time to '.$time.' for each sermon date!');
 			}
 		}
 

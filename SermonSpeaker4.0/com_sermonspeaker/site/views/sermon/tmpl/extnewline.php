@@ -83,7 +83,7 @@ $player = new SermonspeakerHelperPlayer($this->item);
 		<div class="ss-sermondetail-label"></div>
 		<div class="ss-sermondetail-text"><?php echo SermonspeakerHelperSermonspeaker::insertPopupButton($this->item->id, $player); ?></div>
 	<?php endif;
-	if ($this->params->get('dl_button') && $player->file) : ?>
+	if (in_array('sermon:download', $this->columns) && $player->file) : ?>
 		<div class="ss-sermondetail-label"></div>
 		<div class="ss-sermondetail-text"><?php echo SermonspeakerHelperSermonspeaker::insertdlbutton($this->item->slug, $player->status); ?></div>
 	<?php endif;

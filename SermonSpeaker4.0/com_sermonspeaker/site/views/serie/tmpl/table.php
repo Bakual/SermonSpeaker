@@ -12,7 +12,7 @@ $player = new SermonspeakerHelperPlayer($this->items);
 <?php endif; ?>
 <h2><a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($this->serie->slug)); ?>"><?php echo $this->serie->series_title; ?></a></h2>
 <?php if ($this->cat || in_array('serie:hits', $this->col_serie)): ?>
-	<dl class="article-info">
+	<dl class="article-info serie-info">
 	<dt class="article-info-term"><?php  echo JText::_('JDETAILS'); ?></dt>
 	<?php if ($this->cat): ?>
 		<dd class="category-name">
@@ -133,8 +133,12 @@ if (in_array('serie:player', $this->columns) && count($this->items)) : ?>
 					<th class="ss-col ss-hits">
 						<?php echo JHTML::_('grid.sort', 'JGLOBAL_HITS', 'hits', $listDirn, $listOrder); ?>
 					</th>
+				<?php endif;
+				if (in_array('serie:download', $this->columns)) : 
+					$prio	= $this->params->get('fileprio'); ?>
+					<th class="ss-col ss-dl"></th>
 				<?php endif; ?>
-			</tr></thead>
+		</tr></thead>
 		<!-- Begin Data -->
 			<tbody>
 				<?php foreach($this->items as $i => $item) : ?>
@@ -179,6 +183,12 @@ if (in_array('serie:player', $this->columns) && count($this->items)) : ?>
 						if (in_array('serie:hits', $this->columns)) : ?>
 							<td class="ss-col ss-hits">
 								<?php echo $item->hits; ?>
+							</td>
+						<?php endif;
+						if (in_array('serie:download', $this->columns)) : 
+							$file = ($item->videofile && ($prio || !$item->audiofile)) ? 'video' : 'audio'; ?>
+							<td class="ss-col ss-dl">
+								<?php echo SermonspeakerHelperSermonspeaker::insertdlbutton($item->slug, $file, 1); ?>
 							</td>
 						<?php endif; ?>
 					</tr>

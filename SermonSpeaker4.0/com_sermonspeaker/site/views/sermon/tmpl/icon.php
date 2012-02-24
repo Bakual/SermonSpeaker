@@ -24,18 +24,18 @@ $player = new SermonspeakerHelperPlayer($this->item, $config);
 					echo $player->script;
 				endif; ?>
 			</div>
-		<?php endif; ?>
-		<?php if ($this->params->get('popup_player') || $this->params->get('dl_button')) : ?>
+		<?php endif;
+		if ($this->params->get('popup_player') || in_array('sermon:download', $this->columns)) : ?>
 			<div class="ss-mp3-links">
 			<?php if ($this->params->get('popup_player')) : ?>
 				<a href="<?php echo JURI::current(); ?>" class="new-window" onclick="popup = window.open('<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonRoute($this->item->slug).'&layout=popup&tmpl=component'); ?>', 'PopupPage', 'height=<?php echo $player->popup['height']; ?>,width=<?php echo $player->popup['width']; ?>,scrollbars=yes,resizable=yes'); return false">
 					<?php echo JText::_('COM_SERMONSPEAKER_POPUPPLAYER'); ?>
 				</a>
 			<?php endif;
-			if ($this->params->get('popup_player') && $this->params->get('dl_button')) : ?>
+			if ($this->params->get('popup_player') && in_array('sermon:download', $this->columns)) : ?>
 				<br />
 			<?php endif;
-			if ($this->params->get('dl_button')) : ?>
+			if (in_array('sermon:download', $this->columns)) : ?>
 				<a id="sermon_download" href="<?php echo JRoute::_('index.php?task=download&id='.$this->item->slug.'&type='.$player->status); ?>" class="download">
 					<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_AUDIO'); ?>
 				</a>

@@ -177,7 +177,7 @@
 		<field name="col" type="columns"
 			label="COM_SERMONSPEAKER_SERMON" 
 			description="COM_SERMONSPEAKER_FIELD_COL_DESC"
-			cols="num,scripture,speaker,date,length,series,addfile,notes,player,hits" >
+			cols="num,scripture,speaker,date,length,series,addfile,notes,player,hits,download" >
 			<option value="sermons" exclude="notes">COM_SERMONSPEAKER_SERMONS_VIEW_TITLE</option>
 			<option value="sermon">COM_SERMONSPEAKER_SERMON_VIEW_TITLE</option>
 			<option value="serie" exclude="series,notes">COM_SERMONSPEAKER_SERIE_VIEW_TITLE</option>
@@ -354,14 +354,6 @@
 	<fieldset name="detailpage"
 		label="COM_SERMONSPEAKER_FIELDSET_DETAILPAGE_LABEL"
 		description="COM_SERMONSPEAKER_FIELDSET_DETAILPAGE_DESC">
-		<field name="dl_button" 
-			type="radio" 
-			default="1" 
-			label="COM_SERMONSPEAKER_PARAM_DOWNLOADBTN" 
-			description="COM_SERMONSPEAKER_PARAM_DOWNLOADBTN_DESC">
-			<option value="0">JNO</option>
-			<option value="1">JYES</option>
-		</field>
 		<field name="popup_player" 
 			type="radio" 
 			default="1" 

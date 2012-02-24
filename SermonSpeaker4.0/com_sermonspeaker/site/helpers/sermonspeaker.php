@@ -62,9 +62,15 @@ class SermonspeakerHelperSermonspeaker
 		return $link;
 	}
 
-	function insertdlbutton($id, $type='audio') {
+	function insertdlbutton($id, $type='audio', $mode='0') {
 		$fileurl = JRoute::_('index.php?task=download&id='.$id.'&type='.$type);
-		$html = '<input id="sermon_download" class="button download_btn" type="button" value="'.JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_'.$type).'" onclick="window.location.href=\''.$fileurl.'\'" />';
+		if ($mode){
+			$html = '<a href="'.$fileurl.'" target="_new" title="'.JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_'.$type).'">'
+						.'<img src="media/com_sermonspeaker/images/download.png" alt="'.JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_'.$type).'" />'
+					.'</a>';
+		} else {
+			$html = '<input id="sermon_download" class="button download_btn" type="button" value="'.JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_'.$type).'" onclick="window.location.href=\''.$fileurl.'\'" />';
+		}
 
 		return $html;
 	}
