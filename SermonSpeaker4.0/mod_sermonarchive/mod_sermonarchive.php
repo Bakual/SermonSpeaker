@@ -31,10 +31,10 @@ if(count($rows)) { ?>
 		$text_m		= NULL;
 		if ($switch){
 			$request_m	= '&amp;month='.$row->created_month;
-			$text_m		= JHTML::Date($row->sermon_date, 'F', 'UTC').', ';
+			$text_m		= JHTML::Date($row->sermon_date, 'F', true).', ';
 		}
 		$link = JRoute::_('index.php?option=com_sermonspeaker&amp;view=archive&amp;year='.$row->created_year.$request_m.'&amp;Itemid='.$ss_itemid);
-		$text = $text_m.JHTML::Date($row->sermon_date, 'Y', 'UTC');
+		$text = $text_m.JHTML::Date($row->sermon_date, 'Y', true);
 		?>
 		<li><a href="<?php echo $link; ?>"><?php echo $text; ?></a></li>
 		<?php
