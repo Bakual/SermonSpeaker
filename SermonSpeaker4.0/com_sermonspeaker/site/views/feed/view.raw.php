@@ -126,7 +126,11 @@ class SermonspeakerViewFeed extends JView
 			} else {
 				$item->itSubtitle 	= $item_notes_short;
 			}
-			$item->itSummary 	= $item_notes;
+			if (strlen($item_notes) > 4000){
+				$item->itSummary = mb_substr($item_notes, 0, 3997, 'UTF-8').'...';
+			} else {
+				$item->itSummary = $item_notes;
+			}
 			if ($row->picture){
 				if(substr($row->picture, 0, 1) == '/' ) {
 					$row->picture = substr($row->picture, 1);
