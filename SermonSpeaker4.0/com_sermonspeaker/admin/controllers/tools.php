@@ -172,19 +172,19 @@ class SermonspeakerControllerTools extends JController
 		$query->join('LEFT', '#__piteachers AS c ON c.id = a.teacher');
 		// Join over the audio path.
 		$query->select("IF (d.server != '', CONCAT('http://', CONCAT_WS('/', d.server, d.folder, a.audio_link)), "
-					."IF (LEFT(d.folder, 7) = 'http://', CONCAT(d.folder, '/', a.audio_link), CONCAT('/', d.folder, ,'/', a.audio_link))) AS audiofile");
+					."IF (LEFT(d.folder, 7) = 'http://', CONCAT(d.folder, '/', a.audio_link), CONCAT('/', d.folder, '/', a.audio_link))) AS audiofile");
 		$query->join('LEFT', '#__pifilepath AS d ON d.id = a.audio_folder');
 		// Join over the video path.
 		$query->select("IF (e.server != '', CONCAT('http://', CONCAT_WS('/', e.server, e.folder, a.video_link)), "
-					."IF (LEFT(e.folder, 7) = 'http://', CONCAT(e.folder, '/', a.video_link), CONCAT('/', e.folder, ,'/', a.video_link))) AS videofile");
+					."IF (LEFT(e.folder, 7) = 'http://', CONCAT(e.folder, '/', a.video_link), CONCAT('/', e.folder, '/', a.video_link))) AS videofile");
 		$query->join('LEFT', '#__pifilepath AS e ON e.id = a.video_folder');
 		// Join over the study pic path.
 		$query->select("IF (f.server != '', CONCAT('http://', CONCAT_WS('/', f.server, f.folder, a.imagelrg)), "
-					."IF (LEFT(f.folder, 7) = 'http://', CONCAT(f.folder, '/', a.imagelrg), CONCAT('/', f.folder, ,'/', a.imagelrg))) AS study_pic");
+					."IF (LEFT(f.folder, 7) = 'http://', CONCAT(f.folder, '/', a.imagelrg), CONCAT('/', f.folder, '/', a.imagelrg))) AS study_pic");
 		$query->join('LEFT', '#__pifilepath AS f ON f.id = a.image_folderlrg');
 		// Join over the study notes path.
 		$query->select("IF (g.server != '', CONCAT('http://', CONCAT_WS('/', g.server, g.folder, a.notes_link)), "
-					."IF (LEFT(g.folder, 7) = 'http://', CONCAT(g.folder, '/', a.notes_link), CONCAT('/', g.folder, ,'/', a.notes_link))) AS addfile");
+					."IF (LEFT(g.folder, 7) = 'http://', CONCAT(g.folder, '/', a.notes_link), CONCAT('/', g.folder, '/', a.notes_link))) AS addfile");
 		$query->join('LEFT', '#__pifilepath AS g ON g.id = a.notes_folder');
 		// Join over the study book 1.
 		$query->select('j.display_name AS book1, j.shortform AS book_short1');
@@ -194,13 +194,16 @@ class SermonspeakerControllerTools extends JController
 		$query->join('LEFT', '#__pibooks AS k ON k.id = a.study_book2');
 		$db->setQuery($query);
 		$studies	= $db->loadObjectList();
+		if ($db->getErrorMsg()){
+			$app->enqueueMessage($db->getErrorMsg(), 'error');
+		}
 
 		// Store the Series
 		$query	= "INSERT INTO #__sermon_series \n"
 				."(series_title, alias, series_description, state, ordering, created_by, avatar) \n"
 				."SELECT a.series_name, a.series_alias, a.series_description, a.published, a.ordering, a.user, \n"
 				."IF (b.server != '', CONCAT('http://', CONCAT_WS('/', b.server, b.folder, a.series_image_lrg)), "
-				."IF (LEFT(b.folder, 7) = 'http://', CONCAT(b.folder, '/', a.series_image_lrg), CONCAT('/', b.folder, ,'/', a.series_image_lrg))) \n"
+				."IF (LEFT(b.folder, 7) = 'http://', CONCAT(b.folder, '/', a.series_image_lrg), CONCAT('/', b.folder, '/', a.series_image_lrg))) \n"
 				."FROM #__piseries AS a \n"
 				."LEFT JOIN #__pifilepath AS b ON b.id = a.image_folderlrg \n";
 		$db->setQuery($query);
@@ -216,7 +219,7 @@ class SermonspeakerControllerTools extends JController
 				."(name, alias, website, intro, state, ordering, created_by, pic) \n"
 				."SELECT a.teacher_name, a.teacher_alias, a.teacher_website, a.teacher_description, a.published, a.ordering, a.user, \n"
 				."IF (b.server != '', CONCAT('http://', CONCAT_WS('/', b.server, b.folder, a.teacher_image_lrg)), "
-				."IF (LEFT(b.folder, 7) = 'http://', CONCAT(b.folder, '/', a.teacher_image_lrg), CONCAT('/', b.folder, ,'/', a.teacher_image_lrg))) \n"
+				."IF (LEFT(b.folder, 7) = 'http://', CONCAT(b.folder, '/', a.teacher_image_lrg), CONCAT('/', b.folder, '/', a.teacher_image_lrg))) \n"
 				."FROM #__piteachers AS a \n"
 				."LEFT JOIN #__pifilepath AS b ON b.id = a.image_folderlrg \n";
 		$db->setQuery($query);
