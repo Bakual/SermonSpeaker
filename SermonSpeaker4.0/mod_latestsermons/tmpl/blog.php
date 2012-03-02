@@ -59,7 +59,10 @@ $count = count($list);
 	<?php endforeach; ?>
 	</div>
 <?php endif;
-if ($params->get('show_player')) : ?>
+if ($params->get('show_player')) : 
+	if ($params->get('show_list')) : ?>
+		<br />
+	<?php endif; ?>
 	<div class="latestsermons_player">
 	<?php require_once(JPATH_SITE.DS.'components'.DS.'com_sermonspeaker'.DS.'helpers'.DS.'sermonspeaker.php');
 	require_once(JPATH_SITE.DS.'components'.DS.'com_sermonspeaker'.DS.'helpers'.DS.'player.php');
