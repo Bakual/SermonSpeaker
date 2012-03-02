@@ -1,11 +1,15 @@
 <?php 
 // no direct access
 defined('_JEXEC') or die('Restricted access'); 
-
-if ($params->get('show_list')): ?>
-	<div class="latestsermons<?php echo $params->get('moduleclass_sfx'); ?>">
-	<?php foreach($list as $row) : ?>
-		<div class="<?php echo $moduleclass_sfx; ?>">
+$i = 0;
+$count = count($list);
+?>
+<div class="latestsermons<?php echo $moduleclass_sfx; ?>">
+<?php if ($params->get('show_list')): ?>
+	<div class="latestsermons_list">
+	<?php foreach($list as $row) : 
+		$i++; ?>
+		<div class="latestsermons_entry<?php echo $i; ?>">
 			<h3><a href="<?php echo JRoute::_('index.php?option=com_sermonspeaker&view=sermon&id='.$row->slug.'&Itemid='.$itemid); ?>">
 					<?php echo stripslashes($row->sermon_title); ?>
 			</a></h3>
@@ -47,14 +51,17 @@ if ($params->get('show_list')): ?>
 				<div>
 					<?php echo JHTML::_('content.prepare', $row->notes); ?>
 				</div>
+			<?php endif;
+			if (($i < $count) || $params->get('show_player')) : ?>
+				<hr />
 			<?php endif; ?>
-			<hr />
 		</div>
 	<?php endforeach; ?>
 	</div>
 <?php endif;
-if ($params->get('show_player')) :
-	require_once(JPATH_SITE.DS.'components'.DS.'com_sermonspeaker'.DS.'helpers'.DS.'sermonspeaker.php');
+if ($params->get('show_player')) : ?>
+	<div class="latestsermons_player">
+	<?php require_once(JPATH_SITE.DS.'components'.DS.'com_sermonspeaker'.DS.'helpers'.DS.'sermonspeaker.php');
 	require_once(JPATH_SITE.DS.'components'.DS.'com_sermonspeaker'.DS.'helpers'.DS.'player.php');
 	jimport('joomla.application.component.helper');
 	$c_params = JComponentHelper::getParams('com_sermonspeaker');
@@ -65,9 +72,13 @@ if ($params->get('show_player')) :
 	$config['vheight']		= $params->get('vheight');
 	$player = new SermonspeakerHelperPlayer($list, $config);
 	echo $player->mspace;
-	echo $player->script;
-endif; ?>
-<?php if ($params->get('ls_show_mo_link')) : ?>
-	<br />
-	<a href="<?php echo JRoute::_('index.php?option=com_sermonspeaker&view=sermons&Itemid='.$itemid); ?>"><?php echo JText::_('MOD_LATESTSERMONS_LINK'); ?></a>
+	echo $player->script; ?>
+	</div>
 <?php endif;
+if ($params->get('ls_show_mo_link')) : ?>
+	<br />
+	<div class="latestsermons_link">
+		<a href="<?php echo JRoute::_('index.php?option=com_sermonspeaker&view=sermons&Itemid='.$itemid); ?>"><?php echo JText::_('MOD_LATESTSERMONS_LINK'); ?></a>
+	</div>
+<?php endif; ?>
+</div>

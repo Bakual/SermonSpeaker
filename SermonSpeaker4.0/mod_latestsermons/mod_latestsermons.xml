@@ -24,10 +24,6 @@
 		<fields name="params">
 			<fieldset name="basic"
 				addfieldpath="/administrator/components/com_sermonspeaker/models/fields">
-				<field name="moduleclass_sfx" type="text" 
-					default="" 
-					label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL" 
-					description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC" />
 				<field name="ls_count" type="text" 
 					default="3" 
 					label="MOD_LATESTSERMONS_PARAM_COUNT" 
