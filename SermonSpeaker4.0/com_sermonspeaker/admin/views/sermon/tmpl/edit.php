@@ -9,6 +9,8 @@ JHtml::_('behavior.tooltip');
 JHtml::_('behavior.formvalidation');
 JHtml::_('behavior.keepalive');
 $uri = JURI::getInstance();
+$uri->delVar('file');
+$uri->delVar('type');
 $self = $uri->toString();
 ?>
 <script type="text/javascript">

@@ -2,20 +2,68 @@
 // No direct access.
 defined('_JEXEC') or die;
 
-jimport('joomla.application.component.modeladmin');
+require_once JPATH_COMPONENT_ADMINISTRATOR.'/models/sermon.php';
 
 /**
  * Frontendupload model.
  *
  * @package		Sermonspeaker.Administrator
  */
-class SermonspeakerModelFrontendupload extends JModelAdmin
+class SermonspeakerModelFrontendupload extends SermonspeakerModelSermon
 {
 	/**
 	 * @var		string	The prefix to use with controller messages.
 	 */
-	protected $text_prefix = 'COM_SERMONSPEAKER';
+//	protected $text_prefix = 'COM_SERMONSPEAKER';
 
+	/**
+	 * Get the return URL.
+	 *
+	 * @return	string	The return URL.
+	 * @since	1.6
+	 */
+	public function getReturnPage()
+	{
+		return base64_encode($this->getState('return_page'));
+	}
+
+	/**
+	 * Method to auto-populate the model state.
+	 *
+	 * Note. Calling getState in this method will result in recursion.
+	 *
+	 * @since	1.6
+	 */
+	protected function populateState()
+	{
+		$app = JFactory::getApplication();
+
+		// Load state from the request.
+		$pk = JRequest::getInt('s_id');
+		$this->setState('frontendupload.id', $pk);
+		// Add compatibility variable for default naming conventions.
+		$this->setState('form.id', $pk);
+
+		$categoryId	= JRequest::getInt('catid');
+		$this->setState('frontendupload.catid', $categoryId);
+
+		$return = JRequest::getVar('return', null, 'default', 'base64');
+
+		if (!JUri::isInternal(base64_decode($return))) {
+			$return = null;
+		}
+
+		$this->setState('return_page', base64_decode($return));
+
+		// Load the parameters.
+		$params	= $app->getParams();
+		$this->setState('params', $params);
+
+		$this->setState('layout', JRequest::getCmd('layout'));
+	}
+
+// Original Stuff
+	
 	/**
 	 * Method to test whether a record can be deleted.
 	 *
@@ -23,10 +71,10 @@ class SermonspeakerModelFrontendupload extends JModelAdmin
 	 * @return	boolean	True if allowed to delete the record. Defaults to the permission set in the component.
 	 * @since	1.6
 	 */
-	protected function canDelete($record)
+/*	protected function canDelete($record)
 	{
 		return false;
-	}
+	} */
 	
 	/**
 	 * Method to test whether a records state can be changed.
@@ -35,7 +83,7 @@ class SermonspeakerModelFrontendupload extends JModelAdmin
 	 * @return	boolean	True if allowed to change the state of the record. Defaults to the permission set in the component.
 	 * @since	1.6
 	 */
-	protected function canEditState($record)
+/*	protected function canEditState($record)
 	{
 		$user = JFactory::getUser();
 
@@ -47,7 +95,7 @@ class SermonspeakerModelFrontendupload extends JModelAdmin
 		else {
 			return parent::canEditState($record);
 		}
-	}
+	} */
 
 	/**
 	 * Returns a reference to the a Table object, always creating it.
@@ -58,11 +106,11 @@ class SermonspeakerModelFrontendupload extends JModelAdmin
 	 * @return	JTable	A database object
 	 * @since	1.6
 	 */
-	public function getTable($type = 'Sermon', $prefix = 'SermonspeakerTable', $config = array())
+/*	public function getTable($type = 'Sermon', $prefix = 'SermonspeakerTable', $config = array())
 	{
 //		JTable::addIncludePath(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_sermonspeaker'.DS.'tables');
 		return JTable::getInstance($type, $prefix, $config);
-	}
+	} */
 
 	/**
 	 * Method to get the record form.
@@ -72,7 +120,7 @@ class SermonspeakerModelFrontendupload extends JModelAdmin
 	 * @return	JForm	A JForm object on success, false on failure
 	 * @since	1.6
 	 */
-	public function getForm($data = array(), $loadData = true)
+/*	public function getForm($data = array(), $loadData = true)
 	{
 		JForm::addFormPath(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_sermonspeaker'.DS.'models'.DS.'forms');
 		JForm::addFieldPath(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_sermonspeaker'.DS.'models'.DS.'fields');
@@ -109,7 +157,7 @@ class SermonspeakerModelFrontendupload extends JModelAdmin
 		}
 
 		return $form;
-	}
+	} */
 
 	/**
 	 * Method to get the data that should be injected in the form.
@@ -117,7 +165,7 @@ class SermonspeakerModelFrontendupload extends JModelAdmin
 	 * @return	mixed	The data for the form.
 	 * @since	1.6
 	 */
-	protected function loadFormData()
+/*	protected function loadFormData()
 	{
 		// Check the session for previously entered form data.
 		$data = JFactory::getApplication()->getUserState('com_sermonspeaker.edit.sermon.data', array());
@@ -153,7 +201,7 @@ class SermonspeakerModelFrontendupload extends JModelAdmin
 			}
 		}
 		return $data;
-	}
+	} */
 
 	/**
 	 * Method to get a single record.
@@ -163,19 +211,19 @@ class SermonspeakerModelFrontendupload extends JModelAdmin
 	 * @return	mixed	Object on success, false on failure.
 	 * @since	1.6
 	 */
-	public function getItem($pk = null)
+/*	public function getItem($pk = null)
 	{
 		$item = parent::getItem($pk);
 
 		return $item;
-	}
+	} */
 
 	/**
 	 * Prepare and sanitise the table prior to saving.
 	 *
 	 * @since	1.6
 	 */
-	protected function prepareTable(&$table)
+/*	protected function prepareTable(&$table)
 	{
 		jimport('joomla.filter.output');
 
@@ -215,7 +263,7 @@ class SermonspeakerModelFrontendupload extends JModelAdmin
 		if (empty($table->id)) {
 			$table->reorder('catid = '.(int) $table->catid.' AND state >= 0');
 		}
-	}
+	} */
 
 	/**
 	 * A protected method to get a set of ordering conditions.
@@ -224,10 +272,10 @@ class SermonspeakerModelFrontendupload extends JModelAdmin
 	 * @return	array	An array of conditions to add to add to ordering queries.
 	 * @since	1.6
 	 */
-	protected function getReorderConditions($table = null)
+/*	protected function getReorderConditions($table = null)
 	{
 		$condition = array();
 		$condition[] = 'catid = '.(int) $table->catid;
 		return $condition;
-	}
+	} */
 }

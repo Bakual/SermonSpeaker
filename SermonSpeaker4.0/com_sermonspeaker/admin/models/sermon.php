@@ -25,7 +25,19 @@ class SermonspeakerModelSermon extends JModelAdmin
 	 */
 	protected function canDelete($record)
 	{
-		return true;
+		if (!empty($record->id)) {
+			if ($record->state != -2) {
+				return ;
+			}
+			$user = JFactory::getUser();
+
+			if ($record->catid) {
+				return $user->authorise('core.delete', 'com_sermonspeaker.category.'.(int) $record->catid);
+			}
+			else {
+				return parent::canDelete($record);
+			}
+		}
 	}
 	
 	public function delete(&$pks)
@@ -83,11 +95,9 @@ class SermonspeakerModelSermon extends JModelAdmin
 	{
 		$user = JFactory::getUser();
 
-		// Check against the category.
 		if (!empty($record->catid)) {
 			return $user->authorise('core.edit.state', 'com_sermonspeaker.category.'.(int) $record->catid);
 		}
-		// Default to component settings if neither article nor category known.
 		else {
 			return parent::canEditState($record);
 		}
@@ -137,15 +147,15 @@ class SermonspeakerModelSermon extends JModelAdmin
 		// Modify the form based on Edit State access controls.
 		if (!$this->canEditState((object) $data)) {
 			// Disable fields for display.
-			$form->setFieldAttribute('podcast', 'disabled', 'true');
 			$form->setFieldAttribute('ordering', 'disabled', 'true');
 			$form->setFieldAttribute('state', 'disabled', 'true');
+			$form->setFieldAttribute('podcast', 'disabled', 'true');
 
 			// Disable fields while saving.
 			// The controller has already verified this is an article you can edit.
-			$form->setFieldAttribute('podcast', 'filter', 'unset');
 			$form->setFieldAttribute('ordering', 'filter', 'unset');
 			$form->setFieldAttribute('state', 'filter', 'unset');
+			$form->setFieldAttribute('podcast', 'filter', 'unset');
 		}
 
 		return $form;
@@ -217,12 +227,14 @@ class SermonspeakerModelSermon extends JModelAdmin
 
 		$table->sermon_title	= htmlspecialchars_decode($table->sermon_title, ENT_QUOTES);
 		$table->alias			= JApplication::stringURLSafe($table->alias);
+
 		if (empty($table->alias)) {
 			$table->alias = JApplication::stringURLSafe($table->sermon_title);
 			if (empty($table->alias)) {
 				$table->alias = JFactory::getDate()->format("Y-m-d-H-i-s");
 			}
 		}
+
 		$time_arr = explode(':', $table->sermon_time);
 		foreach ($time_arr as $time_int){
 			$time_int = (int)$time_int;
@@ -235,8 +247,8 @@ class SermonspeakerModelSermon extends JModelAdmin
 		}
 		if (!empty($table->metakey)) {
 			// only process if not empty
-			$bad_characters = array("\n", "\r", "\"", "<", ">"); // array of characters to remove
-			$after_clean = JString::str_ireplace($bad_characters, "", $table->metakey); // remove bad characters
+			$bad_characters = array("\n", "\r", '"', '<', '>'); // array of characters to remove
+			$after_clean = JString::str_ireplace($bad_characters, '', $table->metakey); // remove bad characters
 			$keys = explode(',', $after_clean); // create array using commas as delimiter
 			$clean_keys = array();
 			foreach($keys as $key) {
@@ -244,10 +256,10 @@ class SermonspeakerModelSermon extends JModelAdmin
 					$clean_keys[] = trim($key);
 				}
 			}
-			$table->metakey = implode(", ", $clean_keys); // put array back together delimited by ", "
+			$table->metakey = implode(', ', $clean_keys); // put array back together delimited by ", "
 		}
 
-		// Reorder the articles within the category so the new article is first
+		// Reorder the articles within the category so the new sermon is first
 		if (empty($table->id)) {
 			$table->reorder('catid = '.(int) $table->catid.' AND state >= 0');
 		}
@@ -277,9 +289,6 @@ class SermonspeakerModelSermon extends JModelAdmin
 		$user		= JFactory::getUser();
 		$table		= $this->getTable();
 		$pks		= (array) $pks;
-
-		// Include the content plugins for the change of state event.
-//		JPluginHelper::importPlugin('content');
 
 		// Access checks.
 		foreach ($pks as $i => $pk) {

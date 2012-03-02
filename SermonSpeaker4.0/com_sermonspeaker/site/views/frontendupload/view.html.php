@@ -6,8 +6,10 @@ jimport( 'joomla.application.component.view');
  */
 class SermonspeakerViewFrontendupload extends JView
 {
-	protected $item;
 	protected $form;
+	protected $item;
+	protected $return_page;
+	protected $state;
 
 	function display($tpl = null)
 	{
@@ -15,7 +17,6 @@ class SermonspeakerViewFrontendupload extends JView
 
 		// Initialise variables.
 		$app		= JFactory::getApplication();
-		$params		= $app->getParams();
 
 		// Get the log in credentials.
 		$credentials = array();
@@ -28,18 +29,26 @@ class SermonspeakerViewFrontendupload extends JView
 		}
 		$user		= JFactory::getUser();
 
-		// Check for errors.
-		if (count($errors = $this->get('Errors'))) {
-			JError::raiseWarning(500, implode("\n", $errors));
+		// Get model data.
+		$this->state		= $this->get('State');
+		$this->item			= $this->get('Item');
+		$this->form			= $this->get('Form');
+		$this->return_page	= $this->get('ReturnPage');
+
+		// Create a shortcut to the parameters.
+		$params	= &$this->state->params;
+
+		if (empty($this->item->id)) {
+			$authorised = ($params->get('fu_enable') && $user->authorise('core.create', 'com_sermonspeaker'));
+		} else {
+			$authorised = ($params->get('fu_enable') && $user->authorise('core.edit', 'com_sermonspeaker'));
+		}
+
+		if ($authorised !== true) {
+			JError::raiseError(403, JText::_('JERROR_ALERTNOAUTHOR'));
 			return false;
 		}
 
-		if (!$params->get('fu_enable') || !$user->authorise('core.create', 'com_sermonspeaker')){
-			JError::raiseWarning(403, JText::_('JGLOBAL_AUTH_ACCESS_DENIED'));
-			return false;
-		}
-		$this->item		= $this->get('Item');
-		$this->form		= $this->get('Form');
 		// add Javascript for Form Elements enable and disable
 		$enElem = 'function enableElement(ena_elem, dis_elem) {
 			ena_elem.disabled = false;
@@ -215,11 +224,6 @@ class SermonspeakerViewFrontendupload extends JView
 			';
 			$document->addScriptDeclaration($uploader_script);
 		}
-//		$loading = "
-//				window.onload = function() {
-//					document.getElementByID('loading').style.display = 'none';
-//				}";
-//		$document->addScriptDeclaration($loading);
 
 		// Check for errors.
 		if (count($errors = $this->get('Errors'))) {
@@ -227,9 +231,12 @@ class SermonspeakerViewFrontendupload extends JView
 			return false;
 		}
 
-		// Push the Data to the Template
-		$this->assignRef('params',		$params);
-		$this->assignRef('session',		$session);
+		//Escape strings for HTML output
+		$this->pageclass_sfx = htmlspecialchars($params->get('pageclass_sfx'));
+
+		$this->params	= $params;
+		$this->user		= $user;
+		$this->session	= $session;
 
 		$this->_prepareDocument();
 
