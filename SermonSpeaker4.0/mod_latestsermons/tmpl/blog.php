@@ -52,7 +52,7 @@ $count = count($list);
 					<?php echo JHTML::_('content.prepare', $row->notes); ?>
 				</div>
 			<?php endif;
-			if (($i < $count) || $params->get('show_player')) : ?>
+			if ($i < $count) : ?>
 				<hr />
 			<?php endif; ?>
 		</div>
