@@ -1,7 +1,13 @@
 <?php
 defined('_JEXEC') or die('Restricted access');
-JHTML::_('behavior.tooltip');
+JHtml::addIncludePath(JPATH_COMPONENT.'/helpers');
+JHtml::_('behavior.tooltip');
 JHTML::_('behavior.modal');
+JHtml::core();
+// Get the user object.
+$user = JFactory::getUser();
+// Check if user is allowed to add/edit based on sermonspeaker permissinos.
+$canEdit = $user->authorise('core.edit', 'com_sermonspeaker');
 $listOrder	= $this->state->get('list.ordering');
 $listDirn	= $this->state->get('list.direction');
 $limit 		= (int)$this->params->get('limit', '');
@@ -160,7 +166,14 @@ if (in_array('sermons:player', $this->columns) && count($this->items)) : ?>
 							</td>
 						<?php endif; ?>
 						<td class="ss-title">
-							<?php echo SermonspeakerHelperSermonspeaker::insertSermonTitle($i, $item, $player); ?>
+							<?php echo SermonspeakerHelperSermonspeaker::insertSermonTitle($i, $item, $player);
+							if ($canEdit) : ?>
+								<ul class="actions">
+									<li class="edit-icon">
+										<?php echo JHtml::_('icon.edit', $item, $this->params); ?>
+									</li>
+								</ul>
+							<?php endif; ?>
 						</td>
 						<?php if (in_array('sermons:scripture', $this->columns)) : ?>
 							<td class="ss-col ss-scripture">

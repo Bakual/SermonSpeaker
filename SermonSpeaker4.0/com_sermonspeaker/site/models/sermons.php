@@ -53,7 +53,8 @@ class SermonspeakerModelSermons extends JModelList
 				'sermons.picture, sermons.hits, sermons.notes, sermons.sermon_scripture,' .
 				'sermons.sermon_date, sermons.alias, sermons.sermon_time,' .
 				'sermons.state, sermons.ordering, sermons.podcast,' .
-				'sermons.sermon_number, sermons.addfile, sermons.addfileDesc'
+				'sermons.sermon_number, sermons.addfile, sermons.addfileDesc,' .
+				'sermons.created'
 			)
 		);
 		$query->from('`#__sermon_sermons` AS sermons');
