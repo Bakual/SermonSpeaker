@@ -36,12 +36,12 @@ class JHtmlIcon
 		}
 
 		$date = JHtml::_('date', $item->created);
-//		$author = $item->author;
+		$author = $item->author;
 
 		$overlib .= '&lt;br /&gt;';
-		$overlib .= $date;
-//		$overlib .= '&lt;br /&gt;';
-//		$overlib .= htmlspecialchars($author, ENT_COMPAT, 'UTF-8');
+		$overlib .= JText::sprintf('JGLOBAL_CREATED_DATE_ON', $date);
+		$overlib .= '&lt;br /&gt;';
+		$overlib .= JText::_('JAUTHOR').': '.htmlspecialchars($author, ENT_COMPAT, 'UTF-8');
 
 		$button = JHtml::_('link', JRoute::_($url), $text);
 

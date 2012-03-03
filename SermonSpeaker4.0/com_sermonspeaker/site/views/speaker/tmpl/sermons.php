@@ -1,7 +1,11 @@
 <?php
 defined('_JEXEC') or die('Restricted access');
+JHTML::addIncludePath(JPATH_COMPONENT.'/helpers');
 JHTML::_('behavior.tooltip');
 JHTML::_('behavior.modal');
+$user		= JFactory::getUser();
+$canEdit	= $user->authorise('core.edit', 'com_sermonspeaker');
+$canEditOwn	= $user->authorise('core.edit.own', 'com_sermonspeaker');
 $listOrder	= $this->state_sermons->get('list.ordering');
 $listDirn	= $this->state_sermons->get('list.direction');
 $player = new SermonspeakerHelperPlayer($this->sermons);
@@ -148,7 +152,14 @@ $player = new SermonspeakerHelperPlayer($this->sermons);
 							</td>
 						<?php endif; ?>
 						<td class="ss-title">
-							<?php echo SermonspeakerHelperSermonspeaker::insertSermonTitle($i, $item, $player); ?>
+							<?php echo SermonspeakerHelperSermonspeaker::insertSermonTitle($i, $item, $player);
+							if ($canEdit || ($canEditOwn && ($user->id == $item->created_by))) : ?>
+								<ul class="actions">
+									<li class="edit-icon">
+										<?php echo JHtml::_('icon.edit', $item, $this->params); ?>
+									</li>
+								</ul>
+							<?php endif; ?>
 						</td>
 						<?php if (in_array('speaker:scripture', $this->col_sermon)) : ?>
 							<td class="ss-col ss-scripture">

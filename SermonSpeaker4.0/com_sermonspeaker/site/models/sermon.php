@@ -74,10 +74,15 @@ class SermonspeakerModelSermon extends JModelItem
 						'sermon.sermon_scripture, sermon.sermon_date, sermon.sermon_date, '.
 						'sermon.sermon_time, sermon.notes, sermon.state, '.
 						'sermon.hits, sermon.addfile, sermon.addfileDesc, '.
-						'sermon.metakey, sermon.metadesc, sermon.custom1, sermon.custom2'
+						'sermon.metakey, sermon.metadesc, sermon.custom1, sermon.custom2, '.
+						'sermon.created, sermon.created_by'
 					)
 				);
 				$query->from('#__sermon_sermons AS sermon');
+
+				// Join over users for the author names.
+				$query->select("user.name AS author");
+				$query->join('LEFT', '#__users AS user ON user.id = sermon.created_by');
 
 				// Join on category table.
 				$query->select('c.access AS category_access');

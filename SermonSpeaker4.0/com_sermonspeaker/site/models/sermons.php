@@ -54,7 +54,7 @@ class SermonspeakerModelSermons extends JModelList
 				'sermons.sermon_date, sermons.alias, sermons.sermon_time,' .
 				'sermons.state, sermons.ordering, sermons.podcast,' .
 				'sermons.sermon_number, sermons.addfile, sermons.addfileDesc,' .
-				'sermons.created'
+				'sermons.created, sermons.created_by'
 			)
 		);
 		$query->from('`#__sermon_sermons` AS sermons');
@@ -105,6 +105,10 @@ class SermonspeakerModelSermons extends JModelList
 			$query->where('series.catid = '.(int) $categoryId);
 		}
 		$query->where('(sermons.series_id = 0 OR series.catid = 0 OR (c_series.access IN ('.$groups.') AND c_series.published = 1))');
+
+		// Join over users for the author names.
+		$query->select("user.name AS author");
+		$query->join('LEFT', '#__users AS user ON user.id = sermons.created_by');
 
 		// Filter by state
 		$state = $this->getState('filter.state');

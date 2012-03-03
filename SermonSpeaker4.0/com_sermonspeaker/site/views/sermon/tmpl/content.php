@@ -1,7 +1,11 @@
 <?php
 defined('_JEXEC') or die('Restricted access');
+JHTML::addIncludePath(JPATH_COMPONENT.'/helpers');
 JHTML::_('behavior.tooltip');
 JHTML::_('behavior.modal');
+$user		= JFactory::getUser();
+$canEdit	= $user->authorise('core.edit', 'com_sermonspeaker');
+$canEditOwn	= $user->authorise('core.edit.own', 'com_sermonspeaker');
 $player = new SermonspeakerHelperPlayer($this->item);
 ?>
 <div class="ss-sermon-container<?php echo htmlspecialchars($this->params->get('pageclass_sfx')); ?>">
@@ -10,6 +14,13 @@ $player = new SermonspeakerHelperPlayer($this->item);
 <?php endif; ?>
 <h2><a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonRoute($this->item->slug)); ?>"><?php echo $this->item->sermon_title; ?></a></h2>
 <!-- Begin Data -->
+<?php if ($canEdit || ($canEditOwn && ($user->id == $this->item->created_by))) : ?>
+	<ul class="actions">
+		<li class="edit-icon">
+			<?php echo JHtml::_('icon.edit', $this->item, $this->params); ?>
+		</li>
+	</ul>
+<?php endif; ?>
 <dl class="article-info sermon-info">
 <dt class="article-info-term"><?php  echo JText::_('JDETAILS'); ?></dt>
 <?php if (in_array('sermon:series', $this->columns) && $this->item->series_title) : ?>

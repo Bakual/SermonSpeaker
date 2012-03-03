@@ -200,8 +200,8 @@ class SermonspeakerControllerTools extends JController
 
 		// Store the Series
 		$query	= "INSERT INTO #__sermon_series \n"
-				."(series_title, alias, series_description, state, ordering, created_by, avatar) \n"
-				."SELECT a.series_name, a.series_alias, a.series_description, a.published, a.ordering, a.user, \n"
+				."(series_title, alias, series_description, state, ordering, created_by, created, avatar) \n"
+				."SELECT a.series_name, a.series_alias, a.series_description, a.published, a.ordering, a.user, NOW(), \n"
 				."IF (b.server != '', CONCAT('http://', CONCAT_WS('/', b.server, b.folder, a.series_image_lrg)), "
 				."IF (LEFT(b.folder, 7) = 'http://', CONCAT(b.folder, '/', a.series_image_lrg), CONCAT('/', b.folder, '/', a.series_image_lrg))) \n"
 				."FROM #__piseries AS a \n"
@@ -216,8 +216,8 @@ class SermonspeakerControllerTools extends JController
 
 		// Store the Speakers
 		$query	= "INSERT INTO #__sermon_speakers \n"
-				."(name, alias, website, intro, state, ordering, created_by, pic) \n"
-				."SELECT a.teacher_name, a.teacher_alias, a.teacher_website, a.teacher_description, a.published, a.ordering, a.user, \n"
+				."(name, alias, website, intro, state, ordering, created_by, created, pic) \n"
+				."SELECT a.teacher_name, a.teacher_alias, a.teacher_website, a.teacher_description, a.published, a.ordering, a.user, NOW(), \n"
 				."IF (b.server != '', CONCAT('http://', CONCAT_WS('/', b.server, b.folder, a.teacher_image_lrg)), "
 				."IF (LEFT(b.folder, 7) = 'http://', CONCAT(b.folder, '/', a.teacher_image_lrg), CONCAT('/', b.folder, '/', a.teacher_image_lrg))) \n"
 				."FROM #__piteachers AS a \n"
@@ -268,8 +268,8 @@ class SermonspeakerControllerTools extends JController
 			$scripture	= implode('; ', $scripture);
 
 			$query	= "INSERT INTO #__sermon_sermons \n"
-					."(`audiofile`, `videofile`, `picture`, `sermon_title`, `alias`, `sermon_scripture`, `sermon_date`, `sermon_time`, `notes`, `state`, `hits`, `created_by`, `addfile`, `podcast`) \n"
-					.'VALUES ('.$db->quote($study->audiofile).','.$db->quote($study->videofile).','.$db->quote($study->study_pic).','.$db->quote($study->study_name).','.$db->quote($study->study_alias).','.$db->quote($scripture).','.$db->quote($study->study_date).','.$db->quote($study->duration).','.$db->quote($study->study_description).','.$db->quote($study->published).','.$db->quote($study->hits).','.$db->quote($study->user).','.$db->quote($study->addfile).', 1)';
+					."(`audiofile`, `videofile`, `picture`, `sermon_title`, `alias`, `sermon_scripture`, `sermon_date`, `sermon_time`, `notes`, `state`, `hits`, `created_by`, `addfile`, `podcast`, `created`) \n"
+					.'VALUES ('.$db->quote($study->audiofile).','.$db->quote($study->videofile).','.$db->quote($study->study_pic).','.$db->quote($study->study_name).','.$db->quote($study->study_alias).','.$db->quote($scripture).','.$db->quote($study->study_date).','.$db->quote($study->duration).','.$db->quote($study->study_description).','.$db->quote($study->published).','.$db->quote($study->hits).','.$db->quote($study->user).','.$db->quote($study->addfile).', 1, NOW())';
 			$db->setQuery($query);
 			$db->query();
 			if ($db->getErrorMsg()){

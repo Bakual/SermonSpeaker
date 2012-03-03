@@ -95,17 +95,19 @@ class SermonspeakerModelSeriessermon extends JModelList
 		$groups	= implode(',', $user->authorisedLevels());
 
 		$db =& JFactory::getDBO();
-		$query	= "SELECT audiofile, videofile, sermon_title, sermon_number, sermon_time, notes, sermon_date, addfile, addfileDesc, pic, name, picture \n"
+		$query	= "SELECT audiofile, videofile, sermon_title, sermon_number, sermon_time, notes, sermon_date, addfile, addfileDesc, pic, speakers.name, picture, sermons.id, sermons.state, sermons.created, sermons.created_by, user.name AS author \n"
 				. ", CASE WHEN CHAR_LENGTH(sermons.alias) THEN CONCAT_WS(':', sermons.id, sermons.alias) ELSE sermons.id END as slug \n"
 				. " FROM #__sermon_sermons as sermons \n"
 				. " LEFT JOIN #__sermon_speakers AS speakers ON speakers.id = sermons.speaker_id \n"
 				. " LEFT JOIN #__categories AS c_speaker ON c_speaker.id = speakers.catid \n"
 				. " LEFT JOIN #__categories AS c_sermons ON c_sermons.id = sermons.catid \n"
+				. " LEFT JOIN #__users AS user ON user.id = sermons.created_by \n"
 				. " WHERE series_id=".$serieid." \n"
 				. " AND (sermons.catid = 0 OR (c_sermons.access IN (".$groups.") AND c_sermons.published = 1)) \n"
 				. " AND (sermons.speaker_id = 0 OR speakers.catid = 0 OR (c_speaker.access IN (".$groups.") AND c_speaker.published = 1)) \n"
 				. " AND sermons.state = '1' \n"
 				. " ORDER BY sermons.".$db->getEscaped($this->getState('list.ordering', 'ordering')).' '.$db->getEscaped($this->getState('list.direction', 'ASC'));
+
 		$db->setQuery( $query );
 		$sermons = $db->loadObjectList();
 		return $sermons;

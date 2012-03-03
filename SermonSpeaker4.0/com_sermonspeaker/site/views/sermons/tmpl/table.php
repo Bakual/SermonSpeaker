@@ -1,13 +1,11 @@
 <?php
 defined('_JEXEC') or die('Restricted access');
-JHtml::addIncludePath(JPATH_COMPONENT.'/helpers');
-JHtml::_('behavior.tooltip');
+JHTML::addIncludePath(JPATH_COMPONENT.'/helpers');
+JHTML::_('behavior.tooltip');
 JHTML::_('behavior.modal');
-JHtml::core();
-// Get the user object.
-$user = JFactory::getUser();
-// Check if user is allowed to add/edit based on sermonspeaker permissinos.
-$canEdit = $user->authorise('core.edit', 'com_sermonspeaker');
+$user		= JFactory::getUser();
+$canEdit	= $user->authorise('core.edit', 'com_sermonspeaker');
+$canEditOwn	= $user->authorise('core.edit.own', 'com_sermonspeaker');
 $listOrder	= $this->state->get('list.ordering');
 $listDirn	= $this->state->get('list.direction');
 $limit 		= (int)$this->params->get('limit', '');
@@ -167,7 +165,7 @@ if (in_array('sermons:player', $this->columns) && count($this->items)) : ?>
 						<?php endif; ?>
 						<td class="ss-title">
 							<?php echo SermonspeakerHelperSermonspeaker::insertSermonTitle($i, $item, $player);
-							if ($canEdit) : ?>
+							if ($canEdit || ($canEditOwn && ($user->id == $item->created_by))) : ?>
 								<ul class="actions">
 									<li class="edit-icon">
 										<?php echo JHtml::_('icon.edit', $item, $this->params); ?>
