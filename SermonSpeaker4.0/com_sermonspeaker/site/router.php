@@ -98,6 +98,9 @@ function SermonspeakerParseRoute($segments){
 			$id = explode(':', $segments[2]);
 			$vars['id'] = (int)$id[0];
 			break;
+		case 'frontendupload.edit':
+			$vars['task'] = 'frontendupload.edit';
+			break;
 		}
 	return $vars;
 }
