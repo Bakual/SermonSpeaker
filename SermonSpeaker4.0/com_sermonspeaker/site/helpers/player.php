@@ -41,7 +41,7 @@ class SermonspeakerHelperPlayer {
 	public function __construct($item, $config = array()) {
 		// Get params
 		$app = JFactory::getApplication();
-		$this->params	= $app->getParams();
+		$this->params	= $app->getParams('com_sermonspeaker');
 
 		// defining some variables
 		$this->item		= $item;
