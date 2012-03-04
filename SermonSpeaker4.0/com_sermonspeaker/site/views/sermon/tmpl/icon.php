@@ -3,6 +3,7 @@ defined('_JEXEC') or die('Restricted access');
 JHTML::addIncludePath(JPATH_COMPONENT.'/helpers');
 JHTML::_('behavior.tooltip');
 JHTML::_('behavior.modal');
+JHTML::stylesheet('icon.css', 'media/com_sermonspeaker/css/');
 $user		= JFactory::getUser();
 $canEdit	= $user->authorise('core.edit', 'com_sermonspeaker');
 $canEditOwn	= $user->authorise('core.edit.own', 'com_sermonspeaker');
