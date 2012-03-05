@@ -29,6 +29,28 @@ class JFormFieldSpeakerlist extends JFormFieldList
 	protected $type = 'Speakerlist';
 
 	/**
+	 * Method to get the field input markup for a generic list.
+	 * Use the multiple attribute to enable multiselect.
+	 *
+	 * @return  string  The field input markup.
+	 *
+	 * @since   11.1
+	 */
+	protected function getInput()
+	{
+		$html	= parent::getInput();
+		$app = JFactory::getApplication();
+		if ($app->isAdmin()){
+			$url = 'index.php?option=com_sermonspeaker&task=speaker.add&layout=modal&tmpl=component';
+		} else {
+			$url = JRoute::_('index.php?task=speakerform.edit&layout=modal&tmpl=component');
+		}
+		$html	.= '<a class="modal" href="'.$url.'"rel="{handler: \'iframe\', size: {x: 800, y: 600}}"><img src="'.JURI::root().'media/com_sermonspeaker/images/plus.png"></a>';
+
+		return $html;
+	}
+
+	/**
 	 * Method to get the field options.
 	 *
 	 * @return	array	The field option objects.

@@ -42,11 +42,11 @@ class JFormFieldSerieslist extends JFormFieldList
 		$html	= parent::getInput();
 		$app = JFactory::getApplication();
 		if ($app->isAdmin()){
-			$url = 'index.php';
+			$url = 'index.php?option=com_sermonspeaker&task=serie.add&layout=modal&tmpl=component';
 		} else {
-			$url = JRoute('index.php');
+			$url = JRoute::_('index.php?task=serieform.edit&layout=modal&tmpl=component');
 		}
-		$html	.= '<a href="'.$url.'"><img src="'.JURI::root().'media/com_sermonspeaker/images/plus.png"></a>';
+		$html	.= '<a class="modal" href="'.$url.'"rel="{handler: \'iframe\', size: {x: 800, y: 600}}"><img src="'.JURI::root().'media/com_sermonspeaker/images/plus.png"></a>';
 
 		return $html;
 	}
