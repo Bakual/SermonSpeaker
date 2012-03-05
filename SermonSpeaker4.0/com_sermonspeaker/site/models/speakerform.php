@@ -2,14 +2,14 @@
 // No direct access.
 defined('_JEXEC') or die;
 
-require_once JPATH_COMPONENT_ADMINISTRATOR.'/models/sermon.php';
+require_once JPATH_COMPONENT_ADMINISTRATOR.'/models/speaker.php';
 
 /**
  * Frontendupload model.
  *
  * @package		Sermonspeaker.Administrator
  */
-class SermonspeakerModelFrontendupload extends SermonspeakerModelSermon
+class SermonspeakerModelSpeakerform extends SermonspeakerModelSpeaker
 {
 	/**
 	 * Get the return URL.
@@ -35,12 +35,12 @@ class SermonspeakerModelFrontendupload extends SermonspeakerModelSermon
 
 		// Load state from the request.
 		$pk = JRequest::getInt('s_id');
-		$this->setState('frontendupload.id', $pk);
+		$this->setState('speakerform.id', $pk);
 		// Add compatibility variable for default naming conventions.
 		$this->setState('form.id', $pk);
 
 		$categoryId	= JRequest::getInt('catid');
-		$this->setState('frontendupload.catid', $categoryId);
+		$this->setState('speakerform.catid', $categoryId);
 
 		$return = JRequest::getVar('return', null, 'default', 'base64');
 

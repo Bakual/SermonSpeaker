@@ -13,6 +13,11 @@ class JHtmlIcon
 		$userId	= $user->get('id');
 		$uri	= JFactory::getURI();
 
+		// Ignore if Frontend Uploading is disabled
+		if ($params && !$params->get('fu_enable')) {
+			return;
+		}
+
 		// Ignore if in a popup window.
 		if ($params && $params->get('popup')) {
 			return;
@@ -24,7 +29,20 @@ class JHtmlIcon
 		}
 
 		JHtml::_('behavior.tooltip');
-		$url	= 'index.php?option=com_sermonspeaker&task=frontendupload.edit&s_id='.$item->id.'&return='.base64_encode($uri);
+		switch ($attribs['type']){
+			default:
+			case 'sermon':
+				$view	= 'frontendupload';
+				break;
+			case 'serie':
+				$view	= 'serieform';
+				break;
+			case 'speaker':
+				$view	= 'speakerform';
+				break;
+		}
+			
+		$url	= 'index.php?option=com_sermonspeaker&task='.$view.'.edit&s_id='.$item->id.'&return='.base64_encode($uri);
 		$icon	= $item->state ? 'edit.png' : 'edit_unpublished.png';
 		$text	= JHtml::_('image', 'system/'.$icon, JText::_('JGLOBAL_EDIT'), NULL, true);
 
@@ -35,13 +53,15 @@ class JHtmlIcon
 			$overlib = JText::_('JPUBLISHED');
 		}
 
-		$date = JHtml::_('date', $item->created);
-		$author = $item->author;
-
-		$overlib .= '&lt;br /&gt;';
-		$overlib .= JText::sprintf('JGLOBAL_CREATED_DATE_ON', $date);
-		$overlib .= '&lt;br /&gt;';
-		$overlib .= JText::_('JAUTHOR').': '.htmlspecialchars($author, ENT_COMPAT, 'UTF-8');
+		if($item->created != '0000-00-00 00:00:00'){
+			$date = JHtml::_('date', $item->created);
+			$overlib .= '&lt;br /&gt;';
+			$overlib .= JText::sprintf('JGLOBAL_CREATED_DATE_ON', $date);
+		}
+		if($item->author){
+			$overlib .= '&lt;br /&gt;';
+			$overlib .= JText::_('JAUTHOR').': '.htmlspecialchars($item->author, ENT_COMPAT, 'UTF-8');
+		}
 
 		$button = JHtml::_('link', JRoute::_($url), $text);
 

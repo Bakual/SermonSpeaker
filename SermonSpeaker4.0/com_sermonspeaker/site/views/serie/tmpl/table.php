@@ -15,7 +15,14 @@ $player = new SermonspeakerHelperPlayer($this->items);
 	<h1><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
 <?php endif; ?>
 <h2><a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($this->serie->slug)); ?>"><?php echo $this->serie->series_title; ?></a></h2>
-<?php if ($this->cat || in_array('serie:hits', $this->col_serie)): ?>
+<?php if ($canEdit || ($canEditOwn && ($user->id == $this->serie->created_by))) : ?>
+	<ul class="actions">
+		<li class="edit-icon">
+			<?php echo JHtml::_('icon.edit', $this->serie, $this->params, array('type' => 'serie')); ?>
+		</li>
+	</ul>
+<?php endif;
+if ($this->cat || in_array('serie:hits', $this->col_serie)): ?>
 	<dl class="article-info serie-info">
 	<dt class="article-info-term"><?php  echo JText::_('JDETAILS'); ?></dt>
 	<?php if ($this->cat): ?>
@@ -157,7 +164,7 @@ if (in_array('serie:player', $this->columns) && count($this->items)) : ?>
 							if ($canEdit || ($canEditOwn && ($user->id == $item->created_by))) : ?>
 								<ul class="actions">
 									<li class="edit-icon">
-										<?php echo JHtml::_('icon.edit', $item, $this->params); ?>
+										<?php echo JHtml::_('icon.edit', $item, $this->params, array('type' => 'sermon')); ?>
 									</li>
 								</ul>
 							<?php endif; ?>

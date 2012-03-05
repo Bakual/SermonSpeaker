@@ -34,7 +34,14 @@ if (empty($this->items)) : ?>
 	echo JHtml::_('sliders.start', 'contact-slider', array('useCookie'=>1));
 	foreach($this->items as $item) :
 		echo JHtml::_('sliders.panel', $item->series_title, 'series-'.$item->id);
-		$sermons = &$model->getSermons($item->id); ?>
+		$sermons = &$model->getSermons($item->id);
+		if ($canEdit || ($canEditOwn && ($user->id == $item->created_by))) : ?>
+			<ul class="actions">
+				<li class="edit-icon">
+					<?php echo JHtml::_('icon.edit', $item, $this->params, array('type' => 'serie')); ?>
+				</li>
+			</ul>
+		<?php endif; ?>
 		<div>
 			<?php if($item->avatar) : ?>
 				<img src="<?php echo SermonspeakerHelperSermonspeaker::makelink($item->avatar); ?>" style="float:right; margin-top:25px;">
@@ -57,7 +64,7 @@ if (empty($this->items)) : ?>
 				<?php if ($canEdit || ($canEditOwn && ($user->id == $sermon->created_by))) : ?>
 					<ul class="actions">
 						<li class="edit-icon">
-							<?php echo JHtml::_('icon.edit', $sermon, $this->params); ?>
+							<?php echo JHtml::_('icon.edit', $sermon, $this->params, array('type' => 'sermon')); ?>
 						</li>
 					</ul>
 				<?php endif;

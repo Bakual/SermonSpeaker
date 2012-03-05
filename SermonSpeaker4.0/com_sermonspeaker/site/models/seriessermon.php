@@ -28,7 +28,7 @@ class SermonspeakerModelSeriessermon extends JModelList
 		$query->select(
 			$this->getState(
 				'list.select',
-				'series.id, series.series_title, series.series_description, series.avatar, ' .
+				'series.id, series.series_title, series.series_description, series.avatar, series.state, series.created, series.created_by, ' .
 				'CASE WHEN CHAR_LENGTH(series.alias) THEN CONCAT_WS(\':\', series.id, series.alias) ELSE series.id END as slug'
 			)
 		);
@@ -40,6 +40,10 @@ class SermonspeakerModelSeriessermon extends JModelList
 			$query->where('series.catid = '.(int) $categoryId);
 		}
 		$query->where('(series.catid = 0 OR (c_series.access IN ('.$groups.') AND c_series.published = 1))');
+
+		// Join over users for the author names.
+		$query->select("user.name AS author");
+		$query->join('LEFT', '#__users AS user ON user.id = series.created_by');
 
 		// Filter by state
 		$state = $this->getState('filter.state');

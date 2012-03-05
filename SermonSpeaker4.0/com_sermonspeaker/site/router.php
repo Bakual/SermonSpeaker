@@ -74,6 +74,12 @@ function SermonspeakerParseRoute($segments){
 		case 'frontendupload':
 			$vars['view'] = 'frontendupload';
 			break;
+		case 'serieform':
+			$vars['view'] = 'serieform';
+			break;
+		case 'speakerform':
+			$vars['view'] = 'speakerform';
+			break;
 		case 'archive':
 			$vars['view'] = 'archive';
 			if (isset($segments[1]) && $segments[1]){
@@ -101,6 +107,12 @@ function SermonspeakerParseRoute($segments){
 		case 'frontendupload.edit':
 			$vars['task'] = 'frontendupload.edit';
 			break;
-		}
+		case 'serieform.edit':
+			$vars['task'] = 'serieform.edit';
+			break;
+		case 'speakerform.edit':
+			$vars['task'] = 'speakerform.edit';
+			break;
+	}
 	return $vars;
 }

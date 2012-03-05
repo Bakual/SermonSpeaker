@@ -44,7 +44,7 @@ class SermonspeakerModelspeakers extends JModelList
 				'speakers.id, speakers.name, speakers.catid, speakers.pic, ' .
 				'CASE WHEN CHAR_LENGTH(speakers.alias) THEN CONCAT_WS(\':\', speakers.id, speakers.alias) ELSE speakers.id END as slug, ' .
 				'speakers.hits, speakers.intro, speakers.bio, speakers.website, speakers.alias, ' .
-				'speakers.state, speakers.ordering'
+				'speakers.state, speakers.ordering, speakers.created, speakers.created_by'
 			)
 		);
 		$query->from('`#__sermon_speakers` AS speakers');
@@ -62,6 +62,10 @@ class SermonspeakerModelspeakers extends JModelList
 
 		// Grouping by speaker
 		$query->group('speakers.id');
+
+		// Join over users for the author names.
+		$query->select("user.name AS author");
+		$query->join('LEFT', '#__users AS user ON user.id = speakers.created_by');
 
 		// Filter by state
 		$state = $this->getState('filter.state');

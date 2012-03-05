@@ -30,6 +30,28 @@ class JFormFieldSerieslist extends JFormFieldList
 	protected $translateLabel = false;
 
 	/**
+	 * Method to get the field input markup for a generic list.
+	 * Use the multiple attribute to enable multiselect.
+	 *
+	 * @return  string  The field input markup.
+	 *
+	 * @since   11.1
+	 */
+	protected function getInput()
+	{
+		$html	= parent::getInput();
+		$app = JFactory::getApplication();
+		if ($app->isAdmin()){
+			$url = 'index.php';
+		} else {
+			$url = JRoute('index.php');
+		}
+		$html	.= '<a href="'.$url.'"><img src="'.JURI::root().'media/com_sermonspeaker/images/plus.png"></a>';
+
+		return $html;
+	}
+
+	/**
 	 * Method to get the field options.
 	 *
 	 * @return	array	The field option objects.

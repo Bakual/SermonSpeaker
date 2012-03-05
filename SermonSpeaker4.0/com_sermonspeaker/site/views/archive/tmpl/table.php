@@ -142,7 +142,7 @@ if ($this->cat): ?>
 							if ($canEdit || ($canEditOwn && ($user->id == $item->created_by))) : ?>
 								<ul class="actions">
 									<li class="edit-icon">
-										<?php echo JHtml::_('icon.edit', $item, $this->params); ?>
+										<?php echo JHtml::_('icon.edit', $item, $this->params, array('type' => 'sermon')); ?>
 									</li>
 								</ul>
 							<?php endif; ?>

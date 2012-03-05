@@ -59,16 +59,15 @@
 	</fieldset>
 
 	<fieldset name="detail">
-		<field name="avatar" type="mediawrapper" class="inputbox"
-			label="COM_SERMONSPEAKER_FIELD_PICTURE_LABEL"
-			description="COM_SERMONSPEAKER_FIELD_PICTURE_DESC" />
-
 		<field name="catid" type="category" extension="com_sermonspeaker"
 			label="JCATEGORY" description="JFIELD_CATEGORY_DESC"
 			class="inputbox" >
 			<option value="">JOPTION_SELECT_CATEGORY</option>
 		</field>
 
+		<field name="avatar" type="mediawrapper" class="inputbox"
+			label="COM_SERMONSPEAKER_FIELD_PICTURE_LABEL"
+			description="COM_SERMONSPEAKER_FIELD_PICTURE_DESC" />
 	</fieldset>
 
 	<fieldset name="metadata" label="JGLOBAL_FIELDSET_METADATA_OPTIONS">

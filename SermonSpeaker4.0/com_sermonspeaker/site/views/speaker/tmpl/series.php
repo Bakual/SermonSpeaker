@@ -1,7 +1,11 @@
 <?php
 defined('_JEXEC') or die('Restricted access');
+JHTML::addIncludePath(JPATH_COMPONENT.'/helpers');
 JHTML::_('behavior.tooltip');
 JHTML::_('behavior.modal');
+$user		= JFactory::getUser();
+$canEdit	= $user->authorise('core.edit', 'com_sermonspeaker');
+$canEditOwn	= $user->authorise('core.edit.own', 'com_sermonspeaker');
 $listOrder	= $this->state_series->get('list.ordering');
 $listDirn	= $this->state_series->get('list.direction');
 ?>
@@ -10,7 +14,14 @@ $listDirn	= $this->state_series->get('list.direction');
 	<h1><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
 <?php endif; ?>
 <h2><a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($this->item->slug)); ?>"><?php echo $this->item->name; ?></a></h2>
-<?php if (in_array('speaker:hits', $this->columns)): ?>
+<?php if ($canEdit || ($canEditOwn && ($user->id == $this->item->created_by))) : ?>
+	<ul class="actions">
+		<li class="edit-icon">
+			<?php echo JHtml::_('icon.edit', $this->item, $this->params, array('type' => 'speaker')); ?>
+		</li>
+	</ul>
+<?php endif;
+if (in_array('speaker:hits', $this->columns)): ?>
 	<dl class="article-info speaker-info">
 	<dt class="article-info-term"><?php  echo JText::_('JDETAILS'); ?></dt>
 	<?php if (in_array('serie:hits', $this->columns)): ?>
@@ -86,7 +97,16 @@ $listDirn	= $this->state_series->get('list.direction');
 							<td class="ss-col ss-avatar"></td>
 						<?php endif;
 					endif; ?>
-					<td class="ss-title"><a title='<?php echo JText::_('COM_SERMONSPEAKER_SERIESLINK_HOOVER'); ?>' href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->slug)); ?>"><?php echo $item->series_title; ?></a></td>
+					<td class="ss-title">
+						<a title='<?php echo JText::_('COM_SERMONSPEAKER_SERIESLINK_HOOVER'); ?>' href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->slug)); ?>"><?php echo $item->series_title; ?></a>
+						<?php if ($canEdit || ($canEditOwn && ($user->id == $item->created_by))) : ?>
+							<ul class="actions">
+								<li class="edit-icon">
+									<?php echo JHtml::_('icon.edit', $item, $this->params, array('type' => 'serie')); ?>
+								</li>
+							</ul>
+						<?php endif; ?>
+					</td>
 					<?php if (in_array('speaker:description', $this->col_serie)): ?>
 						<td class="ss-col ss-series_desc"><?php echo JHTML::_('content.prepare', $item->series_description); ?></td>
 					<?php endif;

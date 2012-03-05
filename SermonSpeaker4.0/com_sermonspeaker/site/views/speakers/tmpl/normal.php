@@ -1,7 +1,11 @@
 <?php
 defined('_JEXEC') or die('Restricted access');
+JHTML::addIncludePath(JPATH_COMPONENT.'/helpers');
 JHTML::_('behavior.tooltip');
 JHTML::_('behavior.modal');
+$user		= JFactory::getUser();
+$canEdit	= $user->authorise('core.edit', 'com_sermonspeaker');
+$canEditOwn	= $user->authorise('core.edit.own', 'com_sermonspeaker');
 $listOrder	= $this->state->get('list.ordering');
 $listDirn	= $this->state->get('list.direction');
 ?>
@@ -24,6 +28,13 @@ if (empty($this->items)) : ?>
 	<?php endif;
 	foreach($this->items as $item) : ?>
 		<h3><a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug)); ?>"><?php echo $item->name; ?></a></h3>
+		<?php if ($canEdit || ($canEditOwn && ($user->id == $item->created_by))) : ?>
+			<ul class="actions">
+				<li class="edit-icon">
+					<?php echo JHtml::_('icon.edit', $item, $this->params, array('type' => 'speaker')); ?>
+				</li>
+			</ul>
+		<?php endif; ?>
 		<div class="ss-speaker-text">
 			<div class="ss-pic">
 				<?php if ($item->pic) : ?>

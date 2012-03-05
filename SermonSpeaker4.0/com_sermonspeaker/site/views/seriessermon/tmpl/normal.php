@@ -38,7 +38,14 @@ if (empty($this->items)) : ?>
 				<img src="<?php echo SermonspeakerHelperSermonspeaker::makelink($item->avatar); ?>" style="float:right; margin-top:25px;">
 			<?php endif; ?>
 			<h3 class="contentheading"><?php echo $this->escape($item->series_title); ?></h3>
-			<?php if (in_array('seriessermon:description', $this->col_serie)): ?>
+			<?php if ($canEdit || ($canEditOwn && ($user->id == $item->created_by))) : ?>
+				<ul class="actions">
+					<li class="edit-icon">
+						<?php echo JHtml::_('icon.edit', $item, $this->params, array('type' => 'serie')); ?>
+					</li>
+				</ul>
+			<?php endif;
+			if (in_array('seriessermon:description', $this->col_serie)): ?>
 				<p><?php echo JHTML::_('content.prepare', $item->series_description); ?></p>
 			<?php endif; ?>
 		</div>
@@ -56,7 +63,7 @@ if (empty($this->items)) : ?>
 				<?php if ($canEdit || ($canEditOwn && ($user->id == $sermon->created_by))) : ?>
 					<ul class="actions">
 						<li class="edit-icon">
-							<?php echo JHtml::_('icon.edit', $sermon, $this->params); ?>
+							<?php echo JHtml::_('icon.edit', $sermon, $this->params, array('type' => 'sermon')); ?>
 						</li>
 					</ul>
 				<?php endif;

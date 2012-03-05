@@ -62,10 +62,10 @@ class SermonspeakerModelSpeaker extends JModelItem
 				$query->select(
 					$this->getState(
 						'item.select',
-						'speaker.id, speaker.name, speaker.alias, speaker.website,'.
+						'speaker.id, speaker.name, speaker.alias, speaker.website, speaker.state,'.
 						'CASE WHEN CHAR_LENGTH(speaker.alias) THEN CONCAT_WS(\':\', speaker.id, speaker.alias) ELSE speaker.id END as slug,'.
 						'speaker.intro, speaker.bio, speaker.pic, speaker.hits, speaker.created, speaker.created_by,'.
-						'speaker.metakey, speaker.metadesc'
+						'speaker.metakey, speaker.metadesc, speaker.created, speaker.created_by'
 					)
 				);
 				$query->from('#__sermon_speakers AS speaker');
@@ -77,6 +77,10 @@ class SermonspeakerModelSpeaker extends JModelItem
 
 				$query->where('speaker.id = '.(int)$id);
 				$query->where('speaker.state = 1');
+
+				// Join over users for the author names.
+				$query->select("user.name AS author");
+				$query->join('LEFT', '#__users AS user ON user.id = speaker.created_by');
 
 				$db->setQuery($query);
 
