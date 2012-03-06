@@ -325,7 +325,8 @@ class SermonspeakerControllerTools extends JController
 			$minus	= ($diff < 0) ? '-' : '';
 			$query	= "UPDATE #__sermon_sermons \n"
 					."SET sermon_date = DATE_ADD(sermon_date, INTERVAL '".$minus.$hrs.":".$mins."' HOUR_MINUTE) \n"
-					."WHERE sermon_date != '0000-00-00 00:00:00'";
+					."WHERE sermon_date != '0000-00-00 00:00:00' \n"
+					."AND state = 1";
 			$db->setQuery($query);
 			$db->query();
 			if ($db->getErrorMsg()){
@@ -346,7 +347,8 @@ class SermonspeakerControllerTools extends JController
 			$t_utc	= $date->format('H:i:s', true);
 			$query	= "UPDATE #__sermon_sermons \n"
 					."SET sermon_date = CONCAT(DATE(sermon_date), ' ".$t_utc."') \n"
-					."WHERE sermon_date != '0000-00-00 00:00:00'";
+					."WHERE sermon_date != '0000-00-00 00:00:00' \n"
+					."AND state = 1";
 			$db->setQuery($query);
 			$db->query();
 			if ($db->getErrorMsg()){
