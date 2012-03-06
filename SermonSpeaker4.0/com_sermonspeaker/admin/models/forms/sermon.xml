@@ -116,6 +116,10 @@
 			label="COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL" description ="COM_SERMONSPEAKER_FIELD_SCRIPTURE_DESC"
 			size="20" />
 
+		<field name="scripture"  type="scripturenew" class="inputbox"
+			label="COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL" description ="COM_SERMONSPEAKER_FIELD_SCRIPTURE_DESC"
+			size="20" />
+
 		<field name="speaker_id" type="speakerlist" class="inputbox"
 			label="COM_SERMONSPEAKER_SPEAKER" description="COM_SERMONSPEAKER_FIELD_SPEAKER_DESC" />
 
