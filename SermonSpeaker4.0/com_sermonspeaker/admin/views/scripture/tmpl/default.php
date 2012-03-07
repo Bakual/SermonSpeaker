@@ -1,10 +1,6 @@
 <?php
 defined('_JEXEC') or die('Restricted access');
-
-// JHTML::_('behavior.tooltip');
-// JHTML::_('behavior.modal');
 ?>
-
 <h1><?php echo JText::_('COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL'); ?></h1>
 <form name="adminForm" id="adminForm">
 	<table class="adminlist">
@@ -40,10 +36,10 @@ defined('_JEXEC') or die('Restricted access');
 					</optgroup>
 				</select>
 			</td>
-			<td><input name="from[cap]" class="inputbox" id="cap1" type="text" size="3" /></td>
-			<td><input name="from[vers]" class="inputbox" id="vers1" type="text" size="3" /></td>
-			<td><input name="from[cap]" class="inputbox" id="cap2" type="text" size="3" /></td>
-			<td><input name="from[vers]" class="inputbox" id="vers2" type="text" size="3" /></td>
+			<td><input name="from[cap1]" class="inputbox" id="cap1" type="text" size="3" /></td>
+			<td><input name="from[vers1]" class="inputbox" id="vers1" type="text" size="3" /></td>
+			<td><input name="from[cap2]" class="inputbox" id="cap2" type="text" size="3" /></td>
+			<td><input name="from[vers2]" class="inputbox" id="vers2" type="text" size="3" /></td>
 		</tr>
 	</table>
 	<div style="clear:left;"><br /></div>
