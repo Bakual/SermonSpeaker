@@ -213,6 +213,7 @@ class SermonspeakerModelSermon extends JModelAdmin
 	{
 		$item = parent::getItem($pk);
 
+		$item->scripture = array();
 		if($item->id){
 			$db		= JFactory::getDBO();
 			$query	= "SELECT * \n"
@@ -224,8 +225,6 @@ class SermonspeakerModelSermon extends JModelAdmin
 			foreach ($scripture as $script){
 				$item->scripture[] = implode(',', $script);
 			}
-		} else {
-			$item->scripture = array();
 		}
 
 		return $item;

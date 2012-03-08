@@ -108,7 +108,7 @@ class JFormFieldSpeakerlist extends JFormFieldList
 
 		if ($this->value === ''){
 			foreach ($options as $option){
-				if ($option->home){
+				if (isset($option->home) && $option->home){
 					$this->value = $option->value;
 					break;
 				}

@@ -47,6 +47,7 @@ class JFormFieldScripturenew extends JFormField
 
 		$html 	= '<div id="scripture_span">';
 		$i = 1;
+		dump($this->value);
 		foreach ($this->value as $value){
 			$title		= '';
 			$explode	= explode(',',$value);
@@ -76,7 +77,7 @@ class JFormFieldScripturenew extends JFormField
 			}
 			$html .= '<span id="scripture_span_'.$i.'">';
 			$html .= '<input id="jform_scripture_'.$i.'" type="hidden" value="'.$value.'" name="jform[scripture]['.$i.']">';
-			$html .= '<img class="pointer" onclick="delete_scripture('.$i.');" src="http://localhost/joomla2.5/media/com_sermonspeaker/images/delete.png">';
+			$html .= '<img class="pointer" onclick="delete_scripture('.$i.');" src="'.JURI::root().'media/com_sermonspeaker/images/delete.png">';
 			$html .= '<input id="jform_scripture_text_'.$i.'" class="readonly scripture'.$title.'" disabled="disabled" readonly="readonly" value="'.$text.'" name="jform[scripture_text]['.$i.']" />';
 			$html .= '<label></label></span>';
 			$i++;
