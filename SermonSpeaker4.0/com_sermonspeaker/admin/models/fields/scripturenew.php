@@ -45,7 +45,43 @@ class JFormFieldScripturenew extends JFormField
 			$url = JRoute::_('index.php?view=scripture&layout=modal&tmpl=component');
 		}
 
-		$html 	= '<div id="scripture_span"><input type="hidden" id="scripture_id" value="1" /></div>';
+		$html 	= '<div id="scripture_span">';
+		$i = 1;
+		foreach ($this->value as $value){
+			$title		= '';
+			$explode	= explode(',',$value);
+			if ($explode[0]){
+				$separator	= JText::_('COM_SERMONSPEAKER_SCRIPTURE_SEPARATOR');
+				$text		= JText::_('COM_SERMONSPEAKER_BOOK_'.$explode[0]);
+				if ($explode[1]){
+					$text .= ' '.$explode[1];
+				}
+				if ($explode[2]){
+					$text .= $separator.$explode[2];
+				}
+				if ($explode[3] || $explode[4]){
+					$text .= '-';
+					if ($explode[3]){
+						$text .= $explode[3];
+						if ($explode[4]){
+							$text .= $separator.$explode[4];
+						}
+					} else {
+						$text .= $explode[4];
+					}
+				}
+			} else {
+				$text	= $explode[5];
+				$title	= 'old" title="'.JText::_('COM_SERMONSPEAKER_SXRIPTURE_NOT_SEARCHABLE');
+			}
+			$html .= '<span id="scripture_span_'.$i.'">';
+			$html .= '<input id="jform_scripture_'.$i.'" type="hidden" value="'.$value.'" name="jform[scripture]['.$i.']">';
+			$html .= '<img class="pointer" onclick="delete_scripture('.$i.');" src="http://localhost/joomla2.5/media/com_sermonspeaker/images/delete.png">';
+			$html .= '<input id="jform_scripture_text_'.$i.'" class="readonly scripture'.$title.'" disabled="disabled" readonly="readonly" value="'.$text.'" name="jform[scripture_text]['.$i.']" />';
+			$html .= '<label></label></span>';
+			$i++;
+		}
+		$html	.= '<input type="hidden" id="scripture_id" value="'.$i.'" /></div>';
 		$html	.= '<a class="modal" href="'.$url.'" rel="{handler: \'iframe\', size: {x: 500, y: 200}}"><img src="'.JURI::root().'media/com_sermonspeaker/images/plus.png"></a>';
 
 		return $html;
