@@ -47,7 +47,6 @@ class JFormFieldScripturenew extends JFormField
 
 		$html 	= '<div id="scripture_span">';
 		$i = 1;
-		dump($this->value);
 		foreach ($this->value as $value){
 			$title		= '';
 			$explode	= explode(',',$value);
