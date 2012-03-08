@@ -213,15 +213,19 @@ class SermonspeakerModelSermon extends JModelAdmin
 	{
 		$item = parent::getItem($pk);
 
-		$db		= JFactory::getDBO();
-		$query	= "SELECT * \n"
-				."FROM #__sermon_scriptures \n"
-				."WHERE sermon_id = ".$item->id
-				;
-		$db->setQuery($query);
-		$scripture = $db->loadAssocList();
-		foreach ($scripture as $script){
-			$item->scripture[] = implode(',', $script);
+		if($item->id){
+			$db		= JFactory::getDBO();
+			$query	= "SELECT * \n"
+					."FROM #__sermon_scriptures \n"
+					."WHERE sermon_id = ".$item->id
+					;
+			$db->setQuery($query);
+			$scripture = $db->loadAssocList();
+			foreach ($scripture as $script){
+				$item->scripture[] = implode(',', $script);
+			}
+		} else {
+			$item->scripture = array();
 		}
 
 		return $item;
