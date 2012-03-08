@@ -126,6 +126,11 @@ class SermonspeakerModelSermons extends JModelList
 		);
 		$query->from('`#__sermon_sermons` AS sermons');
 
+		// Join over the scriptures.
+		$query->select('GROUP_CONCAT(script.book,",",script.cap1) AS scripture');
+		$query->join('LEFT', '#__sermon_scriptures AS script ON script.sermon_id = sermons.id');
+		$query->group('sermons.id');
+
 		// Join over the categories.
 		$query->select('c.title AS category_title');
 		$query->join('LEFT', '#__categories AS c ON c.id = sermons.catid');

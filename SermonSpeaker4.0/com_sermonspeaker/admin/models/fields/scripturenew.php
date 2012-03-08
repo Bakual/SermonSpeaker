@@ -40,9 +40,9 @@ class JFormFieldScripturenew extends JFormField
 		}";
 		$document->addScriptDeclaration($javascript);
 		if ($app->isAdmin()){
-			$url = 'index.php?option=com_sermonspeaker&view=scripture&layout=modal&tmpl=component';
+			$url = 'index.php?option=com_sermonspeaker&view=scripture&tmpl=component';
 		} else {
-			$url = JRoute::_('index.php?view=scripture&layout=modal&tmpl=component');
+			$url = JRoute::_('index.php?option=com_sermonspeaker&view=scripture&tmpl=component');
 		}
 
 		$html 	= '<div id="scripture_span">';
