@@ -123,7 +123,8 @@ $saveOrder	= $listOrder == 'sermons.ordering';
 					<?php echo $this->escape($item->name); ?>
 				</td>
 				<td class="center">
-					<?php echo $this->escape($item->sermon_scripture); ?>
+					<?php echo SermonspeakerHelper::Scripture($item->scripture);
+					echo $this->escape($item->sermon_scripture); ?>
 				</td>
 				<td class="center">
 					<?php echo $this->escape($item->series_title); ?>

@@ -127,7 +127,7 @@ class SermonspeakerModelSermons extends JModelList
 		$query->from('`#__sermon_sermons` AS sermons');
 
 		// Join over the scriptures.
-		$query->select('GROUP_CONCAT(script.book,",",script.cap1) AS scripture');
+		$query->select('GROUP_CONCAT(script.book,",",script.cap1,",",script.vers1,",",script.cap2,",",script.vers2,",",script.text SEPARATOR "!") AS scripture');
 		$query->join('LEFT', '#__sermon_scriptures AS script ON script.sermon_id = sermons.id');
 		$query->group('sermons.id');
 

@@ -74,4 +74,30 @@ class SermonspeakerHelper
 
 		return $result;
 	}
+
+	public function Scripture($scripture, $mode = 0)
+	{
+		if (!$scripture){
+			return;
+		}
+		$passages	= explode('!', $scripture);
+		$html = '';
+		foreach ($passages as $passage){
+			$elements	= explode(',',$passage);
+			if($elements[0]){
+				$html	.= JText::_('COM_SERMONSPEAKER_BOOK_'.$elements[0]);
+				if($elements[1]){
+					$html	.= '&nbsp;'.$elements[1];
+				}
+			} else {
+				$html	.= $elements[5];
+			}
+			if ($mode){
+				$html	.= '<br />';
+			} else {
+				$html	.= '; ';
+			}
+		}
+		return $html;
+	}
 }
