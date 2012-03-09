@@ -11,6 +11,17 @@
 	border:1px solid grey;
 	padding:5px;
 }
+.scripture{
+	background-color:#CF9 !important;
+	border-radius:5px;
+	padding-left:5px;
+}
+.scriptureold{
+	background-color:#FF997F !important;
+	border-radius:5px;
+	padding-left:5px;
+}
+
 /* Frontend Upload */
 .progressWrapper {
 	width: 357px;

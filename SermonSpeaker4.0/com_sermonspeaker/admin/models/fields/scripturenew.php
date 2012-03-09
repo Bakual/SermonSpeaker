@@ -39,13 +39,14 @@ class JFormFieldScripturenew extends JFormField
 			document.getElementById('scripture_span').removeChild(child);
 		}";
 		$document->addScriptDeclaration($javascript);
-		if ($app->isAdmin()){
+		$admin	= $app->isAdmin();
+		if ($admin){
 			$url = 'index.php?option=com_sermonspeaker&view=scripture&tmpl=component';
 		} else {
 			$url = JRoute::_('index.php?option=com_sermonspeaker&view=scripture&tmpl=component');
 		}
 
-		$html 	= '<div id="scripture_span">';
+		$html 	= '<span id="scripture_span">';
 		$i = 1;
 		foreach ($this->value as $value){
 			$title		= '';
@@ -76,12 +77,15 @@ class JFormFieldScripturenew extends JFormField
 			}
 			$html .= '<span id="scripture_span_'.$i.'">';
 			$html .= '<input id="jform_scripture_'.$i.'" type="hidden" value="'.$value.'" name="jform[scripture]['.$i.']">';
-			$html .= '<img class="pointer" onclick="delete_scripture('.$i.');" src="'.JURI::root().'media/com_sermonspeaker/images/delete.png">';
+			$html .= '<img class="pointer" onclick="delete_scripture('.$i.');" src="'.JURI::root().'media/com_sermonspeaker/images/delete.png"> ';
 			$html .= '<input id="jform_scripture_text_'.$i.'" class="readonly scripture'.$title.'" disabled="disabled" readonly="readonly" value="'.$text.'" name="jform[scripture_text]['.$i.']" />';
-			$html .= '<label></label></span>';
+			if(!$admin){
+				$html	.= '<br />';
+			}
+			$html .= '<label></label> </span>';
 			$i++;
 		}
-		$html	.= '<input type="hidden" id="scripture_id" value="'.$i.'" /></div>';
+		$html	.= '<input type="hidden" id="scripture_id" value="'.$i.'" /></span>';
 		$html	.= '<a class="modal" href="'.$url.'" rel="{handler: \'iframe\', size: {x: 500, y: 200}}"><img src="'.JURI::root().'media/com_sermonspeaker/images/plus.png"></a>';
 
 		return $html;

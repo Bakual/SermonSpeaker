@@ -44,7 +44,7 @@ defined('_JEXEC') or die('Restricted access');
 	</table>
 	<div style="clear:left;"><br /></div>
 	<button type="button" onclick="AddScripture();">
-		<?php echo JText::_('JTOOLBAR_APPLY') ?>
+		<?php echo JText::_('JSAVE') ?>
 	</button>
 	<button type="button" onclick="window.parent.SqueezeBox.close();">
 		<?php echo JText::_('JCANCEL') ?>

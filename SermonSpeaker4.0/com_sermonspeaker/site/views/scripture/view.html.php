@@ -35,7 +35,7 @@ class SermonspeakerViewScripture extends JView
 					text += vers2;
 				}
 			}
-			window.parent.document.getElementById('scripture_span').innerHTML += '<span id=\"scripture_span_' + id + '\"><input type=\"hidden\" name=\"jform[scripture][' + id + ']\" id=\"jform_scripture_' + id + '\" value=\"' + value + '\" /><img src=\"".JURI::root()."media/com_sermonspeaker/images/delete.png\" class=\"pointer\" onClick=\"delete_scripture(' + id + ');\"><input disabled=\"disabled\" readonly=\"readonly\" class=\"readonly scripture\" name=\"jform[scripture_text][' + id + ']\" id=\"jform_scripture_text_' + id + '\" value=\"' + text + '\" /><label></label></span>';
+			window.parent.document.getElementById('scripture_span').innerHTML += '<span id=\"scripture_span_' + id + '\"><input type=\"hidden\" name=\"jform[scripture][' + id + ']\" id=\"jform_scripture_' + id + '\" value=\"' + value + '\" /><img src=\"".JURI::root()."media/com_sermonspeaker/images/delete.png\" class=\"pointer\" onClick=\"delete_scripture(' + id + ');\"> <input disabled=\"disabled\" readonly=\"readonly\" class=\"readonly scripture\" name=\"jform[scripture_text][' + id + ']\" id=\"jform_scripture_text_' + id + '\" value=\"' + text + '\" /><br /><label></label> </span>';
 			window.parent.document.getElementById('scripture_id').value = id+1;
 			window.parent.SqueezeBox.close();
 		}";

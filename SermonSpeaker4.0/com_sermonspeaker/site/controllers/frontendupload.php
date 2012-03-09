@@ -207,6 +207,23 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 
 		$recordId = $model->getState($this->context.'.id');
 		$params	= JComponentHelper::getParams('com_sermonspeaker');
+
+		$app	= JFactory::getApplication();
+		$db		= JFactory::getDBO();
+		$query	= "DELETE FROM #__sermon_scriptures \n"
+				."WHERE sermon_id = ".$recordId
+				;
+		$db->setQuery($query);
+		$db->query();
+		foreach ($validData['scripture'] as $scripture){
+			$item	= explode(',', $scripture);
+			$query	= "INSERT INTO #__sermon_scriptures \n"
+					."(`book`,`cap1`,`vers1`,`cap2`,`vers2`,`text`,`sermon_id`) \n"
+					."VALUES ('".(int)$item[0]."','".(int)$item[1]."','".(int)$item[2]."','".(int)$item[3]."','".(int)$item[4]."',".$db->quote($item[5]).",'".$recordId."')"
+					;
+			$db->setQuery($query);
+			$db->query();
+		}
 		if($params->get('write_id3', 0)){
 			$app	= JFactory::getApplication();
 			$app->enqueueMessage($this->setMessage(''));
