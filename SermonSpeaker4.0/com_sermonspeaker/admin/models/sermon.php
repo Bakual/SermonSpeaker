@@ -216,15 +216,13 @@ class SermonspeakerModelSermon extends JModelAdmin
 		$item->scripture = array();
 		if($item->id){
 			$db		= JFactory::getDBO();
-			$query	= "SELECT * \n"
+			$query	= "SELECT book, cap1, vers1, cap2, vers2, text \n"
 					."FROM #__sermon_scriptures \n"
-					."WHERE sermon_id = ".$item->id
+					."WHERE sermon_id = ".$item->id." \n"
+					."ORDER BY ordering ASC"
 					;
 			$db->setQuery($query);
-			$scripture = $db->loadAssocList();
-			foreach ($scripture as $script){
-				$item->scripture[] = implode(',', $script);
-			}
+			$item->scripture = $db->loadAssocList();
 		}
 
 		return $item;

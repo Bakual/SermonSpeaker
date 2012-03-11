@@ -68,10 +68,10 @@ class SermonspeakerModelSermon extends JModelItem
 				$query->select(
 					$this->getState(
 						'item.select',
-						'sermon.id, sermon.speaker_id, sermon.series_id, sermon.alias, sermon.picture,'.
+						'sermon.id, sermon.speaker_id, sermon.series_id, sermon.alias, '.
 						'CASE WHEN CHAR_LENGTH(sermon.alias) THEN CONCAT_WS(\':\', sermon.id, sermon.alias) ELSE sermon.id END as slug,' .
 						'sermon.audiofile, sermon.videofile, sermon.sermon_title, sermon.sermon_number, '.
-						'sermon.sermon_scripture, sermon.sermon_date, sermon.sermon_date, '.
+						'sermon.sermon_date, sermon.picture, '.
 						'sermon.sermon_time, sermon.notes, sermon.state, '.
 						'sermon.hits, sermon.addfile, sermon.addfileDesc, '.
 						'sermon.metakey, sermon.metadesc, sermon.custom1, sermon.custom2, '.
@@ -79,6 +79,10 @@ class SermonspeakerModelSermon extends JModelItem
 					)
 				);
 				$query->from('#__sermon_sermons AS sermon');
+
+				// Join over the scriptures.
+				$query->select('GROUP_CONCAT(script.book,"|",script.cap1,"|",script.vers1,"|",script.cap2,"|",script.vers2,"|",script.text ORDER BY script.ordering ASC SEPARATOR "!") AS scripture');
+				$query->join('LEFT', '#__sermon_scriptures AS script ON script.sermon_id = sermon.id');
 
 				// Join over users for the author names.
 				$query->select("user.name AS author");

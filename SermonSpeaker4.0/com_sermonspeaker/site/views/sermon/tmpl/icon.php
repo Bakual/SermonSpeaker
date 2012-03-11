@@ -65,9 +65,10 @@ $player = new SermonspeakerHelperPlayer($this->item, $config);
 				endif; ?>
 			</div>
 		<?php endif; ?>
-		<?php if (in_array('sermon:scripture', $this->columns) && $this->item->sermon_scripture) : ?>
+		<?php if (in_array('sermon:scripture', $this->columns) && $this->item->scripture) : ?>
 			<div class="ss-field field-bible" title="<?php echo JText::_('COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL'); ?>">
-				<?php echo JHTML::_('content.prepare', $this->item->sermon_scripture); ?>
+				<?php $scriptures = SermonspeakerHelperSermonspeaker::insertScriptures($this->item->scripture, '; ');
+				echo JHTML::_('content.prepare', $scriptures); ?>
 			</div>
 		<?php endif; ?>
 	</div>

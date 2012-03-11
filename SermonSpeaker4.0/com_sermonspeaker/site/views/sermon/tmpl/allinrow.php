@@ -23,7 +23,7 @@ $player = new SermonspeakerHelperPlayer($this->item);
 <!-- Begin Header -->
 <table border="0" cellpadding="2" cellspacing="0" width="100%">
 	<tr>
-		<?php if (in_array('sermon:scripture', $this->columns) && $this->item->sermon_scripture) : ?>
+		<?php if (in_array('sermon:scripture', $this->columns) && $this->item->scripture) : ?>
 			<th align="left" valign="bottom"><?php echo JText::_('COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL'); ?></th>
 		<?php endif;
 		if (in_array('sermon:notes', $this->columns) && strlen($this->item->notes) > 0) : ?>
@@ -38,8 +38,11 @@ $player = new SermonspeakerHelperPlayer($this->item);
 	</tr> 
 <!-- Begin Data -->
 	<tr>
-		<?php if (in_array('sermon:scripture', $this->columns) && $this->item->sermon_scripture) : ?>
-			<td align="left" valign="top"><?php echo JHTML::_('content.prepare', $this->item->sermon_scripture); ?></td>
+		<?php if (in_array('sermon:scripture', $this->columns) && $this->item->scripture) : ?>
+			<td align="left" valign="top">
+				<?php $scriptures = SermonspeakerHelperSermonspeaker::insertScriptures($this->item->scripture, '; ');
+				echo JHTML::_('content.prepare', $scriptures); ?>
+			</td>
 		<?php endif;
 		if (in_array('sermon:notes', $this->columns) && strlen($this->item->notes) > 0) : ?>
 			<td align="left" valign="top"><?php echo JHTML::_('content.prepare', $this->item->notes); ?></td>

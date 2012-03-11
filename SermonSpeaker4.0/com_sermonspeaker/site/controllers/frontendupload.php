@@ -215,14 +215,16 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 				;
 		$db->setQuery($query);
 		$db->query();
+		$i = 1;
 		foreach ($validData['scripture'] as $scripture){
-			$item	= explode(',', $scripture);
+			$item	= explode('|', $scripture);
 			$query	= "INSERT INTO #__sermon_scriptures \n"
-					."(`book`,`cap1`,`vers1`,`cap2`,`vers2`,`text`,`sermon_id`) \n"
-					."VALUES ('".(int)$item[0]."','".(int)$item[1]."','".(int)$item[2]."','".(int)$item[3]."','".(int)$item[4]."',".$db->quote($item[5]).",'".$recordId."')"
+					."(`book`,`cap1`,`vers1`,`cap2`,`vers2`,`text`,`ordering`,`sermon_id`) \n"
+					."VALUES ('".(int)$item[0]."','".(int)$item[1]."','".(int)$item[2]."','".(int)$item[3]."','".(int)$item[4]."',".$db->quote($item[5]).",'".$i."','".$recordId."')"
 					;
 			$db->setQuery($query);
 			$db->query();
+			$i++;
 		}
 		if($params->get('write_id3', 0)){
 			$app	= JFactory::getApplication();
@@ -297,7 +299,7 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 				'track'   => array($item->sermon_number),
 			);
 			$params	= JComponentHelper::getParams('com_sermonspeaker');
-			$comments = ($params->get('fu_id3_comments', 'notes')) ? $item->notes : $item->sermon_scripture;
+			$comments = ($params->get('fu_id3_comments', 'notes')) ? $item->notes : $item->scripture;
 			$TagData['comment'] = array(strip_tags(JHTML::_('content.prepare', $comments)));
 
 			JImport('joomla.filesystem.file');

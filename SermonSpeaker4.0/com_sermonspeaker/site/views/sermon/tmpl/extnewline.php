@@ -25,9 +25,12 @@ $player = new SermonspeakerHelperPlayer($this->item);
 		<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL'); ?>:</div>
 		<div class="ss-sermondetail-text"><?php echo JHTML::Date($this->item->sermon_date, JText::_($this->params->get('date_format')), true); ?></div>
 	<?php endif;
-	if (in_array('sermon:scripture', $this->columns) && $this->item->sermon_scripture) : ?>
+	if (in_array('sermon:scripture', $this->columns) && $this->item->scripture) : ?>
 		<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL'); ?>:</div>
-		<div class="ss-sermondetail-text"><?php echo JHTML::_('content.prepare', $this->item->sermon_scripture); ?></div>
+		<div class="ss-sermondetail-text">
+			<?php $scriptures = SermonspeakerHelperSermonspeaker::insertScriptures($this->item->scripture, '; ');
+			echo JHTML::_('content.prepare', $scriptures); ?>
+		</div>
 	<?php endif;
 	if ($this->params->get('custom1') && $this->item->custom1) : ?>
 		<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_CUSTOM1'); ?>:</div>

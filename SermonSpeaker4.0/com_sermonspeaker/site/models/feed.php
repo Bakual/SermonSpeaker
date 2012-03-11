@@ -47,8 +47,10 @@ class SermonspeakerModelFeed extends JModel
 		$query = "SET character_set_results ='utf8';";
 		$database->setQuery($query);
 		$query = "SELECT sermons.sermon_date, sermons.sermon_title, sermons.audiofile, sermons.videofile, series.series_title, \n"
-				."sermons.notes, sermons.sermon_time, sermons.sermon_scripture, speakers.name, sermons.id, sermons.picture \n"
+				."sermons.notes, sermons.sermon_time, speakers.name, sermons.id, sermons.picture, \n"
+				.'GROUP_CONCAT(script.book,"|",script.cap1,"|",script.vers1,"|",script.cap2,"|",script.vers2,"|",script.text ORDER BY script.ordering ASC SEPARATOR "!") AS scripture '."\n"
 				."FROM #__sermon_sermons AS sermons \n"
+				."LEFT JOIN #__sermon_scriptures AS script ON script.sermon_id = sermons.id \n"
 				."LEFT JOIN #__sermon_speakers AS speakers ON sermons.speaker_id = speakers.id \n"
 				."LEFT JOIN #__sermon_series AS series ON sermons.series_id = series.id \n"
 				."LEFT JOIN #__categories AS c_sermons ON c_sermons.id = sermons.catid \n"
@@ -60,11 +62,10 @@ class SermonspeakerModelFeed extends JModel
 				."AND (sermons.speaker_id = 0 OR speakers.catid = 0 OR (c_speaker.access IN (".$groups.") AND c_speaker.published = 1)) \n"
 				."AND (sermons.series_id = 0 OR series.catid = 0 OR (c_series.access IN (".$groups.") AND c_series.published = 1)) \n"
 				.$this->catwhere
-				."ORDER by sermons.sermon_date DESC";
+				."GROUP BY sermons.id \n"
+				."ORDER BY sermons.sermon_date DESC";
 		$database->setQuery($query, '0', $this->limit);
 		$rows = $database->loadObjectList();
-		
-		if(!count($rows)) echo mysql_error();
 
 		return $rows;
 	}

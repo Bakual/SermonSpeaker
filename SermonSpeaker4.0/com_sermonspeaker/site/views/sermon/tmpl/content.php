@@ -55,10 +55,11 @@ if (in_array('sermon:hits', $this->columns)) : ?>
 		<?php echo JText::_('JGLOBAL_HITS'); ?>: 
 		<?php echo $this->item->hits; ?>
 	</dd>
-<?php endif;if (in_array('sermon:scripture', $this->columns) && $this->item->sermon_scripture) : ?>
+<?php endif;if (in_array('sermon:scripture', $this->columns) && $this->item->scripture) : ?>
 	<dd class="ss-sermondetail-info">
 		<?php echo JText::_('COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL'); ?>:
-		<?php echo JHTML::_('content.prepare', $this->item->sermon_scripture); ?>
+		<?php $scriptures = SermonspeakerHelperSermonspeaker::insertScriptures($this->item->scripture, '; ');
+		echo JHTML::_('content.prepare', $scriptures); ?>
 	</dd>
 <?php endif;
 if ($this->params->get('custom1') && $this->item->custom1) : ?>

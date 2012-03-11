@@ -128,14 +128,16 @@ class SermonspeakerControllerSermon extends JControllerForm
 				;
 		$db->setQuery($query);
 		$db->query();
+		$i	= 1;
 		foreach ($validData['scripture'] as $scripture){
-			$item	= explode(',', $scripture);
+			$item	= explode('|', $scripture);
 			$query	= "INSERT INTO #__sermon_scriptures \n"
-					."(`book`,`cap1`,`vers1`,`cap2`,`vers2`,`text`,`sermon_id`) \n"
-					."VALUES ('".(int)$item[0]."','".(int)$item[1]."','".(int)$item[2]."','".(int)$item[3]."','".(int)$item[4]."',".$db->quote($item[5]).",'".$recordId."')"
+					."(`book`,`cap1`,`vers1`,`cap2`,`vers2`,`text`,`ordering`,`sermon_id`) \n"
+					."VALUES ('".(int)$item[0]."','".(int)$item[1]."','".(int)$item[2]."','".(int)$item[3]."','".(int)$item[4]."',".$db->quote($item[5]).",'".$i."','".$recordId."')"
 					;
 			$db->setQuery($query);
 			$db->query();
+			$i++;
 		}
 		if($params->get('write_id3', 0)){
 			$app	= JFactory::getApplication();

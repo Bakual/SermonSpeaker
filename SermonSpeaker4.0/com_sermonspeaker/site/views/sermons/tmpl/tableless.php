@@ -116,10 +116,11 @@ if (in_array('sermons:player', $this->columns) && count($this->items)) : ?>
 						<?php echo JText::_('JGLOBAL_HITS'); ?>: 
 						<?php echo $item->hits; ?>
 					</dd>
-				<?php endif;if (in_array('sermons:scripture', $this->columns) && $item->sermon_scripture) : ?>
+				<?php endif;if (in_array('sermons:scripture', $this->columns) && $item->scripture) : ?>
 					<dd class="ss-sermondetail-info">
 						<?php echo JText::_('COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL'); ?>:
-						<?php echo JHTML::_('content.prepare', $item->sermon_scripture); ?>
+						<?php $scriptures = SermonspeakerHelperSermonspeaker::insertScriptures($item->scripture, '; ');
+						echo JHTML::_('content.prepare', $scriptures); ?>
 					</dd>
 				<?php endif;
 				if ($this->params->get('custom1') && $item->custom1) : ?>
@@ -177,6 +178,7 @@ if (in_array('sermons:player', $this->columns) && count($this->items)) : ?>
 			echo $this->pagination->getPagesLinks(); ?>
 		</div>
 	<?php endif; ?>
+	<input type="hidden" name="task" value="" />
 	<input type="hidden" name="filter_order" value="<?php echo $listOrder; ?>" />
 	<input type="hidden" name="filter_order_Dir" value="<?php echo $listDirn; ?>" />
 </form>

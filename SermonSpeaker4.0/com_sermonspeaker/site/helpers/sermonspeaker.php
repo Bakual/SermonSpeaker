@@ -167,6 +167,51 @@ class SermonspeakerHelperSermonspeaker
 		return implode(', ', $links);
 	}
 
+	function insertScriptures($scripture, $between, $addTag = true){
+		if(!$scripture){
+			return;
+		}
+		$explode = explode('!', $scripture);
+		$scriptures = array();
+		foreach ($explode as $passage){
+			$scriptures[] = self::buildScripture($passage, $addTag);
+		}
+		return implode($between, $scriptures);
+	}
+
+	function buildScripture($scripture, $addTag = true){
+		$explode	= explode('|',$scripture);
+		$text = '';
+		if ($explode[0]){
+			$separator	= JText::_('COM_SERMONSPEAKER_SCRIPTURE_SEPARATOR');
+			$text .= JText::_('COM_SERMONSPEAKER_BOOK_'.$explode[0]);
+			if ($explode[1]){
+				$text .= ' '.$explode[1];
+				if ($explode[2]){
+					$text .= $separator.$explode[2];
+				}
+				if ($explode[3] || $explode[4]){
+					$text .= '-';
+					if ($explode[3]){
+						$text .= $explode[3];
+						if ($explode[4]){
+							$text .= $separator.$explode[4];
+						}
+					} else {
+						$text .= $explode[4];
+					}
+				}
+			}
+			if($text && $addTag){
+				$tags = $this->params->get('plugin_tag');
+				$text = $tags[0].$text.$tags[1];
+			}
+		} else {
+			$text .= $explode[5];
+		}
+		return $text;
+	}
+
 	function getMime($ext){
 		switch ($ext){
 			case 'mp3':

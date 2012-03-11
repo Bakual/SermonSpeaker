@@ -117,7 +117,7 @@ if (in_array('serie:player', $this->columns) && count($this->items)) : ?>
 				</th>
 				<?php if (in_array('serie:scripture', $this->columns)) : ?>
 					<th class="ss-col ss-scripture">
-						<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL', 'sermon_scripture', $listDirn, $listOrder); ?>
+						<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL', 'scripture', $listDirn, $listOrder); ?>
 					</th>
 				<?php endif;
 				if (in_array('serie:speaker', $this->columns)) : ?>
@@ -171,7 +171,8 @@ if (in_array('serie:player', $this->columns) && count($this->items)) : ?>
 						</td>
 						<?php if (in_array('serie:scripture', $this->columns)) : ?>
 							<td class="ss-col ss-scripture">
-								<?php echo JHTML::_('content.prepare', $item->sermon_scripture); ?>
+								<?php $scriptures = SermonspeakerHelperSermonspeaker::insertScriptures($item->scripture, '<br />');
+								echo JHTML::_('content.prepare', $scriptures); ?>
 							</td>
 						<?php endif;
 						if (in_array('serie:speaker', $this->columns)) : ?>
@@ -224,6 +225,7 @@ if (in_array('serie:player', $this->columns) && count($this->items)) : ?>
 			echo $this->pagination->getPagesLinks(); ?>
 		</div>
 	<?php endif; ?>
+	<input type="hidden" name="task" value="" />
 	<input type="hidden" name="filter_order" value="<?php echo $listOrder; ?>" />
 	<input type="hidden" name="filter_order_Dir" value="<?php echo $listDirn; ?>" />
 </form>

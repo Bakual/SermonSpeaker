@@ -44,15 +44,15 @@ class SermonspeakerHelperId3
 			}
 			if (array_key_exists('comment', $FileInfo['comments'])){
 				if ($params->get('fu_id3_comments') == 'ref'){
-					$id3['sermon_scripture'] = $FileInfo['comments']['comment'][0];
+					$id3['scripture'] = '0|0|0|0|0|'.$FileInfo['comments']['comment'][0];
 					$id3['notes'] 			 = '';
 				} else {
 					$id3['notes']			 = $FileInfo['comments']['comment'][0];
-					$id3['sermon_scripture'] = '';
+					$id3['scripture'] = '';
 				}
 			} else {
 				$id3['notes']			 = '';
-				$id3['sermon_scripture'] = '';
+				$id3['scripture'] = '';
 			}
 			$db =& JFactory::getDBO();
 			if (array_key_exists('album', $FileInfo['comments'])){
@@ -75,7 +75,7 @@ class SermonspeakerHelperId3
 			$id3['alias'] 			= JApplication::stringURLSafe($id3['sermon_title']);
 			$id3['sermon_number']	= '';
 			$id3['notes'] 			= '';
-			$id3['sermon_scripture'] = '';
+			$id3['scripture'] = '';
 			$id3['series_id'] 		= '';
 			$id3['speaker_id']		= '';
 		}
@@ -99,7 +99,7 @@ class SermonspeakerHelperId3
 			$id3['notes'] 			= $video->description;
 			$id3['pic']				= $video->thumbnail_medium;
 			$id3['sermon_number']	= '';
-			$id3['sermon_scripture'] = '';
+			$id3['scripture'] = '';
 			$id3['series_id'] 		= '';
 			$id3['speaker_id']		= '';
 

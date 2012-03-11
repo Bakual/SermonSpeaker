@@ -132,6 +132,7 @@ if (in_array('speaker:hits', $this->columns)): ?>
 			echo $this->pag_series->getPagesLinks(); ?>
 		</div>
 	<?php endif; ?>
+	<input type="hidden" name="task" value="" />
 	<input type="hidden" name="filter_order" value="<?php echo $listOrder; ?>" />
 	<input type="hidden" name="filter_order_Dir" value="<?php echo $listDirn; ?>" />
 </form>

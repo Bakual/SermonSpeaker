@@ -87,11 +87,10 @@ class SermonspeakerViewFeed extends JView
 		
 		$items = array();
 		foreach($rows as $row) {
-			// Trigger Event for `notes` and `sermon_scripture`
-			$row->text	= &$row->notes;
-			$dispatcher->trigger('onContentPrepare', array('com_sermonspeaker.sermon', &$row, &$row->params, 0));
-			$row->text	= &$row->sermon_scripture;
-			$dispatcher->trigger('onContentPrepare', array('com_sermonspeaker.sermon', &$row, &$row->params, 0));
+			// Trigger Event for `notes` and `scripture`
+			$scriptures	= SermonspeakerHelperSermonspeaker::insertScriptures($row->scripture, ';', false);
+			$row->notes		= JHTML::_('content.prepare', $row->notes);
+			$row->scripture	= JHTML::_('content.prepare', $scriptures);
 
 			$item = NULL;
 			// todo: ItemId des Predigten Menupunkts suchen und an Link anhängen, maybe use HelperRoute (check if feed will be valid then)
@@ -141,8 +140,16 @@ class SermonspeakerViewFeed extends JView
 			}
 
 			// create keywords from series_title and scripture (title and speaker are searchable anyway)
-			$keywords = str_replace(' ', ',', $item->category);
-			$item->itKeywords 	= $this->make_xml_safe(str_replace(',', ':', $row->sermon_scripture)).','.$keywords;
+			$keywords = array();
+			if($row->scripture){
+				$kw_script	= str_replace(',', ':', $row->scripture); // Make english scripture format
+				$kw_script	= str_replace("\n", '', $this->make_xml_safe($kw_script));
+				$keywords	= explode(';',$kw_script);
+			}
+			if($item->category){
+				$keywords[]	= $item->category;
+			}
+			$item->itKeywords 	= implode(',', $keywords);
 
 			// Create Enclosure
 			if (($type != 'video') && ($row->audiofile && (!$prio || ($type == 'audio') || !$row->videofile))){

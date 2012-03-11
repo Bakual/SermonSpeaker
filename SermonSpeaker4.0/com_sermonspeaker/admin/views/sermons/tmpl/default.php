@@ -60,7 +60,7 @@ $saveOrder	= $listOrder == 'sermons.ordering';
 					<?php echo JHtml::_('grid.sort',  'COM_SERMONSPEAKER_SPEAKER', 'name', $listDirn, $listOrder); ?>
 				</th>
 				<th width="10%">
-					<?php echo JHtml::_('grid.sort',  'COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL', 'sermon_scripture', $listDirn, $listOrder); ?>
+					<?php echo JHtml::_('grid.sort',  'COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL', 'scripture', $listDirn, $listOrder); ?>
 				</th>
 				<th width="10%">
 					<?php echo JHtml::_('grid.sort',  'COM_SERMONSPEAKER_SERIE', 'series_title', $listDirn, $listOrder); ?>
@@ -123,8 +123,40 @@ $saveOrder	= $listOrder == 'sermons.ordering';
 					<?php echo $this->escape($item->name); ?>
 				</td>
 				<td class="center">
-					<?php echo SermonspeakerHelper::Scripture($item->scripture);
-					echo $this->escape($item->sermon_scripture); ?>
+					<?php if ($item->scripture):
+						$passages	= explode('!', $item->scripture);
+						$separator	= JText::_('COM_SERMONSPEAKER_SCRIPTURE_SEPARATOR');
+						$i = 1;
+						foreach ($passages as $passage){
+							$explode	= explode('|',$passage);
+							if ($explode[0]){
+								echo JText::_('COM_SERMONSPEAKER_BOOK_'.$explode[0]);
+								if ($explode[1]){
+									echo '&nbsp;'.$explode[1];
+									if ($explode[2]){
+										echo $separator.$explode[2];
+									}
+									if ($explode[3] || $explode[4]){
+										echo '-';
+										if ($explode[3]){
+											echo $explode[3];
+											if ($explode[4]){
+												echo $separator.$explode[4];
+											}
+										} else {
+											echo $explode[4];
+										}
+									}
+								}
+							} else {
+								echo '<i><u>'.$explode[5].'</u></i>';
+							}
+							if($i < count($passages)){
+								echo '<br/ >';
+							}
+							$i++;
+						}
+					endif; ?>
 				</td>
 				<td class="center">
 					<?php echo $this->escape($item->series_title); ?>

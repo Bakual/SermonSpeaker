@@ -21,7 +21,7 @@ class SermonspeakerModelSermons extends JModelList
 			$config['filter_fields'] = array(
 				'sermon_number', 'sermons.sermon_number',
 				'sermon_title', 'sermons.sermon_title',
-				'sermon_scripture', 'sermons.sermon_scripture',
+				'scripture', 'sermons.scripture',
 				'sermon_date', 'sermons.sermon_date',
 				'sermon_time', 'sermons.sermon_time',
 				'addfileDesc', 'sermons.addfileDesc',
@@ -50,7 +50,7 @@ class SermonspeakerModelSermons extends JModelList
 				'list.select',
 				'sermons.id, sermons.sermon_title, sermons.catid, sermons.audiofile, sermons.videofile, ' .
 				'CASE WHEN CHAR_LENGTH(sermons.alias) THEN CONCAT_WS(\':\', sermons.id, sermons.alias) ELSE sermons.id END as slug,' .
-				'sermons.picture, sermons.hits, sermons.notes, sermons.sermon_scripture,' .
+				'sermons.picture, sermons.hits, sermons.notes,' .
 				'sermons.sermon_date, sermons.alias, sermons.sermon_time,' .
 				'sermons.state, sermons.ordering, sermons.podcast,' .
 				'sermons.sermon_number, sermons.addfile, sermons.addfileDesc,' .
@@ -58,6 +58,11 @@ class SermonspeakerModelSermons extends JModelList
 			)
 		);
 		$query->from('`#__sermon_sermons` AS sermons');
+
+		// Join over the scriptures.
+		$query->select('GROUP_CONCAT(script.book,"|",script.cap1,"|",script.vers1,"|",script.cap2,"|",script.vers2,"|",script.text ORDER BY script.ordering ASC SEPARATOR "!") AS scripture');
+		$query->join('LEFT', '#__sermon_scriptures AS script ON script.sermon_id = sermons.id');
+		$query->group('sermons.id');
 
 		// Join over Speaker
 		$query->select(
@@ -78,7 +83,7 @@ class SermonspeakerModelSermons extends JModelList
 		if (!empty($search)) {
 			if (stripos($search, 'ref:') === 0) {
 				$search = $db->Quote('%'.$db->getEscaped(substr($search, 4), true).'%');
-				$query->where('(sermons.sermon_scripture LIKE '.$search.')');
+				$query->where('(scripture LIKE '.$search.')');
 			} else {
 				$search = $db->Quote('%'.$db->getEscaped($search, true).'%');
 				$query->where('(sermons.sermon_title LIKE '.$search.')');

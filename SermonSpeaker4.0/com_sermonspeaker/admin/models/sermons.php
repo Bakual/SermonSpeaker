@@ -30,7 +30,7 @@ class SermonspeakerModelSermons extends JModelList
 				'sermon_date', 'sermons.sermon_date',
 				'hits', 'sermons.hits',
 				'series_title', 'series.series_title',
-				'sermon_scripture', 'sermons.sermon_scripture',
+				'scripture', 'sermons.scripture',
 			);
 		}
 
@@ -119,7 +119,7 @@ class SermonspeakerModelSermons extends JModelList
 			$this->getState(
 				'list.select',
 				'sermons.id, sermons.sermon_title, sermons.catid, '.
-				'sermons.hits, sermons.notes, sermons.sermon_scripture, '.
+				'sermons.hits, sermons.notes, '.
 				'sermons.sermon_date, sermons.alias, sermons.created, sermons.created_by, '.
 				'sermons.state, sermons.ordering, sermons.podcast'
 			)
@@ -127,7 +127,7 @@ class SermonspeakerModelSermons extends JModelList
 		$query->from('`#__sermon_sermons` AS sermons');
 
 		// Join over the scriptures.
-		$query->select('GROUP_CONCAT(script.book,",",script.cap1,",",script.vers1,",",script.cap2,",",script.vers2,",",script.text SEPARATOR "!") AS scripture');
+		$query->select('GROUP_CONCAT(script.book,"|",script.cap1,"|",script.vers1,"|",script.cap2,"|",script.vers2,"|",script.text ORDER BY script.ordering ASC SEPARATOR "!") AS scripture');
 		$query->join('LEFT', '#__sermon_scriptures AS script ON script.sermon_id = sermons.id');
 		$query->group('sermons.id');
 

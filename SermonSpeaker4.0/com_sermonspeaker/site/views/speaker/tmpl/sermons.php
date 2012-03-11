@@ -116,7 +116,7 @@ if (in_array('speaker:hits', $this->columns)): ?>
 				</th>
 				<?php if (in_array('speaker:scripture', $this->col_sermon)) : ?>
 					<th class="ss-col ss-scripture">
-						<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL', 'sermon_scripture', $listDirn, $listOrder); ?>
+						<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL', 'scripture', $listDirn, $listOrder); ?>
 					</th>
 				<?php endif;
 				if (in_array('speaker:date', $this->col_sermon)) : ?>
@@ -170,7 +170,8 @@ if (in_array('speaker:hits', $this->columns)): ?>
 						</td>
 						<?php if (in_array('speaker:scripture', $this->col_sermon)) : ?>
 							<td class="ss-col ss-scripture">
-								<?php echo JHTML::_('content.prepare', $item->sermon_scripture); ?>
+								<?php $scriptures = SermonspeakerHelperSermonspeaker::insertScriptures($item->scripture, '<br />');
+								echo JHTML::_('content.prepare', $scriptures); ?>
 							</td>
 						<?php endif;
 						if (in_array('speaker:date', $this->col_sermon)) : ?>
@@ -225,6 +226,7 @@ if (in_array('speaker:hits', $this->columns)): ?>
 			echo $this->pag_sermons->getPagesLinks(); ?>
 		</div>
 	<?php endif; ?>
+	<input type="hidden" name="task" value="" />
 	<input type="hidden" name="filter_order" value="<?php echo $listOrder; ?>" />
 	<input type="hidden" name="filter_order_Dir" value="<?php echo $listDirn; ?>" />
 </form>
