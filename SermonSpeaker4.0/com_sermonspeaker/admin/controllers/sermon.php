@@ -192,9 +192,7 @@ class SermonspeakerControllerSermon extends JControllerForm
 				'year'    => array($item->date),
 				'track'   => array($item->sermon_number),
 			);
-			$params	= JComponentHelper::getParams('com_sermonspeaker');
-			$comments = ($params->get('fu_id3_comments', 'notes')) ? $item->notes : $item->sermon_scripture;
-			$TagData['comment'] = array(strip_tags(JHTML::_('content.prepare', $comments)));
+			$TagData['comment'] = array(strip_tags(JHTML::_('content.prepare', $item->notes)));
 
 			JImport('joomla.filesystem.file');
 			// Adding the picture to the id3 tags, taken from getID3 Demos -> demo.write.php

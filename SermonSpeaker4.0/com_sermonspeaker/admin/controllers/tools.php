@@ -69,9 +69,7 @@ class SermonspeakerControllerTools extends JController
 					'year'    => array($item->date),
 					'track'   => array($item->sermon_number),
 				);
-				$params	= JComponentHelper::getParams('com_sermonspeaker');
-				$comments = ($params->get('fu_id3_comments', 'notes')) ? $item->notes : $item->sermon_scripture;
-				$TagData['comment'] = array(strip_tags(JHTML::_('content.prepare', $comments)));
+				$TagData['comment'] = array(strip_tags(JHTML::_('content.prepare', $item->notes)));
 
 				JImport('joomla.filesystem.file');
 				// Adding the picture to the id3 tags, taken from getID3 Demos -> demo.write.php
@@ -236,40 +234,27 @@ class SermonspeakerControllerTools extends JController
 			// Prepare Scripture
 			$scripture	= array();
 			if ($study->book1){
-				$bible = $study->book1;
-				if ($study->ref_ch_beg){
-					$bible .= ' '.$study->ref_ch_beg;
-					if ($study->ref_vs_beg){
-						$bible .= ':'.$study->ref_vs_beg;
-					}
-					if ($study->ref_ch_end && ($study->ref_ch_end > $study->ref_ch_beg)){
-						$bible .= '-'.$study->ref_vs_beg.':'.$study->ref_vs_end;
-					} elseif ($study->ref_ch_end && ($study->ref_ch_end == $study->ref_ch_beg)){
-						$bible .= '-'.$study->ref_vs_end;
-					}
-				}
-				$scripture[]	= $tag[0].$bible.$tag[1];
+				$bible['book']		= (int)$study->book1;
+				$bible['cap1']		= (int)$study->ref_ch_beg;
+				$bible['vers1']		= (int)$study->ref_vs_beg;
+				$bible['cap2']		= (int)$study->ref_ch_end;
+				$bible['vers2']		= (int)$study->ref_vs_end;
+				$bible['ordering']	= 1;
+				$scripture[]	= $bible;
 			}
 			if ($study->book2){
-				$bible = $study->book2;
-				if ($study->ref_ch_beg2){
-					$bible .= ' '.$study->ref_ch_beg2;
-					if ($study->ref_vs_beg2){
-						$bible .= ':'.$study->ref_vs_beg2;
-					}
-					if ($study->ref_ch_end2 && ($study->ref_ch_end2 > $study->ref_ch_beg2)){
-						$bible .= '-'.$study->ref_vs_beg2.':'.$study->ref_vs_end2;
-					} elseif ($study->ref_ch_end2 && ($study->ref_ch_end2 == $study->ref_ch_beg2)){
-						$bible .= '-'.$study->ref_vs_end2;
-					}
-				}
-				$scripture[]	= $tag[0].$bible.$tag[1];
+				$bible['book']		= (int)$study->book1;
+				$bible['cap1']		= (int)$study->ref_ch_beg2;
+				$bible['vers1']		= (int)$study->ref_vs_beg2;
+				$bible['cap2']		= (int)$study->ref_ch_end2;
+				$bible['vers2']		= (int)$study->ref_vs_end2;
+				$bible['ordering']	= 2;
+				$scripture[]	= $bible;
 			}
-			$scripture	= implode('; ', $scripture);
 
 			$query	= "INSERT INTO #__sermon_sermons \n"
-					."(`audiofile`, `videofile`, `picture`, `sermon_title`, `alias`, `sermon_scripture`, `sermon_date`, `sermon_time`, `notes`, `state`, `hits`, `created_by`, `addfile`, `podcast`, `created`) \n"
-					.'VALUES ('.$db->quote($study->audiofile).','.$db->quote($study->videofile).','.$db->quote($study->study_pic).','.$db->quote($study->study_name).','.$db->quote($study->study_alias).','.$db->quote($scripture).','.$db->quote($study->study_date).','.$db->quote($study->duration).','.$db->quote($study->study_description).','.$db->quote($study->published).','.$db->quote($study->hits).','.$db->quote($study->user).','.$db->quote($study->addfile).', 1, NOW())';
+					."(`audiofile`, `videofile`, `picture`, `sermon_title`, `alias`, `sermon_date`, `sermon_time`, `notes`, `state`, `hits`, `created_by`, `addfile`, `podcast`, `created`) \n"
+					.'VALUES ('.$db->quote($study->audiofile).','.$db->quote($study->videofile).','.$db->quote($study->study_pic).','.$db->quote($study->study_name).','.$db->quote($study->study_alias).','.$db->quote($study->study_date).','.$db->quote($study->duration).','.$db->quote($study->study_description).','.$db->quote($study->published).','.$db->quote($study->hits).','.$db->quote($study->user).','.$db->quote($study->addfile).', 1, NOW())';
 			$db->setQuery($query);
 			$db->query();
 			if ($db->getErrorMsg()){
@@ -277,6 +262,19 @@ class SermonspeakerControllerTools extends JController
 				break;
 			}
 			$id	= $db->insertid();
+
+			foreach($scripture as $passage){
+				// Insert Scriptures
+				$query	= "INSERT INTO #__sermon_scriptures \n"
+						."(`book`, `cap1`, `vers1`, `cap2`, `vers2`, `text`, `ordering`, `sermon_id`) \n"
+						."VALUES ('".$passage['book']."','".$passage['cap1']."','".$passage['vers1']."','".$passage['cap2']."','".$passage['vers2']."','','".$passage['ordering']."','".$id."')";
+				$db->setQuery($query);
+				$db->query();
+				if ($db->getErrorMsg()){
+					$app->enqueueMessage($db->getErrorMsg(), 'error');
+					break;
+				}
+			}
 
 			// Update Speaker
 			if ($study->teacher_name){

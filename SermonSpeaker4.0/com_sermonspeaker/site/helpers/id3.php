@@ -43,16 +43,11 @@ class SermonspeakerHelperId3
 				$id3['sermon_number']	= '';
 			}
 			if (array_key_exists('comment', $FileInfo['comments'])){
-				if ($params->get('fu_id3_comments') == 'ref'){
-					$id3['scripture'] = '0|0|0|0|0|'.$FileInfo['comments']['comment'][0];
-					$id3['notes'] 			 = '';
-				} else {
-					$id3['notes']			 = $FileInfo['comments']['comment'][0];
-					$id3['scripture'] = '';
-				}
+				$id3['notes']		= $FileInfo['comments']['comment'][0];
+				$id3['scripture']	= '';
 			} else {
-				$id3['notes']			 = '';
-				$id3['scripture'] = '';
+				$id3['notes']		= '';
+				$id3['scripture']	= '';
 			}
 			$db =& JFactory::getDBO();
 			if (array_key_exists('album', $FileInfo['comments'])){

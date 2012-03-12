@@ -440,14 +440,6 @@
 			<option value="0">JNO</option>
 			<option value="1">JYES</option>
 		</field>
-		<field name="fu_id3_comments" 
-			type="list" 
-			default="Comment" 
-			label="COM_SERMONSPEAKER_PARAM_FU_ID3_COMMENT" 
-			description="COM_SERMONSPEAKER_PARAM_FU_ID3_COMMENT_DESC">
-			<option value="notes">Notes</option>
-			<option value="ref">Scripture</option>
-		</field>
 		<field name="enable_flash"
 			type="radio"
 			default="1"
