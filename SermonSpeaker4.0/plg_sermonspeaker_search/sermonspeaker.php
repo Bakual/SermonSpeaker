@@ -78,6 +78,12 @@ class plgSearchSermonspeaker extends JPlugin
 		$user	= JFactory::getUser();
 		$groups	= implode(',', $user->getAuthorisedViewLevels());
 
+		$books	= array();
+		for ($i = 1; $i <= 73; $i++){
+			$book = strtolower(JText::_('COM_SERMONSPEAKER_BOOK_'.$i));
+			$books[$book]	= $i;
+		}
+
 		$searchText = $text;
 
 		if (is_array($areas)) {
@@ -103,7 +109,6 @@ class plgSearchSermonspeaker extends JPlugin
 		if ($text == '') {
 			return array();
 		}
-		$section	= JText::_('PLG_SEARCH_SERMONSPEAKER_SERMONS');
 
 		$speakers = array();
 		if($this->params->get('sermons_speaker', 0)){
@@ -116,15 +121,18 @@ class plgSearchSermonspeaker extends JPlugin
 
 		$rows = array();
 		if(in_array('spsermons', $areas) || $speakers) {
+			$section	= JText::_('PLG_SEARCH_SERMONSPEAKER_SERMONS');
 
 			$wheres	= array();
 			switch ($phrase)
 			{
 				case 'exact':
-					$text		= $db->Quote('%'.$db->getEscaped($text, true).'%', false);
 					$wheres2	= array();
+					if(isset($books[strtolower($text)])){
+						$wheres2[]	= "b.book = '".$books[strtolower($text)]."'";
+					}
+					$text		= $db->Quote('%'.$db->getEscaped($text, true).'%', false);
 					$wheres2[]	= 'a.sermon_title LIKE '.$text;
-					$wheres2[]	= 'a.sermon_scripture LIKE '.$text;
 					$wheres2[]	= 'a.notes LIKE '.$text;
 					$where		= '(' . implode(') OR (', $wheres2) . ')';
 					break;
@@ -136,10 +144,12 @@ class plgSearchSermonspeaker extends JPlugin
 					$wheres = array();
 					foreach ($words as $word)
 					{
-						$word		= $db->Quote('%'.$db->getEscaped($word, true).'%', false);
 						$wheres2	= array();
+						if(isset($books[strtolower($word)])){
+							$wheres2[]	= "b.book = '".$books[strtolower($word)]."'";
+						}
+						$word		= $db->Quote('%'.$db->getEscaped($word, true).'%', false);
 						$wheres2[]	= 'a.sermon_title LIKE '.$word;
-						$wheres2[]	= 'a.sermon_scripture LIKE '.$word;
 						$wheres2[]	= 'a.notes LIKE '.$word;
 						$wheres[]	= implode(' OR ', $wheres2);
 					}
@@ -179,6 +189,8 @@ class plgSearchSermonspeaker extends JPlugin
 							.'CONCAT_WS(" / ", '.$db->Quote($section).', c.title) AS section, "1" AS browsernav');
 				$query->from('#__sermon_sermons AS a');
 				$query->leftJoin('#__categories AS c ON c.id = a.catid');
+				$query->leftJoin('#__sermon_scriptures AS b ON b.sermon_id = a.id');
+				$query->group('a.id');
 				$query->where('('.$where.')');
 				$query->where('a.state in ('.implode(',', $state).')');
 				
@@ -204,11 +216,12 @@ class plgSearchSermonspeaker extends JPlugin
 						$list[$key]->href = SermonspeakerHelperRoute::getSermonRoute($item->slug, $item->catslug);
 					}
 				}
-				$rows[] = $list;
+				$rows = array_merge($list, $rows);
 			}
 		}
 
 		if(in_array('spseries', $areas)) {
+			$section	= JText::_('PLG_SEARCH_SERMONSPEAKER_SERIES');
 
 			$wheres	= array();
 			switch ($phrase)
@@ -291,11 +304,12 @@ class plgSearchSermonspeaker extends JPlugin
 						$list[$key]->href = SermonspeakerHelperRoute::getSerieRoute($item->slug, $item->catslug);
 					}
 				}
-				$rows[] = $list;
+				$rows = array_merge($list, $rows);
 			}
 		}
 
 		if(in_array('spspeakers', $areas)) {
+			$section	= JText::_('PLG_SEARCH_SERMONSPEAKER_SPEAKERS');
 
 			$wheres	= array();
 			switch ($phrase)
@@ -379,25 +393,10 @@ class plgSearchSermonspeaker extends JPlugin
 						$list[$key]->href = SermonspeakerHelperRoute::getSpeakerRoute($item->slug, $item->catslug);
 					}
 				}
-				$rows[] = $list;
+				$rows = array_merge($list, $rows);
 			}
 		}
 
-		$results = array();
-		if (count($rows))
-		{
-			foreach($rows as $row)
-			{
-				$new_row = array();
-				foreach($row AS $key => $item) {
-					if (searchHelper::checkNoHTML($item, $searchText, array('text', 'title'))) {
-						$new_row[] = $item;
-					}
-				}
-				$results = array_merge($results, (array) $new_row);
-			}
-		}
-
-		return $results;
+		return $rows;
 	}
 }
