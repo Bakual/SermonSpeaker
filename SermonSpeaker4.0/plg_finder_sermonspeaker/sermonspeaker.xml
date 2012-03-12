@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="2.5" type="plugin" group="finder" method="upgrade">
+	<name>plg_finder_sermonspeaker</name>
+	<author>Thomas Hunziker</author>
+	<creationDate>March 2012</creationDate>
+	<authorEmail>admin@sermonspeaker.net</authorEmail>
+	<authorUrl>http://www.sermonspeaker.net</authorUrl>
+	<copyright>(C) 2005 - 2012 Open Source Matters. All rights reserved.</copyright>
+	<version>4.4</version>
+	<license>http://www.gnu.org/licenses/gpl.html</license>
+	<description>PLG_FINDER_SERMONSPEAKER_XML_DESCRIPTION</description>
+<!--	<scriptfile>script.php</scriptfile> -->
+	<files>
+		<file plugin="sermonspeaker">sermonspeaker.php</file>
+    	<filename>index.html</filename>
+	</files>
+<!--	<languages>
+		<language tag="en-GB">language/en-GB/en-GB.plg_finder_sermonspeaker.ini</language>
+		<language tag="en-GB">language/en-GB/en-GB.plg_finder_sermonspeaker.sys.ini</language>
+	</languages> -->
+</extension>
