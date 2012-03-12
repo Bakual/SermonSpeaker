@@ -5,15 +5,15 @@ defined('_JEXEC') or die('Restricted access');
 <form name="adminForm" id="adminForm">
 	<table class="adminlist">
 		<tr>
-			<th rowspan="2" valign="bottom"><label for="book">Buch</label></th>
-			<th colspan="2">Von</th>
-			<th colspan="2">Bis</th>
+			<th rowspan="2" valign="bottom"><label for="book"><?php echo JText::_('COM_SERMONSPEAKER_BOOK'); ?></label></th>
+			<th colspan="2"><?php echo JText::_('COM_SERMONSPEAKER_SCRIPTURE_START'); ?></th>
+			<th colspan="2"><?php echo JText::_('COM_SERMONSPEAKER_SCRIPTURE_END'); ?></th>
 		</tr>
 		<tr>
-			<th><label for="cap1">Kapitel</label></th>
-			<th><label for="vers1">Vers</label></th>
-			<th><label for="cap2">Kapitel</label></th>
-			<th><label for="vers2">Vers</label></th>
+			<th><label for="cap1"><?php echo JText::_('COM_SERMONSPEAKER_CHAPTER'); ?></label></th>
+			<th><label for="vers1"><?php echo JText::_('COM_SERMONSPEAKER_VERS'); ?></label></th>
+			<th><label for="cap2"><?php echo JText::_('COM_SERMONSPEAKER_CHAPTER'); ?></label></th>
+			<th><label for="vers2"><?php echo JText::_('COM_SERMONSPEAKER_VERS'); ?></label></th>
 		</tr>
 		<tr>
 			<td>
