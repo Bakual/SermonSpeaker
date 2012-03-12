@@ -158,8 +158,8 @@ class SermonspeakerControllerTools extends JController
 		$query	= $db->getQuery(true);
 		$query->from('`#__pistudies` AS a');
 		$query->select('a.study_date, a.study_name, a.study_alias, a.study_description');
-		$query->select('a.ref_ch_beg, a.ref_ch_end, a.ref_vs_beg, a.ref_vs_end');
-		$query->select('a.ref_ch_beg2, a.ref_ch_end2, a.ref_vs_beg2, a.ref_vs_end2');
+		$query->select('a.study_book, a.ref_ch_beg, a.ref_ch_end, a.ref_vs_beg, a.ref_vs_end');
+		$query->select('a.study_book2, a.ref_ch_beg2, a.ref_ch_end2, a.ref_vs_beg2, a.ref_vs_end2');
 		$query->select('CONCAT_WS(":", a.dur_hrs, a.dur_mins, a.dur_secs) AS duration');
 		$query->select('a.published, a.hits, a.user');
 		// Join over the series.
@@ -184,12 +184,6 @@ class SermonspeakerControllerTools extends JController
 		$query->select("IF (g.server != '', CONCAT('http://', CONCAT_WS('/', g.server, g.folder, a.notes_link)), "
 					."IF (LEFT(g.folder, 7) = 'http://', CONCAT(g.folder, '/', a.notes_link), CONCAT('/', g.folder, '/', a.notes_link))) AS addfile");
 		$query->join('LEFT', '#__pifilepath AS g ON g.id = a.notes_folder');
-		// Join over the study book 1.
-		$query->select('j.display_name AS book1, j.shortform AS book_short1');
-		$query->join('LEFT', '#__pibooks AS j ON j.id = a.study_book');
-		// Join over the study book 2.
-		$query->select('k.display_name AS book2, k.shortform AS book_short2');
-		$query->join('LEFT', '#__pibooks AS k ON k.id = a.study_book2');
 		$db->setQuery($query);
 		$studies	= $db->loadObjectList();
 		if ($db->getErrorMsg()){
@@ -233,8 +227,8 @@ class SermonspeakerControllerTools extends JController
 		foreach ($studies as $study){
 			// Prepare Scripture
 			$scripture	= array();
-			if ($study->book1){
-				$bible['book']		= (int)$study->book1;
+			if ($study->study_book){
+				$bible['book']		= (int)$study->study_book;
 				$bible['cap1']		= (int)$study->ref_ch_beg;
 				$bible['vers1']		= (int)$study->ref_vs_beg;
 				$bible['cap2']		= (int)$study->ref_ch_end;
@@ -242,8 +236,8 @@ class SermonspeakerControllerTools extends JController
 				$bible['ordering']	= 1;
 				$scripture[]	= $bible;
 			}
-			if ($study->book2){
-				$bible['book']		= (int)$study->book1;
+			if ($study->study_book2){
+				$bible['book']		= (int)$study->study_book2;
 				$bible['cap1']		= (int)$study->ref_ch_beg2;
 				$bible['vers1']		= (int)$study->ref_vs_beg2;
 				$bible['cap2']		= (int)$study->ref_ch_end2;
