@@ -1,7 +1,7 @@
 <?php
 /**
- * @package     Joomla.Plugin
- * @subpackage  Finder.Weblinks
+ * @package     SermonSpeaker
+ * @subpackage  Finder.SermonSpeaker
  *
  * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
@@ -45,7 +45,7 @@ class plgFinderSermonspeaker extends FinderIndexerAdapter
 	 * @var    string
 	 * @since  2.5
 	 */
-	protected $layout = 'sermonspeaker';
+	protected $layout = 'sermon';
 
 	/**
 	 * The type of content that the adapter indexes.
@@ -53,7 +53,7 @@ class plgFinderSermonspeaker extends FinderIndexerAdapter
 	 * @var    string
 	 * @since  2.5
 	 */
-	protected $type_title = 'SermonSpeaker';
+	protected $type_title = 'Sermon';
 
 	/**
 	 * The table name.
@@ -92,7 +92,7 @@ class plgFinderSermonspeaker extends FinderIndexerAdapter
 	 */
 	public function onFinderCategoryChangeState($extension, $pks, $value)
 	{
-		// Make sure we're handling com_weblinks categories
+		// Make sure we're handling com_sermonspeaker categories
 		if ($extension == 'com_sermonspeaker')
 		{
 			$this->categoryStateChange($pks, $value);
@@ -142,18 +142,19 @@ class plgFinderSermonspeaker extends FinderIndexerAdapter
 	 */
 	public function onFinderAfterSave($context, $row, $isNew)
 	{
-		// We only want to handle web links here. We need to handle front end and back end editing.
-		if ($context == 'com_sermonspeaker.sermon' || $context == 'com_sermonspeaker.form' )
+		// We only want to handle sermons here. We need to handle front end and back end editing.
+		if ($context == 'com_sermonspeaker.sermon' || $context == 'com_sermonspeaker.frontendupload' )
 		{
 			// Check if the access levels are different
-			if (!$isNew && $this->old_access != $row->access)
+			// We don't need this since we have no access on item level
+/*			if (!$isNew && $this->old_access != $row->access)
 			{
 				// Process the change.
 				$this->itemAccessChange($row);
 			}
-
+*/
 			// Reindex the item
-			$this->reindex($row->id);
+//			$this->reindex($row->id);
 		}
 
 		// Check for access changes in the category
@@ -185,14 +186,15 @@ class plgFinderSermonspeaker extends FinderIndexerAdapter
 	 */
 	public function onFinderBeforeSave($context, $row, $isNew)
 	{
-		// We only want to handle web links here
-		if ($context == 'com_sermonspeaker.sermon' || $context == 'com_sermonspeaker.form')
+		// We only want to handle sermons here
+		if ($context == 'com_sermonspeaker.sermon' || $context == 'com_sermonspeaker.frontendupload')
 		{
 			// Query the database for the old access level if the item isn't new
-			if (!$isNew)
+			// We don't need this since we have no access on item level
+/*			if (!$isNew)
 			{
 				$this->checkItemAccess($row);
-			}
+			} */
 		}
 
 		// Check for access levels from the category
@@ -223,8 +225,8 @@ class plgFinderSermonspeaker extends FinderIndexerAdapter
 	 */
 	public function onFinderChangeState($context, $pks, $value)
 	{
-		// We only want to handle web links here
-		if ($context == 'com_sermonspeaker.sermon' || $context == 'com_sermonspeaker.form')
+		// We only want to handle sermons here
+		if ($context == 'com_sermonspeaker.sermon' || $context == 'com_sermonspeaker.frontendupload')
 		{
 			$this->itemStateChange($pks, $value);
 		}
@@ -255,18 +257,13 @@ class plgFinderSermonspeaker extends FinderIndexerAdapter
 			return;
 		}
 
-		// Initialize the item parameters.
-/*		$registry = new JRegistry;
-		$registry->loadString($item->params);
-		$item->params = $registry;
+		// Trigger the onContentPrepare event.
+		$item->summary = FinderIndexerHelper::prepareContent($item->summary);
+//		$item->summary = FinderIndexerHelper::prepareContent($item->body);
 
-		$registry = new JRegistry;
-		$registry->loadString($item->metadata);
-		$item->metadata = $registry; 
-*/
 		// Build the necessary route and path information.
 		$item->url = $this->getURL($item->id, $this->extension, $this->layout);
-		$item->route = WeblinksHelperRoute::getWeblinkRoute($item->slug, $item->catslug);
+		$item->route = SermonspeakerHelperRoute::getSermonRoute($item->slug, $item->catslug);
 		$item->path = FinderIndexerHelper::getContentPath($item->route);
 
 		/*
@@ -277,15 +274,14 @@ class plgFinderSermonspeaker extends FinderIndexerAdapter
 //		$item->metaauthor = $item->metadata->get('author');
 
 		// Handle the link to the meta-data.
-		$item->addInstruction(FinderIndexer::META_CONTEXT, 'link');
 		$item->addInstruction(FinderIndexer::META_CONTEXT, 'metakey');
 		$item->addInstruction(FinderIndexer::META_CONTEXT, 'metadesc');
-		$item->addInstruction(FinderIndexer::META_CONTEXT, 'metaauthor');
-		$item->addInstruction(FinderIndexer::META_CONTEXT, 'author');
-		$item->addInstruction(FinderIndexer::META_CONTEXT, 'created_by_alias');
+//		$item->addInstruction(FinderIndexer::META_CONTEXT, 'metaauthor');
+//		$item->addInstruction(FinderIndexer::META_CONTEXT, 'author');
+//		$item->addInstruction(FinderIndexer::META_CONTEXT, 'created_by_alias');
 
 		// Add the type taxonomy data.
-		$item->addTaxonomy('Type', 'SermonSpeaker');
+		$item->addTaxonomy('Type', 'Sermon');
 
 		// Add the category taxonomy data.
 		$item->addTaxonomy('Category', $item->category, $item->cat_state, $item->cat_access);
@@ -310,8 +306,9 @@ class plgFinderSermonspeaker extends FinderIndexerAdapter
 	protected function setup()
 	{
 		// Load dependent classes.
-		require_once JPATH_SITE . '/includes/application.php';
 		require_once JPATH_SITE . '/components/com_sermonspeaker/helpers/route.php';
+		$params	= JComponentHelper::getParams('com_sermonspeaker');
+		$this->access	= $params->get('access', 1);
 
 		return true;
 	}
@@ -330,13 +327,10 @@ class plgFinderSermonspeaker extends FinderIndexerAdapter
 		$db = JFactory::getDbo();
 		// Check if we can use the supplied SQL query.
 		$sql = is_a($sql, 'JDatabaseQuery') ? $sql : $db->getQuery(true);
-		$sql->select('a.id, a.catid, a.sermon_title AS title, a.alias, a.notes AS summary');
-		$sql->select('a.metakey, a.metadesc, a.ordering');
-//		$sql->select('a.language, a.access, a.metadata');
-//		$sql->select('a.created_by_alias, a.modified, a.modified_by');
-//		$sql->select('a.publish_up AS publish_start_date, a.publish_down AS publish_end_date');
-		$sql->select('a.state AS state, a.created AS start_date');
-//		$sql->select('a.ordering, a.access, a.approved, a.params');
+		$sql->select('a.id, a.sermon_title AS title, a.alias, a.notes AS summary');
+		$sql->select('a.state, a.catid, a.created AS start_date, a.created_by');
+		$sql->select('a.metakey, a.metadesc, '.(int)$this->access.' AS access, a.ordering');
+		$sql->select('a.created AS publish_start_date');
 		$sql->select('c.title AS category, c.published AS cat_state, c.access AS cat_access');
 
 		// Handle the alias CASE WHEN portion of the query
@@ -358,9 +352,10 @@ class plgFinderSermonspeaker extends FinderIndexerAdapter
 		$case_when_category_alias .= $c_id.' END as catslug';
 		$sql->select($case_when_category_alias);
 
+		$sql->select('u.name AS author');
 		$sql->from('#__sermon_sermons AS a');
 		$sql->join('LEFT', '#__categories AS c ON c.id = a.catid');
-//		$sql->where('a.approved = 1');
+		$sql->join('LEFT', '#__users AS u ON u.id = a.created_by');
 
 		return $sql;
 	}
@@ -377,8 +372,8 @@ class plgFinderSermonspeaker extends FinderIndexerAdapter
 	protected function getUpdateQueryByTime($time)
 	{
 		// Build an SQL query based on the modified time.
+		// We don't have a modified time, so we just give the query back unchanged.
 		$sql = $this->db->getQuery(true);
-		$sql->where('a.sermon_date >= ' . $this->db->quote($time));
 
 		return $sql;
 	}
