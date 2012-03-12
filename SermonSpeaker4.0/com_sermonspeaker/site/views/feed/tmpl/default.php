@@ -10,7 +10,7 @@ echo '<?xml version="1.0" encoding="utf-8" ?>
 	<description>'.$this->channel->description.'</description>';
 // optional channel elements
 echo '
-	<generator>SermonSpeaker 4.3</generator>
+	<generator>SermonSpeaker 4.4</generator>
 	<lastBuildDate>'.gmdate("r").'</lastBuildDate>';
 if ($this->channel->language!="") {
 	echo '

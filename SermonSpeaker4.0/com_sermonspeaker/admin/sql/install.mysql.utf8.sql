@@ -1,6 +1,7 @@
 DROP TABLE IF EXISTS `#__sermon_speakers`;
 DROP TABLE IF EXISTS `#__sermon_series`;
 DROP TABLE IF EXISTS `#__sermon_sermons`;
+DROP TABLE IF EXISTS `#__sermon_scriptures`;
  
 CREATE TABLE `#__sermon_speakers` (
 	`id` INT(10) NOT NULL AUTO_INCREMENT,
@@ -50,7 +51,6 @@ CREATE TABLE `#__sermon_sermons` (
 	`sermon_title` VARCHAR(255) NOT NULL,
 	`alias` VARCHAR(255) NOT NULL,
 	`sermon_number` INT(10) NOT NULL DEFAULT '0',
-	`sermon_scripture` MEDIUMTEXT NOT NULL,
 	`custom1` MEDIUMTEXT NOT NULL,
 	`custom2` MEDIUMTEXT NOT NULL,
 	`sermon_date` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
@@ -68,6 +68,17 @@ CREATE TABLE `#__sermon_sermons` (
 	`metakey` TEXT NOT NULL,
 	`metadesc` TEXT NOT NULL,
 	PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `#__sermon_scriptures` (
+	`book` INT(3) NOT NULL DEFAULT '0',
+	`cap1` INT(3) NOT NULL DEFAULT '0',
+	`vers1` INT(4) NOT NULL DEFAULT '0',
+	`cap2` INT(3) NOT NULL DEFAULT '0',
+	`vers2` INT(4) NOT NULL DEFAULT '0',
+	`text` MEDIUMTEXT NOT NULL DEFAULT '',
+	`ordering` INT(11) NOT NULL DEFAULT '0',
+	`sermon_id` INT(10) NOT NULL DEFAULT '0'
 ) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
 
 INSERT INTO `#__sermon_speakers`
