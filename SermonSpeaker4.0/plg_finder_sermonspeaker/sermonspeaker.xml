@@ -9,13 +9,9 @@
 	<version>4.4</version>
 	<license>http://www.gnu.org/licenses/gpl.html</license>
 	<description>PLG_FINDER_SERMONSPEAKER_XML_DESCRIPTION</description>
-<!--	<scriptfile>script.php</scriptfile> -->
 	<files>
 		<file plugin="sermonspeaker">sermonspeaker.php</file>
-    	<filename>index.html</filename>
+		<filename>index.html</filename>
+		<folder>language</folder>
 	</files>
-<!--	<languages>
-		<language tag="en-GB">language/en-GB/en-GB.plg_finder_sermonspeaker.ini</language>
-		<language tag="en-GB">language/en-GB/en-GB.plg_finder_sermonspeaker.sys.ini</language>
-	</languages> -->
 </extension>
