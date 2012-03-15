@@ -253,7 +253,7 @@ class SermonspeakerModelArchive extends JModelList
 	}
 
 	/**
-	 * Method to get the available Months.
+	 * Method to get the available Years.
 	 *
 	 * @since	1.6
 	 */

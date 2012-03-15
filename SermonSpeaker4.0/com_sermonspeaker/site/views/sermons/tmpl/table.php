@@ -54,6 +54,12 @@ if (in_array('sermons:player', $this->columns) && count($this->items)) : ?>
 				<label class="filter-search-lbl" for="filter-search"><?php echo JText::_('JGLOBAL_FILTER_LABEL').'&nbsp;'; ?></label>
 				<input type="text" name="filter-search" id="filter-search" value="<?php echo $this->escape($this->state->get('filter.search')); ?>" class="inputbox" onchange="document.adminForm.submit();" title="<?php echo JText::_('COM_SERMONSPEAKER_FILTER_SEARCH_DESC'); ?>" />
 			</div>
+			<div class="filter-select">
+				<label class="filter-select-lbl" for="filter-select"><?php echo JText::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL').'&nbsp;'; ?></label>
+				<select name="book" id="filter_books" class="inputbox" onchange="this.form.submit()">
+					<?php echo JHtml::_('select.options', $this->books, 'value', 'text', $this->state->get('scripture.book'), true);?>
+				</select>
+			</div>
 	<?php endif;
 	if ($this->params->get('show_pagination_limit')) : ?>
 			<div class="display-limit">

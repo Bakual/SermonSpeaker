@@ -54,6 +54,31 @@ class SermonspeakerViewSermons extends JView
 			$this->setLayout($params->get('sermonslayout', 'table'));
 		}
 
+		// Build Books
+		$this->books	= array();
+		$this->books[]	= JHtml::_('select.option', '0', JText::_('COM_SERMONSPEAKER_SELECT_BOOK'));
+		$this->books[]	= JHtml::_('select.optgroup', JText::_('COM_SERMONSPEAKER_OLD_TESTAMENT'));
+		for ($i = 1; $i < 40; $i++){
+			$books_at[$i]->value	= $i;
+			$books_at[$i]->text		= JText::_('COM_SERMONSPEAKER_BOOK_'.$i);
+		}
+		$this->books	= array_merge($this->books, $books_at);
+		$this->books[]	= JHtml::_('select.optgroup', JText::_('COM_SERMONSPEAKER_OLD_TESTAMENT'));
+		$this->books[]	= JHtml::_('select.optgroup', JText::_('COM_SERMONSPEAKER_NEW_TESTAMENT'));
+		for (; $i < 67; $i++){
+			$books_nt[$i]->value	= $i;
+			$books_nt[$i]->text		= JText::_('COM_SERMONSPEAKER_BOOK_'.$i);
+		}
+		$this->books	= array_merge($this->books, $books_nt);
+		$this->books[]	= JHtml::_('select.optgroup', JText::_('COM_SERMONSPEAKER_NEW_TESTAMENT'));
+		$this->books[]	= JHtml::_('select.optgroup', JText::_('COM_SERMONSPEAKER_APOCRYPHA'));
+		for (; $i < 74; $i++){
+			$books_ap[$i]->value	= $i;
+			$books_ap[$i]->text		= JText::_('COM_SERMONSPEAKER_BOOK_'.$i);
+		}
+		$this->books	= array_merge($this->books, $books_ap);
+		$this->books[]	= JHtml::_('select.optgroup', JText::_('COM_SERMONSPEAKER_APOCRYPHA'));
+
 		// push data into the template
 		$this->assignRef('state',		$state);
 		$this->assignRef('items',		$items);

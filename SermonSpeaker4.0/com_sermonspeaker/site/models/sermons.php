@@ -115,6 +115,12 @@ class SermonspeakerModelSermons extends JModelList
 		$query->select("user.name AS author");
 		$query->join('LEFT', '#__users AS user ON user.id = sermons.created_by');
 
+		// Filter by scripture
+		$book = $this->getState('scripture.book');
+		if ($book){
+			$query->where('script.book = '.(int) $book);
+		}
+
 		// Filter by state
 		$state = $this->getState('filter.state');
 		if (is_numeric($state)) {
@@ -156,6 +162,11 @@ class SermonspeakerModelSermons extends JModelList
 		$id = (int)$params->get('series_cat', 0);
 		if (!$id){ $id = JRequest::getInt('series_cat', 0); }
 		$this->setState('series_category.id', $id);
+
+		// Scripture filter
+		$book	= $app->getUserStateFromRequest($this->context.'.scripture.book', 'book', 0, 'INT');
+		$app->setUserState($this->context.'.scripture.book', $book);
+		$this->setState('scripture.book', $book);
 
 		$this->setState('filter.state',	1);
 
