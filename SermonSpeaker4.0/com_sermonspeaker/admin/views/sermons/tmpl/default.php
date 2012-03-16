@@ -129,7 +129,13 @@ $saveOrder	= $listOrder == 'sermons.ordering';
 						$i = 1;
 						foreach ($passages as $passage){
 							$explode	= explode('|',$passage);
-							if ($explode[0]){
+							if ($explode[5]){
+								if ($explode[0]){
+									echo $explode[5];
+								} else {
+									echo '<i><u>'.$explode[5].'</u></i>';
+								}
+							} else {
 								echo JText::_('COM_SERMONSPEAKER_BOOK_'.$explode[0]);
 								if ($explode[1]){
 									echo '&nbsp;'.$explode[1];
@@ -148,8 +154,6 @@ $saveOrder	= $listOrder == 'sermons.ordering';
 										}
 									}
 								}
-							} else {
-								echo '<i><u>'.$explode[5].'</u></i>';
 							}
 							if($i < count($passages)){
 								echo '<br/ >';

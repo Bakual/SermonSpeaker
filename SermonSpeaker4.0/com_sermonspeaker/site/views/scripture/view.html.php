@@ -16,22 +16,27 @@ class SermonspeakerViewScripture extends JView
 			var cap2 = document.getElementById('cap2').value;
 			var vers1 = document.getElementById('vers1').value;
 			var vers2 = document.getElementById('vers2').value;
-			var value = book.value + ',' + cap1 + ',' + vers1 + ',' + cap2 + ',' + vers2 + ',';
-			var text = book.options[book.selectedIndex].text 
-			if (cap1){
-				text += ' ' + cap1;
-				if (vers1){
-					text += '".$separator."' + vers1;
-				}
-				if (cap2 || vers2){
-					text += '-';
-					if (cap2){
-						text += cap2;
-						if (vers2){
-							text += '".$separator."' + vers2;
+			var freetext = document.getElementById('text').value;
+			var value = book.value + '|' + cap1 + '|' + vers1 + '|' + cap2 + '|' + vers2 + '|' + freetext;
+			if (freetext){
+				var text = freetext;
+			} else {
+				var text = book.options[book.selectedIndex].text;
+				if (cap1){
+					text += ' ' + cap1;
+					if (vers1){
+						text += '".$separator."' + vers1;
+					}
+					if (cap2 || vers2){
+						text += '-';
+						if (cap2){
+							text += cap2;
+							if (vers2){
+								text += '".$separator."' + vers2;
+							}
+						} else {
+							text += vers2;
 						}
-					} else {
-						text += vers2;
 					}
 				}
 			}

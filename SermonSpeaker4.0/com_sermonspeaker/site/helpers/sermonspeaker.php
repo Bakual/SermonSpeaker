@@ -182,7 +182,9 @@ class SermonspeakerHelperSermonspeaker
 	function buildScripture($scripture, $addTag = true){
 		$explode	= explode('|',$scripture);
 		$text = '';
-		if ($explode[0]){
+		if ($explode[5]){
+			$text .= $explode[5];
+		} else {
 			$separator	= JText::_('COM_SERMONSPEAKER_SCRIPTURE_SEPARATOR');
 			$text .= JText::_('COM_SERMONSPEAKER_BOOK_'.$explode[0]);
 			if ($explode[1]){
@@ -206,8 +208,6 @@ class SermonspeakerHelperSermonspeaker
 				$tags = $this->params->get('plugin_tag');
 				$text = $tags[0].$text.$tags[1];
 			}
-		} else {
-			$text .= $explode[5];
 		}
 		return $text;
 	}

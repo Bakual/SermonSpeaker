@@ -41,6 +41,10 @@ defined('_JEXEC') or die('Restricted access');
 			<td><input name="from[cap2]" class="inputbox" id="cap2" type="text" size="3" /></td>
 			<td><input name="from[vers2]" class="inputbox" id="vers2" type="text" size="3" /></td>
 		</tr>
+		<tr title="<?php echo JText::_('COM_SERMONSPEAKER_FREETEXT_DESC'); ?>">
+			<td><label for="text"><?php echo JText::_('COM_SERMONSPEAKER_FREETEXT_LABEL'); ?></label></td>
+			<td colspan="4"><input name="from[text]" class="inputbox" id="text" type="text" size="60" /></td>
+		</tr>
 	</table>
 	<div style="clear:left;"><br /></div>
 	<button type="button" onclick="AddScripture();">

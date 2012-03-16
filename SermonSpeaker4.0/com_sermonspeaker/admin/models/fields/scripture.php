@@ -56,7 +56,12 @@ class JFormFieldScripture extends JFormField
 		$i = 1;
 		foreach ($this->value as $value){
 			$title		= '';
-			if ($value['book']){
+			if ($value['text']){
+				$text	= $value['text'];
+				if(!$value['book']){
+					$title	= 'old" title="'.JText::_('COM_SERMONSPEAKER_SCRIPTURE_NOT_SEARCHABLE');
+				}
+			} else {
 				$separator	= JText::_('COM_SERMONSPEAKER_SCRIPTURE_SEPARATOR');
 				$text		= JText::_('COM_SERMONSPEAKER_BOOK_'.$value['book']);
 				if ($value['cap1']){
@@ -76,9 +81,6 @@ class JFormFieldScripture extends JFormField
 						}
 					}
 				}
-			} else {
-				$text	= $value['text'];
-				$title	= 'old" title="'.JText::_('COM_SERMONSPEAKER_SCRIPTURE_NOT_SEARCHABLE');
 			}
 			$html .= '<span id="scripture_span_'.$i.'">';
 			$html .= '<input id="'.$this->id.'_'.$i.'" type="hidden" value="'.implode('|',$value).'" name="'.$this->name.'['.$i.']">';
@@ -91,7 +93,7 @@ class JFormFieldScripture extends JFormField
 			$i++;
 		}
 		$html	.= '<input type="hidden" id="scripture_id" value="'.$i.'" /></span>';
-		$html	.= '<a class="modal" href="'.$url.'" rel="{handler: \'iframe\', size: {x: 500, y: 200}}"><img src="'.JURI::root().'media/com_sermonspeaker/images/plus.png"></a>';
+		$html	.= '<a class="modal" href="'.$url.'" rel="{handler: \'iframe\', size: {x: 500, y: 220}}"><img src="'.JURI::root().'media/com_sermonspeaker/images/plus.png"></a>';
 
 		return $html;
 	}
