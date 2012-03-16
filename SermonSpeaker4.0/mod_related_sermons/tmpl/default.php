@@ -3,7 +3,7 @@
 defined('_JEXEC') or die('Restricted access'); 
 ?>
 <ul class="relateditems<?php echo $moduleclass_sfx; ?>">
-<?php foreach ($list as $item) :	?>
+<?php foreach ($list as $item) : ?>
 <li>
 	<a href="<?php echo $item->route; ?>">
 		<?php if ($showDate) echo $item->created.' - '; ?>

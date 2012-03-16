@@ -6,7 +6,7 @@
 	<copyright>(C) 2011</copyright>
 	<authorEmail>admin@sermonspeaker.net</authorEmail>
 	<authorUrl>http://www.sermonspeaker.net</authorUrl>
-	<version>4.1</version>
+	<version>4.3</version>
 	<license>http://www.gnu.org/licenses/gpl.html</license>
 	<description>MOD_RELATED_SERMONS_XML_DESCRIPTION</description>
 	<files>
@@ -37,12 +37,34 @@
 					<option value="0">JNO</option>
 					<option value="1">JYES</option>
 				</field>
+				<field name="limitSermons" type="text"
+					default="10" 
+					label="MOD_RELATED_SERMONS_PARAM_LIMIT_SERMONS" 
+					description="MOD_RELATED_SERMONS_PARAM_LIMIT_SERMONS_DESC">
+				</field>
+				<field name="orderBy" type="list" 
+					default="NameAsc" 
+					label="MOD_RELATED_SERMONS_PARAM_ORDER_SERMONS_BY" 
+					description="MOD_RELATED_SERMONS_PARAM_ORDER_SERMONS_BY_DESC">
+					<option value="NameAsc">MOD_RELATED_SERMONS_PARAM_NAME_ASCENDING</option> 
+					<option value="NameDes">MOD_RELATED_SERMONS_PARAM_NAME_DECENDING</option>
+					<option value="SermonDateAsc">MOD_RELATED_SERMONS_PARAM_SERMON_DATE_ASCENDING</option>
+					<option value="SermonDateDes">MOD_RELATED_SERMONS_PARAM_SERMON_DATE_DECENDING</option>
+					<option value="CreatedDateAsc">MOD_RELATED_SERMONS_PARAM_CREATED_DATE_ASCENDING</option>
+					<option value="CreatedDateDes">MOD_RELATED_SERMONS_PARAM_CREATED_DATE_DECENDING</option>
+				</field>
 				<field name="menuitem" type="menuitem" 
 					default=""
 					label="MOD_RELATED_SERMONS_PARAM_MENUITEM" 
 					description="MOD_RELATED_SERMONS_PARAM_MENUITEM_DESC" 
 					state="1"
 				/>
+				<field name="sermon_cat" type="category" 
+					label="MOD_RELATED_SERMONS_PARAM_CATEGORY_SERMON_LABEL" 
+					description="MOD_RELATED_SERMONS_PARAM_CATEGORY_DESC" 
+					extension="com_sermonspeaker" 
+					show_root="true"
+				/>				
 			</fieldset>
 			<fieldset name="advanced">
 				<field name="layout" type="modulelayout"
