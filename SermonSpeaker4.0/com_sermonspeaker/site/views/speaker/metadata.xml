@@ -95,14 +95,6 @@
 				extension="com_sermonspeaker"
 				view="seriessermon"
 			/>
-			<field
-				name="archivelayout" type="componentlayout"
-				label="COM_SERMONSPEAKER_ARCHIVE_VIEW_TITLE"
-				description="COM_SERMONSPEAKER_FIELD_LAYOUT_DESC"
-				useglobal="true"
-				extension="com_sermonspeaker"
-				view="archive"
-			/>
 		</fieldset>
 	</fields>
 </metadata>

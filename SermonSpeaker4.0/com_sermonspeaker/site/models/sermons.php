@@ -78,18 +78,6 @@ class SermonspeakerModelSermons extends JModelList
 		);
 		$query->join('LEFT', '#__sermon_series AS series ON series.id = sermons.series_id');
 
-		// Filter by search in title or scripture (with ref:)
-		$search = $this->getState('filter.search');
-		if (!empty($search)) {
-			if (stripos($search, 'ref:') === 0) {
-				$search = $db->Quote('%'.$db->getEscaped(substr($search, 4), true).'%');
-				$query->where('(scripture LIKE '.$search.')');
-			} else {
-				$search = $db->Quote('%'.$db->getEscaped($search, true).'%');
-				$query->where('(sermons.sermon_title LIKE '.$search.')');
-			}
-		}
-
 		// Join over Sermons Category.
 		$query->join('LEFT', '#__categories AS c_sermons ON c_sermons.id = sermons.catid');
 		if ($categoryId = $this->getState('sermons_category.id')) {
@@ -114,6 +102,23 @@ class SermonspeakerModelSermons extends JModelList
 		// Join over users for the author names.
 		$query->select("user.name AS author");
 		$query->join('LEFT', '#__users AS user ON user.id = sermons.created_by');
+
+		// Filter by search in title
+		$search = $this->getState('filter.search');
+		if (!empty($search)) {
+			$search = $db->Quote('%'.$db->getEscaped($search, true).'%');
+			$query->where('(sermons.sermon_title LIKE '.$search.')');
+		}
+
+		// Filter by date
+		$year = $this->getState('date.year');
+		if ($year){
+			$query->where('YEAR(sermons.sermon_date) = '.(int) $year);
+		}
+		$month = $this->getState('date.month');
+		if ($month){
+			$query->where('MONTH(sermons.sermon_date) = '.(int) $month);
+		}
 
 		// Filter by scripture
 		$book = $this->getState('scripture.book');
@@ -168,6 +173,15 @@ class SermonspeakerModelSermons extends JModelList
 		$app->setUserState($this->context.'.scripture.book', $book);
 		$this->setState('scripture.book', $book);
 
+		// Date filter
+		$year	= $app->getUserStateFromRequest($this->context.'.date.year', 'year', 0, 'INT');
+		$app->setUserState($this->context.'.date.year', $year);
+		$this->setState('date.year', $year);
+
+		$month	= $app->getUserStateFromRequest($this->context.'.date.month', 'month', 0, 'INT');
+		$app->setUserState($this->context.'.date.month', $month);
+		$this->setState('date.month', $month);
+
 		$this->setState('filter.state',	1);
 
 		// Speakerfilter
@@ -219,5 +233,124 @@ class SermonspeakerModelSermons extends JModelList
 		}
 		$title = implode(' &amp; ', $title);
 		return $title;
+	}
+
+	/**
+	 * Method to get the available Months.
+	 *
+	 * @since	1.6
+	 */
+	public function getMonths()
+	{
+		$months	= array(
+			1 => 'JANUARY',
+			2 => 'FEBRUARY',
+			3 => 'MARCH',
+			4 => 'APRIL',
+			5 => 'MAY',
+			6 => 'JUNE',
+			7 => 'JULY',
+			8 => 'AUGUST',
+			9 => 'SEPTEMBER',
+			10 => 'OCTOBER',
+			11 => 'NOVEMBER',
+			12 => 'DECEMBER',
+		);
+
+		$db	= $this->getDbo();
+		$query	= $db->getQuery(true);
+
+		$query->select('DISTINCT MONTH(a.`sermon_date`) AS `value`');
+		$query->from('#__sermon_sermons AS a');
+		$query->order('`value` ASC');
+
+		// Filter by year
+		$year = $this->getState('date.year');
+		if ($year){
+			$query->where('YEAR(a.`sermon_date`) = '.(int) $year);
+		}
+
+		// Filter by scripture
+		$book = $this->getState('scripture.book');
+		if ($book){
+			$query->join('LEFT', '#__sermon_scriptures AS b ON b.`sermon_id` = a.`id`');
+			$query->where('b.`book` = '.(int) $book);
+		}
+
+		$db->setQuery($query);
+		$options = $db->loadAssocList();
+
+		foreach($options as &$option){
+			$option['text']	= $months[$option['value']];
+		}
+
+		return $options;
+	}
+
+	/**
+	 * Method to get the available Years.
+	 *
+	 * @since	1.6
+	 */
+	public function getYears()
+	{
+		$db	= $this->getDbo();
+		$query	= $db->getQuery(true);
+
+		$query->select('DISTINCT YEAR(a.`sermon_date`) AS `year`');
+		$query->from('#__sermon_sermons AS a');
+		$query->order('`year` ASC');
+
+		// Filter by month
+		$month = $this->getState('date.month');
+		if ($month){
+			$query->where('MONTH(a.`sermon_date`) = '.(int) $month);
+		}
+
+		// Filter by scripture
+		$book = $this->getState('scripture.book');
+		if ($book){
+			$query->join('LEFT', '#__sermon_scriptures AS b ON b.`sermon_id` = a.`id`');
+			$query->where('b.`book` = '.(int) $book);
+		}
+
+		$db->setQuery($query);
+		$options = $db->loadAssocList();
+
+		return $options;
+	}
+
+	/**
+	 * Method to get the available Years.
+	 *
+	 * @since	1.6
+	 */
+	public function getBooks()
+	{
+		$db	= $this->getDbo();
+		$query	= $db->getQuery(true);
+
+		$query->select('DISTINCT a.`book`');
+		$query->from('#__sermon_scriptures AS a');
+		$query->join('LEFT', '#__sermon_sermons AS b ON a.`sermon_id` = b.`id`');
+		$query->where('a.`book` != 0');
+		$query->order('a.`book` ASC');
+
+		// Filter by month
+		$month = $this->getState('date.month');
+		if ($month){
+			$query->where('MONTH(b.`sermon_date`) = '.(int) $month);
+		}
+
+		// Filter by year
+		$year = $this->getState('date.year');
+		if ($year){
+			$query->where('YEAR(b.`sermon_date`) = '.(int) $year);
+		}
+
+		$db->setQuery($query);
+		$options = $db->loadResultArray();
+
+		return $options;
 	}
 }

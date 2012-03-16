@@ -59,6 +59,15 @@ if (in_array('sermons:player', $this->columns) && count($this->items)) : ?>
 				<select name="book" id="filter_books" class="inputbox" onchange="this.form.submit()">
 					<?php echo JHtml::_('select.options', $this->books, 'value', 'text', $this->state->get('scripture.book'), true);?>
 				</select>
+				<select name="month" id="filter_months" class="inputbox" onchange="this.form.submit()">
+					<option value="0"><?php echo JText::_('COM_SERMONSPEAKER_SELECT_MONTH'); ?></option>
+					
+					<?php echo JHtml::_('select.options', $this->months, 'value', 'text', $this->state->get('date.month'), true);?>
+				</select>
+				<select name="year" id="filter_years" class="inputbox" onchange="this.form.submit()">
+					<option value="0"><?php echo JText::_('COM_SERMONSPEAKER_SELECT_YEAR'); ?></option>
+					<?php echo JHtml::_('select.options', $this->years, 'year', 'year', $this->state->get('date.year'), true);?>
+				</select>
 			</div>
 	<?php endif;
 	if ($this->params->get('show_pagination_limit')) : ?>

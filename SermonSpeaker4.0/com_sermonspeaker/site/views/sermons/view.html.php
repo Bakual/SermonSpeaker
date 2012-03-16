@@ -20,29 +20,40 @@ class SermonspeakerViewSermons extends JView
 		require_once(JPATH_COMPONENT.DS.'helpers'.DS.'player.php');
 
 		// Get some data from the models
-		$state		= $this->get('State');
-		$items		= $this->get('Items');
-		$pagination	= $this->get('Pagination');
+		$this->state		= $this->get('State');
+		$this->items		= $this->get('Items');
+		$this->pagination	= $this->get('Pagination');
+		$this->years		= $this->get('Years');
+		$this->months		= $this->get('Months');
+		$books				= $this->get('Books');
 
-		$params = $state->get('params');
-		if ((int)$params->get('limit', '')){
-			$params->set('filter_field', 0);
-			$params->set('show_pagination_limit', 0);
-			$params->set('show_pagination', 0);
-			$params->set('show_pagination_results', 0);
+		// Create shortcut for state
+		$state	= $this->state;
+
+		// Add filter to pagination, needed in case of URL params from module?
+		$this->pagination->setAdditionalUrlParam('view', 'sermons');
+		$this->pagination->setAdditionalUrlParam('year', $state->get('date.year'));
+		$this->pagination->setAdditionalUrlParam('month', $state->get('date.month'));
+
+		$this->params = $state->get('params');
+		if ((int)$this->params->get('limit', '')){
+			$this->params->set('filter_field', 0);
+			$this->params->set('show_pagination_limit', 0);
+			$this->params->set('show_pagination', 0);
+			$this->params->set('show_pagination_results', 0);
 		}
-		$columns = $params->get('col');
-		if (!$columns){
-			$columns = array();
+		$this->columns	= $this->params->get('col');
+		if (!$this->columns){
+			$this->columns = array();
 		}
 
 		// Get the category name(s)
 		if($state->get('sermons_category.id') || $state->get('speakers_category.id') || $state->get('series_category.id')){
-			$cat = $this->get('Cat');
+			$this->cat = $this->get('Cat');
 		} else {
-			$cat = '';
+			$this->cat = '';
 		}
-		
+
 		// Check for errors.
 		if (count($errors = $this->get('Errors'))) {
 			JError::raiseError(500, implode("\n", $errors));
@@ -51,12 +62,51 @@ class SermonspeakerViewSermons extends JView
 
 		// Set layout from parameters if not already set elsewhere
 		if ($this->getLayout() == 'default') {
-			$this->setLayout($params->get('sermonslayout', 'table'));
+			$this->setLayout($this->params->get('sermonslayout', 'table'));
 		}
 
 		// Build Books
+		$at	= 0;
+		$nt	= 0;
+		$ap	= 0;
 		$this->books	= array();
 		$this->books[]	= JHtml::_('select.option', '0', JText::_('COM_SERMONSPEAKER_SELECT_BOOK'));
+		foreach ($books as $book){
+			if(!$at && $book <= 39){
+				$this->books[]	= JHtml::_('select.optgroup', JText::_('COM_SERMONSPEAKER_OLD_TESTAMENT'));
+				$at	= 1;
+			} elseif($book > 39){
+				if($at == 1){
+					$this->books[]	= JHtml::_('select.optgroup', JText::_('COM_SERMONSPEAKER_OLD_TESTAMENT'));
+					$at	= 2;
+				}
+				if(!$nt && $book <= 66){
+					$this->books[]	= JHtml::_('select.optgroup', JText::_('COM_SERMONSPEAKER_NEW_TESTAMENT'));
+					$nt	= 1;
+				} elseif($book > 66){
+					if($nt == 1){
+						$this->books[]	= JHtml::_('select.optgroup', JText::_('COM_SERMONSPEAKER_NEW_TESTAMENT'));
+						$nt	= 2;
+					}
+					if(!$ap){
+						$this->books[]	= JHtml::_('select.optgroup', JText::_('COM_SERMONSPEAKER_APOCRYPHA'));
+						$ap	= 1;
+					}
+				}
+			}
+			$object	= new stdClass;
+			$object->value	= $book;
+			$object->text	= JText::_('COM_SERMONSPEAKER_BOOK_'.$book);
+			$this->books[]	= $object;
+		}
+		if($at == 1){
+			$this->books[]	= JHtml::_('select.optgroup', JText::_('COM_SERMONSPEAKER_OLD_TESTAMENT'));
+		} elseif($nt == 1){
+			$this->books[]	= JHtml::_('select.optgroup', JText::_('COM_SERMONSPEAKER_NEW_TESTAMENT'));
+		} elseif($ap == 1){
+			$this->books[]	= JHtml::_('select.optgroup', JText::_('COM_SERMONSPEAKER_APOCRYPHA'));
+		}
+/*		$this->books	= array();
 		$this->books[]	= JHtml::_('select.optgroup', JText::_('COM_SERMONSPEAKER_OLD_TESTAMENT'));
 		for ($i = 1; $i < 40; $i++){
 			$books_at[$i]->value	= $i;
@@ -77,15 +127,7 @@ class SermonspeakerViewSermons extends JView
 			$books_ap[$i]->text		= JText::_('COM_SERMONSPEAKER_BOOK_'.$i);
 		}
 		$this->books	= array_merge($this->books, $books_ap);
-		$this->books[]	= JHtml::_('select.optgroup', JText::_('COM_SERMONSPEAKER_APOCRYPHA'));
-
-		// push data into the template
-		$this->assignRef('state',		$state);
-		$this->assignRef('items',		$items);
-		$this->assignRef('columns', 	$columns);
-		$this->assignRef('pagination',	$pagination);
-		$this->assignRef('cat',			$cat);
-		$this->assignRef('params',		$params);
+		$this->books[]	= JHtml::_('select.optgroup', JText::_('COM_SERMONSPEAKER_APOCRYPHA')); */
 
 		$this->_prepareDocument();
 

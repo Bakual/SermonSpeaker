@@ -161,15 +161,6 @@
 			extension="com_sermonspeaker"
 			view="seriessermon"
 		/>
-		<field
-			name="archivelayout" type="componentlayout"
-			label="COM_SERMONSPEAKER_ARCHIVE_VIEW_TITLE"
-			description="COM_SERMONSPEAKER_FIELD_LAYOUT_DESC"
-			default="_:default"
-			useglobal="false"
-			extension="com_sermonspeaker"
-			view="archive"
-		/>
 	</fieldset>
 	<fieldset name="clientcol"
 		addfieldpath="/administrator/components/com_sermonspeaker/models/fields"

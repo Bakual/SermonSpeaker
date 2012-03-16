@@ -27,13 +27,13 @@ $ss_itemid = $params->get('menuitem');
 if(count($rows)) { ?>
 	<ul class="sermonarchive<?php echo $params->get('moduleclass_sfx'); ?>">
 	<?php foreach ($rows as $row) {
-		$request_m	= '&amp;month=all';
+		$request_m	= 0;
 		$text_m		= NULL;
 		if ($switch){
-			$request_m	= '&amp;month='.$row->created_month;
+			$request_m	= $row->created_month;
 			$text_m		= JHTML::Date($row->sermon_date, 'F', true).', ';
 		}
-		$link = JRoute::_('index.php?option=com_sermonspeaker&amp;view=archive&amp;year='.$row->created_year.$request_m.'&amp;Itemid='.$ss_itemid);
+		$link = JRoute::_('index.php?option=com_sermonspeaker&view=sermons&year='.$row->created_year.'&month='.$request_m.'&Itemid='.$ss_itemid);
 		$text = $text_m.JHTML::Date($row->sermon_date, 'Y', true);
 		?>
 		<li><a href="<?php echo $link; ?>"><?php echo $text; ?></a></li>

@@ -54,6 +54,12 @@ function SermonspeakerParseRoute($segments){
 			break;
 		case 'sermons':
 			$vars['view'] = 'sermons';
+			if (isset($segments[1]) && $segments[1]){
+				$vars['year'] = (int)$segments[1];
+			}
+			if (isset($segments[2]) && $segments[2]){
+				$vars['month'] = (int)$segments[2];
+			}
 			break;
 		case 'sermon':
 			$vars['view'] = 'sermon';
@@ -79,15 +85,6 @@ function SermonspeakerParseRoute($segments){
 			break;
 		case 'speakerform':
 			$vars['view'] = 'speakerform';
-			break;
-		case 'archive':
-			$vars['view'] = 'archive';
-			if (isset($segments[1]) && $segments[1]){
-				$vars['year'] = (int)$segments[1];
-			}
-			if (isset($segments[2]) && $segments[2]){
-				$vars['month'] = (int)$segments[2];
-			}
 			break;
 		case 'feed':
 			$vars['view'] = 'feed';
