@@ -48,6 +48,11 @@ class Com_SermonspeakerInstallerScript {
 		if(JFile::exists($files[1])){
 			JFile::delete($files);
 		}
+		if(JFile::exists(JPATH_SITE.'/components/com_sermonspeaker/models/archive.php')){
+			JFile::delete(JPATH_SITE.'/components/com_sermonspeaker/models/archive.php');
+			jimport('joomla.filesystem.folder');
+			JFolder::delete(JPATH_SITE.'/components/com_sermonspeaker/views/archive');
+		}
 
 		$this->_migrate();
 	}
