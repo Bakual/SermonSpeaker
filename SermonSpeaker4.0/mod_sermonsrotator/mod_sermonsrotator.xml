@@ -16,6 +16,7 @@
 		<filename>mod_sermonsrotator.css</filename>
 		<filename>mod_sermonsrotator.php</filename>
 		<filename>mod_sermonsrotator-js.php</filename>
+		<filename>mod_sermonsrotator-js-min.php</filename>
 		<folder>language</folder>
 		<folder>images</folder>
 		<folder>css</folder> 
@@ -31,17 +32,21 @@
 					default="" 
 					label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL" 
 					description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC" />
-					
+	
+	
+				<field name="lr_boxshow_count" type="list" 
+					default="5"					
+					label="MOD_SERMONSROTATOR_PARAM_BOXSHOW_COUNT" 
+					description="MOD_SERMONSROTATOR_PARAM_BOXSHOW_COUNT_DESC" >
+					<option value="3">3</option>
+					<option value="5">5</option>					
+				</field>	
+									
 				<field name="lr_count" type="text" 
 					default="20" 
 					label="MOD_SERMONSROTATOR_PARAM_COUNT" 
 					description="MOD_SERMONSROTATOR_PARAM_COUNT_DESC" />
-					
-				<field name="lr_boxshow_count" type="text" 
-					default="5" 
-					label="MOD_SERMONSROTATOR_PARAM_BOXSHOW_COUNT" 
-					description="MOD_SERMONSROTATOR_PARAM_BOXSHOW_COUNT_DESC" />
-					
+										
 				<field name="lr_slideDuration" type="text" 
 					default="8000" 
 					label="MOD_SERMONSROTATOR_PARAM_SLIDE_DURATION" 
@@ -143,7 +148,7 @@
 					<option value="63">63</option>
 					<option value="75">75</option>
 				</field>
-				
+								
 				<field name="lr_thumb_width" type="text" 
 					default="50" 
 					label="MOD_SERMONSROTATOR_PARAM_THUMB_WIDTH" 

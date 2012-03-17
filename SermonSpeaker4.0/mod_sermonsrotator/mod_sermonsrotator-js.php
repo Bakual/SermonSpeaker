@@ -41,7 +41,6 @@ else
 	sermonsAboveCurr = (showSermons-1) / 2;
 	sermonsBelowCurr = (showSermons-1) / 2;
 }
-
 function rotateImages(last, current)
 {
 	clearTimeout(t);
@@ -56,152 +55,178 @@ function rotateImages(last, current)
 		$(document.getElementById('sermons-rotator-right-'+x)).fadeOut(fadetime/2).css({"visibility" : "hidden", "display" : "none" });  
 		$(document.getElementById('sermon-rotator-'+x)).removeClass("sermon-rotator-current-"+sermonLineHeight);
 	}
-	var currSermonRotator = $(document.getElementById('sermon-rotator-'+sermonElementID))
+	var currSermonRotator = $(document.getElementById('sermon-rotator-'+sermonElementID));
 	var currSermonRight = $(document.getElementById('sermons-rotator-right-'+sermonElementID));
 	var sermonDiff = 0;
 	var sermonDiffPixel = 0;
 	currSermonRotator.addClass("sermon-rotator-current-"+sermonLineHeight);
-	currSermonRight.fadeIn(fadetime/2).css({"visibility" : "visible", "display" : "inline" , "cursor" : "pointer" });
-	sermonDiff = Math.abs(sermonElementID - sermonElementIDPrev);
 	if(showArrowFlg)
 	{
 		findArrowLocatactionSlide(sermonElementID);
-	}
+	}		
+	currSermonRight.fadeIn(fadetime/2).css({"visibility" : "visible", "display" : "inline" , "cursor" : "pointer" });
+	sermonDiff = Math.abs(sermonElementID - sermonElementIDPrev);
+		
 	if(sermonElementIDPrev <= sermonElementID)
 	{
 		//used to move down in natural order
-
-			for(m = 0; m < sermonsAboveCurr ; m++)
+		<?php if($ss_showSermons == 3){ ?>
+			for(x = 0; x < sermonsBelowCurr+1; x++)
 			{
-				if((sermonElementIDPrev == m)&&(sermonElementID == (m+1)))
-				{
-					sermonDiff = 0;
-				}
-			}
-			for(n = 0 ; n < showSermons; n++ )
-			{
-				if((sermonElementIDPrev == 0)&&(sermonElementID == (n+2)))
-				{
-					sermonDiff = n;
-				}
-			}
-			var o = sermonsAboveCurr-1;
-			for(t = (maxSermons-sermonsBelowCurr-2); t <maxSermons; t++ )
-			{
-				if((sermonElementIDPrev == t)&&(sermonElementID == (t+2)))
-				{
-					sermonDiff = o;
-				}
-				o--;
-			}
-			for(r = (maxSermons-sermonsBelowCurr-1); r< maxSermons; r++)
-			{
-				if((sermonElementIDPrev == r)&&(sermonElementID == (r+1)))
-				{
-					sermonDiff = 0;
-				}
-			}
-			for(q = 0; q < sermonsAboveCurr; q++ )
-			{
-				if((sermonElementIDPrev == 1)&&(sermonElementID == (q+3)))
-				{
-					sermonDiff = q+1;
-				}
-			}	
-
-			if(sermonDiff != 0)
-			{
-				sermonDiffPixel = sermonDiff * sermonLineHeight;
-			}
-			else 
-			{
-				sermonDiffPixel = 0;	
-			}
-			//alert("last:"+sermonElementIDPrev+"|current:"+sermonElementID+"|diff:"+sermonDiff+"|pixels:"+sermonDiffPixel+"|moveDown");
-			$(document.getElementById('sermons-rotator-left-slide')).animate({"top": "-="+sermonDiffPixel+"px"}, fadetime);
-			if(showArrowFlg)
-			{
-				$(document.getElementById('sermons-rotator-arrow')).animate({"top": "-="+sermonDiffPixel+"px"}, fadetime);
-			}
-	}
-	else
-	{
-		// used to move up in reverse order
-			for(y = 0; y < sermonsAboveCurr; y++)
-			{
-				if((sermonElementIDPrev == (y+1))&&(sermonElementID == y))
-				{
-					sermonDiff = 0;
-				}
-			}
-			for (x = 0; x < sermonsAboveCurr; x++)
-			{
-				if((sermonElementIDPrev == (x + sermonsAboveCurr))&&(sermonElementID == x))
+				if((sermonElementIDPrev == 0)&&(sermonElementID == (x+1)))
 				{
 					sermonDiff = x;
 				}
 			}
-			var a = sermonsBelowCurr - 1;
-			for(w = (maxSermons-sermonsBelowCurr); w < maxSermons; w++)
+			if((sermonElementIDPrev == (maxSermons-2))&&(sermonElementID == (maxSermons-1)))
 			{
-				if((sermonElementIDPrev == w)&&(sermonElementID == (w-sermonsBelowCurr) ))
-				{
-					sermonDiff = a;
-				}
-				a--;
-			}
-			for(u = (maxSermons-sermonsBelowCurr-1); u < maxSermons; u++)
+				sermonDiff = 0;
+			}		
+		<?php } if($ss_showSermons == 5){?>
+		for(m = 0; m < sermonsAboveCurr ; m++)
+		{
+			if((sermonElementIDPrev == m)&&(sermonElementID == (m+1)))
 			{
-				if((sermonElementIDPrev == (u+1))&&(sermonElementID == u))
-				{
 					sermonDiff = 0;
+			}
+		}
+		for(n = 0 ; n < showSermons; n++ )
+		{
+			if((sermonElementIDPrev == 0)&&(sermonElementID == (n+2)))
+			{
+				sermonDiff = n;
+			}
+		}
+		var o = sermonsAboveCurr-1;
+		for(t = (maxSermons-sermonsBelowCurr-2); t <maxSermons; t++ )
+		{
+			if((sermonElementIDPrev == t)&&(sermonElementID == (t+2)))
+			{
+				sermonDiff = o;
+			}
+			o--;
+		}
+		for(r = (maxSermons-sermonsBelowCurr-1); r< maxSermons; r++)
+		{
+			if((sermonElementIDPrev == r)&&(sermonElementID == (r+1)))
+			{
+				sermonDiff = 0;
+			}
+		}
+		for(q = 0; q < sermonsAboveCurr; q++ )
+		{
+			if((sermonElementIDPrev == 1)&&(sermonElementID == (q+3)))
+			{
+				sermonDiff = q+1;
+			}
+		}	
+		<?php }?>
+		
+		if(sermonDiff != 0)
+		{
+			sermonDiffPixel = sermonDiff * sermonLineHeight;
+		}
+		else 
+		{
+			sermonDiffPixel = 0;	
+		}
+		//alert("last:"+sermonElementIDPrev+"|current:"+sermonElementID+"|diff:"+sermonDiff+"|pixels:"+sermonDiffPixel+"|moveDown");
+		$(document.getElementById('sermons-rotator-left-slide')).animate({"top": "-="+sermonDiffPixel+"px"}, fadetime);
+		if(showArrowFlg)
+		{
+			$(document.getElementById('sermons-rotator-arrow')).animate({"top": "-="+sermonDiffPixel+"px"}, fadetime);
+		}
+	}
+	else
+	{
+		// used to move up in reverse order
+		<?php if($ss_showSermons == 3){ ?>
+			if((sermonElementIDPrev == 1)&&(sermonElementID == 0))
+			{
+				sermonDiff = 0;
+			}
+			var d = 1;
+			for(y = maxSermons-showSermons; y < maxSermons; y++)
+			{
+				if((sermonElementIDPrev == (maxSermons-sermonsAboveCurr))&&(sermonElementID == y))
+				{
+					sermonDiff = d;
 				}				
-			}
-			b = sermonsBelowCurr;
-			for(y = (maxSermons-sermonsBelowCurr); y < maxSermons; y++)
+				d--;
+			}	
+			
+		<?php } if($ss_showSermons == 5){?>
+		for(y = 0; y < sermonsAboveCurr; y++)
+		{
+			if((sermonElementIDPrev == (y+1))&&(sermonElementID == y))
 			{
-				if((sermonElementIDPrev == y)&&(sermonElementID == (y-3)))
-				{
-					sermonDiff = b;
-				}
-				b--;
+				sermonDiff = 0;
 			}
-			for(i = (maxSermons-1); i < maxSermons; i++)
+		}
+		for (x = 0; x < sermonsAboveCurr; x++)
+		{
+			if((sermonElementIDPrev == (x + sermonsAboveCurr))&&(sermonElementID == x))
 			{
-				// partial macro 14 jump to 10
-				if((sermonElementIDPrev == i)&&(sermonElementID == (i-4)))
-				{
-					sermonDiff = 2;
-				}
+					sermonDiff = x;
 			}
-			if(sermonDiff != 0)
+		}
+		var a = sermonsBelowCurr - 1;
+		for(w = (maxSermons-sermonsBelowCurr); w < maxSermons; w++)
+		{
+			if((sermonElementIDPrev == w)&&(sermonElementID == (w-sermonsBelowCurr) ))
 			{
-				sermonDiffPixel = sermonDiff * sermonLineHeight;
+				sermonDiff = a;
 			}
-			else 
+			a--;
+		}
+		for(u = (maxSermons-sermonsBelowCurr-1); u < maxSermons; u++)
+		{
+			if((sermonElementIDPrev == (u+1))&&(sermonElementID == u))
 			{
-				sermonDiffPixel = 0;	
-			}
-			//alert("last:"+sermonElementIDPrev+"|current:"+sermonElementID+"|diff:"+sermonDiff+"|pixels:"+sermonDiffPixel+"|aboveCurr:"+sermonsAboveCurr+"|moveUp");
-			$(document.getElementById('sermons-rotator-left-slide')).animate({"top": "+="+sermonDiffPixel+"px"}, fadetime);
-			if(showArrowFlg)
+				sermonDiff = 0;
+			}				
+		}
+		b = sermonsBelowCurr;
+		for(y = (maxSermons-sermonsBelowCurr); y < maxSermons; y++)
+		{
+			if((sermonElementIDPrev == y)&&(sermonElementID == (y-3)))
 			{
-				$(document.getElementById('sermons-rotator-arrow')).animate({"top": "+="+sermonDiffPixel+"px"}, fadetime);
+				sermonDiff = b;
 			}
+			b--;
+		}
+		for(i = (maxSermons-1); i < maxSermons; i++)
+		{
+			// partial macro 14 jump to 10
+			if((sermonElementIDPrev == i)&&(sermonElementID == (i-4)))
+			{
+				sermonDiff = 2;
+			}
+		}
+		<?php }?>
+		
+		if(sermonDiff != 0)
+		{
+			sermonDiffPixel = sermonDiff * sermonLineHeight;
+		}
+		else 
+		{
+			sermonDiffPixel = 0;	
+		}
+		//alert("last:"+sermonElementIDPrev+"|current:"+sermonElementID+"|diff:"+sermonDiff+"|pixels:"+sermonDiffPixel+"|aboveCurr:"+sermonsAboveCurr+"|moveUp");
+		$(document.getElementById('sermons-rotator-left-slide')).animate({"top": "+="+sermonDiffPixel+"px"}, fadetime);
+		if(showArrowFlg)
+		{
+			$(document.getElementById('sermons-rotator-arrow')).animate({"top": "+="+sermonDiffPixel+"px"}, fadetime);
+		}
 	}
 	var nextSermon = sermonElementID + 1;
 	t = setTimeout(function() { runSermons(sermonElementID, nextSermon); }, slideDur);
 }
 function findArrowLocatactionSlide(id)
 {
-	 if ( $.browser.msie ) 
-	 {
-		var sermonRotatorCurrent = $(".sermon-rotator-current-"+sermonLineHeight);
-	 } 
-	 else 
-	 {
-		var sermonRotatorCurrent = $(document.getElementsByClassName("sermon-rotator-current-"+sermonLineHeight));
-	 }
+
+	var sermonRotatorCurrent = $(".sermon-rotator-current-"+sermonLineHeight);
 	var sermonRotatorCurrentPos = sermonRotatorCurrent.position();
 	var sermonRotatorCurrentPosX = sermonRotatorCurrentPos.top;
 	var sermonRotatorCurrentPosY = sermonRotatorCurrentPos.left;	

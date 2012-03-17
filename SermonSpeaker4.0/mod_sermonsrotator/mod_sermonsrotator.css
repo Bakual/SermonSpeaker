@@ -5,7 +5,6 @@
 {
 	overflow:hidden;
 	cursor:pointer;
-	
 }
 #sermons-rotator-left-slide
 {
@@ -55,6 +54,11 @@
 {
 	visibility:hidden;
 	display:none;
+}
+.sermons-rotator-right-current
+{
+	visibility:visible;
+	display:inline;	
 }
 
 .sermon-rotator-arrow-25
