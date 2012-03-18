@@ -3,9 +3,15 @@ defined('_JEXEC') or die('Restricted access');
 
 // providing backward compatibilty to older SermonSpeaker versions
 // Bug: Doesn't take into account additional filters (type, cat)
-if ((JRequest::getCmd('view') == 'feed' && (JRequest::getCmd('format') != 'raw')) || (JRequest::getCmd('task') == 'podcast')) {
+$view = JRequest::getCmd('view');
+if (($view == 'feed' && (JRequest::getCmd('format') != 'raw')) || (JRequest::getCmd('task') == 'podcast')) {
 	header('HTTP/1.1 301 Moved Permanently');
 	header('Location: '.JURI::root().'index.php?option=com_sermonspeaker&view=feed&format=raw');
+	return;
+}
+if ($view == 'sitemap' && (JRequest::getCmd('format') != 'raw')) {
+	header('HTTP/1.1 301 Moved Permanently');
+	header('Location: '.JURI::root().'index.php?option=com_sermonspeaker&view=sitemap&format=raw');
 	return;
 }
 

@@ -12,7 +12,6 @@ class SermonspeakerController extends JController
 	{
 		$cachable = true;
 		$safeurlparams = array('id'=>'INT','limit'=>'INT','limitstart'=>'INT','filter_order'=>'CMD','filter_order_Dir'=>'CMD','lang'=>'CMD','year'=>'INT','month'=>'INT');
-
 		$viewName	= JRequest::getCmd('view', $this->default_view);
 		if ($viewName == 'speaker'){
 			$viewLayout = JRequest::getCmd('layout', 'default');

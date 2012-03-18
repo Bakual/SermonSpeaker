@@ -7,18 +7,15 @@ class SermonspeakerViewSitemap extends JView
 {
 	function display( $tpl = null )
 	{
-		$document =& JFactory::getDocument();
-		$document->setMimeEncoding('text/xml');
+		$this->document->setMimeEncoding('text/xml');
 
 		// get data from the model
-		$series		=& $this->get('Series');
-		$speakers	=& $this->get('Speakers');
-		$sermons	=& $this->get('Sermons');
+		$this->sermons	= $this->get('Sermons');
 
-        // push data into the template
-		$this->assignRef('series', $series);
-		$this->assignRef('speakers', $speakers);
-		$this->assignRef('sermons',	$sermons);
+		$app			= JFactory::getApplication();
+		$this->params	= $app->getParams();
+
+		// push data into the template
 
 		parent::display($tpl);
 	}

@@ -2,11 +2,26 @@
 defined('_JEXEC') or die;
 
 function SermonspeakerBuildRoute(&$query){
-	$segments = array();
+	$app		= JFactory::getApplication();
+	$segments	= array();
+	$view		= '';
 	if (isset($query['view'])){
 		$segments[] = $query['view'];
 		$view = $query['view'];
 		unset($query['view']);
+	} else {
+		// Get view from Itemid if not specified in query
+		// get a menu item based on Itemid or currently active
+		$menu		= $app->getMenu();
+		// we need a menu item.  Either the one specified in the query, or the current active one if none specified
+		if (empty($query['Itemid'])) {
+			$menuItem = $menu->getActive();
+		} else {
+			$menuItem = $menu->getItem($query['Itemid']);
+		}
+		if (isset($menuItem->query['view'])){
+			$view	= $menuItem->query['view'];
+		}
 	}
 	if (isset($query['task'])){
 		$segments[] = $query['task'];
@@ -28,12 +43,14 @@ function SermonspeakerBuildRoute(&$query){
 		$segments[] = $query['month'];
 		unset($query['month']);
 	}
-	if(isset($view) && ($view == 'speaker') && isset($query['layout'])){
+	if(($view == 'speaker') && isset($query['layout'])){
 		$segments[] = $query['layout'];
 		unset($query['layout']);
 	}
-	if (isset($query['format'])){
-		unset($query['format']);
+	if(($view == 'sitemap' || $view == 'feed') && !isset($query['format'])){
+		if($app->getCfg('sef_suffix')){
+			$query['format'] = 'raw';
+		}
 	}
 	return $segments;
 }
@@ -88,6 +105,10 @@ function SermonspeakerParseRoute($segments){
 			break;
 		case 'feed':
 			$vars['view'] = 'feed';
+			$vars['format'] = 'raw';
+			break;
+		case 'sitemap':
+			$vars['view'] = 'sitemap';
 			$vars['format'] = 'raw';
 			break;
 		case 'serie.download':
