@@ -15,9 +15,9 @@
 	</files>
 	<config>
 		<fields name="params">
-			<fieldset name="xml">
-				<field name="cat_priority" type="list" default="-1" label="XMAP_SERMONSPEAKER_CATEGORY_PRIORITY_LABEL" description="XMAP_SERMONSPEAKER_CATEGORY_PRIORITY_DESC">
-					<option value="-1">XMAP_OPTION_USE_PARENT_MENU</option>
+			<fieldset name="xml" label="XMAP_SERMONSPEAKER_FIELDSET_XLM_LABEL">
+				<field name="serie_priority" type="list" default="-1" label="XMAP_SERMONSPEAKER_SERIE_PRIORITY_LABEL" description="XMAP_SERMONSPEAKER_SERIE_PRIORITY_DESC">
+					<option value="-1">JGLOBAL_USE_GLOBAL</option>
 					<option value="0.0">0.0</option>
 					<option value="0.1">0.1</option>
 					<option value="0.2">0.2</option>
@@ -30,8 +30,8 @@
 					<option value="0.9">0.9</option>
 					<option value="1">1</option>
 				</field>
-				<field name="cat_changefreq" type="list" default="-1" label="XMAP_SERMONSPEAKER_CATEGORY_CHANGEFREQ_LABEL" description="XMAP_SERMONSPEAKER_CATEGORY_CHANGEFREQ_DESC">
-					<option value="-1">XMAP_OPTION_USE_PARENT_MENU</option>
+				<field name="serie_changefreq" type="list" default="-1" label="XMAP_SERMONSPEAKER_SERIE_CHANGEFREQ_LABEL" description="XMAP_SERMONSPEAKER_SERIE_CHANGEFREQ_DESC">
+					<option value="-1">JGLOBAL_USE_GLOBAL</option>
 					<option value="always">XMAP_OPTION_ALWAYS</option>
 					<option value="hourly">XMAP_OPTION_HOURLY</option>
 					<option value="daily">XMAP_OPTION_DAILY</option>
@@ -40,8 +40,8 @@
 					<option value="yearly">XMAP_OPTION_YEARLY</option>
 					<option value="never">XMAP_OPTION_NEVER</option>
 				</field>
-				<field name="link_priority" type="list" default="-1" label="XMAP_SERMONSPEAKER_LINK_PRIORITY_LABEL" description="XMAP_SERMONSPEAKER_LINK_PRIORITY_DESC">
-					<option value="-1">XMAP_OPTION_USE_PARENT_MENU</option>
+				<field name="speaker_priority" type="list" default="-1" label="XMAP_SERMONSPEAKER_SPEAKER_PRIORITY_LABEL" description="XMAP_SERMONSPEAKER_SPEAKER_PRIORITY_DESC">
+					<option value="-1">JGLOBAL_USE_GLOBAL</option>
 					<option value="0.0">0.0</option>
 					<option value="0.2">0.2</option>
 					<option value="0.3">0.3</option>
@@ -53,8 +53,31 @@
 					<option value="0.9">0.9</option>
 					<option value="1">1</option>
 				</field>
-				<field name="link_changefreq" type="list" default="-1" label="XMAP_SERMONSPEAKER_LINK_CHANGEFREQ_LABEL" description="XMAP_SERMONSPEAKER_LINK_CHANGEFREQ_DESC">
-					<option value="-1">XMAP_OPTION_USE_PARENT_MENU</option>
+				<field name="speaker_changefreq" type="list" default="-1" label="XMAP_SERMONSPEAKER_SPEAKER_CHANGEFREQ_LABEL" description="XMAP_SERMONSPEAKER_SPEAKER_CHANGEFREQ_DESC">
+					<option value="-1">JGLOBAL_USE_GLOBAL</option>
+					<option value="always">XMAP_OPTION_ALWAYS</option>
+					<option value="hourly">XMAP_OPTION_HOURLY</option>
+					<option value="daily">XMAP_OPTION_DAILY</option>
+					<option value="weekly">XMAP_OPTION_WEEKLY</option>
+					<option value="monthly">XMAP_OPTION_MONTHLY</option>
+					<option value="yearly">XMAP_OPTION_YEARLY</option>
+					<option value="never">XMAP_OPTION_NEVER</option>
+				</field>
+				<field name="sermon_priority" type="list" default="-1" label="XMAP_SERMONSPEAKER_SERMON_PRIORITY_LABEL" description="XMAP_SERMONSPEAKER_SERMON_PRIORITY_DESC">
+					<option value="-1">JGLOBAL_USE_GLOBAL</option>
+					<option value="0.0">0.0</option>
+					<option value="0.2">0.2</option>
+					<option value="0.3">0.3</option>
+					<option value="0.4">0.4</option>
+					<option value="0.5">0.5</option>
+					<option value="0.6">0.6</option>
+					<option value="0.7">0.7</option>
+					<option value="0.8">0.8</option>
+					<option value="0.9">0.9</option>
+					<option value="1">1</option>
+				</field>
+				<field name="sermon_changefreq" type="list" default="-1" label="XMAP_SERMONSPEAKER_SERMON_CHANGEFREQ_LABEL" description="XMAP_SERMONSPEAKER_SERMON_CHANGEFREQ_DESC">
+					<option value="-1">JGLOBAL_USE_GLOBAL</option>
 					<option value="always">XMAP_OPTION_ALWAYS</option>
 					<option value="hourly">XMAP_OPTION_HOURLY</option>
 					<option value="daily">XMAP_OPTION_DAILY</option>

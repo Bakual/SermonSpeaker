@@ -2,105 +2,111 @@
 
 /**
  * @license GNU/GPL
- * @description Xmap plugin for Joomla's web links component
+ * @description Xmap plugin for SermonSpeaker component
  */
 defined('_JEXEC') or die('Restricted access.');
 
 class xmap_com_sermonspeaker
 {
-	static private $_initialized = false;
-
 	/*
 	 * This function is called before a menu item is printed. We use it to set the
 	 * proper uniqueid for the item and indicate whether the node is expandible or not
 	 */
-	static function prepareMenuItem($node, &$params)
-	{
+	static function prepareMenuItem($node, &$params) {
 		$uri	= JURI::getInstance($node->link);
 		$view	= $uri->getVar('view');
 		switch($view){
 			case 'sermon':
 				$id = (int)$uri->getVar('id', 0);
 				if ($id) {
-					$node->uid = 'com_sermonspeakersermon'.$id;
+					$node->uid = 'com_sermonspeaker_sermon_'.$id;
 					$node->expandible = false;
 				}
 				break;
 			case 'sermons':
-				$node->uid = 'com_sermonspeakersermons';
+				$node->uid = 'com_sermonspeaker_sermons';
 				$node->expandible = true;
 				break;
 			case 'serie':
 				$id = (int)$uri->getVar('id', 0);
-				$node->uid = 'com_sermonspeakerserie'.$id;
+				$node->uid = 'com_sermonspeaker_serie_'.$id;
+				$node->expandible = true;
+				break;
+			case 'series':
+			case 'seriessermon':
+				$node->uid = 'com_sermonspeaker_series';
+				$node->expandible = true;
+				break;
+			case 'speaker':
+				$id = (int)$uri->getVar('id', 0);
+				$node->uid = 'com_sermonspeaker_speaker_'.$id;
+				$node->expandible = true;
+				break;
+			case 'speakers':
+				$node->uid = 'com_sermonspeaker_speakers';
 				$node->expandible = true;
 				break;
 		}
 	}
 
-	static function getTree($xmap, $parent, &$params)
-	{
-		self::initialize($params);
-
+	static function getTree($xmap, $parent, &$params) {
 		$uri	= JURI::getInstance($parent->link);
 		$view	= $uri->getVar('view');
 
-		$menu	= JSite::getMenu();
-		$menuparams	= $menu->getParams($parent->id);
-
-		if ($view == 'serie') {
-			$id = (int)$uri->getVar('id', 0);
-		} elseif ($view == 'sermons') {
-			$id = 0;
-		} else { // Nothing to expand
+		// Nothing to expand
+		if ($view == 'sermon'){
 			return;
 		}
 
-		// Cat params stuff - maybe change to serie?
-		$priority	= JArrayHelper::getValue($params, 'cat_priority', $parent->priority, '');
-		$changefreq	= JArrayHelper::getValue($params, 'cat_changefreq', $parent->changefreq, '');
-		if ($priority == '-1')
-			$priority = $parent->priority;
-		if ($changefreq == '-1')
-			$changefreq = $parent->changefreq;
+		// Calculate Params
+		$priority	= JArrayHelper::getValue($params, 'serie_priority', $parent->priority, '');
+		$changefreq	= JArrayHelper::getValue($params, 'serie_changefreq', $parent->changefreq, '');
+		$params['serie_priority']	= ($priority == '-1') ? $parent->priority : $priority;
+		$params['serie_changefreq']	= ($changefreq == '-1') ? $parent->changefreq : $changefreq;
 
-		$params['cat_priority']		= $priority;
-		$params['cat_changefreq']	= $changefreq;
+		$priority	= JArrayHelper::getValue($params, 'speaker_priority', $parent->priority, '');
+		$changefreq	= JArrayHelper::getValue($params, 'speaker_changefreq', $parent->changefreq, '');
+		$params['speaker_priority']	= ($priority == '-1') ? $parent->priority : $priority;
+		$params['speaker_changefreq']	= ($changefreq == '-1') ? $parent->changefreq : $changefreq;
 
-		// Link params stuff - maybe change to sermon?
-		$priority	= JArrayHelper::getValue($params, 'link_priority', $parent->priority, '');
-		$changefreq	= JArrayHelper::getValue($params, 'link_changefreq', $parent->changefreq, '');
-		if ($priority == '-1')
-			$priority = $parent->priority;
+		$priority	= JArrayHelper::getValue($params, 'sermon_priority', $parent->priority, '');
+		$changefreq	= JArrayHelper::getValue($params, 'sermon_changefreq', $parent->changefreq, '');
+		$params['sermon_priority']	= ($priority == '-1') ? $parent->priority : $priority;
+		$params['sermon_changefreq']	= ($changefreq == '-1') ? $parent->changefreq : $changefreq;
 
-		if ($changefreq == '-1')
-			$changefreq = $parent->changefreq;
-
-		$params['link_priority'] = $priority;
-		$params['link_changefreq'] = $changefreq;
-
-
-		// Get Category, we don't need that
-//		$options = array();
-//		$options['countItems']	= false;
-//		$options['catid']		= rand();
-//		$categories = JCategories::getInstance('Sermonspeaker', $options);
-//		$category = $categories->get($id? $id : 'root', true);
-
-		xmap_com_sermonspeaker::getSermonsTree($xmap, $parent, $params, $id);
+		switch($view){
+			case 'sermons':
+				xmap_com_sermonspeaker::getSermonsTree($xmap, $parent, $params, $view);
+				break;
+			case 'serie':
+			case 'speaker':
+				$id	= (int)$uri->getVar('id', 0);
+				xmap_com_sermonspeaker::getSermonsTree($xmap, $parent, $params, $view, $id);
+				break;
+			case 'series':
+				xmap_com_sermonspeaker::getSeriesTree($xmap, $parent, $params, $view);
+				break;
+			case 'speakers':
+				xmap_com_sermonspeaker::getSpeakersTree($xmap, $parent, $params);
+				break;
+		}
 	}
 
-	static function getSermonsTree($xmap, $parent, &$params, $id)
-	{
-		if($id){
+	static function getSermonsTree($xmap, $parent, $params, $view, $id = 0) {
+		if($view == 'serie'){
+			require_once JPATH_SITE.DS.'components'.DS.'com_sermonspeaker'.DS.'models'.DS.'serie.php';
 			$model	= new SermonspeakerModelSerie();
 			$model->getState();
 			$model->setState('serie.id', $id);
 		} else {
+			require_once JPATH_SITE.DS.'components'.DS.'com_sermonspeaker'.DS.'models'.DS.'sermons.php';
 			$model	= new SermonspeakerModelSermons();
 			$model->getState();
+			if($id){
+				$model->setState('speaker.id', $id);
+			}
 		}
-		$model->setState('list.limit', JArrayHelper::getValue($params, 'max_links', NULL));
+		$model->setState('list.limit', 0);
 		$model->setState('list.start', 0);
 		$model->setState('list.ordering', 'ordering');
 		$model->setState('list.direction', 'ASC');
@@ -109,25 +115,69 @@ class xmap_com_sermonspeaker
 		foreach ($items as $item) {
 			$node		= new stdclass;
 			$node->id	= $parent->id;
-			$node->uid	= $parent->uid . 'i' . $item->id;
-			$node->name	= $item->sermon_title;
-			$node->link	= SermonspeakerHelperRoute::getSermonRoute($item->id);
-			$node->priority		= $params['link_priority'];
-			$node->changefreq	= $params['link_changefreq'];
+			$node->uid	= $parent->uid.'_sermon_'.$item->id;
+			$node->name	= htmlspecialchars($item->sermon_title);
+			$node->link	= 'index.php?option=com_sermonspeaker&view=sermon&id='.$item->slug.'&Itemid='.$parent->id;
+			$node->priority		= $params['sermon_priority'];
+			$node->changefreq	= $params['sermon_changefreq'];
 			$node->expandible	= false;
 			$xmap->printNode($node);
 		}
 		$xmap->changeLevel(-1);
 	}
-	
-	static public function initialize(&$params)
-	{
-		if (self::$_initialized) {
-			return;
+
+	static function getSeriesTree($xmap, $parent, $params, $view, $id = 0) {
+		require_once JPATH_SITE.DS.'components'.DS.'com_sermonspeaker'.DS.'models'.DS.'series.php';
+		$model	= new SermonspeakerModelSeries();
+		$model->getState();
+		$model->setState('list.limit', 0);
+		$model->setState('list.start', 0);
+		$model->setState('list.ordering', 'ordering');
+		$model->setState('list.direction', 'ASC');
+		if($id){
+			$model->setState('speaker.id', $id);
 		}
-		self::$_initialized = true;
-		require_once JPATH_SITE.DS.'components'.DS.'com_sermonspeaker'.DS.'models'.DS.'sermons.php';
-		require_once JPATH_SITE.DS.'components'.DS.'com_sermonspeaker'.DS.'models'.DS.'serie.php';
-		require_once JPATH_SITE.DS.'components'.DS.'com_sermonspeaker'.DS.'helpers'.DS.'route.php';
+		$items	= $model->getItems();
+		$xmap->changeLevel(1);
+		foreach ($items as $item) {
+			$node		= new stdclass;
+			$node->id	= $parent->id;
+			$node->uid	= $parent->uid.'_serie_'.$item->id;
+			$node->name	= htmlspecialchars($item->series_title);
+			$node->link	= 'index.php?option=com_sermonspeaker&view=serie&id='.$item->slug.'&Itemid='.$parent->id;
+			$node->priority		= $params['serie_priority'];
+			$node->changefreq	= $params['serie_changefreq'];
+			$node->expandible	= true;
+			if($xmap->printNode($node)){
+				self::getSermonsTree($xmap, $parent, $params, 'serie', $item->id);
+			}
+		}
+		$xmap->changeLevel(-1);
+	}
+
+	static function getSpeakersTree($xmap, $parent, $params) {
+		require_once JPATH_SITE.DS.'components'.DS.'com_sermonspeaker'.DS.'models'.DS.'speakers.php';
+		$model	= new SermonspeakerModelSpeakers();
+		$model->getState();
+		$model->setState('list.limit', 0);
+		$model->setState('list.start', 0);
+		$model->setState('list.ordering', 'ordering');
+		$model->setState('list.direction', 'ASC');
+		$items	= $model->getItems();
+		$xmap->changeLevel(1);
+		foreach ($items as $item) {
+			$node		= new stdclass;
+			$node->id	= $parent->id;
+			$node->uid	= $parent->uid.'_speaker_'.$item->id;
+			$node->name	= htmlspecialchars($item->name);
+			$node->link	= 'index.php?option=com_sermonspeaker&view=speaker&id='.$item->slug.'&Itemid='.$parent->id;
+			$node->priority		= $params['speaker_priority'];
+			$node->changefreq	= $params['speaker_changefreq'];
+			$node->expandible	= true;
+			if($xmap->printNode($node)){
+				self::getSermonsTree($xmap, $parent, $params, 'speaker', $item->id);
+			}
+		}
+		$xmap->changeLevel(-1);
 	}
 }
