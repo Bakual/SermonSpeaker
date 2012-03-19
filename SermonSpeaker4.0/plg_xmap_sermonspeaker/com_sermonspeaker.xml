@@ -7,12 +7,15 @@
 	<license>http://www.gnu.org/licenses/gpl.html</license>
 	<authorEmail>admin@sermonspeaker.net</authorEmail>
 	<authorUrl>www.sermonspeaker.net</authorUrl>
-	<version>1.0</version>
+	<version>4.4</version>
 	<description>XMAP_SERMONSPEAKER_PLUGIN_DESCRIPTION</description>
 	<files>
 		<filename plugin="com_sermonspeaker">com_sermonspeaker.php</filename>
 		<folder>language</folder>
 	</files>
+	<updateservers>
+		<server type="extension" priority="1" name="SermonSpeaker.net">http://www.sermonspeaker.net/update/plg_sermonspeaker_xmap.xml</server>
+	</updateservers>
 	<config>
 		<fields name="params">
 			<fieldset name="xml" label="XMAP_SERMONSPEAKER_FIELDSET_XLM_LABEL">
