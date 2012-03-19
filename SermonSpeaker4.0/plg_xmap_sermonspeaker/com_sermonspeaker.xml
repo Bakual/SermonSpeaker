@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.6" type="plugin" group="xmap" method="upgrade">
+	<name>Xmap - SermonSpeaker Plugin</name>
+	<author>Thomas Hunziker</author>
+	<creationDate>Mar 2012</creationDate>
+	<copyright>GNU GPL</copyright>
+	<license>http://www.gnu.org/licenses/gpl.html</license>
+	<authorEmail>admin@sermonspeaker.net</authorEmail>
+	<authorUrl>www.sermonspeaker.net</authorUrl>
+	<version>1.0</version>
+	<description>XMAP_SERMONSPEAKER_PLUGIN_DESCRIPTION</description>
+	<files>
+		<filename plugin="com_sermonspeaker">com_sermonspeaker.php</filename>
+		<folder>language</folder>
+	</files>
+	<config>
+		<fields name="params">
+			<fieldset name="xml">
+				<field name="cat_priority" type="list" default="-1" label="XMAP_SERMONSPEAKER_CATEGORY_PRIORITY_LABEL" description="XMAP_SERMONSPEAKER_CATEGORY_PRIORITY_DESC">
+					<option value="-1">XMAP_OPTION_USE_PARENT_MENU</option>
+					<option value="0.0">0.0</option>
+					<option value="0.1">0.1</option>
+					<option value="0.2">0.2</option>
+					<option value="0.3">0.3</option>
+					<option value="0.4">0.4</option>
+					<option value="0.5">0.5</option>
+					<option value="0.6">0.6</option>
+					<option value="0.7">0.7</option>
+					<option value="0.8">0.8</option>
+					<option value="0.9">0.9</option>
+					<option value="1">1</option>
+				</field>
+				<field name="cat_changefreq" type="list" default="-1" label="XMAP_SERMONSPEAKER_CATEGORY_CHANGEFREQ_LABEL" description="XMAP_SERMONSPEAKER_CATEGORY_CHANGEFREQ_DESC">
+					<option value="-1">XMAP_OPTION_USE_PARENT_MENU</option>
+					<option value="always">XMAP_OPTION_ALWAYS</option>
+					<option value="hourly">XMAP_OPTION_HOURLY</option>
+					<option value="daily">XMAP_OPTION_DAILY</option>
+					<option value="weekly">XMAP_OPTION_WEEKLY</option>
+					<option value="monthly">XMAP_OPTION_MONTHLY</option>
+					<option value="yearly">XMAP_OPTION_YEARLY</option>
+					<option value="never">XMAP_OPTION_NEVER</option>
+				</field>
+				<field name="link_priority" type="list" default="-1" label="XMAP_SERMONSPEAKER_LINK_PRIORITY_LABEL" description="XMAP_SERMONSPEAKER_LINK_PRIORITY_DESC">
+					<option value="-1">XMAP_OPTION_USE_PARENT_MENU</option>
+					<option value="0.0">0.0</option>
+					<option value="0.2">0.2</option>
+					<option value="0.3">0.3</option>
+					<option value="0.4">0.4</option>
+					<option value="0.5">0.5</option>
+					<option value="0.6">0.6</option>
+					<option value="0.7">0.7</option>
+					<option value="0.8">0.8</option>
+					<option value="0.9">0.9</option>
+					<option value="1">1</option>
+				</field>
+				<field name="link_changefreq" type="list" default="-1" label="XMAP_SERMONSPEAKER_LINK_CHANGEFREQ_LABEL" description="XMAP_SERMONSPEAKER_LINK_CHANGEFREQ_DESC">
+					<option value="-1">XMAP_OPTION_USE_PARENT_MENU</option>
+					<option value="always">XMAP_OPTION_ALWAYS</option>
+					<option value="hourly">XMAP_OPTION_HOURLY</option>
+					<option value="daily">XMAP_OPTION_DAILY</option>
+					<option value="weekly">XMAP_OPTION_WEEKLY</option>
+					<option value="monthly">XMAP_OPTION_MONTHLY</option>
+					<option value="yearly">XMAP_OPTION_YEARLY</option>
+					<option value="never">XMAP_OPTION_NEVER</option>
+				</field>
+			</fieldset>
+		</fields>
+		</config>
+</extension>
