@@ -155,7 +155,7 @@ abstract class SermonspeakerHelperRoute
 			self::$lookup = array();
 
 			$component	= JComponentHelper::getComponent('com_sermonspeaker');
-			$items = $menus->getItems('component_id', $component->id);
+			$items		= $menus->getItems('component_id', $component->id);
 			if ($items){
 				foreach ($items as $item) {
 					if (isset($item->query) && isset($item->query['view'])) {
