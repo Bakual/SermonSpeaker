@@ -25,7 +25,7 @@ abstract class SermonspeakerHelperRoute
 	public static function getSermonsRoute()
 	{
 		$needles = array(
-			'sermons'
+			'sermons' => array(0)
 		);
 		//Create the link
 		$link = 'index.php?option=com_sermonspeaker&view=sermons';
@@ -37,26 +37,19 @@ abstract class SermonspeakerHelperRoute
 		return $link;
 	}
 
-	public static function getSermonRoute($id, $catid = 0)
+	public static function getSermonRoute($id)
 	{
 		$needles = array(
-			'sermon'  => array((int)$id)
+			'sermon' => array((int)$id)
 		);
 		//Create the link
 		$link = 'index.php?option=com_sermonspeaker&view=sermon&id='.$id;
-		if ((int)$catid > 1) {
-			$categories = JCategories::getInstance('Sermonspeaker', array('table'=>'#__sermon_sermons'));
-			$category 	= $categories->get((int)$catid);
-			if($category) {
-				$needles['category']	= array_reverse($category->getPath());
-				$needles['categories'] 	= $needles['category'];
-				$link 	.= '&catid='.$catid;
-			}
-		}
 
 		if ($item = self::_findItem($needles)) {
 			$link .= '&Itemid='.$item;
 		} elseif ($item = self::_findItem()) {
+			$link .= '&Itemid='.$item;
+		} elseif ($item = self::_findItem(array('sermons'=>array(0)))) {
 			$link .= '&Itemid='.$item;
 		}
 
@@ -66,7 +59,7 @@ abstract class SermonspeakerHelperRoute
 	public static function getSeriesRoute()
 	{
 		$needles = array(
-			'series'
+			'series' => array(0)
 		);
 		//Create the link
 		$link = 'index.php?option=com_sermonspeaker&view=series';
@@ -99,6 +92,8 @@ abstract class SermonspeakerHelperRoute
 			$link .= '&Itemid='.$item;
 		} elseif ($item = self::_findItem()) {
 			$link .= '&Itemid='.$item;
+		} elseif ($item = self::_findItem(array('series'=>array(0)))) {
+			$link .= '&Itemid='.$item;
 		}
 
 		return $link;
@@ -107,14 +102,14 @@ abstract class SermonspeakerHelperRoute
 	public static function getSpeakersRoute()
 	{
 		$needles = array(
-			'speakers'
+			'speakers' => array(0)
 		);
 		//Create the link
 		$link = 'index.php?option=com_sermonspeaker&view=speakers';
 
 		if ($item = SermonspeakerHelperRoute::_findItem($needles)) {
 			$link .= '&Itemid='.$item;
-		};
+		}
 
 		return $link;
 	}
@@ -140,6 +135,8 @@ abstract class SermonspeakerHelperRoute
 			$link .= '&Itemid='.$item;
 		} elseif ($item = self::_findItem()) {
 			$link .= '&Itemid='.$item;
+		} elseif ($item = self::_findItem(array('speakers'=>array(0)))) {
+			$link .= '&Itemid='.$item;
 		}
 
 		return $link;
@@ -156,7 +153,7 @@ abstract class SermonspeakerHelperRoute
 
 			$component	= JComponentHelper::getComponent('com_sermonspeaker');
 			$items		= $menus->getItems('component_id', $component->id);
-			if ($items){
+			if ($items){ // Populate static $lookup with SermonSpeaker menu entries: $lookup[view][id]
 				foreach ($items as $item) {
 					if (isset($item->query) && isset($item->query['view'])) {
 						$view = $item->query['view'];
@@ -165,14 +162,15 @@ abstract class SermonspeakerHelperRoute
 						}
 						if (isset($item->query['id'])) {
 							self::$lookup[$view][$item->query['id']] = $item->id;
+						} else {
+							self::$lookup[$view][] = $item->id;
 						}
 					}
 				}
 			}
 		}
-
 		if ($needles) {
-			foreach ($needles as $view => $ids) {
+			foreach ($needles as $view => $ids) { // Search $lookup for matching menu entry
 				if (isset(self::$lookup[$view])) {
 					foreach($ids as $id) {
 						if (isset(self::$lookup[$view][(int)$id])) {
@@ -181,7 +179,7 @@ abstract class SermonspeakerHelperRoute
 					}
 				}
 			}
-		} else {
+		} else { // Check if active menu entry is from SermonSpeaker
 			$active = $menus->getActive();
 			if ($active && $active->component == 'com_sermonspeaker') {
 				return $active->id;

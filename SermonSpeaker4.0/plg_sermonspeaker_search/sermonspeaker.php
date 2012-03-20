@@ -213,7 +213,7 @@ class plgSearchSermonspeaker extends JPlugin
 				{
 					foreach($list as $key => $item)
 					{
-						$list[$key]->href = SermonspeakerHelperRoute::getSermonRoute($item->slug, $item->catslug);
+						$list[$key]->href = SermonspeakerHelperRoute::getSermonRoute($item->slug);
 					}
 				}
 				$rows = array_merge($list, $rows);
