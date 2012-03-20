@@ -10,9 +10,15 @@ class SermonspeakerController extends JController
 {
 	public function display($cachable = false, $urlparams = false)
 	{
-		$cachable = true;
-		$safeurlparams = array('id'=>'INT','limit'=>'INT','limitstart'=>'INT','filter_order'=>'CMD','filter_order_Dir'=>'CMD','lang'=>'CMD','year'=>'INT','month'=>'INT');
+		$cachable	= true;
 		$viewName	= JRequest::getCmd('view', $this->default_view);
+		$user		= JFactory::getUser();
+		if ($user->get('id')) {
+			$cachable = false;
+		}
+
+		$safeurlparams = array('id'=>'INT','limit'=>'INT','limitstart'=>'INT','filter_order'=>'CMD','filter_order_Dir'=>'CMD',
+			'lang'=>'CMD','year'=>'INT','month'=>'INT','filter-search'=>'STRING','return'=>'BASE64','book'=>'INT','Itemid'=>'INT');
 		if ($viewName == 'speaker'){
 			$viewLayout = JRequest::getCmd('layout', 'default');
 			$view = $this->getView($viewName, 'html', '', array('base_path' => $this->basePath, 'layout' => $viewLayout));
