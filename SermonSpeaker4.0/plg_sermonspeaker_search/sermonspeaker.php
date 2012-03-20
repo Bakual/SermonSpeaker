@@ -186,7 +186,7 @@ class plgSearchSermonspeaker extends JPlugin
 				$query->select('a.sermon_title AS title, a.notes AS text, a.created AS created, '
 							.'CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(\':\', a.id, a.alias) ELSE a.id END as slug, '
 							.'CASE WHEN CHAR_LENGTH(c.alias) THEN CONCAT_WS(\':\', c.id, c.alias) ELSE c.id END as catslug, '
-							.'CONCAT_WS(" / ", '.$db->Quote($section).', c.title) AS section, "1" AS browsernav');
+							.'CONCAT_WS(" / ", '.$db->Quote($section).', c.title) AS section, "2" AS browsernav');
 				$query->from('#__sermon_sermons AS a');
 				$query->leftJoin('#__categories AS c ON c.id = a.catid');
 				$query->leftJoin('#__sermon_scriptures AS b ON b.sermon_id = a.id');
@@ -280,7 +280,7 @@ class plgSearchSermonspeaker extends JPlugin
 				$query->select('a.series_title AS title, a.series_description AS text, a.created AS created, '
 							.'CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(\':\', a.id, a.alias) ELSE a.id END as slug, '
 							.'CASE WHEN CHAR_LENGTH(c.alias) THEN CONCAT_WS(\':\', c.id, c.alias) ELSE c.id END as catslug, '
-							.'CONCAT_WS(" / ", '.$db->Quote($section).', c.title) AS section, "1" AS browsernav');
+							.'CONCAT_WS(" / ", '.$db->Quote($section).', c.title) AS section, "2" AS browsernav');
 				$query->from('#__sermon_series AS a');
 				$query->leftJoin('#__categories AS c ON c.id = a.catid');
 				$query->where('('.$where.')');
@@ -369,7 +369,7 @@ class plgSearchSermonspeaker extends JPlugin
 				$query->select('a.name AS title, CONCAT_WS(" ", a.intro, a.bio) AS text, a.created AS created, '
 							.'CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(\':\', a.id, a.alias) ELSE a.id END as slug, '
 							.'CASE WHEN CHAR_LENGTH(c.alias) THEN CONCAT_WS(\':\', c.id, c.alias) ELSE c.id END as catslug, '
-							.'CONCAT_WS(" / ", '.$db->Quote($section).', c.title) AS section, "1" AS browsernav');
+							.'CONCAT_WS(" / ", '.$db->Quote($section).', c.title) AS section, "2" AS browsernav');
 				$query->from('#__sermon_speakers AS a');
 				$query->leftJoin('#__categories AS c ON c.id = a.catid');
 				$query->where('('.$where.')');
