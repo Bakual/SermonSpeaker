@@ -23,54 +23,57 @@ class SermonspeakerViewspeaker extends JView
 		JHTML::stylesheet('sermonspeaker.css', 'media/com_sermonspeaker/css/');
 		require_once(JPATH_COMPONENT.DS.'helpers'.DS.'player.php');
 
-		$params		= $app->getParams();
+		// Get data from the model
+		$this->state	= $this->get('State');
+		$this->item		= $this->get('Item');
+
 		$user		= JFactory::getUser();
 
-		$columns = $params->get('col_speaker');
-		if (!$columns){
-			$columns = array();
+		$this->params = $this->state->get('params');
+		$this->columns = $this->params->get('col_speaker');
+		if (!$this->columns){
+			$this->columns = array();
 		}
-		$col_sermon = $params->get('col');
-		if (!$col_sermon){
-			$col_sermon = array();
+		$this->col_sermon = $this->params->get('col');
+		if (!$this->col_sermon){
+			$this->col_sermon = array();
 		}
-		$col_serie = $params->get('col_serie');
-		if (!$col_serie){
-			$col_serie = array();
+		$this->col_serie = $this->params->get('col_serie');
+		if (!$this->col_serie){
+			$this->col_serie = array();
 		}
 
 		// Set layout from parameters if not already set elsewhere
 		if ($this->getLayout() == 'default') {
-			$this->setLayout($params->get('speakerlayout', 'series'));
+			$this->setLayout($this->params->get('speakerlayout', 'series'));
 		}
 
-		// Get data from the model
-		$state		= $this->get('State');
-		$item		= $this->get('Item');
-
-		if(!$item){
+		if(!$this->item){
 			$app->redirect(JRoute::_('index.php?view=speakers'), JText::_('JGLOBAL_RESOURCE_NOT_FOUND'), 'error');
 		}
 		// check if access is not public
-		if ($item->category_access){
+		if ($this->item->category_access){
 			$groups	= $user->getAuthorisedViewLevels();
-			if (!in_array($item->category_access, $groups)) {
+			if (!in_array($this->item->category_access, $groups)) {
 				$app->redirect(JRoute::_('index.php?view=speakers'), JText::_('JERROR_ALERTNOAUTHOR'), 'error');
 			}
 		}
 
 		// Get sermons data from the sermons model
-		$sermons				= $this->get('Items', 'Sermons');
+		$this->sermons			= $this->get('Items', 'Sermons');
 		$this->pag_sermons		= $this->get('Pagination', 'Sermons');
 		$this->state_sermons	= $this->get('State', 'Sermons');
+		$this->years			= $this->get('Years', 'Sermons');
+		$this->months			= $this->get('Months', 'Sermons');
+		$books					= $this->get('Books', 'Sermons');
 
 		// Get series data from the series model
-		$series					= $this->get('Items', 'Series');
+		$this->series				= $this->get('Items', 'Series');
 		$this->pag_series		= $this->get('Pagination', 'Series');
 		$this->state_series		= $this->get('State', 'Series');
 		// check if there are avatars at all, only showing column if needed
 		$av = 0;
-		foreach ($series as $serie){
+		foreach ($this->series as $serie){
 			if (!empty($serie->avatar)){ // breaking out of foreach if first avatar is found
 				$av = 1;
 				break;
@@ -79,7 +82,7 @@ class SermonspeakerViewspeaker extends JView
 		$this->assignRef('av', $av);
 
 		// Update Statistic
-		if ($params->get('track_speaker')) {
+		if ($this->params->get('track_speaker')) {
 			$user	= JFactory::getUser();
 			if (!$user->authorise('com_sermonspeaker.hit', 'com_sermonspeaker')){
 				$model 	= $this->getModel();
@@ -93,15 +96,47 @@ class SermonspeakerViewspeaker extends JView
 			return false;
 		}
 
-        // push data into the template
-		$this->assignRef('state',		$state);
-		$this->assignRef('params',		$params);
-		$this->assignRef('columns',		$columns);
-		$this->assignRef('col_sermon',	$col_sermon);
-		$this->assignRef('col_serie',	$col_serie);
-		$this->assignRef('item',		$item);
-		$this->assignRef('sermons',		$sermons);
-		$this->assignRef('series',		$series);
+		// Build Books
+		$at	= 0;
+		$nt	= 0;
+		$ap	= 0;
+		$this->books	= array();
+		$this->books[]	= JHtml::_('select.option', '0', JText::_('COM_SERMONSPEAKER_SELECT_BOOK'));
+		foreach ($books as $book){
+			if(!$at && $book <= 39){
+				$this->books[]	= JHtml::_('select.optgroup', JText::_('COM_SERMONSPEAKER_OLD_TESTAMENT'));
+				$at	= 1;
+			} elseif($book > 39){
+				if($at == 1){
+					$this->books[]	= JHtml::_('select.optgroup', JText::_('COM_SERMONSPEAKER_OLD_TESTAMENT'));
+					$at	= 2;
+				}
+				if(!$nt && $book <= 66){
+					$this->books[]	= JHtml::_('select.optgroup', JText::_('COM_SERMONSPEAKER_NEW_TESTAMENT'));
+					$nt	= 1;
+				} elseif($book > 66){
+					if($nt == 1){
+						$this->books[]	= JHtml::_('select.optgroup', JText::_('COM_SERMONSPEAKER_NEW_TESTAMENT'));
+						$nt	= 2;
+					}
+					if(!$ap){
+						$this->books[]	= JHtml::_('select.optgroup', JText::_('COM_SERMONSPEAKER_APOCRYPHA'));
+						$ap	= 1;
+					}
+				}
+			}
+			$object	= new stdClass;
+			$object->value	= $book;
+			$object->text	= JText::_('COM_SERMONSPEAKER_BOOK_'.$book);
+			$this->books[]	= $object;
+		}
+		if($at == 1){
+			$this->books[]	= JHtml::_('select.optgroup', JText::_('COM_SERMONSPEAKER_OLD_TESTAMENT'));
+		} elseif($nt == 1){
+			$this->books[]	= JHtml::_('select.optgroup', JText::_('COM_SERMONSPEAKER_NEW_TESTAMENT'));
+		} elseif($ap == 1){
+			$this->books[]	= JHtml::_('select.optgroup', JText::_('COM_SERMONSPEAKER_APOCRYPHA'));
+		}
 
 		$this->_prepareDocument();
 

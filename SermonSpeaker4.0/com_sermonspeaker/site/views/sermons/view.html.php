@@ -30,7 +30,7 @@ class SermonspeakerViewSermons extends JView
 		// Create shortcut for state
 		$state	= $this->state;
 
-		// Add filter to pagination, needed in case of URL params from module?
+		// Add filter to pagination, needed in case of URL params from module(?)
 		$this->pagination->setAdditionalUrlParam('view', 'sermons');
 		$this->pagination->setAdditionalUrlParam('year', $state->get('date.year'));
 		$this->pagination->setAdditionalUrlParam('month', $state->get('date.month'));
@@ -106,28 +106,6 @@ class SermonspeakerViewSermons extends JView
 		} elseif($ap == 1){
 			$this->books[]	= JHtml::_('select.optgroup', JText::_('COM_SERMONSPEAKER_APOCRYPHA'));
 		}
-/*		$this->books	= array();
-		$this->books[]	= JHtml::_('select.optgroup', JText::_('COM_SERMONSPEAKER_OLD_TESTAMENT'));
-		for ($i = 1; $i < 40; $i++){
-			$books_at[$i]->value	= $i;
-			$books_at[$i]->text		= JText::_('COM_SERMONSPEAKER_BOOK_'.$i);
-		}
-		$this->books	= array_merge($this->books, $books_at);
-		$this->books[]	= JHtml::_('select.optgroup', JText::_('COM_SERMONSPEAKER_OLD_TESTAMENT'));
-		$this->books[]	= JHtml::_('select.optgroup', JText::_('COM_SERMONSPEAKER_NEW_TESTAMENT'));
-		for (; $i < 67; $i++){
-			$books_nt[$i]->value	= $i;
-			$books_nt[$i]->text		= JText::_('COM_SERMONSPEAKER_BOOK_'.$i);
-		}
-		$this->books	= array_merge($this->books, $books_nt);
-		$this->books[]	= JHtml::_('select.optgroup', JText::_('COM_SERMONSPEAKER_NEW_TESTAMENT'));
-		$this->books[]	= JHtml::_('select.optgroup', JText::_('COM_SERMONSPEAKER_APOCRYPHA'));
-		for (; $i < 74; $i++){
-			$books_ap[$i]->value	= $i;
-			$books_ap[$i]->text		= JText::_('COM_SERMONSPEAKER_BOOK_'.$i);
-		}
-		$this->books	= array_merge($this->books, $books_ap);
-		$this->books[]	= JHtml::_('select.optgroup', JText::_('COM_SERMONSPEAKER_APOCRYPHA')); */
 
 		$this->_prepareDocument();
 

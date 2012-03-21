@@ -21,7 +21,7 @@ class SermonspeakerModelSermons extends JModelList
 			$config['filter_fields'] = array(
 				'sermon_number', 'sermons.sermon_number',
 				'sermon_title', 'sermons.sermon_title',
-				'scripture', 'sermons.scripture',
+				'book', 'script.book',
 				'sermon_date', 'sermons.sermon_date',
 				'sermon_time', 'sermons.sermon_time',
 				'addfileDesc', 'sermons.addfileDesc',
@@ -137,6 +137,11 @@ class SermonspeakerModelSermons extends JModelList
 			$query->where('sermons.speaker_id = '.(int) $speakerId);
 		}
 
+		// Filter by serie (needed in serie view)
+		if ($serieId = $this->getState('serie.id')) {
+			$query->where('sermons.series_id = '.(int) $serieId);
+		}
+
 		// Add the list ordering clause.
 		$query->order($db->getEscaped($this->getState('list.ordering', 'ordering')).' '.$db->getEscaped($this->getState('list.direction', 'ASC')));
 
@@ -188,6 +193,12 @@ class SermonspeakerModelSermons extends JModelList
 		if(JRequest::getCmd('view') == 'speaker'){
 			$id = $app->getUserStateFromRequest($this->context.'.filter.speaker', 'id', 0, 'INT');
 			$this->setState('speaker.id', $id);
+		}
+
+		// Seriefilter
+		if(JRequest::getCmd('view') == 'serie'){
+			$id = $app->getUserStateFromRequest($this->context.'.filter.serie', 'id', 0, 'INT');
+			$this->setState('serie.id', $id);
 		}
 
 		$limit	= (int)$params->get('limit', '');
@@ -258,26 +269,13 @@ class SermonspeakerModelSermons extends JModelList
 		);
 
 		$db	= $this->getDbo();
-		$query	= $db->getQuery(true);
-
-		$query->select('DISTINCT MONTH(a.`sermon_date`) AS `value`');
-		$query->from('#__sermon_sermons AS a');
+		$query	= clone($this->query);
+		$query->clear('select');
+		$query->clear('order');
+		$query->select('DISTINCT MONTH(sermons.`sermon_date`) AS `value`');
 		$query->order('`value` ASC');
 
-		// Filter by year
-		$year = $this->getState('date.year');
-		if ($year){
-			$query->where('YEAR(a.`sermon_date`) = '.(int) $year);
-		}
-
-		// Filter by scripture
-		$book = $this->getState('scripture.book');
-		if ($book){
-			$query->join('LEFT', '#__sermon_scriptures AS b ON b.`sermon_id` = a.`id`');
-			$query->where('b.`book` = '.(int) $book);
-		}
-
-		$db->setQuery($query);
+		$db->setQuery($query, 0);
 		$options = $db->loadAssocList();
 
 		foreach($options as &$option){
@@ -295,60 +293,34 @@ class SermonspeakerModelSermons extends JModelList
 	public function getYears()
 	{
 		$db	= $this->getDbo();
-		$query	= $db->getQuery(true);
-
-		$query->select('DISTINCT YEAR(a.`sermon_date`) AS `year`');
-		$query->from('#__sermon_sermons AS a');
+		$query	= clone($this->query);
+		$query->clear('select');
+		$query->clear('order');
+		$query->select('DISTINCT YEAR(sermons.`sermon_date`) AS `year`');
 		$query->order('`year` ASC');
 
-		// Filter by month
-		$month = $this->getState('date.month');
-		if ($month){
-			$query->where('MONTH(a.`sermon_date`) = '.(int) $month);
-		}
-
-		// Filter by scripture
-		$book = $this->getState('scripture.book');
-		if ($book){
-			$query->join('LEFT', '#__sermon_scriptures AS b ON b.`sermon_id` = a.`id`');
-			$query->where('b.`book` = '.(int) $book);
-		}
-
-		$db->setQuery($query);
+		$db->setQuery($query, 0);
 		$options = $db->loadAssocList();
 
 		return $options;
 	}
 
 	/**
-	 * Method to get the available Years.
+	 * Method to get the available Book.
 	 *
 	 * @since	1.6
 	 */
 	public function getBooks()
 	{
 		$db	= $this->getDbo();
-		$query	= $db->getQuery(true);
+		$query	= clone($this->query);
+		$query->clear('select');
+		$query->clear('order');
+		$query->select('DISTINCT script.`book`');
+		$query->where('script.`book` != 0');
+		$query->order('script.`book` ASC');
 
-		$query->select('DISTINCT a.`book`');
-		$query->from('#__sermon_scriptures AS a');
-		$query->join('LEFT', '#__sermon_sermons AS b ON a.`sermon_id` = b.`id`');
-		$query->where('a.`book` != 0');
-		$query->order('a.`book` ASC');
-
-		// Filter by month
-		$month = $this->getState('date.month');
-		if ($month){
-			$query->where('MONTH(b.`sermon_date`) = '.(int) $month);
-		}
-
-		// Filter by year
-		$year = $this->getState('date.year');
-		if ($year){
-			$query->where('YEAR(b.`sermon_date`) = '.(int) $year);
-		}
-
-		$db->setQuery($query);
+		$db->setQuery($query, 0);
 		$options = $db->loadResultArray();
 
 		return $options;

@@ -6,8 +6,8 @@ JHTML::_('behavior.modal');
 $user		= JFactory::getUser();
 $canEdit	= $user->authorise('core.edit', 'com_sermonspeaker');
 $canEditOwn	= $user->authorise('core.edit.own', 'com_sermonspeaker');
-$listOrder	= $this->state->get('list.ordering');
-$listDirn	= $this->state->get('list.direction');
+$listOrder	= $this->state_sermons->get('list.ordering');
+$listDirn	= $this->state_sermons->get('list.direction');
 $player = new SermonspeakerHelperPlayer($this->items);
 ?>
 <div class="ss-serie-container<?php echo htmlspecialchars($this->params->get('pageclass_sfx')); ?>">
@@ -89,7 +89,22 @@ if (in_array('serie:player', $this->columns) && count($this->items)) : ?>
 			</legend>
 			<div class="filter-search">
 				<label class="filter-search-lbl" for="filter-search"><?php echo JText::_('JGLOBAL_FILTER_LABEL').'&nbsp;'; ?></label>
-				<input type="text" name="filter-search" id="filter-search" value="<?php echo $this->escape($this->state->get('filter.search')); ?>" class="inputbox" onchange="document.adminForm.submit();" title="<?php echo JText::_('COM_SERMONSPEAKER_FILTER_SEARCH_DESC'); ?>" />
+				<input type="text" name="filter-search" id="filter-search" value="<?php echo $this->escape($this->state_sermons->get('filter.search')); ?>" class="inputbox" onchange="document.adminForm.submit();" title="<?php echo JText::_('COM_SERMONSPEAKER_FILTER_SEARCH_DESC'); ?>" />
+			</div>
+			<div class="filter-select">
+				<label class="filter-select-lbl" for="filter-select"><?php echo JText::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL').'&nbsp;'; ?></label>
+				<select name="book" id="filter_books" class="inputbox" onchange="this.form.submit()">
+					<?php echo JHtml::_('select.options', $this->books, 'value', 'text', $this->state_sermons->get('scripture.book'), true);?>
+				</select>
+				<select name="month" id="filter_months" class="inputbox" onchange="this.form.submit()">
+					<option value="0"><?php echo JText::_('COM_SERMONSPEAKER_SELECT_MONTH'); ?></option>
+					
+					<?php echo JHtml::_('select.options', $this->months, 'value', 'text', $this->state_sermons->get('date.month'), true);?>
+				</select>
+				<select name="year" id="filter_years" class="inputbox" onchange="this.form.submit()">
+					<option value="0"><?php echo JText::_('COM_SERMONSPEAKER_SELECT_YEAR'); ?></option>
+					<?php echo JHtml::_('select.options', $this->years, 'year', 'year', $this->state_sermons->get('date.year'), true);?>
+				</select>
 			</div>
 	<?php endif;
 	if ($this->params->get('show_pagination_limit')) : ?>

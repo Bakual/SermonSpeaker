@@ -26,6 +26,12 @@ class SermonspeakerController extends JController
 			$view->setModel($this->getModel('series'));
 			$view->setModel($this->getModel('sermons'));
 		}
+		if ($viewName == 'serie'){
+			$viewLayout = JRequest::getCmd('layout', 'default');
+			$view = $this->getView($viewName, 'html', '', array('base_path' => $this->basePath, 'layout' => $viewLayout));
+			$view = &$this->getView('serie', 'html');
+			$view->setModel($this->getModel('sermons'));
+		}
 
 		return parent::display($cachable, $safeurlparams);
 	}

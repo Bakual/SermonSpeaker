@@ -104,7 +104,7 @@ if (in_array('sermons:player', $this->columns) && count($this->items)) : ?>
 				<?php if (in_array('sermons:scripture', $this->columns)) : ?>
 					<th class="ss-col ss-scripture">
 						<?php if (!$limit) :
-							echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL', 'scripture', $listDirn, $listOrder);
+							echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL', 'book', $listDirn, $listOrder);
 						else :
 							echo JText::_('COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL');
 						endif; ?>
