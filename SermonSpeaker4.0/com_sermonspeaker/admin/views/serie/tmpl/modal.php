@@ -19,7 +19,7 @@ JHtml::_('behavior.formvalidation');
 </script>
 
 <form action="<?php JRoute::_('index.php?option=com_sermonspeaker'); ?>" method="post" name="adminForm" id="adminForm" class="form-validate">
-	<div class="width-60 fltlft">
+	<div class="width-70 fltlft">
 		<fieldset class="adminform">
 			<legend><?php echo empty($this->item->id) ? JText::_('COM_SERMONSPEAKER_NEW_SERIE') : JText::sprintf('COM_SERMONSPEAKER_EDIT_SERIE', $this->item->id); ?></legend>
 			<ul class="adminformlist">
@@ -43,7 +43,7 @@ JHtml::_('behavior.formvalidation');
 			<?php echo $this->form->getInput('series_description'); ?>
 		</fieldset>
 	</div>
-	<div class="width-40 fltrt">
+	<div class="width-30 fltrt">
 		<fieldset class="adminform" style="border: 1px dashed silver; padding: 5px; margin: 18px 0px 10px;">
 			<ul class="adminformlist">
 			<?php foreach($this->form->getFieldset('info') as $field): ?>

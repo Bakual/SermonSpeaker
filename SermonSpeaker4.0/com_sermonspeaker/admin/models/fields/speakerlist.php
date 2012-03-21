@@ -45,7 +45,7 @@ class JFormFieldSpeakerlist extends JFormFieldList
 		} else {
 			$url = JRoute::_('index.php?task=speakerform.edit&layout=modal&tmpl=component');
 		}
-		$html	.= '<a class="modal" href="'.$url.'"rel="{handler: \'iframe\', size: {x: 800, y: 600}}"><img src="'.JURI::root().'media/com_sermonspeaker/images/plus.png"></a>';
+		$html	.= '<a class="modal" href="'.$url.'"rel="{handler: \'iframe\', size: {x: 950, y: 650}}"><img src="'.JURI::root().'media/com_sermonspeaker/images/plus.png"></a>';
 
 		return $html;
 	}
