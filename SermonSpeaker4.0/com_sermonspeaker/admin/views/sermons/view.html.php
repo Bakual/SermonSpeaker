@@ -49,8 +49,8 @@ class SermonspeakerViewSermons extends JView
 
 		if ($canDo->get('core.edit.state')) {
 			JToolBarHelper::divider();
-			JToolBarHelper::custom('sermons.publish', 'publish.png', 'publish_f2.png','JTOOLBAR_PUBLISH', true);
-			JToolBarHelper::custom('sermons.unpublish', 'unpublish.png', 'unpublish_f2.png', 'JTOOLBAR_UNPUBLISH', true);
+			JToolBarHelper::custom('sermons.publish', 'publish', '','JTOOLBAR_PUBLISH', true);
+			JToolBarHelper::custom('sermons.unpublish', 'unpublish', '', 'JTOOLBAR_UNPUBLISH', true);
 			JToolBarHelper::divider();
 			if ($this->state->get('filter.state') != 2) {
 				JToolBarHelper::archiveList('sermons.archive','JTOOLBAR_ARCHIVE');
@@ -64,6 +64,10 @@ class SermonspeakerViewSermons extends JView
 			JToolBarHelper::divider();
 		} else if ($canDo->get('core.edit.state')) {
 			JToolBarHelper::trash('sermons.trash','JTOOLBAR_TRASH');
+			JToolBarHelper::divider();
+		}
+		if ($canDo->get('core.edit.state')) {
+			JToolBarHelper::custom('tools.order', 'purge', '','COM_SERMONSPEAKER_TOOLS_ORDER', false);
 			JToolBarHelper::divider();
 		}
 

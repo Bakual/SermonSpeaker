@@ -64,6 +64,10 @@ class SermonspeakerViewSpeakers extends JView
 			JToolBarHelper::trash('speakers.trash','JTOOLBAR_TRASH');
 			JToolBarHelper::divider();
 		}
+		if ($canDo->get('core.edit.state')) {
+			JToolBarHelper::custom('tools.speakersorder', 'purge', '','COM_SERMONSPEAKER_TOOLS_ORDER', false);
+			JToolBarHelper::divider();
+		}
 
 		if ($canDo->get('core.admin')) {
 			JToolBarHelper::preferences('com_sermonspeaker', 600, 900);

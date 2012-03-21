@@ -31,7 +31,45 @@ class SermonspeakerControllerTools extends JController
 		} else {
 			$this->setMessage('Successfully reordered the sermons');
 		}
-		$this->setRedirect('index.php?option=com_sermonspeaker&view=tools');
+		$this->setRedirect('index.php?option=com_sermonspeaker&view=sermons');
+	}
+
+	public function seriesorder(){
+		// Check for request forgeries
+		JRequest::checkToken('request') or jexit(JText::_('JINVALID_TOKEN'));
+		$db		= JFactory::getDBO();
+		$query	= "SET @c := 0";
+		$db->setQuery($query);
+		$db->query();
+		$query	= "UPDATE #__sermon_series SET ordering = ( SELECT @c := @c + 1 ) ORDER BY series_title ASC, id ASC;";
+		$db->setQuery($query);
+		$db->query();
+		$error = $db->getErrorMsg();
+		if ($error){
+			$this->setMessage('Error: '.$error, 'error');
+		} else {
+			$this->setMessage('Successfully reordered the series');
+		}
+		$this->setRedirect('index.php?option=com_sermonspeaker&view=series');
+	}
+
+	public function speakersorder(){
+		// Check for request forgeries
+		JRequest::checkToken('request') or jexit(JText::_('JINVALID_TOKEN'));
+		$db		= JFactory::getDBO();
+		$query	= "SET @c := 0";
+		$db->setQuery($query);
+		$db->query();
+		$query	= "UPDATE #__sermon_speakers SET ordering = ( SELECT @c := @c + 1 ) ORDER BY name ASC, id ASC;";
+		$db->setQuery($query);
+		$db->query();
+		$error = $db->getErrorMsg();
+		if ($error){
+			$this->setMessage('Error: '.$error, 'error');
+		} else {
+			$this->setMessage('Successfully reordered the speakers');
+		}
+		$this->setRedirect('index.php?option=com_sermonspeaker&view=speakers');
 	}
 
 	public function write_id3(){
