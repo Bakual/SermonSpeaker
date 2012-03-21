@@ -106,7 +106,7 @@ class xmap_com_sermonspeaker
 				$model->setState('speaker.id', $id);
 			}
 		}
-		$model->setState('list.limit', 0);
+		$model->setState('list.limit', $params['limit']);
 		$model->setState('list.start', 0);
 		$model->setState('list.ordering', 'ordering');
 		$model->setState('list.direction', 'ASC');
@@ -130,7 +130,7 @@ class xmap_com_sermonspeaker
 		require_once JPATH_SITE.DS.'components'.DS.'com_sermonspeaker'.DS.'models'.DS.'series.php';
 		$model	= new SermonspeakerModelSeries();
 		$model->getState();
-		$model->setState('list.limit', 0);
+		$model->setState('list.limit', $params['limit']);
 		$model->setState('list.start', 0);
 		$model->setState('list.ordering', 'ordering');
 		$model->setState('list.direction', 'ASC');
@@ -148,7 +148,7 @@ class xmap_com_sermonspeaker
 			$node->priority		= $params['serie_priority'];
 			$node->changefreq	= $params['serie_changefreq'];
 			$node->expandible	= true;
-			if($xmap->printNode($node)){
+			if($xmap->printNode($node) && $params['serie_expand']){
 				self::getSermonsTree($xmap, $parent, $params, 'serie', $item->id);
 			}
 		}
@@ -159,7 +159,7 @@ class xmap_com_sermonspeaker
 		require_once JPATH_SITE.DS.'components'.DS.'com_sermonspeaker'.DS.'models'.DS.'speakers.php';
 		$model	= new SermonspeakerModelSpeakers();
 		$model->getState();
-		$model->setState('list.limit', 0);
+		$model->setState('list.limit', $params['limit']);
 		$model->setState('list.start', 0);
 		$model->setState('list.ordering', 'ordering');
 		$model->setState('list.direction', 'ASC');
@@ -174,7 +174,7 @@ class xmap_com_sermonspeaker
 			$node->priority		= $params['speaker_priority'];
 			$node->changefreq	= $params['speaker_changefreq'];
 			$node->expandible	= true;
-			if($xmap->printNode($node)){
+			if($xmap->printNode($node) && $params['speaker_expand']){
 				self::getSermonsTree($xmap, $parent, $params, 'speaker', $item->id);
 			}
 		}

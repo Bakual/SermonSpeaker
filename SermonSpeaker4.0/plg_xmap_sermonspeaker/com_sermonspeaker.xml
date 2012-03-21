@@ -18,8 +18,18 @@
 	</updateservers>
 	<config>
 		<fields name="params">
-			<fieldset name="xml" label="XMAP_SERMONSPEAKER_FIELDSET_XLM_LABEL">
-				<field name="serie_priority" type="list" default="-1" label="XMAP_SERMONSPEAKER_SERIE_PRIORITY_LABEL" description="XMAP_SERMONSPEAKER_SERIE_PRIORITY_DESC">
+			<fieldset name="basic">
+				<field name="serie_expand" type="radio"
+					default="1"
+					label="XMAP_SERMONSPEAKER_SERIE_EXPAND_LABEL"
+					description="XMAP_SERMONSPEAKER_SERIE_EXPAND_DESC">
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+				<field name="serie_priority" type="list"
+					default="-1"
+					label="XMAP_SERMONSPEAKER_SERIE_PRIORITY_LABEL"
+					description="XMAP_SERMONSPEAKER_SERIE_PRIORITY_DESC">
 					<option value="-1">JGLOBAL_USE_GLOBAL</option>
 					<option value="0.0">0.0</option>
 					<option value="0.1">0.1</option>
@@ -33,7 +43,10 @@
 					<option value="0.9">0.9</option>
 					<option value="1">1</option>
 				</field>
-				<field name="serie_changefreq" type="list" default="-1" label="XMAP_SERMONSPEAKER_SERIE_CHANGEFREQ_LABEL" description="XMAP_SERMONSPEAKER_SERIE_CHANGEFREQ_DESC">
+				<field name="serie_changefreq" type="list"
+					default="-1"
+					label="XMAP_SERMONSPEAKER_SERIE_CHANGEFREQ_LABEL"
+					description="XMAP_SERMONSPEAKER_SERIE_CHANGEFREQ_DESC">
 					<option value="-1">JGLOBAL_USE_GLOBAL</option>
 					<option value="always">XMAP_OPTION_ALWAYS</option>
 					<option value="hourly">XMAP_OPTION_HOURLY</option>
@@ -43,7 +56,17 @@
 					<option value="yearly">XMAP_OPTION_YEARLY</option>
 					<option value="never">XMAP_OPTION_NEVER</option>
 				</field>
-				<field name="speaker_priority" type="list" default="-1" label="XMAP_SERMONSPEAKER_SPEAKER_PRIORITY_LABEL" description="XMAP_SERMONSPEAKER_SPEAKER_PRIORITY_DESC">
+				<field name="speaker_expand" type="radio"
+					default="1"
+					label="XMAP_SERMONSPEAKER_SPEAKER_EXPAND_LABEL"
+					description="XMAP_SERMONSPEAKER_SPEAKER_EXPAND_DESC">
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+				<field name="speaker_priority" type="list"
+					default="-1"
+					label="XMAP_SERMONSPEAKER_SPEAKER_PRIORITY_LABEL"
+					description="XMAP_SERMONSPEAKER_SPEAKER_PRIORITY_DESC">
 					<option value="-1">JGLOBAL_USE_GLOBAL</option>
 					<option value="0.0">0.0</option>
 					<option value="0.2">0.2</option>
@@ -56,7 +79,10 @@
 					<option value="0.9">0.9</option>
 					<option value="1">1</option>
 				</field>
-				<field name="speaker_changefreq" type="list" default="-1" label="XMAP_SERMONSPEAKER_SPEAKER_CHANGEFREQ_LABEL" description="XMAP_SERMONSPEAKER_SPEAKER_CHANGEFREQ_DESC">
+				<field name="speaker_changefreq" type="list"
+					default="-1"
+					label="XMAP_SERMONSPEAKER_SPEAKER_CHANGEFREQ_LABEL"
+					description="XMAP_SERMONSPEAKER_SPEAKER_CHANGEFREQ_DESC">
 					<option value="-1">JGLOBAL_USE_GLOBAL</option>
 					<option value="always">XMAP_OPTION_ALWAYS</option>
 					<option value="hourly">XMAP_OPTION_HOURLY</option>
@@ -66,7 +92,10 @@
 					<option value="yearly">XMAP_OPTION_YEARLY</option>
 					<option value="never">XMAP_OPTION_NEVER</option>
 				</field>
-				<field name="sermon_priority" type="list" default="-1" label="XMAP_SERMONSPEAKER_SERMON_PRIORITY_LABEL" description="XMAP_SERMONSPEAKER_SERMON_PRIORITY_DESC">
+				<field name="sermon_priority" type="list"
+					default="-1"
+					label="XMAP_SERMONSPEAKER_SERMON_PRIORITY_LABEL"
+					description="XMAP_SERMONSPEAKER_SERMON_PRIORITY_DESC">
 					<option value="-1">JGLOBAL_USE_GLOBAL</option>
 					<option value="0.0">0.0</option>
 					<option value="0.2">0.2</option>
@@ -79,7 +108,10 @@
 					<option value="0.9">0.9</option>
 					<option value="1">1</option>
 				</field>
-				<field name="sermon_changefreq" type="list" default="-1" label="XMAP_SERMONSPEAKER_SERMON_CHANGEFREQ_LABEL" description="XMAP_SERMONSPEAKER_SERMON_CHANGEFREQ_DESC">
+				<field name="sermon_changefreq" type="list"
+					default="-1"
+					label="XMAP_SERMONSPEAKER_SERMON_CHANGEFREQ_LABEL"
+					description="XMAP_SERMONSPEAKER_SERMON_CHANGEFREQ_DESC">
 					<option value="-1">JGLOBAL_USE_GLOBAL</option>
 					<option value="always">XMAP_OPTION_ALWAYS</option>
 					<option value="hourly">XMAP_OPTION_HOURLY</option>
@@ -89,6 +121,9 @@
 					<option value="yearly">XMAP_OPTION_YEARLY</option>
 					<option value="never">XMAP_OPTION_NEVER</option>
 				</field>
+				<field name="limit" type="text"
+					label="XMAP_SERMONSPEAKER_LIMIT_LABEL"
+					description="XMAP_SERMONSPEAKER_LIMIT_DESC" />
 			</fieldset>
 		</fields>
 		</config>
