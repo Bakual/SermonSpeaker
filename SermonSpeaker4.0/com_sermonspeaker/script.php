@@ -30,6 +30,7 @@ class Com_SermonspeakerInstallerScript {
 	function update($parent) {
 		echo '<div>'.JText::_('COM_SERMONSPEAKER_UPDATE_TEXT').'</div>';
 
+		// Cleanup unused layout files from old installations
 		jimport('joomla.filesystem.file');
 		$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/speaker/tmpl/latest-sermons.php';
 		$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/speaker/tmpl/latest-sermons.xml';
@@ -48,6 +49,7 @@ class Com_SermonspeakerInstallerScript {
 		if(JFile::exists($files[1])){
 			JFile::delete($files);
 		}
+		// Cleanup files no longer used in SS4.4
 		if(JFile::exists(JPATH_SITE.'/components/com_sermonspeaker/models/archive.php')){
 			JFile::delete(JPATH_SITE.'/components/com_sermonspeaker/models/archive.php');
 			JFile::delete(JPATH_SITE.'/components/com_sermonspeaker/models/seriessermon.php');
@@ -64,7 +66,6 @@ class Com_SermonspeakerInstallerScript {
 	 * @return void
 	 */
 	function preflight($type, $parent) {
-		echo JText::sprintf('COM_SERMONSPEAKER_PREFLIGHT', $type);
 	}
 
 	/**
@@ -82,7 +83,7 @@ class Com_SermonspeakerInstallerScript {
 	 * @return void
 	 */
 	function _migrate(){
-		$db =& JFactory::getDBO();
+		$db = JFactory::getDBO();
 		$fields = $db->getTableFields('#__sermon_sermons');
 		$sermons = $fields['#__sermon_sermons'];
 		if (array_key_exists('published', $sermons)){
