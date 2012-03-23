@@ -19,18 +19,27 @@ class SermonspeakerController extends JController
 
 		$safeurlparams = array('id'=>'INT','limit'=>'INT','limitstart'=>'INT','filter_order'=>'CMD','filter_order_Dir'=>'CMD',
 			'lang'=>'CMD','year'=>'INT','month'=>'INT','filter-search'=>'STRING','return'=>'BASE64','book'=>'INT','Itemid'=>'INT');
-		if ($viewName == 'speaker'){
-			$viewLayout = JRequest::getCmd('layout', 'default');
-			$view = $this->getView($viewName, 'html', '', array('base_path' => $this->basePath, 'layout' => $viewLayout));
-			$view = &$this->getView('speaker', 'html');
-			$view->setModel($this->getModel('series'));
-			$view->setModel($this->getModel('sermons'));
-		}
-		if ($viewName == 'serie'){
-			$viewLayout = JRequest::getCmd('layout', 'default');
-			$view = $this->getView($viewName, 'html', '', array('base_path' => $this->basePath, 'layout' => $viewLayout));
-			$view = &$this->getView('serie', 'html');
-			$view->setModel($this->getModel('sermons'));
+		switch ($viewName){
+			case 'speaker':
+				$viewLayout = JRequest::getCmd('layout', 'default');
+				$view = $this->getView($viewName, 'html', '', array('base_path' => $this->basePath, 'layout' => $viewLayout));
+				$view = &$this->getView('speaker', 'html');
+				$view->setModel($this->getModel('series'));
+				$view->setModel($this->getModel('sermons'));
+				break;
+			case 'serie':
+				$viewLayout = JRequest::getCmd('layout', 'default');
+				$view = $this->getView($viewName, 'html', '', array('base_path' => $this->basePath, 'layout' => $viewLayout));
+				$view = &$this->getView('serie', 'html');
+				$view->setModel($this->getModel('sermons'));
+				break;
+			case 'seriessermon':
+				$viewLayout = JRequest::getCmd('layout', 'default');
+				$view = $this->getView($viewName, 'html', '', array('base_path' => $this->basePath, 'layout' => $viewLayout));
+				$view = &$this->getView('seriessermon', 'html');
+				$view->setModel($this->getModel('series'));
+				$view->setModel($this->getModel('sermons'));
+				break;
 		}
 
 		return parent::display($cachable, $safeurlparams);

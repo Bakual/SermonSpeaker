@@ -189,18 +189,6 @@ class SermonspeakerModelSermons extends JModelList
 
 		$this->setState('filter.state',	1);
 
-		// Speakerfilter
-		if(JRequest::getCmd('view') == 'speaker'){
-			$id = $app->getUserStateFromRequest($this->context.'.filter.speaker', 'id', 0, 'INT');
-			$this->setState('speaker.id', $id);
-		}
-
-		// Seriefilter
-		if(JRequest::getCmd('view') == 'serie'){
-			$id = $app->getUserStateFromRequest($this->context.'.filter.serie', 'id', 0, 'INT');
-			$this->setState('serie.id', $id);
-		}
-
 		$limit	= (int)$params->get('limit', '');
 		if ($limit){
 			$this->setState('list.limit', $limit);
@@ -215,6 +203,28 @@ class SermonspeakerModelSermons extends JModelList
 			$dir	= $params->get('default_order_dir', 'ASC');
 			parent::populateState($order, $dir);
 		}
+	}
+
+	/**
+	 * Method to get a store id based on the model configuration state.
+	 *
+	 * This is necessary because the model is used by the component and
+	 * different modules that might need different sets of data or different
+	 * ordering requirements.
+	 *
+	 * @param   string  $id  An identifier string to generate the store id.
+	 *
+	 * @return  string  A store id.
+	 *
+	 * @since   11.1
+	 */
+	protected function getStoreId($id = '')
+	{
+		// Add the series and speaker id to the store id.
+		$id .= ':' . $this->getState('speaker.id');
+		$id .= ':' . $this->getState('serie.id');
+
+		return parent::getStoreId($id);
 	}
 
 	/**

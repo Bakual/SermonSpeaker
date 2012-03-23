@@ -18,37 +18,37 @@ class SermonspeakerViewSeriessermon extends JView
 		// Applying CSS file
 		JHTML::stylesheet('sermonspeaker.css', 'media/com_sermonspeaker/css/');
 
-		$app		= JFactory::getApplication();
-		$params		= $app->getParams();
+		$app			= JFactory::getApplication();
+		$this->params	= $app->getParams();
 
-		$columns = $params->get('col');
-		if (!$columns){
-			$columns = array();
+		$this->columns	= $this->params->get('col');
+		if (!$this->columns){
+			$this->columns = array();
 		}
-		$col_serie = $params->get('col_serie');
-		if (!$col_serie){
-			$col_serie = array();
+		$this->col_serie = $this->params->get('col_serie');
+		if (!$this->col_serie){
+			$this->col_serie = array();
 		}
 
 		// check if access is not public
 		$user = JFactory::getUser();
 		$groups	= $user->getAuthorisedViewLevels();
 		
-		if (!in_array($params->get('access'), $groups)) {
+		if (!in_array($this->params->get('access'), $groups)) {
 			JError::raiseWarning(403, JText::_('JERROR_ALERTNOAUTHOR'));
 			return;
 		}
 
 		// Get some data from the models
-		$state		= $this->get('State');
-		$items		= $this->get('Items');
-		$pagination	= $this->get('Pagination');
+		$this->state		= $this->get('State', 'Series');
+		$this->items		= $this->get('Items', 'Series');
+		$this->pagination	= $this->get('Pagination', 'Series');
 
 		// Get the category name(s)
-		if($state->get('series_category.id')){
-			$cat	= $this->get('Cat');
+		if($this->state->get('series_category.id')){
+			$this->cat	= $this->get('Cat');
 		} else {
-			$cat 	= '';
+			$this->cat 	= '';
 		}
 
 		// Check for errors.
@@ -59,18 +59,8 @@ class SermonspeakerViewSeriessermon extends JView
 
 		// Set layout from parameters if not already set elsewhere
 		if ($this->getLayout() == 'default') {
-			$this->setLayout($params->get('seriessermonlayout', 'normal'));
+			$this->setLayout($this->params->get('seriessermonlayout', 'normal'));
 		}
-
-		// push data into the template
-		$this->assignRef('state',		$state);
-		$this->assignRef('items',		$items);
-		$this->assignRef('params',		$params);
-		$this->assignRef('pagination',	$pagination);
-		$this->assignRef('serie',		$serie);
-		$this->assignRef('cat',			$cat);
-		$this->assignRef('columns', 	$columns);
-		$this->assignRef('col_serie', 	$col_serie);
 
 		$this->_prepareDocument();
 

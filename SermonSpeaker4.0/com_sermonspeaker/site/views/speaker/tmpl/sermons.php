@@ -131,7 +131,7 @@ if (in_array('speaker:hits', $this->columns)): ?>
 				</th>
 				<?php if (in_array('speaker:scripture', $this->col_sermon)) : ?>
 					<th class="ss-col ss-scripture">
-						<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL', 'scripture', $listDirn, $listOrder); ?>
+						<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL', 'book', $listDirn, $listOrder); ?>
 					</th>
 				<?php endif;
 				if (in_array('speaker:date', $this->col_sermon)) : ?>

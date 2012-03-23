@@ -26,30 +26,35 @@ class SermonspeakerViewSerie extends JView
 		// Initialise variables.
 		$user		= JFactory::getUser();
 
-		// Get some data from the models
-		$this->serie	= $this->get('Serie');
-		if(!$this->serie){
+		// Get some data from the model
+		$this->item	= $this->get('Item');
+		if(!$this->item){
 			$app->redirect(JRoute::_('index.php?view=series'), JText::_('JGLOBAL_RESOURCE_NOT_FOUND'), 'error');
 		}
 
 		// check if access is not public
-		if ($this->serie->category_access){
+		if ($this->item->category_access){
 			$groups	= $user->getAuthorisedViewLevels();
-			if (!in_array($this->serie->category_access, $groups)) {
+			if (!in_array($this->item->category_access, $groups)) {
 				$app->redirect(JRoute::_('index.php?view=series'), JText::_('JERROR_ALERTNOAUTHOR'), 'error');
 			}
 		}
 
-		// Get sermons data from the sermons model
-		$this->state		= $this->get('State');
-		$this->state_sermons = $this->get('State', 'Sermons');
-		$this->items		= $this->get('Items', 'Sermons');
-		$this->pagination	= $this->get('Pagination', 'Sermons');
-		$this->years		= $this->get('Years', 'Sermons');
-		$this->months		= $this->get('Months', 'Sermons');
-		$books				= $this->get('Books', 'Sermons');
+		// Get Params
+		$state		= $this->get('State');
+		$this->params = $state->get('params');
 
-		$this->params = $this->state->get('params');
+		// Get sermons data from the sermons model
+		$sermon_model		= $this->getModel('Sermons');
+		$sermon_model->setState('serie.id', $state->get('serie.id'));
+		$this->state		= $sermon_model->getState();
+		$this->items		= $sermon_model->getItems();
+		$this->pagination	= $sermon_model->getPagination();
+		$this->cat			= $sermon_model->getCat();
+		$this->years		= $sermon_model->getYears();
+		$this->months		= $sermon_model->getMonths();
+		$books				= $sermon_model->getBooks();
+
 		$this->columns	= $this->params->get('col');
 		if (!$this->columns){
 			$this->columns = array();
@@ -57,13 +62,6 @@ class SermonspeakerViewSerie extends JView
 		$this->col_serie = $this->params->get('col_serie');
 		if (!$this->col_serie){
 			$this->col_serie = array();
-		}
-
-		// Get the category name(s)
-		if($this->state_sermons->get('sermons_category.id') || $this->state_sermons->get('speakers_category.id') || $this->state_sermons->get('series_category.id')){
-			$this->cat	= $this->get('Cat', 'Sermons');
-		} else {
-			$this->cat 	= '';
 		}
 
 		// Update Statistic
@@ -149,8 +147,8 @@ class SermonspeakerViewSerie extends JView
 		}
 
 		// Set Pagetitle
-		if ($this->serie->series_title && (!$menu || $menu->query['option'] != 'com_sermonspeaker' || $menu->query['view'] != 'serie' || $menu->query['id'] != $this->serie->id)){
-			$title = $this->serie->series_title;
+		if ($this->item->series_title && (!$menu || $menu->query['option'] != 'com_sermonspeaker' || $menu->query['view'] != 'serie' || $menu->query['id'] != $this->item->id)){
+			$title = $this->item->series_title;
 		} else {
 			$title = $this->params->get('page_title', '');
 		}
@@ -161,21 +159,21 @@ class SermonspeakerViewSerie extends JView
 
 		// add Breadcrumbs
 		$pathway = $app->getPathway();
-		$pathway->addItem($this->serie->series_title);
+		$pathway->addItem($this->item->series_title);
 
 		// Set MetaData
-		if ($this->serie->metadesc){
-			$this->document->setDescription($this->serie->metadesc);
+		if ($this->item->metadesc){
+			$this->document->setDescription($this->item->metadesc);
 		} elseif ($this->params->get('menu-meta_description')) {
 			$this->document->setDescription($this->params->get('menu-meta_description'));
 		}
-		if ($this->serie->metakey){
-			$this->document->setMetadata('keywords', $this->serie->metakey);
+		if ($this->item->metakey){
+			$this->document->setMetadata('keywords', $this->item->metakey);
 		} elseif ($this->params->get('menu-meta_keywords')) {
 			$this->document->setMetadata('keywords', $this->params->get('menu-meta_keywords'));
 		}
 		if ($app->getCfg('MetaTitle')){
-			$this->document->setMetaData('title', $this->serie->series_title);
+			$this->document->setMetaData('title', $this->item->series_title);
 		}
 	}
 }

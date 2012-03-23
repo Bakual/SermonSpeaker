@@ -6,8 +6,6 @@ JHTML::_('behavior.modal');
 $user		= JFactory::getUser();
 $canEdit	= $user->authorise('core.edit', 'com_sermonspeaker');
 $canEditOwn	= $user->authorise('core.edit.own', 'com_sermonspeaker');
-$listOrder	= $this->state->get('list.ordering');
-$listDirn	= $this->state->get('list.direction');
 $config['autostart']	= 0;
 ?>
 <div class="ss-sermons-container<?php echo htmlspecialchars($this->params->get('pageclass_sfx')); ?>">
@@ -30,9 +28,10 @@ if (empty($this->items)) : ?>
 	<!-- Begin Data -->
 	<?php
 	$config['count'] = 0;
-	$model	= &$this->getModel();
+	$model	= $this->getModel('Sermons');
 	foreach($this->items as $item) :
-		$sermons = &$model->getSermons($item->id); ?>
+		$model->setState('serie.id', $item->id);
+		$sermons = $model->getItems(); ?>
 		<div>
 			<?php if($item->avatar) : ?>
 				<img src="<?php echo SermonspeakerHelperSermonspeaker::makelink($item->avatar); ?>" style="float:right; margin-top:25px;">

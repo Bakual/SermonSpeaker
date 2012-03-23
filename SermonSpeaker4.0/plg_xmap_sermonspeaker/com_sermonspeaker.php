@@ -96,16 +96,15 @@ class xmap_com_sermonspeaker
 		if($view == 'serie'){
 			require_once JPATH_SITE.DS.'components'.DS.'com_sermonspeaker'.DS.'models'.DS.'serie.php';
 			$model	= new SermonspeakerModelSerie();
-			$model->getState();
 			$model->setState('serie.id', $id);
 		} else {
 			require_once JPATH_SITE.DS.'components'.DS.'com_sermonspeaker'.DS.'models'.DS.'sermons.php';
 			$model	= new SermonspeakerModelSermons();
-			$model->getState();
 			if($id){
 				$model->setState('speaker.id', $id);
 			}
 		}
+		$model->getState();
 		$model->setState('list.limit', $params['limit']);
 		$model->setState('list.start', 0);
 		$model->setState('list.ordering', 'ordering');

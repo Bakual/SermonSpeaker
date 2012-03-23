@@ -24,12 +24,11 @@ class SermonspeakerViewspeaker extends JView
 		require_once(JPATH_COMPONENT.DS.'helpers'.DS.'player.php');
 
 		// Get data from the model
-		$this->state	= $this->get('State');
-		$this->item		= $this->get('Item');
-
+		$state		= $this->get('State');
+		$this->item	= $this->get('Item');
 		$user		= JFactory::getUser();
 
-		$this->params = $this->state->get('params');
+		$this->params = $state->get('params');
 		$this->columns = $this->params->get('col_speaker');
 		if (!$this->columns){
 			$this->columns = array();
@@ -60,17 +59,22 @@ class SermonspeakerViewspeaker extends JView
 		}
 
 		// Get sermons data from the sermons model
-		$this->sermons			= $this->get('Items', 'Sermons');
-		$this->pag_sermons		= $this->get('Pagination', 'Sermons');
-		$this->state_sermons	= $this->get('State', 'Sermons');
-		$this->years			= $this->get('Years', 'Sermons');
-		$this->months			= $this->get('Months', 'Sermons');
-		$books					= $this->get('Books', 'Sermons');
+		$sermon_model			= $this->getModel('Sermons');
+		$sermon_model->setState('speaker.id', $state->get('speaker.id'));
+		$this->state_sermons	= $sermon_model->getState();
+		$this->sermons			= $sermon_model->getItems();
+		$this->pag_sermons		= $sermon_model->getPagination();
+		$this->years			= $sermon_model->getYears();
+		$this->months			= $sermon_model->getMonths();
+		$books					= $sermon_model->getBooks();
 
 		// Get series data from the series model
-		$this->series				= $this->get('Items', 'Series');
-		$this->pag_series		= $this->get('Pagination', 'Series');
-		$this->state_series		= $this->get('State', 'Series');
+		$series_model			= $this->getModel('Series');
+		$series_model->setState('speaker.id', $state->get('speaker.id'));
+		$this->series			= $series_model->getItems();
+		$this->pag_series		= $series_model->getPagination();
+		$this->state_series		= $series_model->getState();
+
 		// check if there are avatars at all, only showing column if needed
 		$av = 0;
 		foreach ($this->series as $serie){

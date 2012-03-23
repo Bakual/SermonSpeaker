@@ -6,19 +6,19 @@ JHTML::_('behavior.modal');
 $user		= JFactory::getUser();
 $canEdit	= $user->authorise('core.edit', 'com_sermonspeaker');
 $canEditOwn	= $user->authorise('core.edit.own', 'com_sermonspeaker');
-$listOrder	= $this->state_sermons->get('list.ordering');
-$listDirn	= $this->state_sermons->get('list.direction');
+$listOrder	= $this->state->get('list.ordering');
+$listDirn	= $this->state->get('list.direction');
 $player = new SermonspeakerHelperPlayer($this->items);
 ?>
 <div class="ss-serie-container<?php echo htmlspecialchars($this->params->get('pageclass_sfx')); ?>">
 <?php if ($this->params->get('show_page_heading', 1)) : ?>
 	<h1><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
 <?php endif; ?>
-<h2><a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($this->serie->slug)); ?>"><?php echo $this->serie->series_title; ?></a></h2>
-<?php if ($canEdit || ($canEditOwn && ($user->id == $this->serie->created_by))) : ?>
+<h2><a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($this->item->slug)); ?>"><?php echo $this->item->series_title; ?></a></h2>
+<?php if ($canEdit || ($canEditOwn && ($user->id == $this->item->created_by))) : ?>
 	<ul class="actions">
 		<li class="edit-icon">
-			<?php echo JHtml::_('icon.edit', $this->serie, $this->params, array('type' => 'serie')); ?>
+			<?php echo JHtml::_('icon.edit', $this->item, $this->params, array('type' => 'serie')); ?>
 		</li>
 	</ul>
 <?php endif;
@@ -32,13 +32,13 @@ if ($this->cat || in_array('serie:hits', $this->col_serie)): ?>
 	<?php endif;
 	if (in_array('serie:hits', $this->col_serie)): ?>
 		<dd class="hits">
-			<?php echo JText::_('JGLOBAL_HITS').': '.$this->serie->hits; ?>
+			<?php echo JText::_('JGLOBAL_HITS').': '.$this->item->hits; ?>
 		</dd>
 	<?php endif;
 	if (in_array('serie:download', $this->col_serie)) : ?>
 		<dd class="hits">
 			<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADSERIES_LABEL').': '; ?>
-			<a href="<?php echo JRoute::_('index.php?task=serie.download&id='.$this->serie->slug); ?>" target="_new" title="<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADSERIES_DESC'); ?>">
+			<a href="<?php echo JRoute::_('index.php?task=serie.download&id='.$this->item->slug); ?>" target="_new" title="<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADSERIES_DESC'); ?>">
 			<img src="media/com_sermonspeaker/images/download.png" alt="<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADSERIES_LABEL'); ?>" />
 		</a></dd>
 	<?php endif; ?>
@@ -47,11 +47,11 @@ if ($this->cat || in_array('serie:hits', $this->col_serie)): ?>
 if (in_array('serie:description', $this->col_serie)): ?>
 	<div class="category-desc">
 		<div class="ss-avatar">
-			<?php if ($this->serie->avatar) : ?>
-				<img src="<?php echo SermonspeakerHelperSermonspeaker::makelink($this->serie->avatar); ?>">
+			<?php if ($this->item->avatar) : ?>
+				<img src="<?php echo SermonspeakerHelperSermonspeaker::makelink($this->item->avatar); ?>">
 			<?php endif; ?>
 		</div>
-		<?php echo JHTML::_('content.prepare', $this->serie->series_description); ?>
+		<?php echo JHTML::_('content.prepare', $this->item->series_description); ?>
 		<div class="clear-left"></div>
 	</div>
 <?php endif;
@@ -89,21 +89,21 @@ if (in_array('serie:player', $this->columns) && count($this->items)) : ?>
 			</legend>
 			<div class="filter-search">
 				<label class="filter-search-lbl" for="filter-search"><?php echo JText::_('JGLOBAL_FILTER_LABEL').'&nbsp;'; ?></label>
-				<input type="text" name="filter-search" id="filter-search" value="<?php echo $this->escape($this->state_sermons->get('filter.search')); ?>" class="inputbox" onchange="document.adminForm.submit();" title="<?php echo JText::_('COM_SERMONSPEAKER_FILTER_SEARCH_DESC'); ?>" />
+				<input type="text" name="filter-search" id="filter-search" value="<?php echo $this->escape($this->state->get('filter.search')); ?>" class="inputbox" onchange="document.adminForm.submit();" title="<?php echo JText::_('COM_SERMONSPEAKER_FILTER_SEARCH_DESC'); ?>" />
 			</div>
 			<div class="filter-select">
 				<label class="filter-select-lbl" for="filter-select"><?php echo JText::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL').'&nbsp;'; ?></label>
 				<select name="book" id="filter_books" class="inputbox" onchange="this.form.submit()">
-					<?php echo JHtml::_('select.options', $this->books, 'value', 'text', $this->state_sermons->get('scripture.book'), true);?>
+					<?php echo JHtml::_('select.options', $this->books, 'value', 'text', $this->state->get('scripture.book'), true);?>
 				</select>
 				<select name="month" id="filter_months" class="inputbox" onchange="this.form.submit()">
 					<option value="0"><?php echo JText::_('COM_SERMONSPEAKER_SELECT_MONTH'); ?></option>
 					
-					<?php echo JHtml::_('select.options', $this->months, 'value', 'text', $this->state_sermons->get('date.month'), true);?>
+					<?php echo JHtml::_('select.options', $this->months, 'value', 'text', $this->state->get('date.month'), true);?>
 				</select>
 				<select name="year" id="filter_years" class="inputbox" onchange="this.form.submit()">
 					<option value="0"><?php echo JText::_('COM_SERMONSPEAKER_SELECT_YEAR'); ?></option>
-					<?php echo JHtml::_('select.options', $this->years, 'year', 'year', $this->state_sermons->get('date.year'), true);?>
+					<?php echo JHtml::_('select.options', $this->years, 'year', 'year', $this->state->get('date.year'), true);?>
 				</select>
 			</div>
 	<?php endif;

@@ -573,6 +573,40 @@
 			label="COM_SERMONSPEAKER_PARAM_FEED_ITREDIRECT" 
 			description="COM_SERMONSPEAKER_PARAM_FEED_ITREDIRECT_DESC" />
 	</fieldset>
+	<fieldset name="sitemap"
+		label="COM_SERMONSPEAKER_FIELDSET_SITEMAP_LABEL"
+		description="COM_SERMONSPEAKER_FIELDSET_SITEMAP_DESC" >
+		<field name="freq" type="list" 
+			label="COM_SERMONSPEAKER_PARAM_FREQ_LABEL" 
+			description="COM_SERMONSPEAKER_PARAM_FREQ_DESC"
+			useglobal="true"
+			default="weekly">
+			<option value="always">always</option>
+			<option value="hourly">hourly</option>
+			<option value="daily">daily</option>
+			<option value="weekly">weekly</option>
+			<option value="monthly">monthly</option>
+			<option value="yearly">yearly</option>
+			<option value="never">never</option>
+		</field>
+
+		<field name="prio" type="list" 
+			label="COM_SERMONSPEAKER_PARAM_PRIO_LABEL" 
+			description="COM_SERMONSPEAKER_PARAM_PRIO_DESC"
+			useglobal="true"
+			default="0.5">
+			<option value="0.0">0.0</option>
+			<option value="0.2">0.2</option>
+			<option value="0.3">0.3</option>
+			<option value="0.4">0.4</option>
+			<option value="0.5">0.5</option>
+			<option value="0.6">0.6</option>
+			<option value="0.7">0.7</option>
+			<option value="0.8">0.8</option>
+			<option value="0.9">0.9</option>
+			<option value="1.0">1.0</option>
+		</field>
+	</fieldset>
 	<fieldset name="integration"
 		label="JGLOBAL_INTEGRATION_LABEL" >
 		<field name="enable_jcomments"
@@ -600,7 +634,6 @@
 			default="" 
 			label="COM_SERMONSPEAKER_FIELD_FBAPPID_LABEL" 
 			description="COM_SERMONSPEAKER_FIELD_FBAPPID_DESC" />
-
 	</fieldset>
 	<fieldset name="permissions"
 		label="JCONFIG_PERMISSIONS_LABEL"
