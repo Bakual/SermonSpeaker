@@ -115,10 +115,12 @@ class SermonspeakerHelperSermonspeaker
 				$return .= JHTML::Link(SermonspeakerHelperSermonspeaker::makelink($item->audiofile), $pic);
 				break;
 			case 2:
-				$options['onclick'] = 'ss_play('.$i.')';
-				$options['title'] = JText::_('COM_SERMONSPEAKER_PLAYICON_HOOVER');
-				$options['class'] = 'icon_play pointer';
-				$return .= JHTML::Image('media/com_sermonspeaker/images/play.gif', JText::_('COM_SERMONSPEAKER_PLAYICON_HOOVER'), $options);
+				if(in_array($this->getName().':player', $this->columns)){
+					$options['onclick'] = 'ss_play('.$i.')';
+					$options['title'] = JText::_('COM_SERMONSPEAKER_PLAYICON_HOOVER');
+					$options['class'] = 'icon_play pointer';
+					$return .= JHTML::Image('media/com_sermonspeaker/images/play.gif', JText::_('COM_SERMONSPEAKER_PLAYICON_HOOVER'), $options);
+				}
 				break;
 			case 3:
 				$options['onclick'] = "popup=window.open('".JRoute::_('index.php?view=sermon&layout=popup&id='.$item->id.'&tmpl=component')."', 'PopupPage', 'height=".$player->popup['height'].',width='.$player->popup['width'].",scrollbars=yes,resizable=yes'); return false";

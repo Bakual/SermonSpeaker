@@ -173,7 +173,6 @@
 			<option value="sermon">COM_SERMONSPEAKER_SERMON_VIEW_TITLE</option>
 			<option value="serie" exclude="series,notes">COM_SERMONSPEAKER_SERIE_VIEW_TITLE</option>
 			<option value="speaker" exclude="speaker,notes">COM_SERMONSPEAKER_SPEAKER_VIEW_TITLE</option>
-			<option value="archive" exclude="notes">COM_SERMONSPEAKER_ARCHIVE_VIEW_TITLE</option>
 			<option value="seriessermon" exclude="num,scripture,speaker,length,series,hits">COM_SERMONSPEAKER_SERIESSERMON_VIEW_TITLE</option>
 		</field>
 		<field name="col_serie" type="columns"
