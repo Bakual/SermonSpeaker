@@ -121,6 +121,7 @@ class OBSSInAddonSermonspeaker extends OBSSInAddon{
 		$title 		= $item->sermon_title;
 		$message 	= str_replace("[title]", $title, $message);
 		$message	= str_replace("[shorturl]", $shorturl, $message);
+		$message	= str_replace("[speaker]", $speaker[0], $message);
 		$text = '';
 		if ($item->notes){
 			$text 	= strip_tags($item->notes);

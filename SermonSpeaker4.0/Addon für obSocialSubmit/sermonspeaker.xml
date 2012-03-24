@@ -16,7 +16,13 @@
 		<filename>sermonspeaker.xml</filename>
 	</files>
 	<params addpath="/components/com_obsocialsubmit/element/">
-		<param name="template"  type="textarea" cols="40" rows="10"  default="New sermon: [title] read more details here [shorturl]" label="Template" description="Template"/>
+		<param name="template"
+			type="textarea"
+			cols="40"
+			rows="10"
+			default="New sermon: [title] by [speaker]; read more details here [shorturl]"
+			label="Template"
+			description="Template" />
 		<param name="mode" type="list" label="Work Mode" description="Whether to post the sermon as an article or a file. This will change the appearance on some social webs (like Facebook)" default="1">
 			<option value="article">Article</option>
 			<option value="audio">Audio</option>
