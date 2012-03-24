@@ -1,7 +1,9 @@
 <?php 
 // no direct access
 defined('_JEXEC') or die('Restricted access'); 
-JHTML::_('behavior.tooltip');
+if ($params->get('tooltip')) :
+	JHTML::_('behavior.tooltip');
+endif;
 ?>
 <ul class="sermonspeaker<?php echo $moduleclass_sfx; ?>">
 <?php foreach ($list as $item) : 
