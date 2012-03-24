@@ -93,22 +93,18 @@ class xmap_com_sermonspeaker
 	}
 
 	static function getSermonsTree($xmap, $parent, $params, $view, $id = 0) {
-		if($view == 'serie'){
-			require_once JPATH_SITE.DS.'components'.DS.'com_sermonspeaker'.DS.'models'.DS.'serie.php';
-			$model	= new SermonspeakerModelSerie();
-			$model->setState('serie.id', $id);
-		} else {
-			require_once JPATH_SITE.DS.'components'.DS.'com_sermonspeaker'.DS.'models'.DS.'sermons.php';
-			$model	= new SermonspeakerModelSermons();
-			if($id){
-				$model->setState('speaker.id', $id);
-			}
-		}
+		require_once JPATH_SITE.DS.'components'.DS.'com_sermonspeaker'.DS.'models'.DS.'sermons.php';
+		$model	= new SermonspeakerModelSermons();
 		$model->getState();
 		$model->setState('list.limit', $params['limit']);
 		$model->setState('list.start', 0);
 		$model->setState('list.ordering', 'ordering');
 		$model->setState('list.direction', 'ASC');
+		if($view == 'serie' && $id){
+			$model->setState('serie.id', $id);
+		} elseif($view == 'speaker' && $id) {
+			$model->setState('speaker.id', $id);
+		}
 		$items	= $model->getItems();
 		$xmap->changeLevel(1);
 		foreach ($items as $item) {
