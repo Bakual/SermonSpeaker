@@ -115,6 +115,7 @@ class xmap_com_sermonspeaker
 			$node->link	= 'index.php?option=com_sermonspeaker&view=sermon&id='.$item->slug.'&Itemid='.$parent->id;
 			$node->priority		= $params['sermon_priority'];
 			$node->changefreq	= $params['sermon_changefreq'];
+			$node->modified		= ($item->created != '0000-00-00 00:00:00') ? strtotime($item->created) : strtotime($item->sermon_date);
 			$node->expandible	= false;
 			$xmap->printNode($node);
 		}
@@ -142,6 +143,9 @@ class xmap_com_sermonspeaker
 			$node->link	= 'index.php?option=com_sermonspeaker&view=serie&id='.$item->slug.'&Itemid='.$parent->id;
 			$node->priority		= $params['serie_priority'];
 			$node->changefreq	= $params['serie_changefreq'];
+			if ($item->created != '0000-00-00 00:00:00'){
+				$node->modified = strtotime($item->created);
+			}
 			$node->expandible	= true;
 			if($xmap->printNode($node) && $params['serie_expand']){
 				self::getSermonsTree($xmap, $parent, $params, 'serie', $item->id);
@@ -168,6 +172,9 @@ class xmap_com_sermonspeaker
 			$node->link	= 'index.php?option=com_sermonspeaker&view=speaker&id='.$item->slug.'&Itemid='.$parent->id;
 			$node->priority		= $params['speaker_priority'];
 			$node->changefreq	= $params['speaker_changefreq'];
+			if ($item->created != '0000-00-00 00:00:00'){
+				$node->modified = strtotime($item->created);
+			}
 			$node->expandible	= true;
 			if($xmap->printNode($node) && $params['speaker_expand']){
 				self::getSermonsTree($xmap, $parent, $params, 'speaker', $item->id);
