@@ -1,43 +1,22 @@
 <?php
+// no direct access
 defined('_JEXEC') or die('Restricted access');
 
-$count		= (int)$params->get('archive_count');
-$switch 	= FALSE;
-if ($params->get('archive_switch') == 'month'){
-	$switch = TRUE;
+require_once (dirname(__FILE__).DS.'helper.php');
+
+$cacheparams = new stdClass;
+$cacheparams->cachemode = 'static';
+$cacheparams->class = 'modSermonarchiveHelper';
+$cacheparams->method = 'getList';
+$cacheparams->methodparams = $params;
+$list = JModuleHelper::moduleCache ($module, $params, $cacheparams);
+
+if (!count($list)) {
+	return;
 }
-$db = JFactory::getDBO();
 
-$select_m	= NULL;
-$group_m	= NULL;
-if ($switch){
-	$select_m	= ", MONTH(sermon_date) AS created_month";
-	$group_m 	= ", created_month DESC";
-}
-$query	= "SELECT sermon_date, YEAR(sermon_date) AS created_year".$select_m." \n"
-		. "FROM #__sermon_sermons \n"
-		. "WHERE (state = 1) \n"
-		. "GROUP BY created_year DESC".$group_m;
+$moduleclass_sfx	= htmlspecialchars($params->get('moduleclass_sfx'));
+$itemid				= (int)$params->get('menuitem');
+$mode				= ($params->get('archive_switch') == 'month');
 
-$db->setQuery($query, 0, $count);
-$rows = $db->loadObjectList();
-// get the menu item from the params
-$ss_itemid = $params->get('menuitem');
-
-if(count($rows)) { ?>
-	<ul class="sermonarchive<?php echo $params->get('moduleclass_sfx'); ?>">
-	<?php foreach ($rows as $row) {
-		$request_m	= 0;
-		$text_m		= NULL;
-		if ($switch){
-			$request_m	= $row->created_month;
-			$text_m		= JHTML::Date($row->sermon_date, 'F', true).', ';
-		}
-		$link = JRoute::_('index.php?option=com_sermonspeaker&view=sermons&year='.$row->created_year.'&month='.$request_m.'&Itemid='.$ss_itemid);
-		$text = $text_m.JHTML::Date($row->sermon_date, 'Y', true);
-		?>
-		<li><a href="<?php echo $link; ?>"><?php echo $text; ?></a></li>
-		<?php
-	} ?>
-	</ul>
-<?php } ?>
+require JModuleHelper::getLayoutPath('mod_sermonarchive', $params->get('layout', 'default'));
