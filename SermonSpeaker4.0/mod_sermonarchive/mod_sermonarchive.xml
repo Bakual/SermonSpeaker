@@ -12,8 +12,10 @@
 	<files>
 		<filename module="mod_sermonarchive">mod_sermonarchive.php</filename>
 		<filename>mod_sermonarchive.xml</filename>
+		<filename>helper.php</filename>
 		<filename>index.html</filename>
 		<folder>language</folder>
+		<folder>tmpl</folder>
 	</files>
 	<updateservers>
 		<server type="extension" priority="1" name="SermonSpeaker.net">http://www.sermonspeaker.net/update/mod_sermonarchive.xml</server>
