@@ -2,6 +2,36 @@
 <updates>
 	<update>
 		<name>SermonSpeaker Sermon Archive</name>
+		<description>SermonSpeaker Sermon Archive Module 4.4</description>
+		<element>mod_sermonarchive</element>
+		<type>module</type>
+		<version>4.4.0</version>
+		<infourl title="SermonSpeaker Homepage">http://www.sermonspeaker.net</infourl>
+		<downloads>
+			<downloadurl type="full" format="zip">http://www.sermonspeaker.net/files/SermonSpeaker4/Modules/mod_sermonarchive440.zip</downloadurl>
+		</downloads>
+		<maintainer>Thomas Hunziker</maintainer>
+		<maintainerurl>http://www.bakual.ch</maintainerurl>
+		<targetplatform name="joomla" version="2.5" />
+		<client>0</client>
+	</update>
+	<update>
+		<name>SermonSpeaker Sermon Archive</name>
+		<description>SermonSpeaker Sermon Archive Module 4.4</description>
+		<element>mod_sermonarchive</element>
+		<type>module</type>
+		<version>4.4.0</version>
+		<infourl title="SermonSpeaker Homepage">http://www.sermonspeaker.net</infourl>
+		<downloads>
+			<downloadurl type="full" format="zip">http://www.sermonspeaker.net/files/SermonSpeaker4/Modules/mod_sermonarchive440.zip</downloadurl>
+		</downloads>
+		<maintainer>Thomas Hunziker</maintainer>
+		<maintainerurl>http://www.bakual.ch</maintainerurl>
+		<targetplatform name="joomla" version="1.7" />
+		<client_id>0</client_id>
+	</update>
+	<update>
+		<name>SermonSpeaker Sermon Archive</name>
 		<description>SermonSpeaker Sermon Archive Module 4.3</description>
 		<element>mod_sermonarchive</element>
 		<type>module</type>
@@ -13,10 +43,6 @@
 		<maintainer>Thomas Hunziker</maintainer>
 		<maintainerurl>http://www.bakual.ch</maintainerurl>
 		<targetplatform name="joomla" version="1.7" />
-		<tags>
-			<tag>SermonSpeaker</tag>
-		</tags>
-		<section>SermonSpeaker</section>
 	</update>
 	<update>
 		<name>SermonSpeaker Sermon Archive</name>
@@ -31,10 +57,6 @@
 		<maintainer>Thomas Hunziker</maintainer>
 		<maintainerurl>http://www.bakual.ch</maintainerurl>
 		<targetplatform name="joomla" version="1.6" />
-		<tags>
-			<tag>SermonSpeaker</tag>
-		</tags>
-		<section>SermonSpeaker</section>
 	</update>
 	<update>
 		<name>SermonSpeaker Sermon Archive</name>
@@ -49,9 +71,5 @@
 		<maintainer>Thomas Hunziker</maintainer>
 		<maintainerurl>http://www.bakual.ch</maintainerurl>
 		<targetplatform name="joomla" version="1.6" />
-		<tags>
-			<tag>SermonSpeaker</tag>
-		</tags>
-		<section>SermonSpeaker</section>
 	</update>
 </updates>

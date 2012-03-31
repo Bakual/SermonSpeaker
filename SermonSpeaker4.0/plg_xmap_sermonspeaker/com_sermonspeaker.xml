@@ -7,7 +7,7 @@
 	<license>http://www.gnu.org/licenses/gpl.html</license>
 	<authorEmail>admin@sermonspeaker.net</authorEmail>
 	<authorUrl>www.sermonspeaker.net</authorUrl>
-	<version>4.4</version>
+	<version>4.4.0</version>
 	<description>XMAP_SERMONSPEAKER_PLUGIN_DESCRIPTION</description>
 	<files>
 		<filename plugin="com_sermonspeaker">com_sermonspeaker.php</filename>

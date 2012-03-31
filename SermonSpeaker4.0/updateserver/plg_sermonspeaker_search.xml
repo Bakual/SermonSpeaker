@@ -2,6 +2,38 @@
 <updates>
 	<update>
 		<name>SermonSpeaker Search</name>
+		<description>SermonSpeaker Search Plugin 4.4</description>
+		<element>sermonspeaker</element>
+		<type>plugin</type>
+		<folder>search</folder>
+		<version>4.4.0</version>
+		<infourl title="SermonSpeaker Homepage">http://www.sermonspeaker.net</infourl>
+		<downloads>
+			<downloadurl type="full" format="zip">http://www.sermonspeaker.net/files/SermonSpeaker4/Plugins/plg_sermonspeaker_search440.zip</downloadurl>
+		</downloads>
+		<maintainer>Thomas Hunziker</maintainer>
+		<maintainerurl>http://www.bakual.ch</maintainerurl>
+		<targetplatform name="joomla" version="2.5" />
+		<client>0</client>
+	</update>
+	<update>
+		<name>SermonSpeaker Search</name>
+		<description>SermonSpeaker Search Plugin 4.4</description>
+		<element>sermonspeaker</element>
+		<type>plugin</type>
+		<folder>search</folder>
+		<version>4.4.0</version>
+		<infourl title="SermonSpeaker Homepage">http://www.sermonspeaker.net</infourl>
+		<downloads>
+			<downloadurl type="full" format="zip">http://www.sermonspeaker.net/files/SermonSpeaker4/Plugins/plg_sermonspeaker_search440.zip</downloadurl>
+		</downloads>
+		<maintainer>Thomas Hunziker</maintainer>
+		<maintainerurl>http://www.bakual.ch</maintainerurl>
+		<targetplatform name="joomla" version="1.7" />
+		<client_id>0</client_id>
+	</update>
+	<update>
+		<name>SermonSpeaker Search</name>
 		<description>SermonSpeaker Search Plugin 4.3</description>
 		<element>sermonspeaker</element>
 		<type>plugin</type>
@@ -14,7 +46,6 @@
 		<maintainer>Thomas Hunziker</maintainer>
 		<maintainerurl>http://www.bakual.ch</maintainerurl>
 		<targetplatform name="joomla" version="1.6" />
-		<section>SermonSpeaker</section>
 	</update>
 	<update>
 		<name>SermonSpeaker Search</name>
@@ -30,7 +61,6 @@
 		<maintainer>Thomas Hunziker</maintainer>
 		<maintainerurl>http://www.bakual.ch</maintainerurl>
 		<targetplatform name="joomla" version="1.7" />
-		<section>SermonSpeaker</section>
 	</update>
 	<update>
 		<name>SermonSpeaker Search</name>
@@ -46,7 +76,6 @@
 		<maintainer>Thomas Hunziker</maintainer>
 		<maintainerurl>http://www.bakual.ch</maintainerurl>
 		<targetplatform name="joomla" version="1.6" />
-		<section>SermonSpeaker</section>
 	</update>
 	<update>
 		<name>SermonSpeaker Search</name>
@@ -62,7 +91,6 @@
 		<maintainer>Thomas Hunziker</maintainer>
 		<maintainerurl>http://www.bakual.ch</maintainerurl>
 		<targetplatform name="joomla" version="1.7" />
-		<section>SermonSpeaker</section>
 	</update>
 	<update>
 		<name>SermonSpeaker Search</name>
@@ -78,7 +106,6 @@
 		<maintainer>Thomas Hunziker</maintainer>
 		<maintainerurl>http://www.bakual.ch</maintainerurl>
 		<targetplatform name="joomla" version="1.6" />
-		<section>SermonSpeaker</section>
 	</update>
 	<update>
 		<name>SermonSpeaker Search</name>
@@ -94,7 +121,6 @@
 		<maintainer>Thomas Hunziker</maintainer>
 		<maintainerurl>http://www.bakual.ch</maintainerurl>
 		<targetplatform name="joomla" version="1.7" />
-		<section>SermonSpeaker</section>
 	</update>
 	<update>
 		<name>SermonSpeaker Search</name>
@@ -110,7 +136,6 @@
 		<maintainer>Thomas Hunziker</maintainer>
 		<maintainerurl>http://www.bakual.ch</maintainerurl>
 		<targetplatform name="joomla" version="1.6" />
-		<section>SermonSpeaker</section>
 	</update>
 	<update>
 		<name>SermonSpeaker Search</name>
@@ -126,6 +151,5 @@
 		<maintainer>Thomas Hunziker</maintainer>
 		<maintainerurl>http://www.bakual.ch</maintainerurl>
 		<targetplatform name="joomla" version="1.6" />
-		<section>SermonSpeaker</section>
 	</update>
 </updates>

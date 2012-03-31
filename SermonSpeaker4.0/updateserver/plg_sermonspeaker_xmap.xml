@@ -6,15 +6,15 @@
 		<element>com_sermonspeaker</element>
 		<type>plugin</type>
 		<folder>xmap</folder>
-		<client>0</client>
-		<version>4.4</version>
+		<version>4.4.0</version>
 		<infourl title="SermonSpeaker Homepage">http://www.sermonspeaker.net</infourl>
 		<downloads>
-			<downloadurl type="full" format="zip">http://www.sermonspeaker.net/files/SermonSpeaker4/Plugins/plg_sermonspeaker_xmap44.zip</downloadurl>
+			<downloadurl type="full" format="zip">http://www.sermonspeaker.net/files/SermonSpeaker4/Plugins/plg_sermonspeaker_xmap440.zip</downloadurl>
 		</downloads>
 		<maintainer>Thomas Hunziker</maintainer>
 		<maintainerurl>http://www.sermonspeaker.net</maintainerurl>
 		<targetplatform name="joomla" version="2.5" />
+		<client>0</client>
 	</update>
 	<update>
 		<name>SermonSpeaker Xmap</name>
@@ -22,30 +22,14 @@
 		<element>com_sermonspeaker</element>
 		<type>plugin</type>
 		<folder>xmap</folder>
-		<client_id>0</client_id>
-		<version>4.4</version>
+		<version>4.4.0</version>
 		<infourl title="SermonSpeaker Homepage">http://www.sermonspeaker.net</infourl>
 		<downloads>
-			<downloadurl type="full" format="zip">http://www.sermonspeaker.net/files/SermonSpeaker4/Plugins/plg_sermonspeaker_xmap44.zip</downloadurl>
-		</downloads>
-		<maintainer>Thomas Hunziker</maintainer>
-		<maintainerurl>http://www.sermonspeaker.net</maintainerurl>
-		<targetplatform name="joomla" version="1.6" />
-	</update>
-	<update>
-		<name>SermonSpeaker Xmap</name>
-		<description>SermonSpeaker XMap Plugin 4.4</description>
-		<element>com_sermonspeaker</element>
-		<type>plugin</type>
-		<folder>xmap</folder>
-		<client_id>0</client_id>
-		<version>4.4</version>
-		<infourl title="SermonSpeaker Homepage">http://www.sermonspeaker.net</infourl>
-		<downloads>
-			<downloadurl type="full" format="zip">http://www.sermonspeaker.net/files/SermonSpeaker4/Plugins/plg_sermonspeaker_xmap44.zip</downloadurl>
+			<downloadurl type="full" format="zip">http://www.sermonspeaker.net/files/SermonSpeaker4/Plugins/plg_sermonspeaker_xmap440.zip</downloadurl>
 		</downloads>
 		<maintainer>Thomas Hunziker</maintainer>
 		<maintainerurl>http://www.sermonspeaker.net</maintainerurl>
 		<targetplatform name="joomla" version="1.7" />
+		<client_id>0</client_id>
 	</update>
 </updates>

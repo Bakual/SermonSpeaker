@@ -6,7 +6,7 @@
 	<copyright>(C) 2011</copyright>	<license>http://www.gnu.org/licenses/gpl.html</license>
 	<authorEmail>admin@sermonspeaker.net</authorEmail>
 	<authorUrl>http://www.sermonspeaker.net</authorUrl>
-	<version>4.2</version>
+	<version>4.4.0</version>
 	<description>PLG_EDITORS-XTD_SERMONSPEAKER_XML_DESCRIPTION</description>
 	<files>
 		<filename plugin="sermonspeaker">sermonspeaker.php</filename>

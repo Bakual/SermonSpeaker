@@ -2,6 +2,36 @@
 <updates>
 	<update>
 		<name>SermonSpeaker Module</name>
+		<description>SermonSpeaker Module 4.4</description>
+		<element>mod_sermonspeaker</element>
+		<type>module</type>
+		<version>4.4.0</version>
+		<infourl title="SermonSpeaker Homepage">http://www.sermonspeaker.net</infourl>
+		<downloads>
+			<downloadurl type="full" format="zip">http://www.sermonspeaker.net/files/SermonSpeaker4/Modules/mod_sermonspeaker440.zip</downloadurl>
+		</downloads>
+		<maintainer>Thomas Hunziker</maintainer>
+		<maintainerurl>http://www.bakual.ch</maintainerurl>
+		<targetplatform name="joomla" version="2.5" />
+		<client>0</client>
+	</update>
+	<update>
+		<name>SermonSpeaker Module</name>
+		<description>SermonSpeaker Module 4.4</description>
+		<element>mod_sermonspeaker</element>
+		<type>module</type>
+		<version>4.4.0</version>
+		<infourl title="SermonSpeaker Homepage">http://www.sermonspeaker.net</infourl>
+		<downloads>
+			<downloadurl type="full" format="zip">http://www.sermonspeaker.net/files/SermonSpeaker4/Modules/mod_sermonspeaker440.zip</downloadurl>
+		</downloads>
+		<maintainer>Thomas Hunziker</maintainer>
+		<maintainerurl>http://www.bakual.ch</maintainerurl>
+		<targetplatform name="joomla" version="1.7" />
+		<client_id>0</client_id>
+	</update>
+	<update>
+		<name>SermonSpeaker Module</name>
 		<description>SermonSpeaker Module 4.1</description>
 		<element>mod_sermonspeaker</element>
 		<type>module</type>
