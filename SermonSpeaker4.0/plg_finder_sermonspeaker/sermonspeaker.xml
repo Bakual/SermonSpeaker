@@ -14,4 +14,7 @@
 		<filename>index.html</filename>
 		<folder>language</folder>
 	</files>
+	<updateservers>
+		<server type="extension" priority="1" name="SermonSpeaker.net">http://www.sermonspeaker.net/update/plg_sermonspeaker_finder.xml</server>
+	</updateservers>
 </extension>
