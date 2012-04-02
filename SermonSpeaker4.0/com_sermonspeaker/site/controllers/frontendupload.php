@@ -153,6 +153,7 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 	 */
 	protected function getRedirectToItemAppend($recordId = null, $urlVar = null)
 	{
+		JRequest::setVar('layout', 'default');
 		$append = parent::getRedirectToItemAppend($recordId, $urlVar);
 		$itemId	= JRequest::getInt('Itemid');
 		$return	= $this->getReturnPage();
