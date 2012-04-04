@@ -18,6 +18,9 @@ abstract class modSermonarchiveHelper
 		$query->where('`state` = 1');
 		$query->group('`year`');
 		$query->order('`sermon_date` DESC');
+		if ($params->get('sermon_cat')){
+			$query->where('catid = '.(int)$params->get('sermon_cat'));
+		}
 
 		if ($mode){
 			$query->select('MONTH(`sermon_date`) AS `month`');

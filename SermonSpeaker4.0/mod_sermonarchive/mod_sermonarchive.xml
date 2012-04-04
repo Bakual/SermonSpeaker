@@ -6,7 +6,7 @@
 	<copyright>(C) 2011</copyright>
 	<authorEmail>admin@sermonspeaker.net</authorEmail>
 	<authorUrl>http://www.sermonspeaker.net</authorUrl>
-	<version>4.4.0</version>
+	<version>4.4.1</version>
 	<license>http://www.gnu.org/licenses/gpl.html</license>
 	<description>MOD_SERMONARCHIVE_XML_DESCRIPTION</description>
 	<files>
@@ -43,6 +43,12 @@
 					label="MOD_SERMONARCHIVE_PARAM_MENUITEM" 
 					description="MOD_SERMONARCHIVE_PARAM_MENUITEM_DESC" 
 					state="1"
+				/>
+				<field name="sermon_cat" type="category" 
+					label="MOD_SERMONARCHIVE_PARAM_CATEGORY_SERMON_LABEL" 
+					description="MOD_SERMONARCHIVE_PARAM_CATEGORY_DESC" 
+					extension="com_sermonspeaker" 
+					show_root="true"
 				/>
 			</fieldset>
 			<fieldset name="advanced">
