@@ -41,7 +41,7 @@ class SermonspeakerModelSpeakers extends JModelList
 	 *
 	 * @since	1.6
 	 */
-	protected function populateState()
+	protected function populateState($ordering = null, $direction = null)
 	{
 		// Initialise variables.
 		$app = JFactory::getApplication();
@@ -57,7 +57,7 @@ class SermonspeakerModelSpeakers extends JModelList
 		$this->setState('filter.category_id', $categoryId);
 
 		// Load the parameters.
-		$params	= &JComponentHelper::getParams('com_sermonspeaker');
+		$params	= JComponentHelper::getParams('com_sermonspeaker');
 		$this->setState('params', $params);
 
 		// List state information.

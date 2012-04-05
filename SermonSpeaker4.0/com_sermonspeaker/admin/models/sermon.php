@@ -184,7 +184,7 @@ class SermonspeakerModelSermon extends JModelAdmin
 				$data->audiofile = $id3_file;
 			}
 			require_once JPATH_COMPONENT_SITE.DS.'helpers'.DS.'id3.php';
-			$params	= &JComponentHelper::getParams('com_sermonspeaker');
+			$params	= JComponentHelper::getParams('com_sermonspeaker');
 
 			$id3 = SermonspeakerHelperId3::getID3($id3_file, $params);
 			if ($id3){

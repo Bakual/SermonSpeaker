@@ -33,9 +33,9 @@ abstract class modRelatedSermonsHelper
 		$related = array();
 		if (($supportArticles && $option == 'com_content' && $view == 'article') || ($option == 'com_sermonspeaker' && $view == 'sermon') && $id)
 		{
-			$related = modRelatedSermonsHelper::getRelatedSermonsById($db, $option, $id, $ss_itemid, $limitSermons, $orderBy, $sermonCat );
+			$related = self::getRelatedSermonsById($db, $option, $id, $ss_itemid, $limitSermons, $orderBy, $sermonCat );
 			if ($supportArticles){
-				$articles = modRelatedSermonsHelper::getRelatedItemsById($db, $option, $id, $limitSermons, $orderBy, $sermonCat);
+				$articles = self::getRelatedItemsById($db, $option, $id, $limitSermons, $orderBy, $sermonCat);
 				$related = array_merge($related, $articles);
 			}
 		}
@@ -43,7 +43,7 @@ abstract class modRelatedSermonsHelper
 		return $related;
 	}
 
-	protected function getRelatedItemsById($db, $option, $id, $limitSermons, $orderBy, $sermonCat) {
+	protected static function getRelatedItemsById($db, $option, $id, $limitSermons, $orderBy, $sermonCat) {
 		$user			= JFactory::getUser();
 		$groups			= implode(',', $user->getAuthorisedViewLevels());
 
@@ -150,7 +150,7 @@ abstract class modRelatedSermonsHelper
 	}
 	
 	// Search the sermons
-	protected function getRelatedSermonsById($db, $option, $id, $ss_itemid, $limitSermons, $orderBy, $sermonCat ) {
+	protected static function getRelatedSermonsById($db, $option, $id, $ss_itemid, $limitSermons, $orderBy, $sermonCat ) {
 		$query		= $db->getQuery(true);
 		$related 	= array();
 

@@ -96,7 +96,7 @@ class SermonspeakerModelSeries extends JModelList
 	 *
 	 * @since	1.6
 	 */
-	protected function populateState()
+	protected function populateState($ordering = null, $direction = null)
 	{
 		$app	= JFactory::getApplication();
 		$params	= $app->getParams();
@@ -119,7 +119,7 @@ class SermonspeakerModelSeries extends JModelList
 
 	function getSpeakers($series)
 	{
-		$db =& JFactory::getDBO();
+		$db = JFactory::getDBO();
 		$query = 'SELECT sermons.speaker_id, speakers.name, speakers.pic, speakers.state, '
 		. ' CASE WHEN CHAR_LENGTH(speakers.alias) THEN CONCAT_WS(\':\', speakers.id, speakers.alias) ELSE speakers.id END as slug'
         . ' FROM #__sermon_sermons AS sermons'

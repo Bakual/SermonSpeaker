@@ -126,7 +126,7 @@ $saveOrder	= $listOrder == 'sermons.ordering';
 					<?php if ($item->scripture):
 						$passages	= explode('!', $item->scripture);
 						$separator	= JText::_('COM_SERMONSPEAKER_SCRIPTURE_SEPARATOR');
-						$i = 1;
+						$j = 1;
 						foreach ($passages as $passage){
 							$explode	= explode('|',$passage);
 							if ($explode[5]){
@@ -155,10 +155,10 @@ $saveOrder	= $listOrder == 'sermons.ordering';
 									}
 								}
 							}
-							if($i < count($passages)){
+							if($j < count($passages)){
 								echo '<br/ >';
 							}
-							$i++;
+							$j++;
 						}
 					endif; ?>
 				</td>

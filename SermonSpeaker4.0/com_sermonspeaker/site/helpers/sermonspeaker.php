@@ -6,7 +6,19 @@ defined('_JEXEC') or die('Restricted access');
  */
 class SermonspeakerHelperSermonspeaker
 {
-	function SpeakerTooltip($id, $pic, $name) {
+	private static $params;
+	private static $view;
+
+	static function getParams() {
+		$app = JFactory::getApplication();
+		self::$params	= $app->getParams('com_sermonspeaker');
+	}
+
+	static function getView() {
+		self::$view	= JRequest::getCmd('view', 'sermons');
+	}
+
+	static function SpeakerTooltip($id, $pic, $name) {
 		if (!$pic) { 
 			// check if there is no picture and set nopict.jpg
 			$pic = JURI::root().'media/com_sermonspeaker/images/nopict.jpg';
@@ -19,7 +31,7 @@ class SermonspeakerHelperSermonspeaker
 		return $html;
 	}
 
-	function insertAddfile($addfile, $addfileDesc, $show_icon = 0) {
+	static function insertAddfile($addfile, $addfileDesc, $show_icon = 0) {
 		if ($addfile) {
 			$link = SermonspeakerHelperSermonspeaker::makelink($addfile); 
 			$html = '';
@@ -52,7 +64,7 @@ class SermonspeakerHelperSermonspeaker
 		}
 	}
 
-	function makelink($path) {
+	static function makelink($path) {
 		if (strpos($path, 'http://') === 0){
 			$link = $path;
 		} else {
@@ -62,7 +74,7 @@ class SermonspeakerHelperSermonspeaker
 		return $link;
 	}
 
-	function insertdlbutton($id, $type='audio', $mode='0') {
+	static function insertdlbutton($id, $type='audio', $mode='0') {
 		$fileurl = JRoute::_('index.php?task=download&id='.$id.'&type='.$type);
 		if ($mode){
 			$html = '<a href="'.$fileurl.'" target="_new" title="'.JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_'.$type).'">'
@@ -75,13 +87,13 @@ class SermonspeakerHelperSermonspeaker
 		return $html;
 	}
 
-	function insertPopupButton($id = NULL, $player) {
+	static function insertPopupButton($id = NULL, $player) {
 		$html = '<input class="button popup_btn" type="button" name="'.JText::_('COM_SERMONSPEAKER_POPUPPLAYER').'" value="'.JText::_('COM_SERMONSPEAKER_POPUPPLAYER').'" onclick="popup=window.open(\''.JRoute::_('index.php?view=sermon&layout=popup&id='.$id.'&tmpl=component').'\', \'PopupPage\', \'height='.$player->popup['height'].',width='.$player->popup['width'].',scrollbars=yes,resizable=yes\'); return false" />';
 
 		return $html;
 	}
 
-	function insertTime($time) {
+	static function insertTime($time) {
 		$tmp = explode(':', $time);
 		if ($tmp[0] == 0) {
 			$html = $tmp[1].':'.$tmp[2];
@@ -92,18 +104,24 @@ class SermonspeakerHelperSermonspeaker
 		return $html;
 	}
 
-	function fu_logoffbtn () {
+	static function fu_logoffbtn () {
 		$html 	= '<form>'
 				. '<input type="button" value="'.JText::_('JLOGOUT').'" onclick="window.location.href=\''.JRoute::_('index.php?option=com_users&task=user.logout').'\'">'
 				. '</form>';
 		return $html;
 	}
 
-	function insertSermonTitle($i, $item, $player){
+	static function insertSermonTitle($i, $item, $player){
+		if(!self::$params){
+			self::getParams();
+		}
+		if(!self::$view){
+			self::getView();
+		}
 		$return = '';
 		// Prepare play icon function
 		$options = array();
-		switch ($this->params->get('list_icon_function', 3)){
+		switch (self::$params->get('list_icon_function', 3)){
 			case 0:
 				$options['title'] = JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER');
 				$pic = JHTML::Image('media/com_sermonspeaker/images/play.gif', JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER'), $options);
@@ -115,7 +133,7 @@ class SermonspeakerHelperSermonspeaker
 				$return .= JHTML::Link(SermonspeakerHelperSermonspeaker::makelink($item->audiofile), $pic);
 				break;
 			case 2:
-				if(in_array($this->getName().':player', $this->columns)){
+				if(in_array(self::$view.':player', self::$params->get('col'))){
 					$options['onclick'] = 'ss_play('.$i.')';
 					$options['title'] = JText::_('COM_SERMONSPEAKER_PLAYICON_HOOVER');
 					$options['class'] = 'icon_play pointer';
@@ -128,24 +146,30 @@ class SermonspeakerHelperSermonspeaker
 				$options['class'] = 'icon_play pointer';
 				$return .= JHTML::Image('media/com_sermonspeaker/images/play.gif', JText::_('COM_SERMONSPEAKER_POPUPPLAYER'), $options);
 				break;
+			case 4:
+				break;
 		}
 		$return .= ' ';
 		// Prepare title link function
 		$options = array();
-		switch ($this->params->get('list_title_function', 0)){
+		switch (self::$params->get('list_title_function', 0)){
 			case 0:
 				$options['title'] = JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER');
 				$return .= JHTML::Link(JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug)), $item->sermon_title, $options);
 				break;
 			case 1:
 				$options['title'] = JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER');
-				$pic = JHTML::Image('media/com_sermonspeaker/images/play.gif', JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER'), $options);
 				$return .= JHTML::Link(SermonspeakerHelperSermonspeaker::makelink($item->audiofile), $item->sermon_title, $options);
 				break;
 			case 2:
-				$options['onclick'] = 'jwplayer().playlistItem('.$i.')';
-				$options['title'] = JText::_('COM_SERMONSPEAKER_PLAYICON_HOOVER');
-				$return .= JHTML::Link('#', $item->sermon_title, $options);
+				if(in_array(self::$view.':player', self::$params->get('col'))){
+					$options['onclick'] = 'ss_play('.$i.')';
+					$options['title'] = JText::_('COM_SERMONSPEAKER_PLAYICON_HOOVER');
+					$return .= JHTML::Link('#', $item->sermon_title, $options);
+				} else {
+					$options['title'] = JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER');
+					$return .= JHTML::Link(JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug)), $item->sermon_title, $options);
+				}
 				break;
 			case 3:
 				$options['onclick'] = "popup=window.open('".JRoute::_('index.php?view=sermon&layout=popup&id='.$item->id.'&tmpl=component')."', 'PopupPage', 'height=".$player->popup['height'].',width='.$player->popup['width'].",scrollbars=yes,resizable=yes'); return false";
@@ -156,7 +180,7 @@ class SermonspeakerHelperSermonspeaker
 		return $return;
 	}
 
-	function insertSearchTags($metakey){
+	static function insertSearchTags($metakey){
 		// Code from Douglas Machado
 		$links = array();
 		$keywords = explode(',', $metakey);
@@ -169,7 +193,7 @@ class SermonspeakerHelperSermonspeaker
 		return implode(', ', $links);
 	}
 
-	function insertScriptures($scripture, $between, $addTag = true){
+	static function insertScriptures($scripture, $between, $addTag = true){
 		if(!$scripture){
 			return;
 		}
@@ -181,7 +205,10 @@ class SermonspeakerHelperSermonspeaker
 		return implode($between, $scriptures);
 	}
 
-	function buildScripture($scripture, $addTag = true){
+	static function buildScripture($scripture, $addTag = true){
+		if(!self::$params){
+			self::getParams();
+		}
 		$explode	= explode('|',$scripture);
 		$text = '';
 		if ($explode[5]){
@@ -207,14 +234,14 @@ class SermonspeakerHelperSermonspeaker
 				}
 			}
 			if($text && $addTag){
-				$tags = $this->params->get('plugin_tag');
+				$tags = self::$params->get('plugin_tag');
 				$text = $tags[0].$text.$tags[1];
 			}
 		}
 		return $text;
 	}
 
-	function getMime($ext){
+	static function getMime($ext){
 		switch ($ext){
 			case 'mp3':
 				$mime	= 'audio/mpeg';

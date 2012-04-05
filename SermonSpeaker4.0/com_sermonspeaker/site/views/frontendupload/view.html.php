@@ -59,7 +59,7 @@ class SermonspeakerViewFrontendupload extends JView
 			document.getElementById(elem).value = open+document.getElementById(elem).value+close;
 		}';
 
-		$document =& JFactory::getDocument();
+		$document = JFactory::getDocument();
 		$document->addScriptDeclaration($enElem);
 		$document->addScriptDeclaration($sendText);
 

@@ -42,7 +42,7 @@ class SermonspeakerModelFeed extends JModel
 			$this->catwhere .= " AND sermons.series_id = '".$series."' \n";
 		}
 
-		$database =& JFactory::getDBO();
+		$database = JFactory::getDBO();
 
 		$query = "SET character_set_results ='utf8';";
 		$database->setQuery($query);

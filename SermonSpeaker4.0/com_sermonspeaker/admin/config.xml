@@ -50,6 +50,7 @@
 			<option value="1">COM_SERMONSPEAKER_PARAM_LIST_OPTION_FILE</option>
 			<option value="2">COM_SERMONSPEAKER_PARAM_LIST_OPTION_PLAYER</option>
 			<option value="3">COM_SERMONSPEAKER_PARAM_LIST_OPTION_POPUP</option>
+			<option value="4">JHIDE</option>
 		</field>
 		<field name="list_title_function" 
 			type="list" 

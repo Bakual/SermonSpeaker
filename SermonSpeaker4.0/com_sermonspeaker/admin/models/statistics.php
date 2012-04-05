@@ -9,7 +9,7 @@ class SermonspeakerModelStatistics extends JModel
 	{
 		parent::__construct();
 
-		$this->db =& JFactory::getDBO();
+		$this->db = JFactory::getDBO();
 	}
 
 	function getSpeakers()

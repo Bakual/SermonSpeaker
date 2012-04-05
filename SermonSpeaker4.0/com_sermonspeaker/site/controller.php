@@ -23,22 +23,27 @@ class SermonspeakerController extends JController
 			case 'speaker':
 				$viewLayout = JRequest::getCmd('layout', 'default');
 				$view = $this->getView($viewName, 'html', '', array('base_path' => $this->basePath, 'layout' => $viewLayout));
-				$view = &$this->getView('speaker', 'html');
-				$view->setModel($this->getModel('series'));
-				$view->setModel($this->getModel('sermons'));
+				$view = $this->getView('speaker', 'html');
+				$series_model = $this->getModel('series');
+				$view->setModel($series_model);
+				$sermons_model = $this->getModel('sermons');
+				$view->setModel($sermons_model);
 				break;
 			case 'serie':
 				$viewLayout = JRequest::getCmd('layout', 'default');
 				$view = $this->getView($viewName, 'html', '', array('base_path' => $this->basePath, 'layout' => $viewLayout));
-				$view = &$this->getView('serie', 'html');
-				$view->setModel($this->getModel('sermons'));
+				$view = $this->getView('serie', 'html');
+				$sermons_model = $this->getModel('sermons');
+				$view->setModel($sermons_model);
 				break;
 			case 'seriessermon':
 				$viewLayout = JRequest::getCmd('layout', 'default');
 				$view = $this->getView($viewName, 'html', '', array('base_path' => $this->basePath, 'layout' => $viewLayout));
-				$view = &$this->getView('seriessermon', 'html');
-				$view->setModel($this->getModel('series'));
-				$view->setModel($this->getModel('sermons'));
+				$view = $this->getView('seriessermon', 'html');
+				$series_model = $this->getModel('series');
+				$view->setModel($series_model);
+				$sermons_model = $this->getModel('sermons');
+				$view->setModel($sermons_model);
 				break;
 		}
 

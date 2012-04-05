@@ -15,7 +15,7 @@ jimport('joomla.application.component.modelitem');
 // Based on com_contact
 class SermonspeakerModelSerie extends JModelItem
 {
-	public function populateState()
+	public function populateState($ordering = null, $direction = null)
 	{
 		$app = JFactory::getApplication();
 		$params	= $app->getParams();
