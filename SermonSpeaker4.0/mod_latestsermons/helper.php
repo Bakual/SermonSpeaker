@@ -7,8 +7,6 @@ abstract class modLatestsermonsHelper
 	public static function getList($params)
 	{
 		// Collect params
-		$cat_id	= (int)$params->get('cat');
-
 		$db		= JFactory::getDbo();
 		$query	= $db->getQuery(true);
 		$query->select('a.sermon_title, a.id, a.sermon_date, a.audiofile, a.videofile, a.sermon_time, a.picture, a.notes');
