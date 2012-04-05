@@ -114,7 +114,7 @@ class SermonspeakerViewFeed extends JView
 			$item->category = $this->make_xml_safe($row->series_title); // using the series title as an item category
 
 			// iTunes item specific tags
-			$item->itAuthor		= $row->name; // only speaker name here for iTunes
+			$item->itAuthor		= $this->make_xml_safe($row->name); // only speaker name here for iTunes
 			$item->itDuration 	= SermonspeakerHelperSermonSpeaker::insertTime($row->sermon_time);
 			if (strlen($item_notes_short) > 255){
 				$item->itSubtitle 	= mb_substr($item_notes_short, 0, 252, 'UTF-8').'...';
