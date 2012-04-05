@@ -40,6 +40,7 @@ class SermonspeakerViewFeed extends JView
 		// Channel
 
 		// Save Parameters and stuff xmlsafe into $channel
+		$channel = new stdClass;
 		$channel->title 		= $this->make_xml_safe($params->get('sc_title'));
 		$channel->link 			= $link;
 		$channel->atomlink		= $this->make_xml_safe($_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
@@ -76,15 +77,10 @@ class SermonspeakerViewFeed extends JView
 		$channel->itNewfeedurl 	= $this->make_xml_safe($params->get('itRedirect'));
 
 		// get Data from Model (/models/feed.php)
-        $rows = &$this->get('Data');
+        $rows = $this->get('Data');
 
-		// Support for Content Plugins
-		$dispatcher	= &JDispatcher::getInstance();
-		JPluginHelper::importPlugin('content');
-		$row->params = clone($params);
 
 		// Items
-		
 		$items = array();
 		foreach($rows as $row) {
 			// Trigger Event for `notes` and `scripture`
@@ -92,7 +88,7 @@ class SermonspeakerViewFeed extends JView
 			$row->notes		= JHTML::_('content.prepare', $row->notes);
 			$row->scripture	= JHTML::_('content.prepare', $scriptures);
 
-			$item = NULL;
+			$item = new stdClass;
 			// todo: ItemId des Predigten Menupunkts suchen und an Link anhängen, maybe use HelperRoute (check if feed will be valid then)
 			$item_link = $link.'index.php?option=com_sermonspeaker&amp;view=sermon&amp;id='.$row->id;
 
