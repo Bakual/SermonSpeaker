@@ -14,7 +14,7 @@ $published = $this->state->get('filter.published');
 		<?php echo JHtml::_('batch.item', 'com_sermonspeaker');?>
 	<?php endif; ?>
 
-	<button type="submit" onclick="Joomla.submitbutton('sermon.batch');">
+	<button type="submit" onclick="Joomla.submitbutton('speaker.batch');">
 		<?php echo JText::_('JGLOBAL_BATCH_PROCESS'); ?>
 	</button>
 	<button type="button" onclick="document.id('batch-category-id').value='';document.id('batch-access').value='';document.id('batch-language-id').value=''">

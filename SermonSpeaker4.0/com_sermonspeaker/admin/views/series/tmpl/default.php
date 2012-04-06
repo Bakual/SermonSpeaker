@@ -144,6 +144,8 @@ $saveOrder	= $listOrder == 'series.ordering';
 		</tbody>
 	</table>
 
+	<?php echo $this->loadTemplate('batch'); ?>
+
 	<div>
 		<input type="hidden" name="task" value="" />
 		<input type="hidden" name="boxchecked" value="0" />
