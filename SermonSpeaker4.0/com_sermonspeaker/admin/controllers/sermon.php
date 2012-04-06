@@ -246,4 +246,26 @@ class SermonspeakerControllerSermon extends JControllerForm
 			return;
 		}
 	}
+
+	/**
+	 * Method to run batch operations.
+	 *
+	 * @param   object  $model  The model.
+	 *
+	 * @return  boolean	 True if successful, false otherwise and internal error is set.
+	 *
+	 * @since   1.7
+	 */
+	public function batch($model = null)
+	{
+		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+
+		// Set the model
+		$model = $this->getModel('Sermon', '', array());
+
+		// Preset the redirect
+		$this->setRedirect(JRoute::_('index.php?option=com_sermonspeaker&view=sermons'.$this->getRedirectToListAppend(), false));
+
+		return parent::batch($model);
+	}
 }
