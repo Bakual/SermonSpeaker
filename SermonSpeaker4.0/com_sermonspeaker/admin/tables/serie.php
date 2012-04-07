@@ -32,7 +32,7 @@ class SermonspeakerTableSerie extends JTable
 
 		// Verify that the alias is unique
 		$table = JTable::getInstance('serie', 'SermonspeakerTable');
-		if ($table->load(array('alias' => $this->alias)) && ($table->id != $this->id || $this->id == 0)) {
+		if ($table->load(array('alias' => $this->alias, 'catid' => $this->catid)) && ($table->id != $this->id || $this->id == 0)) {
 			$this->setError(JText::_('COM_SERMONSPEAKER_ERROR_ALIAS'));
 			return false;
 		}
