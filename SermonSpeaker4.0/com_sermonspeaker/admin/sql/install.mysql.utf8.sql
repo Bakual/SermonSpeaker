@@ -20,6 +20,9 @@ CREATE TABLE `#__sermon_speakers` (
 	`catid` INT(10) NOT NULL DEFAULT '0',
 	`metakey` TEXT NOT NULL,
 	`metadesc` TEXT NOT NULL,
+	`checked_out` INT(11) NOT NULL DEFAULT '0';
+	`checked_out_time` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00';
+	`language` CHAR(7) NOT NULL;
 	PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
 
@@ -38,6 +41,9 @@ CREATE TABLE `#__sermon_series` (
 	`catid` INT(10) NOT NULL DEFAULT '0',
 	`metakey` TEXT NOT NULL,
 	`metadesc` TEXT NOT NULL,
+	`checked_out` INT(11) NOT NULL DEFAULT '0';
+	`checked_out_time` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00';
+	`language` CHAR(7) NOT NULL;
 	PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
 
@@ -67,6 +73,9 @@ CREATE TABLE `#__sermon_sermons` (
 	`catid` INT(10) NOT NULL DEFAULT '0',
 	`metakey` TEXT NOT NULL,
 	`metadesc` TEXT NOT NULL,
+	`checked_out` INT(11) NOT NULL DEFAULT '0';
+	`checked_out_time` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00';
+	`language` CHAR(7) NOT NULL;
 	PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
 

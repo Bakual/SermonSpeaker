@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<extension type="component" version="1.6" method="upgrade">
+<extension type="component" version="1.7.3" method="upgrade">
 	<name>com_sermonspeaker</name>
 	<author>Thomas Hunziker, Martin Hess</author>
 	<creationDate>January 2011</creationDate>
 	<copyright>(C) 2011</copyright>
 	<authorEmail>admin@sermonspeaker.net</authorEmail>
 	<authorUrl>http://www.sermonspeaker.net</authorUrl>
-	<version>4.4.1</version>
+	<version>4.4.2</version>
 	<license>http://www.gnu.org/licenses/gpl.html</license>
 	<description>COM_SERMONSPEAKER_DESCRIPTION</description>
 	<scriptfile>script.php</scriptfile>
