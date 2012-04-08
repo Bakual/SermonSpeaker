@@ -19,6 +19,8 @@ class SermonspeakerModelSpeakers extends JModelList
 				'id', 'speakers.id',
 				'name', 'speakers.name',
 				'alias', 'speakers.alias',
+				'checked_out', 'speakers.checked_out',
+				'checked_out_time', 'speakers.checked_out_time',
 				'catid', 'speakers.catid', 'category_title',
 				'state', 'speakers.state',
 				'access', 'speakers.access', 'access_level',
@@ -26,6 +28,7 @@ class SermonspeakerModelSpeakers extends JModelList
 				'created_by', 'speakers.created_by',
 				'ordering', 'speakers.ordering',
 				'pic', 'speakers.pic',
+				'language', 'speakers.language',
 				'hits', 'speakers.hits',
 				'home', 'speakers.home',
 			);
@@ -56,6 +59,9 @@ class SermonspeakerModelSpeakers extends JModelList
 		$categoryId = $app->getUserStateFromRequest($this->context.'.filter.category_id', 'filter_category_id', '');
 		$this->setState('filter.category_id', $categoryId);
 
+		$language = $this->getUserStateFromRequest($this->context.'.filter.language', 'filter_language', '');
+		$this->setState('filter.language', $language);
+
 		// Load the parameters.
 		$params	= JComponentHelper::getParams('com_sermonspeaker');
 		$this->setState('params', $params);
@@ -81,6 +87,7 @@ class SermonspeakerModelSpeakers extends JModelList
 		$id.= ':' . $this->getState('filter.search');
 		$id.= ':' . $this->getState('filter.state');
 		$id.= ':' . $this->getState('filter.category_id');
+		$id.= ':' . $this->getState('filter.language');
 
 		return parent::getStoreId($id);
 	}
@@ -101,12 +108,20 @@ class SermonspeakerModelSpeakers extends JModelList
 		$query->select(
 			$this->getState(
 				'list.select',
-				'speakers.id, speakers.name, speakers.catid, created_by, '.
+				'speakers.id, speakers.name, speakers.catid, speakers.created_by, speakers.language, '.
 				'speakers.hits, speakers.home, speakers.pic, speakers.website, '.
-				'speakers.alias, speakers.state, speakers.ordering'
+				'speakers.alias, speakers.state, speakers.ordering, speakers.checked_out, speakers.checked_out_time'
 			)
 		);
 		$query->from('`#__sermon_speakers` AS speakers');
+
+		// Join over the language
+		$query->select('l.title AS language_title');
+		$query->join('LEFT', $db->quoteName('#__languages').' AS l ON l.lang_code = speakers.language');
+
+		// Join over the users for the checked out user.
+		$query->select('uc.name AS editor');
+		$query->join('LEFT', '#__users AS uc ON uc.id = speakers.checked_out');
 
 		// Join over the categories.
 		$query->select('c.title AS category_title');
@@ -135,6 +150,11 @@ class SermonspeakerModelSpeakers extends JModelList
 				$search = $db->Quote('%'.$db->getEscaped($search, true).'%');
 				$query->where('(speakers.name LIKE '.$search.')');
 			}
+		}
+
+		// Filter on the language.
+		if ($language = $this->getState('filter.language')) {
+			$query->where('speakers.language = '.$db->quote($language));
 		}
 
 		// Add the list ordering clause.

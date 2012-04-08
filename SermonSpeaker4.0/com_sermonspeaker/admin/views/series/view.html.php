@@ -55,6 +55,7 @@ class SermonspeakerViewSeries extends JView
 			} else {
 				JToolBarHelper::unarchiveList('series.publish', 'JTOOLBAR_UNARCHIVE');
 			}
+			JToolBarHelper::checkin('series.checkin');
 		}
 
 		if ($this->state->get('filter.state') == -2 && $canDo->get('core.delete')) {

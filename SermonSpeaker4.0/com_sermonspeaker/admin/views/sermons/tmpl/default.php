@@ -43,6 +43,11 @@ $saveOrder	= $listOrder == 'sermons.ordering';
 				<option value=""><?php echo JText::_('JOPTION_SELECT_CATEGORY');?></option>
 				<?php echo JHtml::_('select.options', JHtml::_('category.options', 'com_sermonspeaker'), 'value', 'text', $this->state->get('filter.category_id'));?>
 			</select>
+
+			<select name="filter_language" class="inputbox" onchange="this.form.submit()">
+				<option value=""><?php echo JText::_('JOPTION_SELECT_LANGUAGE');?></option>
+				<?php echo JHtml::_('select.options', JHtml::_('contentlanguage.existing', true, true), 'value', 'text', $this->state->get('filter.language'));?>
+			</select>
 		</div>
 	</fieldset>
 	<div class="clr"> </div>
@@ -83,8 +88,11 @@ $saveOrder	= $listOrder == 'sermons.ordering';
 						<?php echo JHtml::_('grid.order',  $this->items, 'filesave.png', 'sermons.saveorder'); ?>
 					<?php endif; ?>
 				</th>
-				<th width="1%">
+				<th width="5%">
 					<?php echo JHtml::_('grid.sort',  'JGLOBAL_HITS', 'sermons.hits', $listDirn, $listOrder); ?>
+				</th>
+				<th width="5%">
+					<?php echo JHtml::_('grid.sort', 'JGRID_HEADING_LANGUAGE', 'language', $listDirn, $listOrder); ?>
 				</th>
 				<th width="1%" class="nowrap">
 					<?php echo JHtml::_('grid.sort',  'JGRID_HEADING_ID', 'sermons.id', $listDirn, $listOrder); ?>
@@ -102,15 +110,19 @@ $saveOrder	= $listOrder == 'sermons.ordering';
 		<?php foreach ($this->items as $i => $item) :
 			$ordering	= ($listOrder == 'sermons.ordering');
 			$canEdit	= $user->authorise('core.edit', 'com_sermonspeaker.category.'.$item->catid);
+			$canCheckin	= $user->authorise('core.manage', 'com_checkin') || $item->checked_out == $userId || $item->checked_out == 0;
 			$canEditOwn	= $user->authorise('core.edit.own', 'com_sermonspeaker.category.'.$item->catid) && $item->created_by == $userId;
-			$canChange	= $user->authorise('core.edit.state', 'com_sermonspeaker.category.'.$item->catid);
+			$canChange	= $user->authorise('core.edit.state', 'com_sermonspeaker.category.'.$item->catid) && $canCheckin;
 			?>
 			<tr class="row<?php echo $i % 2; ?>">
 				<td class="center">
 					<?php echo JHtml::_('grid.id', $i, $item->id); ?>
 				</td>
 				<td>
-					<?php if ($canEdit || $canEditOwn) : ?>
+					<?php if ($item->checked_out) :
+						echo JHtml::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time, 'sermons.', $canCheckin);
+					endif;
+					if ($canEdit || $canEditOwn) : ?>
 						<a href="<?php echo JRoute::_('index.php?option=com_sermonspeaker&task=sermon.edit&id='.(int) $item->id); ?>">
 							<?php echo $this->escape($item->sermon_title); ?></a>
 					<?php else : ?>
@@ -199,6 +211,13 @@ $saveOrder	= $listOrder == 'sermons.ordering';
 					<?php if ($canEdit || $canEditOwn) : ?>
 						&nbsp;<a href="index.php?option=com_sermonspeaker&task=sermon.reset&id=<?php echo $item->id; ?>" title="<?php echo JText::_('JSEARCH_RESET'); ?>"><img src="<?php echo JURI::base(); ?>components/com_sermonspeaker/images/reset.png" width="16" height="16" border="0" alt="<?php echo JText::_('JSEARCH_RESET'); ?>" /></a>
 					<?php endif; ?>
+				</td>
+				<td class="center">
+					<?php if ($item->language=='*'):?>
+						<?php echo JText::alt('JALL', 'language'); ?>
+					<?php else:?>
+						<?php echo $item->language_title ? $this->escape($item->language_title) : JText::_('JUNDEFINED'); ?>
+					<?php endif;?>
 				</td>
 				<td class="center">
 					<?php echo (int) $item->id; ?>

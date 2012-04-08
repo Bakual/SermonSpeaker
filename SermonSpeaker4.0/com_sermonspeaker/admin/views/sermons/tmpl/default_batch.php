@@ -7,7 +7,7 @@ $published = $this->state->get('filter.published');
 <fieldset class="batch">
 	<legend><?php echo JText::_('COM_SERMONSPEAKER_BATCH_OPTIONS');?></legend>
 	<p><?php echo JText::_('COM_SERMONSPEAKER_BATCH_TIP'); ?></p>
-	<?php // echo JHtml::_('batch.language');?>
+	<?php echo JHtml::_('batch.language');?>
 	<label id="batch-speaker-lbl" for="batch-speaker-id" class="hasTip" title="<?php echo JText::_('COM_SERMONSPEAKER_BATCH_SPEAKER_LABEL'); ?>::<?php echo JText::_('COM_SERMONSPEAKER_BATCH_SPEAKER_LABEL_DESC'); ?>">
 		<?php echo JText::_('COM_SERMONSPEAKER_BATCH_SPEAKER_LABEL'); ?>
 	</label>

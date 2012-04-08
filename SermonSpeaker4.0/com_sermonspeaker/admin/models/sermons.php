@@ -19,6 +19,8 @@ class SermonspeakerModelSermons extends JModelList
 				'id', 'sermons.id',
 				'sermon_title', 'sermons.sermon_title',
 				'alias', 'sermons.alias',
+				'checked_out', 'sermons.checked_out',
+				'checked_out_time', 'sermons.checked_out_time',
 				'name', 'speakers.name',
 				'catid', 'sermons.catid', 'category_title',
 				'state', 'sermons.state',
@@ -28,6 +30,7 @@ class SermonspeakerModelSermons extends JModelList
 				'created_by', 'sermons.created_by',
 				'ordering', 'sermons.ordering',
 				'sermon_date', 'sermons.sermon_date',
+				'language', 'sermons.language',
 				'hits', 'sermons.hits',
 				'series_title', 'series.series_title',
 				'scripture', 'sermons.scripture',
@@ -68,6 +71,9 @@ class SermonspeakerModelSermons extends JModelList
 		$categoryId = $app->getUserStateFromRequest($this->context.'.filter.category_id', 'filter_category_id', '');
 		$this->setState('filter.category_id', $categoryId);
 
+		$language = $this->getUserStateFromRequest($this->context.'.filter.language', 'filter_language', '');
+		$this->setState('filter.language', $language);
+
 		// Load the parameters.
 		$params = JComponentHelper::getParams('com_sermonspeaker');
 		$this->setState('params', $params);
@@ -98,6 +104,7 @@ class SermonspeakerModelSermons extends JModelList
 		$id.= ':' . $this->getState('filter.speaker');
 		$id.= ':' . $this->getState('filter.series');
 		$id.= ':' . $this->getState('filter.category_id');
+		$id.= ':' . $this->getState('filter.language');
 
 		return parent::getStoreId($id);
 	}
@@ -118,13 +125,21 @@ class SermonspeakerModelSermons extends JModelList
 		$query->select(
 			$this->getState(
 				'list.select',
-				'sermons.id, sermons.sermon_title, sermons.catid, '.
-				'sermons.hits, sermons.notes, '.
+				'sermons.id, sermons.sermon_title, sermons.catid, sermons.language, '.
+				'sermons.hits, sermons.notes, sermons.checked_out, sermons.checked_out_time, '.
 				'sermons.sermon_date, sermons.alias, sermons.created, sermons.created_by, '.
 				'sermons.state, sermons.ordering, sermons.podcast'
 			)
 		);
 		$query->from('`#__sermon_sermons` AS sermons');
+
+		// Join over the language
+		$query->select('l.title AS language_title');
+		$query->join('LEFT', $db->quoteName('#__languages').' AS l ON l.lang_code = sermons.language');
+
+		// Join over the users for the checked out user.
+		$query->select('uc.name AS editor');
+		$query->join('LEFT', '#__users AS uc ON uc.id = sermons.checked_out');
 
 		// Join over the scriptures.
 		$query->select('GROUP_CONCAT(script.book,"|",script.cap1,"|",script.vers1,"|",script.cap2,"|",script.vers2,"|",script.text ORDER BY script.ordering ASC SEPARATOR "!") AS scripture');
@@ -184,6 +199,11 @@ class SermonspeakerModelSermons extends JModelList
 				$search = $db->Quote('%'.$db->getEscaped($search, true).'%');
 				$query->where('(sermons.sermon_title LIKE '.$search.')');
 			}
+		}
+
+		// Filter on the language.
+		if ($language = $this->getState('filter.language')) {
+			$query->where('sermons.language = '.$db->quote($language));
 		}
 
 		// Add the list ordering clause.
