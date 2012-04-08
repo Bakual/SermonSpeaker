@@ -23,17 +23,20 @@ JHtml::_('behavior.formvalidation');
 		<fieldset class="adminform">
 			<legend><?php echo empty($this->item->id) ? JText::_('COM_SERMONSPEAKER_NEW_SERIE') : JText::sprintf('COM_SERMONSPEAKER_EDIT_SERIE', $this->item->id); ?></legend>
 			<ul class="adminformlist">
-			<li><?php echo $this->form->getLabel('series_title'); ?>
-			<?php echo $this->form->getInput('series_title'); ?></li>
+				<li><?php echo $this->form->getLabel('series_title'); ?>
+				<?php echo $this->form->getInput('series_title'); ?></li>
 
-			<li><?php echo $this->form->getLabel('alias'); ?>
-			<?php echo $this->form->getInput('alias'); ?></li>
+				<li><?php echo $this->form->getLabel('alias'); ?>
+				<?php echo $this->form->getInput('alias'); ?></li>
 
-			<li><?php echo $this->form->getLabel('state'); ?>
-			<?php echo $this->form->getInput('state'); ?></li>
+				<li><?php echo $this->form->getLabel('state'); ?>
+				<?php echo $this->form->getInput('state'); ?></li>
 
-			<li><?php echo $this->form->getLabel('ordering'); ?>
-			<?php echo $this->form->getInput('ordering'); ?></li>
+				<li><?php echo $this->form->getLabel('ordering'); ?>
+				<?php echo $this->form->getInput('ordering'); ?></li>
+
+				<li><?php echo $this->form->getLabel('language'); ?>
+				<?php echo $this->form->getInput('language'); ?></li>
 			</ul>
 		</fieldset>
 

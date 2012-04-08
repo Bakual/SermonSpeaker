@@ -37,6 +37,12 @@
 			filter="safehtml"
 			label="JGLOBAL_DESCRIPTION" />
 
+		<field name="language" type="contentlanguage" label="JFIELD_LANGUAGE_LABEL"
+			description="COM_SERMONSPEAKER_FIELD_LANGUAGE_DESC" class="inputbox"
+		>
+			<option value="*">JALL</option>
+		</field>
+
 	</fieldset>
 
 	<fieldset name="info">
