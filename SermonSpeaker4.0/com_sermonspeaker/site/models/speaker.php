@@ -64,6 +64,7 @@ class SermonspeakerModelSpeaker extends JModelItem
 						'item.select',
 						'speaker.id, speaker.name, speaker.alias, speaker.website, speaker.state,'.
 						'CASE WHEN CHAR_LENGTH(speaker.alias) THEN CONCAT_WS(\':\', speaker.id, speaker.alias) ELSE speaker.id END as slug,'.
+						'speaker.checked_out, speaker.checked_out_time, speaker.language,'.
 						'speaker.intro, speaker.bio, speaker.pic, speaker.hits, speaker.created, speaker.created_by,'.
 						'speaker.metakey, speaker.metadesc, speaker.created, speaker.created_by'
 					)

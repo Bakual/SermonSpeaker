@@ -54,6 +54,7 @@ class SermonspeakerModelSerie extends JModelItem
 					$this->getState(
 						'item.select',
 						'serie.id, serie.series_title, serie.series_description, serie.avatar, serie.catid, serie.metakey, serie.metadesc, '.
+						'serie.checked_out, serie.checked_out_time, serie.language, '.
 						'serie.hits, serie.state, serie.created, serie.created_by, serie.metakey, serie.metadesc, '.
 						'CASE WHEN CHAR_LENGTH(serie.alias) THEN CONCAT_WS(\':\', serie.id, serie.alias) ELSE serie.id END as slug'
 					)

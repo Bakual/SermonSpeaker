@@ -149,6 +149,14 @@ $self = $uri->toString();
 	</fieldset>
 
 	<fieldset>
+		<legend><?php echo JText::_('JFIELD_LANGUAGE_LABEL'); ?></legend>
+		<div class="formelm-area">
+		<?php echo $this->form->getLabel('language'); ?>
+		<?php echo $this->form->getInput('language'); ?>
+		</div>
+	</fieldset>
+
+	<fieldset>
 		<legend><?php echo JText::_('COM_SERMONSPEAKER_METADATA'); ?></legend>
 		<?php foreach($this->form->getFieldset('metadata') as $field): ?>
 			<div class="formelm">

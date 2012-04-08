@@ -22,6 +22,9 @@ class SermonspeakerModelSeries extends JModelList
 				'series_title', 'series.series_title',
 				'ordering', 'series.ordering',
 				'series_description', 'series.series_description',
+				'checked_out', 'series.checked_out',
+				'checked_out_time', 'series.checked_out_time',
+				'language', 'series.language',
 				'hits', 'series.hits',
 			);
 		}
@@ -44,7 +47,7 @@ class SermonspeakerModelSeries extends JModelList
 				'list.select',
 				'series.id, series.series_title, series.catid, series.avatar, ' .
 				'CASE WHEN CHAR_LENGTH(series.alias) THEN CONCAT_WS(\':\', series.id, series.alias) ELSE series.id END as slug, ' .
-				'series.hits, series.series_description, series.alias, ' .
+				'series.hits, series.series_description, series.alias, series.checked_out, series.checked_out_time,' .
 				'series.state, series.ordering, series.created, series.created_by'
 			)
 		);
@@ -83,6 +86,11 @@ class SermonspeakerModelSeries extends JModelList
 			$query->group('series.id');
 		}
 
+		// Filter by language
+		if ($this->getState('filter.language')) {
+			$query->where('series.language in ('.$db->quote(JFactory::getLanguage()->getTag()).','.$db->quote('*').')');
+		}
+
 		// Add the list ordering clause.
 		$query->order($db->getEscaped($this->getState('list.ordering', 'ordering')).' '.$db->getEscaped($this->getState('list.direction', 'ASC')));
 
@@ -107,6 +115,8 @@ class SermonspeakerModelSeries extends JModelList
 		$this->setState('series_category.id', $id);
 
 		$this->setState('filter.state',	1);
+
+		$this->setState('filter.language', $app->getLanguageFilter());
 
 		// Speakerfilter
 		if(JRequest::getCmd('view') == 'speaker'){

@@ -21,11 +21,14 @@ class SermonspeakerModelSermons extends JModelList
 			$config['filter_fields'] = array(
 				'sermon_number', 'sermons.sermon_number',
 				'sermon_title', 'sermons.sermon_title',
+				'checked_out', 'sermons.checked_out',
+				'checked_out_time', 'sermons.checked_out_time',
 				'book', 'script.book',
 				'sermon_date', 'sermons.sermon_date',
 				'sermon_time', 'sermons.sermon_time',
 				'addfileDesc', 'sermons.addfileDesc',
 				'hits', 'sermons.hits',
+				'language', 'sermons.language',
 				'ordering', 'sermons.ordering',
 				'name', 'speakers.name',
 				'series_title', 'series.series_title',
@@ -50,7 +53,7 @@ class SermonspeakerModelSermons extends JModelList
 				'list.select',
 				'sermons.id, sermons.sermon_title, sermons.catid, sermons.audiofile, sermons.videofile, ' .
 				'CASE WHEN CHAR_LENGTH(sermons.alias) THEN CONCAT_WS(\':\', sermons.id, sermons.alias) ELSE sermons.id END as slug,' .
-				'sermons.picture, sermons.hits, sermons.notes,' .
+				'sermons.picture, sermons.hits, sermons.notes, sermons.checked_out, sermons.checked_out_time,' .
 				'sermons.sermon_date, sermons.alias, sermons.sermon_time,' .
 				'sermons.state, sermons.ordering, sermons.podcast,' .
 				'sermons.sermon_number, sermons.addfile, sermons.addfileDesc,' .
@@ -142,6 +145,11 @@ class SermonspeakerModelSermons extends JModelList
 			$query->where('sermons.series_id = '.(int) $serieId);
 		}
 
+		// Filter by language
+		if ($this->getState('filter.language')) {
+			$query->where('sermons.language in ('.$db->quote(JFactory::getLanguage()->getTag()).','.$db->quote('*').')');
+		}
+
 		// Add the list ordering clause.
 		$query->order($db->getEscaped($this->getState('list.ordering', 'ordering')).' '.$db->getEscaped($this->getState('list.direction', 'ASC')));
 
@@ -188,6 +196,8 @@ class SermonspeakerModelSermons extends JModelList
 		$this->setState('date.month', $month);
 
 		$this->setState('filter.state',	1);
+
+		$this->setState('filter.language', $app->getLanguageFilter());
 
 		$limit	= (int)$params->get('limit', '');
 		if ($limit){

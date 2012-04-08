@@ -29,6 +29,16 @@ class JHtmlIcon
 		}
 
 		JHtml::_('behavior.tooltip');
+
+		// Show checked_out icon if the item is checked out by a different user
+		if (property_exists($item, 'checked_out') && property_exists($item, 'checked_out_time') && $item->checked_out > 0 && $item->checked_out != $user->get('id')) {
+			$checkoutUser = JFactory::getUser($item->checked_out);
+			$button = JHtml::_('image', 'system/checked_out.png', NULL, NULL, true);
+			$date = JHtml::_('date', $item->checked_out_time);
+			$tooltip = JText::_('JLIB_HTML_CHECKED_OUT').' :: '.JText::sprintf('COM_SERMONSPEAKER_CHECKED_OUT_BY', $checkoutUser->name).' <br /> '.$date;
+			return '<span class="hasTip" title="'.htmlspecialchars($tooltip, ENT_COMPAT, 'UTF-8').'">'.$button.'</span>';
+		}
+
 		switch ($attribs['type']){
 			default:
 			case 'sermon':
@@ -41,7 +51,7 @@ class JHtmlIcon
 				$view	= 'speakerform';
 				break;
 		}
-			
+
 		$url	= 'index.php?option=com_sermonspeaker&task='.$view.'.edit&s_id='.$item->id.'&return='.base64_encode($uri);
 		$icon	= $item->state ? 'edit.png' : 'edit_unpublished.png';
 		$text	= JHtml::_('image', 'system/'.$icon, JText::_('JGLOBAL_EDIT'), NULL, true);
