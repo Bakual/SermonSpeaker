@@ -335,6 +335,26 @@
 			<option value="0">JNO</option>
 			<option value="1">JYES</option>
 		</field>
+		<field name="awidth" 
+			type="text" 
+			default="" 
+			label="COM_SERMONSPEAKER_FIELD_AWIDTH_LABEL" 
+			description="COM_SERMONSPEAKER_FIELD_AWIDTH_DESC" />
+		<field name="aheight" 
+			type="text" 
+			default="" 
+			label="COM_SERMONSPEAKER_FIELD_AHEIGHT_LABEL" 
+			description="COM_SERMONSPEAKER_FIELD_AHEIGHT_DESC" />
+		<field name="vwidth" 
+			type="text" 
+			default="" 
+			label="COM_SERMONSPEAKER_FIELD_VWIDTH_LABEL" 
+			description="COM_SERMONSPEAKER_FIELD_VWIDTH_DESC" />
+		<field name="vheight" 
+			type="text" 
+			default="" 
+			label="COM_SERMONSPEAKER_FIELD_VHEIGHT_LABEL" 
+			description="COM_SERMONSPEAKER_FIELD_VHEIGHT_DESC" />
 		<field name="jwskin" 
 			type="text" 
 			default="" 
