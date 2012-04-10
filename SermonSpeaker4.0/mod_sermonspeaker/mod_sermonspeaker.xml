@@ -29,6 +29,7 @@
 					description="MOD_SERMONSPEAKER_PARAM_MODE_DESC">
 					<option value="0">MOD_SERMONSPEAKER_PARAM_MODE_OPTION_SPEAKERS</option>
 					<option value="1">MOD_SERMONSPEAKER_PARAM_MODE_OPTION_SERIES</option>
+					<option value="2">JCATEGORIES</option>
 				</field>
 				<field name="tooltip" type="radio" 
 					default="1" 

@@ -4,10 +4,19 @@ defined('_JEXEC') or die('Restricted access');
 if ($params->get('tooltip')) :
 	JHTML::_('behavior.tooltip');
 endif;
+$level = 1;
 ?>
 <ul class="sermonspeaker<?php echo $moduleclass_sfx; ?>">
 <?php foreach ($list as $item) : 
-	$link = JRoute::_('index.php?option=com_sermonspeaker&view='.$view.'&id='.$item->slug.'&Itemid='.$itemid); ?>
+	if($item->level > $level): ?>
+		<ul>
+	<?php elseif ($item->level < $level):
+		while ($item->level < $level--): ?>
+			</ul>
+		<?php endwhile; ?>
+	<?php endif;
+	$level = $item->level;
+	$link = JRoute::_($baseURL.$item->slug.'&Itemid='.$itemid); ?>
 	<li>
 		<?php if ($params->get('tooltip')) :
 			$options	= array('title' => $item->title, 'href' => $link, 'text' => $item->title);
@@ -26,5 +35,8 @@ endif;
 			</a>
 		<?php endif; ?>
 	</li>
-<?php endforeach; ?>
+<?php endforeach;
+while ($level-- > 1): ?>
+	</ul>
+<?php endwhile; ?>
 </ul>

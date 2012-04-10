@@ -18,6 +18,11 @@ if (!count($list)) {
 $moduleclass_sfx	= htmlspecialchars($params->get('moduleclass_sfx'));
 $itemid				= (int)$params->get('menuitem');
 $mode				= (int)$params->get('mode');
-$view				= $mode ? 'serie' : 'speaker';
+if ($mode = 2){
+	$baseURL	= 'index.php?option=com_sermonspeaker&view=sermons&sermon_cat=';
+} else {
+	$view		= $mode ? 'serie' : 'speaker';
+	$baseURL	= 'index.php?option=com_sermonspeaker&view='.$view.'&id=';
+}
 
 require JModuleHelper::getLayoutPath('mod_sermonspeaker', $params->get('layout', 'default'));
