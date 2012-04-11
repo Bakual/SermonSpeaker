@@ -19,6 +19,9 @@ abstract class modSermonspeakerHelper
 				$categories = $root->getChildren(true);
 				$items = array();
 				foreach ($categories as $category){
+					if($category->published != 1){
+						continue;
+					}
 					$item	= new stdclass;
 					$params = $category->getParams();
 					$item->id		= $category->id;
