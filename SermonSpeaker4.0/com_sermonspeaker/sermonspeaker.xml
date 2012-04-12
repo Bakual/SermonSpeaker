@@ -79,6 +79,7 @@
 		<table>#__sermon_sermons</table>
 		<table>#__sermon_speakers</table>
 		<table>#__sermon_series</table>
+		<table>#__sermon_scriptures</table>
 	</tables>
 	<updateservers>
 		<server type="extension" priority="1" name="SermonSpeaker.net">http://www.sermonspeaker.net/update/com_sermonspeaker.xml</server>
