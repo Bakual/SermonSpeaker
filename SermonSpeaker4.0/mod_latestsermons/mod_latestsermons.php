@@ -23,4 +23,4 @@ if ($tooltip) {
 	JHTML::_('behavior.tooltip');
 }
 
-require JModuleHelper::getLayoutPath('mod_latestsermons', $params->get('layout', 'default'));
+require JModuleHelper::getLayoutPath('mod_latestsermons', $params->get('layout', '_:default'));
