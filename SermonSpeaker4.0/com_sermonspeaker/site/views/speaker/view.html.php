@@ -7,11 +7,6 @@ jimport( 'joomla.application.component.view');
  */
 class SermonspeakerViewspeaker extends JView
 {
-	public function __construct($config = array()){
-
-		parent::__construct($config);
-	}
-
 	function display($tpl = null)
 	{
 		$app		= JFactory::getApplication();
@@ -67,6 +62,12 @@ class SermonspeakerViewspeaker extends JView
 		$this->years			= $sermon_model->getYears();
 		$this->months			= $sermon_model->getMonths();
 		$books					= $sermon_model->getBooks();
+		// Get Category stuff from models
+		$this->category			= $sermon_model->getCategory();
+//		$children				= $sermon_model->getChildren();
+		$this->parent			= $sermon_model->getParent();
+//		$this->children			= array($this->category->id => $children);
+// We don't use childrens here because counting isn't accurate without added series filter.
 
 		// Get series data from the series model
 		$series_model			= $this->getModel('Series');
@@ -76,14 +77,13 @@ class SermonspeakerViewspeaker extends JView
 		$this->state_series		= $series_model->getState();
 
 		// check if there are avatars at all, only showing column if needed
-		$av = 0;
+		$this->av = 0;
 		foreach ($this->series as $serie){
 			if (!empty($serie->avatar)){ // breaking out of foreach if first avatar is found
-				$av = 1;
+				$this->av = 1;
 				break;
 			}
 		}
-		$this->assignRef('av', $av);
 
 		// Update Statistic
 		if ($this->params->get('track_speaker')) {
@@ -98,6 +98,29 @@ class SermonspeakerViewspeaker extends JView
 		if (count($errors = $this->get('Errors'))) {
 			JError::raiseError(500, implode("\n", $errors));
 			return false;
+		}
+
+		if ($this->category == false) {
+			return JError::raiseError(404, JText::_('JGLOBAL_CATEGORY_NOT_FOUND'));
+		}
+
+		if ($this->parent == false && $this->category->id != 'root') {
+			return JError::raiseError(404, JText::_('JGLOBAL_CATEGORY_NOT_FOUND'));
+		}
+
+		if ($this->category->id == 'root'){
+			$this->params->set('show_category_title', 0);
+			$this->cat = '';
+		} else {
+			// Get the category title for backward compatibility
+			$this->cat = $this->category->title;
+		}
+
+		// Check whether category access level allows access.
+		$user	= JFactory::getUser();
+		$groups	= $user->getAuthorisedViewLevels();
+		if (!in_array($this->category->access, $groups)) {
+			return JError::raiseError(403, JText::_('JERROR_ALERTNOAUTHOR'));
 		}
 
 		// Build Books
@@ -141,6 +164,9 @@ class SermonspeakerViewspeaker extends JView
 		} elseif($ap == 1){
 			$this->books[]	= JHtml::_('select.optgroup', JText::_('COM_SERMONSPEAKER_APOCRYPHA'));
 		}
+
+		$this->pageclass_sfx	= htmlspecialchars($this->params->get('pageclass_sfx'));
+		$this->maxLevel			= $this->params->get('maxLevel', -1);
 
 		$this->_prepareDocument();
 

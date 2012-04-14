@@ -7,14 +7,9 @@ jimport( 'joomla.application.component.view');
  */
 class SermonspeakerViewSerie extends JView
 {
-	public function __construct($config = array()){
-
-		parent::__construct($config);
-	}
-
 	function display($tpl = null)
 	{
-		$app		= JFactory::getApplication();
+		$app	= JFactory::getApplication();
 		if (!JRequest::getInt('id', 0)){
 			$app->redirect(JRoute::_('index.php?view=series'), JText::_('JGLOBAL_RESOURCE_NOT_FOUND'), 'error');
 		}
@@ -50,10 +45,15 @@ class SermonspeakerViewSerie extends JView
 		$this->state		= $sermon_model->getState();
 		$this->items		= $sermon_model->getItems();
 		$this->pagination	= $sermon_model->getPagination();
-		$this->cat			= $sermon_model->getCat();
 		$this->years		= $sermon_model->getYears();
 		$this->months		= $sermon_model->getMonths();
 		$books				= $sermon_model->getBooks();
+		// Get Category stuff from models
+		$this->category		= $sermon_model->getCategory();
+//		$children			= $sermon_model->getChildren();
+		$this->parent		= $sermon_model->getParent();
+//		$this->children		= array($this->category->id => $children);
+// We don't use childrens here because counting isn't accurate without added series filter.
 
 		$this->columns	= $this->params->get('col');
 		if (!$this->columns){
@@ -76,6 +76,29 @@ class SermonspeakerViewSerie extends JView
 		if (count($errors = $this->get('Errors'))) {
 			JError::raiseError(500, implode("\n", $errors));
 			return false;
+		}
+
+		if ($this->category == false) {
+			return JError::raiseError(404, JText::_('JGLOBAL_CATEGORY_NOT_FOUND'));
+		}
+
+		if ($this->parent == false && $this->category->id != 'root') {
+			return JError::raiseError(404, JText::_('JGLOBAL_CATEGORY_NOT_FOUND'));
+		}
+
+		if ($this->category->id == 'root'){
+			$this->params->set('show_category_title', 0);
+			$this->cat = '';
+		} else {
+			// Get the category title for backward compatibility
+			$this->cat = $this->category->title;
+		}
+
+		// Check whether category access level allows access.
+		$user	= JFactory::getUser();
+		$groups	= $user->getAuthorisedViewLevels();
+		if (!in_array($this->category->access, $groups)) {
+			return JError::raiseError(403, JText::_('JERROR_ALERTNOAUTHOR'));
 		}
 
 		// Set layout from parameters if not already set elsewhere
@@ -124,6 +147,9 @@ class SermonspeakerViewSerie extends JView
 		} elseif($ap == 1){
 			$this->books[]	= JHtml::_('select.optgroup', JText::_('COM_SERMONSPEAKER_APOCRYPHA'));
 		}
+
+		$this->pageclass_sfx	= htmlspecialchars($this->params->get('pageclass_sfx'));
+		$this->maxLevel			= $this->params->get('maxLevel', -1);
 
 		$this->_prepareDocument();
 

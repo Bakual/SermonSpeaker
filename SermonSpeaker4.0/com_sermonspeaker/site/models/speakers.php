@@ -15,6 +15,11 @@ jimport('joomla.application.component.modellist');
 // Based on com_contact
 class SermonspeakerModelspeakers extends JModelList
 {
+	protected $_item = null;
+	protected $_siblings = null;
+	protected $_children = null;
+	protected $_parent = null;
+
 	public function __construct($config = array())
 	{
 		if (empty($config['filter_fields'])) {
@@ -55,10 +60,12 @@ class SermonspeakerModelspeakers extends JModelList
 
 		// Join over Speakers Category.
 		$query->join('LEFT', '#__categories AS c_speaker ON c_speaker.id = speakers.catid');
-		if ($categoryId = $this->getState('speakers_category.id')) {
+		$query->where('(speakers.catid = 0 OR (c_speaker.access IN ('.$groups.') AND c_speaker.published = 1))');
+
+		// Filter by category
+		if ($categoryId = $this->getState('category.id')) {
 			$query->where('speakers.catid = '.(int) $categoryId);
 		}
-		$query->where('(speakers.catid = 0 OR (c_speaker.access IN ('.$groups.') AND c_speaker.published = 1))');
 
 		// Subquerie to get counts of sermons and series
 		$query->select('(SELECT COUNT(DISTINCT sermons.id) FROM #__sermon_sermons AS sermons WHERE sermons.speaker_id = speakers.id AND sermons.id > 0) AS sermons');
@@ -101,9 +108,10 @@ class SermonspeakerModelspeakers extends JModelList
 		$params	= $app->getParams();
 		$this->setState('params', $params);
 
-		$id = (int)$params->get('speaker_cat', 0);
-		if (!$id){ $id = JRequest::getInt('speaker_cat', 0); }
-		$this->setState('speakers_category.id', $id);
+		// Category filter
+		$id	= (int)$params->get('catid', 0);
+		if (!$id){ $id	= JRequest::getInt('speaker_cat', 0); }
+		$this->setState('category.id', $id);
 
 		$this->setState('filter.language', $app->getLanguageFilter());
 
@@ -113,20 +121,130 @@ class SermonspeakerModelspeakers extends JModelList
 	}
 
 	/**
-	 * Method to get the name of the category.
+	 * Method to get category data for the current category
 	 *
+	 * @param	int		An optional ID
+	 *
+	 * @return	object
+	 * @since	1.5
+	 */
+	public function getCategory()
+	{
+		if (!is_object($this->_item)) {
+			if( isset( $this->state->params ) ) {
+				$params = $this->state->params;
+				$options = array();
+				$options['countItems'] = $params->get('show_cat_num_items', 1) || !$params->get('show_empty_categories_cat', 0);
+			}
+			else {
+				$options['countItems'] = 0;
+			}
+			$options['table'] = '#__sermon_'.$this->state->get('category.type', 'speakers');
+
+			$categories = JCategories::getInstance('Sermonspeaker', $options);
+			$this->_item = $categories->get($this->getState('category.id', 'root'));
+
+			// Compute selected asset permissions.
+			if (is_object($this->_item)) {
+				$user	= JFactory::getUser();
+				$userId	= $user->get('id');
+				$asset	= 'com_sermonspeaker.category.'.$this->_item->id;
+
+				// Check general create permission.
+				if ($user->authorise('core.create', $asset)) {
+					$this->_item->getParams()->set('access-create', true);
+				}
+
+				// TODO: Why aren't we lazy loading the children and siblings?
+				$this->_children = $this->_item->getChildren();
+				$this->_parent = false;
+
+				if ($this->_item->getParent()) {
+					$this->_parent = $this->_item->getParent();
+				}
+
+				$this->_rightsibling = $this->_item->getSibling();
+				$this->_leftsibling = $this->_item->getSibling(false);
+			}
+			else {
+				$this->_children = false;
+				$this->_parent = false;
+			}
+		}
+
+		return $this->_item;
+	}
+
+	/**
+	 * Get the parent categorie.
+	 *
+	 * @param	int		An optional category id. If not supplied, the model state 'category.id' will be used.
+	 *
+	 * @return	mixed	An array of categories or false if an error occurs.
 	 * @since	1.6
 	 */
-	public function getCat()
+	public function getParent()
 	{
-		$categoryId = $this->getState('speakers_category.id');
-		if (!$categoryId) { 
-			return false; 
+		if (!is_object($this->_item)) {
+			$this->getCategory();
 		}
-		$db		= $this->getDbo();
-		$query = "SELECT title FROM #__categories WHERE id = ".$categoryId;
-		$db->setQuery($query);
-		$title = $db->LoadResult();
-		return $title;
+
+		return $this->_parent;
+	}
+
+	/**
+	 * Get the left sibling (adjacent) categories.
+	 *
+	 * @return	mixed	An array of categories or false if an error occurs.
+	 * @since	1.6
+	 */
+	function &getLeftSibling()
+	{
+		if (!is_object($this->_item)) {
+			$this->getCategory();
+		}
+
+		return $this->_leftsibling;
+	}
+
+	/**
+	 * Get the right sibling (adjacent) categories.
+	 *
+	 * @return	mixed	An array of categories or false if an error occurs.
+	 * @since	1.6
+	 */
+	function &getRightSibling()
+	{
+		if (!is_object($this->_item)) {
+			$this->getCategory();
+		}
+
+		return $this->_rightsibling;
+	}
+
+	/**
+	 * Get the child categories.
+	 *
+	 * @param	int		An optional category id. If not supplied, the model state 'category.id' will be used.
+	 *
+	 * @return	mixed	An array of categories or false if an error occurs.
+	 * @since	1.6
+	 */
+	function &getChildren()
+	{
+		if (!is_object($this->_item)) {
+			$this->getCategory();
+		}
+
+		// Order subcategories
+		if (sizeof($this->_children)) {
+			$params = $this->getState()->get('params');
+			if ($params->get('orderby_pri') == 'alpha' || $params->get('orderby_pri') == 'ralpha') {
+				jimport('joomla.utilities.arrayhelper');
+				JArrayHelper::sortObjects($this->_children, 'title', ($params->get('orderby_pri') == 'alpha') ? 1 : -1);
+			}
+		}
+
+		return $this->_children;
 	}
 }

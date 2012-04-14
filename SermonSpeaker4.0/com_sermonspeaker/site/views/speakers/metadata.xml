@@ -11,8 +11,8 @@
 	</view>
 	<fields name="params">
 		<fieldset name="basic">
-			<field name="speaker_cat" type="category" 
-				label="COM_SERMONSPEAKER_PARAM_CATEGORY_SPEAKER_LABEL" 
+			<field name="catid" type="category" 
+				label="JCATEGORY" 
 				description="COM_SERMONSPEAKER_PARAM_CATEGORY_DESC" 
 				extension="com_sermonspeaker" 
 				show_root="true"
@@ -76,6 +76,14 @@
 				useglobal="true"
 				extension="com_sermonspeaker"
 				view="seriessermon"
+			/>
+			<field
+				name="categorieslayout" type="componentlayout"
+				label="COM_SERMONSPEAKER_CATEGORIES_VIEW_TITLE"
+				description="COM_SERMONSPEAKER_FIELD_LAYOUT_DESC"
+				useglobal="true"
+				extension="com_sermonspeaker"
+				view="categories"
 			/>
 		</fieldset>
 	</fields>

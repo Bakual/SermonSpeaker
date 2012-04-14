@@ -15,6 +15,11 @@ jimport('joomla.application.component.modellist');
 // Based on com_contact
 class SermonspeakerModelSermons extends JModelList
 {
+	protected $_item = null;
+	protected $_siblings = null;
+	protected $_children = null;
+	protected $_parent = null;
+
 	public function __construct($config = array())
 	{
 		if (empty($config['filter_fields'])) {
@@ -83,24 +88,20 @@ class SermonspeakerModelSermons extends JModelList
 
 		// Join over Sermons Category.
 		$query->join('LEFT', '#__categories AS c_sermons ON c_sermons.id = sermons.catid');
-		if ($categoryId = $this->getState('sermons_category.id')) {
-			$query->where('sermons.catid = '.(int) $categoryId);
-		}
 		$query->where('(sermons.catid = 0 OR (c_sermons.access IN ('.$groups.') AND c_sermons.published = 1))');
 
 		// Join over Speakers Category.
 		$query->join('LEFT', '#__categories AS c_speaker ON c_speaker.id = speakers.catid');
-		if ($categoryId = $this->getState('speakers_category.id')) {
-			$query->where('speakers.catid = '.(int) $categoryId);
-		}
 		$query->where('(sermons.speaker_id = 0 OR speakers.catid = 0 OR (c_speaker.access IN ('.$groups.') AND c_speaker.published = 1))');
 
 		// Join over Series Category.
 		$query->join('LEFT', '#__categories AS c_series ON c_series.id = series.catid');
-		if ($categoryId = $this->getState('series_category.id')) {
-			$query->where('series.catid = '.(int) $categoryId);
-		}
 		$query->where('(sermons.series_id = 0 OR series.catid = 0 OR (c_series.access IN ('.$groups.') AND c_series.published = 1))');
+
+		// Filter by category
+		if ($categoryId = $this->getState('category.id')) {
+			$query->where($this->getState('category.type', 'sermons').'.catid = '.(int) $categoryId);
+		}
 
 		// Join over users for the author names.
 		$query->select("user.name AS author");
@@ -169,17 +170,23 @@ class SermonspeakerModelSermons extends JModelList
 		$params	= $app->getParams();
 		$this->setState('params', $params);
 
-		$id = (int)$params->get('sermon_cat', 0);
-		if (!$id){ $id = JRequest::getInt('sermon_cat', 0); }
-		$this->setState('sermons_category.id', $id);
-
-		$id = (int)$params->get('speaker_cat', 0);
-		if (!$id){ $id = JRequest::getInt('speaker_cat', 0); }
-		$this->setState('speakers_category.id', $id);
-
-		$id = (int)$params->get('series_cat', 0);
-		if (!$id){ $id = JRequest::getInt('series_cat', 0); }
-		$this->setState('series_category.id', $id);
+		// Category filter
+		$id		= (int)$params->get('catid', 0);
+		$type	= $params->get('count_items_type');
+		if (!$id){
+			$id		= JRequest::getInt('sermon_cat', 0);
+			$type	= $id ? 'sermons' : $type;
+		}
+		if (!$id){
+			$id		= JRequest::getInt('speaker_cat', 0);
+			$type	= $id ? 'speakers' : $type;
+		}
+		if (!$id){
+			$id		= JRequest::getInt('series_cat', 0);
+			$type	= $id ? 'series' : $type;
+		}
+		$this->setState('category.id', $id);
+		$this->setState('category.type', $type);
 
 		// Scripture filter
 		$book	= $app->getUserStateFromRequest($this->context.'.scripture.book', 'book', 0, 'INT');
@@ -233,37 +240,10 @@ class SermonspeakerModelSermons extends JModelList
 		// Add the series and speaker id to the store id.
 		$id .= ':' . $this->getState('speaker.id');
 		$id .= ':' . $this->getState('serie.id');
+		$id .= ':' . $this->getState('category.id');
+		$id .= ':' . $this->getState('category.type');
 
 		return parent::getStoreId($id);
-	}
-
-	/**
-	 * Method to get the name of the category.
-	 *
-	 * @since	1.6
-	 */
-	public function getCat()
-	{
-		$cat_arr = array();
-		if($categoryId = $this->getState('sermons_category.id')){
-			$cat_arr[] = $categoryId;
-		}
-		if($categoryId = $this->getState('series_category.id')){
-			$cat_arr[] = $categoryId;
-		}
-		if($categoryId = $this->getState('speakers_category.id')){
-			$cat_arr[] = $categoryId;
-		}
-		$cat_arr 	= array_unique($cat_arr);
-		$db		= $this->getDbo();
-		$title = array();
-		foreach ($cat_arr as $cat){
-			$query = "SELECT title FROM #__categories WHERE id = ".$cat;
-			$db->setQuery( $query );
-			$title[] = $db->LoadResult();
-		}
-		$title = implode(' &amp; ', $title);
-		return $title;
 	}
 
 	/**
@@ -344,5 +324,133 @@ class SermonspeakerModelSermons extends JModelList
 		$options = $db->loadResultArray();
 
 		return $options;
+	}
+
+	/**
+	 * Method to get category data for the current category
+	 *
+	 * @param	int		An optional ID
+	 *
+	 * @return	object
+	 * @since	1.5
+	 */
+	public function getCategory()
+	{
+		if (!is_object($this->_item)) {
+			if( isset( $this->state->params ) ) {
+				$params = $this->state->params;
+				$options = array();
+				$options['countItems'] = $params->get('show_cat_num_items', 1) || !$params->get('show_empty_categories_cat', 0);
+			}
+			else {
+				$options['countItems'] = 0;
+			}
+			$options['table'] = '#__sermon_'.$this->state->get('category.type', 'sermons');
+
+			$categories = JCategories::getInstance('Sermonspeaker', $options);
+			$this->_item = $categories->get($this->getState('category.id', 'root'));
+
+			// Compute selected asset permissions.
+			if (is_object($this->_item)) {
+				$user	= JFactory::getUser();
+				$userId	= $user->get('id');
+				$asset	= 'com_sermonspeaker.category.'.$this->_item->id;
+
+				// Check general create permission.
+				if ($user->authorise('core.create', $asset)) {
+					$this->_item->getParams()->set('access-create', true);
+				}
+
+				// TODO: Why aren't we lazy loading the children and siblings?
+				$this->_children = $this->_item->getChildren();
+				$this->_parent = false;
+
+				if ($this->_item->getParent()) {
+					$this->_parent = $this->_item->getParent();
+				}
+
+				$this->_rightsibling = $this->_item->getSibling();
+				$this->_leftsibling = $this->_item->getSibling(false);
+			}
+			else {
+				$this->_children = false;
+				$this->_parent = false;
+			}
+		}
+
+		return $this->_item;
+	}
+
+	/**
+	 * Get the parent categorie.
+	 *
+	 * @param	int		An optional category id. If not supplied, the model state 'category.id' will be used.
+	 *
+	 * @return	mixed	An array of categories or false if an error occurs.
+	 * @since	1.6
+	 */
+	public function getParent()
+	{
+		if (!is_object($this->_item)) {
+			$this->getCategory();
+		}
+
+		return $this->_parent;
+	}
+
+	/**
+	 * Get the left sibling (adjacent) categories.
+	 *
+	 * @return	mixed	An array of categories or false if an error occurs.
+	 * @since	1.6
+	 */
+	function &getLeftSibling()
+	{
+		if (!is_object($this->_item)) {
+			$this->getCategory();
+		}
+
+		return $this->_leftsibling;
+	}
+
+	/**
+	 * Get the right sibling (adjacent) categories.
+	 *
+	 * @return	mixed	An array of categories or false if an error occurs.
+	 * @since	1.6
+	 */
+	function &getRightSibling()
+	{
+		if (!is_object($this->_item)) {
+			$this->getCategory();
+		}
+
+		return $this->_rightsibling;
+	}
+
+	/**
+	 * Get the child categories.
+	 *
+	 * @param	int		An optional category id. If not supplied, the model state 'category.id' will be used.
+	 *
+	 * @return	mixed	An array of categories or false if an error occurs.
+	 * @since	1.6
+	 */
+	function &getChildren()
+	{
+		if (!is_object($this->_item)) {
+			$this->getCategory();
+		}
+
+		// Order subcategories
+		if (sizeof($this->_children)) {
+			$params = $this->getState()->get('params');
+			if ($params->get('orderby_pri') == 'alpha' || $params->get('orderby_pri') == 'ralpha') {
+				jimport('joomla.utilities.arrayhelper');
+				JArrayHelper::sortObjects($this->_children, 'title', ($params->get('orderby_pri') == 'alpha') ? 1 : -1);
+			}
+		}
+
+		return $this->_children;
 	}
 }

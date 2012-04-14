@@ -15,12 +15,28 @@ $orderlist	= array(
 				'ordering' => 'JFIELD_ORDERING_LABEL'
 			); 
 ?>
-<div class="ss-sermons-container<?php echo htmlspecialchars($this->params->get('pageclass_sfx')); ?>">
+<div class="category-list<?php echo $this->pageclass_sfx;?> ss-sermons-container<?php echo $this->pageclass_sfx; ?>">
 <?php if ($this->params->get('show_page_heading', 1)) : ?>
 	<h1><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
 <?php endif;
-if ($this->cat): ?>
-	<h2><span class="subheading-category"><?php echo $this->cat; ?></span></h2>
+if ($this->params->get('show_category_title', 1) or $this->params->get('page_subheading')) : ?>
+	<h2>
+		<?php echo $this->escape($this->params->get('page_subheading'));
+		if ($this->params->get('show_category_title')) : ?>
+			<span class="subheading-category"><?php echo $this->category->title;?></span>
+		<?php endif; ?>
+	</h2>
+<?php endif;
+if ($this->params->get('show_description', 1) || $this->params->def('show_description_image', 1)) : ?>
+	<div class="category-desc">
+		<?php if ($this->params->get('show_description_image') && $this->category->getParams()->get('image')) : ?>
+			<img src="<?php echo $this->category->getParams()->get('image'); ?>"/>
+		<?php endif;
+		if ($this->params->get('show_description') && $this->category->description) :
+			echo JHtml::_('content.prepare', $this->category->description);
+		endif; ?>
+		<div class="clr"></div>
+	</div>
 <?php endif;
 if (in_array('sermons:player', $this->columns) && count($this->items)) : ?>
 	<div class="ss-sermons-player">
@@ -210,4 +226,12 @@ if (in_array('sermons:player', $this->columns) && count($this->items)) : ?>
 	<?php endif; ?>
 	<input type="hidden" name="task" value="" />
 </form>
+<?php if (!empty($this->children[$this->category->id]) and $this->maxLevel != 0) : ?>
+	<div class="cat-children">
+		<h3>
+			<?php echo JTEXT::_('JGLOBAL_SUBCATEGORIES'); ?>
+		</h3>
+		<?php echo $this->loadTemplate('children'); ?>
+	</div>
+<?php endif; ?>
 </div>

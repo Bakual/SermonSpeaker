@@ -8,10 +8,8 @@ class SermonspeakerViewMain extends JView
 	function display( $tpl = null )
 	{
 		$params	= JComponentHelper::getParams('com_sermonspeaker');
-		if ($params->get('sermonslayout') == ''){
+		if ($params->get('count_items_type') == ''){
 			JError::raiseWarning(100, JText::_('COM_SERMONSPEAKER_NOTSAVED'));
-			$app = JFactory::getApplication();
-			$app->enqueueMessage(JText::_('COM_SERMONSPEAKER_RELOAD'));
 		}
 
 		$this->addToolbar();

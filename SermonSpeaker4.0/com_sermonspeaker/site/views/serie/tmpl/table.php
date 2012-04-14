@@ -10,7 +10,7 @@ $listOrder	= $this->state->get('list.ordering');
 $listDirn	= $this->state->get('list.direction');
 $player = new SermonspeakerHelperPlayer($this->items);
 ?>
-<div class="ss-serie-container<?php echo htmlspecialchars($this->params->get('pageclass_sfx')); ?>">
+<div class="category-list<?php echo $this->pageclass_sfx;?> ss-serie-container<?php echo $this->pageclass_sfx; ?>">
 <?php if ($this->params->get('show_page_heading', 1)) : ?>
 	<h1><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
 <?php endif; ?>
@@ -22,12 +22,12 @@ $player = new SermonspeakerHelperPlayer($this->items);
 		</li>
 	</ul>
 <?php endif;
-if ($this->cat || in_array('serie:hits', $this->col_serie)): ?>
+if ($this->params->get('show_category_title', 0) || in_array('serie:hits', $this->col_serie)): ?>
 	<dl class="article-info serie-info">
 	<dt class="article-info-term"><?php  echo JText::_('JDETAILS'); ?></dt>
-	<?php if ($this->cat): ?>
+	<?php if ($this->params->get('show_category_title', 0)): ?>
 		<dd class="category-name">
-			<?php echo JText::_('JCATEGORY').': '.$this->cat; ?>
+			<?php echo JText::_('JCATEGORY').': '.$this->category->title; ?>
 		</dd>
 	<?php endif;
 	if (in_array('serie:hits', $this->col_serie)): ?>

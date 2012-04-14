@@ -22,13 +22,16 @@ abstract class SermonspeakerHelperRoute
 {
 	protected static $lookup;
 
-	public static function getSermonsRoute()
+	public static function getSermonsRoute($catid = 0)
 	{
 		$needles = array(
 			'sermons' => array(0)
 		);
 		//Create the link
 		$link = 'index.php?option=com_sermonspeaker&view=sermons';
+		if ($catid){
+			$link .= '&sermon_cat='.$catid;
+		}
 
 		if ($item = SermonspeakerHelperRoute::_findItem($needles)) {
 			$link .= '&Itemid='.$item;
@@ -56,13 +59,16 @@ abstract class SermonspeakerHelperRoute
 		return $link;
 	}
 
-	public static function getSeriesRoute()
+	public static function getSeriesRoute($catid = 0)
 	{
 		$needles = array(
 			'series' => array(0)
 		);
 		//Create the link
 		$link = 'index.php?option=com_sermonspeaker&view=series';
+		if ($catid){
+			$link .= '&series_cat='.$catid;
+		}
 
 		if ($item = SermonspeakerHelperRoute::_findItem($needles)) {
 			$link .= '&Itemid='.$item;
@@ -99,13 +105,16 @@ abstract class SermonspeakerHelperRoute
 		return $link;
 	}
 
-	public static function getSpeakersRoute()
+	public static function getSpeakersRoute($catid = 0)
 	{
 		$needles = array(
 			'speakers' => array(0)
 		);
 		//Create the link
 		$link = 'index.php?option=com_sermonspeaker&view=speakers';
+		if ($catid){
+			$link .= '&speaker_cat='.$catid;
+		}
 
 		if ($item = SermonspeakerHelperRoute::_findItem($needles)) {
 			$link .= '&Itemid='.$item;

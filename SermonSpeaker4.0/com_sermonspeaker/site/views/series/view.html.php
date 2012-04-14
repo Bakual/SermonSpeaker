@@ -8,34 +8,29 @@ jimport( 'joomla.application.component.view');
  */
 class SermonspeakerViewSeries extends JView
 {
-	public function __construct($config = array()){
-
-		parent::__construct($config);
-	}
-
 	function display($tpl = null)
 	{
 		// Applying CSS file
 		JHTML::stylesheet('sermonspeaker.css', 'media/com_sermonspeaker/css/');
 
 		$app		= JFactory::getApplication();
-		$params		= $app->getParams();
-
-		$col_serie = $params->get('col_serie');
-		if (!$col_serie){
-			$col_serie = array();
-		}
+		$this->params	= $app->getParams();
 
 		// Get some data from the models
-		$state		= $this->get('State');
-		$items		= $this->get('Items');
-		$pagination	= $this->get('Pagination');
+		$this->state		= $this->get('State');
+		$this->items		= $this->get('Items');
+		$this->pagination	= $this->get('Pagination');
+		// Get Category stuff from models
+		$this->category		= $this->get('Category');
+		$children			= $this->get('Children');
+		$this->parent		= $this->get('Parent');
+		$this->children		= array($this->category->id => $children);
 
-		// Get the category name(s)
-		if($state->get('series_category.id')){
-			$cat	= $this->get('Cat');
-		} else {
-			$cat 	= '';
+		$this->params = $this->state->get('params');
+
+		$this->col_serie	= $this->params->get('col_serie');
+		if (!$this->col_serie){
+			$this->col_serie = array();
 		}
 
 		// Check for errors.
@@ -45,13 +40,13 @@ class SermonspeakerViewSeries extends JView
 		}
 
 		// getting the Speakers for each Series and check if there are avatars at all, only showing column if needed
-		$av = NULL;
+		$this->av = NULL;
 		$model = $this->getModel();
-		foreach ($items as $item){
-			if (!$av && !empty($item->avatar)){
-				$av = 1;
+		foreach ($this->items as $item){
+			if (!$this->av && !empty($item->avatar)){
+				$this->av = 1;
 			}
-			if (in_array('series:speaker', $col_serie)){
+			if (in_array('series:speaker', $this->col_serie)){
 				$speakers	= $model->getSpeakers($item->id);
 				$popup = array();
 				foreach($speakers as $speaker){
@@ -65,19 +60,36 @@ class SermonspeakerViewSeries extends JView
 			}
 		}
 
-		// Set layout from parameters if not already set elsewhere
-		if ($this->getLayout() == 'default') {
-			$this->setLayout($params->get('serieslayout', 'normal'));
+		if ($this->category == false) {
+			return JError::raiseError(404, JText::_('JGLOBAL_CATEGORY_NOT_FOUND'));
 		}
 
-		// push data into the template
-		$this->assignRef('state',		$state);
-		$this->assignRef('items',		$items);
-		$this->assignRef('params',		$params);
-		$this->assignRef('pagination',	$pagination);
-		$this->assignRef('av',			$av);			// for Avatars
-		$this->assignRef('cat',			$cat);			// for Category title
-		$this->assignRef('col_serie', 	$col_serie);
+		if ($this->parent == false && $this->category->id != 'root') {
+				return JError::raiseError(404, JText::_('JGLOBAL_CATEGORY_NOT_FOUND'));
+		}
+
+		if ($this->category->id == 'root'){
+			$this->params->set('show_category_title', 0);
+			$this->cat = '';
+		} else {
+			// Get the category title for backward compatibility
+			$this->cat = $this->category->title;
+		}
+
+		// Check whether category access level allows access.
+		$user	= JFactory::getUser();
+		$groups	= $user->getAuthorisedViewLevels();
+		if (!in_array($this->category->access, $groups)) {
+			return JError::raiseError(403, JText::_('JERROR_ALERTNOAUTHOR'));
+		}
+
+		// Set layout from parameters if not already set elsewhere
+		if ($this->getLayout() == 'default') {
+			$this->setLayout($this->params->get('serieslayout', 'normal'));
+		}
+
+		$this->pageclass_sfx	= htmlspecialchars($this->params->get('pageclass_sfx'));
+		$this->maxLevel			= $this->params->get('maxLevel', -1);
 
 		$this->_prepareDocument();
 

@@ -8,11 +8,6 @@ jimport( 'joomla.application.component.view');
  */
 class SermonspeakerViewSermons extends JView
 {
-	public function __construct($config = array()){
-
-		parent::__construct($config);
-	}
-
 	function display($tpl = null)
 	{
 		// Applying CSS file
@@ -26,16 +21,18 @@ class SermonspeakerViewSermons extends JView
 		$this->years		= $this->get('Years');
 		$this->months		= $this->get('Months');
 		$books				= $this->get('Books');
-
-		// Create shortcut for state
-		$state	= $this->state;
+		// Get Category stuff from models
+		$this->category		= $this->get('Category');
+		$children			= $this->get('Children');
+		$this->parent		= $this->get('Parent');
+		$this->children		= array($this->category->id => $children);
 
 		// Add filter to pagination, needed in case of URL params from module(?)
 		$this->pagination->setAdditionalUrlParam('view', 'sermons');
-		$this->pagination->setAdditionalUrlParam('year', $state->get('date.year'));
-		$this->pagination->setAdditionalUrlParam('month', $state->get('date.month'));
+		$this->pagination->setAdditionalUrlParam('year', $this->state->get('date.year'));
+		$this->pagination->setAdditionalUrlParam('month', $this->state->get('date.month'));
 
-		$this->params = $state->get('params');
+		$this->params = $this->state->get('params');
 		if ((int)$this->params->get('limit', '')){
 			$this->params->set('filter_field', 0);
 			$this->params->set('show_pagination_limit', 0);
@@ -47,17 +44,33 @@ class SermonspeakerViewSermons extends JView
 			$this->columns = array();
 		}
 
-		// Get the category name(s)
-		if($state->get('sermons_category.id') || $state->get('speakers_category.id') || $state->get('series_category.id')){
-			$this->cat = $this->get('Cat');
-		} else {
-			$this->cat = '';
-		}
-
 		// Check for errors.
 		if (count($errors = $this->get('Errors'))) {
 			JError::raiseError(500, implode("\n", $errors));
 			return false;
+		}
+
+		if ($this->category == false) {
+			return JError::raiseError(404, JText::_('JGLOBAL_CATEGORY_NOT_FOUND'));
+		}
+
+		if ($this->parent == false && $this->category->id != 'root') {
+			return JError::raiseError(404, JText::_('JGLOBAL_CATEGORY_NOT_FOUND'));
+		}
+
+		if ($this->category->id == 'root'){
+			$this->params->set('show_category_title', 0);
+			$this->cat = '';
+		} else {
+			// Get the category title for backward compatibility
+			$this->cat = $this->category->title;
+		}
+
+		// Check whether category access level allows access.
+		$user	= JFactory::getUser();
+		$groups	= $user->getAuthorisedViewLevels();
+		if (!in_array($this->category->access, $groups)) {
+			return JError::raiseError(403, JText::_('JERROR_ALERTNOAUTHOR'));
 		}
 
 		// Set layout from parameters if not already set elsewhere
@@ -106,6 +119,9 @@ class SermonspeakerViewSermons extends JView
 		} elseif($ap == 1){
 			$this->books[]	= JHtml::_('select.optgroup', JText::_('COM_SERMONSPEAKER_APOCRYPHA'));
 		}
+
+		$this->pageclass_sfx	= htmlspecialchars($this->params->get('pageclass_sfx'));
+		$this->maxLevel			= $this->params->get('maxLevel', -1);
 
 		$this->_prepareDocument();
 

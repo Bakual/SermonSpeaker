@@ -23,18 +23,20 @@
 	</fields>
 	<fields name="params">
 		<fieldset name="basic">
-			<field name="speaker_cat" type="category" 
-				label="COM_SERMONSPEAKER_PARAM_CATEGORY_SPEAKER_LABEL" 
+			<field name="catid" type="category" 
+				label="JCATEGORY" 
 				description="COM_SERMONSPEAKER_PARAM_CATEGORY_DESC" 
 				extension="com_sermonspeaker" 
 				show_root="true"
 			/>
-			<field name="sermon_cat" type="category" 
-				label="COM_SERMONSPEAKER_PARAM_CATEGORY_SERMON_LABEL" 
-				description="COM_SERMONSPEAKER_PARAM_CATEGORY_DESC" 
-				extension="com_sermonspeaker" 
-				show_root="true"
-			/>
+			<field name="count_items_type" type="list"
+				label="COM_SERMONSPEAKER_CATEGORY_ITEMS_TYPE_LABEL"
+				description="COM_SERMONSPEAKER_CATEGORY_ITEMS_TYPE_DESC"
+			>
+				<option value="">JGLOBAL_USE_GLOBAL</option>
+				<option value="sermons">COM_SERMONSPEAKER_SERMONS</option>
+				<option value="speakers">COM_SERMONSPEAKER_SPEAKERS</option>
+			</field>
 		</fieldset>
 		<fieldset name="layout" 
 			label="COM_SERMONSPEAKER_FIELDSET_LAYOUTS_LABEL" 
@@ -94,6 +96,14 @@
 				useglobal="true"
 				extension="com_sermonspeaker"
 				view="seriessermon"
+			/>
+			<field
+				name="categorieslayout" type="componentlayout"
+				label="COM_SERMONSPEAKER_CATEGORIES_VIEW_TITLE"
+				description="COM_SERMONSPEAKER_FIELD_LAYOUT_DESC"
+				useglobal="true"
+				extension="com_sermonspeaker"
+				view="categories"
 			/>
 		</fieldset>
 	</fields>

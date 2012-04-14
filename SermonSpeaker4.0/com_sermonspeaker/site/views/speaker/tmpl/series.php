@@ -9,7 +9,7 @@ $canEditOwn	= $user->authorise('core.edit.own', 'com_sermonspeaker');
 $listOrder	= $this->state_series->get('list.ordering');
 $listDirn	= $this->state_series->get('list.direction');
 ?>
-<div class="ss-speaker-container<?php echo htmlspecialchars($this->params->get('pageclass_sfx')); ?>" >
+<div class="category-list<?php echo $this->pageclass_sfx;?> ss-speaker-container<?php echo $this->pageclass_sfx; ?>">
 <?php if ($this->params->get('show_page_heading', 1)) : ?>
 	<h1><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
 <?php endif; ?>
@@ -21,10 +21,15 @@ $listDirn	= $this->state_series->get('list.direction');
 		</li>
 	</ul>
 <?php endif;
-if (in_array('speaker:hits', $this->columns)): ?>
+if ($this->params->get('show_category_title', 0) || in_array('speaker:hits', $this->columns)): ?>
 	<dl class="article-info speaker-info">
 	<dt class="article-info-term"><?php  echo JText::_('JDETAILS'); ?></dt>
-	<?php if (in_array('serie:hits', $this->columns)): ?>
+	<?php if ($this->params->get('show_category_title', 0)): ?>
+		<dd class="category-name">
+			<?php echo JText::_('JCATEGORY').': '.$this->category->title; ?>
+		</dd>
+	<?php endif;
+	if (in_array('speaker:hits', $this->columns)): ?>
 		<dd class="hits">
 			<?php echo JText::_('JGLOBAL_HITS').': '.$this->item->hits; ?>
 		</dd>

@@ -17,9 +17,10 @@ class SermonspeakerViewCategories extends JView
 	function display($tpl = null)
 	{
 		// Initialise variables
-		$state		= $this->get('State');
-		$items		= $this->get('Items');
-		$parent		= $this->get('Parent');
+		$this->state	= $this->get('State');
+		$items			= $this->get('Items');
+		$this->parent	= $this->get('Parent');
+		$this->items	= array($this->parent->id => $items);
 
 		// Check for errors.
 		if (count($errors = $this->get('Errors'))) {
@@ -27,29 +28,22 @@ class SermonspeakerViewCategories extends JView
 			return false;
 		}
 
-		if ($items === false)
-		{
-			JError::raiseError(404, JText::_('COM_SERMONSPEAKER_ERROR_CATEGORY_NOT_FOUND'));
+		if (($this->items === false) || ($this->parent == false)){
+			JError::raiseError(404, JText::_('JGLOBAL_CATEGORY_NOT_FOUND'));
 			return false;
 		}
 
-		if ($parent == false)
-		{
-			JError::raiseError(404, JText::_('COM_SERMONSPEAKER_ERROR_PARENT_CATEGORY_NOT_FOUND'));
-			return false;
+		$this->params	= &$this->state->params;
+
+		// Set layout from parameters if not already set elsewhere
+		if ($this->getLayout() == 'default') {
+			$this->setLayout($this->params->get('categorieslayout', 'normal'));
 		}
-
-		$params = &$state->params;
-
-		$items = array($parent->id => $items);
 
 		//Escape strings for HTML output
-		$this->pageclass_sfx = htmlspecialchars($params->get('pageclass_sfx'));
+		$this->pageclass_sfx	= htmlspecialchars($this->params->get('pageclass_sfx'));
 
-		$this->assign('maxLevelcat',	$params->get('maxLevelcat', -1));
-		$this->assignRef('params',		$params);
-		$this->assignRef('parent',		$parent);
-		$this->assignRef('items',		$items);
+		$this->maxLevelcat		= $this->params->get('maxLevelcat', -1);
 
 		$this->_prepareDocument();
 
@@ -68,8 +62,7 @@ class SermonspeakerViewCategories extends JView
 		// Because the application sets a default page title,
 		// we need to get it from the menu item itself
 		$menu = $menus->getActive();
-		if ($menu)
-		{
+		if ($menu) {
 			$this->params->def('page_heading', $this->params->get('page_title', $menu->title));
 		} else {
 			$this->params->def('page_heading', JText::_('JCATEGORY'));
@@ -86,18 +79,15 @@ class SermonspeakerViewCategories extends JView
 		}
 		$this->document->setTitle($title);
 
-		if ($this->params->get('menu-meta_description'))
-		{
+		if ($this->params->get('menu-meta_description')){
 			$this->document->setDescription($this->params->get('menu-meta_description'));
 		}
 
-		if ($this->params->get('menu-meta_keywords'))
-		{
+		if ($this->params->get('menu-meta_keywords')){
 			$this->document->setMetadata('keywords', $this->params->get('menu-meta_keywords'));
 		}
 
-		if ($this->params->get('robots'))
-		{
+		if ($this->params->get('robots')){
 			$this->document->setMetadata('robots', $this->params->get('robots'));
 		}
 	}
