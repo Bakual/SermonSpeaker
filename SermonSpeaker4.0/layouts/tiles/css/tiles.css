@@ -1,14 +1,16 @@
 .categories-list div.first{
 	clear:left;
 }
-.categories-list div.tile {
+.categories-list div.tile,
+.category-list div.tile {
 	float: left;
 	text-align: center;
 	margin-right: 16px;
 	margin-bottom: 16px;
 	margin-top: 16px;
 }
-.categories-list div.tile a{
+.categories-list div.tile a,
+.category-list div.tile a{
 	background-color: #fff;
 	display: block;
 	float: left;
@@ -20,22 +22,31 @@
 }
 .categories-list div.tile a:hover,
 .categories-list div.tile a:focus,
-.categories-list div.tile a:active {
+.categories-list div.tile a:active, 
+.category-list div.tile a:hover,
+.category-list div.tile a:focus,
+.category-list div.tile a:active {
 	background-position: 0;
 	border-bottom-left-radius: 50% 20px;
 	box-shadow: -5px 10px 15px rgba(0, 0, 0, 0.25);
 	position: relative;
 	z-index: 10;
 }
-.categories-list img {
+.categories-list img,
+.category-list img {
 	max-width: 128px;
 	max-height: 128px;
 	padding: 10px 0;
 	margin: 0 auto;
 }
-.categories-list span {
+.categories-list span.item-title,
+.category-list span.item-title {
 	display: block;
 	text-align: center;
+}
+.category-list div.tile a{
+	height: 200px;
+	width: 160px;
 }
 .categories-list div.level1>a{
 	height: 180px;
