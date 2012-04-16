@@ -17,6 +17,9 @@
 			<filename>views/categories/tmpl/tiles.php</filename>
 			<filename>views/categories/tmpl/tiles.xml</filename>
 			<filename>views/categories/tmpl/tiles_items.php</filename>
+			<filename>views/sermons/tmpl/tiles.php</filename>
+			<filename>views/sermons/tmpl/tiles.xml</filename>
+			<filename>views/sermons/tmpl/tiles_children.xml</filename>
 		</files>
 		<files target="media/com_sermonspeaker">
 			<filename>css/tiles.css</filename>
