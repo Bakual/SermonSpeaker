@@ -23,6 +23,15 @@
 			<filename>views/series/tmpl/tiles.php</filename>
 			<filename>views/series/tmpl/tiles.xml</filename>
 			<filename>views/series/tmpl/tiles_children.php</filename>
+			<filename>views/serie/tmpl/tiles.php</filename>
+			<filename>views/serie/tmpl/tiles.xml</filename>
+			<filename>views/speakers/tmpl/tiles.php</filename>
+			<filename>views/speakers/tmpl/tiles.xml</filename>
+			<filename>views/speakers/tmpl/tiles_children.php</filename>
+			<filename>views/speaker/tmpl/tiles-sermons.php</filename>
+			<filename>views/speaker/tmpl/tiles-sermons.xml</filename>
+			<filename>views/speaker/tmpl/tiles-series.php</filename>
+			<filename>views/speaker/tmpl/tiles-series.xml</filename>
 		</files>
 		<files target="media/com_sermonspeaker">
 			<filename>css/tiles.css</filename>

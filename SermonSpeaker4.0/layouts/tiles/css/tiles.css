@@ -38,9 +38,9 @@
 	position: relative;
 	z-index: 10;
 }
-.categories-list img,
-.cat-children img,
-.category-list img {
+.categories-list div.tile img,
+.cat-children div.tile img,
+.category-list div.tile img {
 	max-width: 128px;
 	max-height: 128px;
 	padding: 10px 0;

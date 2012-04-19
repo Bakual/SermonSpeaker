@@ -84,15 +84,18 @@ class SermonspeakerViewspeaker extends JView
 			}
 			if (in_array('series:speaker', $this->col_serie)){
 				$speakers	= $series_model->getSpeakers($serie->id);
-				$popup = array();
+				$popup	= array();
+				$names	= array();
 				foreach($speakers as $speaker){
 					if ($speaker->state){
 						$popup[] = SermonspeakerHelperSermonspeaker::SpeakerTooltip($speaker->slug, $speaker->pic, $speaker->name);
 					} else {
 						$popup[] = $speaker->name;
 					}
+					$names[]		= $speaker->name;
 				}
 				$serie->speakers = implode(', ', $popup);
+				$serie->names	= implode(', ', $names);
 			}
 		}
 
