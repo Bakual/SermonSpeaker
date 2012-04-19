@@ -134,7 +134,7 @@ class SermonspeakerModelspeakers extends JModelList
 			if( isset( $this->state->params ) ) {
 				$params = $this->state->params;
 				$options = array();
-				$options['countItems'] = $params->get('show_cat_num_items', 1) || !$params->get('show_empty_categories_cat', 0);
+				$options['countItems'] = $params->get('show_cat_num_items', 1) || !$params->get('show_empty_categories', 0);
 			}
 			else {
 				$options['countItems'] = 0;
