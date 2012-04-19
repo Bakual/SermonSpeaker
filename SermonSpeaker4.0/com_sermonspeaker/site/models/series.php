@@ -71,6 +71,13 @@ class SermonspeakerModelSeries extends JModelList
 		$query->select("user.name AS author");
 		$query->join('LEFT', '#__users AS user ON user.id = series.created_by');
 
+		// Filter by search in title
+		$search = $this->getState('filter.search');
+		if (!empty($search)) {
+			$search = $db->Quote('%'.$db->getEscaped($search, true).'%');
+			$query->where('(series.series_title LIKE '.$search.')');
+		}
+
 		// Filter by state
 		$state = $this->getState('filter.state');
 		if (is_numeric($state)) {
@@ -126,7 +133,10 @@ class SermonspeakerModelSeries extends JModelList
 
 		$this->setState('filter.language', $app->getLanguageFilter());
 
-		// Speakerfilter
+		$search = $app->getUserStateFromRequest($this->context.'.filter.search', 'filter-search', '', 'STRING');
+		$this->setState('filter.search', $search);
+
+			// Speakerfilter
 		if(JRequest::getCmd('view') == 'speaker'){
 			$id = $app->getUserStateFromRequest($this->context.'.filter.speaker', 'id', 0, 'INT');
 			$this->setState('speaker.id', $id);
