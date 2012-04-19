@@ -56,13 +56,13 @@
 	height: 200px;
 	width: 160px;
 }
-.categories-list div.level1>a,
-.cat-children div.level1>a{
+.categories-list div.level1>span>a,
+.cat-children div.level1>span>a{
 	height: 180px;
 	width: 160px;
 }
-.categories-list div.level2>a,
-.cat-children div.level2>a{
+.categories-list div.level2>span>a,
+.cat-children div.level2>span>a{
 	background-color: #eee;
 	height: 90px;
 	width: 72px;
@@ -72,8 +72,8 @@
 	max-width: 64px;
 	max-height: 64px;
 }
-.categories-list div.level3>a,
-.cat-children div.level3>a{
+.categories-list div.level3>span>a,
+.cat-children div.level3>span>a{
 	background-color: #ddd;
 	height: 45px;
 	width: 32px;

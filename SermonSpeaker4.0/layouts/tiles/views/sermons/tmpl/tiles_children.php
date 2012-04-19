@@ -6,18 +6,28 @@ if (count($this->children[$this->category->id]) AND $this->maxLevel != 0) : ?>
 		if ($this->params->get('show_empty_categories_cat') or $child->getNumItems(true) or $child->hasChildren()) :
 			if (!$image = $child->getParams()->get('image')):
 				$image = 'media/com_sermonspeaker/images/category.png';
-			endif;
-			$title = ($this->params->get('show_cat_num_items_cat')) ? $this->escape($child->title).' ('.$child->getNumItems(true).')' : $this->escape($child->title); ?>
+			endif; ?>
 			<div class="tile level<?php echo $child->level; ?> <?php echo $class; ?>">
-			<?php $class = ''; ?>
-				<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonsRoute($child->id));?>" title="<?php echo $title; ?>">
-					<img border="0" align="middle" src="<?php echo $image; ?>"/>
-					<?php if ($child->level == 1): ?>
-						<span class="item-title">
-							<?php echo $title; ?>
-						</span>
-					<?php endif; ?>
-				</a>
+			<?php $class = '';
+				$tip = array();
+				if ($this->params->get('show_cat_num_items_cat')):
+					$tip[]	= JText::_('COM_SERMONSPEAKER_NUM_ITEMS').': '.$child->numitems;
+				endif;
+				if ($this->params->get('show_subcat_desc_cat')):
+					$tip[]	= JHtml::_('content.prepare', $child->description);
+				endif;
+				$tooltip = implode('<br/>', $tip);
+				?>
+				<span class="hasTip" title="<?php echo $this->escape($child->title).'::'.$tooltip; ?>">
+					<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonsRoute($child->id));?>">
+						<img border="0" align="middle" src="<?php echo $image; ?>"/>
+						<?php if ($child->level == 1): ?>
+							<span class="item-title">
+								<?php echo $child->title; ?>
+							</span>
+						<?php endif; ?>
+					</a>
+				</span>
 				<?php if ($child->hasChildren()) :
 					$this->children[$child->id] = $child->getChildren();
 					$this->category = $child;
