@@ -115,6 +115,33 @@ if (in_array('sermons:player', $this->columns) && count($this->items)) : ?>
 		<div class="no_entries"><?php echo JText::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', JText::_('COM_SERMONSPEAKER_SERMONS')); ?></div>
 	<?php else : ?>
 		<?php foreach($this->items as $i => $item) :
+			// Preparing tooltip
+			$tip = array();
+			if(in_array('sermons:num', $this->columns) and $item->sermon_number):
+				$tip[]	= JText::_('COM_SERMONSPEAKER_FIELD_NUM_LABEL').': '.$item->sermon_number; 
+			endif;
+			if(in_array('sermons:date', $this->columns) and ($item->sermon_date != '0000-00-00')):
+				$tip[]	= JText::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL').': '.JHTML::Date($item->sermon_date, JText::_($this->params->get('date_format')), true); 
+			endif;
+			if(in_array('sermons:speaker', $this->columns) and $item->name):
+				$tip[]	= JText::_('COM_SERMONSPEAKER_FIELD_SPEAKER_LABEL').': '.$item->name;
+			endif;
+			if(in_array('sermons:series', $this->columns) and $item->series_title):
+				$tip[]	= JText::_('COM_SERMONSPEAKER_FIELD_SERIES_LABEL').': '.$item->series_title;
+			endif;
+			if(in_array('sermons:scripture', $this->columns) and $item->scripture):
+				$tip[]	= JText::_('COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL').': '.SermonspeakerHelperSermonspeaker::insertScriptures($item->scripture, '; ', false);
+			endif;
+			if(in_array('sermons:length', $this->columns) and $item->sermon_time):
+				$tip[]	= JText::_('COM_SERMONSPEAKER_FIELD_LENGTH_LABEL').': '.SermonspeakerHelperSermonspeaker::insertTime($item->sermon_time);
+			endif;
+			if(in_array('sermons:hits', $this->columns) and $item->hits):
+				$tip[]	= JText::_('JGLOBAL_HITS').': '.$item->hits;
+			endif;
+			if(in_array('sermons:notes', $this->columns) and $item->notes):
+				$tip[]	= JText::_('COM_SERMONSPEAKER_FIELD_NOTES_LABEL').': '.$item->notes;
+			endif;
+			$tooltip	= implode('<br/>', $tip);
 			// Trying with relativ links without makeLink helper function. trim($image, '/') needed for backward compatibility.
 			if ($item->picture): $image = $item->picture;
 			elseif ($item->pic): $image = $item->pic;
@@ -122,12 +149,14 @@ if (in_array('sermons:player', $this->columns) && count($this->items)) : ?>
 			endif; ?>
 			<div id="sermon<?php echo $i; ?>" class="ss-entry tile">
 			<?php $class = ''; ?>
+				<span class="hasTip" title="<?php echo $this->escape($item->sermon_title).'::'.$this->escape($tooltip); ?>">
 				<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->id));?>">
 					<img border="0" align="middle" src="<?php echo trim($image, '/'); ?>">
 					<span class="item-title">
 						<?php echo $item->sermon_title; ?>
 					</span>
 				</a>
+				</span>
 			</div>
 		<?php endforeach; ?>
 		<br class="clear-left" />

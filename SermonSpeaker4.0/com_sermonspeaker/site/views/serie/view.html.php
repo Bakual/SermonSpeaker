@@ -64,6 +64,20 @@ class SermonspeakerViewSerie extends JView
 			$this->col_serie = array();
 		}
 
+		if (in_array('series:speaker', $this->col_serie)){
+			$model		= $this->getModel();
+			$speakers	= $model->getSpeakers($this->item->id);
+			$popup = array();
+			foreach($speakers as $speaker){
+				if ($speaker->state){
+					$popup[] = SermonspeakerHelperSermonspeaker::SpeakerTooltip($speaker->slug, $speaker->pic, $speaker->name);
+				} else {
+					$popup[] = $speaker->name;
+				}
+			}
+			$this->item->speakers = implode(', ', $popup);
+		}
+
 		// Update Statistic
 		if ($this->params->get('track_series')) {
 			if (!$user->authorise('com_sermonspeaker.hit', 'com_sermonspeaker')){

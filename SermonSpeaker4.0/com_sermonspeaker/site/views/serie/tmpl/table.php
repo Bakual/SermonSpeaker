@@ -22,12 +22,17 @@ $player = new SermonspeakerHelperPlayer($this->items);
 		</li>
 	</ul>
 <?php endif;
-if ($this->params->get('show_category_title', 0) || in_array('serie:hits', $this->col_serie)): ?>
+if ($this->params->get('show_category_title', 0) || in_array('serie:hits', $this->col_serie) || in_array('serie:speaker', $this->col_serie)): ?>
 	<dl class="article-info serie-info">
 	<dt class="article-info-term"><?php  echo JText::_('JDETAILS'); ?></dt>
 	<?php if ($this->params->get('show_category_title', 0)): ?>
 		<dd class="category-name">
 			<?php echo JText::_('JCATEGORY').': '.$this->category->title; ?>
+		</dd>
+	<?php endif;
+	if (in_array('serie:speaker', $this->col_serie) && $this->item->speakers) : ?>
+		<dd class="createdby">
+			<?php echo JText::_('COM_SERMONSPEAKER_SPEAKERS').': '.$this->item->speakers; ?>
 		</dd>
 	<?php endif;
 	if (in_array('serie:hits', $this->col_serie)): ?>

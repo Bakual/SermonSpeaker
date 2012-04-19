@@ -174,31 +174,32 @@
 	</fieldset>
 	<fieldset name="clientcol"
 		addfieldpath="/administrator/components/com_sermonspeaker/models/fields"
-		label="COM_SERMONSPEAKER_FIELDSET_CLIENTCOL_LABEL">
+		label="COM_SERMONSPEAKER_FIELDSET_CLIENTCOL_LABEL"
+		description="COM_SERMONSPEAKER_FIELDSET_CLIENTCOL_DESC">
 		<field name="col" type="columns"
 			label="COM_SERMONSPEAKER_SERMON" 
 			description="COM_SERMONSPEAKER_FIELD_COL_DESC"
 			cols="num,scripture,speaker,date,length,series,addfile,notes,player,hits,download" >
-			<option value="sermons" exclude="notes">COM_SERMONSPEAKER_SERMONS_VIEW_TITLE</option>
+			<option value="sermons">COM_SERMONSPEAKER_SERMONS_VIEW_TITLE</option>
 			<option value="sermon">COM_SERMONSPEAKER_SERMON_VIEW_TITLE</option>
-			<option value="serie" exclude="series,notes">COM_SERMONSPEAKER_SERIE_VIEW_TITLE</option>
-			<option value="speaker" exclude="speaker,notes">COM_SERMONSPEAKER_SPEAKER_VIEW_TITLE</option>
-			<option value="seriessermon" exclude="num,scripture,speaker,length,series,hits">COM_SERMONSPEAKER_SERIESSERMON_VIEW_TITLE</option>
+			<option value="serie" exclude="series">COM_SERMONSPEAKER_SERIE_VIEW_TITLE</option>
+			<option value="speaker" exclude="speaker">COM_SERMONSPEAKER_SPEAKER_VIEW_TITLE</option>
+			<option value="seriessermon" exclude="series">COM_SERMONSPEAKER_SERIESSERMON_VIEW_TITLE</option>
 		</field>
 		<field name="col_serie" type="columns"
 			label="COM_SERMONSPEAKER_SERIE" 
 			description="COM_SERMONSPEAKER_FIELD_COL_DESC"
 			cols="description,speaker,hits,download" >
 			<option value="series">COM_SERMONSPEAKER_SERIES_VIEW_TITLE</option>
-			<option value="serie" exclude="speaker">COM_SERMONSPEAKER_SERIE_VIEW_TITLE</option>
-			<option value="speaker" exclude="speaker">COM_SERMONSPEAKER_SPEAKER_VIEW_TITLE</option>
-			<option value="seriessermon" exclude="speaker,hits,download">COM_SERMONSPEAKER_SERIESSERMON_VIEW_TITLE</option>
+			<option value="serie">COM_SERMONSPEAKER_SERIE_VIEW_TITLE</option>
+			<option value="speaker">COM_SERMONSPEAKER_SPEAKER_VIEW_TITLE</option>
+			<option value="seriessermon">COM_SERMONSPEAKER_SERIESSERMON_VIEW_TITLE</option>
 		</field>
 		<field name="col_speaker" type="columns"
 			label="COM_SERMONSPEAKER_SPEAKER" 
 			description="COM_SERMONSPEAKER_FIELD_COL_DESC"
 			cols="intro,bio,hits" >
-			<option value="speakers" exclude="hits">COM_SERMONSPEAKER_SPEAKERS_VIEW_TITLE</option>
+			<option value="speakers">COM_SERMONSPEAKER_SPEAKERS_VIEW_TITLE</option>
 			<option value="speaker">COM_SERMONSPEAKER_SPEAKER_VIEW_TITLE</option>
 		</field>
 	</fieldset>

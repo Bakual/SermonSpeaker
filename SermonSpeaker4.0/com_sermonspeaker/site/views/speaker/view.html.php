@@ -79,9 +79,20 @@ class SermonspeakerViewspeaker extends JView
 		// check if there are avatars at all, only showing column if needed
 		$this->av = 0;
 		foreach ($this->series as $serie){
-			if (!empty($serie->avatar)){ // breaking out of foreach if first avatar is found
+			if (!$this->av && !empty($serie->avatar)){
 				$this->av = 1;
-				break;
+			}
+			if (in_array('series:speaker', $this->col_serie)){
+				$speakers	= $series_model->getSpeakers($serie->id);
+				$popup = array();
+				foreach($speakers as $speaker){
+					if ($speaker->state){
+						$popup[] = SermonspeakerHelperSermonspeaker::SpeakerTooltip($speaker->slug, $speaker->pic, $speaker->name);
+					} else {
+						$popup[] = $speaker->name;
+					}
+				}
+				$serie->speakers = implode(', ', $popup);
 			}
 		}
 

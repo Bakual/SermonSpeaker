@@ -57,7 +57,7 @@ if ($this->params->get('show_description', 1) || $this->params->def('show_descri
 					</th>
 				<?php endif;
 				if (in_array('series:speaker', $this->col_serie)) : ?>
-					<th class="ss-col ss-speakers"><?php echo JText::_('COM_SERMONSPEAKER_SPEAKER'); ?></th>
+					<th class="ss-col ss-speakers"><?php echo JText::_('COM_SERMONSPEAKER_SPEAKERS'); ?></th>
 				<?php endif;
 				if (in_array('series:hits', $this->col_serie)) : ?>
 					<th class="ss-col ss-hits">
