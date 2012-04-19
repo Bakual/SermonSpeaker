@@ -14,14 +14,14 @@ if (count($this->items[$this->parent->id]) AND $this->maxLevelcat != 0) : ?>
 			<?php $class = '';
 				$tip = array();
 				if ($this->params->get('show_cat_num_items_cat')):
-					$tip[]	= JText::_('COM_SERMONSPEAKER_NUM_ITEMS').': '.$item->numitems;
+					$tip[]	= JText::_('COM_SERMONSPEAKER_NUM_ITEMS').' '.$item->numitems;
 				endif;
 				if ($this->params->get('show_subcat_desc_cat')):
 					$tip[]	= JHtml::_('content.prepare', $item->description);
 				endif;
 				$tooltip = implode('<br/>', $tip);
 				?>
-				<span class="hasTip" title="<?php echo $this->escape($item->title).'::'.$tooltip; ?>">
+				<span class="hasTip" title="<?php echo $this->escape($item->title).'::'.$this->escape($tooltip); ?>">
 					<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::$type_function($item->id));?>">
 						<img border="0" align="middle" src="<?php echo $image; ?>"/>
 						<?php if ($item->level == 1): ?>

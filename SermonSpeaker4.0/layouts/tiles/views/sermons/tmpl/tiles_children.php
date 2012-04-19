@@ -11,7 +11,7 @@ if (count($this->children[$this->category->id]) AND $this->maxLevel != 0) : ?>
 			<?php $class = '';
 				$tip = array();
 				if ($this->params->get('show_cat_num_items_cat')):
-					$tip[]	= JText::_('COM_SERMONSPEAKER_NUM_ITEMS').': '.$child->numitems;
+					$tip[]	= JText::_('COM_SERMONSPEAKER_NUM_ITEMS').' '.$child->numitems;
 				endif;
 				if ($this->params->get('show_subcat_desc_cat')):
 					$tip[]	= JHtml::_('content.prepare', $child->description);
