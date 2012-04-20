@@ -84,3 +84,7 @@
 	max-height: 32px;
 	padding: 5px 0;
 }
+/* Fix for some templates */
+.tip-wrap{
+	z-index: 10000;
+}
