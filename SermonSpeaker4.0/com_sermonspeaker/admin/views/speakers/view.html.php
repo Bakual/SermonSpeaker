@@ -71,7 +71,7 @@ class SermonspeakerViewSpeakers extends JView
 		}
 
 		if ($canDo->get('core.admin')) {
-			JToolBarHelper::preferences('com_sermonspeaker', 600, 900);
+			JToolBarHelper::preferences('com_sermonspeaker', 650, 900);
 		}
 	}
 }
