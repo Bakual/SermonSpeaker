@@ -23,7 +23,6 @@ require_once(JPATH_COMPONENT.DS.'helpers'.DS.'sermonspeaker.php');
 // Load languages and merge with fallbacks
 $jlang = JFactory::getLanguage();
 $jlang->load('com_sermonspeaker', JPATH_COMPONENT, 'en-GB', true);
-$jlang->load('com_sermonspeaker', JPATH_COMPONENT, $jlang->getDefault(), true);
 $jlang->load('com_sermonspeaker', JPATH_COMPONENT, null, true);
 
 $controller	= JController::getInstance('Sermonspeaker', array('default_view' => 'sermons'));
