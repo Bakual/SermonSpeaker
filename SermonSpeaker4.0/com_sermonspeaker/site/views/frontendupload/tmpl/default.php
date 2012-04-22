@@ -114,7 +114,7 @@ $self = $uri->toString();
 		<div class="formelm">
 			<?php echo $this->form->getLabel('addfile'); ?>
 			<input type="radio" name="sel3" value="0" onclick="enableElement(this.form.elements['jform_addfile_text'], this.form.elements['jform_addfile']);" checked>
-				<input class="inputbox" type="text" name="jform[addfile]" id="jform_addfile_text" size="47" maxlength="250" value="" /><br />
+				<input class="inputbox" type="text" name="jform[addfile]" id="jform_addfile_text" size="47" maxlength="250" value="<?php echo $this->form->getValue('addfile'); ?>" /><br />
 			<label>&nbsp;</label>
 			<input type="radio" name="sel3" value="1" onclick="enableElement(this.form.elements['jform_addfile'], this.form.elements['jform_addfile_text']);">
 				<?php echo $this->form->getInput('addfile'); ?>
