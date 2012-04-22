@@ -19,7 +19,6 @@ JHTML::stylesheet('administrator/components/com_sermonspeaker/sermonspeaker.css'
 // Load languages and merge with fallbacks
 $jlang = JFactory::getLanguage();
 $jlang->load('com_sermonspeaker', JPATH_COMPONENT, 'en-GB', true);
-$jlang->load('com_sermonspeaker', JPATH_COMPONENT, $jlang->getDefault(), true);
 $jlang->load('com_sermonspeaker', JPATH_COMPONENT, null, true);
 
 $controller	= JController::getInstance('Sermonspeaker');
