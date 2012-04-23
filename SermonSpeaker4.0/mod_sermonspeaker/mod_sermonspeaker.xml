@@ -3,10 +3,10 @@
 	<name>MOD_SERMONSPEAKER</name>
 	<author>Thomas Hunziker</author>
 	<creationDate>January 2011</creationDate>
-	<copyright>(C) 2011</copyright>
+	<copyright>(C) 2012</copyright>
 	<authorEmail>admin@sermonspeaker.net</authorEmail>
 	<authorUrl>http://www.sermonspeaker.net</authorUrl>
-	<version>4.4.0</version>
+	<version>4.4.1</version>
 	<license>http://www.gnu.org/licenses/gpl.html</license>
 	<description>MOD_SERMONSPEAKER_XML_DESCRIPTION</description>
 	<files>
@@ -48,7 +48,7 @@
 					label="JCATEGORY" 
 					description="MOD_SERMONSPEAKER_PARAM_CATEGORY_DESC"
 					extension="com_sermonspeaker" 
-					show_root="true" />			
+					show_root="true" />
 			</fieldset>
 			<fieldset name="advanced">
 				<field name="layout" type="modulelayout"
