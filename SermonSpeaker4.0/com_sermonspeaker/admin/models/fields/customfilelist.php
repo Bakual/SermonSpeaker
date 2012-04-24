@@ -72,7 +72,15 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 			// Add year/month to the directory if enabled.
 			if ($this->params->get('append_path', 0)){
 				// In case of an edit, we check for the sermon_date and choose the year/month of the sermon.
-				$append = ($ts = strtotime($this->form->getValue('sermon_date'))) ? $append	= '/'.date('Y', $ts).'/'.date('m', $ts) : $append = '/'.date('Y').'/'.date('m');
+				$append = ($ts = strtotime($this->form->getValue('sermon_date'))) ? '/'.date('Y', $ts).'/'.date('m', $ts) : '/'.date('Y').'/'.date('m');
+				// check if directory exists, fallback to base directory if not.
+				$dir = is_dir(JPATH_ROOT.'/'.$dir.$append) ? $dir.$append : $dir;
+			}
+			// Add language to the directory if enabled.
+			if ($this->params->get('append_path_lang', 0)){
+				// In case of an edit, we check for the language set, otherwise we use the active language.
+				$jlang = JFactory::getLanguage();
+				$append = ($this->form->getValue('language') != '*') ? '/'.$this->form->getValue('language') : '/'.$jlang->getTag();
 				// check if directory exists, fallback to base directory if not.
 				$dir = is_dir(JPATH_ROOT.'/'.$dir.$append) ? $dir.$append : $dir;
 			}

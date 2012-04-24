@@ -226,6 +226,14 @@
 			<option value="0">JNO</option>
 			<option value="1">JYES</option>
 		</field>
+		<field name="append_path_lang"
+			type="radio" 
+			default="0" 
+			label="COM_SERMONSPEAKER_FIELD_APPEND_PATH_LANG_LABEL" 
+			description="COM_SERMONSPEAKER_FIELD_APPEND_PATH_LANG_DESC">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
+		</field>
 		<field name="spacer1"
 			type="spacer" 
 			hr="true" />
