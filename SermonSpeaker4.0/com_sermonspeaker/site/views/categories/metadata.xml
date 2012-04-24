@@ -92,6 +92,14 @@
 				<option value="speakers">COM_SERMONSPEAKER_SPEAKERS</option>
 			</field>
 		</fieldset>
+		<fieldset name="advanced"
+			addfieldpath="/administrator/components/com_sermonspeaker/models/fields" >
+			<field name="plugin_tag" 
+				type="tag" 
+				label="COM_SERMONSPEAKER_PARAM_PLUGIN_LABEL" 
+				description="COM_SERMONSPEAKER_PARAM_PLUGIN_DESC"
+				useglobal="true" />
+		</fieldset>
 		<fieldset name="layout" 
 			label="COM_SERMONSPEAKER_FIELDSET_LAYOUTS_LABEL" 
 			description="COM_SERMONSPEAKER_FIELDSET_LAYOUTS_DESC" >
