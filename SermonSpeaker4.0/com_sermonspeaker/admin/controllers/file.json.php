@@ -47,9 +47,17 @@ class SermonspeakerControllerFile extends JController
 		$file	= JRequest::getVar('Filedata', '', 'files', 'array');
 		$path	= (JRequest::getBool('addfile', false)) ? $params->get('path_addfile') : $params->get('path');
 		$path	= trim($path, '/');
-		$append	= ($params->get('append_path', 0)) ? DS.date('Y').DS.date('m') : '';
-		$jlang	= JFactory::getLanguage();
-		$append	.= ($params->get('append_path_lang', 0)) ? DS.$jlang->getTag() : '';
+		$date	= JRequest::getString('date');
+		$time	= ($date) ? strtotime($date) : time();
+		$append	= ($params->get('append_path', 0)) ? DS.date('Y', $time).DS.date('m', $time) : '';
+		if($params->get('append_path_lang', 0)){
+			$lang	= JRequest::getCmd('language');
+			if(!$lang || $lang == '*'){
+				$jlang	= JFactory::getLanguage();
+				$lang	= $jlang->getTag();
+			}
+			$append	.= DS.$lang;
+		}
 		$folder	= JPATH_ROOT.DS.$path.$append;
 
 		// Set FTP credentials, if given

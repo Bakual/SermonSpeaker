@@ -79,8 +79,9 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 			// Add language to the directory if enabled.
 			if ($this->params->get('append_path_lang', 0)){
 				// In case of an edit, we check for the language set, otherwise we use the active language.
+				$language = $this->form->getValue('language');
 				$jlang = JFactory::getLanguage();
-				$append = ($this->form->getValue('language') != '*') ? '/'.$this->form->getValue('language') : '/'.$jlang->getTag();
+				$append = ($language && ($language != '*')) ? '/'.$language : '/'.$jlang->getTag();
 				// check if directory exists, fallback to base directory if not.
 				$dir = is_dir(JPATH_ROOT.'/'.$dir.$append) ? $dir.$append : $dir;
 			}

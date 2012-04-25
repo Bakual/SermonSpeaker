@@ -42,8 +42,6 @@ class SermonspeakerControllerFile extends JController
 		$path	= (JRequest::getBool('addfile', false)) ? $params->get('path_addfile') : $params->get('path');
 		$path	= trim($path, '/');
 		$append	= ($params->get('append_path', 0)) ? DS.date('Y').DS.date('m') : '';
-		$jlang	= JFactory::getLanguage();
-		$append	.= ($params->get('append_path_lang', 0)) ? DS.$jlang->getTag() : '';
 		$folder	= JPATH_ROOT.DS.$path.$append;
 
 		$return		= JRequest::getVar('return-url', null, 'post', 'base64');

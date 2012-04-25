@@ -92,6 +92,11 @@ function fileDialogComplete(numFilesSelected, numFilesQueued) {
 
 function uploadStart(file) {
 	try {
+		/* CUSTOM: Adding the language tag and date as a POST param */
+		var language = document.adminForm.jform_language.value;
+		this.addPostParam("language", language);
+		var date = document.adminForm.jform_sermon_date.value;
+		this.addPostParam("date", date);
 		/* I don't want to do any file validation or anything,  I'll just update the UI and return true to indicate that the upload should start */
 		var progress = new FileProgress(file, this.customSettings.progressTarget);
 		progress.setStatus("Uploading...");
