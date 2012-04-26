@@ -52,7 +52,7 @@ class SermonspeakerControllerFile extends JController
 		$time	= ($date) ? strtotime($date) : time();
 		$append	= ($params->get('append_path', 0)) ? DS.date('Y', $time).DS.date('m', $time) : '';
 		if($params->get('append_path_lang', 0)){
-			$lang	= JRequest::getCmd('language');
+			$lang	= JRequest::getCmd('select-language');
 			if(!$lang || $lang == '*'){
 				$jlang	= JFactory::getLanguage();
 				$lang	= $jlang->getTag();
