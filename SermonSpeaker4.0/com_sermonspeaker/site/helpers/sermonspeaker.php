@@ -104,13 +104,6 @@ class SermonspeakerHelperSermonspeaker
 		return $html;
 	}
 
-	static function fu_logoffbtn () {
-		$html 	= '<form>'
-				. '<input type="button" value="'.JText::_('JLOGOUT').'" onclick="window.location.href=\''.JRoute::_('index.php?option=com_users&task=user.logout').'\'">'
-				. '</form>';
-		return $html;
-	}
-
 	static function insertSermonTitle($i, $item, $player){
 		if(!self::$params){
 			self::getParams();

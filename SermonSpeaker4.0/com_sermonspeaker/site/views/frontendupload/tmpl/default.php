@@ -169,5 +169,13 @@ $self = $uri->toString();
 	<input type="hidden" name="task" value="" />
 	<?php echo JHtml::_( 'form.token' ); ?>
 </form>
-<?php echo SermonspeakerHelperSermonspeaker::fu_logoffbtn(); ?>
+<form action="<?php echo JRoute::_('index.php', true); ?>" method="post" id="login-form">
+	<div class="logout-button">
+		<input type="submit" name="Submit" class="button" value="<?php echo JText::_('JLOGOUT'); ?>" />
+		<input type="hidden" name="option" value="com_users" />
+		<input type="hidden" name="task" value="user.logout" />
+		<input type="hidden" name="return" value="<?php echo base64_encode(JURI::Root()); ?>" />
+		<?php echo JHtml::_('form.token'); ?>
+	</div>
+</form>
 </div>
