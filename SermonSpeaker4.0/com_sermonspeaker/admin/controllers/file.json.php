@@ -128,4 +128,32 @@ class SermonspeakerControllerFile extends JController
 			return;
 		}
 	}
+
+	function lookup(){
+			$file	= JRequest::getString('file');
+
+			if($file){
+				require_once JPATH_COMPONENT_SITE.DS.'helpers'.DS.'id3.php';
+				$params	= JComponentHelper::getParams('com_sermonspeaker');
+				$id3 = SermonspeakerHelperId3::getID3($file, $params);
+
+				if ($id3){
+					$response = $id3;
+					$response['status']	= 1;
+				} else {
+					$response = array(
+						'status' => '0',
+						'msg' => JText::_('COM_SERMONSPEAKER_ERROR_ID3')
+					);
+				}
+			} else {
+					$response = array(
+						'status' => '0',
+						'msg' => JText::_('COM_SERMONSPEAKER_ERROR_ID3')
+					);
+			}
+
+
+			echo json_encode($response);
+	}
 }

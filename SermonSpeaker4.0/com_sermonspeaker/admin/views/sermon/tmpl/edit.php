@@ -54,13 +54,13 @@ $self = $uri->toString();
 			<legend><?php echo JText::_('COM_SERMONSPEAKER_FIELD_AUDIOFILE_LABEL'); ?></legend>
 			<input type="radio" name="sel1" value="0" onclick="enableElement(this.form.elements['jform_audiofile_text'], this.form.elements['jform_audiofile']);" checked>
 			<input name="jform[audiofile]" id="jform_audiofile_text" value="<?php echo $this->form->getValue('audiofile'); ?>" class="inputbox" size="100" type="text">
-			<img class="pointer" onClick="window.location.href='<?php echo $self; ?>&amp;type=audio&amp;file='+document.adminForm.jform_audiofile_text.value;" src='<?php echo JURI::root(); ?>/media/com_sermonspeaker/icons/16/glasses.png' alt="lookup ID3" title="lookup ID3">
+			<img class="pointer" onclick="lookup(document.adminForm.jform_audiofile_text);" src='<?php echo JURI::root(); ?>/media/com_sermonspeaker/icons/16/glasses.png' alt="lookup ID3" title="lookup ID3">
 			<div class="clr"></div>
 			<?php echo $this->form->getLabel(''); ?>
 			<input type="radio" name="sel1" value="1" onclick="enableElement(this.form.elements['jform_audiofile'], this.form.elements['jform_audiofile_text']);">
 			<?php echo $this->form->getInput('audiofile');
 			if (!$this->params->get('path_mode_audio', 0)) { ?>
-				<img class="pointer" onClick="window.location.href='<?php echo $self; ?>&amp;type=audio&amp;file='+document.adminForm.jform_audiofile.value;" src='<?php echo JURI::root(); ?>/media/com_sermonspeaker/icons/16/glasses.png' alt='lookup ID3' title='lookup ID3'>
+				<img class="pointer" onclick="lookup(document.adminForm.jform_audiofile);" src='<?php echo JURI::root(); ?>/media/com_sermonspeaker/icons/16/glasses.png' alt='lookup ID3' title='lookup ID3'>
 			<?php } ?>
 			<div id="infoUpload1" class="intend">
 				<span id="btnUpload1"></span>
@@ -71,13 +71,13 @@ $self = $uri->toString();
 			<legend><?php echo JText::_('COM_SERMONSPEAKER_FIELD_VIDEOFILE_LABEL'); ?></legend>
 			<input type="radio" name="sel2" value="0" onclick="enableElement(this.form.elements['jform_videofile_text'], this.form.elements['jform_videofile']);" checked>
 			<input name="jform[videofile]" id="jform_videofile_text" value="<?php echo $this->form->getValue('videofile'); ?>" class="inputbox" size="100" type="text">
-			<img class="pointer" onClick="window.location.href='<?php echo $self; ?>&amp;type=video&amp;file='+document.adminForm.jform_videofile_text.value;" src='<?php echo JURI::root(); ?>/media/com_sermonspeaker/icons/16/glasses.png' alt="lookup ID3" title="lookup ID3">
+			<img class="pointer" onclick="lookup(document.adminForm.jform_videofile_text);" src='<?php echo JURI::root(); ?>/media/com_sermonspeaker/icons/16/glasses.png' alt="lookup ID3" title="lookup ID3">
 			<div class="clr"></div>
 			<?php echo $this->form->getLabel(''); ?>
 			<input type="radio" name="sel2" value="1" onclick="enableElement(this.form.elements['jform_videofile'], this.form.elements['jform_videofile_text']);">
 			<?php echo $this->form->getInput('videofile'); 
 			if ($this->params->get('path_mode_video', 0) < 2) { ?>
-				<img class="pointer" onClick="window.location.href='<?php echo $self; ?>&amp;type=video&amp;file='+document.adminForm.jform_videofile.value;" src='<?php echo JURI::root(); ?>/media/com_sermonspeaker/icons/16/glasses.png' alt='lookup ID3' title='lookup ID3'>
+				<img class="pointer" onclick="lookup(document.adminForm.jform_videofile);" src='<?php echo JURI::root(); ?>/media/com_sermonspeaker/icons/16/glasses.png' alt='lookup ID3' title='lookup ID3'>
 			<?php } ?>
 			<div id="infoUpload2" class="intend">
 				<span id="btnUpload2"></span>

@@ -176,6 +176,7 @@ class SermonspeakerModelSermon extends JModelAdmin
 			$data = $this->getItem();
 		}
 
+		// Depreceated with SermonSpeaker 4.4.4. Using Ajax now for Lookup.
 		// Reading ID3 Tags if the Lookup Button was pressed
 		if ($id3_file = JRequest::getString('file')){
 			if (JRequest::getCmd('type') == 'video'){

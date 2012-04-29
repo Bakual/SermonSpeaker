@@ -28,16 +28,47 @@ class SermonspeakerViewSermon extends JView
 			ena_elem.disabled = false;
 			dis_elem.disabled = true;
 		}';
-		// add Javascript for Scripture Links buttons
-		$sendText = 'function sendText(elem, open, close) {
-			document.getElementById(elem).value = open+document.getElementById(elem).value+close;
+		// add Javascript for ID3 Lookup (ajax)
+		$lookup	= 'function lookup(elem) {
+			xmlhttp = new XMLHttpRequest();
+			xmlhttp.onreadystatechange=function(){
+				if (xmlhttp.readyState==4 && xmlhttp.status==200){
+					var data = JSON.decode(xmlhttp.responseText);
+					if (data.status==1){
+						if(data.filename_title==false || document.getElementById("jform_sermon_title").value==""){
+							document.getElementById("jform_sermon_title").value = data.sermon_title;
+							document.getElementById("jform_alias").value = data.alias;
+						}
+						if(data.sermon_number){
+							document.getElementById("jform_sermon_number").value = data.sermon_number;
+						}
+						if(data.sermon_time){
+							document.getElementById("jform_sermon_time").value = data.sermon_time;
+						}
+						if(data.notes){
+							jInsertEditorText(data.notes, "jform_notes");
+						}
+						if(data.series_id){
+							document.getElementById("jform_series_id").value = data.series_id;
+						}
+						if(data.speaker_id){
+							document.getElementById("jform_speaker_id").value = data.speaker_id;
+						}
+					} else {
+						alert(data.msg);
+					}
+				}
+			}
+			xmlhttp.open("POST","index.php?option=com_sermonspeaker&task=file.lookup&format=json",true);
+			xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+ 			xmlhttp.send("file="+elem.value);
 		}';
 
 		$this->params	= JComponentHelper::getParams('com_sermonspeaker');
 
 		$document = JFactory::getDocument();
 		$document->addScriptDeclaration($enElem);
-		$document->addScriptDeclaration($sendText);
+		$document->addScriptDeclaration($lookup);
 
 		$session	= JFactory::getSession();
 		// Prepare Flashuploader
