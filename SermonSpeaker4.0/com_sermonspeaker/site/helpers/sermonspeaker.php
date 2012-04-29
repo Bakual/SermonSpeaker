@@ -49,11 +49,18 @@ class SermonspeakerHelperSermonspeaker
 			if($show_icon != 2){
 				// Show filename if no addfileDesc is set
 				if (!$addfileDesc){
-					$slash = strrpos($addfile, '/');
-					if ($slash !== false) {
-						$addfileDesc = substr($addfile, $slash + 1);
+					if(!self::$params){
+						self::getParams();
+					}
+					if ($default = self::$params->get('addfiledesc')){
+						$addfileDesc = $default;
 					} else {
-						$addfileDesc = $addfile;
+						$slash = strrpos($addfile, '/');
+						if ($slash !== false) {
+							$addfileDesc = substr($addfile, $slash + 1);
+						} else {
+							$addfileDesc = $addfile;
+						}
 					}
 				}
 				$html .= '<a title="'.JText::_('COM_SERMONSPEAKER_ADDFILE_HOOVER').'" href="'.$link.'" target="_blank">'.$addfileDesc.'</a>';
