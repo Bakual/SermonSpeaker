@@ -100,7 +100,23 @@ class SermonspeakerModelSermons extends JModelList
 
 		// Filter by category
 		if ($categoryId = $this->getState('category.id')) {
-			$query->where($this->getState('category.type', 'sermons').'.catid = '.(int) $categoryId);
+			if ($levels = (int) $this->getState('filter.subcategories', 0)) {
+				// Create a subquery for the subcategory list
+				$subQuery = $db->getQuery(true);
+				$subQuery->select('sub.id');
+				$subQuery->from('#__categories as sub');
+				$subQuery->join('INNER', '#__categories as this ON sub.lft > this.lft AND sub.rgt < this.rgt');
+				$subQuery->where('this.id = '.(int) $categoryId);
+				if ($levels >= 0) {
+					$subQuery->where('sub.level <= this.level + '.$levels);
+				}
+				// Add the subquery to the main query
+				$query->where('('.$this->getState('category.type', 'sermons').'.catid = '.(int) $categoryId
+					.' OR '.$this->getState('category.type', 'sermons').'.catid IN ('.$subQuery->__toString().'))');
+			}
+			else {
+				$query->where($this->getState('category.type', 'sermons').'.catid = '.(int) $categoryId);
+			}
 		}
 
 		// Join over users for the author names.
@@ -187,6 +203,9 @@ class SermonspeakerModelSermons extends JModelList
 		}
 		$this->setState('category.id', $id);
 		$this->setState('category.type', $type);
+
+		// Include Subcategories or not
+		$this->setState('filter.subcategories', $params->get('show_subcategory_content', 0));
 
 		// Scripture filter
 		$book	= $app->getUserStateFromRequest($this->context.'.scripture.book', 'book', 0, 'INT');
