@@ -133,7 +133,11 @@ class SermonspeakerHelperSermonspeaker
 				$return .= JHTML::Link(SermonspeakerHelperSermonspeaker::makelink($item->audiofile), $pic);
 				break;
 			case 2:
-				if(in_array(self::$view.':player', self::$params->get('col'))){
+				$cols = self::$params->get('col');
+				if (!is_array($cols)){
+					$cols = array();
+				}
+				if(in_array(self::$view.':player', $cols)){
 					$options['onclick'] = 'ss_play('.$i.')';
 					$options['title'] = JText::_('COM_SERMONSPEAKER_PLAYICON_HOOVER');
 					$options['class'] = 'icon_play pointer';
@@ -162,7 +166,11 @@ class SermonspeakerHelperSermonspeaker
 				$return .= JHTML::Link(SermonspeakerHelperSermonspeaker::makelink($item->audiofile), $item->sermon_title, $options);
 				break;
 			case 2:
-				if(in_array(self::$view.':player', self::$params->get('col'))){
+				$cols = self::$params->get('col');
+				if (!is_array($cols)){
+					$cols = array();
+				}
+				if(in_array(self::$view.':player', $cols)){
 					$options['onclick'] = 'ss_play('.$i.')';
 					$options['title'] = JText::_('COM_SERMONSPEAKER_PLAYICON_HOOVER');
 					$return .= JHTML::Link('#', $item->sermon_title, $options);
