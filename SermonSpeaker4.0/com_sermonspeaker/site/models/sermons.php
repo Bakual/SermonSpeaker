@@ -292,6 +292,7 @@ class SermonspeakerModelSermons extends JModelList
 		$query->clear('select');
 		$query->clear('order');
 		$query->select('DISTINCT MONTH(sermons.`sermon_date`) AS `value`');
+		$query->where("`sermon_date` != '0000-00-00'");
 		$query->order('`value` ASC');
 
 		$db->setQuery($query, 0);
@@ -316,6 +317,7 @@ class SermonspeakerModelSermons extends JModelList
 		$query->clear('select');
 		$query->clear('order');
 		$query->select('DISTINCT YEAR(sermons.`sermon_date`) AS `year`');
+		$query->where("`sermon_date` != '0000-00-00'");
 		$query->order('`year` ASC');
 
 		$db->setQuery($query, 0);
