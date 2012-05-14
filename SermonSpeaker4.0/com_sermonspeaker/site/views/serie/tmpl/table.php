@@ -206,7 +206,9 @@ if (in_array('serie:player', $this->columns) && count($this->items)) : ?>
 						<?php endif;
 						if (in_array('serie:date', $this->columns)) : ?>
 							<td class="ss-col ss-date">
-								<?php echo JHTML::Date($item->sermon_date, JText::_($this->params->get('date_format')), true); ?>
+								<?php if ($item->sermon_date != '0000-00-00 00:00:00'):
+									echo JHTML::Date($item->sermon_date, JText::_($this->params->get('date_format')), true);
+								endif; ?>
 							</td>
 						<?php endif;
 						if (in_array('serie:length', $this->columns)) : ?>

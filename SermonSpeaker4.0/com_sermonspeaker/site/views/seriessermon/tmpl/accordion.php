@@ -71,7 +71,7 @@ if ($this->params->get('show_description', 1) || $this->params->def('show_descri
 					<h4 style="margin-left:-5%;">
 						<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonRoute($sermon->slug)); ?>">
 							<?php echo $this->escape($sermon->sermon_title);
-							if (in_array('seriessermon:date', $this->columns)):
+							if (in_array('seriessermon:date', $this->columns) and ($sermon->sermon_date != '0000-00-00 00:00:00')):
 								echo ' ('.JHTML::Date($sermon->sermon_date, JText::_($this->params->get('date_format')), true).')';
 							endif; ?>
 						</a>

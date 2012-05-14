@@ -21,7 +21,7 @@ $player = new SermonspeakerHelperPlayer($this->item);
 	</ul>
 <?php endif; ?>
 <div class="ss-sermondetail-container">
-	<?php if (in_array('sermon:date', $this->columns)) : ?>
+	<?php if (in_array('sermon:date', $this->columns) and ($this->item->sermon_date != '0000-00-00 00:00:00')) : ?>
 		<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL'); ?>:</div>
 		<div class="ss-sermondetail-text"><?php echo JHTML::Date($this->item->sermon_date, JText::_($this->params->get('date_format')), true); ?></div>
 	<?php endif;

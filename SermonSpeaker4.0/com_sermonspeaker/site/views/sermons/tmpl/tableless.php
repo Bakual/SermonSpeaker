@@ -141,7 +141,7 @@ if (in_array('sermons:player', $this->columns) && count($this->items)) : ?>
 						endif; ?>
 					</dd>
 				<?php endif;
-				if (in_array('sermons:date', $this->columns)) : ?>
+				if (in_array('sermons:date', $this->columns) and ($item->sermon_date != '0000-00-00 00:00:00')) : ?>
 					<dd class="create">
 						<?php echo JText::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL'); ?>:
 						<?php echo JHTML::Date($item->sermon_date, JText::_($this->params->get('date_format')), true); ?>

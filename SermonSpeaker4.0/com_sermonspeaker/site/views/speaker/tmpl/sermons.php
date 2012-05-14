@@ -196,7 +196,9 @@ if ($this->params->get('show_category_title', 0) || in_array('speaker:hits', $th
 						<?php endif;
 						if (in_array('speaker:date', $this->col_sermon)) : ?>
 							<td class="ss-col ss-date">
-								<?php echo JHTML::date($item->sermon_date, JText::_($this->params->get('date_format')), true); ?>
+								<?php if ($item->sermon_date != '0000-00-00 00:00:00'):
+									echo JHTML::date($item->sermon_date, JText::_($this->params->get('date_format')), true);
+								endif; ?>
 							</td>
 						<?php endif;
 						if (in_array('speaker:length', $this->col_sermon)) : ?>
