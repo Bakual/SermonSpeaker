@@ -115,9 +115,9 @@ if (in_array('sermons:player', $this->columns) && count($this->items)) : ?>
 		<div class="no_entries"><?php echo JText::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', JText::_('COM_SERMONSPEAKER_SERMONS')); ?></div>
 	<?php else : ?>
 		<hr class="ss-sermons-player" style="clear:both" />
-		<?php foreach($this->items as $i => $item) : ?>
-			<div id="sermon<?php echo $i; ?>" class="ss-entry" onclick="ss_play('<?php echo $i; ?>')">
-				<div class="column-picture">
+		<?php foreach ($this->items as $i => $item) : ?>
+			<div id="sermon<?php echo $i; ?>" class="ss-entry">
+				<div class="column-picture" onclick="ss_play('<?php echo $i; ?>')">
 					<div class="ss-picture">
 						<?php if ($item->picture): ?>
 							<img src="<?php echo SermonspeakerHelperSermonspeaker::makelink($item->picture); ?>">
@@ -128,7 +128,7 @@ if (in_array('sermons:player', $this->columns) && count($this->items)) : ?>
 						<?php endif; ?>
 					</div>
 				</div>
-				<div class="column-content">
+				<div class="column-content" onclick="ss_play('<?php echo $i; ?>')">
 					<h3 class="title"><a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug)); ?>"><?php echo $item->sermon_title; ?></a>
 						<?php if ($canEdit || ($canEditOwn && ($user->id == $item->created_by))) :
 							echo JHtml::_('icon.edit', $item, $this->params, array('type' => 'sermon'));
@@ -219,7 +219,7 @@ if (in_array('sermons:player', $this->columns) && count($this->items)) : ?>
 						</a>
 					<?php endif; ?>
 				</div>
-				<div class="column-detail">
+				<div class="column-detail" onclick="ss_play('<?php echo $i; ?>')">
 					<?php if (in_array('sermons:date', $this->columns) and ($item->sermon_date != '0000-00-00 00:00:00')) : ?>
 						<div class="create">
 							<?php echo JHTML::Date($item->sermon_date, JText::_('DATE_FORMAT_LC1'), true); ?>
