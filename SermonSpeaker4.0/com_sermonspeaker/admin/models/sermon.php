@@ -174,20 +174,8 @@ class SermonspeakerModelSermon extends JModelAdmin
 
 		if (empty($data)) {
 			$data = $this->getItem();
-		} else {
-			// Catch scriptures from database again because the values in UserState can't be used due to formatting.
-			$data['scripture'] = array();
-			if($data['id']){
-				$db		= JFactory::getDBO();
-				$query	= "SELECT book, cap1, vers1, cap2, vers2, text \n"
-						."FROM #__sermon_scriptures \n"
-						."WHERE sermon_id = ".$data['id']." \n"
-						."ORDER BY ordering ASC"
-						;
-				$db->setQuery($query);
-				$data['scripture'] = $db->loadAssocList();
-			}
 		}
+
 		// Depreceated with SermonSpeaker 4.4.4. Using Ajax now for Lookup.
 		// Reading ID3 Tags if the Lookup Button was pressed
 		if ($id3_file = JRequest::getString('file')){

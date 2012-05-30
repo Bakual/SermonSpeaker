@@ -39,7 +39,7 @@ if($params->get('sc_showpcast')) {
 	if($params->get('sc_otherlink')) {
 		$link = $params->get('sc_otherlink');
 	} else {
-		$u = JURI::getInstance($feedFile);
+		$u =& JURI::getInstance($feedFile);
 		$u->setScheme($params->get('sc_pcast_prefix'));
 		$link = $u->toString();
 	}

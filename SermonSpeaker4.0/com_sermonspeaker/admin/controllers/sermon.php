@@ -55,13 +55,13 @@ class SermonspeakerControllerSermon extends JControllerForm
 		$userId		= $user->get('id');
 
 		// Check general edit permission first.
-		if ($user->authorise('core.edit', 'com_sermonspeaker.sermon.'.$recordId)) {
+		if ($user->authorise('core.edit', 'com_content.article.'.$recordId)) {
 			return true;
 		}
 
 		// Fallback on edit.own.
 		// First test if the permission is available.
-		if ($user->authorise('core.edit.own', 'com_sermonspeaker.sermon.'.$recordId)) {
+		if ($user->authorise('core.edit.own', 'com_content.article.'.$recordId)) {
 			// Now test the owner is the user.
 			$ownerId	= (int) isset($data['created_by']) ? $data['created_by'] : 0;
 			if (empty($ownerId) && $recordId) {
