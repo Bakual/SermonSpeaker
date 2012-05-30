@@ -71,9 +71,7 @@ $listDirn	= $this->escape($this->state->get('list.direction'));
 					<?php echo $this->escape($item->category_title); ?>
 				</td>
 				<td class="center nowrap">
-					<?php if ($item->sermon_date != '0000-00-00 00:00:00'):
-						echo JHTML::Date($item->sermon_date, JText::_('DATE_FORMAT_LC4'), true);
-					endif; ?>
+					<?php echo JHtml::_('date',$item->sermon_date, JText::_('DATE_FORMAT_LC4')); ?>
 				</td>
 				<td class="center">
 					<?php echo (int) $item->id; ?>
