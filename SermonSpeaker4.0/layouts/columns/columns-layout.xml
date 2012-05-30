@@ -7,7 +7,7 @@
 	<authorUrl>http://www.sermonspeaker.net</authorUrl>
 	<creationDate>Mai 2012</creationDate>
 	<copyright>(C) 2012</copyright>
-	<version>1.0</version>
+	<version>1.1</version>
 	<license>http://www.gnu.org/licenses/gpl.html</license>
 	<description>Columns Layout file for SermonSpeaker</description>
 	<fileset>
@@ -16,6 +16,10 @@
 			<!-- Only use <filename> tags here, never <folder> -->
 			<filename>views/sermons/tmpl/columns.php</filename>
 			<filename>views/sermons/tmpl/columns.xml</filename>
+			<filename>views/speaker/tmpl/columns.php</filename>
+			<filename>views/speaker/tmpl/columns.xml</filename>
+			<filename>views/serie/tmpl/columns.php</filename>
+			<filename>views/serie/tmpl/columns.xml</filename>
 			<filename>views/sermon/tmpl/popupx.php</filename>
 			<filename>views/sermon/tmpl/popupx.xml</filename>
 		</files>
