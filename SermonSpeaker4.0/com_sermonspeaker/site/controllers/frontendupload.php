@@ -151,10 +151,10 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 	 * @return	string	The arguments to append to the redirect URL.
 	 * @since	1.6
 	 */
-	protected function getRedirectToItemAppend($recordId = null, $urlVar = null)
+	protected function getRedirectToItemAppend($recordId = null, $urlVar = 's_id')
 	{
 		JRequest::setVar('layout', 'default');
-		$append = parent::getRedirectToItemAppend($recordId, $urlVar);
+		$append = parent::getRedirectToItemAppend($recordId, 's_id');
 		$itemId	= JRequest::getInt('Itemid');
 		$return	= $this->getReturnPage();
 
@@ -249,7 +249,7 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 
 		// If ok, redirect to the return page.
 		if ($result) {
-			$this->setRedirect($this->getReturnPage());
+//			$this->setRedirect('index.php?option=com_sermonspeaker&task=frontendupload.edit&s_id=&return=&Itemid=118&lang=en');
 		}
 
 		return $result;

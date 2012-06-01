@@ -32,6 +32,20 @@ $self = $uri->toString();
 <form action="<?php echo JURI::root(); ?>index.php?option=com_sermonspeaker&amp;task=file.upload&amp;tmpl=component&amp;<?php echo $this->session->getName().'='.$this->session->getId(); ?>&amp;<?php echo JUtility::getToken();?>=1" id="uploadForm" name="uploadForm" class="form-validate" method="post" enctype="multipart/form-data">
 	<fieldset id="upload-noflash" class="actions">
 		<legend><?php echo JText::_('COM_SERMONSPEAKER_FU_SELECTFILE'); ?></legend>
+		<label for="upload-file" class="label"><?php echo JText::_('COM_SERMONSPEAKER_FILEDESTINATION_LABEL'); ?></label>
+		/<?php echo trim($this->params->get('path'), '/').'/';
+		if ($this->params->get('append_path', 0)) :
+			$time	= ($this->item->sermon_date AND $this->item->sermon_date != '0000-00-00 00:00:00') ? strtotime($this->item->sermon_date) : time();
+			?><input type="text" id="year" size="4" name="year" value="<?php echo date('Y', $time); ?>" />/<input type="text" id="month" size="2" name="month" value="<?php echo date('m', $time); ?>" />/<?php 
+		endif;
+		if ($this->params->get('append_path_lang', 0)) :
+			$lang = $this->item->language;
+			if (!$lang || $lang == '*') :
+				$lang	= JFactory::getLanguage()->getTag();
+			endif;
+			?><input type="text" id="lang" size="5" name="lang" value="<?php echo $lang; ?>" />/
+		<?php endif; ?>
+		<br />
 		<label for="upload-file" class="label"><?php echo JText::_('COM_SERMONSPEAKER_FIELD_AUDIOFILE_LABEL'); ?></label>
 		<input type="file" size="50" id="upload-file" name="Filedata[]" /><br />
 		<label for="upload-file" class="label"><?php echo JText::_('COM_SERMONSPEAKER_FIELD_VIDEOFILE_LABEL'); ?></label>
@@ -65,8 +79,11 @@ $self = $uri->toString();
 			</div>
 		<?php endif; ?>
 		<div class="formelm-buttons">
-			<button type="button" onclick="Joomla.submitbutton('frontendupload.save')">
+			<button type="button" onclick="Joomla.submitbutton('frontendupload.apply')">
 				<?php echo JText::_('JSAVE') ?>
+			</button>
+			<button type="button" onclick="Joomla.submitbutton('frontendupload.save')">
+				<?php echo JText::_('COM_SERMONSPEAKER_SAVEANDCLOSE') ?>
 			</button>
 			<button type="button" onclick="Joomla.submitbutton('frontendupload.cancel')">
 				<?php echo JText::_('JCANCEL') ?>
@@ -139,8 +156,11 @@ $self = $uri->toString();
 			</div>
 		<?php endforeach; ?>
 		<div class="formelm-buttons">
-			<button type="button" onclick="Joomla.submitbutton('frontendupload.save')">
+			<button type="button" onclick="Joomla.submitbutton('frontendupload.apply')">
 				<?php echo JText::_('JSAVE') ?>
+			</button>
+			<button type="button" onclick="Joomla.submitbutton('frontendupload.save')">
+				<?php echo JText::_('COM_SERMONSPEAKER_SAVEANDCLOSE') ?>
 			</button>
 			<button type="button" onclick="Joomla.submitbutton('frontendupload.cancel')">
 				<?php echo JText::_('JCANCEL') ?>

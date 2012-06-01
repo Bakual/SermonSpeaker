@@ -38,11 +38,17 @@ class SermonspeakerControllerFile extends JController
 		$user		= JFactory::getUser();
 
 		// Get some data from the request
-		$files		= JRequest::getVar('Filedata', '', 'files', 'array');
-		$path	= (JRequest::getBool('addfile', false)) ? $params->get('path_addfile') : $params->get('path');
-		$path	= trim($path, '/');
-		$append	= ($params->get('append_path', 0)) ? DS.date('Y').DS.date('m') : '';
-		$folder	= JPATH_ROOT.DS.$path.$append;
+		$files	= JRequest::getVar('Filedata', '', 'files', 'array');
+		$path	= trim($params->get('path', 'images'), '/');
+		$append	= ($params->get('append_path', 0)) ? '/'.JRequest::getInt('year', date('Y')).'/'.str_pad(JRequest::getInt('month', date('m')), 2 ,'0', STR_PAD_LEFT) : '';
+		if ($params->get('append_path_lang', 0)) {
+			$lang = JRequest::getCmd('language');
+			if (strlen($lang) != 5) {
+				$lang	= JFactory::getLanguage()->getTag();
+			}
+			$append .= '/'.$lang;
+		}
+		$folder	= JPATH_ROOT.'/'.$path.$append;
 
 		$return		= JRequest::getVar('return-url', null, 'post', 'base64');
 
