@@ -65,6 +65,9 @@ $self = $uri->toString();
 			<div id="infoUpload1" class="intend">
 				<span id="btnUpload1"></span>
 				<button id="btnCancel1" type="button" onclick="cancelQueue(upload1);" class="ss-hide upload_button" disabled="disabled">Cancel</button>
+				<span id="audiopathinfo" class="pathinfo ss-hide">
+					<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO').' /'.trim($this->params->get('path'), '/').'/<span id="audiopathdate" class="pathdate">'.$this->append_date.'</span><span id="audiopathlang" class="pathlang">'.$this->append_lang.'</span>'; ?>
+				</span>
 			</div>
 		</fieldset>
 		<fieldset class="adminform">

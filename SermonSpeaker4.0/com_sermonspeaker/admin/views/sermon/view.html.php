@@ -99,6 +99,7 @@ class SermonspeakerViewSermon extends JView
 						debug: false,
 						swfupload_loaded_handler: function() {
 							document.id("btnCancel1").removeClass("ss-hide");
+							document.id("audiopathinfo").removeClass("ss-hide");
 							if(document.id("upload-noflash")){
 								document.id("upload-noflash").destroy();
 								document.id("loading").destroy();
@@ -243,6 +244,25 @@ class SermonspeakerViewSermon extends JView
 		';
 		$document->addScriptDeclaration($uploader_script);
 
+		// Calculate destination path to show
+		$this->append_date	= '';
+		if ($this->params->get('append_path', 0)) {
+			$script	= "function changedate(datestring) {
+					alert(datestring);
+					n = datestring.replace('-',',');
+					alert(n);
+					var dateobj = new Date(n);
+					alert(dateobj.getFullYear());
+				}";
+			$document->addScriptDeclaration($script);
+			$time	= ($this->item->sermon_date && $this->item->sermon_date != '0000-00-00 00:00:00') ? strtotime($this->item->sermon_date) : time();
+			$this->append_date	= date('Y', $time).'/'.date('m', $time).'/';
+		}
+		$this->append_lang	= '';
+		if ($this->params->get('append_path_lang', 0)) {
+			$lang	= ($this->item->language && $this->item->language == '*') ? $this->item->language : JFactory::getLanguage()->getTag();
+			$this->append_lang	= $lang.'/';
+		}
 
 		// Check for errors.
 		if (count($errors = $this->get('Errors'))) {
