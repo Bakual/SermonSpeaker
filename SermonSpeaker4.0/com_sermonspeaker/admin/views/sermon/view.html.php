@@ -153,6 +153,7 @@ class SermonspeakerViewSermon extends JView
 						debug: false,
 						swfupload_loaded_handler: function() {
 							document.id("btnCancel2").removeClass("ss-hide");
+							document.id("videopathinfo").removeClass("ss-hide");
 							if(document.id("upload-noflash")){
 								document.id("upload-noflash").destroy();
 								document.id("loading").destroy();
@@ -204,6 +205,7 @@ class SermonspeakerViewSermon extends JView
 						debug: false,
 						swfupload_loaded_handler: function() {
 							document.id("btnCancel3").removeClass("ss-hide");
+							document.id("addfilepathinfo").removeClass("ss-hide");
 							if(document.id("upload-noflash")){
 								document.id("upload-noflash").destroy();
 								document.id("loading").destroy();
@@ -245,24 +247,46 @@ class SermonspeakerViewSermon extends JView
 		$document->addScriptDeclaration($uploader_script);
 
 		// Calculate destination path to show
-		$this->append_date	= '';
 		if ($this->params->get('append_path', 0)) {
-			$script	= "function changedate(datestring) {
-					alert(datestring);
-					n = datestring.replace('-',',');
-					alert(n);
-					var dateobj = new Date(n);
-					alert(dateobj.getFullYear());
+			$changedate	= "function changedate(datestring) {
+					if(datestring && datestring != '0000-00-00 00:00:00'){
+						year = datestring.substr(0,4);
+						month = datestring.substr(5,2);
+					} else {
+						now = new Date;
+						year = now.getFullYear();
+						month = now.getMonth()+1;
+						if (month < 10){
+							month = '0'+month;
+						}
+					}
+					document.id('audiopathdate').innerHTML = year+'/'+month+'/';
+					document.id('videopathdate').innerHTML = year+'/'+month+'/';
+					document.id('addfilepathdate').innerHTML = year+'/'+month+'/';
 				}";
-			$document->addScriptDeclaration($script);
 			$time	= ($this->item->sermon_date && $this->item->sermon_date != '0000-00-00 00:00:00') ? strtotime($this->item->sermon_date) : time();
 			$this->append_date	= date('Y', $time).'/'.date('m', $time).'/';
+		} else {
+			$changedate	= "function changedate(datestring) {
+				}";
+			$this->append_date	= '';
 		}
-		$this->append_lang	= '';
+		$document->addScriptDeclaration($changedate);
 		if ($this->params->get('append_path_lang', 0)) {
+			$changelang	= "function changelang(language) {
+					if(!language || language == '*'){
+						language = '".JFactory::getLanguage()->getTag()."'
+					}
+					document.id('audiopathlang').innerHTML = language+'/';
+					document.id('videopathlang').innerHTML = language+'/';
+					document.id('addfilepathlang').innerHTML = language+'/';
+				}";
 			$lang	= ($this->item->language && $this->item->language == '*') ? $this->item->language : JFactory::getLanguage()->getTag();
 			$this->append_lang	= $lang.'/';
+		} else {
+			$this->append_lang	= '';
 		}
+		$document->addScriptDeclaration($changelang);
 
 		// Check for errors.
 		if (count($errors = $this->get('Errors'))) {

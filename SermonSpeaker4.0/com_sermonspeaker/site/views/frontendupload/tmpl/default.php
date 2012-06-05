@@ -32,7 +32,7 @@ $self = $uri->toString();
 <form action="<?php echo JURI::root(); ?>index.php?option=com_sermonspeaker&amp;task=file.upload&amp;tmpl=component&amp;<?php echo $this->session->getName().'='.$this->session->getId(); ?>&amp;<?php echo JUtility::getToken();?>=1" id="uploadForm" name="uploadForm" class="form-validate" method="post" enctype="multipart/form-data">
 	<fieldset id="upload-noflash" class="actions">
 		<legend><?php echo JText::_('COM_SERMONSPEAKER_FU_SELECTFILE'); ?></legend>
-		<label for="upload-file" class="label"><?php echo JText::_('COM_SERMONSPEAKER_FILEDESTINATION_LABEL'); ?></label>
+		<label for="upload-file" class="label"><?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO'); ?></label>
 		/<?php echo trim($this->params->get('path'), '/').'/';
 		if ($this->params->get('append_path', 0)) :
 			$time	= ($this->item->sermon_date AND $this->item->sermon_date != '0000-00-00 00:00:00') ? strtotime($this->item->sermon_date) : time();
@@ -110,6 +110,9 @@ $self = $uri->toString();
 			<div id="infoUpload1" class="intend">
 				<span id="btnUpload1"></span>
 				<button id="btnCancel1" type="button" onclick="cancelQueue(upload1);" class="ss-hide" disabled="disabled">Cancel</button>
+				<span id="audiopathinfo" class="pathinfo ss-hide">
+					<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO').' /'.trim($this->params->get('path'), '/').'/<span id="audiopathdate" class="pathdate">'.$this->append_date.'</span><span id="audiopathlang" class="pathlang">'.$this->append_lang.'</span>'; ?>
+				</span>
 			</div>
 		</div>
 		<div class="formelm">
@@ -126,6 +129,9 @@ $self = $uri->toString();
 			<div id="infoUpload2" class="intend">
 				<span id="btnUpload2"></span>
 				<button id="btnCancel2" type="button" onclick="cancelQueue(upload2);" class="ss-hide" disabled="disabled">Cancel</button>
+				<span id="videopathinfo" class="pathinfo ss-hide">
+					<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO').' /'.trim($this->params->get('path'), '/').'/<span id="videopathdate" class="pathdate">'.$this->append_date.'</span><span id="videopathlang" class="pathlang">'.$this->append_lang.'</span>'; ?>
+				</span>
 			</div>
 		</div>
 		<div class="formelm">
@@ -138,6 +144,9 @@ $self = $uri->toString();
 			<div id="infoUpload3" class="intend">
 				<span id="btnUpload3"></span>
 				<button id="btnCancel3" type="button" onclick="cancelQueue(upload3);" class="ss-hide" disabled="disabled">Cancel</button>
+				<span id="addfilepathinfo" class="pathinfo ss-hide">
+					<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO').' /'.trim($this->params->get('path_addfile'), '/').'/<span id="addfilepathdate" class="pathdate">'.$this->append_date.'</span><span id="addfilepathlang" class="pathlang">'.$this->append_lang.'</span>'; ?>
+				</span>
 			</div>
 			<?php echo $this->form->getLabel('addfileDesc'); ?>
 			<?php echo $this->form->getInput('addfileDesc'); ?>

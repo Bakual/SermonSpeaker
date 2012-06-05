@@ -149,3 +149,13 @@ label#batch-speaker-lbl, label#batch-serie-lbl{
 select#batch-speaker-id, select#batch-serie-id{
 	margin-top: 15px;
 }
+
+.pathinfo{
+	font-size:small;
+	background-color:#E5FFFF;
+	border-radius:5px;
+	padding:1px 5px;
+}
+.ss-hide{
+	display:none;
+}

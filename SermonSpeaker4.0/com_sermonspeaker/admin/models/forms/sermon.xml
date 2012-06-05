@@ -80,6 +80,7 @@
 
 		<field name="language" type="contentlanguage" label="JFIELD_LANGUAGE_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_LANGUAGE_DESC" class="inputbox"
+			onchange="changelang(jform_language.value)"
 		>
 			<option value="*">JALL</option>
 		</field>
@@ -116,7 +117,8 @@
 			size="25"
 			onchange="changedate(jform_sermon_date.value)"
 			format="%Y-%m-%d %H:%M:%S"
-			filter="user_utc" />
+			filter="user_utc"
+		/>
 
 		<field name="sermon_time"  type="text" class="inputbox"
 			label="COM_SERMONSPEAKER_FIELD_LENGTH_LABEL" description ="COM_SERMONSPEAKER_FIELD_LENGTH_DESC"

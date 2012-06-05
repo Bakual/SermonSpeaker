@@ -123,3 +123,10 @@ a.progressCancel:hover {
 .swfupload {
 	vertical-align: top;
 }
+
+.pathinfo{
+	font-size:small;
+	background-color:#E5FFFF;
+	border-radius:5px;
+	padding-left:5px;
+}

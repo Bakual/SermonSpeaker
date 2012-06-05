@@ -83,6 +83,7 @@
 			type="contentlanguage"
 			label="JFIELD_LANGUAGE_LABEL"
 			description="JFIELD_LANGUAGE_DESC"
+			onchange="changelang(jform_language.value)"
 			class="inputbox">
 			<option value="*">JALL</option>
 		</field>
@@ -114,7 +115,12 @@
 
 		<field name="sermon_date" type="calendar"
 			label="COM_SERMONSPEAKER_FIELD_DATE_LABEL" description="COM_SERMONSPEAKER_FIELD_DATE_DESC"
-			class="inputbox" size="25" format="%Y-%m-%d %H:%M:%S" filter="user_utc" />
+			class="inputbox"
+			size="25"
+			onchange="changedate(jform_sermon_date.value)"
+			format="%Y-%m-%d %H:%M:%S"
+			filter="user_utc"
+		/>
 
 		<field name="sermon_time"  type="text" class="inputbox"
 			label="COM_SERMONSPEAKER_FIELD_LENGTH_LABEL" description ="COM_SERMONSPEAKER_FIELD_LENGTH_DESC"
