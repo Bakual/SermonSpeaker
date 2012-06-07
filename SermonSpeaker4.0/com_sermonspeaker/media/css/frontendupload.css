@@ -129,4 +129,5 @@ a.progressCancel:hover {
 	background-color:#E5FFFF;
 	border-radius:5px;
 	padding-left:5px;
+	display:inline-block;
 }

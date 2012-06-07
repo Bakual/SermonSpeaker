@@ -155,6 +155,7 @@ select#batch-speaker-id, select#batch-serie-id{
 	background-color:#E5FFFF;
 	border-radius:5px;
 	padding:1px 5px;
+	display:inline-block;
 }
 .ss-hide{
 	display:none;
