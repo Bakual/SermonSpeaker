@@ -317,6 +317,22 @@ class SermonspeakerViewFrontendupload extends JView
 		}
 		$document->addScriptDeclaration($changelang);
 
+		// Add javascript validation script
+		$valscript	= 'function check(string, count, mode){
+					if(mode){
+						split = string.split(",");
+						if(split.length > count){
+							alert("'.JText::_('COM_SERMONSPEAKER_JS_CHECK_KEYWORDS').' "+split.length+" / "+count);
+						}
+					}else{
+						if(string.length > count){
+							alert("'.JText::_('COM_SERMONSPEAKER_JS_CHECK_CHARS').' "+string.length+" / "+count);
+						}
+					}
+				}';
+		$document->addScriptDeclaration($valscript);
+
+
 		// Check for errors.
 		if (count($errors = $this->get('Errors'))) {
 			JError::raiseError(500, implode("\n", $errors));

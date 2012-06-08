@@ -3,6 +3,7 @@
 	<fieldset addfieldpath="/administrator/components/com_sermonspeaker/models/fields" name="general">
 		<field name="sermon_title" type="text" class="inputbox"
 			size="40" label="JGLOBAL_TITLE"
+			onchange="check(this.value, 70, 0)"
 			description="COM_SERMONSPEAKER_FIELD_TITLE_DESC" required="true" />
 
 		<field name="alias" type="text" class="inputbox"
@@ -83,7 +84,7 @@
 			type="contentlanguage"
 			label="JFIELD_LANGUAGE_LABEL"
 			description="JFIELD_LANGUAGE_DESC"
-			onchange="changelang(jform_language.value)"
+			onchange="changelang(this.value)"
 			class="inputbox">
 			<option value="*">JALL</option>
 		</field>
@@ -117,7 +118,7 @@
 			label="COM_SERMONSPEAKER_FIELD_DATE_LABEL" description="COM_SERMONSPEAKER_FIELD_DATE_DESC"
 			class="inputbox"
 			size="25"
-			onchange="changedate(jform_sermon_date.value)"
+			onchange="changedate(this.value)"
 			format="%Y-%m-%d %H:%M:%S"
 			filter="user_utc"
 		/>
@@ -164,10 +165,12 @@
 	<fieldset name="metadata" label="JGLOBAL_FIELDSET_METADATA_OPTIONS">
 		<field name="metadesc" type="textarea"
 			label="JFIELD_META_DESCRIPTION_LABEL" description="JFIELD_META_DESCRIPTION_DESC"
+			onchange="check(this.value, 160, 0)"
 			class="inputbox" rows="3" cols="30" />
 
 		<field name="metakey" type="textarea"
 			label="JFIELD_META_KEYWORDS_LABEL" description="JFIELD_META_KEYWORDS_DESC"
+			onchange="check(this.value, 10, 1)"
 			class="inputbox" rows="3" cols="30" />
 
 	</fieldset>
