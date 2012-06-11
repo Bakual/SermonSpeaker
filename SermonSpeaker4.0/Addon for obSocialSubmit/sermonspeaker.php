@@ -41,19 +41,21 @@ class OBSSInAddonSermonspeaker extends OBSSInAddon{
 			}
 		}
 
+		// Getting Speaker
+		$speaker = array();
+		if ($item->speaker_id) {
+			$db		= JFactory::getDBO();
+			$query	= "SELECT `name`, `pic` FROM #__sermon_speakers WHERE `id` = ".(int)$item->speaker_id;
+			$db->setQuery($query);
+			$speaker	= $db->loadAssoc();
+		}
 
 		// Preparing Data
 		$img 	= '';
 		if($item->picture){
 			$img	= $this->makeLink($item->picture);
-		} elseif ($item->speaker_id) {
-			$db		= &JFactory::getDBO();
-			$query	= "SELECT `name`, `pic` FROM #__sermon_speakers WHERE `id` = '".$item->speaker_id."' LIMIT 1";
-			$db->setQuery($query);
-			$speaker	= $db->loadRow();
-			if ($speaker[1]){
-				$img	= $this->makeLink($speaker[1]);
-			}
+		} elseif ($item->speaker_id && $speaker['pic']){
+			$img	= $this->makeLink($speaker['pic']);
 		}
 
 		if ($item->alias){
@@ -63,15 +65,13 @@ class OBSSInAddonSermonspeaker extends OBSSInAddon{
 		}
 		$link = JURI::root().'index.php?option=com_sermonspeaker&view=sermon&id='.$slug;
 
-		if ($item->audiofile and $mode == 'audio')
-		{
+		if ($item->audiofile and $mode == 'audio'){
 			$file = $this->makeLink($item->audiofile);
 			$type = 'song';
 		} 
 		elseif ($item->videofile and $mode == 'video') 
 		{
 			$file = $this->makeLink($item->videofile);
-			
 			$type = 'movie';
 			$fileisVimeoFlg =  substr_count($file, 'vimeo.com');
 			if($fileisVimeoFlg >= 1 )
@@ -145,7 +145,6 @@ class OBSSInAddonSermonspeaker extends OBSSInAddon{
 			$post_obj->video_url	= $file;
 			$post_obj->type		 	= $type;
 		}
-
 		return $post_obj;
 	}
 
