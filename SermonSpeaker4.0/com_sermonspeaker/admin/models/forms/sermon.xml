@@ -3,6 +3,7 @@
 	<fieldset name="general">
 		<field name="sermon_title" type="text" class="inputbox"
 			size="40" label="JGLOBAL_TITLE"
+			onchange="check(this.value, 70, 0)"
 			description="COM_SERMONSPEAKER_FIELD_TITLE_DESC" required="true" />
 
 		<field name="alias" type="text" class="inputbox"
@@ -162,10 +163,12 @@
 	<fieldset name="metadata" label="JGLOBAL_FIELDSET_METADATA_OPTIONS">
 		<field name="metadesc" type="textarea"
 			label="JFIELD_META_DESCRIPTION_LABEL" description="JFIELD_META_DESCRIPTION_DESC"
+			onchange="check(this.value, 160, 0)"
 			class="inputbox" rows="3" cols="30" />
 
 		<field name="metakey" type="textarea"
 			label="JFIELD_META_KEYWORDS_LABEL" description="JFIELD_META_KEYWORDS_DESC"
+			onchange="check(this.value, 10, 1)"
 			class="inputbox" rows="3" cols="30" />
 
 	</fieldset>
