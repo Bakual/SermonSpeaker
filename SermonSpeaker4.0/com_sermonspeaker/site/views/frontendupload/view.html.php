@@ -318,15 +318,23 @@ class SermonspeakerViewFrontendupload extends JView
 		$document->addScriptDeclaration($changelang);
 
 		// Add javascript validation script
+		JText::script('COM_SERMONSPEAKER_JS_CHECK_KEYWORDS', false, true);
+		JText::script('COM_SERMONSPEAKER_JS_CHECK_CHARS', false, true);
 		$valscript	= 'function check(string, count, mode){
 					if(mode){
 						split = string.split(",");
 						if(split.length > count){
-							alert("'.JText::_('COM_SERMONSPEAKER_JS_CHECK_KEYWORDS').' "+split.length+" / "+count);
+							message = Joomla.JText._("COM_SERMONSPEAKER_JS_CHECK_KEYWORDS");
+							message = message.replace("{0}", split.length);
+							message = message.replace("{1}", count);
+							alert(message);
 						}
 					}else{
 						if(string.length > count){
-							alert("'.JText::_('COM_SERMONSPEAKER_JS_CHECK_CHARS').' "+string.length+" / "+count);
+							message = Joomla.JText._("COM_SERMONSPEAKER_JS_CHECK_CHARS");
+							message = message.replace("{0}", string.length);
+							message = message.replace("{1}", count);
+							alert(message);
 						}
 					}
 				}';
