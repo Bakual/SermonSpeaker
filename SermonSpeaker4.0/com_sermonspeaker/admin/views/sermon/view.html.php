@@ -284,6 +284,8 @@ class SermonspeakerViewSermon extends JView
 			$lang	= ($this->item->language && $this->item->language == '*') ? $this->item->language : JFactory::getLanguage()->getTag();
 			$this->append_lang	= $lang.'/';
 		} else {
+			$changelang	= "function changelang(language) {
+				}";
 			$this->append_lang	= '';
 		}
 		$document->addScriptDeclaration($changelang);

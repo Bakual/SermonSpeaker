@@ -60,6 +60,39 @@ class SermonspeakerControllerFile extends JController
 		}
 		$folder	= JPATH_ROOT.DS.$path.$append;
 
+		// Amazon S3 Upload
+		$mode = $params->get('path_mode_audio', 0);
+//		$mode = $params->get('path_mode_video', 0);
+		if ($mode == 2){
+			//include the S3 class   
+			require_once JPATH_COMPONENT_ADMINISTRATOR.'/s3/S3.php';
+			//AWS access info   
+			$awsAccessKey 	= $params->get('s3_access_key');
+			$awsSecretKey 	= $params->get('s3_secret_key');
+			$bucket			= $params->get('s3_bucket');
+			//instantiate the class
+			$s3 = new S3($awsAccessKey, $awsSecretKey);
+
+			// Upload the file
+			if($s3->putObjectFile($file['tmp_name'], $bucket, JFile::makeSafe($file['name']), S3::ACL_PUBLIC_READ)){
+				$response = array(
+					'status' => '1',
+					'filename' => strtolower($file['name']),
+					'path' => str_replace('\\', '/', '/'.$path.$append.'/'.strtolower($file['name'])),
+					'error' => JText::sprintf('COM_SERMONSPEAKER_FU_FILENAME', substr($file['filepath'], strlen(JPATH_ROOT)))
+				);
+				echo json_encode($response);
+				return;
+			} else {
+				$response = array(
+					'status' => '0',
+					'error' => JText::_('COM_SERMONSPEAKER_FU_ERROR_UNABLE_TO_UPLOAD_FILE')
+				);
+				echo json_encode($response);
+				return;
+			}
+		}
+
 		// Set FTP credentials, if given
 		jimport('joomla.client.helper');
 		JClientHelper::setCredentialsFromRequest('ftp');
