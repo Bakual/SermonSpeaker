@@ -68,14 +68,12 @@ if ($this->params->get('show_description', 1) || $this->params->def('show_descri
 				<div class="clear-left"></div>
 				<?php if ($item->series): ?>
 					<a title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKERS_SERIESLINK_HOOVER'); ?>" href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug).'&layout=series'); ?>">
-						<?php echo JText::_('COM_SERMONSPEAKER_SERIES'); ?>
-					</a>
+						<?php echo JText::_('COM_SERMONSPEAKER_SERIES'); ?></a>
 					 | 
 				<?php endif;
 				if ($item->sermons): ?>
 					<a title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKERS_SERMONSLINK_HOOVER'); ?>" href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug).'&layout=sermons'); ?>">
-						<?php echo JText::_('COM_SERMONSPEAKER_SERMONS'); ?>
-					</a>
+						<?php echo JText::_('COM_SERMONSPEAKER_SERMONS'); ?></a>
 				<?php endif;
 				if ($item->website && $item->website != 'http://') :
 					if ($item->sermons): ?>

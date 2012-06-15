@@ -25,8 +25,21 @@ endif;
 		endif;
 	endif; ?>
 	<div class="clear-left"></div>
-	<?php if ($this->item->website && $this->item->website != 'http://') : ?>
-		<a href="<?php echo $this->item->website; ?>" target="_blank" title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKER_WEBLINK_HOOVER'); ?>"><?php echo JText::sprintf('COM_SERMONSPEAKER_SPEAKER_WEBLINK', $this->item->name); ?></a>
+	<?php if ($this->series): ?>
+		<a title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKERS_SERIESLINK_HOOVER'); ?>" href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($this->item->slug).'&layout=series'); ?>" target="_parent">
+			<?php echo JText::_('COM_SERMONSPEAKER_SERIES'); ?></a>
+		 | 
+	<?php endif;
+	if ($this->sermons): ?>
+		<a title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKERS_SERMONSLINK_HOOVER'); ?>" href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($this->item->slug).'&layout=sermons'); ?>" target="_parent">
+			<?php echo JText::_('COM_SERMONSPEAKER_SERMONS'); ?></a>
+	<?php endif;
+	if ($this->item->website AND $this->item->website != 'http://') :
+		if ($this->sermons): ?>
+		 | 
+		<?php endif; ?>
+		<a href="<?php echo $this->item->website; ?>" target="_blank" title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKER_WEBLINK_HOOVER'); ?>">
+			<?php echo JText::sprintf('COM_SERMONSPEAKER_SPEAKER_WEBLINK', $this->item->name); ?></a>
 	<?php endif; ?>
 </div>
 </div>

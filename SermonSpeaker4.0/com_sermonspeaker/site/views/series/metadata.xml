@@ -17,6 +17,11 @@
 				extension="com_sermonspeaker" 
 				show_root="true"
 			/>
+			<field name="count_items_type" type="hidden"
+				label="COM_SERMONSPEAKER_CATEGORY_ITEMS_TYPE_LABEL"
+				description="COM_SERMONSPEAKER_CATEGORY_ITEMS_TYPE_DESC"
+				default="series"
+			/>
 		</fieldset>
 		<fieldset name="advanced"
 			addfieldpath="/administrator/components/com_sermonspeaker/models/fields" >
