@@ -281,7 +281,7 @@ class SermonspeakerViewSermon extends JView
 					if(!language || language == '*'){
 						language = '".JFactory::getLanguage()->getTag()."'
 					}";
-			if(!$this->s3audio){$changelang	.= "document.id('audiopathdate').innerHTML = language+'/';";}
+			if(!$this->s3audio){$changelang	.= "document.id('audiopathlang').innerHTML = language+'/';";}
 			if(!$this->s3video){$changelang	.= "document.id('videopathlang').innerHTML = language+'/';";}
 			$changelang	.= "document.id('addfilepathlang').innerHTML = language+'/';
 				}";
