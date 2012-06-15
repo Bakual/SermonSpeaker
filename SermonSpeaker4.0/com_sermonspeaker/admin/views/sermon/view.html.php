@@ -246,6 +246,11 @@ class SermonspeakerViewSermon extends JView
 		';
 		$document->addScriptDeclaration($uploader_script);
 
+		// Destination folder based on mode
+		$this->s3audio	= ($this->params->get('path_mode_audio', 0) == 2) ? 1 : 0;
+		$this->s3video	= ($this->params->get('path_mode_video', 0) == 2) ? 1 : 0;
+		$this->params->get('s3_bucket', '');
+
 		// Calculate destination path to show
 		if ($this->params->get('append_path', 0)) {
 			$changedate	= "function changedate(datestring) {
@@ -259,16 +264,15 @@ class SermonspeakerViewSermon extends JView
 						if (month < 10){
 							month = '0'+month;
 						}
-					}
-					document.id('audiopathdate').innerHTML = year+'/'+month+'/';
-					document.id('videopathdate').innerHTML = year+'/'+month+'/';
-					document.id('addfilepathdate').innerHTML = year+'/'+month+'/';
+					}";
+			if(!$this->s3audio){$changedate	.= "document.id('audiopathdate').innerHTML = year+'/'+month+'/';";}
+			if(!$this->s3video){$changedate	.= "document.id('videopathdate').innerHTML = year+'/'+month+'/';";}
+			$changedate	.= "document.id('addfilepathdate').innerHTML = year+'/'+month+'/';
 				}";
 			$time	= ($this->item->sermon_date && $this->item->sermon_date != '0000-00-00 00:00:00') ? strtotime($this->item->sermon_date) : time();
 			$this->append_date	= date('Y', $time).'/'.date('m', $time).'/';
 		} else {
-			$changedate	= "function changedate(datestring) {
-				}";
+			$changedate	= "function changedate(datestring) {}";
 			$this->append_date	= '';
 		}
 		$document->addScriptDeclaration($changedate);
@@ -276,16 +280,15 @@ class SermonspeakerViewSermon extends JView
 			$changelang	= "function changelang(language) {
 					if(!language || language == '*'){
 						language = '".JFactory::getLanguage()->getTag()."'
-					}
-					document.id('audiopathlang').innerHTML = language+'/';
-					document.id('videopathlang').innerHTML = language+'/';
-					document.id('addfilepathlang').innerHTML = language+'/';
+					}";
+			if(!$this->s3audio){$changelang	.= "document.id('audiopathdate').innerHTML = language+'/';";}
+			if(!$this->s3video){$changelang	.= "document.id('videopathlang').innerHTML = language+'/';";}
+			$changelang	.= "document.id('addfilepathlang').innerHTML = language+'/';
 				}";
 			$lang	= ($this->item->language && $this->item->language == '*') ? $this->item->language : JFactory::getLanguage()->getTag();
 			$this->append_lang	= $lang.'/';
 		} else {
-			$changelang	= "function changelang(language) {
-				}";
+			$changelang	= "function changelang(language) {}";
 			$this->append_lang	= '';
 		}
 		$document->addScriptDeclaration($changelang);
