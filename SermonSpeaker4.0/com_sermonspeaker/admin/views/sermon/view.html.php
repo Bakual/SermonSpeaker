@@ -84,7 +84,7 @@ class SermonspeakerViewSermon extends JView
 			window.onload = function() {
 				if(document.id("jform_audiofile_text")){
 					upload1 = new SWFUpload({
-						upload_url: "'.$targetURL.'",
+						upload_url: "'.$targetURL.'&type=audio",
 						flash_url : "'.JURI::root().'media/com_sermonspeaker/swfupload/swfupload.swf",
 						file_size_limit : "100MB",
 						file_types : "'.$audioTypes.'",
@@ -138,7 +138,7 @@ class SermonspeakerViewSermon extends JView
 				}
 				if(document.id("jform_videofile_text")){
 					upload2 = new SWFUpload({
-						upload_url: "'.$targetURL.'",
+						upload_url: "'.$targetURL.'&type=video",
 						flash_url : "'.JURI::root().'media/com_sermonspeaker/swfupload/swfupload.swf",
 						file_size_limit : "100MB",
 						file_types : "'.$videoTypes.'",
@@ -192,7 +192,7 @@ class SermonspeakerViewSermon extends JView
 				}
 				if(document.id("jform_addfile_text")){
 					upload3 = new SWFUpload({
-						upload_url: "'.$targetURL.'&addfile=true",
+						upload_url: "'.$targetURL.'&type=addfile",
 						flash_url : "'.JURI::root().'media/com_sermonspeaker/swfupload/swfupload.swf",
 						file_size_limit : "100MB",
 						file_upload_limit : "0",
