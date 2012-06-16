@@ -37,33 +37,33 @@ class SermonspeakerControllerFile extends JController
 			return;
 		}
 
+		// Authorize User
+		$user		= JFactory::getUser();
+		if (!$user->authorise('core.create', 'com_sermonspeaker')) {
+			$response = array(
+				'status' => '0',
+				'error' => JText::_('JGLOBAL_AUTH_ACCESS_DENIED')
+			);
+			echo json_encode($response);
+			return;
+		}
+
 		// Initialise variables.
 		$app		= JFactory::getApplication();
 		$params		= $app->getParams();
 
-		// Get the user
-		$user		= JFactory::getUser();
-
 		// Get some data from the request
 		$file	= JRequest::getVar('Filedata', '', 'files', 'array');
-		$path	= (JRequest::getBool('addfile', false)) ? $params->get('path_addfile') : $params->get('path');
-		$path	= trim($path, '/');
-		$date	= JRequest::getString('date');
-		$time	= ($date) ? strtotime($date) : time();
-		$append	= ($params->get('append_path', 0)) ? DS.date('Y', $time).DS.date('m', $time) : '';
-		if($params->get('append_path_lang', 0)){
-			$lang	= JRequest::getCmd('select-language');
-			if(!$lang || $lang == '*'){
-				$jlang	= JFactory::getLanguage();
-				$lang	= $jlang->getTag();
-			}
-			$append	.= DS.$lang;
-		}
-		$folder	= JPATH_ROOT.DS.$path.$append;
+		$type	= JRequest::getWord('type', 'audio');
 
-		// Set FTP credentials, if given
-		jimport('joomla.client.helper');
-		JClientHelper::setCredentialsFromRequest('ftp');
+		if (!$file['name']) {
+			$response = array(
+				'status' => '0',
+				'error' => JText::_('COM_SERMONSPEAKER_FU_FAILED')
+			);
+			echo json_encode($response);
+			return;
+		}
 
 		// Make the filename safe
 		$file['name']	= JFile::makeSafe($file['name']);
@@ -74,8 +74,63 @@ class SermonspeakerControllerFile extends JController
 			$file['name'] = JFactory::getDate()->format("Y-m-d-H-i-s").'.'.JFile::getExt($file['name']);
 		}
 
-		if ($file['name']) {
-			// The request is valid
+		$mode = 0;
+		if ($type == 'audio'){
+			$mode = $params->get('path_mode_audio', 0);
+		} elseif ($type == 'video'){
+			$mode = $params->get('path_mode_video', 0);
+		}
+
+		if ($mode == 2){
+			// Amazon S3 Upload
+			//include the S3 class   
+			require_once JPATH_COMPONENT_ADMINISTRATOR.'/s3/S3.php';
+			//AWS access info   
+			$awsAccessKey 	= $params->get('s3_access_key');
+			$awsSecretKey 	= $params->get('s3_secret_key');
+			$bucket			= $params->get('s3_bucket');
+			//instantiate the class
+			$s3 = new S3($awsAccessKey, $awsSecretKey);
+
+			// Upload the file
+			if($s3->putObjectFile($file['tmp_name'], $bucket, JFile::makeSafe($file['name']), S3::ACL_PUBLIC_READ)){
+				$response = array(
+					'status' => '1',
+					'filename' => $file['name'],
+					'path' => 'http://'.$bucket.'.s3.amazonaws.com/'.$file['name'],
+					'error' => JText::sprintf('COM_SERMONSPEAKER_FU_FILENAME', $bucket.'.s3.amazonaws.com/'.$file['name'])
+				);
+				echo json_encode($response);
+				return;
+			} else {
+				$response = array(
+					'status' => '0',
+					'error' => JText::_('COM_SERMONSPEAKER_FU_ERROR_UNABLE_TO_UPLOAD_FILE')
+				);
+				echo json_encode($response);
+				return;
+			}
+		} else {
+			// Regular Upload
+			$path	= ($type == 'addfile') ? $params->get('path_addfile') : $params->get('path');
+			$path	= trim($path, '/');
+			$date	= JRequest::getString('date');
+			$time	= ($date) ? strtotime($date) : time();
+			$append	= ($params->get('append_path', 0)) ? DS.date('Y', $time).DS.date('m', $time) : '';
+			if($params->get('append_path_lang', 0)){
+				$lang	= JRequest::getCmd('select-language');
+				if(!$lang || $lang == '*'){
+					$jlang	= JFactory::getLanguage();
+					$lang	= $jlang->getTag();
+				}
+				$append	.= DS.$lang;
+			}
+			$folder	= JPATH_ROOT.DS.$path.$append;
+
+			// Set FTP credentials, if given
+			jimport('joomla.client.helper');
+			JClientHelper::setCredentialsFromRequest('ftp');
+
 			$err = null;
 			$filepath = JPath::clean($folder.DS.strtolower($file['name']));
 
@@ -87,14 +142,6 @@ class SermonspeakerControllerFile extends JController
 				$response = array(
 					'status' => '0',
 					'error' => JText::_('COM_SERMONSPEAKER_FU_ERROR_EXISTS')
-				);
-				echo json_encode($response);
-				return;
-			} elseif (!$params->get('fu_enable') || !$user->authorise('core.create', 'com_sermonspeaker')) {
-				// File does not exist and user is not authorised to create
-				$response = array(
-					'status' => '0',
-					'error' => JText::_('JGLOBAL_AUTH_ACCESS_DENIED')
 				);
 				echo json_encode($response);
 				return;
@@ -119,42 +166,33 @@ class SermonspeakerControllerFile extends JController
 				echo json_encode($response);
 				return;
 			}
-		} else {
-			$response = array(
-				'status' => '0',
-				'error' => JText::_('COM_SERMONSPEAKER_FU_FAILED')
-			);
-
-			echo json_encode($response);
-			return;
 		}
 	}
 
 	function lookup(){
-			$file	= JRequest::getString('file');
+		$file	= JRequest::getString('file');
 
-			if($file){
-				require_once JPATH_COMPONENT_SITE.DS.'helpers'.DS.'id3.php';
-				$params	= JComponentHelper::getParams('com_sermonspeaker');
-				$id3 = SermonspeakerHelperId3::getID3($file, $params);
+		if($file){
+			require_once JPATH_COMPONENT_SITE.DS.'helpers'.DS.'id3.php';
+			$params	= JComponentHelper::getParams('com_sermonspeaker');
+			$id3 = SermonspeakerHelperId3::getID3($file, $params);
 
-				if ($id3){
-					$response = $id3;
-					$response['status']	= 1;
-				} else {
-					$response = array(
-						'status' => '0',
-						'msg' => JText::_('COM_SERMONSPEAKER_ERROR_ID3')
-					);
-				}
+			if ($id3){
+				$response = $id3;
+				$response['status']	= 1;
 			} else {
-					$response = array(
-						'status' => '0',
-						'msg' => JText::_('COM_SERMONSPEAKER_ERROR_ID3')
-					);
+				$response = array(
+					'status' => '0',
+					'msg' => JText::_('COM_SERMONSPEAKER_ERROR_ID3')
+				);
 			}
+		} else {
+				$response = array(
+					'status' => '0',
+					'msg' => JText::_('COM_SERMONSPEAKER_ERROR_ID3')
+				);
+		}
 
-
-			echo json_encode($response);
+		echo json_encode($response);
 	}
 }
