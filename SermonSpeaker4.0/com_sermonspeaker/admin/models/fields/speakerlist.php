@@ -40,10 +40,11 @@ class JFormFieldSpeakerlist extends JFormFieldList
 	{
 		$html	= parent::getInput();
 		$app = JFactory::getApplication();
+		$returnpage	= base64_encode(JRoute::_('index.php?view=speakerform&tmpl=component&layout=close'));
 		if ($app->isAdmin()){
 			$url = 'index.php?option=com_sermonspeaker&task=speaker.add&layout=modal&tmpl=component';
 		} else {
-			$url = JRoute::_('index.php?task=speakerform.edit&layout=modal&tmpl=component');
+			$url = JRoute::_('index.php?task=speakerform.edit&layout=modal&tmpl=component&return='.$returnpage);
 		}
 		$html	.= '<a class="modal" href="'.$url.'"rel="{handler: \'iframe\', size: {x: 950, y: 650}}"><img src="'.JURI::root().'media/com_sermonspeaker/images/plus.png"></a>';
 
