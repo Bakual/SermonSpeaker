@@ -139,4 +139,62 @@ class SermonspeakerControllerSerie extends JControllerForm
 
 		return parent::batch($model);
 	}
+
+	protected function getRedirectToItemAppend($recordId = null, $urlVar = null)
+	{
+		$append = parent::getRedirectToItemAppend($recordId, $urlVar);
+		$modal	= JRequest::getInt('modal');
+		$return	= $this->getReturnPage();
+
+		if ($modal) {
+			$append .= '&tmpl=component';
+		}
+
+		if ($return) {
+			$append .= '&return='.base64_encode($return);
+		}
+
+		return $append;
+	}
+
+	/**
+	 * Get the return URL.
+	 *
+	 * If a "return" variable has been passed in the request
+	 *
+	 * @return	string	The return URL.
+	 * @since	1.6
+	 */
+	protected function getReturnPage()
+	{
+		$return = JRequest::getVar('return', null, 'default', 'base64');
+
+		if (empty($return) || !JUri::isInternal(base64_decode($return))) {
+			return JURI::base();
+		}
+		else {
+			return base64_decode($return);
+		}
+	}
+
+	/**
+	 * Method to save a record.
+	 *
+	 * @param	string	$key	The name of the primary key of the URL variable.
+	 * @param	string	$urlVar	The name of the URL variable if different from the primary key (sometimes required to avoid router collisions).
+	 *
+	 * @return	Boolean	True if successful, false otherwise.
+	 * @since	1.6
+	 */
+	public function save($key = null, $urlVar = 'id')
+	{
+		$result = parent::save($key, $urlVar);
+
+		// If ok, redirect to the return page.
+		if ($result) {
+			$this->setRedirect($this->getReturnPage());
+		}
+
+		return $result;
+	}
 }

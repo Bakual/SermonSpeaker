@@ -155,10 +155,15 @@ class SermonspeakerControllerSerieform extends JControllerForm
 	{
 		$append = parent::getRedirectToItemAppend($recordId, $urlVar);
 		$itemId	= JRequest::getInt('Itemid');
+		$modal	= JRequest::getInt('modal');
 		$return	= $this->getReturnPage();
 
 		if ($itemId) {
 			$append .= '&Itemid='.$itemId;
+		}
+
+		if ($modal) {
+			$append .= '&tmpl=component';
 		}
 
 		if ($return) {

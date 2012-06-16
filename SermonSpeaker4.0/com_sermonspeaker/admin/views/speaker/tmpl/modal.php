@@ -94,7 +94,7 @@ JHtml::_('behavior.formvalidation');
 
 		<?php echo JHtml::_('sliders.end'); ?>
 		<div class="formelm-buttons">
-			<button type="button" onclick="Joomla.submitbutton('speaker.save'); window.parent.location.reload();">
+			<button type="button" onclick="Joomla.submitbutton('speaker.save');">
 				<?php echo JText::_('JSAVE') ?>
 			</button>
 			<button type="button" onclick="window.parent.SqueezeBox.close();">

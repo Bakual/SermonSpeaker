@@ -86,7 +86,7 @@ JHtml::_('behavior.formvalidation');
 		</fieldset>
 		<?php echo JHtml::_('sliders.end'); ?>
 		<div class="formelm-buttons">
-			<button type="button" onclick="Joomla.submitbutton('serie.save'); window.parent.location.reload();">
+			<button type="button" onclick="Joomla.submitbutton('serie.save');">
 				<?php echo JText::_('JSAVE') ?>
 			</button>
 			<button type="button" onclick="window.parent.SqueezeBox.close();">

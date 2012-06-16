@@ -22,7 +22,7 @@ JHtml::_('behavior.keepalive');
 	<?php echo $this->escape($this->params->get('page_heading')); ?>
 </h1>
 <?php endif; ?>
-<form action="<?php echo JRoute::_('index.php?option=com_sermonspeaker&view=serieform&s_id='.(int) $this->item->id); ?>" method="post" name="adminForm" id="adminForm" class="form-validate">
+<form action="<?php echo JRoute::_('index.php?option=com_sermonspeaker&view=serieform&modal=1&s_id='.(int) $this->item->id); ?>" method="post" name="adminForm" id="adminForm" class="form-validate">
 	<fieldset>
 		<legend><?php echo JText::_('JEDITOR'); ?></legend>
 		<div class="formelm">
@@ -40,7 +40,7 @@ JHtml::_('behavior.keepalive');
 			</div>
 		<?php endif; ?>
 		<div class="formelm-buttons">
-			<button type="button" onclick="Joomla.submitbutton('serieform.save'); window.parent.location.reload();">
+			<button type="button" onclick="Joomla.submitbutton('serieform.save');">
 				<?php echo JText::_('JSAVE') ?>
 			</button>
 			<button type="button" onclick="window.parent.SqueezeBox.close();">
@@ -65,7 +65,7 @@ JHtml::_('behavior.keepalive');
 			</div>
 		<?php endforeach; ?>
 		<div class="formelm-buttons">
-			<button type="button" onclick="Joomla.submitbutton('serieform.save'); window.parent.location.reload();">
+			<button type="button" onclick="Joomla.submitbutton('serieform.save');">
 				<?php echo JText::_('JSAVE') ?>
 			</button>
 			<button type="button" onclick="window.parent.SqueezeBox.close();">
