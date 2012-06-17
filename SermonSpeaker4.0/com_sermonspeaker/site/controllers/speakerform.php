@@ -25,6 +25,11 @@ class SermonspeakerControllerSpeakerform extends JControllerForm
 	protected $view_list = 'speakers';
 
 	/**
+	 * @since	1.6
+	 */
+	protected $context = 'speaker';
+
+	/**
 	 * Method to add a new record.
 	 *
 	 * @return	boolean	True if the article can be added, false if not.

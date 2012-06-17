@@ -12,6 +12,11 @@ require_once JPATH_COMPONENT_ADMINISTRATOR.'/models/serie.php';
 class SermonspeakerModelSerieform extends SermonspeakerModelSerie
 {
 	/**
+	 * @since	1.6
+	 */
+	protected $context = 'serie';
+
+	/**
 	 * Get the return URL.
 	 *
 	 * @return	string	The return URL.

@@ -17,6 +17,11 @@ class SermonspeakerControllerSerieform extends JControllerForm
 	/**
 	 * @since	1.6
 	 */
+	protected $context = 'serie';
+
+	/**
+	 * @since	1.6
+	 */
 	protected $view_item = 'serieform';
 
 	/**

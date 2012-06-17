@@ -12,6 +12,11 @@ require_once JPATH_COMPONENT_ADMINISTRATOR.'/models/speaker.php';
 class SermonspeakerModelSpeakerform extends SermonspeakerModelSpeaker
 {
 	/**
+	 * @since	1.6
+	 */
+	protected $context = 'speaker';
+
+	/**
 	 * Get the return URL.
 	 *
 	 * @return	string	The return URL.
