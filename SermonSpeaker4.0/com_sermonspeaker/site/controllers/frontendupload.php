@@ -249,7 +249,7 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 
 		// If ok, redirect to the return page.
 		if ($result) {
-//			$this->setRedirect('index.php?option=com_sermonspeaker&task=frontendupload.edit&s_id=&return=&Itemid=118&lang=en');
+			$this->setRedirect($this->getReturnPage());
 		}
 
 		return $result;

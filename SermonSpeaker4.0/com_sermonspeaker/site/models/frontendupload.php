@@ -56,4 +56,57 @@ class SermonspeakerModelFrontendupload extends SermonspeakerModelSermon
 
 		$this->setState('layout', JRequest::getCmd('layout'));
 	}
+
+	/**
+	 * Method to get the data that should be injected in the form.
+	 *
+	 * @return	mixed	The data for the form.
+	 * @since	1.6
+	 */
+	protected function loadFormData()
+	{
+		// Check the session for previously entered form data.
+		$data = JFactory::getApplication()->getUserState('com_sermonspeaker.edit.frontendupload.data', array());
+
+		if (empty($data)) {
+			$data = $this->getItem();
+		} else {
+			// Catch scriptures from database again because the values in UserState can't be used due to formatting.
+			$data['scripture'] = array();
+			if($data['id']){
+				$db		= JFactory::getDBO();
+				$query	= "SELECT book, cap1, vers1, cap2, vers2, text \n"
+						."FROM #__sermon_scriptures \n"
+						."WHERE sermon_id = ".$data['id']." \n"
+						."ORDER BY ordering ASC"
+						;
+				$db->setQuery($query);
+				$data['scripture'] = $db->loadAssocList();
+			}
+		}
+		// Depreceated with SermonSpeaker 4.4.4. Using Ajax now for Lookup.
+		// Reading ID3 Tags if the Lookup Button was pressed
+		if ($id3_file = JRequest::getString('file')){
+			if (JRequest::getCmd('type') == 'video'){
+				$data->videofile = $id3_file;
+			} else {
+				$data->audiofile = $id3_file;
+			}
+			require_once JPATH_COMPONENT_SITE.DS.'helpers'.DS.'id3.php';
+			$params	= JComponentHelper::getParams('com_sermonspeaker');
+
+			$id3 = SermonspeakerHelperId3::getID3($id3_file, $params);
+			if ($id3){
+				foreach ($id3 as $key => $value){
+					if ($value){
+						$data->$key = $value;
+					}
+				}
+			} else {
+				JError::raiseNotice(100, JText::_('COM_SERMONSPEAKER_ERROR_ID3'));
+			}
+		}
+
+		return $data;
+	}
 }
