@@ -199,20 +199,20 @@ class SermonspeakerHelperPlayer {
 	private function JWPlayer(){
 		$this->player	= 'JWPlayer';
 		$this->mspace	= '<div id="mediaspace'.$this->config['count'].'">Flashplayer needs Javascript turned on</div>';
-		$player = JURI::root().'media/com_sermonspeaker/player/jwplayer/player.swf';
+		$player = 'media/com_sermonspeaker/player/jwplayer/player.swf';
 		// Setting some general player options
 		$start = $this->config['autostart'] ? 'true' : 'false';
-		$options	= '"autostart": '.$start.',';
+		$options	= "'autostart':'".$start."',";
 		$skin	= $this->params->get('jwskin', '');
 		if ($skin){
-			$options	.= 'skin: "'.$skin.'",';
+			$options	.= "'skin':'".$skin."',";
 		}
 		if($this->status == 'playlist'){
 			$this->toggle = $this->params->get('fileswitch', 0);
 			$this->setDimensions('23px', '100%');
 			$type	= ($this->config['type'] == 'audio' || ($this->config['type'] == 'auto' && !$this->prio)) ? 'a' : 'v';
 			$this->setPopup($type);
-			$options	.= 'events: {'
+			$options	.= "'events':{"
 								.'onPlaylistItem: function(event){'
 									.'var i = 0;'
 									.'while (document.id("sermon"+i)){'
@@ -270,18 +270,18 @@ class SermonspeakerHelperPlayer {
 				}
 				// Choosing the default file to play based on prio and availabilty
 				if (($this->config['type'] != 'video') && ($temp_item->audiofile && (!$this->prio || ($this->config['type'] == 'audio') || !$temp_item->videofile))){
-					$entry['file']	= 'file: "'.SermonspeakerHelperSermonspeaker::makelink($temp_item->audiofile).'"';
+					$entry['file']	= "'file':'".SermonspeakerHelperSermonspeaker::makelink($temp_item->audiofile)."'";
 				} elseif (($this->config['type'] != 'audio') && ($temp_item->videofile && ($this->prio || ($this->config['type'] == 'video') || !$temp_item->audiofile))){
-					$entry['file']	= 'file: "'.SermonspeakerHelperSermonspeaker::makelink($temp_item->videofile).'"';
+					$entry['file']	= "'file':'".SermonspeakerHelperSermonspeaker::makelink($temp_item->videofile)."'";
 				} else {
 					if ($img){
-						$entry['file']	= 'file: "'.$img.'"';
+						$entry['file']	= "'file':'".$img."'";
 					} else {
-						$entry['file']	= 'file: "'.JURI::root().'/media/com_sermonspeaker/images/nopict.jpg"';
+						$entry['file']	= "'file':'/media/com_sermonspeaker/images/nopict.jpg'";
 					}
-					$entry['error']	= 'error: "'.JText::_('JGLOBAL_RESOURCE_NOT_FOUND').'"';
+					$entry['error']	= "'error':'".JText::_('JGLOBAL_RESOURCE_NOT_FOUND')."'";
 				}
-				$entry[]	= 'title: "'.addslashes($temp_item->sermon_title).'"';
+				$entry[]	= "'title':'".addslashes($temp_item->sermon_title)."'";
 				$desc = array();
 				if ($temp_item->sermon_date){
 					$desc[] = JText::_('JDATE').': '.JHTML::Date($temp_item->sermon_date, JText::_($this->params->get('date_format')), true);
@@ -289,40 +289,40 @@ class SermonspeakerHelperPlayer {
 				if ($temp_item->name){
 					$desc[] = JText::_('COM_SERMONSPEAKER_SPEAKER').': '.addslashes($temp_item->name);
 				}
-				$entry[] = 'description: "'.implode('<br/>', $desc).'"';
+				$entry[] = "'description':'".implode('<br/>', $desc)."'";
 				if ($temp_item->sermon_time != '00:00:00'){
 					$time_arr = explode(':', $temp_item->sermon_time);
 					$seconds = ($time_arr[0] * 3600) + ($time_arr[1] * 60) + $time_arr[2];
-					$entry[] = 'duration: '.$seconds;
+					$entry[] = "'duration':'".$seconds."'";
 				}
 				if ($img){
-					$entry[] = 'image: "'.$img.'"';
+					$entry[] = "'image':'".$img."'";
 				}
 				$entries[] = '{'.implode(',', $entry).'}';
 				if ($this->toggle){
 					// Preparing specific playlists for audio and video
 					if ($temp_item->audiofile){
-						$entry['file']	= 'file: "'.SermonspeakerHelperSermonspeaker::makelink($temp_item->audiofile).'"';
+						$entry['file']	= "'file':'".SermonspeakerHelperSermonspeaker::makelink($temp_item->audiofile)."'";
 						unset($entry['error']);
 					} else {
 						if ($img){
-							$entry['file']	= 'file: "'.$img.'"';
+							$entry['file']	= "'file':'".$img."'";
 						} else {
-							$entry['file']	= 'file: "'.JURI::root().'/media/com_sermonspeaker/images/nopict.jpg"';
+							$entry['file']	= "'file':'media/com_sermonspeaker/images/nopict.jpg'";
 						}
-						$entry['error']	= 'error: "'.JText::_('JGLOBAL_RESOURCE_NOT_FOUND').'"';
+						$entry['error']	= "'error':'".JText::_('JGLOBAL_RESOURCE_NOT_FOUND')."'";
 					}
 					$audios[] = '{'.implode(',', $entry).'}';
 					if ($temp_item->videofile){
-						$entry['file']	= 'file: "'.SermonspeakerHelperSermonspeaker::makelink($temp_item->videofile).'"';
+						$entry['file']	= "'file':'".SermonspeakerHelperSermonspeaker::makelink($temp_item->videofile)."'";
 						unset($entry['error']);
 					} else {
 						if ($img){
-							$entry['file']	= 'file: "'.$img.'"';
+							$entry['file']	= "'file':'".$img."'";
 						} else {
-							$entry['file']	= 'file: "'.JURI::root().'/media/com_sermonspeaker/images/nopict.jpg"';
+							$entry['file']	= "'file':'/media/com_sermonspeaker/images/nopict.jpg'";
 						}
-						$entry['error']	= 'error: "'.JText::_('JGLOBAL_RESOURCE_NOT_FOUND').'"';
+						$entry['error']	= "'error':'".JText::_('JGLOBAL_RESOURCE_NOT_FOUND')."'";
 					}
 					$videos[] = '{'.implode(',', $entry).'}';
 				}
@@ -336,30 +336,30 @@ class SermonspeakerHelperPlayer {
 			$type	= ($this->status == 'audio') ? 'a' : 'v';
 			$image = '';
 			if ($this->item->picture){
-				$image = 'image: "'.SermonspeakerHelperSermonspeaker::makelink($this->item->picture).'",';
+				$image = "'image':'".SermonspeakerHelperSermonspeaker::makelink($this->item->picture)."',";
 			} elseif ($this->item->pic){
-				$image = 'image: "'.SermonspeakerHelperSermonspeaker::makelink($this->item->pic).'",';
+				$image = "'image':'".SermonspeakerHelperSermonspeaker::makelink($this->item->pic)."',";
 			}
 			$duration = '';
 			if ($this->item->sermon_time != '00:00:00'){
 				$time_arr = explode(':', $this->item->sermon_time);
 				$seconds = ($time_arr[0] * 3600) + ($time_arr[1] * 60) + $time_arr[2];
-				$duration = 'duration: '.$seconds.',';
+				$duration = "'duration':'".$seconds."',";
 			}
-			$this->playlist['default'] = '{file:"'.$this->file.'",'.$image.$duration.'}';
+			$this->playlist['default'] = "{'file':'".$this->file."',".$image.$duration."}";
 			if ($this->toggle){
-				$this->playlist['audio']	= '{file: "'.$this->playlist['audio'].'"}';
-				$this->playlist['video']	= '{file: "'.$this->playlist['video'].'"}';
+				$this->playlist['audio']	= "{'file':'".$this->playlist['audio']."'}";
+				$this->playlist['video']	= "{'file':'".$this->playlist['video']."'}";
 			}
 		}
 		$this->script	= '<script type="text/javascript">'
-							.'jwplayer("mediaspace'.$this->config['count'].'").setup({'
-								.'flashplayer: "'.$player.'",'
-								.'playlist: ['.$this->playlist['default'].'],'
-								.'controlbar: "bottom",'
+							."jwplayer('mediaspace".$this->config['count']."').setup({"
+								."'flashplayer':'".$player."',"
+								."'playlist':[".$this->playlist['default']."],"
+								."'controlbar':'bottom',"
 								.$options
-								.'width: "'.$this->config[$type.'width'].'",'
-								.'height: "'.$this->config[$type.'height'].'"'
+								."'width':'".$this->config[$type.'width']."',"
+								."'height':'".$this->config[$type.'height']."'"
 							.'});'
 						.'</script>';
 
