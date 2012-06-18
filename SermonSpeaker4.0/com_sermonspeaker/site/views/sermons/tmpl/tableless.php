@@ -115,10 +115,8 @@ if (in_array('sermons:player', $this->columns) && count($this->items)) : ?>
 	<?php else : ?>
 		<?php foreach($this->items as $i => $item) : ?>
 			<div id="sermon<?php echo $i; ?>" class="ss-entry" onclick="ss_play('<?php echo $i; ?>')">
-				<?php if ($item->picture): ?>
-					<div class="ss-picture"><img src="<?php echo SermonspeakerHelperSermonspeaker::makelink($item->picture); ?>"></div>
-				<?php elseif ($item->pic): ?>
-					<div class="ss-picture"><img src="<?php echo SermonspeakerHelperSermonspeaker::makelink($item->pic); ?>"></div>
+				<?php if ($picture = SermonspeakerHelperSermonspeaker::insertPicture($item)) : ?>
+					<div class="ss-picture"><img src="<?php echo $picture; ?>"></div>
 				<?php endif; ?>
 				<h3><a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug)); ?>"><?php echo $item->sermon_title; ?></a></h3>
 				<?php if ($canEdit || ($canEditOwn && ($user->id == $item->created_by))) : ?>

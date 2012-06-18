@@ -201,6 +201,28 @@ class SermonspeakerHelperSermonspeaker
 		return implode(', ', $links);
 	}
 
+	static function insertPicture($item, $nopict = 0)
+	{
+		if ($item->picture)
+		{
+			$image = $item->picture;
+		} 
+		elseif ($item->avatar)
+		{
+			$image = $item->avatar;
+		}
+		elseif ($item->pic)
+		{
+			$image = $item->pic;
+		}
+		else
+		{
+			$image = ($nopict) ? 'media/com_sermonspeaker/images/nopict.jpg' : '';
+		}
+
+		return trim($image, '/');
+	}
+
 	static function insertScriptures($scripture, $between, $addTag = true){
 		if(!$scripture){
 			return;
