@@ -22,11 +22,16 @@
 			<filename>views/serie/tmpl/columns.xml</filename>
 			<filename>views/sermon/tmpl/popupx.php</filename>
 			<filename>views/sermon/tmpl/popupx.xml</filename>
+			<filename>views/sermon/tmpl/iconx.php</filename>
+			<filename>views/sermon/tmpl/iconx.xml</filename>
 		</files>
 		<files target="media/com_sermonspeaker">
 			<filename>css/columns.css</filename>
+			<filename>css/iconx.css</filename>
 			<filename>images/listen.png</filename>
 			<filename>images/watch.png</filename>
+			<filename>images/player.png</filename>
+			<filename>images/player-wrapper-video.png</filename>
 		</files>
 	</fileset>
 </extension>
