@@ -19,12 +19,7 @@ class SermonspeakerHelperSermonspeaker
 	}
 
 	static function SpeakerTooltip($id, $pic, $name) {
-		if (!$pic) { 
-			// check if there is no picture and set nopict.jpg
-			$pic = JURI::root().'media/com_sermonspeaker/images/nopict.jpg';
-		} else {
-			$pic = SermonspeakerHelperSermonspeaker::makelink($pic);
-		}
+		$pic = ($pic) ? $pic : 'media/com_sermonspeaker/images/nopict.jpg';
 		$html = '<a class="modal" href="'.JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($id).'&layout=popup&tmpl=component').'" rel="{handler: \'iframe\', size: {x: 700, y: 500}}">';
 		$html .= JHTML::tooltip('<img src="'.$pic.'" alt="'.$name.'">',$name,'',$name).'</a>';
 
@@ -203,15 +198,15 @@ class SermonspeakerHelperSermonspeaker
 
 	static function insertPicture($item, $nopict = 0)
 	{
-		if ($item->picture)
+		if (isset($item->picture) && $item->picture)
 		{
 			$image = $item->picture;
 		} 
-		elseif ($item->avatar)
+		elseif (isset($item->avatar) && $item->avatar)
 		{
 			$image = $item->avatar;
 		}
-		elseif ($item->pic)
+		elseif (isset($item->pic) && $item->pic)
 		{
 			$image = $item->pic;
 		}

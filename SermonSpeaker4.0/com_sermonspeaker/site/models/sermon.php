@@ -107,7 +107,7 @@ class SermonspeakerModelSermon extends JModelItem
 
 				// Join on series table.
 				$query->select(
-						'series.series_title, series.state as series_state, '.
+						'series.series_title, series.avatar, series.state as series_state, '.
 						"CASE WHEN CHAR_LENGTH(series.alias) THEN CONCAT_WS(':', series.id, series.alias) ELSE series.id END as series_slug "
 				);
 				$query->join('LEFT', '#__sermon_series AS series on series.id = sermon.series_id');

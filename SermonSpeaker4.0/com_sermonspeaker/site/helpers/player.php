@@ -262,12 +262,7 @@ class SermonspeakerHelperPlayer {
 			foreach ($this->item as $temp_item){
 				$entry = array();
 				// Choose picture to show
-				$img = '';
-				if ($temp_item->picture){
-					$img = SermonspeakerHelperSermonspeaker::makelink($temp_item->picture);
-				} elseif ($temp_item->pic){
-					$img = SermonspeakerHelperSermonspeaker::makelink($temp_item->pic);
-				}
+				$img = SermonspeakerHelperSermonspeaker::insertPicture($temp_item);
 				// Choosing the default file to play based on prio and availabilty
 				if (($this->config['type'] != 'video') && ($temp_item->audiofile && (!$this->prio || ($this->config['type'] == 'audio') || !$temp_item->videofile))){
 					$entry['file']	= "'file':'".SermonspeakerHelperSermonspeaker::makelink($temp_item->audiofile)."'";
@@ -334,11 +329,9 @@ class SermonspeakerHelperPlayer {
 			}
 		} else {
 			$type	= ($this->status == 'audio') ? 'a' : 'v';
-			$image = '';
-			if ($this->item->picture){
-				$image = "'image':'".SermonspeakerHelperSermonspeaker::makelink($this->item->picture)."',";
-			} elseif ($this->item->pic){
-				$image = "'image':'".SermonspeakerHelperSermonspeaker::makelink($this->item->pic)."',";
+			$image = SermonspeakerHelperSermonspeaker::insertPicture($this->item);
+			if ($image){
+				$image = "'image':'".$image."',";
 			}
 			$duration = '';
 			if ($this->item->sermon_time != '00:00:00'){
@@ -461,12 +454,7 @@ class SermonspeakerHelperPlayer {
 			foreach ($this->item as $temp_item){
 				$entry = array();
 				// Choose picture to show
-				$img = '';
-				if ($temp_item->picture){
-					$img = SermonspeakerHelperSermonspeaker::makelink($temp_item->picture);
-				} elseif ($temp_item->pic){
-					$img = SermonspeakerHelperSermonspeaker::makelink($temp_item->pic);
-				}
+				$img = SermonspeakerHelperSermonspeaker::insertPicture($temp_item);
 				// Choosing the default file to play based on prio and availabilty
 				if (($this->config['type'] != 'video') && ($temp_item->audiofile && (!$this->prio || ($this->config['type'] == 'audio') || !$temp_item->videofile))){
 					$entry['file']	= 'url:"'.SermonspeakerHelperSermonspeaker::makelink($temp_item->audiofile).'"';
@@ -676,11 +664,9 @@ class SermonspeakerHelperPlayer {
 		$start	= $this->config['autostart'] ? 1 : 0;
 		$type	= ($this->status == 'audio') ? 'a' : 'v';
 		$this->mspace	= '<div id="mediaspace'.$this->config['count'].'">Silverlight needs Javascript turned on</div>';
-		$image = '';
-		if ($this->item->picture){
-			$image = 'image: "'.SermonspeakerHelperSermonspeaker::makelink($this->item->picture).'",';
-		} elseif ($this->item->pic){
-			$image = 'image: "'.SermonspeakerHelperSermonspeaker::makelink($this->item->pic).'",';
+		$image = SermonspeakerHelperSermonspeaker::insertPicture($this->item);
+		if ($image){
+			$image = "'image':'".$image."',";
 		}
 		$duration = '';
 		if ($this->item->sermon_time != '00:00:00'){

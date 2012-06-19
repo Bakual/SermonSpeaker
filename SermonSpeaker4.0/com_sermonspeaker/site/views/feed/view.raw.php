@@ -127,9 +127,7 @@ class SermonspeakerViewFeed extends JView
 				$item->itSummary = $item_notes;
 			}
 			if ($row->picture){
-				if(substr($row->picture, 0, 1) == '/' ) {
-					$row->picture = substr($row->picture, 1);
-				}
+				$row->picture	= trim($row->picture, '/');
 				$item->itImage	= $link.$row->picture;
 			} else {
 				$item->itImage	= $channel->itImage;

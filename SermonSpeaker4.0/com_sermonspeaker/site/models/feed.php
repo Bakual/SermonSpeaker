@@ -46,8 +46,8 @@ class SermonspeakerModelFeed extends JModel
 
 		$query = "SET character_set_results ='utf8';";
 		$database->setQuery($query);
-		$query = "SELECT sermons.sermon_date, sermons.sermon_title, sermons.audiofile, sermons.videofile, series.series_title, \n"
-				."sermons.notes, sermons.sermon_time, speakers.name, sermons.id, sermons.picture, \n"
+		$query = "SELECT sermons.sermon_date, sermons.sermon_title, sermons.audiofile, sermons.videofile, series.series_title, series.avatar, \n"
+				."sermons.notes, sermons.sermon_time, speakers.name, speakers.pic, sermons.id, sermons.picture, \n"
 				.'GROUP_CONCAT(script.book,"|",script.cap1,"|",script.vers1,"|",script.cap2,"|",script.vers2,"|",script.text ORDER BY script.ordering ASC SEPARATOR "!") AS scripture '."\n"
 				."FROM #__sermon_sermons AS sermons \n"
 				."LEFT JOIN #__sermon_scriptures AS script ON script.sermon_id = sermons.id \n"

@@ -165,10 +165,9 @@ class SermonspeakerViewSermon extends JView
 			$this->document->addCustomTag('<meta property="og:description" content="'.$this->document->getDescription().'"/>');
 			$this->document->addCustomTag('<meta property="og:site_name" content="'.$app->getCfg('sitename').'"/>');
 			$this->document->addCustomTag('<meta property="og:type" content="sermon"/>');
-			if ($this->item->picture){
-				$this->document->addCustomTag('<meta property="og:image" content="'.SermonSpeakerHelperSermonSpeaker::makelink($this->item->picture).'"/>');
-			} elseif ($this->item->pic){
-				$this->document->addCustomTag('<meta property="og:image" content="'.SermonSpeakerHelperSermonSpeaker::makelink($this->item->pic).'"/>');
+			if ($picture = SermonspeakerHelperSermonspeaker::insertPicture($this->item))
+			{
+				$this->document->addCustomTag('<meta property="og:image" content="'.SermonSpeakerHelperSermonSpeaker::makelink($picture).'"/>');
 			}
 			if($this->item->videofile){
 				if((strpos($this->item->videofile, 'http://vimeo.com') === 0) || (strpos($this->item->videofile, 'http://player.vimeo.com') === 0)){
