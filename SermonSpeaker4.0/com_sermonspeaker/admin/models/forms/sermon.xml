@@ -62,7 +62,7 @@
 
 		<field name="notes" type="editor" buttons="true" hide="pagebreak,readmore"
 			class="inputbox"
-			filter="safehtml"
+			filter="JComponentHelper::filterText"
 			label="COM_SERMONSPEAKER_FIELD_NOTES_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_NOTES_DESC" />
 
