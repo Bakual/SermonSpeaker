@@ -34,7 +34,7 @@
 
 		<field name="series_description" type="editor" buttons="true" hide="pagebreak,readmore"
 			class="inputbox"
-			filter="safehtml"
+			filter="JComponentHelper::filterText"
 			label="JGLOBAL_DESCRIPTION" />
 
 		<field name="language" type="contentlanguage" label="JFIELD_LANGUAGE_LABEL"

@@ -34,12 +34,12 @@
 
 		<field name="intro" type="editor" buttons="true" hide="pagebreak,readmore"
 			class="inputbox"
-			filter="safehtml"
+			filter="JComponentHelper::filterText"
 			label="COM_SERMONSPEAKER_FIELD_INTRO_LABEL" />
 
 		<field name="bio" type="editor" buttons="true" hide="pagebreak,readmore"
 			class="inputbox"
-			filter="safehtml"
+			filter="JComponentHelper::filterText"
 			label="COM_SERMONSPEAKER_FIELD_BIO_LABEL" />
 
 		<field name="language" type="contentlanguage" label="JFIELD_LANGUAGE_LABEL"
