@@ -170,7 +170,7 @@ class SermonspeakerControllerSerie extends JControllerForm
 		$return = JRequest::getVar('return', null, 'default', 'base64');
 
 		if (empty($return) || !JUri::isInternal(base64_decode($return))) {
-			return JURI::base();
+			return false;
 		}
 		else {
 			return base64_decode($return);
@@ -191,8 +191,8 @@ class SermonspeakerControllerSerie extends JControllerForm
 		$result = parent::save($key, $urlVar);
 
 		// If ok, redirect to the return page.
-		if ($result) {
-			$this->setRedirect($this->getReturnPage());
+		if ($result && ($return = $this->getReturnPage())) {
+			$this->setRedirect($return);
 		}
 
 		return $result;

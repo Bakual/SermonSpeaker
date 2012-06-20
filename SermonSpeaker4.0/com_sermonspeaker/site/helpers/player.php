@@ -199,7 +199,7 @@ class SermonspeakerHelperPlayer {
 	private function JWPlayer(){
 		$this->player	= 'JWPlayer';
 		$this->mspace	= '<div id="mediaspace'.$this->config['count'].'">Flashplayer needs Javascript turned on</div>';
-		$player = 'media/com_sermonspeaker/player/jwplayer/player.swf';
+		$player = JURI::root().'media/com_sermonspeaker/player/jwplayer/player.swf';
 		// Setting some general player options
 		$start = $this->config['autostart'] ? 'true' : 'false';
 		$options	= "'autostart':'".$start."',";
@@ -272,7 +272,7 @@ class SermonspeakerHelperPlayer {
 					if ($img){
 						$entry['file']	= "'file':'".$img."'";
 					} else {
-						$entry['file']	= "'file':'/media/com_sermonspeaker/images/nopict.jpg'";
+						$entry['file']	= "'file':'media/com_sermonspeaker/images/nopict.jpg'";
 					}
 					$entry['error']	= "'error':'".JText::_('JGLOBAL_RESOURCE_NOT_FOUND')."'";
 				}
@@ -315,7 +315,7 @@ class SermonspeakerHelperPlayer {
 						if ($img){
 							$entry['file']	= "'file':'".$img."'";
 						} else {
-							$entry['file']	= "'file':'/media/com_sermonspeaker/images/nopict.jpg'";
+							$entry['file']	= "'file':'media/com_sermonspeaker/images/nopict.jpg'";
 						}
 						$entry['error']	= "'error':'".JText::_('JGLOBAL_RESOURCE_NOT_FOUND')."'";
 					}
@@ -464,7 +464,7 @@ class SermonspeakerHelperPlayer {
 					if ($img){
 						$entry['file']	= 'url: "'.$img.'"';
 					} else {
-						$entry['file']	= 'url: "'.JURI::root().'/media/com_sermonspeaker/images/nopict.jpg"';
+						$entry['file']	= 'url:"media/com_sermonspeaker/images/nopict.jpg"';
 					}
 					$entry['error']	= 'error: "'.JText::_('JGLOBAL_RESOURCE_NOT_FOUND').'"';
 				}
@@ -496,7 +496,7 @@ class SermonspeakerHelperPlayer {
 						if ($img){
 							$entry['file']	= 'url: "'.$img.'"';
 						} else {
-							$entry['file']	= 'url: "'.JURI::root().'/media/com_sermonspeaker/images/nopict.jpg"';
+							$entry['file']	= 'url: "media/com_sermonspeaker/images/nopict.jpg"';
 						}
 						$entry['error']	= 'error: "'.JText::_('JGLOBAL_RESOURCE_NOT_FOUND').'"';
 					}
@@ -508,7 +508,7 @@ class SermonspeakerHelperPlayer {
 						if ($img){
 							$entry['file']	= 'url: "'.$img.'"';
 						} else {
-							$entry['file']	= 'url: "'.JURI::root().'/media/com_sermonspeaker/images/nopict.jpg"';
+							$entry['file']	= 'url: "media/com_sermonspeaker/images/nopict.jpg"';
 						}
 						$entry['error']	= 'error: "'.JText::_('JGLOBAL_RESOURCE_NOT_FOUND').'"';
 					}
