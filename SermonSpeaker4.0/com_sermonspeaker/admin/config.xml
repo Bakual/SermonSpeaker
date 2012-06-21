@@ -785,6 +785,18 @@
 			default="" 
 			label="COM_SERMONSPEAKER_FIELD_FBAPPID_LABEL" 
 			description="COM_SERMONSPEAKER_FIELD_FBAPPID_DESC" />
+		<field name="ga_spacer1" 
+			type="spacer"
+			hr="true"/>
+		<field name="ga_spacer2" 
+			type="spacer"
+			label="COM_SERMONSPEAKER_FIELD_GASPACER_LABEL"
+			description="COM_SERMONSPEAKER_FIELD_GASPACER_DESC" />
+		<field name="ga_id" 
+			type="text" 
+			default="" 
+			label="COM_SERMONSPEAKER_FIELD_GAID_LABEL" 
+			description="COM_SERMONSPEAKER_FIELD_GAID_DESC" />
 	</fieldset>
 	<fieldset name="permissions"
 		label="JCONFIG_PERMISSIONS_LABEL"

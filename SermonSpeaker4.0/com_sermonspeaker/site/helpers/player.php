@@ -201,12 +201,26 @@ class SermonspeakerHelperPlayer {
 		$this->player	= 'JWPlayer';
 		$this->mspace	= '<div id="mediaspace'.$this->config['count'].'">Flashplayer needs Javascript turned on</div>';
 		// Setting some general player options
-		$options['flashplayer']	= JURI::base(true).'/media/com_sermonspeaker/player/jwplayer/player.swf';
-		$options['autostart']	= $this->config['autostart'] ? 'true' : 'false';
-		$options['controlbar']	= 'bottom';
+		$options['flashplayer']	= "'".JURI::base(true)."/media/com_sermonspeaker/player/jwplayer/player.swf'";
+		$options['autostart']	= $this->config['autostart'] ? "'true'" : "'false'";
+		$options['controlbar']	= "'bottom'";
 		if ($skin = $this->params->get('jwskin', ''))
 		{
-			$options['skin'] = SermonspeakerHelperSermonspeaker::makeLink($skin);
+			$options['skin'] = "'".SermonspeakerHelperSermonspeaker::makeLink($skin)."'";
+		}
+		// Plugins
+		if ($ga = $this->params->get('ga_id', ''))
+		{
+			$plugins['gapro-2'] = '{}';
+		}
+		if (isset($plugins))
+		{
+			foreach ($plugins as $key => $value)
+			{
+				$plugin[] = "'".$key."':".$value;
+			}
+			$plugins = implode(',', $plugin);
+			$options['plugins'] = '{'.$plugins.'}';
 		}
 		if ($this->status == 'playlist')
 		{
@@ -381,9 +395,9 @@ class SermonspeakerHelperPlayer {
 		}
 		foreach ($options as $key => $value)
 		{
-			$code[] = "'".$key."':'".$value."'";
+			$option[] = "'".$key."':".$value;
 		}
-		$options = implode(',', $code);
+		$options = implode(',', $option);
 		$this->script	= '<script type="text/javascript">'
 							."jwplayer('mediaspace".$this->config['count']."').setup({"
 								."'playlist':[".$this->playlist['default']."],"
