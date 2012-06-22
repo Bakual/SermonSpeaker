@@ -213,6 +213,12 @@ class SermonspeakerHelperPlayer {
 		{
 			$plugins['gapro-2'] = '{}';
 		}
+		$plugins['fbit-1'] = '{}';
+		$plugins['tweetit-1'] = '{}';
+		$plugins['plusone-1'] = '{}';
+//		$plugins['sharing-3'] = '{}';
+//		$plugins['viral-2'] = '{}';
+//		$plugins['flow-2'] = '{}';
 		if (isset($plugins))
 		{
 			foreach ($plugins as $key => $value)
@@ -450,7 +456,7 @@ class SermonspeakerHelperPlayer {
 	/* FlowPayer */
 	private function FlowPlayer(){
 		$this->player = 'FlowPlayer';
-		$player	= JURI::root().'media/com_sermonspeaker/player/flowplayer/flowplayer-3.2.7.swf';
+		$player	= JURI::root().'media/com_sermonspeaker/player/flowplayer/flowplayer-3.2.11.swf';
 		$start	= $this->config['autostart'] ? 'true' : 'false';
 
 		if($this->status == 'playlist'){
@@ -586,7 +592,7 @@ class SermonspeakerHelperPlayer {
 							.'flowplayer("mediaspace'.$this->config['count'].'", "'.$player.'", {'
 								.'plugins: {'
 									.'audio: {'
-										.'url: "flowplayer.audio-3.2.2.swf"'
+										.'url: "flowplayer.audio-3.2.9.swf"'
 									.'},'
 									.'controls: {'
 										.$option
@@ -612,7 +618,7 @@ class SermonspeakerHelperPlayer {
 		if (!self::$fwscript){
 			$doc = JFactory::getDocument();
 			$doc->addScriptDeclaration('function ss_play(id){flowplayer().play(parseInt(id));}');
-			JHTML::Script('media/com_sermonspeaker/player/flowplayer/flowplayer-3.2.6.min.js');
+			JHTML::Script('media/com_sermonspeaker/player/flowplayer/flowplayer-3.2.10.min.js');
 			if ($this->toggle){
 				$awidth		= is_numeric($this->config['awidth']) ? $this->config['awidth'].'px' : $this->config['awidth'];
 				$aheight	= is_numeric($this->config['aheight']) ? $this->config['aheight'].'px' : $this->config['aheight'];
