@@ -202,20 +202,29 @@ class SermonspeakerHelperPlayer {
 		$this->mspace	= '<div id="mediaspace'.$this->config['count'].'">Flashplayer needs Javascript turned on</div>';
 		// Setting some general player options
 		$options['flashplayer']	= "'".JURI::base(true)."/media/com_sermonspeaker/player/jwplayer/player.swf'";
-		$options['autostart']	= $this->config['autostart'] ? "'true'" : "'false'";
+		$options['autostart']	= $this->config['autostart'] ? 'true' : 'false';
 		$options['controlbar']	= "'bottom'";
 		if ($skin = $this->params->get('jwskin', ''))
 		{
 			$options['skin'] = "'".SermonspeakerHelperSermonspeaker::makeLink($skin)."'";
 		}
 		// Plugins
-		if ($ga = $this->params->get('ga_id', ''))
+		if ($this->params->get('ga_id', ''))
 		{
 			$plugins['gapro-2'] = '{}';
 		}
-		$plugins['fbit-1'] = '{}';
-		$plugins['tweetit-1'] = '{}';
-		$plugins['plusone-1'] = '{}';
+		if ($this->params->get('fbit', 0))
+		{
+			$plugins['fbit-1'] = '{}';
+		}
+		if ($this->params->get('tweetit', 0))
+		{
+			$plugins['tweetit-1'] = '{}';
+		}
+		if ($this->params->get('plusone', 0))
+		{
+			$plugins['plusone-1'] = '{}';
+		}
 //		$plugins['sharing-3'] = '{}';
 //		$plugins['viral-2'] = '{}';
 //		$plugins['flow-2'] = '{}';
@@ -223,10 +232,9 @@ class SermonspeakerHelperPlayer {
 		{
 			foreach ($plugins as $key => $value)
 			{
-				$plugin[] = "'".$key."':".$value;
+				$plugins[$key] = "'".$key."':".$value;
 			}
-			$plugins = implode(',', $plugin);
-			$options['plugins'] = '{'.$plugins.'}';
+			$options['plugins'] = '{'.implode(',', $plugins).'}';
 		}
 		if ($this->status == 'playlist')
 		{
@@ -285,29 +293,22 @@ class SermonspeakerHelperPlayer {
 			{
 				$entry = array();
 				// Choose picture to show
-				$img = SermonspeakerHelperSermonspeaker::insertPicture($temp_item);
+				$img = SermonspeakerHelperSermonspeaker::insertPicture($temp_item, 1);
 				// Choosing the default file to play based on prio and availabilty
 				if (($this->config['type'] != 'video') && ($temp_item->audiofile && (!$this->prio || ($this->config['type'] == 'audio') || !$temp_item->videofile)))
 				{
-					$entry['file']	= "'file':'".SermonspeakerHelperSermonspeaker::makeLink($temp_item->audiofile)."'";
+					$entry['file']	= SermonspeakerHelperSermonspeaker::makeLink($temp_item->audiofile);
 				}
 				elseif (($this->config['type'] != 'audio') && ($temp_item->videofile && ($this->prio || ($this->config['type'] == 'video') || !$temp_item->audiofile)))
 				{
-					$entry['file']	= "'file':'".SermonspeakerHelperSermonspeaker::makeLink($temp_item->videofile)."'";
+					$entry['file']	= SermonspeakerHelperSermonspeaker::makeLink($temp_item->videofile);
 				}
 				else
 				{
-					if ($img)
-					{
-						$entry['file']	= "'file':'".$img."'";
-					}
-					else
-					{
-						$entry['file']	= "'file':'media/com_sermonspeaker/images/nopict.jpg'";
-					}
-					$entry['error']	= "'error':'".JText::_('JGLOBAL_RESOURCE_NOT_FOUND')."'";
+					$entry['file']	= ($img) ? $img : JURI::base(true).'/media/com_sermonspeaker/images/nopict.jpg';
+					$entry['error']	= JText::_('JGLOBAL_RESOURCE_NOT_FOUND');
 				}
-				$entry[]	= "'title':'".addslashes($temp_item->sermon_title)."'";
+				$entry['title']	= addslashes($temp_item->sermon_title);
 				$desc = array();
 				if ($temp_item->sermon_date)
 				{
@@ -317,16 +318,20 @@ class SermonspeakerHelperPlayer {
 				{
 					$desc[] = JText::_('COM_SERMONSPEAKER_SPEAKER').': '.addslashes($temp_item->name);
 				}
-				$entry[] = "'description':'".implode('<br/>', $desc)."'";
+				$entry['description'] = implode('<br/>', $desc);
 				if ($temp_item->sermon_time != '00:00:00')
 				{
 					$time_arr = explode(':', $temp_item->sermon_time);
 					$seconds = ($time_arr[0] * 3600) + ($time_arr[1] * 60) + $time_arr[2];
-					$entry[] = "'duration':'".$seconds."'";
+					$entry['duration'] = $seconds;
 				}
 				if ($img)
 				{
-					$entry[] = "'image':'".$img."'";
+					$entry['image'] = $img;
+				}
+				foreach ($entry as $key => $value)
+				{
+					$entry[$key] = $key.":'".$value."'";
 				}
 				$entries[] = '{'.implode(',', $entry).'}';
 				if ($this->toggle)
@@ -334,39 +339,27 @@ class SermonspeakerHelperPlayer {
 					// Preparing specific playlists for audio and video
 					if ($temp_item->audiofile)
 					{
-						$entry['file']	= "'file':'".SermonspeakerHelperSermonspeaker::makeLink($temp_item->audiofile)."'";
+						$file = SermonspeakerHelperSermonspeaker::makeLink($temp_item->audiofile);
 						unset($entry['error']);
 					}
 					else
 					{
-						if ($img)
-						{
-							$entry['file']	= "'file':'".$img."'";
-						}
-						else
-						{
-							$entry['file']	= "'file':'media/com_sermonspeaker/images/nopict.jpg'";
-						}
-						$entry['error']	= "'error':'".JText::_('JGLOBAL_RESOURCE_NOT_FOUND')."'";
+						$file = ($img) ? $img : JURI::base(true).'/media/com_sermonspeaker/images/nopict.jpg';
+						$entry['error'] = "error:'".JText::_('JGLOBAL_RESOURCE_NOT_FOUND')."'";
 					}
+					$entry['file']	= "file:'".$file."'";
 					$audios[] = '{'.implode(',', $entry).'}';
 					if ($temp_item->videofile)
 					{
-						$entry['file']	= "'file':'".SermonspeakerHelperSermonspeaker::makeLink($temp_item->videofile)."'";
+						$file = SermonspeakerHelperSermonspeaker::makeLink($temp_item->videofile);
 						unset($entry['error']);
 					}
 					else
 					{
-						if ($img)
-						{
-							$entry['file']	= "'file':'".$img."'";
-						}
-						else
-						{
-							$entry['file']	= "'file':'media/com_sermonspeaker/images/nopict.jpg'";
-						}
-						$entry['error']	= "'error':'".JText::_('JGLOBAL_RESOURCE_NOT_FOUND')."'";
+						$file = ($img) ? $img : JURI::base(true).'/media/com_sermonspeaker/images/nopict.jpg';
+						$entry['error']	= "error:'".JText::_('JGLOBAL_RESOURCE_NOT_FOUND')."'";
 					}
+					$entry['file']	= "file:'".$file."'";
 					$videos[] = '{'.implode(',', $entry).'}';
 				}
 			}
@@ -380,36 +373,40 @@ class SermonspeakerHelperPlayer {
 		else
 		{
 			$type	= ($this->status == 'audio') ? 'a' : 'v';
-			$image = SermonspeakerHelperSermonspeaker::insertPicture($this->item);
-			if ($image)
+			$entry	= array();
+			$entry['file'] = $this->file;
+			if ($img = SermonspeakerHelperSermonspeaker::insertPicture($this->item, 1))
 			{
-				$image = "'image':'".$image."',";
+				$entry['image'] = $img;
 			}
-			$duration = '';
 			if ($this->item->sermon_time != '00:00:00')
 			{
 				$time_arr = explode(':', $this->item->sermon_time);
 				$seconds = ($time_arr[0] * 3600) + ($time_arr[1] * 60) + $time_arr[2];
-				$duration = "'duration':'".$seconds."',";
+				$entry['duration'] = $seconds;
 			}
-			$this->playlist['default'] = "{'file':'".$this->file."',".$image.$duration."}";
+			foreach ($entry as $key => $value)
+			{
+				$entry[$key] = $key.":'".$value."'";
+			}
+			
+			$this->playlist['default'] = '{'.implode(',', $entry).'}';
 			if ($this->toggle)
 			{
-				$this->playlist['audio']	= "{'file':'".$this->playlist['audio']."'}";
-				$this->playlist['video']	= "{'file':'".$this->playlist['video']."'}";
+				$this->playlist['audio']	= "{file:'".$this->playlist['audio']."'}";
+				$this->playlist['video']	= "{file:'".$this->playlist['video']."'}";
 			}
 		}
 		foreach ($options as $key => $value)
 		{
-			$option[] = "'".$key."':".$value;
+			$options[$key] = $key.':'.$value;
 		}
-		$options = implode(',', $option);
 		$this->script	= '<script type="text/javascript">'
 							."jwplayer('mediaspace".$this->config['count']."').setup({"
-								."'playlist':[".$this->playlist['default']."],"
-								."'width':'".$this->config[$type.'width']."',"
-								."'height':'".$this->config[$type.'height']."',"
-								.$options
+								."playlist:[".$this->playlist['default']."],"
+								."width:'".$this->config[$type.'width']."',"
+								."height:'".$this->config[$type.'height']."',"
+								.implode(',', $options)
 							.'});'
 						.'</script>';
 
@@ -418,16 +415,20 @@ class SermonspeakerHelperPlayer {
 			JHTML::Script('media/com_sermonspeaker/player/jwplayer/jwplayer.js');
 			$doc = JFactory::getDocument();
 			$doc->addScriptDeclaration('function ss_play(id){jwplayer().playlistItem(id);}');
-			if ($this->toggle){
+			if ($this->toggle)
+			{
 				$awidth		= is_numeric($this->config['awidth']) ? $this->config['awidth'].'px' : $this->config['awidth'];
 				$aheight	= is_numeric($this->config['aheight']) ? $this->config['aheight'].'px' : $this->config['aheight'];
 				$vwidth		= is_numeric($this->config['vwidth']) ? $this->config['vwidth'].'px' : $this->config['vwidth'];
 				$vheight	= is_numeric($this->config['vheight']) ? $this->config['vheight'].'px' : $this->config['vheight'];
-				if ($this->status != 'playlist'){
+				if ($this->status != 'playlist')
+				{
 					$url = 'index.php?&task=download&id='.$this->item->slug.'&type=';
 					$download_video = 'document.getElementById("sermon_download").onclick=function(){window.location.href=\''.JRoute::_($url.'video').'\'};document.getElementById("sermon_download").value="'.JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_VIDEO').'"';
 					$download_audio = 'document.getElementById("sermon_download").onclick=function(){window.location.href=\''.JRoute::_($url.'audio').'\'};document.getElementById("sermon_download").value="'.JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_AUDIO').'"';
-				} else {
+				} 
+				else 
+				{
 					$download_video = '';
 					$download_audio = '';
 				}
@@ -454,85 +455,108 @@ class SermonspeakerHelperPlayer {
 	}
 
 	/* FlowPayer */
-	private function FlowPlayer(){
+	private function FlowPlayer()
+	{
 		$this->player = 'FlowPlayer';
-		$player	= JURI::root().'media/com_sermonspeaker/player/flowplayer/flowplayer-3.2.11.swf';
-		$start	= $this->config['autostart'] ? 'true' : 'false';
+		$player = JURI::base(true).'/media/com_sermonspeaker/player/flowplayer/flowplayer-3.2.11.swf';
+		// Load plugins
+		$showplaylist = ($this->status == 'playlist') ? 'true' : 'false';
+		$plugins['audio']		= "{url:'flowplayer.audio-3.2.9.swf'}";
+		$plugins['controls']	= "{url:'flowplayer.controls-3.2.11.swf',fullscreen:true,height:23,autoHide:false,playlist:".$showplaylist."}";
+		if ($gaid = $this->params->get('ga_id', ''))
+		{
+			$plugins['gatracker'] = "{url:'flowplayer.analytics-3.2.8.swf',accountId:'".$gaid."'}";
+		}
+		if ($this->params->get('share', 0))
+		{
+			$plugins['sharing'] = "{url:'flowplayer.sharing-3.2.8.swf'}";
+		}
+		foreach ($plugins as $key => $value)
+		{
+			$plugins[$key] = $key.':'.$value;
+		}
+		$options['plugins'] = '{'.implode(',', $plugins).'}';
+		// Generic options
+		$autostart = $this->config['autostart'] ? 'true' : 'false';
+		$options['clip'] = "{scaling:'fit',image:false,autoBuffering:true,autoPlay:".$autostart."}";
 
-		if($this->status == 'playlist'){
-			$option	= 'playlist:true,';
-			$js		= 'onStart: function(){'
-						.'var i = 0;'
-						.'while (document.id("sermon"+i)){'
-							.'document.id("sermon"+i).removeClass("ss-current");'
-								.'i++;'
-							.'}'
-						.'entry = flowplayer().getClip();'
-						.'document.id("sermon"+entry.index).addClass("ss-current");'
-						.'if (entry.duration > 0){'
-							.'time = new Array();'
-							.'var hrs = Math.floor(entry.duration/3600);'
-							.'if (hrs > 0){time.push(hrs);}'
-							.'var min = Math.floor((entry.duration - hrs * 3600)/60);'
-							.'if (hrs > 0 && min < 10){'
-								.'time.push("0" + min);'
-							.'} else {'
-								.'time.push(min);'
-							.'}'
-							.'var sec = entry.duration - hrs * 3600 - min * 60;'
-							.'if (sec < 10){'
-								.'time.push("0" + sec);'
-							.'} else {'
-								.'time.push(sec);'
-							.'}'
-							.'var duration = time.join(":");'
-							.'document.id("playing-duration").innerHTML = duration;'
+		if ($this->status == 'playlist')
+		{
+			$options['onStart'] = 'function(){'
+					.'var i = 0;'
+					.'while (document.id("sermon"+i)){'
+						.'document.id("sermon"+i).removeClass("ss-current");'
+							.'i++;'
+						.'}'
+					.'entry = flowplayer().getClip();'
+					.'document.id("sermon"+entry.index).addClass("ss-current");'
+					.'if (entry.duration > 0){'
+						.'time = new Array();'
+						.'var hrs = Math.floor(entry.duration/3600);'
+						.'if (hrs > 0){time.push(hrs);}'
+						.'var min = Math.floor((entry.duration - hrs * 3600)/60);'
+						.'if (hrs > 0 && min < 10){'
+							.'time.push("0" + min);'
 						.'} else {'
-							.'document.id("playing-duration").innerHTML = "";'
+							.'time.push(min);'
 						.'}'
-						.'document.id("playing-pic").src = entry.coverImage;'
-						.'if(entry.coverImage){'
-							.'document.id("playing-pic").style.display = "block";'
-						.'}else{'
-							.'document.id("playing-pic").style.display = "none";'
+						.'var sec = entry.duration - hrs * 3600 - min * 60;'
+						.'if (sec < 10){'
+							.'time.push("0" + sec);'
+						.'} else {'
+							.'time.push(sec);'
 						.'}'
-						.'if(entry.error){'
-							.'document.id("playing-error").innerHTML = entry.error;'
-							.'document.id("playing-error").style.display = "block";'
-						.'}else{'
-							.'document.id("playing-error").style.display = "none";'
-						.'}'
-						.'document.id("playing-title").innerHTML = entry.title;'
-						.'document.id("playing-desc").innerHTML = entry.description;'
-					.'},';
+						.'var duration = time.join(":");'
+						.'document.id("playing-duration").innerHTML = duration;'
+					.'} else {'
+						.'document.id("playing-duration").innerHTML = "";'
+					.'}'
+					.'document.id("playing-pic").src = entry.coverImage;'
+					.'if(entry.coverImage){'
+						.'document.id("playing-pic").style.display = "block";'
+					.'}else{'
+						.'document.id("playing-pic").style.display = "none";'
+					.'}'
+					.'if(entry.error){'
+						.'document.id("playing-error").innerHTML = entry.error;'
+						.'document.id("playing-error").style.display = "block";'
+					.'}else{'
+						.'document.id("playing-error").style.display = "none";'
+					.'}'
+					.'document.id("playing-title").innerHTML = entry.title;'
+					.'document.id("playing-desc").innerHTML = entry.description;'
+				.'}';
 			$this->toggle = $this->params->get('fileswitch', 0);
 			$this->setDimensions('23px', '100%');
-			$type	= ($this->config['type'] == 'audio' || ($this->config['type'] == 'auto' && !$this->prio)) ? 'a' : 'v';
-			foreach ($this->item as $temp_item){
+			$type = ($this->config['type'] == 'audio' || ($this->config['type'] == 'auto' && !$this->prio)) ? 'a' : 'v';
+			$entries = array();
+			foreach ($this->item as $temp_item)
+			{
 				$entry = array();
 				// Choose picture to show
-				$img = SermonspeakerHelperSermonspeaker::insertPicture($temp_item);
+				$img = SermonspeakerHelperSermonspeaker::insertPicture($temp_item, 1);
 				// Choosing the default file to play based on prio and availabilty
-				if (($this->config['type'] != 'video') && ($temp_item->audiofile && (!$this->prio || ($this->config['type'] == 'audio') || !$temp_item->videofile))){
-					$entry['file']	= 'url:"'.SermonspeakerHelperSermonspeaker::makeLink($temp_item->audiofile).'"';
-				} elseif (($this->config['type'] != 'audio') && ($temp_item->videofile && ($this->prio || ($this->config['type'] == 'video') || !$temp_item->audiofile))){
-					$entry['file']	= 'url:"'.SermonspeakerHelperSermonspeaker::makeLink($temp_item->videofile).'"';
-				} else {
-					if ($img){
-						$entry['file']	= 'url: "'.$img.'"';
-					} else {
-						$entry['file']	= 'url:"media/com_sermonspeaker/images/nopict.jpg"';
-					}
-					$entry['error']	= 'error: "'.JText::_('JGLOBAL_RESOURCE_NOT_FOUND').'"';
+				if (($this->config['type'] != 'video') && ($temp_item->audiofile && (!$this->prio || ($this->config['type'] == 'audio') || !$temp_item->videofile)))
+				{
+					$entry['url']	= SermonspeakerHelperSermonspeaker::makeLink($temp_item->audiofile);
+				} 
+				elseif (($this->config['type'] != 'audio') && ($temp_item->videofile && ($this->prio || ($this->config['type'] == 'video') || !$temp_item->audiofile)))
+				{
+					$entry['url']	= SermonspeakerHelperSermonspeaker::makeLink($temp_item->videofile);
 				}
-				$entry[]	= 'title: "'.addslashes($temp_item->sermon_title).'"';
+				else
+				{
+					$entry['url']	= ($img) ? $img : JURI::base(true).'/media/com_sermonspeaker/images/nopict.jpg';
+					$entry['error']	= JText::_('JGLOBAL_RESOURCE_NOT_FOUND');
+				}
+				$entry['title']	= addslashes($temp_item->sermon_title);
 				if ($temp_item->sermon_time != '00:00:00'){
 					$time_arr	= explode(':', $temp_item->sermon_time);
 					$seconds	= ($time_arr[0] * 3600) + ($time_arr[1] * 60) + $time_arr[2];
-					$entry[]	= 'duration: "'.$seconds.'"';
+					$entry['duration']	= $seconds;
 				}
 				if ($img){
-					$entry[]	= 'coverImage: "'.$img.'"';
+					$entry['coverImage'] = $img;
 				}
 				$desc = array();
 				if ($temp_item->sermon_date){
@@ -541,94 +565,93 @@ class SermonspeakerHelperPlayer {
 				if ($temp_item->name){
 					$desc[] = JText::_('COM_SERMONSPEAKER_SPEAKER').': '.addslashes($temp_item->name);
 				}
-				$entry[]	= 'description: "'.implode('<br/>', $desc).'"';
+				$entry['description']	= implode('<br/>', $desc);
+				foreach ($entry as $key => $value)
+				{
+					$entry[$key] = $key.":'".$value."'";
+				}
 				$entries[] = implode(',', $entry);
 
-				if ($this->toggle){
+				if ($this->toggle)
+				{
 					// Preparing specific playlists for audio and video
-					if ($temp_item->audiofile){
-						$entry['file']	= 'url: "'.SermonspeakerHelperSermonspeaker::makeLink($temp_item->audiofile).'"';
+					if ($temp_item->audiofile)
+					{
+						$file = SermonspeakerHelperSermonspeaker::makeLink($temp_item->audiofile);
 						unset($entry['error']);
-					} else {
-						if ($img){
-							$entry['file']	= 'url: "'.$img.'"';
-						} else {
-							$entry['file']	= 'url: "media/com_sermonspeaker/images/nopict.jpg"';
-						}
-						$entry['error']	= 'error: "'.JText::_('JGLOBAL_RESOURCE_NOT_FOUND').'"';
 					}
+					else
+					{
+						$file = ($img) ? $img : JURI::base(true).'/media/com_sermonspeaker/images/nopict.jpg';
+						$entry['error'] = "error:'".JText::_('JGLOBAL_RESOURCE_NOT_FOUND')."'";
+					}
+					$entry['url'] = "url:'".$file."'";
 					$audios[] = implode(',', $entry);
-					if ($temp_item->videofile){
-						$entry['file']	= 'url: "'.SermonspeakerHelperSermonspeaker::makeLink($temp_item->videofile).'"';
+					if ($temp_item->videofile)
+					{
+						$file = SermonspeakerHelperSermonspeaker::makeLink($temp_item->videofile);
 						unset($entry['error']);
-					} else {
-						if ($img){
-							$entry['file']	= 'url: "'.$img.'"';
-						} else {
-							$entry['file']	= 'url: "media/com_sermonspeaker/images/nopict.jpg"';
-						}
-						$entry['error']	= 'error: "'.JText::_('JGLOBAL_RESOURCE_NOT_FOUND').'"';
 					}
+					else 
+					{
+						$file = ($img) ? $img : JURI::base(true).'/media/com_sermonspeaker/images/nopict.jpg';
+						$entry['error']	= "error:'".JText::_('JGLOBAL_RESOURCE_NOT_FOUND')."'";
+					}
+					$entry['url'] = "url:'".$file."'";
 					$videos[] = implode(',', $entry);
 				}
 			}
-			if ($this->toggle){
+			$this->playlist['default'] = implode('},{', $entries);
+			if ($this->toggle)
+			{
 				$this->playlist['audio'] = '{'.implode('},{', $audios).'}';
 				$this->playlist['video'] = '{'.implode('},{', $videos).'}';
 			}
-			$this->playlist['default'] = implode('},{', $entries);
-		} else {
-			$option	= '';
-			$js		= '';
-			$type	= ($this->status == 'audio') ? 'a' : 'v';
-			$this->playlist['default']	= 'url: "'.$this->file.'"';
-			if ($this->toggle){
-				$this->playlist['audio']	= '{url: "'.$this->playlist['audio'].'"}';
-				$this->playlist['video']	= '{url: "'.$this->playlist['video'].'"}';
+		}
+		else
+		{
+			$type = ($this->status == 'audio') ? 'a' : 'v';
+			$this->playlist['default'] = "url:'".$this->file."'";
+			if ($this->toggle)
+			{
+				$this->playlist['audio'] = "{url:'".$this->playlist['audio']."'}";
+				$this->playlist['video'] = "{url:'".$this->playlist['video']."'}";
 			}
+		}
+		foreach ($options as $key => $value)
+		{
+			$options[$key] = $key.':'.$value;
 		}
 		$this->mspace = '<div style="width:'.$this->config[$type.'width'].'; height:'.$this->config[$type.'height'].'" id="mediaspace'.$this->config['count'].'"></div>';
 		$this->script = '<script type="text/javascript">'
 							.'flowplayer("mediaspace'.$this->config['count'].'", "'.$player.'", {'
-								.'plugins: {'
-									.'audio: {'
-										.'url: "flowplayer.audio-3.2.9.swf"'
-									.'},'
-									.'controls: {'
-										.$option
-										.'fullscreen: false,'
-										.'height: 23,'
-										.'autoHide: false'
-									.'}'
-								.'},'
-								.'clip: {'
-									.'scaling: "fit",'
-									.'image: false,'
-									.'autoBuffering: true,'
-									.'autoPlay: '.$start
-								.'},'
-								.$js
 								.'playlist: [{'
 									.$this->playlist['default']
-								.'}]'
+								.'}],'
+								.implode(',', $options)
 							.'});'
 						.'</script>';
 
 		// Loading needed Javascript only once
-		if (!self::$fwscript){
+		if (!self::$fwscript)
+		{
 			$doc = JFactory::getDocument();
 			$doc->addScriptDeclaration('function ss_play(id){flowplayer().play(parseInt(id));}');
 			JHTML::Script('media/com_sermonspeaker/player/flowplayer/flowplayer-3.2.10.min.js');
-			if ($this->toggle){
+			if ($this->toggle)
+			{
 				$awidth		= is_numeric($this->config['awidth']) ? $this->config['awidth'].'px' : $this->config['awidth'];
 				$aheight	= is_numeric($this->config['aheight']) ? $this->config['aheight'].'px' : $this->config['aheight'];
 				$vwidth		= is_numeric($this->config['vwidth']) ? $this->config['vwidth'].'px' : $this->config['vwidth'];
 				$vheight	= is_numeric($this->config['vheight']) ? $this->config['vheight'].'px' : $this->config['vheight'];
-				if ($this->status != 'playlist'){
+				if ($this->status != 'playlist')
+				{
 					$url = 'index.php?&task=download&id='.$this->item->slug.'&type=';
 					$download_video = 'document.getElementById("sermon_download").onclick=function(){window.location.href=\''.JRoute::_($url.'video').'\'};document.getElementById("sermon_download").value="'.JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_VIDEO').'"';
 					$download_audio = 'document.getElementById("sermon_download").onclick=function(){window.location.href=\''.JRoute::_($url.'audio').'\'};document.getElementById("sermon_download").value="'.JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_AUDIO').'"';
-				} else {
+				}
+				else
+				{
 					$download_video = '';
 					$download_audio = '';
 				}
@@ -655,16 +678,19 @@ class SermonspeakerHelperPlayer {
 	}
 
 	/* PixelOut */
-	private function PixelOut(){
+	private function PixelOut()
+	{
 		$this->player = 'PixelOut';
 		$this->mspace = '<div id="mediaspace'.$this->config['count'].'">Flashplayer needs Javascript turned on</div>';
 		$start = $this->config['autostart'] ? 'yes' : 'no';
-		if($this->status == 'playlist'){
+		if($this->status == 'playlist')
+		{
 			$this->setDimensions(23, '100%');
 			$files		= array();
 			$titles		= array();
 			$artists	= array();
-			foreach($this->item as $item){
+			foreach($this->item as $item)
+			{
 				if (($this->config['type'] != 'video') && ($item->audiofile && (!$this->prio || ($this->config['type'] == 'audio') || !$item->videofile))){
 					$files[]	= urlencode(SermonspeakerHelperSermonspeaker::makeLink($item->audiofile));
 				} elseif (($this->config['type'] != 'audio') && ($item->videofile && ($this->prio || ($this->config['type'] == 'video') || !$item->audiofile))){
@@ -681,7 +707,9 @@ class SermonspeakerHelperPlayer {
 			$file	= implode(',',$files);
 			$title	= 'titles: "'.implode(',',$titles).'",';
 			$artist	= 'artists: "'.implode(',',$artists).'",';
-		} else {
+		}
+		else
+		{
 			$this->setDimensions(23, 290);
 			$file	= urlencode($this->file);
 			$title	= ($this->item->sermon_title) ? 'titles: "'.urlencode($this->item->sermon_title).'",' : '';
@@ -699,7 +727,8 @@ class SermonspeakerHelperPlayer {
 		$this->status = 'audio';
 
 		// Loading needed Javascript only once
-		if (!self::$poscript){
+		if (!self::$poscript)
+		{
 			JHTML::Script('media/com_sermonspeaker/player/audio_player/audio-player.js');
 			$doc = JFactory::getDocument();
 			$doc->addScriptDeclaration('
@@ -715,18 +744,21 @@ class SermonspeakerHelperPlayer {
 		return;
 	}
 
-	private function WMVPlayer(){
+	private function WMVPlayer()
+	{
 		$this->player = 'WMVPlayer';
 		$player	= JURI::root().'media/com_sermonspeaker/player/wmvplayer/wmvplayer.xaml';
 		$start	= $this->config['autostart'] ? 1 : 0;
 		$type	= ($this->status == 'audio') ? 'a' : 'v';
 		$this->mspace	= '<div id="mediaspace'.$this->config['count'].'">Silverlight needs Javascript turned on</div>';
 		$image = SermonspeakerHelperSermonspeaker::insertPicture($this->item);
-		if ($image){
+		if ($image)
+		{
 			$image = "'image':'".$image."',";
 		}
 		$duration = '';
-		if ($this->item->sermon_time != '00:00:00'){
+		if ($this->item->sermon_time != '00:00:00')
+		{
 			$time_arr = explode(':', $this->item->sermon_time);
 			$seconds = ($time_arr[0] * 3600) + ($time_arr[1] * 60) + $time_arr[2];
 			$duration = 'duration: '.$seconds.',';
@@ -747,7 +779,8 @@ class SermonspeakerHelperPlayer {
 		$this->toggle = false;
 
 		// Loading needed Javascript only once
-		if (!self::$wmvscript){
+		if (!self::$wmvscript)
+		{
 			JHTML::Script('media/com_sermonspeaker/player/wmvplayer/silverlight.js');
 			JHTML::Script('media/com_sermonspeaker/player/wmvplayer/wmvplayer.js');
 			self::$wmvscript = 1;
@@ -755,7 +788,8 @@ class SermonspeakerHelperPlayer {
 		return;
 	}
 
-	private function MediaPlayer(){
+	private function MediaPlayer()
+	{
 		$this->player = 'MediaPlayer';
 		$this->setDimensions(50, '100%');
 		$start = $this->config['autostart'] ? 1 : 0;
@@ -778,7 +812,8 @@ class SermonspeakerHelperPlayer {
 		return;
 	}
 
-	private function Vimeo(){
+	private function Vimeo()
+	{
 		$this->player	= 'Vimeo';
 		$id				= trim(strrchr($this->file, '/'), '/ ');
 		$this->file		= 'http://vimeo.com/'.$id;
@@ -796,29 +831,19 @@ class SermonspeakerHelperPlayer {
 	}
 
 	// Sets the dimensions of the player for audio and video. $height and $width are default values.
-	private function setDimensions($height, $width){
-		if (!isset($this->config['aheight'])){
-			$this->config['aheight']	= $this->params->get('aheight', $height);
-		}
-		if (!isset($this->config['awidth'])){
-			$this->config['awidth']		= $this->params->get('awidth', $width);
-		}
-		if (!isset($this->config['vheight'])){
-			$this->config['vheight']	= $this->params->get('vheight', '300px');
-		}
-		if (!isset($this->config['vwidth'])){
-			$this->config['vwidth']		= $this->params->get('vwidth', '100%');
-		}
+	private function setDimensions($height, $width)
+	{
+		$this->config['aheight']	= (isset($this->config['aheight'])) ? $this->config['aheight']) : $this->params->get('aheight', $height);
+		$this->config['awidth']		= (isset($this->config['awidth'])) ? $this->config['awidth']) : $this->params->get('awidth', $width);
+		$this->config['vheight']	= (isset($this->config['vheight'])) ? $this->config['vheight']) : $this->params->get('vheight', '300px');
+		$this->config['vwidth']		= (isset($this->config['vwidth'])) ? $this->config['vwidth']) : $this->params->get('vwidth', '100%');
 		return;
 	}
 
 	// Sets the dimensions of the Popup window. $type can be 'a' (audio) or 'v' (video)
-	private function setPopup($type = 'a'){
-		if (strpos($this->config[$type.'width'], '%')){
-			$this->popup['width'] = 500;
-		} else {
-			$this->popup['width'] = $this->config[$type.'width'] + 130;
-		}
-		$this->popup['height'] = $this->config[$type.'height'] + $this->params->get('popup_height');
+	private function setPopup($type = 'a')
+	{
+		$this->popup['width']	= (strpos($this->config[$type.'width'], '%')) ? 500 : $this->config[$type.'width'] + 130;
+		$this->popup['height']	= $this->config[$type.'height'] + $this->params->get('popup_height');
 	}
 }

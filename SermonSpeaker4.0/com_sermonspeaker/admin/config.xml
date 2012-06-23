@@ -390,6 +390,30 @@
 			default="" 
 			label="COM_SERMONSPEAKER_FIELD_GAID_LABEL" 
 			description="COM_SERMONSPEAKER_FIELD_GAID_DESC" />
+		<field name="fbit"
+			type="radio" 
+			default="0" 
+			label="COM_SERMONSPEAKER_FIELD_FBIT_LABEL" 
+			description="COM_SERMONSPEAKER_FIELD_FBIT_DESC">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
+		</field>
+		<field name="tweetit"
+			type="radio" 
+			default="0" 
+			label="COM_SERMONSPEAKER_FIELD_TWEETIT_LABEL" 
+			description="COM_SERMONSPEAKER_FIELD_TWEETIT_DESC">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
+		</field>
+		<field name="plusone"
+			type="radio" 
+			default="0" 
+			label="COM_SERMONSPEAKER_FIELD_PLUSONE_LABEL" 
+			description="COM_SERMONSPEAKER_FIELD_PLUSONE_DESC">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
+		</field>
 		<field name="jwskin" 
 			type="text" 
 			default="" 
