@@ -31,6 +31,13 @@
 					<option value="1">MOD_SERMONSPEAKER_PARAM_MODE_OPTION_SERIES</option>
 					<option value="2">JCATEGORIES</option>
 				</field>
+				<field name="sort" type="list" 
+					default="0" 
+					label="MOD_SERMONSPEAKER_PARAM_SORT_LABEL" 
+					description="MOD_SERMONSPEAKER_PARAM_SORT_DESC">
+					<option value="0">JGLOBAL_TITLE</option>
+					<option value="1">JGLOBAL_FIELD_FIELD_ORDERING_LABEL</option>
+				</field>
 				<field name="tooltip" type="radio" 
 					default="1" 
 					label="MOD_SERMONSPEAKER_PARAM_TOOLTIP_LABEL" 
