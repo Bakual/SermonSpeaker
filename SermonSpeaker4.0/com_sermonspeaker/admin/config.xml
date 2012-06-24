@@ -378,6 +378,20 @@
 			default="" 
 			label="COM_SERMONSPEAKER_FIELD_VHEIGHT_LABEL" 
 			description="COM_SERMONSPEAKER_FIELD_VHEIGHT_DESC" />
+		<field name="jwmode"
+			type="list"
+			default="0" 
+			label="COM_SERMONSPEAKER_PARAM_JWMODE_LABEL" 
+			description="COM_SERMONSPEAKER_PARAM_JWMODE_DESC">
+			<option value="0">COM_SERMONSPEAKER_PARAM_JWMODE_OPTION_FLASH</option>
+			<option value="1">COM_SERMONSPEAKER_PARAM_JWMODE_OPTION_HTML5</option>
+		</field>
+		<field name="jwskin" 
+			type="text" 
+			default="" 
+			size="75"
+			label="COM_SERMONSPEAKER_FIELD_JWSKIN_LABEL" 
+			description="COM_SERMONSPEAKER_FIELD_JWSKIN_DESC" />
 		<field name="plugins_spacer1" 
 			type="spacer"
 			hr="true"/>
@@ -390,6 +404,22 @@
 			default="" 
 			label="COM_SERMONSPEAKER_FIELD_GAID_LABEL" 
 			description="COM_SERMONSPEAKER_FIELD_GAID_DESC" />
+		<field name="share"
+			type="radio" 
+			default="0" 
+			label="COM_SERMONSPEAKER_FIELD_SHARE_LABEL" 
+			description="COM_SERMONSPEAKER_FIELD_SHARE_DESC">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
+		</field>
+		<field name="viral"
+			type="radio" 
+			default="0" 
+			label="COM_SERMONSPEAKER_FIELD_VIRAL_LABEL" 
+			description="COM_SERMONSPEAKER_FIELD_VIRAL_DESC">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
+		</field>
 		<field name="fbit"
 			type="radio" 
 			default="0" 
@@ -414,12 +444,6 @@
 			<option value="0">JNO</option>
 			<option value="1">JYES</option>
 		</field>
-		<field name="jwskin" 
-			type="text" 
-			default="" 
-			size="75"
-			label="COM_SERMONSPEAKER_FIELD_JWSKIN_LABEL" 
-			description="COM_SERMONSPEAKER_FIELD_JWSKIN_DESC" />
 	</fieldset>
 	<fieldset name="detailpage"
 		label="COM_SERMONSPEAKER_FIELDSET_DETAILPAGE_LABEL"

@@ -201,7 +201,10 @@ class SermonspeakerHelperPlayer {
 		$this->player	= 'JWPlayer';
 		$this->mspace	= '<div id="mediaspace'.$this->config['count'].'">Flashplayer needs Javascript turned on</div>';
 		// Setting some general player options
-		$options['flashplayer']	= "'".JURI::base(true)."/media/com_sermonspeaker/player/jwplayer/player.swf'";
+		$modes[0]	= "{type:'flash', src:'".JURI::base(true)."/media/com_sermonspeaker/player/jwplayer/player.swf'}";
+		$modes[1]	= "{type:'html5'}";
+		$modes[2]	= "{type:'download'}";
+		$options['modes']	= ($this->params->get('jwmode', 0)) ? '['.$modes[1].','.$modes[0].','.$modes[2].']' : '['.$modes[0].','.$modes[1].','.$modes[2].']';
 		$options['autostart']	= $this->config['autostart'] ? 'true' : 'false';
 		$options['controlbar']	= "'bottom'";
 		if ($skin = $this->params->get('jwskin', ''))
@@ -225,9 +228,14 @@ class SermonspeakerHelperPlayer {
 		{
 			$plugins['plusone-1'] = '{}';
 		}
-//		$plugins['sharing-3'] = '{}';
-//		$plugins['viral-2'] = '{}';
-//		$plugins['flow-2'] = '{}';
+		if ($this->params->get('share', 0))
+		{
+			$plugins['sharing-3'] = '{}';
+		}
+		if ($this->params->get('viral', 0))
+		{
+			$plugins['viral-2'] = '{}';
+		}
 		if (isset($plugins))
 		{
 			foreach ($plugins as $key => $value)
@@ -470,6 +478,10 @@ class SermonspeakerHelperPlayer {
 		if ($this->params->get('share', 0))
 		{
 			$plugins['sharing'] = "{url:'flowplayer.sharing-3.2.8.swf'}";
+		}
+		if ($this->params->get('viral', 0))
+		{
+			$plugins['sharing'] = "{url:'flowplayer.viralvideos-3.2.10.swf'}";
 		}
 		foreach ($plugins as $key => $value)
 		{
