@@ -833,10 +833,10 @@ class SermonspeakerHelperPlayer {
 	// Sets the dimensions of the player for audio and video. $height and $width are default values.
 	private function setDimensions($height, $width)
 	{
-		$this->config['aheight']	= (isset($this->config['aheight'])) ? $this->config['aheight']) : $this->params->get('aheight', $height);
-		$this->config['awidth']		= (isset($this->config['awidth'])) ? $this->config['awidth']) : $this->params->get('awidth', $width);
-		$this->config['vheight']	= (isset($this->config['vheight'])) ? $this->config['vheight']) : $this->params->get('vheight', '300px');
-		$this->config['vwidth']		= (isset($this->config['vwidth'])) ? $this->config['vwidth']) : $this->params->get('vwidth', '100%');
+		$this->config['aheight']	= (isset($this->config['aheight'])) ? $this->config['aheight'] : $this->params->get('aheight', $height);
+		$this->config['awidth']		= (isset($this->config['awidth'])) ? $this->config['awidth'] : $this->params->get('awidth', $width);
+		$this->config['vheight']	= (isset($this->config['vheight'])) ? $this->config['vheight'] : $this->params->get('vheight', '300px');
+		$this->config['vwidth']		= (isset($this->config['vwidth'])) ? $this->config['vwidth'] : $this->params->get('vwidth', '100%');
 		return;
 	}
 
