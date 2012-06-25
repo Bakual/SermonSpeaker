@@ -2,14 +2,16 @@
 // No direct access to this file
 defined('_JEXEC') or die('Restricted access');
 
-class Com_SermonspeakerInstallerScript {
+class Com_SermonspeakerInstallerScript
+{
 
 	/**
 	 * method to install the component
 	 *
 	 * @return void
 	 */
-	function install($parent) {
+	function install($parent)
+	{
 		$parent->getParent()->setRedirectURL('index.php?option=com_sermonspeaker');
 	}
 
@@ -18,7 +20,8 @@ class Com_SermonspeakerInstallerScript {
 	 *
 	 * @return void
 	 */
-	function uninstall($parent) {
+	function uninstall($parent)
+	{
 		echo '<div>'.JText::_('COM_SERMONSPEAKER_UNINSTALL_TEXT').'</div>';
 	}
 
@@ -27,7 +30,8 @@ class Com_SermonspeakerInstallerScript {
 	 *
 	 * @return void
 	 */
-	function update($parent) {
+	function update($parent)
+	{
 		echo '<div>'.JText::_('COM_SERMONSPEAKER_UPDATE_TEXT').'</div>';
 
 		// Cleanup unused layout files from old installations
@@ -46,15 +50,26 @@ class Com_SermonspeakerInstallerScript {
 		$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/sermons/tmpl/default.xml';
 		$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/speakers/tmpl/default.php';
 		$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/speakers/tmpl/default.xml';
-		if(JFile::exists($files[1])){
+		if(JFile::exists($files[1]))
+		{
 			JFile::delete($files);
 		}
 		// Cleanup files no longer used in SS4.4
-		if(JFile::exists(JPATH_SITE.'/components/com_sermonspeaker/models/archive.php')){
+		if (JFile::exists(JPATH_SITE.'/components/com_sermonspeaker/models/archive.php'))
+		{
 			JFile::delete(JPATH_SITE.'/components/com_sermonspeaker/models/archive.php');
 			JFile::delete(JPATH_SITE.'/components/com_sermonspeaker/models/seriessermon.php');
 			jimport('joomla.filesystem.folder');
 			JFolder::delete(JPATH_SITE.'/components/com_sermonspeaker/views/archive');
+		}
+		// Cleanup old Flowplayer files
+		if (JFile::exists(JPATH_SITE.'/media/com_sermonspeaker/player/flowplayer/flowplayer-3.2.7.swf'))
+		{
+			JFile::delete(JPATH_SITE.'/media/com_sermonspeaker/player/flowplayer/flowplayer-3.2.7.swf');
+			JFile::delete(JPATH_SITE.'/media/com_sermonspeaker/player/flowplayer/flowplayer-3.2.7.zip');
+			JFile::delete(JPATH_SITE.'/media/com_sermonspeaker/player/flowplayer/flowplayer-3.2.6.min.js');
+			JFile::delete(JPATH_SITE.'/media/com_sermonspeaker/player/flowplayer/flowplayer.controls-3.2.5.swf');
+			JFile::delete(JPATH_SITE.'/media/com_sermonspeaker/player/flowplayer/flowplayer.audio-3.2.2.swf');
 		}
 
 		$this->_migrate();
@@ -73,7 +88,8 @@ class Com_SermonspeakerInstallerScript {
 	 *
 	 * @return void
 	 */
- 	function postflight($type, $parent) {
+ 	function postflight($type, $parent)
+	{
 		echo JText::sprintf('COM_SERMONSPEAKER_POSTFLIGHT', $type);
 	}
 
@@ -82,30 +98,38 @@ class Com_SermonspeakerInstallerScript {
 	 *
 	 * @return void
 	 */
-	function _migrate(){
+	function _migrate()
+	{
 		$db = JFactory::getDBO();
 		$fields = $db->getTableFields('#__sermon_sermons');
 		$sermons = $fields['#__sermon_sermons'];
-		if (array_key_exists('published', $sermons)){
+		if (array_key_exists('published', $sermons))
+		{
 			$sqlfile = dirname(__FILE__).DS.'migrate.sql';
 			$buffer = file_get_contents($sqlfile);
 			jimport('joomla.installer.helper');
 			$queries = JInstallerHelper::splitSql($buffer);
-			if (count($queries)) {
-				foreach ($queries as $query) {
+			if (count($queries))
+			{
+				foreach ($queries as $query)
+				{
 					$query = trim($query);
-					if ($query != '' && $query{0} != '#') {
+					if ($query != '' && $query{0} != '#')
+					{
 						$db->setQuery($query);
-						if (!$db->query()) {
+						if (!$db->query())
+						{
 							JError::raiseWarning(1, JText::sprintf('JLIB_INSTALLER_ERROR_SQL_ERROR', $db->stderr(true)));
 							return;
 						}
 					}
 				}
-				if (array_key_exists('play', $sermons)){
+				if (array_key_exists('play', $sermons))
+				{
 					$query = "ALTER TABLE #__sermon_sermons DROP COLUMN `play`, DROP COLUMN `download`";
 					$db->setQuery($query);
-					if (!$db->query()) {
+					if (!$db->query())
+					{
 						JError::raiseWarning(1, JText::sprintf('JLIB_INSTALLER_ERROR_SQL_ERROR', $db->stderr(true)));
 						return;
 					}
