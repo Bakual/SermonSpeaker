@@ -22,9 +22,9 @@ class SermonspeakerHelperSermonspeaker
 
 	static function SpeakerTooltip($id, $pic, $name)
 	{
-		$pic = ($pic) ? $pic : 'media/com_sermonspeaker/images/nopict.jpg';
 		$html = '<a class="modal" href="'.JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($id).'&layout=popup&tmpl=component').'" rel="{handler: \'iframe\', size: {x: 700, y: 500}}">';
-		$html .= JHTML::tooltip('<img src="'.$pic.'" alt="'.$name.'">',$name,'',$name).'</a>';
+		$html .= ($pic) ? JHtml::tooltip('<img src="'.self::makeLink($pic).'" alt="'.$name.'">', $name, '', $name) : $name;
+		$html .= '</a>';
 
 		return $html;
 	}
