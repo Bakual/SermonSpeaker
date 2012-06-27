@@ -99,22 +99,25 @@ class SermonspeakerModelSermons extends JModelList
 		$query->where('(sermons.series_id = 0 OR series.catid = 0 OR (c_series.access IN ('.$groups.') AND c_series.published = 1))');
 
 		// Filter by category
-		if ($categoryId = $this->getState('category.id')) {
-			if ($levels = (int) $this->getState('filter.subcategories', 0)) {
+		if ($categoryId = $this->getState('category.id'))
+		{
+			if ($levels = (int) $this->getState('filter.subcategories', 0))
+			{
 				// Create a subquery for the subcategory list
 				$subQuery = $db->getQuery(true);
 				$subQuery->select('sub.id');
 				$subQuery->from('#__categories as sub');
 				$subQuery->join('INNER', '#__categories as this ON sub.lft > this.lft AND sub.rgt < this.rgt');
 				$subQuery->where('this.id = '.(int) $categoryId);
-				if ($levels >= 0) {
+				if ($levels > 0) {
 					$subQuery->where('sub.level <= this.level + '.$levels);
 				}
 				// Add the subquery to the main query
 				$query->where('('.$this->getState('category.type', 'sermons').'.catid = '.(int) $categoryId
 					.' OR '.$this->getState('category.type', 'sermons').'.catid IN ('.$subQuery->__toString().'))');
 			}
-			else {
+			else
+			{
 				$query->where($this->getState('category.type', 'sermons').'.catid = '.(int) $categoryId);
 			}
 		}
@@ -186,20 +189,23 @@ class SermonspeakerModelSermons extends JModelList
 		$params	= $app->getParams();
 		$this->setState('params', $params);
 
-		// Category filter
-		$id		= (int)$params->get('catid', 0);
-		$type	= $params->get('count_items_type');
-		if (!$id){
-			$id		= JRequest::getInt('sermon_cat', 0);
-			$type	= $id ? 'sermons' : $type;
+		// Category filter (priority on request so subcategories work)
+		if ($id		= JRequest::getInt('sermon_cat', 0))
+		{
+			$type	= 'sermons';
 		}
-		if (!$id){
-			$id		= JRequest::getInt('speaker_cat', 0);
-			$type	= $id ? 'speakers' : $type;
+		elseif ($id	= JRequest::getInt('speaker_cat', 0))
+		{
+			$type	= 'speakers';
 		}
-		if (!$id){
-			$id		= JRequest::getInt('series_cat', 0);
-			$type	= $id ? 'series' : $type;
+		elseif ($id	= JRequest::getInt('series_cat', 0))
+		{
+			$type	= 'series';
+		}
+		else
+		{
+			$id	= (int) $params->get('catid', 0);
+			$type	= $params->get('count_items_type', 'sermons');
 		}
 		$this->setState('category.id', $id);
 		$this->setState('category.type', $type);

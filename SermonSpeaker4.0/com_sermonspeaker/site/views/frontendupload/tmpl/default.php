@@ -68,6 +68,10 @@ $self = $uri->toString();
 			<?php echo $this->form->getLabel('alias'); ?>
 			<?php echo $this->form->getInput('alias'); ?>
 		</div>
+		<div class="formelm">
+			<?php echo $this->form->getLabel('catid'); ?>
+			<?php echo $this->form->getInput('catid'); ?>
+		</div>
 		<?php if ($this->user->authorise('core.edit.state', 'com_sermonspeaker')): ?>
 			<div class="formelm">
 				<?php echo $this->form->getLabel('state'); ?>

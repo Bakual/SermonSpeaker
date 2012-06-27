@@ -63,8 +63,27 @@ class SermonspeakerModelSeries extends JModelList
 		$query->where('(series.catid = 0 OR (c_series.access IN ('.$groups.') AND c_series.published = 1))');
 
 		// Filter by category
-		if ($categoryId = $this->getState('category.id')) {
-			$query->where('series.catid = '.(int) $categoryId);
+		if ($categoryId = $this->getState('category.id'))
+		{
+			if ($levels = (int) $this->getState('filter.subcategories', 0))
+			{
+				// Create a subquery for the subcategory list
+				$subQuery = $db->getQuery(true);
+				$subQuery->select('sub.id');
+				$subQuery->from('#__categories as sub');
+				$subQuery->join('INNER', '#__categories as this ON sub.lft > this.lft AND sub.rgt < this.rgt');
+				$subQuery->where('this.id = '.(int) $categoryId);
+				if ($levels > 0) {
+					$subQuery->where('sub.level <= this.level + '.$levels);
+				}
+				// Add the subquery to the main query
+				$query->where('(series.catid = '.(int) $categoryId
+					.' OR series.catid IN ('.$subQuery->__toString().'))');
+			}
+			else
+			{
+				$query->where('series.catid = '.(int) $categoryId);
+			}
 		}
 
 		// Join over users for the author names.
@@ -124,10 +143,12 @@ class SermonspeakerModelSeries extends JModelList
 		$params	= $app->getParams();
 		$this->setState('params', $params);
 
-		// Category filter
-		$id		= (int)$params->get('catid', 0);
-		if (!$id){ $id	= JRequest::getInt('series_cat', 0); }
+		// Category filter (priority on request so subcategories work)
+		$id	= JRequest::getInt('series_cat', $params->get('catid', 0));
 		$this->setState('category.id', $id);
+
+		// Include Subcategories or not
+		$this->setState('filter.subcategories', $params->get('show_subcategory_content', 0));
 
 		$this->setState('filter.state',	1);
 
@@ -136,7 +157,7 @@ class SermonspeakerModelSeries extends JModelList
 		$search = $app->getUserStateFromRequest($this->context.'.filter.search', 'filter-search', '', 'STRING');
 		$this->setState('filter.search', $search);
 
-			// Speakerfilter
+		// Speakerfilter
 		if(JRequest::getCmd('view') == 'speaker'){
 			$id = $app->getUserStateFromRequest($this->context.'.filter.speaker', 'id', 0, 'INT');
 			$this->setState('speaker.id', $id);

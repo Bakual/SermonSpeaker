@@ -24,36 +24,22 @@
 	<!-- Add fields to the parameters object for the layout. -->
 	<fields name="params">
 		<fieldset name="filter" label="COM_SERMONSPEAKER_FIELDSET_FILTER_LABEL">
-			<field name="series_cat" type="category" 
-				label="COM_SERMONSPEAKER_PARAM_CATEGORY_SERIES_LABEL" 
+			<field name="catid" type="category" 
+				label="JCATEGORY" 
 				description="COM_SERMONSPEAKER_PARAM_CATEGORY_DESC" 
 				extension="com_sermonspeaker" 
-				show_root="true"
+				required="true"
 			/>
 
-			<field name="speaker_cat" type="category" 
-				label="COM_SERMONSPEAKER_PARAM_CATEGORY_SPEAKER_LABEL" 
-				description="COM_SERMONSPEAKER_PARAM_CATEGORY_DESC" 
-				extension="com_sermonspeaker" 
-				show_root="true"
-			/>
-
-			<field name="sermon_cat" type="category" 
-				label="COM_SERMONSPEAKER_PARAM_CATEGORY_SERMON_LABEL" 
-				description="COM_SERMONSPEAKER_PARAM_CATEGORY_DESC" 
-				extension="com_sermonspeaker" 
-				show_root="true"
-			/>
-
-			<field name="series_id" type="sql" 
-				label="COM_SERMONSPEAKER_PARAM_SERIES" 
-				description="COM_SERMONSPEAKER_PARAM_SERIES_DESC"
-				query="SELECT id, series_title FROM #__sermon_series" 
-				key_field="id" 
-				value_field="series_title" >
-				<option value="0">COM_SERMONSPEAKER_SELECT_SERIES</option>
+			<field name="count_items_type" type="list"
+				label="COM_SERMONSPEAKER_CATEGORY_ITEMS_TYPE_LABEL"
+				description="COM_SERMONSPEAKER_CATEGORY_ITEMS_TYPE_DESC"
+			>
+				<option value="">JGLOBAL_USE_GLOBAL</option>
+				<option value="sermons">COM_SERMONSPEAKER_SERMONS</option>
+				<option value="series">COM_SERMONSPEAKER_SERIES</option>
+				<option value="speakers">COM_SERMONSPEAKER_SPEAKERS</option>
 			</field>
-
 		</fieldset>
 		<fieldset name="sermoncast" label="COM_SERMONSPEAKER_FIELDSET_SERMONCAST_LABEL">
 			<field name="sc_title" 

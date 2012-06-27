@@ -15,7 +15,7 @@
 				label="JCATEGORY" 
 				description="COM_SERMONSPEAKER_PARAM_CATEGORY_DESC" 
 				extension="com_sermonspeaker" 
-				show_root="true"
+				required="true"
 			/>
 			<field name="count_items_type" type="list"
 				label="COM_SERMONSPEAKER_CATEGORY_ITEMS_TYPE_LABEL"

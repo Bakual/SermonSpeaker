@@ -20,7 +20,7 @@
 				label="JCategory" 
 				description="COM_SERMONSPEAKER_PARAM_CATEGORY_DESC" 
 				extension="com_sermonspeaker" 
-				show_root="true"
+				required="true"
 			/>
 
 			<field name="freq" type="list" 

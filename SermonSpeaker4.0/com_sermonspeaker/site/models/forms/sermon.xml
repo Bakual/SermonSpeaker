@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <form>
-	<fieldset addfieldpath="/administrator/components/com_sermonspeaker/models/fields" name="general">
+	<fieldset name="general"
+		addfieldpath="/administrator/components/com_categories/models/fields" >
 		<field name="sermon_title" type="text" class="inputbox"
 			size="40" label="JGLOBAL_TITLE"
 			onchange="check(this.value, 70, 0)"
@@ -9,6 +10,10 @@
 		<field name="alias" type="text" class="inputbox"
 			size="40" label="JFIELD_ALIAS_LABEL"
 			description="JFIELD_ALIAS_DESC" />
+
+		<field name="catid" type="categoryedit" extension="com_sermonspeaker"
+			label="JCATEGORY" description="JFIELD_CATEGORY_DESC"
+			class="inputbox" required="true" />
 
 		<field
 			name="state"
@@ -90,7 +95,8 @@
 		</field>
 	</fieldset>
 
-	<fieldset name="info">
+	<fieldset name="info"
+		addfieldpath="/administrator/components/com_sermonspeaker/models/fields">
 		<field name="id"  type="text" class="readonly"
 			label="JGLOBAL_FIELD_ID_LABEL" description ="JGLOBAL_FIELD_ID_DESC"
 			size="10" default="0" required="true"
@@ -138,12 +144,6 @@
 
 		<field name="series_id" type="serieslist" class="inputbox"
 			label="COM_SERMONSPEAKER_SERIE" description="COM_SERMONSPEAKER_FIELD_SERIE_DESC" />
-
-		<field name="catid" type="category" extension="com_sermonspeaker"
-			label="JCATEGORY" description="JFIELD_CATEGORY_DESC"
-			class="inputbox">
-			<option value="">JOPTION_SELECT_CATEGORY</option>
-		</field>
 
 		<field name="picture" type="mediawrapper" class="inputbox"
 			label="COM_SERMONSPEAKER_FIELD_PICTURE_LABEL"

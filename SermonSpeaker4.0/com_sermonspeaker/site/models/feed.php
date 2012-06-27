@@ -23,24 +23,27 @@ class SermonspeakerModelFeed extends JModel
 		$user	= JFactory::getUser();
 		$groups	= implode(',', $user->authorisedLevels());
 
-		$cat['series'] 	= (int)$this->params->get('series_cat', JRequest::getInt('series_cat', ''));
-		$cat['speaker'] = (int)$this->params->get('speaker_cat', JRequest::getInt('speaker_cat', ''));
-		$cat['sermon'] 	= (int)$this->params->get('sermon_cat', JRequest::getInt('sermon_cat', ''));
-		$series		 	= (int)$this->params->get('series_id', JRequest::getInt('series_id', ''));
-
-		$this->catwhere = NULL;
-		if ($cat['series'] != 0){
-			$this->catwhere .= " AND series.catid = '".$cat['series']."' \n";
+		// Category filter (priority on request so subcategories work)
+		if ($id	= JRequest::getInt('sermon_cat', 0))
+		{
+			$type	= 'sermons';
 		}
-		if ($cat['speaker'] != 0){
-			$this->catwhere .= " AND speakers.catid = '".$cat['speaker']."' \n";
+		elseif ($id	= JRequest::getInt('speaker_cat', 0))
+		{
+			$type	= 'speakers';
 		}
-		if ($cat['sermon'] != 0){
-			$this->catwhere .= " AND sermons.catid = '".$cat['sermon']."' \n";
+		elseif ($id	= JRequest::getInt('series_cat', 0))
+		{
+			$type	= 'series';
 		}
-		if ($series != 0){
-			$this->catwhere .= " AND sermons.series_id = '".$series."' \n";
+		else
+		{
+			$id		= (int) $this->params->get('catid', 0);
+			$type	= $this->params->get('count_items_type', 'sermons');
 		}
+//		$this->setState('category.id', $id);
+//		$this->setState('category.type', $type);
+		$this->catwhere = " AND ".$type.".catid = ".$id." \n";
 
 		$database = JFactory::getDBO();
 

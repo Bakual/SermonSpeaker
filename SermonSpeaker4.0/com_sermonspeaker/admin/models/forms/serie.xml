@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <form>
-	<fieldset name="general">
+	<fieldset name="general"
+		addfieldpath="/administrator/components/com_categories/models/fields" >
 		<field name="series_title" type="text" class="inputbox"
 			size="40" label="JGLOBAL_TITLE"
 			description="COM_SERMONSPEAKER_FIELD_TITLE_DESC" required="true" />
@@ -8,6 +9,10 @@
 		<field name="alias" type="text" class="inputbox"
 			size="40" label="JFIELD_ALIAS_LABEL"
 			description="JFIELD_ALIAS_DESC" />
+
+		<field name="catid" type="categoryedit" extension="com_sermonspeaker"
+			label="JCATEGORY" description="JFIELD_CATEGORY_DESC"
+			class="inputbox" required="true" />
 
 		<field
 			name="state"
@@ -65,12 +70,6 @@
 	</fieldset>
 
 	<fieldset name="detail">
-		<field name="catid" type="category" extension="com_sermonspeaker"
-			label="JCATEGORY" description="JFIELD_CATEGORY_DESC"
-			class="inputbox" >
-			<option value="">JOPTION_SELECT_CATEGORY</option>
-		</field>
-
 		<field name="avatar" type="mediawrapper" class="inputbox"
 			label="COM_SERMONSPEAKER_FIELD_PICTURE_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_PICTURE_DESC" />

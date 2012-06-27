@@ -4,6 +4,19 @@ defined('_JEXEC') or die('Restricted access');
 
 class Com_SermonspeakerInstallerScript
 {
+	/**
+	 * method to run before an install/update/uninstall method
+	 *
+	 * @return void
+	 */
+	function preflight($type, $parent)
+	{
+		// Storing old release number ot process in postflight
+		if ($type == 'update')
+		{
+			$this->oldRelease = $this->getParam('version');
+		}
+	}
 
 	/**
 	 * method to install the component
@@ -22,7 +35,7 @@ class Com_SermonspeakerInstallerScript
 	 */
 	function uninstall($parent)
 	{
-		echo '<div>'.JText::_('COM_SERMONSPEAKER_UNINSTALL_TEXT').'</div>';
+		echo '<p>'.JText::_('COM_SERMONSPEAKER_UNINSTALL_TEXT').'</p>';
 	}
 
 	/**
@@ -32,8 +45,6 @@ class Com_SermonspeakerInstallerScript
 	 */
 	function update($parent)
 	{
-		echo '<div>'.JText::_('COM_SERMONSPEAKER_UPDATE_TEXT').'</div>';
-
 		// Cleanup unused layout files from old installations
 		jimport('joomla.filesystem.file');
 		$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/speaker/tmpl/latest-sermons.php';
@@ -76,21 +87,42 @@ class Com_SermonspeakerInstallerScript
 	}
 
 	/**
-	 * method to run before an install/update/uninstall method
-	 *
-	 * @return void
-	 */
-	function preflight($type, $parent) {
-	}
-
-	/**
 	 * method to run after an install/update/uninstall method
 	 *
 	 * @return void
 	 */
  	function postflight($type, $parent)
 	{
-		echo JText::sprintf('COM_SERMONSPEAKER_POSTFLIGHT', $type);
+		// Adding Category "uncategorized" if installing or upgrading from older installations.
+		if ($type == 'update')
+		{
+			if (version_compare( $this->oldRelease, '4.4.4', '<'))
+			{
+				$id = $this->_addCategory();
+				$db = JFactory::getDBO();
+				// Updating all sermons without category to have this new one
+				$query	= $db->getQuery(true);
+				$query->update('#__sermon_sermons');
+				$query->set('catid = '.(int)$id);
+				$query->where('catid = 0');
+				$db->setQuery($query);
+				$db->query();
+				// Speakers
+				$query->update('#__sermon_speakers');
+				$db->setQuery($query);
+				$db->query();
+				// Series
+				$query->update('#__sermon_series');
+				$db->setQuery($query);
+				$db->query();
+			}
+		}
+		elseif ($type != 'uninstall')
+		{
+			$this->_addCategory();
+		}
+
+		echo '<p>'.JText::sprintf('COM_SERMONSPEAKER_POSTFLIGHT', $type).'</p>';
 	}
 
 	/**
@@ -138,5 +170,58 @@ class Com_SermonspeakerInstallerScript
 			}
 		}
 		return;
+	}
+
+	/**
+	 * method to add a default category "uncategorized"
+	 *
+	 * @return id of the created category
+	 */
+	function _addCategory()
+	{
+		// Create categories for our component
+		$basePath = JPATH_ADMINISTRATOR.'/components/com_categories';
+		require_once $basePath.'/models/category.php';
+		$config		= array('table_path' => $basePath.'/tables');
+		$catmodel	= new CategoriesModelCategory($config);
+		$catData	= array('id' => 0, 'parent_id' => 0, 'level' => 1, 'path' => 'uncategorized', 'extension' => 'com_sermonspeaker',
+						'title' => 'Uncategorized', 'alias' => 'uncategorized', 'description' => '', 'published' => 1, 'language' => '*');
+		$catmodel->save($catData);
+
+		return $catmodel->getItem()->id;
+	}
+
+	/*
+	 * get a variable from the manifest file (actually, from the manifest cache).
+	 */
+	function getParam($name)
+	{
+		$db = JFactory::getDbo();
+		$db->setQuery('SELECT manifest_cache FROM #__extensions WHERE name = "com_sermonspeaker"');
+		$manifest = json_decode($db->loadResult(), true);
+		return $manifest[$name];
+	}
+ 
+	/*
+	 * sets parameter values in the component's row of the extension table
+	 */
+	function setParams($param_array)
+	{
+		if (count($param_array) > 0)
+		{
+			// read the existing component value(s)
+			$db = JFactory::getDbo();
+			$db->setQuery('SELECT params FROM #__extensions WHERE name = "com_sermonspeaker"');
+			$params = json_decode($db->loadResult(), true);
+			// add the new variable(s) to the existing one(s)
+			foreach ($param_array as $name => $value)
+			{
+				$params[(string)$name] = (string)$value;
+			}
+			// store the combined new and existing values back as a JSON string
+			$paramsString = json_encode($params);
+			$db->setQuery('UPDATE #__extensions SET params = '.$db->quote( $paramsString ).' WHERE name = "com_sermonspeaker"' );
+			$db->query();
+		}
 	}
 }
