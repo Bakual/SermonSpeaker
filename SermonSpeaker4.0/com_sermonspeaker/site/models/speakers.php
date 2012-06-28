@@ -63,11 +63,30 @@ class SermonspeakerModelspeakers extends JModelList
 		$query->where('(speakers.catid = 0 OR (c_speaker.access IN ('.$groups.') AND c_speaker.published = 1))');
 
 		// Filter by category
-		if ($categoryId = $this->getState('category.id')) {
-			$query->where('speakers.catid = '.(int) $categoryId);
+		if ($categoryId = $this->getState('category.id'))
+		{
+			if ($levels = (int) $this->getState('filter.subcategories', 0))
+			{
+				// Create a subquery for the subcategory list
+				$subQuery = $db->getQuery(true);
+				$subQuery->select('sub.id');
+				$subQuery->from('#__categories as sub');
+				$subQuery->join('INNER', '#__categories as this ON sub.lft > this.lft AND sub.rgt < this.rgt');
+				$subQuery->where('this.id = '.(int) $categoryId);
+				if ($levels > 0) {
+					$subQuery->where('sub.level <= this.level + '.$levels);
+				}
+				// Add the subquery to the main query
+				$query->where('(speakers.catid = '.(int) $categoryId
+					.' OR speakers.catid IN ('.$subQuery->__toString().'))');
+			}
+			else
+			{
+				$query->where('speakers.catid = '.(int) $categoryId);
+			}
 		}
 
-		// Subquerie to get counts of sermons and series
+		// Subquery to get counts of sermons and series
 		$query->select('(SELECT COUNT(DISTINCT sermons.id) FROM #__sermon_sermons AS sermons WHERE sermons.speaker_id = speakers.id AND sermons.id > 0) AS sermons');
 		$query->select('(SELECT COUNT(DISTINCT sermons2.series_id) FROM #__sermon_sermons AS sermons2 WHERE sermons2.speaker_id = speakers.id AND sermons2.series_id > 0) AS series');
 
@@ -115,14 +134,16 @@ class SermonspeakerModelspeakers extends JModelList
 		$params	= $app->getParams();
 		$this->setState('params', $params);
 
-		// Category filter
-		$id	= (int)$params->get('catid', 0);
-		if (!$id){ $id	= JRequest::getInt('speaker_cat', 0); }
+		// Category filter (priority on request so subcategories work)
+		$id	= JRequest::getInt('speaker_cat', $params->get('catid', 0));
 		$this->setState('category.id', $id);
 
-		$this->setState('filter.language', $app->getLanguageFilter());
+		// Include Subcategories or not
+		$this->setState('filter.subcategories', $params->get('show_subcategory_content', 0));
 
-		$this->setState('filter.state',	1);
+		$this->setState('filter.state', 1);
+
+		$this->setState('filter.language', $app->getLanguageFilter());
 
 		$search = $app->getUserStateFromRequest($this->context.'.filter.search', 'filter-search', '', 'STRING');
 		$this->setState('filter.search', $search);

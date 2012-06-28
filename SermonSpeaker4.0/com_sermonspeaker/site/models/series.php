@@ -150,7 +150,7 @@ class SermonspeakerModelSeries extends JModelList
 		// Include Subcategories or not
 		$this->setState('filter.subcategories', $params->get('show_subcategory_content', 0));
 
-		$this->setState('filter.state',	1);
+		$this->setState('filter.state', 1);
 
 		$this->setState('filter.language', $app->getLanguageFilter());
 
