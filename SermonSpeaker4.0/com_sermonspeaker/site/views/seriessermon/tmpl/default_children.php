@@ -13,7 +13,7 @@ if (count($this->children[$this->category->id]) > 0) : ?>
 
 		<li<?php echo $class; ?>>
 			<?php $class = ''; ?>
-			<span class="item-title"><a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSeriesRoute($child->id));?>">
+			<span class="item-title"><a href="<?php echo JRoute::_('index.php?view=seriessermon&series_cat='.$child->id); ?>">
 				<?php echo $this->escape($child->title); ?></a>
 			</span>
 			<?php if ($this->params->get('show_subcat_desc') == 1) :?>
