@@ -83,7 +83,7 @@ class SermonspeakerControllerSerie extends JController
 			}
 			ignore_user_abort(true);
 			foreach ($files as $file){
-				if (!JFile::exists($folder.'/series/stop.txt'){die('found stop.txt in directory and thus terminating script');}
+				if (JFile::exists($folder.'/series/stop.txt')){die('found stop.txt in directory and thus terminating script');}
 				set_time_limit(0);
 				$zip->addFile($file['path'], $file['name']);
 			}
