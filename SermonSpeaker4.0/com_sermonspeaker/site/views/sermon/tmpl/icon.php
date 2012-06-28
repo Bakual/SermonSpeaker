@@ -9,7 +9,8 @@ $canEdit	= $user->authorise('core.edit', 'com_sermonspeaker');
 $canEditOwn	= $user->authorise('core.edit.own', 'com_sermonspeaker');
 $config = array(
 		'alt_player' => 1,
-		'count' => 1
+		'count' => 1,
+		'type' => 'audio',
 	);
 $player = new SermonspeakerHelperPlayer($this->item, $config);
 ?>
@@ -47,11 +48,28 @@ $player = new SermonspeakerHelperPlayer($this->item, $config);
 			if ($this->params->get('popup_player') && in_array('sermon:download', $this->columns)) : ?>
 				<br />
 			<?php endif;
-			if (in_array('sermon:download', $this->columns)) : ?>
-				<a id="sermon_download" href="<?php echo JRoute::_('index.php?task=download&id='.$this->item->slug.'&type='.$player->status); ?>" class="download">
+			if ($this->item->audiofile && in_array('sermon:download', $this->columns)) : ?>
+				<a id="sermon_download" href="<?php echo JRoute::_('index.php?task=download&id='.$this->item->slug.'&type=audio'); ?>" class="download">
 					<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_AUDIO'); ?>
 				</a>
 			<?php endif; ?>
+			</div>
+		<?php endif;
+		if (in_array('sermon:player', $this->columns) && $this->item->videofile) :
+			if ($player->status) : ?>
+				<br style="clear:left;" />
+			<?php endif; ?>
+			<div class="ss-player-video">
+				<a href="<?php echo JURI::current(); ?>" onclick="popup = window.open('<?php echo  JRoute::_(SermonspeakerHelperRoute::getSermonRoute($this->item->slug).'&layout=popup&type=video&tmpl=component'); ?>', 'PopupPage', 'height=<?php echo $player->popup['height']; ?>,width=<?php echo $player->popup['width']; ?>,scrollbars=yes,resizable=yes'); return false">
+					<img src="media/com_sermonspeaker/images/player.png">
+				</a>
+			</div>
+		<?php endif;
+		if ($this->item->videofile && in_array('sermon:download', $this->columns)) : ?>
+			<div class="ss-mp3-links">
+				<a id="sermon_download" href="<?php echo JRoute::_('index.php?task=download&id='.$this->item->slug.'&type=video'); ?>" class="download">
+					<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_VIDEO'); ?>
+				</a>
 			</div>
 		<?php endif; ?>
 	</div>

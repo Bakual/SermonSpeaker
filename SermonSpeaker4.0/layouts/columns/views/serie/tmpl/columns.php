@@ -59,7 +59,7 @@ if (in_array('serie:description', $this->col_serie)): ?>
 	<div class="category-desc">
 		<div class="ss-avatar">
 			<?php if ($this->item->avatar) : ?>
-				<img src="<?php echo SermonspeakerHelperSermonspeaker::makelink($this->item->avatar); ?>">
+				<img src="<?php echo trim($this->item->avatar, '/'); ?>">
 			<?php endif; ?>
 		</div>
 		<?php echo JHTML::_('content.prepare', $this->item->series_description); ?>
@@ -146,13 +146,11 @@ if (in_array('serie:player', $this->columns) && count($this->items)) : ?>
 			<div id="sermon<?php echo $i; ?>" class="ss-entry">
 				<div class="column-picture" onclick="ss_play('<?php echo $i; ?>')">
 					<div class="ss-picture">
-						<?php if ($item->picture): ?>
-							<img src="<?php echo SermonspeakerHelperSermonspeaker::makelink($item->picture); ?>">
-						<?php elseif ($item->pic): ?>
-							<img src="<?php echo SermonspeakerHelperSermonspeaker::makelink($item->pic); ?>">
-						<?php else: ?>
-							<img src="media/com_sermonspeaker/images/nopict.jpg">
-						<?php endif; ?>
+						<?php $picture = SermonspeakerHelperSermonspeaker::insertPicture($item);
+						if (!$picture): 
+							$picture = 'media/com_sermonspeaker/images/nopict.jpg';
+						endif; ?>
+						<img src="<?php echo $picture; ?>">
 					</div>
 				</div>
 				<div class="column-content" onclick="ss_play('<?php echo $i; ?>')">
@@ -227,12 +225,12 @@ if (in_array('serie:player', $this->columns) && count($this->items)) : ?>
 						<?php endif; ?>
 					<?php endif;
 					if ($item->audiofile) : ?>
-						<a href="#" onclick="popup=window.open('<?php echo JRoute::_('index.php?view=sermon&layout=popupx&tmpl=component&type=audio&id='.$item->slug); ?>', 'PopupPage', 'height=150px, width=400px, scrollbars=yes, resizable=yes'); return false" class="listen" title="<?php echo JText::_('COM_SERMONSPEAKER_POPUPPLAYER'); ?>">
+						<a href="#" onclick="popup=window.open('<?php echo JRoute::_('index.php?view=sermon&layout=popup&tmpl=component&type=audio&id='.$item->slug); ?>', 'PopupPage', 'height=150px, width=400px, scrollbars=yes, resizable=yes'); return false" class="listen" title="<?php echo JText::_('COM_SERMONSPEAKER_POPUPPLAYER'); ?>">
 							Listen
 						</a>
 					<?php endif;
 					if ($item->videofile) : ?>
-						<a href="#" onclick="popup=window.open('<?php echo JRoute::_('index.php?view=sermon&layout=popupx&tmpl=component&type=video&id='.$item->slug); ?>', 'PopupPage', 'height=400px, width=450px, scrollbars=yes, resizable=yes'); return false" class="watch" title="<?php echo JText::_('COM_SERMONSPEAKER_POPUPPLAYER'); ?>">
+						<a href="#" onclick="popup=window.open('<?php echo JRoute::_('index.php?view=sermon&layout=popup&tmpl=component&type=video&id='.$item->slug); ?>', 'PopupPage', 'height=400px, width=450px, scrollbars=yes, resizable=yes'); return false" class="watch" title="<?php echo JText::_('COM_SERMONSPEAKER_POPUPPLAYER'); ?>">
 							Watch
 						</a>
 					<?php endif; ?>

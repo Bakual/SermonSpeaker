@@ -15,6 +15,15 @@
 	float:left;
 	width:350px;
 }
+#sermon-player-container div.ss-player-video{
+	background:url(../images/player-wrapper-video.png) no-repeat;
+	height:40px;
+	margin:5px;
+	padding:7px 0 0 50px;
+	float:left;
+	width:350px;
+	clear:left;
+}
 .ss-mp3-links{
 	float:left;
 	margin:0 0 0 10px;

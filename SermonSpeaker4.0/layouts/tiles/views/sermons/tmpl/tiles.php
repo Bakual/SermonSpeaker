@@ -142,16 +142,14 @@ if (in_array('sermons:player', $this->columns) && count($this->items)) : ?>
 				$tip[]	= JText::_('COM_SERMONSPEAKER_FIELD_NOTES_LABEL').': '.$item->notes;
 			endif;
 			$tooltip	= implode('<br/>', $tip);
-			// Trying with relativ links without makeLink helper function. trim($image, '/') needed for backward compatibility.
-			if ($item->picture): $image = $item->picture;
-			elseif ($item->pic): $image = $item->pic;
-			else: $image = 'media/com_sermonspeaker/images/nopict.jpg';
+			$picture = SermonspeakerHelperSermonspeaker::insertPicture($item);
+			if (!$picture): 
+				$picture = 'media/com_sermonspeaker/images/nopict.jpg';
 			endif; ?>
 			<div id="sermon<?php echo $i; ?>" class="ss-entry tile">
-			<?php $class = ''; ?>
 				<span class="hasTip" title="<?php echo $this->escape($item->sermon_title).'::'.$this->escape($tooltip); ?>">
 				<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->id));?>">
-					<img border="0" align="middle" src="<?php echo trim($image, '/'); ?>">
+					<img border="0" align="middle" src="<?php echo $picture; ?>">
 					<span class="item-title">
 						<?php echo $item->sermon_title; ?>
 					</span>

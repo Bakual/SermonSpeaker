@@ -86,7 +86,6 @@ if ($this->params->get('show_description', 1) || $this->params->def('show_descri
 			$tooltip	= implode('<br/>', $tip);
 			$image = ($item->avatar) ? $item->avatar : 'media/com_sermonspeaker/images/nopict.jpg'; ?>
 			<div id="serie<?php echo $i; ?>" class="ss-entry tile">
-			<?php $class = ''; ?>
 				<span class="hasTip" title="<?php echo $this->escape($item->series_title).'::'.$this->escape($tooltip); ?>">
 				<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->id));?>">
 					<img border="0" align="middle" src="<?php echo trim($image, '/'); ?>">
