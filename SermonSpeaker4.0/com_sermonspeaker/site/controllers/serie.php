@@ -79,9 +79,11 @@ class SermonspeakerControllerSerie extends JController
 			$filename	= JPATH_BASE.str_replace(DS.DS, DS, DS.$folder.DS.'series').DS.$name.'.zip';
 			$zip = new ZipArchive();
 			if ($zip->open($filename, ZIPARCHIVE::OVERWRITE)!==TRUE) {
-				exit("cannot open <$filename>\n");
+				die("cannot open <$filename>\n");
 			}
+			ignore_user_abort(true);
 			foreach ($files as $file){
+				if (!JFile::exists($folder.'/series/stop.txt'){die('found stop.txt in directory and thus terminating script');}
 				set_time_limit(0);
 				$zip->addFile($file['path'], $file['name']);
 			}
