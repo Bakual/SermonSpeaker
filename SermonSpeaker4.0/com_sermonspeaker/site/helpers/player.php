@@ -214,7 +214,7 @@ class SermonspeakerHelperPlayer {
 		// Plugins
 		if ($this->params->get('ga_id', ''))
 		{
-			$plugins['gapro-2'] = '{}';
+			$plugins['gapro-2'] = "{'gapro.idstring':'SermonSpeaker/||provider||/||file||'}";
 		}
 		if ($this->params->get('fbit', 0))
 		{
@@ -490,7 +490,7 @@ class SermonspeakerHelperPlayer {
 		$options['plugins'] = '{'.implode(',', $plugins).'}';
 		// Generic options
 		$autostart = $this->config['autostart'] ? 'true' : 'false';
-		$options['clip'] = "{scaling:'fit',image:false,autoBuffering:true,autoPlay:".$autostart."}";
+		$options['clip'] = "{scaling:'fit',image:false,autoBuffering:true,autoPlay:".$autostart.",eventCategory:'SermonSpeaker'}";
 
 		if ($this->status == 'playlist')
 		{
@@ -550,11 +550,13 @@ class SermonspeakerHelperPlayer {
 				// Choosing the default file to play based on prio and availabilty
 				if (($this->config['type'] != 'video') && ($temp_item->audiofile && (!$this->prio || ($this->config['type'] == 'audio') || !$temp_item->videofile)))
 				{
-					$entry['url']	= SermonspeakerHelperSermonspeaker::makeLink($temp_item->audiofile);
+					$entry['url']			= SermonspeakerHelperSermonspeaker::makeLink($temp_item->audiofile);
+					$entry['eventCategory']	= 'SermonSpeaker/Audio';
 				} 
 				elseif (($this->config['type'] != 'audio') && ($temp_item->videofile && ($this->prio || ($this->config['type'] == 'video') || !$temp_item->audiofile)))
 				{
 					$entry['url']	= SermonspeakerHelperSermonspeaker::makeLink($temp_item->videofile);
+					$entry['eventCategory']	= 'SermonSpeaker/Video';
 				}
 				else
 				{
@@ -590,24 +592,28 @@ class SermonspeakerHelperPlayer {
 					if ($temp_item->audiofile)
 					{
 						$file = SermonspeakerHelperSermonspeaker::makeLink($temp_item->audiofile);
+						$entry['eventCategory']	= "eventCategory:'SermonSpeaker/Audio'";
 						unset($entry['error']);
 					}
 					else
 					{
 						$file = ($img) ? $img : JURI::base(true).'/media/com_sermonspeaker/images/nopict.jpg';
 						$entry['error'] = "error:'".JText::_('JGLOBAL_RESOURCE_NOT_FOUND')."'";
+						unset($entry['eventCategory']);
 					}
 					$entry['url'] = "url:'".$file."'";
 					$audios[] = implode(',', $entry);
 					if ($temp_item->videofile)
 					{
 						$file = SermonspeakerHelperSermonspeaker::makeLink($temp_item->videofile);
+						$entry['eventCategory']	= "eventCategory:'SermonSpeaker/Video'";
 						unset($entry['error']);
 					}
 					else 
 					{
 						$file = ($img) ? $img : JURI::base(true).'/media/com_sermonspeaker/images/nopict.jpg';
 						$entry['error']	= "error:'".JText::_('JGLOBAL_RESOURCE_NOT_FOUND')."'";
+						unset($entry['eventCategory']);
 					}
 					$entry['url'] = "url:'".$file."'";
 					$videos[] = implode(',', $entry);
