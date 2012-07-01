@@ -214,7 +214,7 @@ class SermonspeakerHelperPlayer {
 		// Plugins
 		if ($this->params->get('ga_id', ''))
 		{
-			$plugins['gapro-2'] = "{'gapro.idstring':'SermonSpeaker/||provider||/||file||'}";
+			$plugins['gapro-2'] = "{idstring:'SermonSpeaker/||provider||:||file||'}";
 		}
 		if ($this->params->get('fbit', 0))
 		{
@@ -628,12 +628,13 @@ class SermonspeakerHelperPlayer {
 		}
 		else
 		{
-			$type = ($this->status == 'audio') ? 'a' : 'v';
-			$this->playlist['default'] = "url:'".$this->file."'";
+			$type	= ($this->status == 'audio') ? 'a' : 'v';
+			$cat	= ($this->status == 'audio') ? 'Audio' : 'Video';
+			$this->playlist['default'] = "url:'".$this->file."',eventCategory:'SermonSpeaker/".$cat."'";
 			if ($this->toggle)
 			{
-				$this->playlist['audio'] = "{url:'".$this->playlist['audio']."'}";
-				$this->playlist['video'] = "{url:'".$this->playlist['video']."'}";
+				$this->playlist['audio'] = "{url:'".$this->playlist['audio']."',eventCategory:'SermonSpeaker/Audio'}";
+				$this->playlist['video'] = "{url:'".$this->playlist['video']."',eventCategory:'SermonSpeaker/Video'}";
 			}
 		}
 		foreach ($options as $key => $value)
