@@ -22,3 +22,11 @@ JHTML::_('behavior.tooltip');
 		<li><a href="http://wpaudioplayer.com/">WordPress Audio Player</a> from <a href="http://www.1pixelout.net/">1 Pixel Out</a> is licensed under <a href="http://wpaudioplayer.com/license/">MIT</a> and thus free for use. When using keep in mind that it only supports mp3 audiofiles.</li>
 	</ul>
 </div>
+<h2>Classes</h2>
+<div>SermonSpeaker includes the following extern classes besides the players mentioned above:</div>
+	<ul>
+		<li><a href="http://www.swfupload.org">SWF Upload</a> for the Flash uploader.</li>
+		<li><a href="http://getid3.sourceforge.net">GetID3</a> for the ID3 tags lookup.</li>
+		<li><a href="http://undesigned.org.za/2007/10/22/amazon-s3-php-class">Amazon S3 PHP Class</a> for the Amazon S3 support.</li>
+		<li><a href="https://github.com/eduardocereto/GA-Code-Samples">Google Analytics Code Samples</a> from <a href="http://www.cardinalpath.com">Cardinal Path</a> for the Vimeo GA support.</li>
+	</ul>

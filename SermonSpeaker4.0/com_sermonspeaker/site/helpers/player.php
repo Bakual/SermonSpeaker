@@ -25,6 +25,7 @@ class SermonspeakerHelperPlayer {
 	private static $poscript;
 	private static $fwscript;
 	private static $wmvscript;
+	private static $vimeoscript;
 
 	/**
 	 * Constructor 
@@ -846,6 +847,18 @@ class SermonspeakerHelperPlayer {
 		$this->setPopup('v');
 		$this->status	= 'video';
 		$this->toggle	= false;
+
+		// Loading needed Javascript only once
+		if (!self::$vimeoscript)
+		{
+			if ($this->params->get('ga_id', ''))
+			{
+				JHTML::Script('media/com_sermonspeaker/player/vimeo/ganalytics.js', true);
+				$doc = JFactory::getDocument();
+				$doc->addScriptDeclaration("window.addEvent('domready', _trackVimeo);");
+			}
+			self::$vimeoscript = 1;
+		}
 		return;
 	}
 
