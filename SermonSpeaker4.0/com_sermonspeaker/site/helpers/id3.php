@@ -8,7 +8,7 @@ class SermonspeakerHelperId3
 {
 	function getID3($file, $params) {
 		if (strpos($file, 'http://vimeo.com') === 0 || strpos($file, 'http://player.vimeo.com') === 0){
-			return SermonspeakerHelperId3::getVimeo($file);
+			return self::getVimeo($file);
 		}
 		require_once(JPATH_COMPONENT_SITE.DS.'id3'.DS.'getid3'.DS.'getid3.php');
 		$getID3 	= new getID3;
@@ -84,14 +84,14 @@ class SermonspeakerHelperId3
 		$video	= $xml->video;
 		if (is_object($video)){
 			$duration	= (string)$video->duration;
-			$hours		= floor($duration / 3600);
-			$minutes	= floor(($duration - $hours * 3600) / 60);
-			$seconds	= $video->duration - $hours * 3600 - $minutes * 60;
-			$id3['sermon_time']		= $hours.':'.$minutes.':'.$seconds;
-			$id3['sermon_title']	= $video->title;
+			$hrs		= floor($duration / 3600);
+			$min	= floor(($duration - $hrs * 3600) / 60);
+			$sec	= $video->duration - $hrs * 3600 - $min * 60;
+			$id3['sermon_time']		= $hrs.':'.sprintf('%02d',$min).':'.sprintf('%02d', $sec);
+			$id3['sermon_title']	= (string)$video->title;
 			$id3['alias'] 			= JApplication::stringURLSafe($id3['sermon_title']);
-			$id3['sermon_date']		= $video->upload_date;
-			$id3['notes'] 			= $video->description;
+			$id3['sermon_date']		= (string)$video->upload_date;
+			$id3['notes'] 			= (string)$video->description;
 			$id3['pic']				= $video->thumbnail_medium;
 			$id3['sermon_number']	= '';
 			$id3['scripture'] = '';

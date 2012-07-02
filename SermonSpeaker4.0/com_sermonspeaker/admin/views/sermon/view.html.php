@@ -42,17 +42,20 @@ class SermonspeakerViewSermon extends JView
 						if(data.sermon_number && document.getElementById("jform_sermon_number")){
 							document.getElementById("jform_sermon_number").value = data.sermon_number;
 						}
+						if(data.sermon_date && document.getElementById("jform_sermon_date")){
+							document.getElementById("jform_sermon_date").value = data.sermon_date;
+						}
 						if(data.sermon_time && document.getElementById("jform_sermon_time")){
 							document.getElementById("jform_sermon_time").value = data.sermon_time;
-						}
-						if(data.notes && document.getElementById("jform_notes")){
-							jInsertEditorText(data.notes, "jform_notes");
 						}
 						if(data.series_id && document.getElementById("jform_series_id")){
 							document.getElementById("jform_series_id").value = data.series_id;
 						}
 						if(data.speaker_id && document.getElementById("jform_speaker_id")){
 							document.getElementById("jform_speaker_id").value = data.speaker_id;
+						}
+						if(data.notes && document.getElementById("jform_notes")){
+							jInsertEditorText(data.notes, "jform_notes");
 						}
 					} else {
 						alert(data.msg);
