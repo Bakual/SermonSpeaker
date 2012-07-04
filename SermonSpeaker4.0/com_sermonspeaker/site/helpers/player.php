@@ -564,7 +564,7 @@ class SermonspeakerHelperPlayer {
 					$entry['url']	= ($img) ? $img : JURI::base(true).'/media/com_sermonspeaker/images/nopict.jpg';
 					$entry['error']	= JText::_('JGLOBAL_RESOURCE_NOT_FOUND');
 				}
-				$entry['title']	= addslashes($temp_item->sermon_title);
+				$entry['title']	= urlencode(addslashes($temp_item->sermon_title));
 				if ($temp_item->sermon_time != '00:00:00'){
 					$time_arr	= explode(':', $temp_item->sermon_time);
 					$seconds	= ($time_arr[0] * 3600) + ($time_arr[1] * 60) + $time_arr[2];
@@ -578,7 +578,7 @@ class SermonspeakerHelperPlayer {
 					$desc[] = JText::_('JDATE').': '.JHTML::Date($temp_item->sermon_date, JText::_($this->params->get('date_format')), true);
 				}
 				if ($temp_item->name){
-					$desc[] = JText::_('COM_SERMONSPEAKER_SPEAKER').': '.addslashes($temp_item->name);
+					$desc[] = JText::_('COM_SERMONSPEAKER_SPEAKER').': '.urlencode(addslashes($temp_item->name));
 				}
 				$entry['description']	= implode('<br/>', $desc);
 				foreach ($entry as $key => $value)
