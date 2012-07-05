@@ -3,10 +3,10 @@
 	<name>SermonSpeaker Package</name>
 	<author>Thomas Hunziker</author>
 	<creationDate>September 2011</creationDate>
-	<copyright>(C) 2011</copyright>
+	<copyright>(C) 2012</copyright>
 	<authorEmail>admin@sermonspeaker.net</authorEmail>
 	<authorUrl>http://www.sermonspeaker.net</authorUrl>
-	<version>4.4.0</version>
+	<version>4.4.4</version>
 	<license>http://www.gnu.org/licenses/gpl.html</license>
 	<packagename>sermonspeaker</packagename>
 	<url>http://www.sermonspeaker.net</url>

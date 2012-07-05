@@ -7,7 +7,7 @@
 	<authorEmail>admin@sermonspeaker.net</authorEmail>
 	<authorUrl>http://www.sermonspeaker.net</authorUrl>
 	<license>GNU/GPL</license>
-	<version>1.7.7</version>
+	<version>1.7.7.1</version>
 	<description>obSocialSubmit intern addon for SermonSpeaker 4.2 component (com_sermonspeaker)</description>
 	<type>intern</type>
 	<event>onAfterContentSave</event>
