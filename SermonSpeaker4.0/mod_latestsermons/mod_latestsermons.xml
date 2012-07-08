@@ -24,21 +24,46 @@
 		<fields name="params">
 			<fieldset name="basic"
 				addfieldpath="/administrator/components/com_sermonspeaker/models/fields">
+					default="0" 
+				<field name="mode" type="list" 
+					label="MOD_LATESTSERMONS_PARAM_MODE_LABEL" 
+					description="MOD_LATESTSERMONS_PARAM_MODE_DESC"
+					required="true"
+					default="0" >
+					<option value="0">MOD_LATESTSERMONS_PARAM_MODE_OPTION_LATEST</option>
+					<option value="1">MOD_LATESTSERMONS_PARAM_MODE_OPTION_POPULAR</option>
+				</field>
 				<field name="ls_count" type="text" 
-					default="3" 
 					label="MOD_LATESTSERMONS_PARAM_COUNT" 
-					description="MOD_LATESTSERMONS_PARAM_COUNT_DESC" />
+					description="MOD_LATESTSERMONS_PARAM_COUNT_DESC"
+					required="true"
+					default="3" />
+				<field name="cat" type="category" 
+					label="JCATEGORY" 
+					description="MOD_LATESTSERMONS_PARAM_CATEGORY_DESC" 
+					extension="com_sermonspeaker" >
+					<option value="">JOPTION_SELECT_CATEGORY</option>
+				</field>
+				<field name="cat_type" type="list" 
+					label="MOD_LATESTSERMONS_FIELD_CATEGORY_TYPE_LABEL" 
+					description="MOD_LATESTSERMONS_FIELD_CATEGORY_TYPE_DESC" 
+					default="sermons" >
+					<option value="sermons">MOD_LATESTSERMONS_FIELD_CATEGORY_TYPE_OPTION_SERMONS</option>
+					<option value="series">MOD_LATESTSERMONS_FIELD_CATEGORY_TYPE_OPTION_SERIES</option>
+					<option value="speakers">MOD_LATESTSERMONS_FIELD_CATEGORY_TYPE_OPTION_SPEAKERS</option>
+				</field>
+				<field name="ls_mo_menuitem" type="menuitem" 
+					default=""
+					label="MOD_LATESTSERMONS_PARAM_MO_MENUITEM" 
+					description="MOD_LATESTSERMONS_PARAM_MO_MENUITEM_DESC" 
+					state="1"
+				/>
+				<field name="spacer1" type="spacer"
+					hr="true" />
 				<field name="show_list" type="radio" 
 					default="1" 
 					label="MOD_LATESTSERMONS_PARAM_SHOW_LIST_LABEL" 
 					description="MOD_LATESTSERMONS_PARAM_SHOW_LIST_DESC">
-					<option value="0">JNO</option>
-					<option value="1">JYES</option>
-				</field>
-				<field name="ls_show_mouseover" type="radio" 
-					default="1" 
-					label="MOD_LATESTSERMONS_PARAM_SHOW_MOUSEOVER" 
-					description="MOD_LATESTSERMONS_PARAM_SHOW_MOUSEOVER_DESC">
 					<option value="0">JNO</option>
 					<option value="1">JYES</option>
 				</field>
@@ -68,6 +93,17 @@
 					label="MOD_LATESTSERMONS_PARAM_MO_DATE_FORMAT" 
 					description="MOD_LATESTSERMONS_PARAM_MO_DATE_FORMAT_DESC">
 				</field>
+				<field name="show_hits" type="list" 
+					default="0" 
+					label="MOD_LATESTSERMONS_FIELD_SHOW_HITS_LABEL" 
+					description="MOD_LATESTSERMONS_FIELD_SHOW_HITS_DESC">
+					<option value="0">JNO</option>
+					<option value="1">MOD_LATESTSERMONS_FIELD_SHOW_HITS_OPTION_INFO</option>
+					<option value="2">MOD_LATESTSERMONS_FIELD_SHOW_HITS_OPTION_ATTACH</option>
+					<option value="3">JALL</option>
+				</field>
+				<field name="spacer2" type="spacer"
+					hr="true" />
 				<field name="show_player" type="radio" 
 					default="0" 
 					label="MOD_LATESTSERMONS_PARAM_SHOW_PLAYER_LABEL" 
@@ -79,6 +115,8 @@
 					default="300px" 
 					label="MOD_LATESTSERMONS_PARAM_VHEIGHT_LABEL" 
 					description="MOD_LATESTSERMONS_PARAM_VHEIGHT_DESC" />
+				<field name="spacer3" type="spacer"
+					hr="true" />
 				<field name="ls_show_mo_link" type="radio" 
 					default="0" 
 					label="MOD_LATESTSERMONS_PARAM_SHOW_MO_LINK" 
@@ -86,32 +124,6 @@
 					<option value="0">JNO</option>
 					<option value="1">JYES</option>
 				</field>
-				<field name="ls_mo_menuitem" type="menuitem" 
-					default=""
-					label="MOD_LATESTSERMONS_PARAM_MO_MENUITEM" 
-					description="MOD_LATESTSERMONS_PARAM_MO_MENUITEM_DESC" 
-					state="1"
-				/>
-				<field name="series_cat" type="category" 
-					label="MOD_LATESTSERMONS_PARAM_CATEGORY_SERIES_LABEL" 
-					description="MOD_LATESTSERMONS_PARAM_CATEGORY_DESC" 
-					extension="com_sermonspeaker" 
-					show_root="true"
-				/>
-
-				<field name="speaker_cat" type="category" 
-					label="MOD_LATESTSERMONS_PARAM_CATEGORY_SPEAKER_LABEL" 
-					description="MOD_LATESTSERMONS_PARAM_CATEGORY_DESC" 
-					extension="com_sermonspeaker" 
-					show_root="true"
-				/>
-
-				<field name="sermon_cat" type="category" 
-					label="MOD_LATESTSERMONS_PARAM_CATEGORY_SERMON_LABEL" 
-					description="MOD_LATESTSERMONS_PARAM_CATEGORY_DESC" 
-					extension="com_sermonspeaker" 
-					show_root="true"
-				/>
 			</fieldset>
 			<fieldset name="advanced">
 				<field name="layout" type="modulelayout"

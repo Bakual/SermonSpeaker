@@ -11,7 +11,10 @@ $count = count($list);
 		$i++; ?>
 		<div class="latestsermons_entry<?php echo $i; ?>">
 			<h3><a href="<?php echo JRoute::_('index.php?option=com_sermonspeaker&view=sermon&id='.$row->slug.'&Itemid='.$itemid); ?>">
-					<?php echo stripslashes($row->sermon_title); ?>
+				<?php echo $row->sermon_title;
+				if ($params->get('show_hits', 0) > 1 && $row->hits) : ?>
+					<small>(<?php echo $row->hits; ?>)</small>
+				<?php endif; ?>
 			</a></h3>
 			<dl class="article-info sermon-info" style="display:block; margin:0;">
 				<dt class="article-info-term"><?php echo JText::_('JDETAILS'); ?></dt>
@@ -20,10 +23,10 @@ $count = count($list);
 						<?php echo JText::_('MOD_LATESTSERMONS_SERIE'); ?>: 
 						<?php if ($row->series_state): ?>
 							<a href="<?php echo JRoute::_('index.php?option=com_sermonspeaker&view=serie&id='.$row->series_slug.'&Itemid='.$itemid); ?>">
-								<?php echo trim($row->series_title); ?>
+								<?php echo $row->series_title; ?>
 							</a>
 						<?php else:
-							echo trim($row->series_title); 
+							echo $row->series_title; 
 						endif; ?>
 					</dd>
 				<?php endif;
@@ -38,11 +41,17 @@ $count = count($list);
 						<?php echo JText::_('MOD_LATESTSERMONS_SPEAKER'); ?>: 
 						<?php if ($row->speaker_state): ?>
 							<a href="<?php echo JRoute::_('index.php?option=com_sermonspeaker&view=speaker&id='.$row->speaker_slug.'&Itemid='.$itemid); ?>">
-								<?php echo trim($row->name); ?>
+								<?php echo $row->name; ?>
 							</a>
 						<?php else:
-							echo trim($row->name); 
+							echo $row->name; 
 						endif; ?>
+					</dd>
+				<?php endif;
+				if ($params->get('show_hits', 0) & 1) : ?>
+					<dd class="hits">
+						<?php echo JText::_('JGLOBAL_HITS'); ?>: 
+						<?php echo $row->hits; ?>
 					</dd>
 				<?php endif; ?>
 			</dl>
