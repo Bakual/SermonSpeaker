@@ -1,6 +1,5 @@
 <?php
 defined('_JEXEC') or die('Restricted access');
-
 jimport('joomla.application.component.model');
 
 /**
@@ -43,7 +42,7 @@ class SermonspeakerModelFeed extends JModel
 		}
 //		$this->setState('category.id', $id);
 //		$this->setState('category.type', $type);
-		$this->catwhere = " AND ".$type.".catid = ".$id." \n";
+		$this->catwhere = ($id) ? " AND ".$type.".catid = ".$id." \n" : '';
 
 		$database = JFactory::getDBO();
 
@@ -67,6 +66,7 @@ class SermonspeakerModelFeed extends JModel
 				.$this->catwhere
 				."GROUP BY sermons.id \n"
 				."ORDER BY sermons.sermon_date DESC";
+
 		$database->setQuery($query, '0', $this->limit);
 		$rows = $database->loadObjectList();
 
