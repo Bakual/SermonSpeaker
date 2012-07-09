@@ -193,7 +193,7 @@ if (in_array('sermons:player', $this->columns) && count($this->items)) : ?>
 				<?php endif; ?>
 				</dl>
 				<div style="clear:left"></div>
-				<?php if (strlen($item->notes) > 0) : ?>
+				<?php if (in_array('sermons:notes', $this->columns) && $item->notes) : ?>
 					<div>
 						<?php echo JHTML::_('content.prepare', $item->notes); ?>
 					</div>
