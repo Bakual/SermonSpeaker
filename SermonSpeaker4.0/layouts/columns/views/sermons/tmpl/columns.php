@@ -158,7 +158,7 @@ if (in_array('sermons:player', $this->columns) && count($this->items)) : ?>
 							echo $this->escape($item->series_title);
 						endif;
 					endif;
-					if (strlen($item->notes) > 0) : ?>
+					if (in_array('sermons:notes', $this->columns) && $item->notes) : ?>
 						<div>
 							<?php echo JHTML::_('content.prepare', $item->notes); ?>
 						</div>

@@ -173,7 +173,7 @@ if ($this->params->get('show_category_title', 0) || in_array('speaker:hits', $th
 							echo $this->escape($item->series_title);
 						endif;
 					endif;
-					if (strlen($item->notes) > 0) : ?>
+					if (in_array('speaker:notes', $this->col_sermon) && $item->notes) : ?>
 						<div>
 							<?php echo JHTML::_('content.prepare', $item->notes); ?>
 						</div>

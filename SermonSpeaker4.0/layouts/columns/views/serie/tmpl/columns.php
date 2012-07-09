@@ -160,14 +160,14 @@ if (in_array('serie:player', $this->columns) && count($this->items)) : ?>
 						endif; ?>
 					</h3>
 					<?php $class = '';
-					if (in_array('sermons:scripture', $this->columns) && $item->scripture) :
+					if (in_array('serie:scripture', $this->columns) && $item->scripture) :
 						$class = 'scripture'; ?>
 						<span class="scripture">
 							<?php $scriptures = SermonspeakerHelperSermonspeaker::insertScriptures($item->scripture, '; ');
 							echo JHTML::_('content.prepare', $scriptures); ?>
 						</span>
 					<?php endif;
-					if (in_array('sermons:speaker', $this->columns) && $item->name) : ?>
+					if (in_array('serie:speaker', $this->columns) && $item->name) : ?>
 						<span class="speaker <?php echo $class; ?>">
 							<?php if ($item->speaker_state):
 								echo SermonspeakerHelperSermonSpeaker::SpeakerTooltip($item->speaker_slug, $item->pic, $item->name);
@@ -176,14 +176,14 @@ if (in_array('serie:player', $this->columns) && count($this->items)) : ?>
 							endif; ?>
 						</span>
 					<?php endif;
-					if (strlen($item->notes) > 0) : ?>
+					if (in_array('serie:notes', $this->columns) && $item->notes) : ?>
 						<div>
 							<?php echo JHTML::_('content.prepare', $item->notes); ?>
 						</div>
 					<?php endif; ?>
 				</div>
 				<div class="column-files">
-					<?php if (in_array('sermons:addfile', $this->columns) && $item->addfile) :
+					<?php if (in_array('serie:addfile', $this->columns) && $item->addfile) :
 						$link = SermonspeakerHelperSermonspeaker::makelink($item->addfile);
 						// Get extension of file
 						jimport('joomla.filesystem.file');
@@ -210,7 +210,7 @@ if (in_array('serie:player', $this->columns) && count($this->items)) : ?>
 							<img src="<?php echo $file; ?>" alt="" /> <?php echo $item->addfileDesc; ?>
 						</a>
 					<?php endif;
-					if (in_array('sermons:download', $this->columns)) : ?>
+					if (in_array('serie:download', $this->columns)) : ?>
 						<?php if ($item->audiofile) :
 							$fileurl = JRoute::_('index.php?task=download&id='.$item->slug.'&type=audio'); ?>
 							<a href="<?php echo $fileurl; ?>" target="_new" class="download" title="<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_AUDIO'); ?>">
@@ -236,18 +236,18 @@ if (in_array('serie:player', $this->columns) && count($this->items)) : ?>
 					<?php endif; ?>
 				</div>
 				<div class="column-detail" onclick="ss_play('<?php echo $i; ?>')">
-					<?php if (in_array('sermons:date', $this->columns) and ($item->sermon_date != '0000-00-00 00:00:00')) : ?>
+					<?php if (in_array('serie:date', $this->columns) and ($item->sermon_date != '0000-00-00 00:00:00')) : ?>
 						<div class="create">
 							<?php echo JHTML::Date($item->sermon_date, JText::_('DATE_FORMAT_LC1'), true); ?>
 						</div>
 					<?php endif;
-					if (in_array('sermons:hits', $this->columns)) : ?>
+					if (in_array('serie:hits', $this->columns)) : ?>
 						<div class="hits">
 							<?php echo JText::_('JGLOBAL_HITS'); ?>: 
 							<?php echo $item->hits; ?>
 						</div>
 					<?php endif;
-					if (in_array('sermons:length', $this->columns)) : ?>
+					if (in_array('serie:length', $this->columns)) : ?>
 						<div class="ss-sermondetail-info">
 							<?php echo SermonspeakerHelperSermonspeaker::insertTime($item->sermon_time); ?>
 						</div>
