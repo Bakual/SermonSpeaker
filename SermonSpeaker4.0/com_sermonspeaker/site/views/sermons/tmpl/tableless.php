@@ -192,7 +192,7 @@ if (in_array('sermons:player', $this->columns) && count($this->items)) : ?>
 					</dd>
 				<?php endif; ?>
 				</dl>
-				<div style="clear:left"></div>
+				<div style="clear:left;"></div>
 				<?php if (in_array('sermons:notes', $this->columns) && $item->notes) : ?>
 					<div>
 						<?php echo JHTML::_('content.prepare', $item->notes); ?>
@@ -208,8 +208,9 @@ if (in_array('sermons:player', $this->columns) && count($this->items)) : ?>
 						endif; ?>
 					</div>
 				<?php endif; ?>
+				<div style="clear:right;"></div>
 			</div>
-			<hr class="ss-sermons-player" style="clear:both" />
+			<hr class="ss-sermons-player" />
 		<?php endforeach;
 	endif;
 	if ($this->params->get('show_pagination') && ($this->pagination->get('pages.total') > 1)) : ?>
