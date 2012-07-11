@@ -33,8 +33,17 @@ class SermonspeakerHelperSermonspeaker
 	{
 		if ($addfile)
 		{
+			if (!self::$params)
+			{
+				self::getParams();
+			}
 			$link = self::makeLink($addfile); 
 			$html = '';
+			$onclick = '';
+			if (self::$params->get('enable_ga_events'))
+			{
+				$onclick = "onclick=\"_gaq.push(['_trackEvent', 'SermonSpeaker Download', 'Additional File', '".$addfile."']);\"";
+			}
 			if ($show_icon)
 			{
 				// Get extension of file
@@ -48,17 +57,13 @@ class SermonspeakerHelperSermonspeaker
 				{
 					$file = 'media/com_sermonspeaker/icons/icon.png';
 				}
-				$html .= '<a title="'.JText::_('COM_SERMONSPEAKER_ADDFILE_HOOVER').'" href="'.$link.'" target="_blank"><img src="'.$file.'" width="18" height="20" alt="" /></a>&nbsp;';
+				$html .= '<a title="'.JText::_('COM_SERMONSPEAKER_ADDFILE_HOOVER').'" href="'.$link.'" '.$onclick.' target="_blank"><img src="'.$file.'" width="18" height="20" alt="" /></a>&nbsp;';
 			}
 			if ($show_icon != 2)
 			{
 				// Show filename if no addfileDesc is set
 				if (!$addfileDesc)
 				{
-					if (!self::$params)
-					{
-						self::getParams();
-					}
 					if ($default = self::$params->get('addfiledesc'))
 					{
 						$addfileDesc = $default;
@@ -69,7 +74,7 @@ class SermonspeakerHelperSermonspeaker
 						$addfileDesc = ($slash !== false) ? substr($addfile, $slash + 1) : $addfile;
 					}
 				}
-				$html .= '<a title="'.JText::_('COM_SERMONSPEAKER_ADDFILE_HOOVER').'" href="'.$link.'" target="_blank">'.$addfileDesc.'</a>';
+				$html .= '<a title="'.JText::_('COM_SERMONSPEAKER_ADDFILE_HOOVER').'" href="'.$link.'" '.$onclick.'target="_blank">'.$addfileDesc.'</a>';
 			}
 			return $html;
 		}
@@ -91,16 +96,29 @@ class SermonspeakerHelperSermonspeaker
 
 	static function insertdlbutton($id, $type='audio', $mode='0')
 	{
+		if (!self::$params)
+		{
+			self::getParams();
+		}
+		$onclick = '';
 		$fileurl = JRoute::_('index.php?task=download&id='.$id.'&type='.$type);
 		if ($mode)
 		{
-			$html = '<a href="'.$fileurl.'" target="_new" title="'.JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_'.$type).'">'
+			if (self::$params->get('enable_ga_events'))
+			{
+				$onclick = "onclick=\"_gaq.push(['_trackEvent', 'SermonSpeaker Download', '".$type."', 'id:".$id."']);\"";
+			}
+			$html = '<a href="'.$fileurl.'" target="_new" '.$onclick.' title="'.JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_'.$type).'">'
 						.'<img src="media/com_sermonspeaker/images/download.png" alt="'.JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_'.$type).'" />'
 					.'</a>';
 		}
 		else
 		{
-			$html = '<input id="sermon_download" class="button download_btn" type="button" value="'.JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_'.$type).'" onclick="window.location.href=\''.$fileurl.'\'" />';
+			if (self::$params->get('enable_ga_events'))
+			{
+				$onclick = "_gaq.push(['_trackEvent', 'SermonSpeaker Download', '".$type."', 'id:".$id."']);";
+			}
+			$html = '<input id="sermon_download" class="button download_btn" type="button" value="'.JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_'.$type).'" onclick="'.$onclick.'window.location.href=\''.$fileurl.'\';" />';
 		}
 
 		return $html;
