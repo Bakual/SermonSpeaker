@@ -84,7 +84,7 @@ class SermonspeakerViewFeed extends JView
 		$items = array();
 		foreach($rows as $row) {
 			// Trigger Event for `notes` and `scripture`
-			$scriptures	= SermonspeakerHelperSermonspeaker::insertScriptures($row->scripture, ';', false);
+			$scriptures	= SermonspeakerHelperSermonspeaker::insertScriptures($row->scripture, '-/*', false);
 			$row->notes		= JHTML::_('content.prepare', $row->notes);
 			$row->scripture	= JHTML::_('content.prepare', $scriptures);
 
@@ -138,7 +138,7 @@ class SermonspeakerViewFeed extends JView
 			if($row->scripture){
 				$kw_script	= str_replace(',', ':', $row->scripture); // Make english scripture format
 				$kw_script	= str_replace("\n", '', $this->make_xml_safe($kw_script));
-				$keywords	= explode(';',$kw_script);
+				$keywords	= explode('-/*', $kw_script);
 			}
 			if($item->category){
 				$keywords[]	= $item->category;

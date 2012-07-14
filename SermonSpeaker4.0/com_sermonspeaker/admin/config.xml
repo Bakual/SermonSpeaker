@@ -840,6 +840,14 @@
 			<option value="0">JNO</option>
 			<option value="1">JYES</option>
 		</field>
+		<field name="enable_ga_events"
+			type="radio"
+			default="0"
+			label="COM_SERMONSPEAKER_FIELD_ENABLE_GA_EVENTS_LABEL"
+			description="COM_SERMONSPEAKER_FIELD_ENABLE_GA_EVENTS_DESC">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
+		</field>
 		<field name="facebook_spacer1" 
 			type="spacer"
 			hr="true"/>
