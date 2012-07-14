@@ -38,20 +38,6 @@
 					description="MOD_LATESTSERMONS_PARAM_COUNT_DESC"
 					required="true"
 					default="3" />
-				<field name="cat" type="category" 
-					label="JCATEGORY" 
-					description="MOD_LATESTSERMONS_PARAM_CATEGORY_DESC" 
-					extension="com_sermonspeaker" >
-					<option value="">JOPTION_SELECT_CATEGORY</option>
-				</field>
-				<field name="cat_type" type="list" 
-					label="MOD_LATESTSERMONS_FIELD_CATEGORY_TYPE_LABEL" 
-					description="MOD_LATESTSERMONS_FIELD_CATEGORY_TYPE_DESC" 
-					default="sermons" >
-					<option value="sermons">MOD_LATESTSERMONS_FIELD_CATEGORY_TYPE_OPTION_SERMONS</option>
-					<option value="series">MOD_LATESTSERMONS_FIELD_CATEGORY_TYPE_OPTION_SERIES</option>
-					<option value="speakers">MOD_LATESTSERMONS_FIELD_CATEGORY_TYPE_OPTION_SPEAKERS</option>
-				</field>
 				<field name="ls_mo_menuitem" type="menuitem" 
 					default=""
 					label="MOD_LATESTSERMONS_PARAM_MO_MENUITEM" 
@@ -124,6 +110,41 @@
 					<option value="0">JNO</option>
 					<option value="1">JYES</option>
 				</field>
+			</fieldset>
+			<fieldset name="filters" label="MOD_LATESTSERMONS_FILTERS_FIELDSET_LABEL">
+				<field name="cat" type="category" 
+					label="JCATEGORY" 
+					description="MOD_LATESTSERMONS_PARAM_CATEGORY_DESC" 
+					extension="com_sermonspeaker" >
+					<option value="">JOPTION_SELECT_CATEGORY</option>
+				</field>
+				<field name="cat_type" type="list" 
+					label="MOD_LATESTSERMONS_FIELD_CATEGORY_TYPE_LABEL" 
+					description="MOD_LATESTSERMONS_FIELD_CATEGORY_TYPE_DESC" 
+					default="sermons" >
+					<option value="sermons">MOD_LATESTSERMONS_FIELD_CATEGORY_TYPE_OPTION_SERMONS</option>
+					<option value="series">MOD_LATESTSERMONS_FIELD_CATEGORY_TYPE_OPTION_SERIES</option>
+					<option value="speakers">MOD_LATESTSERMONS_FIELD_CATEGORY_TYPE_OPTION_SPEAKERS</option>
+				</field>
+				<field name="speaker" type="sql" 
+					label="MOD_LATESTSERMONS_FIELD_SPEAKER_LABEL" 
+					description="MOD_LATESTSERMONS_FIELD_SPEAKER_DESC"
+					query="SELECT `id`, `name` FROM #__sermon_speakers ORDER BY name ASC"
+					key_field="id"
+					value_field="name">
+					<option value="0">MOD_LATESTSERMONS_FIELD_SPEAKER_OPTION_SELECT</option>
+				</field>
+				<field name="series" type="sql" 
+					label="MOD_LATESTSERMONS_FIELD_SERIES_LABEL" 
+					description="MOD_LATESTSERMONS_FIELD_SERIES_DESC"
+					query="SELECT `id`, `series_title` FROM #__sermon_series ORDER BY series_title ASC"
+					key_field="id"
+					value_field="series_title">
+					<option value="0">MOD_LATESTSERMONS_FIELD_SERIES_OPTION_SELECT</option>
+				</field>
+				<field name="idlist" type="text" 
+					label="MOD_LATESTSERMONS_FIELD_IDLIST_LABEL" 
+					description="MOD_LATESTSERMONS_FIELD_IDLIST_DESC" />
 			</fieldset>
 			<fieldset name="advanced">
 				<field name="layout" type="modulelayout"

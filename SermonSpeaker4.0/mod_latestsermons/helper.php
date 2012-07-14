@@ -40,6 +40,20 @@ abstract class modLatestsermonsHelper
 					break;
 			}
 		}
+		if ($speaker = (int)$params->get('speaker', 0))
+		{
+			$query->where('a.speaker_id = '.$speaker);
+		}
+		if ($series = (int)$params->get('series', 0))
+		{
+			$query->where('a.series_id = '.$series);
+		}
+		if ($idlist = $params->get('idlist', 0))
+		{
+			$id_array = explode(',', $idlist);
+			JArrayHelper::toInteger($id_array);
+			$query->where('a.id IN ('.implode(',', $id_array).')');
+		}
 
 		$db->setQuery($query, 0, (int)$params->get('ls_count', 3));
 		$items	= $db->loadObjectList();
