@@ -54,6 +54,19 @@ abstract class modLatestsermonsHelper
 			JArrayHelper::toInteger($id_array);
 			$query->where('a.id IN ('.implode(',', $id_array).')');
 		}
+		// SmartFilter
+		if ($params->get('smartfilter', 0))
+		{
+			$view = JRequest::getCmd('view');
+			if ($view == 'speaker')
+			{
+				$query->where('a.speaker_id = '.JRequest::getInt('id'));
+			}
+			elseif ($view == 'serie')
+			{
+				$query->where('a.series_id = '.JRequest::getInt('id'));
+			}
+		}
 
 		$db->setQuery($query, 0, (int)$params->get('ls_count', 3));
 		$items	= $db->loadObjectList();
