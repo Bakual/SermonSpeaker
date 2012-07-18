@@ -32,7 +32,7 @@ class SermonspeakerViewSermon extends JView
 
 		// Applying CSS file
 		JHTML::stylesheet('sermonspeaker.css', 'media/com_sermonspeaker/css/');
-		require_once(JPATH_COMPONENT.DS.'helpers'.DS.'player.php');
+		require_once(JPATH_COMPONENT.'/helpers/player.php');
 
 		// Initialise variables.
 		$app		= JFactory::getApplication();

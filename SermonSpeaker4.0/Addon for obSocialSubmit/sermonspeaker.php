@@ -8,7 +8,7 @@
 
 defined('_JEXEC') or die('Restricted access');
 
-require_once JPATH_SITE.DS.'components'.DS.'com_obsocialsubmit'.DS.'helpers'.DS.'class.internaddon.php';
+require_once JPATH_SITE.'/components/com_obsocialsubmit/helpers/class.internaddon.php';
 class OBSSInAddonSermonspeaker extends OBSSInAddon{
 
 	function __construct($data=null) {
@@ -108,7 +108,7 @@ class OBSSInAddonSermonspeaker extends OBSSInAddon{
 			$url 	= $link;
 		}
 
-		require_once JPATH_SITE.DS.'components'.DS.'com_obsocialsubmit'.DS.'helpers'.DS.'shorturls.php';
+		require_once JPATH_SITE.'/components/com_obsocialsubmit/helpers/shorturls.php';
 		if ($configs->get('shorturl', 0)){
 			$shorturl 	= ShortUrls::shortUrl($file);
 		} else {

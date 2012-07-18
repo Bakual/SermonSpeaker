@@ -129,7 +129,7 @@ endif; ?>
 </div>
 <?php
 // Support for JComments
-$comments = JPATH_BASE.DS.'components'.DS.'com_jcomments'.DS.'jcomments.php';
+$comments = JPATH_BASE.'/components/com_jcomments/jcomments.php';
 if ($this->params->get('enable_jcomments') && file_exists($comments)) : ?>
 	<div class="jcomments">
 		<?php

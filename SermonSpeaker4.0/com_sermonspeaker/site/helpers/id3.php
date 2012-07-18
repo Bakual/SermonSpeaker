@@ -10,10 +10,10 @@ class SermonspeakerHelperId3
 		if (strpos($file, 'http://vimeo.com') === 0 || strpos($file, 'http://player.vimeo.com') === 0){
 			return self::getVimeo($file);
 		}
-		require_once(JPATH_COMPONENT_SITE.DS.'id3'.DS.'getid3'.DS.'getid3.php');
+		require_once(JPATH_COMPONENT_SITE.'/id3/getid3/getid3.php');
 		$getID3 	= new getID3;
-		$path		= JPATH_SITE.str_replace('/', DS, $file);
-		$path		= str_replace(DS.DS, DS, $path);
+		$path		= JPATH_SITE.$file;
+		$path		= str_replace('//', '/', $path);
 		if(!file_exists($path)){
 			return false;
 		}

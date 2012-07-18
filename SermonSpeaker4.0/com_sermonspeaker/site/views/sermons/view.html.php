@@ -12,7 +12,7 @@ class SermonspeakerViewSermons extends JView
 	{
 		// Applying CSS file
 		JHTML::stylesheet('sermonspeaker.css', 'media/com_sermonspeaker/css/');
-		require_once(JPATH_COMPONENT.DS.'helpers'.DS.'player.php');
+		require_once(JPATH_COMPONENT.'/helpers/player.php');
 
 		// Get some data from the models
 		$this->state		= $this->get('State');

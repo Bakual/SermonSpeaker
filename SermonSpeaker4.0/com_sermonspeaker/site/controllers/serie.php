@@ -39,8 +39,8 @@ class SermonspeakerControllerSerie extends JController
 		jimport('joomla.filesystem.file');
 		$files = array();
 		foreach ($rows as $row){
-			if ($row['audiofile'] && (substr($row['audiofile'], 0, 7) != 'http://') && JFile::exists(JPATH_BASE.DS.$row['audiofile'])){
-				$file['path'] = JPATH_BASE.DS.$row['audiofile'];
+			if ($row['audiofile'] && (substr($row['audiofile'], 0, 7) != 'http://') && JFile::exists(JPATH_BASE.'/'.$row['audiofile'])){
+				$file['path'] = JPATH_BASE.'/'.$row['audiofile'];
 				$slash = strrpos($row['audiofile'], '/');
 				if ($slash !== false) {
 					$file['name'] = substr($row['audiofile'], $slash + 1);
@@ -49,8 +49,8 @@ class SermonspeakerControllerSerie extends JController
 				}
 				$files[] = $file;
 			}
-			if ($row['videofile'] && (substr($row['videofile'], 0, 7) != 'http://') && JFile::exists(JPATH_BASE.DS.$row['videofile'])){
-				$file['path'] = JPATH_BASE.DS.$row['videofile'];
+			if ($row['videofile'] && (substr($row['videofile'], 0, 7) != 'http://') && JFile::exists(JPATH_BASE.'/'.$row['videofile'])){
+				$file['path'] = JPATH_BASE.'/'.$row['videofile'];
 				$slash = strrpos($row['videofile'], '/');
 				if ($slash !== false) {
 					$file['name'] = substr($row['videofile'], $slash + 1);
@@ -73,10 +73,10 @@ class SermonspeakerControllerSerie extends JController
 			$params		= JComponentHelper::getParams('com_sermonspeaker');
 			$folder		= $params->get('path');
 			$folder		= trim($folder, '/');
-			if (!JFolder::exists($folder.DS.'series')){
-				JFolder::create($folder.DS.'series');
+			if (!JFolder::exists($folder.'/series')){
+				JFolder::create($folder.'/series');
 			}
-			$filename	= JPATH_BASE.str_replace(DS.DS, DS, DS.$folder.DS.'series').DS.$name.'.zip';
+			$filename	= JPATH_BASE.str_replace('//', '/', '/'.$folder.'/series').'/'.$name.'.zip';
 			$zip = new ZipArchive();
 			if ($zip->open($filename, ZIPARCHIVE::OVERWRITE)!==TRUE) {
 				die("cannot open <$filename>\n");

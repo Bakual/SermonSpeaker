@@ -284,10 +284,10 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 		if ($canEdit || $canEditOwn){
 			$files[]	= $item->audiofile;
 			$files[]	= $item->videofile;
-			require_once(JPATH_COMPONENT_SITE.DS.'id3'.DS.'getid3'.DS.'getid3.php');
+			require_once(JPATH_COMPONENT_SITE.'/id3/getid3/getid3.php');
 			$getID3		= new getID3;
 			$getID3->setOption(array('encoding'=>'UTF-8'));
-			require_once(JPATH_COMPONENT_SITE.DS.'id3'.DS.'getid3'.DS.'write.php');
+			require_once(JPATH_COMPONENT_SITE.'/id3/getid3/write.php');
 			$writer		= new getid3_writetags;
 			$writer->tagformats		= array('id3v2.3');
 			$writer->overwrite_tags	= true;
@@ -309,7 +309,7 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 				if (substr($pic, 0, 1) == '/') {
 					$pic = substr($pic, 1);
 				}
-				$pic = JPATH_ROOT.DS.$pic;
+				$pic = JPATH_ROOT.'/'.$pic;
 				if ($fd = fopen($pic, 'rb')) {
 					ob_end_clean();
 					$APICdata = fread($fd, filesize($pic));
@@ -332,8 +332,8 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 				if (!$file){
 					continue;
 				}
-				$path		= JPATH_SITE.str_replace('/', DS, $file);
-				$path		= str_replace(DS.DS, DS, $path);
+				$path		= JPATH_SITE.$file;
+				$path		= str_replace('//', '/', $path);
 				if(!is_writable($path)){
 					continue;
 				}

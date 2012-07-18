@@ -94,7 +94,7 @@ class SermonspeakerViewSeriessermon extends JView
 		$app	= JFactory::getApplication();
 
 		if (in_array('seriessermon:player', $this->columns)){
-			require_once(JPATH_COMPONENT.DS.'helpers'.DS.'player.php');
+			require_once(JPATH_COMPONENT.'/helpers/player.php');
 		}
 		
 		// Set Page Header if not already set in the menu entry

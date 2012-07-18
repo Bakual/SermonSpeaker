@@ -188,7 +188,7 @@ if (in_array('serie:player', $this->columns) && count($this->items)) : ?>
 						// Get extension of file
 						jimport('joomla.filesystem.file');
 						$ext = JFile::getExt($item->addfile);
-						if (file_exists(JPATH_SITE.DS.'media'.DS.'com_sermonspeaker'.DS.'icons'.DS.$ext.'.png') ):
+						if (file_exists(JPATH_SITE.'/media/com_sermonspeaker/icons'.'/'.$ext.'.png') ):
 							$file = JURI::root().'media/com_sermonspeaker/icons/'.$ext.'.png';
 						else :
 							$file = JURI::root().'media/com_sermonspeaker/icons/icon.png';

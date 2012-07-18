@@ -49,8 +49,8 @@ if ($tooltip) {
 <?php endif;
 if ($params->get('show_player')) : ?>
 	<div class="latestsermons_player">
-	<?php require_once(JPATH_SITE.DS.'components'.DS.'com_sermonspeaker'.DS.'helpers'.DS.'sermonspeaker.php');
-	require_once(JPATH_SITE.DS.'components'.DS.'com_sermonspeaker'.DS.'helpers'.DS.'player.php');
+	<?php require_once(JPATH_SITE.'/components/com_sermonspeaker/helpers/sermonspeaker.php');
+	require_once(JPATH_SITE.'/components/com_sermonspeaker/helpers/player.php');
 	jimport('joomla.application.component.helper');
 	$c_params = JComponentHelper::getParams('com_sermonspeaker');
 	$config['autostart']	= 0;

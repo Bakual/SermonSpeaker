@@ -9,7 +9,7 @@ if (!JFactory::getUser()->authorise('core.manage', 'com_sermonspeaker'))
 }
  
 // require helper file
-JLoader::register('SermonspeakerHelper', dirname(__FILE__).DS.'helpers'.DS.'sermonspeaker.php');
+JLoader::register('SermonspeakerHelper', dirname(__FILE__).'/helpers/sermonspeaker.php');
 
 // import joomla controller library
 jimport('joomla.application.component.controller');

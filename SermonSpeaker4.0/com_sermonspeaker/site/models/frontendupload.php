@@ -92,7 +92,7 @@ class SermonspeakerModelFrontendupload extends SermonspeakerModelSermon
 			} else {
 				$data->audiofile = $id3_file;
 			}
-			require_once JPATH_COMPONENT_SITE.DS.'helpers'.DS.'id3.php';
+			require_once JPATH_COMPONENT_SITE.'/helpers/id3.php';
 			$params	= JComponentHelper::getParams('com_sermonspeaker');
 
 			$id3 = SermonspeakerHelperId3::getID3($id3_file, $params);

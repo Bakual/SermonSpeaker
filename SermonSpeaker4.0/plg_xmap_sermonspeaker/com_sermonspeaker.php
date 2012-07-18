@@ -93,7 +93,7 @@ class xmap_com_sermonspeaker
 	}
 
 	static function getSermonsTree($xmap, $parent, $params, $view, $id = 0) {
-		require_once JPATH_SITE.DS.'components'.DS.'com_sermonspeaker'.DS.'models'.DS.'sermons.php';
+		require_once JPATH_SITE.'/components/com_sermonspeaker/models/sermons.php';
 		$model	= new SermonspeakerModelSermons();
 		$model->getState();
 		$model->setState('list.limit', $params['limit']);
@@ -123,7 +123,7 @@ class xmap_com_sermonspeaker
 	}
 
 	static function getSeriesTree($xmap, $parent, $params, $view, $id = 0) {
-		require_once JPATH_SITE.DS.'components'.DS.'com_sermonspeaker'.DS.'models'.DS.'series.php';
+		require_once JPATH_SITE.'/components/com_sermonspeaker/models/series.php';
 		$model	= new SermonspeakerModelSeries();
 		$model->getState();
 		$model->setState('list.limit', $params['limit']);
@@ -155,7 +155,7 @@ class xmap_com_sermonspeaker
 	}
 
 	static function getSpeakersTree($xmap, $parent, $params) {
-		require_once JPATH_SITE.DS.'components'.DS.'com_sermonspeaker'.DS.'models'.DS.'speakers.php';
+		require_once JPATH_SITE.'/components/com_sermonspeaker/models/speakers.php';
 		$model	= new SermonspeakerModelSpeakers();
 		$model->getState();
 		$model->setState('list.limit', $params['limit']);

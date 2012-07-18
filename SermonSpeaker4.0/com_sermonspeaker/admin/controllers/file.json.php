@@ -115,23 +115,23 @@ class SermonspeakerControllerFile extends JController
 			$path	= trim($path, '/');
 			$date	= JRequest::getString('date');
 			$time	= ($date) ? strtotime($date) : time();
-			$append	= ($params->get('append_path', 0)) ? DS.date('Y', $time).DS.date('m', $time) : '';
+			$append	= ($params->get('append_path', 0)) ? '/'.date('Y', $time).'/'.date('m', $time) : '';
 			if($params->get('append_path_lang', 0)){
 				$lang	= JRequest::getCmd('select-language');
 				if(!$lang || $lang == '*'){
 					$jlang	= JFactory::getLanguage();
 					$lang	= $jlang->getTag();
 				}
-				$append	.= DS.$lang;
+				$append	.= '/'.$lang;
 			}
-			$folder	= JPATH_ROOT.DS.$path.$append;
+			$folder	= JPATH_ROOT.'/'.$path.$append;
 
 			// Set FTP credentials, if given
 			jimport('joomla.client.helper');
 			JClientHelper::setCredentialsFromRequest('ftp');
 
 			$err = null;
-			$filepath = JPath::clean($folder.DS.strtolower($file['name']));
+			$filepath = JPath::clean($folder.'/'.strtolower($file['name']));
 
 			$object_file = new JObject($file);
 			$object_file->filepath = $filepath;
@@ -172,7 +172,7 @@ class SermonspeakerControllerFile extends JController
 		$file	= JRequest::getString('file');
 
 		if($file){
-			require_once JPATH_COMPONENT_SITE.DS.'helpers'.DS.'id3.php';
+			require_once JPATH_COMPONENT_SITE.'/helpers/id3.php';
 			$params	= JComponentHelper::getParams('com_sermonspeaker');
 			$id3 = SermonspeakerHelperId3::getID3($file, $params);
 

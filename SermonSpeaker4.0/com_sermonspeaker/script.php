@@ -137,7 +137,7 @@ class Com_SermonspeakerInstallerScript
 		$sermons = $fields['#__sermon_sermons'];
 		if (array_key_exists('published', $sermons))
 		{
-			$sqlfile = dirname(__FILE__).DS.'migrate.sql';
+			$sqlfile = dirname(__FILE__).'/migrate.sql';
 			$buffer = file_get_contents($sqlfile);
 			jimport('joomla.installer.helper');
 			$queries = JInstallerHelper::splitSql($buffer);

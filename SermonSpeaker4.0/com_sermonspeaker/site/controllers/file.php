@@ -81,7 +81,7 @@ class SermonspeakerControllerFile extends JController
 			if ($files['name'][$i]){
 				// The request is valid
 				$err = null;
-				$filepath = JPath::clean($folder.DS.strtolower($files['name'][$i]));
+				$filepath = JPath::clean($folder.'/'.strtolower($files['name'][$i]));
 
 				$files['filepath'][$i] = $filepath;
 
@@ -96,7 +96,7 @@ class SermonspeakerControllerFile extends JController
 					continue;
 				} else {
 					$message[] = JText::sprintf('COM_SERMONSPEAKER_FU_FILENAME', $files['filepath'][$i]);
-					$redirect .= 'file'.$i.'=/'.str_replace('\\', '/', substr($files['filepath'][$i], strlen(JPATH_ROOT.DS)));
+					$redirect .= 'file'.$i.'=/'.str_replace('\\', '/', substr($files['filepath'][$i], strlen(JPATH_ROOT.'/')));
 					$success = true;
 				}
 			}

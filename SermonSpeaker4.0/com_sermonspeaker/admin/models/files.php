@@ -33,7 +33,7 @@ class SermonspeakerModelFiles extends JModel
 				break;
 		}
 		$params	= JComponentHelper::getParams('com_sermonspeaker');
-		$folder	= JPATH_SITE.DS.$params->get('path');
+		$folder	= JPATH_SITE.'/'.$params->get('path');
 		jimport('joomla.filesystem.folder');
 		$files	= array();
 		foreach($filters as $filter){
