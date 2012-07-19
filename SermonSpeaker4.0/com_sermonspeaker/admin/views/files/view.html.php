@@ -1,6 +1,6 @@
 <?php
 defined('_JEXEC') or die;
-class SermonspeakerViewFiles extends JViewLegacyLegacy
+class SermonspeakerViewFiles extends JViewLegacy
 {
 	function display( $tpl = null )
 	{
