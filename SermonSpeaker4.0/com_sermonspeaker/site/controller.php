@@ -1,12 +1,9 @@
 <?php
-defined('_JEXEC') or die('Restricted access');
-
-jimport('joomla.application.component.controller');
-
+defined('_JEXEC') or die;
 /**
  * SermonSpeaker Component Controller
  */
-class SermonspeakerController extends JController
+class SermonspeakerController extends JControllerLegacy
 {
 	public function display($cachable = false, $urlparams = false)
 	{
@@ -16,7 +13,6 @@ class SermonspeakerController extends JController
 		if ($user->get('id')) {
 			$cachable = false;
 		}
-
 		$safeurlparams = array('id'=>'INT','limit'=>'INT','limitstart'=>'INT','filter_order'=>'CMD','filter_order_Dir'=>'CMD','lang'=>'CMD','year'=>'INT','month'=>'INT','filter-search'=>'STRING','return'=>'BASE64','book'=>'INT','Itemid'=>'INT','sermon_cat'=>'INT','series_cat'=>'INT','speaker_cat'=>'INT','series_id'=>'INT');
 		switch ($viewName){
 			case 'speaker':
@@ -45,10 +41,8 @@ class SermonspeakerController extends JController
 				$view->setModel($sermons_model);
 				break;
 		}
-
 		return parent::display($cachable, $safeurlparams);
 	}
-
 	function download () {
 		$id = JRequest::getInt('id');
 		if ($id == ''){
@@ -63,7 +57,6 @@ class SermonspeakerController extends JController
 		$db->setQuery($query);
 		$result = $db->loadResult() or die ("<html><body OnLoad=\"javascript: alert('Encountered an error while accessing the database');history.back();\" bgcolor=\"#F0F0F0\"></body></html>");
 		$result = rtrim($result);
-
 		if (substr($result, 0, 7) == 'http://'){ // redirect if link goes to an external source
 			$result = str_replace('http://player.vimeo.com/video/', 'http://vimeo.com/', $result);
 			$this->setRedirect($result);
@@ -77,7 +70,6 @@ class SermonspeakerController extends JController
 		jimport('joomla.filesystem.file');
 		$file = JPATH_ROOT.$result;
 		$mime = SermonspeakerHelperSermonspeaker::getMime(JFile::getExt($file));
-
 		if(ini_get('zlib.output_compression')) {
 			ini_set('zlib.output_compression', 'Off');
 		}

@@ -1,6 +1,5 @@
 <?php
-defined('_JEXEC') or die('Restricted access');
-
+defined('_JEXEC') or die;
 JHTML::_('behavior.tooltip');
 // JHTML::_('script','system/multiselect.js',false,true);
 $user	= JFactory::getUser();
@@ -9,7 +8,6 @@ $listOrder	= $this->state->get('list.ordering');
 $listDirn	= $this->state->get('list.direction');
 $saveOrder	= $listOrder == 'sermons.ordering';
 ?>
-
 <form action="<?php echo JRoute::_('index.php?option=com_sermonspeaker&view=sermons'); ?>" method="post" name="adminForm" id="adminForm">
 	<fieldset id="filter-bar">
 		<div class="filter-search fltlft">
@@ -23,27 +21,22 @@ $saveOrder	= $listOrder == 'sermons.ordering';
 				<option value=""><?php echo JText::_('COM_SERMONSPEAKER_SELECT_SPEAKER');?></option>
 				<?php echo JHtml::_('select.options', $this->speakers, 'value', 'text', $this->state->get('filter.speaker'));?>
 			</select>
-
 			<select name="filter_series" id="filter_series" class="inputbox" onchange="this.form.submit()">
 				<option value=""><?php echo JText::_('COM_SERMONSPEAKER_SELECT_SERIES');?></option>
 				<?php echo JHtml::_('select.options', $this->series, 'value', 'text', $this->state->get('filter.series'));?>
 			</select>
-
 			<select name="filter_published" class="inputbox" onchange="this.form.submit()">
 				<option value=""><?php echo JText::_('JOPTION_SELECT_PUBLISHED');?></option>
 				<?php echo JHtml::_('select.options', JHtml::_('jgrid.publishedOptions'), 'value', 'text', $this->state->get('filter.state'), true);?>
 			</select>
-
 			<select name="filter_podcast" class="inputbox" onchange="this.form.submit()">
 				<option value=""><?php echo JText::_('COM_SERMONSPEAKER_SELECT_PCAST');?></option>
 				<?php echo JHtml::_('select.options', array('0'=>JText::_('JUNPUBLISHED'), '1'=>JText::_('JPUBLISHED')), 'value', 'text', $this->state->get('filter.podcast'), true);?>
 			</select>
-
 			<select name="filter_category_id" class="inputbox" onchange="this.form.submit()">
 				<option value=""><?php echo JText::_('JOPTION_SELECT_CATEGORY');?></option>
 				<?php echo JHtml::_('select.options', JHtml::_('category.options', 'com_sermonspeaker'), 'value', 'text', $this->state->get('filter.category_id'));?>
 			</select>
-
 			<select name="filter_language" class="inputbox" onchange="this.form.submit()">
 				<option value=""><?php echo JText::_('JOPTION_SELECT_LANGUAGE');?></option>
 				<?php echo JHtml::_('select.options', JHtml::_('contentlanguage.existing', true, true), 'value', 'text', $this->state->get('filter.language'));?>
@@ -51,7 +44,6 @@ $saveOrder	= $listOrder == 'sermons.ordering';
 		</div>
 	</fieldset>
 	<div class="clr"> </div>
-
 	<table class="adminlist">
 		<thead>
 			<tr>
@@ -228,9 +220,7 @@ $saveOrder	= $listOrder == 'sermons.ordering';
 			<?php endforeach; ?>
 		</tbody>
 	</table>
-
 	<?php echo $this->loadTemplate('batch'); ?>
-
 	<div>
 		<input type="hidden" name="task" value="" />
 		<input type="hidden" name="boxchecked" value="0" />

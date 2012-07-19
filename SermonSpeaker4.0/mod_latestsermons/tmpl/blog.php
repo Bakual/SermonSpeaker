@@ -1,6 +1,6 @@
 <?php 
 // no direct access
-defined('_JEXEC') or die('Restricted access'); 
+defined('_JEXEC') or die; 
 $i = 0;
 $count = count($list);
 ?>

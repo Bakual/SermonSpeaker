@@ -1,9 +1,7 @@
 <?php
-defined('_JEXEC') or die('Restricted access');
+defined('_JEXEC') or die;
 
-jimport('joomla.application.component.model');
-
-class SermonspeakerModelStatistics extends JModel
+class SermonspeakerModelStatistics extends JModelLegacy
 {
 	function __construct()
 	{

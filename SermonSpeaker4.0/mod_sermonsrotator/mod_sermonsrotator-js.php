@@ -29,7 +29,6 @@ $(window).bind("load", function() {
 		findArrowLocatactionSlide(0);
 	}
 });
-
 if (showSermons%2 == 0)
 {
 	sermonsAboveCurr = showSermons / 2;
@@ -225,7 +224,6 @@ function rotateImages(last, current)
 }
 function findArrowLocatactionSlide(id)
 {
-
 	var sermonRotatorCurrent = $(".sermon-rotator-current-"+sermonLineHeight);
 	var sermonRotatorCurrentPos = sermonRotatorCurrent.position();
 	var sermonRotatorCurrentPosX = sermonRotatorCurrentPos.top;
@@ -239,7 +237,6 @@ function findArrowLocatactionSlide(id)
 	var currSermonPos = currSermonRotatorPos.position();
 	var currSermonPosX = currSermonPos.top;
 	var currSermonPosY = currSermonPos.left;
-
 	var sermonRotatorMain = $(document.getElementById('sermons-rotator-main'));
 	var sermonRotatorMainPos = sermonRotatorMain.position();
 	var sermonRotatorMainPosX = sermonRotatorMainPos.top;
@@ -251,7 +248,6 @@ function findArrowLocatactionSlide(id)
 	var posx = sermonRotatorCurrentPosX + currSermonSlidePosX ;
 	sermonArrow.css({"position" : "absolute", "top" : posx, "left" : currSermonArrowPosY});
 }
-
 function runSermons(last, current)
 {
 	$(document.getElementById('sermon-rotator-'+current)).addClass("sermon-rotator-current-"+sermonLineHeight);	
@@ -270,7 +266,6 @@ function runSermons(last, current)
 			$(document.getElementById('sermons-rotator-arrow')).animate({"top": "-="+sermonLineHeight+"px"}, fadetime);
 		}
 	}
-
 	sermonElementID = current; 
 	sermonElementIDPrev = last;
 	last = current;

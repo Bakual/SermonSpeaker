@@ -6,7 +6,7 @@
  * @license		GNU/GPL
  */
 
-defined('_JEXEC') or die('Restricted access');
+defined('_JEXEC') or die;
 
 require_once JPATH_SITE.'/components/com_obsocialsubmit/helpers/class.internaddon.php';
 class OBSSInAddonSermonspeaker extends OBSSInAddon{

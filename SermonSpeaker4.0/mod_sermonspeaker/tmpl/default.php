@@ -1,6 +1,6 @@
 <?php 
 // no direct access
-defined('_JEXEC') or die('Restricted access'); 
+defined('_JEXEC') or die; 
 if ($params->get('tooltip')) :
 	JHTML::_('behavior.tooltip');
 endif;

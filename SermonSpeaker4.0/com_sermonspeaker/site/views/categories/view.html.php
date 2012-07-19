@@ -1,9 +1,7 @@
 <?php
 defined('_JEXEC') or die;
 
-jimport('joomla.application.component.view');
-
-class SermonspeakerViewCategories extends JView
+class SermonspeakerViewCategories extends JViewLegacy
 {
 	protected $state = null;
 	protected $item = null;

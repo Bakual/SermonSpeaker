@@ -1,6 +1,5 @@
 <?php
-defined('_JEXEC') or die('Restricted access');
-
+defined('_JEXEC') or die;
 JHTML::_('behavior.tooltip');
 JHTML::_('script','system/multiselect.js',false,true);
 $user	= JFactory::getUser();
@@ -9,7 +8,6 @@ $listOrder	= $this->state->get('list.ordering');
 $listDirn	= $this->state->get('list.direction');
 $saveOrder	= $listOrder == 'speakers.ordering';
 ?>
-
 <form action="<?php echo JRoute::_('index.php?option=com_sermonspeaker&view=speakers'); ?>" method="post" name="adminForm" id="adminForm">
 	<fieldset id="filter-bar">
 		<div class="filter-search fltlft">
@@ -23,12 +21,10 @@ $saveOrder	= $listOrder == 'speakers.ordering';
 				<option value=""><?php echo JText::_('JOPTION_SELECT_PUBLISHED');?></option>
 				<?php echo JHtml::_('select.options', JHtml::_('jgrid.publishedOptions'), 'value', 'text', $this->state->get('filter.state'), true);?>
 			</select>
-
 			<select name="filter_category_id" class="inputbox" onchange="this.form.submit()">
 				<option value=""><?php echo JText::_('JOPTION_SELECT_CATEGORY');?></option>
 				<?php echo JHtml::_('select.options', JHtml::_('category.options', 'com_sermonspeaker'), 'value', 'text', $this->state->get('filter.category_id'));?>
 			</select>
-
 			<select name="filter_language" class="inputbox" onchange="this.form.submit()">
 				<option value=""><?php echo JText::_('JOPTION_SELECT_LANGUAGE');?></option>
 				<?php echo JHtml::_('select.options', JHtml::_('contentlanguage.existing', true, true), 'value', 'text', $this->state->get('filter.language'));?>
@@ -36,7 +32,6 @@ $saveOrder	= $listOrder == 'speakers.ordering';
 		</div>
 	</fieldset>
 	<div class="clr"> </div>
-
 	<table class="adminlist">
 		<thead>
 			<tr>
@@ -162,9 +157,7 @@ $saveOrder	= $listOrder == 'speakers.ordering';
 			<?php endforeach; ?>
 		</tbody>
 	</table>
-
 	<?php echo $this->loadTemplate('batch'); ?>
-
 	<div>
 		<input type="hidden" name="task" value="" />
 		<input type="hidden" name="boxchecked" value="0" />

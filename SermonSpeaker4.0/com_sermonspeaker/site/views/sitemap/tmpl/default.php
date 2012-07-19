@@ -1,5 +1,5 @@
 <?php
-defined('_JEXEC') or die('Restricted access');
+defined('_JEXEC') or die;
 $freq	= $this->params->get('freq', 'weekly');
 $prio	= $this->params->get('prio', 0.5);
 $uri	= JURI::getInstance();

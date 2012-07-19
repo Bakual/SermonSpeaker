@@ -18,7 +18,6 @@ class SermonspeakerTableSermon extends JTable
 	{
 		parent::__construct('#__sermon_sermons', 'id', $db);
 	}
-
 	/**
 	 * Overload the store method for the Sermons table.
 	 *
@@ -47,18 +46,15 @@ class SermonspeakerTableSermon extends JTable
 				$this->created = $date->toMySQL();
 			}
 		}
-
 		// Verify that the alias is unique
 		$table = JTable::getInstance('Sermon', 'SermonspeakerTable');
 		if ($table->load(array('alias' => $this->alias, 'catid' => $this->catid)) && ($table->id != $this->id || $this->id == 0)) {
 			$this->setError(JText::_('COM_SERMONSPEAKER_ERROR_ALIAS'));
 			return false;
 		}
-
 		// Attempt to store the user data.
 		return parent::store($updateNulls);
 	}
-
 	/**
 	 * Method to set the publishing state for a row or list of rows in the database
 	 * table.  The method respects checked out rows by other users and will attempt
@@ -75,12 +71,10 @@ class SermonspeakerTableSermon extends JTable
 	{
 		// Initialise variables.
 		$k = $this->_tbl_key;
-
 		// Sanitize input.
 		JArrayHelper::toInteger($pks);
 		$userId = (int) $userId;
 		$state  = (int) $state;
-
 		// If there are no primary keys set check to see if the instance key is set.
 		if (empty($pks))
 		{
@@ -93,10 +87,8 @@ class SermonspeakerTableSermon extends JTable
 				return false;
 			}
 		}
-
 		// Build the WHERE clause for the primary keys.
 		$where = $k.'='.implode(' OR '.$k.'=', $pks);
-
 		// Determine if there is checkin support for the table.
 		if (!property_exists($this, 'checked_out') || !property_exists($this, 'checked_out_time')) {
 			$checkin = '';
@@ -104,7 +96,6 @@ class SermonspeakerTableSermon extends JTable
 		else {
 			$checkin = ' AND (checked_out = 0 OR checked_out = '.(int) $userId.')';
 		}
-
 		// Update the publishing state for rows with the given primary keys.
 		$this->_db->setQuery(
 			'UPDATE `'.$this->_tbl.'`' .
@@ -113,13 +104,11 @@ class SermonspeakerTableSermon extends JTable
 			$checkin
 		);
 		$this->_db->query();
-
 		// Check for a database error.
 		if ($this->_db->getErrorNum()) {
 			$this->setError($this->_db->getErrorMsg());
 			return false;
 		}
-
 		// If checkin is supported and all rows were adjusted, check them in.
 		if ($checkin && (count($pks) == $this->_db->getAffectedRows()))
 		{
@@ -129,26 +118,21 @@ class SermonspeakerTableSermon extends JTable
 				$this->checkin($pk);
 			}
 		}
-
 		// If the JTable instance value is in the list of primary keys that were set, set the instance.
 		if (in_array($this->$k, $pks)) {
 			$this->state = $state;
 		}
-
 		$this->setError('');
 		return true;
 	}
-
 	public function podcast($pks = null, $state = 1, $userId = 0)
 	{
 		// Initialise variables.
 		$k = $this->_tbl_key;
-
 		// Sanitize input.
 		JArrayHelper::toInteger($pks);
 		$userId = (int) $userId;
 		$state  = (int) $state;
-
 		// If there are no primary keys set check to see if the instance key is set.
 		if (empty($pks))
 		{
@@ -161,10 +145,8 @@ class SermonspeakerTableSermon extends JTable
 				return false;
 			}
 		}
-
 		// Build the WHERE clause for the primary keys.
 		$where = $k.'='.implode(' OR '.$k.'=', $pks);
-
 		// Determine if there is checkin support for the table.
 		if (!property_exists($this, 'checked_out') || !property_exists($this, 'checked_out_time')) {
 			$checkin = '';
@@ -172,7 +154,6 @@ class SermonspeakerTableSermon extends JTable
 		else {
 			$checkin = ' AND (checked_out = 0 OR checked_out = '.(int) $userId.')';
 		}
-
 		// Update the podcasting state for rows with the given primary keys.
 		$this->_db->setQuery(
 			'UPDATE `'.$this->_tbl.'`' .
@@ -181,13 +162,11 @@ class SermonspeakerTableSermon extends JTable
 			$checkin
 		);
 		$this->_db->query();
-
 		// Check for a database error.
 		if ($this->_db->getErrorNum()) {
 			$this->setError($this->_db->getErrorMsg());
 			return false;
 		}
-
 		// If checkin is supported and all rows were adjusted, check them in.
 		if ($checkin && (count($pks) == $this->_db->getAffectedRows()))
 		{
@@ -197,12 +176,10 @@ class SermonspeakerTableSermon extends JTable
 				$this->checkin($pk);
 			}
 		}
-
 		// If the JTable instance value is in the list of primary keys that were set, set the instance.
 		if (in_array($this->$k, $pks)) {
 			$this->state = $state;
 		}
-
 		$this->setError('');
 		return true;
 	}

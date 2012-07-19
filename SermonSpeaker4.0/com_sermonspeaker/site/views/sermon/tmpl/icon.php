@@ -1,5 +1,5 @@
 <?php
-defined('_JEXEC') or die('Restricted access');
+defined('_JEXEC') or die;
 JHTML::addIncludePath(JPATH_COMPONENT.'/helpers');
 JHTML::_('behavior.tooltip');
 JHTML::_('behavior.modal');

@@ -1,9 +1,7 @@
 <?php
 defined('_JEXEC') or die;
 
-jimport('joomla.application.component.controller');
-
-class SermonspeakerController extends JController 
+class SermonspeakerController extends JControllerLegacy 
 {
 	public function display($cachable = false, $urlparams = false)
 	{

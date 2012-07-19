@@ -1,11 +1,10 @@
 <?php
-defined('_JEXEC') or die('Restricted access');
+defined('_JEXEC') or die;
 jimport( 'joomla.application.component.view');
-
 /**
  * HTML View class for the SermonSpeaker Component
  */
-class SermonspeakerViewspeaker extends JView
+class SermonspeakerViewspeaker extends JViewLegacy
 {
 	function display($tpl = null)
 	{
@@ -13,16 +12,13 @@ class SermonspeakerViewspeaker extends JView
 		if (!JRequest::getInt('id', 0)){
 			$app->redirect(JRoute::_('index.php?view=speakers'), JText::_('JGLOBAL_RESOURCE_NOT_FOUND'), 'error');
 		}
-
 		// Applying CSS file
 		JHTML::stylesheet('sermonspeaker.css', 'media/com_sermonspeaker/css/');
 		require_once(JPATH_COMPONENT.'/helpers/player.php');
-
 		// Get data from the model
 		$state		= $this->get('State');
 		$this->item	= $this->get('Item');
 		$user		= JFactory::getUser();
-
 		$this->params = $state->get('params');
 		$this->columns = $this->params->get('col_speaker');
 		if (!$this->columns){
@@ -36,12 +32,10 @@ class SermonspeakerViewspeaker extends JView
 		if (!$this->col_serie){
 			$this->col_serie = array();
 		}
-
 		// Set layout from parameters if not already set elsewhere
 		if ($this->getLayout() == 'default') {
 			$this->setLayout($this->params->get('speakerlayout', 'series'));
 		}
-
 		if(!$this->item){
 			$app->redirect(JRoute::_('index.php?view=speakers'), JText::_('JGLOBAL_RESOURCE_NOT_FOUND'), 'error');
 		}
@@ -52,7 +46,6 @@ class SermonspeakerViewspeaker extends JView
 				$app->redirect(JRoute::_('index.php?view=speakers'), JText::_('JERROR_ALERTNOAUTHOR'), 'error');
 			}
 		}
-
 		// Get sermons data from the sermons model
 		$sermon_model			= $this->getModel('Sermons');
 		$sermon_model->setState('speaker.id', $state->get('speaker.id'));
@@ -68,14 +61,12 @@ class SermonspeakerViewspeaker extends JView
 		$this->parent			= $sermon_model->getParent();
 //		$this->children			= array($this->category->id => $children);
 // We don't use childrens here because counting isn't accurate without added series filter.
-
 		// Get series data from the series model
 		$series_model			= $this->getModel('Series');
 		$series_model->setState('speaker.id', $state->get('speaker.id'));
 		$this->series			= $series_model->getItems();
 		$this->pag_series		= $series_model->getPagination();
 		$this->state_series		= $series_model->getState();
-
 		// check if there are avatars at all, only showing column if needed
 		$this->av = 0;
 		foreach ($this->series as $serie){
@@ -98,7 +89,6 @@ class SermonspeakerViewspeaker extends JView
 				$serie->names	= implode(', ', $names);
 			}
 		}
-
 		// Update Statistic
 		if ($this->params->get('track_speaker')) {
 			$user	= JFactory::getUser();
@@ -113,15 +103,12 @@ class SermonspeakerViewspeaker extends JView
 			JError::raiseError(500, implode("\n", $errors));
 			return false;
 		}
-
 		if ($this->category == false) {
 			return JError::raiseError(404, JText::_('JGLOBAL_CATEGORY_NOT_FOUND'));
 		}
-
 		if ($this->parent == false && $this->category->id != 'root') {
 			return JError::raiseError(404, JText::_('JGLOBAL_CATEGORY_NOT_FOUND'));
 		}
-
 		if ($this->category->id == 'root'){
 			$this->params->set('show_category_title', 0);
 			$this->cat = '';
@@ -129,14 +116,12 @@ class SermonspeakerViewspeaker extends JView
 			// Get the category title for backward compatibility
 			$this->cat = $this->category->title;
 		}
-
 		// Check whether category access level allows access.
 		$user	= JFactory::getUser();
 		$groups	= $user->getAuthorisedViewLevels();
 		if (!in_array($this->category->access, $groups)) {
 			return JError::raiseError(403, JText::_('JERROR_ALERTNOAUTHOR'));
 		}
-
 		// Build Books
 		$at	= 0;
 		$nt	= 0;
@@ -178,22 +163,17 @@ class SermonspeakerViewspeaker extends JView
 		} elseif($ap == 1){
 			$this->books[]	= JHtml::_('select.optgroup', JText::_('COM_SERMONSPEAKER_APOCRYPHA'));
 		}
-
 		$this->pageclass_sfx	= htmlspecialchars($this->params->get('pageclass_sfx'));
 		$this->maxLevel			= $this->params->get('maxLevel', -1);
-
 		$this->_prepareDocument();
-
 		parent::display($tpl);
 	}
-
 	/**
 	 * Prepares the document
 	 */
 	protected function _prepareDocument()
 	{
 		$app	= JFactory::getApplication();
-
 		// Set Page Header if not already set in the menu entry
 		$menus	= $app->getMenu();
 		$menu 	= $menus->getActive();
@@ -202,7 +182,6 @@ class SermonspeakerViewspeaker extends JView
 		} else {
 			$this->params->def('page_heading', JText::_('COM_SERMONSPEAKER_SPEAKER_TITLE'));
 		}
-
 		// Set Pagetitle
 		if ($this->item->name && (!$menu || $menu->query['option'] != 'com_sermonspeaker' || $menu->query['view'] != 'speaker' || $menu->query['id'] != $this->item->id)){
 			$title = $this->item->name;
@@ -213,11 +192,9 @@ class SermonspeakerViewspeaker extends JView
 			$title = JText::sprintf('JPAGETITLE', $app->getCfg('sitename'), $title);
 		}
 		$this->document->setTitle($title);
-
 		// add Breadcrumbs
 		$pathway = $app->getPathway();
 		$pathway->addItem($this->item->name);
-
 		// Set MetaData
 		if ($this->item->metadesc){
 			$this->document->setDescription($this->item->metadesc);

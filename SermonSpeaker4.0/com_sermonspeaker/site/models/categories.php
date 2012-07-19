@@ -1,12 +1,10 @@
 <?php
 defined('_JEXEC') or die;
 
-jimport('joomla.application.component.model');
-
 /**
  * This models supports retrieving lists of categories.
  */
-class SermonspeakerModelCategories extends JModel
+class SermonspeakerModelCategories extends JModelLegacy
 {
 	/**
 	 * Model context string.

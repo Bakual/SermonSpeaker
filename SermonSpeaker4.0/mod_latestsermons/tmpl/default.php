@@ -1,6 +1,6 @@
 <?php 
 // no direct access
-defined('_JEXEC') or die('Restricted access'); 
+defined('_JEXEC') or die; 
 $i = 0;
 $tooltip = ($params->get('ls_show_mo_speaker') || $params->get('ls_show_mo_series') || $params->get('ls_show_mo_date') || $params->get('show_hits') & 1);
 if ($tooltip) {

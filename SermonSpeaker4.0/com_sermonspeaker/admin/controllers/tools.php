@@ -4,7 +4,6 @@
  * @license		GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-// No direct access
 defined('_JEXEC') or die;
 
 jimport('joomla.filesystem.file');
@@ -13,7 +12,7 @@ jimport('joomla.filesystem.folder');
 /**
  * Tools Sermonspeaker Controller
  */
-class SermonspeakerControllerTools extends JController
+class SermonspeakerControllerTools extends JControllerLegacy
 {
 	public function order(){
 		// Check for request forgeries

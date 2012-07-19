@@ -1,5 +1,5 @@
 <?php
-defined('_JEXEC') or die('Restricted access');
+defined('_JEXEC') or die;
 JHTML::_('behavior.tooltip');
 JHTML::_('behavior.modal');
 $cat['series'] 	= (int)$params->get('sc_series_cat');
@@ -27,10 +27,8 @@ if ($type){
 if ($menuitem){
 	$options .= '&amp;Itemid='.$menuitem;
 }
-
 $feedFile = JURI::root().'index.php?option=com_sermonspeaker&amp;view=feed&amp;format=raw'.$options;
 ?>
-
 <div class="syndicate-module<?php echo $params->get('$moduleclass_sfx'); ?>">
 <?php if ($params->get('sc_introtext')): ?>
 	<p><?php echo $params->get('sc_introtext'); ?></p>

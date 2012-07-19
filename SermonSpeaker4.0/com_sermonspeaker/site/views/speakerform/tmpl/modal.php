@@ -62,7 +62,6 @@ JHtml::_('behavior.keepalive');
 			<?php echo $this->form->getInput('bio'); ?>
 		</div>
 	</fieldset>
-
 	<fieldset>
 		<legend><?php echo JText::_('JDETAILS'); ?></legend>
 		<?php foreach($this->form->getFieldset('detail') as $field): ?>
@@ -83,7 +82,6 @@ JHtml::_('behavior.keepalive');
 			</button>
 		</div>
 	</fieldset>
-
 	<fieldset>
 		<legend><?php echo JText::_('JFIELD_LANGUAGE_LABEL'); ?></legend>
 		<div class="formelm-area">
@@ -91,7 +89,6 @@ JHtml::_('behavior.keepalive');
 		<?php echo $this->form->getInput('language'); ?>
 		</div>
 	</fieldset>
-
 	<fieldset>
 		<legend><?php echo JText::_('COM_SERMONSPEAKER_METADATA'); ?></legend>
 		<?php foreach($this->form->getFieldset('metadata') as $field): ?>

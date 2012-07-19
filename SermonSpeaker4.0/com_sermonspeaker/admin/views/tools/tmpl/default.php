@@ -1,11 +1,9 @@
 <?php
-defined('_JEXEC') or die('Restricted access');
-
+defined('_JEXEC') or die;
 JHTML::_('behavior.tooltip');
 JHTML::_('behavior.modal');
 $session	= JFactory::getSession();
 ?>
-
 <h1>Tools</h1>
 <table class="adminform">
 	<tbody><tr><td valign="top">

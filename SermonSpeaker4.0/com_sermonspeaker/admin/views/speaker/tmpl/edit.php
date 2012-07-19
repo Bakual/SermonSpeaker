@@ -1,7 +1,6 @@
 <?php
 // no direct access
 defined('_JEXEC') or die;
-
 JHtml::_('behavior.tooltip');
 JHtml::_('behavior.formvalidation');
 ?>
@@ -18,7 +17,6 @@ JHtml::_('behavior.formvalidation');
 		}
 	}
 </script>
-
 <form action="<?php JRoute::_('index.php?option=com_sermonspeaker'); ?>" method="post" name="adminForm" id="speaker-form" class="form-validate">
 	<div class="width-60 fltlft">
 		<fieldset class="adminform">
@@ -26,24 +24,18 @@ JHtml::_('behavior.formvalidation');
 			<ul class="adminformlist">
 				<li><?php echo $this->form->getLabel('name'); ?>
 				<?php echo $this->form->getInput('name'); ?></li>
-
 				<li><?php echo $this->form->getLabel('alias'); ?>
 				<?php echo $this->form->getInput('alias'); ?></li>
-
 				<li><?php echo $this->form->getLabel('catid'); ?>
 				<?php echo $this->form->getInput('catid'); ?></li>
-
 				<li><?php echo $this->form->getLabel('state'); ?>
 				<?php echo $this->form->getInput('state'); ?></li>
-
 				<li><?php echo $this->form->getLabel('ordering'); ?>
 				<?php echo $this->form->getInput('ordering'); ?></li>
-
 				<li><?php echo $this->form->getLabel('language'); ?>
 				<?php echo $this->form->getInput('language'); ?></li>
 			</ul>
 		</fieldset>
-
 		<fieldset class="adminform">
 			<legend><?php echo JText::_('COM_SERMONSPEAKER_FIELD_INTRO_LABEL'); ?></legend>
 			<div class="clr"></div>
@@ -83,7 +75,6 @@ JHtml::_('behavior.formvalidation');
 			<?php endforeach; ?>
 			</ul>
 		</fieldset>
-
 		<?php echo JHtml::_('sliders.panel',JText::_('JGLOBAL_FIELDSET_METADATA_OPTIONS'), 'meta-panel'); ?>
 		<fieldset class="panelform">
 			<ul class="adminformlist">
@@ -97,7 +88,6 @@ JHtml::_('behavior.formvalidation');
 			<?php endforeach; ?>
 			</ul>
 		</fieldset>
-
 		<?php echo JHtml::_('sliders.end'); ?>
 		<input type="hidden" name="task" value="" />
 		<?php echo JHtml::_('form.token'); ?>

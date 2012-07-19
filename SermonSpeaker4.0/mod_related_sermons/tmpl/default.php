@@ -1,6 +1,6 @@
 <?php 
 // no direct access
-defined('_JEXEC') or die('Restricted access'); 
+defined('_JEXEC') or die; 
 ?>
 <ul class="relateditems<?php echo $moduleclass_sfx; ?>">
 <?php foreach ($list as $item) : ?>

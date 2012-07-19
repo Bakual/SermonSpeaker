@@ -1,15 +1,11 @@
 <?php
-defined('_JEXEC') or die('Restricted access');
-
-jimport('joomla.application.component.view');
-
-class SermonspeakerViewScripture extends JView
+defined('_JEXEC') or die;
+class SermonspeakerViewScripture extends JViewLegacy
 {
 	function display( $tpl = null )
 	{
 		$id			= JRequest::getInt('id', 0);
 		$separator	= JText::_('COM_SERMONSPEAKER_SCRIPTURE_SEPARATOR');
-
 		// add Javascript for Scripture
 		$javascript	= "function AddScripture() {
 			var book = document.getElementById('book');
@@ -64,10 +60,8 @@ class SermonspeakerViewScripture extends JView
 				window.parent.SqueezeBox.close();
 			}";
 		}
-
 		$document = JFactory::getDocument();
 		$document->addScriptDeclaration($javascript);
-
 		parent::display($tpl);
 	}
 }

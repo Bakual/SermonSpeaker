@@ -1,6 +1,6 @@
 <?php
 // No direct access to this file
-defined('_JEXEC') or die('Restricted access');
+defined('_JEXEC') or die;
 
 class Com_SermonspeakerInstallerScript
 {
@@ -135,7 +135,7 @@ class Com_SermonspeakerInstallerScript
 		$db = JFactory::getDBO();
 		$fields = $db->getTableFields('#__sermon_sermons');
 		$sermons = $fields['#__sermon_sermons'];
-		if (array_key_exists('published', $sermons))
+		if ($sermons && array_key_exists('published', $sermons))
 		{
 			$sqlfile = dirname(__FILE__).'/migrate.sql';
 			$buffer = file_get_contents($sqlfile);

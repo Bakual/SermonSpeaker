@@ -1,9 +1,7 @@
 <?php
-defined('_JEXEC') or die('Restricted access');
-
+defined('_JEXEC') or die;
 JHTML::_('behavior.tooltip');
 ?>
-
 <table class="adminform">
 	<tbody><tr><td valign="top">
 		<div id="cpanel">

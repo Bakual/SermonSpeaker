@@ -8,11 +8,8 @@
  
 // no direct access
 defined('_JEXEC') or die;
-
 jimport('joomla.plugin.plugin');
-
 require_once JPATH_SITE.'/components/com_sermonspeaker/helpers/route.php';
-
 /**
  * SermonSpeaker Search plugin
  *
@@ -35,7 +32,6 @@ class plgSearchSermonspeaker extends JPlugin
 		parent::__construct($subject, $config);
 		$this->loadLanguage();
 	}
-
 	/**
 	 * @return array An array of search areas
 	 */
@@ -57,10 +53,8 @@ class plgSearchSermonspeaker extends JPlugin
 				$areas['spspeakers-'.$speaker['id']] = JText::sprintf('PLG_SEARCH_SERMONSPEAKER_SERMONS_FROM', $speaker['name']);
 			}
 		}
-
 		return $areas;
 	}
-
 	/**
 	 * SermonSpeaker Search method
 	 *
@@ -77,15 +71,12 @@ class plgSearchSermonspeaker extends JPlugin
 		$app	= JFactory::getApplication();
 		$user	= JFactory::getUser();
 		$groups	= implode(',', $user->getAuthorisedViewLevels());
-
 		$books	= array();
 		for ($i = 1; $i <= 73; $i++){
 			$book = strtolower(JText::_('COM_SERMONSPEAKER_BOOK_'.$i));
 			$books[$book]	= $i;
 		}
-
 		$searchText = $text;
-
 		if (is_array($areas)) {
 			if (!array_intersect($areas, array_keys($this->onContentSearchAreas()))) {
 				return array();
@@ -93,7 +84,6 @@ class plgSearchSermonspeaker extends JPlugin
 		} else {
 			$areas = array_keys($this->onContentSearchAreas());
 		}
-
 		$sContent		= $this->params->get('search_content',		1);
 		$sArchived		= $this->params->get('search_archived',		1);
 		$limit			= $this->params->def('search_limit',		50);
@@ -104,12 +94,10 @@ class plgSearchSermonspeaker extends JPlugin
 		if ($sArchived) {
 			$state[]=2;
 		}
-
 		$text = trim($text);
 		if ($text == '') {
 			return array();
 		}
-
 		$speakers = array();
 		if($this->params->get('sermons_speaker', 0)){
 			foreach($areas as $key => $value){
@@ -118,11 +106,9 @@ class plgSearchSermonspeaker extends JPlugin
 				}
 			}
 		}
-
 		$rows = array();
 		if(in_array('spsermons', $areas) || $speakers) {
 			$section	= JText::_('PLG_SEARCH_SERMONSPEAKER_SERMONS');
-
 			$wheres	= array();
 			switch ($phrase)
 			{
@@ -136,7 +122,6 @@ class plgSearchSermonspeaker extends JPlugin
 					$wheres2[]	= 'a.notes LIKE '.$text;
 					$where		= '(' . implode(') OR (', $wheres2) . ')';
 					break;
-
 				case 'all':
 				case 'any':
 				default:
@@ -156,31 +141,25 @@ class plgSearchSermonspeaker extends JPlugin
 					$where	= '(' . implode(($phrase == 'all' ? ') AND (' : ') OR ('), $wheres) . ')';
 					break;
 			}
-
 			switch ($ordering)
 			{
 				case 'oldest':
 					$order = 'a.created ASC';
 					break;
-
 				case 'popular':
 					$order = 'a.hits DESC';
 					break;
-
 				case 'alpha':
 					$order = 'a.sermon_title ASC';
 					break;
-
 				case 'category':
 					$order = 'c.title ASC, a.sermon_title ASC';
 					$morder = 'a.sermon_title ASC';
 					break;
-
 				case 'newest':
 				default:
 					$order = 'a.created DESC';
 			}
-
 			if (!empty($state)) {
 				$query	= $db->getQuery(true);
 				$query->select('a.sermon_title AS title, a.notes AS text, a.created AS created, '
@@ -199,16 +178,13 @@ class plgSearchSermonspeaker extends JPlugin
 				}
 //				$query->where ('(c.published=1 AND c.access IN ('.$groups.'))');
 				$query->order($order);
-
 				// Filter by language
 				if ($app->isSite() && $app->getLanguageFilter()) {
 					$tag = JFactory::getLanguage()->getTag();
 					$query->where('c.language in (' . $db->Quote($tag) . ',' . $db->Quote('*') . ')');
 				}
-
 				$db->setQuery($query, 0, $limit);
 				$list = $db->loadObjectList();
-
 				if (isset($list))
 				{
 					foreach($list as $key => $item)
@@ -219,10 +195,8 @@ class plgSearchSermonspeaker extends JPlugin
 				$rows = array_merge($list, $rows);
 			}
 		}
-
 		if(in_array('spseries', $areas)) {
 			$section	= JText::_('PLG_SEARCH_SERMONSPEAKER_SERIES');
-
 			$wheres	= array();
 			switch ($phrase)
 			{
@@ -233,7 +207,6 @@ class plgSearchSermonspeaker extends JPlugin
 					$wheres2[]	= 'a.series_description LIKE '.$text;
 					$where		= '(' . implode(') OR (', $wheres2) . ')';
 					break;
-
 				case 'all':
 				case 'any':
 				default:
@@ -250,31 +223,25 @@ class plgSearchSermonspeaker extends JPlugin
 					$where	= '(' . implode(($phrase == 'all' ? ') AND (' : ') OR ('), $wheres) . ')';
 					break;
 			}
-
 			switch ($ordering)
 			{
 				case 'oldest':
 					$order = 'a.created ASC';
 					break;
-
 				case 'popular':
 					$order = 'a.hits DESC';
 					break;
-
 				case 'alpha':
 					$order = 'a.series_title ASC';
 					break;
-
 				case 'category':
 					$order = 'c.title ASC, a.series_title ASC';
 					$morder = 'a.series_title ASC';
 					break;
-
 				case 'newest':
 				default:
 					$order = 'a.created DESC';
 			}
-
 			if (!empty($state)) {
 				$query	= $db->getQuery(true);
 				$query->select('a.series_title AS title, a.series_description AS text, a.created AS created, '
@@ -287,16 +254,13 @@ class plgSearchSermonspeaker extends JPlugin
 				$query->where('a.state in ('.implode(',',$state).')');
 //				$query->where ('(c.published=1 AND c.access IN ('.$groups.'))');
 				$query->order($order);
-
 				// Filter by language
 				if ($app->isSite() && $app->getLanguageFilter()) {
 					$tag = JFactory::getLanguage()->getTag();
 					$query->where('c.language in (' . $db->Quote($tag) . ',' . $db->Quote('*') . ')');
 				}
-
 				$db->setQuery($query, 0, $limit);
 				$list = $db->loadObjectList();
-
 				if (isset($list))
 				{
 					foreach($list as $key => $item)
@@ -307,10 +271,8 @@ class plgSearchSermonspeaker extends JPlugin
 				$rows = array_merge($list, $rows);
 			}
 		}
-
 		if(in_array('spspeakers', $areas)) {
 			$section	= JText::_('PLG_SEARCH_SERMONSPEAKER_SPEAKERS');
-
 			$wheres	= array();
 			switch ($phrase)
 			{
@@ -339,31 +301,25 @@ class plgSearchSermonspeaker extends JPlugin
 					$where	= '(' . implode(($phrase == 'all' ? ') AND (' : ') OR ('), $wheres) . ')';
 					break;
 			}
-
 			switch ($ordering)
 			{
 				case 'oldest':
 					$order = 'a.created ASC';
 					break;
-
 				case 'popular':
 					$order = 'a.hits DESC';
 					break;
-
 				case 'alpha':
 					$order = 'a.name ASC';
 					break;
-
 				case 'category':
 					$order = 'c.title ASC, a.name ASC';
 					$morder = 'a.name ASC';
 					break;
-
 				case 'newest':
 				default:
 					$order = 'a.created DESC';
 			}
-
 			if (!empty($state)) {
 				$query	= $db->getQuery(true);
 				$query->select('a.name AS title, CONCAT_WS(" ", a.intro, a.bio) AS text, a.created AS created, '
@@ -376,16 +332,13 @@ class plgSearchSermonspeaker extends JPlugin
 				$query->where('a.state in ('.implode(',',$state).')');
 //				$query->where ('(c.published=1 AND c.access IN ('.$groups.'))');
 				$query->order($order);
-
 				// Filter by language
 				if ($app->isSite() && $app->getLanguageFilter()) {
 					$tag = JFactory::getLanguage()->getTag();
 					$query->where('c.language in (' . $db->Quote($tag) . ',' . $db->Quote('*') . ')');
 				}
-
 				$db->setQuery($query, 0, $limit);
 				$list = $db->loadObjectList();
-
 				if (isset($list))
 				{
 					foreach($list as $key => $item)
@@ -396,7 +349,6 @@ class plgSearchSermonspeaker extends JPlugin
 				$rows = array_merge($list, $rows);
 			}
 		}
-
 		return $rows;
 	}
 }

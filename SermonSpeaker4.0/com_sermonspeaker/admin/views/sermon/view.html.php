@@ -2,14 +2,12 @@
 // No direct access
 defined('_JEXEC') or die;
 
-jimport('joomla.application.component.view');
-
 /**
  * View to edit a sermon.
  *
  * @package		Sermonspeaker.Administrator
  */
-class SermonspeakerViewSermon extends JView
+class SermonspeakerViewSermon extends JViewLegacy
 {
 //	protected $state;
 	protected $item;

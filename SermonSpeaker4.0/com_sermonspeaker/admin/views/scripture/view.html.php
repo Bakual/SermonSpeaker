@@ -1,9 +1,7 @@
 <?php
-defined('_JEXEC') or die('Restricted access');
+defined('_JEXEC') or die;
 
-jimport('joomla.application.component.view');
-
-class SermonspeakerViewScripture extends JView
+class SermonspeakerViewScripture extends JViewLegacy
 {
 	function display( $tpl = null )
 	{

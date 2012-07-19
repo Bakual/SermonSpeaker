@@ -1,5 +1,5 @@
 <?php
-defined('_JEXEC') or die('Restricted access');
+defined('_JEXEC') or die;
 if ($params->get('lr_show_mouseover')) {
 //include only if needed...
 	JHTML::_('behavior.tooltip');
@@ -43,285 +43,139 @@ $ss_showSpeakerFlg = $params->get('lr_show_mo_speaker');
 $ss_showSeriesFlg = $params->get('lr_show_mo_series');
 $ss_thumbClickableFlg = $params->get('lr_thumb_mo_click');
 $ss_showArrowFlg = $params->get('lr_show_arrow');
-
 $ss_jQueryConflictFlg = 0;
 $ss_showLablesFlg = $params->get('lr_show_lables');
-
 $ss_slideDur = $params->get('lr_slideDuration');
-
 $ss_maxSermons = $params->get('lr_count');
-
 $ss_showSermons = $params->get('lr_boxshow_count');
-
 $ss_FadeTrans = $params->get('lr_transTime');
-
 $ss_ImageClickable = $params->get('lr_image_mo_click');
-
 $ss_SermonLandpage = $params->get('lr_sermonlayout');
-
 $ss_styleSheet = $params->get('lr_show_style');
-
-
-
 $videoURL = array();
-
-
-
 $sermonID = 0;
-
 if($ss_showImageFlg)
-
 {
-
 	$sernonWidth = $ss_boxWidth - $ss_imageWidth;
-
 }
-
 else
-
 {
-
 	$sernonWidth = $ss_boxWidth;
-
 }
-
 if($ss_lineSize < $ss_thumbHeight)
-
 {
-
 	$ss_thumbHeight = $ss_lineSize;
-
 	$ss_thumbWidth = $ss_lineSize;
-
 }
-
 foreach($rows as $row) 
-
 {
-
 	$videoURL[] = '"'.$row->videofile.'"';
-
 }
-
-
-
 JHTML::stylesheet('mod_sermonsrotator.css', 'modules/mod_sermonsrotator/'); 
-
 switch ($ss_styleSheet)
-
 {
-
 	case "radvest":
-
 		JHTML::stylesheet('radvest.css', 'modules/mod_sermonsrotator/css/'); 
-
 		break;
-
 	default:
-
 		JHTML::stylesheet('mcg.css', 'modules/mod_sermonsrotator/css/'); 
-
 }
-
-
-
 $videoURL = implode(',', $videoURL);
-
-
-
 include("modules/mod_sermonsrotator/mod_sermonsrotator-js-min.php");
-
 ?>
-
 <div id="sermons-rotator-main" class="sermons-rotator-main" style="width:<?php echo $ss_boxWidth;?>px;height:<?php echo $ss_boxHeight;?>px;">
-
 	<div class="sermons-rotator-left" style="width:<?php echo $sernonWidth;?>px;">
-
         <div id="sermons-rotator-left-slide" >
-
         <?php foreach($rows as $row) { ?>
-
             <div id="sermon-rotator-<?php echo $sermonID;?>" class="sermon-rotator-<?php echo $ss_lineSize;?>" style="width:<?php echo $sernonWidth;?>px;" onClick="rotateImages(<?php echo $sermonID;?>,sermonElementID);">
-
                 <?php
-
                  if($ss_showThumbFlg)
-
                  {
-
                     if($row->picture)
-
                     {
-
                         $sermonImage = $row->picture;
-
                     }
-
                     else
-
                     {
-
                         $sermonImage = $row->pic;
-
                     }
-
                     if($ss_showThumbFlg)
-
                     {?>
-
                         <div id="sermon-rotator-image-div-<?php echo $sermonID;?>" class="sermon-rotator-image-div" >
-
                            <?php if($ss_thumbClickableFlg) {?>
-
                             <a href="<?php echo JRoute::_('index.php?option=com_sermonspeaker&view=sermon&id='.$row->slug.'&Itemid='.$ss_itemid); ?>">
-
                                 <img class="sermon-rotator-image" src="<?php echo $sermonImage;?>" width="<?php echo $ss_thumbWidth;?>" height="<?php echo $ss_thumbHeight;?>" border="0"/>
-
                             </a>
-
                             <?php }else {?>
-
                                 <img class="sermon-rotator-image" src="<?php echo $sermonImage;?>" width="<?php echo $ss_thumbWidth;?>" height="<?php echo $ss_thumbHeight;?>" border="0"/>
-
                             <?php }?>
-
                         </div>
-
                       <?php  
-
                     }
-
                  }
-
                 ?>
-
                 <div id="sermon-rotator-text-<?php echo $sermonID;?>" class="sermon-rotator-text">
-
                     <?php 
-
                     if($ss_showTitleFlg)
-
                     {
-
                         echo '<div class="sermon-rotator-title" style="width:'.($sernonWidth- $ss_thumbWidth-5).'px;">';
-
                         echo stripslashes($row->sermon_title);
-
                         echo "</div>";
-
                     }
-
                     if($ss_showSpeakerFlg)
-
                     {
-
                         echo '<div class="sermon-rotator-speaker" style="width:'.($sernonWidth- $ss_thumbWidth-5).'px;">';
-
                         if($ss_showLablesFlg){ echo JText::_('MOD_SERMONSROTATOR_SPEAKER').": "; }
-
                         echo stripslashes($row->name);
-
                         echo "</div>";
-
                     }
-
                     if($ss_showSeriesFlg)
-
                     {
-
                         echo '<div class="sermon-rotator-serie" style="width:'.($sernonWidth- $ss_thumbWidth-5).'px;">';
-
                         if($ss_showLablesFlg){echo JText::_('MOD_SERMONSROTATOR_SERIE').": ";}
-
                         echo stripslashes($row->series_title);
-
                         echo "</div>";
-
                     }
-
                     ?>
-
                 </div>
-
             </div>
-
             <div style="clear:both;"></div>
-
             <?php $sermonID++;} ?>
-
         </div> 
-
     </div>
-
 	<?php 
-
 	$sermonID = 0;
-
 	if($ss_showImageFlg){ ?>
-
 		<?php foreach($rows as $row) { 
-
                 if($row->picture)
-
                 {
-
                     $sermonImage = $row->picture;
-
                 }
-
                 else
-
                 {
-
                     $sermonImage = $row->pic;
-
                 }		
-
 		?>
-
             <div id="sermons-rotator-right-<?php echo $sermonID;?>" class="sermons-rotator-right" style="width:<?php echo $ss_imageWidth;?>px;height:<?php echo $ss_boxHeight;?>px;">
-
                 <?php if($ss_ImageClickable){?>
-
                 	<?php if($ss_showImageFlg == 1){?>
-
                     	<a href="<?php echo JRoute::_('index.php?option=com_sermonspeaker&view=sermon&id='.$row->slug.'&Itemid='.$ss_itemid); ?>">
-
                     <? }else if($ss_showImageFlg == 2) {?>
-
 	                    <a href="<?php echo JRoute::_('index.php?view=sermon&layout='.substr($ss_SermonLandpage, 2).'&id='.$row->slug.'&tmpl=component&option=com_sermonspeaker'); ?>" onclick="" class="modal" rel="{handler: 'iframe', size: {x: <?php echo $ss_popupWidth;?>, y: <?php echo $ss_popupHeight;?>}}">
-
 					<?php } ?>
-
                         <img src="<?php echo $sermonImage;?>" width="<?php echo $ss_imageWidth;?>" height="<?php echo $ss_boxHeight;?>" border="0">
-
                     </a>
-
                 <? }else {?>
-
                 	<img src="<?php echo $sermonImage;?>" width="<?php echo $ss_imageWidth;?>" height="<?php echo $ss_boxHeight;?>" border="0"> 
-
                 <?php } ?>
-
             </div>
-
         <?php $sermonID++;} ?>    
-
     <?php } ?>
-
   <div style="clear:both;"></div>
-
   <?php if($ss_showArrowFlg){?>
-
 	<div id="sermons-rotator-arrow" class="sermon-rotator-arrow-<?php echo $ss_lineSize;?>"></div> 
-
   <?php } ?>
-
 </div>
-
 <script language="javascript">
-
 prepRotator(); 
-
 </script>
-

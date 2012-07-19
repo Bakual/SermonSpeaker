@@ -1,44 +1,32 @@
 <?php
-defined('_JEXEC') or die('Restricted access');
-
-jimport('joomla.application.component.view');
-
-class SermonspeakerViewFeed extends JView
+defined('_JEXEC') or die;
+class SermonspeakerViewFeed extends JViewLegacy
 {
 	function display($tpl = null)
 	{
 		$app 	= JFactory::getApplication();
 		$params = $app->getParams();
-
 		// Get the log in credentials.
 		$credentials = array();
 		$credentials['username'] = JRequest::getVar('username', '', 'get', 'username');
 		$credentials['password'] = JRequest::getString('password', '', 'get', JREQUEST_ALLOWRAW);
-
 		// Perform the log in.
 		if ($credentials['username'] && $credentials['password']){
 			$app->login($credentials);
 		}
-
 		// check if access is not public
 		$user = JFactory::getUser();
 		$groups	= $user->getAuthorisedViewLevels();
-
 		if (!in_array($params->get('access'), $groups)) {
 			$app->redirect('', JText::_('JERROR_ALERTNOAUTHOR'), 'error');
 		}
-
 		$type	= JRequest::getCmd('type', 'auto');
 		$prio	= $params->get('fileprio', 0);
 		$this->document->setMimeEncoding('application/rss+xml'); 
-
 		$link = JURI::root();
-
 		// Loading Joomla Filefunctions
 		jimport('joomla.filesystem.file');
-
 		// Channel
-
 		// Save Parameters and stuff xmlsafe into $channel
 		$channel = new stdClass;
 		$channel->title 		= $this->make_xml_safe($params->get('sc_title'));
@@ -75,11 +63,8 @@ class SermonspeakerViewFeed extends JView
 		$channel->itSummary 	= $channel->description;
 		$channel->itAuthor 		= $this->make_xml_safe($params->get('editor'));
 		$channel->itNewfeedurl 	= $this->make_xml_safe($params->get('itRedirect'));
-
 		// get Data from Model (/models/feed.php)
         $rows = $this->get('Data');
-
-
 		// Items
 		$items = array();
 		foreach($rows as $row) {
@@ -87,11 +72,9 @@ class SermonspeakerViewFeed extends JView
 			$scriptures	= SermonspeakerHelperSermonspeaker::insertScriptures($row->scripture, '-/*', false);
 			$row->notes		= JHTML::_('content.prepare', $row->notes);
 			$row->scripture	= JHTML::_('content.prepare', $scriptures);
-
 			$item = new stdClass;
 			// todo: ItemId des Predigten Menupunkts suchen und an Link anhängen, maybe use HelperRoute (check if feed will be valid then)
 			$item_link = $link.'index.php?option=com_sermonspeaker&amp;view=sermon&amp;id='.$row->id;
-
 			// limits notes text to x words for itDescription and RSS (if set)
 			$item_notes = str_replace(array("\r","\n",'  '), ' ', $this->make_xml_safe($row->notes));
 			$text_length = $params->get('text_length', '10');
@@ -105,14 +88,12 @@ class SermonspeakerViewFeed extends JView
 			} else {
 				$item->description = $item_notes;
 			}
-
 			$item->title	= $this->make_xml_safe($row->sermon_title);
 			$item->link		= $item_link; // todo: maybe make this link with JRoute to have a SEF link
 			$item->guid		= $item_link;
 			$item->date		= JHTML::Date($row->sermon_date, 'r', true);
 			$item->author 	= '<dc:creator>'.$this->make_xml_safe($row->name).'</dc:creator>'; // todo: maybe add email of speaker if present (not yet in database), format is emailadress (name) and then use author instead
 			$item->category = $this->make_xml_safe($row->series_title); // using the series title as an item category
-
 			// iTunes item specific tags
 			$item->itAuthor		= $this->make_xml_safe($row->name); // only speaker name here for iTunes
 			$item->itDuration 	= SermonspeakerHelperSermonSpeaker::insertTime($row->sermon_time);
@@ -132,7 +113,6 @@ class SermonspeakerViewFeed extends JView
 			} else {
 				$item->itImage	= $channel->itImage;
 			}
-
 			// create keywords from series_title and scripture (title and speaker are searchable anyway)
 			$keywords = array();
 			if($row->scripture){
@@ -144,7 +124,6 @@ class SermonspeakerViewFeed extends JView
 				$keywords[]	= $item->category;
 			}
 			$item->itKeywords 	= implode(',', $keywords);
-
 			// Create Enclosure
 			if (($type != 'video') && ($row->audiofile && (!$prio || ($type == 'audio') || !$row->videofile))){
 				$file = $row->audiofile;
@@ -153,7 +132,6 @@ class SermonspeakerViewFeed extends JView
 			} else {
 				$file = '';
 			}
-
 			if($file){
 				// MIME type for content
 				$item->enclosure['type'] = SermonspeakerhelperSermonspeaker::getMime(JFile::getExt($file));
@@ -183,7 +161,6 @@ class SermonspeakerViewFeed extends JView
 			} else {
 				$item->enclosure = '';
 			}
-
 			// Add sermonlink to the description
 			if($params->get('include_link')) {
 				$item->description = '&lt;a href=&quot;'.$item->enclosure['url'].'&quot;&gt;'.JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_'.$type).'&lt;/a&gt;&lt;br&gt;'.$item->description;
@@ -201,10 +178,8 @@ class SermonspeakerViewFeed extends JView
 		$string = strip_tags($string);
 		$string = html_entity_decode($string, ENT_NOQUOTES, 'UTF-8');
 		$string = htmlspecialchars($string, ENT_QUOTES, 'UTF-8', FALSE);
-
 		return $string;
 	}
-
 	function make_itCat ($cat){
 		if($cat == '') {
 			return '';

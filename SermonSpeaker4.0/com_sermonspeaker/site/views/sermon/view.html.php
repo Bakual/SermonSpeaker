@@ -3,60 +3,47 @@
  * @copyright	Copyright (C) 2005 - 2010 Open Source Matters, Inc. All rights reserved.
  * @license		GNU General Public License version 2 or later; see LICENSE.txt
  */
-
-// No direct access
 defined('_JEXEC') or die;
-jimport('joomla.application.component.view');
-	
 /**
  * HTML Sermon View class for the Sermonspeaker component
  *
  * @package		Sermonspeaker
  */
-class SermonspeakerViewSermon extends JView
+class SermonspeakerViewSermon extends JViewLegacy
 {
 	protected $state;
 	protected $item;
-
 	public function __construct($config = array()){
-
 		parent::__construct($config);
 	}
-
 	function display($tpl = null)
 	{
 		if (!JRequest::getInt('id', 0)){
 			JError::raiseWarning(404, JText::_('JGLOBAL_RESOURCE_NOT_FOUND'));
 			return;
 		}
-
 		// Applying CSS file
 		JHTML::stylesheet('sermonspeaker.css', 'media/com_sermonspeaker/css/');
 		require_once(JPATH_COMPONENT.'/helpers/player.php');
-
 		// Initialise variables.
 		$app		= JFactory::getApplication();
 		$params		= $app->getParams();
 		$user		= JFactory::getUser();
 		$groups		= $user->getAuthorisedViewLevels();
-
 		// check if access is not public
 		if (!in_array($params->get('access'), $groups)) {
 			$app->redirect(JRoute::_('index.php?view=sermons'), JText::_('JERROR_ALERTNOAUTHOR'), 'error');
 		}
-
 		$columns = $params->get('col');
 		if (!$columns){
 			$columns = array();
 		}
-
 		// Get model data (/models/sermon.php) 
 		$state 	= $this->get('State');
 		$item 	= $this->get('Item');
 		if(!$item){
 			$app->redirect(JRoute::_('index.php?view=sermons'), JText::_('JGLOBAL_RESOURCE_NOT_FOUND'), 'error');
 		}
-
 		// Check for category ACL
 		if ($item->category_access){
 			if (!in_array($item->category_access, $groups)) {
@@ -73,18 +60,15 @@ class SermonspeakerViewSermon extends JView
 				$app->redirect(JRoute::_('index.php?view=sermons'), JText::_('JERROR_ALERTNOAUTHOR'), 'error');
 			}
 		}
-
 		// Check for errors.
 		if (count($errors = $this->get('Errors'))) {
 			JError::raiseWarning(500, implode("\n", $errors));
 			return false;
 		}
-
 		// Set layout from parameters if not already set elsewhere
 		if ($this->getLayout() == 'default') {
 			$this->setLayout($params->get('sermonlayout', 'icon'));
 		}
-
 		// Update Statistic
 		if ($params->get('track_sermon') && !$user->authorise('com_sermonspeaker.hit', 'com_sermonspeaker')) {
 			$model 	= $this->getModel();
@@ -96,19 +80,15 @@ class SermonspeakerViewSermon extends JView
 		$this->assignRef('item', 		$item);
 		$this->assignRef('user', 		$user);
 		$this->assignRef('columns', 	$columns);
-
 		$this->_prepareDocument();
-
 		parent::display($tpl);
 	}
-
 	/**
 	 * Prepares the document
 	 */
 	protected function _prepareDocument()
 	{
 		$app	= JFactory::getApplication();
-
 		// Set Page Header if not already set in the menu entry
 		$menus	= $app->getMenu();
 		$menu 	= $menus->getActive();
@@ -117,7 +97,6 @@ class SermonspeakerViewSermon extends JView
 		} else {
 			$this->params->def('page_heading', JText::_('COM_SERMONSPEAKER_SERMON_TITLE'));
 		}
-
 		// Set Pagetitle
 		if ($this->item->sermon_title && (!$menu || $menu->query['option'] != 'com_sermonspeaker' || $menu->query['view'] != 'sermon' || $menu->query['id'] != $this->item->id)){
 			$title = $this->item->sermon_title;
@@ -128,7 +107,6 @@ class SermonspeakerViewSermon extends JView
 			$title = JText::sprintf('JPAGETITLE', $app->getCfg('sitename'), $title);
 		}
 		$this->document->setTitle($title);
-
 		// add Breadcrumbs
 		$pathway = $app->getPathway();
 		if ($menu && ($menu->query['view'] == 'series')) {
@@ -137,7 +115,6 @@ class SermonspeakerViewSermon extends JView
 	    	$pathway->addItem($this->item->name, JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($this->item->speaker_slug)));
 		}
     	$pathway->addItem($this->item->sermon_title, '');
-
 		// Set MetaData
 		if ($this->item->metadesc){
 			$this->document->setDescription($this->item->metadesc);

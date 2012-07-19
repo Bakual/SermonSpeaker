@@ -4,7 +4,6 @@
  * @license		GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-// No direct access
 defined('_JEXEC') or die;
 
 jimport('joomla.filesystem.file');
@@ -18,7 +17,7 @@ jimport('joomla.filesystem.folder');
  * @subpackage	com_media
  * @since		1.6
  */
-class SermonspeakerControllerFile extends JController
+class SermonspeakerControllerFile extends JControllerLegacy
 {
 	/**
 	 * Upload a file

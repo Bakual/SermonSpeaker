@@ -1,5 +1,5 @@
 <?php
-defined('_JEXEC') or die('Restricted access');
+defined('_JEXEC') or die;
 $config	= array('type' => JRequest::getCmd('type', 'audio'));
 $player = new SermonspeakerHelperPlayer($this->item, $config);
 ?>

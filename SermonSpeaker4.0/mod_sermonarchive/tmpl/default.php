@@ -1,6 +1,6 @@
 <?php 
 // no direct access
-defined('_JEXEC') or die('Restricted access');
+defined('_JEXEC') or die;
 $dateformat	= $mode ? 'F, Y' : 'Y';
 ?>
 <ul class="sermonarchive<?php echo $moduleclass_sfx; ?>">

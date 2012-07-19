@@ -1,15 +1,8 @@
 <?php
 defined('_JEXEC') or die;
 
-jimport('joomla.application.component.model');
-
-class SermonspeakerModelFiles extends JModel
+class SermonspeakerModelFiles extends JModelLegacy
 {
-	public function __construct($config = array())
-	{
-		parent::__construct($config);
-	}
-
 	public function getFiles()
 	{
 		// Initialise variables.

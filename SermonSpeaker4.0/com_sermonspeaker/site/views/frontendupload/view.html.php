@@ -1,10 +1,10 @@
 <?php
-defined('_JEXEC') or die('Restricted access');
+defined('_JEXEC') or die;
 jimport( 'joomla.application.component.view');
 /**
  * HTML View class for the SermonSpeaker Component
  */
-class SermonspeakerViewFrontendupload extends JView
+class SermonspeakerViewFrontendupload extends JViewLegacy
 {
 	protected $form;
 	protected $item;

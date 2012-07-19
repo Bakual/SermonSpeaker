@@ -1,5 +1,5 @@
 <?php
-defined('_JEXEC') or die('Restricted access');
+defined('_JEXEC') or die;
 echo '<?xml version="1.0" encoding="UTF-8" ?>'; ?>
 <root>
 	<sermons>
