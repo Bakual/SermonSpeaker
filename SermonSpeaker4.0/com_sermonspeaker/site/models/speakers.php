@@ -100,7 +100,7 @@ class SermonspeakerModelspeakers extends JModelList
 		// Filter by search in title
 		$search = $this->getState('filter.search');
 		if (!empty($search)) {
-			$search = $db->Quote('%'.$db->getEscaped($search, true).'%');
+			$search = $db->Quote('%'.$db->escape($search, true).'%');
 			$query->where('(speakers.name LIKE '.$search.')');
 		}
 
@@ -116,7 +116,7 @@ class SermonspeakerModelspeakers extends JModelList
 		}
 
 		// Add the list ordering clause.
-		$query->order($db->getEscaped($this->getState('list.ordering', 'ordering')).' '.$db->getEscaped($this->getState('list.direction', 'ASC')));
+		$query->order($db->escape($this->getState('list.ordering', 'ordering')).' '.$db->escape($this->getState('list.direction', 'ASC')));
 
 		return $query;
 	}

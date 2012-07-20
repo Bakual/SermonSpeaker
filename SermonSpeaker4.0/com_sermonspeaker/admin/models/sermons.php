@@ -196,7 +196,7 @@ class SermonspeakerModelSermons extends JModelList
 			if (stripos($search, 'id:') === 0) {
 				$query->where('sermons.id = '.(int) substr($search, 3));
 			} else {
-				$search = $db->Quote('%'.$db->getEscaped($search, true).'%');
+				$search = $db->Quote('%'.$db->escape($search, true).'%');
 				$query->where('(sermons.sermon_title LIKE '.$search.')');
 			}
 		}
@@ -212,7 +212,7 @@ class SermonspeakerModelSermons extends JModelList
 		if ($orderCol == 'sermons.ordering' || $orderCol == 'category_title') {
 			$orderCol = 'category_title '.$orderDirn.', sermons.ordering';
 		}
-		$query->order($db->getEscaped($orderCol.' '.$orderDirn));
+		$query->order($db->escape($orderCol.' '.$orderDirn));
 
 		return $query;
 	}

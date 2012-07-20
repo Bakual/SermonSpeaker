@@ -117,7 +117,7 @@ class plgSearchSermonspeaker extends JPlugin
 					if(isset($books[strtolower($text)])){
 						$wheres2[]	= "b.book = '".$books[strtolower($text)]."'";
 					}
-					$text		= $db->Quote('%'.$db->getEscaped($text, true).'%', false);
+					$text		= $db->Quote('%'.$db->escape($text, true).'%', false);
 					$wheres2[]	= 'a.sermon_title LIKE '.$text;
 					$wheres2[]	= 'a.notes LIKE '.$text;
 					$where		= '(' . implode(') OR (', $wheres2) . ')';
@@ -133,7 +133,7 @@ class plgSearchSermonspeaker extends JPlugin
 						if(isset($books[strtolower($word)])){
 							$wheres2[]	= "b.book = '".$books[strtolower($word)]."'";
 						}
-						$word		= $db->Quote('%'.$db->getEscaped($word, true).'%', false);
+						$word		= $db->Quote('%'.$db->escape($word, true).'%', false);
 						$wheres2[]	= 'a.sermon_title LIKE '.$word;
 						$wheres2[]	= 'a.notes LIKE '.$word;
 						$wheres[]	= implode(' OR ', $wheres2);
@@ -201,7 +201,7 @@ class plgSearchSermonspeaker extends JPlugin
 			switch ($phrase)
 			{
 				case 'exact':
-					$text		= $db->Quote('%'.$db->getEscaped($text, true).'%', false);
+					$text		= $db->Quote('%'.$db->escape($text, true).'%', false);
 					$wheres2	= array();
 					$wheres2[]	= 'a.series_title LIKE '.$text;
 					$wheres2[]	= 'a.series_description LIKE '.$text;
@@ -214,7 +214,7 @@ class plgSearchSermonspeaker extends JPlugin
 					$wheres = array();
 					foreach ($words as $word)
 					{
-						$word		= $db->Quote('%'.$db->getEscaped($word, true).'%', false);
+						$word		= $db->Quote('%'.$db->escape($word, true).'%', false);
 						$wheres2	= array();
 						$wheres2[]	= 'a.series_title LIKE '.$word;
 						$wheres2[]	= 'a.series_description LIKE '.$word;
@@ -277,7 +277,7 @@ class plgSearchSermonspeaker extends JPlugin
 			switch ($phrase)
 			{
 				case 'exact':
-					$text		= $db->Quote('%'.$db->getEscaped($text, true).'%', false);
+					$text		= $db->Quote('%'.$db->escape($text, true).'%', false);
 					$wheres2	= array();
 					$wheres2[]	= 'a.name LIKE '.$text;
 					$wheres2[]	= 'a.intro LIKE '.$text;
@@ -291,7 +291,7 @@ class plgSearchSermonspeaker extends JPlugin
 					$wheres = array();
 					foreach ($words as $word)
 					{
-						$word		= $db->Quote('%'.$db->getEscaped($word, true).'%', false);
+						$word		= $db->Quote('%'.$db->escape($word, true).'%', false);
 						$wheres2	= array();
 						$wheres2[]	= 'a.name LIKE '.$word;
 						$wheres2[]	= 'a.intro LIKE '.$word;

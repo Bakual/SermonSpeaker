@@ -147,7 +147,7 @@ class SermonspeakerModelSpeakers extends JModelList
 			if (stripos($search, 'id:') === 0) {
 				$query->where('speakers.id = '.(int) substr($search, 3));
 			} else {
-				$search = $db->Quote('%'.$db->getEscaped($search, true).'%');
+				$search = $db->Quote('%'.$db->escape($search, true).'%');
 				$query->where('(speakers.name LIKE '.$search.')');
 			}
 		}
@@ -163,7 +163,7 @@ class SermonspeakerModelSpeakers extends JModelList
 		if ($orderCol == 'speakers.ordering' || $orderCol == 'category_title') {
 			$orderCol = 'category_title '.$orderDirn.', speakers.ordering';
 		}
-		$query->order($db->getEscaped($orderCol.' '.$orderDirn));
+		$query->order($db->escape($orderCol.' '.$orderDirn));
 
 		return $query;
 	}
