@@ -18,7 +18,7 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 			die("<html><body OnLoad=\"javascript: alert('I have no clue what you want to download...');history.back();\" bgcolor=\"#F0F0F0\"></body></html>");
 		}
 		$user	= JFactory::getUser();
-		$groups	= implode(',', $user->authorisedLevels());
+		$groups	= implode(',', $user->getAuthorisedViewLevels());
 		$db =& JFactory::getDBO();
 		$query = "SELECT audiofile, videofile, series_title \n"
 				."FROM #__sermon_sermons as sermons \n"

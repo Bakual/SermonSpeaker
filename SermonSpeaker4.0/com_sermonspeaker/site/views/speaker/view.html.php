@@ -13,7 +13,7 @@ class SermonspeakerViewspeaker extends JViewLegacy
 			$app->redirect(JRoute::_('index.php?view=speakers'), JText::_('JGLOBAL_RESOURCE_NOT_FOUND'), 'error');
 		}
 		// Applying CSS file
-		JHTML::stylesheet('sermonspeaker.css', 'media/com_sermonspeaker/css/');
+		JHTML::stylesheet('media/com_sermonspeaker/css/sermonspeaker.css');
 		require_once(JPATH_COMPONENT.'/helpers/player.php');
 		// Get data from the model
 		$state		= $this->get('State');

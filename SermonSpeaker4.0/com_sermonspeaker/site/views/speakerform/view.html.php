@@ -12,7 +12,7 @@ class SermonspeakerViewSpeakerform extends JViewLegacy
 	protected $state;
 	function display($tpl = null)
 	{
-		JHTML::stylesheet('frontendupload.css', 'media/com_sermonspeaker/css/');
+		JHTML::stylesheet('media/com_sermonspeaker/css/frontendupload.css');
 		// Initialise variables.
 		$app		= JFactory::getApplication();
 		$user		= JFactory::getUser();

@@ -49,7 +49,7 @@ abstract class modRelatedSermonsHelper
 
 		$nullDate		= $db->getNullDate();
 		$date			= JFactory::getDate();
-		$now			= $date->toMySQL();
+		$now			= $date->toSql();
 
 		$query		= $db->getQuery(true);
 		$related 	= array();

@@ -36,7 +36,7 @@ $saveOrder	= $listOrder == 'speakers.ordering';
 		<thead>
 			<tr>
 				<th width="1%">
-					<input type="checkbox" name="checkall-toggle" value="" onclick="checkAll(this)" />
+					<input type="checkbox" name="checkall-toggle" value="" onclick="Joomla.checkAll(this)" />
 				</th>
 				<th class="title">
 					<?php echo JHtml::_('grid.sort',  'COM_SERMONSPEAKER_FIELD_NAME_LABEL', 'speakers.name', $listDirn, $listOrder); ?>

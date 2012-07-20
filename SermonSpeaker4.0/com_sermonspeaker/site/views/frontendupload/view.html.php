@@ -13,7 +13,7 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 
 	function display($tpl = null)
 	{
-		JHTML::stylesheet('frontendupload.css', 'media/com_sermonspeaker/css/');
+		JHTML::stylesheet('media/com_sermonspeaker/css/frontendupload.css');
 
 		// Initialise variables.
 		$app		= JFactory::getApplication();

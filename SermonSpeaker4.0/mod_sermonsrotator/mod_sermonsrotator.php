@@ -71,14 +71,14 @@ foreach($rows as $row)
 {
 	$videoURL[] = '"'.$row->videofile.'"';
 }
-JHTML::stylesheet('mod_sermonsrotator.css', 'modules/mod_sermonsrotator/'); 
+JHTML::stylesheet('modules/mod_sermonsrotator/mod_sermonsrotator.css'); 
 switch ($ss_styleSheet)
 {
 	case "radvest":
-		JHTML::stylesheet('radvest.css', 'modules/mod_sermonsrotator/css/'); 
+		JHTML::stylesheet('modules/mod_sermonsrotator/css/radvest.css'); 
 		break;
 	default:
-		JHTML::stylesheet('mcg.css', 'modules/mod_sermonsrotator/css/'); 
+		JHTML::stylesheet('modules/mod_sermonsrotator/css/mcg.css'); 
 }
 $videoURL = implode(',', $videoURL);
 include("modules/mod_sermonsrotator/mod_sermonsrotator-js-min.php");

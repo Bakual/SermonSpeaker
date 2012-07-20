@@ -43,7 +43,7 @@ class SermonspeakerTableSermon extends JTable
 				if ($this->sermon_date == ''){
 					$this->sermon_date = JHTML::Date($date, 'Y-m-d H:i:s', 'UTC');
 				}
-				$this->created = $date->toMySQL();
+				$this->created = $date->toSql();
 			}
 		}
 		// Verify that the alias is unique

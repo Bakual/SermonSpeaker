@@ -23,7 +23,7 @@ class SermonspeakerViewSermon extends JViewLegacy
 			return;
 		}
 		// Applying CSS file
-		JHTML::stylesheet('sermonspeaker.css', 'media/com_sermonspeaker/css/');
+		JHTML::stylesheet('media/com_sermonspeaker/css/sermonspeaker.css');
 		require_once(JPATH_COMPONENT.'/helpers/player.php');
 		// Initialise variables.
 		$app		= JFactory::getApplication();

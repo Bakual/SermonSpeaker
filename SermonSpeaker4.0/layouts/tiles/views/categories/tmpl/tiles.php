@@ -1,6 +1,6 @@
 <?php
 defined('_JEXEC') or die;
-JHTML::stylesheet('tiles.css', 'media/com_sermonspeaker/css/');
+JHTML::stylesheet('media/com_sermonspeaker/css/tiles.css');
 // Layout supports max 3 level
 if($this->maxLevelcat == -1 or $this->maxLevelcat > 3):
 	$this->maxLevelcat = 3;

@@ -9,7 +9,7 @@ class SermonspeakerViewSpeakers extends JViewLegacy
 	function display($tpl = null)
 	{
 		// Applying CSS file
-		JHTML::stylesheet('sermonspeaker.css', 'media/com_sermonspeaker/css/');
+		JHTML::stylesheet('media/com_sermonspeaker/css/sermonspeaker.css');
 		// Get some data from the models
 		$this->state		= $this->get('State');
 		$this->items		= $this->get('Items');

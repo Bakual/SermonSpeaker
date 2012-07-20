@@ -25,7 +25,7 @@ class SermonspeakerTableSpeaker extends JTable
 			$this->created_by = $user->get('id');
 		}
 		if (!intval($this->created)) {
-			$this->created = $date->toMySQL();
+			$this->created = $date->toSql();
 		}
 		// Verify that the alias is unique
 		$table = JTable::getInstance('speaker', 'SermonspeakerTable');

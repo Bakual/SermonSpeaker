@@ -19,7 +19,7 @@ class SermonspeakerModelFeed extends JModelLegacy
 	function getData()
 	{
 		$user	= JFactory::getUser();
-		$groups	= implode(',', $user->authorisedLevels());
+		$groups	= implode(',', $user->getAuthorisedViewLevels());
 
 		// Category filter (priority on request so subcategories work)
 		if ($id	= JRequest::getInt('sermon_cat', 0))

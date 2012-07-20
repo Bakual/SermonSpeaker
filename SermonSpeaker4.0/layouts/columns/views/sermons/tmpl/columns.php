@@ -3,7 +3,7 @@ defined('_JEXEC') or die;
 JHTML::addIncludePath(JPATH_COMPONENT.'/helpers');
 JHTML::_('behavior.tooltip');
 JHTML::_('behavior.modal');
-JHTML::stylesheet('columns.css', 'media/com_sermonspeaker/css/');
+JHTML::stylesheet('media/com_sermonspeaker/css/columns.css');
 $user		= JFactory::getUser();
 $canEdit	= $user->authorise('core.edit', 'com_sermonspeaker');
 $canEditOwn	= $user->authorise('core.edit.own', 'com_sermonspeaker');

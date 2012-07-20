@@ -6,17 +6,17 @@ JHtml::_('behavior.formvalidation');
 ?>
 <script type="text/javascript">
 	Joomla.submitbutton = function(task) {
-		if (task == 'speaker.cancel' || document.formvalidator.isValid(document.id('speaker-form'))) {
+		if (task == 'speaker.cancel' || document.formvalidator.isValid(document.id('adminForm'))) {
 			<?php echo $this->form->getField('intro')->save(); ?>
 			<?php echo $this->form->getField('bio')->save(); ?>
-			Joomla.submitform(task, document.getElementById('speaker-form'));
+			Joomla.submitform(task, document.getElementById('adminForm'));
 		} else {
 			alert('<?php echo $this->escape(JText::_('JGLOBAL_VALIDATION_FORM_FAILED'));?>');
 		}
 	}
 </script>
 
-<form action="<?php JRoute::_('index.php?option=com_sermonspeaker'); ?>" method="post" name="adminForm" id="speaker-form" class="form-validate">
+<form action="<?php JRoute::_('index.php?option=com_sermonspeaker'); ?>" method="post" name="adminForm" id="adminForm" class="form-validate">
 	<div class="width-60 fltlft">
 		<fieldset class="adminform">
 			<legend><?php echo empty($this->item->id) ? JText::_('COM_SERMONSPEAKER_NEW_SPEAKER') : JText::sprintf('COM_SERMONSPEAKER_EDIT_SPEAKER', $this->item->id); ?></legend>
