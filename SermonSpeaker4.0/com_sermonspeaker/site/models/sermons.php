@@ -348,7 +348,7 @@ class SermonspeakerModelSermons extends JModelList
 		$query->order('script.`book` ASC');
 
 		$db->setQuery($query, 0);
-		$options = $db->loadResultArray();
+		$options = $db->loadColumn();
 
 		return $options;
 	}

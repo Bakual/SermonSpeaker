@@ -48,7 +48,7 @@ class SermonspeakerModelFiles extends JModelLegacy
 
 		$db->setQuery($query);
 
-		$sermons = $db->loadResultArray();
+		$sermons = $db->loadColumn();
 
 		// Check for a database error.
 		if ($db->getErrorNum()) {

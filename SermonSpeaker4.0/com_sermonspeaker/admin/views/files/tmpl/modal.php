@@ -33,7 +33,7 @@ $session	= JFactory::getSession();
 				<td class="center"><a href="index.php?option=com_sermonspeaker&view=sermon&layout=edit&type=<?php echo $item['type']; ?>&file=<?php echo $item['file']; ?>" target="_parent">
 					<img src="<?php echo JURI::root(); ?>administrator/components/com_sermonspeaker/images/add.png" title="<?php echo JText::_('COM_SERMONSPEAKER_NEW_SERMON'); ?>">
 				</a></td>
-				<td class="center"><a href="index.php?option=com_sermonspeaker&task=tools.delete&file=<?php echo $item['file'].'&'.$session->getName().'='.$session->getId().'&'.JUtility::getToken(); ?>=1" target="_parent">
+				<td class="center"><a href="index.php?option=com_sermonspeaker&task=tools.delete&file=<?php echo $item['file'].'&'.$session->getName().'='.$session->getId().'&'.JSession::getFormToken(); ?>=1" target="_parent">
 					<img src="<?php echo JURI::root(); ?>administrator/components/com_sermonspeaker/images/delete.png" title="<?php echo JText::_('COM_SERMONSPEAKER_DELETE_FILE'); ?>">
 				</a></td>
 			</tr>

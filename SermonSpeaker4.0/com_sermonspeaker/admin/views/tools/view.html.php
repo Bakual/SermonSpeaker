@@ -9,7 +9,7 @@ class SermonspeakerViewTools extends JViewLegacy
 		$db		= JFactory::getDbo();
 		$query	= "SHOW TABLES";
 		$db->setQuery($query);
-		$tables	= $db->loadResultArray();
+		$tables	= $db->loadColumn();
 		$prefix	= $app->getCfg('dbprefix');
 		$this->pi	= (in_array($prefix.'pistudies', $tables)) ? true : false;
 		$this->addToolbar();

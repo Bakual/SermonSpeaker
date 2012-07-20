@@ -29,7 +29,7 @@ $self = $uri->toString();
 	<?php echo $this->escape($this->params->get('page_heading')); ?>
 </h1>
 <?php endif; ?>
-<form action="<?php echo JURI::root(); ?>index.php?option=com_sermonspeaker&amp;task=file.upload&amp;tmpl=component&amp;<?php echo $this->session->getName().'='.$this->session->getId(); ?>&amp;<?php echo JUtility::getToken();?>=1" id="uploadForm" name="uploadForm" class="form-validate" method="post" enctype="multipart/form-data">
+<form action="<?php echo JURI::root(); ?>index.php?option=com_sermonspeaker&amp;task=file.upload&amp;tmpl=component&amp;<?php echo $this->session->getName().'='.$this->session->getId(); ?>&amp;<?php echo JSession::getFormToken();?>=1" id="uploadForm" name="uploadForm" class="form-validate" method="post" enctype="multipart/form-data">
 	<fieldset id="upload-noflash" class="actions">
 		<legend><?php echo JText::_('COM_SERMONSPEAKER_FU_SELECTFILE'); ?></legend>
 		<label for="upload-file" class="label"><?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO'); ?></label>
