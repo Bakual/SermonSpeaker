@@ -12,17 +12,16 @@ $uri->delVar('type');
 $self = $uri->toString();
 ?>
 <script type="text/javascript">
-	function submitbutton(task)
-	{
+	Joomla.submitbutton = function(task) {
 		if (task == 'frontendupload.cancel' || document.formvalidator.isValid(document.id('sermon-form'))) {
 			<?php echo $this->form->getField('notes')->save(); ?>
-			submitform(task);
-		}
-		else {
+			Joomla.submitform(task, document.getElementById('sermon-form'));
+		} else {
 			alert('<?php echo $this->escape(JText::_('JGLOBAL_VALIDATION_FORM_FAILED'));?>');
 		}
 	}
 </script>
+
 <div class="edit<?php echo $this->pageclass_sfx; ?>">
 <?php if ($this->params->get('show_page_heading', 1)) : ?>
 <h1>

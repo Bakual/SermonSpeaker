@@ -75,7 +75,7 @@ class SermonspeakerControllerTools extends JControllerLegacy
 		// Check for request forgeries
 		JRequest::checkToken('request') or jexit(JText::_('JINVALID_TOKEN'));
 		$app	= JFactory::getApplication();
-		$db =& JFactory::getDBO();
+		$db		= JFactory::getDBO();
 		$query	= "SELECT audiofile, videofile, sermons.created_by, sermons.catid, sermon_title, name, series_title, YEAR(sermon_date) AS date, notes, sermon_number, picture \n"
 				. "FROM #__sermon_sermons AS sermons \n"
 				. "LEFT JOIN #__sermon_speakers AS speakers ON speaker_id = speakers.id \n"
@@ -186,8 +186,8 @@ class SermonspeakerControllerTools extends JControllerLegacy
 		// Check for request forgeries
 		JRequest::checkToken('request') or jexit(JText::_('JINVALID_TOKEN'));
 		$app	= JFactory::getApplication();
-		$db		=& JFactory::getDBO();
-		$params	= &JComponentHelper::getParams('com_sermonspeaker');
+		$db		= JFactory::getDBO();
+		$params	= JComponentHelper::getParams('com_sermonspeaker');
 		$tag 	= $params->get('plugin_tag');
 
 		// Get Data from PreachIt
@@ -344,7 +344,7 @@ class SermonspeakerControllerTools extends JControllerLegacy
 		// Check for request forgeries
 		JRequest::checkToken('request') or jexit(JText::_('JINVALID_TOKEN'));
 		$app	= JFactory::getApplication();
-		$db		=& JFactory::getDBO();
+		$db		= JFactory::getDBO();
 		$mode	= JRequest::getVar('submit');
 
 		if(isset($mode['diff'])){

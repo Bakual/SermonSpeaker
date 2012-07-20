@@ -6,13 +6,11 @@ JHtml::_('behavior.tooltip');
 JHtml::_('behavior.formvalidation');
 ?>
 <script type="text/javascript">
-	function submitbutton(task)
-	{
+	Joomla.submitbutton = function(task) {
 		if (task == 'serie.cancel' || document.formvalidator.isValid(document.id('adminForm'))) {
 			<?php echo $this->form->getField('series_description')->save(); ?>
-			submitform(task);
-		}
-		else {
+			Joomla.submitform(task, document.getElementById('adminForm'));
+		} else {
 			alert('<?php echo $this->escape(JText::_('JGLOBAL_VALIDATION_FORM_FAILED'));?>');
 		}
 	}

@@ -5,18 +5,17 @@ JHtml::_('behavior.tooltip');
 JHtml::_('behavior.formvalidation');
 ?>
 <script type="text/javascript">
-	function submitbutton(task)
-	{
+	Joomla.submitbutton = function(task) {
 		if (task == 'speaker.cancel' || document.formvalidator.isValid(document.id('speaker-form'))) {
 			<?php echo $this->form->getField('intro')->save(); ?>
 			<?php echo $this->form->getField('bio')->save(); ?>
-			submitform(task);
-		}
-		else {
+			Joomla.submitform(task, document.getElementById('speaker-form'));
+		} else {
 			alert('<?php echo $this->escape(JText::_('JGLOBAL_VALIDATION_FORM_FAILED'));?>');
 		}
 	}
 </script>
+
 <form action="<?php JRoute::_('index.php?option=com_sermonspeaker'); ?>" method="post" name="adminForm" id="speaker-form" class="form-validate">
 	<div class="width-70 fltlft">
 		<fieldset class="adminform">

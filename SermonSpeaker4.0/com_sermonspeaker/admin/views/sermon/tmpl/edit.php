@@ -14,17 +14,16 @@ $uri->delVar('type');
 $self = $uri->toString();
 ?>
 <script type="text/javascript">
-	function submitbutton(task)
-	{
+	Joomla.submitbutton = function(task) {
 		if (task == 'sermon.cancel' || document.formvalidator.isValid(document.id('sermon-form'))) {
 			<?php echo $this->form->getField('notes')->save(); ?>
-			submitform(task);
-		}
-		else {
+			Joomla.submitform(task, document.getElementById('sermon-form'));
+		} else {
 			alert('<?php echo $this->escape(JText::_('JGLOBAL_VALIDATION_FORM_FAILED'));?>');
 		}
 	}
 </script>
+
 
 <form action="<?php echo JRoute::_('index.php?option=com_sermonspeaker&layout=edit&id='.(int) $this->item->id); ?>" method="post" name="adminForm" id="sermon-form" class="form-validate">
 	<div class="width-60 fltlft">

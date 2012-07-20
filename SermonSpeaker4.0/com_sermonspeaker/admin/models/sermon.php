@@ -189,6 +189,7 @@ class SermonspeakerModelSermon extends JModelAdmin
 			}
 		}
 		// Depreceated with SermonSpeaker 4.4.4. Using Ajax now for Lookup.
+		// Still used for tools function files to create sermon from file.
 		// Reading ID3 Tags if the Lookup Button was pressed
 		if ($id3_file = JRequest::getString('file')){
 			if (JRequest::getCmd('type') == 'video'){
@@ -246,7 +247,7 @@ class SermonspeakerModelSermon extends JModelAdmin
 	 *
 	 * @since	1.6
 	 */
-	protected function prepareTable(&$table)
+	protected function prepareTable($table)
 	{
 		jimport('joomla.filter.output');
 
