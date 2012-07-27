@@ -41,6 +41,9 @@ class SermonspeakerModelSermons extends JModelList
 		}
 
 		parent::__construct($config);
+
+		// Adding Viewname to Context so UserStates aren't saved accross the various views
+		$this->context .= '.'.JRequest::getCmd('view', 'sermons');
 	}
 
 	protected function getListQuery()
@@ -294,10 +297,9 @@ class SermonspeakerModelSermons extends JModelList
 		);
 
 		$db	= $this->getDbo();
-		$query	= clone($this->query);
-		$query->clear('select');
-		$query->clear('order');
-		$query->select('DISTINCT MONTH(sermons.`sermon_date`) AS `value`');
+		$query	= $db->getQuery(true);
+		$query->select('DISTINCT MONTH(`sermon_date`) AS `value`');
+		$query->from('`#__sermon_sermons`');
 		$query->where("`sermon_date` != '0000-00-00'");
 		$query->order('`value` ASC');
 
@@ -319,10 +321,9 @@ class SermonspeakerModelSermons extends JModelList
 	public function getYears()
 	{
 		$db	= $this->getDbo();
-		$query	= clone($this->query);
-		$query->clear('select');
-		$query->clear('order');
-		$query->select('DISTINCT YEAR(sermons.`sermon_date`) AS `year`');
+		$query	= $db->getQuery(true);
+		$query->select('DISTINCT YEAR(`sermon_date`) AS `year`');
+		$query->from('`#__sermon_sermons`');
 		$query->where("`sermon_date` != '0000-00-00'");
 		$query->order('`year` ASC');
 
@@ -340,12 +341,11 @@ class SermonspeakerModelSermons extends JModelList
 	public function getBooks()
 	{
 		$db	= $this->getDbo();
-		$query	= clone($this->query);
-		$query->clear('select');
-		$query->clear('order');
-		$query->select('DISTINCT script.`book`');
-		$query->where('script.`book` != 0');
-		$query->order('script.`book` ASC');
+		$query	= $db->getQuery(true);
+		$query->select('DISTINCT `book`');
+		$query->from('`#__sermon_scriptures`');
+		$query->where('`book` != 0');
+		$query->order('`book` ASC');
 
 		$db->setQuery($query, 0);
 		$options = $db->loadColumn();
