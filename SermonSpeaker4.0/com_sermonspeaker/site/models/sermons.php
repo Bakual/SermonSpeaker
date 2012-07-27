@@ -216,20 +216,6 @@ class SermonspeakerModelSermons extends JModelList
 		// Include Subcategories or not
 		$this->setState('filter.subcategories', $params->get('show_subcategory_content', 0));
 
-		// Scripture filter
-		$book	= $app->getUserStateFromRequest($this->context.'.scripture.book', 'book', 0, 'INT');
-		$app->setUserState($this->context.'.scripture.book', $book);
-		$this->setState('scripture.book', $book);
-
-		// Date filter
-		$year	= $app->getUserStateFromRequest($this->context.'.date.year', 'year', 0, 'INT');
-		$app->setUserState($this->context.'.date.year', $year);
-		$this->setState('date.year', $year);
-
-		$month	= $app->getUserStateFromRequest($this->context.'.date.month', 'month', 0, 'INT');
-		$app->setUserState($this->context.'.date.month', $month);
-		$this->setState('date.month', $month);
-
 		$this->setState('filter.state',	1);
 
 		$this->setState('filter.language', $app->getLanguageFilter());
@@ -243,6 +229,16 @@ class SermonspeakerModelSermons extends JModelList
 		} else {
 			$search = $app->getUserStateFromRequest($this->context.'.filter.search', 'filter-search', '', 'STRING');
 			$this->setState('filter.search', $search);
+
+			// Scripture filter
+			$book	= $app->getUserStateFromRequest($this->context.'.scripture.book', 'book', 0, 'INT');
+			$this->setState('scripture.book', $book);
+
+			// Date filter
+			$year	= $app->getUserStateFromRequest($this->context.'.date.year', 'year', 0, 'INT');
+			$this->setState('date.year', $year);
+			$month	= $app->getUserStateFromRequest($this->context.'.date.month', 'month', 0, 'INT');
+			$this->setState('date.month', $month);
 
 			$order	= $params->get('default_order', 'ordering');
 			$dir	= $params->get('default_order_dir', 'ASC');
