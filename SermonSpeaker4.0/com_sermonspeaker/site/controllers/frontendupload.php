@@ -198,7 +198,7 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 	 * @return	void
 	 * @since	1.6
 	 */
-	protected function postSaveHook(JModel &$model, $validData = array())
+	protected function postSaveHook(&$model, $validData = array())
 	{
 		$task = $this->getTask();
 
