@@ -11,6 +11,14 @@ class Com_SermonspeakerInstallerScript
 	 */
 	function preflight($type, $parent)
 	{
+		$min_version = $parent->getParent()->manifest->getAttribute('version');
+		$jversion = new JVersion();
+		if (!$jversion->isCompatible($min_version))
+		{
+			JError::raiseWarning(1, JText::sprintf('COM_SERMONSPEAKER_VERSION_UNSUPPORTED', $min_version));
+			return false;
+		}
+
 		// Storing old release number ot process in postflight
 		if ($type == 'update')
 		{
@@ -96,7 +104,7 @@ class Com_SermonspeakerInstallerScript
 		// Adding Category "uncategorized" if installing or upgrading from older installations.
 		if ($type == 'update')
 		{
-			if (version_compare( $this->oldRelease, '4.4.4', '<'))
+			if (version_compare($this->oldRelease, '4.4.4', '<'))
 			{
 				$id = $this->_addCategory();
 				$db = JFactory::getDBO();
