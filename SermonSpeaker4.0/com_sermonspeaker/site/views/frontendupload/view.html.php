@@ -38,12 +38,26 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 		// Create a shortcut to the parameters.
 		$params	= &$this->state->params;
 
-		if (empty($this->item->id)) {
-			$authorised = ($params->get('fu_enable') && $user->authorise('core.create', 'com_sermonspeaker'));
-		} else {
-			$authorised = ($params->get('fu_enable') && $user->authorise('core.edit', 'com_sermonspeaker'));
+		if (!$params->get('fu_enable', 0))
+		{
+			JError::raiseError(403, JText::_('JERROR_ALERTNOAUTHOR'));
+			return false;
+		}
+		if ($user->guest)
+		{
+			$redirectUrl = urlencode(base64_encode(JFactory::getURI()->toString())); 
+			$app->redirect(JRoute::_('index.php?option=com_users&view=login&return='.$redirectUrl), JText::_('JGLOBAL_YOU_MUST_LOGIN_FIRST'), 'error');
+			return false;
 		}
 
+		if (empty($this->item->id))
+		{
+			$authorised = ($user->authorise('core.create', 'com_sermonspeaker'));
+		}
+		else
+		{
+			$authorised = ($user->authorise('core.edit', 'com_sermonspeaker'));
+		}
 		if ($authorised !== true) {
 			JError::raiseError(403, JText::_('JERROR_ALERTNOAUTHOR'));
 			return false;
