@@ -11,7 +11,8 @@ class Com_SermonspeakerInstallerScript
 	 */
 	function preflight($type, $parent)
 	{
-		$min_version = $parent->getParent()->manifest->getAttribute('version');
+		$min_version = (string)$parent->get('manifest')->attributes()->version;
+
 		$jversion = new JVersion();
 		if (!$jversion->isCompatible($min_version))
 		{
