@@ -26,6 +26,12 @@ $session	= JFactory::getSession();
 					<span><?php echo JText::_('COM_SERMONSPEAKER_TOOLS_TIME'); ?></span>
 				</a>
 			</div>
+			<div class="icon">
+				<a href="index.php?option=com_sermonspeaker&task=tools.createAutomatic&<?php echo $session->getName().'='.$session->getId().'&'.JSession::getFormToken(); ?>=1">
+					<img border="0" align="middle" alt="<?php echo JText::_('COM_SERMONSPEAKER_TOOLS_AUTOMATIC'); ?>" src="<?php echo JURI::base()."components/com_sermonspeaker/images/run.png"; ?>"/>
+					<span><?php echo JText::_('COM_SERMONSPEAKER_TOOLS_AUTOMATIC'); ?></span>
+				</a>
+			</div>
 			<?php if($this->pi): ?>
 				<div class="icon">
 					<a href="index.php?option=com_sermonspeaker&task=tools.piimport&<?php echo $session->getName().'='.$session->getId().'&'.JSession::getFormToken(); ?>=1">

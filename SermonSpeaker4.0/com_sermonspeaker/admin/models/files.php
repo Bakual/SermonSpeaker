@@ -3,7 +3,35 @@ defined('_JEXEC') or die;
 
 class SermonspeakerModelFiles extends JModelLegacy
 {
-	public function getFiles()
+	public function getItems()
+	{
+		$audio_ext	= array('aac', 'm4a', 'mp3');
+		$video_ext	= array('mp4', 'mov', 'f4v', 'flv', '3gp', '3g2', 'wmv');
+		$start		= strlen(JPATH_SITE)+1;
+
+		$files		= $this->getFiles();
+		$sermons	= $this->getSermons();
+
+		$items = array();
+		foreach ($files as $key => $value)
+		{
+			$value = substr($value, $start);
+			if (in_array($value, $sermons))
+			{
+				unset($files[$key]);
+				continue;
+			}
+			$ext = JFile::getExt($value);
+			$items[$key]['file'] = '/'.$value;
+			if(in_array($ext, $audio_ext)){$items[$key]['type'] = 'audio';}
+			elseif(in_array($ext, $video_ext)){$items[$key]['type'] = 'video';}
+			else{$items[$key]['type'] = $ext;}
+		}
+
+		return $items;
+	}
+
+	private function getFiles()
 	{
 		// Initialise variables.
 		$app = JFactory::getApplication();
@@ -37,7 +65,7 @@ class SermonspeakerModelFiles extends JModelLegacy
 		return $files;
 	}
 
-	public function getSermons()
+	private function getSermons()
 	{
 		// Initialize variables.
 		$options = array();
@@ -60,5 +88,31 @@ class SermonspeakerModelFiles extends JModelLegacy
 		}
 
 		return $sermons;
+	}
+
+	public function getCategory()
+	{
+		$db = JFactory::getDbo();
+		$query = $db->getQuery(true);
+
+		$query->select('a.id, a.title');
+		$query->from('#__categories AS a');
+		$query->where('a.parent_id > 0');
+		$query->where('extension = "com_sermonspeaker"');
+		$query->where('a.published = 1');
+		$query->order('a.lft');
+
+		$db->setQuery($query);
+		$items = $db->loadObjectList();
+
+		foreach($items as $item)
+		{
+			if ($item->title == 'Uncategorized')
+			{
+				return $item->id;
+			}
+		}
+
+		return $items[0]->id;
 	}
 }

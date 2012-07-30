@@ -390,4 +390,53 @@ class SermonspeakerControllerTools extends JControllerLegacy
 		$app->redirect('index.php?option=com_sermonspeaker&view=tools');
 		return;
 	}
+
+	public function createAutomatic()
+	{
+		// Check for request forgeries
+		JRequest::checkToken('request') or jexit(JText::_('JINVALID_TOKEN'));
+
+		$app	= JFactory::getApplication();
+		$file_model	= $this->getModel('Files');
+		$files		= $file_model->getItems();
+		$catid		= $file_model->getCategory();
+
+		$params	= JComponentHelper::getParams('com_sermonspeaker');
+		require_once JPATH_COMPONENT_SITE.'/helpers/id3.php';
+		$i = 0;
+		foreach ($files as $file)
+		{
+			$id3 = SermonspeakerHelperId3::getID3($file['file'], $params);
+			$sermon_model = $this->getModel('Sermon');
+			$sermon	= $sermon_model->getItem();
+			$sermon->setProperties($id3);
+			if ($file['type'] == 'audio')
+			{
+				$sermon->audiofile = $file['file'];
+			}
+			elseif ($file['type'] == 'video')
+			{
+				$sermon->videofile = $file['file'];
+			}
+			else
+			{
+				continue;
+			}
+			$sermon->state		= 1;
+			$sermon->podcast	= 1;
+			$sermon->catid		= $catid;
+			if (!$sermon_model->save($sermon->getProperties()))
+			{
+				$app->enqueueMessage(JText::sprintf('COM_SERMONSPEAKER_TOOLS_AUTOMATIC_FAILED', $file['file'], $sermon_model->getError()), 'error');
+			}
+			else
+			{
+				$i++;
+			}
+		}
+
+		$app->enqueueMessage(JText::sprintf('COM_SERMONSPEAKER_TOOLS_AUTOMATIC_CREATED', $i));
+		$app->redirect('index.php?option=com_sermonspeaker&view=tools');
+		return;
+	}
 }
