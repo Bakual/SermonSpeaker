@@ -5,7 +5,7 @@ class SermonspeakerModelFiles extends JModelLegacy
 {
 	public function getItems()
 	{
-		$audio_ext	= array('aac', 'm4a', 'mp3');
+		$audio_ext	= array('aac', 'm4a', 'mp3', 'wma');
 		$video_ext	= array('mp4', 'mov', 'f4v', 'flv', '3gp', '3g2', 'wmv');
 		$start		= strlen(JPATH_SITE)+1;
 
@@ -44,10 +44,10 @@ class SermonspeakerModelFiles extends JModelLegacy
 
 		switch ($type){
 			case 'audio':
-				$filters = array('.aac', '.m4a', '.mp3');
+				$filters = array('.aac', '.m4a', '.mp3', '.wma');
 				break;
 			case 'video':
-				$filters = array('.mp4', '.mov', '.f4v', '.flv', '.3gp', '.3g2');
+				$filters = array('.mp4', '.mov', '.f4v', '.flv', '.3gp', '.3g2', '.wmv');
 				break;
 			default:
 				$filters = array('');

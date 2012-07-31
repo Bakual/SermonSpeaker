@@ -425,6 +425,9 @@ class SermonspeakerControllerTools extends JControllerLegacy
 			$sermon->state		= 1;
 			$sermon->podcast	= 1;
 			$sermon->catid		= $catid;
+			$file_timestamp		= filemtime(JPATH_SITE.$file['file']);
+			$sermon->sermon_date = date('Y-m-d H:i:s', $file_timestamp);
+
 			if (!$sermon_model->save($sermon->getProperties()))
 			{
 				$app->enqueueMessage(JText::sprintf('COM_SERMONSPEAKER_TOOLS_AUTOMATIC_FAILED', $file['file'], $sermon_model->getError()), 'error');
