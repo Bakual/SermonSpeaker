@@ -3,6 +3,7 @@ defined('_JEXEC') or die;
 JHTML::_('behavior.tooltip');
 JHTML::_('behavior.modal');
 $session	= JFactory::getSession();
+$user	= JFactory::getUser();
 ?>
 <h1>Tools</h1>
 <table class="adminform">
@@ -26,8 +27,16 @@ $session	= JFactory::getSession();
 					<span><?php echo JText::_('COM_SERMONSPEAKER_TOOLS_TIME'); ?></span>
 				</a>
 			</div>
-			<div class="icon">
-				<a href="index.php?option=com_sermonspeaker&task=tools.createAutomatic&<?php echo $session->getName().'='.$session->getId().'&'.JSession::getFormToken(); ?>=1">
+			<?php // Check Access
+				if (!$user->authorise('com_sermonspeaker.script', 'com_sermonspeaker')):
+					$link = 'href="#" onclick="alert(\''.JText::_('JERROR_ALERTNOAUTHOR').'\')"';
+					$class = ' inactive';
+				else:
+					$link = 'href="index.php?option=com_sermonspeaker&task=tools.createAutomatic"';
+					$class = '';
+				endif; ?>
+			<div class="icon <?php echo $class; ?>">
+				<a <?php echo $link; ?>>
 					<img border="0" align="middle" alt="<?php echo JText::_('COM_SERMONSPEAKER_TOOLS_AUTOMATIC'); ?>" src="<?php echo JURI::base()."components/com_sermonspeaker/images/run.png"; ?>"/>
 					<span><?php echo JText::_('COM_SERMONSPEAKER_TOOLS_AUTOMATIC'); ?></span>
 				</a>

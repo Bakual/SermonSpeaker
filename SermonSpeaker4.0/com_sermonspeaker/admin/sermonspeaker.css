@@ -160,3 +160,7 @@ select#batch-speaker-id, select#batch-serie-id{
 .ss-hide{
 	display:none;
 }
+
+.icon.inactive a{
+	background-color:#F4F4F4 !important;
+}

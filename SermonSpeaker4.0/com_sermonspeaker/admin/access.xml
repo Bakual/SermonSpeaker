@@ -9,6 +9,7 @@
 		<action name="core.edit.state" title="JACTION_EDITSTATE" description="JACTION_EDITSTATE_COMPONENT_DESC" />
 		<action name="core.edit.own" title="JACTION_EDITOWN" description="JACTION_EDITOWN_COMPONENT_DESC" />
 		<action name="com_sermonspeaker.hit" title="COM_SERMONSPEAKER_ACTION_HIT" description="COM_SERMONSPEAKER_ACTION_HIT_DESC" />
+		<action name="com_sermonspeaker.script" title="COM_SERMONSPEAKER_ACTION_SCRIPT_LABEL" description="COM_SERMONSPEAKER_ACTION_SCRIPT_DESC" />
         </section>
 		<section name="category">
 			<action name="core.create" title="JACTION_CREATE" description="COM_CATEGORY_ACCESS_CREATE_DESC" />

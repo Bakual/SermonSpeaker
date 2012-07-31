@@ -393,10 +393,28 @@ class SermonspeakerControllerTools extends JControllerLegacy
 
 	public function createAutomatic()
 	{
-		// Check for request forgeries
-		JRequest::checkToken('request') or jexit(JText::_('JINVALID_TOKEN'));
-
 		$app	= JFactory::getApplication();
+
+		// Get the log in credentials.
+		$credentials = array();
+		$credentials['username'] = JRequest::getVar('username', '', 'get', 'username');
+		$credentials['password'] = JRequest::getString('password', '', 'get', JREQUEST_ALLOWRAW);
+
+		// Perform the log in.
+		if ($credentials['username'] && $credentials['password']){
+			$app->login($credentials);
+		}
+		$user		= JFactory::getUser();
+
+		if (!$user->authorise('core.create', 'com_sermonspeaker') || !$user->authorise('com_sermonspeaker.script', 'com_sermonspeaker'))
+		{
+			if ($credentials['username'] && $credentials['password']){
+				$app->logout($user->id);
+			}
+			JError::raiseError(403, JText::_('JERROR_ALERTNOAUTHOR'));
+			return false;
+		}
+
 		$file_model	= $this->getModel('Files');
 		$files		= $file_model->getItems();
 		$catid		= $file_model->getCategory();
