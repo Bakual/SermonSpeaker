@@ -421,6 +421,8 @@ class SermonspeakerControllerTools extends JControllerLegacy
 
 		$params	= JComponentHelper::getParams('com_sermonspeaker');
 		require_once JPATH_COMPONENT_SITE.'/helpers/id3.php';
+		// manually loading sermon model so the correct instance will be used from frontend.
+		require_once JPATH_COMPONENT_ADMINISTRATOR.'/models/sermon.php';
 		$i = 0;
 		foreach ($files as $file)
 		{
@@ -457,7 +459,7 @@ class SermonspeakerControllerTools extends JControllerLegacy
 		}
 
 		$app->enqueueMessage(JText::sprintf('COM_SERMONSPEAKER_TOOLS_AUTOMATIC_CREATED', $i));
-		$app->redirect('index.php?option=com_sermonspeaker&view=tools');
+		$this->setRedirect('index.php?option=com_sermonspeaker&view=tools');
 		return;
 	}
 }

@@ -164,3 +164,7 @@ select#batch-speaker-id, select#batch-serie-id{
 .icon.inactive a{
 	background-color:#F4F4F4 !important;
 }
+
+.tip-wrap{
+    z-index: 15;
+}
