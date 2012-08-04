@@ -155,40 +155,77 @@ class SermonspeakerViewSerie extends JViewLegacy
 	protected function _prepareDocument()
 	{
 		$app	= JFactory::getApplication();
-		// Set Page Header if not already set in the menu entry
 		$menus	= $app->getMenu();
-		$menu 	= $menus->getActive();
-		if ($menu){
-			$this->params->def('page_heading', $menu->title);
-		} else {
+		$pathway = $app->getPathway();
+
+		// Because the application sets a default page title,
+		// we need to get it from the menu item itself
+		$menu = $menus->getActive();
+		if ($menu)
+		{
+			$this->params->def('page_heading', $this->params->get('page_title', $menu->title));
+		}
+		else
+		{
 			$this->params->def('page_heading', JText::_('COM_SERMONSPEAKER_SERIE_TITLE'));
 		}
-		// Set Pagetitle
-		if ($this->item->series_title && (!$menu || $menu->query['option'] != 'com_sermonspeaker' || $menu->query['view'] != 'serie' || $menu->query['id'] != $this->item->id)){
-			$title = $this->item->series_title;
-		} else {
-			$title = $this->params->get('page_title', '');
+
+		$title = $this->params->get('page_title', '');
+
+		// if the menu item does not concern this article
+		if ($menu && ($menu->query['option'] != 'com_sermonspeaker' || $menu->query['view'] != 'serie' || $menu->query['id'] != $this->item->id))
+		{
+			if($this->item->series_title)
+			{
+				$title = $this->item->series_title;
+			}
 		}
-		if ($app->getCfg('sitename_pagetitles', 0)) {
+
+		// Check for empty title and add site name if param is set
+		if (empty($title))
+		{
+			$title = $app->getCfg('sitename');
+		}
+		elseif ($app->getCfg('sitename_pagetitles', 0) == 1)
+		{
 			$title = JText::sprintf('JPAGETITLE', $app->getCfg('sitename'), $title);
 		}
+		elseif ($app->getCfg('sitename_pagetitles', 0) == 2)
+		{
+			$title = JText::sprintf('JPAGETITLE', $title, $app->getCfg('sitename'));
+		}
+		if (empty($title))
+		{
+			$title = $this->item->series_title;
+		}
 		$this->document->setTitle($title);
+
 		// add Breadcrumbs
 		$pathway = $app->getPathway();
 		$pathway->addItem($this->item->series_title);
+
 		// Set MetaData
-		if ($this->item->metadesc){
+		if ($this->item->metadesc)
+		{
 			$this->document->setDescription($this->item->metadesc);
-		} elseif ($this->params->get('menu-meta_description')) {
+		}
+		elseif (!$this->item->metadesc && $this->params->get('menu-meta_description'))
+		{
 			$this->document->setDescription($this->params->get('menu-meta_description'));
 		}
-		if ($this->item->metakey){
+
+		if ($this->item->metakey)
+		{
 			$this->document->setMetadata('keywords', $this->item->metakey);
-		} elseif ($this->params->get('menu-meta_keywords')) {
+		}
+		elseif (!$this->item->metakey && $this->params->get('menu-meta_keywords'))
+		{
 			$this->document->setMetadata('keywords', $this->params->get('menu-meta_keywords'));
 		}
-		if ($app->getCfg('MetaTitle')){
-			$this->document->setMetaData('title', $this->item->series_title);
+
+		if ($this->params->get('robots'))
+		{
+			$this->document->setMetadata('robots', $this->params->get('robots'));
 		}
 	}
 }

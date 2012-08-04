@@ -386,33 +386,47 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 	protected function _prepareDocument()
 	{
 		$app	= JFactory::getApplication();
-
-		// Set Page Header if not already set in the menu entry
 		$menus	= $app->getMenu();
-		$menu 	= $menus->getActive();
-		if ($menu){
-			$this->params->def('page_heading', $menu->title);
-		} else {
+
+		// Because the application sets a default page title,
+		// we need to get it from the menu item itself
+		$menu = $menus->getActive();
+		if ($menu)
+		{
+			$this->params->def('page_heading', $this->params->get('page_title', $menu->title));
+		}
+		else
+		{
 			$this->params->def('page_heading', JText::_('COM_SERMONSPEAKER_FU_TITLE'));
 		}
-
-		// Set Pagetitle
-		if (!$menu) {
-			$title = JText::_('COM_SERMONSPEAKER_FU_TITLE');
-		} else {
-			$title = $this->params->get('page_title', '');
+		$title = $this->params->get('page_title', '');
+		if (empty($title))
+		{
+			$title = $app->getCfg('sitename');
 		}
-		if ($app->getCfg('sitename_pagetitles', 0)) {
+		elseif ($app->getCfg('sitename_pagetitles', 0) == 1)
+		{
 			$title = JText::sprintf('JPAGETITLE', $app->getCfg('sitename'), $title);
+		}
+		elseif ($app->getCfg('sitename_pagetitles', 0) == 2)
+		{
+			$title = JText::sprintf('JPAGETITLE', $title, $app->getCfg('sitename'));
 		}
 		$this->document->setTitle($title);
 
-		// Set MetaData from menu entry if available
-		if ($this->params->get('menu-meta_description')){
+		if ($this->params->get('menu-meta_description'))
+		{
 			$this->document->setDescription($this->params->get('menu-meta_description'));
 		}
-		if ($this->params->get('menu-meta_keywords')){
-			$this->document->setMetaData('keywords', $this->params->get('menu-meta_keywords'));
+
+		if ($this->params->get('menu-meta_keywords'))
+		{
+			$this->document->setMetadata('keywords', $this->params->get('menu-meta_keywords'));
+		}
+
+		if ($this->params->get('robots'))
+		{
+			$this->document->setMetadata('robots', $this->params->get('robots'));
 		}
 	}
 }
