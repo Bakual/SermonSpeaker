@@ -123,6 +123,8 @@ class SermonspeakerControllerSermon extends JControllerForm
 
 		$app	= JFactory::getApplication();
 		$db		= JFactory::getDBO();
+
+		// Scriptures
 		$query	= "DELETE FROM #__sermon_scriptures \n"
 				."WHERE sermon_id = ".$recordId
 				;
@@ -139,6 +141,23 @@ class SermonspeakerControllerSermon extends JControllerForm
 			$db->query();
 			$i++;
 		}
+
+		// Tags
+		$query	= "DELETE FROM #__sermon_sermons_tags \n"
+				."WHERE sermon_id = ".$recordId
+				;
+		$db->setQuery($query);
+		$db->query();
+		foreach ($validData['tags'] as $tag){
+			$query	= "INSERT INTO #__sermon_sermons_tags \n"
+					."(`sermon_id`,`tag_id`) \n"
+					."VALUES ('".$recordId."','".(int)$tag."')"
+					;
+			$db->setQuery($query);
+			$db->query();
+		}
+
+		// ID3
 		if($params->get('write_id3', 0)){
 			$app	= JFactory::getApplication();
 			$app->enqueueMessage($this->setMessage(''));

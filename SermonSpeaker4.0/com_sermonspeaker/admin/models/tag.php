@@ -5,11 +5,11 @@ defined('_JEXEC') or die;
 jimport('joomla.application.component.modeladmin');
 
 /**
- * Serie model.
+ * Tag model.
  *
  * @package		Sermonspeaker.Administrator
  */
-class SermonspeakerModelSerie extends JModelAdmin
+class SermonspeakerModelTag extends JModelAdmin
 {
 	/**
 	 * @var		string	The prefix to use with controller messages.
@@ -57,7 +57,7 @@ class SermonspeakerModelSerie extends JModelAdmin
 	 * @return	JTable	A database object
 	 * @since	1.6
 	 */
-	public function getTable($type = 'Serie', $prefix = 'SermonspeakerTable', $config = array())
+	public function getTable($type = 'Tag', $prefix = 'SermonspeakerTable', $config = array())
 	{
 		return JTable::getInstance($type, $prefix, $config);
 	}
@@ -76,13 +76,13 @@ class SermonspeakerModelSerie extends JModelAdmin
 		$app	= JFactory::getApplication();
 
 		// Get the form.
-		$form = $this->loadForm('com_sermonspeaker.serie', 'serie', array('control' => 'jform', 'load_data' => $loadData));
+		$form = $this->loadForm('com_sermonspeaker.tag', 'tag', array('control' => 'jform', 'load_data' => $loadData));
 		if (empty($form)) {
 			return false;
 		}
 
 		// Determine correct permissions to check.
-		if ($this->getState('serie.id')) {
+		if ($this->getState('tag.id')) {
 			// Existing record. Can only edit in selected categories.
 			$form->setFieldAttribute('catid', 'action', 'core.edit');
 		} else {
@@ -114,7 +114,7 @@ class SermonspeakerModelSerie extends JModelAdmin
 	protected function loadFormData()
 	{
 		// Check the session for previously entered form data.
-		$data = JFactory::getApplication()->getUserState('com_sermonspeaker.edit.serie.data', array());
+		$data = JFactory::getApplication()->getUserState('com_sermonspeaker.edit.tag.data', array());
 
 		if (empty($data)) {
 			$data = $this->getItem();
@@ -147,10 +147,10 @@ class SermonspeakerModelSerie extends JModelAdmin
 	{
 		jimport('joomla.filter.output');
 
-		$table->series_title		= htmlspecialchars_decode($table->series_title, ENT_QUOTES);
+		$table->title		= htmlspecialchars_decode($table->title, ENT_QUOTES);
 		$table->alias		= JApplication::stringURLSafe($table->alias);
 		if (empty($table->alias)) {
-			$table->alias = JApplication::stringURLSafe($table->series_title);
+			$table->alias = JApplication::stringURLSafe($table->title);
 			if (empty($table->alias)) {
 				$table->alias = JFactory::getDate()->format("Y-m-d-H-i-s");
 			}
@@ -174,7 +174,7 @@ class SermonspeakerModelSerie extends JModelAdmin
 			// Set ordering to the last item if not set
 			if (empty($table->ordering)) {
 				$db = JFactory::getDbo();
-				$db->setQuery('SELECT MAX(ordering) FROM #__sermon_series');
+				$db->setQuery('SELECT MAX(ordering) FROM #__sermon_tags');
 				$max = $db->loadResult();
 
 				$table->ordering = $max+1;
@@ -196,53 +196,6 @@ class SermonspeakerModelSerie extends JModelAdmin
 		return $condition;
 	}
 
-	/**
-	 * Method to set a default series.
-	 * Copied from template style.
-	 *
-	 * @param	int		The primary key ID for the series.
-	 *
-	 * @return	boolean	True if successful.
-	 * @throws	Exception
-	 */
-	public function setDefault($id = 0)
-	{
-		// Initialise variables.
-		$user	= JFactory::getUser();
-		$db		= $this->getDbo();
-
-		// Access checks.
-		if (!$user->authorise('core.edit.state', 'com_sermonspeaker')) {
-			throw new Exception(JText::_('JLIB_APPLICATION_ERROR_EDITSTATE_NOT_PERMITTED'));
-		}
-
-		// Reset the home fields for the client_id.
-		$db->setQuery(
-			'UPDATE #__sermon_series'.
-			" SET home = '0'".
-			" WHERE home = '1'"
-		);
-
-		if (!$db->query()) {
-			throw new Exception($db->getErrorMsg());
-		}
-
-		// Set the new home style.
-		$db->setQuery(
-			'UPDATE #__sermon_series'.
-			" SET home = '1'".
-			' WHERE id = '.(int) $id
-		);
-
-		if (!$db->query()) {
-			throw new Exception($db->getErrorMsg());
-		}
-
-		// Clean the cache.
-		$this->cleanCache();
-
-		return true;
-	}
 
 	/**
 	 * Batch copy items to a new category or current.
@@ -324,11 +277,10 @@ class SermonspeakerModelSerie extends JModelAdmin
 			}
 
 			// Alter the title & alias
-			// Custom: defining the series_title and set "home" to 0
-			$data = $this->generateNewTitle($categoryId, $table->alias, $table->series_title);
-			$table->series_title = $data['0'];
+			// Custom: defining the title
+			$data = $this->generateNewTitle($categoryId, $table->alias, $table->title);
+			$table->title = $data['0'];
 			$table->alias = $data['1'];
-			$table->home = 0;
 
 			// Reset the ID because we are making a copy
 			$table->id = 0;

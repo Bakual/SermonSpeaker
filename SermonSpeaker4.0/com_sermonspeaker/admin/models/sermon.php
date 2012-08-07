@@ -239,6 +239,17 @@ class SermonspeakerModelSermon extends JModelAdmin
 			$item->scripture = $db->loadAssocList();
 		}
 
+		$item->tags = array();
+		if($item->id){
+			$db		= JFactory::getDBO();
+			$query	= "SELECT tag_id \n"
+					."FROM #__sermon_sermons_tags \n"
+					."WHERE sermon_id = ".$item->id." \n"
+					;
+			$db->setQuery($query);
+			$item->tags = $db->loadResultArray();
+		}
+
 		return $item;
 	}
 

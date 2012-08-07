@@ -52,6 +52,7 @@
 			<menu img="components/com_sermonspeaker/images/series-16.png" view="series">COM_SERMONSPEAKER_MENU_SERIES</menu>
 			<menu img="components/com_sermonspeaker/images/speakers-16.png" view="speakers">COM_SERMONSPEAKER_MENU_SPEAKERS</menu>
 			<menu img="components/com_sermonspeaker/images/sermon-16.png" view="sermons">COM_SERMONSPEAKER_MENU_SERMONS</menu>
+			<menu img="components/com_sermonspeaker/images/tags-16.png" view="tags">COM_SERMONSPEAKER_MENU_TAGS</menu>
 			<menu img="class:category" link="option=com_categories&amp;extension=com_sermonspeaker">COM_SERMONSPEAKER_MENU_CATEGORY</menu>
 			<menu img="components/com_sermonspeaker/images/tools-16.png" view="tools">COM_SERMONSPEAKER_MENU_TOOLS</menu>
 			<menu img="components/com_sermonspeaker/images/stats-16.png" link="option=com_sermonspeaker&amp;view=statistics&amp;format=raw">COM_SERMONSPEAKER_MENU_STATISTICS</menu>
@@ -80,6 +81,7 @@
 		<table>#__sermon_speakers</table>
 		<table>#__sermon_series</table>
 		<table>#__sermon_scriptures</table>
+		<table>#__sermon_tags</table>
 	</tables>
 	<updateservers>
 		<server type="extension" priority="1" name="SermonSpeaker.net">http://www.sermonspeaker.net/update/com_sermonspeaker.xml</server>

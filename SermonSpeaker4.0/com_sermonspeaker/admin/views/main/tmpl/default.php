@@ -24,6 +24,12 @@ JHTML::_('behavior.tooltip');
 				</a>
 			</div>
 			<div class="icon">
+				<a href="index.php?option=com_sermonspeaker&view=tags">
+					<img border="0" align="middle" alt="<?php echo JText::_('COM_SERMONSPEAKER_MAIN_TAGS'); ?>" src="<?php echo JURI::base()."components/com_sermonspeaker/images/tags.png"; ?>"/>
+					<span><?php echo JText::_('COM_SERMONSPEAKER_MAIN_TAGS'); ?></span>
+				</a>
+			</div>
+			<div class="icon">
 				<a href="index.php?option=com_categories&extension=com_sermonspeaker">
 					<img border="0" align="middle" alt="<?php echo JText::_('JCATEGORIES'); ?>" src="<?php echo JURI::base()."components/com_sermonspeaker/images/category.png"; ?>"/>
 					<span><?php echo JText::_('JCATEGORIES'); ?></span>

@@ -212,7 +212,7 @@ class SermonspeakerModelSpeaker extends JModelAdmin
 		$db		= $this->getDbo();
 
 		// Access checks.
-		if (!$user->authorise('core.edit.state', 'com_templates')) {
+		if (!$user->authorise('core.edit.state', 'com_sermonspeaker')) {
 			throw new Exception(JText::_('JLIB_APPLICATION_ERROR_EDITSTATE_NOT_PERMITTED'));
 		}
 

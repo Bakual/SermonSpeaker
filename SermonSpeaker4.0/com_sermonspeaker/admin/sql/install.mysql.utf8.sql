@@ -2,6 +2,8 @@ DROP TABLE IF EXISTS `#__sermon_speakers`;
 DROP TABLE IF EXISTS `#__sermon_series`;
 DROP TABLE IF EXISTS `#__sermon_sermons`;
 DROP TABLE IF EXISTS `#__sermon_scriptures`;
+DROP TABLE IF EXISTS `#__sermon_tags`;
+DROP TABLE IF EXISTS `#__sermon_sermons_tags`;
  
 CREATE TABLE `#__sermon_speakers` (
 	`id` INT(10) NOT NULL AUTO_INCREMENT,
@@ -88,6 +90,29 @@ CREATE TABLE `#__sermon_scriptures` (
 	`text` MEDIUMTEXT NOT NULL DEFAULT '',
 	`ordering` INT(11) NOT NULL DEFAULT '0',
 	`sermon_id` INT(10) NOT NULL DEFAULT '0'
+) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `#__sermon_tags` (
+	`id` INT(10) NOT NULL AUTO_INCREMENT,
+	`title` VARCHAR(255) NOT NULL,
+	`alias` VARCHAR(255) NOT NULL,
+	`description` MEDIUMTEXT NOT NULL,
+	`state` TINYINT(3) NOT NULL DEFAULT '0',
+	`ordering` INT(11) NOT NULL DEFAULT '0',
+	`created_by` INT(10) NOT NULL DEFAULT '0',
+	`created` DATETIME NULL DEFAULT '0000-00-00 00:00:00',
+	`catid` INT(10) NOT NULL DEFAULT '0',
+	`checked_out` INT(11) NOT NULL DEFAULT '0',
+	`checked_out_time` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
+	`language` CHAR(7) NOT NULL DEFAULT '*',
+	PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `#__sermon_sermons_tags` (
+	`id` INT(10) NOT NULL AUTO_INCREMENT,
+	`sermon_id` INT(10) NOT NULL,
+	`tag_id` INT(10) NOT NULL,
+	PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
 
 INSERT INTO `#__sermon_speakers`
