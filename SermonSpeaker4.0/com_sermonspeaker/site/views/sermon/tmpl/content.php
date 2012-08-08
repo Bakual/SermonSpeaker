@@ -97,7 +97,10 @@ endif; ?>
 </dl>
 <div class="ss-sermondetail-container" style="clear:left">
 	<?php if ($picture = SermonspeakerHelperSermonspeaker::insertPicture($this->item)) : ?>
-		<img src="<?php echo $picture; ?>" alt="" />
+		<div class="ss-pic">
+			<img class="ss-pic" src="<?php echo $picture; ?>" alt="" />
+		</div>
+		<br style="clear:left" />
 	<?php endif; ?>
 	<?php if (in_array('sermon:player', $this->columns)) : ?>
 		<div class="ss-sermon-player">
