@@ -226,20 +226,41 @@ class SermonspeakerHelperSermonspeaker
 		return $return;
 	}
 
-	static function insertSearchTags($metakey)
+	static function insertSearchTags($item, $separator = ', ')
 	{
-		// Code from Douglas Machado
-		$links = array();
-		$keywords = explode(',', $metakey);
-		foreach ($keywords as $keyword)
+		// Based on code from Douglas Machado
+		if (!self::$params)
 		{
-			$keyword = trim($keyword);
-			if ($keyword)
+			self::getParams();
+		}
+
+		$enable_keywords = self::$params->get('enable_keywords', 0);
+		$tags = array();
+		if($enable_keywords&1)
+		{
+			$metakey = (is_object($item)) ? $item->metakey : $item;
+			$keywords = explode(',', $metakey);
+			foreach($keywords as $keyword)
 			{
-				$links[] = '<a href="'.JRoute::_('index.php?option=com_search&ordering=newest&searchphrase=all&searchword='.$keyword).'" >'.$keyword.'</a>';
+				$tags[] = trim($keyword);
 			}
 		}
-		return implode(', ', $links);
+		if ($enable_keywords > 1 && is_object($item))
+		{
+			$tags = array_merge($tags, $item->tags);
+		}
+		$tags = array_unique($tags);
+		natcasesort($tags);
+
+		$links = array();
+		foreach ($tags as $tag)
+		{
+			if ($tag)
+			{
+				$links[] ='<a href="'.JRoute::_('index.php?option=com_search&ordering=newest&searchphrase=all&searchword='.$tag).'" >'.$tag.'</a>';
+			}
+		}
+		return implode($separator, $links);
 	}
 
 	static function insertPicture($item, $makeLink = 0)

@@ -153,11 +153,42 @@ class SermonspeakerModelSermon extends JModelItem
 	 */
 	public function hit($id = null)
 	{
-		if (empty($id)) {
+		if (empty($id))
+		{
 			$id = $this->getState('sermon.id');
 		}
 
 		$sermon = $this->getTable('Sermon', 'SermonspeakerTable');
 		return $sermon->hit($id);
+	}
+
+	/**
+	 * Method to get the tags for the sermon
+	 *
+	 * @param	int		Optional ID of the sermon.
+	 * @return	boolean	True on success
+	 * @since	1.5
+	 */
+	public function getTags($id = null)
+	{
+		if (empty($id))
+		{
+			$id = $this->getState('sermon.id');
+		}
+
+		$db = $this->getDbo();
+		$query = $db->getQuery(true);
+
+		$query->select('tags.title');
+		$query->from('#__sermon_sermons_tags AS st');
+		$query->join('LEFT', '#__sermon_tags AS tags ON st.tag_id = tags.id');
+		$query->where('st.sermon_id = '.$id);
+		$query->where('tags.state = 1');
+		$query->order('tags.title ASC');
+
+		$db->setQuery($query);
+
+		$tags = $db->loadResultArray();
+		return $tags;
 	}
 }

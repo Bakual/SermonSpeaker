@@ -13,12 +13,11 @@ class SermonspeakerViewSermon extends JViewLegacy
 {
 	protected $state;
 	protected $item;
-	public function __construct($config = array()){
-		parent::__construct($config);
-	}
+
 	function display($tpl = null)
 	{
-		if (!JRequest::getInt('id', 0)){
+		if (!JRequest::getInt('id', 0))
+		{
 			JError::raiseWarning(404, JText::_('JGLOBAL_RESOURCE_NOT_FOUND'));
 			return;
 		}
@@ -28,58 +27,74 @@ class SermonspeakerViewSermon extends JViewLegacy
 		// Initialise variables.
 		$app		= JFactory::getApplication();
 		$params		= $app->getParams();
-		$user		= JFactory::getUser();
-		$groups		= $user->getAuthorisedViewLevels();
+		$this->user	= JFactory::getUser();
+		$groups		= $this->user->getAuthorisedViewLevels();
 		// check if access is not public
-		if (!in_array($params->get('access'), $groups)) {
+		if (!in_array($params->get('access'), $groups))
+		{
 			$app->redirect(JRoute::_('index.php?view=sermons'), JText::_('JERROR_ALERTNOAUTHOR'), 'error');
 		}
-		$columns = $params->get('col');
-		if (!$columns){
-			$columns = array();
+		$this->columns = $params->get('col');
+		if (!$this->columns)
+		{
+			$this->columns = array();
 		}
 		// Get model data (/models/sermon.php) 
-		$state 	= $this->get('State');
-		$item 	= $this->get('Item');
-		if(!$item){
+		$this->state	= $this->get('State');
+		$item	= $this->get('Item');
+		if(!$item)
+		{
 			$app->redirect(JRoute::_('index.php?view=sermons'), JText::_('JGLOBAL_RESOURCE_NOT_FOUND'), 'error');
 		}
+		// Get Tags
+		$item->tags	= $this->get('tags');
+
 		// Check for category ACL
-		if ($item->category_access){
-			if (!in_array($item->category_access, $groups)) {
+		if ($item->category_access)
+		{
+			if (!in_array($item->category_access, $groups))
+			{
 				$app->redirect(JRoute::_('index.php?view=sermons'), JText::_('JERROR_ALERTNOAUTHOR'), 'error');
 			}
 		}
-		if ($item->speaker_category_access){
-			if (!in_array($item->speaker_category_access, $groups)) {
+		if ($item->speaker_category_access)
+		{
+			if (!in_array($item->speaker_category_access, $groups))
+			{
 				$app->redirect(JRoute::_('index.php?view=sermons'), JText::_('JERROR_ALERTNOAUTHOR'), 'error');
 			}
 		}
-		if ($item->series_category_access){
-			if (!in_array($item->series_category_access, $groups)) {
+		if ($item->series_category_access)
+		{
+			if (!in_array($item->series_category_access, $groups))
+			{
 				$app->redirect(JRoute::_('index.php?view=sermons'), JText::_('JERROR_ALERTNOAUTHOR'), 'error');
 			}
 		}
+
 		// Check for errors.
-		if (count($errors = $this->get('Errors'))) {
+		if (count($errors = $this->get('Errors')))
+		{
 			JError::raiseWarning(500, implode("\n", $errors));
 			return false;
 		}
+
 		// Set layout from parameters if not already set elsewhere
-		if ($this->getLayout() == 'default') {
+		if ($this->getLayout() == 'default')
+		{
 			$this->setLayout($params->get('sermonlayout', 'icon'));
 		}
+
 		// Update Statistic
-		if ($params->get('track_sermon') && !$user->authorise('com_sermonspeaker.hit', 'com_sermonspeaker')) {
-			$model 	= $this->getModel();
+		if ($params->get('track_sermon') && !$this->user->authorise('com_sermonspeaker.hit', 'com_sermonspeaker'))
+		{
+			$model = $this->getModel();
 			$model->hit();
 		}
-		
-		$this->assignRef('params',		$params);
-		$this->assignRef('state', 		$state);
-		$this->assignRef('item', 		$item);
-		$this->assignRef('user', 		$user);
-		$this->assignRef('columns', 	$columns);
+
+		$this->params	= $params;
+		$this->item		= $item;
+
 		$this->_prepareDocument();
 		parent::display($tpl);
 	}
@@ -158,7 +173,12 @@ class SermonspeakerViewSermon extends JViewLegacy
 
 		if ($this->item->metakey)
 		{
-			$this->document->setMetadata('keywords', $this->item->metakey);
+			$keywords = $this->item->metakey;
+			if ($this->item->tags && $this->params->get('tags_to_metakey', 0))
+			{
+				$keywords .= ', '.implode(', ', $this->item->tags);
+			}
+			$this->document->setMetadata('keywords', $keywords);
 		}
 		elseif (!$this->item->metakey && $this->params->get('menu-meta_keywords'))
 		{
@@ -178,7 +198,8 @@ class SermonspeakerViewSermon extends JViewLegacy
 		// Add Metadata for Facebook Open Graph API
 		$fbadmins	= $this->params->get('fbadmins', '');
 		$fbapp_id	= $this->params->get('fbapp_id', '');
-		if ($fbadmins || $fbapp_id){
+		if ($fbadmins || $fbapp_id)
+		{
 			$this->document->addCustomTag('<meta property="og:title" content="'.$this->item->sermon_title.'"/>');
 			$this->document->addCustomTag('<meta property="og:url" content="'.JURI::getInstance()->toString().'"/>');
 			$this->document->addCustomTag('<meta property="og:description" content="'.$this->document->getDescription().'"/>');
@@ -188,29 +209,38 @@ class SermonspeakerViewSermon extends JViewLegacy
 			{
 				$this->document->addCustomTag('<meta property="og:image" content="'.SermonSpeakerHelperSermonSpeaker::makelink($picture).'"/>');
 			}
-			if($this->item->videofile){
-				if((strpos($this->item->videofile, 'http://vimeo.com') === 0) || (strpos($this->item->videofile, 'http://player.vimeo.com') === 0)){
+			if ($this->item->videofile)
+			{
+				if ((strpos($this->item->videofile, 'http://vimeo.com') === 0) || (strpos($this->item->videofile, 'http://player.vimeo.com') === 0))
+				{
 					$id			= trim(strrchr($this->item->videofile, '/'), '/ ');
 					$file	= 'http://vimeo.com/moogaloop.swf?clip_id='.$id.'&amp;server=vimeo.com&amp;show_title=0&amp;show_byline=0&amp;show_portrait=0&amp;color=00adef&amp;fullscreen=1&amp;autoplay=0&amp;loop=0';
 					$this->document->addCustomTag('<meta property="og:video" content="'.$file.'"/>');
-				} else {
+				}
+				else
+				{
 					$this->document->addCustomTag('<meta property="og:video" content="'.SermonSpeakerHelperSermonSpeaker::makelink($this->item->videofile).'"/>');
 				}
 			}
-			if($this->item->audiofile){
+			if ($this->item->audiofile)
+			{
 				$this->document->addCustomTag('<meta property="og:audio" content="'.SermonSpeakerHelperSermonSpeaker::makelink($this->item->audiofile).'"/>');
 				$this->document->addCustomTag('<meta property="og:audio:title" content="'.$this->item->sermon_title.'"/>');
-				if ($this->item->name){
+				if ($this->item->name)
+				{
 					$this->document->addCustomTag('<meta property="og:audio:artist" content="'.$this->item->name.'"/>');
 				}
-				if ($this->item->series_title){
+				if ($this->item->series_title)
+				{
 					$this->document->addCustomTag('<meta property="og:audio:album" content="'.$this->item->series_title.'"/>');
 				}
 			}
-			if ($fbadmins){
+			if ($fbadmins)
+			{
 				$this->document->addCustomTag('<meta property="fb:admins" content="'.$fbadmins.'"/>');
 			}
-			if ($fbapp_id){
+			if ($fbapp_id)
+			{
 				$this->document->addCustomTag('<meta property="fb:app_id" content="'.$fbapp_id.'"/>');
 			}
 		}

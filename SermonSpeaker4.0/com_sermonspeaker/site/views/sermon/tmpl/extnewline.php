@@ -110,7 +110,7 @@ $player = new SermonspeakerHelperPlayer($this->item);
 </div>
 <?php
 if ($this->params->get('enable_keywords')):
-	$tags = SermonspeakerHelperSermonspeaker::insertSearchTags($this->item->metakey); 
+	$tags = SermonspeakerHelperSermonspeaker::insertSearchTags($this->item); 
 	if ($tags): ?>
 		<div class="tag"><?php echo JText::_('COM_SERMONSPEAKER_TAGS').' '.$tags; ?></div>
 	<?php endif;

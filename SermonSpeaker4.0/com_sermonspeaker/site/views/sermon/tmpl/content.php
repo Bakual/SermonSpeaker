@@ -87,7 +87,7 @@ if (in_array('sermon:addfile', $this->columns) && $this->item->addfile) : ?>
 	</dd>
 <?php endif;	
 if ($this->params->get('enable_keywords')):
-	$tags = SermonspeakerHelperSermonspeaker::insertSearchTags($this->item->metakey); 
+	$tags = SermonspeakerHelperSermonspeaker::insertSearchTags($this->item); 
 	if ($tags): ?>
 		<dd class="tag">
 			<?php echo JText::_('COM_SERMONSPEAKER_TAGS').' '.$tags; ?>
