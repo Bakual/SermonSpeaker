@@ -173,5 +173,10 @@
 			onchange="check(this.value, 10, 1)"
 			class="inputbox" rows="3" cols="30" />
 
+		<field name="tags" type="tagslist"
+			label="COM_SERMONSPEAKER_FIELD_TAGS_LABEL" description="COM_SERMONSPEAKER_FIELD_TAGS_DESC"
+			class="inputbox"
+			multiple="true"
+			size="5" />
 	</fieldset>
 </form>

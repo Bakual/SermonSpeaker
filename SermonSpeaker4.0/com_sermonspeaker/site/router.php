@@ -103,6 +103,9 @@ function SermonspeakerParseRoute($segments){
 		case 'speakerform':
 			$vars['view'] = 'speakerform';
 			break;
+		case 'tagform':
+			$vars['view'] = 'tagform';
+			break;
 		case 'feed':
 			$vars['view'] = 'feed';
 			$vars['format'] = 'raw';
@@ -130,6 +133,9 @@ function SermonspeakerParseRoute($segments){
 			break;
 		case 'speakerform_edit':
 			$vars['task'] = 'speakerform.edit';
+			break;
+		case 'tagform_edit':
+			$vars['task'] = 'tagform.edit';
 			break;
 		case 'scripture':
 			$vars['view'] = 'scripture';

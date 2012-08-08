@@ -13,9 +13,9 @@ $self = $uri->toString();
 ?>
 <script type="text/javascript">
 	Joomla.submitbutton = function(task) {
-		if (task == 'frontendupload.cancel' || document.formvalidator.isValid(document.id('sermon-form'))) {
+		if (task == 'frontendupload.cancel' || document.formvalidator.isValid(document.id('adminForm'))) {
 			<?php echo $this->form->getField('notes')->save(); ?>
-			Joomla.submitform(task, document.getElementById('sermon-form'));
+			Joomla.submitform(task, document.getElementById('adminForm'));
 		} else {
 			alert('<?php echo $this->escape(JText::_('JGLOBAL_VALIDATION_FORM_FAILED'));?>');
 		}

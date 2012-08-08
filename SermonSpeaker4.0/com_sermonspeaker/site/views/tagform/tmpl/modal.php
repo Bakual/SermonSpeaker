@@ -6,9 +6,8 @@ JHtml::_('behavior.keepalive');
 ?>
 <script type="text/javascript">
 	Joomla.submitbutton = function(task) {
-		if (task == 'speakerform.cancel' || document.formvalidator.isValid(document.id('adminForm'))) {
-			<?php echo $this->form->getField('intro')->save(); ?>
-			<?php echo $this->form->getField('bio')->save(); ?>
+		if (task == 'tagform.cancel' || document.formvalidator.isValid(document.id('adminForm'))) {
+			<?php echo $this->form->getField('description')->save(); ?>
 			Joomla.submitform(task, document.getElementById('adminForm'));
 		} else {
 			alert('<?php echo $this->escape(JText::_('JGLOBAL_VALIDATION_FORM_FAILED'));?>');
@@ -22,12 +21,12 @@ JHtml::_('behavior.keepalive');
 	<?php echo $this->escape($this->params->get('page_heading')); ?>
 </h1>
 <?php endif; ?>
-<form action="<?php echo JRoute::_('index.php?option=com_sermonspeaker&view=speakerform&modal=1&s_id='.(int) $this->item->id); ?>" method="post" name="adminForm" id="adminForm" class="form-validate">
+<form action="<?php echo JRoute::_('index.php?option=com_sermonspeaker&view=tagform&modal=1&s_id='.(int) $this->item->id); ?>" method="post" name="adminForm" id="adminForm" class="form-validate">
 	<fieldset>
 		<legend><?php echo JText::_('JEDITOR'); ?></legend>
 		<div class="formelm">
-			<?php echo $this->form->getLabel('name'); ?>
-			<?php echo $this->form->getInput('name'); ?>
+			<?php echo $this->form->getLabel('title'); ?>
+			<?php echo $this->form->getInput('title'); ?>
 		</div>
 		<div class="formelm">
 			<?php echo $this->form->getLabel('alias'); ?>
@@ -44,7 +43,7 @@ JHtml::_('behavior.keepalive');
 			</div>
 		<?php endif; ?>
 		<div class="formelm-buttons">
-			<button type="button" onclick="Joomla.submitbutton('speakerform.save');">
+			<button type="button" onclick="Joomla.submitbutton('tagform.save');">
 				<?php echo JText::_('JSAVE') ?>
 			</button>
 			<button type="button" onclick="window.parent.SqueezeBox.close();">
@@ -52,33 +51,8 @@ JHtml::_('behavior.keepalive');
 			</button>
 		</div>
 		<div>
-			<?php echo $this->form->getLabel('intro'); ?>
-			<?php echo $this->form->getInput('intro'); ?>
-		</div>
-		<div style="clear:both"><br /></div>
-		<div>
-			<?php echo $this->form->getLabel('bio'); ?>
-			<?php echo $this->form->getInput('bio'); ?>
-		</div>
-	</fieldset>
-	<fieldset>
-		<legend><?php echo JText::_('JDETAILS'); ?></legend>
-		<?php foreach($this->form->getFieldset('detail') as $field): ?>
-			<div class="formelm">
-				<?php echo $field->label; ?>
-				<?php echo $field->input; ?>
-				<?php if ($field->fieldname == 'pic'): ?>
-					<div style="clear:both"></div>
-				<?php endif; ?>
-			</div>
-		<?php endforeach; ?>
-		<div class="formelm-buttons">
-			<button type="button" onclick="Joomla.submitbutton('speakerform.save');">
-				<?php echo JText::_('JSAVE') ?>
-			</button>
-			<button type="button" onclick="window.parent.SqueezeBox.close();">
-				<?php echo JText::_('JCANCEL') ?>
-			</button>
+			<?php echo $this->form->getLabel('description'); ?>
+			<?php echo $this->form->getInput('description'); ?>
 		</div>
 	</fieldset>
 	<fieldset>
@@ -87,15 +61,14 @@ JHtml::_('behavior.keepalive');
 		<?php echo $this->form->getLabel('language'); ?>
 		<?php echo $this->form->getInput('language'); ?>
 		</div>
-	</fieldset>
-	<fieldset>
-		<legend><?php echo JText::_('COM_SERMONSPEAKER_METADATA'); ?></legend>
-		<?php foreach($this->form->getFieldset('metadata') as $field): ?>
-			<div class="formelm">
-				<?php echo $field->label; ?>
-				<?php echo $field->input; ?>
-			</div>
-		<?php endforeach; ?>
+		<div class="formelm-buttons">
+			<button type="button" onclick="Joomla.submitbutton('tagform.save');">
+				<?php echo JText::_('JSAVE') ?>
+			</button>
+			<button type="button" onclick="window.parent.SqueezeBox.close();">
+				<?php echo JText::_('JCANCEL') ?>
+			</button>
+		</div>
 	</fieldset>
 	<input type="hidden" name="return" value="<?php echo $this->return_page;?>" />
 	<input type="hidden" name="task" value="" />

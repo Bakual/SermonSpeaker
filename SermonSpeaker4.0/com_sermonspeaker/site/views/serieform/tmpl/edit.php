@@ -6,9 +6,9 @@ JHtml::_('behavior.keepalive');
 ?>
 <script type="text/javascript">
 	Joomla.submitbutton = function(task) {
-		if (task == 'serieform.cancel' || document.formvalidator.isValid(document.id('serie-form'))) {
+		if (task == 'serieform.cancel' || document.formvalidator.isValid(document.id('adminForm'))) {
 			<?php echo $this->form->getField('series_description')->save(); ?>
-			Joomla.submitform(task, document.getElementById('serie-form'));
+			Joomla.submitform(task, document.getElementById('adminForm'));
 		} else {
 			alert('<?php echo $this->escape(JText::_('JGLOBAL_VALIDATION_FORM_FAILED'));?>');
 		}

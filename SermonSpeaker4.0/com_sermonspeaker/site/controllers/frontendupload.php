@@ -211,6 +211,8 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 
 		$app	= JFactory::getApplication();
 		$db		= JFactory::getDBO();
+
+		// Scriptures
 		$query	= "DELETE FROM #__sermon_scriptures \n"
 				."WHERE sermon_id = ".$recordId
 				;
@@ -227,6 +229,23 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 			$db->query();
 			$i++;
 		}
+
+		// Tags
+		$query	= "DELETE FROM #__sermon_sermons_tags \n"
+				."WHERE sermon_id = ".$recordId
+				;
+		$db->setQuery($query);
+		$db->query();
+		foreach ($validData['tags'] as $tag){
+			$query	= "INSERT INTO #__sermon_sermons_tags \n"
+					."(`sermon_id`,`tag_id`) \n"
+					."VALUES ('".$recordId."','".(int)$tag."')"
+					;
+			$db->setQuery($query);
+			$db->query();
+		}
+
+		// ID3
 		if($params->get('write_id3', 0)){
 			$app	= JFactory::getApplication();
 			$app->enqueueMessage($this->setMessage(''));
@@ -246,11 +265,6 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 	public function save($key = null, $urlVar = 's_id')
 	{
 		$result = parent::save($key, $urlVar);
-
-		// If ok, redirect to the return page.
-		if ($result) {
-			$this->setRedirect($this->getReturnPage());
-		}
 
 		return $result;
 	}
@@ -289,7 +303,7 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 			$getID3->setOption(array('encoding'=>'UTF-8'));
 			require_once(JPATH_COMPONENT_SITE.'/id3/getid3/write.php');
 			$writer		= new getid3_writetags;
-			$writer->tagformats		= array('id3v2.3');
+			$writer->speakerformats		= array('id3v2.3');
 			$writer->overwrite_tags	= true;
 			$writer->tag_encoding	= 'UTF-8';
 			$TagData = array(

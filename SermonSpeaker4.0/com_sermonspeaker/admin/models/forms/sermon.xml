@@ -147,11 +147,6 @@
 			label="COM_SERMONSPEAKER_FIELD_PICTURE_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_PICTURE_DESC" />
 
-		<field name="tags" type="tagslist"
-			label="COM_SERMONSPEAKER_FIELD_TAGS_LABEL" description="COM_SERMONSPEAKER_FIELD_TAGS_DESC"
-			class="inputbox"
-			multiple="true"
-			size="5" />
 	</fieldset>
 
 	<fieldset name="custom" label="COM_SERMONSPEAKER_FIELDSET_CUSTOM_LABEL">
@@ -176,5 +171,10 @@
 			onchange="check(this.value, 10, 1)"
 			class="inputbox" rows="3" cols="30" />
 
+		<field name="tags" type="tagslist"
+			label="COM_SERMONSPEAKER_FIELD_TAGS_LABEL" description="COM_SERMONSPEAKER_FIELD_TAGS_DESC"
+			class="inputbox"
+			multiple="true"
+			size="5" />
 	</fieldset>
 </form>
