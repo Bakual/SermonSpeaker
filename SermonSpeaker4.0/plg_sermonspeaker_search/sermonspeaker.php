@@ -32,29 +32,36 @@ class plgSearchSermonspeaker extends JPlugin
 		parent::__construct($subject, $config);
 		$this->loadLanguage();
 	}
+
 	/**
 	 * @return array An array of search areas
 	 */
-	function onContentSearchAreas() {
+	function onContentSearchAreas()
+	{
 		static $areas = array();
 		$areas['spsermons'] = 'PLG_SEARCH_SERMONSPEAKER_SERMONS';
-		if($this->params->get('search_series', 1)){
+		if($this->params->get('search_series', 1))
+		{
 			$areas['spseries'] = 'PLG_SEARCH_SERMONSPEAKER_SERIES';
 		}
-		if($this->params->get('search_speakers', 1)){
+		if($this->params->get('search_speakers', 1))
+		{
 			$areas['spspeakers'] = 'PLG_SEARCH_SERMONSPEAKER_SPEAKERS';
 		}
-		if($this->params->get('sermons_speaker', 0)){
+		if($this->params->get('sermons_speaker', 0))
+		{
 			$db		= JFactory::getDbo();
 			$query	= "SELECT `id`, `name` FROM #__sermon_speakers WHERE state = '1'";
 			$db->setQuery($query);
 			$speakers	= $db->loadAssocList();
-			foreach ($speakers as $speaker){
+			foreach ($speakers as $speaker)
+			{
 				$areas['spspeakers-'.$speaker['id']] = JText::sprintf('PLG_SEARCH_SERMONSPEAKER_SERMONS_FROM', $speaker['name']);
 			}
 		}
 		return $areas;
 	}
+
 	/**
 	 * SermonSpeaker Search method
 	 *
@@ -72,54 +79,68 @@ class plgSearchSermonspeaker extends JPlugin
 		$user	= JFactory::getUser();
 		$groups	= implode(',', $user->getAuthorisedViewLevels());
 		$books	= array();
-		for ($i = 1; $i <= 73; $i++){
+		for ($i = 1; $i <= 73; $i++)
+		{
 			$book = strtolower(JText::_('COM_SERMONSPEAKER_BOOK_'.$i));
 			$books[$book]	= $i;
 		}
 		$searchText = $text;
-		if (is_array($areas)) {
-			if (!array_intersect($areas, array_keys($this->onContentSearchAreas()))) {
+		if (is_array($areas))
+		{
+			if (!array_intersect($areas, array_keys($this->onContentSearchAreas())))
+			{
 				return array();
 			}
-		} else {
+		}
+		else
+		{
 			$areas = array_keys($this->onContentSearchAreas());
 		}
 		$sContent		= $this->params->get('search_content',		1);
 		$sArchived		= $this->params->get('search_archived',		1);
 		$limit			= $this->params->def('search_limit',		50);
 		$state = array();
-		if ($sContent) {
+		if ($sContent)
+		{
 			$state[]=1;
 		}
-		if ($sArchived) {
+		if ($sArchived)
+		{
 			$state[]=2;
 		}
 		$text = trim($text);
-		if ($text == '') {
+		if ($text == '')
+		{
 			return array();
 		}
 		$speakers = array();
-		if($this->params->get('sermons_speaker', 0)){
-			foreach($areas as $key => $value){
-				if (strpos($value, 'spspeakers-') === 0){
+		if($this->params->get('sermons_speaker', 0))
+		{
+			foreach($areas as $key => $value)
+			{
+				if (strpos($value, 'spspeakers-') === 0)
+				{
 					$speakers[] = (int)substr($value, 11);
 				}
 			}
 		}
 		$rows = array();
-		if(in_array('spsermons', $areas) || $speakers) {
+		if(in_array('spsermons', $areas) || $speakers)
+		{
 			$section	= JText::_('PLG_SEARCH_SERMONSPEAKER_SERMONS');
 			$wheres	= array();
 			switch ($phrase)
 			{
 				case 'exact':
 					$wheres2	= array();
-					if(isset($books[strtolower($text)])){
+					if(isset($books[strtolower($text)]))
+					{
 						$wheres2[]	= "b.book = '".$books[strtolower($text)]."'";
 					}
 					$text		= $db->Quote('%'.$db->escape($text, true).'%', false);
 					$wheres2[]	= 'a.sermon_title LIKE '.$text;
 					$wheres2[]	= 'a.notes LIKE '.$text;
+					$wheres2[]	= 't.title LIKE '.$word;
 					$where		= '(' . implode(') OR (', $wheres2) . ')';
 					break;
 				case 'all':
@@ -130,12 +151,14 @@ class plgSearchSermonspeaker extends JPlugin
 					foreach ($words as $word)
 					{
 						$wheres2	= array();
-						if(isset($books[strtolower($word)])){
+						if(isset($books[strtolower($word)]))
+						{
 							$wheres2[]	= "b.book = '".$books[strtolower($word)]."'";
 						}
 						$word		= $db->Quote('%'.$db->escape($word, true).'%', false);
 						$wheres2[]	= 'a.sermon_title LIKE '.$word;
 						$wheres2[]	= 'a.notes LIKE '.$word;
+						$wheres2[]	= 't.title LIKE '.$word;
 						$wheres[]	= implode(' OR ', $wheres2);
 					}
 					$where	= '(' . implode(($phrase == 'all' ? ') AND (' : ') OR ('), $wheres) . ')';
@@ -160,7 +183,8 @@ class plgSearchSermonspeaker extends JPlugin
 				default:
 					$order = 'a.created DESC';
 			}
-			if (!empty($state)) {
+			if (!empty($state))
+			{
 				$query	= $db->getQuery(true);
 				$query->select('a.sermon_title AS title, a.notes AS text, a.created AS created, '
 							.'CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(\':\', a.id, a.alias) ELSE a.id END as slug, '
@@ -169,17 +193,21 @@ class plgSearchSermonspeaker extends JPlugin
 				$query->from('#__sermon_sermons AS a');
 				$query->leftJoin('#__categories AS c ON c.id = a.catid');
 				$query->leftJoin('#__sermon_scriptures AS b ON b.sermon_id = a.id');
+				$query->leftJoin('#__sermon_sermons_tags AS st ON st.sermon_id = a.id');
+				$query->leftJoin('#__sermon_tags AS t ON st.tag_id = t.id');
 				$query->group('a.id');
 				$query->where('('.$where.')');
 				$query->where('a.state in ('.implode(',', $state).')');
 				
-				if (!in_array('spsermons', $areas)){
+				if (!in_array('spsermons', $areas))
+				{
 					$query->where('a.speaker_id in ('.implode(',', $speakers).')');
 				}
 //				$query->where ('(c.published=1 AND c.access IN ('.$groups.'))');
 				$query->order($order);
 				// Filter by language
-				if ($app->isSite() && $app->getLanguageFilter()) {
+				if ($app->isSite() && $app->getLanguageFilter())
+				{
 					$tag = JFactory::getLanguage()->getTag();
 					$query->where('c.language in (' . $db->Quote($tag) . ',' . $db->Quote('*') . ')');
 				}
@@ -195,7 +223,8 @@ class plgSearchSermonspeaker extends JPlugin
 				$rows = array_merge($list, $rows);
 			}
 		}
-		if(in_array('spseries', $areas)) {
+		if(in_array('spseries', $areas))
+		{
 			$section	= JText::_('PLG_SEARCH_SERMONSPEAKER_SERIES');
 			$wheres	= array();
 			switch ($phrase)
@@ -242,7 +271,8 @@ class plgSearchSermonspeaker extends JPlugin
 				default:
 					$order = 'a.created DESC';
 			}
-			if (!empty($state)) {
+			if (!empty($state))
+			{
 				$query	= $db->getQuery(true);
 				$query->select('a.series_title AS title, a.series_description AS text, a.created AS created, '
 							.'CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(\':\', a.id, a.alias) ELSE a.id END as slug, '
@@ -255,7 +285,8 @@ class plgSearchSermonspeaker extends JPlugin
 //				$query->where ('(c.published=1 AND c.access IN ('.$groups.'))');
 				$query->order($order);
 				// Filter by language
-				if ($app->isSite() && $app->getLanguageFilter()) {
+				if ($app->isSite() && $app->getLanguageFilter())
+				{
 					$tag = JFactory::getLanguage()->getTag();
 					$query->where('c.language in (' . $db->Quote($tag) . ',' . $db->Quote('*') . ')');
 				}
@@ -271,7 +302,8 @@ class plgSearchSermonspeaker extends JPlugin
 				$rows = array_merge($list, $rows);
 			}
 		}
-		if(in_array('spspeakers', $areas)) {
+		if(in_array('spspeakers', $areas))
+		{
 			$section	= JText::_('PLG_SEARCH_SERMONSPEAKER_SPEAKERS');
 			$wheres	= array();
 			switch ($phrase)
@@ -320,7 +352,8 @@ class plgSearchSermonspeaker extends JPlugin
 				default:
 					$order = 'a.created DESC';
 			}
-			if (!empty($state)) {
+			if (!empty($state))
+			{
 				$query	= $db->getQuery(true);
 				$query->select('a.name AS title, CONCAT_WS(" ", a.intro, a.bio) AS text, a.created AS created, '
 							.'CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(\':\', a.id, a.alias) ELSE a.id END as slug, '
@@ -333,7 +366,8 @@ class plgSearchSermonspeaker extends JPlugin
 //				$query->where ('(c.published=1 AND c.access IN ('.$groups.'))');
 				$query->order($order);
 				// Filter by language
-				if ($app->isSite() && $app->getLanguageFilter()) {
+				if ($app->isSite() && $app->getLanguageFilter())
+				{
 					$tag = JFactory::getLanguage()->getTag();
 					$query->where('c.language in (' . $db->Quote($tag) . ',' . $db->Quote('*') . ')');
 				}
