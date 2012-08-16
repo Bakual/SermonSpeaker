@@ -53,18 +53,12 @@
 					<option value="CreatedDateAsc">MOD_RELATED_SERMONS_PARAM_CREATED_DATE_ASCENDING</option>
 					<option value="CreatedDateDes">MOD_RELATED_SERMONS_PARAM_CREATED_DATE_DECENDING</option>
 				</field>
-				<field name="menuitem" type="menuitem" 
-					default=""
-					label="MOD_RELATED_SERMONS_PARAM_MENUITEM" 
-					description="MOD_RELATED_SERMONS_PARAM_MENUITEM_DESC" 
-					state="1"
-				/>
 				<field name="sermon_cat" type="category" 
 					label="MOD_RELATED_SERMONS_PARAM_CATEGORY_SERMON_LABEL" 
 					description="MOD_RELATED_SERMONS_PARAM_CATEGORY_DESC" 
 					extension="com_sermonspeaker" 
 					show_root="true"
-				/>				
+				/>
 			</fieldset>
 			<fieldset name="advanced">
 				<field name="layout" type="modulelayout"
