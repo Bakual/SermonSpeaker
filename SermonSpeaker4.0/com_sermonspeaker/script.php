@@ -107,23 +107,7 @@ class Com_SermonspeakerInstallerScript
 		{
 			if (version_compare($this->oldRelease, '4.4.4', '<'))
 			{
-				$id = $this->_addCategory();
-				$db = JFactory::getDBO();
-				// Updating all sermons without category to have this new one
-				$query	= $db->getQuery(true);
-				$query->update('#__sermon_sermons');
-				$query->set('catid = '.(int)$id);
-				$query->where('catid = 0');
-				$db->setQuery($query);
-				$db->query();
-				// Speakers
-				$query->update('#__sermon_speakers');
-				$db->setQuery($query);
-				$db->query();
-				// Series
-				$query->update('#__sermon_series');
-				$db->setQuery($query);
-				$db->query();
+				$this->_addCategory();
 			}
 		}
 		elseif ($type != 'uninstall')
@@ -196,8 +180,26 @@ class Com_SermonspeakerInstallerScript
 		$catData	= array('id' => 0, 'parent_id' => 0, 'level' => 1, 'path' => 'uncategorized', 'extension' => 'com_sermonspeaker',
 						'title' => 'Uncategorized', 'alias' => 'uncategorized', 'description' => '', 'published' => 1, 'language' => '*');
 		$catmodel->save($catData);
+		$id = $catmodel->getItem()->id;
 
-		return $catmodel->getItem()->id;
+		$db = JFactory::getDBO();
+		// Updating all sermons without category to have this new one
+		$query	= $db->getQuery(true);
+		$query->update('#__sermon_sermons');
+		$query->set('catid = '.(int)$id);
+		$query->where('catid = 0');
+		$db->setQuery($query);
+		$db->query();
+		// Speakers
+		$query->update('#__sermon_speakers');
+		$db->setQuery($query);
+		$db->query();
+		// Series
+		$query->update('#__sermon_series');
+		$db->setQuery($query);
+		$db->query();
+
+		return;
 	}
 
 	/*
