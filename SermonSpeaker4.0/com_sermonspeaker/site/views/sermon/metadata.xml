@@ -18,7 +18,9 @@
 				key_field="id" 
 				value_field="sermon_title" 
 				required="true"
-			/>
+			>
+				<option value="0">COM_SERMONSPEAKER_LATESTSERMON</option>
+			</field>
 		</fieldset>
 	</fields>
 	<fields name="params">

@@ -191,4 +191,26 @@ class SermonspeakerModelSermon extends JModelItem
 		$tags = $db->loadResultArray();
 		return $tags;
 	}
+
+	/**
+	 * Method to get the tags for the sermon
+	 *
+	 * @param	int		Optional ID of the sermon.
+	 * @return	boolean	True on success
+	 * @since	1.5
+	 */
+	public function getLatest()
+	{
+		$db = $this->getDbo();
+		$query = $db->getQuery(true);
+
+		$query->select('id');
+		$query->from('#__sermon_sermons');
+		$query->order('sermon_date DESC');
+
+		$db->setQuery($query, 0, 1);
+
+		$id = $db->loadResult();
+		return $id;
+	}
 }

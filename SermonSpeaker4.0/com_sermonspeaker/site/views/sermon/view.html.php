@@ -18,8 +18,12 @@ class SermonspeakerViewSermon extends JViewLegacy
 	{
 		if (!JRequest::getInt('id', 0))
 		{
-			JError::raiseWarning(404, JText::_('JGLOBAL_RESOURCE_NOT_FOUND'));
-			return;
+			$id = $this->get('Latest');
+			if(!$id){
+				JError::raiseWarning(404, JText::_('JGLOBAL_RESOURCE_NOT_FOUND'));
+				return;
+			}
+			JRequest::setVar('id', $id);
 		}
 		// Applying CSS file
 		JHTML::stylesheet('media/com_sermonspeaker/css/sermonspeaker.css');
