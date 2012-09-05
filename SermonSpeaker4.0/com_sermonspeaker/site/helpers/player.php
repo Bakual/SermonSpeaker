@@ -200,7 +200,7 @@ class SermonspeakerHelperPlayer {
 	private function JWPlayer()
 	{
 		$this->player	= 'JWPlayer';
-		$this->mspace	= '<div id="mediaspace'.$this->config['count'].'">Flashplayer needs Javascript turned on</div>';
+		$this->mspace	= '<div id="mediaspace'.$this->config['count'].'">'.JText::_('COM_SERMONSPEAKER_PLAYER_NEEDS_JAVASCRIPT').'</div>';
 		// Setting some general player options
 		$modes[0]	= "{type:'flash', src:'".JURI::base(true)."/media/com_sermonspeaker/player/jwplayer/player.swf'}";
 		$modes[1]	= "{type:'html5'}";
@@ -701,10 +701,10 @@ class SermonspeakerHelperPlayer {
 	private function PixelOut()
 	{
 		$this->player = 'PixelOut';
-		$this->mspace = '<div id="mediaspace'.$this->config['count'].'"><audio src="'.$this->file.'" controls="controls" preload="auto" ></audio></div>';
 		$start = $this->config['autostart'] ? 'yes' : 'no';
 		if($this->status == 'playlist')
 		{
+			$this->mspace = '<div id="mediaspace'.$this->config['count'].'">'.JText::_('COM_SERMONSPEAKER_PLAYER_NEEDS_FLASH').'</div>';
 			$this->setDimensions(23, '100%');
 			$files		= array();
 			$titles		= array();
@@ -730,6 +730,7 @@ class SermonspeakerHelperPlayer {
 		}
 		else
 		{
+			$this->mspace = '<div id="mediaspace'.$this->config['count'].'"><audio src="'.$this->file.'" controls="controls" preload="auto" >'.JText::_('COM_SERMONSPEAKER_PLAYER_NEEDS_FLASH').'</audio></div>';
 			$this->setDimensions(23, 290);
 			$file	= urlencode($this->file);
 			$title	= ($this->item->sermon_title) ? 'titles: "'.urlencode($this->item->sermon_title).'",' : '';
@@ -770,7 +771,7 @@ class SermonspeakerHelperPlayer {
 		$player	= JURI::root().'media/com_sermonspeaker/player/wmvplayer/wmvplayer.xaml';
 		$start	= $this->config['autostart'] ? 1 : 0;
 		$type	= ($this->status == 'audio') ? 'a' : 'v';
-		$this->mspace	= '<div id="mediaspace'.$this->config['count'].'">Silverlight needs Javascript turned on</div>';
+		$this->mspace	= '<div id="mediaspace'.$this->config['count'].'">'.JText::_('COM_SERMONSPEAKER_PLAYER_NEEDS_JAVASCRIPT').'</div>';
 		$image = SermonspeakerHelperSermonspeaker::insertPicture($this->item);
 		if ($image)
 		{
