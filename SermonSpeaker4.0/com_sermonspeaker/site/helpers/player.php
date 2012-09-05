@@ -701,7 +701,7 @@ class SermonspeakerHelperPlayer {
 	private function PixelOut()
 	{
 		$this->player = 'PixelOut';
-		$this->mspace = '<div id="mediaspace'.$this->config['count'].'">Flashplayer needs Javascript turned on</div>';
+		$this->mspace = '<div id="mediaspace'.$this->config['count'].'"><audio src="'.$this->file.'" controls="controls" preload="auto" ></audio></div>';
 		$start = $this->config['autostart'] ? 'yes' : 'no';
 		if($this->status == 'playlist')
 		{
