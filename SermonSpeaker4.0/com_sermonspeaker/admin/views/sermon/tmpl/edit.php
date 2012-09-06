@@ -15,17 +15,18 @@ $self = $uri->toString();
 ?>
 <script type="text/javascript">
 	Joomla.submitbutton = function(task) {
-		if (task == 'sermon.cancel' || document.formvalidator.isValid(document.id('sermon-form'))) {
+		if (task == 'sermon.cancel' || navigator.appName == 'Microsoft Internet Explorer' || document.formvalidator.isValid(document.id('adminForm'))) {
 			<?php echo $this->form->getField('notes')->save(); ?>
-			Joomla.submitform(task, document.getElementById('sermon-form'));
+			Joomla.submitform(task, document.getElementById('adminForm'));
 		} else {
 			alert('<?php echo $this->escape(JText::_('JGLOBAL_VALIDATION_FORM_FAILED'));?>');
 		}
 	}
+
 </script>
 
 
-<form action="<?php echo JRoute::_('index.php?option=com_sermonspeaker&layout=edit&id='.(int) $this->item->id); ?>" method="post" name="adminForm" id="sermon-form" class="form-validate">
+<form action="<?php echo JRoute::_('index.php?option=com_sermonspeaker&layout=edit&id='.(int) $this->item->id); ?>" method="post" name="adminForm" id="adminForm" class="form-validate">
 	<div class="width-60 fltlft">
 		<fieldset class="adminform">
 			<legend><?php echo empty($this->item->id) ? JText::_('COM_SERMONSPEAKER_NEW_SERMON') : JText::sprintf('COM_SERMONSPEAKER_EDIT_SERMON', $this->item->id); ?></legend>
