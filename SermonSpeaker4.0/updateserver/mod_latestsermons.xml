@@ -5,6 +5,22 @@
 		<description>SermonSpeaker Latest Sermons Module 4.4</description>
 		<element>mod_latestsermons</element>
 		<type>module</type>
+		<version>4.4.3</version>
+		<infourl title="SermonSpeaker Homepage">http://www.sermonspeaker.net</infourl>
+		<downloads>
+			<downloadurl type="full" format="zip">http://www.sermonspeaker.net/files/SermonSpeaker4/Modules/mod_latestsermons443.zip</downloadurl>
+		</downloads>
+		<maintainer>Thomas Hunziker</maintainer>
+		<maintainerurl>http://www.bakual.ch</maintainerurl>
+		<section>SermonSpeaker</section>
+		<targetplatform name="joomla" version="2.5.5" />
+		<client>0</client>
+	</update>
+	<update>
+		<name>SermonSpeaker Latest Sermons</name>
+		<description>SermonSpeaker Latest Sermons Module 4.4</description>
+		<element>mod_latestsermons</element>
+		<type>module</type>
 		<version>4.4.2</version>
 		<infourl title="SermonSpeaker Homepage">http://www.sermonspeaker.net</infourl>
 		<downloads>
