@@ -12,7 +12,7 @@
 		</downloads>
 		<maintainer>Thomas Hunziker</maintainer>
 		<maintainerurl>http://www.bakual.ch</maintainerurl>
-		<targetplatform name="joomla" version="2.5.5" />
+		<targetplatform name="joomla" version="2.5" />
 		<client>0</client>
 	</update>
 	<update>

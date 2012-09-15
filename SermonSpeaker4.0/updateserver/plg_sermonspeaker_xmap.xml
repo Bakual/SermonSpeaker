@@ -13,7 +13,7 @@
 		</downloads>
 		<maintainer>Thomas Hunziker</maintainer>
 		<maintainerurl>http://www.sermonspeaker.net</maintainerurl>
-		<targetplatform name="joomla" version="2.5.5" />
+		<targetplatform name="joomla" version="2.5" />
 		<client>0</client>
 	</update>
 	<update>
