@@ -115,15 +115,33 @@ class Com_SermonspeakerInstallerScript
 			$this->_addCategory();
 		}
 
-		// Setting some default values for columns
+		// Setting some default values for columns on install
 		if ($type == 'install')
 		{
-			$params['col'] = array();
-			$params['col_serie'] = array('series:speaker', 'series:hits', 'serie:description', 'serie:speaker', 'serie:hits', 'serie:download', 'speaker:description', 'speaker:hits', 'seriessermon:speaker', 'seriessermon:hits');
-			$params['col_speaker'] = array();
-		}
+			$params	= array();
+			$params['col']			='"col":['
+					.'"sermons:scripture","sermons:speaker","sermons:date","sermons:series","sermons:player"'
+					.',"sermon:scripture","sermon:speaker","sermon:date","sermon:series","sermon:player","sermon:notes","sermon:addfile"'
+					.',"serie:scripture","serie:speaker","serie:date","serie:player"'
+					.',"speaker:scripture","speaker:date","speaker:series","speaker:player"'
+					.',"seriessermon:scripture","seriessermon:speaker","seriessermon:date"'
+				.']';
+			$params['col_serie']	= '"col_serie":['
+					.'"series:speaker"'
+					.',"serie:description","serie:speaker"'
+					.',"speaker:description"'
+					.',"seriessermon:description","seriessermon:speaker"'
+				.']';
+			$params['col_speaker']	= '"col_speaker":["speakers:bio","speaker:bio","speaker:intro"]';
 
-		$this->setParams($params);
+			$db = JFactory::getDBO();
+			$query = $db->getQuery(true);
+			$query->update($db->quoteName('#__extensions'));
+			$query->set($db->quoteName('params').' = '.$db->quote('{'.implode(',', $params).'}'));
+			$query->where($db->quoteName('name').' = '.$db->quote('com_sermonspeaker'));
+			$db->setQuery($query);
+			$db->query();
+		}
 
 		echo '<p>'.JText::sprintf('COM_SERMONSPEAKER_POSTFLIGHT', $type).'</p>';
 	}
@@ -221,28 +239,5 @@ class Com_SermonspeakerInstallerScript
 		$db->setQuery('SELECT manifest_cache FROM #__extensions WHERE name = "com_sermonspeaker"');
 		$manifest = json_decode($db->loadResult(), true);
 		return $manifest[$name];
-	}
- 
-	/*
-	 * sets parameter values in the component's row of the extension table
-	 */
-	function setParams($param_array)
-	{
-		if (count($param_array) > 0)
-		{
-			// read the existing component value(s)
-			$db = JFactory::getDbo();
-			$db->setQuery('SELECT params FROM #__extensions WHERE name = "com_sermonspeaker"');
-			$params = json_decode($db->loadResult(), true);
-			// add the new variable(s) to the existing one(s)
-			foreach ($param_array as $name => $value)
-			{
-				$params[(string)$name] = (string)$value;
-			}
-			// store the combined new and existing values back as a JSON string
-			$paramsString = json_encode($params);
-			$db->setQuery('UPDATE #__extensions SET params = '.$db->quote( $paramsString ).' WHERE name = "com_sermonspeaker"' );
-			$db->query();
-		}
 	}
 }
