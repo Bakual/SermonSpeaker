@@ -43,7 +43,7 @@ if ($this->params->get('show_category_title', 0) || in_array('serie:hits', $this
 	if (in_array('serie:download', $this->col_serie)) : ?>
 		<dd class="hits">
 			<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADSERIES_LABEL').': '; ?>
-			<a href="<?php echo JRoute::_('index.php?task=serie.download&id='.$this->item->slug); ?>" target="_new" title="<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADSERIES_DESC'); ?>">
+			<a href="<?php echo JRoute::_('index.php?view=serie&layout=download&tmpl=component&id='.$this->item->slug); ?>" class="modal" rel="{handler:'iframe',size:{x:400,y:200}}" title="<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADSERIES_DESC'); ?>">
 			<img src="media/com_sermonspeaker/images/download.png" alt="<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADSERIES_LABEL'); ?>" />
 		</a></dd>
 	<?php endif; ?>

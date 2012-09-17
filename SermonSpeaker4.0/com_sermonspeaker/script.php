@@ -110,10 +110,20 @@ class Com_SermonspeakerInstallerScript
 				$this->_addCategory();
 			}
 		}
-		elseif ($type != 'uninstall')
+		else
 		{
 			$this->_addCategory();
 		}
+
+		// Setting some default values for columns
+		if ($type == 'install')
+		{
+			$params['col'] = array();
+			$params['col_serie'] = array('series:speaker', 'series:hits', 'serie:description', 'serie:speaker', 'serie:hits', 'serie:download', 'speaker:description', 'speaker:hits', 'seriessermon:speaker', 'seriessermon:hits');
+			$params['col_speaker'] = array();
+		}
+
+		$this->setParams($params);
 
 		echo '<p>'.JText::sprintf('COM_SERMONSPEAKER_POSTFLIGHT', $type).'</p>';
 	}

@@ -29,6 +29,11 @@ class SermonspeakerTableSerie extends JTable
 		if (!intval($this->created)) {
 			$this->created = $date->toSql();
 		}
+		if ($this->id)
+		{
+			$this->modified		= $date->toSql();
+			$this->modified_by	= $user->get('id');
+		}
 
 		// Verify that the alias is unique
 		$table = JTable::getInstance('serie', 'SermonspeakerTable');

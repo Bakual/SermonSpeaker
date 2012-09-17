@@ -50,14 +50,25 @@ JHtml::_('behavior.formvalidation');
 	<div class="width-40 fltrt">
 		<fieldset class="adminform" style="border: 1px dashed silver; padding: 5px; margin: 18px 0px 10px;">
 			<ul class="adminformlist">
-			<?php foreach($this->form->getFieldset('info') as $field): ?>
-				<li>
-					<?php if (!$field->hidden): ?>
-						<?php echo $field->label; ?>
-					<?php endif; ?>
-					<?php echo $field->input; ?>
-				</li>
-			<?php endforeach; ?>
+				<li><?php echo $this->form->getLabel('id'); ?>
+				<?php echo $this->form->getInput('id'); ?></li>
+
+				<li><?php echo $this->form->getLabel('created_by'); ?>
+				<?php echo $this->form->getInput('created_by'); ?></li>
+
+				<li><?php echo $this->form->getLabel('created'); ?>
+				<?php echo $this->form->getInput('created'); ?></li>
+
+				<?php if ($this->item->modified_by) : ?>
+					<li><?php echo $this->form->getLabel('modified_by'); ?>
+					<?php echo $this->form->getInput('modified_by'); ?></li>
+
+					<li><?php echo $this->form->getLabel('modified'); ?>
+					<?php echo $this->form->getInput('modified'); ?></li>
+				<?php endif; ?>
+
+				<li><?php echo $this->form->getLabel('hits'); ?>
+				<?php echo $this->form->getInput('hits'); ?></li>
 			</ul>
 		</fieldset>
 		<?php echo JHtml::_('sliders.start','sermon-sliders-'.$this->item->id, array('useCookie'=>1)); ?>

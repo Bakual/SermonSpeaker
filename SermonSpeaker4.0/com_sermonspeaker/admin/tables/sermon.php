@@ -29,18 +29,27 @@ class SermonspeakerTableSermon extends JTable
 	{
 		$date	= JFactory::getDate();
 		$user	= JFactory::getUser();
-		if (empty($this->created_by)) {
+		if (empty($this->created_by))
+		{
 			$this->created_by = $user->get('id');
 		}
-		if ($this->id) {
+		if ($this->id)
+		{
 			// Existing sermon
-			if (!intval($this->created)) {
-				$this->created = $this->sermon_date;
+			if (!intval($this->created))
+			{
+				$this->created	= $this->sermon_date;
 			}
-		} else {
+			$this->modified		= $date->toSql();
+			$this->modified_by	= $user->get('id');
+		}
+		else
+		{
 			// New sermon.
-			if (!intval($this->created)) {
-				if ($this->sermon_date == ''){
+			if (!intval($this->created))
+			{
+				if ($this->sermon_date == '')
+				{
 					$this->sermon_date = JHTML::Date($date, 'Y-m-d H:i:s', 'UTC');
 				}
 				$this->created = $date->toSql();
