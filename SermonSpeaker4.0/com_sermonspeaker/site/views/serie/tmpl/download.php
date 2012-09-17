@@ -1,6 +1,7 @@
 <?php
 defined('_JEXEC') or die;
 JHtml::_('script', 'system/progressbar.js', true, true);
+JHtml::_('stylesheet', 'media/mediamanager.css', array(), true);
 
 $js	= 'function CheckProgress() {
 		var xmlhttp = new XMLHttpRequest();
@@ -9,10 +10,10 @@ $js	= 'function CheckProgress() {
 				var data = JSON.decode(xmlhttp.responseText);
 				if (data.status==1){
 					if (data.msg == 100){
-						progress_bar.set(99);
+						document.getElementById("status").innerHTML = "'.JText::_('COM_SERMONSPEAKER_WRITING_FILE').'";
 					}
+					progress_bar.set(data.msg);
 					if (data.msg < 100){
-						progress_bar.set(data.msg);
 						timeout = setTimeout(CheckProgress,100);
 					}
 				} else {
@@ -25,7 +26,7 @@ $js	= 'function CheckProgress() {
 		xmlhttp.send();
 	}
 	function CallZip() {
-		progress_bar = new Fx.ProgressBar(document.id("progress"));
+		progress_bar = new Fx.ProgressBar(document.id(\'progress\'));
 		var xmlhttp = new XMLHttpRequest();
 		done = 0;
 		xmlhttp.onreadystatechange=function(){
@@ -56,7 +57,7 @@ $this->document->addScriptDeclaration($js);
 <h3><?php echo $this->item->series_title; ?></h3>
 <div id="status"><?php echo JText::_('COM_SERMONSPEAKER_PREPARING_DOWNLOAD'); ?></div>
 <br/>
-<span id="progress"></span>
+<img src="media/media/images/bar.gif" class="progress" id="progress" />
 <br/><br/>
 <div id="link" style="display:none;"></div>
 </div>
