@@ -1,20 +1,18 @@
 <?php
 defined('_JEXEC') or die;
+JHtml::_('script', 'system/progressbar.js', true, true);
 
-JHTML::_('behavior.mootools');
 $js	= 'function CheckProgress() {
 		var xmlhttp = new XMLHttpRequest();
 		xmlhttp.onreadystatechange=function(){
 			if (xmlhttp.readyState==4 && xmlhttp.status==200){
 				var data = JSON.decode(xmlhttp.responseText);
-				console.log(xmlhttp.responseText);
-				console.log(xmlhttp.responseXML);
 				if (data.status==1){
 					if (data.msg == 100){
 						document.getElementById("status").innerHTML = "'.JText::_('COM_SERMONSPEAKER_DONE').'";
 						document.getElementById("link").style.display = "block";
 					}
-					setCount(data.msg);
+					progress_bar.set(data.msg);
 					if (data.msg < 100){
 						setTimeout(CheckProgress,100);
 					}
@@ -28,6 +26,7 @@ $js	= 'function CheckProgress() {
 		xmlhttp.send();
 	}
 	function CallZip() {
+		progress_bar = new Fx.ProgressBar(document.id("progress"));
 		var xmlhttp = new XMLHttpRequest();
 		xmlhttp.onreadystatechange=function(){
 			if (xmlhttp.readyState==4 && xmlhttp.status==200){
@@ -52,11 +51,7 @@ $this->document->addScriptDeclaration($js);
 <h3><?php echo $this->item->series_title; ?></h3>
 <div id="status"><?php echo JText::_('COM_SERMONSPEAKER_PREPARING_DOWNLOAD'); ?></div>
 <br/>
-<script language="javascript" src="media/com_sermonspeaker/percent_bar/percent_bar.js">/*
-Event-based progress bar- By Brian Gosselin at http://scriptasylum.com/bgaudiodr
-Featured on DynamicDrive.com
-For full source, visit http://www.dynamicdrive.com
-*/</script>
-<br/>
+<span id="progress"></span>
+<br/><br/>
 <div id="link" style="display:none;"></div>
 </div>
