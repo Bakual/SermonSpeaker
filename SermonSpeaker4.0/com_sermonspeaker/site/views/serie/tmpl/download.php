@@ -5,16 +5,15 @@ JHtml::_('script', 'system/progressbar.js', true, true);
 $js	= 'function CheckProgress() {
 		var xmlhttp = new XMLHttpRequest();
 		xmlhttp.onreadystatechange=function(){
-			if (xmlhttp.readyState==4 && xmlhttp.status==200){
+			if (xmlhttp.readyState==4 && xmlhttp.status==200 && !done){
 				var data = JSON.decode(xmlhttp.responseText);
 				if (data.status==1){
 					if (data.msg == 100){
-						document.getElementById("status").innerHTML = "'.JText::_('COM_SERMONSPEAKER_DONE').'";
-						document.getElementById("link").style.display = "block";
+						progress_bar.set(99);
 					}
-					progress_bar.set(data.msg);
 					if (data.msg < 100){
-						setTimeout(CheckProgress,100);
+						progress_bar.set(data.msg);
+						timeout = setTimeout(CheckProgress,100);
 					}
 				} else {
 					alert(data.msg);
@@ -28,11 +27,17 @@ $js	= 'function CheckProgress() {
 	function CallZip() {
 		progress_bar = new Fx.ProgressBar(document.id("progress"));
 		var xmlhttp = new XMLHttpRequest();
+		done = 0;
 		xmlhttp.onreadystatechange=function(){
 			if (xmlhttp.readyState==4 && xmlhttp.status==200){
 				var data = JSON.decode(xmlhttp.responseText);
 				if (data.status==1){
+					clearTimeout(timeout);
+					done = 1;
+					document.getElementById("status").innerHTML = "'.JText::_('COM_SERMONSPEAKER_DONE').'";
 					document.getElementById("link").innerHTML = "<a href=\""+data.msg+"\">'.JText::_('COM_SERMONSPEAKER_DOWNLOADSERIES_LABEL').'</a>";
+					document.getElementById("link").style.display = "block";
+					progress_bar.set(100);
 				} else {
 					alert(data.msg);
 					parent.document.getElementById("sbox-btn-close").click();
@@ -41,7 +46,7 @@ $js	= 'function CheckProgress() {
 		}
 		xmlhttp.open("GET","index.php?option=com_sermonspeaker&task=serie.download&format=json&id='.$this->item->id.'",true);
 		xmlhttp.send();
-		setTimeout(CheckProgress,100);
+		timeout = setTimeout(CheckProgress,100);
 	}
 	window.onload = CallZip;
 ';
