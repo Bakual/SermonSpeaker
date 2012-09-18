@@ -117,6 +117,20 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 			return;
 		}
 
+		// Check if creating already in progress
+		$query = "SELECT `zip_progress` FROM #__sermon_series WHERE `id` = ".$id;
+		$db->setQuery($query);
+		$progress = $db->loadResult();
+		if ($progress && $progress < 100)
+		{
+			$response = array(
+				'status' => '1',
+				'msg' => JURI::root().$folder.'/series/'.$name.'.zip'
+			);
+			echo json_encode($response);
+			return;
+		}
+
 		// Reset Progress
 		$query = "UPDATE #__sermon_series SET `zip_progress` = 0 WHERE `id` = ".$id;
 		$db->setQuery($query);
