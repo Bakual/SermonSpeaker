@@ -9,9 +9,6 @@ $js	= 'function CheckProgress() {
 			if (xmlhttp.readyState==4 && xmlhttp.status==200 && !done){
 				var data = JSON.decode(xmlhttp.responseText);
 				if (data.status==1){
-					if (data.msg == 100){
-						document.getElementById("status").innerHTML = "'.JText::_('COM_SERMONSPEAKER_WRITING_FILE').'";
-					}
 					progress_bar.set(data.msg);
 					if (data.msg < 100){
 						timeout = setTimeout(CheckProgress,100);

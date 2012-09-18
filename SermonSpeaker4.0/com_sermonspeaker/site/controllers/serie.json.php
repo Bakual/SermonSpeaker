@@ -117,6 +117,11 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 			return;
 		}
 
+		// Reset Progress
+		$query = "UPDATE #__sermon_series SET `zip_progress` = 0 WHERE `id` = ".$id;
+		$db->setQuery($query);
+		$db->query();
+
 		if ($count = count($files))
 		{
 			jimport('joomla.filesystem.folder');
@@ -124,16 +129,11 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 			{
 				JFolder::create($folder.'/series');
 			}
-			$zip = new ZipArchive();
-			if ($zip->open($filename, ZIPARCHIVE::OVERWRITE)!==TRUE)
+			if (JFile::exists($filename))
 			{
-				$response = array(
-					'status' => '0',
-					'msg' => JText::_('I cannot open the file: ['.$filename.']')
-				);
-				echo json_encode($response);
-				return;
+				JFile::delete($filename);
 			}
+			$zip = new ZipArchive();
 			ignore_user_abort(true);
 			$i = 0;
 			foreach ($files as $file)
@@ -147,8 +147,26 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 					echo json_encode($response);
 					return;
 				}
-				set_time_limit(0);
+				if ($zip->open($filename, ZIPARCHIVE::CREATE)!==TRUE)
+				{
+					$response = array(
+						'status' => '0',
+						'msg' => JText::_('I cannot open the file: ['.$filename.']')
+					);
+					echo json_encode($response);
+					return;
+				}
 				$zip->addFile($file['path'], $file['name']);
+				set_time_limit(0);
+				if ($zip->close()!==TRUE)
+				{
+					$response = array(
+						'status' => '0',
+						'msg' => JText::_('I cannot write the file: ['.$filename.']')
+					);
+					echo json_encode($response);
+					return;
+				}
 				$i++;
 				if ($i < $count)
 				{
@@ -166,7 +184,6 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 				$db->setQuery($query);
 				$db->query();
 			}
-			$zip->close();
 
 			$response = array(
 				'status' => '1',
