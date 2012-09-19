@@ -34,7 +34,7 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 		$query->select('zip_content');
 		$query->from('#__sermon_series');
 		$query->where('id = '.$id);
-		$query->where('zip_progress = 100');
+		$query->where('zip_state = 1');
 		$query->where('zip_created > modified');
 		$query->where('zip_created > (SELECT modified FROM #__sermon_sermons WHERE series_id = '.$id.' ORDER BY modified DESC LIMIT 1)');
 		$db->setQuery($query);
@@ -57,6 +57,7 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 		jimport('joomla.filesystem.file');
 		$files = array();
 		$content = array();
+		$calc_size = 0;
 		foreach ($rows as $row)
 		{
 			if ($row['audiofile'] && (substr($row['audiofile'], 0, 7) != 'http://') && JFile::exists(JPATH_BASE.'/'.$row['audiofile']))
@@ -72,6 +73,10 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 					$file['name'] = $row['audiofile'];
 				}
 				$files[] = $file;
+				if ($size = filesize(JPATH_BASE.'/'.$row['audiofile']))
+				{
+					$calc_size += $size;
+				}
 				$content[] = 'a'.$row['id'];
 			}
 			if ($row['videofile'] && (substr($row['videofile'], 0, 7) != 'http://') && JFile::exists(JPATH_BASE.'/'.$row['videofile']))
@@ -87,6 +92,10 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 					$file['name'] = $row['videofile'];
 				}
 				$files[] = $file;
+				if ($size = filesize(JPATH_BASE.'/'.$row['videofile']))
+				{
+					$calc_size += $size;
+				}
 				$content[] = 'v'.$row['id'];
 			}
 		}
@@ -118,10 +127,9 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 		}
 
 		// Check if creating already in progress
-		$query = "SELECT `zip_progress` FROM #__sermon_series WHERE `id` = ".$id;
+		$query = "SELECT CASE WHEN `zip_created` < ('".JFactory::getDate()->toSql()."' - INTERVAL 1 HOUR) THEN 1 ELSE `zip_state` END FROM #__sermon_series WHERE `id` = ".$id;
 		$db->setQuery($query);
-		$progress = $db->loadResult();
-		if ($progress && $progress < 100)
+		if (!$db->loadResult())
 		{
 			$response = array(
 				'status' => '1',
@@ -132,7 +140,13 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 		}
 
 		// Reset Progress
-		$query = "UPDATE #__sermon_series SET `zip_progress` = 0 WHERE `id` = ".$id;
+		$query	= $db->getQuery(true);
+		$query->update('#__sermon_series');
+		$query->set('`zip_progress` = 0');
+		$query->set('`zip_state` = 0');
+		$query->set('`zip_size` = '.$calc_size);
+		$query->set('`zip_created` = "'.JFactory::getDate()->toSql().'"');
+		$query->where('`id` = '.$id);
 		$db->setQuery($query);
 		$db->query();
 
@@ -150,6 +164,15 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 			$zip = new ZipArchive();
 			ignore_user_abort(true);
 			$i = 0;
+			if ($zip->open($filename, ZIPARCHIVE::CREATE)!==TRUE)
+			{
+				$response = array(
+					'status' => '0',
+					'msg' => JText::_('I cannot open the file: ['.$filename.']')
+				);
+				echo json_encode($response);
+				return;
+			}
 			foreach ($files as $file)
 			{
 				if (JFile::exists($folder.'/series/stop.txt'))
@@ -161,43 +184,30 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 					echo json_encode($response);
 					return;
 				}
-				if ($zip->open($filename, ZIPARCHIVE::CREATE)!==TRUE)
-				{
-					$response = array(
-						'status' => '0',
-						'msg' => JText::_('I cannot open the file: ['.$filename.']')
-					);
-					echo json_encode($response);
-					return;
-				}
 				$zip->addFile($file['path'], $file['name']);
 				set_time_limit(0);
-				if ($zip->close()!==TRUE)
-				{
-					$response = array(
-						'status' => '0',
-						'msg' => JText::_('I cannot write the file: ['.$filename.']')
-					);
-					echo json_encode($response);
-					return;
-				}
 				$i++;
-				if ($i < $count)
-				{
-					$query = "UPDATE #__sermon_series SET `zip_progress` = ". (int)100/$count*$i ." WHERE `id` = ".$id;
-				}
-				else
-				{
-					$query	= $db->getQuery(true);
-					$query->update('#__sermon_series');
-					$query->set('`zip_progress` = 100');
-					$query->set('`zip_created` = "'.JFactory::getDate()->toSql().'"');
-					$query->set('`zip_content` = "'.$content.'"');
-					$query->where('`id` = '.$id);
-				}
+				$query = "UPDATE #__sermon_series SET `zip_progress` = ".(int)100/$count*$i." WHERE `id` = ".$id;
 				$db->setQuery($query);
 				$db->query();
 			}
+			if ($zip->close()!==TRUE)
+			{
+				$response = array(
+					'status' => '0',
+					'msg' => JText::_('I cannot write the file: ['.$filename.']')
+				);
+				echo json_encode($response);
+				return;
+			}
+			$query	= $db->getQuery(true);
+			$query->update('#__sermon_series');
+			$query->set('`zip_state` = 1');
+			$query->set('`zip_created` = "'.JFactory::getDate()->toSql().'"');
+			$query->set('`zip_content` = "'.$content.'"');
+			$query->where('`id` = '.$id);
+			$db->setQuery($query);
+			$db->query();
 
 			$response = array(
 				'status' => '1',
@@ -239,6 +249,55 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 		$response = array(
 			'status' => '1',
 			'msg' => $progress
+		);
+		echo json_encode($response);
+		return;
+	}
+
+	function checkwriting()
+	{
+		$id = JRequest::getInt('id');
+		if(!$id)
+		{
+			$response = array(
+				'status' => '0',
+				'msg' => JText::_('I have no clue what you want to download...')
+			);
+			echo json_encode($response);
+			return;
+		}
+
+		$db = JFactory::getDBO();
+		$query	= $db->getQuery(true);
+		$query->select('series_title, zip_size');
+		$query->from('#__sermon_series');
+		$query->where('id = '.$id);
+		$db->setQuery($query);
+		$series = $db->loadAssoc();
+
+		jimport('joomla.filesystem.file');
+		jimport('joomla.filesystem.folder');
+
+		// Prepare filename and path
+		$params	= JComponentHelper::getParams('com_sermonspeaker');
+		$folder	= trim($params->get('path'), '/');
+
+		$name = JFile::makeSafe($series['series_title']);
+		$name = str_replace(' ', '_', $name); // Replace spaces in filename as long as makeSafe doesn't do this.
+
+		// Check if filename has more chars than only underscores, making a new filename based on series id if not.
+		if (!$name || (count_chars($name, 3) == '_'))
+		{
+			$name = 'series-'.$id;
+		}
+		$filename	= JPATH_BASE.'/'.$folder.'/series/'.$name.'.zip';
+
+		$files = JFolder::files(JPATH_BASE.'/'.$folder.'/series/', '^'.$name.'\.zip\.');
+		$size = ($files) ? filesize(JPATH_BASE.'/'.$folder.'/series/'.$files[0]) : 0;
+
+		$response = array(
+			'status' => '1',
+			'msg' => (int)100/$series['zip_size']*$size
 		);
 		echo json_encode($response);
 		return;
