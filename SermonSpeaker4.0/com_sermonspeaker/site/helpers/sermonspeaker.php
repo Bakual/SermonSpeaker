@@ -144,7 +144,7 @@ class SermonspeakerHelperSermonspeaker
 		}
 	}
 
-	static function insertSermonTitle($i, $item, $player)
+	static function insertSermonTitle($i, $item, $player, $icon = true)
 	{
 		if (!self::$params)
 		{
@@ -157,40 +157,42 @@ class SermonspeakerHelperSermonspeaker
 		$return = '';
 		// Prepare play icon function
 		$options = array();
-		switch (self::$params->get('list_icon_function', 3))
+		if ($icon)
 		{
-			case 0:
-				$options['title'] = JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER');
-				$pic = JHTML::Image('media/com_sermonspeaker/images/play.gif', JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER'), $options);
-				$return .= JHTML::Link(JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug)), $pic);
-				break;
-			case 1:
-				$options['title'] = JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER');
-				$pic = JHTML::Image('media/com_sermonspeaker/images/play.gif', JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER'), $options);
-				$return .= JHTML::Link(self::makeLink($item->audiofile), $pic);
-				break;
-			case 2:
-				$cols = self::$params->get('col');
-				if (!is_array($cols)){
-					$cols = array();
-				}
-				if(in_array(self::$view.':player', $cols)){
-					$options['onclick'] = 'ss_play('.$i.')';
-					$options['title'] = JText::_('COM_SERMONSPEAKER_PLAYICON_HOOVER');
+			switch (self::$params->get('list_icon_function', 3))
+			{
+				case 0:
+					$options['title'] = JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER');
+					$pic = JHTML::Image('media/com_sermonspeaker/images/play.gif', JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER'), $options);
+					$return .= JHTML::Link(JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug)), $pic).' ';
+					break;
+				case 1:
+					$options['title'] = JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER');
+					$pic = JHTML::Image('media/com_sermonspeaker/images/play.gif', JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER'), $options);
+					$return .= JHTML::Link(self::makeLink($item->audiofile), $pic).' ';
+					break;
+				case 2:
+					$cols = self::$params->get('col');
+					if (!is_array($cols)){
+						$cols = array();
+					}
+					if(in_array(self::$view.':player', $cols)){
+						$options['onclick'] = 'ss_play('.$i.')';
+						$options['title'] = JText::_('COM_SERMONSPEAKER_PLAYICON_HOOVER');
+						$options['class'] = 'icon_play pointer';
+						$return .= JHTML::Image('media/com_sermonspeaker/images/play.gif', JText::_('COM_SERMONSPEAKER_PLAYICON_HOOVER'), $options).' ';
+					}
+					break;
+				case 3:
+					$options['onclick'] = "popup=window.open('".JRoute::_('index.php?view=sermon&layout=popup&id='.$item->id.'&tmpl=component')."', 'PopupPage', 'height=".$player->popup['height'].',width='.$player->popup['width'].",scrollbars=yes,resizable=yes'); return false";
+					$options['title'] = JText::_('COM_SERMONSPEAKER_POPUPPLAYER');
 					$options['class'] = 'icon_play pointer';
-					$return .= JHTML::Image('media/com_sermonspeaker/images/play.gif', JText::_('COM_SERMONSPEAKER_PLAYICON_HOOVER'), $options);
-				}
-				break;
-			case 3:
-				$options['onclick'] = "popup=window.open('".JRoute::_('index.php?view=sermon&layout=popup&id='.$item->id.'&tmpl=component')."', 'PopupPage', 'height=".$player->popup['height'].',width='.$player->popup['width'].",scrollbars=yes,resizable=yes'); return false";
-				$options['title'] = JText::_('COM_SERMONSPEAKER_POPUPPLAYER');
-				$options['class'] = 'icon_play pointer';
-				$return .= JHTML::Image('media/com_sermonspeaker/images/play.gif', JText::_('COM_SERMONSPEAKER_POPUPPLAYER'), $options);
-				break;
-			case 4:
-				break;
+					$return .= JHTML::Image('media/com_sermonspeaker/images/play.gif', JText::_('COM_SERMONSPEAKER_POPUPPLAYER'), $options).' ';
+					break;
+				case 4:
+					break;
+			}
 		}
-		$return .= ' ';
 		// Prepare title link function
 		$options = array();
 		switch (self::$params->get('list_title_function', 0))
