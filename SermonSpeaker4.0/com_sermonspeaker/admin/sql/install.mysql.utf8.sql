@@ -52,6 +52,8 @@ CREATE TABLE `#__sermon_series` (
 	`zip_created` DATETIME NOT NULL DEFAULT '0',
 	`zip_content` TEXT NOT NULL,
 	`zip_progress` INT(11) NOT NULL DEFAULT '0',
+	`zip_state` TINYINT(3) NOT NULL DEFAULT '0',
+	`zip_size` INT(11) NOT NULL DEFAULT '0',
 	`language` CHAR(7) NOT NULL DEFAULT '*',
 	PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;

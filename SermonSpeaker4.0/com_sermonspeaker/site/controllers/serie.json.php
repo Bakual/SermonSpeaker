@@ -54,6 +54,17 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 		$query->where('(sermons.speaker_id = 0 OR speakers.catid = 0 OR (c_speaker.access IN ('.$groups.') AND c_speaker.published = 1))');
 		$db->setQuery($query);
 		$rows = $db->loadAssocList();
+
+		if (!$rows)
+		{
+			$response = array(
+				'status' => '0',
+				'msg' => JText::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', JText::_('COM_SERMONSPEAKER_SERMONS'))
+			);
+			echo json_encode($response);
+			return;
+		}
+
 		jimport('joomla.filesystem.file');
 		$files = array();
 		$content = array();
@@ -157,14 +168,15 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 			{
 				JFolder::create($folder.'/series');
 			}
-			if (JFile::exists($filename))
+			$temp_files = JFolder::files(JPATH_BASE.'/'.$folder.'/series/', '^'.$name.'\.zip\.');
+			if ($temp_files)
 			{
-				JFile::delete($filename);
+				JFile::delete($temp_files);
 			}
 			$zip = new ZipArchive();
 			ignore_user_abort(true);
 			$i = 0;
-			if ($zip->open($filename, ZIPARCHIVE::CREATE)!==TRUE)
+			if ($zip->open($filename, ZIPARCHIVE::OVERWRITE)!==TRUE)
 			{
 				$response = array(
 					'status' => '0',
@@ -281,15 +293,24 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 		{
 			$name = 'series-'.$id;
 		}
-		$filename	= JPATH_BASE.'/'.$folder.'/series/'.$name.'.zip';
 
 		$files = JFolder::files(JPATH_BASE.'/'.$folder.'/series/', '^'.$name.'\.zip\.');
 		$size = ($files) ? filesize(JPATH_BASE.'/'.$folder.'/series/'.$files[0]) : 0;
 
-		$response = array(
-			'status' => '2',
-			'msg' => (int)100/$series['zip_size']*$size
-		);
+		if($size)
+		{
+			$response = array(
+				'status' => '2',
+				'msg' => (int)100/$series['zip_size']*$size
+			);
+		}
+		else
+		{
+			$response = array(
+				'status' => '2',
+				'msg' => 0
+			);
+		}
 		echo json_encode($response);
 		return;
 	}
