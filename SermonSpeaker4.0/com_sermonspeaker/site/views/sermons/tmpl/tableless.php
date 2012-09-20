@@ -118,7 +118,7 @@ if (in_array('sermons:player', $this->columns) && count($this->items)) : ?>
 				<?php if ($picture = SermonspeakerHelperSermonspeaker::insertPicture($item)) : ?>
 					<div class="ss-picture"><img src="<?php echo $picture; ?>"></div>
 				<?php endif; ?>
-				<h3><a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug)); ?>"><?php echo $item->sermon_title; ?></a></h3>
+				<h3><?php echo SermonspeakerHelperSermonspeaker::insertSermonTitle($i, $item, $player); ?></h3>
 				<?php if ($canEdit || ($canEditOwn && ($user->id == $item->created_by))) : ?>
 					<ul class="actions">
 						<li class="edit-icon">
