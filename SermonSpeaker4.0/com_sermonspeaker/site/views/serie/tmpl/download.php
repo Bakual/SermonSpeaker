@@ -5,15 +5,23 @@ JHtml::_('stylesheet', 'media/mediamanager.css', array(), true);
 
 $js	= 'function CheckProgress() {
 		var xmlhttp = new XMLHttpRequest();
+		var t = 0;
 		xmlhttp.onreadystatechange=function(){
 			if (xmlhttp.readyState==4 && xmlhttp.status==200){
 				var data = JSON.decode(xmlhttp.responseText);
 				if (data.status==1){
+					progress_bar.set(data.msg);
+					timeout = setTimeout(CheckProgress,100);
+				} else if (data.status==2){
+					if (!t){
+						document.getElementById("status").innerHTML = "'.JText::_('COM_SERMONSPEAKER_WRITING_FILE').'";
+						t = 1;
+					}
+					progress_bar.set(data.msg);
 					if (data.msg == 100){
 						document.getElementById("status").innerHTML = "'.JText::_('COM_SERMONSPEAKER_DONE').'";
 						document.getElementById("link").style.display = "block";
 					}
-					progress_bar.set(data.msg);
 					if (data.msg < 100){
 						timeout = setTimeout(CheckProgress,100);
 					}

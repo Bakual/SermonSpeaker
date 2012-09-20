@@ -240,40 +240,31 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 
 		$db = JFactory::getDBO();
 		$query	= $db->getQuery(true);
-		$query->select('zip_progress');
+		$query->select('series_title, zip_size, zip_progress, zip_state');
 		$query->from('#__sermon_series');
 		$query->where('`id` = '.$id);
 		$db->setQuery($query);
-		$progress = $db->loadResult();
+		$series = $db->loadAssoc();
 
-		$response = array(
-			'status' => '1',
-			'msg' => $progress
-		);
-		echo json_encode($response);
-		return;
-	}
-
-	function checkwriting()
-	{
-		$id = JRequest::getInt('id');
-		if(!$id)
+		if ($series['zip_state'] == 1)
 		{
 			$response = array(
-				'status' => '0',
-				'msg' => JText::_('I have no clue what you want to download...')
+				'status' => '2',
+				'msg' => 100
 			);
 			echo json_encode($response);
 			return;
 		}
 
-		$db = JFactory::getDBO();
-		$query	= $db->getQuery(true);
-		$query->select('series_title, zip_size');
-		$query->from('#__sermon_series');
-		$query->where('id = '.$id);
-		$db->setQuery($query);
-		$series = $db->loadAssoc();
+		if ($series['zip_progress'] < 100)
+		{
+			$response = array(
+				'status' => '1',
+				'msg' => $series['zip_progress']
+			);
+			echo json_encode($response);
+			return;
+		}
 
 		jimport('joomla.filesystem.file');
 		jimport('joomla.filesystem.folder');
@@ -296,7 +287,7 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 		$size = ($files) ? filesize(JPATH_BASE.'/'.$folder.'/series/'.$files[0]) : 0;
 
 		$response = array(
-			'status' => '1',
+			'status' => '2',
 			'msg' => (int)100/$series['zip_size']*$size
 		);
 		echo json_encode($response);
