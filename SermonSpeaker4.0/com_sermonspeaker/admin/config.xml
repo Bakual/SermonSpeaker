@@ -875,6 +875,14 @@
 			default="" 
 			label="COM_SERMONSPEAKER_FIELD_FBAPPID_LABEL" 
 			description="COM_SERMONSPEAKER_FIELD_FBAPPID_DESC" />
+		<field name="fbmode"
+			type="list"
+			default="0" 
+			label="COM_SERMONSPEAKER_FIELD_FBMODE_LABEL" 
+			description="COM_SERMONSPEAKER_FIELD_FBMODE_DESC" >
+			<option value="0">COM_SERMONSPEAKER_FIELD_FBMODE_OPTION_AUTO</option>
+			<option value="1">COM_SERMONSPEAKER_FIELD_FBMODE_OPTION_ARTICLE</option>
+		</field>
 	</fieldset>
 	<fieldset name="permissions"
 		label="JCONFIG_PERMISSIONS_LABEL"

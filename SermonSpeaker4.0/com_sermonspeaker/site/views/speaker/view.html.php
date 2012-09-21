@@ -246,5 +246,20 @@ class SermonspeakerViewspeaker extends JViewLegacy
 		{
 			$this->document->setMetadata('robots', $this->params->get('robots'));
 		}
+		// Add Metadata for Facebook Open Graph API
+		$fbadmins	= $this->params->get('fbadmins', '');
+		$fbapp_id	= $this->params->get('fbapp_id', '');
+		if ($fbadmins || $fbapp_id)
+		{
+			$this->document->addCustomTag('<meta property="og:title" content="'.$this->item->sermon_title.'"/>');
+			$this->document->addCustomTag('<meta property="og:url" content="'.JURI::getInstance()->toString().'"/>');
+			$this->document->addCustomTag('<meta property="og:description" content="'.$this->document->getDescription().'"/>');
+			$this->document->addCustomTag('<meta property="og:site_name" content="'.$app->getCfg('sitename').'"/>');
+			$this->document->addCustomTag('<meta property="og:type" content="profile"/>');
+			if ($picture = SermonspeakerHelperSermonspeaker::insertPicture($this->item))
+			{
+				$this->document->addCustomTag('<meta property="og:image" content="'.SermonSpeakerHelperSermonSpeaker::makelink($picture, true).'"/>');
+			}
+		}
 	}
 }

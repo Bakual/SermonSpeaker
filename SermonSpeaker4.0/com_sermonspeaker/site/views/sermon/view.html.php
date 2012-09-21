@@ -202,41 +202,60 @@ class SermonspeakerViewSermon extends JViewLegacy
 		// Add Metadata for Facebook Open Graph API
 		$fbadmins	= $this->params->get('fbadmins', '');
 		$fbapp_id	= $this->params->get('fbapp_id', '');
+		$fbmode		= $this->params->get('fbmode', 'article');
+		$prio		= $this->params->get('fileprio', 0);
 		if ($fbadmins || $fbapp_id)
 		{
 			$this->document->addCustomTag('<meta property="og:title" content="'.$this->item->sermon_title.'"/>');
 			$this->document->addCustomTag('<meta property="og:url" content="'.JURI::getInstance()->toString().'"/>');
 			$this->document->addCustomTag('<meta property="og:description" content="'.$this->document->getDescription().'"/>');
 			$this->document->addCustomTag('<meta property="og:site_name" content="'.$app->getCfg('sitename').'"/>');
-			$this->document->addCustomTag('<meta property="og:type" content="article"/>');
 			if ($picture = SermonspeakerHelperSermonspeaker::insertPicture($this->item))
 			{
 				$this->document->addCustomTag('<meta property="og:image" content="'.SermonSpeakerHelperSermonSpeaker::makelink($picture, true).'"/>');
 			}
-			if ($this->item->videofile)
+			if ($fbmode)
 			{
-				if ((strpos($this->item->videofile, 'http://vimeo.com') === 0) || (strpos($this->item->videofile, 'http://player.vimeo.com') === 0))
+				$this->document->addCustomTag('<meta property="og:type" content="article"/>');
+				if ($this->item->name)
 				{
-					$id			= trim(strrchr($this->item->videofile, '/'), '/ ');
-					$file	= 'http://vimeo.com/moogaloop.swf?clip_id='.$id.'&amp;server=vimeo.com&amp;show_title=0&amp;show_byline=0&amp;show_portrait=0&amp;color=00adef&amp;fullscreen=1&amp;autoplay=0&amp;loop=0';
+					$this->document->addCustomTag('<meta property="article:author" content="'.JURI::base().trim(JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($this->item->speaker_slug)), '/').'"/>');
+				}
+				if ($this->item->series_title)
+				{
+					$this->document->addCustomTag('<meta property="article:section" content="'.$this->item->series_title.'"/>');
+				}
+				
+			}
+			else
+			{
+				if ($this->item->videofile && ($prio || !$this->item->audiofile))
+				{
+					$this->document->addCustomTag('<meta property="og:type" content="movie"/>');
+					if ((strpos($this->item->videofile, 'http://vimeo.com') === 0) || (strpos($this->item->videofile, 'http://player.vimeo.com') === 0))
+					{
+						$id		= trim(strrchr($this->item->videofile, '/'), '/ ');
+						$file	= 'http://vimeo.com/moogaloop.swf?clip_id='.$id.'&amp;server=vimeo.com&amp;show_title=0&amp;show_byline=0&amp;show_portrait=0&amp;color=00adef&amp;fullscreen=1&amp;autoplay=0&amp;loop=0';
+					}
+					else
+					{
+						$file	= SermonSpeakerHelperSermonSpeaker::makelink($this->item->videofile, true);
+					}
 					$this->document->addCustomTag('<meta property="og:video" content="'.$file.'"/>');
 				}
 				else
 				{
-					$this->document->addCustomTag('<meta property="og:video" content="'.SermonSpeakerHelperSermonSpeaker::makelink($this->item->videofile, true).'"/>');
-				}
-			}
-			if ($this->item->audiofile)
-			{
-				$this->document->addCustomTag('<meta property="og:audio" content="'.SermonSpeakerHelperSermonSpeaker::makelink($this->item->audiofile, true).'"/>');
-				$this->document->addCustomTag('<meta property="og:audio:title" content="'.$this->item->sermon_title.'"/>');
-				if ($this->item->name)
-				{
-					$this->document->addCustomTag('<meta property="og:audio:artist" content="'.$this->item->name.'"/>');
-				}
-				if ($this->item->series_title)
-				{
-					$this->document->addCustomTag('<meta property="og:audio:album" content="'.$this->item->series_title.'"/>');
+					$this->document->addCustomTag('<meta property="og:type" content="song"/>');
+					$this->document->addCustomTag('<meta property="og:audio" content="'.SermonSpeakerHelperSermonSpeaker::makelink($this->item->audiofile, true).'"/>');
+					$this->document->addCustomTag('<meta property="og:audio:title" content="'.$this->item->sermon_title.'"/>');
+					if ($this->item->name)
+					{
+						$this->document->addCustomTag('<meta property="og:audio:artist" content="'.$this->item->name.'"/>');
+					}
+					if ($this->item->series_title)
+					{
+						$this->document->addCustomTag('<meta property="og:audio:album" content="'.$this->item->series_title.'"/>');
+					}
 				}
 			}
 			if ($fbadmins)
