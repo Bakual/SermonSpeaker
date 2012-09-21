@@ -84,6 +84,14 @@
 		<field name="avatar" type="mediawrapper" class="inputbox"
 			label="COM_SERMONSPEAKER_FIELD_PICTURE_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_PICTURE_DESC" />
+		<field name="zip_dl" type="list" class="inputbox"
+			default="0"
+			label="COM_SERMONSPEAKER_PARAM_SERIESDL_LABEL"
+			description="COM_SERMONSPEAKER_PARAM_SERIESDL_DESC" >
+			<option value="-1">JDISABLED</option>
+			<option value="0">JGLOBAL_AUTO</option>
+			<option value="1">JENABLED</option>
+		</field>
 	</fieldset>
 
 	<fieldset name="metadata" label="JGLOBAL_FIELDSET_METADATA_OPTIONS">

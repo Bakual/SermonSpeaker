@@ -66,7 +66,8 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 		}
 
 		$params	= JComponentHelper::getParams('com_sermonspeaker');
-		if (!$params->get('seriesdl') || ($rows[0]['zip_dl'] == -1))
+		$limit	= $params->get('limitseriesdl');
+		if (!$params->get('seriesdl') || ($rows[0]['zip_dl'] == -1) || ($limit && (count($rows) > $limit) && ($rows[0]['zip_dl'] != 1)))
 		{
 			$response = array(
 				'status' => '0',
