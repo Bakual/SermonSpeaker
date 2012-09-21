@@ -17,14 +17,26 @@
 			default="0"
 			label="COM_SERMONSPEAKER_FIELD_WRITE_ID3_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_WRITE_ID3_DESC">
-				<option value="0">JNO</option>
-				<option value="1">JYES</option>
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
 		</field>
 		<field name="addfiledesc"
 			type="text"
 			label="COM_SERMONSPEAKER_PARAM_ADDFILEDESC_LABEL"
-			description="COM_SERMONSPEAKER_PARAM_ADDFILEDESC_DESC">
+			description="COM_SERMONSPEAKER_PARAM_ADDFILEDESC_DESC" />
+		<field name="seriesdl"
+			type="list"
+			default="1"
+			label="COM_SERMONSPEAKER_PARAM_SERIESDL_LABEL"
+			description="COM_SERMONSPEAKER_PARAM_SERIESDL_DESC">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
 		</field>
+		<field name="limitseriesdl"
+			type="text"
+			default=""
+			label="COM_SERMONSPEAKER_PARAM_LIMITSERIESDL_LABEL"
+			description="COM_SERMONSPEAKER_PARAM_LIMITSERIESDL_DESC" />
 
 		<field name="spacer1"
 			type="spacer"

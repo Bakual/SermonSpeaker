@@ -41,7 +41,7 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 		$zip_content = $db->loadResult();
 
 		$query	= $db->getQuery(true);
-		$query->select('sermons.id, sermons.audiofile, sermons.videofile, series.series_title');
+		$query->select('sermons.id, sermons.audiofile, sermons.videofile, series.series_title, series.zip_dl');
 		$query->from('#__sermon_sermons as sermons');
 		$query->join('INNER', '#__sermon_series AS series ON series.id = sermons.series_id');
 		$query->join('LEFT', '#__sermon_speakers AS speakers ON speakers.id = sermons.speaker_id');
@@ -60,6 +60,17 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 			$response = array(
 				'status' => '0',
 				'msg' => JText::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', JText::_('COM_SERMONSPEAKER_SERMONS'))
+			);
+			echo json_encode($response);
+			return;
+		}
+
+		$params	= JComponentHelper::getParams('com_sermonspeaker');
+		if (!$params->get('seriesdl') || ($rows[0]['zip_dl'] == -1))
+		{
+			$response = array(
+				'status' => '0',
+				'msg' => JText::_('COM_SERMONSPEAKER_SERIES_DOWNLOAD_NOT_ALLOWED')
 			);
 			echo json_encode($response);
 			return;
@@ -112,7 +123,6 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 		}
 
 		// Prepare filename and path
-		$params	= JComponentHelper::getParams('com_sermonspeaker');
 		$folder	= trim($params->get('path'), '/');
 
 		$name = JFile::makeSafe($rows[0]['series_title']);

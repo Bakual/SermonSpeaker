@@ -9,3 +9,4 @@ ALTER TABLE #__sermon_series ADD `zip_content` TEXT NOT NULL;
 ALTER TABLE #__sermon_series ADD `zip_progress` INT(11) NOT NULL DEFAULT '0';
 ALTER TABLE #__sermon_series ADD `zip_state` TINYINT(3) NOT NULL DEFAULT '0';
 ALTER TABLE #__sermon_series ADD `zip_size` INT(11) NOT NULL DEFAULT '0';
+ALTER TABLE #__sermon_series ADD `zip_dl` TINYINT(3) NOT NULL DEFAULT '0';
