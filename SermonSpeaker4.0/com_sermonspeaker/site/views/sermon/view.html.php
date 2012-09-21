@@ -208,10 +208,10 @@ class SermonspeakerViewSermon extends JViewLegacy
 			$this->document->addCustomTag('<meta property="og:url" content="'.JURI::getInstance()->toString().'"/>');
 			$this->document->addCustomTag('<meta property="og:description" content="'.$this->document->getDescription().'"/>');
 			$this->document->addCustomTag('<meta property="og:site_name" content="'.$app->getCfg('sitename').'"/>');
-			$this->document->addCustomTag('<meta property="og:type" content="sermon"/>');
+			$this->document->addCustomTag('<meta property="og:type" content="article"/>');
 			if ($picture = SermonspeakerHelperSermonspeaker::insertPicture($this->item))
 			{
-				$this->document->addCustomTag('<meta property="og:image" content="'.SermonSpeakerHelperSermonSpeaker::makelink($picture).'"/>');
+				$this->document->addCustomTag('<meta property="og:image" content="'.SermonSpeakerHelperSermonSpeaker::makelink($picture, true).'"/>');
 			}
 			if ($this->item->videofile)
 			{
@@ -223,12 +223,12 @@ class SermonspeakerViewSermon extends JViewLegacy
 				}
 				else
 				{
-					$this->document->addCustomTag('<meta property="og:video" content="'.SermonSpeakerHelperSermonSpeaker::makelink($this->item->videofile).'"/>');
+					$this->document->addCustomTag('<meta property="og:video" content="'.SermonSpeakerHelperSermonSpeaker::makelink($this->item->videofile, true).'"/>');
 				}
 			}
 			if ($this->item->audiofile)
 			{
-				$this->document->addCustomTag('<meta property="og:audio" content="'.SermonSpeakerHelperSermonSpeaker::makelink($this->item->audiofile).'"/>');
+				$this->document->addCustomTag('<meta property="og:audio" content="'.SermonSpeakerHelperSermonSpeaker::makelink($this->item->audiofile, true).'"/>');
 				$this->document->addCustomTag('<meta property="og:audio:title" content="'.$this->item->sermon_title.'"/>');
 				if ($this->item->name)
 				{

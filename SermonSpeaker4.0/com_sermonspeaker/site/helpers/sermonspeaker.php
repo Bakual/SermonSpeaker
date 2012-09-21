@@ -84,11 +84,11 @@ class SermonspeakerHelperSermonspeaker
 		}
 	}
 
-	static function makeLink($path) 
+	static function makeLink($path, $abs = false) 
 	{
 		if (stripos($path, 'http://') !== 0 && stripos($path, 'https://') !== 0)
 		{
-			$path = JURI::base(true).'/'.trim($path, '/');
+			$path = ($abs) ? JURI::base().trim($path, '/') : JURI::base(true).'/'.trim($path, '/');
 		}
 
 		return $path;
