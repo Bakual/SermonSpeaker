@@ -10,6 +10,14 @@ class SermonspeakerViewSermons extends JViewLegacy
 	 */
 	public function display($tpl = null)
 	{
+		// Switch Layout if in Joomla 3.0
+		$version		= new JVersion;
+		$this->joomla30	= $version->isCompatible(3.0);
+		if ($this->joomla30)
+		{
+			$this->setLayout($this->getLayout().'30');
+		}
+
 		$this->state		= $this->get('State');
 		$this->items		= $this->get('Items');
 		$this->pagination	= $this->get('Pagination');
@@ -21,14 +29,20 @@ class SermonspeakerViewSermons extends JViewLegacy
 			return false;
 		}
 		$this->addToolbar();
+		if ($this->joomla30)
+		{
+			$this->addFilters();
+		}
 		parent::display($tpl);
 	}
+
 	/**
 	 * Add the page title and toolbar.
 	 */
 	protected function addToolbar()
 	{
 		$canDo 	= SermonspeakerHelper::getActions();
+
 		JToolBarHelper::title(JText::_('COM_SERMONSPEAKER_SERMONS_TITLE'), 'sermons');
 		if ($canDo->get('core.create')) {
 			JToolBarHelper::addNew('sermon.add','JTOOLBAR_NEW');
@@ -59,8 +73,90 @@ class SermonspeakerViewSermons extends JViewLegacy
 			JToolBarHelper::custom('tools.order', 'purge', '','COM_SERMONSPEAKER_TOOLS_ORDER', false);
 			JToolBarHelper::divider();
 		}
+
+		if ($this->joomla30)
+		{
+			// Get the toolbar object instance
+			$bar = JToolBar::getInstance('toolbar');
+
+			// Add a batch button
+			if ($canDo->get('core.edit'))
+			{
+				$title = JText::_('JTOOLBAR_BATCH');
+				$dhtml = "<button data-toggle=\"modal\" data-target=\"#collapseModal\" class=\"btn btn-small\">
+							<i class=\"icon-checkbox-partial\" title=\"$title\"></i>
+							$title</button>";
+				$bar->appendButton('Custom', $dhtml, 'batch');
+			}
+		}
+
 		if ($canDo->get('core.admin')) {
 			JToolBarHelper::preferences('com_sermonspeaker', 650, 900);
 		}
+	}
+
+	/**
+	 * Add the filters.
+	 */
+	protected function addFilters()
+	{
+		JSubMenuHelper::setAction('index.php?option=com_sermonspeaker&view=sermons');
+
+		JSubMenuHelper::addFilter(
+			JText::_('JOPTION_SELECT_PUBLISHED'),
+			'filter_published',
+			JHtml::_('select.options', JHtml::_('jgrid.publishedOptions'), 'value', 'text', $this->state->get('filter.published'), true)
+		);
+
+		JSubMenuHelper::addFilter(
+			JText::_('COM_SERMONSPEAKER_SELECT_PCAST'),
+			'filter_podcast',
+			JHtml::_('select.options', array('0'=>JText::_('JUNPUBLISHED'), '1'=>JText::_('JPUBLISHED')), 'value', 'text', $this->state->get('filter.podcast'), true)
+		);
+
+		JSubMenuHelper::addFilter(
+			JText::_('JOPTION_SELECT_CATEGORY'),
+			'filter_category_id',
+			JHtml::_('select.options', JHtml::_('category.options', 'com_sermonspeaker'), 'value', 'text', $this->state->get('filter.category_id'))
+		);
+
+		JSubMenuHelper::addFilter(
+			JText::_('COM_SERMONSPEAKER_SELECT_SPEAKER'),
+			'filter_speaker',
+			JHtml::_('select.options', $this->speakers, 'value', 'text', $this->state->get('filter.speaker'))
+		);
+
+		JSubMenuHelper::addFilter(
+			JText::_('COM_SERMONSPEAKER_SELECT_SERIES'),
+			'filter_series',
+			JHtml::_('select.options', $this->series, 'value', 'text', $this->state->get('filter.series'))
+		);
+
+		JSubMenuHelper::addFilter(
+			JText::_('JOPTION_SELECT_LANGUAGE'),
+			'filter_language',
+			JHtml::_('select.options', JHtml::_('contentlanguage.existing', true, true), 'value', 'text', $this->state->get('filter.language'))
+		);
+	}
+
+	/**
+	 * Returns an array of fields the table can be sorted by
+	 *
+	 * @return  array  Array containing the field name to sort by as the key and display text as value
+	 *
+	 * @since   3.0
+	 */
+	protected function getSortFields()
+	{
+		return array(
+			'sermons.ordering' => JText::_('JGRID_HEADING_ORDERING'),
+			'sermons.state' => JText::_('JSTATUS'),
+			'sermons.title' => JText::_('JGLOBAL_TITLE'),
+			'category_title' => JText::_('JCATEGORY'),
+			'sermons.created_by' => JText::_('JAUTHOR'),
+			'language' => JText::_('JGRID_HEADING_LANGUAGE'),
+			'sermons.created' => JText::_('JDATE'),
+			'sermons.id' => JText::_('JGRID_HEADING_ID')
+		);
 	}
 }
