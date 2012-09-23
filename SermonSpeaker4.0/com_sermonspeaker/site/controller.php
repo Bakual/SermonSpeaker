@@ -90,6 +90,10 @@ class SermonspeakerController extends JControllerLegacy
 			$chunksize = 3 * (1024 * 1024); // how many bytes per chunk
 			if ($fSize > $chunksize) {
 				$handle = fopen($file, 'rb');
+				if (!$handle)
+				{
+					die("Can't open the file!");
+				}
 				$buffer = '';
 				while (!feof($handle)) {
 					$buffer = fread($handle, $chunksize);
