@@ -4,6 +4,8 @@ class SermonspeakerViewTools extends JViewLegacy
 {
 	function display( $tpl = null )
 	{
+		SermonspeakerHelper::addSubmenu('tools');
+
 		// Check if PreachIt is installed
 		$app = JFactory::getApplication();
 		$db		= JFactory::getDbo();

@@ -4,6 +4,8 @@ class SermonspeakerViewHelp extends JViewLegacy
 {
 	function display( $tpl = null )
 	{
+		SermonspeakerHelper::addSubmenu('help');
+
 		$this->addToolbar();
 		parent::display($tpl);
 	}

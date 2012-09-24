@@ -10,12 +10,18 @@ class SermonspeakerViewSermons extends JViewLegacy
 	 */
 	public function display($tpl = null)
 	{
+		$layout = $this->getLayout();
+		if ($layout !== 'modal')
+		{
+			SermonspeakerHelper::addSubmenu('sermons');
+		}
+
 		// Switch Layout if in Joomla 3.0
 		$version		= new JVersion;
 		$this->joomla30	= $version->isCompatible(3.0);
 		if ($this->joomla30)
 		{
-			$this->setLayout($this->getLayout().'30');
+			$this->setLayout($layout.'30');
 		}
 
 		$this->state		= $this->get('State');
