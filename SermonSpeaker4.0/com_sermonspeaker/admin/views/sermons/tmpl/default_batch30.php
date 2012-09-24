@@ -25,6 +25,10 @@ $published = $this->state->get('filter.published');
 					<option value=""><?php echo JText::_('COM_SERMONSPEAKER_BATCH_SPEAKER_NOCHANGE'); ?></option>
 					<?php echo JHtml::_('select.options', $this->speakers, 'value', 'text'); ?>
 				</select>
+			</div>
+		</div>
+		<div class="control-group">
+			<div class="controls">
 				<label id="batch-serie-lbl" for="batch-serie-id" class="hasTip" title="<?php echo JText::_('COM_SERMONSPEAKER_BATCH_SERIE_LABEL'); ?>::<?php echo JText::_('COM_SERMONSPEAKER_BATCH_SERIE_LABEL_DESC'); ?>">
 					<?php echo JText::_('COM_SERMONSPEAKER_BATCH_SERIE_LABEL'); ?>
 				</label>
@@ -51,6 +55,3 @@ $published = $this->state->get('filter.published');
 		</button>
 	</div>
 </div>
-
-
-

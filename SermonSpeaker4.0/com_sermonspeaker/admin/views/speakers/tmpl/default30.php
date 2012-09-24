@@ -9,10 +9,10 @@ $user		= JFactory::getUser();
 $userId		= $user->get('id');
 $listOrder	= $this->escape($this->state->get('list.ordering'));
 $listDirn	= $this->escape($this->state->get('list.direction'));
-$saveOrder	= $listOrder == 'sermons.ordering';
+$saveOrder	= $listOrder == 'speakers.ordering';
 if ($saveOrder) :
-	$saveOrderingUrl = 'index.php?option=com_sermonspeaker&task=sermons.saveOrderAjax&tmpl=component';
-	JHtml::_('sortablelist.sortable', 'sermonList', 'adminForm', strtolower($listDirn), $saveOrderingUrl);
+	$saveOrderingUrl = 'index.php?option=com_sermonspeaker&task=speakers.saveOrderAjax&tmpl=component';
+	JHtml::_('sortablelist.sortable', 'speakerList', 'adminForm', strtolower($listDirn), $saveOrderingUrl);
 endif;
 ?>
 <script type="text/javascript">
@@ -29,7 +29,7 @@ endif;
 	}
 </script>
 
-<form action="<?php echo JRoute::_('index.php?option=com_sermonspeaker&view=sermons'); ?>" method="post" name="adminForm" id="adminForm">
+<form action="<?php echo JRoute::_('index.php?option=com_sermonspeaker&view=speakers'); ?>" method="post" name="adminForm" id="adminForm">
 	<div id="filter-bar" class="btn-toolbar">
 		<div class="filter-search btn-group pull-left">
 			<label for="filter_search" class="element-invisible"><?php echo JText::_('COM_SERMONSPEAKER_FILTER_SEARCH_DESC');?></label>
@@ -61,50 +61,41 @@ endif;
 	</div>
 	<div class="clearfix"> </div>
 
-	<table class="table table-striped" id="sermonList">
+	<table class="table table-striped" id="speakerList">
 		<thead>
 			<tr>
 				<th width="1%" class="nowrap center hidden-phone">
-					<?php echo JHtml::_('grid.sort', '<i class="icon-menu-2"></i>', 'sermons.ordering', $listDirn, $listOrder, null, 'asc', 'JGRID_HEADING_ORDERING'); ?>
+					<?php echo JHtml::_('grid.sort', '<i class="icon-menu-2"></i>', 'speakers.ordering', $listDirn, $listOrder, null, 'asc', 'JGRID_HEADING_ORDERING'); ?>
 				</th>
 				<th width="1%" class="hidden-phone">
 					<input type="checkbox" name="checkall-toggle" value="" title="<?php echo JText::_('JGLOBAL_CHECK_ALL'); ?>" onclick="Joomla.checkAll(this)" />
 				</th>
 				<th width="1%" style="min-width:40px" class="nowrap center">
-					<?php echo JHtml::_('grid.sort', 'JSTATUS', 'sermons.state', $listDirn, $listOrder); ?>
-				</th>
-				<th width="1%" style="min-width:40px" class="nowrap center">
-					<?php echo JHtml::_('grid.sort',  'COM_SERMONSPEAKER_FIELD_SERMONCAST_LABEL', 'sermons.podcast', $listDirn, $listOrder); ?>
+					<?php echo JHtml::_('grid.sort', 'JSTATUS', 'speakers.state', $listDirn, $listOrder); ?>
 				</th>
 				<th>
-					<?php echo JHtml::_('grid.sort', 'JGLOBAL_TITLE', 'sermons.sermon_title', $listDirn, $listOrder); ?>
+					<?php echo JHtml::_('grid.sort', 'COM_SERMONSPEAKER_FIELD_NAME_LABEL', 'speakers.name', $listDirn, $listOrder); ?>
 				</th>
-				<th width="10%" class="nowrap hidden-phone">
-					<?php echo JHtml::_('grid.sort',  'COM_SERMONSPEAKER_SPEAKER', 'name', $listDirn, $listOrder); ?>
+				<th width="5%" class="hidden-phone">
+					<?php echo JHtml::_('grid.sort',  'COM_SERMONSPEAKER_FIELD_PICTURE_LABEL', 'speakers.pic', $listDirn, $listOrder); ?>
 				</th>
-				<th width="10%" class="nowrap hidden-phone">
-					<?php echo JHtml::_('grid.sort',  'COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL', 'scripture', $listDirn, $listOrder); ?>
-				</th>
-				<th width="10%" class="nowrap hidden-phone">
-					<?php echo JHtml::_('grid.sort',  'COM_SERMONSPEAKER_SERIE', 'series_title', $listDirn, $listOrder); ?>
-				</th>
-				<th width="7%" class="nowrap hidden-phone">
-					<?php echo JHtml::_('grid.sort',  'COM_SERMONSPEAKER_FIELD_DATE_LABEL', 'sermons.sermon_date', $listDirn, $listOrder); ?>
+				<th width="1%" style="min-width:40px" class="nowrap center">
+					<?php echo JHtml::_('grid.sort', 'JDEFAULT', 'speakers.home', $listDirn, $listOrder); ?>
 				</th>
 				<th width="5%" class="nowrap hidden-phone">
-					<?php echo JHtml::_('grid.sort',  'JGLOBAL_HITS', 'sermons.hits', $listDirn, $listOrder); ?>
+					<?php echo JHtml::_('grid.sort',  'JGLOBAL_HITS', 'speakers.hits', $listDirn, $listOrder); ?>
 				</th>
 				<th width="5%" class="nowrap hidden-phone">
 					<?php echo JHtml::_('grid.sort',  'JGRID_HEADING_LANGUAGE', 'language', $listDirn, $listOrder); ?>
 				</th>
 				<th width="1%" class="nowrap hidden-phone">
-					<?php echo JHtml::_('grid.sort',  'JGRID_HEADING_ID', 'sermons.id', $listDirn, $listOrder); ?>
+					<?php echo JHtml::_('grid.sort',  'JGRID_HEADING_ID', 'speakers.id', $listDirn, $listOrder); ?>
 				</th>
 			</tr>
 		</thead>
 		<tbody>
 		<?php foreach ($this->items as $i => $item) :
-			$ordering	= ($listOrder == 'sermons.ordering');
+			$ordering	= ($listOrder == 'speakers.ordering');
 			$canEdit	= $user->authorise('core.edit', 'com_sermonspeaker.category.'.$item->catid);
 			$canCheckin	= $user->authorise('core.manage', 'com_checkin') || $item->checked_out == $userId || $item->checked_out == 0;
 			$canEditOwn	= $user->authorise('core.edit.own', 'com_sermonspeaker.category.'.$item->catid) && $item->created_by == $userId;
@@ -135,22 +126,17 @@ endif;
 				</td>
 				<td class="center">
 					<div class="btn-group">
-						<?php echo JHtml::_('jgrid.published', $item->state, $i, 'sermons.', $canChange); ?>
-					</div>
-				</td>
-				<td class="center">
-					<div class="btn-group">
-						<?php echo JHtml::_('jgrid.published', $item->podcast, $i, 'sermons.podcast_', $canChange); ?>
+						<?php echo JHtml::_('jgrid.published', $item->state, $i, 'speakers.', $canChange); ?>
 					</div>
 				</td>
 				<td class="nowrap has-context">
 					<div class="pull-left">
 						<?php if ($item->checked_out) : ?>
-							<?php echo JHtml::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time, 'sermons.', $canCheckin); ?>
+							<?php echo JHtml::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time, 'speakers.', $canCheckin); ?>
 						<?php endif; ?>
 						<?php if ($canEdit || $canEditOwn) : ?>
-							<a href="<?php echo JRoute::_('index.php?option=com_sermonspeaker&task=sermon.edit&id=' . $item->id);?>" title="<?php echo JText::_('JACTION_EDIT');?>">
-								<?php echo $this->escape($item->sermon_title); ?></a>
+							<a href="<?php echo JRoute::_('index.php?option=com_sermonspeaker&task=speaker.edit&id=' . $item->id);?>" title="<?php echo JText::_('JACTION_EDIT');?>">
+								<?php echo $this->escape($item->name); ?></a>
 						<?php else : ?>
 							<span title="<?php echo JText::sprintf('JFIELD_ALIAS_LABEL', $this->escape($item->alias));?>"><?php echo $this->escape($item->title); ?></span>
 						<?php endif; ?>
@@ -161,30 +147,30 @@ endif;
 					<div class="pull-left">
 						<?php
 							// Create dropdown items
-							JHtml::_('dropdown.edit', $item->id, 'sermon.');
+							JHtml::_('dropdown.edit', $item->id, 'speaker.');
 							JHtml::_('dropdown.divider');
 							if ($item->state) :
-								JHtml::_('dropdown.unpublish', 'cb' . $i, 'sermons.');
+								JHtml::_('dropdown.unpublish', 'cb' . $i, 'speakers.');
 							else :
-								JHtml::_('dropdown.publish', 'cb' . $i, 'sermons.');
+								JHtml::_('dropdown.publish', 'cb' . $i, 'speakers.');
 							endif;
 
 							JHtml::_('dropdown.divider');
 
 							if ($this->state->get('filter.published') == 2) :
-								JHtml::_('dropdown.unarchive', 'cb' . $i, 'sermons.');
+								JHtml::_('dropdown.unarchive', 'cb' . $i, 'speakers.');
 							else :
-								JHtml::_('dropdown.archive', 'cb' . $i, 'sermons.');
+								JHtml::_('dropdown.archive', 'cb' . $i, 'speakers.');
 							endif;
 
 							if ($item->checked_out) :
-								JHtml::_('dropdown.checkin', 'cb' . $i, 'sermons.');
+								JHtml::_('dropdown.checkin', 'cb' . $i, 'speakers.');
 							endif;
 
 							if ($this->state->get('filter.published') == -2) :
-								JHtml::_('dropdown.untrash', 'cb' . $i, 'sermons.');
+								JHtml::_('dropdown.untrash', 'cb' . $i, 'speakers.');
 							else :
-								JHtml::_('dropdown.trash', 'cb' . $i, 'sermons.');
+								JHtml::_('dropdown.trash', 'cb' . $i, 'speakers.');
 							endif;
 
 							// Render dropdown list
@@ -192,61 +178,22 @@ endif;
 							?>
 					</div>
 				</td>
-				<td class="nowrap small hidden-phone">
-					<?php echo $this->escape($item->name); ?>
+				<td class="center">
+					<?php if (!$item->pic){
+						$item->pic = JURI::root().'media/com_sermonspeaker/images/nopict.jpg';
+					}
+					if (substr($item->pic, 0, 7) != 'http://') {
+						$item->pic = JURI::root().trim($item->pic, '/.');
+					} ?>
+					<img src="<?php echo $item->pic; ?>" border="1" width="50" height="50">
 				</td>
-				<td class="center small hidden-phone">
-					<?php if ($item->scripture):
-						$passages	= explode('!', $item->scripture);
-						$separator	= JText::_('COM_SERMONSPEAKER_SCRIPTURE_SEPARATOR');
-						$j = 1;
-						foreach ($passages as $passage){
-							$explode	= explode('|',$passage);
-							if ($explode[5]){
-								if ($explode[0]){
-									echo $explode[5];
-								} else {
-									echo '<i><u>'.$explode[5].'</u></i>';
-								}
-							} else {
-								echo JText::_('COM_SERMONSPEAKER_BOOK_'.$explode[0]);
-								if ($explode[1]){
-									echo '&nbsp;'.$explode[1];
-									if ($explode[2]){
-										echo $separator.$explode[2];
-									}
-									if ($explode[3] || $explode[4]){
-										echo '-';
-										if ($explode[3]){
-											echo $explode[3];
-											if ($explode[4]){
-												echo $separator.$explode[4];
-											}
-										} else {
-											echo $explode[4];
-										}
-									}
-								}
-							}
-							if($j < count($passages)){
-								echo '<br/ >';
-							}
-							$j++;
-						}
-					endif; ?>
-				</td>
-				<td class="small hidden-phone">
-					<?php echo $this->escape($item->series_title); ?>
-				</td>
-				<td class="nowrap small hidden-phone">
-					<?php if ($item->sermon_date != '0000-00-00 00:00:00'):
-						echo JHTML::Date($item->sermon_date, JText::_('DATE_FORMAT_LC4'), true);
-					endif; ?>
+				<td class="center">
+					<?php echo JHtml::_('jgrid.isdefault', $item->home, $i, 'speakers.', $canChange && !$item->home);?>
 				</td>
 				<td class="center">
 					<?php echo $item->hits; ?>
 					<?php if ($canEdit || $canEditOwn) : ?>
-						&nbsp;<a href="index.php?option=com_sermonspeaker&task=sermon.reset&id=<?php echo $item->id; ?>" title="<?php echo JText::_('JSEARCH_RESET'); ?>"><img src="<?php echo JURI::base(); ?>components/com_sermonspeaker/images/reset.png" width="16" height="16" border="0" alt="<?php echo JText::_('JSEARCH_RESET'); ?>" /></a>
+						&nbsp;<a href="index.php?option=com_sermonspeaker&task=speaker.reset&id=<?php echo $item->id; ?>" title="<?php echo JText::_('JSEARCH_RESET'); ?>"><img src="<?php echo JURI::base(); ?>components/com_sermonspeaker/images/reset.png" width="16" height="16" border="0" alt="<?php echo JText::_('JSEARCH_RESET'); ?>" /></a>
 					<?php endif; ?>
 				</td>
 				<td class="small hidden-phone">

@@ -10,6 +10,14 @@ class SermonspeakerViewSpeakers extends JViewLegacy
 	 */
 	public function display($tpl = null)
 	{
+		// Switch Layout if in Joomla 3.0
+		$version		= new JVersion;
+		$this->joomla30	= $version->isCompatible(3.0);
+		if ($this->joomla30)
+		{
+			$this->setLayout($this->getLayout().'30');
+		}
+
 		$this->state		= $this->get('State');
 		$this->items		= $this->get('Items');
 		$this->pagination	= $this->get('Pagination');
@@ -19,6 +27,10 @@ class SermonspeakerViewSpeakers extends JViewLegacy
 			return false;
 		}
 		$this->addToolbar();
+		if ($this->joomla30)
+		{
+			$this->addFilters();
+		}
 		parent::display($tpl);
 	}
 	/**
@@ -54,11 +66,76 @@ class SermonspeakerViewSpeakers extends JViewLegacy
 			JToolBarHelper::divider();
 		}
 		if ($canDo->get('core.edit.state')) {
-			JToolBarHelper::custom('tools.speakersorder', 'purge', '','COM_SERMONSPEAKER_TOOLS_ORDER', false);
+			JToolBarHelper::custom('tools.speakersorder', 'purge icon-loop', '','COM_SERMONSPEAKER_TOOLS_ORDER', false);
 			JToolBarHelper::divider();
 		}
+
+		if ($this->joomla30)
+		{
+			// Get the toolbar object instance
+			$bar = JToolBar::getInstance('toolbar');
+
+			// Add a batch button
+			if ($canDo->get('core.edit'))
+			{
+				$title = JText::_('JTOOLBAR_BATCH');
+				$dhtml = "<button data-toggle=\"modal\" data-target=\"#collapseModal\" class=\"btn btn-small\">
+							<i class=\"icon-checkbox-partial\" title=\"$title\"></i>
+							$title</button>";
+				$bar->appendButton('Custom', $dhtml, 'batch');
+			}
+		}
+
 		if ($canDo->get('core.admin')) {
 			JToolBarHelper::preferences('com_sermonspeaker', 650, 900);
 		}
+	}
+
+	/**
+	 * Add the filters.
+	 */
+	protected function addFilters()
+	{
+		JSubMenuHelper::setAction('index.php?option=com_sermonspeaker&view=speakers');
+
+		JSubMenuHelper::addFilter(
+			JText::_('JOPTION_SELECT_PUBLISHED'),
+			'filter_published',
+			JHtml::_('select.options', JHtml::_('jgrid.publishedOptions'), 'value', 'text', $this->state->get('filter.published'), true)
+		);
+
+		JSubMenuHelper::addFilter(
+			JText::_('JOPTION_SELECT_CATEGORY'),
+			'filter_category_id',
+			JHtml::_('select.options', JHtml::_('category.options', 'com_sermonspeaker'), 'value', 'text', $this->state->get('filter.category_id'))
+		);
+
+		JSubMenuHelper::addFilter(
+			JText::_('JOPTION_SELECT_LANGUAGE'),
+			'filter_language',
+			JHtml::_('select.options', JHtml::_('contentlanguage.existing', true, true), 'value', 'text', $this->state->get('filter.language'))
+		);
+	}
+
+	/**
+	 * Returns an array of fields the table can be sorted by
+	 *
+	 * @return  array  Array containing the field name to sort by as the key and display text as value
+	 *
+	 * @since   3.0
+	 */
+	protected function getSortFields()
+	{
+		return array(
+			'speakers.ordering' => JText::_('JGRID_HEADING_ORDERING'),
+			'speakers.state' => JText::_('JSTATUS'),
+			'speakers.name' => JText::_('COM_SERMONSPEAKER_FIELD_NAME_LABEL'),
+			'category_title' => JText::_('JCATEGORY'),
+			'speakers.pic' => JText::_('COM_SERMONSPEAKER_FIELD_PICTURE_LABEL'),
+			'speakers.home' => JText::_('JDEFAULT'),
+			'speakers.hits' => JText::_('JGLOBAL_HITS'),
+			'language' => JText::_('JGRID_HEADING_LANGUAGE'),
+			'speakers.id' => JText::_('JGRID_HEADING_ID')
+		);
 	}
 }

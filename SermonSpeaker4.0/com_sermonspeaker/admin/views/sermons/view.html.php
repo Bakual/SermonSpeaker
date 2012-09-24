@@ -70,7 +70,7 @@ class SermonspeakerViewSermons extends JViewLegacy
 			JToolBarHelper::divider();
 		}
 		if ($canDo->get('core.edit.state')) {
-			JToolBarHelper::custom('tools.order', 'purge', '','COM_SERMONSPEAKER_TOOLS_ORDER', false);
+			JToolBarHelper::custom('tools.order', 'purge icon-loop', '','COM_SERMONSPEAKER_TOOLS_ORDER', false);
 			JToolBarHelper::divider();
 		}
 
@@ -151,11 +151,15 @@ class SermonspeakerViewSermons extends JViewLegacy
 		return array(
 			'sermons.ordering' => JText::_('JGRID_HEADING_ORDERING'),
 			'sermons.state' => JText::_('JSTATUS'),
-			'sermons.title' => JText::_('JGLOBAL_TITLE'),
+			'sermons.podcast' => JText::_('COM_SERMONSPEAKER_FIELD_SERMONCAST_LABEL'),
+			'sermons.sermon_title' => JText::_('JGLOBAL_TITLE'),
 			'category_title' => JText::_('JCATEGORY'),
-			'sermons.created_by' => JText::_('JAUTHOR'),
+			'name' => JText::_('COM_SERMONSPEAKER_SPEAKER'),
+			'scripture' => JText::_('COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL'),
+			'series_title' => JText::_('COM_SERMONSPEAKER_SERIE'),
+			'sermons.sermon_date' => JText::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL'),
+			'sermons.hits' => JText::_('JGLOBAL_HITS'),
 			'language' => JText::_('JGRID_HEADING_LANGUAGE'),
-			'sermons.created' => JText::_('JDATE'),
 			'sermons.id' => JText::_('JGRID_HEADING_ID')
 		);
 	}
