@@ -85,7 +85,10 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 				// check if directory exists, fallback to base directory if not.
 				$dir = is_dir(JPATH_ROOT.'/'.$dir.$append) ? $dir.$append : $dir;
 			}
-			$this->element->addAttribute('directory', $dir);
+			if (!(string)$this->element['directory'])
+			{
+				$this->element->addAttribute('directory', $dir);
+			}
 
 			// Get the field options.
 			$options = parent::getOptions();

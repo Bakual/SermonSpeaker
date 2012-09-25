@@ -117,13 +117,13 @@ endif;
 				</td>
 				<td class="center">
 					<div class="btn-group">
-						<?php echo JHtml::_('jgrid.published', $item->state, $i, 'series.', $canChange); ?>
+						<?php echo JHtml::_('jgrid.published', $item->state, $i, 'tags.', $canChange); ?>
 					</div>
 				</td>
 				<td class="nowrap has-context">
 					<div class="pull-left">
 						<?php if ($item->checked_out) : ?>
-							<?php echo JHtml::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time, 'series.', $canCheckin); ?>
+							<?php echo JHtml::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time, 'tags.', $canCheckin); ?>
 						<?php endif; ?>
 						<?php if ($canEdit || $canEditOwn) : ?>
 							<a href="<?php echo JRoute::_('index.php?option=com_sermonspeaker&task=tag.edit&id=' . $item->id);?>" title="<?php echo JText::_('JACTION_EDIT');?>">
@@ -138,30 +138,30 @@ endif;
 					<div class="pull-left">
 						<?php
 							// Create dropdown items
-							JHtml::_('dropdown.edit', $item->id, 'serie.');
+							JHtml::_('dropdown.edit', $item->id, 'tag.');
 							JHtml::_('dropdown.divider');
 							if ($item->state) :
-								JHtml::_('dropdown.unpublish', 'cb' . $i, 'series.');
+								JHtml::_('dropdown.unpublish', 'cb' . $i, 'tags.');
 							else :
-								JHtml::_('dropdown.publish', 'cb' . $i, 'series.');
+								JHtml::_('dropdown.publish', 'cb' . $i, 'tags.');
 							endif;
 
 							JHtml::_('dropdown.divider');
 
 							if ($this->state->get('filter.published') == 2) :
-								JHtml::_('dropdown.unarchive', 'cb' . $i, 'series.');
+								JHtml::_('dropdown.unarchive', 'cb' . $i, 'tags.');
 							else :
-								JHtml::_('dropdown.archive', 'cb' . $i, 'series.');
+								JHtml::_('dropdown.archive', 'cb' . $i, 'tags.');
 							endif;
 
 							if ($item->checked_out) :
-								JHtml::_('dropdown.checkin', 'cb' . $i, 'series.');
+								JHtml::_('dropdown.checkin', 'cb' . $i, 'tags.');
 							endif;
 
 							if ($this->state->get('filter.published') == -2) :
-								JHtml::_('dropdown.untrash', 'cb' . $i, 'series.');
+								JHtml::_('dropdown.untrash', 'cb' . $i, 'tags.');
 							else :
-								JHtml::_('dropdown.trash', 'cb' . $i, 'series.');
+								JHtml::_('dropdown.trash', 'cb' . $i, 'tags.');
 							endif;
 
 							// Render dropdown list

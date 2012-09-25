@@ -28,7 +28,7 @@ $published = $this->state->get('filter.published');
 		<button class="btn" type="button" onclick="document.id('batch-category-id').value='';document.id('batch-language-id').value=''" data-dismiss="modal">
 			<?php echo JText::_('JCANCEL'); ?>
 		</button>
-		<button class="btn btn-primary" type="submit" onclick="Joomla.submitbutton('serie.batch');">
+		<button class="btn btn-primary" type="submit" onclick="Joomla.submitbutton('tag.batch');">
 			<?php echo JText::_('JGLOBAL_BATCH_PROCESS'); ?>
 		</button>
 	</div>

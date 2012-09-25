@@ -8,13 +8,16 @@
 			size="30"
 			required="true" />
 
-		<field name="alias" type="text" class="inputbox"
-			size="40" label="JFIELD_ALIAS_LABEL"
-			description="JFIELD_ALIAS_DESC" />
+		<field name="alias" type="text"
+			label="JFIELD_ALIAS_LABEL" description="JFIELD_ALIAS_DESC"
+			class="inputbox"
+			size="45" />
 
-		<field name="catid" type="categoryedit" extension="com_sermonspeaker"
+		<field name="catid" type="categoryedit"
 			label="JCATEGORY" description="JFIELD_CATEGORY_DESC"
-			class="inputbox" required="true" />
+			extension="com_sermonspeaker"
+			class="inputbox"
+			required="true" />
 
 		<field name="state" type="list"
 			label="JSTATUS" description="JFIELD_PUBLISHED_DESC"
@@ -33,13 +36,16 @@
 			label="JFIELD_ORDERING_LABEL"
 			description="JFIELD_ORDERING_DESC" />
 
-		<field name="description" type="editor" buttons="true" hide="pagebreak,readmore"
+		<field name="description" type="editor"
+			label="JGLOBAL_DESCRIPTION"
+			buttons="true"
+			hide="pagebreak,readmore"
 			class="inputbox"
-			filter="JComponentHelper::filterText"
-			label="JGLOBAL_DESCRIPTION" />
+			filter="JComponentHelper::filterText" />
 
-		<field name="language" type="contentlanguage" label="JFIELD_LANGUAGE_LABEL"
-			description="COM_SERMONSPEAKER_FIELD_LANGUAGE_DESC" class="inputbox span12 small"
+		<field name="language" type="contentlanguage"
+			label="JFIELD_LANGUAGE_LABEL" description="COM_SERMONSPEAKER_FIELD_LANGUAGE_DESC"
+			class="inputbox span12 small"
 		>
 			<option value="*">JALL</option>
 		</field>
@@ -49,8 +55,8 @@
 	<fieldset name="info">
 		<field name="id"  type="text"
 			label="JGLOBAL_FIELD_ID_LABEL" description ="JGLOBAL_FIELD_ID_DESC"
-			size="10" default="0"
 			class="readonly"
+			size="10" default="0"
 			readonly="true" />
 
 		<field name="created_by" type="user"

@@ -12,8 +12,9 @@ $input = JFactory::getApplication()->input;
 
 <script type="text/javascript">
 	Joomla.submitbutton = function(task) {
-		if (task == 'tag.cancel' || document.formvalidator.isValid(document.id('adminForm'))) {
-			<?php echo $this->form->getField('description')->save(); ?>
+		if (task == 'speaker.cancel' || document.formvalidator.isValid(document.id('adminForm'))) {
+			<?php echo $this->form->getField('intro')->save(); ?>
+			<?php echo $this->form->getField('bio')->save(); ?>
 			Joomla.submitform(task, document.getElementById('adminForm'));
 		} else {
 			alert('<?php echo $this->escape(JText::_('JGLOBAL_VALIDATION_FORM_FAILED'));?>');
@@ -28,6 +29,7 @@ $input = JFactory::getApplication()->input;
 			<ul class="nav nav-tabs">
 				<li class="active"><a href="#general" data-toggle="tab"><?php echo JText::_('JDETAILS');?></a></li>
 				<li><a href="#publishing" data-toggle="tab"><?php echo JText::_('JGLOBAL_FIELDSET_PUBLISHING');?></a></li>
+				<li><a href="#metadata" data-toggle="tab"><?php echo JText::_('JGLOBAL_FIELDSET_METADATA_OPTIONS');?></a></li>
 			</ul>
 
 			<div class="tab-content">
@@ -35,10 +37,28 @@ $input = JFactory::getApplication()->input;
 				<div class="tab-pane active" id="general">
 					<fieldset class="adminform">
 						<div class="control-group form-inline">
-							<?php echo $this->form->getLabel('title'); ?> <?php echo $this->form->getInput('title'); ?> <?php echo $this->form->getLabel('catid'); ?> <?php echo $this->form->getInput('catid'); ?>
+							<?php echo $this->form->getLabel('name'); ?> <?php echo $this->form->getInput('name'); ?> <?php echo $this->form->getLabel('catid'); ?> <?php echo $this->form->getInput('catid'); ?>
 						</div>
-						<?php echo $this->form->getInput('description'); ?>
+						<?php echo $this->form->getInput('intro'); ?>
+						<?php echo $this->form->getInput('bio'); ?>
 					</fieldset>
+					<div class="row-fluid">
+						<div class="span6">
+							<h4><?php echo JText::_('JDETAILS');?></h4>
+							<?php foreach($this->form->getFieldset('detail') as $field): ?>
+								<div class="control-group">
+									<?php if (!$field->hidden): ?>
+										<div class="control-label">
+											<?php echo $field->label; ?>
+										</div>
+									<?php endif; ?>
+									<div class="controls">
+										<?php echo $field->input; ?>
+									</div>
+								</div>
+							<?php endforeach; ?>
+						</div>
+					</div>
 				</div>
 
 				<div class="tab-pane" id="publishing">
@@ -77,7 +97,51 @@ $input = JFactory::getApplication()->input;
 								</div>
 							</div>
 						</div>
+						<div class="span6">
+							<?php if ($this->item->modified_by) : ?>
+								<div class="control-group">
+									<div class="control-label">
+										<?php echo $this->form->getLabel('modified_by'); ?>
+									</div>
+									<div class="controls">
+										<?php echo $this->form->getInput('modified_by'); ?>
+									</div>
+								</div>
+								<div class="control-group">
+									<div class="control-label">
+										<?php echo $this->form->getLabel('modified'); ?>
+									</div>
+									<div class="controls">
+										<?php echo $this->form->getInput('modified'); ?>
+									</div>
+								</div>
+							<?php endif; ?>
+							<div class="control-group">
+								<div class="control-label">
+									<?php echo $this->form->getLabel('hits'); ?>
+								</div>
+								<div class="controls">
+									<?php echo $this->form->getInput('hits'); ?>
+								</div>
+							</div>
+						</div>
 					</div>
+				</div>
+				<div class="tab-pane" id="metadata">
+					<fieldset>
+						<?php foreach($this->form->getFieldset('metadata') as $field): ?>
+							<div class="control-group">
+								<?php if (!$field->hidden): ?>
+									<div class="control-label">
+										<?php echo $field->label; ?>
+									</div>
+								<?php endif; ?>
+								<div class="controls">
+									<?php echo $field->input; ?>
+								</div>
+							</div>
+						<?php endforeach; ?>
+					</fieldset>
 				</div>
 			</div>
 			<input type="hidden" name="task" value="" />
@@ -92,7 +156,7 @@ $input = JFactory::getApplication()->input;
 			<fieldset class="form-vertical">
 				<div class="control-group">
 					<div class="controls">
-						<?php echo $this->form->getValue('title'); ?>
+						<?php echo $this->form->getValue('name'); ?>
 					</div>
 				</div>
 
