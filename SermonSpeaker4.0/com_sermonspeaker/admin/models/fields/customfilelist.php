@@ -40,7 +40,8 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 	protected function getInput()
 	{
 		$this->params = JComponentHelper::getParams('com_sermonspeaker');
-		switch ($this->fieldname){
+		switch ($this->fieldname)
+		{
 			case 'audiofile':
 				$this->mode = $this->params->get('path_mode_audio', 0);
 				break;
@@ -51,6 +52,13 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 				$this->mode = 0;
 				break;
 		}
+
+		$js = 'window.addEvent("domready",function(){
+			document.getElementById("'.$this->id.'").disabled = true;
+		});';
+		$document = JFactory::getDocument();
+		$document->addScriptDeclaration($js);
+
 		return parent::getInput();
 	}
 
@@ -62,7 +70,8 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 	 */
 	protected function getOptions()
 	{
-		if (!$this->mode){
+		if (!$this->mode)
+		{
 			// Define the image file type filter.
 			$path	= (string) $this->element['path'];
 			$dir	= trim($this->params->get($path), '/');
@@ -70,14 +79,16 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 			// Set the form field element attribute for file type filter.
 
 			// Add year/month to the directory if enabled.
-			if ($this->params->get('append_path', 0)){
+			if ($this->params->get('append_path', 0))
+			{
 				// In case of an edit, we check for the sermon_date and choose the year/month of the sermon.
 				$append = ($ts = strtotime($this->form->getValue('sermon_date'))) ? '/'.date('Y', $ts).'/'.date('m', $ts) : '/'.date('Y').'/'.date('m');
 				// check if directory exists, fallback to base directory if not.
 				$dir = is_dir(JPATH_ROOT.'/'.$dir.$append) ? $dir.$append : $dir;
 			}
 			// Add language to the directory if enabled.
-			if ($this->params->get('append_path_lang', 0)){
+			if ($this->params->get('append_path_lang', 0))
+			{
 				// In case of an edit, we check for the language set, otherwise we use the active language.
 				$language = $this->form->getValue('language');
 				$jlang = JFactory::getLanguage();
@@ -85,24 +96,26 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 				// check if directory exists, fallback to base directory if not.
 				$dir = is_dir(JPATH_ROOT.'/'.$dir.$append) ? $dir.$append : $dir;
 			}
-			if (!(string)$this->element['directory'])
-			{
-				$this->element->addAttribute('directory', $dir);
-			}
+			$this->element->addAttribute('directory', $dir);
 
 			// Get the field options.
 			$options = parent::getOptions();
 
 			// Add directory to the value.
-			foreach ($options as $option){
+			foreach ($options as $option)
+			{
 				$option->value = '/'.$dir.'/'.$option->value;
 			}
 			return $options;
-		} elseif ($this->mode == 1){
+		}
+		elseif ($this->mode == 1)
+		{
 			$options = array();
 			$url = 'http://vimeo.com/api/v2/'.$this->params->get('vimeo_id').'/videos.xml';
-			if ($xml = simplexml_load_file($url)){
-				foreach ($xml->video as $video) {
+			if ($xml = simplexml_load_file($url))
+			{
+				foreach ($xml->video as $video)
+				{
 					$option['value'] = $video->url;
 					$option['text'] = $video->title;
 					$options[] = $option;
@@ -110,7 +123,9 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 
 				return $options;
 			}
-		} elseif ($this->mode == 2){
+		}
+		elseif ($this->mode == 2)
+		{
 			// Initialize variables.
 			$options = array();
 
@@ -124,7 +139,8 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 			$s3 = new S3($awsAccessKey, $awsSecretKey);
 
 			$bucket_contents = $s3->getBucket($bucket);
-			foreach ($bucket_contents as $file){
+			foreach ($bucket_contents as $file)
+			{
 				$fname = $file['name'];
 				$furl = 'http://'.$bucket.'.s3.amazonaws.com/'.$fname;
 				$option['value'] = $furl;
@@ -133,11 +149,15 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 			}   
 
 			return $options;
-		} elseif ($this->mode == 3){
+		}
+		elseif ($this->mode == 3)
+		{
 			$options = array();
 			$url = $this->params->get('extern_path');
-			if ($xml = simplexml_load_file($url)){
-				foreach ($xml->file as $file) {
+			if ($xml = simplexml_load_file($url))
+			{
+				foreach ($xml->file as $file)
+				{
 					$option['value'] = $file->URL;
 					$option['text'] = $file->name;
 					$options[] = $option;

@@ -85,7 +85,7 @@ class JFormFieldScripture extends JFormField
 			$html .= '<span id="scripture_span_'.$i.'">';
 			$html .= '<input id="'.$this->id.'_'.$i.'" type="hidden" value="'.implode('|',$value).'" name="'.$this->name.'['.$i.']">';
 			$html .= '<img class="pointer" onclick="delete_scripture('.$i.');" src="'.JURI::root().'media/com_sermonspeaker/images/delete.png"> ';
-			$html .= '<a class="modal" href="'.$url.'&id='.$i.'" rel="{handler: \'iframe\', size: {x: 500, y: 220}}">';
+			$html .= '<a class="modal" href="'.$url.'&id='.$i.'" rel="{handler: \'iframe\', size: {x: 550, y: 420}}">';
 			$html .= '<input id="'.$this->id.'_text_'.$i.'" class="readonly scripture'.$title.'" '.$class.$size.$disabled.$readonly.$maxLength.' value="'.$text.'" name="jform['.$this->fieldname.'_text]['.$i.']" />';
 			$html .= '</a>';
 			if(!$admin){
@@ -95,7 +95,7 @@ class JFormFieldScripture extends JFormField
 			$i++;
 		}
 		$html	.= '<input type="hidden" id="scripture_id" value="'.$i.'" /></span>';
-		$html	.= '<a class="modal" href="'.$url.'" rel="{handler: \'iframe\', size: {x: 500, y: 220}}"><img src="'.JURI::root().'media/com_sermonspeaker/images/plus.png"></a>';
+		$html	.= '<a class="modal" href="'.$url.'" rel="{handler: \'iframe\', size: {x: 550, y: 420}}"><img src="'.JURI::root().'media/com_sermonspeaker/images/plus.png"></a>';
 
 		return $html;
 	}

@@ -35,6 +35,20 @@ class SermonspeakerViewSermon extends JViewLegacy
 			ena_elem.disabled = false;
 			dis_elem.disabled = true;
 		}';
+		// add Javascript for Form Elements enable and disable (J30)
+		$toggle = 'function toggleElement(element, state) {
+			if (state) {
+				document.getElementById(element + "_text_icon").className = "add-on icon-cancel";
+				document.getElementById(element + "_icon").className = "add-on icon-checkmark";
+				document.getElementById("jform_" + element + "_text").disabled = true;
+				document.getElementById("jform_" + element).disabled = false;
+			} else {
+				document.getElementById(element + "_text_icon").className = "add-on icon-checkmark";
+				document.getElementById(element + "_icon").className = "add-on icon-cancel";
+				document.getElementById("jform_" + element + "_text").disabled = false;
+				document.getElementById("jform_" + element).disabled = true;
+			}
+		}';
 		// add Javascript for ID3 Lookup (ajax)
 		$lookup	= 'function lookup(elem) {
 			xmlhttp = new XMLHttpRequest();
@@ -57,9 +71,15 @@ class SermonspeakerViewSermon extends JViewLegacy
 						}
 						if(data.series_id && document.getElementById("jform_series_id")){
 							document.getElementById("jform_series_id").value = data.series_id;
+							if(document.getElementById("jform_series_id_chzn")){
+								jQuery("#jform_series_id").trigger("liszt:updated");
+							}
 						}
 						if(data.speaker_id && document.getElementById("jform_speaker_id")){
 							document.getElementById("jform_speaker_id").value = data.speaker_id;
+							if(document.getElementById("jform_speaker_id_chzn")){
+								jQuery("#jform_speaker_id").trigger("liszt:updated");
+							}
 						}
 						if(data.notes && document.getElementById("jform_notes")){
 							jInsertEditorText(data.notes, "jform_notes");
@@ -78,6 +98,7 @@ class SermonspeakerViewSermon extends JViewLegacy
 
 		$document = JFactory::getDocument();
 		$document->addScriptDeclaration($enElem);
+		$document->addScriptDeclaration($toggle);
 		$document->addScriptDeclaration($lookup);
 
 		$session	= JFactory::getSession();

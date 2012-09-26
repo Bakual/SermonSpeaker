@@ -25,7 +25,8 @@
 }
 /* Frontend Upload */
 .progressWrapper {
-	width: 357px;
+	width: 100%;
+	max-width: 357px;
 	overflow: hidden;
 }
 

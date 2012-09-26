@@ -59,15 +59,19 @@ $input = JFactory::getApplication()->input;
 									<?php echo $this->form->getLabel('audiofile'); ?>
 								</div>
 								<div class="controls">
-									<input type="radio" name="sel1" value="0" onclick="enableElement(this.form.elements['jform_audiofile_text'], this.form.elements['jform_audiofile']);" checked>
-									<input name="jform[audiofile]" id="jform_audiofile_text" value="<?php echo $this->form->getValue('audiofile'); ?>" class="inputbox" size="100" type="text">
-									<img class="pointer" onclick="lookup(document.adminForm.jform_audiofile_text);" src='<?php echo JURI::root(); ?>/media/com_sermonspeaker/icons/16/glasses.png' alt="lookup ID3" title="lookup ID3">
-									<div class="clearfix"> </div>
-									<input type="radio" name="sel1" value="1" onclick="enableElement(this.form.elements['jform_audiofile'], this.form.elements['jform_audiofile_text']);">
-									<?php echo $this->form->getInput('audiofile');
-									if (!$this->params->get('path_mode_audio', 0)) : ?>
-										<img class="pointer" onclick="lookup(document.adminForm.jform_audiofile);" src='<?php echo JURI::root(); ?>/media/com_sermonspeaker/icons/16/glasses.png' alt='lookup ID3' title='lookup ID3'>
-									<?php endif; ?>
+									<div class="input-prepend input-append">
+										<div id="audiofile_text_icon" class="add-on icon-checkmark" onclick="toggleElement('audiofile', 0);"> </div>
+										<input name="jform[audiofile]" id="jform_audiofile_text" value="<?php echo $this->form->getValue('audiofile'); ?>" class="inputbox" size="100" type="text">
+										<div class="add-on hasTip icon-wand" onclick="lookup(document.getElementById('jform_audiofile_text'))" title="<?php echo JText::_('COM_SERMONSPEAKER_LOOKUP'); ?>"> </div>
+									</div>
+									<br/>
+									<div class="input-prepend input-append">
+										<div id="audiofile_icon" class="add-on icon-cancel" onclick="toggleElement('audiofile', 1);"> </div>
+										<?php echo $this->form->getInput('audiofile');
+										if (!$this->params->get('path_mode_audio', 0)) : ?>
+											<div class="add-on hasTip icon-wand" onclick="lookup(document.getElementById('jform_audiofile'))" title="<?php echo JText::_('COM_SERMONSPEAKER_LOOKUP'); ?>"> </div>
+										<?php endif; ?>
+									</div>
 									<div id="infoUpload1" class="intend">
 										<span id="btnUpload1"></span>
 										<button id="btnCancel1" type="button" onclick="cancelQueue(upload1);" class="ss-hide upload_button" disabled="disabled">Cancel</button>
@@ -81,20 +85,24 @@ $input = JFactory::getApplication()->input;
 										</span>
 									</div>
 								</div>
+								<br />
 								<div class="control-label">
 									<?php echo $this->form->getLabel('videofile'); ?>
 								</div>
 								<div class="controls">
-									<input type="radio" name="sel2" value="0" onclick="enableElement(this.form.elements['jform_videofile_text'], this.form.elements['jform_videofile']);" checked>
-									<input name="jform[videofile]" id="jform_videofile_text" value="<?php echo $this->form->getValue('videofile'); ?>" class="inputbox" size="100" type="text">
-									<img class="pointer" onclick="lookup(document.adminForm.jform_videofile_text);" src='<?php echo JURI::root(); ?>/media/com_sermonspeaker/icons/16/glasses.png' alt="lookup ID3" title="lookup ID3">
-									<div class="clearfix"> </div>
-									<?php echo $this->form->getLabel(''); ?>
-									<input type="radio" name="sel2" value="1" onclick="enableElement(this.form.elements['jform_videofile'], this.form.elements['jform_videofile_text']);">
-									<?php echo $this->form->getInput('videofile'); 
-									if ($this->params->get('path_mode_video', 0) < 2) { ?>
-										<img class="pointer" onclick="lookup(document.adminForm.jform_videofile);" src='<?php echo JURI::root(); ?>/media/com_sermonspeaker/icons/16/glasses.png' alt='lookup ID3' title='lookup ID3'>
-									<?php } ?>
+									<div class="input-prepend input-append">
+										<div id="videofile_text_icon" class="add-on icon-checkmark" onclick="toggleElement('videofile', 0);"> </div>
+										<input name="jform[videofile]" id="jform_videofile_text" value="<?php echo $this->form->getValue('videofile'); ?>" class="inputbox" size="100" type="text">
+										<div class="add-on hasTip icon-wand" onclick="lookup(document.getElementById('jform_videofile_text'));" title="<?php echo JText::_('COM_SERMONSPEAKER_LOOKUP'); ?>"> </div>
+									</div>
+									<br/>
+									<div class="input-prepend input-append">
+										<div id="videofile_icon" class="add-on icon-cancel" onclick="toggleElement('videofile', 1);"> </div>
+										<?php echo $this->form->getInput('videofile'); 
+										if ($this->params->get('path_mode_video', 0) < 2) { ?>
+											<div class="add-on hasTip icon-wand" onclick="lookup(document.getElementById('jform_videofile'));" title="<?php echo JText::_('COM_SERMONSPEAKER_LOOKUP'); ?>"> </div>
+										<?php } ?>
+									</div>
 									<div id="infoUpload2" class="intend">
 										<span id="btnUpload2"></span>
 										<button id="btnCancel2" type="button" onclick="cancelQueue(upload2);" class="ss-hide upload_button" disabled="disabled">Cancel</button>
@@ -108,15 +116,20 @@ $input = JFactory::getApplication()->input;
 										</span>
 									</div>
 								</div>
+								<br />
 								<div class="control-label">
 									<?php echo $this->form->getLabel('addfile'); ?>
 								</div>
 								<div class="controls">
-									<input type="radio" name="sel3" value="0" onclick="enableElement(this.form.elements['jform_addfile_text'], this.form.elements['jform_addfile']);" checked>
-									<input name="jform[addfile]" id="jform_addfile_text" value="<?php echo $this->form->getValue('addfile'); ?>" class="inputbox" size="100" type="text">
-									<div class="clearfix"> </div>
-									<input type="radio" name="sel3" value="1" onclick="enableElement(this.form.elements['jform_addfile'], this.form.elements['jform_addfile_text']);">
-									<?php echo $this->form->getInput('addfile'); ?>
+									<div class="input-prepend input-append">
+										<div id="addfile_text_icon" class="add-on icon-checkmark" onclick="toggleElement('addfile', 0);"> </div>
+										<input name="jform[addfile]" id="jform_addfile_text" value="<?php echo $this->form->getValue('addfile'); ?>" class="inputbox" size="100" type="text">
+									</div>
+									<br />
+									<div class="input-prepend input-append">
+										<div id="addfile_icon" class="add-on icon-cancel" onclick="toggleElement('addfile', 1);"> </div>
+										<?php echo $this->form->getInput('addfile'); ?>
+									</div>
 									<div id="infoUpload3" class="intend">
 										<span id="btnUpload3"></span>
 										<button id="btnCancel3" type="button" onclick="cancelQueue(upload3);" class="ss-hide upload_button" disabled="disabled">Cancel</button>
