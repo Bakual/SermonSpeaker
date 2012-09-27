@@ -39,27 +39,30 @@ class JFormFieldSpeakerlist extends JFormFieldList
 	protected function getInput()
 	{
 		$html	= '<div class="input-append">';
-		$html	.= '<div id="addfile_text_icon" class="add-on icon-checkmark"> </div>';
 		$html	.= parent::getInput();
 		$app = JFactory::getApplication();
-		if ($app->isAdmin()){
+		if ($app->isAdmin())
+		{
 			$returnpage	= base64_encode('index.php?option=com_sermonspeaker&view=speaker&tmpl=component&layout=close');
 			$url = 'index.php?option=com_sermonspeaker&task=speaker.add&layout=modal&tmpl=component&return='.$returnpage;
-		} else {
+		}
+		else
+		{
 			$returnpage	= base64_encode(JRoute::_('index.php?view=speakerform&tmpl=component&layout=close'));
 			$url = JRoute::_('index.php?task=speakerform.edit&layout=modal&tmpl=component&return='.$returnpage);
 		}
+		$html	.= '<a class="modal" href="'.$url.'"rel="{handler: \'iframe\', size: {x: 950, y: 650}}">';
 		$version	= new JVersion;
 		$joomla30	= $version->isCompatible(3.0);
 		if ($joomla30)
 		{
-			$html	.= '<div class="add-on icon-plus-2" onclick="'.$url.'" title="'.JText::_('COM_SERMONSPEAKER_LOOKUP').'"> </div>';
+			$html	.= '<div class="add-on icon-plus-2" rel="tooltip" title="'.JText::_('COM_SERMONSPEAKER_NEW_SPEAKER').'"> </div>';
 		}
 		else
 		{
-			$html	.= '<a class="modal" href="'.$url.'"rel="{handler: \'iframe\', size: {x: 950, y: 650}}"><img src="'.JURI::root().'media/com_sermonspeaker/images/plus.png"></a>';
+			$html	.= '<img src="'.JURI::root().'media/com_sermonspeaker/images/plus.png">';
 		}
-		$html	.= '</div>';
+		$html	.= '</a></div>';
 
 		return $html;
 	}
@@ -103,8 +106,10 @@ class JFormFieldSpeakerlist extends JFormFieldList
 		$db->setQuery($query);
 
 		$unpublished = $db->loadObjectList();
-		if (count($unpublished)){
-			if (count($published)){
+		if (count($unpublished))
+		{
+			if (count($published))
+			{
 				array_unshift($published, JHtml::_('select.optgroup', JText::_('JPUBLISHED')));
 				array_push($published, JHtml::_('select.optgroup', JText::_('JPUBLISHED')));
 			}
@@ -112,7 +117,8 @@ class JFormFieldSpeakerlist extends JFormFieldList
 			array_push($unpublished, JHtml::_('select.optgroup', JText::_('JUNPUBLISHED')));
 		}
 		// Check for a database error.
-		if ($db->getErrorNum()) {
+		if ($db->getErrorNum())
+		{
 			JError::raiseWarning(500, $db->getErrorMsg());
 		}
 		$options = array_merge($published, $unpublished);
@@ -120,9 +126,12 @@ class JFormFieldSpeakerlist extends JFormFieldList
 		// Merge any additional options in the XML definition.
 		//$options = array_merge(parent::getOptions(), $options);
 
-		if ($this->value === ''){
-			foreach ($options as $option){
-				if (isset($option->home) && $option->home){
+		if ($this->value === '')
+		{
+			foreach ($options as $option)
+			{
+				if (isset($option->home) && $option->home)
+				{
 					$this->value = $option->value;
 					break;
 				}

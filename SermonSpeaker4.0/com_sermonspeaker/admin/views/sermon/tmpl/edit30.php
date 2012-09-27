@@ -6,9 +6,9 @@ defined('_JEXEC') or die;
 JHtml::addIncludePath(JPATH_COMPONENT.'/helpers/html');
 
 // Load the tooltip behavior.
-JHtml::_('behavior.tooltip');
 JHtml::_('behavior.formvalidation');
 JHtml::_('behavior.keepalive');
+JHTML::_('behavior.modal');
 JHtml::_('formbehavior.chosen', 'select');
 
 $uri = JURI::getInstance();
@@ -315,3 +315,16 @@ $input = JFactory::getApplication()->input;
 		<!-- End Sidebar -->
 	</div>
 </form>
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		<h3 id="myModalLabel">Modal header</h3>
+	</div>
+	<div class="modal-body">
+
+	</div>
+	<div class="modal-footer">
+		<button class="btn" data-dismiss="modal">Close</button>
+		<button class="btn btn-primary">Save changes</button>
+	</div>
+</div>

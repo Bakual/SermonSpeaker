@@ -39,7 +39,8 @@ class JFormFieldTagslist extends JFormFieldList
 	 */
 	protected function getInput()
 	{
-		$html	= parent::getInput();
+		$html	= '<div class="input-append">';
+		$html	.= parent::getInput();
 		$app = JFactory::getApplication();
 		if ($app->isAdmin()){
 			$returnpage	= base64_encode('index.php?option=com_sermonspeaker&view=tag&tmpl=component&layout=close');
@@ -48,7 +49,18 @@ class JFormFieldTagslist extends JFormFieldList
 			$returnpage	= base64_encode(JRoute::_('index.php?view=tagform&tmpl=component&layout=close'));
 			$url = JRoute::_('index.php?task=tagform.edit&layout=modal&tmpl=component&return='.$returnpage);
 		}
-		$html	.= '<a class="modal" href="'.$url.'"rel="{handler: \'iframe\', size: {x: 950, y: 650}}"><img src="'.JURI::root().'media/com_sermonspeaker/images/plus.png"></a>';
+		$html	.= '<a class="modal" href="'.$url.'"rel="{handler: \'iframe\', size: {x: 950, y: 650}}">';
+		$version	= new JVersion;
+		$joomla30	= $version->isCompatible(3.0);
+		if ($joomla30)
+		{
+			$html	.= '<div class="add-on icon-plus-2" rel="tooltip" title="'.JText::_('COM_SERMONSPEAKER_NEW_TAG').'"> </div>';
+		}
+		else
+		{
+			$html	.= '<img src="'.JURI::root().'media/com_sermonspeaker/images/plus.png">';
+		}
+		$html	.= '</a></div>';
 
 		return $html;
 	}

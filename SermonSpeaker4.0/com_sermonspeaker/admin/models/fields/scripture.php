@@ -101,7 +101,7 @@ class JFormFieldScripture extends JFormField
 			$html .= '<input id="'.$this->id.'_'.$i.'" type="hidden" value="'.implode('|',$value).'" name="'.$this->name.'['.$i.']">';
 			$html .= '<img class="pointer" onclick="delete_scripture('.$i.');" src="'.JURI::root().'media/com_sermonspeaker/images/delete.png"> ';
 			$html .= '<a class="modal" href="'.$url.'&id='.$i.'" rel="{handler: \'iframe\', size: {x: 550, y: 420}}">';
-			$html .= '<input id="'.$this->id.'_text_'.$i.'" class="readonly scripture'.$title.'" '.$class.$size.$disabled.$readonly.$maxLength.' value="'.$text.'" name="jform['.$this->fieldname.'_text]['.$i.']" />';
+			$html .= '<input id="'.$this->id.'_text_'.$i.'" class="readonly scripture pointer'.$title.'" '.$class.$size.$disabled.$readonly.$maxLength.' value="'.$text.'" name="jform['.$this->fieldname.'_text]['.$i.']" />';
 			$html .= '</a>';
 			if(!$admin)
 			{

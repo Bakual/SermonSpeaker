@@ -170,3 +170,27 @@ select#batch-speaker-id, select#batch-serie-id{
 .tip-wrap{
     z-index: 15;
 }
+
+/* Joomla 3.0 stuff */
+/* Fixing input-append */
+.input-append .chzn-container-single .chzn-single {
+	border-color: #ccc;
+	height: 26px;
+	-webkit-border-radius: 3px 0 0 3px;
+	-moz-border-radius: 3px 0 0 3px;
+	border-radius: 3px 0 0 3px;
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
+.input-append .chzn-container-active .chzn-single-with-drop {
+	-webkit-border-radius: 3px 0 0 3px;
+	-moz-border-radius: 3px 0 0 3px;
+	border-radius: 3px 0 0 3px;
+}
+.input-append .chzn-container-single .chzn-drop {
+	border-color: #ccc;
+}
+.pointer, .pointer[disabled], .pointer[readonly]{
+	cursor:pointer;
+}
