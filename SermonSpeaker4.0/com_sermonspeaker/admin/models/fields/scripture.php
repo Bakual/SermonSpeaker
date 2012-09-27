@@ -47,36 +47,51 @@ class JFormFieldScripture extends JFormField
 		}";
 		$document->addScriptDeclaration($javascript);
 		$admin	= $app->isAdmin();
-		if ($admin){
+		if ($admin)
+		{
 			$url = 'index.php?option=com_sermonspeaker&view=scripture&tmpl=component';
-		} else {
+		}
+		else
+		{
 			$url = JRoute::_('index.php?option=com_sermonspeaker&view=scripture&tmpl=component');
 		}
 		$html 	= '<span id="scripture_span">';
 		$i = 1;
-		foreach ($this->value as $value){
+		foreach ($this->value as $value)
+		{
 			$title		= '';
-			if ($value['text']){
+			if ($value['text'])
+			{
 				$text	= $value['text'];
-				if(!$value['book']){
+				if(!$value['book'])
+				{
 					$title	= 'old" title="'.JText::_('COM_SERMONSPEAKER_SCRIPTURE_NOT_SEARCHABLE');
 				}
-			} else {
+			}
+			else
+			{
 				$separator	= JText::_('COM_SERMONSPEAKER_SCRIPTURE_SEPARATOR');
 				$text		= JText::_('COM_SERMONSPEAKER_BOOK_'.$value['book']);
-				if ($value['cap1']){
+				if ($value['cap1'])
+				{
 					$text .= ' '.$value['cap1'];
-					if ($value['vers1']){
+					if ($value['vers1'])
+					{
 						$text .= $separator.$value['vers1'];
 					}
-					if ($value['cap2'] || $value['vers2']){
+					if ($value['cap2'] || $value['vers2'])
+					{
 						$text .= '-';
-						if ($value['cap2']){
+						if ($value['cap2'])
+						{
 							$text .= $value['cap2'];
-							if ($value['vers2']){
+							if ($value['vers2'])
+							{
 								$text .= $separator.$value['vers2'];
 							}
-						} else {
+						}
+						else
+						{
 							$text .= $value['vers2'];
 						}
 					}
@@ -88,7 +103,8 @@ class JFormFieldScripture extends JFormField
 			$html .= '<a class="modal" href="'.$url.'&id='.$i.'" rel="{handler: \'iframe\', size: {x: 550, y: 420}}">';
 			$html .= '<input id="'.$this->id.'_text_'.$i.'" class="readonly scripture'.$title.'" '.$class.$size.$disabled.$readonly.$maxLength.' value="'.$text.'" name="jform['.$this->fieldname.'_text]['.$i.']" />';
 			$html .= '</a>';
-			if(!$admin){
+			if(!$admin)
+			{
 				$html	.= '<br />';
 			}
 			$html .= '<label></label> </span>';

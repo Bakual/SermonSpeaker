@@ -29,16 +29,22 @@ class SermonspeakerViewSermons extends JViewLegacy
 		$this->pagination	= $this->get('Pagination');
 		$this->speakers		= $this->get('Speakers');
 		$this->series		= $this->get('Series');
+
 		// Check for errors.
 		if (count($errors = $this->get('Errors'))) {
 			JError::raiseError(500, implode("\n", $errors));
 			return false;
 		}
-		$this->addToolbar();
-		if ($this->joomla30)
-		{
-			$this->addFilters();
+
+		// We don't need toolbar in the modal window.
+		if ($layout !== 'modal') {
+			$this->addToolbar();
+			if ($this->joomla30)
+			{
+				$this->sidebar = JHtmlSidebar::render();
+			}
 		}
+
 		parent::display($tpl);
 	}
 
@@ -99,6 +105,11 @@ class SermonspeakerViewSermons extends JViewLegacy
 		if ($canDo->get('core.admin')) {
 			JToolBarHelper::preferences('com_sermonspeaker', 650, 900);
 		}
+
+		if ($this->joomla30)
+		{
+			$this->addFilters();
+		}
 	}
 
 	/**
@@ -106,39 +117,39 @@ class SermonspeakerViewSermons extends JViewLegacy
 	 */
 	protected function addFilters()
 	{
-		JSubMenuHelper::setAction('index.php?option=com_sermonspeaker&view=sermons');
+		JHtmlSidebar::setAction('index.php?option=com_sermonspeaker&view=sermons');
 
-		JSubMenuHelper::addFilter(
+		JHtmlSidebar::addFilter(
 			JText::_('JOPTION_SELECT_PUBLISHED'),
 			'filter_published',
 			JHtml::_('select.options', JHtml::_('jgrid.publishedOptions'), 'value', 'text', $this->state->get('filter.published'), true)
 		);
 
-		JSubMenuHelper::addFilter(
+		JHtmlSidebar::addFilter(
 			JText::_('COM_SERMONSPEAKER_SELECT_PCAST'),
 			'filter_podcast',
 			JHtml::_('select.options', array('0'=>JText::_('JUNPUBLISHED'), '1'=>JText::_('JPUBLISHED')), 'value', 'text', $this->state->get('filter.podcast'), true)
 		);
 
-		JSubMenuHelper::addFilter(
+		JHtmlSidebar::addFilter(
 			JText::_('JOPTION_SELECT_CATEGORY'),
 			'filter_category_id',
 			JHtml::_('select.options', JHtml::_('category.options', 'com_sermonspeaker'), 'value', 'text', $this->state->get('filter.category_id'))
 		);
 
-		JSubMenuHelper::addFilter(
+		JHtmlSidebar::addFilter(
 			JText::_('COM_SERMONSPEAKER_SELECT_SPEAKER'),
 			'filter_speaker',
 			JHtml::_('select.options', $this->speakers, 'value', 'text', $this->state->get('filter.speaker'))
 		);
 
-		JSubMenuHelper::addFilter(
+		JHtmlSidebar::addFilter(
 			JText::_('COM_SERMONSPEAKER_SELECT_SERIES'),
 			'filter_series',
 			JHtml::_('select.options', $this->series, 'value', 'text', $this->state->get('filter.series'))
 		);
 
-		JSubMenuHelper::addFilter(
+		JHtmlSidebar::addFilter(
 			JText::_('JOPTION_SELECT_LANGUAGE'),
 			'filter_language',
 			JHtml::_('select.options', JHtml::_('contentlanguage.existing', true, true), 'value', 'text', $this->state->get('filter.language'))

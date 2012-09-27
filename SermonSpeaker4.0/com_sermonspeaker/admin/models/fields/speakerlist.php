@@ -38,7 +38,9 @@ class JFormFieldSpeakerlist extends JFormFieldList
 	 */
 	protected function getInput()
 	{
-		$html	= parent::getInput();
+		$html	= '<div class="input-append">';
+		$html	.= '<div id="addfile_text_icon" class="add-on icon-checkmark"> </div>';
+		$html	.= parent::getInput();
 		$app = JFactory::getApplication();
 		if ($app->isAdmin()){
 			$returnpage	= base64_encode('index.php?option=com_sermonspeaker&view=speaker&tmpl=component&layout=close');
@@ -47,7 +49,17 @@ class JFormFieldSpeakerlist extends JFormFieldList
 			$returnpage	= base64_encode(JRoute::_('index.php?view=speakerform&tmpl=component&layout=close'));
 			$url = JRoute::_('index.php?task=speakerform.edit&layout=modal&tmpl=component&return='.$returnpage);
 		}
-		$html	.= '<a class="modal" href="'.$url.'"rel="{handler: \'iframe\', size: {x: 950, y: 650}}"><img src="'.JURI::root().'media/com_sermonspeaker/images/plus.png"></a>';
+		$version	= new JVersion;
+		$joomla30	= $version->isCompatible(3.0);
+		if ($joomla30)
+		{
+			$html	.= '<div class="add-on icon-plus-2" onclick="'.$url.'" title="'.JText::_('COM_SERMONSPEAKER_LOOKUP').'"> </div>';
+		}
+		else
+		{
+			$html	.= '<a class="modal" href="'.$url.'"rel="{handler: \'iframe\', size: {x: 950, y: 650}}"><img src="'.JURI::root().'media/com_sermonspeaker/images/plus.png"></a>';
+		}
+		$html	.= '</div>';
 
 		return $html;
 	}

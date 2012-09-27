@@ -14,6 +14,9 @@ class SermonspeakerViewScripture extends JViewLegacy
 			var vers1 = document.getElementById('vers1').value;
 			var vers2 = document.getElementById('vers2').value;
 			var freetext = document.getElementById('text').value;
+			if (cap1 == cap2){
+				cap2 = 0;
+			}
 			var value = book.value + '|' + cap1 + '|' + vers1 + '|' + cap2 + '|' + vers2 + '|' + freetext;
 			if (freetext){
 				var text = freetext;

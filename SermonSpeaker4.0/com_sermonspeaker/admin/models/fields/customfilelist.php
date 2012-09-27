@@ -53,12 +53,6 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 				break;
 		}
 
-		$js = 'window.addEvent("domready",function(){
-			document.getElementById("'.$this->id.'").disabled = true;
-		});';
-		$document = JFactory::getDocument();
-		$document->addScriptDeclaration($js);
-
 		return parent::getInput();
 	}
 

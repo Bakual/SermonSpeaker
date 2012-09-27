@@ -13,46 +13,85 @@ class SermonspeakerHelper
 	 */
 	public static function addSubmenu($vName = 'main')
 	{
-		JSubMenuHelper::addEntry(
-			JText::_('COM_SERMONSPEAKER_MENU_SERIES'),
-			'index.php?option=com_sermonspeaker&view=series',
-			$vName == 'series'
-		);
-		JSubMenuHelper::addEntry(
-			JText::_('COM_SERMONSPEAKER_MENU_SPEAKERS'),
-			'index.php?option=com_sermonspeaker&view=speakers',
-			$vName == 'speakers'
-		);
-		JSubMenuHelper::addEntry(
-			JText::_('COM_SERMONSPEAKER_MENU_SERMONS'),
-			'index.php?option=com_sermonspeaker&view=sermons',
-			$vName == 'sermons'
-		);
-		JSubMenuHelper::addEntry(
-			JText::_('COM_SERMONSPEAKER_MENU_TAGS'),
-			'index.php?option=com_sermonspeaker&view=tags',
-			$vName == 'tags'
-		);
-		JSubMenuHelper::addEntry(
-			JText::_('COM_SERMONSPEAKER_MENU_CATEGORY'),
-			'index.php?option=com_categories&extension=com_sermonspeaker',
-			$vName == 'categories'
-		);
-		JSubMenuHelper::addEntry(
-			JText::_('COM_SERMONSPEAKER_MENU_TOOLS'),
-			'index.php?option=com_sermonspeaker&view=tools',
-			$vName == 'tools'
-		);
-		JSubMenuHelper::addEntry(
-			JText::_('COM_SERMONSPEAKER_MENU_STATISTICS'),
-			'index.php?option=com_sermonspeaker&view=statistics&format=raw',
-			$vName == 'statistics'
-		);
-		JSubMenuHelper::addEntry(
-			JText::_('COM_SERMONSPEAKER_MENU_HELP'),
-			'index.php?option=com_sermonspeaker&view=help',
-			$vName == 'help'
-		);
+		// Switch Layout if in Joomla 3.0
+		$version	= new JVersion;
+		$joomla30	= $version->isCompatible(3.0);
+		if ($joomla30)
+		{
+			JHtmlSidebar::addEntry(
+				JText::_('COM_SERMONSPEAKER_MENU_SERIES'),
+				'index.php?option=com_sermonspeaker&view=series',
+				$vName == 'series'
+			);
+			JHtmlSidebar::addEntry(
+				JText::_('COM_SERMONSPEAKER_MENU_SPEAKERS'),
+				'index.php?option=com_sermonspeaker&view=speakers',
+				$vName == 'speakers'
+			);
+			JHtmlSidebar::addEntry(
+				JText::_('COM_SERMONSPEAKER_MENU_SERMONS'),
+				'index.php?option=com_sermonspeaker&view=sermons',
+				$vName == 'sermons'
+			);
+			JHtmlSidebar::addEntry(
+				JText::_('COM_SERMONSPEAKER_MENU_TAGS'),
+				'index.php?option=com_sermonspeaker&view=tags',
+				$vName == 'tags'
+			);
+			JHtmlSidebar::addEntry(
+				JText::_('COM_SERMONSPEAKER_MENU_CATEGORY'),
+				'index.php?option=com_categories&extension=com_sermonspeaker',
+				$vName == 'categories'
+			);
+			JHtmlSidebar::addEntry(
+				JText::_('COM_SERMONSPEAKER_MENU_TOOLS'),
+				'index.php?option=com_sermonspeaker&view=tools',
+				$vName == 'tools'
+			);
+			JHtmlSidebar::addEntry(
+				JText::_('COM_SERMONSPEAKER_MENU_HELP'),
+				'index.php?option=com_sermonspeaker&view=help',
+				$vName == 'help'
+			);
+		}
+		else
+		{
+			JSubMenuHelper::addEntry(
+				JText::_('COM_SERMONSPEAKER_MENU_SERIES'),
+				'index.php?option=com_sermonspeaker&view=series',
+				$vName == 'series'
+			);
+			JSubMenuHelper::addEntry(
+				JText::_('COM_SERMONSPEAKER_MENU_SPEAKERS'),
+				'index.php?option=com_sermonspeaker&view=speakers',
+				$vName == 'speakers'
+			);
+			JSubMenuHelper::addEntry(
+				JText::_('COM_SERMONSPEAKER_MENU_SERMONS'),
+				'index.php?option=com_sermonspeaker&view=sermons',
+				$vName == 'sermons'
+			);
+			JSubMenuHelper::addEntry(
+				JText::_('COM_SERMONSPEAKER_MENU_TAGS'),
+				'index.php?option=com_sermonspeaker&view=tags',
+				$vName == 'tags'
+			);
+			JSubMenuHelper::addEntry(
+				JText::_('COM_SERMONSPEAKER_MENU_CATEGORY'),
+				'index.php?option=com_categories&extension=com_sermonspeaker',
+				$vName == 'categories'
+			);
+			JSubMenuHelper::addEntry(
+				JText::_('COM_SERMONSPEAKER_MENU_TOOLS'),
+				'index.php?option=com_sermonspeaker&view=tools',
+				$vName == 'tools'
+			);
+			JSubMenuHelper::addEntry(
+				JText::_('COM_SERMONSPEAKER_MENU_HELP'),
+				'index.php?option=com_sermonspeaker&view=help',
+				$vName == 'help'
+			);
+		}
 	}
 	
 	/**

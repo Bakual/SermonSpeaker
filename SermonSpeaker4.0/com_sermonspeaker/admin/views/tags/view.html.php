@@ -32,11 +32,16 @@ class SermonspeakerViewTags extends JViewLegacy
 			JError::raiseError(500, implode("\n", $errors));
 			return false;
 		}
-		$this->addToolbar();
-		if ($this->joomla30)
-		{
-			$this->addFilters();
+
+		// We don't need toolbar in the modal window.
+		if ($layout !== 'modal') {
+			$this->addToolbar();
+			if ($this->joomla30)
+			{
+				$this->sidebar = JHtmlSidebar::render();
+			}
 		}
+
 		parent::display($tpl);
 	}
 	/**
@@ -91,6 +96,11 @@ class SermonspeakerViewTags extends JViewLegacy
 		if ($canDo->get('core.admin')) {
 			JToolBarHelper::preferences('com_sermonspeaker', 650, 900);
 		}
+
+		if ($this->joomla30)
+		{
+			$this->addFilters();
+		}
 	}
 
 	/**
@@ -98,21 +108,21 @@ class SermonspeakerViewTags extends JViewLegacy
 	 */
 	protected function addFilters()
 	{
-		JSubMenuHelper::setAction('index.php?option=com_sermonspeaker&view=tags');
+		JHtmlSidebar::setAction('index.php?option=com_sermonspeaker&view=tags');
 
-		JSubMenuHelper::addFilter(
+		JHtmlSidebar::addFilter(
 			JText::_('JOPTION_SELECT_PUBLISHED'),
 			'filter_published',
 			JHtml::_('select.options', JHtml::_('jgrid.publishedOptions'), 'value', 'text', $this->state->get('filter.published'), true)
 		);
 
-		JSubMenuHelper::addFilter(
+		JHtmlSidebar::addFilter(
 			JText::_('JOPTION_SELECT_CATEGORY'),
 			'filter_category_id',
 			JHtml::_('select.options', JHtml::_('category.options', 'com_sermonspeaker'), 'value', 'text', $this->state->get('filter.category_id'))
 		);
 
-		JSubMenuHelper::addFilter(
+		JHtmlSidebar::addFilter(
 			JText::_('JOPTION_SELECT_LANGUAGE'),
 			'filter_language',
 			JHtml::_('select.options', JHtml::_('contentlanguage.existing', true, true), 'value', 'text', $this->state->get('filter.language'))

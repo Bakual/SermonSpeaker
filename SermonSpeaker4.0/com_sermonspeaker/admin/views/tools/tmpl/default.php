@@ -5,7 +5,6 @@ JHTML::_('behavior.modal');
 $session	= JFactory::getSession();
 $user	= JFactory::getUser();
 ?>
-<h1>Tools</h1>
 <table class="adminform">
 	<tbody><tr><td valign="top">
 		<div id="cpanel">
@@ -49,6 +48,12 @@ $user	= JFactory::getUser();
 					</a>
 				</div>
 			<?php endif; ?>
+			<div class="icon">
+				<a href="index.php?option=com_sermonspeaker&view=statistics&format=raw">
+					<img border="0" align="middle" alt="<?php echo JText::_('COM_SERMONSPEAKER_STATISTICS_TITLE'); ?>" src="<?php echo JURI::base()."components/com_sermonspeaker/images/stats.png"; ?>"/>
+					<span><?php echo JText::_('COM_SERMONSPEAKER_STATISTICS_TITLE'); ?></span>
+				</a>
+			</div>
 		</div>
 		<div style="clear: both;"> </div>
 	</td></tr></tbody>

@@ -42,11 +42,17 @@ class SermonspeakerViewSermon extends JViewLegacy
 				document.getElementById(element + "_icon").className = "add-on icon-checkmark";
 				document.getElementById("jform_" + element + "_text").disabled = true;
 				document.getElementById("jform_" + element).disabled = false;
+				if(document.getElementById("jform_" + element + "_chzn")){
+					jQuery("#jform_" + element).trigger("liszt:updated");
+				}
 			} else {
 				document.getElementById(element + "_text_icon").className = "add-on icon-checkmark";
 				document.getElementById(element + "_icon").className = "add-on icon-cancel";
 				document.getElementById("jform_" + element + "_text").disabled = false;
 				document.getElementById("jform_" + element).disabled = true;
+				if(document.getElementById("jform_" + element + "_chzn")){
+					jQuery("#jform_" + element).trigger("liszt:updated");
+				}
 			}
 		}';
 		// add Javascript for ID3 Lookup (ajax)

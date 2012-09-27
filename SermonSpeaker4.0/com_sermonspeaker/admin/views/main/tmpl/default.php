@@ -7,26 +7,26 @@ JHTML::_('behavior.tooltip');
 		<div id="cpanel">
 			<div class="icon">
 				<a href="index.php?option=com_sermonspeaker&view=series">
-					<img border="0" align="middle" alt="<?php echo JText::_('COM_SERMONSPEAKER_MAIN_SERIES'); ?>" src="<?php echo JURI::base()."components/com_sermonspeaker/images/series.png"; ?>"/>
-					<span><?php echo JText::_('COM_SERMONSPEAKER_MAIN_SERIES'); ?></span>
+					<img border="0" align="middle" alt="<?php echo JText::_('COM_SERMONSPEAKER_SERIES_TITLE'); ?>" src="<?php echo JURI::base()."components/com_sermonspeaker/images/series.png"; ?>"/>
+					<span><?php echo JText::_('COM_SERMONSPEAKER_SERIES_TITLE'); ?></span>
 				</a>
 			</div>
 			<div class="icon">
 				<a href="index.php?option=com_sermonspeaker&view=speakers">
-					<img border="0" align="middle" alt="<?php echo JText::_('COM_SERMONSPEAKER_MAIN_SPEAKERS'); ?>" src="<?php echo JURI::base()."components/com_sermonspeaker/images/speakers.png"; ?>"/>
-					<span><?php echo JText::_('COM_SERMONSPEAKER_MAIN_SPEAKERS'); ?></span>
+					<img border="0" align="middle" alt="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKERS_TITLE'); ?>" src="<?php echo JURI::base()."components/com_sermonspeaker/images/speakers.png"; ?>"/>
+					<span><?php echo JText::_('COM_SERMONSPEAKER_SPEAKERS_TITLE'); ?></span>
 				</a>
 			</div>
 			<div class="icon">
 				<a href="index.php?option=com_sermonspeaker&view=sermons">
-					<img border="0" align="middle" alt="<?php echo JText::_('COM_SERMONSPEAKER_MAIN_SERMONS'); ?>" src="<?php echo JURI::base()."components/com_sermonspeaker/images/sermon.png"; ?>"/>
-					<span><?php echo JText::_('COM_SERMONSPEAKER_MAIN_SERMONS'); ?></span>
+					<img border="0" align="middle" alt="<?php echo JText::_('COM_SERMONSPEAKER_SERMONS_TITLE'); ?>" src="<?php echo JURI::base()."components/com_sermonspeaker/images/sermon.png"; ?>"/>
+					<span><?php echo JText::_('COM_SERMONSPEAKER_SERMONS_TITLE'); ?></span>
 				</a>
 			</div>
 			<div class="icon">
 				<a href="index.php?option=com_sermonspeaker&view=tags">
-					<img border="0" align="middle" alt="<?php echo JText::_('COM_SERMONSPEAKER_MAIN_TAGS'); ?>" src="<?php echo JURI::base()."components/com_sermonspeaker/images/tags.png"; ?>"/>
-					<span><?php echo JText::_('COM_SERMONSPEAKER_MAIN_TAGS'); ?></span>
+					<img border="0" align="middle" alt="<?php echo JText::_('COM_SERMONSPEAKER_TAGS_TITLE'); ?>" src="<?php echo JURI::base()."components/com_sermonspeaker/images/tags.png"; ?>"/>
+					<span><?php echo JText::_('COM_SERMONSPEAKER_TAGS_TITLE'); ?></span>
 				</a>
 			</div>
 			<div class="icon">
@@ -39,12 +39,6 @@ JHTML::_('behavior.tooltip');
 				<a href="index.php?option=com_sermonspeaker&view=tools">
 					<img border="0" align="middle" alt="<?php echo JText::_('COM_SERMONSPEAKER_MAIN_TOOLS'); ?>" src="<?php echo JURI::base()."components/com_sermonspeaker/images/tools.png"; ?>"/>
 					<span><?php echo JText::_('COM_SERMONSPEAKER_MAIN_TOOLS'); ?></span>
-				</a>
-			</div>
-			<div class="icon">
-				<a href="index.php?option=com_sermonspeaker&view=statistics&format=raw">
-					<img border="0" align="middle" alt="<?php echo JText::_('COM_SERMONSPEAKER_STATISTICS_TITLE'); ?>" src="<?php echo JURI::base()."components/com_sermonspeaker/images/stats.png"; ?>"/>
-					<span><?php echo JText::_('COM_SERMONSPEAKER_STATISTICS_TITLE'); ?></span>
 				</a>
 			</div>
 			<div class="icon">
