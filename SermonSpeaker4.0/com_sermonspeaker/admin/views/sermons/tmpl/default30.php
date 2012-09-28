@@ -91,7 +91,7 @@ endif;
 					<th width="10%" class="nowrap hidden-phone">
 						<?php echo JHtml::_('grid.sort',  'COM_SERMONSPEAKER_SPEAKER', 'name', $listDirn, $listOrder); ?>
 					</th>
-					<th width="10%" class="nowrap hidden-phone">
+					<th width="10%" class="nowrap hidden-phone hidden-tablet">
 						<?php echo JHtml::_('grid.sort',  'COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL', 'scripture', $listDirn, $listOrder); ?>
 					</th>
 					<th width="10%" class="nowrap hidden-phone">
@@ -100,7 +100,7 @@ endif;
 					<th width="7%" class="nowrap hidden-phone">
 						<?php echo JHtml::_('grid.sort',  'COM_SERMONSPEAKER_FIELD_DATE_LABEL', 'sermons.sermon_date', $listDirn, $listOrder); ?>
 					</th>
-					<th width="5%" class="nowrap hidden-phone">
+					<th width="5%" class="nowrap hidden-phone hidden-tablet">
 						<?php echo JHtml::_('grid.sort',  'JGLOBAL_HITS', 'sermons.hits', $listDirn, $listOrder); ?>
 					</th>
 					<th width="5%" class="nowrap hidden-phone">
@@ -204,7 +204,7 @@ endif;
 					<td class="nowrap small hidden-phone">
 						<?php echo $this->escape($item->name); ?>
 					</td>
-					<td class="center small hidden-phone">
+					<td class="center small hidden-phone hidden-tablet">
 						<?php if ($item->scripture):
 							$passages	= explode('!', $item->scripture);
 							$separator	= JText::_('COM_SERMONSPEAKER_SCRIPTURE_SEPARATOR');
@@ -252,7 +252,7 @@ endif;
 							echo JHTML::Date($item->sermon_date, JText::_('DATE_FORMAT_LC4'), true);
 						endif; ?>
 					</td>
-					<td class="center">
+					<td class="center small hidden-phone hidden-tablet">
 						<?php echo $item->hits; ?>
 						<?php if ($canEdit || $canEditOwn) : ?>
 							&nbsp;<a href="index.php?option=com_sermonspeaker&task=sermon.reset&id=<?php echo $item->id; ?>" title="<?php echo JText::_('JSEARCH_RESET'); ?>"><img src="<?php echo JURI::base(); ?>components/com_sermonspeaker/images/reset.png" width="16" height="16" border="0" alt="<?php echo JText::_('JSEARCH_RESET'); ?>" /></a>
