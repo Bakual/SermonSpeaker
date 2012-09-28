@@ -10,4 +10,5 @@ ALTER TABLE #__sermon_series ADD `zip_progress` INT(11) NOT NULL DEFAULT '0';
 ALTER TABLE #__sermon_series ADD `zip_state` TINYINT(3) NOT NULL DEFAULT '0';
 ALTER TABLE #__sermon_series ADD `zip_size` INT(11) NOT NULL DEFAULT '0';
 ALTER TABLE #__sermon_series ADD `zip_dl` TINYINT(3) NOT NULL DEFAULT '0';
+UPDATE #__sermon_scriptures SET vers2 = 0 WHERE cap1 = cap2 AND vers1 = vers2;
 UPDATE #__sermon_scriptures SET cap2 = 0 WHERE cap1 = cap2;

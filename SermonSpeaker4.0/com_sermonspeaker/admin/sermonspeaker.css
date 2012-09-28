@@ -191,6 +191,11 @@ select#batch-speaker-id, select#batch-serie-id{
 .input-append .chzn-container-single .chzn-drop {
 	border-color: #ccc;
 }
+/* Custom Joomla 3.0 stuff */
 .pointer, .pointer[disabled], .pointer[readonly]{
 	cursor:pointer;
+}
+input[type="text"].invalid, select.invalid, .invalid span, .invalid{
+	border-color:red;
+	color:red;
 }

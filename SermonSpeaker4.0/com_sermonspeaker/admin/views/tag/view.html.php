@@ -19,9 +19,10 @@ class SermonspeakerViewTag extends JViewLegacy
 		// Switch Layout if in Joomla 3.0
 		$version		= new JVersion;
 		$this->joomla30	= $version->isCompatible(3.0);
+		$layout = $this->getLayout();
 		if ($this->joomla30)
 		{
-			$this->setLayout($this->getLayout().'30');
+			$this->setLayout($layout.'30');
 		}
 
 		$this->state	= $this->get('State');

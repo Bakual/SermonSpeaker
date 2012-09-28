@@ -2,7 +2,6 @@
 // no direct access
 defined('_JEXEC') or die;
 
-// Load the tooltip behavior.
 JHtml::_('behavior.tooltip');
 JHtml::_('behavior.formvalidation');
 JHtml::_('behavior.keepalive');
@@ -10,12 +9,10 @@ JHtml::_('formbehavior.chosen', 'select');
 
 $input = JFactory::getApplication()->input;
 ?>
-
 <script type="text/javascript">
 	Joomla.submitbutton = function(task) {
-		if (task == 'speaker.cancel' || document.formvalidator.isValid(document.id('adminForm'))) {
-			<?php echo $this->form->getField('intro')->save(); ?>
-			<?php echo $this->form->getField('bio')->save(); ?>
+		if (task == 'serie.cancel' || document.formvalidator.isValid(document.id('adminForm'))) {
+			<?php echo $this->form->getField('series_description')->save(); ?>
 			Joomla.submitform(task, document.getElementById('adminForm'));
 		} else {
 			alert('<?php echo $this->escape(JText::_('JGLOBAL_VALIDATION_FORM_FAILED'));?>');
@@ -25,7 +22,7 @@ $input = JFactory::getApplication()->input;
 
 <form action="<?php echo JRoute::_('index.php?option=com_sermonspeaker&layout=edit&id='.(int) $this->item->id); ?>" method="post" name="adminForm" id="adminForm" class="form-validate">
 	<div class="well">
-		<button type="button" class="btn btn-primary" onclick="Joomla.submitbutton('speaker.save');">
+		<button type="button" class="btn btn-primary" onclick="Joomla.submitbutton('serie.save');">
 			<?php echo JText::_('JSAVE') ?>
 		</button>
 		<button type="button" class="btn" onclick="window.parent.SqueezeBox.close();">
@@ -46,10 +43,9 @@ $input = JFactory::getApplication()->input;
 				<div class="tab-pane active" id="general">
 					<fieldset class="adminform">
 						<div class="control-group form-inline">
-							<?php echo $this->form->getLabel('name'); ?> <?php echo $this->form->getInput('name'); ?> <?php echo $this->form->getLabel('catid'); ?> <?php echo $this->form->getInput('catid'); ?>
+							<?php echo $this->form->getLabel('series_title'); ?> <?php echo $this->form->getInput('series_title'); ?> <?php echo $this->form->getLabel('catid'); ?> <?php echo $this->form->getInput('catid'); ?>
 						</div>
-						<?php echo $this->form->getInput('intro'); ?>
-						<?php echo $this->form->getInput('bio'); ?>
+						<?php echo $this->form->getInput('series_description'); ?>
 					</fieldset>
 					<div class="row-fluid">
 						<div class="span6">
@@ -165,7 +161,7 @@ $input = JFactory::getApplication()->input;
 			<fieldset class="form-vertical">
 				<div class="control-group">
 					<div class="controls">
-						<?php echo $this->form->getValue('name'); ?>
+						<?php echo $this->form->getValue('series_title'); ?>
 					</div>
 				</div>
 

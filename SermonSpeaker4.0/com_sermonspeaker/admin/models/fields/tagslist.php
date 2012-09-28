@@ -43,10 +43,10 @@ class JFormFieldTagslist extends JFormFieldList
 		$html	.= parent::getInput();
 		$app = JFactory::getApplication();
 		if ($app->isAdmin()){
-			$returnpage	= base64_encode('index.php?option=com_sermonspeaker&view=tag&tmpl=component&layout=close');
+			$returnpage	= base64_encode('index.php?option=com_sermonspeaker&view=close&tmpl=component');
 			$url = 'index.php?option=com_sermonspeaker&task=tag.add&layout=modal&tmpl=component&return='.$returnpage;
 		} else {
-			$returnpage	= base64_encode(JRoute::_('index.php?view=tagform&tmpl=component&layout=close'));
+			$returnpage	= base64_encode(JRoute::_('index.php?view=close&tmpl=component'));
 			$url = JRoute::_('index.php?task=tagform.edit&layout=modal&tmpl=component&return='.$returnpage);
 		}
 		$html	.= '<a class="modal" href="'.$url.'"rel="{handler: \'iframe\', size: {x: 950, y: 650}}">';
