@@ -13,7 +13,7 @@ class SermonspeakerViewTools extends JViewLegacy
 		// Switch Layout if in Joomla 3.0
 		$version		= new JVersion;
 		$this->joomla30	= $version->isCompatible(3.0);
-		if ($this->joomla30)
+		if ($this->joomla30 && $layout != 'time')
 		{
 			$this->setLayout($layout.'30');
 		}

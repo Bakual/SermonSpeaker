@@ -22,7 +22,7 @@ $user		= JFactory::getUser();
 			</a>
 		</li>
 		<li class="span2" rel="tooltip" data-placement="right" title="<?php echo JText::_('COM_SERMONSPEAKER_TOOLS_TIME_DESC'); ?>">
-			<a class="modal thumbnail" href="index.php?option=com_sermonspeaker&view=tools&layout=time&tmpl=component" rel="{handler: 'iframe', size: {x: 350, y: 170}}" >
+			<a class="modal thumbnail" href="index.php?option=com_sermonspeaker&view=tools&layout=time&tmpl=component" rel="{handler: 'iframe', size: {x: 450, y: 170}}" >
 				<img src="<?php echo JURI::base()."components/com_sermonspeaker/images/clock.png"; ?>"/>
 				<h3 class="center"><?php echo JText::_('COM_SERMONSPEAKER_TOOLS_TIME'); ?></h3>
 			</a>
@@ -42,7 +42,7 @@ $user		= JFactory::getUser();
 			$class = '';
 		endif; ?>
 		<li class="span2<?php echo $class; ?>" rel="tooltip" data-placement="left" title="<?php echo JText::sprintf('COM_SERMONSPEAKER_TOOLS_AUTOMATIC_DESC', JURI::root()); ?>">
-			<a class="modal thumbnail" <?php echo $link; ?>>
+			<a class="thumbnail" <?php echo $link; ?>>
 				<img src="<?php echo JURI::base()."components/com_sermonspeaker/images/run.png"; ?>"/>
 				<h3 class="center"><?php echo JText::_('COM_SERMONSPEAKER_TOOLS_AUTOMATIC'); ?></h3>
 			</a>
