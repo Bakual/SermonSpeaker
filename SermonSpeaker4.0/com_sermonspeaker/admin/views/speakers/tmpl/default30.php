@@ -88,10 +88,7 @@ endif;
 					<th width="5%" class="hidden-phone">
 						<?php echo JHtml::_('grid.sort',  'COM_SERMONSPEAKER_FIELD_PICTURE_LABEL', 'speakers.pic', $listDirn, $listOrder); ?>
 					</th>
-					<th width="1%" style="min-width:40px" class="nowrap center">
-						<?php echo JHtml::_('grid.sort', 'JDEFAULT', 'speakers.home', $listDirn, $listOrder); ?>
-					</th>
-					<th width="5%" class="nowrap hidden-phone">
+					<th width="7%" class="nowrap hidden-phone">
 						<?php echo JHtml::_('grid.sort',  'JGLOBAL_HITS', 'speakers.hits', $listDirn, $listOrder); ?>
 					</th>
 					<th width="5%" class="nowrap hidden-phone">
@@ -136,6 +133,7 @@ endif;
 					<td class="center">
 						<div class="btn-group">
 							<?php echo JHtml::_('jgrid.published', $item->state, $i, 'speakers.', $canChange); ?>
+							<?php echo JHtml::_('jgrid.isdefault', $item->home, $i, 'speakers.', $canChange && !$item->home);?>
 						</div>
 					</td>
 					<td class="nowrap has-context">
@@ -166,7 +164,7 @@ endif;
 
 								JHtml::_('dropdown.divider');
 
-								if ($this->state->get('filter.published') == 2) :
+								if ($this->state->get('filter.state') == 2) :
 									JHtml::_('dropdown.unarchive', 'cb' . $i, 'speakers.');
 								else :
 									JHtml::_('dropdown.archive', 'cb' . $i, 'speakers.');
@@ -176,7 +174,7 @@ endif;
 									JHtml::_('dropdown.checkin', 'cb' . $i, 'speakers.');
 								endif;
 
-								if ($this->state->get('filter.published') == -2) :
+								if ($this->state->get('filter.state') == -2) :
 									JHtml::_('dropdown.untrash', 'cb' . $i, 'speakers.');
 								else :
 									JHtml::_('dropdown.trash', 'cb' . $i, 'speakers.');
@@ -187,7 +185,7 @@ endif;
 								?>
 						</div>
 					</td>
-					<td class="center">
+					<td class="center small hidden-phone">
 						<?php if (!$item->pic){
 							$item->pic = JURI::root().'media/com_sermonspeaker/images/nopict.jpg';
 						}
@@ -196,10 +194,7 @@ endif;
 						} ?>
 						<img src="<?php echo $item->pic; ?>" border="1" width="50" height="50">
 					</td>
-					<td class="center">
-						<?php echo JHtml::_('jgrid.isdefault', $item->home, $i, 'speakers.', $canChange && !$item->home);?>
-					</td>
-					<td class="center">
+					<td class="center small hidden-phone">
 						<?php echo $item->hits; ?>
 						<?php if ($canEdit || $canEditOwn) : ?>
 							&nbsp;<a href="index.php?option=com_sermonspeaker&task=speaker.reset&id=<?php echo $item->id; ?>" title="<?php echo JText::_('JSEARCH_RESET'); ?>"><img src="<?php echo JURI::base(); ?>components/com_sermonspeaker/images/reset.png" width="16" height="16" border="0" alt="<?php echo JText::_('JSEARCH_RESET'); ?>" /></a>

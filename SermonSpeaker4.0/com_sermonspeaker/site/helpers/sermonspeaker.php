@@ -102,7 +102,7 @@ class SermonspeakerHelperSermonspeaker
 		}
 		$onclick = '';
 		$fileurl = JRoute::_('index.php?task=download&id='.$id.'&type='.$type);
-		if ($mode)
+		if ($mode == 1)
 		{
 			if (self::$params->get('enable_ga_events'))
 			{
@@ -111,6 +111,17 @@ class SermonspeakerHelperSermonspeaker
 			$html = '<a href="'.$fileurl.'" target="_new" '.$onclick.' title="'.JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_'.$type).'">'
 						.'<img src="media/com_sermonspeaker/images/download.png" alt="'.JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_'.$type).'" />'
 					.'</a>';
+		}
+		elseif ($mode == 2)
+		{
+			if (self::$params->get('enable_ga_events'))
+			{
+				$onclick = "_gaq.push(['_trackEvent', 'SermonSpeaker Download', '".$type."', 'id:".$id."']);";
+			}
+			$html = '<button id="sermon_download" class="btn btn-small download_btn" onclick="'.$onclick.'window.location.href=\''.$fileurl.'\';" >'
+				.'<i class="icon-download"> </i> '
+				.JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_'.$type)
+				.'</button>';
 		}
 		else
 		{

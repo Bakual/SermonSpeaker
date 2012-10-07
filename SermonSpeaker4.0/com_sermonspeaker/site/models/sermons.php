@@ -207,7 +207,7 @@ class SermonspeakerModelSermons extends JModelList
 		}
 		else
 		{
-			$id	= (int) $params->get('catid', 0);
+			$id		= (int) $params->get('catid', 0);
 			$type	= $params->get('count_items_type', 'sermons');
 		}
 		$this->setState('category.id', $id);
@@ -216,7 +216,11 @@ class SermonspeakerModelSermons extends JModelList
 		// Include Subcategories or not
 		$this->setState('filter.subcategories', $params->get('show_subcategory_content', 0));
 
-		$this->setState('filter.state',	1);
+		$user	= JFactory::getUser();
+		if ((!$user->authorise('core.edit.state', 'com_sermonspeaker')) &&  (!$user->authorise('core.edit', 'com_sermonspeaker'))){
+			// filter on published for those who do not have edit or edit.state rights.
+			$this->setState('filter.state', 1);
+		}
 
 		$this->setState('filter.language', $app->getLanguageFilter());
 

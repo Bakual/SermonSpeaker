@@ -37,6 +37,7 @@
 			addfieldpath="/administrator/components/com_sermonspeaker/models/fields" >
 			<field name="plugin_tag" 
 				type="tag" 
+				class="btn-group"
 				label="COM_SERMONSPEAKER_PARAM_PLUGIN_LABEL" 
 				description="COM_SERMONSPEAKER_PARAM_PLUGIN_DESC"
 				useglobal="true" />

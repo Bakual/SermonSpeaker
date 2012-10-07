@@ -2,7 +2,7 @@
 // no direct access
 defined('_JEXEC') or die;
 
-$published = $this->state->get('filter.published');
+$published = $this->state->get('filter.state');
 ?>
 <div class="modal hide fade" id="collapseModal">
 	<div class="modal-header">

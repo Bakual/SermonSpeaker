@@ -2,7 +2,7 @@
 // no direct access
 defined('_JEXEC') or die;
 
-$published = $this->state->get('filter.published');
+$published = $this->state->get('filter.state');
 ?>
 <fieldset class="batch">
 	<legend><?php echo JText::_('COM_SERMONSPEAKER_BATCH_OPTIONS');?></legend>

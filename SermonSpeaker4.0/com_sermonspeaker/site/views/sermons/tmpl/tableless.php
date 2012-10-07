@@ -160,7 +160,8 @@ if (in_array('sermons:player', $this->columns) && count($this->items)) : ?>
 						<?php echo JText::_('JGLOBAL_HITS'); ?>: 
 						<?php echo $item->hits; ?>
 					</dd>
-				<?php endif;if (in_array('sermons:scripture', $this->columns) && $item->scripture) : ?>
+				<?php endif;
+				if (in_array('sermons:scripture', $this->columns) && $item->scripture) : ?>
 					<dd class="ss-sermondetail-info">
 						<?php echo JText::_('COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL'); ?>:
 						<?php $scriptures = SermonspeakerHelperSermonspeaker::insertScriptures($item->scripture, '; ');

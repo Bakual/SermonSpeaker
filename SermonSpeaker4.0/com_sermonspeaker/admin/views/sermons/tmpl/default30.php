@@ -88,19 +88,19 @@ endif;
 					<th>
 						<?php echo JHtml::_('grid.sort', 'JGLOBAL_TITLE', 'sermons.sermon_title', $listDirn, $listOrder); ?>
 					</th>
-					<th width="10%" class="nowrap hidden-phone">
+					<th width="10%" class="nowrap hidden-phone hidden-tablet">
 						<?php echo JHtml::_('grid.sort',  'COM_SERMONSPEAKER_SPEAKER', 'name', $listDirn, $listOrder); ?>
 					</th>
 					<th width="10%" class="nowrap hidden-phone hidden-tablet">
 						<?php echo JHtml::_('grid.sort',  'COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL', 'scripture', $listDirn, $listOrder); ?>
 					</th>
-					<th width="10%" class="nowrap hidden-phone">
+					<th width="10%" class="nowrap hidden-phone hidden-tablet">
 						<?php echo JHtml::_('grid.sort',  'COM_SERMONSPEAKER_SERIE', 'series_title', $listDirn, $listOrder); ?>
 					</th>
 					<th width="7%" class="nowrap hidden-phone">
 						<?php echo JHtml::_('grid.sort',  'COM_SERMONSPEAKER_FIELD_DATE_LABEL', 'sermons.sermon_date', $listDirn, $listOrder); ?>
 					</th>
-					<th width="5%" class="nowrap hidden-phone hidden-tablet">
+					<th width="7%" class="nowrap hidden-phone">
 						<?php echo JHtml::_('grid.sort',  'JGLOBAL_HITS', 'sermons.hits', $listDirn, $listOrder); ?>
 					</th>
 					<th width="5%" class="nowrap hidden-phone">
@@ -143,9 +143,7 @@ endif;
 						<?php echo JHtml::_('grid.id', $i, $item->id); ?>
 					</td>
 					<td class="center">
-						<div class="btn-group">
-							<?php echo JHtml::_('jgrid.published', $item->state, $i, 'sermons.', $canChange); ?>
-						</div>
+						<?php echo JHtml::_('jgrid.published', $item->state, $i, 'sermons.', $canChange); ?>
 					</td>
 					<td class="center">
 						<div class="btn-group">
@@ -180,7 +178,7 @@ endif;
 
 								JHtml::_('dropdown.divider');
 
-								if ($this->state->get('filter.published') == 2) :
+								if ($this->state->get('filter.state') == 2) :
 									JHtml::_('dropdown.unarchive', 'cb' . $i, 'sermons.');
 								else :
 									JHtml::_('dropdown.archive', 'cb' . $i, 'sermons.');
@@ -190,7 +188,7 @@ endif;
 									JHtml::_('dropdown.checkin', 'cb' . $i, 'sermons.');
 								endif;
 
-								if ($this->state->get('filter.published') == -2) :
+								if ($this->state->get('filter.state') == -2) :
 									JHtml::_('dropdown.untrash', 'cb' . $i, 'sermons.');
 								else :
 									JHtml::_('dropdown.trash', 'cb' . $i, 'sermons.');
@@ -201,7 +199,7 @@ endif;
 								?>
 						</div>
 					</td>
-					<td class="nowrap small hidden-phone">
+					<td class="nowrap small hidden-phone hidden-tablet">
 						<?php echo $this->escape($item->name); ?>
 					</td>
 					<td class="center small hidden-phone hidden-tablet">
@@ -244,7 +242,7 @@ endif;
 							}
 						endif; ?>
 					</td>
-					<td class="small hidden-phone">
+					<td class="small hidden-phone hidden-tablet">
 						<?php echo $this->escape($item->series_title); ?>
 					</td>
 					<td class="nowrap small hidden-phone">
@@ -252,7 +250,7 @@ endif;
 							echo JHTML::Date($item->sermon_date, JText::_('DATE_FORMAT_LC4'), true);
 						endif; ?>
 					</td>
-					<td class="center small hidden-phone hidden-tablet">
+					<td class="center small hidden-phone">
 						<?php echo $item->hits; ?>
 						<?php if ($canEdit || $canEditOwn) : ?>
 							&nbsp;<a href="index.php?option=com_sermonspeaker&task=sermon.reset&id=<?php echo $item->id; ?>" title="<?php echo JText::_('JSEARCH_RESET'); ?>"><img src="<?php echo JURI::base(); ?>components/com_sermonspeaker/images/reset.png" width="16" height="16" border="0" alt="<?php echo JText::_('JSEARCH_RESET'); ?>" /></a>

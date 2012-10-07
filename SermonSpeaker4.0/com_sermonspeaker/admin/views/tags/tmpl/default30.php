@@ -125,9 +125,7 @@ endif;
 						<?php echo JHtml::_('grid.id', $i, $item->id); ?>
 					</td>
 					<td class="center">
-						<div class="btn-group">
-							<?php echo JHtml::_('jgrid.published', $item->state, $i, 'tags.', $canChange); ?>
-						</div>
+						<?php echo JHtml::_('jgrid.published', $item->state, $i, 'tags.', $canChange); ?>
 					</td>
 					<td class="nowrap has-context">
 						<div class="pull-left">
@@ -157,7 +155,7 @@ endif;
 
 								JHtml::_('dropdown.divider');
 
-								if ($this->state->get('filter.published') == 2) :
+								if ($this->state->get('filter.state') == 2) :
 									JHtml::_('dropdown.unarchive', 'cb' . $i, 'tags.');
 								else :
 									JHtml::_('dropdown.archive', 'cb' . $i, 'tags.');
@@ -167,7 +165,7 @@ endif;
 									JHtml::_('dropdown.checkin', 'cb' . $i, 'tags.');
 								endif;
 
-								if ($this->state->get('filter.published') == -2) :
+								if ($this->state->get('filter.state') == -2) :
 									JHtml::_('dropdown.untrash', 'cb' . $i, 'tags.');
 								else :
 									JHtml::_('dropdown.trash', 'cb' . $i, 'tags.');
