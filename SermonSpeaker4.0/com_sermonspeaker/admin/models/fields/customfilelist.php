@@ -136,7 +136,7 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 			foreach ($bucket_contents as $file)
 			{
 				$fname = $file['name'];
-				$furl = 'http://'.$bucket.'.s3.amazonaws.com/'.$fname;
+				$furl = 'http://s3.amazonaws.com/'.$bucket.'/'.$fname;
 				$option['value'] = $furl;
 				$option['text'] = $fname;
 				$options[] = $option;

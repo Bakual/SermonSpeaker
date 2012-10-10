@@ -95,8 +95,8 @@ class SermonspeakerControllerFile extends JControllerLegacy
 				$response = array(
 					'status' => '1',
 					'filename' => $file['name'],
-					'path' => 'http://'.$bucket.'.s3.amazonaws.com/'.$file['name'],
-					'error' => JText::sprintf('COM_SERMONSPEAKER_FU_FILENAME', $bucket.'.s3.amazonaws.com/'.$file['name'])
+					'path' => 'http://s3.amazonaws.com/'.$bucket.'/'.$file['name'],
+					'error' => JText::sprintf('COM_SERMONSPEAKER_FU_FILENAME', 's3.amazonaws.com/'.$bucket.'/'.$file['name'])
 				);
 				echo json_encode($response);
 				return;

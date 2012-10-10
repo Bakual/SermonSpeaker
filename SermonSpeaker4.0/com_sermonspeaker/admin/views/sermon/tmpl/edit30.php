@@ -79,7 +79,7 @@ $input = JFactory::getApplication()->input;
 										<span id="audiopathinfo" class="pathinfo ss-hide hasTip" title="<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO_TOOLTIP'); ?>">
 											<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO');
 											if ($this->s3audio) :
-												echo ' http://'.$this->params->get('s3_bucket', '').'.s3.amazonaws.com/';
+												echo ' http://s3.amazonaws.com/'.$this->params->get('s3_bucket', '').'/';
 											else :
 												echo ' /'.trim($this->params->get('path'), '/').'/<span id="audiopathdate" class="pathdate">'.$this->append_date.'</span><span id="audiopathlang" class="pathlang">'.$this->append_lang.'</span>';
 											endif; ?>
@@ -110,7 +110,7 @@ $input = JFactory::getApplication()->input;
 										<span id="videopathinfo" class="pathinfo ss-hide hasTip" title="<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO_TOOLTIP'); ?>">
 											<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO');
 											if ($this->s3video):
-												echo ' http://'.$this->params->get('s3_bucket', '').'.s3.amazonaws.com/';
+												echo ' http://s3.amazonaws.com/'.$this->params->get('s3_bucket', '').'/';
 											else:
 												echo ' /'.trim($this->params->get('path'), '/').'/<span id="videopathdate" class="pathdate">'.$this->append_date.'</span><span id="videopathlang" class="pathlang">'.$this->append_lang.'</span>';
 											endif; ?>
