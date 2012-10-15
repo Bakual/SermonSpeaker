@@ -123,6 +123,16 @@ class SermonspeakerHelperSermonspeaker
 				.JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_'.$type)
 				.'</button>';
 		}
+		elseif ($mode == 3)
+		{
+			if (self::$params->get('enable_ga_events'))
+			{
+				$onclick = "onclick=\"_gaq.push(['_trackEvent', 'SermonSpeaker Download', '".$type."', 'id:".$id."']);\"";
+			}
+			$html = '<a href="'.$fileurl.'" target="_new" '.$onclick.' title="'.JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_'.$type).'">'
+						.'<i class="icon-download"> </i>'
+					.'</a>';
+		}
 		else
 		{
 			if (self::$params->get('enable_ga_events'))
@@ -170,16 +180,32 @@ class SermonspeakerHelperSermonspeaker
 		$options = array();
 		if ($icon)
 		{
+			$version	= new JVersion;
+			$joomla30	= $version->isCompatible(3.0);
 			switch (self::$params->get('list_icon_function', 3))
 			{
 				case 0:
 					$options['title'] = JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER');
-					$pic = JHTML::Image('media/com_sermonspeaker/images/play.gif', JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER'), $options);
+					if ($joomla30)
+					{
+						$pic = '<i class="icon-play" title="'.JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER').'"> </i>';
+					}
+					else
+					{
+						$pic = JHTML::Image('media/com_sermonspeaker/images/play.gif', JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER'), $options);
+					}
 					$return .= JHTML::Link(JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug)), $pic).' ';
 					break;
 				case 1:
 					$options['title'] = JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER');
-					$pic = JHTML::Image('media/com_sermonspeaker/images/play.gif', JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER'), $options);
+					if ($joomla30)
+					{
+						$pic = '<i class="icon-play" title="'.JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER').'"> </i>';
+					}
+					else
+					{
+						$pic = JHTML::Image('media/com_sermonspeaker/images/play.gif', JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER'), $options);
+					}
 					$return .= JHTML::Link(self::makeLink($item->audiofile), $pic).' ';
 					break;
 				case 2:
@@ -188,10 +214,17 @@ class SermonspeakerHelperSermonspeaker
 						$cols = array();
 					}
 					if(in_array(self::$view.':player', $cols)){
-						$options['onclick'] = 'ss_play('.$i.')';
+						$options['onclick'] = 'ss_play('.$i.');return false;';
 						$options['title'] = JText::_('COM_SERMONSPEAKER_PLAYICON_HOOVER');
-						$options['class'] = 'icon_play pointer';
-						$return .= JHTML::Image('media/com_sermonspeaker/images/play.gif', JText::_('COM_SERMONSPEAKER_PLAYICON_HOOVER'), $options).' ';
+						if ($joomla30)
+						{
+							$return = '<i class="icon-play pointer" onclick="'.$options['onclick'].'" title="'.$options['title'].'"> </i> ';
+						}
+						else
+						{
+							$options['class'] = 'icon_play pointer';
+							$return .= JHTML::Image('media/com_sermonspeaker/images/play.gif', JText::_('COM_SERMONSPEAKER_PLAYICON_HOOVER'), $options).' ';
+						}
 					}
 					break;
 				case 3:
@@ -222,7 +255,7 @@ class SermonspeakerHelperSermonspeaker
 					$cols = array();
 				}
 				if(in_array(self::$view.':player', $cols)){
-					$options['onclick'] = 'ss_play('.$i.')';
+					$options['onclick'] = 'ss_play('.$i.');return false;';
 					$options['title'] = JText::_('COM_SERMONSPEAKER_PLAYICON_HOOVER');
 					$return .= JHTML::Link('#', $item->sermon_title, $options);
 				} else {

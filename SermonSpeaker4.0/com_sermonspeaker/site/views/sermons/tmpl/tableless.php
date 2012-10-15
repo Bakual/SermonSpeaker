@@ -114,7 +114,7 @@ if (in_array('sermons:player', $this->columns) && count($this->items)) : ?>
 		<div class="no_entries"><?php echo JText::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', JText::_('COM_SERMONSPEAKER_SERMONS')); ?></div>
 	<?php else : ?>
 		<?php foreach($this->items as $i => $item) : ?>
-			<div id="sermon<?php echo $i; ?>" class="ss-entry" onclick="ss_play('<?php echo $i; ?>')">
+			<div id="sermon<?php echo $i; ?>" class="ss-entry" onclick="ss_play('<?php echo $i; ?>');return false;">
 				<?php if ($picture = SermonspeakerHelperSermonspeaker::insertPicture($item)) : ?>
 					<div class="ss-picture"><img src="<?php echo $picture; ?>"></div>
 				<?php endif; ?>

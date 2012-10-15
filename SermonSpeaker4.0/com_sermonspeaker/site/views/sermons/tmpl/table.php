@@ -165,7 +165,7 @@ if (in_array('sermons:player', $this->columns) && count($this->items)) : ?>
 				if (in_array('sermons:addfile', $this->columns)) : ?>
 					<th class="ss-col ss-addfile">
 						<?php if (!$limit) :
-							 echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_ADDFILE', 'addfileDesc', $listDirn, $listOrder);
+							echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_ADDFILE', 'addfileDesc', $listDirn, $listOrder);
 						else :
 							echo JText::_('COM_SERMONSPEAKER_ADDFILE');
 						endif; ?>

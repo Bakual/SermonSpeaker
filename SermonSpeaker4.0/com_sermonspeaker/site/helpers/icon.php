@@ -111,4 +111,34 @@ class JHtmlIcon
 
 		return $output;
 	}
+
+	static function download($item, $params, $attribs = array())
+	{
+		$onclick	= '';
+		$fileurl	= JRoute::_('index.php?task=download&id='.$item->id.'&type='.$attribs['type']);
+		$text		= '<i class="icon-download" > </i> '.JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_'.$attribs['type']);
+
+		if ($params->get('enable_ga_events'))
+		{
+			$onclick = "_gaq.push(['_trackEvent', 'SermonSpeaker Download', '".$attribs['type']."', 'id:".$item->id."']);"
+					."window.location.href='".$fileurl."';";
+			$output = '<a href="#" onclick="'.$onclick.'">'.$text.'</a>';
+		} else {
+			$output = '<a href="'.$fileurl.'">'.$text.'</a>';
+		}
+
+		return $output;
+	}
+
+	static function play($item, $params, $attribs = array())
+	{
+		if ($params->get('list_icon_function') != 2)
+		{
+			return;
+		}
+		$text	= '<i class="icon-play"> </i> '.JText::_('COM_SERMONSPEAKER_PLAYICON_HOOVER');
+		$output	= '<a href="#" onclick="ss_play('.$attribs['index'].');return false;">'.$text.'</a>';
+
+		return $output;
+	}
 }
