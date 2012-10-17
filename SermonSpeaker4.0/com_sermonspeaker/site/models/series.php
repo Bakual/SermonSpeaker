@@ -150,7 +150,11 @@ class SermonspeakerModelSeries extends JModelList
 		// Include Subcategories or not
 		$this->setState('filter.subcategories', $params->get('show_subcategory_content', 0));
 
-		$this->setState('filter.state', 1);
+		$user	= JFactory::getUser();
+		if ((!$user->authorise('core.edit.state', 'com_sermonspeaker')) &&  (!$user->authorise('core.edit', 'com_sermonspeaker'))){
+			// filter on published for those who do not have edit or edit.state rights.
+			$this->setState('filter.state', 1);
+		}
 
 		$this->setState('filter.language', $app->getLanguageFilter());
 

@@ -74,18 +74,18 @@ $player		= new SermonspeakerHelperPlayer($this->items);
 								<span class="label label-warning"><?php echo JText::_('JUNPUBLISHED'); ?></span>
 								<?php echo JText::_('JGLOBAL_FILTER_LABEL').'&#160;'; ?>
 							</label>
-							<input type="text" name="filter-search" id="filter-search" value="<?php echo $this->escape($this->state->get('list.filter')); ?>" class="inputbox" onchange="document.adminForm.submit();" title="<?php echo JText::_('COM_SERMONSPEAKER_FILTER_SEARCH_DESC'); ?>" placeholder="<?php echo JText::_('COM_SERMONSPEAKER_FILTER_SEARCH_DESC'); ?>" />
+							<input type="text" name="filter-search" id="filter-search" value="<?php echo $this->escape($this->state->get('filter.search')); ?>" class="input-medium" onchange="document.adminForm.submit();" title="<?php echo JText::_('COM_SERMONSPEAKER_FILTER_SEARCH_DESC'); ?>" placeholder="<?php echo JText::_('COM_SERMONSPEAKER_FILTER_SEARCH_DESC'); ?>" />
 						</div>
 						<div class="btn-group filter-select">
-							<select name="book" id="filter_books" class="inputbox input-medium" onchange="this.form.submit()">
+							<select name="book" id="filter_books" class="input-medium" onchange="this.form.submit()">
 								<?php echo JHtml::_('select.options', $this->books, 'value', 'text', $this->state->get('scripture.book'), true);?>
 							</select>
-							<select name="month" id="filter_months" class="inputbox input-medium" onchange="this.form.submit()">
+							<select name="month" id="filter_months" class="input-medium" onchange="this.form.submit()">
 								<option value="0"><?php echo JText::_('COM_SERMONSPEAKER_SELECT_MONTH'); ?></option>
 								
 								<?php echo JHtml::_('select.options', $this->months, 'value', 'text', $this->state->get('date.month'), true);?>
 							</select>
-							<select name="year" id="filter_years" class="inputbox input-medium" onchange="this.form.submit()">
+							<select name="year" id="filter_years" class="input-medium" onchange="this.form.submit()">
 								<option value="0"><?php echo JText::_('COM_SERMONSPEAKER_SELECT_YEAR'); ?></option>
 								<?php echo JHtml::_('select.options', $this->years, 'year', 'year', $this->state->get('date.year'), true);?>
 							</select>
@@ -101,9 +101,6 @@ $player		= new SermonspeakerHelperPlayer($this->items);
 					<?php endif; ?>
 				</div>
 			<?php endif; ?>
-			<input type="hidden" name="filter_order" value="" />
-			<input type="hidden" name="filter_order_Dir" value="" />
-			<input type="hidden" name="limitstart" value="" />
 			<div class="clearfix"></div>
 			<?php if (!count($this->items)) : ?>
 				<div class="no_entries alert alert-error"><?php echo JText::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', JText::_('COM_SERMONSPEAKER_SERMONS')); ?></div>

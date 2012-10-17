@@ -31,7 +31,7 @@ $js	= 'function CheckProgress() {
 				}
 			}
 		}
-		xmlhttp.open("GET","index.php?option=com_sermonspeaker&task=serie.checkprogress&format=json&id='.$this->item->id.'",true);
+		xmlhttp.open("GET","index.php?option=com_sermonspeaker&task=serie.checkprogress&format=json&tmpl=component&id='.$this->item->id.'",true);
 		xmlhttp.send();
 	}
 	function CallZip() {
@@ -48,7 +48,7 @@ $js	= 'function CheckProgress() {
 				}
 			}
 		}
-		xmlhttp.open("GET","index.php?option=com_sermonspeaker&task=serie.download&format=json&id='.$this->item->id.'",true);
+		xmlhttp.open("GET","index.php?option=com_sermonspeaker&task=serie.download&format=json&tmpl=component&id='.$this->item->id.'",true);
 		xmlhttp.send();
 		timeout = setTimeout(CheckProgress,100);
 	}
