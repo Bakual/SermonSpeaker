@@ -43,7 +43,7 @@ class SermonspeakerModelSermons extends JModelList
 		parent::__construct($config);
 
 		// Adding Viewname to Context so UserStates aren't saved accross the various views
-		$this->context .= '.'.JRequest::getCmd('view', 'sermons');
+		$this->context .= '.'.JFactory::getApplication()->input->get('view', 'sermons');
 	}
 
 	protected function getListQuery()
@@ -191,17 +191,18 @@ class SermonspeakerModelSermons extends JModelList
 		$app	= JFactory::getApplication();
 		$params	= $app->getParams();
 		$this->setState('params', $params);
+		$jinput	= $app->input;
 
 		// Category filter (priority on request so subcategories work)
-		if ($id		= JRequest::getInt('sermon_cat', 0))
+		if ($id		= $jinput->get('sermon_cat', 0, 'int'))
 		{
 			$type	= 'sermons';
 		}
-		elseif ($id	= JRequest::getInt('speaker_cat', 0))
+		elseif ($id	= $jinput->get('speaker_cat', 0, 'int'))
 		{
 			$type	= 'speakers';
 		}
-		elseif ($id	= JRequest::getInt('series_cat', 0))
+		elseif ($id	= $jinput->get('series_cat', 0, 'int'))
 		{
 			$type	= 'series';
 		}

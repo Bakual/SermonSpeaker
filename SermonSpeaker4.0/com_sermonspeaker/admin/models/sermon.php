@@ -170,7 +170,8 @@ class SermonspeakerModelSermon extends JModelAdmin
 	protected function loadFormData()
 	{
 		// Check the session for previously entered form data.
-		$data = JFactory::getApplication()->getUserState('com_sermonspeaker.edit.sermon.data', array());
+		$data	= JFactory::getApplication()->getUserState('com_sermonspeaker.edit.sermon.data', array());
+		$jinput	= JFactory::getApplication()->input;
 
 		if (empty($data)) {
 			$data = $this->getItem();
@@ -191,8 +192,8 @@ class SermonspeakerModelSermon extends JModelAdmin
 		// Depreceated with SermonSpeaker 4.4.4. Using Ajax now for Lookup.
 		// Still used for tools function files to create sermon from file.
 		// Reading ID3 Tags if the Lookup Button was pressed
-		if ($id3_file = JRequest::getString('file')){
-			if (JRequest::getCmd('type') == 'video'){
+		if ($id3_file = $jinput->get('file', '', 'string')){
+			if ($jinput->get('type') == 'video'){
 				$data->videofile = $id3_file;
 			} else {
 				$data->audiofile = $id3_file;

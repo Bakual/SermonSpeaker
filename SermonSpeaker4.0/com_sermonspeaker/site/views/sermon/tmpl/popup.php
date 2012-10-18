@@ -1,6 +1,6 @@
 <?php
 defined('_JEXEC') or die;
-$config	= array('type' => JRequest::getCmd('type', 'audio'));
+$config	= array('type' => JFactory::getApplication()->input->get('type', 'audio'));
 $player = new SermonspeakerHelperPlayer($this->item, $config);
 ?>
 <script type="text/javascript">

@@ -36,18 +36,19 @@ class SermonspeakerModelTagform extends SermonspeakerModelTag
 	 */
 	protected function populateState($ordering = null, $direction = null)
 	{
-		$app = JFactory::getApplication();
+		$app	= JFactory::getApplication();
+		$jinput	= $app->input;
 
 		// Load state from the request.
-		$pk = JRequest::getInt('s_id');
+		$pk = $jinput->get('s_id', 0, 'int');
 		$this->setState('tagform.id', $pk);
 		// Add compatibility variable for default naming conventions.
 		$this->setState('form.id', $pk);
 
-		$categoryId	= JRequest::getInt('catid');
+		$categoryId	= $jinput->get('catid', 0, 'int');
 		$this->setState('tagform.catid', $categoryId);
 
-		$return = JRequest::getVar('return', null, 'default', 'base64');
+		$return = $jinput->get('return', '', 'base64');
 
 		if (!JUri::isInternal(base64_decode($return))) {
 			$return = null;
@@ -59,6 +60,6 @@ class SermonspeakerModelTagform extends SermonspeakerModelTag
 		$params	= $app->getParams();
 		$this->setState('params', $params);
 
-		$this->setState('layout', JRequest::getCmd('layout'));
+		$this->setState('layout', $jinput->get('layout'));
 	}
 }

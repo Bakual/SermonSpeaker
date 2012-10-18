@@ -142,9 +142,10 @@ class SermonspeakerModelSeries extends JModelList
 		$app	= JFactory::getApplication();
 		$params	= $app->getParams();
 		$this->setState('params', $params);
+		$jinput	= $app->input;
 
 		// Category filter (priority on request so subcategories work)
-		$id	= JRequest::getInt('series_cat', $params->get('catid', 0));
+		$id	= $jinput->get('series_cat', $params->get('catid', 0), 'int');
 		$this->setState('category.id', $id);
 
 		// Include Subcategories or not
@@ -162,7 +163,7 @@ class SermonspeakerModelSeries extends JModelList
 		$this->setState('filter.search', $search);
 
 		// Speakerfilter
-		if(JRequest::getCmd('view') == 'speaker'){
+		if($jinput->get('view') == 'speaker'){
 			$id = $app->getUserStateFromRequest($this->context.'.filter.speaker', 'id', 0, 'INT');
 			$this->setState('speaker.id', $id);
 		}

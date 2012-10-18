@@ -169,7 +169,7 @@ class SermonspeakerControllerTools extends JControllerLegacy
 		// Check for request forgeries
 		JRequest::checkToken('request') or jexit(JText::_('JINVALID_TOKEN'));
 		$app	= JFactory::getApplication();
-		$file	= JRequest::getVar('file');
+		$file	= $app->input->get('file', '', 'string');
 		$file	= JPATH_SITE.$file;
 		jimport('joomla.filesystem.file');
 		if(JFile::exists($file)){
@@ -344,11 +344,12 @@ class SermonspeakerControllerTools extends JControllerLegacy
 		// Check for request forgeries
 		JRequest::checkToken('request') or jexit(JText::_('JINVALID_TOKEN'));
 		$app	= JFactory::getApplication();
+		$jinput	= $app->input;
 		$db		= JFactory::getDBO();
-		$mode	= JRequest::getVar('submit');
+		$mode	= $jinput->get('submit');
 
 		if(isset($mode['diff'])){
-			$diff	= JRequest::getFloat('diff');
+			$diff	= $jinput->get('diff', 0, 'float');
 			$mins	= abs(($diff - intval($diff))*60);
 			$hrs	= abs(intval($diff));
 			$minus	= ($diff < 0) ? '-' : '';
@@ -368,7 +369,7 @@ class SermonspeakerControllerTools extends JControllerLegacy
 				}
 			}
 		} elseif (isset($mode['time'])){
-			$time	= JRequest::getString('time');
+			$time	= $jinput->get('time', '', 'string');
 			$config = JFactory::getConfig();
 			$user	= JFactory::getUser();
 			$date	= JFactory::getDate($time, $user->getParam('timezone', $config->get('offset')));
@@ -394,10 +395,11 @@ class SermonspeakerControllerTools extends JControllerLegacy
 	public function createAutomatic()
 	{
 		$app	= JFactory::getApplication();
+		$jinput	= $app->input;
 
 		// Get the log in credentials.
 		$credentials = array();
-		$credentials['username'] = JRequest::getVar('username', '', 'get', 'username');
+		$credentials['username'] = $jinput->get->get('username', '', 'username');
 		$credentials['password'] = JRequest::getString('password', '', 'get', JREQUEST_ALLOWRAW);
 
 		// Perform the log in.

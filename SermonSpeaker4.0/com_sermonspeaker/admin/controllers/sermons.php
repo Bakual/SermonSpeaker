@@ -34,7 +34,7 @@ class SermonspeakerControllerSermons extends JControllerAdmin
 		JRequest::checkToken() or die(JText::_('JINVALID_TOKEN'));
 
 		// Get items to podcast from the request.
-		$cid	= JRequest::getVar('cid', array(), '', 'array');
+		$cid	= JFactory::getApplication()->input->get('cid', array(), 'array');
 		$data	= array('podcast_publish' => 1, 'podcast_unpublish' => 0);
 		$task 	= $this->getTask();
 		$value	= JArrayHelper::getValue($data, $task, 0, 'int');

@@ -49,7 +49,7 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 	{
 		// Initialise variables.
 		$user		= JFactory::getUser();
-		$categoryId	= JArrayHelper::getValue($data, 'catid', JRequest::getInt('id'), 'int');
+		$categoryId	= JArrayHelper::getValue($data, 'catid', JFactory::getApplication()->input('id', 0, 'int'), 'int');
 		$allow		= null;
 
 		if ($categoryId) {
@@ -153,9 +153,10 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 	 */
 	protected function getRedirectToItemAppend($recordId = null, $urlVar = 's_id')
 	{
-		JRequest::setVar('layout', 'default');
+		$jinput	= JFactory::getApplication()->input;
+		$jinput->set('layout', 'default');
 		$append = parent::getRedirectToItemAppend($recordId, 's_id');
-		$itemId	= JRequest::getInt('Itemid');
+		$itemId	= $jinput->get('Itemid', 0, 'int');
 		$return	= $this->getReturnPage();
 
 		if ($itemId) {
@@ -179,7 +180,7 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 	 */
 	protected function getReturnPage()
 	{
-		$return = JRequest::getVar('return', null, 'default', 'base64');
+		$return = JFactory::getApplication()->input->get('return', '', 'base64');
 
 		if (empty($return) || !JUri::isInternal(base64_decode($return))) {
 			return JURI::base();

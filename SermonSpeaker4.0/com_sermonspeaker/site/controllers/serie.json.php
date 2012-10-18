@@ -14,7 +14,7 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 {
 	function download()
 	{
-		$id = JRequest::getInt('id');
+		$id = JFactory::getApplication()->input->get('id', 0, 'int');
 		if (!$id)
 		{
 			$response = array(
@@ -250,7 +250,7 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 
 	function checkprogress()
 	{
-		$id = JRequest::getInt('id');
+		$id = JFactory::getApplication()->input->get('id', 0, 'int');
 		if(!$id)
 		{
 			$response = array(

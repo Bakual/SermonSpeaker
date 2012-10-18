@@ -17,7 +17,7 @@ class SermonspeakerHelperSermonspeaker
 
 	static function getView()
 	{
-		self::$view	= JRequest::getCmd('view', 'sermons');
+		self::$view	= JFactory::getApplication()->input->get('view', 'sermons');
 	}
 
 	static function SpeakerTooltip($id, $pic, $name)

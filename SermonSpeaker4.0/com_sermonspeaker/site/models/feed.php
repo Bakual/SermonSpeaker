@@ -20,17 +20,18 @@ class SermonspeakerModelFeed extends JModelLegacy
 	{
 		$user	= JFactory::getUser();
 		$groups	= implode(',', $user->getAuthorisedViewLevels());
+		$jinput	= JFactory::getApplication()->input;
 
 		// Category filter (priority on request so subcategories work)
-		if ($id	= JRequest::getInt('sermon_cat', 0))
+		if ($id	= $jinput->get('sermon_cat', 0, 'int'))
 		{
 			$type	= 'sermons';
 		}
-		elseif ($id	= JRequest::getInt('speaker_cat', 0))
+		elseif ($id	= $jinput->get('speaker_cat', 0, 'int'))
 		{
 			$type	= 'speakers';
 		}
-		elseif ($id	= JRequest::getInt('series_cat', 0))
+		elseif ($id	= $jinput->get('series_cat', 0, 'int'))
 		{
 			$type	= 'series';
 		}

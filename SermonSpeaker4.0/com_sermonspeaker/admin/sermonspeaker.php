@@ -18,5 +18,5 @@ $jlang->load('com_sermonspeaker', JPATH_COMPONENT, 'en-GB', true);
 $jlang->load('com_sermonspeaker', JPATH_COMPONENT, null, true);
 
 $controller	= JControllerLegacy::getInstance('Sermonspeaker');
-$controller->execute(JRequest::getCmd('task'));
+$controller->execute(JFactory::getApplication()->input->get('task'));
 $controller->redirect();

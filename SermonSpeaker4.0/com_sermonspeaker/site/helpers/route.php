@@ -153,8 +153,8 @@ abstract class SermonspeakerHelperRoute
 
 	protected static function _findItem($needles = null)
 	{
-		$app		= JFactory::getApplication();
-		$menus		= $app->getMenu('site');
+		$app	= JFactory::getApplication();
+		$menus	= $app->getMenu('site');
 
 		// Prepare the reverse lookup array.
 		if (self::$lookup === null) {

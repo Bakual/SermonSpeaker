@@ -30,7 +30,7 @@ class SermonspeakerModelSpeaker extends JModelItem
 		$params	= $app->getParams();
 
 		// Load the object state.
-		$id	= JRequest::getInt('id');
+		$id	= $app->input->get('id', 0, 'int');
 		$this->setState('speaker.id', $id);
 
 		// Load the parameters.

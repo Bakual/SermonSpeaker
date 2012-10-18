@@ -22,7 +22,7 @@ class SermonspeakerControllerTag extends JControllerForm
 	{
 		// Initialise variables.
 		$user		= JFactory::getUser();
-		$categoryId	= JArrayHelper::getValue($data, 'catid', JRequest::getInt('filter_category_id'), 'int');
+		$categoryId	= JArrayHelper::getValue($data, 'catid', JFactory::getApplication()->input->get('filter_category_id', 0, 'int'), 'int');
 		$allow		= null;
 
 		if ($categoryId) {
@@ -110,7 +110,7 @@ class SermonspeakerControllerTag extends JControllerForm
 	protected function getRedirectToItemAppend($recordId = null, $urlVar = null)
 	{
 		$append = parent::getRedirectToItemAppend($recordId, $urlVar);
-		$modal	= JRequest::getInt('modal');
+		$modal	= JFactory::getApplication()->input->get('modal', 0, 'int');
 		$return	= $this->getReturnPage();
 
 		if ($modal) {
@@ -134,7 +134,7 @@ class SermonspeakerControllerTag extends JControllerForm
 	 */
 	protected function getReturnPage()
 	{
-		$return = JRequest::getVar('return', null, 'default', 'base64');
+		$return = JFactory::getApplication()->input->get('return', '', 'base64');
 
 		if (empty($return) || !JUri::isInternal(base64_decode($return))) {
 			return false;

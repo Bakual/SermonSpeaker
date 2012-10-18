@@ -32,6 +32,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 		// Initialise variables.
 		$app		= JFactory::getApplication();
 		$params		= $app->getParams();
+		$jinput		= $app->input;
 
 		// Get the user
 		$user		= JFactory::getUser();
@@ -39,9 +40,9 @@ class SermonspeakerControllerFile extends JControllerLegacy
 		// Get some data from the request
 		$files	= JRequest::getVar('Filedata', '', 'files', 'array');
 		$path	= trim($params->get('path', 'images'), '/');
-		$append	= ($params->get('append_path', 0)) ? '/'.JRequest::getInt('year', date('Y')).'/'.str_pad(JRequest::getInt('month', date('m')), 2 ,'0', STR_PAD_LEFT) : '';
+		$append	= ($params->get('append_path', 0)) ? '/'.$jinput->get('year', date('Y'), 'int').'/'.str_pad($jinput->get('month', date('m'), 'int'), 2 ,'0', STR_PAD_LEFT) : '';
 		if ($params->get('append_path_lang', 0)) {
-			$lang = JRequest::getCmd('language');
+			$lang = $jinput->get('language');
 			if (strlen($lang) != 5) {
 				$lang	= JFactory::getLanguage()->getTag();
 			}
@@ -49,7 +50,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 		}
 		$folder	= JPATH_ROOT.'/'.$path.$append;
 
-		$return		= JRequest::getVar('return-url', null, 'post', 'base64');
+		$return		= $jinput->post->get('return-url', '', 'base64');
 
 		// Set FTP credentials, if given
 		jimport('joomla.client.helper');

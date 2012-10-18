@@ -37,7 +37,7 @@ class SermonspeakerModelCategories extends JModelLegacy
 		$this->setState('filter.extension', $this->_extension);
 
 		// Get the parent id if defined.
-		$parentId = JRequest::getInt('id');
+		$parentId = $app->input->get('id', 0, 'int');
 		$this->setState('filter.parentId', $parentId);
 
 		$params = $app->getParams();

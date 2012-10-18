@@ -5,10 +5,13 @@ class SermonspeakerViewFeed extends JViewLegacy
 	function display($tpl = null)
 	{
 		$app 	= JFactory::getApplication();
-		$params = $app->getParams();
+		$params	= $app->getParams();
+		$jinput	= $app->input;
+
 		// Get the log in credentials.
 		$credentials = array();
-		$credentials['username'] = JRequest::getVar('username', '', 'get', 'username');
+		$credentials['username'] = $jinput->get->get('username', '', 'username');
+		// Todo: How do I get ALLOWRAW with JInput or how does the com_users do it?
 		$credentials['password'] = JRequest::getString('password', '', 'get', JREQUEST_ALLOWRAW);
 		// Perform the log in.
 		if ($credentials['username'] && $credentials['password']){
@@ -20,7 +23,7 @@ class SermonspeakerViewFeed extends JViewLegacy
 		if (!in_array($params->get('access'), $groups)) {
 			$app->redirect('', JText::_('JERROR_ALERTNOAUTHOR'), 'error');
 		}
-		$type	= JRequest::getCmd('type', 'auto');
+		$type	= $jinput->get('type', 'auto');
 		$prio	= $params->get('fileprio', 0);
 		$this->document->setMimeEncoding('application/rss+xml'); 
 		$link = JURI::root();

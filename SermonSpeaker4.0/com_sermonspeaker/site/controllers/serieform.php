@@ -54,7 +54,7 @@ class SermonspeakerControllerSerieform extends JControllerForm
 	{
 		// Initialise variables.
 		$user		= JFactory::getUser();
-		$categoryId	= JArrayHelper::getValue($data, 'catid', JRequest::getInt('id'), 'int');
+		$categoryId	= JArrayHelper::getValue($data, 'catid', JFactory::getApplication()->input->get('id', 0, 'int'), 'int');
 		$allow		= null;
 
 		if ($categoryId) {
@@ -158,9 +158,10 @@ class SermonspeakerControllerSerieform extends JControllerForm
 	 */
 	protected function getRedirectToItemAppend($recordId = null, $urlVar = null)
 	{
-		$append = parent::getRedirectToItemAppend($recordId, $urlVar);
-		$itemId	= JRequest::getInt('Itemid');
-		$modal	= JRequest::getInt('modal');
+		$jinput	= JFactory::getApplication()->input;
+		$append	= parent::getRedirectToItemAppend($recordId, $urlVar);
+		$itemId	= $jinput->get('Itemid', 0, 'int');
+		$modal	= $jinput->get('modal', 0, 'int');
 		$return	= $this->getReturnPage();
 
 		if ($itemId) {
@@ -188,7 +189,7 @@ class SermonspeakerControllerSerieform extends JControllerForm
 	 */
 	protected function getReturnPage()
 	{
-		$return = JRequest::getVar('return', null, 'default', 'base64');
+		$return = JFactory::getApplication()->input->get('return', '', 'base64');
 
 		if (empty($return) || !JUri::isInternal(base64_decode($return))) {
 			return JURI::base();

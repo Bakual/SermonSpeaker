@@ -16,20 +16,21 @@ class SermonspeakerViewSermon extends JViewLegacy
 
 	function display($tpl = null)
 	{
-		if (!JRequest::getInt('id', 0))
+		$app	= JFactory::getApplication();
+		$jinput	= $app->input;
+		if (!$jinput->get('id', 0, 'int'))
 		{
 			$id = $this->get('Latest');
 			if(!$id){
 				JError::raiseWarning(404, JText::_('JGLOBAL_RESOURCE_NOT_FOUND'));
 				return;
 			}
-			JRequest::setVar('id', $id);
+			$jinput->set('id', $id);
 		}
 		// Applying CSS file
 		JHTML::stylesheet('media/com_sermonspeaker/css/sermonspeaker.css');
 		require_once(JPATH_COMPONENT.'/helpers/player.php');
 		// Initialise variables.
-		$app		= JFactory::getApplication();
 		$params		= $app->getParams();
 		$this->user	= JFactory::getUser();
 		$groups		= $this->user->getAuthorisedViewLevels();

@@ -20,9 +20,10 @@ class SermonspeakerControllerStatistics extends SermonspeakerController
 
 	function resetcount()
 	{
-		$database	= &JFactory::getDBO();
-		$id 		= JRequest::getInt('id', 0);
-		$table 		= JRequest::getWord('table', 0);
+		$database	= JFactory::getDBO();
+		$jinput		= JFactory::getApplication()->input;
+		$id 		= $jinput->get('id', 0, 'int');
+		$table 		= $jinput->get('table', '', 'word');
 
 		$query	= "UPDATE #__sermon_".$table." \n"
 				. "SET hits='0' \n"

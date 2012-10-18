@@ -8,8 +8,8 @@ class SermonspeakerViewspeaker extends JViewLegacy
 {
 	function display($tpl = null)
 	{
-		$app		= JFactory::getApplication();
-		if (!JRequest::getInt('id', 0)){
+		$app = JFactory::getApplication();
+		if (!$app->input->get('id', 0, 'int')){
 			$app->redirect(JRoute::_('index.php?view=speakers'), JText::_('JGLOBAL_RESOURCE_NOT_FOUND'), 'error');
 		}
 		// Applying CSS file

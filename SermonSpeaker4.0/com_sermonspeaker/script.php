@@ -20,6 +20,12 @@ class Com_SermonspeakerInstallerScript
 			return false;
 		}
 
+		if (get_magic_quotes_gpc())
+		{
+			JError::raiseWarning(1, JText::_('COM_SERMONSPEAKER_MAGIC_QUOTES'));
+			return false;
+		}
+
 		// Storing old release number ot process in postflight
 		if ($type == 'update')
 		{

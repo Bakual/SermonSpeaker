@@ -31,7 +31,7 @@ class SermonspeakerControllerTags extends JControllerAdmin
 		JRequest::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
 		// Initialise variables.
-		$pks = JRequest::getVar('cid', array(), 'post', 'array');
+		$pks = JFactory::getApplication()->input->post->get('cid', array(), 'array');
 
 		try
 		{

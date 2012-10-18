@@ -13,7 +13,7 @@ class SermonspeakerViewScripture extends JViewLegacy
 			$this->setLayout($this->getLayout().'30');
 		}
 
-		$id			= JRequest::getInt('id', 0);
+		$id			= JFactory::getApplication()->input->get('id', 0, 'int');
 		$separator	= JText::_('COM_SERMONSPEAKER_SCRIPTURE_SEPARATOR');
 
 		// add Javascript for Scripture

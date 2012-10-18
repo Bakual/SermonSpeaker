@@ -4,7 +4,7 @@ class SermonspeakerViewScripture extends JViewLegacy
 {
 	function display( $tpl = null )
 	{
-		$id			= JRequest::getInt('id', 0);
+		$id			= JFactory::getApplication()->input->get('id', 0, 'int');
 		$separator	= JText::_('COM_SERMONSPEAKER_SCRIPTURE_SEPARATOR');
 		// add Javascript for Scripture
 		$javascript	= "function AddScripture() {

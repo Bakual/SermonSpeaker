@@ -31,18 +31,19 @@ class SermonspeakerModelFrontendupload extends SermonspeakerModelSermon
 	 */
 	protected function populateState($ordering = null, $direction = null)
 	{
-		$app = JFactory::getApplication();
+		$app	= JFactory::getApplication();
+		$jinput	= $app->input;
 
 		// Load state from the request.
-		$pk = JRequest::getInt('s_id');
+		$pk = $jinput->get('s_id', 0, 'int');
 		$this->setState('frontendupload.id', $pk);
 		// Add compatibility variable for default naming conventions.
 		$this->setState('form.id', $pk);
 
-		$categoryId	= JRequest::getInt('catid');
+		$categoryId	= $jinput->get('catid', 0, 'int');
 		$this->setState('frontendupload.catid', $categoryId);
 
-		$return = JRequest::getVar('return', null, 'default', 'base64');
+		$return = $jinput->get('return', '', 'base64');
 
 		if (!JUri::isInternal(base64_decode($return))) {
 			$return = null;
@@ -54,7 +55,7 @@ class SermonspeakerModelFrontendupload extends SermonspeakerModelSermon
 		$params	= $app->getParams();
 		$this->setState('params', $params);
 
-		$this->setState('layout', JRequest::getCmd('layout'));
+		$this->setState('layout', $jinput->get('layout'));
 	}
 
 	/**
@@ -86,8 +87,9 @@ class SermonspeakerModelFrontendupload extends SermonspeakerModelSermon
 		}
 		// Depreceated with SermonSpeaker 4.4.4. Using Ajax now for Lookup.
 		// Reading ID3 Tags if the Lookup Button was pressed
-		if ($id3_file = JRequest::getString('file')){
-			if (JRequest::getCmd('type') == 'video'){
+		$jinput	= JFactory::getApplication()->input;
+		if ($id3_file = $jinput->get('file', '', 'string')){
+			if ($jinput->get('type') == 'video'){
 				$data->videofile = $id3_file;
 			} else {
 				$data->audiofile = $id3_file;

@@ -48,11 +48,12 @@ class SermonspeakerControllerFile extends JControllerLegacy
 		}
 
 		// Initialise variables.
-		$params		= JComponentHelper::getParams('com_sermonspeaker');
+		$params	= JComponentHelper::getParams('com_sermonspeaker');
+		$jinput	= JFactory::getApplication()->input;
 
 		// Get some data from the request
 		$file	= JRequest::getVar('Filedata', '', 'files', 'array');
-		$type	= JRequest::getWord('type', 'audio');
+		$type	= $jinput->get('type', 'audio', 'word');
 
 		if (!$file['name']) {
 			$response = array(
@@ -112,11 +113,11 @@ class SermonspeakerControllerFile extends JControllerLegacy
 			// Regular Upload
 			$path	= ($type == 'addfile') ? $params->get('path_addfile') : $params->get('path');
 			$path	= trim($path, '/');
-			$date	= JRequest::getString('date');
+			$date	= $jinput->get('date', '', 'string');
 			$time	= ($date) ? strtotime($date) : time();
 			$append	= ($params->get('append_path', 0)) ? '/'.date('Y', $time).'/'.date('m', $time) : '';
 			if($params->get('append_path_lang', 0)){
-				$lang	= JRequest::getCmd('select-language');
+				$lang	= $jinput->get('select-language');
 				if(!$lang || $lang == '*'){
 					$jlang	= JFactory::getLanguage();
 					$lang	= $jlang->getTag();
@@ -168,7 +169,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 	}
 
 	function lookup(){
-		$file	= JRequest::getString('file');
+		$file	= JFactory::getApplication()->input->get('file', '', 'string');
 
 		if($file){
 			require_once JPATH_COMPONENT_SITE.'/helpers/id3.php';

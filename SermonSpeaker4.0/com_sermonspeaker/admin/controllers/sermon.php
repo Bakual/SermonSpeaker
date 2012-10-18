@@ -22,7 +22,7 @@ class SermonspeakerControllerSermon extends JControllerForm
 	{
 		// Initialise variables.
 		$user		= JFactory::getUser();
-		$categoryId	= JArrayHelper::getValue($data, 'catid', JRequest::getInt('filter_category_id'), 'int');
+		$categoryId	= JArrayHelper::getValue($data, 'catid', JFactory::getApplication()->input->get('filter_category_id', 0, 'int'), 'int');
 		$allow		= null;
 
 		if ($categoryId) {
@@ -89,7 +89,7 @@ class SermonspeakerControllerSermon extends JControllerForm
 	{
 		$app	= JFactory::getApplication();
 		$db		= JFactory::getDBO();
-		$id 	= JRequest::getInt('id', 0);
+		$id 	= $app->input->get('id', 0, 'int');
 		if (!$id){
 			$app->redirect('index.php?option=com_sermonspeaker&view=sermons', JText::_('JERROR_AN_ERROR_HAS_OCCURRED'), 'error');
 			return;
@@ -167,10 +167,11 @@ class SermonspeakerControllerSermon extends JControllerForm
 		return;
 	}
 
-	public function id3(){
-		$id = JRequest::getInt('id');
-		$this->write_id3($id);
+	public function id3()
+	{
 		$app	= JFactory::getApplication();
+		$id		= $app->input->get('id', 0, 'int');
+		$this->write_id3($id);
 		$app->redirect('index.php?option=com_sermonspeaker&view=sermon&layout=edit&id='.$id);
 		return;
 	}

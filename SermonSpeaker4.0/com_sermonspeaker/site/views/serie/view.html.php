@@ -9,7 +9,7 @@ class SermonspeakerViewSerie extends JViewLegacy
 	function display($tpl = null)
 	{
 		$app	= JFactory::getApplication();
-		if (!JRequest::getInt('id', 0)){
+		if (!$app->input->get('id', 0, 'int')){
 			$app->redirect(JRoute::_('index.php?view=series'), JText::_('JGLOBAL_RESOURCE_NOT_FOUND'), 'error');
 		}
 		// Applying CSS file
