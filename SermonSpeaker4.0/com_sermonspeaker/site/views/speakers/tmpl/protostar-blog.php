@@ -87,11 +87,12 @@ $listDirn	= $this->state->get('list.direction');
 							<div class="article-info speaker-info muted">
 								<dl class="article-info">
 									<dt class="article-info-term"><?php  echo JText::_('JDETAILS'); ?></dt>
-									<?php if ($this->params->get('show_category')) : ?>
+									<?php if (in_array('speakers:category', $this->col_speaker) and $item->category_title) : ?>
 										<dd>
 											<div class="category-name">
+												<i class="icon-folder"></i>
 												<?php echo JText::_('JCATEGORY'); ?>:
-												<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSeriesRoute($item->catslug)); ?>"><?php echo $item->category_title; ?></a>
+												<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakersRoute($item->catslug)); ?>"><?php echo $item->category_title; ?></a>
 											</div>
 										</dd>
 									<?php endif;

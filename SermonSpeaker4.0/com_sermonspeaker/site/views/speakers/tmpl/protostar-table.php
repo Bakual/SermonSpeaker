@@ -59,7 +59,12 @@ $listDirn	= $this->state->get('list.direction');
 						<th class="ss-title">
 							<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_FIELD_NAME_LABEL', 'name', $listDirn, $listOrder); ?>
 						</th>
-						<?php if (in_array('speakers:intro', $this->col_speaker)): ?>
+						<?php if (in_array('speakers:category', $this->col_speaker)) : ?>
+							<th class="ss-col ss-category hidden-phone">
+								<?php echo JHTML::_('grid.sort', 'JCATEGORY', 'category_title', $listDirn, $listOrder); ?>
+							</th>
+						<?php endif;
+						if (in_array('speakers:intro', $this->col_speaker)): ?>
 							<th class="ss-col ss-intro hidden-phone">
 								<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_FIELD_INTRO_LABEL', 'intro', $listDirn, $listOrder); ?>
 							</th>
@@ -87,7 +92,12 @@ $listDirn	= $this->state->get('list.direction');
 										<span class="label label-warning"><?php echo JText::_('JUNPUBLISHED'); ?></span>
 									<?php endif; ?>
 								</td>
-								<?php if (in_array('speakers:intro', $this->col_speaker)): ?>
+								<?php if (in_array('speakers:category', $this->col_speaker)) : ?>
+									<td class="ss-col ss-category hidden-phone">
+										<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakersRoute($item->catslug)); ?>"><?php echo $item->category_title; ?></a>
+									</td>
+								<?php endif;
+								if (in_array('speakers:intro', $this->col_speaker)): ?>
 									<td class="ss-col ss-intro hidden-phone"><?php echo JHTML::_('content.prepare', $item->intro, '', 'com_sermonspeaker.intro'); ?></td>
 								<?php endif;
 								if (in_array('speakers:hits', $this->col_speaker)) : ?>

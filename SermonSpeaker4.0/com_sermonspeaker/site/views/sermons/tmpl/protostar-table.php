@@ -123,7 +123,16 @@ $player		= new SermonspeakerHelperPlayer($this->items);
 								echo JText::_('JGLOBAL_TITLE');
 							endif; ?>
 						</th>
-						<?php if (in_array('sermons:scripture', $this->columns)) : ?>
+						<?php if (in_array('sermons:category', $this->columns)) : ?>
+							<th class="ss-col ss-category hidden-phone">
+								<?php if (!$limit) :
+									echo JHTML::_('grid.sort', 'JCATEGORY', 'category_title', $listDirn, $listOrder);
+								else :
+									echo JText::_('JCATEGORY');
+								endif; ?>
+							</th>
+						<?php endif;
+						if (in_array('sermons:scripture', $this->columns)) : ?>
 							<th class="ss-col ss-scripture hidden-phone">
 								<?php if (!$limit) :
 									echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL', 'book', $listDirn, $listOrder);
@@ -211,7 +220,12 @@ $player		= new SermonspeakerHelperPlayer($this->items);
 										<span class="label label-warning"><?php echo JText::_('JUNPUBLISHED'); ?></span>
 									<?php endif; ?>
 								</td>
-								<?php if (in_array('sermons:scripture', $this->columns)) : ?>
+								<?php if (in_array('sermons:category', $this->columns)) : ?>
+									<td class="ss-col ss-category hidden-phone">
+										<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonsRoute($item->catslug)); ?>"><?php echo $item->category_title; ?></a>
+									</td>
+								<?php endif;
+								if (in_array('sermons:scripture', $this->columns)) : ?>
 									<td class="ss-col ss-scripture hidden-phone">
 										<?php $scriptures = SermonspeakerHelperSermonspeaker::insertScriptures($item->scripture, '<br />');
 										echo JHTML::_('content.prepare', $scriptures); ?>

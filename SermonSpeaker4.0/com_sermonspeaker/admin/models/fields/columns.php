@@ -57,7 +57,8 @@ class JFormFieldColumns extends JFormField
 		$html[] = '<thead><tr>';
 		$html[] = '<th style="height: 25px; background: #F4F4F4; border-bottom: 1px solid silver; vertical-align:middle;">View</th>';
 		foreach ($columns as $column){
-			$html[] = '<th style="height: 25px; background: #F4F4F4; border-bottom: 1px solid silver; vertical-align:middle;">'.JText::_('COM_SERMONSPEAKER_FIELD_'.strtoupper($column).'_LABEL').'</th>';
+			$label = ($column == 'category') ? 'JCATEGORY' : 'COM_SERMONSPEAKER_FIELD_'.strtoupper($column).'_LABEL';
+			$html[] = '<th style="height: 25px; background: #F4F4F4; border-bottom: 1px solid silver; vertical-align:middle;">'.JText::_($label).'</th>';
 		}
 		$html[] = '</tr></thead>';
 		$html[] = '<tbody>';

@@ -22,7 +22,8 @@ class SermonspeakerModelSermons extends JModelList
 
 	public function __construct($config = array())
 	{
-		if (empty($config['filter_fields'])) {
+		if (empty($config['filter_fields']))
+		{
 			$config['filter_fields'] = array(
 				'sermon_number', 'sermons.sermon_number',
 				'sermon_title', 'sermons.sermon_title',
@@ -37,6 +38,7 @@ class SermonspeakerModelSermons extends JModelList
 				'ordering', 'sermons.ordering',
 				'name', 'speakers.name',
 				'series_title', 'series.series_title',
+				'category_title', 'c_sermons.category_title',
 			);
 		}
 
@@ -90,6 +92,8 @@ class SermonspeakerModelSermons extends JModelList
 		$query->join('LEFT', '#__sermon_series AS series ON series.id = sermons.series_id');
 
 		// Join over Sermons Category.
+		$query->select('c_sermons.title AS category_title');
+		$query->select('CASE WHEN CHAR_LENGTH(c_sermons.alias) THEN CONCAT_WS(\':\', c_sermons.id, c_sermons.alias) ELSE c_sermons.id END as catslug');
 		$query->join('LEFT', '#__categories AS c_sermons ON c_sermons.id = sermons.catid');
 		$query->where('(sermons.catid = 0 OR (c_sermons.access IN ('.$groups.') AND c_sermons.published = 1))');
 
@@ -131,45 +135,53 @@ class SermonspeakerModelSermons extends JModelList
 
 		// Filter by search in title
 		$search = $this->getState('filter.search');
-		if (!empty($search)) {
+		if (!empty($search))
+		{
 			$search = $db->Quote('%'.$db->escape($search, true).'%');
 			$query->where('(sermons.sermon_title LIKE '.$search.')');
 		}
 
 		// Filter by date
 		$year = $this->getState('date.year');
-		if ($year){
+		if ($year)
+		{
 			$query->where('YEAR(sermons.sermon_date) = '.(int) $year);
 		}
 		$month = $this->getState('date.month');
-		if ($month){
+		if ($month)
+		{
 			$query->where('MONTH(sermons.sermon_date) = '.(int) $month);
 		}
 
 		// Filter by scripture
 		$book = $this->getState('scripture.book');
-		if ($book){
+		if ($book)
+		{
 			$query->where('script.book = '.(int) $book);
 		}
 
 		// Filter by state
 		$state = $this->getState('filter.state');
-		if (is_numeric($state)) {
+		if (is_numeric($state))
+		{
 			$query->where('sermons.state = '.(int) $state);
 		}
 
 		// Filter by speaker (needed in speaker view)
-		if ($speakerId = $this->getState('speaker.id')) {
+		if ($speakerId = $this->getState('speaker.id'))
+		{
 			$query->where('sermons.speaker_id = '.(int) $speakerId);
 		}
 
 		// Filter by serie (needed in serie view)
-		if ($serieId = $this->getState('serie.id')) {
+		if ($serieId = $this->getState('serie.id'))
+		{
 			$query->where('sermons.series_id = '.(int) $serieId);
 		}
 
 		// Filter by language
-		if ($this->getState('filter.language')) {
+		if ($this->getState('filter.language'))
+		{
 			$query->where('sermons.language in ('.$db->quote(JFactory::getLanguage()->getTag()).','.$db->quote('*').')');
 		}
 
@@ -218,7 +230,8 @@ class SermonspeakerModelSermons extends JModelList
 		$this->setState('filter.subcategories', $params->get('show_subcategory_content', 0));
 
 		$user	= JFactory::getUser();
-		if ((!$user->authorise('core.edit.state', 'com_sermonspeaker')) &&  (!$user->authorise('core.edit', 'com_sermonspeaker'))){
+		if ((!$user->authorise('core.edit.state', 'com_sermonspeaker')) &&  (!$user->authorise('core.edit', 'com_sermonspeaker')))
+		{
 			// filter on published for those who do not have edit or edit.state rights.
 			$this->setState('filter.state', 1);
 		}
@@ -226,12 +239,15 @@ class SermonspeakerModelSermons extends JModelList
 		$this->setState('filter.language', $app->getLanguageFilter());
 
 		$limit	= (int)$params->get('limit', '');
-		if ($limit){
+		if ($limit)
+		{
 			$this->setState('list.limit', $limit);
 			$this->setState('list.start', 0);
 			$this->setState('list.ordering', 'sermons.sermon_date');
 			$this->setState('list.direction', 'DESC');
-		} else {
+		}
+		else
+		{
 			$search = $app->getUserStateFromRequest($this->context.'.filter.search', 'filter-search', '', 'STRING');
 			$this->setState('filter.search', $search);
 
@@ -307,7 +323,8 @@ class SermonspeakerModelSermons extends JModelList
 		$db->setQuery($query, 0);
 		$options = $db->loadAssocList();
 
-		foreach($options as &$option){
+		foreach($options as &$option)
+		{
 			$option['text']	= $months[$option['value']];
 		}
 
@@ -364,13 +381,16 @@ class SermonspeakerModelSermons extends JModelList
 	 */
 	public function getCategory()
 	{
-		if (!is_object($this->_item)) {
-			if( isset( $this->state->params ) ) {
+		if (!is_object($this->_item))
+		{
+			if(isset($this->state->params))
+			{
 				$params = $this->state->params;
 				$options = array();
 				$options['countItems'] = $params->get('show_cat_num_items', 1) || !$params->get('show_empty_categories', 0);
 			}
-			else {
+			else
+			{
 				$options['countItems'] = 0;
 			}
 			$options['table'] = '#__sermon_'.$this->state->get('category.type', 'sermons');
@@ -379,13 +399,15 @@ class SermonspeakerModelSermons extends JModelList
 			$this->_item = $categories->get($this->getState('category.id', 'root'));
 
 			// Compute selected asset permissions.
-			if (is_object($this->_item)) {
+			if (is_object($this->_item))
+			{
 				$user	= JFactory::getUser();
 				$userId	= $user->get('id');
 				$asset	= 'com_sermonspeaker.category.'.$this->_item->id;
 
 				// Check general create permission.
-				if ($user->authorise('core.create', $asset)) {
+				if ($user->authorise('core.create', $asset))
+				{
 					$this->_item->getParams()->set('access-create', true);
 				}
 
@@ -393,14 +415,16 @@ class SermonspeakerModelSermons extends JModelList
 				$this->_children = $this->_item->getChildren();
 				$this->_parent = false;
 
-				if ($this->_item->getParent()) {
+				if ($this->_item->getParent())
+				{
 					$this->_parent = $this->_item->getParent();
 				}
 
 				$this->_rightsibling = $this->_item->getSibling();
 				$this->_leftsibling = $this->_item->getSibling(false);
 			}
-			else {
+			else
+			{
 				$this->_children = false;
 				$this->_parent = false;
 			}
@@ -419,7 +443,8 @@ class SermonspeakerModelSermons extends JModelList
 	 */
 	public function getParent()
 	{
-		if (!is_object($this->_item)) {
+		if (!is_object($this->_item))
+		{
 			$this->getCategory();
 		}
 
@@ -434,7 +459,8 @@ class SermonspeakerModelSermons extends JModelList
 	 */
 	function &getLeftSibling()
 	{
-		if (!is_object($this->_item)) {
+		if (!is_object($this->_item))
+		{
 			$this->getCategory();
 		}
 
@@ -449,7 +475,8 @@ class SermonspeakerModelSermons extends JModelList
 	 */
 	function &getRightSibling()
 	{
-		if (!is_object($this->_item)) {
+		if (!is_object($this->_item))
+		{
 			$this->getCategory();
 		}
 
@@ -466,14 +493,17 @@ class SermonspeakerModelSermons extends JModelList
 	 */
 	function &getChildren()
 	{
-		if (!is_object($this->_item)) {
+		if (!is_object($this->_item))
+		{
 			$this->getCategory();
 		}
 
 		// Order subcategories
-		if (sizeof($this->_children)) {
+		if (sizeof($this->_children))
+		{
 			$params = $this->getState()->get('params');
-			if ($params->get('orderby_pri') == 'alpha' || $params->get('orderby_pri') == 'ralpha') {
+			if ($params->get('orderby_pri') == 'alpha' || $params->get('orderby_pri') == 'ralpha')
+			{
 				jimport('joomla.utilities.arrayhelper');
 				JArrayHelper::sortObjects($this->_children, 'title', ($params->get('orderby_pri') == 'alpha') ? 1 : -1);
 			}

@@ -62,7 +62,12 @@ $listDirn	= $this->state->get('list.direction');
 						<th class="ss-title">
 							<?php echo JHTML::_('grid.sort', 'JGLOBAL_TITLE', 'series_title', $listDirn, $listOrder); ?>
 						</th>
-						<?php if (in_array('series:description', $this->col_serie)): ?>
+						<?php if (in_array('series:category', $this->col_serie)) : ?>
+							<th class="ss-col ss-category hidden-phone">
+								<?php echo JHTML::_('grid.sort', 'JCATEGORY', 'category_title', $listDirn, $listOrder); ?>
+							</th>
+						<?php endif;
+						if (in_array('series:description', $this->col_serie)): ?>
 							<th class="ss-col ss-series_desc hidden-phone">
 								<?php echo JHTML::_('grid.sort', 'JGLOBAL_DESCRIPTION', 'series_description', $listDirn, $listOrder); ?>
 							</th>
@@ -103,7 +108,12 @@ $listDirn	= $this->state->get('list.direction');
 										<span class="label label-warning"><?php echo JText::_('JUNPUBLISHED'); ?></span>
 									<?php endif; ?>
 								</td>
-								<?php if (in_array('series:description', $this->col_serie)): ?>
+								<?php if (in_array('series:category', $this->col_serie)) : ?>
+									<td class="ss-col ss-category hidden-phone">
+										<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSeriesRoute($item->catslug)); ?>"><?php echo $item->category_title; ?></a>
+									</td>
+								<?php endif;
+								if (in_array('series:description', $this->col_serie)): ?>
 									<td class="ss-col ss-series_desc hidden-phone"><?php echo JHTML::_('content.prepare', $item->series_description); ?></td>
 								<?php endif;
 								if (in_array('series:speaker', $this->col_serie)) : ?>

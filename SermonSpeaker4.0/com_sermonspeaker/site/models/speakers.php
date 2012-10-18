@@ -32,6 +32,7 @@ class SermonspeakerModelspeakers extends JModelList
 				'checked_out_time', 'speakers.checked_out_time',
 				'language', 'speakers.language',
 				'hits', 'speakers.hits',
+				'category_title', 'c_speakers.category_title',
 			);
 		}
 
@@ -61,6 +62,8 @@ class SermonspeakerModelspeakers extends JModelList
 		$query->from('`#__sermon_speakers` AS speakers');
 
 		// Join over Speakers Category.
+		$query->select('c_speaker.title AS category_title');
+		$query->select('CASE WHEN CHAR_LENGTH(c_speaker.alias) THEN CONCAT_WS(\':\', c_speaker.id, c_speaker.alias) ELSE c_speaker.id END as catslug');
 		$query->join('LEFT', '#__categories AS c_speaker ON c_speaker.id = speakers.catid');
 		$query->where('(speakers.catid = 0 OR (c_speaker.access IN ('.$groups.') AND c_speaker.published = 1))');
 

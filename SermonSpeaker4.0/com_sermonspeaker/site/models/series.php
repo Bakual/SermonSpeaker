@@ -31,6 +31,7 @@ class SermonspeakerModelSeries extends JModelList
 				'checked_out_time', 'series.checked_out_time',
 				'language', 'series.language',
 				'hits', 'series.hits',
+				'category_title', 'c_series.category_title',
 			);
 		}
 
@@ -59,6 +60,8 @@ class SermonspeakerModelSeries extends JModelList
 		$query->from('`#__sermon_series` AS series');
 
 		// Join over Series Category.
+		$query->select('c_series.title AS category_title');
+		$query->select('CASE WHEN CHAR_LENGTH(c_series.alias) THEN CONCAT_WS(\':\', c_series.id, c_series.alias) ELSE c_series.id END as catslug');
 		$query->join('LEFT', '#__categories AS c_series ON c_series.id = series.catid');
 		$query->where('(series.catid = 0 OR (c_series.access IN ('.$groups.') AND c_series.published = 1))');
 
