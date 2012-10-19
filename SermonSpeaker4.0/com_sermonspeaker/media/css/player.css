@@ -3,7 +3,6 @@ div.ss-serie-player, div.ss-sermons-player, div.ss-speaker-player{
 }
 hr.ss-serie-player, hr.ss-sermons-player, hr.ss-speaker-player{
 	margin:0;
-	border-width:1px;
 }
 #playing{
 	width:100%;
