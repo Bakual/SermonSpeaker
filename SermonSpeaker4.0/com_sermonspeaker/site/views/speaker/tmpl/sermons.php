@@ -55,7 +55,7 @@ if ($this->params->get('show_category_title', 0) || in_array('speaker:hits', $th
 	endif; ?>
 	<div class="clear-left"></div>
 	<?php if ($this->item->website && $this->item->website != 'http://') : ?>
-		<a href="<?php echo $this->item->website; ?>" target="_blank" title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKER_WEBLINK_HOOVER'); ?>"><?php echo JText::sprintf('COM_SERMONSPEAKER_SPEAKER_WEBLINK', $this->item->name); ?></a>
+		<a class="badge badge-info" href="<?php echo $this->item->website; ?>" target="_blank" title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKER_WEBLINK_HOOVER'); ?>"><?php echo JText::sprintf('COM_SERMONSPEAKER_SPEAKER_WEBLINK', $this->item->name); ?></a>
 	<?php endif; ?>
 </div>
 <?php if (in_array('speaker:player', $this->col_sermon) && count($this->sermons)) : ?>
@@ -123,7 +123,7 @@ if ($this->params->get('show_category_title', 0) || in_array('speaker:hits', $th
 		<div class="no_entries"><?php echo JText::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', JText::_('COM_SERMONSPEAKER_SERMONS')); ?></div>
 	<?php else : ?>
 <!-- Begin Data - Sermons -->
-		<table class="category">
+		<table class="category table table-striped table-hover table-condensed">
 		<!-- Tabellenkopf mit Sortierlinks erstellen -->
 			<thead><tr>
 				<?php if (in_array('speaker:num', $this->col_sermon)) : ?>

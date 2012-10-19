@@ -39,7 +39,7 @@ if ($this->params->get('show_category_title', 0) || in_array('speaker:hits', $th
 <div class="category-desc">
 	<div class="ss-pic">
 		<?php if ($this->item->pic) : ?>
-			<img src="<?php echo SermonspeakerHelperSermonspeaker::makelink($this->item->pic); ?>" title="<?php echo $this->item->name; ?>" alt="<?php echo $this->item->name; ?>" />
+			<img class="img-polaroid" src="<?php echo SermonspeakerHelperSermonspeaker::makelink($this->item->pic); ?>" title="<?php echo $this->item->name; ?>" alt="<?php echo $this->item->name; ?>" />
 		<?php endif; ?>
 	</div>
 	<?php if (($this->item->bio && in_array('speaker:bio', $this->columns)) || ($this->item->intro && in_array('speaker:intro', $this->columns))) : ?>
@@ -54,7 +54,7 @@ if ($this->params->get('show_category_title', 0) || in_array('speaker:hits', $th
 	endif; ?>
 	<div class="clear-left"></div>
 	<?php if ($this->item->website && $this->item->website != 'http://') : ?>
-		<a href="<?php echo $this->item->website; ?>" target="_blank" title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKER_WEBLINK_HOOVER'); ?>"><?php echo JText::sprintf('COM_SERMONSPEAKER_SPEAKER_WEBLINK', $this->item->name); ?></a>
+		<a class="badge badge-info" href="<?php echo $this->item->website; ?>" target="_blank" title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKER_WEBLINK_HOOVER'); ?>"><?php echo JText::sprintf('COM_SERMONSPEAKER_SPEAKER_WEBLINK', $this->item->name); ?></a>
 	<?php endif; ?>
 </div>
 <!-- Begin Data - Series -->
@@ -68,7 +68,7 @@ if ($this->params->get('show_category_title', 0) || in_array('speaker:hits', $th
 	if (empty($this->series)) : ?>
 		<div class="no_entries"><?php echo JText::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', JText::_('COM_SERMONSPEAKER_SERIES')); ?></div>
 	<?php else : ?>
-		<table class="category">
+		<table class="category table table-striped table-hover table-condensed">
 		<!-- Tabellenkopf mit Sortierlinks erstellen -->
 			<thead><tr>
 				<?php if ($this->av > 0) : ?>

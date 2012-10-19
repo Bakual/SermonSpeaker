@@ -8,8 +8,6 @@ class SermonspeakerViewSermons extends JViewLegacy
 {
 	function display($tpl = null)
 	{
-		// Applying CSS file
-		JHTML::stylesheet('media/com_sermonspeaker/css/sermonspeaker.css');
 		require_once(JPATH_COMPONENT.'/helpers/player.php');
 		// Get some data from the models
 		$this->state		= $this->get('State');

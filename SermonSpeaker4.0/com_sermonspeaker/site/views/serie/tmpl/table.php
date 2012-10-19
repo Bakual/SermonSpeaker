@@ -124,7 +124,7 @@ if (in_array('serie:player', $this->columns) && count($this->items)) : ?>
 	<?php if (!count($this->items)) : ?>
 		<div class="no_entries"><?php echo JText::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', JText::_('COM_SERMONSPEAKER_SERMONS')); ?></div>
 	<?php else : ?>
-		<table class="category">
+		<table class="category table table-striped table-hover table-condensed">
 		<!-- Create the headers with sorting links -->
 			<thead><tr>
 				<?php if (in_array('serie:num', $this->columns)) : ?>

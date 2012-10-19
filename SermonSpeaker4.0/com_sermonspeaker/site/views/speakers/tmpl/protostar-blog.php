@@ -64,7 +64,31 @@ $listDirn	= $this->state->get('list.direction');
 								</a>
 								<ul class="dropdown-menu">
 									<li class="email-icon"><?php echo JHtml::_('icon.email', $item, $this->params, array('type' => 'speaker')); ?></li>
-									<?php if ($canEdit or ($canEditOwn and ($user->id == $item->created_by))) : ?>
+									<?php if ($item->sermons) : ?>
+										<li class="sermons-icon">
+											<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug).'&layout=sermons'); ?>">
+												<i class="icon-comments"></i>
+												<?php echo JText::_('COM_SERMONSPEAKER_SERMONS'); ?>
+											</a>
+										</li>
+									<?php endif;
+									if ($item->series) : ?>
+										<li class="series-icon">
+											<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug).'&layout=series'); ?>">
+												<i class="icon-drawer-2"></i>
+												<?php echo JText::_('COM_SERMONSPEAKER_SERIES'); ?>
+											</a>
+										</li>
+									<?php endif;
+									if ($item->website) : ?>
+										<li class="website-icon">
+											<a href="<?php echo $item->website; ?>">
+												<i class=" icon-out-2"></i>
+												<?php echo JText::_('COM_SERMONSPEAKER_FIELD_WEBSITE_LABEL'); ?>
+											</a>
+										</li>
+									<?php endif;
+									if ($canEdit or ($canEditOwn and ($user->id == $item->created_by))) : ?>
 										<li class="edit-icon"><?php echo JHtml::_('icon.edit', $item, $this->params, array('type' => 'speaker')); ?></li>
 									<?php endif; ?>
 								</ul>

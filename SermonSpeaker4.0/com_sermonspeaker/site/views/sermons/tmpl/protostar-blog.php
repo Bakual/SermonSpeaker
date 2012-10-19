@@ -38,8 +38,9 @@ $player		= new SermonspeakerHelperPlayer($this->items);
 			<div class="clr"></div>
 		</div>
 	<?php endif;
-	if (in_array('sermons:player', $this->columns) and count($this->items)) : ?>
-		<div class="ss-sermons-player">
+	if (in_array('sermons:player', $this->columns) and count($this->items)) :
+		JHTML::stylesheet('com_sermonspeaker/player.css', '', true); ?>
+		<div class="ss-sermons-player span10 offset1">
 			<hr class="ss-sermons-player" />
 			<?php if ($player->player != 'PixelOut') : ?>
 				<div id="playing">

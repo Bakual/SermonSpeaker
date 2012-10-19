@@ -8,8 +8,6 @@ class SermonspeakerViewSeries extends JViewLegacy
 {
 	function display($tpl = null)
 	{
-		// Applying CSS file
-		JHTML::stylesheet('media/com_sermonspeaker/css/sermonspeaker.css');
 		$app		= JFactory::getApplication();
 		$this->params	= $app->getParams();
 		// Get some data from the models

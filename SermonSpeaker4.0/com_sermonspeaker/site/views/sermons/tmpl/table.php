@@ -1,5 +1,6 @@
 <?php
 defined('_JEXEC') or die;
+JHTML::stylesheet('com_sermonspeaker/sermonspeaker.css', '', true);
 JHTML::addIncludePath(JPATH_COMPONENT.'/helpers');
 JHTML::_('behavior.tooltip');
 JHTML::_('behavior.modal');
@@ -98,7 +99,7 @@ if (in_array('sermons:player', $this->columns) && count($this->items)) : ?>
 	if (!count($this->items)) : ?>
 		<div class="no_entries"><?php echo JText::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', JText::_('COM_SERMONSPEAKER_SERMONS')); ?></div>
 	<?php else : ?>
-		<table class="category">
+		<table class="category table table-striped table-hover table-condensed">
 		<!-- Create the headers with sorting links -->
 			<thead><tr>
 				<?php if (in_array('sermons:num', $this->columns)) : ?>

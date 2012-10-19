@@ -1,5 +1,6 @@
 <?php
 defined('_JEXEC') or die;
+JHTML::stylesheet('com_sermonspeaker/sermonspeaker.css', '', true);
 JHTML::addIncludePath(JPATH_COMPONENT.'/helpers');
 JHTML::_('behavior.tooltip');
 JHTML::_('behavior.modal');

@@ -74,6 +74,7 @@ $listDirn	= $this->state->get('list.direction');
 								<?php echo JHTML::_('grid.sort', 'JGLOBAL_HITS', 'hits', $listDirn, $listOrder); ?>
 							</th>
 						<?php endif; ?>
+						<th></th>
 					</tr></thead>
 				<!-- Begin Data -->
 					<tbody>
@@ -103,6 +104,31 @@ $listDirn	= $this->state->get('list.direction');
 								if (in_array('speakers:hits', $this->col_speaker)) : ?>
 									<td class="ss-col ss-hits hidden-phone hidden-tablet"><?php echo $item->hits; ?></td>
 								<?php endif; ?>
+								<td class="ss-col ss-links">
+									<ul class="unstyled">
+									<?php if ($item->sermons) : ?>
+									<li>
+										<a class="badge badge-info" href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug).'&layout=sermons'); ?>">
+											<?php echo JText::_('COM_SERMONSPEAKER_SERMONS'); ?>
+										</a>
+									</li>
+									<?php endif;
+									if ($item->series) : ?>
+									<li>
+										<a class="badge badge-info" href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug).'&layout=series'); ?>">
+											<?php echo JText::_('COM_SERMONSPEAKER_SERIES'); ?>
+										</a>
+									</li>
+									<?php endif;
+									if ($item->website) : ?>
+									<li>
+										<a class="badge badge-info" href="<?php echo $item->website; ?>">
+											<?php echo JText::_('COM_SERMONSPEAKER_FIELD_WEBSITE_LABEL'); ?>
+										</a>
+									</li>
+									<?php endif; ?>
+									</ul>
+								</td>
 							</tr>
 						<?php endforeach; ?>
 					</tbody>

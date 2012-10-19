@@ -55,7 +55,7 @@ $listDirn	= $this->state->get('list.direction');
 				<div class="no_entries alert alert-error"><?php echo JText::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', JText::_('COM_SERMONSPEAKER_SPEAKERS')); ?></div>
 			<?php else : ?>
 				<ul class="category list-striped list-condensed">
-					<?php foreach($this->items as $i => $item) :
+					<?php foreach($this->items as $i => $item) : 
 						$sep = 0; ?>
 						<li class="<?php echo ($item->state) ? '': 'system-unpublished '; ?>cat-list-row<?php echo $i % 2; ?>">
 							<?php if (in_array('speakers:hits', $this->col_speaker)) : ?>
@@ -75,6 +75,34 @@ $listDirn	= $this->state->get('list.direction');
 							</strong>
 							<?php if (!$item->state) : ?>
 								<span class="label label-warning"><?php echo JText::_('JUNPUBLISHED'); ?></span>
+							<?php endif; ?>
+							<br />
+							<?php if ($item->sermons) :
+								$sep = 1; ?>
+								<small class="ss-sermons">
+									<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug).'&layout=sermons'); ?>">
+										<?php echo JText::_('COM_SERMONSPEAKER_SERMONS'); ?></a>
+								</small>
+							<?php endif;
+							if ($item->series) :
+								if ($sep) : ?>
+									|
+								<?php endif;
+								$sep = 1; ?>
+								<small class="ss-series">
+									<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug).'&layout=series'); ?>">
+										<?php echo JText::_('COM_SERMONSPEAKER_SERIES'); ?></a>
+								</small>
+							<?php endif;
+							if ($item->website) :
+								if ($sep) : ?>
+									|
+								<?php endif;
+								$sep = 1; ?>
+								<small class="ss-website">
+									<a href="<?php echo $item->website; ?>">
+										<?php echo JText::_('COM_SERMONSPEAKER_FIELD_WEBSITE_LABEL'); ?></a>
+								</small>
 							<?php endif; ?>
 						</li>
 					<?php endforeach; ?>
