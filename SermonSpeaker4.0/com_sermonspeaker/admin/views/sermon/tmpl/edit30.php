@@ -17,6 +17,45 @@ $uri->delVar('type');
 $self = $uri->toString();
 
 $input = JFactory::getApplication()->input;
+
+// Google Picker
+JHTML::Script('http://www.google.com/jsapi');
+$picker		= '
+	google.load(\'picker\', \'1\');
+	function createPicker(type) {
+			var callback;
+			if (type == "video"){
+				callback = pickerCallbackVideo;
+			} else {
+				callback = pickerCallbackAdd;
+			}
+			var picker = new google.picker.PickerBuilder().
+				addView(google.picker.ViewId.DOCS).
+				addView(google.picker.ViewId.VIDEO_SEARCH).
+				addView(google.picker.ViewId.YOUTUBE).
+				addView(google.picker.ViewId.RECENTLY_PICKED).
+				setCallback(callback).
+				build();
+			picker.setVisible(true);
+		}
+	function pickerCallbackVideo(data) {
+		if (data[google.picker.Response.ACTION] == google.picker.Action.PICKED) {
+			var doc = data[google.picker.Response.DOCUMENTS][0];
+			url = doc[google.picker.Document.URL];
+			document.getElementById(\'jform_videofile_text\').value = url;
+		}
+	}
+	function pickerCallbackAdd(data) {
+		if (data[google.picker.Response.ACTION] == google.picker.Action.PICKED) {
+			var doc = data[google.picker.Response.DOCUMENTS][0];
+			url = doc[google.picker.Document.URL];
+			document.getElementById(\'jform_addfile_text\').value = url;
+		}
+	}
+';
+//			google.setOnLoadCallback(createPicker);
+$document	= JFactory::getDocument();
+$document->addScriptDeclaration($picker);
 ?>
 
 <script type="text/javascript">
@@ -95,6 +134,7 @@ $input = JFactory::getApplication()->input;
 										<div id="videofile_text_icon" class="add-on icon-checkmark" onclick="toggleElement('videofile', 0);"> </div>
 										<input name="jform[videofile]" id="jform_videofile_text" value="<?php echo $this->form->getValue('videofile'); ?>" class="inputbox" size="100" type="text">
 										<div class="add-on hasTip icon-wand" onclick="lookup(document.getElementById('jform_videofile_text'));" title="<?php echo JText::_('COM_SERMONSPEAKER_LOOKUP'); ?>"> </div>
+										<div class="add-on hasTip" onclick="createPicker('video');" title="<?php echo JText::_('COM_SERMONSPEAKER_GOOGLE'); ?>"><img src="<?php echo JURI::root(); ?>media/com_sermonspeaker/icons/16/drive.png"></div>
 									</div>
 									<br/>
 									<div class="input-prepend input-append">
@@ -125,6 +165,7 @@ $input = JFactory::getApplication()->input;
 									<div class="input-prepend input-append">
 										<div id="addfile_text_icon" class="add-on icon-checkmark" onclick="toggleElement('addfile', 0);"> </div>
 										<input name="jform[addfile]" id="jform_addfile_text" value="<?php echo $this->form->getValue('addfile'); ?>" class="inputbox" size="100" type="text">
+										<div class="add-on hasTip" onclick="createPicker('add');" title="<?php echo JText::_('COM_SERMONSPEAKER_GOOGLE'); ?>"><img src="<?php echo JURI::root(); ?>media/com_sermonspeaker/icons/16/drive.png"></div>
 									</div>
 									<br />
 									<div class="input-prepend input-append">
@@ -138,6 +179,7 @@ $input = JFactory::getApplication()->input;
 											<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO').' /'.trim($this->params->get('path_addfile'), '/').'/<span id="addfilepathdate" class="pathdate">'.$this->append_date.'</span><span id="addfilepathlang" class="pathlang">'.$this->append_lang.'</span>'; ?>
 										</span>
 									</div>
+									
 								</div>
 								<div class="control-label">
 									<?php echo $this->form->getLabel('addfileDesc'); ?>
