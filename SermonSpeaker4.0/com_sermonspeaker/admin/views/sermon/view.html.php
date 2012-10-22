@@ -107,6 +107,49 @@ class SermonspeakerViewSermon extends JViewLegacy
 		$document->addScriptDeclaration($toggle);
 		$document->addScriptDeclaration($lookup);
 
+		// Google Picker
+		if ($this->params->get('googlepicker', 0))
+		{
+			JHTML::Script('http://www.google.com/jsapi');
+			$picker = 'google.load(\'picker\', \'1\');
+				function createVideoPicker() {
+					var picker = new google.picker.PickerBuilder().
+						addView(google.picker.ViewId.DOCS_VIDEOS).
+						addView(google.picker.ViewId.YOUTUBE).
+						addView(google.picker.ViewId.VIDEO_SEARCH).
+						addView(google.picker.ViewId.RECENTLY_PICKED).
+						setCallback(pickerCallbackVideo).
+						build();
+					picker.setVisible(true);
+				}
+				function createAddfilePicker() {
+					var picker = new google.picker.PickerBuilder().
+						addView(google.picker.ViewId.DOCS).
+						addView(google.picker.ViewId.VIDEO_SEARCH).
+						addView(google.picker.ViewId.YOUTUBE).
+						addView(google.picker.ViewId.RECENTLY_PICKED).
+						setCallback(pickerCallbackAddfile).
+						build();
+					picker.setVisible(true);
+				}
+				function pickerCallbackVideo(data) {
+					if (data[google.picker.Response.ACTION] == google.picker.Action.PICKED) {
+						var doc = data[google.picker.Response.DOCUMENTS][0];
+						url = doc[google.picker.Document.URL];
+						document.getElementById(\'jform_videofile_text\').value = url;
+					}
+				}
+				function pickerCallbackAddfile(data) {
+					if (data[google.picker.Response.ACTION] == google.picker.Action.PICKED) {
+						var doc = data[google.picker.Response.DOCUMENTS][0];
+						url = doc[google.picker.Document.URL];
+						document.getElementById(\'jform_addfile_text\').value = url;
+					}
+				}
+			';
+			$document->addScriptDeclaration($picker);
+		}
+
 		$session	= JFactory::getSession();
 		// Prepare Flashuploader
 		$audioTypes = '*.aac; *.m4a; *.mp3; *.wma';

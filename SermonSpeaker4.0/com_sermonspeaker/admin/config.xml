@@ -259,6 +259,15 @@
 			<option value="0">JNO</option>
 			<option value="1">JYES</option>
 		</field>
+		<field name="googlepicker"
+			type="radio" 
+			class="btn-group"
+			default="0" 
+			label="COM_SERMONSPEAKER_FIELD_GOOGLEPICKER_LABEL" 
+			description="COM_SERMONSPEAKER_FIELD_GOOGLEPICKER_DESC">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
+		</field>
 		<field name="spacer1"
 			type="spacer" 
 			hr="true" />
