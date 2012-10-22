@@ -61,16 +61,16 @@ $input = JFactory::getApplication()->input;
 								</div>
 								<div class="controls">
 									<div class="input-prepend input-append">
-										<div id="audiofile_text_icon" class="add-on icon-checkmark" onclick="toggleElement('audiofile', 0);"> </div>
+										<div id="audiofile_text_icon" class="btn add-on icon-checkmark" onclick="toggleElement('audiofile', 0);"> </div>
 										<input name="jform[audiofile]" id="jform_audiofile_text" value="<?php echo $this->form->getValue('audiofile'); ?>" class="inputbox" size="100" type="text">
-										<div class="add-on hasTip icon-wand" onclick="lookup(document.getElementById('jform_audiofile_text'))" title="<?php echo JText::_('COM_SERMONSPEAKER_LOOKUP'); ?>"> </div>
+										<div class="btn add-on hasTip icon-wand" onclick="lookup(document.getElementById('jform_audiofile_text'))" title="<?php echo JText::_('COM_SERMONSPEAKER_LOOKUP'); ?>"> </div>
 									</div>
 									<br/>
 									<div class="input-prepend input-append">
-										<div id="audiofile_icon" class="add-on icon-cancel" onclick="toggleElement('audiofile', 1);"> </div>
+										<div id="audiofile_icon" class="btn add-on icon-cancel" onclick="toggleElement('audiofile', 1);"> </div>
 										<?php echo $this->form->getInput('audiofile');
 										if (!$this->params->get('path_mode_audio', 0)) : ?>
-											<div class="add-on hasTip icon-wand" onclick="lookup(document.getElementById('jform_audiofile'))" title="<?php echo JText::_('COM_SERMONSPEAKER_LOOKUP'); ?>"> </div>
+											<div class="btn add-on hasTip icon-wand" onclick="lookup(document.getElementById('jform_audiofile'))" title="<?php echo JText::_('COM_SERMONSPEAKER_LOOKUP'); ?>"> </div>
 										<?php endif; ?>
 									</div>
 									<div id="infoUpload1" class="intend">
@@ -92,19 +92,19 @@ $input = JFactory::getApplication()->input;
 								</div>
 								<div class="controls">
 									<div class="input-prepend input-append">
-										<div id="videofile_text_icon" class="add-on icon-checkmark" onclick="toggleElement('videofile', 0);"> </div>
+										<div id="videofile_text_icon" class="btn add-on icon-checkmark" onclick="toggleElement('videofile', 0);"> </div>
 										<input name="jform[videofile]" id="jform_videofile_text" value="<?php echo $this->form->getValue('videofile'); ?>" class="inputbox" size="100" type="text">
-										<div class="add-on hasTip icon-wand" onclick="lookup(document.getElementById('jform_videofile_text'));" title="<?php echo JText::_('COM_SERMONSPEAKER_LOOKUP'); ?>"> </div>
+										<div class="btn add-on hasTip icon-wand" onclick="lookup(document.getElementById('jform_videofile_text'));" title="<?php echo JText::_('COM_SERMONSPEAKER_LOOKUP'); ?>"> </div>
 										<?php if ($this->params->get('googlepicker', 0)) : ?>
-											<div class="add-on hasTip" onclick="createVideoPicker;" title="<?php echo JText::_('COM_SERMONSPEAKER_GOOGLEPICKER_TIP'); ?>"><img src="<?php echo JURI::root(); ?>media/com_sermonspeaker/icons/16/drive.png"></div>
+											<div class="btn add-on hasTip" onclick="createVideoPicker();" title="<?php echo JText::_('COM_SERMONSPEAKER_GOOGLEPICKER_TIP'); ?>"><img src="<?php echo JURI::root(); ?>media/com_sermonspeaker/icons/16/drive.png"></div>
 										<?php endif; ?>
 									</div>
 									<br/>
 									<div class="input-prepend input-append">
-										<div id="videofile_icon" class="add-on icon-cancel" onclick="toggleElement('videofile', 1);"> </div>
+										<div id="videofile_icon" class="btn add-on icon-cancel" onclick="toggleElement('videofile', 1);"> </div>
 										<?php echo $this->form->getInput('videofile'); 
 										if ($this->params->get('path_mode_video', 0) < 2) { ?>
-											<div class="add-on hasTip icon-wand" onclick="lookup(document.getElementById('jform_videofile'));" title="<?php echo JText::_('COM_SERMONSPEAKER_LOOKUP'); ?>"> </div>
+											<div class="btn add-on hasTip icon-wand pointer" onclick="lookup(document.getElementById('jform_videofile'));" title="<?php echo JText::_('COM_SERMONSPEAKER_LOOKUP'); ?>"> </div>
 										<?php } ?>
 									</div>
 									<div id="infoUpload2" class="intend">
@@ -126,15 +126,15 @@ $input = JFactory::getApplication()->input;
 								</div>
 								<div class="controls">
 									<div class="input-prepend input-append">
-										<div id="addfile_text_icon" class="add-on icon-checkmark" onclick="toggleElement('addfile', 0);"> </div>
+										<div id="addfile_text_icon" class="btn add-on icon-checkmark" onclick="toggleElement('addfile', 0);"> </div>
 										<input name="jform[addfile]" id="jform_addfile_text" value="<?php echo $this->form->getValue('addfile'); ?>" class="inputbox" size="100" type="text">
 										<?php if ($this->params->get('googlepicker', 0)) : ?>
-											<div class="add-on hasTip" onclick="createAddfilePicker;" title="<?php echo JText::_('COM_SERMONSPEAKER_GOOGLEPICKER_TIP'); ?>"><img src="<?php echo JURI::root(); ?>media/com_sermonspeaker/icons/16/drive.png"></div>
+											<div class="btn add-on hasTip" onclick="createAddfilePicker();" title="<?php echo JText::_('COM_SERMONSPEAKER_GOOGLEPICKER_TIP'); ?>"><img src="<?php echo JURI::root(); ?>media/com_sermonspeaker/icons/16/drive.png"></div>
 										<?php endif; ?>
 									</div>
 									<br />
 									<div class="input-prepend input-append">
-										<div id="addfile_icon" class="add-on icon-cancel" onclick="toggleElement('addfile', 1);"> </div>
+										<div id="addfile_icon" class="btn add-on icon-cancel" onclick="toggleElement('addfile', 1);"> </div>
 										<?php echo $this->form->getInput('addfile'); ?>
 									</div>
 									<div id="infoUpload3" class="intend">

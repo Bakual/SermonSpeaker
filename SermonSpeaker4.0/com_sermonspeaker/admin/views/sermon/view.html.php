@@ -38,16 +38,16 @@ class SermonspeakerViewSermon extends JViewLegacy
 		// add Javascript for Form Elements enable and disable (J30)
 		$toggle = 'function toggleElement(element, state) {
 			if (state) {
-				document.getElementById(element + "_text_icon").className = "add-on icon-cancel";
-				document.getElementById(element + "_icon").className = "add-on icon-checkmark";
+				document.getElementById(element + "_text_icon").className = "btn add-on icon-cancel";
+				document.getElementById(element + "_icon").className = "btn add-on icon-checkmark";
 				document.getElementById("jform_" + element + "_text").disabled = true;
 				document.getElementById("jform_" + element).disabled = false;
 				if(document.getElementById("jform_" + element + "_chzn")){
 					jQuery("#jform_" + element).trigger("liszt:updated");
 				}
 			} else {
-				document.getElementById(element + "_text_icon").className = "add-on icon-checkmark";
-				document.getElementById(element + "_icon").className = "add-on icon-cancel";
+				document.getElementById(element + "_text_icon").className = "btn add-on icon-checkmark";
+				document.getElementById(element + "_icon").className = "btn add-on icon-cancel";
 				document.getElementById("jform_" + element + "_text").disabled = false;
 				document.getElementById("jform_" + element).disabled = true;
 				if(document.getElementById("jform_" + element + "_chzn")){
@@ -125,8 +125,10 @@ class SermonspeakerViewSermon extends JViewLegacy
 				function createAddfilePicker() {
 					var picker = new google.picker.PickerBuilder().
 						addView(google.picker.ViewId.DOCS).
-						addView(google.picker.ViewId.VIDEO_SEARCH).
+						addView(google.picker.ViewId.PHOTOS).
 						addView(google.picker.ViewId.YOUTUBE).
+						addView(google.picker.ViewId.IMAGE_SEARCH).
+						addView(google.picker.ViewId.VIDEO_SEARCH).
 						addView(google.picker.ViewId.RECENTLY_PICKED).
 						setCallback(pickerCallbackAddfile).
 						build();

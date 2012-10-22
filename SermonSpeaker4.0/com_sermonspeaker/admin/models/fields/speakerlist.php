@@ -56,7 +56,7 @@ class JFormFieldSpeakerlist extends JFormFieldList
 		$joomla30	= $version->isCompatible(3.0);
 		if ($joomla30)
 		{
-			$html	.= '<div class="add-on icon-plus-2" rel="tooltip" title="'.JText::_('COM_SERMONSPEAKER_NEW_SPEAKER').'"> </div>';
+			$html	.= '<div class="btn add-on icon-plus-2" rel="tooltip" title="'.JText::_('COM_SERMONSPEAKER_NEW_SPEAKER').'"> </div>';
 		}
 		else
 		{
