@@ -135,17 +135,21 @@ class SermonspeakerViewSermon extends JViewLegacy
 					picker.setVisible(true);
 				}
 				function pickerCallbackVideo(data) {
-					if (data[google.picker.Response.ACTION] == google.picker.Action.PICKED) {
-						var doc = data[google.picker.Response.DOCUMENTS][0];
-						url = doc[google.picker.Document.URL];
-						document.getElementById(\'jform_videofile_text\').value = url;
+					if (data.action == "picked") {
+						document.getElementById(\'jform_videofile_text\').value = data.docs[0].url;
 					}
 				}
 				function pickerCallbackAddfile(data) {
-					if (data[google.picker.Response.ACTION] == google.picker.Action.PICKED) {
-						var doc = data[google.picker.Response.DOCUMENTS][0];
-						url = doc[google.picker.Document.URL];
-						document.getElementById(\'jform_addfile_text\').value = url;
+					if (data.action == "picked") {
+						var value = data.docs[0].url;
+						if (data.docs[0].iconUrl){
+							if (data.docs[0].url.indexOf("?") == -1){
+								value += "?icon=" + data.docs[0].iconUrl;
+							} else {
+								value += "&icon=" + data.docs[0].iconUrl;
+							}
+						}
+						document.getElementById(\'jform_addfile_text\').value = value;
 					}
 				}
 			';

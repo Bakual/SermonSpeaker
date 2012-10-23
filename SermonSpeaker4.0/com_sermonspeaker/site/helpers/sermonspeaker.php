@@ -33,31 +33,41 @@ class SermonspeakerHelperSermonspeaker
 	{
 		if ($addfile)
 		{
+			$html		= '';
+			$onclick	= '';
+			$icon		= '';
 			if (!self::$params)
 			{
 				self::getParams();
 			}
+			$pos	= strpos($addfile, 'icon=');
+			if ($pos !== FALSE)
+			{
+				$icon		= substr($addfile, $pos + 5);
+				$addfile	= substr($addfile, 0, $pos - 1);
+			}
 			$link = self::makeLink($addfile); 
-			$html = '';
-			$onclick = '';
 			if (self::$params->get('enable_ga_events'))
 			{
 				$onclick = "onclick=\"_gaq.push(['_trackEvent', 'SermonSpeaker Download', 'Additional File', '".$addfile."']);\"";
 			}
 			if ($show_icon)
 			{
-				// Get extension of file
-				jimport('joomla.filesystem.file');
-				$ext = JFile::getExt($addfile);
-				if (file_exists(JPATH_SITE.'/media/com_sermonspeaker/icons/'.$ext.'.png'))
+				if (!$icon)
 				{
-					$file = 'media/com_sermonspeaker/icons/'.$ext.'.png';
+					// Get extension of file
+					jimport('joomla.filesystem.file');
+					$ext = JFile::getExt($addfile);
+					if (file_exists(JPATH_SITE.'/media/com_sermonspeaker/icons/'.$ext.'.png'))
+					{
+						$icon = 'media/com_sermonspeaker/icons/'.$ext.'.png';
+					}
+					else
+					{
+						$icon = 'media/com_sermonspeaker/icons/icon.png';
+					}
 				}
-				else
-				{
-					$file = 'media/com_sermonspeaker/icons/icon.png';
-				}
-				$html .= '<a title="'.JText::_('COM_SERMONSPEAKER_ADDFILE_HOOVER').'" href="'.$link.'" '.$onclick.' target="_blank"><img src="'.$file.'" width="18" height="20" alt="" /></a>&nbsp;';
+				$html .= '<a title="'.JText::_('COM_SERMONSPEAKER_ADDFILE_HOOVER').'" href="'.$link.'" '.$onclick.' target="_blank"><img src="'.$icon.'" width="18" height="20" alt="" /></a>&nbsp;';
 			}
 			if ($show_icon != 2)
 			{
