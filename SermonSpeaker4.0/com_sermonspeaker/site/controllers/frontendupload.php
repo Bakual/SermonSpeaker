@@ -6,7 +6,6 @@
 
 // No direct access
 defined('_JEXEC') or die;
-jimport('joomla.application.component.controllerform');
 
 /**
  * Frontendupload Sermonspeaker Controller
@@ -199,7 +198,7 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 	 * @return	void
 	 * @since	1.6
 	 */
-	protected function postSaveHook(&$model, $validData = array())
+	protected function postSaveHook(JModelLegacy $model, $validData = array())
 	{
 		$task = $this->getTask();
 

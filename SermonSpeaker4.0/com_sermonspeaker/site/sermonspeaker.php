@@ -1,10 +1,10 @@
 <?php
 defined('_JEXEC') or die;
 
-$task = JFactory::getApplication()->input->get('task');
+$jinput = JFactory::getApplication()->input;
 
 // providing backward compatibilty to older SermonSpeaker versions
-if ($task == 'podcast') {
+if ($jinput->get('task') == 'podcast') {
 	header('HTTP/1.1 301 Moved Permanently');
 	header('Location: '.JURI::root().'index.php?option=com_sermonspeaker&view=feed&format=raw');
 	return;
@@ -18,6 +18,6 @@ $jlang = JFactory::getLanguage();
 $jlang->load('com_sermonspeaker', JPATH_COMPONENT, 'en-GB', true);
 $jlang->load('com_sermonspeaker', JPATH_COMPONENT, null, true);
 
-$controller	= JControllerLegacy::getInstance('Sermonspeaker', array('default_view' => 'sermons'));
-$controller->execute($task);
+$controller	= JControllerLegacy::getInstance('Sermonspeaker');
+$controller->execute($jinput->get('task'));
 $controller->redirect();

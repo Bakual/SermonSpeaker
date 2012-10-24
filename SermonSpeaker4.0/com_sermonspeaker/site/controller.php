@@ -5,6 +5,8 @@ defined('_JEXEC') or die;
  */
 class SermonspeakerController extends JControllerLegacy
 {
+	protected $default_view = 'sermons';
+
 	public function display($cachable = false, $urlparams = false)
 	{
 		$jinput		= JFactory::getApplication()->input;
