@@ -48,11 +48,11 @@ class getid3_writetags
 {
 	// public
 	var $filename;                            // absolute filename of file to write tags to
-	var $speakerformats         = array();        // array of tag formats to write ('id3v1', 'id3v2.2', 'id2v2.3', 'id3v2.4', 'ape', 'vorbiscomment', 'metaflac', 'real')
+	var $tagformats         = array();        // array of tag formats to write ('id3v1', 'id3v2.2', 'id2v2.3', 'id3v2.4', 'ape', 'vorbiscomment', 'metaflac', 'real')
 	var $tag_data           = array(array()); // 2-dimensional array of tag data (ex: $data['ARTIST'][0] = 'Elvis')
 	var $tag_encoding       = 'ISO-8859-1';   // text encoding used for tag data ('ISO-8859-1', 'UTF-8', 'UTF-16', 'UTF-16LE', 'UTF-16BE', )
 	var $overwrite_tags     = true;          // if true will erase existing tag data and write only passed data; if false will merge passed data with existing tag data
-	var $remove_other_tags  = false;          // if true will erase remove all existing tags and only write those passed in $speakerformats; if false will ignore any tags not mentioned in $speakerformats
+	var $remove_other_tags  = false;          // if true will erase remove all existing tags and only write those passed in $tagformats; if false will ignore any tags not mentioned in $tagformats
 
 	var $id3v2_tag_language = 'eng';          // ISO-639-2 3-character language code needed for some ID3v2 frames (http://www.id3.org/iso639-2.html)
 	var $id3v2_paddedlength = 4096;           // minimum length of ID3v2 tags (will be padded to this length if tag data is shorter)
@@ -78,8 +78,8 @@ class getid3_writetags
 			return false;
 		}
 
-		if (!is_array($this->speakerformats)) {
-			$this->errors[] = 'speakerformats must be an array in getid3_writetags';
+		if (!is_array($this->tagformats)) {
+			$this->errors[] = 'tagformats must be an array in getid3_writetags';
 			return false;
 		}
 
@@ -139,7 +139,7 @@ class getid3_writetags
 					$AllowedTagFormats = array();
 					break;
 			}
-			foreach ($this->speakerformats as $requested_tag_format) {
+			foreach ($this->tagformats as $requested_tag_format) {
 				if (!in_array($requested_tag_format, $AllowedTagFormats)) {
 					$errormessage = 'Tag format "'.$requested_tag_format.'" is not allowed on "'.(isset($this->ThisFileInfo['fileformat']) ? $this->ThisFileInfo['fileformat'] : '');
 					$errormessage .= (isset($this->ThisFileInfo['audio']['dataformat']) ? '.'.$this->ThisFileInfo['audio']['dataformat'] : '');
@@ -156,13 +156,13 @@ class getid3_writetags
 						case 'id3v2.2':
 						case 'id3v2.3':
 						case 'id3v2.4':
-							if (!in_array('id3v2', $TagFormatsToRemove) && !in_array('id3v2.2', $this->speakerformats) && !in_array('id3v2.3', $this->speakerformats) && !in_array('id3v2.4', $this->speakerformats)) {
+							if (!in_array('id3v2', $TagFormatsToRemove) && !in_array('id3v2.2', $this->tagformats) && !in_array('id3v2.3', $this->tagformats) && !in_array('id3v2.4', $this->tagformats)) {
 								$TagFormatsToRemove[] = 'id3v2';
 							}
 							break;
 
 						default:
-							if (!in_array($AllowedTagFormat, $this->speakerformats)) {
+							if (!in_array($AllowedTagFormat, $this->tagformats)) {
 								$TagFormatsToRemove[] = $AllowedTagFormat;
 							}
 							break;
@@ -171,11 +171,11 @@ class getid3_writetags
 			}
 		}
 
-		$WritingFilesToInclude = array_merge($this->speakerformats, $TagFormatsToRemove);
+		$WritingFilesToInclude = array_merge($this->tagformats, $TagFormatsToRemove);
 
 		// Check for required include files and include them
-		foreach ($WritingFilesToInclude as $speakerformat) {
-			switch ($speakerformat) {
+		foreach ($WritingFilesToInclude as $tagformat) {
+			switch ($tagformat) {
 				case 'ape':
 					$GETID3_ERRORARRAY = &$this->errors;
 					if (!getid3_lib::IncludeDependency(GETID3_INCLUDEPATH.'write.apetag.php', __FILE__, false)) {
@@ -189,7 +189,7 @@ class getid3_writetags
 				case 'metaflac':
 				case 'real':
 					$GETID3_ERRORARRAY = &$this->errors;
-					if (!getid3_lib::IncludeDependency(GETID3_INCLUDEPATH.'write.'.$speakerformat.'.php', __FILE__, false)) {
+					if (!getid3_lib::IncludeDependency(GETID3_INCLUDEPATH.'write.'.$tagformat.'.php', __FILE__, false)) {
 						return false;
 					}
 					break;
@@ -205,7 +205,7 @@ class getid3_writetags
 					break;
 
 				default:
-					$this->errors[] = 'unknown tag format "'.$speakerformat.'" in $speakerformats in WriteTags()';
+					$this->errors[] = 'unknown tag format "'.$tagformat.'" in $tagformats in WriteTags()';
 					return false;
 					break;
 			}
@@ -248,9 +248,9 @@ class getid3_writetags
 		}
 
 		// Write data for each tag format
-		foreach ($this->speakerformats as $speakerformat) {
+		foreach ($this->tagformats as $tagformat) {
 			$success = false; // overridden if tag writing is successful
-			switch ($speakerformat) {
+			switch ($tagformat) {
 				case 'ape':
 					$ape_writer = new getid3_write_apetag;
 					if (($ape_writer->tag_data = $this->FormatDataForAPE()) !== false) {
@@ -279,7 +279,7 @@ class getid3_writetags
 				case 'id3v2.3':
 				case 'id3v2.4':
 					$id3v2_writer = new getid3_write_id3v2;
-					$id3v2_writer->majorversion = intval(substr($speakerformat, -1));
+					$id3v2_writer->majorversion = intval(substr($tagformat, -1));
 					$id3v2_writer->paddedlength = $this->id3v2_paddedlength;
 					if (($id3v2_writer->tag_data = $this->FormatDataForID3v2($id3v2_writer->majorversion)) !== false) {
 						$id3v2_writer->filename = $this->filename;
@@ -328,7 +328,7 @@ class getid3_writetags
 					break;
 
 				default:
-					$this->errors[] = 'Invalid tag format to write: "'.$speakerformat.'"';
+					$this->errors[] = 'Invalid tag format to write: "'.$tagformat.'"';
 					return false;
 					break;
 			}
@@ -402,7 +402,7 @@ class getid3_writetags
 					break;
 
 				default:
-					$this->errors[] = 'Invalid tag format to delete: "'.$speakerformat.'"';
+					$this->errors[] = 'Invalid tag format to delete: "'.$tagformat.'"';
 					return false;
 					break;
 			}

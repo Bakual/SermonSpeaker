@@ -117,7 +117,8 @@ class SermonspeakerControllerSermon extends JControllerForm
 		}
 	}
 
-	protected function postSaveHook(&$model, $validData = array()){
+	protected function postSaveHook(JModelLegacy $model, $validData = array())
+	{
 		$recordId = $model->getState($this->context.'.id');
 		$params	= JComponentHelper::getParams('com_sermonspeaker');
 
@@ -131,15 +132,19 @@ class SermonspeakerControllerSermon extends JControllerForm
 		$db->setQuery($query);
 		$db->query();
 		$i	= 1;
-		foreach ($validData['scripture'] as $scripture){
-			$item	= explode('|', $scripture);
-			$query	= "INSERT INTO #__sermon_scriptures \n"
-					."(`book`,`cap1`,`vers1`,`cap2`,`vers2`,`text`,`ordering`,`sermon_id`) \n"
-					."VALUES ('".(int)$item[0]."','".(int)$item[1]."','".(int)$item[2]."','".(int)$item[3]."','".(int)$item[4]."',".$db->quote($item[5]).",'".$i."','".$recordId."')"
-					;
-			$db->setQuery($query);
-			$db->query();
-			$i++;
+		if (isset($validData['scripture']))
+		{
+			foreach ($validData['scripture'] as $scripture)
+			{
+				$item	= explode('|', $scripture);
+				$query	= "INSERT INTO #__sermon_scriptures \n"
+						."(`book`,`cap1`,`vers1`,`cap2`,`vers2`,`text`,`ordering`,`sermon_id`) \n"
+						."VALUES ('".(int)$item[0]."','".(int)$item[1]."','".(int)$item[2]."','".(int)$item[3]."','".(int)$item[4]."',".$db->quote($item[5]).",'".$i."','".$recordId."')"
+						;
+				$db->setQuery($query);
+				$db->query();
+				$i++;
+			}
 		}
 
 		// Tags
@@ -148,13 +153,17 @@ class SermonspeakerControllerSermon extends JControllerForm
 				;
 		$db->setQuery($query);
 		$db->query();
-		foreach ($validData['tags'] as $tag){
-			$query	= "INSERT INTO #__sermon_sermons_tags \n"
-					."(`sermon_id`,`tag_id`) \n"
-					."VALUES ('".$recordId."','".(int)$tag."')"
-					;
-			$db->setQuery($query);
-			$db->query();
+		if (isset($validData['tags']))
+		{
+			foreach ($validData['tags'] as $tag)
+			{
+				$query	= "INSERT INTO #__sermon_sermons_tags \n"
+						."(`sermon_id`,`tag_id`) \n"
+						."VALUES ('".$recordId."','".(int)$tag."')"
+						;
+				$db->setQuery($query);
+				$db->query();
+			}
 		}
 
 		// ID3
@@ -182,7 +191,7 @@ class SermonspeakerControllerSermon extends JControllerForm
 			$app->redirect('index.php?option=com_sermonspeaker&view=sermons', JText::_('JERROR_AN_ERROR_HAS_OCCURRED'), 'error');
 			return;
 		}
-		$db =& JFactory::getDBO();
+		$db = JFactory::getDBO();
 		$query	= "SELECT audiofile, videofile, sermons.created_by, sermons.catid, sermon_title, name, series_title, YEAR(sermon_date) AS date, notes, sermon_number, picture \n"
 				. "FROM #__sermon_sermons AS sermons \n"
 				. "LEFT JOIN #__sermon_speakers AS speakers ON speaker_id = speakers.id \n"
@@ -201,7 +210,7 @@ class SermonspeakerControllerSermon extends JControllerForm
 			$getID3		= new getID3;
 			$getID3->setOption(array('encoding'=>'UTF-8'));
 			require_once(JPATH_COMPONENT_SITE.'/id3/getid3/write.php');
-			$writer		= new getid3_writetags;
+			$writer	= new getid3_writetags;
 			$writer->tagformats		= array('id3v2.3');
 			$writer->overwrite_tags	= true;
 			$writer->tag_encoding	= 'UTF-8';
@@ -218,11 +227,7 @@ class SermonspeakerControllerSermon extends JControllerForm
 			// Adding the picture to the id3 tags, taken from getID3 Demos -> demo.write.php
 			if ($item->picture && (substr($item->picture, 0, 7) != 'http://')) {
 				ob_start();
-				$pic = $item->picture;
-				if (substr($pic, 0, 1) == '/') {
-					$pic = substr($pic, 1);
-				}
-				$pic = JPATH_ROOT.'/'.$pic;
+				$pic = JPATH_ROOT.'/'.trim($item->picture, ' /');
 				if ($fd = fopen($pic, 'rb')) {
 					ob_end_clean();
 					$APICdata = fread($fd, filesize($pic));
