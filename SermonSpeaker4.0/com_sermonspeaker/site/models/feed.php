@@ -6,69 +6,91 @@ defined('_JEXEC') or die;
  */
 class SermonspeakerModelFeed extends JModelLegacy
 {
-	function __construct()
-	{
-		parent::__construct();
- 
-		$app = JFactory::getApplication();
-		$this->limit = $app->getCfg('feed_limit');
-
-		$this->params = $app->getParams();
-	}
-
 	function getData()
 	{
+		$app	= JFactory::getApplication();
+		$params	= $app->getParams();
+		$jinput	= $app->input;
 		$user	= JFactory::getUser();
 		$groups	= implode(',', $user->getAuthorisedViewLevels());
-		$jinput	= JFactory::getApplication()->input;
+
+		$db		= $this->getDbo();
+
+		// Force utf8 connection
+		$query = "SET character_set_results ='utf8';";
+		$db->setQuery($query);
+
+		// Create a new query object.
+		$query	= $db->getQuery(true);
+
+		// Select required fields from the table.
+		$query->select('sermons.sermon_date, sermons.sermon_title, sermons.audiofile, sermons.videofile, sermons.notes, sermons.sermon_time, sermons.id, sermons.picture');
+		$query->from('`#__sermon_sermons` AS sermons');
+
+		// Join over the scriptures.
+		$query->select('GROUP_CONCAT(script.book,"|",script.cap1,"|",script.vers1,"|",script.cap2,"|",script.vers2,"|",script.text ORDER BY script.ordering ASC SEPARATOR "!") AS scripture');
+		$query->join('LEFT', '#__sermon_scriptures AS script ON script.sermon_id = sermons.id');
+		$query->group('sermons.id');
+
+		// Join over Speaker
+		$query->select('speakers.name AS name, speakers.pic AS pic');
+		$query->join('LEFT', '#__sermon_speakers AS speakers ON speakers.id = sermons.speaker_id');
+
+		// Join over Series
+		$query->select('series.series_title AS series_title, series.avatar');
+		$query->join('LEFT', '#__sermon_series AS series ON series.id = sermons.series_id');
+
+		// Join over Sermons Category.
+		$query->join('LEFT', '#__categories AS c_sermons ON c_sermons.id = sermons.catid');
+		$query->where('(sermons.catid = 0 OR (c_sermons.access IN ('.$groups.') AND c_sermons.published = 1))');
+
+		// Join over Speakers Category.
+		$query->join('LEFT', '#__categories AS c_speaker ON c_speaker.id = speakers.catid');
+		$query->where('(sermons.speaker_id = 0 OR speakers.catid = 0 OR (c_speaker.access IN ('.$groups.') AND c_speaker.published = 1))');
+
+		// Join over Series Category.
+		$query->join('LEFT', '#__categories AS c_series ON c_series.id = series.catid');
+		$query->where('(sermons.series_id = 0 OR series.catid = 0 OR (c_series.access IN ('.$groups.') AND c_series.published = 1))');
 
 		// Category filter (priority on request so subcategories work)
 		if ($id	= $jinput->get('sermon_cat', 0, 'int'))
 		{
-			$type	= 'sermons';
+			$query->where('sermons.catid = '.$id);
 		}
 		elseif ($id	= $jinput->get('speaker_cat', 0, 'int'))
 		{
-			$type	= 'speakers';
+			$query->where('speakers.catid = '.$id);
 		}
 		elseif ($id	= $jinput->get('series_cat', 0, 'int'))
 		{
-			$type	= 'series';
+			$query->where('series.catid = '.$id);
 		}
-		else
+		elseif ($id	= (int) $params->get('catid', 0))
 		{
-			$id		= (int) $this->params->get('catid', 0);
-			$type	= $this->params->get('count_items_type', 'sermons');
+			$type	= $params->get('count_items_type', 'sermons');
+			$query->where($type.'.catid = '.$id);
 		}
-//		$this->setState('category.id', $id);
-//		$this->setState('category.type', $type);
-		$this->catwhere = ($id) ? " AND ".$type.".catid = ".$id." \n" : '';
 
-		$database = JFactory::getDBO();
+		// Filter by type
+		$feedtype	= $jinput->get('type', 'auto');
+		if ($feedtype == 'video')
+		{
+			$query->where('sermons.videofile != ""');
+		}
+		elseif ($feedtype == 'audio')
+		{
+			$query->where('sermons.audiofile != ""');
+		}
 
-		$query = "SET character_set_results ='utf8';";
-		$database->setQuery($query);
-		$query = "SELECT sermons.sermon_date, sermons.sermon_title, sermons.audiofile, sermons.videofile, series.series_title, series.avatar, \n"
-				."sermons.notes, sermons.sermon_time, speakers.name, speakers.pic, sermons.id, sermons.picture, \n"
-				.'GROUP_CONCAT(script.book,"|",script.cap1,"|",script.vers1,"|",script.cap2,"|",script.vers2,"|",script.text ORDER BY script.ordering ASC SEPARATOR "!") AS scripture '."\n"
-				."FROM #__sermon_sermons AS sermons \n"
-				."LEFT JOIN #__sermon_scriptures AS script ON script.sermon_id = sermons.id \n"
-				."LEFT JOIN #__sermon_speakers AS speakers ON sermons.speaker_id = speakers.id \n"
-				."LEFT JOIN #__sermon_series AS series ON sermons.series_id = series.id \n"
-				."LEFT JOIN #__categories AS c_sermons ON c_sermons.id = sermons.catid \n"
-				."LEFT JOIN #__categories AS c_speaker ON c_speaker.id = speakers.catid \n"
-				."LEFT JOIN #__categories AS c_series ON c_series.id = series.catid \n"
-				."WHERE sermons.podcast='1' \n"
-				."AND sermons.state != '-2' \n"
-				."AND (sermons.catid = 0 OR (c_sermons.access IN (".$groups.") AND c_sermons.published = 1)) \n"
-				."AND (sermons.speaker_id = 0 OR speakers.catid = 0 OR (c_speaker.access IN (".$groups.") AND c_speaker.published = 1)) \n"
-				."AND (sermons.series_id = 0 OR series.catid = 0 OR (c_series.access IN (".$groups.") AND c_series.published = 1)) \n"
-				.$this->catwhere
-				."GROUP BY sermons.id \n"
-				."ORDER BY sermons.sermon_date DESC";
+		// Filter by state
+		$query->where('sermons.podcast = 1');
+		$query->where('sermons.state != -2');
 
-		$database->setQuery($query, '0', $this->limit);
-		$rows = $database->loadObjectList();
+		// Grouping
+		$query->order('sermons.sermon_date DESC');
+
+		$db->setQuery($query, '0', $app->getCfg('feed_limit'));
+		$rows = $db->loadObjectList();
 
 		return $rows;
 	}
