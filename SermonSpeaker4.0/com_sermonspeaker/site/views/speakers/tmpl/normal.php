@@ -5,8 +5,9 @@ JHTML::addIncludePath(JPATH_COMPONENT.'/helpers');
 JHTML::_('behavior.tooltip');
 JHTML::_('behavior.modal');
 $user		= JFactory::getUser();
-$canEdit	= $user->authorise('core.edit', 'com_sermonspeaker');
-$canEditOwn	= $user->authorise('core.edit.own', 'com_sermonspeaker');
+$fu_enable	= $this->params->get('fu_enable');
+$canEdit	= ($fu_enable and $user->authorise('core.edit', 'com_sermonspeaker'));
+$canEditOwn	= ($fu_enable and $user->authorise('core.edit.own', 'com_sermonspeaker'));
 $listOrder	= $this->state->get('list.ordering');
 $listDirn	= $this->state->get('list.direction');
 ?>

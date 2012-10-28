@@ -5,8 +5,9 @@ JHTML::_('behavior.tooltip');
 JHTML::_('behavior.modal');
 JHTML::stylesheet('media/com_sermonspeaker/css/icon.css');
 $user		= JFactory::getUser();
-$canEdit	= $user->authorise('core.edit', 'com_sermonspeaker');
-$canEditOwn	= $user->authorise('core.edit.own', 'com_sermonspeaker');
+$fu_enable	= $this->params->get('fu_enable');
+$canEdit	= ($fu_enable and $user->authorise('core.edit', 'com_sermonspeaker'));
+$canEditOwn	= ($fu_enable and $user->authorise('core.edit.own', 'com_sermonspeaker'));
 $config = array(
 		'alt_player' => 1,
 		'count' => 1,
