@@ -7,25 +7,39 @@ JHtml::_('behavior.tooltip');
 JHtml::_('behavior.modal');
 JHtml::_('bootstrap.tooltip');
 
-$uri = JURI::getInstance();
-$uri->delVar('tab');
-$self = $uri->toString();
-
 $user		= JFactory::getUser();
 $fu_enable	= $this->params->get('fu_enable');
 $canEdit	= ($fu_enable and $user->authorise('core.edit', 'com_sermonspeaker'));
 $canEditOwn	= ($fu_enable and $user->authorise('core.edit.own', 'com_sermonspeaker'));
-$listOrder	= $this->state_sermons->get('list.ordering');
-$listDirn	= $this->state_sermons->get('list.direction');
+$listOrderSermons	= $this->state_sermons->get('list.ordering');
+$listDirnSermons	= $this->state_sermons->get('list.direction');
+$listOrderSeries	= $this->state_series->get('list.ordering');
+$listDirnSeries		= $this->state_series->get('list.direction');
 $limit 		= (int)$this->params->get('limit', '');
 $player		= new SermonspeakerHelperPlayer($this->sermons);
-if (JFactory::getApplication()->input->get('tab') == 'series')
-{
-	$this->document->addScriptDeclaration('jQuery(function() {
-			jQuery(\'#speakerTab a[href="#series"]\').tab(\'show\');
-		})
-	');
-}
+$this->document->addScriptDeclaration('Joomla.tableOrdering = function(order, dir, task, form) {
+		if (typeof(form) === "undefined") {
+			if (task == "series") {
+				form = document.getElementById("adminFormSeries");
+				task = "";
+			} else {
+				form = document.getElementById("adminForm");
+			}
+		}
+
+		form.filter_order.value = order;
+		form.filter_order_Dir.value = dir;
+		Joomla.submitform(task, form);
+	}');
+$this->document->addScriptDeclaration('jQuery(function() {
+		if (location.hash == \'#series\') {
+			tab = \'#tab_series\';
+		} else {
+			tab = \'#tab_sermons\';
+		}
+		jQuery(\'#speakerTab a[href="\' + tab + \'"]\').tab(\'show\');
+	})');
+
 ?>
 <div class="category-list<?php echo $this->pageclass_sfx;?> ss-speaker-container<?php echo $this->pageclass_sfx; ?>">
 	<?php if ($this->params->get('show_page_heading', 1)) : ?>
@@ -105,11 +119,11 @@ if (JFactory::getApplication()->input->get('tab') == 'series')
 	</div>
 	<div class="clearfix"></div>
 	<ul class="nav nav-pills" id="speakerTab">
-		<li class="active"><a href="#sermons" data-toggle="pill"><?php echo JText::_('COM_SERMONSPEAKER_SERMONS'); ?></a></li>
-		<li><a href="#series" data-toggle="pill"><?php echo JText::_('COM_SERMONSPEAKER_SERIES'); ?></a></li>
+		<li><a href="#tab_sermons" data-toggle="pill"><?php echo JText::_('COM_SERMONSPEAKER_SERMONS'); ?></a></li>
+		<li><a href="#tab_series" data-toggle="pill"><?php echo JText::_('COM_SERMONSPEAKER_SERIES'); ?></a></li>
 	</ul>
 	<div class="pill-content">
-		<div class="pill-pane active" id="sermons">
+		<div class="pill-pane" id="tab_sermons">
 			<?php if (in_array('speaker:player', $this->col_sermon) and count($this->sermons)) :
 				JHTML::stylesheet('com_sermonspeaker/player.css', '', true); ?>
 				<div class="ss-sermons-player span10 offset1">
@@ -130,15 +144,15 @@ if (JFactory::getApplication()->input->get('tab') == 'series')
 					?>
 					<hr class="ss-sermons-player" />
 					<?php if ($player->toggle) : ?>
-						<div>
-							<img class="pointer" src="media/com_sermonspeaker/images/Video.png" onclick="Video()" alt="Video" title="<?php echo JText::_('COM_SERMONSPEAKER_SWITCH_VIDEO'); ?>" />
-							<img class="pointer" src="media/com_sermonspeaker/images/Sound.png" onclick="Audio()" alt="Audio" title="<?php echo JText::_('COM_SERMONSPEAKER_SWITCH_AUDIO'); ?>" />
+						<div class="span2 offset4 btn-group">
+							<img class="btn" src="media/com_sermonspeaker/images/Video.png" onclick="Video()" alt="Video" title="<?php echo JText::_('COM_SERMONSPEAKER_SWITCH_VIDEO'); ?>" />
+							<img class="btn" src="media/com_sermonspeaker/images/Sound.png" onclick="Audio()" alt="Audio" title="<?php echo JText::_('COM_SERMONSPEAKER_SWITCH_AUDIO'); ?>" />
 						</div>
 					<?php endif; ?>
 				</div>
 			<?php endif; ?>
 			<div class="cat-items">
-				<form action="<?php echo htmlspecialchars($self); ?>" method="post" id="adminForm" name="adminForm" class="form-inline">
+				<form action="<?php echo htmlspecialchars(JUri::getInstance()->toString().'#sermons'); ?>" method="post" id="adminForm" name="adminForm" class="form-inline">
 					<?php if ($this->params->get('filter_field') or $this->params->get('show_pagination_limit')) : ?>
 						<div class="filters btn-toolbar">
 							<?php if ($this->params->get('filter_field')) :?>
@@ -183,7 +197,7 @@ if (JFactory::getApplication()->input->get('tab') == 'series')
 								<?php if (in_array('speaker:num', $this->col_sermon)) : ?>
 									<th class="num hidden-phone hidden-tablet">
 										<?php if (!$limit) :
-											echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SERMONNUMBER', 'sermon_number', $listDirn, $listOrder);
+											echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SERMONNUMBER', 'sermon_number', $listDirnSermons, $listOrderSermons);
 										else :
 											echo JText::_('COM_SERMONSPEAKER_SERMONNUMBER');
 										endif; ?>
@@ -191,7 +205,7 @@ if (JFactory::getApplication()->input->get('tab') == 'series')
 								<?php endif; ?>
 								<th class="ss-title">
 									<?php if (!$limit) :
-										echo JHTML::_('grid.sort', 'JGLOBAL_TITLE', 'sermon_title', $listDirn, $listOrder);
+										echo JHTML::_('grid.sort', 'JGLOBAL_TITLE', 'sermon_title', $listDirnSermons, $listOrderSermons);
 									else :
 										echo JText::_('JGLOBAL_TITLE');
 									endif; ?>
@@ -199,7 +213,7 @@ if (JFactory::getApplication()->input->get('tab') == 'series')
 								<?php if (in_array('speaker:category', $this->col_sermon)) : ?>
 									<th class="ss-col ss-category hidden-phone">
 										<?php if (!$limit) :
-											echo JHTML::_('grid.sort', 'JCATEGORY', 'category_title', $listDirn, $listOrder);
+											echo JHTML::_('grid.sort', 'JCATEGORY', 'category_title', $listDirnSermons, $listOrderSermons);
 										else :
 											echo JText::_('JCATEGORY');
 										endif; ?>
@@ -208,7 +222,7 @@ if (JFactory::getApplication()->input->get('tab') == 'series')
 								if (in_array('speaker:scripture', $this->col_sermon)) : ?>
 									<th class="ss-col ss-scripture hidden-phone">
 										<?php if (!$limit) :
-											echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL', 'book', $listDirn, $listOrder);
+											echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL', 'book', $listDirnSermons, $listOrderSermons);
 										else :
 											echo JText::_('COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL');
 										endif; ?>
@@ -217,7 +231,7 @@ if (JFactory::getApplication()->input->get('tab') == 'series')
 								if (in_array('speaker:speaker', $this->col_sermon)) : ?>
 									<th class="ss-col ss-speaker hidden-phone">
 										<?php if (!$limit) :
-											echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SPEAKER', 'name', $listDirn, $listOrder);
+											echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SPEAKER', 'name', $listDirnSermons, $listOrderSermons);
 										else :
 											echo JText::_('COM_SERMONSPEAKER_SPEAKER');
 										endif; ?>
@@ -226,7 +240,7 @@ if (JFactory::getApplication()->input->get('tab') == 'series')
 								if (in_array('speaker:date', $this->col_sermon)) : ?>
 									<th class="ss-col ss-date">
 										<?php if (!$limit) :
-											echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_FIELD_DATE_LABEL', 'sermons.sermon_date', $listDirn, $listOrder);
+											echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_FIELD_DATE_LABEL', 'sermons.sermon_date', $listDirnSermons, $listOrderSermons);
 										else :
 											echo JText::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL');
 										endif; ?>
@@ -235,7 +249,7 @@ if (JFactory::getApplication()->input->get('tab') == 'series')
 								if (in_array('speaker:length', $this->col_sermon)) : ?>
 									<th class="ss-col ss-length hidden-phone hidden-tablet">
 										<?php if (!$limit) :
-											 echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_FIELD_LENGTH_LABEL', 'sermon_time', $listDirn, $listOrder);
+											 echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_FIELD_LENGTH_LABEL', 'sermon_time', $listDirnSermons, $listOrderSermons);
 										else :
 											echo JText::_('COM_SERMONSPEAKER_FIELD_LENGTH_LABEL');
 										endif; ?>
@@ -244,7 +258,7 @@ if (JFactory::getApplication()->input->get('tab') == 'series')
 								if (in_array('speaker:series', $this->col_sermon)) : ?>
 									<th class="ss-col ss-series hidden-phone">
 										<?php if (!$limit) :
-											 echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SERIES', 'series_title', $listDirn, $listOrder);
+											 echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SERIES', 'series_title', $listDirnSermons, $listOrderSermons);
 										else :
 											echo JText::_('COM_SERMONSPEAKER_SERIES');
 										endif; ?>
@@ -253,7 +267,7 @@ if (JFactory::getApplication()->input->get('tab') == 'series')
 								if (in_array('speaker:addfile', $this->col_sermon)) : ?>
 									<th class="ss-col ss-addfile hidden-phone">
 										<?php if (!$limit) :
-											 echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_ADDFILE', 'addfileDesc', $listDirn, $listOrder);
+											 echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_ADDFILE', 'addfileDesc', $listDirnSermons, $listOrderSermons);
 										else :
 											echo JText::_('COM_SERMONSPEAKER_ADDFILE');
 										endif; ?>
@@ -262,7 +276,7 @@ if (JFactory::getApplication()->input->get('tab') == 'series')
 								if (in_array('speaker:hits', $this->col_sermon)) : ?>
 									<th class="ss-col ss-hits hidden-phone hidden-tablet">
 										<?php if (!$limit) :
-											echo JHTML::_('grid.sort', 'JGLOBAL_HITS', 'hits', $listDirn, $listOrder);
+											echo JHTML::_('grid.sort', 'JGLOBAL_HITS', 'hits', $listDirnSermons, $listOrderSermons);
 										else :
 											echo JText::_('JGLOBAL_HITS');
 										endif; ?>
@@ -362,14 +376,14 @@ if (JFactory::getApplication()->input->get('tab') == 'series')
 						</div>
 					<?php endif; ?>
 					<input type="hidden" name="task" value="" />
-					<input type="hidden" name="filter_order" value="<?php echo $listOrder; ?>" />
-					<input type="hidden" name="filter_order_Dir" value="<?php echo $listDirn; ?>" />
+					<input type="hidden" name="filter_order" value="<?php echo $listOrderSermons; ?>" />
+					<input type="hidden" name="filter_order_Dir" value="<?php echo $listDirnSermons; ?>" />
 					<input type="hidden" name="limitstart" value="" />
 				</form>
 			</div>
 		</div>
-		<div class="pill-pane" id="series">
-			<form action="<?php echo JFilterOutput::ampReplace($self.'&tab=series'); ?>" method="post" id="adminForm" name="adminForm">
+		<div class="pill-pane" id="tab_series">
+			<form action="<?php echo htmlspecialchars(JUri::getInstance()->toString().'#series'); ?>" method="post" id="adminFormSeries" name="adminFormSeries">
 				<?php if ($this->params->get('show_pagination_limit')) : ?>
 				<div class="display-limit">
 					<?php echo JText::_('JGLOBAL_DISPLAY_NUM'); ?>&#160;
@@ -385,21 +399,21 @@ if (JFactory::getApplication()->input->get('tab') == 'series')
 								<th class="ss-av hidden-phone hidden-tablet"> </th>
 							<?php endif; ?>
 							<th class="ss-title">
-								<?php echo JHTML::_('grid.sort', 'JGLOBAL_TITLE', 'series_title', $listDirn, $listOrder); ?>
+								<?php echo JHTML::_('grid.sort', 'JGLOBAL_TITLE', 'series_title', $listDirnSeries, $listOrderSeries, 'series'); ?>
 							</th>
 							<?php if (in_array('speaker:category', $this->col_serie)) : ?>
 								<th class="ss-col ss-category hidden-phone">
-									<?php echo JHTML::_('grid.sort', 'JCATEGORY', 'category_title', $listDirn, $listOrder); ?>
+									<?php echo JHTML::_('grid.sort', 'JCATEGORY', 'category_title', $listDirnSeries, $listOrderSeries, 'series'); ?>
 								</th>
 							<?php endif;
 							if (in_array('speaker:description', $this->col_serie)): ?>
 								<th class="ss-col ss-series_desc hidden-phone">
-									<?php echo JHTML::_('grid.sort', 'JGLOBAL_DESCRIPTION', 'series_description', $listDirn, $listOrder); ?>
+									<?php echo JHTML::_('grid.sort', 'JGLOBAL_DESCRIPTION', 'series_description', $listDirnSeries, $listOrderSeries, 'series'); ?>
 								</th>
 							<?php endif;
 							if (in_array('speaker:hits', $this->col_serie)) : ?>
 								<th class="ss-col ss-hits hidden-phone hidden-tablet">
-									<?php echo JHTML::_('grid.sort', 'JGLOBAL_HITS', 'hits', $listDirn, $listOrder); ?>
+									<?php echo JHTML::_('grid.sort', 'JGLOBAL_HITS', 'hits', $listDirnSeries, $listOrderSeries, 'series'); ?>
 								</th>
 							<?php endif;
 							if (in_array('speaker:download', $this->col_serie)) : ?>
@@ -463,8 +477,8 @@ if (JFactory::getApplication()->input->get('tab') == 'series')
 				<?php endif; ?>
 				<input type="hidden" name="task" value="" />
 				<input type="hidden" name="tab" value="series" />
-				<input type="hidden" name="filter_order" value="<?php echo $listOrder; ?>" />
-				<input type="hidden" name="filter_order_Dir" value="<?php echo $listDirn; ?>" />
+				<input type="hidden" name="filter_order" value="<?php echo $listOrderSeries; ?>" />
+				<input type="hidden" name="filter_order_Dir" value="<?php echo $listDirnSeries; ?>" />
 			</form>
 		</div>
 	</div>

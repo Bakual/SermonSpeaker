@@ -81,7 +81,7 @@ $listDirn	= $this->state->get('list.direction');
 							<?php if ($item->sermons) :
 								$sep = 1; ?>
 								<small class="ss-sermons">
-									<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug)); ?>">
+									<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug).'#sermons'); ?>">
 										<?php echo JText::_('COM_SERMONSPEAKER_SERMONS'); ?></a>
 								</small>
 							<?php endif;
@@ -91,7 +91,7 @@ $listDirn	= $this->state->get('list.direction');
 								<?php endif;
 								$sep = 1; ?>
 								<small class="ss-series">
-									<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug).'&tab=series'); ?>">
+									<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug).'#series'); ?>">
 										<?php echo JText::_('COM_SERMONSPEAKER_SERIES'); ?></a>
 								</small>
 							<?php endif;

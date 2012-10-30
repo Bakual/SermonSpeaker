@@ -130,11 +130,11 @@ $listDirn	= $this->state->get('list.direction');
 							<?php endif; ?>
 						</div>
 						<?php if ($item->sermons): ?>
-							<a class="badge badge-info" title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKERS_SERMONSLINK_HOOVER'); ?>" href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug)); ?>">
+							<a class="badge badge-info" title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKERS_SERMONSLINK_HOOVER'); ?>" href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug).'#sermons'); ?>">
 								<?php echo JText::_('COM_SERMONSPEAKER_SERMONS').': '.$item->sermons; ?></a>&nbsp;
 						<?php endif;
 						if ($item->series): ?>
-							<a class="badge badge-info" title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKERS_SERIESLINK_HOOVER'); ?>" href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug).'&tab=series'); ?>">
+							<a class="badge badge-info" title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKERS_SERIESLINK_HOOVER'); ?>" href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug).'#series'); ?>">
 								<?php echo JText::_('COM_SERMONSPEAKER_SERIES').': '.$item->series; ?></a>&nbsp;
 						<?php endif; ?>
 						<div class="clearfix"></div>
