@@ -1,5 +1,6 @@
 <?php
 defined( '_JEXEC' ) or die( 'Restricted access' );
+JHTML::stylesheet('com_sermonspeaker/sermonspeaker.css', '', true);
 if (!$this->item->pic):
 	$this->item->pic = 'media/com_sermonspeaker/images/nopict.jpg';
 endif;

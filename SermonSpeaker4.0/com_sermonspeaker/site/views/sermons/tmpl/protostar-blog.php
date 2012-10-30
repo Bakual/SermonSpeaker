@@ -148,7 +148,7 @@ $player		= new SermonspeakerHelperPlayer($this->items);
 								<?php endif; ?>
 							</div>
 							<?php if ($picture = SermonspeakerHelperSermonspeaker::insertPicture($item)) : ?>
-								<div class="img-polaroid pull-right"><img src="<?php echo $picture; ?>"></div>
+								<div class="img-polaroid pull-right item-image"><img src="<?php echo $picture; ?>"></div>
 							<?php endif; ?>
 							<div class="article-info sermon-info muted">
 								<dl class="article-info">

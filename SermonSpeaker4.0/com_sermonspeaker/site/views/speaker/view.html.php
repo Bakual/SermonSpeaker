@@ -4,7 +4,7 @@ jimport( 'joomla.application.component.view');
 /**
  * HTML View class for the SermonSpeaker Component
  */
-class SermonspeakerViewspeaker extends JViewLegacy
+class SermonspeakerViewSpeaker extends JViewLegacy
 {
 	function display($tpl = null)
 	{
@@ -12,8 +12,6 @@ class SermonspeakerViewspeaker extends JViewLegacy
 		if (!$app->input->get('id', 0, 'int')){
 			$app->redirect(JRoute::_('index.php?view=speakers'), JText::_('JGLOBAL_RESOURCE_NOT_FOUND'), 'error');
 		}
-		// Applying CSS file
-		JHTML::stylesheet('media/com_sermonspeaker/css/sermonspeaker.css');
 		require_once(JPATH_COMPONENT.'/helpers/player.php');
 		// Get data from the model
 		$state		= $this->get('State');
@@ -21,21 +19,36 @@ class SermonspeakerViewspeaker extends JViewLegacy
 		$user		= JFactory::getUser();
 		$this->params = $state->get('params');
 		$this->columns = $this->params->get('col_speaker');
-		if (!$this->columns){
+		if (!$this->columns)
+		{
 			$this->columns = array();
 		}
 		$this->col_sermon = $this->params->get('col');
-		if (!$this->col_sermon){
+		if (!$this->col_sermon)
+		{
 			$this->col_sermon = array();
 		}
 		$this->col_serie = $this->params->get('col_serie');
-		if (!$this->col_serie){
+		if (!$this->col_serie)
+		{
 			$this->col_serie = array();
 		}
 		// Set layout from parameters if not already set elsewhere
-		if ($this->getLayout() == 'default') {
+		if ($this->getLayout() == 'default')
+		{
 			$this->setLayout($this->params->get('speakerlayout', 'series'));
 		}
+		// Switch Layout for Popup if in Joomla 3.0
+		if ($this->getLayout() == 'popup')
+		{
+			$version		= new JVersion;
+			$this->joomla30	= $version->isCompatible(3.0);
+			if ($this->joomla30)
+			{
+				$this->setLayout('popup30');
+			}
+		}
+
 		if(!$this->item){
 			$app->redirect(JRoute::_('index.php?view=speakers'), JText::_('JGLOBAL_RESOURCE_NOT_FOUND'), 'error');
 		}
@@ -72,21 +85,6 @@ class SermonspeakerViewspeaker extends JViewLegacy
 		foreach ($this->series as $serie){
 			if (!$this->av && !empty($serie->avatar)){
 				$this->av = 1;
-			}
-			if (in_array('series:speaker', $this->col_serie)){
-				$speakers	= $series_model->getSpeakers($serie->id);
-				$popup	= array();
-				$names	= array();
-				foreach($speakers as $speaker){
-					if ($speaker->state){
-						$popup[] = SermonspeakerHelperSermonspeaker::SpeakerTooltip($speaker->slug, $speaker->pic, $speaker->name);
-					} else {
-						$popup[] = $speaker->name;
-					}
-					$names[]		= $speaker->name;
-				}
-				$serie->speakers = implode(', ', $popup);
-				$serie->names	= implode(', ', $names);
 			}
 		}
 		// Update Statistic

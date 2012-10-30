@@ -65,31 +65,7 @@ $listDirn	= $this->state->get('list.direction');
 								</a>
 								<ul class="dropdown-menu">
 									<li class="email-icon"><?php echo JHtml::_('icon.email', $item, $this->params, array('type' => 'speaker')); ?></li>
-									<?php if ($item->sermons) : ?>
-										<li class="sermons-icon">
-											<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug).'&layout=sermons'); ?>">
-												<i class="icon-comments"></i>
-												<?php echo JText::_('COM_SERMONSPEAKER_SERMONS'); ?>
-											</a>
-										</li>
-									<?php endif;
-									if ($item->series) : ?>
-										<li class="series-icon">
-											<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug).'&layout=series'); ?>">
-												<i class="icon-drawer-2"></i>
-												<?php echo JText::_('COM_SERMONSPEAKER_SERIES'); ?>
-											</a>
-										</li>
-									<?php endif;
-									if ($item->website) : ?>
-										<li class="website-icon">
-											<a href="<?php echo $item->website; ?>">
-												<i class=" icon-out-2"></i>
-												<?php echo JText::_('COM_SERMONSPEAKER_FIELD_WEBSITE_LABEL'); ?>
-											</a>
-										</li>
-									<?php endif;
-									if ($canEdit or ($canEditOwn and ($user->id == $item->created_by))) : ?>
+									<?php if ($canEdit or ($canEditOwn and ($user->id == $item->created_by))) : ?>
 										<li class="edit-icon"><?php echo JHtml::_('icon.edit', $item, $this->params, array('type' => 'speaker')); ?></li>
 									<?php endif; ?>
 								</ul>
@@ -103,7 +79,7 @@ $listDirn	= $this->state->get('list.direction');
 								<?php endif; ?>
 							</div>
 							<?php if ($item->pic) : ?>
-								<div class="img-polaroid pull-right">
+								<div class="img-polaroid pull-right item-image">
 									<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug)); ?>">
 										<img src="<?php echo SermonspeakerHelperSermonspeaker::makelink($item->pic); ?>">
 									</a>
@@ -129,6 +105,16 @@ $listDirn	= $this->state->get('list.direction');
 												<?php echo $item->hits; ?>
 											</div>
 										</dd>
+									<?php endif;
+									if ($item->website) : ?>
+										<dd>
+											<div class="website">
+												<i class=" icon-out-2"></i>
+												<a href="<?php echo $item->website; ?>">
+													<?php echo JText::_('COM_SERMONSPEAKER_FIELD_WEBSITE_LABEL'); ?>
+												</a>
+											</div>
+										</dd>
 									<?php endif; ?>
 								</dl>
 							</div>
@@ -143,6 +129,14 @@ $listDirn	= $this->state->get('list.direction');
 								</div>
 							<?php endif; ?>
 						</div>
+						<?php if ($item->sermons): ?>
+							<a class="badge badge-info" title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKERS_SERMONSLINK_HOOVER'); ?>" href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug)); ?>">
+								<?php echo JText::_('COM_SERMONSPEAKER_SERMONS').': '.$item->sermons; ?></a>&nbsp;
+						<?php endif;
+						if ($item->series): ?>
+							<a class="badge badge-info" title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKERS_SERIESLINK_HOOVER'); ?>" href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug).'&tab=series'); ?>">
+								<?php echo JText::_('COM_SERMONSPEAKER_SERIES').': '.$item->series; ?></a>&nbsp;
+						<?php endif; ?>
 						<div class="clearfix"></div>
 					<?php endforeach; ?>
 				</div>

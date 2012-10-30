@@ -109,14 +109,14 @@ $listDirn	= $this->state->get('list.direction');
 									<ul class="unstyled">
 									<?php if ($item->sermons) : ?>
 									<li>
-										<a class="badge badge-info" href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug).'&layout=sermons'); ?>">
+										<a class="badge badge-info" href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug)); ?>">
 											<?php echo JText::_('COM_SERMONSPEAKER_SERMONS'); ?>
 										</a>
 									</li>
 									<?php endif;
 									if ($item->series) : ?>
 									<li>
-										<a class="badge badge-info" href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug).'&layout=series'); ?>">
+										<a class="badge badge-info" href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug).'&tab=series'); ?>">
 											<?php echo JText::_('COM_SERMONSPEAKER_SERIES'); ?>
 										</a>
 									</li>
