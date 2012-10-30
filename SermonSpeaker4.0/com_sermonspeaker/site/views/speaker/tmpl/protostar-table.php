@@ -384,13 +384,20 @@ $this->document->addScriptDeclaration('jQuery(function() {
 		</div>
 		<div class="pill-pane" id="tab_series">
 			<form action="<?php echo htmlspecialchars(JUri::getInstance()->toString().'#series'); ?>" method="post" id="adminFormSeries" name="adminFormSeries">
-				<?php if ($this->params->get('show_pagination_limit')) : ?>
-				<div class="display-limit">
-					<?php echo JText::_('JGLOBAL_DISPLAY_NUM'); ?>&#160;
-					<?php echo $this->pag_series->getLimitBox(); ?>
-				</div>
-				<?php endif;
-				if (!count($this->series)) : ?>
+				<?php if ($this->params->get('filter_field') or $this->params->get('show_pagination_limit')) : ?>
+					<div class="filters btn-toolbar">
+						<?php if ($this->params->get('show_pagination_limit')) : ?>
+							<div class="btn-group pull-right">
+								<label class="element-invisible">
+									<?php echo JText::_('JGLOBAL_DISPLAY_NUM'); ?>
+								</label>
+								<?php echo $this->pag_series->getLimitBox(); ?>
+							</div>
+						<?php endif; ?>
+					</div>
+				<?php endif; ?>
+				<div class="clearfix"></div>
+				<?php if (!count($this->series)) : ?>
 					<div class="no_entries alert alert-error"><?php echo JText::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', JText::_('COM_SERMONSPEAKER_SERIES')); ?></div>
 				<?php else : ?>
 					<table class="table table-striped table-hover table-condensed">
@@ -457,7 +464,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 									<?php endif;
 									if (in_array('speaker:download', $this->col_serie)) : ?>
 										<td class="ss-col ss-dl hidden-phone"><a href="<?php echo JRoute::_('index.php?view=serie&layout=download&tmpl=component&id='.$item->slug); ?>" class="modal" rel="{handler:'iframe',size:{x:400,y:200}}" title="<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADSERIES_DESC'); ?>">
-											<img src="media/com_sermonspeaker/images/download.png" alt="<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADSERIES_LABEL'); ?>" />
+											<i class="icon-download"> </i>
 										</a></td>
 									<?php endif; ?>
 								</tr>

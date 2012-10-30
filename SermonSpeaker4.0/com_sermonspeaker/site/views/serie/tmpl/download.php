@@ -14,12 +14,12 @@ $js	= 'function CheckProgress() {
 					timeout = setTimeout(CheckProgress,100);
 				} else if (data.status==2){
 					if (!t){
-						document.getElementById("status").innerHTML = "'.JText::_('COM_SERMONSPEAKER_WRITING_FILE').'";
+						document.getElementById("status").innerHTML = "<span class=\"badge badge-important\">'.JText::_('COM_SERMONSPEAKER_WRITING_FILE').'</span>";
 						t = 1;
 					}
 					progress_bar.set(data.msg);
 					if (data.msg == 100){
-						document.getElementById("status").innerHTML = "'.JText::_('COM_SERMONSPEAKER_DONE').'";
+						document.getElementById("status").innerHTML = "<span class=\"badge badge-success\">'.JText::_('COM_SERMONSPEAKER_DONE').'</span>";
 						document.getElementById("link").style.display = "block";
 					}
 					if (data.msg < 100){
@@ -41,7 +41,7 @@ $js	= 'function CheckProgress() {
 			if (xmlhttp.readyState==4 && xmlhttp.status==200){
 				var data = JSON.decode(xmlhttp.responseText);
 				if (data.status==1){
-					document.getElementById("link").innerHTML = "<a href=\""+data.msg+"\">'.JText::_('COM_SERMONSPEAKER_DOWNLOADSERIES_LABEL').'</a>";
+					document.getElementById("link").innerHTML = "<a class=\"btn btn-success\" href=\""+data.msg+"\">'.JText::_('COM_SERMONSPEAKER_DOWNLOADSERIES_LABEL').'</a>";
 				} else {
 					alert(data.msg);
 					parent.document.getElementById("sbox-btn-close").click();
@@ -58,7 +58,7 @@ $this->document->addScriptDeclaration($js);
 ?>
 <div class="ss-seriesdownload-container">
 <h3><?php echo $this->item->series_title; ?></h3>
-<div id="status"><?php echo JText::_('COM_SERMONSPEAKER_PREPARING_DOWNLOAD'); ?></div>
+<div id="status"><span class="badge"><?php echo JText::_('COM_SERMONSPEAKER_PREPARING_DOWNLOAD'); ?></span></div>
 <br/>
 <img src="media/media/images/bar.gif" class="progress" id="progress" />
 <br/><br/>

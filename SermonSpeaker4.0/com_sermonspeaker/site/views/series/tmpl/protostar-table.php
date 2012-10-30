@@ -125,7 +125,7 @@ $listDirn	= $this->state->get('list.direction');
 								<?php endif;
 								if (in_array('series:download', $this->col_serie)) : ?>
 									<td class="ss-col ss-dl hidden-phone"><a href="<?php echo JRoute::_('index.php?view=serie&layout=download&tmpl=component&id='.$item->slug); ?>" class="modal" rel="{handler:'iframe',size:{x:400,y:200}}" title="<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADSERIES_DESC'); ?>">
-										<img src="media/com_sermonspeaker/images/download.png" alt="<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADSERIES_LABEL'); ?>" />
+										<i class="icon-download"> </i>
 									</a></td>
 								<?php endif; ?>
 							</tr>
