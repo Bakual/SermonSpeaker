@@ -476,7 +476,6 @@ $this->document->addScriptDeclaration('jQuery(function() {
 					</div>
 				<?php endif; ?>
 				<input type="hidden" name="task" value="" />
-				<input type="hidden" name="tab" value="series" />
 				<input type="hidden" name="filter_order" value="<?php echo $listOrderSeries; ?>" />
 				<input type="hidden" name="filter_order_Dir" value="<?php echo $listDirnSeries; ?>" />
 			</form>
