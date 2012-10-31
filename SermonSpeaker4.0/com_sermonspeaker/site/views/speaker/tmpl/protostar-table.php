@@ -228,15 +228,6 @@ $this->document->addScriptDeclaration('jQuery(function() {
 										endif; ?>
 									</th>
 								<?php endif;
-								if (in_array('speaker:speaker', $this->col_sermon)) : ?>
-									<th class="ss-col ss-speaker hidden-phone">
-										<?php if (!$limit) :
-											echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_SPEAKER', 'name', $listDirnSermons, $listOrderSermons);
-										else :
-											echo JText::_('COM_SERMONSPEAKER_SPEAKER');
-										endif; ?>
-									</th>
-								<?php endif;
 								if (in_array('speaker:date', $this->col_sermon)) : ?>
 									<th class="ss-col ss-date">
 										<?php if (!$limit) :
@@ -333,9 +324,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 										if (in_array('speaker:series', $this->col_sermon)) : ?>
 											<td class="ss-col ss-series hidden-phone">
 												<?php if ($item->series_state): ?>
-													<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->series_slug)); ?>">
-														<?php echo $item->series_title; ?>
-													</a>
+													<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->series_slug)); ?>"><?php echo $item->series_title; ?></a>
 												<?php else:
 													echo $item->series_title;
 												endif; ?>
@@ -488,10 +477,4 @@ $this->document->addScriptDeclaration('jQuery(function() {
 			</form>
 		</div>
 	</div>
-	<?php if (!empty($this->children[$this->category->id]) and $this->maxLevel != 0) : ?>
-		<div class="cat-children">
-			<h3><?php echo JTEXT::_('JGLOBAL_SUBCATEGORIES'); ?></h3>
-			<?php echo $this->loadTemplate('children30'); ?>
-		</div>
-	<?php endif; ?>
 </div>

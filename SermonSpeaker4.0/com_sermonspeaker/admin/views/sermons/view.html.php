@@ -82,7 +82,7 @@ class SermonspeakerViewSermons extends JViewLegacy
 			JToolBarHelper::divider();
 		}
 		if ($canDo->get('core.edit.state')) {
-			JToolBarHelper::custom('tools.order', 'purge icon-loop', '','COM_SERMONSPEAKER_TOOLS_ORDER', false);
+			JToolBarHelper::custom('tools.order', 'purge icon-lightning', '','COM_SERMONSPEAKER_TOOLS_ORDER', false);
 			JToolBarHelper::divider();
 		}
 

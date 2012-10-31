@@ -197,7 +197,7 @@ endif;
 					<td class="center small hidden-phone">
 						<?php echo $item->hits; ?>
 						<?php if ($canEdit || $canEditOwn) : ?>
-							&nbsp;<a href="index.php?option=com_sermonspeaker&task=serie.reset&id=<?php echo $item->id; ?>" title="<?php echo JText::_('JSEARCH_RESET'); ?>"><img src="<?php echo JURI::base(); ?>components/com_sermonspeaker/images/reset.png" width="16" height="16" border="0" alt="<?php echo JText::_('JSEARCH_RESET'); ?>" /></a>
+							&nbsp;<a href="index.php?option=com_sermonspeaker&task=serie.reset&id=<?php echo $item->id; ?>"><i class="icon-loop" rel="tooltip" title="<?php echo JText::_('JSEARCH_RESET'); ?>"> </i></a>
 						<?php endif; ?>
 					</td>
 					<td class="small hidden-phone">

@@ -77,7 +77,7 @@ class SermonspeakerViewSpeakers extends JViewLegacy
 			JToolBarHelper::divider();
 		}
 		if ($canDo->get('core.edit.state')) {
-			JToolBarHelper::custom('tools.speakersorder', 'purge icon-loop', '','COM_SERMONSPEAKER_TOOLS_ORDER', false);
+			JToolBarHelper::custom('tools.speakersorder', 'purge icon-lightning', '','COM_SERMONSPEAKER_TOOLS_ORDER', false);
 			JToolBarHelper::divider();
 		}
 

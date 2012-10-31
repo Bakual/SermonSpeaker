@@ -7,6 +7,7 @@
 defined('JPATH_BASE') or die;
 
 jimport('joomla.form.formfield');
+JFormHelper::loadFieldClass('text');
 
 /**
  * Hits Field class for the SermonSpeaker
@@ -14,7 +15,7 @@ jimport('joomla.form.formfield');
  * @package		SermonSpeaker
  * @since		4.0
  */
-class JFormFieldHits extends JFormField
+class JFormFieldHits extends JFormFieldText
 {
 	/**
 	 * The form field type.
@@ -33,12 +34,23 @@ class JFormFieldHits extends JFormField
 	protected function getInput()
 	{
 		$onclick	= ' onclick="document.id(\''.$this->id.'\').value=\'0\';"';
-		
-		$return = '<input style="border:0;" type="text" name="'.$this->name.'" id="'.$this->id.'" value="'.htmlspecialchars($this->value, ENT_COMPAT, 'UTF-8').'" readonly="readonly" class="readonly" size="5" />';
-		if ($this->value){
-			$return .= '<img src="'.JURI::base().'components/com_sermonspeaker/images/reset.png"'.$onclick.' class="pointer" width="16" height="16" border="0" title="'.JText::_('JSEARCH_RESET').'" alt="Reset" />';
-		}
 
-		return $return;
+		$html	= '<div class="input-append">';
+		$html	.= parent::getInput();
+		if ($this->value){
+			$version	= new JVersion;
+			$joomla30	= $version->isCompatible(3.0);
+			if ($joomla30)
+			{
+				$html	.= '<i'.$onclick.' class="btn add-on icon-loop" rel="tooltip" title="'.JText::_('JSEARCH_RESET').'"> </i>';
+			}
+			else
+			{
+				$html	.= '<img src="'.JURI::base().'components/com_sermonspeaker/images/reset.png"'.$onclick.' class="pointer" width="16" height="16" border="0" title="'.JText::_('JSEARCH_RESET').'" alt="Reset" />';
+			}
+		}
+		$html .= '</div>';
+
+		return $html;
 	}
 }
