@@ -62,7 +62,8 @@ class SermonspeakerModelSerie extends JModelItem
 				$query->from('#__sermon_series AS serie');
 
 				// Join on category table.
-				$query->select('c.access AS category_access');
+				$query->select('c.title AS category_title, c.access AS category_access');
+				$query->select('CASE WHEN CHAR_LENGTH(c.alias) THEN CONCAT_WS(\':\', c.id, c.alias) ELSE c.id END as catslug');
 				$query->join('LEFT', '#__categories AS c on c.id = serie.catid');
 				$query->where('(serie.catid = 0 OR c.published = 1)');
 

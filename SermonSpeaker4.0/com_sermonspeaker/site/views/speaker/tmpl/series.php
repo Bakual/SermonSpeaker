@@ -127,7 +127,7 @@ if ($this->params->get('show_category_title', 0) || in_array('speaker:hits', $th
 							<td class="ss-col ss-hits"><?php echo $item->hits; ?></td>
 						<?php endif;
 						if (in_array('speaker:download', $this->col_serie)) : ?>
-							<td class="ss-col ss-dl"><a href="<?php echo JRoute::_('index.php?view=serie&layout=download&tmpl=component&id='.$item->slug); ?>" class="modal" rel="{handler:'iframe',size:{x:400,y:200}}" title="<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADSERIES_DESC'); ?>">
+							<td class="ss-col ss-dl"><a href="<?php echo JRoute::_('index.php?view=serie&layout=download&tmpl=component&id='.$item->slug); ?>" class="modal hasTip" rel="{handler:'iframe',size:{x:400,y:200}}" title="::<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADSERIES_DESC'); ?>">
 								<img src="media/com_sermonspeaker/images/download.png" alt="<?php echo JText::_('COM_SERMONSPEAKER_DIRECTLINK_HOOVER'); ?>" />
 							</a></td>
 						<?php endif; ?>

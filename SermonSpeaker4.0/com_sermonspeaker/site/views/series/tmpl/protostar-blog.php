@@ -68,7 +68,7 @@ $listDirn	= $this->state->get('list.direction');
 										<li class="download-icon">
 											<a href="<?php echo JRoute::_('index.php?view=serie&layout=download&tmpl=component&id='.$item->slug); ?>" class="modal" rel="{handler:'iframe',size:{x:400,y:200}}">
 												<i class="icon-download" > </i> 
-												<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADSERIES_DESC'); ?>
+												<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADSERIES_LABEL'); ?>
 											</a>
 										</li>
 									<?php endif; ?>

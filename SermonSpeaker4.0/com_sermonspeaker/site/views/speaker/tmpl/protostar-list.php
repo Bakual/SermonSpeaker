@@ -52,7 +52,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 			<?php endif; ?>
 		</div>
 		<?php if ($this->item->pic) : ?>
-			<div class="img-polaroid pull-right item-image item-image">
+			<div class="img-polaroid pull-right item-image">
 				<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($this->item->slug)); ?>">
 					<img src="<?php echo SermonspeakerHelperSermonspeaker::makelink($this->item->pic); ?>">
 				</a>
@@ -111,8 +111,8 @@ $this->document->addScriptDeclaration('jQuery(function() {
 		<div class="pill-pane" id="tab_sermons">
 			<?php if (in_array('speaker:player', $this->col_sermon) and count($this->sermons)) :
 				JHTML::stylesheet('com_sermonspeaker/player.css', '', true); ?>
-				<div class="ss-sermons-player span10 offset1">
-					<hr class="ss-sermons-player" />
+				<div class="ss-speaker-player span10 offset1">
+					<hr class="ss-speaker-player" />
 					<?php if ($player->player != 'PixelOut') : ?>
 						<div id="playing">
 							<img id="playing-pic" class="picture" src="" />
@@ -127,7 +127,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 					echo $player->mspace;
 					echo $player->script;
 					?>
-					<hr class="ss-sermons-player" />
+					<hr class="ss-speaker-player" />
 					<?php if ($player->toggle) : ?>
 						<div class="span2 offset4 btn-group">
 							<img class="btn" src="media/com_sermonspeaker/images/Video.png" onclick="Video()" alt="Video" title="<?php echo JText::_('COM_SERMONSPEAKER_SWITCH_VIDEO'); ?>" />
@@ -236,7 +236,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 									if (in_array('speaker:date', $this->col_sermon) and ($item->sermon_date != '0000-00-00 00:00:00')) : ?>
 										<span class="ss-date small pull-right">
 											<?php echo JHTML::date($item->sermon_date, JText::_($this->params->get('date_format')), true); ?>
-										</span>
+										</span>&nbsp;
 									<?php endif; ?>
 								</li>
 							<?php endforeach; ?>
@@ -256,8 +256,8 @@ $this->document->addScriptDeclaration('jQuery(function() {
 						</div>
 					<?php endif; ?>
 					<input type="hidden" name="task" value="" />
-					<input type="hidden" name="filter_order" value="<?php echo $listOrder; ?>" />
-					<input type="hidden" name="filter_order_Dir" value="<?php echo $listDirn; ?>" />
+					<input type="hidden" name="filter_order" value="<?php echo $listOrderSermons; ?>" />
+					<input type="hidden" name="filter_order_Dir" value="<?php echo $listDirnSermons; ?>" />
 					<input type="hidden" name="limitstart" value="" />
 				</form>
 			</div>
@@ -318,8 +318,8 @@ $this->document->addScriptDeclaration('jQuery(function() {
 						</div>
 					<?php endif; ?>
 					<input type="hidden" name="task" value="" />
-					<input type="hidden" name="filter_order" value="<?php echo $listOrder; ?>" />
-					<input type="hidden" name="filter_order_Dir" value="<?php echo $listDirn; ?>" />
+					<input type="hidden" name="filter_order" value="<?php echo $listOrderSeries; ?>" />
+					<input type="hidden" name="filter_order_Dir" value="<?php echo $listDirnSeries; ?>" />
 					<input type="hidden" name="limitstart" value="" />
 				</form>
 			</div>
