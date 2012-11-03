@@ -34,7 +34,7 @@ $listDirn	= $this->state->get('list.direction');
 			if ($this->params->get('show_description') and $this->category->description) :
 				echo JHtml::_('content.prepare', $this->category->description, '', 'com_sermonspeaker.category');
 			endif; ?>
-			<div class="clr"></div>
+			<div class="clearfix"></div>
 		</div>
 	<?php endif; ?>
 	<div class="cat-items">

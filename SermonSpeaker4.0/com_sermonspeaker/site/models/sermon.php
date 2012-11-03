@@ -68,7 +68,7 @@ class SermonspeakerModelSermon extends JModelItem
 				$query->select(
 					$this->getState(
 						'item.select',
-						'sermon.id, sermon.speaker_id, sermon.series_id, sermon.alias, '.
+						'sermon.id, sermon.speaker_id, sermon.series_id, sermon.alias, sermon.catid, '.
 						'CASE WHEN CHAR_LENGTH(sermon.alias) THEN CONCAT_WS(\':\', sermon.id, sermon.alias) ELSE sermon.id END as slug,' .
 						'sermon.audiofile, sermon.videofile, sermon.sermon_title, sermon.sermon_number, '.
 						'sermon.sermon_date, sermon.picture, sermon.checked_out, sermon.checked_out_time, '.
@@ -90,7 +90,8 @@ class SermonspeakerModelSermon extends JModelItem
 				$query->join('LEFT', '#__users AS user ON user.id = sermon.created_by');
 
 				// Join on category table.
-				$query->select('c.access AS category_access');
+				$query->select('c.title AS category_title, c.access AS category_access');
+				$query->select('CASE WHEN CHAR_LENGTH(c.alias) THEN CONCAT_WS(\':\', c.id, c.alias) ELSE c.id END as catslug');
 				$query->join('LEFT', '#__categories AS c on c.id = sermon.catid');
 
 				// Join on speakers table.

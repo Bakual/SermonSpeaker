@@ -36,7 +36,7 @@ $player		= new SermonspeakerHelperPlayer($this->items);
 			if ($this->params->get('show_description') and $this->category->description) :
 				echo JHtml::_('content.prepare', $this->category->description, '', 'com_sermonspeaker.category');
 			endif; ?>
-			<div class="clr"></div>
+			<div class="clearfix"></div>
 		</div>
 	<?php endif;
 	if (in_array('sermons:player', $this->columns) and count($this->items)) :

@@ -27,8 +27,6 @@ class SermonspeakerViewSermon extends JViewLegacy
 			}
 			$jinput->set('id', $id);
 		}
-		// Applying CSS file
-		JHTML::stylesheet('media/com_sermonspeaker/css/sermonspeaker.css');
 		require_once(JPATH_COMPONENT.'/helpers/player.php');
 		// Initialise variables.
 		$params		= $app->getParams();
@@ -99,6 +97,9 @@ class SermonspeakerViewSermon extends JViewLegacy
 
 		$this->params	= $params;
 		$this->item		= $item;
+
+		//Escape strings for HTML output
+		$this->pageclass_sfx = htmlspecialchars($this->params->get('pageclass_sfx'));
 
 		$this->_prepareDocument();
 		parent::display($tpl);

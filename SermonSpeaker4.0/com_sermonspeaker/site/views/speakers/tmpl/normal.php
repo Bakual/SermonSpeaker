@@ -31,7 +31,7 @@ if ($this->params->get('show_description', 1) || $this->params->def('show_descri
 		if ($this->params->get('show_description') && $this->category->description) :
 			echo JHtml::_('content.prepare', $this->category->description);
 		endif; ?>
-		<div class="clr"></div>
+		<div class="clearfix"></div>
 	</div>
 <?php endif; ?>
 <form action="<?php echo JFilterOutput::ampReplace(JFactory::getURI()->toString()); ?>" method="post" id="adminForm" name="adminForm">

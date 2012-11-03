@@ -1,5 +1,6 @@
 <?php
 defined('_JEXEC') or die;
+JHTML::stylesheet('com_sermonspeaker/sermonspeaker.css', '', true);
 $config	= array('type' => JFactory::getApplication()->input->get('type', 'audio'));
 $player = new SermonspeakerHelperPlayer($this->item, $config);
 ?>
@@ -10,7 +11,7 @@ $player = new SermonspeakerHelperPlayer($this->item, $config);
 		document.body.style.backgroundColor='<?php echo $this->params->get('popup_color', '#fff'); ?>';
 	}
 </script>
-<div class="ss-sermon-container<?php echo htmlspecialchars($this->params->get('pageclass_sfx')); ?>">
+<div class="ss-sermon-container<?php echo $this->pageclass_sfx; ?>">
 	<div class="popup">
 		<h2><?php echo $this->item->sermon_title; ?></h2>
 		<?php 
