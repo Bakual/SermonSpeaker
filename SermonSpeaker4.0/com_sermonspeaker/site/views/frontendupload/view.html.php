@@ -13,7 +13,13 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 
 	function display($tpl = null)
 	{
-		JHTML::stylesheet('media/com_sermonspeaker/css/frontendupload.css');
+		// Switch Layout if in Joomla 3.0
+		$version		= new JVersion;
+		$this->joomla30	= $version->isCompatible(3.0);
+		if ($this->joomla30)
+		{
+			$this->setLayout($this->getLayout().'30');
+		}
 
 		// Initialise variables.
 		$app	= JFactory::getApplication();
@@ -69,6 +75,26 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 			ena_elem.disabled = false;
 			dis_elem.disabled = true;
 		}';
+		// add Javascript for Form Elements enable and disable (J30)
+		$toggle = 'function toggleElement(element, state) {
+			if (state) {
+				document.getElementById(element + "_text_icon").className = "btn add-on icon-cancel";
+				document.getElementById(element + "_icon").className = "btn add-on icon-checkmark";
+				document.getElementById("jform_" + element + "_text").disabled = true;
+				document.getElementById("jform_" + element).disabled = false;
+				if(document.getElementById("jform_" + element + "_chzn")){
+					jQuery("#jform_" + element).trigger("liszt:updated");
+				}
+			} else {
+				document.getElementById(element + "_text_icon").className = "btn add-on icon-checkmark";
+				document.getElementById(element + "_icon").className = "btn add-on icon-cancel";
+				document.getElementById("jform_" + element + "_text").disabled = false;
+				document.getElementById("jform_" + element).disabled = true;
+				if(document.getElementById("jform_" + element + "_chzn")){
+					jQuery("#jform_" + element).trigger("liszt:updated");
+				}
+			}
+		}';
 		// add Javascript for ID3 Lookup (ajax)
 		$lookup	= 'function lookup(elem) {
 			xmlhttp = new XMLHttpRequest();
@@ -110,7 +136,57 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 
 		$document = JFactory::getDocument();
 		$document->addScriptDeclaration($enElem);
+		$document->addScriptDeclaration($toggle);
 		$document->addScriptDeclaration($lookup);
+
+		// Google Picker
+		if ($params->get('googlepicker', 0))
+		{
+			JHTML::Script('http://www.google.com/jsapi');
+			$picker = 'google.load(\'picker\', \'1\');
+				function createVideoPicker() {
+					var picker = new google.picker.PickerBuilder().
+						addView(google.picker.ViewId.DOCS_VIDEOS).
+						addView(google.picker.ViewId.YOUTUBE).
+						addView(google.picker.ViewId.VIDEO_SEARCH).
+						addView(google.picker.ViewId.RECENTLY_PICKED).
+						setCallback(pickerCallbackVideo).
+						build();
+					picker.setVisible(true);
+				}
+				function createAddfilePicker() {
+					var picker = new google.picker.PickerBuilder().
+						addView(google.picker.ViewId.DOCS).
+						addView(google.picker.ViewId.PHOTOS).
+						addView(google.picker.ViewId.YOUTUBE).
+						addView(google.picker.ViewId.IMAGE_SEARCH).
+						addView(google.picker.ViewId.VIDEO_SEARCH).
+						addView(google.picker.ViewId.RECENTLY_PICKED).
+						setCallback(pickerCallbackAddfile).
+						build();
+					picker.setVisible(true);
+				}
+				function pickerCallbackVideo(data) {
+					if (data.action == "picked") {
+						document.getElementById(\'jform_videofile_text\').value = data.docs[0].url;
+					}
+				}
+				function pickerCallbackAddfile(data) {
+					if (data.action == "picked") {
+						var value = data.docs[0].url;
+						if (data.docs[0].iconUrl){
+							if (data.docs[0].url.indexOf("?") == -1){
+								value += "?icon=" + data.docs[0].iconUrl;
+							} else {
+								value += "&icon=" + data.docs[0].iconUrl;
+							}
+						}
+						document.getElementById(\'jform_addfile_text\').value = value;
+					}
+				}
+			';
+			$document->addScriptDeclaration($picker);
+		}
 
 		$session	= JFactory::getSession();
 		if($params->get('enable_flash'))

@@ -170,7 +170,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 	}
 
 	function lookup(){
-		$file	= JFactory::getApplication()->input->get('file');
+		$file	= JFactory::getApplication()->input->get('file', '', 'string');
 
 		if($file){
 			require_once JPATH_COMPONENT_SITE.'/helpers/id3.php';

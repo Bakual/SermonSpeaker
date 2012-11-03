@@ -65,7 +65,6 @@ $input = JFactory::getApplication()->input;
 										<input name="jform[audiofile]" id="jform_audiofile_text" value="<?php echo $this->form->getValue('audiofile'); ?>" class="inputbox" size="100" type="text">
 										<div class="btn add-on hasTip icon-wand" onclick="lookup(document.getElementById('jform_audiofile_text'))" title="<?php echo JText::_('COM_SERMONSPEAKER_LOOKUP'); ?>"> </div>
 									</div>
-									<br/>
 									<div class="input-prepend input-append">
 										<div id="audiofile_icon" class="btn add-on icon-cancel" onclick="toggleElement('audiofile', 1);"> </div>
 										<?php echo $this->form->getInput('audiofile');
@@ -99,7 +98,6 @@ $input = JFactory::getApplication()->input;
 											<div class="btn add-on hasTip" onclick="createVideoPicker();" title="<?php echo JText::_('COM_SERMONSPEAKER_GOOGLEPICKER_TIP'); ?>"><img src="<?php echo JURI::root(); ?>media/com_sermonspeaker/icons/16/drive.png"></div>
 										<?php endif; ?>
 									</div>
-									<br/>
 									<div class="input-prepend input-append">
 										<div id="videofile_icon" class="btn add-on icon-cancel" onclick="toggleElement('videofile', 1);"> </div>
 										<?php echo $this->form->getInput('videofile'); 
@@ -132,7 +130,6 @@ $input = JFactory::getApplication()->input;
 											<div class="btn add-on hasTip" onclick="createAddfilePicker();" title="<?php echo JText::_('COM_SERMONSPEAKER_GOOGLEPICKER_TIP'); ?>"><img src="<?php echo JURI::root(); ?>media/com_sermonspeaker/icons/16/drive.png"></div>
 										<?php endif; ?>
 									</div>
-									<br />
 									<div class="input-prepend input-append">
 										<div id="addfile_icon" class="btn add-on icon-cancel" onclick="toggleElement('addfile', 1);"> </div>
 										<?php echo $this->form->getInput('addfile'); ?>
