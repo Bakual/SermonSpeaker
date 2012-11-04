@@ -14,8 +14,16 @@ class SermonspeakerViewMain extends JViewLegacy
 		}
 
 		$params	= JComponentHelper::getParams('com_sermonspeaker');
-		if ($params->get('count_items_type') == ''){
-			JError::raiseWarning(100, JText::_('COM_SERMONSPEAKER_NOTSAVED'));
+		if ($params->get('enable_non_flash') == '')
+		{
+			if ($this->joomla30)
+			{
+				JError::raiseWarning(100, JText::_('COM_SERMONSPEAKER_NOTSAVED30'));
+			}
+			else
+			{
+				JError::raiseWarning(100, JText::_('COM_SERMONSPEAKER_NOTSAVED'));
+			}
 		}
 
 		$this->addToolbar();

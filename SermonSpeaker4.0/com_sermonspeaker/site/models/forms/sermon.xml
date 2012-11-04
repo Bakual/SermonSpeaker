@@ -53,6 +53,7 @@
 			path="path" 
 			filter="\.aac$|\.m4a$|\.mp3$|\.wma$"
 			hide_default="true"
+			hide_none="true"
 			disabled="true"
 			onchange="toggleElement('audiofile', 1);"
 			label="COM_SERMONSPEAKER_FIELD_AUDIOFILE_LABEL"

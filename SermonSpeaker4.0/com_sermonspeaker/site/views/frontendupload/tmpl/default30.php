@@ -5,6 +5,7 @@ JHtml::_('behavior.keepalive');
 JHtml::_('behavior.tooltip');
 JHtml::_('behavior.calendar');
 JHtml::_('behavior.formvalidation');
+JHtml::_('formbehavior.chosen', 'select');
 
 $uri = JURI::getInstance();
 $uri->delVar('file');
@@ -33,7 +34,7 @@ $self = $uri->toString();
 	</div>
 	<?php endif; ?>
 
-	<form action="<?php echo JRoute::_('index.php?option=com_sermonspeaker&view=frontendupload&s_id='.(int) $this->item->id); ?>" method="post" name="adminForm" id="adminForm" class="form-validate form-vertical">
+	<form action="<?php echo JRoute::_('index.php?option=com_sermonspeaker&view=frontendupload&s_id='.(int) $this->item->id); ?>" method="post" name="adminForm" id="adminForm" class="form-validate form form-vertical">
 		<div class="btn-toolbar">
 			<div class="btn-group">
 				<button type="button" class="btn btn-primary" onclick="Joomla.submitbutton('frontendupload.save')">
@@ -64,14 +65,16 @@ $self = $uri->toString();
 						</div>
 					</div>
 
-					<div class="control-group">
-						<div class="control-label">
-							<?php echo $this->form->getLabel('alias'); ?>
+					<?php if (is_null($this->item->id)): ?>
+						<div class="control-group">
+							<div class="control-label">
+								<?php echo $this->form->getLabel('alias'); ?>
+							</div>
+							<div class="controls">
+								<?php echo $this->form->getInput('alias'); ?>
+							</div>
 						</div>
-						<div class="controls">
-							<?php echo $this->form->getInput('alias'); ?>
-						</div>
-					</div>
+					<?php endif; ?>
 
 					<?php echo $this->form->getInput('notes'); ?>
 				</div>
@@ -211,15 +214,6 @@ $self = $uri->toString();
 							</div>
 						</div>
 					<?php endif; ?>
-					<?php if (is_null($this->item->id)):?>
-						<div class="control-group">
-							<div class="control-label">
-							</div>
-							<div class="controls">
-								<?php echo JText::_('COM_CONTENT_ORDERING'); ?>
-							</div>
-						</div>
-					<?php endif; ?>
 				</div>
 				<div class="tab-pane" id="language">
 					<div class="control-group">
@@ -232,22 +226,16 @@ $self = $uri->toString();
 					</div>
 				</div>
 				<div class="tab-pane" id="metadata">
-					<div class="control-group">
-						<div class="control-label">
-							<?php echo $this->form->getLabel('metadesc'); ?>
+					<?php foreach($this->form->getFieldset('metadata') as $field): ?>
+						<div class="control-group">
+							<div class="control-label">
+								<?php echo $field->label; ?>
+							</div>
+							<div class="controls">
+								<?php echo $field->input; ?>
+							</div>
 						</div>
-						<div class="controls">
-							<?php echo $this->form->getInput('metadesc'); ?>
-						</div>
-					</div>
-					<div class="control-group">
-						<div class="control-label">
-							<?php echo $this->form->getLabel('metakey'); ?>
-						</div>
-						<div class="controls">
-							<?php echo $this->form->getInput('metakey'); ?>
-						</div>
-					</div>
+					<?php endforeach; ?>
 				</div>
 			</div>
 			<input type="hidden" name="task" value="" />
@@ -255,4 +243,45 @@ $self = $uri->toString();
 			<?php echo JHtml::_('form.token'); ?>
 		</fieldset>
 	</form>
+	<?php if ($this->params->get('enable_non_flash')) : ?>
+		<hr />
+		<form action="<?php echo JURI::root(); ?>index.php?option=com_sermonspeaker&amp;task=file.upload&amp;tmpl=component&amp;<?php echo $this->session->getName().'='.$this->session->getId(); ?>&amp;<?php echo JSession::getFormToken();?>=1" id="uploadForm" name="uploadForm" class="form-validate form form-vertical" method="post" enctype="multipart/form-data">
+			<legend><?php echo JText::_('COM_SERMONSPEAKER_FU_SELECTFILE'); ?></legend>
+			<div class="control-group">
+				<div class="control-label">
+					<label for="upload-audiofile"><?php echo JText::_('COM_SERMONSPEAKER_FIELD_AUDIOFILE_LABEL'); ?></label>
+				</div>
+				<div class="controls">
+					<input type="file" size="50" id="upload-audiofile" name="Filedata[]" />
+				</div>
+			</div>
+			<div class="control-group">
+				<div class="control-label">
+					<label for="upload-videofile"><?php echo JText::_('COM_SERMONSPEAKER_FIELD_VIDEOFILE_LABEL'); ?></label>
+				</div>
+				<div class="controls">
+					<input type="file" size="50" id="upload-videofile" name="Filedata[]" />
+				</div>
+			</div>
+			<div class="well well-small">
+				<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO'); ?>
+				/<?php echo trim($this->params->get('path'), '/').'/';
+				if ($this->params->get('append_path', 0)) :
+					$time	= ($this->item->sermon_date AND $this->item->sermon_date != '0000-00-00 00:00:00') ? strtotime($this->item->sermon_date) : time();
+					?><input type="text" id="year" size="4" name="year" value="<?php echo date('Y', $time); ?>" />/<input type="text" id="month" size="2" name="month" value="<?php echo date('m', $time); ?>" />/<?php 
+				endif;
+				if ($this->params->get('append_path_lang', 0)) :
+					$lang = $this->item->language;
+					if (!$lang || $lang == '*') :
+						$lang	= JFactory::getLanguage()->getTag();
+					endif;
+					?><input type="text" id="lang" size="5" name="lang" value="<?php echo $lang; ?>" />/
+				<?php endif; ?>
+			</div>
+			<button type="submit" class="btn">
+				<i class="icon-upload"></i> <?php echo JText::_('COM_SERMONSPEAKER_FU_START_UPLOAD'); ?>
+			</button>
+			<input type="hidden" name="return-url" value="<?php echo base64_encode($self); ?>" />
+		</form>
+	<?php endif; ?>
 </div>

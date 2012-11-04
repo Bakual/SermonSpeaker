@@ -140,6 +140,9 @@ function SermonspeakerParseRoute($segments){
 		case 'scripture':
 			$vars['view'] = 'scripture';
 			break;
+		case 'close':
+			$vars['view'] = 'close';
+			break;
 	}
 	return $vars;
 }

@@ -729,6 +729,15 @@
 			<option value="0">JNO</option>
 			<option value="1">JYES</option>
 		</field>
+		<field name="enable_non_flash"
+			type="radio"
+			class="btn-group"
+			default="1"
+			label="COM_SERMONSPEAKER_FIELD_ENABLE_NON_FLASH_UPLOADER_LABEL"
+			description="COM_SERMONSPEAKER_FIELD_ENABLE_NON_FLASH_UPLOADER_DESC">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
+		</field>
 	</fieldset>
 	<fieldset name="sermoncast"
 		label="COM_SERMONSPEAKER_FIELDSET_SERMONCAST_LABEL"
