@@ -62,10 +62,12 @@ class SermonspeakerViewFeed extends JViewLegacy
 		$channel->itCategories	= $this->make_itCat($params->get('itCategory1'))
 							.$this->make_itCat($params->get('itCategory2'))
 							.$this->make_itCat($params->get('itCategory3'));
-		$channel->itSubtitle 	= $this->make_xml_safe($params->get('itSubtitle'));
-		$channel->itSummary 	= $channel->description;
-		$channel->itAuthor 		= $this->make_xml_safe($params->get('editor'));
-		$channel->itNewfeedurl 	= $this->make_xml_safe($params->get('itRedirect'));
+		$channel->itSubtitle	= $this->make_xml_safe($params->get('itSubtitle'));
+		$channel->itSummary		= $channel->description;
+		$channel->itAuthor		= $this->make_xml_safe($params->get('editor'));
+		$channel->itNewfeedurl	= $this->make_xml_safe($params->get('itRedirect'));
+		// Custom Code
+		$channel->custom		= $params->get('sc_custom');
 		// get Data from Model (/models/feed.php)
         $rows = $this->get('Data');
 		// Items

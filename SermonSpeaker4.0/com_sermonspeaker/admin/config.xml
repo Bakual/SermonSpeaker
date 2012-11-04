@@ -781,6 +781,14 @@
 			default="20" 
 			label="COM_SERMONSPEAKER_PARAM_FEED_TEXTLENGTH" 
 			description="COM_SERMONSPEAKER_PARAM_FEED_TEXTLENGTH_DESC" />
+		<field name="sc_custom"
+			type="textarea"
+			rows="5"
+			cols="5"
+			default=""
+			filter="raw"
+			label="COM_SERMONSPEAKER_PARAM_FEED_CUSTOM_LABEL"
+			description="COM_SERMONSPEAKER_PARAM_FEED_CUSTOM_DESC" />
 		<field name="spacer_itunes"
 			type="spacer"
 			hr="false"

@@ -74,9 +74,16 @@
 				type="text" 
 				label="COM_SERMONSPEAKER_PARAM_FEED_TEXTLENGTH" 
 				description="COM_SERMONSPEAKER_PARAM_FEED_TEXTLENGTH_DESC" />
-			
+			<field name="sc_custom"
+				type="textarea"
+				rows="5"
+				cols="5"
+				default=""
+				label="COM_SERMONSPEAKER_PARAM_FEED_CUSTOM_LABEL"
+				description="COM_SERMONSPEAKER_PARAM_FEED_CUSTOM_DESC" />
+
 			<field type="spacer" />
-			
+
 			<field name="itKeywords" 
 				type="text" 
 				label="COM_SERMONSPEAKER_PARAM_FEED_ITKEYWORDS" 
