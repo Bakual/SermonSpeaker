@@ -1,6 +1,6 @@
 <?php
 defined('_JEXEC') or die('Restricted access');
-JHTML::stylesheet('media/com_sermonspeaker/css/frontendupload.css');
+JHTML::stylesheet('com_sermonspeaker/frontendupload.css', '', true);
 JHtml::_('behavior.keepalive');
 JHtml::_('behavior.tooltip');
 JHtml::_('behavior.calendar');
@@ -96,18 +96,20 @@ $self = $uri->toString();
 									<div class="btn add-on hasTip icon-wand" onclick="lookup(document.getElementById('jform_audiofile'))" title="<?php echo JText::_('COM_SERMONSPEAKER_LOOKUP'); ?>"> </div>
 								<?php endif; ?>
 							</div>
-							<div id="infoUpload1">
-								<span id="btnUpload1"></span>
-								<button id="btnCancel1" type="button" onclick="cancelQueue(upload1);" class="ss-hide upload_button" disabled="disabled">Cancel</button>
-								<span id="audiopathinfo" class="pathinfo ss-hide hasTip" title="<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO_TOOLTIP'); ?>">
-									<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO');
-									if ($this->s3audio) :
-										echo ' http://s3.amazonaws.com/'.$this->params->get('s3_bucket', '').'/';
-									else :
-										echo ' /'.trim($this->params->get('path'), '/').'/<span id="audiopathdate" class="pathdate">'.$this->append_date.'</span><span id="audiopathlang" class="pathlang">'.$this->append_lang.'</span>';
-									endif; ?>
-								</span>
-							</div>
+							<?php if($this->params->get('enable_flash')) : ?>
+								<div id="infoUpload1">
+									<span id="btnUpload1"></span>
+									<button id="btnCancel1" type="button" onclick="cancelQueue(upload1);" class="ss-hide upload_button" disabled="disabled">Cancel</button>
+									<span id="audiopathinfo" class="label label-info ss-hide hasTip" title="<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO_TOOLTIP'); ?>">
+										<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO');
+										if ($this->s3audio) :
+											echo ' http://s3.amazonaws.com/'.$this->params->get('s3_bucket', '').'/';
+										else :
+											echo ' /'.trim($this->params->get('path'), '/').'/<span id="audiopathdate" class="pathdate">'.$this->append_date.'</span><span id="audiopathlang" class="pathlang">'.$this->append_lang.'</span>';
+										endif; ?>
+									</span>
+								</div>
+							<?php endif; ?>
 						</div>
 						<br />
 						<div class="control-label">
@@ -129,18 +131,20 @@ $self = $uri->toString();
 									<div class="btn add-on hasTip icon-wand pointer" onclick="lookup(document.getElementById('jform_videofile'));" title="<?php echo JText::_('COM_SERMONSPEAKER_LOOKUP'); ?>"> </div>
 								<?php } ?>
 							</div>
-							<div id="infoUpload2">
-								<span id="btnUpload2"></span>
-								<button id="btnCancel2" type="button" onclick="cancelQueue(upload2);" class="ss-hide upload_button" disabled="disabled">Cancel</button>
-								<span id="videopathinfo" class="pathinfo ss-hide hasTip" title="<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO_TOOLTIP'); ?>">
-									<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO');
-									if ($this->s3video):
-										echo ' http://s3.amazonaws.com/'.$this->params->get('s3_bucket', '').'/';
-									else:
-										echo ' /'.trim($this->params->get('path'), '/').'/<span id="videopathdate" class="pathdate">'.$this->append_date.'</span><span id="videopathlang" class="pathlang">'.$this->append_lang.'</span>';
-									endif; ?>
-								</span>
-							</div>
+							<?php if($this->params->get('enable_flash')) : ?>
+								<div id="infoUpload2">
+									<span id="btnUpload2"></span>
+									<button id="btnCancel2" type="button" onclick="cancelQueue(upload2);" class="ss-hide upload_button" disabled="disabled">Cancel</button>
+									<span id="videopathinfo" class="label label-info ss-hide hasTip" title="<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO_TOOLTIP'); ?>">
+										<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO');
+										if ($this->s3video):
+											echo ' http://s3.amazonaws.com/'.$this->params->get('s3_bucket', '').'/';
+										else:
+											echo ' /'.trim($this->params->get('path'), '/').'/<span id="videopathdate" class="pathdate">'.$this->append_date.'</span><span id="videopathlang" class="pathlang">'.$this->append_lang.'</span>';
+										endif; ?>
+									</span>
+								</div>
+							<?php endif; ?>
 						</div>
 						<br />
 						<div class="control-label">
@@ -158,14 +162,15 @@ $self = $uri->toString();
 								<div id="addfile_icon" class="btn add-on icon-cancel" onclick="toggleElement('addfile', 1);"> </div>
 								<?php echo $this->form->getInput('addfile'); ?>
 							</div>
-							<div id="infoUpload3">
-								<span id="btnUpload3"></span>
-								<button id="btnCancel3" type="button" onclick="cancelQueue(upload3);" class="ss-hide upload_button" disabled="disabled">Cancel</button>
-								<span id="addfilepathinfo" class="pathinfo ss-hide hasTip" title="<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO_TOOLTIP'); ?>">
-									<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO').' /'.trim($this->params->get('path_addfile'), '/').'/<span id="addfilepathdate" class="pathdate">'.$this->append_date.'</span><span id="addfilepathlang" class="pathlang">'.$this->append_lang.'</span>'; ?>
-								</span>
-							</div>
-							
+							<?php if($this->params->get('enable_flash')) : ?>
+								<div id="infoUpload3">
+									<span id="btnUpload3"></span>
+									<button id="btnCancel3" type="button" onclick="cancelQueue(upload3);" class="ss-hide upload_button" disabled="disabled">Cancel</button>
+									<span id="addfilepathinfo" class="label label-info ss-hide hasTip" title="<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO_TOOLTIP'); ?>">
+										<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO').' /'.trim($this->params->get('path_addfile'), '/').'/<span id="addfilepathdate" class="pathdate">'.$this->append_date.'</span><span id="addfilepathlang" class="pathlang">'.$this->append_lang.'</span>'; ?>
+									</span>
+								</div>
+							<?php endif; ?>
 						</div>
 						<div class="control-label">
 							<?php echo $this->form->getLabel('addfileDesc'); ?>
