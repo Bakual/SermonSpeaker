@@ -60,6 +60,9 @@ $self = $uri->toString();
 			<div class="tab-content">
 				<div class="tab-pane active" id="editor">
 					<div class="control-group">
+						<div class="control-label">
+							<?php echo $this->form->getLabel('sermon_title'); ?>
+						</div>
 						<div class="controls">
 							<?php echo $this->form->getInput('sermon_title'); ?>
 						</div>
