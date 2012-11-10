@@ -117,7 +117,7 @@ class SermonspeakerControllerSermon extends JControllerForm
 		}
 	}
 
-	protected function postSaveHook(JModelLegacy $model, $validData = array())
+	protected function postSaveHook($model, $validData = array())
 	{
 		$recordId = $model->getState($this->context.'.id');
 		$params	= JComponentHelper::getParams('com_sermonspeaker');
