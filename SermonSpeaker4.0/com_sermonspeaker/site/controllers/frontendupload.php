@@ -49,7 +49,7 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 	{
 		// Initialise variables.
 		$user		= JFactory::getUser();
-		$categoryId	= JArrayHelper::getValue($data, 'catid', JFactory::getApplication()->input('id', 0, 'int'), 'int');
+		$categoryId	= JArrayHelper::getValue($data, 'catid', JFactory::getApplication()->input->get('id', 0, 'int'), 'int');
 		$allow		= null;
 
 		if ($categoryId) {
@@ -199,7 +199,7 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 	 * @return	void
 	 * @since	1.6
 	 */
-	protected function postSaveHook(JModelLegacy $model, $validData = array())
+	protected function postSaveHook($model, $validData = array())
 	{
 		$task = $this->getTask();
 
