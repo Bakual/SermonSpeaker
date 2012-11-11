@@ -79,13 +79,40 @@ class JFormFieldSpeakerlist extends JFormFieldList
 		$options = array();
 
 		$db		= JFactory::getDbo();
-		$query	= $db->getQuery(true);
 
+		// Get categories
+		$query	= $db->getQuery(true);
+		$query->select('DISTINCT catid');
+		$query->from('#__sermon_speakers');
+		$db->setQuery($query);
+		$catids = $db->loadResultArray();
+		// Check Permissions
+		$user = JFactory::getUser();
+		if ($this->value === '')
+		{
+			$action = 'core.create';
+		}
+		else
+		{
+			$action = 'core.edit.state';
+		}
+		foreach($catids as $i => $catid)
+		{
+			if (!$user->authorise($action, 'com_sermonspeaker.category.'.$catid))
+			{
+				unset($catids[$i]);
+			}
+		}
+		$catids = implode(',', $catids);
+
+		$query	= $db->getQuery(true);
 		$query->select('speakers.id As value, home');
 		$query->select('CASE WHEN CHAR_LENGTH(c_speakers.title) THEN CONCAT(speakers.name, " (", c_speakers.title, ")") ELSE speakers.name END AS text');
 		$query->from('#__sermon_speakers AS speakers');
 		$query->join('LEFT', '#__categories AS c_speakers ON c_speakers.id = speakers.catid');
 		$query->where('speakers.state = 1');
+		$query->where('speakers.state = 1');
+		$query->where('(speakers.catid IN ('.$catids.') OR speakers.id = '.$db->quote($this->value).')');
 		$query->order('speakers.name');
 
 		// Get the options.
@@ -94,12 +121,12 @@ class JFormFieldSpeakerlist extends JFormFieldList
 		$published = $db->loadObjectList();
 
 		$query	= $db->getQuery(true);
-
 		$query->select('speakers.id As value, home');
 		$query->select('CASE WHEN CHAR_LENGTH(c_speakers.title) THEN CONCAT(speakers.name, " (", c_speakers.title, ")") ELSE speakers.name END AS text');
 		$query->from('#__sermon_speakers AS speakers');
 		$query->join('LEFT', '#__categories AS c_speakers ON c_speakers.id = speakers.catid');
 		$query->where('speakers.state = 0');
+		$query->where('(speakers.catid IN ('.$catids.') OR speakers.id = '.$db->quote($this->value).')');
 		$query->order('speakers.name');
 
 		// Get the options.

@@ -77,13 +77,39 @@ class JFormFieldSerieslist extends JFormFieldList
 		$options = array();
 
 		$db		= JFactory::getDbo();
-		$query	= $db->getQuery(true);
 
+		// Get categories
+		$query	= $db->getQuery(true);
+		$query->select('DISTINCT catid');
+		$query->from('#__sermon_speakers');
+		$db->setQuery($query);
+		$catids = $db->loadResultArray();
+		// Check Permissions
+		$user = JFactory::getUser();
+		if ($this->value === '')
+		{
+			$action = 'core.create';
+		}
+		else
+		{
+			$action = 'core.edit.state';
+		}
+		foreach($catids as $i => $catid)
+		{
+			if (!$user->authorise($action, 'com_sermonspeaker.category.'.$catid))
+			{
+				unset($catids[$i]);
+			}
+		}
+		$catids = implode(',', $catids);
+
+		$query	= $db->getQuery(true);
 		$query->select('series.id As value, home');
 		$query->select('CASE WHEN CHAR_LENGTH(c_series.title) THEN CONCAT(series.series_title, " (", c_series.title, ")") ELSE series.series_title END AS text');
 		$query->from('#__sermon_series AS series');
 		$query->join('LEFT', '#__categories AS c_series ON c_series.id = series.catid');
 		$query->where('series.state = 1');
+		$query->where('(series.catid IN ('.$catids.') OR series.id = '.$db->quote($this->value).')');
 		$query->order('series.series_title');
 
 		// Get the options.
@@ -92,12 +118,12 @@ class JFormFieldSerieslist extends JFormFieldList
 		$published = $db->loadObjectList();
 
 		$query	= $db->getQuery(true);
-
 		$query->select('series.id As value, home');
 		$query->select('CASE WHEN CHAR_LENGTH(c_series.title) THEN CONCAT(series.series_title, " (", c_series.title, ")") ELSE series.series_title END AS text');
 		$query->from('#__sermon_series AS series');
 		$query->join('LEFT', '#__categories AS c_series ON c_series.id = series.catid');
 		$query->where('series.state = 0');
+		$query->where('(series.catid IN ('.$catids.') OR series.id = '.$db->quote($this->value).')');
 		$query->order('series.series_title');
 
 		// Get the options.

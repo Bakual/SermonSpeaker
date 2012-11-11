@@ -77,13 +77,40 @@ class JFormFieldTagslist extends JFormFieldList
 		$options = array();
 
 		$db		= JFactory::getDbo();
-		$query	= $db->getQuery(true);
 
+		// Get categories
+		$query	= $db->getQuery(true);
+		$query->select('DISTINCT catid');
+		$query->from('#__sermon_speakers');
+		$db->setQuery($query);
+		$catids = $db->loadResultArray();
+		// Check Permissions
+		$user = JFactory::getUser();
+		if ($this->value === '')
+		{
+			$action = 'core.create';
+		}
+		else
+		{
+			$action = 'core.edit.state';
+		}
+		foreach($catids as $i => $catid)
+		{
+			if (!$user->authorise($action, 'com_sermonspeaker.category.'.$catid))
+			{
+				unset($catids[$i]);
+			}
+		}
+		$catids	= implode(',', $catids);
+		$tags	= implode(',', $this->value);
+
+		$query	= $db->getQuery(true);
 		$query->select('tags.id As value');
 		$query->select('CASE WHEN CHAR_LENGTH(c_tags.title) THEN CONCAT(tags.title, " (", c_tags.title, ")") ELSE tags.title END AS text');
 		$query->from('#__sermon_tags AS tags');
 		$query->join('LEFT', '#__categories AS c_tags ON c_tags.id = tags.catid');
 		$query->where('tags.state = 1');
+		$query->where('(tags.catid IN ('.$catids.') OR tags.id IN ('.$db->quote($tags).'))');
 		$query->order('tags.title');
 
 		// Get the options.
@@ -92,12 +119,12 @@ class JFormFieldTagslist extends JFormFieldList
 		$published = $db->loadObjectList();
 
 		$query	= $db->getQuery(true);
-
 		$query->select('tags.id As value');
 		$query->select('CASE WHEN CHAR_LENGTH(c_tags.title) THEN CONCAT(tags.title, " (", c_tags.title, ")") ELSE tags.title END AS text');
 		$query->from('#__sermon_tags AS tags');
 		$query->join('LEFT', '#__categories AS c_tags ON c_tags.id = tags.catid');
 		$query->where('tags.state = 0');
+		$query->where('(tags.catid IN ('.$catids.') OR tags.id IN ('.$db->quote($tags).'))');
 		$query->order('tags.title');
 
 		// Get the options.
