@@ -49,3 +49,7 @@ hr.ss-serie-player, hr.ss-sermons-player, hr.ss-speaker-player{
 .pointer{
 	cursor:pointer;
 }
+.ss-current{
+	background:#EBFFEB;
+	border-radius:4px;
+}
