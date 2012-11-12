@@ -3,6 +3,7 @@
 defined('_JEXEC') or die;
 
 JHtml::addIncludePath(JPATH_COMPONENT.'/helpers/html');
+JHtml::_('stylesheet', 'system/adminlist.css', array(), true);
 JHtml::_('behavior.tooltip');
 
 $function	= JFactory::getApplication()->input->get('function', 'jSelectSermon');

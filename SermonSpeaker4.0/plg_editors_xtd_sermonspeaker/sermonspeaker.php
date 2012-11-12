@@ -27,16 +27,16 @@ class plgButtonSermonspeaker extends JPlugin
 		JHtml::_('behavior.modal');
 
 		/*
-		 * Use the built-in element view to select the plant.
-		 * Currently uses blank class.
+		 * Use the built-in element view to select the sermon.
+		 * Currently uses blank class for Jooml 2.5 compatibility.
 		 */
-		$link = 'index.php?option=com_sermonspeaker&amp;view=sermons&amp;layout=modal&amp;tmpl=component';
+		$link = 'index.php?option=com_sermonspeaker&amp;view=sermons&amp;layout=modal&amp;tmpl=component&amp;'.JSession::getFormToken().'=1';
 
 		$button = new JObject();
 		$button->set('modal', true);
 		$button->set('link', $link);
 		$button->set('text', JText::_('PLG_EDITORS-XTD_SERMONSPEAKER_BUTTON_SERMONSPEAKER'));
-		$button->set('name', 'blank');
+		$button->set('name', 'broadcast blank');
 		$button->set('options', "{handler: 'iframe', size: {x: 770, y: 400}}");
 
 		return $button;

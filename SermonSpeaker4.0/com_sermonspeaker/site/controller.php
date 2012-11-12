@@ -7,16 +7,27 @@ class SermonspeakerController extends JControllerLegacy
 {
 	protected $default_view = 'sermons';
 
+	public function __construct($config = array())
+	{
+		$this->input = JFactory::getApplication()->input;
+
+		// Frontpage Editor sermons proxying:
+		if ($this->input->get('view') === 'sermons' && $this->input->get('layout') === 'modal')
+		{
+			$config['base_path'] = JPATH_COMPONENT_ADMINISTRATOR;
+		}
+
+		parent::__construct($config);
+	}
+
 	public function display($cachable = false, $urlparams = false)
 	{
-		$jinput		= JFactory::getApplication()->input;
-
 		$cachable	= true;
-		$viewName	= $jinput->get('view', $this->default_view);
+		$viewName	= $this->input->get('view', $this->default_view);
 
 		// Make sure the format is raw for feed and sitemap view
 		// Bug: Doesn't take into account additional filters (type, cat)
-		if (($viewName == 'feed' || $viewName == 'sitemap') && $jinput->get('format') != 'raw')
+		if (($viewName == 'feed' || $viewName == 'sitemap') && $this->input->get('format') != 'raw')
 		{
 			header('HTTP/1.1 301 Moved Permanently');
 			header('Location: '.JURI::root().'index.php?option=com_sermonspeaker&view='.$viewName.'&format=raw');
@@ -32,7 +43,7 @@ class SermonspeakerController extends JControllerLegacy
 		switch ($viewName)
 		{
 			case 'speaker':
-				$viewLayout = $jinput->get('layout', 'default');
+				$viewLayout = $this->input->get('layout', 'default');
 				$view = $this->getView($viewName, 'html', '', array('base_path' => $this->basePath, 'layout' => $viewLayout));
 				$view = $this->getView('speaker', 'html');
 				$series_model = $this->getModel('series');
@@ -41,14 +52,14 @@ class SermonspeakerController extends JControllerLegacy
 				$view->setModel($sermons_model);
 				break;
 			case 'serie':
-				$viewLayout = $jinput->get('layout', 'default');
+				$viewLayout = $this->input->get('layout', 'default');
 				$view = $this->getView($viewName, 'html', '', array('base_path' => $this->basePath, 'layout' => $viewLayout));
 				$view = $this->getView('serie', 'html');
 				$sermons_model = $this->getModel('sermons');
 				$view->setModel($sermons_model);
 				break;
 			case 'seriessermon':
-				$viewLayout = $jinput->get('layout', 'default');
+				$viewLayout = $this->input->get('layout', 'default');
 				$view = $this->getView($viewName, 'html', '', array('base_path' => $this->basePath, 'layout' => $viewLayout));
 				$view = $this->getView('seriessermon', 'html');
 				$series_model = $this->getModel('series');
@@ -62,14 +73,14 @@ class SermonspeakerController extends JControllerLegacy
 
 	public function download()
 	{
-		$jinput	= JFactory::getApplication()->input;
-		$id		= $jinput->get('id', 0, 'int');
+		$this->input	= JFactory::getApplication()->input;
+		$id		= $this->input->get('id', 0, 'int');
 		if (!$id)
 		{
 			die("<html><body OnLoad=\"javascript: alert('I have no clue what you want to download...');history.back();\" bgcolor=\"#F0F0F0\"></body></html>");
 		}
 		$db = JFactory::getDBO();
-		if ($jinput->get('type', 'audio', 'word') == 'video'){
+		if ($this->input->get('type', 'audio', 'word') == 'video'){
 			$query = "SELECT videofile FROM #__sermon_sermons WHERE id = ".$id;
 		}
 		else
