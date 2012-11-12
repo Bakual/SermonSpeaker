@@ -140,6 +140,18 @@ class Com_SermonspeakerInstallerScript
 				.']';
 			$params['col_speaker']	= '"col_speaker":["speakers:bio","speaker:bio","speaker:intro"]';
 
+			// Set Protostar layouts for Jooml 3.0 installations
+			$jversion = new JVersion();
+			if ($jversion->isCompatible('3.0'))
+			{
+				$params['sermonslayout']	= '"sermonslayout":"_:protostar-table"';
+				$params['sermonlayout']	= '"sermonlayout":"_:protostar"';
+				$params['serieslayout']	= '"serieslayout":"_:protostar-table"';
+				$params['serielayout']	= '"serielayout":"_:protostar-table"';
+				$params['speakerslayout']	= '"speakerslayout":"_:protostar-table"';
+				$params['speakerlayout']	= '"speakerlayout":"_:protostar-table"';
+			}
+
 			$db = JFactory::getDBO();
 			$query = $db->getQuery(true);
 			$query->update($db->quoteName('#__extensions'));
