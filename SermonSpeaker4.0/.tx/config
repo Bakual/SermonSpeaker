@@ -141,3 +141,15 @@ source_file = plg_xmap_sermonspeaker\language\en-GB\en-GB.plg_xmap_com_sermonspe
 source_lang = en_GB
 minimum_perc = 100
 
+[sermonspeaker.plg_content_sermonspeakerini]
+file_filter = plg_content_sermonspeaker\language\<lang>\<lang>.plg_content_sermonspeaker.ini
+source_file = plg_content_sermonspeaker\language\en-GB\en-GB.plg_content_sermonspeaker.ini
+source_lang = en_GB
+minimum_perc = 100
+
+[sermonspeaker.plg_content_sermonspeakersysini]
+file_filter = plg_content_sermonspeaker\language\<lang>\<lang>.plg_content_sermonspeaker.sys.ini
+source_file = plg_content_sermonspeaker\language\en-GB\en-GB.plg_content_sermonspeaker.sys.ini
+source_lang = en_GB
+minimum_perc = 100
+
