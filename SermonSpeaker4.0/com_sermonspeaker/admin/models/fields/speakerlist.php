@@ -80,30 +80,34 @@ class JFormFieldSpeakerlist extends JFormFieldList
 
 		$db		= JFactory::getDbo();
 
-		// Get categories
-		$query	= $db->getQuery(true);
-		$query->select('DISTINCT catid');
-		$query->from('#__sermon_speakers');
-		$db->setQuery($query);
-		$catids = $db->loadResultArray();
-		// Check Permissions
-		$user = JFactory::getUser();
-		if ($this->value === '')
+		$params = JComponentHelper::getParams('com_sermonspeaker');
+		if ($catfilter = $params->get('catfilter_lists', 0))
 		{
-			$action = 'core.create';
-		}
-		else
-		{
-			$action = 'core.edit.state';
-		}
-		foreach($catids as $i => $catid)
-		{
-			if (!$user->authorise($action, 'com_sermonspeaker.category.'.$catid))
+			// Get categories
+			$query	= $db->getQuery(true);
+			$query->select('DISTINCT catid');
+			$query->from('#__sermon_speakers');
+			$db->setQuery($query);
+			$catids = $db->loadResultArray();
+			// Check Permissions
+			$user = JFactory::getUser();
+			if ($this->value === '')
 			{
-				unset($catids[$i]);
+				$action = 'core.create';
 			}
+			else
+			{
+				$action = 'core.edit.state';
+			}
+			foreach($catids as $i => $catid)
+			{
+				if (!$user->authorise($action, 'com_sermonspeaker.category.'.$catid))
+				{
+					unset($catids[$i]);
+				}
+			}
+			$catids = implode(',', $catids);
 		}
-		$catids = implode(',', $catids);
 
 		$query	= $db->getQuery(true);
 		$query->select('speakers.id As value, home');
@@ -112,7 +116,10 @@ class JFormFieldSpeakerlist extends JFormFieldList
 		$query->join('LEFT', '#__categories AS c_speakers ON c_speakers.id = speakers.catid');
 		$query->where('speakers.state = 1');
 		$query->where('speakers.state = 1');
-		$query->where('(speakers.catid IN ('.$catids.') OR speakers.id = '.$db->quote($this->value).')');
+		if ($catfilter)
+		{
+			$query->where('(speakers.catid IN ('.$catids.') OR speakers.id = '.$db->quote($this->value).')');
+		}
 		$query->order('speakers.name');
 
 		// Get the options.
@@ -126,7 +133,10 @@ class JFormFieldSpeakerlist extends JFormFieldList
 		$query->from('#__sermon_speakers AS speakers');
 		$query->join('LEFT', '#__categories AS c_speakers ON c_speakers.id = speakers.catid');
 		$query->where('speakers.state = 0');
-		$query->where('(speakers.catid IN ('.$catids.') OR speakers.id = '.$db->quote($this->value).')');
+		if ($catfilter)
+		{
+			$query->where('(speakers.catid IN ('.$catids.') OR speakers.id = '.$db->quote($this->value).')');
+		}
 		$query->order('speakers.name');
 
 		// Get the options.

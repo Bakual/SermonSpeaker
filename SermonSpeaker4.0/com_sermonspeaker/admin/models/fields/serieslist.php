@@ -78,30 +78,34 @@ class JFormFieldSerieslist extends JFormFieldList
 
 		$db		= JFactory::getDbo();
 
-		// Get categories
-		$query	= $db->getQuery(true);
-		$query->select('DISTINCT catid');
-		$query->from('#__sermon_speakers');
-		$db->setQuery($query);
-		$catids = $db->loadResultArray();
-		// Check Permissions
-		$user = JFactory::getUser();
-		if ($this->value === '')
+		$params = JComponentHelper::getParams('com_sermonspeaker');
+		if ($catfilter = $params->get('catfilter_lists', 0))
 		{
-			$action = 'core.create';
-		}
-		else
-		{
-			$action = 'core.edit.state';
-		}
-		foreach($catids as $i => $catid)
-		{
-			if (!$user->authorise($action, 'com_sermonspeaker.category.'.$catid))
+			// Get categories
+			$query	= $db->getQuery(true);
+			$query->select('DISTINCT catid');
+			$query->from('#__sermon_speakers');
+			$db->setQuery($query);
+			$catids = $db->loadResultArray();
+			// Check Permissions
+			$user = JFactory::getUser();
+			if ($this->value === '')
 			{
-				unset($catids[$i]);
+				$action = 'core.create';
 			}
+			else
+			{
+				$action = 'core.edit.state';
+			}
+			foreach($catids as $i => $catid)
+			{
+				if (!$user->authorise($action, 'com_sermonspeaker.category.'.$catid))
+				{
+					unset($catids[$i]);
+				}
+			}
+			$catids = implode(',', $catids);
 		}
-		$catids = implode(',', $catids);
 
 		$query	= $db->getQuery(true);
 		$query->select('series.id As value, home');
@@ -109,7 +113,10 @@ class JFormFieldSerieslist extends JFormFieldList
 		$query->from('#__sermon_series AS series');
 		$query->join('LEFT', '#__categories AS c_series ON c_series.id = series.catid');
 		$query->where('series.state = 1');
-		$query->where('(series.catid IN ('.$catids.') OR series.id = '.$db->quote($this->value).')');
+		if ($catfilter)
+		{
+			$query->where('(series.catid IN ('.$catids.') OR series.id = '.$db->quote($this->value).')');
+		}
 		$query->order('series.series_title');
 
 		// Get the options.
@@ -123,7 +130,10 @@ class JFormFieldSerieslist extends JFormFieldList
 		$query->from('#__sermon_series AS series');
 		$query->join('LEFT', '#__categories AS c_series ON c_series.id = series.catid');
 		$query->where('series.state = 0');
-		$query->where('(series.catid IN ('.$catids.') OR series.id = '.$db->quote($this->value).')');
+		if ($catfilter)
+		{
+			$query->where('(series.catid IN ('.$catids.') OR series.id = '.$db->quote($this->value).')');
+		}
 		$query->order('series.series_title');
 
 		// Get the options.
