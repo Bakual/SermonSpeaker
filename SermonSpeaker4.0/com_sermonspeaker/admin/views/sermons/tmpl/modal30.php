@@ -44,6 +44,7 @@ $listDirn	= $this->escape($this->state->get('list.direction'));
 					<option value=""><?php echo JText::_('JOPTION_USE_DEFAULT'); ?></option>
 					<option value="1"><?php echo JText::_('PLG_EDITORS-XTD_SERMONSPEAKER_FIELD_MODE_OPTION_LINK'); ?></option>
 					<option value="2"><?php echo JText::_('PLG_EDITORS-XTD_SERMONSPEAKER_FIELD_MODE_OPTION_PLAYER'); ?></option>
+					<option value="3"><?php echo JText::_('PLG_EDITORS-XTD_SERMONSPEAKER_FIELD_MODE_OPTION_MODULE'); ?></option>
 				</select>
 			</div>
 			<div class="clearfix"></div>

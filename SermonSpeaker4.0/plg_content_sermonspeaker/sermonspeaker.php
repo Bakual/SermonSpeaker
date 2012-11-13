@@ -53,27 +53,97 @@ class plgContentSermonspeaker extends JPlugin
 				$mode = (isset($explode[1])) ? $explode[1] : $default_mode;
 
 				$query	= $db->getQuery(true);
-				$query->select('sermons.id, sermon_title, sermon_date, sermon_time, audiofile, videofile');
+				$query->select('sermons.id, sermon_title, sermon_date, sermon_time, audiofile, videofile, sermons.hits, sermon_date');
 				$query->select('CASE WHEN CHAR_LENGTH(sermons.alias) THEN CONCAT_WS(\':\', sermons.id, sermons.alias) ELSE sermons.id END as slug');
-				$query->select('name');
 				$query->from('`#__sermon_sermons` AS sermons');
-				$query->join('LEFT', '#__sermon_speakers AS speakers ON speakers.id = sermons.speaker_id');
 				$query->where('sermons.id = '.$id);
+
+				// Join over Speaker
+				$query->select(
+					'speakers.name AS name, speakers.pic AS pic, speakers.state as speaker_state, ' .
+					'CASE WHEN CHAR_LENGTH(speakers.alias) THEN CONCAT_WS(\':\', speakers.id, speakers.alias) ELSE speakers.id END as speaker_slug'
+				);
+				$query->join('LEFT', '#__sermon_speakers AS speakers ON speakers.id = sermons.speaker_id');
+
+				// Join over Series
+				$query->select(
+					'series.series_title AS series_title, series.state as series_state, series.avatar, ' .
+					'CASE WHEN CHAR_LENGTH(series.alias) THEN CONCAT_WS(\':\', series.id, series.alias) ELSE series.id END as series_slug'
+				);
+				$query->join('LEFT', '#__sermon_series AS series ON series.id = sermons.series_id');
 
 				$db->setQuery($query);
 				$item = $db->loadObject();
 
-				if ($mode == 2)
+				switch ($mode)
 				{
-					$config['count'] = '_plg_'.$item->id.'_'.$i;
-					$player	= new SermonspeakerHelperPlayer($item, $config);
-					$output	= $player->mspace;
-					$output	.= $player->script;
-				}
-				else
-				{
-					$link	= JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug));
-					$output	= '<a href="'.$link.'">'.$item->sermon_title.'</a>';
+					case 1:
+					default:
+						$link	= JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug));
+						$output	= '<a href="'.$link.'">'.$item->sermon_title.'</a>';
+						break;
+					case 2:
+						$config['count'] = '_plg_'.$item->id.'_'.$i;
+						$player	= new SermonspeakerHelperPlayer($item, $config);
+						$output	= $player->mspace;
+						$output	.= $player->script;
+						break;
+					case 3:
+						$this->loadLanguage();
+						$link		= JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug));
+						$speakerlnk	= JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->speaker_slug));
+						$serieslnk	= JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->series_slug));
+						$contents	= '<div class="ss-content-plg">';
+						$contents	.= '<table class="table table-striped table-condensed">';
+						if ($item->name)
+						{
+							$contents	.= '<tr><td>'.JText::_('PLG_CONTENT_SERMONSPEAKER_SPEAKER').'</td>';
+							if ($item->speaker_state)
+							{
+								$contents	.= '<td>'.SermonspeakerHelperSermonSpeaker::SpeakerTooltip($item->speaker_slug, $item->pic, $item->name).'</td></tr>';
+							}
+							else
+							{
+								$contents	.= '<td>'.$item->name.'</td></tr>';
+							}
+						}
+						if ($item->series_title)
+						{
+							$contents	.= '<tr><td>'.JText::_('PLG_CONTENT_SERMONSPEAKER_SERIE').'</td>';
+							$contents	.= '<td><a href="'.$serieslnk.'">'.$item->series_title.'</a></td></tr>';
+						}
+						if ($item->sermon_date != '0000-00-00 00:00:00')
+						{
+							$contents	.= '<tr><td>'.JText::_('JDATE').'</td>';
+							$contents	.= '<td>'.JHTML::Date($item->sermon_date, JText::_('DATE_FORMAT_LC3')).'</td></tr>';
+						}
+						if ($item->hits)
+						{
+							$contents	.= '<tr><td>'.JText::_('JGLOBAL_HITS').'</td>';
+							$contents	.= '<td>'.$item->hits.'</td></tr>';
+						}
+						$contents	.= '</table>';
+						if ($this->params->get('show_player'))
+						{
+							$config['count'] = '_plg_'.$item->id.'_'.$i;
+							$player	= new SermonspeakerHelperPlayer($item, $config);
+							$contents	.= $player->mspace;
+							$contents	.= $player->script;
+						}
+						$contents	.= '</div>';
+						$module_params['style']				= $this->params->get('style', 'rounded');
+						$module_params['moduleclass_sfx']	= $this->params->get('moduleclass_sfx');
+						$module = new StdClass;
+						$module->id			= 0;
+						$module->title		= '<a href="'.$link.'">'.$item->sermon_title.'</a>';
+						$module->module		= 'mod_custom';
+						$module->position	= '';
+						$module->content	= $contents;
+						$module->showtitle	= 1;
+						$module->control	= '';
+						$module->params		= json_encode($module_params);
+						$output	= JModuleHelper::renderModule($module, $module_params);
+						break;
 				}
 
 				$article->text = preg_replace("|$match[0]|", addcslashes($output, '\\$'), $article->text, 1);

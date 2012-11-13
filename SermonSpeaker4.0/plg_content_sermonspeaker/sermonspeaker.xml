@@ -2,13 +2,13 @@
 <extension version="2.5" type="plugin" group="content" method="upgrade">
 	<name>plg_content_sermonspeaker</name>
 	<author>Thomas Hunziker</author>
-	<creationDate>2012-11-12</creationDate>
+	<creationDate>2012-11-13</creationDate>
 	<copyright>(C) 2012</copyright>
 	<license>http://www.gnu.org/licenses/gpl.html</license>
 	<authorEmail>admin@sermonspeaker.net</authorEmail>
 	<authorUrl>http://www.sermonspeaker.net</authorUrl>
 	<version>1.0</version>
-	<description>PLG_SERMONSPEAKER_XML_DESCRIPTION</description>
+	<description>PLG_CONTENT_SERMONSPEAKER_XML_DESCRIPTION</description>
 	<files>
 		<filename plugin="sermonspeaker">sermonspeaker.php</filename>
 		<filename>index.html</filename>
@@ -23,10 +23,29 @@
 				<field name="mode" type="radio"
 					default="1"
 					class="btn-group"
-					label="PLG_SERMONSPEAKER_FIELD_MODE_LABEL"
-					description="PLG_SERMONSPEAKER_FIELD_MODE_DESC" >
-					<option value="1">PLG_SERMONSPEAKER_FIELD_MODE_OPTION_LINK</option>
-					<option value="2">PLG_SERMONSPEAKER_FIELD_MODE_OPTION_PLAYER</option>
+					label="PLG_CONTENT_SERMONSPEAKER_FIELD_MODE_LABEL"
+					description="PLG_CONTENT_SERMONSPEAKER_FIELD_MODE_DESC" >
+					<option value="1">PLG_CONTENT_SERMONSPEAKER_FIELD_MODE_OPTION_LINK</option>
+					<option value="2">PLG_CONTENT_SERMONSPEAKER_FIELD_MODE_OPTION_PLAYER</option>
+					<option value="3">PLG_CONTENT_SERMONSPEAKER_FIELD_MODE_OPTION_MODULE</option>
+				</field>
+				<field
+					name="style"
+					type="text"
+					label="PLG_CONTENT_SERMONSPEAKER_FIELD_STYLE_LABEL"
+					description="PLG_CONTENT_SERMONSPEAKER_FIELD_STYLE_DESC" />
+				<field
+					name="moduleclass_sfx"
+					type="text"
+					label="PLG_CONTENT_SERMONSPEAKER_FIELD_MODULECLASS_SFX_LABEL"
+					description="PLG_CONTENT_SERMONSPEAKER_FIELD_MODULECLASS_SFX_DESC" />
+				<field name="show_player" type="radio"
+					default="0"
+					class="btn-group"
+					label="PLG_CONTENT_SERMONSPEAKER_FIELD_SHOW_PLAYER_LABEL"
+					description="PLG_CONTENT_SERMONSPEAKER_FIELD_SHOW_PLAYER_DESC" >
+					<option value="0">JDISABLED</option>
+					<option value="1">JENABLED</option>
 				</field>
 			</fieldset>
 		</fields>
