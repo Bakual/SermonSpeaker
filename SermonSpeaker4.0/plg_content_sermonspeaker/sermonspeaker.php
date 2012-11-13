@@ -35,26 +35,25 @@ class plgContentSermonspeaker extends JPlugin
 		preg_match_all($regex, $article->text, $matches, PREG_SET_ORDER);
 		if ($matches)
 		{
-			$mode	= $this->params->get('mode', 0);
-			if ($mode)
-			{
-				require_once(JPATH_ROOT.'/components/com_sermonspeaker/helpers/sermonspeaker.php');
-				require_once(JPATH_ROOT.'/components/com_sermonspeaker/helpers/player.php');
-			}
-			else
-			{
-				require_once(JPATH_ROOT.'/components/com_sermonspeaker/helpers/route.php');
-			}
+			$default_mode	= $this->params->get('mode', 1);
+			require_once(JPATH_ROOT.'/components/com_sermonspeaker/helpers/sermonspeaker.php');
+			require_once(JPATH_ROOT.'/components/com_sermonspeaker/helpers/player.php');
+			require_once(JPATH_ROOT.'/components/com_sermonspeaker/helpers/route.php');
+
 			$db = JFactory::getDBO();
-			foreach ($matches as $match) {
-				$id = (int)$match[1];
+			foreach ($matches as $i => $match) {
+				$explode = explode(',', $match[1]);
+				$id = (int)$explode[0];
 				if (!$id)
 				{
 					continue;
 				}
 
+				// Check $match for a defined mode, use plugin default if not present.
+				$mode = (isset($explode[1])) ? $explode[1] : $default_mode;
+
 				$query	= $db->getQuery(true);
-				$query->select('sermon_title, sermon_date, sermon_time, audiofile, videofile');
+				$query->select('sermons.id, sermon_title, sermon_date, sermon_time, audiofile, videofile');
 				$query->select('CASE WHEN CHAR_LENGTH(sermons.alias) THEN CONCAT_WS(\':\', sermons.id, sermons.alias) ELSE sermons.id END as slug');
 				$query->select('name');
 				$query->from('`#__sermon_sermons` AS sermons');
@@ -64,9 +63,10 @@ class plgContentSermonspeaker extends JPlugin
 				$db->setQuery($query);
 				$item = $db->loadObject();
 
-				if ($mode)
+				if ($mode == 2)
 				{
-					$player	= new SermonspeakerHelperPlayer($item);
+					$config['count'] = '_plg_'.$item->id.'_'.$i;
+					$player	= new SermonspeakerHelperPlayer($item, $config);
 					$output	= $player->mspace;
 					$output	.= $player->script;
 				}
@@ -76,7 +76,6 @@ class plgContentSermonspeaker extends JPlugin
 					$output	= '<a href="'.$link.'">'.$item->sermon_title.'</a>';
 				}
 
-				// We should replace only first occurrence in order to allow positions with the same name to regenerate their content:
 				$article->text = preg_replace("|$match[0]|", addcslashes($output, '\\$'), $article->text, 1);
 			}
 		}

@@ -6,6 +6,10 @@ JHtml::addIncludePath(JPATH_COMPONENT.'/helpers/html');
 JHtml::_('stylesheet', 'system/adminlist.css', array(), true);
 JHtml::_('behavior.tooltip');
 
+// Load plugin language file
+$jlang = JFactory::getLanguage();
+$jlang->load('plg_editors-xtd_sermonspeaker', JPATH_PLUGINS.'/editors-xtd/sermonspeaker');
+
 $function	= JFactory::getApplication()->input->get('function', 'jSelectSermon');
 $listOrder	= $this->escape($this->state->get('list.ordering'));
 $listDirn	= $this->escape($this->state->get('list.direction'));
@@ -24,6 +28,16 @@ $listDirn	= $this->escape($this->state->get('list.direction'));
 				<?php echo JText::_('JSEARCH_FILTER_CLEAR'); ?></button>
 		</div>
 
+		<div class="left">
+			<label for="mode" class="hasTip" title="<?php echo JText::_('PLG_EDITORS-XTD_SERMONSPEAKER_FIELD_MODE_LABEL').'::'.JText::_('PLG_EDITORS-XTD_SERMONSPEAKER_FIELD_MODE_DESC'); ?>">
+				<?php echo JText::_('PLG_EDITORS-XTD_SERMONSPEAKER_FIELD_MODE_LABEL'); ?>:
+			</label>
+			<select name="mode" id="mode" class="inputbox">
+				<option value=""><?php echo JText::_('JOPTION_USE_DEFAULT'); ?></option>
+				<option value="1"><?php echo JText::_('PLG_EDITORS-XTD_SERMONSPEAKER_FIELD_MODE_OPTION_LINK'); ?></option>
+				<option value="2"><?php echo JText::_('PLG_EDITORS-XTD_SERMONSPEAKER_FIELD_MODE_OPTION_PLAYER'); ?></option>
+			</select>
+		</div>
 		<div class="right">
 			<select name="filter_published" class="inputbox" onchange="this.form.submit()">
 				<option value=""><?php echo JText::_('JOPTION_SELECT_PUBLISHED');?></option>
@@ -65,7 +79,7 @@ $listDirn	= $this->escape($this->state->get('list.direction'));
 		<?php foreach ($this->items as $i => $item) : ?>
 			<tr class="row<?php echo $i % 2; ?>">
 				<td>
-					<a class="pointer" onclick="if (window.parent) window.parent.<?php echo $this->escape($function);?>('<?php echo $item->id; ?>', '<?php echo $this->escape(addslashes($item->sermon_title)); ?>', '<?php echo $this->escape($item->catid); ?>');">
+					<a class="pointer" onclick="if (window.parent) window.parent.<?php echo $this->escape($function);?>('<?php echo $item->id; ?>', '<?php echo $this->escape(addslashes($item->sermon_title)); ?>', '<?php echo $this->escape($item->catid); ?>', '<?php echo $this->escape(SermonspeakerHelperRoute::getSermonRoute($item->id)); ?>', document.getElementById('mode').value);">
 						<?php echo $this->escape($item->sermon_title); ?></a>
 				</td>
 				<td class="center">

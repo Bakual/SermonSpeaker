@@ -15,8 +15,12 @@ class plgButtonSermonspeaker extends JPlugin
 	public function onDisplay($name)
 	{
 		$js = "
-		function jSelectSermon(id, title) {
-			var tag = '<a href='+'\"index.php?option=com_sermonspeaker&amp;view=sermon&amp;id='+id+'\">'+title+'</a>';
+		function jSelectSermon(id, title, catid, link, mode) {
+			if (mode) {
+				var tag = '{sermonspeaker '+id+','+mode+'}';
+			} else {
+				var tag = '{sermonspeaker '+id+'}';
+			}
 			jInsertEditorText(tag, '".$name."');
 			SqueezeBox.close();
 		}";

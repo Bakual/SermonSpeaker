@@ -17,4 +17,19 @@
 	<updateservers>
 		<server type="extension" priority="1" name="SermonSpeaker.net">http://www.sermonspeaker.net/update/plg_editors_xtd_sermonspeaker.xml</server>
 	</updateservers>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="mode" type="list"
+					default="0"
+					class="btn-group"
+					label="PLG_EDITORS-XTD_SERMONSPEAKER_FIELD_MODE_LABEL"
+					description="PLG_EDITORS-XTD_SERMONSPEAKER_FIELD_MODE_DESC" >
+					<option value="0">JOPTION_USE_DEFAULT</option>
+					<option value="1">PLG_EDITORS-XTD_SERMONSPEAKER_FIELD_MODE_OPTION_LINK</option>
+					<option value="2">PLG_EDITORS-XTD_SERMONSPEAKER_FIELD_MODE_OPTION_PLAYER</option>
+				</field>
+			</fieldset>
+		</fields>
+	</config>
 </extension>
