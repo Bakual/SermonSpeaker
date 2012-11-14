@@ -81,30 +81,8 @@ class JFormFieldTagslist extends JFormFieldList
 		$params = JComponentHelper::getParams('com_sermonspeaker');
 		if ($catfilter = $params->get('catfilter_lists', 0))
 		{
-			// Get categories
-			$query	= $db->getQuery(true);
-			$query->select('DISTINCT catid');
-			$query->from('#__sermon_speakers');
-			$db->setQuery($query);
-			$catids = $db->loadResultArray();
-			// Check Permissions
-			$user = JFactory::getUser();
-			if ($this->value === '')
-			{
-				$action = 'core.create';
-			}
-			else
-			{
-				$action = 'core.edit.state';
-			}
-			foreach($catids as $i => $catid)
-			{
-				if (!$user->authorise($action, 'com_sermonspeaker.category.'.$catid))
-				{
-					unset($catids[$i]);
-				}
-			}
-			$catids	= implode(',', $catids);
+			$action	= ($this->value === '') ? 'core.create' : 'core.edit.state';
+			$catids	= implode(',', JFactory::getUser()->getAuthorisedCategories('com_sermonspeaker', $action));
 			$tags	= implode(',', $this->value);
 		}
 
@@ -116,7 +94,14 @@ class JFormFieldTagslist extends JFormFieldList
 		$query->where('tags.state = 1');
 		if ($catfilter)
 		{
-			$query->where('(tags.catid IN ('.$catids.') OR tags.id IN ('.$db->quote($tags).'))');
+			if ($catids)
+			{
+				$query->where('(tags.catid IN ('.$catids.') OR tags.id = '.$db->quote($tags).')');
+			}
+			else
+			{
+				$query->where('tags.id = '.$db->quote($tags));
+			}
 		}
 		$query->order('tags.title');
 
@@ -133,7 +118,14 @@ class JFormFieldTagslist extends JFormFieldList
 		$query->where('tags.state = 0');
 		if ($catfilter)
 		{
-			$query->where('(tags.catid IN ('.$catids.') OR tags.id IN ('.$db->quote($tags).'))');
+			if ($catids)
+			{
+				$query->where('(tags.catid IN ('.$catids.') OR tags.id = '.$db->quote($tags).')');
+			}
+			else
+			{
+				$query->where('tags.id = '.$db->quote($tags));
+			}
 		}
 		$query->order('tags.title');
 

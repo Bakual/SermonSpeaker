@@ -83,30 +83,8 @@ class JFormFieldSpeakerlist extends JFormFieldList
 		$params = JComponentHelper::getParams('com_sermonspeaker');
 		if ($catfilter = $params->get('catfilter_lists', 0))
 		{
-			// Get categories
-			$query	= $db->getQuery(true);
-			$query->select('DISTINCT catid');
-			$query->from('#__sermon_speakers');
-			$db->setQuery($query);
-			$catids = $db->loadResultArray();
-			// Check Permissions
-			$user = JFactory::getUser();
-			if ($this->value === '')
-			{
-				$action = 'core.create';
-			}
-			else
-			{
-				$action = 'core.edit.state';
-			}
-			foreach($catids as $i => $catid)
-			{
-				if (!$user->authorise($action, 'com_sermonspeaker.category.'.$catid))
-				{
-					unset($catids[$i]);
-				}
-			}
-			$catids = implode(',', $catids);
+			$action	= ($this->value === '') ? 'core.create' : 'core.edit.state';
+			$catids	= implode(',', JFactory::getUser()->getAuthorisedCategories('com_sermonspeaker', $action));
 		}
 
 		$query	= $db->getQuery(true);
@@ -118,7 +96,14 @@ class JFormFieldSpeakerlist extends JFormFieldList
 		$query->where('speakers.state = 1');
 		if ($catfilter)
 		{
-			$query->where('(speakers.catid IN ('.$catids.') OR speakers.id = '.$db->quote($this->value).')');
+			if ($catids)
+			{
+				$query->where('(speakers.catid IN ('.$catids.') OR speakers.id = '.$db->quote($this->value).')');
+			}
+			else
+			{
+				$query->where('speakers.id = '.$db->quote($this->value));
+			}
 		}
 		$query->order('speakers.name');
 
@@ -135,7 +120,14 @@ class JFormFieldSpeakerlist extends JFormFieldList
 		$query->where('speakers.state = 0');
 		if ($catfilter)
 		{
-			$query->where('(speakers.catid IN ('.$catids.') OR speakers.id = '.$db->quote($this->value).')');
+			if ($catids)
+			{
+				$query->where('(speakers.catid IN ('.$catids.') OR speakers.id = '.$db->quote($this->value).')');
+			}
+			else
+			{
+				$query->where('speakers.id = '.$db->quote($this->value));
+			}
 		}
 		$query->order('speakers.name');
 
@@ -159,9 +151,6 @@ class JFormFieldSpeakerlist extends JFormFieldList
 			JError::raiseWarning(500, $db->getErrorMsg());
 		}
 		$options = array_merge($published, $unpublished);
-
-		// Merge any additional options in the XML definition.
-		//$options = array_merge(parent::getOptions(), $options);
 
 		if ($this->value === '')
 		{
