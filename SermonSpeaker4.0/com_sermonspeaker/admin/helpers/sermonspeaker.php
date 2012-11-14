@@ -99,21 +99,22 @@ class SermonspeakerHelper
 	 */
 	public static function getActions($categoryId = 0)
 	{
-		$user  	= JFactory::getUser();
+		$user	= JFactory::getUser();
 		$result	= new JObject;
 
-		if (empty($categoryId)) {
+		if (empty($categoryId))
+		{
 			$assetName = 'com_sermonspeaker';
-		} else {
+		}
+		else
+		{
 			$assetName = 'com_sermonspeaker.category.'.(int) $categoryId;
 		}
 
-		$actions = array(
-			'core.admin', 'core.manage', 'core.create', 'core.edit', 'core.edit.own', 'core.edit.state', 'core.delete'
-		);
-
-		foreach ($actions as $action) {
-			$result->set($action, $user->authorise($action, $assetName));
+		$actions = JAccess::getActions('com_sermonspeaker', 'component');
+		foreach ($actions as $action)
+		{
+			$result->set($action->name, $user->authorise($action->name, $assetName));
 		}
 
 		return $result;
