@@ -97,6 +97,16 @@ class Com_SermonspeakerInstallerScript
 			JFile::delete(JPATH_SITE.'/media/com_sermonspeaker/player/flowplayer/flowplayer.controls-3.2.5.swf');
 			JFile::delete(JPATH_SITE.'/media/com_sermonspeaker/player/flowplayer/flowplayer.audio-3.2.2.swf');
 		}
+		// Cleanup old close layouts
+		if (JFile::exists(JPATH_SITE.'/components/com_sermonspeaker/views/speakerform/tmpl/close.php'))
+		{
+			JFile::delete(JPATH_SITE.'/components/com_sermonspeaker/views/speakerform/tmpl/close.php');
+			JFile::delete(JPATH_SITE.'/components/com_sermonspeaker/views/serieform/tmpl/close.php');
+			JFile::delete(JPATH_SITE.'/components/com_sermonspeaker/views/tagform/tmpl/close.php');
+			JFile::delete(JPATH_SITE.'/administrator/components/com_sermonspeaker/views/speaker/tmpl/close.php');
+			JFile::delete(JPATH_SITE.'/administrator/components/com_sermonspeaker/views/serie/tmpl/close.php');
+			JFile::delete(JPATH_SITE.'/administrator/components/com_sermonspeaker/views/tag/tmpl/close.php');
+		}
 
 		$this->_migrate();
 	}
