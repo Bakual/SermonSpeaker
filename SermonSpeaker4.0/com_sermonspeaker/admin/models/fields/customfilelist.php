@@ -130,13 +130,15 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 			$awsSecretKey 	= $this->params->get('s3_secret_key');
 			$bucket			= $this->params->get('s3_bucket');
 			//instantiate the class
-			$s3 = new S3($awsAccessKey, $awsSecretKey);
+			$s3		= new S3($awsAccessKey, $awsSecretKey);
+			$region	= $s3->getBucketLocation($bucket);
+			$prefix	= ($region == 'US') ? 's3' : 's3-'.$region;
 
 			$bucket_contents = $s3->getBucket($bucket);
 			foreach ($bucket_contents as $file)
 			{
 				$fname = $file['name'];
-				$furl = 'http://s3.amazonaws.com/'.$bucket.'/'.$fname;
+				$furl = 'http://'.$prefix.'.amazonaws.com/'.$bucket.'/'.$fname;
 				$option['value'] = $furl;
 				$option['text'] = $fname;
 				$options[] = $option;
