@@ -91,14 +91,16 @@ class SermonspeakerControllerFile extends JControllerLegacy
 			$bucket			= $params->get('s3_bucket');
 			//instantiate the class
 			$s3 = new S3($awsAccessKey, $awsSecretKey);
+			$region	= $s3->getBucketLocation($bucket);
+			$prefix	= ($region == 'US') ? 's3' : 's3-'.$region;
 
 			// Upload the file
 			if($s3->putObjectFile($file['tmp_name'], $bucket, JFile::makeSafe($file['name']), S3::ACL_PUBLIC_READ)){
 				$response = array(
 					'status' => '1',
 					'filename' => $file['name'],
-					'path' => 'http://s3.amazonaws.com/'.$bucket.'/'.$file['name'],
-					'error' => JText::sprintf('COM_SERMONSPEAKER_FU_FILENAME', 's3.amazonaws.com/'.$bucket.'/'.$file['name'])
+					'path' => 'http://'.$prefix.'.amazonaws.com/'.$bucket.'/'.$file['name'],
+					'error' => JText::sprintf('COM_SERMONSPEAKER_FU_FILENAME', $prefix.'.amazonaws.com/'.$bucket.'/'.$file['name'])
 				);
 				echo json_encode($response);
 				return;
