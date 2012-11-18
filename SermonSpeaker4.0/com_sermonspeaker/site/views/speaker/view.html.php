@@ -120,12 +120,26 @@ class SermonspeakerViewSpeaker extends JViewLegacy
 		if (!in_array($this->category->access, $groups)) {
 			return JError::raiseError(403, JText::_('JERROR_ALERTNOAUTHOR'));
 		}
+		$js = 'function clear_all(){
+			if(document.id(\'filter_books\')){
+				document.id(\'filter_books\').value=0;
+			}
+			if(document.id(\'filter_months\')){
+				document.id(\'filter_months\').value=0;
+			}
+			if(document.id(\'filter_years\')){
+				document.id(\'filter_years\').value=0;
+			}
+			if(document.id(\'filter-search\')){
+				document.id(\'filter-search\').value="";
+			}
+		}';
+		$this->document->addScriptDeclaration($js);
 		// Build Books
 		$at	= 0;
 		$nt	= 0;
 		$ap	= 0;
 		$this->books	= array();
-		$this->books[]	= JHtml::_('select.option', '0', JText::_('COM_SERMONSPEAKER_SELECT_BOOK'));
 		foreach ($books as $book){
 			if(!$at && $book <= 39){
 				$this->books[]	= JHtml::_('select.optgroup', JText::_('COM_SERMONSPEAKER_OLD_TESTAMENT'));
