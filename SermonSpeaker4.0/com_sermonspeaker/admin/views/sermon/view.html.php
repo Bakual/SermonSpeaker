@@ -335,7 +335,22 @@ class SermonspeakerViewSermon extends JViewLegacy
 		// Destination folder based on mode
 		$this->s3audio	= ($this->params->get('path_mode_audio', 0) == 2) ? 1 : 0;
 		$this->s3video	= ($this->params->get('path_mode_video', 0) == 2) ? 1 : 0;
-		$this->params->get('s3_bucket', '');
+		if ($this->s3audio || $this->s3video)
+			//include the S3 class   
+			require_once JPATH_COMPONENT_ADMINISTRATOR.'/s3/S3.php';
+			//AWS access info   
+			$awsAccessKey 	= $this->params->get('s3_access_key');
+			$awsSecretKey 	= $this->params->get('s3_secret_key');
+			$bucket			= $this->params->get('s3_bucket');
+			//instantiate the class
+			$s3		= new S3($awsAccessKey, $awsSecretKey);
+			$region	= $s3->getBucketLocation($bucket);
+			$prefix	= ($region == 'US') ? 's3' : 's3-'.$region;
+
+			$this->bucket	= $bucket;
+			$this->prefix	= $prefix;
+		}
+
 
 		// Calculate destination path to show
 		if ($this->params->get('append_path', 0)) {

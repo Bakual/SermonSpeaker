@@ -106,7 +106,7 @@ $self = $uri->toString();
 									<span id="audiopathinfo" class="label label-info ss-hide hasTip" title="<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO_TOOLTIP'); ?>">
 										<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO');
 										if ($this->s3audio) :
-											echo ' http://s3.amazonaws.com/'.$this->params->get('s3_bucket', '').'/';
+											echo ' http://'.$this->prefix.'.amazonaws.com/'.$this->bucket.'/';
 										else :
 											echo ' /'.trim($this->params->get('path'), '/').'/<span id="audiopathdate" class="pathdate">'.$this->append_date.'</span><span id="audiopathlang" class="pathlang">'.$this->append_lang.'</span>';
 										endif; ?>
@@ -141,7 +141,7 @@ $self = $uri->toString();
 									<span id="videopathinfo" class="label label-info ss-hide hasTip" title="<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO_TOOLTIP'); ?>">
 										<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO');
 										if ($this->s3video):
-											echo ' http://s3.amazonaws.com/'.$this->params->get('s3_bucket', '').'/';
+											echo ' http://'.$this->prefix.'.amazonaws.com/'.$this->bucket.'/';
 										else:
 											echo ' /'.trim($this->params->get('path'), '/').'/<span id="videopathdate" class="pathdate">'.$this->append_date.'</span><span id="videopathlang" class="pathlang">'.$this->append_lang.'</span>';
 										endif; ?>
