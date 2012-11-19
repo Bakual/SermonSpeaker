@@ -145,7 +145,7 @@ endif;
 								<a href="<?php echo JRoute::_('index.php?option=com_sermonspeaker&task=serie.edit&id=' . $item->id);?>" title="<?php echo JText::_('JACTION_EDIT');?>">
 									<?php echo $this->escape($item->series_title); ?></a>
 							<?php else : ?>
-								<span title="<?php echo JText::sprintf('JFIELD_ALIAS_LABEL', $this->escape($item->alias));?>"><?php echo $this->escape($item->title); ?></span>
+								<span title="<?php echo JText::sprintf('JFIELD_ALIAS_LABEL', $this->escape($item->alias));?>"><?php echo $this->escape($item->series_title); ?></span>
 							<?php endif; ?>
 							<div class="small">
 								<?php echo JText::_('JCATEGORY') . ": " . $this->escape($item->category_title); ?>
