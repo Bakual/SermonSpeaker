@@ -374,6 +374,7 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 		$this->s3audio	= ($params->get('path_mode_audio', 0) == 2) ? 1 : 0;
 		$this->s3video	= ($params->get('path_mode_video', 0) == 2) ? 1 : 0;
 		if ($this->s3audio || $this->s3video)
+		{
 			//include the S3 class   
 			require_once JPATH_COMPONENT_ADMINISTRATOR.'/s3/S3.php';
 			//AWS access info   
@@ -390,7 +391,8 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 		}
 
 		// Calculate destination path to show
-		if ($params->get('append_path', 0)) {
+		if ($params->get('append_path', 0))
+		{
 			$changedate	= "function changedate(datestring) {
 					if(datestring && datestring != '0000-00-00 00:00:00'){
 						year = datestring.substr(0,4);
@@ -409,12 +411,15 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 				}";
 			$time	= ($this->item->sermon_date && $this->item->sermon_date != '0000-00-00 00:00:00') ? strtotime($this->item->sermon_date) : time();
 			$this->append_date	= date('Y', $time).'/'.date('m', $time).'/';
-		} else {
+		}
+		else
+		{
 			$changedate	= "function changedate(datestring) {}";
 			$this->append_date	= '';
 		}
 		$document->addScriptDeclaration($changedate);
-		if ($params->get('append_path_lang', 0)) {
+		if ($params->get('append_path_lang', 0))
+		{
 			$changelang	= "function changelang(language) {
 					if(!language || language == '*'){
 						language = '".JFactory::getLanguage()->getTag()."'
@@ -425,7 +430,9 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 				}";
 			$lang	= ($this->item->language && $this->item->language == '*') ? $this->item->language : JFactory::getLanguage()->getTag();
 			$this->append_lang	= $lang.'/';
-		} else {
+		}
+		else
+		{
 			$changelang	= "function changelang(language) {}";
 			$this->append_lang	= '';
 		}
@@ -455,7 +462,8 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 		$document->addScriptDeclaration($valscript);
 
 		// Check for errors.
-		if (count($errors = $this->get('Errors'))) {
+		if (count($errors = $this->get('Errors')))
+		{
 			JError::raiseError(500, implode("\n", $errors));
 			return false;
 		}
