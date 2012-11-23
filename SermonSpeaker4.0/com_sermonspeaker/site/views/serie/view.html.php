@@ -43,10 +43,7 @@ class SermonspeakerViewSerie extends JViewLegacy
 		$books				= $sermon_model->getBooks();
 		// Get Category stuff from models
 		$this->category		= $sermon_model->getCategory();
-//		$children			= $sermon_model->getChildren();
 		$this->parent		= $sermon_model->getParent();
-//		$this->children		= array($this->category->id => $children);
-// We don't use childrens here because counting isn't accurate without added series filter.
 		$this->columns	= $this->params->get('col');
 		if (!$this->columns){
 			$this->columns = array();
@@ -92,12 +89,6 @@ class SermonspeakerViewSerie extends JViewLegacy
 		} else {
 			// Get the category title for backward compatibility
 			$this->cat = $this->category->title;
-		}
-		// Check whether category access level allows access.
-		$user	= JFactory::getUser();
-		$groups	= $user->getAuthorisedViewLevels();
-		if (!in_array($this->category->access, $groups)) {
-			return JError::raiseError(403, JText::_('JERROR_ALERTNOAUTHOR'));
 		}
 		// Set layout from parameters if not already set elsewhere
 		if ($this->getLayout() == 'default') {
