@@ -336,6 +336,7 @@ class SermonspeakerViewSermon extends JViewLegacy
 		$this->s3audio	= ($this->params->get('path_mode_audio', 0) == 2) ? 1 : 0;
 		$this->s3video	= ($this->params->get('path_mode_video', 0) == 2) ? 1 : 0;
 		if ($this->s3audio || $this->s3video)
+		{
 			//include the S3 class   
 			require_once JPATH_COMPONENT_ADMINISTRATOR.'/s3/S3.php';
 			//AWS access info   
