@@ -22,7 +22,7 @@ class SermonspeakerController extends JControllerLegacy
 
 	public function display($cachable = false, $urlparams = false)
 	{
-		$cachable	= true;
+		$cachable	= JFactory::getUser()->get('id') ? false : true;
 		$viewName	= $this->input->get('view', $this->default_view);
 
 		// Make sure the format is raw for feed and sitemap view
@@ -34,18 +34,13 @@ class SermonspeakerController extends JControllerLegacy
 			return;
 		}
 
-		$user		= JFactory::getUser();
-		if ($user->get('id'))
-		{
-			$cachable = false;
-		}
 		$safeurlparams = array('id'=>'INT','limit'=>'INT','limitstart'=>'INT','filter_order'=>'CMD','filter_order_Dir'=>'CMD','lang'=>'CMD','year'=>'INT','month'=>'INT','filter-search'=>'STRING','return'=>'BASE64','book'=>'INT','Itemid'=>'INT','sermon_cat'=>'INT','series_cat'=>'INT','speaker_cat'=>'INT','series_id'=>'INT');
+
 		switch ($viewName)
 		{
 			case 'speaker':
 				$viewLayout = $this->input->get('layout', 'default');
 				$view = $this->getView($viewName, 'html', '', array('base_path' => $this->basePath, 'layout' => $viewLayout));
-				$view = $this->getView('speaker', 'html');
 				$series_model = $this->getModel('series');
 				$view->setModel($series_model);
 				$sermons_model = $this->getModel('sermons');
@@ -61,7 +56,6 @@ class SermonspeakerController extends JControllerLegacy
 			case 'seriessermon':
 				$viewLayout = $this->input->get('layout', 'default');
 				$view = $this->getView($viewName, 'html', '', array('base_path' => $this->basePath, 'layout' => $viewLayout));
-				$view = $this->getView('seriessermon', 'html');
 				$series_model = $this->getModel('series');
 				$view->setModel($series_model);
 				$sermons_model = $this->getModel('sermons');

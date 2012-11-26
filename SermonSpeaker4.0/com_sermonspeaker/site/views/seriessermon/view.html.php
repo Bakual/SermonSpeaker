@@ -23,7 +23,6 @@ class SermonspeakerViewSeriessermon extends JViewLegacy
 		// check if access is not public
 		$user = JFactory::getUser();
 		$groups	= $user->getAuthorisedViewLevels();
-		
 		if (!in_array($this->params->get('access'), $groups)) {
 			JError::raiseWarning(403, JText::_('JERROR_ALERTNOAUTHOR'));
 			return;
@@ -54,12 +53,6 @@ class SermonspeakerViewSeriessermon extends JViewLegacy
 		} else {
 			// Get the category title for backward compatibility
 			$this->cat = $this->category->title;
-		}
-		// Check whether category access level allows access.
-		$user	= JFactory::getUser();
-		$groups	= $user->getAuthorisedViewLevels();
-		if (!in_array($this->category->access, $groups)) {
-			return JError::raiseError(403, JText::_('JERROR_ALERTNOAUTHOR'));
 		}
 		// Set layout from parameters if not already set elsewhere
 		if ($this->getLayout() == 'default') {

@@ -376,6 +376,12 @@ $this->document->addScriptDeclaration('jQuery(function() {
 										</a>
 										<?php if (!$item->state) : ?>
 											<span class="label label-warning"><?php echo JText::_('JUNPUBLISHED'); ?></span>
+										<?php endif;
+										if (in_array('speaker:speaker', $this->col_serie) and $item->speakers) : ?>
+											<small class="ss-speakers createdby">
+												<?php echo JText::_('COM_SERMONSPEAKER_SPEAKERS'); ?>: 
+												<?php echo $item->speakers; ?>
+											</small>
 										<?php endif; ?>
 									</div>
 									<?php if ($item->avatar) : ?>

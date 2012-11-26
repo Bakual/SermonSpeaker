@@ -353,7 +353,8 @@ class SermonspeakerViewSermon extends JViewLegacy
 
 
 		// Calculate destination path to show
-		if ($this->params->get('append_path', 0)) {
+		if ($this->params->get('append_path', 0))
+		{
 			$changedate	= "function changedate(datestring) {
 					if(datestring && datestring != '0000-00-00 00:00:00'){
 						year = datestring.substr(0,4);
@@ -372,12 +373,15 @@ class SermonspeakerViewSermon extends JViewLegacy
 				}";
 			$time	= ($this->item->sermon_date && $this->item->sermon_date != '0000-00-00 00:00:00') ? strtotime($this->item->sermon_date) : time();
 			$this->append_date	= date('Y', $time).'/'.date('m', $time).'/';
-		} else {
+		}
+		else
+		{
 			$changedate	= "function changedate(datestring) {}";
 			$this->append_date	= '';
 		}
 		$document->addScriptDeclaration($changedate);
-		if ($this->params->get('append_path_lang', 0)) {
+		if ($this->params->get('append_path_lang', 0))
+		{
 			$changelang	= "function changelang(language) {
 					if(!language || language == '*'){
 						language = '".JFactory::getLanguage()->getTag()."'
@@ -388,7 +392,9 @@ class SermonspeakerViewSermon extends JViewLegacy
 				}";
 			$lang	= ($this->item->language && $this->item->language == '*') ? $this->item->language : JFactory::getLanguage()->getTag();
 			$this->append_lang	= $lang.'/';
-		} else {
+		}
+		else
+		{
 			$changelang	= "function changelang(language) {}";
 			$this->append_lang	= '';
 		}
@@ -418,7 +424,8 @@ class SermonspeakerViewSermon extends JViewLegacy
 		$document->addScriptDeclaration($valscript);
 
 		// Check for errors.
-		if (count($errors = $this->get('Errors'))) {
+		if (count($errors = $this->get('Errors')))
+		{
 			JError::raiseError(500, implode("\n", $errors));
 			return false;
 		}
