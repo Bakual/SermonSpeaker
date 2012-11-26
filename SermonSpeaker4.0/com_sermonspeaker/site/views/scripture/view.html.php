@@ -16,14 +16,39 @@ class SermonspeakerViewScripture extends JViewLegacy
 		$separator	= JText::_('COM_SERMONSPEAKER_SCRIPTURE_SEPARATOR');
 		// add Javascript for Scripture
 		$javascript	= "function AddScripture() {
+			var error = 0;
 			var book = document.getElementById('book');
-			var cap1 = document.getElementById('cap1').value;
-			var cap2 = document.getElementById('cap2').value;
-			var vers1 = document.getElementById('vers1').value;
-			var vers2 = document.getElementById('vers2').value;
+			var cap1 = parseInt(document.getElementById('cap1').value);
+			var cap2 = parseInt(document.getElementById('cap2').value);
+			var vers1 = parseInt(document.getElementById('vers1').value);
+			var vers2 = parseInt(document.getElementById('vers2').value);
 			var freetext = document.getElementById('text').value;
-			if (cap1 == cap2){
-				cap2 = 0;
+			if (!freetext){
+				if (cap1 == cap2){
+					if (vers1 == vers2){
+						document.getElementById('vers2').value = '';
+						vers2 = 0;
+					} else if (vers2 && vers1 > vers2){
+						document.getElementById('vers2').className += ' invalid';
+						var error = 1;
+					}
+					document.getElementById('cap2').value = '';
+					cap2 = 0;
+				} else if (cap2 && cap1 > cap2){
+					document.getElementById('cap2').className += ' invalid';
+					var error = 1;
+				}
+				if (book.value == 0){
+					document.getElementById('book').className += ' invalid';
+					if(document.getElementById('book_chzn')){
+						document.getElementById('book_chzn').className += ' invalid';
+					}
+					var error = 1;
+				}
+				if (error){
+					alert('".JText::_('JGLOBAL_VALIDATION_FORM_FAILED')."');
+					return;
+				}
 			}
 			var value = book.value + '|' + cap1 + '|' + vers1 + '|' + cap2 + '|' + vers2 + '|' + freetext;
 			if (freetext){
