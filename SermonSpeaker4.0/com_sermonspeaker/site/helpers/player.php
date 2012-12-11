@@ -718,7 +718,7 @@ class SermonspeakerHelperPlayer {
 				} else {
 					$files[]	= urlencode(JURI::root());
 					$titles[]	= JText::_('JGLOBAL_RESOURCE_NOT_FOUND');
-					$artists	= '';
+					$artists[]	= '';
 					continue;
 				}
 				$titles[]	= ($item->sermon_title) ? urlencode($item->sermon_title) : '';
