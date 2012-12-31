@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <joomfish type="contentelement">
-<name>Sermon Speaker:Series</name>
-<author>Martin Hess</author>
-<version>3.1</version>
-<description>Definition for the Sermon Speaker Series component</description>
-<reference>
-    <table name="sermon_series">
-        <field type="referenceid" name="id" translate="0">ID</field>
-        <field type="titletext" name="series_title" translate="1">Series Title</field>
-        <field type="htmltext" name="series_description" translate="1">Series Description</field>
-    </table>
-</reference>
-<translationfilters>
-    <category>catid</category>
-    <keyword>series_title</keyword>
-    <published>published</published>
-</translationfilters>
+	<name>SermonSpeaker - Series</name>
+	<author>Thomas Hunziker</author>
+	<version>4.4</version>
+	<description>Definition for the SermonSpeaker component, series table</description>
+	<reference>
+		<table name="sermon_series">
+			<field type="referenceid" name="id" translate="0">ID</field>
+			<field type="titletext" name="series_title" translate="1">Series Title</field>
+			<field type="text" name="alias" translate="1">Alias</field>		
+			<field type="htmltext" name="series_description" translate="1">Series Description</field>
+		</table>
+	</reference>
+	<translationfilters>
+		<category>catid</category>
+		<keyword>series_title</keyword>
+		<published>published</published>
+	</translationfilters>
 </joomfish>
