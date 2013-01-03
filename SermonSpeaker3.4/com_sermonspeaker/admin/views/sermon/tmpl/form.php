@@ -249,8 +249,9 @@ $pane	=& JPane::getInstance('sliders', array('allowAllClose' => true));
 </td></tr>
 </table>
 	<input type="hidden" name="id" value="<?php echo $this->row->id; ?>" /> 
+	<input type="hidden" name="hits" value="<?php echo $this->row->hits; ?>" /> 
 	<input type="hidden" name="created_on" value="<?php echo $this->row->created_on; ?>" /> 
-	<input type="hidden" name="created_on" value="<?php echo $this->row->created_by; ?>" /> 
+	<input type="hidden" name="created_by" value="<?php echo $this->row->created_by; ?>" /> 
 	<input type="hidden" name="option" value="com_sermonspeaker" /> 
 	<input type="hidden" name="view" value="sermon" />
 	<input type="hidden" name="controller" value="sermon" />
