@@ -1,5 +1,5 @@
 <?php
-echo "Test";
+echo "Test 2";
 
 defined('_JEXEC') or die;
 require_once (dirname(__FILE__).'/helper.php');
