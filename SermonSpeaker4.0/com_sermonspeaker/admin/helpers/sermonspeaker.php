@@ -49,6 +49,11 @@ class SermonspeakerHelper
 				$vName == 'tools'
 			);
 			JHtmlSidebar::addEntry(
+				JText::_('COM_SERMONSPEAKER_MENU_LANGUAGES'),
+				'index.php?option=com_sermonspeaker&view=languages',
+				$vName == 'languages'
+			);
+			JHtmlSidebar::addEntry(
 				JText::_('COM_SERMONSPEAKER_MENU_HELP'),
 				'index.php?option=com_sermonspeaker&view=help',
 				$vName == 'help'
@@ -85,6 +90,11 @@ class SermonspeakerHelper
 				JText::_('COM_SERMONSPEAKER_MENU_TOOLS'),
 				'index.php?option=com_sermonspeaker&view=tools',
 				$vName == 'tools'
+			);
+			JSubMenuHelper::addEntry(
+				JText::_('COM_SERMONSPEAKER_MENU_LANGUAGES'),
+				'index.php?option=com_sermonspeaker&view=languages',
+				$vName == 'languages'
 			);
 			JSubMenuHelper::addEntry(
 				JText::_('COM_SERMONSPEAKER_MENU_HELP'),
