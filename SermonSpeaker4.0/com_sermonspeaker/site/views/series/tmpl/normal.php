@@ -42,7 +42,7 @@ if ($this->params->get('show_description', 1) || $this->params->def('show_descri
 	</div>
 	<?php endif;
 	if (empty($this->items)) : ?>
-		<div class="no_entries"><?php echo JText::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', JText::_('COM_SERMONSPEAKER_SPEAKERS')); ?></div>
+		<div class="no_entries"><?php echo JText::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', JText::_('COM_SERMONSPEAKER_SERIES')); ?></div>
 	<?php else : ?>
 		<table class="category table table-striped table-hover table-condensed">
 		<!-- Create the headers with sorting links -->

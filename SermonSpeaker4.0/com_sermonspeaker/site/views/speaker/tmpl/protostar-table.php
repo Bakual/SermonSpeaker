@@ -410,6 +410,11 @@ $this->document->addScriptDeclaration('jQuery(function() {
 									<?php echo JHTML::_('grid.sort', 'JGLOBAL_DESCRIPTION', 'series_description', $listDirnSeries, $listOrderSeries, 'series'); ?>
 								</th>
 							<?php endif;
+							if (in_array('speaker:speaker', $this->col_serie)): ?>
+								<th class="ss-col ss-speakers hidden-phone">
+									<?php echo JText::_('COM_SERMONSPEAKER_SPEAKERS'); ?>
+								</th>
+							<?php endif;
 							if (in_array('speaker:hits', $this->col_serie)) : ?>
 								<th class="ss-col ss-hits hidden-phone hidden-tablet">
 									<?php echo JHTML::_('grid.sort', 'JGLOBAL_HITS', 'hits', $listDirnSeries, $listOrderSeries, 'series'); ?>
@@ -450,6 +455,9 @@ $this->document->addScriptDeclaration('jQuery(function() {
 									<?php endif;
 									if (in_array('speaker:description', $this->col_serie)): ?>
 										<td class="ss-col ss-series_desc hidden-phone"><?php echo JHTML::_('content.prepare', $item->series_description); ?></td>
+									<?php endif;
+									if (in_array('speaker:speaker', $this->col_serie)): ?>
+										<td class="ss-col ss-speakers hidden-phone"><?php echo $item->speakers; ?></td>
 									<?php endif;
 									if (in_array('speaker:hits', $this->col_serie)) : ?>
 										<td class="ss-col ss-hits hidden-phone hidden-tablet"><?php echo $item->hits; ?></td>

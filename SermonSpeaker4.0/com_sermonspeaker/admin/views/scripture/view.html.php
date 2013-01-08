@@ -20,13 +20,13 @@ class SermonspeakerViewScripture extends JViewLegacy
 		$javascript	= "function AddScripture() {
 				var error = 0;
 				var book = document.getElementById('book');
-				var cap1 = document.getElementById('cap1').value;
-				var cap2 = document.getElementById('cap2').value;
-				var vers1 = document.getElementById('vers1').value;
-				var vers2 = document.getElementById('vers2').value;
+				var cap1 = parseInt(document.getElementById('cap1').value);
+				var cap2 = parseInt(document.getElementById('cap2').value);
+				var vers1 = parseInt(document.getElementById('vers1').value);
+				var vers2 = parseInt(document.getElementById('vers2').value);
 				var freetext = document.getElementById('text').value;
 				if (!freetext){
-					if (cap1 == cap2){
+					if (cap1 == cap2 || !cap2){
 						if (vers1 == vers2){
 							document.getElementById('vers2').value = '';
 							vers2 = 0;

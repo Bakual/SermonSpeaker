@@ -70,10 +70,7 @@ class SermonspeakerViewSpeaker extends JViewLegacy
 		$books					= $sermon_model->getBooks();
 		// Get Category stuff from models
 		$this->category			= $sermon_model->getCategory();
-//		$children				= $sermon_model->getChildren();
 		$this->parent			= $sermon_model->getParent();
-//		$this->children			= array($this->category->id => $children);
-// We don't use childrens here because counting isn't accurate without added series filter.
 		// Get series data from the series model
 		$series_model			= $this->getModel('Series');
 		$series_model->setState('speaker.id', $state->get('speaker.id'));
@@ -83,8 +80,29 @@ class SermonspeakerViewSpeaker extends JViewLegacy
 		// check if there are avatars at all, only showing column if needed
 		$this->av = 0;
 		foreach ($this->series as $serie){
-			if (!$this->av && !empty($serie->avatar)){
+			if (!$this->av && !empty($serie->avatar))
+			{
 				$this->av = 1;
+			}
+			if (in_array('speaker:speaker', $this->col_serie))
+			{
+				$speakers	= $series_model->getSpeakers($serie->id);
+				$popup	= array();
+				$names	= array();
+				foreach($speakers as $speaker)
+				{
+					if ($speaker->state)
+					{
+						$popup[]	= SermonspeakerHelperSermonspeaker::SpeakerTooltip($speaker->slug, $speaker->pic, $speaker->name);
+					}
+					else
+					{
+						$popup[]	= $speaker->name;
+					}
+					$names[]		= $speaker->name;
+				}
+				$serie->speakers	= implode(', ', $popup);
+				$serie->names	= implode(', ', $names);
 			}
 		}
 		// Update Statistic
@@ -113,12 +131,6 @@ class SermonspeakerViewSpeaker extends JViewLegacy
 		} else {
 			// Get the category title for backward compatibility
 			$this->cat = $this->category->title;
-		}
-		// Check whether category access level allows access.
-		$user	= JFactory::getUser();
-		$groups	= $user->getAuthorisedViewLevels();
-		if (!in_array($this->category->access, $groups)) {
-			return JError::raiseError(403, JText::_('JERROR_ALERTNOAUTHOR'));
 		}
 		$js = 'function clear_all(){
 			if(document.id(\'filter_books\')){

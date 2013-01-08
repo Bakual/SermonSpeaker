@@ -216,7 +216,8 @@ class SermonspeakerHelperSermonspeaker
 						$options['title'] = '::'.JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER');
 						$pic = JHTML::Image('media/com_sermonspeaker/images/play.gif', JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER'), $options);
 					}
-					$return .= JHTML::Link(self::makeLink($item->audiofile), $pic).' ';
+					$file = ($item->videofile && (self::$params->get('fileprio', 0) || !$item->audiofile)) ? $item->videofile : $item->audiofile;
+					$return .= JHTML::Link(self::makeLink($file), $pic).' ';
 					break;
 				case 2:
 					$cols = self::$params->get('col');
@@ -257,7 +258,8 @@ class SermonspeakerHelperSermonspeaker
 				break;
 			case 1:
 				$options['title'] = '::'.JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER');
-				$return .= JHTML::Link(self::makeLink($item->audiofile), $item->sermon_title, $options);
+				$file = ($item->videofile && (self::$params->get('fileprio', 0) || !$item->audiofile)) ? $item->videofile : $item->audiofile;
+				$return .= JHTML::Link(self::makeLink($file), $item->sermon_title, $options);
 				break;
 			case 2:
 				$cols = self::$params->get('col');

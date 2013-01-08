@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<joomfish type="contentelement">
+	<name>SermonSpeaker - Sermons</name>
+	<author>Thomas Hunziker</author>
+	<version>4.4</version>
+	<description>Definition for the SermonSpeaker component, sermons table</description>
+	<reference>
+		<table name="sermon_sermons">
+			<field type="referenceid" name="id" translate="0">ID</field>
+			<field type="titletext" name="sermon_title" translate="1">Sermon Title</field>
+			<field type="text" name="alias" translate="1">Alias</field>		
+			<field type="htmltext" name="notes" translate="1">Sermon Notes</field>
+			<field type="text" name="addfileDesc" translate="1">Additional File</field>
+		</table>
+	</reference>
+	<translationfilters>
+		<category>catid</category>
+		<keyword>sermon_title</keyword>
+		<published>published</published>
+	</translationfilters>
+</joomfish>
