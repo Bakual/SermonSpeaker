@@ -944,6 +944,17 @@
 			<option value="0">JNO</option>
 			<option value="1">JYES</option>
 		</field>
+		<field
+			name="show_feed_link"
+			type="radio"
+			class="btn-group"
+			default="1"
+			label="JGLOBAL_SHOW_FEED_LINK_LABEL"
+			description="JGLOBAL_SHOW_FEED_LINK_DESC">
+				<option value="0">JHIDE</option>
+				<option value="1">JSHOW</option>
+		</field>
+
 		<field name="facebook_spacer1" 
 			type="spacer"
 			hr="true"/>
