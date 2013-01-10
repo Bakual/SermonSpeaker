@@ -42,6 +42,12 @@ defined('_JEXEC') or die;
 	</ul>
 	<ul class="thumbnails">
 		<li class="span2">
+			<a class="thumbnail" href="index.php?option=com_sermonspeaker&view=languages">
+				<img src="<?php echo JURI::base()."components/com_sermonspeaker/images/globe.png"; ?>"/>
+				<h3 class="center"><?php echo JText::_('COM_SERMONSPEAKER_MAIN_LANGUAGES'); ?></h3>
+			</a>
+		</li>
+		<li class="span2">
 			<a class="thumbnail" href="index.php?option=com_sermonspeaker&view=help">
 				<img src="<?php echo JURI::base()."components/com_sermonspeaker/images/help.png"; ?>"/>
 				<h3 class="center"><?php echo JText::_('COM_SERMONSPEAKER_MENU_HELP'); ?></h3>
