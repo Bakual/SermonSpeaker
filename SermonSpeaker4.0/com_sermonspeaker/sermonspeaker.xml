@@ -55,6 +55,7 @@
 			<menu img="components/com_sermonspeaker/images/tags-16.png" view="tags">COM_SERMONSPEAKER_MENU_TAGS</menu>
 			<menu img="class:category" link="option=com_categories&amp;extension=com_sermonspeaker">COM_SERMONSPEAKER_MENU_CATEGORY</menu>
 			<menu img="components/com_sermonspeaker/images/tools-16.png" view="tools">COM_SERMONSPEAKER_MENU_TOOLS</menu>
+			<menu img="components/com_sermonspeaker/images/globe-16.png" view="languages">COM_SERMONSPEAKER_MENU_LANGUAGES</menu>
 			<menu img="components/com_sermonspeaker/images/help-16.png" view="help">COM_SERMONSPEAKER_MENU_HELP</menu>
 		</submenu>
 		<files folder="admin">
