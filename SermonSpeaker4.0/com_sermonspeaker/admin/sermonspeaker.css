@@ -191,6 +191,35 @@ select#batch-speaker-id, select#batch-serie-id{
 .input-append .chzn-container-single .chzn-drop {
 	border-color: #ccc;
 }
+/* Progress bar in J2.5 */
+table.adminlist div.progress{
+	width:100%;
+	padding:2px;
+	background-color:white;
+	border:1px solid black;
+	color:black;
+	text-align:center;
+}
+table.adminlist div.progress div.bar{
+	background-color:CornFlowerBlue;
+}
+table.adminlist .btn-warning{
+	background-color: #F89406;
+	color:white;
+}
+table.adminlist .btn-success{
+	background-color: #51A351;
+	color:white;
+}
+table.adminlist .btn-primary{
+	background-color: #04C;
+	color:white;
+}
+table.adminlist .btn-info{
+	background-color: #2F96B4;
+	color:white;
+}
+
 /* Custom Joomla 3.0 stuff */
 .pointer, .pointer[disabled], .pointer[readonly]{
 	cursor:pointer;
