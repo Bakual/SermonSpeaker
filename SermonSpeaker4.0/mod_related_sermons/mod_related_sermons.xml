@@ -25,6 +25,7 @@
 			<fieldset name="basic">
 				<field name="showDate" type="radio" 
 					default="0" 
+					class="btn-group"
 					label="MOD_RELATED_SERMONS_PARAM_SHOWDATE" 
 					description="MOD_RELATED_SERMONS_PARAM_SHOWDATE_DESC">
 					<option value="0">JHIDE</option>
@@ -32,6 +33,7 @@
 				</field>
 				<field name="supportArticles" type="radio" 
 					default="0" 
+					class="btn-group"
 					label="MOD_RELATED_SERMONS_PARAM_SUPPORT_ARTICLES" 
 					description="MOD_RELATED_SERMONS_PARAM_SUPPORT_ARTICLES_DESC">
 					<option value="0">JNO</option>

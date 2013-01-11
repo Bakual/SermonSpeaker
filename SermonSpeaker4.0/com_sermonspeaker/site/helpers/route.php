@@ -30,7 +30,7 @@ abstract class SermonspeakerHelperRoute
 		//Create the link
 		$link = 'index.php?option=com_sermonspeaker&view=sermons';
 		if ($catid){
-			$link .= '&sermon_cat='.$catid;
+			$link .= '&catid='.$catid;
 		}
 
 		if ($item = SermonspeakerHelperRoute::_findItem($needles)) {
@@ -67,7 +67,7 @@ abstract class SermonspeakerHelperRoute
 		//Create the link
 		$link = 'index.php?option=com_sermonspeaker&view=series';
 		if ($catid){
-			$link .= '&series_cat='.$catid;
+			$link .= '&catid='.$catid;
 		}
 
 		if ($item = SermonspeakerHelperRoute::_findItem($needles)) {
@@ -112,11 +112,12 @@ abstract class SermonspeakerHelperRoute
 		);
 		//Create the link
 		$link = 'index.php?option=com_sermonspeaker&view=speakers';
-		if ($catid){
-			$link .= '&speaker_cat='.$catid;
+		if ($catid)
+		{
+			$link .= '&catid='.$catid;
 		}
-
-		if ($item = SermonspeakerHelperRoute::_findItem($needles)) {
+		if ($item = SermonspeakerHelperRoute::_findItem($needles))
+		{
 			$link .= '&Itemid='.$item;
 		}
 

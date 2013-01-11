@@ -2,25 +2,9 @@
 defined('_JEXEC') or die;
 JHTML::_('behavior.tooltip');
 JHTML::_('behavior.modal');
-$cat['series'] 	= (int)$params->get('sc_series_cat');
-$cat['speaker']	= (int)$params->get('sc_speaker_cat');
-$cat['sermon'] 	= (int)$params->get('sc_sermon_cat');
-$series			= (int)$params->get('series_id');
 $type			= $params->get('sc_type');
 $menuitem		= (int)$params->get('sc_menuitem');
 $options = '';
-if ($cat['series']){
-	$options .= '&series_cat='.$cat['series'];
-}
-if ($cat['speaker']){
-	$options .= '&amp;speaker_cat='.$cat['speaker'];
-}
-if ($cat['sermon']){
-	$options .= '&amp;sermon_cat='.$cat['sermon'];
-}
-if ($series){
-	$options .= '&amp;series_id='.$series;
-}
 if ($type){
 	$options .= '&amp;type='.$type;
 }

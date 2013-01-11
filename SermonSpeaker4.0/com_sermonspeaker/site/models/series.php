@@ -148,7 +148,7 @@ class SermonspeakerModelSeries extends JModelList
 		$jinput	= $app->input;
 
 		// Category filter (priority on request so subcategories work)
-		$id	= $jinput->get('series_cat', $params->get('catid', 0), 'int');
+		$id	= $jinput->get('catid', $params->get('catid', 0), 'int');
 		$this->setState('category.id', $id);
 
 		// Include Subcategories or not

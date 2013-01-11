@@ -42,6 +42,12 @@ JHTML::_('behavior.tooltip');
 				</a>
 			</div>
 			<div class="icon">
+				<a href="index.php?option=com_sermonspeaker&view=languages">
+					<img border="0" align="middle" alt="<?php echo JText::_('COM_SERMONSPEAKER_MAIN_LANGUAGES'); ?>" src="<?php echo JURI::base()."components/com_sermonspeaker/images/globe.png"; ?>"/>
+					<span><?php echo JText::_('COM_SERMONSPEAKER_MAIN_LANGUAGES'); ?></span>
+				</a>
+			</div>
+			<div class="icon">
 				<a href="index.php?option=com_sermonspeaker&view=help">
 					<img border="0" align="middle" alt="<?php echo JText::_('COM_SERMONSPEAKER_MENU_HELP'); ?>" src="<?php echo JURI::base()."components/com_sermonspeaker/images/help.png"; ?>"/>
 					<span><?php echo JText::_('COM_SERMONSPEAKER_MENU_HELP'); ?></span>

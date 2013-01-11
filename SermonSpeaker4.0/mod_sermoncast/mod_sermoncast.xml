@@ -44,9 +44,10 @@
 					<option value="video">Video</option>
 				</field>
 				<field type="spacer" />
-				<field name="sc_showpcast" type="radio" 
-					default="1" 
-					label="MOD_SERMONCAST_PARAM_SHOWPCAST" 
+				<field name="sc_showpcast" type="radio"
+					default="1"
+					label="MOD_SERMONCAST_PARAM_SHOWPCAST"
+					class="btn-group"
 					description="MOD_SERMONCAST_PARAM_SHOWPCAST_DESC">
 					<option value="0">JNO</option>
 					<option value="1">JYES</option>
@@ -68,17 +69,19 @@
 					label="MOD_SERMONCAST_PARAM_OTHERIMAGE" 
 					description="MOD_SERMONCAST_PARAM_OTHERIMAGE_DESC" />
 				<field type="spacer" />
-				<field name="sc_showplink" type="radio" 
-					default="1" 
-					label="MOD_SERMONCAST_PARAM_SHOWPLINK" 
+				<field name="sc_showplink" type="radio"
+					default="1"
+					class="btn-group"
+					label="MOD_SERMONCAST_PARAM_SHOWPLINK"
 					description="MOD_SERMONCAST_PARAM_SHOWPLINK_DESC">
 					<option value="0">JNO</option>
 					<option value="1">JYES</option>
 				</field>
 				<field type="spacer" />
-				<field name="sc_showhelp" type="radio" 
-					default="0" 
-					label="MOD_SERMONCAST_PARAM_SHOWHELP" 
+				<field name="sc_showhelp" type="radio"
+					default="0"
+					class="btn-group"
+					label="MOD_SERMONCAST_PARAM_SHOWHELP"
 					description="MOD_SERMONCAST_PARAM_SHOWHELP_DESC">
 					<option value="0">JNO</option>
 					<option value="1">JYES</option>
@@ -96,31 +99,6 @@
 					label="MOD_SERMONCAST_PARAM_HELPCONTENT" 
 					description="MOD_SERMONCAST_PARAM_HELPCONTENT_DESC" />
 			</fieldset>
-			<fieldset name="advanced">
-				<field name="sc_series_cat" type="category" 
-					label="MOD_SERMONCAST_PARAM_SERIES_CATEGORY" 
-					description="MOD_SERMONCAST_PARAM_CATEGORY_DESC"
-					extension="com_sermonspeaker" 
-					show_root="true" />
-				<field name="sc_speaker_cat" type="category" 
-					label="MOD_SERMONCAST_PARAM_SPEAKER_CATEGORY" 
-					description="MOD_SERMONCAST_PARAM_CATEGORY_DESC"
-					extension="com_sermonspeaker" 
-					show_root="true" />
-				<field name="sc_sermon_cat" type="category" 
-					label="MOD_SERMONCAST_PARAM_SERMON_CATEGORY" 
-					description="MOD_SERMONCAST_PARAM_CATEGORY_DESC"
-					extension="com_sermonspeaker" 
-					show_root="true" />
-			</fieldset>
-			<field name="series_id" type="sql" 
-				label="MOD_SERMONCAST_PARAM_SERIES" 
-				description="MOD_SERMONCAST_PARAM_SERIES_DESC"
-				query="SELECT id, series_title FROM #__sermon_series" 
-				key_field="id" 
-				value_field="series_title" >
-				<option value="0">MOD_SERMONCAST_SELECT_SERIES</option>
-			</field>
 		</fields>
 	</config>
 </extension>

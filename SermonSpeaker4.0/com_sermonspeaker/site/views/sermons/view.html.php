@@ -176,7 +176,7 @@ class SermonspeakerViewSermons extends JViewLegacy
 		// Add feed links
 		if ($this->params->get('show_feed_link', 1)) {
 			$attribs = array('type' => 'application/rss+xml', 'title' => 'RSS 2.0');
-			$this->document->addHeadLink(JRoute::_('&view=feed&format=raw&sermon_cat='.$this->category->id), 'alternate', 'rel', $attribs);
+			$this->document->addHeadLink(JRoute::_('&view=feed&format=raw&catid='.$this->category->id), 'alternate', 'rel', $attribs);
 		}
 	}
 }

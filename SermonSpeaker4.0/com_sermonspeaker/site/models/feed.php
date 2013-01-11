@@ -52,20 +52,8 @@ class SermonspeakerModelFeed extends JModelLegacy
 		$query->join('LEFT', '#__categories AS c_series ON c_series.id = series.catid');
 		$query->where('(sermons.series_id = 0 OR series.catid = 0 OR (c_series.access IN ('.$groups.') AND c_series.published = 1))');
 
-		// Category filter (priority on request so subcategories work)
-		if ($id	= $jinput->get('sermon_cat', 0, 'int'))
-		{
-			$query->where('sermons.catid = '.$id);
-		}
-		elseif ($id	= $jinput->get('speaker_cat', 0, 'int'))
-		{
-			$query->where('speakers.catid = '.$id);
-		}
-		elseif ($id	= $jinput->get('series_cat', 0, 'int'))
-		{
-			$query->where('series.catid = '.$id);
-		}
-		elseif ($id	= (int) $params->get('catid', 0))
+		// Category filter
+		if ($id	= $jinput->get('catid', $params->get('catid', 0), 'int'))
 		{
 			$type	= $params->get('count_items_type', 'sermons');
 			$query->where($type.'.catid = '.$id);

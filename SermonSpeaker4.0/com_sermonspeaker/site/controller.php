@@ -34,7 +34,7 @@ class SermonspeakerController extends JControllerLegacy
 			return;
 		}
 
-		$safeurlparams = array('id'=>'INT','limit'=>'INT','limitstart'=>'INT','filter_order'=>'CMD','filter_order_Dir'=>'CMD','lang'=>'CMD','year'=>'INT','month'=>'INT','filter-search'=>'STRING','return'=>'BASE64','book'=>'INT','Itemid'=>'INT','sermon_cat'=>'INT','series_cat'=>'INT','speaker_cat'=>'INT','series_id'=>'INT');
+		$safeurlparams = array('id'=>'INT','catid'=>'INT','limit'=>'INT','limitstart'=>'INT','filter_order'=>'CMD','filter_order_Dir'=>'CMD','lang'=>'CMD','year'=>'INT','month'=>'INT','filter-search'=>'STRING','return'=>'BASE64','book'=>'INT','Itemid'=>'INT');
 
 		switch ($viewName)
 		{

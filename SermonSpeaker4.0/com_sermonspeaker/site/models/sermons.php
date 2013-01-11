@@ -205,24 +205,9 @@ class SermonspeakerModelSermons extends JModelList
 		$this->setState('params', $params);
 		$jinput	= $app->input;
 
-		// Category filter (priority on request so subcategories work)
-		if ($id		= $jinput->get('sermon_cat', 0, 'int'))
-		{
-			$type	= 'sermons';
-		}
-		elseif ($id	= $jinput->get('speaker_cat', 0, 'int'))
-		{
-			$type	= 'speakers';
-		}
-		elseif ($id	= $jinput->get('series_cat', 0, 'int'))
-		{
-			$type	= 'series';
-		}
-		else
-		{
-			$id		= (int) $params->get('catid', 0);
-			$type	= $params->get('count_items_type', 'sermons');
-		}
+		// Category filter
+		$id		= $jinput->get('catid', $params->get('catid', 0), 'int');
+		$type	= $params->get('count_items_type', 'sermons');
 		$this->setState('category.id', $id);
 		$this->setState('category.type', $type);
 

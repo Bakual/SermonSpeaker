@@ -140,7 +140,7 @@ class SermonspeakerModelspeakers extends JModelList
 		$this->setState('params', $params);
 
 		// Category filter (priority on request so subcategories work)
-		$id	= $app->input->get('speaker_cat', $params->get('catid', 0), 'int');
+		$id	= $app->input->get('catid', $params->get('catid', 0), 'int');
 		$this->setState('category.id', $id);
 
 		// Include Subcategories or not

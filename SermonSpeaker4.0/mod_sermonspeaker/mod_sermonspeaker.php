@@ -19,7 +19,7 @@ $moduleclass_sfx	= htmlspecialchars($params->get('moduleclass_sfx'));
 $itemid				= (int)$params->get('menuitem');
 $mode				= (int)$params->get('mode');
 if ($mode == 2){
-	$baseURL	= 'index.php?option=com_sermonspeaker&view=sermons&sermon_cat=';
+	$baseURL	= 'index.php?option=com_sermonspeaker&view=sermons&catid=';
 } else {
 	$view		= $mode ? 'serie' : 'speaker';
 	$baseURL	= 'index.php?option=com_sermonspeaker&view='.$view.'&id=';
