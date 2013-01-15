@@ -378,9 +378,9 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 			//include the S3 class   
 			require_once JPATH_COMPONENT_ADMINISTRATOR.'/s3/S3.php';
 			//AWS access info   
-			$awsAccessKey 	= $this->params->get('s3_access_key');
-			$awsSecretKey 	= $this->params->get('s3_secret_key');
-			$bucket			= $this->params->get('s3_bucket');
+			$awsAccessKey 	= $params->get('s3_access_key');
+			$awsSecretKey 	= $params->get('s3_secret_key');
+			$bucket			= $params->get('s3_bucket');
 			//instantiate the class
 			$s3		= new S3($awsAccessKey, $awsSecretKey);
 			$region	= $s3->getBucketLocation($bucket);
