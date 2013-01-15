@@ -219,6 +219,11 @@ table.adminlist .btn-info{
 	background-color: #2F96B4;
 	color:white;
 }
+a.contribute{
+	background: none repeat scroll 0 0 #F4F4F4;
+	border: 1px solid #CCCCCC;
+	padding: 5px;
+}
 
 /* Custom Joomla 3.0 stuff */
 .pointer, .pointer[disabled], .pointer[readonly]{

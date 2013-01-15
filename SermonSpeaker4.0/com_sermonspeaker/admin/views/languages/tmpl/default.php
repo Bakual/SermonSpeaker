@@ -56,9 +56,9 @@ defined('_JEXEC') or die;
 						<?php echo JHtml::Date($language->created, JText::_('DATE_FORMAT_LC4')); ?>
 						&nbsp;
 						<?php if((string)$this->xml->contribute && $language->completed != 100) : ?>
-							<button><a href="http://transifex.com/projects/p/<?php echo $this->xml->transifex_slug; ?>/language/<?php echo $language->lang_name; ?>" class="btn" target="_blank">
+							<a href="http://transifex.com/projects/p/<?php echo $this->xml->transifex_slug; ?>/language/<?php echo $language->lang_name; ?>" class="contribute" target="_blank">
 								<?php echo JText::_($this->prefix.'_CONTRIBUTE_NOW'); ?>
-							</a></button>
+							</a>
 						<?php endif; ?>
 					</td>
 				</tr>
