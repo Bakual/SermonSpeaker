@@ -5,9 +5,9 @@
 	<author>Thomas Hunziker</author>
 	<authorEmail>admin@sermonspeaker.net</authorEmail>
 	<authorUrl>http://www.sermonspeaker.net</authorUrl>
-	<creationDate>Mai 2012</creationDate>
-	<copyright>(C) 2012</copyright>
-	<version>1.2</version>
+	<creationDate>2013-01-16</creationDate>
+	<copyright>(C) 2013</copyright>
+	<version>1.3</version>
 	<license>http://www.gnu.org/licenses/gpl.html</license>
 	<description>Columns Layout file for SermonSpeaker</description>
 	<fileset>
