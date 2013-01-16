@@ -148,7 +148,7 @@ if (in_array('serie:player', $this->columns) && count($this->items)) : ?>
 					<div class="ss-picture">
 						<?php $picture = SermonspeakerHelperSermonspeaker::insertPicture($item);
 						if (!$picture): 
-							$picture = 'media/com_sermonspeaker/images/nopict.jpg';
+							$picture = 'media/com_sermonspeaker/images/'.$this->params->get('defaultpic', 'nopict.jpg');
 						endif; ?>
 						<img src="<?php echo $picture; ?>">
 					</div>

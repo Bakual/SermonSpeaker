@@ -314,7 +314,7 @@ class SermonspeakerHelperPlayer {
 				}
 				else
 				{
-					$entry['file']	= ($img) ? $img : JURI::base(true).'/media/com_sermonspeaker/images/nopict.jpg';
+					$entry['file']	= ($img) ? $img : JURI::base(true).'/media/com_sermonspeaker/images/'.$this->params->get('defaultpic', 'nopict.jpg');
 					$entry['error']	= JText::_('JGLOBAL_RESOURCE_NOT_FOUND');
 				}
 				$entry['title']	= addslashes($temp_item->sermon_title);
@@ -353,7 +353,7 @@ class SermonspeakerHelperPlayer {
 					}
 					else
 					{
-						$file = ($img) ? $img : JURI::base(true).'/media/com_sermonspeaker/images/nopict.jpg';
+						$file = ($img) ? $img : JURI::base(true).'/media/com_sermonspeaker/images/'.$this->params->get('defaultpic', 'nopict.jpg');
 						$entry['error'] = "error:'".JText::_('JGLOBAL_RESOURCE_NOT_FOUND')."'";
 					}
 					$entry['file']	= "file:'".$file."'";
@@ -365,7 +365,7 @@ class SermonspeakerHelperPlayer {
 					}
 					else
 					{
-						$file = ($img) ? $img : JURI::base(true).'/media/com_sermonspeaker/images/nopict.jpg';
+						$file = ($img) ? $img : JURI::base(true).'/media/com_sermonspeaker/images/'.$this->params->get('defaultpic', 'nopict.jpg');
 						$entry['error']	= "error:'".JText::_('JGLOBAL_RESOURCE_NOT_FOUND')."'";
 					}
 					$entry['file']	= "file:'".$file."'";
@@ -561,7 +561,7 @@ class SermonspeakerHelperPlayer {
 				}
 				else
 				{
-					$entry['url']	= ($img) ? $img : JURI::base(true).'/media/com_sermonspeaker/images/nopict.jpg';
+					$entry['url']	= ($img) ? $img : JURI::base(true).'/media/com_sermonspeaker/images/'.$this->params->get('defaultpic', 'nopict.jpg');
 					$entry['error']	= JText::_('JGLOBAL_RESOURCE_NOT_FOUND');
 				}
 				$entry['title']	= urlencode(addslashes($temp_item->sermon_title));
@@ -598,7 +598,7 @@ class SermonspeakerHelperPlayer {
 					}
 					else
 					{
-						$file = ($img) ? $img : JURI::base(true).'/media/com_sermonspeaker/images/nopict.jpg';
+						$file = ($img) ? $img : JURI::base(true).'/media/com_sermonspeaker/images/'.$this->params->get('defaultpic', 'nopict.jpg');
 						$entry['error'] = "error:'".JText::_('JGLOBAL_RESOURCE_NOT_FOUND')."'";
 						unset($entry['eventCategory']);
 					}
@@ -612,7 +612,7 @@ class SermonspeakerHelperPlayer {
 					}
 					else 
 					{
-						$file = ($img) ? $img : JURI::base(true).'/media/com_sermonspeaker/images/nopict.jpg';
+						$file = ($img) ? $img : JURI::base(true).'/media/com_sermonspeaker/images/'.$this->params->get('defaultpic', 'nopict.jpg');
 						$entry['error']	= "error:'".JText::_('JGLOBAL_RESOURCE_NOT_FOUND')."'";
 						unset($entry['eventCategory']);
 					}

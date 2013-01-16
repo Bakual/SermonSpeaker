@@ -187,7 +187,7 @@ endif;
 					</td>
 					<td class="center small hidden-phone">
 						<?php if (!$item->avatar){
-							$item->avatar = JURI::root().'media/com_sermonspeaker/images/nopict.jpg';
+							$item->avatar = JURI::root().'media/com_sermonspeaker/images/'.$this->state->get('params')->get('defaultpic', 'nopict.jpg');
 						}
 						if (substr($item->avatar, 0, 7) != 'http://') {
 							$item->avatar = JURI::root().trim($item->avatar, '/.');

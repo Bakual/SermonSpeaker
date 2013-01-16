@@ -145,7 +145,7 @@ if ($this->params->get('show_category_title', 0) || in_array('speaker:hits', $th
 					<div class="ss-picture">
 						<?php $picture = SermonspeakerHelperSermonspeaker::insertPicture($item);
 						if (!$picture): 
-							$picture = 'media/com_sermonspeaker/images/nopict.jpg';
+							$picture = 'media/com_sermonspeaker/images/'.$this->params->get('defaultpic', 'nopict.jpg');
 						endif; ?>
 						<img src="<?php echo $picture; ?>">
 					</div>

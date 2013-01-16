@@ -1,7 +1,7 @@
 <?php
 defined( '_JEXEC' ) or die( 'Restricted access' );
 if (!$this->item->pic):
-	$this->item->pic = 'media/com_sermonspeaker/images/nopict.jpg';
+	$this->item->pic = 'media/com_sermonspeaker/images/'.$this->params->get('defaultpic', 'nopict.jpg');
 endif;
 ?>
 <div class="ss-speaker-container<?php echo htmlspecialchars($this->params->get('pageclass_sfx')); ?>" >

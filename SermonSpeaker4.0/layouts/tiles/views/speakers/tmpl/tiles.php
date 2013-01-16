@@ -83,7 +83,7 @@ if ($this->params->get('show_description', 1) || $this->params->def('show_descri
 				$tip[]	= JText::_('COM_SERMONSPEAKER_FIELD_BIO_LABEL').': '.JHTML::_('content.prepare', $item->bio);
 			endif;
 			$tooltip	= implode('<br/>', $tip);
-			$image = ($item->pic) ? $item->pic : 'media/com_sermonspeaker/images/nopict.jpg'; ?>
+			$image = ($item->pic) ? $item->pic : 'media/com_sermonspeaker/images/'.$this->params->get('defaultpic', 'nopict.jpg'); ?>
 			<div id="serie<?php echo $i; ?>" class="ss-entry tile">
 				<span class="hasTip" title="<?php echo $this->escape($item->name).'::'.$this->escape($tooltip); ?>">
 				<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->id));?>">

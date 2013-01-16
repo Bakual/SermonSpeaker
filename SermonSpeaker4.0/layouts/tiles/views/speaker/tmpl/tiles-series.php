@@ -109,7 +109,7 @@ if ($this->params->get('show_category_title', 0) || in_array('speaker:hits', $th
 				$tip[]	= JText::_('JGLOBAL_DESCRIPTION').': '.JHTML::_('content.prepare', $item->series_description);
 			endif;
 			$tooltip	= implode('<br/>', $tip);
-			$image = ($item->avatar) ? $item->avatar : 'media/com_sermonspeaker/images/nopict.jpg'; ?>
+			$image = ($item->avatar) ? $item->avatar : 'media/com_sermonspeaker/images/'.$this->params->get('defaultpic', 'nopict.jpg'); ?>
 			<div id="serie<?php echo $i; ?>" class="ss-entry tile">
 				<span class="hasTip" title="<?php echo $this->escape($item->series_title).'::'.$this->escape($tooltip); ?>">
 				<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->id));?>">

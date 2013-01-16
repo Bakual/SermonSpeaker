@@ -168,7 +168,7 @@ if ($this->params->get('show_category_title', 0) || in_array('speaker:hits', $th
 			$tooltip	= implode('<br/>', $tip);
 			$picture = SermonspeakerHelperSermonspeaker::insertPicture($item);
 			if (!$picture): 
-				$picture = 'media/com_sermonspeaker/images/nopict.jpg';
+				$picture = 'media/com_sermonspeaker/images/'.$this->params->get('defaultpic', 'nopict.jpg');
 			endif; ?>
 			<div id="sermon<?php echo $i; ?>" class="ss-entry tile">
 				<span class="hasTip" title="<?php echo $this->escape($item->sermon_title).'::'.$this->escape($tooltip); ?>">
