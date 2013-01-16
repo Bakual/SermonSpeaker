@@ -57,7 +57,7 @@ $player = new SermonspeakerHelperPlayer($this->item);
 		<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_SPEAKER'); ?>:</div>
 		<div class="ss-sermondetail-text">
 			<?php if ($this->item->speaker_state):
-				echo SermonspeakerHelperSermonSpeaker::SpeakerTooltip($this->item->speaker_slug, $this->item->pic, $this->item->name); 
+				echo SermonspeakerHelperSermonSpeaker::SpeakerTooltip($this->item->speaker_slug, false, $this->item->name); 
 			else: 
 				echo $this->item->name;
 			endif; ?>
