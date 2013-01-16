@@ -8,8 +8,6 @@ class SermonspeakerViewSeries extends JViewLegacy
 {
 	function display($tpl = null)
 	{
-		$app		= JFactory::getApplication();
-		$this->params	= $app->getParams();
 		// Get some data from the models
 		$this->state		= $this->get('State');
 		$this->items		= $this->get('Items');
@@ -19,7 +17,7 @@ class SermonspeakerViewSeries extends JViewLegacy
 		$children			= $this->get('Children');
 		$this->parent		= $this->get('Parent');
 		$this->children		= array($this->category->id => $children);
-		$this->params = $this->state->get('params');
+		$this->params		= $this->state->get('params');
 		$this->col_serie	= $this->params->get('col_serie');
 		if (!$this->col_serie){
 			$this->col_serie = array();
