@@ -14,33 +14,41 @@ if ($tooltip) {
 	<?php foreach($list as $row) :
 		$i++; ?>
 		<li class="latestsermons_entry<?php echo $i; ?>">
-		<?php if ($tooltip) :
+		<?php
+		if ($params->get('use_date')) :
+			$date_format = JText::_($params->get('ls_mo_date_format', 'DATE_FORMAT_LC4'));
+			$text = JHtml::Date($row->sermon_date, $date_format, true);
+		else :
+			$text = $row->sermon_title;
+		endif;
+		if ($params->get('show_hits') > 1 and $row->hits) :
+			$text .= ' <small>('.$row->hits.')</small>';
+		endif;
+		$link = JRoute::_('index.php?option=com_sermonspeaker&view=sermon&id='.$row->slug.'&Itemid='.$itemid);
+		if ($tooltip) :
+			$title = '';
+			if ($params->get('show_tooltip_title')) :
+				$title = $row->sermon_title;
+			endif;
 			$tips = array();
-			if ($params->get('ls_show_mo_speaker') && $row->name) :
+			if ($params->get('ls_show_mo_speaker') and $row->name) :
 				$tips[] = JText::_('MOD_LATESTSERMONS_SPEAKER').': '.$row->name;
 			endif;
-			if ($params->get('ls_show_mo_series') && $row->series_title) :
+			if ($params->get('ls_show_mo_series') and $row->series_title) :
 				$tips[] = JText::_('MOD_LATESTSERMONS_SERIE').': '.$row->series_title;
 			endif;
-			if ($params->get('ls_show_mo_date') && $row->sermon_date) :
+			if ($params->get('ls_show_mo_date') and $row->sermon_date) :
 				$date_format = JText::_($params->get('ls_mo_date_format', 'DATE_FORMAT_LC4'));
 				$tips[] = JText::_('JDATE').': '.JHtml::Date($row->sermon_date, $date_format, true);
 			endif;
-			if ($params->get('show_hits', 0) & 1 && $row->hits) :
+			if (($params->get('show_hits') & 1) and $row->hits) :
 				$tips[] = JText::_('JGLOBAL_HITS').': '.$row->hits;
 			endif;
 			$tip = implode('<br />', $tips);
-			$title = $row->sermon_title;
-			if ($params->get('show_hits', 0) > 1 && $row->hits) :
-				$title .= ' <small>('.$row->hits.')</small>';
-			endif;
-			echo JHTML::tooltip($tip, '', '', $title, JRoute::_('index.php?option=com_sermonspeaker&view=sermon&id='.$row->slug.'&Itemid='.$itemid)); ?>
+			echo JHTML::tooltip($tip, $title, '', $text, $link); ?>
 		<?php else : ?>
-			<a href="<?php echo JRoute::_('index.php?option=com_sermonspeaker&view=sermon&id='.$row->slug.'&Itemid='.$itemid); ?>">
-				<?php echo $row->sermon_title;
-				if ($params->get('show_hits', 0) > 1 && $row->hits) : ?>
-					<small>(<?php echo $row->hits; ?>)</small>
-				<?php endif; ?>
+			<a href="<?php echo $link; ?>">
+				<?php echo $text; ?>
 			</a>
 		<?php endif; ?>
 		</li>
