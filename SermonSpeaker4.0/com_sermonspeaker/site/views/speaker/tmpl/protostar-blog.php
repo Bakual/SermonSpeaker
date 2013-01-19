@@ -266,22 +266,6 @@ $this->document->addScriptDeclaration('jQuery(function() {
 													</div>
 												</dd>
 											<?php endif;
-											if ($this->params->get('custom1') and $item->custom1) : ?>
-												<dd>
-													<div class="ss-sermondetail-info">
-														<?php echo JText::_('COM_SERMONSPEAKER_CUSTOM1'); ?>:
-														<?php echo $item->custom1; ?>
-													</div>
-												</dd>
-											<?php endif;
-											if ($this->params->get('custom2') and $item->custom2) : ?>
-												<dd>
-													<div class="ss-sermondetail-info">
-														<?php echo JText::_('COM_SERMONSPEAKER_CUSTOM2'); ?>:
-														<?php echo $item->custom2; ?>
-													</div>
-												</dd>
-											<?php endif;
 											if (in_array('speaker:length', $this->col_sermon) and $item->sermon_time != '00:00:00') : ?>
 												<dd>
 													<div class="ss-sermondetail-info">
