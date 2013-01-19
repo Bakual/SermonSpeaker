@@ -89,7 +89,7 @@ class modRelatedSermonsHelper
 			$query->join('LEFT', '#__sermon_tags AS tags ON st.tag_id = tags.id');
 
 			self::$db->setQuery($query);
-			$tags = self::$db->loadResultArray();
+			$tags = self::$db->loadColumn();
 			if ($tags)
 			{
 				$keywords	= array_merge($keywords, $tags);

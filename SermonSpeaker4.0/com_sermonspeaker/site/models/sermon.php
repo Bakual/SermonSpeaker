@@ -189,7 +189,7 @@ class SermonspeakerModelSermon extends JModelItem
 
 		$db->setQuery($query);
 
-		$tags = $db->loadResultArray();
+		$tags = $db->loadColumn();
 		return $tags;
 	}
 

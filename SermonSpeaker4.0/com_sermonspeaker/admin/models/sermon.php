@@ -248,7 +248,7 @@ class SermonspeakerModelSermon extends JModelAdmin
 					."WHERE sermon_id = ".$item->id." \n"
 					;
 			$db->setQuery($query);
-			$item->tags = $db->loadResultArray();
+			$item->tags = $db->loadColumn();
 		}
 
 		return $item;
