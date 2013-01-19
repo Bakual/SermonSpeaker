@@ -90,6 +90,13 @@ class SermonspeakerViewSermon extends JViewLegacy
 						if(data.notes && document.getElementById("jform_notes")){
 							jInsertEditorText(data.notes, "jform_notes");
 						}
+						if(data.filesize){
+							splits = elem.id.split("_");
+							field = splits[0]+"_"+splits[1]+"size";
+							if(document.getElementById(field)){
+								document.getElementById(field).value = data.filesize;
+							}
+						}
 					} else {
 						alert(data.msg);
 					}

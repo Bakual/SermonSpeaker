@@ -98,6 +98,7 @@ class SermonspeakerHelperId3
 			$id3['series_id'] 		= '';
 			$id3['speaker_id']		= '';
 		}
+		$id3['filesize']			= filesize($path);
 
 		return $id3;
 	}

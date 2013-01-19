@@ -273,6 +273,22 @@ class SermonspeakerModelSermon extends JModelAdmin
 			}
 		}
 
+		if (!$table->audiofilesize && $table->audiofile)
+		{
+			if (strpos($table->audiofile, 'http://') !== 0)
+			{
+				$table->audiofilesize = filesize(JPATH_SITE.$table->audiofile);
+			}
+		}
+
+		if (!$table->videofilesize && $table->videofile)
+		{
+			if (strpos($table->videofile, 'http://') !== 0)
+			{
+				$table->videofilesize = filesize(JPATH_SITE.$table->videofile);
+			}
+		}
+
 		$time_arr = explode(':', $table->sermon_time);
 		foreach ($time_arr as $time_int){
 			$time_int = (int)$time_int;

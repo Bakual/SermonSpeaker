@@ -85,6 +85,12 @@ $input = JFactory::getApplication()->input;
 										</span>
 									</div>
 								</div>
+								<div class="control-label">
+									<?php echo $this->form->getLabel('audiofilesize'); ?>
+								</div>
+								<div class="controls">
+									<?php echo $this->form->getInput('audiofilesize'); ?>
+								</div>
 								<br />
 								<div class="control-label">
 									<?php echo $this->form->getLabel('videofile'); ?>
@@ -117,6 +123,12 @@ $input = JFactory::getApplication()->input;
 											endif; ?>
 										</span>
 									</div>
+								</div>
+								<div class="control-label">
+									<?php echo $this->form->getLabel('videofilesize'); ?>
+								</div>
+								<div class="controls">
+									<?php echo $this->form->getInput('videofilesize'); ?>
 								</div>
 								<br />
 								<div class="control-label">
