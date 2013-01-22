@@ -174,18 +174,6 @@ if (in_array('sermons:player', $this->columns) && count($this->items)) : ?>
 						echo JHTML::_('content.prepare', $scriptures); ?>
 					</dd>
 				<?php endif;
-				if ($this->params->get('custom1') && $item->custom1) : ?>
-					<dd class="ss-sermondetail-info">
-						<?php echo JText::_('COM_SERMONSPEAKER_CUSTOM1'); ?>:
-						<?php echo $item->custom1; ?>
-					</dd>
-				<?php endif;
-				if ($this->params->get('custom2') && $item->custom2) : ?>
-					<dd class="ss-sermondetail-info">
-						<?php echo JText::_('COM_SERMONSPEAKER_CUSTOM2'); ?>:
-						<?php echo $item->custom2; ?>
-					</dd>
-				<?php endif;
 				if (in_array('sermons:length', $this->columns)) : ?>
 					<dd class="ss-sermondetail-info">
 						<?php echo JText::_('COM_SERMONSPEAKER_FIELD_LENGTH_LABEL'); ?>:

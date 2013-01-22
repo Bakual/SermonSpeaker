@@ -248,7 +248,7 @@ class SermonspeakerModelSermon extends JModelAdmin
 					."WHERE sermon_id = ".$item->id." \n"
 					;
 			$db->setQuery($query);
-			$item->tags = $db->loadResultArray();
+			$item->tags = $db->loadColumn();
 		}
 
 		return $item;
@@ -270,6 +270,22 @@ class SermonspeakerModelSermon extends JModelAdmin
 			$table->alias = JApplication::stringURLSafe($table->sermon_title);
 			if (empty($table->alias)) {
 				$table->alias = JFactory::getDate()->format("Y-m-d-H-i-s");
+			}
+		}
+
+		if (!$table->audiofilesize && $table->audiofile)
+		{
+			if (strpos($table->audiofile, 'http://') !== 0)
+			{
+				$table->audiofilesize = filesize(JPATH_SITE.$table->audiofile);
+			}
+		}
+
+		if (!$table->videofilesize && $table->videofile)
+		{
+			if (strpos($table->videofile, 'http://') !== 0)
+			{
+				$table->videofilesize = filesize(JPATH_SITE.$table->videofile);
 			}
 		}
 

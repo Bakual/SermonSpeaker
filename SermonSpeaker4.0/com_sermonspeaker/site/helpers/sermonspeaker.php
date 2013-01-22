@@ -568,4 +568,62 @@ class SermonspeakerHelperSermonspeaker
 		}
 		return false;
 	}
+
+	/* Based on function "binary_multiples" from Damir Enseleit <info@selfphp.de> 
+	 * $si		use prefix based on SI norm instead the new IEC norm
+	 * $short	use short prefix
+	*/
+	static function convertBytes($bytes, $si = true, $short = true)
+	{
+		if ($si)
+		{
+			if ($short)
+			{
+				$unit = array('B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB');
+			}
+			else
+			{
+				$unit = array('Byte', 
+							'Kilobyte', 
+							'Megabyte', 
+							'Gigabyte', 
+							'Terabyte', 
+							'Petabyte', 
+							'Exabyte', 
+							'Zettabyte', 
+							'Yottabyte'
+							);
+			}
+			$factor = 1000;
+		}
+		else
+		{
+			if ($short)
+			{
+				$unit = array('B', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB');
+			}
+			else
+			{
+				$unit = array('Byte', 
+							'Kibibyte', 
+							'Mebibyte', 
+							'Gibibyte', 
+							'Tebibyte', 
+							'Pebibyte', 
+							'Exbibyte', 
+							'Zebibyte', 
+							'Yobibyte'
+							);
+			}
+			$factor = 1024;
+		}
+		$count = count($unit) - 1;
+		$x = 0;
+		while (($bytes >= $factor) && ($x < $count)) 
+		{
+			$bytes /= $factor; 
+			$x++;
+		}
+		return number_format($bytes, 2).' '.$unit[$x];
+	}	
 }
