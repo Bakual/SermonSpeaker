@@ -11,8 +11,7 @@ class SermonspeakerHelperSermonspeaker
 
 	static function getParams()
 	{
-		$app = JFactory::getApplication();
-		self::$params = $app->getParams('com_sermonspeaker');
+		self::$params = JFactory::getApplication()->getParams('com_sermonspeaker');
 	}
 
 	static function getView()
@@ -449,5 +448,124 @@ class SermonspeakerHelperSermonspeaker
 				break;
 		}
 		return $mime;
+	}
+
+	/**
+	 * Loading the correct playerclass and defining some default config
+	 * Takes two arguments:
+	 * $item can be a single sermon object or an array of sermon objects
+	 * $config should be an array of config options. Valid options:
+	 *  - count (id of the player)
+	 *  - type (may be audio, video or auto)
+	 *  - prio (may be 0 for audio or 1 for video)
+	 *  - autostart (overwrites the backend setting)
+	 *  - alt_player (overwrites the backend setting)
+	 *  - awidth, aheight (width and height for audio)
+	 *  - vwidth, vheight (width and height for video)
+	 */
+	static function getPlayer($item, $config = array())
+	{
+		if (!is_array($config))
+		{
+			JError::raiseWarning(100, 'Wrong calling of getPlayer(), second parameter needs to be an array');
+			$config = array();
+		}
+
+		if (!self::$params)
+		{
+			self::getParams();
+		}
+
+		// Setting default values
+		$config['count']	= (isset($config['count'])) ? $config['count'] : 1;
+
+		// Allow a fixed value for the type; may be audio, video or auto. "Auto" is default behaviour and takes care of the "prio" param.
+		$config['type']		= (isset($config['type'])) ? $config['type'] : 'auto';
+		$config['prio']		= (isset($config['prio'])) ? $config['prio'] : self::$params->get('fileprio', 0);
+
+		// Autostart parameter may be overridden by a layout (eg for Series/Sermon View)
+		$config['autostart'] = (!isset($config['autostart'])) ? $config['autostart'] : self::$params->get('autostart');
+
+		// Allow a player to be chosen by the layout (eg for icon layout); 0 = JWPlayer, 1 = PixelOut, 2 = FlowPlayer
+		$config['alt_player'] = (!isset($config['alt_player'])) ? $config['alt_player'] : self::$params->get('alt_player');
+
+		// Backward compatibility for layouts (params are changed with script)
+		if (is_numeric($config['alt_player']))
+		{
+			switch ($config['alt_player'])
+			{
+				case 1:
+					$config['alt_player'] = 'pixelout';
+					break;
+				case 2:
+					$config['alt_player'] = 'flowplayer';
+					break;
+				case 0:
+				default:
+					$config['alt_player'] = 'jwplayer5';
+					break;
+			}
+		}
+
+		// Dispatching
+		jimport('joomla.filesystem.file');
+		if (!JFile::exists(JPATH_COMPONENT_SITE.'/helpers/player/'.$config['alt_player'].'.php'))
+		{
+			$config['alt_player'] = 'jwplayer5';
+		}
+		require_once(JPATH_COMPONENT_SITE.'/helpers/player/'.$config['alt_player'].'.php');
+		$classname	= 'SermonspeakerHelperPlayer'.ucfirst($config['alt_player']);
+		$player		= new $classname();
+
+		if (!is_array($item)
+		{
+			// Detect file to use
+			if ($config['type'] == 'auto')
+			{
+				$file	= self::getFileByPrio($item, $config['prio']);
+			}
+			else
+			{
+				$file	= ($config['type'] == 'video') ? $item->videofile : $item->audiofile;
+			}
+			if (!$file)
+			{
+				// Todo: Error Message because no valid file found or just wait till later if unsupported URL
+			}
+			$file	= self::makeLink($file);
+			// Check if filetype is suported
+			if (!$player->isSupported($file))
+			{
+				// Fallback to default for filetype
+				$config['alt_player'] = $player->getFallbackPlayer($file);
+
+				require_once(JPATH_COMPONENT_SITE.'/helpers/player/'.$config['alt_player'].'.php');
+				$classname	= 'SermonspeakerHelperPlayer'.ucfirst($config['alt_player']);
+				$player		= new $classname();
+
+				// Check with Fallback (? maybe skip alltogether and check in player)
+				if (!$player->isSupported($file))
+				{
+					// Todo Error message
+					$player->error = 'Unsupported Filetype';
+				}
+			}
+		}
+		// Todo Prepare player
+		$player->preparePlayer($item, $config);
+		return $player;
+	}
+
+	static function getFileByPrio($item, $prio)
+	{
+		if ($item->audiofile && (!$prio || !$item->videofile))
+		{
+			return $item->audiofile;
+		}
+		elseif ($item->videofile && ($prio || !$temp_item->audiofile))
+		{
+			return $item->videofile;
+		}
+		return false;
 	}
 }

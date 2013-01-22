@@ -9,98 +9,47 @@ class SermonspeakerHelperPlayer {
 	public $script;
 	public $playlist;
 	public $popup;
-	public $status;
-	public $toggle;
-	public $player;
+	public $status;	// Maybe unneeded. Is mostly used to detect an error in the layout
+	public $toggle;	// is able to toggle between audio and video
+	public $player;	// name of player
 	public $file;
 
-	private $params;
-	private $prio;
-	private $start;
-	private $item;
-	private $count;
-	private $config;
+	protected $params;
+	protected $prio;
+	protected $start;
+	protected $item;
+	protected $count;
+	protected $config;
 	// Static switches if the script for a player is already loaded
-	private static $jwscript;
-	private static $poscript;
-	private static $fwscript;
-	private static $wmvscript;
-	private static $vimeoscript;
+	protected static $jwscript;
+	protected static $poscript;
+	protected static $fwscript;
+	protected static $wmvscript;
+	protected static $vimeoscript;
 
-	/**
-	 * Constructor 
-	 * Takes two arguments:
-	 * $item can be a single sermon object or an array of sermon objects
-	 * $config should be an array of config options. Valid options:
-	 *  - count (id of the player)
-	 *  - type (may be audio, video or auto)
-	 *  - autostart (overwrites the backend setting)
-	 *  - alt_player (overwrites the backend setting)
-	 *  - awidth, aheight (width and height for audio)
-	 *  - vwidth, vheight (width and height for video)
-	 */
-	public function __construct($item, $config = array()) {
+	public function __construct()
+	{
 		// Get params
-		$app = JFactory::getApplication();
-		$this->params	= $app->getParams('com_sermonspeaker');
+		$this->params	= JFactory::getApplication()->getParams('com_sermonspeaker');
+	}
 
-		// defining some variables
-		$this->item		= $item;
-
-		if (!is_array($config)){
-			JError::raiseWarning(100, 'Wrong calling of player helper, second parameter needs to be an array');
-			$config = array();
+	public function getFallbackPlayer($file)
+	{
+		$ext	= JFile::getExt($item);
+		if ($ext == 'wmv' || $ext == 'wma')
+		{
+			// WMV Player
+			return 'wmvplayer';
 		}
-
-		if(!isset($config['count'])){
-			$config['count'] = 1;
+		elseif ((strpos($this->file, 'http://vimeo.com') === 0) || (strpos($this->file, 'http://player.vimeo.com') === 0))
+		{
+			// Vimeo
+			return 'vimeo';
 		}
-
-		// Allow a fixed value for the type; may be audio, video or auto. "Auto" is default behaviour and takes care of the "prio" param.
-		if (!isset($config['type'])){
-			$config['type'] = 'auto';
-		}
-		$this->prio		= $this->params->get('fileprio', 0);
-
-		// Autostart parameter may be overridden by a layout (eg for Series/Sermon View)
-		if (!isset($config['autostart'])){
-			$config['autostart']	= $this->params->get('autostart');
-		}
-
-		// Allow a player to be chosen by the layout (eg for icon layout); 0 = JWPlayer, 1 = PixelOut, 2 = FlowPlayer
-		if (!isset($config['alt_player'])){
-			$config['alt_player']	= $this->params->get('alt_player');
-		}
-
-		$this->config = $config;
-
-		// Dispatching
-		if(is_array($this->item)){
-			// Playlist
-			if(!count($this->item)){
-				// Nothing available
-				$this->popup['height']	= 0;
-				$this->popup['width']	= 0;
-				$this->error	= JText::_('JGLOBAL_RESOURCE_NOT_FOUND');
-				return;
-			}
-			$this->status	= 'playlist';
-			switch ($config['alt_player']){
-				case 1:
-					$this->PixelOut();
-					break;
-				case 2:
-					$this->FlowPlayer();
-					break;
-				default:
-					$this->JWPlayer();
-					break;
-			}
-			return;
-		} else {
-			// Single File
-			$this->SinglePlayer();
-			return;
+		else
+		{
+			// Default: JW Player, plays most files
+			return 'jwplayer5';
 		}
 	}
 
@@ -196,272 +145,6 @@ class SermonspeakerHelperPlayer {
 		return;
 	}
 
-	/* JW Player */
-	private function JWPlayer()
-	{
-		$this->player	= 'JWPlayer';
-		$this->mspace	= '<div id="mediaspace'.$this->config['count'].'">'.JText::_('COM_SERMONSPEAKER_PLAYER_NEEDS_JAVASCRIPT').'</div>';
-		// Setting some general player options
-		$modes[0]	= "{type:'flash', src:'".JURI::base(true)."/media/com_sermonspeaker/player/jwplayer/player.swf'}";
-		$modes[1]	= "{type:'html5'}";
-		$modes[2]	= "{type:'download'}";
-		$options['modes']	= ($this->params->get('jwmode', 0)) ? '['.$modes[1].','.$modes[0].','.$modes[2].']' : '['.$modes[0].','.$modes[1].','.$modes[2].']';
-		$options['autostart']	= $this->config['autostart'] ? 'true' : 'false';
-		$options['controlbar']	= "'bottom'";
-		if ($skin = $this->params->get('jwskin', ''))
-		{
-			$options['skin'] = "'".SermonspeakerHelperSermonspeaker::makeLink($skin)."'";
-		}
-		// Plugins
-		if ($this->params->get('ga_id', ''))
-		{
-			$plugins['gapro-2'] = "{idstring:'SermonSpeaker/||provider||:||file||'}";
-		}
-		if ($this->params->get('fbit', 0))
-		{
-			$plugins['fbit-1'] = '{}';
-		}
-		if ($this->params->get('tweetit', 0))
-		{
-			$plugins['tweetit-1'] = '{}';
-		}
-		if ($this->params->get('plusone', 0))
-		{
-			$plugins['plusone-1'] = '{}';
-		}
-		if ($this->params->get('share', 0))
-		{
-			$plugins['sharing-3'] = '{}';
-		}
-		if ($this->params->get('viral', 0))
-		{
-			$plugins['viral-2'] = '{}';
-		}
-		if (isset($plugins))
-		{
-			foreach ($plugins as $key => $value)
-			{
-				$plugins[$key] = "'".$key."':".$value;
-			}
-			$options['plugins'] = '{'.implode(',', $plugins).'}';
-		}
-		if ($this->status == 'playlist')
-		{
-			$this->toggle = $this->params->get('fileswitch', 0);
-			$this->setDimensions('23px', '100%');
-			$type = ($this->config['type'] == 'audio' || ($this->config['type'] == 'auto' && !$this->prio)) ? 'a' : 'v';
-			$this->setPopup($type);
-			$options['events']	= '{'
-									.'onPlaylistItem: function(event){'
-										.'var i = 0;'
-										.'while (document.id("sermon"+i)){'
-											.'document.id("sermon"+i).removeClass("ss-current");'
-												.'i++;'
-											.'}'
-										.'document.id("sermon"+event.index).addClass("ss-current");'
-										.'entry = jwplayer().getPlaylistItem();'
-										.'if (entry.duration > 0){'
-											.'time = new Array();'
-											.'var hrs = Math.floor(entry.duration/3600);'
-											.'if (hrs > 0){time.push(hrs);}'
-											.'var min = Math.floor((entry.duration - hrs * 3600)/60);'
-											.'if (hrs > 0 && min < 10){'
-												.'time.push("0" + min);'
-											.'} else {'
-												.'time.push(min);'
-											.'}'
-											.'var sec = entry.duration - hrs * 3600 - min * 60;'
-											.'if (sec < 10){'
-												.'time.push("0" + sec);'
-											.'} else {'
-												.'time.push(sec);'
-											.'}'
-											.'var duration = time.join(":");'
-											.'document.id("playing-duration").innerHTML = duration;'
-										.'} else {'
-											.'document.id("playing-duration").innerHTML = "";'
-										.'}'
-										.'document.id("playing-pic").src = entry.image;'
-										.'if(entry.image){'
-											.'document.id("playing-pic").style.display = "block";'
-										.'}else{'
-											.'document.id("playing-pic").style.display = "none";'
-										.'}'
-										.'if(entry.error){'
-											.'document.id("playing-error").innerHTML = entry.error;'
-											.'document.id("playing-error").style.display = "block";'
-										.'}else{'
-											.'document.id("playing-error").style.display = "none";'
-										.'}'
-										.'document.id("playing-title").innerHTML = entry.title;'
-										.'document.id("playing-desc").innerHTML = entry.description;'
-									.'}'
-								.'}';
-			$entries = array();
-			foreach ($this->item as $temp_item)
-			{
-				$entry = array();
-				// Choose picture to show
-				$img = SermonspeakerHelperSermonspeaker::insertPicture($temp_item, 1);
-				// Choosing the default file to play based on prio and availabilty
-				if (($this->config['type'] != 'video') && ($temp_item->audiofile && (!$this->prio || ($this->config['type'] == 'audio') || !$temp_item->videofile)))
-				{
-					$entry['file']	= SermonspeakerHelperSermonspeaker::makeLink($temp_item->audiofile);
-				}
-				elseif (($this->config['type'] != 'audio') && ($temp_item->videofile && ($this->prio || ($this->config['type'] == 'video') || !$temp_item->audiofile)))
-				{
-					$entry['file']	= SermonspeakerHelperSermonspeaker::makeLink($temp_item->videofile);
-				}
-				else
-				{
-					$entry['file']	= ($img) ? $img : JURI::base(true).'/media/com_sermonspeaker/images/'.$this->params->get('defaultpic', 'nopict.jpg');
-					$entry['error']	= JText::_('JGLOBAL_RESOURCE_NOT_FOUND');
-				}
-				$entry['title']	= addslashes($temp_item->sermon_title);
-				$desc = array();
-				if ($temp_item->sermon_date)
-				{
-					$desc[] = JText::_('JDATE').': '.JHTML::Date($temp_item->sermon_date, JText::_($this->params->get('date_format')), true);
-				}
-				if ($temp_item->name)
-				{
-					$desc[] = JText::_('COM_SERMONSPEAKER_SPEAKER').': '.addslashes($temp_item->name);
-				}
-				$entry['description'] = implode('<br/>', $desc);
-				if ($temp_item->sermon_time != '00:00:00')
-				{
-					$time_arr = explode(':', $temp_item->sermon_time);
-					$seconds = ($time_arr[0] * 3600) + ($time_arr[1] * 60) + $time_arr[2];
-					$entry['duration'] = $seconds;
-				}
-				if ($img)
-				{
-					$entry['image'] = $img;
-				}
-				foreach ($entry as $key => $value)
-				{
-					$entry[$key] = $key.":'".$value."'";
-				}
-				$entries[] = '{'.implode(',', $entry).'}';
-				if ($this->toggle)
-				{
-					// Preparing specific playlists for audio and video
-					if ($temp_item->audiofile)
-					{
-						$file = SermonspeakerHelperSermonspeaker::makeLink($temp_item->audiofile);
-						unset($entry['error']);
-					}
-					else
-					{
-						$file = ($img) ? $img : JURI::base(true).'/media/com_sermonspeaker/images/'.$this->params->get('defaultpic', 'nopict.jpg');
-						$entry['error'] = "error:'".JText::_('JGLOBAL_RESOURCE_NOT_FOUND')."'";
-					}
-					$entry['file']	= "file:'".$file."'";
-					$audios[] = '{'.implode(',', $entry).'}';
-					if ($temp_item->videofile)
-					{
-						$file = SermonspeakerHelperSermonspeaker::makeLink($temp_item->videofile);
-						unset($entry['error']);
-					}
-					else
-					{
-						$file = ($img) ? $img : JURI::base(true).'/media/com_sermonspeaker/images/'.$this->params->get('defaultpic', 'nopict.jpg');
-						$entry['error']	= "error:'".JText::_('JGLOBAL_RESOURCE_NOT_FOUND')."'";
-					}
-					$entry['file']	= "file:'".$file."'";
-					$videos[] = '{'.implode(',', $entry).'}';
-				}
-			}
-			$this->playlist['default'] = implode(',', $entries);
-			if ($this->toggle)
-			{
-				$this->playlist['audio'] = implode(',', $audios);
-				$this->playlist['video'] = implode(',', $videos);
-			}
-		}
-		else
-		{
-			$type	= ($this->status == 'audio') ? 'a' : 'v';
-			$entry	= array();
-			$entry['file'] = $this->file;
-			if ($img = SermonspeakerHelperSermonspeaker::insertPicture($this->item, 1))
-			{
-				$entry['image'] = $img;
-			}
-			if ($this->item->sermon_time != '00:00:00')
-			{
-				$time_arr = explode(':', $this->item->sermon_time);
-				$seconds = ($time_arr[0] * 3600) + ($time_arr[1] * 60) + $time_arr[2];
-				$entry['duration'] = $seconds;
-			}
-			foreach ($entry as $key => $value)
-			{
-				$entry[$key] = $key.":'".$value."'";
-			}
-			
-			$this->playlist['default'] = '{'.implode(',', $entry).'}';
-			if ($this->toggle)
-			{
-				$this->playlist['audio']	= "{file:'".$this->playlist['audio']."'}";
-				$this->playlist['video']	= "{file:'".$this->playlist['video']."'}";
-			}
-		}
-		foreach ($options as $key => $value)
-		{
-			$options[$key] = $key.':'.$value;
-		}
-		$this->script	= '<script type="text/javascript">'
-							."jwplayer('mediaspace".$this->config['count']."').setup({"
-								."playlist:[".$this->playlist['default']."],"
-								."width:'".$this->config[$type.'width']."',"
-								."height:'".$this->config[$type.'height']."',"
-								.implode(',', $options)
-							.'});'
-						.'</script>';
-
-		// Loading needed Javascript only once
-		if (!self::$jwscript){
-			JHTML::Script('media/com_sermonspeaker/player/jwplayer/jwplayer.js');
-			$doc = JFactory::getDocument();
-			$doc->addScriptDeclaration('function ss_play(id){jwplayer().playlistItem(id);}');
-			if ($this->toggle)
-			{
-				$awidth		= is_numeric($this->config['awidth']) ? $this->config['awidth'].'px' : $this->config['awidth'];
-				$aheight	= is_numeric($this->config['aheight']) ? $this->config['aheight'].'px' : $this->config['aheight'];
-				$vwidth		= is_numeric($this->config['vwidth']) ? $this->config['vwidth'].'px' : $this->config['vwidth'];
-				$vheight	= is_numeric($this->config['vheight']) ? $this->config['vheight'].'px' : $this->config['vheight'];
-				if ($this->status != 'playlist')
-				{
-					$url = 'index.php?&task=download&id='.$this->item->slug.'&type=';
-					$download_video = 'document.getElementById("sermon_download").onclick=function(){window.location.href=\''.JRoute::_($url.'video').'\'};document.getElementById("sermon_download").value="'.JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_VIDEO').'"';
-					$download_audio = 'document.getElementById("sermon_download").onclick=function(){window.location.href=\''.JRoute::_($url.'audio').'\'};document.getElementById("sermon_download").value="'.JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_AUDIO').'"';
-				} 
-				else 
-				{
-					$download_video = '';
-					$download_audio = '';
-				}
-				$doc->addScriptDeclaration('
-					function Video() {
-						jwplayer().load(['.$this->playlist['video'].']).resize("'.$vwidth.'","'.$vheight.'");
-						document.getElementById("mediaspace'.$this->config['count'].'_wrapper").style.width="'.$vwidth.'";
-						document.getElementById("mediaspace'.$this->config['count'].'_wrapper").style.height="'.$vheight.'";
-						'.$download_video.'
-					}
-				');
-				$doc->addScriptDeclaration('
-					function Audio() {
-						jwplayer().load(['.$this->playlist['audio'].']).resize("'.$awidth.'","'.$aheight.'");
-						document.getElementById("mediaspace'.$this->config['count'].'_wrapper").style.width="'.$awidth.'";
-						document.getElementById("mediaspace'.$this->config['count'].'_wrapper").style.height="'.$aheight.'";
-						'.$download_audio.'
-					}
-				');
-			}
-			self::$jwscript = 1;
-		}
-		return;
-	}
 
 	/* FlowPayer */
 	private function FlowPlayer()
