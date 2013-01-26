@@ -164,7 +164,7 @@ class SermonspeakerHelperSermonspeaker
 	static function insertTime($time)
 	{
 		$tmp = explode(':', $time);
-		if ($tmp[0])
+		if ((int)$tmp[0])
 		{
 			return $tmp[0].':'.$tmp[1].':'.$tmp[2];
 		}
