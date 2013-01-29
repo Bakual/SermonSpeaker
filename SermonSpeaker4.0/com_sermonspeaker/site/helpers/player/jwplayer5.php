@@ -6,8 +6,8 @@ require_once(JPATH_COMPONENT_SITE.'/helpers/player.php');
  * JW Player 5
  */
 class SermonspeakerHelperPlayerJwplayer5 extends SermonspeakerHelperPlayer {
-	public function isSupported($item){
-		$ext		= JFile::getExt($item);
+	public function isSupported($file){
+		$ext		= JFile::getExt($file);
 		$audio_ext	= array('aac', 'm4a', 'mp3');
 		$video_ext	= array('mp4', 'mov', 'f4v', 'flv', '3gp', '3g2');
 		if (in_array($ext, $audio_ext))
@@ -19,7 +19,7 @@ class SermonspeakerHelperPlayerJwplayer5 extends SermonspeakerHelperPlayer {
 		{
 			$this->mode	= 'video';
 		}
-		elseif (strpos($this->file, 'http://www.youtube.com') === 0)
+		elseif (strpos($file, 'http://www.youtube.com') === 0)
 		{
 			$this->mode	= 'video';
 		}
@@ -32,8 +32,9 @@ class SermonspeakerHelperPlayerJwplayer5 extends SermonspeakerHelperPlayer {
 
 	public function preparePlayer($item, $config)
 	{
+		$this->config	= $config;
 		$this->player	= 'JWPlayer';
-		$this->mspace	= '<div id="mediaspace'.$config['count'].'">'.JText::_('COM_SERMONSPEAKER_PLAYER_NEEDS_JAVASCRIPT').'</div>';
+		$this->mspace	= '<div id="mediaspace'.$this->config['count'].'">'.JText::_('COM_SERMONSPEAKER_PLAYER_NEEDS_JAVASCRIPT').'</div>';
 		$this->toggle	= $this->params->get('fileswitch', 0);
 
 		// Setting some general player options
@@ -41,7 +42,7 @@ class SermonspeakerHelperPlayerJwplayer5 extends SermonspeakerHelperPlayer {
 		$modes[1]	= "{type:'html5'}";
 		$modes[2]	= "{type:'download'}";
 		$options['modes']	= ($this->params->get('jwmode', 0)) ? '['.$modes[1].','.$modes[0].','.$modes[2].']' : '['.$modes[0].','.$modes[1].','.$modes[2].']';
-		$options['autostart']	= $config['autostart'] ? 'true' : 'false';
+		$options['autostart']	= $this->config['autostart'] ? 'true' : 'false';
 		$options['controlbar']	= "'bottom'";
 		if ($skin = $this->params->get('jwskin', ''))
 		{
@@ -84,7 +85,7 @@ class SermonspeakerHelperPlayerJwplayer5 extends SermonspeakerHelperPlayer {
 		{
 			// Playlist
 			$this->setDimensions('23px', '100%');
-			$type = ($config['type'] == 'audio' || ($config['type'] == 'auto' && !$config['prio'])) ? 'a' : 'v';
+			$type = ($this->config['type'] == 'audio' || ($this->config['type'] == 'auto' && !$this->config['prio'])) ? 'a' : 'v';
 			$this->setPopup($type);
 			$options['events']	= '{'
 									.'onPlaylistItem: function(event){'
@@ -133,19 +134,19 @@ class SermonspeakerHelperPlayerJwplayer5 extends SermonspeakerHelperPlayer {
 									.'}'
 								.'}';
 			$entries = array();
-			foreach ($this->item as $temp_item)
+			foreach ($item as $temp_item)
 			{
 				$entry = array();
 				// Choose picture to show
 				$img = SermonspeakerHelperSermonspeaker::insertPicture($temp_item, 1);
 				// Choosing the default file to play based on prio and availabilty
-				if ($config['type'] != 'auto')
+				if ($this->config['type'] != 'auto')
 				{
-					$file	= SermonspeakerHelperSermonspeaker::getFileByPrio($temp_item, $config['prio']);
+					$file	= SermonspeakerHelperSermonspeaker::getFileByPrio($temp_item, $this->config['prio']);
 				}
 				else
 				{
-					$file	= ($config['type'] == 'video') ? $temp_item->videofile : $temp_item->audiofile;
+					$file	= ($this->config['type'] == 'video') ? $temp_item->videofile : $temp_item->audiofile;
 				}
 				if ($file)
 				{
@@ -225,22 +226,22 @@ class SermonspeakerHelperPlayerJwplayer5 extends SermonspeakerHelperPlayer {
 			$entry	= array();
 
 			// Detect file to use
-			if ($config['type'] == 'auto')
+			if ($this->config['type'] == 'auto')
 			{
-				$file	= SermonspeakerHelperSermonspeaker::getFileByPrio($item, $config['prio']);
+				$file	= SermonspeakerHelperSermonspeaker::getFileByPrio($item, $this->config['prio']);
 			}
 			else
 			{
-				$file	= ($config['type'] == 'video') ? $item->videofile : $item->audiofile;
+				$file	= ($this->config['type'] == 'video') ? $item->videofile : $item->audiofile;
 			}
 			$entry['file']	= SermonspeakerHelperSermonspeaker::makeLink($file);
-			if ($img = SermonspeakerHelperSermonspeaker::insertPicture($this->item, 1))
+			if ($img = SermonspeakerHelperSermonspeaker::insertPicture($item, 1))
 			{
 				$entry['image'] = $img;
 			}
-			if ($this->item->sermon_time != '00:00:00')
+			if ($item->sermon_time != '00:00:00')
 			{
-				$time_arr = explode(':', $this->item->sermon_time);
+				$time_arr = explode(':', $item->sermon_time);
 				$seconds = ($time_arr[0] * 3600) + ($time_arr[1] * 60) + $time_arr[2];
 				$entry['duration'] = $seconds;
 			}
@@ -268,10 +269,10 @@ class SermonspeakerHelperPlayerJwplayer5 extends SermonspeakerHelperPlayer {
 			$options[$key] = $key.':'.$value;
 		}
 		$this->script	= '<script type="text/javascript">'
-							."jwplayer('mediaspace".$config['count']."').setup({"
+							."jwplayer('mediaspace".$this->config['count']."').setup({"
 								."playlist:[".$this->playlist['default']."],"
-								."width:'".$config[$type.'width']."',"
-								."height:'".$config[$type.'height']."',"
+								."width:'".$this->config[$type.'width']."',"
+								."height:'".$this->config[$type.'height']."',"
 								.implode(',', $options)
 							.'});'
 						.'</script>';
@@ -283,13 +284,13 @@ class SermonspeakerHelperPlayerJwplayer5 extends SermonspeakerHelperPlayer {
 			$doc->addScriptDeclaration('function ss_play(id){jwplayer().playlistItem(id);}');
 			if ($this->toggle)
 			{
-				$awidth		= is_numeric($config['awidth']) ? $config['awidth'].'px' : $config['awidth'];
-				$aheight	= is_numeric($config['aheight']) ? $config['aheight'].'px' : $config['aheight'];
-				$vwidth		= is_numeric($config['vwidth']) ? $config['vwidth'].'px' : $config['vwidth'];
-				$vheight	= is_numeric($config['vheight']) ? $config['vheight'].'px' : $config['vheight'];
-				if ($this->status != 'playlist')
+				$awidth		= is_numeric($this->config['awidth']) ? $this->config['awidth'].'px' : $this->config['awidth'];
+				$aheight	= is_numeric($this->config['aheight']) ? $this->config['aheight'].'px' : $this->config['aheight'];
+				$vwidth		= is_numeric($this->config['vwidth']) ? $this->config['vwidth'].'px' : $this->config['vwidth'];
+				$vheight	= is_numeric($this->config['vheight']) ? $this->config['vheight'].'px' : $this->config['vheight'];
+				if (!is_array($item))
 				{
-					$url = 'index.php?&task=download&id='.$this->item->slug.'&type=';
+					$url = 'index.php?&task=download&id='.$item->slug.'&type=';
 					$download_video = 'document.getElementById("sermon_download").onclick=function(){window.location.href=\''.JRoute::_($url.'video').'\'};document.getElementById("sermon_download").value="'.JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_VIDEO').'"';
 					$download_audio = 'document.getElementById("sermon_download").onclick=function(){window.location.href=\''.JRoute::_($url.'audio').'\'};document.getElementById("sermon_download").value="'.JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_AUDIO').'"';
 				} 
@@ -301,16 +302,16 @@ class SermonspeakerHelperPlayerJwplayer5 extends SermonspeakerHelperPlayer {
 				$doc->addScriptDeclaration('
 					function Video() {
 						jwplayer().load(['.$this->playlist['video'].']).resize("'.$vwidth.'","'.$vheight.'");
-						document.getElementById("mediaspace'.$config['count'].'_wrapper").style.width="'.$vwidth.'";
-						document.getElementById("mediaspace'.$config['count'].'_wrapper").style.height="'.$vheight.'";
+						document.getElementById("mediaspace'.$this->config['count'].'_wrapper").style.width="'.$vwidth.'";
+						document.getElementById("mediaspace'.$this->config['count'].'_wrapper").style.height="'.$vheight.'";
 						'.$download_video.'
 					}
 				');
 				$doc->addScriptDeclaration('
 					function Audio() {
 						jwplayer().load(['.$this->playlist['audio'].']).resize("'.$awidth.'","'.$aheight.'");
-						document.getElementById("mediaspace'.$config['count'].'_wrapper").style.width="'.$awidth.'";
-						document.getElementById("mediaspace'.$config['count'].'_wrapper").style.height="'.$aheight.'";
+						document.getElementById("mediaspace'.$this->config['count'].'_wrapper").style.width="'.$awidth.'";
+						document.getElementById("mediaspace'.$this->config['count'].'_wrapper").style.height="'.$aheight.'";
 						'.$download_audio.'
 					}
 				');

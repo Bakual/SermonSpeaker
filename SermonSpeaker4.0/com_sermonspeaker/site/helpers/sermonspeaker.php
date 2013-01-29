@@ -484,10 +484,10 @@ class SermonspeakerHelperSermonspeaker
 		$config['prio']		= (isset($config['prio'])) ? $config['prio'] : self::$params->get('fileprio', 0);
 
 		// Autostart parameter may be overridden by a layout (eg for Series/Sermon View)
-		$config['autostart'] = (!isset($config['autostart'])) ? $config['autostart'] : self::$params->get('autostart');
+		$config['autostart'] = (isset($config['autostart'])) ? $config['autostart'] : self::$params->get('autostart');
 
 		// Allow a player to be chosen by the layout (eg for icon layout); 0 = JWPlayer, 1 = PixelOut, 2 = FlowPlayer
-		$config['alt_player'] = (!isset($config['alt_player'])) ? $config['alt_player'] : self::$params->get('alt_player');
+		$config['alt_player'] = (isset($config['alt_player'])) ? $config['alt_player'] : self::$params->get('alt_player');
 
 		// Backward compatibility for layouts (params are changed with script)
 		if (is_numeric($config['alt_player']))
@@ -498,7 +498,7 @@ class SermonspeakerHelperSermonspeaker
 					$config['alt_player'] = 'pixelout';
 					break;
 				case 2:
-					$config['alt_player'] = 'flowplayer';
+					$config['alt_player'] = 'flowplayer3';
 					break;
 				case 0:
 				default:
@@ -517,7 +517,7 @@ class SermonspeakerHelperSermonspeaker
 		$classname	= 'SermonspeakerHelperPlayer'.ucfirst($config['alt_player']);
 		$player		= new $classname();
 
-		if (!is_array($item)
+		if (!is_array($item))
 		{
 			// Detect file to use
 			if ($config['type'] == 'auto')
