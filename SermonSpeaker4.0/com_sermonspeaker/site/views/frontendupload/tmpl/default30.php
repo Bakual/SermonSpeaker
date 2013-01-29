@@ -1,10 +1,11 @@
 <?php
 defined('_JEXEC') or die('Restricted access');
-JHTML::stylesheet('com_sermonspeaker/frontendupload.css', '', true);
+JHtml::stylesheet('com_sermonspeaker/frontendupload.css', '', true);
 JHtml::_('behavior.keepalive');
 JHtml::_('behavior.tooltip');
 JHtml::_('behavior.calendar');
 JHtml::_('behavior.formvalidation');
+JHtml::_('behavior.modal');
 JHtml::_('formbehavior.chosen', 'select');
 
 $uri = JURI::getInstance();

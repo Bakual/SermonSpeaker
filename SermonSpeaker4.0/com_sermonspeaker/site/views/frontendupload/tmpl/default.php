@@ -1,9 +1,10 @@
 <?php
-defined( '_JEXEC' ) or die( 'Restricted access' );
-JHTML::stylesheet('com_sermonspeaker/frontendupload.css', '', true);
+defined('_JEXEC') or die('Restricted access');
+JHtml::stylesheet('com_sermonspeaker/frontendupload.css', '', true);
+JHtml::_('behavior.keepalive');
 JHtml::_('behavior.tooltip');
 JHtml::_('behavior.formvalidation');
-JHtml::_('behavior.keepalive');
+JHtml::_('behavior.modal');
 
 $uri = JURI::getInstance();
 $uri->delVar('file');
