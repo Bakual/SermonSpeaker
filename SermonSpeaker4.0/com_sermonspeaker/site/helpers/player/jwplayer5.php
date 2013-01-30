@@ -5,7 +5,10 @@ require_once(JPATH_COMPONENT_SITE.'/helpers/player.php');
 /**
  * JW Player 5
  */
-class SermonspeakerHelperPlayerJwplayer5 extends SermonspeakerHelperPlayer {
+class SermonspeakerHelperPlayerJwplayer5 extends SermonspeakerHelperPlayer
+{
+	private static $script_loaded;
+
 	public function isSupported($file){
 		$ext		= JFile::getExt($file);
 		$audio_ext	= array('aac', 'm4a', 'mp3');
@@ -84,9 +87,7 @@ class SermonspeakerHelperPlayerJwplayer5 extends SermonspeakerHelperPlayer {
 		if (is_array($item))
 		{
 			// Playlist
-			$this->setDimensions('23px', '100%');
 			$type = ($this->config['type'] == 'audio' || ($this->config['type'] == 'auto' && !$this->config['prio'])) ? 'a' : 'v';
-			$this->setPopup($type);
 			$options['events']	= '{'
 									.'onPlaylistItem: function(event){'
 										.'var i = 0;'
@@ -268,6 +269,8 @@ class SermonspeakerHelperPlayerJwplayer5 extends SermonspeakerHelperPlayer {
 		{
 			$options[$key] = $key.':'.$value;
 		}
+		$this->setDimensions('23px', '100%');
+		$this->setPopup($type);
 		$this->script	= '<script type="text/javascript">'
 							."jwplayer('mediaspace".$this->config['count']."').setup({"
 								."playlist:[".$this->playlist['default']."],"
@@ -278,7 +281,7 @@ class SermonspeakerHelperPlayerJwplayer5 extends SermonspeakerHelperPlayer {
 						.'</script>';
 
 		// Loading needed Javascript only once
-		if (!self::$jwscript){
+		if (!self::$script_loaded){
 			JHTML::Script('media/com_sermonspeaker/player/jwplayer/jwplayer.js');
 			$doc = JFactory::getDocument();
 			$doc->addScriptDeclaration('function ss_play(id){jwplayer().playlistItem(id);}');
@@ -316,7 +319,7 @@ class SermonspeakerHelperPlayerJwplayer5 extends SermonspeakerHelperPlayer {
 					}
 				');
 			}
-			self::$jwscript = 1;
+			self::$script_loaded = 1;
 		}
 		return;
 	}

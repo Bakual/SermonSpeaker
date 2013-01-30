@@ -4,27 +4,17 @@ defined('_JEXEC') or die;
 /**
  * Sermonspeaker Component Player Helper
  */
-class SermonspeakerHelperPlayer {
+class SermonspeakerHelperPlayer
+{
 	public $mspace;
 	public $script;
 	public $playlist;
-	public $popup;
-	public $status;	// Maybe unneeded. Is mostly used to detect an error in the layout
-	public $toggle;	// is able to toggle between audio and video
-	public $player;	// name of player
+	public $popup;		// 
+	public $toggle;		// is able to toggle between audio and video
+	public $player;		// name of player
 
 	protected $params;
-	protected $prio;
-	protected $start;
-	protected $item;
-	protected $count;
 	protected $config;
-	// Static switches if the script for a player is already loaded
-	protected static $jwscript;
-	protected static $poscript;
-	protected static $fwscript;
-	protected static $wmvscript;
-	protected static $vimeoscript;
 
 	public function __construct()
 	{

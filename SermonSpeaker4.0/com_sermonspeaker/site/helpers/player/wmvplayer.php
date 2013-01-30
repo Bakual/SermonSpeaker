@@ -3,10 +3,14 @@ defined('_JEXEC') or die;
 
 require_once(JPATH_COMPONENT_SITE.'/helpers/player.php');
 /**
- * JW Player 5
+ * Silverlight WMVPlayer
  */
-class SermonspeakerHelperPlayerWmvplayer extends SermonspeakerHelperPlayer {
+class SermonspeakerHelperPlayerWmvplayer extends SermonspeakerHelperPlayer
+{
+	private static $script_loaded;
+
 	public function isSupported($item){
+		$ext	= JFile::getExt($file);
 		if ($ext == 'wmv' || $ext == 'wma')
 		{
 			// WMV Player
@@ -26,10 +30,13 @@ class SermonspeakerHelperPlayerWmvplayer extends SermonspeakerHelperPlayer {
 
 		$player	= JURI::root().'media/com_sermonspeaker/player/wmvplayer/wmvplayer.xaml';
 		$start	= $this->config['autostart'] ? 1 : 0;
-		$type	= ($this->status == 'audio') ? 'a' : 'v';
 		$this->mspace	= '<div id="mediaspace'.$this->config['count'].'">'.JText::_('COM_SERMONSPEAKER_PLAYER_NEEDS_JAVASCRIPT').'</div>';
-		$file	= SermonspeakerHelperSermonspeaker::getFileByPrio($temp_item, $this->config['prio']);
+		$file	= SermonspeakerHelperSermonspeaker::getFileByPrio($item, $this->config['prio']);
 		$file	= SermonspeakerHelperSermonspeaker::makeLink($file);
+		$type	= (JFile::getExt($file) == 'wma') ? 'a' : 'v';
+		$this->setDimensions('21px', '250px');
+		$this->setPopup($type);
+
 		$image = SermonspeakerHelperSermonspeaker::insertPicture($item);
 		if ($image)
 		{
@@ -58,11 +65,11 @@ class SermonspeakerHelperPlayerWmvplayer extends SermonspeakerHelperPlayer {
 		$this->toggle = false;
 
 		// Loading needed Javascript only once
-		if (!self::$wmvscript)
+		if (!self::$script_loaded)
 		{
 			JHTML::Script('media/com_sermonspeaker/player/wmvplayer/silverlight.js');
 			JHTML::Script('media/com_sermonspeaker/player/wmvplayer/wmvplayer.js');
-			self::$wmvscript = 1;
+			self::$script_loaded = 1;
 		}
 		return;
 	}

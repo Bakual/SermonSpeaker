@@ -530,7 +530,12 @@ class SermonspeakerHelperSermonspeaker
 			}
 			if (!$file)
 			{
-				// Todo: Error Message because no valid file found or just wait till later if unsupported URL
+				// Nothing available
+				$player->popup['height']	= 0;
+				$player->popup['width']		= 0;
+				$player->error				= JText::_('JGLOBAL_RESOURCE_NOT_FOUND');
+				$player->toggle				= false;
+				return $player;
 			}
 			$file	= self::makeLink($file);
 			// Check if filetype is suported
@@ -543,15 +548,18 @@ class SermonspeakerHelperSermonspeaker
 				$classname	= 'SermonspeakerHelperPlayer'.ucfirst($config['alt_player']);
 				$player		= new $classname();
 
-				// Check with Fallback (? maybe skip alltogether and check in player)
+				// Check with Fallback
 				if (!$player->isSupported($file))
 				{
-					// Todo Error message
-					$player->error = 'Unsupported Filetype';
+					$player->popup['height']	= 0;
+					$player->popup['width']		= 0;
+					$player->error				= 'Unsupported Filetype';
+					$player->toggle				= false;
+					return $player;
 				}
 			}
 		}
-		// Todo Prepare player
+		// Prepare player
 		$player->preparePlayer($item, $config);
 		return $player;
 	}

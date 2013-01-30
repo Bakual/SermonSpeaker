@@ -3,9 +3,12 @@ defined('_JEXEC') or die;
 
 require_once(JPATH_COMPONENT_SITE.'/helpers/player.php');
 /**
- * JW Player 5
+ * Flowplayer 3
  */
-class SermonspeakerHelperPlayerFlowplayer3 extends SermonspeakerHelperPlayer {
+class SermonspeakerHelperPlayerFlowplayer3 extends SermonspeakerHelperPlayer
+{
+	private static $script_loaded;
+
 	public function isSupported($file){
 		$ext		= JFile::getExt($file);
 		$audio_ext	= array('mp3');
@@ -105,8 +108,7 @@ class SermonspeakerHelperPlayerFlowplayer3 extends SermonspeakerHelperPlayer {
 					.'document.id("playing-desc").innerHTML = entry.description;'
 				.'}';
 			$this->toggle = $this->params->get('fileswitch', 0);
-			$this->setDimensions('23px', '100%');
-			$type = ($this->config['type'] == 'audio' || ($this->config['type'] == 'auto' && !$this->prio)) ? 'a' : 'v';
+			$type = ($this->config['type'] == 'audio' || ($this->config['type'] == 'auto' && !$this->config['prio'])) ? 'a' : 'v';
 			$entries = array();
 			foreach ($item as $temp_item)
 			{
@@ -114,15 +116,18 @@ class SermonspeakerHelperPlayerFlowplayer3 extends SermonspeakerHelperPlayer {
 				// Choose picture to show
 				$img = SermonspeakerHelperSermonspeaker::insertPicture($temp_item, 1);
 				// Choosing the default file to play based on prio and availabilty
-				if (($this->config['type'] != 'video') && ($temp_item->audiofile && (!$this->prio || ($this->config['type'] == 'audio') || !$temp_item->videofile)))
+				if ($this->config['type'] != 'auto')
 				{
-					$entry['url']			= SermonspeakerHelperSermonspeaker::makeLink($temp_item->audiofile);
-					$entry['eventCategory']	= 'SermonSpeaker/Audio';
-				} 
-				elseif (($this->config['type'] != 'audio') && ($temp_item->videofile && ($this->prio || ($this->config['type'] == 'video') || !$temp_item->audiofile)))
+					$file	= SermonspeakerHelperSermonspeaker::getFileByPrio($temp_item, $this->config['prio']);
+				}
+				else
 				{
-					$entry['url']	= SermonspeakerHelperSermonspeaker::makeLink($temp_item->videofile);
-					$entry['eventCategory']	= 'SermonSpeaker/Video';
+					$file	= ($this->config['type'] == 'video') ? $temp_item->videofile : $temp_item->audiofile;
+				}
+				if ($file)
+				{
+					$entry['url']			= SermonspeakerHelperSermonspeaker::makeLink($file);
+					$entry['eventCategory']	= ($file == $temp_item->audiofile) ? 'SermonSpeaker/Audio' : 'SermonSpeaker/Video';
 				}
 				else
 				{
@@ -195,18 +200,34 @@ class SermonspeakerHelperPlayerFlowplayer3 extends SermonspeakerHelperPlayer {
 		else
 		{
 			$type	= ($this->mode == 'audio') ? 'a' : 'v';
-			$cat	= ($this->mode == 'audio') ? 'Audio' : 'Video';
-			$this->playlist['default'] = "url:'".$this->file."',eventCategory:'SermonSpeaker/".$cat."'";
+			$cat	= ($type == 'a') ? 'Audio' : 'Video';
+			$file	= ($type == 'a') ? $item->audiofile : $item->videofile;
+			$file	= SermonspeakerHelperSermonspeaker::makeLink($file);
+			$this->playlist['default'] = "url:'".$file."',eventCategory:'SermonSpeaker/".$cat."'";
 			if ($this->toggle)
 			{
-				$this->playlist['audio'] = "{url:'".$this->playlist['audio']."',eventCategory:'SermonSpeaker/Audio'}";
-				$this->playlist['video'] = "{url:'".$this->playlist['video']."',eventCategory:'SermonSpeaker/Video'}";
+				if ($type == 'a' && $item->videofile)
+				{
+					$this->playlist['audio'] = "{url:'".$file."',eventCategory:'SermonSpeaker/Audio'}";
+					$this->playlist['video'] = "{url:'".SermonspeakerHelperSermonspeaker::makeLink($item->videofile)."',eventCategory:'SermonSpeaker/Video'}";
+				}
+				elseif ($type == 'v' && $item->audiofile)
+				{
+					$this->playlist['video'] = "{url:'".$file."',eventCategory:'SermonSpeaker/Video'}";
+					$this->playlist['audio'] = "{url:'".SermonspeakerHelperSermonspeaker::makeLink($item->audiofile)."',eventCategory:'SermonSpeaker/Audio'}";
+				}
+				else
+				{
+					$this->toggle	= false;
+				}
 			}
 		}
 		foreach ($options as $key => $value)
 		{
 			$options[$key] = $key.':'.$value;
 		}
+		$this->setDimensions('23px', '100%');
+		$this->setPopup($type);
 		$this->mspace = '<div style="width:'.$this->config[$type.'width'].'; height:'.$this->config[$type.'height'].'" id="mediaspace'.$this->config['count'].'"></div>';
 		$this->script = '<script type="text/javascript">'
 							.'flowplayer("mediaspace'.$this->config['count'].'", "'.$player.'", {'
@@ -218,7 +239,7 @@ class SermonspeakerHelperPlayerFlowplayer3 extends SermonspeakerHelperPlayer {
 						.'</script>';
 
 		// Loading needed Javascript only once
-		if (!self::$fwscript)
+		if (!self::$script_loaded)
 		{
 			$doc = JFactory::getDocument();
 			$doc->addScriptDeclaration('function ss_play(id){flowplayer().play(parseInt(id));}');
@@ -257,7 +278,7 @@ class SermonspeakerHelperPlayerFlowplayer3 extends SermonspeakerHelperPlayer {
 					}
 				');
 			}
-			self::$fwscript = 1;
+			self::$script_loaded = 1;
 		}
 		return;
 	}

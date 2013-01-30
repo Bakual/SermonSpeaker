@@ -3,9 +3,12 @@ defined('_JEXEC') or die;
 
 require_once(JPATH_COMPONENT_SITE.'/helpers/player.php');
 /**
- * JW Player 5
+ * Pixelout (WOrdpress Audio Player)
  */
-class SermonspeakerHelperPlayerPixelout extends SermonspeakerHelperPlayer {
+class SermonspeakerHelperPlayerPixelout extends SermonspeakerHelperPlayer
+{
+	private static $script_loaded;
+
 	public function isSupported($file){
 		$ext		= JFile::getExt($file);
 		if ($ext == 'mp3')
@@ -69,10 +72,10 @@ class SermonspeakerHelperPlayerPixelout extends SermonspeakerHelperPlayer {
 							.'})'
 						.'</script>';
 		$this->toggle = false;
-		$this->setPopup();
+		$this->setPopup('a');
 
 		// Loading needed Javascript only once
-		if (!self::$poscript)
+		if (!self::$script_loaded)
 		{
 			JHTML::Script('media/com_sermonspeaker/player/audio_player/audio-player.js');
 			$doc = JFactory::getDocument();
@@ -84,7 +87,7 @@ class SermonspeakerHelperPlayerPixelout extends SermonspeakerHelperPlayer {
 					left: "000000",
 					lefticon: "FFFFFF"
 				});');
-			self::$poscript = 1;
+			self::$script_loaded = 1;
 		}
 		return;
 	}
