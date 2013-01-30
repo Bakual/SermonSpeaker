@@ -2,7 +2,7 @@
 defined('_JEXEC') or die;
 JHTML::stylesheet('com_sermonspeaker/sermonspeaker.css', '', true);
 $config	= array('type' => JFactory::getApplication()->input->get('type', 'audio'));
-$player = new SermonspeakerHelperPlayer($this->item, $config);
+$player = SermonspeakerHelperSermonspeaker::getPlayer($this->item, $config);
 ?>
 <script type="text/javascript">
 	window.onload = applyChanges()

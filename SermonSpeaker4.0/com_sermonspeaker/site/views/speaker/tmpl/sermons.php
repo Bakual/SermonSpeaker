@@ -10,7 +10,7 @@ $canEdit	= ($fu_enable and $user->authorise('core.edit', 'com_sermonspeaker'));
 $canEditOwn	= ($fu_enable and $user->authorise('core.edit.own', 'com_sermonspeaker'));
 $listOrder	= $this->state_sermons->get('list.ordering');
 $listDirn	= $this->state_sermons->get('list.direction');
-$player = new SermonspeakerHelperPlayer($this->sermons);
+$player = SermonspeakerHelperSermonspeaker::getPlayer($this->sermons);
 ?>
 <div class="category-list<?php echo $this->pageclass_sfx;?> ss-speaker-container<?php echo $this->pageclass_sfx; ?>">
 <?php if ($this->params->get('show_page_heading', 1)) : ?>

@@ -84,7 +84,7 @@ class plgContentSermonspeaker extends JPlugin
 						break;
 					case 2:
 						$config['count'] = '_plg_'.$item->id.'_'.$i;
-						$player	= new SermonspeakerHelperPlayer($item, $config);
+						$player	= SermonspeakerHelperSermonspeaker::getPlayer($item, $config);
 						$output	= $player->mspace;
 						$output	.= $player->script;
 						break;
@@ -126,7 +126,7 @@ class plgContentSermonspeaker extends JPlugin
 						if ($this->params->get('show_player'))
 						{
 							$config['count'] = '_plg_'.$item->id.'_'.$i;
-							$player	= new SermonspeakerHelperPlayer($item, $config);
+							$player	= SermonspeakerHelperSermonspeaker::getPlayer($item, $config);
 							$contents	.= $player->mspace;
 							$contents	.= $player->script;
 						}

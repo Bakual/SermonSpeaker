@@ -82,7 +82,7 @@ if ($params->get('show_player')) :
 	$config['type']			= $c_params->get('fileprio') ? 'video' : 'audio';
 	$config['alt_player']	= $c_params->get('alt_player');
 	$config['vheight']		= $params->get('vheight');
-	$player = new SermonspeakerHelperPlayer($list, $config);
+	$player = SermonspeakerHelperSermonspeaker::getPlayer($list, $config);
 	echo $player->mspace;
 	echo $player->script; ?>
 	</div>

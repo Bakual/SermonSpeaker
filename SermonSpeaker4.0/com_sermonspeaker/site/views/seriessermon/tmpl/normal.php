@@ -94,7 +94,7 @@ if ($this->params->get('show_description', 1) || $this->params->def('show_descri
 						<br />
 					<?php endif;
 					if (in_array('seriessermon:player', $this->columns)):
-						$player = new SermonspeakerHelperPlayer($sermon, $config);
+						$player = SermonspeakerHelperSermonspeaker::getPlayer($sermon, $config);
 						echo $player->mspace;
 						echo $player->script;
 					endif;

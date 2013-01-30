@@ -7,7 +7,7 @@ JHTML::_('behavior.modal');
 $user		= JFactory::getUser();
 $canEdit	= $user->authorise('core.edit', 'com_sermonspeaker');
 $canEditOwn	= $user->authorise('core.edit.own', 'com_sermonspeaker');
-$player		= new SermonspeakerHelperPlayer($this->items);
+$player		= SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 $orderlist	= array(
 				'sermon_title' => 'JGLOBAL_TITLE',
 				'sermon_date' => 'COM_SERMONSPEAKER_FIELD_DATE_LABEL',

@@ -8,7 +8,7 @@ $user		= JFactory::getUser();
 $fu_enable	= $this->params->get('fu_enable');
 $canEdit	= ($fu_enable and $user->authorise('core.edit', 'com_sermonspeaker'));
 $canEditOwn	= ($fu_enable and $user->authorise('core.edit.own', 'com_sermonspeaker'));
-$player = new SermonspeakerHelperPlayer($this->item);
+$player = SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 ?>
 <div class="ss-sermon-container<?php echo $this->pageclass_sfx; ?>">
 <?php if ($this->params->get('show_page_heading', 1)) : ?>

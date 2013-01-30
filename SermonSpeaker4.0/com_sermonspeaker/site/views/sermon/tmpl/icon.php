@@ -13,7 +13,7 @@ $config = array(
 		'count' => 1,
 		'type' => 'audio',
 	);
-$player = new SermonspeakerHelperPlayer($this->item, $config);
+$player = SermonspeakerHelperSermonspeaker::getPlayer($this->item, $config);
 ?>
 <div class="ss-sermon-container<?php echo $this->pageclass_sfx; ?>">
 <?php if ($this->params->get('show_page_heading', 1)) : ?>

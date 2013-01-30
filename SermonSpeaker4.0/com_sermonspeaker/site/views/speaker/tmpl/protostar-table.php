@@ -16,7 +16,7 @@ $listDirnSermons	= $this->state_sermons->get('list.direction');
 $listOrderSeries	= $this->state_series->get('list.ordering');
 $listDirnSeries		= $this->state_series->get('list.direction');
 $limit 		= (int)$this->params->get('limit', '');
-$player		= new SermonspeakerHelperPlayer($this->sermons);
+$player		= SermonspeakerHelperSermonspeaker::getPlayer($this->sermons);
 $this->document->addScriptDeclaration('Joomla.tableOrdering = function(order, dir, task, form) {
 		if (typeof(form) === "undefined") {
 			if (task == "series") {

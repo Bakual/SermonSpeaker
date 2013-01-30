@@ -14,7 +14,7 @@ $canEditOwn	= ($fu_enable and $user->authorise('core.edit.own', 'com_sermonspeak
 $listOrder	= $this->state->get('list.ordering');
 $listDirn	= $this->state->get('list.direction');
 $limit 		= (int)$this->params->get('limit', '');
-$player		= new SermonspeakerHelperPlayer($this->items);
+$player		= SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 ?>
 <div class="category-list<?php echo $this->pageclass_sfx;?> ss-sermons-container<?php echo $this->pageclass_sfx; ?>">
 	<?php if ($this->params->get('show_page_heading', 1)) : ?>

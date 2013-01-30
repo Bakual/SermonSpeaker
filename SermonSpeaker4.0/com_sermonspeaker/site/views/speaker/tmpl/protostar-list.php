@@ -16,7 +16,7 @@ $listDirnSermons	= $this->state_sermons->get('list.direction');
 $listOrderSeries	= $this->state_series->get('list.ordering');
 $listDirnSeries		= $this->state_series->get('list.direction');
 $limit 		= (int)$this->params->get('limit', '');
-$player		= new SermonspeakerHelperPlayer($this->sermons);
+$player		= SermonspeakerHelperSermonspeaker::getPlayer($this->sermons);
 $this->document->addScriptDeclaration('jQuery(function() {
 		if (location.hash == \'#series\') {
 			tab = \'#tab_series\';
