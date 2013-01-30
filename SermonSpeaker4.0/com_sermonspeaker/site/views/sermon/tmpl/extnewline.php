@@ -81,7 +81,7 @@ $player = new SermonspeakerHelperPlayer($this->item);
 	<?php endif;
 	if (in_array('sermon:player', $this->columns)) : ?>
 		<div class="ss-sermondetail-text ss-sermon-player">
-			<?php if (!$player->status): ?>
+			<?php if ($player->error): ?>
 				<span class="no_entries"><?php echo $player->error; ?></span>
 			<?php else:
 				echo $player->mspace;

@@ -7,7 +7,7 @@ $user		= JFactory::getUser();
 $fu_enable	= $this->params->get('fu_enable');
 $canEdit	= ($fu_enable and $user->authorise('core.edit', 'com_sermonspeaker'));
 $canEditOwn	= ($fu_enable and $user->authorise('core.edit.own', 'com_sermonspeaker'));
-$player = new SermonspeakerHelperPlayer($this->item);
+$player		= SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 ?>
 <div class="item-page<?php echo $this->pageclass_sfx; ?> ss-sermon-container<?php echo $this->pageclass_sfx; ?>">
 	<?php if ($this->params->get('show_page_heading', 1)) : ?>
@@ -154,7 +154,7 @@ $player = new SermonspeakerHelperPlayer($this->item);
 					<img class="btn hasTip" src="media/com_sermonspeaker/images/Sound.png" onclick="Audio()" alt="Audio" title="<?php echo JText::_('COM_SERMONSPEAKER_SWITCH_AUDIO'); ?>" />
 				</div>
 			<?php endif; ?>
-			<?php if (!$player->status): ?>
+			<?php if ($player->error): ?>
 				<span class="well well-small"><?php echo $player->error; ?></span>
 			<?php else:
 				echo $player->mspace;

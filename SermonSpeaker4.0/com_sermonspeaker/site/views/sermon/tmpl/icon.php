@@ -31,7 +31,7 @@ $player = new SermonspeakerHelperPlayer($this->item, $config);
 	<div id="sermon-player-container">
 		<?php if (in_array('sermon:player', $this->columns)) : ?>
 			<div class="ss-player">
-				<?php if (!$player->status): ?>
+				<?php if ($player->error): ?>
 					<span class="no_entries"><?php echo $player->error; ?></span>
 				<?php else:
 					echo $player->mspace;
