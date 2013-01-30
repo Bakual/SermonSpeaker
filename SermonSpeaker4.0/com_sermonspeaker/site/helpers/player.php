@@ -9,6 +9,7 @@ class SermonspeakerHelperPlayer
 	public $mspace;
 	public $script;
 	public $playlist;
+	public $error;
 	public $popup;		// 
 	public $toggle;		// is able to toggle between audio and video
 	public $player;		// name of player

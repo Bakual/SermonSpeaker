@@ -63,6 +63,7 @@ class SermonspeakerHelperPlayerFlowplayer3 extends SermonspeakerHelperPlayer
 
 		if (is_array($item))
 		{
+			$this->setDimensions('23px', '100%');
 			$options['onStart'] = 'function(){'
 					.'var i = 0;'
 					.'while (document.id("sermon"+i)){'
@@ -199,6 +200,7 @@ class SermonspeakerHelperPlayerFlowplayer3 extends SermonspeakerHelperPlayer
 		}
 		else
 		{
+			$this->setDimensions('23px', '300px');
 			$type	= ($this->mode == 'audio') ? 'a' : 'v';
 			$cat	= ($type == 'a') ? 'Audio' : 'Video';
 			$file	= ($type == 'a') ? $item->audiofile : $item->videofile;
@@ -226,7 +228,6 @@ class SermonspeakerHelperPlayerFlowplayer3 extends SermonspeakerHelperPlayer
 		{
 			$options[$key] = $key.':'.$value;
 		}
-		$this->setDimensions('23px', '100%');
 		$this->setPopup($type);
 		$this->mspace = '<div style="width:'.$this->config[$type.'width'].'; height:'.$this->config[$type.'height'].'" id="mediaspace'.$this->config['count'].'"></div>';
 		$this->script = '<script type="text/javascript">'

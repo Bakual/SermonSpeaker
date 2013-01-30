@@ -87,6 +87,7 @@ class SermonspeakerHelperPlayerJwplayer5 extends SermonspeakerHelperPlayer
 		if (is_array($item))
 		{
 			// Playlist
+			$this->setDimensions('23px', '100%');
 			$type = ($this->config['type'] == 'audio' || ($this->config['type'] == 'auto' && !$this->config['prio'])) ? 'a' : 'v';
 			$options['events']	= '{'
 									.'onPlaylistItem: function(event){'
@@ -223,6 +224,7 @@ class SermonspeakerHelperPlayerJwplayer5 extends SermonspeakerHelperPlayer
 		else
 		{
 			// Single
+			$this->setDimensions('23px', '250px');
 			$type	= ($this->mode == 'audio') ? 'a' : 'v';
 			$entry	= array();
 
@@ -269,7 +271,6 @@ class SermonspeakerHelperPlayerJwplayer5 extends SermonspeakerHelperPlayer
 		{
 			$options[$key] = $key.':'.$value;
 		}
-		$this->setDimensions('23px', '100%');
 		$this->setPopup($type);
 		$this->script	= '<script type="text/javascript">'
 							."jwplayer('mediaspace".$this->config['count']."').setup({"
