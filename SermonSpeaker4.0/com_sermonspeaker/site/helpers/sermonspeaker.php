@@ -627,6 +627,7 @@ class SermonspeakerHelperSermonspeaker
 		}
 		$count = count($unit) - 1;
 		$x = 0;
+		$bytes = (int)$bytes;
 		while (($bytes >= $factor) && ($x < $count)) 
 		{
 			$bytes /= $factor; 
