@@ -27,9 +27,18 @@
 			addfieldpath="/administrator/components/com_sermonspeaker/models/fields" >
 			<field name="plugin_tag" 
 				type="tag" 
+				class="btn-group"
 				label="COM_SERMONSPEAKER_PARAM_PLUGIN_LABEL" 
 				description="COM_SERMONSPEAKER_PARAM_PLUGIN_DESC"
 				useglobal="true" />
+			<field name="fileprio"
+				type="list"
+				label="COM_SERMONSPEAKER_PARAM_FILEPRIO_LABEL" 
+				description="COM_SERMONSPEAKER_PARAM_FILEPRIO_DESC">
+				<option value="">JGLOBAL_USE_GLOBAL</option>
+				<option value="0">COM_SERMONSPEAKER_AUDIO</option>
+				<option value="1">COM_SERMONSPEAKER_VIDEO</option>
+			</field>
 		</fieldset>
 		<fieldset name="layout" 
 			label="COM_SERMONSPEAKER_FIELDSET_LAYOUTS_LABEL" 
