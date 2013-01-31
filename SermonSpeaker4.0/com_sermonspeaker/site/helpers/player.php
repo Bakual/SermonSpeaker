@@ -25,7 +25,7 @@ class SermonspeakerHelperPlayer
 
 	public function getFallbackPlayer($file)
 	{
-		$ext	= JFile::getExt($item);
+		$ext	= JFile::getExt($file);
 		if ($ext == 'wmv' || $ext == 'wma')
 		{
 			// WMV Player

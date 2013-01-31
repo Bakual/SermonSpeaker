@@ -570,7 +570,7 @@ class SermonspeakerHelperSermonspeaker
 		{
 			return $item->audiofile;
 		}
-		elseif ($item->videofile && ($prio || !$temp_item->audiofile))
+		elseif ($item->videofile && ($prio || !$item->audiofile))
 		{
 			return $item->videofile;
 		}
