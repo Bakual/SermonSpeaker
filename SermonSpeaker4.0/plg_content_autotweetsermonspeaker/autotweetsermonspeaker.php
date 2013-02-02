@@ -128,7 +128,7 @@ class PlgContentAutotweetSermonspeaker extends plgAutotweetBase
 		 requests form frontend: com_sermonspeaker.form ->TODO: ?
 		 */
 		// Sermon
-		if ((($context == 'com_sermonspeaker.sermon') || ($context == 'com_sermonspeaker.form'))
+		if ((($context == 'com_sermonspeaker.sermon') || ($context == 'com_sermonspeaker.frontendupload'))
 			&& ($isNew || $this->post_modified) && (1 == $item->state))
 		{
 			$this->postSermon($item);
@@ -151,7 +151,7 @@ class PlgContentAutotweetSermonspeaker extends plgAutotweetBase
 	public function onContentChangeState($context, $pks, $value)
 	{
 		// Sermon
-		if ((($context == 'com_sermonspeaker.sermon') || ($context == 'com_sermonspeaker.form'))
+		if ((($context == 'com_sermonspeaker.sermon') || ($context == 'com_sermonspeaker.frontendupload'))
 			&& ($value == 1))
 		{
 			$item = JTable::getInstance('Sermon', 'SermonspeakerTable');
@@ -177,7 +177,7 @@ class PlgContentAutotweetSermonspeaker extends plgAutotweetBase
 	 */
 	protected function postSermon($item)
 	{
-		$publish_up	= JFactory::getDate()->toSql();
+		$publish_up	= ($item->sermon_date && ($item->sermon_date != '0000-00-00 00:00:00')) ? $item->sermon_date : JFactory::getDate()->toSql();
 
 		$cats		= $this->getContentCategories($item->catid);
 		$cat_alias	= $cats[2];
@@ -188,6 +188,36 @@ class PlgContentAutotweetSermonspeaker extends plgAutotweetBase
 
 		// Create internal url for sermon
 		$url		= SermonspeakerHelperRoute::getSermonRoute($id_slug, $cat_slug);
+
+		// Get some additional information
+		if ($series_id = (int)$item->series_id)
+		{
+			$db		= Jfactory::getDbo();
+			$query	= $db->getQuery(true);
+			$query->select('`avatar`, `series_title`');
+			$query->from('#__sermon_series');
+			$query->where('`id` = '.$series_id);
+			$db->setQuery($query);
+			$result	= $db->loadAssoc();
+			foreach ($result as $key => $value)
+			{
+				$item->$key	= $value;
+			}
+		}
+		if ($speaker_id = (int)$item->speaker_id)
+		{
+			$db		= Jfactory::getDbo();
+			$query	= $db->getQuery(true);
+			$query->select('`pic`, `name`');
+			$query->from('#__sermon_speakers');
+			$query->where('`id` = '.$speaker_id);
+			$db->setQuery($query);
+			$result	= $db->loadAssoc();
+			foreach ($result as $key => $value)
+			{
+				$item->$key	= $value;
+			}
+		}
 
 		// Get the image
 		$image_url	= SermonspeakerHelperSermonspeaker::insertPicture($item, 1);
