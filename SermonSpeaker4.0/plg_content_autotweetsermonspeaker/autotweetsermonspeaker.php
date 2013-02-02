@@ -98,6 +98,7 @@ class PlgContentAutotweetSermonspeaker extends plgAutotweetBase
 		$this->static_text_source = (int) $pluginParams->get('static_text_source', 0);
 		$this->metakey_count = (int) $pluginParams->get('metakey_count', 1);
 		$this->interval = (int) $pluginParams->get('interval', 60);
+		$this->Itemid = (int) $pluginParams->get('menuitem', 0);
 
 		// Correct value if value is under the minimum
 		if ($this->interval < 60)
@@ -187,7 +188,14 @@ class PlgContentAutotweetSermonspeaker extends plgAutotweetBase
 		$id_slug	= $item->id . ':' . JFilterOutput::stringURLSafe($item->alias);
 
 		// Create internal url for sermon
-		$url		= SermonspeakerHelperRoute::getSermonRoute($id_slug, $cat_slug);
+		if ($this->Itemid)
+		{
+			$url	= 'index.php?option=com_sermonspeaker&view=sermon&id='.$id_slug.'&Itemid='.$this->Itemid;
+		}
+		else
+		{
+			$url	= SermonspeakerHelperRoute::getSermonRoute($id_slug, $cat_slug);
+		}
 
 		// Get some additional information
 		if ($series_id = (int)$item->series_id)

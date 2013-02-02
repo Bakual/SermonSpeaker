@@ -33,6 +33,12 @@
 					<option value="0">JOFF</option>
 					<option value="1">JON</option>
 				</field>
+
+				<field name="menuitem" type="menuitem" 
+					label="PLG_AUTOTWEETSERMONSPEAKER_FIELD_MENUITEM_LABEL" 
+					description="PLG_AUTOTWEETSERMONSPEAKER_FIELD_MENUITEM_DESC" >
+					<option value="">PLG_AUTOTWEETSERMONSPEAKER_FIELD_MENUITEM_OPTION_AUTO</option>
+				</field>
 			</fieldset>
             <fieldset name="filter"
 				label="PLG_AUTOTWEET_PARAM_FILTER_LABEL"
