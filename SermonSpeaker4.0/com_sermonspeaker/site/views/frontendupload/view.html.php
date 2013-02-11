@@ -209,7 +209,7 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 						upload1 = new SWFUpload({
 							upload_url: "'.$targetURL.'",
 							flash_url : "'.JURI::root().'media/com_sermonspeaker/swfupload/swfupload.swf",
-							file_size_limit : "100MB",
+							file_size_limit : "0",
 							file_types : "'.$audioTypes.'",
 							file_types_description : "'.JText::_('COM_SERMONSPEAKER_FIELD_AUDIOFILE_LABEL', 'true').'",
 							file_upload_limit : "0",
@@ -263,7 +263,7 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 						upload2 = new SWFUpload({
 							upload_url: "'.$targetURL.'",
 							flash_url : "'.JURI::root().'media/com_sermonspeaker/swfupload/swfupload.swf",
-							file_size_limit : "100MB",
+							file_size_limit : "0",
 							file_types : "'.$videoTypes.'",
 							file_types_description : "'.JText::_('COM_SERMONSPEAKER_FIELD_VIDEOFILE_LABEL', 'true').'",
 							file_upload_limit : "0",
@@ -317,7 +317,7 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 						upload3 = new SWFUpload({
 							upload_url: "'.$targetURL.'&addfile=true",
 							flash_url : "'.JURI::root().'media/com_sermonspeaker/swfupload/swfupload.swf",
-							file_size_limit : "100MB",
+							file_size_limit : "0",
 							file_upload_limit : "0",
 							file_queue_limit : "0",
 							button_image_url : "'.JURI::root().'media/com_sermonspeaker/swfupload/XPButtonUploadText_61x22.png",
