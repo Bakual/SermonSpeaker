@@ -164,7 +164,7 @@ if (in_array('serie:player', $this->columns) && count($this->items)) : ?>
 						$class = 'scripture'; ?>
 						<span class="scripture">
 							<?php $scriptures = SermonspeakerHelperSermonspeaker::insertScriptures($item->scripture, '; ');
-							echo JHTML::_('content.prepare', $scriptures); ?>
+							echo JHtml::_('content.prepare', $scriptures); ?>
 						</span>
 					<?php endif;
 					if (in_array('serie:speaker', $this->columns) && $item->name) : ?>
@@ -178,7 +178,7 @@ if (in_array('serie:player', $this->columns) && count($this->items)) : ?>
 					<?php endif;
 					if (in_array('serie:notes', $this->columns) && $item->notes) : ?>
 						<div>
-							<?php echo JHTML::_('content.prepare', $item->notes); ?>
+							<?php echo JHtml::_('content.prepare', $item->notes); ?>
 						</div>
 					<?php endif; ?>
 				</div>
@@ -238,7 +238,7 @@ if (in_array('serie:player', $this->columns) && count($this->items)) : ?>
 				<div class="column-detail" onclick="ss_play('<?php echo $i; ?>')">
 					<?php if (in_array('serie:date', $this->columns) and ($item->sermon_date != '0000-00-00 00:00:00')) : ?>
 						<div class="create">
-							<?php echo JHTML::Date($item->sermon_date, JText::_('DATE_FORMAT_LC1'), true); ?>
+							<?php echo JHtml::Date($item->sermon_date, JText::_('DATE_FORMAT_LC1'), true); ?>
 						</div>
 					<?php endif;
 					if (in_array('serie:hits', $this->columns)) : ?>

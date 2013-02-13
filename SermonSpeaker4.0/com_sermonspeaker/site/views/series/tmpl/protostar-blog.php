@@ -1,7 +1,7 @@
 <?php
 defined('_JEXEC') or die;
 
-JHTML::addIncludePath(JPATH_COMPONENT.'/helpers');
+JHtml::addIncludePath(JPATH_COMPONENT.'/helpers');
 
 JHtml::_('behavior.tooltip');
 JHtml::_('behavior.modal');
@@ -124,7 +124,7 @@ $listDirn	= $this->state->get('list.direction');
 							</div>
 							<?php if (in_array('series:description', $this->col_serie) and $item->series_description) : ?>
 								<div>
-									<?php echo JHTML::_('content.prepare', $item->series_description, '', 'com_sermonspeaker.series_description'); ?>
+									<?php echo JHtml::_('content.prepare', $item->series_description, '', 'com_sermonspeaker.series_description'); ?>
 								</div>
 							<?php endif; ?>
 						</div>

@@ -1,6 +1,6 @@
 <?php
 defined('_JEXEC') or die;
-JHTML::_('behavior.tooltip');
+JHtml::_('behavior.tooltip');
 ?>
 <table class="adminform">
 	<tbody><tr><td valign="top">

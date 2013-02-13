@@ -1,7 +1,7 @@
 <?php
 defined('_JEXEC') or die;
 
-JHTML::addIncludePath(JPATH_COMPONENT.'/helpers');
+JHtml::addIncludePath(JPATH_COMPONENT.'/helpers');
 
 JHtml::_('behavior.tooltip');
 JHtml::_('behavior.modal');
@@ -58,21 +58,21 @@ $listDirn	= $this->state->get('list.direction');
 				<table class="table table-striped table-hover table-condensed">
 					<thead><tr>
 						<th class="ss-title">
-							<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_FIELD_NAME_LABEL', 'name', $listDirn, $listOrder); ?>
+							<?php echo JHtml::_('grid.sort', 'COM_SERMONSPEAKER_FIELD_NAME_LABEL', 'name', $listDirn, $listOrder); ?>
 						</th>
 						<?php if (in_array('speakers:category', $this->col_speaker)) : ?>
 							<th class="ss-col ss-category hidden-phone">
-								<?php echo JHTML::_('grid.sort', 'JCATEGORY', 'category_title', $listDirn, $listOrder); ?>
+								<?php echo JHtml::_('grid.sort', 'JCATEGORY', 'category_title', $listDirn, $listOrder); ?>
 							</th>
 						<?php endif;
 						if (in_array('speakers:intro', $this->col_speaker)): ?>
 							<th class="ss-col ss-intro hidden-phone">
-								<?php echo JHTML::_('grid.sort', 'COM_SERMONSPEAKER_FIELD_INTRO_LABEL', 'intro', $listDirn, $listOrder); ?>
+								<?php echo JHtml::_('grid.sort', 'COM_SERMONSPEAKER_FIELD_INTRO_LABEL', 'intro', $listDirn, $listOrder); ?>
 							</th>
 						<?php endif;
 						if (in_array('speakers:hits', $this->col_speaker)) : ?>
 							<th class="ss-col ss-hits hidden-phone hidden-tablet">
-								<?php echo JHTML::_('grid.sort', 'JGLOBAL_HITS', 'hits', $listDirn, $listOrder); ?>
+								<?php echo JHtml::_('grid.sort', 'JGLOBAL_HITS', 'hits', $listDirn, $listOrder); ?>
 							</th>
 						<?php endif; ?>
 						<th></th>
@@ -100,7 +100,7 @@ $listDirn	= $this->state->get('list.direction');
 									</td>
 								<?php endif;
 								if (in_array('speakers:intro', $this->col_speaker)): ?>
-									<td class="ss-col ss-intro hidden-phone"><?php echo JHTML::_('content.prepare', $item->intro, '', 'com_sermonspeaker.intro'); ?></td>
+									<td class="ss-col ss-intro hidden-phone"><?php echo JHtml::_('content.prepare', $item->intro, '', 'com_sermonspeaker.intro'); ?></td>
 								<?php endif;
 								if (in_array('speakers:hits', $this->col_speaker)) : ?>
 									<td class="ss-col ss-hits hidden-phone hidden-tablet"><?php echo $item->hits; ?></td>

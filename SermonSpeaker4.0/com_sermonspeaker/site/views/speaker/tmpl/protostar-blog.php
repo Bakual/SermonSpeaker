@@ -1,7 +1,7 @@
 <?php
 defined('_JEXEC') or die;
 
-JHTML::addIncludePath(JPATH_COMPONENT.'/helpers');
+JHtml::addIncludePath(JPATH_COMPONENT.'/helpers');
 
 JHtml::_('behavior.tooltip');
 JHtml::_('behavior.modal');
@@ -93,12 +93,12 @@ $this->document->addScriptDeclaration('jQuery(function() {
 		</div>
 		<?php if (in_array('speaker:intro', $this->columns) and $this->item->intro) : ?>
 			<div>
-				<?php echo JHTML::_('content.prepare', $this->item->intro, '', 'com_sermonspeaker.intro'); ?>
+				<?php echo JHtml::_('content.prepare', $this->item->intro, '', 'com_sermonspeaker.intro'); ?>
 			</div>
 		<?php endif;
 		if(in_array('speaker:bio', $this->columns) and $this->item->bio) : ?>
 			<div>
-				<?php echo JHTML::_('content.prepare', $this->item->bio, '', 'com_sermonspeaker.bio'); ?>
+				<?php echo JHtml::_('content.prepare', $this->item->bio, '', 'com_sermonspeaker.bio'); ?>
 			</div>
 		<?php endif; ?>
 	</div>
@@ -110,7 +110,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 	<div class="pill-content">
 		<div class="pill-pane" id="tab_sermons">
 			<?php if (in_array('speaker:player', $this->col_sermon) and count($this->sermons)) :
-				JHTML::stylesheet('com_sermonspeaker/player.css', '', true); ?>
+				JHtml::stylesheet('com_sermonspeaker/player.css', '', true); ?>
 				<div class="ss-speaker-player span10 offset1">
 					<hr class="ss-speaker-player" />
 					<?php if ($player->player != 'PixelOut') : ?>
@@ -243,7 +243,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 													<div class="create">
 														<i class="icon-calendar"></i>
 														<?php echo JText::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL'); ?>:
-														<?php echo JHTML::Date($item->sermon_date, JText::_($this->params->get('date_format')), true); ?>
+														<?php echo JHtml::Date($item->sermon_date, JText::_($this->params->get('date_format')), true); ?>
 													</div>
 												</dd>
 											<?php endif;
@@ -262,7 +262,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 														<i class="icon-quote"></i>
 														<?php echo JText::_('COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL'); ?>:
 														<?php $scriptures = SermonspeakerHelperSermonspeaker::insertScriptures($item->scripture, '; ');
-														echo JHTML::_('content.prepare', $scriptures, '', 'com_sermonspeaker.scripture'); ?>
+														echo JHtml::_('content.prepare', $scriptures, '', 'com_sermonspeaker.scripture'); ?>
 													</div>
 												</dd>
 											<?php endif;
@@ -287,7 +287,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 									</div>
 									<?php if (in_array('speaker:notes', $this->col_sermon) and $item->notes) : ?>
 										<div>
-											<?php echo JHTML::_('content.prepare', $item->notes, '', 'com_sermonspeaker.notes'); ?>
+											<?php echo JHtml::_('content.prepare', $item->notes, '', 'com_sermonspeaker.notes'); ?>
 										</div>
 									<?php endif; ?>
 								</div>
@@ -400,7 +400,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 									</div>
 									<?php if (in_array('speaker:description', $this->col_serie) and $item->series_description) : ?>
 										<div>
-											<?php echo JHTML::_('content.prepare', $item->series_description, '', 'com_sermonspeaker.series_description'); ?>
+											<?php echo JHtml::_('content.prepare', $item->series_description, '', 'com_sermonspeaker.series_description'); ?>
 										</div>
 									<?php endif; ?>
 								</div>

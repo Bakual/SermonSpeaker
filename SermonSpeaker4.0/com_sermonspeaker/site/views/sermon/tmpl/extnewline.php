@@ -1,9 +1,9 @@
 <?php
 defined('_JEXEC') or die;
-JHTML::stylesheet('com_sermonspeaker/sermonspeaker.css', '', true);
-JHTML::addIncludePath(JPATH_COMPONENT.'/helpers');
-JHTML::_('behavior.tooltip');
-JHTML::_('behavior.modal');
+JHtml::stylesheet('com_sermonspeaker/sermonspeaker.css', '', true);
+JHtml::addIncludePath(JPATH_COMPONENT.'/helpers');
+JHtml::_('behavior.tooltip');
+JHtml::_('behavior.modal');
 $user		= JFactory::getUser();
 $fu_enable	= $this->params->get('fu_enable');
 $canEdit	= ($fu_enable and $user->authorise('core.edit', 'com_sermonspeaker'));
@@ -25,13 +25,13 @@ $player = SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 <div class="ss-sermondetail-container">
 	<?php if (in_array('sermon:date', $this->columns) and ($this->item->sermon_date != '0000-00-00 00:00:00')) : ?>
 		<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL'); ?>:</div>
-		<div class="ss-sermondetail-text"><?php echo JHTML::Date($this->item->sermon_date, JText::_($this->params->get('date_format')), true); ?></div>
+		<div class="ss-sermondetail-text"><?php echo JHtml::Date($this->item->sermon_date, JText::_($this->params->get('date_format')), true); ?></div>
 	<?php endif;
 	if (in_array('sermon:scripture', $this->columns) && $this->item->scripture) : ?>
 		<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL'); ?>:</div>
 		<div class="ss-sermondetail-text">
 			<?php $scriptures = SermonspeakerHelperSermonspeaker::insertScriptures($this->item->scripture, '; ');
-			echo JHTML::_('content.prepare', $scriptures); ?>
+			echo JHtml::_('content.prepare', $scriptures); ?>
 		</div>
 	<?php endif;
 	if ($this->params->get('custom1') && $this->item->custom1) : ?>
@@ -77,7 +77,7 @@ $player = SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 	<?php endif;
 	if (in_array('sermon:notes', $this->columns) && strlen($this->item->notes) > 0) : ?>
 		<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_FIELD_NOTES_LABEL'); ?>:</div>
-		<div class="ss-sermondetail-text"><?php echo JHTML::_('content.prepare', $this->item->notes); ?></div>
+		<div class="ss-sermondetail-text"><?php echo JHtml::_('content.prepare', $this->item->notes); ?></div>
 	<?php endif;
 	if (in_array('sermon:player', $this->columns)) : ?>
 		<div class="ss-sermondetail-text ss-sermon-player">

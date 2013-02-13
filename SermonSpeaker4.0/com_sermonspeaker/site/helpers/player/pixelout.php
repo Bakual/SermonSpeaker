@@ -77,7 +77,7 @@ class SermonspeakerHelperPlayerPixelout extends SermonspeakerHelperPlayer
 		// Loading needed Javascript only once
 		if (!self::$script_loaded)
 		{
-			JHTML::Script('media/com_sermonspeaker/player/audio_player/audio-player.js');
+			JHtml::Script('media/com_sermonspeaker/player/audio_player/audio-player.js');
 			$doc = JFactory::getDocument();
 			$doc->addScriptDeclaration('
 				AudioPlayer.setup("'.JURI::root().'media/com_sermonspeaker/player/audio_player/player.swf", {

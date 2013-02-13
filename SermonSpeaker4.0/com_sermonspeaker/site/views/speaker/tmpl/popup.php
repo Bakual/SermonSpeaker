@@ -1,6 +1,6 @@
 <?php
 defined( '_JEXEC' ) or die( 'Restricted access' );
-JHTML::stylesheet('com_sermonspeaker/sermonspeaker.css', '', true);
+JHtml::stylesheet('com_sermonspeaker/sermonspeaker.css', '', true);
 if (!$this->item->pic):
 	$this->item->pic = 'media/com_sermonspeaker/images/'.$this->params->get('defaultpic', 'nopict.jpg');
 endif;
@@ -19,10 +19,10 @@ endif;
 		<h3><?php echo JText::_('COM_SERMONSPEAKER_SPEAKER_BIO'); ?></h3>
 		<?php 
 		if (in_array('speaker:intro', $this->columns)):
-			echo JHTML::_('content.prepare', $this->item->intro, '', 'com_sermonspeaker.intro');
+			echo JHtml::_('content.prepare', $this->item->intro, '', 'com_sermonspeaker.intro');
 		endif;
 		if (in_array('speaker:bio', $this->columns)):
-			echo JHTML::_('content.prepare', $this->item->bio, '', 'com_sermonspeaker.bio');
+			echo JHtml::_('content.prepare', $this->item->bio, '', 'com_sermonspeaker.bio');
 		endif;
 	endif; ?>
 	<div class="clear-left"></div>

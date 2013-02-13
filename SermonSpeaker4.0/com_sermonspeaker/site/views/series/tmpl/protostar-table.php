@@ -1,7 +1,7 @@
 <?php
 defined('_JEXEC') or die;
 
-JHTML::addIncludePath(JPATH_COMPONENT.'/helpers');
+JHtml::addIncludePath(JPATH_COMPONENT.'/helpers');
 
 JHtml::_('behavior.tooltip');
 JHtml::_('behavior.modal');
@@ -60,16 +60,16 @@ $listDirn	= $this->state->get('list.direction');
 							<th class="ss-av hidden-phone hidden-tablet"> </th>
 						<?php endif; ?>
 						<th class="ss-title">
-							<?php echo JHTML::_('grid.sort', 'JGLOBAL_TITLE', 'series_title', $listDirn, $listOrder); ?>
+							<?php echo JHtml::_('grid.sort', 'JGLOBAL_TITLE', 'series_title', $listDirn, $listOrder); ?>
 						</th>
 						<?php if (in_array('series:category', $this->col_serie)) : ?>
 							<th class="ss-col ss-category hidden-phone">
-								<?php echo JHTML::_('grid.sort', 'JCATEGORY', 'category_title', $listDirn, $listOrder); ?>
+								<?php echo JHtml::_('grid.sort', 'JCATEGORY', 'category_title', $listDirn, $listOrder); ?>
 							</th>
 						<?php endif;
 						if (in_array('series:description', $this->col_serie)): ?>
 							<th class="ss-col ss-series_desc hidden-phone">
-								<?php echo JHTML::_('grid.sort', 'JGLOBAL_DESCRIPTION', 'series_description', $listDirn, $listOrder); ?>
+								<?php echo JHtml::_('grid.sort', 'JGLOBAL_DESCRIPTION', 'series_description', $listDirn, $listOrder); ?>
 							</th>
 						<?php endif;
 						if (in_array('series:speaker', $this->col_serie)) : ?>
@@ -77,7 +77,7 @@ $listDirn	= $this->state->get('list.direction');
 						<?php endif;
 						if (in_array('series:hits', $this->col_serie)) : ?>
 							<th class="ss-col ss-hits hidden-phone hidden-tablet">
-								<?php echo JHTML::_('grid.sort', 'JGLOBAL_HITS', 'hits', $listDirn, $listOrder); ?>
+								<?php echo JHtml::_('grid.sort', 'JGLOBAL_HITS', 'hits', $listDirn, $listOrder); ?>
 							</th>
 						<?php endif;
 						if (in_array('series:download', $this->col_serie)) : ?>
@@ -114,7 +114,7 @@ $listDirn	= $this->state->get('list.direction');
 									</td>
 								<?php endif;
 								if (in_array('series:description', $this->col_serie)): ?>
-									<td class="ss-col ss-series_desc hidden-phone"><?php echo JHTML::_('content.prepare', $item->series_description); ?></td>
+									<td class="ss-col ss-series_desc hidden-phone"><?php echo JHtml::_('content.prepare', $item->series_description); ?></td>
 								<?php endif;
 								if (in_array('series:speaker', $this->col_serie)) : ?>
 									<td class="ss-col ss-speakers hidden-phone hidden-tablet"><?php echo $item->speakers; ?></td>

@@ -1,9 +1,9 @@
 <?php
 defined('_JEXEC') or die;
-JHTML::stylesheet('com_sermonspeaker/sermonspeaker.css', '', true);
-JHTML::addIncludePath(JPATH_COMPONENT.'/helpers');
-JHTML::_('behavior.tooltip');
-JHTML::_('behavior.modal');
+JHtml::stylesheet('com_sermonspeaker/sermonspeaker.css', '', true);
+JHtml::addIncludePath(JPATH_COMPONENT.'/helpers');
+JHtml::_('behavior.tooltip');
+JHtml::_('behavior.modal');
 $user		= JFactory::getUser();
 $fu_enable	= $this->params->get('fu_enable');
 $canEdit	= ($fu_enable and $user->authorise('core.edit', 'com_sermonspeaker'));
@@ -39,7 +39,7 @@ $player = SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 if (in_array('sermon:date', $this->columns) and ($this->item->sermon_date != '0000-00-00 00:00:00')) : ?>
 	<dd class="create">
 		<?php echo JText::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL'); ?>:
-		<?php echo JHTML::Date($this->item->sermon_date, JText::_($this->params->get('date_format')), true); ?>
+		<?php echo JHtml::Date($this->item->sermon_date, JText::_($this->params->get('date_format')), true); ?>
 	</dd>
 <?php endif;
 if (in_array('sermon:speaker', $this->columns) && $this->item->speaker_id) : ?>
@@ -61,7 +61,7 @@ if (in_array('sermon:hits', $this->columns)) : ?>
 	<dd class="ss-sermondetail-info">
 		<?php echo JText::_('COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL'); ?>:
 		<?php $scriptures = SermonspeakerHelperSermonspeaker::insertScriptures($this->item->scripture, '; ');
-		echo JHTML::_('content.prepare', $scriptures); ?>
+		echo JHtml::_('content.prepare', $scriptures); ?>
 	</dd>
 <?php endif;
 if ($this->params->get('custom1') && $this->item->custom1) : ?>
@@ -128,7 +128,7 @@ endif; ?>
 	<?php endif;
 	if (in_array('sermon:notes', $this->columns) && strlen($this->item->notes) > 0) : ?>
 		<div class="ss-sermon-notes">
-			<?php echo JHTML::_('content.prepare', $this->item->notes); ?>
+			<?php echo JHtml::_('content.prepare', $this->item->notes); ?>
 		</div>
 	<?php endif; ?>
 </div>

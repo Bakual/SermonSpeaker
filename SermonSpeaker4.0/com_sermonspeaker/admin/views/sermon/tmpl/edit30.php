@@ -8,7 +8,7 @@ JHtml::addIncludePath(JPATH_COMPONENT.'/helpers/html');
 // Load the tooltip behavior.
 JHtml::_('behavior.formvalidation');
 JHtml::_('behavior.keepalive');
-JHTML::_('behavior.modal');
+JHtml::_('behavior.modal');
 JHtml::_('formbehavior.chosen', 'select');
 
 $uri = JURI::getInstance();

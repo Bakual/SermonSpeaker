@@ -1,8 +1,8 @@
 <?php
 defined('_JEXEC') or die;
-JHTML::addIncludePath(JPATH_COMPONENT.'/helpers');
-JHTML::_('behavior.tooltip');
-JHTML::_('behavior.modal');
+JHtml::addIncludePath(JPATH_COMPONENT.'/helpers');
+JHtml::_('behavior.tooltip');
+JHtml::_('behavior.modal');
 JHtml::stylesheet('com_sermonspeaker/columns.css', '', true);
 $user		= JFactory::getUser();
 $canEdit	= $user->authorise('core.edit', 'com_sermonspeaker');
@@ -137,7 +137,7 @@ if (in_array('sermons:player', $this->columns) && count($this->items)) : ?>
 						$class = 'scripture'; ?>
 						<span class="scripture">
 							<?php $scriptures = SermonspeakerHelperSermonspeaker::insertScriptures($item->scripture, '; ');
-							echo JHTML::_('content.prepare', $scriptures); ?>
+							echo JHtml::_('content.prepare', $scriptures); ?>
 						</span>
 					<?php endif;
 					if (in_array('sermons:speaker', $this->columns) && $item->name) : ?>
@@ -160,7 +160,7 @@ if (in_array('sermons:player', $this->columns) && count($this->items)) : ?>
 					endif;
 					if (in_array('sermons:notes', $this->columns) && $item->notes) : ?>
 						<div>
-							<?php echo JHTML::_('content.prepare', $item->notes); ?>
+							<?php echo JHtml::_('content.prepare', $item->notes); ?>
 						</div>
 					<?php endif; ?>
 				</div>
@@ -220,7 +220,7 @@ if (in_array('sermons:player', $this->columns) && count($this->items)) : ?>
 				<div class="column-detail" onclick="ss_play('<?php echo $i; ?>')">
 					<?php if (in_array('sermons:date', $this->columns) and ($item->sermon_date != '0000-00-00 00:00:00')) : ?>
 						<div class="create">
-							<?php echo JHTML::Date($item->sermon_date, JText::_('DATE_FORMAT_LC1'), true); ?>
+							<?php echo JHtml::Date($item->sermon_date, JText::_('DATE_FORMAT_LC1'), true); ?>
 						</div>
 					<?php endif;
 					if (in_array('sermons:hits', $this->columns)) : ?>

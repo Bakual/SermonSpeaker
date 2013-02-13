@@ -1,9 +1,9 @@
 <?php
 defined('_JEXEC') or die;
 JHtml::stylesheet('com_sermonspeaker/tiles.css', '', true);
-JHTML::addIncludePath(JPATH_COMPONENT.'/helpers');
-JHTML::_('behavior.tooltip');
-JHTML::_('behavior.modal');
+JHtml::addIncludePath(JPATH_COMPONENT.'/helpers');
+JHtml::_('behavior.tooltip');
+JHtml::_('behavior.modal');
 $user		= JFactory::getUser();
 $canEdit	= $user->authorise('core.edit', 'com_sermonspeaker');
 $canEditOwn	= $user->authorise('core.edit.own', 'com_sermonspeaker');
@@ -52,10 +52,10 @@ if ($this->params->get('show_category_title', 0) || in_array('speaker:hits', $th
 		<h3><?php echo JText::_('COM_SERMONSPEAKER_SPEAKER_BIO'); ?></h3>
 		<?php 
 		if (in_array('speaker:intro', $this->columns)):
-			echo JHTML::_('content.prepare', $this->item->intro);
+			echo JHtml::_('content.prepare', $this->item->intro);
 		endif;
 		if (in_array('speaker:bio', $this->columns)):
-			echo JHTML::_('content.prepare', $this->item->bio);
+			echo JHtml::_('content.prepare', $this->item->bio);
 		endif;
 	endif; ?>
 	<div class="clear-left"></div>
@@ -145,7 +145,7 @@ if ($this->params->get('show_category_title', 0) || in_array('speaker:hits', $th
 				$tip[]	= JText::_('COM_SERMONSPEAKER_FIELD_NUM_LABEL').': '.$item->sermon_number; 
 			endif;
 			if(in_array('speaker:date', $this->col_sermon) and ($item->sermon_date != '0000-00-00')):
-				$tip[]	= JText::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL').': '.JHTML::Date($item->sermon_date, JText::_($this->params->get('date_format')), true); 
+				$tip[]	= JText::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL').': '.JHtml::Date($item->sermon_date, JText::_($this->params->get('date_format')), true); 
 			endif;
 			if(in_array('speaker:speaker', $this->col_sermon) and $item->name):
 				$tip[]	= JText::_('COM_SERMONSPEAKER_FIELD_SPEAKER_LABEL').': '.$item->name;

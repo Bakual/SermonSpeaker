@@ -1,7 +1,7 @@
 <?php
 defined('_JEXEC') or die;
 
-JHTML::addIncludePath(JPATH_COMPONENT.'/helpers');
+JHtml::addIncludePath(JPATH_COMPONENT.'/helpers');
 
 JHtml::_('behavior.tooltip');
 JHtml::_('behavior.modal');
@@ -40,7 +40,7 @@ $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 		</div>
 	<?php endif;
 	if (in_array('sermons:player', $this->columns) and count($this->items)) :
-		JHTML::stylesheet('com_sermonspeaker/player.css', '', true); ?>
+		JHtml::stylesheet('com_sermonspeaker/player.css', '', true); ?>
 		<div class="ss-sermons-player span10 offset1">
 			<hr class="ss-sermons-player" />
 			<?php if ($player->player != 'PixelOut') : ?>
@@ -176,12 +176,12 @@ $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 								<small class="ss-scripture">
 									<?php echo JText::_('COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL'); ?>: 
 									<?php $scriptures = SermonspeakerHelperSermonspeaker::insertScriptures($item->scripture, '; ');
-									echo JHTML::_('content.prepare', $scriptures, '', 'com_sermonspeaker.scripture'); ?>
+									echo JHtml::_('content.prepare', $scriptures, '', 'com_sermonspeaker.scripture'); ?>
 								</small>
 							<?php endif;
 							if (in_array('sermons:date', $this->columns) and ($item->sermon_date != '0000-00-00 00:00:00')) : ?>
 								<span class="ss-date small pull-right">
-									<?php echo JHTML::date($item->sermon_date, JText::_($this->params->get('date_format')), true); ?>
+									<?php echo JHtml::date($item->sermon_date, JText::_($this->params->get('date_format')), true); ?>
 								</span>&nbsp;
 							<?php endif; ?>
 						</li>

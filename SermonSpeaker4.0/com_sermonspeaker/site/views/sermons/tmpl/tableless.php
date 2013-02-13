@@ -1,9 +1,9 @@
 <?php
 defined('_JEXEC') or die;
-JHTML::stylesheet('com_sermonspeaker/sermonspeaker.css', '', true);
-JHTML::addIncludePath(JPATH_COMPONENT.'/helpers');
-JHTML::_('behavior.tooltip');
-JHTML::_('behavior.modal');
+JHtml::stylesheet('com_sermonspeaker/sermonspeaker.css', '', true);
+JHtml::addIncludePath(JPATH_COMPONENT.'/helpers');
+JHtml::_('behavior.tooltip');
+JHtml::_('behavior.modal');
 $user		= JFactory::getUser();
 $fu_enable	= $this->params->get('fu_enable');
 $canEdit	= ($fu_enable and $user->authorise('core.edit', 'com_sermonspeaker'));
@@ -148,7 +148,7 @@ if (in_array('sermons:player', $this->columns) && count($this->items)) : ?>
 				if (in_array('sermons:date', $this->columns) and ($item->sermon_date != '0000-00-00 00:00:00')) : ?>
 					<dd class="create">
 						<?php echo JText::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL'); ?>:
-						<?php echo JHTML::Date($item->sermon_date, JText::_($this->params->get('date_format')), true); ?>
+						<?php echo JHtml::Date($item->sermon_date, JText::_($this->params->get('date_format')), true); ?>
 					</dd>
 				<?php endif;
 				if (in_array('sermons:speaker', $this->columns) && $item->name) : ?>
@@ -171,7 +171,7 @@ if (in_array('sermons:player', $this->columns) && count($this->items)) : ?>
 					<dd class="ss-sermondetail-info">
 						<?php echo JText::_('COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL'); ?>:
 						<?php $scriptures = SermonspeakerHelperSermonspeaker::insertScriptures($item->scripture, '; ');
-						echo JHTML::_('content.prepare', $scriptures); ?>
+						echo JHtml::_('content.prepare', $scriptures); ?>
 					</dd>
 				<?php endif;
 				if (in_array('sermons:length', $this->columns)) : ?>
@@ -190,7 +190,7 @@ if (in_array('sermons:player', $this->columns) && count($this->items)) : ?>
 				<div style="clear:left;"></div>
 				<?php if (in_array('sermons:notes', $this->columns) && $item->notes) : ?>
 					<div>
-						<?php echo JHTML::_('content.prepare', $item->notes); ?>
+						<?php echo JHtml::_('content.prepare', $item->notes); ?>
 					</div>
 				<?php endif;
 				if (in_array('sermons:download', $this->columns)) : ?>

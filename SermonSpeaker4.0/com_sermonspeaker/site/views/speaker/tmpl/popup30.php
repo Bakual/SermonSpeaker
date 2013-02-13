@@ -19,12 +19,12 @@ endif;
 		</a>
 		<?php if (in_array('speaker:intro', $this->columns) and $this->item->intro) : ?>
 			<div>
-				<?php echo JHTML::_('content.prepare', $this->item->intro, '', 'com_sermonspeaker.intro'); ?>
+				<?php echo JHtml::_('content.prepare', $this->item->intro, '', 'com_sermonspeaker.intro'); ?>
 			</div>
 		<?php endif;
 		if(in_array('speaker:bio', $this->columns) and $this->item->bio) : ?>
 			<div>
-				<?php echo JHTML::_('content.prepare', $this->item->bio, '', 'com_sermonspeaker.bio'); ?>
+				<?php echo JHtml::_('content.prepare', $this->item->bio, '', 'com_sermonspeaker.bio'); ?>
 			</div>
 		<?php endif; ?>
 	</div>

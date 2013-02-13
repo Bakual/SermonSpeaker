@@ -1,6 +1,6 @@
 <?php
 defined('_JEXEC') or die;
-JHTML::_('behavior.tooltip');
+JHtml::_('behavior.tooltip');
 $class	= 'first';
 $type	= $this->params->get('count_items_type', 'sermons');
 $type_function = 'get'.ucfirst($type).'Route';

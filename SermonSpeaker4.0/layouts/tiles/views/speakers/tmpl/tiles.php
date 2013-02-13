@@ -1,9 +1,9 @@
 <?php
 defined('_JEXEC') or die;
 JHtml::stylesheet('com_sermonspeaker/tiles.css', '', true);
-JHTML::addIncludePath(JPATH_COMPONENT.'/helpers');
-JHTML::_('behavior.tooltip');
-JHTML::_('behavior.modal');
+JHtml::addIncludePath(JPATH_COMPONENT.'/helpers');
+JHtml::_('behavior.tooltip');
+JHtml::_('behavior.modal');
 $user		= JFactory::getUser();
 $canEdit	= $user->authorise('core.edit', 'com_sermonspeaker');
 $canEditOwn	= $user->authorise('core.edit.own', 'com_sermonspeaker');
@@ -77,10 +77,10 @@ if ($this->params->get('show_description', 1) || $this->params->def('show_descri
 				$tip[]	= JText::_('JGLOBAL_HITS').': '.$item->hits;
 			endif;
 			if(in_array('speakers:intro', $this->col_speaker) and $item->intro):
-				$tip[]	= JText::_('COM_SERMONSPEAKER_FIELD_INTRO_LABEL').': '.JHTML::_('content.prepare', $item->intro);
+				$tip[]	= JText::_('COM_SERMONSPEAKER_FIELD_INTRO_LABEL').': '.JHtml::_('content.prepare', $item->intro);
 			endif;
 			if(in_array('speakers:bio', $this->col_speaker) and $item->bio):
-				$tip[]	= JText::_('COM_SERMONSPEAKER_FIELD_BIO_LABEL').': '.JHTML::_('content.prepare', $item->bio);
+				$tip[]	= JText::_('COM_SERMONSPEAKER_FIELD_BIO_LABEL').': '.JHtml::_('content.prepare', $item->bio);
 			endif;
 			$tooltip	= implode('<br/>', $tip);
 			$image = ($item->pic) ? $item->pic : 'media/com_sermonspeaker/images/'.$this->params->get('defaultpic', 'nopict.jpg'); ?>

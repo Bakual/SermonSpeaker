@@ -2,7 +2,7 @@
 defined('_JEXEC') or die;
 if ($params->get('lr_show_mouseover')) {
 //include only if needed...
-	JHTML::_('behavior.tooltip');
+	JHtml::_('behavior.tooltip');
 }
 $db = JFactory::getDBO();
 $where = '';
@@ -71,14 +71,14 @@ foreach($rows as $row)
 {
 	$videoURL[] = '"'.$row->videofile.'"';
 }
-JHTML::stylesheet('modules/mod_sermonsrotator/mod_sermonsrotator.css'); 
+JHtml::stylesheet('modules/mod_sermonsrotator/mod_sermonsrotator.css'); 
 switch ($ss_styleSheet)
 {
 	case "radvest":
-		JHTML::stylesheet('modules/mod_sermonsrotator/css/radvest.css'); 
+		JHtml::stylesheet('modules/mod_sermonsrotator/css/radvest.css'); 
 		break;
 	default:
-		JHTML::stylesheet('modules/mod_sermonsrotator/css/mcg.css'); 
+		JHtml::stylesheet('modules/mod_sermonsrotator/css/mcg.css'); 
 }
 $videoURL = implode(',', $videoURL);
 include("modules/mod_sermonsrotator/mod_sermonsrotator-js-min.php");

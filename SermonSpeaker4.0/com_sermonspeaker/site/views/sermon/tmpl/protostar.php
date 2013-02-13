@@ -1,8 +1,8 @@
 <?php
 defined('_JEXEC') or die;
-JHTML::addIncludePath(JPATH_COMPONENT.'/helpers');
-JHTML::_('behavior.tooltip');
-JHTML::_('behavior.modal');
+JHtml::addIncludePath(JPATH_COMPONENT.'/helpers');
+JHtml::_('behavior.tooltip');
+JHtml::_('behavior.modal');
 $user		= JFactory::getUser();
 $fu_enable	= $this->params->get('fu_enable');
 $canEdit	= ($fu_enable and $user->authorise('core.edit', 'com_sermonspeaker'));
@@ -88,7 +88,7 @@ $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 					<div class="create">
 						<i class="icon-calendar"></i>
 						<?php echo JText::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL'); ?>:
-						<?php echo JHTML::Date($this->item->sermon_date, JText::_($this->params->get('date_format')), true); ?>
+						<?php echo JHtml::Date($this->item->sermon_date, JText::_($this->params->get('date_format')), true); ?>
 					</div>
 				</dd>
 			<?php endif;
@@ -107,7 +107,7 @@ $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 						<i class="icon-quote"></i>
 						<?php echo JText::_('COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL'); ?>:
 						<?php $scriptures = SermonspeakerHelperSermonspeaker::insertScriptures($this->item->scripture, '; ');
-						echo JHTML::_('content.prepare', $scriptures, '', 'com_sermonspeaker.scripture'); ?>
+						echo JHtml::_('content.prepare', $scriptures, '', 'com_sermonspeaker.scripture'); ?>
 					</div>
 				</dd>
 			<?php endif;
@@ -165,7 +165,7 @@ $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 	<?php endif;
 	if (in_array('sermon:notes', $this->columns) and $this->item->notes) : ?>
 		<div>
-			<?php echo JHTML::_('content.prepare', $this->item->notes, '', 'com_sermonspeaker.notes'); ?>
+			<?php echo JHtml::_('content.prepare', $this->item->notes, '', 'com_sermonspeaker.notes'); ?>
 		</div>
 	<?php endif; ?>
 </div>

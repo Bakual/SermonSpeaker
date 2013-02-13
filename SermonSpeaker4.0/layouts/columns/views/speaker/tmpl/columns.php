@@ -1,9 +1,9 @@
 <?php
 defined('_JEXEC') or die;
 JHtml::stylesheet('com_sermonspeaker/columns.css', '', true);
-JHTML::addIncludePath(JPATH_COMPONENT.'/helpers');
-JHTML::_('behavior.tooltip');
-JHTML::_('behavior.modal');
+JHtml::addIncludePath(JPATH_COMPONENT.'/helpers');
+JHtml::_('behavior.tooltip');
+JHtml::_('behavior.modal');
 $user		= JFactory::getUser();
 $canEdit	= $user->authorise('core.edit', 'com_sermonspeaker');
 $canEditOwn	= $user->authorise('core.edit.own', 'com_sermonspeaker');
@@ -52,10 +52,10 @@ if ($this->params->get('show_category_title', 0) || in_array('speaker:hits', $th
 		<h3><?php echo JText::_('COM_SERMONSPEAKER_SPEAKER_BIO'); ?></h3>
 		<?php 
 		if (in_array('speaker:intro', $this->columns)):
-			echo JHTML::_('content.prepare', $this->item->intro);
+			echo JHtml::_('content.prepare', $this->item->intro);
 		endif;
 		if (in_array('speaker:bio', $this->columns)):
-			echo JHTML::_('content.prepare', $this->item->bio);
+			echo JHtml::_('content.prepare', $this->item->bio);
 		endif;
 	endif; ?>
 	<div class="clear-left"></div>
@@ -161,7 +161,7 @@ if ($this->params->get('show_category_title', 0) || in_array('speaker:hits', $th
 						$class = 'scripture'; ?>
 						<span class="scripture">
 							<?php $scriptures = SermonspeakerHelperSermonspeaker::insertScriptures($item->scripture, '; ');
-							echo JHTML::_('content.prepare', $scriptures); ?>
+							echo JHtml::_('content.prepare', $scriptures); ?>
 						</span>
 					<?php endif;
 					if (in_array('speaker:series', $this->col_sermon) && $item->series_title) : ?>
@@ -175,7 +175,7 @@ if ($this->params->get('show_category_title', 0) || in_array('speaker:hits', $th
 					endif;
 					if (in_array('speaker:notes', $this->col_sermon) && $item->notes) : ?>
 						<div>
-							<?php echo JHTML::_('content.prepare', $item->notes); ?>
+							<?php echo JHtml::_('content.prepare', $item->notes); ?>
 						</div>
 					<?php endif; ?>
 				</div>
@@ -235,7 +235,7 @@ if ($this->params->get('show_category_title', 0) || in_array('speaker:hits', $th
 				<div class="column-detail" onclick="ss_play('<?php echo $i; ?>')">
 					<?php if (in_array('speaker:date', $this->col_sermon) and ($item->sermon_date != '0000-00-00 00:00:00')) : ?>
 						<div class="create">
-							<?php echo JHTML::Date($item->sermon_date, JText::_('DATE_FORMAT_LC1'), true); ?>
+							<?php echo JHtml::Date($item->sermon_date, JText::_('DATE_FORMAT_LC1'), true); ?>
 						</div>
 					<?php endif;
 					if (in_array('speaker:hits', $this->col_sermon)) : ?>

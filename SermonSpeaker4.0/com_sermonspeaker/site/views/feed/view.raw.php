@@ -75,8 +75,8 @@ class SermonspeakerViewFeed extends JViewLegacy
 		foreach($rows as $row) {
 			// Trigger Event for `notes` and `scripture`
 			$scriptures	= SermonspeakerHelperSermonspeaker::insertScriptures($row->scripture, '-/*', false);
-			$row->notes		= JHTML::_('content.prepare', $row->notes);
-			$row->scripture	= JHTML::_('content.prepare', $scriptures);
+			$row->notes		= JHtml::_('content.prepare', $row->notes);
+			$row->scripture	= JHtml::_('content.prepare', $scriptures);
 			$item = new stdClass;
 			// todo: ItemId des Predigten Menupunkts suchen und an Link anhängen, maybe use HelperRoute (check if feed will be valid then)
 			$item_link = $link.'index.php?option=com_sermonspeaker&amp;view=sermon&amp;id='.$row->id;
@@ -96,7 +96,7 @@ class SermonspeakerViewFeed extends JViewLegacy
 			$item->title	= $this->make_xml_safe($row->sermon_title);
 			$item->link		= $item_link; // todo: maybe make this link with JRoute to have a SEF link
 			$item->guid		= $item_link;
-			$item->date		= JHTML::Date($row->sermon_date, 'r', true);
+			$item->date		= JHtml::Date($row->sermon_date, 'r', true);
 			$item->author 	= '<dc:creator>'.$this->make_xml_safe($row->name).'</dc:creator>'; // todo: maybe add email of speaker if present (not yet in database), format is emailadress (name) and then use author instead
 			$item->category = $this->make_xml_safe($row->series_title); // using the series title as an item category
 			// iTunes item specific tags

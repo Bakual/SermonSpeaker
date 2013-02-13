@@ -1,9 +1,9 @@
 <?php
 defined('_JEXEC') or die;
-JHTML::stylesheet('com_sermonspeaker/sermonspeaker.css', '', true);
-JHTML::addIncludePath(JPATH_COMPONENT.'/helpers');
-JHTML::_('behavior.tooltip');
-JHTML::_('behavior.modal');
+JHtml::stylesheet('com_sermonspeaker/sermonspeaker.css', '', true);
+JHtml::addIncludePath(JPATH_COMPONENT.'/helpers');
+JHtml::_('behavior.tooltip');
+JHtml::_('behavior.modal');
 $user		= JFactory::getUser();
 $fu_enable	= $this->params->get('fu_enable');
 $canEdit	= ($fu_enable and $user->authorise('core.edit', 'com_sermonspeaker'));
@@ -48,10 +48,10 @@ if ($this->params->get('show_category_title', 0) || in_array('speaker:hits', $th
 		<h3><?php echo JText::_('COM_SERMONSPEAKER_SPEAKER_BIO'); ?></h3>
 		<?php 
 		if (in_array('speaker:intro', $this->columns)):
-			echo JHTML::_('content.prepare', $this->item->intro);
+			echo JHtml::_('content.prepare', $this->item->intro);
 		endif;
 		if (in_array('speaker:bio', $this->columns)):
-			echo JHTML::_('content.prepare', $this->item->bio);
+			echo JHtml::_('content.prepare', $this->item->bio);
 		endif;
 	endif; ?>
 	<div class="clear-left"></div>
@@ -77,11 +77,11 @@ if ($this->params->get('show_category_title', 0) || in_array('speaker:hits', $th
 					<th width='10'> </th>
 				<?php endif; ?>
 				<th class="ss-title">
-					<?php echo JHTML::_('grid.sort', 'JGLOBAL_TITLE', 'series_title', $listDirn, $listOrder); ?>
+					<?php echo JHtml::_('grid.sort', 'JGLOBAL_TITLE', 'series_title', $listDirn, $listOrder); ?>
 				</th>
 				<?php if (in_array('speaker:description', $this->col_serie)): ?>
 					<th class="ss-col ss-series_desc">
-						<?php echo JHTML::_('grid.sort', 'JGLOBAL_DESCRIPTION', 'series_description', $listDirn, $listOrder); ?>
+						<?php echo JHtml::_('grid.sort', 'JGLOBAL_DESCRIPTION', 'series_description', $listDirn, $listOrder); ?>
 					</th>
 				<?php endif;
 				if (in_array('speaker:speaker', $this->col_serie)) : ?>
@@ -89,7 +89,7 @@ if ($this->params->get('show_category_title', 0) || in_array('speaker:hits', $th
 				<?php endif;
 				if (in_array('speaker:hits', $this->col_serie)) : ?>
 					<th class="ss-col ss-hits">
-						<?php echo JHTML::_('grid.sort', 'JGLOBAL_HITS', 'hits', $listDirn, $listOrder); ?>
+						<?php echo JHtml::_('grid.sort', 'JGLOBAL_HITS', 'hits', $listDirn, $listOrder); ?>
 					</th>
 				<?php endif;
 				if (in_array('speaker:download', $this->col_serie)) : ?>
@@ -118,7 +118,7 @@ if ($this->params->get('show_category_title', 0) || in_array('speaker:hits', $th
 							<?php endif; ?>
 						</td>
 						<?php if (in_array('speaker:description', $this->col_serie)): ?>
-							<td class="ss-col ss-series_desc"><?php echo JHTML::_('content.prepare', $item->series_description); ?></td>
+							<td class="ss-col ss-series_desc"><?php echo JHtml::_('content.prepare', $item->series_description); ?></td>
 						<?php endif;
 						if (in_array('speaker:speaker', $this->col_serie)) : ?>
 							<td class="ss-col ss-speakers"><?php echo $item->speakers; ?></td>

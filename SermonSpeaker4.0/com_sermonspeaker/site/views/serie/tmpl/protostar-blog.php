@@ -1,7 +1,7 @@
 <?php
 defined('_JEXEC') or die;
 
-JHTML::addIncludePath(JPATH_COMPONENT.'/helpers');
+JHtml::addIncludePath(JPATH_COMPONENT.'/helpers');
 
 JHtml::_('behavior.tooltip');
 JHtml::_('behavior.modal');
@@ -87,13 +87,13 @@ $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 		</div>
 		<?php if (in_array('serie:description', $this->col_serie) and $this->item->series_description) : ?>
 			<div>
-				<?php echo JHTML::_('content.prepare', $this->item->series_description, '', 'com_sermonspeaker.description'); ?>
+				<?php echo JHtml::_('content.prepare', $this->item->series_description, '', 'com_sermonspeaker.description'); ?>
 			</div>
 		<?php endif; ?>
 	</div>
 	<div class="clearfix"></div>
 	<?php if (in_array('serie:player', $this->columns) and count($this->items)) :
-		JHTML::stylesheet('com_sermonspeaker/player.css', '', true); ?>
+		JHtml::stylesheet('com_sermonspeaker/player.css', '', true); ?>
 		<div class="ss-serie-player span10 offset1">
 			<hr class="ss-serie-player" />
 			<?php if ($player->player != 'PixelOut') : ?>
@@ -222,7 +222,7 @@ $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 											<div class="create">
 												<i class="icon-calendar"></i>
 												<?php echo JText::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL'); ?>:
-												<?php echo JHTML::Date($item->sermon_date, JText::_($this->params->get('date_format')), true); ?>
+												<?php echo JHtml::Date($item->sermon_date, JText::_($this->params->get('date_format')), true); ?>
 											</div>
 										</dd>
 									<?php endif;
@@ -241,7 +241,7 @@ $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 												<i class="icon-quote"></i>
 												<?php echo JText::_('COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL'); ?>:
 												<?php $scriptures = SermonspeakerHelperSermonspeaker::insertScriptures($item->scripture, '; ');
-												echo JHTML::_('content.prepare', $scriptures, '', 'com_sermonspeaker.scripture'); ?>
+												echo JHtml::_('content.prepare', $scriptures, '', 'com_sermonspeaker.scripture'); ?>
 											</div>
 										</dd>
 									<?php endif;
@@ -266,7 +266,7 @@ $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 							</div>
 							<?php if (in_array('serie:notes', $this->columns) and $item->notes) : ?>
 								<div>
-									<?php echo JHTML::_('content.prepare', $item->notes, '', 'com_sermonspeaker.notes'); ?>
+									<?php echo JHtml::_('content.prepare', $item->notes, '', 'com_sermonspeaker.notes'); ?>
 								</div>
 							<?php endif; ?>
 						</div>

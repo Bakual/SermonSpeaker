@@ -329,7 +329,7 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 				'year'    => array($item->date),
 				'track'   => array($item->sermon_number),
 			);
-			$TagData['comment'] = array(strip_tags(JHTML::_('content.prepare', $item->notes)));
+			$TagData['comment'] = array(strip_tags(JHtml::_('content.prepare', $item->notes)));
 
 			JImport('joomla.filesystem.file');
 			// Adding the picture to the id3 tags, taken from getID3 Demos -> demo.write.php

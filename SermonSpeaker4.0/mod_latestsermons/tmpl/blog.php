@@ -58,7 +58,7 @@ $count = count($list);
 			<div style="clear:left;"></div>
 			<?php if (strlen($row->notes) > 0) : ?>
 				<div>
-					<?php echo JHTML::_('content.prepare', $row->notes); ?>
+					<?php echo JHtml::_('content.prepare', $row->notes); ?>
 				</div>
 			<?php endif;
 			if ($i < $count) : ?>

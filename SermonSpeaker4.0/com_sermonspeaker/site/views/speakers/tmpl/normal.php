@@ -1,9 +1,9 @@
 <?php
 defined('_JEXEC') or die;
-JHTML::stylesheet('com_sermonspeaker/sermonspeaker.css', '', true);
-JHTML::addIncludePath(JPATH_COMPONENT.'/helpers');
-JHTML::_('behavior.tooltip');
-JHTML::_('behavior.modal');
+JHtml::stylesheet('com_sermonspeaker/sermonspeaker.css', '', true);
+JHtml::addIncludePath(JPATH_COMPONENT.'/helpers');
+JHtml::_('behavior.tooltip');
+JHtml::_('behavior.modal');
 $user		= JFactory::getUser();
 $fu_enable	= $this->params->get('fu_enable');
 $canEdit	= ($fu_enable and $user->authorise('core.edit', 'com_sermonspeaker'));
@@ -62,10 +62,10 @@ if ($this->params->get('show_description', 1) || $this->params->def('show_descri
 					<?php endif; ?>
 				</div>
 				<?php if(in_array('speakers:intro', $this->col_speaker) && $item->intro) :
-					echo JHTML::_('content.prepare', $item->intro);
+					echo JHtml::_('content.prepare', $item->intro);
 				endif;
 				if(in_array('speakers:bio', $this->col_speaker) && $item->bio) :
-					echo JHTML::_('content.prepare', $item->bio);
+					echo JHtml::_('content.prepare', $item->bio);
 				endif; ?>
 				<div class="clear-left"></div>
 				<?php if ($item->series): ?>

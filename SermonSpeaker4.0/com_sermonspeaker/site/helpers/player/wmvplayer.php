@@ -67,8 +67,8 @@ class SermonspeakerHelperPlayerWmvplayer extends SermonspeakerHelperPlayer
 		// Loading needed Javascript only once
 		if (!self::$script_loaded)
 		{
-			JHTML::Script('media/com_sermonspeaker/player/wmvplayer/silverlight.js');
-			JHTML::Script('media/com_sermonspeaker/player/wmvplayer/wmvplayer.js');
+			JHtml::Script('media/com_sermonspeaker/player/wmvplayer/silverlight.js');
+			JHtml::Script('media/com_sermonspeaker/player/wmvplayer/wmvplayer.js');
 			self::$script_loaded = 1;
 		}
 		return;

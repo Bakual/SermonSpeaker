@@ -146,7 +146,7 @@ class SermonspeakerHelperPlayerFlowplayer3 extends SermonspeakerHelperPlayer
 				}
 				$desc = array();
 				if ($temp_item->sermon_date){
-					$desc[] = JText::_('JDATE').': '.JHTML::Date($temp_item->sermon_date, JText::_($this->params->get('date_format')), true);
+					$desc[] = JText::_('JDATE').': '.JHtml::Date($temp_item->sermon_date, JText::_($this->params->get('date_format')), true);
 				}
 				if ($temp_item->name){
 					$desc[] = JText::_('COM_SERMONSPEAKER_SPEAKER').': '.urlencode(addslashes($temp_item->name));
@@ -244,7 +244,7 @@ class SermonspeakerHelperPlayerFlowplayer3 extends SermonspeakerHelperPlayer
 		{
 			$doc = JFactory::getDocument();
 			$doc->addScriptDeclaration('function ss_play(id){flowplayer().play(parseInt(id));}');
-			JHTML::Script('media/com_sermonspeaker/player/flowplayer/flowplayer-3.2.10.min.js');
+			JHtml::Script('media/com_sermonspeaker/player/flowplayer/flowplayer-3.2.10.min.js');
 			if ($this->toggle)
 			{
 				$awidth		= is_numeric($this->config['awidth']) ? $this->config['awidth'].'px' : $this->config['awidth'];

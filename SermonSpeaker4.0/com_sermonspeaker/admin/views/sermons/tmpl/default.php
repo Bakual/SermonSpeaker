@@ -1,7 +1,7 @@
 <?php
 defined('_JEXEC') or die;
-JHTML::_('behavior.tooltip');
-// JHTML::_('script','system/multiselect.js',false,true);
+JHtml::_('behavior.tooltip');
+// JHtml::_('script','system/multiselect.js',false,true);
 $user	= JFactory::getUser();
 $userId	= $user->get('id');
 $listOrder	= $this->state->get('list.ordering');
@@ -171,7 +171,7 @@ $saveOrder	= $listOrder == 'sermons.ordering';
 				</td>
 				<td class="center">
 					<?php if ($item->sermon_date != '0000-00-00 00:00:00'):
-						echo JHTML::Date($item->sermon_date, JText::_('DATE_FORMAT_LC4'), true);
+						echo JHtml::Date($item->sermon_date, JText::_('DATE_FORMAT_LC4'), true);
 					endif; ?>
 				</td>
 				<td class="center">

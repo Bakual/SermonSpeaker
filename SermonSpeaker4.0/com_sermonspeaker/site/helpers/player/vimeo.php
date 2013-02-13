@@ -44,7 +44,7 @@ class SermonspeakerHelperPlayerVimeo extends SermonspeakerHelperPlayer
 		{
 			if ($this->params->get('ga_id', ''))
 			{
-				JHTML::Script('media/com_sermonspeaker/player/vimeo/ganalytics.js', true);
+				JHtml::Script('media/com_sermonspeaker/player/vimeo/ganalytics.js', true);
 				$doc = JFactory::getDocument();
 				$doc->addScriptDeclaration("window.addEvent('domready', _trackVimeo);");
 			}

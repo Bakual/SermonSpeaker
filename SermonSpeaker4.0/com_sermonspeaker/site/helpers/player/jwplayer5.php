@@ -163,7 +163,7 @@ class SermonspeakerHelperPlayerJwplayer5 extends SermonspeakerHelperPlayer
 				$desc = array();
 				if ($temp_item->sermon_date)
 				{
-					$desc[] = JText::_('JDATE').': '.JHTML::Date($temp_item->sermon_date, JText::_($this->params->get('date_format')), true);
+					$desc[] = JText::_('JDATE').': '.JHtml::Date($temp_item->sermon_date, JText::_($this->params->get('date_format')), true);
 				}
 				if ($temp_item->name)
 				{
@@ -283,7 +283,7 @@ class SermonspeakerHelperPlayerJwplayer5 extends SermonspeakerHelperPlayer
 
 		// Loading needed Javascript only once
 		if (!self::$script_loaded){
-			JHTML::Script('media/com_sermonspeaker/player/jwplayer/jwplayer.js');
+			JHtml::Script('media/com_sermonspeaker/player/jwplayer/jwplayer.js');
 			$doc = JFactory::getDocument();
 			$doc->addScriptDeclaration('function ss_play(id){jwplayer().playlistItem(id);}');
 			if ($this->toggle)

@@ -2,7 +2,7 @@
 // no direct access
 defined('_JEXEC') or die; 
 if ($params->get('tooltip')) :
-	JHTML::_('behavior.tooltip');
+	JHtml::_('behavior.tooltip');
 endif;
 $level = 1;
 ?>
@@ -28,7 +28,7 @@ $level = 1;
 				endif;
 				$tip	= '<img src="'.$pic.'" alt="" style="float:right; margin-left:15px;max-width:150px;"> '.$tip;
 			endif;
-			echo JHTML::tooltip($tip, $options); 
+			echo JHtml::tooltip($tip, $options); 
 		else: ?>
 			<a href="<?php echo $link ?>">
 				<?php echo $item->title; ?>

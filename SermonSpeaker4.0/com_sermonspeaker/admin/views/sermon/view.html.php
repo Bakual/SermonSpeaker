@@ -117,7 +117,7 @@ class SermonspeakerViewSermon extends JViewLegacy
 		// Google Picker
 		if ($this->params->get('googlepicker', 0))
 		{
-			JHTML::Script('http://www.google.com/jsapi');
+			JHtml::Script('http://www.google.com/jsapi');
 			$picker = 'google.load(\'picker\', \'1\');
 				function createVideoPicker() {
 					var picker = new google.picker.PickerBuilder().
@@ -169,10 +169,10 @@ class SermonspeakerViewSermon extends JViewLegacy
 		$videoTypes = '*.mp4; *.mov; *.f4v; *.flv; *.3gp; *.3g2; *.wmv';
 		$targetURL 	= JURI::root().'administrator/index.php?option=com_sermonspeaker&task=file.upload&'.$session->getName().'='.$session->getId().'&'.JSession::getFormToken().'=1&format=json';
 		// SWFUpload
-		JHTML::Script('media/com_sermonspeaker/swfupload/swfupload.js');
-		JHTML::Script('media/com_sermonspeaker/swfupload/swfupload.queue.js');
-		JHTML::Script('media/com_sermonspeaker/swfupload/fileprogress.js');
-		JHTML::Script('media/com_sermonspeaker/swfupload/handlers.js', true);
+		JHtml::Script('media/com_sermonspeaker/swfupload/swfupload.js');
+		JHtml::Script('media/com_sermonspeaker/swfupload/swfupload.queue.js');
+		JHtml::Script('media/com_sermonspeaker/swfupload/fileprogress.js');
+		JHtml::Script('media/com_sermonspeaker/swfupload/handlers.js', true);
 		$uploader_script = '
 			window.onload = function() {
 				if(document.id("jform_audiofile_text")){

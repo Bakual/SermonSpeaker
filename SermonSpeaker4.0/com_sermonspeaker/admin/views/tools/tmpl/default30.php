@@ -1,7 +1,7 @@
 <?php
 defined('_JEXEC') or die;
 
-JHTML::_('behavior.modal');
+JHtml::_('behavior.modal');
 
 $session	= JFactory::getSession();
 $user		= JFactory::getUser();

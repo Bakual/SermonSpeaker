@@ -1,6 +1,6 @@
 <?php
 defined( '_JEXEC' ) or die( 'Restricted access' );
-JHTML::stylesheet('com_sermonspeaker/frontendupload.css', '', true);
+JHtml::stylesheet('com_sermonspeaker/frontendupload.css', '', true);
 JHtml::_('behavior.tooltip');
 JHtml::_('behavior.formvalidation');
 JHtml::_('behavior.keepalive');

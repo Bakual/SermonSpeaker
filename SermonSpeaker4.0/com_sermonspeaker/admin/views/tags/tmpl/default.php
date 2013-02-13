@@ -1,7 +1,7 @@
 <?php
 defined('_JEXEC') or die;
-JHTML::_('behavior.tooltip');
-JHTML::_('script','system/multiselect.js',false,true);
+JHtml::_('behavior.tooltip');
+JHtml::_('script','system/multiselect.js',false,true);
 $user	= JFactory::getUser();
 $userId	= $user->get('id');
 $listOrder	= $this->state->get('list.ordering');

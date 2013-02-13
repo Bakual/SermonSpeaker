@@ -142,7 +142,7 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 		// Google Picker
 		if ($params->get('googlepicker', 0))
 		{
-			JHTML::Script('http://www.google.com/jsapi');
+			JHtml::Script('http://www.google.com/jsapi');
 			$picker = 'google.load(\'picker\', \'1\');
 				function createVideoPicker() {
 					var picker = new google.picker.PickerBuilder().
@@ -199,10 +199,10 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 			$targetURL 	= JURI::root().'index.php?option=com_sermonspeaker&task=file.upload&'.$session->getName().'='.$session->getId().'&'.JSession::getFormToken().'=1&format=json'.$lang;
 
 			// SWFUpload
-			JHTML::Script('media/com_sermonspeaker/swfupload/swfupload.js');
-			JHTML::Script('media/com_sermonspeaker/swfupload/swfupload.queue.js');
-			JHTML::Script('media/com_sermonspeaker/swfupload/fileprogress.js');
-			JHTML::Script('media/com_sermonspeaker/swfupload/handlers.js', true);
+			JHtml::Script('media/com_sermonspeaker/swfupload/swfupload.js');
+			JHtml::Script('media/com_sermonspeaker/swfupload/swfupload.queue.js');
+			JHtml::Script('media/com_sermonspeaker/swfupload/fileprogress.js');
+			JHtml::Script('media/com_sermonspeaker/swfupload/handlers.js', true);
 			$uploader_script = '
 				window.onload = function() {
 					if(document.id("jform_audiofile_text")){

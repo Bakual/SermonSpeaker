@@ -5,7 +5,7 @@ $i = 0;
 $tooltip = ($params->get('ls_show_mo_speaker') || $params->get('ls_show_mo_series') || $params->get('ls_show_mo_date') || $params->get('show_hits') & 1);
 if ($tooltip) {
 	//include only if needed...
-	JHTML::_('behavior.tooltip');
+	JHtml::_('behavior.tooltip');
 }
 ?>
 <div class="latestsermons<?php echo $moduleclass_sfx; ?>">
@@ -45,7 +45,7 @@ if ($tooltip) {
 				$tips[] = JText::_('JGLOBAL_HITS').': '.$row->hits;
 			endif;
 			$tip = implode('<br />', $tips);
-			echo JHTML::tooltip($tip, $title, '', $text, $link); ?>
+			echo JHtml::tooltip($tip, $title, '', $text, $link); ?>
 		<?php else : ?>
 			<a href="<?php echo $link; ?>">
 				<?php echo $text; ?>

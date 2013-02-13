@@ -87,14 +87,14 @@ $player = SermonspeakerHelperSermonspeaker::getPlayer($this->item, $config);
 		<?php if (in_array('sermon:scripture', $this->columns) && $this->item->scripture) : ?>
 			<div class="ss-field field-bible" title="<?php echo JText::_('COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL'); ?>">
 				<?php $scriptures = SermonspeakerHelperSermonspeaker::insertScriptures($this->item->scripture, '; ');
-				echo JHTML::_('content.prepare', $scriptures); ?>
+				echo JHtml::_('content.prepare', $scriptures); ?>
 			</div>
 		<?php endif; ?>
 	</div>
 	<div class="ss-fields-container">
 		<?php if (in_array('sermon:date', $this->columns) && ($this->item->sermon_date != '0000-00-00 00:00:00')) : ?>
 			<div class="ss-field field-calendar" title="<?php echo JText::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL'); ?>">
-				<?php echo JHTML::Date($this->item->sermon_date, JText::_('DATE_FORMAT_LC1'), true); ?>
+				<?php echo JHtml::Date($this->item->sermon_date, JText::_('DATE_FORMAT_LC1'), true); ?>
 			</div>
 		<?php endif;
 		if (in_array('sermon:length', $this->columns) && ($this->item->sermon_time != '00:00:00')) : ?>
@@ -124,7 +124,7 @@ $player = SermonspeakerHelperSermonspeaker::getPlayer($this->item, $config);
 </div>
 <?php if (in_array('sermon:notes', $this->columns) && $this->item->notes) : ?>
 	<div class="ss-notes">
-		<?php echo JHTML::_('content.prepare', $this->item->notes); ?>
+		<?php echo JHtml::_('content.prepare', $this->item->notes); ?>
 	</div>
 <?php endif;
 if ($this->params->get('enable_keywords', 0)):

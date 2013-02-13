@@ -1,9 +1,9 @@
 <?php
 defined('_JEXEC') or die;
-JHTML::stylesheet('com_sermonspeaker/sermonspeaker.css', '', true);
-JHTML::addIncludePath(JPATH_COMPONENT.'/helpers');
-JHTML::_('behavior.tooltip');
-JHTML::_('behavior.modal');
+JHtml::stylesheet('com_sermonspeaker/sermonspeaker.css', '', true);
+JHtml::addIncludePath(JPATH_COMPONENT.'/helpers');
+JHtml::_('behavior.tooltip');
+JHtml::_('behavior.modal');
 $user		= JFactory::getUser();
 $fu_enable	= $this->params->get('fu_enable');
 $canEdit	= ($fu_enable and $user->authorise('core.edit', 'com_sermonspeaker'));
@@ -43,11 +43,11 @@ $player = SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 		<?php if (in_array('sermon:scripture', $this->columns) && $this->item->scripture) : ?>
 			<td align="left" valign="top">
 				<?php $scriptures = SermonspeakerHelperSermonspeaker::insertScriptures($this->item->scripture, '; ');
-				echo JHTML::_('content.prepare', $scriptures); ?>
+				echo JHtml::_('content.prepare', $scriptures); ?>
 			</td>
 		<?php endif;
 		if (in_array('sermon:notes', $this->columns) && strlen($this->item->notes) > 0) : ?>
-			<td align="left" valign="top"><?php echo JHTML::_('content.prepare', $this->item->notes); ?></td>
+			<td align="left" valign="top"><?php echo JHtml::_('content.prepare', $this->item->notes); ?></td>
 		<?php endif;
 		if (in_array('sermon:addfile', $this->columns) && $this->item->addfile) : ?>
 			<td align="left" valign="top"><?php echo SermonspeakerHelperSermonspeaker::insertAddfile($this->item->addfile, $this->item->addfileDesc); ?></td>
