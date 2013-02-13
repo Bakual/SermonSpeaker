@@ -1,9 +1,9 @@
 <?php
 defined('_JEXEC') or die;
-JHTML::addIncludePath(JPATH_COMPONENT.'/helpers');
-JHTML::_('behavior.tooltip');
-JHTML::_('behavior.modal');
-JHTML::stylesheet('media/com_sermonspeaker/css/columns.css');
+JHtml::addIncludePath(JPATH_COMPONENT.'/helpers');
+JHtml::_('behavior.tooltip');
+JHtml::_('behavior.modal');
+JHtml::stylesheet('com_sermonspeaker/columns.css', '', true);
 $user		= JFactory::getUser();
 $canEdit	= $user->authorise('core.edit', 'com_sermonspeaker');
 $canEditOwn	= $user->authorise('core.edit.own', 'com_sermonspeaker');
@@ -62,7 +62,7 @@ if (in_array('serie:description', $this->col_serie)): ?>
 				<img src="<?php echo trim($this->item->avatar, '/'); ?>">
 			<?php endif; ?>
 		</div>
-		<?php echo JHTML::_('content.prepare', $this->item->series_description); ?>
+		<?php echo JHtml::_('content.prepare', $this->item->series_description); ?>
 		<div class="clear-left"></div>
 	</div>
 <?php endif;

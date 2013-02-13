@@ -9,7 +9,7 @@ class SermonspeakerViewSeriessermon extends JViewLegacy
 	function display($tpl = null)
 	{
 		// Applying CSS file
-		JHTML::stylesheet('media/com_sermonspeaker/css/sermonspeaker.css');
+		JHtml::stylesheet('com_sermonspeaker/sermonspeaker.css', '', true);
 		$app			= JFactory::getApplication();
 		$this->params	= $app->getParams();
 		$this->columns	= $this->params->get('col');

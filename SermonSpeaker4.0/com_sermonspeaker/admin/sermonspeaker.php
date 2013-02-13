@@ -10,7 +10,7 @@ if (!JFactory::getUser()->authorise('core.manage', 'com_sermonspeaker'))
 // require helper file
 JLoader::register('SermonspeakerHelper', dirname(__FILE__).'/helpers/sermonspeaker.php');
 
-JHTML::stylesheet('administrator/components/com_sermonspeaker/sermonspeaker.css');
+JHtml::stylesheet('administrator/components/com_sermonspeaker/sermonspeaker.css');
 
 // Load languages and merge with fallbacks
 $jlang = JFactory::getLanguage();
