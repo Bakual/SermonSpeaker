@@ -137,7 +137,17 @@ class JHtmlIcon
 	{
 		$onclick	= '';
 		$fileurl	= JRoute::_('index.php?task=download&id='.$item->id.'&type='.$attribs['type']);
-		$text		= '<i class="icon-download" > </i> '.JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_'.$attribs['type']);
+		$filesize	= $attribs['type'].'filesize';
+		if ($item->$filesize) 
+		{
+			$size	= SermonspeakerHelperSermonspeaker::convertBytes($item->$filesize);
+			$text	= JText::sprintf('COM_SERMONSPEAKER_DOWNLOADBUTTON_'.$attribs['type'].'_WITH_SIZE', $size);
+		}
+		else
+		{
+			$text	= JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_'.$attribs['type']);
+		}
+		$text		= '<i class="icon-download" > </i> '.$text;
 
 		if ($params->get('enable_ga_events'))
 		{
