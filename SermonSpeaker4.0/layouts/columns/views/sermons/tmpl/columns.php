@@ -194,18 +194,12 @@ if (in_array('sermons:player', $this->columns) && count($this->items)) : ?>
 					<?php endif;
 					if (in_array('sermons:download', $this->columns)) : ?>
 						<?php if ($item->audiofile) :
-							$fileurl = JRoute::_('index.php?task=download&id='.$item->slug.'&type=audio'); ?>
-							<a href="<?php echo $fileurl; ?>" target="_new" class="download" title="<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_AUDIO'); ?>">
-								<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_AUDIO'); ?>
-							</a>
-						<?php endif;
+							echo SermonspeakerHelperSermonspeaker::insertdlbutton($item->slug, 'audio', 4, $item->audiofilesize);
+						endif;
 						if ($item->videofile) :
-							$fileurl = JRoute::_('index.php?task=download&id='.$item->slug.'&type=video'); ?>
-							<a href="<?php echo $fileurl; ?>" target="_new" class="download" title="<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_VIDEO'); ?>">
-								<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_VIDEO'); ?>
-							</a>
-						<?php endif; ?>
-					<?php endif;
+							echo SermonspeakerHelperSermonspeaker::insertdlbutton($item->slug, 'video', 4, $item->videofilesize);
+						endif;
+					endif;
 					if ($item->audiofile) : ?>
 						<a href="#" onclick="popup=window.open('<?php echo JRoute::_('index.php?view=sermon&layout=popup&tmpl=component&type=audio&id='.$item->slug); ?>', 'PopupPage', 'height=150px, width=400px, scrollbars=yes, resizable=yes'); return false" class="listen" title="<?php echo JText::_('COM_SERMONSPEAKER_POPUPPLAYER'); ?>">
 							Listen
@@ -223,6 +217,11 @@ if (in_array('sermons:player', $this->columns) && count($this->items)) : ?>
 							<?php echo JHtml::Date($item->sermon_date, JText::_('DATE_FORMAT_LC1'), true); ?>
 						</div>
 					<?php endif;
+					if (in_array('sermons:category', $this->columns)) : ?>
+						<div class="category-name">
+							<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonsRoute($item->catslug)); ?>"><?php echo $item->category_title; ?></a>
+						</div>
+					<?php endif;
 					if (in_array('sermons:hits', $this->columns)) : ?>
 						<div class="hits">
 							<?php echo JText::_('JGLOBAL_HITS'); ?>: 
@@ -231,6 +230,7 @@ if (in_array('sermons:player', $this->columns) && count($this->items)) : ?>
 					<?php endif;
 					if (in_array('sermons:length', $this->columns)) : ?>
 						<div class="ss-sermondetail-info">
+							<?php echo JText::_('COM_SERMONSPEAKER_FIELD_LENGTH_LABEL'); ?>:
 							<?php echo SermonspeakerHelperSermonspeaker::insertTime($item->sermon_time); ?>
 						</div>
 					<?php endif;

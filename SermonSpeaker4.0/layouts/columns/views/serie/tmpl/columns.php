@@ -212,18 +212,12 @@ if (in_array('serie:player', $this->columns) && count($this->items)) : ?>
 					<?php endif;
 					if (in_array('serie:download', $this->columns)) : ?>
 						<?php if ($item->audiofile) :
-							$fileurl = JRoute::_('index.php?task=download&id='.$item->slug.'&type=audio'); ?>
-							<a href="<?php echo $fileurl; ?>" target="_new" class="download" title="<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_AUDIO'); ?>">
-								<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_AUDIO'); ?>
-							</a>
-						<?php endif;
+							echo SermonspeakerHelperSermonspeaker::insertdlbutton($item->slug, 'audio', 4, $item->audiofilesize);
+						endif;
 						if ($item->videofile) :
-							$fileurl = JRoute::_('index.php?task=download&id='.$item->slug.'&type=video'); ?>
-							<a href="<?php echo $fileurl; ?>" target="_new" class="download" title="<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_VIDEO'); ?>">
-								<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_VIDEO'); ?>
-							</a>
-						<?php endif; ?>
-					<?php endif;
+							echo SermonspeakerHelperSermonspeaker::insertdlbutton($item->slug, 'video', 4, $item->videofilesize);
+						endif;
+					endif;
 					if ($item->audiofile) : ?>
 						<a href="#" onclick="popup=window.open('<?php echo JRoute::_('index.php?view=sermon&layout=popup&tmpl=component&type=audio&id='.$item->slug); ?>', 'PopupPage', 'height=150px, width=400px, scrollbars=yes, resizable=yes'); return false" class="listen" title="<?php echo JText::_('COM_SERMONSPEAKER_POPUPPLAYER'); ?>">
 							Listen
@@ -239,6 +233,11 @@ if (in_array('serie:player', $this->columns) && count($this->items)) : ?>
 					<?php if (in_array('serie:date', $this->columns) and ($item->sermon_date != '0000-00-00 00:00:00')) : ?>
 						<div class="create">
 							<?php echo JHtml::Date($item->sermon_date, JText::_('DATE_FORMAT_LC1'), true); ?>
+						</div>
+					<?php endif;
+					if (in_array('serie:category', $this->columns)) : ?>
+						<div class="category-name">
+							<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonsRoute($item->catslug)); ?>"><?php echo $item->category_title; ?></a>
 						</div>
 					<?php endif;
 					if (in_array('serie:hits', $this->columns)) : ?>
