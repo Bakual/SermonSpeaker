@@ -21,9 +21,20 @@ class SermonspeakerHelperSermonspeaker
 
 	static function SpeakerTooltip($id, $pic, $name)
 	{
-		$html = '<a class="modal" href="'.JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($id).'&layout=popup&tmpl=component').'" rel="{handler: \'iframe\', size: {x: 700, y: 500}}">';
-		$html .= ($pic) ? JHtml::tooltip('<img src="'.self::makeLink($pic).'" alt="'.$name.'">', $name, '', $name) : $name;
-		$html .= '</a>';
+		if (!self::$params)
+		{
+			self::getParams();
+		}
+		if (self::$params->get('speakerpopup', 1))
+		{
+			$html = '<a class="modal" href="'.JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($id).'&layout=popup&tmpl=component').'" rel="{handler: \'iframe\', size: {x: 700, y: 500}}">';
+		}
+		else
+		{
+			$html = '<a href="'.JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($id)).'">';
+		}
+			$html .= ($pic) ? JHtml::tooltip('<img src="'.self::makeLink($pic).'" alt="'.$name.'">', $name, '', $name) : $name;
+			$html .= '</a>';
 
 		return $html;
 	}
@@ -103,12 +114,13 @@ class SermonspeakerHelperSermonspeaker
 		return $path;
 	}
 
-	static function insertdlbutton($id, $type='audio', $mode='0')
+	static function insertdlbutton($id, $type = 'audio', $mode = 0, $size = 0)
 	{
 		if (!self::$params)
 		{
 			self::getParams();
 		}
+		$text = ($size) ? JText::sprintf('COM_SERMONSPEAKER_DOWNLOADBUTTON_'.$type.'_WITH_SIZE', self::convertBytes($size)) : JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_'.$type);
 		$onclick = '';
 		$fileurl = JRoute::_('index.php?task=download&id='.$id.'&type='.$type);
 		if ($mode == 1)
@@ -117,8 +129,8 @@ class SermonspeakerHelperSermonspeaker
 			{
 				$onclick = "onclick=\"_gaq.push(['_trackEvent', 'SermonSpeaker Download', '".$type."', 'id:".$id."']);\"";
 			}
-			$html = '<a href="'.$fileurl.'" target="_new" '.$onclick.' class="hasTip" title="::'.JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_'.$type).'">'
-						.'<img src="media/com_sermonspeaker/images/download.png" alt="'.JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_'.$type).'" />'
+			$html = '<a href="'.$fileurl.'" target="_new" '.$onclick.' class="hasTip" title="::'.$text.'">'
+						.'<img src="media/com_sermonspeaker/images/download.png" alt="'.$text.'" />'
 					.'</a>';
 		}
 		elseif ($mode == 2)
@@ -128,9 +140,7 @@ class SermonspeakerHelperSermonspeaker
 				$onclick = "_gaq.push(['_trackEvent', 'SermonSpeaker Download', '".$type."', 'id:".$id."']);";
 			}
 			$html = '<button id="sermon_download" class="btn btn-small download_btn" onclick="'.$onclick.'window.location.href=\''.$fileurl.'\';" >'
-				.'<i class="icon-download"> </i> '
-				.JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_'.$type)
-				.'</button>';
+				.'<i class="icon-download"> </i> '.$text.'</button>';
 		}
 		elseif ($mode == 3)
 		{
@@ -138,7 +148,7 @@ class SermonspeakerHelperSermonspeaker
 			{
 				$onclick = "onclick=\"_gaq.push(['_trackEvent', 'SermonSpeaker Download', '".$type."', 'id:".$id."']);\"";
 			}
-			$html = '<a href="'.$fileurl.'" target="_new" '.$onclick.' class="hasTip" title="::'.JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_'.$type).'">'
+			$html = '<a href="'.$fileurl.'" target="_new" '.$onclick.' class="hasTip" title="::'.$text.'">'
 						.'<i class="icon-download"> </i>'
 					.'</a>';
 		}
@@ -148,7 +158,7 @@ class SermonspeakerHelperSermonspeaker
 			{
 				$onclick = "_gaq.push(['_trackEvent', 'SermonSpeaker Download', '".$type."', 'id:".$id."']);";
 			}
-			$html = '<input id="sermon_download" class="btn download_btn" type="button" value="'.JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_'.$type).'" onclick="'.$onclick.'window.location.href=\''.$fileurl.'\';" />';
+			$html = '<input id="sermon_download" class="btn download_btn" type="button" value="'.$text.'" onclick="'.$onclick.'window.location.href=\''.$fileurl.'\';" />';
 		}
 
 		return $html;
