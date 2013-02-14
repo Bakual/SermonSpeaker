@@ -234,9 +234,10 @@ if ($this->params->get('show_category_title', 0) || in_array('speaker:hits', $th
 							</td>
 						<?php endif;
 						if (in_array('speaker:download', $this->col_sermon)) : 
-							$file = ($item->videofile && ($prio || !$item->audiofile)) ? 'video' : 'audio'; ?>
+							$type = ($item->videofile && ($prio || !$item->audiofile)) ? 'video' : 'audio';
+							$filesize = $type.'filesize'; ?>
 							<td class="ss-col ss-dl">
-								<?php echo SermonspeakerHelperSermonspeaker::insertdlbutton($item->slug, $file, 1); ?>
+								<?php echo SermonspeakerHelperSermonspeaker::insertdlbutton($item->slug, $type, 1, $item->$filesize); ?>
 							</td>
 						<?php endif; ?>
 					</tr>

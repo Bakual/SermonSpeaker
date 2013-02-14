@@ -232,9 +232,10 @@ if (in_array('serie:player', $this->columns) && count($this->items)) : ?>
 							</td>
 						<?php endif;
 						if (in_array('serie:download', $this->columns)) : 
-							$file = ($item->videofile && ($prio || !$item->audiofile)) ? 'video' : 'audio'; ?>
+							$type = ($item->videofile && ($prio || !$item->audiofile)) ? 'video' : 'audio';
+							$filesize = $type.'filesize'; ?>
 							<td class="ss-col ss-dl">
-								<?php echo SermonspeakerHelperSermonspeaker::insertdlbutton($item->slug, $file, 1); ?>
+								<?php echo SermonspeakerHelperSermonspeaker::insertdlbutton($item->slug, $type, 1, $item->$filesize); ?>
 							</td>
 						<?php endif; ?>
 					</tr>

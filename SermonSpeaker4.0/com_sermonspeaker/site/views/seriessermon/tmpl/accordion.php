@@ -102,10 +102,10 @@ if ($this->params->get('show_description', 1) || $this->params->def('show_descri
 					if (in_array('seriessermon:download', $this->columns)) : ?>
 						<div class="ss-dl">
 							<?php if ($sermon->audiofile):
-								echo SermonspeakerHelperSermonspeaker::insertdlbutton($sermon->slug, 'audio');
+								echo SermonspeakerHelperSermonspeaker::insertdlbutton($sermon->slug, 'audio', 0, $sermon->audiofilesize);
 							endif;
 							if ($sermon->videofile):
-								echo SermonspeakerHelperSermonspeaker::insertdlbutton($sermon->slug, 'video');
+								echo SermonspeakerHelperSermonspeaker::insertdlbutton($sermon->slug, 'video', 0, $sermon->videofilesize);
 							endif; ?>
 						</div>
 					<?php endif;

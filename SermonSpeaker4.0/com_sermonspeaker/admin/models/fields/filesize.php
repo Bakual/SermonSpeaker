@@ -48,7 +48,7 @@ class JFormFieldFilesize extends JFormFieldText
 		}
 		else
 		{
-			$html	.= '<img src="'.JURI::base().'components/com_sermonspeaker/images/info.png" class="pointer" width="16" height="16" border="0" title="'.JText::_('JSEARCH_RESET').'" alt="Reset" />';
+			$html	.= JHtml::Tooltip($title);
 		}
 		$html .= '</div>';
 

@@ -196,10 +196,10 @@ if (in_array('sermons:player', $this->columns) && count($this->items)) : ?>
 				if (in_array('sermons:download', $this->columns)) : ?>
 					<div class="ss-dl">
 						<?php if ($item->audiofile):
-							echo SermonspeakerHelperSermonspeaker::insertdlbutton($item->slug, 'audio', 0);
+							echo SermonspeakerHelperSermonspeaker::insertdlbutton($item->slug, 'audio', 0, $item->audiofilesize);
 						endif;
 						if ($item->videofile):
-							echo SermonspeakerHelperSermonspeaker::insertdlbutton($item->slug, 'video', 0);
+							echo SermonspeakerHelperSermonspeaker::insertdlbutton($item->slug, 'video', 0, $item->videofilesize);
 						endif; ?>
 					</div>
 				<?php endif; ?>

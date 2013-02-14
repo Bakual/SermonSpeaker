@@ -77,6 +77,10 @@ $self = $uri->toString();
 					endif; ?>
 				</span>
 			</div>
+			<ul>
+			<li><?php echo $this->form->getLabel('audiofilesize'); ?>
+			<?php echo $this->form->getInput('audiofilesize'); ?></li>
+			</ul>
 		</fieldset>
 		<fieldset class="adminform">
 			<legend><?php echo JText::_('COM_SERMONSPEAKER_FIELD_VIDEOFILE_LABEL'); ?></legend>
@@ -105,6 +109,10 @@ $self = $uri->toString();
 					endif; ?>
 				</span>
 			</div>
+			<ul>
+			<li><?php echo $this->form->getLabel('videofilesize'); ?>
+			<?php echo $this->form->getInput('videofilesize'); ?></li>
+			</ul>
 		</fieldset>
 		<fieldset class="adminform">
 			<legend><?php echo JText::_('COM_SERMONSPEAKER_FIELD_NOTES_LABEL'); ?></legend>
