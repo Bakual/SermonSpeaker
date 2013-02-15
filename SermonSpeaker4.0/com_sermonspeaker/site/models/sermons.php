@@ -161,6 +161,17 @@ class SermonspeakerModelSermons extends JModelList
 			$query->where('script.book = '.(int) $book);
 		}
 
+		// Filter by filetype
+		$filetype = $this->getState('filter.filetype');
+		if ($filetype == 'video')
+		{
+			$query->where('sermons.videofile != ""');
+		}
+		elseif ($filetype == 'audio')
+		{
+			$query->where('sermons.audiofile != ""');
+		}
+
 		// Filter by state
 		$state = $this->getState('filter.state');
 		if (is_numeric($state))
@@ -211,6 +222,10 @@ class SermonspeakerModelSermons extends JModelList
 		$type	= $params->get('count_items_type', 'sermons');
 		$this->setState('category.id', $id);
 		$this->setState('category.type', $type);
+
+		// Filetype filter
+		$filetype	= $params->get('filetype', '');
+		$this->setState('filter.filetype', $filetype);
 
 		// Include Subcategories or not
 		$this->setState('filter.subcategories', $params->get('show_subcategory_content', 0));

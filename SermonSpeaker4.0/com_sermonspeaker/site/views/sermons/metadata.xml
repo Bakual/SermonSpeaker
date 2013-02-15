@@ -41,6 +41,14 @@
 				label="COM_SERMONSPEAKER_PARAM_PLUGIN_LABEL" 
 				description="COM_SERMONSPEAKER_PARAM_PLUGIN_DESC"
 				useglobal="true" />
+			<field name="filetype"
+				type="list"
+				label="COM_SERMONSPEAKER_FIELD_FILETYPE_LABEL" 
+				description="COM_SERMONSPEAKER_FIELD_FILETYPE_DESC">
+				<option value="">COM_SERMONSPEAKER_NO_FILTER</option>
+				<option value="audio">COM_SERMONSPEAKER_AUDIO</option>
+				<option value="video">COM_SERMONSPEAKER_VIDEO</option>
+			</field>
 			<field name="fileprio"
 				type="list"
 				label="COM_SERMONSPEAKER_PARAM_FILEPRIO_LABEL" 
