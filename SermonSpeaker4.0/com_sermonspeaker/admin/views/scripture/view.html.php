@@ -16,6 +16,9 @@ class SermonspeakerViewScripture extends JViewLegacy
 		$id			= JFactory::getApplication()->input->get('id', 0, 'int');
 		$separator	= JText::_('COM_SERMONSPEAKER_SCRIPTURE_SEPARATOR');
 
+		// Get Params
+		$this->params	= JComponentHelper::getParams('com_sermonspeaker');
+
 		// add Javascript for Scripture
 		$javascript	= "function AddScripture() {
 				var error = 0;

@@ -35,6 +35,11 @@
 			default=""
 			label="COM_SERMONSPEAKER_PARAM_LIMITSERIESDL_LABEL"
 			description="COM_SERMONSPEAKER_PARAM_LIMITSERIESDL_DESC" />
+		<field name="addbooks"
+			type="text"
+			default=""
+			label="COM_SERMONSPEAKER_FIELD_ADDBOOKS_LABEL"
+			description="COM_SERMONSPEAKER_FIELD_ADDBOOKS_DESC" />
 
 		<field name="spacer1"
 			type="spacer"

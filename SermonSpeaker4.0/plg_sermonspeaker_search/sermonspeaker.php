@@ -78,11 +78,13 @@ class plgSearchSermonspeaker extends JPlugin
 		$app	= JFactory::getApplication();
 		$user	= JFactory::getUser();
 		$groups	= implode(',', $user->getAuthorisedViewLevels());
+		$query	= 'SELECT `book` FROM #__sermon_scriptures ORDER BY `book` DESC LIMIT 1';
+		$db->setQuery($query);
+		$max	= $db->loadResult();
 		$books	= array();
-		for ($i = 1; $i <= 73; $i++)
+		for ($i = 1; $i <= $max; $i++)
 		{
-			$book = strtolower(JText::_('COM_SERMONSPEAKER_BOOK_'.$i));
-			$books[$book]	= $i;
+			$books[$i] = strtolower(JText::_('COM_SERMONSPEAKER_BOOK_'.$i));
 		}
 		$searchText = $text;
 		if (is_array($areas))
@@ -133,14 +135,22 @@ class plgSearchSermonspeaker extends JPlugin
 			{
 				case 'exact':
 					$wheres2	= array();
-					if(isset($books[strtolower($text)]))
+					$book_ids	= array();
+					foreach ($books as $key => $value)
 					{
-						$wheres2[]	= "b.book = '".$books[strtolower($text)]."'";
+						if (strpos($value, $text) !== false)
+						{
+							$book_ids[]	= $key;
+						}
+					}
+					if($book_ids)
+					{
+						$wheres2[]	= 'b.book IN ('.implode(',', $book_ids).')';
 					}
 					$text		= $db->Quote('%'.$db->escape($text, true).'%', false);
 					$wheres2[]	= 'a.sermon_title LIKE '.$text;
 					$wheres2[]	= 'a.notes LIKE '.$text;
-					$wheres2[]	= 't.title LIKE '.$word;
+					$wheres2[]	= 't.title LIKE '.$text;
 					$where		= '(' . implode(') OR (', $wheres2) . ')';
 					break;
 				case 'all':
@@ -151,9 +161,17 @@ class plgSearchSermonspeaker extends JPlugin
 					foreach ($words as $word)
 					{
 						$wheres2	= array();
-						if(isset($books[strtolower($word)]))
+						$book_ids	= array();
+						foreach ($books as $key => $value)
 						{
-							$wheres2[]	= "b.book = '".$books[strtolower($word)]."'";
+							if (strpos($value, $text) !== false)
+							{
+								$book_ids[]	= $key;
+							}
+						}
+						if($book_ids)
+						{
+							$wheres2[]	= 'b.book IN ('.implode(',', $book_ids).')';
 						}
 						$word		= $db->Quote('%'.$db->escape($word, true).'%', false);
 						$wheres2[]	= 'a.sermon_title LIKE '.$word;

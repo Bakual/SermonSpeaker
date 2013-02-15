@@ -148,45 +148,37 @@ class SermonspeakerViewSpeaker extends JViewLegacy
 		}';
 		$this->document->addScriptDeclaration($js);
 		// Build Books
-		$at	= 0;
-		$nt	= 0;
-		$ap	= 0;
-		$this->books	= array();
-		foreach ($books as $book){
-			if(!$at && $book <= 39){
-				$this->books[]	= JHtml::_('select.optgroup', JText::_('COM_SERMONSPEAKER_OLD_TESTAMENT'));
-				$at	= 1;
-			} elseif($book > 39){
-				if($at == 1){
-					$this->books[]	= JHtml::_('select.optgroup', JText::_('COM_SERMONSPEAKER_OLD_TESTAMENT'));
-					$at	= 2;
-				}
-				if(!$nt && $book <= 66){
-					$this->books[]	= JHtml::_('select.optgroup', JText::_('COM_SERMONSPEAKER_NEW_TESTAMENT'));
-					$nt	= 1;
-				} elseif($book > 66){
-					if($nt == 1){
-						$this->books[]	= JHtml::_('select.optgroup', JText::_('COM_SERMONSPEAKER_NEW_TESTAMENT'));
-						$nt	= 2;
-					}
-					if(!$ap){
-						$this->books[]	= JHtml::_('select.optgroup', JText::_('COM_SERMONSPEAKER_APOCRYPHA'));
-						$ap	= 1;
-					}
-				}
+		$groups			= array();
+		foreach ($books as $book)
+		{
+			switch ($book)
+			{
+				case ($book < 40):
+					$group	= 'OLD_TESTAMENT';
+					break;
+				case ($book < 67):
+					$group	= 'NEW_TESTAMENT';
+					break;
+				case ($book < 74):
+					$group	= 'APOCRYPHA';
+					break;
+				default:
+					$group	= 'CUSTOMBOOKS';
+					break;
 			}
-			$object	= new stdClass;
-			$object->value	= $book;
-			$object->text	= JText::_('COM_SERMONSPEAKER_BOOK_'.$book);
-			$this->books[]	= $object;
+
+			$object					= new stdClass;
+			$object->value			= $book;
+			$object->text			= JText::_('COM_SERMONSPEAKER_BOOK_'.$book);
+			$groups[$group][]	= $object;
 		}
-		if($at == 1){
-			$this->books[]	= JHtml::_('select.optgroup', JText::_('COM_SERMONSPEAKER_OLD_TESTAMENT'));
-		} elseif($nt == 1){
-			$this->books[]	= JHtml::_('select.optgroup', JText::_('COM_SERMONSPEAKER_NEW_TESTAMENT'));
-		} elseif($ap == 1){
-			$this->books[]	= JHtml::_('select.optgroup', JText::_('COM_SERMONSPEAKER_APOCRYPHA'));
+		foreach ($groups as $key => &$group)
+		{
+			array_unshift($group, JHtml::_('select.optgroup', JText::_('COM_SERMONSPEAKER_'.$key)));
+			array_push($group, JHtml::_('select.optgroup', JText::_('COM_SERMONSPEAKER_'.$key)));
 		}
+		$this->books	= array_reduce($groups, 'array_merge', array());
+
 		$this->pageclass_sfx	= htmlspecialchars($this->params->get('pageclass_sfx'));
 		$this->maxLevel			= $this->params->get('maxLevel', -1);
 		$this->_prepareDocument();

@@ -27,6 +27,7 @@
 				/>
 				<field name="search_content" type="radio"
 					default="1"
+					class="btn-group"
 					description="JFIELD_PLG_SEARCH_ALL_DESC"
 					label="JFIELD_PLG_SEARCH_ALL_LABEL"
 				>
@@ -35,6 +36,7 @@
 				</field>
 				<field name="search_archived" type="radio"
 					default="0"
+					class="btn-group"
 					description="JFIELD_PLG_SEARCH_ARCHIVED_DESC"
 					label="JFIELD_PLG_SEARCH_ARCHIVED_LABEL"
 				>
@@ -43,6 +45,7 @@
 				</field>
 				<field name="search_series" type="radio"
 					default="1"
+					class="btn-group"
 					label="PLG_SEARCH_SERMONSPEAKER_SEARCH_SERIES_LABEL"
 					description="PLG_SEARCH_SERMONSPEAKER_SEARCH_SERIES_DESC"
 				>
@@ -51,6 +54,7 @@
 				</field>
 				<field name="search_speakers" type="radio"
 					default="1"
+					class="btn-group"
 					label="PLG_SEARCH_SERMONSPEAKER_SEARCH_SPEAKERS_LABEL"
 					description="PLG_SEARCH_SERMONSPEAKER_SEARCH_SPEAKERS_DESC"
 				>
@@ -59,6 +63,7 @@
 				</field>
 				<field name="sermons_speaker" type="radio"
 					default="0"
+					class="btn-group"
 					label="PLG_SEARCH_SERMONSPEAKER_SERMONS_SPEAKER_LABEL"
 					description="PLG_SEARCH_SERMONSPEAKER_SERMONS_SPEAKER_DESC"
 				>

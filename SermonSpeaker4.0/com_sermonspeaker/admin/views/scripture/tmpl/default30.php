@@ -48,6 +48,13 @@ JHtml::_('formbehavior.chosen', 'select');
 						<option value="<?php echo $i; ?>"><?php echo JText::_('COM_SERMONSPEAKER_BOOK_'.$i); ?></option>
 					<?php endfor; ?>
 					</optgroup>
+					<?php if ($n = $this->params->get('addbooks', 0)): ?>
+						<optgroup label="<?php echo JText::_('COM_SERMONSPEAKER_CUSTOMBOOKS'); ?>">
+						<?php for (; $i < (74 + $n); $i++): ?>
+							<option value="<?php echo $i; ?>"><?php echo JText::_('COM_SERMONSPEAKER_BOOK_'.$i); ?></option>
+						<?php endfor; ?>
+						</optgroup>
+					<?php endif; ?>
 				</select>
 			</td>
 			<td><input name="from[cap1]" class="span1" id="cap1" type="text" size="3" /></td>
