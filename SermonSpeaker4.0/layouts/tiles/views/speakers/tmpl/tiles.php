@@ -73,6 +73,9 @@ if ($this->params->get('show_description', 1) || $this->params->def('show_descri
 		<?php foreach($this->items as $i => $item) :
 			// Preparing tooltip
 			$tip = array();
+			if(in_array('speakers:category', $this->col_speaker)):
+				$tip[]	= JText::_('JCATEGORY').': '.$item->category_title;
+			endif;
 			if(in_array('speakers:hits', $this->col_speaker) and $item->hits):
 				$tip[]	= JText::_('JGLOBAL_HITS').': '.$item->hits;
 			endif;

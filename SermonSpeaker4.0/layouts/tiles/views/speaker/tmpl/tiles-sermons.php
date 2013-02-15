@@ -147,6 +147,9 @@ if ($this->params->get('show_category_title', 0) || in_array('speaker:hits', $th
 			if(in_array('speaker:date', $this->col_sermon) and ($item->sermon_date != '0000-00-00')):
 				$tip[]	= JText::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL').': '.JHtml::Date($item->sermon_date, JText::_($this->params->get('date_format')), true); 
 			endif;
+			if(in_array('speaker:category', $this->col_sermon)):
+				$tip[]	= JText::_('JCATEGORY').': '.$item->category_title;
+			endif;
 			if(in_array('speaker:speaker', $this->col_sermon) and $item->name):
 				$tip[]	= JText::_('COM_SERMONSPEAKER_FIELD_SPEAKER_LABEL').': '.$item->name;
 			endif;

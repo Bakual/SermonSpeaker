@@ -149,6 +149,9 @@ if (in_array('serie:player', $this->columns) && count($this->items)) : ?>
 			if(in_array('sermons:date', $this->columns) and ($item->sermon_date != '0000-00-00')):
 				$tip[]	= JText::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL').': '.JHtml::Date($item->sermon_date, JText::_($this->params->get('date_format')), true); 
 			endif;
+			if(in_array('sermons:category', $this->columns)):
+				$tip[]	= JText::_('JCATEGORY').': '.$item->category_title;
+			endif;
 			if(in_array('sermons:speaker', $this->columns) and $item->name):
 				$tip[]	= JText::_('COM_SERMONSPEAKER_FIELD_SPEAKER_LABEL').': '.$item->name;
 			endif;

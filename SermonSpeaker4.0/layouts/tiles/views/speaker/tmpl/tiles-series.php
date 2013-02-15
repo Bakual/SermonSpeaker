@@ -99,6 +99,9 @@ if ($this->params->get('show_category_title', 0) || in_array('speaker:hits', $th
 		<?php foreach($this->series as $i => $item) :
 			// Preparing tooltip
 			$tip = array();
+			if(in_array('series:category', $this->col_serie)):
+				$tip[]	= JText::_('JCATEGORY').': '.$item->category_title;
+			endif;
 			if(in_array('series:speaker', $this->col_serie) and $item->names):
 				$tip[]	= JText::_('COM_SERMONSPEAKER_FIELD_SPEAKER_LABEL').': '.$item->names;
 			endif;
