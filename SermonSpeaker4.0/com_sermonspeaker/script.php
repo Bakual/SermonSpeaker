@@ -155,9 +155,9 @@ class Com_SermonspeakerInstallerScript
 			if ($jversion->isCompatible('3.0'))
 			{
 				$params['sermonslayout']	= '"sermonslayout":"_:protostar-table"';
-				$params['sermonlayout']	= '"sermonlayout":"_:protostar"';
-				$params['serieslayout']	= '"serieslayout":"_:protostar-table"';
-				$params['serielayout']	= '"serielayout":"_:protostar-table"';
+				$params['sermonlayout']		= '"sermonlayout":"_:protostar"';
+				$params['serieslayout']		= '"serieslayout":"_:protostar-table"';
+				$params['serielayout']		= '"serielayout":"_:protostar-table"';
 				$params['speakerslayout']	= '"speakerslayout":"_:protostar-table"';
 				$params['speakerlayout']	= '"speakerlayout":"_:protostar-table"';
 			}

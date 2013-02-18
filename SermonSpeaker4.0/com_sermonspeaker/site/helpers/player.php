@@ -20,7 +20,7 @@ class SermonspeakerHelperPlayer
 	public function __construct()
 	{
 		// Get params
-		$this->params	= JFactory::getApplication()->getParams('com_sermonspeaker');
+		$this->params	= JComponentHelper::getParams('com_sermonspeaker');
 	}
 
 	public function getFallbackPlayer($file)

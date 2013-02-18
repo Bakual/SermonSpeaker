@@ -1,7 +1,8 @@
 <?php
 defined('_JEXEC') or die;
 
-require_once(JPATH_COMPONENT_SITE.'/helpers/player.php');
+require_once(JPATH_SITE.'/components/com_sermonspeaker/helpers/player.php');
+
 /**
  * Silverlight WMVPlayer
  */
@@ -23,10 +24,22 @@ class SermonspeakerHelperPlayerWmvplayer extends SermonspeakerHelperPlayer
 		return $this->mode;
 	}
 
+	public function getName()
+	{
+		return 'JW WMV Player';
+	}
+
 	public function preparePlayer($item, $config)
 	{
 		$this->config	= $config;
-		$this->player	= 'WMVPlayer';
+		$this->player	= $this->getName();
+
+		if (is_array($item))
+		{
+			$this->mspace	= '<div class="alert"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>Warning!</strong> '.$this->player.' doesn\'t support Playlists</div>';
+			$this->script	= '';
+			return false;
+		}
 
 		$player	= JURI::root().'media/com_sermonspeaker/player/wmvplayer/wmvplayer.xaml';
 		$start	= $this->config['autostart'] ? 1 : 0;

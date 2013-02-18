@@ -1,7 +1,8 @@
 <?php
 defined('_JEXEC') or die;
 
-require_once(JPATH_COMPONENT_SITE.'/helpers/player.php');
+require_once(JPATH_SITE.'/components/com_sermonspeaker/helpers/player.php');
+
 /**
  * JW Player 5
  */
@@ -9,7 +10,8 @@ class SermonspeakerHelperPlayerReal extends SermonspeakerHelperPlayer
 {
 	private static $script_loaded;
 
-	public function isSupported($file){
+	public function isSupported($file)
+	{
 		$ext		= JFile::getExt($file);
 		$audio_ext	= array('ra', 'ram', 'rm', 'rpm');
 		$video_ext	= array('rv');
@@ -29,11 +31,24 @@ class SermonspeakerHelperPlayerReal extends SermonspeakerHelperPlayer
 		return $this->mode;
 	}
 
+	public function getName()
+	{
+		return 'Real Player';
+	}
+
 	public function preparePlayer($item, $config)
 	{
 		$this->config	= $config;
 		$this->player	= 'RealPlayer';
-		$this->toggle	= 0;
+		$this->toggle	= false;
+		$this->script	= '';
+
+		if (is_array($item))
+		{
+			$this->mspace	= '<div class="alert"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>Warning!</strong> '.$this->player.' doesn\'t support Playlists</div>';
+			return false;
+		}
+
 		$type			= ($this->mode == 'audio') ? 'a' : 'v';
 
 		$this->mspace	= '<div id="mediaspace'.$this->config['count'].'">'.JText::_('COM_SERMONSPEAKER_PLAYER_NEEDS_JAVASCRIPT').'</div>';
@@ -72,7 +87,6 @@ class SermonspeakerHelperPlayerReal extends SermonspeakerHelperPlayer
 					.'</object><br>'
 					.$this->mspace;
 		}
-		$this->script	= '';
 		return;
 	}
 }

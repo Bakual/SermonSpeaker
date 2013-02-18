@@ -1,7 +1,8 @@
 <?php
 defined('_JEXEC') or die;
 
-require_once(JPATH_COMPONENT_SITE.'/helpers/player.php');
+require_once(JPATH_SITE.'/components/com_sermonspeaker/helpers/player.php');
+
 /**
  * Vimeo
  */
@@ -22,10 +23,23 @@ class SermonspeakerHelperPlayerVimeo extends SermonspeakerHelperPlayer
 		return $this->mode;
 	}
 
+	public function getName()
+	{
+		return 'Vimeo';
+	}
+
 	public function preparePlayer($item, $config)
 	{
 		$this->config	= $config;
 		$this->player	= 'Vimeo';
+		$this->script	= '';
+		$this->toggle	= false;
+
+		if (is_array($item))
+		{
+			$this->mspace	= '<div class="alert"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>Warning!</strong> '.$this->player.' doesn\'t support Playlists</div>';
+			return false;
+		}
 
 		$id				= trim(strrchr($item->videofile, '/'), '/ ');
 		$this->file		= 'http://vimeo.com/'.$id;
@@ -36,8 +50,6 @@ class SermonspeakerHelperPlayerVimeo extends SermonspeakerHelperPlayer
 		$this->mspace = '<iframe id="mediaspace'.$this->config['count'].'" width="'.$this->config['vwidth'].'" height="'.$this->config['vheight'].'" '
 						.'src="http://player.vimeo.com/video/'.$id.'?title=0&byline=0&portrait=0&border=0&autoplay='.$start.'&player_id=vimeo'.$this->config['count'].'&api=1">'
 						.'</iframe>';
-		$this->script	= '';
-		$this->toggle	= false;
 
 		// Loading needed Javascript only once
 		if (!self::$script_loaded)

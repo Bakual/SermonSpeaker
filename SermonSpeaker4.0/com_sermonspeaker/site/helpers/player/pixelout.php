@@ -1,7 +1,8 @@
 <?php
 defined('_JEXEC') or die;
 
-require_once(JPATH_COMPONENT_SITE.'/helpers/player.php');
+require_once(JPATH_SITE.'/components/com_sermonspeaker/helpers/player.php');
+
 /**
  * Pixelout (WOrdpress Audio Player)
  */
@@ -21,6 +22,11 @@ class SermonspeakerHelperPlayerPixelout extends SermonspeakerHelperPlayer
 			$this->mode	= false;
 		}
 		return $this->mode;
+	}
+
+	public function getName()
+	{
+		return '1 Pixel Out Audio Player';
 	}
 
 	public function preparePlayer($item, $config)
