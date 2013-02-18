@@ -532,15 +532,20 @@ class SermonspeakerHelperSermonspeaker
 
 		// Dispatching
 		jimport('joomla.filesystem.file');
-		if (!JFile::exists(JPATH_COMPONENT_SITE.'/helpers/player/'.$config['alt_player'].'.php'))
+		if (!JFile::exists(JPATH_SITE.'/components/com_sermonspeaker/helpers/player/'.$config['alt_player'].'.php'))
 		{
 			$config['alt_player'] = 'jwplayer5';
 		}
-		require_once(JPATH_COMPONENT_SITE.'/helpers/player/'.$config['alt_player'].'.php');
+		require_once(JPATH_SITE.'/components/com_sermonspeaker/helpers/player/'.$config['alt_player'].'.php');
 		$classname	= 'SermonspeakerHelperPlayer'.ucfirst($config['alt_player']);
 		$player		= new $classname();
 
-		if (!is_array($item))
+		if (is_array($item))
+		{
+			$player->preparePlayer($item, $config);
+			return $player;
+		}
+		else
 		{
 			// Detect file to use
 			if ($config['type'] == 'auto')
@@ -562,29 +567,57 @@ class SermonspeakerHelperSermonspeaker
 			}
 			$file	= self::makeLink($file);
 			// Check if filetype is suported
-			if (!$player->isSupported($file))
+			if ($player->isSupported($file))
 			{
-				// Fallback to default for filetype
-				$config['alt_player'] = $player->getFallbackPlayer($file);
-
-				require_once(JPATH_COMPONENT_SITE.'/helpers/player/'.$config['alt_player'].'.php');
-				$classname	= 'SermonspeakerHelperPlayer'.ucfirst($config['alt_player']);
-				$player		= new $classname();
-
-				// Check with Fallback
-				if (!$player->isSupported($file))
+				// Prepare player
+				$player->preparePlayer($item, $config);
+				return $player;
+			}
+			else
+			{
+				// Try with JW Player
+				if ($config['alt_player'] != 'jwplayer5')
 				{
-					$player->popup['height']	= 0;
-					$player->popup['width']		= 0;
-					$player->error				= 'Unsupported Filetype';
-					$player->toggle				= false;
-					return $player;
+					require_once(JPATH_SITE.'/components/com_sermonspeaker/helpers/player/jwplayer5.php');
+					$player		= new SermonspeakerHelperPlayerJwplayer5();
+					if ($player->isSupported($file))
+					{
+						$config['alt_player'] = 'jwplayer5';
+						// Prepare player
+						$player->preparePlayer($item, $config);
+						return $player;
+					}
 				}
+
+				// Try to find a fallback
+				jimport('joomla.filesystem.folder');
+				$classfiles	= JFolder::files(JPATH_SITE.'/components/com_sermonspeaker/helpers/player', '^[^_]*\.php$', false, true);
+				foreach ($classfiles as $classfile)
+				{
+					$playername	= JFile::stripExt(JFile::getName($classfile));
+					if ($playername == 'jwplayer5' || $playername == $config['alt_player'])
+					{
+						continue;
+					}
+					require_once($classfile);
+					$classname	= 'SermonspeakerHelperPlayer'.ucfirst($playername);
+					$player		= new $classname();
+					if ($player->isSupported($file))
+					{
+						$config['alt_player'] = $playername;
+						// Prepare player
+						$player->preparePlayer($item, $config);
+						return $player;
+					}
+				}
+
+				$player->popup['height']	= 0;
+				$player->popup['width']		= 0;
+				$player->error				= 'Unsupported Filetype';
+				$player->toggle				= false;
+				return $player;
 			}
 		}
-		// Prepare player
-		$player->preparePlayer($item, $config);
-		return $player;
 	}
 
 	static function getFileByPrio($item, $prio)

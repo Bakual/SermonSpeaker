@@ -23,26 +23,6 @@ class SermonspeakerHelperPlayer
 		$this->params	= JComponentHelper::getParams('com_sermonspeaker');
 	}
 
-	public function getFallbackPlayer($file)
-	{
-		$ext	= JFile::getExt($file);
-		if ($ext == 'wmv' || $ext == 'wma')
-		{
-			// WMV Player
-			return 'wmvplayer';
-		}
-		elseif ((strpos($file, 'http://vimeo.com') === 0) || (strpos($file, 'http://player.vimeo.com') === 0))
-		{
-			// Vimeo
-			return 'vimeo';
-		}
-		else
-		{
-			// Default: JW Player, plays most files
-			return 'jwplayer5';
-		}
-	}
-
 	// Sets the dimensions of the player for audio and video. $height and $width are default values.
 	protected function setDimensions($height, $width)
 	{
