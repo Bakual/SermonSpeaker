@@ -38,3 +38,40 @@ ALTER TABLE #__sermon_speakers ADD `language` CHAR(7) NOT NULL DEFAULT '*';
 ALTER TABLE #__sermon_series ADD `checked_out` INT(11) NOT NULL DEFAULT '0';
 ALTER TABLE #__sermon_series ADD `checked_out_time` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00';
 ALTER TABLE #__sermon_series ADD `language` CHAR(7) NOT NULL DEFAULT '*';
+CREATE TABLE `#__sermon_tags` (
+	`id` INT(10) NOT NULL AUTO_INCREMENT,
+	`title` VARCHAR(255) NOT NULL,
+	`alias` VARCHAR(255) NOT NULL,
+	`description` MEDIUMTEXT NOT NULL,
+	`state` TINYINT(3) NOT NULL DEFAULT '0',
+	`ordering` INT(11) NOT NULL DEFAULT '0',
+	`created_by` INT(10) NOT NULL DEFAULT '0',
+	`created` DATETIME NULL DEFAULT '0000-00-00 00:00:00',
+	`catid` INT(10) NOT NULL DEFAULT '0',
+	`checked_out` INT(11) NOT NULL DEFAULT '0',
+	`checked_out_time` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
+	`language` CHAR(7) NOT NULL DEFAULT '*',
+	PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
+CREATE TABLE `#__sermon_sermons_tags` (
+	`id` INT(10) NOT NULL AUTO_INCREMENT,
+	`sermon_id` INT(10) NOT NULL,
+	`tag_id` INT(10) NOT NULL,
+	PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
+ALTER TABLE #__sermon_sermons ADD `modified` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00';
+ALTER TABLE #__sermon_sermons ADD `modified_by` INT(10) NOT NULL DEFAULT '0';
+ALTER TABLE #__sermon_speakers ADD `modified` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00';
+ALTER TABLE #__sermon_speakers ADD `modified_by` INT(10) NOT NULL DEFAULT '0';
+ALTER TABLE #__sermon_series ADD `modified` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00';
+ALTER TABLE #__sermon_series ADD `modified_by` INT(10) NOT NULL DEFAULT '0';
+ALTER TABLE #__sermon_series ADD `zip_created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00';
+ALTER TABLE #__sermon_series ADD `zip_content` TEXT NOT NULL;
+ALTER TABLE #__sermon_series ADD `zip_progress` INT(11) NOT NULL DEFAULT '0';
+ALTER TABLE #__sermon_series ADD `zip_state` TINYINT(3) NOT NULL DEFAULT '0';
+ALTER TABLE #__sermon_series ADD `zip_size` INT(11) NOT NULL DEFAULT '0';
+ALTER TABLE #__sermon_series ADD `zip_dl` TINYINT(3) NOT NULL DEFAULT '0';
+UPDATE #__sermon_scriptures SET vers2 = 0 WHERE cap1 = cap2 AND vers1 = vers2;
+UPDATE #__sermon_scriptures SET cap2 = 0 WHERE cap1 = cap2;
+ALTER TABLE #__sermon_sermons ADD `audiofilesize` INT NOT NULL DEFAULT '0';
+ALTER TABLE #__sermon_sermons ADD `videofilesize` INT NOT NULL DEFAULT '0';
