@@ -259,7 +259,7 @@ class PlgContentAutotweetSermonspeaker extends plgAutotweetBase
 
 		// Use item title or text as message
 		$title = $item->sermon_title;
-		$item_text = $item->notes;
+		$item_text = JHtml::_('content.prepare', $item->notes);
 		$text = $this->getMessagetext($this->use_text, $this->use_text_count, $title, $item_text);
 		$hashtags = '';
 
