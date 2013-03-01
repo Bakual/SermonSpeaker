@@ -65,8 +65,8 @@ CREATE TABLE `#__sermon_sermons` (
 	`series_id` INT(10) NOT NULL DEFAULT '0',
 	`audiofile` TEXT NOT NULL DEFAULT '',
 	`videofile` TEXT NOT NULL DEFAULT '',
-	`audiofilesize` INT NOT NULL DEFAULT '0';
-	`videofilesize` INT NOT NULL DEFAULT '0';
+	`audiofilesize` INT NOT NULL DEFAULT '0',
+	`videofilesize` INT NOT NULL DEFAULT '0',
 	`picture` TEXT NOT NULL DEFAULT '',
 	`sermon_title` VARCHAR(255) NOT NULL,
 	`alias` VARCHAR(255) NOT NULL,
