@@ -100,10 +100,13 @@ if ($this->params->get('show_category_title', 0) || in_array('speaker:hits', $th
 				<input type="text" name="filter-search" id="filter-search" value="<?php echo $this->escape($this->state_sermons->get('filter.search')); ?>" class="inputbox" onchange="document.adminForm.submit();" title="<?php echo JText::_('COM_SERMONSPEAKER_FILTER_SEARCH_DESC'); ?>" />
 			</div>
 			<div class="filter-select">
-				<label class="filter-select-lbl" for="filter-select"><?php echo JText::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL').'&nbsp;'; ?></label>
-				<select name="book" id="filter_books" class="inputbox" onchange="this.form.submit()">
-					<?php echo JHtml::_('select.options', $this->books, 'value', 'text', $this->state_sermons->get('scripture.book'), true);?>
-				</select>
+				<?php if ($this->books) : ?>
+					<label class="filter-search-lbl" for="filter_books"><?php echo JText::_('COM_SERMONSPEAKER_BOOK').'&nbsp;'; ?></label>
+					<select name="book" id="filter_books" class="inputbox input-medium" onchange="this.form.submit()">
+						<option value="0"><?php echo JText::_('COM_SERMONSPEAKER_SELECT_BOOK'); ?></option>
+						<?php echo JHtml::_('select.options', $this->books, 'value', 'text', $this->state->get('scripture.book'), true);?>
+					</select>
+				<?php endif; ?>
 				<select name="month" id="filter_months" class="inputbox" onchange="this.form.submit()">
 					<option value="0"><?php echo JText::_('COM_SERMONSPEAKER_SELECT_MONTH'); ?></option>
 					
