@@ -39,7 +39,8 @@ if ($this->params->get('show_description', 1) || $this->params->def('show_descri
 		<div class="clr"></div>
 	</div>
 <?php endif;
-if (in_array('sermons:player', $this->columns) && count($this->items)) : ?>
+if (in_array('sermons:player', $this->columns) and count($this->items)) :
+	JHtml::stylesheet('com_sermonspeaker/player.css', '', true); ?>
 	<div class="ss-sermons-player">
 		<hr class="ss-sermons-player" />
 		<?php if ($player->player != 'PixelOut'): ?>

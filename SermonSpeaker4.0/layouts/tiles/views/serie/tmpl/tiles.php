@@ -65,7 +65,8 @@ if (in_array('serie:description', $this->col_serie)): ?>
 		<div class="clear-left"></div>
 	</div>
 <?php endif;
-if (in_array('serie:player', $this->columns) && count($this->items)) : ?>
+if (in_array('serie:player', $this->columns) and count($this->items)) :
+	JHtml::stylesheet('com_sermonspeaker/player.css', '', true); ?>
 	<div class="ss-serie-player">
 		<hr class="ss-serie-player" />
 		<?php if ($player->player != 'PixelOut'): ?>
