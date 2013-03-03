@@ -57,7 +57,7 @@ $player = SermonspeakerHelperSermonspeaker::getPlayer($this->item, $config);
 			</div>
 		<?php endif;
 		if (in_array('sermon:player', $this->columns) && $this->item->videofile) :
-			if ($player->status) : ?>
+			if (!$player->error) : ?>
 				<br style="clear:left;" />
 			<?php endif; ?>
 			<div class="ss-player-video">

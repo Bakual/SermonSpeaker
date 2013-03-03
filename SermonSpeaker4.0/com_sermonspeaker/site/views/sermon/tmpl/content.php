@@ -120,11 +120,11 @@ endif; ?>
 			<?php endif; ?>
 		</div>
 	<?php endif;
-	if (in_array('sermon:download', $this->columns) && ($player->status)) :
-		$filesize	= $player->status.'filesize'; ?>
-		<span><?php echo SermonspeakerHelperSermonspeaker::insertdlbutton($this->item->slug, $player->status, 0, $this->item->$filesize); ?></span>
+	if (in_array('sermon:download', $this->columns) && ($player->mode)) :
+		$filesize	= $player->mode.'filesize'; ?>
+		<span><?php echo SermonspeakerHelperSermonspeaker::insertdlbutton($this->item->slug, $player->mode, 0, $this->item->$filesize); ?></span>
 	<?php endif;
-	if ($this->params->get('popup_player') && $player->file) : ?>
+	if ($this->params->get('popup_player') && !$player->error) : ?>
 		<span><?php echo SermonspeakerHelperSermonspeaker::insertPopupButton($this->item->id, $player); ?></span>
 	<?php endif;
 	if (in_array('sermon:notes', $this->columns) && strlen($this->item->notes) > 0) : ?>

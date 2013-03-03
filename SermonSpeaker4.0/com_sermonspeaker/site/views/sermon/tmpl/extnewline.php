@@ -95,14 +95,14 @@ $player = SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 			<?php endif; ?>
 		</div>
 	<?php endif;
-	if ($this->params->get('popup_player') && ($player->status)) : ?>
+	if ($this->params->get('popup_player') && ($player->mode)) : ?>
 		<div class="ss-sermondetail-label"></div>
 		<div class="ss-sermondetail-text"><?php echo SermonspeakerHelperSermonspeaker::insertPopupButton($this->item->id, $player); ?></div>
 	<?php endif;
 	if (in_array('sermon:download', $this->columns) && $player->file) :
-		$filesize	= $player->status.'filesize'; ?>
+		$filesize	= $player->mode.'filesize'; ?>
 		<div class="ss-sermondetail-label"></div>
-		<div class="ss-sermondetail-text"><?php echo SermonspeakerHelperSermonspeaker::insertdlbutton($this->item->slug, $player->status, 0, $this->item->$filesize); ?></div>
+		<div class="ss-sermondetail-text"><?php echo SermonspeakerHelperSermonspeaker::insertdlbutton($this->item->slug, $player->mode, 0, $this->item->$filesize); ?></div>
 	<?php endif;
 	if (in_array('sermon:addfile', $this->columns) && $this->item->addfile) : ?>
 		<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_ADDFILE'); ?>:</div>
