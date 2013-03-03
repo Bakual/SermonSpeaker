@@ -142,6 +142,8 @@ class SermonspeakerHelperPlayerJwplayer5 extends SermonspeakerHelperPlayer
 									.'}'
 								.'}';
 			$entries = array();
+			$audios	= array();
+			$videos	= array();
 			foreach ($item as $temp_item)
 			{
 				$entry = array();

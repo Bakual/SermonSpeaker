@@ -117,6 +117,8 @@ class SermonspeakerHelperPlayerFlowplayer3 extends SermonspeakerHelperPlayer
 			$this->toggle = $this->params->get('fileswitch', 0);
 			$type = ($this->config['type'] == 'audio' || ($this->config['type'] == 'auto' && !$this->config['prio'])) ? 'a' : 'v';
 			$entries = array();
+			$audios	= array();
+			$videos	= array();
 			foreach ($item as $temp_item)
 			{
 				$entry = array();
