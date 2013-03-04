@@ -25,21 +25,43 @@ abstract class modLatestsermonsHelper
 		{
 			$query->order('sermon_date DESC, (sermon_number+0) DESC');
 		}
+		// Category
 		if ($cat = (int)$params->get('cat', 0))
 		{
-			switch ($params->get('cat_type'))
+			switch ($params->get('cat_type', 'sermons'))
 			{
 				case 'sermons':
-					$query->where('a.catid = '.$cat);
+					$type	= 'a';
 					break;
 				case 'speakers':
-					$query->where('b.catid = '.$cat);
+					$type	= 'b';
 					break;
 				case 'series':
-					$query->where('c.catid = '.$cat);
+					$type	= 'c';
 					break;
 			}
+			// Subcategories
+			if ($levels = (int) $params->get('show_subcategory_content', 0))
+			{
+				// Create a subquery for the subcategory list
+				$subQuery = $db->getQuery(true);
+				$subQuery->select('sub.id');
+				$subQuery->from('#__categories as sub');
+				$subQuery->join('INNER', '#__categories as this ON sub.lft > this.lft AND sub.rgt < this.rgt');
+				$subQuery->where('this.id = '.$cat);
+				if ($levels > 0) {
+					$subQuery->where('sub.level <= this.level + '.$levels);
+				}
+				// Add the subquery to the main query
+				$query->where('('.$type.'.catid = '.$cat
+					.' OR '.$type.'.catid IN ('.$subQuery->__toString().'))');
+			}
+			else
+			{
+				$query->where($type.'.catid = '.$cat);
+			}
 		}
+		// Others
 		if ($speaker = (int)$params->get('speaker', 0))
 		{
 			$query->where('a.speaker_id = '.$speaker);
