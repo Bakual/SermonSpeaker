@@ -76,3 +76,9 @@ div.column-files a.watch{
 	background:url(../images/watch.png) no-repeat 5px center;
 	padding-left:26px;
 }
+div.ss-serie-player, div.ss-sermons-player, div.ss-speaker-player{
+	text-align: center;
+	margin:auto;
+	width:80%;
+	margin-bottom:10px;
+}

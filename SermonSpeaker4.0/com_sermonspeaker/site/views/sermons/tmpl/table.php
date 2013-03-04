@@ -12,6 +12,8 @@ $listOrder	= $this->state->get('list.ordering');
 $listDirn	= $this->state->get('list.direction');
 $limit 		= (int)$this->params->get('limit', '');
 $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->items);
+$version	= new JVersion;
+$j30		= ($version->isCompatible(3.0)) ? '30' : '';
 ?>
 <div class="category-list<?php echo $this->pageclass_sfx;?> ss-sermons-container<?php echo $this->pageclass_sfx; ?>">
 <?php if ($this->params->get('show_page_heading', 1)) : ?>
@@ -56,51 +58,16 @@ if (in_array('sermons:player', $this->columns) && count($this->items)) : ?>
 		<hr class="ss-sermons-player" />
 	<?php if ($player->toggle): ?>
 		<div>
-			<img class="pointer" src="media/com_sermonspeaker/images/Video.png" onclick="Video()" alt="Video" title="<?php echo JText::_('COM_SERMONSPEAKER_SWITCH_VIDEO'); ?>" />
-			<img class="pointer" src="media/com_sermonspeaker/images/Sound.png" onclick="Audio()" alt="Audio" title="<?php echo JText::_('COM_SERMONSPEAKER_SWITCH_AUDIO'); ?>" />
+			<img class="pointer btn" src="media/com_sermonspeaker/images/Video.png" onclick="Video()" alt="Video" title="<?php echo JText::_('COM_SERMONSPEAKER_SWITCH_VIDEO'); ?>" />
+			<img class="pointer btn" src="media/com_sermonspeaker/images/Sound.png" onclick="Audio()" alt="Audio" title="<?php echo JText::_('COM_SERMONSPEAKER_SWITCH_AUDIO'); ?>" />
 		</div>
 	<?php endif; ?>
 	</div>
 <?php endif; ?>
-<form action="<?php echo JFilterOutput::ampReplace(JFactory::getURI()->toString()); ?>" method="post" id="adminForm" name="adminForm">
-	<?php if ($this->params->get('filter_field')) :?>
-		<fieldset class="filters">
-			<legend class="hidelabeltxt">
-				<?php echo JText::_('JGLOBAL_FILTER_LABEL'); ?>
-			</legend>
-			<div class="filter-search">
-				<label class="filter-search-lbl" for="filter-search"><?php echo JText::_('JGLOBAL_FILTER_LABEL').'&nbsp;'; ?></label>
-				<input type="text" name="filter-search" id="filter-search" value="<?php echo $this->escape($this->state->get('filter.search')); ?>" class="inputbox" onchange="document.adminForm.submit();" title="<?php echo JText::_('COM_SERMONSPEAKER_FILTER_SEARCH_DESC'); ?>" />
-				<button type="button" onclick="clear_all();this.form.submit();"><?php echo JText::_('JSEARCH_FILTER_CLEAR'); ?></button>&nbsp;
-			</div>
-			<div class="filter-select">
-				<?php if ($this->books) : ?>
-					<label class="filter-search-lbl" for="filter_books"><?php echo JText::_('COM_SERMONSPEAKER_BOOK').'&nbsp;'; ?></label>
-					<select name="book" id="filter_books" class="inputbox" onchange="this.form.submit()">
-						<option value="0"><?php echo JText::_('COM_SERMONSPEAKER_SELECT_BOOK'); ?></option>
-						<?php echo JHtml::_('select.options', $this->books, 'value', 'text', $this->state->get('scripture.book'), true);?>
-					</select>
-				<?php endif; ?>
-				<label class="filter-select-lbl" for="filter-select"><?php echo JText::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL').'&nbsp;'; ?></label>
-				<select name="month" id="filter_months" class="inputbox" onchange="this.form.submit()">
-					<option value="0"><?php echo JText::_('COM_SERMONSPEAKER_SELECT_MONTH'); ?></option>
-					<?php echo JHtml::_('select.options', $this->months, 'value', 'text', $this->state->get('date.month'), true);?>
-				</select>
-				<select name="year" id="filter_years" class="inputbox" onchange="this.form.submit()">
-					<option value="0"><?php echo JText::_('COM_SERMONSPEAKER_SELECT_YEAR_SHORT'); ?></option>
-					<?php echo JHtml::_('select.options', $this->years, 'year', 'year', $this->state->get('date.year'), true);?>
-				</select>
-			</div>
-	<?php endif;
-	if ($this->params->get('show_pagination_limit')) : ?>
-			<div class="display-limit">
-				<?php echo JText::_('JGLOBAL_DISPLAY_NUM'); ?>&nbsp;
-				<?php echo $this->pagination->getLimitBox(); ?>
-			</div>
-	<?php endif;
-	if ($this->params->get('filter_field')) : ?>
-		</fieldset>
-	<?php endif;
+<form action="<?php echo JFilterOutput::ampReplace(JFactory::getURI()->toString()); ?>" method="post" id="adminForm" name="adminForm" class="form-inline">
+	<?php if ($this->params->get('filter_field') or $this->params->get('show_pagination_limit')) :
+		echo $this->loadTemplate('filters'.$j30);
+	endif;
 	if (!count($this->items)) : ?>
 		<div class="no_entries"><?php echo JText::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', JText::_('COM_SERMONSPEAKER_SERMONS')); ?></div>
 	<?php else : ?>
