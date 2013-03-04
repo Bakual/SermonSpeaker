@@ -62,7 +62,7 @@ if ($this->params->get('show_category_title', 0) || in_array('speaker:hits', $th
 		<a class="badge badge-info" href="<?php echo $this->item->website; ?>" target="_blank" title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKER_WEBLINK_HOOVER'); ?>"><?php echo JText::sprintf('COM_SERMONSPEAKER_SPEAKER_WEBLINK', $this->item->name); ?></a>
 	<?php endif; ?>
 </div>
-<?php if (in_array('speaker:player', $this->col_sermon) && count($this->sermons)) : ?>
+<?php if (in_array('speaker:player', $this->col_sermon) and count($this->sermons)) : ?>
 	<div class="ss-speaker-player">
 		<hr class="ss-speaker-player" />
 		<?php if ($player->player != 'PixelOut'): ?>
