@@ -107,6 +107,11 @@ class Com_SermonspeakerInstallerScript
 			JFile::delete(JPATH_SITE.'/administrator/components/com_sermonspeaker/views/serie/tmpl/close.php');
 			JFile::delete(JPATH_SITE.'/administrator/components/com_sermonspeaker/views/tag/tmpl/close.php');
 		}
+		// Cleanup statistics controller
+		if (JFile::exists(JPATH_SITE.'/administrator/components/com_sermonspeaker/controllers/statistics.php'))
+		{
+			JFile::delete(JPATH_SITE.'/administrator/components/com_sermonspeaker/controllers/statistics.php');
+		}
 
 		$this->_migrate();
 	}
