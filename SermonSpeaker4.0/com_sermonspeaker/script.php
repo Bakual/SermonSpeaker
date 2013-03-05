@@ -168,7 +168,7 @@ class Com_SermonspeakerInstallerScript
 			$query->set($db->quoteName('params').' = '.$db->quote('{'.implode(',', $params).'}'));
 			$query->where($db->quoteName('name').' = '.$db->quote('com_sermonspeaker'));
 			$db->setQuery($query);
-			$db->query();
+			$db->execute();
 		}
 
 		echo '<p>'.JText::sprintf('COM_SERMONSPEAKER_POSTFLIGHT', $type).'</p>';
@@ -198,7 +198,7 @@ class Com_SermonspeakerInstallerScript
 					if ($query != '' && $query{0} != '#')
 					{
 						$db->setQuery($query);
-						if (!$db->query())
+						if (!$db->execute())
 						{
 							JError::raiseWarning(1, JText::sprintf('JLIB_INSTALLER_ERROR_SQL_ERROR', $db->stderr(true)));
 							return;
@@ -209,7 +209,7 @@ class Com_SermonspeakerInstallerScript
 				{
 					$query = "ALTER TABLE #__sermon_sermons DROP COLUMN `play`, DROP COLUMN `download`";
 					$db->setQuery($query);
-					if (!$db->query())
+					if (!$db->execute())
 					{
 						JError::raiseWarning(1, JText::sprintf('JLIB_INSTALLER_ERROR_SQL_ERROR', $db->stderr(true)));
 						return;
@@ -245,15 +245,15 @@ class Com_SermonspeakerInstallerScript
 		$query->set('catid = '.(int)$id);
 		$query->where('catid = 0');
 		$db->setQuery($query);
-		$db->query();
+		$db->execute();
 		// Speakers
 		$query->update('#__sermon_speakers');
 		$db->setQuery($query);
-		$db->query();
+		$db->execute();
 		// Series
 		$query->update('#__sermon_series');
 		$db->setQuery($query);
-		$db->query();
+		$db->execute();
 
 		return;
 	}

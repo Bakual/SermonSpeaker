@@ -233,7 +233,7 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 				."WHERE sermon_id = ".$recordId
 				;
 		$db->setQuery($query);
-		$db->query();
+		$db->execute();
 		$i = 1;
 		foreach ($validData['scripture'] as $scripture){
 			$item	= explode('|', $scripture);
@@ -242,7 +242,7 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 					."VALUES ('".(int)$item[0]."','".(int)$item[1]."','".(int)$item[2]."','".(int)$item[3]."','".(int)$item[4]."',".$db->quote($item[5]).",'".$i."','".$recordId."')"
 					;
 			$db->setQuery($query);
-			$db->query();
+			$db->execute();
 			$i++;
 		}
 
@@ -251,14 +251,14 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 				."WHERE sermon_id = ".$recordId
 				;
 		$db->setQuery($query);
-		$db->query();
+		$db->execute();
 		foreach ($validData['tags'] as $tag){
 			$query	= "INSERT INTO #__sermon_sermons_tags \n"
 					."(`sermon_id`,`tag_id`) \n"
 					."VALUES ('".$recordId."','".(int)$tag."')"
 					;
 			$db->setQuery($query);
-			$db->query();
+			$db->execute();
 		}
 
 		// ID3

@@ -223,7 +223,7 @@ class SermonspeakerModelSerie extends JModelAdmin
 			" WHERE home = '1'"
 		);
 
-		if (!$db->query()) {
+		if (!$db->execute()) {
 			throw new Exception($db->getErrorMsg());
 		}
 
@@ -234,7 +234,7 @@ class SermonspeakerModelSerie extends JModelAdmin
 			' WHERE id = '.(int) $id
 		);
 
-		if (!$db->query()) {
+		if (!$db->execute()) {
 			throw new Exception($db->getErrorMsg());
 		}
 

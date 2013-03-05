@@ -170,7 +170,7 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 		$query->set('`zip_created` = "'.JFactory::getDate()->toSql().'"');
 		$query->where('`id` = '.$id);
 		$db->setQuery($query);
-		$db->query();
+		$db->execute();
 
 		if ($count = count($files))
 		{
@@ -212,7 +212,7 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 				$i++;
 				$query = "UPDATE #__sermon_series SET `zip_progress` = ".(int)100/$count*$i." WHERE `id` = ".$id;
 				$db->setQuery($query);
-				$db->query();
+				$db->execute();
 			}
 			if ($zip->close()!==TRUE)
 			{
@@ -230,7 +230,7 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 			$query->set('`zip_content` = "'.$content.'"');
 			$query->where('`id` = '.$id);
 			$db->setQuery($query);
-			$db->query();
+			$db->execute();
 
 			$response = array(
 				'status' => '1',

@@ -103,6 +103,7 @@ class SermonspeakerControllerSerie extends JControllerForm
 					. "WHERE id='".$id."'"
 					;
 			$db->setQuery($query);
+			$db->execute();
 			$app->redirect('index.php?option=com_sermonspeaker&view=series', JText::sprintf('COM_SERMONSPEAKER_RESET_OK', JText::_('COM_SERMONSPEAKER_SERIE'), $item->series_title));
 		}
 		else

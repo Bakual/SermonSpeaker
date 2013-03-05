@@ -20,10 +20,10 @@ class SermonspeakerControllerTools extends JControllerLegacy
 		$db		= JFactory::getDBO();
 		$query	= "SET @c := 0";
 		$db->setQuery($query);
-		$db->query();
+		$db->execute();
 		$query	= "UPDATE #__sermon_sermons SET ordering = ( SELECT @c := @c + 1 ) ORDER BY sermon_date ASC, id ASC;";
 		$db->setQuery($query);
-		$db->query();
+		$db->execute();
 		$error = $db->getErrorMsg();
 		if ($error){
 			$this->setMessage('Error: '.$error, 'error');
@@ -39,10 +39,10 @@ class SermonspeakerControllerTools extends JControllerLegacy
 		$db		= JFactory::getDBO();
 		$query	= "SET @c := 0";
 		$db->setQuery($query);
-		$db->query();
+		$db->execute();
 		$query	= "UPDATE #__sermon_series SET ordering = ( SELECT @c := @c + 1 ) ORDER BY series_title ASC, id ASC;";
 		$db->setQuery($query);
-		$db->query();
+		$db->execute();
 		$error = $db->getErrorMsg();
 		if ($error){
 			$this->setMessage('Error: '.$error, 'error');
@@ -58,10 +58,10 @@ class SermonspeakerControllerTools extends JControllerLegacy
 		$db		= JFactory::getDBO();
 		$query	= "SET @c := 0";
 		$db->setQuery($query);
-		$db->query();
+		$db->execute();
 		$query	= "UPDATE #__sermon_speakers SET ordering = ( SELECT @c := @c + 1 ) ORDER BY name ASC, id ASC;";
 		$db->setQuery($query);
-		$db->query();
+		$db->execute();
 		$error = $db->getErrorMsg();
 		if ($error){
 			$this->setMessage('Error: '.$error, 'error');
@@ -236,7 +236,7 @@ class SermonspeakerControllerTools extends JControllerLegacy
 				."FROM #__piseries AS a \n"
 				."LEFT JOIN #__pifilepath AS b ON b.id = a.image_folderlrg \n";
 		$db->setQuery($query);
-		$db->query();
+		$db->execute();
 		if ($db->getErrorMsg()){
 			$app->enqueueMessage($db->getErrorMsg(), 'error');
 		} else {
@@ -252,7 +252,7 @@ class SermonspeakerControllerTools extends JControllerLegacy
 				."FROM #__piteachers AS a \n"
 				."LEFT JOIN #__pifilepath AS b ON b.id = a.image_folderlrg \n";
 		$db->setQuery($query);
-		$db->query();
+		$db->execute();
 		if ($db->getErrorMsg()){
 			$app->enqueueMessage($db->getErrorMsg(), 'error');
 		} else {
@@ -287,7 +287,7 @@ class SermonspeakerControllerTools extends JControllerLegacy
 					."(`audiofile`, `videofile`, `picture`, `sermon_title`, `alias`, `sermon_date`, `sermon_time`, `notes`, `state`, `hits`, `created_by`, `addfile`, `podcast`, `created`) \n"
 					.'VALUES ('.$db->quote($study->audiofile).','.$db->quote($study->videofile).','.$db->quote($study->study_pic).','.$db->quote($study->study_name).','.$db->quote($study->study_alias).','.$db->quote($study->study_date).','.$db->quote($study->duration).','.$db->quote($study->study_description).','.$db->quote($study->published).','.$db->quote($study->hits).','.$db->quote($study->user).','.$db->quote($study->addfile).', 1, NOW())';
 			$db->setQuery($query);
-			$db->query();
+			$db->execute();
 			if ($db->getErrorMsg()){
 				$app->enqueueMessage($db->getErrorMsg(), 'error');
 				break;
@@ -300,7 +300,7 @@ class SermonspeakerControllerTools extends JControllerLegacy
 						."(`book`, `cap1`, `vers1`, `cap2`, `vers2`, `text`, `ordering`, `sermon_id`) \n"
 						."VALUES ('".$passage['book']."','".$passage['cap1']."','".$passage['vers1']."','".$passage['cap2']."','".$passage['vers2']."','','".$passage['ordering']."','".$id."')";
 				$db->setQuery($query);
-				$db->query();
+				$db->execute();
 				if ($db->getErrorMsg()){
 					$app->enqueueMessage($db->getErrorMsg(), 'error');
 					break;
@@ -313,7 +313,7 @@ class SermonspeakerControllerTools extends JControllerLegacy
 						."SET `speaker_id` = (SELECT `id` FROM #__sermon_speakers WHERE `name` = ".$db->quote($study->teacher_name)." LIMIT 1) \n"
 						."WHERE `id` = ".$db->quote($id);
 				$db->setQuery($query);
-				$db->query();
+				$db->execute();
 				if ($db->getErrorMsg()){
 					$app->enqueueMessage($db->getErrorMsg(), 'error');
 				}
@@ -325,7 +325,7 @@ class SermonspeakerControllerTools extends JControllerLegacy
 						."SET `series_id` = (SELECT `id` FROM #__sermon_series WHERE `series_title` = ".$db->quote($study->series_name)." LIMIT 1) \n"
 						."WHERE `id` = ".$db->quote($id);
 				$db->setQuery($query);
-				$db->query();
+				$db->execute();
 				if ($db->getErrorMsg()){
 					$app->enqueueMessage($db->getErrorMsg(), 'error');
 				}
@@ -358,7 +358,7 @@ class SermonspeakerControllerTools extends JControllerLegacy
 					."WHERE sermon_date != '0000-00-00 00:00:00' \n"
 					."AND state = 1";
 			$db->setQuery($query);
-			$db->query();
+			$db->execute();
 			if ($db->getErrorMsg()){
 				$app->enqueueMessage($db->getErrorMsg(), 'error');
 			} else {
@@ -380,7 +380,7 @@ class SermonspeakerControllerTools extends JControllerLegacy
 					."WHERE sermon_date != '0000-00-00 00:00:00' \n"
 					."AND state = 1";
 			$db->setQuery($query);
-			$db->query();
+			$db->execute();
 			if ($db->getErrorMsg()){
 				$app->enqueueMessage($db->getErrorMsg(), 'error');
 			} else {

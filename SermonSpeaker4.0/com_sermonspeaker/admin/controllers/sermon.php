@@ -103,6 +103,7 @@ class SermonspeakerControllerSermon extends JControllerForm
 					. "WHERE id='".$id."'"
 					;
 			$db->setQuery($query);
+			$db->execute();
 			$app->redirect('index.php?option=com_sermonspeaker&view=sermons', JText::sprintf('COM_SERMONSPEAKER_RESET_OK', JText::_('COM_SERMONSPEAKER_SERMON'), $item->sermon_title));
 		}
 		else
@@ -125,7 +126,7 @@ class SermonspeakerControllerSermon extends JControllerForm
 				."WHERE sermon_id = ".$recordId
 				;
 		$db->setQuery($query);
-		$db->query();
+		$db->execute();
 		$i	= 1;
 		if (isset($validData['scripture']))
 		{
@@ -137,7 +138,7 @@ class SermonspeakerControllerSermon extends JControllerForm
 						."VALUES ('".(int)$item[0]."','".(int)$item[1]."','".(int)$item[2]."','".(int)$item[3]."','".(int)$item[4]."',".$db->quote($item[5]).",'".$i."','".$recordId."')"
 						;
 				$db->setQuery($query);
-				$db->query();
+				$db->execute();
 				$i++;
 			}
 		}
@@ -147,7 +148,7 @@ class SermonspeakerControllerSermon extends JControllerForm
 				."WHERE sermon_id = ".$recordId
 				;
 		$db->setQuery($query);
-		$db->query();
+		$db->execute();
 		if (isset($validData['tags']))
 		{
 			foreach ($validData['tags'] as $tag)
@@ -157,7 +158,7 @@ class SermonspeakerControllerSermon extends JControllerForm
 						."VALUES ('".$recordId."','".(int)$tag."')"
 						;
 				$db->setQuery($query);
-				$db->query();
+				$db->execute();
 			}
 		}
 

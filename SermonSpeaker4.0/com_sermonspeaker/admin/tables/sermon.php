@@ -112,7 +112,7 @@ class SermonspeakerTableSermon extends JTable
 			' WHERE ('.$where.')' .
 			$checkin
 		);
-		$this->_db->query();
+		$this->_db->execute();
 		// Check for a database error.
 		if ($this->_db->getErrorNum()) {
 			$this->setError($this->_db->getErrorMsg());
@@ -170,7 +170,7 @@ class SermonspeakerTableSermon extends JTable
 			' WHERE ('.$where.')' .
 			$checkin
 		);
-		$this->_db->query();
+		$this->_db->execute();
 		// Check for a database error.
 		if ($this->_db->getErrorNum()) {
 			$this->setError($this->_db->getErrorMsg());
