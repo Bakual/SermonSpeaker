@@ -12,13 +12,21 @@ $count = count($list);
 		<div class="latestsermons_entry<?php echo $i; ?>">
 			<h3><a href="<?php echo JRoute::_('index.php?option=com_sermonspeaker&view=sermon&id='.$row->slug.'&Itemid='.$itemid); ?>">
 				<?php echo $row->sermon_title;
-				if ($params->get('show_hits', 0) > 1 && $row->hits) : ?>
+				if ($params->get('show_hits', 0) > 1 and $row->hits) : ?>
 					<small>(<?php echo $row->hits; ?>)</small>
 				<?php endif; ?>
 			</a></h3>
 			<dl class="article-info sermon-info" style="display:block; margin:0;">
 				<dt class="article-info-term"><?php echo JText::_('JDETAILS'); ?></dt>
-				<?php if ($params->get('ls_show_mo_series') && $row->series_title) : ?>
+				<?php if ($params->get('show_category') and $row->category_title) : ?>
+					<dd class="category-name">
+						<?php echo JText::_('JCATEGORY'); ?>: 
+						<a href="<?php echo JRoute::_('index.php?option=com_sermonspeaker&view=sermons&catid='.$row->catslug.'&Itemid='.$itemid); ?>">
+							<?php echo $row->category_title; ?>
+						</a>
+					</dd>
+				<?php endif;
+				if ($params->get('ls_show_mo_series') and $row->series_title) : ?>
 					<dd class="category-name">
 						<?php echo JText::_('MOD_LATESTSERMONS_SERIE'); ?>: 
 						<?php if ($row->series_state): ?>
@@ -30,13 +38,13 @@ $count = count($list);
 						endif; ?>
 					</dd>
 				<?php endif;
-				if ($params->get('ls_show_mo_date') && $row->sermon_date) : ?>
+				if ($params->get('ls_show_mo_date') and $row->sermon_date) : ?>
 					<dd class="published">
 						<?php $date_format = JText::_($params->get('ls_mo_date_format', 'DATE_FORMAT_LC4'));
 						echo JText::_('JDATE').": ".JHtml::Date($row->sermon_date, $date_format, true); ?>
 					</dd>
 				<?php endif;
-				if ($params->get('ls_show_mo_speaker') && $row->name) : ?>
+				if ($params->get('ls_show_mo_speaker') and $row->name) : ?>
 					<dd class="createdby">
 						<?php echo JText::_('MOD_LATESTSERMONS_SPEAKER'); ?>: 
 						<?php if ($row->speaker_state): ?>

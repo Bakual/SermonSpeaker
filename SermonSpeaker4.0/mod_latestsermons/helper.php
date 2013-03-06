@@ -6,6 +6,9 @@ abstract class modLatestsermonsHelper
 {
 	public static function getList($params)
 	{
+		$user	= JFactory::getUser();
+		$groups	= implode(',', $user->getAuthorisedViewLevels());
+
 		$db		= JFactory::getDbo();
 		$query	= $db->getQuery(true);
 		$query->select('a.sermon_title, a.id, a.sermon_date, a.audiofile, a.videofile, a.sermon_time, a.picture, a.notes, a.hits');
@@ -61,6 +64,10 @@ abstract class modLatestsermonsHelper
 				$query->where($type.'.catid = '.$cat);
 			}
 		}
+		$query->select('cat.title AS category_title');
+		$query->select('CASE WHEN CHAR_LENGTH(cat.alias) THEN CONCAT_WS(\':\', cat.id, cat.alias) ELSE cat.id END as catslug');
+		$query->join('LEFT', '#__categories AS cat ON cat.id = a.catid');
+		$query->where('(a.catid = 0 OR (cat.access IN ('.$groups.') AND cat.published = 1))');
 		// Others
 		if ($speaker = (int)$params->get('speaker', 0))
 		{

@@ -31,6 +31,9 @@ if ($tooltip) {
 				$title = $row->sermon_title;
 			endif;
 			$tips = array();
+			if ($params->get('show_category') and $row->category_title) :
+				$tips[] = JText::_('JCATEGORY').': '.$row->category_title;
+			endif;
 			if ($params->get('ls_show_mo_speaker') and $row->name) :
 				$tips[] = JText::_('MOD_LATESTSERMONS_SPEAKER').': '.$row->name;
 			endif;
