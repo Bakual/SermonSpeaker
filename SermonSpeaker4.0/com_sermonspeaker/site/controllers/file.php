@@ -27,7 +27,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 	function upload()
 	{
 		// Check for request forgeries
-		JRequest::checkToken('request') or jexit(JText::_('JINVALID_TOKEN'));
+		JSession::checkToken('request') or jexit(JText::_('JINVALID_TOKEN'));
 
 		// Initialise variables.
 		$app		= JFactory::getApplication();

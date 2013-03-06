@@ -31,7 +31,7 @@ class SermonspeakerControllerSermons extends JControllerAdmin
 	function podcast_publish()
 	{
 		// Check for request forgeries
-		JRequest::checkToken() or die(JText::_('JINVALID_TOKEN'));
+		JSession::checkToken() or die(JText::_('JINVALID_TOKEN'));
 
 		// Get items to podcast from the request.
 		$cid	= JFactory::getApplication()->input->get('cid', array(), 'array');

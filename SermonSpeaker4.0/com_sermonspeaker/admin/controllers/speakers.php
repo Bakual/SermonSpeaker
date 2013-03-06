@@ -28,7 +28,7 @@ class SermonspeakerControllerSpeakers extends JControllerAdmin
 	public function setDefault()
 	{
 		// Check for request forgeries
-		JRequest::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
 		// Initialise variables.
 		$pks = JFactory::getApplication()->input->post->get('cid', array(), 'array');

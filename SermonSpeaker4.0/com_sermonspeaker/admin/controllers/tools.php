@@ -16,7 +16,7 @@ class SermonspeakerControllerTools extends JControllerLegacy
 {
 	public function order(){
 		// Check for request forgeries
-		JRequest::checkToken('request') or jexit(JText::_('JINVALID_TOKEN'));
+		JSession::checkToken('request') or jexit(JText::_('JINVALID_TOKEN'));
 		$db		= JFactory::getDBO();
 		$query	= "SET @c := 0";
 		$db->setQuery($query);
@@ -35,7 +35,7 @@ class SermonspeakerControllerTools extends JControllerLegacy
 
 	public function seriesorder(){
 		// Check for request forgeries
-		JRequest::checkToken('request') or jexit(JText::_('JINVALID_TOKEN'));
+		JSession::checkToken('request') or jexit(JText::_('JINVALID_TOKEN'));
 		$db		= JFactory::getDBO();
 		$query	= "SET @c := 0";
 		$db->setQuery($query);
@@ -54,7 +54,7 @@ class SermonspeakerControllerTools extends JControllerLegacy
 
 	public function speakersorder(){
 		// Check for request forgeries
-		JRequest::checkToken('request') or jexit(JText::_('JINVALID_TOKEN'));
+		JSession::checkToken('request') or jexit(JText::_('JINVALID_TOKEN'));
 		$db		= JFactory::getDBO();
 		$query	= "SET @c := 0";
 		$db->setQuery($query);
@@ -73,7 +73,7 @@ class SermonspeakerControllerTools extends JControllerLegacy
 
 	public function write_id3(){
 		// Check for request forgeries
-		JRequest::checkToken('request') or jexit(JText::_('JINVALID_TOKEN'));
+		JSession::checkToken('request') or jexit(JText::_('JINVALID_TOKEN'));
 		$app	= JFactory::getApplication();
 		$db		= JFactory::getDBO();
 		$query	= "SELECT audiofile, videofile, sermons.created_by, sermons.catid, sermon_title, name, series_title, YEAR(sermon_date) AS date, notes, sermon_number, picture \n"
@@ -167,7 +167,7 @@ class SermonspeakerControllerTools extends JControllerLegacy
 
 	public function delete(){
 		// Check for request forgeries
-		JRequest::checkToken('request') or jexit(JText::_('JINVALID_TOKEN'));
+		JSession::checkToken('request') or jexit(JText::_('JINVALID_TOKEN'));
 		$app	= JFactory::getApplication();
 		$file	= $app->input->get('file', '', 'string');
 		$file	= JPATH_SITE.$file;
@@ -184,7 +184,7 @@ class SermonspeakerControllerTools extends JControllerLegacy
 
 	public function piimport(){
 		// Check for request forgeries
-		JRequest::checkToken('request') or jexit(JText::_('JINVALID_TOKEN'));
+		JSession::checkToken('request') or jexit(JText::_('JINVALID_TOKEN'));
 		$app	= JFactory::getApplication();
 		$db		= JFactory::getDBO();
 		$params	= JComponentHelper::getParams('com_sermonspeaker');
@@ -342,7 +342,7 @@ class SermonspeakerControllerTools extends JControllerLegacy
 	// Function to adjust the sermon time
 	public function time(){
 		// Check for request forgeries
-		JRequest::checkToken('request') or jexit(JText::_('JINVALID_TOKEN'));
+		JSession::checkToken('request') or jexit(JText::_('JINVALID_TOKEN'));
 		$app	= JFactory::getApplication();
 		$jinput	= $app->input;
 		$db		= JFactory::getDBO();
