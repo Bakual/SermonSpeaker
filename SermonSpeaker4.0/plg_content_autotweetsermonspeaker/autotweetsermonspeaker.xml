@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<extension version="1.6" type="plugin" group="content" method="upgrade">
+<extension version="2.5" type="plugin" group="content" method="upgrade">
 	<name>plg_content_autotweetsermonspeaker</name>
-	<creationDate>2013-01-31</creationDate>
+	<creationDate>2013-03-06</creationDate>
 	<author>Thomas Hunziker</author>
 	<copyright>(C) 2013</copyright>
 	<authorEmail>admin@sermonspeaker.net</authorEmail>
 	<authorUrl>http://www.sermonspeaker.net</authorUrl>
 	<license>http://www.gnu.org/licenses/gpl.html</license>
-	<version>6.4.0</version>
+	<version>1.0</version>
 	<description>PLG_AUTOTWEETSERMONSPEAKER_DESC</description>
 	<files>
 		<filename plugin="autotweetsermonspeaker">autotweetsermonspeaker.php</filename>
