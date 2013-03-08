@@ -50,6 +50,10 @@
 				type="text" 
 				label="COM_SERMONSPEAKER_PARAM_FEED_DESCRIPTION_LABEL" 
 				description="COM_SERMONSPEAKER_PARAM_FEED_DESCRIPTION_DESC" />
+			<field name="rssimage" 
+				type="media" 
+				label="COM_SERMONSPEAKER_FIELD_RSSIMAGE_LABEL" 
+				description="COM_SERMONSPEAKER_FIELD_RSSIMAGE_DESC" />
 			<field name="copyright" 
 				type="text" 
 				label="COM_SERMONSPEAKER_PARAM_FEED_COPYRIGHT_LABEL" 
@@ -93,7 +97,7 @@
 				label="COM_SERMONSPEAKER_PARAM_FEED_ITSUBTITLE" 
 				description="COM_SERMONSPEAKER_PARAM_FEED_ITSUBTITLE_DESC" />
 			<field name="itImage" 
-				type="text" 
+				type="media" 
 				label="COM_SERMONSPEAKER_PARAM_FEED_ITIMAGE" 
 				description="COM_SERMONSPEAKER_PARAM_FEED_ITIMAGE_DESC" />
 			<field name="itCategory1" 

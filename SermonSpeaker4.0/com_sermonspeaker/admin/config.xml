@@ -357,7 +357,7 @@
 		label="COM_SERMONSPEAKER_FIELDSET_PLAYER_LABEL"
 		description="COM_SERMONSPEAKER_FIELDSET_PLAYER_DESC">
 		<field name="alt_player" 
-			type="player" 
+			type="list" 
 			default="0" 
 			label="COM_SERMONSPEAKER_FIELD_ALT_PLAYER_LABEL" 
 			description="COM_SERMONSPEAKER_FIELD_ALT_PLAYER_DESC">
@@ -782,6 +782,12 @@
 			default="Predigt / Sermon" 
 			label="COM_SERMONSPEAKER_PARAM_FEED_DESCRIPTION_LABEL" 
 			description="COM_SERMONSPEAKER_PARAM_FEED_DESCRIPTION_DESC" />
+		<field name="rssimage" 
+			type="media" 
+			default="" 
+			directory=""
+			label="COM_SERMONSPEAKER_FIELD_RSSIMAGE_LABEL" 
+			description="COM_SERMONSPEAKER_FIELD_RSSIMAGE_DESC" />
 		<field name="copyright" 
 			type="text" 
 			default="(c) mychurch" 
@@ -835,8 +841,9 @@
 			label="COM_SERMONSPEAKER_PARAM_FEED_ITSUBTITLE" 
 			description="COM_SERMONSPEAKER_PARAM_FEED_ITSUBTITLE_DESC" />
 		<field name="itImage" 
-			type="text" 
+			type="media" 
 			default="" 
+			directory=""
 			label="COM_SERMONSPEAKER_PARAM_FEED_ITIMAGE" 
 			description="COM_SERMONSPEAKER_PARAM_FEED_ITIMAGE_DESC" />
 		<field name="itCategory1" 
