@@ -782,7 +782,7 @@
 			default="Predigt / Sermon" 
 			label="COM_SERMONSPEAKER_PARAM_FEED_DESCRIPTION_LABEL" 
 			description="COM_SERMONSPEAKER_PARAM_FEED_DESCRIPTION_DESC" />
-		<field name="rssimage" 
+		<field name="rssImage" 
 			type="media" 
 			default="" 
 			directory=""

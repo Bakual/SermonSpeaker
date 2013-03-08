@@ -50,8 +50,8 @@
 				type="text" 
 				label="COM_SERMONSPEAKER_PARAM_FEED_DESCRIPTION_LABEL" 
 				description="COM_SERMONSPEAKER_PARAM_FEED_DESCRIPTION_DESC" />
-			<field name="rssimage" 
-				type="media" 
+			<field name="rssImage" 
+				type="media"
 				label="COM_SERMONSPEAKER_FIELD_RSSIMAGE_LABEL" 
 				description="COM_SERMONSPEAKER_FIELD_RSSIMAGE_DESC" />
 			<field name="copyright" 
