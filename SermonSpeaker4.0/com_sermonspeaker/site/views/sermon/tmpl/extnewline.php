@@ -99,7 +99,7 @@ $player = SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 		<div class="ss-sermondetail-label"></div>
 		<div class="ss-sermondetail-text"><?php echo SermonspeakerHelperSermonspeaker::insertPopupButton($this->item->id, $player); ?></div>
 	<?php endif;
-	if (in_array('sermon:download', $this->columns) && $player->file) :
+	if (in_array('sermon:download', $this->columns) && $player->mode.'file') :
 		$filesize	= $player->mode.'filesize'; ?>
 		<div class="ss-sermondetail-label"></div>
 		<div class="ss-sermondetail-text"><?php echo SermonspeakerHelperSermonspeaker::insertdlbutton($this->item->slug, $player->mode, 0, $this->item->$filesize); ?></div>

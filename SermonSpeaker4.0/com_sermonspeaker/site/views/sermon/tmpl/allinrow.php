@@ -71,7 +71,7 @@ $player = SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 	</tr>
 </table>
 <div style="float:left;">
-	<?php if (in_array('sermon:download', $this->columns) && $player->file) :
+	<?php if (in_array('sermon:download', $this->columns) && $player->mode.'file') :
 		$filesize	= $player->mode.'filesize';
 		echo SermonspeakerHelperSermonspeaker::insertdlbutton($this->item->slug, $player->mode, 0, $this->item->$filesize);
 	endif; ?>
