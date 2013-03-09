@@ -324,7 +324,7 @@ class SermonspeakerModelSermons extends JModelList
 		$state = $this->getState('filter.state');
 		if (is_numeric($state))
 		{
-			$query->where('sermons.state = '.(int)$state);
+			$query->where('state = '.(int)$state);
 		}
 
 		$query->order('`value` ASC');
@@ -357,7 +357,7 @@ class SermonspeakerModelSermons extends JModelList
 		$state = $this->getState('filter.state');
 		if (is_numeric($state))
 		{
-			$query->where('sermons.state = '.(int)$state);
+			$query->where('state = '.(int)$state);
 		}
 
 		$query->order('`year` ASC');
@@ -379,13 +379,14 @@ class SermonspeakerModelSermons extends JModelList
 		$query	= $db->getQuery(true);
 		$query->select('DISTINCT `book`');
 		$query->from('`#__sermon_scriptures`');
+		$query->join('LEFT', '`#__sermon_sermons` AS `sermons` ON `sermon_id` = `sermons`.`id`');
 		$query->where('`book` != 0');
 
 		// Filter by state
 		$state = $this->getState('filter.state');
 		if (is_numeric($state))
 		{
-			$query->where('sermons.state = '.(int)$state);
+			$query->where('`sermons`.`state` = '.(int)$state);
 		}
 
 		$query->order('`book` ASC');
