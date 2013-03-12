@@ -68,7 +68,7 @@ class SermonspeakerHelperId3
 			$db = JFactory::getDBO();
 			if (array_key_exists('album', $FileInfo['comments']))
 			{
-				$query = "SELECT id FROM #__sermon_series WHERE series_title like '".$FileInfo['comments']['album'][0]."';";
+				$query = "SELECT id FROM #__sermon_series WHERE series_title like '".$db->escape($FileInfo['comments']['album'][0])."';";
 				$db->setQuery($query);
 				$id3['series_id'] 	= $db->loadResult();
 			}
@@ -78,7 +78,7 @@ class SermonspeakerHelperId3
 			}
 			if (array_key_exists('artist', $FileInfo['comments']))
 			{
-				$query = "SELECT id FROM #__sermon_speakers WHERE name like '".$FileInfo['comments']['artist'][0]."';";
+				$query = "SELECT id FROM #__sermon_speakers WHERE name like '".$db->escape($FileInfo['comments']['artist'][0])."';";
 				$db->setQuery($query);
 				$id3['speaker_id']	= $db->loadResult();
 			}
