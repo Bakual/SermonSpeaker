@@ -111,7 +111,7 @@ class SermonspeakerViewSermons extends JViewLegacy
 		}
 		// needs PHP 5.3.0
 //		$this->books	= array_reduce($groups, 'array_merge', array());
-		// PHP 5.2 compatible, maybe a foreach is possible (watch order).
+		// PHP 5.2 compatible.
 		$this->books	= array();
 		if (isset($groups['OLD_TESTAMENT']))
 		{

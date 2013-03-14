@@ -139,7 +139,26 @@ class SermonspeakerViewSerie extends JViewLegacy
 			array_unshift($group, JHtml::_('select.optgroup', JText::_('COM_SERMONSPEAKER_'.$key)));
 			array_push($group, JHtml::_('select.optgroup', JText::_('COM_SERMONSPEAKER_'.$key)));
 		}
-		$this->books	= array_reduce($groups, 'array_merge', array());
+		// needs PHP 5.3.0
+//		$this->books	= array_reduce($groups, 'array_merge', array());
+		// PHP 5.2 compatible.
+		$this->books	= array();
+		if (isset($groups['OLD_TESTAMENT']))
+		{
+			$this->books	= $groups['OLD_TESTAMENT'];
+		}
+		if (isset($groups['NEW_TESTAMENT']))
+		{
+			$this->books	= array_merge($this->books, $groups['NEW_TESTAMENT']);
+		}
+		if (isset($groups['APOCRYPHA']))
+		{
+			$this->books	= array_merge($this->books, $groups['APOCRYPHA']);
+		}
+		if (isset($groups['CUSTOMBOOKS']))
+		{
+			$this->books	= array_merge($this->books, $groups['CUSTOMBOOKS']);
+		}
 
 		$this->pageclass_sfx	= htmlspecialchars($this->params->get('pageclass_sfx'));
 		$this->maxLevel			= $this->params->get('maxLevel', -1);
