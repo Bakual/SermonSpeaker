@@ -51,7 +51,7 @@
 
 		<field name="audiofile" type="customfilelist" class="inputbox"
 			path="path" 
-			filter="\.aac$|\.m4a$|\.mp3$|\.wma$"
+			filter="\.aac$|\.m4a$|\.mp3$|\.wma$|\.ra$|\.ram$|\.rm$|\.rpm$"
 			hide_default="true"
 			hide_none="true"
 			disabled="true"
@@ -61,7 +61,7 @@
 
 		<field name="videofile" type="customfilelist" class="inputbox"
 			path="path" 
-			filter="\.mp4$|\.mov$|\.f4v$|\.3gp$|\.3g2$|\.wmv$|\.flv$"
+			filter="\.mp4$|\.mov$|\.f4v$|\.3gp$|\.3g2$|\.wmv$|\.flv$|\.rv$"
 			hide_default="true"
 			hide_none="true"
 			disabled="true"

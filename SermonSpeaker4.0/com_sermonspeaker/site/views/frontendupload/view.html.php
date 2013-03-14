@@ -192,8 +192,8 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 		if($params->get('enable_flash'))
 		{
 			// Prepare Flashuploader
-			$audioTypes = '*.aac; *.m4a; *.mp3; *.wma';
-			$videoTypes = '*.mp4; *.mov; *.f4v; *.flv; *.3gp; *.3g2; *.wmv';
+			$audioTypes = '*.aac; *.m4a; *.mp3; *.wma; *.ra; *.ram; *.rm; *.rpm';
+			$videoTypes = '*.mp4; *.mov; *.f4v; *.flv; *.3gp; *.3g2; *.wmv; *.rv';
 			$lang	= $jinput->get('lang', '', 'word');
 			$lang	= ($lang) ? '&lang='.$lang : '';
 			$targetURL 	= JURI::root().'index.php?option=com_sermonspeaker&task=file.upload&'.$session->getName().'='.$session->getId().'&'.JSession::getFormToken().'=1&format=json'.$lang;

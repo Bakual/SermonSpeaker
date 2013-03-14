@@ -5,8 +5,8 @@ class SermonspeakerModelFiles extends JModelLegacy
 {
 	public function getItems()
 	{
-		$audio_ext	= array('aac', 'm4a', 'mp3', 'wma');
-		$video_ext	= array('mp4', 'mov', 'f4v', 'flv', '3gp', '3g2', 'wmv');
+		$audio_ext	= array('aac', 'm4a', 'mp3', 'wma', 'ra', 'ram', 'rm', 'rpm');
+		$video_ext	= array('mp4', 'mov', 'f4v', 'flv', '3gp', '3g2', 'wmv', 'rv');
 		$start		= strlen(JPATH_SITE)+1;
 
 		$files		= $this->getFiles();
