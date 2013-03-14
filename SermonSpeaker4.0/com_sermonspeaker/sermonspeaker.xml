@@ -6,7 +6,7 @@
 	<copyright>(C) 2013</copyright>
 	<authorEmail>admin@sermonspeaker.net</authorEmail>
 	<authorUrl>http://www.sermonspeaker.net</authorUrl>
-	<version>4.5</version>
+	<version>4.5.0</version>
 	<license>http://www.gnu.org/licenses/gpl.html</license>
 	<description>COM_SERMONSPEAKER_DESCRIPTION</description>
 	<scriptfile>script.php</scriptfile>

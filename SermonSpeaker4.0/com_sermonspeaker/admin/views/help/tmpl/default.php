@@ -1,7 +1,7 @@
 <?php
 defined('_JEXEC') or die;
 ?>
-<h1>SermonSpeaker 4.4</h1>
+<h1>SermonSpeaker 4.5</h1>
 <h2>Support</h2>
 <div>If you need help with SermonSpeaker, the following links may be helpful for you:
 	<ul>
