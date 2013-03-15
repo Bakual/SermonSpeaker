@@ -7,7 +7,7 @@ echo '<?xml version="1.0" encoding="utf-8" ?>'; ?>
   <channel>
 	<title><?php echo $this->make_xml_safe($params->get('sc_title')); ?></title>
 	<link><?php echo JURI::root(); ?></link>
-	<atom:link href="<?php echo JURI::getInstance()->toString(); ?>" rel="self" type="application/rss+xml" />
+	<atom:link href="<?php echo $this->make_xml_safe(JURI::getInstance()->toString()); ?>" rel="self" type="application/rss+xml" />
 	<description><?php echo $this->make_xml_safe($params->get('description')); ?></description>
 <?php // optional channel elements ?>
 	<generator>SermonSpeaker 4.5</generator>
