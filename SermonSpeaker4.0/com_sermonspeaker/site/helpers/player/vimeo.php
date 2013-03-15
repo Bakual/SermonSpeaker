@@ -14,7 +14,7 @@ class SermonspeakerHelperPlayerVimeo extends SermonspeakerHelperPlayer
 		if ((strpos($item, 'http://vimeo.com') === 0) || (strpos($item, 'http://player.vimeo.com') === 0))
 		{
 			// Vimeo
-			$this->mode	= 'vimeo';
+			$this->mode	= 'video';
 		}
 		else
 		{
