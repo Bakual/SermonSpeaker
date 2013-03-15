@@ -2,7 +2,7 @@
 <extension type="component" version="2.5.5" method="upgrade">
 	<name>com_sermonspeaker</name>
 	<author>Thomas Hunziker</author>
-	<creationDate>2013-01-16</creationDate>
+	<creationDate>2013-03-15</creationDate>
 	<copyright>(C) 2013</copyright>
 	<authorEmail>admin@sermonspeaker.net</authorEmail>
 	<authorUrl>http://www.sermonspeaker.net</authorUrl>

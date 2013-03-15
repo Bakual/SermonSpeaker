@@ -2,11 +2,11 @@
 <extension type="module" version="1.6" method="upgrade">
 	<name>SermonCast</name>
 	<author>Thomas Hunziker, Martin Hess</author>
-	<creationDate>2013-01-14</creationDate>
+	<creationDate>2013-03-15</creationDate>
 	<copyright>(C) 2013</copyright>
 	<authorEmail>admin@sermonspeaker.net</authorEmail>
 	<authorUrl>http://www.sermonspeaker.net</authorUrl>
-	<version>4.4.10</version>
+	<version>4.5.0</version>
 	<license>http://www.gnu.org/licenses/gpl.html</license>
 	<description>MOD_SERMONCAST_XML_DESCRIPTION</description>
 	<files>
