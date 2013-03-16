@@ -74,12 +74,11 @@ if ($params->get('itRedirect')) : ?>
 <?php endif;
 // starting with items
 foreach ($this->items as $item) :
-	$item_link	= SermonspeakerHelperRoute::getSermonRoute($item->id);
-	$notes		= $this->getNotes($item->notes); ?>
+	$notes	= $this->getNotes($item->notes); ?>
 	<item>
 		<title><?php echo $this->make_xml_safe($item->sermon_title); ?></title>
-		<link><?php echo $this->make_xml_safe(JURI::root().rawurlencode(trim(JRoute::_($item_link), '/'))); ?></link>
-		<guid><?php echo $this->make_xml_safe(JURI::root().$item_link); ?></guid>
+		<link><?php echo $this->make_xml_safe(JURI::root().rawurlencode(trim(JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->id)), '/'))); ?></link>
+		<guid><?php echo $this->make_xml_safe(JURI::root().'index.php?option=com_sermonspeaker&amp;view=sermon&amp;id='.$item->id); ?></guid>
 <?php // todo: maybe add email of speaker if present (not yet in database), format is emailadress (name) and then use author instead ?>
 		<dc:creator><?php echo $this->make_xml_safe($item->name); ?></dc:creator>
 		<description><?php echo $notes; ?></description>
