@@ -127,7 +127,7 @@ class SermonspeakerViewSermon extends JViewLegacy
 
 		$title = $this->params->get('page_title', '');
 
-		// if the menu item does not concern this article
+		// if the menu item does not concern this item
 		if ($menu && ($menu->query['option'] != 'com_sermonspeaker' || $menu->query['view'] != 'sermon' || $menu->query['id'] != $this->item->id))
 		{
 			if($this->item->sermon_title)
@@ -202,13 +202,9 @@ class SermonspeakerViewSermon extends JViewLegacy
 		}
 		
 		// Add Metadata for Facebook Open Graph API
-		$fbadmins	= $this->params->get('fbadmins', '');
-		$fbapp_id	= $this->params->get('fbapp_id', '');
-		$fbmode		= $this->params->get('fbmode', 'article');
-		$prio		= $this->params->get('fileprio', 0);
-		if ($fbadmins || $fbapp_id)
+		if ($this->params->get('opengraph', 1))
 		{
-			$this->document->addCustomTag('<meta property="og:title" content="'.$this->item->sermon_title.'"/>');
+			$this->document->addCustomTag('<meta property="og:title" content="'.$this->escape($this->item->sermon_title).'"/>');
 			$this->document->addCustomTag('<meta property="og:url" content="'.JURI::getInstance()->toString().'"/>');
 			$this->document->addCustomTag('<meta property="og:description" content="'.$this->document->getDescription().'"/>');
 			$this->document->addCustomTag('<meta property="og:site_name" content="'.$app->getCfg('sitename').'"/>');
@@ -216,7 +212,7 @@ class SermonspeakerViewSermon extends JViewLegacy
 			{
 				$this->document->addCustomTag('<meta property="og:image" content="'.SermonSpeakerHelperSermonSpeaker::makelink($picture, true).'"/>');
 			}
-			if ($fbmode)
+			if ($this->params->get('fbmode', 0))
 			{
 				$this->document->addCustomTag('<meta property="og:type" content="article"/>');
 				if ($this->item->name)
@@ -225,13 +221,13 @@ class SermonspeakerViewSermon extends JViewLegacy
 				}
 				if ($this->item->series_title)
 				{
-					$this->document->addCustomTag('<meta property="article:section" content="'.$this->item->series_title.'"/>');
+					$this->document->addCustomTag('<meta property="article:section" content="'.$this->escape($this->item->series_title).'"/>');
 				}
 				
 			}
 			else
 			{
-				if ($this->item->videofile && ($prio || !$this->item->audiofile))
+				if ($this->item->videofile && ($this->params->get('fileprio', 0) || !$this->item->audiofile))
 				{
 					$this->document->addCustomTag('<meta property="og:type" content="movie"/>');
 					if ((strpos($this->item->videofile, 'http://vimeo.com') === 0) || (strpos($this->item->videofile, 'http://player.vimeo.com') === 0))
@@ -249,22 +245,22 @@ class SermonspeakerViewSermon extends JViewLegacy
 				{
 					$this->document->addCustomTag('<meta property="og:type" content="song"/>');
 					$this->document->addCustomTag('<meta property="og:audio" content="'.SermonSpeakerHelperSermonSpeaker::makelink($this->item->audiofile, true).'"/>');
-					$this->document->addCustomTag('<meta property="og:audio:title" content="'.$this->item->sermon_title.'"/>');
+					$this->document->addCustomTag('<meta property="og:audio:title" content="'.$this->escape($this->item->sermon_title).'"/>');
 					if ($this->item->name)
 					{
-						$this->document->addCustomTag('<meta property="og:audio:artist" content="'.$this->item->name.'"/>');
+						$this->document->addCustomTag('<meta property="og:audio:artist" content="'.$this->escape($this->item->name).'"/>');
 					}
 					if ($this->item->series_title)
 					{
-						$this->document->addCustomTag('<meta property="og:audio:album" content="'.$this->item->series_title.'"/>');
+						$this->document->addCustomTag('<meta property="og:audio:album" content="'.$this->escape($this->item->series_title).'"/>');
 					}
 				}
 			}
-			if ($fbadmins)
+			if ($fbadmins = $this->params->get('fbadmins', ''))
 			{
 				$this->document->addCustomTag('<meta property="fb:admins" content="'.$fbadmins.'"/>');
 			}
-			if ($fbapp_id)
+			if ($fbapp_id = $this->params->get('fbapp_id', ''))
 			{
 				$this->document->addCustomTag('<meta property="fb:app_id" content="'.$fbapp_id.'"/>');
 			}

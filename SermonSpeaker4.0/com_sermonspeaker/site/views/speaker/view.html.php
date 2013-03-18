@@ -282,11 +282,9 @@ class SermonspeakerViewSpeaker extends JViewLegacy
 			$this->document->setMetadata('robots', $this->params->get('robots'));
 		}
 		// Add Metadata for Facebook Open Graph API
-		$fbadmins	= $this->params->get('fbadmins', '');
-		$fbapp_id	= $this->params->get('fbapp_id', '');
-		if ($fbadmins || $fbapp_id)
+		if ($this->params->get('opengraph', 1))
 		{
-			$this->document->addCustomTag('<meta property="og:title" content="'.$this->item->name.'"/>');
+			$this->document->addCustomTag('<meta property="og:title" content="'.$this->escape($this->item->name).'"/>');
 			$this->document->addCustomTag('<meta property="og:url" content="'.JURI::getInstance()->toString().'"/>');
 			$this->document->addCustomTag('<meta property="og:description" content="'.$this->document->getDescription().'"/>');
 			$this->document->addCustomTag('<meta property="og:site_name" content="'.$app->getCfg('sitename').'"/>');

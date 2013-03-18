@@ -990,6 +990,15 @@
 			type="spacer"
 			label="COM_SERMONSPEAKER_FIELD_FBSPACER_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_FBSPACER_DESC" />
+		<field name="opengraph" 
+			type="radio"
+			class="btn-group"
+			default="1" 
+			label="COM_SERMONSPEAKER_FIELD_OPENGRAPH_LABEL" 
+			description="COM_SERMONSPEAKER_FIELD_OPENGRAPH_DESC" >
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
+		</field>
 		<field name="fbadmins" 
 			type="text" 
 			default="" 
