@@ -26,7 +26,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 		jQuery(\'#speakerTab a[href="\' + tab + \'"]\').tab(\'show\');
 	})');
 ?>
-<div class="category-list<?php echo $this->pageclass_sfx;?> ss-speaker-container<?php echo $this->pageclass_sfx; ?>">
+<div class="category-list<?php echo $this->pageclass_sfx;?> ss-speaker-container<?php echo $this->pageclass_sfx; ?> row-fluid">
 	<?php if ($this->params->get('show_page_heading', 1)) : ?>
 		<h1><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
 	<?php endif; ?>
