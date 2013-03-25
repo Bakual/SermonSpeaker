@@ -77,8 +77,12 @@ foreach ($this->items as $item) :
 	$notes	= $this->getNotes($item->notes); ?>
 	<item>
 		<title><?php echo $this->make_xml_safe($item->sermon_title); ?></title>
-		<link><?php echo $this->make_xml_safe(JURI::root().rawurlencode(trim(JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->id)), '/'))); ?></link>
-		<guid><?php echo $this->make_xml_safe(JURI::root().'index.php?option=com_sermonspeaker&amp;view=sermon&amp;id='.$item->id); ?></guid>
+		<link><?php if ($this->params->get('use_sef', 1)) :
+			echo $this->make_xml_safe(JURI::root().trim(JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->id)), '/'));
+		else :
+			echo $this->make_xml_safe(JURI::root().SermonspeakerHelperRoute::getSermonRoute($item->id));
+		endif; ?></link>
+		<guid><?php echo JURI::root().'index.php?option=com_sermonspeaker&amp;view=sermon&amp;id='.$item->id; ?></guid>
 <?php // todo: maybe add email of speaker if present (not yet in database), format is emailadress (name) and then use author instead ?>
 		<dc:creator><?php echo $this->make_xml_safe($item->name); ?></dc:creator>
 		<description><?php echo $notes; ?></description>

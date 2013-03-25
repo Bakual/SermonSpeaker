@@ -200,7 +200,7 @@ class SermonspeakerViewSermon extends JViewLegacy
 		{
 			$this->document->setMetaData('author', $this->item->name);
 		}
-		
+
 		// Add Metadata for Facebook Open Graph API
 		if ($this->params->get('opengraph', 1))
 		{

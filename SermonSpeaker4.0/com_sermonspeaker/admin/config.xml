@@ -803,11 +803,29 @@
 			default="admin@mychurch.com" 
 			label="COM_SERMONSPEAKER_PARAM_FEED_EDITOREMAIL" 
 			description="COM_SERMONSPEAKER_PARAM_FEED_EDITOREMAIL_DESC" />
-		<field name="limit_text" 
-			type="radio" 
+		<field name="use_sef"
+			type="radio"
 			class="btn-group"
-			default="1" 
-			label="COM_SERMONSPEAKER_PARAM_FEED_LIMITTEXT" 
+			default="1"
+			label="COM_SERMONSPEAKER_FIELD_USE_SEF_LABEL"
+			description="COM_SERMONSPEAKER_FIELD_USE_SEF_DESC">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
+		</field>
+		<field name="prepare_content"
+			type="radio"
+			class="btn-group"
+			default="1"
+			label="COM_SERMONSPEAKER_FIELD_PREPARE_CONTENT_LABEL"
+			description="COM_SERMONSPEAKER_FIELD_PREPARE_CONTENT_DESC">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
+		</field>
+		<field name="limit_text"
+			type="radio"
+			class="btn-group"
+			default="1"
+			label="COM_SERMONSPEAKER_PARAM_FEED_LIMITTEXT"
 			description="COM_SERMONSPEAKER_PARAM_FEED_LIMITTEXT_DESC">
 			<option value="0">JNO</option>
 			<option value="1">JYES</option>

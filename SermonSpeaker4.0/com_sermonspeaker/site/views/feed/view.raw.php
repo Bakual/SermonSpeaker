@@ -62,7 +62,10 @@ class SermonspeakerViewFeed extends JViewLegacy
 
 	function getNotes($text)
 	{
-		$text	= JHtml::_('content.prepare', $text);
+		if ($this->params->get('prepare_content', 1))
+		{
+			$text	= JHtml::_('content.prepare', $text);
+		}
 		$text	= str_replace(array("\r","\n",'  '), ' ', $this->make_xml_safe($text));
 
 		if ($this->params->get('limit_text'))
@@ -145,7 +148,10 @@ class SermonspeakerViewFeed extends JViewLegacy
 		if ($item->scripture)
 		{
 			$scripture	= SermonspeakerHelperSermonspeaker::insertScriptures($item->scripture, '-/*', false);
-			$scripture	= JHtml::_('content.prepare', $scripture);
+			if ($this->params->get('prepare_content', 1))
+			{
+				$scripture	= JHtml::_('content.prepare', $scripture);
+			}
 			$scripture	= str_replace(',', ':', $scripture); // Make english scripture format
 			$scripture	= str_replace("\n", '', $this->make_xml_safe($scripture));
 			$keywords	= explode('-/*', $scripture);
