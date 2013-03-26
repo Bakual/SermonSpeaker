@@ -14,7 +14,7 @@ class SermonspeakerViewMain extends JViewLegacy
 		}
 
 		$params	= JComponentHelper::getParams('com_sermonspeaker');
-		if ($params->get('enable_non_flash') == '')
+		if ($params->get('use_sef') == '')
 		{
 			if ($this->joomla30)
 			{
