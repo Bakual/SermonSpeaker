@@ -12,10 +12,13 @@ class SermonspeakerHelperPlayerWmvplayer extends SermonspeakerHelperPlayer
 
 	public function isSupported($file){
 		$ext	= JFile::getExt($file);
-		if ($ext == 'wmv' || $ext == 'wma')
+		if ($ext == 'wma')
 		{
-			// WMV Player
-			return 'wmvplayer';
+			$this->mode	= 'audio';
+		}
+		elseif ($ext == 'wmv')
+		{
+			$this->mode	= 'video';
 		}
 		else
 		{
