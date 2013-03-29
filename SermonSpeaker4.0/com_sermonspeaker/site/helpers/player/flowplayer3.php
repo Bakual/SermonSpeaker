@@ -125,7 +125,7 @@ class SermonspeakerHelperPlayerFlowplayer3 extends SermonspeakerHelperPlayer
 				// Choose picture to show
 				$img = SermonspeakerHelperSermonspeaker::insertPicture($temp_item, 1);
 				// Choosing the default file to play based on prio and availabilty
-				if ($this->config['type'] != 'auto')
+				if ($this->config['type'] == 'auto')
 				{
 					$file	= SermonspeakerHelperSermonspeaker::getFileByPrio($temp_item, $this->config['prio']);
 				}
