@@ -21,8 +21,9 @@ class SermonspeakerViewSermons extends JViewLegacy
 		$children			= $this->get('Children');
 		$this->parent		= $this->get('Parent');
 		$this->children		= array($this->category->id => $children);
-		// Add filter to pagination, needed in case of URL params from module(?)
+		// Add view to pagination, needed since it may be called from module?
 		$this->pagination->setAdditionalUrlParam('view', 'sermons');
+		// Add filter to pagination, needed since it's no longer stored in userState.
 		$this->pagination->setAdditionalUrlParam('year', $this->state->get('date.year'));
 		$this->pagination->setAdditionalUrlParam('month', $this->state->get('date.month'));
 		$this->params = $this->state->get('params');

@@ -71,6 +71,9 @@ class SermonspeakerViewSpeaker extends JViewLegacy
 		// Get Category stuff from models
 		$this->category			= $sermon_model->getCategory();
 		$this->parent			= $sermon_model->getParent();
+		// Add filter to pagination, needed since it's no longer stored in userState.
+		$this->pag_sermons->setAdditionalUrlParam('year', $this->state_sermons->get('date.year'));
+		$this->pag_sermons->setAdditionalUrlParam('month', $this->state_sermons->get('date.month'));
 		// Get series data from the series model
 		$series_model			= $this->getModel('Series');
 		$series_model->setState('speaker.id', $state->get('speaker.id'));

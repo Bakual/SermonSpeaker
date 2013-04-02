@@ -68,6 +68,12 @@ function SermonspeakerParseRoute($segments){
 			$vars['view'] = 'serie';
 			$id = explode(':', $segments[1]);
 			$vars['id'] = (int)$id[0];
+			if (isset($segments[2]) && $segments[2]){
+				$vars['year'] = (int)$segments[2];
+			}
+			if (isset($segments[3]) && $segments[3]){
+				$vars['month'] = (int)$segments[3];
+			}
 			break;
 		case 'sermons':
 			$vars['view'] = 'sermons';
@@ -90,8 +96,27 @@ function SermonspeakerParseRoute($segments){
 			$vars['view'] = 'speaker';
 			$id = explode(':', $segments[1]);
 			$vars['id'] = (int)$id[0];
-			if(isset($segments[2])){
-				$vars['layout'] = $segments[2];
+			if (isset($segments[2]) && is_numeric($segments[2]))
+			{
+				if ($segments[2])
+				{
+					$vars['year'] = (int)$segments[2];
+				}
+				if (isset($segments[3]) && $segments[3])
+				{
+					$vars['month'] = (int)$segments[3];
+				}
+				if(isset($segments[4]))
+				{
+					$vars['layout'] = $segments[4];
+				}
+			}
+			else
+			{
+				if(isset($segments[2]))
+				{
+					$vars['layout'] = $segments[2];
+				}
 			}
 			break;
 		case 'frontendupload':

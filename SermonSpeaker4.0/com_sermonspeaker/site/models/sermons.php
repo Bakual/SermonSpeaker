@@ -256,11 +256,10 @@ class SermonspeakerModelSermons extends JModelList
 			$book	= $app->getUserStateFromRequest($this->context.'.scripture.book', 'book', 0, 'INT');
 			$this->setState('scripture.book', $book);
 
-			// Date filter
-			$year	= $app->getUserStateFromRequest($this->context.'.date.year', 'year', 0, 'INT');
-			$this->setState('date.year', $year);
-			$month	= $app->getUserStateFromRequest($this->context.'.date.month', 'month', 0, 'INT');
-			$this->setState('date.month', $month);
+			// Date filter, don't use UserState here as it could be set from module without the possibility to reset it.
+			// Needs additional URL params in pagination.
+			$this->setState('date.year', $app->input->getInt('year'));
+			$this->setState('date.month', $app->input->getInt('month'));
 
 			$order	= $params->get('default_order', 'ordering');
 			$dir	= $params->get('default_order_dir', 'ASC');
