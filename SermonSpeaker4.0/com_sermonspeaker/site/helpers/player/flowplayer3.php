@@ -70,6 +70,7 @@ class SermonspeakerHelperPlayerFlowplayer3 extends SermonspeakerHelperPlayer
 		if (is_array($item))
 		{
 			$this->setDimensions('23px', '100%');
+			// Make sure to not use < or && in JavaScript code as it will break XHTML compatibility
 			$options['onStart'] = 'function(){'
 					.'var i = 0;'
 					.'while (document.id("sermon"+i)){'
@@ -83,16 +84,16 @@ class SermonspeakerHelperPlayerFlowplayer3 extends SermonspeakerHelperPlayer
 						.'var hrs = Math.floor(entry.duration/3600);'
 						.'if (hrs > 0){time.push(hrs);}'
 						.'var min = Math.floor((entry.duration - hrs * 3600)/60);'
-						.'if (hrs > 0 && min < 10){'
-							.'time.push("0" + min);'
-						.'} else {'
+						.'if (hrs == 0 || min >= 10){'
 							.'time.push(min);'
+						.'} else {'
+							.'time.push("0" + min);'
 						.'}'
 						.'var sec = entry.duration - hrs * 3600 - min * 60;'
-						.'if (sec < 10){'
-							.'time.push("0" + sec);'
-						.'} else {'
+						.'if (sec >= 10){'
 							.'time.push(sec);'
+						.'} else {'
+							.'time.push("0" + sec);'
 						.'}'
 						.'var duration = time.join(":");'
 						.'document.id("playing-duration").innerHTML = duration;'
@@ -159,7 +160,7 @@ class SermonspeakerHelperPlayerFlowplayer3 extends SermonspeakerHelperPlayer
 				if ($temp_item->name){
 					$desc[] = JText::_('COM_SERMONSPEAKER_SPEAKER').': '.addslashes($temp_item->name);
 				}
-				$entry['description']	= implode('<br/>', $desc);
+				$entry['description'] = implode('\x3Cbr />', $desc);
 				foreach ($entry as $key => $value)
 				{
 					$entry[$key] = $key.":'".$value."'";
