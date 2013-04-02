@@ -115,7 +115,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 					<hr class="ss-speaker-player" />
 					<?php if ($player->player != 'PixelOut') : ?>
 						<div id="playing">
-							<img id="playing-pic" class="picture" src="" />
+							<img id="playing-pic" class="picture" src="" alt="" />
 							<span id="playing-duration" class="duration"></span>
 							<div class="text">
 								<span id="playing-title" class="title"></span>

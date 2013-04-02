@@ -59,8 +59,8 @@ $this->document->addScriptDeclaration($js);
 <div class="ss-seriesdownload-container">
 <h3><?php echo $this->item->series_title; ?></h3>
 <div id="status"><span class="badge"><?php echo JText::_('COM_SERMONSPEAKER_PREPARING_DOWNLOAD'); ?></span></div>
-<br/>
+<br />
 <img src="media/media/images/bar.gif" class="progress" id="progress" />
-<br/><br/>
+<br /><br />
 <div id="link" style="display:none;"></div>
 </div>

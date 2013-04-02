@@ -68,7 +68,7 @@ if (in_array('serie:player', $this->columns) and count($this->items)) : ?>
 		<hr class="ss-serie-player" />
 		<?php if ($player->player != 'PixelOut'): ?>
 			<div id="playing">
-				<img id="playing-pic" class="picture" src="" />
+				<img id="playing-pic" class="picture" src="" alt="" />
 				<span id="playing-duration" class="duration"></span>
 				<div class="text">
 					<span id="playing-title" class="title"></span>

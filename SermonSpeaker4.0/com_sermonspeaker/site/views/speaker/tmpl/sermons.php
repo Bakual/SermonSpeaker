@@ -67,7 +67,7 @@ if ($this->params->get('show_category_title', 0) || in_array('speaker:hits', $th
 		<hr class="ss-speaker-player" />
 		<?php if ($player->player != 'PixelOut'): ?>
 			<div id="playing">
-				<img id="playing-pic" class="picture" src="" />
+				<img id="playing-pic" class="picture" src="" alt="" />
 				<span id="playing-duration" class="duration"></span>
 				<div class="text">
 					<span id="playing-title" class="title"></span>
