@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset name="general"
+		addfieldpath="/administrator/components/com_categories/models/fields" >
+		<field name="title" type="text" class="inputbox"
+			size="40" label="JGLOBAL_TITLE"
+			description="COM_SERMONSPEAKER_FIELD_TITLE_DESC" required="true" />
+
+		<field name="alias" type="text" class="inputbox"
+			size="40" label="JFIELD_ALIAS_LABEL"
+			description="JFIELD_ALIAS_DESC" />
+
+		<field name="catid" type="categoryedit" extension="com_sermonspeaker"
+			label="JCATEGORY" description="JFIELD_CATEGORY_DESC"
+			class="inputbox" required="true" />
+
+		<field
+			name="state"
+			type="list"
+			label="JSTATUS"
+			description="JFIELD_PUBLISHED_DESC"
+			class="inputbox"
+			size="1"
+			default="1">
+			<option
+				value="1">JPUBLISHED</option>
+			<option
+				value="0">JUNPUBLISHED</option>
+			<option
+				value="2">JARCHIVED</option>
+			<option
+				value="-2">JTRASH</option>
+		</field>
+
+		<field name="ordering" type="sermonordering" class="inputbox"
+			table="sermon_tags" field="title"
+			label="JFIELD_ORDERING_LABEL"
+			description="JFIELD_ORDERING_DESC" />
+
+		<field name="description" type="editor" buttons="true" hide="pagebreak,readmore"
+			class="inputbox"
+			filter="JComponentHelper::filterText"
+			label="JGLOBAL_DESCRIPTION" />
+
+		<field name="language" type="contentlanguage" label="JFIELD_LANGUAGE_LABEL"
+			description="COM_SERMONSPEAKER_FIELD_LANGUAGE_DESC" class="inputbox"
+		>
+			<option value="*">JALL</option>
+		</field>
+
+	</fieldset>
+
+	<fieldset name="info">
+		<field name="id"  type="text" class="readonly"
+			label="JGLOBAL_FIELD_ID_LABEL" description ="JGLOBAL_FIELD_ID_DESC"
+			size="10" default="0" required="true"
+			readonly="true" />
+
+		<field name="created_by" type="user"
+			label="JGLOBAL_FIELD_CREATED_BY_LABEL" description="JGLOBAL_FIELD_CREATED_BY_DESC" />
+
+		<field name="created" type="calendar" class="readonly"
+			label="JGLOBAL_FIELD_CREATED_LABEL" description="JGLOBAL_FIELD_CREATED_DESC"
+			format="%Y-%m-%d %H:%M:%S" filter="user_utc"
+			readonly="true" />
+
+	</fieldset>
+
+</form>

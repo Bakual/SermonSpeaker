@@ -1,0 +1,55 @@
+div.ss-serie-player, div.ss-sermons-player, div.ss-speaker-player{
+	margin-bottom:10px;
+}
+hr.ss-serie-player, hr.ss-sermons-player, hr.ss-speaker-player{
+	margin:0;
+}
+#playing{
+	width:100%;
+	height:60px;
+	text-align:left;
+}
+#playing img{
+	height:100%;
+	display:none;
+	float:left;
+}
+#playing .text{
+	float:left;
+}
+#playing .title{
+	margin:5px 0 0 10px;
+	display:block;
+	font-size:15px;
+	font-weight:bold;
+}
+#playing .desc{
+	margin:5px 0 0 10px;
+	display:block;
+	font-size:10px;
+	line-height:1em;
+}
+#playing .duration{
+	margin:5px;
+	font-weight:bold;
+	font-size:10px;
+	float:right;
+}
+#playing .error{
+	margin-right:5px;
+	padding:3px;
+	line-height:10px;
+	font-weight:bold;
+	font-size:10px;
+	float:right;
+	clear:right;
+	display:none;
+	border:1px dotted red;
+}
+.pointer{
+	cursor:pointer;
+}
+.ss-current{
+	background:#EBFFEB;
+	border-radius:4px;
+}

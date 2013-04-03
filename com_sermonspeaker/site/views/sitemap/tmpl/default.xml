@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="COM_SERMONSPEAKER_SITEMAP_VIEW_DEFAULT_TITLE">
+		<message><![CDATA[COM_SERMONSPEAKER_SITEMAP_VIEW_DEFAULT_DESC]]></message>
+	</layout>
+
+	<!-- Add fields to the request variables for the layout. -->
+	<fields name="request">
+		<fieldset name="request">
+			<field name="format" type="hidden"
+				default="raw"
+			/>
+		</fieldset>
+	</fields>
+
+	<!-- Add fields to the parameters object for the layout. -->
+	<fields name="params">
+		<fieldset name="basic">
+			<field name="cat" type="category" 
+				label="JCategory" 
+				description="COM_SERMONSPEAKER_PARAM_CATEGORY_DESC" 
+				extension="com_sermonspeaker" 
+				required="true"
+			/>
+
+			<field name="freq" type="list" 
+				label="COM_SERMONSPEAKER_PARAM_FREQ_LABEL" 
+				description="COM_SERMONSPEAKER_PARAM_FREQ_DESC"
+				default="">
+				<option value="">JGLOBAL_USE_GLOBAL</option>
+				<option value="always">always</option>
+				<option value="hourly">hourly</option>
+				<option value="daily">daily</option>
+				<option value="weekly">weekly</option>
+				<option value="monthly">monthly</option>
+				<option value="yearly">yearly</option>
+				<option value="never">never</option>
+			</field>
+
+			<field name="prio" type="list" 
+				label="COM_SERMONSPEAKER_PARAM_PRIO_LABEL" 
+				description="COM_SERMONSPEAKER_PARAM_PRIO_DESC"
+				default="">
+				<option value="">JGLOBAL_USE_GLOBAL</option>
+				<option value="0.0">0.0</option>
+				<option value="0.2">0.2</option>
+				<option value="0.3">0.3</option>
+				<option value="0.4">0.4</option>
+				<option value="0.5">0.5</option>
+				<option value="0.6">0.6</option>
+				<option value="0.7">0.7</option>
+				<option value="0.8">0.8</option>
+				<option value="0.9">0.9</option>
+				<option value="1.0">1.0</option>
+			</field>
+		</fieldset>
+	</fields>
+</metadata>

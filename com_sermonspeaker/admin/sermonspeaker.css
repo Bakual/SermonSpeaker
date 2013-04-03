@@ -1,0 +1,235 @@
+/** header icons **/
+.icon-48-speakers		{ background-image: url(images/speakers.png); }
+.icon-48-series			{ background-image: url(images/series.png); }
+.icon-48-sermons		{ background-image: url(images/sermon.png); }
+.icon-48-tags			{ background-image: url(images/tags.png); }
+.icon-48-statistics		{ background-image: url(images/stats.png); }
+.icon-48-sermonhelp		{ background-image: url(images/help.png); }
+.icon-48-tools			{ background-image: url(images/tools.png); }
+
+.clr{
+	clear:both;
+}
+.ss-hide{
+	display:none;
+}
+.pointer{
+	cursor:pointer;
+}
+.intend{
+	clear:left;
+}
+.upload_button{
+	float:none;
+	vertical-align:middle;
+}
+/* Frontend Upload */
+.progressWrapper {
+	width: 100%;
+	max-width: 357px;
+	overflow: hidden;
+}
+
+.progressContainer {
+	margin: 5px;
+	padding: 4px;
+	border: solid 1px #E8E8E8;
+	background-color: #F7F7F7;
+	overflow: hidden;
+}
+/* Message */
+.message {
+	margin: 1em 0;
+	padding: 10px 20px;
+	border: solid 1px #FFDD99;
+	background-color: #FFFFCC;
+	overflow: hidden;
+}
+/* Error */
+.red {
+	border: solid 1px #B50000;
+	background-color: #FFEBEB;
+}
+
+/* Current */
+.green {
+	border: solid 1px #DDF0DD;
+	background-color: #EBFFEB;
+}
+
+/* Complete */
+.blue {
+	border: solid 1px #CEE2F2;
+	background-color: #F0F5FF;
+}
+
+.progressName {
+	font-size: 8pt;
+	font-weight: 700;
+	color: #555;
+	width: 323px;
+	height: 14px;
+	text-align: left;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.progressBarInProgress,
+.progressBarComplete,
+.progressBarError {
+	font-size: 0;
+	width: 0%;
+	height: 2px;
+	background-color: blue;
+	margin-top: 2px;
+}
+
+.progressBarComplete {
+	width: 100%;
+	background-color: green;
+	visibility: hidden;
+}
+
+.progressBarError {
+	width: 100%;
+	background-color: red;
+	visibility: hidden;
+}
+
+.progressBarStatus {
+	margin-top: 2px;
+	width: 337px;
+	font-size: 7pt;
+	font-family: Arial;
+	text-align: left;
+	white-space: nowrap;
+}
+
+a.progressCancel {
+	font-size: 0;
+	display: block;
+	height: 14px;
+	width: 14px;
+	background-image: url(images/cancelbutton.gif);
+	background-repeat: no-repeat;
+	background-position: -14px 0px;
+	float: right;
+}
+
+a.progressCancel:hover {
+	background-position: 0px 0px;
+}
+
+
+/* -- SWFUpload Object Styles ------------------------------- */
+.swfupload {
+	vertical-align: middle;
+}
+
+/* Setting the max-width of the speaker and series filterfield */
+#filter_series, #filter_speaker{
+	max-width: 16em;
+}
+
+.scripture{
+	background-color:#CF9 !important;
+	border-radius:5px;
+	padding-left:5px;
+}
+.scriptureold{
+	background-color:#FF997F !important;
+	border-radius:5px;
+	padding-left:5px;
+}
+
+/* Batch processing */
+label#batch-speaker-lbl, label#batch-serie-lbl{
+	clear:left;
+	margin-top: 15px;
+	margin-right: 10px;
+}
+select#batch-speaker-id, select#batch-serie-id{
+	margin-top: 15px;
+}
+
+.pathinfo{
+	font-size:small;
+	background-color:#E5FFFF;
+	border-radius:5px;
+	padding:1px 5px;
+	display:inline-block;
+}
+.ss-hide{
+	display:none;
+}
+
+.icon.inactive a{
+	background-color:#F4F4F4 !important;
+}
+
+.tip-wrap{
+    z-index: 15;
+}
+
+/* Joomla 3.0 stuff */
+/* Fixing input-append */
+.input-append .chzn-container-single .chzn-single {
+	border-color: #ccc;
+	height: 26px;
+	-webkit-border-radius: 3px 0 0 3px;
+	-moz-border-radius: 3px 0 0 3px;
+	border-radius: 3px 0 0 3px;
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
+.input-append .chzn-container-active .chzn-single-with-drop {
+	-webkit-border-radius: 3px 0 0 3px;
+	-moz-border-radius: 3px 0 0 3px;
+	border-radius: 3px 0 0 3px;
+}
+.input-append .chzn-container-single .chzn-drop {
+	border-color: #ccc;
+}
+/* Progress bar in J2.5 */
+table.adminlist div.progress{
+	width:100%;
+	padding:2px;
+	background-color:white;
+	border:1px solid black;
+	color:black;
+	text-align:center;
+}
+table.adminlist div.progress div.bar{
+	background-color:CornFlowerBlue;
+}
+table.adminlist .btn-warning{
+	background-color: #F89406;
+	color:white;
+}
+table.adminlist .btn-success{
+	background-color: #51A351;
+	color:white;
+}
+table.adminlist .btn-primary{
+	background-color: #04C;
+	color:white;
+}
+table.adminlist .btn-info{
+	background-color: #2F96B4;
+	color:white;
+}
+a.contribute{
+	background: none repeat scroll 0 0 #F4F4F4;
+	border: 1px solid #CCCCCC;
+	padding: 5px;
+}
+
+/* Custom Joomla 3.0 stuff */
+.pointer, .pointer[disabled], .pointer[readonly]{
+	cursor:pointer;
+}
+input[type="text"].invalid, select.invalid, .invalid span, .invalid{
+	border-color:red;
+	color:red;
+}

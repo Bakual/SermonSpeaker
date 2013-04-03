@@ -1,0 +1,93 @@
+.categories-list div.first,
+.cat-children div.first{
+	clear:left;
+}
+.categories-list div.tile,
+.cat-children div.tile,
+.category-list div.tile {
+	float: left;
+	text-align: center;
+	margin-right: 16px;
+	margin-bottom: 16px;
+	margin-top: 16px;
+}
+.categories-list div.tile a,
+.cat-children div.tile a,
+.category-list div.tile a{
+	background-color: #fff;
+	display: block;
+	float: left;
+	color: #565656;
+	vertical-align: middle;
+	text-decoration: none;
+	border: 1px solid #CCC;
+	border-radius: 5px;
+}
+.categories-list div.tile a:hover,
+.categories-list div.tile a:focus,
+.categories-list div.tile a:active, 
+.cat-children div.tile a:hover,
+.cat-children div.tile a:focus,
+.cat-children div.tile a:active, 
+.category-list div.tile a:hover,
+.category-list div.tile a:focus,
+.category-list div.tile a:active {
+	background-position: 0;
+	border-bottom-left-radius: 50% 20px;
+	box-shadow: -5px 10px 15px rgba(0, 0, 0, 0.25);
+	position: relative;
+	z-index: 10;
+}
+.categories-list div.tile img,
+.cat-children div.tile img,
+.category-list div.tile img {
+	max-width: 128px;
+	max-height: 128px;
+	padding: 10px 0;
+	margin: 0 auto;
+}
+.categories-list span.item-title,
+.cat-children span.item-title,
+.category-list span.item-title {
+	display: block;
+	text-align: center;
+}
+.category-list div.tile a{
+	height: 200px;
+	width: 160px;
+}
+.categories-list div.level1>span>a,
+.cat-children div.level1>span>a{
+	height: 180px;
+	width: 160px;
+}
+.categories-list div.level2>span>a,
+.cat-children div.level2>span>a{
+	background-color: #eee;
+	height: 90px;
+	width: 72px;
+}
+.categories-list div.level2 img,
+.cat-children div.level2 img{
+	max-width: 64px;
+	max-height: 64px;
+}
+.categories-list div.level3>span>a,
+.cat-children div.level3>span>a{
+	background-color: #ddd;
+	height: 45px;
+	width: 32px;
+}
+.categories-list div.level3 img,
+.cat-children div.level3 img{
+	max-width: 32px;
+	max-height: 32px;
+	padding: 5px 0;
+}
+.clear-left{
+	clear: left;
+}
+/* Fix for some templates */
+.tip-wrap{
+	z-index: 10000;
+}

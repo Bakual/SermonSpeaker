@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<view title="COM_SERMONSPEAKER_SERMON_VIEW_TITLE">
+		<message><![CDATA[COM_SERMONSPEAKER_SERMON_VIEW_DESC]]></message>
+		<options>
+			<default
+				name="COM_SERMONSPEAKER_SERMON_VIEW_TITLE" 
+				msg="COM_SERMONSPEAKER_SERMON_VIEW_DESC"
+			/>
+		</options>
+	</view>
+	<fields name="request">
+		<fieldset name="request">
+			<field name="id" type="sql" 
+				label="COM_SERMONSPEAKER_PARAM_SELECT_SERMON" 
+				description="COM_SERMONSPEAKER_PARAM_SELECT_SERMON_DESC" 
+				query="SELECT id, sermon_title FROM #__sermon_sermons" 
+				key_field="id" 
+				value_field="sermon_title" 
+				required="true"
+			>
+				<option value="0">COM_SERMONSPEAKER_LATESTSERMON</option>
+			</field>
+		</fieldset>
+	</fields>
+	<fields name="params">
+		<fieldset name="advanced"
+			addfieldpath="/administrator/components/com_sermonspeaker/models/fields" >
+			<field name="plugin_tag" 
+				type="tag" 
+				class="btn-group"
+				label="COM_SERMONSPEAKER_PARAM_PLUGIN_LABEL" 
+				description="COM_SERMONSPEAKER_PARAM_PLUGIN_DESC"
+				useglobal="true" />
+			<field name="filetype"
+				type="list"
+				label="COM_SERMONSPEAKER_FIELD_FILETYPE_LABEL" 
+				description="COM_SERMONSPEAKER_FIELD_FILETYPE_DESC">
+				<option value="">COM_SERMONSPEAKER_NO_FILTER</option>
+				<option value="audio">COM_SERMONSPEAKER_AUDIO</option>
+				<option value="video">COM_SERMONSPEAKER_VIDEO</option>
+			</field>
+			<field name="fileprio"
+				type="list"
+				label="COM_SERMONSPEAKER_PARAM_FILEPRIO_LABEL" 
+				description="COM_SERMONSPEAKER_PARAM_FILEPRIO_DESC">
+				<option value="">JGLOBAL_USE_GLOBAL</option>
+				<option value="0">COM_SERMONSPEAKER_AUDIO</option>
+				<option value="1">COM_SERMONSPEAKER_VIDEO</option>
+			</field>
+		</fieldset>
+		<fieldset name="layout" 
+			label="COM_SERMONSPEAKER_FIELDSET_LAYOUTS_LABEL" 
+			description="COM_SERMONSPEAKER_FIELDSET_LAYOUTS_DESC" >
+			<field
+				name="sermonslayout" type="componentlayout"
+				label="COM_SERMONSPEAKER_SERMONS_VIEW_TITLE"
+				description="COM_SERMONSPEAKER_FIELD_LAYOUT_DESC"
+				useglobal="true"
+				extension="com_sermonspeaker"
+				view="sermons"
+			/>
+			<field
+				name="sermonlayout" type="componentlayout"
+				label="COM_SERMONSPEAKER_SERMON_VIEW_TITLE"
+				description="COM_SERMONSPEAKER_FIELD_LAYOUT_DESC"
+				useglobal="true"
+				extension="com_sermonspeaker"
+				view="sermon"
+			/>
+			<field
+				name="serieslayout" type="componentlayout"
+				label="COM_SERMONSPEAKER_SERIES_VIEW_TITLE"
+				description="COM_SERMONSPEAKER_FIELD_LAYOUT_DESC"
+				useglobal="true"
+				extension="com_sermonspeaker"
+				view="series"
+			/>
+			<field
+				name="serielayout" type="componentlayout"
+				label="COM_SERMONSPEAKER_SERIE_VIEW_TITLE"
+				description="COM_SERMONSPEAKER_FIELD_LAYOUT_DESC"
+				useglobal="true"
+				extension="com_sermonspeaker"
+				view="serie"
+			/>
+			<field
+				name="speakerslayout" type="componentlayout"
+				label="COM_SERMONSPEAKER_SPEAKERS_VIEW_TITLE"
+				description="COM_SERMONSPEAKER_FIELD_LAYOUT_DESC"
+				useglobal="true"
+				extension="com_sermonspeaker"
+				view="speakers"
+			/>
+			<field
+				name="speakerlayout" type="componentlayout"
+				label="COM_SERMONSPEAKER_SPEAKER_VIEW_TITLE"
+				description="COM_SERMONSPEAKER_FIELD_LAYOUT_DESC"
+				useglobal="true"
+				extension="com_sermonspeaker"
+				view="speaker"
+			/>
+			<field
+				name="seriessermonlayout" type="componentlayout"
+				label="COM_SERMONSPEAKER_SERIESSERMON_VIEW_TITLE"
+				description="COM_SERMONSPEAKER_FIELD_LAYOUT_DESC"
+				useglobal="true"
+				extension="com_sermonspeaker"
+				view="seriessermon"
+			/>
+			<field
+				name="categorieslayout" type="componentlayout"
+				label="COM_SERMONSPEAKER_CATEGORIES_VIEW_TITLE"
+				description="COM_SERMONSPEAKER_FIELD_LAYOUT_DESC"
+				useglobal="true"
+				extension="com_sermonspeaker"
+				view="categories"
+			/>
+		</fieldset>
+	</fields>
+</metadata>
