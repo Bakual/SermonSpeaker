@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="COM_SERMONSPEAKER_SPEAKER_VIEW_POPUP_TITLE">
+		<message><![CDATA[COM_SERMONSPEAKER_SPEAKER_VIEW_POPUP_DESC]]></message>
+	</layout>
+	<state>
+		<name>COM_SERMONSPEAKER_SPEAKER_VIEW_POPUP_TITLE</name>
+		<description>COM_SERMONSPEAKER_SPEAKER_VIEW_POPUP_DESC</description>
+		<params>
+			<param name="speaker_id" type="sql" label="COM_SERMONSPEAKER_PARAM_SELECT_SPEAKER" description="COM_SERMONSPEAKER_PARAM_SELECT_SPEAKER_DESC" query="SELECT id, name FROM #__sermon_speakers" key_field="id" value_field="name" />
+		</params>
+	</state>
+</metadata>

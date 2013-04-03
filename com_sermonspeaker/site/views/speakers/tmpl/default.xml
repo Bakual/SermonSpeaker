@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="COM_SERMONSPEAKER_SPEAKERS_VIEW_TITLE">
+		<message><![CDATA[COM_SERMONSPEAKER_SPEAKERS_VIEW_DESC]]></message>
+	</layout>
+	<state>
+		<name>COM_SERMONSPEAKER_SPEAKERS_VIEW_TITLE</name>
+		<description>COM_SERMONSPEAKER_SPEAKERS_VIEW_DESC</description>
+		<params>
+			<param name="speaker_cat" type="category" section="com_sermonspeaker" label="COM_SERMONSPEAKER_PARAM_CATEGORY_SPEAKER" description="COM_SERMONSPEAKER_PARAM_CATEGORY_DESC" />
+		</params>
+	</state>
+</metadata>

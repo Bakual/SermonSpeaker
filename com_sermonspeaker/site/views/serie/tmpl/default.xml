@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="COM_SERMONSPEAKER_SERIE_VIEW_TITLE">
+		<message><![CDATA[COM_SERMONSPEAKER_SERIE_VIEW_DESC]]></message>
+	</layout>
+	<state>
+		<name>COM_SERMONSPEAKER_SERIE_VIEW_TITLE</name>
+		<description>COM_SERMONSPEAKER_SERIE_VIEW_DESC</description>
+		<params>
+			<param name="serie_id" type="sql" label="COM_SERMONSPEAKER_PARAM_SELECT_SERIE" description="COM_SERMONSPEAKER_PARAM_SELECT_SERIE_DESC" query="SELECT id, series_title FROM #__sermon_series" key_field="id" value_field="series_title" />
+		</params>
+	</state>
+</metadata>
