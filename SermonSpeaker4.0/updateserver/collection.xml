@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<extensionset name="SermonSpeaker" description="SermonSpeaker Extensions List">
-	<extension name="SermonSpeaker" description="SermonSpeaker Component" element="com_sermonspeaker" type="component" client="admin" version="4.0" detailsurl="http://www.sermonspeaker.net/update/com_sermonspeaker.xml" /> 
-</extensionset>
