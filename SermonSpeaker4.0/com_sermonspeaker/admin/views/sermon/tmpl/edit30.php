@@ -55,6 +55,9 @@ $input = JFactory::getApplication()->input;
 					<div class="row-fluid">
 						<div class="span6">
 							<h4>Files</h4>
+							<div id="upload_limit_audio" class="well well-small ss-hide">
+								<?php echo JText::sprintf('COM_SERMONSPEAKER_UPLOAD_LIMIT', $this->upload_limit); ?>
+							</div>
 							<div class="control-group">
 								<div class="control-label">
 									<?php echo $this->form->getLabel('audiofile'); ?>

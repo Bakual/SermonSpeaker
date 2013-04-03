@@ -76,6 +76,7 @@ $self = $uri->toString();
 						echo ' /'.trim($this->params->get('path'), '/').'/<span id="audiopathdate" class="pathdate">'.$this->append_date.'</span><span id="audiopathlang" class="pathlang">'.$this->append_lang.'</span>';
 					endif; ?>
 				</span>
+				<div id="upload_limit_audio" class="pathinfo ss-hide"><?php echo JText::sprintf('COM_SERMONSPEAKER_UPLOAD_LIMIT', $this->upload_limit); ?></div>
 			</div>
 			<ul>
 			<li><?php echo $this->form->getLabel('audiofilesize'); ?>
@@ -108,6 +109,7 @@ $self = $uri->toString();
 						echo ' /'.trim($this->params->get('path'), '/').'/<span id="videopathdate" class="pathdate">'.$this->append_date.'</span><span id="videopathlang" class="pathlang">'.$this->append_lang.'</span>';
 					endif; ?>
 				</span>
+				<div id="upload_limit_video" class="pathinfo ss-hide"><?php echo JText::sprintf('COM_SERMONSPEAKER_UPLOAD_LIMIT', $this->upload_limit); ?></div>
 			</div>
 			<ul>
 			<li><?php echo $this->form->getLabel('videofilesize'); ?>
@@ -135,6 +137,7 @@ $self = $uri->toString();
 				<span id="addfilepathinfo" class="pathinfo ss-hide hasTip" title="<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO_TOOLTIP'); ?>">
 					<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO').' /'.trim($this->params->get('path_addfile'), '/').'/<span id="addfilepathdate" class="pathdate">'.$this->append_date.'</span><span id="addfilepathlang" class="pathlang">'.$this->append_lang.'</span>'; ?>
 				</span>
+				<div id="upload_limit_addfile" class="pathinfo ss-hide"><?php echo JText::sprintf('COM_SERMONSPEAKER_UPLOAD_LIMIT', $this->upload_limit); ?></div>
 			</div>
 			<ul>
 			<li><?php echo $this->form->getLabel('addfileDesc'); ?>

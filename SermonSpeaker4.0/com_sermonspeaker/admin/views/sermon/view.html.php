@@ -30,6 +30,11 @@ class SermonspeakerViewSermon extends JViewLegacy
 		$this->item		= $this->get('Item');
 		$this->form		= $this->get('Form');
 
+		// Check some PHP settings for upload limit so I can show it as an info
+		$post_max_size			= ini_get('post_max_size');
+		$upload_max_filesize	= ini_get('upload_max_filesize');
+		$this->upload_limit		= ($this->return_bytes($post_max_size) < $this->return_bytes($upload_max_filesize)) ? $post_max_size : $upload_max_filesize;
+
 		// add Javascript for Form Elements enable and disable
 		$enElem = 'function enableElement(ena_elem, dis_elem) {
 			ena_elem.disabled = false;
@@ -193,6 +198,9 @@ class SermonspeakerViewSermon extends JViewLegacy
 						swfupload_loaded_handler: function() {
 							document.id("btnCancel1").removeClass("ss-hide");
 							document.id("audiopathinfo").removeClass("ss-hide");
+							if(document.id("upload_limit_audio")){
+								document.id("upload_limit_audio").removeClass("ss-hide");
+							}
 							if(document.id("upload-noflash")){
 								document.id("upload-noflash").destroy();
 								document.id("loading").destroy();
@@ -247,6 +255,9 @@ class SermonspeakerViewSermon extends JViewLegacy
 						swfupload_loaded_handler: function() {
 							document.id("btnCancel2").removeClass("ss-hide");
 							document.id("videopathinfo").removeClass("ss-hide");
+							if(document.id("upload_limit_video")){
+								document.id("upload_limit_video").removeClass("ss-hide");
+							}
 							if(document.id("upload-noflash")){
 								document.id("upload-noflash").destroy();
 								document.id("loading").destroy();
@@ -299,6 +310,9 @@ class SermonspeakerViewSermon extends JViewLegacy
 						swfupload_loaded_handler: function() {
 							document.id("btnCancel3").removeClass("ss-hide");
 							document.id("addfilepathinfo").removeClass("ss-hide");
+							if(document.id("upload_limit_addfile")){
+								document.id("upload_limit_addfile").removeClass("ss-hide");
+							}
 							if(document.id("upload-noflash")){
 								document.id("upload-noflash").destroy();
 								document.id("loading").destroy();
@@ -496,5 +510,22 @@ class SermonspeakerViewSermon extends JViewLegacy
 
 			JToolbarHelper::cancel('sermon.cancel', 'JTOOLBAR_CLOSE');
 		}
+	}
+
+	// Function to return bytes from the PHP settings. Taken from the ini_get() manual
+	protected function return_bytes($val) {
+		$val = trim($val);
+		$last = strtolower($val[strlen($val)-1]);
+		switch($last) {
+			// The 'G' modifier is available since PHP 5.1.0
+			case 'g':
+				$val *= 1024;
+			case 'm':
+				$val *= 1024;
+			case 'k':
+				$val *= 1024;
+		}
+
+		return $val;
 	}
 }

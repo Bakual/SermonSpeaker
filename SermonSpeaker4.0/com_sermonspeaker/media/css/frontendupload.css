@@ -1,9 +1,6 @@
 .intend{
 	margin-left:13em;
 }
-.ss-hide{
-	display:none;
-}
 .pointer{
 	cursor:pointer;
 }
@@ -130,6 +127,9 @@ a.progressCancel:hover {
 	border-radius:5px;
 	padding-left:5px;
 	display:inline-block;
+}
+.ss-hide{
+	display:none;
 }
 
 /* Joomla 3.0 stuff */

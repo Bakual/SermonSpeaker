@@ -34,6 +34,7 @@ if ($this->params->get('enable_non_flash')) : ?>
 	<form action="<?php echo JURI::root(); ?>index.php?option=com_sermonspeaker&amp;task=file.upload&amp;tmpl=component&amp;<?php echo $this->session->getName().'='.$this->session->getId(); ?>&amp;<?php echo JSession::getFormToken();?>=1" id="uploadForm" name="uploadForm" class="form-validate" method="post" enctype="multipart/form-data">
 		<fieldset id="upload-noflash" class="actions">
 			<legend><?php echo JText::_('COM_SERMONSPEAKER_FU_SELECTFILE'); ?></legend>
+			<div><?php echo JText::sprintf('COM_SERMONSPEAKER_UPLOAD_LIMIT', $this->upload_limit); ?></div>
 			<label for="upload-file" class="label"><?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO'); ?></label>
 			/<?php echo trim($this->params->get('path'), '/').'/';
 			if ($this->params->get('append_path', 0)) :
@@ -103,6 +104,7 @@ if ($this->params->get('enable_non_flash')) : ?>
 	</fieldset>
 	<fieldset>
 		<legend><?php echo JText::_('COM_SERMONSPEAKER_FU_FILES'); ?></legend>
+		<div id="upload_limit" class="pathinfo ss-hide"><?php echo JText::sprintf('COM_SERMONSPEAKER_UPLOAD_LIMIT', $this->upload_limit); ?></div>
 		<div class="formelm">
 			<?php echo $this->form->getLabel('audiofile'); ?>
 			<input type="radio" name="sel1" value="0" onclick="enableElement(this.form.elements['jform_audiofile_text'], this.form.elements['jform_audiofile']);" checked>
@@ -171,6 +173,7 @@ if ($this->params->get('enable_non_flash')) : ?>
 						</span>
 					</div>
 				<?php endif; ?>
+			<br />
 			<?php echo $this->form->getLabel('addfileDesc'); ?>
 			<?php echo $this->form->getInput('addfileDesc'); ?>
 		</div>

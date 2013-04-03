@@ -83,6 +83,9 @@ $self = $uri->toString();
 					<?php echo $this->form->getInput('notes'); ?>
 				</div>
 				<div class="tab-pane" id="files">
+					<div id="upload_limit" class="well well-small ss-hide">
+						<?php echo JText::sprintf('COM_SERMONSPEAKER_UPLOAD_LIMIT', $this->upload_limit); ?>
+					</div>
 					<div class="control-group">
 						<div class="control-label">
 							<?php echo $this->form->getLabel('audiofile'); ?>
@@ -273,8 +276,8 @@ $self = $uri->toString();
 				</div>
 			</div>
 			<div class="well well-small">
-				<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO'); ?>
-				/<?php echo trim($this->params->get('path'), '/').'/';
+				<div><?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO'); ?>
+				<span class="label label-info">/<?php echo trim($this->params->get('path'), '/').'/';
 				if ($this->params->get('append_path', 0)) :
 					$time	= ($this->item->sermon_date AND $this->item->sermon_date != '0000-00-00 00:00:00') ? strtotime($this->item->sermon_date) : time();
 					?><input type="text" id="year" size="4" name="year" value="<?php echo date('Y', $time); ?>" />/<input type="text" id="month" size="2" name="month" value="<?php echo date('m', $time); ?>" />/<?php 
@@ -285,7 +288,8 @@ $self = $uri->toString();
 						$lang	= JFactory::getLanguage()->getTag();
 					endif;
 					?><input type="text" id="lang" size="5" name="lang" value="<?php echo $lang; ?>" />/
-				<?php endif; ?>
+				<?php endif; ?></span>.</div>
+				<div><?php echo JText::sprintf('COM_SERMONSPEAKER_UPLOAD_LIMIT', $this->upload_limit); ?></div>
 			</div>
 			<button type="submit" class="btn">
 				<i class="icon-upload"></i> <?php echo JText::_('COM_SERMONSPEAKER_FU_START_UPLOAD'); ?>
