@@ -27,9 +27,9 @@ class SermonspeakerHelperId3
 		{
 			$length	= $FileInfo['playtime_seconds'];
 			$id3['sermon_time']	= $hrs.':'.sprintf('%02d',$min).':'.sprintf('%02d', $sec);
-			$hrs = floor($length / 3600);
-			$min = floor(($length - $hrs * 3600) / 60);
-			$sec = round($length - $hrs * 3600 - $min * 60);
+			$hrs = (int)($length / 3600);
+			$min = (int)(($length - $hrs * 3600) / 60);
+			$sec = (int)($length - $hrs * 3600 - $min * 60);
 			if ($sec == '60')
 			{
 				$sec = 0;
@@ -118,9 +118,9 @@ class SermonspeakerHelperId3
 		if (is_object($video))
 		{
 			$duration	= (string)$video->duration;
-			$hrs		= floor($duration / 3600);
-			$min		= floor(($duration - $hrs * 3600) / 60);
-			$sec		= $video->duration - $hrs * 3600 - $min * 60;
+			$hrs		= (int)($duration / 3600);
+			$min		= (int)(($duration - $hrs * 3600) / 60);
+			$sec		= (int)($video->duration - $hrs * 3600 - $min * 60);
 			$id3['sermon_time']		= $hrs.':'.sprintf('%02d',$min).':'.sprintf('%02d', $sec);
 			$id3['sermon_title']	= (string)$video->title;
 			$id3['alias'] 			= JApplication::stringURLSafe($id3['sermon_title']);
