@@ -25,6 +25,7 @@ class SermonspeakerModelFeed extends JModelLegacy
 
 		// Select required fields from the table.
 		$query->select('sermons.sermon_date, sermons.sermon_title, sermons.audiofile, sermons.videofile, sermons.notes, sermons.sermon_time, sermons.id, sermons.picture');
+		$query->select('CASE WHEN CHAR_LENGTH(sermons.alias) THEN CONCAT_WS(\':\', sermons.id, sermons.alias) ELSE sermons.id END as slug');
 		$query->from('`#__sermon_sermons` AS sermons');
 
 		// Join over the scriptures.
