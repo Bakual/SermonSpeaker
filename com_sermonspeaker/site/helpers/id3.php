@@ -25,10 +25,16 @@ class SermonspeakerHelperId3
 		$id3 = array();
 		if (array_key_exists('playtime_seconds', $FileInfo))
 		{
-			$lenght	= $FileInfo['playtime_seconds'];
-			$hrs = floor($lenght / 3600);
-			$min = floor(($lenght - $hrs * 3600) / 60);
-			$sec = round($lenght - $hrs * 3600 - $min * 60);
+			$length	= $FileInfo['playtime_seconds'];
+			$id3['sermon_time']	= $hrs.':'.sprintf('%02d',$min).':'.sprintf('%02d', $sec);
+			$hrs = floor($length / 3600);
+			$min = floor(($length - $hrs * 3600) / 60);
+			$sec = round($length - $hrs * 3600 - $min * 60);
+			if ($sec == '60')
+			{
+				$sec = 0;
+				$min++;
+			}
 			$id3['sermon_time']	= $hrs.':'.sprintf('%02d',$min).':'.sprintf('%02d', $sec);
 		}
 		else
@@ -113,8 +119,8 @@ class SermonspeakerHelperId3
 		{
 			$duration	= (string)$video->duration;
 			$hrs		= floor($duration / 3600);
-			$min	= floor(($duration - $hrs * 3600) / 60);
-			$sec	= $video->duration - $hrs * 3600 - $min * 60;
+			$min		= floor(($duration - $hrs * 3600) / 60);
+			$sec		= $video->duration - $hrs * 3600 - $min * 60;
 			$id3['sermon_time']		= $hrs.':'.sprintf('%02d',$min).':'.sprintf('%02d', $sec);
 			$id3['sermon_title']	= (string)$video->title;
 			$id3['alias'] 			= JApplication::stringURLSafe($id3['sermon_title']);
