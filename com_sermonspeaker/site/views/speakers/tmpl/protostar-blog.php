@@ -63,7 +63,7 @@ $listDirn	= $this->state->get('list.direction');
 									<i class="icon-cog"></i>
 									<span class="caret"></span>
 								</a>
-								<ul class="dropdown-menu">
+								<ul class="actions dropdown-menu">
 									<li class="email-icon"><?php echo JHtml::_('icon.email', $item, $this->params, array('type' => 'speaker')); ?></li>
 									<?php if ($canEdit or ($canEditOwn and ($user->id == $item->created_by))) : ?>
 										<li class="edit-icon"><?php echo JHtml::_('icon.edit', $item, $this->params, array('type' => 'speaker')); ?></li>

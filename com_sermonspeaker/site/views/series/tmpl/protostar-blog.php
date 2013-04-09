@@ -63,7 +63,7 @@ $listDirn	= $this->state->get('list.direction');
 									<i class="icon-cog"></i>
 									<span class="caret"></span>
 								</a>
-								<ul class="dropdown-menu">
+								<ul class="actions dropdown-menu">
 									<?php if (in_array('series:download', $this->col_serie)) : ?>
 										<li class="download-icon">
 											<a href="<?php echo JRoute::_('index.php?view=serie&layout=download&tmpl=component&id='.$item->slug); ?>" class="modal" rel="{handler:'iframe',size:{x:400,y:200}}">

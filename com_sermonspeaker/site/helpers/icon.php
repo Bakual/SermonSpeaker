@@ -15,7 +15,7 @@ class JHtmlIcon
 
 		$uri = JURI::getInstance();
 		$url = 'index.php?option=com_sermonspeaker&view=frontendupload&return='.base64_encode($uri).'&a_id=0&catid=' . $category->id;
-		$text = '<i class="icon-plus"></i> ' . JText::_('JNEW') . '&#160;';
+		$text = '<span class="icon-plus"></span> ' . JText::_('JNEW') . '&#160;';
 
 		$button = JHtml::_('link', JRoute::_($url), $text, 'class="btn btn-primary"');
 
@@ -35,7 +35,7 @@ class JHtmlIcon
 
 		$status = 'width=400,height=350,menubar=yes,resizable=yes';
 
-		$text = '<i class="icon-envelope"></i> ' . JText::_('JGLOBAL_EMAIL');
+		$text = '<span class="icon-envelope"></span> ' . JText::_('JGLOBAL_EMAIL');
 
 		$attribs['title']	= JText::_('JGLOBAL_EMAIL');
 		$attribs['onclick'] = "window.open(this.href,'win2','".$status."'); return false;";
@@ -118,7 +118,7 @@ class JHtmlIcon
 		if ($joomla30)
 		{
 			$icon	= $item->state ? 'edit' : 'eye-close';
-			$text = '<i class="hasTip icon-'.$icon.' tip" title="'.JText::_('JACTION_EDIT').' :: '.$overlib.'"></i> '.JText::_('JGLOBAL_EDIT');
+			$text = '<span class="hasTip icon-'.$icon.' tip" title="'.JText::_('JACTION_EDIT').' :: '.$overlib.'"></span> '.JText::_('JGLOBAL_EDIT');
 
 			$output = JHtml::_('link', JRoute::_($url), $text);
 		}

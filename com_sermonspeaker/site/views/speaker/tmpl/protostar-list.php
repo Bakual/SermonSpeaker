@@ -36,7 +36,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 				<i class="icon-cog"></i>
 				<span class="caret"></span>
 			</a>
-			<ul class="dropdown-menu">
+			<ul class="actions dropdown-menu">
 				<li class="email-icon"><?php echo JHtml::_('icon.email', $this->item, $this->params, array('type' => 'speaker')); ?></li>
 				<?php if ($canEdit or ($canEditOwn and ($user->id == $this->item->created_by))) : ?>
 					<li class="edit-icon"><?php echo JHtml::_('icon.edit', $this->item, $this->params, array('type' => 'speaker')); ?></li>

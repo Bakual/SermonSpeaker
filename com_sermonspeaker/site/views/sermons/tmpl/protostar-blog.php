@@ -85,7 +85,7 @@ $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 									<i class="icon-cog"></i>
 									<span class="caret"></span>
 								</a>
-								<ul class="dropdown-menu">
+								<ul class="actions dropdown-menu">
 									<li class="play-icon"><?php echo JHtml::_('icon.play', $item, $this->params, array('index' => $i)); ?></li>
 									<?php if (in_array('sermons:download', $this->columns)) :
 										if ($item->audiofile) : ?>

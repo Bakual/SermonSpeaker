@@ -26,7 +26,7 @@ $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 				<i class="icon-cog"></i>
 				<span class="caret"></span>
 			</a>
-			<ul class="dropdown-menu">
+			<ul class="actions dropdown-menu">
 				<?php if (in_array('serie:download', $this->col_serie)) : ?>
 					<li class="download-icon">
 						<a href="<?php echo JRoute::_('index.php?view=serie&layout=download&tmpl=component&id='.$this->item->slug); ?>" class="modal" rel="{handler:'iframe',size:{x:400,y:200}}">
@@ -138,7 +138,7 @@ $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 									<i class="icon-cog"></i>
 									<span class="caret"></span>
 								</a>
-								<ul class="dropdown-menu">
+								<ul class="actions dropdown-menu">
 									<li class="play-icon"><?php echo JHtml::_('icon.play', $item, $this->params, array('index' => $i)); ?></li>
 									<?php if (in_array('serie:download', $this->columns)) :
 										if ($item->audiofile) : ?>
