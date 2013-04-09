@@ -16,7 +16,7 @@ $listDirn	= $this->state->get('list.direction');
 $limit 		= (int)$this->params->get('limit', '');
 $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 ?>
-<div class="category-list<?php echo $this->pageclass_sfx;?> ss-serie-container<?php echo $this->pageclass_sfx; ?> row-fluid">
+<div class="category-list<?php echo $this->pageclass_sfx;?> ss-serie-container<?php echo $this->pageclass_sfx; ?>">
 	<?php if ($this->params->get('show_page_heading', 1)) : ?>
 		<h1><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
 	<?php endif; ?>
@@ -94,29 +94,31 @@ $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 	<div class="clearfix"></div>
 	<?php if (in_array('serie:player', $this->columns) and count($this->items)) :
 		JHtml::stylesheet('com_sermonspeaker/player.css', '', true); ?>
-		<div class="ss-serie-player span10 offset1">
-			<hr class="ss-serie-player" />
-			<?php if ($player->player != 'PixelOut') : ?>
-				<div id="playing">
-					<img id="playing-pic" class="picture" src="" alt="" />
-					<span id="playing-duration" class="duration"></span>
-					<div class="text">
-						<span id="playing-title" class="title"></span>
-						<span id="playing-desc" class="desc"></span>
+		<div id="ss-serie-player" class="ss-player row-fluid">
+			<div class="span10 offset1">
+				<hr />
+				<?php if ($player->player != 'PixelOut') : ?>
+					<div id="playing">
+						<img id="playing-pic" class="picture" src="" alt="" />
+						<span id="playing-duration" class="duration"></span>
+						<div class="text">
+							<span id="playing-title" class="title"></span>
+							<span id="playing-desc" class="desc"></span>
+						</div>
+						<span id="playing-error" class="error"></span>
 					</div>
-					<span id="playing-error" class="error"></span>
-				</div>
-			<?php endif;
-			echo $player->mspace;
-			echo $player->script;
-			?>
-			<hr class="ss-serie-player" />
-			<?php if ($player->toggle) : ?>
-				<div class="span2 offset4 btn-group">
-					<img class="btn" src="media/com_sermonspeaker/images/Video.png" onclick="Video()" alt="Video" title="<?php echo JText::_('COM_SERMONSPEAKER_SWITCH_VIDEO'); ?>" />
-					<img class="btn" src="media/com_sermonspeaker/images/Sound.png" onclick="Audio()" alt="Audio" title="<?php echo JText::_('COM_SERMONSPEAKER_SWITCH_AUDIO'); ?>" />
-				</div>
-			<?php endif; ?>
+				<?php endif;
+				echo $player->mspace;
+				echo $player->script;
+				?>
+				<hr />
+				<?php if ($player->toggle) : ?>
+					<div class="span2 offset4 btn-group">
+						<img class="btn" src="media/com_sermonspeaker/images/Video.png" onclick="Video()" alt="Video" title="<?php echo JText::_('COM_SERMONSPEAKER_SWITCH_VIDEO'); ?>" />
+						<img class="btn" src="media/com_sermonspeaker/images/Sound.png" onclick="Audio()" alt="Audio" title="<?php echo JText::_('COM_SERMONSPEAKER_SWITCH_AUDIO'); ?>" />
+					</div>
+				<?php endif; ?>
+			</div>
 		</div>
 	<?php endif; ?>
 	<div class="cat-items">

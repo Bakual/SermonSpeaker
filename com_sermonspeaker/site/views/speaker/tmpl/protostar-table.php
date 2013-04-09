@@ -41,7 +41,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 	})');
 
 ?>
-<div class="category-list<?php echo $this->pageclass_sfx;?> ss-speaker-container<?php echo $this->pageclass_sfx; ?> row-fluid">
+<div class="category-list<?php echo $this->pageclass_sfx;?> ss-speaker-container<?php echo $this->pageclass_sfx; ?>">
 	<?php if ($this->params->get('show_page_heading', 1)) : ?>
 		<h1><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
 	<?php endif; ?>
@@ -126,29 +126,31 @@ $this->document->addScriptDeclaration('jQuery(function() {
 		<div class="pill-pane" id="tab_sermons">
 			<?php if (in_array('speaker:player', $this->col_sermon) and count($this->sermons)) :
 				JHtml::stylesheet('com_sermonspeaker/player.css', '', true); ?>
-				<div class="ss-speaker-player span10 offset1">
-					<hr class="ss-speaker-player" />
-					<?php if ($player->player != 'PixelOut') : ?>
-						<div id="playing">
-							<img id="playing-pic" class="picture" src="" alt="" />
-							<span id="playing-duration" class="duration"></span>
-							<div class="text">
-								<span id="playing-title" class="title"></span>
-								<span id="playing-desc" class="desc"></span>
+				<div id="ss-speaker-player" class="ss-player row-fluid">
+					<div class="span10 offset1">
+						<hr />
+						<?php if ($player->player != 'PixelOut') : ?>
+							<div id="playing">
+								<img id="playing-pic" class="picture" src="" alt="" />
+								<span id="playing-duration" class="duration"></span>
+								<div class="text">
+									<span id="playing-title" class="title"></span>
+									<span id="playing-desc" class="desc"></span>
+								</div>
+								<span id="playing-error" class="error"></span>
 							</div>
-							<span id="playing-error" class="error"></span>
-						</div>
-					<?php endif;
-					echo $player->mspace;
-					echo $player->script;
-					?>
-					<hr class="ss-speaker-player" />
-					<?php if ($player->toggle) : ?>
-						<div class="span2 offset4 btn-group">
-							<img class="btn" src="media/com_sermonspeaker/images/Video.png" onclick="Video()" alt="Video" title="<?php echo JText::_('COM_SERMONSPEAKER_SWITCH_VIDEO'); ?>" />
-							<img class="btn" src="media/com_sermonspeaker/images/Sound.png" onclick="Audio()" alt="Audio" title="<?php echo JText::_('COM_SERMONSPEAKER_SWITCH_AUDIO'); ?>" />
-						</div>
-					<?php endif; ?>
+						<?php endif;
+						echo $player->mspace;
+						echo $player->script;
+						?>
+						<hr />
+						<?php if ($player->toggle) : ?>
+							<div class="span2 offset4 btn-group">
+								<img class="btn" src="media/com_sermonspeaker/images/Video.png" onclick="Video()" alt="Video" title="<?php echo JText::_('COM_SERMONSPEAKER_SWITCH_VIDEO'); ?>" />
+								<img class="btn" src="media/com_sermonspeaker/images/Sound.png" onclick="Audio()" alt="Audio" title="<?php echo JText::_('COM_SERMONSPEAKER_SWITCH_AUDIO'); ?>" />
+							</div>
+						<?php endif; ?>
+					</div>
 				</div>
 			<?php endif; ?>
 			<div class="cat-items">

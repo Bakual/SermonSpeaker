@@ -1,8 +1,8 @@
-div.ss-serie-player, div.ss-sermons-player, div.ss-speaker-player{
-	margin-bottom:10px;
+.ss-player {
+	margin-bottom: 10px;
 }
-hr.ss-serie-player, hr.ss-sermons-player, hr.ss-speaker-player{
-	margin:0;
+.ss-player hr {
+	margin: 0;
 }
 #playing{
 	width:100%;
