@@ -36,7 +36,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 				<i class="icon-cog"></i>
 				<span class="caret"></span>
 			</a>
-			<ul class="actions dropdown-menu">
+			<ul class="dropdown-menu">
 				<li class="email-icon"><?php echo JHtml::_('icon.email', $this->item, $this->params, array('type' => 'speaker')); ?></li>
 				<?php if ($canEdit or ($canEditOwn and ($user->id == $this->item->created_by))) : ?>
 					<li class="edit-icon"><?php echo JHtml::_('icon.edit', $this->item, $this->params, array('type' => 'speaker')); ?></li>
@@ -155,7 +155,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 											<i class="icon-cog"></i>
 											<span class="caret"></span>
 										</a>
-										<ul class="actions dropdown-menu">
+										<ul class="dropdown-menu">
 											<li class="play-icon"><?php echo JHtml::_('icon.play', $item, $this->params, array('index' => $i)); ?></li>
 											<?php if (in_array('speaker:download', $this->col_sermon)) :
 												if ($item->audiofile) : ?>
@@ -306,7 +306,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 											<i class="icon-cog"></i>
 											<span class="caret"></span>
 										</a>
-										<ul class="actions dropdown-menu">
+										<ul class="dropdown-menu">
 											<?php if (in_array('speaker:download', $this->col_serie)) : ?>
 												<li class="download-icon">
 													<a href="<?php echo JRoute::_('index.php?view=serie&layout=download&tmpl=component&id='.$item->slug); ?>" class="modal" rel="{handler:'iframe',size:{x:400,y:200}}">
