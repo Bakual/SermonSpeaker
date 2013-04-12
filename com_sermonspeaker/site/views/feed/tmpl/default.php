@@ -10,7 +10,7 @@ echo '<?xml version="1.0" encoding="utf-8" ?>'; ?>
 	<atom:link href="<?php echo $this->make_xml_safe(JURI::getInstance()->toString()); ?>" rel="self" type="application/rss+xml" />
 	<description><?php echo $this->make_xml_safe($params->get('description')); ?></description>
 <?php // optional channel elements ?>
-	<generator>SermonSpeaker 4.5</generator>
+	<generator>SermonSpeaker 5.0</generator>
 	<lastBuildDate><?php echo gmdate("r"); ?></lastBuildDate>
 <?php if ($params->get('itLanguage')) : ?>
 	<language><?php echo $this->make_xml_safe($params->get('itLanguage')); ?></language>

@@ -142,22 +142,22 @@ class Com_SermonspeakerInstallerScript
 			$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/speakers/tmpl/protostar-blog.xml';
 
 			// Cleanup tag view as we're now using the core tags in J!3.1
-/*			JFolder::delete(JPATH_ADMINISTRATOR.'/components/com_sermonspeaker/views/tags');
+			JFolder::delete(JPATH_ADMINISTRATOR.'/components/com_sermonspeaker/views/tags');
 			JFolder::delete(JPATH_ADMINISTRATOR.'/components/com_sermonspeaker/views/tag');
 			JFolder::delete(JPATH_SITE.'/components/com_sermonspeaker/views/tagform');
 			$files[]	= JPATH_ADMINISTRATOR.'/components/com_sermonspeaker/models/tags.php';
 			$files[]	= JPATH_ADMINISTRATOR.'/components/com_sermonspeaker/models/tag.php';
-			$files[]	= JPATH_ADMINISTRATOR.'/components/com_sermonspeaker/models/forms/tag.php';
+			$files[]	= JPATH_ADMINISTRATOR.'/components/com_sermonspeaker/models/forms/tag.xml';
+			$files[]	= JPATH_ADMINISTRATOR.'/components/com_sermonspeaker/models/fields/tag.php'; // renamed to plugintag.php
 			$files[]	= JPATH_ADMINISTRATOR.'/components/com_sermonspeaker/models/fields/tagslist.php';
-			$files[]	= JPATH_ADMINISTRATOR.'/components/com_sermonspeaker/table/tag.php';
-			$files[]	= JPATH_ADMINISTRATOR.'/components/com_sermonspeaker/controller/tags.php';
-			$files[]	= JPATH_ADMINISTRATOR.'/components/com_sermonspeaker/controller/tag.php';
+			$files[]	= JPATH_ADMINISTRATOR.'/components/com_sermonspeaker/tables/tag.php';
+			$files[]	= JPATH_ADMINISTRATOR.'/components/com_sermonspeaker/controllers/tags.php';
+			$files[]	= JPATH_ADMINISTRATOR.'/components/com_sermonspeaker/controllers/tag.php';
 			$files[]	= JPATH_SITE.'/components/com_sermonspeaker/models/tagform.php';
-			$files[]	= JPATH_SITE.'/components/com_sermonspeaker/models/forms/tag.php';
-			$files[]	= JPATH_SITE.'/components/com_sermonspeaker/controller/tagform.php';
-*/
+			$files[]	= JPATH_SITE.'/components/com_sermonspeaker/models/forms/tag.xml';
+			$files[]	= JPATH_SITE.'/components/com_sermonspeaker/controllers/tagform.php';
+
 			JFile::delete($files);
-		}
 		}
 	}
 
@@ -172,6 +172,50 @@ class Com_SermonspeakerInstallerScript
 		if ($type != 'update')
 		{
 			$this->_addCategory();
+		}
+
+		// Adding content_type for tags
+		$table = JTable::getInstance('Contenttype', 'JTable');
+		if(!$table->load(array('type_alias' => 'com_sermonspeaker.sermon')))
+		{
+			$common	= new stdClass;
+			$common->core_content_item_id	= 'id';
+			$common->core_title				= 'sermon_title';
+			$common->core_state				= 'state';
+			$common->core_alias				= 'alias';
+			$common->core_created_time		= 'created';
+			$common->core_modified_time		= 'modified';
+			$common->core_body				= 'notes';
+			$common->core_hits				= 'hits';
+			$common->core_publish_up		= null;
+			$common->core_publish_down		= null;
+			$common->core_access			= null;
+			$common->core_params			= null;
+			$common->core_featured			= null;
+			$common->core_metadata			= null;
+			$common->core_language			= 'language';
+			$common->core_images			= 'picture'; // Does this work?
+			$common->core_urls				= null;
+			$common->core_version			= null;
+			$common->core_ordering			= 'ordering';
+			$common->core_metakey			= 'metakey';
+			$common->core_metadesc			= 'metadesc';
+			$common->core_catid				= 'catid';
+			$common->core_xreference		= null;
+			$common->asset_id				= null;
+
+			$type_array['common'][]			= $common;
+			$type_array['special'][]		= new stdClass;
+
+			$contenttype['type_id']			= 0; // needed?
+			$contenttype['type_title']		= 'Sermon';
+			$contenttype['type_alias']		= 'com_sermonspeaker.sermon';
+			$contenttype['table']			= '#__sermon_sermons';
+			$contenttype['rules']			= '';
+			$contenttype['router']			= 'SermonspeakerHelperRoute::getSermonRoute';
+			$contenttype['field_mappings']	= json_encode($type_array);
+
+			$table->save($contenttype);
 		}
 
 		// Setting some default values for columns on install

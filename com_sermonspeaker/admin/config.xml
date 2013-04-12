@@ -9,7 +9,7 @@
 			description="COM_SERMONSPEAKER_PARAM_DATE_FORMAT_DESC">
 		</field>
 		<field name="plugin_tag" 
-			type="tag"
+			type="plugintag"
 			label="COM_SERMONSPEAKER_PARAM_PLUGIN_LABEL" 
 			description="COM_SERMONSPEAKER_PARAM_PLUGIN_DESC" />
 		<field name="speakerpopup"
