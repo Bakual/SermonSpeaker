@@ -113,22 +113,10 @@ class JHtmlIcon
 			$overlib .= JText::_('JAUTHOR').': '.htmlspecialchars($item->author, ENT_COMPAT, 'UTF-8');
 		}
 
-		$version		= new JVersion;
-		$joomla30	= $version->isCompatible(3.0);
-		if ($joomla30)
-		{
-			$icon	= $item->state ? 'edit' : 'eye-close';
-			$text = '<span class="hasTip icon-'.$icon.' tip" title="'.JText::_('JACTION_EDIT').' :: '.$overlib.'"></span> '.JText::_('JGLOBAL_EDIT');
+		$icon	= $item->state ? 'edit' : 'eye-close';
+		$text = '<span class="hasTip icon-'.$icon.' tip" title="'.JText::_('JACTION_EDIT').' :: '.$overlib.'"></span> '.JText::_('JGLOBAL_EDIT');
 
-			$output = JHtml::_('link', JRoute::_($url), $text);
-		}
-		else
-		{
-			$icon	= $item->state ? 'edit.png' : 'edit_unpublished.png';
-			$text	= JHtml::_('image', 'system/'.$icon, JText::_('JGLOBAL_EDIT'), NULL, true);
-			$button = JHtml::_('link', JRoute::_($url), $text);
-			$output = '<span class="hasTip" title="'.JText::_('JACTION_EDIT').' :: '.$overlib.'">'.$button.'</span>';
-		}
+		$output = JHtml::_('link', JRoute::_($url), $text);
 
 		return $output;
 	}

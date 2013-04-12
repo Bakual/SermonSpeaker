@@ -6,20 +6,8 @@ class SermonspeakerViewHelp extends JViewLegacy
 	{
 		SermonspeakerHelper::addSubmenu('help');
 
-		// Switch Layout if in Joomla 3.0
-		$layout			= $this->getLayout();
-		$version		= new JVersion;
-		$this->joomla30	= $version->isCompatible(3.0);
-		if ($this->joomla30)
-		{
-			$this->setLayout($layout.'30');
-		}
-
 		$this->addToolbar();
-		if ($this->joomla30)
-		{
-			$this->sidebar = JHtmlSidebar::render();
-		}
+		$this->sidebar = JHtmlSidebar::render();
 
 		parent::display($tpl);
 	}

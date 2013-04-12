@@ -16,14 +16,6 @@ class SermonspeakerViewSeries extends JViewLegacy
 			SermonspeakerHelper::addSubmenu('series');
 		}
 
-		// Switch Layout if in Joomla 3.0
-		$version		= new JVersion;
-		$this->joomla30	= $version->isCompatible(3.0);
-		if ($this->joomla30)
-		{
-			$this->setLayout($layout.'30');
-		}
-
 		$this->state		= $this->get('State');
 		$this->items		= $this->get('Items');
 		$this->pagination	= $this->get('Pagination');
@@ -36,10 +28,7 @@ class SermonspeakerViewSeries extends JViewLegacy
 		// We don't need toolbar in the modal window.
 		if ($layout !== 'modal') {
 			$this->addToolbar();
-			if ($this->joomla30)
-			{
-				$this->sidebar = JHtmlSidebar::render();
-			}
+			$this->sidebar = JHtmlSidebar::render();
 		}
 
 		parent::display($tpl);
@@ -81,30 +70,24 @@ class SermonspeakerViewSeries extends JViewLegacy
 			JToolBarHelper::divider();
 		}
 
-		if ($this->joomla30)
-		{
-			// Get the toolbar object instance
-			$bar = JToolBar::getInstance('toolbar');
+		// Get the toolbar object instance
+		$bar = JToolBar::getInstance('toolbar');
 
-			// Add a batch button
-			if ($canDo->get('core.edit'))
-			{
-				$title = JText::_('JTOOLBAR_BATCH');
-				$dhtml = "<button data-toggle=\"modal\" data-target=\"#collapseModal\" class=\"btn btn-small\">
-							<i class=\"icon-checkbox-partial\" title=\"$title\"></i>
-							$title</button>";
-				$bar->appendButton('Custom', $dhtml, 'batch');
-			}
+		// Add a batch button
+		if ($canDo->get('core.edit'))
+		{
+			$title = JText::_('JTOOLBAR_BATCH');
+			$dhtml = "<button data-toggle=\"modal\" data-target=\"#collapseModal\" class=\"btn btn-small\">
+						<i class=\"icon-checkbox-partial\" title=\"$title\"></i>
+						$title</button>";
+			$bar->appendButton('Custom', $dhtml, 'batch');
 		}
 
 		if ($canDo->get('core.admin')) {
 			JToolBarHelper::preferences('com_sermonspeaker', 650, 900);
 		}
 
-		if ($this->joomla30)
-		{
-			$this->addFilters();
-		}
+		$this->addFilters();
 	}
 
 	/**

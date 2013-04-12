@@ -212,32 +212,14 @@ class SermonspeakerHelperSermonspeaker
 		$options = array();
 		if ($icon)
 		{
-			$version	= new JVersion;
-			$joomla30	= $version->isCompatible(3.0);
 			switch (self::$params->get('list_icon_function', 3))
 			{
 				case 0:
-					if ($joomla30)
-					{
-						$pic = '<i class="icon-play hasTip" title="::'.JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER').'"> </i>';
-					}
-					else
-					{
-						$options['title'] = '::'.JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER');
-						$pic = JHtml::Image('media/com_sermonspeaker/images/play.gif', JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER'), $options);
-					}
+					$pic = '<i class="icon-play hasTip" title="::'.JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER').'"> </i>';
 					$return .= JHtml::Link(JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug)), $pic).' ';
 					break;
 				case 1:
-					if ($joomla30)
-					{
-						$pic = '<i class="icon-play hasTip" title="::'.JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER').'"> </i>';
-					}
-					else
-					{
-						$options['title'] = '::'.JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER');
-						$pic = JHtml::Image('media/com_sermonspeaker/images/play.gif', JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER'), $options);
-					}
+					$pic = '<i class="icon-play hasTip" title="::'.JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER').'"> </i>';
 					$file = ($item->videofile && (self::$params->get('fileprio', 0) || !$item->audiofile)) ? $item->videofile : $item->audiofile;
 					$return .= JHtml::Link(self::makeLink($file), $pic).' ';
 					break;
@@ -249,15 +231,7 @@ class SermonspeakerHelperSermonspeaker
 					if(in_array(self::$view.':player', $cols)){
 						$options['onclick'] = 'ss_play('.$i.');return false;';
 						$options['title'] = '::'.JText::_('COM_SERMONSPEAKER_PLAYICON_HOOVER');
-						if ($joomla30)
-						{
-							$return = '<i class="icon-play pointer hasTip" onclick="'.$options['onclick'].'" title="'.$options['title'].'"> </i> ';
-						}
-						else
-						{
-							$options['class'] = 'icon_play pointer';
-							$return .= JHtml::Image('media/com_sermonspeaker/images/play.gif', JText::_('COM_SERMONSPEAKER_PLAYICON_HOOVER'), $options).' ';
-						}
+						$return = '<i class="icon-play pointer hasTip" onclick="'.$options['onclick'].'" title="'.$options['title'].'"> </i> ';
 					}
 					break;
 				case 3:

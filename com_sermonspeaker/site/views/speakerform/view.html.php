@@ -12,14 +12,6 @@ class SermonspeakerViewSpeakerform extends JViewLegacy
 	protected $state;
 	function display($tpl = null)
 	{
-		// Switch Layout if in Joomla 3.0
-		$version		= new JVersion;
-		$this->joomla30	= $version->isCompatible(3.0);
-		if ($this->joomla30)
-		{
-			$this->setLayout($this->getLayout().'30');
-		}
-
 		// Initialise variables.
 		$app		= JFactory::getApplication();
 		$user		= JFactory::getUser();

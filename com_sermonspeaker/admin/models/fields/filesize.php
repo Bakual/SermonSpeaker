@@ -40,17 +40,8 @@ class JFormFieldFilesize extends JFormFieldText
 		require_once(JPATH_COMPONENT_SITE .'/helpers/sermonspeaker.php');
 		$title = SermonspeakerHelperSermonspeaker::convertBytes($this->value, true, false);
 
-		$version	= new JVersion;
-		$joomla30	= $version->isCompatible(3.0);
-		if ($joomla30)
-		{
-			$html	.= '<i class="add-on icon-help" id="'.$this->id.'_info" rel="tooltip" title="'.$title.'"> </i>';
-		}
-		else
-		{
-			$html	.= JHtml::Tooltip($title);
-		}
-		$html .= '</div>';
+		$html	.= '<i class="add-on icon-help" id="'.$this->id.'_info" rel="tooltip" title="'.$title.'"> </i>';
+		$html	.= '</div>';
 
 		return $html;
 	}

@@ -6,14 +6,6 @@ class SermonspeakerViewLanguages extends JViewLegacy
 	{
 		SermonspeakerHelper::addSubmenu('languages');
 
-		// Switch Layout if in Joomla 3.0
-		$version		= new JVersion;
-		$this->joomla30	= $version->isCompatible(3.0);
-		if ($this->joomla30)
-		{
-			$this->setLayout($this->getLayout().'30');
-		}
-
 		/* Settings for XML parsing */
 		$url				= 'http://www.sermonspeaker.net/languages.raw';
 		$this->site			= 'http://www.sermonspeaker.net';
@@ -61,10 +53,7 @@ class SermonspeakerViewLanguages extends JViewLegacy
 		}
 
 		$this->addToolbar();
-		if ($this->joomla30)
-		{
-			$this->sidebar = JHtmlSidebar::render();
-		}
+		$this->sidebar = JHtmlSidebar::render();
 
 		parent::display($tpl);
 	}

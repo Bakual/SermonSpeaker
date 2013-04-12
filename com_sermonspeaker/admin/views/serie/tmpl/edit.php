@@ -2,9 +2,15 @@
 // no direct access
 defined('_JEXEC') or die;
 
+// Load the tooltip behavior.
 JHtml::_('behavior.tooltip');
 JHtml::_('behavior.formvalidation');
+JHtml::_('behavior.keepalive');
+JHtml::_('formbehavior.chosen', 'select');
+
+$input = JFactory::getApplication()->input;
 ?>
+
 <script type="text/javascript">
 	Joomla.submitbutton = function(task) {
 		if (task == 'serie.cancel' || document.formvalidator.isValid(document.id('adminForm'))) {
@@ -16,93 +22,162 @@ JHtml::_('behavior.formvalidation');
 	}
 </script>
 
-<form action="<?php JRoute::_('index.php?option=com_sermonspeaker'); ?>" method="post" name="adminForm" id="adminForm" class="form-validate">
-	<div class="width-60 fltlft">
-		<fieldset class="adminform">
-			<legend><?php echo empty($this->item->id) ? JText::_('COM_SERMONSPEAKER_NEW_SERIE') : JText::sprintf('COM_SERMONSPEAKER_EDIT_SERIE', $this->item->id); ?></legend>
-			<ul class="adminformlist">
-				<li><?php echo $this->form->getLabel('series_title'); ?>
-				<?php echo $this->form->getInput('series_title'); ?></li>
-
-				<li><?php echo $this->form->getLabel('alias'); ?>
-				<?php echo $this->form->getInput('alias'); ?></li>
-
-				<li><?php echo $this->form->getLabel('catid'); ?>
-				<?php echo $this->form->getInput('catid'); ?></li>
-
-				<li><?php echo $this->form->getLabel('state'); ?>
-				<?php echo $this->form->getInput('state'); ?></li>
-
-				<li><?php echo $this->form->getLabel('ordering'); ?>
-				<?php echo $this->form->getInput('ordering'); ?></li>
-
-				<li><?php echo $this->form->getLabel('language'); ?>
-				<?php echo $this->form->getInput('language'); ?></li>
+<form action="<?php echo JRoute::_('index.php?option=com_sermonspeaker&layout=edit&id='.(int) $this->item->id); ?>" method="post" name="adminForm" id="adminForm" class="form-validate">
+	<div class="row-fluid">
+		<!-- Begin Content -->
+		<div class="span10 form-horizontal">
+			<ul class="nav nav-tabs">
+				<li class="active"><a href="#general" data-toggle="tab"><?php echo JText::_('JDETAILS');?></a></li>
+				<li><a href="#publishing" data-toggle="tab"><?php echo JText::_('JGLOBAL_FIELDSET_PUBLISHING');?></a></li>
+				<li><a href="#metadata" data-toggle="tab"><?php echo JText::_('JGLOBAL_FIELDSET_METADATA_OPTIONS');?></a></li>
 			</ul>
-		</fieldset>
 
-		<fieldset class="adminform">
-			<legend><?php echo JText::_('JGLOBAL_DESCRIPTION'); ?></legend>
-			<div class="clr"></div>
-			<?php echo $this->form->getInput('series_description'); ?>
-		</fieldset>
+			<div class="tab-content">
+				<!-- Begin Tabs -->
+				<div class="tab-pane active" id="general">
+					<fieldset class="adminform">
+						<div class="control-group form-inline">
+							<?php echo $this->form->getLabel('series_title'); ?> <?php echo $this->form->getInput('series_title'); ?> <?php echo $this->form->getLabel('catid'); ?> <?php echo $this->form->getInput('catid'); ?>
+						</div>
+						<?php echo $this->form->getInput('series_description'); ?>
+					</fieldset>
+					<div class="row-fluid">
+						<div class="span6">
+							<h4><?php echo JText::_('JDETAILS');?></h4>
+							<?php foreach($this->form->getFieldset('detail') as $field): ?>
+								<div class="control-group">
+									<?php if (!$field->hidden): ?>
+										<div class="control-label">
+											<?php echo $field->label; ?>
+										</div>
+									<?php endif; ?>
+									<div class="controls">
+										<?php echo $field->input; ?>
+									</div>
+								</div>
+							<?php endforeach; ?>
+						</div>
+					</div>
+				</div>
+
+				<div class="tab-pane" id="publishing">
+					<div class="row-fluid">
+						<div class="span6">
+							<div class="control-group">
+								<div class="control-label">
+									<?php echo $this->form->getLabel('alias'); ?>
+								</div>
+								<div class="controls">
+									<?php echo $this->form->getInput('alias'); ?>
+								</div>
+							</div>
+							<div class="control-group">
+								<div class="control-label">
+									<?php echo $this->form->getLabel('id'); ?>
+								</div>
+								<div class="controls">
+									<?php echo $this->form->getInput('id'); ?>
+								</div>
+							</div>
+							<div class="control-group">
+								<div class="control-label">
+									<?php echo $this->form->getLabel('created_by'); ?>
+								</div>
+								<div class="controls">
+									<?php echo $this->form->getInput('created_by'); ?>
+								</div>
+							</div>
+							<div class="control-group">
+								<div class="control-label">
+									<?php echo $this->form->getLabel('created'); ?>
+								</div>
+								<div class="controls">
+									<?php echo $this->form->getInput('created'); ?>
+								</div>
+							</div>
+						</div>
+						<div class="span6">
+							<?php if ($this->item->modified_by) : ?>
+								<div class="control-group">
+									<div class="control-label">
+										<?php echo $this->form->getLabel('modified_by'); ?>
+									</div>
+									<div class="controls">
+										<?php echo $this->form->getInput('modified_by'); ?>
+									</div>
+								</div>
+								<div class="control-group">
+									<div class="control-label">
+										<?php echo $this->form->getLabel('modified'); ?>
+									</div>
+									<div class="controls">
+										<?php echo $this->form->getInput('modified'); ?>
+									</div>
+								</div>
+							<?php endif; ?>
+							<div class="control-group">
+								<div class="control-label">
+									<?php echo $this->form->getLabel('hits'); ?>
+								</div>
+								<div class="controls">
+									<?php echo $this->form->getInput('hits'); ?>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="tab-pane" id="metadata">
+					<fieldset>
+						<?php foreach($this->form->getFieldset('metadata') as $field): ?>
+							<div class="control-group">
+								<?php if (!$field->hidden): ?>
+									<div class="control-label">
+										<?php echo $field->label; ?>
+									</div>
+								<?php endif; ?>
+								<div class="controls">
+									<?php echo $field->input; ?>
+								</div>
+							</div>
+						<?php endforeach; ?>
+					</fieldset>
+				</div>
+			</div>
+			<input type="hidden" name="task" value="" />
+			<input type="hidden" name="return" value="<?php echo $input->getCmd('return');?>" />
+			<?php echo JHtml::_('form.token'); ?>
+		</div>
+		<!-- End Content -->
+		<!-- Begin Sidebar -->
+		<div class="span2">
+			<h4><?php echo JText::_('JDETAILS');?></h4>
+			<hr />
+			<fieldset class="form-vertical">
+				<div class="control-group">
+					<div class="controls">
+						<?php echo $this->form->getValue('series_title'); ?>
+					</div>
+				</div>
+
+				<div class="control-group">
+					<div class="control-label">
+						<?php echo $this->form->getLabel('state'); ?>
+					</div>
+					<div class="controls">
+						<?php echo $this->form->getInput('state'); ?>
+					</div>
+				</div>
+
+				<div class="control-group">
+					<div class="control-label">
+						<?php echo $this->form->getLabel('language'); ?>
+					</div>
+					<div class="controls">
+						<?php echo $this->form->getInput('language'); ?>
+					</div>
+				</div>
+			</fieldset>
+		</div>
+		<!-- End Sidebar -->
 	</div>
-	<div class="width-40 fltrt">
-		<fieldset class="adminform" style="border: 1px dashed silver; padding: 5px; margin: 18px 0px 10px;">
-			<ul class="adminformlist">
-				<li><?php echo $this->form->getLabel('id'); ?>
-				<?php echo $this->form->getInput('id'); ?></li>
-
-				<li><?php echo $this->form->getLabel('created_by'); ?>
-				<?php echo $this->form->getInput('created_by'); ?></li>
-
-				<li><?php echo $this->form->getLabel('created'); ?>
-				<?php echo $this->form->getInput('created'); ?></li>
-
-				<?php if ($this->item->modified_by) : ?>
-					<li><?php echo $this->form->getLabel('modified_by'); ?>
-					<?php echo $this->form->getInput('modified_by'); ?></li>
-
-					<li><?php echo $this->form->getLabel('modified'); ?>
-					<?php echo $this->form->getInput('modified'); ?></li>
-				<?php endif; ?>
-
-				<li><?php echo $this->form->getLabel('hits'); ?>
-				<?php echo $this->form->getInput('hits'); ?></li>
-			</ul>
-		</fieldset>
-		<?php echo JHtml::_('sliders.start','sermon-sliders-'.$this->item->id, array('useCookie'=>1)); ?>
-		<?php echo JHtml::_('sliders.panel',JText::_('COM_SERMONSPEAKER_DETAIL'), 'detail-panel'); ?>
-		<fieldset class="panelform">
-			<ul class="adminformlist">
-			<?php foreach($this->form->getFieldset('detail') as $field): ?>
-				<li>
-					<?php if (!$field->hidden): ?>
-						<?php echo $field->label; ?>
-					<?php endif; ?>
-					<?php echo $field->input; ?>
-				</li>
-			<?php endforeach; ?>
-			</ul>
-		</fieldset>
-
-		<?php echo JHtml::_('sliders.panel',JText::_('JGLOBAL_FIELDSET_METADATA_OPTIONS'), 'meta-panel'); ?>
-		<fieldset class="panelform">
-			<ul class="adminformlist">
-			<?php foreach($this->form->getFieldset('metadata') as $field): ?>
-				<li>
-					<?php if (!$field->hidden): ?>
-						<?php echo $field->label; ?>
-					<?php endif; ?>
-					<?php echo $field->input; ?>
-				</li>
-			<?php endforeach; ?>
-			</ul>
-		</fieldset>
-
-		<?php echo JHtml::_('sliders.end'); ?>
-		<input type="hidden" name="task" value="" />
-		<?php echo JHtml::_('form.token'); ?>
-	</div>
-	<div class="clr"></div>
 </form>

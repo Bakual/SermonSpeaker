@@ -38,18 +38,9 @@ class JFormFieldHits extends JFormFieldText
 		$html	= '<div class="input-append">';
 		$html	.= parent::getInput();
 		if ($this->value){
-			$version	= new JVersion;
-			$joomla30	= $version->isCompatible(3.0);
-			if ($joomla30)
-			{
-				$html	.= '<i'.$onclick.' class="btn add-on icon-loop" rel="tooltip" title="'.JText::_('JSEARCH_RESET').'"> </i>';
-			}
-			else
-			{
-				$html	.= '<img src="'.JURI::base().'components/com_sermonspeaker/images/reset.png"'.$onclick.' class="pointer" width="16" height="16" border="0" title="'.JText::_('JSEARCH_RESET').'" alt="Reset" />';
-			}
+			$html	.= '<i'.$onclick.' class="btn add-on icon-loop" rel="tooltip" title="'.JText::_('JSEARCH_RESET').'"> </i>';
 		}
-		$html .= '</div>';
+		$html	.= '</div>';
 
 		return $html;
 	}

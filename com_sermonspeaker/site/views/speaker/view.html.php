@@ -38,16 +38,6 @@ class SermonspeakerViewSpeaker extends JViewLegacy
 		{
 			$this->setLayout($this->params->get('speakerlayout', 'series'));
 		}
-		// Switch Layout for Popup if in Joomla 3.0
-		if ($this->getLayout() == 'popup')
-		{
-			$version		= new JVersion;
-			$this->joomla30	= $version->isCompatible(3.0);
-			if ($this->joomla30)
-			{
-				$this->setLayout('popup30');
-			}
-		}
 
 		if(!$this->item){
 			$app->redirect(JRoute::_('index.php?view=speakers'), JText::_('JGLOBAL_RESOURCE_NOT_FOUND'), 'error');

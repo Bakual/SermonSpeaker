@@ -2,15 +2,23 @@
 defined('_JEXEC') or die;
 ?>
 <form enctype="multipart/form-data"  action="<?php echo JRoute::_('index.php?option=com_installer&view=install'); ?>" method="post" name="adminForm" id="adminForm">
+<?php if(!empty($this->sidebar)): ?>
+	<div id="j-sidebar-container" class="span2">
+		<?php echo $this->sidebar; ?>
+	</div>
+	<div id="j-main-container" class="span10">
+<?php else : ?>
+	<div id="j-main-container">
+<?php endif;?>
 <?php if ($this->xml) : ?>
 		<div class="well">
 			<h3><?php echo $this->xml->title; ?></h3>
 			<?php echo (string)$this->xml->description; ?>
 		</div>
-		<table class="table adminlist">
-			<?php foreach ($this->xml->language as $i => $language) :
+		<table class="table">
+			<?php foreach ($this->xml->language as $language) :
 				$class = 'btn';
-				if ((int)$language->completed && isset($this->installed[$this->xml->extension_name.'-'.$language->lang_name])) :
+				if (isset($this->installed[$this->xml->extension_name.'-'.$language->lang_name])) :
 					// language pack is installed
 					$creationDate	= $this->installed[$this->xml->extension_name.'-'.$language->lang_name]->creationDate;
 					if (strtotime($language->created) > strtotime($creationDate)) :
@@ -20,7 +28,7 @@ defined('_JEXEC') or die;
 						$class .= ' btn-success';
 						$text	= JText::_($this->prefix.'_NEWEST_LANGUAGE_INSTALLED');
 					endif;
-				elseif ((int)$language->completed && isset($this->languages[str_replace('_', '-', $language->lang_name)])) :
+				elseif (isset($this->languages[str_replace('_', '-', $language->lang_name)])) :
 					// site language is installed
 					if (strtotime($language->created) > strtotime($this->manifest['creationDate'])) :
 						$class .= ' btn-primary';
@@ -33,7 +41,7 @@ defined('_JEXEC') or die;
 					// language pack available
 					$text	= JText::_($this->prefix.'_SITELANGUAGE_NOT_INSTALLED');
 				endif; ?>
-				<tr class="row<?php echo $i % 2; ?>">
+				<tr>
 					<td>
 						<input type="button" class="<?php echo $class; ?>" value="<?php echo JText::_($this->prefix.'_INSTALL_LANGUAGEPACK'); ?>" onclick="document.getElementById('install_url').value = '<?php echo $language->link; ?>'; Joomla.submitbutton();" title="<?php echo $text; ?>" />
 						<a href="<?php echo $language->link; ?>" title="<?php echo JText::sprintf($this->prefix.'_DOWNLOAD_LANGUAGEPACK', $this->site); ?>">
@@ -48,18 +56,22 @@ defined('_JEXEC') or die;
 						</a>
 					</td>
 					<td width="40%">
-						<div class="progress progress-striped">
-							<div class="bar" style="width:<?php echo $language->completed; ?>%;"><?php echo $language->completed; ?>%</div>
+						<div class="progress progress-striped" style="margin-bottom: 0px;">
+							<div class="bar" style="width: <?php echo $language->completed; ?>%;"></div>
 						</div>
 					</td>
 					<td>
-						<?php echo JHtml::Date($language->created, JText::_('DATE_FORMAT_LC4')); ?>
-						&nbsp;
-						<?php if((string)$this->xml->contribute && $language->completed != 100) : ?>
-							<a href="http://transifex.com/projects/p/<?php echo $this->xml->transifex_slug; ?>/language/<?php echo $language->lang_name; ?>" class="contribute" target="_blank">
-								<?php echo JText::_($this->prefix.'_CONTRIBUTE_NOW'); ?>
-							</a>
-						<?php endif; ?>
+						<?php echo $language->completed; ?>%
+					</td>
+					<td>
+						<div>
+							<?php echo JHtml::Date($language->created, JText::_('DATE_FORMAT_LC4')); ?>
+							<?php if((string)$this->xml->contribute && $language->completed != 100) : ?>
+								<a href="http://transifex.com/projects/p/<?php echo $this->xml->transifex_slug; ?>/language/<?php echo $language->lang_name; ?>" class="btn" target="_blank">
+									<?php echo JText::_($this->prefix.'_CONTRIBUTE_NOW'); ?>
+								</a>
+							<?php endif; ?>
+						</div>
 					</td>
 				</tr>
 			<?php endforeach; ?>

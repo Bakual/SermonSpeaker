@@ -4,26 +4,10 @@ class SermonspeakerViewMain extends JViewLegacy
 {
 	function display( $tpl = null )
 	{
-		// Switch Layout if in Joomla 3.0
-		$layout			= $this->getLayout();
-		$version		= new JVersion;
-		$this->joomla30	= $version->isCompatible(3.0);
-		if ($this->joomla30)
-		{
-			$this->setLayout($layout.'30');
-		}
-
 		$params	= JComponentHelper::getParams('com_sermonspeaker');
 		if ($params->get('use_sef') == '')
 		{
-			if ($this->joomla30)
-			{
-				JError::raiseWarning(100, JText::_('COM_SERMONSPEAKER_NOTSAVED30'));
-			}
-			else
-			{
-				JError::raiseWarning(100, JText::_('COM_SERMONSPEAKER_NOTSAVED'));
-			}
+			JError::raiseWarning(100, JText::_('COM_SERMONSPEAKER_NOTSAVED30'));
 		}
 
 		$this->addToolbar();

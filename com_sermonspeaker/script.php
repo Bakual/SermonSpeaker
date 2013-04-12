@@ -20,16 +20,17 @@ class Com_SermonspeakerInstallerScript
 			return false;
 		}
 
-		if (get_magic_quotes_gpc())
-		{
-			JError::raiseWarning(1, JText::_('COM_SERMONSPEAKER_MAGIC_QUOTES'));
-			return false;
-		}
-
-		// Storing old release number ot process in postflight
+		// Storing old release number for process in postflight
 		if ($type == 'update')
 		{
 			$this->oldRelease = $this->getParam('version');
+
+			// Check if update is allowed (only update from 4.5.0 and higher)
+			if (version_compare($this->oldRelease, '4.5.0', '<'))
+			{
+				JError::raiseWarning(1, JText::sprintf('COM_SERMONSPEAKER_UPDATE_UNSUPPORTED', $this->oldRelease));
+				return false;
+			}
 		}
 	}
 
@@ -60,60 +61,104 @@ class Com_SermonspeakerInstallerScript
 	 */
 	function update($parent)
 	{
-		// Cleanup unused layout files from old installations
-		jimport('joomla.filesystem.file');
-		$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/speaker/tmpl/latest-sermons.php';
-		$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/speaker/tmpl/latest-sermons.xml';
-		$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/archive/tmpl/default.php';
-		$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/archive/tmpl/default.xml';
-		$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/serie/tmpl/default.php';
-		$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/serie/tmpl/default.xml';
-		$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/series/tmpl/default.php';
-		$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/series/tmpl/default.xml';
-		$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/seriessermon/tmpl/default.php';
-		$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/seriessermon/tmpl/default.xml';
-		$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/sermons/tmpl/default.php';
-		$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/sermons/tmpl/default.xml';
-		$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/speakers/tmpl/default.php';
-		$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/speakers/tmpl/default.xml';
-		if(JFile::exists($files[1]))
+		if (version_compare($this->oldRelease, '5.0.0', '<'))
 		{
+			jimport('joomla.filesystem.file');
+			jimport('joomla.filesystem.folder');
+			// Cleanup non-bootstrap layout files from old installations
+			$files[]	= JPATH_ADMINISTRATOR.'/components/com_sermonspeaker/views/files/tmpl/modal30.php';
+			$files[]	= JPATH_ADMINISTRATOR.'/components/com_sermonspeaker/views/help/tmpl/default30.php';
+			$files[]	= JPATH_ADMINISTRATOR.'/components/com_sermonspeaker/views/languages/tmpl/default30.php';
+			$files[]	= JPATH_ADMINISTRATOR.'/components/com_sermonspeaker/views/main/tmpl/default30.php';
+			$files[]	= JPATH_ADMINISTRATOR.'/components/com_sermonspeaker/views/scripture/tmpl/default30.php';
+			$files[]	= JPATH_ADMINISTRATOR.'/components/com_sermonspeaker/views/serie/tmpl/edit30.php';
+			$files[]	= JPATH_ADMINISTRATOR.'/components/com_sermonspeaker/views/serie/tmpl/modal30.php';
+			$files[]	= JPATH_ADMINISTRATOR.'/components/com_sermonspeaker/views/series/tmpl/default_batch30.php';
+			$files[]	= JPATH_ADMINISTRATOR.'/components/com_sermonspeaker/views/series/tmpl/default30.php';
+			$files[]	= JPATH_ADMINISTRATOR.'/components/com_sermonspeaker/views/sermon/tmpl/edit30.php';
+			$files[]	= JPATH_ADMINISTRATOR.'/components/com_sermonspeaker/views/sermons/tmpl/default_batch30.php';
+			$files[]	= JPATH_ADMINISTRATOR.'/components/com_sermonspeaker/views/sermons/tmpl/default30.php';
+			$files[]	= JPATH_ADMINISTRATOR.'/components/com_sermonspeaker/views/sermons/tmpl/modal30.php';
+			$files[]	= JPATH_ADMINISTRATOR.'/components/com_sermonspeaker/views/speaker/tmpl/edit30.php';
+			$files[]	= JPATH_ADMINISTRATOR.'/components/com_sermonspeaker/views/speaker/tmpl/modal30.php';
+			$files[]	= JPATH_ADMINISTRATOR.'/components/com_sermonspeaker/views/speakers/tmpl/default_batch30.php';
+			$files[]	= JPATH_ADMINISTRATOR.'/components/com_sermonspeaker/views/speakers/tmpl/default30.php';
+			$files[]	= JPATH_ADMINISTRATOR.'/components/com_sermonspeaker/views/tools/tmpl/default30.php';
+			$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/frontendupload/tmpl/default30.php';
+			$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/scripture/tmpl/default30.php';
+			$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/serieform/tmpl/edit30.php';
+			$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/serieform/tmpl/modal30.php';
+			$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/speakerform/tmpl/edit30.php';
+			$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/speakerform/tmpl/modal30.php';
+			$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/serie/tmpl/default_filters30.php';
+			$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/serie/tmpl/default_filtersorder30.php';
+			$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/serie/tmpl/protostar-table.php';
+			$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/serie/tmpl/protostar-table.xml';
+			$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/serie/tmpl/protostar-list.php';
+			$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/serie/tmpl/protostar-list.xml';
+			$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/serie/tmpl/protostar-blog.php';
+			$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/serie/tmpl/protostar-blog.xml';
+			$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/series/tmpl/default_children30.php';
+			$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/series/tmpl/normal.php';
+			$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/series/tmpl/normal.xml';
+			$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/series/tmpl/protostar-table.php';
+			$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/series/tmpl/protostar-table.xml';
+			$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/series/tmpl/protostar-list.php';
+			$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/series/tmpl/protostar-list.xml';
+			$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/series/tmpl/protostar-blog.php';
+			$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/series/tmpl/protostar-blog.xml';
+			$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/sermons/tmpl/default_children30.php';
+			$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/sermons/tmpl/default_filters30.php';
+			$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/sermons/tmpl/default_filtersorder30.php';
+			$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/sermons/tmpl/tableless.php';
+			$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/sermons/tmpl/tableless.xml';
+			$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/sermons/tmpl/protostar-table.php';
+			$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/sermons/tmpl/protostar-table.xml';
+			$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/sermons/tmpl/protostar-list.php';
+			$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/sermons/tmpl/protostar-list.xml';
+			$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/sermons/tmpl/protostar-blog.php';
+			$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/sermons/tmpl/protostar-blog.xml';
+			$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/speaker/tmpl/default_filters30.php';
+			$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/speaker/tmpl/default_filtersorder30.php';
+			$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/speaker/tmpl/series.php';
+			$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/speaker/tmpl/series.xml';
+			$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/speaker/tmpl/sermons.php';
+			$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/speaker/tmpl/sermons.xml';
+			$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/speaker/tmpl/popup30.php';
+			$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/speaker/tmpl/protostar-table.php';
+			$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/speaker/tmpl/protostar-table.xml';
+			$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/speaker/tmpl/protostar-list.php';
+			$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/speaker/tmpl/protostar-list.xml';
+			$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/speaker/tmpl/protostar-blog.php';
+			$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/speaker/tmpl/protostar-blog.xml';
+			$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/speakers/tmpl/default_children30.php';
+			$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/speakers/tmpl/normal.php';
+			$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/speakers/tmpl/normal.xml';
+			$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/speakers/tmpl/protostar-table.php';
+			$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/speakers/tmpl/protostar-table.xml';
+			$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/speakers/tmpl/protostar-list.php';
+			$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/speakers/tmpl/protostar-list.xml';
+			$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/speakers/tmpl/protostar-blog.php';
+			$files[]	= JPATH_SITE.'/components/com_sermonspeaker/views/speakers/tmpl/protostar-blog.xml';
+
+			// Cleanup tag view as we're now using the core tags in J!3.1
+/*			JFolder::delete(JPATH_ADMINISTRATOR.'/components/com_sermonspeaker/views/tags');
+			JFolder::delete(JPATH_ADMINISTRATOR.'/components/com_sermonspeaker/views/tag');
+			JFolder::delete(JPATH_SITE.'/components/com_sermonspeaker/views/tagform');
+			$files[]	= JPATH_ADMINISTRATOR.'/components/com_sermonspeaker/models/tags.php';
+			$files[]	= JPATH_ADMINISTRATOR.'/components/com_sermonspeaker/models/tag.php';
+			$files[]	= JPATH_ADMINISTRATOR.'/components/com_sermonspeaker/models/forms/tag.php';
+			$files[]	= JPATH_ADMINISTRATOR.'/components/com_sermonspeaker/models/fields/tagslist.php';
+			$files[]	= JPATH_ADMINISTRATOR.'/components/com_sermonspeaker/table/tag.php';
+			$files[]	= JPATH_ADMINISTRATOR.'/components/com_sermonspeaker/controller/tags.php';
+			$files[]	= JPATH_ADMINISTRATOR.'/components/com_sermonspeaker/controller/tag.php';
+			$files[]	= JPATH_SITE.'/components/com_sermonspeaker/models/tagform.php';
+			$files[]	= JPATH_SITE.'/components/com_sermonspeaker/models/forms/tag.php';
+			$files[]	= JPATH_SITE.'/components/com_sermonspeaker/controller/tagform.php';
+*/
 			JFile::delete($files);
 		}
-		// Cleanup files no longer used in SS4.4
-		if (JFile::exists(JPATH_SITE.'/components/com_sermonspeaker/models/archive.php'))
-		{
-			JFile::delete(JPATH_SITE.'/components/com_sermonspeaker/models/archive.php');
-			JFile::delete(JPATH_SITE.'/components/com_sermonspeaker/models/seriessermon.php');
-			jimport('joomla.filesystem.folder');
-			JFolder::delete(JPATH_SITE.'/components/com_sermonspeaker/views/archive');
 		}
-		// Cleanup old Flowplayer files
-		if (JFile::exists(JPATH_SITE.'/media/com_sermonspeaker/player/flowplayer/flowplayer-3.2.7.swf'))
-		{
-			JFile::delete(JPATH_SITE.'/media/com_sermonspeaker/player/flowplayer/flowplayer-3.2.7.swf');
-			JFile::delete(JPATH_SITE.'/media/com_sermonspeaker/player/flowplayer/flowplayer-3.2.7.zip');
-			JFile::delete(JPATH_SITE.'/media/com_sermonspeaker/player/flowplayer/flowplayer-3.2.6.min.js');
-			JFile::delete(JPATH_SITE.'/media/com_sermonspeaker/player/flowplayer/flowplayer.controls-3.2.5.swf');
-			JFile::delete(JPATH_SITE.'/media/com_sermonspeaker/player/flowplayer/flowplayer.audio-3.2.2.swf');
-		}
-		// Cleanup old close layouts
-		if (JFile::exists(JPATH_SITE.'/components/com_sermonspeaker/views/speakerform/tmpl/close.php'))
-		{
-			JFile::delete(JPATH_SITE.'/components/com_sermonspeaker/views/speakerform/tmpl/close.php');
-			JFile::delete(JPATH_SITE.'/components/com_sermonspeaker/views/serieform/tmpl/close.php');
-			JFile::delete(JPATH_SITE.'/components/com_sermonspeaker/views/tagform/tmpl/close.php');
-			JFile::delete(JPATH_SITE.'/administrator/components/com_sermonspeaker/views/speaker/tmpl/close.php');
-			JFile::delete(JPATH_SITE.'/administrator/components/com_sermonspeaker/views/serie/tmpl/close.php');
-			JFile::delete(JPATH_SITE.'/administrator/components/com_sermonspeaker/views/tag/tmpl/close.php');
-		}
-		// Cleanup statistics controller
-		if (JFile::exists(JPATH_SITE.'/administrator/components/com_sermonspeaker/controllers/statistics.php'))
-		{
-			JFile::delete(JPATH_SITE.'/administrator/components/com_sermonspeaker/controllers/statistics.php');
-		}
-
-		$this->_migrate();
 	}
 
 	/**
@@ -123,15 +168,8 @@ class Com_SermonspeakerInstallerScript
 	 */
  	function postflight($type, $parent)
 	{
-		// Adding Category "uncategorized" if installing or upgrading from older installations.
-		if ($type == 'update')
-		{
-			if (version_compare($this->oldRelease, '4.4.4', '<'))
-			{
-				$this->_addCategory();
-			}
-		}
-		else
+		// Adding Category "uncategorized" if installing or discovering.
+		if ($type != 'update')
 		{
 			$this->_addCategory();
 		}
@@ -155,18 +193,6 @@ class Com_SermonspeakerInstallerScript
 				.']';
 			$params['col_speaker']	= '"col_speaker":["speakers:bio","speaker:bio","speaker:intro"]';
 
-			// Set Protostar layouts for Jooml 3.0 installations
-			$jversion = new JVersion();
-			if ($jversion->isCompatible('3.0'))
-			{
-				$params['sermonslayout']	= '"sermonslayout":"_:protostar-table"';
-				$params['sermonlayout']		= '"sermonlayout":"_:protostar"';
-				$params['serieslayout']		= '"serieslayout":"_:protostar-table"';
-				$params['serielayout']		= '"serielayout":"_:protostar-table"';
-				$params['speakerslayout']	= '"speakerslayout":"_:protostar-table"';
-				$params['speakerlayout']	= '"speakerlayout":"_:protostar-table"';
-			}
-
 			$db = JFactory::getDBO();
 			$query = $db->getQuery(true);
 			$query->update($db->quoteName('#__extensions'));
@@ -179,52 +205,6 @@ class Com_SermonspeakerInstallerScript
 		echo '<p>'.JText::sprintf('COM_SERMONSPEAKER_POSTFLIGHT', $type).'</p>';
 	}
 
-	/**
-	 * method to run if tables are from SermonSpeaker 3.4.2. Will apply the needed changes for SermonSpeaker 4.0
-	 *
-	 * @return void
-	 */
-	function _migrate()
-	{
-		$db = JFactory::getDBO();
-		$fields = $db->getTableFields('#__sermon_sermons');
-		$sermons = $fields['#__sermon_sermons'];
-		if ($sermons && array_key_exists('published', $sermons))
-		{
-			$sqlfile = dirname(__FILE__).'/migrate.sql';
-			$buffer = file_get_contents($sqlfile);
-			jimport('joomla.installer.helper');
-			$queries = JInstallerHelper::splitSql($buffer);
-			if (count($queries))
-			{
-				foreach ($queries as $query)
-				{
-					$query = trim($query);
-					if ($query != '' && $query{0} != '#')
-					{
-						$db->setQuery($query);
-						if (!$db->execute())
-						{
-							JError::raiseWarning(1, JText::sprintf('JLIB_INSTALLER_ERROR_SQL_ERROR', $db->stderr(true)));
-							return;
-						}
-					}
-				}
-				if (array_key_exists('play', $sermons))
-				{
-					$query = "ALTER TABLE #__sermon_sermons DROP COLUMN `play`, DROP COLUMN `download`";
-					$db->setQuery($query);
-					if (!$db->execute())
-					{
-						JError::raiseWarning(1, JText::sprintf('JLIB_INSTALLER_ERROR_SQL_ERROR', $db->stderr(true)));
-						return;
-					}
-				}
-				echo '<div style="background-color:orange;">'.JText::_('COM_SERMONSPEAKER_MIGRATION_TEXT').'</div>';
-			}
-		}
-		return;
-	}
 
 	/**
 	 * method to add a default category "uncategorized"
@@ -244,7 +224,7 @@ class Com_SermonspeakerInstallerScript
 		$id = $catmodel->getItem()->id;
 
 		$db = JFactory::getDBO();
-		// Updating all sermons without category to have this new one
+		// Updating the example data with 'Uncategorized'
 		$query	= $db->getQuery(true);
 		$query->update('#__sermon_sermons');
 		$query->set('catid = '.(int)$id);
