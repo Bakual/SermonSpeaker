@@ -149,6 +149,15 @@
 					<option value="0">JNO</option>
 					<option value="1">JYES</option>
 				</field>
+				<field name="filetype" type="radio" 
+					default="0"
+					class="btn-group"
+					label="MOD_LATESTSERMONS_FIELD_FILETYPE_LABEL" 
+					description="MOD_LATESTSERMONS_FIELD_FILETYPE_DESC" >
+					<option value="0">JALL</option>
+					<option value="1">MOD_LATESTSERMONS_FIELD_FILETYPE_OPTION_AUDIO</option>
+					<option value="2">MOD_LATESTSERMONS_FIELD_FILETYPE_OPTION_VIDEO</option>
+				</field>
 				<field name="cat" type="category" 
 					label="JCATEGORY" 
 					description="MOD_LATESTSERMONS_PARAM_CATEGORY_DESC" 

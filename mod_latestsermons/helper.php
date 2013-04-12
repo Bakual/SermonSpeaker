@@ -96,6 +96,18 @@ abstract class modLatestsermonsHelper
 				$query->where('a.series_id = '.JRequest::getInt('id'));
 			}
 		}
+		// Filetype filter
+		if ($filetype = $params->get('filetype', 0))
+		{
+			if ($filetype == 2)
+			{
+				$query->where('a.videofile != ""');
+			}
+			else
+			{
+				$query->where('a.audiofile != ""');
+			}
+		}
 
 		$db->setQuery($query, 0, (int)$params->get('ls_count', 3));
 		$items	= $db->loadObjectList();
