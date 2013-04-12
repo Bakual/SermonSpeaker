@@ -14,7 +14,7 @@ jimport('joomla.form.formfield');
  * @package		SermonSpeaker
  * @since		4.0
  */
-class JFormFieldTag extends JFormField
+class JFormFieldPlugintag extends JFormField
 {
 	/**
 	 * The form field type.
@@ -22,7 +22,7 @@ class JFormFieldTag extends JFormField
 	 * @var		string
 	 * @since	1.6
 	 */
-	protected $type = 'Tag';
+	protected $type = 'Plugintag';
 
 	/**
 	 * Flag to tell the field to always be in multiple values mode.
