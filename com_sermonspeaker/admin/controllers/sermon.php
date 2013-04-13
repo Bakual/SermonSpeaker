@@ -143,23 +143,22 @@ class SermonspeakerControllerSermon extends JControllerForm
 			}
 		}
 
-		// Tags
-		$query	= "DELETE FROM #__sermon_sermons_tags \n"
-				."WHERE sermon_id = ".$recordId
-				;
-		$db->setQuery($query);
-		$db->execute();
-		if (isset($validData['tags']))
+		$item = $model->getItem();
+		if (empty($validData['tags']) && !empty($item->tags))
 		{
-			foreach ($validData['tags'] as $tag)
-			{
-				$query	= "INSERT INTO #__sermon_sermons_tags \n"
-						."(`sermon_id`,`tag_id`) \n"
-						."VALUES ('".$recordId."','".(int)$tag."')"
-						;
-				$db->setQuery($query);
-				$db->execute();
-			}
+			$oldTags = new JTags;
+			$oldTags->unTagItem($item->id, 'com_sermonspeaker.sermon');
+			return;
+		}
+
+		$tags = $validData['tags'];
+
+		// Store the tag data if the item data was saved.
+		if ($tags[0] != '')
+		{
+			$isNew = $item->id == 0 ? 1 : 0;
+			$tagsHelper = new JTags;
+			$tagsHelper->tagItem($item->id, 'com_sermonspeaker.sermon', $isNew, $item, $tags, null);
 		}
 
 		// ID3

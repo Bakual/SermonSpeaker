@@ -9,7 +9,7 @@ defined('JPATH_BASE') or die;
 jimport('joomla.form.formfield');
 
 /**
- * Tag Field class for the SermonSpeaker
+ * Plugintag Field class for the SermonSpeaker
  *
  * @package		SermonSpeaker
  * @since		4.0

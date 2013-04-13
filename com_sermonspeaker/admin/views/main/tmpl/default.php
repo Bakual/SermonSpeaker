@@ -22,12 +22,6 @@ defined('_JEXEC') or die;
 			</a>
 		</li>
 		<li class="span2">
-			<a class="thumbnail" href="index.php?option=com_sermonspeaker&view=tags">
-				<img src="<?php echo JURI::base()."components/com_sermonspeaker/images/tags.png"; ?>"/>
-				<h3 class="center"><?php echo JText::_('COM_SERMONSPEAKER_TAGS_TITLE'); ?></h3>
-			</a>
-		</li>
-		<li class="span2">
 			<a class="thumbnail" href="index.php?option=com_categories&extension=com_sermonspeaker">
 				<img src="<?php echo JURI::base()."components/com_sermonspeaker/images/category.png"; ?>"/>
 				<h3 class="center"><?php echo JText::_('JCATEGORIES'); ?></h3>

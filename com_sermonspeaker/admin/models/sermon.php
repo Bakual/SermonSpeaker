@@ -240,8 +240,11 @@ class SermonspeakerModelSermon extends JModelAdmin
 			$item->scripture = $db->loadAssocList();
 		}
 
-		$item->tags = new JTags;
-		$item->tags->getTagIds($item->id, 'com_sermonspeaker.sermon');
+		if ($item->id)
+		{
+			$item->tags = new JTags;
+			$item->tags->getTagIds($item->id, 'com_sermonspeaker.sermon');
+		}
 
 		return $item;
 	}

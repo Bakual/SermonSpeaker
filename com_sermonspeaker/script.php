@@ -214,8 +214,12 @@ class Com_SermonspeakerInstallerScript
 			$contenttype['rules']			= '';
 			$contenttype['router']			= 'SermonspeakerHelperRoute::getSermonRoute';
 			$contenttype['field_mappings']	= json_encode($type_array);
+/*	Bug in Joomla 3.1 Beta 3 prevents proper saving (http://joomlacode.org/gf/project/joomla/tracker/?action=TrackerItemEdit&tracker_id=8103&tracker_item_id=30555)
+			$table->save($contenttype); */
 
-			$table->save($contenttype);
+			// Workaround, skip the buggy check part manually.
+			$table->bind($contenttype);
+			$table->store();
 		}
 
 		// Setting some default values for columns on install
