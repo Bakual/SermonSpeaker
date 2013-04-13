@@ -113,7 +113,7 @@ class SermonspeakerControllerSermons extends JControllerAdmin
 
 		$item = $model->getItem();
 
-		$tags = new JTags;
+		$tags = new JHelperTags;
 		$tags->deleteTagData($ids, 'com_sermonspeaker.sermon');
 	}
 }

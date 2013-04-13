@@ -113,7 +113,7 @@ class SermonspeakerControllerSermon extends JControllerForm
 		return;
 	}
 
-	protected function postSaveHook($model, $validData = array())
+	protected function postSaveHook(JModelLegacy $model, $validData = array())
 	{
 		$recordId = $model->getState($this->context.'.id');
 		$params	= JComponentHelper::getParams('com_sermonspeaker');
@@ -146,7 +146,7 @@ class SermonspeakerControllerSermon extends JControllerForm
 		$item = $model->getItem();
 		if (empty($validData['tags']) && !empty($item->tags))
 		{
-			$oldTags = new JTags;
+			$oldTags = new JHelperTags;
 			$oldTags->unTagItem($item->id, 'com_sermonspeaker.sermon');
 			return;
 		}
@@ -157,7 +157,7 @@ class SermonspeakerControllerSermon extends JControllerForm
 		if ($tags[0] != '')
 		{
 			$isNew = $item->id == 0 ? 1 : 0;
-			$tagsHelper = new JTags;
+			$tagsHelper = new JHelperTags;
 			$tagsHelper->tagItem($item->id, 'com_sermonspeaker.sermon', $isNew, $item, $tags, null);
 		}
 
