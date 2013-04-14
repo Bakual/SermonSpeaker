@@ -210,7 +210,7 @@ class Com_SermonspeakerInstallerScript
 			$contenttype['type_id']			= 0; // needed?
 			$contenttype['type_title']		= 'Sermon';
 			$contenttype['type_alias']		= 'com_sermonspeaker.sermon';
-			$contenttype['table']			= '#__sermon_sermons';
+			$contenttype['table']			= '#__sermon_sermons'; // Needs JSON Stuff now.
 			$contenttype['rules']			= '';
 			$contenttype['router']			= 'SermonspeakerHelperRoute::getSermonRoute';
 			$contenttype['field_mappings']	= json_encode($type_array);
