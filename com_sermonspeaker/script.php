@@ -204,16 +204,28 @@ class Com_SermonspeakerInstallerScript
 			$common->core_xreference		= null;
 			$common->asset_id				= null;
 
-			$type_array['common'][]			= $common;
-			$type_array['special'][]		= new stdClass;
+			$field_mappings	= new stdClass;
+			$field_mappings->common[]		= $common;
+			$field_mappings->special		= array();
+
+			$special	= new stdClass;
+			$special->dbtable		= '#__sermon_sermons';
+			$special->key			= 'id';
+			$special->type			= 'Sermon';
+			$special->prefix		= 'SermonspeakerTable';
+			$special->config		= 'array()';
+
+			$table_object	= new stdClass;
+			$table_object->special	= $special;
 
 			$contenttype['type_id']			= 0; // needed?
 			$contenttype['type_title']		= 'Sermon';
 			$contenttype['type_alias']		= 'com_sermonspeaker.sermon';
-			$contenttype['table']			= '#__sermon_sermons'; // Needs JSON Stuff now.
+			$contenttype['table']			= json_encode($table_object);
 			$contenttype['rules']			= '';
 			$contenttype['router']			= 'SermonspeakerHelperRoute::getSermonRoute';
-			$contenttype['field_mappings']	= json_encode($type_array);
+			$contenttype['field_mappings']	= json_encode($field_mappings);
+
 /*	Bug in Joomla 3.1 Beta 3 prevents proper saving (http://joomlacode.org/gf/project/joomla/tracker/?action=TrackerItemEdit&tracker_id=8103&tracker_item_id=30555)
 			$table->save($contenttype); */
 
