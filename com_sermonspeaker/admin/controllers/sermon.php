@@ -145,32 +145,30 @@ class SermonspeakerControllerSermon extends JControllerForm
 
 		$item = $model->getItem();
 
+
+
 		if (empty($validData['tags']) && !empty($item->tags))
 		{
 			$oldTags = new JHelperTags;
 			$oldTags->unTagItem($item->id, 'com_sermonspeaker.sermon');
-			return;
 		}
-
-		$tags = $validData['tags'];
-
-		// Store the tag data if the item data was saved.
-		if ($tags[0] != '')
+		else
 		{
+			// Store the tag data if the item data was saved.
 			$typeAlias = 'com_sermonspeaker.sermon';
-			$ucm = new JUcmContent(null, $typeAlias);
+			// $table needed due to a bug in Joomla: http://joomlacode.org/gf/project/joomla/tracker/?action=TrackerItemEdit&tracker_id=8103&tracker_item_id=30584
+			// otherwise "null" would do and the table would be load by the type_alias.
+			$table = $model->getTable();
+			$ucm = new JUcmContent($table, $typeAlias);
 			$item_array	= (array)$item;
 			$item_array['tags']	= (array)$item_array->tags;
 			$ucm->save($item_array);
 
 			$ucmId = $ucm->getPrimaryKey($ucm->type->type->type_id, $item->id);
 
-//			$isNew = $data['id'] ? 0 : 1;
-//			$tagsHelper->tagItem($data['id'], $typeAlias, $isNew, $ucmId, $tags);
-
-			$isNew = $validData->id == 0 ? 1 : 0;
+			$isNew = $item->id == 0 ? 1 : 0;
 			$tagsHelper = new JHelperTags;
-			$tagsHelper->tagItem($item->id, $typeAlias, $isNew, $ucmId, $tags);
+			$tagsHelper->tagItem($item->id, $typeAlias, $isNew, $ucmId, $validData['tags']);
 		}
 
 		// ID3
