@@ -144,6 +144,7 @@ class SermonspeakerControllerSermon extends JControllerForm
 		}
 
 		$item = $model->getItem();
+
 		if (empty($validData['tags']) && !empty($item->tags))
 		{
 			$oldTags = new JHelperTags;
@@ -156,9 +157,20 @@ class SermonspeakerControllerSermon extends JControllerForm
 		// Store the tag data if the item data was saved.
 		if ($tags[0] != '')
 		{
-			$isNew = $item->id == 0 ? 1 : 0;
+			$typeAlias = 'com_sermonspeaker.sermon';
+			$ucm = new JUcmContent(null, $typeAlias);
+			$item_array	= (array)$item;
+			$item_array['tags']	= (array)$item_array->tags;
+			$ucm->save($item_array);
+
+			$ucmId = $ucm->getPrimaryKey($ucm->type->type->type_id, $item->id);
+
+//			$isNew = $data['id'] ? 0 : 1;
+//			$tagsHelper->tagItem($data['id'], $typeAlias, $isNew, $ucmId, $tags);
+
+			$isNew = $validData->id == 0 ? 1 : 0;
 			$tagsHelper = new JHelperTags;
-			$tagsHelper->tagItem($item->id, 'com_sermonspeaker.sermon', $isNew, $item, $tags, null);
+			$tagsHelper->tagItem($item->id, $typeAlias, $isNew, $ucmId, $tags);
 		}
 
 		// ID3
