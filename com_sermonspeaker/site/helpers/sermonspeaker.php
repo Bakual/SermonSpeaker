@@ -301,7 +301,10 @@ class SermonspeakerHelperSermonspeaker
 		}
 		if ($enable_keywords > 1 && is_object($item))
 		{
-			$tags = array_merge($tags, $item->tags);
+			foreach ($item->tags->itemTags as $tag)
+			{
+				$tags[] = $tag->title;
+			}
 		}
 		$tags = array_unique($tags);
 		natcasesort($tags);
