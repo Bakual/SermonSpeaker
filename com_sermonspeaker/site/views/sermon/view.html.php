@@ -50,7 +50,8 @@ class SermonspeakerViewSermon extends JViewLegacy
 			$app->redirect(JRoute::_('index.php?view=sermons'), JText::_('JGLOBAL_RESOURCE_NOT_FOUND'), 'error');
 		}
 		// Get Tags
-		$item->tags	= $this->get('tags');
+		$item->tags = new JHelperTags;
+		$item->tags->getItemTags('com_sermonspeaker.sermon' , $item->id); 
 
 		// Check for category ACL
 		if ($item->category_access)
@@ -104,6 +105,7 @@ class SermonspeakerViewSermon extends JViewLegacy
 		$this->_prepareDocument();
 		parent::display($tpl);
 	}
+
 	/**
 	 * Prepares the document
 	 */

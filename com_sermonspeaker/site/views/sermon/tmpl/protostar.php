@@ -136,7 +136,7 @@ $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 					</div>
 				</dd>
 			<?php endif;
-			if (in_array('sermon:addfile', $this->columns) and$this->item->addfile) : ?>
+			if (in_array('sermon:addfile', $this->columns) and $this->item->addfile) : ?>
 				<dd>
 					<div class="ss-sermondetail-info">
 						<?php echo JText::_('COM_SERMONSPEAKER_ADDFILE'); ?>:
@@ -146,7 +146,12 @@ $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 			<?php endif; ?>
 		</dl>
 	</div>
-	<?php if (in_array('sermon:player', $this->columns)) : ?>
+	<?php if ($this->params->get('show_tags', 1) and !empty($this->item->tags)) :
+		$tagLayout = new JLayoutFile('joomla.content.tags');
+		echo $tagLayout->render($this->item->tags->itemTags); ?>
+		<br />
+	<?php endif;
+	if (in_array('sermon:player', $this->columns)) : ?>
 		<div class="ss-sermon-player">
 			<?php if ($player->toggle): ?>
 				<div class="btn-group">
