@@ -22,7 +22,7 @@ abstract class SermonspeakerHelperRoute
 {
 	protected static $lookup;
 
-	public static function getSermonsRoute($catid = 0)
+	public static function getSermonsRoute($catid = 0, $language = 0)
 	{
 		$needles = array(
 			'sermons' => array(0)
@@ -40,7 +40,7 @@ abstract class SermonspeakerHelperRoute
 		return $link;
 	}
 
-	public static function getSermonRoute($id)
+	public static function getSermonRoute($id, $catid = 0, $language = 0)
 	{
 		$needles = array(
 			'sermon' => array((int)$id)
@@ -59,7 +59,7 @@ abstract class SermonspeakerHelperRoute
 		return $link;
 	}
 
-	public static function getSeriesRoute($catid = 0)
+	public static function getSeriesRoute($catid = 0, $language = 0)
 	{
 		$needles = array(
 			'series' => array(0)
@@ -77,7 +77,7 @@ abstract class SermonspeakerHelperRoute
 		return $link;
 	}
 
-	public static function getSerieRoute($id, $catid = 0)
+	public static function getSerieRoute($id, $catid = 0, $language = 0)
 	{
 		$needles = array(
 			'serie'  => array((int)$id)
@@ -105,7 +105,7 @@ abstract class SermonspeakerHelperRoute
 		return $link;
 	}
 
-	public static function getSpeakersRoute($catid = 0)
+	public static function getSpeakersRoute($catid = 0, $language = 0)
 	{
 		$needles = array(
 			'speakers' => array(0)
@@ -124,7 +124,7 @@ abstract class SermonspeakerHelperRoute
 		return $link;
 	}
 
-	public static function getSpeakerRoute($id, $catid = 0)
+	public static function getSpeakerRoute($id, $catid = 0, $language = 0)
 	{
 		$needles = array(
 			'speaker'  => array((int)$id)
