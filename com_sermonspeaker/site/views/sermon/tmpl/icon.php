@@ -122,7 +122,11 @@ $player = SermonspeakerHelperSermonspeaker::getPlayer($this->item, $config);
 	</div>
 	<br style="clear:both" />
 </div>
-<?php if (in_array('sermon:notes', $this->columns) && $this->item->notes) : ?>
+<?php if ($this->params->get('show_tags', 1) and !empty($this->item->tags)) :
+	$tagLayout = new JLayoutFile('joomla.content.tags');
+	echo $tagLayout->render($this->item->tags->itemTags);
+endif;
+if (in_array('sermon:notes', $this->columns) && $this->item->notes) : ?>
 	<div class="ss-notes">
 		<?php echo JHtml::_('content.prepare', $this->item->notes); ?>
 	</div>

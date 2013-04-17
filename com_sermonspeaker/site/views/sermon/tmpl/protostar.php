@@ -61,87 +61,69 @@ $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 		<dl class="article-info">
 			<dt class="article-info-term"><?php  echo JText::_('JDETAILS'); ?></dt>
 			<?php if (in_array('sermon:category', $this->columns) and $this->item->category_title) : ?>
-				<dd>
-					<div class="category-name">
-						<i class="icon-folder"></i>
-						<?php echo JText::_('JCATEGORY'); ?>:
-						<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonsRoute($this->item->catslug)); ?>"><?php echo $this->item->category_title; ?></a>
-					</div>
+				<dd class="category-name">
+					<span class="icon-folder"></span>
+					<?php echo JText::_('JCATEGORY'); ?>:
+					<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonsRoute($this->item->catslug)); ?>"><?php echo $this->item->category_title; ?></a>
 				</dd>
 			<?php endif;
 			if (in_array('sermon:series', $this->columns) and $this->item->series_title) : ?>
-				<dd>
-					<div class="category-name">
-						<i class="icon-drawer-2"></i>
-						<?php echo JText::_('COM_SERMONSPEAKER_SERIE_TITLE'); ?>:
-						<?php if ($this->item->series_state) : ?>
-							<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($this->item->series_slug)); ?>">
-						<?php echo $this->escape($this->item->series_title); ?></a>
-						<?php else :
-							echo $this->escape($this->item->series_title);
-						endif; ?>
-					</div>
+				<dd class="category-name">
+					<span class="icon-drawer-2"></span>
+					<?php echo JText::_('COM_SERMONSPEAKER_SERIE_TITLE'); ?>:
+					<?php if ($this->item->series_state) : ?>
+						<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($this->item->series_slug)); ?>">
+					<?php echo $this->escape($this->item->series_title); ?></a>
+					<?php else :
+						echo $this->escape($this->item->series_title);
+					endif; ?>
 				</dd>
 			<?php endif;
 			if (in_array('sermon:date', $this->columns) and ($this->item->sermon_date != '0000-00-00 00:00:00')) : ?>
-				<dd>
-					<div class="create">
-						<i class="icon-calendar"></i>
-						<?php echo JText::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL'); ?>:
-						<?php echo JHtml::Date($this->item->sermon_date, JText::_($this->params->get('date_format')), true); ?>
-					</div>
+				<dd class="create">
+					<span class="icon-calendar"></span>
+					<?php echo JText::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL'); ?>:
+					<?php echo JHtml::Date($this->item->sermon_date, JText::_($this->params->get('date_format')), true); ?>
 				</dd>
 			<?php endif;
 			if (in_array('sermon:hits', $this->columns)) : ?>
-				<dd>
-					<div class="hits">
-						<i class="icon-eye-open"></i>
-						<?php echo JText::_('JGLOBAL_HITS'); ?>:
-						<?php echo $this->item->hits; ?>
-					</div>
+				<dd class="hits">
+					<span class="icon-eye-open"></span>
+					<?php echo JText::_('JGLOBAL_HITS'); ?>:
+					<?php echo $this->item->hits; ?>
 				</dd>
 			<?php endif;
 			if (in_array('sermon:scripture', $this->columns) and $this->item->scripture) : ?>
-				<dd>
-					<div class="ss-sermondetail-info">
-						<i class="icon-quote"></i>
-						<?php echo JText::_('COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL'); ?>:
-						<?php $scriptures = SermonspeakerHelperSermonspeaker::insertScriptures($this->item->scripture, '; ');
-						echo JHtml::_('content.prepare', $scriptures, '', 'com_sermonspeaker.scripture'); ?>
-					</div>
+				<dd class="ss-sermondetail-info">
+					<span class="icon-quote"></span>
+					<?php echo JText::_('COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL'); ?>:
+					<?php $scriptures = SermonspeakerHelperSermonspeaker::insertScriptures($this->item->scripture, '; ');
+					echo JHtml::_('content.prepare', $scriptures, '', 'com_sermonspeaker.scripture'); ?>
 				</dd>
 			<?php endif;
 			if ($this->params->get('custom1') and $this->item->custom1) : ?>
-				<dd>
-					<div class="ss-sermondetail-info">
-						<?php echo JText::_('COM_SERMONSPEAKER_CUSTOM1'); ?>:
-						<?php echo $this->item->custom1; ?>
-					</div>
+				<dd class="ss-sermondetail-info">
+					<?php echo JText::_('COM_SERMONSPEAKER_CUSTOM1'); ?>:
+					<?php echo $this->item->custom1; ?>
 				</dd>
 			<?php endif;
 			if ($this->params->get('custom2') and $this->item->custom2) : ?>
-				<dd>
-					<div class="ss-sermondetail-info">
-						<?php echo JText::_('COM_SERMONSPEAKER_CUSTOM2'); ?>:
-						<?php echo $this->item->custom2; ?>
-					</div>
+				<dd class="ss-sermondetail-info">
+					<?php echo JText::_('COM_SERMONSPEAKER_CUSTOM2'); ?>:
+					<?php echo $this->item->custom2; ?>
 				</dd>
 			<?php endif;
 			if (in_array('sermon:length', $this->columns) and $this->item->sermon_time != '00:00:00') : ?>
-				<dd>
-					<div class="ss-sermondetail-info">
-						<i class="icon-clock"></i>
-						<?php echo JText::_('COM_SERMONSPEAKER_FIELD_LENGTH_LABEL'); ?>:
-						<?php echo SermonspeakerHelperSermonspeaker::insertTime($this->item->sermon_time); ?>
-					</div>
+				<dd class="ss-sermondetail-info">
+					<i class="icon-clock"></i>
+					<?php echo JText::_('COM_SERMONSPEAKER_FIELD_LENGTH_LABEL'); ?>:
+					<?php echo SermonspeakerHelperSermonspeaker::insertTime($this->item->sermon_time); ?>
 				</dd>
 			<?php endif;
 			if (in_array('sermon:addfile', $this->columns) and $this->item->addfile) : ?>
-				<dd>
-					<div class="ss-sermondetail-info">
-						<?php echo JText::_('COM_SERMONSPEAKER_ADDFILE'); ?>:
-						<?php echo SermonspeakerHelperSermonspeaker::insertAddfile($this->item->addfile, $this->item->addfileDesc); ?>
-					</div>
+				<dd class="ss-sermondetail-info">
+					<?php echo JText::_('COM_SERMONSPEAKER_ADDFILE'); ?>:
+					<?php echo SermonspeakerHelperSermonspeaker::insertAddfile($this->item->addfile, $this->item->addfileDesc); ?>
 				</dd>
 			<?php endif; ?>
 		</dl>

@@ -111,7 +111,10 @@ $player = SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 		</div>
 	<?php endif; ?>
 </div>
-<?php
+<?php if ($this->params->get('show_tags', 1) and !empty($this->item->tags)) :
+	$tagLayout = new JLayoutFile('joomla.content.tags');
+	echo $tagLayout->render($this->item->tags->itemTags);
+endif;
 if ($this->params->get('enable_keywords')):
 	$tags = SermonspeakerHelperSermonspeaker::insertSearchTags($this->item); 
 	if ($tags): ?>
