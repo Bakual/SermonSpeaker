@@ -187,8 +187,7 @@ class Com_SermonspeakerInstallerScript
 	function _migrate()
 	{
 		$db = JFactory::getDBO();
-		$fields = $db->getTableFields('#__sermon_sermons');
-		$sermons = $fields['#__sermon_sermons'];
+		$sermons = $db->getTableColumns('#__sermon_sermons');
 		if ($sermons && array_key_exists('published', $sermons))
 		{
 			$sqlfile = dirname(__FILE__).'/migrate.sql';
