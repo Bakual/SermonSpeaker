@@ -179,18 +179,32 @@ class SermonspeakerViewSermon extends JViewLegacy
 			$this->document->setDescription($this->params->get('menu-meta_description'));
 		}
 
+		$keywords = '';
 		if ($this->item->metakey)
 		{
 			$keywords = $this->item->metakey;
-			if ($this->item->tags && $this->params->get('tags_to_metakey', 0))
-			{
-				$keywords .= ', '.implode(', ', $this->item->tags);
-			}
-			$this->document->setMetadata('keywords', $keywords);
 		}
-		elseif (!$this->item->metakey && $this->params->get('menu-meta_keywords'))
+		elseif ($this->params->get('menu-meta_keywords'))
 		{
-			$this->document->setMetadata('keywords', $this->params->get('menu-meta_keywords'));
+			$keywords = $this->params->get('menu-meta_keywords');
+		}
+		if ($this->item->tags->itemTags && $this->params->get('tags_to_metakey', 0))
+		{
+			$metatags = array();
+			foreach ($this->item->tags->itemTags as $tag)
+			{
+				$metatags[] = $this->escape($tag->title);
+			}
+			$metatags = implode (', ', $metatags);
+			if ($keywords)
+			{
+				$keywords .= ', ';
+			}
+			$keywords .= $metatags;
+		}
+		if ($keywords)
+		{
+			$this->document->setMetadata('keywords', $keywords);
 		}
 
 		if ($this->params->get('robots'))
