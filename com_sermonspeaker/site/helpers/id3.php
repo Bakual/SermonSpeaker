@@ -26,7 +26,6 @@ class SermonspeakerHelperId3
 		if (array_key_exists('playtime_seconds', $FileInfo))
 		{
 			$length	= $FileInfo['playtime_seconds'];
-			$id3['sermon_time']	= $hrs.':'.sprintf('%02d',$min).':'.sprintf('%02d', $sec);
 			$hrs = (int)($length / 3600);
 			$min = (int)(($length - $hrs * 3600) / 60);
 			$sec = (int)($length - $hrs * 3600 - $min * 60);
