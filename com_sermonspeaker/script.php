@@ -218,7 +218,7 @@ class Com_SermonspeakerInstallerScript
 			$table_object	= new stdClass;
 			$table_object->special	= $special;
 
-			$contenttype['type_id']			= 0; // needed?
+//			$contenttype['type_id']			= 0; // needed?
 			$contenttype['type_title']		= 'Sermon';
 			$contenttype['type_alias']		= 'com_sermonspeaker.sermon';
 			$contenttype['table']			= json_encode($table_object);
@@ -226,12 +226,7 @@ class Com_SermonspeakerInstallerScript
 			$contenttype['router']			= 'SermonspeakerHelperRoute::getSermonRoute';
 			$contenttype['field_mappings']	= json_encode($field_mappings);
 
-/*	Bug in Joomla 3.1 Beta 3 prevents proper saving (http://joomlacode.org/gf/project/joomla/tracker/?action=TrackerItemEdit&tracker_id=8103&tracker_item_id=30555)
 			$table->save($contenttype); */
-
-			// Workaround, skip the buggy check part manually.
-			$table->bind($contenttype);
-			$table->store();
 		}
 
 		// Setting some default values for columns on install
