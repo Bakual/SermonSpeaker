@@ -1,6 +1,7 @@
 <?php
 defined('_JEXEC') or die;
 JHtml::addIncludePath(JPATH_COMPONENT.'/helpers');
+JHtml::_('bootstrap.framework');
 JHtml::_('behavior.tooltip');
 JHtml::_('behavior.modal');
 $user		= JFactory::getUser();

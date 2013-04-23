@@ -3,9 +3,10 @@ defined('_JEXEC') or die;
 
 JHtml::addIncludePath(JPATH_COMPONENT.'/helpers');
 
+JHtml::_('bootstrap.framework');
+JHtml::_('bootstrap.tooltip');
 JHtml::_('behavior.tooltip');
 JHtml::_('behavior.modal');
-JHtml::_('bootstrap.tooltip');
 
 $user		= JFactory::getUser();
 $fu_enable	= $this->params->get('fu_enable');
