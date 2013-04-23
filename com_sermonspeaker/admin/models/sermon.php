@@ -238,10 +238,16 @@ class SermonspeakerModelSermon extends JModelAdmin
 					;
 			$db->setQuery($query);
 			$item->scripture = $db->loadAssocList();
-		}
 
-		$item->tags = new JHelperTags;
-		$item->tags->getTagIds($item->id, 'com_sermonspeaker.sermon');
+			// Convert the metadata field to an array.
+			$registry = new JRegistry;
+			$registry->loadString($item->metadata);
+			$item->metadata = $registry->toArray();
+
+			$item->tags = new JHelperTags;
+			$item->tags->getTagIds($item->id, 'com_sermonspeaker.sermon');
+			$item->metadata['tags'] = $item->tags;
+		}
 
 		return $item;
 	}

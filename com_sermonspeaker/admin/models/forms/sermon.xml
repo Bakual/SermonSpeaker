@@ -5,24 +5,22 @@
 		<field name="sermon_title" type="text"
 			label="JGLOBAL_TITLE" description="COM_SERMONSPEAKER_FIELD_TITLE_DESC"
 			onchange="check(this.value, 70, 0)"
-			class="inputbox input-xlarge"
+			class="input-xlarge"
 			size="30"
 			required="true" />
 
 		<field name="alias" type="text"
 			label="JFIELD_ALIAS_LABEL" description="JFIELD_ALIAS_DESC"
-			class="inputbox"
 			size="45" />
 
 		<field name="catid" type="categoryedit"
 			label="JCATEGORY" description="JFIELD_CATEGORY_DESC"
 			extension="com_sermonspeaker"
-			class="inputbox"
 			required="true" />
 
 		<field name="state" type="list"
 			label="JSTATUS" description="JFIELD_PUBLISHED_DESC"
-			class="inputbox span12 small"
+			class="span12 small"
 			filter="intval"
 			size="1"
 			default="1">
@@ -34,86 +32,86 @@
 
 		<field name="podcast" type="list"
 			label="COM_SERMONSPEAKER_FIELD_SERMONCAST_LABEL" description="COM_SERMONSPEAKER_FIELD_SERMONCAST_DESC"
-			class="inputbox span12 small"
+			class="span12 small"
 			size="1"
 			default="1">
 			<option value="1">JPUBLISHED</option>
 			<option value="0">JUNPUBLISHED</option>
 		</field>
 
-		<field name="ordering" type="sermonordering" class="inputbox"
-			table="sermon_sermons" field="sermon_title"
-			label="JFIELD_ORDERING_LABEL"
-			description="JFIELD_ORDERING_DESC" />
+		<field name="ordering" type="sermonordering"
+			label="JFIELD_ORDERING_LABEL" description="JFIELD_ORDERING_DESC"
+			table="sermon_sermons"
+			field="sermon_title" />
 
-		<field name="audiofile" type="customfilelist" class="inputbox"
+		<field name="audiofile" type="customfilelist"
+			label="COM_SERMONSPEAKER_FIELD_AUDIOFILE_LABEL" description="COM_SERMONSPEAKER_FIELD_AUDIOFILE_DESC"
 			path="path" 
 			filter="\.aac$|\.m4a$|\.mp3$|\.wma$|\.ra$|\.ram$|\.rm$|\.rpm$"
 			hide_default="true"
 			hide_none="true"
 			disabled="true"
-			onchange="toggleElement('audiofile', 1);"
-			label="COM_SERMONSPEAKER_FIELD_AUDIOFILE_LABEL"
-			description="COM_SERMONSPEAKER_FIELD_AUDIOFILE_DESC" />
+			onchange="toggleElement('audiofile', 1);" />
 
-		<field name="audiofilesize" type="filesize" class="inputbox"
-			label="COM_SERMONSPEAKER_FIELD_AUDIOFILESIZE_LABEL"
-			description="COM_SERMONSPEAKER_FIELD_AUDIOFILESIZE_DESC" />
+		<field name="audiofilesize" type="filesize"
+			label="COM_SERMONSPEAKER_FIELD_AUDIOFILESIZE_LABEL" description="COM_SERMONSPEAKER_FIELD_AUDIOFILESIZE_DESC" />
 
-		<field name="videofile" type="customfilelist" class="inputbox"
+		<field name="videofile" type="customfilelist"
+			label="COM_SERMONSPEAKER_FIELD_VIDEOFILE_LABEL" description="COM_SERMONSPEAKER_FIELD_VIDEOFILE_DESC"
 			path="path" 
 			filter="\.mp4$|\.mov$|\.f4v$|\.3gp$|\.3g2$|\.wmv$|\.flv$|\.rv$"
 			hide_default="true"
 			hide_none="true"
 			disabled="true"
-			onchange="toggleElement('videofile', 1);"
-			label="COM_SERMONSPEAKER_FIELD_VIDEOFILE_LABEL"
-			description="COM_SERMONSPEAKER_FIELD_VIDEOFILE_DESC" />
+			onchange="toggleElement('videofile', 1);" />
 
-		<field name="videofilesize" type="filesize" class="inputbox"
-			label="COM_SERMONSPEAKER_FIELD_VIDEOFILESIZE_LABEL"
-			description="COM_SERMONSPEAKER_FIELD_VIDEOFILESIZE_DESC" />
+		<field name="videofilesize" type="filesize"
+			label="COM_SERMONSPEAKER_FIELD_VIDEOFILESIZE_LABEL" description="COM_SERMONSPEAKER_FIELD_VIDEOFILESIZE_DESC" />
 
 		<field name="notes" type="editor"
 			label="COM_SERMONSPEAKER_FIELD_NOTES_LABEL" description="COM_SERMONSPEAKER_FIELD_NOTES_DESC" 
 			buttons="true"
 			hide="pagebreak,readmore"
-			class="inputbox"
 			filter="JComponentHelper::filterText" />
 
-		<field name="addfile" type="customfilelist" class="inputbox"
+		<field name="addfile" type="customfilelist"
+			label="COM_SERMONSPEAKER_FIELD_ADDFILE_LABEL" description="COM_SERMONSPEAKER_FIELD_ADDFILE_DESC"
 			path="path_addfile" 
 			filter="\.png$|\.gif$|\.jpg$|\.bmp$|\.pdf$|\.txt$|\.doc$|\.docx$|\.ppt$|\.pptx$|\.pps$"
 			hide_default="true"
 			hide_none="true"
 			disabled="true"
-			onchange="toggleElement('addfile', 1);"
-			label="COM_SERMONSPEAKER_FIELD_ADDFILE_LABEL"
-			description="COM_SERMONSPEAKER_FIELD_ADDFILE_DESC" />
+			onchange="toggleElement('addfile', 1);" />
 
-		<field name="addfileDesc" type="text" class="inputbox"
-			size="50" label="COM_SERMONSPEAKER_FIELD_ADDFILEDESC_LABEL"
-			description="COM_SERMONSPEAKER_FIELD_ADDFILEDESC_DESC" />
+		<field name="addfileDesc" type="text"
+			label="COM_SERMONSPEAKER_FIELD_ADDFILEDESC_LABEL" description="COM_SERMONSPEAKER_FIELD_ADDFILEDESC_DESC"
+			size="50" />
 
 		<field name="language" type="contentlanguage"
 			label="JFIELD_LANGUAGE_LABEL" description="COM_SERMONSPEAKER_FIELD_LANGUAGE_DESC"
-			class="inputbox span12 small"
-		>
+			class="span12 small" >
 			<option value="*">JALL</option>
 		</field>
 
-		<field name="tags" type="tag"
-			label="JTAG" description="JTAG_DESC"
-			class="inputbox span12 small" multiple="true"
-		>
-		</field>
+		<field name="metadesc" type="textarea"
+			label="JFIELD_META_DESCRIPTION_LABEL" description="JFIELD_META_DESCRIPTION_DESC"
+			onchange="check(this.value, 160, 0)"
+			rows="3"
+			cols="30" />
+
+		<field name="metakey" type="textarea"
+			label="JFIELD_META_KEYWORDS_LABEL" description="JFIELD_META_KEYWORDS_DESC"
+			onchange="check(this.value, 10, 1)"
+			rows="3"
+			cols="30" />
 	</fieldset>
 
 	<fieldset name="info">
 		<field name="id"  type="text"
 			label="JGLOBAL_FIELD_ID_LABEL" description ="JGLOBAL_FIELD_ID_DESC"
 			class="readonly"
-			size="10" default="0"
+			size="10"
+			default="0"
 			readonly="true" />
 
 		<field name="created_by" type="user"
@@ -123,7 +121,6 @@
 			label="JGLOBAL_FIELD_CREATED_LABEL" description="JGLOBAL_FIELD_CREATED_DESC"
 			format="%Y-%m-%d %H:%M:%S"
 			filter="user_utc"
-			class="inputbox"
 			size="22" />
 
 		<field name="modified_by" type="user"
@@ -148,61 +145,73 @@
 	</fieldset>
 
 	<fieldset name="detail" label="COM_SERMONSPEAKER_DETAIL" >
-		<field name="sermon_number"  type="text" class="inputbox"
+		<field name="sermon_number" type="text"
 			label="COM_SERMONSPEAKER_FIELD_NUM_LABEL" description ="COM_SERMONSPEAKER_FIELD_NUM_DESC"
 			size="5" />
 
 		<field name="sermon_date" type="calendar"
 			label="COM_SERMONSPEAKER_FIELD_DATE_LABEL" description="COM_SERMONSPEAKER_FIELD_DATE_DESC"
-			class="inputbox"
 			size="25"
 			onchange="changedate(jform_sermon_date.value)"
 			format="%Y-%m-%d %H:%M:%S"
 			filter="user_utc"
 		/>
 
-		<field name="sermon_time"  type="text" class="inputbox"
+		<field name="sermon_time" type="text"
 			label="COM_SERMONSPEAKER_FIELD_LENGTH_LABEL" description ="COM_SERMONSPEAKER_FIELD_LENGTH_DESC"
-			size="10" default="00:00:00" />
+			size="10"
+			default="00:00:00" />
 
-		<field name="scripture"  type="scripture" class="inputbox"
+		<field name="scripture" type="scripture"
 			label="COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL" description ="COM_SERMONSPEAKER_FIELD_SCRIPTURE_DESC"
 			size="30"
 			readonly="true"
 		/>
 
-		<field name="speaker_id" type="speakerlist" class="inputbox"
+		<field name="speaker_id" type="speakerlist"
 			label="COM_SERMONSPEAKER_SPEAKER" description="COM_SERMONSPEAKER_FIELD_SPEAKER_DESC" />
 
-		<field name="series_id" type="serieslist" class="inputbox"
+		<field name="series_id" type="serieslist"
 			label="COM_SERMONSPEAKER_SERIE" description="COM_SERMONSPEAKER_FIELD_SERIE_DESC" />
 
-		<field name="picture" type="mediawrapper" class="inputbox"
+		<field name="picture" type="mediawrapper"
 			label="COM_SERMONSPEAKER_FIELD_PICTURE_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_PICTURE_DESC" />
 
 	</fieldset>
 
 	<fieldset name="custom" label="COM_SERMONSPEAKER_FIELDSET_CUSTOM_LABEL">
-		<field name="custom1"  type="text" class="inputbox"
+		<field name="custom1" type="text"
 			label="COM_SERMONSPEAKER_FIELD_CUSTOM1_LABEL" description ="COM_SERMONSPEAKER_FIELD_CUSTOM1_DESC"
 			size="50" />
 
-		<field name="custom2"  type="text" class="inputbox"
+		<field name="custom2" type="text"
 			label="COM_SERMONSPEAKER_FIELD_CUSTOM2_LABEL" description ="COM_SERMONSPEAKER_FIELD_CUSTOM2_DESC"
 			size="50" />
 
 	</fieldset>
 
-	<fieldset name="metadata" label="JGLOBAL_FIELDSET_METADATA_OPTIONS">
-		<field name="metadesc" type="textarea"
-			label="JFIELD_META_DESCRIPTION_LABEL" description="JFIELD_META_DESCRIPTION_DESC"
-			onchange="check(this.value, 160, 0)"
-			class="inputbox" rows="3" cols="30" />
+	<fields name="metadata">
+		<fieldset name="jmetadata" label="JGLOBAL_FIELDSET_METADATA_OPTIONS">
+			<field name="tags" type="tag"
+				label="JTAG" description="JTAG_DESC"
+				multiple="true" />
 
-		<field name="metakey" type="textarea"
-			label="JFIELD_META_KEYWORDS_LABEL" description="JFIELD_META_KEYWORDS_DESC"
-			onchange="check(this.value, 10, 1)"
-			class="inputbox" rows="3" cols="30" />
-	</fieldset>
+			<field name="robots" type="list"
+				label="JFIELD_METADATA_ROBOTS_LABEL" description="JFIELD_METADATA_ROBOTS_DESC" >
+				<option value="">JGLOBAL_USE_GLOBAL</option>
+				<option value="index, follow">JGLOBAL_INDEX_FOLLOW</option>
+				<option value="noindex, follow">JGLOBAL_NOINDEX_FOLLOW</option>
+				<option value="index, nofollow">JGLOBAL_INDEX_NOFOLLOW</option>
+				<option value="noindex, nofollow">JGLOBAL_NOINDEX_NOFOLLOW</option>
+			</field>
+
+			<field name="rights" type="text"
+				label="JFIELD_META_RIGHTS_LABEL" description="JFIELD_META_RIGHTS_DESC"
+				required="false"
+				filter="string"
+				cols="30"
+				rows="2" />
+		</fieldset>
+	</fields>
 </form>

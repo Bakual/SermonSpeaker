@@ -34,8 +34,8 @@ $input = JFactory::getApplication()->input;
 	<div class="row-fluid">
 		<!-- Begin Content -->
 		<div class="span10 form-horizontal">
-			<?php echo JHtml::_('bootstrap.startPane', 'myTab', array('active' => 'general'));
-				echo JHtml::_('bootstrap.addPanel', 'myTab', 'general', JText::_('JDETAILS', true)); ?>
+		<?php echo JHtml::_('bootstrap.startTabSet', 'myTab', array('active' => 'general'));
+				echo JHtml::_('bootstrap.addTab', 'myTab', 'general', JText::_('JDETAILS', true)); ?>
 					<fieldset class="adminform">
 						<div class="control-group form-inline">
 							<?php echo $this->form->getLabel('sermon_title'); ?> <?php echo $this->form->getInput('sermon_title'); ?> <?php echo $this->form->getLabel('catid'); ?> <?php echo $this->form->getInput('catid'); ?>
@@ -172,8 +172,8 @@ $input = JFactory::getApplication()->input;
 							<?php endforeach; ?>
 						</div>
 					</div>
-				<?php echo JHtml::_('bootstrap.endPanel');
-				echo JHtml::_('bootstrap.addPanel', 'myTab', 'publishing', JText::_('JGLOBAL_FIELDSET_PUBLISHING', true)); ?>
+				<?php echo JHtml::_('bootstrap.endTab');
+				echo JHtml::_('bootstrap.addTab', 'myTab', 'publishing', JText::_('JGLOBAL_FIELDSET_PUBLISHING', true)); ?>
 					<div class="row-fluid">
 						<div class="span6">
 							<div class="control-group">
@@ -238,9 +238,9 @@ $input = JFactory::getApplication()->input;
 							</div>
 						</div>
 					</div>
-				<?php echo JHtml::_('bootstrap.endPanel');
+				<?php echo JHtml::_('bootstrap.endTab');
 				if ($this->params->get('custom1') OR $this->params->get('custom2')):
-					echo JHtml::_('bootstrap.addPanel', 'myTab', 'custom', JText::_('COM_SERMONSPEAKER_FIELDSET_CUSTOM_LABEL', true)); ?>
+					echo JHtml::_('bootstrap.addTab', 'myTab', 'custom', JText::_('COM_SERMONSPEAKER_FIELDSET_CUSTOM_LABEL', true)); ?>
 						<div class="row-fluid">
 							<div class="span6">
 								<?php foreach($this->form->getFieldset('custom') as $field): ?>
@@ -257,31 +257,19 @@ $input = JFactory::getApplication()->input;
 								<?php endforeach; ?>
 							</div>
 						</div>
-					<?php echo JHtml::_('bootstrap.endPanel');
+					<?php echo JHtml::_('bootstrap.endTab');
 				endif;
-				echo JHtml::_('bootstrap.addPanel', 'myTab', 'metadata', JText::_('JGLOBAL_FIELDSET_METADATA_OPTIONS', true)); ?>
-					<fieldset>
-						<?php foreach($this->form->getFieldset('metadata') as $field): ?>
-							<div class="control-group">
-								<?php if (!$field->hidden): ?>
-									<div class="control-label">
-										<?php echo $field->label; ?>
-									</div>
-								<?php endif; ?>
-								<div class="controls">
-									<?php echo $field->input; ?>
-								</div>
-							</div>
-						<?php endforeach; ?>
-					</fieldset>
-				<?php echo JHtml::_('bootstrap.endPanel');
-			echo JHtml::_('bootstrap.endPane'); ?>
+				echo JHtml::_('bootstrap.addTab', 'myTab', 'metadata', JText::_('JGLOBAL_FIELDSET_METADATA_OPTIONS', true));
+					echo JLayoutHelper::render('joomla.edit.metadata', $this); ?>
+				<?php echo JHtml::_('bootstrap.endTab');
+			echo JHtml::_('bootstrap.endTabSet'); ?>
 			<input type="hidden" name="task" value="" />
 			<input type="hidden" name="return" value="<?php echo $input->getCmd('return');?>" />
 			<?php echo JHtml::_('form.token'); ?>
 		</div>
 		<!-- End Content -->
 		<!-- Begin Sidebar -->
+		<?php // echo JLayoutHelper::render('joomla.edit.details', $this); ?>
 		<div class="span2">
 			<h4><?php echo JText::_('JDETAILS');?></h4>
 			<hr />
@@ -319,11 +307,12 @@ $input = JFactory::getApplication()->input;
 					</div>
 				</div>
 				<div class="control-group">
+					<?php $metadata = $this->form->getFieldset('jmetadata'); ?>
 					<div class="control-label">
-						<?php echo $this->form->getLabel('tags'); ?>
+						<?php echo $metadata['jform_metadata_tags']->label; ?>
 					</div>
 					<div class="controls">
-						<?php echo $this->form->getInput('tags'); ?>
+						<?php echo $metadata['jform_metadata_tags']->input; ?>
 					</div>
 				</div>
 			</fieldset>

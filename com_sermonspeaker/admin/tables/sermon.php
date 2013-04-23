@@ -31,6 +31,26 @@ class SermonspeakerTableSermon extends JTable
 	}
 
 	/**
+	 * Overloaded bind function to pre-process the params.
+	 *
+	 * @param   array  Named array
+	 * @return  null|string	null is operation was satisfactory, otherwise returns an error
+	 * @see     JTable:bind
+	 * @since   1.5
+	 */
+	public function bind($array, $ignore = '')
+	{
+		if (isset($array['metadata']) && is_array($array['metadata']))
+		{
+			$registry = new JRegistry;
+			$registry->loadArray($array['metadata']);
+			$array['metadata'] = (string) $registry;
+		}
+
+		return parent::bind($array, $ignore);
+	}
+
+	/**
 	 * Overload the store method for the Sermons table.
 	 *
 	 * @param	boolean	Toggle whether null values should be updated.
