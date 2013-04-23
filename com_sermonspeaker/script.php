@@ -218,7 +218,6 @@ class Com_SermonspeakerInstallerScript
 			$table_object	= new stdClass;
 			$table_object->special	= $special;
 
-//			$contenttype['type_id']			= 0; // needed?
 			$contenttype['type_title']		= 'Sermon';
 			$contenttype['type_alias']		= 'com_sermonspeaker.sermon';
 			$contenttype['table']			= json_encode($table_object);
