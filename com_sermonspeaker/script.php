@@ -226,7 +226,7 @@ class Com_SermonspeakerInstallerScript
 			$contenttype['router']			= 'SermonspeakerHelperRoute::getSermonRoute';
 			$contenttype['field_mappings']	= json_encode($field_mappings);
 
-			$table->save($contenttype); */
+			$table->save($contenttype);
 		}
 
 		// Setting some default values for columns on install

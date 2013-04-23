@@ -10,6 +10,14 @@ defined('_JEXEC') or die;
 class SermonspeakerTableSermon extends JTable
 {
 	/**
+	 * Helper object for storing and deleting tag information.
+	 *
+	 * @var    JHelperTags
+	 * @since  3.1
+	 */
+	protected $tagsHelper = null;
+
+	/**
 	 * Constructor
 	 *
 	 * @param JDatabase A database connector object
@@ -17,7 +25,11 @@ class SermonspeakerTableSermon extends JTable
 	public function __construct(&$db)
 	{
 		parent::__construct('#__sermon_sermons', 'id', $db);
+
+		$this->tagsHelper = new JHelperTags();
+		$this->tagsHelper->typeAlias = 'com_sermonspeaker.sermon';
 	}
+
 	/**
 	 * Overload the store method for the Sermons table.
 	 *
@@ -63,8 +75,25 @@ class SermonspeakerTableSermon extends JTable
 			return false;
 		}
 
-		// Attempt to store the user data.
-		return parent::store($updateNulls);
+		$this->tagsHelper->preStoreProcess($this);
+		$result = parent::store($updateNulls);
+		return $result && $this->tagsHelper->postStoreProcess($this);
+	}
+
+	/**
+	 * Override parent delete method to delete tags information.
+	 *
+	 * @param   integer  $pk  Primary key to delete.
+	 *
+	 * @return  boolean  True on success.
+	 *
+	 * @since   3.1
+	 * @throws  UnexpectedValueException
+	 */
+	public function delete($pk = null)
+	{
+		$result = parent::delete($pk);
+		return $result && $this->tagsHelper->deleteTagData($this, $pk);
 	}
 
 	/**
