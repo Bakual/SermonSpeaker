@@ -134,7 +134,7 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 					}
 				}
 			}
-			xmlhttp.open("POST","index.php?option=com_sermonspeaker&task=file.lookup&format=json",true);
+			xmlhttp.open("POST","'.JURI::root().'index.php?option=com_sermonspeaker&task=file.lookup&format=json",true);
 			xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
  			xmlhttp.send("file="+elem.value);
 		}';
