@@ -256,6 +256,33 @@ class Com_SermonspeakerInstallerScript
 			$db->execute();
 		}
 
+		// Migrate tags on update if table exists
+		if ($type == 'update')
+		{
+			$db = JFactory::getDBO();
+			$tables	= $db->getTableList();
+			$prefix	= $db->getPrefix();
+			if (in_array($prefix.'sermon_tags', $tables))
+			{
+				require_once(JPATH_ADMINISTRATOR.'/components/com_sermonspeaker/tables/sermon.php');
+				$sermontable = new SermonspeakerTableSermon($db);
+				$query	= $db->getQuery(true);
+				$query->select($db->quoteName('sermon_id'));
+				$query->select('GROUP_CONCAT(CONCAT('.$db->quote('#new#').','.$db->quoteName('t.title').')) AS tagtitles');
+				$query->from($db->quoteName('#__sermon_sermons_tags').' AS s');
+				$query->join('LEFT', $db->quoteName('#__sermon_tags').' AS t ON '.$db->quoteName('s.tag_id').' = '.$db->quoteName('t.id'));
+				$query->group($db->quoteName('sermon_id'));
+				$db->setQuery($query);
+				$result = $db->loadObjectList('sermon_id');
+				foreach ($result as $sermon)
+				{
+					$sermontable->load($sermon->sermon_id);
+					$sermontable->metadata = '{"tags":['.$sermon->tagtitles.']}';
+					$sermontable->store();
+				}
+			}
+		}
+
 		echo '<p>'.JText::sprintf('COM_SERMONSPEAKER_POSTFLIGHT', $type).'</p>';
 	}
 
