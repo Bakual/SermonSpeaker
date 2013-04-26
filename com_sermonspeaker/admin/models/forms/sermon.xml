@@ -195,6 +195,7 @@
 		<fieldset name="jmetadata" label="JGLOBAL_FIELDSET_METADATA_OPTIONS">
 			<field name="tags" type="tag"
 				label="JTAG" description="JTAG_DESC"
+				class="span12 small"
 				multiple="true" />
 
 			<field name="robots" type="list"
