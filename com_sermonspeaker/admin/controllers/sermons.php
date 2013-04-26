@@ -40,7 +40,7 @@ class SermonspeakerControllerSermons extends JControllerAdmin
 		$value	= JArrayHelper::getValue($data, $task, 0, 'int');
 
 		if (empty($cid)) {
-			JError::raiseWarning(500, JText::_($this->text_prefix.'_NO_ITEM_SELECTED'));
+			JFactory::getApplication()->enqueueMessage(JText::_($this->text_prefix.'_NO_ITEM_SELECTED'), 'warning');
 		} else {
 			// Get the model.
 			$model = $this->getModel();
@@ -50,7 +50,7 @@ class SermonspeakerControllerSermons extends JControllerAdmin
 
 			// Podcast the items.
 			if (!$model->podcast($cid, $value)) {
-				JError::raiseWarning(500, $model->getError());
+				JFactory::getApplication()->enqueueMessage($model->getError(), 'warning');
 			} else {
 				if ($value == 1) {
 					$ntext = $this->text_prefix.'_N_ITEMS_PODCASTED';

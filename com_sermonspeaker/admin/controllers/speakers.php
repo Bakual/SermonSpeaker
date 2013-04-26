@@ -50,7 +50,7 @@ class SermonspeakerControllerSpeakers extends JControllerAdmin
 		}
 		catch (Exception $e)
 		{
-			JError::raiseWarning(500, $e->getMessage());
+			JFactory::getApplication()->enqueueMessage($e->getMessage(), 'warning');
 		}
 
 		$this->setRedirect('index.php?option=com_sermonspeaker&view=speakers');

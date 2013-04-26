@@ -131,7 +131,7 @@ class SermonspeakerControllerTools extends JControllerLegacy
 					} else {
 						$errormessage = ob_get_contents();
 						ob_end_clean();
-						JError::raiseNotice(100, 'Couldn\'t open the picture: '.$pic);
+						$app->enqueueMessage("Couldn't open the picture: $pic", 'notice');
 					}
 				}
 				$writer->tag_data = $TagData;
@@ -413,7 +413,7 @@ class SermonspeakerControllerTools extends JControllerLegacy
 			if ($credentials['username'] && $credentials['password']){
 				$app->logout($user->id);
 			}
-			JError::raiseError(403, JText::_('JERROR_ALERTNOAUTHOR'));
+			$app->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'error');
 			return false;
 		}
 

@@ -221,7 +221,7 @@ class SermonspeakerControllerSermon extends JControllerForm
 				} else {
 					$errormessage = ob_get_contents();
 					ob_end_clean();
-					JError::raiseNotice(100, 'Couldn\'t open the picture: '.$pic);
+					$app->enqueueMessage("Couldn't open the picture: $pic", 'notice');
 				}
 			}
 			$writer->tag_data = $TagData;
@@ -238,10 +238,10 @@ class SermonspeakerControllerSermon extends JControllerForm
 				if ($writer->WriteTags()) {
 					$app->enqueueMessage('Successfully wrote id3 tags to "'.$file.'"');
 					if (!empty($writer->warnings)) {
-						JError::raiseNotice(100, 'There were some warnings:<br>'.implode(', ', $writer->warnings));
+						$app->enqueueMessage('There were some warnings:<br>'.implode(', ', $writer->warnings), 'notice');
 					}
 				} else {
-					JError::raiseWarning(100, 'Failed to write id3 tags to "'.$file.'"! '.implode(', ', $writer->errors));
+					$app->enqueueMessage('Failed to write id3 tags to "'.$file.'"! '.implode(', ', $writer->errors), 'warning');
 				}
 			}
 			return true;
