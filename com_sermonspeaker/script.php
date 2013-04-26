@@ -11,12 +11,14 @@ class Com_SermonspeakerInstallerScript
 	 */
 	function preflight($type, $parent)
 	{
+		$this->app = JFactory::getApplication();
+
 		$min_version = (string)$parent->get('manifest')->attributes()->version;
 
 		$jversion = new JVersion();
 		if (!$jversion->isCompatible($min_version))
 		{
-			JError::raiseWarning(1, JText::sprintf('COM_SERMONSPEAKER_VERSION_UNSUPPORTED', $min_version));
+			$this->app->enqueueMessage(JText::sprintf('COM_SERMONSPEAKER_VERSION_UNSUPPORTED', $min_version), 'error');
 			return false;
 		}
 
@@ -28,7 +30,7 @@ class Com_SermonspeakerInstallerScript
 			// Check if update is allowed (only update from 4.5.0 and higher)
 			if (version_compare($this->oldRelease, '4.5.0', '<'))
 			{
-				JError::raiseWarning(1, JText::sprintf('COM_SERMONSPEAKER_UPDATE_UNSUPPORTED', $this->oldRelease));
+				$this->app->enqueueMessage(JText::sprintf('COM_SERMONSPEAKER_UPDATE_UNSUPPORTED', $this->oldRelease), 'error');
 				return false;
 			}
 		}
@@ -51,7 +53,6 @@ class Com_SermonspeakerInstallerScript
 	 */
 	function uninstall($parent)
 	{
-		echo '<p>'.JText::_('COM_SERMONSPEAKER_UNINSTALL_TEXT').'</p>';
 	}
 
 	/**
@@ -268,7 +269,7 @@ class Com_SermonspeakerInstallerScript
 				$sermontable = new SermonspeakerTableSermon($db);
 				$query	= $db->getQuery(true);
 				$query->select($db->quoteName('sermon_id'));
-				$query->select('GROUP_CONCAT(CONCAT('.$db->quote('#new#').','.$db->quoteName('t.title').')) AS tagtitles');
+				$query->select('GROUP_CONCAT(CONCAT('.$db->quote('#new#').','.$db->quoteName('t.title').') SEPARATOR \'","\') AS tagtitles');
 				$query->from($db->quoteName('#__sermon_sermons_tags').' AS s');
 				$query->join('LEFT', $db->quoteName('#__sermon_tags').' AS t ON '.$db->quoteName('s.tag_id').' = '.$db->quoteName('t.id'));
 				$query->group($db->quoteName('sermon_id'));
@@ -277,13 +278,17 @@ class Com_SermonspeakerInstallerScript
 				foreach ($result as $sermon)
 				{
 					$sermontable->load($sermon->sermon_id);
-					$sermontable->metadata = '{"tags":['.$sermon->tagtitles.']}';
+					$sermontable->metadata = '{"tags":["'.$sermon->tagtitles.'"]}';
 					$sermontable->store();
 				}
+				
+				$db->dropTable('#__sermon_tags');
+				$db->dropTable('#__sermon_sermons_tags');
+				$this->app->enqueueMessage(JText::sprintf('COM_SERMONSPEAKER_TAGS_MIGRATED', count($result)), 'notice');
 			}
 		}
 
-		echo '<p>'.JText::sprintf('COM_SERMONSPEAKER_POSTFLIGHT', $type).'</p>';
+		$this->app->enqueueMessage(JText::_('COM_SERMONSPEAKER_POSTFLIGHT'), 'warning');
 	}
 
 
