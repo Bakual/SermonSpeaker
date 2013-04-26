@@ -62,7 +62,6 @@ $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 				<?php if (in_array('serie:category', $this->col_serie) and $this->item->category_title) : ?>
 					<dd>
 						<div class="category-name">
-							<i class="icon-folder"></i>
 							<?php echo JText::_('JCATEGORY'); ?>:
 							<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSeriesRoute($this->item->catslug)); ?>"><?php echo $this->item->category_title; ?></a>
 						</div>

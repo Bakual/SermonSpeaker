@@ -79,7 +79,6 @@ $this->document->addScriptDeclaration('jQuery(function() {
 				<?php if (in_array('speaker:category', $this->columns) and $this->item->category_title) : ?>
 					<dd>
 						<div class="category-name">
-							<i class="icon-folder"></i>
 							<?php echo JText::_('JCATEGORY'); ?>:
 							<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakersRoute($this->item->catslug)); ?>"><?php echo $this->item->category_title; ?></a>
 						</div>
