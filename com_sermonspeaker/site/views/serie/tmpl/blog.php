@@ -8,6 +8,9 @@ JHtml::_('bootstrap.tooltip');
 JHtml::_('behavior.tooltip');
 JHtml::_('behavior.modal');
 
+// needed for pictures in blog layout
+JHtml::stylesheet('com_sermonspeaker/blog.css', '', true);
+
 $user		= JFactory::getUser();
 $fu_enable	= $this->params->get('fu_enable');
 $canEdit	= ($fu_enable and $user->authorise('core.edit', 'com_sermonspeaker'));
@@ -69,7 +72,6 @@ $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 				<?php if (in_array('serie:category', $this->col_serie) and $this->item->category_title) : ?>
 					<dd>
 						<div class="category-name">
-							<i class="icon-folder"></i>
 							<?php echo JText::_('JCATEGORY'); ?>:
 							<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSeriesRoute($this->item->catslug)); ?>"><?php echo $this->item->category_title; ?></a>
 						</div>
@@ -172,7 +174,7 @@ $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 								<?php endif; ?>
 							</div>
 							<?php if ($picture = SermonspeakerHelperSermonspeaker::insertPicture($item)) : ?>
-								<div class="img-polaroid pull-right item-image"><img src="<?php echo $picture; ?>"></div>
+								<div class="img-polaroid pull-right item-image sermon-image"><img src="<?php echo $picture; ?>"></div>
 							<?php endif; ?>
 							<div class="article-info sermon-info muted">
 								<dl class="article-info">
@@ -180,7 +182,6 @@ $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 									<?php if (in_array('serie:category', $this->columns) and $item->category_title) : ?>
 										<dd>
 											<div class="category-name">
-												<i class="icon-folder"></i>
 												<?php echo JText::_('JCATEGORY'); ?>:
 												<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonsRoute($item->catslug)); ?>"><?php echo $item->category_title; ?></a>
 											</div>

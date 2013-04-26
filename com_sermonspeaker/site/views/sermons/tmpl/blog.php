@@ -8,6 +8,9 @@ JHtml::_('bootstrap.tooltip');
 JHtml::_('behavior.tooltip');
 JHtml::_('behavior.modal');
 
+// needed for pictures in blog layout
+JHtml::stylesheet('com_sermonspeaker/blog.css', '', true);
+
 $user		= JFactory::getUser();
 $fu_enable	= $this->params->get('fu_enable');
 $canEdit	= ($fu_enable and $user->authorise('core.edit', 'com_sermonspeaker'));
@@ -81,9 +84,25 @@ $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 				<div class="items-leading">
 					<?php foreach($this->items as $i => $item) : ?>
 						<div id="sermon<?php echo $i; ?>" class="<?php echo ($item->state) ? '': 'system-unpublished'; ?>">
+							<div class="page-header">
+								<h2><?php echo SermonspeakerHelperSermonspeaker::insertSermonTitle($i, $item, $player, false); ?></h2>
+								<?php if (!$item->state) : ?>
+									<span class="label label-warning"><?php echo JText::_('JUNPUBLISHED'); ?></span>
+								<?php endif;
+								if (in_array('sermons:speaker', $this->columns) and $item->name) : ?>
+									<small class="ss-speaker createdby">
+										<?php echo JText::_('COM_SERMONSPEAKER_SPEAKER'); ?>: 
+										<?php if ($item->speaker_state):
+											echo SermonspeakerHelperSermonSpeaker::SpeakerTooltip($item->speaker_slug, $item->pic, $item->name);
+										else :
+											echo $item->name;
+										endif; ?>
+									</small>
+								<?php endif; ?>
+							</div>
 							<div class="btn-group pull-right">
 								<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-									<i class="icon-cog"></i>
+									<span class="icon-cog"></span>
 									<span class="caret"></span>
 								</a>
 								<ul class="dropdown-menu">
@@ -102,24 +121,8 @@ $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 									<?php endif; ?>
 								</ul>
 							</div>
-							<div class="page-header">
-								<h2><?php echo SermonspeakerHelperSermonspeaker::insertSermonTitle($i, $item, $player, false); ?></h2>
-								<?php if (!$item->state) : ?>
-									<span class="label label-warning"><?php echo JText::_('JUNPUBLISHED'); ?></span>
-								<?php endif;
-								if (in_array('sermons:speaker', $this->columns) and $item->name) : ?>
-									<small class="ss-speaker createdby">
-										<?php echo JText::_('COM_SERMONSPEAKER_SPEAKER'); ?>: 
-										<?php if ($item->speaker_state):
-											echo SermonspeakerHelperSermonSpeaker::SpeakerTooltip($item->speaker_slug, $item->pic, $item->name);
-										else :
-											echo $item->name;
-										endif; ?>
-									</small>
-								<?php endif; ?>
-							</div>
 							<?php if ($picture = SermonspeakerHelperSermonspeaker::insertPicture($item)) : ?>
-								<div class="img-polaroid pull-right item-image"><img src="<?php echo $picture; ?>"></div>
+								<div class="img-polaroid pull-right item-image sermon-image"><img src="<?php echo $picture; ?>"></div>
 							<?php endif; ?>
 							<div class="article-info sermon-info muted">
 								<dl class="article-info">
@@ -127,7 +130,6 @@ $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 									<?php if (in_array('sermons:category', $this->columns) and $item->category_title) : ?>
 										<dd>
 											<div class="category-name">
-												<i class="icon-folder"></i>
 												<?php echo JText::_('JCATEGORY'); ?>:
 												<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonsRoute($item->catslug)); ?>"><?php echo $item->category_title; ?></a>
 											</div>
@@ -135,8 +137,8 @@ $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 									<?php endif;
 									if (in_array('sermons:series', $this->columns) and $item->series_title) : ?>
 										<dd>
-											<div class="category-name">
-												<i class="icon-drawer-2"></i>
+											<div class="ss-sermondetail-info">
+												<span class="icon-drawer-2"></span>
 												<?php echo JText::_('COM_SERMONSPEAKER_SERIE_TITLE'); ?>:
 												<?php if ($item->series_state) : ?>
 													<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->series_slug)); ?>">
