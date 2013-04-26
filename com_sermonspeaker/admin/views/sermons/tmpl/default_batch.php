@@ -1,5 +1,4 @@
 <?php
-// no direct access
 defined('_JEXEC') or die;
 
 $published = $this->state->get('filter.state');
@@ -11,6 +10,11 @@ $published = $this->state->get('filter.state');
 	</div>
 	<div class="modal-body">
 		<p><?php echo JText::_('COM_SERMONSPEAKER_BATCH_TIP'); ?></p>
+		<div class="control-group">
+			<div class="controls">
+				<?php echo JHtml::_('batch.tag');?>
+			</div>
+		</div>
 		<div class="control-group">
 			<div class="controls">
 				<?php echo JHtml::_('batch.language'); ?>

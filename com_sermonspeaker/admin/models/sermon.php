@@ -441,6 +441,16 @@ class SermonspeakerModelSermon extends JModelAdmin
 			$done = true;
 		}
 
+		if (!empty($commands['tag']))
+		{
+			if (!$this->batchTag($commands['tag'], $pks, $contexts))
+			{
+				return false;
+			}
+
+			$done = true;
+		}
+
 		if (!empty($commands['speaker_id']))
 		{
 			if (!$this->batchSpeaker($commands['speaker_id'], $pks, $contexts))
