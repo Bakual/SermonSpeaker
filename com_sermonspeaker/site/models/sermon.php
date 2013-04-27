@@ -76,6 +76,7 @@ class SermonspeakerModelSermon extends JModelItem
 						'sermon.hits, sermon.addfile, sermon.addfileDesc, '.
 						'sermon.metakey, sermon.metadesc, sermon.custom1, sermon.custom2, '.
 						'sermon.created, sermon.created_by, sermon.audiofilesize, sermon.videofilesize'
+						'sermon.metadata'
 					)
 				);
 				$query->from('#__sermon_sermons AS sermon');
@@ -133,6 +134,11 @@ class SermonspeakerModelSermon extends JModelItem
 					throw new JException(JText::_('JGLOBAL_RESOURCE_NOT_FOUND'), 404);
 				}
 
+				// Convert the metadata field to an array.
+				$registry = new JRegistry;
+				$registry->loadString($data->metadata);
+				$data->metadata = $registry;
+
 				$this->_item[$id] = $data;
 			}
 			catch (JException $e)
@@ -141,6 +147,7 @@ class SermonspeakerModelSermon extends JModelItem
 				$this->_item[$id] = false;
 			}
 		}
+
 
 		return $this->_item[$id];
 	}
@@ -161,36 +168,6 @@ class SermonspeakerModelSermon extends JModelItem
 
 		$sermon = $this->getTable('Sermon', 'SermonspeakerTable');
 		return $sermon->hit($id);
-	}
-
-	/**
-	 * Method to get the tags for the sermon
-	 *
-	 * @param	int		Optional ID of the sermon.
-	 * @return	boolean	True on success
-	 * @since	1.5
-	 */
-	public function getTags($id = null)
-	{
-		if (empty($id))
-		{
-			$id = $this->getState('sermon.id');
-		}
-
-		$db = $this->getDbo();
-		$query = $db->getQuery(true);
-
-		$query->select('tags.title');
-		$query->from('#__sermon_sermons_tags AS st');
-		$query->join('LEFT', '#__sermon_tags AS tags ON st.tag_id = tags.id');
-		$query->where('st.sermon_id = '.$id);
-		$query->where('tags.state = 1');
-		$query->order('tags.title ASC');
-
-		$db->setQuery($query);
-
-		$tags = $db->loadColumn();
-		return $tags;
 	}
 
 	/**

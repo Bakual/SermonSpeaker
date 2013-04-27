@@ -246,21 +246,6 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 			$i++;
 		}
 
-		// Tags
-		$query	= "DELETE FROM #__sermon_sermons_tags \n"
-				."WHERE sermon_id = ".$recordId
-				;
-		$db->setQuery($query);
-		$db->execute();
-		foreach ($validData['tags'] as $tag){
-			$query	= "INSERT INTO #__sermon_sermons_tags \n"
-					."(`sermon_id`,`tag_id`) \n"
-					."VALUES ('".$recordId."','".(int)$tag."')"
-					;
-			$db->setQuery($query);
-			$db->execute();
-		}
-
 		// ID3
 		if($params->get('write_id3', 0)){
 			$app	= JFactory::getApplication();
