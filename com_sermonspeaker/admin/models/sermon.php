@@ -261,11 +261,11 @@ class SermonspeakerModelSermon extends JModelAdmin
 	{
 		jimport('joomla.filter.output');
 
-		$table->sermon_title	= htmlspecialchars_decode($table->sermon_title, ENT_QUOTES);
+		$table->title	= htmlspecialchars_decode($table->title, ENT_QUOTES);
 		$table->alias			= JApplication::stringURLSafe($table->alias);
 
 		if (empty($table->alias)) {
-			$table->alias = JApplication::stringURLSafe($table->sermon_title);
+			$table->alias = JApplication::stringURLSafe($table->title);
 			if (empty($table->alias)) {
 				$table->alias = JFactory::getDate()->format("Y-m-d-H-i-s");
 			}
@@ -563,9 +563,9 @@ class SermonspeakerModelSermon extends JModelAdmin
 			}
 
 			// Alter the title & alias
-			// Custom: defining the sermon_title
-			$data = $this->generateNewTitle($categoryId, $table->alias, $table->sermon_title);
-			$table->sermon_title = $data['0'];
+			// Custom: defining the title
+			$data = $this->generateNewTitle($categoryId, $table->alias, $table->title);
+			$table->title = $data['0'];
 			$table->alias = $data['1'];
 
 			// Reset the ID because we are making a copy

@@ -17,7 +17,7 @@ class SermonspeakerModelSermons extends JModelList
 		if (empty($config['filter_fields'])) {
 			$config['filter_fields'] = array(
 				'id', 'sermons.id',
-				'sermon_title', 'sermons.sermon_title',
+				'title', 'sermons.title',
 				'alias', 'sermons.alias',
 				'checked_out', 'sermons.checked_out',
 				'checked_out_time', 'sermons.checked_out_time',
@@ -125,7 +125,7 @@ class SermonspeakerModelSermons extends JModelList
 		$query->select(
 			$this->getState(
 				'list.select',
-				'sermons.id, sermons.sermon_title, sermons.catid, sermons.language, '.
+				'sermons.id, sermons.title, sermons.catid, sermons.language, '.
 				'sermons.hits, sermons.notes, sermons.checked_out, sermons.checked_out_time, '.
 				'sermons.sermon_date, sermons.alias, sermons.created, sermons.created_by, '.
 				'sermons.state, sermons.ordering, sermons.podcast'
@@ -197,7 +197,7 @@ class SermonspeakerModelSermons extends JModelList
 				$query->where('sermons.id = '.(int) substr($search, 3));
 			} else {
 				$search = $db->Quote('%'.$db->escape($search, true).'%');
-				$query->where('(sermons.sermon_title LIKE '.$search.')');
+				$query->where('(sermons.title LIKE '.$search.')');
 			}
 		}
 

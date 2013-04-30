@@ -21,7 +21,7 @@ class OBSSInAddonSermonspeaker extends OBSSInAddon{
 			return;
 		}
 		$item	= &$params['article'];
-		if (!isset($item->sermon_title)){
+		if (!isset($item->title)){
 			return;
 		}
 		$isNew	= &$params['isNew'];
@@ -118,7 +118,7 @@ class OBSSInAddonSermonspeaker extends OBSSInAddon{
 		$template 	= $configs->get('template', '[title] @ [shorturl]');
 		$message 	= $template;
 
-		$title 		= $item->sermon_title;
+		$title 		= $item->title;
 		$message 	= str_replace("[title]", $title, $message);
 		$message	= str_replace("[shorturl]", $shorturl, $message);
 		$message	= str_replace("[speaker]", $speaker[0], $message);

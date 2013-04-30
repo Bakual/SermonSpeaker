@@ -327,7 +327,7 @@ class plgFinderSermonspeaker extends FinderIndexerAdapter
 		$db = JFactory::getDbo();
 		// Check if we can use the supplied SQL query.
 		$sql = is_a($sql, 'JDatabaseQuery') ? $sql : $db->getQuery(true);
-		$sql->select('a.id, a.sermon_title AS title, a.alias, a.notes AS summary');
+		$sql->select('a.id, a.title AS title, a.alias, a.notes AS summary');
 		$sql->select('a.state, a.catid, a.created AS start_date, a.created_by');
 		$sql->select('a.metakey, a.metadesc, '.(int)$this->access.' AS access, a.ordering');
 		$sql->select('a.created AS publish_start_date');

@@ -82,7 +82,7 @@ if (in_array('sermons:player', $this->columns) and count($this->items)) :
 					</div>
 				</div>
 				<div class="column-content" onclick="ss_play('<?php echo $i; ?>')">
-					<h3 class="title"><a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug)); ?>"><?php echo $item->sermon_title; ?></a>
+					<h3 class="title"><a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug)); ?>"><?php echo $item->title; ?></a>
 						<?php if ($canEdit || ($canEditOwn && ($user->id == $item->created_by))) :
 							echo JHtml::_('icon.edit', $item, $this->params, array('type' => 'sermon'));
 						endif; ?>

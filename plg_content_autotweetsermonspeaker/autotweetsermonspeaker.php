@@ -231,7 +231,7 @@ class PlgContentAutotweetSermonspeaker extends plgAutotweetBase
 		$image_url	= SermonspeakerHelperSermonspeaker::insertPicture($item, 1);
 
 		$native_object = json_encode($item);
-		$this->postStatusMessage($item->id, $publish_up, $item->sermon_title, self::TYPE_SERMON, $url, $image_url, $native_object);
+		$this->postStatusMessage($item->id, $publish_up, $item->title, self::TYPE_SERMON, $url, $image_url, $native_object);
 	}
 
 	/**
@@ -258,7 +258,7 @@ class PlgContentAutotweetSermonspeaker extends plgAutotweetBase
 		$cat_alias = $cats[2];
 
 		// Use item title or text as message
-		$title = $item->sermon_title;
+		$title = $item->title;
 		$item_text = JHtml::_('content.prepare', $item->notes);
 		$text = $this->getMessagetext($this->use_text, $this->use_text_count, $title, $item_text);
 		$hashtags = '';

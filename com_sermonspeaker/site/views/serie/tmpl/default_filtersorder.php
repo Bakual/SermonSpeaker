@@ -1,5 +1,5 @@
 <?php $orderlist	= array(
-				'sermon_title' => 'JGLOBAL_TITLE',
+				'title' => 'JGLOBAL_TITLE',
 				'sermon_date' => 'COM_SERMONSPEAKER_FIELD_DATE_LABEL',
 				'hits' => 'JGLOBAL_HITS',
 				'ordering' => 'JFIELD_ORDERING_LABEL'

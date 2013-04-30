@@ -152,7 +152,7 @@ class SermonspeakerViewSermons extends JViewLegacy
 			'sermons.ordering' => JText::_('JGRID_HEADING_ORDERING'),
 			'sermons.state' => JText::_('JSTATUS'),
 			'sermons.podcast' => JText::_('COM_SERMONSPEAKER_FIELD_SERMONCAST_LABEL'),
-			'sermons.sermon_title' => JText::_('JGLOBAL_TITLE'),
+			'sermons.title' => JText::_('JGLOBAL_TITLE'),
 			'category_title' => JText::_('JCATEGORY'),
 			'name' => JText::_('COM_SERMONSPEAKER_SPEAKER'),
 			'scripture' => JText::_('COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL'),

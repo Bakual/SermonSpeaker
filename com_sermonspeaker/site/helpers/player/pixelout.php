@@ -55,7 +55,7 @@ class SermonspeakerHelperPlayerPixelout extends SermonspeakerHelperPlayer
 					$artists[]	= '';
 					continue;
 				}
-				$titles[]	= ($temp_item->sermon_title) ? urlencode($temp_item->sermon_title) : '';
+				$titles[]	= ($temp_item->title) ? urlencode($temp_item->title) : '';
 				$artists[]	= ($temp_item->name) ? urlencode($temp_item->name) : '';
 			}
 			$file	= implode(',',$files);
@@ -67,7 +67,7 @@ class SermonspeakerHelperPlayerPixelout extends SermonspeakerHelperPlayer
 			$file	= urlencode(SermonspeakerHelperSermonspeaker::makeLink($item->audiofile));
 			$this->mspace = '<div id="mediaspace'.$this->config['count'].'"><audio src="'.$file.'" controls="controls" preload="auto" >'.JText::_('COM_SERMONSPEAKER_PLAYER_NEEDS_FLASH').'</audio></div>';
 			$this->setDimensions(23, 290);
-			$title	= ($item->sermon_title) ? 'titles: "'.urlencode($item->sermon_title).'",' : '';
+			$title	= ($item->title) ? 'titles: "'.urlencode($item->title).'",' : '';
 			$artist	= ($item->name) ? 'artists: "'.urlencode($item->name).'",' : '';
 		}
 		$this->script = '<script type="text/javascript">'

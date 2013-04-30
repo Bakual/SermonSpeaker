@@ -44,14 +44,14 @@ class SermonspeakerHelperId3
 		{
 			if (array_key_exists('title', $FileInfo['comments']))
 			{
-				$id3['sermon_title']	= $FileInfo['comments']['title'][0];
+				$id3['title']	= $FileInfo['comments']['title'][0];
 			}
 			else
 			{
 				jimport('joomla.filesystem.file');
-				$id3['sermon_title']	= JFile::stripExt(JFile::getName($file));
+				$id3['title']	= JFile::stripExt(JFile::getName($file));
 			}
-			$id3['alias'] = JApplication::stringURLSafe($id3['sermon_title']);
+			$id3['alias'] = JApplication::stringURLSafe($id3['title']);
 			if (array_key_exists('track', $FileInfo['comments']))
 			{
 				$id3['sermon_number']	= $FileInfo['comments']['track'][0];
@@ -95,8 +95,8 @@ class SermonspeakerHelperId3
 		else
 		{
 			jimport('joomla.filesystem.file');
-			$id3['sermon_title']	= JFile::stripExt(JFile::getName($path));
-			$id3['alias'] 			= JApplication::stringURLSafe($id3['sermon_title']);
+			$id3['title']	= JFile::stripExt(JFile::getName($path));
+			$id3['alias'] 			= JApplication::stringURLSafe($id3['title']);
 			$id3['sermon_number']	= '';
 			$id3['notes'] 			= '';
 			$id3['scripture'] = '';
@@ -121,8 +121,8 @@ class SermonspeakerHelperId3
 			$min		= (int)(($duration - $hrs * 3600) / 60);
 			$sec		= (int)($video->duration - $hrs * 3600 - $min * 60);
 			$id3['sermon_time']		= $hrs.':'.sprintf('%02d',$min).':'.sprintf('%02d', $sec);
-			$id3['sermon_title']	= (string)$video->title;
-			$id3['alias'] 			= JApplication::stringURLSafe($id3['sermon_title']);
+			$id3['title']			= (string)$video->title;
+			$id3['alias'] 			= JApplication::stringURLSafe($id3['title']);
 			$id3['sermon_date']		= (string)$video->upload_date;
 			$id3['notes'] 			= (string)$video->description;
 			$id3['pic']				= $video->thumbnail_medium;

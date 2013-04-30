@@ -68,7 +68,7 @@ CREATE TABLE `#__sermon_sermons` (
 	`audiofilesize` INT NOT NULL DEFAULT '0',
 	`videofilesize` INT NOT NULL DEFAULT '0',
 	`picture` TEXT NOT NULL DEFAULT '',
-	`sermon_title` VARCHAR(255) NOT NULL,
+	`title` VARCHAR(255) NOT NULL,
 	`alias` VARCHAR(255) NOT NULL,
 	`sermon_number` INT(10) NOT NULL DEFAULT '0',
 	`custom1` MEDIUMTEXT NOT NULL,
@@ -116,5 +116,5 @@ INSERT INTO `#__sermon_series`
 	VALUES (1,'General Topics','general-topics','Topics of general interest.',1,1,62,'2006-03-28','1');
 
 INSERT INTO `#__sermon_sermons`
-	(`id`,`speaker_id`,`series_id`,`audiofile`,`sermon_title`,`alias`,`sermon_number`,`sermon_date`,`sermon_time`,`notes`,`ordering`,`created_by`,`created`,`state`) 
+	(`id`,`speaker_id`,`series_id`,`audiofile`,`title`,`alias`,`sermon_number`,`sermon_date`,`sermon_time`,`notes`,`ordering`,`created_by`,`created`,`state`) 
 	VALUES (1,1,1,'/components/com_sermonspeaker/media/default_sermon.mp3','The Sin of Booze','the-sin-of-booze','1','2006-03-28','00:00:05','Borrowed from sermonaudio.com',1,62,'2006-03-28',1);

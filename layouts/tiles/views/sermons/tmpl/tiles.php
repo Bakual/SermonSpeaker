@@ -105,11 +105,11 @@ if (in_array('sermons:player', $this->columns) and count($this->items)) :
 				$picture = 'media/com_sermonspeaker/images/'.$this->params->get('defaultpic', 'nopict.jpg');
 			endif; ?>
 			<div id="sermon<?php echo $i; ?>" class="ss-entry tile">
-				<span class="hasTip" title="<?php echo $this->escape($item->sermon_title).'::'.$this->escape($tooltip); ?>">
+				<span class="hasTip" title="<?php echo $this->escape($item->title).'::'.$this->escape($tooltip); ?>">
 				<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->id));?>">
 					<img border="0" align="middle" src="<?php echo $picture; ?>">
 					<span class="item-title">
-						<?php echo $item->sermon_title; ?>
+						<?php echo $item->title; ?>
 					</span>
 				</a>
 				</span>

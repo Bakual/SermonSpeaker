@@ -250,12 +250,12 @@ class SermonspeakerHelperSermonspeaker
 		{
 			case 0:
 				$options['title'] = '::'.JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER');
-				$return .= JHtml::Link(JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug)), $item->sermon_title, $options);
+				$return .= JHtml::Link(JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug)), $item->title, $options);
 				break;
 			case 1:
 				$options['title'] = '::'.JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER');
 				$file = ($item->videofile && (self::$params->get('fileprio', 0) || !$item->audiofile)) ? $item->videofile : $item->audiofile;
-				$return .= JHtml::Link(self::makeLink($file), $item->sermon_title, $options);
+				$return .= JHtml::Link(self::makeLink($file), $item->title, $options);
 				break;
 			case 2:
 				$cols = self::$params->get('col');
@@ -265,16 +265,16 @@ class SermonspeakerHelperSermonspeaker
 				if(in_array(self::$view.':player', $cols)){
 					$options['onclick'] = 'ss_play('.$i.');return false;';
 					$options['title'] = '::'.JText::_('COM_SERMONSPEAKER_PLAYICON_HOOVER');
-					$return .= JHtml::Link('#', $item->sermon_title, $options);
+					$return .= JHtml::Link('#', $item->title, $options);
 				} else {
 					$options['title'] = '::'.JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER');
-					$return .= JHtml::Link(JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug)), $item->sermon_title, $options);
+					$return .= JHtml::Link(JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug)), $item->title, $options);
 				}
 				break;
 			case 3:
 				$options['onclick'] = "popup=window.open('".JRoute::_('index.php?view=sermon&layout=popup&id='.$item->id.'&tmpl=component')."', 'PopupPage', 'height=".$player->popup['height'].',width='.$player->popup['width'].",scrollbars=yes,resizable=yes'); return false";
 				$options['title'] = '::'.JText::_('COM_SERMONSPEAKER_POPUPPLAYER');
-				$return .= JHtml::Link('#', $item->sermon_title, $options);
+				$return .= JHtml::Link('#', $item->title, $options);
 				break;
 		}
 		return $return;

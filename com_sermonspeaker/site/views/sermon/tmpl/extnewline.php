@@ -14,7 +14,7 @@ $player = SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 <?php if ($this->params->get('show_page_heading', 1)) : ?>
 	<h1><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
 <?php endif; ?>
-<h2><a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonRoute($this->item->slug)); ?>"><?php echo $this->item->sermon_title; ?></a></h2>
+<h2><a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonRoute($this->item->slug)); ?>"><?php echo $this->item->title; ?></a></h2>
 <?php if ($canEdit || ($canEditOwn && ($user->id == $this->item->created_by))) : ?>
 	<ul class="actions">
 		<li class="edit-icon">
@@ -127,7 +127,7 @@ if ($this->params->get('enable_jcomments') && file_exists($comments)) : ?>
 	<div class="jcomments">
 		<?php
 		require_once($comments);
-		echo JComments::showComments($this->item->id, 'com_sermonspeaker', $this->item->sermon_title); ?>
+		echo JComments::showComments($this->item->id, 'com_sermonspeaker', $this->item->title); ?>
 	</div>
 <?php endif; ?>
 </div>

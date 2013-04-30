@@ -99,8 +99,8 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 				if (xmlhttp.readyState==4 && xmlhttp.status==200){
 					var data = JSON.decode(xmlhttp.responseText);
 					if (data.status==1){
-						if(data.filename_title==false || document.getElementById("jform_sermon_title").value==""){
-							document.getElementById("jform_sermon_title").value = data.sermon_title;
+						if(data.filename_title==false || document.getElementById("jform_title").value==""){
+							document.getElementById("jform_title").value = data.title;
 							document.getElementById("jform_alias").value = data.alias;
 						}
 						if(data.sermon_number && document.getElementById("jform_sermon_number")){

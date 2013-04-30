@@ -26,7 +26,7 @@ $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 				<span class="label label-warning"><?php echo JText::_('JUNPUBLISHED'); ?></span>
 			<?php endif; ?>
 			<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonRoute($this->item->slug)); ?>">
-				<?php echo $this->escape($this->item->sermon_title); ?></a>
+				<?php echo $this->escape($this->item->title); ?></a>
 		</h2>
 		<?php if (in_array('sermon:speaker', $this->columns) and $this->item->name) : ?>
 			<small class="ss-speaker createdby">

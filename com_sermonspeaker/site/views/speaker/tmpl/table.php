@@ -174,7 +174,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 								<?php endif; ?>
 								<th class="ss-title">
 									<?php if (!$limit) :
-										echo JHtml::_('grid.sort', 'JGLOBAL_TITLE', 'sermon_title', $listDirnSermons, $listOrderSermons);
+										echo JHtml::_('grid.sort', 'JGLOBAL_TITLE', 'title', $listDirnSermons, $listOrderSermons);
 									else :
 										echo JText::_('JGLOBAL_TITLE');
 									endif; ?>

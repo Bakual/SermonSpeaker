@@ -26,7 +26,7 @@ class SermonspeakerModelSermons extends JModelList
 		{
 			$config['filter_fields'] = array(
 				'sermon_number', 'sermons.sermon_number',
-				'sermon_title', 'sermons.sermon_title',
+				'title', 'sermons.title',
 				'checked_out', 'sermons.checked_out',
 				'checked_out_time', 'sermons.checked_out_time',
 				'book', 'script.book',
@@ -61,7 +61,7 @@ class SermonspeakerModelSermons extends JModelList
 		$query->select(
 			$this->getState(
 				'list.select',
-				'sermons.id, sermons.sermon_title, sermons.catid, sermons.audiofile, sermons.videofile, ' .
+				'sermons.id, sermons.title, sermons.catid, sermons.audiofile, sermons.videofile, ' .
 				'sermons.custom1, sermons.custom2, sermons.audiofilesize, sermons.videofilesize, ' .
 				'CASE WHEN CHAR_LENGTH(sermons.alias) THEN CONCAT_WS(\':\', sermons.id, sermons.alias) ELSE sermons.id END as slug,' .
 				'sermons.picture, sermons.hits, sermons.notes, sermons.checked_out, sermons.checked_out_time,' .
@@ -139,7 +139,7 @@ class SermonspeakerModelSermons extends JModelList
 		if (!empty($search))
 		{
 			$search = $db->Quote('%'.$db->escape($search, true).'%');
-			$query->where('(sermons.sermon_title LIKE '.$search.')');
+			$query->where('(sermons.title LIKE '.$search.')');
 		}
 
 		// Filter by date

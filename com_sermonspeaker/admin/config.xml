@@ -51,7 +51,7 @@
 			description="COM_SERMONSPEAKER_PARAM_DEFAULT_ORDER_DESC">
 			<option value="ordering">COM_SERMONSPEAKER_PARAM_DEFAULT_ORDER_OPTION_ORDERING</option>
 			<option value="sermon_date">COM_SERMONSPEAKER_PARAM_DEFAULT_ORDER_OPTION_DATE</option>
-			<option value="sermon_title">COM_SERMONSPEAKER_PARAM_DEFAULT_ORDER_OPTION_TITLE</option>
+			<option value="title">COM_SERMONSPEAKER_PARAM_DEFAULT_ORDER_OPTION_TITLE</option>
 		</field>
 		<field name="default_order_dir" 
 			type="list" 

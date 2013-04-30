@@ -168,7 +168,7 @@ class SermonspeakerHelperPlayerJwplayer5 extends SermonspeakerHelperPlayer
 					$entry['file']	= ($img) ? $img : JURI::base(true).'/media/com_sermonspeaker/images/'.$this->params->get('defaultpic', 'nopict.jpg');
 					$entry['error']	= JText::_('JGLOBAL_RESOURCE_NOT_FOUND');
 				}
-				$entry['title']	= addslashes($temp_item->sermon_title);
+				$entry['title']	= addslashes($temp_item->title);
 				$desc = array();
 				if ($temp_item->sermon_date)
 				{

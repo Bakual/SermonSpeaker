@@ -144,7 +144,7 @@ class SermonspeakerHelperPlayerFlowplayer3 extends SermonspeakerHelperPlayer
 					$entry['url']	= ($img) ? $img : JURI::base(true).'/media/com_sermonspeaker/images/'.$this->params->get('defaultpic', 'nopict.jpg');
 					$entry['error']	= JText::_('JGLOBAL_RESOURCE_NOT_FOUND');
 				}
-				$entry['title']	= addslashes($temp_item->sermon_title);
+				$entry['title']	= addslashes($temp_item->title);
 				if ($temp_item->sermon_time != '00:00:00'){
 					$time_arr	= explode(':', $temp_item->sermon_time);
 					$seconds	= ($time_arr[0] * 3600) + ($time_arr[1] * 60) + $time_arr[2];

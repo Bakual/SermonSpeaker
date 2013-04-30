@@ -113,10 +113,10 @@ class modRelatedSermonsHelper
 		switch ($orderBy) 
 		{
 			case 'NameAsc':
-				$SermonOrder = 'a.sermon_title ASC';
+				$SermonOrder = 'a.title ASC';
 				break;
 			case 'NameDes':
-				$SermonOrder = 'a.sermon_title DESC';
+				$SermonOrder = 'a.title DESC';
 				break;
 			case 'SermonDateAsc':
 				$SermonOrder = 'a.sermon_date ASC';
@@ -133,7 +133,7 @@ class modRelatedSermonsHelper
 		}
 
 		$query	= self::$db->getQuery(true);
-		$query->select('a.sermon_title AS title, a.created');
+		$query->select('a.title, a.created');
 		$query->select('CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(":", a.id, a.alias) ELSE a.id END as slug');
 		$query->select('CASE WHEN CHAR_LENGTH(cc.alias) THEN CONCAT_WS(":", cc.id, cc.alias) ELSE cc.id END as catslug');
 		$query->from('#__sermon_sermons AS a');

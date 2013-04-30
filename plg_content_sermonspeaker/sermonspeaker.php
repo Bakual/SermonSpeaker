@@ -53,7 +53,7 @@ class plgContentSermonspeaker extends JPlugin
 				$mode = (isset($explode[1])) ? $explode[1] : $default_mode;
 
 				$query	= $db->getQuery(true);
-				$query->select('sermons.id, sermon_title, sermon_date, sermon_time, audiofile, videofile, sermons.hits, sermon_date');
+				$query->select('sermons.id, sermons.title, sermon_date, sermon_time, audiofile, videofile, sermons.hits, sermon_date');
 				$query->select('CASE WHEN CHAR_LENGTH(sermons.alias) THEN CONCAT_WS(\':\', sermons.id, sermons.alias) ELSE sermons.id END as slug');
 				$query->from('`#__sermon_sermons` AS sermons');
 				$query->where('sermons.id = '.$id);
@@ -80,7 +80,7 @@ class plgContentSermonspeaker extends JPlugin
 					case 1:
 					default:
 						$link	= JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug));
-						$output	= '<a href="'.$link.'">'.$item->sermon_title.'</a>';
+						$output	= '<a href="'.$link.'">'.$item->title.'</a>';
 						break;
 					case 2:
 						$config['count'] = '_plg_'.$item->id.'_'.$i;
@@ -135,7 +135,7 @@ class plgContentSermonspeaker extends JPlugin
 						$module_params['moduleclass_sfx']	= $this->params->get('moduleclass_sfx');
 						$module = new StdClass;
 						$module->id			= 0;
-						$module->title		= '<a href="'.$link.'">'.$item->sermon_title.'</a>';
+						$module->title		= '<a href="'.$link.'">'.$item->title.'</a>';
 						$module->module		= 'mod_custom';
 						$module->position	= '';
 						$module->content	= $contents;

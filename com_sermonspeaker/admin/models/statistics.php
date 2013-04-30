@@ -34,7 +34,7 @@ class SermonspeakerModelStatistics extends JModelLegacy
 
 	function getSermons()
 	{
-		$query = "SELECT id, sermon_title, hits FROM #__sermon_sermons \n"
+		$query = "SELECT id, title, hits FROM #__sermon_sermons \n"
 				."ORDER BY id"
 				;
 

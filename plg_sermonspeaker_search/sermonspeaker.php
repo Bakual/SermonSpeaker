@@ -148,7 +148,7 @@ class plgSearchSermonspeaker extends JPlugin
 						$wheres2[]	= 'b.book IN ('.implode(',', $book_ids).')';
 					}
 					$text		= $db->Quote('%'.$db->escape($text, true).'%', false);
-					$wheres2[]	= 'a.sermon_title LIKE '.$text;
+					$wheres2[]	= 'a.title LIKE '.$text;
 					$wheres2[]	= 'a.notes LIKE '.$text;
 					$wheres2[]	= 't.title LIKE '.$text;
 					$where		= '(' . implode(') OR (', $wheres2) . ')';
@@ -174,7 +174,7 @@ class plgSearchSermonspeaker extends JPlugin
 							$wheres2[]	= 'b.book IN ('.implode(',', $book_ids).')';
 						}
 						$word		= $db->Quote('%'.$db->escape($word, true).'%', false);
-						$wheres2[]	= 'a.sermon_title LIKE '.$word;
+						$wheres2[]	= 'a.title LIKE '.$word;
 						$wheres2[]	= 'a.notes LIKE '.$word;
 						$wheres2[]	= 't.title LIKE '.$word;
 						$wheres[]	= implode(' OR ', $wheres2);
@@ -191,11 +191,11 @@ class plgSearchSermonspeaker extends JPlugin
 					$order = 'a.hits DESC';
 					break;
 				case 'alpha':
-					$order = 'a.sermon_title ASC';
+					$order = 'a.title ASC';
 					break;
 				case 'category':
-					$order = 'c.title ASC, a.sermon_title ASC';
-					$morder = 'a.sermon_title ASC';
+					$order = 'c.title ASC, a.title ASC';
+					$morder = 'a.title ASC';
 					break;
 				case 'newest':
 				default:
@@ -204,7 +204,7 @@ class plgSearchSermonspeaker extends JPlugin
 			if (!empty($state))
 			{
 				$query	= $db->getQuery(true);
-				$query->select('a.sermon_title AS title, a.notes AS text, a.created AS created, '
+				$query->select('a.title, a.notes AS text, a.created AS created, '
 							.'CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(\':\', a.id, a.alias) ELSE a.id END as slug, '
 							.'CASE WHEN CHAR_LENGTH(c.alias) THEN CONCAT_WS(\':\', c.id, c.alias) ELSE c.id END as catslug, '
 							.'CONCAT_WS(" / ", '.$db->Quote($section).', c.title) AS section, "2" AS browsernav');

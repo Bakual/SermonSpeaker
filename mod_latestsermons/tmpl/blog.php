@@ -11,7 +11,7 @@ $count = count($list);
 		$i++; ?>
 		<div class="latestsermons_entry<?php echo $i; ?>">
 			<h3><a href="<?php echo JRoute::_('index.php?option=com_sermonspeaker&view=sermon&id='.$row->slug.'&Itemid='.$itemid); ?>">
-				<?php echo $row->sermon_title;
+				<?php echo $row->title;
 				if ($params->get('show_hits', 0) > 1 and $row->hits) : ?>
 					<small>(<?php echo $row->hits; ?>)</small>
 				<?php endif; ?>

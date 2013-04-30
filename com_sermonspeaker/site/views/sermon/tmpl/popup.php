@@ -13,7 +13,7 @@ $player = SermonspeakerHelperSermonspeaker::getPlayer($this->item, $config);
 </script>
 <div class="ss-sermon-container<?php echo $this->pageclass_sfx; ?>">
 	<div class="popup">
-		<h2><?php echo $this->item->sermon_title; ?></h2>
+		<h2><?php echo $this->item->title; ?></h2>
 		<?php 
 		echo $player->mspace;
 		echo $player->script;

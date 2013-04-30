@@ -76,7 +76,7 @@ class SermonspeakerControllerTools extends JControllerLegacy
 		JSession::checkToken('request') or jexit(JText::_('JINVALID_TOKEN'));
 		$app	= JFactory::getApplication();
 		$db		= JFactory::getDBO();
-		$query	= "SELECT audiofile, videofile, sermons.created_by, sermons.catid, sermon_title, name, series_title, YEAR(sermon_date) AS date, notes, sermon_number, picture \n"
+		$query	= "SELECT audiofile, videofile, sermons.created_by, sermons.catid, sermons.title, name, series_title, YEAR(sermon_date) AS date, notes, sermon_number, picture \n"
 				. "FROM #__sermon_sermons AS sermons \n"
 				. "LEFT JOIN #__sermon_speakers AS speakers ON speaker_id = speakers.id \n"
 				. "LEFT JOIN #__sermon_series AS series ON series_id = series.id \n"
@@ -100,7 +100,7 @@ class SermonspeakerControllerTools extends JControllerLegacy
 				$files[]	= $item->audiofile;
 				$files[]	= $item->videofile;
 				$TagData = array(
-					'title'   => array($item->sermon_title),
+					'title'   => array($item->title),
 					'artist'  => array($item->name),
 					'album'   => array($item->series_title),
 					'year'    => array($item->date),
@@ -157,7 +157,7 @@ class SermonspeakerControllerTools extends JControllerLegacy
 					}
 				}
 			} else {
-				$app->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR').' - '.$item->sermon_title, 'error');
+				$app->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR').' - '.$item->title, 'error');
 				continue;
 			}
 		}
@@ -284,7 +284,7 @@ class SermonspeakerControllerTools extends JControllerLegacy
 			}
 
 			$query	= "INSERT INTO #__sermon_sermons \n"
-					."(`audiofile`, `videofile`, `picture`, `sermon_title`, `alias`, `sermon_date`, `sermon_time`, `notes`, `state`, `hits`, `created_by`, `addfile`, `podcast`, `created`) \n"
+					."(`audiofile`, `videofile`, `picture`, `title`, `alias`, `sermon_date`, `sermon_time`, `notes`, `state`, `hits`, `created_by`, `addfile`, `podcast`, `created`) \n"
 					.'VALUES ('.$db->quote($study->audiofile).','.$db->quote($study->videofile).','.$db->quote($study->study_pic).','.$db->quote($study->study_name).','.$db->quote($study->study_alias).','.$db->quote($study->study_date).','.$db->quote($study->duration).','.$db->quote($study->study_description).','.$db->quote($study->published).','.$db->quote($study->hits).','.$db->quote($study->user).','.$db->quote($study->addfile).', 1, NOW())';
 			$db->setQuery($query);
 			$db->execute();

@@ -90,7 +90,7 @@ $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 						<?php endif; ?>
 						<th class="ss-title">
 							<?php if (!$limit) :
-								echo JHtml::_('grid.sort', 'JGLOBAL_TITLE', 'sermon_title', $listDirn, $listOrder);
+								echo JHtml::_('grid.sort', 'JGLOBAL_TITLE', 'title', $listDirn, $listOrder);
 							else :
 								echo JText::_('JGLOBAL_TITLE');
 							endif; ?>

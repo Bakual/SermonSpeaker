@@ -76,7 +76,7 @@ if ($params->get('itRedirect')) : ?>
 foreach ($this->items as $item) :
 	$notes	= $this->getNotes($item->notes); ?>
 	<item>
-		<title><?php echo $this->make_xml_safe($item->sermon_title); ?></title>
+		<title><?php echo $this->make_xml_safe($item->title); ?></title>
 		<link><?php if ($this->params->get('use_sef', 1)) :
 			echo $this->make_xml_safe(JURI::root().trim(JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug)), '/'));
 		else :

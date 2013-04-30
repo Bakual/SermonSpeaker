@@ -181,7 +181,7 @@ class Com_SermonspeakerInstallerScript
 		{
 			$common	= new stdClass;
 			$common->core_content_item_id	= 'id';
-			$common->core_title				= 'sermon_title';
+			$common->core_title				= 'title';
 			$common->core_state				= 'state';
 			$common->core_alias				= 'alias';
 			$common->core_created_time		= 'created';

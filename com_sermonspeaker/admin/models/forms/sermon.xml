@@ -2,7 +2,7 @@
 <form>
 	<fieldset name="general"
 		addfieldpath="/administrator/components/com_categories/models/fields" >
-		<field name="sermon_title" type="text"
+		<field name="title" type="text"
 			label="JGLOBAL_TITLE" description="COM_SERMONSPEAKER_FIELD_TITLE_DESC"
 			onchange="check(this.value, 70, 0)"
 			class="input-xlarge"
@@ -42,7 +42,7 @@
 		<field name="ordering" type="sermonordering"
 			label="JFIELD_ORDERING_LABEL" description="JFIELD_ORDERING_DESC"
 			table="sermon_sermons"
-			field="sermon_title" />
+			field="title" />
 
 		<field name="audiofile" type="customfilelist"
 			label="COM_SERMONSPEAKER_FIELD_AUDIOFILE_LABEL" description="COM_SERMONSPEAKER_FIELD_AUDIOFILE_DESC"

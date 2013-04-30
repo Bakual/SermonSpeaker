@@ -14,9 +14,9 @@
 			<field name="id" type="sql" 
 				label="COM_SERMONSPEAKER_PARAM_SELECT_SERMON" 
 				description="COM_SERMONSPEAKER_PARAM_SELECT_SERMON_DESC" 
-				query="SELECT id, sermon_title FROM #__sermon_sermons" 
+				query="SELECT id, title FROM #__sermon_sermons" 
 				key_field="id" 
-				value_field="sermon_title" 
+				value_field="title" 
 				required="true"
 			>
 				<option value="0">COM_SERMONSPEAKER_LATESTSERMON</option>

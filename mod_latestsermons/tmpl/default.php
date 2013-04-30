@@ -19,7 +19,7 @@ if ($tooltip) {
 			$date_format = JText::_($params->get('ls_mo_date_format', 'DATE_FORMAT_LC4'));
 			$text = JHtml::Date($row->sermon_date, $date_format, true);
 		else :
-			$text = $row->sermon_title;
+			$text = $row->title;
 		endif;
 		if ($params->get('show_hits') > 1 and $row->hits) :
 			$text .= ' <small>('.$row->hits.')</small>';
@@ -28,7 +28,7 @@ if ($tooltip) {
 		if ($tooltip) :
 			$title = '';
 			if ($params->get('show_tooltip_title')) :
-				$title = $row->sermon_title;
+				$title = $row->title;
 			endif;
 			$tips = array();
 			if ($params->get('show_category') and $row->category_title) :
