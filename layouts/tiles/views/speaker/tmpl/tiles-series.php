@@ -18,7 +18,7 @@ $orderlist	= array(
 <?php if ($this->params->get('show_page_heading', 1)) : ?>
 	<h1><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
 <?php endif; ?>
-<h2><a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($this->item->slug)); ?>"><?php echo $this->item->name; ?></a></h2>
+<h2><a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($this->item->slug)); ?>"><?php echo $this->item->title; ?></a></h2>
 <?php if ($canEdit || ($canEditOwn && ($user->id == $this->item->created_by))) : ?>
 	<ul class="actions">
 		<li class="edit-icon">
@@ -44,7 +44,7 @@ if ($this->params->get('show_category_title', 0) || in_array('speaker:hits', $th
 <div class="category-desc">
 	<div class="ss-pic">
 		<?php if ($this->item->pic) : ?>
-			<img src="<?php echo trim($this->item->pic, '/'); ?>" title="<?php echo $this->item->name; ?>" alt="<?php echo $this->item->name; ?>" />
+			<img src="<?php echo trim($this->item->pic, '/'); ?>" title="<?php echo $this->item->name; ?>" alt="<?php echo $this->item->title; ?>" />
 		<?php endif; ?>
 	</div>
 	<?php if (($this->item->bio && in_array('speaker:bio', $this->columns)) || ($this->item->intro && in_array('speaker:intro', $this->columns))) : ?>
@@ -59,7 +59,7 @@ if ($this->params->get('show_category_title', 0) || in_array('speaker:hits', $th
 	endif; ?>
 	<div class="clear-left"></div>
 	<?php if ($this->item->website && $this->item->website != 'http://') : ?>
-		<a href="<?php echo $this->item->website; ?>" target="_blank" title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKER_WEBLINK_HOOVER'); ?>"><?php echo JText::sprintf('COM_SERMONSPEAKER_SPEAKER_WEBLINK', $this->item->name); ?></a>
+		<a href="<?php echo $this->item->website; ?>" target="_blank" title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKER_WEBLINK_HOOVER'); ?>"><?php echo JText::sprintf('COM_SERMONSPEAKER_SPEAKER_WEBLINK', $this->item->title); ?></a>
 	<?php endif; ?>
 </div>
 <form action="<?php echo JFilterOutput::ampReplace(JFactory::getURI()->toString()); ?>" method="post" id="adminForm" name="adminForm">

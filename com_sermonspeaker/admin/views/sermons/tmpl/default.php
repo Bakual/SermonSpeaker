@@ -89,7 +89,7 @@ endif;
 						<?php echo JHtml::_('grid.sort', 'JGLOBAL_TITLE', 'sermons.title', $listDirn, $listOrder); ?>
 					</th>
 					<th width="10%" class="nowrap hidden-phone hidden-tablet">
-						<?php echo JHtml::_('grid.sort',  'COM_SERMONSPEAKER_SPEAKER', 'name', $listDirn, $listOrder); ?>
+						<?php echo JHtml::_('grid.sort',  'COM_SERMONSPEAKER_SPEAKER', 'speakers_title', $listDirn, $listOrder); ?>
 					</th>
 					<th width="10%" class="nowrap hidden-phone hidden-tablet">
 						<?php echo JHtml::_('grid.sort',  'COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL', 'scripture', $listDirn, $listOrder); ?>
@@ -200,7 +200,7 @@ endif;
 						</div>
 					</td>
 					<td class="nowrap small hidden-phone hidden-tablet">
-						<?php echo $this->escape($item->name); ?>
+						<?php echo $this->escape($item->speakers_title); ?>
 					</td>
 					<td class="center small hidden-phone hidden-tablet">
 						<?php if ($item->scripture):

@@ -73,7 +73,7 @@ $listDirn	= $this->state->get('list.direction');
 							</div>
 							<div class="page-header">
 								<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug)); ?>">
-									<h2><?php echo $item->name; ?></h2>
+									<h2><?php echo $item->title; ?></h2>
 								</a>
 								<?php if (!$item->state) : ?>
 									<span class="label label-warning"><?php echo JText::_('JUNPUBLISHED'); ?></span>

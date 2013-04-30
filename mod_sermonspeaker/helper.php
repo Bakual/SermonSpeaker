@@ -57,7 +57,7 @@ abstract class modSermonspeakerHelper
 			}
 			else
 			{
-				$query->select('id, name as title, intro as tooltip, pic, CASE WHEN CHAR_LENGTH(alias) THEN CONCAT_WS(\':\', id, alias) ELSE id END as slug, 1 as level');
+				$query->select('id, title, intro as tooltip, pic, CASE WHEN CHAR_LENGTH(alias) THEN CONCAT_WS(\':\', id, alias) ELSE id END as slug, 1 as level');
 				$query->from('#__sermon_speakers');
 				if ($sort)
 				{
@@ -65,7 +65,7 @@ abstract class modSermonspeakerHelper
 				}
 				else
 				{
-					$query->order('name ASC');
+					$query->order('title ASC');
 				}
 			}
 			$query->where('state = 1');

@@ -80,7 +80,7 @@ class JFormFieldSpeakerlist extends JFormFieldList
 
 		$query	= $db->getQuery(true);
 		$query->select('speakers.id As value, home');
-		$query->select('CASE WHEN CHAR_LENGTH(c_speakers.title) THEN CONCAT(speakers.name, " (", c_speakers.title, ")") ELSE speakers.name END AS text');
+		$query->select('CASE WHEN CHAR_LENGTH(c_speakers.title) THEN CONCAT(speakers.title, " (", c_speakers.title, ")") ELSE speakers.title END AS text');
 		$query->from('#__sermon_speakers AS speakers');
 		$query->join('LEFT', '#__categories AS c_speakers ON c_speakers.id = speakers.catid');
 		$query->where('speakers.state = 1');
@@ -96,7 +96,7 @@ class JFormFieldSpeakerlist extends JFormFieldList
 				$query->where('speakers.id = '.$db->quote($this->value));
 			}
 		}
-		$query->order('speakers.name');
+		$query->order('speakers.title');
 
 		// Get the options.
 		$db->setQuery($query);
@@ -105,7 +105,7 @@ class JFormFieldSpeakerlist extends JFormFieldList
 
 		$query	= $db->getQuery(true);
 		$query->select('speakers.id As value, home');
-		$query->select('CASE WHEN CHAR_LENGTH(c_speakers.title) THEN CONCAT(speakers.name, " (", c_speakers.title, ")") ELSE speakers.name END AS text');
+		$query->select('CASE WHEN CHAR_LENGTH(c_speakers.title) THEN CONCAT(speakers.title, " (", c_speakers.title, ")") ELSE speakers.title END AS text');
 		$query->from('#__sermon_speakers AS speakers');
 		$query->join('LEFT', '#__categories AS c_speakers ON c_speakers.id = speakers.catid');
 		$query->where('speakers.state = 0');
@@ -120,7 +120,7 @@ class JFormFieldSpeakerlist extends JFormFieldList
 				$query->where('speakers.id = '.$db->quote($this->value));
 			}
 		}
-		$query->order('speakers.name');
+		$query->order('speakers.title');
 
 		// Get the options.
 		$db->setQuery($query);

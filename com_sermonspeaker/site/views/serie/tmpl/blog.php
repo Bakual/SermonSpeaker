@@ -162,13 +162,13 @@ $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 								<?php if (!$item->state) : ?>
 									<span class="label label-warning"><?php echo JText::_('JUNPUBLISHED'); ?></span>
 								<?php endif;
-								if (in_array('sermons:speaker', $this->columns) and $item->name) : ?>
+								if (in_array('sermons:speaker', $this->columns) and $item->speaker_title) : ?>
 									<small class="ss-speaker createdby">
 										<?php echo JText::_('COM_SERMONSPEAKER_SPEAKER'); ?>: 
 										<?php if ($item->speaker_state):
-											echo SermonspeakerHelperSermonSpeaker::SpeakerTooltip($item->speaker_slug, $item->pic, $item->name);
+											echo SermonspeakerHelperSermonSpeaker::SpeakerTooltip($item->speaker_slug, $item->pic, $item->speaker_title);
 										else :
-											echo $item->name;
+											echo $item->speaker_title;
 										endif; ?>
 									</small>
 								<?php endif; ?>

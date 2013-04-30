@@ -28,13 +28,13 @@ $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 			<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonRoute($this->item->slug)); ?>">
 				<?php echo $this->escape($this->item->title); ?></a>
 		</h2>
-		<?php if (in_array('sermon:speaker', $this->columns) and $this->item->name) : ?>
+		<?php if (in_array('sermon:speaker', $this->columns) and $this->item->speaker_title) : ?>
 			<small class="ss-speaker createdby">
 				<?php echo JText::_('COM_SERMONSPEAKER_SPEAKER'); ?>: 
 				<?php if ($this->item->speaker_state):
-					echo SermonspeakerHelperSermonSpeaker::SpeakerTooltip($this->item->speaker_slug, $this->item->pic, $this->item->name);
+					echo SermonspeakerHelperSermonSpeaker::SpeakerTooltip($this->item->speaker_slug, $this->item->pic, $this->item->speaker_title);
 				else :
-					echo $this->item->name;
+					echo $this->item->speaker_title;
 				endif; ?>
 			</small>
 		<?php endif; ?>

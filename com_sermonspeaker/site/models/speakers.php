@@ -25,7 +25,7 @@ class SermonspeakerModelspeakers extends JModelList
 		if (empty($config['filter_fields'])) {
 			$config['filter_fields'] = array(
 				'ordering', 'speakers.ordering',
-				'name', 'speakers.name',
+				'title', 'speakers.title',
 				'intro', 'speakers.intro',
 				'bio', 'speakers.bio',
 				'checked_out', 'speakers.checked_out',
@@ -52,7 +52,7 @@ class SermonspeakerModelspeakers extends JModelList
 		$query->select(
 			$this->getState(
 				'list.select',
-				'speakers.id, speakers.name, speakers.catid, speakers.pic, ' .
+				'speakers.id, speakers.title, speakers.catid, speakers.pic, ' .
 				'CASE WHEN CHAR_LENGTH(speakers.alias) THEN CONCAT_WS(\':\', speakers.id, speakers.alias) ELSE speakers.id END as slug, ' .
 				'speakers.hits, speakers.intro, speakers.bio, speakers.website, speakers.alias, ' .
 				'speakers.checked_out, speakers.checked_out_time, ' .
@@ -106,7 +106,7 @@ class SermonspeakerModelspeakers extends JModelList
 		$search = $this->getState('filter.search');
 		if (!empty($search)) {
 			$search = $db->Quote('%'.$db->escape($search, true).'%');
-			$query->where('(speakers.name LIKE '.$search.')');
+			$query->where('(speakers.title LIKE '.$search.')');
 		}
 
 		// Filter by state

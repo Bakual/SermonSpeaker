@@ -62,9 +62,9 @@ class SermonspeakerViewSerie extends JViewLegacy
 			$popup = array();
 			foreach($speakers as $speaker){
 				if ($speaker->state){
-					$popup[] = SermonspeakerHelperSermonspeaker::SpeakerTooltip($speaker->slug, $speaker->pic, $speaker->name);
+					$popup[] = SermonspeakerHelperSermonspeaker::SpeakerTooltip($speaker->slug, $speaker->pic, $speaker->speaker_title);
 				} else {
-					$popup[] = $speaker->name;
+					$popup[] = $speaker->speaker_title;
 				}
 			}
 			$this->item->speakers = implode(', ', $popup);

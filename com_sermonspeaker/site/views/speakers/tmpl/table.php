@@ -58,7 +58,7 @@ $listDirn	= $this->state->get('list.direction');
 				<table class="table table-striped table-hover table-condensed">
 					<thead><tr>
 						<th class="ss-title">
-							<?php echo JHtml::_('grid.sort', 'COM_SERMONSPEAKER_FIELD_NAME_LABEL', 'name', $listDirn, $listOrder); ?>
+							<?php echo JHtml::_('grid.sort', 'COM_SERMONSPEAKER_FIELD_NAME_LABEL', 'title', $listDirn, $listOrder); ?>
 						</th>
 						<?php if (in_array('speakers:category', $this->col_speaker)) : ?>
 							<th class="ss-col ss-category hidden-phone">
@@ -83,7 +83,7 @@ $listDirn	= $this->state->get('list.direction');
 							<tr class="<?php echo ($item->state) ? '': 'system-unpublished '; ?>cat-list-row<?php echo $i % 2; ?>">
 								<td class="ss-title">
 									<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug)); ?>">
-										<?php echo $item->name; ?>
+										<?php echo $item->title; ?>
 									</a>
 									<?php if ($canEdit or ($canEditOwn and ($user->id == $item->created_by))) : ?>
 										<span class="list-edit pull-left width-50">

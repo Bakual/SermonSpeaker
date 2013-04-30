@@ -105,7 +105,7 @@ class SermonspeakerControllerSpeaker extends JControllerForm
 					;
 			$db->setQuery($query);
 			$db->execute();
-			$app->redirect('index.php?option=com_sermonspeaker&view=speakers', JText::sprintf('COM_SERMONSPEAKER_RESET_OK', JText::_('COM_SERMONSPEAKER_SPEAKER'), $item->name));
+			$app->redirect('index.php?option=com_sermonspeaker&view=speakers', JText::sprintf('COM_SERMONSPEAKER_RESET_OK', JText::_('COM_SERMONSPEAKER_SPEAKER'), $item->title));
 		}
 		else
 		{

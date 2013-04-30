@@ -116,7 +116,7 @@ $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 						if (in_array('sermons:speaker', $this->columns)) : ?>
 							<th class="ss-col ss-speaker hidden-phone">
 								<?php if (!$limit) :
-									echo JHtml::_('grid.sort', 'COM_SERMONSPEAKER_SPEAKER', 'name', $listDirn, $listOrder);
+									echo JHtml::_('grid.sort', 'COM_SERMONSPEAKER_SPEAKER', 'speaker_title', $listDirn, $listOrder);
 								else :
 									echo JText::_('COM_SERMONSPEAKER_SPEAKER');
 								endif; ?>
@@ -206,9 +206,9 @@ $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 								if (in_array('sermons:speaker', $this->columns)) : ?>
 									<td class="ss-col ss-speaker hidden-phone">
 										<?php if ($item->speaker_state):
-											echo SermonspeakerHelperSermonSpeaker::SpeakerTooltip($item->speaker_slug, $item->pic, $item->name);
+											echo SermonspeakerHelperSermonSpeaker::SpeakerTooltip($item->speaker_slug, $item->pic, $item->speaker_title);
 										else :
-											echo $item->name;
+											echo $item->speaker_title;
 										endif; ?>
 									</td>
 								<?php endif;

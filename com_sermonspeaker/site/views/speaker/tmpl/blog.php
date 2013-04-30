@@ -49,7 +49,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 		</div>
 		<div class="page-header">
 			<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($this->item->slug)); ?>">
-				<h2><?php echo $this->item->name; ?></h2>
+				<h2><?php echo $this->item->title; ?></h2>
 			</a>
 			<?php if (!$this->item->state) : ?>
 				<span class="label label-warning"><?php echo JText::_('JUNPUBLISHED'); ?></span>

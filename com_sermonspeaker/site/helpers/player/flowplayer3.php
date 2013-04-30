@@ -157,8 +157,8 @@ class SermonspeakerHelperPlayerFlowplayer3 extends SermonspeakerHelperPlayer
 				if ($temp_item->sermon_date){
 					$desc[] = JText::_('JDATE').': '.JHtml::Date($temp_item->sermon_date, JText::_($this->params->get('date_format')), true);
 				}
-				if ($temp_item->name){
-					$desc[] = JText::_('COM_SERMONSPEAKER_SPEAKER').': '.addslashes($temp_item->name);
+				if ($temp_item->speakers_title){
+					$desc[] = JText::_('COM_SERMONSPEAKER_SPEAKER').': '.addslashes($temp_item->speakers_title);
 				}
 				$entry['description'] = implode('\x3Cbr />', $desc);
 				foreach ($entry as $key => $value)

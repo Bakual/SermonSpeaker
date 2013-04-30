@@ -15,7 +15,7 @@ if ($params->get('speaker_cat')){
 if ($params->get('series_cat')){
 	$where .= ' AND c.catid = '.(int)$params->get('series_cat');
 }
-$query 	= 'SELECT a.title, a.id, a.sermon_date, b.name, c.series_title, a.picture, b.pic, a.videofile'
+$query 	= 'SELECT a.title, a.id, a.sermon_date, b.title as speaker_title, c.series_title, a.picture, b.pic, a.videofile'
 		. ", CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(':', a.id, a.alias) ELSE a.id END as slug \n"
 		. ' FROM #__sermon_sermons a'
 		. ' LEFT JOIN #__sermon_speakers b ON a.speaker_id = b.id'
@@ -126,7 +126,7 @@ include("modules/mod_sermonsrotator/mod_sermonsrotator-js-min.php");
                     {
                         echo '<div class="sermon-rotator-speaker" style="width:'.($sernonWidth- $ss_thumbWidth-5).'px;">';
                         if($ss_showLablesFlg){ echo JText::_('MOD_SERMONSROTATOR_SPEAKER').": "; }
-                        echo stripslashes($row->name);
+                        echo stripslashes($row->speaker_title);
                         echo "</div>";
                     }
                     if($ss_showSeriesFlg)

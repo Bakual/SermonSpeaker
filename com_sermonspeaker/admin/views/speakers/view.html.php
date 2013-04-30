@@ -128,7 +128,7 @@ class SermonspeakerViewSpeakers extends JViewLegacy
 		return array(
 			'speakers.ordering' => JText::_('JGRID_HEADING_ORDERING'),
 			'speakers.state' => JText::_('JSTATUS'),
-			'speakers.name' => JText::_('COM_SERMONSPEAKER_FIELD_NAME_LABEL'),
+			'speakers.title' => JText::_('COM_SERMONSPEAKER_FIELD_NAME_LABEL'),
 			'category_title' => JText::_('JCATEGORY'),
 			'speakers.pic' => JText::_('COM_SERMONSPEAKER_FIELD_PICTURE_LABEL'),
 			'speakers.home' => JText::_('JDEFAULT'),

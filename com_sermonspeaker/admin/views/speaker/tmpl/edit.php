@@ -38,7 +38,7 @@ $input = JFactory::getApplication()->input;
 				<div class="tab-pane active" id="general">
 					<fieldset class="adminform">
 						<div class="control-group form-inline">
-							<?php echo $this->form->getLabel('name'); ?> <?php echo $this->form->getInput('name'); ?> <?php echo $this->form->getLabel('catid'); ?> <?php echo $this->form->getInput('catid'); ?>
+							<?php echo $this->form->getLabel('title'); ?> <?php echo $this->form->getInput('title'); ?> <?php echo $this->form->getLabel('catid'); ?> <?php echo $this->form->getInput('catid'); ?>
 						</div>
 						<?php echo $this->form->getInput('intro'); ?>
 						<?php echo $this->form->getInput('bio'); ?>
@@ -157,7 +157,7 @@ $input = JFactory::getApplication()->input;
 			<fieldset class="form-vertical">
 				<div class="control-group">
 					<div class="controls">
-						<?php echo $this->form->getValue('name'); ?>
+						<?php echo $this->form->getValue('title'); ?>
 					</div>
 				</div>
 

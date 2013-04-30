@@ -78,9 +78,9 @@ $player = SermonspeakerHelperSermonspeaker::getPlayer($this->item, $config);
 		<?php if (in_array('sermon:speaker', $this->columns) && $this->item->speaker_id): ?>
 			<div class="ss-field field-speaker" title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKER'); ?>">
 				<?php if ($this->item->speaker_state):
-					echo SermonspeakerHelperSermonSpeaker::SpeakerTooltip($this->item->speaker_slug, $this->item->pic, $this->item->name); 
+					echo SermonspeakerHelperSermonSpeaker::SpeakerTooltip($this->item->speaker_slug, $this->item->pic, $this->item->speaker_title); 
 				else: 
-					echo $this->item->name;
+					echo $this->item->speaker_title;
 				endif; ?>
 			</div>
 		<?php endif; ?>

@@ -62,7 +62,7 @@ class SermonspeakerModelSpeaker extends JModelItem
 				$query->select(
 					$this->getState(
 						'item.select',
-						'speaker.id, speaker.name, speaker.alias, speaker.website, speaker.state, speaker.catid,'.
+						'speaker.id, speaker.title, speaker.alias, speaker.website, speaker.state, speaker.catid,'.
 						'CASE WHEN CHAR_LENGTH(speaker.alias) THEN CONCAT_WS(\':\', speaker.id, speaker.alias) ELSE speaker.id END as slug,'.
 						'speaker.checked_out, speaker.checked_out_time, speaker.language,'.
 						'speaker.intro, speaker.bio, speaker.pic, speaker.hits, speaker.created, speaker.created_by,'.

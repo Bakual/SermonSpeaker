@@ -187,9 +187,9 @@
 				<field name="speaker" type="sql" 
 					label="MOD_LATESTSERMONS_FIELD_SPEAKER_LABEL" 
 					description="MOD_LATESTSERMONS_FIELD_SPEAKER_DESC"
-					query="SELECT `id`, `name` FROM #__sermon_speakers ORDER BY name ASC"
+					query="SELECT `id`, `title` FROM #__sermon_speakers ORDER BY name ASC"
 					key_field="id"
-					value_field="name">
+					value_field="title">
 					<option value="0">MOD_LATESTSERMONS_FIELD_SPEAKER_OPTION_SELECT</option>
 				</field>
 				<field name="series" type="sql" 

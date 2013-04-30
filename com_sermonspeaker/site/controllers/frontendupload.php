@@ -285,7 +285,7 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 			return;
 		}
 		$db =& JFactory::getDBO();
-		$query	= "SELECT audiofile, videofile, sermons.created_by, sermons.catid, sermons.title, name, series_title, YEAR(sermon_date) AS date, notes, sermon_number, picture \n"
+		$query	= "SELECT audiofile, videofile, sermons.created_by, sermons.catid, sermons.title, speakers.title as speakers_title, series_title, YEAR(sermon_date) AS date, notes, sermon_number, picture \n"
 				. "FROM #__sermon_sermons AS sermons \n"
 				. "LEFT JOIN #__sermon_speakers AS speakers ON speaker_id = speakers.id \n"
 				. "LEFT JOIN #__sermon_series AS series ON series_id = series.id \n"
@@ -309,7 +309,7 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 			$writer->tag_encoding	= 'UTF-8';
 			$TagData = array(
 				'title'   => array($item->title),
-				'artist'  => array($item->name),
+				'artist'  => array($item->speakers_title),
 				'album'   => array($item->series_title),
 				'year'    => array($item->date),
 				'track'   => array($item->sermon_number),

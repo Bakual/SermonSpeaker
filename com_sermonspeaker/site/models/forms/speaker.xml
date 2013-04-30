@@ -2,7 +2,7 @@
 <form>
 	<fieldset name="general"
 		addfieldpath="/administrator/components/com_categories/models/fields" >
-		<field name="name" type="text" class="inputbox"
+		<field name="title" type="text" class="inputbox"
 			size="40" label="COM_SERMONSPEAKER_FIELD_NAME_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_NAME_DESC" required="true" />
 
@@ -33,7 +33,7 @@
 		</field>
 
 		<field name="ordering" type="sermonordering" class="inputbox"
-			table="sermon_speakers" field="name"
+			table="sermon_speakers" field="title"
 			label="JFIELD_ORDERING_LABEL"
 			description="JFIELD_ORDERING_DESC" />
 

@@ -7,7 +7,7 @@
 	<reference>
 		<table name="sermon_speakers">
 			<field type="referenceid" name="id" translate="0">ID</field>
-			<field type="titletext" name="name" translate="1">Name</field>
+			<field type="titletext" name="title" translate="1">Name</field>
 			<field type="text" name="alias" translate="1">Alias</field>		
 			<field type="htmltext" name="intro" translate="1">Intro Text</field>
 			<field type="htmltext" name="bio" translate="1">Bio Text</field>
@@ -15,7 +15,7 @@
 	</reference>
 	<translationfilters>
 		<category>catid</category>
-		<keyword>name</keyword>
+		<keyword>title</keyword>
 		<published>published</published>
 	</translationfilters>
 </joomfish>

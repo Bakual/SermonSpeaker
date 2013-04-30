@@ -81,8 +81,8 @@ if (in_array('sermons:player', $this->columns) and count($this->items)) :
 			if(in_array('sermons:category', $this->columns)):
 				$tip[]	= JText::_('JCATEGORY').': '.$item->category_title;
 			endif;
-			if(in_array('sermons:speaker', $this->columns) and $item->name):
-				$tip[]	= JText::_('COM_SERMONSPEAKER_FIELD_SPEAKER_LABEL').': '.$item->name;
+			if(in_array('sermons:speaker', $this->columns) and $item->speaker_title):
+				$tip[]	= JText::_('COM_SERMONSPEAKER_FIELD_SPEAKER_LABEL').': '.$item->speaker_title;
 			endif;
 			if(in_array('sermons:series', $this->columns) and $item->series_title):
 				$tip[]	= JText::_('COM_SERMONSPEAKER_FIELD_SERIES_LABEL').': '.$item->series_title;

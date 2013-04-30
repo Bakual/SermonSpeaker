@@ -51,12 +51,12 @@ class plgSearchSermonspeaker extends JPlugin
 		if($this->params->get('sermons_speaker', 0))
 		{
 			$db		= JFactory::getDbo();
-			$query	= "SELECT `id`, `name` FROM #__sermon_speakers WHERE state = '1'";
+			$query	= "SELECT `id`, `title` FROM #__sermon_speakers WHERE state = '1'";
 			$db->setQuery($query);
 			$speakers	= $db->loadAssocList();
 			foreach ($speakers as $speaker)
 			{
-				$areas['spspeakers-'.$speaker['id']] = JText::sprintf('PLG_SEARCH_SERMONSPEAKER_SERMONS_FROM', $speaker['name']);
+				$areas['spspeakers-'.$speaker['id']] = JText::sprintf('PLG_SEARCH_SERMONSPEAKER_SERMONS_FROM', $speaker['title']);
 			}
 		}
 		return $areas;
@@ -329,7 +329,7 @@ class plgSearchSermonspeaker extends JPlugin
 				case 'exact':
 					$text		= $db->Quote('%'.$db->escape($text, true).'%', false);
 					$wheres2	= array();
-					$wheres2[]	= 'a.name LIKE '.$text;
+					$wheres2[]	= 'a.title LIKE '.$text;
 					$wheres2[]	= 'a.intro LIKE '.$text;
 					$wheres2[]	= 'a.bio LIKE '.$text;
 					$where		= '(' . implode(') OR (', $wheres2) . ')';
@@ -343,7 +343,7 @@ class plgSearchSermonspeaker extends JPlugin
 					{
 						$word		= $db->Quote('%'.$db->escape($word, true).'%', false);
 						$wheres2	= array();
-						$wheres2[]	= 'a.name LIKE '.$word;
+						$wheres2[]	= 'a.title LIKE '.$word;
 						$wheres2[]	= 'a.intro LIKE '.$word;
 						$wheres2[]	= 'a.bio LIKE '.$word;
 						$wheres[]	= implode(' OR ', $wheres2);
@@ -360,11 +360,11 @@ class plgSearchSermonspeaker extends JPlugin
 					$order = 'a.hits DESC';
 					break;
 				case 'alpha':
-					$order = 'a.name ASC';
+					$order = 'a.title ASC';
 					break;
 				case 'category':
-					$order = 'c.title ASC, a.name ASC';
-					$morder = 'a.name ASC';
+					$order = 'c.title ASC, a.title ASC';
+					$morder = 'a.title ASC';
 					break;
 				case 'newest':
 				default:
@@ -373,7 +373,7 @@ class plgSearchSermonspeaker extends JPlugin
 			if (!empty($state))
 			{
 				$query	= $db->getQuery(true);
-				$query->select('a.name AS title, CONCAT_WS(" ", a.intro, a.bio) AS text, a.created AS created, '
+				$query->select('a.title, CONCAT_WS(" ", a.intro, a.bio) AS text, a.created AS created, '
 							.'CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(\':\', a.id, a.alias) ELSE a.id END as slug, '
 							.'CASE WHEN CHAR_LENGTH(c.alias) THEN CONCAT_WS(\':\', c.id, c.alias) ELSE c.id END as catslug, '
 							.'CONCAT_WS(" / ", '.$db->Quote($section).', c.title) AS section, "2" AS browsernav');

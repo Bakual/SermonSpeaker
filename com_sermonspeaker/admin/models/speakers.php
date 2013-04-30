@@ -17,7 +17,7 @@ class SermonspeakerModelSpeakers extends JModelList
 		if (empty($config['filter_fields'])) {
 			$config['filter_fields'] = array(
 				'id', 'speakers.id',
-				'name', 'speakers.name',
+				'title', 'speakers.title',
 				'alias', 'speakers.alias',
 				'checked_out', 'speakers.checked_out',
 				'checked_out_time', 'speakers.checked_out_time',
@@ -67,7 +67,7 @@ class SermonspeakerModelSpeakers extends JModelList
 		$this->setState('params', $params);
 
 		// List state information.
-		parent::populateState('speakers.name', 'asc');
+		parent::populateState('speakers.title', 'asc');
 	}
 
 	/**
@@ -108,7 +108,7 @@ class SermonspeakerModelSpeakers extends JModelList
 		$query->select(
 			$this->getState(
 				'list.select',
-				'speakers.id, speakers.name, speakers.catid, speakers.created_by, speakers.language, '.
+				'speakers.id, speakers.title, speakers.catid, speakers.created_by, speakers.language, '.
 				'speakers.hits, speakers.home, speakers.pic, speakers.website, '.
 				'speakers.alias, speakers.state, speakers.ordering, speakers.checked_out, speakers.checked_out_time'
 			)
@@ -148,7 +148,7 @@ class SermonspeakerModelSpeakers extends JModelList
 				$query->where('speakers.id = '.(int) substr($search, 3));
 			} else {
 				$search = $db->Quote('%'.$db->escape($search, true).'%');
-				$query->where('(speakers.name LIKE '.$search.')');
+				$query->where('(speakers.title LIKE '.$search.')');
 			}
 		}
 

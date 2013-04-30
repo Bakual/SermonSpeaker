@@ -44,15 +44,15 @@ $count = count($list);
 						echo JText::_('JDATE').": ".JHtml::Date($row->sermon_date, $date_format, true); ?>
 					</dd>
 				<?php endif;
-				if ($params->get('ls_show_mo_speaker') and $row->name) : ?>
+				if ($params->get('ls_show_mo_speaker') and $row->speaker_title) : ?>
 					<dd class="createdby">
 						<?php echo JText::_('MOD_LATESTSERMONS_SPEAKER'); ?>: 
 						<?php if ($row->speaker_state): ?>
 							<a href="<?php echo JRoute::_('index.php?option=com_sermonspeaker&view=speaker&id='.$row->speaker_slug.'&Itemid='.$itemid); ?>">
-								<?php echo $row->name; ?>
+								<?php echo $row->speaker_title; ?>
 							</a>
 						<?php else:
-							echo $row->name; 
+							echo $row->speaker_title; 
 						endif; ?>
 					</dd>
 				<?php endif;

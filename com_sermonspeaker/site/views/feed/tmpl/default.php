@@ -84,7 +84,7 @@ foreach ($this->items as $item) :
 		endif; ?></link>
 		<guid><?php echo JURI::root().'index.php?option=com_sermonspeaker&amp;view=sermon&amp;id='.$item->id; ?></guid>
 <?php // todo: maybe add email of speaker if present (not yet in database), format is emailadress (name) and then use author instead ?>
-		<dc:creator><?php echo $this->make_xml_safe($item->name); ?></dc:creator>
+		<dc:creator><?php echo $this->make_xml_safe($item->speaker_title); ?></dc:creator>
 		<description><?php echo $notes; ?></description>
 		<pubDate><?php echo JHtml::Date($item->sermon_date, 'r', true); ?></pubDate>
 <?php if ($enclosure = $this->getEnclosure($item)) : ?>
@@ -96,7 +96,7 @@ if ($item->picture) : ?>
 <?php elseif ($params->get('itImage')) : ?>
 		<itunes:image href="<?php echo SermonspeakerHelperSermonspeaker::makeLink($params->get('itImage'), true); ?>" />
 <?php endif; ?>
-		<itunes:author><?php echo $this->make_xml_safe($item->name); ?></itunes:author>
+		<itunes:author><?php echo $this->make_xml_safe($item->speaker_title); ?></itunes:author>
 		<itunes:duration><?php echo SermonspeakerHelperSermonSpeaker::insertTime($item->sermon_time); ?></itunes:duration>
 		<itunes:explicit>no</itunes:explicit>
 		<itunes:keywords><?php echo $this->getKeywords($item); ?></itunes:keywords>

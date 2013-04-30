@@ -8,7 +8,7 @@ $user		= JFactory::getUser();
 $canEdit	= $user->authorise('core.edit', 'com_sermonspeaker');
 $canEditOwn	= $user->authorise('core.edit.own', 'com_sermonspeaker');
 $orderlist	= array(
-				'name' => 'COM_SERMONSPEAKER_FIELD_NAME_LABEL',
+				'title' => 'COM_SERMONSPEAKER_FIELD_NAME_LABEL',
 				'hits' => 'JGLOBAL_HITS',
 				'ordering' => 'JFIELD_ORDERING_LABEL'
 			); 
@@ -88,11 +88,11 @@ if ($this->params->get('show_description', 1) || $this->params->def('show_descri
 			$tooltip	= implode('<br/>', $tip);
 			$image = ($item->pic) ? $item->pic : 'media/com_sermonspeaker/images/'.$this->params->get('defaultpic', 'nopict.jpg'); ?>
 			<div id="serie<?php echo $i; ?>" class="ss-entry tile">
-				<span class="hasTip" title="<?php echo $this->escape($item->name).'::'.$this->escape($tooltip); ?>">
+				<span class="hasTip" title="<?php echo $this->escape($item->title).'::'.$this->escape($tooltip); ?>">
 				<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->id));?>">
 					<img border="0" align="middle" src="<?php echo trim($image, '/'); ?>">
 					<span class="item-title">
-						<?php echo $item->name; ?>
+						<?php echo $item->title; ?>
 					</span>
 				</a>
 				</span>

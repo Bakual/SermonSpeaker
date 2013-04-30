@@ -83,7 +83,7 @@ class SermonspeakerHelperId3
 			}
 			if (array_key_exists('artist', $FileInfo['comments']))
 			{
-				$query = "SELECT id FROM #__sermon_speakers WHERE name like '".$db->escape($FileInfo['comments']['artist'][0])."';";
+				$query = "SELECT id FROM #__sermon_speakers WHERE title like '".$db->escape($FileInfo['comments']['artist'][0])."';";
 				$db->setQuery($query);
 				$id3['speaker_id']	= $db->loadResult();
 			}

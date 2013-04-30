@@ -122,12 +122,12 @@ if (in_array('serie:player', $this->columns) and count($this->items)) :
 							echo JHtml::_('content.prepare', $scriptures); ?>
 						</span>
 					<?php endif;
-					if (in_array('serie:speaker', $this->columns) && $item->name) : ?>
+					if (in_array('serie:speaker', $this->columns) && $item->speaker_title) : ?>
 						<span class="speaker <?php echo $class; ?>">
 							<?php if ($item->speaker_state):
-								echo SermonspeakerHelperSermonSpeaker::SpeakerTooltip($item->speaker_slug, $item->pic, $item->name);
+								echo SermonspeakerHelperSermonSpeaker::SpeakerTooltip($item->speaker_slug, $item->pic, $item->speaker_title);
 							else: 
-								echo $item->name;
+								echo $item->speaker_title;
 							endif; ?>
 						</span>
 					<?php endif;

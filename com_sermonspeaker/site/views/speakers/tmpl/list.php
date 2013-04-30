@@ -71,7 +71,7 @@ $listDirn	= $this->state->get('list.direction');
 							<?php endif; ?>
 							<strong class="ss-title">
 								<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug)); ?>">
-									<?php echo $item->name; ?>
+									<?php echo $item->title; ?>
 								</a>
 							</strong>
 							<?php if (!$item->state) : ?>

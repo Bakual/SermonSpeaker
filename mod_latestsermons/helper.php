@@ -12,7 +12,7 @@ abstract class modLatestsermonsHelper
 		$db		= JFactory::getDbo();
 		$query	= $db->getQuery(true);
 		$query->select('a.title, a.id, a.sermon_date, a.audiofile, a.videofile, a.sermon_time, a.picture, a.notes, a.hits');
-		$query->select('b.name, b.pic, b.state AS speaker_state, c.series_title, c.state AS series_state');
+		$query->select('b.title as speaker_title, b.pic, b.state AS speaker_state, c.series_title, c.state AS series_state');
 		$query->select('CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(\':\', a.id, a.alias) ELSE a.id END as slug');
 		$query->select('CASE WHEN CHAR_LENGTH(b.alias) THEN CONCAT_WS(\':\', b.id, b.alias) ELSE b.id END as speaker_slug');
 		$query->select('CASE WHEN CHAR_LENGTH(c.alias) THEN CONCAT_WS(\':\', c.id, c.alias) ELSE c.id END as series_slug');

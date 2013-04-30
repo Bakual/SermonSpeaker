@@ -60,7 +60,7 @@ class plgContentSermonspeaker extends JPlugin
 
 				// Join over Speaker
 				$query->select(
-					'speakers.name AS name, speakers.pic AS pic, speakers.state as speaker_state, ' .
+					'speakers.title AS speaker_title, speakers.pic AS pic, speakers.state as speaker_state, ' .
 					'CASE WHEN CHAR_LENGTH(speakers.alias) THEN CONCAT_WS(\':\', speakers.id, speakers.alias) ELSE speakers.id END as speaker_slug'
 				);
 				$query->join('LEFT', '#__sermon_speakers AS speakers ON speakers.id = sermons.speaker_id');
@@ -95,16 +95,16 @@ class plgContentSermonspeaker extends JPlugin
 						$serieslnk	= JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->series_slug));
 						$contents	= '<div class="ss-content-plg">';
 						$contents	.= '<table class="table table-striped table-condensed">';
-						if ($item->name)
+						if ($item->speaker_title)
 						{
 							$contents	.= '<tr><td>'.JText::_('PLG_CONTENT_SERMONSPEAKER_SPEAKER').'</td>';
 							if ($item->speaker_state)
 							{
-								$contents	.= '<td>'.SermonspeakerHelperSermonSpeaker::SpeakerTooltip($item->speaker_slug, $item->pic, $item->name).'</td></tr>';
+								$contents	.= '<td>'.SermonspeakerHelperSermonSpeaker::SpeakerTooltip($item->speaker_slug, $item->pic, $item->speaker_title).'</td></tr>';
 							}
 							else
 							{
-								$contents	.= '<td>'.$item->name.'</td></tr>';
+								$contents	.= '<td>'.$item->speaker_title.'</td></tr>';
 							}
 						}
 						if ($item->series_title)

@@ -86,13 +86,13 @@ class SermonspeakerViewSpeaker extends JViewLegacy
 				{
 					if ($speaker->state)
 					{
-						$popup[]	= SermonspeakerHelperSermonspeaker::SpeakerTooltip($speaker->slug, $speaker->pic, $speaker->name);
+						$popup[]	= SermonspeakerHelperSermonspeaker::SpeakerTooltip($speaker->slug, $speaker->pic, $speaker->title);
 					}
 					else
 					{
-						$popup[]	= $speaker->name;
+						$popup[]	= $speaker->title;
 					}
-					$names[]		= $speaker->name;
+					$names[]		= $speaker->title;
 				}
 				$serie->speakers	= implode(', ', $popup);
 				$serie->names	= implode(', ', $names);
@@ -222,9 +222,9 @@ class SermonspeakerViewSpeaker extends JViewLegacy
 		// if the menu item does not concern this article
 		if ($menu && ($menu->query['option'] != 'com_sermonspeaker' || $menu->query['view'] != 'speaker' || $menu->query['id'] != $this->item->id))
 		{
-			if($this->item->name)
+			if($this->item->title)
 			{
-				$title = $this->item->name;
+				$title = $this->item->title;
 			}
 		}
 
@@ -243,13 +243,13 @@ class SermonspeakerViewSpeaker extends JViewLegacy
 		}
 		if (empty($title))
 		{
-			$title = $this->item->name;
+			$title = $this->item->title;
 		}
 		$this->document->setTitle($title);
 
 		// add Breadcrumbs
 		$pathway = $app->getPathway();
-		$pathway->addItem($this->item->name);
+		$pathway->addItem($this->item->title);
 
 		// Set MetaData
 		if ($this->item->metadesc)
@@ -277,7 +277,7 @@ class SermonspeakerViewSpeaker extends JViewLegacy
 		// Add Metadata for Facebook Open Graph API
 		if ($this->params->get('opengraph', 1))
 		{
-			$this->document->addCustomTag('<meta property="og:title" content="'.$this->escape($this->item->name).'"/>');
+			$this->document->addCustomTag('<meta property="og:title" content="'.$this->escape($this->item->title).'"/>');
 			$this->document->addCustomTag('<meta property="og:url" content="'.JURI::getInstance()->toString().'"/>');
 			$this->document->addCustomTag('<meta property="og:description" content="'.$this->document->getDescription().'"/>');
 			$this->document->addCustomTag('<meta property="og:site_name" content="'.$app->getCfg('sitename').'"/>');

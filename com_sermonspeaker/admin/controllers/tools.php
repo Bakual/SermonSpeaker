@@ -59,7 +59,7 @@ class SermonspeakerControllerTools extends JControllerLegacy
 		$query	= "SET @c := 0";
 		$db->setQuery($query);
 		$db->execute();
-		$query	= "UPDATE #__sermon_speakers SET ordering = ( SELECT @c := @c + 1 ) ORDER BY name ASC, id ASC;";
+		$query	= "UPDATE #__sermon_speakers SET ordering = ( SELECT @c := @c + 1 ) ORDER BY title ASC, id ASC;";
 		$db->setQuery($query);
 		$db->execute();
 		$error = $db->getErrorMsg();
@@ -76,7 +76,7 @@ class SermonspeakerControllerTools extends JControllerLegacy
 		JSession::checkToken('request') or jexit(JText::_('JINVALID_TOKEN'));
 		$app	= JFactory::getApplication();
 		$db		= JFactory::getDBO();
-		$query	= "SELECT audiofile, videofile, sermons.created_by, sermons.catid, sermons.title, name, series_title, YEAR(sermon_date) AS date, notes, sermon_number, picture \n"
+		$query	= "SELECT audiofile, videofile, sermons.created_by, sermons.catid, sermons.title, speakers.title as speakers_title, series_title, YEAR(sermon_date) AS date, notes, sermon_number, picture \n"
 				. "FROM #__sermon_sermons AS sermons \n"
 				. "LEFT JOIN #__sermon_speakers AS speakers ON speaker_id = speakers.id \n"
 				. "LEFT JOIN #__sermon_series AS series ON series_id = series.id \n"
@@ -101,7 +101,7 @@ class SermonspeakerControllerTools extends JControllerLegacy
 				$files[]	= $item->videofile;
 				$TagData = array(
 					'title'   => array($item->title),
-					'artist'  => array($item->name),
+					'artist'  => array($item->speakers_title),
 					'album'   => array($item->series_title),
 					'year'    => array($item->date),
 					'track'   => array($item->sermon_number),
@@ -310,7 +310,7 @@ class SermonspeakerControllerTools extends JControllerLegacy
 			// Update Speaker
 			if ($study->teacher_name){
 				$query	= "UPDATE #__sermon_sermons \n"
-						."SET `speaker_id` = (SELECT `id` FROM #__sermon_speakers WHERE `name` = ".$db->quote($study->teacher_name)." LIMIT 1) \n"
+						."SET `speaker_id` = (SELECT `id` FROM #__sermon_speakers WHERE `title` = ".$db->quote($study->teacher_name)." LIMIT 1) \n"
 						."WHERE `id` = ".$db->quote($id);
 				$db->setQuery($query);
 				$db->execute();

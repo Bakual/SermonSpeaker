@@ -45,7 +45,7 @@ class OBSSInAddonSermonspeaker extends OBSSInAddon{
 		$speaker = array();
 		if ($item->speaker_id) {
 			$db		= JFactory::getDBO();
-			$query	= "SELECT `name`, `pic` FROM #__sermon_speakers WHERE `id` = ".(int)$item->speaker_id;
+			$query	= "SELECT `title`, `pic` FROM #__sermon_speakers WHERE `id` = ".(int)$item->speaker_id;
 			$db->setQuery($query);
 			$speaker	= $db->loadAssoc();
 		}

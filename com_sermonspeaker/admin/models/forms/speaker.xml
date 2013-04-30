@@ -32,7 +32,7 @@
 		</field>
 
 		<field name="ordering" type="sermonordering" class="inputbox"
-			table="sermon_speakers" field="name"
+			table="sermon_speakers" field="title"
 			label="JFIELD_ORDERING_LABEL"
 			description="JFIELD_ORDERING_DESC" />
 
