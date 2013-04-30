@@ -118,7 +118,7 @@ class SermonspeakerModelSerie extends JModelItem
 	function getSpeakers($series)
 	{
 		$db = JFactory::getDBO();
-		$query = 'SELECT sermons.speaker_id, speakers.title as speakers_title, speakers.pic, speakers.state, '
+		$query = 'SELECT sermons.speaker_id, speakers.title as speaker_title, speakers.pic, speakers.state, '
 		. ' CASE WHEN CHAR_LENGTH(speakers.alias) THEN CONCAT_WS(\':\', speakers.id, speakers.alias) ELSE speakers.id END as slug'
         . ' FROM #__sermon_sermons AS sermons'
 		. ' LEFT JOIN #__sermon_speakers AS speakers ON sermons.speaker_id = speakers.id'

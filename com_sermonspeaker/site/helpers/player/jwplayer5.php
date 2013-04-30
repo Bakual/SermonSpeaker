@@ -174,9 +174,9 @@ class SermonspeakerHelperPlayerJwplayer5 extends SermonspeakerHelperPlayer
 				{
 					$desc[] = JText::_('JDATE').': '.JHtml::Date($temp_item->sermon_date, JText::_($this->params->get('date_format')), true);
 				}
-				if ($temp_item->speakers_title)
+				if ($temp_item->speaker_title)
 				{
-					$desc[] = JText::_('COM_SERMONSPEAKER_SPEAKER').': '.addslashes($temp_item->speakers_title);
+					$desc[] = JText::_('COM_SERMONSPEAKER_SPEAKER').': '.addslashes($temp_item->speaker_title);
 				}
 				$entry['description'] = implode('\x3Cbr />', $desc);
 				if ($temp_item->sermon_time != '00:00:00')

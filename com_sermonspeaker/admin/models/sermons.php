@@ -21,7 +21,7 @@ class SermonspeakerModelSermons extends JModelList
 				'alias', 'sermons.alias',
 				'checked_out', 'sermons.checked_out',
 				'checked_out_time', 'sermons.checked_out_time',
-				'speakers_title', 'speakers.title',
+				'speaker_title', 'speakers.title',
 				'catid', 'sermons.catid', 'category_title',
 				'state', 'sermons.state',
 				'podcast', 'sermons.podcast',
@@ -151,7 +151,7 @@ class SermonspeakerModelSermons extends JModelList
 		$query->join('LEFT', '#__categories AS c ON c.id = sermons.catid');
 
 		// Join over the speakers.
-		$query->select('speakers.title AS speakers_title');
+		$query->select('speakers.title AS speaker_title');
 		$query->join('LEFT', '#__sermon_speakers AS speakers ON speakers.id = sermons.speaker_id');
 
 		// Join over the series.

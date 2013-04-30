@@ -154,7 +154,7 @@ class SermonspeakerViewSermons extends JViewLegacy
 			'sermons.podcast' => JText::_('COM_SERMONSPEAKER_FIELD_SERMONCAST_LABEL'),
 			'sermons.title' => JText::_('JGLOBAL_TITLE'),
 			'category_title' => JText::_('JCATEGORY'),
-			'speakers_title' => JText::_('COM_SERMONSPEAKER_SPEAKER'),
+			'speaker_title' => JText::_('COM_SERMONSPEAKER_SPEAKER'),
 			'scripture' => JText::_('COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL'),
 			'series_title' => JText::_('COM_SERMONSPEAKER_SERIE'),
 			'sermons.sermon_date' => JText::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL'),

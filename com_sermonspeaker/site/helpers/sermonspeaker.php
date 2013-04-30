@@ -19,7 +19,7 @@ class SermonspeakerHelperSermonspeaker
 		self::$view	= JFactory::getApplication()->input->get('view', 'sermons');
 	}
 
-	static function SpeakerTooltip($id, $pic, $speakers_title)
+	static function SpeakerTooltip($id, $pic, $speaker_title)
 	{
 		if (!self::$params)
 		{
@@ -33,7 +33,7 @@ class SermonspeakerHelperSermonspeaker
 		{
 			$html = '<a href="'.JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($id)).'">';
 		}
-			$html .= ($pic) ? JHtml::tooltip('<img src="'.self::makeLink($pic).'" alt="'.$speakers_title.'">', $speakers_title, '', $speakers_title) : $speakers_title;
+			$html .= ($pic) ? JHtml::tooltip('<img src="'.self::makeLink($pic).'" alt="'.$speaker_title.'">', $speaker_title, '', $speaker_title) : $speaker_title;
 			$html .= '</a>';
 
 		return $html;
