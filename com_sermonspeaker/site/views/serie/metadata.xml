@@ -14,9 +14,9 @@
 			<field name="id" type="sql" 
 				label="COM_SERMONSPEAKER_PARAM_SELECT_SERIE" 
 				description="COM_SERMONSPEAKER_PARAM_SELECT_SERIE_DESC" 
-				query="SELECT id, series_title FROM #__sermon_series" 
+				query="SELECT id, title FROM #__sermon_series" 
 				key_field="id" 
-				value_field="series_title"
+				value_field="title"
 				required="true"
 			/>
 		</fieldset>

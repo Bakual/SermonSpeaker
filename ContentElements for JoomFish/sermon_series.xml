@@ -7,14 +7,14 @@
 	<reference>
 		<table name="sermon_series">
 			<field type="referenceid" name="id" translate="0">ID</field>
-			<field type="titletext" name="series_title" translate="1">Series Title</field>
+			<field type="titletext" name="title" translate="1">Series Title</field>
 			<field type="text" name="alias" translate="1">Alias</field>		
 			<field type="htmltext" name="series_description" translate="1">Series Description</field>
 		</table>
 	</reference>
 	<translationfilters>
 		<category>catid</category>
-		<keyword>series_title</keyword>
+		<keyword>title</keyword>
 		<published>published</published>
 	</translationfilters>
 </joomfish>

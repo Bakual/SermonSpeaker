@@ -32,7 +32,7 @@ class SermonspeakerModelSermons extends JModelList
 				'sermon_date', 'sermons.sermon_date',
 				'language', 'sermons.language',
 				'hits', 'sermons.hits',
-				'series_title', 'series.series_title',
+				'series_title', 'series.title',
 				'scripture', 'sermons.scripture',
 			);
 		}
@@ -155,7 +155,7 @@ class SermonspeakerModelSermons extends JModelList
 		$query->join('LEFT', '#__sermon_speakers AS speakers ON speakers.id = sermons.speaker_id');
 
 		// Join over the series.
-		$query->select('series.series_title AS series_title');
+		$query->select('series.title AS series_title');
 		$query->join('LEFT', '#__sermon_series AS series ON series.id = sermons.series_id');
 
 		// Filter by published state
@@ -276,11 +276,11 @@ class SermonspeakerModelSermons extends JModelList
 		$query	= $db->getQuery(true);
 
 		$query->select('series.id As value');
-		$query->select('CASE WHEN CHAR_LENGTH(c_series.title) THEN CONCAT(series.series_title, " (", c_series.title, ")") ELSE series.series_title END AS text');
+		$query->select('CASE WHEN CHAR_LENGTH(c_series.title) THEN CONCAT(series.title, " (", c_series.title, ")") ELSE series.title END AS text');
 		$query->from('#__sermon_series AS series');
 		$query->join('LEFT', '#__categories AS c_series ON c_series.id = series.catid');
 		$query->where('series.state = 1');
-		$query->order('series.series_title');
+		$query->order('series.title');
 
 		// Get the options.
 		$db->setQuery($query);
@@ -290,11 +290,11 @@ class SermonspeakerModelSermons extends JModelList
 		$query	= $db->getQuery(true);
 
 		$query->select('series.id As value');
-		$query->select('CASE WHEN CHAR_LENGTH(c_series.title) THEN CONCAT(series.series_title, " (", c_series.title, ")") ELSE series.series_title END AS text');
+		$query->select('CASE WHEN CHAR_LENGTH(c_series.title) THEN CONCAT(series.title, " (", c_series.title, ")") ELSE series.title END AS text');
 		$query->from('#__sermon_series AS series');
 		$query->join('LEFT', '#__categories AS c_series ON c_series.id = series.catid');
 		$query->where('series.state = 0');
-		$query->order('series.series_title');
+		$query->order('series.title');
 
 		// Get the options.
 		$db->setQuery($query);

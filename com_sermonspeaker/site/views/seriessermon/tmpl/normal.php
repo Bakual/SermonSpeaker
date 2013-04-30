@@ -53,7 +53,7 @@ if ($this->params->get('show_description', 1) || $this->params->def('show_descri
 				<?php if($item->avatar) : ?>
 					<img src="<?php echo SermonspeakerHelperSermonspeaker::makelink($item->avatar); ?>" style="float:right; margin-top:25px;">
 				<?php endif; ?>
-				<h3 class="contentheading"><?php echo $this->escape($item->series_title); ?></h3>
+				<h3 class="contentheading"><?php echo $this->escape($item->title); ?></h3>
 				<?php if ($canEdit || ($canEditOwn && ($user->id == $item->created_by))) : ?>
 					<ul class="actions">
 						<li class="edit-icon">

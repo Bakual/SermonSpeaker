@@ -67,7 +67,7 @@ class plgContentSermonspeaker extends JPlugin
 
 				// Join over Series
 				$query->select(
-					'series.series_title AS series_title, series.state as series_state, series.avatar, ' .
+					'series.title AS series_title, series.state AS series_state, series.avatar, ' .
 					'CASE WHEN CHAR_LENGTH(series.alias) THEN CONCAT_WS(\':\', series.id, series.alias) ELSE series.id END as series_slug'
 				);
 				$query->join('LEFT', '#__sermon_series AS series ON series.id = sermons.series_id');

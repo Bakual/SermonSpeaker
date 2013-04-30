@@ -202,7 +202,7 @@ class PlgContentAutotweetSermonspeaker extends plgAutotweetBase
 		{
 			$db		= Jfactory::getDbo();
 			$query	= $db->getQuery(true);
-			$query->select('`avatar`, `series_title`');
+			$query->select('`avatar`, `title`');
 			$query->from('#__sermon_series');
 			$query->where('`id` = '.$series_id);
 			$db->setQuery($query);

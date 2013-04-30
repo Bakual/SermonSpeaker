@@ -171,7 +171,7 @@ class SermonspeakerControllerSermon extends JControllerForm
 			return;
 		}
 		$db = JFactory::getDBO();
-		$query	= "SELECT audiofile, videofile, sermons.created_by, sermons.catid, sermons.title, speakers.title as speaker_title, series_title, YEAR(sermon_date) AS date, notes, sermon_number, picture \n"
+		$query	= "SELECT audiofile, videofile, sermons.created_by, sermons.catid, sermons.title, speakers.title as speaker_title, series.title AS series_title, YEAR(sermon_date) AS date, notes, sermon_number, picture \n"
 				. "FROM #__sermon_sermons AS sermons \n"
 				. "LEFT JOIN #__sermon_speakers AS speakers ON speaker_id = speakers.id \n"
 				. "LEFT JOIN #__sermon_series AS series ON series_id = series.id \n"

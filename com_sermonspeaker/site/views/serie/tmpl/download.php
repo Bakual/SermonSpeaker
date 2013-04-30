@@ -57,7 +57,7 @@ $js	= 'function CheckProgress() {
 $this->document->addScriptDeclaration($js);
 ?>
 <div class="ss-seriesdownload-container">
-<h3><?php echo $this->item->series_title; ?></h3>
+<h3><?php echo $this->item->title; ?></h3>
 <div id="status"><span class="badge"><?php echo JText::_('COM_SERMONSPEAKER_PREPARING_DOWNLOAD'); ?></span></div>
 <br />
 <img src="media/media/images/bar.gif" class="progress" id="progress" />

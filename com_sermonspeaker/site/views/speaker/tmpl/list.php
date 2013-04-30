@@ -266,7 +266,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 									<?php endif; ?>
 									<strong class="ss-title">
 										<a title="<?php echo JText::_('COM_SERMONSPEAKER_SERIESLINK_HOOVER'); ?>" href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->slug)); ?>">
-											<?php echo $item->series_title; ?>
+											<?php echo $item->title; ?>
 										</a>
 									</strong>
 									<?php if (!$item->state) : ?>

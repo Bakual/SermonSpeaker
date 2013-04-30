@@ -147,10 +147,10 @@ class SermonspeakerModelSerie extends JModelAdmin
 	{
 		jimport('joomla.filter.output');
 
-		$table->series_title		= htmlspecialchars_decode($table->series_title, ENT_QUOTES);
+		$table->title		= htmlspecialchars_decode($table->title, ENT_QUOTES);
 		$table->alias		= JApplication::stringURLSafe($table->alias);
 		if (empty($table->alias)) {
-			$table->alias = JApplication::stringURLSafe($table->series_title);
+			$table->alias = JApplication::stringURLSafe($table->title);
 			if (empty($table->alias)) {
 				$table->alias = JFactory::getDate()->format("Y-m-d-H-i-s");
 			}
@@ -324,9 +324,9 @@ class SermonspeakerModelSerie extends JModelAdmin
 			}
 
 			// Alter the title & alias
-			// Custom: defining the series_title and set "home" to 0
-			$data = $this->generateNewTitle($categoryId, $table->alias, $table->series_title);
-			$table->series_title = $data['0'];
+			// Custom: defining the title and set "home" to 0
+			$data = $this->generateNewTitle($categoryId, $table->alias, $table->title);
+			$table->title = $data['0'];
 			$table->alias = $data['1'];
 			$table->home = 0;
 

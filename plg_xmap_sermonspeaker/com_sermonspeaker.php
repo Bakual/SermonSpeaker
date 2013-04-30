@@ -139,7 +139,7 @@ class xmap_com_sermonspeaker
 			$node		= new stdclass;
 			$node->id	= $parent->id;
 			$node->uid	= $parent->uid.'_serie_'.$item->id;
-			$node->name	= htmlspecialchars($item->series_title);
+			$node->name	= htmlspecialchars($item->title);
 			$node->link	= 'index.php?option=com_sermonspeaker&view=serie&id='.$item->slug.'&Itemid='.$parent->id;
 			$node->priority		= $params['serie_priority'];
 			$node->changefreq	= $params['serie_changefreq'];

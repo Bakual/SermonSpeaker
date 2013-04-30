@@ -81,7 +81,7 @@ $listDirn	= $this->state->get('list.direction');
 							</div>
 							<div class="page-header">
 								<a title="<?php echo JText::_('COM_SERMONSPEAKER_SERIESLINK_HOOVER'); ?>" href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->slug)); ?>">
-									<h2><?php echo $item->series_title; ?></h2>
+									<h2><?php echo $item->title; ?></h2>
 								</a>
 								<?php if (!$item->state) : ?>
 									<span class="label label-warning"><?php echo JText::_('JUNPUBLISHED'); ?></span>

@@ -128,7 +128,7 @@ class SermonspeakerViewSeries extends JViewLegacy
 		return array(
 			'series.ordering' => JText::_('JGRID_HEADING_ORDERING'),
 			'series.state' => JText::_('JSTATUS'),
-			'series.series_title' => JText::_('JGLOBAL_TITLE'),
+			'series.title' => JText::_('JGLOBAL_TITLE'),
 			'category_title' => JText::_('JCATEGORY'),
 			'series.avatar' => JText::_('COM_SERMONSPEAKER_FIELD_PICTURE_LABEL'),
 			'series.home' => JText::_('JDEFAULT'),

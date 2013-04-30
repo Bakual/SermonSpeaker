@@ -83,7 +83,7 @@ endif;
 						<?php echo JHtml::_('grid.sort', 'JSTATUS', 'series.state', $listDirn, $listOrder); ?>
 					</th>
 					<th>
-						<?php echo JHtml::_('grid.sort', 'JGLOBAL_TITLE', 'series.series_title', $listDirn, $listOrder); ?>
+						<?php echo JHtml::_('grid.sort', 'JGLOBAL_TITLE', 'series.title', $listDirn, $listOrder); ?>
 					</th>
 					<th width="5%" class="hidden-phone">
 						<?php echo JHtml::_('grid.sort',  'COM_SERMONSPEAKER_FIELD_PICTURE_LABEL', 'series.avatar', $listDirn, $listOrder); ?>
@@ -143,9 +143,9 @@ endif;
 							<?php endif; ?>
 							<?php if ($canEdit || $canEditOwn) : ?>
 								<a href="<?php echo JRoute::_('index.php?option=com_sermonspeaker&task=serie.edit&id=' . $item->id);?>" title="<?php echo JText::_('JACTION_EDIT');?>">
-									<?php echo $this->escape($item->series_title); ?></a>
+									<?php echo $this->escape($item->title); ?></a>
 							<?php else : ?>
-								<span title="<?php echo JText::sprintf('JFIELD_ALIAS_LABEL', $this->escape($item->alias));?>"><?php echo $this->escape($item->series_title); ?></span>
+								<span title="<?php echo JText::sprintf('JFIELD_ALIAS_LABEL', $this->escape($item->alias));?>"><?php echo $this->escape($item->title); ?></span>
 							<?php endif; ?>
 							<div class="small">
 								<?php echo JText::_('JCATEGORY') . ": " . $this->escape($item->category_title); ?>

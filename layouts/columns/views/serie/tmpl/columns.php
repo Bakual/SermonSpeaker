@@ -16,7 +16,7 @@ $j30		= ($version->isCompatible(3.0)) ? '30' : '';
 <?php if ($this->params->get('show_page_heading', 1)) : ?>
 	<h1><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
 <?php endif; ?>
-<h2><a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($this->item->slug)); ?>"><?php echo $this->item->series_title; ?></a></h2>
+<h2><a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($this->item->slug)); ?>"><?php echo $this->item->title; ?></a></h2>
 <?php if ($canEdit || ($canEditOwn && ($user->id == $this->item->created_by))) : ?>
 	<ul class="actions">
 		<li class="edit-icon">

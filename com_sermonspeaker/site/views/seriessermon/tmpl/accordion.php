@@ -48,7 +48,7 @@ if ($this->params->get('show_description', 1) || $this->params->def('show_descri
 		$model	= $this->getModel('Sermons');
 		echo JHtml::_('sliders.start', 'contact-slider', array('useCookie'=>1));
 		foreach($this->items as $item) :
-			echo JHtml::_('sliders.panel', $item->series_title, 'series-'.$item->id);
+			echo JHtml::_('sliders.panel', $item->title, 'series-'.$item->id);
 			$model->setState('serie.id', $item->id);
 			$sermons = $model->getItems();
 			if ($canEdit || ($canEditOwn && ($user->id == $item->created_by))) : ?>

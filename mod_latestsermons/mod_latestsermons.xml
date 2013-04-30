@@ -195,9 +195,9 @@
 				<field name="series" type="sql" 
 					label="MOD_LATESTSERMONS_FIELD_SERIES_LABEL" 
 					description="MOD_LATESTSERMONS_FIELD_SERIES_DESC"
-					query="SELECT `id`, `series_title` FROM #__sermon_series ORDER BY series_title ASC"
+					query="SELECT `id`, `title` FROM #__sermon_series ORDER BY title ASC"
 					key_field="id"
-					value_field="series_title">
+					value_field="title">
 					<option value="0">MOD_LATESTSERMONS_FIELD_SERIES_OPTION_SELECT</option>
 				</field>
 				<field name="idlist" type="text" 

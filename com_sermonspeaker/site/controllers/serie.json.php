@@ -41,7 +41,7 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 		$zip_content = $db->loadResult();
 
 		$query	= $db->getQuery(true);
-		$query->select('sermons.id, sermons.audiofile, sermons.videofile, series.series_title, series.zip_dl');
+		$query->select('sermons.id, sermons.audiofile, sermons.videofile, series.title, series.zip_dl');
 		$query->from('#__sermon_sermons as sermons');
 		$query->join('INNER', '#__sermon_series AS series ON series.id = sermons.series_id');
 		$query->join('LEFT', '#__sermon_speakers AS speakers ON speakers.id = sermons.speaker_id');
@@ -126,7 +126,7 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 		// Prepare filename and path
 		$folder	= trim($params->get('path'), '/');
 
-		$name = JFile::makeSafe($rows[0]['series_title']);
+		$name = JFile::makeSafe($rows[0]['title']);
 		$name = str_replace(' ', '_', $name); // Replace spaces in filename as long as makeSafe doesn't do this.
 
 		// Check if filename has more chars than only underscores, making a new filename based on series id if not.
@@ -263,7 +263,7 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 
 		$db = JFactory::getDBO();
 		$query	= $db->getQuery(true);
-		$query->select('series_title, zip_size, zip_progress, zip_state');
+		$query->select('title, zip_size, zip_progress, zip_state');
 		$query->from('#__sermon_series');
 		$query->where('`id` = '.$id);
 		$db->setQuery($query);
@@ -296,7 +296,7 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 		$params	= JComponentHelper::getParams('com_sermonspeaker');
 		$folder	= trim($params->get('path'), '/');
 
-		$name = JFile::makeSafe($series['series_title']);
+		$name = JFile::makeSafe($series['title']);
 		$name = str_replace(' ', '_', $name); // Replace spaces in filename as long as makeSafe doesn't do this.
 
 		// Check if filename has more chars than only underscores, making a new filename based on series id if not.

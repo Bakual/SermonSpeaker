@@ -44,7 +44,7 @@ abstract class modSermonspeakerHelper
 		{
 			if ($mode)
 			{
-				$query->select('id, series_title as title, series_description as tooltip, avatar as pic, CASE WHEN CHAR_LENGTH(alias) THEN CONCAT_WS(\':\', id, alias) ELSE id END as slug, 1 as level');
+				$query->select('id, title, series_description as tooltip, avatar as pic, CASE WHEN CHAR_LENGTH(alias) THEN CONCAT_WS(\':\', id, alias) ELSE id END as slug, 1 as level');
 				$query->from('#__sermon_series');
 				if ($sort)
 				{
@@ -52,7 +52,7 @@ abstract class modSermonspeakerHelper
 				}
 				else
 				{
-					$query->order('series_title ASC');
+					$query->order('title ASC');
 				}
 			}
 			else

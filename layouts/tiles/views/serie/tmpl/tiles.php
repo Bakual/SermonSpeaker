@@ -8,14 +8,12 @@ $user		= JFactory::getUser();
 $canEdit	= $user->authorise('core.edit', 'com_sermonspeaker');
 $canEditOwn	= $user->authorise('core.edit.own', 'com_sermonspeaker');
 $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->items);
-$version	= new JVersion;
-$j30		= ($version->isCompatible(3.0)) ? '30' : '';
 ?>
 <div class="category-list<?php echo $this->pageclass_sfx;?> ss-serie-container<?php echo $this->pageclass_sfx; ?>">
 <?php if ($this->params->get('show_page_heading', 1)) : ?>
 	<h1><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
 <?php endif; ?>
-<h2><a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($this->item->slug)); ?>"><?php echo $this->item->series_title; ?></a></h2>
+<h2><a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($this->item->slug)); ?>"><?php echo $this->item->title; ?></a></h2>
 <?php if ($canEdit || ($canEditOwn && ($user->id == $this->item->created_by))) : ?>
 	<ul class="actions">
 		<li class="edit-icon">
@@ -90,7 +88,7 @@ if (in_array('serie:player', $this->columns) and count($this->items)) :
 <?php endif; ?>
 <form action="<?php echo JFilterOutput::ampReplace(JFactory::getURI()->toString()); ?>" method="post" id="adminForm" name="adminForm" class="form-inline">
 	<?php if ($this->params->get('filter_field') or $this->params->get('show_pagination_limit')) :
-		echo $this->loadTemplate('filters'.$j30);
+		echo $this->loadTemplate('filters');
 	endif;
 	if (!count($this->items)) : ?>
 		<div class="no_entries"><?php echo JText::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', JText::_('COM_SERMONSPEAKER_SERMONS')); ?></div>

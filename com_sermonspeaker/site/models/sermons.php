@@ -37,7 +37,7 @@ class SermonspeakerModelSermons extends JModelList
 				'language', 'sermons.language',
 				'ordering', 'sermons.ordering',
 				'speaker_title', 'speakers.title',
-				'series_title', 'series.series_title',
+				'series_title', 'series.title',
 				'category_title', 'c_sermons.category_title',
 			);
 		}
@@ -87,7 +87,7 @@ class SermonspeakerModelSermons extends JModelList
 
 		// Join over Series
 		$query->select(
-			'series.series_title AS series_title, series.state as series_state, series.avatar, ' .
+			'series.title AS series_title, series.state as series_state, series.avatar, ' .
 			'CASE WHEN CHAR_LENGTH(series.alias) THEN CONCAT_WS(\':\', series.id, series.alias) ELSE series.id END as series_slug'
 		);
 		$query->join('LEFT', '#__sermon_series AS series ON series.id = sermons.series_id');

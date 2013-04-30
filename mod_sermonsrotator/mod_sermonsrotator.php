@@ -15,8 +15,8 @@ if ($params->get('speaker_cat')){
 if ($params->get('series_cat')){
 	$where .= ' AND c.catid = '.(int)$params->get('series_cat');
 }
-$query 	= 'SELECT a.title, a.id, a.sermon_date, b.title as speaker_title, c.series_title, a.picture, b.pic, a.videofile'
-		. ", CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(':', a.id, a.alias) ELSE a.id END as slug \n"
+$query 	= 'SELECT a.title, a.id, a.sermon_date, b.title AS speaker_title, c.title AS series_title, a.picture, b.pic, a.videofile'
+		. ", CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(':', a.id, a.alias) ELSE a.id END AS slug \n"
 		. ' FROM #__sermon_sermons a'
 		. ' LEFT JOIN #__sermon_speakers b ON a.speaker_id = b.id'
 		. ' LEFT JOIN #__sermon_series c ON a.series_id = c.id'

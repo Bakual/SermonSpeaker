@@ -38,7 +38,7 @@ class SermonspeakerModelFeed extends JModelLegacy
 		$query->join('LEFT', '#__sermon_speakers AS speakers ON speakers.id = sermons.speaker_id');
 
 		// Join over Series
-		$query->select('series.series_title AS series_title, series.avatar');
+		$query->select('series.title AS series_title, series.avatar');
 		$query->join('LEFT', '#__sermon_series AS series ON series.id = sermons.series_id');
 
 		// Join over Sermons Category.

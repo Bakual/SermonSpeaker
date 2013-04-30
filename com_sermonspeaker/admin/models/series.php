@@ -17,7 +17,7 @@ class SermonspeakerModelSeries extends JModelList
 		if (empty($config['filter_fields'])) {
 			$config['filter_fields'] = array(
 				'id', 'series.id',
-				'series_title', 'series.series_title',
+				'title', 'series.title',
 				'alias', 'series.alias',
 				'checked_out', 'series.checked_out',
 				'checked_out_time', 'series.checked_out_time',
@@ -67,7 +67,7 @@ class SermonspeakerModelSeries extends JModelList
 		$this->setState('params', $params);
 
 		// List state information.
-		parent::populateState('series.series_title', 'asc');
+		parent::populateState('series.title', 'asc');
 	}
 
 	/**
@@ -108,7 +108,7 @@ class SermonspeakerModelSeries extends JModelList
 		$query->select(
 			$this->getState(
 				'list.select',
-				'series.id, series.series_title, series.catid, series.language, '.
+				'series.id, series.title, series.catid, series.language, '.
 				'series.hits, series.home, series.alias, series.avatar, '.
 				'series.state, series.ordering, created_by, series.checked_out, series.checked_out_time'
 			)
@@ -148,7 +148,7 @@ class SermonspeakerModelSeries extends JModelList
 				$query->where('series.id = '.(int) substr($search, 3));
 			} else {
 				$search = $db->Quote('%'.$db->escape($search, true).'%');
-				$query->where('(series.series_title LIKE '.$search.')');
+				$query->where('(series.title LIKE '.$search.')');
 			}
 		}
 

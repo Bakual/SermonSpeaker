@@ -195,9 +195,9 @@ class SermonspeakerViewSerie extends JViewLegacy
 		// if the menu item does not concern this article
 		if ($menu && ($menu->query['option'] != 'com_sermonspeaker' || $menu->query['view'] != 'serie' || $menu->query['id'] != $this->item->id))
 		{
-			if($this->item->series_title)
+			if($this->item->title)
 			{
-				$title = $this->item->series_title;
+				$title = $this->item->title;
 			}
 		}
 
@@ -216,13 +216,13 @@ class SermonspeakerViewSerie extends JViewLegacy
 		}
 		if (empty($title))
 		{
-			$title = $this->item->series_title;
+			$title = $this->item->title;
 		}
 		$this->document->setTitle($title);
 
 		// add Breadcrumbs
 		$pathway = $app->getPathway();
-		$pathway->addItem($this->item->series_title);
+		$pathway->addItem($this->item->title);
 
 		// Set MetaData
 		if ($this->item->metadesc)
@@ -250,7 +250,7 @@ class SermonspeakerViewSerie extends JViewLegacy
 		// Add Metadata for Facebook Open Graph API
 		if ($this->params->get('opengraph', 1))
 		{
-			$this->document->addCustomTag('<meta property="og:title" content="'.$this->escape($this->item->series_title).'"/>');
+			$this->document->addCustomTag('<meta property="og:title" content="'.$this->escape($this->item->title).'"/>');
 			$this->document->addCustomTag('<meta property="og:url" content="'.JURI::getInstance()->toString().'"/>');
 			$this->document->addCustomTag('<meta property="og:description" content="'.$this->document->getDescription().'"/>');
 			$this->document->addCustomTag('<meta property="og:site_name" content="'.$app->getCfg('sitename').'"/>');

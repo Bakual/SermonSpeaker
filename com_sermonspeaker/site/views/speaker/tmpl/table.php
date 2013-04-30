@@ -365,7 +365,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 								<th class="ss-av hidden-phone hidden-tablet"> </th>
 							<?php endif; ?>
 							<th class="ss-title">
-								<?php echo JHtml::_('grid.sort', 'JGLOBAL_TITLE', 'series_title', $listDirnSeries, $listOrderSeries, 'series'); ?>
+								<?php echo JHtml::_('grid.sort', 'JGLOBAL_TITLE', 'title', $listDirnSeries, $listOrderSeries, 'series'); ?>
 							</th>
 							<?php if (in_array('speaker:category', $this->col_serie)) : ?>
 								<th class="ss-col ss-category hidden-phone">
@@ -404,7 +404,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 									endif; ?>
 									<td class="ss-title">
 										<a title='<?php echo JText::_('COM_SERMONSPEAKER_SERIESLINK_HOOVER'); ?>' href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->slug)); ?>">
-											<?php echo $item->series_title; ?>
+											<?php echo $item->title; ?>
 										</a>
 										<?php if ($canEdit or ($canEditOwn and ($user->id == $item->created_by))) : ?>
 											<span class="list-edit pull-left width-50">
