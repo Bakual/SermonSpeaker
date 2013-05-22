@@ -129,7 +129,7 @@ $saveOrder	= $listOrder == 'series.ordering';
 					<?php if (!$item->avatar){
 						$item->avatar = JURI::root().'media/com_sermonspeaker/images/'.$this->state->get('params')->get('defaultpic', 'nopict.jpg');
 					}
-					if (substr($item->avatar, 0, 7) != 'http://') {
+					if (!parse_url($item->avatar, PHP_URL_SCHEME)) {
 						$item->avatar = JURI::root().trim($item->avatar, '/.');
 					} ?>
 					<img src="<?php echo $item->avatar; ?>" border="1" width="50" height="50">

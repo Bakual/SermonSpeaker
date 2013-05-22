@@ -85,7 +85,7 @@ class SermonspeakerController extends JControllerLegacy
 		$db->setQuery($query);
 		$result = $db->loadResult() or die ("<html><body OnLoad=\"javascript: alert('Encountered an error while accessing the database');history.back();\" bgcolor=\"#F0F0F0\"></body></html>");
 		$result = rtrim($result);
-		if (substr($result, 0, 7) == 'http://')
+		if (parse_url($result, PHP_URL_SCHEME))
 		{ // redirect if link goes to an external source
 			$result = str_replace('http://player.vimeo.com/video/', 'http://vimeo.com/', $result);
 			$this->setRedirect($result);

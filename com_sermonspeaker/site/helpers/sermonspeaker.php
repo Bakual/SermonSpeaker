@@ -106,7 +106,7 @@ class SermonspeakerHelperSermonspeaker
 
 	static function makeLink($path, $abs = false) 
 	{
-		if (stripos($path, 'http://') !== 0 && stripos($path, 'https://') !== 0)
+		if (!parse_url($path, PHP_URL_SCHEME))
 		{
 			$path = ($abs) ? JURI::base().trim($path, '/') : JURI::base(true).'/'.trim($path, '/');
 		}

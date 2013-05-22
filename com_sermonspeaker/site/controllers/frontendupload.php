@@ -333,7 +333,7 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 
 			JImport('joomla.filesystem.file');
 			// Adding the picture to the id3 tags, taken from getID3 Demos -> demo.write.php
-			if ($item->picture && (substr($item->picture, 0, 7) != 'http://')) {
+			if ($item->picture && !parse_url($item->picture, PHP_URL_SCHEME)) {
 				ob_start();
 				$pic = $item->picture;
 				if (substr($pic, 0, 1) == '/') {

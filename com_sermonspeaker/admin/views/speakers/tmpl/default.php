@@ -129,7 +129,7 @@ $saveOrder	= $listOrder == 'speakers.ordering';
 					<?php if (!$item->pic){
 						$item->pic = JURI::root().'media/com_sermonspeaker/images/'.$this->state->get('params')->get('defaultpic', 'nopict.jpg');
 					}
-					if (substr($item->pic, 0, 7) != 'http://') {
+					if (!parse_url($item->pic, PHP_URL_SCHEME)) {
 						$item->pic = JURI::root().trim($item->pic, '/.');
 					} ?>
 					<img src="<?php echo $item->pic; ?>" border="1" width="50" height="50">

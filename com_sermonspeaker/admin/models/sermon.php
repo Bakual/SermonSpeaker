@@ -275,7 +275,7 @@ class SermonspeakerModelSermon extends JModelAdmin
 
 		if (!$table->audiofilesize && $table->audiofile)
 		{
-			if (strpos($table->audiofile, 'http://') !== 0)
+			if (!parse_url($table->audiofile, PHP_URL_SCHEME))
 			{
 				$table->audiofilesize = filesize(JPATH_SITE.$table->audiofile);
 			}
@@ -283,7 +283,7 @@ class SermonspeakerModelSermon extends JModelAdmin
 
 		if (!$table->videofilesize && $table->videofile)
 		{
-			if (strpos($table->videofile, 'http://') !== 0)
+			if (!parse_url($table->videofile, PHP_URL_SCHEME))
 			{
 				$table->videofilesize = filesize(JPATH_SITE.$table->videofile);
 			}
