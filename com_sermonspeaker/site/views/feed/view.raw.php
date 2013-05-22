@@ -104,7 +104,7 @@ class SermonspeakerViewFeed extends JViewLegacy
 		{
 			// MIME type for content
 			$enclosure['type']	= SermonspeakerHelperSermonspeaker::getMime(JFile::getExt($file));
-			if (strpos($file, 'http://') === 0)
+			if (parse_url($file, PHP_URL_SCHEME))
 			{
 				//external link
 				if ((strpos($file, 'http://vimeo.com') === 0) || (strpos($file, 'http://player.vimeo.com') === 0))

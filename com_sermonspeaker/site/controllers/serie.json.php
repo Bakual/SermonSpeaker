@@ -83,7 +83,7 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 		$calc_size = 0;
 		foreach ($rows as $row)
 		{
-			if ($row['audiofile'] && (substr($row['audiofile'], 0, 7) != 'http://') && JFile::exists(JPATH_BASE.'/'.$row['audiofile']))
+			if ($row['audiofile'] && !parse_url($row['audiofile'], PHP_URL_SCHEME) && JFile::exists(JPATH_BASE.'/'.$row['audiofile']))
 			{
 				$file['path'] = JPATH_BASE.'/'.$row['audiofile'];
 				$slash = strrpos($row['audiofile'], '/');
@@ -102,7 +102,7 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 				}
 				$content[] = 'a'.$row['id'];
 			}
-			if ($row['videofile'] && (substr($row['videofile'], 0, 7) != 'http://') && JFile::exists(JPATH_BASE.'/'.$row['videofile']))
+			if ($row['videofile'] && !parse_url($row['videofile'], PHP_URL_SCHEME) && JFile::exists(JPATH_BASE.'/'.$row['videofile']))
 			{
 				$file['path'] = JPATH_BASE.'/'.$row['videofile'];
 				$slash = strrpos($row['videofile'], '/');
