@@ -25,6 +25,7 @@ $published = $this->state->get('filter.state');
 		<?php endif; ?>
 	</div>
 	<div class="modal-footer">
+		<input type="hidden" name="newBatchProcess" value="1" />
 		<button class="btn" type="button" onclick="document.id('batch-category-id').value='';document.id('batch-language-id').value=''" data-dismiss="modal">
 			<?php echo JText::_('JCANCEL'); ?>
 		</button>
