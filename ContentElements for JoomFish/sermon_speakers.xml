@@ -2,7 +2,7 @@
 <joomfish type="contentelement">
 	<name>SermonSpeaker - Speakers</name>
 	<author>Thomas Hunziker</author>
-	<version>4.4</version>
+	<version>5.0</version>
 	<description>Definition for the SermonSpeaker component, speaker table</description>
 	<reference>
 		<table name="sermon_speakers">

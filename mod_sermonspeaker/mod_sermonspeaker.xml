@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<extension type="module" version="1.6" method="upgrade">
+<extension type="module" version="3.1" method="upgrade">
 	<name>MOD_SERMONSPEAKER</name>
 	<author>Thomas Hunziker</author>
-	<creationDate>2013-03-15</creationDate>
+	<creationDate>2013-06-05</creationDate>
 	<copyright>(C) 2013</copyright>
 	<authorEmail>admin@sermonspeaker.net</authorEmail>
 	<authorUrl>http://www.sermonspeaker.net</authorUrl>
-	<version>4.5.0</version>
+	<version>5.0.0</version>
 	<license>http://www.gnu.org/licenses/gpl.html</license>
 	<description>MOD_SERMONSPEAKER_XML_DESCRIPTION</description>
 	<files>

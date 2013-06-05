@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension version="2.5" type="plugin" group="finder" method="upgrade">
+<extension version="3.1" type="plugin" group="finder" method="upgrade">
 	<name>plg_finder_sermonspeaker</name>
 	<author>Thomas Hunziker</author>
-	<creationDate>2013-03-15</creationDate>
+	<creationDate>2013-06-05</creationDate>
 	<authorEmail>admin@sermonspeaker.net</authorEmail>
 	<authorUrl>http://www.sermonspeaker.net</authorUrl>
 	<copyright>(C) 2013</copyright>
-	<version>4.5.0</version>
+	<version>5.0.0</version>
 	<license>http://www.gnu.org/licenses/gpl.html</license>
 	<description>PLG_FINDER_SERMONSPEAKER_XML_DESCRIPTION</description>
 	<files>
