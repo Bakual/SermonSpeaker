@@ -2,25 +2,23 @@
 // no direct access
 defined('_JEXEC') or die;
 
-require_once (dirname(__FILE__).'/helper.php');
+require_once __DIR__ . '/helper.php';
 
-$cacheparams = new stdClass;
-$cacheparams->cachemode = 'static';
-$cacheparams->class = 'modSermonspeakerHelper';
-$cacheparams->method = 'getList';
-$cacheparams->methodparams = $params;
-$list = JModuleHelper::moduleCache ($module, $params, $cacheparams);
-
-if (!count($list)) {
+$list = modSermonspeakerHelper::getList($params);
+if (!count($list))
+{
 	return;
 }
-
 $moduleclass_sfx	= htmlspecialchars($params->get('moduleclass_sfx'));
 $itemid				= (int)$params->get('menuitem');
 $mode				= (int)$params->get('mode');
-if ($mode == 2){
+
+if ($mode == 2)
+{
 	$baseURL	= 'index.php?option=com_sermonspeaker&view=sermons&catid=';
-} else {
+}
+else
+{
 	$view		= $mode ? 'serie' : 'speaker';
 	$baseURL	= 'index.php?option=com_sermonspeaker&view='.$view.'&id=';
 }
