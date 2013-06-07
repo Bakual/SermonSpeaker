@@ -187,7 +187,7 @@
 				<field name="speaker" type="sql" 
 					label="MOD_LATESTSERMONS_FIELD_SPEAKER_LABEL" 
 					description="MOD_LATESTSERMONS_FIELD_SPEAKER_DESC"
-					query="SELECT `id`, `title` FROM #__sermon_speakers ORDER BY name ASC"
+					query="SELECT `id`, `title` FROM #__sermon_speakers ORDER BY title ASC"
 					key_field="id"
 					value_field="title">
 					<option value="0">MOD_LATESTSERMONS_FIELD_SPEAKER_OPTION_SELECT</option>
@@ -209,15 +209,24 @@
 					label="JFIELD_ALT_LAYOUT_LABEL"
 					description="JFIELD_ALT_MODULE_LAYOUT_DESC"
 					default="_:default" />
-				<field name="moduleclass_sfx" type="text"
+				<field name="moduleclass_sfx" type="textarea"
 					label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL"
-					description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC" />
-				<field name="cache_items" type="list" 
-					default="0" 
+					description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC"
+					rows="3" />
+				<field name="cache" type="list"
 					label="COM_MODULES_FIELD_CACHING_LABEL"
-					description="COM_MODULES_FIELD_CACHING_DESC">
+					description="COM_MODULES_FIELD_CACHING_DESC"
+					default="1">
 					<option value="1">JGLOBAL_USE_GLOBAL</option>
 					<option value="0">COM_MODULES_FIELD_VALUE_NOCACHING</option>
+				</field>
+				<field name="cache_time" type="text"
+					label="COM_MODULES_FIELD_CACHE_TIME_LABEL"
+					description="COM_MODULES_FIELD_CACHE_TIME_DESC"
+					default="900" />
+				<field name="cachemode" type="hidden"
+					default="static">
+					<option value="static"></option>
 				</field>
 			</fieldset>
 		</fields>
