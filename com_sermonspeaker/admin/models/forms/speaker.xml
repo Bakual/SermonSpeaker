@@ -2,7 +2,7 @@
 <form>
 	<fieldset name="general"
 		addfieldpath="/administrator/components/com_categories/models/fields" >
-		<field name="name" type="text"
+		<field name="title" type="text"
 			label="COM_SERMONSPEAKER_FIELD_NAME_LABEL" description="COM_SERMONSPEAKER_FIELD_NAME_DESC"
 			class="inputbox input-xlarge"
 			size="30"
