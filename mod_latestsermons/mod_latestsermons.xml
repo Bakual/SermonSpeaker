@@ -159,8 +159,8 @@
 					<option value="2">MOD_LATESTSERMONS_FIELD_FILETYPE_OPTION_VIDEO</option>
 				</field>
 				<field name="cat" type="category" 
-					label="JCATEGORY" 
-					description="MOD_LATESTSERMONS_PARAM_CATEGORY_DESC" 
+					label="JGLOBAL_CHOOSE_CATEGORY_LABEL" 
+					description="JGLOBAL_CHOOSE_CATEGORY_DESC" 
 					extension="com_sermonspeaker" >
 					<option value="">JOPTION_SELECT_CATEGORY</option>
 				</field>

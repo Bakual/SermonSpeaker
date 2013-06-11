@@ -17,8 +17,8 @@
 	<fields name="params">
 		<fieldset name="basic">
 			<field name="cat" type="category" 
-				label="JCategory" 
-				description="COM_SERMONSPEAKER_PARAM_CATEGORY_DESC" 
+				label="JGLOBAL_CHOOSE_CATEGORY_LABEL" 
+				description="JGLOBAL_CHOOSE_CATEGORY_DESC" 
 				extension="com_sermonspeaker" 
 				required="true"
 			/>

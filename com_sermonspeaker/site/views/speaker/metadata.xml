@@ -24,8 +24,8 @@
 	<fields name="params">
 		<fieldset name="basic">
 			<field name="catid" type="category" 
-				label="JCATEGORY" 
-				description="COM_SERMONSPEAKER_PARAM_CATEGORY_DESC" 
+				label="JGLOBAL_CHOOSE_CATEGORY_LABEL" 
+				description="JGLOBAL_CHOOSE_CATEGORY_DESC" 
 				extension="com_sermonspeaker" 
 				show_root="true"
 			/>
