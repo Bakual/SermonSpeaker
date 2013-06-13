@@ -16,7 +16,8 @@ $uri->delVar('file');
 $uri->delVar('type');
 $self = $uri->toString();
 
-$input = JFactory::getApplication()->input;
+$app = JFactory::getApplication();
+$input = $app->input;
 ?>
 
 <script type="text/javascript">
@@ -262,6 +263,11 @@ $input = JFactory::getApplication()->input;
 				echo JHtml::_('bootstrap.addTab', 'myTab', 'metadata', JText::_('JGLOBAL_FIELDSET_METADATA_OPTIONS', true));
 					echo JLayoutHelper::render('joomla.edit.metadata', $this); ?>
 				<?php echo JHtml::_('bootstrap.endTab');
+				if (!empty($app->item_associations)) :
+					echo JHtml::_('bootstrap.addTab', 'myTab', 'associations', JText::_('JGLOBAL_FIELDSET_ASSOCIATIONS', true));
+						echo $this->loadTemplate('associations');
+					echo JHtml::_('bootstrap.endTab');
+				endif;
 			echo JHtml::_('bootstrap.endTabSet'); ?>
 			<input type="hidden" name="task" value="" />
 			<input type="hidden" name="return" value="<?php echo $input->getCmd('return');?>" />

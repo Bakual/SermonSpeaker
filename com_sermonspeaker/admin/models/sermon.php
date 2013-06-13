@@ -249,6 +249,22 @@ class SermonspeakerModelSermon extends JModelAdmin
 			$item->metadata['tags'] = $item->tags;
 		}
 
+		// Load associated items
+		if (!empty(JFactory::getApplication()->item_associations))
+		{
+			$item->associations = array();
+
+			if ($item->id != null)
+			{
+				$associations = JLanguageAssociations::getAssociations('com_sermonspeaker', '#__sermon_sermons', 'com_sermonspeaker.sermon', $item->id);
+
+				foreach ($associations as $tag => $association)
+				{
+					$item->associations[$tag] = $association->id;
+				}
+			}
+		}
+
 		return $item;
 	}
 
@@ -315,6 +331,135 @@ class SermonspeakerModelSermon extends JModelAdmin
 		if (empty($table->id)) {
 			$table->reorder('catid = '.(int) $table->catid.' AND state >= 0');
 		}
+	}
+
+	/**
+	 * Method to save the form data.
+	 *
+	 * @param   array  The form data.
+	 *
+	 * @return  boolean  True on success.
+	 * @since   1.6
+	 */
+	public function save($data)
+	{
+		if (parent::save($data))
+		{
+			if (!empty(JFactory::getApplication()->item_associations))
+			{
+				$id = (int) $this->getState($this->getName() . '.id');
+				$item = $this->getItem($id);
+
+				// Adding self to the association
+				$associations = $data['associations'];
+
+				foreach ($associations as $tag => $id)
+				{
+					if (empty($id))
+					{
+						unset($associations[$tag]);
+					}
+				}
+
+				// Detecting all item menus
+				$all_language = $item->language == '*';
+
+				if ($all_language && !empty($associations))
+				{
+					JError::raiseNotice(403, JText::_('COM_SERMONSPEAKER_ERROR_ALL_LANGUAGE_ASSOCIATED'));
+				}
+
+				$associations[$item->language] = $item->id;
+
+				// Deleting old association for these items
+				$db = JFactory::getDbo();
+				$query = $db->getQuery(true)
+					->delete('#__associations')
+					->where('context=' . $db->quote('com_sermonspeaker.sermon'))
+					->where('id IN (' . implode(',', $associations) . ')');
+				$db->setQuery($query);
+				$db->execute();
+
+				if ($error = $db->getErrorMsg())
+				{
+					$this->setError($error);
+					return false;
+				}
+
+				if (!$all_language && count($associations))
+				{
+					// Adding new association for these items
+					$key = md5(json_encode($associations));
+					$query->clear()
+						->insert('#__associations');
+
+					foreach ($associations as $tag => $id)
+					{
+						$query->values($id . ',' . $db->quote('com_sermonspeaker.sermon') . ',' . $db->quote($key));
+					}
+
+					$db->setQuery($query);
+					$db->execute();
+
+					if ($error = $db->getErrorMsg())
+					{
+						$this->setError($error);
+						return false;
+					}
+				}
+			}
+
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Auto-populate the model state.
+	 *
+	 * Note. Calling getState in this method will result in recursion.
+	 *
+	 * @return  void
+	 * @since    3.0
+	 */
+	protected function preprocessForm(JForm $form, $data, $group = 'sermonspeaker')
+	{
+		// Association items
+		if (!empty(JFactory::getApplication()->item_associations))
+		{
+			$languages = JLanguageHelper::getLanguages('lang_code');
+
+			// force to array (perhaps move to $this->loadFormData())
+			$data = (array) $data;
+
+			$addform = new SimpleXMLElement('<form />');
+			$fields = $addform->addChild('fields');
+			$fields->addAttribute('name', 'associations');
+			$fieldset = $fields->addChild('fieldset');
+			$fieldset->addAttribute('name', 'item_associations');
+			$fieldset->addAttribute('description', 'COM_SERMONSPEAKER_ITEM_ASSOCIATIONS_FIELDSET_DESC');
+			$add = false;
+			foreach ($languages as $tag => $language)
+			{
+				if (empty($data['language']) || $tag != $data['language'])
+				{
+					$add = true;
+					$field = $fieldset->addChild('field');
+					$field->addAttribute('name', $tag);
+					$field->addAttribute('type', 'modal_sermon');
+					$field->addAttribute('language', $tag);
+					$field->addAttribute('label', $language->title);
+					$field->addAttribute('translate_label', 'false');
+				}
+			}
+			if ($add)
+			{
+				$form->load($addform, false);
+			}
+		}
+
+		parent::preprocessForm($form, $data, $group);
 	}
 
 	/**

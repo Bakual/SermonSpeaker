@@ -8,7 +8,7 @@ if (!JFactory::getUser()->authorise('core.manage', 'com_sermonspeaker'))
 }
  
 // require helper file
-JLoader::register('SermonspeakerHelper', dirname(__FILE__).'/helpers/sermonspeaker.php');
+JLoader::register('SermonspeakerHelper', __DIR__ .'/helpers/sermonspeaker.php');
 
 JHtml::stylesheet('administrator/components/com_sermonspeaker/sermonspeaker.css');
 

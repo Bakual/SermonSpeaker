@@ -28,25 +28,36 @@ $listDirn	= $this->escape($this->state->get('list.direction'));
 				<label for="filter_search">
 					<?php echo JText::_('JSEARCH_FILTER_LABEL'); ?>
 				</label>
+			</div>
+			<div class="btn-group pull-left">
 				<input type="text" name="filter_search" id="filter_search" value="<?php echo $this->escape($this->state->get('filter.search')); ?>" size="30" title="<?php echo JText::_('COM_SERMONSPEAKER_FILTER_SEARCH_DESC'); ?>" />
 			</div>
 			<div class="btn-group pull-left">
 				<button type="submit" class="btn hasTooltip" data-placement="bottom" title="<?php echo JText::_('JSEARCH_FILTER_SUBMIT'); ?>">
-					<i class="icon-search"></i></button>
+					<span class="icon-search"></span><?php echo '&#160;' . JText::_('JSEARCH_FILTER_SUBMIT'); ?></button>
 				<button type="button" class="btn hasTooltip" data-placement="bottom" title="<?php echo JText::_('JSEARCH_FILTER_CLEAR'); ?>" onclick="document.id('filter_search').value='';this.form.submit();">
-					<i class="icon-remove"></i></button>
+					<span class="icon-remove"></span><?php echo '&#160;' . JText::_('JSEARCH_FILTER_CLEAR'); ?></button>
 			</div>
-			<div class="btn-group pull-right">
-				<label for="mode" class="hasTip" title="<?php echo JText::_('PLG_EDITORS-XTD_SERMONSPEAKER_FIELD_MODE_LABEL').'::'.JText::_('PLG_EDITORS-XTD_SERMONSPEAKER_FIELD_MODE_DESC'); ?>">
-					<?php echo JText::_('PLG_EDITORS-XTD_SERMONSPEAKER_FIELD_MODE_LABEL'); ?>:
-				</label>
-				<select name="mode" id="mode" class="input-medium">
-					<option value=""><?php echo JText::_('JOPTION_USE_DEFAULT'); ?></option>
-					<option value="1"><?php echo JText::_('PLG_EDITORS-XTD_SERMONSPEAKER_FIELD_MODE_OPTION_LINK'); ?></option>
-					<option value="2"><?php echo JText::_('PLG_EDITORS-XTD_SERMONSPEAKER_FIELD_MODE_OPTION_PLAYER'); ?></option>
-					<option value="3"><?php echo JText::_('PLG_EDITORS-XTD_SERMONSPEAKER_FIELD_MODE_OPTION_MODULE'); ?></option>
-				</select>
-			</div>
+			<?php if ($app->isAdmin()) : ?>
+				<input onclick="if (window.parent) window.parent.<?php echo $this->escape($function);?>('0', '<?php echo $this->escape(addslashes(JText::_('COM_SERMONSPEAKER_SELECT_AN_ITEM'))); ?>', null, null);" class="btn" type="button" value="<?php echo JText::_('JNONE'); ?>" />
+			<?php endif;
+			if (!$this->state->get('filter.forcedLanguage')) : ?>
+				<div class="btn-group pull-right">
+					<select name="mode" id="mode" class="input-medium">
+						<option value=""><?php echo JText::_('JOPTION_USE_DEFAULT'); ?></option>
+						<option value="1"><?php echo JText::_('PLG_EDITORS-XTD_SERMONSPEAKER_FIELD_MODE_OPTION_LINK'); ?></option>
+						<option value="2"><?php echo JText::_('PLG_EDITORS-XTD_SERMONSPEAKER_FIELD_MODE_OPTION_PLAYER'); ?></option>
+						<option value="3"><?php echo JText::_('PLG_EDITORS-XTD_SERMONSPEAKER_FIELD_MODE_OPTION_MODULE'); ?></option>
+					</select>
+				</div>
+				<div class="btn-group pull-right">
+					<label for="mode" class="hasTip" title="<?php echo JText::_('PLG_EDITORS-XTD_SERMONSPEAKER_FIELD_MODE_LABEL').'::'.JText::_('PLG_EDITORS-XTD_SERMONSPEAKER_FIELD_MODE_DESC'); ?>">
+						<?php echo JText::_('PLG_EDITORS-XTD_SERMONSPEAKER_FIELD_MODE_LABEL'); ?>:
+					</label>
+				</div>
+			<?php else : ?>
+				<input type="hidden" id="mode" name="mode" value="" />
+			<?php endif; ?>
 			<div class="clearfix"></div>
 		</div>
 		<hr class="hr-condensed" />

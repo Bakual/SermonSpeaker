@@ -35,6 +35,11 @@ class SermonspeakerModelSermons extends JModelList
 				'series_title', 'series.title',
 				'scripture', 'sermons.scripture',
 			);
+
+			if (!empty(JFactory::getApplication()->item_associations))
+			{
+				$config['filter_fields'][] = 'association';
+			}
 		}
 
 		parent::__construct($config);
@@ -73,6 +78,14 @@ class SermonspeakerModelSermons extends JModelList
 
 		$language = $this->getUserStateFromRequest($this->context.'.filter.language', 'filter_language', '');
 		$this->setState('filter.language', $language);
+
+		// force a language
+		$forcedLanguage = $app->input->get('forcedLanguage');
+		if (!empty($forcedLanguage))
+		{
+			$this->setState('filter.language', $forcedLanguage);
+			$this->setState('filter.forcedLanguage', $forcedLanguage);
+		}
 
 		// Load the parameters.
 		$params = JComponentHelper::getParams('com_sermonspeaker');
@@ -140,6 +153,15 @@ class SermonspeakerModelSermons extends JModelList
 		// Join over the users for the checked out user.
 		$query->select('uc.name AS editor');
 		$query->join('LEFT', '#__users AS uc ON uc.id = sermons.checked_out');
+
+		// Join over the associations.
+		if (!empty(JFactory::getApplication()->item_associations))
+		{
+			$query->select('COUNT(asso2.id)>1 as association')
+				->join('LEFT', '#__associations AS asso ON asso.id = sermons.id AND asso.context=' . $db->quote('com_sermonspeaker.sermon'))
+				->join('LEFT', '#__associations AS asso2 ON asso2.key = asso.key')
+				->group('sermons.id');
+		}
 
 		// Join over the scriptures.
 		$query->select('GROUP_CONCAT(script.book,"|",script.cap1,"|",script.vers1,"|",script.cap2,"|",script.vers2,"|",script.text ORDER BY script.ordering ASC SEPARATOR "!") AS scripture');
