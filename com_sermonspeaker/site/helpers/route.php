@@ -7,10 +7,6 @@
 // no direct access
 defined('_JEXEC') or die;
 
-// Component Helper
-jimport('joomla.application.component.helper');
-jimport('joomla.application.categories');
-
 /**
  * Sermonspeaker Component Route Helper
  *
@@ -20,7 +16,8 @@ jimport('joomla.application.categories');
  */
 abstract class SermonspeakerHelperRoute
 {
-	protected static $lookup;
+	protected static $lookup = array();
+	protected static $langs;
 
 	public static function getSermonsRoute($catid = 0, $language = 0)
 	{
@@ -33,9 +30,30 @@ abstract class SermonspeakerHelperRoute
 			$link .= '&catid='.$catid;
 		}
 
-		if ($item = SermonspeakerHelperRoute::_findItem($needles)) {
+		if ($language && $language != "*" && JLanguageMultilang::isEnabled())
+		{
+			if (!isset(self::$langs))
+			{
+				self::_getLanguages();
+			}
+			foreach (self::$langs as $lang)
+			{
+				if ($language == $lang->lang_code)
+				{
+					$link .= '&lang='.$lang->sef;
+					$needles['language'] = $language;
+				}
+			}
+		}
+
+		if ($item = self::_findItem($needles))
+		{
 			$link .= '&Itemid='.$item;
-		};
+		}
+		elseif ($item = self::_findItem())
+		{
+			$link .= '&Itemid='.$item;
+		}
 
 		return $link;
 	}
@@ -43,16 +61,34 @@ abstract class SermonspeakerHelperRoute
 	public static function getSermonRoute($id, $catid = 0, $language = 0)
 	{
 		$needles = array(
-			'sermon' => array((int)$id)
+			'sermon' => array((int)$id),
+			'sermons' => array(0)
 		);
 		//Create the link
 		$link = 'index.php?option=com_sermonspeaker&view=sermon&id='.$id;
 
-		if ($item = self::_findItem($needles)) {
+		if ($language && $language != "*" && JLanguageMultilang::isEnabled())
+		{
+			if (!isset(self::$langs))
+			{
+				self::_getLanguages();
+			}
+			foreach (self::$langs as $lang)
+			{
+				if ($language == $lang->lang_code)
+				{
+					$link .= '&lang='.$lang->sef;
+					$needles['language'] = $language;
+				}
+			}
+		}
+
+		if ($item = self::_findItem($needles))
+		{
 			$link .= '&Itemid='.$item;
-		} elseif ($item = self::_findItem()) {
-			$link .= '&Itemid='.$item;
-		} elseif ($item = self::_findItem(array('sermons'=>array(0)))) {
+		}
+		elseif ($item = self::_findItem())
+		{
 			$link .= '&Itemid='.$item;
 		}
 
@@ -70,9 +106,30 @@ abstract class SermonspeakerHelperRoute
 			$link .= '&catid='.$catid;
 		}
 
-		if ($item = SermonspeakerHelperRoute::_findItem($needles)) {
+		if ($language && $language != "*" && JLanguageMultilang::isEnabled())
+		{
+			if (!isset(self::$langs))
+			{
+				self::_getLanguages();
+			}
+			foreach (self::$langs as $lang)
+			{
+				if ($language == $lang->lang_code)
+				{
+					$link .= '&lang='.$lang->sef;
+					$needles['language'] = $language;
+				}
+			}
+		}
+
+		if ($item = self::_findItem($needles))
+		{
 			$link .= '&Itemid='.$item;
-		};
+		}
+		elseif ($item = self::_findItem())
+		{
+			$link .= '&Itemid='.$item;
+		}
 
 		return $link;
 	}
@@ -80,7 +137,8 @@ abstract class SermonspeakerHelperRoute
 	public static function getSerieRoute($id, $catid = 0, $language = 0)
 	{
 		$needles = array(
-			'serie'  => array((int)$id)
+			'serie'  => array((int)$id),
+			'series'  => array(0)
 		);
 		//Create the link
 		$link = 'index.php?option=com_sermonspeaker&view=serie&id='.$id;
@@ -94,11 +152,28 @@ abstract class SermonspeakerHelperRoute
 			}
 		}
 
-		if ($item = self::_findItem($needles)) {
+		if ($language && $language != "*" && JLanguageMultilang::isEnabled())
+		{
+			if (!isset(self::$langs))
+			{
+				self::_getLanguages();
+			}
+			foreach (self::$langs as $lang)
+			{
+				if ($language == $lang->lang_code)
+				{
+					$link .= '&lang='.$lang->sef;
+					$needles['language'] = $language;
+				}
+			}
+		}
+
+		if ($item = self::_findItem($needles))
+		{
 			$link .= '&Itemid='.$item;
-		} elseif ($item = self::_findItem()) {
-			$link .= '&Itemid='.$item;
-		} elseif ($item = self::_findItem(array('series'=>array(0)))) {
+		}
+		elseif ($item = self::_findItem())
+		{
 			$link .= '&Itemid='.$item;
 		}
 
@@ -116,7 +191,28 @@ abstract class SermonspeakerHelperRoute
 		{
 			$link .= '&catid='.$catid;
 		}
-		if ($item = SermonspeakerHelperRoute::_findItem($needles))
+
+		if ($language && $language != "*" && JLanguageMultilang::isEnabled())
+		{
+			if (!isset(self::$langs))
+			{
+				self::_getLanguages();
+			}
+			foreach (self::$langs as $lang)
+			{
+				if ($language == $lang->lang_code)
+				{
+					$link .= '&lang='.$lang->sef;
+					$needles['language'] = $language;
+				}
+			}
+		}
+
+		if ($item = self::_findItem($needles))
+		{
+			$link .= '&Itemid='.$item;
+		}
+		elseif ($item = self::_findItem())
 		{
 			$link .= '&Itemid='.$item;
 		}
@@ -126,8 +222,10 @@ abstract class SermonspeakerHelperRoute
 
 	public static function getSpeakerRoute($id, $catid = 0, $language = 0)
 	{
+
 		$needles = array(
-			'speaker'  => array((int)$id)
+			'speaker'  => array((int)$id),
+			'speakers'  => array(0)
 		);
 		//Create the link
 		$link = 'index.php?option=com_sermonspeaker&view=speaker&id='.$id;
@@ -141,11 +239,28 @@ abstract class SermonspeakerHelperRoute
 			}
 		}
 
-		if ($item = self::_findItem($needles)) {
+		if ($language && $language != "*" && JLanguageMultilang::isEnabled())
+		{
+			if (!isset(self::$langs))
+			{
+				self::_getLanguages();
+			}
+			foreach (self::$langs as $lang)
+			{
+				if ($language == $lang->lang_code)
+				{
+					$link .= '&lang='.$lang->sef;
+					$needles['language'] = $language;
+				}
+			}
+		}
+
+		if ($item = self::_findItem($needles))
+		{
 			$link .= '&Itemid='.$item;
-		} elseif ($item = self::_findItem()) {
-			$link .= '&Itemid='.$item;
-		} elseif ($item = self::_findItem(array('speakers'=>array(0)))) {
+		}
+		elseif ($item = self::_findItem())
+		{
 			$link .= '&Itemid='.$item;
 		}
 
@@ -154,48 +269,108 @@ abstract class SermonspeakerHelperRoute
 
 	protected static function _findItem($needles = null)
 	{
-		$app	= JFactory::getApplication();
-		$menus	= $app->getMenu('site');
+		$app		= JFactory::getApplication();
+		$menus		= $app->getMenu('site');
+		$language	= isset($needles['language']) ? $needles['language'] : '*';
 
 		// Prepare the reverse lookup array.
-		if (self::$lookup === null) {
-			self::$lookup = array();
+		if (!isset(self::$lookup[$language]))
+		{
+			self::$lookup[$language] = array();
 
 			$component	= JComponentHelper::getComponent('com_sermonspeaker');
-			$items		= $menus->getItems('component_id', $component->id);
-			if ($items){ // Populate static $lookup with SermonSpeaker menu entries: $lookup[view][id]
-				foreach ($items as $item) {
-					if (isset($item->query) && isset($item->query['view'])) {
-						$view = $item->query['view'];
-						if (!isset(self::$lookup[$view])) {
-							self::$lookup[$view] = array();
+
+			$attributes = array('component_id');
+			$values = array($component->id);
+
+			if ($language != '*')
+			{
+				$attributes[] = 'language';
+				$values[] = array($needles['language'], '*');
+			}
+
+			$items		= $menus->getItems($attributes, $values);
+
+			foreach ($items as $item)
+			{
+				if (isset($item->query) && isset($item->query['view']))
+				{
+					$view = $item->query['view'];
+					if (!isset(self::$lookup[$language][$view]))
+					{
+						self::$lookup[$language][$view] = array();
+					}
+					if (isset($item->query['id']))
+					{
+						if (!isset(self::$lookup[$language][$view][$item->query['id']]) || $item->language != '*')
+						{
+							self::$lookup[$language][$view][$item->query['id']] = $item->id;
 						}
-						if (isset($item->query['id'])) {
-							self::$lookup[$view][$item->query['id']] = $item->id;
-						} else {
-							self::$lookup[$view][] = $item->id;
+					}
+					else
+					{
+						if (!isset(self::$lookup[$language][$view][0]) || $item->language != '*')
+						{
+							self::$lookup[$language][$view][0] = $item->id;
 						}
 					}
 				}
-			}
-		}
-		if ($needles) {
-			foreach ($needles as $view => $ids) { // Search $lookup for matching menu entry
-				if (isset(self::$lookup[$view])) {
-					foreach($ids as $id) {
-						if (isset(self::$lookup[$view][(int)$id])) {
-							return self::$lookup[$view][(int)$id];
-						}
-					}
-				}
-			}
-		} else { // Check if active menu entry is from SermonSpeaker
-			$active = $menus->getActive();
-			if ($active && $active->component == 'com_sermonspeaker') {
-				return $active->id;
 			}
 		}
 
-		return null;
+		if ($needles)
+		{
+			foreach ($needles as $view => $ids)
+			{
+				if (isset(self::$lookup[$language][$view]))
+				{
+					foreach($ids as $id)
+					{
+						if (isset(self::$lookup[$language][$view][(int) $id]))
+						{
+							return self::$lookup[$language][$view][(int) $id];
+						}
+					}
+				}
+			}
+		}
+
+		// Check for an active SermonSpeaker menuitem
+		$active = $menus->getActive();
+		if ($active && $active->component == 'com_sermonspeaker' && ($active->language == '*' || !JLanguageMultilang::isEnabled()))
+		{
+			return $active->id;
+		}
+
+		if (!$needles)
+		{
+			// Get first SermonSpeaker menuitem found
+			if (isset(self::$lookup[$language]))
+			{
+				$first	= reset(self::$lookup[$language]);
+				return reset($first);
+			}
+
+			// if not found in second try, return language specific home link
+			$default = $menus->getDefault($language);
+			return !empty($default->id) ? $default->id : null;
+		}
+
+		return;
 	}
+
+	protected static function _getLanguages()
+	{
+		$db		= JFactory::getDbo();
+		$query	= $db->getQuery(true)
+			->select('a.sef AS sef')
+			->select('a.lang_code AS lang_code')
+			->from('#__languages AS a');
+
+		$db->setQuery($query);
+		self::$langs = $db->loadObjectList();
+
+		return;
+	}
+
 }
