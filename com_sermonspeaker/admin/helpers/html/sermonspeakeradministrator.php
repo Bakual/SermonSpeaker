@@ -7,10 +7,6 @@ defined('_JEXEC') or die;
 
 JLoader::register('SermonspeakerHelper', JPATH_ADMINISTRATOR . '/components/com_sermonspeaker/helpers/sermonspeaker.php');
 
-/**
- * @package     Joomla.Administrator
- * @subpackage  com_content
- */
 abstract class JHtmlSermonspeakerAdministrator
 {
 	/**
@@ -20,13 +16,28 @@ abstract class JHtmlSermonspeakerAdministrator
 	 *
 	 * @return  string  The language HTML
 	 */
-	public static function association($itemid)
+	public static function association($itemid, $type = 'sermon')
 	{
+		switch ($type)
+		{
+			case 'sermon':
+			default:
+				$type	= 'sermon';
+				$table	= '#__sermon_sermons';
+				break;
+			case 'serie':
+				$table	= '#__sermon_series';
+				break;
+			case 'speaker':
+				$table	= '#__sermon_speakers';
+				break;
+		}
+
 		// Defaults
 		$html = '';
 
 		// Get the associations
-		if ($associations = JLanguageAssociations::getAssociations('com_sermonspeaker', '#__sermon_sermons', 'com_sermonspeaker.sermon', $itemid))
+		if ($associations = JLanguageAssociations::getAssociations('com_sermonspeaker', $table, 'com_sermonspeaker.'.$type, $itemid))
 		{
 
 			foreach ($associations as $tag => $associated)
@@ -38,7 +49,7 @@ abstract class JHtmlSermonspeakerAdministrator
 			$db = JFactory::getDbo();
 			$query = $db->getQuery(true)
 				->select('c.*')
-				->from('#__sermon_sermons as c')
+				->from($table.' as c')
 				->select('cat.title as category_title')
 				->join('LEFT', '#__categories as cat ON cat.id=c.catid')
 				->where('c.id IN (' . implode(',', array_values($associations)) . ')')

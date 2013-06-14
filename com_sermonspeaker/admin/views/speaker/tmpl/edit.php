@@ -2,13 +2,17 @@
 // no direct access
 defined('_JEXEC') or die;
 
+// Include the component HTML helpers.
+JHtml::addIncludePath(JPATH_COMPONENT.'/helpers/html');
+
 // Load the tooltip behavior.
 JHtml::_('behavior.tooltip');
 JHtml::_('behavior.formvalidation');
 JHtml::_('behavior.keepalive');
 JHtml::_('formbehavior.chosen', 'select');
 
-$input = JFactory::getApplication()->input;
+$app	= JFactory::getApplication();
+$input	= $app->input;
 ?>
 
 <script type="text/javascript">
@@ -27,15 +31,8 @@ $input = JFactory::getApplication()->input;
 	<div class="row-fluid">
 		<!-- Begin Content -->
 		<div class="span10 form-horizontal">
-			<ul class="nav nav-tabs">
-				<li class="active"><a href="#general" data-toggle="tab"><?php echo JText::_('JDETAILS');?></a></li>
-				<li><a href="#publishing" data-toggle="tab"><?php echo JText::_('JGLOBAL_FIELDSET_PUBLISHING');?></a></li>
-				<li><a href="#metadata" data-toggle="tab"><?php echo JText::_('JGLOBAL_FIELDSET_METADATA_OPTIONS');?></a></li>
-			</ul>
-
-			<div class="tab-content">
-				<!-- Begin Tabs -->
-				<div class="tab-pane active" id="general">
+			<?php echo JHtml::_('bootstrap.startTabSet', 'myTab', array('active' => 'general'));
+				echo JHtml::_('bootstrap.addTab', 'myTab', 'general', JText::_('JDETAILS', true)); ?>
 					<fieldset class="adminform">
 						<div class="control-group form-inline">
 							<?php echo $this->form->getLabel('title'); ?> <?php echo $this->form->getInput('title'); ?> <?php echo $this->form->getLabel('catid'); ?> <?php echo $this->form->getInput('catid'); ?>
@@ -60,9 +57,8 @@ $input = JFactory::getApplication()->input;
 							<?php endforeach; ?>
 						</div>
 					</div>
-				</div>
-
-				<div class="tab-pane" id="publishing">
+				<?php echo JHtml::_('bootstrap.endTab');
+				echo JHtml::_('bootstrap.addTab', 'myTab', 'publishing', JText::_('JGLOBAL_FIELDSET_PUBLISHING', true)); ?>
 					<div class="row-fluid">
 						<div class="span6">
 							<div class="control-group">
@@ -127,24 +123,16 @@ $input = JFactory::getApplication()->input;
 							</div>
 						</div>
 					</div>
-				</div>
-				<div class="tab-pane" id="metadata">
-					<fieldset>
-						<?php foreach($this->form->getFieldset('metadata') as $field): ?>
-							<div class="control-group">
-								<?php if (!$field->hidden): ?>
-									<div class="control-label">
-										<?php echo $field->label; ?>
-									</div>
-								<?php endif; ?>
-								<div class="controls">
-									<?php echo $field->input; ?>
-								</div>
-							</div>
-						<?php endforeach; ?>
-					</fieldset>
-				</div>
-			</div>
+				<?php echo JHtml::_('bootstrap.endTab');
+				echo JHtml::_('bootstrap.addTab', 'myTab', 'metadata', JText::_('JGLOBAL_FIELDSET_METADATA_OPTIONS', true));
+					echo JLayoutHelper::render('joomla.edit.metadata', $this); ?>
+				<?php echo JHtml::_('bootstrap.endTab');
+				if (!empty($app->item_associations)) :
+					echo JHtml::_('bootstrap.addTab', 'myTab', 'associations', JText::_('JGLOBAL_FIELDSET_ASSOCIATIONS', true));
+						echo $this->loadTemplate('associations');
+					echo JHtml::_('bootstrap.endTab');
+				endif;
+			echo JHtml::_('bootstrap.endTabSet'); ?>
 			<input type="hidden" name="task" value="" />
 			<input type="hidden" name="return" value="<?php echo $input->getCmd('return');?>" />
 			<?php echo JHtml::_('form.token'); ?>

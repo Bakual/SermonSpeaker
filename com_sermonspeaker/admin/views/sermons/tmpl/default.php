@@ -209,7 +209,7 @@ $assoc		= !empty(JFactory::getApplication()->item_associations);
 					<?php if ($assoc) : ?>
 						<td class="hidden-phone">
 							<?php if ($item->association) : ?>
-								<?php echo JHtml::_('sermonspeakeradministrator.association', $item->id); ?>
+								<?php echo JHtml::_('sermonspeakeradministrator.association', $item->id, 'sermon'); ?>
 							<?php endif; ?>
 						</td>
 					<?php endif;?>

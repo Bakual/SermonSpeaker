@@ -25,34 +25,43 @@ abstract class SermonspeakerHelperAssociation extends CategoryHelperAssociation
 	{
 		jimport('helper.route', JPATH_COMPONENT_SITE);
 
-		$app = JFactory::getApplication();
-		$jinput = $app->input;
-		$view = is_null($view) ? $jinput->get('view') : $view;
-		$id = empty($id) ? $jinput->getInt('id') : $id;
+		$jinput	= JFactory::getApplication()->input;
+		$view	= is_null($view) ? $jinput->get('view') : $view;
+		$id		= empty($id) ? $jinput->getInt('id') : $id;
 
-		if ($view == 'sermon')
+		switch ($view)
 		{
-			if ($id)
-			{
-				$associations = JLanguageAssociations::getAssociations('com_sermonspeaker', '#__sermon_sermons', 'com_sermonspeaker.sermon', $id);
-
-				$return = array();
-
-				foreach ($associations as $tag => $item)
-				{
-					$return[$tag] = SermonspeakerHelperRoute::getSermonRoute($item->id, $item->catid, $item->language);
-				}
-
-				return $return;
-			}
-		}
-
-		if ($view == 'category' || $view == 'categories')
-		{
-			return self::getCategoryAssociations($id, 'com_sermonspeaker');
+			case 'sermon':
+				return self::_findItems($id, $view, '#__sermon_sermons');
+			case 'serie':
+				return self::_findItems($id, $view, '#__sermon_series');
+			case 'speaker':
+				return self::_findItems($id, $view, '#__sermon_speakers');
+			case 'category':
+			case 'categories':
+				return self::getCategoryAssociations($id, 'com_sermonspeaker');
 		}
 
 		return array();
+	}
 
+	protected static function _findItems($id, $view, $table)
+	{
+		if ($id)
+		{
+			$associations = JLanguageAssociations::getAssociations('com_sermonspeaker', $table, 'com_sermonspeaker.'.$view, $id);
+			$function = 'get'.$view.'Route';
+
+			$return = array();
+
+			foreach ($associations as $tag => $item)
+			{
+				$return[$tag] = SermonspeakerHelperRoute::$function($item->id, $item->catid, $item->language);
+			}
+
+			return $return;
+		}
+
+		return array();
 	}
 }

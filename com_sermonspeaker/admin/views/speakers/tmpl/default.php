@@ -1,6 +1,7 @@
 <?php
 defined('_JEXEC') or die;
 
+JHtml::addIncludePath(JPATH_COMPONENT.'/helpers/html');
 JHtml::_('bootstrap.tooltip');
 JHtml::_('behavior.multiselect');
 JHtml::_('dropdown.init');
@@ -15,6 +16,7 @@ if ($saveOrder) :
 	$saveOrderingUrl = 'index.php?option=com_sermonspeaker&task=speakers.saveOrderAjax&tmpl=component';
 	JHtml::_('sortablelist.sortable', 'speakerList', 'adminForm', strtolower($listDirn), $saveOrderingUrl);
 endif;
+$assoc		= !empty(JFactory::getApplication()->item_associations);
 ?>
 <script type="text/javascript">
 	Joomla.orderTable = function() {
@@ -85,6 +87,11 @@ endif;
 					<th>
 						<?php echo JHtml::_('grid.sort', 'COM_SERMONSPEAKER_FIELD_NAME_LABEL', 'speakers.title', $listDirn, $listOrder); ?>
 					</th>
+					<?php if ($assoc) : ?>
+						<th width="5%" class="nowrap hidden-phone">
+							<?php echo JHtml::_('grid.sort', 'COM_SERMONSPEAKER_HEADING_ASSOCIATION', 'association', $listDirn, $listOrder); ?>
+						</th>
+					<?php endif;?>
 					<th width="5%" class="hidden-phone">
 						<?php echo JHtml::_('grid.sort',  'COM_SERMONSPEAKER_FIELD_PICTURE_LABEL', 'speakers.pic', $listDirn, $listOrder); ?>
 					</th>
@@ -185,6 +192,13 @@ endif;
 								?>
 						</div>
 					</td>
+					<?php if ($assoc) : ?>
+						<td class="hidden-phone">
+							<?php if ($item->association) : ?>
+								<?php echo JHtml::_('sermonspeakeradministrator.association', $item->id, 'speaker'); ?>
+							<?php endif; ?>
+						</td>
+					<?php endif;?>
 					<td class="center small hidden-phone">
 						<?php if (!$item->pic){
 							$item->pic = JURI::root().'media/com_sermonspeaker/images/'.$this->state->get('params')->get('defaultpic', 'nopict.jpg');

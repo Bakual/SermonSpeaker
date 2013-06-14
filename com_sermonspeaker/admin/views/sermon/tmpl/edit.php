@@ -16,8 +16,8 @@ $uri->delVar('file');
 $uri->delVar('type');
 $self = $uri->toString();
 
-$app = JFactory::getApplication();
-$input = $app->input;
+$app	= JFactory::getApplication();
+$input	= $app->input;
 ?>
 
 <script type="text/javascript">
@@ -35,7 +35,7 @@ $input = $app->input;
 	<div class="row-fluid">
 		<!-- Begin Content -->
 		<div class="span10 form-horizontal">
-		<?php echo JHtml::_('bootstrap.startTabSet', 'myTab', array('active' => 'general'));
+			<?php echo JHtml::_('bootstrap.startTabSet', 'myTab', array('active' => 'general'));
 				echo JHtml::_('bootstrap.addTab', 'myTab', 'general', JText::_('JDETAILS', true)); ?>
 					<fieldset class="adminform">
 						<div class="control-group form-inline">

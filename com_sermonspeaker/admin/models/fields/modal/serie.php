@@ -6,10 +6,10 @@
 defined('JPATH_BASE') or die;
 
 /**
- * Supports a modal sermon picker.
+ * Supports a modal serie picker.
  *
  */
-class JFormFieldModal_Sermon extends JFormField
+class JFormFieldModal_Serie extends JFormField
 {
 	/**
 	 * The form field type.
@@ -17,7 +17,7 @@ class JFormFieldModal_Sermon extends JFormField
 	 * @var		string
 	 * @since   1.6
 	 */
-	protected $type = 'Modal_Sermon';
+	protected $type = 'Modal_Serie';
 
 	/**
 	 * Method to get the field input markup.
@@ -32,7 +32,7 @@ class JFormFieldModal_Sermon extends JFormField
 
 		// Build the script.
 		$script = array();
-		$script[] = '	function jSelectSermon_'.$this->id.'(id, title, catid, object) {';
+		$script[] = '	function jSelectSerie_'.$this->id.'(id, title, catid, object) {';
 		$script[] = '		document.id("'.$this->id.'_id").value = id;';
 		$script[] = '		document.id("'.$this->id.'_name").value = title;';
 		$script[] = '		SqueezeBox.close();';
@@ -43,7 +43,7 @@ class JFormFieldModal_Sermon extends JFormField
 
 		// Setup variables for display.
 		$html	= array();
-		$link	= 'index.php?option=com_sermonspeaker&amp;view=sermons&amp;layout=modal&amp;tmpl=component&amp;function=jSelectSermon_'.$this->id;
+		$link	= 'index.php?option=com_sermonspeaker&amp;view=series&amp;layout=modal&amp;tmpl=component&amp;function=jSelectSerie_'.$this->id;
 
 		if (isset($this->element['language']))
 		{
@@ -53,7 +53,7 @@ class JFormFieldModal_Sermon extends JFormField
 		$db	= JFactory::getDbo();
 		$db->setQuery(
 			'SELECT title' .
-			' FROM #__sermon_sermons' .
+			' FROM #__sermon_series' .
 			' WHERE id = '.(int) $this->value
 		);
 
@@ -68,13 +68,13 @@ class JFormFieldModal_Sermon extends JFormField
 
 		if (empty($title))
 		{
-			$title = JText::_('COM_SERMONSPEAKER_SELECT_A_SERMON');
+			$title = JText::_('COM_SERMONSPEAKER_SELECT_A_SERIE');
 		}
 		$title = htmlspecialchars($title, ENT_QUOTES, 'UTF-8');
 
 		// The current user display field.
 		$html[] = '<span class="input-append">';
-		$html[] = '<input type="text" class="input-medium" id="'.$this->id.'_name" value="'.$title.'" disabled="disabled" size="35" /><a class="modal btn" title="'.JText::_('COM_SERMONSPEAKER_CHANGE_SERMON').'"  href="'.$link.'&amp;'.JSession::getFormToken().'=1" rel="{handler: \'iframe\', size: {x: 800, y: 450}}"><i class="icon-file"></i> '.JText::_('JSELECT').'</a>';
+		$html[] = '<input type="text" class="input-medium" id="'.$this->id.'_name" value="'.$title.'" disabled="disabled" size="35" /><a class="modal btn" title="'.JText::_('COM_SERMONSPEAKER_CHANGE_SERIE').'"  href="'.$link.'&amp;'.JSession::getFormToken().'=1" rel="{handler: \'iframe\', size: {x: 800, y: 450}}"><i class="icon-file"></i> '.JText::_('JSELECT').'</a>';
 		$html[] = '</span>';
 
 		// The active article id field.
