@@ -57,6 +57,33 @@
 				<option value="0">COM_SERMONSPEAKER_AUDIO</option>
 				<option value="1">COM_SERMONSPEAKER_VIDEO</option>
 			</field>
+			<field name="year"
+				type="sql"
+				label="COM_SERMONSPEAKER_FIELD_YEAR_LABEL"
+				description="COM_SERMONSPEAKER_FIELD_YEAR_DESC"
+				query="SELECT DISTINCT YEAR(`sermon_date`) AS `year` FROM `#__sermon_sermons` WHERE `sermon_date` != '0000-00-00' ORDER BY `sermon_date` DESC"
+				key_field="year"
+				value_field="year">
+				<option value="">COM_SERMONSPEAKER_NO_FILTER</option>
+			</field>
+			<field name="month"
+				type="list"
+				label="COM_SERMONSPEAKER_FIELD_MONTH_LABEL" 
+				description="COM_SERMONSPEAKER_FIELD_MONTH_DESC">
+				<option value="">COM_SERMONSPEAKER_NO_FILTER</option>
+				<option value="1">JANUARY</option>
+				<option value="2">FEBRUARY</option>
+				<option value="3">MARCH</option>
+				<option value="4">APRIL</option>
+				<option value="5">MAY</option>
+				<option value="6">JUNE</option>
+				<option value="7">JULY</option>
+				<option value="8">AUGUST</option>
+				<option value="9">SEPTEMBER</option>
+				<option value="10">OCTOBER</option>
+				<option value="11">NOVEMBER</option>
+				<option value="12">DECEMBER</option>
+			</field>
 		</fieldset>
 		<fieldset name="layout" 
 			label="COM_SERMONSPEAKER_FIELDSET_LAYOUTS_LABEL" 
