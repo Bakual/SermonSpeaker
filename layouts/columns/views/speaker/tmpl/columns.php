@@ -8,8 +8,6 @@ $user		= JFactory::getUser();
 $canEdit	= $user->authorise('core.edit', 'com_sermonspeaker');
 $canEditOwn	= $user->authorise('core.edit.own', 'com_sermonspeaker');
 $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->sermons);
-$version	= new JVersion;
-$j30		= ($version->isCompatible(3.0)) ? '30' : '';
 ?>
 <div class="category-list<?php echo $this->pageclass_sfx;?> ss-speaker-container<?php echo $this->pageclass_sfx; ?>">
 <?php if ($this->params->get('show_page_heading', 1)) : ?>
@@ -88,7 +86,7 @@ if ($this->params->get('show_category_title', 0) || in_array('speaker:hits', $th
 <?php endif; ?>
 <form action="<?php echo JFilterOutput::ampReplace(JFactory::getURI()->toString()); ?>" method="post" id="adminForm" name="adminForm" class="form-inline">
 	<?php if ($this->params->get('filter_field') or $this->params->get('show_pagination_limit')) :
-		echo $this->loadTemplate('filters'.$j30);
+		echo $this->loadTemplate('filters');
 	endif;
 	if (!count($this->sermons)) : ?>
 		<div class="no_entries"><?php echo JText::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', JText::_('COM_SERMONSPEAKER_SERMONS')); ?></div>

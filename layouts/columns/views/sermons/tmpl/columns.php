@@ -9,8 +9,6 @@ $canEdit	= $user->authorise('core.edit', 'com_sermonspeaker');
 $canEditOwn	= $user->authorise('core.edit.own', 'com_sermonspeaker');
 $limit 		= (int)$this->params->get('limit', '');
 $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->items);
-$version	= new JVersion;
-$j30		= ($version->isCompatible(3.0)) ? '30' : '';
 ?>
 <div class="category-list<?php echo $this->pageclass_sfx;?> ss-sermons-container<?php echo $this->pageclass_sfx; ?>">
 <?php if ($this->params->get('show_page_heading', 1)) : ?>
@@ -64,7 +62,7 @@ if (in_array('sermons:player', $this->columns) and count($this->items)) :
 <?php endif; ?>
 <form action="<?php echo JFilterOutput::ampReplace(JFactory::getURI()->toString()); ?>" method="post" id="adminForm" name="adminForm" class="form-inline">
 	<?php if ($this->params->get('filter_field') or $this->params->get('show_pagination_limit')) :
-		echo $this->loadTemplate('filtersorder'.$j30);
+		echo $this->loadTemplate('filtersorder');
 	endif;
 	if (!count($this->items)) : ?>
 		<div class="no_entries"><?php echo JText::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', JText::_('COM_SERMONSPEAKER_SERMONS')); ?></div>
