@@ -35,15 +35,21 @@ class SermonspeakerHelperPlayerSoundcloud extends SermonspeakerHelperPlayer
 
 		if (is_array($item))
 		{
-			$this->mspace	= '<div class="alert"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>Warning!</strong> '.$this->player.' doesn\'t support Playlists</div>';
-			return false;
+			// get first item and work from that
+			$first	= reset($item);
+			$link	= $first->audiofile;
+			$link	= substr($link, 0, strrpos($link, '/'));
 		}
-		$this->file		= $item->audiofile;
-		$this->fb_file	= $item->audiofile;
+		else
+		{
+			$link	= $item->audiofile;
+		}
+		$this->file		= $link;
+		$this->fb_file	= $link;
 		$this->setDimensions('305', '100%');
 		$this->setPopup('a');
 		$start = $this->config['autostart'] ? 'true' : 'false';
-		$url	= 'http://soundcloud.com/oembed?format=xml&url='.$item->audiofile.'&auto_play='.$start.'&maxheight='.$this->config['aheight'];
+		$url	= 'http://soundcloud.com/oembed?format=xml&url='.$link.'&auto_play='.$start.'&maxheight='.$this->config['aheight'];
 		if ($this->config['awidth'] != '100%')
 		{
 			$url .= '&maxwidth='.$this->config['awidth'];
