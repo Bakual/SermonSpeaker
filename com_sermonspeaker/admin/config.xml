@@ -357,14 +357,10 @@
 		label="COM_SERMONSPEAKER_FIELDSET_PLAYER_LABEL"
 		description="COM_SERMONSPEAKER_FIELDSET_PLAYER_DESC">
 		<field name="alt_player" 
-			type="list" 
-			default="0" 
+			type="player" 
+			default="jwplayer5" 
 			label="COM_SERMONSPEAKER_FIELD_ALT_PLAYER_LABEL" 
-			description="COM_SERMONSPEAKER_FIELD_ALT_PLAYER_DESC">
-			<option value="0">JW Player</option>
-			<option value="2">FlowPlayer</option>
-			<option value="1">Wordpress Audio Player</option>
-		</field>
+			description="COM_SERMONSPEAKER_FIELD_ALT_PLAYER_DESC" />
 		<field name="fileprio"
 			type="list"
 			default="0" 
