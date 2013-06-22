@@ -360,8 +360,7 @@
 			type="player" 
 			default="jwplayer5" 
 			label="COM_SERMONSPEAKER_FIELD_ALT_PLAYER_LABEL" 
-			description="COM_SERMONSPEAKER_FIELD_ALT_PLAYER_DESC">
-		</field>
+			description="COM_SERMONSPEAKER_FIELD_ALT_PLAYER_DESC" />
 		<field name="fileprio"
 			type="list"
 			default="0" 
