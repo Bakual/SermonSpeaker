@@ -105,6 +105,8 @@ class SermonspeakerModelSeries extends JModelList
 		if (is_numeric($state)) {
 			$query->where('series.state = '.(int) $state);
 		}
+		// do not show trashed links on the front-end
+		$query->where('series.state != -2');
 
 		// Filter by speaker (needed in speaker view)
 		if ($speakerId = $this->getState('speaker.id')) {

@@ -178,6 +178,8 @@ class SermonspeakerModelSermons extends JModelList
 		{
 			$query->where('sermons.state = '.(int) $state);
 		}
+		// do not show trashed links on the front-end
+		$query->where('sermons.state != -2');
 
 		// Filter by speaker (needed in speaker view)
 		if ($speakerId = $this->getState('speaker.id'))
