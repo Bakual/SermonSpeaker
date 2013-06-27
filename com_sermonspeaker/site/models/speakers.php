@@ -114,6 +114,8 @@ class SermonspeakerModelspeakers extends JModelList
 		if (is_numeric($state)) {
 			$query->where('speakers.state = '.(int) $state);
 		}
+		// do not show trashed links on the front-end
+		$query->where('speakers.state != -2');
 
 		// Filter by language
 		if ($this->getState('filter.language')) {
