@@ -7,149 +7,149 @@ type = INI
 file_filter = com_sermonspeaker\admin\language\<lang>\<lang>.com_sermonspeaker.ini
 source_file = com_sermonspeaker\admin\language\en-GB\en-GB.com_sermonspeaker.ini
 source_lang = en_GB
-minimum_perc = 15
+minimum_perc = 5
 
 [sermonspeaker.com_sermonspeakersysini]
 file_filter = com_sermonspeaker\admin\language\<lang>\<lang>.com_sermonspeaker.sys.ini
 source_file = com_sermonspeaker\admin\language\en-GB\en-GB.com_sermonspeaker.sys.ini
 source_lang = en_GB
-minimum_perc = 15
+minimum_perc = 5
 
 [sermonspeaker.site_com_sermonspeakerini]
 file_filter = com_sermonspeaker\site\language\<lang>\<lang>.com_sermonspeaker.ini
 source_file = com_sermonspeaker\site\language\en-GB\en-GB.com_sermonspeaker.ini
 source_lang = en_GB
-minimum_perc = 15
+minimum_perc = 5
 
 [sermonspeaker.mod_latestsermonsini]
 file_filter = mod_latestsermons\language\<lang>\<lang>.mod_latestsermons.ini
 source_file = mod_latestsermons\language\en-GB\en-GB.mod_latestsermons.ini
 source_lang = en_GB
-minimum_perc = 100
+minimum_perc = 1
 
 [sermonspeaker.mod_latestsermonssysini]
 file_filter = mod_latestsermons\language\<lang>\<lang>.mod_latestsermons.sys.ini
 source_file = mod_latestsermons\language\en-GB\en-GB.mod_latestsermons.sys.ini
 source_lang = en_GB
-minimum_perc = 100
+minimum_perc = 1
 
 [sermonspeaker.mod_related_sermonsini]
 file_filter = mod_related_sermons\language\<lang>\<lang>.mod_related_sermons.ini
 source_file = mod_related_sermons\language\en-GB\en-GB.mod_related_sermons.ini
 source_lang = en_GB
-minimum_perc = 100
+minimum_perc = 1
 
 [sermonspeaker.mod_related_sermonssysini]
 file_filter = mod_related_sermons\language\<lang>\<lang>.mod_related_sermons.sys.ini
 source_file = mod_related_sermons\language\en-GB\en-GB.mod_related_sermons.sys.ini
 source_lang = en_GB
-minimum_perc = 100
+minimum_perc = 1
 
 [sermonspeaker.mod_sermonarchiveini]
 file_filter = mod_sermonarchive\language\<lang>\<lang>.mod_sermonarchive.ini
 source_file = mod_sermonarchive\language\en-GB\en-GB.mod_sermonarchive.ini
 source_lang = en_GB
-minimum_perc = 100
+minimum_perc = 1
 
 [sermonspeaker.mod_sermonarchivesysini]
 file_filter = mod_sermonarchive\language\<lang>\<lang>.mod_sermonarchive.sys.ini
 source_file = mod_sermonarchive\language\en-GB\en-GB.mod_sermonarchive.sys.ini
 source_lang = en_GB
-minimum_perc = 100
+minimum_perc = 1
 
 [sermonspeaker.mod_sermoncastini]
 file_filter = mod_sermoncast\language\<lang>\<lang>.mod_sermoncast.ini
 source_file = mod_sermoncast\language\en-GB\en-GB.mod_sermoncast.ini
 source_lang = en_GB
-minimum_perc = 100
+minimum_perc = 1
 
 [sermonspeaker.mod_sermoncastsysini]
 file_filter = mod_sermoncast\language\<lang>\<lang>.mod_sermoncast.sys.ini
 source_file = mod_sermoncast\language\en-GB\en-GB.mod_sermoncast.sys.ini
 source_lang = en_GB
-minimum_perc = 100
+minimum_perc = 1
 
 [sermonspeaker.mod_sermonspeakerini]
 file_filter = mod_sermonspeaker\language\<lang>\<lang>.mod_sermonspeaker.ini
 source_file = mod_sermonspeaker\language\en-GB\en-GB.mod_sermonspeaker.ini
 source_lang = en_GB
-minimum_perc = 100
+minimum_perc = 1
 
 [sermonspeaker.mod_sermonspeakersysini]
 file_filter = mod_sermonspeaker\language\<lang>\<lang>.mod_sermonspeaker.sys.ini
 source_file = mod_sermonspeaker\language\en-GB\en-GB.mod_sermonspeaker.sys.ini
 source_lang = en_GB
-minimum_perc = 100
+minimum_perc = 1
 
 [sermonspeaker.mod_sermonsrotatorini]
 file_filter = mod_sermonsrotator\language\<lang>\<lang>.mod_sermonsrotator.ini
 source_file = mod_sermonsrotator\language\en-GB\en-GB.mod_sermonsrotator.ini
 source_lang = en_GB
-minimum_perc = 100
+minimum_perc = 1
 
 [sermonspeaker.mod_sermonsrotatorsysini]
 file_filter = mod_sermonsrotator\language\<lang>\<lang>.mod_sermonsrotator.sys.ini
 source_file = mod_sermonsrotator\language\en-GB\en-GB.mod_sermonsrotator.sys.ini
 source_lang = en_GB
-minimum_perc = 100
+minimum_perc = 1
 
 [sermonspeaker.plg_editors-xtd_sermonspeakerini]
 file_filter = plg_editors_xtd_sermonspeaker\language\<lang>\<lang>.plg_editors-xtd_sermonspeaker.ini
 source_file = plg_editors_xtd_sermonspeaker\language\en-GB\en-GB.plg_editors-xtd_sermonspeaker.ini
 source_lang = en_GB
-minimum_perc = 100
+minimum_perc = 1
 
 [sermonspeaker.plg_editors-xtd_sermonspeakersysini]
 file_filter = plg_editors_xtd_sermonspeaker\language\<lang>\<lang>.plg_editors-xtd_sermonspeaker.sys.ini
 source_file = plg_editors_xtd_sermonspeaker\language\en-GB\en-GB.plg_editors-xtd_sermonspeaker.sys.ini
 source_lang = en_GB
-minimum_perc = 100
+minimum_perc = 1
 
 [sermonspeaker.plg_finder_sermonspeakerini]
 file_filter = plg_finder_sermonspeaker\language\<lang>\<lang>.plg_finder_sermonspeaker.ini
 source_file = plg_finder_sermonspeaker\language\en-GB\en-GB.plg_finder_sermonspeaker.ini
 source_lang = en_GB
-minimum_perc = 100
+minimum_perc = 1
 
 [sermonspeaker.plg_finder_sermonspeakersysini]
 file_filter = plg_finder_sermonspeaker\language\<lang>\<lang>.plg_finder_sermonspeaker.sys.ini
 source_file = plg_finder_sermonspeaker\language\en-GB\en-GB.plg_finder_sermonspeaker.sys.ini
 source_lang = en_GB
-minimum_perc = 100
+minimum_perc = 1
 
 [sermonspeaker.plg_search_sermonspeakerini]
 file_filter = plg_sermonspeaker_search\language\<lang>\<lang>.plg_search_sermonspeaker.ini
 source_file = plg_sermonspeaker_search\language\en-GB\en-GB.plg_search_sermonspeaker.ini
 source_lang = en_GB
-minimum_perc = 100
+minimum_perc = 1
 
 [sermonspeaker.plg_search_sermonspeakersysini]
 file_filter = plg_sermonspeaker_search\language\<lang>\<lang>.plg_search_sermonspeaker.sys.ini
 source_file = plg_sermonspeaker_search\language\en-GB\en-GB.plg_search_sermonspeaker.sys.ini
 source_lang = en_GB
-minimum_perc = 100
+minimum_perc = 1
 
 [sermonspeaker.plg_xmap_com_sermonspeakerini]
 file_filter = plg_xmap_sermonspeaker\language\<lang>\<lang>.plg_xmap_com_sermonspeaker.ini
 source_file = plg_xmap_sermonspeaker\language\en-GB\en-GB.plg_xmap_com_sermonspeaker.ini
 source_lang = en_GB
-minimum_perc = 100
+minimum_perc = 1
 
 [sermonspeaker.plg_xmap_com_sermonspeakersysini]
 file_filter = plg_xmap_sermonspeaker\language\<lang>\<lang>.plg_xmap_com_sermonspeaker.sys.ini
 source_file = plg_xmap_sermonspeaker\language\en-GB\en-GB.plg_xmap_com_sermonspeaker.sys.ini
 source_lang = en_GB
-minimum_perc = 100
+minimum_perc = 1
 
 [sermonspeaker.plg_content_sermonspeakerini]
 file_filter = plg_content_sermonspeaker\language\<lang>\<lang>.plg_content_sermonspeaker.ini
 source_file = plg_content_sermonspeaker\language\en-GB\en-GB.plg_content_sermonspeaker.ini
 source_lang = en_GB
-minimum_perc = 100
+minimum_perc = 1
 
 [sermonspeaker.plg_content_sermonspeakersysini]
 file_filter = plg_content_sermonspeaker\language\<lang>\<lang>.plg_content_sermonspeaker.sys.ini
 source_file = plg_content_sermonspeaker\language\en-GB\en-GB.plg_content_sermonspeaker.sys.ini
 source_lang = en_GB
-minimum_perc = 100
+minimum_perc = 1
 
