@@ -78,7 +78,8 @@ foreach ($this->items as $item) :
 	<item>
 		<title><?php echo $this->make_xml_safe($item->title); ?></title>
 		<link><?php if ($this->params->get('use_sef', 1)) :
-			echo $this->make_xml_safe(JURI::root().trim(JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug)), '/'));
+			$uri = JURI::getInstance(JURI::root());
+			echo $this->make_xml_safe($uri->toString(array('scheme', 'host', 'port')).JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug)));
 		else :
 			echo $this->make_xml_safe(JURI::root().SermonspeakerHelperRoute::getSermonRoute($item->id));
 		endif; ?></link>
