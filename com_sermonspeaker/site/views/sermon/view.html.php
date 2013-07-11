@@ -45,7 +45,7 @@ class SermonspeakerViewSermon extends JViewLegacy
 		// Get model data (/models/sermon.php) 
 		$this->state	= $this->get('State');
 		$item	= $this->get('Item');
-		if(!$item)
+		if (!$item)
 		{
 			$app->redirect(JRoute::_('index.php?view=sermons'), JText::_('JGLOBAL_RESOURCE_NOT_FOUND'), 'error');
 		}

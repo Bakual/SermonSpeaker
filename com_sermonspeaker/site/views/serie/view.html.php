@@ -9,7 +9,8 @@ class SermonspeakerViewSerie extends JViewLegacy
 	function display($tpl = null)
 	{
 		$app	= JFactory::getApplication();
-		if (!$app->input->get('id', 0, 'int')){
+		if (!$app->input->get('id', 0, 'int'))
+		{
 			$app->redirect(JRoute::_('index.php?view=series'), JText::_('JGLOBAL_RESOURCE_NOT_FOUND'), 'error');
 		}
 		// Applying CSS file
@@ -19,13 +20,20 @@ class SermonspeakerViewSerie extends JViewLegacy
 		$user		= JFactory::getUser();
 		// Get some data from the model
 		$this->item	= $this->get('Item');
-		if(!$this->item){
+		if (!$this->item)
+		{
 			$app->redirect(JRoute::_('index.php?view=series'), JText::_('JGLOBAL_RESOURCE_NOT_FOUND'), 'error');
 		}
+		// Get Tags
+		$this->item->tags = new JHelperTags;
+		$this->item->tags->getItemTags('com_sermonspeaker.serie' , $this->item->id); 
+
 		// check if access is not public
-		if ($this->item->category_access){
+		if ($this->item->category_access)
+		{
 			$groups	= $user->getAuthorisedViewLevels();
-			if (!in_array($this->item->category_access, $groups)) {
+			if (!in_array($this->item->category_access, $groups))
+			{
 				$app->redirect(JRoute::_('index.php?view=series'), JText::_('JERROR_ALERTNOAUTHOR'), 'error');
 			}
 		}

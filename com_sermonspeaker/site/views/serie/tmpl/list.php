@@ -84,7 +84,11 @@ $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 				<?php endif; ?>
 			</dl>
 		</div>
-		<?php if (in_array('serie:description', $this->col_serie) and $this->item->series_description) : ?>
+		<?php if ($this->params->get('show_tags', 1) and !empty($this->item->tags)) :
+			$tagLayout = new JLayoutFile('joomla.content.tags');
+			echo $tagLayout->render($this->item->tags->itemTags); ?>
+		<?php endif;
+		if (in_array('serie:description', $this->col_serie) and $this->item->series_description) : ?>
 			<div>
 				<?php echo JHtml::_('content.prepare', $this->item->series_description, '', 'com_sermonspeaker.description'); ?>
 			</div>

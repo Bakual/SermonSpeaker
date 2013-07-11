@@ -171,7 +171,7 @@ class SermonspeakerModelSermon extends JModelItem
 	}
 
 	/**
-	 * Method to get the tags for the sermon
+	 * Method to get the latest sermon
 	 *
 	 * @param	int		Optional ID of the sermon.
 	 * @return	boolean	True on success

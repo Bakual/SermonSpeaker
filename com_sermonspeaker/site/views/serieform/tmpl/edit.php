@@ -93,6 +93,14 @@ JHtml::_('formbehavior.chosen', 'select');
 							<?php echo $this->form->getInput('catid'); ?>
 						</div>
 					</div>
+					<div class="control-group">
+						<div class="control-label">
+							<?php echo $this->form->getLabel('tags', 'metadata'); ?>
+						</div>
+						<div class="controls">
+							<?php echo $this->form->getInput('tags', 'metadata'); ?>
+						</div>
+					</div>
 					<?php if ($this->user->authorise('core.edit.state', 'com_sermonspeaker')): ?>
 						<div class="control-group">
 							<div class="control-label">

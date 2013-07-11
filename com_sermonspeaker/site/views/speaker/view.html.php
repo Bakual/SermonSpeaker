@@ -9,7 +9,8 @@ class SermonspeakerViewSpeaker extends JViewLegacy
 	function display($tpl = null)
 	{
 		$app = JFactory::getApplication();
-		if (!$app->input->get('id', 0, 'int')){
+		if (!$app->input->get('id', 0, 'int'))
+		{
 			$app->redirect(JRoute::_('index.php?view=speakers'), JText::_('JGLOBAL_RESOURCE_NOT_FOUND'), 'error');
 		}
 		require_once(JPATH_COMPONENT.'/helpers/player.php');
@@ -39,13 +40,20 @@ class SermonspeakerViewSpeaker extends JViewLegacy
 			$this->setLayout($this->params->get('speakerlayout', 'series'));
 		}
 
-		if(!$this->item){
+		if (!$this->item)
+		{
 			$app->redirect(JRoute::_('index.php?view=speakers'), JText::_('JGLOBAL_RESOURCE_NOT_FOUND'), 'error');
 		}
+		// Get Tags
+		$this->item->tags = new JHelperTags;
+		$this->item->tags->getItemTags('com_sermonspeaker.speaker' , $this->item->id); 
+
 		// check if access is not public
-		if ($this->item->category_access){
+		if ($this->item->category_access)
+		{
 			$groups	= $user->getAuthorisedViewLevels();
-			if (!in_array($this->item->category_access, $groups)) {
+			if (!in_array($this->item->category_access, $groups))
+			{
 				$app->redirect(JRoute::_('index.php?view=speakers'), JText::_('JERROR_ALERTNOAUTHOR'), 'error');
 			}
 		}

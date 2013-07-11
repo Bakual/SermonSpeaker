@@ -105,7 +105,11 @@ $this->document->addScriptDeclaration('jQuery(function() {
 				<?php endif; ?>
 			</dl>
 		</div>
-		<?php if (in_array('speaker:intro', $this->columns) and $this->item->intro) : ?>
+		<?php if ($this->params->get('show_tags', 1) and !empty($this->item->tags)) :
+			$tagLayout = new JLayoutFile('joomla.content.tags');
+			echo $tagLayout->render($this->item->tags->itemTags); ?>
+		<?php endif;
+		if (in_array('speaker:intro', $this->columns) and $this->item->intro) : ?>
 			<div>
 				<?php echo JHtml::_('content.prepare', $this->item->intro, '', 'com_sermonspeaker.intro'); ?>
 			</div>
