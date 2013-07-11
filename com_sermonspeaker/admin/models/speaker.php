@@ -135,6 +135,18 @@ class SermonspeakerModelSpeaker extends JModelAdmin
 	{
 		$item = parent::getItem($pk);
 
+		if ($item->id)
+		{
+			// Convert the metadata field to an array.
+			$registry = new JRegistry;
+			$registry->loadString($item->metadata);
+			$item->metadata = $registry->toArray();
+
+			$item->tags = new JHelperTags;
+			$item->tags->getTagIds($item->id, 'com_sermonspeaker.speaker');
+			$item->metadata['tags'] = $item->tags;
+		}
+
 		// Load associated items
 		if (!empty(JFactory::getApplication()->item_associations))
 		{

@@ -164,6 +164,15 @@ $input	= $app->input;
 						<?php echo $this->form->getInput('language'); ?>
 					</div>
 				</div>
+				<div class="control-group">
+					<?php $metadata = $this->form->getFieldset('jmetadata'); ?>
+					<div class="control-label">
+						<?php echo $metadata['jform_metadata_tags']->label; ?>
+					</div>
+					<div class="controls">
+						<?php echo $metadata['jform_metadata_tags']->input; ?>
+					</div>
+				</div>
 			</fieldset>
 		</div>
 		<!-- End Sidebar -->

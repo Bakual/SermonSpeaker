@@ -177,7 +177,7 @@ class Com_SermonspeakerInstallerScript
 
 		// Adding content_type for tags
 		$table = JTable::getInstance('Contenttype', 'JTable');
-		if(!$table->load(array('type_alias' => 'com_sermonspeaker.sermon')))
+		if (!$table->load(array('type_alias' => 'com_sermonspeaker.sermon')))
 		{
 			$common	= new stdClass;
 			$common->core_content_item_id	= 'id';
@@ -219,11 +219,118 @@ class Com_SermonspeakerInstallerScript
 			$table_object	= new stdClass;
 			$table_object->special	= $special;
 
+			$contenttype['type_id']			= 0;
 			$contenttype['type_title']		= 'Sermon';
 			$contenttype['type_alias']		= 'com_sermonspeaker.sermon';
 			$contenttype['table']			= json_encode($table_object);
 			$contenttype['rules']			= '';
 			$contenttype['router']			= 'SermonspeakerHelperRoute::getSermonRoute';
+			$contenttype['field_mappings']	= json_encode($field_mappings);
+
+			$table->save($contenttype);
+		}
+
+		if (!$table->load(array('type_alias' => 'com_sermonspeaker.speaker')))
+		{
+			$common	= new stdClass;
+			$common->core_content_item_id	= 'id';
+			$common->core_title				= 'title';
+			$common->core_state				= 'state';
+			$common->core_alias				= 'alias';
+			$common->core_created_time		= 'created';
+			$common->core_modified_time		= 'modified';
+			$common->core_body				= 'notes';
+			$common->core_hits				= 'hits';
+			$common->core_publish_up		= null;
+			$common->core_publish_down		= null;
+			$common->core_access			= null;
+			$common->core_params			= null;
+			$common->core_featured			= null;
+			$common->core_metadata			= null;
+			$common->core_language			= 'language';
+			$common->core_images			= 'pic'; // Does this work?
+			$common->core_urls				= null;
+			$common->core_version			= null;
+			$common->core_ordering			= 'ordering';
+			$common->core_metakey			= 'metakey';
+			$common->core_metadesc			= 'metadesc';
+			$common->core_catid				= 'catid';
+			$common->core_xreference		= null;
+			$common->asset_id				= null;
+
+			$field_mappings	= new stdClass;
+			$field_mappings->common[]		= $common;
+			$field_mappings->special		= array();
+
+			$special	= new stdClass;
+			$special->dbtable		= '#__sermon_speakers';
+			$special->key			= 'id';
+			$special->type			= 'Speaker';
+			$special->prefix		= 'SermonspeakerTable';
+			$special->config		= 'array()';
+
+			$table_object	= new stdClass;
+			$table_object->special	= $special;
+
+			$contenttype['type_id']			= 0;
+			$contenttype['type_title']		= 'Speaker';
+			$contenttype['type_alias']		= 'com_sermonspeaker.speaker';
+			$contenttype['table']			= json_encode($table_object);
+			$contenttype['rules']			= '';
+			$contenttype['router']			= 'SermonspeakerHelperRoute::getSpeakerRoute';
+			$contenttype['field_mappings']	= json_encode($field_mappings);
+
+			$table->save($contenttype);
+		}
+
+		if (!$table->load(array('type_alias' => 'com_sermonspeaker.serie')))
+		{
+			$common	= new stdClass;
+			$common->core_content_item_id	= 'id';
+			$common->core_title				= 'title';
+			$common->core_state				= 'state';
+			$common->core_alias				= 'alias';
+			$common->core_created_time		= 'created';
+			$common->core_modified_time		= 'modified';
+			$common->core_body				= 'notes';
+			$common->core_hits				= 'hits';
+			$common->core_publish_up		= null;
+			$common->core_publish_down		= null;
+			$common->core_access			= null;
+			$common->core_params			= null;
+			$common->core_featured			= null;
+			$common->core_metadata			= null;
+			$common->core_language			= 'language';
+			$common->core_images			= 'avatar'; // Does this work?
+			$common->core_urls				= null;
+			$common->core_version			= null;
+			$common->core_ordering			= 'ordering';
+			$common->core_metakey			= 'metakey';
+			$common->core_metadesc			= 'metadesc';
+			$common->core_catid				= 'catid';
+			$common->core_xreference		= null;
+			$common->asset_id				= null;
+
+			$field_mappings	= new stdClass;
+			$field_mappings->common[]		= $common;
+			$field_mappings->special		= array();
+
+			$special	= new stdClass;
+			$special->dbtable		= '#__sermon_series';
+			$special->key			= 'id';
+			$special->type			= 'Serie';
+			$special->prefix		= 'SermonspeakerTable';
+			$special->config		= 'array()';
+
+			$table_object	= new stdClass;
+			$table_object->special	= $special;
+
+			$contenttype['type_id']			= 0;
+			$contenttype['type_title']		= 'Serie';
+			$contenttype['type_alias']		= 'com_sermonspeaker.serie';
+			$contenttype['table']			= json_encode($table_object);
+			$contenttype['rules']			= '';
+			$contenttype['router']			= 'SermonspeakerHelperRoute::getSerieRoute';
 			$contenttype['field_mappings']	= json_encode($field_mappings);
 
 			$table->save($contenttype);

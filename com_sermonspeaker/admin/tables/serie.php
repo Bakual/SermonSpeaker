@@ -10,6 +10,14 @@ defined('_JEXEC') or die;
 class SermonspeakerTableSerie extends JTable
 {
 	/**
+	 * Helper object for storing and deleting tag information.
+	 *
+	 * @var    JHelperTags
+	 * @since  3.1
+	 */
+	protected $tagsHelper = null;
+
+	/**
 	 * Constructor
 	 *
 	 * @param JDatabase A database connector object
@@ -17,6 +25,29 @@ class SermonspeakerTableSerie extends JTable
 	public function __construct(&$db)
 	{
 		parent::__construct('#__sermon_series', 'id', $db);
+
+		$this->tagsHelper = new JHelperTags();
+		$this->tagsHelper->typeAlias = 'com_sermonspeaker.serie';
+	}
+
+	/**
+	 * Overloaded bind function to pre-process the params.
+	 *
+	 * @param   array  Named array
+	 * @return  null|string	null is operation was satisfactory, otherwise returns an error
+	 * @see     JTable:bind
+	 * @since   1.5
+	 */
+	public function bind($array, $ignore = '')
+	{
+		if (isset($array['metadata']) && is_array($array['metadata']))
+		{
+			$registry = new JRegistry;
+			$registry->loadArray($array['metadata']);
+			$array['metadata'] = (string) $registry;
+		}
+
+		return parent::bind($array, $ignore);
 	}
 
 	public function store($updateNulls = false)
@@ -42,8 +73,25 @@ class SermonspeakerTableSerie extends JTable
 			return false;
 		}
 
-		// Attempt to store the user data.
-		return parent::store($updateNulls);
+		$this->tagsHelper->preStoreProcess($this);
+		$result = parent::store($updateNulls);
+		return $result && $this->tagsHelper->postStoreProcess($this);
+	}
+
+	/**
+	 * Override parent delete method to delete tags information.
+	 *
+	 * @param   integer  $pk  Primary key to delete.
+	 *
+	 * @return  boolean  True on success.
+	 *
+	 * @since   3.1
+	 * @throws  UnexpectedValueException
+	 */
+	public function delete($pk = null)
+	{
+		$result = parent::delete($pk);
+		return $result && $this->tagsHelper->deleteTagData($this, $pk);
 	}
 
 	/**

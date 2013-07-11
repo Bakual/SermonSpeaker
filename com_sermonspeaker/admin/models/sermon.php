@@ -229,7 +229,8 @@ class SermonspeakerModelSermon extends JModelAdmin
 		$item = parent::getItem($pk);
 
 		$item->scripture = array();
-		if($item->id){
+		if ($item->id)
+		{
 			$db		= JFactory::getDBO();
 			$query	= "SELECT book, cap1, vers1, cap2, vers2, text \n"
 					."FROM #__sermon_scriptures \n"

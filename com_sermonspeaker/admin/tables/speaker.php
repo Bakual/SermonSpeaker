@@ -9,6 +9,14 @@ defined('_JEXEC') or die;
 class SermonspeakerTableSpeaker extends JTable
 {
 	/**
+	 * Helper object for storing and deleting tag information.
+	 *
+	 * @var    JHelperTags
+	 * @since  3.1
+	 */
+	protected $tagsHelper = null;
+
+	/**
 	 * Constructor
 	 *
 	 * @param JDatabase A database connector object
@@ -16,7 +24,31 @@ class SermonspeakerTableSpeaker extends JTable
 	public function __construct(&$db)
 	{
 		parent::__construct('#__sermon_speakers', 'id', $db);
+
+		$this->tagsHelper = new JHelperTags();
+		$this->tagsHelper->typeAlias = 'com_sermonspeaker.speaker';
 	}
+
+	/**
+	 * Overloaded bind function to pre-process the params.
+	 *
+	 * @param   array  Named array
+	 * @return  null|string	null is operation was satisfactory, otherwise returns an error
+	 * @see     JTable:bind
+	 * @since   1.5
+	 */
+	public function bind($array, $ignore = '')
+	{
+		if (isset($array['metadata']) && is_array($array['metadata']))
+		{
+			$registry = new JRegistry;
+			$registry->loadArray($array['metadata']);
+			$array['metadata'] = (string) $registry;
+		}
+
+		return parent::bind($array, $ignore);
+	}
+
 	public function store($updateNulls = false)
 	{
 		$date	= JFactory::getDate();
@@ -39,9 +71,28 @@ class SermonspeakerTableSpeaker extends JTable
 			$this->setError(JText::_('COM_SERMONSPEAKER_ERROR_ALIAS'));
 			return false;
 		}
-		// Attempt to store the user data.
-		return parent::store($updateNulls);
+
+		$this->tagsHelper->preStoreProcess($this);
+		$result = parent::store($updateNulls);
+		return $result && $this->tagsHelper->postStoreProcess($this);
 	}
+
+	/**
+	 * Override parent delete method to delete tags information.
+	 *
+	 * @param   integer  $pk  Primary key to delete.
+	 *
+	 * @return  boolean  True on success.
+	 *
+	 * @since   3.1
+	 * @throws  UnexpectedValueException
+	 */
+	public function delete($pk = null)
+	{
+		$result = parent::delete($pk);
+		return $result && $this->tagsHelper->deleteTagData($this, $pk);
+	}
+
 	/**
 	 * Method to set the publishing state for a row or list of rows in the database
 	 * table.  The method respects checked out rows by other users and will attempt
