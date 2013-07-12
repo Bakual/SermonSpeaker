@@ -60,6 +60,20 @@ class SermonspeakerHelperId3
 			{
 				$id3['sermon_number']	= '';
 			}
+			if (array_key_exists('year', $FileInfo['comments']) && array_key_exists('date', $FileInfo['comments']))
+			{
+				$ddmm	= $FileInfo['comments']['date'][0];
+				$id3['sermon_date']	= $FileInfo['comments']['year'][0].'-'.substr($ddmm, 2, 2).'-'.substr($ddmm, 0, 2);
+				if (array_key_exists('time', $FileInfo['comments']))
+				{
+					$hhmm	= $FileInfo['comments']['time'][0];
+					$id3['sermon_date']	.= ' '.substr($hhmm, 0, 2).':'.substr($hhmm, 2, 2).':00';
+				}
+			}
+			else
+			{
+				$id3['sermon_number']	= '';
+			}
 			if (array_key_exists('comment', $FileInfo['comments']))
 			{
 				$id3['notes']		= $FileInfo['comments']['comment'][0];

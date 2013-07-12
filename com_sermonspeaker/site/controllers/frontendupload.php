@@ -284,8 +284,8 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 			$app->redirect('index.php?option=com_sermonspeaker&view=frontendupload', JText::_('JERROR_AN_ERROR_HAS_OCCURRED'), 'error');
 			return;
 		}
-		$db =& JFactory::getDBO();
-		$query	= "SELECT audiofile, videofile, sermons.created_by, sermons.catid, sermons.title, speakers.title as speaker_title, series.title AS series_title, YEAR(sermon_date) AS date, notes, sermon_number, picture \n"
+		$db = JFactory::getDBO();
+		$query	= "SELECT audiofile, videofile, sermons.created_by, sermons.catid, sermons.title, speakers.title as speaker_title, series.title AS series_title, YEAR(sermon_date) AS year, DATE_FORMAT(sermon_date, '%H%i') AS time, DATE_FORMAT(sermon_date, '%d%m') AS date, notes, sermon_number, picture \n"
 				. "FROM #__sermon_sermons AS sermons \n"
 				. "LEFT JOIN #__sermon_speakers AS speakers ON speaker_id = speakers.id \n"
 				. "LEFT JOIN #__sermon_series AS series ON series_id = series.id \n"
@@ -304,15 +304,18 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 			$getID3->setOption(array('encoding'=>'UTF-8'));
 			require_once(JPATH_COMPONENT_SITE.'/id3/getid3/write.php');
 			$writer		= new getid3_writetags;
-			$writer->speakerformats		= array('id3v2.3');
-			$writer->overwrite_tags	= true;
-			$writer->tag_encoding	= 'UTF-8';
+			$writer->tagformats			= array('id3v2.3');
+			$writer->overwrite_tags		= true; // false would merge, but is currently known to be buggy and throws an exception
+			$writer->remove_other_tags	= false;
+			$writer->tag_encoding		= 'UTF-8';
 			$TagData = array(
 				'title'   => array($item->title),
 				'artist'  => array($item->speaker_title),
 				'album'   => array($item->series_title),
-				'year'    => array($item->date),
 				'track'   => array($item->sermon_number),
+				'year'    => array($item->year),
+				'date'    => array($item->date),
+				'time'    => array($item->time),
 			);
 			$TagData['comment'] = array(strip_tags(JHtml::_('content.prepare', $item->notes)));
 
@@ -320,11 +323,7 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 			// Adding the picture to the id3 tags, taken from getID3 Demos -> demo.write.php
 			if ($item->picture && !parse_url($item->picture, PHP_URL_SCHEME)) {
 				ob_start();
-				$pic = $item->picture;
-				if (substr($pic, 0, 1) == '/') {
-					$pic = substr($pic, 1);
-				}
-				$pic = JPATH_ROOT.'/'.$pic;
+				$pic = JPATH_ROOT.'/'.trim($item->picture, ' /');
 				if ($fd = fopen($pic, 'rb')) {
 					ob_end_clean();
 					$APICdata = fread($fd, filesize($pic));

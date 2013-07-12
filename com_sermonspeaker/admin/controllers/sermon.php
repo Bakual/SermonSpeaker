@@ -171,7 +171,7 @@ class SermonspeakerControllerSermon extends JControllerForm
 			return;
 		}
 		$db = JFactory::getDBO();
-		$query	= "SELECT audiofile, videofile, sermons.created_by, sermons.catid, sermons.title, speakers.title as speaker_title, series.title AS series_title, YEAR(sermon_date) AS date, notes, sermon_number, picture \n"
+		$query	= "SELECT audiofile, videofile, sermons.created_by, sermons.catid, sermons.title, speakers.title as speaker_title, series.title AS series_title, YEAR(sermon_date) AS year, DATE_FORMAT(sermon_date, '%H%i') AS time, DATE_FORMAT(sermon_date, '%d%m') AS date, notes, sermon_number, picture \n"
 				. "FROM #__sermon_sermons AS sermons \n"
 				. "LEFT JOIN #__sermon_speakers AS speakers ON speaker_id = speakers.id \n"
 				. "LEFT JOIN #__sermon_series AS series ON series_id = series.id \n"
@@ -189,16 +189,19 @@ class SermonspeakerControllerSermon extends JControllerForm
 			$getID3		= new getID3;
 			$getID3->setOption(array('encoding'=>'UTF-8'));
 			require_once(JPATH_COMPONENT_SITE.'/id3/getid3/write.php');
-			$writer	= new getid3_writetags;
-			$writer->tagformats		= array('id3v2.3');
-			$writer->overwrite_tags	= true;
-			$writer->tag_encoding	= 'UTF-8';
+			$writer		= new getid3_writetags;
+			$writer->tagformats			= array('id3v2.3');
+			$writer->overwrite_tags		= true; // false would merge, but is currently known to be buggy and throws an exception
+			$writer->remove_other_tags	= false;
+			$writer->tag_encoding		= 'UTF-8';
 			$TagData = array(
 				'title'   => array($item->title),
 				'artist'  => array($item->speaker_title),
 				'album'   => array($item->series_title),
-				'year'    => array($item->date),
 				'track'   => array($item->sermon_number),
+				'year'    => array($item->year),
+				'date'    => array($item->date),
+				'time'    => array($item->time),
 			);
 			$TagData['comment'] = array(strip_tags(JHtml::_('content.prepare', $item->notes)));
 

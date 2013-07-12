@@ -191,7 +191,6 @@ class SermonspeakerModelSermon extends JModelAdmin
 		}
 		// Depreceated with SermonSpeaker 4.4.4. Using Ajax now for Lookup.
 		// Still used for tools function files to create sermon from file.
-		// Reading ID3 Tags if the Lookup Button was pressed
 		if ($id3_file = $jinput->get('file', '', 'string')){
 			if ($jinput->get('type') == 'video'){
 				$data->videofile = $id3_file;
