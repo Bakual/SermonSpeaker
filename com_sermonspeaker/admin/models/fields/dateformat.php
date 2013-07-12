@@ -27,6 +27,23 @@ class JFormFieldDateformat extends JFormFieldList
 	 * @since	1.6
 	 */
 	protected $type = 'Dateformat';
+
+	/**
+	 * Method to get the field input markup.
+	 *
+	 * @return	string	The field input markup.
+	 * @since	1.6
+	 */
+	protected function getInput()
+	{
+		// Load languages and merge with fallbacks
+		$jlang = JFactory::getLanguage();
+		$jlang->load('com_sermonspeaker', JPATH_ADMINISTRATOR.'/components/com_sermonspeaker', 'en-GB', true);
+		$jlang->load('com_sermonspeaker', JPATH_ADMINISTRATOR.'/components/com_sermonspeaker', null, true);
+
+		return parent::getInput();
+	}
+
 	/**
 	 * Method to get the field options.
 	 *
