@@ -667,5 +667,12 @@ class SermonspeakerHelperSermonspeaker
 			$x++;
 		}
 		return number_format($bytes, 2).' '.$unit[$x];
-	}	
+	}
+
+	static function getMicrodataHelper()
+	{
+		require_once(JPATH_COMPONENT.'/helpers/microdata.php');
+
+		return new SermonspeakerHelperMicrodata();
+	}
 }
