@@ -388,7 +388,6 @@ class Com_SermonspeakerInstallerScript
 					$sermontable->newTags = explode (',', $sermon->tagtitles);
 					$sermontable->store();
 				}
-				
 				$db->dropTable('#__sermon_tags');
 				$db->dropTable('#__sermon_sermons_tags');
 				$this->app->enqueueMessage(JText::sprintf('COM_SERMONSPEAKER_TAGS_MIGRATED', count($result)), 'notice');
