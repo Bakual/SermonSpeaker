@@ -382,10 +382,8 @@ class Com_SermonspeakerInstallerScript
 				$query->group($db->quoteName('sermon_id'));
 				$db->setQuery($query);
 				$result = $db->loadObjectList('sermon_id');
-				dump($result);
 				foreach ($result as $sermon)
 				{
-				dump(explode (',', $sermon->tagtitles));
 					$sermontable->load($sermon->sermon_id);
 					$sermontable->newTags = explode (',', $sermon->tagtitles);
 					$sermontable->store();
