@@ -376,16 +376,18 @@ class Com_SermonspeakerInstallerScript
 				$sermontable = new SermonspeakerTableSermon($db);
 				$query	= $db->getQuery(true);
 				$query->select($db->quoteName('sermon_id'));
-				$query->select('GROUP_CONCAT(CONCAT('.$db->quote('#new#').','.$db->quoteName('t.title').') SEPARATOR \'","\') AS tagtitles');
+				$query->select('GROUP_CONCAT(CONCAT('.$db->quote('#new#').','.$db->quoteName('t.title').') SEPARATOR \',\') AS tagtitles');
 				$query->from($db->quoteName('#__sermon_sermons_tags').' AS s');
 				$query->join('LEFT', $db->quoteName('#__sermon_tags').' AS t ON '.$db->quoteName('s.tag_id').' = '.$db->quoteName('t.id'));
 				$query->group($db->quoteName('sermon_id'));
 				$db->setQuery($query);
 				$result = $db->loadObjectList('sermon_id');
+				dump($result);
 				foreach ($result as $sermon)
 				{
+				dump(explode (',', $sermon->tagtitles));
 					$sermontable->load($sermon->sermon_id);
-					$sermontable->metadata = '{"tags":["'.$sermon->tagtitles.'"]}';
+					$sermontable->newTags = explode (',', $sermon->tagtitles);
 					$sermontable->store();
 				}
 				
