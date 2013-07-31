@@ -23,7 +23,7 @@ class SermonspeakerHelperPlayerJwplayer5 extends SermonspeakerHelperPlayer
 		{
 			$this->mode	= 'video';
 		}
-		elseif (parse_url($item, PHP_URL_HOST) == 'youtube.com')
+		elseif (parse_url($file, PHP_URL_HOST) == 'youtube.com' || parse_url($file, PHP_URL_HOST) == 'www.youtube.com')
 		{
 			$this->mode	= 'video';
 		}
