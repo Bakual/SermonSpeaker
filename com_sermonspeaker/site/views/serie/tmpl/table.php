@@ -15,8 +15,9 @@ $listOrder	= $this->state->get('list.ordering');
 $listDirn	= $this->state->get('list.direction');
 $limit 		= (int)$this->params->get('limit', '');
 $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->items);
+$md			= SermonspeakerHelperSermonspeaker::getMicrodataHelper();
 ?>
-<div class="category-list<?php echo $this->pageclass_sfx;?> ss-serie-container<?php echo $this->pageclass_sfx; ?>">
+<div class="category-list<?php echo $this->pageclass_sfx;?> ss-serie-container<?php echo $this->pageclass_sfx; ?>" <?php echo $md->getScope('MusicAlbum'); ?>>
 	<?php if ($this->params->get('show_page_heading', 1)) : ?>
 		<h1><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
 	<?php endif; ?>
@@ -42,8 +43,8 @@ $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 			</ul>
 		</div>
 		<div class="page-header">
-			<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($this->item->slug)); ?>">
-				<h2><?php echo $this->item->title; ?></h2>
+			<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($this->item->slug)); ?>" <?php echo $md->getProp('url'); ?>>
+				<h2 <?php echo $md->getProp('name'); ?>><?php echo $this->item->title; ?></h2>
 			</a>
 			<?php if (!$this->item->state) : ?>
 				<span class="label label-warning"><?php echo JText::_('JUNPUBLISHED'); ?></span>
@@ -83,7 +84,7 @@ $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 			echo $tagLayout->render($this->item->tags->itemTags); ?>
 		<?php endif;
 		if (in_array('serie:description', $this->col_serie) and $this->item->series_description) : ?>
-			<div>
+			<div <?php echo $md->getProp('description'); ?>>
 				<?php echo JHtml::_('content.prepare', $this->item->series_description, '', 'com_sermonspeaker.description'); ?>
 			</div>
 		<?php endif; ?>
@@ -216,13 +217,13 @@ $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 				<!-- Begin Data -->
 					<tbody>
 						<?php foreach($this->items as $i => $item) : ?>
-							<tr id="sermon<?php echo $i; ?>" class="<?php echo ($item->state) ? '': 'system-unpublished '; ?>cat-list-row<?php echo $i % 2; ?>">
+							<tr id="sermon<?php echo $i; ?>" class="<?php echo ($item->state) ? '': 'system-unpublished '; ?>cat-list-row<?php echo $i % 2; ?>" <?php echo $md->getProp('track').' '.$md->getScope('MusicRecording'); ?>>
 								<?php if (in_array('serie:num', $this->columns)) : ?>
 									<td class="num hidden-phone hidden-tablet">
 										<?php echo $item->sermon_number; ?>
 									</td>
 								<?php endif; ?>
-								<td class="ss-title">
+								<td class="ss-title" <?php echo $md->getProp('name'); ?>>
 									<?php echo SermonspeakerHelperSermonspeaker::insertSermonTitle($i, $item, $player);
 									if ($canEdit or ($canEditOwn and ($user->id == $item->created_by))) : ?>
 										<span class="list-edit pull-left width-50">
@@ -245,7 +246,7 @@ $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 									</td>
 								<?php endif;
 								if (in_array('sermons:speaker', $this->columns)) : ?>
-									<td class="ss-col ss-speaker hidden-phone">
+									<td class="ss-col ss-speaker hidden-phone" <?php echo $md->getProp('byArtist'); ?>>
 										<?php if ($item->speaker_state):
 											echo SermonspeakerHelperSermonSpeaker::SpeakerTooltip($item->speaker_slug, $item->pic, $item->speaker_title);
 										else :
@@ -262,6 +263,7 @@ $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 								<?php endif;
 								if (in_array('serie:length', $this->columns)) : ?>
 									<td class="ss-col ss-length hidden-phone hidden-tablet">
+										<meta <?php echo $md->getProp('duration'); ?> content="<?php echo 'PT'.date('H\Hi\Ms\S', strtotime($item->sermon_time)); ?>">
 										<?php echo SermonspeakerHelperSermonspeaker::insertTime($item->sermon_time); ?>
 									</td>
 								<?php endif;
