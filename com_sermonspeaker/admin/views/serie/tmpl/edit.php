@@ -137,44 +137,7 @@ $input	= $app->input;
 		</div>
 		<!-- End Content -->
 		<!-- Begin Sidebar -->
-		<div class="span2">
-			<h4><?php echo JText::_('JDETAILS');?></h4>
-			<hr />
-			<fieldset class="form-vertical">
-				<div class="control-group">
-					<div class="controls">
-						<?php echo $this->form->getValue('title'); ?>
-					</div>
-				</div>
-
-				<div class="control-group">
-					<div class="control-label">
-						<?php echo $this->form->getLabel('state'); ?>
-					</div>
-					<div class="controls">
-						<?php echo $this->form->getInput('state'); ?>
-					</div>
-				</div>
-
-				<div class="control-group">
-					<div class="control-label">
-						<?php echo $this->form->getLabel('language'); ?>
-					</div>
-					<div class="controls">
-						<?php echo $this->form->getInput('language'); ?>
-					</div>
-				</div>
-				<div class="control-group">
-					<?php $metadata = $this->form->getFieldset('jmetadata'); ?>
-					<div class="control-label">
-						<?php echo $metadata['jform_metadata_tags']->label; ?>
-					</div>
-					<div class="controls">
-						<?php echo $metadata['jform_metadata_tags']->input; ?>
-					</div>
-				</div>
-			</fieldset>
-		</div>
+			<?php echo JLayoutHelper::render('joomla.edit.details', $this); ?>
 		<!-- End Sidebar -->
 	</div>
 </form>

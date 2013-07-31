@@ -275,7 +275,7 @@ $input	= $app->input;
 		</div>
 		<!-- End Content -->
 		<!-- Begin Sidebar -->
-		<?php // echo JLayoutHelper::render('joomla.edit.details', $this); ?>
+		<?php // echo JLayoutHelper::render('joomla.edit.details', $this); Can't use because of podcast ?>
 		<div class="span2">
 			<h4><?php echo JText::_('JDETAILS');?></h4>
 			<hr />
@@ -312,13 +312,13 @@ $input	= $app->input;
 						<?php echo $this->form->getInput('language'); ?>
 					</div>
 				</div>
+
 				<div class="control-group">
-					<?php $metadata = $this->form->getFieldset('jmetadata'); ?>
 					<div class="control-label">
-						<?php echo $metadata['jform_metadata_tags']->label; ?>
+						<?php echo $this->form->getLabel('tags'); ?>
 					</div>
 					<div class="controls">
-						<?php echo $metadata['jform_metadata_tags']->input; ?>
+						<?php echo $this->form->getInput('tags'); ?>
 					</div>
 				</div>
 			</fieldset>

@@ -57,6 +57,15 @@
 			<option value="*">JALL</option>
 		</field>
 
+		<field name="tags" 
+			type="tag"
+			label="JTAG"
+			description="JTAG_DESC"
+			class="inputbox span12 small"
+			multiple="true"
+		>
+		</field>
+
 		<field name="metadesc" type="textarea"
 			label="JFIELD_META_DESCRIPTION_LABEL" description="JFIELD_META_DESCRIPTION_DESC"
 			class="inputbox" rows="3" cols="30" />
@@ -118,11 +127,6 @@
 
 	<fields name="metadata">
 		<fieldset name="jmetadata" label="JGLOBAL_FIELDSET_METADATA_OPTIONS">
-			<field name="tags" type="tag"
-				label="JTAG" description="JTAG_DESC"
-				class="span12 small"
-				multiple="true" />
-
 			<field name="robots" type="list"
 				label="JFIELD_METADATA_ROBOTS_LABEL" description="JFIELD_METADATA_ROBOTS_DESC" >
 				<option value="">JGLOBAL_USE_GLOBAL</option>
