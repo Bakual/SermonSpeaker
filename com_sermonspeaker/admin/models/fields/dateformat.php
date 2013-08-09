@@ -41,6 +41,14 @@ class JFormFieldDateformat extends JFormFieldList
 		$jlang->load('com_sermonspeaker', JPATH_ADMINISTRATOR.'/components/com_sermonspeaker', 'en-GB', true);
 		$jlang->load('com_sermonspeaker', JPATH_ADMINISTRATOR.'/components/com_sermonspeaker', null, true);
 
+		// Check for old 'path' setting and apply it to 'path_audio' and 'path_video'. B/C for versions < 5.0.3
+		if ($path = $this->form->getValue('path'))
+		{
+			$this->form->setValue('path_audio', null, $path);
+			$this->form->setValue('path_video', null, $path);
+			$this->form->setValue('path', null, '');
+		}
+
 		return parent::getInput();
 	}
 

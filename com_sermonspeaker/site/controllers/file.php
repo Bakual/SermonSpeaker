@@ -39,7 +39,8 @@ class SermonspeakerControllerFile extends JControllerLegacy
 
 		// Get some data from the request
 		$files	= JRequest::getVar('Filedata', '', 'files', 'array');
-		$path	= trim($params->get('path', 'images'), '/');
+		// Fall back to the old 'path' parameter for B/C versions < 5.0.3, always will use audio path.
+		$path	= trim($params->get('path_audio', $params->get('path', 'images')), '/');
 		$append	= ($params->get('append_path', 0)) ? '/'.$jinput->get('year', date('Y'), 'int').'/'.str_pad($jinput->get('month', date('m'), 'int'), 2 ,'0', STR_PAD_LEFT) : '';
 		if ($params->get('append_path_lang', 0)) {
 			$lang = $jinput->get('language');

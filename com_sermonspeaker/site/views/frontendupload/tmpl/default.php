@@ -112,7 +112,7 @@ $self = $uri->toString();
 										if ($this->s3audio) :
 											echo ' http://'.$this->prefix.'.amazonaws.com/'.$this->bucket.'/';
 										else :
-											echo ' /'.trim($this->params->get('path'), '/').'/<span id="audiopathdate" class="pathdate">'.$this->append_date.'</span><span id="audiopathlang" class="pathlang">'.$this->append_lang.'</span>';
+											echo ' /'.trim($this->params->get('path_audio'), '/').'/<span id="audiopathdate" class="pathdate">'.$this->append_date.'</span><span id="audiopathlang" class="pathlang">'.$this->append_lang.'</span>';
 										endif; ?>
 									</span>
 								</div>
@@ -147,7 +147,7 @@ $self = $uri->toString();
 										if ($this->s3video):
 											echo ' http://'.$this->prefix.'.amazonaws.com/'.$this->bucket.'/';
 										else:
-											echo ' /'.trim($this->params->get('path'), '/').'/<span id="videopathdate" class="pathdate">'.$this->append_date.'</span><span id="videopathlang" class="pathlang">'.$this->append_lang.'</span>';
+											echo ' /'.trim($this->params->get('path_video'), '/').'/<span id="videopathdate" class="pathdate">'.$this->append_date.'</span><span id="videopathlang" class="pathlang">'.$this->append_lang.'</span>';
 										endif; ?>
 									</span>
 								</div>

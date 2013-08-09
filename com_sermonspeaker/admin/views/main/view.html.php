@@ -2,18 +2,19 @@
 defined('_JEXEC') or die;
 class SermonspeakerViewMain extends JViewLegacy
 {
-	function display( $tpl = null )
+	function display($tpl = null)
 	{
 		$params	= JComponentHelper::getParams('com_sermonspeaker');
-		if ($params->get('use_sef') == '')
+		if ($params->get('path'))
 		{
-			JError::raiseWarning(100, JText::_('COM_SERMONSPEAKER_NOTSAVED30'));
+			JFactory::getApplication()->enqueueMessage(JText::_('COM_SERMONSPEAKER_NOTSAVED30'), 'warning');
 		}
 
 		$this->addToolbar();
 
 		parent::display($tpl);
 	}
+
 	/**
 	 * Add the page title and toolbar.
 	 */
@@ -21,7 +22,8 @@ class SermonspeakerViewMain extends JViewLegacy
 	{
 		$canDo 	= SermonspeakerHelper::getActions();
 		JToolBarHelper::title(JText::_('COM_SERMONSPEAKER'), 'speakers');
-		if ($canDo->get('core.admin')) {
+		if ($canDo->get('core.admin'))
+		{
 			JToolbarHelper::divider();
 			JToolBarHelper::preferences('com_sermonspeaker', 650, 900);
 		}

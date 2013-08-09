@@ -113,7 +113,8 @@ class SermonspeakerControllerFile extends JControllerLegacy
 			}
 		} else {
 			// Regular Upload
-			$path	= ($type == 'addfile') ? $params->get('path_addfile') : $params->get('path');
+			// Fall back to the old 'path' parameter for B/C versions < 5.0.3
+			$path	= $params->get('path_'.$type, $params->get('path', 'images'));
 			$path	= trim($path, '/');
 			$date	= $jinput->get('date', '', 'string');
 			$time	= ($date) ? strtotime($date) : time();
