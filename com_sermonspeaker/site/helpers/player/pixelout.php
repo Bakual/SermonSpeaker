@@ -64,7 +64,7 @@ class SermonspeakerHelperPlayerPixelout extends SermonspeakerHelperPlayer
 		}
 		else
 		{
-			$file	= urlencode(SermonspeakerHelperSermonspeaker::makeLink($item->audiofile));
+			$file	= SermonspeakerHelperSermonspeaker::makeLink($item->audiofile);
 			$this->mspace = '<div id="mediaspace'.$this->config['count'].'"><audio src="'.$file.'" controls="controls" preload="auto" >'.JText::_('COM_SERMONSPEAKER_PLAYER_NEEDS_FLASH').'</audio></div>';
 			$this->setDimensions(23, 290);
 			$title	= ($item->title) ? 'titles: "'.urlencode($item->title).'",' : '';
@@ -72,7 +72,7 @@ class SermonspeakerHelperPlayerPixelout extends SermonspeakerHelperPlayer
 		}
 		$this->script = '<script type="text/javascript">'
 							.'AudioPlayer.embed("mediaspace'.$this->config['count'].'", {'
-								.'soundFile: "'.$file.'",'
+								.'soundFile: "'.urlencode($file).'",'
 								.$title.$artist
 								.'autostart: "'.$start.'"'
 							.'})'
