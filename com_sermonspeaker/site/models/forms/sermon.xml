@@ -50,8 +50,7 @@
 			description="JFIELD_ORDERING_DESC" />
 
 		<field name="audiofile" type="customfilelist" class="inputbox"
-			path="path" 
-			filter="\.aac$|\.m4a$|\.mp3$|\.wma$|\.ra$|\.ram$|\.rm$|\.rpm$"
+			file="audio" 
 			hide_default="true"
 			hide_none="true"
 			disabled="true"
@@ -60,8 +59,7 @@
 			description="COM_SERMONSPEAKER_FIELD_AUDIOFILE_DESC" />
 
 		<field name="videofile" type="customfilelist" class="inputbox"
-			path="path" 
-			filter="\.mp4$|\.mov$|\.f4v$|\.3gp$|\.3g2$|\.wmv$|\.flv$|\.rv$"
+			file="video" 
 			hide_default="true"
 			hide_none="true"
 			disabled="true"
@@ -75,8 +73,7 @@
 			description="COM_SERMONSPEAKER_FIELD_NOTES_DESC" />
 
 		<field name="addfile" type="customfilelist" class="inputbox"
-			path="path_addfile" 
-			filter="\.png$|\.gif$|\.jpg$|\.bmp$|\.pdf$|\.txt$|\.doc$|\.docx$|\.ppt$|\.pptx$|\.pps$"
+			file="addfile" 
 			hide_default="true"
 			hide_none="true"
 			disabled="true"

@@ -37,7 +37,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 		}
 
 		// Authorize User
-		$user		= JFactory::getUser();
+		$user	= JFactory::getUser();
 		if (!$user->authorise('core.create', 'com_sermonspeaker')) {
 			$response = array(
 				'status' => '0',
@@ -52,8 +52,9 @@ class SermonspeakerControllerFile extends JControllerLegacy
 		$jinput	= JFactory::getApplication()->input;
 
 		// Get some data from the request
-		$file	= JRequest::getVar('Filedata', '', 'files', 'array');
+		$file	= $jinput->files->get('Filedata');
 		$type	= $jinput->get('type', 'audio', 'word');
+		$type	= (in_array($type, array('audio', 'video', 'addfile'))) ? $type : 'audio';
 
 		if (!$file['name']) {
 			$response = array(
@@ -78,6 +79,20 @@ class SermonspeakerControllerFile extends JControllerLegacy
 			$mode = $params->get('path_mode_audio', 0);
 		} elseif ($type == 'video'){
 			$mode = $params->get('path_mode_video', 0);
+		}
+
+		// Check for file extension
+		$ext	= JFile::getExt($file['name']);
+		$types	= $params->get($type.'_filetypes');
+		$types	= array_map('trim', explode(',', $types));
+		if (!in_array($ext, $types))
+		{
+			$response = array(
+				'status' => '0',
+				'error' => JText::sprintf('COM_SERMONSPEAKER_FILETYPE_NOT_ALLOWED', $ext)
+			);
+			echo json_encode($response);
+			return;
 		}
 
 		if ($mode == 2){

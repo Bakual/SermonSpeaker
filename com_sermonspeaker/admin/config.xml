@@ -755,6 +755,21 @@
 			<option value="0">JNO</option>
 			<option value="1">JYES</option>
 		</field>
+		<field name="audio_filetypes"
+			type="textarea"
+			default="aac, m4a, mp3, wma, ra, ram, rm, rpm"
+			label="COM_SERMONSPEAKER_FIELD_AUDIO_FILETYPES_LABEL"
+			description="COM_SERMONSPEAKER_FIELD_FILETYPES_DESC" />
+		<field name="video_filetypes"
+			type="textarea"
+			default="mp4, mov, f4v, 3gp, 3g2, wmv, flv, rv"
+			label="COM_SERMONSPEAKER_FIELD_VIDEO_FILETYPES_LABEL"
+			description="COM_SERMONSPEAKER_FIELD_FILETYPES_DESC" />
+		<field name="addfile_filetypes"
+			type="textarea"
+			default="png, gif, jpg, bmp, pdf, txt, doc, docx, ppt, pptx, pps"
+			label="COM_SERMONSPEAKER_FIELD_ADDFILE_FILETYPES_LABEL"
+			description="COM_SERMONSPEAKER_FIELD_FILETYPES_DESC" />
 		<field name="write_id3"
 			type="radio"
 			class="btn-group"

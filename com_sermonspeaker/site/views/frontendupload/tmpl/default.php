@@ -285,7 +285,7 @@ $self = $uri->toString();
 			</div>
 			<div class="well well-small">
 				<div><?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO'); ?>
-				<span class="label label-info">/<?php echo trim($this->params->get('path'), '/').'/';
+				<span class="label label-info">/<?php echo trim($this->params->get('path_audio', $this->params->get('path')), '/').'/';
 				if ($this->params->get('append_path', 0)) :
 					$time	= ($this->item->sermon_date AND $this->item->sermon_date != '0000-00-00 00:00:00') ? strtotime($this->item->sermon_date) : time();
 					?><input type="text" id="year" size="4" name="year" value="<?php echo date('Y', $time); ?>" />/<input type="text" id="month" size="2" name="month" value="<?php echo date('m', $time); ?>" />/<?php 

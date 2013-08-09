@@ -162,8 +162,6 @@ class SermonspeakerViewSermon extends JViewLegacy
 
 		$session	= JFactory::getSession();
 		// Prepare Flashuploader
-		$audioTypes = '*.aac; *.m4a; *.mp3; *.wma; *.ra; *.ram; *.rm; *.rpm';
-		$videoTypes = '*.mp4; *.mov; *.f4v; *.flv; *.3gp; *.3g2; *.wmv; *.rv';
 		$targetURL 	= JURI::root().'administrator/index.php?option=com_sermonspeaker&task=file.upload&'.$session->getName().'='.$session->getId().'&'.JSession::getFormToken().'=1&format=json';
 		// SWFUpload
 		JHtml::Script('media/com_sermonspeaker/swfupload/swfupload.js');
@@ -177,7 +175,7 @@ class SermonspeakerViewSermon extends JViewLegacy
 						upload_url: "'.$targetURL.'&type=audio",
 						flash_url : "'.JURI::root().'media/com_sermonspeaker/swfupload/swfupload.swf",
 						file_size_limit : "0",
-						file_types : "'.$audioTypes.'",
+						file_types : "'.$this->getAllowedFiletypes('audio').'",
 						file_types_description : "'.JText::_('COM_SERMONSPEAKER_FIELD_AUDIOFILE_LABEL', 'true').'",
 						file_upload_limit : "0",
 						file_queue_limit : "0",
@@ -234,7 +232,7 @@ class SermonspeakerViewSermon extends JViewLegacy
 						upload_url: "'.$targetURL.'&type=video",
 						flash_url : "'.JURI::root().'media/com_sermonspeaker/swfupload/swfupload.swf",
 						file_size_limit : "0",
-						file_types : "'.$videoTypes.'",
+						file_types : "'.$this->getAllowedFiletypes('video').'",
 						file_types_description : "'.JText::_('COM_SERMONSPEAKER_FIELD_VIDEOFILE_LABEL', 'true').'",
 						file_upload_limit : "0",
 						file_queue_limit : "0",
@@ -291,6 +289,8 @@ class SermonspeakerViewSermon extends JViewLegacy
 						upload_url: "'.$targetURL.'&type=addfile",
 						flash_url : "'.JURI::root().'media/com_sermonspeaker/swfupload/swfupload.swf",
 						file_size_limit : "0",
+						file_types : "'.$this->getAllowedFiletypes('addfile').'",
+						file_types_description : "'.JText::_('COM_SERMONSPEAKER_FIELD_VIDEOFILE_LABEL', 'true').'",
 						file_upload_limit : "0",
 						file_queue_limit : "0",
 						button_image_url : "'.JURI::root().'media/com_sermonspeaker/swfupload/XPButtonUploadText_61x22.png",
@@ -519,5 +519,17 @@ class SermonspeakerViewSermon extends JViewLegacy
 		}
 
 		return $val;
+	}
+
+	// Get allowed filetypes
+	protected function getAllowedFiletypes($field)
+	{
+		// sanitize
+		$field	= (in_array($field, array('audio', 'video', 'addfile'))) ? $field : 'audio';
+
+		$types	= $this->params->get($field.'_filetypes');
+		$types	= array_map('trim', explode(',', $types));
+
+		return ($types) ? '*.'.implode('; *.', $types) : '*.*';
 	}
 }

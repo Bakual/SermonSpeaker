@@ -6,8 +6,8 @@
 
 defined('_JEXEC') or die;
 
-jimport('joomla.filesystem.file');
-jimport('joomla.filesystem.folder');
+// jimport('joomla.filesystem.file');
+// jimport('joomla.filesystem.folder');
 
 /**
  * File Sermonspeaker Controller
@@ -37,10 +37,13 @@ class SermonspeakerControllerFile extends JControllerLegacy
 		// Get the user
 		$user		= JFactory::getUser();
 
-		// Get some data from the request
-		$files	= JRequest::getVar('Filedata', '', 'files', 'array');
-		// Fall back to the old 'path' parameter for B/C versions < 5.0.3, always will use audio path.
-		$path	= trim($params->get('path_audio', $params->get('path', 'images')), '/');
+		// Access check
+		if (!$params->get('fu_enable') || !$user->authorise('core.create', 'com_sermonspeaker')) {
+			JError::raiseWarning(403, JText::_('JGLOBAL_AUTH_ACCESS_DENIED'));
+			return false;
+		}
+
+		// Create append
 		$append	= ($params->get('append_path', 0)) ? '/'.$jinput->get('year', date('Y'), 'int').'/'.str_pad($jinput->get('month', date('m'), 'int'), 2 ,'0', STR_PAD_LEFT) : '';
 		if ($params->get('append_path_lang', 0)) {
 			$lang = $jinput->get('language');
@@ -49,72 +52,81 @@ class SermonspeakerControllerFile extends JControllerLegacy
 			}
 			$append .= '/'.$lang;
 		}
-		$folder	= JPATH_ROOT.'/'.$path.$append;
-
-		$return		= $jinput->post->get('return-url', '', 'base64');
 
 		// Set FTP credentials, if given
 		jimport('joomla.client.helper');
 		JClientHelper::setCredentialsFromRequest('ftp');
 
-		if ($return) {
-			$this->setRedirect(base64_decode($return));
-		}
-		if (!$params->get('fu_enable') || !$user->authorise('core.create', 'com_sermonspeaker')) {
-			JError::raiseWarning(403, JText::_('JGLOBAL_AUTH_ACCESS_DENIED'));
-			return false;
-		}
+		// Get files
+		$files	= $jinput->files->get('Filedata', '', 'array');
 
-		$success = false;
-		$warning = array();
-		$message = array();
-		$redirect = '';
-		for($i = 0; $i != 2; $i++){
-			// Make the filename safe
-			$files['name'][$i] = JFile::makeSafe($files['name'][$i]);
-			$files['name'][$i] = str_replace(' ', '_', $files['name'][$i]); // Replace spaces in filename as long as makeSafe doesn't do this.
+		foreach ($files as $key => $file)
+		{
+			if ($file['error'])
+			{
+				continue;
+			}
+
+			$file['name'] = JFile::makeSafe($file['name']);
+			$file['name'] = str_replace(' ', '_', $file['name']); // Replace spaces in filename as long as makeSafe doesn't do this.
 
 			// Check if filename has more chars than only underscores, making a new filename based on current date/time if not.
-			if (count_chars(JFile::stripExt($files['name'][$i]), 3) == '_') {
-				$files['name'][$i] = JFactory::getDate()->format("Y-m-d-H-i-s").'.'.JFile::getExt($files['name'][$i]);
+			if (count_chars(JFile::stripExt($file['name'], 3) == '_') {
+				$file['name'] = JFactory::getDate()->format("Y-m-d-H-i-s").'.'.JFile::getExt($file['name']);
 			}
 
-			if ($files['name'][$i]){
+			$type = $key ? 'video' : 'audio';
+
+			// Check file extension
+			$ext	= JFile::getExt($file['name']);
+			$types	= $params->get($type.'_filetypes');
+			$types	= array_map('trim', explode(',', $types));
+			if (!in_array($ext, $types))
+			{
+				$app->enqueueMessage(JText::sprintf('COM_SERMONSPEAKER_FILETYPE_NOT_ALLOWED', $ext), 'error');
+				continue;
+			}
+
+			// Fall back to the old 'path' parameter for B/C versions < 5.0.3, always will use audio path.
+			$path	= trim($params->get('path_'.$type, $params->get('path', 'images')), '/');
+			$folder	= JPATH_ROOT.'/'.$path.$append;
+
+			if ($file['name'])
+			{
 				// The request is valid
-				$err = null;
-				$filepath = JPath::clean($folder.'/'.strtolower($files['name'][$i]));
+				$filepath = JPath::clean($folder.'/'.strtolower($file['name']));
 
-				$files['filepath'][$i] = $filepath;
-
-				if (JFile::exists($filepath)) {
+				if (JFile::exists($filepath))
+				{
 					// File exists
-					$warning[] = JText::_('COM_SERMONSPEAKER_FU_ERROR_EXISTS');
+					$app->enqueueMessage(JText::_('COM_SERMONSPEAKER_FU_ERROR_EXISTS'), 'warning');
 					continue;
 				}
-				if (!JFile::upload($files['tmp_name'][$i], $files['filepath'][$i])) {
+				if (!JFile::upload($file['tmp_name'], $filepath))
+				{
 					// Error in upload
-					$warning[] = JText::_('COM_SERMONSPEAKER_FU_ERROR_UNABLE_TO_UPLOAD_FILE');
+					$app->enqueueMessage(JText::_('COM_SERMONSPEAKER_FU_ERROR_UNABLE_TO_UPLOAD_FILE'), 'warning');
 					continue;
-				} else {
-					$message[] = JText::sprintf('COM_SERMONSPEAKER_FU_FILENAME', $files['filepath'][$i]);
-					$redirect .= 'file'.$i.'=/'.str_replace('\\', '/', substr($files['filepath'][$i], strlen(JPATH_ROOT.'/')));
-					$success = true;
+				}
+				else
+				{
+					$app->enqueueMessage(JText::sprintf('COM_SERMONSPEAKER_FU_FILENAME', $filepath));
+					$redirect .= 'file'.$i.'=/'.str_replace('\\', '/', substr($filepath, strlen(JPATH_ROOT.'/')));
 				}
 			}
 		}
-		if($warning){
-			JError::raiseWarning(100, implode('<br>', $warning));
-		}
-		if($message){
-			$this->setMessage(implode('<br>', $message));
-		}
-		if ($success){
-			$return_url = base64_decode($return);
-			if(strpos($return_url, '?')){
-				$this->setRedirect(base64_decode($return).'&'.$redirect);
+
+		$return		= base64_decode($jinput->post->get('return-url', '', 'base64'));
+		if (!empty($redirect)){
+			if(strpos($return, '?')){
+				$return .= '&'.$redirect;
 			} else {
-				$this->setRedirect(base64_decode($return).'?'.$redirect);
+				$return .= '?'.$redirect;
 			}
+		}
+		if ($return)
+		{
+			$this->setRedirect($return);
 		}
 		return $success;
 	}

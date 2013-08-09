@@ -46,8 +46,7 @@
 
 		<field name="audiofile" type="customfilelist"
 			label="COM_SERMONSPEAKER_FIELD_AUDIOFILE_LABEL" description="COM_SERMONSPEAKER_FIELD_AUDIOFILE_DESC"
-			path="path" 
-			filter="\.aac$|\.m4a$|\.mp3$|\.wma$|\.ra$|\.ram$|\.rm$|\.rpm$"
+			file="audio" 
 			hide_default="true"
 			hide_none="true"
 			disabled="true"
@@ -58,8 +57,7 @@
 
 		<field name="videofile" type="customfilelist"
 			label="COM_SERMONSPEAKER_FIELD_VIDEOFILE_LABEL" description="COM_SERMONSPEAKER_FIELD_VIDEOFILE_DESC"
-			path="path" 
-			filter="\.mp4$|\.mov$|\.f4v$|\.3gp$|\.3g2$|\.wmv$|\.flv$|\.rv$"
+			file="video" 
 			hide_default="true"
 			hide_none="true"
 			disabled="true"
@@ -76,8 +74,7 @@
 
 		<field name="addfile" type="customfilelist"
 			label="COM_SERMONSPEAKER_FIELD_ADDFILE_LABEL" description="COM_SERMONSPEAKER_FIELD_ADDFILE_DESC"
-			path="path_addfile" 
-			filter="\.png$|\.gif$|\.jpg$|\.bmp$|\.pdf$|\.txt$|\.doc$|\.docx$|\.ppt$|\.pptx$|\.pps$"
+			file="addfile" 
 			hide_default="true"
 			hide_none="true"
 			disabled="true"
