@@ -6,8 +6,8 @@
 
 defined('_JEXEC') or die;
 
-// jimport('joomla.filesystem.file');
-// jimport('joomla.filesystem.folder');
+jimport('joomla.filesystem.file');
+jimport('joomla.filesystem.folder');
 
 /**
  * File Sermonspeaker Controller
@@ -38,16 +38,19 @@ class SermonspeakerControllerFile extends JControllerLegacy
 		$user		= JFactory::getUser();
 
 		// Access check
-		if (!$params->get('fu_enable') || !$user->authorise('core.create', 'com_sermonspeaker')) {
+		if (!$params->get('fu_enable') || !$user->authorise('core.create', 'com_sermonspeaker'))
+		{
 			JError::raiseWarning(403, JText::_('JGLOBAL_AUTH_ACCESS_DENIED'));
 			return false;
 		}
 
 		// Create append
 		$append	= ($params->get('append_path', 0)) ? '/'.$jinput->get('year', date('Y'), 'int').'/'.str_pad($jinput->get('month', date('m'), 'int'), 2 ,'0', STR_PAD_LEFT) : '';
-		if ($params->get('append_path_lang', 0)) {
+		if ($params->get('append_path_lang', 0))
+		{
 			$lang = $jinput->get('language');
-			if (strlen($lang) != 5) {
+			if (strlen($lang) != 5)
+			{
 				$lang	= JFactory::getLanguage()->getTag();
 			}
 			$append .= '/'.$lang;
@@ -71,7 +74,8 @@ class SermonspeakerControllerFile extends JControllerLegacy
 			$file['name'] = str_replace(' ', '_', $file['name']); // Replace spaces in filename as long as makeSafe doesn't do this.
 
 			// Check if filename has more chars than only underscores, making a new filename based on current date/time if not.
-			if (count_chars(JFile::stripExt($file['name'], 3) == '_') {
+			if (count_chars(JFile::stripExt($file['name']), 3) == '_')
+			{
 				$file['name'] = JFactory::getDate()->format("Y-m-d-H-i-s").'.'.JFile::getExt($file['name']);
 			}
 
@@ -117,10 +121,14 @@ class SermonspeakerControllerFile extends JControllerLegacy
 		}
 
 		$return		= base64_decode($jinput->post->get('return-url', '', 'base64'));
-		if (!empty($redirect)){
-			if(strpos($return, '?')){
+		if (!empty($redirect))
+		{
+			if(strpos($return, '?'))
+			{
 				$return .= '&'.$redirect;
-			} else {
+			}
+			else
+			{
 				$return .= '?'.$redirect;
 			}
 		}

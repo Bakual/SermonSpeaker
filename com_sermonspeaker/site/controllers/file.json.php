@@ -57,7 +57,8 @@ class SermonspeakerControllerFile extends JControllerLegacy
 		$type	= $jinput->get('type', 'audio', 'word');
 		$type	= (in_array($type, array('audio', 'video', 'addfile'))) ? $type : 'audio';
 
-		if (!$file['name']) {
+		if (!$file['name']
+		{
 			$response = array(
 				'status' => '0',
 				'error' => JText::_('COM_SERMONSPEAKER_FU_FAILED')
@@ -71,7 +72,8 @@ class SermonspeakerControllerFile extends JControllerLegacy
 		$file['name']	= str_replace(' ', '_', $file['name']); // Replace spaces in filename as long as makeSafe doesn't do this.
 
 		// Check if filename has more chars than only underscores, making a new filename based on current date/time if not.
-		if (count_chars(JFile::stripExt($file['name']), 3) == '_') {
+		if (count_chars(JFile::stripExt($file['name']), 3) == '_')
+		{
 			$file['name'] = JFactory::getDate()->format("Y-m-d-H-i-s").'.'.JFile::getExt($file['name']);
 		}
 
