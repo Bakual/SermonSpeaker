@@ -12,14 +12,8 @@ class SermonspeakerHelperPlayerFlowplayer5 extends SermonspeakerHelperPlayer
 
 	public function isSupported($file){
 		$ext		= JFile::getExt($file);
-		$audio_ext	= array('mp3');
 		$video_ext	= array('mp4', 'f4v', 'flv');
-		if (in_array($ext, $audio_ext))
-		{
-			// Audio File
-			$this->mode	= 'audio';
-		}
-		elseif (in_array($ext, $video_ext))
+		if (in_array($ext, $video_ext))
 		{
 			$this->mode	= 'video';
 		}
@@ -238,9 +232,10 @@ class SermonspeakerHelperPlayerFlowplayer5 extends SermonspeakerHelperPlayer
 			$options[$key] = $key.':'.$value;
 		}
 		$this->setPopup($type);
-		$this->mspace = '<div style="width:'.$this->config[$type.'width'].'; height:'.$this->config[$type.'height'].'" id="mediaspace'.$this->config['count'].'"></div>';
+//		$this->mspace = '<div style="width:'.$this->config[$type.'width'].'; height:'.$this->config[$type.'height'].'" ></div>';
+		$this->mspace = '<div id="mediaspace'.$this->config['count'].'"></div>';
 		$this->script = '<script type="text/javascript">'
-							.'flowplayer("mediaspace'.$this->config['count'].'", "'.$player.'", {'
+							.'jQuery("#mediaspace'.$this->config['count'].'").flowplayer({'
 								.'playlist: [{'
 									.$this->playlist['default']
 								.'}],'
@@ -251,10 +246,10 @@ class SermonspeakerHelperPlayerFlowplayer5 extends SermonspeakerHelperPlayer
 		// Loading needed Javascript only once
 		if (!self::$script_loaded)
 		{
-			JHtml::Script('media/com_sermonspeaker/player/flowplayer5/embed.min.js');
+			JHtml::Script('media/com_sermonspeaker/player/flowplayer5/flowplayer.min.js');
+			JHtml::Stylesheet('media/com_sermonspeaker/player/flowplayer5/skin/minimalist.css');
 			$doc = JFactory::getDocument();
 			$doc->addScriptDeclaration('function ss_play(id){flowplayer().play(parseInt(id));}');
-			JHtml::Script('media/com_sermonspeaker/player/flowplayer/flowplayer-3.2.10.min.js');
 			if ($this->toggle)
 			{
 				$awidth		= is_numeric($this->config['awidth']) ? $this->config['awidth'].'px' : $this->config['awidth'];
