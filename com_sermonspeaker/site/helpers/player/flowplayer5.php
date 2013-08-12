@@ -6,7 +6,7 @@ require_once(JPATH_SITE.'/components/com_sermonspeaker/helpers/player.php');
 /**
  * Flowplayer 3
  */
-class SermonspeakerHelperPlayerFlowplayer3 extends SermonspeakerHelperPlayer
+class SermonspeakerHelperPlayerFlowplayer5 extends SermonspeakerHelperPlayer
 {
 	private static $script_loaded;
 
@@ -32,16 +32,16 @@ class SermonspeakerHelperPlayerFlowplayer3 extends SermonspeakerHelperPlayer
 
 	public function getName()
 	{
-		return 'Flowplayer 3';
+		return 'Flowplayer 5';
 	}
 
 	public function preparePlayer($item, $config)
 	{
 		$this->config	= $config;
-		$this->player	= 'FlowPlayer';
+		$this->player	= 'FlowPlayer5';
 		$this->toggle	= $this->params->get('fileswitch', 0);
 
-		$player			= JURI::base(true).'/media/com_sermonspeaker/player/flowplayer/flowplayer-3.2.11.swf';
+		$player			= JURI::base(true).'/media/com_sermonspeaker/player/flowplayer5/flowplayer.swf';
 		// Load plugins
 		$showplaylist			= (is_array($item)) ? 'true' : 'false';
 		$plugins['audio']		= "{url:'flowplayer.audio-3.2.9.swf'}";
@@ -251,6 +251,7 @@ class SermonspeakerHelperPlayerFlowplayer3 extends SermonspeakerHelperPlayer
 		// Loading needed Javascript only once
 		if (!self::$script_loaded)
 		{
+			JHtml::Script('media/com_sermonspeaker/player/flowplayer5/embed.min.js');
 			$doc = JFactory::getDocument();
 			$doc->addScriptDeclaration('function ss_play(id){flowplayer().play(parseInt(id));}');
 			JHtml::Script('media/com_sermonspeaker/player/flowplayer/flowplayer-3.2.10.min.js');
