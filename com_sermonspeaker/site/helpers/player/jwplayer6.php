@@ -6,7 +6,7 @@ require_once(JPATH_SITE.'/components/com_sermonspeaker/helpers/player.php');
 /**
  * JW Player 5
  */
-class SermonspeakerHelperPlayerJwplayer5 extends SermonspeakerHelperPlayer
+class SermonspeakerHelperPlayerJwplayer6 extends SermonspeakerHelperPlayer
 {
 	private static $script_loaded;
 
@@ -36,64 +36,43 @@ class SermonspeakerHelperPlayerJwplayer5 extends SermonspeakerHelperPlayer
 
 	public function getName()
 	{
-		return 'JW Player 5';
+		return 'JW Player 6';
 	}
 
 	public function preparePlayer($item, $config)
 	{
 		$this->config	= $config;
-		$this->player	= 'JWPlayer';
+		$this->player	= 'JWPlayer6';
 		$this->mspace	= '<div id="mediaspace'.$this->config['count'].'">'.JText::_('COM_SERMONSPEAKER_PLAYER_NEEDS_JAVASCRIPT').'</div>';
 		$this->toggle	= $this->params->get('fileswitch', 0);
 
 		// Setting some general player options
-		$modes[0]	= "{type:'flash', src:'".JURI::base(true)."/media/com_sermonspeaker/player/jwplayer/player.swf'}";
-		$modes[1]	= "{type:'html5'}";
-		$modes[2]	= "{type:'download'}";
-		$options['modes']	= ($this->params->get('jwmode', 0)) ? '['.$modes[1].','.$modes[0].','.$modes[2].']' : '['.$modes[0].','.$modes[1].','.$modes[2].']';
-		$options['autostart']	= $this->config['autostart'] ? 'true' : 'false';
-		$options['controlbar']	= "'bottom'";
+		if (!$this->params->get('jwmode', 0))
+		{
+			$options['primary']		= '"flash"';
+		}
+		if ($this->config['autostart'])
+		{
+			$options['autostart']	= 'true';
+		}
+//		$options['controlbar']	= "'bottom'";
 		if ($skin = $this->params->get('jwskin', ''))
 		{
-			$options['skin'] = "'".SermonspeakerHelperSermonspeaker::makeLink($skin)."'";
+			$options['skin'] = '"'.$skin.'"';
 		}
-		// Plugins
+		// GoogleAnalytics and Sharing isn't supported in the free version!
 		if ($this->params->get('ga_id', ''))
 		{
-			$plugins['gapro-2'] = "{idstring:'SermonSpeaker/||provider||:||file||'}";
-		}
-		if ($this->params->get('fbit', 0))
-		{
-			$plugins['fbit-1'] = '{}';
-		}
-		if ($this->params->get('tweetit', 0))
-		{
-			$plugins['tweetit-1'] = '{}';
-		}
-		if ($this->params->get('plusone', 0))
-		{
-			$plugins['plusone-1'] = '{}';
+			$options['ga'] = '{idstring:"title"}';
 		}
 		if ($this->params->get('share', 0))
 		{
-			$plugins['sharing-3'] = '{}';
-		}
-		if ($this->params->get('viral', 0))
-		{
-			$plugins['viral-2'] = '{}';
-		}
-		if (isset($plugins))
-		{
-			foreach ($plugins as $key => $value)
-			{
-				$plugins[$key] = "'".$key."':".$value;
-			}
-			$options['plugins'] = '{'.implode(',', $plugins).'}';
+			$options['sharing'] = '{}';
 		}
 		if (is_array($item))
 		{
 			// Playlist
-			$this->setDimensions('23px', '100%');
+			$this->setDimensions('26', '100%');
 			$type = ($this->config['type'] == 'audio' || ($this->config['type'] == 'auto' && !$this->config['prio'])) ? 'a' : 'v';
 			// Make sure to not use < or && in JavaScript code as it will break XHTML compatibility
 			$options['events']	= '{'
@@ -233,7 +212,7 @@ class SermonspeakerHelperPlayerJwplayer5 extends SermonspeakerHelperPlayer
 		else
 		{
 			// Single
-			$this->setDimensions('23px', '250px');
+			$this->setDimensions('26', '320');
 			$type	= ($this->mode == 'audio') ? 'a' : 'v';
 			$entry	= array();
 
@@ -292,8 +271,12 @@ class SermonspeakerHelperPlayerJwplayer5 extends SermonspeakerHelperPlayer
 
 		// Loading needed Javascript only once
 		if (!self::$script_loaded){
-			JHtml::Script('media/com_sermonspeaker/player/jwplayer/jwplayer.js');
+			JHtml::Script('media/com_sermonspeaker/player/jwplayer6/jwplayer.js');
+			// To use Cloud custom Cloud Token is needed
+//			JHtml::Script('http://jwpsrv.com/library/put-token-here.js');
 			$doc = JFactory::getDocument();
+			// Custom Key!
+//			$doc->addScriptDeclaration('jwplayer.key="put-key-here";');
 			$doc->addScriptDeclaration('function ss_play(id){jwplayer().playlistItem(id);}');
 			if ($this->toggle)
 			{
