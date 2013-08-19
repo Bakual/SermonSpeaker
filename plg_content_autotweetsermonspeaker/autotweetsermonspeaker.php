@@ -202,7 +202,7 @@ class PlgContentAutotweetSermonspeaker extends plgAutotweetBase
 		{
 			$db		= Jfactory::getDbo();
 			$query	= $db->getQuery(true);
-			$query->select('`avatar`, `title`');
+			$query->select('`avatar`, `title` AS series_title');
 			$query->from('#__sermon_series');
 			$query->where('`id` = '.$series_id);
 			$db->setQuery($query);
@@ -216,7 +216,7 @@ class PlgContentAutotweetSermonspeaker extends plgAutotweetBase
 		{
 			$db		= Jfactory::getDbo();
 			$query	= $db->getQuery(true);
-			$query->select('`pic`, `title`');
+			$query->select('`pic`, `title` AS speaker_title');
 			$query->from('#__sermon_speakers');
 			$query->where('`id` = '.$speaker_id);
 			$db->setQuery($query);
@@ -301,7 +301,7 @@ class PlgContentAutotweetSermonspeaker extends plgAutotweetBase
 			'fulltext' => $item_text,
 			'catids' => $catids,
 			'cat_names' => $cat_names,
-			'author' => $this->getArticleAuthor($item),
+//			'author' => $this->getArticleAuthor($item),
 			'language' => $item->language,
 
 			// Sermons don't have an access field, maybe take category access instead
@@ -309,6 +309,9 @@ class PlgContentAutotweetSermonspeaker extends plgAutotweetBase
 
 			'is_valid' => true
 		);
+
+		// Use speakername as author if available
+		$data['author'] = ($item->speaker_title) ? $item->speaker_title : $this->getArticleAuthor($item);
 
 		return $data;
 	}
