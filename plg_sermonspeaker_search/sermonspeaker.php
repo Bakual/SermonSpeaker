@@ -150,7 +150,6 @@ class plgSearchSermonspeaker extends JPlugin
 					$text		= $db->Quote('%'.$db->escape($text, true).'%', false);
 					$wheres2[]	= 'a.title LIKE '.$text;
 					$wheres2[]	= 'a.notes LIKE '.$text;
-					$wheres2[]	= 't.title LIKE '.$text;
 					$where		= '(' . implode(') OR (', $wheres2) . ')';
 					break;
 				case 'all':
@@ -176,7 +175,6 @@ class plgSearchSermonspeaker extends JPlugin
 						$word		= $db->Quote('%'.$db->escape($word, true).'%', false);
 						$wheres2[]	= 'a.title LIKE '.$word;
 						$wheres2[]	= 'a.notes LIKE '.$word;
-						$wheres2[]	= 't.title LIKE '.$word;
 						$wheres[]	= implode(' OR ', $wheres2);
 					}
 					$where	= '(' . implode(($phrase == 'all' ? ') AND (' : ') OR ('), $wheres) . ')';
@@ -211,8 +209,6 @@ class plgSearchSermonspeaker extends JPlugin
 				$query->from('#__sermon_sermons AS a');
 				$query->leftJoin('#__categories AS c ON c.id = a.catid');
 				$query->leftJoin('#__sermon_scriptures AS b ON b.sermon_id = a.id');
-				$query->leftJoin('#__sermon_sermons_tags AS st ON st.sermon_id = a.id');
-				$query->leftJoin('#__sermon_tags AS t ON st.tag_id = t.id');
 				$query->group('a.id');
 				$query->where('('.$where.')');
 				$query->where('a.state in ('.implode(',', $state).')');
