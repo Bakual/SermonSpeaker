@@ -57,7 +57,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 		$type	= $jinput->get('type', 'audio', 'word');
 		$type	= (in_array($type, array('audio', 'video', 'addfile'))) ? $type : 'audio';
 
-		if (!$file['name']
+		if (!$file['name'])
 		{
 			$response = array(
 				'status' => '0',
@@ -151,7 +151,6 @@ class SermonspeakerControllerFile extends JControllerLegacy
 			jimport('joomla.client.helper');
 			JClientHelper::setCredentialsFromRequest('ftp');
 
-			$err = null;
 			$filepath = JPath::clean($folder.'/'.strtolower($file['name']));
 
 			$object_file = new JObject($file);
