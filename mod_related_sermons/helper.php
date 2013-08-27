@@ -80,22 +80,6 @@ class modRelatedSermonsHelper
 			}
 		}
 
-		if (self::$option == 'com_sermonspeaker')
-		{
-			$query		= self::$db->getQuery(true);
-			$query->select('tags.title');
-			$query->from('#__sermon_sermons_tags AS st');
-			$query->where('st.sermon_id = '.self::$id);
-			$query->join('LEFT', '#__sermon_tags AS tags ON st.tag_id = tags.id');
-
-			self::$db->setQuery($query);
-			$tags = self::$db->loadColumn();
-			if ($tags)
-			{
-				$keywords	= array_merge($keywords, $tags);
-			}
-		}
-
 		foreach ($keywords as &$keyword)
 		{
 			$keyword = self::$db->escape($keyword);
@@ -138,8 +122,6 @@ class modRelatedSermonsHelper
 		$query->select('CASE WHEN CHAR_LENGTH(cc.alias) THEN CONCAT_WS(":", cc.id, cc.alias) ELSE cc.id END as catslug');
 		$query->from('#__sermon_sermons AS a');
 		$query->leftJoin('#__categories AS cc ON cc.id = a.catid');
-		$query->leftJoin('#__sermon_sermons_tags AS st ON st.sermon_id = a.id');
-		$query->leftJoin('#__sermon_tags AS tags ON tags.id = st.tag_id');
 		if(self::$option == 'com_sermonspeaker')
 		{
 			$query->where('a.id != '.self::$id);
@@ -150,7 +132,7 @@ class modRelatedSermonsHelper
 		{
 			$query->where('a.catid = '.$sermonCat);
 		}
-		$query->where('(CONCAT(",", REPLACE(a.metakey, ", ", ","), ",") LIKE "%,'.implode(',%" OR CONCAT(",", REPLACE(a.metakey, ", ", ","), ",") LIKE "%,', $keywords).',%" OR tags.title IN ("'.implode('","', $keywords).'"))');
+		$query->where('(CONCAT(",", REPLACE(a.metakey, ", ", ","), ",") LIKE "%,'.implode(',%" OR CONCAT(",", REPLACE(a.metakey, ", ", ","), ",") LIKE "%,', $keywords).',%")');
 		$app = JFactory::getApplication();
 		if ($app->getLanguageFilter())
 		{
