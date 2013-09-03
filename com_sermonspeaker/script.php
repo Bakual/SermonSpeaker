@@ -316,18 +316,20 @@ class Com_SermonspeakerInstallerScript
 		$history->form_file				= 'administrator/components/com_sermonspeaker/models/forms/sermon.xml';
 		$history->hide_fields			= array('checked_out','checked_out_time','version');
 		$history->display_lookup		= array();
-		$source							= new stdClass;
-		$source->source_column			= 'created_by';
-		$source->target_table			= '#__users';
-		$source->target_column			= 'id';
-		$source->display_column			= 'name';
-		$history->display_lookup[]		= $source;
-		$source->source_column			= 'modified_by';
-		$history->display_lookup[]		= $source;
-		$source->source_column			= 'catid';
-		$source->target_table			= '#__categories';
-		$source->display_column			= 'title';
-		$history->display_lookup[]		= $source;
+		$source_user1					= new stdClass;
+		$source_user1->source_column	= 'created_by';
+		$source_user1->target_table		= '#__users';
+		$source_user1->target_column	= 'id';
+		$source_user1->display_column	= 'name';
+		$source_user2					= clone $source_user1;
+		$source_user2->source_column	= 'modified_by';
+		$source_catid					= clone $source_user1;
+		$source_catid->source_column	= 'catid';
+		$source_catid->target_table		= '#__categories';
+		$source_catid->display_column	= 'title';
+		$history->display_lookup[]		= $source_user1;
+		$history->display_lookup[]		= $source_user2;
+		$history->display_lookup[]		= $source_catid;
 
 		// Create/Update Sermon Type
 		$table->load(array('type_alias' => 'com_sermonspeaker.sermon'));
@@ -339,13 +341,16 @@ class Com_SermonspeakerInstallerScript
 		$special->prefix		= 'SermonspeakerTable';
 		$special->config		= 'array()';
 
+		$source_speaker					= clone $source_catid;
+		$source_speaker->source_column	= 'speaker_id';
+		$source_speaker->target_table	= '#__sermon_speakers';
+		$source_serie					= clone $source_catid;
+		$source_serie->source_column	= 'series_id';
+		$source_serie->target_table		= '#__sermon_series';
+
 		$history->form_file			= 'administrator/components/com_sermonspeaker/models/forms/sermon.xml';
-		$source->source_column		= 'speaker_id';
-		$source->target_table		= '#__sermon_speakers';
-		$history->display_lookup[]	= $source;
-		$source->source_column		= 'series_id';
-		$source->target_table		= '#__sermon_series';
-		$history->display_lookup[]	= $source;
+		$history->display_lookup[]	= $source_speaker;
+		$history->display_lookup[]	= $source_serie;
 
 		$table_object			= new stdClass;
 		$table_object->special	= $special;
@@ -362,6 +367,7 @@ class Com_SermonspeakerInstallerScript
 		$table->save($contenttype);
 
 		// Create/Update Speaker Type
+
 		$table->type_id	= 0;
 		$table->load(array('type_alias' => 'com_sermonspeaker.speaker'));
 
