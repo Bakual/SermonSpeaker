@@ -207,6 +207,8 @@ class SermonspeakerModelSerie extends JModelAdmin
 				$table->ordering = $max+1;
 			}
 		}
+		// Increment the content version number.
+		$table->version++;
 	}
 
 	/**

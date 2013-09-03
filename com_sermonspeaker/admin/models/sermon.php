@@ -330,6 +330,8 @@ class SermonspeakerModelSermon extends JModelAdmin
 		if (empty($table->id)) {
 			$table->reorder('catid = '.(int) $table->catid.' AND state >= 0');
 		}
+		// Increment the content version number.
+		$table->version++;
 	}
 
 	/**

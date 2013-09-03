@@ -175,14 +175,9 @@ class Com_SermonspeakerInstallerScript
 			$this->_addCategory();
 		}
 
-		// Adding ContentTypes.
+		// Adding ContentTypes
+		// needed in all cases for 5.0.4 to add content_history stuff. Only needs to run on install and updates from "< 5.0.4" afterwards. However no harm done when running always.
 		$this->_saveContentTypes();
-
-		// Adjust FieldMapping in ContentTypes
-		if ($type == 'update' && version_compare($this->oldRelease, '5.0.3', '<'))
-		{
-			$this->_saveContentTypes(1);
-		}
 
 		// Setting some default values for columns on install
 		if ($type == 'install')
@@ -283,7 +278,7 @@ class Com_SermonspeakerInstallerScript
 		return;
 	}
 
-	function _saveContentTypes($update = 0)
+	function _saveContentTypes()
 	{
 		// Adding content_type for tags
 		$table = JTable::getInstance('Contenttype', 'JTable');
@@ -317,87 +312,114 @@ class Com_SermonspeakerInstallerScript
 		$field_mappings	= new stdClass;
 		$field_mappings->common			= $common;
 		$field_mappings->special		= new stdClass;
+		$history						= new stdClass;
+		$history->form_file				= 'administrator/components/com_sermonspeaker/models/forms/sermon.xml';
+		$history->hide_fields			= array('checked_out','checked_out_time','version');
+		$history->display_lookup		= array();
+		$source							= new stdClass;
+		$source->source_column			= 'created_by';
+		$source->target_table			= '#__users';
+		$source->target_column			= 'id';
+		$source->display_column			= 'name';
+		$history->display_lookup[]		= $source;
+		$source->source_column			= 'modified_by';
+		$history->display_lookup[]		= $source;
+		$source->source_column			= 'catid';
+		$source->target_table			= '#__categories';
+		$source->display_column			= 'title';
+		$history->display_lookup[]		= $source;
 
-		// Create Sermon Type
+		// Create/Update Sermon Type
 		$table->load(array('type_alias' => 'com_sermonspeaker.sermon'));
-		if (!$table->type_id || $update)
-		{
-			$special	= new stdClass;
-			$special->dbtable		= '#__sermon_sermons';
-			$special->key			= 'id';
-			$special->type			= 'Sermon';
-			$special->prefix		= 'SermonspeakerTable';
-			$special->config		= 'array()';
 
-			$table_object	= new stdClass;
-			$table_object->special	= $special;
+		$special	= new stdClass;
+		$special->dbtable		= '#__sermon_sermons';
+		$special->key			= 'id';
+		$special->type			= 'Sermon';
+		$special->prefix		= 'SermonspeakerTable';
+		$special->config		= 'array()';
 
-			$contenttype['type_id']			= ($table->type_id) ? $table->type_id : 0;
-			$contenttype['type_title']		= 'Sermon';
-			$contenttype['type_alias']		= 'com_sermonspeaker.sermon';
-			$contenttype['table']			= json_encode($table_object);
-			$contenttype['rules']			= '';
-			$contenttype['router']			= 'SermonspeakerHelperRoute::getSermonRoute';
-			$contenttype['field_mappings']	= json_encode($field_mappings);
+		$history->form_file			= 'administrator/components/com_sermonspeaker/models/forms/sermon.xml';
+		$source->source_column		= 'speaker_id';
+		$source->target_table		= '#__sermon_speakers';
+		$history->display_lookup[]	= $source;
+		$source->source_column		= 'series_id';
+		$source->target_table		= '#__sermon_series';
+		$history->display_lookup[]	= $source;
 
-			$table->save($contenttype);
-		}
+		$table_object			= new stdClass;
+		$table_object->special	= $special;
 
-		// Create Speaker Type
+		$contenttype['type_id']					= ($table->type_id) ? $table->type_id : 0;
+		$contenttype['type_title']				= 'Sermon';
+		$contenttype['type_alias']				= 'com_sermonspeaker.sermon';
+		$contenttype['table']					= json_encode($table_object);
+		$contenttype['rules']					= '';
+		$contenttype['router']					= 'SermonspeakerHelperRoute::getSermonRoute';
+		$contenttype['field_mappings']			= json_encode($field_mappings);
+		$contenttype['content_history_options']	= json_encode($history);
+
+		$table->save($contenttype);
+
+		// Create/Update Speaker Type
+		$table->type_id	= 0;
 		$table->load(array('type_alias' => 'com_sermonspeaker.speaker'));
-		if (!$table->type_id || $update)
-		{
-			$field_mappings->common->core_body		= 'bio';
-			$field_mappings->common->core_images	= 'pic';
 
-			$special	= new stdClass;
-			$special->dbtable		= '#__sermon_speakers';
-			$special->key			= 'id';
-			$special->type			= 'Speaker';
-			$special->prefix		= 'SermonspeakerTable';
-			$special->config		= 'array()';
+		$field_mappings->common->core_body		= 'bio';
+		$field_mappings->common->core_images	= 'pic';
 
-			$table_object	= new stdClass;
-			$table_object->special	= $special;
+		$special	= new stdClass;
+		$special->dbtable		= '#__sermon_speakers';
+		$special->key			= 'id';
+		$special->type			= 'Speaker';
+		$special->prefix		= 'SermonspeakerTable';
+		$special->config		= 'array()';
 
-			$contenttype['type_id']			= ($table->type_id) ? $table->type_id : 0;
-			$contenttype['type_title']		= 'Speaker';
-			$contenttype['type_alias']		= 'com_sermonspeaker.speaker';
-			$contenttype['table']			= json_encode($table_object);
-			$contenttype['rules']			= '';
-			$contenttype['router']			= 'SermonspeakerHelperRoute::getSpeakerRoute';
-			$contenttype['field_mappings']	= json_encode($field_mappings);
+		$history->form_file		= 'administrator/components/com_sermonspeaker/models/forms/speaker.xml';
 
-			$table->save($contenttype);
-		}
+		$table_object	= new stdClass;
+		$table_object->special	= $special;
 
-		// Create Series Type
+		$contenttype['type_id']					= ($table->type_id) ? $table->type_id : 0;
+		$contenttype['type_title']				= 'Speaker';
+		$contenttype['type_alias']				= 'com_sermonspeaker.speaker';
+		$contenttype['table']					= json_encode($table_object);
+		$contenttype['rules']					= '';
+		$contenttype['router']					= 'SermonspeakerHelperRoute::getSpeakerRoute';
+		$contenttype['field_mappings']			= json_encode($field_mappings);
+		$contenttype['content_history_options']	= json_encode($history);
+
+		$table->save($contenttype);
+
+		// Create/Update Series Type
+		$table->type_id	= 0;
 		$table->load(array('type_alias' => 'com_sermonspeaker.serie'));
-		if (!$table->type_id || $update)
-		{
-			$field_mappings->common->core_body		= 'series_description';
-			$field_mappings->common->core_images	= 'avatar';
 
-			$special	= new stdClass;
-			$special->dbtable		= '#__sermon_series';
-			$special->key			= 'id';
-			$special->type			= 'Serie';
-			$special->prefix		= 'SermonspeakerTable';
-			$special->config		= 'array()';
+		$field_mappings->common->core_body		= 'series_description';
+		$field_mappings->common->core_images	= 'avatar';
 
-			$table_object	= new stdClass;
-			$table_object->special	= $special;
+		$special	= new stdClass;
+		$special->dbtable		= '#__sermon_series';
+		$special->key			= 'id';
+		$special->type			= 'Serie';
+		$special->prefix		= 'SermonspeakerTable';
+		$special->config		= 'array()';
 
-			$contenttype['type_id']			= ($table->type_id) ? $table->type_id : 0;
-			$contenttype['type_title']		= 'Serie';
-			$contenttype['type_alias']		= 'com_sermonspeaker.serie';
-			$contenttype['table']			= json_encode($table_object);
-			$contenttype['rules']			= '';
-			$contenttype['router']			= 'SermonspeakerHelperRoute::getSerieRoute';
-			$contenttype['field_mappings']	= json_encode($field_mappings);
+		$history->form_file		= 'administrator/components/com_sermonspeaker/models/forms/serie.xml';
 
-			$table->save($contenttype);
-		}
+		$table_object	= new stdClass;
+		$table_object->special	= $special;
+
+		$contenttype['type_id']					= ($table->type_id) ? $table->type_id : 0;
+		$contenttype['type_title']				= 'Serie';
+		$contenttype['type_alias']				= 'com_sermonspeaker.serie';
+		$contenttype['table']					= json_encode($table_object);
+		$contenttype['rules']					= '';
+		$contenttype['router']					= 'SermonspeakerHelperRoute::getSerieRoute';
+		$contenttype['field_mappings']			= json_encode($field_mappings);
+		$contenttype['content_history_options']	= json_encode($history);
+
+		$table->save($contenttype);
 
 		return;
 	}

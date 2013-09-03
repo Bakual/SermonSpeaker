@@ -112,15 +112,27 @@ $input	= $app->input;
 										<?php echo $this->form->getInput('modified'); ?>
 									</div>
 								</div>
+							<?php endif;
+							if ($this->item->version) : ?>
+								<div class="control-group">
+									<div class="control-label">
+										<?php echo $this->form->getLabel('version'); ?>
+									</div>
+									<div class="controls">
+										<?php echo $this->form->getInput('version'); ?>
+									</div>
+								</div>
+							<?php endif;
+							if ($this->item->hits) : ?>
+								<div class="control-group">
+									<div class="control-label">
+										<?php echo $this->form->getLabel('hits'); ?>
+									</div>
+									<div class="controls">
+										<?php echo $this->form->getInput('hits'); ?>
+									</div>
+								</div>
 							<?php endif; ?>
-							<div class="control-group">
-								<div class="control-label">
-									<?php echo $this->form->getLabel('hits'); ?>
-								</div>
-								<div class="controls">
-									<?php echo $this->form->getInput('hits'); ?>
-								</div>
-							</div>
 						</div>
 					</div>
 				<?php echo JHtml::_('bootstrap.endTab');

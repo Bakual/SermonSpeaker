@@ -502,6 +502,11 @@ class SermonspeakerViewSermon extends JViewLegacy
 
 			JToolbarHelper::cancel('sermon.cancel', 'JTOOLBAR_CLOSE');
 		}
+
+		if ($this->state->params->get('save_history') && $user->authorise('core.edit'))
+		{
+			JToolbarHelper::versions('com_sermonspeaker.sermon', $this->item->id);
+		}
 	}
 
 	// Function to return bytes from the PHP settings. Taken from the ini_get() manual

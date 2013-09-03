@@ -81,5 +81,10 @@ class SermonspeakerViewSerie extends JViewLegacy
 
 			JToolbarHelper::cancel('serie.cancel', 'JTOOLBAR_CLOSE');
 		}
+
+		if ($this->state->params->get('save_history') && $user->authorise('core.edit'))
+		{
+			JToolbarHelper::versions('com_sermonspeaker.sermon', $this->item->id);
+		}
 	}
 }

@@ -13,6 +13,15 @@
 			class="inputbox"
 			size="45" />
 
+		<field name="version_note" 
+			type="text" 
+			label="JGLOBAL_FIELD_VERSION_NOTE_LABEL"
+			description="JGLOBAL_FIELD_VERSION_NOTE_DESC" 
+			class="inputbox"
+			size="45" 
+			labelclass="control-label"
+		/>
+
 		<field name="catid" type="categoryedit"
 			label="JCATEGORY" description="JFIELD_CATEGORY_DESC"
 			extension="com_sermonspeaker"
@@ -112,6 +121,11 @@
 			class="readonly"
 			readonly="true" />
 
+		<field name="version" type="text"
+			label="COM_SERMONSPEAKER_FIELD_VERSION_LABEL" size="6" description="COM_SERMONSPEAKER_FIELD_VERSION_DESC"
+			class="readonly"
+			readonly="true"
+			filter="unset" />
 	</fieldset>
 
 	<fieldset name="detail">
