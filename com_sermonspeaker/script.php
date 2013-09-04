@@ -30,7 +30,7 @@ class Com_SermonspeakerInstallerScript
 			// Check if update is allowed (only update from 4.5.0 and higher)
 			if (version_compare($this->oldRelease, '4.5.0', '<'))
 			{
-				$this->app->enqueueMessage(JText::sprintf('COM_SERMONSPEAKER_UPDATE_UNSUPPORTED', $this->oldRelease), 'error');
+				$this->app->enqueueMessage(JText::sprintf('COM_SERMONSPEAKER_UPDATE_UNSUPPORTED', $this->oldRelease, '4.5.0'), 'error');
 				return false;
 			}
 		}
