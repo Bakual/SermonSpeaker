@@ -22,7 +22,7 @@ div.column-content{
 div.column-content h3.title{
 	margin-top:0;
 }
-div.column-content h3 span.hasTip{
+div.column-content h3 span.hasTooltip{
 	margin-left:5px;
 }
 span.speaker.scripture{

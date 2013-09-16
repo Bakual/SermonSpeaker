@@ -51,7 +51,7 @@ $listDirn	= $this->escape($this->state->get('list.direction'));
 					</select>
 				</div>
 				<div class="btn-group pull-right">
-					<label for="mode" class="hasTip" title="<?php echo JText::_('PLG_EDITORS-XTD_SERMONSPEAKER_FIELD_MODE_LABEL').'::'.JText::_('PLG_EDITORS-XTD_SERMONSPEAKER_FIELD_MODE_DESC'); ?>">
+					<label for="mode" class="hasTooltip" title="<?php echo JText::_('PLG_EDITORS-XTD_SERMONSPEAKER_FIELD_MODE_LABEL').'::'.JText::_('PLG_EDITORS-XTD_SERMONSPEAKER_FIELD_MODE_DESC'); ?>">
 						<?php echo JText::_('PLG_EDITORS-XTD_SERMONSPEAKER_FIELD_MODE_LABEL'); ?>:
 					</label>
 				</div>

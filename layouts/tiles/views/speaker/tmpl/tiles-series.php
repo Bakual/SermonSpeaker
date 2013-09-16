@@ -2,7 +2,7 @@
 defined('_JEXEC') or die;
 JHtml::stylesheet('com_sermonspeaker/tiles.css', '', true);
 JHtml::addIncludePath(JPATH_COMPONENT.'/helpers');
-JHtml::_('behavior.tooltip');
+JHtml::_('bootstrap.tooltip');
 JHtml::_('behavior.modal');
 $user		= JFactory::getUser();
 $canEdit	= $user->authorise('core.edit', 'com_sermonspeaker');
@@ -114,7 +114,7 @@ if ($this->params->get('show_category_title', 0) || in_array('speaker:hits', $th
 			$tooltip	= implode('<br/>', $tip);
 			$image = ($item->avatar) ? $item->avatar : 'media/com_sermonspeaker/images/'.$this->params->get('defaultpic', 'nopict.jpg'); ?>
 			<div id="serie<?php echo $i; ?>" class="ss-entry tile">
-				<span class="hasTip" title="<?php echo $this->escape($item->title).'::'.$this->escape($tooltip); ?>">
+				<span class="hasTooltip" title="<?php echo $this->escape($item->title).'::'.$this->escape($tooltip); ?>">
 				<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->id));?>">
 					<img border="0" align="middle" src="<?php echo trim($image, '/'); ?>">
 					<span class="item-title">

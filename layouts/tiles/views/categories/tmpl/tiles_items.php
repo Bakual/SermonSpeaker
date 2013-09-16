@@ -1,6 +1,6 @@
 <?php
 defined('_JEXEC') or die;
-JHtml::_('behavior.tooltip');
+JHtml::_('bootstrap.tooltip');
 $class	= 'first';
 $type	= $this->params->get('count_items_type', 'sermons');
 $type_function = 'get'.ucfirst($type).'Route';
@@ -21,7 +21,7 @@ if (count($this->items[$this->parent->id]) AND $this->maxLevelcat != 0) : ?>
 				endif;
 				$tooltip = implode('<br/>', $tip);
 				?>
-				<span class="hasTip" title="<?php echo $this->escape($item->title).'::'.$this->escape($tooltip); ?>">
+				<span class="hasTooltip" title="<?php echo $this->escape($item->title).'::'.$this->escape($tooltip); ?>">
 					<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::$type_function($item->id));?>">
 						<img border="0" align="middle" src="<?php echo $image; ?>"/>
 						<?php if ($item->level == 1): ?>

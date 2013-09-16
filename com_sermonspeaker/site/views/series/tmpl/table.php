@@ -3,7 +3,7 @@ defined('_JEXEC') or die;
 
 JHtml::addIncludePath(JPATH_COMPONENT.'/helpers');
 
-JHtml::_('behavior.tooltip');
+JHtml::_('bootstrap.tooltip');
 JHtml::_('behavior.modal');
 
 $user		= JFactory::getUser();
@@ -96,7 +96,7 @@ $listDirn	= $this->state->get('list.direction');
 									<?php endif;
 								endif; ?>
 								<td class="ss-title">
-									<a class="hasTip" title="::<?php echo JText::_('COM_SERMONSPEAKER_SERIESLINK_HOOVER'); ?>" href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->slug)); ?>">
+									<a class="hasTooltip" title="::<?php echo JText::_('COM_SERMONSPEAKER_SERIESLINK_HOOVER'); ?>" href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->slug)); ?>">
 										<?php echo $item->title; ?>
 									</a>
 									<?php if ($canEdit or ($canEditOwn and ($user->id == $item->created_by))) : ?>
@@ -123,7 +123,7 @@ $listDirn	= $this->state->get('list.direction');
 									<td class="ss-col ss-hits hidden-phone hidden-tablet"><?php echo $item->hits; ?></td>
 								<?php endif;
 								if (in_array('series:download', $this->col_serie)) : ?>
-									<td class="ss-col ss-dl hidden-phone"><a href="<?php echo JRoute::_('index.php?view=serie&layout=download&tmpl=component&id='.$item->slug); ?>" class="modal hasTip" rel="{handler:'iframe',size:{x:400,y:200}}" title="::<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADSERIES_DESC'); ?>">
+									<td class="ss-col ss-dl hidden-phone"><a href="<?php echo JRoute::_('index.php?view=serie&layout=download&tmpl=component&id='.$item->slug); ?>" class="modal hasTooltip" rel="{handler:'iframe',size:{x:400,y:200}}" title="::<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADSERIES_DESC'); ?>">
 										<i class="icon-download"> </i>
 									</a></td>
 								<?php endif; ?>

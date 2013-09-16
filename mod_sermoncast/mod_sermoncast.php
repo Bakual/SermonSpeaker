@@ -1,6 +1,6 @@
 <?php
 defined('_JEXEC') or die;
-JHtml::_('behavior.tooltip');
+JHtml::_('bootstrap.tooltip');
 JHtml::_('behavior.modal');
 $type			= $params->get('sc_type');
 $menuitem		= (int)$params->get('sc_menuitem');

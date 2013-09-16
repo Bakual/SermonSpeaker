@@ -19,7 +19,7 @@ class JHtmlIcon
 
 		$button = JHtml::_('link', JRoute::_($url), $text, 'class="btn btn-primary"');
 
-		$output = '<span class="hasTip" title="'.JText::_('COM_SERMONSPEAKER_FU_TITLE').'">'.$button.'</span>';
+		$output = '<span class="hasTooltip" title="'.JText::_('COM_SERMONSPEAKER_FU_TITLE').'">'.$button.'</span>';
 		return $output;
 	}
 
@@ -66,7 +66,7 @@ class JHtmlIcon
 			return;
 		}
 
-		JHtml::_('behavior.tooltip');
+		JHtml::_('bootstrap.tooltip');
 
 		// Show checked_out icon if the item is checked out by a different user
 		if (property_exists($item, 'checked_out') && property_exists($item, 'checked_out_time') && $item->checked_out > 0 && $item->checked_out != $user->get('id')) {
@@ -74,7 +74,7 @@ class JHtmlIcon
 			$button = JHtml::_('image', 'system/checked_out.png', NULL, NULL, true);
 			$date = JHtml::_('date', $item->checked_out_time);
 			$tooltip = JText::_('JLIB_HTML_CHECKED_OUT').' :: '.JText::sprintf('COM_SERMONSPEAKER_CHECKED_OUT_BY', $checkoutUser->name).' <br /> '.$date;
-			return '<span class="hasTip" title="'.htmlspecialchars($tooltip, ENT_COMPAT, 'UTF-8').'">'.$button.'</span>';
+			return '<span class="hasTooltip" title="'.htmlspecialchars($tooltip, ENT_COMPAT, 'UTF-8').'">'.$button.'</span>';
 		}
 
 		switch ($attribs['type']){
@@ -114,7 +114,7 @@ class JHtmlIcon
 		}
 
 		$icon	= $item->state ? 'edit' : 'eye-close';
-		$text = '<span class="hasTip icon-'.$icon.' tip" title="'.JText::_('JACTION_EDIT').' :: '.$overlib.'"></span> '.JText::_('JGLOBAL_EDIT');
+		$text = '<span class="hasTooltip icon-'.$icon.' tip" title="'.JText::_('JACTION_EDIT').' :: '.$overlib.'"></span> '.JText::_('JGLOBAL_EDIT');
 
 		$output = JHtml::_('link', JRoute::_($url), $text);
 

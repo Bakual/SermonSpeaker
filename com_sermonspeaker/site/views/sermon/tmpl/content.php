@@ -2,7 +2,7 @@
 defined('_JEXEC') or die;
 JHtml::addIncludePath(JPATH_COMPONENT.'/helpers');
 JHtml::_('bootstrap.framework');
-JHtml::_('behavior.tooltip');
+JHtml::_('bootstrap.tooltip');
 JHtml::_('behavior.modal');
 
 // needed for pictures in blog layout
@@ -143,8 +143,8 @@ $md			= SermonspeakerHelperSermonspeaker::getMicrodataHelper();
 		<div class="ss-sermon-player">
 			<?php if ($player->toggle): ?>
 				<div class="btn-group">
-					<img class="btn hasTip" src="media/com_sermonspeaker/images/Video.png" onclick="Video()" alt="Video" title="<?php echo JText::_('COM_SERMONSPEAKER_SWITCH_VIDEO'); ?>" />
-					<img class="btn hasTip" src="media/com_sermonspeaker/images/Sound.png" onclick="Audio()" alt="Audio" title="<?php echo JText::_('COM_SERMONSPEAKER_SWITCH_AUDIO'); ?>" />
+					<img class="btn hasTooltip" src="media/com_sermonspeaker/images/Video.png" onclick="Video()" alt="Video" title="<?php echo JText::_('COM_SERMONSPEAKER_SWITCH_VIDEO'); ?>" />
+					<img class="btn hasTooltip" src="media/com_sermonspeaker/images/Sound.png" onclick="Audio()" alt="Audio" title="<?php echo JText::_('COM_SERMONSPEAKER_SWITCH_AUDIO'); ?>" />
 				</div>
 			<?php endif; ?>
 			<?php if ($player->error): ?>
