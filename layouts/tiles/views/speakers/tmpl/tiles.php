@@ -98,7 +98,7 @@ if ($this->params->get('show_description', 1) || $this->params->def('show_descri
 				</span>
 			</div>
 		<?php endforeach; ?>
-		<br class="clear-left" />
+		<div class="clear-left" ></div>
 	<?php endif;
 	if ($this->params->get('show_pagination') && ($this->pagination->get('pages.total') > 1)) : ?>
 		<div class="pagination">

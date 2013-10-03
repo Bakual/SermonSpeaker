@@ -139,7 +139,7 @@ if (in_array('serie:player', $this->columns) and count($this->items)) :
 				</span>
 			</div>
 		<?php endforeach; ?>
-		<br class="clear-left" />
+		<div class="clear-left" ></div>
 	<?php endif;
 	if ($this->params->get('show_pagination') && ($this->pagination->get('pages.total') > 1)) : ?>
 		<div class="pagination">

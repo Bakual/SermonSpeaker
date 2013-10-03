@@ -137,7 +137,7 @@ if ($this->params->get('show_category_title', 0) || in_array('speaker:hits', $th
 				</span>
 			</div>
 		<?php endforeach; ?>
-		<br class="clear-left" />
+		<div class="clear-left" ></div>
 	<?php endif;
 	if ($this->params->get('show_pagination') && ($this->pag_sermons->get('pages.total') > 1)) : ?>
 		<div class="pagination">
