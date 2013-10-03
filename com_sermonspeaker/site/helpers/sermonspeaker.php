@@ -77,7 +77,7 @@ class SermonspeakerHelperSermonspeaker
 						$icon = 'media/com_sermonspeaker/icons/icon.png';
 					}
 				}
-				$html .= '<a class="hasTip" title="::'.JText::_('COM_SERMONSPEAKER_ADDFILE_HOOVER').'" href="'.$link.'" '.$onclick.' target="_blank"><img src="'.$icon.'" width="18" height="20" alt="" /></a>&nbsp;';
+				$html .= '<a class="hasTooltip" title="::'.JText::_('COM_SERMONSPEAKER_ADDFILE_HOOVER').'" href="'.$link.'" '.$onclick.' target="_blank"><img src="'.$icon.'" width="18" height="20" alt="" /></a>&nbsp;';
 			}
 			if ($show_icon != 2)
 			{
@@ -94,7 +94,7 @@ class SermonspeakerHelperSermonspeaker
 						$addfileDesc = ($slash !== false) ? substr($addfile, $slash + 1) : $addfile;
 					}
 				}
-				$html .= '<a class="hasTip" title="::'.JText::_('COM_SERMONSPEAKER_ADDFILE_HOOVER').'" href="'.$link.'" '.$onclick.'target="_blank">'.$addfileDesc.'</a>';
+				$html .= '<a class="hasTooltip" title="::'.JText::_('COM_SERMONSPEAKER_ADDFILE_HOOVER').'" href="'.$link.'" '.$onclick.'target="_blank">'.$addfileDesc.'</a>';
 			}
 			return $html;
 		}
@@ -130,7 +130,7 @@ class SermonspeakerHelperSermonspeaker
 			{
 				$onclick = "onclick=\"_gaq.push(['_trackEvent', 'SermonSpeaker Download', '".$type."', 'id:".$id."']);\"";
 			}
-			$html = '<a href="'.$fileurl.'" target="_new" '.$onclick.' class="hasTip" title="::'.$text.'">'
+			$html = '<a href="'.$fileurl.'" target="_new" '.$onclick.' class="hasTooltip" title="::'.$text.'">'
 						.'<img src="media/com_sermonspeaker/images/download.png" alt="'.$text.'" />'
 					.'</a>';
 		}
@@ -151,7 +151,7 @@ class SermonspeakerHelperSermonspeaker
 			{
 				$onclick = "onclick=\"_gaq.push(['_trackEvent', 'SermonSpeaker Download', '".$type."', 'id:".$id."']);\"";
 			}
-			$html = '<a href="'.$fileurl.'" target="_new" '.$onclick.' class="hasTip" title="::'.$text.'">'
+			$html = '<a href="'.$fileurl.'" target="_new" '.$onclick.' class="hasTooltip" title="::'.$text.'">'
 						.'<i class="icon-download"> </i>'
 					.'</a>';
 		}
@@ -215,11 +215,11 @@ class SermonspeakerHelperSermonspeaker
 			switch (self::$params->get('list_icon_function', 3))
 			{
 				case 0:
-					$pic = '<i class="icon-play hasTip" title="::'.JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER').'"> </i>';
+					$pic = '<i class="icon-play hasTooltip" title="::'.JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER').'"> </i>';
 					$return .= JHtml::Link(JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug)), $pic).' ';
 					break;
 				case 1:
-					$pic = '<i class="icon-play hasTip" title="::'.JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER').'"> </i>';
+					$pic = '<i class="icon-play hasTooltip" title="::'.JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER').'"> </i>';
 					$file = ($item->videofile && (self::$params->get('fileprio', 0) || !$item->audiofile)) ? $item->videofile : $item->audiofile;
 					$return .= JHtml::Link(self::makeLink($file), $pic).' ';
 					break;
@@ -231,13 +231,13 @@ class SermonspeakerHelperSermonspeaker
 					if(in_array(self::$view.':player', $cols)){
 						$options['onclick'] = 'ss_play('.$i.');return false;';
 						$options['title'] = '::'.JText::_('COM_SERMONSPEAKER_PLAYICON_HOOVER');
-						$return = '<i class="icon-play pointer hasTip" onclick="'.$options['onclick'].'" title="'.$options['title'].'"> </i> ';
+						$return = '<i class="icon-play pointer hasTooltip" onclick="'.$options['onclick'].'" title="'.$options['title'].'"> </i> ';
 					}
 					break;
 				case 3:
 					$options['onclick'] = "popup=window.open('".JRoute::_('index.php?view=sermon&layout=popup&id='.$item->id.'&tmpl=component')."', 'PopupPage', 'height=".$player->popup['height'].',width='.$player->popup['width'].",scrollbars=yes,resizable=yes'); return false";
 					$options['title'] = '::'.JText::_('COM_SERMONSPEAKER_POPUPPLAYER');
-					$options['class'] = 'icon_play pointer hasTip';
+					$options['class'] = 'icon_play pointer hasTooltip';
 					$return .= JHtml::Image('media/com_sermonspeaker/images/play.gif', JText::_('COM_SERMONSPEAKER_POPUPPLAYER'), $options).' ';
 					break;
 				case 4:
@@ -245,7 +245,7 @@ class SermonspeakerHelperSermonspeaker
 			}
 		}
 		// Prepare title link function
-		$options = array('class' => 'hasTip');
+		$options = array('class' => 'hasTooltip');
 		switch (self::$params->get('list_title_function', 0))
 		{
 			case 0:

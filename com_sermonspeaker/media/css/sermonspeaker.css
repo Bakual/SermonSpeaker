@@ -91,7 +91,7 @@ hr.ss-serie-player, hr.ss-sermons-player, hr.ss-speaker-player{
 .clear-left{
 	clear:left;
 }
-.ss-sermon-container .article-info .hasTip{
+.ss-sermon-container .article-info .hasTooltip{
 	padding:0;
 	margin:0;
 }
@@ -102,7 +102,7 @@ hr.ss-serie-player, hr.ss-sermons-player, hr.ss-speaker-player{
 .pointer{
 	cursor:pointer;
 }
-dd.createdby span.hasTip{
+dd.createdby span.hasTooltip{
 	margin:0;
 	padding:0;
 }

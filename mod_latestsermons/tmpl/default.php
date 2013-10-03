@@ -5,7 +5,7 @@ $i = 0;
 $tooltip = ($params->get('ls_show_mo_speaker') || $params->get('ls_show_mo_series') || $params->get('ls_show_mo_date') || $params->get('show_hits') & 1);
 if ($tooltip) {
 	//include only if needed...
-	JHtml::_('behavior.tooltip');
+	JHtml::_('bootstrap.tooltip');
 }
 ?>
 <div class="latestsermons<?php echo $moduleclass_sfx; ?>">

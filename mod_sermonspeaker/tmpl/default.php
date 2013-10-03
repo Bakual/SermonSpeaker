@@ -2,7 +2,7 @@
 // no direct access
 defined('_JEXEC') or die; 
 if ($params->get('tooltip')) :
-	JHtml::_('behavior.tooltip');
+	JHtml::_('bootstrap.tooltip');
 endif;
 $level = 1;
 ?>

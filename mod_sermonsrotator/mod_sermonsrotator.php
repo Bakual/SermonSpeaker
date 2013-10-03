@@ -2,7 +2,7 @@
 defined('_JEXEC') or die;
 if ($params->get('lr_show_mouseover')) {
 //include only if needed...
-	JHtml::_('behavior.tooltip');
+	JHtml::_('bootstrap.tooltip');
 }
 $db = JFactory::getDBO();
 $where = '';

@@ -22,7 +22,7 @@ $published = $this->state->get('filter.state');
 		</div>
 		<div class="control-group">
 			<div class="controls">
-				<label id="batch-speaker-lbl" for="batch-speaker-id" class="hasTip" title="<?php echo JText::_('COM_SERMONSPEAKER_BATCH_SPEAKER_LABEL'); ?>::<?php echo JText::_('COM_SERMONSPEAKER_BATCH_SPEAKER_LABEL_DESC'); ?>">
+				<label id="batch-speaker-lbl" for="batch-speaker-id" class="hasTooltip" title="<?php echo JText::_('COM_SERMONSPEAKER_BATCH_SPEAKER_LABEL'); ?>::<?php echo JText::_('COM_SERMONSPEAKER_BATCH_SPEAKER_LABEL_DESC'); ?>">
 					<?php echo JText::_('COM_SERMONSPEAKER_BATCH_SPEAKER_LABEL'); ?>
 				</label>
 				<select name="batch[speaker_id]" class="inputbox" id="batch-speaker-id">
@@ -33,7 +33,7 @@ $published = $this->state->get('filter.state');
 		</div>
 		<div class="control-group">
 			<div class="controls">
-				<label id="batch-serie-lbl" for="batch-serie-id" class="hasTip" title="<?php echo JText::_('COM_SERMONSPEAKER_BATCH_SERIE_LABEL'); ?>::<?php echo JText::_('COM_SERMONSPEAKER_BATCH_SERIE_LABEL_DESC'); ?>">
+				<label id="batch-serie-lbl" for="batch-serie-id" class="hasTooltip" title="<?php echo JText::_('COM_SERMONSPEAKER_BATCH_SERIE_LABEL'); ?>::<?php echo JText::_('COM_SERMONSPEAKER_BATCH_SERIE_LABEL_DESC'); ?>">
 					<?php echo JText::_('COM_SERMONSPEAKER_BATCH_SERIE_LABEL'); ?>
 				</label>
 				<select name="batch[serie_id]" class="inputbox" id="batch-serie-id">

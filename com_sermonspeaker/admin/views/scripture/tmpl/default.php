@@ -1,7 +1,7 @@
 <?php
 defined('_JEXEC') or die;
 
-JHtml::_('behavior.tooltip');
+JHtml::_('bootstrap.tooltip');
 JHtml::_('formbehavior.chosen', 'select');
 ?>
 <form action="#" method="post" name="adminForm" id="adminForm" class="form-validate form-inline">
@@ -65,7 +65,7 @@ JHtml::_('formbehavior.chosen', 'select');
 			<td><?php echo JText::_('COM_SERMONSPEAKER_SCRIPTURE_SEPARATOR'); ?></td>
 			<td><input name="from[vers2]" class="span1" id="vers2" type="text" size="3" /></td>
 		</tr>
-		<tr class="hasTip center" title="<?php echo JText::_('COM_SERMONSPEAKER_FREETEXT_DESC'); ?>">
+		<tr class="hasTooltip center" title="<?php echo JText::_('COM_SERMONSPEAKER_FREETEXT_DESC'); ?>">
 			<td><label for="text"><?php echo JText::_('COM_SERMONSPEAKER_FREETEXT_LABEL'); ?></label></td>
 			<td colspan="7"><input name="from[text]" class="input-large" id="text" type="text" size="60" /></td>
 		</tr>
