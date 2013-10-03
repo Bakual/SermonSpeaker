@@ -16,7 +16,7 @@ if ($saveOrder) :
 	$saveOrderingUrl = 'index.php?option=com_sermonspeaker&task=speakers.saveOrderAjax&tmpl=component';
 	JHtml::_('sortablelist.sortable', 'speakerList', 'adminForm', strtolower($listDirn), $saveOrderingUrl);
 endif;
-$assoc		= !empty(JFactory::getApplication()->item_associations);
+$assoc		= JLanguageAssociations::isEnabled();
 ?>
 <script type="text/javascript">
 	Joomla.orderTable = function() {

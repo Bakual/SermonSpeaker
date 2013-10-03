@@ -147,7 +147,7 @@ class SermonspeakerModelSpeaker extends JModelAdmin
 		}
 
 		// Load associated items
-		if (!empty(JFactory::getApplication()->item_associations))
+		if (JLanguageAssociations::isEnabled())
 		{
 			$item->associations = array();
 
@@ -223,7 +223,7 @@ class SermonspeakerModelSpeaker extends JModelAdmin
 	{
 		if (parent::save($data))
 		{
-			if (!empty(JFactory::getApplication()->item_associations))
+			if (JLanguageAssociations::isEnabled())
 			{
 				$id = (int) $this->getState($this->getName() . '.id');
 				$item = $this->getItem($id);
@@ -304,7 +304,7 @@ class SermonspeakerModelSpeaker extends JModelAdmin
 	protected function preprocessForm(JForm $form, $data, $group = 'sermonspeaker')
 	{
 		// Association items
-		if (!empty(JFactory::getApplication()->item_associations))
+		if (JLanguageAssociations::isEnabled())
 		{
 			$languages = JLanguageHelper::getLanguages('lang_code');
 

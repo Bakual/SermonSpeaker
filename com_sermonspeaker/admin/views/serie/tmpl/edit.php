@@ -137,7 +137,7 @@ $input	= $app->input;
 				echo JHtml::_('bootstrap.addTab', 'myTab', 'metadata', JText::_('JGLOBAL_FIELDSET_METADATA_OPTIONS', true));
 					echo JLayoutHelper::render('joomla.edit.metadata', $this); ?>
 				<?php echo JHtml::_('bootstrap.endTab');
-				if (!empty($app->item_associations)) :
+				if (JLanguageAssociations::isEnabled()) :
 					echo JHtml::_('bootstrap.addTab', 'myTab', 'associations', JText::_('JGLOBAL_FIELDSET_ASSOCIATIONS', true));
 						echo $this->loadTemplate('associations');
 					echo JHtml::_('bootstrap.endTab');

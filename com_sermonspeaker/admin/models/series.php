@@ -33,7 +33,7 @@ class SermonspeakerModelSeries extends JModelList
 				'hits', 'series.hits',
 			);
 
-			if (!empty(JFactory::getApplication()->item_associations))
+			if (JLanguageAssociations::isEnabled())
 			{
 				$config['filter_fields'][] = 'association';
 			}
@@ -137,7 +137,7 @@ class SermonspeakerModelSeries extends JModelList
 		$query->join('LEFT', '#__users AS uc ON uc.id = series.checked_out');
 
 		// Join over the associations.
-		if (!empty(JFactory::getApplication()->item_associations))
+		if (JLanguageAssociations::isEnabled())
 		{
 			$query->select('COUNT(asso2.id)>1 as association')
 				->join('LEFT', '#__associations AS asso ON asso.id = series.id AND asso.context=' . $db->quote('com_sermonspeaker.serie'))

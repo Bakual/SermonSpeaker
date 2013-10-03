@@ -75,13 +75,20 @@ class SermonspeakerModelSerieform extends SermonspeakerModelSerie
 	 */
 	public function save($data)
 	{
-		// Prevent deleting multilang associations
-		$app = JFactory::getApplication();
-		$assoc = $app->item_associations;
-		$app->item_associations = 0;
-		$result = parent::save($data);
-		$app->item_associations = $assoc;
+		// Associations are not edited in frontend ATM so we have to inherit them
+		if (JLanguageAssociations::isEnabled() && !empty($data['id']))
+		{
+			if ($associations = JLanguageAssociations::getAssociations('com_sermonspeaker', '#__sermon_series', 'com_sermonspeaker.serie', $data['id']))
+			{
+				foreach ($associations as $tag => $associated)
+				{
+					$associations[$tag] = (int) $associated->id;
+				}
 
-		return $result;
+				$data['associations'] = $associations;
+			}
+		}
+
+		return parent::save($data);
 	}
 }
