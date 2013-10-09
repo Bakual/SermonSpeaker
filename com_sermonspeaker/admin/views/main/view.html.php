@@ -5,7 +5,7 @@ class SermonspeakerViewMain extends JViewLegacy
 	function display($tpl = null)
 	{
 		$params	= JComponentHelper::getParams('com_sermonspeaker');
-		if ($params->get('path'))
+		if ($params->get('save_history') == '')
 		{
 			JFactory::getApplication()->enqueueMessage(JText::_('COM_SERMONSPEAKER_NOTSAVED30'), 'warning');
 		}

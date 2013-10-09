@@ -333,7 +333,7 @@ $input	= $app->input;
 						<?php echo $this->form->getInput('tags'); ?>
 					</div>
 				</div>
-				<?php if ($this->params->get('save_history', 0)) : ?>
+				<?php if ($this->params->get('save_history')) : ?>
 					<div class="control-group">
 						<div class="control-label">
 							<?php echo $this->form->getLabel('version_note'); ?>
