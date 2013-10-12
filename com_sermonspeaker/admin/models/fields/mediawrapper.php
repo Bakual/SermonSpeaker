@@ -18,17 +18,17 @@ class JFormFieldMediaWrapper extends JFormFieldMedia
 
 	protected function getInput()
 	{
-		$this->params = JComponentHelper::getParams('com_sermonspeaker');
+		$params = JComponentHelper::getParams('com_sermonspeaker');
 		switch ($this->fieldname){
 			case 'picture':
-				$directory = $this->params->get('path_sermonpic');
+				$directory = $params->get('path_sermonpic');
 				break;
 			case 'pic':
-				$directory = $this->params->get('path_speakerpic');
+				$directory = $params->get('path_speakerpic');
 				break;
 			case 'avatar':
 			default:
-				$directory = $this->params->get('path_avatar');
+				$directory = $params->get('path_avatar');
 				break;
 		}
 		$directory = trim($directory, ' /');
