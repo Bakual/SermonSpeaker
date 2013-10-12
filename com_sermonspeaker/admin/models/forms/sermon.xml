@@ -17,7 +17,7 @@
 			type="text" 
 			label="JGLOBAL_FIELD_VERSION_NOTE_LABEL"
 			description="JGLOBAL_FIELD_VERSION_NOTE_DESC" 
-			class="inputbox"
+			class="span12 small"
 			size="45" 
 			labelclass="control-label"
 		/>
@@ -103,7 +103,7 @@
 			type="tag"
 			label="JTAG"
 			description="JTAG_DESC"
-			class="inputbox span12 small"
+			class="span12 small"
 			multiple="true"
 		>
 		</field>

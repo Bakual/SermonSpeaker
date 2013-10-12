@@ -4,20 +4,19 @@
 		addfieldpath="/administrator/components/com_categories/models/fields" >
 		<field name="title" type="text"
 			label="COM_SERMONSPEAKER_FIELD_NAME_LABEL" description="COM_SERMONSPEAKER_FIELD_NAME_DESC"
-			class="inputbox input-xlarge"
+			class="input-xlarge"
 			size="30"
 			required="true" />
 
 		<field name="alias" type="text"
 			label="JFIELD_ALIAS_LABEL" description="JFIELD_ALIAS_DESC"
-			class="inputbox"
 			size="45" />
 
 		<field name="version_note" 
 			type="text" 
 			label="JGLOBAL_FIELD_VERSION_NOTE_LABEL"
 			description="JGLOBAL_FIELD_VERSION_NOTE_DESC" 
-			class="inputbox"
+			class="span12 small"
 			size="45" 
 			labelclass="control-label"
 		/>
@@ -25,12 +24,11 @@
 		<field name="catid" type="categoryedit"
 			label="JCATEGORY" description="JFIELD_CATEGORY_DESC"
 			extension="com_sermonspeaker"
-			class="inputbox"
 			required="true" />
 
 		<field name="state" type="list"
 			label="JSTATUS" description="JFIELD_PUBLISHED_DESC"
-			class="inputbox span12 small"
+			class="span12 small"
 			filter="intval"
 			size="1"
 			default="1">
@@ -40,7 +38,7 @@
 			<option value="-2">JTRASH</option>
 		</field>
 
-		<field name="ordering" type="sermonordering" class="inputbox"
+		<field name="ordering" type="sermonordering"
 			table="sermon_speakers" field="title"
 			label="JFIELD_ORDERING_LABEL"
 			description="JFIELD_ORDERING_DESC" />
@@ -49,19 +47,17 @@
 			label="COM_SERMONSPEAKER_FIELD_INTRO_LABEL"
 			buttons="true"
 			hide="pagebreak,readmore"
-			class="inputbox"
 			filter="JComponentHelper::filterText" />
 
 		<field name="bio" type="editor"
 			label="COM_SERMONSPEAKER_FIELD_BIO_LABEL"
 			buttons="true"
 			hide="pagebreak,readmore"
-			class="inputbox"
 			filter="JComponentHelper::filterText" />
 
 		<field name="language" type="contentlanguage"
 			label="JFIELD_LANGUAGE_LABEL" description="COM_SERMONSPEAKER_FIELD_LANGUAGE_DESC"
-			class="inputbox span12 small"
+			class="span12 small"
 		>
 			<option value="*">JALL</option>
 		</field>
@@ -70,18 +66,18 @@
 			type="tag"
 			label="JTAG"
 			description="JTAG_DESC"
-			class="inputbox span12 small"
+			class="span12 small"
 			multiple="true"
 		>
 		</field>
 
 		<field name="metadesc" type="textarea"
 			label="JFIELD_META_DESCRIPTION_LABEL" description="JFIELD_META_DESCRIPTION_DESC"
-			class="inputbox" rows="3" cols="30" />
+			rows="3" cols="30" />
 
 		<field name="metakey" type="textarea"
 			label="JFIELD_META_KEYWORDS_LABEL" description="JFIELD_META_KEYWORDS_DESC"
-			class="inputbox" rows="3" cols="30" />
+			rows="3" cols="30" />
 
 	</fieldset>
 
@@ -99,7 +95,6 @@
 			label="JGLOBAL_FIELD_CREATED_LABEL" description="JGLOBAL_FIELD_CREATED_DESC"
 			format="%Y-%m-%d %H:%M:%S"
 			filter="user_utc"
-			class="inputbox"
 			size="22" />
 
 		<field name="modified_by" type="user"
@@ -129,12 +124,12 @@
 	</fieldset>
 
 	<fieldset name="detail">
-		<field name="website" type="Text" class="inputbox"
+		<field name="website" type="Text"
 			label="COM_SERMONSPEAKER_FIELD_WEBSITE_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_WEBSITE_DESC"
 			size="40" />
 
-		<field name="pic" type="mediawrapper" class="inputbox"
+		<field name="pic" type="mediawrapper"
 			label="COM_SERMONSPEAKER_FIELD_PICTURE_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_PICTURE_DESC" />
 	</fieldset>
