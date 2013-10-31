@@ -95,15 +95,15 @@ class xmap_com_sermonspeaker
 	static function getSermonsTree($xmap, $parent, $params, $view, $id = 0) {
 		require_once JPATH_SITE.'/components/com_sermonspeaker/models/sermons.php';
 		$model	= new SermonspeakerModelSermons();
-		$model->getState();
-		$model->setState('list.limit', $params['limit']);
-		$model->setState('list.start', 0);
-		$model->setState('list.ordering', 'ordering');
-		$model->setState('list.direction', 'ASC');
+		$state	= $model->getState();
+		$state->set('list.limit', $params['limit']);
+		$state->set('list.start', 0);
+		$state->set('list.ordering', 'ordering');
+		$state->set('list.direction', 'ASC');
 		if($view == 'serie' && $id){
-			$model->setState('serie.id', $id);
+			$state->set('serie.id', $id);
 		} elseif($view == 'speaker' && $id) {
-			$model->setState('speaker.id', $id);
+			$state->set('speaker.id', $id);
 		}
 		$items	= $model->getItems();
 		$xmap->changeLevel(1);
@@ -125,13 +125,13 @@ class xmap_com_sermonspeaker
 	static function getSeriesTree($xmap, $parent, $params, $view, $id = 0) {
 		require_once JPATH_SITE.'/components/com_sermonspeaker/models/series.php';
 		$model	= new SermonspeakerModelSeries();
-		$model->getState();
-		$model->setState('list.limit', $params['limit']);
-		$model->setState('list.start', 0);
-		$model->setState('list.ordering', 'ordering');
-		$model->setState('list.direction', 'ASC');
+		$state	= $model->getState();
+		$state->set('list.limit', $params['limit']);
+		$state->set('list.start', 0);
+		$state->set('list.ordering', 'ordering');
+		$state->set('list.direction', 'ASC');
 		if($id){
-			$model->setState('speaker.id', $id);
+			$state->set('speaker.id', $id);
 		}
 		$items	= $model->getItems();
 		$xmap->changeLevel(1);
@@ -157,11 +157,11 @@ class xmap_com_sermonspeaker
 	static function getSpeakersTree($xmap, $parent, $params) {
 		require_once JPATH_SITE.'/components/com_sermonspeaker/models/speakers.php';
 		$model	= new SermonspeakerModelSpeakers();
-		$model->getState();
-		$model->setState('list.limit', $params['limit']);
-		$model->setState('list.start', 0);
-		$model->setState('list.ordering', 'ordering');
-		$model->setState('list.direction', 'ASC');
+		$state	= $model->getState();
+		$state->set('list.limit', $params['limit']);
+		$state->set('list.start', 0);
+		$state->set('list.ordering', 'ordering');
+		$state->set('list.direction', 'ASC');
 		$items	= $model->getItems();
 		$xmap->changeLevel(1);
 		foreach ($items as $item) {

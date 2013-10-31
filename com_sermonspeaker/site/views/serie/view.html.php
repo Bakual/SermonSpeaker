@@ -42,8 +42,8 @@ class SermonspeakerViewSerie extends JViewLegacy
 		$this->params = $state->get('params');
 		// Get sermons data from the sermons model
 		$sermon_model		= $this->getModel('Sermons');
-		$sermon_model->setState('serie.id', $state->get('serie.id'));
 		$this->state		= $sermon_model->getState();
+		$this->state->set('serie.id', $state->get('serie.id'));
 		$this->items		= $sermon_model->getItems();
 		$this->pagination	= $sermon_model->getPagination();
 		$this->years		= $sermon_model->getYears();

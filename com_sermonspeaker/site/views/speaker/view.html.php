@@ -59,8 +59,8 @@ class SermonspeakerViewSpeaker extends JViewLegacy
 		}
 		// Get sermons data from the sermons model
 		$sermon_model			= $this->getModel('Sermons');
-		$sermon_model->setState('speaker.id', $state->get('speaker.id'));
 		$this->state_sermons	= $sermon_model->getState();
+		$this->state_sermons->set('speaker.id', $state->get('speaker.id'));
 		$this->sermons			= $sermon_model->getItems();
 		$this->pag_sermons		= $sermon_model->getPagination();
 		$this->years			= $sermon_model->getYears();
@@ -74,10 +74,10 @@ class SermonspeakerViewSpeaker extends JViewLegacy
 		$this->pag_sermons->setAdditionalUrlParam('month', $this->state_sermons->get('date.month'));
 		// Get series data from the series model
 		$series_model			= $this->getModel('Series');
-		$series_model->setState('speaker.id', $state->get('speaker.id'));
+		$this->state_series		= $series_model->getState();
+		$this->state_series->set('speaker.id', $state->get('speaker.id'));
 		$this->series			= $series_model->getItems();
 		$this->pag_series		= $series_model->getPagination();
-		$this->state_series		= $series_model->getState();
 		// check if there are avatars at all, only showing column if needed
 		$this->av = 0;
 		foreach ($this->series as $serie){
