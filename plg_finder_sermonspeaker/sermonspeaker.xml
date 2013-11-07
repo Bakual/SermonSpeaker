@@ -2,11 +2,11 @@
 <extension version="3.1" type="plugin" group="finder" method="upgrade">
 	<name>plg_finder_sermonspeaker</name>
 	<author>Thomas Hunziker</author>
-	<creationDate>2013-06-05</creationDate>
+	<creationDate>2013-11-07</creationDate>
 	<authorEmail>admin@sermonspeaker.net</authorEmail>
 	<authorUrl>http://www.sermonspeaker.net</authorUrl>
 	<copyright>(C) 2013</copyright>
-	<version>5.0.0</version>
+	<version>5.0.1</version>
 	<license>http://www.gnu.org/licenses/gpl.html</license>
 	<description>PLG_FINDER_SERMONSPEAKER_XML_DESCRIPTION</description>
 	<files>
