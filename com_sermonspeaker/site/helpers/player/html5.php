@@ -12,6 +12,14 @@ class SermonspeakerHelperPlayerHtml5 extends SermonspeakerHelperPlayer
 
 	public function isSupported($file)
 	{
+		// Exclude wma and wmv files since these are not supported by HTML5 and we have a player for those
+		$ext		= JFile::getExt($file);
+		$exclude	= array('wma', 'wmv');
+		if (in_array($ext, $exclude))
+		{
+			return false;
+		}
+
 		// Always true since no actual player is loaded
 		return true;
 	}
