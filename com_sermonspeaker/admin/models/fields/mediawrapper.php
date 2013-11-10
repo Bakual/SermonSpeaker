@@ -35,7 +35,7 @@ class JFormFieldMediaWrapper extends JFormFieldMedia
 		if (strpos ($directory, 'images') === 0){
 			$directory = substr($directory, 7);
 		}
-		$this->element['directory'] = $directory;
+		$this->directory = $directory;
 
 		$this->value = trim($this->value, ' /');
 
