@@ -69,7 +69,7 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 				// check if directory exists, fallback to base directory if not.
 				$dir = is_dir(JPATH_ROOT.'/'.$dir.$append) ? $dir.$append : $dir;
 			}
-			$this->element->addAttribute('directory', $dir);
+			$this->directory = $dir;
 
 			// Set file filter from params
 			$filetypes	= $params->get($file.'_filetypes');
@@ -77,7 +77,7 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 			{
 				$filetypes	= array_map('trim', explode(',', $filetypes));
 				$filter		= '\.'.implode('$|\.', $filetypes).'$';
-				$this->element->addAttribute('filter', $filter);
+				$this->filter = $filter;
 			}
 
 			// Get the field options.
