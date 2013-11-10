@@ -51,7 +51,7 @@ class JFormFieldSpeakerlist extends JFormFieldList
 			$returnpage	= base64_encode(JRoute::_('index.php?view=close&tmpl=component'));
 			$url = JRoute::_('index.php?task=speakerform.edit&layout=modal&tmpl=component&return='.$returnpage);
 		}
-		$html	.= '<a class="modal" href="'.$url.'"rel="{handler: \'iframe\', size: {x: 950, y: 650}}">';
+		$html	.= '<a class="modal" href="'.$url.'" rel="{handler: \'iframe\', size: {x: 950, y: 650}}">';
 		$html	.= '<div class="btn add-on icon-plus-2" rel="tooltip" title="'.JText::_('COM_SERMONSPEAKER_NEW_SPEAKER').'"> </div>';
 		$html	.= '</a></div>';
 
