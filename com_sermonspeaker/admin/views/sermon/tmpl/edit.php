@@ -22,7 +22,7 @@ $input	= $app->input;
 
 <script type="text/javascript">
 	Joomla.submitbutton = function(task) {
-		if (task == 'sermon.cancel' || navigator.appName == 'Microsoft Internet Explorer' || document.formvalidator.isValid(document.id('adminForm'))) {
+		if (task == 'sermon.cancel' || navigator.appName == 'Microsoft Internet Explorer' || navigator.userAgent.match(/Trident/) || document.formvalidator.isValid(document.id('adminForm'))) {
 			<?php echo $this->form->getField('notes')->save(); ?>
 			Joomla.submitform(task, document.getElementById('adminForm'));
 		} else {
