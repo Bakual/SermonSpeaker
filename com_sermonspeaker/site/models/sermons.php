@@ -198,7 +198,11 @@ class SermonspeakerModelSermons extends JModelList
 		{
 			$query->where('sermons.language in ('.$db->quote(JFactory::getLanguage()->getTag()).','.$db->quote('*').')');
 		}
-
+		if ($this->getState('list.ordering') == 'book')
+		{
+			$dir	= $db->escape($this->getState('list.direction', 'ASC'));
+			$query->order($db->escape('book').' '.$dir.', '.$db->escape('cap1').' '.$dir.', '.$db->escape('vers1').' '.$dir);
+		}
 		// Add the list ordering clause.
 		$query->order($db->escape($this->getState('list.ordering', 'ordering')).' '.$db->escape($this->getState('list.direction', 'ASC')));
 
