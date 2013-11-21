@@ -49,7 +49,10 @@
 .pointer{
 	cursor:pointer;
 }
-.ss-current{
-	background:#EBFFEB;
+.ss-current,
+.table-striped tbody > tr.ss-current:nth-child(odd):not(:hover) > td,
+.list-striped li.ss-current:nth-child(odd):not(:hover){
+	background-color:#EBFFEB;
 	border-radius:4px;
+	overflow:auto;
 }
