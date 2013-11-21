@@ -6,7 +6,13 @@ function SermonspeakerBuildRoute(&$query){
 	$segments	= array();
 	$view		= '';
 	if (isset($query['view'])){
-		$segments[] = $query['view'];
+	    if ($query['view'] == 'sermon'){
+	        $segments[] = 'recording';
+	    }else if ($query['view'] == 'sermons'){
+	        $segments[] = 'recordings';
+	    }else{
+	        $segments[] = $query['view'];
+	    }
 		$view = $query['view'];
 		unset($query['view']);
 	} else {
@@ -26,7 +32,7 @@ function SermonspeakerBuildRoute(&$query){
 	if (isset($query['task'])){
 		$segments[] = str_replace('.', '_', $query['task']);
 		if (isset($query['type'])){
-			$segments[] = $query['type'];
+		    $segments[] = $query['type'];
 			unset($query['type']);
 		}
 		unset($query['task']);
@@ -75,7 +81,7 @@ function SermonspeakerParseRoute($segments){
 				$vars['month'] = (int)$segments[3];
 			}
 			break;
-		case 'sermons':
+		case 'sermons' || 'recordings':
 			$vars['view'] = 'sermons';
 			if (isset($segments[1]) && $segments[1]){
 				$vars['year'] = (int)$segments[1];
@@ -84,7 +90,7 @@ function SermonspeakerParseRoute($segments){
 				$vars['month'] = (int)$segments[2];
 			}
 			break;
-		case 'sermon':
+		case 'sermon' || 'recording':
 			$vars['view'] = 'sermon';
 			$id = explode(':', $segments[1]);
 			$vars['id'] = (int)$id[0];
