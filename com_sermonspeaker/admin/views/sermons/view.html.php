@@ -44,7 +44,7 @@ class SermonspeakerViewSermons extends JViewLegacy
 	{
 		$canDo 	= SermonspeakerHelper::getActions();
 
-		JToolBarHelper::title(JText::_('COM_SERMONSPEAKER_SERMONS_TITLE'), 'sermons');
+		JToolBarHelper::title(JText::_('COM_SERMONSPEAKER_SERMONS_TITLE'), 'quote-3 sermons');
 		if ($canDo->get('core.create')) {
 			JToolBarHelper::addNew('sermon.add','JTOOLBAR_NEW');
 		}

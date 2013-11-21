@@ -39,7 +39,7 @@ class SermonspeakerViewSeries extends JViewLegacy
 	protected function addToolbar()
 	{
 		$canDo 	= SermonspeakerHelper::getActions();
-		JToolBarHelper::title(JText::_('COM_SERMONSPEAKER_SERIES_TITLE'), 'series');
+		JToolBarHelper::title(JText::_('COM_SERMONSPEAKER_SERIES_TITLE'), 'drawer-2 series');
 		if ($canDo->get('core.create')) {
 			JToolBarHelper::addNew('serie.add','JTOOLBAR_NEW');
 		}

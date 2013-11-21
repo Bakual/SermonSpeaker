@@ -39,7 +39,7 @@ class SermonspeakerViewSpeakers extends JViewLegacy
 	protected function addToolbar()
 	{
 		$canDo 	= SermonspeakerHelper::getActions();
-		JToolBarHelper::title(JText::_('COM_SERMONSPEAKER_SPEAKERS_TITLE'), 'speakers');
+		JToolBarHelper::title(JText::_('COM_SERMONSPEAKER_SPEAKERS_TITLE'), 'users speakers');
 		if ($canDo->get('core.create')) {
 			JToolBarHelper::addNew('speaker.add','JTOOLBAR_NEW');
 		}

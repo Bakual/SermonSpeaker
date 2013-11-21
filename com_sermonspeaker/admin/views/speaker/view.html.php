@@ -40,7 +40,7 @@ class SermonspeakerViewSpeaker extends JViewLegacy
 		$isNew		= ($this->item->id == 0);
 		$checkedOut	= !($this->item->checked_out == 0 || $this->item->checked_out == $userId);
 		$canDo		= SermonspeakerHelper::getActions();
-		JToolbarHelper::title(JText::sprintf('COM_SERMONSPEAKER_PAGE_'.($checkedOut ? 'VIEW' : ($isNew ? 'ADD' : 'EDIT')), JText::_('COM_SERMONSPEAKER_SPEAKERS_TITLE'), JText::_('COM_SERMONSPEAKER_SPEAKER')), 'speakers');
+		JToolbarHelper::title(JText::sprintf('COM_SERMONSPEAKER_PAGE_'.($checkedOut ? 'VIEW' : ($isNew ? 'ADD' : 'EDIT')), JText::_('COM_SERMONSPEAKER_SPEAKERS_TITLE'), JText::_('COM_SERMONSPEAKER_SPEAKER')), 'pencil-2 speakers');
 
 		// Build the actions for new and existing records.
 		if ($isNew)
