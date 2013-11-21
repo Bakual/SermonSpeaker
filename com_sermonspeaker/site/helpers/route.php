@@ -22,7 +22,7 @@ abstract class SermonspeakerHelperRoute
 	public static function getSermonsRoute($catid = 0, $language = 0)
 	{
 		$needles = array(
-			'sermons' => array(0)
+			'sermons' => array((int)$catid)
 		);
 		//Create the link
 		$link = 'index.php?option=com_sermonspeaker&view=sermons';
@@ -62,7 +62,7 @@ abstract class SermonspeakerHelperRoute
 	{
 		$needles = array(
 			'sermon' => array((int)$id),
-			'sermons' => array(0)
+			'sermons' => array((int)$catid)
 		);
 		//Create the link
 		$link = 'index.php?option=com_sermonspeaker&view=sermon&id='.$id;
@@ -98,7 +98,7 @@ abstract class SermonspeakerHelperRoute
 	public static function getSeriesRoute($catid = 0, $language = 0)
 	{
 		$needles = array(
-			'series' => array(0)
+			'series' => array((int)$catid)
 		);
 		//Create the link
 		$link = 'index.php?option=com_sermonspeaker&view=series';
@@ -138,7 +138,7 @@ abstract class SermonspeakerHelperRoute
 	{
 		$needles = array(
 			'serie'  => array((int)$id),
-			'series'  => array(0)
+			'series'  => array((int)$catid)
 		);
 		//Create the link
 		$link = 'index.php?option=com_sermonspeaker&view=serie&id='.$id;
@@ -183,7 +183,7 @@ abstract class SermonspeakerHelperRoute
 	public static function getSpeakersRoute($catid = 0, $language = 0)
 	{
 		$needles = array(
-			'speakers' => array(0)
+			'speakers' => array((int)$catid)
 		);
 		//Create the link
 		$link = 'index.php?option=com_sermonspeaker&view=speakers';
@@ -225,7 +225,7 @@ abstract class SermonspeakerHelperRoute
 
 		$needles = array(
 			'speaker'  => array((int)$id),
-			'speakers'  => array(0)
+			'speakers'  => array((int)$catid)
 		);
 		//Create the link
 		$link = 'index.php?option=com_sermonspeaker&view=speaker&id='.$id;
@@ -309,15 +309,15 @@ abstract class SermonspeakerHelperRoute
 					}
 					else
 					{
-						if (!isset(self::$lookup[$language][$view][0]) || $item->language != '*')
+						$catid	= $item->params->get('catid', 0);
+						if (!isset(self::$lookup[$language][$view][$catid]) || $item->language != '*')
 						{
-							self::$lookup[$language][$view][0] = $item->id;
+							self::$lookup[$language][$view][$catid] = $item->id;
 						}
 					}
 				}
 			}
 		}
-
 		if ($needles)
 		{
 			foreach ($needles as $view => $ids)
