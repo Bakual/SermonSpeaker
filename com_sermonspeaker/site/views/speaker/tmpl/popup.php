@@ -1,5 +1,7 @@
 <?php
 defined( '_JEXEC' ) or die( 'Restricted access' );
+JHtml::_('bootstrap.tooltip');
+
 if (!$this->item->pic):
 	$this->item->pic = 'media/com_sermonspeaker/images/'.$this->params->get('defaultpic', 'nopict.jpg');
 endif;
@@ -30,11 +32,11 @@ endif;
 	</div>
 	<div class="clearfix"></div>
 	<?php if ($this->sermons): ?>
-		<a class="badge" title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKERS_SERMONSLINK_HOOVER'); ?>" href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($this->item->slug)); ?>" target="_parent">
+		<a class="badge hasTooltip" title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKERS_SERMONSLINK_HOOVER'); ?>" href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($this->item->slug)); ?>" target="_parent">
 			<?php echo JText::_('COM_SERMONSPEAKER_SERMONS'); ?></a>&nbsp;
 	<?php endif;
 	if ($this->series): ?>
-		<a class="badge" title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKERS_SERIESLINK_HOOVER'); ?>" href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($this->item->slug).'&tab=series'); ?>" target="_parent">
+		<a class="badge hasTooltip" title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKERS_SERIESLINK_HOOVER'); ?>" href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($this->item->slug).'#series'); ?>" target="_parent">
 			<?php echo JText::_('COM_SERMONSPEAKER_SERIES'); ?></a>&nbsp;
 	<?php endif;
 	if ($this->item->website and $this->item->website != 'http://') : ?>
