@@ -25,19 +25,19 @@
 			<fieldset name="basic">
 				<field name="showDate" type="radio" 
 					default="0" 
-					class="btn-group"
+					class="btn-group btn-group-yesno"
 					label="MOD_RELATED_SERMONS_PARAM_SHOWDATE" 
 					description="MOD_RELATED_SERMONS_PARAM_SHOWDATE_DESC">
-					<option value="0">JHIDE</option>
 					<option value="1">JSHOW</option>
+					<option value="0">JHIDE</option>
 				</field>
 				<field name="supportArticles" type="radio" 
 					default="0" 
-					class="btn-group"
+					class="btn-group btn-group-yesno"
 					label="MOD_RELATED_SERMONS_PARAM_SUPPORT_ARTICLES" 
 					description="MOD_RELATED_SERMONS_PARAM_SUPPORT_ARTICLES_DESC">
-					<option value="0">JNO</option>
 					<option value="1">JYES</option>
+					<option value="0">JNO</option>
 				</field>
 				<field name="limitSermons" type="text"
 					default="10" 

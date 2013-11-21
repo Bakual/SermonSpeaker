@@ -47,10 +47,10 @@
 				<field name="sc_showpcast" type="radio"
 					default="1"
 					label="MOD_SERMONCAST_PARAM_SHOWPCAST"
-					class="btn-group"
+					class="btn-group btn-group-yesno"
 					description="MOD_SERMONCAST_PARAM_SHOWPCAST_DESC">
-					<option value="0">JNO</option>
 					<option value="1">JYES</option>
+					<option value="0">JNO</option>
 				</field>
 				<field name="sc_pcast_prefix" type="list" 
 					default="itpc" 
@@ -71,20 +71,20 @@
 				<field type="spacer" />
 				<field name="sc_showplink" type="radio"
 					default="1"
-					class="btn-group"
+					class="btn-group btn-group-yesno"
 					label="MOD_SERMONCAST_PARAM_SHOWPLINK"
 					description="MOD_SERMONCAST_PARAM_SHOWPLINK_DESC">
-					<option value="0">JNO</option>
 					<option value="1">JYES</option>
+					<option value="0">JNO</option>
 				</field>
 				<field type="spacer" />
 				<field name="sc_showhelp" type="radio"
 					default="0"
-					class="btn-group"
+					class="btn-group btn-group-yesno"
 					label="MOD_SERMONCAST_PARAM_SHOWHELP"
 					description="MOD_SERMONCAST_PARAM_SHOWHELP_DESC">
-					<option value="0">JNO</option>
 					<option value="1">JYES</option>
+					<option value="0">JNO</option>
 				</field>
 				<field name="sc_helpwidth" type="text" 
 					default="700" 

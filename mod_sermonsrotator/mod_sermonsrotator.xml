@@ -28,97 +28,107 @@
 		<fields name="params">
 			<fieldset name="basic"
 				addfieldpath="/administrator/components/com_sermonspeaker/models/fields">
-				<field name="moduleclass_sfx" type="text" 
-					default="" 
-					label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL" 
+
+				<field name="moduleclass_sfx" type="text"
+					default=""
+					label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL"
 					description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC" />
-	
-	
+
 				<field name="lr_boxshow_count" type="list" 
-					default="5"					
+					default="5"
 					label="MOD_SERMONSROTATOR_PARAM_BOXSHOW_COUNT" 
 					description="MOD_SERMONSROTATOR_PARAM_BOXSHOW_COUNT_DESC" >
 					<option value="3">3</option>
-					<option value="5">5</option>					
-				</field>	
-									
+					<option value="5">5</option>
+				</field>
+
 				<field name="lr_count" type="text" 
 					default="20" 
 					label="MOD_SERMONSROTATOR_PARAM_COUNT" 
 					description="MOD_SERMONSROTATOR_PARAM_COUNT_DESC" />
-										
+
 				<field name="lr_slideDuration" type="text" 
 					default="8000" 
 					label="MOD_SERMONSROTATOR_PARAM_SLIDE_DURATION" 
 					description="MOD_SERMONSROTATOR_PARAM_SLIDE_DURATION_DESC" />
-					
+
 				<field name="lr_transTime" type="text" 
 					default="1500" 
 					label="MOD_SERMONSROTATOR_PARAM_TRANSITION_DURATION" 
-					description="MOD_SERMONSROTATOR_PARAM_TRANSITION_DURATION_DESC" />	
-								
+					description="MOD_SERMONSROTATOR_PARAM_TRANSITION_DURATION_DESC" />
+
 				<field name="lr_show_mo_title" type="radio" 
 					default="1" 
+					class="btn-group btn-group-yesno"
 					label="MOD_SERMONSROTATOR_PARAM_SHOW_MO_TITLE" 
 					description="MOD_SERMONSROTATOR_PARAM_SHOW_MO_TITLE_DESC">
-					<option value="0">JNO</option>
 					<option value="1">JYES</option>
+					<option value="0">JNO</option>
 				</field>
-									
+
 				<field name="lr_show_mo_speaker" type="radio" 
 					default="1" 
+					class="btn-group btn-group-yesno"
 					label="MOD_SERMONSROTATOR_PARAM_SHOW_MO_SPEAKER" 
 					description="MOD_SERMONSROTATOR_PARAM_SHOW_MO_SPEAKER_DESC">
-					<option value="0">JNO</option>
 					<option value="1">JYES</option>
+					<option value="0">JNO</option>
 				</field>
-				
+
 				<field name="lr_show_mo_series" type="radio" 
 					default="1" 
+					class="btn-group btn-group-yesno"
 					label="MOD_SERMONSROTATOR_PARAM_SHOW_MO_SERIES" 
 					description="MOD_SERMONSROTATOR_PARAM_SHOW_MO_SERIES_DESC">
-					<option value="0">JNO</option>
 					<option value="1">JYES</option>
+					<option value="0">JNO</option>
 				</field>
-				
+
 				<field name="lr_show_mo_thumb" type="radio" 
 					default="1" 
+					class="btn-group btn-group-yesno"
 					label="MOD_SERMONSROTATOR_PARAM_SHOW_MO_THUMB" 
 					description="MOD_SERMONSROTATOR_PARAM_SHOW_MO_THUMB_DESC">
 					<option value="0">JNO</option>
 					<option value="1">JYES</option>
-				</field>	
-				
+				</field>
+
 				<field name="lr_thumb_mo_click" type="radio" 
 					default="1" 
+					class="btn-group btn-group-yesno"
 					label="MOD_SERMONSROTATOR_PARAM_THUMB_MO_CLICK" 
 					description="MOD_SERMONSROTATOR_PARAM_THUMB_MO_CLICK_DESC">
-					<option value="0">JNO</option>
 					<option value="1">JYES</option>
+					<option value="0">JNO</option>
 				</field>
-				
+
 				<field name="lr_image_mo_click" type="radio" 
 					default="1" 
+					class="btn-group btn-group-yesno"
 					label="MOD_SERMONSROTATOR_PARAM_IMAGE_MO_CLICK" 
 					description="MOD_SERMONSROTATOR_PARAM_IMAGE_MO_CLICK_DESC">
-					<option value="0">JNO</option>
 					<option value="1">JYES</option>
+					<option value="0">JNO</option>
 				</field>
+
 				<field name="lr_show_lables" type="radio" 
 					default="1" 
+					class="btn-group btn-group-yesno"
 					label="MOD_SERMONSROTATOR_PARAM_SHOW_TITLES" 
 					description="MOD_SERMONSROTATOR_PARAM_SHOW_TITLES_DESC">
-					<option value="0">JNO</option>
 					<option value="1">JYES</option>
+					<option value="0">JNO</option>
 				</field>
+
 				<field name="lr_show_arrow" type="radio" 
 					default="0" 
+					class="btn-group btn-group-yesno"
 					label="MOD_SERMONSROTATOR_PARAM_SHOW_ARROW" 
 					description="MOD_SERMONSROTATOR_PARAM_SHOW_ARROW_DESC">
-					<option value="0">JNO</option>
 					<option value="1">JYES</option>
-				</field>								
-																
+					<option value="0">JNO</option>
+				</field>
+
 				<field name="lr_show_mo_image" type="list" 
 					default="1" 
 					label="MOD_SERMONSROTATOR_PARAM_SHOW_MO_IMAGE" 
@@ -127,6 +137,7 @@
 					<option value="1">Details</option>
 					<option value="2">Popup</option>
 				</field>
+
 				<field
 					name="lr_sermonlayout" type="componentlayout"
 					label="MOD_SERMONSROTATOR_SERMON_VIEW_TITLE"
@@ -134,9 +145,8 @@
 					default="_:icon"
 					useglobal="false"
 					extension="com_sermonspeaker"
-					view="sermon"
-				/>				
-								
+					view="sermon" />
+
 				<field name="lr_show_mo_size" type="list" 
 					default="50" 
 					label="MOD_SERMONSROTATOR_PARAM_SHOW_MO_SIZE" 
@@ -148,27 +158,27 @@
 					<option value="63">63</option>
 					<option value="75">75</option>
 				</field>
-								
+
 				<field name="lr_thumb_width" type="text" 
 					default="50" 
 					label="MOD_SERMONSROTATOR_PARAM_THUMB_WIDTH" 
 					description="MOD_SERMONSROTATOR_PARAM_THUMB_WIDTH_DESC" />
-					
+
 				<field name="lr_thumb_height" type="text" 
 					default="50" 
 					label="MOD_SERMONSROTATOR_PARAM_THUMB_HEIGHT" 
 					description="MOD_SERMONSROTATOR_PARAM_THUMB_HEIGHT_DESC" />	
-								
+
 				<field name="lr_box_width" type="text" 
 					default="630" 
 					label="MOD_SERMONSROTATOR_PARAM_BOX_WIDTH" 
 					description="MOD_SERMONSROTATOR_PARAM_BOX_WIDTH_DESC" />
-					
+
 				<field name="lr_box_height" type="text" 
 					default="250" 
 					label="MOD_SERMONSROTATOR_PARAM_BOX_HEIGHT" 
 					description="MOD_SERMONSROTATOR_PARAM_BOX_HEIGHT_DESC" />
-					
+
 				<field name="lr_image_width" type="text" 
 					default="250" 
 					label="MOD_SERMONSROTATOR_PARAM_IMAGE_WIDTH" 
@@ -178,27 +188,27 @@
 					default="800" 
 					label="MOD_SERMONSROTATOR_PARAM_POPUP_WIDTH" 
 					description="MOD_SERMONSROTATOR_PARAM_POPUP_WIDTH_DESC" />
-					
+
 				<field name="lr_height_width" type="text" 
 					default="600" 
 					label="MOD_SERMONSROTATOR_PARAM_POPUP_HEIGHT" 
 					description="MOD_SERMONSROTATOR_PARAM_POPUP_HEIGHT_DESC" />					
-					
+
 				<field name="lr_mo_menuitem" type="menuitem" 
 					default=""
 					label="MOD_SERMONSROTATOR_PARAM_MO_MENUITEM" 
 					description="MOD_SERMONSROTATOR_PARAM_MO_MENUITEM_DESC" 
-					state="1"
-				/>
+					state="1" />
+
 				<field name="lr_show_style" type="list" 
 					default="mcg" 
 					label="MOD_SERMONSROTATOR_PARAM_STYLE" 
 					description="MOD_SERMONSROTATOR_PARAM_STYLE_DESC">
 					<option value="mcg">mcg</option>
 					<option value="radvest">radvest</option>
-				</field>				
+				</field>
 			</fieldset>
-			
+
 			<fieldset name="advanced">
 				<field name="series_cat" type="category" 
 					label="MOD_SERMONSROTATOR_PARAM_CATEGORY_SERIES_LABEL" 

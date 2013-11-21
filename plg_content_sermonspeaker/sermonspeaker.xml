@@ -41,11 +41,11 @@
 					description="PLG_CONTENT_SERMONSPEAKER_FIELD_MODULECLASS_SFX_DESC" />
 				<field name="show_player" type="radio"
 					default="0"
-					class="btn-group"
+					class="btn-group btn-group-yesno"
 					label="PLG_CONTENT_SERMONSPEAKER_FIELD_SHOW_PLAYER_LABEL"
 					description="PLG_CONTENT_SERMONSPEAKER_FIELD_SHOW_PLAYER_DESC" >
-					<option value="0">JDISABLED</option>
 					<option value="1">JENABLED</option>
+					<option value="0">JDISABLED</option>
 				</field>
 			</fieldset>
 		</fields>

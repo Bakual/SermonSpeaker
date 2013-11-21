@@ -47,59 +47,59 @@
 					hr="true" />
 				<field name="show_list" type="radio" 
 					default="1"
-					class="btn-group"
+					class="btn-group btn-group-yesno"
 					label="MOD_LATESTSERMONS_PARAM_SHOW_LIST_LABEL" 
 					description="MOD_LATESTSERMONS_PARAM_SHOW_LIST_DESC">
-					<option value="0">JNO</option>
 					<option value="1">JYES</option>
+					<option value="0">JNO</option>
 				</field>
 				<field name="use_date" type="radio" 
 					default="0"
-					class="btn-group"
+					class="btn-group btn-group-yesno"
 					label="MOD_LATESTSERMONS_FIELD_USE_DATE_LABEL" 
 					description="MOD_LATESTSERMONS_FIELD_USE_DATE_DESC">
-					<option value="0">JNO</option>
 					<option value="1">JYES</option>
+					<option value="0">JNO</option>
 				</field>
 				<field name="show_tooltip_title" type="radio" 
 					default="0" 
-					class="btn-group"
+					class="btn-group btn-group-yesno"
 					label="MOD_LATESTSERMONS_FIELD_SHOW_TOOLTIP_TITLE_LABEL" 
 					description="MOD_LATESTSERMONS_FIELD_SHOW_TOOLTIP_TITLE_DESC">
-					<option value="0">JNO</option>
 					<option value="1">JYES</option>
+					<option value="0">JNO</option>
 				</field>
 				<field name="show_category" type="radio" 
 					default="0" 
-					class="btn-group"
+					class="btn-group btn-group-yesno"
 					label="MOD_LATESTSERMONS_FIELD_SHOW_CATEGORY_LABEL" 
 					description="MOD_LATESTSERMONS_FIELD_SHOW_CATEGORY_DESC">
-					<option value="0">JNO</option>
 					<option value="1">JYES</option>
+					<option value="0">JNO</option>
 				</field>
 				<field name="ls_show_mo_speaker" type="radio" 
 					default="1" 
-					class="btn-group"
+					class="btn-group btn-group-yesno"
 					label="MOD_LATESTSERMONS_PARAM_SHOW_MO_SPEAKER" 
 					description="MOD_LATESTSERMONS_PARAM_SHOW_MO_SPEAKER_DESC">
-					<option value="0">JNO</option>
 					<option value="1">JYES</option>
+					<option value="0">JNO</option>
 				</field>
 				<field name="ls_show_mo_series" type="radio" 
 					default="1" 
-					class="btn-group"
+					class="btn-group btn-group-yesno"
 					label="MOD_LATESTSERMONS_PARAM_SHOW_MO_SERIES" 
 					description="MOD_LATESTSERMONS_PARAM_SHOW_MO_SERIES_DESC">
-					<option value="0">JNO</option>
 					<option value="1">JYES</option>
+					<option value="0">JNO</option>
 				</field>
 				<field name="ls_show_mo_date" type="radio" 
 					default="1" 
-					class="btn-group"
+					class="btn-group btn-group-yesno"
 					label="MOD_LATESTSERMONS_PARAM_SHOW_MO_DATE" 
 					description="MOD_LATESTSERMONS_PARAM_SHOW_MO_DATE_DESC">
-					<option value="0">JNO</option>
 					<option value="1">JYES</option>
+					<option value="0">JNO</option>
 				</field>
 				<field name="ls_mo_date_format" type="dateformat" 
 					default="DATE_FORMAT_LC4" 
@@ -119,11 +119,11 @@
 					hr="true" />
 				<field name="show_player" type="radio" 
 					default="0" 
-					class="btn-group"
+					class="btn-group btn-group-yesno"
 					label="MOD_LATESTSERMONS_PARAM_SHOW_PLAYER_LABEL" 
 					description="MOD_LATESTSERMONS_PARAM_SHOW_PLAYER_DESC">
-					<option value="0">JNO</option>
 					<option value="1">JYES</option>
+					<option value="0">JNO</option>
 				</field>
 				<field name="vheight" type="text" 
 					default="300px" 
@@ -133,21 +133,21 @@
 					hr="true" />
 				<field name="ls_show_mo_link" type="radio" 
 					default="0" 
-					class="btn-group"
+					class="btn-group btn-group-yesno"
 					label="MOD_LATESTSERMONS_PARAM_SHOW_MO_LINK" 
 					description="MOD_LATESTSERMONS_PARAM_SHOW_MO_LINK_DESC">
-					<option value="0">JNO</option>
 					<option value="1">JYES</option>
+					<option value="0">JNO</option>
 				</field>
 			</fieldset>
 			<fieldset name="filters" label="MOD_LATESTSERMONS_FILTERS_FIELDSET_LABEL">
 				<field name="smartfilter" type="radio" 
 					default="0"
-					class="btn-group"
+					class="btn-group btn-group-yesno"
 					label="MOD_LATESTSERMONS_FIELD_SMARTFILTER_LABEL" 
 					description="MOD_LATESTSERMONS_FIELD_SMARTFILTER_DESC" >
-					<option value="0">JNO</option>
 					<option value="1">JYES</option>
+					<option value="0">JNO</option>
 				</field>
 				<field name="filetype" type="radio" 
 					default="0"

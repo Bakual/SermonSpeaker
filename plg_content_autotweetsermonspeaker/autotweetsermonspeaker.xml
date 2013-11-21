@@ -27,11 +27,11 @@
 
 				<field name="autopublish" type="radio"
 					default="1"
-					class="btn-group"
+					class="btn-group btn-group-yesno"
 					label="PLG_AUTOTWEET_PARAM_AUTOPUBLISH_LABEL"
 					description="PLG_AUTOTWEET_PARAM_AUTOPUBLISH_DESC" >
-					<option value="0">JOFF</option>
 					<option value="1">JON</option>
+					<option value="0">JOFF</option>
 				</field>
 
 				<field name="menuitem" type="menuitem" 
@@ -84,11 +84,11 @@
 
 				<field name="post_modified" type="radio"
 					default="0"
-					class="btn-group"
+					class="btn-group btn-group-yesno"
 					label="PLG_AUTOTWEET_PARAM_POSTMODIFIED_LABEL"
 					description="PLG_AUTOTWEET_PARAM_POSTMODIFIED_DESC" >
-					<option value="0">JNO</option>
 					<option value="1">JYES</option>
+					<option value="0">JNO</option>
 				</field>
 			</fieldset>
 
@@ -116,11 +116,11 @@
 
 				<field name="show_hash" type="radio"
 					default="0"
-					class="btn-group"
+					class="btn-group btn-group-yesno"
 					label="PLG_AUTOTWEET_PARAM_SHOWHASH_LABEL"
 					description="PLG_AUTOTWEET_PARAM_SHOWHASH_DESC" >
-					<option value="0">JNO</option>
 					<option value="1">JYES</option>
+					<option value="0">JNO</option>
 				</field>
 
 				<field name="use_text" type="list"

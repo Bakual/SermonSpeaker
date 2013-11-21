@@ -18,8 +18,8 @@
 			default="1"
 			label="COM_SERMONSPEAKER_FIELD_SPEAKERPOPUP_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_SPEAKERPOPUP_DESC">
-			<option value="0">JNO</option>
 			<option value="1">JYES</option>
+			<option value="0">JNO</option>
 		</field>
 		<field name="seriesdl"
 			type="radio"
@@ -27,8 +27,8 @@
 			default="1"
 			label="COM_SERMONSPEAKER_PARAM_SERIESDL_LABEL"
 			description="COM_SERMONSPEAKER_PARAM_SERIESDL_DESC">
-			<option value="0">JNO</option>
 			<option value="1">JYES</option>
+			<option value="0">JNO</option>
 		</field>
 		<field name="limitseriesdl"
 			type="text"
@@ -88,8 +88,8 @@
 			default="0"
 			label="JGLOBAL_FILTER_FIELD_LABEL"
 			description="COM_SERMONSPEAKER_FILTER_FIELD_DESC">
-				<option value="0">JHIDE</option>
 				<option value="1">JSHOW</option>
+				<option value="0">JHIDE</option>
 		</field>
 
 		<field name="show_pagination_limit"
@@ -98,8 +98,8 @@
 			default="1"
 			label="JGLOBAL_DISPLAY_SELECT_LABEL"
 			description="JGLOBAL_DISPLAY_SELECT_DESC">
-				<option value="0">JHIDE</option>
 				<option value="1">JSHOW</option>
+				<option value="0">JHIDE</option>
 		</field>
 
 		<field name="show_pagination"
@@ -117,8 +117,8 @@
 			default="1"
 			label="JGLOBAL_PAGINATION_RESULTS_LABEL"
 			description="JGLOBAL_PAGINATION_RESULTS_DESC">
-				<option value="0">JHIDE</option>
 				<option value="1">JSHOW</option>
+				<option value="0">JHIDE</option>
 		</field>
 	</fieldset>
 	<fieldset name="layouts"
@@ -257,8 +257,8 @@
 			default="0" 
 			label="COM_SERMONSPEAKER_FIELD_APPEND_PATH_LABEL" 
 			description="COM_SERMONSPEAKER_FIELD_APPEND_PATH_DESC">
-			<option value="0">JNO</option>
 			<option value="1">JYES</option>
+			<option value="0">JNO</option>
 		</field>
 		<field name="append_path_lang"
 			type="radio" 
@@ -266,8 +266,8 @@
 			default="0" 
 			label="COM_SERMONSPEAKER_FIELD_APPEND_PATH_LANG_LABEL" 
 			description="COM_SERMONSPEAKER_FIELD_APPEND_PATH_LANG_DESC">
-			<option value="0">JNO</option>
 			<option value="1">JYES</option>
+			<option value="0">JNO</option>
 		</field>
 		<field name="googlepicker"
 			type="radio" 
@@ -275,8 +275,8 @@
 			default="0" 
 			label="COM_SERMONSPEAKER_FIELD_GOOGLEPICKER_LABEL" 
 			description="COM_SERMONSPEAKER_FIELD_GOOGLEPICKER_DESC">
-			<option value="0">JNO</option>
 			<option value="1">JYES</option>
+			<option value="0">JNO</option>
 		</field>
 		<field name="spacer1"
 			type="spacer" 
@@ -383,8 +383,8 @@
 			default="0"
 			label="COM_SERMONSPEAKER_PARAM_AUTOSTART"
 			description="COM_SERMONSPEAKER_PARAM_AUTOSTART_DESC">
-			<option value="0">JNO</option>
 			<option value="1">JYES</option>
+			<option value="0">JNO</option>
 		</field>
 		<field name="fileswitch" 
 			type="radio"
@@ -392,8 +392,8 @@
 			default="0"
 			label="COM_SERMONSPEAKER_PARAM_FILESWITCH_LABEL"
 			description="COM_SERMONSPEAKER_PARAM_FILESWITCH_DESC">
-			<option value="0">JNO</option>
 			<option value="1">JYES</option>
+			<option value="0">JNO</option>
 		</field>
 		<field name="awidth" 
 			type="text" 
@@ -447,8 +447,8 @@
 			default="0" 
 			label="COM_SERMONSPEAKER_FIELD_SHARE_LABEL" 
 			description="COM_SERMONSPEAKER_FIELD_SHARE_DESC">
-			<option value="0">JNO</option>
 			<option value="1">JYES</option>
+			<option value="0">JNO</option>
 		</field>
 		<field name="viral"
 			type="radio" 
@@ -456,8 +456,8 @@
 			default="0" 
 			label="COM_SERMONSPEAKER_FIELD_VIRAL_LABEL" 
 			description="COM_SERMONSPEAKER_FIELD_VIRAL_DESC">
-			<option value="0">JNO</option>
 			<option value="1">JYES</option>
+			<option value="0">JNO</option>
 		</field>
 		<field name="fbit"
 			type="radio" 
@@ -465,8 +465,8 @@
 			default="0" 
 			label="COM_SERMONSPEAKER_FIELD_FBIT_LABEL" 
 			description="COM_SERMONSPEAKER_FIELD_FBIT_DESC">
-			<option value="0">JNO</option>
 			<option value="1">JYES</option>
+			<option value="0">JNO</option>
 		</field>
 		<field name="tweetit"
 			type="radio" 
@@ -474,8 +474,8 @@
 			default="0" 
 			label="COM_SERMONSPEAKER_FIELD_TWEETIT_LABEL" 
 			description="COM_SERMONSPEAKER_FIELD_TWEETIT_DESC">
-			<option value="0">JNO</option>
 			<option value="1">JYES</option>
+			<option value="0">JNO</option>
 		</field>
 		<field name="plusone"
 			type="radio" 
@@ -483,8 +483,8 @@
 			default="0" 
 			label="COM_SERMONSPEAKER_FIELD_PLUSONE_LABEL" 
 			description="COM_SERMONSPEAKER_FIELD_PLUSONE_DESC">
-			<option value="0">JNO</option>
 			<option value="1">JYES</option>
+			<option value="0">JNO</option>
 		</field>
 	</fieldset>
 	<fieldset name="detailpage"
@@ -496,8 +496,8 @@
 			default="1" 
 			label="COM_SERMONSPEAKER_PARAM_POPUPBTN" 
 			description="COM_SERMONSPEAKER_PARAM_POPUPBTN_DESC">
-			<option value="0">JNO</option>
 			<option value="1">JYES</option>
+			<option value="0">JNO</option>
 		</field>
 		<field name="popup_color" 
 			type="text" 
@@ -515,8 +515,8 @@
 			default="0" 
 			label="COM_SERMONSPEAKER_FIELD_CUSTOM1_LABEL" 
 			description="COM_SERMONSPEAKER_FIELD_CUSTOM1_DESC">
-			<option value="0">JNO</option>
 			<option value="1">JYES</option>
+			<option value="0">JNO</option>
 		</field>
 		<field name="custom2" 
 			type="radio" 
@@ -524,8 +524,8 @@
 			default="0" 
 			label="COM_SERMONSPEAKER_FIELD_CUSTOM2_LABEL" 
 			description="COM_SERMONSPEAKER_FIELD_CUSTOM2_DESC">
-			<option value="0">JNO</option>
 			<option value="1">JYES</option>
+			<option value="0">JNO</option>
 		</field>
 		<field
 			id="show_tags"
@@ -535,8 +535,8 @@
 			default="1"
 			label="COM_SERMONSPEAKER_FIELD_SHOW_TAGS_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_SHOW_TAGS_DESC">
-			<option value="0">JHIDE</option>
 			<option value="1">JSHOW</option>
+			<option value="0">JHIDE</option>
 		</field>
 		<field name="enable_keywords" 
 			type="list" 
@@ -554,8 +554,8 @@
 			default="0" 
 			label="COM_SERMONSPEAKER_FIELD_TAGS_TO_METAKEY_LABEL" 
 			description="COM_SERMONSPEAKER_FIELD_TAGS_TO_METAKEY_DESC">
-			<option value="0">JNO</option>
 			<option value="1">JYES</option>
+			<option value="0">JNO</option>
 		</field>
 		<field name="access" type="accesslevel"
 			label="COM_SERMONSPEAKER_PARAM_ACCESS" 
@@ -571,8 +571,8 @@
 			label="JGLOBAL_SHOW_CATEGORY_TITLE"
 			description="JGLOBAL_SHOW_CATEGORY_TITLE_DESC"
 			default="1">
-			<option value="0">JHIDE</option>
 			<option value="1">JSHOW</option>
+			<option value="0">JHIDE</option>
 		</field>
 		<field name="show_description"
 			type="radio"
@@ -580,16 +580,16 @@
 			label="JGLOBAL_SHOW_CATEGORY_DESCRIPTION_LABEL"
 			description="JGLOBAL_SHOW_CATEGORY_DESCRIPTION_DESC"
 			default="1">
-			<option value="0">JHIDE</option>
 			<option value="1">JSHOW</option>
+			<option value="0">JHIDE</option>
 		</field>
 		<field name="show_description_image" type="radio"
 			class="btn-group btn-group-yesno"
 			label="JGLOBAL_SHOW_CATEGORY_IMAGE_LABEL"
 			description="JGLOBAL_SHOW_CATEGORY_IMAGE_DESC"
 			default="0">
-			<option value="0">JHIDE</option>
 			<option value="1">JSHOW</option>
+			<option value="0">JHIDE</option>
 		</field>
 		<field name="maxLevel" type="list"
 			label="JGLOBAL_MAXIMUM_CATEGORY_LEVELS_LABEL"
@@ -608,24 +608,24 @@
 			label="JGLOBAL_SHOW_EMPTY_CATEGORIES_LABEL"
 			description="COM_SERMONSPEAKER_SHOW_EMPTY_CATEGORIES_DESC"
 			default="0">
-			<option value="0">JHIDE</option>
 			<option value="1">JSHOW</option>
+			<option value="0">JHIDE</option>
 		</field>
 		<field name="show_subcat_desc" type="radio"
 			class="btn-group btn-group-yesno"
 			label="JGLOBAL_SHOW_SUBCATEGORIES_DESCRIPTION_LABEL"
 			description="JGLOBAL_SHOW_SUBCATEGORIES_DESCRIPTION_DESC"
 			default="1">
-			<option value="0">JHIDE</option>
 			<option value="1">JSHOW</option>
+			<option value="0">JHIDE</option>
 		</field>
 		<field name="show_cat_num_items" type="radio"
 			class="btn-group btn-group-yesno"
 			label="COM_SERMONSPEAKER_NUMBER_CATEGORY_ITEMS_LABEL"
 			description="COM_SERMONSPEAKER_NUMBER_CATEGORY_ITEMS_DESC"
 			default="1">
-			<option value="0">JHIDE</option>
 			<option value="1">JSHOW</option>
+			<option value="0">JHIDE</option>
 		</field>
 		<field name="show_subcategory_content" type="list"
 			label="JGLOBAL_SHOW_SUBCATEGORY_CONTENT_LABEL"
@@ -648,8 +648,8 @@
 			label="JGLOBAL_FIELD_SHOW_BASE_DESCRIPTION_LABEL"
 			description="JGLOBAL_FIELD_SHOW_BASE_DESCRIPTION_DESC"
 			default="1">
-			<option value="0">JHIDE</option>
 			<option value="1">JSHOW</option>
+			<option value="0">JHIDE</option>
 		</field>
 		<field name="maxLevelcat" type="list"
 			label="JGLOBAL_MAXIMUM_CATEGORY_LEVELS_LABEL"
@@ -667,24 +667,24 @@
 			label="JGLOBAL_SHOW_EMPTY_CATEGORIES_LABEL"
 			description="COM_SERMONSPEAKER_SHOW_EMPTY_CATEGORIES_DESC"
 			default="0">
-			<option value="0">JHIDE</option>
 			<option value="1">JSHOW</option>
+			<option value="0">JHIDE</option>
 		</field>
 		<field name="show_subcat_desc_cat" type="radio"
 			class="btn-group btn-group-yesno"
 			label="JGLOBAL_SHOW_SUBCATEGORIES_DESCRIPTION_LABEL"
 			description="JGLOBAL_SHOW_SUBCATEGORIES_DESCRIPTION_DESC"
 			default="1">
-			<option value="0">JHIDE</option>
 			<option value="1">JSHOW</option>
+			<option value="0">JHIDE</option>
 		</field>
 		<field name="show_cat_num_items_cat" type="radio"
 			class="btn-group btn-group-yesno"
 			label="COM_SERMONSPEAKER_NUMBER_CATEGORY_ITEMS_LABEL"
 			description="COM_SERMONSPEAKER_NUMBER_CATEGORY_ITEMS_DESC"
 			default="1">
-			<option value="0">JHIDE</option>
 			<option value="1">JSHOW</option>
+			<option value="0">JHIDE</option>
 		</field>
 		<field name="count_items_type" type="list"
 			label="COM_SERMONSPEAKER_CATEGORY_ITEMS_TYPE_LABEL"
@@ -703,8 +703,8 @@
 			default="1" 
 			label="COM_SERMONSPEAKER_PARAM_TRACKSPEAKER" 
 			description="COM_SERMONSPEAKER_PARAM_TRACKSPEAKER_DESC">
-			<option value="0">JNO</option>
 			<option value="1">JYES</option>
+			<option value="0">JNO</option>
 		</field>
 		<field name="track_series" 
 			type="radio" 
@@ -712,8 +712,8 @@
 			default="1" 
 			label="COM_SERMONSPEAKER_PARAM_TRACKSERIES" 
 			description="COM_SERMONSPEAKER_PARAM_TRACKSERIES_DESC">
-			<option value="0">JNO</option>
 			<option value="1">JYES</option>
+			<option value="0">JNO</option>
 		</field>
 		<field name="track_sermon" 
 			type="radio" 
@@ -721,8 +721,8 @@
 			default="1" 
 			label="COM_SERMONSPEAKER_PARAM_TRACKSERMON" 
 			description="COM_SERMONSPEAKER_PARAM_TRACKSERMON_DESC">
-			<option value="0">JNO</option>
 			<option value="1">JYES</option>
+			<option value="0">JNO</option>
 		</field>
 	</fieldset>
 	<fieldset name="frup"
@@ -734,8 +734,8 @@
 			default="0" 
 			label="COM_SERMONSPEAKER_PARAM_FU_ENABLE" 
 			description="COM_SERMONSPEAKER_PARAM_FU_ENABLE_DESC">
-			<option value="0">JNO</option>
 			<option value="1">JYES</option>
+			<option value="0">JNO</option>
 		</field>
 		<field name="enable_flash"
 			type="radio"
@@ -743,8 +743,8 @@
 			default="1"
 			label="COM_SERMONSPEAKER_FIELD_ENABLE_FLASH_UPLOADER_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_ENABLE_FLASH_UPLOADER_DESC">
-			<option value="0">JNO</option>
 			<option value="1">JYES</option>
+			<option value="0">JNO</option>
 		</field>
 		<field name="enable_non_flash"
 			type="radio"
@@ -752,8 +752,8 @@
 			default="1"
 			label="COM_SERMONSPEAKER_FIELD_ENABLE_NON_FLASH_UPLOADER_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_ENABLE_NON_FLASH_UPLOADER_DESC">
-			<option value="0">JNO</option>
 			<option value="1">JYES</option>
+			<option value="0">JNO</option>
 		</field>
 		<field name="audio_filetypes"
 			type="textarea"
@@ -776,8 +776,8 @@
 			default="0"
 			label="COM_SERMONSPEAKER_FIELD_WRITE_ID3_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_WRITE_ID3_DESC">
-			<option value="0">JNO</option>
 			<option value="1">JYES</option>
+			<option value="0">JNO</option>
 		</field>
 		<field name="catfilter_lists"
 			type="radio"
@@ -785,8 +785,8 @@
 			default="0"
 			label="COM_SERMONSPEAKER_FIELD_CATFILTER_LISTS_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_CATFILTER_LISTS_DESC">
-			<option value="0">JNO</option>
 			<option value="1">JYES</option>
+			<option value="0">JNO</option>
 		</field>
 		<field name="addfiledesc"
 			type="text"
@@ -806,8 +806,8 @@
 			label="JGLOBAL_SAVE_HISTORY_OPTIONS_LABEL"
 			description="JGLOBAL_SAVE_HISTORY_OPTIONS_DESC"
 			>
-			<option value="0">JNO</option>
 			<option value="1">JYES</option>
+			<option value="0">JNO</option>
 		</field>
 		<field
 			name="history_limit"
@@ -858,8 +858,8 @@
 			default="1"
 			label="COM_SERMONSPEAKER_FIELD_USE_SEF_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_USE_SEF_DESC">
-			<option value="0">JNO</option>
 			<option value="1">JYES</option>
+			<option value="0">JNO</option>
 		</field>
 		<field name="prepare_content"
 			type="radio"
@@ -867,8 +867,8 @@
 			default="1"
 			label="COM_SERMONSPEAKER_FIELD_PREPARE_CONTENT_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_PREPARE_CONTENT_DESC">
-			<option value="0">JNO</option>
 			<option value="1">JYES</option>
+			<option value="0">JNO</option>
 		</field>
 		<field name="limit_text"
 			type="radio"
@@ -876,8 +876,8 @@
 			default="1"
 			label="COM_SERMONSPEAKER_PARAM_FEED_LIMITTEXT"
 			description="COM_SERMONSPEAKER_PARAM_FEED_LIMITTEXT_DESC">
-			<option value="0">JNO</option>
 			<option value="1">JYES</option>
+			<option value="0">JNO</option>
 		</field>
 		<field name="text_length" 
 			type="text" 
@@ -991,8 +991,8 @@
 			default="0"
 			label="COM_SERMONSPEAKER_FIELD_ENABLE_JCOMMENTS_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_ENABLE_JCOMMENTS_DESC">
-			<option value="0">JNO</option>
 			<option value="1">JYES</option>
+			<option value="0">JNO</option>
 		</field>
 		<field name="enable_ga_events"
 			type="radio"
@@ -1000,8 +1000,8 @@
 			default="0"
 			label="COM_SERMONSPEAKER_FIELD_ENABLE_GA_EVENTS_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_ENABLE_GA_EVENTS_DESC">
-			<option value="0">JNO</option>
 			<option value="1">JYES</option>
+			<option value="0">JNO</option>
 		</field>
 		<field
 			name="show_feed_link"
@@ -1010,8 +1010,8 @@
 			default="1"
 			label="JGLOBAL_SHOW_FEED_LINK_LABEL"
 			description="JGLOBAL_SHOW_FEED_LINK_DESC">
-				<option value="0">JHIDE</option>
-				<option value="1">JSHOW</option>
+			<option value="1">JSHOW</option>
+			<option value="0">JHIDE</option>
 		</field>
 
 		<field name="facebook_spacer1" 
@@ -1027,8 +1027,8 @@
 			default="1" 
 			label="COM_SERMONSPEAKER_FIELD_OPENGRAPH_LABEL" 
 			description="COM_SERMONSPEAKER_FIELD_OPENGRAPH_DESC" >
-			<option value="0">JDISABLED</option>
 			<option value="1">JENABLED</option>
+			<option value="0">JDISABLED</option>
 		</field>
 		<field name="fbadmins" 
 			type="text" 

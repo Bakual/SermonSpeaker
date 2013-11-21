@@ -21,6 +21,7 @@
 			<fieldset name="basic">
 				<field name="serie_expand" type="radio"
 					default="1"
+					class="btn-group btn-group-yesno"
 					label="XMAP_SERMONSPEAKER_SERIE_EXPAND_LABEL"
 					description="XMAP_SERMONSPEAKER_SERIE_EXPAND_DESC">
 					<option value="1">JYES</option>
@@ -58,6 +59,7 @@
 				</field>
 				<field name="speaker_expand" type="radio"
 					default="1"
+					class="btn-group btn-group-yesno"
 					label="XMAP_SERMONSPEAKER_SPEAKER_EXPAND_LABEL"
 					description="XMAP_SERMONSPEAKER_SPEAKER_EXPAND_DESC">
 					<option value="1">JYES</option>

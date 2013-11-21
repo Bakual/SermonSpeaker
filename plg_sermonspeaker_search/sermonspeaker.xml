@@ -27,48 +27,48 @@
 				/>
 				<field name="search_content" type="radio"
 					default="1"
-					class="btn-group"
+					class="btn-group btn-group-yesno"
 					description="JFIELD_PLG_SEARCH_ALL_DESC"
 					label="JFIELD_PLG_SEARCH_ALL_LABEL"
 				>
-					<option value="0">JOFF</option>
 					<option value="1">JON</option>
+					<option value="0">JOFF</option>
 				</field>
 				<field name="search_archived" type="radio"
 					default="0"
-					class="btn-group"
+					class="btn-group btn-group-yesno"
 					description="JFIELD_PLG_SEARCH_ARCHIVED_DESC"
 					label="JFIELD_PLG_SEARCH_ARCHIVED_LABEL"
 				>
-					<option value="0">JOFF</option>
 					<option value="1">JON</option>
+					<option value="0">JOFF</option>
 				</field>
 				<field name="search_series" type="radio"
 					default="1"
-					class="btn-group"
+					class="btn-group btn-group-yesno"
 					label="PLG_SEARCH_SERMONSPEAKER_SEARCH_SERIES_LABEL"
 					description="PLG_SEARCH_SERMONSPEAKER_SEARCH_SERIES_DESC"
 				>
-					<option value="0">JOFF</option>
 					<option value="1">JON</option>
+					<option value="0">JOFF</option>
 				</field>
 				<field name="search_speakers" type="radio"
 					default="1"
-					class="btn-group"
+					class="btn-group btn-group-yesno"
 					label="PLG_SEARCH_SERMONSPEAKER_SEARCH_SPEAKERS_LABEL"
 					description="PLG_SEARCH_SERMONSPEAKER_SEARCH_SPEAKERS_DESC"
 				>
-					<option value="0">JOFF</option>
 					<option value="1">JON</option>
+					<option value="0">JOFF</option>
 				</field>
 				<field name="sermons_speaker" type="radio"
 					default="0"
-					class="btn-group"
+					class="btn-group btn-group-yesno"
 					label="PLG_SEARCH_SERMONSPEAKER_SERMONS_SPEAKER_LABEL"
 					description="PLG_SEARCH_SERMONSPEAKER_SERMONS_SPEAKER_DESC"
 				>
-					<option value="0">JOFF</option>
 					<option value="1">JON</option>
+					<option value="0">JOFF</option>
 				</field>
 			</fieldset>
 		</fields>
