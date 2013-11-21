@@ -26,7 +26,7 @@ $level = 1;
 				if (strpos($pic, 'http://') !== 0):
 					$pic = JURI::root().trim($pic, ' /');
 				endif;
-				$tip	= '<img src="'.$pic.'" alt="" style="float:right; margin-left:15px;max-width:150px;"> '.$tip;
+				$tip	= '<div class="clearfix"><img src="'.$pic.'" alt="" class="pull-right img-rounded">' . $tip . '</div>';
 			endif;
 			echo JHtml::tooltip($tip, $options); 
 		else: ?>
