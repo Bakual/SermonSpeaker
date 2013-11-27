@@ -54,11 +54,18 @@ class SermonspeakerModelFiles extends JModelLegacy
 				break;
 		}
 		$params	= JComponentHelper::getParams('com_sermonspeaker');
-		$folder	= JPATH_SITE.'/'.$params->get('path');
+		$folders[]	= JPATH_SITE.'/'.$params->get('path_audio');
+		if ($params->get('path_audio') != $params->get('path_video'))
+		{
+			$folders[]	= JPATH_SITE.'/'.$params->get('path_video');
+		}
 		jimport('joomla.filesystem.folder');
 		$files	= array();
-		foreach($filters as $filter){
-			$files	= array_merge($files, JFolder::files($folder, $filter, true, true));
+		foreach ($folders as $folder)
+		{
+			foreach($filters as $filter){
+				$files	= array_merge($files, JFolder::files($folder, $filter, true, true));
+			}
 		}
 		sort($files);
 
