@@ -90,6 +90,11 @@ class SermonspeakerHelperId3
 				$query = "SELECT id FROM #__sermon_series WHERE title like '".$db->escape($FileInfo['comments']['album'][0])."';";
 				$db->setQuery($query);
 				$id3['series_id'] 	= $db->loadResult();
+
+				if (!$id3['series_id'])
+				{
+					$id3['not_found']['series']	= $FileInfo['comments']['album'][0];
+				}
 			}
 			else
 			{
@@ -100,6 +105,11 @@ class SermonspeakerHelperId3
 				$query = "SELECT id FROM #__sermon_speakers WHERE title like '".$db->escape($FileInfo['comments']['artist'][0])."';";
 				$db->setQuery($query);
 				$id3['speaker_id']	= $db->loadResult();
+
+				if (!$id3['speaker_id'])
+				{
+					$id3['not_found']['speakers']	= $FileInfo['comments']['artist'][0];
+				}
 			}
 			else
 			{

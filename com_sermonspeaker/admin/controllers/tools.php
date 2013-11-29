@@ -426,6 +426,7 @@ class SermonspeakerControllerTools extends JControllerLegacy
 		// manually loading sermon model so the correct instance will be used from frontend.
 		require_once JPATH_COMPONENT_ADMINISTRATOR.'/models/sermon.php';
 		$i = 0;
+		$missing	= array();
 		foreach ($files as $file)
 		{
 			$id3 = SermonspeakerHelperId3::getID3($file['file'], $params);
@@ -458,9 +459,39 @@ class SermonspeakerControllerTools extends JControllerLegacy
 			{
 				$i++;
 			}
+
+			if (isset($id3['not_found']))
+			{
+				foreach ($id3['not_found'] as $key => $value)
+				{
+					$missing[$key][]	= $value;
+				}
+			}
 		}
 
 		$app->enqueueMessage(JText::sprintf('COM_SERMONSPEAKER_TOOLS_AUTOMATIC_CREATED', $i));
+
+		if ($missing)
+		{
+			$message = '<div class="row-fluid">'
+					. '<div class="span12">' . JText::_('COM_SERMONSPEAKER_ID3_NO_MATCH_FOUND') . '</div>';
+			$span	= 'span' . (int) 12 / count($missing);
+			foreach ($missing as $key => $values)
+			{
+				$array_count	= array_count_values($values);
+				$message	.= '<div class="' . $span . '">'
+							. '<h5>' . JText::_('COM_SERMONSPEAKER_' . strtoupper($key)) . '</h5>'
+							. '<ul>';
+				foreach ($array_count as $key => $value)
+				{
+					$message	.= '<li>' . $key . ' <span class="badge">' . $value . '</span></li>';
+				}
+				$message	.= '</ul></div>';
+			}
+			$message	.= '</div>';
+		}
+		$app->enqueueMessage($message, 'notice');
+
 		$this->setRedirect('index.php?option=com_sermonspeaker&view=tools');
 		return;
 	}
