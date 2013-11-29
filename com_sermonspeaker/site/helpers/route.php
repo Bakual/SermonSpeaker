@@ -347,7 +347,7 @@ abstract class SermonspeakerHelperRoute
 			// Get first SermonSpeaker menuitem found
 			if (isset(self::$lookup[$language]))
 			{
-				$first	= self::$lookup[$language];
+				$first	= reset(self::$lookup[$language]);
 				return reset($first);
 			}
 
