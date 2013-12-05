@@ -302,7 +302,7 @@ class Com_SermonspeakerInstallerScript
 		$common->core_language			= 'language';
 		$common->core_images			= 'picture'; // Does this work?
 		$common->core_urls				= null;
-		$common->core_version			= null;
+		$common->core_version			= 'version';
 		$common->core_ordering			= 'ordering';
 		$common->core_metakey			= 'metakey';
 		$common->core_metadesc			= 'metadesc';
@@ -422,6 +422,79 @@ class Com_SermonspeakerInstallerScript
 		$contenttype['table']					= json_encode($table_object);
 		$contenttype['rules']					= '';
 		$contenttype['router']					= 'SermonspeakerHelperRoute::getSerieRoute';
+		$contenttype['field_mappings']			= json_encode($field_mappings);
+		$contenttype['content_history_options']	= json_encode($history);
+
+		$table->save($contenttype);
+
+		// Create/Update Category Type
+		$table->type_id	= 0;
+		$table->load(array('type_alias' => 'com_sermonspeaker.category'));
+
+		$field_mappings->common->core_state			= 'published';
+		$field_mappings->common->core_created_time	= 'created_time';
+		$field_mappings->common->core_modified_time	= 'modified_time';
+		$field_mappings->common->core_body			= 'description';
+		$field_mappings->common->core_images		= null;
+		$field_mappings->common->core_access		= 'access';
+		$field_mappings->common->core_params		= 'params';
+		$field_mappings->common->core_metadata		= 'metadata';
+		$field_mappings->common->core_ordering		= null;
+		$field_mappings->common->core_catid			= 'parent_id';
+		$field_mappings->common->asset_id			= 'asset_id';
+		$field_mappings->special->parent_id			= 'parent_id';
+		$field_mappings->special->lft				= 'lft';
+		$field_mappings->special->rgt				= 'rgt';
+		$field_mappings->special->level				= 'level';
+		$field_mappings->special->path				= 'path';
+		$field_mappings->special->extension			= 'extension';
+		$field_mappings->special->note				= 'note';
+
+		$special	= new stdClass;
+		$special->dbtable		= '#__categories';
+		$special->key			= 'id';
+		$special->type			= 'Category';
+		$special->prefix		= 'JTable';
+		$special->config		= 'array()';
+
+		$history	= new stdClass;
+		$history->form_file		= 'administrator/components/com_categories/models/forms/category.xml';
+		$history->hideFields	= array('asset_id', 'checked_out', 'checked_out_time', 'version', 'lft', 'rgt', 'level', 'path', 'extension');
+		$history->ignoreChanges	= array('modified_user_id', 'modified_time', 'checked_out', 'checked_out_time', 'version', 'hits', 'path');
+		$history->convertToInt	= array('publish_up', 'publish_down');
+
+		$displayLookup1	= new stdClass;
+		$displayLookup1->sourceColumn	= 'created_user_id';
+		$displayLookup1->targetTable	= '#__users';
+		$displayLookup1->targetColumn	= 'id';
+		$displayLookup1->displayColumn	= 'name';
+		$history->displayLookup[]		= $displayLookup1;
+
+		$displayLookup2	= clone $displayLookup1;
+		$displayLookup2->sourceColumn	= 'modified_user_id';
+		$displayLookup2->targetTable	= '#__users';
+		$history->displayLookup[]		= $displayLookup2;
+ 
+		$displayLookup3	= clone $displayLookup1;
+		$displayLookup3->sourceColumn	= 'access';
+		$displayLookup3->targetTable	= '#__viewlevels';
+		$displayLookup3->displayColumn	= 'title';
+		$history->displayLookup[]		= $displayLookup3;
+
+		$displayLookup4	= clone $displayLookup1;
+		$displayLookup4->sourceColumn	= 'parent_id';
+		$displayLookup4->targetTable	= '#__categories';
+		$history->displayLookup[]		= $displayLookup4;
+
+		$table_object	= new stdClass;
+		$table_object->special	= $special;
+
+		$contenttype['type_id']					= ($table->type_id) ? $table->type_id : 0;
+		$contenttype['type_title']				= 'SermonSpeaker Category';
+		$contenttype['type_alias']				= 'com_sermonspeaker.category';
+		$contenttype['table']					= json_encode($table_object);
+		$contenttype['rules']					= '';
+		$contenttype['router']					= 'SermonspeakerHelperRoute::getSermonsRoute';
 		$contenttype['field_mappings']			= json_encode($field_mappings);
 		$contenttype['content_history_options']	= json_encode($history);
 
