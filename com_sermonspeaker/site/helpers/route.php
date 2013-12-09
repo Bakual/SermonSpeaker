@@ -348,7 +348,10 @@ abstract class SermonspeakerHelperRoute
 			if (isset(self::$lookup[$language]))
 			{
 				$first	= reset(self::$lookup[$language]);
-				return reset($first);
+				if ($first)
+				{
+					return reset($first);
+				}
 			}
 
 			// if not found in second try, return language specific home link
