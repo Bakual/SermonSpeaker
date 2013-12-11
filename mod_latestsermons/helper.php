@@ -20,14 +20,7 @@ abstract class modLatestsermonsHelper
 		$query->join('LEFT', '#__sermon_speakers AS b ON b.id = a.speaker_id');
 		$query->join('LEFT', '#__sermon_series AS c ON c.id = a.series_id');
 		$query->where('a.state = 1');
-		if ($params->get('mode', 0))
-		{
-			$query->order('a.hits DESC, (sermon_number+0) DESC');
-		}
-		else
-		{
-			$query->order('sermon_date DESC, (sermon_number+0) DESC');
-		}
+
 		// Category
 		if ($cat = (int)$params->get('cat', 0))
 		{
@@ -107,6 +100,23 @@ abstract class modLatestsermonsHelper
 			{
 				$query->where('a.audiofile != ""');
 			}
+		}
+
+		// Ordering
+		$mode	= $params->get('mode', 0);
+		$dir	= $params->get('dir', 1) ? 'DESC' : 'ASC';
+		switch ($mode)
+		{
+			case 0:
+			default:
+				$query->order('sermon_date ' . $dir . ', (sermon_number+0) ' . $dir);
+				break;
+			case 1:
+				$query->order('a.hits ' . $dir . ', (sermon_number+0) ' . $dir);
+				break;
+			case 2:
+				$query->order('a.created ' . $dir . ', (sermon_number+0) ' . $dir);
+				break;
 		}
 
 		$db->setQuery($query, 0, (int)$params->get('ls_count', 3));

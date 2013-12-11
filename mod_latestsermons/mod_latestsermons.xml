@@ -25,12 +25,20 @@
 			<fieldset name="basic"
 				addfieldpath="/administrator/components/com_sermonspeaker/models/fields">
 				<field name="mode" type="list" 
-					label="MOD_LATESTSERMONS_PARAM_MODE_LABEL" 
-					description="MOD_LATESTSERMONS_PARAM_MODE_DESC"
-					required="true"
+					label="JFIELD_ORDERING_LABEL" 
+					description="JFIELD_ORDERING_DESC"
 					default="0" >
-					<option value="0">MOD_LATESTSERMONS_PARAM_MODE_OPTION_LATEST</option>
-					<option value="1">MOD_LATESTSERMONS_PARAM_MODE_OPTION_POPULAR</option>
+					<option value="0">JDATE</option>
+					<option value="1">JGLOBAL_HITS</option>
+					<option value="2">JGLOBAL_CREATED</option>
+				</field>
+				<field name="dir" type="radio" 
+					label="JGLOBAL_ORDER_DIRECTION_LABEL" 
+					description="JGLOBAL_ORDER_DIRECTION_DESC"
+					class="btn-group btn-group-yesno"
+					default="1" >
+					<option value="1">JGLOBAL_ORDER_DESCENDING</option>
+					<option value="0">JGLOBAL_ORDER_ASCENDING</option>
 				</field>
 				<field name="ls_count" type="text" 
 					label="MOD_LATESTSERMONS_PARAM_COUNT" 
