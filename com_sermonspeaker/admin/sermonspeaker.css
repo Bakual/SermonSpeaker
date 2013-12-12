@@ -233,3 +233,20 @@ input[type="text"].invalid, select.invalid, .invalid span, .invalid{
 	border-color:red;
 	color:red;
 }
+div.icon-checkmark,
+div.icon-plus-2{
+	color: #468847;
+}
+div.icon-checkmark:hover,
+div.icon-checkmark:focus,
+div.icon-plus-2:hover,
+div.icon-plus-2:focus{
+	color: #356635;
+}
+div.icon-cancel{
+	color: #b94a48;
+}
+div.icon-cancel:hover,
+div.icon-cancel:focus {
+	color: #953b39;
+}

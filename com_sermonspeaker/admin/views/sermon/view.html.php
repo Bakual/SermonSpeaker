@@ -188,9 +188,6 @@ class SermonspeakerViewSermon extends JViewLegacy
 						swfupload_loaded_handler: function() {
 							document.id("btnCancel1").removeClass("ss-hide");
 							document.id("audiopathinfo").removeClass("ss-hide");
-							if(document.id("upload_limit_audio")){
-								document.id("upload_limit_audio").removeClass("ss-hide");
-							}
 							if(document.id("upload-noflash")){
 								document.id("upload-noflash").destroy();
 								document.id("loading").destroy();
@@ -245,9 +242,6 @@ class SermonspeakerViewSermon extends JViewLegacy
 						swfupload_loaded_handler: function() {
 							document.id("btnCancel2").removeClass("ss-hide");
 							document.id("videopathinfo").removeClass("ss-hide");
-							if(document.id("upload_limit_video")){
-								document.id("upload_limit_video").removeClass("ss-hide");
-							}
 							if(document.id("upload-noflash")){
 								document.id("upload-noflash").destroy();
 								document.id("loading").destroy();
@@ -302,9 +296,6 @@ class SermonspeakerViewSermon extends JViewLegacy
 						swfupload_loaded_handler: function() {
 							document.id("btnCancel3").removeClass("ss-hide");
 							document.id("addfilepathinfo").removeClass("ss-hide");
-							if(document.id("upload_limit_addfile")){
-								document.id("upload_limit_addfile").removeClass("ss-hide");
-							}
 							if(document.id("upload-noflash")){
 								document.id("upload-noflash").destroy();
 								document.id("loading").destroy();
@@ -364,7 +355,6 @@ class SermonspeakerViewSermon extends JViewLegacy
 			$this->bucket	= $bucket;
 			$this->prefix	= $prefix;
 		}
-
 
 		// Calculate destination path to show
 		if ($this->params->get('append_path', 0))
