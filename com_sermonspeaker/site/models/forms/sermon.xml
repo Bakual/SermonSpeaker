@@ -49,7 +49,7 @@
 			label="JFIELD_ORDERING_LABEL"
 			description="JFIELD_ORDERING_DESC" />
 
-		<field name="audiofile" type="customfilelist" class="inputbox"
+		<field name="audiofile" type="customfilelist" class="inputbox input-xlarge"
 			file="audio" 
 			hide_default="true"
 			hide_none="true"
@@ -58,7 +58,7 @@
 			label="COM_SERMONSPEAKER_FIELD_AUDIOFILE_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_AUDIOFILE_DESC" />
 
-		<field name="videofile" type="customfilelist" class="inputbox"
+		<field name="videofile" type="customfilelist" class="inputbox input-xlarge"
 			file="video" 
 			hide_default="true"
 			hide_none="true"
@@ -72,7 +72,7 @@
 			label="COM_SERMONSPEAKER_FIELD_NOTES_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_NOTES_DESC" />
 
-		<field name="addfile" type="customfilelist" class="inputbox"
+		<field name="addfile" type="customfilelist" class="inputbox input-xlarge"
 			file="addfile" 
 			hide_default="true"
 			hide_none="true"
