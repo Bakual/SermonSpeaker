@@ -196,6 +196,15 @@
 			extension="com_sermonspeaker"
 			view="categories"
 		/>
+		<field
+			name="css_icomoon" type="radio"
+			label="COM_SERMONSPEAKER_FIELD_CSS_ICOMOON_LABEL"
+			description="COM_SERMONSPEAKER_FIELD_CSS_ICOMOON_DESC"
+			class="btn-group btn-group-yesno"
+			default="0" >
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
 	</fieldset>
 	<fieldset name="clientcol"
 		addfieldpath="/administrator/components/com_sermonspeaker/models/fields"

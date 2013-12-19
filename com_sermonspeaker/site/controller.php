@@ -25,6 +25,12 @@ class SermonspeakerController extends JControllerLegacy
 		$cachable	= JFactory::getUser()->get('id') ? false : true;
 		$viewName	= $this->input->get('view', $this->default_view);
 
+		$params		= JFactory::getApplication()->getParams();
+		if ($params->get('css_icomoon'))
+		{
+			JHtml::_('stylesheet', 'jui/icomoon.css', array(), true);
+		}
+
 		// Make sure the format is raw for feed and sitemap view
 		// Bug: Doesn't take into account additional filters (type, cat)
 		if (($viewName == 'feed' || $viewName == 'sitemap') && $this->input->get('format') != 'raw')
