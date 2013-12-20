@@ -49,7 +49,7 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 
 		$html	= '<div class="input-prepend input-append">'
 					. '<div id="' . $this->fieldname . '_text_icon" class="btn add-on icon-checkmark" onclick="toggleElement(\'' . $this->fieldname . '\', 0);"> </div>'
-					. '<input name="' . $this->name . '" id="' . $this->id . '_text" class="' . $this->class . ' value="' . $this->value . '" type="text">';
+					. '<input name="' . $this->name . '" id="' . $this->id . '_text" class="' . $this->class . '" value="' . $this->value . '" type="text">';
 		if ($this->file != 'addfile')
 		{
 			$html	.= '<div class="btn add-on hasTooltip icon-wand" onclick="lookup(document.getElementById(\'' . $this->id . '_text\'))" title="' . JText::_('COM_SERMONSPEAKER_LOOKUP') . '"> </div>';
