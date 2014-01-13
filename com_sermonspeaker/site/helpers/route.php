@@ -50,10 +50,6 @@ abstract class SermonspeakerHelperRoute
 		{
 			$link .= '&Itemid='.$item;
 		}
-		elseif ($item = self::_findItem())
-		{
-			$link .= '&Itemid='.$item;
-		}
 
 		return $link;
 	}
@@ -84,10 +80,6 @@ abstract class SermonspeakerHelperRoute
 		}
 
 		if ($item = self::_findItem($needles))
-		{
-			$link .= '&Itemid='.$item;
-		}
-		elseif ($item = self::_findItem())
 		{
 			$link .= '&Itemid='.$item;
 		}
@@ -123,10 +115,6 @@ abstract class SermonspeakerHelperRoute
 		}
 
 		if ($item = self::_findItem($needles))
-		{
-			$link .= '&Itemid='.$item;
-		}
-		elseif ($item = self::_findItem())
 		{
 			$link .= '&Itemid='.$item;
 		}
@@ -172,10 +160,6 @@ abstract class SermonspeakerHelperRoute
 		{
 			$link .= '&Itemid='.$item;
 		}
-		elseif ($item = self::_findItem())
-		{
-			$link .= '&Itemid='.$item;
-		}
 
 		return $link;
 	}
@@ -209,10 +193,6 @@ abstract class SermonspeakerHelperRoute
 		}
 
 		if ($item = self::_findItem($needles))
-		{
-			$link .= '&Itemid='.$item;
-		}
-		elseif ($item = self::_findItem())
 		{
 			$link .= '&Itemid='.$item;
 		}
@@ -256,10 +236,6 @@ abstract class SermonspeakerHelperRoute
 		}
 
 		if ($item = self::_findItem($needles))
-		{
-			$link .= '&Itemid='.$item;
-		}
-		elseif ($item = self::_findItem())
 		{
 			$link .= '&Itemid='.$item;
 		}
@@ -318,6 +294,7 @@ abstract class SermonspeakerHelperRoute
 				}
 			}
 		}
+
 		if ($needles)
 		{
 			foreach ($needles as $view => $ids)
@@ -342,24 +319,19 @@ abstract class SermonspeakerHelperRoute
 			return $active->id;
 		}
 
-		if (!$needles)
+		// Get first SermonSpeaker menuitem found
+		if (isset(self::$lookup[$language]))
 		{
-			// Get first SermonSpeaker menuitem found
-			if (isset(self::$lookup[$language]))
+			$first	= reset(self::$lookup[$language]);
+			if ($first)
 			{
-				$first	= reset(self::$lookup[$language]);
-				if ($first)
-				{
-					return reset($first);
-				}
+				return reset($first);
 			}
-
-			// if not found in second try, return language specific home link
-			$default = $menus->getDefault($language);
-			return !empty($default->id) ? $default->id : null;
 		}
 
-		return;
+		// if nothing found, return language specific home link
+		$default = $menus->getDefault($language);
+		return !empty($default->id) ? $default->id : null;
 	}
 
 	protected static function _getLanguages()
