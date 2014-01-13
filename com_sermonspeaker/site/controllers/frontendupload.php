@@ -228,6 +228,18 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 		$app	= JFactory::getApplication();
 		$db		= JFactory::getDBO();
 
+		// Check filenames and show a warning if one isn't save to use in an URL. Store anyway.
+		$files	= array('audiofile', 'videofile', 'addfile');
+		foreach ($files as $file)
+		{
+			$filename	= JFile::stripExt(basename($validData[$file]));
+			if ($filename != JApplication::stringURLSafe($filename) && $filename != str_replace(' ', '_', JFile::makeSafe($filename)))
+			{
+				$text	= JText::_('COM_SERMONSPEAKER_FILENAME_NOT_IDEAL') . ': ' . $validData[$file];
+				$app->enqueueMessage($text, 'warning');
+			}
+		}
+
 		// Scriptures
 		$query	= "DELETE FROM #__sermon_scriptures \n"
 				."WHERE sermon_id = ".$recordId

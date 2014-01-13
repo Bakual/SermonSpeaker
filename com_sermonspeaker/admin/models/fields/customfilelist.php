@@ -44,10 +44,23 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 		// Get and sanitize file parameter
 		$this->file		= (string) $this->element['file'];
 		$this->file		= (in_array($this->file, array('audio', 'video', 'addfile'))) ? $this->file : 'audio';
-		 // Mode: 0 = Default, 1 = Vimeo, 2 = Amazon S3, 3 = Extern
+		// Mode: 0 = Default, 1 = Vimeo, 2 = Amazon S3, 3 = Extern
 		$this->mode = $this->params->get('path_mode_'.$this->file, 0);
 
-		$html	= '<div class="input-prepend input-append">'
+		$html	= '';
+
+		// Check Filename for possible problems
+		$filename	= JFile::stripExt(basename($this->value));
+		if ($filename != JApplication::stringURLSafe($filename) && $filename != str_replace(' ', '_', JFile::makeSafe($filename)))
+		{
+			$html .= '<div class="alert alert-warning">'
+						. '<button type="button" class="close" data-dismiss="alert">&times;</button>'
+						. '<span class="icon-notification"></span> '
+						. JText::_('COM_SERMONSPEAKER_FILENAME_NOT_IDEAL')
+					. '</div>';
+		}
+
+		$html	.= '<div class="input-prepend input-append">'
 					. '<div id="' . $this->fieldname . '_text_icon" class="btn add-on icon-checkmark" onclick="toggleElement(\'' . $this->fieldname . '\', 0);"> </div>'
 					. '<input name="' . $this->name . '" id="' . $this->id . '_text" class="' . $this->class . '" value="' . $this->value . '" type="text">';
 		if ($this->file != 'addfile')

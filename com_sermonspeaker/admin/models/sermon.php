@@ -277,7 +277,7 @@ class SermonspeakerModelSermon extends JModelAdmin
 		jimport('joomla.filter.output');
 
 		$table->title	= htmlspecialchars_decode($table->title, ENT_QUOTES);
-		$table->alias			= JApplication::stringURLSafe($table->alias);
+		$table->alias	= JApplication::stringURLSafe($table->alias);
 
 		if (empty($table->alias)) {
 			$table->alias = JApplication::stringURLSafe($table->title);
