@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<ruleset name="LESSAllrounder">
+	<description>Custom coding standard for LESS Allrounder template.</description>
+
+	<!-- Exclude folders not containing production code -->
+	<exclude-pattern type="relative">build/*</exclude-pattern>
+
+	<!-- Exclude 3rd party libraries. -->
+	<exclude-pattern>lessc.inc.php</exclude-pattern>
+	<exclude-pattern>*.js</exclude-pattern>
+	<exclude-pattern>*.css</exclude-pattern>
+
+	<rule ref="Joomla"/>
+	<rule ref="Generic.Files.LineLength">
+		<exclude-pattern type="relative">tpl_lessallrounder</exclude-pattern>
+	</rule>
+	<rule ref="Zend.Files.ClosingTag">
+		<exclude-pattern type="relative">tpl_lessallrounder</exclude-pattern>
+	</rule>
+	<rule ref="Generic.Formatting.DisallowMultipleStatements">
+		<exclude-pattern type="relative">tpl_lessallrounder</exclude-pattern>
+	</rule>
+	<!-- 'Expected "if (...)\n)"; found "if (...) "' -->
+	<rule ref="Joomla.ControlStructures.ControlSignature">
+		<exclude-pattern type="relative">tpl_lessallrounder</exclude-pattern>
+	</rule>
+	<rule ref="Joomla.ControlStructures.InlineControlStructure">
+		<exclude-pattern type="relative">tpl_lessallrounder</exclude-pattern>
+	</rule>
+	<rule ref="Joomla.ControlStructures.MultiLineCondition">
+		<exclude-pattern type="relative">tpl_lessallrounder</exclude-pattern>
+	</rule>
+	<!-- 'Blank line found at start of control structure' -->
+	<!-- 'Blank line found at end of control structure' -->
+	<rule ref="Joomla.WhiteSpace.ControlStructureSpacing">
+		<exclude-pattern type="relative">tpl_lessallrounder</exclude-pattern>
+	</rule>
+	<!-- 'Closing brace must be on a line by itself' -->
+	<rule ref="Squiz.WhiteSpace.ScopeClosingBrace">
+		<exclude-pattern type="relative">tpl_lessallrounder</exclude-pattern>
+	</rule>
+</ruleset>
