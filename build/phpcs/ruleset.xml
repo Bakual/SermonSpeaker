@@ -1,9 +1,46 @@
 <?xml version="1.0"?>
-<ruleset name="LESSAllrounder">
-	<description>Custom coding standard for LESS Allrounder template.</description>
+<ruleset name="SermonSpeaker">
+	<description>Custom coding standard for SermonSpeaker extensions</description>
 
 	<!-- Exclude folders not containing production code -->
-	<exclude-pattern type="relative">build/*</exclude-pattern>
+	<exclude-pattern type="relative">build\*</exclude-pattern>
 
-	<rule ref="Joomla"/>
+	<rule ref="Joomla" />
+
+	<rule ref="Generic.Files.LineLength">
+		<exclude-pattern type="relative">*\tmpl\*</exclude-pattern>
+		<exclude-pattern type="relative">tmpl\*</exclude-pattern>
+	</rule>
+	<rule ref="Zend.Files.ClosingTag">
+		<exclude-pattern type="relative">*\tmpl\*</exclude-pattern>
+		<exclude-pattern type="relative">tmpl\*</exclude-pattern>
+	</rule>
+	<rule ref="Generic.Formatting.DisallowMultipleStatements">
+		<exclude-pattern type="relative">*\tmpl\*</exclude-pattern>
+		<exclude-pattern type="relative">tmpl\*</exclude-pattern>
+	</rule>
+	<!-- 'Closing brace must be on a line by itself' -->
+	<rule ref="Squiz.WhiteSpace.ScopeClosingBrace">
+		<exclude-pattern type="relative">*\tmpl\*</exclude-pattern>
+		<exclude-pattern type="relative">tmpl\*</exclude-pattern>
+	</rule>
+	<!-- 'Expected "if (...)\n)"; found "if (...) "' -->
+	<rule ref="Joomla.ControlStructures.ControlSignature">
+		<exclude-pattern type="relative">*\tmpl\*</exclude-pattern>
+		<exclude-pattern type="relative">tmpl\*</exclude-pattern>
+	</rule>
+	<rule ref="Joomla.ControlStructures.InlineControlStructure">
+		<exclude-pattern type="relative">*\tmpl\*</exclude-pattern>
+		<exclude-pattern type="relative">tmpl\*</exclude-pattern>
+	</rule>
+	<rule ref="Joomla.ControlStructures.MultiLineCondition">
+		<exclude-pattern type="relative">*\tmpl\*</exclude-pattern>
+		<exclude-pattern type="relative">tmpl\*</exclude-pattern>
+	</rule>
+	<!-- 'Blank line found at start of control structure' -->
+	<!-- 'Blank line found at end of control structure' -->
+	<rule ref="Joomla.WhiteSpace.ControlStructureSpacing">
+		<exclude-pattern type="relative">*\tmpl\*</exclude-pattern>
+		<exclude-pattern type="relative">tmpl\*</exclude-pattern>
+	</rule>
 </ruleset>

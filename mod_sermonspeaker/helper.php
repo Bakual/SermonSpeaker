@@ -1,26 +1,48 @@
 <?php
-// no direct access
-defined('_JEXEC') or die;
+/**
+ * @package     SermonSpeaker
+ * @subpackage  Module.SermonSpeaker
+ * @author      Thomas Hunziker <admin@sermonspeaker.net>
+ * @copyright   (C) 2014 - Thomas Hunziker
+ * @license     http://www.gnu.org/licenses/gpl.html
+ **/
 
-abstract class modSermonspeakerHelper
+defined('_JEXEC') or die();
+
+/**
+ * Helper class for SermonSpeaker module
+ *
+ * @since  1.0
+ */
+abstract class ModSermonspeakerHelper
 {
+	/**
+	 * Gets the items from the database
+	 *
+	 * @param   object  $params  parameters
+	 *
+	 * @return  array  $items  Array of items
+	 */
 	public static function getList($params)
 	{
 		// Collect params
-		$mode	= (int)$params->get('mode');
-		$cat_id	= (int)$params->get('cat');
-		$sort	= (int)$params->get('sort');
+		$mode	= (int) $params->get('mode');
+		$cat_id	= (int) $params->get('cat');
+		$sort	= (int) $params->get('sort');
 
 		$db		= JFactory::getDbo();
 		$query	= $db->getQuery(true);
+
 		if ($mode == 2)
 		{
 			$categories = JCategories::getInstance('Sermonspeaker');
 			$root	= $categories->get($cat_id);
+
 			if ($root->hasChildren())
 			{
 				$categories = $root->getChildren(true);
 				$items = array();
+
 				foreach ($categories as $category)
 				{
 					$item	= new stdclass;
@@ -44,8 +66,10 @@ abstract class modSermonspeakerHelper
 		{
 			if ($mode)
 			{
-				$query->select('id, title, series_description as tooltip, avatar as pic, CASE WHEN CHAR_LENGTH(alias) THEN CONCAT_WS(\':\', id, alias) ELSE id END as slug, 1 as level');
+				$query->select('id, title, series_description as tooltip, avatar as pic');
+				$query->select('CASE WHEN CHAR_LENGTH(alias) THEN CONCAT_WS(\':\', id, alias) ELSE id END as slug, 1 as level');
 				$query->from('#__sermon_series');
+
 				if ($sort)
 				{
 					$query->order('ordering ASC');
@@ -59,6 +83,7 @@ abstract class modSermonspeakerHelper
 			{
 				$query->select('id, title, intro as tooltip, pic, CASE WHEN CHAR_LENGTH(alias) THEN CONCAT_WS(\':\', id, alias) ELSE id END as slug, 1 as level');
 				$query->from('#__sermon_speakers');
+
 				if ($sort)
 				{
 					$query->order('ordering ASC');
@@ -68,11 +93,14 @@ abstract class modSermonspeakerHelper
 					$query->order('title ASC');
 				}
 			}
+
 			$query->where('state = 1');
+
 			if ($cat_id)
 			{
-				$query->where('catid = '.$cat_id);
+				$query->where('catid = ' . $cat_id);
 			}
+
 			$db->setQuery($query);
 			$items	= $db->loadObjectList();
 		}

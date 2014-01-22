@@ -1,20 +1,19 @@
 <?php
-
 /**
- * @package  autotweetsermonspeaker - Plugin AutoTweetNG SermonSpeaker-Extension
- *
- * @author      Thomas Hunziker
- * @copyright   Copyright (C) 2012 SermonSpeaker.net. All rights reserved.
- * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
- * @link        http://www.sermonspeaker.net
- */
-// No direct access
-defined('_JEXEC') or die('Restricted access');
+ * @package     SermonSpeaker
+ * @subpackage  Plugin.Xmap
+ * @author      Thomas Hunziker <admin@sermonspeaker.net>
+ * @copyright   (C) 2014 - Thomas Hunziker
+ * @license     http://www.gnu.org/licenses/gpl.html
+ **/
+
+defined('_JEXEC') or die();
 
 // Check for component
 if (!JComponentHelper::getComponent('com_autotweet', true)->enabled)
 {
 	JError::raiseWarning('5', 'AutoTweet NG Component is not installed or not enabled. - ' . __FILE__);
+
 	return;
 }
 
@@ -67,7 +66,7 @@ class PlgContentAutotweetSermonspeaker extends plgAutotweetBase
 	 * @param   string  &$subject  Param
 	 * @param   object  $params    Param
 	 *
-	 * @since	1.5
+	 * @return  void
 	 */
 	public function plgContentAutotweetSermonspeaker(&$subject, $params)
 	{
@@ -114,7 +113,7 @@ class PlgContentAutotweetSermonspeaker extends plgAutotweetBase
 	 * onContentAfterSave
 	 *
 	 * @param   object  $context  The context of the content passed to the plugin.
-	 * @param   object  $item  A JTableContent object
+	 * @param   object  $item     A JTableContent object
 	 * @param   bool    $isNew    If the content is just about to be created
 	 *
 	 * @return	boolean
@@ -190,7 +189,7 @@ class PlgContentAutotweetSermonspeaker extends plgAutotweetBase
 		// Create internal url for sermon
 		if ($this->Itemid)
 		{
-			$url	= 'index.php?option=com_sermonspeaker&view=sermon&id='.$id_slug.'&Itemid='.$this->Itemid;
+			$url	= 'index.php?option=com_sermonspeaker&view=sermon&id=' . $id_slug . '&Itemid=' . $this->Itemid;
 		}
 		else
 		{
@@ -198,29 +197,32 @@ class PlgContentAutotweetSermonspeaker extends plgAutotweetBase
 		}
 
 		// Get some additional information
-		if ($series_id = (int)$item->series_id)
+		if ($series_id = (int) $item->series_id)
 		{
 			$db		= Jfactory::getDbo();
 			$query	= $db->getQuery(true);
 			$query->select('`avatar`, `title` AS series_title');
 			$query->from('#__sermon_series');
-			$query->where('`id` = '.$series_id);
+			$query->where('`id` = ' . $series_id);
 			$db->setQuery($query);
 			$result	= $db->loadAssoc();
+
 			foreach ($result as $key => $value)
 			{
 				$item->$key	= $value;
 			}
 		}
-		if ($speaker_id = (int)$item->speaker_id)
+
+		if ($speaker_id = (int) $item->speaker_id)
 		{
 			$db		= Jfactory::getDbo();
 			$query	= $db->getQuery(true);
 			$query->select('`pic`, `title` AS speaker_title');
 			$query->from('#__sermon_speakers');
-			$query->where('`id` = '.$speaker_id);
+			$query->where('`id` = ' . $speaker_id);
 			$db->setQuery($query);
 			$result	= $db->loadAssoc();
+
 			foreach ($result as $key => $value)
 			{
 				$item->$key	= $value;
@@ -281,6 +283,7 @@ class PlgContentAutotweetSermonspeaker extends plgAutotweetBase
 		// Text
 		$catsec_result = $this->addCategories($this->show_catsec, $cat_names, $text, $this->show_hash);
 		$text = $catsec_result['text'];
+
 		if ('' != $catsec_result['hashtags'])
 		{
 			$hashtags .= ' ';
@@ -301,11 +304,11 @@ class PlgContentAutotweetSermonspeaker extends plgAutotweetBase
 			'fulltext' => $item_text,
 			'catids' => $catids,
 			'cat_names' => $cat_names,
-//			'author' => $this->getArticleAuthor($item),
+			// 'author' => $this->getArticleAuthor($item),
 			'language' => $item->language,
 
 			// Sermons don't have an access field, maybe take category access instead
-//			'access' => $item->access,
+			// 'access' => $item->access,
 
 			'is_valid' => true
 		);
@@ -315,5 +318,4 @@ class PlgContentAutotweetSermonspeaker extends plgAutotweetBase
 
 		return $data;
 	}
-
 }
