@@ -14,7 +14,7 @@ defined('_JEXEC') or die();
  *
  * @since  1.0
  */
-class xmap_com_sermonspeaker
+class Xmap_Com_Sermonspeaker
 {
 	/**
 	 * This function is called before a menu item is printed. We use it to set the
