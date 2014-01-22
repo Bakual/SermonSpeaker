@@ -170,7 +170,7 @@ class PlgSearchSermonspeaker extends JPlugin
 						$wheres2[]	= 'b.book IN (' . implode(',', $book_ids) . ')';
 					}
 
-					$text		= $db->Quote('%' . $db->escape($text, true) . '%', false);
+					$text		= $db->quote('%' . $db->escape($text, true) . '%', false);
 					$wheres2[]	= 'a.title LIKE ' . $text;
 					$wheres2[]	= 'a.notes LIKE ' . $text;
 					$where		= '(' . implode(') OR (', $wheres2) . ')';
@@ -199,7 +199,7 @@ class PlgSearchSermonspeaker extends JPlugin
 							$wheres2[]	= 'b.book IN (' . implode(',', $book_ids) . ')';
 						}
 
-						$word		= $db->Quote('%' . $db->escape($word, true) . '%', false);
+						$word		= $db->quote('%' . $db->escape($word, true) . '%', false);
 						$wheres2[]	= 'a.title LIKE ' . $word;
 						$wheres2[]	= 'a.notes LIKE ' . $word;
 						$wheres[]	= implode(' OR ', $wheres2);
@@ -255,7 +255,7 @@ class PlgSearchSermonspeaker extends JPlugin
 				if ($app->isSite() && $app->getLanguageFilter())
 				{
 					$tag = JFactory::getLanguage()->getTag();
-					$query->where('c.language in (' . $db->Quote($tag) . ',' . $db->Quote('*') . ')');
+					$query->where('c.language in (' . $db->quote($tag) . ',' . $db->quote('*') . ')');
 				}
 
 				$db->setQuery($query, 0, $limit);
@@ -281,7 +281,7 @@ class PlgSearchSermonspeaker extends JPlugin
 			switch ($phrase)
 			{
 				case 'exact':
-					$text		= $db->Quote('%' . $db->escape($text, true) . '%', false);
+					$text		= $db->quote('%' . $db->escape($text, true) . '%', false);
 					$wheres2	= array();
 					$wheres2[]	= 'a.title LIKE ' . $text;
 					$wheres2[]	= 'a.series_description LIKE ' . $text;
@@ -295,7 +295,7 @@ class PlgSearchSermonspeaker extends JPlugin
 
 					foreach ($words as $word)
 					{
-						$word		= $db->Quote('%' . $db->escape($word, true) . '%', false);
+						$word		= $db->quote('%' . $db->escape($word, true) . '%', false);
 						$wheres2	= array();
 						$wheres2[]	= 'a.title LIKE ' . $word;
 						$wheres2[]	= 'a.series_description LIKE ' . $word;
@@ -344,7 +344,7 @@ class PlgSearchSermonspeaker extends JPlugin
 				if ($app->isSite() && $app->getLanguageFilter())
 				{
 					$tag = JFactory::getLanguage()->getTag();
-					$query->where('c.language in (' . $db->Quote($tag) . ',' . $db->Quote('*') . ')');
+					$query->where('c.language in (' . $db->quote($tag) . ',' . $db->quote('*') . ')');
 				}
 
 				$db->setQuery($query, 0, $limit);
@@ -370,7 +370,7 @@ class PlgSearchSermonspeaker extends JPlugin
 			switch ($phrase)
 			{
 				case 'exact':
-					$text		= $db->Quote('%' . $db->escape($text, true) . '%', false);
+					$text		= $db->quote('%' . $db->escape($text, true) . '%', false);
 					$wheres2	= array();
 					$wheres2[]	= 'a.title LIKE ' . $text;
 					$wheres2[]	= 'a.intro LIKE ' . $text;
@@ -385,7 +385,7 @@ class PlgSearchSermonspeaker extends JPlugin
 
 					foreach ($words as $word)
 					{
-						$word		= $db->Quote('%' . $db->escape($word, true) . '%', false);
+						$word		= $db->quote('%' . $db->escape($word, true) . '%', false);
 						$wheres2	= array();
 						$wheres2[]	= 'a.title LIKE ' . $word;
 						$wheres2[]	= 'a.intro LIKE ' . $word;
@@ -435,7 +435,7 @@ class PlgSearchSermonspeaker extends JPlugin
 				if ($app->isSite() && $app->getLanguageFilter())
 				{
 					$tag = JFactory::getLanguage()->getTag();
-					$query->where('c.language in (' . $db->Quote($tag) . ',' . $db->Quote('*') . ')');
+					$query->where('c.language in (' . $db->quote($tag) . ',' . $db->quote('*') . ')');
 				}
 
 				$db->setQuery($query, 0, $limit);

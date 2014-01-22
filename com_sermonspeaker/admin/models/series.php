@@ -169,7 +169,7 @@ class SermonspeakerModelSeries extends JModelList
 			if (stripos($search, 'id:') === 0) {
 				$query->where('series.id = '.(int) substr($search, 3));
 			} else {
-				$search = $db->Quote('%'.$db->escape($search, true).'%');
+				$search = $db->quote('%'.$db->escape($search, true).'%');
 				$query->where('(series.title LIKE '.$search.')');
 			}
 		}

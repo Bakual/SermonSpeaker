@@ -105,7 +105,7 @@ class SermonspeakerModelspeakers extends JModelList
 		// Filter by search in title
 		$search = $this->getState('filter.search');
 		if (!empty($search)) {
-			$search = $db->Quote('%'.$db->escape($search, true).'%');
+			$search = $db->quote('%'.$db->escape($search, true).'%');
 			$query->where('(speakers.title LIKE '.$search.')');
 		}
 
