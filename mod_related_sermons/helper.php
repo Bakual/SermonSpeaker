@@ -1,27 +1,45 @@
 <?php
 /**
-* @copyright	Copyright (C) 2010. All rights reserved.
-* @license		GNU/GPL, see LICENSE.php
-* This module is based on the mod_related_items from Joomla Core
-*/
+ * @package     SermonSpeaker
+ * @subpackage  Module.RelatedSermons
+ * @author      Thomas Hunziker <admin@sermonspeaker.net>
+ * @copyright   (C) 2014 - Thomas Hunziker
+ * @license     http://www.gnu.org/licenses/gpl.html
+ **/
 
-// no direct access
-defined('_JEXEC') or die;
+defined('_JEXEC') or die();
 
-class modRelatedSermonsHelper
+/**
+ * Helper class for Related Sermons module
+ *
+ * @since  1.0
+ */
+class ModRelatedSermonsHelper
 {
 	private static $option;
+
 	private static $view;
+
 	private static $id;
+
 	private static $db;
 
+	/**
+	 * Gets the items from the database
+	 *
+	 * @param   object  $params  parameters
+	 *
+	 * @return  array  $related  Array of items
+	 */
 	public static function getList($params)
 	{
 		self::$id		= JRequest::getInt('id');
+
 		if (!self::$id)
 		{
 			return array();
 		}
+
 		self::$option	= JRequest::getCmd('option');
 		self::$view		= JRequest::getCmd('view');
 
@@ -32,12 +50,16 @@ class modRelatedSermonsHelper
 		$sermonCat		= $params->get('sermon_cat', 0);
 
 		$related = array();
-		if (($supportContent && self::$option == 'com_content' && self::$view == 'article') || (self::$option == 'com_sermonspeaker' && self::$view == 'sermon'))
+
+		if (($supportContent && self::$option == 'com_content' && self::$view == 'article')
+			|| (self::$option == 'com_sermonspeaker' && self::$view == 'sermon'))
 		{
 			$keywords	= self::getKeywords();
+
 			if ($keywords)
 			{
 				$related = self::getRelatedSermonsById($keywords, $orderBy, $sermonCat, $limitSermons);
+
 				if ($supportContent && $limitSermons > count($related))
 				{
 					$articles = self::getRelatedItemsById($keywords, $orderBy, $limitSermons - count($related));
@@ -50,15 +72,18 @@ class modRelatedSermonsHelper
 	}
 
 	/**
-	* Get keywords from current item, either com_content or com_sermonspeaker
-	*/
+	 * Get keywords from current item, either com_content or com_sermonspeaker
+	 *
+	 * @return  array  $keywords  Array of items
+	 */
 	private static function getKeywords()
 	{
 		self::$db	= JFactory::getDbo();
 		$query		= self::$db->getQuery(true);
 
 		$query->select('metakey');
-		$query->where('id = '.self::$id);
+		$query->where('id = ' . self::$id);
+
 		if (self::$option == 'com_content')
 		{
 			$query->from('#__content');
@@ -67,13 +92,16 @@ class modRelatedSermonsHelper
 		{
 			$query->from('#__sermon_sermons');
 		}
+
 		self::$db->setQuery($query);
 		$metakey	= self::$db->loadResult();
 		$keys		= explode(',', $metakey);
 		$keywords	= array();
+
 		foreach ($keys as $key)
 		{
 			$key = trim($key);
+
 			if ($key)
 			{
 				$keywords[] = $key;
@@ -88,13 +116,22 @@ class modRelatedSermonsHelper
 		return $keywords;
 	}
 
-	// Search the sermons
+	/**
+	 * Search the sermons
+	 *
+	 * @param   array   $keywords      Keywords
+	 * @param   string  $orderBy       Ordering
+	 * @param   int     $sermonCat     Category
+	 * @param   int     $limitSermons  Limit
+	 *
+	 * @return  array  $related  Array of items
+	 */
 	protected static function getRelatedSermonsById($keywords, $orderBy, $sermonCat, $limitSermons)
 	{
 		$query		= self::$db->getQuery(true);
 		$related	= array();
 
-		switch ($orderBy) 
+		switch ($orderBy)
 		{
 			case 'NameAsc':
 				$SermonOrder = 'a.title ASC';
@@ -122,29 +159,37 @@ class modRelatedSermonsHelper
 		$query->select('CASE WHEN CHAR_LENGTH(cc.alias) THEN CONCAT_WS(":", cc.id, cc.alias) ELSE cc.id END as catslug');
 		$query->from('#__sermon_sermons AS a');
 		$query->leftJoin('#__categories AS cc ON cc.id = a.catid');
-		if(self::$option == 'com_sermonspeaker')
+
+		if (self::$option == 'com_sermonspeaker')
 		{
-			$query->where('a.id != '.self::$id);
+			$query->where('a.id != ' . self::$id);
 		}
+
 		$query->where('a.state = 1');
 		$query->where('(a.catid = 0 OR cc.published = 1)');
-		if($sermonCat)
+
+		if ($sermonCat)
 		{
-			$query->where('a.catid = '.$sermonCat);
+			$query->where('a.catid = ' . $sermonCat);
 		}
-		$query->where('(CONCAT(",", REPLACE(a.metakey, ", ", ","), ",") LIKE "%,'.implode(',%" OR CONCAT(",", REPLACE(a.metakey, ", ", ","), ",") LIKE "%,', $keywords).',%")');
+
+		$query->where('(CONCAT(",", REPLACE(a.metakey, ", ", ","), ",") LIKE "%,'
+			. implode(',%" OR CONCAT(",", REPLACE(a.metakey, ", ", ","), ",") LIKE "%,', $keywords) . ',%")');
 		$app = JFactory::getApplication();
+
 		if ($app->getLanguageFilter())
 		{
-			$query->where('a.language in ('.self::$db->Quote(JFactory::getLanguage()->getTag()).','.self::$db->Quote('*').')');
+			$query->where('a.language in (' . self::$db->quote(JFactory::getLanguage()->getTag()) . ',' . self::$db->quote('*') . ')');
 		}
+
 		$query->group('a.id');
 		$query->order($SermonOrder);
 
 		self::$db->setQuery($query, 0, $limitSermons);
 		$temp = self::$db->loadObjectList();
 
-		require_once (JPATH_SITE.'/components/com_sermonspeaker/helpers/route.php');
+		require_once JPATH_SITE . '/components/com_sermonspeaker/helpers/route.php';
+
 		foreach ($temp as $row)
 		{
 			$row->route = JRoute::_(SermonspeakerHelperRoute::getSermonRoute($row->slug));
@@ -154,15 +199,22 @@ class modRelatedSermonsHelper
 		return $related;
 	}
 
-	// Search articles
+	/**
+	 * Search articles
+	 *
+	 * @param   array  $keywords  Keywords
+	 * @param   int    $limit     Limit
+	 *
+	 * @return  array  $related  Array of items
+	 */
 	private static function getRelatedItemsById($keywords, $limit)
 	{
-		$user			= JFactory::getUser();
-		$groups			= implode(',', $user->getAuthorisedViewLevels());
+		$user		= JFactory::getUser();
+		$groups		= implode(',', $user->getAuthorisedViewLevels());
 
-		$nullDate		= self::$db->getNullDate();
-		$date			= JFactory::getDate();
-		$now			= $date->toSql();
+		$nullDate	= self::$db->getNullDate();
+		$date		= JFactory::getDate();
+		$now		= $date->toSql();
 
 		$related 	= array();
 
@@ -172,26 +224,33 @@ class modRelatedSermonsHelper
 		$query->select('CASE WHEN CHAR_LENGTH(cc.alias) THEN CONCAT_WS(":", cc.id, cc.alias) ELSE cc.id END as catslug');
 		$query->from('#__content AS a');
 		$query->leftJoin('#__categories AS cc ON cc.id = a.catid');
-		if(self::$option == 'com_content')
+
+		if (self::$option == 'com_content')
 		{
-			$query->where('a.id != '.self::$id);
+			$query->where('a.id != ' . self::$id);
 		}
+
 		$query->where('a.state = 1');
-		$query->where('a.access IN ('.$groups.')');
+		$query->where('a.access IN (' . $groups . ')');
 		$query->where('cc.published = 1');
-		$query->where('(CONCAT(",", REPLACE(a.metakey, ", ", ","), ",") LIKE "%,'.implode(',%" OR CONCAT(",", REPLACE(a.metakey, ", ", ","), ",") LIKE "%,', $keywords).',%")');
-		$query->where('(a.publish_up = '.self::$db->Quote($nullDate).' OR a.publish_up <= '.self::$db->Quote($now).')');
-		$query->where('(a.publish_down = '.self::$db->Quote($nullDate).' OR a.publish_down >= '.self::$db->Quote($now).')');
+		$query->where('(CONCAT(",", REPLACE(a.metakey, ", ", ","), ",") LIKE "%,'
+			. implode(',%" OR CONCAT(",", REPLACE(a.metakey, ", ", ","), ",") LIKE "%,', $keywords) . ',%")');
+		$query->where('(a.publish_up = ' . self::$db->quote($nullDate) . ' OR a.publish_up <= ' . self::$db->quote($now) . ')');
+		$query->where('(a.publish_down = ' . self::$db->quote($nullDate) . ' OR a.publish_down >= ' . self::$db->quote($now) . ')');
+
 		// Filter by language
 		$app = JFactory::getApplication();
+
 		if ($app->getLanguageFilter())
 		{
-			$query->where('a.language in ('.self::$db->Quote(JFactory::getLanguage()->getTag()).','.self::$db->Quote('*').')');
+			$query->where('a.language in (' . self::$db->quote(JFactory::getLanguage()->getTag()) . ',' . self::$db->quote('*') . ')');
 		}
+
 		self::$db->setQuery($query, 0, $limit);
 		$temp = self::$db->loadObjectList();
 
-		require_once (JPATH_SITE.'/components/com_content/helpers/route.php');
+		require_once JPATH_SITE . '/components/com_content/helpers/route.php';
+
 		foreach ($temp as $row)
 		{
 			$row->route = JRoute::_(ContentHelperRoute::getArticleRoute($row->slug, $row->catslug));

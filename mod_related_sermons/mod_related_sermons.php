@@ -1,15 +1,14 @@
 <?php
 /**
-* @copyright	Copyright (C) 2010. All rights reserved.
-* @license		GNU/GPL, see LICENSE.php
-* This module is based on the mod_related_items from Joomla Core
-*/
+ * @package     SermonSpeaker
+ * @subpackage  Module.RelatedSermons
+ * @author      Thomas Hunziker <admin@sermonspeaker.net>
+ * @copyright   (C) 2014 - Thomas Hunziker
+ * @license     http://www.gnu.org/licenses/gpl.html
+ **/
 
-// no direct access
-defined('_JEXEC') or die;
+defined('_JEXEC') or die();
 
-
-// Include the syndicate functions only once
 require_once __DIR__ . '/helper.php';
 
 $cacheparams = new stdClass;
@@ -19,7 +18,7 @@ $cacheparams->method = 'getList';
 $cacheparams->methodparams = $params;
 $cacheparams->modeparams = array('id' => 'int', 'Itemid' => 'int');
 
-$list = JModuleHelper::moduleCache ($module, $params, $cacheparams);
+$list = JModuleHelper::moduleCache($module, $params, $cacheparams);
 
 if (!count($list))
 {
@@ -27,6 +26,6 @@ if (!count($list))
 }
 
 $moduleclass_sfx = htmlspecialchars($params->get('moduleclass_sfx'));
-$showDate 		 = $params->get('showDate', 0);
+$showDate		 = $params->get('showDate', 0);
 
 require JModuleHelper::getLayoutPath('mod_related_sermons', $params->get('layout', 'default'));
