@@ -1,9 +1,28 @@
 <?php
-// no direct access
-defined('_JEXEC') or die;
+/**
+ * @package     SermonSpeaker
+ * @subpackage  Module.LatestSermons
+ * @author      Thomas Hunziker <admin@sermonspeaker.net>
+ * @copyright   (C) 2014 - Thomas Hunziker
+ * @license     http://www.gnu.org/licenses/gpl.html
+ **/
 
-abstract class modLatestsermonsHelper
+defined('_JEXEC') or die();
+
+/**
+ * Helper class for Latest Sermons module
+ *
+ * @since  1.0
+ */
+abstract class ModLatestsermonsHelper
 {
+	/**
+	 * Gets the items from the database
+	 *
+	 * @param   object  $params  parameters
+	 *
+	 * @return  array  $items  Array of items
+	 */
 	public static function getList($params)
 	{
 		$user	= JFactory::getUser();
@@ -22,7 +41,7 @@ abstract class modLatestsermonsHelper
 		$query->where('a.state = 1');
 
 		// Category
-		if ($cat = (int)$params->get('cat', 0))
+		if ($cat = (int) $params->get('cat', 0))
 		{
 			switch ($params->get('cat_type', 'sermons'))
 			{
@@ -44,49 +63,58 @@ abstract class modLatestsermonsHelper
 				$subQuery->select('sub.id');
 				$subQuery->from('#__categories as sub');
 				$subQuery->join('INNER', '#__categories as this ON sub.lft > this.lft AND sub.rgt < this.rgt');
-				$subQuery->where('this.id = '.$cat);
-				if ($levels > 0) {
-					$subQuery->where('sub.level <= this.level + '.$levels);
+				$subQuery->where('this.id = ' . $cat);
+
+				if ($levels > 0)
+				{
+					$subQuery->where('sub.level <= this.level + ' . $levels);
 				}
+
 				// Add the subquery to the main query
-				$query->where('('.$type.'.catid = '.$cat
-					.' OR '.$type.'.catid IN ('.$subQuery->__toString().'))');
+				$query->where('(' . $type . '.catid = ' . $cat
+					. ' OR ' . $type . '.catid IN (' . $subQuery->__toString() . '))');
 			}
 			else
 			{
-				$query->where($type.'.catid = '.$cat);
+				$query->where($type . '.catid = ' . $cat);
 			}
 		}
+
 		$query->select('cat.title AS category_title');
 		$query->select('CASE WHEN CHAR_LENGTH(cat.alias) THEN CONCAT_WS(\':\', cat.id, cat.alias) ELSE cat.id END as catslug');
 		$query->join('LEFT', '#__categories AS cat ON cat.id = a.catid');
-		$query->where('(a.catid = 0 OR (cat.access IN ('.$groups.') AND cat.published = 1))');
+		$query->where('(a.catid = 0 OR (cat.access IN (' . $groups . ') AND cat.published = 1))');
+
 		// Others
-		if ($speaker = (int)$params->get('speaker', 0))
+		if ($speaker = (int) $params->get('speaker', 0))
 		{
-			$query->where('a.speaker_id = '.$speaker);
+			$query->where('a.speaker_id = ' . $speaker);
 		}
-		if ($series = (int)$params->get('series', 0))
+
+		if ($series = (int) $params->get('series', 0))
 		{
-			$query->where('a.series_id = '.$series);
+			$query->where('a.series_id = ' . $series);
 		}
+
 		if ($idlist = $params->get('idlist', 0))
 		{
 			$id_array = explode(',', $idlist);
 			JArrayHelper::toInteger($id_array);
-			$query->where('a.id IN ('.implode(',', $id_array).')');
+			$query->where('a.id IN (' . implode(',', $id_array) . ')');
 		}
+
 		// SmartFilter
 		if ($params->get('smartfilter', 0))
 		{
 			$view = JRequest::getCmd('view');
+
 			if ($view == 'speaker')
 			{
-				$query->where('a.speaker_id = '.JRequest::getInt('id'));
+				$query->where('a.speaker_id = ' . JRequest::getInt('id'));
 			}
 			elseif ($view == 'serie')
 			{
-				$query->where('a.series_id = '.JRequest::getInt('id'));
+				$query->where('a.series_id = ' . JRequest::getInt('id'));
 			}
 		}
 		// Filetype filter
@@ -105,6 +133,7 @@ abstract class modLatestsermonsHelper
 		// Ordering
 		$mode	= $params->get('mode', 0);
 		$dir	= $params->get('dir', 1) ? 'DESC' : 'ASC';
+
 		switch ($mode)
 		{
 			case 0:
@@ -119,7 +148,7 @@ abstract class modLatestsermonsHelper
 				break;
 		}
 
-		$db->setQuery($query, 0, (int)$params->get('ls_count', 3));
+		$db->setQuery($query, 0, (int) $params->get('ls_count', 3));
 		$items	= $db->loadObjectList();
 
 		return $items;
