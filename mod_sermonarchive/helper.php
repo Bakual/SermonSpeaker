@@ -1,9 +1,28 @@
 <?php
-// no direct access
-defined('_JEXEC') or die;
+/**
+ * @package     SermonSpeaker
+ * @subpackage  Module.SermonSpeaker
+ * @author      Thomas Hunziker <admin@sermonspeaker.net>
+ * @copyright   (C) 2014 - Thomas Hunziker
+ * @license     http://www.gnu.org/licenses/gpl.html
+ **/
 
-abstract class modSermonarchiveHelper
+defined('_JEXEC') or die();
+
+/**
+ * Helper class for SermonSpeaker module
+ *
+ * @since  1.0
+ */
+abstract class ModSermonarchiveHelper
 {
+	/**
+	 * Gets the items from the database
+	 *
+	 * @param   object  $params  parameters
+	 *
+	 * @return  array  $items  Array of items
+	 */
 	public static function getList($params)
 	{
 		// Collect params
@@ -18,18 +37,23 @@ abstract class modSermonarchiveHelper
 		$query->where('`state` = 1');
 		$query->group('`year`');
 		$query->order('`sermon_date` DESC');
-		if ($params->get('sermon_cat')){
-			$query->where('catid = '.(int)$params->get('sermon_cat'));
+
+		if ($params->get('sermon_cat'))
+		{
+			$query->where('catid = ' . (int) $params->get('sermon_cat'));
 		}
 
-		if ($mode){
+		if ($mode)
+		{
 			$query->select('MONTH(`sermon_date`) AS `month`');
 			$query->group('`month`');
-		} else {
+		}
+		else
+		{
 			$query->select('0 AS `month`');
 		}
 
-		$db->setQuery($query, 0, (int)$params->get('archive_count'));
+		$db->setQuery($query, 0, (int) $params->get('archive_count'));
 		$items	= $db->loadObjectList();
 
 		return $items;
