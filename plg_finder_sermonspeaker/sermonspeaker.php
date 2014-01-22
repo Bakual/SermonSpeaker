@@ -1,65 +1,53 @@
 <?php
 /**
  * @package     SermonSpeaker
- * @subpackage  Finder.SermonSpeaker
- *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
- */
+ * @subpackage  Plugin.Finder
+ * @author      Thomas Hunziker <admin@sermonspeaker.net>
+ * @copyright   (C) 2014 - Thomas Hunziker
+ * @license     http://www.gnu.org/licenses/gpl.html
+ **/
 
-defined('JPATH_BASE') or die;
-
-jimport('joomla.application.component.helper');
-
-// Load the base adapter.
-require_once JPATH_ADMINISTRATOR . '/components/com_finder/helpers/indexer/adapter.php';
+defined('_JEXEC') or die();
 
 /**
  * Finder adapter for SermonSpeaker.
  *
- * @package     Sermonspeaker
- * @subpackage  Finder.Sermonspeaker
- * @since       2.5
+ * @since  1.0
  */
-class plgFinderSermonspeaker extends FinderIndexerAdapter
+class PlgFinderSermonspeaker extends FinderIndexerAdapter
 {
 	/**
 	 * The plugin identifier.
 	 *
-	 * @var    string
-	 * @since  2.5
+	 * @var  string
 	 */
 	protected $context = 'Sermonspeaker';
 
 	/**
 	 * The extension name.
 	 *
-	 * @var    string
-	 * @since  2.5
+	 * @var  string
 	 */
 	protected $extension = 'com_sermonspeaker';
 
 	/**
 	 * The sublayout to use when rendering the results.
 	 *
-	 * @var    string
-	 * @since  2.5
+	 * @var  string
 	 */
 	protected $layout = 'sermon';
 
 	/**
 	 * The type of content that the adapter indexes.
 	 *
-	 * @var    string
-	 * @since  2.5
+	 * @var  string
 	 */
 	protected $type_title = 'Sermon';
 
 	/**
 	 * The table name.
 	 *
-	 * @var    string
-	 * @since  2.5
+	 * @var  string
 	 */
 	protected $table = '#__sermon_sermons';
 
@@ -68,8 +56,6 @@ class plgFinderSermonspeaker extends FinderIndexerAdapter
 	 *
 	 * @param   object  &$subject  The object to observe
 	 * @param   array   $config    An array that holds the plugin configuration
-	 *
-	 * @since   2.5
 	 */
 	public function __construct(&$subject, $config)
 	{
@@ -87,8 +73,6 @@ class plgFinderSermonspeaker extends FinderIndexerAdapter
 	 * @param   integer  $value      The value of the state that the content has been changed to.
 	 *
 	 * @return  void
-	 *
-	 * @since   2.5
 	 */
 	public function onFinderCategoryChangeState($extension, $pks, $value)
 	{
@@ -107,7 +91,6 @@ class plgFinderSermonspeaker extends FinderIndexerAdapter
 	 *
 	 * @return  boolean  True on success.
 	 *
-	 * @since   2.5
 	 * @throws  Exception on database error.
 	 */
 	public function onFinderAfterDelete($context, $table)
@@ -145,16 +128,8 @@ class plgFinderSermonspeaker extends FinderIndexerAdapter
 		// We only want to handle sermons here. We need to handle front end and back end editing.
 		if ($context == 'com_sermonspeaker.sermon' || $context == 'com_sermonspeaker.frontendupload' )
 		{
-			// Check if the access levels are different
-			// We don't need this since we have no access on item level
-/*			if (!$isNew && $this->old_access != $row->access)
-			{
-				// Process the change.
-				$this->itemAccessChange($row);
-			}
-*/
 			// Reindex the item
-//			$this->reindex($row->id);
+			$this->reindex($row->id);
 		}
 
 		// Check for access changes in the category
@@ -176,27 +151,15 @@ class plgFinderSermonspeaker extends FinderIndexerAdapter
 	 * to queue the item to be indexed later.
 	 *
 	 * @param   string   $context  The context of the content passed to the plugin.
-	 * @param   JTable   $row     A JTable object
+	 * @param   JTable   $row      A JTable object
 	 * @param   boolean  $isNew    If the content is just about to be created
 	 *
 	 * @return  boolean  True on success.
 	 *
-	 * @since   2.5
 	 * @throws  Exception on database error.
 	 */
 	public function onFinderBeforeSave($context, $row, $isNew)
 	{
-		// We only want to handle sermons here
-		if ($context == 'com_sermonspeaker.sermon' || $context == 'com_sermonspeaker.frontendupload')
-		{
-			// Query the database for the old access level if the item isn't new
-			// We don't need this since we have no access on item level
-/*			if (!$isNew)
-			{
-				$this->checkItemAccess($row);
-			} */
-		}
-
 		// Check for access levels from the category
 		if ($context == 'com_categories.category')
 		{
@@ -220,8 +183,6 @@ class plgFinderSermonspeaker extends FinderIndexerAdapter
 	 * @param   integer  $value    The value of the state that the content has been changed to.
 	 *
 	 * @return  void
-	 *
-	 * @since   2.5
 	 */
 	public function onFinderChangeState($context, $pks, $value)
 	{
@@ -235,7 +196,6 @@ class plgFinderSermonspeaker extends FinderIndexerAdapter
 		{
 			$this->pluginDisable($pks);
 		}
-
 	}
 
 	/**
@@ -246,7 +206,6 @@ class plgFinderSermonspeaker extends FinderIndexerAdapter
 	 *
 	 * @return  void
 	 *
-	 * @since   2.5
 	 * @throws  Exception on database error.
 	 */
 	protected function index(FinderIndexerResult $item, $format = 'html')
@@ -259,26 +218,15 @@ class plgFinderSermonspeaker extends FinderIndexerAdapter
 
 		// Trigger the onContentPrepare event.
 		$item->summary = FinderIndexerHelper::prepareContent($item->summary);
-//		$item->summary = FinderIndexerHelper::prepareContent($item->body);
 
 		// Build the necessary route and path information.
 		$item->url = $this->getURL($item->id, $this->extension, $this->layout);
 		$item->route = SermonspeakerHelperRoute::getSermonRoute($item->slug);
 		$item->path = FinderIndexerHelper::getContentPath($item->route);
 
-		/*
-		 * Add the meta-data processing instructions based on the newsfeeds
-		 * configuration parameters.
-		 */
-		// Add the meta-author.
-//		$item->metaauthor = $item->metadata->get('author');
-
 		// Handle the link to the meta-data.
 		$item->addInstruction(FinderIndexer::META_CONTEXT, 'metakey');
 		$item->addInstruction(FinderIndexer::META_CONTEXT, 'metadesc');
-//		$item->addInstruction(FinderIndexer::META_CONTEXT, 'metaauthor');
-//		$item->addInstruction(FinderIndexer::META_CONTEXT, 'author');
-//		$item->addInstruction(FinderIndexer::META_CONTEXT, 'created_by_alias');
 
 		// Add the type taxonomy data.
 		$item->addTaxonomy('Type', 'Sermon');
@@ -300,8 +248,6 @@ class plgFinderSermonspeaker extends FinderIndexerAdapter
 	 * Method to setup the indexer to be run.
 	 *
 	 * @return  boolean  True on success.
-	 *
-	 * @since   2.5
 	 */
 	protected function setup()
 	{
@@ -325,11 +271,12 @@ class plgFinderSermonspeaker extends FinderIndexerAdapter
 	protected function getListQuery($sql = null)
 	{
 		$db = JFactory::getDbo();
+
 		// Check if we can use the supplied SQL query.
 		$sql = is_a($sql, 'JDatabaseQuery') ? $sql : $db->getQuery(true);
 		$sql->select('a.id, a.title AS title, a.alias, a.notes AS summary');
 		$sql->select('a.state, a.catid, a.created AS start_date, a.created_by');
-		$sql->select('a.metakey, a.metadesc, '.(int)$this->access.' AS access, a.ordering');
+		$sql->select('a.metakey, a.metadesc, ' . (int) $this->access . ' AS access, a.ordering');
 		$sql->select('a.created AS publish_start_date');
 		$sql->select('c.title AS category, c.published AS cat_state, c.access AS cat_access');
 
@@ -340,7 +287,7 @@ class plgFinderSermonspeaker extends FinderIndexerAdapter
 		$a_id = $sql->castAsChar('a.id');
 		$case_when_item_alias .= $sql->concatenate(array($a_id, 'a.alias'), ':');
 		$case_when_item_alias .= ' ELSE ';
-		$case_when_item_alias .= $a_id.' END as slug';
+		$case_when_item_alias .= $a_id . ' END as slug';
 		$sql->select($case_when_item_alias);
 
 		$case_when_category_alias = ' CASE WHEN ';
@@ -349,7 +296,7 @@ class plgFinderSermonspeaker extends FinderIndexerAdapter
 		$c_id = $sql->castAsChar('c.id');
 		$case_when_category_alias .= $sql->concatenate(array($c_id, 'c.alias'), ':');
 		$case_when_category_alias .= ' ELSE ';
-		$case_when_category_alias .= $c_id.' END as catslug';
+		$case_when_category_alias .= $c_id . ' END as catslug';
 		$sql->select($case_when_category_alias);
 
 		$sql->select('u.name AS author');
