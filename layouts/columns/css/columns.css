@@ -1,84 +1,83 @@
 div.ss-entry{
-	padding:20px 0;
-	min-height:100px;
+	padding: 20px 0;
+	min-height: 100px;
 }
 
 div.column-picture{
-	float:left;
-	min-height:130px;
-	width:150px;
+	float: left;
+	min-height: 130px;
+	width: 150px;
 }
 div.ss-picture{
-	float:left;
-	margin:0 15px;
+	float: left;
+	margin: 0 15px;
 }
 div.ss-picture img{
-	width:100px;
+	width: 100px;
 }
 div.column-content{
-	float:left;
-	min-height:130px;
+	float: left;
+	min-height: 130px;
 }
 div.column-content h3.title{
-	margin-top:0;
+	margin-top: 0;
 }
 div.column-content h3 span.hasTooltip{
-	margin-left:5px;
+	margin-left: 5px;
 }
 span.speaker.scripture{
-	border-left:1px solid grey;
-	padding-left:5px;
+	border-left: 1px solid grey;
+	padding-left: 5px;
 }
 div.column-detail{
-	border-left:1px solid grey;
-	float:right;
-	min-height:130px;
-	width:14em;
-	font-size:0.75em;
-	color:grey;
-	padding:0 10px;
+	border-left: 1px solid grey;
+	float: right;
+	min-height: 130px;
+	width: 14em;
+	font-size: 0.75em;
+	color: grey;
+	padding: 0 10px;
 }
 
 div.column-files{
-	border-left:1px solid grey;
-	float:right;
-	min-height:130px;
-	width:12.5em;
-	font-size:0.9em;
-	padding:0 5px;
+	border-left: 1px solid grey;
+	float: right;
+	min-height: 130px;
+	width: 12.5em;
+	font-size: 0.9em;
+	padding: 0 5px;
 }
 
 div.column-files a{
-	padding:5px;
-	margin:3px;
-	border:1px solid grey;
-	border-radius:5px;
-	display:block;
+	padding: 5px;
+	margin: 3px;
+	border: 1px solid grey;
+	border-radius: 5px;
+	display: block;
 }
 div.column-files a.addfile img{
-	vertical-align:middle;
-	position:relative;
-	top:-2px;
-	
+	vertical-align: middle;
+	position: relative;
+	top: -2px;
 }
 div.column-files a.addfile{
-	padding-top:7px;
+	padding-top: 7px;
 }
 div.column-files a.download{
-	background:url(../images/download.png) no-repeat 5px center;
-	padding-left:26px;
+	background: url(../images/download.png) no-repeat 5px center;
+	padding-left: 26px;
 }
 div.column-files a.listen{
-	background:url(../images/listen.png) no-repeat 5px center;
-	padding-left:26px;
+	background: url(../images/listen.png) no-repeat 5px center;
+	padding-left: 26px;
 }
 div.column-files a.watch{
-	background:url(../images/watch.png) no-repeat 5px center;
-	padding-left:26px;
+	background: url(../images/watch.png) no-repeat 5px center;
+	padding-left: 26px;
 }
 div.ss-serie-player, div.ss-sermons-player, div.ss-speaker-player{
 	text-align: center;
-	margin:auto;
-	width:80%;
-	margin-bottom:10px;
+	margin: auto;
+	width: 80%;
+	margin-bottom: 10px;
 }

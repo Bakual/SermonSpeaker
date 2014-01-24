@@ -1,6 +1,6 @@
 .categories-list div.first,
 .cat-children div.first{
-	clear:left;
+	clear: left;
 }
 .categories-list div.tile,
 .cat-children div.tile,
@@ -25,10 +25,10 @@
 }
 .categories-list div.tile a:hover,
 .categories-list div.tile a:focus,
-.categories-list div.tile a:active, 
+.categories-list div.tile a:active,
 .cat-children div.tile a:hover,
 .cat-children div.tile a:focus,
-.cat-children div.tile a:active, 
+.cat-children div.tile a:active,
 .category-list div.tile a:hover,
 .category-list div.tile a:focus,
 .category-list div.tile a:active {
