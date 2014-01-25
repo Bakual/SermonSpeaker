@@ -1,7 +1,15 @@
 <?php
-defined('_JEXEC') or die;
+/**
+ * @package     SermonSpeaker
+ * @subpackage  Component.Site
+ * @author      Thomas Hunziker <admin@sermonspeaker.net>
+ * @copyright   (C) 2014 - Thomas Hunziker
+ * @license     http://www.gnu.org/licenses/gpl.html
+ **/
 
-JHtml::addIncludePath(JPATH_COMPONENT.'/helpers');
+defined('_JEXEC') or die();
+
+JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
 
 JHtml::_('behavior.modal');
 JHtml::_('bootstrap.tooltip');
@@ -14,7 +22,7 @@ $listOrderSermons	= $this->state_sermons->get('list.ordering');
 $listDirnSermons	= $this->state_sermons->get('list.direction');
 $listOrderSeries	= $this->state_series->get('list.ordering');
 $listDirnSeries		= $this->state_series->get('list.direction');
-$limit 		= (int)$this->params->get('limit', '');
+$limit 		= (int) $this->params->get('limit', '');
 $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->sermons);
 $this->document->addScriptDeclaration('Joomla.tableOrdering = function(order, dir, task, form) {
 		if (typeof(form) === "undefined") {
@@ -41,10 +49,11 @@ $this->document->addScriptDeclaration('jQuery(function() {
 
 ?>
 <div class="category-list<?php echo $this->pageclass_sfx;?> ss-speaker-container<?php echo $this->pageclass_sfx; ?>">
-	<?php if ($this->params->get('show_page_heading', 1)) : ?>
+	<?php
+	if ($this->params->get('show_page_heading', 1)) : ?>
 		<h1><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
 	<?php endif; ?>
-	<div class="<?php echo ($this->item->state) ? '': 'system-unpublished'; ?>">
+	<div class="<?php echo ($this->item->state) ? '' : 'system-unpublished'; ?>">
 		<div class="btn-group pull-right">
 			<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
 				<i class="icon-cog"></i>
@@ -52,7 +61,8 @@ $this->document->addScriptDeclaration('jQuery(function() {
 			</a>
 			<ul class="dropdown-menu">
 				<li class="email-icon"><?php echo JHtml::_('icon.email', $this->item, $this->params, array('type' => 'speaker')); ?></li>
-				<?php if ($canEdit or ($canEditOwn and ($user->id == $this->item->created_by))) : ?>
+				<?php
+				if ($canEdit or ($canEditOwn and ($user->id == $this->item->created_by))) : ?>
 					<li class="edit-icon"><?php echo JHtml::_('icon.edit', $this->item, $this->params, array('type' => 'speaker')); ?></li>
 				<?php endif; ?>
 			</ul>
@@ -75,7 +85,8 @@ $this->document->addScriptDeclaration('jQuery(function() {
 		<div class="article-info speaker-info muted">
 			<dl class="article-info">
 				<dt class="article-info-term"><?php  echo JText::_('JDETAILS'); ?></dt>
-				<?php if (in_array('speaker:category', $this->columns) and $this->item->category_title) : ?>
+				<?php
+				if (in_array('speaker:category', $this->columns) and $this->item->category_title) : ?>
 					<dd>
 						<div class="category-name">
 							<?php echo JText::_('JCATEGORY'); ?>:
@@ -83,6 +94,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 						</div>
 					</dd>
 				<?php endif;
+
 				if (in_array('speaker:hits', $this->columns)) : ?>
 					<dd>
 						<div class="hits">
@@ -92,6 +104,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 						</div>
 					</dd>
 				<?php endif;
+
 				if ($this->item->website) : ?>
 					<dd>
 						<div class="website">
@@ -108,12 +121,14 @@ $this->document->addScriptDeclaration('jQuery(function() {
 			$tagLayout = new JLayoutFile('joomla.content.tags');
 			echo $tagLayout->render($this->item->tags->itemTags); ?>
 		<?php endif;
+
 		if (in_array('speaker:intro', $this->columns) and $this->item->intro) : ?>
 			<div>
 				<?php echo JHtml::_('content.prepare', $this->item->intro, '', 'com_sermonspeaker.intro'); ?>
 			</div>
 		<?php endif;
-		if(in_array('speaker:bio', $this->columns) and $this->item->bio) : ?>
+
+		if (in_array('speaker:bio', $this->columns) and $this->item->bio) : ?>
 			<div>
 				<?php echo JHtml::_('content.prepare', $this->item->bio, '', 'com_sermonspeaker.bio'); ?>
 			</div>
@@ -156,8 +171,9 @@ $this->document->addScriptDeclaration('jQuery(function() {
 				</div>
 			<?php endif; ?>
 			<div class="cat-items">
-				<form action="<?php echo htmlspecialchars(JUri::getInstance()->toString().'#sermons'); ?>" method="post" id="adminForm" name="adminForm" class="form-inline">
-					<?php if ($this->params->get('filter_field') or $this->params->get('show_pagination_limit')) :
+				<form action="<?php echo htmlspecialchars(JUri::getInstance()->toString() . '#sermons'); ?>" method="post" id="adminForm" name="adminForm" class="form-inline">
+					<?php
+					if ($this->params->get('filter_field') or $this->params->get('show_pagination_limit')) :
 						echo $this->loadTemplate('filters');
 					endif; ?>
 					<div class="clearfix"></div>
@@ -191,6 +207,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 										endif; ?>
 									</th>
 								<?php endif;
+
 								if (in_array('speaker:scripture', $this->col_sermon)) : ?>
 									<th class="ss-col ss-scripture hidden-phone">
 										<?php if (!$limit) :
@@ -200,6 +217,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 										endif; ?>
 									</th>
 								<?php endif;
+
 								if (in_array('speaker:date', $this->col_sermon)) : ?>
 									<th class="ss-col ss-date">
 										<?php if (!$limit) :
@@ -209,33 +227,37 @@ $this->document->addScriptDeclaration('jQuery(function() {
 										endif; ?>
 									</th>
 								<?php endif;
+
 								if (in_array('speaker:length', $this->col_sermon)) : ?>
 									<th class="ss-col ss-length hidden-phone hidden-tablet">
 										<?php if (!$limit) :
-											 echo JHtml::_('grid.sort', 'COM_SERMONSPEAKER_FIELD_LENGTH_LABEL', 'sermon_time', $listDirnSermons, $listOrderSermons);
+											echo JHtml::_('grid.sort', 'COM_SERMONSPEAKER_FIELD_LENGTH_LABEL', 'sermon_time', $listDirnSermons, $listOrderSermons);
 										else :
 											echo JText::_('COM_SERMONSPEAKER_FIELD_LENGTH_LABEL');
 										endif; ?>
 									</th>
 								<?php endif;
+
 								if (in_array('speaker:series', $this->col_sermon)) : ?>
 									<th class="ss-col ss-series hidden-phone">
 										<?php if (!$limit) :
-											 echo JHtml::_('grid.sort', 'COM_SERMONSPEAKER_SERIES', 'series_title', $listDirnSermons, $listOrderSermons);
+											echo JHtml::_('grid.sort', 'COM_SERMONSPEAKER_SERIES', 'series_title', $listDirnSermons, $listOrderSermons);
 										else :
 											echo JText::_('COM_SERMONSPEAKER_SERIES');
 										endif; ?>
 									</th>
 								<?php endif;
+
 								if (in_array('speaker:addfile', $this->col_sermon)) : ?>
 									<th class="ss-col ss-addfile hidden-phone">
 										<?php if (!$limit) :
-											 echo JHtml::_('grid.sort', 'COM_SERMONSPEAKER_ADDFILE', 'addfileDesc', $listDirnSermons, $listOrderSermons);
+											echo JHtml::_('grid.sort', 'COM_SERMONSPEAKER_ADDFILE', 'addfileDesc', $listDirnSermons, $listOrderSermons);
 										else :
 											echo JText::_('COM_SERMONSPEAKER_ADDFILE');
 										endif; ?>
 									</th>
 								<?php endif;
+
 								if (in_array('speaker:hits', $this->col_sermon)) : ?>
 									<th class="ss-col ss-hits hidden-phone hidden-tablet">
 										<?php if (!$limit) :
@@ -245,7 +267,8 @@ $this->document->addScriptDeclaration('jQuery(function() {
 										endif; ?>
 									</th>
 								<?php endif;
-								if (in_array('speaker:download', $this->col_sermon)) : 
+
+								if (in_array('speaker:download', $this->col_sermon)) :
 									$prio	= $this->params->get('fileprio'); ?>
 									<th class="ss-col ss-dl hidden-phone"></th>
 								<?php endif; ?>
@@ -254,19 +277,22 @@ $this->document->addScriptDeclaration('jQuery(function() {
 							<tbody>
 								<?php foreach($this->sermons as $i => $item) : ?>
 									<tr id="sermon<?php echo $i; ?>" class="<?php echo ($item->state) ? '': 'system-unpublished '; ?>cat-list-row<?php echo $i % 2; ?>">
-										<?php if (in_array('speaker:num', $this->col_sermon)) : ?>
+										<?php
+										if (in_array('speaker:num', $this->col_sermon)) : ?>
 											<td class="num hidden-phone hidden-tablet">
 												<?php echo $item->sermon_number; ?>
 											</td>
 										<?php endif; ?>
 										<td class="ss-title">
 											<?php echo SermonspeakerHelperSermonspeaker::insertSermonTitle($i, $item, $player);
+
 											if ($canEdit or ($canEditOwn and ($user->id == $item->created_by))) : ?>
 												<span class="list-edit pull-left width-50">
 													<?php echo JHtml::_('icon.edit', $item, $this->params, array('type' => 'sermon')); ?>
 												</span>
-											<?php endif; ?>
-											<?php if (!$item->state) : ?>
+											<?php endif;
+
+											if (!$item->state) : ?>
 												<span class="label label-warning"><?php echo JText::_('JUNPUBLISHED'); ?></span>
 											<?php endif; ?>
 										</td>
@@ -275,12 +301,14 @@ $this->document->addScriptDeclaration('jQuery(function() {
 												<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonsRoute($item->catslug)); ?>"><?php echo $item->category_title; ?></a>
 											</td>
 										<?php endif;
+
 										if (in_array('speaker:scripture', $this->col_sermon)) : ?>
 											<td class="ss-col ss-scripture hidden-phone">
 												<?php $scriptures = SermonspeakerHelperSermonspeaker::insertScriptures($item->scripture, '<br />');
 												echo JHtml::_('content.prepare', $scriptures); ?>
 											</td>
 										<?php endif;
+
 										if (in_array('speaker:date', $this->col_sermon)) : ?>
 											<td class="ss-col ss-date">
 												<?php if ($item->sermon_date != '0000-00-00 00:00:00'):
@@ -288,11 +316,13 @@ $this->document->addScriptDeclaration('jQuery(function() {
 												endif; ?>
 											</td>
 										<?php endif;
+
 										if (in_array('speaker:length', $this->col_sermon)) : ?>
 											<td class="ss-col ss-length hidden-phone hidden-tablet">
 												<?php echo SermonspeakerHelperSermonspeaker::insertTime($item->sermon_time); ?>
 											</td>
 										<?php endif;
+
 										if (in_array('speaker:series', $this->col_sermon)) : ?>
 											<td class="ss-col ss-series hidden-phone">
 												<?php if ($item->series_state): ?>
@@ -302,19 +332,22 @@ $this->document->addScriptDeclaration('jQuery(function() {
 												endif; ?>
 											</td>
 										<?php endif;
+
 										if (in_array('speaker:addfile', $this->col_sermon)) : ?>
 											<td class="ss-col ss-addfile hidden-phone">
 												<?php echo SermonspeakerHelperSermonspeaker::insertAddfile($item->addfile, $item->addfileDesc); ?>
 											</td>
 										<?php endif;
+
 										if (in_array('speaker:hits', $this->col_sermon)) : ?>
 											<td class="ss-col ss-hits hidden-phone hidden-tablet">
 												<?php echo $item->hits; ?>
 											</td>
 										<?php endif;
-										if (in_array('speaker:download', $this->col_sermon)) : 
-											$type = ($item->videofile && ($prio || !$item->audiofile)) ? 'video' : 'audio';
-											$filesize = $type.'filesize'; ?>
+
+										if (in_array('speaker:download', $this->col_sermon)) :
+											$type = ($item->videofile and ($prio or !$item->audiofile)) ? 'video' : 'audio';
+											$filesize = $type . 'filesize'; ?>
 											<td class="ss-col ss-dl hidden-phone">
 												<?php echo SermonspeakerHelperSermonspeaker::insertdlbutton($item->slug, $type, 3, $item->$filesize); ?>
 											</td>
@@ -324,9 +357,11 @@ $this->document->addScriptDeclaration('jQuery(function() {
 							</tbody>
 						</table>
 					<?php endif;
+
 					if ($user->authorise('core.edit.own', 'com_sermonspeaker')) :
 						echo JHtml::_('icon.create', $this->category, $this->params);
 					endif;
+
 					if ($this->params->get('show_pagination') and ($this->pag_sermons->get('pages.total') > 1)) : ?>
 						<div class="pagination">
 							<?php if ($this->params->get('show_pagination_results', 1)) : ?>
@@ -345,8 +380,9 @@ $this->document->addScriptDeclaration('jQuery(function() {
 			</div>
 		</div>
 		<div class="pill-pane" id="tab_series">
-			<form action="<?php echo htmlspecialchars(JUri::getInstance()->toString().'#series'); ?>" method="post" id="adminFormSeries" name="adminFormSeries">
-				<?php if ($this->params->get('filter_field') or $this->params->get('show_pagination_limit')) : ?>
+			<form action="<?php echo htmlspecialchars(JUri::getInstance()->toString() . '#series'); ?>" method="post" id="adminFormSeries" name="adminFormSeries">
+				<?php
+				if ($this->params->get('filter_field') or $this->params->get('show_pagination_limit')) : ?>
 					<div class="filters btn-toolbar">
 						<?php if ($this->params->get('show_pagination_limit')) : ?>
 							<div class="btn-group pull-right">
@@ -375,21 +411,25 @@ $this->document->addScriptDeclaration('jQuery(function() {
 									<?php echo JHtml::_('grid.sort', 'JCATEGORY', 'category_title', $listDirnSeries, $listOrderSeries, 'series'); ?>
 								</th>
 							<?php endif;
+
 							if (in_array('speaker:description', $this->col_serie)): ?>
 								<th class="ss-col ss-series_desc hidden-phone">
 									<?php echo JHtml::_('grid.sort', 'JGLOBAL_DESCRIPTION', 'series_description', $listDirnSeries, $listOrderSeries, 'series'); ?>
 								</th>
 							<?php endif;
+
 							if (in_array('speaker:speaker', $this->col_serie)): ?>
 								<th class="ss-col ss-speakers hidden-phone">
 									<?php echo JText::_('COM_SERMONSPEAKER_SPEAKERS'); ?>
 								</th>
 							<?php endif;
+
 							if (in_array('speaker:hits', $this->col_serie)) : ?>
 								<th class="ss-col ss-hits hidden-phone hidden-tablet">
 									<?php echo JHtml::_('grid.sort', 'JGLOBAL_HITS', 'hits', $listDirnSeries, $listOrderSeries, 'series'); ?>
 								</th>
 							<?php endif;
+
 							if (in_array('speaker:download', $this->col_serie)) : ?>
 								<th class="ss-col ss-dl hidden-phone"></th>
 							<?php endif; ?>
@@ -398,7 +438,8 @@ $this->document->addScriptDeclaration('jQuery(function() {
 						<tbody>
 							<?php foreach($this->series as $i => $item) : ?>
 								<tr class="<?php echo ($item->state) ? '': 'system-unpublished '; ?>cat-list-row<?php echo $i % 2; ?>">
-									<?php if ($this->av) :
+									<?php
+									if ($this->av) :
 										if ($item->avatar) : ?>
 											<td class="ss-col ss-av hidden-phone hidden-tablet"><a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->slug)); ?>"><img class="img-polaroid" src="<?php echo SermonspeakerHelperSermonspeaker::makelink($item->avatar); ?>"></a></td>
 										<?php else : ?>
@@ -413,8 +454,9 @@ $this->document->addScriptDeclaration('jQuery(function() {
 											<span class="list-edit pull-left width-50">
 												<?php echo JHtml::_('icon.edit', $item, $this->params, array('type' => 'serie')); ?>
 											</span>
-										<?php endif; ?>
-										<?php if (!$item->state) : ?>
+										<?php endif;
+
+										if (!$item->state) : ?>
 											<span class="label label-warning"><?php echo JText::_('JUNPUBLISHED'); ?></span>
 										<?php endif; ?>
 									</td>
@@ -423,17 +465,21 @@ $this->document->addScriptDeclaration('jQuery(function() {
 											<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSeriesRoute($item->catslug)); ?>"><?php echo $item->category_title; ?></a>
 										</td>
 									<?php endif;
+
 									if (in_array('speaker:description', $this->col_serie)): ?>
 										<td class="ss-col ss-series_desc hidden-phone"><?php echo JHtml::_('content.prepare', $item->series_description); ?></td>
 									<?php endif;
+
 									if (in_array('speaker:speaker', $this->col_serie)): ?>
 										<td class="ss-col ss-speakers hidden-phone"><?php echo $item->speakers; ?></td>
 									<?php endif;
+
 									if (in_array('speaker:hits', $this->col_serie)) : ?>
 										<td class="ss-col ss-hits hidden-phone hidden-tablet"><?php echo $item->hits; ?></td>
 									<?php endif;
+
 									if (in_array('speaker:download', $this->col_serie)) : ?>
-										<td class="ss-col ss-dl hidden-phone"><a href="<?php echo JRoute::_('index.php?view=serie&layout=download&tmpl=component&id='.$item->slug); ?>" class="modal hasTooltip" rel="{handler:'iframe',size:{x:400,y:200}}" title="::<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADSERIES_DESC'); ?>">
+										<td class="ss-col ss-dl hidden-phone"><a href="<?php echo JRoute::_('index.php?view=serie&layout=download&tmpl=component&id=' . $item->slug); ?>" class="modal hasTooltip" rel="{handler:'iframe',size:{x:400,y:200}}" title="::<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADSERIES_DESC'); ?>">
 											<i class="icon-download"> </i>
 										</a></td>
 									<?php endif; ?>
@@ -442,7 +488,8 @@ $this->document->addScriptDeclaration('jQuery(function() {
 						</tbody>
 					</table>
 				<?php endif;
-				if ($this->params->get('show_pagination') && ($this->pag_series->get('pages.total') > 1)) : ?>
+
+				if ($this->params->get('show_pagination') and ($this->pag_series->get('pages.total') > 1)) : ?>
 					<div class="pagination">
 						<?php if ($this->params->get('show_pagination_results', 1)) : ?>
 							<p class="counter">

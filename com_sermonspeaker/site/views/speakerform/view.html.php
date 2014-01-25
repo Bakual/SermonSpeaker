@@ -1,50 +1,86 @@
 <?php
-defined('_JEXEC') or die;
-jimport( 'joomla.application.component.view');
+/**
+ * @package     SermonSpeaker
+ * @subpackage  Component.Site
+ * @author      Thomas Hunziker <admin@sermonspeaker.net>
+ * @copyright   (C) 2014 - Thomas Hunziker
+ * @license     http://www.gnu.org/licenses/gpl.html
+ **/
+
+defined('_JEXEC') or die();
+
+jimport('joomla.application.component.view');
 /**
  * HTML View class for the SermonSpeaker Component
+ *
+ * @since  4.4
  */
 class SermonspeakerViewSpeakerform extends JViewLegacy
 {
 	protected $form;
+
 	protected $item;
+
 	protected $return_page;
+
 	protected $state;
-	function display($tpl = null)
+
+	/**
+	 * Execute and display a template script.
+	 *
+	 * @param   string  $tpl  The name of the template file to parse; automatically searches through the template paths.
+	 *
+	 * @return  mixed  A string if successful, otherwise a Error object.
+	 */
+	public function display($tpl = null)
 	{
 		// Initialise variables.
 		$app		= JFactory::getApplication();
 		$user		= JFactory::getUser();
+
 		// Get model data.
 		$this->state		= $this->get('State');
 		$this->item			= $this->get('Item');
 		$this->form			= $this->get('Form');
 		$this->return_page	= $this->get('ReturnPage');
+
 		// Create a shortcut to the parameters.
 		$params	= &$this->state->params;
-		if (empty($this->item->id)) {
+
+		if (empty($this->item->id))
+		{
 			$authorised = ($params->get('fu_enable') && $user->authorise('core.create', 'com_sermonspeaker'));
-		} else {
+		}
+		else
+		{
 			$authorised = ($params->get('fu_enable') && $user->authorise('core.edit', 'com_sermonspeaker'));
 		}
-		if ($authorised !== true) {
+
+		if ($authorised !== true)
+		{
 			JError::raiseError(403, JText::_('JERROR_ALERTNOAUTHOR'));
+
 			return false;
 		}
 		// Check for errors.
-		if (count($errors = $this->get('Errors'))) {
+		if (count($errors = $this->get('Errors')))
+		{
 			JError::raiseError(500, implode("\n", $errors));
+
 			return false;
 		}
-		//Escape strings for HTML output
+		// Escape strings for HTML output
 		$this->pageclass_sfx = htmlspecialchars($params->get('pageclass_sfx'));
 		$this->params	= $params;
 		$this->user		= $user;
 		$this->_prepareDocument();
 		parent::display($tpl);
 	}
+
 	/**
 	 * Prepares the document
+	 *
+	 * @return  void
 	 */
 	protected function _prepareDocument()
 	{
@@ -54,6 +90,7 @@ class SermonspeakerViewSpeakerform extends JViewLegacy
 		// Because the application sets a default page title,
 		// we need to get it from the menu item itself
 		$menu = $menus->getActive();
+
 		if ($menu)
 		{
 			$this->params->def('page_heading', $this->params->get('page_title', $menu->title));
@@ -62,7 +99,9 @@ class SermonspeakerViewSpeakerform extends JViewLegacy
 		{
 			$this->params->def('page_heading', JText::_('JEDITOR'));
 		}
+
 		$title = $this->params->get('page_title', '');
+
 		if (empty($title))
 		{
 			$title = $app->getCfg('sitename');
@@ -75,6 +114,7 @@ class SermonspeakerViewSpeakerform extends JViewLegacy
 		{
 			$title = JText::sprintf('JPAGETITLE', $title, $app->getCfg('sitename'));
 		}
+
 		$this->document->setTitle($title);
 
 		if ($this->params->get('menu-meta_description'))

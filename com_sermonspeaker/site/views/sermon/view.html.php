@@ -27,7 +27,7 @@ class SermonspeakerViewSermon extends JViewLegacy
 			}
 			$jinput->set('id', $id);
 		}
-		require_once(JPATH_COMPONENT.'/helpers/player.php');
+		require_once JPATH_COMPONENT . '/helpers/player.php';
 		// Initialise variables.
 		$params		= $app->getParams();
 		$this->user	= JFactory::getUser();

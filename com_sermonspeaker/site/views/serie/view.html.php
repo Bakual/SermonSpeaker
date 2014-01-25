@@ -15,7 +15,7 @@ class SermonspeakerViewSerie extends JViewLegacy
 		}
 		// Applying CSS file
 		JHtml::stylesheet('com_sermonspeaker/sermonspeaker.css', '', true);
-		require_once(JPATH_COMPONENT.'/helpers/player.php');
+		require_once JPATH_COMPONENT . '/helpers/player.php';
 		// Initialise variables.
 		$user		= JFactory::getUser();
 		// Get some data from the model

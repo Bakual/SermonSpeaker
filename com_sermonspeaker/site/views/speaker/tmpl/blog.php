@@ -1,13 +1,21 @@
 <?php
-defined('_JEXEC') or die;
+/**
+ * @package     SermonSpeaker
+ * @subpackage  Component.Site
+ * @author      Thomas Hunziker <admin@sermonspeaker.net>
+ * @copyright   (C) 2014 - Thomas Hunziker
+ * @license     http://www.gnu.org/licenses/gpl.html
+ **/
 
-JHtml::addIncludePath(JPATH_COMPONENT.'/helpers');
+defined('_JEXEC') or die();
+
+JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
 
 JHtml::_('bootstrap.framework');
 JHtml::_('bootstrap.tooltip');
 JHtml::_('behavior.modal');
 
-// needed for pictures in blog layout
+// Needed for pictures in blog layout
 JHtml::stylesheet('com_sermonspeaker/blog.css', '', true);
 
 $user		= JFactory::getUser();
@@ -18,7 +26,7 @@ $listOrderSermons	= $this->state_sermons->get('list.ordering');
 $listDirnSermons	= $this->state_sermons->get('list.direction');
 $listOrderSeries	= $this->state_series->get('list.ordering');
 $listDirnSeries		= $this->state_series->get('list.direction');
-$limit 		= (int)$this->params->get('limit', '');
+$limit 		= (int) $this->params->get('limit', '');
 $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->sermons);
 $this->document->addScriptDeclaration('jQuery(function() {
 		if (location.hash == \'#series\') {
@@ -30,7 +38,8 @@ $this->document->addScriptDeclaration('jQuery(function() {
 	})');
 ?>
 <div class="category-list<?php echo $this->pageclass_sfx;?> ss-speaker-container<?php echo $this->pageclass_sfx; ?>">
-	<?php if ($this->params->get('show_page_heading', 1)) : ?>
+	<?php
+	if ($this->params->get('show_page_heading', 1)) : ?>
 		<h1><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
 	<?php endif; ?>
 	<div class="<?php echo ($this->item->state) ? '': 'system-unpublished'; ?>">
@@ -41,7 +50,8 @@ $this->document->addScriptDeclaration('jQuery(function() {
 			</a>
 			<ul class="dropdown-menu">
 				<li class="email-icon"><?php echo JHtml::_('icon.email', $this->item, $this->params, array('type' => 'speaker')); ?></li>
-				<?php if ($canEdit or ($canEditOwn and ($user->id == $this->item->created_by))) : ?>
+				<?php
+				if ($canEdit or ($canEditOwn and ($user->id == $this->item->created_by))) : ?>
 					<li class="edit-icon"><?php echo JHtml::_('icon.edit', $this->item, $this->params, array('type' => 'speaker')); ?></li>
 				<?php endif; ?>
 			</ul>
@@ -64,7 +74,8 @@ $this->document->addScriptDeclaration('jQuery(function() {
 		<div class="article-info speaker-info muted">
 			<dl class="article-info">
 				<dt class="article-info-term"><?php  echo JText::_('JDETAILS'); ?></dt>
-				<?php if (in_array('speaker:category', $this->columns) and $this->item->category_title) : ?>
+				<?php
+				if (in_array('speaker:category', $this->columns) and $this->item->category_title) : ?>
 					<dd>
 						<div class="category-name">
 							<?php echo JText::_('JCATEGORY'); ?>:
@@ -72,6 +83,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 						</div>
 					</dd>
 				<?php endif;
+
 				if (in_array('speaker:hits', $this->columns)) : ?>
 					<dd>
 						<div class="hits">
@@ -81,6 +93,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 						</div>
 					</dd>
 				<?php endif;
+
 				if ($this->item->website) : ?>
 					<dd>
 						<div class="website">
@@ -97,11 +110,13 @@ $this->document->addScriptDeclaration('jQuery(function() {
 			$tagLayout = new JLayoutFile('joomla.content.tags');
 			echo $tagLayout->render($this->item->tags->itemTags); ?>
 		<?php endif;
+
 		if (in_array('speaker:intro', $this->columns) and $this->item->intro) : ?>
 			<div>
 				<?php echo JHtml::_('content.prepare', $this->item->intro, '', 'com_sermonspeaker.intro'); ?>
 			</div>
 		<?php endif;
+
 		if(in_array('speaker:bio', $this->columns) and $this->item->bio) : ?>
 			<div>
 				<?php echo JHtml::_('content.prepare', $this->item->bio, '', 'com_sermonspeaker.bio'); ?>
@@ -145,8 +160,9 @@ $this->document->addScriptDeclaration('jQuery(function() {
 				</div>
 			<?php endif; ?>
 			<div class="cat-items">
-				<form action="<?php echo htmlspecialchars(JUri::getInstance()->toString().'#sermons'); ?>" method="post" id="adminForm" name="adminForm" class="form-inline">
-					<?php if ($this->params->get('filter_field') or $this->params->get('show_pagination_limit')) :
+				<form action="<?php echo htmlspecialchars(JUri::getInstance()->toString() . '#sermons'); ?>" method="post" id="adminForm" name="adminForm" class="form-inline">
+					<?php
+					if ($this->params->get('filter_field') or $this->params->get('show_pagination_limit')) :
 						echo $this->loadTemplate('filters');
 					endif; ?>
 					<div class="clearfix"></div>
@@ -163,23 +179,27 @@ $this->document->addScriptDeclaration('jQuery(function() {
 										</a>
 										<ul class="dropdown-menu">
 											<li class="play-icon"><?php echo JHtml::_('icon.play', $item, $this->params, array('index' => $i)); ?></li>
-											<?php if (in_array('speaker:download', $this->col_sermon)) :
+											<?php
+											if (in_array('speaker:download', $this->col_sermon)) :
 												if ($item->audiofile) : ?>
 													<li class="download-icon"><?php echo JHtml::_('icon.download', $item, $this->params, array('type' => 'audio')); ?></li>
 												<?php endif;
+
 												if ($item->videofile) : ?>
 													<li class="download-icon"><?php echo JHtml::_('icon.download', $item, $this->params, array('type' => 'video')); ?></li>
 												<?php endif; ?>
 											<?php endif; ?>
 											<li class="email-icon"><?php echo JHtml::_('icon.email', $item, $this->params, array('type' => 'sermon')); ?></li>
-											<?php if ($canEdit or ($canEditOwn and ($user->id == $item->created_by))) : ?>
+											<?php
+											if ($canEdit or ($canEditOwn and ($user->id == $item->created_by))) : ?>
 												<li class="edit-icon"><?php echo JHtml::_('icon.edit', $item, $this->params, array('type' => 'sermon')); ?></li>
 											<?php endif; ?>
 										</ul>
 									</div>
 									<div class="page-header">
 										<h2><?php echo SermonspeakerHelperSermonspeaker::insertSermonTitle($i, $item, $player, false); ?></h2>
-										<?php if (!$item->state) : ?>
+										<?php
+										if (!$item->state) : ?>
 											<span class="label label-warning"><?php echo JText::_('JUNPUBLISHED'); ?></span>
 										<?php endif; ?>
 									</div>
@@ -189,7 +209,8 @@ $this->document->addScriptDeclaration('jQuery(function() {
 									<div class="article-info sermon-info muted">
 										<dl class="article-info">
 											<dt class="article-info-term"><?php  echo JText::_('JDETAILS'); ?></dt>
-											<?php if (in_array('speaker:category', $this->col_sermon) and $item->category_title) : ?>
+											<?php
+											if (in_array('speaker:category', $this->col_sermon) and $item->category_title) : ?>
 												<dd>
 													<div class="category-name">
 														<?php echo JText::_('JCATEGORY'); ?>:
@@ -197,12 +218,14 @@ $this->document->addScriptDeclaration('jQuery(function() {
 													</div>
 												</dd>
 											<?php endif;
+
 											if (in_array('speaker:series', $this->col_sermon) and $item->series_title) : ?>
 												<dd>
 													<div class="ss-sermondetail-info">
 														<span class="icon-drawer-2"></span>
 														<?php echo JText::_('COM_SERMONSPEAKER_SERIE_TITLE'); ?>:
-														<?php if ($item->series_state) : ?>
+														<?php
+														if ($item->series_state) : ?>
 															<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->series_slug)); ?>"><?php echo $this->escape($item->series_title); ?></a>
 														<?php else :
 															echo $this->escape($item->series_title);
@@ -210,6 +233,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 													</div>
 												</dd>
 											<?php endif;
+
 											if (in_array('speaker:date', $this->col_sermon) and ($item->sermon_date != '0000-00-00 00:00:00')) : ?>
 												<dd>
 													<div class="create">
@@ -219,6 +243,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 													</div>
 												</dd>
 											<?php endif;
+
 											if (in_array('speaker:hits', $this->col_sermon)) : ?>
 												<dd>
 													<div class="hits">
@@ -228,6 +253,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 													</div>
 												</dd>
 											<?php endif;
+
 											if (in_array('speaker:scripture', $this->col_sermon) and $item->scripture) : ?>
 												<dd>
 													<div class="ss-sermondetail-info">
@@ -238,6 +264,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 													</div>
 												</dd>
 											<?php endif;
+
 											if (in_array('speaker:length', $this->col_sermon) and $item->sermon_time != '00:00:00') : ?>
 												<dd>
 													<div class="ss-sermondetail-info">
@@ -247,6 +274,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 													</div>
 												</dd>
 											<?php endif;
+
 											if (in_array('speaker:addfile', $this->col_sermon) and$item->addfile) : ?>
 												<dd>
 													<div class="ss-sermondetail-info">
@@ -267,6 +295,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 							<?php endforeach; ?>
 						</div>
 					<?php endif;
+
 					if ($this->params->get('show_pagination') and ($this->pag_sermons->get('pages.total') > 1)) : ?>
 						<div class="pagination">
 							<?php if ($this->params->get('show_pagination_results', 1)) : ?>
@@ -286,8 +315,9 @@ $this->document->addScriptDeclaration('jQuery(function() {
 		</div>
 		<div class="pill-pane" id="tab_series">
 			<div class="cat-items">
-				<form action="<?php echo htmlspecialchars(JUri::getInstance()->toString().'#series'); ?>" method="post" id="adminFormSeries" name="adminFormSeries">
-					<?php if ($this->params->get('filter_field') or $this->params->get('show_pagination_limit')) : ?>
+				<form action="<?php echo htmlspecialchars(JUri::getInstance()->toString() . '#series'); ?>" method="post" id="adminFormSeries" name="adminFormSeries">
+					<?php
+					if ($this->params->get('filter_field') or $this->params->get('show_pagination_limit')) : ?>
 						<div class="filters btn-toolbar">
 							<?php if ($this->params->get('show_pagination_limit')) : ?>
 								<div class="btn-group pull-right">
@@ -314,14 +344,15 @@ $this->document->addScriptDeclaration('jQuery(function() {
 										<ul class="dropdown-menu">
 											<?php if (in_array('speaker:download', $this->col_serie)) : ?>
 												<li class="download-icon">
-													<a href="<?php echo JRoute::_('index.php?view=serie&layout=download&tmpl=component&id='.$item->slug); ?>" class="modal" rel="{handler:'iframe',size:{x:400,y:200}}">
+													<a href="<?php echo JRoute::_('index.php?view=serie&layout=download&tmpl=component&id=' . $item->slug); ?>" class="modal" rel="{handler:'iframe',size:{x:400,y:200}}">
 														<i class="icon-download" > </i> 
 														<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADSERIES_LABEL'); ?>
 													</a>
 												</li>
 											<?php endif; ?>
 											<li class="email-icon"><?php echo JHtml::_('icon.email', $item, $this->params, array('type' => 'serie')); ?></li>
-											<?php if ($canEdit or ($canEditOwn and ($user->id == $item->created_by))) : ?>
+											<?php
+											if ($canEdit or ($canEditOwn and ($user->id == $item->created_by))) : ?>
 												<li class="edit-icon"><?php echo JHtml::_('icon.edit', $item, $this->params, array('type' => 'serie')); ?></li>
 											<?php endif; ?>
 										</ul>
@@ -333,6 +364,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 										<?php if (!$item->state) : ?>
 											<span class="label label-warning"><?php echo JText::_('JUNPUBLISHED'); ?></span>
 										<?php endif;
+
 										if (in_array('speaker:speaker', $this->col_serie) and $item->speakers) : ?>
 											<small class="ss-speakers createdby">
 												<?php echo JText::_('COM_SERMONSPEAKER_SPEAKERS'); ?>: 
@@ -350,7 +382,8 @@ $this->document->addScriptDeclaration('jQuery(function() {
 									<div class="article-info serie-info muted">
 										<dl class="article-info">
 											<dt class="article-info-term"><?php  echo JText::_('JDETAILS'); ?></dt>
-											<?php if (in_array('speaker:category', $this->col_serie) and $item->category_title) : ?>
+											<?php
+											if (in_array('speaker:category', $this->col_serie) and $item->category_title) : ?>
 												<dd>
 													<div class="category-name">
 														<?php echo JText::_('JCATEGORY'); ?>:
@@ -358,6 +391,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 													</div>
 												</dd>
 											<?php endif;
+
 											if (in_array('speaker:hits', $this->col_serie)) : ?>
 												<dd>
 													<div class="hits">
@@ -379,6 +413,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 							<?php endforeach; ?>
 						</div>
 					<?php endif;
+
 					if ($this->params->get('show_pagination') and ($this->pag_series->get('pages.total') > 1)) : ?>
 						<div class="pagination">
 							<?php if ($this->params->get('show_pagination_results', 1)) : ?>

@@ -113,7 +113,7 @@ class SermonspeakerViewSeriessermon extends JViewLegacy
 		}
 
 		if (in_array('seriessermon:player', $this->columns)){
-			require_once(JPATH_COMPONENT.'/helpers/player.php');
+			require_once JPATH_COMPONENT . '/helpers/player.php';
 		}
 	}
 }

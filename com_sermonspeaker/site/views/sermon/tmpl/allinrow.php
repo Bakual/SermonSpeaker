@@ -1,7 +1,7 @@
 <?php
 defined('_JEXEC') or die;
 JHtml::stylesheet('com_sermonspeaker/sermonspeaker.css', '', true);
-JHtml::addIncludePath(JPATH_COMPONENT.'/helpers');
+JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
 JHtml::_('bootstrap.tooltip');
 JHtml::_('behavior.modal');
 $user		= JFactory::getUser();

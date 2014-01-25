@@ -1,7 +1,15 @@
 <?php
-defined('_JEXEC') or die;
+/**
+ * @package     SermonSpeaker
+ * @subpackage  Component.Site
+ * @author      Thomas Hunziker <admin@sermonspeaker.net>
+ * @copyright   (C) 2014 - Thomas Hunziker
+ * @license     http://www.gnu.org/licenses/gpl.html
+ **/
 
-JHtml::addIncludePath(JPATH_COMPONENT.'/helpers');
+defined('_JEXEC') or die();
+
+JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
 
 JHtml::_('bootstrap.framework');
 JHtml::_('bootstrap.tooltip');
@@ -15,22 +23,27 @@ $listOrder	= $this->state->get('list.ordering');
 $listDirn	= $this->state->get('list.direction');
 ?>
 <div class="category-list<?php echo $this->pageclass_sfx;?> ss-speakers-container<?php echo $this->pageclass_sfx; ?>">
-	<?php if ($this->params->get('show_page_heading', 1)) : ?>
+	<?php
+	if ($this->params->get('show_page_heading', 1)) : ?>
 		<h1><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
 	<?php endif;
+
 	if ($this->params->get('show_category_title', 1) or $this->params->get('page_subheading')) : ?>
 		<h2>
 			<?php echo $this->escape($this->params->get('page_subheading'));
+
 			if ($this->params->get('show_category_title')) : ?>
 				<span class="subheading-category"><?php echo $this->category->title;?></span>
 			<?php endif; ?>
 		</h2>
 	<?php endif;
+
 	if ($this->params->get('show_description', 1) or $this->params->get('show_description_image', 1)) : ?>
 		<div class="category-desc">
 			<?php if ($this->params->get('show_description_image') and $this->category->getParams()->get('image')) : ?>
 				<img src="<?php echo $this->category->getParams()->get('image'); ?>"/>
 			<?php endif;
+
 			if ($this->params->get('show_description') and $this->category->description) :
 				echo JHtml::_('content.prepare', $this->category->description, '', 'com_sermonspeaker.category');
 			endif; ?>
@@ -39,7 +52,8 @@ $listDirn	= $this->state->get('list.direction');
 	<?php endif; ?>
 	<div class="cat-items">
 		<form action="<?php echo htmlspecialchars(JUri::getInstance()->toString()); ?>" method="post" id="adminForm" name="adminForm">
-			<?php if ($this->params->get('filter_field') or $this->params->get('show_pagination_limit')) : ?>
+			<?php
+			if ($this->params->get('filter_field') or $this->params->get('show_pagination_limit')) : ?>
 				<div class="filters btn-toolbar">
 					<?php if ($this->params->get('show_pagination_limit')) : ?>
 						<div class="btn-group pull-right">
@@ -65,7 +79,8 @@ $listDirn	= $this->state->get('list.direction');
 								</a>
 								<ul class="dropdown-menu">
 									<li class="email-icon"><?php echo JHtml::_('icon.email', $item, $this->params, array('type' => 'speaker')); ?></li>
-									<?php if ($canEdit or ($canEditOwn and ($user->id == $item->created_by))) : ?>
+									<?php
+									if ($canEdit or ($canEditOwn and ($user->id == $item->created_by))) : ?>
 										<li class="edit-icon"><?php echo JHtml::_('icon.edit', $item, $this->params, array('type' => 'speaker')); ?></li>
 									<?php endif; ?>
 								</ul>
@@ -88,7 +103,8 @@ $listDirn	= $this->state->get('list.direction');
 							<div class="article-info speaker-info muted">
 								<dl class="article-info">
 									<dt class="article-info-term"><?php  echo JText::_('JDETAILS'); ?></dt>
-									<?php if (in_array('speakers:category', $this->col_speaker) and $item->category_title) : ?>
+									<?php
+									if (in_array('speakers:category', $this->col_speaker) and $item->category_title) : ?>
 										<dd>
 											<div class="category-name">
 												<?php echo JText::_('JCATEGORY'); ?>:
@@ -96,6 +112,7 @@ $listDirn	= $this->state->get('list.direction');
 											</div>
 										</dd>
 									<?php endif;
+
 									if (in_array('speakers:hits', $this->col_speaker)) : ?>
 										<dd>
 											<div class="hits">
@@ -105,6 +122,7 @@ $listDirn	= $this->state->get('list.direction');
 											</div>
 										</dd>
 									<?php endif;
+
 									if ($item->website) : ?>
 										<dd>
 											<div class="website">
@@ -122,24 +140,27 @@ $listDirn	= $this->state->get('list.direction');
 									<?php echo JHtml::_('content.prepare', $item->intro, '', 'com_sermonspeaker.intro'); ?>
 								</div>
 							<?php endif;
-							if(in_array('speakers:bio', $this->col_speaker) and $item->bio) : ?>
+
+							if (in_array('speakers:bio', $this->col_speaker) and $item->bio) : ?>
 								<div>
 									<?php echo JHtml::_('content.prepare', $item->bio, '', 'com_sermonspeaker.bio'); ?>
 								</div>
 							<?php endif; ?>
 						</div>
-						<?php if ($item->sermons): ?>
-							<a class="badge badge-info" title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKERS_SERMONSLINK_HOOVER'); ?>" href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug).'#sermons'); ?>">
-								<?php echo JText::_('COM_SERMONSPEAKER_SERMONS').': '.$item->sermons; ?></a>&nbsp;
+						<?php if ($item->sermons) : ?>
+							<a class="badge badge-info" title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKERS_SERMONSLINK_HOOVER'); ?>" href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug) . '#sermons'); ?>">
+								<?php echo JText::_('COM_SERMONSPEAKER_SERMONS') . ': ' . $item->sermons; ?></a>&nbsp;
 						<?php endif;
-						if ($item->series): ?>
-							<a class="badge badge-info" title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKERS_SERIESLINK_HOOVER'); ?>" href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug).'#series'); ?>">
-								<?php echo JText::_('COM_SERMONSPEAKER_SERIES').': '.$item->series; ?></a>&nbsp;
+
+						if ($item->series) : ?>
+							<a class="badge badge-info" title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKERS_SERIESLINK_HOOVER'); ?>" href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug) . '#series'); ?>">
+								<?php echo JText::_('COM_SERMONSPEAKER_SERIES') . ': ' . $item->series; ?></a>&nbsp;
 						<?php endif; ?>
 						<div class="clearfix"></div>
 					<?php endforeach; ?>
 				</div>
 			<?php endif;
+
 			if ($this->params->get('show_pagination') and ($this->pagination->get('pages.total') > 1)) : ?>
 				<div class="pagination">
 					<?php if ($this->params->get('show_pagination_results', 1)) : ?>
