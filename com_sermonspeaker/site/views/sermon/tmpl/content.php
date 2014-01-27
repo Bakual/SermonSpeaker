@@ -1,11 +1,20 @@
 <?php
-defined('_JEXEC') or die;
+/**
+ * @package     SermonSpeaker
+ * @subpackage  Component.Site
+ * @author      Thomas Hunziker <admin@sermonspeaker.net>
+ * @copyright   (C) 2014 - Thomas Hunziker
+ * @license     http://www.gnu.org/licenses/gpl.html
+ **/
+
+defined('_JEXEC') or die();
+
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
 JHtml::_('bootstrap.framework');
 JHtml::_('bootstrap.tooltip');
 JHtml::_('behavior.modal');
 
-// needed for pictures in blog layout
+// Needed for pictures in blog layout
 JHtml::stylesheet('com_sermonspeaker/blog.css', '', true);
 
 $user		= JFactory::getUser();
@@ -16,7 +25,8 @@ $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 $md			= SermonspeakerHelperSermonspeaker::getMicrodataHelper();
 ?>
 <div class="item-page<?php echo $this->pageclass_sfx; ?> ss-sermon-container<?php echo $this->pageclass_sfx; ?> clearfix" <?php echo $md->getScope('MusicRecording'); ?>>
-	<?php if ($this->params->get('show_page_heading')) : ?>
+	<?php
+	if ($this->params->get('show_page_heading')) : ?>
 		<div class="page-header">
 			<h1> <?php echo $this->escape($this->params->get('page_heading')); ?> </h1>
 		</div>
@@ -32,7 +42,8 @@ $md			= SermonspeakerHelperSermonspeaker::getMicrodataHelper();
 		<?php if (in_array('sermon:speaker', $this->columns) and $this->item->speaker_title) : ?>
 			<small class="ss-speaker createdby" <?php echo $md->getProp('byArtist'); ?>>
 				<?php echo JText::_('COM_SERMONSPEAKER_SPEAKER'); ?>: 
-				<?php if ($this->item->speaker_state):
+				<?php
+				if ($this->item->speaker_state):
 					echo SermonspeakerHelperSermonSpeaker::SpeakerTooltip($this->item->speaker_slug, $this->item->pic, $this->item->speaker_title);
 				else :
 					echo $this->item->speaker_title;
@@ -50,12 +61,14 @@ $md			= SermonspeakerHelperSermonspeaker::getMicrodataHelper();
 				if ($this->item->audiofile) : ?>
 					<li class="download-icon"><?php echo JHtml::_('icon.download', $this->item, $this->params, array('type' => 'audio')); ?></li>
 				<?php endif;
+
 				if ($this->item->videofile) : ?>
 					<li class="download-icon"><?php echo JHtml::_('icon.download', $this->item, $this->params, array('type' => 'video')); ?></li>
 				<?php endif; ?>
 			<?php endif; ?>
 			<li class="email-icon"><?php echo JHtml::_('icon.email', $this->item, $this->params, array('type' => 'sermon')); ?></li>
-			<?php if ($canEdit or ($canEditOwn and ($user->id == $this->item->created_by))) : ?>
+			<?php
+			if ($canEdit or ($canEditOwn and ($user->id == $this->item->created_by))) : ?>
 				<li class="edit-icon"><?php echo JHtml::_('icon.edit', $this->item, $this->params, array('type' => 'sermon')); ?></li>
 			<?php endif; ?>
 		</ul>
@@ -63,17 +76,20 @@ $md			= SermonspeakerHelperSermonspeaker::getMicrodataHelper();
 	<div class="article-info sermon-info muted">
 		<dl class="article-info">
 			<dt class="article-info-term"><?php  echo JText::_('JDETAILS'); ?></dt>
-			<?php if (in_array('sermon:category', $this->columns) and $this->item->category_title) : ?>
+			<?php
+			if (in_array('sermon:category', $this->columns) and $this->item->category_title) : ?>
 				<dd class="category-name">
 					<?php echo JText::_('JCATEGORY'); ?>:
 					<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonsRoute($this->item->catslug)); ?>"><?php echo $this->item->category_title; ?></a>
 				</dd>
 			<?php endif;
+
 			if (in_array('sermon:series', $this->columns) and $this->item->series_title) : ?>
 				<dd class="ss-sermondetail-info" <?php echo $md->getProp('inAlbum'); ?>>
 					<span class="icon-drawer-2"></span>
 					<?php echo JText::_('COM_SERMONSPEAKER_SERIE_TITLE'); ?>:
-					<?php if ($this->item->series_state) : ?>
+					<?php
+					if ($this->item->series_state) : ?>
 						<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($this->item->series_slug)); ?>">
 					<?php echo $this->escape($this->item->series_title); ?></a>
 					<?php else :
@@ -81,6 +97,7 @@ $md			= SermonspeakerHelperSermonspeaker::getMicrodataHelper();
 					endif; ?>
 				</dd>
 			<?php endif;
+
 			if (in_array('sermon:date', $this->columns) and ($this->item->sermon_date != '0000-00-00 00:00:00')) : ?>
 				<dd class="create">
 					<span class="icon-calendar"></span>
@@ -88,6 +105,7 @@ $md			= SermonspeakerHelperSermonspeaker::getMicrodataHelper();
 					<?php echo JHtml::Date($this->item->sermon_date, JText::_($this->params->get('date_format')), true); ?>
 				</dd>
 			<?php endif;
+
 			if (in_array('sermon:hits', $this->columns)) : ?>
 				<dd class="hits">
 					<span class="icon-eye-open"></span>
@@ -95,6 +113,7 @@ $md			= SermonspeakerHelperSermonspeaker::getMicrodataHelper();
 					<?php echo $this->item->hits; ?>
 				</dd>
 			<?php endif;
+
 			if (in_array('sermon:scripture', $this->columns) and $this->item->scripture) : ?>
 				<dd class="ss-sermondetail-info">
 					<span class="icon-quote"></span>
@@ -103,26 +122,30 @@ $md			= SermonspeakerHelperSermonspeaker::getMicrodataHelper();
 					echo JHtml::_('content.prepare', $scriptures, '', 'com_sermonspeaker.scripture'); ?>
 				</dd>
 			<?php endif;
+
 			if ($this->params->get('custom1') and $this->item->custom1) : ?>
 				<dd class="ss-sermondetail-info">
 					<?php echo JText::_('COM_SERMONSPEAKER_CUSTOM1'); ?>:
 					<?php echo $this->item->custom1; ?>
 				</dd>
 			<?php endif;
+
 			if ($this->params->get('custom2') and $this->item->custom2) : ?>
 				<dd class="ss-sermondetail-info">
 					<?php echo JText::_('COM_SERMONSPEAKER_CUSTOM2'); ?>:
 					<?php echo $this->item->custom2; ?>
 				</dd>
 			<?php endif;
+
 			if (in_array('sermon:length', $this->columns) and $this->item->sermon_time != '00:00:00') : ?>
 				<dd class="ss-sermondetail-info">
 					<i class="icon-clock"></i>
 					<?php echo JText::_('COM_SERMONSPEAKER_FIELD_LENGTH_LABEL'); ?>:
-					<meta <?php echo $md->getProp('duration'); ?> content="<?php echo 'PT'.date('H\Hi\Ms\S', strtotime($this->item->sermon_time)); ?>">
+					<meta <?php echo $md->getProp('duration'); ?> content="<?php echo 'PT' . date('H\Hi\Ms\S', strtotime($this->item->sermon_time)); ?>">
 					<?php echo SermonspeakerHelperSermonspeaker::insertTime($this->item->sermon_time); ?>
 				</dd>
 			<?php endif;
+
 			if (in_array('sermon:addfile', $this->columns) and $this->item->addfile) : ?>
 				<dd class="ss-sermondetail-info">
 					<?php echo JText::_('COM_SERMONSPEAKER_ADDFILE'); ?>:
@@ -133,12 +156,14 @@ $md			= SermonspeakerHelperSermonspeaker::getMicrodataHelper();
 	</div>
 	<?php if ($picture = SermonspeakerHelperSermonspeaker::insertPicture($this->item)) : ?>
 		<div class="img-polaroid pull-right item-image sermon-image"><img src="<?php echo $picture; ?>"></div>
-	<?php endif; ?>
-	<?php if ($this->params->get('show_tags', 1) and !empty($this->item->tags)) :
+	<?php endif;
+
+	if ($this->params->get('show_tags', 1) and !empty($this->item->tags)) :
 		$tagLayout = new JLayoutFile('joomla.content.tags');
 		echo $tagLayout->render($this->item->tags->itemTags); ?>
 		<br />
 	<?php endif;
+
 	if (in_array('sermon:player', $this->columns)) : ?>
 		<div class="ss-sermon-player">
 			<?php if ($player->toggle): ?>
@@ -146,8 +171,9 @@ $md			= SermonspeakerHelperSermonspeaker::getMicrodataHelper();
 					<img class="btn hasTooltip" src="media/com_sermonspeaker/images/Video.png" onclick="Video()" alt="Video" title="<?php echo JText::_('COM_SERMONSPEAKER_SWITCH_VIDEO'); ?>" />
 					<img class="btn hasTooltip" src="media/com_sermonspeaker/images/Sound.png" onclick="Audio()" alt="Audio" title="<?php echo JText::_('COM_SERMONSPEAKER_SWITCH_AUDIO'); ?>" />
 				</div>
-			<?php endif; ?>
-			<?php if ($player->error): ?>
+			<?php endif;
+
+			if ($player->error) : ?>
 				<span class="well well-small"><?php echo $player->error; ?></span>
 			<?php else:
 				echo $player->mspace;
@@ -156,6 +182,7 @@ $md			= SermonspeakerHelperSermonspeaker::getMicrodataHelper();
 		</div>
 		<br />
 	<?php endif;
+
 	if (in_array('sermon:notes', $this->columns) and $this->item->notes) : ?>
 		<div>
 			<?php echo JHtml::_('content.prepare', $this->item->notes, '', 'com_sermonspeaker.notes'); ?>

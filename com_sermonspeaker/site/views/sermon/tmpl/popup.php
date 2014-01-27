@@ -1,5 +1,14 @@
 <?php
-defined('_JEXEC') or die;
+/**
+ * @package     SermonSpeaker
+ * @subpackage  Component.Site
+ * @author      Thomas Hunziker <admin@sermonspeaker.net>
+ * @copyright   (C) 2014 - Thomas Hunziker
+ * @license     http://www.gnu.org/licenses/gpl.html
+ **/
+
+defined('_JEXEC') or die();
+
 JHtml::stylesheet('com_sermonspeaker/sermonspeaker.css', '', true);
 $config	= array('type' => JFactory::getApplication()->input->get('type', 'auto'));
 $player = SermonspeakerHelperSermonspeaker::getPlayer($this->item, $config);
@@ -7,7 +16,7 @@ $player = SermonspeakerHelperSermonspeaker::getPlayer($this->item, $config);
 <script type="text/javascript">
 	window.onload = applyChanges()
 	function applyChanges(){
-		window.resizeTo(<?php echo $player->popup['width'].', '.$player->popup['height']; ?>);
+		window.resizeTo(<?php echo $player->popup['width'] . ', ' . $player->popup['height']; ?>);
 		document.body.style.backgroundColor='<?php echo $this->params->get('popup_color', '#fff'); ?>';
 	}
 </script>
@@ -17,7 +26,8 @@ $player = SermonspeakerHelperSermonspeaker::getPlayer($this->item, $config);
 		<?php 
 		echo $player->mspace;
 		echo $player->script;
-		if ($player->toggle): ?>
+
+		if ($player->toggle) : ?>
 			<div class="ss-sermon-switch">
 				<img class="pointer" src="media/com_sermonspeaker/images/Video.png" onclick="Video()" alt="Video" title="<?php echo JText::_('COM_SERMONSPEAKER_SWITCH_VIDEO'); ?>" />
 				<img class="pointer" src="media/com_sermonspeaker/images/Sound.png" onclick="Audio()" alt="Audio" title="<?php echo JText::_('COM_SERMONSPEAKER_SWITCH_AUDIO'); ?>" />
