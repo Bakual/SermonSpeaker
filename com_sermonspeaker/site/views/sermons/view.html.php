@@ -168,7 +168,7 @@ class SermonspeakerViewSermons extends JViewLegacy
 	/**
 	 * Prepares the document
 	 *
-	 * @return  voud
+	 * @return  void
 	 */
 	protected function _prepareDocument()
 	{

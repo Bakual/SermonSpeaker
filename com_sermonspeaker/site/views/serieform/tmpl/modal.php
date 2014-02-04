@@ -1,10 +1,18 @@
 <?php
-defined( '_JEXEC' ) or die( 'Restricted access' );
+/**
+ * @package     SermonSpeaker
+ * @subpackage  Component.Site
+ * @author      Thomas Hunziker <admin@sermonspeaker.net>
+ * @copyright   (C) 2014 - Thomas Hunziker
+ * @license     http://www.gnu.org/licenses/gpl.html
+ **/
+
+defined('_JEXEC') or die();
+
 JHtml::_('bootstrap.tooltip');
 JHtml::_('behavior.formvalidation');
 JHtml::_('behavior.keepalive');
 JHtml::_('formbehavior.chosen', 'select');
-
 ?>
 <script type="text/javascript">
 	Joomla.submitbutton = function(task) {
@@ -18,7 +26,8 @@ JHtml::_('formbehavior.chosen', 'select');
 </script>
 
 <div class="edit item-page<?php echo $this->pageclass_sfx; ?>">
-	<?php if ($this->params->get('show_page_heading', 1)) : ?>
+	<?php
+	if ($this->params->get('show_page_heading', 1)) : ?>
 	<div class="page-header">
 		<h1>
 			<?php echo $this->escape($this->params->get('page_heading')); ?>
@@ -26,7 +35,7 @@ JHtml::_('formbehavior.chosen', 'select');
 	</div>
 	<?php endif; ?>
 
-	<form action="<?php echo JRoute::_('index.php?option=com_sermonspeaker&view=serieform&modal=1&s_id='.(int) $this->item->id); ?>" method="post" name="adminForm" id="adminForm" class="form-validate form form-vertical">
+	<form action="<?php echo JRoute::_('index.php?option=com_sermonspeaker&view=serieform&modal=1&s_id=' . (int) $this->item->id); ?>" method="post" name="adminForm" id="adminForm" class="form-validate form form-vertical">
 		<div class="btn-toolbar">
 			<div class="btn-group">
 				<button type="button" class="btn btn-primary" onclick="Joomla.submitbutton('serieform.save')">

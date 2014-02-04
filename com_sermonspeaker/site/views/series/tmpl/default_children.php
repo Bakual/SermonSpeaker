@@ -1,5 +1,13 @@
 <?php
-defined('_JEXEC') or die;
+/**
+ * @package     SermonSpeaker
+ * @subpackage  Component.Site
+ * @author      Thomas Hunziker <admin@sermonspeaker.net>
+ * @copyright   (C) 2014 - Thomas Hunziker
+ * @license     http://www.gnu.org/licenses/gpl.html
+ **/
+
+defined('_JEXEC') or die();
 
 $class = ' class="first"';
 
@@ -20,6 +28,7 @@ if (count($this->children[$this->category->id]) > 0) :
 							<?php echo $child->getNumItems(true); ?>
 						</span>
 					<?php endif;
+
 					if (count($child->getChildren()) > 0) : ?>
 						<a href="#category-<?php echo $child->id;?>" data-toggle="collapse" data-toggle="button" class="btn btn-mini pull-right">
 							<i class="icon-plus"></i>
@@ -33,11 +42,13 @@ if (count($this->children[$this->category->id]) > 0) :
 						</div>
 					<?php endif;
 				endif;
+
 				if (count($child->getChildren()) > 0) : ?>
 					<div class="collapse fade" id="category-<?php echo $child->id;?>">
 						<?php $this->children[$child->id] = $child->getChildren();
 						$this->category = $child;
 						$this->maxLevel--;
+
 						if ($this->maxLevel != 0) :
 							echo $this->loadTemplate('children');
 						endif;

@@ -1,12 +1,29 @@
 <?php
-defined('_JEXEC') or die;
-jimport( 'joomla.application.component.view');
+/**
+ * @package     SermonSpeaker
+ * @subpackage  Component.Site
+ * @author      Thomas Hunziker <admin@sermonspeaker.net>
+ * @copyright   (C) 2014 - Thomas Hunziker
+ * @license     http://www.gnu.org/licenses/gpl.html
+ **/
+
+defined('_JEXEC') or die();
+
 /**
  * HTML View class for the SermonSpeaker Component
+ *
+ * @since  3.4
  */
 class SermonspeakerViewSerie extends JViewLegacy
 {
-	function display($tpl = null)
+	/**
+	 * Execute and display a template script.
+	 *
+	 * @param   string  $tpl  The name of the template file to parse; automatically searches through the template paths.
+	 *
+	 * @return  mixed  A string if successful, otherwise a Error object.
+	 */
+	public function display($tpl = null)
 	{
 		$app	= JFactory::getApplication();
 		if (!$app->input->get('id', 0, 'int'))
@@ -179,6 +196,8 @@ class SermonspeakerViewSerie extends JViewLegacy
 	}
 	/**
 	 * Prepares the document
+	 *
+	 * @return  void
 	 */
 	protected function _prepareDocument()
 	{

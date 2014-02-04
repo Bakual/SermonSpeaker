@@ -1,5 +1,13 @@
 <?php
-defined('_JEXEC') or die;
+/**
+ * @package     SermonSpeaker
+ * @subpackage  Component.Site
+ * @author      Thomas Hunziker <admin@sermonspeaker.net>
+ * @copyright   (C) 2014 - Thomas Hunziker
+ * @license     http://www.gnu.org/licenses/gpl.html
+ **/
+
+defined('_JEXEC') or die();
 
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
 
@@ -14,22 +22,27 @@ $listOrder	= $this->state->get('list.ordering');
 $listDirn	= $this->state->get('list.direction');
 ?>
 <div class="category-list<?php echo $this->pageclass_sfx;?> ss-series-container<?php echo $this->pageclass_sfx; ?>">
-	<?php if ($this->params->get('show_page_heading', 1)) : ?>
+	<?php
+	if ($this->params->get('show_page_heading', 1)) : ?>
 		<h1><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
 	<?php endif;
+
 	if ($this->params->get('show_category_title', 1) or $this->params->get('page_subheading')) : ?>
 		<h2>
 			<?php echo $this->escape($this->params->get('page_subheading'));
+
 			if ($this->params->get('show_category_title')) : ?>
 				<span class="subheading-category"><?php echo $this->category->title;?></span>
 			<?php endif; ?>
 		</h2>
 	<?php endif;
+
 	if ($this->params->get('show_description', 1) or $this->params->get('show_description_image', 1)) : ?>
 		<div class="category-desc">
 			<?php if ($this->params->get('show_description_image') and $this->category->getParams()->get('image')) : ?>
 				<img src="<?php echo $this->category->getParams()->get('image'); ?>"/>
 			<?php endif;
+
 			if ($this->params->get('show_description') and $this->category->description) :
 				echo JHtml::_('content.prepare', $this->category->description, '', 'com_sermonspeaker.category');
 			endif; ?>
@@ -38,7 +51,8 @@ $listDirn	= $this->state->get('list.direction');
 	<?php endif; ?>
 	<div class="cat-items">
 		<form action="<?php echo htmlspecialchars(JUri::getInstance()->toString()); ?>" method="post" id="adminForm" name="adminForm">
-			<?php if ($this->params->get('filter_field') or $this->params->get('show_pagination_limit')) : ?>
+			<?php
+			if ($this->params->get('filter_field') or $this->params->get('show_pagination_limit')) : ?>
 				<div class="filters btn-toolbar">
 					<?php if ($this->params->get('show_pagination_limit')) : ?>
 						<div class="btn-group pull-right">
@@ -67,19 +81,23 @@ $listDirn	= $this->state->get('list.direction');
 								<?php echo JHtml::_('grid.sort', 'JCATEGORY', 'category_title', $listDirn, $listOrder); ?>
 							</th>
 						<?php endif;
-						if (in_array('series:description', $this->col_serie)): ?>
+
+						if (in_array('series:description', $this->col_serie)) : ?>
 							<th class="ss-col ss-series_desc hidden-phone">
 								<?php echo JHtml::_('grid.sort', 'JGLOBAL_DESCRIPTION', 'series_description', $listDirn, $listOrder); ?>
 							</th>
 						<?php endif;
+
 						if (in_array('series:speaker', $this->col_serie)) : ?>
 							<th class="ss-col ss-speakers hidden-phone hidden-tablet"><?php echo JText::_('COM_SERMONSPEAKER_SPEAKERS'); ?></th>
 						<?php endif;
+
 						if (in_array('series:hits', $this->col_serie)) : ?>
 							<th class="ss-col ss-hits hidden-phone hidden-tablet">
 								<?php echo JHtml::_('grid.sort', 'JGLOBAL_HITS', 'hits', $listDirn, $listOrder); ?>
 							</th>
 						<?php endif;
+
 						if (in_array('series:download', $this->col_serie)) : ?>
 							<th class="ss-col ss-dl hidden-phone"></th>
 						<?php endif; ?>
@@ -88,7 +106,8 @@ $listDirn	= $this->state->get('list.direction');
 					<tbody>
 						<?php foreach($this->items as $i => $item) : ?>
 							<tr class="<?php echo ($item->state) ? '': 'system-unpublished '; ?>cat-list-row<?php echo $i % 2; ?>">
-								<?php if ($this->av) :
+								<?php
+								if ($this->av) :
 									if ($item->avatar) : ?>
 										<td class="ss-col ss-av hidden-phone hidden-tablet"><a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->slug)); ?>"><img class="img-polaroid" src="<?php echo SermonspeakerHelperSermonspeaker::makelink($item->avatar); ?>"></a></td>
 									<?php else : ?>
@@ -103,8 +122,9 @@ $listDirn	= $this->state->get('list.direction');
 										<span class="list-edit pull-left width-50">
 											<?php echo JHtml::_('icon.edit', $item, $this->params, array('type' => 'serie')); ?>
 										</span>
-									<?php endif; ?>
-									<?php if (!$item->state) : ?>
+									<?php endif;
+
+									if (!$item->state) : ?>
 										<span class="label label-warning"><?php echo JText::_('JUNPUBLISHED'); ?></span>
 									<?php endif; ?>
 								</td>
@@ -113,17 +133,21 @@ $listDirn	= $this->state->get('list.direction');
 										<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSeriesRoute($item->catslug)); ?>"><?php echo $item->category_title; ?></a>
 									</td>
 								<?php endif;
+
 								if (in_array('series:description', $this->col_serie)): ?>
 									<td class="ss-col ss-series_desc hidden-phone"><?php echo JHtml::_('content.prepare', $item->series_description); ?></td>
 								<?php endif;
+
 								if (in_array('series:speaker', $this->col_serie)) : ?>
 									<td class="ss-col ss-speakers hidden-phone hidden-tablet"><?php echo $item->speakers; ?></td>
 								<?php endif;
+
 								if (in_array('series:hits', $this->col_serie)) : ?>
 									<td class="ss-col ss-hits hidden-phone hidden-tablet"><?php echo $item->hits; ?></td>
 								<?php endif;
+
 								if (in_array('series:download', $this->col_serie)) : ?>
-									<td class="ss-col ss-dl hidden-phone"><a href="<?php echo JRoute::_('index.php?view=serie&layout=download&tmpl=component&id='.$item->slug); ?>" class="modal hasTooltip" rel="{handler:'iframe',size:{x:400,y:200}}" title="::<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADSERIES_DESC'); ?>">
+									<td class="ss-col ss-dl hidden-phone"><a href="<?php echo JRoute::_('index.php?view=serie&layout=download&tmpl=component&id=' . $item->slug); ?>" class="modal hasTooltip" rel="{handler:'iframe',size:{x:400,y:200}}" title="::<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADSERIES_DESC'); ?>">
 										<i class="icon-download"> </i>
 									</a></td>
 								<?php endif; ?>
@@ -132,6 +156,7 @@ $listDirn	= $this->state->get('list.direction');
 					</tbody>
 				</table>
 			<?php endif;
+
 			if ($this->params->get('show_pagination') and ($this->pagination->get('pages.total') > 1)) : ?>
 				<div class="pagination">
 					<?php if ($this->params->get('show_pagination_results', 1)) : ?>
