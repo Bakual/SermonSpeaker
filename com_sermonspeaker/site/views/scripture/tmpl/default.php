@@ -43,23 +43,23 @@ JHtml::_('formbehavior.chosen', 'select');
 					<option value="0"><?php echo JText::_('COM_SERMONSPEAKER_SELECT_BOOK'); ?></option>
 					<optgroup label="<?php echo JText::_('COM_SERMONSPEAKER_OLD_TESTAMENT'); ?>">
 					<?php for ($i = 1; $i < 40; $i++): ?>
-						<option value="<?php echo $i; ?>"><?php echo JText::_('COM_SERMONSPEAKER_BOOK_'.$i); ?></option>
+						<option value="<?php echo $i; ?>"><?php echo JText::_('COM_SERMONSPEAKER_BOOK_' . $i); ?></option>
 					<?php endfor; ?>
 					</optgroup>
 					<optgroup label="<?php echo JText::_('COM_SERMONSPEAKER_NEW_TESTAMENT'); ?>">
 					<?php for (; $i < 67; $i++): ?>
-						<option value="<?php echo $i; ?>"><?php echo JText::_('COM_SERMONSPEAKER_BOOK_'.$i); ?></option>
+						<option value="<?php echo $i; ?>"><?php echo JText::_('COM_SERMONSPEAKER_BOOK_' . $i); ?></option>
 					<?php endfor; ?>
 					</optgroup>
 					<optgroup label="<?php echo JText::_('COM_SERMONSPEAKER_APOCRYPHA'); ?>">
 					<?php for (; $i < 74; $i++): ?>
-						<option value="<?php echo $i; ?>"><?php echo JText::_('COM_SERMONSPEAKER_BOOK_'.$i); ?></option>
+						<option value="<?php echo $i; ?>"><?php echo JText::_('COM_SERMONSPEAKER_BOOK_' . $i); ?></option>
 					<?php endfor; ?>
 					</optgroup>
 					<?php if ($n = $this->params->get('addbooks', 0)): ?>
 						<optgroup label="<?php echo JText::_('COM_SERMONSPEAKER_CUSTOMBOOKS'); ?>">
 						<?php for (; $i < (74 + $n); $i++): ?>
-							<option value="<?php echo $i; ?>"><?php echo JText::_('COM_SERMONSPEAKER_BOOK_'.$i); ?></option>
+							<option value="<?php echo $i; ?>"><?php echo JText::_('COM_SERMONSPEAKER_BOOK_' . $i); ?></option>
 						<?php endfor; ?>
 						</optgroup>
 					<?php endif; ?>

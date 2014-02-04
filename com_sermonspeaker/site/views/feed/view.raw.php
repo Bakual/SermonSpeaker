@@ -118,7 +118,7 @@ class SermonspeakerViewFeed extends JViewLegacy
 				{
 					// Vimeo
 					$id					= trim(strrchr($file, '/'), '/ ');
-					$file				= 'http://vimeo.com/moogaloop.swf?clip_id='.$id;
+					$file				= 'http://vimeo.com/moogaloop.swf?clip_id=' . $id;
 					$enclosure['type']	= 'application/x-shockwave-flash';
 				}
 				$enclosure['url']		= $file;

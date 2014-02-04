@@ -83,7 +83,7 @@ foreach ($this->items as $item) :
 		else :
 			echo $this->make_xml_safe(JURI::root().SermonspeakerHelperRoute::getSermonRoute($item->id));
 		endif; ?></link>
-		<guid><?php echo JURI::root().'index.php?option=com_sermonspeaker&amp;view=sermon&amp;id='.$item->id; ?></guid>
+		<guid><?php echo JURI::root() . 'index.php?option=com_sermonspeaker&amp;view=sermon&amp;id=' . $item->id; ?></guid>
 <?php // todo: maybe add email of speaker if present (not yet in database), format is emailadress (name) and then use author instead ?>
 		<dc:creator><?php echo $this->make_xml_safe($item->speaker_title); ?></dc:creator>
 		<description><?php echo $notes; ?></description>
@@ -101,8 +101,8 @@ if ($item->picture) : ?>
 		<itunes:duration><?php echo SermonspeakerHelperSermonSpeaker::insertTime($item->sermon_time); ?></itunes:duration>
 		<itunes:explicit>no</itunes:explicit>
 		<itunes:keywords><?php echo $this->getKeywords($item); ?></itunes:keywords>
-		<itunes:subtitle><?php echo (strlen($notes) > 255) ? mb_substr($notes, 0, 252, 'UTF-8').'...' : $notes; ?></itunes:subtitle>
-		<itunes:summary><?php echo (strlen($notes) > 4000) ? mb_substr($notes, 0, 3997, 'UTF-8').'...' : $notes; ?></itunes:summary>
+		<itunes:subtitle><?php echo (strlen($notes) > 255) ? mb_substr($notes, 0, 252, 'UTF-8') . '...' : $notes; ?></itunes:subtitle>
+		<itunes:summary><?php echo (strlen($notes) > 4000) ? mb_substr($notes, 0, 3997, 'UTF-8') . '...' : $notes; ?></itunes:summary>
 	</item>
 <?php endforeach; ?>
   </channel>

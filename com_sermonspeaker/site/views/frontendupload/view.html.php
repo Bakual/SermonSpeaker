@@ -62,7 +62,7 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 		if ($this->user->guest)
 		{
 			$redirectUrl = urlencode(base64_encode(JFactory::getURI()->toString())); 
-			$app->redirect(JRoute::_('index.php?option=com_users&view=login&return='.$redirectUrl), JText::_('JGLOBAL_YOU_MUST_LOGIN_FIRST'), 'error');
+			$app->redirect(JRoute::_('index.php?option=com_users&view=login&return=' . $redirectUrl), JText::_('JGLOBAL_YOU_MUST_LOGIN_FIRST'), 'error');
 			return false;
 		}
 
@@ -143,7 +143,7 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 					}
 				}
 			}
-			xmlhttp.open("POST","'.JURI::root().'index.php?option=com_sermonspeaker&task=file.lookup&format=json",true);
+			xmlhttp.open("POST","'.JURI::root() . 'index.php?option=com_sermonspeaker&task=file.lookup&format=json",true);
 			xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
  			xmlhttp.send("file="+elem.value);
 		}';
@@ -207,8 +207,8 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 		{
 			// Prepare Flashuploader
 			$lang	= $jinput->get('lang', '', 'word');
-			$lang	= ($lang) ? '&lang='.$lang : '';
-			$targetURL 	= JURI::root().'index.php?option=com_sermonspeaker&task=file.upload&'.$this->session->getName().'='.$this->session->getId().'&'.JSession::getFormToken().'=1&format=json'.$lang;
+			$lang	= ($lang) ? '&lang=' . $lang : '';
+			$targetURL 	= JURI::root() . 'index.php?option=com_sermonspeaker&task=file.upload&' . $this->session->getName() . '=' . $this->session->getId() . '&'.JSession::getFormToken() . '=1&format=json' . $lang;
 
 			// SWFUpload
 			JHtml::Script('media/com_sermonspeaker/swfupload/swfupload.js');
@@ -219,14 +219,14 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 				window.onload = function() {
 					if(document.id("jform_audiofile_text")){
 						upload1 = new SWFUpload({
-							upload_url: "'.$targetURL.'&type=audio",
-							flash_url : "'.JURI::root().'media/com_sermonspeaker/swfupload/swfupload.swf",
+							upload_url: "' . $targetURL.'&type=audio",
+							flash_url : "'.JURI::root() . 'media/com_sermonspeaker/swfupload/swfupload.swf",
 							file_size_limit : "0",
-							file_types : "'.$this->getAllowedFiletypes('audio').'",
-							file_types_description : "'.JText::_('COM_SERMONSPEAKER_FIELD_AUDIOFILE_LABEL', 'true').'",
+							file_types : "' . $this->getAllowedFiletypes('audio') . '",
+							file_types_description : "'.JText::_('COM_SERMONSPEAKER_FIELD_AUDIOFILE_LABEL', 'true') . '",
 							file_upload_limit : "0",
 							file_queue_limit : "0",
-							button_image_url : "'.JURI::root().'media/com_sermonspeaker/swfupload/XPButtonUploadText_61x22.png",
+							button_image_url : "'.JURI::root() . 'media/com_sermonspeaker/swfupload/XPButtonUploadText_61x22.png",
 							button_placeholder_id : "btnUpload1",
 							button_width: 61,
 							button_height: 22,
@@ -274,14 +274,14 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 					}
 					if(document.id("jform_videofile_text")){
 						upload2 = new SWFUpload({
-							upload_url: "'.$targetURL.'&type=video",
-							flash_url : "'.JURI::root().'media/com_sermonspeaker/swfupload/swfupload.swf",
+							upload_url: "' . $targetURL.'&type=video",
+							flash_url : "'.JURI::root() . 'media/com_sermonspeaker/swfupload/swfupload.swf",
 							file_size_limit : "0",
-							file_types : "'.$this->getAllowedFiletypes('video').'",
-							file_types_description : "'.JText::_('COM_SERMONSPEAKER_FIELD_VIDEOFILE_LABEL', 'true').'",
+							file_types : "' . $this->getAllowedFiletypes('video') . '",
+							file_types_description : "'.JText::_('COM_SERMONSPEAKER_FIELD_VIDEOFILE_LABEL', 'true') . '",
 							file_upload_limit : "0",
 							file_queue_limit : "0",
-							button_image_url : "'.JURI::root().'media/com_sermonspeaker/swfupload/XPButtonUploadText_61x22.png",
+							button_image_url : "'.JURI::root() . 'media/com_sermonspeaker/swfupload/XPButtonUploadText_61x22.png",
 							button_placeholder_id : "btnUpload2",
 							button_width: 61,
 							button_height: 22,
@@ -329,13 +329,13 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 					}
 					if(document.id("jform_addfile_text")){
 						upload3 = new SWFUpload({
-							upload_url: "'.$targetURL.'&type=addfile",
-							flash_url : "'.JURI::root().'media/com_sermonspeaker/swfupload/swfupload.swf",
+							upload_url: "' . $targetURL.'&type=addfile",
+							flash_url : "'.JURI::root() . 'media/com_sermonspeaker/swfupload/swfupload.swf",
 							file_size_limit : "0",
-							file_types : "'.$this->getAllowedFiletypes('addfile').'",
+							file_types : "' . $this->getAllowedFiletypes('addfile') . '",
 							file_upload_limit : "0",
 							file_queue_limit : "0",
-							button_image_url : "'.JURI::root().'media/com_sermonspeaker/swfupload/XPButtonUploadText_61x22.png",
+							button_image_url : "'.JURI::root() . 'media/com_sermonspeaker/swfupload/XPButtonUploadText_61x22.png",
 							button_placeholder_id : "btnUpload3",
 							button_width: 61,
 							button_height: 22,
@@ -400,7 +400,7 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 			//instantiate the class
 			$s3		= new S3($awsAccessKey, $awsSecretKey);
 			$region	= $s3->getBucketLocation($bucket);
-			$prefix	= ($region == 'US') ? 's3' : 's3-'.$region;
+			$prefix	= ($region == 'US') ? 's3' : 's3-' . $region;
 
 			$this->bucket	= $bucket;
 			$this->prefix	= $prefix;
@@ -426,7 +426,7 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 			$changedate	.= "document.id('addfilepathdate').innerHTML = year+'/'+month+'/';
 				}";
 			$time	= ($this->item->sermon_date && $this->item->sermon_date != '0000-00-00 00:00:00') ? strtotime($this->item->sermon_date) : time();
-			$this->append_date	= date('Y', $time).'/'.date('m', $time).'/';
+			$this->append_date	= date('Y', $time) . '/'.date('m', $time) . '/';
 		}
 		else
 		{

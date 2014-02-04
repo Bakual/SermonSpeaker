@@ -2,7 +2,7 @@
 defined('_JEXEC') or die;
 $class	= ' class="first"';
 $type	= $this->params->get('count_items_type', 'sermons');
-$type_function = 'get'.ucfirst($type).'Route';
+$type_function = 'get'.ucfirst($type) . 'Route';
 if (count($this->items[$this->parent->id]) AND $this->maxLevelcat != 0) : ?>
 	<ul>
 	<?php foreach($this->items[$this->parent->id] as $id => $item) :

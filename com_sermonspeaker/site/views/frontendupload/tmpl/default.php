@@ -100,9 +100,9 @@ $self = $uri->toString();
 									<span id="audiopathinfo" class="label label-info ss-hide hasTooltip" title="<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO_TOOLTIP'); ?>">
 										<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO');
 										if ($this->s3audio) :
-											echo ' http://'.$this->prefix.'.amazonaws.com/'.$this->bucket.'/';
+											echo ' http://' . $this->prefix.'.amazonaws.com/' . $this->bucket.'/';
 										else :
-											echo ' /'.trim($this->params->get('path_audio'), '/').'/<span id="audiopathdate" class="pathdate">'.$this->append_date.'</span><span id="audiopathlang" class="pathlang">'.$this->append_lang.'</span>';
+											echo ' /'.trim($this->params->get('path_audio'), '/') . '/<span id="audiopathdate" class="pathdate">' . $this->append_date.'</span><span id="audiopathlang" class="pathlang">' . $this->append_lang.'</span>';
 										endif; ?>
 									</span>
 								</div>
@@ -123,9 +123,9 @@ $self = $uri->toString();
 									<span id="videopathinfo" class="label label-info ss-hide hasTooltip" title="<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO_TOOLTIP'); ?>">
 										<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO');
 										if ($this->s3video):
-											echo ' http://'.$this->prefix.'.amazonaws.com/'.$this->bucket.'/';
+											echo ' http://' . $this->prefix.'.amazonaws.com/' . $this->bucket.'/';
 										else:
-											echo ' /'.trim($this->params->get('path_video'), '/').'/<span id="videopathdate" class="pathdate">'.$this->append_date.'</span><span id="videopathlang" class="pathlang">'.$this->append_lang.'</span>';
+											echo ' /'.trim($this->params->get('path_video'), '/') . '/<span id="videopathdate" class="pathdate">' . $this->append_date.'</span><span id="videopathlang" class="pathlang">' . $this->append_lang.'</span>';
 										endif; ?>
 									</span>
 								</div>
@@ -144,7 +144,7 @@ $self = $uri->toString();
 									<span id="btnUpload3"></span>
 									<button id="btnCancel3" type="button" onclick="cancelQueue(upload3);" class="ss-hide upload_button" disabled="disabled">Cancel</button>
 									<span id="addfilepathinfo" class="label label-info ss-hide hasTooltip" title="<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO_TOOLTIP'); ?>">
-										<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO').' /'.trim($this->params->get('path_addfile'), '/').'/<span id="addfilepathdate" class="pathdate">'.$this->append_date.'</span><span id="addfilepathlang" class="pathlang">'.$this->append_lang.'</span>'; ?>
+										<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO') . ' /'.trim($this->params->get('path_addfile'), '/') . '/<span id="addfilepathdate" class="pathdate">' . $this->append_date.'</span><span id="addfilepathlang" class="pathlang">' . $this->append_lang.'</span>'; ?>
 									</span>
 								</div>
 							<?php endif; ?>
@@ -237,7 +237,7 @@ $self = $uri->toString();
 	</form>
 	<?php if ($this->params->get('enable_non_flash')) : ?>
 		<hr />
-		<form action="<?php echo JURI::root(); ?>index.php?option=com_sermonspeaker&amp;task=file.upload&amp;tmpl=component&amp;<?php echo $this->session->getName().'='.$this->session->getId(); ?>&amp;<?php echo JSession::getFormToken();?>=1" id="uploadForm" name="uploadForm" class="form-validate form form-vertical" method="post" enctype="multipart/form-data">
+		<form action="<?php echo JURI::root(); ?>index.php?option=com_sermonspeaker&amp;task=file.upload&amp;tmpl=component&amp;<?php echo $this->session->getName() . '=' . $this->session->getId(); ?>&amp;<?php echo JSession::getFormToken();?>=1" id="uploadForm" name="uploadForm" class="form-validate form form-vertical" method="post" enctype="multipart/form-data">
 			<legend><?php echo JText::_('COM_SERMONSPEAKER_FU_SELECTFILE'); ?></legend>
 			<div class="control-group">
 				<div class="control-label">
@@ -257,7 +257,7 @@ $self = $uri->toString();
 			</div>
 			<div class="well well-small">
 				<div><?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO'); ?>
-				<span class="label label-info">/<?php echo trim($this->params->get('path_audio', $this->params->get('path')), '/').'/';
+				<span class="label label-info">/<?php echo trim($this->params->get('path_audio', $this->params->get('path')), '/') . '/';
 				if ($this->params->get('append_path', 0)) :
 					$time	= ($this->item->sermon_date AND $this->item->sermon_date != '0000-00-00 00:00:00') ? strtotime($this->item->sermon_date) : time();
 					?><input type="text" id="year" size="4" name="year" value="<?php echo date('Y', $time); ?>" />/<input type="text" id="month" size="2" name="month" value="<?php echo date('m', $time); ?>" />/<?php 

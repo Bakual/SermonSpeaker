@@ -20,11 +20,12 @@ $canEdit	= ($fu_enable and $user->authorise('core.edit', 'com_sermonspeaker'));
 $canEditOwn	= ($fu_enable and $user->authorise('core.edit.own', 'com_sermonspeaker'));
 $listOrder	= $this->state->get('list.ordering');
 $listDirn	= $this->state->get('list.direction');
-$limit 		= (int)$this->params->get('limit', '');
+$limit 		= (int) $this->params->get('limit', '');
 $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 ?>
 <div class="category-list<?php echo $this->pageclass_sfx;?> ss-serie-container<?php echo $this->pageclass_sfx; ?>">
-	<?php if ($this->params->get('show_page_heading', 1)) : ?>
+	<?php
+	if ($this->params->get('show_page_heading', 1)) : ?>
 		<h1><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
 	<?php endif; ?>
 	<div class="<?php echo ($this->item->state) ? '': 'system-unpublished'; ?>">
@@ -36,14 +37,15 @@ $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 			<ul class="dropdown-menu">
 				<?php if (in_array('serie:download', $this->col_serie)) : ?>
 					<li class="download-icon">
-						<a href="<?php echo JRoute::_('index.php?view=serie&layout=download&tmpl=component&id='.$this->item->slug); ?>" class="modal" rel="{handler:'iframe',size:{x:400,y:200}}">
+						<a href="<?php echo JRoute::_('index.php?view=serie&layout=download&tmpl=component&id=' . $this->item->slug); ?>" class="modal" rel="{handler:'iframe',size:{x:400,y:200}}">
 							<i class="icon-download" > </i> 
 							<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADSERIES_LABEL'); ?>
 						</a>
 					</li>
 				<?php endif; ?>
 				<li class="email-icon"><?php echo JHtml::_('icon.email', $this->item, $this->params, array('type' => 'serie')); ?></li>
-				<?php if ($canEdit or ($canEditOwn and ($user->id == $this->item->created_by))) : ?>
+				<?php
+				if ($canEdit or ($canEditOwn and ($user->id == $this->item->created_by))) : ?>
 					<li class="edit-icon"><?php echo JHtml::_('icon.edit', $this->item, $this->params, array('type' => 'serie')); ?></li>
 				<?php endif; ?>
 			</ul>
@@ -55,6 +57,7 @@ $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 			<?php if (!$this->item->state) : ?>
 				<span class="label label-warning"><?php echo JText::_('JUNPUBLISHED'); ?></span>
 			<?php endif;
+
 			if (in_array('serie:speaker', $this->col_serie) and $this->item->speakers) : ?>
 				<small class="ss-speakers createdby">
 					<?php echo JText::_('COM_SERMONSPEAKER_SPEAKERS'); ?>: 
@@ -72,7 +75,8 @@ $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 		<div class="article-info serie-info muted">
 			<dl class="article-info">
 				<dt class="article-info-term"><?php  echo JText::_('JDETAILS'); ?></dt>
-				<?php if (in_array('serie:category', $this->col_serie) and $this->item->category_title) : ?>
+				<?php
+				if (in_array('serie:category', $this->col_serie) and $this->item->category_title) : ?>
 					<dd>
 						<div class="category-name">
 							<?php echo JText::_('JCATEGORY'); ?>:
@@ -80,6 +84,7 @@ $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 						</div>
 					</dd>
 				<?php endif;
+
 				if (in_array('serie:hits', $this->col_serie)) : ?>
 					<dd>
 						<div class="hits">
@@ -95,6 +100,7 @@ $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 			$tagLayout = new JLayoutFile('joomla.content.tags');
 			echo $tagLayout->render($this->item->tags->itemTags); ?>
 		<?php endif;
+
 		if (in_array('serie:description', $this->col_serie) and $this->item->series_description) : ?>
 			<div>
 				<?php echo JHtml::_('content.prepare', $this->item->series_description, '', 'com_sermonspeaker.description'); ?>
@@ -133,7 +139,8 @@ $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 	<?php endif; ?>
 	<div class="cat-items">
 		<form action="<?php echo htmlspecialchars(JUri::getInstance()->toString()); ?>" method="post" id="adminForm" name="adminForm" class="form-inline">
-			<?php if ($this->params->get('filter_field') or $this->params->get('show_pagination_limit')) :
+			<?php
+			if ($this->params->get('filter_field') or $this->params->get('show_pagination_limit')) :
 				echo $this->loadTemplate('filters');
 			endif; ?>
 			<div class="clearfix"></div>
@@ -144,11 +151,13 @@ $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 					<?php foreach($this->items as $i => $item) :
 						$sep = 0; ?>
 						<li id="sermon<?php echo $i; ?>" class="<?php echo ($item->state) ? '': 'system-unpublished '; ?>cat-list-row<?php echo $i % 2; ?>">
-							<?php if (in_array('serie:hits', $this->columns)) : ?>
+							<?php
+							if (in_array('serie:hits', $this->columns)) : ?>
 								<span class="ss-hits badge badge-info pull-right">
 									<?php echo JText::sprintf('JGLOBAL_HITS_COUNT', $item->hits); ?>
 								</span>
 							<?php endif;
+
 							if ($canEdit or ($canEditOwn and ($user->id == $item->created_by))) : ?>
 								<span class="list-edit pull-left width-50">
 									<?php echo JHtml::_('icon.edit', $item, $this->params, array('type' => 'sermon')); ?>
@@ -165,13 +174,15 @@ $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 								$sep = 1; ?>
 								<small class="ss-speaker">
 									<?php echo JText::_('COM_SERMONSPEAKER_SPEAKER'); ?>: 
-									<?php if ($item->speaker_state):
+									<?php
+									if ($item->speaker_state):
 										echo SermonspeakerHelperSermonSpeaker::SpeakerTooltip($item->speaker_slug, $item->pic, $item->speaker_title);
 									else :
 										echo $item->speaker_title;
 									endif; ?>
 								</small>
 							<?php endif;
+
 							if (in_array('serie:length', $this->columns) and $item->sermon_time != '00:00:00') :
 								if ($sep) : ?>
 									|
@@ -182,6 +193,7 @@ $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 									<?php echo SermonspeakerHelperSermonspeaker::insertTime($item->sermon_time); ?>
 								</small>
 							<?php endif;
+
 							if (in_array('serie:scripture', $this->columns) and $item->scripture) :
 								if ($sep) : ?>
 									|
@@ -193,6 +205,7 @@ $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 									echo JHtml::_('content.prepare', $scriptures, '', 'com_sermonspeaker.scripture'); ?>
 								</small>
 							<?php endif;
+
 							if (in_array('serie:date', $this->columns) and ($item->sermon_date != '0000-00-00 00:00:00')) : ?>
 								<span class="ss-date small pull-right">
 									<?php echo JHtml::date($item->sermon_date, JText::_($this->params->get('date_format')), true); ?>
@@ -202,9 +215,11 @@ $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 					<?php endforeach; ?>
 				</ul>
 			<?php endif;
+
 			if ($user->authorise('core.create', 'com_sermonspeaker')) :
 				echo JHtml::_('icon.create', $this->category, $this->params);
 			endif;
+
 			if ($this->params->get('show_pagination') and ($this->pagination->get('pages.total') > 1)) : ?>
 				<div class="pagination">
 					<?php if ($this->params->get('show_pagination_results', 1)) : ?>
