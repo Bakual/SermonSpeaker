@@ -41,16 +41,19 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 	protected function getInput()
 	{
 		$this->params	= JComponentHelper::getParams('com_sermonspeaker');
+
 		// Get and sanitize file parameter
 		$this->file		= (string) $this->element['file'];
 		$this->file		= (in_array($this->file, array('audio', 'video', 'addfile'))) ? $this->file : 'audio';
+
 		// Mode: 0 = Default, 1 = Vimeo, 2 = Amazon S3, 3 = Extern
-		$this->mode = $this->params->get('path_mode_'.$this->file, 0);
+		$this->mode = $this->params->get('path_mode_' . $this->file, 0);
 
 		$html	= '';
 
 		// Check Filename for possible problems
 		$filename	= JFile::stripExt(basename($this->value));
+
 		if ($filename != JApplication::stringURLSafe($filename) && $filename != str_replace(' ', '_', JFile::makeSafe($filename)))
 		{
 			$html .= '<div class="alert alert-warning">'
@@ -63,10 +66,22 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 		$html	.= '<div class="input-prepend input-append">'
 					. '<div id="' . $this->fieldname . '_text_icon" class="btn add-on icon-checkmark" onclick="toggleElement(\'' . $this->fieldname . '\', 0);"> </div>'
 					. '<input name="' . $this->name . '" id="' . $this->id . '_text" class="' . $this->class . '" value="' . $this->value . '" type="text">';
+
+		// Add Lookup button if not addfile field
 		if ($this->file != 'addfile')
 		{
-			$html	.= '<div class="btn add-on hasTooltip icon-wand" onclick="lookup(document.getElementById(\'' . $this->id . '_text\'))" title="' . JText::_('COM_SERMONSPEAKER_LOOKUP') . '"> </div>';
+			$html	.= '<div class="btn add-on hasTooltip icon-wand" onclick="lookup(document.getElementById(\'' . $this->id . '_text\'))" title="'
+						. JText::_('COM_SERMONSPEAKER_LOOKUP') . '"> </div>';
 		}
+
+		// Add Google Picker if enabled and not audio field
+		if ($this->params->get('googlepicker') && $this->file != 'audio')
+		{
+			$html	.= '<div class="btn add-on hasTooltip" onclick="create' . ucfirst($this->file) . 'Picker();" title="' . JText::_('COM_SERMONSPEAKER_GOOGLEPICKER_TIP') . '">'
+							. '<img src="' . JURI::root() . 'media/com_sermonspeaker/icons/16/drive.png">'
+						. '</div>';
+		}
+
 		$html	.= '</div>'
 				. '<br />'
 				. '<div class="input-prepend input-append">'
