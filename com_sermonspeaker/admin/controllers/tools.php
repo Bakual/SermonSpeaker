@@ -246,7 +246,7 @@ class SermonspeakerControllerTools extends JControllerLegacy
 		// Store the Speakers
 		$query	= "INSERT INTO #__sermon_speakers \n"
 				."(name, alias, website, intro, state, ordering, created_by, created, pic) \n"
-				."SELECT a.teacher_name, a.teacher_alias, a.teacher_website, a.teacher_description, a.published, a.ordering, a.user, NOW(), \n"
+				."SELECT CONCAT(a.teacher_name, ' ', a.lastname), a.teacher_alias, a.teacher_website, a.teacher_description, a.published, a.ordering, a.user, NOW(), \n"
 				."IF (b.server != '', CONCAT('http://', CONCAT_WS('/', b.server, b.folder, a.teacher_image_lrg)), "
 				."IF (LEFT(b.folder, 7) = 'http://', CONCAT(b.folder, '/', a.teacher_image_lrg), CONCAT('/', b.folder, '/', a.teacher_image_lrg))) \n"
 				."FROM #__piteachers AS a \n"
