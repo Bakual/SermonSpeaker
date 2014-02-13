@@ -182,7 +182,8 @@ class SermonspeakerControllerTools extends JControllerLegacy
 		return;
 	}
 
-	public function piimport(){
+	public function piimport()
+	{
 		// Check for request forgeries
 		JSession::checkToken('request') or jexit(JText::_('JINVALID_TOKEN'));
 		$app	= JFactory::getApplication();
@@ -202,7 +203,8 @@ class SermonspeakerControllerTools extends JControllerLegacy
 		// Join over the series.
 		$query->select('b.series_name');
 		$query->join('LEFT', '#__piseries AS b ON b.id = a.series');
-		// Join over the teachers.
+		// Join over the teachers. This fails on newer PI versions because it stores the teachers as json_encoded array
+		$query->select('a.teacher');
 		$query->select('c.teacher_name');
 		$query->join('LEFT', '#__piteachers AS c ON c.id = a.teacher');
 		// Join over the audio path.
@@ -225,6 +227,22 @@ class SermonspeakerControllerTools extends JControllerLegacy
 		$studies	= $db->loadObjectList();
 		if ($db->getErrorMsg()){
 			$app->enqueueMessage($db->getErrorMsg(), 'error');
+		}
+
+		// Get the speakers if the teacher is stored as json string.
+		if ($studies[0]->teacher{0} == '{')
+		{
+			$query	= $db->getQuery(true);
+			$query->select("id, CONCAT(teacher_name, ' ', lastname) AS name");
+			$query->from('#__piteachers');
+			$db->setQuery($query);
+			$piteachers	= $db->loadObjectList('id');
+
+			foreach ($studies as $study)
+			{
+				$teacher = json_decode($study->teacher, true);
+				$study->teacher_name = $piteachers[$teacher[0]]->name;
+			}
 		}
 
 		// Store the Series
