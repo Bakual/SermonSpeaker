@@ -182,7 +182,8 @@ class SermonspeakerControllerTools extends JControllerLegacy
 		return;
 	}
 
-	public function piimport(){
+	public function piimport()
+	{
 		// Check for request forgeries
 		JSession::checkToken('request') or jexit(JText::_('JINVALID_TOKEN'));
 		$app	= JFactory::getApplication();
@@ -202,7 +203,8 @@ class SermonspeakerControllerTools extends JControllerLegacy
 		// Join over the series.
 		$query->select('b.series_name');
 		$query->join('LEFT', '#__piseries AS b ON b.id = a.series');
-		// Join over the teachers.
+		// Join over the teachers. This fails on newer PI versions because it stores the teachers as json_encoded array
+		$query->select('a.teacher');
 		$query->select('c.teacher_name');
 		$query->join('LEFT', '#__piteachers AS c ON c.id = a.teacher');
 		// Join over the audio path.
@@ -227,6 +229,22 @@ class SermonspeakerControllerTools extends JControllerLegacy
 			$app->enqueueMessage($db->getErrorMsg(), 'error');
 		}
 
+		// Get the speakers if the teacher is stored as json string.
+		if ($studies[0]->teacher{0} == '{')
+		{
+			$query	= $db->getQuery(true);
+			$query->select("id, CONCAT(teacher_name, ' ', lastname) AS name");
+			$query->from('#__piteachers');
+			$db->setQuery($query);
+			$piteachers	= $db->loadObjectList('id');
+
+			foreach ($studies as $study)
+			{
+				$teacher = json_decode($study->teacher, true);
+				$study->teacher_name = $piteachers[$teacher[0]]->name;
+			}
+		}
+
 		// Store the Series
 		$query	= "INSERT INTO #__sermon_series \n"
 				."(title, alias, series_description, state, ordering, created_by, created, avatar) \n"
@@ -246,7 +264,7 @@ class SermonspeakerControllerTools extends JControllerLegacy
 		// Store the Speakers
 		$query	= "INSERT INTO #__sermon_speakers \n"
 				."(name, alias, website, intro, state, ordering, created_by, created, pic) \n"
-				."SELECT a.teacher_name, a.teacher_alias, a.teacher_website, a.teacher_description, a.published, a.ordering, a.user, NOW(), \n"
+				."SELECT CONCAT(a.teacher_name, ' ', a.lastname), a.teacher_alias, a.teacher_website, a.teacher_description, a.published, a.ordering, a.user, NOW(), \n"
 				."IF (b.server != '', CONCAT('http://', CONCAT_WS('/', b.server, b.folder, a.teacher_image_lrg)), "
 				."IF (LEFT(b.folder, 7) = 'http://', CONCAT(b.folder, '/', a.teacher_image_lrg), CONCAT('/', b.folder, '/', a.teacher_image_lrg))) \n"
 				."FROM #__piteachers AS a \n"
