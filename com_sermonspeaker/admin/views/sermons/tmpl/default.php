@@ -163,13 +163,17 @@ $assoc		= JLanguageAssociations::isEnabled();
 								<?php echo JHtml::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time, 'sermons.', $canCheckin); ?>
 							<?php endif; ?>
 							<?php if ($canEdit || $canEditOwn) : ?>
-								<a href="<?php echo JRoute::_('index.php?option=com_sermonspeaker&task=sermon.edit&id=' . $item->id);?>" title="<?php echo JText::_('JACTION_EDIT');?>">
-									<?php echo $this->escape($item->title); ?></a>
+								<a href="<?php echo JRoute::_('index.php?option=com_sermonspeaker&task=sermon.edit&id=' . (int) $item->id);?>">
+									<?php echo $this->escape($item->title); ?>
+								</a>
 							<?php else : ?>
-								<span title="<?php echo JText::sprintf('JFIELD_ALIAS_LABEL', $this->escape($item->alias));?>"><?php echo $this->escape($item->title); ?></span>
+								<?php echo $this->escape($item->title); ?>
 							<?php endif; ?>
+							<span class="small">
+								<?php echo JText::sprintf('JGLOBAL_LIST_ALIAS', $this->escape($item->alias));?>
+							</span>
 							<div class="small">
-								<?php echo JText::_('JCATEGORY') . ": " . $this->escape($item->category_title); ?>
+								<?php echo JText::_('JCATEGORY') . ': ' . $this->escape($item->category_title); ?>
 							</div>
 						</div>
 						<div class="pull-left">
