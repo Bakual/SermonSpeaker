@@ -16,15 +16,14 @@ $orderlist	= array(
 				'ordering' => 'JFIELD_ORDERING_LABEL'
 			);
 ?>
-<div class="filters btn-toolbar">
+<fieldset class="filters btn-toolbar clearfix">
 	<?php if ($this->params->get('filter_field')) : ?>
 		<div class="btn-group input-append">
 			<label class="filter-search-lbl element-invisible" for="filter-search">
-				<span class="label label-warning"><?php echo JText::_('JUNPUBLISHED'); ?></span>
 				<?php echo JText::_('JGLOBAL_FILTER_LABEL') . '&#160;'; ?>
 			</label>
-			<input type="text" name="filter-search" id="filter-search" value="<?php echo $this->escape($this->state->get('filter.search')); ?>" class="input-medium" onchange="document.adminForm.submit();" title="<?php echo JText::_('COM_SERMONSPEAKER_FILTER_SEARCH_DESC'); ?>" placeholder="<?php echo JText::_('COM_SERMONSPEAKER_FILTER_SEARCH_DESC'); ?>" />
-			<button class="btn tip hidden-phone hidden-tablet" type="button" onclick="clear_all();this.form.submit();" rel="tooltip" title="<?php echo JText::_('JSEARCH_FILTER_CLEAR'); ?>"><i class="icon-remove"></i></button>
+			<input type="text" name="filter-search" id="filter-search" value="<?php echo $this->escape($this->state->get('filter.search')); ?>" class="input-medium" onchange="this.form.submit();" title="<?php echo JText::_('COM_SERMONSPEAKER_FILTER_SEARCH_DESC'); ?>" placeholder="<?php echo JText::_('COM_SERMONSPEAKER_FILTER_SEARCH_DESC'); ?>" />
+			<span class="add-on hasTooltip hidden-phone hidden-tablet icon-remove" onclick="clear_all();" title="<?php echo JText::_('JSEARCH_FILTER_CLEAR'); ?>"> </span>
 		</div>
 		<div class="btn-group filter-select">
 			<?php if ($this->books) : ?>
@@ -56,7 +55,7 @@ $orderlist	= array(
 
 	if ($this->params->get('show_pagination_limit')) : ?>
 		<div class="btn-group pull-right">
-			<label class="element-invisible">
+			<label for="limit" class="element-invisible">
 				<?php echo JText::_('JGLOBAL_DISPLAY_NUM'); ?>
 			</label>
 			<?php echo $this->pagination->getLimitBox(); ?>
