@@ -121,6 +121,7 @@ class SermonspeakerViewSermons extends JViewLegacy
 			if(document.getElementById(\'filter-search\')){
 				document.getElementById(\'filter-search\').value="";
 			}
+			adminForm.submit();
 		}';
 		$this->document->addScriptDeclaration($js);
 
