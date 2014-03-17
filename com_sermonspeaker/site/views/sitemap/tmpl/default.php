@@ -30,7 +30,8 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>';?>
 	endif; ?>
 	<url>
 		<loc><?php echo $base . JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug)); ?></loc>
-		<?php if ($date): ?><lastmod><?php echo JHtml::Date($date, 'c'); ?></lastmod><?php endif; ?>
+		<?php
+		if ($date) : ?><lastmod><?php echo JHtml::Date($date, 'c'); ?></lastmod><?php endif; ?>
  		<changefreq><?php echo $freq; ?></changefreq>
 		<priority><?php echo $prio; ?></priority>
 	</url>

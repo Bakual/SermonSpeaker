@@ -12,7 +12,6 @@ require_once JPATH_COMPONENT_ADMINISTRATOR.'/models/serie.php';
 class SermonspeakerModelSerieform extends SermonspeakerModelSerie
 {
 	/**
-	 * @since	1.6
 	 */
 	protected $context = 'serie';
 
@@ -20,7 +19,6 @@ class SermonspeakerModelSerieform extends SermonspeakerModelSerie
 	 * Get the return URL.
 	 *
 	 * @return	string	The return URL.
-	 * @since	1.6
 	 */
 	public function getReturnPage()
 	{
@@ -32,7 +30,10 @@ class SermonspeakerModelSerieform extends SermonspeakerModelSerie
 	 *
 	 * Note. Calling getState in this method will result in recursion.
 	 *
-	 * @since	1.6
+	 * @param   string  $ordering   Ordering column
+	 * @param   string  $direction  'ASC' or 'DESC'
+	 *
+	 * @return  void
 	 */
 	protected function populateState($ordering = null, $direction = null)
 	{

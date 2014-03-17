@@ -16,10 +16,15 @@ jimport('joomla.application.component.modellist');
 class SermonspeakerModelSeries extends JModelList
 {
 	protected $_item = null;
-	protected $_siblings = null;
 	protected $_children = null;
 	protected $_parent = null;
 
+	/**
+	 * Constructor.
+	 *
+	 * @param   array  $config  An optional associative array of configuration settings.
+	 *
+	 */
 	public function __construct($config = array())
 	{
 		if (empty($config['filter_fields'])) {
@@ -38,6 +43,11 @@ class SermonspeakerModelSeries extends JModelList
 		parent::__construct($config);
 	}
 
+	/**
+	 * Get the master query for retrieving a list of items subject to the model state.
+	 *
+	 * @return  JDatabaseQuery
+	 */
 	protected function getListQuery()
 	{
 		$user	= JFactory::getUser();
@@ -140,7 +150,10 @@ class SermonspeakerModelSeries extends JModelList
 	 *
 	 * Note. Calling getState in this method will result in recursion.
 	 *
-	 * @since	1.6
+	 * @param   string  $ordering   Ordering column
+	 * @param   string  $direction  'ASC' or 'DESC'
+	 *
+	 * @return  void
 	 */
 	protected function populateState($ordering = null, $direction = null)
 	{
@@ -200,7 +213,6 @@ class SermonspeakerModelSeries extends JModelList
 	 * @param	int		An optional ID
 	 *
 	 * @return	object
-	 * @since	1.5
 	 */
 	public function getCategory()
 	{
@@ -255,7 +267,6 @@ class SermonspeakerModelSeries extends JModelList
 	 * @param	int		An optional category id. If not supplied, the model state 'category.id' will be used.
 	 *
 	 * @return	mixed	An array of categories or false if an error occurs.
-	 * @since	1.6
 	 */
 	public function getParent()
 	{
@@ -270,7 +281,6 @@ class SermonspeakerModelSeries extends JModelList
 	 * Get the left sibling (adjacent) categories.
 	 *
 	 * @return	mixed	An array of categories or false if an error occurs.
-	 * @since	1.6
 	 */
 	function &getLeftSibling()
 	{
@@ -285,7 +295,6 @@ class SermonspeakerModelSeries extends JModelList
 	 * Get the right sibling (adjacent) categories.
 	 *
 	 * @return	mixed	An array of categories or false if an error occurs.
-	 * @since	1.6
 	 */
 	function &getRightSibling()
 	{
@@ -302,7 +311,6 @@ class SermonspeakerModelSeries extends JModelList
 	 * @param	int		An optional category id. If not supplied, the model state 'category.id' will be used.
 	 *
 	 * @return	mixed	An array of categories or false if an error occurs.
-	 * @since	1.6
 	 */
 	function &getChildren()
 	{

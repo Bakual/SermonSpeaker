@@ -1,26 +1,29 @@
 <?php
-// No direct access.
-defined('_JEXEC') or die;
+/**
+ * @package     SermonSpeaker
+ * @subpackage  Component.Site
+ * @author      Thomas Hunziker <admin@sermonspeaker.net>
+ * @copyright   (C) 2014 - Thomas Hunziker
+ * @license     http://www.gnu.org/licenses/gpl.html
+ **/
 
-require_once JPATH_COMPONENT_ADMINISTRATOR.'/models/speaker.php';
+defined('_JEXEC') or die();
+
+require_once JPATH_COMPONENT_ADMINISTRATOR . '/models/speaker.php';
 
 /**
- * Frontendupload model.
+ * Model class for the SermonSpeaker Component
  *
- * @package		Sermonspeaker.Administrator
+ * @since  5
  */
 class SermonspeakerModelSpeakerform extends SermonspeakerModelSpeaker
 {
-	/**
-	 * @since	1.6
-	 */
 	protected $context = 'speaker';
 
 	/**
 	 * Get the return URL.
 	 *
-	 * @return	string	The return URL.
-	 * @since	1.6
+	 * @return  string  The return URL.
 	 */
 	public function getReturnPage()
 	{
@@ -32,7 +35,10 @@ class SermonspeakerModelSpeakerform extends SermonspeakerModelSpeaker
 	 *
 	 * Note. Calling getState in this method will result in recursion.
 	 *
-	 * @since	1.6
+	 * @param   string  $ordering   Ordering column
+	 * @param   string  $direction  'ASC' or 'DESC'
+	 *
+	 * @return  void
 	 */
 	protected function populateState($ordering = null, $direction = null)
 	{
@@ -42,6 +48,7 @@ class SermonspeakerModelSpeakerform extends SermonspeakerModelSpeaker
 		// Load state from the request.
 		$pk = $jinput->get('s_id', 0, 'int');
 		$this->setState('speakerform.id', $pk);
+
 		// Add compatibility variable for default naming conventions.
 		$this->setState('form.id', $pk);
 
@@ -50,7 +57,8 @@ class SermonspeakerModelSpeakerform extends SermonspeakerModelSpeaker
 
 		$return = $jinput->get('return', '', 'base64');
 
-		if (!JUri::isInternal(base64_decode($return))) {
+		if (!JUri::isInternal(base64_decode($return)))
+		{
 			$return = null;
 		}
 

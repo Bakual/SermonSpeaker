@@ -28,7 +28,10 @@ class SermonspeakerModelSermon extends JModelItem
 	 *
 	 * Note. Calling getState in this method will result in recursion.
 	 *
-	 * @since	1.6
+	 * @param   string  $ordering   Ordering column
+	 * @param   string  $direction  'ASC' or 'DESC'
+	 *
+	 * @return  void
 	 */
 	public function populateState($ordering = null, $direction = null)
 	{
@@ -157,7 +160,6 @@ class SermonspeakerModelSermon extends JModelItem
 	 *
 	 * @param	int		Optional ID of the sermon.
 	 * @return	boolean	True on success
-	 * @since	1.5
 	 */
 	public function hit($id = null)
 	{
@@ -175,7 +177,6 @@ class SermonspeakerModelSermon extends JModelItem
 	 *
 	 * @param	int		Optional ID of the sermon.
 	 * @return	boolean	True on success
-	 * @since	1.5
 	 */
 	public function getLatest()
 	{

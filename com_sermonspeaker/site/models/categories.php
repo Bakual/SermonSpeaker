@@ -37,7 +37,10 @@ class SermonspeakerModelCategories extends JModelLegacy
 	 *
 	 * Note. Calling getState in this method will result in recursion.
 	 *
-	 * @since	1.6
+	 * @param   string  $ordering   Ordering column
+	 * @param   string  $direction  'ASC' or 'DESC'
+	 *
+	 * @return  void
 	 */
 	protected function populateState()
 	{
@@ -83,7 +86,6 @@ class SermonspeakerModelCategories extends JModelLegacy
 	 * @param	bool	$recursive	True if you want to return children recursively.
 	 *
 	 * @return	mixed	An array of data items on success, false on failure.
-	 * @since	1.6
 	 */
 	public function getItems($recursive = false)
 	{

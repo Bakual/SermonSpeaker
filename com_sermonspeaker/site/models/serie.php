@@ -103,7 +103,6 @@ class SermonspeakerModelSerie extends JModelItem
 	 *
 	 * @param	int		Optional ID of the series.
 	 * @return	boolean	True on success
-	 * @since	1.5
 	 */
 	public function hit($id = null)
 	{

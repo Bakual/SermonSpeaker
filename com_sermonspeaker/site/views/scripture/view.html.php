@@ -1,16 +1,37 @@
 <?php
-defined('_JEXEC') or die;
+/**
+ * @package     SermonSpeaker
+ * @subpackage  Component.Site
+ * @author      Thomas Hunziker <admin@sermonspeaker.net>
+ * @copyright   (C) 2014 - Thomas Hunziker
+ * @license     http://www.gnu.org/licenses/gpl.html
+ **/
+
+defined('_JEXEC') or die();
+
+/**
+ * HTML View class for the SermonSpeaker Component
+ *
+ * @since  5
+ */
 class SermonspeakerViewScripture extends JViewLegacy
 {
-	function display( $tpl = null )
+	/**
+	 * Execute and display a template script.
+	 *
+	 * @param   string  $tpl  The name of the template file to parse; automatically searches through the template paths.
+	 *
+	 * @return  mixed  A string if successful, otherwise a Error object.
+	 */
+	public function display( $tpl = null )
 	{
 		$id			= JFactory::getApplication()->input->get('id', 0, 'int');
 		$separator	= JText::_('COM_SERMONSPEAKER_SCRIPTURE_SEPARATOR');
 
 		// Get Params
-		$this->params	= JComponentHelper::getParams('com_sermonspeaker');
+		$this->params = JComponentHelper::getParams('com_sermonspeaker');
 
-		// add Javascript for Scripture
+		// Add Javascript for Scripture
 		$javascript	= "function AddScripture() {
 			var error = 0;
 			var book = document.getElementById('book');
@@ -42,7 +63,7 @@ class SermonspeakerViewScripture extends JViewLegacy
 					var error = 1;
 				}
 				if (error){
-					alert('".JText::_('JGLOBAL_VALIDATION_FORM_FAILED')."');
+					alert('" . JText::_('JGLOBAL_VALIDATION_FORM_FAILED') . "');
 					return;
 				}
 			}
@@ -54,14 +75,14 @@ class SermonspeakerViewScripture extends JViewLegacy
 				if (cap1){
 					text += ' ' + cap1;
 					if (vers1){
-						text += '".$separator."' + vers1;
+						text += '" . $separator . "' + vers1;
 					}
 					if (cap2 || vers2){
 						text += '-';
 						if (cap2){
 							text += cap2;
 							if (vers2){
-								text += '".$separator."' + vers2;
+								text += '" . $separator . "' + vers2;
 							}
 						} else {
 							text += vers2;
@@ -69,14 +90,16 @@ class SermonspeakerViewScripture extends JViewLegacy
 					}
 				}
 			}";
-		if ($id){
-			$javascript .= "var id = ".$id.";
+
+		if ($id)
+		{
+			$javascript .= "var id = " . $id . ";
 				window.parent.document.getElementById('jform_scripture_'+id).value = value;
 				window.parent.document.getElementById('jform_scripture_text_'+id).value = text;
 				window.parent.SqueezeBox.close();
 			}
 			window.onload = function(){
-				value = window.parent.document.getElementById('jform_scripture_".$id."').value;
+				value = window.parent.document.getElementById('jform_scripture_" . $id . "').value;
 				split = value.split('|');
 				if(split[0] > 0){document.getElementById('book').value = split[0];}
 				if(split[1] > 0){document.getElementById('cap1').value = split[1];}
@@ -85,13 +108,23 @@ class SermonspeakerViewScripture extends JViewLegacy
 				if(split[4] > 0){document.getElementById('vers2').value = split[4];}
 				document.getElementById('text').value = split[5];
 			}";
-		} else {
+		}
+		else
+		{
 			$javascript .= "var id = parseInt(window.parent.document.getElementById('scripture_id').value);
-				window.parent.document.getElementById('scripture_span').innerHTML += '<span id=\"scripture_span_' + id + '\"><input type=\"hidden\" name=\"jform[scripture][' + id + ']\" id=\"jform_scripture_' + id + '\" value=\"' + value + '\" /><img src=\"".JURI::root()."media/com_sermonspeaker/images/delete.png\" class=\"pointer\" onClick=\"delete_scripture(' + id + ');\"><input readonly=\"readonly\" class=\"readonly scripture\" size=\"30\" name=\"jform[scripture_text][' + id + ']\" id=\"jform_scripture_text_' + id + '\" value=\"' + text + '\" /><label></label></span>';
+				window.parent.document.getElementById('scripture_span').innerHTML += 
+				'<span id=\"scripture_span_' + id + '\">
+					<input type=\"hidden\" name=\"jform[scripture][' + id + ']\" id=\"jform_scripture_' + id + '\" value=\"' + value + '\" />
+					<img src=\"" . JURI::root() . "media/com_sermonspeaker/images/delete.png\" class=\"pointer\" onClick=\"delete_scripture(' + id + ');\">
+					<input readonly=\"readonly\" class=\"readonly scripture\" size=\"30\" name=\"jform[scripture_text][' + id + ']\"
+						id=\"jform_scripture_text_' + id + '\" value=\"' + text + '\" />
+					<label></label>
+				</span>';
 				window.parent.document.getElementById('scripture_id').value = id+1;
 				window.parent.SqueezeBox.close();
 			}";
 		}
+
 		$document = JFactory::getDocument();
 		$document->addScriptDeclaration($javascript);
 		parent::display($tpl);

@@ -15,7 +15,6 @@ class SermonspeakerModelFrontendupload extends SermonspeakerModelSermon
 	 * Get the return URL.
 	 *
 	 * @return	string	The return URL.
-	 * @since	1.6
 	 */
 	public function getReturnPage()
 	{
@@ -27,7 +26,10 @@ class SermonspeakerModelFrontendupload extends SermonspeakerModelSermon
 	 *
 	 * Note. Calling getState in this method will result in recursion.
 	 *
-	 * @since	1.6
+	 * @param   string  $ordering   Ordering column
+	 * @param   string  $direction  'ASC' or 'DESC'
+	 *
+	 * @return  void
 	 */
 	protected function populateState($ordering = null, $direction = null)
 	{
@@ -62,7 +64,6 @@ class SermonspeakerModelFrontendupload extends SermonspeakerModelSermon
 	 * Method to get the data that should be injected in the form.
 	 *
 	 * @return	mixed	The data for the form.
-	 * @since	1.6
 	 */
 	protected function loadFormData()
 	{

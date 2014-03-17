@@ -16,10 +16,15 @@ jimport('joomla.application.component.modellist');
 class SermonspeakerModelSermons extends JModelList
 {
 	protected $_item = null;
-	protected $_siblings = null;
 	protected $_children = null;
 	protected $_parent = null;
 
+	/**
+	 * Constructor.
+	 *
+	 * @param   array  $config  An optional associative array of configuration settings.
+	 *
+	 */
 	public function __construct($config = array())
 	{
 		if (empty($config['filter_fields']))
@@ -48,6 +53,11 @@ class SermonspeakerModelSermons extends JModelList
 		$this->context .= '.'.JFactory::getApplication()->input->get('view', 'sermons');
 	}
 
+	/**
+	 * Get the master query for retrieving a list of items subject to the model state.
+	 *
+	 * @return  JDatabaseQuery
+	 */
 	protected function getListQuery()
 	{
 		$user	= JFactory::getUser();
@@ -214,7 +224,10 @@ class SermonspeakerModelSermons extends JModelList
 	 *
 	 * Note. Calling getState in this method will result in recursion.
 	 *
-	 * @since	1.6
+	 * @param   string  $ordering   Ordering column
+	 * @param   string  $direction  'ASC' or 'DESC'
+	 *
+	 * @return  void
 	 */
 	protected function populateState($ordering = null, $direction = null)
 	{
@@ -302,7 +315,6 @@ class SermonspeakerModelSermons extends JModelList
 	/**
 	 * Method to get the available Months.
 	 *
-	 * @since	1.6
 	 */
 	public function getMonths()
 	{
@@ -350,7 +362,6 @@ class SermonspeakerModelSermons extends JModelList
 	/**
 	 * Method to get the available Years.
 	 *
-	 * @since	1.6
 	 */
 	public function getYears()
 	{
@@ -378,7 +389,6 @@ class SermonspeakerModelSermons extends JModelList
 	/**
 	 * Method to get the available Book.
 	 *
-	 * @since	1.6
 	 */
 	public function getBooks()
 	{
@@ -410,7 +420,6 @@ class SermonspeakerModelSermons extends JModelList
 	 * @param	int		An optional ID
 	 *
 	 * @return	object
-	 * @since	1.5
 	 */
 	public function getCategory()
 	{
@@ -472,7 +481,6 @@ class SermonspeakerModelSermons extends JModelList
 	 * @param	int		An optional category id. If not supplied, the model state 'category.id' will be used.
 	 *
 	 * @return	mixed	An array of categories or false if an error occurs.
-	 * @since	1.6
 	 */
 	public function getParent()
 	{
@@ -488,7 +496,6 @@ class SermonspeakerModelSermons extends JModelList
 	 * Get the left sibling (adjacent) categories.
 	 *
 	 * @return	mixed	An array of categories or false if an error occurs.
-	 * @since	1.6
 	 */
 	function &getLeftSibling()
 	{
@@ -504,7 +511,6 @@ class SermonspeakerModelSermons extends JModelList
 	 * Get the right sibling (adjacent) categories.
 	 *
 	 * @return	mixed	An array of categories or false if an error occurs.
-	 * @since	1.6
 	 */
 	function &getRightSibling()
 	{
@@ -522,7 +528,6 @@ class SermonspeakerModelSermons extends JModelList
 	 * @param	int		An optional category id. If not supplied, the model state 'category.id' will be used.
 	 *
 	 * @return	mixed	An array of categories or false if an error occurs.
-	 * @since	1.6
 	 */
 	function &getChildren()
 	{

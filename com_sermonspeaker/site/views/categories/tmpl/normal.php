@@ -1,13 +1,24 @@
 <?php
-defined('_JEXEC') or die;
+/**
+ * @package     SermonSpeaker
+ * @subpackage  Component.Site
+ * @author      Thomas Hunziker <admin@sermonspeaker.net>
+ * @copyright   (C) 2014 - Thomas Hunziker
+ * @license     http://www.gnu.org/licenses/gpl.html
+ **/
+
+defined('_JEXEC') or die();
+
 $class = ' class="first"';
 ?>
 <div class="categories-list<?php echo $this->pageclass_sfx;?>">
-	<?php if ($this->params->get('show_page_heading', 1)) : ?>
+	<?php
+	if ($this->params->get('show_page_heading', 1)) : ?>
 		<h1>
 			<?php echo $this->escape($this->params->get('page_heading')); ?>
 		</h1>
 	<?php endif;
+
 	if ($this->params->get('show_base_description')) :
 		if($this->params->get('categories_description')) : ?>
 			<div class="category-desc">

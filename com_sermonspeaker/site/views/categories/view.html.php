@@ -9,17 +9,19 @@
 
 defined('_JEXEC') or die();
 
+/**
+ * HTML View class for the SermonSpeaker Component
+ *
+ * @since  3.4
+ */
 class SermonspeakerViewCategories extends JViewLegacy
 {
 	protected $state = null;
+
 	protected $item = null;
+
 	protected $items = null;
 
-	/**
-	 * Display the view
-	 *
-	 * @return	mixed	False on error, null otherwise.
-	 */
 	/**
 	 * Execute and display a template script.
 	 *
@@ -36,24 +38,29 @@ class SermonspeakerViewCategories extends JViewLegacy
 		$this->items	= array($this->parent->id => $items);
 
 		// Check for errors.
-		if (count($errors = $this->get('Errors'))) {
+		if (count($errors = $this->get('Errors')))
+		{
 			JError::raiseWarning(500, implode("\n", $errors));
+
 			return false;
 		}
 
-		if (($this->items === false) || ($this->parent == false)){
+		if (($this->items === false) || ($this->parent == false))
+		{
 			JError::raiseError(404, JText::_('JGLOBAL_CATEGORY_NOT_FOUND'));
+
 			return false;
 		}
 
 		$this->params	= &$this->state->params;
 
 		// Set layout from parameters if not already set elsewhere
-		if ($this->getLayout() == 'default') {
+		if ($this->getLayout() == 'default')
+		{
 			$this->setLayout($this->params->get('categorieslayout', 'normal'));
 		}
 
-		//Escape strings for HTML output
+		// Escape strings for HTML output
 		$this->pageclass_sfx	= htmlspecialchars($this->params->get('pageclass_sfx'));
 
 		$this->maxLevelcat		= $this->params->get('maxLevelcat', -1);
@@ -73,9 +80,9 @@ class SermonspeakerViewCategories extends JViewLegacy
 		$app	= JFactory::getApplication();
 		$menus	= $app->getMenu();
 
-		// Because the application sets a default page title,
-		// we need to get it from the menu item itself
+		// Because the application sets a default page title, we need to get it from the menu item itself
 		$menu = $menus->getActive();
+
 		if ($menu)
 		{
 			$this->params->def('page_heading', $this->params->get('page_title', $menu->title));
@@ -84,7 +91,9 @@ class SermonspeakerViewCategories extends JViewLegacy
 		{
 			$this->params->def('page_heading', JText::_('JCATEGORY'));
 		}
+
 		$title = $this->params->get('page_title', '');
+
 		if (empty($title))
 		{
 			$title = $app->getCfg('sitename');
@@ -97,6 +106,7 @@ class SermonspeakerViewCategories extends JViewLegacy
 		{
 			$title = JText::sprintf('JPAGETITLE', $title, $app->getCfg('sitename'));
 		}
+
 		$this->document->setTitle($title);
 
 		if ($this->params->get('menu-meta_description'))

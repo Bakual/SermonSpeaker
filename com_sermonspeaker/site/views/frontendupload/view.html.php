@@ -17,8 +17,11 @@ defined('_JEXEC') or die();
 class SermonspeakerViewFrontendupload extends JViewLegacy
 {
 	protected $form;
+
 	protected $item;
+
 	protected $return_page;
+
 	protected $state;
 
 	/**
@@ -40,9 +43,11 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 		$credentials['password'] = JRequest::getString('password', '', 'get', JREQUEST_ALLOWRAW);
 
 		// Perform the log in.
-		if ($credentials['username'] && $credentials['password']){
+		if ($credentials['username'] && $credentials['password'])
+		{
 			$app->login($credentials);
 		}
+
 		$this->user		= JFactory::getUser();
 
 		// Get model data.
@@ -57,12 +62,15 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 		if (!$this->params->get('fu_enable', 0))
 		{
 			JError::raiseError(403, JText::_('JERROR_ALERTNOAUTHOR'));
+
 			return false;
 		}
+
 		if ($this->user->guest)
 		{
-			$redirectUrl = urlencode(base64_encode(JFactory::getURI()->toString())); 
+			$redirectUrl = urlencode(base64_encode(JFactory::getURI()->toString()));
 			$app->redirect(JRoute::_('index.php?option=com_users&view=login&return=' . $redirectUrl), JText::_('JGLOBAL_YOU_MUST_LOGIN_FIRST'), 'error');
+
 			return false;
 		}
 
@@ -74,8 +82,11 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 		{
 			$authorised = ($this->user->authorise('core.edit', 'com_sermonspeaker'));
 		}
-		if ($authorised !== true) {
+
+		if ($authorised !== true)
+		{
 			JError::raiseError(403, JText::_('JERROR_ALERTNOAUTHOR'));
+
 			return false;
 		}
 
@@ -84,12 +95,13 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 		$upload_max_filesize	= ini_get('upload_max_filesize');
 		$this->upload_limit		= ($this->return_bytes($post_max_size) < $this->return_bytes($upload_max_filesize)) ? $post_max_size : $upload_max_filesize;
 
-		// add Javascript for Form Elements enable and disable
+		// Add Javascript for Form Elements enable and disable
 		$enElem = 'function enableElement(ena_elem, dis_elem) {
 			ena_elem.disabled = false;
 			dis_elem.disabled = true;
 		}';
-		// add Javascript for Form Elements enable and disable (J30)
+
+		// Add Javascript for Form Elements enable and disable (J30)
 		$toggle = 'function toggleElement(element, state) {
 			if (state) {
 				document.getElementById(element + "_text_icon").className = "btn add-on icon-cancel";
@@ -109,7 +121,8 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 				}
 			}
 		}';
-		// add Javascript for ID3 Lookup (ajax)
+
+		// Add Javascript for ID3 Lookup (ajax)
 		$lookup	= 'function lookup(elem) {
 			xmlhttp = new XMLHttpRequest();
 			xmlhttp.onreadystatechange=function(){
@@ -143,7 +156,7 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 					}
 				}
 			}
-			xmlhttp.open("POST","'.JURI::root() . 'index.php?option=com_sermonspeaker&task=file.lookup&format=json",true);
+			xmlhttp.open("POST","' . JURI::root() . 'index.php?option=com_sermonspeaker&task=file.lookup&format=json",true);
 			xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
  			xmlhttp.send("file="+elem.value);
 		}';
@@ -203,12 +216,14 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 		}
 
 		$this->session	= JFactory::getSession();
-		if($this->params->get('enable_flash'))
+
+		if ($this->params->get('enable_flash'))
 		{
 			// Prepare Flashuploader
 			$lang	= $jinput->get('lang', '', 'word');
 			$lang	= ($lang) ? '&lang=' . $lang : '';
-			$targetURL 	= JURI::root() . 'index.php?option=com_sermonspeaker&task=file.upload&' . $this->session->getName() . '=' . $this->session->getId() . '&'.JSession::getFormToken() . '=1&format=json' . $lang;
+			$targetURL 	= JURI::root() . 'index.php?option=com_sermonspeaker&task=file.upload&'
+				. $this->session->getName() . '=' . $this->session->getId() . '&' . JSession::getFormToken() . '=1&format=json' . $lang;
 
 			// SWFUpload
 			JHtml::Script('media/com_sermonspeaker/swfupload/swfupload.js');
@@ -219,14 +234,14 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 				window.onload = function() {
 					if(document.id("jform_audiofile_text")){
 						upload1 = new SWFUpload({
-							upload_url: "' . $targetURL.'&type=audio",
-							flash_url : "'.JURI::root() . 'media/com_sermonspeaker/swfupload/swfupload.swf",
+							upload_url: "' . $targetURL . '&type=audio",
+							flash_url : "' . JURI::root() . 'media/com_sermonspeaker/swfupload/swfupload.swf",
 							file_size_limit : "0",
 							file_types : "' . $this->getAllowedFiletypes('audio') . '",
-							file_types_description : "'.JText::_('COM_SERMONSPEAKER_FIELD_AUDIOFILE_LABEL', 'true') . '",
+							file_types_description : "' . JText::_('COM_SERMONSPEAKER_FIELD_AUDIOFILE_LABEL', 'true') . '",
 							file_upload_limit : "0",
 							file_queue_limit : "0",
-							button_image_url : "'.JURI::root() . 'media/com_sermonspeaker/swfupload/XPButtonUploadText_61x22.png",
+							button_image_url : "' . JURI::root() . 'media/com_sermonspeaker/swfupload/XPButtonUploadText_61x22.png",
 							button_placeholder_id : "btnUpload1",
 							button_width: 61,
 							button_height: 22,
@@ -274,14 +289,14 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 					}
 					if(document.id("jform_videofile_text")){
 						upload2 = new SWFUpload({
-							upload_url: "' . $targetURL.'&type=video",
-							flash_url : "'.JURI::root() . 'media/com_sermonspeaker/swfupload/swfupload.swf",
+							upload_url: "' . $targetURL . '&type=video",
+							flash_url : "' . JURI::root() . 'media/com_sermonspeaker/swfupload/swfupload.swf",
 							file_size_limit : "0",
 							file_types : "' . $this->getAllowedFiletypes('video') . '",
-							file_types_description : "'.JText::_('COM_SERMONSPEAKER_FIELD_VIDEOFILE_LABEL', 'true') . '",
+							file_types_description : "' . JText::_('COM_SERMONSPEAKER_FIELD_VIDEOFILE_LABEL', 'true') . '",
 							file_upload_limit : "0",
 							file_queue_limit : "0",
-							button_image_url : "'.JURI::root() . 'media/com_sermonspeaker/swfupload/XPButtonUploadText_61x22.png",
+							button_image_url : "' . JURI::root() . 'media/com_sermonspeaker/swfupload/XPButtonUploadText_61x22.png",
 							button_placeholder_id : "btnUpload2",
 							button_width: 61,
 							button_height: 22,
@@ -329,13 +344,13 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 					}
 					if(document.id("jform_addfile_text")){
 						upload3 = new SWFUpload({
-							upload_url: "' . $targetURL.'&type=addfile",
-							flash_url : "'.JURI::root() . 'media/com_sermonspeaker/swfupload/swfupload.swf",
+							upload_url: "' . $targetURL . '&type=addfile",
+							flash_url : "' . JURI::root() . 'media/com_sermonspeaker/swfupload/swfupload.swf",
 							file_size_limit : "0",
 							file_types : "' . $this->getAllowedFiletypes('addfile') . '",
 							file_upload_limit : "0",
 							file_queue_limit : "0",
-							button_image_url : "'.JURI::root() . 'media/com_sermonspeaker/swfupload/XPButtonUploadText_61x22.png",
+							button_image_url : "' . JURI::root() . 'media/com_sermonspeaker/swfupload/XPButtonUploadText_61x22.png",
 							button_placeholder_id : "btnUpload3",
 							button_width: 61,
 							button_height: 22,
@@ -387,17 +402,20 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 		}
 
 		// Destination folder based on mode
-		$this->s3audio	= ($this->params->get('path_mode_audio', 0) == 2) ? 1 : 0;
-		$this->s3video	= ($this->params->get('path_mode_video', 0) == 2) ? 1 : 0;
+		$this->s3audio = ($this->params->get('path_mode_audio', 0) == 2) ? 1 : 0;
+		$this->s3video = ($this->params->get('path_mode_video', 0) == 2) ? 1 : 0;
+
 		if ($this->s3audio || $this->s3video)
 		{
-			//include the S3 class   
-			require_once JPATH_COMPONENT_ADMINISTRATOR.'/s3/S3.php';
-			//AWS access info   
+			// Include the S3 class
+			require_once JPATH_COMPONENT_ADMINISTRATOR . '/s3/S3.php';
+
+			// AWS access info
 			$awsAccessKey 	= $this->params->get('s3_access_key');
 			$awsSecretKey 	= $this->params->get('s3_secret_key');
 			$bucket			= $this->params->get('s3_bucket');
-			//instantiate the class
+
+			// Instantiate the class
 			$s3		= new S3($awsAccessKey, $awsSecretKey);
 			$region	= $s3->getBucketLocation($bucket);
 			$prefix	= ($region == 'US') ? 's3' : 's3-' . $region;
@@ -421,37 +439,58 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 							month = '0'+month;
 						}
 					}";
-			if(!$this->s3audio){$changedate	.= "document.id('audiopathdate').innerHTML = year+'/'+month+'/';";}
-			if(!$this->s3video){$changedate	.= "document.id('videopathdate').innerHTML = year+'/'+month+'/';";}
-			$changedate	.= "document.id('addfilepathdate').innerHTML = year+'/'+month+'/';
+
+			if (!$this->s3audio)
+			{
+				$changedate .= "document.id('audiopathdate').innerHTML = year+'/'+month+'/';";
+			}
+
+			if (!$this->s3video)
+			{
+				$changedate .= "document.id('videopathdate').innerHTML = year+'/'+month+'/';";
+			}
+
+			$changedate .= "document.id('addfilepathdate').innerHTML = year+'/'+month+'/';
 				}";
-			$time	= ($this->item->sermon_date && $this->item->sermon_date != '0000-00-00 00:00:00') ? strtotime($this->item->sermon_date) : time();
-			$this->append_date	= date('Y', $time) . '/'.date('m', $time) . '/';
+			$time = ($this->item->sermon_date && $this->item->sermon_date != '0000-00-00 00:00:00') ? strtotime($this->item->sermon_date) : time();
+			$this->append_date	= date('Y', $time) . '/' . date('m', $time) . '/';
 		}
 		else
 		{
 			$changedate	= "function changedate(datestring) {}";
 			$this->append_date	= '';
 		}
+
 		$document->addScriptDeclaration($changedate);
+
 		if ($this->params->get('append_path_lang', 0))
 		{
 			$changelang	= "function changelang(language) {
 					if(!language || language == '*'){
-						language = '".JFactory::getLanguage()->getTag()."'
+						language = '" . JFactory::getLanguage()->getTag() . "'
 					}";
-			if(!$this->s3audio){$changelang	.= "document.id('audiopathlang').innerHTML = language+'/';";}
-			if(!$this->s3video){$changelang	.= "document.id('videopathlang').innerHTML = language+'/';";}
-			$changelang	.= "document.id('addfilepathlang').innerHTML = language+'/';
+
+			if (!$this->s3audio)
+			{
+				$changelang .= "document.id('audiopathlang').innerHTML = language+'/';";
+			}
+
+			if (!$this->s3video)
+			{
+				$changelang .= "document.id('videopathlang').innerHTML = language+'/';";
+			}
+
+			$changelang .= "document.id('addfilepathlang').innerHTML = language+'/';
 				}";
-			$lang	= ($this->item->language && $this->item->language == '*') ? $this->item->language : JFactory::getLanguage()->getTag();
-			$this->append_lang	= $lang.'/';
+			$lang = ($this->item->language && $this->item->language == '*') ? $this->item->language : JFactory::getLanguage()->getTag();
+			$this->append_lang	= $lang . '/';
 		}
 		else
 		{
 			$changelang	= "function changelang(language) {}";
 			$this->append_lang	= '';
 		}
+
 		$document->addScriptDeclaration($changelang);
 
 		// Add javascript validation script
@@ -481,10 +520,11 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 		if (count($errors = $this->get('Errors')))
 		{
 			JError::raiseError(500, implode("\n", $errors));
+
 			return false;
 		}
 
-		//Escape strings for HTML output
+		// Escape strings for HTML output
 		$this->pageclass_sfx = htmlspecialchars($this->params->get('pageclass_sfx'));
 
 		$this->_prepareDocument();
@@ -502,9 +542,9 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 		$app	= JFactory::getApplication();
 		$menus	= $app->getMenu();
 
-		// Because the application sets a default page title,
-		// we need to get it from the menu item itself
+		// Because the application sets a default page title, we need to get it from the menu item itself
 		$menu = $menus->getActive();
+
 		if ($menu)
 		{
 			$this->params->def('page_heading', $this->params->get('page_title', $menu->title));
@@ -513,7 +553,9 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 		{
 			$this->params->def('page_heading', JText::_('COM_SERMONSPEAKER_FU_TITLE'));
 		}
+
 		$title = $this->params->get('page_title', '');
+
 		if (empty($title))
 		{
 			$title = $app->getCfg('sitename');
@@ -526,6 +568,7 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 		{
 			$title = JText::sprintf('JPAGETITLE', $title, $app->getCfg('sitename'));
 		}
+
 		$this->document->setTitle($title);
 
 		if ($this->params->get('menu-meta_description'))
@@ -544,11 +587,20 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 		}
 	}
 
-	// Function to return bytes from the PHP settings. Taken from the ini_get() manual
-	protected function return_bytes($val) {
+	/**
+	 * Function to return bytes from the PHP settings. Taken from the ini_get() manual
+	 *
+	 * @param   string  $val  Value from the PHP setting
+	 *
+	 * @return  int  $val  Value in bytes
+	 */
+	protected function return_bytes($val)
+	{
 		$val = trim($val);
-		$last = strtolower($val[strlen($val)-1]);
-		switch($last) {
+		$last = strtolower($val[strlen($val) - 1]);
+
+		switch ($last)
+		{
 			// The 'G' modifier is available since PHP 5.1.0
 			case 'g':
 				$val *= 1024;
@@ -561,15 +613,21 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 		return $val;
 	}
 
-	// Get allowed filetypes
+	/**
+	 * Get allowed filetypes
+	 *
+	 * @param   string  $field  Field which can be 'audio', 'video' or 'addfile'
+	 *
+	 * @return  string  $types  Allowed filetypes for the field
+	 */
 	protected function getAllowedFiletypes($field)
 	{
-		// sanitize
+		// Sanitize
 		$field	= (in_array($field, array('audio', 'video', 'addfile'))) ? $field : 'audio';
 
-		$types	= $this->params->get($field.'_filetypes');
+		$types	= $this->params->get($field . '_filetypes');
 		$types	= array_map('trim', explode(',', $types));
 
-		return ($types) ? '*.'.implode('; *.', $types) : '*.*';
+		return ($types) ? '*.' . implode('; *.', $types) : '*.*';
 	}
 }

@@ -1,5 +1,14 @@
 <?php
-defined('_JEXEC') or die('Restricted access');
+/**
+ * @package     SermonSpeaker
+ * @subpackage  Component.Site
+ * @author      Thomas Hunziker <admin@sermonspeaker.net>
+ * @copyright   (C) 2014 - Thomas Hunziker
+ * @license     http://www.gnu.org/licenses/gpl.html
+ **/
+
+defined('_JEXEC') or die();
+
 JHtml::stylesheet('com_sermonspeaker/frontendupload.css', '', true);
 JHtml::_('behavior.keepalive');
 JHtml::_('bootstrap.tooltip');
@@ -28,7 +37,8 @@ $self = $uri->toString();
 </script>
 
 <div class="edit item-page<?php echo $this->pageclass_sfx; ?>">
-	<?php if ($this->params->get('show_page_heading', 1)) : ?>
+	<?php
+	if ($this->params->get('show_page_heading', 1)) : ?>
 	<div class="page-header">
 		<h1>
 			<?php echo $this->escape($this->params->get('page_heading')); ?>
@@ -36,7 +46,7 @@ $self = $uri->toString();
 	</div>
 	<?php endif; ?>
 
-	<form action="<?php echo JRoute::_('index.php?option=com_sermonspeaker&view=frontendupload&s_id='.(int) $this->item->id); ?>" method="post" name="adminForm" id="adminForm" class="form-validate form form-vertical">
+	<form action="<?php echo JRoute::_('index.php?option=com_sermonspeaker&view=frontendupload&s_id=' . (int) $this->item->id); ?>" method="post" name="adminForm" id="adminForm" class="form-validate form form-vertical">
 		<div class="btn-toolbar">
 			<div class="btn-group">
 				<button type="button" class="btn btn-primary" onclick="Joomla.submitbutton('frontendupload.save')">
@@ -79,9 +89,9 @@ $self = $uri->toString();
 								<?php echo $this->form->getInput('alias'); ?>
 							</div>
 						</div>
-					<?php endif; ?>
+					<?php endif;
 
-					<?php echo $this->form->getInput('notes'); ?>
+					echo $this->form->getInput('notes'); ?>
 				</div>
 				<div class="tab-pane" id="files">
 					<div id="upload_limit" class="well well-small ss-hide">
@@ -92,17 +102,19 @@ $self = $uri->toString();
 							<?php echo $this->form->getLabel('audiofile'); ?>
 						</div>
 						<div class="controls">
-							<?php echo $this->form->getInput('audiofile'); ?>
-							<?php if($this->params->get('enable_flash')) : ?>
+							<?php echo $this->form->getInput('audiofile');
+
+							if ($this->params->get('enable_flash')) : ?>
 								<div id="infoUpload1">
 									<span id="btnUpload1"></span>
 									<button id="btnCancel1" type="button" onclick="cancelQueue(upload1);" class="ss-hide upload_button" disabled="disabled">Cancel</button>
 									<span id="audiopathinfo" class="label label-info ss-hide hasTooltip" title="<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO_TOOLTIP'); ?>">
 										<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO');
+
 										if ($this->s3audio) :
-											echo ' http://' . $this->prefix.'.amazonaws.com/' . $this->bucket.'/';
+											echo ' http://' . $this->prefix . '.amazonaws.com/' . $this->bucket . '/';
 										else :
-											echo ' /'.trim($this->params->get('path_audio'), '/') . '/<span id="audiopathdate" class="pathdate">' . $this->append_date.'</span><span id="audiopathlang" class="pathlang">' . $this->append_lang.'</span>';
+											echo ' /' . trim($this->params->get('path_audio'), '/') . '/<span id="audiopathdate" class="pathdate">' . $this->append_date . '</span><span id="audiopathlang" class="pathlang">' . $this->append_lang . '</span>';
 										endif; ?>
 									</span>
 								</div>
@@ -115,17 +127,19 @@ $self = $uri->toString();
 							<?php echo $this->form->getLabel('videofile'); ?>
 						</div>
 						<div class="controls">
-							<?php echo $this->form->getInput('videofile'); ?>
-							<?php if($this->params->get('enable_flash')) : ?>
+							<?php echo $this->form->getInput('videofile');
+
+							if ($this->params->get('enable_flash')) : ?>
 								<div id="infoUpload2">
 									<span id="btnUpload2"></span>
 									<button id="btnCancel2" type="button" onclick="cancelQueue(upload2);" class="ss-hide upload_button" disabled="disabled">Cancel</button>
 									<span id="videopathinfo" class="label label-info ss-hide hasTooltip" title="<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO_TOOLTIP'); ?>">
 										<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO');
+
 										if ($this->s3video):
-											echo ' http://' . $this->prefix.'.amazonaws.com/' . $this->bucket.'/';
+											echo ' http://' . $this->prefix . '.amazonaws.com/' . $this->bucket . '/';
 										else:
-											echo ' /'.trim($this->params->get('path_video'), '/') . '/<span id="videopathdate" class="pathdate">' . $this->append_date.'</span><span id="videopathlang" class="pathlang">' . $this->append_lang.'</span>';
+											echo ' /' . trim($this->params->get('path_video'), '/') . '/<span id="videopathdate" class="pathdate">' . $this->append_date . '</span><span id="videopathlang" class="pathlang">' . $this->append_lang . '</span>';
 										endif; ?>
 									</span>
 								</div>
@@ -138,13 +152,16 @@ $self = $uri->toString();
 							<?php echo $this->form->getLabel('addfile'); ?>
 						</div>
 						<div class="controls">
-							<?php echo $this->form->getInput('addfile'); ?>
-							<?php if($this->params->get('enable_flash')) : ?>
+							<?php echo $this->form->getInput('addfile');
+
+							if ($this->params->get('enable_flash')) : ?>
 								<div id="infoUpload3">
 									<span id="btnUpload3"></span>
 									<button id="btnCancel3" type="button" onclick="cancelQueue(upload3);" class="ss-hide upload_button" disabled="disabled">Cancel</button>
 									<span id="addfilepathinfo" class="label label-info ss-hide hasTooltip" title="<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO_TOOLTIP'); ?>">
-										<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO') . ' /'.trim($this->params->get('path_addfile'), '/') . '/<span id="addfilepathdate" class="pathdate">' . $this->append_date.'</span><span id="addfilepathlang" class="pathlang">' . $this->append_lang.'</span>'; ?>
+										<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO') . ' /' . trim($this->params->get('path_addfile'), '/')
+										. '/<span id="addfilepathdate" class="pathdate">' . $this->append_date . '</span>'
+										. '<span id="addfilepathlang" class="pathlang">' . $this->append_lang . '</span>'; ?>
 									</span>
 								</div>
 							<?php endif; ?>
@@ -258,12 +275,15 @@ $self = $uri->toString();
 			<div class="well well-small">
 				<div><?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO'); ?>
 				<span class="label label-info">/<?php echo trim($this->params->get('path_audio', $this->params->get('path')), '/') . '/';
+
 				if ($this->params->get('append_path', 0)) :
 					$time	= ($this->item->sermon_date AND $this->item->sermon_date != '0000-00-00 00:00:00') ? strtotime($this->item->sermon_date) : time();
 					?><input type="text" id="year" size="4" name="year" value="<?php echo date('Y', $time); ?>" />/<input type="text" id="month" size="2" name="month" value="<?php echo date('m', $time); ?>" />/<?php 
 				endif;
+
 				if ($this->params->get('append_path_lang', 0)) :
 					$lang = $this->item->language;
+
 					if (!$lang || $lang == '*') :
 						$lang	= JFactory::getLanguage()->getTag();
 					endif;
