@@ -287,9 +287,24 @@
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
+		<field
+			name="gapi_developerKey"
+			type="text" 
+			label="COM_SERMONSPEAKER_FIELD_GAPI_DEVKEY_LABEL" 
+			description="COM_SERMONSPEAKER_FIELD_GAPI_DEVKEY_DESC"
+			showon="googlepicker:1"
+			/>
+		<field
+			name="gapi_clientId"
+			type="text" 
+			label="COM_SERMONSPEAKER_FIELD_GAPI_CLIENTKEY_LABEL" 
+			description="COM_SERMONSPEAKER_FIELD_GAPI_CLIENTKEY_DESC"
+			showon="googlepicker:1"
+			/>
 		<field name="spacer1"
 			type="spacer" 
-			hr="true" />
+			hr="true"
+			/>
 		<field name="spacer_path"
 			type="spacer" 
 			label="COM_SERMONSPEAKER_SPACER_SERMON_LABEL" 

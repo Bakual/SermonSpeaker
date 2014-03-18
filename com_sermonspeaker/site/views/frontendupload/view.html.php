@@ -167,52 +167,94 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 		$document->addScriptDeclaration($lookup);
 
 		// Google Picker
-		if ($this->params->get('googlepicker', 0))
+		if ($this->params->get('googlepicker'))
 		{
-			JHtml::Script('http://www.google.com/jsapi');
-			$picker = 'google.load(\'picker\', \'1\');
+			$picker = "
+				var developerKey = '" . $this->params->get('gapi_developerKey') . "';
+				var clientId = '" . $this->params->get('gapi_clientId') . "';
+				var scope = [
+					'https://www.googleapis.com/auth/drive',
+					'https://www.googleapis.com/auth/photos',
+					'https://www.googleapis.com/auth/youtube'
+				];
+				var pickerApiLoaded = false;
+				var oauthToken;
+				function onApiLoad() {
+					gapi.load('auth', {'callback': onAuthApiLoad});
+					gapi.load('picker', {'callback': onPickerApiLoad});
+				}
+				function onAuthApiLoad() {
+					window.gapi.auth.authorize(
+						{
+							'client_id': clientId,
+							'scope': scope,
+							'immediate': false
+						},
+						handleAuthResult
+					);
+				}
+				function onPickerApiLoad() {
+					pickerApiLoaded = true;
+				}
+				function handleAuthResult(authResult) {
+					if (authResult && !authResult.error) {
+						oauthToken = authResult.access_token;
+					}
+				}
+
 				function createVideoPicker() {
-					var picker = new google.picker.PickerBuilder().
-						addView(google.picker.ViewId.DOCS_VIDEOS).
-						addView(google.picker.ViewId.YOUTUBE).
-						addView(google.picker.ViewId.VIDEO_SEARCH).
-						addView(google.picker.ViewId.RECENTLY_PICKED).
-						setCallback(pickerCallbackVideo).
-						build();
-					picker.setVisible(true);
+					if (pickerApiLoaded && oauthToken) {
+						var picker = new google.picker.PickerBuilder().
+							addView(google.picker.ViewId.DOCS_VIDEOS).
+							addView(google.picker.ViewId.YOUTUBE).
+							addView(google.picker.ViewId.VIDEO_SEARCH).
+							addView(google.picker.ViewId.RECENTLY_PICKED).
+							setOAuthToken(oauthToken).
+							setDeveloperKey(developerKey).
+							setCallback(pickerCallbackVideo).
+							build();
+						picker.setVisible(true);
+					}
 				}
 				function createAddfilePicker() {
-					var picker = new google.picker.PickerBuilder().
-						addView(google.picker.ViewId.DOCS).
-						addView(google.picker.ViewId.PHOTOS).
-						addView(google.picker.ViewId.YOUTUBE).
-						addView(google.picker.ViewId.IMAGE_SEARCH).
-						addView(google.picker.ViewId.VIDEO_SEARCH).
-						addView(google.picker.ViewId.RECENTLY_PICKED).
-						setCallback(pickerCallbackAddfile).
-						build();
-					picker.setVisible(true);
+					if (pickerApiLoaded && oauthToken) {
+						var picker = new google.picker.PickerBuilder().
+							addView(google.picker.ViewId.DOCS).
+							addView(google.picker.ViewId.PHOTOS).
+							addView(google.picker.ViewId.YOUTUBE).
+							addView(google.picker.ViewId.IMAGE_SEARCH).
+							addView(google.picker.ViewId.VIDEO_SEARCH).
+							addView(google.picker.ViewId.RECENTLY_PICKED).
+							setOAuthToken(oauthToken).
+							setDeveloperKey(developerKey).
+							setCallback(pickerCallbackAddfile).
+							build();
+						picker.setVisible(true);
+					}
 				}
 				function pickerCallbackVideo(data) {
-					if (data.action == "picked") {
-						document.getElementById(\'jform_videofile_text\').value = data.docs[0].url;
+					if (data[google.picker.Response.ACTION] == google.picker.Action.PICKED) {
+						var doc = data[google.picker.Response.DOCUMENTS][0];
+						document.getElementById('jform_videofile_text').value = doc[google.picker.Document.URL];
 					}
 				}
 				function pickerCallbackAddfile(data) {
-					if (data.action == "picked") {
-						var value = data.docs[0].url;
+					if (data[google.picker.Response.ACTION] == google.picker.Action.PICKED) {
+						var doc = data[google.picker.Response.DOCUMENTS][0];
+						var value = doc[google.picker.Document.URL];
 						if (data.docs[0].iconUrl){
-							if (data.docs[0].url.indexOf("?") == -1){
-								value += "?icon=" + data.docs[0].iconUrl;
+							if (data.docs[0].url.indexOf('?') == -1){
+								value += '?icon=' + data.docs[0].iconUrl;
 							} else {
-								value += "&icon=" + data.docs[0].iconUrl;
+								value += '&icon=' + data.docs[0].iconUrl;
 							}
 						}
-						document.getElementById(\'jform_addfile_text\').value = value;
+						document.getElementById('jform_addfile_text').value = value;
 					}
 				}
-			';
+			";
 			$document->addScriptDeclaration($picker);
+			$document->addScript('https://apis.google.com/js/api.js?onload=onApiLoad', 'text/javascript', true);
 		}
 
 		$this->session	= JFactory::getSession();
