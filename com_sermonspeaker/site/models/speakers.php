@@ -218,14 +218,14 @@ class SermonspeakerModelspeakers extends JModelList
 			$categories = JCategories::getInstance('Sermonspeaker', $options);
 			$this->item = $categories->get($this->getState('category.id', 'root'));
 
-			// Compute selected asset permissions.
+			// Compute selected asset permissions
 			if (is_object($this->item))
 			{
 				$user	= JFactory::getUser();
 				$userId	= $user->get('id');
 				$asset	= 'com_sermonspeaker.category.' . $this->item->id;
 
-				// Check general create permission.
+				// Check general create permission
 				if ($user->authorise('core.create', $asset))
 				{
 					$this->item->getParams()->set('access-create', true);
@@ -254,9 +254,9 @@ class SermonspeakerModelspeakers extends JModelList
 	}
 
 	/**
-	 * Get the parent categorie.
+	 * Get the parent category
 	 *
-	 * @return  mixed  An array of categories or false if an error occurs.
+	 * @return  mixed  An array of categories or false if an error occurs
 	 */
 	public function getParent()
 	{
@@ -269,9 +269,9 @@ class SermonspeakerModelspeakers extends JModelList
 	}
 
 	/**
-	 * Get the left sibling (adjacent) categories.
+	 * Get the left sibling (adjacent) categories
 	 *
-	 * @return  mixed  An array of categories or false if an error occurs.
+	 * @return  mixed  An array of categories or false if an error occurs
 	 */
 	public function &getLeftSibling()
 	{
@@ -284,9 +284,9 @@ class SermonspeakerModelspeakers extends JModelList
 	}
 
 	/**
-	 * Get the right sibling (adjacent) categories.
+	 * Get the right sibling (adjacent) categories
 	 *
-	 * @return  mixed  An array of categories or false if an error occurs.
+	 * @return  mixed  An array of categories or false if an error occurs
 	 */
 	public function &getRightSibling()
 	{
@@ -299,9 +299,9 @@ class SermonspeakerModelspeakers extends JModelList
 	}
 
 	/**
-	 * Get the child categories.
+	 * Get the child categories
 	 *
-	 * @return  mixed  An array of categories or false if an error occurs.
+	 * @return  mixed  An array of categories or false if an error occurs
 	 */
 	public function &getChildren()
 	{

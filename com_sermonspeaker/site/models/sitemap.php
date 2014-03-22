@@ -9,9 +9,19 @@
 
 defined('_JEXEC') or die();
 
+/**
+ * Model class for the SermonSpeaker Component
+ *
+ * @since  3.4
+ */
 class SermonspeakerModelSitemap extends JModelLegacy
 {
-	function getSermons()
+	/**
+	 * Method to get sermons
+	 *
+	 * @return  array
+	 */
+	public function getSermons()
 	{
 		// Create a new query object.
 		$db		= $this->getDbo();
@@ -24,15 +34,17 @@ class SermonspeakerModelSitemap extends JModelLegacy
 		$query->order('sermon_date DESC');
 
 		// Filter by cat if set
-		$app	= JFactory::getApplication();
-		$params	= $app->getParams();
-		$cat	= (int)$params->get('cat', 0);
-		if($cat){
-			$query->where('catid = '.$cat);
+		$app    = JFactory::getApplication();
+		$params = $app->getParams();
+		$cat    = (int) $params->get('cat', 0);
+
+		if ($cat)
+		{
+			$query->where('catid = ' . $cat);
 		}
 
-		$rows = $this->_getList($query); 
+		$rows = $this->_getList($query);
 
-        return $rows;
+		return $rows;
 	}
 }

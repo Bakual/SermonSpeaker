@@ -1,13 +1,18 @@
 <?php
-// No direct access.
-defined('_JEXEC') or die;
+/**
+ * @package     SermonSpeaker
+ * @subpackage  Component.Site
+ * @author      Thomas Hunziker <admin@sermonspeaker.net>
+ * @copyright   (C) 2014 - Thomas Hunziker
+ * @license     http://www.gnu.org/licenses/gpl.html
+ **/
 
-require_once JPATH_COMPONENT_ADMINISTRATOR.'/models/serie.php';
+defined('_JEXEC') or die();
 
 /**
- * Frontendupload model.
+ * Model class for the SermonSpeaker Component
  *
- * @package		Sermonspeaker.Administrator
+ * @since  3.4
  */
 class SermonspeakerModelSerieform extends SermonspeakerModelSerie
 {
@@ -26,9 +31,9 @@ class SermonspeakerModelSerieform extends SermonspeakerModelSerie
 	}
 
 	/**
-	 * Method to auto-populate the model state.
+	 * Method to auto-populate the model state
 	 *
-	 * Note. Calling getState in this method will result in recursion.
+	 * Note. Calling getState in this method will result in recursion
 	 *
 	 * @param   string  $ordering   Ordering column
 	 * @param   string  $direction  'ASC' or 'DESC'
@@ -37,13 +42,14 @@ class SermonspeakerModelSerieform extends SermonspeakerModelSerie
 	 */
 	protected function populateState($ordering = null, $direction = null)
 	{
-		$app	= JFactory::getApplication();
-		$jinput	= $app->input;
+		$app    = JFactory::getApplication();
+		$jinput = $app->input;
 
-		// Load state from the request.
+		// Load state from the request
 		$pk = $jinput->get('s_id', 0, 'int');
 		$this->setState('serieform.id', $pk);
-		// Add compatibility variable for default naming conventions.
+
+		// Add compatibility variable for default naming conventions
 		$this->setState('form.id', $pk);
 
 		$categoryId	= $jinput->get('catid', 0, 'int');

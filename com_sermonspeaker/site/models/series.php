@@ -1,33 +1,36 @@
 <?php
 /**
- * @copyright	Copyright (C) 2005 - 2010 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
- */
+ * @package     SermonSpeaker
+ * @subpackage  Component.Site
+ * @author      Thomas Hunziker <admin@sermonspeaker.net>
+ * @copyright   (C) 2014 - Thomas Hunziker
+ * @license     http://www.gnu.org/licenses/gpl.html
+ **/
 
-// No direct access
-defined('_JEXEC') or die;
-
-jimport('joomla.application.component.modellist');
+defined('_JEXEC') or die();
 
 /**
- * @package		SermonSpeaker
+ * Model class for the SermonSpeaker Component
+ *
+ * @since  3.4
  */
-// Based on com_contact
 class SermonspeakerModelSeries extends JModelList
 {
 	protected $_item = null;
+
 	protected $_children = null;
+
 	protected $_parent = null;
 
 	/**
-	 * Constructor.
+	 * Constructor
 	 *
-	 * @param   array  $config  An optional associative array of configuration settings.
-	 *
+	 * @param   array  $config  An optional associative array of configuration settings
 	 */
 	public function __construct($config = array())
 	{
-		if (empty($config['filter_fields'])) {
+		if (empty($config['filter_fields']))
+		{
 			$config['filter_fields'] = array(
 				'title', 'series.title',
 				'ordering', 'series.ordering',
@@ -57,14 +60,14 @@ class SermonspeakerModelSeries extends JModelList
 		$db		= $this->getDbo();
 		$query	= $db->getQuery(true);
 
-		// Select required fields from the table.
+		// Select required fields from the table
 		$query->select(
 			$this->getState(
 				'list.select',
-				'series.id, series.title, series.catid, series.avatar, ' .
-				'CASE WHEN CHAR_LENGTH(series.alias) THEN CONCAT_WS(\':\', series.id, series.alias) ELSE series.id END as slug, ' .
-				'series.hits, series.series_description, series.alias, series.checked_out, series.checked_out_time,' .
-				'series.state, series.ordering, series.created, series.created_by'
+				'series.id, series.title, series.catid, series.avatar, '
+				. 'CASE WHEN CHAR_LENGTH(series.alias) THEN CONCAT_WS(\':\', series.id, series.alias) ELSE series.id END as slug, '
+				. 'series.hits, series.series_description, series.alias, series.checked_out, series.checked_out_time,'
+				. 'series.state, series.ordering, series.created, series.created_by'
 			)
 		);
 		$query->from('`#__sermon_series` AS series');
@@ -73,7 +76,7 @@ class SermonspeakerModelSeries extends JModelList
 		$query->select('c_series.title AS category_title');
 		$query->select('CASE WHEN CHAR_LENGTH(c_series.alias) THEN CONCAT_WS(\':\', c_series.id, c_series.alias) ELSE c_series.id END as catslug');
 		$query->join('LEFT', '#__categories AS c_series ON c_series.id = series.catid');
-		$query->where('(series.catid = 0 OR (c_series.access IN ('.$groups.') AND c_series.published = 1))');
+		$query->where('(series.catid = 0 OR (c_series.access IN (' . $groups . ') AND c_series.published = 1))');
 
 		// Filter by category
 		if ($categoryId = $this->getState('category.id'))
@@ -85,17 +88,20 @@ class SermonspeakerModelSeries extends JModelList
 				$subQuery->select('sub.id');
 				$subQuery->from('#__categories as sub');
 				$subQuery->join('INNER', '#__categories as this ON sub.lft > this.lft AND sub.rgt < this.rgt');
-				$subQuery->where('this.id = '.(int) $categoryId);
-				if ($levels > 0) {
-					$subQuery->where('sub.level <= this.level + '.$levels);
+				$subQuery->where('this.id = ' . (int) $categoryId);
+
+				if ($levels > 0)
+				{
+					$subQuery->where('sub.level <= this.level + ' . $levels);
 				}
+
 				// Add the subquery to the main query
-				$query->where('(series.catid = '.(int) $categoryId
-					.' OR series.catid IN ('.$subQuery->__toString().'))');
+				$query->where('(series.catid = ' . (int) $categoryId
+					. ' OR series.catid IN (' . $subQuery->__toString() . '))');
 			}
 			else
 			{
-				$query->where('series.catid = '.(int) $categoryId);
+				$query->where('series.catid = ' . (int) $categoryId);
 			}
 		}
 
@@ -105,50 +111,62 @@ class SermonspeakerModelSeries extends JModelList
 
 		// Filter by search in title
 		$search = $this->getState('filter.search');
-		if (!empty($search)) {
-			$search = $db->quote('%'.$db->escape($search, true).'%');
-			$query->where('(series.title LIKE '.$search.')');
+
+		if (!empty($search))
+		{
+			$search = $db->quote('%' . $db->escape($search, true) . '%');
+			$query->where('(series.title LIKE ' . $search . ')');
 		}
 
 		// Filter by state
 		$state = $this->getState('filter.state');
-		if (is_numeric($state)) {
-			$query->where('series.state = '.(int) $state);
+
+		if (is_numeric($state))
+		{
+			$query->where('series.state = ' . (int) $state);
 		}
-		// do not show trashed links on the front-end
+
+		// Do not show trashed links on the front-end
 		$query->where('series.state != -2');
 
 		// Filter by speaker (needed in speaker view)
-		if ($speakerId = $this->getState('speaker.id')) {
+		if ($speakerId = $this->getState('speaker.id'))
+		{
 			// Join over Sermons
 			$query->join('LEFT', '#__sermon_sermons AS sermons ON sermons.series_id = series.id');
+
 			// Filter by speaker
-			if ($speakerId = $this->getState('speaker.id')) {
-				$query->where('sermons.speaker_id = '.(int) $speakerId);
+			if ($speakerId = $this->getState('speaker.id'))
+			{
+				$query->where('sermons.speaker_id = ' . (int) $speakerId);
 			}
+
 			// Filter by state
-			if (is_numeric($state)) {
-				$query->where('sermons.state = '.(int) $state);
+			if (is_numeric($state))
+			{
+				$query->where('sermons.state = ' . (int) $state);
 			}
+
 			// Group by id
 			$query->group('series.id');
 		}
 
 		// Filter by language
-		if ($this->getState('filter.language')) {
-			$query->where('series.language in ('.$db->quote(JFactory::getLanguage()->getTag()).','.$db->quote('*').')');
+		if ($this->getState('filter.language'))
+		{
+			$query->where('series.language in (' . $db->quote(JFactory::getLanguage()->getTag()) . ',' . $db->quote('*') . ')');
 		}
 
 		// Add the list ordering clause.
-		$query->order($db->escape($this->getState('list.ordering', 'ordering')).' '.$db->escape($this->getState('list.direction', 'ASC')));
+		$query->order($db->escape($this->getState('list.ordering', 'ordering')) . ' ' . $db->escape($this->getState('list.direction', 'ASC')));
 
 		return $query;
 	}
 
 	/**
-	 * Method to auto-populate the model state.
+	 * Method to auto-populate the model state
 	 *
-	 * Note. Calling getState in this method will result in recursion.
+	 * Note. Calling getState in this method will result in recursion
 	 *
 	 * @param   string  $ordering   Ordering column
 	 * @param   string  $direction  'ASC' or 'DESC'
@@ -157,50 +175,60 @@ class SermonspeakerModelSeries extends JModelList
 	 */
 	protected function populateState($ordering = null, $direction = null)
 	{
-		$app	= JFactory::getApplication();
-		$params	= $app->getParams();
+		$app    = JFactory::getApplication();
+		$params = $app->getParams();
 		$this->setState('params', $params);
-		$jinput	= $app->input;
+		$jinput = $app->input;
 
 		// Category filter (priority on request so subcategories work)
-		$id	= $jinput->get('catid', $params->get('catid', 0), 'int');
+		$id = $jinput->get('catid', $params->get('catid', 0), 'int');
 		$this->setState('category.id', $id);
 
 		// Include Subcategories or not
 		$this->setState('filter.subcategories', $params->get('show_subcategory_content', 0));
 
-		$user	= JFactory::getUser();
-		if ((!$user->authorise('core.edit.state', 'com_sermonspeaker')) &&  (!$user->authorise('core.edit', 'com_sermonspeaker'))){
-			// filter on published for those who do not have edit or edit.state rights.
+		$user = JFactory::getUser();
+
+		if ((!$user->authorise('core.edit.state', 'com_sermonspeaker')) &&  (!$user->authorise('core.edit', 'com_sermonspeaker')))
+		{
+			// Filter on published for those who do not have edit or edit.state rights
 			$this->setState('filter.state', 1);
 		}
 
 		$this->setState('filter.language', $app->getLanguageFilter());
 
-		$search = $app->getUserStateFromRequest($this->context.'.filter.search', 'filter-search', '', 'STRING');
+		$search = $app->getUserStateFromRequest($this->context . '.filter.search', 'filter-search', '', 'STRING');
 		$this->setState('filter.search', $search);
 
 		// Speakerfilter
-		if($jinput->get('view') == 'speaker'){
-			$id = $app->getUserStateFromRequest($this->context.'.filter.speaker', 'id', 0, 'INT');
+		if ($jinput->get('view') == 'speaker')
+		{
+			$id = $app->getUserStateFromRequest($this->context . '.filter.speaker', 'id', 0, 'INT');
 			$this->setState('speaker.id', $id);
 		}
 
 		parent::populateState('ordering', 'ASC');
 	}
 
-	function getSpeakers($series)
+	/**
+	 * Method to get speakers for a series
+	 *
+	 * @param   int  $series  Id of series
+	 *
+	 * @return  array
+	 */
+	public function getSpeakers($series)
 	{
 		$db = JFactory::getDBO();
 		$query = 'SELECT sermons.speaker_id, speakers.title as speaker_title, speakers.pic, speakers.state, '
 		. ' CASE WHEN CHAR_LENGTH(speakers.alias) THEN CONCAT_WS(\':\', speakers.id, speakers.alias) ELSE speakers.id END as slug'
-        . ' FROM #__sermon_sermons AS sermons'
+		. ' FROM #__sermon_sermons AS sermons'
 		. ' LEFT JOIN #__sermon_speakers AS speakers ON sermons.speaker_id = speakers.id'
-        . " WHERE sermons.state = '1'"
-        . " AND sermons.speaker_id != '0'"
-		. " AND sermons.series_id = '".$series."'"
-        . ' GROUP BY sermons.speaker_id'
-        . ' ORDER BY speakers.title';
+		. " WHERE sermons.state = '1'"
+		. " AND sermons.speaker_id != '0'"
+		. " AND sermons.series_id = '" . (int) $series . "'"
+		. ' GROUP BY sermons.speaker_id'
+		. ' ORDER BY speakers.title';
 		$db->setQuery($query);
 		$speakers = $db->loadObjectList();
 
@@ -210,34 +238,38 @@ class SermonspeakerModelSeries extends JModelList
 	/**
 	 * Method to get category data for the current category
 	 *
-	 * @param	int		An optional ID
-	 *
-	 * @return	object
+	 * @return  object
 	 */
 	public function getCategory()
 	{
-		if (!is_object($this->_item)) {
-			if( isset( $this->state->params ) ) {
+		if (!is_object($this->_item))
+		{
+			if (isset( $this->state->params))
+			{
 				$params = $this->state->params;
 				$options = array();
 				$options['countItems'] = $params->get('show_cat_num_items', 1) || !$params->get('show_empty_categories', 0);
 			}
-			else {
+			else
+			{
 				$options['countItems'] = 0;
 			}
+
 			$options['table'] = '#__sermon_series';
 
 			$categories = JCategories::getInstance('Sermonspeaker', $options);
 			$this->_item = $categories->get($this->getState('category.id', 'root'));
 
 			// Compute selected asset permissions.
-			if (is_object($this->_item)) {
+			if (is_object($this->_item))
+			{
 				$user	= JFactory::getUser();
 				$userId	= $user->get('id');
-				$asset	= 'com_sermonspeaker.category.'.$this->_item->id;
+				$asset	= 'com_sermonspeaker.category.' . $this->_item->id;
 
 				// Check general create permission.
-				if ($user->authorise('core.create', $asset)) {
+				if ($user->authorise('core.create', $asset))
+				{
 					$this->_item->getParams()->set('access-create', true);
 				}
 
@@ -245,14 +277,16 @@ class SermonspeakerModelSeries extends JModelList
 				$this->_children = $this->_item->getChildren();
 				$this->_parent = false;
 
-				if ($this->_item->getParent()) {
+				if ($this->_item->getParent())
+				{
 					$this->_parent = $this->_item->getParent();
 				}
 
 				$this->_rightsibling = $this->_item->getSibling();
 				$this->_leftsibling = $this->_item->getSibling(false);
 			}
-			else {
+			else
+			{
 				$this->_children = false;
 				$this->_parent = false;
 			}
@@ -262,15 +296,14 @@ class SermonspeakerModelSeries extends JModelList
 	}
 
 	/**
-	 * Get the parent categorie.
+	 * Get the parent category
 	 *
-	 * @param	int		An optional category id. If not supplied, the model state 'category.id' will be used.
-	 *
-	 * @return	mixed	An array of categories or false if an error occurs.
+	 * @return  mixed  An array of categories or false if an error occurs
 	 */
 	public function getParent()
 	{
-		if (!is_object($this->_item)) {
+		if (!is_object($this->_item))
+		{
 			$this->getCategory();
 		}
 
@@ -278,13 +311,14 @@ class SermonspeakerModelSeries extends JModelList
 	}
 
 	/**
-	 * Get the left sibling (adjacent) categories.
+	 * Get the left sibling (adjacent) categories
 	 *
-	 * @return	mixed	An array of categories or false if an error occurs.
+	 * @return  mixed  An array of categories or false if an error occurs
 	 */
-	function &getLeftSibling()
+	public function &getLeftSibling()
 	{
-		if (!is_object($this->_item)) {
+		if (!is_object($this->_item))
+		{
 			$this->getCategory();
 		}
 
@@ -292,13 +326,14 @@ class SermonspeakerModelSeries extends JModelList
 	}
 
 	/**
-	 * Get the right sibling (adjacent) categories.
+	 * Get the right sibling (adjacent) categories
 	 *
-	 * @return	mixed	An array of categories or false if an error occurs.
+	 * @return  mixed  An array of categories or false if an error occurs
 	 */
-	function &getRightSibling()
+	public function &getRightSibling()
 	{
-		if (!is_object($this->_item)) {
+		if (!is_object($this->_item))
+		{
 			$this->getCategory();
 		}
 
@@ -306,22 +341,24 @@ class SermonspeakerModelSeries extends JModelList
 	}
 
 	/**
-	 * Get the child categories.
+	 * Get the child categories
 	 *
-	 * @param	int		An optional category id. If not supplied, the model state 'category.id' will be used.
-	 *
-	 * @return	mixed	An array of categories or false if an error occurs.
+	 * @return  mixed  An array of categories or false if an error occurs
 	 */
-	function &getChildren()
+	public function &getChildren()
 	{
-		if (!is_object($this->_item)) {
+		if (!is_object($this->_item))
+		{
 			$this->getCategory();
 		}
 
 		// Order subcategories
-		if (sizeof($this->_children)) {
+		if (sizeof($this->_children))
+		{
 			$params = $this->getState()->get('params');
-			if ($params->get('orderby_pri') == 'alpha' || $params->get('orderby_pri') == 'ralpha') {
+
+			if ($params->get('orderby_pri') == 'alpha' || $params->get('orderby_pri') == 'ralpha')
+			{
 				jimport('joomla.utilities.arrayhelper');
 				JArrayHelper::sortObjects($this->_children, 'title', ($params->get('orderby_pri') == 'alpha') ? 1 : -1);
 			}
