@@ -22,9 +22,8 @@ $fu_enable	= $this->params->get('fu_enable');
 $canEdit	= ($fu_enable and $user->authorise('core.edit', 'com_sermonspeaker'));
 $canEditOwn	= ($fu_enable and $user->authorise('core.edit.own', 'com_sermonspeaker'));
 $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->item);
-$md			= SermonspeakerHelperSermonspeaker::getMicrodataHelper();
 ?>
-<div class="item-page<?php echo $this->pageclass_sfx; ?> ss-sermon-container<?php echo $this->pageclass_sfx; ?> clearfix" <?php echo $md->getScope('MusicRecording'); ?>>
+<div class="item-page<?php echo $this->pageclass_sfx; ?> ss-sermon-container<?php echo $this->pageclass_sfx; ?> clearfix">
 	<?php
 	if ($this->params->get('show_page_heading')) : ?>
 		<div class="page-header">
@@ -36,11 +35,11 @@ $md			= SermonspeakerHelperSermonspeaker::getMicrodataHelper();
 			<?php if ($this->item->state == 0): ?>
 				<span class="label label-warning"><?php echo JText::_('JUNPUBLISHED'); ?></span>
 			<?php endif; ?>
-			<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonRoute($this->item->slug)); ?>" <?php echo $md->getProp('name'); ?>>
+			<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonRoute($this->item->slug)); ?>">
 				<?php echo $this->escape($this->item->title); ?></a>
 		</h2>
 		<?php if (in_array('sermon:speaker', $this->columns) and $this->item->speaker_title) : ?>
-			<small class="ss-speaker createdby" <?php echo $md->getProp('byArtist'); ?>>
+			<small class="ss-speaker createdby">
 				<?php echo JText::_('COM_SERMONSPEAKER_SPEAKER'); ?>: 
 				<?php
 				if ($this->item->speaker_state):
@@ -85,7 +84,7 @@ $md			= SermonspeakerHelperSermonspeaker::getMicrodataHelper();
 			<?php endif;
 
 			if (in_array('sermon:series', $this->columns) and $this->item->series_title) : ?>
-				<dd class="ss-sermondetail-info" <?php echo $md->getProp('inAlbum'); ?>>
+				<dd class="ss-sermondetail-info">
 					<span class="icon-drawer-2"></span>
 					<?php echo JText::_('COM_SERMONSPEAKER_SERIE_TITLE'); ?>:
 					<?php
@@ -141,7 +140,6 @@ $md			= SermonspeakerHelperSermonspeaker::getMicrodataHelper();
 				<dd class="ss-sermondetail-info">
 					<i class="icon-clock"></i>
 					<?php echo JText::_('COM_SERMONSPEAKER_FIELD_LENGTH_LABEL'); ?>:
-					<meta <?php echo $md->getProp('duration'); ?> content="<?php echo 'PT' . date('H\Hi\Ms\S', strtotime($this->item->sermon_time)); ?>">
 					<?php echo SermonspeakerHelperSermonspeaker::insertTime($this->item->sermon_time); ?>
 				</dd>
 			<?php endif;
