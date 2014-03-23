@@ -1,33 +1,45 @@
 <?php
 /**
- * @copyright	Copyright (C) 2005 - 2010 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
- */
+ * @package     SermonSpeaker
+ * @subpackage  Component.Site
+ * @author      Thomas Hunziker <admin@sermonspeaker.net>
+ * @copyright   (C) 2014 - Thomas Hunziker
+ * @license     http://www.gnu.org/licenses/gpl.html
+ **/
 
-// no direct access
-defined('_JEXEC') or die;
+defined('_JEXEC') or die();
 
 /**
  * Sermonspeaker Component Route Helper
  *
- * @static
- * @package		Sermonspeaker
- * @since 4.0
+ * @since  4.0
  */
 abstract class SermonspeakerHelperRoute
 {
 	protected static $lookup = array();
+
 	protected static $langs;
 
+	/**
+	 * Get Sermons Route
+	 *
+	 * @param   int     $catid     Category ID of the sermons
+	 * @param   string  $language  Language tag
+	 *
+	 * @return string URL
+	 */
 	public static function getSermonsRoute($catid = 0, $language = 0)
 	{
 		$needles = array(
-			'sermons' => array((int)$catid)
+			'sermons' => array((int) $catid)
 		);
-		//Create the link
+
+		// Create the link
 		$link = 'index.php?option=com_sermonspeaker&view=sermons';
-		if ($catid){
-			$link .= '&catid='.$catid;
+
+		if ($catid)
+		{
+			$link .= '&catid=' . $catid;
 		}
 
 		if ($language && $language != "*" && JLanguageMultilang::isEnabled())
@@ -36,11 +48,12 @@ abstract class SermonspeakerHelperRoute
 			{
 				self::_getLanguages();
 			}
+
 			foreach (self::$langs as $lang)
 			{
 				if ($language == $lang->lang_code)
 				{
-					$link .= '&lang='.$lang->sef;
+					$link .= '&lang=' . $lang->sef;
 					$needles['language'] = $language;
 				}
 			}
@@ -48,20 +61,30 @@ abstract class SermonspeakerHelperRoute
 
 		if ($item = self::_findItem($needles))
 		{
-			$link .= '&Itemid='.$item;
+			$link .= '&Itemid=' . $item;
 		}
 
 		return $link;
 	}
 
+	/**
+	 * Get Sermon Route
+	 *
+	 * @param   int     $id        ID of the sermon
+	 * @param   int     $catid     Category ID of the sermon
+	 * @param   string  $language  Language tag
+	 *
+	 * @return string URL
+	 */
 	public static function getSermonRoute($id, $catid = 0, $language = 0)
 	{
 		$needles = array(
-			'sermon' => array((int)$id),
-			'sermons' => array((int)$catid)
+			'sermon' => array((int) $id),
+			'sermons' => array((int) $catid)
 		);
-		//Create the link
-		$link = 'index.php?option=com_sermonspeaker&view=sermon&id='.$id;
+
+		// Create the link
+		$link = 'index.php?option=com_sermonspeaker&view=sermon&id=' . $id;
 
 		if ($language && $language != "*" && JLanguageMultilang::isEnabled())
 		{
@@ -69,11 +92,12 @@ abstract class SermonspeakerHelperRoute
 			{
 				self::_getLanguages();
 			}
+
 			foreach (self::$langs as $lang)
 			{
 				if ($language == $lang->lang_code)
 				{
-					$link .= '&lang='.$lang->sef;
+					$link .= '&lang=' . $lang->sef;
 					$needles['language'] = $language;
 				}
 			}
@@ -81,21 +105,32 @@ abstract class SermonspeakerHelperRoute
 
 		if ($item = self::_findItem($needles))
 		{
-			$link .= '&Itemid='.$item;
+			$link .= '&Itemid=' . $item;
 		}
 
 		return $link;
 	}
 
+	/**
+	 * Get Series Route
+	 *
+	 * @param   int     $catid     Category ID of the series
+	 * @param   string  $language  Language tag
+	 *
+	 * @return string URL
+	 */
 	public static function getSeriesRoute($catid = 0, $language = 0)
 	{
 		$needles = array(
-			'series' => array((int)$catid)
+			'series' => array((int) $catid)
 		);
-		//Create the link
+
+		// Create the link
 		$link = 'index.php?option=com_sermonspeaker&view=series';
-		if ($catid){
-			$link .= '&catid='.$catid;
+
+		if ($catid)
+		{
+			$link .= '&catid=' . $catid;
 		}
 
 		if ($language && $language != "*" && JLanguageMultilang::isEnabled())
@@ -104,11 +139,12 @@ abstract class SermonspeakerHelperRoute
 			{
 				self::_getLanguages();
 			}
+
 			foreach (self::$langs as $lang)
 			{
 				if ($language == $lang->lang_code)
 				{
-					$link .= '&lang='.$lang->sef;
+					$link .= '&lang=' . $lang->sef;
 					$needles['language'] = $language;
 				}
 			}
@@ -116,27 +152,41 @@ abstract class SermonspeakerHelperRoute
 
 		if ($item = self::_findItem($needles))
 		{
-			$link .= '&Itemid='.$item;
+			$link .= '&Itemid=' . $item;
 		}
 
 		return $link;
 	}
 
+	/**
+	 * Get Serie Route
+	 *
+	 * @param   int     $id        ID of the serie
+	 * @param   int     $catid     Category ID of the serie
+	 * @param   string  $language  Language tag
+	 *
+	 * @return string URL
+	 */
 	public static function getSerieRoute($id, $catid = 0, $language = 0)
 	{
 		$needles = array(
-			'serie'  => array((int)$id),
-			'series'  => array((int)$catid)
+			'serie'  => array((int) $id),
+			'series'  => array((int) $catid)
 		);
-		//Create the link
-		$link = 'index.php?option=com_sermonspeaker&view=serie&id='.$id;
-		if ((int)$catid > 1) {
-			$categories = JCategories::getInstance('Sermonspeaker', array('table'=>'#__sermon_series'));
-			$category 	= $categories->get((int)$catid);
-			if($category) {
+
+		// Create the link
+		$link = 'index.php?option=com_sermonspeaker&view=serie&id=' . $id;
+
+		if ((int) $catid > 1)
+		{
+			$categories = JCategories::getInstance('Sermonspeaker', array('table' => '#__sermon_series'));
+			$category 	= $categories->get((int) $catid);
+
+			if ($category)
+			{
 				$needles['category']	= array_reverse($category->getPath());
 				$needles['categories'] 	= $needles['category'];
-				$link 	.= '&catid='.$catid;
+				$link 	.= '&catid=' . $catid;
 			}
 		}
 
@@ -146,11 +196,12 @@ abstract class SermonspeakerHelperRoute
 			{
 				self::_getLanguages();
 			}
+
 			foreach (self::$langs as $lang)
 			{
 				if ($language == $lang->lang_code)
 				{
-					$link .= '&lang='.$lang->sef;
+					$link .= '&lang=' . $lang->sef;
 					$needles['language'] = $language;
 				}
 			}
@@ -158,22 +209,32 @@ abstract class SermonspeakerHelperRoute
 
 		if ($item = self::_findItem($needles))
 		{
-			$link .= '&Itemid='.$item;
+			$link .= '&Itemid=' . $item;
 		}
 
 		return $link;
 	}
 
+	/**
+	 * Get Speakers Route
+	 *
+	 * @param   int     $catid     Category ID of the speakers
+	 * @param   string  $language  Language tag
+	 *
+	 * @return string URL
+	 */
 	public static function getSpeakersRoute($catid = 0, $language = 0)
 	{
 		$needles = array(
-			'speakers' => array((int)$catid)
+			'speakers' => array((int) $catid)
 		);
-		//Create the link
+
+		// Create the link
 		$link = 'index.php?option=com_sermonspeaker&view=speakers';
+
 		if ($catid)
 		{
-			$link .= '&catid='.$catid;
+			$link .= '&catid=' . $catid;
 		}
 
 		if ($language && $language != "*" && JLanguageMultilang::isEnabled())
@@ -182,11 +243,12 @@ abstract class SermonspeakerHelperRoute
 			{
 				self::_getLanguages();
 			}
+
 			foreach (self::$langs as $lang)
 			{
 				if ($language == $lang->lang_code)
 				{
-					$link .= '&lang='.$lang->sef;
+					$link .= '&lang=' . $lang->sef;
 					$needles['language'] = $language;
 				}
 			}
@@ -194,28 +256,41 @@ abstract class SermonspeakerHelperRoute
 
 		if ($item = self::_findItem($needles))
 		{
-			$link .= '&Itemid='.$item;
+			$link .= '&Itemid=' . $item;
 		}
 
 		return $link;
 	}
 
+	/**
+	 * Get Speaker Route
+	 *
+	 * @param   int     $id        ID of the speaker
+	 * @param   int     $catid     Category ID of the speaker
+	 * @param   string  $language  Language tag
+	 *
+	 * @return string URL
+	 */
 	public static function getSpeakerRoute($id, $catid = 0, $language = 0)
 	{
-
 		$needles = array(
-			'speaker'  => array((int)$id),
-			'speakers'  => array((int)$catid)
+			'speaker' => array((int) $id),
+			'speakers' => array((int) $catid)
 		);
-		//Create the link
-		$link = 'index.php?option=com_sermonspeaker&view=speaker&id='.$id;
-		if ((int)$catid > 1) {
-			$categories = JCategories::getInstance('Sermonspeaker', array('table'=>'#__sermon_speakers'));
-			$category 	= $categories->get((int)$catid);
-			if($category) {
-				$needles['category']	= array_reverse($category->getPath());
-				$needles['categories'] 	= $needles['category'];
-				$link 	.= '&catid='.$catid;
+
+		// Create the link
+		$link = 'index.php?option=com_sermonspeaker&view=speaker&id=' . $id;
+
+		if ((int) $catid > 1)
+		{
+			$categories = JCategories::getInstance('Sermonspeaker', array('table' => '#__sermon_speakers'));
+			$category   = $categories->get((int) $catid);
+
+			if ($category)
+			{
+				$needles['category']   = array_reverse($category->getPath());
+				$needles['categories'] = $needles['category'];
+				$link .= '&catid=' . $catid;
 			}
 		}
 
@@ -225,11 +300,12 @@ abstract class SermonspeakerHelperRoute
 			{
 				self::_getLanguages();
 			}
+
 			foreach (self::$langs as $lang)
 			{
 				if ($language == $lang->lang_code)
 				{
-					$link .= '&lang='.$lang->sef;
+					$link .= '&lang=' . $lang->sef;
 					$needles['language'] = $language;
 				}
 			}
@@ -237,12 +313,19 @@ abstract class SermonspeakerHelperRoute
 
 		if ($item = self::_findItem($needles))
 		{
-			$link .= '&Itemid='.$item;
+			$link .= '&Itemid=' . $item;
 		}
 
 		return $link;
 	}
 
+	/**
+	 * Find Items
+	 *
+	 * @param   array  $needles  Array of properties to search
+	 *
+	 * @return int ID of the menu item
+	 */
 	protected static function _findItem($needles = null)
 	{
 		$app		= JFactory::getApplication();
@@ -265,17 +348,19 @@ abstract class SermonspeakerHelperRoute
 				$values[] = array($needles['language'], '*');
 			}
 
-			$items		= $menus->getItems($attributes, $values);
+			$items = $menus->getItems($attributes, $values);
 
 			foreach ($items as $item)
 			{
 				if (isset($item->query) && isset($item->query['view']))
 				{
 					$view = $item->query['view'];
+
 					if (!isset(self::$lookup[$language][$view]))
 					{
 						self::$lookup[$language][$view] = array();
 					}
+
 					if (isset($item->query['id']))
 					{
 						if (!isset(self::$lookup[$language][$view][$item->query['id']]) || $item->language != '*')
@@ -286,6 +371,7 @@ abstract class SermonspeakerHelperRoute
 					else
 					{
 						$catid	= $item->params->get('catid', 0);
+
 						if (!isset(self::$lookup[$language][$view][$catid]) || $item->language != '*')
 						{
 							self::$lookup[$language][$view][$catid] = $item->id;
@@ -301,7 +387,7 @@ abstract class SermonspeakerHelperRoute
 			{
 				if (isset(self::$lookup[$language][$view]))
 				{
-					foreach($ids as $id)
+					foreach ($ids as $id)
 					{
 						if (isset(self::$lookup[$language][$view][(int) $id]))
 						{
@@ -314,6 +400,7 @@ abstract class SermonspeakerHelperRoute
 
 		// Check for an active SermonSpeaker menuitem
 		$active = $menus->getActive();
+
 		if ($active && $active->component == 'com_sermonspeaker' && ($active->language == '*' || !JLanguageMultilang::isEnabled()))
 		{
 			return $active->id;
@@ -322,22 +409,29 @@ abstract class SermonspeakerHelperRoute
 		// Get first SermonSpeaker menuitem found
 		if (isset(self::$lookup[$language]))
 		{
-			$first	= reset(self::$lookup[$language]);
+			$first = reset(self::$lookup[$language]);
+
 			if ($first)
 			{
 				return reset($first);
 			}
 		}
 
-		// if nothing found, return language specific home link
+		// If nothing found, return language specific home link
 		$default = $menus->getDefault($language);
+
 		return !empty($default->id) ? $default->id : null;
 	}
 
+	/**
+	 * Stores languages
+	 *
+	 * @return void
+	 */
 	protected static function _getLanguages()
 	{
-		$db		= JFactory::getDbo();
-		$query	= $db->getQuery(true)
+		$db    = JFactory::getDbo();
+		$query = $db->getQuery(true)
 			->select('a.sef AS sef')
 			->select('a.lang_code AS lang_code')
 			->from('#__languages AS a');
@@ -347,5 +441,4 @@ abstract class SermonspeakerHelperRoute
 
 		return;
 	}
-
 }
