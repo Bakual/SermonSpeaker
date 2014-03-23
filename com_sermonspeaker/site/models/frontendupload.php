@@ -1,13 +1,18 @@
 <?php
-// No direct access.
-defined('_JEXEC') or die;
+/**
+ * @package     SermonSpeaker
+ * @subpackage  Component.Site
+ * @author      Thomas Hunziker <admin@sermonspeaker.net>
+ * @copyright   (C) 2014 - Thomas Hunziker
+ * @license     http://www.gnu.org/licenses/gpl.html
+ **/
 
-require_once JPATH_COMPONENT_ADMINISTRATOR.'/models/sermon.php';
+defined('_JEXEC') or die();
 
 /**
- * Frontendupload model.
+ * Model class for the SermonSpeaker Component
  *
- * @package		Sermonspeaker.Administrator
+ * @since  3.4
  */
 class SermonspeakerModelFrontendupload extends SermonspeakerModelSermon
 {
@@ -33,12 +38,13 @@ class SermonspeakerModelFrontendupload extends SermonspeakerModelSermon
 	 */
 	protected function populateState($ordering = null, $direction = null)
 	{
-		$app	= JFactory::getApplication();
-		$jinput	= $app->input;
+		$app    = JFactory::getApplication();
+		$jinput = $app->input;
 
 		// Load state from the request.
 		$pk = $jinput->get('s_id', 0, 'int');
 		$this->setState('frontendupload.id', $pk);
+
 		// Add compatibility variable for default naming conventions.
 		$this->setState('form.id', $pk);
 
@@ -47,7 +53,8 @@ class SermonspeakerModelFrontendupload extends SermonspeakerModelSermon
 
 		$return = $jinput->get('return', '', 'base64');
 
-		if (!JUri::isInternal(base64_decode($return))) {
+		if (!JUri::isInternal(base64_decode($return)))
+		{
 			$return = null;
 		}
 
@@ -70,42 +77,60 @@ class SermonspeakerModelFrontendupload extends SermonspeakerModelSermon
 		// Check the session for previously entered form data.
 		$data = JFactory::getApplication()->getUserState('com_sermonspeaker.edit.frontendupload.data', array());
 
-		if (empty($data)) {
+		if (empty($data))
+		{
 			$data = $this->getItem();
-		} else {
+		}
+		else
+		{
 			// Catch scriptures from database again because the values in UserState can't be used due to formatting.
 			$data['scripture'] = array();
-			if($data['id']){
-				$db		= JFactory::getDBO();
-				$query	= "SELECT book, cap1, vers1, cap2, vers2, text \n"
-						."FROM #__sermon_scriptures \n"
-						."WHERE sermon_id = ".$data['id']." \n"
-						."ORDER BY ordering ASC"
-						;
+
+			if ($data['id'])
+			{
+				$db    = JFactory::getDBO();
+				$query = $db->getQuery(true);
+				$query->select('book, cap1, vers1, cap2, vers2, text');
+				$query->from('#__sermon_scriptures');
+				$query->where('sermon_id = ' . (int) $data['id']);
+				$query->order('ordering ASC');
 				$db->setQuery($query);
 				$data['scripture'] = $db->loadAssocList();
 			}
 		}
-		// Depreceated with SermonSpeaker 4.4.4. Using Ajax now for Lookup.
+
+		// Deprecated with SermonSpeaker 4.4.4. Using Ajax now for Lookup.
 		// Reading ID3 Tags if the Lookup Button was pressed
 		$jinput	= JFactory::getApplication()->input;
-		if ($id3_file = $jinput->get('file', '', 'string')){
-			if ($jinput->get('type') == 'video'){
+
+		if ($id3_file = $jinput->get('file', '', 'string'))
+		{
+			if ($jinput->get('type') == 'video')
+			{
 				$data->videofile = $id3_file;
-			} else {
+			}
+			else
+			{
 				$data->audiofile = $id3_file;
 			}
-			require_once JPATH_COMPONENT_SITE.'/helpers/id3.php';
-			$params	= JComponentHelper::getParams('com_sermonspeaker');
+
+			require_once JPATH_COMPONENT_SITE . '/helpers/id3.php';
+			$params = JComponentHelper::getParams('com_sermonspeaker');
 
 			$id3 = SermonspeakerHelperId3::getID3($id3_file, $params);
-			if ($id3){
-				foreach ($id3 as $key => $value){
-					if ($value){
+
+			if ($id3)
+			{
+				foreach ($id3 as $key => $value)
+				{
+					if ($value)
+					{
 						$data->$key = $value;
 					}
 				}
-			} else {
+			}
+			else
+			{
 				JError::raiseNotice(100, JText::_('COM_SERMONSPEAKER_ERROR_ID3'));
 			}
 		}

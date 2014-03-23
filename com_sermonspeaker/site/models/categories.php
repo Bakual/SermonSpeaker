@@ -10,7 +10,9 @@
 defined('_JEXEC') or die();
 
 /**
- * This models supports retrieving lists of categories.
+ * Model class for the SermonSpeaker Component
+ *
+ * @since  3.4
  */
 class SermonspeakerModelCategories extends JModelLegacy
 {
@@ -33,12 +35,9 @@ class SermonspeakerModelCategories extends JModelLegacy
 	private $_items = null;
 
 	/**
-	 * Method to auto-populate the model state.
+	 * Method to auto-populate the model state
 	 *
-	 * Note. Calling getState in this method will result in recursion.
-	 *
-	 * @param   string  $ordering   Ordering column
-	 * @param   string  $direction  'ASC' or 'DESC'
+	 * Note. Calling getState in this method will result in recursion
 	 *
 	 * @return  void
 	 */
@@ -65,17 +64,17 @@ class SermonspeakerModelCategories extends JModelLegacy
 	 * different modules that might need different sets of data or different
 	 * ordering requirements.
 	 *
-	 * @param	string		$id	A prefix for the store id.
+	 * @param   string  $id  A prefix for the store id.
 	 *
-	 * @return	string		A store id.
+	 * @return  string  A store id.
 	 */
 	protected function getStoreId($id = '')
 	{
 		// Compile the store id.
-		$id	.= ':'.$this->getState('filter.extension');
-		$id	.= ':'.$this->getState('filter.state');
-		$id	.= ':'.$this->getState('filter.access');
-		$id	.= ':'.$this->getState('filter.parentId');
+		$id .= ':' . $this->getState('filter.extension');
+		$id .= ':' . $this->getState('filter.state');
+		$id .= ':' . $this->getState('filter.access');
+		$id .= ':' . $this->getState('filter.parentId');
 
 		return parent::getStoreId($id);
 	}
@@ -83,32 +82,36 @@ class SermonspeakerModelCategories extends JModelLegacy
 	/**
 	 * Redefine the function an add some properties to make the styling more easy
 	 *
-	 * @param	bool	$recursive	True if you want to return children recursively.
+	 * @param   bool  $recursive  True if you want to return children recursively.
 	 *
-	 * @return	mixed	An array of data items on success, false on failure.
+	 * @return  mixed  An array of data items on success, false on failure.
 	 */
 	public function getItems($recursive = false)
 	{
-		if (!count($this->_items)) {
+		if (!count($this->_items))
+		{
 			$app = JFactory::getApplication();
 			$menu = $app->getMenu();
 			$active = $menu->getActive();
-			$params = new JRegistry();
+			$params = new JRegistry;
 
-			if ($active) {
+			if ($active)
+			{
 				$params->loadString($active->params);
 			}
 
 			$options = array();
-			$options['table'] = '#__sermon_'.$params->get('count_items_type', 'sermons');
+			$options['table'] = '#__sermon_' . $params->get('count_items_type', 'sermons');
 			$options['countItems'] = $params->get('show_cat_num_items_cat', 1) || !$params->get('show_empty_categories_cat', 0);
 			$categories = JCategories::getInstance('Sermonspeaker', $options);
 			$this->_parent = $categories->get($this->getState('filter.parentId', 'root'));
 
-			if (is_object($this->_parent)) {
+			if (is_object($this->_parent))
+			{
 				$this->_items = $this->_parent->getChildren($recursive);
 			}
-			else {
+			else
+			{
 				$this->_items = false;
 			}
 		}
@@ -116,9 +119,15 @@ class SermonspeakerModelCategories extends JModelLegacy
 		return $this->_items;
 	}
 
+	/**
+	 * Get the parent category
+	 *
+	 * @return  mixed  An array of categories or false if an error occurs
+	 */
 	public function getParent()
 	{
-		if (!is_object($this->_parent)) {
+		if (!is_object($this->_parent))
+		{
 			$this->getItems();
 		}
 
