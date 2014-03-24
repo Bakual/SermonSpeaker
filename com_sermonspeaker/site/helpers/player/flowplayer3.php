@@ -9,7 +9,7 @@
 
 defined('_JEXEC') or die();
 
-require_once(JPATH_SITE.'/components/com_sermonspeaker/helpers/player.php');
+require_once JPATH_SITE . '/components/com_sermonspeaker/helpers/player.php';
 
 /**
  * Flowplayer 3
@@ -18,7 +18,15 @@ class SermonspeakerHelperPlayerFlowplayer3 extends SermonspeakerHelperPlayer
 {
 	private static $script_loaded;
 
-	public function isSupported($file){
+	/**
+	 * Checks the filename if it's supported by the player
+	 *
+	 * @param   string  $file  Filename
+	 *
+	 * @return  mixed  Mode (audio or video) or false when not supported
+	 */
+	public function isSupported($file)
+	{
 		$ext		= JFile::getExt($file);
 		$audio_ext	= array('mp3');
 		$video_ext	= array('mp4', 'f4v', 'flv');
@@ -38,11 +46,24 @@ class SermonspeakerHelperPlayerFlowplayer3 extends SermonspeakerHelperPlayer
 		return $this->mode;
 	}
 
+	/**
+	 * Gets name of player
+	 *
+	 * @return  string  Name of player
+	 */
 	public function getName()
 	{
 		return 'Flowplayer 3';
 	}
 
+	/**
+	 * Prepares the player
+	 *
+	 * @param   object  $item    Itemobject
+	 * @param   array   $config  Config array
+	 *
+	 * @return  object  Player object
+	 */
 	public function preparePlayer($item, $config)
 	{
 		$this->config	= $config;
@@ -246,9 +267,9 @@ class SermonspeakerHelperPlayerFlowplayer3 extends SermonspeakerHelperPlayer
 			$options[$key] = $key.':'.$value;
 		}
 		$this->setPopup($type);
-		$this->mspace = '<div style="width:'.$this->config[$type.'width'].'; height:'.$this->config[$type.'height'].'" id="mediaspace'.$this->config['count'].'"></div>';
+		$this->mspace = '<div style="width:'.$this->config[$type.'width'].'; height:'.$this->config[$type.'height'].'" id="mediaspace' . $this->config['count'] . '"></div>';
 		$this->script = '<script type="text/javascript">'
-							.'flowplayer("mediaspace'.$this->config['count'].'", "'.$player.'", {'
+							.'flowplayer("mediaspace' . $this->config['count'] . '", "'.$player.'", {'
 								.'playlist: [{'
 									.$this->playlist['default']
 								.'}],'
@@ -264,15 +285,15 @@ class SermonspeakerHelperPlayerFlowplayer3 extends SermonspeakerHelperPlayer
 			JHtml::Script('media/com_sermonspeaker/player/flowplayer/flowplayer-3.2.10.min.js');
 			if ($this->toggle)
 			{
-				$awidth		= is_numeric($this->config['awidth']) ? $this->config['awidth'].'px' : $this->config['awidth'];
-				$aheight	= is_numeric($this->config['aheight']) ? $this->config['aheight'].'px' : $this->config['aheight'];
-				$vwidth		= is_numeric($this->config['vwidth']) ? $this->config['vwidth'].'px' : $this->config['vwidth'];
-				$vheight	= is_numeric($this->config['vheight']) ? $this->config['vheight'].'px' : $this->config['vheight'];
+				$awidth		= is_numeric($this->config['awidth']) ? $this->config['awidth'] . 'px' : $this->config['awidth'];
+				$aheight	= is_numeric($this->config['aheight']) ? $this->config['aheight'] . 'px' : $this->config['aheight'];
+				$vwidth		= is_numeric($this->config['vwidth']) ? $this->config['vwidth'] . 'px' : $this->config['vwidth'];
+				$vheight	= is_numeric($this->config['vheight']) ? $this->config['vheight'] . 'px' : $this->config['vheight'];
 				if (!is_array($item))
 				{
 					$url = 'index.php?&task=download&id='.$item->slug.'&type=';
-					$download_video = 'document.getElementById("sermon_download").onclick=function(){window.location.href=\''.JRoute::_($url.'video').'\'};document.getElementById("sermon_download").value="'.JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_VIDEO').'"';
-					$download_audio = 'document.getElementById("sermon_download").onclick=function(){window.location.href=\''.JRoute::_($url.'audio').'\'};document.getElementById("sermon_download").value="'.JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_AUDIO').'"';
+					$download_video = 'document.getElementById("sermon_download").onclick=function(){window.location.href=\''.JRoute::_($url.'video').'\'};document.getElementById("sermon_download").value="' . JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_VIDEO') . '"';
+					$download_audio = 'document.getElementById("sermon_download").onclick=function(){window.location.href=\''.JRoute::_($url.'audio').'\'};document.getElementById("sermon_download").value="' . JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_AUDIO') . '"';
 				}
 				else
 				{
@@ -282,16 +303,16 @@ class SermonspeakerHelperPlayerFlowplayer3 extends SermonspeakerHelperPlayer
 				$doc->addScriptDeclaration('
 					function Video() {
 						flowplayer().play(['.$this->playlist['video'].']);
-						document.getElementById("mediaspace'.$this->config['count'].'").style.width="'.$vwidth.'";
-						document.getElementById("mediaspace'.$this->config['count'].'").style.height="'.$vheight.'";
+						document.getElementById("mediaspace' . $this->config['count'] . '").style.width="' . $vwidth . '";
+						document.getElementById("mediaspace' . $this->config['count'] . '").style.height="' . $vheight . '";
 						'.$download_video.'
 					}
 				');
 				$doc->addScriptDeclaration('
 					function Audio() {
 						flowplayer().play(['.$this->playlist['audio'].']);
-						document.getElementById("mediaspace'.$this->config['count'].'").style.width="'.$awidth.'";
-						document.getElementById("mediaspace'.$this->config['count'].'").style.height="'.$aheight.'";
+						document.getElementById("mediaspace' . $this->config['count'] . '").style.width="' . $awidth . '";
+						document.getElementById("mediaspace' . $this->config['count'] . '").style.height="' . $aheight . '";
 						'.$download_audio.'
 					}
 				');

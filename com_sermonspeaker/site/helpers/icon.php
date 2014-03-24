@@ -1,8 +1,18 @@
 <?php
-defined('_JEXEC') or die;
-jimport('joomla.application.component.helper');
 /**
- * Sermonspeaker Component HTML Helper
+ * @package     SermonSpeaker
+ * @subpackage  Component.Site
+ * @author      Thomas Hunziker <admin@sermonspeaker.net>
+ * @copyright   (C) 2014 - Thomas Hunziker
+ * @license     http://www.gnu.org/licenses/gpl.html
+ **/
+
+defined('_JEXEC') or die();
+
+/**
+ * Sermonspeaker Component Sermonspeaker Helper
+ *
+ * @since  3.4
  */
 class JHtmlIcon
 {

@@ -22,7 +22,7 @@ class SermonspeakerHelperSermonspeaker
 
 	/**
 	 * Stores the params
-	 * 
+	 *
 	 * @return  void
 	 */
 	private static function getParams()
@@ -32,7 +32,7 @@ class SermonspeakerHelperSermonspeaker
 
 	/**
 	 * Stores the view. Used by the insertSermonTitle method
-	 * 
+	 *
 	 * @return  void
 	 */
 	private static function getView()
@@ -42,7 +42,7 @@ class SermonspeakerHelperSermonspeaker
 
 	/**
 	 * Inserts tooltip for speaker
-	 * 
+	 *
 	 * @param   int     $id             ID of the speaker
 	 * @param   string  $pic            URL to picture
 	 * @param   string  $speaker_title  Speaker name
@@ -75,7 +75,7 @@ class SermonspeakerHelperSermonspeaker
 
 	/**
 	 * Inserts Addfile link
-	 * 
+	 *
 	 * @param   string  $addfile      URL
 	 * @param   string  $addfileDesc  Description
 	 * @param   bool    $show_icon    Show an icon
@@ -162,7 +162,7 @@ class SermonspeakerHelperSermonspeaker
 
 	/**
 	 * Creates full links, adding base path
-	 * 
+	 *
 	 * @param   string  $path  URL
 	 * @param   bool    $abs   absolute or relative link
 	 *
@@ -180,7 +180,7 @@ class SermonspeakerHelperSermonspeaker
 
 	/**
 	 * Inserts download button
-	 * 
+	 *
 	 * @param   int     $id    ID of the sermon
 	 * @param   object  $type  Audio or video download
 	 * @param   int     $mode  Various modes
@@ -264,7 +264,7 @@ class SermonspeakerHelperSermonspeaker
 
 	/**
 	 * Inserts popup button
-	 * 
+	 *
 	 * @param   int     $id      ID of the sermon
 	 * @param   object  $player  Player object for popup dimensions
 	 *
@@ -282,7 +282,7 @@ class SermonspeakerHelperSermonspeaker
 
 	/**
 	 * Inserts time
-	 * 
+	 *
 	 * @param   string  $time  Time
 	 *
 	 * @return  string  formatted time
@@ -303,7 +303,7 @@ class SermonspeakerHelperSermonspeaker
 
 	/**
 	 * Inserts sermon title
-	 * 
+	 *
 	 * @param   int     $i       Counter
 	 * @param   object  $item    Sermon
 	 * @param   object  $player  Player
@@ -419,7 +419,7 @@ class SermonspeakerHelperSermonspeaker
 
 	/**
 	 * Inserts Searchtags.
-	 * 
+	 *
 	 * @param   object  $item       Item
 	 * @param   string  $separator  Separator between the tags
 	 *
@@ -472,7 +472,7 @@ class SermonspeakerHelperSermonspeaker
 
 	/**
 	 * Searchs for a matching picture in the order sermon > series > speaker
-	 * 
+	 *
 	 * @param   object  $item      Item
 	 * @param   bool    $makeLink  Makes a link
 	 *
@@ -502,7 +502,7 @@ class SermonspeakerHelperSermonspeaker
 
 	/**
 	 * Inserting the scriptures
-	 * 
+	 *
 	 * @param   string  $scripture  String containing the scripture
 	 * @param   string  $between    Delimiter
 	 * @param   bool    $addTag     Adds plugin tags around scripture
@@ -529,7 +529,7 @@ class SermonspeakerHelperSermonspeaker
 
 	/**
 	 * Building the scripture
-	 * 
+	 *
 	 * @param   string  $scripture  String containing the scripture
 	 * @param   bool    $addTag     Adds plugin tags around scripture
 	 *
@@ -595,7 +595,7 @@ class SermonspeakerHelperSermonspeaker
 
 	/**
 	 * Get MIME type for extension
-	 * 
+	 *
 	 * @param   string  $ext  File extension
 	 *
 	 * @return  string  MIME type
@@ -645,7 +645,7 @@ class SermonspeakerHelperSermonspeaker
 
 	/**
 	 * Loading the correct playerclass and defining some default config
-	 * 
+	 *
 	 * @param   mixed  $item    Can be a single sermon object or an array of sermon objects
 	 * @param   array  $config  Should be an array of config options. Valid options:
 	 *  - count (id of the player)

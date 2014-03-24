@@ -9,7 +9,7 @@
 
 defined('_JEXEC') or die();
 
-require_once(JPATH_SITE.'/components/com_sermonspeaker/helpers/player.php');
+require_once JPATH_SITE . '/components/com_sermonspeaker/helpers/player.php';
 
 /**
  * HTML5
@@ -21,8 +21,9 @@ class SermonspeakerHelperPlayerHtml5 extends SermonspeakerHelperPlayer
 	public function isSupported($file)
 	{
 		// Exclude wma and wmv files since these are not supported by HTML5 and we have a player for those
-		$ext		= JFile::getExt($file);
-		$exclude	= array('wma', 'wmv');
+		$ext     = JFile::getExt($file);
+		$exclude = array('wma', 'wmv');
+
 		if (in_array($ext, $exclude))
 		{
 			return false;
@@ -32,36 +33,53 @@ class SermonspeakerHelperPlayerHtml5 extends SermonspeakerHelperPlayer
 		return true;
 	}
 
+	/**
+	 * Gets name of player
+	 *
+	 * @return  string  Name of player
+	 */
 	public function getName()
 	{
 		return 'HTML5 Player';
 	}
 
+	/**
+	 * Prepares the player
+	 *
+	 * @param   object  $item    Itemobject
+	 * @param   array   $config  Config array
+	 *
+	 * @return  object  Player object
+	 */
 	public function preparePlayer($item, $config)
 	{
-		$this->config	= $config;
-		$this->player	= $this->getName();
+		$this->config = $config;
+		$this->player = $this->getName();
 
 		if(is_array($item))
 		{
-			$this->mspace	= '<div class="alert"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>Warning!</strong> '.$this->player.' doesn\'t support Playlists</div>';
-			$this->script	= '';
+			$this->mspace = '<div class="alert"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>Warning!</strong> '
+							. $this->player . ' doesn\'t support Playlists</div>';
+			$this->script = '';
+
 			return false;
 		}
-		$type	= $this->config['prio'] ? 'v' : 'a';
+
+		$type = $this->config['prio'] ? 'v' : 'a';
 		$this->setDimensions('21px', '250px');
 		$this->setPopup($type);
 
-		$autoplay	= $this->config['autostart'] ? 'autoplay="autoplay"' : '';
-		$this->mode	= ($this->config['prio']) ? 'video' : 'audio';
-		$property	= $this->mode.'file';
-		$file		= $item->$property;
-		$this->mspace	= '<'.$this->mode.' id="mediaspace'.$this->config['count'].'" '.$autoplay.' controls="controls" width="'.$this->config[$type.'width'].'" height="'.$this->config[$type.'height'].'">'
-							.'<source src="'.SermonspeakerHelperSermonspeaker::makeLink($file).'">'
-						.'</'.$this->mode.'>';
+		$autoplay   = $this->config['autostart'] ? 'autoplay="autoplay"' : '';
+		$this->mode = ($this->config['prio']) ? 'video' : 'audio';
+		$property   = $this->mode . 'file';
+		$file       = $item->$property;
+		$this->mspace = '<' . $this->mode . ' id="mediaspace' . $this->config['count'] . '" ' . $autoplay . ' controls="controls" width="'
+						. $this->config[$type . 'width'] . '" height="' . $this->config[$type . 'height'] . '">'
+							. '<source src="' . SermonspeakerHelperSermonspeaker::makeLink($file) . '">'
+						. '</' . $this->mode . '>';
 
-		$this->script	= '';
-		$this->toggle	= false;
+		$this->script = '';
+		$this->toggle = false;
 
 		return;
 	}
