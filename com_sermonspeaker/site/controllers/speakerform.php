@@ -1,53 +1,47 @@
 <?php
 /**
- * @copyright	Copyright (C) 2005 - 2011 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
- */
+ * @package     SermonSpeaker
+ * @subpackage  Component.Site
+ * @author      Thomas Hunziker <admin@sermonspeaker.net>
+ * @copyright   (C) 2014 - Thomas Hunziker
+ * @license     http://www.gnu.org/licenses/gpl.html
+ **/
 
-// No direct access
-defined('_JEXEC') or die;
-jimport('joomla.application.component.controllerform');
+defined('_JEXEC') or die();
 
 /**
- * Speakerform Sermonspeaker Controller
+ * Controller class for the SermonSpeaker Component
  *
+ * @since  3.4
  */
 class SermonspeakerControllerSpeakerform extends JControllerForm
 {
-	/**
-	 * @since	1.6
-	 */
 	protected $view_item = 'speakerform';
 
-	/**
-	 * @since	1.6
-	 */
 	protected $view_list = 'speakers';
 
-	/**
-	 * @since	1.6
-	 */
 	protected $context = 'speaker';
 
 	/**
-	 * Method to add a new record.
+	 * Method to add a new record
 	 *
-	 * @return	boolean	True if the article can be added, false if not.
-	 * @since	1.6
+	 * @return  boolean  True if the article can be added, false if not
 	 */
 	public function add()
 	{
-		if (!parent::add()) {
-			// Redirect to the return page.
+		if (!parent::add())
+		{
+			// Redirect to the return page
 			$this->setRedirect($this->getReturnPage());
 		}
 	}
 
 	/**
-	 * Method override to check if you can add a new record.
+	 * Method override to check if you can add a new record
 	 *
-	 * @param	array	$data	An array of input data.
-	 * @return	boolean
+	 * @param   array  $data  An array of input data
+	 *
+	 * @return  boolean
 	 */
 	protected function allowAdd($data = array())
 	{
@@ -58,7 +52,7 @@ class SermonspeakerControllerSpeakerform extends JControllerForm
 		if ($categoryId)
 		{
 			// If the category has been passed in the data or URL check it.
-			$allow = $user->authorise('core.create', $this->option.'.category.'.$categoryId);
+			$allow = $user->authorise('core.create', $this->option . '.category.' . $categoryId);
 		}
 
 		if ($allow === null)
@@ -73,12 +67,12 @@ class SermonspeakerControllerSpeakerform extends JControllerForm
 	}
 
 	/**
-	 * Method to check if you can add a new record.
+	 * Method to check if you can add a new record
 	 *
-	 * @param	array	$data	An array of input data.
-	 * @param	string	$key	The name of the key for the primary key.
+	 * @param   array   $data  An array of input data
+	 * @param   string  $key   The name of the key for the primary key
 	 *
-	 * @return	boolean
+	 * @return  boolean
 	 */
 	protected function allowEdit($data = array(), $key = 'id')
 	{
@@ -95,31 +89,32 @@ class SermonspeakerControllerSpeakerform extends JControllerForm
 		if ($categoryId)
 		{
 			$user = JFactory::getUser();
+
 			// The category has been set. Check the category permissions.
-			if ($user->authorise('core.edit', $this->option.'.category.'.$categoryId))
+			if ($user->authorise('core.edit', $this->option . '.category.' . $categoryId))
 			{
 				return true;
 			}
+
 			// Fallback on edit.own.
-			if ($user->authorise('core.edit.own', $this->option.'.category.'.$categoryId))
+			if ($user->authorise('core.edit.own', $this->option . '.category.' . $categoryId))
 			{
 				return ($record->created_by == $user->get('id'));
 			}
 		}
 		else
 		{
-			// Since there is no asset tracking, revert to the component permissions.
+			// Since there is no asset tracking, revert to the component permission
 			return parent::allowEdit($data, $key);
 		}
 	}
 
 	/**
-	 * Method to cancel an edit.
+	 * Method to cancel an edit
 	 *
-	 * @param	string	$key	The name of the primary key of the URL variable.
+	 * @param   string  $key  The name of the primary key of the URL variable
 	 *
-	 * @return	Boolean	True if access level checks pass, false otherwise.
-	 * @since	1.6
+	 * @return  Boolean  True if access level checks pass, false otherwise
 	 */
 	public function cancel($key = 's_id')
 	{
@@ -130,13 +125,12 @@ class SermonspeakerControllerSpeakerform extends JControllerForm
 	}
 
 	/**
-	 * Method to edit an existing record.
+	 * Method to edit an existing record
 	 *
-	 * @param	string	$key	The name of the primary key of the URL variable.
-	 * @param	string	$urlVar	The name of the URL variable if different from the primary key (sometimes required to avoid router collisions).
+	 * @param   string  $key     The name of the primary key of the URL variable
+	 * @param   string  $urlVar  The name of the URL variable if different from the primary key (sometimes required to avoid router collisions)
 	 *
-	 * @return	Boolean	True if access level check and checkout passes, false otherwise.
-	 * @since	1.6
+	 * @return  Boolean  True if access level check and checkout passes, false otherwise
 	 */
 	public function edit($key = null, $urlVar = 's_id')
 	{
@@ -148,12 +142,11 @@ class SermonspeakerControllerSpeakerform extends JControllerForm
 	/**
 	 * Method to get a model object, loading it if required.
 	 *
-	 * @param	string	$name	The model name. Optional.
-	 * @param	string	$prefix	The class prefix. Optional.
-	 * @param	array	$config	Configuration array for model. Optional.
+	 * @param   string  $name    The model name. Optional
+	 * @param   string  $prefix  The class prefix. Optional
+	 * @param   array   $config  Configuration array for model. Optional
 	 *
-	 * @return	object	The model.
-	 * @since	1.5
+	 * @return  object  The model
 	 */
 	public function getModel($name = 'speakerform', $prefix = '', $config = array('ignore_request' => true))
 	{
@@ -163,90 +156,93 @@ class SermonspeakerControllerSpeakerform extends JControllerForm
 	}
 
 	/**
-	 * Gets the URL arguments to append to an item redirect.
+	 * Gets the URL arguments to append to an item redirect
 	 *
-	 * @param	int		$recordId	The primary key id for the item.
-	 * @param	string	$urlVar		The name of the URL variable for the id.
+	 * @param   int     $recordId  The primary key id for the item
+	 * @param   string  $urlVar    The name of the URL variable for the id
 	 *
-	 * @return	string	The arguments to append to the redirect URL.
-	 * @since	1.6
+	 * @return  string  The arguments to append to the redirect URL
 	 */
 	protected function getRedirectToItemAppend($recordId = null, $urlVar = null)
 	{
-		$jinput	= JFactory::getApplication()->input;
-		$append	= parent::getRedirectToItemAppend($recordId, $urlVar);
-		$itemId	= $jinput->get('Itemid', 0, 'int');
-		$modal	= $jinput->get('modal', 0, 'int');
-		$return	= $this->getReturnPage();
+		$jinput = JFactory::getApplication()->input;
+		$append = parent::getRedirectToItemAppend($recordId, $urlVar);
+		$itemId = $jinput->get('Itemid', 0, 'int');
+		$modal  = $jinput->get('modal', 0, 'int');
+		$return = $this->getReturnPage();
 
-		if ($itemId) {
-			$append .= '&Itemid='.$itemId;
+		if ($itemId)
+		{
+			$append .= '&Itemid=' . $itemId;
 		}
 
-		if ($modal) {
+		if ($modal)
+		{
 			$append .= '&tmpl=component';
 		}
 
-		if ($return) {
-			$append .= '&return='.base64_encode($return);
+		if ($return)
+		{
+			$append .= '&return=' . base64_encode($return);
 		}
 
 		return $append;
 	}
 
 	/**
-	 * Get the return URL.
+	 * Get the return URL
 	 *
 	 * If a "return" variable has been passed in the request
 	 *
-	 * @return	string	The return URL.
-	 * @since	1.6
+	 * @return  string  The return URL
 	 */
 	protected function getReturnPage()
 	{
 		$return = JFactory::getApplication()->input->get('return', '', 'base64');
 
-		if (empty($return) || !JUri::isInternal(base64_decode($return))) {
+		if (empty($return) || !JUri::isInternal(base64_decode($return)))
+		{
 			return JURI::base();
 		}
-		else {
+		else
+		{
 			return base64_decode($return);
 		}
 	}
 
 	/**
-	 * Function that allows child controller access to model data after the data has been saved.
+	 * Function that allows child controller access to model data after the data has been saved
 	 *
-	 * @param	JModel	$model		The data model object.
-	 * @param	array	$validData	The validated data.
+	 * @param   JModel  &$model     The data model object
+	 * @param   array   $validData  The validated data
 	 *
-	 * @return	void
-	 * @since	1.6
+	 * @return  void
 	 */
 	protected function postSaveHook(&$model, $validData = array())
 	{
 		$task = $this->getTask();
 
-		if ($task == 'save') {
+		if ($task == 'save')
+		{
 			$this->setRedirect(JRoute::_('index.php?option=com_sermonspeaker&view=speakers', false));
 		}
 	}
 
 	/**
-	 * Method to save a record.
+	 * Method to save a record
 	 *
-	 * @param	string	$key	The name of the primary key of the URL variable.
-	 * @param	string	$urlVar	The name of the URL variable if different from the primary key (sometimes required to avoid router collisions).
+	 * @param   string  $key     The name of the primary key of the URL variable
+	 * @param   string  $urlVar  The name of the URL variable if different from the primary key (sometimes required to avoid router collisions)
 	 *
-	 * @return	Boolean	True if successful, false otherwise.
-	 * @since	1.6
+	 * @return  Boolean  True if successful, false otherwise
 	 */
 	public function save($key = null, $urlVar = 's_id')
 	{
 		$result = parent::save($key, $urlVar);
 
-		// If ok, redirect to the return page.
-		if ($result) {
+		// If ok, redirect to the return page
+		if ($result)
+		{
 			$this->setRedirect($this->getReturnPage());
 		}
 

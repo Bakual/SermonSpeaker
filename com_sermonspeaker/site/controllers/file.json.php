@@ -1,21 +1,21 @@
 <?php
 /**
- * @copyright	Copyright (C) 2005 - 2011 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
- */
+ * @package     SermonSpeaker
+ * @subpackage  Component.Site
+ * @author      Thomas Hunziker <admin@sermonspeaker.net>
+ * @copyright   (C) 2014 - Thomas Hunziker
+ * @license     http://www.gnu.org/licenses/gpl.html
+ **/
 
-defined('_JEXEC') or die;
+defined('_JEXEC') or die();
 
 jimport('joomla.filesystem.file');
 jimport('joomla.filesystem.folder');
 
 /**
- * File Sermonspeaker Controller
- * Copied and adapted from File Media Controller
+ * Controller class for the SermonSpeaker Component
  *
- * @package		Joomla.Administrator
- * @subpackage	com_media
- * @since		1.6
+ * @since  3.4
  */
 class SermonspeakerControllerFile extends JControllerLegacy
 {
@@ -196,16 +196,21 @@ class SermonspeakerControllerFile extends JControllerLegacy
 			$params	= JComponentHelper::getParams('com_sermonspeaker');
 			$id3 = SermonspeakerHelperId3::getID3($file, $params);
 
-			if ($id3){
+			if ($id3)
+			{
 				$response = $id3;
 				$response['status']	= 1;
-			} else {
+			}
+			else
+			{
 				$response = array(
 					'status' => '0',
 					'msg' => JText::_('COM_SERMONSPEAKER_ERROR_ID3')
 				);
 			}
-		} else {
+		}
+		else
+		{
 				$response = array(
 					'status' => '0',
 					'msg' => JText::_('COM_SERMONSPEAKER_ERROR_ID3')

@@ -1,28 +1,34 @@
 <?php
 /**
- * @copyright	Copyright (C) 2005 - 2011 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
- */
+ * @package     SermonSpeaker
+ * @subpackage  Component.Site
+ * @author      Thomas Hunziker <admin@sermonspeaker.net>
+ * @copyright   (C) 2014 - Thomas Hunziker
+ * @license     http://www.gnu.org/licenses/gpl.html
+ **/
 
-defined('_JEXEC') or die;
+defined('_JEXEC') or die();
 
 /**
- * File Sermonspeaker Controller
- * Copied and adapted from File Media Controller
+ * Controller class for the SermonSpeaker Component
  *
- * @package		Joomla.Administrator
- * @subpackage	com_media
- * @since		1.6
+ * @since  3.4
  */
 class SermonspeakerControllerScript extends JControllerLegacy
 {
+	/**
+	 * Creates sermons automatically
+	 *
+	 * @return  void
+	 */
 	public function createAutomatic()
 	{
-		$this->addModelPath(JPATH_COMPONENT_ADMINISTRATOR.'/models');
-		require_once (JPATH_COMPONENT_ADMINISTRATOR.'/controllers/tools.php');
+		$this->addModelPath(JPATH_COMPONENT_ADMINISTRATOR . '/models');
+		require_once JPATH_COMPONENT_ADMINISTRATOR . '/controllers/tools.php';
 		$admin_controller = new SermonspeakerControllerTools;
 		$admin_controller->createAutomatic();
 		$this->setRedirect(JURI::root());
+
 		return;
 	}
 }
