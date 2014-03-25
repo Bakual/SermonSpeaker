@@ -13,6 +13,8 @@ require_once JPATH_SITE . '/components/com_sermonspeaker/helpers/player.php';
 
 /**
  * Pixelout (Wordpress Audio Player)
+ *
+ * @since  5
  */
 class SermonspeakerHelperPlayerPixelout extends SermonspeakerHelperPlayer
 {
@@ -66,7 +68,7 @@ class SermonspeakerHelperPlayerPixelout extends SermonspeakerHelperPlayer
 		$this->player = 'PixelOut';
 		$start        = $this->config['autostart'] ? 'yes' : 'no';
 
-		if(is_array($item))
+		if (is_array($item))
 		{
 			$this->mspace = '<div id="mediaspace' . $this->config['count'] . '">' . JText::_('COM_SERMONSPEAKER_PLAYER_NEEDS_FLASH') . '</div>';
 			$this->setDimensions(23, '100%');
@@ -74,7 +76,7 @@ class SermonspeakerHelperPlayerPixelout extends SermonspeakerHelperPlayer
 			$titles  = array();
 			$artists = array();
 
-			foreach($item as $temp_item)
+			foreach ($item as $temp_item)
 			{
 				if ($temp_item->audiofile)
 				{
@@ -93,7 +95,7 @@ class SermonspeakerHelperPlayerPixelout extends SermonspeakerHelperPlayer
 				$artists[] = ($temp_item->speaker_title) ? urlencode($temp_item->speaker_title) : '';
 			}
 
-			$file   = implode(',',$files);
+			$file   = implode(',', $files);
 			$title  = 'titles: "' . implode(',', $titles) . '",';
 			$artist = 'artists: "' . implode(',', $artists) . '",';
 		}

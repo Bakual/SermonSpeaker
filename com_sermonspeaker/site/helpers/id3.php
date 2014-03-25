@@ -36,7 +36,7 @@ class SermonspeakerHelperId3
 		$path   = JPATH_SITE . $file;
 		$path   = str_replace('//', '/', $path);
 
-		if(!file_exists($path))
+		if (!file_exists($path))
 		{
 			return false;
 		}

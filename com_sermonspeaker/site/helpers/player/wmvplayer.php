@@ -14,7 +14,7 @@ require_once JPATH_SITE . '/components/com_sermonspeaker/helpers/player.php';
 /**
  * Silverlight WMVPlayer
  *
- * @since 5
+ * @since  5
  */
 class SermonspeakerHelperPlayerWmvplayer extends SermonspeakerHelperPlayer
 {

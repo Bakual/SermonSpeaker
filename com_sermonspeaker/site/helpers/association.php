@@ -1,13 +1,22 @@
 <?php
 /**
- * Copy from com_content
- */
+ * @package     SermonSpeaker
+ * @subpackage  Component.Site
+ * @author      Thomas Hunziker <admin@sermonspeaker.net>
+ * @copyright   (C) 2014 - Thomas Hunziker
+ * @license     http://www.gnu.org/licenses/gpl.html
+ **/
 
-defined('_JEXEC') or die;
+defined('_JEXEC') or die();
 
 JLoader::register('SermonspeakerHelper', JPATH_ADMINISTRATOR . '/components/com_sermonspeaker/helpers/sermonspeaker.php');
 JLoader::register('CategoryHelperAssociation', JPATH_ADMINISTRATOR . '/components/com_categories/helpers/association.php');
 
+/**
+ * SermonSpeaker Association Helper
+ *
+ * @since  5
+ */
 abstract class SermonspeakerHelperAssociation extends CategoryHelperAssociation
 {
 	/**
@@ -17,17 +26,14 @@ abstract class SermonspeakerHelperAssociation extends CategoryHelperAssociation
 	 * @param   string   $view  Name of the view
 	 *
 	 * @return  array   Array of associations for the item
-	 *
-	 * @since  3.0
 	 */
-
 	public static function getAssociations($id = 0, $view = null)
 	{
 		jimport('helper.route', JPATH_COMPONENT_SITE);
 
-		$jinput	= JFactory::getApplication()->input;
-		$view	= is_null($view) ? $jinput->get('view') : $view;
-		$id		= empty($id) ? $jinput->getInt('id') : $id;
+		$jinput = JFactory::getApplication()->input;
+		$view   = is_null($view) ? $jinput->get('view') : $view;
+		$id     = empty($id) ? $jinput->getInt('id') : $id;
 
 		switch ($view)
 		{
@@ -45,12 +51,21 @@ abstract class SermonspeakerHelperAssociation extends CategoryHelperAssociation
 		return array();
 	}
 
+	/**
+	 * Search items
+	 *
+	 * @param   int     $id     ID to find
+	 * @param   string  $view   Viewname
+	 * @param   object  $table  Table
+	 *
+	 * @return  array  Matching items
+	 */
 	protected static function _findItems($id, $view, $table)
 	{
 		if ($id)
 		{
-			$associations = JLanguageAssociations::getAssociations('com_sermonspeaker', $table, 'com_sermonspeaker.'.$view, $id);
-			$function = 'get'.$view.'Route';
+			$associations = JLanguageAssociations::getAssociations('com_sermonspeaker', $table, 'com_sermonspeaker.' . $view, $id);
+			$function = 'get' . $view . 'Route';
 
 			$return = array();
 

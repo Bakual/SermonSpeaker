@@ -13,6 +13,8 @@ require_once JPATH_SITE . '/components/com_sermonspeaker/helpers/player.php';
 
 /**
  * Flowplayer 5
+ *
+ * @since  5
  */
 class SermonspeakerHelperPlayerFlowplayer5 extends SermonspeakerHelperPlayer
 {
@@ -38,6 +40,7 @@ class SermonspeakerHelperPlayerFlowplayer5 extends SermonspeakerHelperPlayer
 		{
 			$this->mode	= false;
 		}
+
 		return $this->mode;
 	}
 
@@ -127,6 +130,7 @@ class SermonspeakerHelperPlayerFlowplayer5 extends SermonspeakerHelperPlayer
 			foreach ($item as $temp_item)
 			{
 				$entry = array();
+
 				// Choose picture to show
 				$img = SermonspeakerHelperSermonspeaker::insertPicture($temp_item, 1);
 
@@ -190,9 +194,9 @@ class SermonspeakerHelperPlayerFlowplayer5 extends SermonspeakerHelperPlayer
 				if (!is_array($item))
 				{
 					$url = 'index.php?&task=download&id=' . $item->slug . '&type=';
-					$download_video = 'document.getElementById("sermon_download").onclick=function(){window.location.href=\''.JRoute::_($url.'video')
+					$download_video = 'document.getElementById("sermon_download").onclick=function(){window.location.href=\'' . JRoute::_($url . 'video')
 						. '\'};document.getElementById("sermon_download").value="' . JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_VIDEO') . '"';
-					$download_audio = 'document.getElementById("sermon_download").onclick=function(){window.location.href=\''.JRoute::_($url.'audio')
+					$download_audio = 'document.getElementById("sermon_download").onclick=function(){window.location.href=\'' . JRoute::_($url . 'audio')
 						. '\'};document.getElementById("sermon_download").value="' . JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_AUDIO') . '"';
 				}
 				else
@@ -206,7 +210,7 @@ class SermonspeakerHelperPlayerFlowplayer5 extends SermonspeakerHelperPlayer
 						flowplayer().play([' . $this->playlist['video'] . ']);
 						document.getElementById("mediaspace' . $this->config['count'] . '").style.width="' . $vwidth . '";
 						document.getElementById("mediaspace' . $this->config['count'] . '").style.height="' . $vheight . '";
-						'.$download_video.'
+						' . $download_video . '
 					}
 				');
 				$doc->addScriptDeclaration('

@@ -23,7 +23,7 @@ class SermonspeakerHelperPlayerVimeo extends SermonspeakerHelperPlayer
 	/**
 	 * Checks the filename if it's supported by the player
 	 *
-	 * @param   string  $file  Filename
+	 * @param   string  $item  Filename
 	 *
 	 * @return  mixed  Mode (audio or video) or false when not supported
 	 */
@@ -77,7 +77,7 @@ class SermonspeakerHelperPlayerVimeo extends SermonspeakerHelperPlayer
 		$id            = trim(strrchr($item->videofile, '/'), '/ ');
 		$this->file    = 'http://vimeo.com/' . $id;
 		$this->fb_file = 'http://vimeo.com/moogaloop.swf?clip_id=' . $id
-			.'&amp;server=vimeo.com&amp;show_title=0&amp;show_byline=0&amp;show_portrait=0&amp;color=00adef&amp;fullscreen=1&amp;autoplay=0&amp;loop=0';
+			. '&amp;server=vimeo.com&amp;show_title=0&amp;show_byline=0&amp;show_portrait=0&amp;color=00adef&amp;fullscreen=1&amp;autoplay=0&amp;loop=0';
 		$this->setDimensions(50, '100%');
 		$this->setPopup('v');
 		$start = $this->config['autostart'] ? 1 : 0;

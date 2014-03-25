@@ -16,91 +16,128 @@ defined('_JEXEC') or die();
  */
 class JHtmlIcon
 {
+	/**
+	 * Create link
+	 *
+	 * @param   object  $category  Category object
+	 * @param   object  $params    Parameters
+	 *
+	 * @return  string  Create link
+	 */
 	public static function create($category, $params)
 	{
 		// Ignore if Frontend Uploading is disabled
-		if ($params && !$params->get('fu_enable')) {
+		if ($params && !$params->get('fu_enable'))
+		{
 			return;
 		}
 
 		$uri = JURI::getInstance();
-		$url = 'index.php?option=com_sermonspeaker&view=frontendupload&return='.base64_encode($uri).'&a_id=0&catid=' . $category->id;
+		$url = 'index.php?option=com_sermonspeaker&view=frontendupload&return=' . base64_encode($uri) . '&a_id=0&catid=' . $category->id;
 		$text = '<span class="icon-plus"></span> ' . JText::_('JNEW') . '&#160;';
 
 		$button = JHtml::_('link', JRoute::_($url), $text, 'class="btn btn-primary"');
 
-		$output = '<span class="hasTooltip" title="'.JText::_('COM_SERMONSPEAKER_FU_TITLE').'">'.$button.'</span>';
+		$output = '<span class="hasTooltip" title="' . JText::_('COM_SERMONSPEAKER_FU_TITLE') . '">' . $button . '</span>';
+
 		return $output;
 	}
 
+	/**
+	 * Email link
+	 *
+	 * @param   object  $item     Sermon object
+	 * @param   object  $params   Parameters
+	 * @param   object  $attribs  Attributes
+	 *
+	 * @return  string  Download link
+	 */
 	public static function email($item, $params, $attribs = array())
 	{
 		require_once JPATH_SITE . '/components/com_mailto/helpers/mailto.php';
-		$uri	= JURI::getInstance();
-		$base	= $uri->toString(array('scheme', 'host', 'port'));
+		$uri      = JURI::getInstance();
+		$base     = $uri->toString(array('scheme', 'host', 'port'));
 		$template = JFactory::getApplication()->getTemplate();
-		$function = 'get'.ucfirst($attribs['type']).'Route';
-		$link	= $base.JRoute::_(SermonspeakerHelperRoute::$function($item->slug, $item->catid), false);
-		$url	= 'index.php?option=com_mailto&tmpl=component&template='.$template.'&link='.MailToHelper::addLink($link);
+		$function = 'get' . ucfirst($attribs['type']) . 'Route';
+		$link     = $base . JRoute::_(SermonspeakerHelperRoute::$function($item->slug, $item->catid), false);
+		$url      = 'index.php?option=com_mailto&tmpl=component&template=' . $template . '&link=' . MailToHelper::addLink($link);
 
 		$status = 'width=400,height=350,menubar=yes,resizable=yes';
 
 		$text = '<span class="icon-envelope"></span> ' . JText::_('JGLOBAL_EMAIL');
 
-		$attribs['title']	= JText::_('JGLOBAL_EMAIL');
-		$attribs['onclick'] = "window.open(this.href,'win2','".$status."'); return false;";
+		$attribs['title']   = JText::_('JGLOBAL_EMAIL');
+		$attribs['onclick'] = "window.open(this.href,'win2','" . $status . "'); return false;";
 
 		$output = JHtml::_('link', JRoute::_($url), $text, $attribs);
+
 		return $output;
 	}
 
-	static function edit($item, $params, $attribs = array())
+	/**
+	 * Edit link
+	 *
+	 * @param   object  $item     Sermon object
+	 * @param   object  $params   Parameters
+	 * @param   object  $attribs  Attributes
+	 *
+	 * @return  string  Edit link
+	 */
+	public static function edit($item, $params, $attribs = array())
 	{
 		// Initialise variables.
-		$user	= JFactory::getUser();
-		$userId	= $user->get('id');
-		$uri	= JFactory::getURI();
+		$user   = JFactory::getUser();
+		$userId = $user->get('id');
+		$uri    = JFactory::getURI();
 
 		// Ignore if Frontend Uploading is disabled
-		if ($params && !$params->get('fu_enable')) {
+		if ($params && !$params->get('fu_enable'))
+		{
 			return;
 		}
 
 		// Ignore if in a popup window.
-		if ($params && $params->get('popup')) {
+		if ($params && $params->get('popup'))
+		{
 			return;
 		}
 
-		// Ignore if the state is negative (trashed).
-		if ($item->state < 0) {
+		// Ignore if the state is negative (trashed)
+		if ($item->state < 0)
+		{
 			return;
 		}
 
 		JHtml::_('bootstrap.tooltip');
 
 		// Show checked_out icon if the item is checked out by a different user
-		if (property_exists($item, 'checked_out') && property_exists($item, 'checked_out_time') && $item->checked_out > 0 && $item->checked_out != $user->get('id')) {
+		if (property_exists($item, 'checked_out') && property_exists($item, 'checked_out_time')
+			&& $item->checked_out > 0 && $item->checked_out != $user->get('id'))
+		{
 			$checkoutUser = JFactory::getUser($item->checked_out);
-			$button = JHtml::_('image', 'system/checked_out.png', NULL, NULL, true);
+			$button = JHtml::_('image', 'system/checked_out.png', null, null, true);
 			$date = JHtml::_('date', $item->checked_out_time);
-			$tooltip = JText::_('JLIB_HTML_CHECKED_OUT').' :: '.JText::sprintf('COM_SERMONSPEAKER_CHECKED_OUT_BY', $checkoutUser->name).' <br /> '.$date;
-			return '<span class="hasTooltip" title="'.htmlspecialchars($tooltip, ENT_COMPAT, 'UTF-8').'">'.$button.'</span>';
+			$tooltip = JText::_('JLIB_HTML_CHECKED_OUT') . ' :: ' . JText::sprintf('COM_SERMONSPEAKER_CHECKED_OUT_BY', $checkoutUser->name)
+						. ' <br /> ' . $date;
+
+			return '<span class="hasTooltip" title="' . htmlspecialchars($tooltip, ENT_COMPAT, 'UTF-8') . '">' . $button . '</span>';
 		}
 
-		switch ($attribs['type']){
+		switch ($attribs['type'])
+		{
 			default:
 			case 'sermon':
-				$view	= 'frontendupload';
+				$view = 'frontendupload';
 				break;
 			case 'serie':
-				$view	= 'serieform';
+				$view = 'serieform';
 				break;
 			case 'speaker':
-				$view	= 'speakerform';
+				$view = 'speakerform';
 				break;
 		}
 
-		$url	= 'index.php?option=com_sermonspeaker&task='.$view.'.edit&s_id='.$item->id.'&return='.base64_encode($uri);
+		$url = 'index.php?option=com_sermonspeaker&task=' . $view . '.edit&s_id=' . $item->id . '&return=' . base64_encode($uri);
 
 		if ($item->state == 0)
 		{
@@ -117,56 +154,81 @@ class JHtmlIcon
 			$overlib .= '&lt;br /&gt;';
 			$overlib .= JText::sprintf('JGLOBAL_CREATED_DATE_ON', $date);
 		}
+
 		if ($item->author)
 		{
 			$overlib .= '&lt;br /&gt;';
-			$overlib .= JText::_('JAUTHOR').': '.htmlspecialchars($item->author, ENT_COMPAT, 'UTF-8');
+			$overlib .= JText::_('JAUTHOR') . ': ' . htmlspecialchars($item->author, ENT_COMPAT, 'UTF-8');
 		}
 
 		$icon	= $item->state ? 'edit' : 'eye-close';
-		$text = '<span class="hasTooltip icon-'.$icon.' tip" title="'.JText::_('JACTION_EDIT').' :: '.$overlib.'"></span> '.JText::_('JGLOBAL_EDIT');
+		$text = '<span class="hasTooltip icon-' . $icon . ' tip" title="' . JText::_('JACTION_EDIT') . ' :: ' . $overlib . '"></span> '
+				. JText::_('JGLOBAL_EDIT');
 
 		$output = JHtml::_('link', JRoute::_($url), $text);
 
 		return $output;
 	}
 
-	static function download($item, $params, $attribs = array())
+	/**
+	 * Download link
+	 *
+	 * @param   object  $item     Sermon object
+	 * @param   object  $params   Parameters
+	 * @param   object  $attribs  Attributes
+	 *
+	 * @return  string  Download link
+	 */
+	public static function download($item, $params, $attribs = array())
 	{
-		$onclick	= '';
-		$fileurl	= JRoute::_('index.php?task=download&id='.$item->id.'&type='.$attribs['type']);
-		$filesize	= $attribs['type'].'filesize';
-		if ($item->$filesize) 
+		$onclick  = '';
+		$fileurl  = JRoute::_('index.php?task=download&id=' . $item->id . '&type=' . $attribs['type']);
+		$filesize = $attribs['type'] . 'filesize';
+
+		if ($item->$filesize)
 		{
-			$size	= SermonspeakerHelperSermonspeaker::convertBytes($item->$filesize);
-			$text	= JText::sprintf('COM_SERMONSPEAKER_DOWNLOADBUTTON_'.$attribs['type'].'_WITH_SIZE', $size);
+			$size = SermonspeakerHelperSermonspeaker::convertBytes($item->$filesize);
+			$text = JText::sprintf('COM_SERMONSPEAKER_DOWNLOADBUTTON_' . $attribs['type'] . '_WITH_SIZE', $size);
 		}
 		else
 		{
-			$text	= JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_'.$attribs['type']);
+			$text = JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_' . $attribs['type']);
 		}
-		$text		= '<i class="icon-download" > </i> '.$text;
+
+		$text = '<i class="icon-download" > </i> ' . $text;
 
 		if ($params->get('enable_ga_events'))
 		{
-			$onclick = "_gaq.push(['_trackEvent', 'SermonSpeaker Download', '".$attribs['type']."', 'id:".$item->id."']);"
-					."window.location.href='".$fileurl."';";
-			$output = '<a href="#" onclick="'.$onclick.'">'.$text.'</a>';
-		} else {
-			$output = '<a href="'.$fileurl.'">'.$text.'</a>';
+			$onclick = "_gaq.push(['_trackEvent', 'SermonSpeaker Download', '" . $attribs['type'] . "', 'id:" . $item->id . "']);"
+					. "window.location.href='" . $fileurl . "';";
+			$output = '<a href="#" onclick="' . $onclick . '">' . $text . '</a>';
+		}
+		else
+		{
+			$output = '<a href="' . $fileurl . '">' . $text . '</a>';
 		}
 
 		return $output;
 	}
 
-	static function play($item, $params, $attribs = array())
+	/**
+	 * Play icon to control the player
+	 *
+	 * @param   object  $item     Sermon object
+	 * @param   object  $params   Parameters
+	 * @param   object  $attribs  Attributes
+	 *
+	 * @return  string  Play icon
+	 */
+	public static function play($item, $params, $attribs = array())
 	{
 		if ($params->get('list_icon_function') != 2)
 		{
 			return;
 		}
-		$text	= '<i class="icon-play"> </i> '.JText::_('COM_SERMONSPEAKER_PLAYICON_HOOVER');
-		$output	= '<a href="#" onclick="ss_play('.$attribs['index'].');return false;">'.$text.'</a>';
+
+		$text   = '<i class="icon-play"> </i> ' . JText::_('COM_SERMONSPEAKER_PLAYICON_HOOVER');
+		$output = '<a href="#" onclick="ss_play(' . $attribs['index'] . ');return false;">' . $text . '</a>';
 
 		return $output;
 	}

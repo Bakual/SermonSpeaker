@@ -13,11 +13,20 @@ require_once JPATH_SITE . '/components/com_sermonspeaker/helpers/player.php';
 
 /**
  * HTML5
+ *
+ * @since  5
  */
 class SermonspeakerHelperPlayerHtml5 extends SermonspeakerHelperPlayer
 {
 	private static $script_loaded;
 
+	/**
+	 * Checks the filename if it's supported by the player
+	 *
+	 * @param   string  $file  Filename
+	 *
+	 * @return  mixed  Mode (audio or video) or false when not supported
+	 */
 	public function isSupported($file)
 	{
 		// Exclude wma and wmv files since these are not supported by HTML5 and we have a player for those
@@ -56,7 +65,7 @@ class SermonspeakerHelperPlayerHtml5 extends SermonspeakerHelperPlayer
 		$this->config = $config;
 		$this->player = $this->getName();
 
-		if(is_array($item))
+		if (is_array($item))
 		{
 			$this->mspace = '<div class="alert"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>Warning!</strong> '
 							. $this->player . ' doesn\'t support Playlists</div>';

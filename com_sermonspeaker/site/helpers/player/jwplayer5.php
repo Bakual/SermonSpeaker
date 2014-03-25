@@ -13,6 +13,8 @@ require_once JPATH_SITE . '/components/com_sermonspeaker/helpers/player.php';
 
 /**
  * JW Player 5
+ *
+ * @since  5
  */
 class SermonspeakerHelperPlayerJwplayer5 extends SermonspeakerHelperPlayer
 {
@@ -359,7 +361,8 @@ class SermonspeakerHelperPlayerJwplayer5 extends SermonspeakerHelperPlayer
 						. '</script>';
 
 		// Loading needed Javascript only once
-		if (!self::$script_loaded){
+		if (!self::$script_loaded)
+		{
 			JHtml::Script('media/com_sermonspeaker/player/jwplayer/jwplayer.js');
 			$doc = JFactory::getDocument();
 			$doc->addScriptDeclaration('function ss_play(id){jwplayer().playlistItem(id);}');
@@ -373,13 +376,13 @@ class SermonspeakerHelperPlayerJwplayer5 extends SermonspeakerHelperPlayer
 
 				if (!is_array($item))
 				{
-					$url = 'index.php?&task=download&id='.$item->slug.'&type=';
+					$url = 'index.php?&task=download&id=' . $item->slug . '&type=';
 					$download_video = 'document.getElementById("sermon_download").onclick=function(){window.location.href=\'' . JRoute::_($url . 'video')
 						. '\'};document.getElementById("sermon_download").value="' . JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_VIDEO') . '"';
 					$download_audio = 'document.getElementById("sermon_download").onclick=function(){window.location.href=\'' . JRoute::_($url . 'audio')
 						. '\'};document.getElementById("sermon_download").value="' . JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_AUDIO') . '"';
-				} 
-				else 
+				}
+				else
 				{
 					$download_video = '';
 					$download_audio = '';
@@ -387,7 +390,7 @@ class SermonspeakerHelperPlayerJwplayer5 extends SermonspeakerHelperPlayer
 
 				$doc->addScriptDeclaration('
 					function Video() {
-						jwplayer().load(['.$this->playlist['video'].']).resize("' . $vwidth . '","' . $vheight . '");
+						jwplayer().load([' . $this->playlist['video'] . ']).resize("' . $vwidth . '","' . $vheight . '");
 						document.getElementById("mediaspace' . $this->config['count'] . '_wrapper").style.width="' . $vwidth . '";
 						document.getElementById("mediaspace' . $this->config['count'] . '_wrapper").style.height="' . $vheight . '";
 						' . $download_video . '
@@ -402,8 +405,10 @@ class SermonspeakerHelperPlayerJwplayer5 extends SermonspeakerHelperPlayer
 					}
 				');
 			}
+
 			self::$script_loaded = 1;
 		}
+
 		return;
 	}
 }

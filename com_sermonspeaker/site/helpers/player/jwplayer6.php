@@ -13,6 +13,8 @@ require_once JPATH_SITE . '/components/com_sermonspeaker/helpers/player.php';
 
 /**
  * JW Player 5
+ *
+ * @since  5
  */
 class SermonspeakerHelperPlayerJwplayer6 extends SermonspeakerHelperPlayer
 {
@@ -326,8 +328,8 @@ class SermonspeakerHelperPlayerJwplayer6 extends SermonspeakerHelperPlayer
 		$this->script = '<script type="text/javascript">'
 							. "jwplayer('mediaspace" . $this->config['count'] . "').setup({"
 								. "playlist:[" . $this->playlist['default'] . "],"
-								. "width:'" . $this->config[$type.'width'] . "',"
-								. "height:'" . $this->config[$type.'height'] . "',"
+								. "width:'" . $this->config[$type . 'width'] . "',"
+								. "height:'" . $this->config[$type . 'height'] . "',"
 								. implode(',', $options)
 							. '});'
 						. '</script>';
@@ -338,12 +340,12 @@ class SermonspeakerHelperPlayerJwplayer6 extends SermonspeakerHelperPlayer
 			JHtml::Script('media/com_sermonspeaker/player/jwplayer6/jwplayer.js');
 
 			// To use Cloud custom Cloud Token is needed
-//			JHtml::Script('http://jwpsrv.com/library/put-token-here.js');
+			// JHtml::Script('http://jwpsrv.com/library/put-token-here.js');
 
 			$doc = JFactory::getDocument();
 
 			// Custom Key!
-//			$doc->addScriptDeclaration('jwplayer.key="put-key-here";');
+			// $doc->addScriptDeclaration('jwplayer.key="put-key-here";');
 
 			$doc->addScriptDeclaration('function ss_play(id){jwplayer().playlistItem(id);}');
 
@@ -361,8 +363,8 @@ class SermonspeakerHelperPlayerJwplayer6 extends SermonspeakerHelperPlayer
 						. '\'};document.getElementById("sermon_download").value="' . JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_VIDEO') . '"';
 					$download_audio = 'document.getElementById("sermon_download").onclick=function(){window.location.href=\'' . JRoute::_($url . 'audio')
 						. '\'};document.getElementById("sermon_download").value="' . JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_AUDIO') . '"';
-				} 
-				else 
+				}
+				else
 				{
 					$download_video = '';
 					$download_audio = '';

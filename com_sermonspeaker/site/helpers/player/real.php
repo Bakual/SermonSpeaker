@@ -13,6 +13,8 @@ require_once JPATH_SITE . '/components/com_sermonspeaker/helpers/player.php';
 
 /**
  * JW Player 5
+ *
+ * @since  5
  */
 class SermonspeakerHelperPlayerReal extends SermonspeakerHelperPlayer
 {
@@ -118,9 +120,9 @@ class SermonspeakerHelperPlayerReal extends SermonspeakerHelperPlayer
 		{
 			$this->mspace = '<object id="mediaspace' . $this->config['count'] . '" classid="clsid:CFCDAA03-8BE4-11cf-B84B-0020AFBBCCFA" height="'
 						. $this->config[$type . 'height'] . '" width="' . $this->config[$type . 'width'] . '">'
-						.'<param name="controls" value="ImageWindow">'
-						.'<param name="console" value="media' . $this->config['count'] . '">'
-						. '<embed height="' . $this->config[$type.'height'] . '" width="' . $this->config[$type.'width'] . '" controls="ImageWindow" src="'
+						. '<param name="controls" value="ImageWindow">'
+						. '<param name="console" value="media' . $this->config['count'] . '">'
+						. '<embed height="' . $this->config[$type . 'height'] . '" width="' . $this->config[$type . 'width'] . '" controls="ImageWindow" src="'
 						. $file . '" type="audio/x-pn-realaudio-plugin">'
 					. '</object><br>'
 					. $this->mspace;
