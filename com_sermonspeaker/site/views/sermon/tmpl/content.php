@@ -17,13 +17,13 @@ JHtml::_('behavior.modal');
 // Needed for pictures in blog layout
 JHtml::stylesheet('com_sermonspeaker/blog.css', '', true);
 
-$user		= JFactory::getUser();
-$fu_enable	= $this->params->get('fu_enable');
-$canEdit	= ($fu_enable and $user->authorise('core.edit', 'com_sermonspeaker'));
-$canEditOwn	= ($fu_enable and $user->authorise('core.edit.own', 'com_sermonspeaker'));
-$player		= SermonspeakerHelperSermonspeaker::getPlayer($this->item);
+$user       = JFactory::getUser();
+$fu_enable  = $this->params->get('fu_enable');
+$canEdit    = ($fu_enable and $user->authorise('core.edit', 'com_sermonspeaker'));
+$canEditOwn = ($fu_enable and $user->authorise('core.edit.own', 'com_sermonspeaker'));
+$player     = SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 ?>
-<div class="item-page<?php echo $this->pageclass_sfx; ?> ss-sermon-container<?php echo $this->pageclass_sfx; ?> clearfix">
+<div class="item-page<?php echo $this->pageclass_sfx; ?> ss-sermon-container<?php echo $this->pageclass_sfx; ?> clearfix" itemscope itemtype="http://schema.org/CreativeWork">
 	<?php
 	if ($this->params->get('show_page_heading')) : ?>
 		<div class="page-header">
@@ -31,21 +31,21 @@ $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 		</div>
 	<?php endif; ?>
 	<div class="page-header">
-		<h2>
+		<h2 itemprop="name">
 			<?php if ($this->item->state == 0): ?>
 				<span class="label label-warning"><?php echo JText::_('JUNPUBLISHED'); ?></span>
 			<?php endif; ?>
-			<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonRoute($this->item->slug)); ?>">
+			<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonRoute($this->item->slug)); ?>" itemprop="url">
 				<?php echo $this->escape($this->item->title); ?></a>
 		</h2>
 		<?php if (in_array('sermon:speaker', $this->columns) and $this->item->speaker_title) : ?>
-			<small class="ss-speaker createdby">
+			<small class="ss-speaker createdby" itemprop="author" itemscope itemtype="http://schema.org/Person">
 				<?php echo JText::_('COM_SERMONSPEAKER_SPEAKER'); ?>: 
 				<?php
 				if ($this->item->speaker_state):
 					echo SermonspeakerHelperSermonSpeaker::SpeakerTooltip($this->item->speaker_slug, $this->item->pic, $this->item->speaker_title);
 				else :
-					echo $this->item->speaker_title;
+					echo '<span itemprop="name">' . $this->item->speaker_title . '</span>';
 				endif; ?>
 			</small>
 		<?php endif; ?>
@@ -58,11 +58,15 @@ $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 		<ul class="dropdown-menu">
 			<?php if (in_array('sermon:download', $this->columns)) :
 				if ($this->item->audiofile) : ?>
-					<li class="download-icon"><?php echo JHtml::_('icon.download', $this->item, $this->params, array('type' => 'audio')); ?></li>
+					<li class="download-icon" itemprop="audio" itemscope itemtype="http://schema.org/AudioObject">
+						<?php echo JHtml::_('icon.download', $this->item, $this->params, array('type' => 'audio')); ?>
+					</li>
 				<?php endif;
 
 				if ($this->item->videofile) : ?>
-					<li class="download-icon"><?php echo JHtml::_('icon.download', $this->item, $this->params, array('type' => 'video')); ?></li>
+					<li class="download-icon" itemprop="video" itemscope itemtype="http://schema.org/VideoObject">
+						<?php echo JHtml::_('icon.download', $this->item, $this->params, array('type' => 'video')); ?>
+					</li>
 				<?php endif; ?>
 			<?php endif; ?>
 			<li class="email-icon"><?php echo JHtml::_('icon.email', $this->item, $this->params, array('type' => 'sermon')); ?></li>

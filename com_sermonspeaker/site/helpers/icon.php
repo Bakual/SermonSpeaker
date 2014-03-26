@@ -50,7 +50,7 @@ class JHtmlIcon
 	 * @param   object  $params   Parameters
 	 * @param   object  $attribs  Attributes
 	 *
-	 * @return  string  Download link
+	 * @return  string  Email link
 	 */
 	public static function email($item, $params, $attribs = array())
 	{
@@ -187,7 +187,7 @@ class JHtmlIcon
 
 		if ($item->$filesize)
 		{
-			$size = SermonspeakerHelperSermonspeaker::convertBytes($item->$filesize);
+			$size = '<span itemprop="contentSize">' . SermonspeakerHelperSermonspeaker::convertBytes($item->$filesize) . '</span>';
 			$text = JText::sprintf('COM_SERMONSPEAKER_DOWNLOADBUTTON_' . $attribs['type'] . '_WITH_SIZE', $size);
 		}
 		else
@@ -199,13 +199,14 @@ class JHtmlIcon
 
 		if ($params->get('enable_ga_events'))
 		{
+			$output = '<meta itemprop="contentUrl" content="' . $fileurl . '" />';
 			$onclick = "_gaq.push(['_trackEvent', 'SermonSpeaker Download', '" . $attribs['type'] . "', 'id:" . $item->id . "']);"
 					. "window.location.href='" . $fileurl . "';";
 			$output = '<a href="#" onclick="' . $onclick . '">' . $text . '</a>';
 		}
 		else
 		{
-			$output = '<a href="' . $fileurl . '">' . $text . '</a>';
+			$output = '<a href="' . $fileurl . '" itemprop="contentUrl">' . $text . '</a>';
 		}
 
 		return $output;
