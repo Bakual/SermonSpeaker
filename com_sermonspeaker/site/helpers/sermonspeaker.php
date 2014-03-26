@@ -47,6 +47,8 @@ class SermonspeakerHelperSermonspeaker
 	 * @param   string  $pic            URL to picture
 	 * @param   string  $speaker_title  Speaker name
 	 *
+	 * @deprecated  5.2  Use "JLayoutHelper::render('content.speaker', array('item' => $this->item, 'params' => $this->params))" instead
+	 *
 	 * @return  string  Tooltip
 	 */
 	public static function SpeakerTooltip($id, $pic, $speaker_title)
@@ -56,32 +58,13 @@ class SermonspeakerHelperSermonspeaker
 			self::getParams();
 		}
 
-		if (self::$params->get('speakerpopup', 1))
-		{
-			$html = '<a class="modal" href="' . JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($id) . '&layout=popup&tmpl=component')
-				. '" rel="{handler: \'iframe\', size: {x: 700, y: 500}}" itemprop="url">';
-		}
-		else
-		{
-			$html = '<a href="' . JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($id)) . '" itemprop="url">';
-		}
+		// BC Code to call the layout instead
+		$item = new stdclass;
+		$item->speaker_title = $speaker_title;
+		$item->speaker_slug  = $id;
+		$item->pic           = $pic;
 
-		$text = '<span itemprop="name">' . $speaker_title . '</span>';
-
-		if ($pic)
-		{
-			$html .= '<meta itemprop="image" content="' . self::makeLink($pic, true) . '" />';
-			$tooltip = '<img src="' . self::makeLink($pic) . '" alt="' . $speaker_title . '" />';
-			$html .= JHtml::tooltip($tooltip, $speaker_title, '', $text);
-		}
-		else
-		{
-			$html .= $text;
-		}
-
-		$html .= '</a>';
-
-		return $html;
+		return JLayoutHelper::render('content.speaker', array('item' => $item, 'params' => self::$params));
 	}
 
 	/**

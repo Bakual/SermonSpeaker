@@ -93,12 +93,7 @@ if ($canEdit or ($canEditOwn and ($user->id == $this->item->created_by))) : ?>
 	<div class="ss-fields-container">
 		<?php if (in_array('sermon:speaker', $this->columns) and $this->item->speaker_id): ?>
 			<div class="ss-field field-speaker" title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKER'); ?>">
-				<?php
-				if ($this->item->speaker_state) :
-					echo SermonspeakerHelperSermonSpeaker::SpeakerTooltip($this->item->speaker_slug, $this->item->pic, $this->item->speaker_title);
-				else :
-					echo $this->item->speaker_title;
-				endif; ?>
+				<?php echo JLayoutHelper::render('content.speaker', array('item' => $this->item, 'params' => $this->params)); ?>
 			</div>
 		<?php endif;
 

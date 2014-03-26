@@ -72,11 +72,9 @@ if ($canEdit or ($canEditOwn and ($user->id == $this->item->created_by))) : ?>
 	if (in_array('sermon:speaker', $this->columns) and $this->item->speaker_id) : ?>
 		<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_SPEAKER'); ?>:</div>
 		<div class="ss-sermondetail-text">
-			<?php if ($this->item->speaker_state) :
-				echo SermonspeakerHelperSermonSpeaker::SpeakerTooltip($this->item->speaker_slug, false, $this->item->speaker_title);
-			else :
-				echo $this->item->speaker_title;
-			endif; ?>
+			<?php $tmp = clone($this->item);
+			$tmp->pic = false;
+			echo JLayoutHelper::render('content.speaker', array('item' => $tmp, 'params' => $this->params)); ?>
 		</div>
 		<?php if ($this->item->pic) : ?>
 			<div class="ss-sermondetail-label"></div>

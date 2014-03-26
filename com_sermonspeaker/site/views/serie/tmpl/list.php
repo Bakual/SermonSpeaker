@@ -173,13 +173,8 @@ $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 							<?php if (in_array('sermons:speaker', $this->columns) and $item->speaker_title) :
 								$sep = 1; ?>
 								<small class="ss-speaker">
-									<?php echo JText::_('COM_SERMONSPEAKER_SPEAKER'); ?>: 
-									<?php
-									if ($item->speaker_state):
-										echo SermonspeakerHelperSermonSpeaker::SpeakerTooltip($item->speaker_slug, $item->pic, $item->speaker_title);
-									else :
-										echo $item->speaker_title;
-									endif; ?>
+									<?php echo JText::_('COM_SERMONSPEAKER_SPEAKER'); ?>:
+									<?php echo JLayoutHelper::render('content.speaker', array('item' => $item, 'params' => $this->params)); ?>
 								</small>
 							<?php endif;
 
