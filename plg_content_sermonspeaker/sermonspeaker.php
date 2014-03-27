@@ -120,7 +120,7 @@ class PlgContentSermonspeaker extends JPlugin
 
 							if ($item->speaker_state)
 							{
-								$contents	.= '<td>' . SermonspeakerHelperSermonSpeaker::SpeakerTooltip($item->speaker_slug, $item->pic, $item->speaker_title) . '</td></tr>';
+								$contents	.= '<td>' . JLayoutHelper::render('content.speaker', array('item' => $this->item, 'params' => $this->params)) . '</td></tr>';
 							}
 							else
 							{

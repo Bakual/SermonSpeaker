@@ -146,12 +146,7 @@ if (in_array('serie:player', $this->columns) and count($this->items)) :
 
 					if (in_array('serie:speaker', $this->columns) && $item->speaker_title) : ?>
 						<span class="speaker <?php echo $class; ?>">
-							<?php
-							if ($item->speaker_state) :
-								echo SermonspeakerHelperSermonSpeaker::SpeakerTooltip($item->speaker_slug, $item->pic, $item->speaker_title);
-							else :
-								echo $item->speaker_title;
-							endif; ?>
+							<?php echo JLayoutHelper::render('content.speaker', array('item' => $this->item, 'params' => $this->params)); ?>
 						</span>
 					<?php endif;
 
