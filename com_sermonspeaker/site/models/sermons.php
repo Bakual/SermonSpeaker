@@ -92,10 +92,9 @@ class SermonspeakerModelSermons extends JModelList
 		$query->group('sermons.id');
 
 		// Join over Speaker
-		$query->select(
-			'speakers.title AS speaker_title, speakers.pic AS pic, speakers.state as speaker_state, '
-			. 'CASE WHEN CHAR_LENGTH(speakers.alias) THEN CONCAT_WS(\':\', speakers.id, speakers.alias) ELSE speakers.id END as speaker_slug'
-		);
+		$query->select('speakers.title AS speaker_title, speakers.pic AS pic, speakers.state as speaker_state');
+		$query->select('speakers.id AS speaker_id, speakers.intro, speakers.bio, speakers.website');
+		$query->select('CASE WHEN CHAR_LENGTH(speakers.alias) THEN CONCAT_WS(\':\', speakers.id, speakers.alias) ELSE speakers.id END as speaker_slug');
 		$query->join('LEFT', '#__sermon_speakers AS speakers ON speakers.id = sermons.speaker_id');
 
 		// Join over Series

@@ -97,10 +97,9 @@ class SermonspeakerModelSermon extends JModelItem
 				$query->join('LEFT', '#__categories AS c on c.id = sermon.catid');
 
 				// Join on speakers table.
-				$query->select(
-						'speakers.title AS speaker_title, speakers.pic AS pic, speakers.state as speaker_state, '
-						. "CASE WHEN CHAR_LENGTH(speakers.alias) THEN CONCAT_WS(':', speakers.id, speakers.alias) ELSE speakers.id END as speaker_slug "
-				);
+				$query->select('speakers.title AS speaker_title, speakers.pic AS pic, speakers.state as speaker_state');
+				$query->select('speakers.intro, speakers.bio, speakers.website');
+				$query->select("CASE WHEN CHAR_LENGTH(speakers.alias) THEN CONCAT_WS(':', speakers.id, speakers.alias) ELSE speakers.id END as speaker_slug");
 				$query->join('LEFT', '#__sermon_speakers AS speakers on speakers.id = sermon.speaker_id');
 
 				// Join on category table for speaker

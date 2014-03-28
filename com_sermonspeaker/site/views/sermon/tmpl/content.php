@@ -12,7 +12,6 @@ defined('_JEXEC') or die();
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
 JHtml::_('bootstrap.framework');
 JHtml::_('bootstrap.tooltip');
-JHtml::_('behavior.modal');
 
 // Needed for pictures in blog layout
 JHtml::stylesheet('com_sermonspeaker/blog.css', '', true);

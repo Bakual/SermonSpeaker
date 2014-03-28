@@ -12,20 +12,32 @@ defined('_JEXEC') or die();
 /**
  * $item    object     The sermon item
  * $params  JRegistry  The item params
+ * $legacy  bool       Set if coming from SermonspeakerHelperSermonspeaker::SpeakerTooltip()
+ *                     Item only contains speaker_title, speaker_slug and pic in this case
  */
 extract($displayData);
+
+if (!isset($legacy))
+{
+	$legacy = false;
+}
 ?>
-<?php if (isset($item->speaker_state) and !$item->speaker_state) : ?>
+<?php if (!$legacy and !$item->speaker_state) : ?>
 	<span itemprop="name"><?php echo $item->speaker_title; ?></span>
 <?php else :
 	if ($params->get('speakerpopup', 1)) :
-		$url   = JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->speaker_slug) . '&layout=popup&tmpl=component');
-		$modal = ' class="modal" rel="{handler:\'iframe\', size: {x: 700, y: 500}}"';
-	else :
-		$url   = JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->speaker_slug));
-		$modal = '';
-	endif; ?>
-	<a href="<?php echo $url; ?>"<?php echo $modal; ?> itemprop="url">
+		if ($legacy) :
+			// Mootools variant
+			JHtml::_('behavior.modal');
+			$url   = JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->speaker_slug) . '&layout=popup&tmpl=component'); ?>
+			<a href="<?php echo $url; ?>" class="modal" rel="{handler:'iframe', size: {x: 700, y: 500}}" itemprop="url">
+		<?php else :
+			echo $this->sublayout('modal', $item); ?>
+			<a href="#sermonspeaker-modal-speaker-<?php echo $item->speaker_id; ?>" data-toggle="modal">
+		<?php endif;
+	else : ?>
+		<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->speaker_slug)); ?>" itemprop="url">
+	<?php endif; ?>
 		<?php if ($item->pic) :
 			JHtmlBootstrap::popover();
 			$popover = htmlspecialchars('<img src="' . SermonspeakerHelperSermonspeaker::makeLink($item->pic) . '" />'); ?>

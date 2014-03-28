@@ -64,7 +64,7 @@ class SermonspeakerHelperSermonspeaker
 		$item->speaker_slug  = $id;
 		$item->pic           = $pic;
 
-		return JLayoutHelper::render('content.speaker', array('item' => $item, 'params' => self::$params));
+		return JLayoutHelper::render('content.speaker', array('item' => $item, 'params' => self::$params, 'legacy' => true));
 	}
 
 	/**
