@@ -140,7 +140,7 @@ class SermonspeakerHelperId3
 			{
 				$query = $db->getQuery(true);
 				$query->select('id');
-				$query->from('#__sermon_speaker');
+				$query->from('#__sermon_speakers');
 				$query->where('title like ' . $db->quote($db->escape($FileInfo['comments']['artist'][0])));
 				$db->setQuery($query);
 				$id3['speaker_id'] = $db->loadResult();
