@@ -3,4 +3,16 @@
 	<layout title="COM_SERMONSPEAKER_FRONTENDUPLOAD_VIEW_DEFAULT_TITLE">
 		<message><![CDATA[COM_SERMONSPEAKER_FRONTENDUPLOAD_VIEW_DEFAULT_DESC]]></message>
 	</layout>
+	<fields name="params">
+		<fieldset name="basic" >
+			<field name="active_tab"
+				type="list"
+				label="COM_SERMONSPEAKER_FIELD_ACTIVE_TAB_LABEL" 
+				description="COM_SERMONSPEAKER_FIELD_ACTIVE_TAB_DESC">
+				<option value="">JOPTION_USE_DEFAULT</option>
+				<option value="files">COM_SERMONSPEAKER_FU_FILES</option>
+				<option value="details">JDETAILS</option>
+			</field>
+		</fieldset>
+	</fields>
 </metadata>

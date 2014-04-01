@@ -60,8 +60,8 @@ $self = $uri->toString();
 			</div>
 		</div>
 		<fieldset>
-			<ul class="nav nav-tabs">
-				<li class="active"><a href="#editor" data-toggle="tab"><?php echo JText::_('JEDITOR') ?></a></li>
+			<ul class="nav nav-tabs" id="sermonEditTab">
+				<li><a href="#editor" data-toggle="tab"><?php echo JText::_('JEDITOR') ?></a></li>
 				<li><a href="#files" data-toggle="tab"><?php echo JText::_('COM_SERMONSPEAKER_FU_FILES') ?></a></li>
 				<li><a href="#details" data-toggle="tab"><?php echo JText::_('JDETAILS') ?></a></li>
 				<li><a href="#publishing" data-toggle="tab"><?php echo JText::_('COM_SERMONSPEAKER_PUBLISHING') ?></a></li>

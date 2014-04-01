@@ -161,6 +161,14 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
  			xmlhttp.send("file="+elem.value);
 		}';
 
+		// Add Javascript for active tab selection (based on menu item param)
+		if ($tab = $this->params->get('active_tab'))
+		{
+			$this->document->addScriptDeclaration('jQuery(function() {
+					jQuery(\'#sermonEditTab a[href="#' . $tab . '"]\').tab(\'show\');
+				})');
+		}
+
 		$document = JFactory::getDocument();
 		$document->addScriptDeclaration($enElem);
 		$document->addScriptDeclaration($toggle);
