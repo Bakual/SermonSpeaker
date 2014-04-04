@@ -24,12 +24,16 @@ $config = array(
 	);
 $player = SermonspeakerHelperSermonspeaker::getPlayer($this->item, $config);
 ?>
-<div class="ss-sermon-container<?php echo $this->pageclass_sfx; ?>">
+<div class="ss-sermon-container<?php echo $this->pageclass_sfx; ?>" itemscope itemtype="http://schema.org/CreativeWork">
 <?php
 if ($this->params->get('show_page_heading', 1)) : ?>
 	<h1><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
 <?php endif; ?>
-<h2><a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonRoute($this->item->slug)); ?>"><?php echo $this->item->title; ?></a></h2>
+<h2 itemprop="name">
+	<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonRoute($this->item->slug)); ?>" itemprop="url">
+		<?php echo $this->item->title; ?>
+	</a>
+</h2>
 <?php
 if ($canEdit or ($canEditOwn and ($user->id == $this->item->created_by))) : ?>
 	<ul class="actions">
@@ -64,9 +68,11 @@ if ($canEdit or ($canEditOwn and ($user->id == $this->item->created_by))) : ?>
 			<?php endif;
 
 			if ($this->item->audiofile and in_array('sermon:download', $this->columns)) : ?>
-				<a id="sermon_download" href="<?php echo JRoute::_('index.php?task=download&type=audio&id=' . $this->item->slug); ?>" class="download">
-					<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_AUDIO'); ?>
-				</a>
+				<span itemprop="audio" itemscope itemtype="http://schema.org/AudioObject">
+					<a id="sermon_download" href="<?php echo JRoute::_('index.php?task=download&type=audio&id=' . $this->item->slug); ?>" class="download" itemprop="url">
+						<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_AUDIO'); ?>
+					</a>
+				</span>
 			<?php endif; ?>
 			</div>
 		<?php endif;
@@ -83,8 +89,8 @@ if ($canEdit or ($canEditOwn and ($user->id == $this->item->created_by))) : ?>
 		<?php endif;
 
 		if ($this->item->videofile and in_array('sermon:download', $this->columns)) : ?>
-			<div class="ss-mp3-links">
-				<a id="sermon_download" href="<?php echo JRoute::_('index.php?task=download&type=video&id=' . $this->item->slug); ?>" class="download">
+			<div class="ss-mp3-links" itemprop="video" itemscope itemtype="http://schema.org/VideoObject">
+				<a id="sermon_download" href="<?php echo JRoute::_('index.php?task=download&type=video&id=' . $this->item->slug); ?>" class="download" itemprop="url">
 					<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_VIDEO'); ?>
 				</a>
 			</div>
@@ -92,7 +98,7 @@ if ($canEdit or ($canEditOwn and ($user->id == $this->item->created_by))) : ?>
 	</div>
 	<div class="ss-fields-container">
 		<?php if (in_array('sermon:speaker', $this->columns) and $this->item->speaker_id): ?>
-			<div class="ss-field field-speaker" title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKER'); ?>">
+			<div class="ss-field field-speaker" title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKER'); ?>" itemprop="author" itemscope itemtype="http://schema.org/Person">
 				<?php echo JLayoutHelper::render('content.speaker', array('item' => $this->item, 'params' => $this->params)); ?>
 			</div>
 		<?php endif;
@@ -107,7 +113,9 @@ if ($canEdit or ($canEditOwn and ($user->id == $this->item->created_by))) : ?>
 	<div class="ss-fields-container">
 		<?php if (in_array('sermon:date', $this->columns) and ($this->item->sermon_date != '0000-00-00 00:00:00')) : ?>
 			<div class="ss-field field-calendar" title="<?php echo JText::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL'); ?>">
-				<?php echo JHtml::Date($this->item->sermon_date, JText::_('DATE_FORMAT_LC1'), true); ?>
+				<time datetime="<?php echo JHtml::_('date', $this->item->sermon_date, 'c'); ?>" itemprop="dateCreated">
+					<?php echo JHtml::Date($this->item->sermon_date, JText::_('DATE_FORMAT_LC1'), true); ?>
+				</time>
 			</div>
 		<?php endif;
 
@@ -158,7 +166,8 @@ if ($this->params->get('enable_keywords', 0)):
 endif;
 
 if (in_array('sermon:hits', $this->columns) and $this->item->hits) : ?>
-	<div class="hits" title="<?php echo JText::_('JGLOBAL_HITS'); ?>">
+	<div class="hits">
+		<meta itemprop="interactionCount" content="UserPageVisits:<?php echo $this->item->hits; ?>" />
 		<?php echo JText::_('JGLOBAL_HITS') . ': ' . $this->item->hits; ?>
 	</div>
 <?php endif;

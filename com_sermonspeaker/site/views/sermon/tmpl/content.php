@@ -77,7 +77,9 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 			if (in_array('sermon:category', $this->columns) and $this->item->category_title) : ?>
 				<dd class="category-name">
 					<?php echo JText::_('JCATEGORY'); ?>:
-					<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonsRoute($this->item->catslug)); ?>"><?php echo $this->item->category_title; ?></a>
+					<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonsRoute($this->item->catslug)); ?>" itemprop="genre">
+						<?php echo $this->item->category_title; ?>
+					</a>
 				</dd>
 			<?php endif;
 
@@ -99,13 +101,16 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 				<dd class="create">
 					<span class="icon-calendar"></span>
 					<?php echo JText::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL'); ?>:
-					<?php echo JHtml::Date($this->item->sermon_date, JText::_($this->params->get('date_format')), true); ?>
+					<time datetime="<?php echo JHtml::_('date', $this->item->sermon_date, 'c'); ?>" itemprop="dateCreated">
+						<?php echo JHtml::Date($this->item->sermon_date, JText::_($this->params->get('date_format')), true); ?>
+					</time>
 				</dd>
 			<?php endif;
 
 			if (in_array('sermon:hits', $this->columns)) : ?>
 				<dd class="hits">
 					<span class="icon-eye-open"></span>
+					<meta itemprop="interactionCount" content="UserPageVisits:<?php echo $this->item->hits; ?>" />
 					<?php echo JText::_('JGLOBAL_HITS'); ?>:
 					<?php echo $this->item->hits; ?>
 				</dd>
