@@ -81,18 +81,6 @@ source_file = mod_sermonspeaker\language\en-GB\en-GB.mod_sermonspeaker.sys.ini
 source_lang = en_GB
 minimum_perc = 1
 
-[sermonspeaker.mod_sermonsrotatorini]
-file_filter = mod_sermonsrotator\language\<lang>\<lang>.mod_sermonsrotator.ini
-source_file = mod_sermonsrotator\language\en-GB\en-GB.mod_sermonsrotator.ini
-source_lang = en_GB
-minimum_perc = 1
-
-[sermonspeaker.mod_sermonsrotatorsysini]
-file_filter = mod_sermonsrotator\language\<lang>\<lang>.mod_sermonsrotator.sys.ini
-source_file = mod_sermonsrotator\language\en-GB\en-GB.mod_sermonsrotator.sys.ini
-source_lang = en_GB
-minimum_perc = 1
-
 [sermonspeaker.plg_editors-xtd_sermonspeakerini]
 file_filter = plg_editors_xtd_sermonspeaker\language\<lang>\<lang>.plg_editors-xtd_sermonspeaker.ini
 source_file = plg_editors_xtd_sermonspeaker\language\en-GB\en-GB.plg_editors-xtd_sermonspeaker.ini
