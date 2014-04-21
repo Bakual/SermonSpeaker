@@ -91,11 +91,19 @@ foreach ($this->items as $item) :
 		<enclosure url="<?php echo $enclosure['url']; ?>" length="<?php echo $enclosure['length']; ?>" type="<?php echo $enclosure['type']; ?>"></enclosure>
 <?php endif;
 // iTunes specific: per item
-if ($item->picture) : ?>
-		<itunes:image href="<?php echo SermonspeakerHelperSermonspeaker::makeLink($item->picture, true); ?>" />
-<?php elseif ($params->get('itImage')) : ?>
-		<itunes:image href="<?php echo SermonspeakerHelperSermonspeaker::makeLink($params->get('itImage'), true); ?>" />
-<?php endif; ?>
+if ($item->picture){
+	$str_thumbnail = SermonspeakerHelperSermonspeaker::makeLink($item->picture, true);
+}
+elseif($item->avatar)
+{
+	$str_thumbnail = SermonspeakerHelperSermonspeaker::makeLink($item->avatar, true);
+}
+else
+{
+	$str_thumbnail = SermonspeakerHelperSermonspeaker::makeLink($item->pic, true);
+}
+?>
+		<itunes:image href="<?php echo $str_thumbnail ?>" />
 		<itunes:author><?php echo $this->make_xml_safe($item->speaker_title); ?></itunes:author>
 		<itunes:duration><?php echo SermonspeakerHelperSermonSpeaker::insertTime($item->sermon_time); ?></itunes:duration>
 		<itunes:explicit>no</itunes:explicit>
