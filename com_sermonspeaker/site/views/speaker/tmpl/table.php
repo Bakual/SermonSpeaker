@@ -136,11 +136,11 @@ $this->document->addScriptDeclaration('jQuery(function() {
 	</div>
 	<div class="clearfix"></div>
 	<ul class="nav nav-pills" id="speakerTab">
-		<li><a href="#tab_sermons" data-toggle="pill"><?php echo JText::_('COM_SERMONSPEAKER_SERMONS'); ?></a></li>
+		<li class="active"><a href="#tab_sermons" data-toggle="pill"><?php echo JText::_('COM_SERMONSPEAKER_SERMONS'); ?></a></li>
 		<li><a href="#tab_series" data-toggle="pill"><?php echo JText::_('COM_SERMONSPEAKER_SERIES'); ?></a></li>
 	</ul>
 	<div class="pill-content">
-		<div class="pill-pane" id="tab_sermons">
+		<div lass="pill-pane active" id="tab_sermons">
 			<?php if (in_array('speaker:player', $this->col_sermon) and count($this->sermons)) :
 				JHtml::stylesheet('com_sermonspeaker/player.css', '', true); ?>
 				<div id="ss-speaker-player" class="ss-player row-fluid">
