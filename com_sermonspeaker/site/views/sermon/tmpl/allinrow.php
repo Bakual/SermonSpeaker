@@ -19,12 +19,15 @@ $canEdit	= ($fu_enable and $user->authorise('core.edit', 'com_sermonspeaker'));
 $canEditOwn	= ($fu_enable and $user->authorise('core.edit.own', 'com_sermonspeaker'));
 $player = SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 ?>
-<div class="ss-sermon-container<?php echo $this->pageclass_sfx; ?>">
+<div class="ss-sermon-container<?php echo $this->pageclass_sfx; ?>" itemscope itemtype="http://schema.org/CreativeWork">
 <?php
 if ($this->params->get('show_page_heading', 1)) : ?>
 	<h1><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
 <?php endif; ?>
-<h2><a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonRoute($this->item->slug)); ?>"><?php echo $this->item->title; ?></a></h2>
+<h2 itemprop="name">
+	<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonRoute($this->item->slug)); ?>" itemprop="url">
+		<?php echo $this->item->title; ?></a>
+</h2>
 <?php
 if ($canEdit or ($canEditOwn and ($user->id == $this->item->created_by))) : ?>
 	<ul class="actions">

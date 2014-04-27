@@ -19,12 +19,15 @@ $canEdit	= ($fu_enable and $user->authorise('core.edit', 'com_sermonspeaker'));
 $canEditOwn	= ($fu_enable and $user->authorise('core.edit.own', 'com_sermonspeaker'));
 $player = SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 ?>
-<div class="ss-sermon-container<?php echo $this->pageclass_sfx; ?>">
+<div class="ss-sermon-container<?php echo $this->pageclass_sfx; ?>" itemscope itemtype="http://schema.org/CreativeWork">
 <?php
 if ($this->params->get('show_page_heading', 1)) : ?>
 	<h1><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
 <?php endif; ?>
-<h2><a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonRoute($this->item->slug)); ?>"><?php echo $this->item->title; ?></a></h2>
+<h2 itemprop="name">
+	<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonRoute($this->item->slug)); ?>" itemprop="url">
+		<?php echo $this->item->title; ?></a>
+</h2>
 <?php
 if ($canEdit or ($canEditOwn and ($user->id == $this->item->created_by))) : ?>
 	<ul class="actions">
@@ -36,7 +39,11 @@ if ($canEdit or ($canEditOwn and ($user->id == $this->item->created_by))) : ?>
 <div class="ss-sermondetail-container">
 	<?php if (in_array('sermon:date', $this->columns) and ($this->item->sermon_date != '0000-00-00 00:00:00')) : ?>
 		<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL'); ?>:</div>
-		<div class="ss-sermondetail-text"><?php echo JHtml::Date($this->item->sermon_date, JText::_($this->params->get('date_format')), true); ?></div>
+		<div class="ss-sermondetail-text">
+			<time datetime="<?php echo JHtml::_('date', $this->item->sermon_date, 'c'); ?>" itemprop="dateCreated">
+				<?php echo JHtml::Date($this->item->sermon_date, JText::_($this->params->get('date_format')), true); ?>
+			</time>
+		</div>
 	<?php endif;
 
 	if (in_array('sermon:scripture', $this->columns) and $this->item->scripture) : ?>
@@ -71,7 +78,7 @@ if ($canEdit or ($canEditOwn and ($user->id == $this->item->created_by))) : ?>
 
 	if (in_array('sermon:speaker', $this->columns) and $this->item->speaker_id) : ?>
 		<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_SPEAKER'); ?>:</div>
-		<div class="ss-sermondetail-text">
+		<div class="ss-sermondetail-text" itemprop="author" itemscope itemtype="http://schema.org/Person">
 			<?php $tmp = clone($this->item);
 			$tmp->pic = false;
 			echo JLayoutHelper::render('content.speaker', array('item' => $tmp, 'params' => $this->params)); ?>
@@ -89,7 +96,10 @@ if ($canEdit or ($canEditOwn and ($user->id == $this->item->created_by))) : ?>
 
 	if (in_array('sermon:hits', $this->columns)) : ?>
 		<div class="ss-sermondetail-label"><?php echo JText::_('JGLOBAL_HITS'); ?>:</div>
-		<div class="ss-sermondetail-text"><?php echo $this->item->hits; ?></div>
+		<div class="ss-sermondetail-text">
+			<meta itemprop="interactionCount" content="UserPageVisits:<?php echo $this->item->hits; ?>" />
+			<?php echo $this->item->hits; ?>
+		</div>
 	<?php endif;
 
 	if (in_array('sermon:notes', $this->columns) and strlen($this->item->notes) > 0) : ?>
