@@ -39,10 +39,60 @@ function SermonspeakerBuildRoute(&$query){
 		}
 		unset($query['task']);
 	}
-	if (isset($query['id'])){
+	if (isset($query['id']))
+	{
+		if ($view = 'sermon')
+		{
+			// Make sure we have the id and the alias
+			if (strpos($query['id'], ':') === false)
+			{
+				$db = JFactory::getDbo();
+				$dbQuery = $db->getQuery(true)
+					->select('alias')
+					->from('#__sermon_sermons')
+					->where('id = ' . (int) $query['id']);
+				$db->setQuery($dbQuery);
+				$alias = $db->loadResult();
+				$query['id'] = $query['id'] . ':' . $alias;
+			}
+		}
+
+		if ($view = 'serie')
+		{
+			// Make sure we have the id and the alias
+			if (strpos($query['id'], ':') === false)
+			{
+				$db = JFactory::getDbo();
+				$dbQuery = $db->getQuery(true)
+					->select('alias')
+					->from('#__sermon_series')
+					->where('id = ' . (int) $query['id']);
+				$db->setQuery($dbQuery);
+				$alias = $db->loadResult();
+				$query['id'] = $query['id'] . ':' . $alias;
+			}
+		}
+
+		if ($view = 'speaker')
+		{
+			// Make sure we have the id and the alias
+			if (strpos($query['id'], ':') === false)
+			{
+				$db = JFactory::getDbo();
+				$dbQuery = $db->getQuery(true)
+					->select('alias')
+					->from('#__sermon_speakers')
+					->where('id = ' . (int) $query['id']);
+				$db->setQuery($dbQuery);
+				$alias = $db->loadResult();
+				$query['id'] = $query['id'] . ':' . $alias;
+			}
+		}
+
 		$segments[] = $query['id'];
 		unset($query['id']);
 	}
+
 	if (isset($query['year'])){
 		$segments[] = $query['year'];
 		unset($query['year']);
