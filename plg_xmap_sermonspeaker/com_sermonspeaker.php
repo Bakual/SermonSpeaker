@@ -114,7 +114,7 @@ class Xmap_Com_Sermonspeaker
 				self::getSermonsTree($xmap, $parent, $params, $view, $id);
 				break;
 			case 'series':
-				self::getSeriesTree($xmap, $parent, $params, $view);
+				self::getSeriesTree($xmap, $parent, $params);
 				break;
 			case 'speakers':
 				self::getSpeakersTree($xmap, $parent, $params);
@@ -136,12 +136,14 @@ class Xmap_Com_Sermonspeaker
 	public static function getSermonsTree($xmap, $parent, $params, $view, $id = 0)
 	{
 		require_once JPATH_SITE . '/components/com_sermonspeaker/models/sermons.php';
-		$model	= new SermonspeakerModelSermons;
-		$state	= $model->getState();
+		$model = new SermonspeakerModelSermons;
+		$state = $model->getState();
 		$state->set('list.limit', $params['limit']);
 		$state->set('list.start', 0);
 		$state->set('list.ordering', 'ordering');
 		$state->set('list.direction', 'ASC');
+		$state->set('category.id', $parent->params->get('catid'));
+		$state->set('filter.subcategories', $parent->params->get('show_subcategory_content'));
 
 		if ($view == 'serie' && $id)
 		{
@@ -152,7 +154,7 @@ class Xmap_Com_Sermonspeaker
 			$state->set('speaker.id', $id);
 		}
 
-		$items	= $model->getItems();
+		$items = $model->getItems();
 		$xmap->changeLevel(1);
 
 		foreach ($items as $item)
@@ -178,27 +180,28 @@ class Xmap_Com_Sermonspeaker
 	 * @param   object  $xmap    probably the map
 	 * @param   object  $parent  the parent menuitem
 	 * @param   object  $params  parameters
-	 * @param   string  $view    View
 	 * @param   int     $id      Id
 	 *
 	 * @return  void
 	 */
-	public static function getSeriesTree($xmap, $parent, $params, $view, $id = 0)
+	public static function getSeriesTree($xmap, $parent, $params, $speaker = 0)
 	{
 		require_once JPATH_SITE . '/components/com_sermonspeaker/models/series.php';
-		$model	= new SermonspeakerModelSeries;
-		$state	= $model->getState();
+		$model = new SermonspeakerModelSeries;
+		$state = $model->getState();
 		$state->set('list.limit', $params['limit']);
 		$state->set('list.start', 0);
 		$state->set('list.ordering', 'ordering');
 		$state->set('list.direction', 'ASC');
+		$state->set('category.id', $parent->params->get('catid'));
+		$state->set('filter.subcategories', $parent->params->get('show_subcategory_content'));
 
-		if ($id)
+		if ($speaker)
 		{
 			$state->set('speaker.id', $id);
 		}
 
-		$items	= $model->getItems();
+		$items = $model->getItems();
 		$xmap->changeLevel(1);
 
 		foreach ($items as $item)
@@ -239,13 +242,16 @@ class Xmap_Com_Sermonspeaker
 	public static function getSpeakersTree($xmap, $parent, $params)
 	{
 		require_once JPATH_SITE . '/components/com_sermonspeaker/models/speakers.php';
-		$model	= new SermonspeakerModelSpeakers;
-		$state	= $model->getState();
+		$model = new SermonspeakerModelSpeakers;
+		$state = $model->getState();
 		$state->set('list.limit', $params['limit']);
 		$state->set('list.start', 0);
 		$state->set('list.ordering', 'ordering');
 		$state->set('list.direction', 'ASC');
-		$items	= $model->getItems();
+		$state->set('category.id', $parent->params->get('catid'));
+		$state->set('filter.subcategories', $parent->params->get('show_subcategory_content'));
+
+		$items = $model->getItems();
 		$xmap->changeLevel(1);
 
 		foreach ($items as $item)
@@ -268,6 +274,7 @@ class Xmap_Com_Sermonspeaker
 			if ($xmap->printNode($node) && $params['speaker_expand'])
 			{
 				self::getSermonsTree($xmap, $parent, $params, 'speaker', $item->id);
+				self::getSeriesTree($xmap, $parent, $params, $item->id);
 			}
 		}
 
