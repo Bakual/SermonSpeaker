@@ -48,7 +48,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 	})');
 
 ?>
-<div class="category-list<?php echo $this->pageclass_sfx;?> ss-speaker-container<?php echo $this->pageclass_sfx; ?>">
+<div class="category-list<?php echo $this->pageclass_sfx;?> ss-speaker-container<?php echo $this->pageclass_sfx; ?>" itemscope itemtype="http://schema.org/Person">
 	<?php
 	if ($this->params->get('show_page_heading', 1)) : ?>
 		<h1><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
@@ -67,72 +67,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 				<?php endif; ?>
 			</ul>
 		</div>
-		<div class="page-header">
-			<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($this->item->slug)); ?>">
-				<h2><?php echo $this->item->title; ?></h2>
-			</a>
-			<?php if (!$this->item->state) : ?>
-				<span class="label label-warning"><?php echo JText::_('JUNPUBLISHED'); ?></span>
-			<?php endif; ?>
-		</div>
-		<?php if ($this->item->pic) : ?>
-			<div class="img-polaroid pull-right item-image">
-				<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($this->item->slug)); ?>">
-					<img src="<?php echo SermonspeakerHelperSermonspeaker::makelink($this->item->pic); ?>">
-				</a>
-			</div>
-		<?php endif; ?>
-		<div class="article-info speaker-info muted">
-			<dl class="article-info">
-				<dt class="article-info-term"><?php  echo JText::_('JDETAILS'); ?></dt>
-				<?php
-				if (in_array('speaker:category', $this->columns) and $this->item->category_title) : ?>
-					<dd>
-						<div class="category-name">
-							<?php echo JText::_('JCATEGORY'); ?>:
-							<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakersRoute($this->item->catslug)); ?>"><?php echo $this->item->category_title; ?></a>
-						</div>
-					</dd>
-				<?php endif;
-
-				if (in_array('speaker:hits', $this->columns)) : ?>
-					<dd>
-						<div class="hits">
-							<i class="icon-eye-open"></i>
-							<?php echo JText::_('JGLOBAL_HITS'); ?>:
-							<?php echo $this->item->hits; ?>
-						</div>
-					</dd>
-				<?php endif;
-
-				if ($this->item->website) : ?>
-					<dd>
-						<div class="website">
-							<i class=" icon-out-2"></i>
-							<a href="<?php echo $this->item->website; ?>">
-								<?php echo JText::_('COM_SERMONSPEAKER_FIELD_WEBSITE_LABEL'); ?>
-							</a>
-						</div>
-					</dd>
-				<?php endif; ?>
-			</dl>
-		</div>
-		<?php if ($this->params->get('show_tags', 1) and !empty($this->item->tags)) :
-			$tagLayout = new JLayoutFile('joomla.content.tags');
-			echo $tagLayout->render($this->item->tags->itemTags); ?>
-		<?php endif;
-
-		if (in_array('speaker:intro', $this->columns) and $this->item->intro) : ?>
-			<div>
-				<?php echo JHtml::_('content.prepare', $this->item->intro, '', 'com_sermonspeaker.intro'); ?>
-			</div>
-		<?php endif;
-
-		if (in_array('speaker:bio', $this->columns) and $this->item->bio) : ?>
-			<div>
-				<?php echo JHtml::_('content.prepare', $this->item->bio, '', 'com_sermonspeaker.bio'); ?>
-			</div>
-		<?php endif; ?>
+		<?php echo JLayoutHelper::render('blocks.speaker', array('item' => $this->item, 'params' => $this->params, 'columns' => $this->columns)); ?>
 	</div>
 	<div class="clearfix"></div>
 	<ul class="nav nav-pills" id="speakerTab">
