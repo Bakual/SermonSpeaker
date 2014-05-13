@@ -130,7 +130,7 @@ class SermonspeakerViewSpeaker extends JViewLegacy
 				{
 					$speaker->speaker_slug  = $speaker->slug;
 					$speaker->speaker_state = $speaker->state;
-					$names[] = JLayoutHelper::render('com_sermonspeaker.speaker', array('item' => $speaker, 'params' => $this->params));
+					$names[] = JLayoutHelper::render('com_sermonspeaker.titles.speaker', array('item' => $speaker, 'params' => $this->params));
 				}
 
 				$serie->speakers = implode(', ', $names);

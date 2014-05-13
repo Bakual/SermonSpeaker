@@ -47,7 +47,7 @@ class SermonspeakerHelperSermonspeaker
 	 * @param   string  $pic            URL to picture
 	 * @param   string  $speaker_title  Speaker name
 	 *
-	 * @deprecated  5.2  Use "JLayoutHelper::render('com_sermonspeaker.speaker', array('item' => $this->item, 'params' => $this->params))" instead
+	 * @deprecated  5.2  Use "JLayoutHelper::render('com_sermonspeaker.titles.speaker', array('item' => $this->item, 'params' => $this->params))" instead
 	 *
 	 * @return  string  Tooltip
 	 */
@@ -64,7 +64,7 @@ class SermonspeakerHelperSermonspeaker
 		$item->speaker_slug  = $id;
 		$item->pic           = $pic;
 
-		return JLayoutHelper::render('com_sermonspeaker.speaker', array('item' => $item, 'params' => self::$params, 'legacy' => true));
+		return JLayoutHelper::render('com_sermonspeaker.titles.speaker', array('item' => $item, 'params' => self::$params, 'legacy' => true));
 	}
 
 	/**

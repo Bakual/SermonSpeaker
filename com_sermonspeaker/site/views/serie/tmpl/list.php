@@ -173,7 +173,7 @@ $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 								$sep = 1; ?>
 								<small class="ss-speaker">
 									<?php echo JText::_('COM_SERMONSPEAKER_SPEAKER'); ?>:
-									<?php echo JLayoutHelper::render('com_sermonspeaker.speaker', array('item' => $item, 'params' => $this->params)); ?>
+									<?php echo JLayoutHelper::render('com_sermonspeaker.titles.speaker', array('item' => $item, 'params' => $this->params)); ?>
 								</small>
 							<?php endif;
 
