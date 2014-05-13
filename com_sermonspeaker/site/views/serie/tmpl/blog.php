@@ -187,7 +187,7 @@ $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 								if (in_array('sermons:speaker', $this->columns) and $item->speaker_title) : ?>
 									<small class="ss-speaker createdby">
 										<?php echo JText::_('COM_SERMONSPEAKER_SPEAKER'); ?>:
-										<?php echo JLayoutHelper::render('content.speaker', array('item' => $item, 'params' => $this->params)); ?>
+										<?php echo JLayoutHelper::render('com_sermonspeaker.speaker', array('item' => $item, 'params' => $this->params)); ?>
 									</small>
 								<?php endif; ?>
 							</div>

@@ -270,7 +270,7 @@ $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 
 								if (in_array('sermons:speaker', $this->columns)) : ?>
 									<td class="ss-col ss-speaker hidden-phone">
-										<?php echo JLayoutHelper::render('content.speaker', array('item' => $item, 'params' => $this->params)); ?>
+										<?php echo JLayoutHelper::render('com_sermonspeaker.speaker', array('item' => $item, 'params' => $this->params)); ?>
 									</td>
 								<?php endif;
 
