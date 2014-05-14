@@ -58,7 +58,7 @@ class SermonspeakerViewSpeakers extends JViewLegacy
 
 		if ($this->parent == false && $this->category->id != 'root')
 		{
-				return JError::raiseError(404, JText::_('JGLOBAL_CATEGORY_NOT_FOUND'));
+			return JError::raiseError(404, JText::_('JGLOBAL_CATEGORY_NOT_FOUND'));
 		}
 
 		if ($this->category->id == 'root')
@@ -73,8 +73,8 @@ class SermonspeakerViewSpeakers extends JViewLegacy
 		}
 
 		// Check whether category access level allows access.
-		$user	= JFactory::getUser();
-		$groups	= $user->getAuthorisedViewLevels();
+		$user   = JFactory::getUser();
+		$groups = $user->getAuthorisedViewLevels();
 
 		if (!in_array($this->category->access, $groups))
 		{
@@ -87,8 +87,8 @@ class SermonspeakerViewSpeakers extends JViewLegacy
 			$this->setLayout($this->params->get('speakerslayout', 'normal'));
 		}
 
-		$this->pageclass_sfx	= htmlspecialchars($this->params->get('pageclass_sfx'));
-		$this->maxLevel			= $this->params->get('maxLevel', -1);
+		$this->pageclass_sfx = htmlspecialchars($this->params->get('pageclass_sfx'));
+		$this->maxLevel      = $this->params->get('maxLevel', -1);
 		$this->_prepareDocument();
 		parent::display($tpl);
 	}
