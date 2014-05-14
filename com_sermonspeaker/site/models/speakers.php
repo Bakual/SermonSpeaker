@@ -110,10 +110,10 @@ class SermonspeakerModelspeakers extends JModelList
 
 		// Subquery to get counts of sermons and series
 		$query->select('(SELECT COUNT(DISTINCT sermons.id) FROM #__sermon_sermons AS sermons '
-				. 'WHERE sermons.speaker_id = speakers.id AND sermons.id > 0) AS sermons'
+				. 'WHERE sermons.speaker_id = speakers.id AND sermons.id > 0 AND sermons.state = 1) AS sermons'
 			);
 		$query->select('(SELECT COUNT(DISTINCT sermons2.series_id) FROM #__sermon_sermons AS sermons2 '
-				. 'WHERE sermons2.speaker_id = speakers.id AND sermons2.series_id > 0) AS series'
+				. 'WHERE sermons2.speaker_id = speakers.id AND sermons2.series_id > 0 AND sermons2.state = 1) AS series'
 			);
 
 		// Grouping by speaker
