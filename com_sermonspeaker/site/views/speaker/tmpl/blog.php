@@ -106,7 +106,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 					<?php else : ?>
 						<div class="items-leading">
 							<?php foreach($this->sermons as $i => $item) : ?>
-								<div id="sermon<?php echo $i; ?>" class="<?php echo ($item->state) ? '': 'system-unpublished'; ?>">
+								<div id="sermon<?php echo $i; ?>" class="clearfix<?php echo ($item->state) ? '': ' system-unpublished'; ?>">
 									<div class="btn-group pull-right">
 										<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
 											<i class="icon-cog"></i>
@@ -226,7 +226,6 @@ $this->document->addScriptDeclaration('jQuery(function() {
 										</div>
 									<?php endif; ?>
 								</div>
-								<div class="clearfix"></div>
 							<?php endforeach; ?>
 						</div>
 					<?php endif;
@@ -270,7 +269,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 					<?php else : ?>
 						<div class="items-leading">
 							<?php foreach($this->series as $i => $item) : ?>
-								<div class="<?php echo ($item->state) ? '': 'system-unpublished'; ?>">
+								<div class="clearfix<?php echo ($item->state) ? '': ' system-unpublished'; ?>">
 									<div class="btn-group pull-right">
 										<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
 											<i class="icon-cog"></i>
@@ -344,7 +343,6 @@ $this->document->addScriptDeclaration('jQuery(function() {
 										</div>
 									<?php endif; ?>
 								</div>
-								<div class="clearfix"></div>
 							<?php endforeach; ?>
 						</div>
 					<?php endif;
