@@ -116,11 +116,12 @@ class PlgContentSermonspeaker extends JPlugin
 
 						if ($item->speaker_title)
 						{
-							$contents	.= '<tr><td>' . JText::_('PLG_CONTENT_SERMONSPEAKER_SPEAKER') . '</td>';
+							$contents .= '<tr><td>' . JText::_('PLG_CONTENT_SERMONSPEAKER_SPEAKER') . '</td>';
 
 							if ($item->speaker_state)
 							{
-								$contents	.= '<td>' . JLayoutHelper::render('content.speaker', array('item' => $this->item, 'params' => $this->params)) . '</td></tr>';
+								$layout = new JLayoutFile('titles.speaker', null, array('component' => 'com_sermonspeaker'));
+								$contents .= '<td>' . $layout->render(array('item' => $this->item, 'params' => $this->params)) . '</td></tr>';
 							}
 							else
 							{

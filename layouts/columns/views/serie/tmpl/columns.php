@@ -146,7 +146,7 @@ if (in_array('serie:player', $this->columns) and count($this->items)) :
 
 					if (in_array('serie:speaker', $this->columns) && $item->speaker_title) : ?>
 						<span class="speaker <?php echo $class; ?>">
-							<?php echo JLayoutHelper::render('content.speaker', array('item' => $this->item, 'params' => $this->params)); ?>
+							<?php echo JLayoutHelper::render('titles.speaker', array('item' => $this->item, 'params' => $this->params)); ?>
 						</span>
 					<?php endif;
 
