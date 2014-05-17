@@ -78,7 +78,8 @@ class PlgContentSermonspeaker extends JPlugin
 
 				// Join over Speaker
 				$query->select(
-					'speakers.title AS speaker_title, speakers.pic AS pic, speakers.state as speaker_state, ' .
+					'speakers.id as speaker_id, speakers.title as speaker_title, speakers.state as speaker_state, ' .
+					'speakers.intro, speakers.bio, speakers.website, speakers.pic, ' .
 					'CASE WHEN CHAR_LENGTH(speakers.alias) THEN CONCAT_WS(\':\', speakers.id, speakers.alias) ELSE speakers.id END as speaker_slug'
 				);
 				$query->join('LEFT', '#__sermon_speakers AS speakers ON speakers.id = sermons.speaker_id');
@@ -120,8 +121,9 @@ class PlgContentSermonspeaker extends JPlugin
 
 							if ($item->speaker_state)
 							{
+								// Using legacy mode (MooTools modal) for now. Bootstrap one didn't work properly and there are missing language strings.
 								$layout = new JLayoutFile('titles.speaker', null, array('component' => 'com_sermonspeaker'));
-								$contents .= '<td>' . $layout->render(array('item' => $this->item, 'params' => $this->params)) . '</td></tr>';
+								$contents .= '<td>' . $layout->render(array('item' => $item, 'params' => $this->params, 'legacy' => true)) . '</td></tr>';
 							}
 							else
 							{
