@@ -35,18 +35,24 @@ abstract class ModSermonspeakerHelper
 
 		if ($mode == 2)
 		{
-			$categories = JCategories::getInstance('Sermonspeaker');
-			$root	= $categories->get($cat_id);
+            $items      = array();
+
+            /** @var $categories JCategories */
+            $categories = JCategories::getInstance('Sermonspeaker');
+			$root	    = $categories->get($cat_id);
 
 			if ($root->hasChildren())
 			{
 				$categories = $root->getChildren(true);
-				$items = array();
 
 				foreach ($categories as $category)
 				{
+					/** @var $category JCategoryNode */
+
 					$item	= new stdclass;
-					$params = $category->getParams();
+
+					/** @var $params Joomla\Registry\Registry */
+					$params         = $category->getParams();
 					$item->id		= $category->id;
 					$item->slug		= $category->slug;
 					$item->title	= $category->title;
@@ -55,11 +61,6 @@ abstract class ModSermonspeakerHelper
 					$item->pic		= $params->get('image');
 					$items[]		= $item;
 				}
-			}
-			else
-			{
-				// No Children found -> nothing to show.
-				return;
 			}
 		}
 		else
