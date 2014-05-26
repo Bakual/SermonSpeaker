@@ -14,7 +14,7 @@ $config	= array('type' => JFactory::getApplication()->input->get('type', 'auto')
 $player = SermonspeakerHelperSermonspeaker::getPlayer($this->item, $config);
 ?>
 <script type="text/javascript">
-	window.onload = applyChanges()
+	window.onload = applyChanges();
 	function applyChanges(){
 		window.resizeTo(<?php echo $player->popup['width'] . ', ' . $player->popup['height']; ?>);
 		document.body.style.backgroundColor='<?php echo $this->params->get('popup_color', '#fff'); ?>';
@@ -23,7 +23,7 @@ $player = SermonspeakerHelperSermonspeaker::getPlayer($this->item, $config);
 <div class="ss-sermon-container<?php echo $this->pageclass_sfx; ?>">
 	<div class="popup">
 		<h2><?php echo $this->item->title; ?></h2>
-		<?php 
+		<?php
 		echo $player->mspace;
 		echo $player->script;
 
