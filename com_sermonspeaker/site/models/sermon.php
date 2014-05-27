@@ -28,7 +28,7 @@ class SermonspeakerModelSermon extends JModelItem
 	 *
 	 * @return  void
 	 */
-	public function populateState($ordering = null, $direction = null)
+	protected function populateState($ordering = null, $direction = null)
 	{
 		$app = JFactory::getApplication();
 		$params	= $app->getParams();

@@ -96,7 +96,7 @@ class SermonspeakerController extends JControllerLegacy
 
 		if (!$id)
 		{
-			die("<html><body OnLoad=\"javascript: alert('I have no clue what you want to download...');history.back();\" bgcolor=\"#F0F0F0\"></body></html>");
+			die("<html><body onload=\"alert('I have no clue what you want to download...');history.back();\" bgcolor=\"#F0F0F0\"></body></html>");
 		}
 
 		$db = JFactory::getDBO();
@@ -111,7 +111,7 @@ class SermonspeakerController extends JControllerLegacy
 		}
 
 		$db->setQuery($query);
-		$result = $db->loadResult() or die ("<html><body onload=\"javascript: alert('Encountered an error while accessing the database');
+		$result = $db->loadResult() or die ("<html><body onload=\"alert('Encountered an error while accessing the database');
 			history.back();\" bgcolor=\"#F0F0F0\"></body></html>");
 		$result = rtrim($result);
 
@@ -193,7 +193,7 @@ class SermonspeakerController extends JControllerLegacy
 		}
 		else
 		{
-			die("<html><body OnLoad=\"javascript: alert('File not found!');history.back();\" bgcolor=\"#F0F0F0\"></body></html>");
+			die("<html><body OnLoad=\"alert('File not found!');history.back();\" bgcolor=\"#F0F0F0\"></body></html>");
 		}
 	}
 }

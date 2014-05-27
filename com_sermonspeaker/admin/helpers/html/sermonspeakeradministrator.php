@@ -65,8 +65,6 @@ abstract class JHtmlSermonspeakerAdministrator
 			catch (runtimeException $e)
 			{
 				throw new Exception($e->getMessage(), 500);
-
-				return false;
 			}
 
 			$flags = array();

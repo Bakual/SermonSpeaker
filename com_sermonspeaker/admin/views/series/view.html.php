@@ -31,8 +31,9 @@ class SermonspeakerViewSeries extends JViewLegacy
 			$this->sidebar = JHtmlSidebar::render();
 		}
 
-		parent::display($tpl);
+		return parent::display($tpl);
 	}
+
 	/**
 	 * Add the page title and toolbar.
 	 */

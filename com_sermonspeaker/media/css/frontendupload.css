@@ -73,7 +73,7 @@
 .progressBarComplete,
 .progressBarError {
 	font-size: 0;
-	width: 0%;
+	width: 0;
 	height: 2px;
 	background-color: blue;
 	margin-top: 2px;
@@ -95,7 +95,7 @@
 	margin-top: 2px;
 	width: 337px;
 	font-size: 7pt;
-	font-family: Arial;
+	font-family: Arial, sans-serif;
 	text-align: left;
 	white-space: nowrap;
 }
@@ -105,14 +105,12 @@ a.progressCancel {
 	display: block;
 	height: 14px;
 	width: 14px;
-	background-image: url(../swfupload/cancelbutton.gif);
-	background-repeat: no-repeat;
-	background-position: -14px 0px;
-	float: right;
+    background: url(../swfupload/cancelbutton.gif) no-repeat -14px 0;
+    float: right;
 }
 
 a.progressCancel:hover {
-	background-position: 0px 0px;
+	background-position: 0 0;
 }
 
 

@@ -56,7 +56,7 @@ defined('_JEXEC') or die;
 						</a>
 					</td>
 					<td width="40%">
-						<div class="progress progress-striped" style="margin-bottom: 0px;">
+						<div class="progress progress-striped" style="margin-bottom: 0;">
 							<div class="bar" style="width: <?php echo $language->completed; ?>%;"></div>
 						</div>
 					</td>

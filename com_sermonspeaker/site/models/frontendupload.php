@@ -38,7 +38,7 @@ class SermonspeakerModelFrontendupload extends SermonspeakerModelSermon
 	 *
 	 * @return  void
 	 */
-	protected function populateState($ordering = null, $direction = null)
+	public function populateState($ordering = null, $direction = null)
 	{
 		$app    = JFactory::getApplication();
 		$jinput = $app->input;

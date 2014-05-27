@@ -29,7 +29,7 @@ class JHtmlIcon
 		// Ignore if Frontend Uploading is disabled
 		if ($params && !$params->get('fu_enable'))
 		{
-			return;
+			return '';
 		}
 
 		$uri = JURI::getInstance();

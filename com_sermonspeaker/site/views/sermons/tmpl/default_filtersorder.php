@@ -61,4 +61,4 @@ $orderlist	= array(
 			<?php echo $this->pagination->getLimitBox(); ?>
 		</div>
 	<?php endif; ?>
-</div>
+</fieldset>

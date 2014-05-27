@@ -25,19 +25,26 @@ class SermonspeakerModelSermon extends JModelAdmin
 	 */
 	protected function canDelete($record)
 	{
-		if (!empty($record->id)) {
-			if ($record->state != -2) {
-				return ;
+		if (!empty($record->id))
+		{
+			if ($record->state != -2)
+			{
+				return false;
 			}
+
 			$user = JFactory::getUser();
 
-			if ($record->catid) {
-				return $user->authorise('core.delete', 'com_sermonspeaker.category.'.(int) $record->catid);
+			if ($record->catid)
+			{
+				return $user->authorise('core.delete', 'com_sermonspeaker.category.' . (int) $record->catid);
 			}
-			else {
+			else
+			{
 				return parent::canDelete($record);
 			}
 		}
+
+		return false;
 	}
 	
 	public function delete(&$pks)

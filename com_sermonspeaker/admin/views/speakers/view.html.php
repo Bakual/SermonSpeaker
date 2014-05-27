@@ -11,6 +11,7 @@ class SermonspeakerViewSpeakers extends JViewLegacy
 	public function display($tpl = null)
 	{
 		$layout = $this->getLayout();
+
 		if ($layout !== 'modal')
 		{
 			SermonspeakerHelper::addSubmenu('speakers');
@@ -19,19 +20,22 @@ class SermonspeakerViewSpeakers extends JViewLegacy
 		$this->state		= $this->get('State');
 		$this->items		= $this->get('Items');
 		$this->pagination	= $this->get('Pagination');
+
 		// Check for errors.
-		if (count($errors = $this->get('Errors'))) {
+		if (count($errors = $this->get('Errors')))
+		{
 			JError::raiseError(500, implode("\n", $errors));
 			return false;
 		}
 
 		// We don't need toolbar in the modal window.
-		if ($layout !== 'modal') {
+		if ($layout !== 'modal')
+		{
 			$this->addToolbar();
 			$this->sidebar = JHtmlSidebar::render();
 		}
 
-		parent::display($tpl);
+		return parent::display($tpl);
 	}
 	/**
 	 * Add the page title and toolbar.

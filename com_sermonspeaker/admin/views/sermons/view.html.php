@@ -34,7 +34,7 @@ class SermonspeakerViewSermons extends JViewLegacy
 			$this->sidebar = JHtmlSidebar::render();
 		}
 
-		parent::display($tpl);
+		return parent::display($tpl);
 	}
 
 	/**
