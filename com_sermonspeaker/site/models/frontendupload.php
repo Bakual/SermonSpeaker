@@ -133,7 +133,7 @@ class SermonspeakerModelFrontendupload extends SermonspeakerModelSermon
 			}
 			else
 			{
-				JError::raiseNotice(100, JText::_('COM_SERMONSPEAKER_ERROR_ID3'));
+				JFactory::getApplication()->enqueueMessage(JText::_('COM_SERMONSPEAKER_ERROR_ID3'), 'notice');
 			}
 		}
 

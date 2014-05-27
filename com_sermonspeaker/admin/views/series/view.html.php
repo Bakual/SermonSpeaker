@@ -19,10 +19,11 @@ class SermonspeakerViewSeries extends JViewLegacy
 		$this->state		= $this->get('State');
 		$this->items		= $this->get('Items');
 		$this->pagination	= $this->get('Pagination');
+
 		// Check for errors.
-		if (count($errors = $this->get('Errors'))) {
-			JError::raiseError(500, implode("\n", $errors));
-			return false;
+		if (count($errors = $this->get('Errors')))
+		{
+			throw new Exception(implode("\n", $errors), 500);
 		}
 
 		// We don't need toolbar in the modal window.

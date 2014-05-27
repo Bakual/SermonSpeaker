@@ -175,9 +175,9 @@ class SermonspeakerModelSerie extends JModelAdmin
 		jimport('joomla.filter.output');
 
 		$table->title		= htmlspecialchars_decode($table->title, ENT_QUOTES);
-		$table->alias		= JApplication::stringURLSafe($table->alias);
+		$table->alias		= JApplicationHelper::stringURLSafe($table->alias);
 		if (empty($table->alias)) {
-			$table->alias = JApplication::stringURLSafe($table->title);
+			$table->alias = JApplicationHelper::stringURLSafe($table->title);
 			if (empty($table->alias)) {
 				$table->alias = JFactory::getDate()->format("Y-m-d-H-i-s");
 			}
@@ -244,7 +244,7 @@ class SermonspeakerModelSerie extends JModelAdmin
 
 				if ($all_language && !empty($associations))
 				{
-					JError::raiseNotice(403, JText::_('COM_SERMONSPEAKER_ERROR_ALL_LANGUAGE_ASSOCIATED'));
+					JFactory::getApplication()->enqueueMessage(JText::_('COM_SERMONSPEAKER_ERROR_ALL_LANGUAGE_ASSOCIATED'), 'notice');
 				}
 
 				$associations[$item->language] = $item->id;

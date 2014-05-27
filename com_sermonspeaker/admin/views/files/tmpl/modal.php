@@ -8,7 +8,7 @@ JHtml::_('formbehavior.chosen', 'select');
 
 $session	= JFactory::getSession();
 ?>
-<form action="<?php echo JFilterOutput::ampReplace(JFactory::getURI()->toString()); ?>" method="post" id="adminForm" name="adminForm">
+<form action="<?php echo JFilterOutput::ampReplace(JUri::getInstance()->toString()); ?>" method="post" id="adminForm" name="adminForm">
 	<div id="j-main-container">
 		<div id="filter-bar" class="btn-toolbar">
 			<div class="btn-group pull-right">

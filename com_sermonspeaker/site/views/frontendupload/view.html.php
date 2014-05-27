@@ -61,14 +61,12 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 
 		if (!$this->params->get('fu_enable', 0))
 		{
-			JError::raiseError(403, JText::_('JERROR_ALERTNOAUTHOR'));
-
-			return false;
+			throw new Exception(JText::_('JERROR_ALERTNOAUTHOR'), 403);
 		}
 
 		if ($this->user->guest)
 		{
-			$redirectUrl = urlencode(base64_encode(JFactory::getURI()->toString()));
+			$redirectUrl = urlencode(base64_encode(JUri::getInstance()->toString()));
 			$app->redirect(JRoute::_('index.php?option=com_users&view=login&return=' . $redirectUrl), JText::_('JGLOBAL_YOU_MUST_LOGIN_FIRST'), 'error');
 
 			return false;
@@ -85,9 +83,7 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 
 		if ($authorised !== true)
 		{
-			JError::raiseError(403, JText::_('JERROR_ALERTNOAUTHOR'));
-
-			return false;
+			throw new Exception(JText::_('JERROR_ALERTNOAUTHOR'), 403);
 		}
 
 		// Check some PHP settings for upload limit so I can show it as an info
@@ -569,9 +565,7 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 		// Check for errors.
 		if (count($errors = $this->get('Errors')))
 		{
-			JError::raiseError(500, implode("\n", $errors));
-
-			return false;
+			throw new Exception(implode("\n", $errors), 500);
 		}
 
 		// Escape strings for HTML output
@@ -608,15 +602,15 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 
 		if (empty($title))
 		{
-			$title = $app->getCfg('sitename');
+			$title = $app->get('sitename');
 		}
-		elseif ($app->getCfg('sitename_pagetitles', 0) == 1)
+		elseif ($app->get('sitename_pagetitles', 0) == 1)
 		{
-			$title = JText::sprintf('JPAGETITLE', $app->getCfg('sitename'), $title);
+			$title = JText::sprintf('JPAGETITLE', $app->get('sitename'), $title);
 		}
-		elseif ($app->getCfg('sitename_pagetitles', 0) == 2)
+		elseif ($app->get('sitename_pagetitles', 0) == 2)
 		{
-			$title = JText::sprintf('JPAGETITLE', $title, $app->getCfg('sitename'));
+			$title = JText::sprintf('JPAGETITLE', $title, $app->get('sitename'));
 		}
 
 		$this->document->setTitle($title);

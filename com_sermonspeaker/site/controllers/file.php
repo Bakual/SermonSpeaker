@@ -40,9 +40,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 		// Access check
 		if (!$params->get('fu_enable') || !$user->authorise('core.create', 'com_sermonspeaker'))
 		{
-			JError::raiseWarning(403, JText::_('JGLOBAL_AUTH_ACCESS_DENIED'));
-
-			return false;
+			throw new Exception(JText::_('JGLOBAL_AUTH_ACCESS_DENIED'), 403);
 		}
 
 		// Create append

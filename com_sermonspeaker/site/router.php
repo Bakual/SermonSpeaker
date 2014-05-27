@@ -146,7 +146,7 @@ class SermonspeakerRouter extends JComponentRouterBase
 
 		if (($view == 'sitemap' || $view == 'feed') && !isset($query['format']))
 		{
-			if ($app->getCfg('sef_suffix'))
+			if ($app->get('sef_suffix'))
 			{
 				$query['format'] = 'raw';
 			}

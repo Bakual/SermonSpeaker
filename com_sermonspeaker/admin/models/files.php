@@ -86,8 +86,9 @@ class SermonspeakerModelFiles extends JModelLegacy
 		$sermons = $db->loadColumn();
 
 		// Check for a database error.
-		if ($db->getErrorNum()) {
-			JError::raiseWarning(500, $db->getErrorMsg());
+		if ($db->getErrorNum())
+		{
+			throw new Exception($db->getErrorMsg(), 500);
 		}
 
 		foreach($sermons as &$sermon){

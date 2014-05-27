@@ -22,9 +22,9 @@ class SermonspeakerViewSpeaker extends JViewLegacy
 		$this->form		= $this->get('Form');
 
 		// Check for errors.
-		if (count($errors = $this->get('Errors'))) {
-			JError::raiseError(500, implode("\n", $errors));
-			return false;
+		if (count($errors = $this->get('Errors')))
+		{
+			throw new Exception(implode("\n", $errors), 500);
 		}
 
 		$this->addToolbar();

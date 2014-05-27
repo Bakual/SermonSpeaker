@@ -51,6 +51,7 @@ class SermonspeakerTableSpeaker extends JTable
 		if (!intval($this->created)) {
 			$this->created = $date->toSql();
 		}
+
 		if ($this->id)
 		{
 			$this->modified		= $date->toSql();
@@ -59,9 +60,10 @@ class SermonspeakerTableSpeaker extends JTable
 
 		// Verify that the alias is unique
 		$table = JTable::getInstance('speaker', 'SermonspeakerTable');
-		if ($table->load(array('alias' => $this->alias, 'catid' => $this->catid)) && ($table->id != $this->id || $this->id == 0)) {
-			$this->setError(JText::_('COM_SERMONSPEAKER_ERROR_ALIAS'));
-			return false;
+
+		if ($table->load(array('alias' => $this->alias, 'catid' => $this->catid)) && ($table->id != $this->id || $this->id == 0))
+		{
+			throw new Exception(JText::_('COM_SERMONSPEAKER_ERROR_ALIAS'));
 		}
 
 		return parent::store($updateNulls);

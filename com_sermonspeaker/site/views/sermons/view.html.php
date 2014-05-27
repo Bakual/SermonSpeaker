@@ -67,19 +67,17 @@ class SermonspeakerViewSermons extends JViewLegacy
 		// Check for errors.
 		if (count($errors = $this->get('Errors')))
 		{
-			JError::raiseError(500, implode("\n", $errors));
-
-			return false;
+			throw new Exception(implode("\n", $errors), 500);
 		}
 
 		if ($this->category == false)
 		{
-			return JError::raiseError(404, JText::_('JGLOBAL_CATEGORY_NOT_FOUND'));
+			throw new Exception(JText::_('JGLOBAL_CATEGORY_NOT_FOUND'), 404);
 		}
 
 		if ($this->parent == false && $this->category->id != 'root')
 		{
-			return JError::raiseError(404, JText::_('JGLOBAL_CATEGORY_NOT_FOUND'));
+			throw new Exception(JText::_('JGLOBAL_CATEGORY_NOT_FOUND'), 404);
 		}
 
 		if ($this->category->id == 'root')
@@ -99,7 +97,7 @@ class SermonspeakerViewSermons extends JViewLegacy
 
 		if (!in_array($this->category->access, $groups))
 		{
-			return JError::raiseError(403, JText::_('JERROR_ALERTNOAUTHOR'));
+			throw new Exception(JText::_('JERROR_ALERTNOAUTHOR'), 403);
 		}
 
 		// Set layout from parameters if not already set elsewhere
@@ -192,15 +190,15 @@ class SermonspeakerViewSermons extends JViewLegacy
 
 		if (empty($title))
 		{
-			$title = $app->getCfg('sitename');
+			$title = $app->get('sitename');
 		}
-		elseif ($app->getCfg('sitename_pagetitles', 0) == 1)
+		elseif ($app->get('sitename_pagetitles', 0) == 1)
 		{
-			$title = JText::sprintf('JPAGETITLE', $app->getCfg('sitename'), $title);
+			$title = JText::sprintf('JPAGETITLE', $app->get('sitename'), $title);
 		}
-		elseif ($app->getCfg('sitename_pagetitles', 0) == 2)
+		elseif ($app->get('sitename_pagetitles', 0) == 2)
 		{
-			$title = JText::sprintf('JPAGETITLE', $title, $app->getCfg('sitename'));
+			$title = JText::sprintf('JPAGETITLE', $title, $app->get('sitename'));
 		}
 
 		$this->document->setTitle($title);

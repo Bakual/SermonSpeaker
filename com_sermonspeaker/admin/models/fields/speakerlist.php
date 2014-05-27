@@ -136,11 +136,13 @@ class JFormFieldSpeakerlist extends JFormFieldList
 			array_unshift($unpublished, JHtml::_('select.optgroup', JText::_('JUNPUBLISHED')));
 			array_push($unpublished, JHtml::_('select.optgroup', JText::_('JUNPUBLISHED')));
 		}
+
 		// Check for a database error.
 		if ($db->getErrorNum())
 		{
-			JError::raiseWarning(500, $db->getErrorMsg());
+			throw new Exception($db->getErrorMsg(), 500);
 		}
+
 		$options = array_merge($published, $unpublished);
 
 		if ($this->value === '')

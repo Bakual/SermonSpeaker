@@ -152,19 +152,17 @@ class SermonspeakerViewSpeaker extends JViewLegacy
 		// Check for errors.
 		if (count($errors = $this->get('Errors')))
 		{
-			JError::raiseError(500, implode("\n", $errors));
-
-			return false;
+			throw new Exception(implode("\n", $errors), 500);
 		}
 
 		if ($this->category == false)
 		{
-			return JError::raiseError(404, JText::_('JGLOBAL_CATEGORY_NOT_FOUND'));
+			throw new Exception(JText::_('JGLOBAL_CATEGORY_NOT_FOUND'), 404);
 		}
 
 		if ($this->parent == false && $this->category->id != 'root')
 		{
-			return JError::raiseError(404, JText::_('JGLOBAL_CATEGORY_NOT_FOUND'));
+			throw new Exception(JText::_('JGLOBAL_CATEGORY_NOT_FOUND'), 404);
 		}
 
 		if ($this->category->id == 'root')
@@ -273,15 +271,15 @@ class SermonspeakerViewSpeaker extends JViewLegacy
 		// Check for empty title and add site name if param is set
 		if (empty($title))
 		{
-			$title = $app->getCfg('sitename');
+			$title = $app->get('sitename');
 		}
-		elseif ($app->getCfg('sitename_pagetitles', 0) == 1)
+		elseif ($app->get('sitename_pagetitles', 0) == 1)
 		{
-			$title = JText::sprintf('JPAGETITLE', $app->getCfg('sitename'), $title);
+			$title = JText::sprintf('JPAGETITLE', $app->get('sitename'), $title);
 		}
-		elseif ($app->getCfg('sitename_pagetitles', 0) == 2)
+		elseif ($app->get('sitename_pagetitles', 0) == 2)
 		{
-			$title = JText::sprintf('JPAGETITLE', $title, $app->getCfg('sitename'));
+			$title = JText::sprintf('JPAGETITLE', $title, $app->get('sitename'));
 		}
 
 		if (empty($title))
@@ -325,7 +323,7 @@ class SermonspeakerViewSpeaker extends JViewLegacy
 			$this->document->addCustomTag('<meta property="og:title" content="' . $this->escape($this->item->title) . '"/>');
 			$this->document->addCustomTag('<meta property="og:url" content="' . JURI::getInstance()->toString() . '"/>');
 			$this->document->addCustomTag('<meta property="og:description" content="' . $this->document->getDescription() . '"/>');
-			$this->document->addCustomTag('<meta property="og:site_name" content="' . $app->getCfg('sitename') . '"/>');
+			$this->document->addCustomTag('<meta property="og:site_name" content="' . $app->get('sitename') . '"/>');
 			$this->document->addCustomTag('<meta property="og:type" content="article"/>');
 
 			if ($this->item->pic)

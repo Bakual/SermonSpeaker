@@ -88,7 +88,7 @@ class JHtmlIcon
 		// Initialise variables.
 		$user   = JFactory::getUser();
 		$userId = $user->get('id');
-		$uri    = JFactory::getURI();
+		$uri    = JUri::getInstance();
 
 		// Ignore if Frontend Uploading is disabled
 		if ($params && !$params->get('fu_enable'))

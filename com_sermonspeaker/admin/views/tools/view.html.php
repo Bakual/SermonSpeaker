@@ -16,7 +16,7 @@ class SermonspeakerViewTools extends JViewLegacy
 		$query	= "SHOW TABLES";
 		$db->setQuery($query);
 		$tables	= $db->loadColumn();
-		$prefix	= $app->getCfg('dbprefix');
+		$prefix	= $app->get('dbprefix');
 		$this->pi	= (in_array($prefix.'pistudies', $tables)) ? true : false;
 
 		// We don't need toolbar in the modal window.

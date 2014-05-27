@@ -67,7 +67,11 @@ class SermonspeakerHelper
 			$assetName = 'com_sermonspeaker.category.'.(int) $categoryId;
 		}
 
-		$actions = JAccess::getActions('com_sermonspeaker', 'component');
+		$actions = JAccess::getActionsFromFile(
+			JPATH_ADMINISTRATOR . '/components/com_sermonspeaker/access.xml',
+			"/access/section[@name='component']/"
+		);
+
 		foreach ($actions as $action)
 		{
 			$result->set($action->name, $user->authorise($action->name, $assetName));

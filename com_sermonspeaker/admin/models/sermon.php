@@ -208,14 +208,20 @@ class SermonspeakerModelSermon extends JModelAdmin
 			$params	= JComponentHelper::getParams('com_sermonspeaker');
 
 			$id3 = SermonspeakerHelperId3::getID3($id3_file, $params);
-			if ($id3){
-				foreach ($id3 as $key => $value){
-					if ($value){
+
+			if ($id3)
+			{
+				foreach ($id3 as $key => $value)
+				{
+					if ($value)
+					{
 						$data->$key = $value;
 					}
 				}
-			} else {
-				JError::raiseNotice(100, JText::_('COM_SERMONSPEAKER_ERROR_ID3'));
+			}
+			else
+			{
+				JFactory::getApplication()->enqueueMessage(JText::_('COM_SERMONSPEAKER_ERROR_ID3'), 'notice');
 			}
 		}
 
@@ -284,10 +290,10 @@ class SermonspeakerModelSermon extends JModelAdmin
 		jimport('joomla.filter.output');
 
 		$table->title	= htmlspecialchars_decode($table->title, ENT_QUOTES);
-		$table->alias	= JApplication::stringURLSafe($table->alias);
+		$table->alias	= JApplicationHelper::stringURLSafe($table->alias);
 
 		if (empty($table->alias)) {
-			$table->alias = JApplication::stringURLSafe($table->title);
+			$table->alias = JApplicationHelper::stringURLSafe($table->title);
 			if (empty($table->alias)) {
 				$table->alias = JFactory::getDate()->format("Y-m-d-H-i-s");
 			}
@@ -374,7 +380,7 @@ class SermonspeakerModelSermon extends JModelAdmin
 
 				if ($all_language && !empty($associations))
 				{
-					JError::raiseNotice(403, JText::_('COM_SERMONSPEAKER_ERROR_ALL_LANGUAGE_ASSOCIATED'));
+					JFactory::getApplication()->enqueueMessage(JText::_('COM_SERMONSPEAKER_ERROR_ALL_LANGUAGE_ASSOCIATED'), 'notice');
 				}
 
 				$associations[$item->language] = $item->id;
@@ -490,20 +496,22 @@ class SermonspeakerModelSermon extends JModelAdmin
 	function podcast(&$pks, $value = 1)
 	{
 		// Initialise variables.
-		$dispatcher	= JDispatcher::getInstance();
 		$user		= JFactory::getUser();
 		$table		= $this->getTable();
 		$pks		= (array) $pks;
 
 		// Access checks.
-		foreach ($pks as $i => $pk) {
+		foreach ($pks as $i => $pk)
+		{
 			$table->reset();
 
-			if ($table->load($pk)) {
-				if (!$this->canEditState($table)) {
+			if ($table->load($pk))
+			{
+				if (!$this->canEditState($table))
+				{
 					// Prune items that you can't change.
 					unset($pks[$i]);
-					JError::raiseWarning(403, JText::_('JLIB_APPLICATION_ERROR_EDIT_STATE_NOT_PERMITTED'));
+					throw new Exception(JText::_('JLIB_APPLICATION_ERROR_EDIT_STATE_NOT_PERMITTED'), 403);
 				}
 			}
 		}

@@ -4,7 +4,7 @@ defined('_JEXEC') or die;
 // Access check.
 if (!JFactory::getUser()->authorise('core.manage', 'com_sermonspeaker')) 
 {
-	return JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
+	throw new Exception(JText::_('JERROR_ALERTNOAUTHOR'), 404);
 }
  
 // require helper file

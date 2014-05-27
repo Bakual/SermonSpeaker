@@ -656,7 +656,7 @@ class SermonspeakerHelperSermonspeaker
 	{
 		if (!is_array($config))
 		{
-			JError::raiseWarning(100, 'Wrong calling of getPlayer(), second parameter needs to be an array');
+			JFactory::getApplication()->enqueueMessage('Wrong calling of getPlayer(), second parameter needs to be an array', 'warning');
 			$config = array();
 		}
 

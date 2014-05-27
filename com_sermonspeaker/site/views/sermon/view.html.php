@@ -38,9 +38,7 @@ class SermonspeakerViewSermon extends JViewLegacy
 
 			if (!$id)
 			{
-				JError::raiseWarning(404, JText::_('JGLOBAL_RESOURCE_NOT_FOUND'));
-
-				return;
+				throw new Exception(JText::_('JGLOBAL_RESOURCE_NOT_FOUND'), 404);
 			}
 
 			$jinput->set('id', $id);
@@ -105,9 +103,7 @@ class SermonspeakerViewSermon extends JViewLegacy
 		// Check for errors.
 		if (count($errors = $this->get('Errors')))
 		{
-			JError::raiseWarning(500, implode("\n", $errors));
-
-			return false;
+			throw new Exception(implode("\n", $errors), 500);
 		}
 
 		// Set layout from parameters if not already set elsewhere
@@ -170,15 +166,15 @@ class SermonspeakerViewSermon extends JViewLegacy
 		// Check for empty title and add site name if param is set
 		if (empty($title))
 		{
-			$title = $app->getCfg('sitename');
+			$title = $app->get('sitename');
 		}
-		elseif ($app->getCfg('sitename_pagetitles', 0) == 1)
+		elseif ($app->get('sitename_pagetitles', 0) == 1)
 		{
-			$title = JText::sprintf('JPAGETITLE', $app->getCfg('sitename'), $title);
+			$title = JText::sprintf('JPAGETITLE', $app->get('sitename'), $title);
 		}
-		elseif ($app->getCfg('sitename_pagetitles', 0) == 2)
+		elseif ($app->get('sitename_pagetitles', 0) == 2)
 		{
-			$title = JText::sprintf('JPAGETITLE', $title, $app->getCfg('sitename'));
+			$title = JText::sprintf('JPAGETITLE', $title, $app->get('sitename'));
 		}
 
 		if (empty($title))
@@ -252,7 +248,7 @@ class SermonspeakerViewSermon extends JViewLegacy
 			$this->document->setMetadata('robots', $this->params->get('robots'));
 		}
 
-		if ($app->getCfg('MetaAuthor'))
+		if ($app->get('MetaAuthor'))
 		{
 			$this->document->setMetaData('author', $this->item->speaker_title);
 		}
@@ -263,7 +259,7 @@ class SermonspeakerViewSermon extends JViewLegacy
 			$this->document->addCustomTag('<meta property="og:title" content="' . $this->escape($this->item->title) . '"/>');
 			$this->document->addCustomTag('<meta property="og:url" content="' . JURI::getInstance()->toString() . '"/>');
 			$this->document->addCustomTag('<meta property="og:description" content="' . $this->document->getDescription() . '"/>');
-			$this->document->addCustomTag('<meta property="og:site_name" content="' . $app->getCfg('sitename') . '"/>');
+			$this->document->addCustomTag('<meta property="og:site_name" content="' . $app->get('sitename') . '"/>');
 
 			if ($picture = SermonspeakerHelperSermonspeaker::insertPicture($this->item))
 			{

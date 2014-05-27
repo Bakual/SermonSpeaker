@@ -60,9 +60,10 @@ class SermonspeakerTableSerie extends JTable
 
 		// Verify that the alias is unique
 		$table = JTable::getInstance('serie', 'SermonspeakerTable');
-		if ($table->load(array('alias' => $this->alias, 'catid' => $this->catid)) && ($table->id != $this->id || $this->id == 0)) {
-			$this->setError(JText::_('COM_SERMONSPEAKER_ERROR_ALIAS'));
-			return false;
+
+		if ($table->load(array('alias' => $this->alias, 'catid' => $this->catid)) && ($table->id != $this->id || $this->id == 0))
+		{
+			throw new Exception(JText::_('COM_SERMONSPEAKER_ERROR_ALIAS'));
 		}
 
 		return parent::store($updateNulls);
