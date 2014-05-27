@@ -77,7 +77,6 @@ div.column-files a.watch{
 }
 div.ss-serie-player, div.ss-sermons-player, div.ss-speaker-player{
 	text-align: center;
-	margin: auto;
 	width: 80%;
-	margin-bottom: 10px;
+	margin: auto auto 10px;
 }
