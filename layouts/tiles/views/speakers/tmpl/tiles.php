@@ -50,7 +50,7 @@ if ($this->params->get('show_description', 1) || $this->params->def('show_descri
 		<div class="clr"></div>
 	</div>
 <?php endif; ?>
-<form action="<?php echo JFilterOutput::ampReplace(JFactory::getURI()->toString()); ?>" method="post" id="adminForm" name="adminForm">
+<form action="<?php echo JFilterOutput::ampReplace(JUri::getInstance()->toString()); ?>" method="post" id="adminForm" name="adminForm">
 	<?php
 	if ($this->params->get('filter_field')) : ?>
 		<fieldset class="filters">

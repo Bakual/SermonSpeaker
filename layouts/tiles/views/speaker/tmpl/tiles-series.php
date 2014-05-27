@@ -63,7 +63,7 @@ if ($this->params->get('show_category_title', 0) || in_array('speaker:hits', $th
 	</div>
 	<?php if (($this->item->bio && in_array('speaker:bio', $this->columns)) || ($this->item->intro && in_array('speaker:intro', $this->columns))) : ?>
 		<h3><?php echo JText::_('COM_SERMONSPEAKER_SPEAKER_BIO'); ?></h3>
-		<?php 
+		<?php
 		if (in_array('speaker:intro', $this->columns)) :
 			echo JHtml::_('content.prepare', $this->item->intro);
 		endif;
@@ -77,7 +77,7 @@ if ($this->params->get('show_category_title', 0) || in_array('speaker:hits', $th
 		<a href="<?php echo $this->item->website; ?>" target="_blank" title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKER_WEBLINK_HOOVER'); ?>"><?php echo JText::sprintf('COM_SERMONSPEAKER_SPEAKER_WEBLINK', $this->item->title); ?></a>
 	<?php endif; ?>
 </div>
-<form action="<?php echo JFilterOutput::ampReplace(JFactory::getURI()->toString()); ?>" method="post" id="adminForm" name="adminForm">
+<form action="<?php echo JFilterOutput::ampReplace(JUri::getInstance()->toString()); ?>" method="post" id="adminForm" name="adminForm">
 	<?php
 	if ($this->params->get('filter_field')) : ?>
 		<fieldset class="filters">

@@ -75,7 +75,7 @@ if (in_array('sermons:player', $this->columns) and count($this->items)) :
 	<?php endif; ?>
 	</div>
 <?php endif; ?>
-<form action="<?php echo JFilterOutput::ampReplace(JFactory::getURI()->toString()); ?>" method="post" id="adminForm" name="adminForm" class="form-inline">
+<form action="<?php echo JFilterOutput::ampReplace(JUri::getInstance()->toString()); ?>" method="post" id="adminForm" name="adminForm" class="form-inline">
 	<?php
 	if ($this->params->get('filter_field') or $this->params->get('show_pagination_limit')) :
 		echo $this->loadTemplate('filtersorder');
@@ -207,7 +207,7 @@ if (in_array('sermons:player', $this->columns) and count($this->items)) :
 
 					if (in_array('sermons:hits', $this->columns)) : ?>
 						<div class="hits">
-							<?php echo JText::_('JGLOBAL_HITS'); ?>: 
+							<?php echo JText::_('JGLOBAL_HITS'); ?>:
 							<?php echo $item->hits; ?>
 						</div>
 					<?php endif;

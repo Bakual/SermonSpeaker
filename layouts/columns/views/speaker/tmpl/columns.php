@@ -58,7 +58,7 @@ if ($this->params->get('show_category_title', 0) or in_array('speaker:hits', $th
 	</div>
 	<?php if (($this->item->bio and in_array('speaker:bio', $this->columns)) or ($this->item->intro and in_array('speaker:intro', $this->columns))) : ?>
 		<h3><?php echo JText::_('COM_SERMONSPEAKER_SPEAKER_BIO'); ?></h3>
-		<?php 
+		<?php
 		if (in_array('speaker:intro', $this->columns)) :
 			echo JHtml::_('content.prepare', $this->item->intro);
 		endif;
@@ -99,7 +99,7 @@ if ($this->params->get('show_category_title', 0) or in_array('speaker:hits', $th
 	<?php endif; ?>
 	</div>
 <?php endif; ?>
-<form action="<?php echo JFilterOutput::ampReplace(JFactory::getURI()->toString()); ?>" method="post" id="adminForm" name="adminForm" class="form-inline">
+<form action="<?php echo JFilterOutput::ampReplace(JUri::getInstance()->toString()); ?>" method="post" id="adminForm" name="adminForm" class="form-inline">
 	<?php
 	if ($this->params->get('filter_field') or $this->params->get('show_pagination_limit')) :
 		echo $this->loadTemplate('filters');
@@ -225,7 +225,7 @@ if ($this->params->get('show_category_title', 0) or in_array('speaker:hits', $th
 
 					if (in_array('speaker:hits', $this->col_sermon)) : ?>
 						<div class="hits">
-							<?php echo JText::_('JGLOBAL_HITS'); ?>: 
+							<?php echo JText::_('JGLOBAL_HITS'); ?>:
 							<?php echo $item->hits; ?>
 						</div>
 					<?php endif;
