@@ -68,12 +68,6 @@ class SermonspeakerHelperPlayerFlowplayer5 extends SermonspeakerHelperPlayer
 		$this->player = 'FlowPlayer5';
 		$this->toggle = $this->params->get('fileswitch', 0);
 
-		// Load plugins
-		$showplaylist = (is_array($item)) ? 'true' : 'false';
-
-		// Generic options
-		$autostart = $this->config['autostart'] ? 'true' : 'false';
-
 		if (is_array($item))
 		{
 			$this->setDimensions('23px', '100%');

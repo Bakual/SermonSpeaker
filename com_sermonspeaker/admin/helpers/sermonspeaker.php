@@ -8,8 +8,8 @@ class SermonspeakerHelper
 	/**
 	 * Configure the Linkbar.
 	 *
-	 * @param	string	The name of the active view.
-	 * @since	1.6
+	 * @param  string  $vName  The name of the active view.
+	 * @since  1.6
 	 */
 	public static function addSubmenu($vName = 'main')
 	{

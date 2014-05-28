@@ -381,27 +381,28 @@ class SermonspeakerViewSermon extends JViewLegacy
 		// Destination folder based on mode
 		$this->s3audio	= ($this->params->get('path_mode_audio', 0) == 2) ? 1 : 0;
 		$this->s3video	= ($this->params->get('path_mode_video', 0) == 2) ? 1 : 0;
+
 		if ($this->s3audio || $this->s3video)
 		{
 			//include the S3 class   
 			require_once JPATH_COMPONENT_ADMINISTRATOR.'/s3/S3.php';
 			//AWS access info   
-			$awsAccessKey 	= $this->params->get('s3_access_key');
-			$awsSecretKey 	= $this->params->get('s3_secret_key');
-			$bucket			= $this->params->get('s3_bucket');
+			$awsAccessKey = $this->params->get('s3_access_key');
+			$awsSecretKey = $this->params->get('s3_secret_key');
+			$bucket       = $this->params->get('s3_bucket');
 			//instantiate the class
-			$s3		= new S3($awsAccessKey, $awsSecretKey);
-			$region	= $s3->getBucketLocation($bucket);
-			$prefix	= ($region == 'US') ? 's3' : 's3-'.$region;
+			$s3     = new S3($awsAccessKey, $awsSecretKey);
+			$region = $s3->getBucketLocation($bucket);
+			$prefix = ($region == 'US') ? 's3' : 's3-'.$region;
 
-			$this->bucket	= $bucket;
-			$this->prefix	= $prefix;
+			$this->bucket = $bucket;
+			$this->prefix = $prefix;
 		}
 
 		// Calculate destination path to show
 		if ($this->params->get('append_path', 0))
 		{
-			$changedate	= "function changedate(datestring) {
+			$changedate = "function changedate(datestring) {
 					if(datestring && datestring != '0000-00-00 00:00:00'){
 						year = datestring.substr(0,4);
 						month = datestring.substr(5,2);
@@ -413,9 +414,18 @@ class SermonspeakerViewSermon extends JViewLegacy
 							month = '0'+month;
 						}
 					}";
-			if(!$this->s3audio){$changedate	.= "document.id('audiopathdate').innerHTML = year+'/'+month+'/';";}
-			if(!$this->s3video){$changedate	.= "document.id('videopathdate').innerHTML = year+'/'+month+'/';";}
-			$changedate	.= "document.id('addfilepathdate').innerHTML = year+'/'+month+'/';
+
+			if (!$this->s3audio)
+			{
+				$changedate .= "document.id('audiopathdate').innerHTML = year+'/'+month+'/';";
+			}
+
+			if (!$this->s3video)
+			{
+				$changedate .= "document.id('videopathdate').innerHTML = year+'/'+month+'/';";
+			}
+
+			$changedate .= "document.id('addfilepathdate').innerHTML = year+'/'+month+'/';
 				}";
 			$time	= ($this->item->sermon_date && $this->item->sermon_date != '0000-00-00 00:00:00') ? strtotime($this->item->sermon_date) : time();
 			$this->append_date	= date('Y', $time).'/'.date('m', $time).'/';
@@ -425,7 +435,9 @@ class SermonspeakerViewSermon extends JViewLegacy
 			$changedate	= "function changedate(datestring) {}";
 			$this->append_date	= '';
 		}
+
 		$document->addScriptDeclaration($changedate);
+
 		if ($this->params->get('append_path_lang', 0))
 		{
 			$changelang	= "function changelang(language) {
@@ -444,6 +456,7 @@ class SermonspeakerViewSermon extends JViewLegacy
 			$changelang	= "function changelang(language) {}";
 			$this->append_lang	= '';
 		}
+
 		$document->addScriptDeclaration($changelang);
 
 		// Add javascript validation script
@@ -504,6 +517,7 @@ class SermonspeakerViewSermon extends JViewLegacy
 				JToolBarHelper::save('sermon.save');
 				JToolbarHelper::save2new('sermon.save2new');
 			}
+
 			JToolbarHelper::cancel('sermon.cancel');
 		}
 		else
@@ -541,10 +555,13 @@ class SermonspeakerViewSermon extends JViewLegacy
 	}
 
 	// Function to return bytes from the PHP settings. Taken from the ini_get() manual
-	protected function return_bytes($val) {
+	protected function return_bytes($val)
+	{
 		$val = trim($val);
 		$last = strtolower($val[strlen($val)-1]);
-		switch($last) {
+
+		switch($last)
+		{
 			// The 'G' modifier is available since PHP 5.1.0
 			case 'g':
 				$val *= 1024;

@@ -54,17 +54,17 @@ abstract class SermonspeakerHelperAssociation extends CategoryHelperAssociation
 	/**
 	 * Search items
 	 *
-	 * @param   int     $id     ID to find
-	 * @param   string  $view   Viewname
-	 * @param   object  $table  Table
+	 * @param   int     $id          ID to find
+	 * @param   string  $view        Viewname
+	 * @param   string  $tablename   The name of the table.
 	 *
 	 * @return  array  Matching items
 	 */
-	protected static function _findItems($id, $view, $table)
+	protected static function _findItems($id, $view, $tablename)
 	{
 		if ($id)
 		{
-			$associations = JLanguageAssociations::getAssociations('com_sermonspeaker', $table, 'com_sermonspeaker.' . $view, $id);
+			$associations = JLanguageAssociations::getAssociations('com_sermonspeaker', $tablename, 'com_sermonspeaker.' . $view, $id);
 			$function = 'get' . $view . 'Route';
 
 			$return = array();

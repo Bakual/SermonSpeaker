@@ -12,7 +12,7 @@ defined('_JEXEC') or die();
 /**
  * $item     object     The sermon item
  * $params   JRegistry  The item params
- * $columns  JRegistry  The columns to show
+ * $columns  array      The columns to show
  */
 extract($displayData);
 ?>

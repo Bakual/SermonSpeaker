@@ -40,12 +40,6 @@ class JFormFieldColumns extends JFormField
 	 */
 	protected function getInput()
 	{
-		// Initialize some field attributes.
-		$class = $this->element['class'] ? ' class="checkboxes '.(string) $this->element['class'].'"' : ' class="checkboxes"';
-
-		// Initialize JavaScript field attributes.
-		$onclick	= $this->element['onclick'] ? ' onclick="'.(string) $this->element['onclick'].'"' : '';
-
 		// Get the field options.
 		$options = $this->getOptions();
 
@@ -68,7 +62,6 @@ class JFormFieldColumns extends JFormField
 
 			// Initialize some option attributes.
 			$class		= !empty($option->class) ? ' class="'.$option->class.'"' : '';
-			$disabled	= !empty($option->disable) ? ' disabled="disabled"' : '';
 
 			// Initialize some JavaScript option attributes.
 			$onclick	= !empty($option->onclick) ? ' onclick="'.$option->onclick.'"' : '';

@@ -72,7 +72,6 @@ class SermonspeakerController extends JControllerLegacy
 			case 'serie':
 				$viewLayout = $this->input->get('layout', 'default');
 				$view = $this->getView($viewName, 'html', '', array('base_path' => $this->basePath, 'layout' => $viewLayout));
-				$view = $this->getView('serie', 'html');
 				$sermons_model = $this->getModel('sermons');
 				$view->setModel($sermons_model);
 				break;

@@ -80,7 +80,6 @@ class SermonspeakerHelperPlayerWmvplayer extends SermonspeakerHelperPlayer
 		}
 
 		$player = JURI::root() . 'media/com_sermonspeaker/player/wmvplayer/wmvplayer.xaml';
-		$start  = $this->config['autostart'] ? 1 : 0;
 		$this->mspace = '<div id="mediaspace' . $this->config['count'] . '">' . JText::_('COM_SERMONSPEAKER_PLAYER_NEEDS_JAVASCRIPT') . '</div>';
 		$file = SermonspeakerHelperSermonspeaker::getFileByPrio($item, $this->config['prio']);
 		$file = SermonspeakerHelperSermonspeaker::makeLink($file);

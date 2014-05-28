@@ -33,15 +33,14 @@ class JFormFieldFilesize extends JFormFieldText
 	 */
 	protected function getInput()
 	{
-		$html	= '<div class="input-append">';
-		$html	.= parent::getInput();
+		$html = '<div class="input-append">';
+		$html .= parent::getInput();
 
-		$title	= '';
-		require_once(JPATH_COMPONENT_SITE .'/helpers/sermonspeaker.php');
+		require_once(JPATH_COMPONENT_SITE . '/helpers/sermonspeaker.php');
 		$title = SermonspeakerHelperSermonspeaker::convertBytes($this->value, true, false);
 
-		$html	.= '<i class="add-on icon-help" id="'.$this->id.'_info" rel="tooltip" title="'.$title.'"> </i>';
-		$html	.= '</div>';
+		$html .= '<i class="add-on icon-help" id="' . $this->id . '_info" rel="tooltip" title="' . $title . '"> </i>';
+		$html .= '</div>';
 
 		return $html;
 	}

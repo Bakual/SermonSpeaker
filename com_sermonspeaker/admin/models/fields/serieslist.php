@@ -64,12 +64,9 @@ class JFormFieldSerieslist extends JFormFieldList
 	 */
 	public function getOptions()
 	{
-		// Initialize variables.
-		$options = array();
-
-		$db		= JFactory::getDbo();
-
+		$db = JFactory::getDbo();
 		$params = JComponentHelper::getParams('com_sermonspeaker');
+
 		if ($catfilter = $params->get('catfilter_lists', 0))
 		{
 			$action	= ($this->value === '') ? 'core.create' : 'core.edit.state';
@@ -82,6 +79,7 @@ class JFormFieldSerieslist extends JFormFieldList
 		$query->from('#__sermon_series AS series');
 		$query->join('LEFT', '#__categories AS c_series ON c_series.id = series.catid');
 		$query->where('series.state = 1');
+
 		if ($catfilter)
 		{
 			if ($catids)
@@ -93,6 +91,7 @@ class JFormFieldSerieslist extends JFormFieldList
 				$query->where('series.id = '.$db->quote($this->value));
 			}
 		}
+
 		$query->order('series.title');
 
 		// Get the options.
@@ -106,6 +105,7 @@ class JFormFieldSerieslist extends JFormFieldList
 		$query->from('#__sermon_series AS series');
 		$query->join('LEFT', '#__categories AS c_series ON c_series.id = series.catid');
 		$query->where('series.state = 0');
+
 		if ($catfilter)
 		{
 			if ($catids)
@@ -117,17 +117,22 @@ class JFormFieldSerieslist extends JFormFieldList
 				$query->where('series.id = '.$db->quote($this->value));
 			}
 		}
+
 		$query->order('series.title');
 
 		// Get the options.
 		$db->setQuery($query);
 
 		$unpublished = $db->loadObjectList();
-		if (count($unpublished)){
-			if (count($published)){
+
+		if (count($unpublished))
+		{
+			if (count($published))
+			{
 				array_unshift($published, JHtml::_('select.optgroup', JText::_('JPUBLISHED')));
 				array_push($published, JHtml::_('select.optgroup', JText::_('JPUBLISHED')));
 			}
+
 			array_unshift($unpublished, JHtml::_('select.optgroup', JText::_('JUNPUBLISHED')));
 			array_push($unpublished, JHtml::_('select.optgroup', JText::_('JUNPUBLISHED')));
 		}
@@ -143,9 +148,12 @@ class JFormFieldSerieslist extends JFormFieldList
 		// Merge any additional options in the XML definition.
 		//$options = array_merge(parent::getOptions(), $options);
 
-		if ($this->value === ''){
-			foreach ($options as $option){
-				if (isset($option->home) && $option->home){
+		if ($this->value === '')
+		{
+			foreach ($options as $option)
+			{
+				if (isset($option->home) && $option->home)
+				{
 					$this->value = $option->value;
 					break;
 				}

@@ -54,40 +54,55 @@ class SermonspeakerModelSermon extends JModelAdmin
 		$table		= $this->getTable();
 		$db 		= $this->getDbo();
 
-		JImport('joomla.filesystem.file');
 		// Iterate the items to delete the files.
-		foreach ($pks as $i => $pk) {
-			if ($table->load($pk)) {
-				if ($this->canDelete($table)) {
-					if($table->audiofile && file_exists(JPATH_ROOT.$table->audiofile)){
+		foreach ($pks as $pk)
+		{
+			if ($table->load($pk))
+			{
+				if ($this->canDelete($table))
+				{
+					if ($table->audiofile && file_exists(JPATH_ROOT.$table->audiofile))
+					{
 						$query = "SELECT count(1) FROM `#__sermon_sermons` \n"
 								."WHERE `audiofile` = '".$table->audiofile."' OR `videofile` = '".$table->audiofile."'";
 						$db->setQuery($query);
-						if($db->loadResult() == 1){
-							if (!JFile::delete(JPATH_ROOT.$table->audiofile)){
+
+						if($db->loadResult() == 1)
+						{
+							if (!JFile::delete(JPATH_ROOT.$table->audiofile))
+							{
 								$this->setError('Could not delete: '.JPATH_ROOT.$table->audiofile);
 							}
 						}
 					}
-					if($table->videofile && file_exists(JPATH_ROOT.$table->videofile)){
+
+					if($table->videofile && file_exists(JPATH_ROOT.$table->videofile))
+					{
 						$query = "SELECT count(1) FROM `#__sermon_sermons` \n"
 								."WHERE `audiofile` = '".$table->videofile."' OR `videofile` = '".$table->videofile."'";
 						$db->setQuery($query);
-						if($db->loadResult() == 1){
-							if (!JFile::delete(JPATH_ROOT.$table->videofile)){
+
+						if($db->loadResult() == 1)
+						{
+							if (!JFile::delete(JPATH_ROOT.$table->videofile))
+							{
 								$this->setError('Could not delete: '.JPATH_ROOT.$table->videofile);
 							}
 						}
 					}
 				}
-			} else {
+			}
+			else
+			{
 				$this->setError($table->getError());
+
 				return false;
 			}
 		}
-		
+
 		// Call parent function to delete the database records
 		parent::delete($pks);
+
 		return true;
 	}
 

@@ -39,10 +39,8 @@ class SermonspeakerModelFiles extends JModelLegacy
 		$type = $app->getUserStateFromRequest('com_sermonspeaker.tools.filter.type', 'type', 'all', 'string');
 		$this->setState('filter.type', $type);
 
-		// Initialize variables.
-		$files = array();
-
-		switch ($type){
+		switch ($type)
+		{
 			case 'audio':
 				$filters = array('.aac', '.m4a', '.mp3', '.wma');
 				break;
@@ -53,20 +51,25 @@ class SermonspeakerModelFiles extends JModelLegacy
 				$filters = array('');
 				break;
 		}
-		$params	= JComponentHelper::getParams('com_sermonspeaker');
-		$folders[]	= JPATH_SITE.'/'.$params->get('path_audio');
+
+		$params    = JComponentHelper::getParams('com_sermonspeaker');
+		$folders[] = JPATH_SITE . '/' . $params->get('path_audio');
+
 		if ($params->get('path_audio') != $params->get('path_video'))
 		{
-			$folders[]	= JPATH_SITE.'/'.$params->get('path_video');
+			$folders[] = JPATH_SITE . '/' . $params->get('path_video');
 		}
-		jimport('joomla.filesystem.folder');
-		$files	= array();
+
+		$files = array();
+
 		foreach ($folders as $folder)
 		{
-			foreach($filters as $filter){
-				$files	= array_merge($files, JFolder::files($folder, $filter, true, true));
+			foreach ($filters as $filter)
+			{
+				$files = array_merge($files, JFolder::files($folder, $filter, true, true));
 			}
 		}
+
 		sort($files);
 
 		return $files;
@@ -74,11 +77,8 @@ class SermonspeakerModelFiles extends JModelLegacy
 
 	private function getSermons()
 	{
-		// Initialize variables.
-		$options = array();
-
-		$db		= JFactory::getDbo();
-		$query	= "SELECT `audiofile` AS `file` FROM #__sermon_sermons WHERE `audiofile` != '' \n"
+		$db    = JFactory::getDbo();
+		$query = "SELECT `audiofile` AS `file` FROM #__sermon_sermons WHERE `audiofile` != '' \n"
 				. "UNION SELECT `videofile` FROM #__sermon_sermons WHERE `videofile` != '' ";
 
 		$db->setQuery($query);
@@ -91,7 +91,8 @@ class SermonspeakerModelFiles extends JModelLegacy
 			throw new Exception($db->getErrorMsg(), 500);
 		}
 
-		foreach($sermons as &$sermon){
+		foreach ($sermons as &$sermon)
+		{
 			$sermon = trim($sermon, '/\\');
 		}
 

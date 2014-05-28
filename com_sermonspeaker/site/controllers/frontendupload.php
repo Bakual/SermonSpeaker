@@ -220,7 +220,7 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 			$this->setRedirect(JRoute::_('index.php?option=com_sermonspeaker&view=sermons', false));
 		}
 
-		$recordId = $model->getState($this->context . '.id');
+		$recordId = (int) $model->getState($this->context . '.id');
 		$params = JComponentHelper::getParams('com_sermonspeaker');
 
 		$app = JFactory::getApplication();

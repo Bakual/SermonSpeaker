@@ -494,23 +494,28 @@ class SermonspeakerControllerTools extends JControllerLegacy
 			$message = '<div class="row-fluid">'
 					. '<div class="span12">' . JText::_('COM_SERMONSPEAKER_ID3_NO_MATCH_FOUND') . '</div>';
 			$span	= 'span' . (int) 12 / count($missing);
+
 			foreach ($missing as $key => $values)
 			{
-				$array_count	= array_count_values($values);
+				$arrayCount = array_count_values($values);
 				$message	.= '<div class="' . $span . '">'
 							. '<h5>' . JText::_('COM_SERMONSPEAKER_' . strtoupper($key)) . '</h5>'
 							. '<ul>';
-				foreach ($array_count as $key => $value)
+
+				foreach ($arrayCount as $countKey => $countValue)
 				{
-					$message	.= '<li>' . $key . ' <span class="badge">' . $value . '</span></li>';
+					$message	.= '<li>' . $countKey . ' <span class="badge">' . $countValue . '</span></li>';
 				}
+
 				$message	.= '</ul></div>';
 			}
+
 			$message	.= '</div>';
 		}
-		$app->enqueueMessage($message, 'notice');
 
+		$app->enqueueMessage($message, 'notice');
 		$this->setRedirect('index.php?option=com_sermonspeaker&view=tools');
+
 		return;
 	}
 }

@@ -12,7 +12,7 @@ class SermonspeakerTableSermon extends JTable
 	/**
 	 * Constructor
 	 *
-	 * @param JDatabase A database connector object
+	 * @param  JDatabaseDriver  $db  JDatabaseDriver object.
 	 */
 	public function __construct(&$db)
 	{

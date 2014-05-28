@@ -66,12 +66,10 @@ class JFormFieldSpeakerlist extends JFormFieldList
 	 */
 	public function getOptions()
 	{
-		// Initialize variables.
-		$options = array();
-
-		$db		= JFactory::getDbo();
+		$db = JFactory::getDbo();
 
 		$params = JComponentHelper::getParams('com_sermonspeaker');
+
 		if ($catfilter = $params->get('catfilter_lists', 0))
 		{
 			$action	= ($this->value === '') ? 'core.create' : 'core.edit.state';
@@ -85,6 +83,7 @@ class JFormFieldSpeakerlist extends JFormFieldList
 		$query->join('LEFT', '#__categories AS c_speakers ON c_speakers.id = speakers.catid');
 		$query->where('speakers.state = 1');
 		$query->where('speakers.state = 1');
+
 		if ($catfilter)
 		{
 			if ($catids)
@@ -96,6 +95,7 @@ class JFormFieldSpeakerlist extends JFormFieldList
 				$query->where('speakers.id = '.$db->quote($this->value));
 			}
 		}
+
 		$query->order('speakers.title');
 
 		// Get the options.
