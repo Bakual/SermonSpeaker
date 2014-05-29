@@ -1,6 +1,19 @@
 <?php
-defined('_JEXEC') or die;
+/**
+ * @package     SermonSpeaker
+ * @subpackage  Component.Administrator
+ * @author      Thomas Hunziker <admin@sermonspeaker.net>
+ * @copyright   (C) 2014 - Thomas Hunziker
+ * @license     http://www.gnu.org/licenses/gpl.html
+ **/
 
+defined('_JEXEC') or die();
+
+/**
+ * Model class for the SermonSpeaker Component
+ *
+ * @since  ?.?
+ */
 class SermonspeakerModelFiles extends JModelLegacy
 {
 	public function getItems()

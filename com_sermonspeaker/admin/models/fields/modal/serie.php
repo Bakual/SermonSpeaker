@@ -1,9 +1,14 @@
 <?php
 /**
- * copied from com_content
- */
+ * @package     SermonSpeaker
+ * @subpackage  Component.Administrator
+ * @author      Thomas Hunziker <admin@sermonspeaker.net>
+ * @copyright   (C) 2014 - Thomas Hunziker
+ * @license     http://www.gnu.org/licenses/gpl.html
+ **/
 
-defined('JPATH_BASE') or die;
+defined('_JEXEC') or die();
+
 
 /**
  * Supports a modal serie picker.
