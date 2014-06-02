@@ -20,8 +20,13 @@ if ($jinput->get('task') == 'podcast')
 	return;
 }
 
-require_once JPATH_COMPONENT . '/helpers/route.php';
-require_once JPATH_COMPONENT . '/helpers/sermonspeaker.php';
+// Joomla doesn't autoload JFile and JFolder
+JLoader::register('JFile', JPATH_LIBRARIES . '/joomla/filesystem/file.php');
+JLoader::register('JFolder', JPATH_LIBRARIES . '/joomla/filesystem/folder.php');
+
+// Register Helperclasses for autoloading
+JLoader::discover('SermonspeakerHelper', JPATH_COMPONENT . '/helpers');
+JLoader::discover('SermonspeakerHelperPlayer', JPATH_COMPONENT . '/helpers/player');
 
 // Load languages and merge with fallbacks
 $jlang = JFactory::getLanguage();
