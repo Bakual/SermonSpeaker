@@ -213,6 +213,12 @@ class SermonspeakerRouter extends JComponentRouterBase
 				$vars['view'] = 'sermon';
 				$id = explode(':', $segments[1]);
 				$vars['id'] = (int) $id[0];
+
+				if (isset($segments[2]))
+				{
+					$vars['layout'] = $segments[2];
+				}
+
 				break;
 			case 'speakers':
 				$vars['view'] = 'speakers';
