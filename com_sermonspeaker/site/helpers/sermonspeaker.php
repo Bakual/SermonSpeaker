@@ -479,10 +479,11 @@ class SermonspeakerHelperSermonspeaker
 	 *
 	 * @param   object  $item      Item
 	 * @param   bool    $makeLink  Makes a link
+	 * @param   bool    $abs       Makes the link absolute, only relevant together with $makeLink
 	 *
 	 * @return  string  Path to picture
 	 */
-	public static function insertPicture($item, $makeLink = false)
+	public static function insertPicture($item, $makeLink = false, $abs = false)
 	{
 		if (isset($item->picture) && $item->picture)
 		{
@@ -501,7 +502,7 @@ class SermonspeakerHelperSermonspeaker
 			return false;
 		}
 
-		return ($makeLink) ? self::makeLink($image) : trim($image, '/');
+		return ($makeLink) ? self::makeLink($image, $abs) : trim($image, '/');
 	}
 
 	/**
