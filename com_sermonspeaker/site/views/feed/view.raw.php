@@ -19,12 +19,12 @@ class SermonspeakerViewFeed extends JViewLegacy
 	/**
 	 * @var  $params  Joomla\Registry\Registry  Holds the component params
 	 */
-	private $params;
+	protected $params;
 
 	/**
 	 * @var  $items  array  Array with the item objects
 	 */
-	private $items;
+	protected $items;
 
 	/**
 	 * Execute and display a template script.

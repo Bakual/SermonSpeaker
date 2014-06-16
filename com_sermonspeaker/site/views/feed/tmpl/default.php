@@ -9,6 +9,7 @@
 
 defined('_JEXEC') or die();
 
+/* @var  Joomla\Registry\Registry  $params  Component Parameters */
 $params = $this->params;
 
 // Required channel elements
@@ -101,7 +102,7 @@ if ($params->get('itRedirect')) : ?>
 
 // Starting with items
 foreach ($this->items as $item) :
-	$notes	= $this->getNotes($item->notes); ?>
+	$notes = $this->getNotes($item->notes); ?>
 	<item>
 		<title><?php echo $this->make_xml_safe($item->title); ?></title>
 		<link><?php
@@ -123,10 +124,14 @@ if ($enclosure = $this->getEnclosure($item)) : ?>
 <?php endif;
 
 // Specific to iTunes: per item
-if ($item->picture) : ?>
-		<itunes:image href="<?php echo SermonspeakerHelperSermonspeaker::makeLink($item->picture, true); ?>" />
-<?php elseif ($params->get('itImage')) : ?>
-		<itunes:image href="<?php echo SermonspeakerHelperSermonspeaker::makeLink($params->get('itImage'), true); ?>" />
+$pic = SermonspeakerHelperSermonspeaker::insertPicture($item, true, true);
+
+if (!$pic and $params->get('itImage')) :
+	$pic = SermonspeakerHelperSermonspeaker::makeLink($params->get('itImage'), true);
+endif;
+
+if ($pic) : ?>
+		<itunes:image href="<?php echo $pic; ?>" />
 <?php endif; ?>
 		<itunes:author><?php echo $this->make_xml_safe($item->speaker_title); ?></itunes:author>
 		<itunes:duration><?php echo SermonspeakerHelperSermonSpeaker::insertTime($item->sermon_time); ?></itunes:duration>
