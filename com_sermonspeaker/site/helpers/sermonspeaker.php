@@ -16,8 +16,14 @@ defined('_JEXEC') or die();
  */
 class SermonspeakerHelperSermonspeaker
 {
+	/**
+	 * @var  Joomla\Registry\Registry  $params  JRegistry object
+	 */
 	private static $params;
 
+	/**
+	 * @var  string  $view  Name of current view
+	 */
 	private static $view;
 
 	/**
@@ -27,7 +33,9 @@ class SermonspeakerHelperSermonspeaker
 	 */
 	private static function getParams()
 	{
-		self::$params = JFactory::getApplication()->getParams('com_sermonspeaker');
+		/* @var  $app  JApplicationSite */
+		$app = JFactory::getApplication();
+		self::$params = $app->getParams('com_sermonspeaker');
 	}
 
 	/**
@@ -72,86 +80,84 @@ class SermonspeakerHelperSermonspeaker
 	 *
 	 * @param   string  $addfile      URL
 	 * @param   string  $addfileDesc  Description
-	 * @param   bool    $show_icon    Show an icon
+	 * @param   int     $show_icon    Show an icon
 	 *
 	 * @return  string  Addfile Link
 	 */
 	public static function insertAddfile($addfile, $addfileDesc, $show_icon = 0)
 	{
-		if ($addfile)
+		if (!$addfile)
 		{
-			$html		= '';
-			$onclick	= '';
-			$icon		= '';
-
-			if (!self::$params)
-			{
-				self::getParams();
-			}
-
-			$pos	= strpos($addfile, 'icon=');
-
-			if ($pos !== false)
-			{
-				$icon		= substr($addfile, $pos + 5);
-				$addfile	= substr($addfile, 0, $pos - 1);
-			}
-
-			$link = self::makeLink($addfile);
-
-			if (self::$params->get('enable_ga_events'))
-			{
-				$onclick = "onclick=\"_gaq.push(['_trackEvent', 'SermonSpeaker Download', 'Additional File', '" . $addfile . "']);\"";
-			}
-
-			if ($show_icon)
-			{
-				if (!$icon)
-				{
-					// Get extension of file
-					jimport('joomla.filesystem.file');
-					$ext = JFile::getExt($addfile);
-
-					if (file_exists(JPATH_SITE . '/media/com_sermonspeaker/icons/' . $ext . '.png'))
-					{
-						$icon = 'media/com_sermonspeaker/icons/' . $ext . '.png';
-					}
-					else
-					{
-						$icon = 'media/com_sermonspeaker/icons/icon.png';
-					}
-				}
-
-				$html .= '<a class="hasTooltip" title="::' . JText::_('COM_SERMONSPEAKER_ADDFILE_HOOVER') . '" href="'
-					. $link . '" ' . $onclick . ' target="_blank"><img src="' . $icon . '" width="18" height="20" alt="" /></a>&nbsp;';
-			}
-
-			if ($show_icon != 2)
-			{
-				// Show filename if no addfileDesc is set
-				if (!$addfileDesc)
-				{
-					if ($default = self::$params->get('addfiledesc'))
-					{
-						$addfileDesc = $default;
-					}
-					else
-					{
-						$slash = strrpos($addfile, '/');
-						$addfileDesc = ($slash !== false) ? substr($addfile, $slash + 1) : $addfile;
-					}
-				}
-
-				$html .= '<a class="hasTooltip" title="::' . JText::_('COM_SERMONSPEAKER_ADDFILE_HOOVER') . '" href="'
-					. $link . '" ' . $onclick . 'target="_blank">' . $addfileDesc . '</a>';
-			}
-
-			return $html;
+			return '';
 		}
-		else
+
+		$html		= '';
+		$onclick	= '';
+		$icon		= '';
+
+		if (!self::$params)
 		{
-			return;
+			self::getParams();
 		}
+
+		$pos	= strpos($addfile, 'icon=');
+
+		if ($pos !== false)
+		{
+			$icon		= substr($addfile, $pos + 5);
+			$addfile	= substr($addfile, 0, $pos - 1);
+		}
+
+		$link = self::makeLink($addfile);
+
+		if (self::$params->get('enable_ga_events'))
+		{
+			$onclick = "onclick=\"_gaq.push(['_trackEvent', 'SermonSpeaker Download', 'Additional File', '" . $addfile . "']);\"";
+		}
+
+		if ($show_icon)
+		{
+			if (!$icon)
+			{
+				// Get extension of file
+				jimport('joomla.filesystem.file');
+				$ext = JFile::getExt($addfile);
+
+				if (file_exists(JPATH_SITE . '/media/com_sermonspeaker/icons/' . $ext . '.png'))
+				{
+					$icon = 'media/com_sermonspeaker/icons/' . $ext . '.png';
+				}
+				else
+				{
+					$icon = 'media/com_sermonspeaker/icons/icon.png';
+				}
+			}
+
+			$html .= '<a class="hasTooltip" title="::' . JText::_('COM_SERMONSPEAKER_ADDFILE_HOOVER') . '" href="'
+				. $link . '" ' . $onclick . ' target="_blank"><img src="' . $icon . '" width="18" height="20" alt="" /></a>&nbsp;';
+		}
+
+		if ($show_icon != 2)
+		{
+			// Show filename if no addfileDesc is set
+			if (!$addfileDesc)
+			{
+				if ($default = self::$params->get('addfiledesc'))
+				{
+					$addfileDesc = $default;
+				}
+				else
+				{
+					$slash = strrpos($addfile, '/');
+					$addfileDesc = ($slash !== false) ? substr($addfile, $slash + 1) : $addfile;
+				}
+			}
+
+			$html .= '<a class="hasTooltip" title="::' . JText::_('COM_SERMONSPEAKER_ADDFILE_HOOVER') . '" href="'
+				. $link . '" ' . $onclick . 'target="_blank">' . $addfileDesc . '</a>';
+		}
+
+		return $html;
 	}
 
 	/**
@@ -176,7 +182,7 @@ class SermonspeakerHelperSermonspeaker
 	 * Inserts download button
 	 *
 	 * @param   int     $id    ID of the sermon
-	 * @param   object  $type  Audio or video download
+	 * @param   string  $type  Audio or video download
 	 * @param   int     $mode  Various modes
 	 * @param   int     $size  Filesize
 	 *
@@ -430,8 +436,10 @@ class SermonspeakerHelperSermonspeaker
 		$enable_keywords = self::$params->get('enable_keywords', 0);
 		$tags = array();
 
+		// @codingStandardsIgnoreStart
 		if ($enable_keywords&1)
 		{
+			// @codingStandardsIgnoreEnd
 			$metakey = (is_object($item)) ? $item->metakey : $item;
 			$keywords = explode(',', $metakey);
 
@@ -441,8 +449,10 @@ class SermonspeakerHelperSermonspeaker
 			}
 		}
 
+		// @codingStandardsIgnoreStart
 		if ($enable_keywords > 1 && is_object($item))
 		{
+			// @codingStandardsIgnoreEnd
 			foreach ($item->tags->itemTags as $tag)
 			{
 				$tags[] = $tag->title;
@@ -472,7 +482,7 @@ class SermonspeakerHelperSermonspeaker
 	 *
 	 * @return  string  Path to picture
 	 */
-	public static function insertPicture($item, $makeLink = 0)
+	public static function insertPicture($item, $makeLink = false)
 	{
 		if (isset($item->picture) && $item->picture)
 		{
@@ -507,7 +517,7 @@ class SermonspeakerHelperSermonspeaker
 	{
 		if (!$scripture)
 		{
-			return;
+			return '';
 		}
 
 		$explode = explode('!', $scripture);
@@ -640,8 +650,8 @@ class SermonspeakerHelperSermonspeaker
 	/**
 	 * Loading the correct playerclass and defining some default config
 	 *
-	 * @param   mixed  $item    Can be a single sermon object or an array of sermon objects
-	 * @param   array  $config  Should be an array of config options. Valid options:
+	 * @param   object|array  $item    Can be a single sermon object or an array of sermon objects
+	 * @param   array         $config  Should be an array of config options. Valid options:
 	 *  - count (id of the player)
 	 *  - type (may be audio, video or auto)
 	 *  - prio (may be 0 for audio or 1 for video)
@@ -706,6 +716,8 @@ class SermonspeakerHelperSermonspeaker
 
 		require_once JPATH_SITE . '/components/com_sermonspeaker/helpers/player/' . $config['alt_player'] . '.php';
 		$classname = 'SermonspeakerHelperPlayer' . ucfirst($config['alt_player']);
+
+		/* @var  SermonspeakerHelperPlayerJwplayer5  $player  Default player class is JW Player, but can be any other */
 		$player    = new $classname;
 
 		if (is_array($item))
@@ -772,7 +784,7 @@ class SermonspeakerHelperSermonspeaker
 
 				foreach ($classfiles as $classfile)
 				{
-					$playername	= JFile::stripExt(JFile::getName($classfile));
+					$playername = JFile::stripExt(basename($classfile));
 
 					if ($playername == 'jwplayer5' || $playername == $config['alt_player'])
 					{
@@ -828,7 +840,7 @@ class SermonspeakerHelperSermonspeaker
 
 	/**
 	 * Method to convert bytes into Megabytes or what is needed
-	 * Based on function "binary_multiples" from Damir Enseleit <info@selfphp.de> 
+	 * Based on function "binary_multiples" from Damir Enseleit <info@selfphp.de>
 	 *
 	 * @param   int   $bytes  Bytes
 	 * @param   bool  $si     use prefix based on SI norm instead the new IEC norm

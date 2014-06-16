@@ -67,8 +67,8 @@ class SermonspeakerHelperPlayerJwplayer5 extends SermonspeakerHelperPlayer
 	/**
 	 * Prepares the player
 	 *
-	 * @param   object  $item    Itemobject
-	 * @param   array   $config  Config array
+	 * @param   object|array  $item    Itemobject
+	 * @param   array         $config  Config array
 	 *
 	 * @return  object  Player object
 	 */
