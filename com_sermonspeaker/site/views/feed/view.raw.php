@@ -17,6 +17,16 @@ defined('_JEXEC') or die();
 class SermonspeakerViewFeed extends JViewLegacy
 {
 	/**
+	 * @var  $params  Joomla\Registry\Registry  Holds the component params
+	 */
+	private $params;
+
+	/**
+	 * @var  $items  array  Array with the item objects
+	 */
+	private $items;
+
+	/**
 	 * Execute and display a template script.
 	 *
 	 * @param   string  $tpl  The name of the template file to parse; automatically searches through the template paths.
@@ -25,15 +35,14 @@ class SermonspeakerViewFeed extends JViewLegacy
 	 */
 	public function display($tpl = null)
 	{
-		$app 	= JFactory::getApplication();
-		$this->params	= $app->getParams();
+		/* @var  JApplicationSite  $app  The application */
+		$app          = JFactory::getApplication();
+		$this->params = $app->getParams();
 
 		// Get the log in credentials.
 		$credentials = array();
-		$credentials['username'] = $app->input->get->get('username', '', 'username');
-
-		// Todo: How do I get ALLOWRAW with JInput or how does the com_users do it?
-		$credentials['password'] = JRequest::getString('password', '', 'get', JREQUEST_ALLOWRAW);
+		$credentials['username'] = $app->input->get->get('username', '', 'USERNAME');
+		$credentials['password'] = $app->input->get->get('password', '', 'RAW');
 
 		// Perform the log in.
 		if ($credentials['username'] && $credentials['password'])
@@ -42,8 +51,8 @@ class SermonspeakerViewFeed extends JViewLegacy
 		}
 
 		// Check if access is not public
-		$user	= JFactory::getUser();
-		$groups	= $user->getAuthorisedViewLevels();
+		$user   = JFactory::getUser();
+		$groups = $user->getAuthorisedViewLevels();
 
 		if (!in_array($this->params->get('access'), $groups))
 		{
@@ -52,11 +61,8 @@ class SermonspeakerViewFeed extends JViewLegacy
 
 		$this->document->setMimeEncoding('application/rss+xml');
 
-		// Loading Joomla Filefunctions for enclosures
-		jimport('joomla.filesystem.file');
-
 		// Get Data from Model (/models/feed.php)
-		$this->items	= $this->get('Data');
+		$this->items = $this->get('Data');
 
 		parent::display($tpl);
 	}
@@ -70,9 +76,9 @@ class SermonspeakerViewFeed extends JViewLegacy
 	 */
 	protected function make_xml_safe($string)
 	{
-		$string	= strip_tags($string);
-		$string	= html_entity_decode($string, ENT_NOQUOTES, 'UTF-8');
-		$string	= htmlspecialchars($string, ENT_QUOTES, 'UTF-8', false);
+		$string = strip_tags($string);
+		$string = html_entity_decode($string, ENT_NOQUOTES, 'UTF-8');
+		$string = htmlspecialchars($string, ENT_QUOTES, 'UTF-8', false);
 
 		return $string;
 	}
