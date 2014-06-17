@@ -418,7 +418,7 @@ class SermonspeakerHelperSermonspeaker
 	}
 
 	/**
-	 * Inserts Searchtags.
+	 * Inserts Searchtags. Based on code from Douglas Machado
 	 *
 	 * @param   object  $item       Item
 	 * @param   string  $separator  Separator between the tags
@@ -427,7 +427,6 @@ class SermonspeakerHelperSermonspeaker
 	 */
 	public static function insertSearchTags($item, $separator = ', ')
 	{
-		// Based on code from Douglas Machado
 		if (!self::$params)
 		{
 			self::getParams();
@@ -485,24 +484,40 @@ class SermonspeakerHelperSermonspeaker
 	 */
 	public static function insertPicture($item, $makeLink = false, $abs = false)
 	{
-		if (isset($item->picture) && $item->picture)
+		if (!self::$params)
 		{
-			$image = $item->picture;
-		}
-		elseif (isset($item->avatar) && $item->avatar)
-		{
-			$image = $item->avatar;
-		}
-		elseif (isset($item->pic) && $item->pic)
-		{
-			$image = $item->pic;
-		}
-		else
-		{
-			return false;
+			self::getParams();
 		}
 
-		return ($makeLink) ? self::makeLink($image, $abs) : trim($image, '/');
+		$pictures = array();
+
+		switch (self::$params->get('picture_prio', 0))
+		{
+			case 0:
+				$pictures = array('picture', 'avatar', 'pic');
+				break;
+			case 1:
+				$pictures = array('picture', 'avatar');
+				break;
+			case 2:
+				$pictures = array('picture', 'pic', 'avatar');
+				break;
+			case 3:
+				$pictures = array('picture', 'pic');
+				break;
+		}
+
+		foreach ($pictures as $pic)
+		{
+			if (empty($item->$pic))
+			{
+				continue;
+			}
+
+			return ($makeLink) ? self::makeLink($item->$pic, $abs) : trim($item->$pic, '/');
+		}
+
+		return '';
 	}
 
 	/**
