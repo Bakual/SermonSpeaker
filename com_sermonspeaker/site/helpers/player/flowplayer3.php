@@ -113,13 +113,11 @@ class SermonspeakerHelperPlayerFlowplayer3 extends SermonspeakerHelperPlayer
 
 			// Make sure to not use < or && in JavaScript code as it will break XHTML compatibility
 			$options['onStart'] = 'function(){'
-					. 'var i = 0;'
-					. 'while (document.id("sermon"+i)){'
-						. 'document.id("sermon"+i).removeClass("ss-current");'
-							. 'i++;'
-						. '}'
-					. 'entry = flowplayer().getClip();'
-					. 'document.id("sermon"+entry.index).addClass("ss-current");'
+					. 'for (var i = 0; jQuery("#sermon"+i).length; i++){'
+						. 'jQuery("#sermon"+i).removeClass("ss-current");'
+					. '}'
+					. 'var entry = flowplayer().getClip();'
+					. 'jQuery("#sermon"+entry.index).addClass("ss-current");'
 					. 'if (entry.duration > 0){'
 						. 'time = new Array();'
 						. 'var hrs = Math.floor(entry.duration/3600);'
@@ -137,24 +135,24 @@ class SermonspeakerHelperPlayerFlowplayer3 extends SermonspeakerHelperPlayer
 							. 'time.push("0" + sec);'
 						. '}'
 						. 'var duration = time.join(":");'
-						. 'document.id("playing-duration").innerHTML = duration;'
+						. 'jQuery("#playing-duration").html(duration);'
 					. '} else {'
-						. 'document.id("playing-duration").innerHTML = "";'
+						. 'jQuery("#playing-duration").html("");'
 					. '}'
-					. 'document.id("playing-pic").src = entry.coverImage;'
+					. 'jQuery("#playing-pic").attr("src", entry.coverImage);'
 					. 'if(entry.coverImage){'
-						. 'document.id("playing-pic").style.display = "block";'
+						. 'jQuery("#playing-pic").show();'
 					. '}else{'
-						. 'document.id("playing-pic").style.display = "none";'
+						. 'jQuery("#playing-pic").hide();'
 					. '}'
 					. 'if(entry.error){'
-						. 'document.id("playing-error").innerHTML = entry.error;'
-						. 'document.id("playing-error").style.display = "block";'
+						. 'jQuery("#playing-error").html(entry.error);'
+						. 'jQuery("#playing-error").show();'
 					. '}else{'
-						. 'document.id("playing-error").style.display = "none";'
+						. 'jQuery("#playing-error").hide();'
 					. '}'
-					. 'document.id("playing-title").innerHTML = entry.title;'
-					. 'document.id("playing-desc").innerHTML = entry.description;'
+					. 'jQuery("#playing-title").html(entry.title);'
+					. 'jQuery("#playing-desc").html(entry.description);'
 				. '}';
 			$this->toggle = $this->params->get('fileswitch', 0);
 			$type    = ($this->config['type'] == 'audio' || ($this->config['type'] == 'auto' && !$this->config['prio'])) ? 'a' : 'v';
@@ -318,6 +316,7 @@ class SermonspeakerHelperPlayerFlowplayer3 extends SermonspeakerHelperPlayer
 		// Loading needed Javascript only once
 		if (!self::$script_loaded)
 		{
+			JHtmlJQuery::framework();
 			$doc = JFactory::getDocument();
 			$doc->addScriptDeclaration('function ss_play(id){flowplayer().play(parseInt(id));}');
 			JHtml::Script('media/com_sermonspeaker/player/flowplayer/flowplayer-3.2.10.min.js');

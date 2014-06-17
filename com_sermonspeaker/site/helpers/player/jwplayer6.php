@@ -117,13 +117,11 @@ class SermonspeakerHelperPlayerJwplayer6 extends SermonspeakerHelperPlayer
 			// Make sure to not use < or && in JavaScript code as it will break XHTML compatibility
 			$options['events'] = '{'
 					. 'onPlaylistItem: function(event){'
-						. 'var i = 0;'
-						. 'while (document.id("sermon"+i)){'
-							. 'document.id("sermon"+i).removeClass("ss-current");'
-								. 'i++;'
-							. '}'
-						. 'document.id("sermon"+event.index).addClass("ss-current");'
-						. 'entry = jwplayer().getPlaylistItem();'
+						. 'for (var i = 0; jQuery("#sermon"+i).length; i++){'
+							. 'jQuery("#sermon"+i).removeClass("ss-current");'
+						. '}'
+						. 'jQuery("#sermon"+event.index).addClass("ss-current");'
+						. 'var entry = jwplayer().getPlaylistItem();'
 						. 'if (entry.duration > 0){'
 							. 'time = new Array();'
 							. 'var hrs = Math.floor(entry.duration/3600);'
@@ -141,24 +139,24 @@ class SermonspeakerHelperPlayerJwplayer6 extends SermonspeakerHelperPlayer
 								. 'time.push("0" + sec);'
 							. '}'
 							. 'var duration = time.join(":");'
-							. 'document.id("playing-duration").innerHTML = duration;'
+							. 'jQuery("#playing-duration").html(duration);'
 						. '} else {'
-							. 'document.id("playing-duration").innerHTML = "";'
+							. 'jQuery("#playing-duration").html("");'
 						. '}'
-						. 'document.id("playing-pic").src = entry.image;'
+						. 'jQuery("#playing-pic").attr("src", entry.image);'
 						. 'if(entry.image){'
-							. 'document.id("playing-pic").style.display = "block";'
+							. 'jQuery("#playing-pic").show();'
 						. '}else{'
-							. 'document.id("playing-pic").style.display = "none";'
+							. 'jQuery("#playing-pic").hide();'
 						. '}'
 						. 'if(entry.error){'
-							. 'document.id("playing-error").innerHTML = entry.error;'
-							. 'document.id("playing-error").style.display = "block";'
+							. 'jQuery("#playing-error").html(entry.error);'
+							. 'jQuery("#playing-error").show();'
 						. '}else{'
-							. 'document.id("playing-error").style.display = "none";'
+							. 'jQuery("#playing-error").hide();'
 						. '}'
-						. 'document.id("playing-title").innerHTML = entry.title;'
-						. 'document.id("playing-desc").innerHTML = entry.description;'
+						. 'jQuery("#playing-title").html(entry.title);'
+						. 'jQuery("#playing-desc").html(entry.description);'
 					. '}'
 				. '}';
 			$entries = array();
@@ -337,6 +335,7 @@ class SermonspeakerHelperPlayerJwplayer6 extends SermonspeakerHelperPlayer
 		// Loading needed Javascript only once
 		if (!self::$script_loaded)
 		{
+			JHtmlJQuery::framework();
 			JHtml::Script('media/com_sermonspeaker/player/jwplayer6/jwplayer.js');
 
 			// To use Cloud custom Cloud Token is needed
