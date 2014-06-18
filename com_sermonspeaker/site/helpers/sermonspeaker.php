@@ -691,6 +691,44 @@ class SermonspeakerHelperSermonspeaker
 			self::getParams();
 		}
 
+		// Use Plugin
+		if (!self::$params->get('alt_player'))
+		{
+			// Get plugins
+			$plugins = JPluginHelper::getPlugin('sermonspeaker');
+
+			// Create object
+			$player = new stdClass;
+			$player->popup['height'] = 0;
+			$player->popup['width']  = 0;
+			$player->error           = '';
+			$player->toggle          = false;
+			$player->script          = '';
+			$player->player          = 'Plugin';
+
+			foreach ($plugins as $plugin)
+			{
+				$className = 'plg' . $plugin->type . $plugin->name;
+
+				if (class_exists($className))
+				{
+					$plugin = new $className($this, (array) $plugin);
+				}
+				else
+				{
+					continue;
+				}
+
+				// Insert Player
+				if ($player->mspace = $plugin->onPlayerInsert($item))
+				{
+					return $player;
+				}
+			}
+
+
+		}
+
 		// Setting default values
 		$config['count']	= (isset($config['count'])) ? $config['count'] : 1;
 

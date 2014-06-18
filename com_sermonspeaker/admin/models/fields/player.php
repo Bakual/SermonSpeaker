@@ -9,51 +9,45 @@
 
 defined('_JEXEC') or die();
 
-jimport('joomla.html.html');
-jimport('joomla.form.formfield');
-jimport('joomla.form.helper');
 JFormHelper::loadFieldClass('list');
-jimport('joomla.filesystem.folder');
-jimport('joomla.filesystem.file');
 
 /**
- * Speakerlist Field class for the SermonSpeaker.
- * Based on the Bannerlist field from com_banners
+ * Playerlist field class for the SermonSpeaker.
  *
- * @package		SermonSpeaker
- * @since		4.0
+ * @package  SermonSpeaker
+ * @since    4.0
  */
 class JFormFieldPlayer extends JFormFieldList
 {
 	/**
 	 * The form field type.
 	 *
-	 * @var		string
-	 * @since	1.6
+	 * @var  string  $type  Name of the field
 	 */
 	protected $type = 'Player';
 
 	/**
 	 * Method to get the field options.
 	 *
-	 * @return	array	The field option objects.
-	 * @since	1.6
+	 * @return  array  The field option objects.
 	 */
 	public function getOptions()
 	{
 		// Initialize variables.
-		$options = array();
+		$options = parent::getOptions();
 
-		$files	= JFolder::files(JPATH_SITE.'/components/com_sermonspeaker/helpers/player', '^[^_]*\.php$', false, true);
+		$files = JFolder::files(JPATH_SITE . '/components/com_sermonspeaker/helpers/player', '^[^_]*\.php$', false, true);
+
 		foreach ($files as $file)
 		{
-			require_once($file);
-			$value		= JFile::stripExt(JFile::getName($file));
-			$classname	= 'SermonspeakerHelperPlayer'.ucfirst($value);
-			$class		= new $classname();
-			$text		= $class->getName();
-			$options[$value]	= $text;
+			require_once $file;
+			$value           = basename($file, '.php');
+			$classname       = 'SermonspeakerHelperPlayer' . ucfirst($value);
+			$class           = new $classname;
+			$text            = $class->getName();
+			$options[$value] = $text;
 		}
+
 		if (is_numeric($this->value))
 		{
 			switch ($this->value)
@@ -70,8 +64,6 @@ class JFormFieldPlayer extends JFormFieldList
 					break;
 			}
 		}
-
-//		array_unshift($options, JHtml::_('select.option', '', JText::_('COM_SERMONSPEAKER_SELECT_SPEAKER')));
 
 		return $options;
 	}
