@@ -39,6 +39,7 @@
 		<folder>layouts</folder>
 		<folder>id3</folder>
 		<folder>media</folder>
+		<folder>plugin</folder>
 	</files>
 	<media destination="com_sermonspeaker" folder="media">
 		<folder>css</folder>

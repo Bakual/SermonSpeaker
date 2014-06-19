@@ -27,6 +27,8 @@ cd ../plg_finder_sermonspeaker/
 zip -r ../build/packages/plg_finder_sermonspeaker.zip *
 cd ../plg_sermonspeaker_search/
 zip -r ../build/packages/plg_sermonspeaker_search.zip *
+cd ../plg_sermonspeaker_generic/
+zip -r ../build/packages/plg_sermonspeaker_generic.zip *
 REM Package
 cd ../build/packages/
 copy ..\..\pkg_sermonspeaker.xml

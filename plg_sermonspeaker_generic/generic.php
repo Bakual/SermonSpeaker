@@ -9,12 +9,13 @@
 
 defined('_JEXEC') or die();
 
+JLoader::register('SermonspeakerPluginPlayer', JPATH_SITE . '/components/com_sermonspeaker/plugin/player.php');
 /**
  * Plug-in to call a 3rd party plugin to show the player
  *
  * @since  5.3.0
  */
-class PlgSermonspeakerGeneric extends JPlugin
+class PlgSermonspeakerGeneric extends SermonspeakerPluginPlayer
 {
 	/**
 	 * Plugin that shows a SermonSpeaker player
@@ -29,13 +30,13 @@ class PlgSermonspeakerGeneric extends JPlugin
 		$end   = $this->params->get('tag_end');
 		$mode  = $this->params->get('mode');
 
-		if (is_array($item) && !$this->params->get('multiple'))
+		if (is_array($items) && !$this->params->get('multiple'))
 		{
-			// playlists not supported by plugin, take first item
-			$item = $item[0];
+			// Playlist not supported by plugin, take first item
+			$items = $items[0];
 		}
 
-		if (is_array($item))
+		if (is_array($items))
 		{
 			$separator = $this->params->get('multiple_separator');
 			$files     = array();
@@ -49,9 +50,13 @@ class PlgSermonspeakerGeneric extends JPlugin
 		}
 		else
 		{
-			$file = ($mode) ? $item->videofile : $item->audiofile;
+			$file = ($mode) ? $items->videofile : $items->audiofile;
 		}
 
-		return $start . $file . $end;
+		$content = $start . $file . $end;
+
+		$this->player->mspace = JHtml::_('content.prepare', $content);
+
+		return $this->player;
 	}
 }

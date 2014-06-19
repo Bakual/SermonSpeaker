@@ -694,39 +694,20 @@ class SermonspeakerHelperSermonspeaker
 		// Use Plugin
 		if (!self::$params->get('alt_player'))
 		{
-			// Get plugins
-			$plugins = JPluginHelper::getPlugin('sermonspeaker');
+			JPluginHelper::importPlugin('sermonspeaker');
+			$dispatcher = JEventDispatcher::getInstance();
+			$results = $dispatcher->trigger('onPlayerInsert', array('ìtem' => $item));
 
-			// Create object
-			$player = new stdClass;
-			$player->popup['height'] = 0;
-			$player->popup['width']  = 0;
-			$player->error           = '';
-			$player->toggle          = false;
-			$player->script          = '';
-			$player->player          = 'Plugin';
-
-			foreach ($plugins as $plugin)
+			foreach ($results as $result)
 			{
-				$className = 'plg' . $plugin->type . $plugin->name;
-
-				if (class_exists($className))
+				if (!$result->error)
 				{
-					$plugin = new $className($this, (array) $plugin);
-				}
-				else
-				{
-					continue;
-				}
-
-				// Insert Player
-				if ($player->mspace = $plugin->onPlayerInsert($item))
-				{
-					return $player;
+					return $result;
 				}
 			}
 
-
+			// Todo: Set a proper error messsage if no plugin was able to create a player
+			return $results[0];
 		}
 
 		// Setting default values

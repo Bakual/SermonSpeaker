@@ -26,7 +26,7 @@
 					type="text"
 					>
 					<option value="{videobox}" />
-					<option value="{mp3}" />
+					<option value="{mp3remote}" />
 				</field>
 
 				<field
@@ -34,7 +34,7 @@
 					type="text"
 					>
 					<option value="{/videobox}" />
-					<option value="{/mp3}" />
+					<option value="{/mp3remote}" />
 				</field>
 
 				<field

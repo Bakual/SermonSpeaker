@@ -25,6 +25,7 @@
 		<file type="plugin" id="plg_finder_sermonspeaker" client="site">plg_finder_sermonspeaker.zip</file>
 		<file type="plugin" id="plg_content_sermonspeaker" client="site">plg_content_sermonspeaker.zip</file>
 		<file type="plugin" id="plg_editors_xtd_sermonspeaker" client="site">plg_editors_xtd_sermonspeaker.zip</file>
+		<file type="plugin" id="plg_sermonspeaker_generic" client="site">plg_sermonspeaker_generic.zip</file>
 	</files>
 	<updateservers>
 		<server type="collection" priority="1" name="SermonSpeaker.net">http://www.sermonspeaker.net/update/package.xml</server>
