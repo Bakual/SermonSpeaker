@@ -22,13 +22,26 @@ class PlgSermonspeakerGeneric extends SermonspeakerPluginPlayer
 	 *
 	 * @param   array/object  $items  An array of objects or a single object
 	 *
-	 * @return  string  The output needed to load the player
+	 * @return  object  The player object
 	 */
-	public function onPlayerInsert($items)
+	public function onGetPlayer($context, $items, $config, &$loaded)
 	{
+		// There is already a player loaded
+		if ($loaded)
+		{
+			return $this->player;
+		}
+
 		$start = $this->params->get('tag_start');
 		$end   = $this->params->get('tag_end');
 		$mode  = $this->params->get('mode');
+
+		if (!$start && !$end)
+		{
+			$this->player->error = 'No tags set';
+
+			return $this->player;
+		}
 
 		if (is_array($items) && !$this->params->get('multiple'))
 		{
@@ -56,6 +69,7 @@ class PlgSermonspeakerGeneric extends SermonspeakerPluginPlayer
 		$content = $start . $file . $end;
 
 		$this->player->mspace = JHtml::_('content.prepare', $content);
+		$loaded = true;
 
 		return $this->player;
 	}

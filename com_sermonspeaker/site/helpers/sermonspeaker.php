@@ -696,7 +696,8 @@ class SermonspeakerHelperSermonspeaker
 		{
 			JPluginHelper::importPlugin('sermonspeaker');
 			$dispatcher = JEventDispatcher::getInstance();
-			$results = $dispatcher->trigger('onPlayerInsert', array('ìtem' => $item));
+			$loaded = false;
+			$results = $dispatcher->trigger('onGetPlayer', array('SermonspeakerHelperSermonspeaker.getPlayer', $item, $config, &$loaded));
 
 			foreach ($results as $result)
 			{

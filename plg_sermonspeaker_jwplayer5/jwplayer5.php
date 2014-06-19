@@ -51,8 +51,14 @@ class PlgSermonspeakerJwplayer5 extends SermonspeakerPluginPlayer
 	 *
 	 * @return  string  The output needed to load the player
 	 */
-	public function onPlayerInsert($items)
+	public function onGetPlayer($context, $items, $config, &$loaded)
 	{
+		// There is already a player loaded
+		if ($loaded)
+		{
+			return $this->player;
+		}
+
 		$fileprio = $this->params->get('fileprio');
 
 		// Precheck if player even supports sermon and set mode
@@ -124,7 +130,7 @@ class PlgSermonspeakerJwplayer5 extends SermonspeakerPluginPlayer
 		if (!self::$script_loaded)
 		{
 			JHtmlJQuery::framework();
-			JHtml::Script('media/com_sermonspeaker/player/jwplayer/jwplayer.js');
+			JHtml::script('media/plg_sermonspeaker_jwplayer5/jwplayer.js');
 			$doc = JFactory::getDocument();
 			$doc->addScriptDeclaration('function ss_play(id){jwplayer().playlistItem(id);}');
 
@@ -169,6 +175,8 @@ class PlgSermonspeakerJwplayer5 extends SermonspeakerPluginPlayer
 
 			self::$script_loaded = 1;
 		}
+
+		$loaded = true;
 
 		return $this->player;
 	}
