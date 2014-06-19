@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.3.0" type="plugin" group="sermonspeaker" method="upgrade">
+	<name>plg_sermonspeaker_jwplayer5</name>
+	<author>Thomas Hunziker</author>
+	<creationDate>2014-05-17</creationDate>
+	<copyright>(C) 2014</copyright>
+	<license>http://www.gnu.org/licenses/gpl.html</license>
+	<authorEmail>admin@sermonspeaker.net</authorEmail>
+	<authorUrl>http://www.sermonspeaker.net</authorUrl>
+	<version>5.3.0</version>
+	<description>PLG_SERMONSPEAKER_JWPLAYER5_XML_DESCRIPTION</description>
+	<files>
+		<filename plugin="jwplayer5">jwplayer5.php</filename>
+		<filename>index.html</filename>
+		<folder>language</folder>
+	</files>
+	<media destination="plg_sermonspeaker_jwplayer5" folder="media">
+		<filename>jwplayer.js</filename>
+		<filename>player.swf</filename>
+	</media>
+	<updateservers>
+		<server type="extension" priority="1" name="SermonSpeaker.net">http://www.sermonspeaker.net/update/plg_sermonspeaker_jwplayer5.xml</server>
+	</updateservers>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+
+				<field
+					name="autostart"
+					type="radio"
+					class="btn-group btn-group-yesno"
+					default="0"
+					>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+
+				<field
+					name="fileprio"
+					type="list"
+					default="0"
+					>
+					<option value="1">Video</option>
+					<option value="0">Audio</option>
+				</field>
+
+				<field
+					name="filetoggle"
+					type="radio"
+					class="btn-group btn-group-yesno"
+					default="0"
+					>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+
+				<field
+					name="mode"
+					type="list"
+					default="0"
+					>
+					<option value="0">COM_SERMONSPEAKER_PARAM_JWMODE_OPTION_FLASH</option>
+					<option value="1">COM_SERMONSPEAKER_PARAM_JWMODE_OPTION_HTML5</option>
+				</field>
+
+				<field
+					name="skin"
+					type="text"
+					default=""
+					/>
+
+			</fieldset>
+
+			<fieldset name="plugins">
+
+				<field
+					name="ga_id"
+					type="text"
+					default=""
+					/>
+
+				<field
+					name="share"
+					type="radio"
+					class="btn-group btn-group-yesno"
+					default="0"
+					>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+
+				<field
+					name="viral"
+					type="radio"
+					class="btn-group btn-group-yesno"
+					default="0"
+					>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+
+				<field
+					name="fbit"
+					type="radio"
+					class="btn-group btn-group-yesno"
+					default="0"
+					>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+
+				<field
+					name="tweetit"
+					type="radio"
+					class="btn-group btn-group-yesno"
+					default="0"
+					>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+
+				<field
+					name="plusone"
+					type="radio"
+					class="btn-group btn-group-yesno"
+					default="0"
+					>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+
+			</fieldset>
+		</fields>
+	</config>
+</extension>

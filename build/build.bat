@@ -29,6 +29,8 @@ cd ../plg_search_sermonspeaker/
 zip -r ../build/packages/plg_search_sermonspeaker.zip *
 cd ../plg_sermonspeaker_generic/
 zip -r ../build/packages/plg_sermonspeaker_generic.zip *
+cd ../plg_sermonspeaker_jwplayer5/
+zip -r ../build/packages/plg_sermonspeaker_jwplayer5.zip *
 REM Package
 cd ../build/packages/
 copy ..\..\pkg_sermonspeaker.xml
