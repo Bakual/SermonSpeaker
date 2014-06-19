@@ -696,19 +696,27 @@ class SermonspeakerHelperSermonspeaker
 		{
 			JPluginHelper::importPlugin('sermonspeaker');
 			$dispatcher = JEventDispatcher::getInstance();
-			$loaded = false;
-			$results = $dispatcher->trigger('onGetPlayer', array('SermonspeakerHelperSermonspeaker.getPlayer', $item, $config, &$loaded));
+			$loaded     = false;
+			$results    = $dispatcher->trigger('onGetPlayer', array('SermonspeakerHelperSermonspeaker.getPlayer', $item, $config, &$loaded));
 
 			foreach ($results as $result)
 			{
-				if (!$result->error)
+				if ($result)
 				{
 					return $result;
 				}
 			}
 
-			// Todo: Set a proper error messsage if no plugin was able to create a player
-			return $results[0];
+			$player = new stdClass;
+			$player->popup['height'] = 0;
+			$player->popup['width']  = 0;
+			$player->error           = '';
+			$player->toggle          = false;
+			$player->script          = '';
+			$player->player          = '';
+			$player->mspace          = '<div class="alert">No matching player found</div>';
+
+			return $player;
 		}
 
 		// Setting default values

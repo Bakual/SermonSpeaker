@@ -54,9 +54,19 @@ abstract class SermonspeakerPluginPlayer extends JPlugin
 	/**
 	 * Creates the player
 	 *
-	 * @param   array/object  $items  An array of objects or a single object
+	 * @param   string        $context  The context from where it's triggered
+	 * @param   array|object  $items    An array of sermnon objects or a single sermon object
+	 * @param   array         $config   Should be an array of config options. Valid options:
+	 *  - count (id of the player)
+	 *  - type (may be audio, video or auto)
+	 *  - prio (may be 0 for audio or 1 for video)
+	 *  - autostart (overwrites the backend setting)
+	 *  - alt_player (overwrites the backend setting)
+	 *  - awidth, aheight (width and height for audio)
+	 *  - vwidth, vheight (width and height for video)
+	 * @param   boolean       &$loaded  Set to true if another player is already loaded
 	 *
-	 * @return  string  The output needed to load the player
+	 * @return  object|false  The player object or false
 	 */
 	public abstract function onGetPlayer($context, $items, $config, &$loaded);
 
@@ -70,10 +80,10 @@ abstract class SermonspeakerPluginPlayer extends JPlugin
 	 */
 	protected function setDimensions($height, $width)
 	{
-		$this->config['aheight']	= (isset($this->config['aheight'])) ? $this->config['aheight'] : $this->params->get('aheight', $height);
-		$this->config['awidth']		= (isset($this->config['awidth'])) ? $this->config['awidth'] : $this->params->get('awidth', $width);
-		$this->config['vheight']	= (isset($this->config['vheight'])) ? $this->config['vheight'] : $this->params->get('vheight', '300px');
-		$this->config['vwidth']		= (isset($this->config['vwidth'])) ? $this->config['vwidth'] : $this->params->get('vwidth', '100%');
+		$this->config['aheight'] = (isset($this->config['aheight'])) ? $this->config['aheight'] : $this->params->get('aheight', $height);
+		$this->config['awidth']  = (isset($this->config['awidth'])) ? $this->config['awidth'] : $this->params->get('awidth', $width);
+		$this->config['vheight'] = (isset($this->config['vheight'])) ? $this->config['vheight'] : $this->params->get('vheight', '300px');
+		$this->config['vwidth']  = (isset($this->config['vwidth'])) ? $this->config['vwidth'] : $this->params->get('vwidth', '100%');
 
 		return;
 	}
@@ -87,8 +97,8 @@ abstract class SermonspeakerPluginPlayer extends JPlugin
 	 */
 	protected function setPopup($type = 'a')
 	{
-		$this->player->popup['width']	= (strpos($this->config[$type . 'width'], '%')) ? 500 : $this->config[$type . 'width'] + 130;
-		$this->player->popup['height']	= $this->config[$type . 'height'] + $this->params->get('popup_height');
+		$this->player->popup['width']  = (strpos($this->config[$type . 'width'], '%')) ? 500 : $this->config[$type . 'width'] + 130;
+		$this->player->popup['height'] = $this->config[$type . 'height'] + $this->params->get('popup_height');
 
 		return;
 	}

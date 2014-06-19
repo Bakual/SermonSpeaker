@@ -18,18 +18,34 @@ JLoader::register('SermonspeakerPluginPlayer', JPATH_SITE . '/components/com_ser
 class PlgSermonspeakerGeneric extends SermonspeakerPluginPlayer
 {
 	/**
-	 * Plugin that shows a SermonSpeaker player
+	 * Creates the player
 	 *
-	 * @param   array/object  $items  An array of objects or a single object
+	 * @param   string        $context  The context from where it's triggered
+	 * @param   array/object  $items    An array of sermnon objects or a single sermon object
+	 * @param   array         $config   Should be an array of config options. Valid options:
+	 *  - count (id of the player)
+	 *  - type (may be audio, video or auto)
+	 *  - prio (may be 0 for audio or 1 for video)
+	 *  - autostart (overwrites the backend setting)
+	 *  - alt_player (overwrites the backend setting)
+	 *  - awidth, aheight (width and height for audio)
+	 *  - vwidth, vheight (width and height for video)
+	 * @param   boolean       &$loaded  Set to true if another player is already loaded
 	 *
-	 * @return  object  The player object
+	 * @return  object|false  The player object or false
 	 */
 	public function onGetPlayer($context, $items, $config, &$loaded)
 	{
 		// There is already a player loaded
 		if ($loaded)
 		{
-			return $this->player;
+			return false;
+		}
+
+		// Config asks for a specific player
+		if (isset($config['alt_player']) && ($config['alt_player'] != 'generic'))
+		{
+			return false;
 		}
 
 		$start = $this->params->get('tag_start');
@@ -38,9 +54,7 @@ class PlgSermonspeakerGeneric extends SermonspeakerPluginPlayer
 
 		if (!$start && !$end)
 		{
-			$this->player->error = 'No tags set';
-
-			return $this->player;
+			return false;
 		}
 
 		if (is_array($items) && !$this->params->get('multiple'))

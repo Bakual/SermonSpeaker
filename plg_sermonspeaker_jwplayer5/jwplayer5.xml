@@ -59,13 +59,45 @@
 					type="list"
 					default="0"
 					>
-					<option value="0">COM_SERMONSPEAKER_PARAM_JWMODE_OPTION_FLASH</option>
-					<option value="1">COM_SERMONSPEAKER_PARAM_JWMODE_OPTION_HTML5</option>
+					<option value="0">PLG_SERMONSPEAKER_JWPLAYER5_PARAM_JWMODE_OPTION_FLASH</option>
+					<option value="1">PLG_SERMONSPEAKER_JWPLAYER5_PARAM_JWMODE_OPTION_HTML5</option>
 				</field>
 
 				<field
 					name="skin"
 					type="text"
+					default=""
+					/>
+
+				<field
+					name="awidth"
+					type="text"
+					label="PLG_SERMONSPEAKER_JWPLAYER5_FIELD_AWIDTH_LABEL"
+					description="PLG_SERMONSPEAKER_JWPLAYER5_FIELD_AWIDTH_DESC"
+					default=""
+					/>
+
+				<field
+					name="aheight"
+					type="text"
+					label="PLG_SERMONSPEAKER_JWPLAYER5_FIELD_AHEIGHT_LABEL"
+					description="PLG_SERMONSPEAKER_JWPLAYER5_FIELD_AHEIGHT_DESC"
+					default=""
+					/>
+
+				<field
+					name="vwidth"
+					type="text"
+					label="PLG_SERMONSPEAKER_JWPLAYER5_FIELD_VWIDTH_LABEL"
+					description="PLG_SERMONSPEAKER_JWPLAYER5_FIELD_VWIDTH_DESC"
+					default=""
+					/>
+
+				<field
+					name="vheight"
+					type="text"
+					label="PLG_SERMONSPEAKER_JWPLAYER5_FIELD_VHEIGHT_LABEL"
+					description="PLG_SERMONSPEAKER_JWPLAYER5_FIELD_VHEIGHT_DESC"
 					default=""
 					/>
 
