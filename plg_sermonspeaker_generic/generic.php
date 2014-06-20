@@ -48,6 +48,9 @@ class PlgSermonspeakerGeneric extends SermonspeakerPluginPlayer
 			return;
 		}
 
+		// Merge $config into plugin params. $config takes priority.
+		$this->params->merge($config);
+
 		$start = $this->params->get('tag_start');
 		$end   = $this->params->get('tag_end');
 		$mode  = $this->params->get('mode');
@@ -82,9 +85,8 @@ class PlgSermonspeakerGeneric extends SermonspeakerPluginPlayer
 
 		$content = $start . $file . $end;
 
-		$this->player->mspace = JHtml::_('content.prepare', $content);
-		$loaded = true;
+		$player->mspace = JHtml::_('content.prepare', $content);
 
-		return $this->player;
+		return;
 	}
 }

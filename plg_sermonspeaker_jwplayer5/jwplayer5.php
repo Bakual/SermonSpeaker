@@ -22,7 +22,7 @@ class PlgSermonspeakerJwplayer5 extends SermonspeakerPluginPlayer
 	/**
 	 * @var object  Holds the player object
 	 */
-	private $player;
+	protected $player;
 
 	/**
 	 * @var boolean  True if scripts are loaded already
