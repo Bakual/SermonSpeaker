@@ -81,22 +81,44 @@ class PlgSermonspeakerJwplayer5 extends SermonspeakerPluginPlayer
 		$this->params->merge($config);
 
 		$fileprio = $this->params->get('fileprio');
+		$type     = $this->params->get('type', 'auto');
 		$count    = $this->params->get('count', 1);
 
 		// Precheck if player even supports sermon and set mode
 		if (is_array($items))
 		{
-			$this->mode = $fileprio ? 'video' : 'audio';
-			$this->type = $fileprio ? 'v' : 'a';
+			$this->type = ($type == 'audio' || ($type == 'auto' && !$fileprio)) ? 'a' : 'v';
 		}
 		else
 		{
-			$audiofile = $this->isSupported($items->audiofile);
-			$videofile = $this->isSupported($items->videofile);
+			$supported = $this->isSupported($items);
 
-			if (!$audiofile && !$videofile)
+			if (!$supported)
 			{
 				return;
+			}
+
+			if ($type == 'auto')
+			{
+				if (count($supported) == 1)
+				{
+					// Only one file is supported
+					$this->mode = $supported[0];
+				}
+				else
+				{
+					// Both files are supported
+					$this->mode = $supported[$fileprio];
+				}
+			}
+			else
+			{
+				if (!in_array($type, $supported))
+				{
+					return;
+				}
+
+				$this->mode = $type;
 			}
 
 			if ($audiofile && (!$fileprio || !$videofile))
@@ -206,36 +228,37 @@ class PlgSermonspeakerJwplayer5 extends SermonspeakerPluginPlayer
 	 *
 	 * @param   object  $file  Filepath to check
 	 *
-	 * @return  string/false  Mode (audio or video) or false when not supported
+	 * @return  array  supported files
 	 */
-	private function isSupported($file)
+	private function isSupported($item)
 	{
-		if (!$file)
+		$supported = array();
+
+		if (!$item->audiofile && !$item->videofile)
 		{
-			return false;
+			return $supported;
 		}
 
-		$ext       = JFile::getExt($file);
+		// Define supported file extensions
 		$audio_ext = array('aac', 'm4a', 'mp3');
 		$video_ext = array('mp4', 'mov', 'f4v', 'flv', '3gp', '3g2');
 
-		if (in_array($ext, $audio_ext))
+		if (in_array(JFile::getExt($item->audiofile), $audio_ext))
 		{
-			// Audio File
-			return 'audio';
+			$supported[] = 'audio';
 		}
-		elseif (in_array($ext, $video_ext))
+
+		if (in_array(JFile::getExt($item->videofile), $video_ext))
 		{
-			return 'video';
+			$supported[] = 'video';
 		}
-		elseif (parse_url($file, PHP_URL_HOST) == 'youtube.com' || parse_url($file, PHP_URL_HOST) == 'www.youtube.com')
+
+		if (parse_url($item->videofile, PHP_URL_HOST) == 'youtube.com' || parse_url($item->videofile, PHP_URL_HOST) == 'www.youtube.com')
 		{
-			return 'video';
+			$supported[] = 'video';
 		}
-		else
-		{
-			return false;
-		}
+
+		return $supported;
 	}
 
 	/**
