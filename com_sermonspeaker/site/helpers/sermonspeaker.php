@@ -712,7 +712,7 @@ class SermonspeakerHelperSermonspeaker
 			$dispatcher = JEventDispatcher::getInstance();
 			$dispatcher->trigger('onGetPlayer', array('SermonspeakerHelperSermonspeaker.getPlayer', &$player, $item, $registry));
 
-			if ($player->mspace)
+			if (!$player->mspace)
 			{
 				$player->mspace = '<div class="alert">No matching player found</div>';
 			}
