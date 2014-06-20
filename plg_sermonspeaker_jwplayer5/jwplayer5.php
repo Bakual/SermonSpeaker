@@ -35,9 +35,14 @@ class PlgSermonspeakerJwplayer5 extends SermonspeakerPluginPlayer
 	private $mode;
 
 	/**
-	 * @var string player mode. Either 'a' or 'v'.
+	 * @var string filetype mode. Either 'audio', 'video' or 'auto' (default).
 	 */
 	private $type;
+
+	/**
+	 * @var int which file to prioritise. Either 0 (audio) or 1 (video).
+	 */
+	private $fileprio;
 
 	/**
 	 * @var array Player options
@@ -80,14 +85,15 @@ class PlgSermonspeakerJwplayer5 extends SermonspeakerPluginPlayer
 		// Merge $config into plugin params. $config takes priority.
 		$this->params->merge($config);
 
-		$fileprio = $this->params->get('fileprio');
-		$type     = $this->params->get('type', 'auto');
-		$count    = $this->params->get('count', 1);
+		$this->fileprio = $this->params->get('fileprio');
+		$this->type     = $this->params->get('type', 'auto');
+		$count          = $this->params->get('count', 1);
+		$toggle         = $this->params->get('filetoggle');
 
-		// Precheck if player even supports sermon and set mode
+		// Detect mode and which filetype to use
 		if (is_array($items))
 		{
-			$this->type = ($type == 'audio' || ($type == 'auto' && !$fileprio)) ? 'a' : 'v';
+			$this->mode = ($this->type == 'audio' || ($this->type == 'auto' && !$this->fileprio)) ? 'audio' : 'video';
 		}
 		else
 		{
@@ -98,44 +104,34 @@ class PlgSermonspeakerJwplayer5 extends SermonspeakerPluginPlayer
 				return;
 			}
 
-			if ($type == 'auto')
+			if ($this->type != 'auto')
+			{
+				if (!in_array($this->type, $supported))
+				{
+					return;
+				}
+
+				$this->mode = $this->type;
+			}
+			else
 			{
 				if (count($supported) == 1)
 				{
 					// Only one file is supported
 					$this->mode = $supported[0];
+					$toggle     = false;
 				}
 				else
 				{
 					// Both files are supported
-					$this->mode = $supported[$fileprio];
+					$this->mode = $supported[$this->fileprio];
 				}
 			}
-			else
-			{
-				if (!in_array($type, $supported))
-				{
-					return;
-				}
-
-				$this->mode = $type;
-			}
-
-			if ($audiofile && (!$fileprio || !$videofile))
-			{
-				$this->mode = $audiofile;
-			}
-			elseif ($videofile && ($fileprio || !$audiofile))
-			{
-				$this->mode = $videofile;
-			}
-
-			$this->type = ($this->mode == 'video') ? 'v' : 'a';
 		}
 
 		$this->player->player = 'JWPlayer';
 		$this->player->mspace = '<div id="mediaspace' . $count . '">Loading Player...</div>';
-		$this->player->toggle = $this->params->get('filetoggle');
+		$this->player->toggle = $toggle;
 
 		// Setting some general player options
 		$this->setOptions();
@@ -156,13 +152,19 @@ class PlgSermonspeakerJwplayer5 extends SermonspeakerPluginPlayer
 
 		$this->setPopup($this->type);
 
+		// Set width and height for later use
+		$dimensions['audiowidth']  = $this->params->get('awidth', '100%');
+		$dimensions['audioheight'] = $this->params->get('aheight', '23px');
+		$dimensions['videowidth']  = $this->params->get('vwidth', '100%');
+		$dimensions['videoheight'] = $this->params->get('vheight', '300px');
+
 		$this->player->script = '<script type="text/javascript">'
-			. "jwplayer('mediaspace" . $count . "').setup({"
-			. "playlist:[" . $this->player->playlist['default'] . "],"
-			. "width:'" . $this->params->get($this->type . 'width') . "',"
-			. "height:'" . $this->params->get($this->type . 'height') . "',"
-			. implode(',', $this->options)
-			. '});'
+				. "jwplayer('mediaspace" . $count . "').setup({"
+					. "playlist:[" . $this->player->playlist['default'] . "],"
+					. "width:'" . $this->params->get($this->mode . 'width') . "',"
+					. "height:'" . $this->params->get($this->mode . 'height') . "',"
+					. implode(',', $this->options)
+				. '});'
 			. '</script>';
 
 		// Loading needed Javascript only once
@@ -175,16 +177,6 @@ class PlgSermonspeakerJwplayer5 extends SermonspeakerPluginPlayer
 
 			if ($this->player->toggle)
 			{
-				$dimensions['awidth']  = $this->params->get('awidth');
-				$dimensions['aheight'] = $this->params->get('aheight');
-				$dimensions['vwidth']  = $this->params->get('vwidth');
-				$dimensions['vheight'] = $this->params->get('vheight');
-
-				foreach ($dimensions as &$dimension)
-				{
-					$dimension = is_numeric($dimension) ? $dimension . 'px' : $dimension;
-				}
-
 				if (!is_array($items))
 				{
 					$url = 'index.php?&task=download&id=' . $items->slug . '&type=';
@@ -201,17 +193,17 @@ class PlgSermonspeakerJwplayer5 extends SermonspeakerPluginPlayer
 
 				$doc->addScriptDeclaration('
 					function Video() {
-						jwplayer().load([' . $this->player->playlist['video'] . ']).resize("' . $dimensions['vwidth'] . '","' . $dimensions['vheight'] . '");
-						document.getElementById("mediaspace' . $count . '_wrapper").style.width="' . $dimensions['vwidth'] . '";
-						document.getElementById("mediaspace' . $count . '_wrapper").style.height="' . $dimensions['vheight'] . '";
+						jwplayer().load([' . $this->player->playlist['video'] . ']).resize("' . $dimensions['videowidth'] . '","' . $dimensions['videoheight'] . '");
+						document.getElementById("mediaspace' . $count . '_wrapper").style.width="' . $dimensions['videowidth'] . '";
+						document.getElementById("mediaspace' . $count . '_wrapper").style.height="' . $dimensions['videoheight'] . '";
 						' . $download_video . '
 					}
 				');
 				$doc->addScriptDeclaration('
 					function Audio() {
-						jwplayer().load([' . $this->player->playlist['audio'] . ']).resize("' . $dimensions['awidth'] . '","' . $dimensions['aheight'] . '");
-						document.getElementById("mediaspace' . $count . '_wrapper").style.width="' . $dimensions['awidth'] . '";
-						document.getElementById("mediaspace' . $count . '_wrapper").style.height="' . $dimensions['aheight'] . '";
+						jwplayer().load([' . $this->player->playlist['audio'] . ']).resize("' . $dimensions['audiowidth'] . '","' . $dimensions['audioheight'] . '");
+						document.getElementById("mediaspace' . $count . '_wrapper").style.width="' . $dimensions['audiowidth'] . '";
+						document.getElementById("mediaspace' . $count . '_wrapper").style.height="' . $dimensions['audioheight'] . '";
 						' . $download_audio . '
 					}
 				');
@@ -226,7 +218,7 @@ class PlgSermonspeakerJwplayer5 extends SermonspeakerPluginPlayer
 	/**
 	 * Checks if either audio or videofile is supported
 	 *
-	 * @param   object  $file  Filepath to check
+	 * @param   object  $item  Sermon object
 	 *
 	 * @return  array  supported files
 	 */
@@ -394,8 +386,16 @@ class PlgSermonspeakerJwplayer5 extends SermonspeakerPluginPlayer
 			// Choose picture to show
 			$img = SermonspeakerHelperSermonspeaker::insertPicture($item, 1);
 
-			// Choosing the default file to play based on prio and availabilty
-			$file = SermonspeakerHelperSermonspeaker::getFileByPrio($item, $this->params->get('fileprio'));
+			if ($this->type == 'auto')
+			{
+				// Choosing the default file to play based on prio and availabilty
+				$file = SermonspeakerHelperSermonspeaker::getFileByPrio($item, $this->fileprio);
+			}
+			else
+			{
+				$property = $this->type . 'file';
+				$file     = $item->$property;
+			}
 
 			if ($file)
 			{
@@ -403,6 +403,7 @@ class PlgSermonspeakerJwplayer5 extends SermonspeakerPluginPlayer
 			}
 			else
 			{
+				// Todo: Pick correct default pic (from component or add param to plugin?)
 				$entry['file']  = ($img) ? $img : JURI::base(true) . '/media/com_sermonspeaker/images/' . $this->params->get('defaultpic', 'nopict.jpg');
 				$entry['error'] = JText::_('JGLOBAL_RESOURCE_NOT_FOUND');
 			}
@@ -412,12 +413,13 @@ class PlgSermonspeakerJwplayer5 extends SermonspeakerPluginPlayer
 
 			if ($item->sermon_date)
 			{
+				// Todo: Pick correct date format (from component or add param to plugin?)
 				$desc[] = JText::_('JDATE') . ': ' . JHtml::Date($item->sermon_date, JText::_($this->params->get('date_format')), true);
 			}
 
 			if ($item->speaker_title)
 			{
-				$desc[] = JText::_('COM_SERMONSPEAKER_SPEAKER') . ': ' . addslashes($item->speaker_title);
+				$desc[] = JText::_('PLG_SERMONSPEAKER_COMMON_SPEAKER') . ': ' . addslashes($item->speaker_title);
 			}
 
 			$entry['description'] = implode('\x3Cbr />', $desc);
@@ -498,9 +500,8 @@ class PlgSermonspeakerJwplayer5 extends SermonspeakerPluginPlayer
 
 		$entry = array();
 
-		// Detect file to use
-		// Todo: Already detected on start of plugin. Reuse that.
-		$file = SermonspeakerHelperSermonspeaker::getFileByPrio($item, $this->params->get('fileprio'));
+		$property = $this->mode . 'file';
+		$file     = $item->$property;
 
 		$entry['file'] = SermonspeakerHelperSermonspeaker::makeLink($file);
 
