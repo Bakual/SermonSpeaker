@@ -20,9 +20,10 @@ class PlgSermonspeakerGeneric extends SermonspeakerPluginPlayer
 	/**
 	 * Creates the player
 	 *
-	 * @param   string        $context  The context from where it's triggered
-	 * @param   array/object  $items    An array of sermnon objects or a single sermon object
-	 * @param   array         $config   Should be an array of config options. Valid options:
+	 * @param   string                    $context  The context from where it's triggered
+	 * @param   object                    &$player  Player object
+	 * @param   array|object              $items    An array of sermnon objects or a single sermon object
+	 * @param   Joomla\Registry\Registry  $config   A config object. Special properties:
 	 *  - count (id of the player)
 	 *  - type (may be audio, video or auto)
 	 *  - prio (may be 0 for audio or 1 for video)
@@ -30,22 +31,21 @@ class PlgSermonspeakerGeneric extends SermonspeakerPluginPlayer
 	 *  - alt_player (overwrites the backend setting)
 	 *  - awidth, aheight (width and height for audio)
 	 *  - vwidth, vheight (width and height for video)
-	 * @param   boolean       &$loaded  Set to true if another player is already loaded
 	 *
-	 * @return  object|false  The player object or false
+	 * @return  void
 	 */
-	public function onGetPlayer($context, $items, $config, &$loaded)
+	public function onGetPlayer($context, &$player, $items, $config)
 	{
 		// There is already a player loaded
-		if ($loaded)
+		if ($player->mspace)
 		{
-			return false;
+			return;
 		}
 
 		// Config asks for a specific player
-		if (isset($config['alt_player']) && ($config['alt_player'] != 'generic'))
+		if ($config->get('alt_player', 'generic') != 'generic')
 		{
-			return false;
+			return;
 		}
 
 		$start = $this->params->get('tag_start');
@@ -54,7 +54,7 @@ class PlgSermonspeakerGeneric extends SermonspeakerPluginPlayer
 
 		if (!$start && !$end)
 		{
-			return false;
+			return;
 		}
 
 		if (is_array($items) && !$this->params->get('multiple'))

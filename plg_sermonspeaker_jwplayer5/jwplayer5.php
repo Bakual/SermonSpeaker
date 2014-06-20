@@ -13,16 +13,16 @@ JLoader::register('SermonspeakerPluginPlayer', JPATH_SITE . '/components/com_ser
 JLoader::register('SermonspeakerHelperSermonspeaker', JPATH_SITE . '/components/com_sermonspeaker/helpers/sermonspeaker.php');
 
 /**
- * Plug-in to call a 3rd party plugin to show the player
+ * Plug-in to show the JW Player 5 from http://www.jwplayer.com/
  *
  * @since  5.3.0
  */
 class PlgSermonspeakerJwplayer5 extends SermonspeakerPluginPlayer
 {
 	/**
-	 * @var int Increments with each call of the player
+	 * @var object  Holds the player object
 	 */
-	private static $counter = 0;
+	private $player;
 
 	/**
 	 * @var boolean  True if scripts are loaded already
@@ -47,9 +47,10 @@ class PlgSermonspeakerJwplayer5 extends SermonspeakerPluginPlayer
 	/**
 	 * Creates the player
 	 *
-	 * @param   string        $context  The context from where it's triggered
-	 * @param   array|object  $items    An array of sermnon objects or a single sermon object
-	 * @param   array         $config   Should be an array of config options. Valid options:
+	 * @param   string                    $context  The context from where it's triggered
+	 * @param   object                    &$player  Player object
+	 * @param   array|object              $items    An array of sermnon objects or a single sermon object
+	 * @param   Joomla\Registry\Registry  $config   A config object. Special properties:
 	 *  - count (id of the player)
 	 *  - type (may be audio, video or auto)
 	 *  - prio (may be 0 for audio or 1 for video)
@@ -57,32 +58,30 @@ class PlgSermonspeakerJwplayer5 extends SermonspeakerPluginPlayer
 	 *  - alt_player (overwrites the backend setting)
 	 *  - awidth, aheight (width and height for audio)
 	 *  - vwidth, vheight (width and height for video)
-	 * @param   boolean       &$loaded  Set to true if another player is already loaded
 	 *
-	 * @return  object|false  The player object or false
+	 * @return  void
 	 */
-	public function onGetPlayer($context, $items, $config, &$loaded)
+	public function onGetPlayer($context, &$player, $items, $config)
 	{
+		$this->player = $player;
+
 		// There is already a player loaded
-		if ($loaded)
+		if ($this->player->mspace)
 		{
-			return false;
+			return;
 		}
 
 		// Config asks for a specific player
-		if (isset($config['alt_player']) && ($config['alt_player'] != 'jwplayer5'))
+		if ($config->get('alt_player', 'jwplayer5') != 'jwplayer5')
 		{
-			return false;
+			return;
 		}
 
-		// Merge $config into plugin params
-		{
-			$registry = new Joomla\Registry\Registry;
-			$registry->loadArray($config);
-			$this->params->merge($registry);
-		}
+		// Merge $config into plugin params. $config takes priority.
+		$this->params->merge($config);
 
 		$fileprio = $this->params->get('fileprio');
+		$count    = $this->params->get('count', 1);
 
 		// Precheck if player even supports sermon and set mode
 		if (is_array($items))
@@ -97,7 +96,7 @@ class PlgSermonspeakerJwplayer5 extends SermonspeakerPluginPlayer
 
 			if (!$audiofile && !$videofile)
 			{
-				return false;
+				return;
 			}
 
 			if ($audiofile && (!$fileprio || !$videofile))
@@ -112,11 +111,8 @@ class PlgSermonspeakerJwplayer5 extends SermonspeakerPluginPlayer
 			$this->type = ($this->mode == 'video') ? 'v' : 'a';
 		}
 
-		// Increment counter
-		self::$counter++;
-
 		$this->player->player = 'JWPlayer';
-		$this->player->mspace = '<div id="mediaspace' . self::$counter . '">Loading Player...</div>';
+		$this->player->mspace = '<div id="mediaspace' . $count . '">Loading Player...</div>';
 		$this->player->toggle = $this->params->get('filetoggle');
 
 		// Setting some general player options
@@ -139,10 +135,10 @@ class PlgSermonspeakerJwplayer5 extends SermonspeakerPluginPlayer
 		$this->setPopup($this->type);
 
 		$this->player->script = '<script type="text/javascript">'
-			. "jwplayer('mediaspace" . self::$counter . "').setup({"
+			. "jwplayer('mediaspace" . $count . "').setup({"
 			. "playlist:[" . $this->player->playlist['default'] . "],"
-			. "width:'" . $this->config[$this->type . 'width'] . "',"
-			. "height:'" . $this->config[$this->type . 'height'] . "',"
+			. "width:'" . $this->params->get($this->type . 'width') . "',"
+			. "height:'" . $this->params->get($this->type . 'height') . "',"
 			. implode(',', $this->options)
 			. '});'
 			. '</script>';
@@ -157,10 +153,15 @@ class PlgSermonspeakerJwplayer5 extends SermonspeakerPluginPlayer
 
 			if ($this->player->toggle)
 			{
-				$awidth  = is_numeric($this->config['awidth']) ? $this->config['awidth'] . 'px' : $this->config['awidth'];
-				$aheight = is_numeric($this->config['aheight']) ? $this->config['aheight'] . 'px' : $this->config['aheight'];
-				$vwidth  = is_numeric($this->config['vwidth']) ? $this->config['vwidth'] . 'px' : $this->config['vwidth'];
-				$vheight = is_numeric($this->config['vheight']) ? $this->config['vheight'] . 'px' : $this->config['vheight'];
+				$dimensions['awidth']  = $this->params->get('awidth');
+				$dimensions['aheight'] = $this->params->get('aheight');
+				$dimensions['vwidth']  = $this->params->get('vwidth');
+				$dimensions['vheight'] = $this->params->get('vheight');
+
+				foreach ($dimensions as &$dimension)
+				{
+					$dimension = is_numeric($dimension) ? $dimension . 'px' : $dimension;
+				}
 
 				if (!is_array($items))
 				{
@@ -178,17 +179,17 @@ class PlgSermonspeakerJwplayer5 extends SermonspeakerPluginPlayer
 
 				$doc->addScriptDeclaration('
 					function Video() {
-						jwplayer().load([' . $this->player->playlist['video'] . ']).resize("' . $vwidth . '","' . $vheight . '");
-						document.getElementById("mediaspace' . self::$counter . '_wrapper").style.width="' . $vwidth . '";
-						document.getElementById("mediaspace' . self::$counter . '_wrapper").style.height="' . $vheight . '";
+						jwplayer().load([' . $this->player->playlist['video'] . ']).resize("' . $dimensions['vwidth'] . '","' . $dimensions['vheight'] . '");
+						document.getElementById("mediaspace' . $count . '_wrapper").style.width="' . $dimensions['vwidth'] . '";
+						document.getElementById("mediaspace' . $count . '_wrapper").style.height="' . $dimensions['vheight'] . '";
 						' . $download_video . '
 					}
 				');
 				$doc->addScriptDeclaration('
 					function Audio() {
-						jwplayer().load([' . $this->player->playlist['audio'] . ']).resize("' . $awidth . '","' . $aheight . '");
-						document.getElementById("mediaspace' . self::$counter . '_wrapper").style.width="' . $awidth . '";
-						document.getElementById("mediaspace' . self::$counter . '_wrapper").style.height="' . $aheight . '";
+						jwplayer().load([' . $this->player->playlist['audio'] . ']).resize("' . $dimensions['awidth'] . '","' . $dimensions['aheight'] . '");
+						document.getElementById("mediaspace' . $count . '_wrapper").style.width="' . $dimensions['awidth'] . '";
+						document.getElementById("mediaspace' . $count . '_wrapper").style.height="' . $dimensions['aheight'] . '";
 						' . $download_audio . '
 					}
 				');
@@ -197,9 +198,7 @@ class PlgSermonspeakerJwplayer5 extends SermonspeakerPluginPlayer
 			self::$script_loaded = 1;
 		}
 
-		$loaded = true;
-
-		return $this->player;
+		return;
 	}
 
 	/**

@@ -17,46 +17,12 @@ defined('_JEXEC') or die();
 abstract class SermonspeakerPluginPlayer extends JPlugin
 {
 	/**
-	 * @var  object  Holds The player object
-	 */
-	protected $player;
-
-	/**
-	 * @var  array  Config values
-	 */
-	protected $config;
-
-	/**
-	 * Constructor
-	 *
-	 * @param   object  &$subject  The object to observe
-	 * @param   array   $config    An optional associative array of configuration settings.
-	 *                             Recognized key values include 'name', 'group', 'params', 'language'
-	 *                             (this list is not meant to be comprehensive).
-	 *
-	 * @since   5.3
-	 */
-	public function __construct(&$subject, $config = array())
-	{
-		parent::__construct($subject, $config);
-
-		// Initialise the player object so we don't have to do it in every plugin.
-		$this->player = new stdClass;
-		$this->player->popup['height'] = 0;
-		$this->player->popup['width']  = 0;
-		$this->player->error           = '';
-		$this->player->toggle          = false;
-		$this->player->mspace          = '';
-		$this->player->script          = '';
-		$this->player->player          = '';
-	}
-
-	/**
 	 * Creates the player
 	 *
-	 * @param   string        $context  The context from where it's triggered
-	 * @param   array|object  $items    An array of sermnon objects or a single sermon object
-	 * @param   array         $config   Should be an array of config options. Valid options:
+	 * @param   string                    $context  The context from where it's triggered
+	 * @param   object                    &$player  Player object
+	 * @param   array|object              $items    An array of sermnon objects or a single sermon object
+	 * @param   Joomla\Registry\Registry  $config   A config object. Special properties:
 	 *  - count (id of the player)
 	 *  - type (may be audio, video or auto)
 	 *  - prio (may be 0 for audio or 1 for video)
@@ -64,11 +30,10 @@ abstract class SermonspeakerPluginPlayer extends JPlugin
 	 *  - alt_player (overwrites the backend setting)
 	 *  - awidth, aheight (width and height for audio)
 	 *  - vwidth, vheight (width and height for video)
-	 * @param   boolean       &$loaded  Set to true if another player is already loaded
 	 *
-	 * @return  object|false  The player object or false
+	 * @return  void
 	 */
-	public abstract function onGetPlayer($context, $items, $config, &$loaded);
+	public abstract function onGetPlayer($context, &$player, $items, $config);
 
 	/**
 	 * Sets the dimensions of the player for audio and video. $height and $width are default values.

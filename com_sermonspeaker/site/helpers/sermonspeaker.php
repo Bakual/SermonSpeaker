@@ -694,19 +694,7 @@ class SermonspeakerHelperSermonspeaker
 		// Use Plugin
 		if (!self::$params->get('alt_player'))
 		{
-			JPluginHelper::importPlugin('sermonspeaker');
-			$dispatcher = JEventDispatcher::getInstance();
-			$loaded     = false;
-			$results    = $dispatcher->trigger('onGetPlayer', array('SermonspeakerHelperSermonspeaker.getPlayer', $item, $config, &$loaded));
-
-			foreach ($results as $result)
-			{
-				if ($result)
-				{
-					return $result;
-				}
-			}
-
+			// Create player object to pass through plugins
 			$player = new stdClass;
 			$player->popup['height'] = 0;
 			$player->popup['width']  = 0;
@@ -714,7 +702,20 @@ class SermonspeakerHelperSermonspeaker
 			$player->toggle          = false;
 			$player->script          = '';
 			$player->player          = '';
-			$player->mspace          = '<div class="alert">No matching player found</div>';
+			$player->mspace          = '';
+
+			// Convert $config to an Registry object
+			$registry = new Joomla\Registry\Registry;
+			$registry->loadArray($config);
+
+			JPluginHelper::importPlugin('sermonspeaker');
+			$dispatcher = JEventDispatcher::getInstance();
+			$dispatcher->trigger('onGetPlayer', array('SermonspeakerHelperSermonspeaker.getPlayer', $player, $item, $registry));
+
+			if ($player->mspace)
+			{
+				$player->mspace = '<div class="alert">No matching player found</div>';
+			}
 
 			return $player;
 		}
