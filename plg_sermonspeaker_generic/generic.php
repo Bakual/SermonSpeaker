@@ -10,6 +10,7 @@
 defined('_JEXEC') or die();
 
 JLoader::register('SermonspeakerPluginPlayer', JPATH_SITE . '/components/com_sermonspeaker/plugin/player.php');
+JLoader::register('SermonspeakerHelperSermonspeaker', JPATH_SITE . '/components/com_sermonspeaker/helpers/sermonspeaker.php');
 /**
  * Plug-in to call a 3rd party plugin to show the player
  *
@@ -82,6 +83,8 @@ class PlgSermonspeakerGeneric extends SermonspeakerPluginPlayer
 		{
 			$file = ($mode) ? $items->videofile : $items->audiofile;
 		}
+
+		$file = SermonspeakerHelperSermonspeaker::makeLink($file);
 
 		$content = $start . $file . $end;
 
