@@ -77,7 +77,7 @@ class PlgSermonspeakerJwplayer5 extends SermonspeakerPluginPlayer
 		}
 
 		// Config asks for a specific player
-		if ($config->get('alt_player', 'jwplayer5') != 'jwplayer5')
+		if ($config->get('alt_player', $this->_name) != $this->_name)
 		{
 			return;
 		}
@@ -129,9 +129,10 @@ class PlgSermonspeakerJwplayer5 extends SermonspeakerPluginPlayer
 			}
 		}
 
-		$this->player->player = 'JWPlayer';
+		$this->player->player = $this->_name;
 		$this->player->mspace = '<div id="mediaspace' . $count . '">Loading Player...</div>';
 		$this->player->toggle = $toggle;
+		$this->loadLanguage();
 
 		// Setting some general player options
 		$this->setOptions();
@@ -150,7 +151,7 @@ class PlgSermonspeakerJwplayer5 extends SermonspeakerPluginPlayer
 			$this->options[$key] = $key . ':' . $value;
 		}
 
-		$this->setPopup($this->type);
+		$this->setPopup($this->mode[0]);
 
 		// Set width and height for later use
 		$dimensions['audiowidth']  = $this->params->get('awidth', '100%');
@@ -161,8 +162,8 @@ class PlgSermonspeakerJwplayer5 extends SermonspeakerPluginPlayer
 		$this->player->script = '<script type="text/javascript">'
 				. "jwplayer('mediaspace" . $count . "').setup({"
 					. "playlist:[" . $this->player->playlist['default'] . "],"
-					. "width:'" . $this->params->get($this->mode . 'width') . "',"
-					. "height:'" . $this->params->get($this->mode . 'height') . "',"
+					. "width:'" . $dimensions[$this->mode . 'width'] . "',"
+					. "height:'" . $dimensions[$this->mode . 'height'] . "',"
 					. implode(',', $this->options)
 				. '});'
 			. '</script>';

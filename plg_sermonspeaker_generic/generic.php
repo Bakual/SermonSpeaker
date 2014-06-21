@@ -44,7 +44,7 @@ class PlgSermonspeakerGeneric extends SermonspeakerPluginPlayer
 		}
 
 		// Config asks for a specific player
-		if ($config->get('alt_player', 'generic') != 'generic')
+		if ($config->get('alt_player', $this->_name) != $this->_name)
 		{
 			return;
 		}
@@ -88,6 +88,7 @@ class PlgSermonspeakerGeneric extends SermonspeakerPluginPlayer
 
 		$content = $start . $file . $end;
 
+		$player->player = $this->_name;
 		$player->mspace = JHtml::_('content.prepare', $content);
 
 		return;

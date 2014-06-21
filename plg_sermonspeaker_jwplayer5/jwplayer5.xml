@@ -28,6 +28,8 @@
 				<field
 					name="autostart"
 					type="radio"
+					label="PLG_SERMONSPEAKER_COMMON_FIELD_AUTOSTART_LABEL"
+					description="PLG_SERMONSPEAKER_COMMON_FIELD_AUTOSTART_DESC"
 					class="btn-group btn-group-yesno"
 					default="0"
 					>
@@ -38,6 +40,8 @@
 				<field
 					name="fileprio"
 					type="list"
+					label="PLG_SERMONSPEAKER_COMMON_FIELD_FILEPRIO_LABEL"
+					description="PLG_SERMONSPEAKER_COMMON_FIELD_FILEPRIO_DESC"
 					default="0"
 					>
 					<option value="1">Video</option>
@@ -47,6 +51,8 @@
 				<field
 					name="filetoggle"
 					type="radio"
+					label="PLG_SERMONSPEAKER_COMMON_FIELD_FILETOGGLE_LABEL"
+					description="PLG_SERMONSPEAKER_COMMON_FIELD_FILETOGGLE_DESC"
 					class="btn-group btn-group-yesno"
 					default="0"
 					>
@@ -57,63 +63,74 @@
 				<field
 					name="mode"
 					type="list"
+					label="PLG_SERMONSPEAKER_JWPLAYER5_FIELD_MODE_LABEL"
+					description="PLG_SERMONSPEAKER_JWPLAYER5_FIELD_MODE_DESC"
 					default="0"
 					>
-					<option value="0">PLG_SERMONSPEAKER_JWPLAYER5_PARAM_JWMODE_OPTION_FLASH</option>
-					<option value="1">PLG_SERMONSPEAKER_JWPLAYER5_PARAM_JWMODE_OPTION_HTML5</option>
+					<option value="0">PLG_SERMONSPEAKER_JWPLAYER5_FIELD_MODE_OPTION_FLASH</option>
+					<option value="1">PLG_SERMONSPEAKER_JWPLAYER5_FIELD_MODE_OPTION_HTML5</option>
 				</field>
 
 				<field
 					name="skin"
 					type="text"
+					label="PLG_SERMONSPEAKER_JWPLAYER5_FIELD_JWSKIN_LABEL"
+					description="PLG_SERMONSPEAKER_JWPLAYER5_FIELD_JWSKIN_DESC"
 					default=""
 					/>
 
 				<field
 					name="awidth"
 					type="text"
-					label="PLG_SERMONSPEAKER_JWPLAYER5_FIELD_AWIDTH_LABEL"
-					description="PLG_SERMONSPEAKER_JWPLAYER5_FIELD_AWIDTH_DESC"
-					default=""
+					label="PLG_SERMONSPEAKER_COMMON_FIELD_AWIDTH_LABEL"
+					description="PLG_SERMONSPEAKER_COMMON_FIELD_AWIDTH_DESC"
+					default="100%"
 					/>
 
 				<field
 					name="aheight"
 					type="text"
-					label="PLG_SERMONSPEAKER_JWPLAYER5_FIELD_AHEIGHT_LABEL"
-					description="PLG_SERMONSPEAKER_JWPLAYER5_FIELD_AHEIGHT_DESC"
-					default=""
+					label="PLG_SERMONSPEAKER_COMMON_FIELD_AHEIGHT_LABEL"
+					description="PLG_SERMONSPEAKER_COMMON_FIELD_AHEIGHT_DESC"
+					default="23px"
 					/>
 
 				<field
 					name="vwidth"
 					type="text"
-					label="PLG_SERMONSPEAKER_JWPLAYER5_FIELD_VWIDTH_LABEL"
-					description="PLG_SERMONSPEAKER_JWPLAYER5_FIELD_VWIDTH_DESC"
-					default=""
+					label="PLG_SERMONSPEAKER_COMMON_FIELD_VWIDTH_LABEL"
+					description="PLG_SERMONSPEAKER_COMMON_FIELD_VWIDTH_DESC"
+					default="100%"
 					/>
 
 				<field
 					name="vheight"
 					type="text"
-					label="PLG_SERMONSPEAKER_JWPLAYER5_FIELD_VHEIGHT_LABEL"
-					description="PLG_SERMONSPEAKER_JWPLAYER5_FIELD_VHEIGHT_DESC"
-					default=""
+					label="PLG_SERMONSPEAKER_COMMON_FIELD_VHEIGHT_LABEL"
+					description="PLG_SERMONSPEAKER_COMMON_FIELD_VHEIGHT_DESC"
+					default="300px"
 					/>
 
 			</fieldset>
 
-			<fieldset name="plugins">
+			<fieldset
+				name="plugins"
+				label="PLG_SERMONSPEAKER_JWPLAYER5_FIELDSET_PLUGINS_LABEL"
+				>
 
 				<field
 					name="ga_id"
 					type="text"
+					label="PLG_SERMONSPEAKER_JWPLAYER5_FIELD_GAID_LABEL"
+					description="PLG_SERMONSPEAKER_JWPLAYER5_FIELD_GAID_DESC"
 					default=""
 					/>
 
 				<field
 					name="share"
 					type="radio"
+					label="PLG_SERMONSPEAKER_JWPLAYER5_FIELD_SHARE_LABEL"
+					description="PLG_SERMONSPEAKER_JWPLAYER5_FIELD_SHARE_DESC"
 					class="btn-group btn-group-yesno"
 					default="0"
 					>
@@ -124,6 +141,8 @@
 				<field
 					name="viral"
 					type="radio"
+					label="PLG_SERMONSPEAKER_JWPLAYER5_FIELD_VIRAL_LABEL"
+					description="PLG_SERMONSPEAKER_JWPLAYER5_FIELD_VIRAL_DESC"
 					class="btn-group btn-group-yesno"
 					default="0"
 					>
@@ -134,6 +153,8 @@
 				<field
 					name="fbit"
 					type="radio"
+					label="PLG_SERMONSPEAKER_JWPLAYER5_FIELD_FBIT_LABEL"
+					description="PLG_SERMONSPEAKER_JWPLAYER5_FIELD_FBIT_DESC"
 					class="btn-group btn-group-yesno"
 					default="0"
 					>
@@ -144,6 +165,8 @@
 				<field
 					name="tweetit"
 					type="radio"
+					label="PLG_SERMONSPEAKER_JWPLAYER5_FIELD_TWEETIT_LABEL"
+					description="PLG_SERMONSPEAKER_JWPLAYER5_FIELD_TWEETIT_DESC"
 					class="btn-group btn-group-yesno"
 					default="0"
 					>
@@ -154,6 +177,8 @@
 				<field
 					name="plusone"
 					type="radio"
+					label="PLG_SERMONSPEAKER_JWPLAYER5_FIELD_PLUSONE_LABEL"
+					description="PLG_SERMONSPEAKER_JWPLAYER5_FIELD_PLUSONE_DESC"
 					class="btn-group btn-group-yesno"
 					default="0"
 					>
