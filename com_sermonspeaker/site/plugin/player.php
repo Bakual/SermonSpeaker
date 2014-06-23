@@ -17,6 +17,16 @@ defined('_JEXEC') or die();
 abstract class SermonspeakerPluginPlayer extends JPlugin
 {
 	/**
+	 * @var  Joomla\Registry\Registry
+	 */
+	protected $config;
+
+	/**
+	 * @var  object
+	 */
+	protected $player;
+
+	/**
 	 * Creates the player
 	 *
 	 * @param   string                    $context  The context from where it's triggered
