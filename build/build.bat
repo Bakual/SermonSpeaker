@@ -29,6 +29,6 @@ cd ../plg_sermonspeaker_search/
 zip -r ../build/packages/plg_sermonspeaker_search.zip *
 REM Package
 cd ../build/packages/
-cp ../../pkg_sermonspeaker.xml pkg_sermonspeaker.xml
+copy ..\..\pkg_sermonspeaker.xml
 zip pkg_sermonspeaker.zip *
 del pkg_sermonspeaker.xml
