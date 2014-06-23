@@ -17,7 +17,7 @@ defined('_JEXEC') or die();
 class SermonspeakerHelperSermonspeaker
 {
 	/**
-	 * @var  Joomla\Registry\Registry  $params  JRegistry object
+	 * @var  Joomla\Registry\Registry  $params  Registry object
 	 */
 	private static $params;
 

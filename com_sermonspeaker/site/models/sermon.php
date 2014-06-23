@@ -137,7 +137,7 @@ class SermonspeakerModelSermon extends JModelItem
 				}
 
 				// Convert the metadata field to an array.
-				$registry = new JRegistry;
+				$registry = new Joomla\Registry\Registry;
 				$registry->loadString($data->metadata);
 				$data->metadata = $registry;
 

@@ -142,7 +142,7 @@ class SermonspeakerModelSerie extends JModelAdmin
 		if ($item->id)
 		{
 			// Convert the metadata field to an array.
-			$registry = new JRegistry;
+			$registry = new Joomla\Registry\Registry;
 			$registry->loadString($item->metadata);
 			$item->metadata = $registry->toArray();
 

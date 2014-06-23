@@ -93,7 +93,7 @@ class SermonspeakerModelCategories extends JModelLegacy
 			$app = JFactory::getApplication();
 			$menu = $app->getMenu();
 			$active = $menu->getActive();
-			$params = new JRegistry;
+			$params = new Joomla\Registry\Registry;
 
 			if ($active)
 			{

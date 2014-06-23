@@ -10,9 +10,9 @@
 defined('_JEXEC') or die();
 
 /**
- * $item     object     The sermon item
- * $params   JRegistry  The item params
- * $columns  array      The columns to show
+ * $item     object                    The sermon item
+ * $params   Joomla\Registry\Registry  The item params
+ * $columns  array                     The columns to show
  */
 extract($displayData);
 ?>

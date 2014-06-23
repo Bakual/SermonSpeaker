@@ -33,7 +33,7 @@ class SermonspeakerTableSpeaker extends JTable
 	{
 		if (isset($array['metadata']) && is_array($array['metadata']))
 		{
-			$registry = new JRegistry;
+			$registry = new Joomla\Registry\Registry;
 			$registry->loadArray($array['metadata']);
 			$array['metadata'] = (string) $registry;
 		}
