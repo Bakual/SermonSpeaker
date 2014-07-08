@@ -13,11 +13,11 @@ JLoader::register('SermonspeakerPluginPlayer', JPATH_SITE . '/components/com_ser
 JLoader::register('SermonspeakerHelperSermonspeaker', JPATH_SITE . '/components/com_sermonspeaker/helpers/sermonspeaker.php');
 
 /**
- * Plug-in to show the JW Player 5 from http://www.jwplayer.com/
+ * Plug-in to show the JW Player 6 from http://www.jwplayer.com/
  *
  * @since  5.3.0
  */
-class PlgSermonspeakerJwplayer5 extends SermonspeakerPluginPlayer
+class PlgSermonspeakerJwplayer6 extends SermonspeakerPluginPlayer
 {
 	/**
 	 * @var object  Holds the player object
@@ -171,9 +171,20 @@ class PlgSermonspeakerJwplayer5 extends SermonspeakerPluginPlayer
 		// Loading needed Javascript only once
 		if (!self::$script_loaded)
 		{
-			JHtmlJQuery::framework();
-			JHtml::script('media/plg_sermonspeaker_jwplayer5/jwplayer.js');
 			$doc = JFactory::getDocument();
+
+			JHtmlJQuery::framework();
+
+			if ($this->params->get('hosting'))
+			{
+				JHtml::script('http://jwpsrv.com/library/' . $this->params->get('license_cloud') . '.js');
+			}
+			else
+			{
+				JHtml::script('media/plg_sermonspeaker_jwplayer6/jwplayer.js');
+				$doc->addScriptDeclaration('jwplayer.key="' . $this->params->get('license_self') . '";');
+			}
+
 			$doc->addScriptDeclaration('function ss_play(id){jwplayer().playlistItem(id);}');
 
 			if ($this->player->toggle)
@@ -261,60 +272,16 @@ class PlgSermonspeakerJwplayer5 extends SermonspeakerPluginPlayer
 	 */
 	private function setOptions()
 	{
-		$modes   = array();
-		$modes[0] = "{type:'flash', src:'" . JURI::base(true) . "/media/plg_sermonspeaker_jwplayer5/player.swf'}";
-		$modes[1] = "{type:'html5'}";
-		$modes[2] = "{type:'download'}";
-		$this->options['modes'] = ($this->params->get('jwmode', 0))
-			? '[' . $modes[1] . ',' . $modes[0] . ',' . $modes[2] . ']'
-			: '[' . $modes[0] . ',' . $modes[1] . ',' . $modes[2] . ']';
+		if (!$this->params->get('jwmode', 0))
+		{
+			$this->options['primary'] = '"flash"';
+		}
+
 		$this->options['autostart']  = $this->params->get('autostart') ? 'true' : 'false';
-		$this->options['controlbar'] = "'bottom'";
 
 		if ($skin = $this->params->get('skin'))
 		{
 			$this->options['skin'] = "'" . SermonspeakerHelperSermonspeaker::makeLink($skin) . "'";
-		}
-
-		// Plugins
-		if ($this->params->get('ga_id', ''))
-		{
-			$plugins['gapro-2'] = "{idstring:'SermonSpeaker/||provider||:||file||'}";
-		}
-
-		if ($this->params->get('fbit', 0))
-		{
-			$plugins['fbit-1'] = '{}';
-		}
-
-		if ($this->params->get('tweetit', 0))
-		{
-			$plugins['tweetit-1'] = '{}';
-		}
-
-		if ($this->params->get('plusone', 0))
-		{
-			$plugins['plusone-1'] = '{}';
-		}
-
-		if ($this->params->get('share', 0))
-		{
-			$plugins['sharing-3'] = '{}';
-		}
-
-		if ($this->params->get('viral', 0))
-		{
-			$plugins['viral-2'] = '{}';
-		}
-
-		if (isset($plugins))
-		{
-			foreach ($plugins as $key => $value)
-			{
-				$plugins[$key] = "'" . $key . "':" . $value;
-			}
-
-			$this->options['plugins'] = '{' . implode(',', $plugins) . '}';
 		}
 
 		return;
@@ -329,7 +296,7 @@ class PlgSermonspeakerJwplayer5 extends SermonspeakerPluginPlayer
 	 */
 	private function createMultiPlaylist($items)
 	{
-		$this->setDimensions('23px', '100%');
+		$this->setDimensions('26', '100%');
 
 		// Make sure to not use < or && in JavaScript code as it will break XHTML compatibility
 		$this->options['events'] = '{'
@@ -353,7 +320,7 @@ class PlgSermonspeakerJwplayer5 extends SermonspeakerPluginPlayer
 					. 'if (sec >= 10){'
 						. 'time.push(sec);'
 					. '} else {'
-						. 'time.push("0" + sec);'
+					. 'time.push("0" + sec);'
 					. '}'
 					. 'var duration = time.join(":");'
 					. 'jQuery("#playing-duration").html(duration);'
@@ -374,7 +341,7 @@ class PlgSermonspeakerJwplayer5 extends SermonspeakerPluginPlayer
 				. '}'
 				. 'jQuery("#playing-title").html(entry.title);'
 				. 'jQuery("#playing-desc").html(entry.description);'
-			. '}'
+				. '}'
 		. '}';
 		$entries = array();
 		$audios  = array();
@@ -497,7 +464,7 @@ class PlgSermonspeakerJwplayer5 extends SermonspeakerPluginPlayer
 	 */
 	private function createSinglePlaylist($item)
 	{
-		$this->setDimensions('23px', '250px');
+		$this->setDimensions('26', '320');
 
 		$entry = array();
 
