@@ -9,6 +9,8 @@
 
 defined('_JEXEC') or die();
 
+require_once JPATH_ADMINISTRATOR . '/components/com_finder/helpers/indexer/adapter.php';
+
 /**
  * Finder adapter for SermonSpeaker.
  *
