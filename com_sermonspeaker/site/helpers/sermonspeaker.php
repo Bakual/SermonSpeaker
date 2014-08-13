@@ -112,7 +112,7 @@ class SermonspeakerHelperSermonspeaker
 
 		if (self::$params->get('enable_ga_events'))
 		{
-			$onclick = "onclick=\"_gaq.push(['_trackEvent', 'SermonSpeaker Download', 'Additional File', '" . $addfile . "']);\"";
+			$onclick = " onclick=\"_gaq.push(['_trackEvent', 'SermonSpeaker Download', 'Additional File', '" . $addfile . "']);\"";
 		}
 
 		if ($show_icon)
@@ -154,7 +154,7 @@ class SermonspeakerHelperSermonspeaker
 			}
 
 			$html .= '<a class="hasTooltip" title="::' . JText::_('COM_SERMONSPEAKER_ADDFILE_HOOVER') . '" href="'
-				. $link . '" ' . $onclick . 'target="_blank">' . $addfileDesc . '</a>';
+				. $link . '"' . $onclick . ' target="_blank">' . $addfileDesc . '</a>';
 		}
 
 		return $html;
