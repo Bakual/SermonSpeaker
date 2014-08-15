@@ -71,10 +71,33 @@ class SermonspeakerModelFeed extends JModelLegacy
 		$query->where('(sermons.series_id = 0 OR series.catid = 0 OR (c_series.access IN (' . $groups . ') AND c_series.published = 1))');
 
 		// Category filter
-		if ($id = $jinput->get('catid', $params->get('catid', 0), 'int'))
+		if ($categoryId = $jinput->get('catid', $params->get('catid', 0), 'int'))
 		{
 			$type = $params->get('count_items_type', 'sermons');
-			$query->where($type . '.catid = ' . $id);
+
+			// Check if we have to include sermons from subcategories
+			if ($levels = (int) $params->get('show_subcategory_content', 0))
+			{
+				// Create a subquery for the subcategory list
+				$subQuery = $db->getQuery(true);
+				$subQuery->select('sub.id');
+				$subQuery->from('#__categories as sub');
+				$subQuery->join('INNER', '#__categories as this ON sub.lft > this.lft AND sub.rgt < this.rgt');
+				$subQuery->where('this.id = ' . (int) $categoryId);
+
+				if ($levels > 0)
+				{
+					$subQuery->where('sub.level <= this.level + ' . $levels);
+				}
+
+				// Add the subquery to the main query
+				$query->where('(' . $type . '.catid = ' . (int) $categoryId
+					. ' OR ' . $type . '.catid IN (' . $subQuery->__toString() . '))');
+			}
+			else
+			{
+				$query->where($type . '.catid = ' . (int) $categoryId);
+			}
 		}
 
 		// Filter by type
