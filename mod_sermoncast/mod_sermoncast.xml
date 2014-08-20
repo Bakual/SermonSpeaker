@@ -15,6 +15,7 @@
 		<filename>podcast-mini.gif</filename>
 		<filename>feed_rss.gif</filename>
 		<folder>language</folder>
+		<folder>tmpl</folder>
 	</files>
 	<updateservers>
 		<server type="extension" priority="1" name="SermonSpeaker.net">http://www.sermonspeaker.net/update/mod_sermoncast.xml</server>
