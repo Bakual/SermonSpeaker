@@ -183,7 +183,7 @@ class PlgContentAutotweetSermonspeaker extends plgAutotweetBase
 		$cat_alias	= $cats[2];
 
 		// Use main category for item url
-		$cat_slug	= $catids[0] . ':' . JFilterOutput::stringURLSafe($cat_alias[0]);
+		$cat_slug	= $cats[0] . ':' . JFilterOutput::stringURLSafe($cat_alias[0]);
 		$id_slug	= $item->id . ':' . JFilterOutput::stringURLSafe($item->alias);
 
 		// Create internal url for sermon
