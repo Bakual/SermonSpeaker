@@ -33,9 +33,11 @@ class SermonspeakerHelperSermonspeaker
 	 */
 	private static function getParams()
 	{
+		$option = 'com_sermonspeaker';
+
 		/* @var  $app  JApplicationSite */
 		$app = JFactory::getApplication();
-		self::$params = $app->getParams('com_sermonspeaker');
+		self::$params = (method_exists($app, 'getParams')) ? $app->getParams($option) : JComponentHelper::getParams($option);;
 	}
 
 	/**
