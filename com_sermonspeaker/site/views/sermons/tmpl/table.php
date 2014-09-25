@@ -189,7 +189,7 @@ $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 						<?php endif;
 
 						if (in_array('sermons:download', $this->columns)) :
-							$prio	= $this->params->get('fileprio'); ?>
+							$prio = $this->params->get('fileprio'); ?>
 							<th class="ss-col ss-dl hidden-phone"></th>
 						<?php endif; ?>
 					</tr></thead>
@@ -274,7 +274,7 @@ $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 								<?php endif;
 
 								if (in_array('sermons:download', $this->columns)) :
-									$type = ($item->videofile and ($prio || !$item->audiofile)) ? 'video' : 'audio';
+									$type     = ($item->videofile and ($prio || !$item->audiofile)) ? 'video' : 'audio';
 									$filesize = $type . 'filesize'; ?>
 									<td class="ss-col ss-dl hidden-phone">
 										<?php echo SermonspeakerHelperSermonspeaker::insertdlbutton($item->slug, $type, 3, $item->$filesize); ?>

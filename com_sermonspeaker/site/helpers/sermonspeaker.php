@@ -235,7 +235,7 @@ class SermonspeakerHelperSermonspeaker
 				$onclick = "onclick=\"_gaq.push(['_trackEvent', 'SermonSpeaker Download', '" . $type . "', 'id:" . $id . "']);\"";
 			}
 
-			$html = '<a href="' . $fileurl . '" target="_new" ' . $onclick . ' class="hasTooltip" title="::' . $text . '">'
+			$html = '<a href="' . $fileurl . '" target="_new" ' . $onclick . ' class="hasTooltip" title="' . $text . '">'
 						. '<i class="icon-download"> </i>'
 					. '</a>';
 		}
