@@ -1,5 +1,5 @@
-LICENSE for using this logos
-============================
+LICENSE for using these logos
+=============================
 &copy; 2014 Almuth Lauch, www.eyesup.eu
 
 (A) The copyright of the logos in this folder is owned by Almuth Lauch, www.eyesup.eu. 
