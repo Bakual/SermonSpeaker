@@ -58,7 +58,7 @@ class SermonspeakerHelperPlayerHtml5 extends SermonspeakerHelperPlayer
 	 * @param   object  $item    Itemobject
 	 * @param   array   $config  Config array
 	 *
-	 * @return  object  Player object
+	 * @return  void
 	 */
 	public function preparePlayer($item, $config)
 	{
@@ -71,7 +71,7 @@ class SermonspeakerHelperPlayerHtml5 extends SermonspeakerHelperPlayer
 							. $this->player . ' doesn\'t support Playlists</div>';
 			$this->script = '';
 
-			return false;
+			return;
 		}
 
 		$type = $this->config['prio'] ? 'v' : 'a';

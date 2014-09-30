@@ -63,7 +63,7 @@ class SermonspeakerHelperPlayerWmvplayer extends SermonspeakerHelperPlayer
 	 * @param   object  $item    Itemobject
 	 * @param   array   $config  Config array
 	 *
-	 * @return  object  Player object
+	 * @return  void
 	 */
 	public function preparePlayer($item, $config)
 	{
@@ -76,7 +76,7 @@ class SermonspeakerHelperPlayerWmvplayer extends SermonspeakerHelperPlayer
 							. $this->player . ' doesn\'t support Playlists</div>';
 			$this->script = '';
 
-			return false;
+			return;
 		}
 
 		$player = JURI::root() . 'media/com_sermonspeaker/player/wmvplayer/wmvplayer.xaml';

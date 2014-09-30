@@ -42,33 +42,35 @@ class SermonspeakerControllerSerie extends JControllerForm
 	/**
 	 * Method to check if you can add a new record.
 	 *
-	 * @param	array	$data	An array of input data.
-	 * @param	string	$key	The name of the key for the primary key.
+	 * @param   array   $data  An array of input data.
+	 * @param   string  $key   The name of the key for the primary key.
 	 *
-	 * @return	boolean
+	 * @return  boolean
 	 */
 	protected function allowEdit($data = array(), $key = 'id')
 	{
-		$recordId = (int) isset($data[$key]) ? $data[$key] : 0;
+		$recordId   = (int) isset($data[$key]) ? $data[$key] : 0;
 		$categoryId = 0;
 
 		if ($recordId)
 		{
 			// Need to do a lookup from the model.
-			$record = $this->getModel()->getItem($recordId);
+			$record     = $this->getModel()->getItem($recordId);
 			$categoryId = (int) $record->catid;
 		}
 
 		if ($categoryId)
 		{
 			$user = JFactory::getUser();
+
 			// The category has been set. Check the category permissions.
-			if ($user->authorise('core.edit', $this->option.'.category.'.$categoryId))
+			if ($user->authorise('core.edit', $this->option . '.category.' . $categoryId))
 			{
 				return true;
 			}
+
 			// Fallback on edit.own.
-			if ($user->authorise('core.edit.own', $this->option.'.category.'.$categoryId))
+			if ($user->authorise('core.edit.own', $this->option . '.category.' . $categoryId))
 			{
 				return ($record->created_by == $user->get('id'));
 			}
@@ -78,6 +80,8 @@ class SermonspeakerControllerSerie extends JControllerForm
 			// Since there is no asset tracking, revert to the component permissions.
 			return parent::allowEdit($data, $key);
 		}
+
+		return false;
 	}
 
 	public function reset()

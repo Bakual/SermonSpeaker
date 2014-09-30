@@ -20,4 +20,3 @@ class jc_com_sermonspeaker extends JCommentsPlugin {
 		return $db->loadResult();
 	}
 }
-?>
