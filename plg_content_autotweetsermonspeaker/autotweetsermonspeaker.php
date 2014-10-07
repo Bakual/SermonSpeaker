@@ -61,14 +61,12 @@ class PlgContentAutotweetSermonspeaker extends plgAutotweetBase
 	private $_post_modified_as_new = -1;
 
 	/**
-	 * plgContentAutotweetSermonspeaker
+	 * Constructor
 	 *
-	 * @param   string  &$subject  Param
-	 * @param   object  $params    Param
-	 *
-	 * @return  void
+	 * @param   JEventDispatcher  &$subject  JEventDispatcher object
+	 * @param   array             $params    Parameter array containing name, type and params
 	 */
-	public function plgContentAutotweetSermonspeaker(&$subject, $params)
+	public function __construct(&$subject, $params)
 	{
 		parent::__construct($subject, $params);
 
@@ -85,19 +83,19 @@ class PlgContentAutotweetSermonspeaker extends plgAutotweetBase
 		$pluginParams = $this->pluginParams;
 
 		// Joomla article specific params
-		$this->categories = $pluginParams->get('categories', '');
+		$this->categories          = $pluginParams->get('categories', '');
 		$this->excluded_categories = $pluginParams->get('excluded_categories', '');
-		$this->post_modified = (int) $pluginParams->get('post_modified', 0);
-		$this->show_catsec = (int) $pluginParams->get('show_catsec', 0);
-		$this->show_hash = (int) $pluginParams->get('show_hash', 0);
-		$this->use_text = (int) $pluginParams->get('use_text', 0);
-		$this->use_text_count = $pluginParams->get('use_text_count', 100);
-		$this->static_text = strip_tags($pluginParams->get('static_text', ''));
-		$this->static_text_pos = (int) $pluginParams->get('static_text_pos', 1);
-		$this->static_text_source = (int) $pluginParams->get('static_text_source', 0);
-		$this->metakey_count = (int) $pluginParams->get('metakey_count', 1);
-		$this->interval = (int) $pluginParams->get('interval', 60);
-		$this->Itemid = (int) $pluginParams->get('menuitem', 0);
+		$this->post_modified       = (int) $pluginParams->get('post_modified', 0);
+		$this->show_catsec         = (int) $pluginParams->get('show_catsec', 0);
+		$this->show_hash           = (int) $pluginParams->get('show_hash', 0);
+		$this->use_text            = (int) $pluginParams->get('use_text', 0);
+		$this->use_text_count      = $pluginParams->get('use_text_count', 100);
+		$this->static_text         = strip_tags($pluginParams->get('static_text', ''));
+		$this->static_text_pos     = (int) $pluginParams->get('static_text_pos', 1);
+		$this->static_text_source  = (int) $pluginParams->get('static_text_source', 0);
+		$this->metakey_count       = (int) $pluginParams->get('metakey_count', 1);
+		$this->interval            = (int) $pluginParams->get('interval', 60);
+		$this->Itemid              = (int) $pluginParams->get('menuitem', 0);
 
 		// Correct value if value is under the minimum
 		if ($this->interval < 60)
@@ -177,60 +175,60 @@ class PlgContentAutotweetSermonspeaker extends plgAutotweetBase
 	 */
 	protected function postSermon($item)
 	{
-		$publish_up	= ($item->sermon_date && ($item->sermon_date != '0000-00-00 00:00:00')) ? $item->sermon_date : JFactory::getDate()->toSql();
+		$publish_up = ($item->sermon_date && ($item->sermon_date != '0000-00-00 00:00:00')) ? $item->sermon_date : JFactory::getDate()->toSql();
 
-		$cats		= $this->getContentCategories($item->catid);
-		$cat_alias	= $cats[2];
+		$cats      = $this->getContentCategories($item->catid);
+		$cat_alias = $cats[2];
 
 		// Use main category for item url
-		$cat_slug	= $cats[0] . ':' . JFilterOutput::stringURLSafe($cat_alias[0]);
-		$id_slug	= $item->id . ':' . JFilterOutput::stringURLSafe($item->alias);
+		$cat_slug = $cats[0][0] . ':' . JFilterOutput::stringURLSafe($cat_alias[0]);
+		$id_slug  = $item->id . ':' . JFilterOutput::stringURLSafe($item->alias);
 
 		// Create internal url for sermon
 		if ($this->Itemid)
 		{
-			$url	= 'index.php?option=com_sermonspeaker&view=sermon&id=' . $id_slug . '&Itemid=' . $this->Itemid;
+			$url = 'index.php?option=com_sermonspeaker&view=sermon&id=' . $id_slug . '&Itemid=' . $this->Itemid;
 		}
 		else
 		{
-			$url	= SermonspeakerHelperRoute::getSermonRoute($id_slug, $cat_slug);
+			$url = SermonspeakerHelperRoute::getSermonRoute($id_slug, $cat_slug);
 		}
 
 		// Get some additional information
 		if ($series_id = (int) $item->series_id)
 		{
-			$db		= Jfactory::getDbo();
-			$query	= $db->getQuery(true);
+			$db    = Jfactory::getDbo();
+			$query = $db->getQuery(true);
 			$query->select('`avatar`, `title` AS series_title');
 			$query->from('#__sermon_series');
 			$query->where('`id` = ' . $series_id);
 			$db->setQuery($query);
-			$result	= $db->loadAssoc();
+			$result = $db->loadAssoc();
 
 			foreach ($result as $key => $value)
 			{
-				$item->$key	= $value;
+				$item->$key = $value;
 			}
 		}
 
 		if ($speaker_id = (int) $item->speaker_id)
 		{
-			$db		= Jfactory::getDbo();
-			$query	= $db->getQuery(true);
+			$db    = Jfactory::getDbo();
+			$query = $db->getQuery(true);
 			$query->select('`pic`, `title` AS speaker_title');
 			$query->from('#__sermon_speakers');
 			$query->where('`id` = ' . $speaker_id);
 			$db->setQuery($query);
-			$result	= $db->loadAssoc();
+			$result = $db->loadAssoc();
 
 			foreach ($result as $key => $value)
 			{
-				$item->$key	= $value;
+				$item->$key = $value;
 			}
 		}
 
 		// Get the image
-		$image_url	= SermonspeakerHelperSermonspeaker::insertPicture($item, 1);
+		$image_url = SermonspeakerHelperSermonspeaker::insertPicture($item, 1);
 
 		$native_object = json_encode($item);
 		$this->postStatusMessage($item->id, $publish_up, $item->title, self::TYPE_SERMON, $url, $image_url, $native_object);
