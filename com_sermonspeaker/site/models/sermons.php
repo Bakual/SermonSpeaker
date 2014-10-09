@@ -289,18 +289,26 @@ class SermonspeakerModelSermons extends JModelList
 			$this->setState('filter.search', $search);
 
 			// Scripture filter
-			$book	= $app->getUserStateFromRequest($this->context . '.scripture.book', 'book', 0, 'INT');
+			$book = $app->getUserStateFromRequest($this->context . '.scripture.book', 'book', 0, 'INT');
 			$this->setState('scripture.book', $book);
 
 			// Date filter, don't use UserState here as it could be set from module without the possibility to reset it.
 			// Needs additional URL params in pagination.
-			$month	= $app->input->getInt('month', $params->get('month'));
+			$month = $app->input->getInt('month', $params->get('month'));
 			$this->setState('date.month', $month);
-			$year_default	= ($month) ? 0 : '';
+			$year_default = ($month) ? 0 : '';
 			$this->setState('date.year', $app->input->getInt('year', $params->get('year', $year_default)));
 
-			$order	= $params->get('default_order', 'ordering');
-			$dir	= $params->get('default_order_dir', 'ASC');
+			// Speaker filter
+			$speaker = $app->getUserStateFromRequest($this->context . '.speaker.id', 'speaker', 0, 'INT');
+			$this->setState('speaker.id', $speaker);
+
+			// Series filter
+			$serie = $app->getUserStateFromRequest($this->context . '.serie.id', 'serie', 0, 'INT');
+			$this->setState('serie.id', $serie);
+
+			$order = $params->get('default_order', 'ordering');
+			$dir   = $params->get('default_order_dir', 'ASC');
 
 			parent::populateState($order, $dir);
 		}
@@ -335,7 +343,7 @@ class SermonspeakerModelSermons extends JModelList
 	 */
 	public function getMonths()
 	{
-		$months	= array(
+		$months = array(
 			1 => 'JANUARY',
 			2 => 'FEBRUARY',
 			3 => 'MARCH',
@@ -350,8 +358,8 @@ class SermonspeakerModelSermons extends JModelList
 			12 => 'DECEMBER',
 		);
 
-		$db	= $this->getDbo();
-		$query	= $db->getQuery(true);
+		$db    = $this->getDbo();
+		$query = $db->getQuery(true);
 		$query->select('DISTINCT MONTH(`sermon_date`) AS `value`');
 		$query->from('`#__sermon_sermons`');
 		$query->where("`sermon_date` != '0000-00-00'");
@@ -384,8 +392,8 @@ class SermonspeakerModelSermons extends JModelList
 	 */
 	public function getYears()
 	{
-		$db	= $this->getDbo();
-		$query	= $db->getQuery(true);
+		$db    = $this->getDbo();
+		$query = $db->getQuery(true);
 		$query->select('DISTINCT YEAR(`sermon_date`) AS `year`');
 		$query->from('`#__sermon_sermons`');
 		$query->where("`sermon_date` != '0000-00-00'");
@@ -413,8 +421,8 @@ class SermonspeakerModelSermons extends JModelList
 	 */
 	public function getBooks()
 	{
-		$db	= $this->getDbo();
-		$query	= $db->getQuery(true);
+		$db    = $this->getDbo();
+		$query = $db->getQuery(true);
 		$query->select('DISTINCT `book`');
 		$query->from('`#__sermon_scriptures`');
 		$query->join('LEFT', '`#__sermon_sermons` AS `sermons` ON `sermon_id` = `sermons`.`id`');
