@@ -40,11 +40,11 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 	 */
 	protected function getInput()
 	{
-		$this->params	= JComponentHelper::getParams('com_sermonspeaker');
+		$this->params = JComponentHelper::getParams('com_sermonspeaker');
 
 		// Get and sanitize file parameter
-		$this->file		= (string) $this->element['file'];
-		$this->file		= (in_array($this->file, array('audio', 'video', 'addfile'))) ? $this->file : 'audio';
+		$this->file = (string) $this->element['file'];
+		$this->file = (in_array($this->file, array('audio', 'video', 'addfile'))) ? $this->file : 'audio';
 
 		// Mode: 0 = Default, 1 = Vimeo, 2 = Amazon S3, 3 = Extern
 		$this->mode = $this->params->get('path_mode_' . $this->file, 0);
