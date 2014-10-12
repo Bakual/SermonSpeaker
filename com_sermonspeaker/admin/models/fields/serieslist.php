@@ -42,21 +42,31 @@ class JFormFieldSerieslist extends JFormFieldList
 	 */
 	protected function getInput()
 	{
-		$html	= '<div class="input-append">';
-		$html	.= parent::getInput();
-		$app = JFactory::getApplication();
-		if ($app->isAdmin()){
-			$returnpage	= base64_encode('index.php?option=com_sermonspeaker&view=close&tmpl=component');
-			$url = 'index.php?option=com_sermonspeaker&task=serie.add&layout=modal&tmpl=component&return='.$returnpage;
-		} else {
-			$returnpage	= base64_encode(JRoute::_('index.php?view=close&tmpl=component'));
-			$url = JRoute::_('index.php?task=serieform.edit&layout=modal&tmpl=component&return='.$returnpage);
-		}
-		$html	.= '<a class="modal" href="'.$url.'" rel="{handler: \'iframe\', size: {x: 950, y: 650}}">';
-		$html	.= '<div class="btn add-on icon-plus-2" rel="tooltip" title="'.JText::_('COM_SERMONSPEAKER_NEW_SERIE').'"> </div>';
-		$html	.= '</a></div>';
+		$html = array();
+		$html[] = parent::getInput();
 
-		return $html;
+		if (!$this->element['hidebutton'])
+		{
+			$app = JFactory::getApplication();
+
+			if ($app->isAdmin())
+			{
+				$returnpage = base64_encode('index.php?option=com_sermonspeaker&view=close&tmpl=component');
+				$url        = 'index.php?option=com_sermonspeaker&task=serie.add&layout=modal&tmpl=component&return=' . $returnpage;
+			}
+			else
+			{
+				$returnpage = base64_encode(JRoute::_('index.php?view=close&tmpl=component'));
+				$url        = JRoute::_('index.php?task=serieform.edit&layout=modal&tmpl=component&return=' . $returnpage);
+			}
+
+			array_unshift($html, '<div class="input-append">');
+			$html[] = '<a class="modal" href="'.$url.'" rel="{handler: \'iframe\', size: {x: 950, y: 650}}">';
+			$html[] = '<div class="btn add-on icon-plus-2" rel="tooltip" title="'.JText::_('COM_SERMONSPEAKER_NEW_SERIE').'"> </div>';
+			$html[] = '</a></div>';
+		}
+
+		return implode('', $html);
 	}
 
 	/**
@@ -67,18 +77,27 @@ class JFormFieldSerieslist extends JFormFieldList
 	 */
 	public function getOptions()
 	{
-		$db = JFactory::getDbo();
+		$db     = JFactory::getDbo();
 		$params = JComponentHelper::getParams('com_sermonspeaker');
 
 		if ($catfilter = $params->get('catfilter_lists', 0))
 		{
-			$action	= ($this->value === '') ? 'core.create' : 'core.edit.state';
-			$catids	= implode(',', JFactory::getUser()->getAuthorisedCategories('com_sermonspeaker', $action));
+			$action = ($this->value === '') ? 'core.create' : 'core.edit.state';
+			$catids = implode(',', JFactory::getUser()->getAuthorisedCategories('com_sermonspeaker', $action));
 		}
 
-		$query	= $db->getQuery(true);
+		$query = $db->getQuery(true);
 		$query->select('series.id As value, home');
-		$query->select('CASE WHEN CHAR_LENGTH(c_series.title) THEN CONCAT(series.title, " (", c_series.title, ")") ELSE series.title END AS text');
+
+		if ($this->element['hidecategory'])
+		{
+			$query->select('series.title AS text');
+		}
+		else
+		{
+			$query->select('CASE WHEN CHAR_LENGTH(c_series.title) THEN CONCAT(series.title, " (", c_series.title, ")") ELSE series.title END AS text');
+		}
+
 		$query->from('#__sermon_series AS series');
 		$query->join('LEFT', '#__categories AS c_series ON c_series.id = series.catid');
 		$query->where('series.state = 1');
@@ -146,12 +165,9 @@ class JFormFieldSerieslist extends JFormFieldList
 			throw new Exception($db->getErrorMsg(), 500);
 		}
 
-		$options = array_merge($published, $unpublished);
+		$options = array_merge(parent::getOptions(), $published, $unpublished);
 
-		// Merge any additional options in the XML definition.
-		//$options = array_merge(parent::getOptions(), $options);
-
-		if ($this->value === '')
+		if ($this->value === '' && !$this->element['ignoredefault'])
 		{
 			foreach ($options as $option)
 			{
@@ -162,8 +178,6 @@ class JFormFieldSerieslist extends JFormFieldList
 				}
 			}
 		}
-
-		array_unshift($options, JHtml::_('select.option', '0', JText::_('COM_SERMONSPEAKER_SELECT_SERIES')));
 
 		return $options;
 	}
