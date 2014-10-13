@@ -14,7 +14,8 @@ class SermonspeakerModelSermons extends JModelList
 	 */
 	public function __construct($config = array())
 	{
-		if (empty($config['filter_fields'])) {
+		if (empty($config['filter_fields']))
+		{
 			$config['filter_fields'] = array(
 				'id', 'sermons.id',
 				'title', 'sermons.title',
@@ -124,10 +125,10 @@ class SermonspeakerModelSermons extends JModelList
 		$query->select(
 			$this->getState(
 				'list.select',
-				'sermons.id, sermons.title, sermons.catid, sermons.language, '.
-				'sermons.hits, sermons.notes, sermons.checked_out, sermons.checked_out_time, '.
-				'sermons.sermon_date, sermons.alias, sermons.created, sermons.created_by, '.
-				'sermons.state, sermons.ordering, sermons.podcast'
+				'sermons.id, sermons.title, sermons.catid, sermons.language, '
+				. 'sermons.hits, sermons.notes, sermons.checked_out, sermons.checked_out_time, '
+				. 'sermons.sermon_date, sermons.alias, sermons.created, sermons.created_by, '
+				. 'sermons.state, sermons.ordering, sermons.podcast'
 			)
 		);
 		$query->from('`#__sermon_sermons` AS sermons');
@@ -173,7 +174,7 @@ class SermonspeakerModelSermons extends JModelList
 		{
 			$query->where('sermons.state = ' . (int) $published);
 		}
-		else if ($published === '')
+		elseif ($published === '')
 		{
 			$query->where('(sermons.state IN (0, 1))');
 		}

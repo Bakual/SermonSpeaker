@@ -38,7 +38,7 @@ $assoc = JLanguageAssociations::isEnabled();
 <form action="<?php echo JRoute::_('index.php?option=com_sermonspeaker&view=sermons'); ?>" method="post" name="adminForm" id="adminForm">
 <?php if(!empty($this->sidebar)): ?>
 	<div id="j-sidebar-container" class="span2">
-		<?php // echo $this->sidebar; ?>
+		<?php echo $this->sidebar; ?>
 	</div>
 	<div id="j-main-container" class="span10">
 <?php else : ?>

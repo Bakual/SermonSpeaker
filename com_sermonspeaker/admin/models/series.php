@@ -14,7 +14,8 @@ class SermonspeakerModelSeries extends JModelList
 	 */
 	public function __construct($config = array())
 	{
-		if (empty($config['filter_fields'])) {
+		if (empty($config['filter_fields']))
+		{
 			$config['filter_fields'] = array(
 				'id', 'series.id',
 				'title', 'series.title',
@@ -32,6 +33,11 @@ class SermonspeakerModelSeries extends JModelList
 				'language', 'series.language',
 				'hits', 'series.hits',
 			);
+
+			// Searchtools
+			$config['filter_fields'][] = 'category_id';
+			$config['filter_fields'][] = 'level';
+			$config['filter_fields'][] = 'tag';
 
 			if (JLanguageAssociations::isEnabled())
 			{
@@ -54,21 +60,9 @@ class SermonspeakerModelSeries extends JModelList
 		// Initialise variables.
 		$app = JFactory::getApplication();
 
-		// Load the filter state.
-		$search = $app->getUserStateFromRequest($this->context.'.filter.search', 'filter_search');
-		$this->setState('filter.search', $search);
-
-		$published = $app->getUserStateFromRequest($this->context.'.filter.state', 'filter_published', '', 'string');
-		$this->setState('filter.state', $published);
-
-		$categoryId = $app->getUserStateFromRequest($this->context.'.filter.category_id', 'filter_category_id', '');
-		$this->setState('filter.category_id', $categoryId);
-
-		$language = $this->getUserStateFromRequest($this->context.'.filter.language', 'filter_language', '');
-		$this->setState('filter.language', $language);
-
-		// force a language
+		// Force a language
 		$forcedLanguage = $app->input->get('forcedLanguage');
+
 		if (!empty($forcedLanguage))
 		{
 			$this->setState('filter.language', $forcedLanguage);
@@ -114,23 +108,23 @@ class SermonspeakerModelSeries extends JModelList
 	protected function getListQuery()
 	{
 		// Create a new query object.
-		$db		= $this->getDbo();
-		$query	= $db->getQuery(true);
+		$db    = $this->getDbo();
+		$query = $db->getQuery(true);
 
 		// Select the required fields from the table.
 		$query->select(
 			$this->getState(
 				'list.select',
-				'series.id, series.title, series.catid, series.language, '.
-				'series.hits, series.home, series.alias, series.avatar, '.
-				'series.state, series.ordering, created_by, series.checked_out, series.checked_out_time'
+				'series.id, series.title, series.catid, series.language, '
+				. 'series.hits, series.home, series.alias, series.avatar, '
+				. 'series.state, series.ordering, created_by, series.checked_out, series.checked_out_time'
 			)
 		);
 		$query->from('`#__sermon_series` AS series');
 
 		// Join over the language
 		$query->select('l.title AS language_title');
-		$query->join('LEFT', $db->quoteName('#__languages').' AS l ON l.lang_code = series.language');
+		$query->join('LEFT', $db->quoteName('#__languages') . ' AS l ON l.lang_code = series.language');
 
 		// Join over the users for the checked out user.
 		$query->select('uc.name AS editor');
@@ -151,41 +145,69 @@ class SermonspeakerModelSeries extends JModelList
 
 		// Filter by published state
 		$published = $this->getState('filter.state');
-		if (is_numeric($published)) {
-			$query->where('series.state = '.(int) $published);
-		} else if ($published === '') {
+
+		if (is_numeric($published))
+		{
+			$query->where('series.state = ' . (int) $published);
+		}
+		elseif ($published === '')
+		{
 			$query->where('(series.state IN (0, 1))');
 		}
 
 		// Filter by category.
+		$baselevel  = 1;
 		$categoryId = $this->getState('filter.category_id');
-		if (is_numeric($categoryId)) {
-			$query->where('series.catid = '.(int) $categoryId);
+
+		if (is_numeric($categoryId))
+		{
+			$cat_tbl = JTable::getInstance('Category', 'JTable');
+			$cat_tbl->load($categoryId);
+			$rgt = $cat_tbl->rgt;
+			$lft = $cat_tbl->lft;
+			$baselevel = (int) $cat_tbl->level;
+			$query->where('c.lft >= ' . (int) $lft)
+				->where('c.rgt <= ' . (int) $rgt);
+		}
+
+		// Filter on the level.
+		if ($level = $this->getState('filter.level'))
+		{
+			$query->where('c.level <= ' . ((int) $level + (int) $baselevel - 1));
 		}
 
 		// Filter by search in title
 		$search = $this->getState('filter.search');
-		if (!empty($search)) {
-			if (stripos($search, 'id:') === 0) {
-				$query->where('series.id = '.(int) substr($search, 3));
-			} else {
-				$search = $db->quote('%'.$db->escape($search, true).'%');
-				$query->where('(series.title LIKE '.$search.')');
+
+		if (!empty($search))
+		{
+			if (stripos($search, 'id:') === 0)
+			{
+				$query->where('series.id = ' . (int) substr($search, 3));
+			}
+			else
+			{
+				$search = $db->quote('%' . $db->escape($search, true) . '%');
+				$query->where('(series.title LIKE ' . $search . ')');
 			}
 		}
 
 		// Filter on the language.
-		if ($language = $this->getState('filter.language')) {
-			$query->where('series.language = '.$db->quote($language));
+		if ($language = $this->getState('filter.language'))
+		{
+			$query->where('series.language = ' . $db->quote($language));
 		}
 
 		// Add the list ordering clause.
-		$orderCol	= $this->state->get('list.ordering');
-		$orderDirn	= $this->state->get('list.direction');
-		if ($orderCol == 'series.ordering' || $orderCol == 'category_title') {
-			$orderCol = 'category_title '.$orderDirn.', series.ordering';
+		$orderCol  = $this->state->get('list.ordering');
+		$orderDirn = $this->state->get('list.direction');
+
+		if ($orderCol == 'series.ordering' || $orderCol == 'category_title')
+		{
+			$orderCol = 'category_title ' . $orderDirn . ', series.ordering';
 		}
-		$query->order($db->escape($orderCol.' '.$orderDirn));
+
+		$query->order($db->escape($orderCol . ' ' . $orderDirn));
 
 		return $query;
 	}
