@@ -17,16 +17,12 @@ defined('_JEXEC') or die();
 class PlgButtonSermonspeaker extends JPlugin
 {
 	/**
-	 * Constructor
+	 * Load the language file on instantiation.
 	 *
-	 * @param   object  &$subject  The object to observe
-	 * @param   array   $config    An array that holds the plugin configuration
+	 * @var    boolean
+	 * @since  3.1
 	 */
-	public function __construct(&$subject, $config)
-	{
-		parent::__construct($subject, $config);
-		$this->loadLanguage();
-	}
+	protected $autoloadLanguage = true;
 
 	/**
 	 * Renders the button and adds the JS
@@ -53,18 +49,16 @@ class PlgButtonSermonspeaker extends JPlugin
 
 		JHtml::_('behavior.modal');
 
-		/*
-		 * Use the built-in element view to select the sermon.
-		 * Currently uses blank class for Jooml 2.5 compatibility.
-		 */
+		// Use the built-in element view to select the sermon.
 		$link = 'index.php?option=com_sermonspeaker&amp;view=sermons&amp;layout=modal&amp;tmpl=component&amp;' . JSession::getFormToken() . '=1';
 
 		$button = new JObject;
-		$button->set('modal', true);
-		$button->set('link', $link);
-		$button->set('text', JText::_('PLG_EDITORS-XTD_SERMONSPEAKER_BUTTON_SERMONSPEAKER'));
-		$button->set('name', 'broadcast blank');
-		$button->set('options', "{handler: 'iframe', size: {x: 770, y: 400}}");
+		$button->modal   = true;
+		$button->class   = 'btn';
+		$button->link    = $link;
+		$button->text    = JText::_('PLG_EDITORS-XTD_SERMONSPEAKER_BUTTON_SERMONSPEAKER');
+		$button->name    = 'broadcast';
+		$button->options = "{handler: 'iframe', size: {x: 770, y: 400}}";
 
 		return $button;
 	}
