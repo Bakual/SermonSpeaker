@@ -265,7 +265,7 @@ class SermonspeakerModelSermons extends JModelList
 
 		if ($orderCol == 'sermons.ordering' || $orderCol == 'category_title')
 		{
-			$orderCol = 'category_title '.$orderDirn.', sermons.ordering';
+			$orderCol = 'category_title ' . $orderDirn . ', sermons.ordering';
 		}
 
 		$query->order($db->escape($orderCol . ' ' . $orderDirn));

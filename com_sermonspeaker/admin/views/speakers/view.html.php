@@ -1,5 +1,19 @@
 <?php
+/**
+ * @package     SermonSpeaker
+ * @subpackage  Component.Administrator
+ * @author      Thomas Hunziker <admin@sermonspeaker.net>
+ * @copyright   (C) 2014 - Thomas Hunziker
+ * @license     http://www.gnu.org/licenses/gpl.html
+ **/
+
 defined('_JEXEC') or die;
+
+/**
+ * HTML View class for the SermonSpeaker Component
+ *
+ * @since  3.4
+ */
 class SermonspeakerViewSpeakers extends JViewLegacy
 {
 	protected $items;
