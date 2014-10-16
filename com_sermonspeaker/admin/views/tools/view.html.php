@@ -2,7 +2,7 @@
 /**
  * @package     SermonSpeaker
  * @subpackage  Component.Administrator
- * @author      Thomas Hunziker <admin@bakual.net>
+ * @author      Thomas Hunziker <admin@sermonspeaker.net>
  * @copyright   (C) 2014 - Thomas Hunziker
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
