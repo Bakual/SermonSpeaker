@@ -41,30 +41,62 @@
 					<option value="video">Video</option>
 				</field>
 				<field type="spacer" />
-				<field name="sc_showpcast" type="radio"
-					default="1"
+				<field
+					name="sc_showpcast"
+					type="radio"
 					label="MOD_SERMONCAST_PARAM_SHOWPCAST"
+					description="MOD_SERMONCAST_PARAM_SHOWPCAST_DESC"
 					class="btn-group btn-group-yesno"
-					description="MOD_SERMONCAST_PARAM_SHOWPCAST_DESC">
+					default="1"
+					>
 					<option value="1">JYES</option>
 					<option value="0">JNO</option>
 				</field>
-				<field name="sc_pcast_prefix" type="list" 
-					default="itpc" 
-					label="MOD_SERMONCAST_PARAM_PCAST_PREFIX" 
-					description="MOD_SERMONCAST_PARAM_PCAST_PREFIX_DESC">
+				<field
+					name="logo"
+					type="imagelist"
+					label="MOD_SERMONCAST_FIELD_LOGO_LABEL"
+					description="MOD_SERMONCAST_FIELD_LOGO_DESC"
+					directory="media/com_sermonspeaker/logo"
+					hide_none="true"
+					showon="sc_showpcast:1"
+				/>
+				<field
+					name="sc_otherimage"
+					type="text"
+					label="MOD_SERMONCAST_PARAM_OTHERIMAGE"
+					description="MOD_SERMONCAST_PARAM_OTHERIMAGE_DESC"
+					default=""
+					showon="sc_showpcast:1"
+				/>
+				<field
+					name="sc_pcast_prefix"
+					type="list"
+					label="MOD_SERMONCAST_PARAM_PCAST_PREFIX"
+					description="MOD_SERMONCAST_PARAM_PCAST_PREFIX_DESC"
+					default="itpc"
+					showon="sc_showpcast:1"
+					>
 					<option value="http">http://</option>
 					<option value="itpc">itpc://</option>
 					<option value="pcast">pcast://</option>
 				</field>
-				<field name="sc_otherlink" type="text" 
-					default="" 
-					label="MOD_SERMONCAST_PARAM_OTHERLINK" 
-					description="MOD_SERMONCAST_PARAM_OTHERLINK_DESC" />
-				<field name="sc_otherimage" type="text" 
-					default="" 
-					label="MOD_SERMONCAST_PARAM_OTHERIMAGE" 
-					description="MOD_SERMONCAST_PARAM_OTHERIMAGE_DESC" />
+				<field
+					name="sc_otherlink"
+					type="text"
+					label="MOD_SERMONCAST_PARAM_OTHERLINK"
+					description="MOD_SERMONCAST_PARAM_OTHERLINK_DESC"
+					default=""
+					showon="sc_showpcast:1"
+				/>
+				<field
+					name="sc_otherimage"
+					type="text"
+					label="MOD_SERMONCAST_PARAM_OTHERIMAGE"
+					description="MOD_SERMONCAST_PARAM_OTHERIMAGE_DESC"
+					default=""
+					showon="sc_showpcast:1"
+				/>
 				<field type="spacer" />
 				<field name="sc_showplink" type="radio"
 					default="1"
@@ -83,18 +115,30 @@
 					<option value="1">JYES</option>
 					<option value="0">JNO</option>
 				</field>
-				<field name="sc_helpwidth" type="text" 
-					default="700" 
-					label="MOD_SERMONCAST_PARAM_HELPWIDTH" 
-					description="MOD_SERMONCAST_PARAM_HELPWIDTH_DESC" />
-				<field name="sc_helpheight" type="text" 
-					default="500" 
-					label="MOD_SERMONCAST_PARAM_HELPHEIGHT" 
-					description="MOD_SERMONCAST_PARAM_HELPHEIGHT_DESC" />
-				<field name="sc_helpcontent" type="modal_article" 
-					default="0" 
-					label="MOD_SERMONCAST_PARAM_HELPCONTENT" 
-					description="MOD_SERMONCAST_PARAM_HELPCONTENT_DESC" />
+				<field
+					name="sc_helpwidth"
+					type="text"
+					label="MOD_SERMONCAST_PARAM_HELPWIDTH"
+					description="MOD_SERMONCAST_PARAM_HELPWIDTH_DESC"
+					default="700"
+					showon="sc_showhelp:1"
+				/>
+				<field
+					name="sc_helpheight"
+					type="text"
+					label="MOD_SERMONCAST_PARAM_HELPHEIGHT"
+					description="MOD_SERMONCAST_PARAM_HELPHEIGHT_DESC"
+					default="500"
+					showon="sc_showhelp:1"
+				/>
+				<field
+					name="sc_helpcontent"
+					type="modal_article"
+					label="MOD_SERMONCAST_PARAM_HELPCONTENT"
+					description="MOD_SERMONCAST_PARAM_HELPCONTENT_DESC"
+					default="0"
+					showon="sc_showhelp:1"
+				/>
 			</fieldset>
 			<fieldset name="advanced">
 				<field name="layout" type="modulelayout"
