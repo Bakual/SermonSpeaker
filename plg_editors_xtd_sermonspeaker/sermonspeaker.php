@@ -58,7 +58,7 @@ class PlgButtonSermonspeaker extends JPlugin
 		$button->link    = $link;
 		$button->text    = JText::_('PLG_EDITORS-XTD_SERMONSPEAKER_BUTTON_SERMONSPEAKER');
 		$button->name    = 'broadcast';
-		$button->options = "{handler: 'iframe', size: {x: 770, y: 400}}";
+		$button->options = "{handler: 'iframe', size: {x: 800, y: 500}}";
 
 		return $button;
 	}
