@@ -9,9 +9,10 @@
 
 defined('_JEXEC') or die();
 
-$type		= $params->get('sc_type');
-$menuitem	= (int) $params->get('sc_menuitem');
-$options = '';
+$type            = $params->get('sc_type');
+$menuitem        = (int) $params->get('sc_menuitem');
+$moduleclass_sfx = htmlspecialchars($params->get('moduleclass_sfx'));
+$options         = '';
 
 if ($type)
 {
