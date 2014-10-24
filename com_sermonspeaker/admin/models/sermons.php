@@ -77,8 +77,11 @@ class SermonspeakerModelSermons extends JModelList
 		// Force a language
 		$forcedLanguage = $app->input->get('forcedLanguage');
 
-		if (!empty($forcedLanguage))
+		if ($forcedLanguage)
 		{
+			$userstate = $app->getUserState($this->context);
+			$userstate->filter['language'] = $forcedLanguage;
+			$app->setUserState($this->context, $userstate);
 			$this->setState('filter.language', $forcedLanguage);
 			$this->setState('filter.forcedLanguage', $forcedLanguage);
 		}
