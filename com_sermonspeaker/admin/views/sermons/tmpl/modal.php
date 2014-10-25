@@ -19,8 +19,10 @@ if ($app->isSite())
 require_once JPATH_ROOT . '/components/com_sermonspeaker/helpers/route.php';
 
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
-JHtml::_('bootstrap.tooltip', '.btn.hasTooltip', array('placement' => 'bottom'));
-JHtml::_('behavior.core');
+JHtmlBootstrap::tooltip('.btn.hasTooltip', array('placement' => 'bottom'));
+JHtmlBootstrap::tooltip('#mode_wrapper', array('placement' => 'bottom'));
+JHtmlBehavior::core();
+JHtmlFormbehavior::chosen('select');
 
 // Load plugin language file
 $jlang = JFactory::getLanguage();
@@ -31,6 +33,20 @@ $listOrder = $this->escape($this->state->get('list.ordering'));
 $listDirn  = $this->escape($this->state->get('list.direction'));
 ?>
 <form action="<?php echo JRoute::_('index.php?option=com_sermonspeaker&view=sermons&layout=modal&tmpl=component&function=' . $function . '&' . JSession::getFormToken() . '=1');?>" method="post" name="adminForm" id="adminForm" class="form-inline">
+	<?php if ($this->state->get('filter.forcedLanguage')) : ?>
+		<?php $this->filterForm->removeField('language', 'filter'); ?>
+		<input type="hidden" name="forcedLanguage" value="<?php echo $this->escape($this->state->get('filter.forcedLanguage')); ?>" />
+		<input type="hidden" id="mode" name="mode" value="" />
+	<?php else : ?>
+		<div id="mode_wrapper" class="btn-group pull-right hasTooltip" title="<?php echo JText::_('PLG_EDITORS-XTD_SERMONSPEAKER_FIELD_MODE_DESC'); ?>">
+			<select name="mode" id="mode" class="input-medium">
+				<option value=""><?php echo JText::_('JOPTION_USE_DEFAULT'); ?></option>
+				<option value="1"><?php echo JText::_('PLG_EDITORS-XTD_SERMONSPEAKER_FIELD_MODE_OPTION_LINK'); ?></option>
+				<option value="2"><?php echo JText::_('PLG_EDITORS-XTD_SERMONSPEAKER_FIELD_MODE_OPTION_PLAYER'); ?></option>
+				<option value="3"><?php echo JText::_('PLG_EDITORS-XTD_SERMONSPEAKER_FIELD_MODE_OPTION_MODULE'); ?></option>
+			</select>
+		</div>
+	<?php endif; ?>
 	<?php echo JLayoutHelper::render('joomla.searchtools.default', array('view' => $this)); ?>
 	<?php if (empty($this->items)) : ?>
 		<div class="alert alert-no-items">
