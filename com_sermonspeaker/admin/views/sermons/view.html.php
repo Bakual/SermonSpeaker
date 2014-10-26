@@ -33,11 +33,6 @@ class SermonspeakerViewSermons extends JViewLegacy
 	{
 		$layout = $this->getLayout();
 
-		if ($layout !== 'modal')
-		{
-			SermonspeakerHelper::addSubmenu('sermons');
-		}
-
 		$this->state         = $this->get('State');
 		$this->items         = $this->get('Items');
 		$this->pagination    = $this->get('Pagination');
@@ -52,10 +47,11 @@ class SermonspeakerViewSermons extends JViewLegacy
 			throw new Exception(implode("\n", $errors), 500);
 		}
 
-		// We don't need toolbar in the modal window.
+		// We don't need toolbar and sidebar in the modal window.
 		if ($layout !== 'modal')
 		{
 			$this->addToolbar();
+			SermonspeakerHelper::addSubmenu('sermons');
 			$this->sidebar = JHtmlSidebar::render();
 		}
 

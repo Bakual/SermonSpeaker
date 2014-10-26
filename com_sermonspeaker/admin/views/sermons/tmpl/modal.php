@@ -19,10 +19,12 @@ if ($app->isSite())
 require_once JPATH_ROOT . '/components/com_sermonspeaker/helpers/route.php';
 
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
-JHtmlBootstrap::tooltip('.btn.hasTooltip', array('placement' => 'bottom'));
-JHtmlBootstrap::tooltip('#mode_wrapper', array('placement' => 'bottom'));
 JHtmlBehavior::core();
 JHtmlFormbehavior::chosen('select');
+
+// Set tooltips for top buttons to show below button
+JHtmlBootstrap::tooltip('.btn.hasTooltip', array('placement' => 'bottom'));
+JHtmlBootstrap::tooltip('#mode_wrapper', array('placement' => 'bottom'));
 
 // Load plugin language file
 $jlang = JFactory::getLanguage();
