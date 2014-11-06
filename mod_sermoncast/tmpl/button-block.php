@@ -16,7 +16,7 @@ JHtml::_('behavior.modal');
 	<?php if ($params->get('sc_introtext')) : ?>
 		<p><?php echo $params->get('sc_introtext'); ?></p>
 	<?php endif; ?>
-	<ul class="sc_subscript unstyled">
+	<p class="sc_subscript">
 		<?php if ($params->get('sc_showpcast')) : ?>
 			<?php if ($params->get('sc_otherlink')) : ?>
 				<?php $link = $params->get('sc_otherlink'); ?>
@@ -25,29 +25,25 @@ JHtml::_('behavior.modal');
 				<?php $uri->setScheme($params->get('sc_pcast_prefix')); ?>
 				<?php $link = $uri->toString(); ?>
 			<?php endif; ?>
-			<li>
-				<a class="btn sc-podcastLink" href="<?php echo htmlspecialchars($link); ?>">
+				<a class="btn sc-podcastLink btn-block" style="text-align: left; padding-left:10px;padding-right:10px;" href="<?php echo htmlspecialchars($link); ?>">
 					<span class="spicon-sermonspeakerpodcast"> </span>
 					<?php echo JText::_('MOD_SERMONCAST_SUBSCRIBE_PODCAST'); ?>
 				</a>
-			</li>
 		<?php endif; ?>
 		<?php if ($params->get('sc_showplink')) : ?>
-			<li>
-				<a class="btn sc-feedLink" href="<?php echo $feedFile; ?>">
+				<a class="btn sc-feedLink btn-block" style="text-align: left; padding-left:10px;padding-right:10px;" href="<?php echo $feedFile; ?>">
 					<span class="spicon-sermonspeakerfeed"> </span>
 					<?php echo JText::_('MOD_SERMONCAST_SUBSCRIBE_FEED'); ?>
 				</a>
-			</li>
+			</p>
 		<?php endif; ?>
 		<?php if ($params->get('sc_showhelp')) : ?>
 			<?php $url = JRoute::_('index.php?option=com_content&view=article&tmpl=component&id=' . (int) $params->get('sc_helpcontent')); ?>
 			<?php $rel = "{handler: 'iframe', size: {x: " . (int) $params->get('sc_helpwidth') . ', y: ' . (int) $params->get('sc_helpheight') . '}}'; ?>
-			<li>
+			<p>
 				<a class="modal" href="<?php echo $url; ?>" rel="<?php echo $rel; ?>">
 					<?php echo JText::_('MOD_SERMONCAST_HELP'); ?>
 				</a>
-			</li>
+			</p>
 		<?php endif; ?>
-	</ul>
 </div>
