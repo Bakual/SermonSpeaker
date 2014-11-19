@@ -100,16 +100,16 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 		// Add Javascript for Form Elements enable and disable (J30)
 		$toggle = 'function toggleElement(element, state) {
 			if (state) {
-				document.getElementById(element + "_text_icon").className = "btn add-on icon-cancel";
-				document.getElementById(element + "_icon").className = "btn add-on icon-checkmark";
+				document.getElementById(element + "_text_icon").className = "btn add-on icon-radio-unchecked";
+				document.getElementById(element + "_icon").className = "btn add-on icon-radio-checked";
 				document.getElementById("jform_" + element + "_text").disabled = true;
 				document.getElementById("jform_" + element).disabled = false;
 				if(document.getElementById("jform_" + element + "_chzn")){
 					jQuery("#jform_" + element).trigger("liszt:updated");
 				}
 			} else {
-				document.getElementById(element + "_text_icon").className = "btn add-on icon-checkmark";
-				document.getElementById(element + "_icon").className = "btn add-on icon-cancel";
+				document.getElementById(element + "_text_icon").className = "btn add-on icon-radio-checked";
+				document.getElementById(element + "_icon").className = "btn add-on icon-radio-unchecked";
 				document.getElementById("jform_" + element + "_text").disabled = false;
 				document.getElementById("jform_" + element).disabled = true;
 				if(document.getElementById("jform_" + element + "_chzn")){

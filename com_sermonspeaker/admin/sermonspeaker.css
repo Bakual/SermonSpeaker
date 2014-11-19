@@ -231,20 +231,20 @@ input[type="text"].invalid, select.invalid, .invalid span, .invalid{
 	border-color:red;
 	color:red;
 }
-div.icon-checkmark,
+div.icon-radio-checked,
 div.icon-plus-2{
 	color: #468847;
 }
-div.icon-checkmark:hover,
-div.icon-checkmark:focus,
+div.icon-radio-checked:hover,
+div.icon-radio-checked:focus,
 div.icon-plus-2:hover,
 div.icon-plus-2:focus{
 	color: #356635;
 }
-div.icon-cancel{
+div.icon-radio-unchecked{
 	color: #b94a48;
 }
-div.icon-cancel:hover,
-div.icon-cancel:focus {
+div.icon-radio-unchecked:hover,
+div.icon-radio-unchecked:focus {
 	color: #953b39;
 }

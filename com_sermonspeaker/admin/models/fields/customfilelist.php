@@ -59,7 +59,7 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 		}
 
 		$html .= '<div class="input-prepend input-append">'
-					. '<div id="' . $this->fieldname . '_text_icon" class="btn add-on icon-checkmark" onclick="toggleElement(\'' . $this->fieldname . '\', 0);"> </div>'
+					. '<div id="' . $this->fieldname . '_text_icon" class="btn add-on icon-radio-checked" onclick="toggleElement(\'' . $this->fieldname . '\', 0);"> </div>'
 					. '<input name="' . $this->name . '" id="' . $this->id . '_text" class="' . $this->class . '" value="' . htmlspecialchars($this->value, ENT_COMPAT, 'UTF-8') . '" type="text">';
 
 		// Add Lookup button if not addfile field
@@ -80,7 +80,7 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 		$html .= '</div>'
 				. '<br />'
 				. '<div class="input-prepend input-append">'
-					. '<div id="' . $this->fieldname . '_icon" class="btn add-on icon-cancel" onclick="toggleElement(\'' . $this->fieldname . '\', 1);"> </div>';
+					. '<div id="' . $this->fieldname . '_icon" class="btn add-on icon-radio-unchecked" onclick="toggleElement(\'' . $this->fieldname . '\', 1);"> </div>';
 
 		$html .= parent::getInput();
 
