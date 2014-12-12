@@ -39,37 +39,56 @@ class SermonspeakerViewSeries extends JViewLegacy
 
 	/**
 	 * Add the page title and toolbar.
+	 *
+	 * @return  void
 	 */
 	protected function addToolbar()
 	{
-		$canDo 	= SermonspeakerHelper::getActions();
+		$canDo = SermonspeakerHelper::getActions();
 		JToolBarHelper::title(JText::_('COM_SERMONSPEAKER_SERIES_TITLE'), 'drawer-2 series');
-		if ($canDo->get('core.create')) {
+
+		if ($canDo->get('core.create'))
+		{
 			JToolBarHelper::addNew('serie.add','JTOOLBAR_NEW');
 		}
-		if (($canDo->get('core.edit')) || ($canDo->get('core.edit.own'))) {
+
+		if (($canDo->get('core.edit')) || ($canDo->get('core.edit.own')))
+		{
 			JToolBarHelper::editList('serie.edit','JTOOLBAR_EDIT');
 		}
-		if ($canDo->get('core.edit.state')) {
+
+		if ($canDo->get('core.edit.state'))
+		{
 			JToolBarHelper::divider();
 			JToolBarHelper::custom('series.publish', 'publish.png', 'publish_f2.png','JTOOLBAR_PUBLISH', true);
 			JToolBarHelper::custom('series.unpublish', 'unpublish.png', 'unpublish_f2.png', 'JTOOLBAR_UNPUBLISH', true);
 			JToolBarHelper::divider();
-			if ($this->state->get('filter.state') != 2) {
+
+			if ($this->state->get('filter.state') != 2)
+			{
 				JToolBarHelper::archiveList('series.archive','JTOOLBAR_ARCHIVE');
-			} else {
+			}
+			else
+			{
 				JToolBarHelper::unarchiveList('series.publish', 'JTOOLBAR_UNARCHIVE');
 			}
+
 			JToolBarHelper::checkin('series.checkin');
 		}
-		if ($this->state->get('filter.state') == -2 && $canDo->get('core.delete')) {
+
+		if ($this->state->get('filter.state') == -2 && $canDo->get('core.delete'))
+		{
 			JToolBarHelper::deleteList('', 'series.delete','JTOOLBAR_EMPTY_TRASH');
 			JToolBarHelper::divider();
-		} else if ($canDo->get('core.edit.state')) {
+		}
+		elseif ($canDo->get('core.edit.state'))
+		{
 			JToolBarHelper::trash('series.trash','JTOOLBAR_TRASH');
 			JToolBarHelper::divider();
 		}
-		if ($canDo->get('core.edit.state')) {
+
+		if ($canDo->get('core.edit.state'))
+		{
 			JToolBarHelper::custom('tools.seriesorder', 'purge icon-lightning', '','COM_SERMONSPEAKER_TOOLS_ORDER', false);
 			JToolBarHelper::divider();
 		}
@@ -81,14 +100,15 @@ class SermonspeakerViewSeries extends JViewLegacy
 		if ($canDo->get('core.edit'))
 		{
 			$title = JText::_('JTOOLBAR_BATCH');
-			$dhtml = "<button data-toggle=\"modal\" data-target=\"#collapseModal\" class=\"btn btn-small\">
-						<i class=\"icon-checkbox-partial\" title=\"$title\"></i>
-						$title</button>";
+			$dhtml = '<button data-toggle="modal" data-target="#collapseModal" class="btn btn-small">'
+						. '<i class="icon-checkbox-partial" title="' . $title . '"></i>'
+						. $title . '</button>';
 			$bar->appendButton('Custom', $dhtml, 'batch');
 		}
 
-		if ($canDo->get('core.admin')) {
-			JToolBarHelper::preferences('com_sermonspeaker', 650, 900);
+		if ($canDo->get('core.admin') || $canDo->get('core.options'))
+		{
+			JToolBarHelper::preferences('com_sermonspeaker');
 		}
 	}
 

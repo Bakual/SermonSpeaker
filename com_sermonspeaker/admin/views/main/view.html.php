@@ -17,15 +17,17 @@ class SermonspeakerViewMain extends JViewLegacy
 
 	/**
 	 * Add the page title and toolbar.
+	 *
+	 * @return  void
 	 */
 	protected function addToolbar()
 	{
-		$canDo 	= SermonspeakerHelper::getActions();
+		$canDo = SermonspeakerHelper::getActions();
 		JToolBarHelper::title(JText::_('COM_SERMONSPEAKER'), 'speakers');
-		if ($canDo->get('core.admin'))
+
+		if ($canDo->get('core.admin') || $canDo->get('core.options'))
 		{
-			JToolbarHelper::divider();
-			JToolBarHelper::preferences('com_sermonspeaker', 650, 900);
+			JToolBarHelper::preferences('com_sermonspeaker');
 		}
 	}
 }

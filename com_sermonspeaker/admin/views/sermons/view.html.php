@@ -60,11 +60,12 @@ class SermonspeakerViewSermons extends JViewLegacy
 
 	/**
 	 * Add the page title and toolbar.
+	 *
+	 * @return  void
 	 */
 	protected function addToolbar()
 	{
 		$canDo = SermonspeakerHelper::getActions();
-
 		JToolBarHelper::title(JText::_('COM_SERMONSPEAKER_SERMONS_TITLE'), 'quote-3 sermons');
 
 		if ($canDo->get('core.create'))
@@ -120,15 +121,15 @@ class SermonspeakerViewSermons extends JViewLegacy
 		if ($canDo->get('core.edit'))
 		{
 			$title = JText::_('JTOOLBAR_BATCH');
-			$dhtml = "<button data-toggle=\"modal\" data-target=\"#collapseModal\" class=\"btn btn-small\">
-						<i class=\"icon-checkbox-partial\" title=\"$title\"></i>
-						$title</button>";
+			$dhtml = '<button data-toggle="modal" data-target="#collapseModal" class="btn btn-small">'
+						. '<i class="icon-checkbox-partial" title="' . $title . '"></i>'
+						. $title . '</button>';
 			$bar->appendButton('Custom', $dhtml, 'batch');
 		}
 
-		if ($canDo->get('core.admin'))
+		if ($canDo->get('core.admin') || $canDo->get('core.options'))
 		{
-			JToolBarHelper::preferences('com_sermonspeaker', 650, 900);
+			JToolBarHelper::preferences('com_sermonspeaker');
 		}
 	}
 

@@ -66,10 +66,9 @@ class SermonspeakerViewTools extends JViewLegacy
 		$canDo = SermonspeakerHelper::getActions();
 		JToolBarHelper::title(JText::_('COM_SERMONSPEAKER_MAIN_TOOLS'), 'tools');
 
-		if ($canDo->get('core.admin'))
+		if ($canDo->get('core.admin') || $canDo->get('core.options'))
 		{
-			JToolbarHelper::divider();
-			JToolBarHelper::preferences('com_sermonspeaker', 650, 900);
+			JToolBarHelper::preferences('com_sermonspeaker');
 		}
 	}
 }
