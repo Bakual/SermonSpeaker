@@ -43,8 +43,11 @@ class SermonspeakerViewTools extends JViewLegacy
 		}
 
 		// Check if PreachIt is installed
-		$db = JFactory::getDbo();
-		$this->pi = in_array($db->getPrefix() . 'pistudies', $db->getTableList());
+		$db       = JFactory::getDbo();
+		$prefix   = $db->getPrefix();
+		$tables   = $db->getTableList();
+		$this->pi = in_array($prefix . 'pistudies', $tables);
+		$this->bs = in_array($prefix . 'bsms_studies', $tables);
 
 		// We don't need toolbar in the modal window.
 		if ($layout !== 'time')

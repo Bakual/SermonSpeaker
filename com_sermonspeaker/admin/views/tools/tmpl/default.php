@@ -56,11 +56,19 @@ $user    = JFactory::getUser();
 					<h3 class="center"><?php echo JText::_('COM_SERMONSPEAKER_TOOLS_AUTOMATIC'); ?></h3>
 				</a>
 			</li>
-			<?php if($this->pi): ?>
+			<?php if($this->pi) : ?>
 				<li class="span2" rel="tooltip" data-placement="left" title="<?php echo JText::_('COM_SERMONSPEAKER_TOOLS_IMPORT_DESC'); ?>">
-					<a class="thumbnail" href="index.php?option=com_sermonspeaker&task=tools.piimport&<?php echo $session->getName().'='.$session->getId().'&'.JSession::getFormToken(); ?>=1">
-						<img src="<?php echo JURI::base()."components/com_sermonspeaker/images/import.png"; ?>"/>
+					<a class="thumbnail" href="index.php?option=com_sermonspeaker&task=tools.piimport&<?php echo $session->getName() . '=' . $session->getId() . '&' . JSession::getFormToken(); ?>=1">
+						<img src="<?php echo JURI::base() . "components/com_sermonspeaker/images/import.png"; ?>"/>
 						<h3 class="center"><?php echo JText::_('COM_SERMONSPEAKER_TOOLS_IMPORT'); ?></h3>
+					</a>
+				</li>
+			<?php endif; ?>
+			<?php if($this->bs) : ?>
+				<li class="span2" rel="tooltip" data-placement="left" title="<?php echo JText::_('COM_SERMONSPEAKER_TOOLS_IMPORT_BS_DESC'); ?>">
+					<a class="thumbnail" href="index.php?option=com_sermonspeaker&task=tools.bsimport&<?php echo $session->getName() . '=' . $session->getId() . '&' . JSession::getFormToken(); ?>=1">
+						<img src="<?php echo JURI::base() . "components/com_sermonspeaker/images/import.png"; ?>"/>
+						<h3 class="center"><?php echo JText::_('COM_SERMONSPEAKER_TOOLS_IMPORT_BS'); ?></h3>
 					</a>
 				</li>
 			<?php endif; ?>
