@@ -3,7 +3,7 @@
 defined('_JEXEC') or die;
 
 // Include the component HTML helpers.
-JHtml::addIncludePath(JPATH_COMPONENT.'/helpers/html');
+JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
 
 // Load the tooltip behavior.
 JHtml::_('behavior.formvalidation');
@@ -16,8 +16,8 @@ $uri->delVar('file');
 $uri->delVar('type');
 $self = $uri->toString();
 
-$app	= JFactory::getApplication();
-$input	= $app->input;
+$app   = JFactory::getApplication();
+$input = $app->input;
 ?>
 
 <script type="text/javascript">
@@ -96,10 +96,10 @@ $input	= $app->input;
 								<button id="btnCancel2" type="button" onclick="cancelQueue(upload2);" class="ss-hide upload_button" disabled="disabled">Cancel</button>
 								<span id="videopathinfo" class="pathinfo ss-hide hasTooltip" title="<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO_TOOLTIP'); ?>">
 									<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO');
-									if ($this->s3video):
-										echo ' http://'.$this->prefix.'.amazonaws.com/'.$this->bucket.'/';
-									else:
-										echo ' /'.trim($this->params->get('path_video'), '/').'/<span id="videopathdate" class="pathdate">'.$this->append_date.'</span><span id="videopathlang" class="pathlang">'.$this->append_lang.'</span>';
+									if ($this->s3video) :
+										echo ' http://' . $this->prefix . '.amazonaws.com/' . $this->bucket . '/';
+									else :
+										echo ' /' . trim($this->params->get('path_video'), '/') . '/<span id="videopathdate" class="pathdate">' . $this->append_date . '</span><span id="videopathlang" class="pathlang">' . $this->append_lang . '</span>';
 									endif; ?>
 								</span>
 							</div>
