@@ -30,11 +30,6 @@ class PlgSermonspeakerPixelout extends SermonspeakerPluginPlayer
 	private static $script_loaded = false;
 
 	/**
-	 * @var array Player options
-	 */
-	private $options;
-
-	/**
 	 * Creates the player
 	 *
 	 * @param   string                    $context  The context from where it's triggered
@@ -78,40 +73,44 @@ class PlgSermonspeakerPixelout extends SermonspeakerPluginPlayer
 			return;
 		}
 
-		$this->player->player = $this->_name;
-		$this->player->toggle = false;
+		$this->player->player   = $this->_name;
+		$this->player->toggle   = false;
+		$this->player->hideInfo = true;
 		$this->loadLanguage();
 
 		if (is_array($items))
 		{
-			$this->player->mspace = '<div id="mediaspace' . $count . '">'
-					. JText::_('COM_SERMONSPEAKER_PLAYER_NEEDS_FLASH')
-				. '</div>';
-
 			$playlist = $this->createMultiPlaylist($items);
+
+			$this->player->mspace = '<div id="mediaspace' . $count . '">'
+				. JText::_('COM_SERMONSPEAKER_PLAYER_NEEDS_FLASH')
+				. '</div>';
 		}
 		else
 		{
+			$playlist = $this->createSinglePlaylist($items);
+
 			// Special mediaspace to have a HTML5 fallback.
 			$this->player->mspace = '<div id="mediaspace' . $count . '">'
-					. '<audio src="' . $file . '" controls="controls" preload="auto" >'
-						. JText::_('COM_SERMONSPEAKER_PLAYER_NEEDS_FLASH')
-					. '</audio>'
+				. '<audio src="' . $playlist['soundFile'] . '" controls="controls" preload="auto" >'
+				. JText::_('COM_SERMONSPEAKER_PLAYER_NEEDS_FLASH')
+				. '</audio>'
 				. '</div>';
-
-			$playlist = $this->createSinglePlaylist($items);
 		}
 
 		$this->player->script = '<script type="text/javascript">'
-			. 'AudioPlayer.embed("mediaspace' . $this->config['count'] . '", {';
+			. 'AudioPlayer.embed("mediaspace' . $count . '", {';
 
 		foreach ($playlist as $key => $value)
 		{
-			$this->player->script .= $key . ': "' . $value . '",';
+			if ($value)
+			{
+				$this->player->script .= $key . ':"' . $value . '",';
+			}
 		}
 
 		$start = $this->params->get('autostart') ? 'yes' : 'no';
-		$this->player->script .= 'autostart: "' . $start . '"'
+		$this->player->script .= 'autostart:"' . $start . '"'
 			. '})'
 			. '</script>';
 
@@ -209,9 +208,9 @@ class PlgSermonspeakerPixelout extends SermonspeakerPluginPlayer
 	private function createSinglePlaylist($item)
 	{
 		$playlist = array();
-		$playlist['soundFile'] = urlencode(SermonspeakerHelperSermonspeaker::makeLink($item->audiofile));
-		$playlist['titles']    = ($item->title) ? 'titles: "' . urlencode($item->title) . '",' : '';
-		$playlist['artists']   = ($item->speaker_title) ? 'artists: "' . urlencode($item->speaker_title) . '",' : '';
+		$playlist['soundFile'] = SermonspeakerHelperSermonspeaker::makeLink($item->audiofile);
+		$playlist['titles']    = ($item->title) ? urlencode($item->title) : '';
+		$playlist['artists']   = ($item->speaker_title) ? urlencode($item->speaker_title) : '';
 
 		return $playlist;
 	}

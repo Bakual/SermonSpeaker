@@ -14,7 +14,7 @@
 		<folder>language</folder>
 	</files>
 	<media destination="plg_sermonspeaker_pixelout" folder="media">
-		<filename>audio_player.js</filename>
+		<filename>audio-player.js</filename>
 		<filename>player.swf</filename>
 	</media>
 	<updateservers>
