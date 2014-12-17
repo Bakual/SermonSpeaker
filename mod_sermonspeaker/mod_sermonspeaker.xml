@@ -13,7 +13,6 @@
 		<filename module="mod_sermonspeaker">mod_sermonspeaker.php</filename>
 		<filename>mod_sermonspeaker.xml</filename>
 		<filename>helper.php</filename>
-		<filename>index.html</filename>
 		<folder>tmpl</folder>
 		<folder>language</folder>
 	</files>

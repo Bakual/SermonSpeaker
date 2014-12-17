@@ -13,7 +13,6 @@
 		<filename module="mod_related_sermons">mod_related_sermons.php</filename>
 		<filename>mod_related_sermons.xml</filename>
 		<filename>helper.php</filename>
-		<filename>index.html</filename>
 		<folder>tmpl</folder>
 		<folder>language</folder>
 	</files>

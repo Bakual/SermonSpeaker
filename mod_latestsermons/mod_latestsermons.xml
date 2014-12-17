@@ -13,7 +13,6 @@
 		<filename module="mod_latestsermons">mod_latestsermons.php</filename>
 		<filename>mod_latestsermons.xml</filename>
 		<filename>helper.php</filename>
-		<filename>index.html</filename>
 		<folder>tmpl</folder>
 		<folder>language</folder>
 	</files>
