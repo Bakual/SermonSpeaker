@@ -1,18 +1,31 @@
 <?php
-// No direct access
-defined('_JEXEC') or die;
 /**
- * View to edit a series.
+ * @package     SermonSpeaker
+ * @subpackage  Component.Administrator
+ * @author      Thomas Hunziker <admin@sermonspeaker.net>
+ * @copyright   (C) 2014 - Thomas Hunziker
+ * @license     http://www.gnu.org/licenses/gpl.html
+ **/
+
+defined('_JEXEC') or die;
+
+/**
+ * HTML View class for the SermonSpeaker Component
  *
- * @package		Sermonspeaker.Administrator
+ * @since  3.4
  */
 class SermonspeakerViewSerie extends JViewLegacy
 {
 	protected $state;
 	protected $item;
 	protected $form;
+
 	/**
-	 * Display the view
+	 * Execute and display a template script.
+	 *
+	 * @param   string  $tpl  The name of the template file to parse; automatically searches through the template paths.
+	 *
+	 * @return  mixed  A string if successful, otherwise a Error object.
 	 */
 	public function display($tpl = null)
 	{
@@ -38,12 +51,12 @@ class SermonspeakerViewSerie extends JViewLegacy
 	protected function addToolbar()
 	{
 		JFactory::getApplication()->input->set('hidemainmenu', true);
-		$user		= JFactory::getUser();
-		$userId		= $user->get('id');
-		$isNew		= ($this->item->id == 0);
-		$checkedOut	= !($this->item->checked_out == 0 || $this->item->checked_out == $userId);
-		$canDo		= SermonspeakerHelper::getActions();
-		JToolbarHelper::title(JText::sprintf('COM_SERMONSPEAKER_PAGE_'.($checkedOut ? 'VIEW' : ($isNew ? 'ADD' : 'EDIT')), JText::_('COM_SERMONSPEAKER_SERIES_TITLE'), JText::_('COM_SERMONSPEAKER_SERIE')), 'pencil-2 series');
+		$user       = JFactory::getUser();
+		$userId     = $user->get('id');
+		$isNew      = ($this->item->id == 0);
+		$checkedOut = !($this->item->checked_out == 0 || $this->item->checked_out == $userId);
+		$canDo      = SermonspeakerHelper::getActions();
+		JToolbarHelper::title(JText::sprintf('COM_SERMONSPEAKER_PAGE_' . ($checkedOut ? 'VIEW' : ($isNew ? 'ADD' : 'EDIT')), JText::_('COM_SERMONSPEAKER_SERIES_TITLE'), JText::_('COM_SERMONSPEAKER_SERIE')), 'pencil-2 series');
 
 		// Build the actions for new and existing records.
 		if ($isNew)

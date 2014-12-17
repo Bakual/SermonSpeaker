@@ -74,14 +74,17 @@ class SermonspeakerViewLanguages extends JViewLegacy
 
 	/**
 	 * Add the page title and toolbar.
+	 *
+	 * @return  void
 	 */
 	protected function addToolbar()
 	{
-		$canDo 	= SermonspeakerHelper::getActions();
+		$canDo = SermonspeakerHelper::getActions();
 		JToolBarHelper::title(JText::_('COM_SERMONSPEAKER_MAIN_LANGUAGES'), 'comments-2 languages');
-		if ($canDo->get('core.admin')) {
-			JToolbarHelper::divider();
-			JToolBarHelper::preferences('com_sermonspeaker', 650, 900);
+
+		if ($canDo->get('core.admin') || $canDo->get('core.options'))
+		{
+			JToolBarHelper::preferences('com_sermonspeaker');
 		}
 	}
 }

@@ -66,7 +66,7 @@ class SermonspeakerHelperPlayerReal extends SermonspeakerHelperPlayer
 	 * @param   object  $item    Itemobject
 	 * @param   array   $config  Config array
 	 *
-	 * @return  object  Player object
+	 * @return  void
 	 */
 	public function preparePlayer($item, $config)
 	{
@@ -80,7 +80,7 @@ class SermonspeakerHelperPlayerReal extends SermonspeakerHelperPlayer
 			$this->mspace = '<div class="alert"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>Warning!</strong> '
 				. $this->player . ' doesn\'t support Playlists</div>';
 
-			return false;
+			return;
 		}
 
 		$type = ($this->mode == 'audio') ? 'a' : 'v';

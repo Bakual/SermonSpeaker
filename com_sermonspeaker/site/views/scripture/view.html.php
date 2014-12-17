@@ -112,12 +112,14 @@ class SermonspeakerViewScripture extends JViewLegacy
 		else
 		{
 			$javascript .= "var id = parseInt(window.parent.document.getElementById('scripture_id').value);
-				window.parent.document.getElementById('scripture_span').innerHTML += 
+				window.parent.document.getElementById('scripture_span').innerHTML +=
 				'<span id=\"scripture_span_' + id + '\">\
 					<input type=\"hidden\" name=\"jform[scripture][' + id + ']\" id=\"jform_scripture_' + id + '\" value=\"' + value + '\" />\
-					<img src=\"" . JURI::root() . "media/com_sermonspeaker/images/delete.png\" class=\"pointer\" onClick=\"delete_scripture(' + id + ');\">\
-					<input readonly=\"readonly\" class=\"readonly scripture\" size=\"30\" name=\"jform[scripture_text][' + id + ']\"\
-						id=\"jform_scripture_text_' + id + '\" value=\"' + text + '\" />\
+					<div class=\"input-prepend\">\
+						<div class=\"btn add-on icon-trash\" onclick=\"delete_scripture(' + id + ');\"> </div>\
+						<input readonly=\"readonly\" type=\"text\" class=\"readonly scripture\" size=\"30\" name=\"jform[scripture_text][' + id + ']\"\
+							id=\"jform_scripture_text_' + id + '\" value=\"' + text + '\" />\
+					</div>\
 					<label></label>\
 				</span>';
 				window.parent.document.getElementById('scripture_id').value = id+1;

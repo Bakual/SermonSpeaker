@@ -7,10 +7,8 @@ class SermonspeakerController extends JControllerLegacy
 
 	public function display($cachable = false, $urlparams = false)
 	{
-		require_once JPATH_COMPONENT.'/helpers/sermonspeaker.php';
+		require_once JPATH_COMPONENT . '/helpers/sermonspeaker.php';
 
-		parent::display();
-
-		return $this;
+		return parent::display();
 	}
 }

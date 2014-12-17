@@ -2,11 +2,11 @@
 <extension type="module" version="3.1" method="upgrade">
 	<name>SermonCast</name>
 	<author>Thomas Hunziker, Martin Hess</author>
-	<creationDate>2014-05-16</creationDate>
+	<creationDate>2014-08-20</creationDate>
 	<copyright>(C) 2014</copyright>
 	<authorEmail>admin@sermonspeaker.net</authorEmail>
 	<authorUrl>http://www.sermonspeaker.net</authorUrl>
-	<version>5.0.1</version>
+	<version>5.0.2</version>
 	<license>http://www.gnu.org/licenses/gpl.html</license>
 	<description>MOD_SERMONCAST_XML_DESCRIPTION</description>
 	<files>
@@ -15,6 +15,7 @@
 		<filename>podcast-mini.gif</filename>
 		<filename>feed_rss.gif</filename>
 		<folder>language</folder>
+		<folder>tmpl</folder>
 	</files>
 	<updateservers>
 		<server type="extension" priority="1" name="SermonSpeaker.net">http://www.sermonspeaker.net/update/mod_sermoncast.xml</server>
@@ -23,11 +24,7 @@
 		<fields name="params">
 			<fieldset name="basic"
 				addfieldpath="/administrator/components/com_content/models/fields">
-				<field name="moduleclass_sfx" type="text" 
-					default="" 
-					label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL" 
-					description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC" />
-				<field name="sc_introtext" type="text" 
+				<field name="sc_introtext" type="text"
 					default="" 
 					label="MOD_SERMONCAST_PARAM_INTROTEXT" 
 					description="MOD_SERMONCAST_PARAM_INTROTEXT_DESC" />
@@ -44,30 +41,62 @@
 					<option value="video">Video</option>
 				</field>
 				<field type="spacer" />
-				<field name="sc_showpcast" type="radio"
-					default="1"
+				<field
+					name="sc_showpcast"
+					type="radio"
 					label="MOD_SERMONCAST_PARAM_SHOWPCAST"
+					description="MOD_SERMONCAST_PARAM_SHOWPCAST_DESC"
 					class="btn-group btn-group-yesno"
-					description="MOD_SERMONCAST_PARAM_SHOWPCAST_DESC">
+					default="1"
+					>
 					<option value="1">JYES</option>
 					<option value="0">JNO</option>
 				</field>
-				<field name="sc_pcast_prefix" type="list" 
-					default="itpc" 
-					label="MOD_SERMONCAST_PARAM_PCAST_PREFIX" 
-					description="MOD_SERMONCAST_PARAM_PCAST_PREFIX_DESC">
+				<field
+					name="logo"
+					type="imagelist"
+					label="MOD_SERMONCAST_FIELD_LOGO_LABEL"
+					description="MOD_SERMONCAST_FIELD_LOGO_DESC"
+					directory="media/com_sermonspeaker/logo"
+					hide_none="true"
+					showon="sc_showpcast:1"
+				/>
+				<field
+					name="sc_otherimage"
+					type="text"
+					label="MOD_SERMONCAST_PARAM_OTHERIMAGE"
+					description="MOD_SERMONCAST_PARAM_OTHERIMAGE_DESC"
+					default=""
+					showon="sc_showpcast:1"
+				/>
+				<field
+					name="sc_pcast_prefix"
+					type="list"
+					label="MOD_SERMONCAST_PARAM_PCAST_PREFIX"
+					description="MOD_SERMONCAST_PARAM_PCAST_PREFIX_DESC"
+					default="itpc"
+					showon="sc_showpcast:1"
+					>
 					<option value="http">http://</option>
 					<option value="itpc">itpc://</option>
 					<option value="pcast">pcast://</option>
 				</field>
-				<field name="sc_otherlink" type="text" 
-					default="" 
-					label="MOD_SERMONCAST_PARAM_OTHERLINK" 
-					description="MOD_SERMONCAST_PARAM_OTHERLINK_DESC" />
-				<field name="sc_otherimage" type="text" 
-					default="" 
-					label="MOD_SERMONCAST_PARAM_OTHERIMAGE" 
-					description="MOD_SERMONCAST_PARAM_OTHERIMAGE_DESC" />
+				<field
+					name="sc_otherlink"
+					type="text"
+					label="MOD_SERMONCAST_PARAM_OTHERLINK"
+					description="MOD_SERMONCAST_PARAM_OTHERLINK_DESC"
+					default=""
+					showon="sc_showpcast:1"
+				/>
+				<field
+					name="sc_otherimage"
+					type="text"
+					label="MOD_SERMONCAST_PARAM_OTHERIMAGE"
+					description="MOD_SERMONCAST_PARAM_OTHERIMAGE_DESC"
+					default=""
+					showon="sc_showpcast:1"
+				/>
 				<field type="spacer" />
 				<field name="sc_showplink" type="radio"
 					default="1"
@@ -86,18 +115,55 @@
 					<option value="1">JYES</option>
 					<option value="0">JNO</option>
 				</field>
-				<field name="sc_helpwidth" type="text" 
-					default="700" 
-					label="MOD_SERMONCAST_PARAM_HELPWIDTH" 
-					description="MOD_SERMONCAST_PARAM_HELPWIDTH_DESC" />
-				<field name="sc_helpheight" type="text" 
-					default="500" 
-					label="MOD_SERMONCAST_PARAM_HELPHEIGHT" 
-					description="MOD_SERMONCAST_PARAM_HELPHEIGHT_DESC" />
-				<field name="sc_helpcontent" type="modal_article" 
-					default="0" 
-					label="MOD_SERMONCAST_PARAM_HELPCONTENT" 
-					description="MOD_SERMONCAST_PARAM_HELPCONTENT_DESC" />
+				<field
+					name="sc_helpwidth"
+					type="text"
+					label="MOD_SERMONCAST_PARAM_HELPWIDTH"
+					description="MOD_SERMONCAST_PARAM_HELPWIDTH_DESC"
+					default="700"
+					showon="sc_showhelp:1"
+				/>
+				<field
+					name="sc_helpheight"
+					type="text"
+					label="MOD_SERMONCAST_PARAM_HELPHEIGHT"
+					description="MOD_SERMONCAST_PARAM_HELPHEIGHT_DESC"
+					default="500"
+					showon="sc_showhelp:1"
+				/>
+				<field
+					name="sc_helpcontent"
+					type="modal_article"
+					label="MOD_SERMONCAST_PARAM_HELPCONTENT"
+					description="MOD_SERMONCAST_PARAM_HELPCONTENT_DESC"
+					default="0"
+					showon="sc_showhelp:1"
+				/>
+			</fieldset>
+			<fieldset name="advanced">
+				<field name="layout" type="modulelayout"
+					   label="JFIELD_ALT_LAYOUT_LABEL"
+					   description="JFIELD_ALT_MODULE_LAYOUT_DESC"
+					   default="_:default" />
+				<field name="moduleclass_sfx" type="textarea"
+					   label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL"
+					   description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC"
+					   rows="3" />
+				<field name="cache" type="list"
+					   label="COM_MODULES_FIELD_CACHING_LABEL"
+					   description="COM_MODULES_FIELD_CACHING_DESC"
+					   default="1">
+					<option value="1">JGLOBAL_USE_GLOBAL</option>
+					<option value="0">COM_MODULES_FIELD_VALUE_NOCACHING</option>
+				</field>
+				<field name="cache_time" type="text"
+					   label="COM_MODULES_FIELD_CACHE_TIME_LABEL"
+					   description="COM_MODULES_FIELD_CACHE_TIME_DESC"
+					   default="900" />
+				<field name="cachemode" type="hidden"
+					   default="static">
+					<option value="static"></option>
+				</field>
 			</fieldset>
 		</fields>
 	</config>

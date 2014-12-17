@@ -1,5 +1,19 @@
 <?php
+/**
+ * @package     SermonSpeaker
+ * @subpackage  Component.Administrator
+ * @author      Thomas Hunziker <admin@sermonspeaker.net>
+ * @copyright   (C) 2014 - Thomas Hunziker
+ * @license     http://www.gnu.org/licenses/gpl.html
+ **/
+
 defined('_JEXEC') or die;
+
+/**
+ * HTML View class for the SermonSpeaker Component
+ *
+ * @since  3.4
+ */
 class SermonspeakerViewSpeakers extends JViewLegacy
 {
 	protected $items;
@@ -20,6 +34,8 @@ class SermonspeakerViewSpeakers extends JViewLegacy
 		$this->state		= $this->get('State');
 		$this->items		= $this->get('Items');
 		$this->pagination	= $this->get('Pagination');
+		$this->filterForm    = $this->get('FilterForm');
+		$this->activeFilters = $this->get('ActiveFilters');
 
 		// Check for errors.
 		if (count($errors = $this->get('Errors')))
@@ -36,39 +52,59 @@ class SermonspeakerViewSpeakers extends JViewLegacy
 
 		return parent::display($tpl);
 	}
+
 	/**
 	 * Add the page title and toolbar.
+	 *
+	 * @return  void
 	 */
 	protected function addToolbar()
 	{
-		$canDo 	= SermonspeakerHelper::getActions();
+		$canDo = SermonspeakerHelper::getActions();
 		JToolBarHelper::title(JText::_('COM_SERMONSPEAKER_SPEAKERS_TITLE'), 'users speakers');
-		if ($canDo->get('core.create')) {
+
+		if ($canDo->get('core.create'))
+		{
 			JToolBarHelper::addNew('speaker.add','JTOOLBAR_NEW');
 		}
-		if (($canDo->get('core.edit')) || ($canDo->get('core.edit.own'))) {
+
+		if (($canDo->get('core.edit')) || ($canDo->get('core.edit.own')))
+		{
 			JToolBarHelper::editList('speaker.edit','JTOOLBAR_EDIT');
 		}
-		if ($canDo->get('core.edit.state')) {
+
+		if ($canDo->get('core.edit.state'))
+		{
 			JToolBarHelper::divider();
 			JToolBarHelper::custom('speakers.publish', 'publish.png', 'publish_f2.png','JTOOLBAR_PUBLISH', true);
 			JToolBarHelper::custom('speakers.unpublish', 'unpublish.png', 'unpublish_f2.png', 'JTOOLBAR_UNPUBLISH', true);
 			JToolBarHelper::divider();
-			if ($this->state->get('filter.state') != 2) {
+
+			if ($this->state->get('filter.state') != 2)
+			{
 				JToolBarHelper::archiveList('speakers.archive','JTOOLBAR_ARCHIVE');
-			} else {
+			}
+			else
+			{
 				JToolBarHelper::unarchiveList('speakers.publish', 'JTOOLBAR_UNARCHIVE');
 			}
+
 			JToolBarHelper::checkin('speakers.checkin');
 		}
-		if ($this->state->get('filter.state') == -2 && $canDo->get('core.delete')) {
+
+		if ($this->state->get('filter.state') == -2 && $canDo->get('core.delete'))
+		{
 			JToolBarHelper::deleteList('', 'speakers.delete','JTOOLBAR_EMPTY_TRASH');
 			JToolBarHelper::divider();
-		} else if ($canDo->get('core.edit.state')) {
+		}
+		elseif ($canDo->get('core.edit.state'))
+		{
 			JToolBarHelper::trash('speakers.trash','JTOOLBAR_TRASH');
 			JToolBarHelper::divider();
 		}
-		if ($canDo->get('core.edit.state')) {
+
+		if ($canDo->get('core.edit.state'))
+		{
 			JToolBarHelper::custom('tools.speakersorder', 'purge icon-lightning', '','COM_SERMONSPEAKER_TOOLS_ORDER', false);
 			JToolBarHelper::divider();
 		}
@@ -80,43 +116,16 @@ class SermonspeakerViewSpeakers extends JViewLegacy
 		if ($canDo->get('core.edit'))
 		{
 			$title = JText::_('JTOOLBAR_BATCH');
-			$dhtml = "<button data-toggle=\"modal\" data-target=\"#collapseModal\" class=\"btn btn-small\">
-						<i class=\"icon-checkbox-partial\" title=\"$title\"></i>
-						$title</button>";
+			$dhtml = '<button data-toggle="modal" data-target="#collapseModal" class="btn btn-small">'
+						. '<i class="icon-checkbox-partial" title="' . $title . '"></i>'
+						. $title . '</button>';
 			$bar->appendButton('Custom', $dhtml, 'batch');
 		}
 
-		if ($canDo->get('core.admin')) {
-			JToolBarHelper::preferences('com_sermonspeaker', 650, 900);
+		if ($canDo->get('core.admin') || $canDo->get('core.options'))
+		{
+			JToolBarHelper::preferences('com_sermonspeaker');
 		}
-
-		$this->addFilters();
-	}
-
-	/**
-	 * Add the filters.
-	 */
-	protected function addFilters()
-	{
-		JHtmlSidebar::setAction('index.php?option=com_sermonspeaker&view=speakers');
-
-		JHtmlSidebar::addFilter(
-			JText::_('JOPTION_SELECT_PUBLISHED'),
-			'filter_published',
-			JHtml::_('select.options', JHtml::_('jgrid.publishedOptions'), 'value', 'text', $this->state->get('filter.state'), true)
-		);
-
-		JHtmlSidebar::addFilter(
-			JText::_('JOPTION_SELECT_CATEGORY'),
-			'filter_category_id',
-			JHtml::_('select.options', JHtml::_('category.options', 'com_sermonspeaker'), 'value', 'text', $this->state->get('filter.category_id'))
-		);
-
-		JHtmlSidebar::addFilter(
-			JText::_('JOPTION_SELECT_LANGUAGE'),
-			'filter_language',
-			JHtml::_('select.options', JHtml::_('contentlanguage.existing', true, true), 'value', 'text', $this->state->get('filter.language'))
-		);
 	}
 
 	/**

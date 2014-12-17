@@ -48,7 +48,7 @@ class JHtmlIcon
 	 *
 	 * @param   object  $item     Sermon object
 	 * @param   object  $params   Parameters
-	 * @param   object  $attribs  Attributes
+	 * @param   array   $attribs  Attributes
 	 *
 	 * @return  string  Email link
 	 */
@@ -79,7 +79,7 @@ class JHtmlIcon
 	 *
 	 * @param   object  $item     Sermon object
 	 * @param   object  $params   Parameters
-	 * @param   object  $attribs  Attributes
+	 * @param   array   $attribs  Attributes
 	 *
 	 * @return  string  Edit link
 	 */
@@ -92,19 +92,19 @@ class JHtmlIcon
 		// Ignore if Frontend Uploading is disabled
 		if ($params && !$params->get('fu_enable'))
 		{
-			return;
+			return '';
 		}
 
 		// Ignore if in a popup window.
 		if ($params && $params->get('popup'))
 		{
-			return;
+			return '';
 		}
 
 		// Ignore if the state is negative (trashed)
 		if ($item->state < 0)
 		{
-			return;
+			return '';
 		}
 
 		JHtml::_('bootstrap.tooltip');

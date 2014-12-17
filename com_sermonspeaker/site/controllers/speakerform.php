@@ -107,6 +107,8 @@ class SermonspeakerControllerSpeakerform extends JControllerForm
 			// Since there is no asset tracking, revert to the component permission
 			return parent::allowEdit($data, $key);
 		}
+
+		return false;
 	}
 
 	/**

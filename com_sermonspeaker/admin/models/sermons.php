@@ -14,7 +14,8 @@ class SermonspeakerModelSermons extends JModelList
 	 */
 	public function __construct($config = array())
 	{
-		if (empty($config['filter_fields'])) {
+		if (empty($config['filter_fields']))
+		{
 			$config['filter_fields'] = array(
 				'id', 'sermons.id',
 				'title', 'sermons.title',
@@ -35,6 +36,13 @@ class SermonspeakerModelSermons extends JModelList
 				'series_title', 'series.title',
 				'scripture', 'sermons.scripture',
 			);
+
+			// Searchtools
+			$config['filter_fields'][] = 'speaker';
+			$config['filter_fields'][] = 'serie';
+			$config['filter_fields'][] = 'category_id';
+			$config['filter_fields'][] = 'level';
+			$config['filter_fields'][] = 'tag';
 
 			if (JLanguageAssociations::isEnabled())
 			{
@@ -57,44 +65,26 @@ class SermonspeakerModelSermons extends JModelList
 		// Initialise variables.
 		$app = JFactory::getApplication();
 
-		// Load the filter state.
-		$search = $app->getUserStateFromRequest($this->context.'.filter.search', 'filter_search');
-		$this->setState('filter.search', $search);
-
-		$published = $app->getUserStateFromRequest($this->context.'.filter.state', 'filter_published', '', 'string');
-		$this->setState('filter.state', $published);
-
-		$podcast = $app->getUserStateFromRequest($this->context.'.filter.podcast', 'filter_podcast', '', 'string');
-		$this->setState('filter.podcast', $podcast);
-
-		$speaker = $app->getUserStateFromRequest($this->context.'.filter.speaker', 'filter_speaker', '', 'string');
-		$this->setState('filter.speaker', $speaker);
-
-		$series = $app->getUserStateFromRequest($this->context.'.filter.series', 'filter_series', '', 'string');
-		$this->setState('filter.series', $series);
-
-		$categoryId = $app->getUserStateFromRequest($this->context.'.filter.category_id', 'filter_category_id', '');
-		$this->setState('filter.category_id', $categoryId);
-
-		$language = $this->getUserStateFromRequest($this->context.'.filter.language', 'filter_language', '');
-		$this->setState('filter.language', $language);
-
-		// force a language
-		$forcedLanguage = $app->input->get('forcedLanguage');
-		if (!empty($forcedLanguage))
-		{
-			$this->setState('filter.language', $forcedLanguage);
-			$this->setState('filter.forcedLanguage', $forcedLanguage);
-		}
-
 		// Load the parameters.
 		$params = JComponentHelper::getParams('com_sermonspeaker');
 		$this->setState('params', $params);
 
 		// List state information.
-		$order		= $params->get('default_order', 'ordering');
-		$orderDir	= $params->get('default_order_dir', 'ASC');
-		parent::populateState('sermons.'.$order, $orderDir);
+		$order    = $params->get('default_order', 'ordering');
+		$orderDir = $params->get('default_order_dir', 'asc');
+		parent::populateState('sermons.' . $order, $orderDir);
+
+		// Force a language
+		$forcedLanguage = $app->input->get('forcedLanguage');
+
+		if ($forcedLanguage)
+		{
+			$userstate = $app->getUserState($this->context);
+			$userstate->filter['language'] = $forcedLanguage;
+			$app->setUserState($this->context, $userstate);
+			$this->setState('filter.language', $forcedLanguage);
+			$this->setState('filter.forcedLanguage', $forcedLanguage);
+		}
 	}
 
 	/**
@@ -125,23 +115,23 @@ class SermonspeakerModelSermons extends JModelList
 	/**
 	 * Build an SQL query to load the list data.
 	 *
-	 * @return	JDatabaseQuery
-	 * @since	1.6
+	 * @return  JDatabaseQuery
+	 * @since   1.6
 	 */
 	protected function getListQuery()
 	{
 		// Create a new query object.
-		$db		= $this->getDbo();
-		$query	= $db->getQuery(true);
+		$db    = $this->getDbo();
+		$query = $db->getQuery(true);
 
 		// Select the required fields from the table.
 		$query->select(
 			$this->getState(
 				'list.select',
-				'sermons.id, sermons.title, sermons.catid, sermons.language, '.
-				'sermons.hits, sermons.notes, sermons.checked_out, sermons.checked_out_time, '.
-				'sermons.sermon_date, sermons.alias, sermons.created, sermons.created_by, '.
-				'sermons.state, sermons.ordering, sermons.podcast'
+				'sermons.id, sermons.title, sermons.catid, sermons.language, '
+				. 'sermons.hits, sermons.notes, sermons.checked_out, sermons.checked_out_time, '
+				. 'sermons.sermon_date, sermons.alias, sermons.created, sermons.created_by, '
+				. 'sermons.state, sermons.ordering, sermons.podcast'
 			)
 		);
 		$query->from('`#__sermon_sermons` AS sermons');
@@ -169,12 +159,12 @@ class SermonspeakerModelSermons extends JModelList
 		$query->group('sermons.id');
 
 		// Join over the categories.
-		$query->select('c.title AS category_title');
-		$query->join('LEFT', '#__categories AS c ON c.id = sermons.catid');
+		$query->select('c.title AS category_title')
+			->join('LEFT', '#__categories AS c ON c.id = sermons.catid');
 
 		// Join over the speakers.
-		$query->select('speakers.title AS speaker_title');
-		$query->join('LEFT', '#__sermon_speakers AS speakers ON speakers.id = sermons.speaker_id');
+		$query->select('speakers.title AS speaker_title')
+			->join('LEFT', '#__sermon_speakers AS speakers ON speakers.id = sermons.speaker_id');
 
 		// Join over the series.
 		$query->select('series.title AS series_title');
@@ -182,59 +172,106 @@ class SermonspeakerModelSermons extends JModelList
 
 		// Filter by published state
 		$published = $this->getState('filter.state');
-		if (is_numeric($published)) {
-			$query->where('sermons.state = '.(int) $published);
-		} else if ($published === '') {
+
+		if (is_numeric($published))
+		{
+			$query->where('sermons.state = ' . (int) $published);
+		}
+		elseif ($published === '')
+		{
 			$query->where('(sermons.state IN (0, 1))');
 		}
 
 		// Filter by podcast state
 		$podcast = $this->getState('filter.podcast');
-		if (is_numeric($podcast)) {
-			$query->where('sermons.podcast = '.(int) $podcast);
+
+		if (is_numeric($podcast))
+		{
+			$query->where('sermons.podcast = ' . (int) $podcast);
 		}
 
 		// Filter by speaker
 		$speaker = $this->getState('filter.speaker');
-		if (is_numeric($speaker)) {
-			$query->where('sermons.speaker_id = '.(int) $speaker);
+
+		if (is_numeric($speaker))
+		{
+			$query->where('sermons.speaker_id = ' . (int) $speaker);
 		}
 
 		// Filter by series
 		$series = $this->getState('filter.series');
-		if (is_numeric($series)) {
-			$query->where('sermons.series_id = '.(int) $series);
+
+		if (is_numeric($series))
+		{
+			$query->where('sermons.series_id = ' . (int) $series);
 		}
 
 		// Filter by category.
+		$baselevel  = 1;
 		$categoryId = $this->getState('filter.category_id');
-		if (is_numeric($categoryId)) {
-			$query->where('sermons.catid = '.(int) $categoryId);
+
+		if (is_numeric($categoryId))
+		{
+			$cat_tbl = JTable::getInstance('Category', 'JTable');
+			$cat_tbl->load($categoryId);
+			$rgt = $cat_tbl->rgt;
+			$lft = $cat_tbl->lft;
+			$baselevel = (int) $cat_tbl->level;
+			$query->where('c.lft >= ' . (int) $lft)
+				->where('c.rgt <= ' . (int) $rgt);
+		}
+
+		// Filter on the level.
+		if ($level = $this->getState('filter.level'))
+		{
+			$query->where('c.level <= ' . ((int) $level + (int) $baselevel - 1));
 		}
 
 		// Filter by search in title
 		$search = $this->getState('filter.search');
-		if (!empty($search)) {
-			if (stripos($search, 'id:') === 0) {
-				$query->where('sermons.id = '.(int) substr($search, 3));
-			} else {
-				$search = $db->quote('%'.$db->escape($search, true).'%');
-				$query->where('(sermons.title LIKE '.$search.')');
+
+		if (!empty($search))
+		{
+			if (stripos($search, 'id:') === 0)
+			{
+				$query->where('sermons.id = ' . (int) substr($search, 3));
+			}
+			else
+			{
+				$search = $db->quote('%' . $db->escape($search, true) . '%');
+				$query->where('(sermons.title LIKE ' . $search . ')');
 			}
 		}
 
 		// Filter on the language.
-		if ($language = $this->getState('filter.language')) {
-			$query->where('sermons.language = '.$db->quote($language));
+		if ($language = $this->getState('filter.language'))
+		{
+			$query->where('sermons.language = ' . $db->quote($language));
+		}
+
+		// Filter by a single tag.
+		$tagId = $this->getState('filter.tag');
+
+		if (is_numeric($tagId))
+		{
+			$query->where($db->quoteName('tagmap.tag_id') . ' = ' . (int) $tagId)
+				->join(
+					'LEFT', $db->quoteName('#__contentitem_tag_map', 'tagmap')
+					. ' ON ' . $db->quoteName('tagmap.content_item_id') . ' = ' . $db->quoteName('sermons.id')
+					. ' AND ' . $db->quoteName('tagmap.type_alias') . ' = ' . $db->quote('com_sermonspeaker.sermon')
+				);
 		}
 
 		// Add the list ordering clause.
-		$orderCol	= $this->state->get('list.ordering');
-		$orderDirn	= $this->state->get('list.direction');
-		if ($orderCol == 'sermons.ordering' || $orderCol == 'category_title') {
-			$orderCol = 'category_title '.$orderDirn.', sermons.ordering';
+		$orderCol  = $this->state->get('list.ordering');
+		$orderDirn = $this->state->get('list.direction');
+
+		if ($orderCol == 'sermons.ordering' || $orderCol == 'category_title')
+		{
+			$orderCol = 'category_title ' . $orderDirn . ', sermons.ordering';
 		}
-		$query->order($db->escape($orderCol.' '.$orderDirn));
+
+		$query->order($db->escape($orderCol . ' ' . $orderDirn));
 
 		return $query;
 	}

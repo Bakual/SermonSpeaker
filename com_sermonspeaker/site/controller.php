@@ -14,8 +14,23 @@ defined('_JEXEC') or die();
  */
 class SermonspeakerController extends JControllerLegacy
 {
+	/**
+	 * The default view for the display method.
+	 *
+	 * @var    string
+	 * @since  4.0
+	 */
 	protected $default_view = 'sermons';
 
+	/**
+	 * Constructor.
+	 *
+	 * @param   array  $config  An optional associative array of configuration settings.
+	 * Recognized key values include 'name', 'default_task', 'model_path', and
+	 * 'view_path' (this list is not meant to be comprehensive).
+	 *
+	 * @since   4.0
+	 */
 	public function __construct($config = array())
 	{
 		$this->input = JFactory::getApplication()->input;
@@ -29,12 +44,22 @@ class SermonspeakerController extends JControllerLegacy
 		parent::__construct($config);
 	}
 
-	public function display($cachable = false, $urlparams = false)
+	/**
+	 * View method.
+	 *
+	 * @param   boolean  $cachable   If true, the view output will be cached
+	 * @param   array    $urlparams  An array of safe url parameters and their variable types, for valid values see {@link JFilterInput::clean()}.
+	 *
+	 * @return  JControllerLegacy  A JControllerLegacy object to support chaining.
+	 *
+	 * @since   4.0
+	 */
+	public function display($cachable = false, $urlparams = array())
 	{
-		$cachable	= JFactory::getUser()->get('id') ? false : true;
-		$viewName	= $this->input->get('view', $this->default_view);
+		$cachable = JFactory::getUser()->get('id') ? false : true;
+		$viewName = $this->input->get('view', $this->default_view);
 
-		$params		= JFactory::getApplication()->getParams();
+		$params   = JFactory::getApplication()->getParams();
 
 		if ($params->get('css_icomoon'))
 		{
@@ -49,7 +74,7 @@ class SermonspeakerController extends JControllerLegacy
 			header('HTTP/1.1 301 Moved Permanently');
 			header('Location: ' . JURI::root() . 'index.php?option=com_sermonspeaker&view=' . $viewName . '&format=raw');
 
-			return;
+			return $this;
 		}
 
 		$safeurlparams = array(
@@ -104,7 +129,7 @@ class SermonspeakerController extends JControllerLegacy
 
 		if (!$id)
 		{
-			die("<html><body onload=\"alert('I have no clue what you want to download...');history.back();\" bgcolor=\"#F0F0F0\"></body></html>");
+			die("<html><body onload=\"alert('I have no clue what you want to download...');history.back();\"></body></html>");
 		}
 
 		$db = JFactory::getDBO();
@@ -120,7 +145,7 @@ class SermonspeakerController extends JControllerLegacy
 
 		$db->setQuery($query);
 		$result = $db->loadResult() or die ("<html><body onload=\"alert('Encountered an error while accessing the database');
-			history.back();\" bgcolor=\"#F0F0F0\"></body></html>");
+			history.back();\"></body></html>");
 		$result = rtrim($result);
 
 		// Redirect if link goes to an external source
@@ -162,7 +187,7 @@ class SermonspeakerController extends JControllerLegacy
 			header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
 			header('Cache-Control: private', false);
 			header('Content-Type: ' . $mime);
-			header('Content-Disposition: attachment; filename="' . JFile::getName($file) . '"');
+			header('Content-Disposition: attachment; filename="' . basename($file) . '"');
 			header('Content-Transfer-Encoding: binary');
 			header('Content-Length: ' . @filesize($file));
 			set_time_limit(0);
@@ -179,8 +204,6 @@ class SermonspeakerController extends JControllerLegacy
 				{
 					die("Can't open the file!");
 				}
-
-				$buffer = '';
 
 				while (!feof($handle))
 				{
@@ -201,7 +224,7 @@ class SermonspeakerController extends JControllerLegacy
 		}
 		else
 		{
-			die("<html><body OnLoad=\"alert('File not found!');history.back();\" bgcolor=\"#F0F0F0\"></body></html>");
+			die("<html><body onload=\"alert('File not found!');history.back();\"></body></html>");
 		}
 	}
 }

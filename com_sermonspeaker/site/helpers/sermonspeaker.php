@@ -33,9 +33,11 @@ class SermonspeakerHelperSermonspeaker
 	 */
 	private static function getParams()
 	{
+		$option = 'com_sermonspeaker';
+
 		/* @var  $app  JApplicationSite */
 		$app = JFactory::getApplication();
-		self::$params = $app->getParams('com_sermonspeaker');
+		self::$params = (method_exists($app, 'getParams')) ? $app->getParams($option) : JComponentHelper::getParams($option);;
 	}
 
 	/**
@@ -112,7 +114,7 @@ class SermonspeakerHelperSermonspeaker
 
 		if (self::$params->get('enable_ga_events'))
 		{
-			$onclick = "onclick=\"_gaq.push(['_trackEvent', 'SermonSpeaker Download', 'Additional File', '" . $addfile . "']);\"";
+			$onclick = " onclick=\"_gaq.push(['_trackEvent', 'SermonSpeaker Download', 'Additional File', '" . $addfile . "']);\"";
 		}
 
 		if ($show_icon)
@@ -154,7 +156,7 @@ class SermonspeakerHelperSermonspeaker
 			}
 
 			$html .= '<a class="hasTooltip" title="::' . JText::_('COM_SERMONSPEAKER_ADDFILE_HOOVER') . '" href="'
-				. $link . '" ' . $onclick . 'target="_blank">' . $addfileDesc . '</a>';
+				. $link . '"' . $onclick . ' target="_blank">' . $addfileDesc . '</a>';
 		}
 
 		return $html;
@@ -233,7 +235,7 @@ class SermonspeakerHelperSermonspeaker
 				$onclick = "onclick=\"_gaq.push(['_trackEvent', 'SermonSpeaker Download', '" . $type . "', 'id:" . $id . "']);\"";
 			}
 
-			$html = '<a href="' . $fileurl . '" target="_new" ' . $onclick . ' class="hasTooltip" title="::' . $text . '">'
+			$html = '<a href="' . $fileurl . '" target="_new" ' . $onclick . ' class="hasTooltip" title="' . $text . '">'
 						. '<i class="icon-download"> </i>'
 					. '</a>';
 		}

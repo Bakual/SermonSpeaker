@@ -20,13 +20,13 @@ if ($params->get('show_list')) : ?>
 	foreach($list as $row) :
 		$i++; ?>
 		<div class="latestsermons_entry<?php echo $i; ?>">
-			<h3><a href="<?php echo JRoute::_('index.php?option=com_sermonspeaker&view=sermon&id=' . $row->slug . '&Itemid=' . $itemid); ?>">
+			<h4><a href="<?php echo JRoute::_('index.php?option=com_sermonspeaker&view=sermon&id=' . $row->slug . '&Itemid=' . $itemid); ?>">
 				<?php echo $row->title;
 
 				if ($params->get('show_hits', 0) > 1 and $row->hits) : ?>
 					<small>(<?php echo $row->hits; ?>)</small>
 				<?php endif; ?>
-			</a></h3>
+			</a></h4>
 			<dl class="article-info sermon-info" style="display:block; margin:0;">
 				<dt class="article-info-term"><?php echo JText::_('JDETAILS'); ?></dt>
 				<?php

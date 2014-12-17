@@ -3,13 +3,21 @@
 // No direct access
 defined('_JEXEC') or die;
 
+/**
+ * Sermonspeaker Helper
+ *
+ * @since  3.4
+ */
 class SermonspeakerHelper
 {
 	/**
 	 * Configure the Linkbar.
 	 *
 	 * @param  string  $vName  The name of the active view.
+	 *
 	 * @since  1.6
+	 *
+	 * @return void
 	 */
 	public static function addSubmenu($vName = 'main')
 	{
@@ -49,7 +57,7 @@ class SermonspeakerHelper
 			$vName == 'help'
 		);
 	}
-	
+
 	/**
 	 * Get the actions for ACL
 	 */

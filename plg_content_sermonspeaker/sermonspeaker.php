@@ -32,17 +32,23 @@ class PlgContentSermonspeaker extends JPlugin
 		// Don't run this plugin when the content is being indexed
 		if ($context == 'com_finder.indexer')
 		{
-			return true;
+			return;
+		}
+
+		// Don't run if there is no text property (in case of bad calls) or it is empty
+		if (empty($article->text))
+		{
+			return;
 		}
 
 		// Simple performance check to determine whether bot should process further
 		if (strpos($article->text, 'sermonspeaker') === false)
 		{
-			return true;
+			return;
 		}
 
 		// Expression to search for (positions)
-		$regex		= '/{sermonspeaker\s+(.*?)}/i';
+		$regex = '/{sermonspeaker\s+(.*?)}/i';
 
 		// Find all instances of plugin and put in $matches for sermonspeaker
 		// $matches[0] is full pattern match, $matches[1] is the id
