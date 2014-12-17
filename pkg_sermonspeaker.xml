@@ -28,6 +28,7 @@
 		<file type="plugin" id="plg_sermonspeaker_generic" client="site">plg_sermonspeaker_generic.zip</file>
 		<file type="plugin" id="plg_sermonspeaker_jwplayer5" client="site">plg_sermonspeaker_jwplayer5.zip</file>
 		<file type="plugin" id="plg_sermonspeaker_jwplayer6" client="site">plg_sermonspeaker_jwplayer6.zip</file>
+		<file type="plugin" id="plg_sermonspeaker_pixelout" client="site">plg_sermonspeaker_pixelout.zip</file>
 	</files>
 	<updateservers>
 		<server type="collection" priority="1" name="SermonSpeaker.net">http://www.sermonspeaker.net/update/package.xml</server>
