@@ -56,7 +56,7 @@ $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 		<div id="ss-sermons-player" class="ss-player row-fluid">
 			<div class="span10 offset1">
 				<hr />
-				<?php if ($player->player != 'PixelOut') : ?>
+				<?php if (empty($player->hideInfo)) : ?>
 					<div id="playing">
 						<img id="playing-pic" class="picture" src="" alt="" />
 						<span id="playing-duration" class="duration"></span>

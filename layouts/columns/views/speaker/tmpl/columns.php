@@ -76,7 +76,7 @@ if ($this->params->get('show_category_title', 0) or in_array('speaker:hits', $th
 	JHtml::stylesheet('com_sermonspeaker/player.css', '', true); ?>
 	<div class="ss-speaker-player">
 		<hr class="ss-speaker-player" />
-		<?php if ($player->player != 'PixelOut'): ?>
+		<?php if (empty($player->hideInfo)): ?>
 			<div id="playing">
 				<img id="playing-pic" class="picture" src="" />
 				<span id="playing-duration" class="duration"></span>

@@ -82,7 +82,7 @@ if (in_array('serie:player', $this->columns) and count($this->items)) :
 	JHtml::stylesheet('com_sermonspeaker/player.css', '', true); ?>
 	<div class="ss-serie-player">
 		<hr class="ss-serie-player" />
-		<?php if ($player->player != 'PixelOut'): ?>
+		<?php if (empty($player->hideInfo)): ?>
 			<div id="playing">
 				<img id="playing-pic" class="picture" src="" />
 				<span id="playing-duration" class="duration"></span>

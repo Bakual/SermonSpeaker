@@ -21,6 +21,11 @@ class SermonspeakerHelperPlayerPixelout extends SermonspeakerHelperPlayer
 	private static $script_loaded;
 
 	/**
+	 * @var  Tells the layout to hide the "now playing" info
+	 */
+	public $hideInfo = true;
+
+	/**
 	 * Checks the filename if it's supported by the player
 	 *
 	 * @param   string  $file  Filename
@@ -64,9 +69,9 @@ class SermonspeakerHelperPlayerPixelout extends SermonspeakerHelperPlayer
 	 */
 	public function preparePlayer($item, $config)
 	{
-		$this->config = $config;
-		$this->player = 'PixelOut';
-		$start        = $this->config['autostart'] ? 'yes' : 'no';
+		$this->config   = $config;
+		$this->player   = 'PixelOut';
+		$start          = $this->config['autostart'] ? 'yes' : 'no';
 
 		if (is_array($item))
 		{
