@@ -18,9 +18,10 @@ $fu_enable	= $this->params->get('fu_enable');
 $canEdit	= ($fu_enable and $user->authorise('core.edit', 'com_sermonspeaker'));
 $canEditOwn	= ($fu_enable and $user->authorise('core.edit.own', 'com_sermonspeaker'));
 $config = array(
-		'alt_player' => 1,
+		'alt_player' => 'pixelout',
 		'count' => 1,
 		'type' => 'audio',
+		'awidth' => '290',
 	);
 $player = SermonspeakerHelperSermonspeaker::getPlayer($this->item, $config);
 ?>
