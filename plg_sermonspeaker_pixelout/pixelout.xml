@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.4.0" type="plugin" group="sermonspeaker" method="upgrade">
+	<name>plg_sermonspeaker_pixelout</name>
+	<author>Thomas Hunziker</author>
+	<creationDate>2014-12-17</creationDate>
+	<copyright>(C) 2014</copyright>
+	<license>http://www.gnu.org/licenses/gpl.html</license>
+	<authorEmail>admin@sermonspeaker.net</authorEmail>
+	<authorUrl>http://www.sermonspeaker.net</authorUrl>
+	<version>5.3.0</version>
+	<description>PLG_SERMONSPEAKER_PIXELOUT_XML_DESCRIPTION</description>
+	<files>
+		<filename plugin="pixelout">pixelout.php</filename>
+		<folder>language</folder>
+	</files>
+	<media destination="plg_sermonspeaker_pixelout" folder="media">
+		<filename>audio_player.js</filename>
+		<filename>player.swf</filename>
+	</media>
+	<updateservers>
+		<server type="extension" priority="1" name="SermonSpeaker.net">http://www.sermonspeaker.net/update/plg_sermonspeaker_pixelout.xml</server>
+	</updateservers>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field
+					name="autostart"
+					type="radio"
+					label="PLG_SERMONSPEAKER_COMMON_FIELD_AUTOSTART_LABEL"
+					description="PLG_SERMONSPEAKER_COMMON_FIELD_AUTOSTART_DESC"
+					class="btn-group btn-group-yesno"
+					default="0"
+					>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+
+				<field
+					name="awidth"
+					type="text"
+					label="PLG_SERMONSPEAKER_COMMON_FIELD_AWIDTH_LABEL"
+					description="PLG_SERMONSPEAKER_COMMON_FIELD_AWIDTH_DESC"
+					default="100%"
+					/>
+			</fieldset>
+		</fields>
+	</config>
+</extension>
