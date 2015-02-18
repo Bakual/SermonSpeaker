@@ -29,9 +29,9 @@ class SermonspeakerHelperPlayerJwplayer6 extends SermonspeakerHelperPlayer
 	 */
 	public function isSupported($file)
 	{
-		$ext		= JFile::getExt($file);
-		$audio_ext	= array('aac', 'm4a', 'mp3');
-		$video_ext	= array('mp4', 'mov', 'f4v', 'flv', '3gp', '3g2');
+		$ext       = JFile::getExt($file);
+		$audio_ext = array('aac', 'm4a', 'mp3');
+		$video_ext = array('mp4', 'mov', 'f4v', 'flv', '3gp', '3g2');
 
 		if (in_array($ext, $audio_ext))
 		{
@@ -78,6 +78,8 @@ class SermonspeakerHelperPlayerJwplayer6 extends SermonspeakerHelperPlayer
 		$this->player = 'JWPlayer6';
 		$this->mspace = '<div id="mediaspace' . $this->config['count'] . '">' . JText::_('COM_SERMONSPEAKER_PLAYER_NEEDS_JAVASCRIPT') . '</div>';
 		$this->toggle = $this->params->get('fileswitch', 0);
+
+		$options = array();
 
 		// Setting some general player options
 		if (!$this->params->get('jwmode', 0))
