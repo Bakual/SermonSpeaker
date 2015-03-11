@@ -443,7 +443,7 @@ class SermonspeakerControllerTools extends JControllerLegacy
 
 		// Store the Speakers
 		$query = "INSERT INTO #__sermon_speakers \n"
-				. "(name, alias, website, intro, state, ordering, created_by, created, pic) \n"
+				. "(title, alias, website, intro, state, ordering, created_by, created, pic) \n"
 				. "SELECT CONCAT(a.teacher_name, ' ', a.lastname), a.teacher_alias, a.teacher_website, a.teacher_description, a.published, a.ordering, a.user, NOW(), \n"
 				. "IF (b.server != '', CONCAT('http://', CONCAT_WS('/', b.server, b.folder, a.teacher_image_lrg)), "
 				. "IF (LEFT(b.folder, 7) = 'http://', CONCAT(b.folder, '/', a.teacher_image_lrg), CONCAT('/', b.folder, '/', a.teacher_image_lrg))) \n"
@@ -573,12 +573,144 @@ class SermonspeakerControllerTools extends JControllerLegacy
 	{
 		// Check for request forgeries
 		JSession::checkToken('request') or jexit(JText::_('JINVALID_TOKEN'));
-		$app = JFactory::getApplication();
-		$db  = JFactory::getDBO();
+		$app  = JFactory::getApplication();
+		$user = JFactory::getUser();
+		$db   = JFactory::getDBO();
 
-		$app->enqueueMessage($count.' sermons migrated!');
+		// Get Studies
+		$query = $db->getQuery(true);
+		$query->from('`#__bsms_studies` AS a');
+		$query->select('a.studydate, a.studytitle, a.alias, a.studytext');
+		$query->select('a.booknumber, a.chapter_begin, a.chapter_end, a.verse_begin, a.verse_end');
+		$query->select('a.booknumber2, a.chapter_begin2, a.chapter_end2, a.verse_begin2, a.verse_end2');
+		$query->select('CONCAT_WS(":", a.media_hours, a.media_minutes, a.media_seconds) AS duration');
+		$query->select('a.published, a.hits, a.user_id');
+
+		// Join over the series.
+		$query->select('a.series_id, b.series_text');
+		$query->join('LEFT', '#__bsms_series AS b ON b.id = a.series_id');
+
+		// Join over the teachers.
+		$query->select('a.teacher_id, c.teachername');
+		$query->join('LEFT', '#__bsms_teachers AS c ON c.id = a.teacher_id');
+
+		// Join over the media path.
+		$query->select("IF (e.server_path != '', CONCAT('http://', CONCAT_WS('/', e.server_path, f.folderpath, d.filename)), "
+			. "IF (LEFT(e.server_path, 7) = 'http://', CONCAT(e.server_path, '/', d.filename), CONCAT('/', f.folderpath, '/', d.filename))) AS audiofile");
+		$query->join('LEFT', '#__bsms_mediafiles AS d ON d.study_id = a.id');
+		$query->join('LEFT', '#__bsms_servers AS e ON e.id = d.server');
+		$query->join('LEFT', '#__bsms_folders AS f ON f.id = d.path');
+
+		$db->setQuery($query);
+
+		$studies = $db->loadObjectList();
+
+		// Store the Series
+		$query = "INSERT INTO #__sermon_series \n"
+			. "(title, alias, series_description, state, ordering, created_by, created, avatar) \n"
+			. "SELECT a.series_text, a.alias, a.description, a.published, a.ordering, \n"
+			. '"' . $user->id . '"' . ", NOW(), a.series_thumbnail \n"
+			. "FROM #__bsms_series AS a";
+
+		$db->setQuery($query);
+		$db->execute();
+
+		$app->enqueueMessage($db->getAffectedRows().' series migrated!');
+
+		// Store the Speakers
+		$query = "INSERT INTO #__sermon_speakers \n"
+			. "(title, alias, website, intro, state, ordering, created_by, created, pic) \n"
+			. "SELECT a.teachername, a.alias, a.website, a.information, a.published, a.ordering, \n"
+			. '"' . $user->id . '"' . ", NOW(), a.teacher_thumbnail \n"
+			. "FROM #__bsms_teachers AS a \n";
+
+		$db->setQuery($query);
+		$db->execute();
+
+		$app->enqueueMessage($db->getAffectedRows().' speakers migrated!');
+
+		// Prepare and store the Sermons for SermonSpeaker
+		$count = 0;
+
+		foreach ($studies as $study)
+		{
+			// Prepare Scripture
+			$scripture = array();
+
+			if ($study->study_book)
+			{
+				$bible['book']     = (int) $study->booknumber;
+				$bible['cap1']     = (int) $study->chapter_begin;
+				$bible['vers1']    = (int) $study->verse_begin;
+				$bible['cap2']     = (int) $study->chapter_end;
+				$bible['vers2']    = (int) $study->verse_end;
+				$bible['ordering'] = 1;
+				$scripture[]       = $bible;
+			}
+
+			if ($study->study_book2)
+			{
+				$bible['book']     = (int)$study->booknumber2;
+				$bible['cap1']     = (int)$study->chapter_begin2;
+				$bible['vers1']    = (int)$study->verse_begin2;
+				$bible['cap2']     = (int)$study->chapter_end2;
+				$bible['vers2']    = (int)$study->verse_end2;
+				$bible['ordering'] = 2;
+				$scripture[]       = $bible;
+			}
+
+			$query = "INSERT INTO #__sermon_sermons \n"
+				. "(`audiofile`, `title`, `alias`, `sermon_date`, `sermon_time`, `notes`, `state`, `hits`, `created_by`, `podcast`, `created`) \n"
+				. 'VALUES (' . $db->quote($study->audiofile) . ',' . $db->quote($study->studytitle) . ',' . $db->quote($study->alias) . ','
+					. $db->quote($study->studydate) . ',' . $db->quote($study->duration) . ',' . $db->quote($study->studytext) . ',' . $db->quote($study->published) . ','
+					. $db->quote($study->hits) . ',' . $db->quote($study->user_id) . ', 1, NOW())';
+
+			$db->setQuery($query);
+			$db->execute();
+
+			$id = $db->insertid();
+
+			foreach ($scripture as $passage)
+			{
+				// Insert Scriptures
+				$query = "INSERT INTO #__sermon_scriptures \n"
+					. "(`book`, `cap1`, `vers1`, `cap2`, `vers2`, `text`, `ordering`, `sermon_id`) \n"
+					. "VALUES ('" . $passage['book'] . "','" . $passage['cap1'] . "','" . $passage['vers1'] . "','"
+						. $passage['cap2'] . "','" . $passage['vers2'] . "','','" . $passage['ordering'] . "','" . $id . "')";
+
+				$db->setQuery($query);
+				$db->execute();
+			}
+
+			// Update Speaker
+			if ($study->teachername)
+			{
+				$query = "UPDATE #__sermon_sermons \n"
+					. "SET `speaker_id` = (SELECT `id` FROM #__sermon_speakers WHERE `title` = " . $db->quote($study->teachername) . " LIMIT 1) \n"
+					. "WHERE `id` = " . $db->quote($id);
+
+				$db->setQuery($query);
+				$db->execute();
+			}
+
+			// Update Series
+			if ($study->series_text)
+			{
+				$query = "UPDATE #__sermon_sermons \n"
+					. "SET `series_id` = (SELECT `id` FROM #__sermon_series WHERE `title` = " . $db->quote($study->series_text) . " LIMIT 1) \n"
+					. "WHERE `id` = " . $db->quote($id);
+
+				$db->setQuery($query);
+				$db->execute();
+			}
+
+			$count++;
+		}
+
+		$app->enqueueMessage($count . ' sermons migrated!');
 
 		$app->redirect('index.php?option=com_sermonspeaker&view=tools');
+
 		return;
 	}
 }

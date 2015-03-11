@@ -36,19 +36,19 @@ class SermonspeakerHelperPlayerJwplayer5 extends SermonspeakerHelperPlayer
 		if (in_array($ext, $audio_ext))
 		{
 			// Audio File
-			$this->mode	= 'audio';
+			$this->mode = 'audio';
 		}
 		elseif (in_array($ext, $video_ext))
 		{
-			$this->mode	= 'video';
+			$this->mode = 'video';
 		}
 		elseif (parse_url($file, PHP_URL_HOST) == 'youtube.com' || parse_url($file, PHP_URL_HOST) == 'www.youtube.com')
 		{
-			$this->mode	= 'video';
+			$this->mode = 'video';
 		}
 		else
 		{
-			$this->mode	= false;
+			$this->mode = false;
 		}
 
 		return $this->mode;

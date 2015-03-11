@@ -56,9 +56,18 @@ class SermonspeakerModelSermons extends JModelList
 	/**
 	 * Method to auto-populate the model state.
 	 *
+	 * This method should only be called once per instantiation and is designed
+	 * to be called on the first call to the getState() method unless the model
+	 * configuration flag to ignore the request is set.
+	 *
 	 * Note. Calling getState in this method will result in recursion.
 	 *
-	 * @since	1.6
+	 * @param   string  $ordering   An optional ordering field.
+	 * @param   string  $direction  An optional direction (asc|desc).
+	 *
+	 * @return  void
+	 *
+	 * @since   4.0
 	 */
 	protected function populateState($ordering = null, $direction = null)
 	{
@@ -199,11 +208,11 @@ class SermonspeakerModelSermons extends JModelList
 		}
 
 		// Filter by series
-		$series = $this->getState('filter.series');
+		$serie = $this->getState('filter.serie');
 
-		if (is_numeric($series))
+		if (is_numeric($serie))
 		{
-			$query->where('sermons.series_id = ' . (int) $series);
+			$query->where('sermons.series_id = ' . (int) $serie);
 		}
 
 		// Filter by category.
@@ -278,11 +287,8 @@ class SermonspeakerModelSermons extends JModelList
 
 	public function getSpeakers()
 	{
-		// Initialize variables.
-		$options = array();
-
-		$db		= JFactory::getDbo();
-		$query	= $db->getQuery(true);
+		$db    = JFactory::getDbo();
+		$query = $db->getQuery(true);
 
 		$query->select('speakers.id As value');
 		$query->select('CASE WHEN CHAR_LENGTH(c_speakers.title) THEN CONCAT(speakers.title, " (", c_speakers.title, ")") ELSE speakers.title END AS text');
@@ -296,7 +302,7 @@ class SermonspeakerModelSermons extends JModelList
 
 		$published = $db->loadObjectList();
 
-		$query	= $db->getQuery(true);
+		$query = $db->getQuery(true);
 
 		$query->select('speakers.id As value');
 		$query->select('CASE WHEN CHAR_LENGTH(c_speakers.title) THEN CONCAT(speakers.title, " (", c_speakers.title, ")") ELSE speakers.title END AS text');
@@ -309,11 +315,15 @@ class SermonspeakerModelSermons extends JModelList
 		$db->setQuery($query);
 
 		$unpublished = $db->loadObjectList();
-		if (count($unpublished)){
-			if (count($published)){
+
+		if (count($unpublished))
+		{
+			if (count($published))
+			{
 				array_unshift($published, JHtml::_('select.optgroup', JText::_('JPUBLISHED')));
 				array_push($published, JHtml::_('select.optgroup', JText::_('JPUBLISHED')));
 			}
+
 			array_unshift($unpublished, JHtml::_('select.optgroup', JText::_('JUNPUBLISHED')));
 			array_push($unpublished, JHtml::_('select.optgroup', JText::_('JUNPUBLISHED')));
 		}
@@ -331,11 +341,8 @@ class SermonspeakerModelSermons extends JModelList
 
 	public function getSeries()
 	{
-		// Initialize variables.
-		$options = array();
-
-		$db		= $this->getDbo();
-		$query	= $db->getQuery(true);
+		$db    = $this->getDbo();
+		$query = $db->getQuery(true);
 
 		$query->select('series.id As value');
 		$query->select('CASE WHEN CHAR_LENGTH(c_series.title) THEN CONCAT(series.title, " (", c_series.title, ")") ELSE series.title END AS text');
@@ -349,7 +356,7 @@ class SermonspeakerModelSermons extends JModelList
 
 		$published = $db->loadObjectList();
 
-		$query	= $db->getQuery(true);
+		$query = $db->getQuery(true);
 
 		$query->select('series.id As value');
 		$query->select('CASE WHEN CHAR_LENGTH(c_series.title) THEN CONCAT(series.title, " (", c_series.title, ")") ELSE series.title END AS text');
@@ -362,6 +369,7 @@ class SermonspeakerModelSermons extends JModelList
 		$db->setQuery($query);
 
 		$unpublished = $db->loadObjectList();
+
 		if (count($unpublished))
 		{
 			if (count($published))
