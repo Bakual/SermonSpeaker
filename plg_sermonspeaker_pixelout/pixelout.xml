@@ -2,7 +2,7 @@
 <extension version="3.4.0" type="plugin" group="sermonspeaker" method="upgrade">
 	<name>plg_sermonspeaker_pixelout</name>
 	<author>Thomas Hunziker</author>
-	<creationDate>2014-12-17</creationDate>
+	<creationDate>2015-03-12</creationDate>
 	<copyright>(C) 2015</copyright>
 	<license>http://www.gnu.org/licenses/gpl.html</license>
 	<authorEmail>admin@sermonspeaker.net</authorEmail>
