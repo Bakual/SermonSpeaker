@@ -22,7 +22,7 @@ echo '<?xml version="1.0" encoding="utf-8" ?>'; ?>
 	<description><?php echo $this->make_xml_safe($params->get('description')); ?></description>
 <?php
 // Optional channel elements ?>
-	<generator>SermonSpeaker 5.2</generator>
+	<generator>SermonSpeaker 5.3</generator>
 	<lastBuildDate><?php echo gmdate("r"); ?></lastBuildDate>
 <?php
 if ($params->get('itLanguage')) : ?>

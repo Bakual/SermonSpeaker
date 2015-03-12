@@ -14,7 +14,7 @@ defined('_JEXEC') or die;
 		<?php echo $this->sidebar; ?>
 	</div>
 	<div id="j-main-container" class="span10">
-		<h1>SermonSpeaker 5.2</h1>
+		<h1>SermonSpeaker 5.3</h1>
 		<h2>Support</h2>
 		<div>If you need help with SermonSpeaker, the following links may be helpful for you:
 			<ul>
