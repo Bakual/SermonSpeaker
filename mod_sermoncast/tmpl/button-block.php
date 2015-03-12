@@ -3,7 +3,7 @@
  * @package     SermonSpeaker
  * @subpackage  Module.SermonCast
  * @author      Sven Lauch <sven@eyesup.eu>
- * @copyright   (C) 2014 - Sven Lauch
+ * @copyright   (C) 2015 - Sven Lauch
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
