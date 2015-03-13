@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<extension type="file" version="3.1" method="upgrade">
+<extension type="file" version="3.4.0" method="upgrade">
 	<!-- Start the name with 'SermonSpeaker: ' to have some standard -->
 	<name>SermonSpeaker: Tiles-Layout</name>
 	<author>Thomas Hunziker</author>
 	<authorEmail>admin@sermonspeaker.net</authorEmail>
 	<authorUrl>http://www.sermonspeaker.net</authorUrl>
-	<creationDate>2013-06-05</creationDate>
+	<creationDate>2015-03-13</creationDate>
 	<copyright>(C) 2015</copyright>
-	<version>2.0</version>
+	<version>3.0</version>
 	<license>http://www.gnu.org/licenses/gpl.html</license>
 	<description>Tiles Layout file for SermonSpeaker</description>
 	<fileset>
