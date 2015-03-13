@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension version="1.6" type="plugin" group="editors-xtd" method="upgrade">
+<extension version="3.4" type="plugin" group="editors-xtd" method="upgrade">
 	<name>plg_editors-xtd_sermonspeaker</name>
 	<author>Thomas Hunziker</author>
-	<creationDate>2013-03-15</creationDate>
+	<creationDate>2015-03-13</creationDate>
 	<copyright>(C) 2015</copyright>
 	<license>http://www.gnu.org/licenses/gpl.html</license>
 	<authorEmail>admin@sermonspeaker.net</authorEmail>
 	<authorUrl>http://www.sermonspeaker.net</authorUrl>
-	<version>4.5.0</version>
+	<version>5.3.0</version>
 	<description>PLG_EDITORS-XTD_SERMONSPEAKER_XML_DESCRIPTION</description>
 	<files>
 		<filename plugin="sermonspeaker">sermonspeaker.php</filename>
