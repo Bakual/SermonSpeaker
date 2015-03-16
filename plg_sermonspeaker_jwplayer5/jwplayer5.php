@@ -174,7 +174,7 @@ class PlgSermonspeakerJwplayer5 extends SermonspeakerPluginPlayer
 			JHtmlJQuery::framework();
 			JHtml::script('media/plg_sermonspeaker_jwplayer5/jwplayer.js');
 			$doc = JFactory::getDocument();
-			$doc->addScriptDeclaration('function ss_play(id){jwplayer().playlistItem(id);}');
+			$doc->addScriptDeclaration("function ss_play(id){jwplayer('mediaspace" . $count . "').playlistItem(id);}");
 
 			if ($this->player->toggle)
 			{

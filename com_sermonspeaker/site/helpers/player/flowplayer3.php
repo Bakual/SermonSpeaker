@@ -318,7 +318,7 @@ class SermonspeakerHelperPlayerFlowplayer3 extends SermonspeakerHelperPlayer
 		{
 			JHtmlJQuery::framework();
 			$doc = JFactory::getDocument();
-			$doc->addScriptDeclaration('function ss_play(id){flowplayer().play(parseInt(id));}');
+			$doc->addScriptDeclaration("function ss_play(id){flowplayer('mediaspace" . $this->config['count'] . "').play(parseInt(id));}");
 			JHtml::Script('media/com_sermonspeaker/player/flowplayer/flowplayer-3.2.10.min.js');
 
 			if ($this->toggle)

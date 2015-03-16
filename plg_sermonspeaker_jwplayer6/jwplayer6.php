@@ -185,7 +185,7 @@ class PlgSermonspeakerJwplayer6 extends SermonspeakerPluginPlayer
 				$doc->addScriptDeclaration('jwplayer.key="' . $this->params->get('license_self') . '";');
 			}
 
-			$doc->addScriptDeclaration('function ss_play(id){jwplayer().playlistItem(id);}');
+			$doc->addScriptDeclaration("function ss_play(id){jwplayer('mediaspace" . $count . "').playlistItem(id);}");
 
 			if ($this->player->toggle)
 			{

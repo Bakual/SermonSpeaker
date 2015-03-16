@@ -348,7 +348,7 @@ class SermonspeakerHelperPlayerJwplayer6 extends SermonspeakerHelperPlayer
 			// Custom Key!
 			// $doc->addScriptDeclaration('jwplayer.key="put-key-here";');
 
-			$doc->addScriptDeclaration('function ss_play(id){jwplayer().playlistItem(id);}');
+			$doc->addScriptDeclaration("function ss_play(id){jwplayer('mediaspace" . $this->config['count'] . "').playlistItem(id);}");
 
 			if ($this->toggle)
 			{

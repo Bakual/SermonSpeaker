@@ -364,7 +364,7 @@ class SermonspeakerHelperPlayerJwplayer5 extends SermonspeakerHelperPlayer
 			JHtmlJQuery::framework();
 			JHtml::Script('media/com_sermonspeaker/player/jwplayer/jwplayer.js');
 			$doc = JFactory::getDocument();
-			$doc->addScriptDeclaration('function ss_play(id){jwplayer().playlistItem(id);}');
+			$doc->addScriptDeclaration("function ss_play(id){jwplayer('mediaspace" . $this->config['count'] . "').playlistItem(id);}");
 
 			if ($this->toggle)
 			{
