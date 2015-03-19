@@ -51,33 +51,33 @@ $assoc		= JLanguageAssociations::isEnabled();
 				<thead>
 					<tr>
 						<th width="1%" class="nowrap center hidden-phone">
-							<?php echo JHtml::_('grid.sort', '<i class="icon-menu-2"></i>', 'speakers.ordering', $listDirn, $listOrder, null, 'asc', 'JGRID_HEADING_ORDERING'); ?>
+							<?php echo JHtml::_('searchtools.sort', '<i class="icon-menu-2"></i>', 'speakers.ordering', $listDirn, $listOrder, null, 'asc', 'JGRID_HEADING_ORDERING'); ?>
 						</th>
 						<th width="1%" class="hidden-phone">
 							<input type="checkbox" name="checkall-toggle" value="" title="<?php echo JText::_('JGLOBAL_CHECK_ALL'); ?>" onclick="Joomla.checkAll(this)" />
 						</th>
 						<th width="1%" style="min-width:40px" class="nowrap center">
-							<?php echo JHtml::_('grid.sort', 'JSTATUS', 'speakers.state', $listDirn, $listOrder); ?>
+							<?php echo JHtml::_('searchtools.sort', 'JSTATUS', 'speakers.state', $listDirn, $listOrder); ?>
 						</th>
 						<th>
-							<?php echo JHtml::_('grid.sort', 'COM_SERMONSPEAKER_FIELD_NAME_LABEL', 'speakers.title', $listDirn, $listOrder); ?>
+							<?php echo JHtml::_('searchtools.sort', 'COM_SERMONSPEAKER_FIELD_NAME_LABEL', 'speakers.title', $listDirn, $listOrder); ?>
 						</th>
 						<?php if ($assoc) : ?>
 							<th width="5%" class="nowrap hidden-phone">
-								<?php echo JHtml::_('grid.sort', 'COM_SERMONSPEAKER_HEADING_ASSOCIATION', 'association', $listDirn, $listOrder); ?>
+								<?php echo JHtml::_('searchtools.sort', 'COM_SERMONSPEAKER_HEADING_ASSOCIATION', 'association', $listDirn, $listOrder); ?>
 							</th>
 						<?php endif;?>
 						<th width="5%" class="hidden-phone">
-							<?php echo JHtml::_('grid.sort',  'COM_SERMONSPEAKER_FIELD_PICTURE_LABEL', 'speakers.pic', $listDirn, $listOrder); ?>
+							<?php echo JHtml::_('searchtools.sort',  'COM_SERMONSPEAKER_FIELD_PICTURE_LABEL', 'speakers.pic', $listDirn, $listOrder); ?>
 						</th>
 						<th width="7%" class="nowrap hidden-phone">
-							<?php echo JHtml::_('grid.sort',  'JGLOBAL_HITS', 'speakers.hits', $listDirn, $listOrder); ?>
+							<?php echo JHtml::_('searchtools.sort',  'JGLOBAL_HITS', 'speakers.hits', $listDirn, $listOrder); ?>
 						</th>
 						<th width="5%" class="nowrap hidden-phone">
-							<?php echo JHtml::_('grid.sort',  'JGRID_HEADING_LANGUAGE', 'language', $listDirn, $listOrder); ?>
+							<?php echo JHtml::_('searchtools.sort',  'JGRID_HEADING_LANGUAGE', 'language', $listDirn, $listOrder); ?>
 						</th>
 						<th width="1%" class="nowrap hidden-phone">
-							<?php echo JHtml::_('grid.sort',  'JGRID_HEADING_ID', 'speakers.id', $listDirn, $listOrder); ?>
+							<?php echo JHtml::_('searchtools.sort',  'JGRID_HEADING_ID', 'speakers.id', $listDirn, $listOrder); ?>
 						</th>
 					</tr>
 				</thead>

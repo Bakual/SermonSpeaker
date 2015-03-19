@@ -70,16 +70,16 @@ $listDirn	= $this->escape($this->state->get('list.direction'));
 		<thead>
 			<tr>
 				<th class="title">
-					<?php echo JHtml::_('grid.sort', 'JGLOBAL_TITLE', 'series.title', $listDirn, $listOrder); ?>
+					<?php echo JHtml::_('searchtools.sort', 'JGLOBAL_TITLE', 'series.title', $listDirn, $listOrder); ?>
 				</th>
 				<th width="15%" class="center nowrap">
-					<?php echo JHtml::_('grid.sort', 'JCATEGORY', 'series.catid', $listDirn, $listOrder); ?>
+					<?php echo JHtml::_('searchtools.sort', 'JCATEGORY', 'series.catid', $listDirn, $listOrder); ?>
 				</th>
 				<th width="5%" class="center nowrap">
-					<?php echo JHtml::_('grid.sort', 'JGRID_HEADING_LANGUAGE', 'language', $listDirn, $listOrder); ?>
+					<?php echo JHtml::_('searchtools.sort', 'JGRID_HEADING_LANGUAGE', 'language', $listDirn, $listOrder); ?>
 				</th>
 				<th width="1%" class="center nowrap">
-					<?php echo JHtml::_('grid.sort', 'JGRID_HEADING_ID', 'series.id', $listDirn, $listOrder); ?>
+					<?php echo JHtml::_('searchtools.sort', 'JGRID_HEADING_ID', 'series.id', $listDirn, $listOrder); ?>
 				</th>
 			</tr>
 		</thead>
