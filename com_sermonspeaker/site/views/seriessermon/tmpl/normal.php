@@ -12,11 +12,11 @@ defined('_JEXEC') or die();
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
 JHtml::_('bootstrap.tooltip');
 
-$user		= JFactory::getUser();
-$fu_enable	= $this->params->get('fu_enable');
-$canEdit	= ($fu_enable and $user->authorise('core.edit', 'com_sermonspeaker'));
-$canEditOwn	= ($fu_enable and $user->authorise('core.edit.own', 'com_sermonspeaker'));
-$config['autostart']	= 0;
+$user                = JFactory::getUser();
+$fu_enable           = $this->params->get('fu_enable');
+$canEdit             = ($fu_enable and $user->authorise('core.edit', 'com_sermonspeaker'));
+$canEditOwn          = ($fu_enable and $user->authorise('core.edit.own', 'com_sermonspeaker'));
+$config['autostart'] = 0;
 ?>
 <div class="category-list<?php echo $this->pageclass_sfx;?> ss-seriessermons-container<?php echo $this->pageclass_sfx; ?>">
 <?php
@@ -61,7 +61,8 @@ if ($this->params->get('show_description', 1) or $this->params->def('show_descri
 		<!-- Begin Data -->
 		<?php
 		$config['count'] = 0;
-		$model	= $this->getModel('Sermons');
+		$model = $this->getModel('Sermons');
+		$model->getState();
 
 		foreach ($this->items as $item) :
 			$model->setState('serie.id', $item->id);
