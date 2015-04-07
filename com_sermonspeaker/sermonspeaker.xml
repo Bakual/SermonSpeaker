@@ -42,6 +42,7 @@
 	</files>
 	<media destination="com_sermonspeaker" folder="media">
 		<folder>css</folder>
+		<folder>fonts</folder>
 		<folder>icons</folder>
 		<folder>logo</folder>
 		<folder>images</folder>

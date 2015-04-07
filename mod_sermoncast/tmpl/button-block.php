@@ -11,6 +11,7 @@ defined('_JEXEC') or die();
 
 JHtml::_('bootstrap.tooltip');
 JHtml::_('behavior.modal');
+JHtml::stylesheet('com_sermonspeaker/font.css', false, true, false);
 ?>
 <div class="syndicate-module<?php echo $params->get('$moduleclass_sfx'); ?>">
 	<?php if ($params->get('sc_introtext')) : ?>
