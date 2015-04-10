@@ -16,18 +16,40 @@ defined('_JEXEC') or die();
  */
 class SermonspeakerViewSermons extends JViewLegacy
 {
+	/**
+	 * Holds an array of item objects
+	 *
+	 * @var    array
+	 */
 	protected $items;
 
 	protected $pagination;
 
+	/**
+	 * A state object
+	 *
+	 * @var    JObject
+	 */
 	protected $state;
+
+	protected $speakers;
+
+	protected $series;
+
+	public $filterForm;
+
+	protected $activeFilters;
+
+	protected $sidebar;
 
 	/**
 	 * Execute and display a template script.
 	 *
 	 * @param   string  $tpl  The name of the template file to parse; automatically searches through the template paths.
 	 *
-	 * @return  mixed  A string if successful, otherwise a Error object.
+	 * @return mixed A string if successful, otherwise a Error object.
+	 *
+	 * @throws Exception
 	 */
 	public function display($tpl = null)
 	{
@@ -66,6 +88,10 @@ class SermonspeakerViewSermons extends JViewLegacy
 	protected function addToolbar()
 	{
 		$canDo = SermonspeakerHelper::getActions();
+
+		// Get the toolbar object instance
+		$bar = JToolBar::getInstance('toolbar');
+
 		JToolBarHelper::title(JText::_('COM_SERMONSPEAKER_SERMONS_TITLE'), 'quote-3 sermons');
 
 		if ($canDo->get('core.create'))
@@ -81,13 +107,12 @@ class SermonspeakerViewSermons extends JViewLegacy
 		if ($canDo->get('core.edit.state'))
 		{
 			JToolBarHelper::divider();
-			JToolBarHelper::custom('sermons.publish', 'publish', '','JTOOLBAR_PUBLISH', true);
+			JToolBarHelper::custom('sermons.publish', 'publish', '', 'JTOOLBAR_PUBLISH', true);
 			JToolBarHelper::custom('sermons.unpublish', 'unpublish', '', 'JTOOLBAR_UNPUBLISH', true);
-			JToolBarHelper::divider();
 
 			if ($this->state->get('filter.state') != 2)
 			{
-				JToolBarHelper::archiveList('sermons.archive','JTOOLBAR_ARCHIVE');
+				JToolBarHelper::archiveList('sermons.archive', 'JTOOLBAR_ARCHIVE');
 			}
 			else
 			{
@@ -97,34 +122,31 @@ class SermonspeakerViewSermons extends JViewLegacy
 			JToolBarHelper::checkin('sermons.checkin');
 		}
 
-		if ($this->state->get('filter.state') == -2 && $canDo->get('core.delete'))
-		{
-			JToolBarHelper::deleteList('', 'sermons.delete', 'JTOOLBAR_EMPTY_TRASH');
-			JToolBarHelper::divider();
-		}
-		elseif ($canDo->get('core.edit.state'))
-		{
-			JToolBarHelper::trash('sermons.trash', 'JTOOLBAR_TRASH');
-			JToolBarHelper::divider();
-		}
-
 		if ($canDo->get('core.edit.state'))
 		{
 			JToolBarHelper::custom('tools.order', 'purge icon-lightning', '', 'COM_SERMONSPEAKER_TOOLS_ORDER', false);
-			JToolBarHelper::divider();
 		}
-
-		// Get the toolbar object instance
-		$bar = JToolBar::getInstance('toolbar');
 
 		// Add a batch button
 		if ($canDo->get('core.edit'))
 		{
+			JHtml::_('bootstrap.modal', 'collapseModal');
 			$title = JText::_('JTOOLBAR_BATCH');
-			$dhtml = '<button data-toggle="modal" data-target="#collapseModal" class="btn btn-small">'
-						. '<i class="icon-checkbox-partial" title="' . $title . '"></i>'
-						. $title . '</button>';
+
+			// Instantiate a new JLayoutFile instance and render the batch button
+			$layout = new JLayoutFile('joomla.toolbar.batch');
+
+			$dhtml = $layout->render(array('title' => $title));
 			$bar->appendButton('Custom', $dhtml, 'batch');
+		}
+
+		if ($this->state->get('filter.state') == -2 && $canDo->get('core.delete'))
+		{
+			JToolBarHelper::deleteList('', 'sermons.delete', 'JTOOLBAR_EMPTY_TRASH');
+		}
+		elseif ($canDo->get('core.edit.state'))
+		{
+			JToolBarHelper::trash('sermons.trash', 'JTOOLBAR_TRASH');
 		}
 
 		if ($canDo->get('core.admin') || $canDo->get('core.options'))

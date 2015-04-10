@@ -1,24 +1,59 @@
 <?php
+/**
+ * @package     SermonSpeaker
+ * @subpackage  Component.Administrator
+ * @author      Thomas Hunziker <admin@sermonspeaker.net>
+ * @copyright   (C) 2015 - Thomas Hunziker
+ * @license     http://www.gnu.org/licenses/gpl.html
+ **/
+
 defined('_JEXEC') or die;
+
+/**
+ * HTML View class for the SermonSpeaker Component
+ *
+ * @since  3.4
+ */
 class SermonspeakerViewSeries extends JViewLegacy
 {
 	protected $items;
+
 	protected $pagination;
-	protected $state;
+
 	/**
-	 * Display the view
+	 * A state object
+	 *
+	 * @var    JObject
+	 */
+	protected $state;
+
+	public $filterForm;
+
+	protected $activeFilters;
+
+	protected $sidebar;
+
+	/**
+	 * Execute and display a template script.
+	 *
+	 * @param   string  $tpl  The name of the template file to parse; automatically searches through the template paths.
+	 *
+	 * @return mixed A string if successful, otherwise a Error object.
+	 *
+	 * @throws Exception
 	 */
 	public function display($tpl = null)
 	{
 		$layout = $this->getLayout();
+
 		if ($layout !== 'modal')
 		{
 			SermonspeakerHelper::addSubmenu('series');
 		}
 
-		$this->state		= $this->get('State');
-		$this->items		= $this->get('Items');
-		$this->pagination	= $this->get('Pagination');
+		$this->state         = $this->get('State');
+		$this->items         = $this->get('Items');
+		$this->pagination    = $this->get('Pagination');
 		$this->filterForm    = $this->get('FilterForm');
 		$this->activeFilters = $this->get('ActiveFilters');
 
@@ -29,7 +64,8 @@ class SermonspeakerViewSeries extends JViewLegacy
 		}
 
 		// We don't need toolbar in the modal window.
-		if ($layout !== 'modal') {
+		if ($layout !== 'modal')
+		{
 			$this->addToolbar();
 			$this->sidebar = JHtmlSidebar::render();
 		}
@@ -45,28 +81,30 @@ class SermonspeakerViewSeries extends JViewLegacy
 	protected function addToolbar()
 	{
 		$canDo = SermonspeakerHelper::getActions();
+
+		// Get the toolbar object instance
+		$bar = JToolBar::getInstance('toolbar');
+
 		JToolBarHelper::title(JText::_('COM_SERMONSPEAKER_SERIES_TITLE'), 'drawer-2 series');
 
 		if ($canDo->get('core.create'))
 		{
-			JToolBarHelper::addNew('serie.add','JTOOLBAR_NEW');
+			JToolBarHelper::addNew('serie.add', 'JTOOLBAR_NEW');
 		}
 
 		if (($canDo->get('core.edit')) || ($canDo->get('core.edit.own')))
 		{
-			JToolBarHelper::editList('serie.edit','JTOOLBAR_EDIT');
+			JToolBarHelper::editList('serie.edit', 'JTOOLBAR_EDIT');
 		}
 
 		if ($canDo->get('core.edit.state'))
 		{
-			JToolBarHelper::divider();
-			JToolBarHelper::custom('series.publish', 'publish.png', 'publish_f2.png','JTOOLBAR_PUBLISH', true);
+			JToolBarHelper::custom('series.publish', 'publish.png', 'publish_f2.png', 'JTOOLBAR_PUBLISH', true);
 			JToolBarHelper::custom('series.unpublish', 'unpublish.png', 'unpublish_f2.png', 'JTOOLBAR_UNPUBLISH', true);
-			JToolBarHelper::divider();
 
 			if ($this->state->get('filter.state') != 2)
 			{
-				JToolBarHelper::archiveList('series.archive','JTOOLBAR_ARCHIVE');
+				JToolBarHelper::archiveList('series.archive', 'JTOOLBAR_ARCHIVE');
 			}
 			else
 			{
@@ -76,34 +114,31 @@ class SermonspeakerViewSeries extends JViewLegacy
 			JToolBarHelper::checkin('series.checkin');
 		}
 
-		if ($this->state->get('filter.state') == -2 && $canDo->get('core.delete'))
-		{
-			JToolBarHelper::deleteList('', 'series.delete','JTOOLBAR_EMPTY_TRASH');
-			JToolBarHelper::divider();
-		}
-		elseif ($canDo->get('core.edit.state'))
-		{
-			JToolBarHelper::trash('series.trash','JTOOLBAR_TRASH');
-			JToolBarHelper::divider();
-		}
-
 		if ($canDo->get('core.edit.state'))
 		{
-			JToolBarHelper::custom('tools.seriesorder', 'purge icon-lightning', '','COM_SERMONSPEAKER_TOOLS_ORDER', false);
-			JToolBarHelper::divider();
+			JToolBarHelper::custom('tools.seriesorder', 'purge icon-lightning', '', 'COM_SERMONSPEAKER_TOOLS_ORDER', false);
 		}
-
-		// Get the toolbar object instance
-		$bar = JToolBar::getInstance('toolbar');
 
 		// Add a batch button
 		if ($canDo->get('core.edit'))
 		{
+			JHtml::_('bootstrap.modal', 'collapseModal');
 			$title = JText::_('JTOOLBAR_BATCH');
-			$dhtml = '<button data-toggle="modal" data-target="#collapseModal" class="btn btn-small">'
-						. '<i class="icon-checkbox-partial" title="' . $title . '"></i>'
-						. $title . '</button>';
+
+			// Instantiate a new JLayoutFile instance and render the batch button
+			$layout = new JLayoutFile('joomla.toolbar.batch');
+
+			$dhtml = $layout->render(array('title' => $title));
 			$bar->appendButton('Custom', $dhtml, 'batch');
+		}
+
+		if ($this->state->get('filter.state') == -2 && $canDo->get('core.delete'))
+		{
+			JToolBarHelper::deleteList('', 'series.delete', 'JTOOLBAR_EMPTY_TRASH');
+		}
+		elseif ($canDo->get('core.edit.state'))
+		{
+			JToolBarHelper::trash('series.trash', 'JTOOLBAR_TRASH');
 		}
 
 		if ($canDo->get('core.admin') || $canDo->get('core.options'))

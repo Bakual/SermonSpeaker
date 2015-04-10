@@ -140,16 +140,6 @@ a.progressCancel:hover {
 	padding-left:5px;
 }
 
-/* Batch processing */
-label#batch-speaker-lbl, label#batch-serie-lbl{
-	clear:left;
-	margin-top: 15px;
-	margin-right: 10px;
-}
-select#batch-speaker-id, select#batch-serie-id{
-	margin-top: 15px;
-}
-
 .pathinfo{
 	font-size:small;
 	background-color:#E5FFFF;
