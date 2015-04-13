@@ -1,38 +1,100 @@
 <?php
-// No direct access
+/**
+ * @package     SermonSpeaker
+ * @subpackage  Component.Administrator
+ * @author      Thomas Hunziker <admin@sermonspeaker.net>
+ * @copyright   (C) 2015 - Thomas Hunziker
+ * @license     http://www.gnu.org/licenses/gpl.html
+ **/
+
 defined('_JEXEC') or die;
 
 /**
- * View to edit a sermon.
+ * HTML View class for the SermonSpeaker Component
  *
- * @package		Sermonspeaker.Administrator
+ * @since  3.4
  */
 class SermonspeakerViewSermon extends JViewLegacy
 {
+	/**
+	 * A state object
+	 *
+	 * @var    JObject
+	 */
 	protected $state;
+
 	protected $item;
+
 	protected $form;
 
+	protected $upload_limit;
+
+	protected $append_date;
+
+	protected $append_lang;
+
 	/**
-	 * Display the view
+	 * AmazonS3 information
+	 *
+	 * @var    string
+	 */
+	protected $s3audio;
+
+	/**
+	 * AmazonS3 information
+	 *
+	 * @var    string
+	 */
+	protected $s3video;
+
+	/**
+	 * AmazonS3 information
+	 *
+	 * @var    string
+	 */
+	protected $bucket;
+
+	/**
+	 * AmazonS3 information
+	 *
+	 * @var    string
+	 */
+	protected $prefix;
+
+	/**
+	 * A params object
+	 *
+	 * @var    Joomla\Registry\Registry
+	 */
+	protected $params;
+
+	/**
+	 * Execute and display a template script.
+	 *
+	 * @param   string  $tpl  The name of the template file to parse; automatically searches through the template paths.
+	 *
+	 * @return mixed A string if successful, otherwise a Error object.
+	 *
+	 * @throws Exception
 	 */
 	public function display($tpl = null)
 	{
-		$this->state	= $this->get('State');
-		$this->item		= $this->get('Item');
-		$this->form		= $this->get('Form');
+		$this->state = $this->get('State');
+		$this->item  = $this->get('Item');
+		$this->form  = $this->get('Form');
 
 		// Check some PHP settings for upload limit so I can show it as an info
-		$post_max_size			= ini_get('post_max_size');
-		$upload_max_filesize	= ini_get('upload_max_filesize');
-		$this->upload_limit		= ($this->return_bytes($post_max_size) < $this->return_bytes($upload_max_filesize)) ? $post_max_size : $upload_max_filesize;
+		$post_max_size       = ini_get('post_max_size');
+		$upload_max_filesize = ini_get('upload_max_filesize');
+		$this->upload_limit  = ($this->return_bytes($post_max_size) < $this->return_bytes($upload_max_filesize)) ? $post_max_size : $upload_max_filesize;
 
-		// add Javascript for Form Elements enable and disable
+		// Add Javascript for Form Elements enable and disable
 		$enElem = 'function enableElement(ena_elem, dis_elem) {
 			ena_elem.disabled = false;
 			dis_elem.disabled = true;
 		}';
-		// add Javascript for Form Elements enable and disable (J30)
+
+		// Add Javascript for Form Elements enable and disable (J30)
 		$toggle = 'function toggleElement(element, state) {
 			if (state) {
 				document.getElementById(element + "_text_icon").className = "btn add-on icon-radio-unchecked";
@@ -52,8 +114,9 @@ class SermonspeakerViewSermon extends JViewLegacy
 				}
 			}
 		}';
-		// add Javascript for ID3 Lookup (ajax)
-		$lookup	= 'function lookup(elem) {
+
+		// Add Javascript for ID3 Lookup (ajax)
+		$lookup = 'function lookup(elem) {
 			xmlhttp = new XMLHttpRequest();
 			xmlhttp.onreadystatechange=function(){
 				if (xmlhttp.readyState==4 && xmlhttp.status==200){
@@ -104,7 +167,7 @@ class SermonspeakerViewSermon extends JViewLegacy
  			xmlhttp.send("file="+elem.value);
 		}';
 
-		$this->params	= JComponentHelper::getParams('com_sermonspeaker');
+		$this->params = JComponentHelper::getParams('com_sermonspeaker');
 
 		$document = JFactory::getDocument();
 		$document->addScriptDeclaration($enElem);
@@ -202,9 +265,12 @@ class SermonspeakerViewSermon extends JViewLegacy
 			$document->addScript('https://apis.google.com/js/api.js?onload=onApiLoad', 'text/javascript', true);
 		}
 
-		$session	= JFactory::getSession();
+		$session = JFactory::getSession();
+
 		// Prepare Flashuploader
-		$targetURL 	= JURI::root().'administrator/index.php?option=com_sermonspeaker&task=file.upload&'.$session->getName().'='.$session->getId().'&'.JSession::getFormToken().'=1&format=json';
+		$targetURL = JURI::root() . 'administrator/index.php?option=com_sermonspeaker&task=file.upload&'
+			. $session->getName() . '=' . $session->getId() . '&' . JSession::getFormToken() . '=1&format=json';
+
 		// SWFUpload
 		JHtml::Script('media/com_sermonspeaker/swfupload/swfupload.js');
 		JHtml::Script('media/com_sermonspeaker/swfupload/swfupload.queue.js');
@@ -214,14 +280,14 @@ class SermonspeakerViewSermon extends JViewLegacy
 			window.onload = function() {
 				if(document.id("jform_audiofile_text")){
 					upload1 = new SWFUpload({
-						upload_url: "'.$targetURL.'&type=audio",
-						flash_url : "'.JURI::root().'media/com_sermonspeaker/swfupload/swfupload.swf",
+						upload_url: "' . $targetURL . '&type=audio",
+						flash_url : "' . JURI::root() . 'media/com_sermonspeaker/swfupload/swfupload.swf",
 						file_size_limit : "0",
-						file_types : "'.$this->getAllowedFiletypes('audio').'",
-						file_types_description : "'.JText::_('COM_SERMONSPEAKER_FIELD_AUDIOFILE_LABEL', 'true').'",
+						file_types : "' . $this->getAllowedFiletypes('audio') . '",
+						file_types_description : "' . JText::_('COM_SERMONSPEAKER_FIELD_AUDIOFILE_LABEL', 'true') . '",
 						file_upload_limit : "0",
 						file_queue_limit : "0",
-						button_image_url : "'.JURI::root().'media/com_sermonspeaker/swfupload/XPButtonUploadText_61x22.png",
+						button_image_url : "' . JURI::root() . 'media/com_sermonspeaker/swfupload/XPButtonUploadText_61x22.png",
 						button_placeholder_id : "btnUpload1",
 						button_width: 61,
 						button_height: 22,
@@ -268,14 +334,14 @@ class SermonspeakerViewSermon extends JViewLegacy
 				}
 				if(document.id("jform_videofile_text")){
 					upload2 = new SWFUpload({
-						upload_url: "'.$targetURL.'&type=video",
-						flash_url : "'.JURI::root().'media/com_sermonspeaker/swfupload/swfupload.swf",
+						upload_url: "' . $targetURL . '&type=video",
+						flash_url : "' . JURI::root() . 'media/com_sermonspeaker/swfupload/swfupload.swf",
 						file_size_limit : "0",
-						file_types : "'.$this->getAllowedFiletypes('video').'",
-						file_types_description : "'.JText::_('COM_SERMONSPEAKER_FIELD_VIDEOFILE_LABEL', 'true').'",
+						file_types : "' . $this->getAllowedFiletypes('video') . '",
+						file_types_description : "' . JText::_('COM_SERMONSPEAKER_FIELD_VIDEOFILE_LABEL', 'true') . '",
 						file_upload_limit : "0",
 						file_queue_limit : "0",
-						button_image_url : "'.JURI::root().'media/com_sermonspeaker/swfupload/XPButtonUploadText_61x22.png",
+						button_image_url : "' . JURI::root() . 'media/com_sermonspeaker/swfupload/XPButtonUploadText_61x22.png",
 						button_placeholder_id : "btnUpload2",
 						button_width: 61,
 						button_height: 22,
@@ -322,14 +388,14 @@ class SermonspeakerViewSermon extends JViewLegacy
 				}
 				if(document.id("jform_addfile_text")){
 					upload3 = new SWFUpload({
-						upload_url: "'.$targetURL.'&type=addfile",
-						flash_url : "'.JURI::root().'media/com_sermonspeaker/swfupload/swfupload.swf",
+						upload_url: "' . $targetURL . '&type=addfile",
+						flash_url : "' . JURI::root() . 'media/com_sermonspeaker/swfupload/swfupload.swf",
 						file_size_limit : "0",
-						file_types : "'.$this->getAllowedFiletypes('addfile').'",
-						file_types_description : "'.JText::_('COM_SERMONSPEAKER_FIELD_VIDEOFILE_LABEL', 'true').'",
+						file_types : "' . $this->getAllowedFiletypes('addfile') . '",
+						file_types_description : "' . JText::_('COM_SERMONSPEAKER_FIELD_VIDEOFILE_LABEL', 'true') . '",
 						file_upload_limit : "0",
 						file_queue_limit : "0",
-						button_image_url : "'.JURI::root().'media/com_sermonspeaker/swfupload/XPButtonUploadText_61x22.png",
+						button_image_url : "' . JURI::root() . 'media/com_sermonspeaker/swfupload/XPButtonUploadText_61x22.png",
 						button_placeholder_id : "btnUpload3",
 						button_width: 61,
 						button_height: 22,
@@ -379,21 +445,23 @@ class SermonspeakerViewSermon extends JViewLegacy
 		$document->addScriptDeclaration($uploader_script);
 
 		// Destination folder based on mode
-		$this->s3audio	= ($this->params->get('path_mode_audio', 0) == 2) ? 1 : 0;
-		$this->s3video	= ($this->params->get('path_mode_video', 0) == 2) ? 1 : 0;
+		$this->s3audio = ($this->params->get('path_mode_audio', 0) == 2) ? 1 : 0;
+		$this->s3video = ($this->params->get('path_mode_video', 0) == 2) ? 1 : 0;
 
 		if ($this->s3audio || $this->s3video)
 		{
-			//include the S3 class   
-			require_once JPATH_COMPONENT_ADMINISTRATOR.'/s3/S3.php';
-			//AWS access info   
+			// Include the S3 class
+			require_once JPATH_COMPONENT_ADMINISTRATOR . '/s3/S3.php';
+
+			// AWS access info
 			$awsAccessKey = $this->params->get('s3_access_key');
 			$awsSecretKey = $this->params->get('s3_secret_key');
 			$bucket       = $this->params->get('s3_bucket');
-			//instantiate the class
+
+			// Instantiate the class
 			$s3     = new S3($awsAccessKey, $awsSecretKey);
 			$region = $s3->getBucketLocation($bucket);
-			$prefix = ($region == 'US') ? 's3' : 's3-'.$region;
+			$prefix = ($region == 'US') ? 's3' : 's3-' . $region;
 
 			$this->bucket = $bucket;
 			$this->prefix = $prefix;
@@ -427,34 +495,43 @@ class SermonspeakerViewSermon extends JViewLegacy
 
 			$changedate .= "document.id('addfilepathdate').innerHTML = year+'/'+month+'/';
 				}";
-			$time	= ($this->item->sermon_date && $this->item->sermon_date != '0000-00-00 00:00:00') ? strtotime($this->item->sermon_date) : time();
-			$this->append_date	= date('Y', $time).'/'.date('m', $time).'/';
+			$time = ($this->item->sermon_date && $this->item->sermon_date != '0000-00-00 00:00:00') ? strtotime($this->item->sermon_date) : time();
+			$this->append_date = date('Y', $time) . '/' . date('m', $time) . '/';
 		}
 		else
 		{
-			$changedate	= "function changedate(datestring) {}";
-			$this->append_date	= '';
+			$changedate = "function changedate(datestring) {}";
+			$this->append_date = '';
 		}
 
 		$document->addScriptDeclaration($changedate);
 
 		if ($this->params->get('append_path_lang', 0))
 		{
-			$changelang	= "function changelang(language) {
+			$changelang = "function changelang(language) {
 					if(!language || language == '*'){
-						language = '".JFactory::getLanguage()->getTag()."'
+						language = '" . JFactory::getLanguage()->getTag() . "'
 					}";
-			if(!$this->s3audio){$changelang	.= "document.id('audiopathlang').innerHTML = language+'/';";}
-			if(!$this->s3video){$changelang	.= "document.id('videopathlang').innerHTML = language+'/';";}
-			$changelang	.= "document.id('addfilepathlang').innerHTML = language+'/';
+
+			if (!$this->s3audio)
+			{
+					$changelang .= "document.id('audiopathlang').innerHTML = language+'/';";
+			}
+
+			if (!$this->s3video)
+			{
+				$changelang .= "document.id('videopathlang').innerHTML = language+'/';";
+			}
+
+			$changelang .= "document.id('addfilepathlang').innerHTML = language+'/';
 				}";
-			$lang	= ($this->item->language && $this->item->language == '*') ? $this->item->language : JFactory::getLanguage()->getTag();
-			$this->append_lang	= $lang.'/';
+			$lang = ($this->item->language && $this->item->language == '*') ? $this->item->language : JFactory::getLanguage()->getTag();
+			$this->append_lang = $lang . '/';
 		}
 		else
 		{
-			$changelang	= "function changelang(language) {}";
-			$this->append_lang	= '';
+			$changelang = "function changelang(language) {}";
+			$this->append_lang = '';
 		}
 
 		$document->addScriptDeclaration($changelang);
@@ -462,7 +539,7 @@ class SermonspeakerViewSermon extends JViewLegacy
 		// Add javascript validation script
 		JText::script('COM_SERMONSPEAKER_JS_CHECK_KEYWORDS', false, true);
 		JText::script('COM_SERMONSPEAKER_JS_CHECK_CHARS', false, true);
-		$valscript	= 'function check(string, count, mode){
+		$valscript = 'function check(string, count, mode){
 					if(mode){
 						split = string.split(",");
 						if(split.length > count){
@@ -495,17 +572,21 @@ class SermonspeakerViewSermon extends JViewLegacy
 	/**
 	 * Add the page title and toolbar.
 	 *
-	 * @since	1.6
+	 * @return  void
 	 */
 	protected function addToolbar()
 	{
 		JFactory::getApplication()->input->set('hidemainmenu', true);
-		$user		= JFactory::getUser();
-		$userId		= $user->get('id');
-		$isNew		= ($this->item->id == 0);
-		$checkedOut	= !($this->item->checked_out == 0 || $this->item->checked_out == $userId);
-		$canDo		= SermonspeakerHelper::getActions();
-		JToolbarHelper::title(JText::sprintf('COM_SERMONSPEAKER_PAGE_'.($checkedOut ? 'VIEW' : ($isNew ? 'ADD' : 'EDIT')), JText::_('COM_SERMONSPEAKER_SERMONS_TITLE'), JText::_('COM_SERMONSPEAKER_SERMON')), 'pencil-2 sermons');
+		$user       = JFactory::getUser();
+		$userId     = $user->get('id');
+		$isNew      = ($this->item->id == 0);
+		$checkedOut = !($this->item->checked_out == 0 || $this->item->checked_out == $userId);
+		$canDo      = SermonspeakerHelper::getActions();
+		JToolbarHelper::title(
+			JText::sprintf('COM_SERMONSPEAKER_PAGE_' . ($checkedOut ? 'VIEW' : ($isNew ? 'ADD' : 'EDIT')),
+				JText::_('COM_SERMONSPEAKER_SERMONS_TITLE'), JText::_('COM_SERMONSPEAKER_SERMON')
+			), 'pencil-2 sermons'
+		);
 
 		// Build the actions for new and existing records.
 		if ($isNew)
@@ -554,13 +635,19 @@ class SermonspeakerViewSermon extends JViewLegacy
 		}
 	}
 
-	// Function to return bytes from the PHP settings. Taken from the ini_get() manual
+	/**
+	 * Function to return bytes from the PHP settings. Taken from the ini_get() manual.
+	 *
+	 * @param   string  $val  PHP setting (eg 2M)
+	 *
+	 * @return  integer
+	 */
 	protected function return_bytes($val)
 	{
-		$val = trim($val);
-		$last = strtolower($val[strlen($val)-1]);
+		$val  = trim($val);
+		$last = strtolower($val[strlen($val) - 1]);
 
-		switch($last)
+		switch ($last)
 		{
 			// The 'G' modifier is available since PHP 5.1.0
 			case 'g':
@@ -574,15 +661,21 @@ class SermonspeakerViewSermon extends JViewLegacy
 		return $val;
 	}
 
-	// Get allowed filetypes
+	/**
+	 * Get allowed filetypes.
+	 *
+	 * @param   string  $field  For which field to lookup the filetypes
+	 *
+	 * @return  array
+	 */
 	protected function getAllowedFiletypes($field)
 	{
-		// sanitize
-		$field	= (in_array($field, array('audio', 'video', 'addfile'))) ? $field : 'audio';
+		// Sanitize
+		$field = (in_array($field, array('audio', 'video', 'addfile'))) ? $field : 'audio';
 
-		$types	= $this->params->get($field.'_filetypes');
-		$types	= array_map('trim', explode(',', $types));
+		$types = $this->params->get($field . '_filetypes');
+		$types = array_map('trim', explode(',', $types));
 
-		return ($types) ? '*.'.implode('; *.', $types) : '*.*';
+		return ($types) ? '*.' . implode('; *.', $types) : '*.*';
 	}
 }

@@ -7,7 +7,7 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
-defined('_JEXEC') or die();
+defined('_JEXEC') or die;
 
 /**
  * HTML View class for the SermonSpeaker Component
