@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.4.0" type="plugin" group="sermonspeaker" method="upgrade">
+	<name>plg_sermonspeaker_churchtool</name>
+	<author>Thomas Hunziker</author>
+	<creationDate>2015-04-13</creationDate>
+	<copyright>(C) 2015</copyright>
+	<license>http://www.gnu.org/licenses/gpl.html</license>
+	<authorEmail>admin@sermonspeaker.net</authorEmail>
+	<authorUrl>http://www.sermonspeaker.net</authorUrl>
+	<version>1.0.0</version>
+	<description>PLG_SERMONSPEAKER_CHURCHTOOL_XML_DESCRIPTION</description>
+	<files>
+		<filename plugin="churchtool">churchtool.php</filename>
+		<folder>language</folder>
+	</files>
+	<updateservers>
+		<server type="extension" priority="1" name="SermonSpeaker.net">http://www.sermonspeaker.net/update/plg_sermonspeaker_churchtool.xml</server>
+	</updateservers>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field
+					name="db_server"
+					type="text"
+					/>
+
+				<field
+					name="db_user"
+					type="text"
+					/>
+
+				<field
+					name="db_pass"
+					type="text"
+					/>
+			</fieldset>
+		</fields>
+	</config>
+</extension>
