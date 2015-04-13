@@ -1,27 +1,36 @@
 <?php
-// No direct access.
+/**
+ * @package     SermonSpeaker
+ * @subpackage  Component.Administrator
+ * @author      Thomas Hunziker <admin@sermonspeaker.net>
+ * @copyright   (C) 2015 - Thomas Hunziker
+ * @license     http://www.gnu.org/licenses/gpl.html
+ **/
+
 defined('_JEXEC') or die;
 
-jimport('joomla.application.component.modeladmin');
-
 /**
- * Sermon model.
+ * Item Model for a Sermon.
  *
- * @package		Sermonspeaker.Administrator
+ * @since  3.4
  */
 class SermonspeakerModelSermon extends JModelAdmin
 {
 	/**
-	 * @var		string	The prefix to use with controller messages.
+	 * The prefix to use with controller messages.
+	 *
+	 * @var    string
 	 */
 	protected $text_prefix = 'COM_SERMONSPEAKER';
 
 	/**
 	 * Method to test whether a record can be deleted.
 	 *
-	 * @param	object	A record object.
-	 * @return	boolean	True if allowed to delete the record. Defaults to the permission set in the component.
-	 * @since	1.6
+	 * @param   object  $record  A record object.
+	 *
+	 * @return  boolean  True if allowed to delete the record. Defaults to the permission set in the component.
+	 *
+	 * @since   1.6
 	 */
 	protected function canDelete($record)
 	{
@@ -46,57 +55,72 @@ class SermonspeakerModelSermon extends JModelAdmin
 
 		return false;
 	}
-	
+
+	/**
+	 * Method to delete one or more records.
+	 *
+	 * @param   array  &$pks  An array of record primary keys.
+	 *
+	 * @return  boolean  True if successful, false if an error occurs.
+	 *
+	 * @since   12.2
+	 */
 	public function delete(&$pks)
 	{
 		// Initialise variables.
-		$pks		= (array) $pks;
-		$table		= $this->getTable();
-		$db 		= $this->getDbo();
+		$pks   = (array) $pks;
+		$table = $this->getTable();
+		$db    = $this->getDbo();
 
 		// Iterate the items to delete the files.
 		foreach ($pks as $pk)
 		{
-			if ($table->load($pk))
-			{
-				if ($this->canDelete($table))
-				{
-					if ($table->audiofile && file_exists(JPATH_ROOT.$table->audiofile))
-					{
-						$query = "SELECT count(1) FROM `#__sermon_sermons` \n"
-								."WHERE `audiofile` = '".$table->audiofile."' OR `videofile` = '".$table->audiofile."'";
-						$db->setQuery($query);
-
-						if($db->loadResult() == 1)
-						{
-							if (!JFile::delete(JPATH_ROOT.$table->audiofile))
-							{
-								$this->setError('Could not delete: '.JPATH_ROOT.$table->audiofile);
-							}
-						}
-					}
-
-					if($table->videofile && file_exists(JPATH_ROOT.$table->videofile))
-					{
-						$query = "SELECT count(1) FROM `#__sermon_sermons` \n"
-								."WHERE `audiofile` = '".$table->videofile."' OR `videofile` = '".$table->videofile."'";
-						$db->setQuery($query);
-
-						if($db->loadResult() == 1)
-						{
-							if (!JFile::delete(JPATH_ROOT.$table->videofile))
-							{
-								$this->setError('Could not delete: '.JPATH_ROOT.$table->videofile);
-							}
-						}
-					}
-				}
-			}
-			else
+			if (!$table->load($pk))
 			{
 				$this->setError($table->getError());
 
 				return false;
+			}
+
+			if (!$this->canDelete($table))
+			{
+				continue;
+			}
+
+			if ($table->audiofile && file_exists(JPATH_ROOT . $table->audiofile))
+			{
+				$query = $db->getQuery(true);
+				$query->select('count(1)');
+				$query->from($db->quoteName('#__sermon_sermons'));
+				$query->where(
+					$db->quoteName('audiofile') . ' = ' . $db->quote($table->audiofile)
+					. ' OR ' . $db->quoteName('videofile') . ' = ' . $db->quote($table->audiofile)
+				);
+				$db->setQuery($query);
+
+				// Only delete file if it's not used in another sermon.
+				if ($db->loadResult() == 1)
+				{
+					JFile::delete(JPATH_ROOT . $table->audiofile);
+				}
+			}
+
+			if ($table->videofile && file_exists(JPATH_ROOT . $table->videofile))
+			{
+				$query = $db->getQuery(true);
+				$query->select('count(1)');
+				$query->from($db->quoteName('#__sermon_sermons'));
+				$query->where(
+					$db->quoteName('audiofile') . ' = ' . $db->quote($table->videofile)
+					. ' OR ' . $db->quoteName('videofile') . ' = ' . $db->quote($table->videofile)
+				);
+				$db->setQuery($query);
+
+				// Only delete file if it's not used in another sermon.
+				if ($db->loadResult() == 1)
+				{
+					JFile::delete(JPATH_ROOT . $table->videofile);
+				}
 			}
 		}
 
@@ -107,32 +131,36 @@ class SermonspeakerModelSermon extends JModelAdmin
 	}
 
 	/**
-	 * Method to test whether a records state can be changed.
+	 * Method to test whether a record can have its state edited.
 	 *
-	 * @param	object	A record object.
-	 * @return	boolean	True if allowed to change the state of the record. Defaults to the permission set in the component.
-	 * @since	1.6
+	 * @param   object  $record  A record object.
+	 *
+	 * @return  boolean  True if allowed to change the state of the record. Defaults to the permission set in the component.
+	 *
+	 * @since   1.6
 	 */
 	protected function canEditState($record)
 	{
 		$user = JFactory::getUser();
 
-		if (!empty($record->catid)) {
-			return $user->authorise('core.edit.state', 'com_sermonspeaker.category.'.(int) $record->catid);
+		if (!empty($record->catid))
+		{
+			return $user->authorise('core.edit.state', 'com_sermonspeaker.category.' . (int) $record->catid);
 		}
-		else {
+		else
+		{
 			return parent::canEditState($record);
 		}
 	}
 
 	/**
-	 * Returns a reference to the a Table object, always creating it.
+	 * Returns a Table object, always creating it.
 	 *
-	 * @param	type	The table type to instantiate
-	 * @param	string	A prefix for the table class name. Optional.
-	 * @param	array	Configuration array for model. Optional.
-	 * @return	JTable	A database object
-	 * @since	1.6
+	 * @param   string  $type    The table type to instantiate
+	 * @param   string  $prefix  A prefix for the table class name. Optional.
+	 * @param   array   $config  Configuration array for model. Optional.
+	 *
+	 * @return  JTable    A database object
 	 */
 	public function getTable($type = 'Sermon', $prefix = 'SermonspeakerTable', $config = array())
 	{
@@ -142,32 +170,41 @@ class SermonspeakerModelSermon extends JModelAdmin
 	/**
 	 * Method to get the record form.
 	 *
-	 * @param	array	$data		An optional array of data for the form to interogate.
-	 * @param	boolean	$loadData	True if the form is to load its own data (default case), false if not.
-	 * @return	JForm	A JForm object on success, false on failure
-	 * @since	1.6
+	 * @param   array    $data      Data for the form.
+	 * @param   boolean  $loadData  True if the form is to load its own data (default case), false if not.
+	 *
+	 * @return  mixed  A JForm object on success, false on failure
+	 *
+	 * @since   1.6
 	 */
 	public function getForm($data = array(), $loadData = true)
 	{
 		// Get the form.
 		$form = $this->loadForm('com_sermonspeaker.sermon', 'sermon', array('control' => 'jform', 'load_data' => $loadData));
-		if (empty($form)) {
+
+		if (empty($form))
+		{
 			return false;
 		}
 
 		// Determine correct permissions to check.
-		if ((int)$this->getState('sermon.id')) {
+		if ((int) $this->getState('sermon.id'))
+		{
 			// Existing record. Can only edit in selected categories.
 			$form->setFieldAttribute('catid', 'action', 'core.edit');
+
 			// Existing record. Can only edit own articles in selected categories.
 			$form->setFieldAttribute('catid', 'action', 'core.edit.own');
-		} else {
+		}
+		else
+		{
 			// New record. Can only create in selected categories.
 			$form->setFieldAttribute('catid', 'action', 'core.create');
 		}
 
 		// Modify the form based on Edit State access controls.
-		if (!$this->canEditState((object) $data)) {
+		if (!$this->canEditState((object) $data))
+		{
 			// Disable fields for display.
 			$form->setFieldAttribute('ordering', 'disabled', 'true');
 			$form->setFieldAttribute('state', 'disabled', 'true');
@@ -186,41 +223,54 @@ class SermonspeakerModelSermon extends JModelAdmin
 	/**
 	 * Method to get the data that should be injected in the form.
 	 *
-	 * @return	mixed	The data for the form.
-	 * @since	1.6
+	 * @return  mixed  The data for the form.
+	 *
+	 * @since   1.6
 	 */
 	protected function loadFormData()
 	{
 		// Check the session for previously entered form data.
-		$data	= JFactory::getApplication()->getUserState('com_sermonspeaker.edit.sermon.data', array());
-		$jinput	= JFactory::getApplication()->input;
+		$data   = JFactory::getApplication()->getUserState('com_sermonspeaker.edit.sermon.data', array());
+		$jinput = JFactory::getApplication()->input;
 
-		if (empty($data)) {
+		if (empty($data))
+		{
 			$data = $this->getItem();
-		} else {
+		}
+		else
+		{
 			// Catch scriptures from database again because the values in UserState can't be used due to formatting.
 			$data['scripture'] = array();
-			if($data['id']){
-				$db		= JFactory::getDBO();
-				$query	= "SELECT book, cap1, vers1, cap2, vers2, text \n"
-						."FROM #__sermon_scriptures \n"
-						."WHERE sermon_id = ".$data['id']." \n"
-						."ORDER BY ordering ASC"
-						;
+
+			if ($data['id'])
+			{
+				$db    = JFactory::getDBO();
+				$query = $db->getQuery(true)
+					->select($db->quoteName(array('book', 'cap1', 'vers1', 'cap2', 'vers2', 'text')))
+					->from($db->quoteName('#__sermon_scriptures'))
+					->where($db->quoteName('sermon_id') . ' = ' . (int) $data['id'])
+					->order('ordering ASC');
+
 				$db->setQuery($query);
 				$data['scripture'] = $db->loadAssocList();
 			}
 		}
-		// Depreceated with SermonSpeaker 4.4.4. Using Ajax now for Lookup.
-		// Still used for tools function files to create sermon from file.
-		if ($id3_file = $jinput->get('file', '', 'string')){
-			if ($jinput->get('type') == 'video'){
+
+		// Deprecated with SermonSpeaker 4.4.4. Using Ajax now for Lookup. Still used for tools function files to create sermon from file.
+		if ($id3_file = $jinput->get('file', '', 'string'))
+		{
+			if ($jinput->get('type') == 'video')
+			{
 				$data->videofile = $id3_file;
-			} else {
+			}
+			else
+			{
 				$data->audiofile = $id3_file;
 			}
-			require_once JPATH_COMPONENT_SITE.'/helpers/id3.php';
-			$params	= JComponentHelper::getParams('com_sermonspeaker');
+
+			require_once JPATH_COMPONENT_SITE . '/helpers/id3.php';
+
+			$params = JComponentHelper::getParams('com_sermonspeaker');
 
 			$id3 = SermonspeakerHelperId3::getID3($id3_file, $params);
 
@@ -246,24 +296,25 @@ class SermonspeakerModelSermon extends JModelAdmin
 	/**
 	 * Method to get a single record.
 	 *
-	 * @param	integer	The id of the primary key.
+	 * @param   integer  $pk  The id of the primary key.
 	 *
-	 * @return	mixed	Object on success, false on failure.
-	 * @since	1.6
+	 * @return  mixed  Object on success, false on failure.
 	 */
 	public function getItem($pk = null)
 	{
 		$item = parent::getItem($pk);
 
 		$item->scripture = array();
+
 		if ($item->id)
 		{
-			$db		= JFactory::getDBO();
-			$query	= "SELECT book, cap1, vers1, cap2, vers2, text \n"
-					."FROM #__sermon_scriptures \n"
-					."WHERE sermon_id = ".$item->id." \n"
-					."ORDER BY ordering ASC"
-					;
+			$db    = JFactory::getDBO();
+			$query = $db->getQuery(true)
+				->select($db->quoteName(array('book', 'cap1', 'vers1', 'cap2', 'vers2', 'text')))
+				->from($db->quoteName('#__sermon_scriptures'))
+				->where($db->quoteName('sermon_id') . ' = ' . (int) $item->id)
+				->order('ordering ASC');
+
 			$db->setQuery($query);
 			$item->scripture = $db->loadAssocList();
 
@@ -296,20 +347,25 @@ class SermonspeakerModelSermon extends JModelAdmin
 	}
 
 	/**
-	 * Prepare and sanitise the table prior to saving.
+	 * Prepare and sanitise the table data prior to saving.
 	 *
-	 * @since	1.6
+	 * @param   JTable  $table  A JTable object.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.6
 	 */
 	protected function prepareTable($table)
 	{
-		jimport('joomla.filter.output');
+		$table->title = htmlspecialchars_decode($table->title, ENT_QUOTES);
+		$table->alias = JApplicationHelper::stringURLSafe($table->alias);
 
-		$table->title	= htmlspecialchars_decode($table->title, ENT_QUOTES);
-		$table->alias	= JApplicationHelper::stringURLSafe($table->alias);
-
-		if (empty($table->alias)) {
+		if (empty($table->alias))
+		{
 			$table->alias = JApplicationHelper::stringURLSafe($table->title);
-			if (empty($table->alias)) {
+
+			if (empty($table->alias))
+			{
 				$table->alias = JFactory::getDate()->format("Y-m-d-H-i-s");
 			}
 		}
@@ -318,7 +374,7 @@ class SermonspeakerModelSermon extends JModelAdmin
 		{
 			if (!parse_url($table->audiofile, PHP_URL_SCHEME))
 			{
-				$table->audiofilesize = filesize(JPATH_SITE.$table->audiofile);
+				$table->audiofilesize = filesize(JPATH_SITE . $table->audiofile);
 			}
 		}
 
@@ -326,38 +382,59 @@ class SermonspeakerModelSermon extends JModelAdmin
 		{
 			if (!parse_url($table->videofile, PHP_URL_SCHEME))
 			{
-				$table->videofilesize = filesize(JPATH_SITE.$table->videofile);
+				$table->videofilesize = filesize(JPATH_SITE . $table->videofile);
 			}
 		}
 
 		$time_arr = explode(':', $table->sermon_time);
-		foreach ($time_arr as $time_int){
-			$time_int = (int)$time_int;
+
+		foreach ($time_arr as &$time_int)
+		{
+			$time_int = (int) $time_int;
 			$time_int = str_pad($time_int, 2, '0', STR_PAD_LEFT);
 		}
-		if (count($time_arr) == 2) {
-			$table->sermon_time = '00:'.$time_arr[0].':'.$time_arr[1];
-		} elseif (count($time_arr) == 3) {
-			$table->sermon_time = $time_arr[0].':'.$time_arr[1].':'.$time_arr[2];
+
+		if (count($time_arr) == 2)
+		{
+			$table->sermon_time = '00:' . $time_arr[0] . ':' . $time_arr[1];
 		}
-		if (!empty($table->metakey)) {
-			// only process if not empty
-			$bad_characters = array("\n", "\r", '"', '<', '>'); // array of characters to remove
-			$after_clean = JString::str_ireplace($bad_characters, '', $table->metakey); // remove bad characters
-			$keys = explode(',', $after_clean); // create array using commas as delimiter
+		elseif (count($time_arr) == 3)
+		{
+			$table->sermon_time = $time_arr[0] . ':' . $time_arr[1] . ':' . $time_arr[2];
+		}
+
+		// Only process if not empty
+		if (!empty($table->metakey))
+		{
+			// Array of characters to remove
+			$bad_characters = array("\n", "\r", '"', '<', '>');
+
+			// Remove bad characters
+			$after_clean = Joomla\String\String::str_ireplace($bad_characters, '', $table->metakey);
+
+			// Create array using commas as delimiter
+			$keys       = explode(',', $after_clean);
 			$clean_keys = array();
-			foreach($keys as $key) {
-				if (trim($key)) {  // ignore blank keywords
-					$clean_keys[] = trim($key);
+
+			foreach ($keys as $key)
+			{
+				// Ignore blank keywords
+				if ($key = trim($key))
+				{
+					$clean_keys[] = $key;
 				}
 			}
-			$table->metakey = implode(', ', $clean_keys); // put array back together delimited by ", "
+
+			// Put array back together delimited by ", "
+			$table->metakey = implode(', ', $clean_keys);
 		}
 
 		// Reorder the articles within the category so the new sermon is first
-		if (empty($table->id)) {
-			$table->reorder('catid = '.(int) $table->catid.' AND state >= 0');
+		if (empty($table->id))
+		{
+			$table->reorder('catid = ' . (int) $table->catid . ' AND state >= 0');
 		}
+
 		// Increment the content version number.
 		$table->version++;
 	}
@@ -365,10 +442,11 @@ class SermonspeakerModelSermon extends JModelAdmin
 	/**
 	 * Method to save the form data.
 	 *
-	 * @param   array  The form data.
+	 * @param   array  $data  The form data.
 	 *
-	 * @return  boolean  True on success.
-	 * @since   1.6
+	 * @return  boolean  True on success, False on error.
+	 *
+	 * @since   12.2
 	 */
 	public function save($data)
 	{
@@ -376,7 +454,7 @@ class SermonspeakerModelSermon extends JModelAdmin
 		{
 			if (JLanguageAssociations::isEnabled())
 			{
-				$id = (int) $this->getState($this->getName() . '.id');
+				$id   = (int) $this->getState($this->getName() . '.id');
 				$item = $this->getItem($id);
 
 				// Adding self to the association
@@ -401,7 +479,7 @@ class SermonspeakerModelSermon extends JModelAdmin
 				$associations[$item->language] = $item->id;
 
 				// Deleting old association for these items
-				$db = JFactory::getDbo();
+				$db    = JFactory::getDbo();
 				$query = $db->getQuery(true)
 					->delete('#__associations')
 					->where('context=' . $db->quote('com_sermonspeaker.sermon'))
@@ -412,6 +490,7 @@ class SermonspeakerModelSermon extends JModelAdmin
 				if ($error = $db->getErrorMsg())
 				{
 					$this->setError($error);
+
 					return false;
 				}
 
@@ -433,6 +512,7 @@ class SermonspeakerModelSermon extends JModelAdmin
 					if ($error = $db->getErrorMsg())
 					{
 						$this->setError($error);
+
 						return false;
 					}
 				}
@@ -445,12 +525,17 @@ class SermonspeakerModelSermon extends JModelAdmin
 	}
 
 	/**
-	 * Auto-populate the model state.
+	 * Method to allow derived classes to preprocess the form.
 	 *
-	 * Note. Calling getState in this method will result in recursion.
+	 * @param   JForm   $form   A JForm object.
+	 * @param   mixed   $data   The data expected for the form.
+	 * @param   string  $group  The name of the plugin group to import (defaults to "content").
 	 *
 	 * @return  void
-	 * @since    3.0
+	 *
+	 * @see     JFormField
+	 * @since   12.2
+	 * @throws  Exception if there is an error in the form event.
 	 */
 	protected function preprocessForm(JForm $form, $data, $group = 'sermonspeaker')
 	{
@@ -459,21 +544,22 @@ class SermonspeakerModelSermon extends JModelAdmin
 		{
 			$languages = JLanguageHelper::getLanguages('lang_code');
 
-			// force to array (perhaps move to $this->loadFormData())
+			// Force to array (perhaps move to $this->loadFormData())
 			$data = (array) $data;
 
 			$addform = new SimpleXMLElement('<form />');
-			$fields = $addform->addChild('fields');
+			$fields  = $addform->addChild('fields');
 			$fields->addAttribute('name', 'associations');
 			$fieldset = $fields->addChild('fieldset');
 			$fieldset->addAttribute('name', 'item_associations');
 			$fieldset->addAttribute('description', 'COM_SERMONSPEAKER_ITEM_ASSOCIATIONS_FIELDSET_DESC');
 			$add = false;
+
 			foreach ($languages as $tag => $language)
 			{
 				if (empty($data['language']) || $tag != $data['language'])
 				{
-					$add = true;
+					$add   = true;
 					$field = $fieldset->addChild('field');
 					$field->addAttribute('name', $tag);
 					$field->addAttribute('type', 'modal_sermon');
@@ -482,6 +568,7 @@ class SermonspeakerModelSermon extends JModelAdmin
 					$field->addAttribute('translate_label', 'false');
 				}
 			}
+
 			if ($add)
 			{
 				$form->load($addform, false);
@@ -494,26 +581,37 @@ class SermonspeakerModelSermon extends JModelAdmin
 	/**
 	 * A protected method to get a set of ordering conditions.
 	 *
-	 * @param	object	A record object.
-	 * @return	array	An array of conditions to add to add to ordering queries.
-	 * @since	1.6
+	 * @param   object  $table  A record object.
+	 *
+	 * @return  array  An array of conditions to add to add to ordering queries.
+	 *
+	 * @since   1.6
 	 */
 	protected function getReorderConditions($table = null)
 	{
 		$condition = array();
-		$condition[] = 'catid = '.(int) $table->catid;
+		$condition[] = 'catid = ' . (int) $table->catid;
+
 		return $condition;
 	}
 
 	/**
-	 * Changing the state of podcast. Copy of the parent function publish
+	 * Method to change the podcast state of one or more records.
+	 *
+	 * @param   array    &$pks   A list of the primary keys to change.
+	 * @param   integer  $value  The value of the published state.
+	 *
+	 * @return  boolean  True on success.
+	 *
+	 * @since   12.2
+	 * @throws  Exception
 	 */
-	function podcast(&$pks, $value = 1)
+	public function podcast(&$pks, $value = 1)
 	{
 		// Initialise variables.
-		$user		= JFactory::getUser();
-		$table		= $this->getTable();
-		$pks		= (array) $pks;
+		$user  = JFactory::getUser();
+		$table = $this->getTable();
+		$pks   = (array) $pks;
 
 		// Access checks.
 		foreach ($pks as $i => $pk)
@@ -532,12 +630,13 @@ class SermonspeakerModelSermon extends JModelAdmin
 		}
 
 		// Attempt to change the state of the records.
-		if (!$table->podcast($pks, $value, $user->get('id'))) {
+		if (!$table->podcast($pks, $value, $user->get('id')))
+		{
 			$this->setError($table->getError());
+
 			return false;
 		}
 
-		$context = $this->option.'.'.$this->name;
 		return true;
 	}
 
@@ -557,7 +656,7 @@ class SermonspeakerModelSermon extends JModelAdmin
 	{
 		// Sanitize user ids.
 		$pks = array_unique($pks);
-		JArrayHelper::toInteger($pks);
+		Joomla\Utilities\ArrayHelper::toInteger($pks);
 
 		// Remove any values of zero.
 		if (array_search(0, $pks, true))
@@ -568,6 +667,7 @@ class SermonspeakerModelSermon extends JModelAdmin
 		if (empty($pks))
 		{
 			$this->setError(JText::_('JGLOBAL_NO_ITEM_SELECTED'));
+
 			return false;
 		}
 
@@ -580,6 +680,7 @@ class SermonspeakerModelSermon extends JModelAdmin
 			if ($cmd == 'c')
 			{
 				$result = $this->batchCopy($commands['category_id'], $pks, $contexts);
+
 				if (is_array($result))
 				{
 					$pks = $result;
@@ -593,19 +694,9 @@ class SermonspeakerModelSermon extends JModelAdmin
 			{
 				return false;
 			}
+
 			$done = true;
 		}
-
-		/* not used 
-		if (!empty($commands['assetgroup_id']))
-		{
-			if (!$this->batchAccess($commands['assetgroup_id'], $pks, $contexts))
-			{
-				return false;
-			}
-
-			$done = true;
-		} */
 
 		if (!empty($commands['language_id']))
 		{
@@ -650,6 +741,7 @@ class SermonspeakerModelSermon extends JModelAdmin
 		if (!$done)
 		{
 			$this->setError(JText::_('JLIB_APPLICATION_ERROR_INSUFFICIENT_BATCH_INFORMATION'));
+
 			return false;
 		}
 
@@ -669,7 +761,7 @@ class SermonspeakerModelSermon extends JModelAdmin
 	 *
 	 * @return  mixed  An array of new IDs on success, boolean false on failure.
 	 *
-	 * @since	11.1
+	 * @since  11.1
 	 */
 	protected function batchCopy($value, $pks, $contexts)
 	{
@@ -682,17 +774,20 @@ class SermonspeakerModelSermon extends JModelAdmin
 		if ($categoryId)
 		{
 			$categoryTable = JTable::getInstance('Category');
+
 			if (!$categoryTable->load($categoryId))
 			{
 				if ($error = $categoryTable->getError())
 				{
 					// Fatal error
 					$this->setError($error);
+
 					return false;
 				}
 				else
 				{
 					$this->setError(JText::_('JLIB_APPLICATION_ERROR_BATCH_MOVE_CATEGORY_NOT_FOUND'));
+
 					return false;
 				}
 			}
@@ -701,15 +796,18 @@ class SermonspeakerModelSermon extends JModelAdmin
 		if (empty($categoryId))
 		{
 			$this->setError(JText::_('JLIB_APPLICATION_ERROR_BATCH_MOVE_CATEGORY_NOT_FOUND'));
+
 			return false;
 		}
 
 		// Check that the user has create permission for the component
 		$extension = JFactory::getApplication()->input->get('option', '');
 		$user = JFactory::getUser();
+
 		if (!$user->authorise('core.create', $extension . '.category.' . $categoryId))
 		{
 			$this->setError(JText::_('JLIB_APPLICATION_ERROR_BATCH_CANNOT_CREATE'));
+
 			return false;
 		}
 
@@ -728,19 +826,21 @@ class SermonspeakerModelSermon extends JModelAdmin
 				{
 					// Fatal error
 					$this->setError($error);
+
 					return false;
 				}
 				else
 				{
 					// Not fatal error
 					$this->setError(JText::sprintf('JLIB_APPLICATION_ERROR_BATCH_MOVE_ROW_NOT_FOUND', $pk));
+
 					continue;
 				}
 			}
 
 			// Alter the title & alias
 			// Custom: defining the title
-			$data = $this->generateNewTitle($categoryId, $table->alias, $table->title);
+			$data         = $this->generateNewTitle($categoryId, $table->alias, $table->title);
 			$table->title = $data['0'];
 			$table->alias = $data['1'];
 
@@ -751,12 +851,13 @@ class SermonspeakerModelSermon extends JModelAdmin
 			$table->catid = $categoryId;
 
 			// TODO: Deal with ordering?
-			//$table->ordering	= 1;
+			// $table->ordering	= 1;
 
 			// Check the row.
 			if (!$table->check())
 			{
 				$this->setError($table->getError());
+
 				return false;
 			}
 
@@ -764,6 +865,7 @@ class SermonspeakerModelSermon extends JModelAdmin
 			if (!$table->store())
 			{
 				$this->setError($table->getError());
+
 				return false;
 			}
 
@@ -771,7 +873,7 @@ class SermonspeakerModelSermon extends JModelAdmin
 			$newId = $table->get('id');
 
 			// Add the new ID to the array
-			$newIds[$i]	= $newId;
+			$newIds[$i] = $newId;
 			$i++;
 		}
 
@@ -795,7 +897,7 @@ class SermonspeakerModelSermon extends JModelAdmin
 	protected function batchSpeaker($value, $pks, $contexts)
 	{
 		// Set the variables
-		$user	= JFactory::getUser();
+		$user  = JFactory::getUser();
 		$table = $this->getTable();
 
 		foreach ($pks as $pk)
@@ -809,12 +911,14 @@ class SermonspeakerModelSermon extends JModelAdmin
 				if (!$table->store())
 				{
 					$this->setError($table->getError());
+
 					return false;
 				}
 			}
 			else
 			{
 				$this->setError(JText::_('JLIB_APPLICATION_ERROR_BATCH_CANNOT_EDIT'));
+
 				return false;
 			}
 		}
@@ -839,7 +943,7 @@ class SermonspeakerModelSermon extends JModelAdmin
 	protected function batchSerie($value, $pks, $contexts)
 	{
 		// Set the variables
-		$user	= JFactory::getUser();
+		$user  = JFactory::getUser();
 		$table = $this->getTable();
 
 		foreach ($pks as $pk)
@@ -853,12 +957,14 @@ class SermonspeakerModelSermon extends JModelAdmin
 				if (!$table->store())
 				{
 					$this->setError($table->getError());
+
 					return false;
 				}
 			}
 			else
 			{
 				$this->setError(JText::_('JLIB_APPLICATION_ERROR_BATCH_CANNOT_EDIT'));
+
 				return false;
 			}
 		}

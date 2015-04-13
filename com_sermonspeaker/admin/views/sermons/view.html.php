@@ -38,7 +38,7 @@ class SermonspeakerViewSermons extends JViewLegacy
 
 	public $filterForm;
 
-	protected $activeFilters;
+	public $activeFilters;
 
 	protected $sidebar;
 
