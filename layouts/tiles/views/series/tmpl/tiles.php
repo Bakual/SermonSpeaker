@@ -97,8 +97,8 @@ if ($this->params->get('show_description', 1) or $this->params->def('show_descri
 				$tip[]	= JText::_('JCATEGORY') . ': ' . $item->category_title;
 			endif;
 
-			if (in_array('series:speaker', $this->col_serie) and $item->names) :
-				$tip[]	= JText::_('COM_SERMONSPEAKER_FIELD_SPEAKER_LABEL') . ': ' . $item->names;
+			if (in_array('series:speaker', $this->col_serie) and $item->speakers) :
+				$tip[]	= JText::_('COM_SERMONSPEAKER_FIELD_SPEAKER_LABEL') . ': ' . $item->speakers;
 			endif;
 
 			if (in_array('series:hits', $this->col_serie) and $item->hits) :
