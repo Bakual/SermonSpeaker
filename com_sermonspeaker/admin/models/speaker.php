@@ -115,9 +115,12 @@ class SermonspeakerModelSpeaker extends JModelAdmin
 		// Check the session for previously entered form data.
 		$data = JFactory::getApplication()->getUserState('com_sermonspeaker.edit.speaker.data', array());
 
-		if (empty($data)) {
+		if (empty($data))
+		{
 			$data = $this->getItem();
 		}
+
+		$this->preprocessData('com_sermonspeaker.speaker', $data);
 
 		return $data;
 	}

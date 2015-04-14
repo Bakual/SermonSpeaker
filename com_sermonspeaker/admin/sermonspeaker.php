@@ -14,9 +14,6 @@ JLoader::register('JFolder', JPATH_LIBRARIES . '/joomla/filesystem/folder.php');
 // Register Helperclass for autoloading
 JLoader::register('SermonspeakerHelper', JPATH_COMPONENT . '/helpers/sermonspeaker.php');
 
-// Import Plugins
-JPluginHelper::importPlugin('sermonspeaker');
-
 JHtml::_('behavior.tabstate');
 JHtml::stylesheet('administrator/components/com_sermonspeaker/sermonspeaker.css');
 
