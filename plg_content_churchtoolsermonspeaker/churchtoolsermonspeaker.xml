@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension version="3.4.0" type="plugin" group="sermonspeaker" method="upgrade">
-	<name>plg_sermonspeaker_churchtool</name>
+<extension version="3.4.0" type="plugin" group="content" method="upgrade">
+	<name>plg_content_churchtoolsermonspeaker</name>
 	<author>Thomas Hunziker</author>
 	<creationDate>2015-04-13</creationDate>
 	<copyright>(C) 2015</copyright>
@@ -8,13 +8,13 @@
 	<authorEmail>admin@sermonspeaker.net</authorEmail>
 	<authorUrl>http://www.sermonspeaker.net</authorUrl>
 	<version>1.0.0</version>
-	<description>PLG_SERMONSPEAKER_CHURCHTOOL_XML_DESCRIPTION</description>
+	<description>PLG_CONTENT_CHURCHTOOLSERMONSPEAKER_XML_DESCRIPTION</description>
 	<files>
-		<filename plugin="churchtool">churchtool.php</filename>
+		<filename plugin="churchtoolsermonspeaker">churchtoolsermonspeaker.php</filename>
 		<folder>language</folder>
 	</files>
 	<updateservers>
-		<server type="extension" priority="1" name="SermonSpeaker.net">http://www.sermonspeaker.net/update/plg_sermonspeaker_churchtool.xml</server>
+		<server type="extension" priority="1" name="SermonSpeaker.net">http://www.sermonspeaker.net/update/plg_sermonspeaker_churchtoolsermonspeaker.xml</server>
 	</updateservers>
 	<config>
 		<fields name="params">
