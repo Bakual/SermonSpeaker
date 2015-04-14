@@ -20,7 +20,22 @@
 		<fields name="params">
 			<fieldset name="basic">
 				<field
-					name="db_server"
+					name="db_type"
+					type="list"
+					default="mysqli"
+					>
+					<option value="mysql">mysql</option>
+					<option value="mysqli">mysqli</option>
+				</field>
+
+				<field
+					name="db_host"
+					type="text"
+					default="localhost"
+					/>
+
+				<field
+					name="db_database"
 					type="text"
 					/>
 
