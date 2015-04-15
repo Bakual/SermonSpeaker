@@ -48,6 +48,16 @@
 					name="db_pass"
 					type="text"
 					/>
+
+				<field
+					name="eventgroups"
+					type="text"
+					/>
+
+				<field
+					name="team_id"
+					type="text"
+					/>
 			</fieldset>
 		</fields>
 	</config>
