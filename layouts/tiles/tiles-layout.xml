@@ -5,9 +5,9 @@
 	<author>Thomas Hunziker</author>
 	<authorEmail>admin@sermonspeaker.net</authorEmail>
 	<authorUrl>http://www.sermonspeaker.net</authorUrl>
-	<creationDate>2015-03-13</creationDate>
+	<creationDate>2015-04-15</creationDate>
 	<copyright>(C) 2015</copyright>
-	<version>3.0</version>
+	<version>3.0.1</version>
 	<license>http://www.gnu.org/licenses/gpl.html</license>
 	<description>Tiles Layout file for SermonSpeaker</description>
 	<fileset>
