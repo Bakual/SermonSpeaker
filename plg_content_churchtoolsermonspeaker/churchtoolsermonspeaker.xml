@@ -58,6 +58,18 @@
 					name="team_id"
 					type="text"
 					/>
+
+				<field
+					name="title_field"
+					type="list"
+					label="PLG_CONTENT_CHURCHTOOLSERMONSPEAKER_FIELD_TITLE_FIELD_LABEL"
+					description="PLG_CONTENT_CHURCHTOOLSERMONSPEAKER_FIELD_TITLE_FIELD_DESC"
+					default="1"
+					>
+					<option value="0">PLG_CONTENT_CHURCHTOOLSERMONSPEAKER_FIELD_TITLE_FIELD_OPTION_0</option>
+					<option value="1">PLG_CONTENT_CHURCHTOOLSERMONSPEAKER_FIELD_TITLE_FIELD_OPTION_1</option>
+					<option value="2">PLG_CONTENT_CHURCHTOOLSERMONSPEAKER_FIELD_TITLE_FIELD_OPTION_2</option>
+				</field>
 			</fieldset>
 		</fields>
 	</config>

@@ -52,8 +52,6 @@ class PlgContentChurchtoolsermonspeaker extends JPlugin
 
 		$db = JDatabaseDriver::getInstance($option);
 
-		$date = JFactory::getDate();
-
 		// Sanitise Eventgroups
 		$eventgroups = $this->params->get('eventgroups');
 		$eg_array    = explode(',', $eventgroups);
@@ -62,96 +60,95 @@ class PlgContentChurchtoolsermonspeaker extends JPlugin
 
 		// Build Query for events
 		$query = $db->getQuery(true);
-		$query->select($db->quoteName(array('id', 'startzeit', 'kommentar')));
+		$query->select($db->quoteName(array('id','title', 'kommentar' ,'kommentar2')));
 		$query->from($db->quoteName('ko_event'));
-//		$query->where($db->quoteName('startdatum') . ' = ' . $db->quote($date->format('Y-m-d')));
-		$query->where($db->quoteName('startdatum') . ' = ' . $db->quote('2015-04-12'));
+		$query->where($db->quoteName('startdatum') . ' = CURDATE()');
+		$query->where($db->quoteName('startzeit') . ' < CURTIME()');
 		$query->where($db->quoteName('rota') . ' = 1');
 		$query->where($db->quoteName('eventgruppen_id') . ' IN (' . $eventgroups . ')');
-		$query->order($db->quoteName('startzeit') . ' ASC');
+		$query->order($db->quoteName('startzeit') . ' DESC');
 
-		$db->setQuery($query);
+		$db->setQuery($query, 0, 1);
 
 		try
 		{
-			$events = $db->loadObjectList();
+			$event = $db->loadObject();
 		}
 		catch (Exception $e)
 		{
 			return;
 		}
-dump($events, 'events');
-		if (!$events)
+
+		if (!$event)
 		{
 			return;
 		}
 
-		if (count($events) > 1)
-		{
-			// Current time without colons
-			$time = $date->format('Hms');
-
-			// Get latest past event
-			foreach ($events as $key => $value)
-			{
-				$starttime = (int) $value->startzeit;
-
-				if ($starttime > $time)
-				{
-					break;
-				}
-
-				$event = $value;
-			}
-		}
-		else
-		{
-			$event = $events[0];
-		}
-dump($event, 'event');
-		// Build Query for rota
-		$query = $db->getQuery(true);
-		$query->select($db->quoteName(array('rota.schedule')));
-		$query->from($db->quoteName('ko_rota_schedulling'));
-		$query->where($db->quoteName('event_id') . ' = ' . (int) $event->id);
-		$query->where($db->quoteName('team_id') . ' = ' . (int) $this->params->get('team_id'));
-
-		$db->setQuery($query);
-
-		try
-		{
-			$schedules = $db->loadObjectList();
-		}
-		catch (Exception $e)
-		{
-			return;
-		}
-dump($schedules, 'schedules');
-		// "find_in_set" may help
-		$subquery = $db->getQuery(true);
-		$subquery->select($db->quoteName('rota.schedule'));
-		$subquery->from($db->quoteName('ko_rota_schedulling'));
-		$subquery->where($db->quoteName('event_id') . ' = ' . (int) $event->id);
-		$subquery->where($db->quoteName('team_id') . ' = ' . (int) $this->params->get('team_id'));
-
+		// Build Query for the speaker
 		$query = $db->getQuery(true);
 		$query->select($db->quoteName(array('leute.nachname', 'leute.vorname')));
 		$query->from($db->quoteName('ko_leute', 'leute'));
-		$query->where($db->quoteName('leute.id') . ' IN (' . $subquery . ')');
+		$query->join('INNER', $db->quoteName('ko_rota_schedulling', 'rota')
+			. ' ON FIND_IN_SET(' . $db->quoteName('leute.id') . ', ' . $db->quoteName('rota.schedule') . ')');
+		$query->where($db->quoteName('rota.event_id') . ' = ' . (int) $event->id);
+		$query->where($db->quoteName('rota.team_id') . ' = ' . (int) $this->params->get('team_id'));
 
 		$db->setQuery($query);
 
 		try
 		{
-			$schedules = $db->loadObjectList();
+			$speakers = $db->loadObjectList();
 		}
 		catch (Exception $e)
 		{
 			return;
 		}
-		dump($schedules, 'schedules');
 
+		if (!$speakers)
+		{
+			return;
+		}
 
+		$speaker_array = array();
 
+		foreach ($speakers as $speaker)
+		{
+			$speaker_array[] = $speaker->vorname . ' ' . $speaker->nachname;
+		}
+
+		// Fetch default Joomla Databasedriver
+		$dbo = JFactory::getDbo();
+
+		// Build Query to get id of speaker. Take first one found.
+		$query = $dbo->getQuery(true);
+		$query->select($db->quoteName('id'));
+		$query->from($db->quoteName('#__sermon_speakers'));
+
+		foreach ($speakers as $speaker)
+		{
+			$query->where($db->quoteName('title') . ' = ' . $db->quote($speaker->vorname . ' ' . $speaker->nachname), 'OR');
+		}
+
+		$dbo->setQuery($query, 0, 1);
+
+		$id = $dbo->loadResult();
+
+		$data->speaker_id = $id;
+
+		switch ($this->params->get('title_field', 1))
+		{
+			case 0:
+				$title = $event->title;
+				break;
+			case 1:
+			default:
+				$title = $event->kommentar;
+				break;
+			case 2:
+				$title = $event->kommentar2;
+				break;
+		}
+
+		$data->title = $title;
 	}
 }
