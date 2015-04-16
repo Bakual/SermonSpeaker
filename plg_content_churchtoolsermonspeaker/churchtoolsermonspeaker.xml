@@ -23,30 +23,40 @@
 					name="db_type"
 					type="list"
 					default="mysqli"
+					label="PLG_CONTENT_CHURCHTOOLSERMONSPEAKER_FIELD_DB_TYPE_LABEL"
+					description="PLG_CONTENT_CHURCHTOOLSERMONSPEAKER_FIELD_DB_TYPE_DESC"
 					>
-					<option value="mysql">mysql</option>
-					<option value="mysqli">mysqli</option>
+					<option value="mysql">MySQL</option>
+					<option value="mysqli">MySQLi</option>
 				</field>
 
 				<field
 					name="db_host"
 					type="text"
 					default="localhost"
+					label="PLG_CONTENT_CHURCHTOOLSERMONSPEAKER_FIELD_DB_HOST_LABEL"
+					description="PLG_CONTENT_CHURCHTOOLSERMONSPEAKER_FIELD_DB_HOST_DESC"
 					/>
 
 				<field
 					name="db_database"
 					type="text"
+					label="PLG_CONTENT_CHURCHTOOLSERMONSPEAKER_FIELD_DB_DATABASE_LABEL"
+					description="PLG_CONTENT_CHURCHTOOLSERMONSPEAKER_FIELD_DB_DATABASE_DESC"
 					/>
 
 				<field
 					name="db_user"
 					type="text"
+					label="PLG_CONTENT_CHURCHTOOLSERMONSPEAKER_FIELD_DB_USER_LABEL"
+					description="PLG_CONTENT_CHURCHTOOLSERMONSPEAKER_FIELD_DB_USER_DESC"
 					/>
 
 				<field
 					name="db_pass"
 					type="text"
+					label="PLG_CONTENT_CHURCHTOOLSERMONSPEAKER_FIELD_DB_PASS_LABEL"
+					description="PLG_CONTENT_CHURCHTOOLSERMONSPEAKER_FIELD_DB_PASS_DESC"
 					/>
 
 				<field
