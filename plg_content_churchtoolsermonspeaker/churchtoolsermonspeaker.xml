@@ -12,13 +12,15 @@
 	<files>
 		<filename plugin="churchtoolsermonspeaker">churchtoolsermonspeaker.php</filename>
 		<folder>language</folder>
+		<folder>fields</folder>
 	</files>
 	<updateservers>
 		<server type="extension" priority="1" name="SermonSpeaker.net">http://www.sermonspeaker.net/update/plg_sermonspeaker_churchtoolsermonspeaker.xml</server>
 	</updateservers>
 	<config>
 		<fields name="params">
-			<fieldset name="basic">
+			<fieldset name="basic"
+				addfieldpath="plugins/content/churchtoolsermonspeaker/fields">
 				<field
 					name="db_type"
 					type="list"
@@ -54,19 +56,30 @@
 
 				<field
 					name="db_pass"
-					type="text"
+					type="password"
 					label="PLG_CONTENT_CHURCHTOOLSERMONSPEAKER_FIELD_DB_PASS_LABEL"
 					description="PLG_CONTENT_CHURCHTOOLSERMONSPEAKER_FIELD_DB_PASS_DESC"
 					/>
 
 				<field
 					name="eventgroups"
-					type="text"
+					type="churchtool"
+					label="PLG_CONTENT_CHURCHTOOLSERMONSPEAKER_FIELD_EVENTGROUPS_LABEL"
+					description="PLG_CONTENT_CHURCHTOOLSERMONSPEAKER_FIELD_EVENTGROUPS_DESC"
+					multiple="true"
+					key_field="id"
+					value_field="name"
+					query="SELECT `id`, `name` FROM `ko_eventgruppen` ORDER BY `name` ASC"
 					/>
 
 				<field
 					name="team_id"
-					type="text"
+					type="churchtool"
+					label="PLG_CONTENT_CHURCHTOOLSERMONSPEAKER_FIELD_TEAM_ID_LABEL"
+					description="PLG_CONTENT_CHURCHTOOLSERMONSPEAKER_FIELD_TEAM_ID_DESC"
+					key_field="id"
+					value_field="name"
+					query="SELECT `id`, `name` FROM `ko_rota_teams` ORDER BY `name` ASC"
 					/>
 
 				<field
