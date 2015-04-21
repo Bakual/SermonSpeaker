@@ -137,6 +137,8 @@ class SermonspeakerModelFrontendupload extends SermonspeakerModelSermon
 			}
 		}
 
+		$this->preprocessData('com_sermonspeaker.sermon', $data);
+
 		return $data;
 	}
 

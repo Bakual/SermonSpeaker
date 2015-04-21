@@ -40,6 +40,13 @@ class PlgContentChurchtoolsermonspeaker extends JPlugin
 			return;
 		}
 
+		// Setting up custom logger
+		JLog::addLogger(
+			array('text_file' => 'sermonspeaker.php'),
+			JLog::ALL,
+			array('plg_content_churchtoolsermonspeaker')
+		);
+
 		// Taken from https://docs.joomla.org/Connecting_to_an_external_database
 		$option = array();
 
@@ -54,18 +61,16 @@ class PlgContentChurchtoolsermonspeaker extends JPlugin
 
 		// Sanitise Eventgroups
 		$eventgroups = $this->params->get('eventgroups');
-		$eg_array    = explode(',', $eventgroups);
-		$eg_array    = Joomla\Utilities\ArrayHelper::toInteger($eg_array);
-		$eventgroups = implode(',', $eg_array);
+		$eventgroups = Joomla\Utilities\ArrayHelper::toInteger($eventgroups);
 
 		// Build Query for events
 		$query = $db->getQuery(true);
-		$query->select($db->quoteName(array('id','title', 'kommentar' ,'kommentar2')));
+		$query->select($db->quoteName(array('id', 'title', 'kommentar', 'kommentar2')));
 		$query->from($db->quoteName('ko_event'));
 		$query->where($db->quoteName('startdatum') . ' = CURDATE()');
 		$query->where($db->quoteName('startzeit') . ' < CURTIME()');
 		$query->where($db->quoteName('rota') . ' = 1');
-		$query->where($db->quoteName('eventgruppen_id') . ' IN (' . $eventgroups . ')');
+		$query->where($db->quoteName('eventgruppen_id') . ' IN (' . implode(',', $eventgroups) . ')');
 		$query->order($db->quoteName('startzeit') . ' DESC');
 
 		$db->setQuery($query, 0, 1);
@@ -76,6 +81,8 @@ class PlgContentChurchtoolsermonspeaker extends JPlugin
 		}
 		catch (Exception $e)
 		{
+			JLog::add($e->getMessage(), JLog::WARNING, 'plg_content_churchtoolsermonspeaker');
+
 			return;
 		}
 
@@ -101,11 +108,15 @@ class PlgContentChurchtoolsermonspeaker extends JPlugin
 		}
 		catch (Exception $e)
 		{
+			JLog::add($e->getMessage(), JLog::WARNING, 'plg_content_churchtoolsermonspeaker');
+
 			return;
 		}
 
 		if (!$speakers)
 		{
+			JLog::add($e->getMessage(), JLog::WARNING, 'plg_content_churchtoolsermonspeaker');
+
 			return;
 		}
 
