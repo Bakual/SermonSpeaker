@@ -92,4 +92,62 @@ abstract class JHtmlSermonspeakerAdministrator
 
 		return $html;
 	}
+
+	/**
+	 * Show the podcast links, based on JHtmlContentAdministrator::featured
+	 *
+	 * @param   int      $value      The state value
+	 * @param   int      $i          Row number
+	 * @param   boolean  $canChange  Is user allowed to change?
+	 *
+	 * @return  string       HTML code
+	 */
+	public static function podcasted($value = 0, $i, $canChange = true)
+	{
+		JHtml::_('bootstrap.tooltip');
+
+		$states = array(
+			0 => array(
+				'task' => 'podcast_published',
+				'active_title' => 'COM_SERMONSPEAKER_TOGGLE_PODCASTED',
+				'inactive_title' => 'COM_SERMONSPEAKER_UNPODCASTED',
+				'active_class' => 'spicon_unpodcasted',
+				'inactive_class' => 'spicon_unpodcasted',
+			),
+			1 => array(
+				'task' => 'podcast_unpublished',
+				'active_title' => 'COM_SERMONSPEAKER_TOGGLE_PODCASTED',
+				'inactive_title' => 'COM_SERMONSPEAKER_PODCASTED',
+				'active_class' => 'spicon_podcasted',
+				'inactive_class' => 'spicon_podcasted',
+			),
+		);
+
+		$value = (int) $value;
+
+		if ($value != 0 && $value != 1)
+		{
+			$value = 0;
+		}
+
+		$state = $states[$value];
+
+		if ($canChange)
+		{
+			$html = '<a href="#" onclick="return listItemTask(\'cb' . $i . '\',\'' . $state['task'] . '\')"'
+				. 'class="btn btn-micro hasTooltip' . ($value == 1 ? ' active' : '')
+				. '" title="' . JHtml::tooltipText($state['active_title']) . '">'
+					. '<i class="icon-' . $state['active_class'] . '"></i>'
+				. '</a>';
+		}
+		else
+		{
+			$html = '<a class="btn btn-micro hasTooltip disabled' . ($value == 1 ? ' active' : '')
+				. '" title="' . JHtml::tooltipText($state['inactive_title']) . '">'
+					. '<i class="icon-' . $state['inactive_class'] . '"></i>'
+				. '</a>';
+		}
+
+		return $html;
+	}
 }

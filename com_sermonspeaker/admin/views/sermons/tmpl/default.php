@@ -14,6 +14,7 @@ JHtml::_('bootstrap.tooltip');
 JHtml::_('behavior.multiselect');
 JHtml::_('dropdown.init');
 JHtml::_('formbehavior.chosen', 'select');
+JHtml::stylesheet('com_sermonspeaker/font.css', false, true, false);
 
 $user      = JFactory::getUser();
 $userId    = $user->get('id');
@@ -70,9 +71,6 @@ $assoc = JLanguageAssociations::isEnabled();
 						<th width="1%" style="min-width:40px" class="nowrap center">
 							<?php echo JHtml::_('searchtools.sort', 'JSTATUS', 'sermons.state', $listDirn, $listOrder); ?>
 						</th>
-						<th width="1%" style="min-width:40px" class="nowrap center">
-							<?php echo JHtml::_('searchtools.sort',  'COM_SERMONSPEAKER_FIELD_SERMONCAST_LABEL', 'sermons.podcast', $listDirn, $listOrder); ?>
-						</th>
 						<th>
 							<?php echo JHtml::_('searchtools.sort', 'JGLOBAL_TITLE', 'sermons.title', $listDirn, $listOrder); ?>
 						</th>
@@ -116,7 +114,7 @@ $assoc = JLanguageAssociations::isEnabled();
 						<td class="order nowrap center hidden-phone">
 						<?php if ($canChange) :
 							$disableClassName = '';
-							$disabledLabel	  = '';
+							$disabledLabel    = '';
 
 							if (!$saveOrder) :
 								$disabledLabel    = JText::_('JORDERINGDISABLED');
@@ -136,11 +134,9 @@ $assoc = JLanguageAssociations::isEnabled();
 							<?php echo JHtml::_('grid.id', $i, $item->id); ?>
 						</td>
 						<td class="center">
-							<?php echo JHtml::_('jgrid.published', $item->state, $i, 'sermons.', $canChange); ?>
-						</td>
-						<td class="center">
 							<div class="btn-group">
-								<?php echo JHtml::_('jgrid.published', $item->podcast, $i, 'sermons.podcast_', $canChange); ?>
+								<?php echo JHtml::_('jgrid.published', $item->state, $i, 'sermons.', $canChange); ?>
+								<?php echo JHtml::_('sermonspeakeradministrator.podcasted', $item->podcast, $i, 'sermons.podcast_', $canChange); ?>
 							</div>
 						</td>
 						<td class="nowrap has-context">
