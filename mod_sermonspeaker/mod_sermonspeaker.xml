@@ -42,8 +42,7 @@
 					type="text"
 					label="MOD_SERMONSPEAKER_FIELD_LIMIT_LABEL"
 					description="MOD_SERMONSPEAKER_FIELD_LIMIT_DESC"
-					required="true"
-					default="10"
+					default="0"
 					/>
 				<field name="tooltip" type="radio"
 					default="1" 

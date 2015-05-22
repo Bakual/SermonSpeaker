@@ -101,7 +101,7 @@ abstract class ModSermonspeakerHelper
 				$query->where('catid = ' . $cat_id);
 			}
 
-			$db->setQuery($query, 0, (int) $params->get('limit', 10));
+			$db->setQuery($query, 0, (int) $params->get('limit', 0));
 			$items = $db->loadObjectList();
 		}
 
