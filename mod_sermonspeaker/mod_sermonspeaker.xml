@@ -37,7 +37,15 @@
 					<option value="0">JGLOBAL_TITLE</option>
 					<option value="1">JGLOBAL_FIELD_FIELD_ORDERING_LABEL</option>
 				</field>
-				<field name="tooltip" type="radio" 
+				<field
+					name="limit"
+					type="text"
+					label="MOD_SERMONSPEAKER_FIELD_LIMIT_LABEL"
+					description="MOD_SERMONSPEAKER_FIELD_LIMIT_DESC"
+					required="true"
+					default="10"
+					/>
+				<field name="tooltip" type="radio"
 					default="1" 
 					class="btn-group btn-group-yesno"
 					label="MOD_SERMONSPEAKER_PARAM_TOOLTIP_LABEL" 

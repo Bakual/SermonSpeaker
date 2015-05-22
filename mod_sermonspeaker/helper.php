@@ -26,20 +26,20 @@ abstract class ModSermonspeakerHelper
 	public static function getList($params)
 	{
 		// Collect params
-		$mode	= (int) $params->get('mode');
-		$cat_id	= (int) $params->get('cat');
-		$sort	= (int) $params->get('sort');
+		$mode   = (int) $params->get('mode');
+		$cat_id = (int) $params->get('cat');
+		$sort   = (int) $params->get('sort');
 
-		$db		= JFactory::getDbo();
-		$query	= $db->getQuery(true);
+		$db     = JFactory::getDbo();
+		$query  = $db->getQuery(true);
 
 		if ($mode == 2)
 		{
-            $items      = array();
+			$items = array();
 
-            /** @var $categories JCategories */
-            $categories = JCategories::getInstance('Sermonspeaker');
-			$root	    = $categories->get($cat_id);
+			/** @var $categories JCategories */
+			$categories = JCategories::getInstance('Sermonspeaker');
+			$root       = $categories->get($cat_id);
 
 			if ($root->hasChildren())
 			{
@@ -48,18 +48,17 @@ abstract class ModSermonspeakerHelper
 				foreach ($categories as $category)
 				{
 					/** @var $category JCategoryNode */
-
-					$item	= new stdclass;
+					$item = new stdclass;
 
 					/** @var $params Joomla\Registry\Registry */
-					$params         = $category->getParams();
-					$item->id		= $category->id;
-					$item->slug		= $category->slug;
-					$item->title	= $category->title;
-					$item->tooltip	= $category->description;
-					$item->level	= $category->level;
-					$item->pic		= $params->get('image');
-					$items[]		= $item;
+					$params        = $category->getParams();
+					$item->id      = $category->id;
+					$item->slug    = $category->slug;
+					$item->title   = $category->title;
+					$item->tooltip = $category->description;
+					$item->level   = $category->level;
+					$item->pic     = $params->get('image');
+					$items[]       = $item;
 				}
 			}
 		}
@@ -102,8 +101,8 @@ abstract class ModSermonspeakerHelper
 				$query->where('catid = ' . $cat_id);
 			}
 
-			$db->setQuery($query);
-			$items	= $db->loadObjectList();
+			$db->setQuery($query, 0, (int) $params->get('limit', 10));
+			$items = $db->loadObjectList();
 		}
 
 		return $items;
