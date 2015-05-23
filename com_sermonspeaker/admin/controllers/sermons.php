@@ -20,11 +20,20 @@ class SermonspeakerControllerSermons extends JControllerAdmin
 	}
 
 	/**
-	 * Proxy for getModel.
+	 * Method to get a model object, loading it if required.
+	 *
+	 * @param   string  $name    The model name. Optional.
+	 * @param   string  $prefix  The class prefix. Optional.
+	 * @param   array   $config  Configuration array for model. Optional.
+	 *
+	 * @return  object  The model.
+	 *
+	 * @since   4.5
 	 */
-	public function &getModel($name = 'Sermon', $prefix = 'SermonspeakerModel')
+	public function &getModel($name = 'Sermon', $prefix = 'SermonspeakerModel', $config = array())
 	{
 		$model = parent::getModel($name, $prefix, array('ignore_request' => true));
+
 		return $model;
 	}
 

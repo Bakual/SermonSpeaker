@@ -108,18 +108,18 @@ abstract class JHtmlSermonspeakerAdministrator
 
 		$states = array(
 			0 => array(
-				'task' => 'podcast_published',
+				'task' => 'sermons.podcast_publish',
 				'active_title' => 'COM_SERMONSPEAKER_TOGGLE_PODCASTED',
 				'inactive_title' => 'COM_SERMONSPEAKER_UNPODCASTED',
-				'active_class' => 'spicon_unpodcasted',
-				'inactive_class' => 'spicon_unpodcasted',
+				'active_class' => 'feed',
+				'inactive_class' => 'feed',
 			),
 			1 => array(
-				'task' => 'podcast_unpublished',
+				'task' => 'sermons.podcast_unpublish',
 				'active_title' => 'COM_SERMONSPEAKER_TOGGLE_PODCASTED',
 				'inactive_title' => 'COM_SERMONSPEAKER_PODCASTED',
-				'active_class' => 'spicon_podcasted',
-				'inactive_class' => 'spicon_podcasted',
+				'active_class' => 'feed',
+				'inactive_class' => 'feed',
 			),
 		);
 
@@ -134,9 +134,9 @@ abstract class JHtmlSermonspeakerAdministrator
 
 		if ($canChange)
 		{
-			$html = '<a href="#" onclick="return listItemTask(\'cb' . $i . '\',\'' . $state['task'] . '\')"'
-				. 'class="btn btn-micro hasTooltip' . ($value == 1 ? ' active' : '')
-				. '" title="' . JHtml::tooltipText($state['active_title']) . '">'
+			$html = '<a class="btn btn-micro' . ($value == 1 ? ' active' : '') . ' hasTooltip"'
+				. ' href="javascript:void(0);" onclick="return listItemTask(\'cb' . $i . '\',\'' . $state['task'] . '\')"'
+				. ' title="' . JHtml::tooltipText($state['active_title']) . '">'
 					. '<i class="icon-' . $state['active_class'] . '"></i>'
 				. '</a>';
 		}
