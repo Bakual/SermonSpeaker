@@ -7,16 +7,18 @@ JHtml::_('behavior.multiselect');
 JHtml::_('dropdown.init');
 JHtml::_('formbehavior.chosen', 'select');
 
-$user		= JFactory::getUser();
-$userId		= $user->get('id');
-$listOrder	= $this->escape($this->state->get('list.ordering'));
-$listDirn	= $this->escape($this->state->get('list.direction'));
-$saveOrder	= $listOrder == 'series.ordering';
+$user      = JFactory::getUser();
+$userId    = $user->get('id');
+$listOrder = $this->escape($this->state->get('list.ordering'));
+$listDirn  = $this->escape($this->state->get('list.direction'));
+$archived  = $this->state->get('filter.state') == 2 ? true : false;
+$trashed   = $this->state->get('filter.state') == -2 ? true : false;
+$saveOrder = $listOrder == 'series.ordering';
 if ($saveOrder) :
 	$saveOrderingUrl = 'index.php?option=com_sermonspeaker&task=series.saveOrderAjax&tmpl=component';
 	JHtml::_('sortablelist.sortable', 'serieList', 'adminForm', strtolower($listDirn), $saveOrderingUrl);
 endif;
-$assoc		= JLanguageAssociations::isEnabled();
+$assoc     = JLanguageAssociations::isEnabled();
 ?>
 <script type="text/javascript">
 	Joomla.orderTable = function() {
@@ -116,6 +118,17 @@ $assoc		= JLanguageAssociations::isEnabled();
 							<div class="btn-group">
 								<?php echo JHtml::_('jgrid.published', $item->state, $i, 'series.', $canChange); ?>
 								<?php echo JHtml::_('jgrid.isdefault', $item->home, $i, 'series.', $canChange && !$item->home);?>
+								<?php
+								// Create dropdown items
+								$action = $archived ? 'unarchive' : 'archive';
+								JHtml::_('actionsdropdown.' . $action, 'cb' . $i, 'series');
+
+								$action = $trashed ? 'untrash' : 'trash';
+								JHtml::_('actionsdropdown.' . $action, 'cb' . $i, 'series');
+
+								// Render dropdown list
+								echo JHtml::_('actionsdropdown.render', $this->escape($item->title));
+								?>
 							</div>
 						</td>
 						<td class="nowrap has-context">
@@ -136,39 +149,6 @@ $assoc		= JLanguageAssociations::isEnabled();
 								<div class="small">
 									<?php echo JText::_('JCATEGORY') . ': ' . $this->escape($item->category_title); ?>
 								</div>
-							</div>
-							<div class="pull-left">
-								<?php
-									// Create dropdown items
-									JHtml::_('dropdown.edit', $item->id, 'serie.');
-									JHtml::_('dropdown.divider');
-									if ($item->state) :
-										JHtml::_('dropdown.unpublish', 'cb' . $i, 'series.');
-									else :
-										JHtml::_('dropdown.publish', 'cb' . $i, 'series.');
-									endif;
-
-									JHtml::_('dropdown.divider');
-
-									if ($this->state->get('filter.state') == 2) :
-										JHtml::_('dropdown.unarchive', 'cb' . $i, 'series.');
-									else :
-										JHtml::_('dropdown.archive', 'cb' . $i, 'series.');
-									endif;
-
-									if ($item->checked_out) :
-										JHtml::_('dropdown.checkin', 'cb' . $i, 'series.');
-									endif;
-
-									if ($this->state->get('filter.state') == -2) :
-										JHtml::_('dropdown.untrash', 'cb' . $i, 'series.');
-									else :
-										JHtml::_('dropdown.trash', 'cb' . $i, 'series.');
-									endif;
-
-									// Render dropdown list
-									echo JHtml::_('dropdown.render');
-									?>
 							</div>
 						</td>
 						<?php if ($assoc) : ?>

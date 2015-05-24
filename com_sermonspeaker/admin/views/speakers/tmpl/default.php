@@ -7,16 +7,18 @@ JHtml::_('behavior.multiselect');
 JHtml::_('dropdown.init');
 JHtml::_('formbehavior.chosen', 'select');
 
-$user		= JFactory::getUser();
-$userId		= $user->get('id');
-$listOrder	= $this->escape($this->state->get('list.ordering'));
-$listDirn	= $this->escape($this->state->get('list.direction'));
-$saveOrder	= $listOrder == 'speakers.ordering';
+$user      = JFactory::getUser();
+$userId    = $user->get('id');
+$listOrder = $this->escape($this->state->get('list.ordering'));
+$listDirn  = $this->escape($this->state->get('list.direction'));
+$archived  = $this->state->get('filter.state') == 2 ? true : false;
+$trashed   = $this->state->get('filter.state') == -2 ? true : false;
+$saveOrder = $listOrder == 'speakers.ordering';
 if ($saveOrder) :
 	$saveOrderingUrl = 'index.php?option=com_sermonspeaker&task=speakers.saveOrderAjax&tmpl=component';
 	JHtml::_('sortablelist.sortable', 'speakerList', 'adminForm', strtolower($listDirn), $saveOrderingUrl);
 endif;
-$assoc		= JLanguageAssociations::isEnabled();
+$assoc     = JLanguageAssociations::isEnabled();
 ?>
 <script type="text/javascript">
 	Joomla.orderTable = function() {
@@ -83,17 +85,17 @@ $assoc		= JLanguageAssociations::isEnabled();
 				</thead>
 				<tbody>
 				<?php foreach ($this->items as $i => $item) :
-					$ordering	= ($listOrder == 'speakers.ordering');
-					$canEdit	= $user->authorise('core.edit', 'com_sermonspeaker.category.'.$item->catid);
-					$canCheckin	= $user->authorise('core.manage', 'com_checkin') || $item->checked_out == $userId || $item->checked_out == 0;
-					$canEditOwn	= $user->authorise('core.edit.own', 'com_sermonspeaker.category.'.$item->catid) && $item->created_by == $userId;
-					$canChange	= $user->authorise('core.edit.state', 'com_sermonspeaker.category.'.$item->catid) && $canCheckin;
+					$ordering   = ($listOrder == 'speakers.ordering');
+					$canEdit    = $user->authorise('core.edit', 'com_sermonspeaker.category.'.$item->catid);
+					$canCheckin = $user->authorise('core.manage', 'com_checkin') || $item->checked_out == $userId || $item->checked_out == 0;
+					$canEditOwn = $user->authorise('core.edit.own', 'com_sermonspeaker.category.'.$item->catid) && $item->created_by == $userId;
+					$canChange  = $user->authorise('core.edit.state', 'com_sermonspeaker.category.'.$item->catid) && $canCheckin;
 					?>
 					<tr class="row<?php echo $i % 2; ?>" sortable-group-id="<?php echo $item->catid; ?>">
 						<td class="order nowrap center hidden-phone">
 						<?php if ($canChange) :
 							$disableClassName = '';
-							$disabledLabel	  = '';
+							$disabledLabel    = '';
 
 							if (!$saveOrder) :
 								$disabledLabel    = JText::_('JORDERINGDISABLED');
@@ -116,6 +118,17 @@ $assoc		= JLanguageAssociations::isEnabled();
 							<div class="btn-group">
 								<?php echo JHtml::_('jgrid.published', $item->state, $i, 'speakers.', $canChange); ?>
 								<?php echo JHtml::_('jgrid.isdefault', $item->home, $i, 'speakers.', $canChange && !$item->home);?>
+								<?php
+								// Create dropdown items
+								$action = $archived ? 'unarchive' : 'archive';
+								JHtml::_('actionsdropdown.' . $action, 'cb' . $i, 'speakers');
+
+								$action = $trashed ? 'untrash' : 'trash';
+								JHtml::_('actionsdropdown.' . $action, 'cb' . $i, 'speakers');
+
+								// Render dropdown list
+								echo JHtml::_('actionsdropdown.render', $this->escape($item->title));
+								?>
 							</div>
 						</td>
 						<td class="nowrap has-context">
@@ -138,38 +151,6 @@ $assoc		= JLanguageAssociations::isEnabled();
 								</div>
 							</div>
 							<div class="pull-left">
-								<?php
-									// Create dropdown items
-									JHtml::_('dropdown.edit', $item->id, 'speaker.');
-									JHtml::_('dropdown.divider');
-									if ($item->state) :
-										JHtml::_('dropdown.unpublish', 'cb' . $i, 'speakers.');
-									else :
-										JHtml::_('dropdown.publish', 'cb' . $i, 'speakers.');
-									endif;
-
-									JHtml::_('dropdown.divider');
-
-									if ($this->state->get('filter.state') == 2) :
-										JHtml::_('dropdown.unarchive', 'cb' . $i, 'speakers.');
-									else :
-										JHtml::_('dropdown.archive', 'cb' . $i, 'speakers.');
-									endif;
-
-									if ($item->checked_out) :
-										JHtml::_('dropdown.checkin', 'cb' . $i, 'speakers.');
-									endif;
-
-									if ($this->state->get('filter.state') == -2) :
-										JHtml::_('dropdown.untrash', 'cb' . $i, 'speakers.');
-									else :
-										JHtml::_('dropdown.trash', 'cb' . $i, 'speakers.');
-									endif;
-
-									// Render dropdown list
-									echo JHtml::_('dropdown.render');
-									?>
-							</div>
 						</td>
 						<?php if ($assoc) : ?>
 							<td class="hidden-phone">
