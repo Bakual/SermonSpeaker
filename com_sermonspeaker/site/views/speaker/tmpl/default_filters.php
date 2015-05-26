@@ -13,7 +13,6 @@ defined('_JEXEC') or die();
 	<?php if ($this->params->get('filter_field')) : ?>
 		<div class="btn-group input-append">
 			<label class="filter-search-lbl element-invisible" for="filter-search">
-				<span class="label label-warning"><?php echo JText::_('JUNPUBLISHED'); ?></span>
 				<?php echo JText::_('JGLOBAL_FILTER_LABEL') . '&#160;'; ?>
 			</label>
 			<input type="text" name="filter-search" id="filter-search" value="<?php echo $this->escape($this->state_sermons->get('filter.search')); ?>" class="input-medium" onchange="document.adminForm.submit();" title="<?php echo JText::_('COM_SERMONSPEAKER_FILTER_SEARCH_DESC'); ?>" placeholder="<?php echo JText::_('COM_SERMONSPEAKER_FILTER_SEARCH_DESC'); ?>" />
