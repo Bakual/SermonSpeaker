@@ -136,7 +136,7 @@ $assoc = JLanguageAssociations::isEnabled();
 						</td>
 						<td class="center">
 							<div class="btn-group">
-								<?php echo JHtml::_('jgrid.published', $item->state, $i, 'sermons.', $canChange); ?>
+								<?php echo JHtml::_('jgrid.published', $item->state, $i, 'articles.', $canChange, 'cb', $item->publish_up, $item->publish_down); ?>
 								<?php echo JHtml::_('sermonspeakeradministrator.podcasted', $item->podcast, $i, 'sermons.podcast_', $canChange); ?>
 								<?php
 								// Create dropdown items

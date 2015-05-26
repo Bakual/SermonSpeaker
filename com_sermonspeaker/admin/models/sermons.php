@@ -33,6 +33,8 @@ class SermonspeakerModelSermons extends JModelList
 				'sermon_date', 'sermons.sermon_date',
 				'language', 'sermons.language',
 				'hits', 'sermons.hits',
+				'publish_up', 'sermons.publish_up',
+				'publish_down', 'sermons.publish_down',
 				'series_title', 'series.title',
 				'scripture', 'sermons.scripture',
 			);
@@ -140,7 +142,8 @@ class SermonspeakerModelSermons extends JModelList
 				'sermons.id, sermons.title, sermons.catid, sermons.language, '
 				. 'sermons.hits, sermons.notes, sermons.checked_out, sermons.checked_out_time, '
 				. 'sermons.sermon_date, sermons.alias, sermons.created, sermons.created_by, '
-				. 'sermons.state, sermons.ordering, sermons.podcast'
+				. 'sermons.state, sermons.ordering, sermons.podcast, '
+				. 'sermons.publish_up, sermons.publish_down'
 			)
 		);
 		$query->from('`#__sermon_sermons` AS sermons');

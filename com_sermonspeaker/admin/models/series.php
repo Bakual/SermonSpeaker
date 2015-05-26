@@ -32,6 +32,8 @@ class SermonspeakerModelSeries extends JModelList
 				'home', 'series.home',
 				'language', 'series.language',
 				'hits', 'series.hits',
+				'publish_up', 'series.publish_up',
+				'publish_down', 'series.publish_down',
 			);
 
 			// Searchtools
@@ -117,7 +119,8 @@ class SermonspeakerModelSeries extends JModelList
 				'list.select',
 				'series.id, series.title, series.catid, series.language, '
 				. 'series.hits, series.home, series.alias, series.avatar, '
-				. 'series.state, series.ordering, created_by, series.checked_out, series.checked_out_time'
+				. 'series.state, series.ordering, created_by, series.checked_out, series.checked_out_time, '
+				. 'series.publish_up, series.publish_down'
 			)
 		);
 		$query->from('`#__sermon_series` AS series');

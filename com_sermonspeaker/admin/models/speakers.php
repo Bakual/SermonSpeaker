@@ -31,6 +31,8 @@ class SermonspeakerModelSpeakers extends JModelList
 				'pic', 'speakers.pic',
 				'language', 'speakers.language',
 				'hits', 'speakers.hits',
+				'publish_up', 'speakers.publish_up',
+				'publish_down', 'speakers.publish_down',
 				'home', 'speakers.home',
 			);
 
@@ -117,7 +119,8 @@ class SermonspeakerModelSpeakers extends JModelList
 				'list.select',
 				'speakers.id, speakers.title, speakers.catid, speakers.created_by, speakers.language, '
 				. 'speakers.hits, speakers.home, speakers.pic, speakers.website, '
-				. 'speakers.alias, speakers.state, speakers.ordering, speakers.checked_out, speakers.checked_out_time'
+				. 'speakers.alias, speakers.state, speakers.ordering, speakers.checked_out, speakers.checked_out_time, '
+				. 'speakers.publish_up, speakers.publish_down'
 			)
 		);
 		$query->from('`#__sermon_speakers` AS speakers');

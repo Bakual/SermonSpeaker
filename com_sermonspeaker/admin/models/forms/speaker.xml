@@ -110,6 +110,24 @@
 			readonly="true"
 			size="22" />
 
+		<field
+				name="publish_up"
+				type="calendar"
+				label="JGLOBAL_FIELD_PUBLISH_UP_LABEL"
+				description="JGLOBAL_FIELD_PUBLISH_UP_DESC"
+				format="%Y-%m-%d %H:%M:%S"
+				filter="user_utc"
+				/>
+
+		<field
+				name="publish_down"
+				type="calendar"
+				label="JGLOBAL_FIELD_PUBLISH_DOWN_LABEL"
+				description="JGLOBAL_FIELD_PUBLISH_DOWN_DESC"
+				format="%Y-%m-%d %H:%M:%S"
+				filter="user_utc"
+				/>
+
 		<field name="hits" type="hits"
 			label="JGLOBAL_HITS" description="COM_SERMONSPEAKER_FIELD_HITS_DESC"
 			class="readonly"
