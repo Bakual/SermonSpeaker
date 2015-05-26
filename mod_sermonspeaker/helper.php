@@ -96,6 +96,14 @@ abstract class ModSermonspeakerHelper
 
 			$query->where('state = 1');
 
+			// Define null and now dates
+			$nullDate = $db->quote($db->getNullDate());
+			$nowDate  = $db->quote(JFactory::getDate()->toSql());
+
+			// Filter by start and end dates.
+			$query->where('(publish_up = ' . $nullDate . ' OR publish_up <= ' . $nowDate . ')');
+			$query->where('(publish_down = ' . $nullDate . ' OR publish_down >= ' . $nowDate . ')');
+
 			if ($cat_id)
 			{
 				$query->where('catid = ' . $cat_id);

@@ -22,6 +22,9 @@ class ModRelatedSermonsHelper
 
 	private static $id;
 
+	/**
+	 * @var  JDatabaseDriver
+	 */
 	private static $db;
 
 	/**
@@ -33,28 +36,29 @@ class ModRelatedSermonsHelper
 	 */
 	public static function getList($params)
 	{
-		self::$id		= JRequest::getInt('id');
+		$jinput   = JFactory::getApplication()->input;
+		self::$id = $jinput->getInt('id');
 
 		if (!self::$id)
 		{
 			return array();
 		}
 
-		self::$option	= JRequest::getCmd('option');
-		self::$view		= JRequest::getCmd('view');
+		self::$option = $jinput->getCmd('option');
+		self::$view   = $jinput->getCmd('view');
 
 		// Get Params
-		$supportContent	= $params->get('supportArticles', 0);
-		$limitSermons	= $params->get('limitSermons', 10);
-		$orderBy		= $params->get('orderBy', 'CreatedDateDesc');
-		$sermonCat		= $params->get('sermon_cat', 0);
+		$supportContent = $params->get('supportArticles', 0);
+		$limitSermons   = $params->get('limitSermons', 10);
+		$orderBy        = $params->get('orderBy', 'CreatedDateDesc');
+		$sermonCat      = $params->get('sermon_cat', 0);
 
 		$related = array();
 
 		if (($supportContent && self::$option == 'com_content' && self::$view == 'article')
 			|| (self::$option == 'com_sermonspeaker' && self::$view == 'sermon'))
 		{
-			$keywords	= self::getKeywords();
+			$keywords = self::getKeywords();
 
 			if ($keywords)
 			{
@@ -78,8 +82,8 @@ class ModRelatedSermonsHelper
 	 */
 	private static function getKeywords()
 	{
-		self::$db	= JFactory::getDbo();
-		$query		= self::$db->getQuery(true);
+		self::$db = JFactory::getDbo();
+		$query    = self::$db->getQuery(true);
 
 		$query->select('metakey');
 		$query->where('id = ' . self::$id);
@@ -128,8 +132,7 @@ class ModRelatedSermonsHelper
 	 */
 	protected static function getRelatedSermonsById($keywords, $orderBy, $sermonCat, $limitSermons)
 	{
-		$query		= self::$db->getQuery(true);
-		$related	= array();
+		$related = array();
 
 		switch ($orderBy)
 		{
@@ -153,7 +156,7 @@ class ModRelatedSermonsHelper
 				break;
 		}
 
-		$query	= self::$db->getQuery(true);
+		$query = self::$db->getQuery(true);
 		$query->select('a.title, a.created');
 		$query->select('CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(":", a.id, a.alias) ELSE a.id END as slug');
 		$query->select('CASE WHEN CHAR_LENGTH(cc.alias) THEN CONCAT_WS(":", cc.id, cc.alias) ELSE cc.id END as catslug');
@@ -167,6 +170,14 @@ class ModRelatedSermonsHelper
 
 		$query->where('a.state = 1');
 		$query->where('(a.catid = 0 OR cc.published = 1)');
+
+		// Define null and now dates
+		$nullDate = self::$db->quote(self::$db->getNullDate());
+		$nowDate  = self::$db->quote(JFactory::getDate()->toSql());
+
+		// Filter by start and end dates.
+		$query->where('(a.publish_up = ' . $nullDate . ' OR a.publish_up <= ' . $nowDate . ')');
+		$query->where('(a.publish_down = ' . $nullDate . ' OR a.publish_down >= ' . $nowDate . ')');
 
 		if ($sermonCat)
 		{

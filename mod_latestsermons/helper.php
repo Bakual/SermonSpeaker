@@ -40,6 +40,14 @@ abstract class ModLatestsermonsHelper
 		$query->join('LEFT', '#__sermon_series AS c ON c.id = a.series_id');
 		$query->where('a.state = 1');
 
+		// Define null and now dates
+		$nullDate = $db->quote($db->getNullDate());
+		$nowDate  = $db->quote(JFactory::getDate()->toSql());
+
+		// Filter by start and end dates.
+		$query->where('(a.publish_up = ' . $nullDate . ' OR a.publish_up <= ' . $nowDate . ')');
+		$query->where('(a.publish_down = ' . $nullDate . ' OR a.publish_down >= ' . $nowDate . ')');
+
 		// Category
 		if ($cat = (int) $params->get('cat', 0))
 		{
@@ -55,6 +63,7 @@ abstract class ModLatestsermonsHelper
 					$type	= 'c';
 					break;
 			}
+
 			// Subcategories
 			if ($levels = (int) $params->get('show_subcategory_content', 0))
 			{

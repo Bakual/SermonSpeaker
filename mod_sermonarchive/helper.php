@@ -26,15 +26,24 @@ abstract class ModSermonarchiveHelper
 	public static function getList($params)
 	{
 		// Collect params
-		$mode	= ($params->get('archive_switch') == 'month');
+		$mode  = ($params->get('archive_switch') == 'month');
 
-		$db		= JFactory::getDbo();
-		$query	= $db->getQuery(true);
+		$db    = JFactory::getDbo();
+		$query = $db->getQuery(true);
 
 		$query->select('YEAR(`sermon_date`) AS `year`');
 		$query->select("CONCAT_WS('-', YEAR(`sermon_date`), MONTH(`sermon_date`), '15') AS `date`");
 		$query->from('#__sermon_sermons');
 		$query->where('`state` = 1');
+
+		// Define null and now dates
+		$nullDate = $db->quote($db->getNullDate());
+		$nowDate  = $db->quote(JFactory::getDate()->toSql());
+
+		// Filter by start and end dates.
+		$query->where('(`publish_up` = ' . $nullDate . ' OR `publish_up` <= ' . $nowDate . ')');
+		$query->where('(`publish_down` = ' . $nullDate . ' OR `publish_down` >= ' . $nowDate . ')');
+
 		$query->group('`year`');
 		$query->order('`sermon_date` DESC');
 
@@ -54,7 +63,7 @@ abstract class ModSermonarchiveHelper
 		}
 
 		$db->setQuery($query, 0, (int) $params->get('archive_count'));
-		$items	= $db->loadObjectList();
+		$items = $db->loadObjectList();
 
 		return $items;
 	}
