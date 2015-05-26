@@ -126,13 +126,12 @@ class SermonspeakerModelspeakers extends JModelList
 		$query->select("user.name AS author");
 		$query->join('LEFT', '#__users AS user ON user.id = speakers.created_by');
 
-		// Define null and now dates
-		$nullDate = $db->quote($db->getNullDate());
-		$nowDate  = $db->quote(JFactory::getDate()->toSql());
-
 		// Filter by start and end dates.
 		if ((!$user->authorise('core.edit.state', 'com_sermonspeaker')) && (!$user->authorise('core.edit', 'com_sermonspeaker')))
 		{
+			$nullDate = $db->quote($db->getNullDate());
+			$nowDate  = $db->quote(JFactory::getDate()->toSql());
+
 			$query->where('(speakers.publish_up = ' . $nullDate . ' OR speakers.publish_up <= ' . $nowDate . ')');
 			$query->where('(speakers.publish_down = ' . $nullDate . ' OR speakers.publish_down >= ' . $nowDate . ')');
 		}

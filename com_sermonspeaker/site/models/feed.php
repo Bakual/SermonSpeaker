@@ -100,6 +100,14 @@ class SermonspeakerModelFeed extends JModelLegacy
 			}
 		}
 
+		// Define null and now dates
+		$nullDate = $db->quote($db->getNullDate());
+		$nowDate  = $db->quote(JFactory::getDate()->toSql());
+
+		// Filter by start and end dates.
+		$query->where('(sermons.publish_up = ' . $nullDate . ' OR sermons.publish_up <= ' . $nowDate . ')');
+		$query->where('(sermons.publish_down = ' . $nullDate . ' OR sermons.publish_down >= ' . $nowDate . ')');
+
 		// Filter by type
 		$feedtype = $jinput->get('type', 'auto');
 

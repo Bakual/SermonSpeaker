@@ -33,6 +33,13 @@ class SermonspeakerModelSitemap extends JModelLegacy
 		$query->where('state = 1');
 		$query->order('sermon_date DESC');
 
+		// Filter by start and end dates.
+		$nullDate = $db->quote($db->getNullDate());
+		$nowDate  = $db->quote(JFactory::getDate()->toSql());
+
+		$query->where('(publish_up = ' . $nullDate . ' OR publish_up <= ' . $nowDate . ')');
+		$query->where('(publish_down = ' . $nullDate . ' OR publish_down >= ' . $nowDate . ')');
+
 		// Filter by cat if set
 		$app    = JFactory::getApplication();
 		$params = $app->getParams();

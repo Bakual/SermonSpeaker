@@ -50,6 +50,8 @@ class SermonspeakerModelSermon extends JModelItem
 	 */
 	public function &getItem($id = null)
 	{
+		$user = JFactory::getUser();
+
 		// Initialise variables.
 		$id = ($id) ? $id : (int) $this->getState('sermon.id');
 
@@ -76,7 +78,8 @@ class SermonspeakerModelSermon extends JModelItem
 						. 'sermon.hits, sermon.addfile, sermon.addfileDesc, '
 						. 'sermon.metakey, sermon.metadesc, sermon.custom1, sermon.custom2, '
 						. 'sermon.created, sermon.created_by, sermon.audiofilesize, sermon.videofilesize, '
-						. 'sermon.metadata'
+						. 'sermon.metadata, '
+						. 'sermon.publish_up, sermon.publish_down'
 					)
 				);
 				$query->from('#__sermon_sermons AS sermon');
@@ -90,6 +93,16 @@ class SermonspeakerModelSermon extends JModelItem
 				// Join over users for the author names.
 				$query->select("user.name AS author");
 				$query->join('LEFT', '#__users AS user ON user.id = sermon.created_by');
+
+				// Filter by start and end dates.
+				if ((!$user->authorise('core.edit.state', 'com_sermonspeaker')) && (!$user->authorise('core.edit', 'com_sermonspeaker')))
+				{
+					$nullDate = $db->quote($db->getNullDate());
+					$nowDate  = $db->quote(JFactory::getDate()->toSql());
+
+					$query->where('(sermon.publish_up = ' . $nullDate . ' OR sermon.publish_up <= ' . $nowDate . ')');
+					$query->where('(sermon.publish_down = ' . $nullDate . ' OR sermon.publish_down >= ' . $nowDate . ')');
+				}
 
 				// Join on category table.
 				$query->select('c.title AS category_title, c.access AS category_access');

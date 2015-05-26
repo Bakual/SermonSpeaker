@@ -48,6 +48,8 @@ class SermonspeakerModelSerie extends JModelItem
 	 */
 	public function &getItem($id = null)
 	{
+		$user = JFactory::getUser();
+
 		// Initialise variables
 		$id = ($id) ? $id : (int) $this->getState('serie.id');
 
@@ -69,10 +71,21 @@ class SermonspeakerModelSerie extends JModelItem
 						'serie.id, serie.title, serie.series_description, serie.avatar, serie.catid, serie.metakey, serie.metadesc, '
 						. 'serie.checked_out, serie.checked_out_time, serie.language, '
 						. 'serie.hits, serie.state, serie.created, serie.created_by, serie.metakey, serie.metadesc, '
-						. 'CASE WHEN CHAR_LENGTH(serie.alias) THEN CONCAT_WS(\':\', serie.id, serie.alias) ELSE serie.id END as slug'
+						. 'CASE WHEN CHAR_LENGTH(serie.alias) THEN CONCAT_WS(\':\', serie.id, serie.alias) ELSE serie.id END as slug, '
+						. 'serie.publish_up, serie.publish_down'
 					)
 				);
 				$query->from('#__sermon_series AS serie');
+
+				// Filter by start and end dates.
+				if ((!$user->authorise('core.edit.state', 'com_sermonspeaker')) && (!$user->authorise('core.edit', 'com_sermonspeaker')))
+				{
+					$nullDate = $db->quote($db->getNullDate());
+					$nowDate  = $db->quote(JFactory::getDate()->toSql());
+
+					$query->where('(serie.publish_up = ' . $nullDate . ' OR serie.publish_up <= ' . $nowDate . ')');
+					$query->where('(serie.publish_down = ' . $nullDate . ' OR serie.publish_down >= ' . $nowDate . ')');
+				}
 
 				// Join on category table
 				$query->select('c.title AS category_title, c.access AS category_access');
