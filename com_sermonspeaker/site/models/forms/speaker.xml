@@ -48,6 +48,33 @@
 			label="COM_SERMONSPEAKER_FIELD_BIO_LABEL" />
 
 		<field
+				id="publish_up"
+				name="publish_up"
+				type="calendar"
+				label="JGLOBAL_FIELD_PUBLISH_UP_LABEL"
+				description="JGLOBAL_FIELD_PUBLISH_UP_DESC"
+				class="inputbox"
+				format="%Y-%m-%d %H:%M:%S"
+				size="22"
+				filter="user_utc" />
+
+		<field
+				id="publish_down"
+				name="publish_down"
+				type="calendar"
+				label="JGLOBAL_FIELD_PUBLISH_DOWN_LABEL"
+				description="JGLOBAL_FIELD_PUBLISH_DOWN_DESC"
+				class="inputbox"
+				format="%Y-%m-%d %H:%M:%S"
+				size="22"
+				filter="user_utc" />
+
+		<field name="tags" type="tag"
+			   label="JTAG" description="JTAG_DESC"
+			   class="inputbox"
+			   multiple="true" />
+
+		<field
 			name="language"
 			type="contentlanguage"
 			label="JFIELD_LANGUAGE_LABEL"
@@ -101,11 +128,6 @@
 
 	<fields name="metadata">
 		<fieldset name="jmetadata" label="JGLOBAL_FIELDSET_METADATA_OPTIONS">
-			<field name="tags" type="tag"
-				label="JTAG" description="JTAG_DESC"
-				class="inputbox"
-				multiple="true" />
-
 			<field name="robots" type="list"
 				label="JFIELD_METADATA_ROBOTS_LABEL" description="JFIELD_METADATA_ROBOTS_DESC" >
 				<option value="">JGLOBAL_USE_GLOBAL</option>

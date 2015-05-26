@@ -71,24 +71,10 @@ $self = $uri->toString();
 
 			<div class="tab-content">
 				<div class="tab-pane active" id="editor">
-					<div class="control-group">
-						<div class="control-label">
-							<?php echo $this->form->getLabel('title'); ?>
-						</div>
-						<div class="controls">
-							<?php echo $this->form->getInput('title'); ?>
-						</div>
-					</div>
+					<?php echo $this->form->renderField('title'); ?>
 
 					<?php if (is_null($this->item->id)): ?>
-						<div class="control-group">
-							<div class="control-label">
-								<?php echo $this->form->getLabel('alias'); ?>
-							</div>
-							<div class="controls">
-								<?php echo $this->form->getInput('alias'); ?>
-							</div>
-						</div>
+						<?php echo $this->form->renderField('alias'); ?>
 					<?php endif;
 
 					echo $this->form->getInput('notes'); ?>
@@ -167,84 +153,29 @@ $self = $uri->toString();
 							<?php endif; ?>
 						</div>
 					</div>
-					<div class="control-group">
-						<div class="control-label">
-							<?php echo $this->form->getLabel('addfileDesc'); ?>
-						</div>
-						<div class="controls">
-							<?php echo $this->form->getInput('addfileDesc'); ?>
-						</div>
-					</div>
+					<?php echo $this->form->renderField('addfileDesc'); ?>
 				</div>
 				<div class="tab-pane" id="details">
 					<?php foreach($this->form->getFieldset('detail') as $field): ?>
-						<div class="control-group">
-							<div class="control-label">
-								<?php echo $field->label; ?>
-							</div>
-							<div class="controls">
-								<?php echo $field->input; ?>
-							</div>
-						</div>
+						<?php echo $this->form->renderField($field->fieldname); ?>
 					<?php endforeach; ?>
 				</div>
 				<div class="tab-pane" id="publishing">
-					<div class="control-group">
-						<div class="control-label">
-							<?php echo $this->form->getLabel('catid'); ?>
-						</div>
-						<div class="controls">
-							<?php echo $this->form->getInput('catid'); ?>
-						</div>
-					</div>
-					<div class="control-group">
-						<div class="control-label">
-							<?php echo $this->form->getLabel('tags', 'metadata'); ?>
-						</div>
-						<div class="controls">
-							<?php echo $this->form->getInput('tags', 'metadata'); ?>
-						</div>
-					</div>
+					<?php echo $this->form->renderField('catid'); ?>
+					<?php echo $this->form->renderField('tags'); ?>
 					<?php if ($this->user->authorise('core.edit.state', 'com_sermonspeaker')): ?>
-						<div class="control-group">
-							<div class="control-label">
-								<?php echo $this->form->getLabel('state'); ?>
-							</div>
-							<div class="controls">
-								<?php echo $this->form->getInput('state'); ?>
-							</div>
-						</div>
-						<div class="control-group">
-							<div class="control-label">
-								<?php echo $this->form->getLabel('podcast'); ?>
-							</div>
-							<div class="controls">
-								<?php echo $this->form->getInput('podcast'); ?>
-							</div>
-						</div>
+						<?php echo $this->form->renderField('state'); ?>
+						<?php echo $this->form->renderField('podcast'); ?>
+						<?php echo $this->form->renderField('publish_up'); ?>
+						<?php echo $this->form->renderField('publish_down'); ?>
 					<?php endif; ?>
 				</div>
 				<div class="tab-pane" id="language">
-					<div class="control-group">
-						<div class="control-label">
-							<?php echo $this->form->getLabel('language'); ?>
-						</div>
-						<div class="controls">
-							<?php echo $this->form->getInput('language'); ?>
-						</div>
-					</div>
+					<?php echo $this->form->renderField('language'); ?>
 				</div>
 				<div class="tab-pane" id="metadata">
-					<?php foreach($this->form->getFieldset('metadata') as $field): ?>
-						<div class="control-group">
-							<div class="control-label">
-								<?php echo $field->label; ?>
-							</div>
-							<div class="controls">
-								<?php echo $field->input; ?>
-							</div>
-						</div>
-					<?php endforeach; ?>
+					<?php echo $this->form->renderField('metadesc'); ?>
+					<?php echo $this->form->renderField('metakey'); ?>
 				</div>
 			</div>
 			<input type="hidden" name="task" value="" />

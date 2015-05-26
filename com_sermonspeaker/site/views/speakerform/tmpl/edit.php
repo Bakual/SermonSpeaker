@@ -61,111 +61,37 @@ JHtml::_('formbehavior.chosen', 'select');
 
 			<div class="tab-content">
 				<div class="tab-pane active" id="editor">
-					<div class="control-group">
-						<div class="control-label">
-							<?php echo $this->form->getLabel('title'); ?>
-						</div>
-						<div class="controls">
-							<?php echo $this->form->getInput('title'); ?>
-						</div>
-					</div>
+					<?php echo $this->form->renderField('title'); ?>
 
 					<?php if (is_null($this->item->id)): ?>
-						<div class="control-group">
-							<div class="control-label">
-								<?php echo $this->form->getLabel('alias'); ?>
-							</div>
-							<div class="controls">
-								<?php echo $this->form->getInput('alias'); ?>
-							</div>
-						</div>
+						<?php echo $this->form->renderField('alias'); ?>
 					<?php endif; ?>
 
-					<div class="control-group">
-						<div class="control-label">
-							<?php echo $this->form->getLabel('intro'); ?>
-						</div>
-						<div class="controls">
-							<?php echo $this->form->getInput('intro'); ?>
-						</div>
-					</div>
-					<div class="control-group">
-						<div class="control-label">
-							<?php echo $this->form->getLabel('bio'); ?>
-						</div>
-						<div class="controls">
-							<?php echo $this->form->getInput('bio'); ?>
-						</div>
-					</div>
+					<?php echo $this->form->renderField('intro'); ?>
+					<?php echo $this->form->renderField('bio'); ?>
 				</div>
 				<div class="tab-pane" id="details">
 					<?php foreach($this->form->getFieldset('detail') as $field): ?>
-						<div class="control-group">
-							<div class="control-label">
-								<?php echo $field->label; ?>
-							</div>
-							<div class="controls">
-								<?php echo $field->input; ?>
-							</div>
-						</div>
+						<?php echo $this->form->renderField($field->fieldname); ?>
 					<?php endforeach; ?>
 				</div>
 				<div class="tab-pane" id="publishing">
-					<div class="control-group">
-						<div class="control-label">
-							<?php echo $this->form->getLabel('catid'); ?>
-						</div>
-						<div class="controls">
-							<?php echo $this->form->getInput('catid'); ?>
-						</div>
-					</div>
-					<div class="control-group">
-						<div class="control-label">
-							<?php echo $this->form->getLabel('tags', 'metadata'); ?>
-						</div>
-						<div class="controls">
-							<?php echo $this->form->getInput('tags', 'metadata'); ?>
-						</div>
-					</div>
+					<?php echo $this->form->renderField('catid'); ?>
+					<?php echo $this->form->renderField('tags'); ?>
 					<?php if ($this->user->authorise('core.edit.state', 'com_sermonspeaker')): ?>
-						<div class="control-group">
-							<div class="control-label">
-								<?php echo $this->form->getLabel('state'); ?>
-							</div>
-							<div class="controls">
-								<?php echo $this->form->getInput('state'); ?>
-							</div>
-						</div>
+						<?php echo $this->form->renderField('state'); ?>
+						<?php echo $this->form->renderField('publish_up'); ?>
+						<?php echo $this->form->renderField('publish_down'); ?>
 					<?php endif; ?>
 				</div>
 				<div class="tab-pane" id="language">
-					<div class="control-group">
-						<div class="control-label">
-							<?php echo $this->form->getLabel('language'); ?>
-						</div>
-						<div class="controls">
-							<?php echo $this->form->getInput('language'); ?>
-						</div>
-					</div>
+					<?php echo $this->form->renderField('language'); ?>
 				</div>
 				<div class="tab-pane" id="metadata">
-					<div class="control-group">
-						<div class="control-label">
-							<?php echo $this->form->getLabel('metadesc'); ?>
-						</div>
-						<div class="controls">
-							<?php echo $this->form->getInput('metadesc'); ?>
-						</div>
-					</div>
-					<div class="control-group">
-						<div class="control-label">
-							<?php echo $this->form->getLabel('metakey'); ?>
-						</div>
-						<div class="controls">
-							<?php echo $this->form->getInput('metakey'); ?>
-						</div>
-					</div>
-				</div>			</div>
+					<?php echo $this->form->renderField('metadesc'); ?>
+					<?php echo $this->form->renderField('metakey'); ?>
+				</div>
+			</div>
 			<input type="hidden" name="task" value="" />
 			<input type="hidden" name="return" value="<?php echo $this->return_page; ?>" />
 			<?php echo JHtml::_('form.token'); ?>
