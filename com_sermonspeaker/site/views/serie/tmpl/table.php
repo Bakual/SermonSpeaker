@@ -14,6 +14,7 @@ JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
 JHtml::_('bootstrap.tooltip');
 
 $user		= JFactory::getUser();
+$showState  = $user->authorise('core.edit', 'com_sermonspeaker');
 $fu_enable	= $this->params->get('fu_enable');
 $canEdit	= ($fu_enable and $user->authorise('core.edit', 'com_sermonspeaker'));
 $canEditOwn	= ($fu_enable and $user->authorise('core.edit.own', 'com_sermonspeaker'));
@@ -53,9 +54,7 @@ $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 			<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($this->item->slug)); ?>">
 				<h2><?php echo $this->item->title; ?></h2>
 			</a>
-			<?php if (!$this->item->state) : ?>
-				<span class="label label-warning"><?php echo JText::_('JUNPUBLISHED'); ?></span>
-			<?php endif; ?>
+			<?php echo JLayoutHelper::render('blocks.state_info', array('item' => $this->item, 'show' => $showState)); ?>
 		</div>
 		<?php if ($this->item->avatar) : ?>
 			<div class="img-polaroid pull-right item-image">
@@ -248,12 +247,10 @@ $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 									if ($canEdit or ($canEditOwn and ($user->id == $item->created_by))) : ?>
 										<span class="list-edit pull-left width-50">
 											<?php echo JHtml::_('icon.edit', $item, $this->params, array('type' => 'sermon')); ?>
+											<?php echo JLayoutHelper::render('blocks.state_info', array('item' => $item, 'show' => true)); ?>
 										</span>
-									<?php endif;
-
-									if (!$item->state) : ?>
-										<span class="label label-warning"><?php echo JText::_('JUNPUBLISHED'); ?></span>
 									<?php endif; ?>
+
 								</td>
 								<?php if (in_array('serie:category', $this->columns)) : ?>
 									<td class="ss-col ss-category hidden-phone">

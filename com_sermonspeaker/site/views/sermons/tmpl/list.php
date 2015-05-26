@@ -14,6 +14,7 @@ JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
 JHtml::_('bootstrap.tooltip');
 
 $user		= JFactory::getUser();
+$showState  = $user->authorise('core.edit', 'com_sermonspeaker');
 $fu_enable	= $this->params->get('fu_enable');
 $canEdit	= ($fu_enable and $user->authorise('core.edit', 'com_sermonspeaker'));
 $canEditOwn	= ($fu_enable and $user->authorise('core.edit.own', 'com_sermonspeaker'));
@@ -109,9 +110,7 @@ $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 							<strong class="ss-title">
 								<?php echo SermonspeakerHelperSermonspeaker::insertSermonTitle($i, $item, $player); ?>
 							</strong>
-							<?php if (!$item->state) : ?>
-								<span class="label label-warning"><?php echo JText::_('JUNPUBLISHED'); ?></span>
-							<?php endif; ?>
+							<?php echo JLayoutHelper::render('blocks.state_info', array('item' => $item, 'show' => $showState)); ?>
 							<br />
 							<?php if (in_array('sermons:speaker', $this->columns) and $item->speaker_title) :
 								$sep = 1; ?>

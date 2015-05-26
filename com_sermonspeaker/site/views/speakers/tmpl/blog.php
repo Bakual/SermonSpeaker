@@ -16,6 +16,7 @@ JHtml::_('bootstrap.tooltip');
 JHtml::_('behavior.modal');
 
 $user		= JFactory::getUser();
+$showState  = $user->authorise('core.edit', 'com_sermonspeaker');
 $fu_enable	= $this->params->get('fu_enable');
 $canEdit	= ($fu_enable and $user->authorise('core.edit', 'com_sermonspeaker'));
 $canEditOwn	= ($fu_enable and $user->authorise('core.edit.own', 'com_sermonspeaker'));
@@ -89,9 +90,7 @@ $listDirn	= $this->state->get('list.direction');
 								<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug)); ?>">
 									<h2><?php echo $item->title; ?></h2>
 								</a>
-								<?php if (!$item->state) : ?>
-									<span class="label label-warning"><?php echo JText::_('JUNPUBLISHED'); ?></span>
-								<?php endif; ?>
+								<?php echo JLayoutHelper::render('blocks.state_info', array('item' => $item, 'show' => $showState)); ?>
 							</div>
 							<?php if ($item->pic) : ?>
 								<div class="img-polaroid pull-right item-image">

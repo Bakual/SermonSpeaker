@@ -15,6 +15,7 @@ JHtml::_('bootstrap.framework');
 JHtml::_('bootstrap.tooltip');
 
 $user		= JFactory::getUser();
+$showState  = $user->authorise('core.edit', 'com_sermonspeaker');
 $fu_enable	= $this->params->get('fu_enable');
 $canEdit	= ($fu_enable and $user->authorise('core.edit', 'com_sermonspeaker'));
 $canEditOwn	= ($fu_enable and $user->authorise('core.edit.own', 'com_sermonspeaker'));
@@ -96,11 +97,9 @@ $listDirn	= $this->state->get('list.direction');
 								<a title="<?php echo JText::_('COM_SERMONSPEAKER_SERIESLINK_HOOVER'); ?>" href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->slug)); ?>">
 									<h2><?php echo $item->title; ?></h2>
 								</a>
-								<?php if (!$item->state) : ?>
-									<span class="label label-warning"><?php echo JText::_('JUNPUBLISHED'); ?></span>
-								<?php endif;
+								<?php echo JLayoutHelper::render('blocks.state_info', array('item' => $item, 'show' => $showState)); ?>
 
-								if (in_array('series:speaker', $this->col_serie) and $item->speakers) : ?>
+								<?php if (in_array('series:speaker', $this->col_serie) and $item->speakers) : ?>
 									<small class="ss-speakers createdby">
 										<?php echo JText::_('COM_SERMONSPEAKER_SPEAKERS'); ?>: 
 										<?php echo $item->speakers; ?>

@@ -19,6 +19,7 @@ JHtml::_('behavior.modal');
 JHtml::stylesheet('com_sermonspeaker/blog.css', '', true);
 
 $user		= JFactory::getUser();
+$showState  = $user->authorise('core.edit', 'com_sermonspeaker');
 $fu_enable	= $this->params->get('fu_enable');
 $canEdit	= ($fu_enable and $user->authorise('core.edit', 'com_sermonspeaker'));
 $canEditOwn	= ($fu_enable and $user->authorise('core.edit.own', 'com_sermonspeaker'));
@@ -133,10 +134,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 									</div>
 									<div class="page-header">
 										<h2><?php echo SermonspeakerHelperSermonspeaker::insertSermonTitle($i, $item, $player, false); ?></h2>
-										<?php
-										if (!$item->state) : ?>
-											<span class="label label-warning"><?php echo JText::_('JUNPUBLISHED'); ?></span>
-										<?php endif; ?>
+										<?php echo JLayoutHelper::render('blocks.state_info', array('item' => $item, 'show' => $showState)); ?>
 									</div>
 									<?php if ($picture = SermonspeakerHelperSermonspeaker::insertPicture($item)) : ?>
 										<div class="img-polaroid pull-right item-image sermon-image"><img src="<?php echo $picture; ?>"></div>
@@ -295,11 +293,9 @@ $this->document->addScriptDeclaration('jQuery(function() {
 										<a title="<?php echo JText::_('COM_SERMONSPEAKER_SERIESLINK_HOOVER'); ?>" href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->slug)); ?>">
 											<h2><?php echo $item->title; ?></h2>
 										</a>
-										<?php if (!$item->state) : ?>
-											<span class="label label-warning"><?php echo JText::_('JUNPUBLISHED'); ?></span>
-										<?php endif;
+										<?php echo JLayoutHelper::render('blocks.state_info', array('item' => $item, 'show' => $showState)); ?>
 
-										if (in_array('speaker:speaker', $this->col_serie) and $item->speakers) : ?>
+										<?php if (in_array('speaker:speaker', $this->col_serie) and $item->speakers) : ?>
 											<small class="ss-speakers createdby">
 												<?php echo JText::_('COM_SERMONSPEAKER_SPEAKERS'); ?>: 
 												<?php echo $item->speakers; ?>

@@ -18,6 +18,7 @@ JHtml::_('bootstrap.tooltip');
 JHtml::stylesheet('com_sermonspeaker/blog.css', '', true);
 
 $user		= JFactory::getUser();
+$showState  = $user->authorise('core.edit', 'com_sermonspeaker');
 $fu_enable	= $this->params->get('fu_enable');
 $canEdit	= ($fu_enable and $user->authorise('core.edit', 'com_sermonspeaker'));
 $canEditOwn	= ($fu_enable and $user->authorise('core.edit.own', 'com_sermonspeaker'));
@@ -57,11 +58,9 @@ $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 			<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($this->item->slug)); ?>">
 				<h2><?php echo $this->item->title; ?></h2>
 			</a>
-			<?php if (!$this->item->state) : ?>
-				<span class="label label-warning"><?php echo JText::_('JUNPUBLISHED'); ?></span>
-			<?php endif;
+			<?php echo JLayoutHelper::render('blocks.state_info', array('item' => $this->item, 'show' => $showState)); ?>
 
-			if (in_array('serie:speaker', $this->col_serie) and $this->item->speakers) : ?>
+			<?php if (in_array('serie:speaker', $this->col_serie) and $this->item->speakers) : ?>
 				<small class="ss-speakers createdby">
 					<?php echo JText::_('COM_SERMONSPEAKER_SPEAKERS'); ?>: 
 					<?php echo $this->item->speakers; ?>
@@ -179,12 +178,9 @@ $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 							</div>
 							<div class="page-header">
 								<h2><?php echo SermonspeakerHelperSermonspeaker::insertSermonTitle($i, $item, $player, false); ?></h2>
-								<?php
-								if (!$item->state) : ?>
-									<span class="label label-warning"><?php echo JText::_('JUNPUBLISHED'); ?></span>
-								<?php endif;
+								<?php echo JLayoutHelper::render('blocks.state_info', array('item' => $item, 'show' => $showState)); ?>
 
-								if (in_array('sermons:speaker', $this->columns) and $item->speaker_title) : ?>
+								<?php if (in_array('sermons:speaker', $this->columns) and $item->speaker_title) : ?>
 									<small class="ss-speaker createdby">
 										<?php echo JText::_('COM_SERMONSPEAKER_SPEAKER'); ?>:
 										<?php echo JLayoutHelper::render('titles.speaker', array('item' => $item, 'params' => $this->params)); ?>

@@ -120,11 +120,8 @@ $listDirn	= $this->state->get('list.direction');
 									<?php if ($canEdit or ($canEditOwn and ($user->id == $item->created_by))) : ?>
 										<span class="list-edit pull-left width-50">
 											<?php echo JHtml::_('icon.edit', $item, $this->params, array('type' => 'serie')); ?>
+											<?php echo JLayoutHelper::render('blocks.state_info', array('item' => $item, 'show' => true)); ?>
 										</span>
-									<?php endif;
-
-									if (!$item->state) : ?>
-										<span class="label label-warning"><?php echo JText::_('JUNPUBLISHED'); ?></span>
 									<?php endif; ?>
 								</td>
 								<?php if (in_array('series:category', $this->col_serie)) : ?>

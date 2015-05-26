@@ -147,7 +147,7 @@ class JHtmlIcon
 			$overlib = JText::_('JPUBLISHED');
 		}
 
-		if ($item->created != '0000-00-00 00:00:00')
+		if ($item->created != JFactory::getDbo()->getNullDate())
 		{
 			$date = JHtml::_('date', $item->created);
 			$overlib .= '&lt;br /&gt;';
@@ -160,8 +160,15 @@ class JHtmlIcon
 			$overlib .= JText::_('JAUTHOR') . ': ' . htmlspecialchars($item->author, ENT_COMPAT, 'UTF-8');
 		}
 
-		$icon	= $item->state ? 'edit' : 'eye-close';
-		$text = '<span class="hasTooltip icon-' . $icon . ' tip" title="' . JText::_('JACTION_EDIT') . ' :: ' . $overlib . '"></span> '
+		$icon = $item->state ? 'edit' : 'eye-close';
+
+		if (strtotime($item->publish_up) > strtotime(JFactory::getDate())
+			|| ((strtotime($item->publish_down) < strtotime(JFactory::getDate())) && $item->publish_down != JFactory::getDbo()->getNullDate()))
+		{
+			$icon = 'eye-close';
+		}
+
+		$text = '<span class="hasTooltip icon-' . $icon . ' tip" title="' . JHtml::tooltipText(JText::_('JACTION_EDIT'), $overlib, 0, 0) . '"></span> '
 				. JText::_('JGLOBAL_EDIT');
 
 		$output = JHtml::_('link', JRoute::_($url), $text);

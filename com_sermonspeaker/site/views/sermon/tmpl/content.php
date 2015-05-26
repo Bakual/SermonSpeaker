@@ -17,6 +17,7 @@ JHtml::_('bootstrap.tooltip');
 JHtml::stylesheet('com_sermonspeaker/blog.css', '', true);
 
 $user       = JFactory::getUser();
+$showState  = $user->authorise('core.edit', 'com_sermonspeaker');
 $fu_enable  = $this->params->get('fu_enable');
 $canEdit    = ($fu_enable and $user->authorise('core.edit', 'com_sermonspeaker'));
 $canEditOwn = ($fu_enable and $user->authorise('core.edit.own', 'com_sermonspeaker'));
@@ -31,9 +32,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 	<?php endif; ?>
 	<div class="page-header">
 		<h2 itemprop="name">
-			<?php if ($this->item->state == 0): ?>
-				<span class="label label-warning"><?php echo JText::_('JUNPUBLISHED'); ?></span>
-			<?php endif; ?>
+			<?php echo JLayoutHelper::render('blocks.state_info', array('item' => $item, 'show' => $showState)); ?>
 			<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonRoute($this->item->slug)); ?>" itemprop="url">
 				<?php echo $this->escape($this->item->title); ?></a>
 		</h2>

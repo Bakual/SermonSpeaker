@@ -11,6 +11,8 @@ defined('_JEXEC') or die();
 
 JHtml::_('bootstrap.tooltip');
 
+$user = JFactory::getUser();
+
 if (!$this->item->pic) {
 	$this->item->pic = 'media/com_sermonspeaker/images/' . $this->params->get('defaultpic', 'nopict.jpg');
 }
@@ -21,9 +23,7 @@ if (!$this->item->pic) {
 			<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($this->item->slug)); ?>" target="_parent">
 				<h2><?php echo $this->item->title; ?></h2>
 			</a>
-			<?php if (!$this->item->state) : ?>
-				<span class="label label-warning"><?php echo JText::_('JUNPUBLISHED'); ?></span>
-			<?php endif; ?>
+			<?php echo JLayoutHelper::render('blocks.state_info', array('item' => $item, 'show' => $user->authorise('core.edit', 'com_sermonspeaker'))); ?>
 		</div>
 		<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($this->item->slug)); ?>">
 			<img class="img-polaroid pull-left item-image" src="<?php echo SermonspeakerHelperSermonspeaker::makelink($this->item->pic); ?>">

@@ -22,9 +22,7 @@ extract($displayData);
 			<?php echo $item->title; ?>
 		</a>
 	</h2>
-	<?php if (!$item->state) : ?>
-		<span class="label label-warning"><?php echo JText::_('JUNPUBLISHED'); ?></span>
-	<?php endif; ?>
+	<?php echo JLayoutHelper::render('blocks.state_info', array('item' => $item, 'show' => JFactory::getUser()->authorise('core.edit', 'com_sermonspeaker'))); ?>
 </div>
 <?php if ($item->pic) : ?>
 	<div class="img-polaroid pull-right item-image">
