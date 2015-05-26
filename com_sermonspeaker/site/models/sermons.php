@@ -46,6 +46,8 @@ class SermonspeakerModelSermons extends JModelList
 				'speaker_title', 'speakers.title',
 				'series_title', 'series.title',
 				'category_title', 'c_sermons.category_title',
+				'publish_up', 'sermons.publish_up',
+				'publish_down', 'sermons.publish_down',
 			);
 		}
 
@@ -80,7 +82,8 @@ class SermonspeakerModelSermons extends JModelList
 				. 'sermons.sermon_date, sermons.alias, sermons.sermon_time,'
 				. 'sermons.state, sermons.ordering, sermons.podcast,'
 				. 'sermons.sermon_number, sermons.addfile, sermons.addfileDesc,'
-				. 'sermons.created, sermons.created_by'
+				. 'sermons.created, sermons.created_by,'
+				. 'sermons.publish_up, sermons.publish_down'
 			)
 		);
 		$query->from('`#__sermon_sermons` AS sermons');
@@ -148,6 +151,17 @@ class SermonspeakerModelSermons extends JModelList
 		// Join over users for the author names.
 		$query->select("user.name AS author");
 		$query->join('LEFT', '#__users AS user ON user.id = sermons.created_by');
+
+		// Define null and now dates
+		$nullDate = $db->quote($db->getNullDate());
+		$nowDate  = $db->quote(JFactory::getDate()->toSql());
+
+		// Filter by start and end dates.
+		if ((!$user->authorise('core.edit.state', 'com_sermonspeaker')) && (!$user->authorise('core.edit', 'com_sermonspeaker')))
+		{
+			$query->where('(sermons.publish_up = ' . $nullDate . ' OR sermons.publish_up <= ' . $nowDate . ')');
+			$query->where('(sermons.publish_down = ' . $nullDate . ' OR sermons.publish_down >= ' . $nowDate . ')');
+		}
 
 		// Filter by search in title
 		$search = $this->getState('filter.search');

@@ -41,6 +41,8 @@ class SermonspeakerModelspeakers extends JModelList
 				'language', 'speakers.language',
 				'hits', 'speakers.hits',
 				'category_title', 'c_speakers.category_title',
+				'publish_up', 'speakers.publish_up',
+				'publish_down', 'speakers.publish_down',
 			);
 		}
 
@@ -65,11 +67,12 @@ class SermonspeakerModelspeakers extends JModelList
 		$query->select(
 			$this->getState(
 				'list.select',
-				'speakers.id, speakers.title, speakers.catid, speakers.pic, ' .
-				'CASE WHEN CHAR_LENGTH(speakers.alias) THEN CONCAT_WS(\':\', speakers.id, speakers.alias) ELSE speakers.id END as slug, ' .
-				'speakers.hits, speakers.intro, speakers.bio, speakers.website, speakers.alias, ' .
-				'speakers.checked_out, speakers.checked_out_time, ' .
-				'speakers.state, speakers.ordering, speakers.created, speakers.created_by'
+				'speakers.id, speakers.title, speakers.catid, speakers.pic, '
+				. 'CASE WHEN CHAR_LENGTH(speakers.alias) THEN CONCAT_WS(\':\', speakers.id, speakers.alias) ELSE speakers.id END as slug, '
+				. 'speakers.hits, speakers.intro, speakers.bio, speakers.website, speakers.alias, '
+				. 'speakers.checked_out, speakers.checked_out_time, '
+				. 'speakers.state, speakers.ordering, speakers.created, speakers.created_by, '
+				. 'speakers.publish_up, speakers.publish_down'
 			)
 		);
 		$query->from('`#__sermon_speakers` AS speakers');
@@ -122,6 +125,17 @@ class SermonspeakerModelspeakers extends JModelList
 		// Join over users for the author names.
 		$query->select("user.name AS author");
 		$query->join('LEFT', '#__users AS user ON user.id = speakers.created_by');
+
+		// Define null and now dates
+		$nullDate = $db->quote($db->getNullDate());
+		$nowDate  = $db->quote(JFactory::getDate()->toSql());
+
+		// Filter by start and end dates.
+		if ((!$user->authorise('core.edit.state', 'com_sermonspeaker')) && (!$user->authorise('core.edit', 'com_sermonspeaker')))
+		{
+			$query->where('(speakers.publish_up = ' . $nullDate . ' OR speakers.publish_up <= ' . $nowDate . ')');
+			$query->where('(speakers.publish_down = ' . $nullDate . ' OR speakers.publish_down >= ' . $nowDate . ')');
+		}
 
 		// Filter by search in title
 		$search = $this->getState('filter.search');

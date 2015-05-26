@@ -40,6 +40,8 @@ class SermonspeakerModelSeries extends JModelList
 				'language', 'series.language',
 				'hits', 'series.hits',
 				'category_title', 'c_series.category_title',
+				'publish_up', 'series.publish_up',
+				'publish_down', 'series.publish_down',
 			);
 		}
 
@@ -53,12 +55,12 @@ class SermonspeakerModelSeries extends JModelList
 	 */
 	protected function getListQuery()
 	{
-		$user	= JFactory::getUser();
-		$groups	= implode(',', $user->getAuthorisedViewLevels());
+		$user   = JFactory::getUser();
+		$groups = implode(',', $user->getAuthorisedViewLevels());
 
 		// Create a new query object.
-		$db		= $this->getDbo();
-		$query	= $db->getQuery(true);
+		$db    = $this->getDbo();
+		$query = $db->getQuery(true);
 
 		// Select required fields from the table
 		$query->select(
@@ -66,8 +68,9 @@ class SermonspeakerModelSeries extends JModelList
 				'list.select',
 				'series.id, series.title, series.catid, series.avatar, '
 				. 'CASE WHEN CHAR_LENGTH(series.alias) THEN CONCAT_WS(\':\', series.id, series.alias) ELSE series.id END as slug, '
-				. 'series.hits, series.series_description, series.alias, series.checked_out, series.checked_out_time,'
-				. 'series.state, series.ordering, series.created, series.created_by'
+				. 'series.hits, series.series_description, series.alias, series.checked_out, series.checked_out_time, '
+				. 'series.state, series.ordering, series.created, series.created_by, '
+				. 'series.publish_up, series.publish_down'
 			)
 		);
 		$query->from('`#__sermon_series` AS series');
@@ -108,6 +111,17 @@ class SermonspeakerModelSeries extends JModelList
 		// Join over users for the author names.
 		$query->select("user.name AS author");
 		$query->join('LEFT', '#__users AS user ON user.id = series.created_by');
+
+		// Define null and now dates
+		$nullDate = $db->quote($db->getNullDate());
+		$nowDate  = $db->quote(JFactory::getDate()->toSql());
+
+		// Filter by start and end dates.
+		if ((!$user->authorise('core.edit.state', 'com_sermonspeaker')) && (!$user->authorise('core.edit', 'com_sermonspeaker')))
+		{
+			$query->where('(series.publish_up = ' . $nullDate . ' OR series.publish_up <= ' . $nowDate . ')');
+			$query->where('(series.publish_down = ' . $nullDate . ' OR series.publish_down >= ' . $nowDate . ')');
+		}
 
 		// Filter by search in title
 		$search = $this->getState('filter.search');
