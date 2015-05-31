@@ -115,8 +115,6 @@ class PlgContentChurchtoolsermonspeaker extends JPlugin
 
 		if (!$speakers)
 		{
-			JLog::add($e->getMessage(), JLog::WARNING, 'plg_content_churchtoolsermonspeaker');
-
 			return;
 		}
 
