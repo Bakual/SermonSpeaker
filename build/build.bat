@@ -35,6 +35,8 @@ cd ../plg_sermonspeaker_jwplayer6/
 zip -r ../build/packages/plg_sermonspeaker_jwplayer6.zip *
 cd ../plg_sermonspeaker_pixelout/
 zip -r ../build/packages/plg_sermonspeaker_pixelout.zip *
+cd ../plg_content_churchtoolsermonspeaker/
+zip -r ../build/packages/plg_content_churchtoolsermonspeaker.zip *
 REM Package
 cd ../build/packages/
 copy ..\..\pkg_sermonspeaker.xml
