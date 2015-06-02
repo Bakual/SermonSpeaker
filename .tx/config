@@ -141,3 +141,15 @@ source_file = plg_content_sermonspeaker\language\en-GB\en-GB.plg_content_sermons
 source_lang = en_GB
 minimum_perc = 1
 
+[sermonspeaker.plg_content_churchtoolsermonspeaker]
+file_filter = plg_content_churchtoolsermonspeaker\language\<lang>\<lang>.plg_content_churchtoolsermonspeaker.ini
+source_file = plg_content_churchtoolsermonspeaker\language\en-GB\en-GB.plg_content_churchtoolsermonspeaker.ini
+source_lang = en_GB
+minimum_perc = 1
+
+[sermonspeaker.plg_content_churchtoolsermonspeaker]
+file_filter = plg_content_churchtoolsermonspeaker\language\<lang>\<lang>.plg_content_churchtoolsermonspeaker.sys.ini
+source_file = plg_content_churchtoolsermonspeaker\language\en-GB\en-GB.plg_content_churchtoolsermonspeaker.sys.ini
+source_lang = en_GB
+minimum_perc = 1
+
