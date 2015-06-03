@@ -64,6 +64,13 @@ class SermonspeakerViewFeed extends JViewLegacy
 		// Get Data from Model (/models/feed.php)
 		$this->items = $this->get('Data');
 
+		// Get current version of SermonSpeaker
+		$component     = JComponentHelper::getComponent('com_sermonspeaker');
+		$extensions    = JTable::getInstance('extension');
+		$extensions->load($component->id);
+		$manifest      = json_decode($extensions->manifest_cache);
+		$this->version = $manifest->version;
+
 		parent::display($tpl);
 	}
 
