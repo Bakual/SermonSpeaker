@@ -153,7 +153,7 @@ class SermonspeakerModelSpeakers extends JModelList
 		{
 			$query->where('speakers.state = ' . (int) $published);
 		}
-		elseif ($published === '')
+		elseif ($published === '' || $published === null)
 		{
 			$query->where('(speakers.state IN (0, 1))');
 		}
