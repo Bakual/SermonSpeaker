@@ -74,7 +74,7 @@ class SermonspeakerRouter extends JComponentRouterBase
 
 		if (isset($query['id']))
 		{
-			if ($view = 'sermon')
+			if ($view == 'sermon')
 			{
 				// Make sure we have the id and the alias
 				if (strpos($query['id'], ':') === false)
@@ -90,7 +90,7 @@ class SermonspeakerRouter extends JComponentRouterBase
 				}
 			}
 
-			if ($view = 'serie')
+			if ($view == 'serie')
 			{
 				// Make sure we have the id and the alias
 				if (strpos($query['id'], ':') === false)
@@ -106,7 +106,7 @@ class SermonspeakerRouter extends JComponentRouterBase
 				}
 			}
 
-			if ($view = 'speaker')
+			if ($view == 'speaker')
 			{
 				// Make sure we have the id and the alias
 				if (strpos($query['id'], ':') === false)
