@@ -129,6 +129,12 @@ class SermonspeakerControllerFile extends JControllerLegacy
 
 		$return = base64_decode($jinput->post->get('return-url', '', 'base64'));
 
+		// Make sure to only redirect to internal links
+		if (!Juri::isInternal($return))
+		{
+			$return = JUri::base();
+		}
+
 		if (!empty($redirect))
 		{
 			if (strpos($return, '?'))
