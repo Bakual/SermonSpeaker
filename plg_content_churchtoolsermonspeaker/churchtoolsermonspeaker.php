@@ -35,7 +35,7 @@ class PlgContentChurchtoolsermonspeaker extends JPlugin
 		}
 
 		// Only act on new sermons
-		if ($data->id)
+		if (empty($data->id))
 		{
 			return;
 		}
