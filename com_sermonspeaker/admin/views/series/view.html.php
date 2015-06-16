@@ -122,7 +122,6 @@ class SermonspeakerViewSeries extends JViewLegacy
 		// Add a batch button
 		if ($canDo->get('core.edit'))
 		{
-			JHtml::_('bootstrap.modal', 'collapseModal');
 			$title = JText::_('JTOOLBAR_BATCH');
 
 			// Instantiate a new JLayoutFile instance and render the batch button
