@@ -262,9 +262,6 @@ class SermonspeakerRouter extends JComponentRouterBase
 			case 'speakerform':
 				$vars['view'] = 'speakerform';
 				break;
-			case 'tagform':
-				$vars['view'] = 'tagform';
-				break;
 			case 'feed':
 				$vars['view'] = 'feed';
 				$vars['format'] = 'raw';
@@ -287,14 +284,20 @@ class SermonspeakerRouter extends JComponentRouterBase
 			case 'frontendupload_edit':
 				$vars['task'] = 'frontendupload.edit';
 				break;
+			case 'frontendupload_add':
+				$vars['task'] = 'frontendupload.add';
+				break;
 			case 'serieform_edit':
 				$vars['task'] = 'serieform.edit';
+				break;
+			case 'serieform_add':
+				$vars['task'] = 'serieform.add';
 				break;
 			case 'speakerform_edit':
 				$vars['task'] = 'speakerform.edit';
 				break;
-			case 'tagform_edit':
-				$vars['task'] = 'tagform.edit';
+			case 'speakerform_add':
+				$vars['task'] = 'speakerform.add';
 				break;
 			case 'scripture':
 				$vars['view'] = 'scripture';

@@ -21,10 +21,11 @@ class JHtmlIcon
 	 *
 	 * @param   object  $category  Category object
 	 * @param   object  $params    Parameters
+	 * @param   string  $view      Which edit view to load (sermon, serie or speaker)
 	 *
 	 * @return  string  Create link
 	 */
-	public static function create($category, $params)
+	public static function create($category, $params, $view = 'sermon')
 	{
 		// Ignore if Frontend Uploading is disabled
 		if ($params && !$params->get('fu_enable'))
@@ -32,15 +33,29 @@ class JHtmlIcon
 			return '';
 		}
 
+		// Decide on controller
+		switch ($view)
+		{
+			case 'serie':
+				$controller = 'serieform';
+				break;
+			case 'speaker':
+				$controller = 'speakerform';
+				break;
+			case 'sermon':
+			default:
+				$view       = 'sermon';
+				$controller = 'frontendupload';
+				break;
+		}
+
 		$uri = JURI::getInstance();
-		$url = 'index.php?option=com_sermonspeaker&view=frontendupload&return=' . base64_encode($uri) . '&a_id=0&catid=' . $category->id;
+		$url = 'index.php?option=com_sermonspeaker&task=' . $controller . '.add&return=' . base64_encode($uri) . '&s_id=0&catid=' . $category->id;
 		$text = '<span class="icon-plus"></span> ' . JText::_('JNEW') . '&#160;';
 
 		$button = JHtml::_('link', JRoute::_($url), $text, 'class="btn btn-primary"');
 
-		$output = '<span class="hasTooltip" title="' . JText::_('COM_SERMONSPEAKER_FU_TITLE') . '">' . $button . '</span>';
-
-		return $output;
+		return '<span class="hasTooltip" title="' . JText::_('COM_SERMONSPEAKER_BUTTON_NEW_' . $view) . '">' . $button . '</span>';
 	}
 
 	/**

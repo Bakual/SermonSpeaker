@@ -283,8 +283,8 @@ $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 				</table>
 			<?php endif;
 
-			if ($user->authorise('core.edit.own', 'com_sermonspeaker')) :
-				echo JHtml::_('icon.create', $this->category, $this->params);
+			if ($user->authorise('core.create', 'com_sermonspeaker')) :
+				echo JHtml::_('icon.create', $this->category, $this->params, 'sermon');
 			endif;
 
 			if ($this->params->get('show_pagination') and ($this->pagination->get('pages.total') > 1)) : ?>

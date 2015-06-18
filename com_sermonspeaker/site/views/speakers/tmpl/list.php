@@ -126,6 +126,10 @@ $listDirn	= $this->state->get('list.direction');
 				</ul>
 			<?php endif;
 
+			if ($user->authorise('core.create', 'com_sermonspeaker')) :
+				echo JHtml::_('icon.create', $this->category, $this->params, 'speaker');
+			endif;
+
 			if ($this->params->get('show_pagination') and ($this->pagination->get('pages.total') > 1)) : ?>
 				<div class="pagination">
 					<?php if ($this->params->get('show_pagination_results', 1)) : ?>

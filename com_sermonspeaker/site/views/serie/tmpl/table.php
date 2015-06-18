@@ -310,7 +310,7 @@ $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 				</table>
 			<?php endif;
 
-			if ($user->authorise('core.edit.own', 'com_sermonspeaker')) :
+			if ($user->authorise('core.create', 'com_sermonspeaker')) :
 				echo JHtml::_('icon.create', $this->category, $this->params);
 			endif;
 
