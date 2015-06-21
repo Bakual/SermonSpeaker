@@ -11,6 +11,7 @@ defined('_JEXEC') or die();
 
 JHtml::_('script', 'system/progressbar.js', true, true);
 JHtml::_('stylesheet', 'media/mediamanager.css', array(), true);
+$base = JUri::base();
 
 $js	= 'function CheckProgress() {
 		var xmlhttp = new XMLHttpRequest();
@@ -40,7 +41,7 @@ $js	= 'function CheckProgress() {
 				}
 			}
 		}
-		xmlhttp.open("GET","index.php?option=com_sermonspeaker&task=serie.checkprogress&format=json&tmpl=component&id=' . $this->item->id . '",true);
+		xmlhttp.open("GET","' . $base . 'index.php?option=com_sermonspeaker&task=serie.checkprogress&format=json&tmpl=component&id=' . $this->item->id . '",true);
 		xmlhttp.send();
 	}
 	function CallZip() {
@@ -57,7 +58,7 @@ $js	= 'function CheckProgress() {
 				}
 			}
 		}
-		xmlhttp.open("GET","index.php?option=com_sermonspeaker&task=serie.download&format=json&tmpl=component&id=' . $this->item->id . '",true);
+		xmlhttp.open("GET","' . $base . 'index.php?option=com_sermonspeaker&task=serie.download&format=json&tmpl=component&id=' . $this->item->id . '",true);
 		xmlhttp.send();
 		timeout = setTimeout(CheckProgress,100);
 	}
