@@ -148,7 +148,12 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 		}
 
 		// Prepare filename and path
-		$folder = trim($params->get('path'), '/');
+		$folder = trim($params->get('path_audio'), '/');
+
+		if ($folder)
+		{
+			$folder .= '/';
+		}
 
 		$name = JFile::makeSafe($rows[0]['title']);
 
@@ -161,7 +166,7 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 			$name = 'series-' . $id;
 		}
 
-		$filename = JPATH_BASE . '/' . $folder . '/series/' . $name . '.zip';
+		$filename = JPATH_BASE . '/' . $folder . 'series/' . $name . '.zip';
 
 		// Compare to saved zip and if file exists, then skip the creating
 		$content = implode(',', $content);
@@ -170,7 +175,7 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 		{
 			$response = array(
 				'status' => '1',
-				'msg' => JURI::root() . $folder . '/series/' . $name . '.zip'
+				'msg' => JURI::root() . $folder . 'series/' . $name . '.zip'
 			);
 			echo json_encode($response);
 
@@ -210,12 +215,12 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 		{
 			jimport('joomla.filesystem.folder');
 
-			if (!JFolder::exists($folder . '/series'))
+			if (!JFolder::exists($folder . 'series'))
 			{
-				JFolder::create($folder . '/series');
+				JFolder::create($folder . 'series');
 			}
 
-			$temp_files = JFolder::files(JPATH_BASE . '/' . $folder . '/series/', '^' . $name . '\.zip\.');
+			$temp_files = JFolder::files(JPATH_BASE . '/' . $folder . 'series/', '^' . $name . '\.zip\.');
 
 			if ($temp_files)
 			{
@@ -239,7 +244,7 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 
 			foreach ($files as $file)
 			{
-				if (JFile::exists($folder . '/series/stop.txt'))
+				if (JFile::exists($folder . 'series/stop.txt'))
 				{
 					$response = array(
 						'status' => '0',
@@ -280,7 +285,7 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 
 			$response = array(
 				'status' => '1',
-				'msg' => JURI::root() . $folder . '/series/' . $name . '.zip'
+				'msg' => JURI::root() . $folder . 'series/' . $name . '.zip'
 			);
 		}
 		else
@@ -351,7 +356,12 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 
 		// Prepare filename and path
 		$params = JComponentHelper::getParams('com_sermonspeaker');
-		$folder = trim($params->get('path'), '/');
+		$folder = trim($params->get('path_audio'), '/');
+
+		if ($folder)
+		{
+			$folder .= '/';
+		}
 
 		$name = JFile::makeSafe($series['title']);
 
@@ -364,8 +374,8 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 			$name = 'series-' . $id;
 		}
 
-		$files = JFolder::files(JPATH_BASE . '/' . $folder . '/series/', '^' . $name . '\.zip\.');
-		$size = ($files) ? filesize(JPATH_BASE . '/' . $folder . '/series/' . $files[0]) : 0;
+		$files = JFolder::files(JPATH_BASE . '/' . $folder . 'series/', '^' . $name . '\.zip\.');
+		$size = ($files) ? filesize(JPATH_BASE . '/' . $folder . 'series/' . $files[0]) : 0;
 
 		if ($size)
 		{
