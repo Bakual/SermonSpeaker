@@ -74,6 +74,18 @@ $input = $app->input;
 									endif; ?>
 								</span>
 							</div>
+							<div id="plupload1">
+								<ul id="filelist"></ul>
+								<br />
+
+								<div id="container">
+									<a id="browse" href="javascript:;">[Browse...]</a>
+									<a id="start-upload" href="javascript:;">[Start Upload]</a>
+								</div>
+
+								<br />
+								<pre id="console"></pre>
+							</div>
 						</div>
 					</div>
 					<div class="control-group">
