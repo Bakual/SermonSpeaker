@@ -53,6 +53,13 @@ class SermonspeakerControllerFile extends JControllerLegacy
 
 		// Get some data from the request
 		$file	= $jinput->files->get('Filedata');
+
+		// Try with Plupload
+		if (!$file)
+		{
+			$file = $jinput->files->get('file');
+		}
+
 		$type	= $jinput->get('type', 'audio', 'word');
 		$type	= (in_array($type, array('audio', 'video', 'addfile'))) ? $type : 'audio';
 

@@ -19,109 +19,17 @@
 .intend{
 	clear:left;
 }
-.upload_button{
-	float:none;
-	vertical-align:middle;
-}
-/* Frontend Upload */
-.progressWrapper {
-	width: 100%;
-	max-width: 357px;
-	overflow: hidden;
-}
 
-.progressContainer {
-	margin: 5px;
-	padding: 4px;
-	border: solid 1px #E8E8E8;
-	background-color: #F7F7F7;
-	overflow: hidden;
+/* Plupload */
+.filelist {
+	margin: 5px 0 0 0;
 }
-/* Message */
-.message {
-	margin: 1em 0;
-	padding: 10px 20px;
-	border: solid 1px #FFDD99;
-	background-color: #FFFFCC;
-	overflow: hidden;
+.filelist .alert {
+	padding: 5px;
+	margin-bottom: 2px;
 }
-/* Error */
-.red {
-	border: solid 1px #B50000;
-	background-color: #FFEBEB;
-}
-
-/* Current */
-.green {
-	border: solid 1px #DDF0DD;
-	background-color: #EBFFEB;
-}
-
-/* Complete */
-.blue {
-	border: solid 1px #CEE2F2;
-	background-color: #F0F5FF;
-}
-
-.progressName {
-	font-size: 8pt;
-	font-weight: 700;
-	color: #555;
-	width: 323px;
-	height: 14px;
-	text-align: left;
-	white-space: nowrap;
-	overflow: hidden;
-}
-
-.progressBarInProgress,
-.progressBarComplete,
-.progressBarError {
-	font-size: 0;
-	width: 0;
-	height: 2px;
-	background-color: blue;
-	margin-top: 2px;
-}
-
-.progressBarComplete {
-	width: 100%;
-	background-color: green;
-	visibility: hidden;
-}
-
-.progressBarError {
-	width: 100%;
-	background-color: red;
-	visibility: hidden;
-}
-
-.progressBarStatus {
-	margin-top: 2px;
-	width: 337px;
-	font-size: 7pt;
-	font-family: Arial, sans-serif;
-	text-align: left;
-	white-space: nowrap;
-}
-
-a.progressCancel {
-	font-size: 0;
-	display: block;
-	height: 14px;
-	width: 14px;
-    background: url(images/cancelbutton.gif) no-repeat -14px 0;
-    float: right;
-}
-
-a.progressCancel:hover {
-	background-position: 0 0;
-}
-
-
-/* -- SWFUpload Object Styles ------------------------------- */
-.swfupload {
-	vertical-align: middle;
+.filelist .alert .close {
+	right: 0;
 }
 
 /* Setting the max-width of the speaker and series filterfield */
@@ -140,12 +48,12 @@ a.progressCancel:hover {
 	padding-left:5px;
 }
 
-.pathinfo{
-	font-size:small;
-	background-color:#E5FFFF;
-	border-radius:5px;
-	padding:1px 5px;
-	display:inline-block;
+.pathinfo {
+	font-size: small;
+	background-color: #E5FFFF;
+	border-radius: 5px;
+	padding: 1px 5px;
+	display: inline-block;
 }
 .ss-hide{
 	display:none;

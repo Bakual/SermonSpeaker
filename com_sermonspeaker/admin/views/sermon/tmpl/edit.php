@@ -62,29 +62,13 @@ $input = $app->input;
 						</div>
 						<div class="controls">
 							<?php echo $this->form->getInput('audiofile'); ?>
-							<div id="infoUpload1" class="intend">
-								<span id="btnUpload1"></span>
-								<button id="btnCancel1" type="button" onclick="cancelQueue(upload1);" class="ss-hide upload_button" disabled="disabled">Cancel</button>
-								<span id="audiopathinfo" class="pathinfo ss-hide hasTooltip" title="<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO_TOOLTIP'); ?>">
-									<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO');
-									if ($this->s3audio) :
-										echo ' http://'.$this->prefix.'.amazonaws.com/'.$this->bucket.'/';
-									else :
-										echo ' /'.trim($this->params->get('path_audio'), '/').'/<span id="audiopathdate" class="pathdate">'.$this->append_date.'</span><span id="audiopathlang" class="pathlang">'.$this->append_lang.'</span>';
-									endif; ?>
-								</span>
-							</div>
-							<div id="plupload1">
-								<ul id="filelist"></ul>
-								<br />
-
-								<div id="container">
-									<a id="browse" href="javascript:;">[Browse...]</a>
-									<a id="start-upload" href="javascript:;">[Start Upload]</a>
-								</div>
-
-								<br />
-								<pre id="console"></pre>
+							<div id="audiopathinfo" class="pathinfo hasTooltip" title="<?php echo JHtml::tooltipText(JText::_('COM_SERMONSPEAKER_UPLOADINFO_TOOLTIP'), '', 0); ?>">
+								<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO');
+								if ($this->s3audio) :
+									echo ' http://'.$this->prefix.'.amazonaws.com/'.$this->bucket.'/';
+								else :
+									echo ' /'.trim($this->params->get('path_audio'), '/').'/<span id="audiopathdate" class="pathdate">'.$this->append_date.'</span><span id="audiopathlang" class="pathlang">'.$this->append_lang.'</span>';
+								endif; ?>
 							</div>
 						</div>
 					</div>
@@ -103,17 +87,13 @@ $input = $app->input;
 						</div>
 						<div class="controls">
 							<?php echo $this->form->getInput('videofile'); ?>
-							<div id="infoUpload2" class="intend">
-								<span id="btnUpload2"></span>
-								<button id="btnCancel2" type="button" onclick="cancelQueue(upload2);" class="ss-hide upload_button" disabled="disabled">Cancel</button>
-								<span id="videopathinfo" class="pathinfo ss-hide hasTooltip" title="<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO_TOOLTIP'); ?>">
-									<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO');
-									if ($this->s3video) :
-										echo ' http://' . $this->prefix . '.amazonaws.com/' . $this->bucket . '/';
-									else :
-										echo ' /' . trim($this->params->get('path_video'), '/') . '/<span id="videopathdate" class="pathdate">' . $this->append_date . '</span><span id="videopathlang" class="pathlang">' . $this->append_lang . '</span>';
-									endif; ?>
-								</span>
+							<div id="videopathinfo" class="pathinfo hasTooltip" title="<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO_TOOLTIP'); ?>">
+								<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO');
+								if ($this->s3video) :
+									echo ' http://' . $this->prefix . '.amazonaws.com/' . $this->bucket . '/';
+								else :
+									echo ' /' . trim($this->params->get('path_video'), '/') . '/<span id="videopathdate" class="pathdate">' . $this->append_date . '</span><span id="videopathlang" class="pathlang">' . $this->append_lang . '</span>';
+								endif; ?>
 							</div>
 						</div>
 					</div>
@@ -132,12 +112,8 @@ $input = $app->input;
 						</div>
 						<div class="controls">
 							<?php echo $this->form->getInput('addfile'); ?>
-							<div id="infoUpload3" class="intend">
-								<span id="btnUpload3"></span>
-								<button id="btnCancel3" type="button" onclick="cancelQueue(upload3);" class="ss-hide upload_button" disabled="disabled">Cancel</button>
-								<span id="addfilepathinfo" class="pathinfo ss-hide hasTooltip" title="<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO_TOOLTIP'); ?>">
-									<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO').' /'.trim($this->params->get('path_addfile'), '/').'/<span id="addfilepathdate" class="pathdate">'.$this->append_date.'</span><span id="addfilepathlang" class="pathlang">'.$this->append_lang.'</span>'; ?>
-								</span>
+							<div id="addfilepathinfo" class="pathinfo hasTooltip" title="<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO_TOOLTIP'); ?>">
+								<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO').' /'.trim($this->params->get('path_addfile'), '/').'/<span id="addfilepathdate" class="pathdate">'.$this->append_date.'</span><span id="addfilepathlang" class="pathlang">'.$this->append_lang.'</span>'; ?>
 							</div>
 						</div>
 					</div>
