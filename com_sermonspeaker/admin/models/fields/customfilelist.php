@@ -107,13 +107,6 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 	 */
 	protected function getOptions()
 	{
-		// Get and sanitize file parameter
-		$this->file = (string) $this->element['file'];
-		$this->file = (in_array($this->file, array('audio', 'video', 'addfile'))) ? $this->file : 'audio';
-
-		// Mode: 0 = Default, 1 = Vimeo, 2 = Amazon S3, 3 = Extern
-		$this->mode = $this->params->get('path_mode_' . $this->file, 0);
-
 		if (!$this->mode)
 		{
 			// Fallback to 'path' for B/C with versions < 5.0.3
@@ -201,10 +194,10 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 
 			$bucket_contents = $s3->getBucket($bucket);
 
-			foreach ($bucket_contents as $this->file)
+			foreach ($bucket_contents as $file)
 			{
-				$fname = $this->file['name'];
-				$furl  = 'http://' . $prefix . '.amazonaws.com/' . $bucket . '/' . $fname;
+				$fname           = $file['name'];
+				$furl            = 'http://' . $prefix . '.amazonaws.com/' . $bucket . '/' . $fname;
 				$option['value'] = $furl;
 				$option['text']  = $fname;
 				$options[]       = $option;
@@ -219,10 +212,10 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 
 			if ($xml = simplexml_load_file($url))
 			{
-				foreach ($xml->file as $this->file)
+				foreach ($xml->file as $file)
 				{
-					$option['value'] = $this->file->URL;
-					$option['text']  = $this->file->name;
+					$option['value'] = $file->URL;
+					$option['text']  = $file->name;
 					$options[]       = $option;
 				}
 				return $options;
