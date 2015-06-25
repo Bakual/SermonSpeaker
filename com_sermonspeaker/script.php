@@ -202,6 +202,11 @@ class Com_SermonspeakerInstallerScript
 			$files[] = JPATH_SITE . '/components/com_sermonspeaker/models/forms/tag.xml';
 			$files[] = JPATH_SITE . '/components/com_sermonspeaker/controllers/tagform.php';
 
+			if (version_compare($this->oldRelease, '5.4.3', '<'))
+			{
+				JFolder::delete(JPATH_SITE . '/media/com_sermonspeaker/plupload');
+			}
+
 			JFile::delete($files);
 		}
 	}

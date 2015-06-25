@@ -59,8 +59,10 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 		}
 
 		$html .= '<div class="input-prepend input-append">'
-					. '<div id="' . $this->fieldname . '_text_icon" class="btn add-on icon-radio-checked" onclick="toggleElement(\'' . $this->fieldname . '\', 0);"> </div>'
-					. '<input name="' . $this->name . '" id="' . $this->id . '_text" class="' . $this->class . '" value="' . htmlspecialchars($this->value, ENT_COMPAT, 'UTF-8') . '" type="text">';
+					. '<div id="' . $this->fieldname . '_text_icon" class="btn add-on icon-radio-checked" onclick="toggleElement(\''
+						. $this->fieldname . '\', 0);"> </div>'
+					. '<input name="' . $this->name . '" id="' . $this->id . '_text" class="' . $this->class . '" value="'
+						. htmlspecialchars($this->value, ENT_COMPAT, 'UTF-8') . '" type="text">';
 
 		// Add Lookup button if not addfile field
 		if ($this->file != 'addfile')
@@ -80,16 +82,20 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 		$html .= '</div>'
 				. '<br />'
 				. '<div class="input-prepend input-append">'
-					. '<div id="' . $this->fieldname . '_icon" class="btn add-on icon-radio-unchecked" onclick="toggleElement(\'' . $this->fieldname . '\', 1);"> </div>';
+					. '<div id="' . $this->fieldname . '_icon" class="btn add-on icon-radio-unchecked" onclick="toggleElement(\''
+						. $this->fieldname . '\', 1);"> </div>';
 
 		$html .= parent::getInput();
 
 		if (!$this->mode && $this->file != 'addfile')
 		{
-			$html .= '<div class="btn add-on hasTooltip icon-wand" onclick="lookup(document.getElementById(\'' . $this->id . '\'))" title="' . JText::_('COM_SERMONSPEAKER_LOOKUP') . '"> </div>';
+			$html .= '<div class="btn add-on hasTooltip icon-wand" onclick="lookup(document.getElementById(\''
+				. $this->id . '\'))" title="' . JText::_('COM_SERMONSPEAKER_LOOKUP') . '"> </div>';
 		}
 
 		$html .= '</div>';
+
+		$html .= $this->getUploader();
 
 		return $html;
 	}
@@ -97,8 +103,7 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 	/**
 	 * Method to get the field options.
 	 *
-	 * @return	array	The field option objects.
-	 * @since	1.6
+	 * @return  array  The field option objects.
 	 */
 	protected function getOptions()
 	{
@@ -223,5 +228,120 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 				return $options;
 			}
 		}
+	}
+
+	/**
+	 * Generates the Uploader
+	 *
+	 * @return string
+	 */
+	protected function getUploader()
+	{
+		JHtml::_('jquery.framework');
+		JHtml::Script('media/com_sermonspeaker/plupload/plupload.full.min.js');
+
+		// Load localisation
+		$tag  = str_replace('-', '_', JFactory::getLanguage()->getTag());
+		$path = 'media/com_sermonspeaker/plupload/i18n/';
+		$file = $tag . '.js';
+
+		if (file_exists(JPATH_SITE . '/' . $path . $file))
+		{
+			JHtml::Script($path . $file);
+		}
+		else
+		{
+			$tag_array = explode('_', $tag);
+			$file      = $tag_array[0] . '.js';
+
+			if (file_exists(JPATH_SITE . '/' . $path . $file))
+			{
+				JHtml::Script($path . $file);
+			}
+		}
+
+		$uploadURL = JUri::base() . 'index.php?option=com_sermonspeaker&task=file.upload&'
+			. JSession::getFormToken() . '=1&format=json';
+
+		$plupload_script = '
+			jQuery(document).ready(function() {
+				var uploader_' . $this->fieldname . ' = new plupload.Uploader({
+					browse_button: "browse_' . $this->fieldname . '",
+					url: "' . $uploadURL . '&type=' . $this->file . '",
+					drop_element: "plupload_' . $this->fieldname . '",
+		';
+
+		// Add File filters
+		$types = $this->params->get($this->file . '_filetypes');
+		$types = array_map('trim', explode(',', $types));
+		$types = implode(',', $types);
+		$text  = strtoupper('COM_SERMONSPEAKER_FIELD_' . $this->fieldname . '_LABEL');
+
+		if ($types)
+		{
+			$plupload_script .= '
+					filters : {
+						mime_types: [
+							{title : "' . JText::_($text, 'true') . '", extensions : "' . $types . '"},
+						]
+					},';
+		}
+
+		$plupload_script .= '
+				});
+
+				uploader_' . $this->fieldname . '.init();
+				var closeButton = "<button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>";
+
+				uploader_' . $this->fieldname . '.bind("FilesAdded", function(up, files) {
+					var html = "";
+					plupload.each(files, function(file) {
+						html += "<div id=\"" + file.id + "\" class=\"alert alert-info\">"
+						 	+ file.name + " (" + plupload.formatSize(file.size) + ") "
+							+ "<progress id=\"" + file.id + "_progress\" max=\"100\"></progress></div>";
+					});
+					document.getElementById("filelist_' . $this->fieldname . '").innerHTML += html;
+					uploader_' . $this->fieldname . '.start();
+				});
+
+				uploader_' . $this->fieldname . '.bind("UploadProgress", function(up, file) {
+					document.getElementById(file.id + "_progress").setAttribute("value", file.percent);
+					document.getElementById(file.id + "_progress").innerHtml = "<b>" + file.percent + "%</b>";
+				});
+
+				uploader_' . $this->fieldname . '.bind("FileUploaded", function(up, file, response) {
+					if(response.status == 200){
+						var data = JSON.decode(response.response);
+						if (data.status == 1){
+							jQuery("#" + file.id).removeClass("alert-info").addClass("alert-success");
+							document.getElementById(file.id).innerHTML = data.error + closeButton;
+							document.id("' . $this->id . '_text").value = data.path;
+						}else{
+							jQuery("#" + file.id).removeClass("alert-info").addClass("alert-error");
+							jQuery("#" + file.id + "_progress").replaceWith(" &raquo; ' . JText::_('ERROR') . ': " + data.error + closeButton);
+						}
+					}
+				});
+
+				uploader_' . $this->fieldname . '.bind("Error", function(up, err) {
+					document.getElementById("filelist_' . $this->fieldname . '").innerHTML += "<div class=\"alert alert-error\">Error #"
+						+ err.code + ": " + err.message + closeButton + "</div>";
+				});
+
+				uploader_' . $this->fieldname . '.bind("PostInit", function(up) {
+					jQuery("#upload-noflash").remove();
+				});
+			});
+		';
+		JFactory::getDocument()->addScriptDeclaration($plupload_script);
+
+		$html = '<div id="plupload_' . $this->fieldname . '" class="uploader">
+					<div id="filelist_' . $this->fieldname . '" class="filelist"></div>
+					<a id="browse_' . $this->fieldname . '" href="javascript:;" class="btn btn-small">'
+						. JText::_('COM_SERMONSPEAKER_UPLOAD')
+					. '</a>
+				</div>';
+
+		return $html;
 	}
 }

@@ -91,7 +91,6 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 			return;
 		}
 
-		jimport('joomla.filesystem.file');
 		$files = array();
 		$content = array();
 		$calc_size = 0;
@@ -213,8 +212,6 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 
 		if ($count = count($files))
 		{
-			jimport('joomla.filesystem.folder');
-
 			if (!JFolder::exists($folder . 'series'))
 			{
 				JFolder::create($folder . 'series');
@@ -350,9 +347,6 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 
 			return;
 		}
-
-		jimport('joomla.filesystem.file');
-		jimport('joomla.filesystem.folder');
 
 		// Prepare filename and path
 		$params = JComponentHelper::getParams('com_sermonspeaker');

@@ -35,7 +35,7 @@ defined('_JEXEC') or die;
 		<h2>Classes</h2>
 		<div>SermonSpeaker includes the following extern classes besides the players mentioned above:
 			<ul>
-				<li><a href="http://www.swfupload.org">SWF Upload</a> for the Flash uploader.</li>
+				<li><a href="http://http://www.plupload.com/">Plupload</a> for the Uploader.</li>
 				<li><a href="http://getid3.sourceforge.net">GetID3</a> for the ID3 tags lookup.</li>
 				<li><a href="http://undesigned.org.za/2007/10/22/amazon-s3-php-class">Amazon S3 PHP Class</a> for the Amazon S3 support.</li>
 				<li><a href="https://github.com/eduardocereto/GA-Code-Samples">Google Analytics Code Samples</a> from <a href="http://www.cardinalpath.com">Cardinal Path</a> for the Vimeo GA support.</li>

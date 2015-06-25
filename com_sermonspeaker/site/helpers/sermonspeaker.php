@@ -122,7 +122,6 @@ class SermonspeakerHelperSermonspeaker
 			if (!$icon)
 			{
 				// Get extension of file
-				jimport('joomla.filesystem.file');
 				$ext = JFile::getExt($addfile);
 
 				if (file_exists(JPATH_SITE . '/media/com_sermonspeaker/icons/' . $ext . '.png'))
@@ -754,8 +753,6 @@ class SermonspeakerHelperSermonspeaker
 		}
 
 		// Dispatching
-		jimport('joomla.filesystem.file');
-
 		if (!JFile::exists(JPATH_SITE . '/components/com_sermonspeaker/helpers/player/' . $config['alt_player'] . '.php'))
 		{
 			$config['alt_player'] = 'jwplayer5';
@@ -826,7 +823,6 @@ class SermonspeakerHelperSermonspeaker
 				}
 
 				// Try to find a fallback
-				jimport('joomla.filesystem.folder');
 				$classfiles = JFolder::files(JPATH_SITE . '/components/com_sermonspeaker/helpers/player', '^[^_]*\.php$', false, true);
 
 				foreach ($classfiles as $classfile)

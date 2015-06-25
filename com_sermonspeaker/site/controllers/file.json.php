@@ -9,9 +9,6 @@
 
 defined('_JEXEC') or die();
 
-jimport('joomla.filesystem.file');
-jimport('joomla.filesystem.folder');
-
 /**
  * Controller class for the SermonSpeaker Component
  *
@@ -58,7 +55,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 		$jinput = $app->input;
 
 		// Get some data from the request
-		$file = $jinput->files->get('Filedata');
+		$file = $jinput->files->get('file');
 		$type = $jinput->get('type', 'audio', 'word');
 		$type = (in_array($type, array('audio', 'video', 'addfile'))) ? $type : 'audio';
 
@@ -163,7 +160,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 
 			if ($params->get('append_path_lang', 0))
 			{
-				$lang	= $jinput->get('select-language');
+				$lang = $jinput->get('select-language');
 
 				if (!$lang || $lang == '*')
 				{
@@ -234,33 +231,36 @@ class SermonspeakerControllerFile extends JControllerLegacy
 	{
 		$file = JFactory::getApplication()->input->get('file', '', 'string');
 
-		if ($file)
+		if (!$file)
 		{
-			require_once JPATH_COMPONENT_SITE . '/helpers/id3.php';
-			$params = JComponentHelper::getParams('com_sermonspeaker');
-			$id3    = SermonspeakerHelperId3::getID3($file, $params);
+			$response = array(
+				'status' => '0',
+				'msg' => JText::_('COM_SERMONSPEAKER_ERROR_ID3')
+			);
+			echo json_encode($response);
 
-			if ($id3)
-			{
-				$response = $id3;
-				$response['status']	= 1;
-			}
-			else
-			{
-				$response = array(
-					'status' => '0',
-					'msg' => JText::_('COM_SERMONSPEAKER_ERROR_ID3')
-				);
-			}
+			return;
+		}
+
+		require_once JPATH_COMPONENT_SITE . '/helpers/id3.php';
+		$params = JComponentHelper::getParams('com_sermonspeaker');
+		$id3    = SermonspeakerHelperId3::getID3($file, $params);
+
+		if ($id3)
+		{
+			$response           = $id3;
+			$response['status'] = 1;
 		}
 		else
 		{
-				$response = array(
-					'status' => '0',
-					'msg' => JText::_('COM_SERMONSPEAKER_ERROR_ID3')
-				);
+			$response = array(
+				'status' => '0',
+				'msg'    => JText::_('COM_SERMONSPEAKER_ERROR_ID3')
+			);
 		}
 
 		echo json_encode($response);
+
+		return;
 	}
 }

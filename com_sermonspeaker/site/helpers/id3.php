@@ -73,7 +73,6 @@ class SermonspeakerHelperId3
 			}
 			else
 			{
-				jimport('joomla.filesystem.file');
 				$id3['title'] = JFile::stripExt(JFile::getName($file));
 			}
 

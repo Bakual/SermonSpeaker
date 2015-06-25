@@ -9,9 +9,6 @@
 
 defined('_JEXEC') or die();
 
-jimport('joomla.filesystem.file');
-jimport('joomla.filesystem.folder');
-
 /**
  * Controller class for the SermonSpeaker Component
  *

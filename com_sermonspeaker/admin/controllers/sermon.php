@@ -1,7 +1,13 @@
 <?php
-defined('_JEXEC') or die;
+/**
+ * @package     SermonSpeaker
+ * @subpackage  Component.Administrator
+ * @author      Thomas Hunziker <admin@sermonspeaker.net>
+ * @copyright   (C) 2015 - Thomas Hunziker
+ * @license     http://www.gnu.org/licenses/gpl.html
+ **/
 
-jimport('joomla.application.component.controllerform');
+defined('_JEXEC') or die;
 
 /**
  * Serie controller class.
@@ -248,8 +254,6 @@ class SermonspeakerControllerSermon extends JControllerForm
 				'time'    => array($item->time),
 			);
 			$TagData['comment'] = array(strip_tags(JHtml::_('content.prepare', $item->notes)));
-
-			JImport('joomla.filesystem.file');
 
 			// Adding the picture to the id3 tags, taken from getID3 Demos -> demo.write.php
 			if ($item->picture && !parse_url($item->picture, PHP_URL_SCHEME))
