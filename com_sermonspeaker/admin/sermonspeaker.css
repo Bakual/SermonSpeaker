@@ -31,6 +31,13 @@
 .filelist .alert .close {
 	right: 0;
 }
+.drop-area {
+	border: 1px dashed #a9a9a9;
+	border-radius: 4px;
+	background-color: #f5f5f5;
+	margin: -5px 0 -5px -5px;
+	padding: 5px 0 5px 5px;
+}
 
 /* Setting the max-width of the speaker and series filterfield */
 #filter_series, #filter_speaker{

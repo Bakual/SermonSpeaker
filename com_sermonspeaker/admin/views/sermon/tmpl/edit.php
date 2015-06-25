@@ -56,7 +56,7 @@ $input = $app->input;
 					<div id="upload_limit" class="well well-small">
 						<?php echo JText::sprintf('COM_SERMONSPEAKER_UPLOAD_LIMIT', $this->upload_limit); ?>
 					</div>
-					<div class="control-group">
+					<div id="audiofile_drop" class="control-group">
 						<div class="control-label">
 							<?php echo $this->form->getLabel('audiofile'); ?>
 						</div>
@@ -81,7 +81,7 @@ $input = $app->input;
 						</div>
 					</div>
 					<hr />
-					<div class="control-group">
+					<div id="videofile_drop" class="control-group">
 						<div class="control-label">
 							<?php echo $this->form->getLabel('videofile'); ?>
 						</div>
@@ -106,7 +106,7 @@ $input = $app->input;
 						</div>
 					</div>
 					<hr />
-					<div class="control-group">
+					<div id="addfile_drop" class="control-group">
 						<div class="control-label">
 							<?php echo $this->form->getLabel('addfile'); ?>
 						</div>

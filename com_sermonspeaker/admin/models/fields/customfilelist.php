@@ -268,7 +268,7 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 				var uploader_' . $this->fieldname . ' = new plupload.Uploader({
 					browse_button: "browse_' . $this->fieldname . '",
 					url: "' . $uploadURL . '&type=' . $this->file . '",
-					drop_element: "plupload_' . $this->fieldname . '",
+					drop_element: "' . $this->fieldname . '_drop",
 		';
 
 		// Add File filters
@@ -330,6 +330,9 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 
 				uploader_' . $this->fieldname . '.bind("PostInit", function(up) {
 					jQuery("#upload-noflash").remove();
+					if(up.features.dragdrop){
+						jQuery("#' . $this->fieldname . '_drop").addClass("drop-area");
+					}
 				});
 			});
 		';
