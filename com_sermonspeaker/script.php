@@ -204,6 +204,12 @@ class Com_SermonspeakerInstallerScript
 
 			JFile::delete($files);
 		}
+
+		// Remove swfupload folder
+		if (version_compare($this->oldRelease, '5.4.3', '<'))
+		{
+			JFolder::delete(JPATH_SITE . '/media/com_sermonspeaker/swfupload');
+		}
 	}
 
 	/**
@@ -219,14 +225,14 @@ class Com_SermonspeakerInstallerScript
 		// Adding Category "uncategorized" if installing or discovering.
 		if ($type != 'update')
 		{
-			$this->_addCategory();
+			$this->addCategory();
 		}
 
 		/* Adding ContentTypes
 		 * needed in all cases for 5.0.4 to add content_history stuff.
 		 * Only needs to run on install and updates from "< 5.0.4" afterwards.
 		 * However no harm done when running always. */
-		$this->_saveContentTypes();
+		$this->saveContentTypes();
 
 		// Setting some default values for columns on install
 		if ($type == 'install')
@@ -298,7 +304,7 @@ class Com_SermonspeakerInstallerScript
 	 *
 	 * @return void
 	 */
-	function _addCategory()
+	private function addCategory()
 	{
 		// Create categories for our component
 		$basePath = JPATH_ADMINISTRATOR . '/components/com_categories';
@@ -333,7 +339,7 @@ class Com_SermonspeakerInstallerScript
 		return;
 	}
 
-	function _saveContentTypes()
+	private function saveContentTypes()
 	{
 		// Adding content_type for tags
 		$table = JTable::getInstance('Contenttype', 'JTable');
@@ -560,9 +566,9 @@ class Com_SermonspeakerInstallerScript
 	}
 
 	/*
-	 * get a variable from the manifest file (actually, from the manifest cache).
+	 * Get a variable from the manifest file (actually, from the manifest cache).
 	 */
-	function getParam($name)
+	private function getParam($name)
 	{
 		$db = JFactory::getDbo();
 		$db->setQuery('SELECT manifest_cache FROM #__extensions WHERE name = "com_sermonspeaker"');
