@@ -159,7 +159,6 @@ if ($this->params->get('show_category_title', 0) or in_array('speaker:hits', $th
 						$link = SermonspeakerHelperSermonspeaker::makelink($item->addfile);
 
 						// Get extension of file
-						jimport('joomla.filesystem.file');
 						$ext = JFile::getExt($item->addfile);
 
 						if (file_exists(JPATH_SITE . '/media/com_sermonspeaker/icons/' . $ext . '.png')) :

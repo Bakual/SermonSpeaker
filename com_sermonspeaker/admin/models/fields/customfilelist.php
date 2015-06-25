@@ -103,8 +103,7 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 	/**
 	 * Method to get the field options.
 	 *
-	 * @return	array	The field option objects.
-	 * @since	1.6
+	 * @return  array  The field option objects.
 	 */
 	protected function getOptions()
 	{

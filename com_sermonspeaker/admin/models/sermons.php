@@ -1,8 +1,6 @@
 <?php
 defined('_JEXEC') or die;
 
-jimport('joomla.application.component.modellist');
-
 class SermonspeakerModelSermons extends JModelList
 {
 	/**

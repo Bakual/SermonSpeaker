@@ -73,7 +73,7 @@ class SermonspeakerViewSermon extends JViewLegacy
 	 *
 	 * @param   string  $tpl  The name of the template file to parse; automatically searches through the template paths.
 	 *
-	 * @return mixed A string if successful, otherwise a Error object.
+	 * @return  mixed  A string if successful, otherwise a Error object.
 	 *
 	 * @throws Exception
 	 */
@@ -480,23 +480,5 @@ class SermonspeakerViewSermon extends JViewLegacy
 		}
 
 		return $val;
-	}
-
-	/**
-	 * Get allowed filetypes.
-	 *
-	 * @param   string  $field  For which field to lookup the filetypes
-	 *
-	 * @return  array
-	 */
-	protected function getAllowedFiletypes($field)
-	{
-		// Sanitize
-		$field = (in_array($field, array('audio', 'video', 'addfile'))) ? $field : 'audio';
-
-		$types = $this->params->get($field . '_filetypes');
-		$types = array_map('trim', explode(',', $types));
-
-		return ($types) ? '*.' . implode('; *.', $types) : '*.*';
 	}
 }

@@ -1,13 +1,13 @@
 <?php
 /**
- * @copyright	Copyright (C) 2005 - 2011 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
- */
+ * @package     SermonSpeaker
+ * @subpackage  Component.Administrator
+ * @author      Thomas Hunziker <admin@sermonspeaker.net>
+ * @copyright   (C) 2015 - Thomas Hunziker
+ * @license     http://www.gnu.org/licenses/gpl.html
+ **/
 
 defined('_JEXEC') or die;
-
-jimport('joomla.filesystem.file');
-jimport('joomla.filesystem.folder');
 
 /**
  * Tools Sermonspeaker Controller
@@ -270,7 +270,6 @@ class SermonspeakerControllerTools extends JControllerLegacy
 				);
 				$TagData['comment'] = array(strip_tags(JHtml::_('content.prepare', $item->notes)));
 
-				JImport('joomla.filesystem.file');
 				// Adding the picture to the id3 tags, taken from getID3 Demos -> demo.write.php
 				if ($item->picture && !parse_url($item->picture, PHP_URL_SCHEME)) {
 					ob_start();
@@ -330,17 +329,22 @@ class SermonspeakerControllerTools extends JControllerLegacy
 	public function delete(){
 		// Check for request forgeries
 		JSession::checkToken('request') or jexit(JText::_('JINVALID_TOKEN'));
-		$app	= JFactory::getApplication();
-		$file	= $app->input->get('file', '', 'string');
-		$file	= JPATH_SITE.$file;
-		jimport('joomla.filesystem.file');
-		if(JFile::exists($file)){
+		$app  = JFactory::getApplication();
+		$file = $app->input->get('file', '', 'string');
+		$file = JPATH_SITE . $file;
+
+		if(JFile::exists($file))
+		{
 			JFile::delete($file);
-			$app->enqueueMessage($file.' deleted!');
-		} else {
-			$app->enqueueMessage($file.' not found!', 'error');
+			$app->enqueueMessage($file . ' deleted!');
 		}
+		else
+		{
+			$app->enqueueMessage($file . ' not found!', 'error');
+		}
+
 		$app->redirect('index.php?option=com_sermonspeaker&view=tools');
+
 		return;
 	}
 
