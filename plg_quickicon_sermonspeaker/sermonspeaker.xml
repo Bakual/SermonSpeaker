@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.1" type="plugin" group="quickicon" method="upgrade">
+	<name>plg_quickicon_sermonspeaker</name>
+	<author>Thomas Hunziker</author>
+	<creationDate>2015-06-25</creationDate>
+	<copyright>(C) 2015</copyright>
+	<license>http://www.gnu.org/licenses/gpl.html</license>
+	<authorEmail>admin@sermonspeaker.net</authorEmail>
+	<authorUrl>http://www.sermonspeaker.net</authorUrl>
+	<version>1.0.0</version>
+	<description>PLG_QUICKICON_SERMONSPEAKER_XML_DESCRIPTION</description>
+	<files>
+		<filename plugin="sermonspeaker">sermonspeaker.php</filename>
+		<folder>language</folder>
+	</files>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field
+					name="context"
+					type="text"
+					label="PLG_QUICKICON_SERMONSPEAKER_FIELD_CONTEXT_LABEL"
+					description="PLG_QUICKICON_SERMONSPEAKER_FIELD_CONTEXT_DESC"
+					default="mod_quickicon"
+				/>
+				<field
+					name="sermons"
+					type="radio"
+					label="PLG_QUICKICON_SERMONSPEAKER_FIELD_SERMONS_LABEL"
+					description="PLG_QUICKICON_SERMONSPEAKER_FIELD_SERMONS_DESC"
+					default="1"
+					class="btn-group btn-group-yesno"
+					>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+				<field
+					name="speakers"
+					type="radio"
+					label="PLG_QUICKICON_SERMONSPEAKER_FIELD_SPEAKERS_LABEL"
+					description="PLG_QUICKICON_SERMONSPEAKER_FIELD_SPEAKERS_DESC"
+					default="1"
+					class="btn-group btn-group-yesno"
+					>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+				<field
+					name="series"
+					type="radio"
+					label="PLG_QUICKICON_SERMONSPEAKER_FIELD_SERIES_LABEL"
+					description="PLG_QUICKICON_SERMONSPEAKER_FIELD_SERIES_DESC"
+					default="1"
+					class="btn-group btn-group-yesno"
+					>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+			</fieldset>
+		</fields>
+	</config>
+</extension>

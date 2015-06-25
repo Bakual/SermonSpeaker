@@ -37,6 +37,8 @@ cd ../plg_sermonspeaker_pixelout/
 zip -r ../build/packages/plg_sermonspeaker_pixelout.zip *
 cd ../plg_content_churchtoolsermonspeaker/
 zip -r ../build/packages/plg_content_churchtoolsermonspeaker.zip *
+cd ../plg_quickicon_sermonspeaker/
+zip -r ../build/packages/plg_quickicon_sermonspeaker.zip *
 REM Package
 cd ../build/packages/
 copy ..\..\pkg_sermonspeaker.xml
