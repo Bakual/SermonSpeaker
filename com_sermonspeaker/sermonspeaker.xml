@@ -47,7 +47,7 @@
 		<folder>logo</folder>
 		<folder>images</folder>
 		<folder>player</folder>
-		<folder>swfupload</folder>
+		<folder>plupload</folder>
 	</media>
 	<administration>
 		<menu img="components/com_sermonspeaker/images/speakers-16.png">COM_SERMONSPEAKER</menu>
