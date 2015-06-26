@@ -48,20 +48,20 @@ class PlgQuickiconSermonspeaker extends JPlugin
 		if ($this->params->get('sermons', 1))
 		{
 			$buttons[] = array(
-							'link' => 'index.php?option=com_sermonspeaker&task=sermon.add',
-							'image' => 'pencil-2',
-							'text' => JText::_('PLG_QUICKICON_SERMONSPEAKER_NEW_SERMON'),
-							'id' => 'plg_quickicon_sermonspeaker_new_sermon',
-							'access' => array('core.create', 'com_sermonspeaker'),
-							'group' => 'PLG_QUICKICON_SERMONSPEAKER_GROUP'
-						);
+				'link' => 'index.php?option=com_sermonspeaker&task=sermon.add',
+				'image' => 'pencil-2',
+				'text' => JText::_('PLG_QUICKICON_SERMONSPEAKER_NEW_SERMON'),
+				'id' => 'plg_quickicon_sermonspeaker_new_sermon',
+				'access' => array('core.create', 'com_sermonspeaker'),
+				'group' => 'PLG_QUICKICON_SERMONSPEAKER_GROUP'
+			);
 			$buttons[] = array(
-							'link' => 'index.php?option=com_sermonspeaker&view=sermons',
-							'image' => 'quote-3',
-							'text' => JText::_('PLG_QUICKICON_SERMONSPEAKER_SERMONS_MANAGER'),
-							'id' => 'plg_quickicon_sermonspeaker_sermons_manager',
-							'group' => 'PLG_QUICKICON_SERMONSPEAKER_GROUP'
-						);
+				'link' => 'index.php?option=com_sermonspeaker&view=sermons',
+				'image' => 'quote-3',
+				'text' => JText::_('PLG_QUICKICON_SERMONSPEAKER_SERMONS_MANAGER'),
+				'id' => 'plg_quickicon_sermonspeaker_sermons_manager',
+				'group' => 'PLG_QUICKICON_SERMONSPEAKER_GROUP'
+			);
 		}
 
 		if ($this->params->get('speakers', 1))
@@ -70,6 +70,7 @@ class PlgQuickiconSermonspeaker extends JPlugin
 				'link'  => 'index.php?option=com_sermonspeaker&task=speaker.add',
 				'image' => 'pencil-2',
 				'text'  => JText::_('PLG_QUICKICON_SERMONSPEAKER_NEW_SPEAKER'),
+				'access' => array('core.create', 'com_sermonspeaker'),
 				'id'    => 'plg_quickicon_sermonspeaker_new_speaker',
 				'group' => 'PLG_QUICKICON_SERMONSPEAKER_GROUP'
 			);
@@ -87,6 +88,7 @@ class PlgQuickiconSermonspeaker extends JPlugin
 				'link'  => 'index.php?option=com_sermonspeaker&task=serie.add',
 				'image' => 'pencil-2',
 				'text'  => JText::_('PLG_QUICKICON_SERMONSPEAKER_NEW_SERIE'),
+				'access' => array('core.create', 'com_sermonspeaker'),
 				'id'    => 'plg_quickicon_sermonspeaker_new_serie',
 				'group' => 'PLG_QUICKICON_SERMONSPEAKER_GROUP'
 			);
