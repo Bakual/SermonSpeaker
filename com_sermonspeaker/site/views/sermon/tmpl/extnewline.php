@@ -125,15 +125,19 @@ if ($canEdit or ($canEditOwn and ($user->id == $this->item->created_by))) : ?>
 		</div>
 	<?php endif;
 
-	if ($this->params->get('popup_player') and ($player->mode)) : ?>
+	if ($this->params->get('popup_player') and $player) : ?>
 		<div class="ss-sermondetail-label"></div>
 		<div class="ss-sermondetail-text"><?php echo SermonspeakerHelperSermonspeaker::insertPopupButton($this->item->id, $player); ?></div>
 	<?php endif;
 
-	if (in_array('sermon:download', $this->columns) and $player->mode . 'file') :
-		$filesize	= $player->mode . 'filesize'; ?>
+	if (in_array('sermon:download', $this->columns) and $this->item->audiofile) : ?>
 		<div class="ss-sermondetail-label"></div>
-		<div class="ss-sermondetail-text"><?php echo SermonspeakerHelperSermonspeaker::insertdlbutton($this->item->slug, $player->mode, 0, $this->item->$filesize); ?></div>
+		<div class="ss-sermondetail-text"><?php echo SermonspeakerHelperSermonspeaker::insertdlbutton($this->item->slug, 'audio', 0, $this->item->audiofilesize); ?></div>
+	<?php endif;
+
+	if (in_array('sermon:download', $this->columns) and $this->item->videofile) : ?>
+		<div class="ss-sermondetail-label"></div>
+		<div class="ss-sermondetail-text"><?php echo SermonspeakerHelperSermonspeaker::insertdlbutton($this->item->slug, 'video', 0, $this->item->videofilesize); ?></div>
 	<?php endif;
 
 	if (in_array('sermon:addfile', $this->columns) and $this->item->addfile) : ?>

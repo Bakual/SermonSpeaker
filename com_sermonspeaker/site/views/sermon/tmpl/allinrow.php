@@ -92,9 +92,13 @@ if ($canEdit or ($canEditOwn and ($user->id == $this->item->created_by))) : ?>
 	</tr>
 </table>
 <div style="float:left;">
-	<?php if (in_array('sermon:download', $this->columns) and $player->mode . 'file') :
-		$filesize	= $player->mode . 'filesize';
-		echo SermonspeakerHelperSermonspeaker::insertdlbutton($this->item->slug, $player->mode, 0, $this->item->$filesize);
+	<?php if (in_array('sermon:download', $this->columns) and $this->item->audiofile) :
+		echo SermonspeakerHelperSermonspeaker::insertdlbutton($this->item->slug, 'audio', 0, $this->item->audiofilesize);
+	endif; ?>
+</div>
+<div style="float:left;">
+	<?php if (in_array('sermon:download', $this->columns) and $this->item->videofile) :
+		echo SermonspeakerHelperSermonspeaker::insertdlbutton($this->item->slug, 'video', 0, $this->item->videofilesize);
 	endif; ?>
 </div>
 <div style="float:right;">
