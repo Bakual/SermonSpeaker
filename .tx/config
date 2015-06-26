@@ -164,3 +164,15 @@ file_filter = plg_quickicon_sermonspeaker\language\<lang>\<lang>.plg_quickicon_s
 source_file = plg_quickicon_sermonspeaker\language\en-GB\en-GB.plg_quickicon_sermonspeaker.ini
 source_lang = en_GB
 minimum_perc = 1
+
+[sermonspeaker.mod_sermonspeakeradminsysini]
+file_filter = mod_sermonspeaker_admin\language\<lang>\<lang>.mod_sermonspeaker.sys.ini
+source_file = mod_sermonspeaker_admin\language\en-GB\en-GB.mod_sermonspeaker.sys.ini
+source_lang = en_GB
+minimum_perc = 1
+
+[sermonspeaker.mod_sermonspeakeradminini]
+file_filter = mod_sermonspeaker_admin\language\<lang>\<lang>.mod_sermonspeaker.ini
+source_file = mod_sermonspeaker_admin\language\en-GB\en-GB.mod_sermonspeaker.ini
+source_lang = en_GB
+minimum_perc = 1

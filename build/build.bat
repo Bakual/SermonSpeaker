@@ -18,6 +18,8 @@ cd ../mod_sermoncast/
 zip -r ../build/packages/mod_sermoncast.zip *
 cd ../mod_sermonspeaker/
 zip -r ../build/packages/mod_sermonspeaker.zip *
+cd ../mod_sermonspeaker_admin/
+zip -r ../build/packages/mod_sermonspeaker_admin.zip *
 REM Plugins
 cd ../plg_content_sermonspeaker/
 zip -r ../build/packages/plg_content_sermonspeaker.zip *
