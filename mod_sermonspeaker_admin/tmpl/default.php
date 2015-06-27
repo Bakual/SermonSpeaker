@@ -12,13 +12,7 @@ defined('_JEXEC') or die;
 $header = count($list) - 1;
 JHtml::_('bootstrap.tooltip');
 ?>
-<?php if (!$list) : ?>
-	<div class="row-fluid">
-		<div class="span12">
-			<div class="alert"><?php echo JText::_('MOD_SERMONSPEAKER_NO_MATCHING_RESULTS'); ?></div>
-		</div>
-	</div>
-<?php else: ?>
+<?php if ($list) : ?>
 	<?php foreach ($list as $type => $items) : ?>
 		<?php if ($header) : ?>
 			<div class="nav-header"><?php echo JTExt::_('MOD_SERMONSPEAKER_' . $type); ?></div>
@@ -30,7 +24,7 @@ JHtml::_('bootstrap.tooltip');
 				<?php $hits_class = ($hits >= 10000 ? 'important' : ($hits >= 1000 ? 'warning' : ($hits >= 100 ? 'info' : ''))); ?>
 				<div class="row-fluid">
 					<div class="span9">
-						<span class="badge badge-<?php echo $hits_class; ?> hasTooltip" title="<?php echo JHtml::tooltipText('JGLOBAL_HITS'); ?>"><?php echo $item->hits; ?></span>
+						<span class="badge badge-<?php echo $hits_class; ?> hasTooltip" title="<?php echo JText::_('JGLOBAL_HITS'); ?>"><?php echo $item->hits; ?></span>
 						<?php if ($item->checked_out) : ?>
 								<?php echo JHtml::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time); ?>
 						<?php endif; ?>
@@ -54,4 +48,10 @@ JHtml::_('bootstrap.tooltip');
 			<?php endforeach; ?>
 		</div>
 	<?php endforeach; ?>
+<?php else: ?>
+	<div class="row-fluid">
+		<div class="span12">
+			<div class="alert"><?php echo JText::_('JGLOBAL_NO_MATCHING_RESULTS'); ?></div>
+		</div>
+	</div>
 <?php endif; ?>

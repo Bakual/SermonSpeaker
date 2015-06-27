@@ -39,16 +39,6 @@
 				</field>
 
 				<field
-					name="catid"
-					type="category"
-					label="JCATEGORY"
-					description="MOD_SERMONSPEAKER_FIELD_CATEGORY_DESC"
-					extension="com_sermonspeaker"
-					>
-					<option value="">JOPTION_ANY_CATEGORY</option>
-				</field>
-
-				<field
 					name="ordering"
 					type="list"
 					label="MOD_SERMONSPEAKER_FIELD_ORDERING_LABEL"
@@ -71,6 +61,16 @@
 					>
 					<option value="1">JGLOBAL_ORDER_ASCENDING</option>
 					<option value="0">JGLOBAL_ORDER_DESCENDING</option>
+				</field>
+
+				<field
+						name="catid"
+						type="category"
+						label="JCATEGORY"
+						description="MOD_SERMONSPEAKER_FIELD_CATEGORY_DESC"
+						extension="com_sermonspeaker"
+						>
+					<option value="">JOPTION_ANY_CATEGORY</option>
 				</field>
 			</fieldset>
 			<fieldset
