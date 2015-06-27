@@ -176,3 +176,15 @@ file_filter = mod_sermonspeaker_admin\language\<lang>\<lang>.mod_sermonspeaker.i
 source_file = mod_sermonspeaker_admin\language\en-GB\en-GB.mod_sermonspeaker.ini
 source_lang = en_GB
 minimum_perc = 1
+
+[sermonspeaker.mod_sermonuploadsysini]
+file_filter = mod_sermonupload\language\<lang>\<lang>.mod_sermonupload.sys.ini
+source_file = mod_sermonupload\language\en-GB\en-GB.mod_sermonupload.sys.ini
+source_lang = en_GB
+minimum_perc = 1
+
+[sermonspeaker.mod_sermonuploadini]
+file_filter = mod_sermonupload\language\<lang>\<lang>.mod_sermonupload.ini
+source_file = mod_sermonupload\language\en-GB\en-GB.mod_sermonupload.ini
+source_lang = en_GB
+minimum_perc = 1
