@@ -21,6 +21,7 @@
 		<file type="module" id="mod_related_sermons" client="site">mod_related_sermons.zip</file>
 		<file type="module" id="mod_sermonarchive" client="site">mod_sermonarchive.zip</file>
 		<file type="module" id="mod_sermoncast" client="site">mod_sermoncast.zip</file>
+		<file type="module" id="mod_sermonupload" client="site">mod_sermonupload.zip</file>
 		<file type="module" id="mod_sermonspeaker" client="administrator">mod_sermonspeaker_admin.zip</file>
 		<file type="plugin" id="plg_search_sermonspeaker" client="site">plg_search_sermonspeaker.zip</file>
 		<file type="plugin" id="plg_finder_sermonspeaker" client="site">plg_finder_sermonspeaker.zip</file>
