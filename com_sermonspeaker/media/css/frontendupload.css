@@ -54,6 +54,9 @@
 	margin: 0 0 5px 0;
 	padding: 9px;
 }
+.sermonupload .filelist {
+	font-size: 75%;
+}
 .sermonupload .upload-header {
 	font-size: 11px;
 	font-weight: bold;
