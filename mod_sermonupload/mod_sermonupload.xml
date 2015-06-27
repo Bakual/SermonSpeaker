@@ -12,6 +12,7 @@
 	<files>
 		<filename module="mod_sermonupload">mod_sermonupload.php</filename>
 		<filename>mod_sermonupload.xml</filename>
+		<filename>helper.php</filename>
 		<folder>tmpl</folder>
 		<folder>language</folder>
 	</files>
