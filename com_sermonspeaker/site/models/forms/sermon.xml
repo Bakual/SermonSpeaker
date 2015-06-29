@@ -183,7 +183,7 @@
 			description="COM_SERMONSPEAKER_FIELD_SERIE_DESC"
 			class="inputbox"
 			>
-			<option value="0">COM_SERMONSPEAKER_SELECT_SERIE</option>
+			<option value="0">COM_SERMONSPEAKER_SELECT_SERIES</option>
 		</field>
 
 		<field name="picture" type="mediawrapper" class="inputbox"
