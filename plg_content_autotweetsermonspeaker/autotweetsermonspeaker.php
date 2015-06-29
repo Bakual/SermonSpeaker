@@ -57,9 +57,6 @@ class PlgContentAutotweetSermonspeaker extends plgAutotweetBase
 
 	protected $interval = 60;
 
-	// -1 means: nothing special to do
-	private $_post_modified_as_new = -1;
-
 	/**
 	 * Constructor
 	 *
@@ -70,32 +67,23 @@ class PlgContentAutotweetSermonspeaker extends plgAutotweetBase
 	{
 		parent::__construct($subject, $params);
 
-		defined('JPATH_AUTOTWEET') || define('JPATH_AUTOTWEET', JPATH_ADMINISTRATOR . '/components/com_autotweet');
-		defined('JPATH_AUTOTWEET_HELPERS') || define('JPATH_AUTOTWEET_HELPERS', JPATH_AUTOTWEET . '/helpers');
+		JLoader::register('SermonspeakerHelperRoute', JPATH_SITE . '/components/com_sermonspeaker/helpers/route.php');
+		JLoader::register('SermonspeakerHelperSermonspeaker', JPATH_SITE . '/components/com_sermonspeaker/helpers/sermonspeaker.php');
 
-		JLoader::register('CparamsHelper', JPATH_AUTOTWEET_HELPERS . '/cparams.php');
-		JLoader::register('AutotweetLog', JPATH_AUTOTWEET_HELPERS . '/autotweetlog.php');
-		JLoader::register('AutotweetPostHelper', JPATH_AUTOTWEET_HELPERS . '/autotweetposthelper.php');
-
-		JLoader::import('components.com_sermonspeaker.helpers.route', JPATH_ROOT);
-		JLoader::import('components.com_sermonspeaker.helpers.sermonspeaker', JPATH_ROOT);
-
-		$pluginParams = $this->pluginParams;
-
-		// Joomla article specific params
-		$this->categories          = $pluginParams->get('categories', '');
-		$this->excluded_categories = $pluginParams->get('excluded_categories', '');
-		$this->post_modified       = (int) $pluginParams->get('post_modified', 0);
-		$this->show_catsec         = (int) $pluginParams->get('show_catsec', 0);
-		$this->show_hash           = (int) $pluginParams->get('show_hash', 0);
-		$this->use_text            = (int) $pluginParams->get('use_text', 0);
-		$this->use_text_count      = $pluginParams->get('use_text_count', 100);
-		$this->static_text         = strip_tags($pluginParams->get('static_text', ''));
-		$this->static_text_pos     = (int) $pluginParams->get('static_text_pos', 1);
-		$this->static_text_source  = (int) $pluginParams->get('static_text_source', 0);
-		$this->metakey_count       = (int) $pluginParams->get('metakey_count', 1);
-		$this->interval            = (int) $pluginParams->get('interval', 60);
-		$this->Itemid              = (int) $pluginParams->get('menuitem', 0);
+		// Sermon specific params
+		$this->categories          = $this->params->get('categories', '');
+		$this->excluded_categories = $this->params->get('excluded_categories', '');
+		$this->post_modified       = (int) $this->params->get('post_modified', 0);
+		$this->show_category       = (int) $this->params->get('show_catsec', 0);
+		$this->show_hash           = (int) $this->params->get('show_hash', 0);
+		$this->use_text            = (int) $this->params->get('use_text', 0);
+		$this->use_text_count      = $this->params->get('use_text_count', 100);
+		$this->static_text         = strip_tags($this->params->get('static_text', ''));
+		$this->static_text_pos     = (int) $this->params->get('static_text_pos', 1);
+		$this->static_text_source  = (int) $this->params->get('static_text_source', 0);
+		$this->metakey_count       = (int) $this->params->get('metakey_count', 1);
+		$this->interval            = (int) $this->params->get('interval', 60);
+		$this->Itemid              = (int) $this->params->get('menuitem', 0);
 
 		// Correct value if value is under the minimum
 		if ($this->interval < 60)
@@ -114,9 +102,9 @@ class PlgContentAutotweetSermonspeaker extends plgAutotweetBase
 	 * @param   object  $item     A JTableContent object
 	 * @param   bool    $isNew    If the content is just about to be created
 	 *
-	 * @return	boolean
+	 * @return  boolean
 	 *
-	 * @since	1.5
+	 * @since  1.5
 	 */
 	public function onContentAfterSave($context, $item, $isNew)
 	{
@@ -175,24 +163,30 @@ class PlgContentAutotweetSermonspeaker extends plgAutotweetBase
 	 */
 	protected function postSermon($item)
 	{
-		$publish_up = ($item->sermon_date && ($item->sermon_date != '0000-00-00 00:00:00')) ? $item->sermon_date : JFactory::getDate()->toSql();
+		// Check categories
+		$cats   = $this->getContentCategories($item->catid);
+		$catIds = $cats[0];
 
-		$cats      = $this->getContentCategories($item->catid);
-		$cat_alias = $cats[2];
-
-		// Use main category for item url
-		$cat_slug = $cats[0][0] . ':' . JFilterOutput::stringURLSafe($cat_alias[0]);
-		$id_slug  = $item->id . ':' . JFilterOutput::stringURLSafe($item->alias);
-
-		// Create internal url for sermon
-		if ($this->Itemid)
+		if (!$this->isCategoryIncluded($catIds) || $this->isCategoryExcluded($catIds))
 		{
-			$url = 'index.php?option=com_sermonspeaker&view=sermon&id=' . $id_slug . '&Itemid=' . $this->Itemid;
+			return true;
+		}
+
+		// Determine Publish Up date
+		if ($item->publish_up && ($item->publish_up != '0000-00-00 00:00:00'))
+		{
+			$publish_up = $item->publish_up;
+		}
+		elseif ($item->sermon_date && ($item->sermon_date != '0000-00-00 00:00:00'))
+		{
+			$publish_up = $item->sermon_date;
 		}
 		else
 		{
-			$url = SermonspeakerHelperRoute::getSermonRoute($id_slug, $cat_slug);
+			$publish_up = JFactory::getDate()->toSql();
 		}
+
+		$url = SermonspeakerHelperRoute::getSermonRoute($item->id, $item->catid, $item->language);
 
 		// Get some additional information
 		if ($series_id = (int) $item->series_id)
@@ -250,24 +244,21 @@ class PlgContentAutotweetSermonspeaker extends plgAutotweetBase
 		$item = json_decode($native_object);
 
 		// Get category path for item
-		$cats = $this->getContentCategories($item->catid);
-		$catids = $cats[0];
+		$cats      = $this->getContentCategories($item->catid);
+		$catids    = $cats[0];
 		$cat_names = $cats[1];
 
-		// Needed for url only
-		$cat_alias = $cats[2];
-
 		// Use item title or text as message
-		$title = $item->title;
+		$title     = $item->title;
 		$item_text = JHtml::_('content.prepare', $item->notes);
-		$text = $this->getMessagetext($this->use_text, $this->use_text_count, $title, $item_text);
-		$hashtags = '';
+		$text      = $this->getMessagetext($this->use_text, $this->use_text_count, $title, $item_text);
+		$hashtags  = '';
 
 		// Use metakey or static text or nothing
 		if ((2 == $this->static_text_source) || ((1 == $this->static_text_source) && (empty($item->metakey))))
 		{
 			$title = $this->addStatictext($this->static_text_pos, $title, $this->static_text);
-			$text = $this->addStatictext($this->static_text_pos, $text, $this->static_text);
+			$text  = $this->addStatictext($this->static_text_pos, $text, $this->static_text);
 		}
 		elseif (1 == $this->static_text_source)
 		{
@@ -276,11 +267,11 @@ class PlgContentAutotweetSermonspeaker extends plgAutotweetBase
 
 		// Title
 		$catsec_result = $this->addCategories($this->show_catsec, $cat_names, $title, 0);
-		$title = $catsec_result['text'];
+		$title         = $catsec_result['text'];
 
 		// Text
 		$catsec_result = $this->addCategories($this->show_catsec, $cat_names, $text, $this->show_hash);
-		$text = $catsec_result['text'];
+		$text          = $catsec_result['text'];
 
 		if ('' != $catsec_result['hashtags'])
 		{
