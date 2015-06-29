@@ -2,7 +2,7 @@
 <extension type="module" version="3.4" client="administrator" method="upgrade">
 		<name>MOD_SERMONSPEAKER</name>
 		<author>Thomas Hunziker</author>
-		<creationDate>2015-06-26</creationDate>
+		<creationDate>2015-06-29</creationDate>
 		<copyright>(C) 2015</copyright>
 		<authorEmail>admin@sermonspeaker.net</authorEmail>
 		<authorUrl>http://www.sermonspeaker.net</authorUrl>
@@ -26,7 +26,7 @@
 					type="text"
 					label="MOD_SERMONSPEAKER_FIELD_COUNT_LABEL"
 					description="MOD_SERMONSPEAKER_FIELD_COUNT_DESC"
-					default="5"
+					default="2"
 				/>
 
 				<field
@@ -75,6 +75,42 @@
 						>
 					<option value="">JOPTION_ANY_CATEGORY</option>
 				</field>
+
+				<field
+						name="show_hits"
+						type="radio"
+						label="MOD_SERMONSPEAKER_FIELD_SHOW_HITS_LABEL"
+						description="MOD_SERMONSPEAKER_FIELD_SHOW_HITS_DESC"
+						class="btn-group btn-group-yesno"
+						default="0"
+						>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+
+				<field
+						name="show_state"
+						type="radio"
+						label="MOD_SERMONSPEAKER_FIELD_SHOW_STATE_LABEL"
+						description="MOD_SERMONSPEAKER_FIELD_SHOW_STATE_DESC"
+						class="btn-group btn-group-yesno"
+						default="1"
+						>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+
+				<field
+						name="show_author"
+						type="radio"
+						label="MOD_SERMONSPEAKER_FIELD_SHOW_AUTHOR_LABEL"
+						description="MOD_SERMONSPEAKER_FIELD_SHOW_AUTHOR_DESC"
+						class="btn-group btn-group-yesno"
+						default="1"
+						>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
 			</fieldset>
 			<fieldset
 				name="advanced">
@@ -91,16 +127,6 @@
 					label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL"
 					description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC"
 				/>
-
-				<field
-					name="cache"
-					type="list"
-					default="0"
-					label="COM_MODULES_FIELD_CACHING_LABEL"
-					description="COM_MODULES_FIELD_CACHING_DESC"
-					>
-					<option value="0">COM_MODULES_FIELD_VALUE_NOCACHING</option>
-				</field>
 			</fieldset>
 		</fields>
 	</config>

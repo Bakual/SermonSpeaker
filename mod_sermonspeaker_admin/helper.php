@@ -37,8 +37,8 @@ class ModSermonspeakerHelper
 
 		// Set States
 		$model->setState('list.select',
-			$type . '.id, ' . $type . '.catid, ' . $type . '.title, ' . $type . '.checked_out, '
-			. $type . '.checked_out_time, ' . $type . '.created, ' . $type . '.hits');
+			$type . '.id, ' . $type . '.catid, ' . $type . '.title, ' . $type . '.state, ' . $type . '.checked_out, '
+			. $type . '.checked_out_time, ' . $type . '.created, ' . $type . '.created_by, ' . $type . '.hits');
 
 		$ordering = $params->get('ordering', 'hits');
 
@@ -60,7 +60,7 @@ class ModSermonspeakerHelper
 
 		// Set the Start and Limit
 		$model->setState('list.start', 0);
-		$model->setState('list.limit', $params->get('count', 5));
+		$model->setState('list.limit', $params->get('count', 2));
 
 		try
 		{

@@ -19,12 +19,18 @@ JHtml::_('bootstrap.tooltip');
 		<?php endif; ?>
 		<div class="row-striped">
 			<?php foreach ($items as $i => $item) : ?>
-				<?php // Calculate popular items ?>
-				<?php $hits = (int) $item->hits; ?>
-				<?php $hits_class = ($hits >= 10000 ? 'important' : ($hits >= 1000 ? 'warning' : ($hits >= 100 ? 'info' : ''))); ?>
 				<div class="row-fluid">
 					<div class="span9">
-						<span class="badge badge-<?php echo $hits_class; ?> hasTooltip" title="<?php echo JText::_('JGLOBAL_HITS'); ?>"><?php echo $item->hits; ?></span>
+						<?php if ($params->get('show_state', 1)) : ?>
+							<?php echo JHtml::_('jgrid.published', $item->state, $i, '', false); ?>
+						<?php endif; ?>
+						<?php if ($params->get('show_hits')) : ?>
+							<?php $hits = (int) $item->hits; ?>
+							<?php $hits_class = ($hits >= 10000 ? 'important' : ($hits >= 1000 ? 'warning' : ($hits >= 100 ? 'info' : ''))); ?>
+							<span class="badge badge-<?php echo $hits_class; ?> hasTooltip" title="<?php echo JText::_('JGLOBAL_HITS'); ?>">
+								<?php echo $item->hits; ?>
+							</span>
+						<?php endif; ?>
 						<?php if ($item->checked_out) : ?>
 								<?php echo JHtml::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time); ?>
 						<?php endif; ?>
@@ -37,6 +43,12 @@ JHtml::_('bootstrap.tooltip');
 								<?php echo htmlspecialchars($item->title, ENT_QUOTES, 'UTF-8'); ?>
 							<?php endif; ?>
 						</strong>
+
+						<?php if ($params->get('show_author', 1)) : ?>
+							<small class="hasTooltip" title="<?php echo JText::_('JGLOBAL_FIELD_CREATED_BY_LABEL'); ?>">
+								<?php echo $item->author_name; ?>
+							</small>
+						<?php endif; ?>
 					</div>
 					<div class="span3">
 						<span class="small">

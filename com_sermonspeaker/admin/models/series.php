@@ -131,6 +131,10 @@ class SermonspeakerModelSeries extends JModelList
 		$query->select('uc.name AS editor');
 		$query->join('LEFT', '#__users AS uc ON uc.id = series.checked_out');
 
+		// Join over the users for the author.
+		$query->select('ua.name AS author_name')
+			->join('LEFT', '#__users AS ua ON ua.id = series.created_by');
+
 		// Join over the associations.
 		if (JLanguageAssociations::isEnabled())
 		{
