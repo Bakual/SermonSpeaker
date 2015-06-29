@@ -2,11 +2,11 @@
 <extension type="package" version="3.4.0" method="upgrade">
 	<name>SermonSpeaker Package</name>
 	<author>Thomas Hunziker</author>
-	<creationDate>2015-06-25</creationDate>
+	<creationDate>2015-06-29</creationDate>
 	<copyright>(C) 2015</copyright>
 	<authorEmail>admin@sermonspeaker.net</authorEmail>
 	<authorUrl>http://www.sermonspeaker.net</authorUrl>
-	<version>5.4.3</version>
+	<version>5.4.4</version>
 	<license>http://www.gnu.org/licenses/gpl.html</license>
 	<packagename>sermonspeaker</packagename>
 	<url>http://www.sermonspeaker.net</url>
