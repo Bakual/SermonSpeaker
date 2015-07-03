@@ -70,6 +70,12 @@ class SermonspeakerControllerFile extends JControllerLegacy
 			return;
 		}
 
+		// Get file extension
+		$ext = JFile::getExt($file['name']);
+
+		// Make filename URL safe. Eg replaces ä with ae.
+		$file['name'] = JFilterOutput::stringURLSafe(JFile::stripExt($file['name'])) . '.' . $ext;
+
 		// Make the filename safe
 		$file['name'] = JFile::makeSafe($file['name']);
 
@@ -79,7 +85,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 		// Check if filename has more chars than only underscores, making a new filename based on current date/time if not
 		if (count_chars(JFile::stripExt($file['name']), 3) == '_')
 		{
-			$file['name'] = JFactory::getDate()->format("Y-m-d-H-i-s") . '.' . JFile::getExt($file['name']);
+			$file['name'] = JFactory::getDate()->format("Y-m-d-H-i-s") . '.' . $ext;
 		}
 
 		$mode = 0;
@@ -94,7 +100,6 @@ class SermonspeakerControllerFile extends JControllerLegacy
 		}
 
 		// Check for file extension
-		$ext   = JFile::getExt($file['name']);
 		$types = $params->get($type . '_filetypes');
 		$types = array_map('trim', explode(',', $types));
 
@@ -125,7 +130,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 			$prefix = ($region == 'US') ? 's3' : 's3-' . $region;
 
 			// Upload the file
-			if ($s3->putObjectFile($file['tmp_name'], $bucket, JFile::makeSafe($file['name']), S3::ACL_PUBLIC_READ))
+			if ($s3->putObjectFile($file['tmp_name'], $bucket, $file['name'], S3::ACL_PUBLIC_READ))
 			{
 				$response = array(
 					'status' => '1',
