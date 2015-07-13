@@ -161,10 +161,13 @@ class SermonspeakerModelSermons extends JModelList
 		// Join over the associations.
 		if (JLanguageAssociations::isEnabled())
 		{
-			$query->select('COUNT(asso2.id)>1 as association')
-				->join('LEFT', '#__associations AS asso ON asso.id = sermons.id AND asso.context=' . $db->quote('com_sermonspeaker.sermon'))
-				->join('LEFT', '#__associations AS asso2 ON asso2.key = asso.key')
-				->group('sermons.id');
+			$subquery = $db->getQuery(true);
+			$subquery->select('COUNT(asso2.id)>1');
+			$subquery->from('#__associations as asso');
+			$subquery->where('asso.id = sermons.id');
+			$subquery->join('LEFT', '#__associations AS asso2 ON asso2.key = asso.key');
+
+			$query->select('(' . $subquery . ') as association');
 		}
 
 		// Join over the scriptures.
