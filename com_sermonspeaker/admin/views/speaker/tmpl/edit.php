@@ -64,6 +64,11 @@ $input	= $app->input;
 				</div>
 			</div>
 		<?php echo JHtml::_('bootstrap.endTab');
+		if (JLanguageAssociations::isEnabled()) :
+			echo JHtml::_('bootstrap.addTab', 'myTab', 'associations', JText::_('JGLOBAL_FIELDSET_ASSOCIATIONS', true));
+			echo $this->loadTemplate('associations');
+			echo JHtml::_('bootstrap.endTab');
+		endif;
 		echo JHtml::_('bootstrap.endTabSet'); ?>
 		<input type="hidden" name="task" value="" />
 		<input type="hidden" name="return" value="<?php echo $input->getCmd('return');?>" />
