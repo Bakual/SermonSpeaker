@@ -44,12 +44,16 @@
 					description="MOD_LATESTSERMONS_PARAM_COUNT_DESC"
 					required="true"
 					default="3" />
-				<field name="ls_mo_menuitem" type="menuitem" 
-					default=""
-					label="MOD_LATESTSERMONS_PARAM_MO_MENUITEM" 
-					description="MOD_LATESTSERMONS_PARAM_MO_MENUITEM_DESC" 
+				<field
+					name="ls_mo_menuitem"
+					type="menuitem"
+					label="MOD_LATESTSERMONS_PARAM_MO_MENUITEM"
+					description="MOD_LATESTSERMONS_PARAM_MO_MENUITEM_DESC"
 					state="1"
-				/>
+					default=""
+					>
+					<option value="">MOD_LATESTSERMONS_PARAM_MO_MENUITEM_OPTION_AUTO</option>
+				</field>
 				<field name="spacer1" type="spacer"
 					hr="true" />
 				<field name="show_list" type="radio" 

@@ -11,8 +11,6 @@ defined('_JEXEC') or die();
 
 $i     = 0;
 $count = count($list);
-
-JLoader::discover('SermonspeakerHelper', JPATH_SITE . '/components/com_sermonspeaker/helpers');
 ?>
 <div class="latestsermons<?php echo $moduleclass_sfx; ?>">
 	<?php if ($params->get('show_list')) : ?>
