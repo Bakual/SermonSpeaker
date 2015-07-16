@@ -15,8 +15,8 @@ $count = count($list);
 JLoader::discover('SermonspeakerHelper', JPATH_SITE . '/components/com_sermonspeaker/helpers');
 ?>
 <div class="latestsermons<?php echo $moduleclass_sfx; ?>">
-	<div class="row-fluid">
-		<?php if ($params->get('show_list')) : ?>
+	<?php if ($params->get('show_list')) : ?>
+		<div class="row-fluid">
 			<?php foreach($list as $row) : ?>
 				<?php $i++; ?>
 				<div class="latestsermons_entry<?php echo $i; ?> text-center span<?php echo (int) 12/$count; ?>">
@@ -35,8 +35,7 @@ JLoader::discover('SermonspeakerHelper', JPATH_SITE . '/components/com_sermonspe
 						<span>
 							<?php if ($row->series_state) : ?>
 								<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($row->series_slug, $row->series_catid)); ?>">
-									<?php echo $row->series_title; ?>
-								</a>
+									<?php echo $row->series_title; ?></a>
 							<?php else : ?>
 								<?php echo $row->series_title; ?>
 							<?php endif; ?>
@@ -44,62 +43,53 @@ JLoader::discover('SermonspeakerHelper', JPATH_SITE . '/components/com_sermonspe
 					<?php endif; ?>
 					<?php if ($params->get('ls_show_mo_speaker') and $row->speaker_title) : ?>
 						<span>
+							<?php if ($params->get('ls_show_mo_series') and $row->series_title) : ?>
+								 |
+							<?php endif; ?>
 							<?php if ($row->speaker_state): ?>
 								<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($row->speaker_slug, $row->speaker_catid)); ?>">
-									<?php echo $row->speaker_title; ?>
-								</a>
+									<?php echo $row->speaker_title; ?></a>
 							<?php else : ?>
 								<?php echo $row->speaker_title; ?>
 							<?php endif; ?>
 						</span>
-					<?php endif;
-
-						if ($params->get('show_hits', 0) & 1) : ?>
-							<dd class="hits">
-								<?php echo JText::_('JGLOBAL_HITS'); ?>:
-								<?php echo $row->hits; ?>
-							</dd>
-						<?php endif; ?>
-
-					<div style="clear:left;"></div>
-					<?php
-					if (strlen($row->notes) > 0) : ?>
-					<?php endif;
-
-					if ($i < $count) : ?>
-						<hr />
+					<?php endif; ?>
+					<?php if ($params->get('show_hits', 0) & 1) : ?>
+						<div class="hits">
+							<?php echo JText::_('JGLOBAL_HITS'); ?>: <?php echo $row->hits; ?>
+						</div>
 					<?php endif; ?>
 				</div>
 			<?php endforeach; ?>
-			</div>
-		<?php endif;
-
-		if ($params->get('show_player')) :
-			if ($params->get('show_list')) : ?>
-				<br />
-			<?php endif; ?>
-			<div class="latestsermons_player">
+		</div>
+	<?php endif; ?>
+	<?php if ($params->get('show_player')) : ?>
+		<?php if ($params->get('show_list')) : ?>
+			<br />
+		<?php endif; ?>
+		<div class="latestsermons_player">
 			<?php
-			require_once JPATH_SITE . '/components/com_sermonspeaker/helpers/sermonspeaker.php';
-			require_once JPATH_SITE . '/components/com_sermonspeaker/helpers/player.php';
-			jimport('joomla.application.component.helper');
 			$c_params = JComponentHelper::getParams('com_sermonspeaker');
-			$config['autostart']	= 0;
-			$config['count']		= 'ls';
-			$config['type']			= $c_params->get('fileprio') ? 'video' : 'audio';
-			$config['alt_player']	= $c_params->get('alt_player');
-			$config['vheight']		= $params->get('vheight');
+			$config['autostart']  = 0;
+			$config['count']      = 'ls';
+			$config['type']       = $c_params->get('fileprio') ? 'video' : 'audio';
+			$config['alt_player'] = $c_params->get('alt_player');
+			$config['vheight']    = $params->get('vheight');
 			$player = SermonspeakerHelperSermonspeaker::getPlayer($list, $config);
 			echo $player->mspace;
-			echo $player->script; ?>
-			</div>
-		<?php endif;
-
-		if ($params->get('ls_show_mo_link')) : ?>
-			<br />
-			<div class="latestsermons_link">
-				<a href="<?php echo JRoute::_('index.php?option=com_sermonspeaker&view=sermons&Itemid=' . $itemid); ?>"><?php echo JText::_('MOD_LATESTSERMONS_LINK'); ?></a>
-			</div>
-		<?php endif; ?>
-	</div>
+			echo $player->script;
+			?>
+		</div>
+	<?php endif; ?>
+	<?php if ($params->get('ls_show_mo_link')) :
+		if ($itemid) :
+			$link = 'index.php?option=com_sermonspeaker&view=sermons&Itemid=' . $itemid;
+		else :
+			$link = SermonspeakerHelperRoute::getSermonsRoute();
+		endif; ?>
+		<br />
+		<div class="latestsermons_link">
+			<a href="<?php echo JRoute::_($link); ?>"><?php echo JText::_('MOD_LATESTSERMONS_LINK'); ?></a>
+		</div>
+	<?php endif; ?>
 </div>
