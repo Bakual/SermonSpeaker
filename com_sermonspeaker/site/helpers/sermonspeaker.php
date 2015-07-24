@@ -710,8 +710,7 @@ class SermonspeakerHelperSermonspeaker
 			$registry->loadArray($config);
 
 			JPluginHelper::importPlugin('sermonspeaker');
-			$dispatcher = JEventDispatcher::getInstance();
-			$dispatcher->trigger('onGetPlayer', array('SermonspeakerHelperSermonspeaker.getPlayer', &$player, $item, $registry));
+			JFactory::getApplication()->triggerEvent('onGetPlayer', array('SermonspeakerHelperSermonspeaker.getPlayer', &$player, $item, $registry));
 
 			if (!$player->mspace)
 			{
