@@ -607,6 +607,13 @@ class SermonspeakerHelperSermonspeaker
 			if ($text && $addTag)
 			{
 				$tags = self::$params->get('plugin_tag');
+
+				// Due to a strange behavior of the menuitem (Registry?), I manually retrieve component params if "Use Global" was selected.
+				if (!$tags)
+				{
+					$tags = JComponentHelper::getParams('com_sermonspeaker')->get('plugin_tag');
+				}
+
 				$text = $tags[0] . $text . $tags[1];
 			}
 		}
