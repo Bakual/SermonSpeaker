@@ -106,6 +106,12 @@ class SermonspeakerModelSerie extends JModelAdmin
 			$form->setFieldAttribute('state', 'filter', 'unset');
 		}
 
+		// Modify the form to allow resetting the hits counter.
+		if (isset($data['hits']) && $data['hits'] == 0)
+		{
+			$form->setFieldAttribute('hits', 'filter', '');
+		}
+
 		return $form;
 	}
 

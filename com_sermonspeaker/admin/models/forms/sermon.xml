@@ -199,6 +199,7 @@
 			description="COM_SERMONSPEAKER_FIELD_HITS_DESC"
 			class="readonly"
 			readonly="true"
+			filter="unset"
 		/>
 
 		<field

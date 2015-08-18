@@ -122,10 +122,15 @@
 				filter="user_utc"
 				/>
 
-		<field name="hits" type="hits"
-			label="JGLOBAL_HITS" description="COM_SERMONSPEAKER_FIELD_HITS_DESC"
+		<field
+			name="hits"
+			type="hits"
+			label="JGLOBAL_HITS"
+			description="COM_SERMONSPEAKER_FIELD_HITS_DESC"
 			class="readonly"
-			readonly="true" />
+			readonly="true"
+			filter="unset"
+		/>
 
 		<field name="version" type="text"
 			label="COM_SERMONSPEAKER_FIELD_VERSION_LABEL" size="6" description="COM_SERMONSPEAKER_FIELD_VERSION_DESC"

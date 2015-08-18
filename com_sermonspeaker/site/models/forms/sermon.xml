@@ -137,8 +137,14 @@
 			format="%Y-%m-%d %H:%M:%S" filter="user_utc"
 			readonly="true" />
 
-		<field name="hits" type="hits" class="readonly"
-			label="JGLOBAL_HITS" description="COM_SERMONSPEAKER_FIELD_HITS_DESC" />
+		<field
+			name="hits"
+			type="hits"
+			class="readonly"
+			label="JGLOBAL_HITS"
+			description="COM_SERMONSPEAKER_FIELD_HITS_DESC"
+			filter="unset"
+		/>
 
 	</fieldset>
 
