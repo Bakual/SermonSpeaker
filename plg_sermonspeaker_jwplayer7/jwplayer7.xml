@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.4.0" type="plugin" group="sermonspeaker" method="upgrade">
+	<name>plg_sermonspeaker_jwplayer7</name>
+	<author>Thomas Hunziker</author>
+	<creationDate>2015-08-21</creationDate>
+	<copyright>(C) 2015</copyright>
+	<license>http://www.gnu.org/licenses/gpl.html</license>
+	<authorEmail>admin@sermonspeaker.net</authorEmail>
+	<authorUrl>http://www.sermonspeaker.net</authorUrl>
+	<version>5.4.0</version>
+	<description>PLG_SERMONSPEAKER_JWPLAYER7_XML_DESCRIPTION</description>
+	<files>
+		<filename plugin="jwplayer7">jwplayer7.php</filename>
+		<folder>language</folder>
+	</files>
+	<media destination="plg_sermonspeaker_jwplayer7" folder="media">
+		<folder>skins</folder>
+		<filename>jwplayer.js</filename>
+		<filename>jwplayer.flash.swf</filename>
+		<filename>provider.shaka.js</filename>
+	</media>
+	<updateservers>
+		<server type="extension" priority="1" name="SermonSpeaker.net">http://www.sermonspeaker.net/update/plg_sermonspeaker_jwplayer7.xml</server>
+	</updateservers>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+
+				<field
+					name="hosting"
+					type="radio"
+					label="PLG_SERMONSPEAKER_JWPLAYER7_FIELD_HOSTING_LABEL"
+					description="PLG_SERMONSPEAKER_JWPLAYER7_FIELD_HOSTING_DESC"
+					class="btn-group btn-group-yesno"
+					default="0"
+					>
+					<option value="1">CLOUD</option>
+					<option value="0">SELF</option>
+				</field>
+
+				<field
+					name="cloud_library_url"
+					type="url"
+					label="PLG_SERMONSPEAKER_JWPLAYER7_FIELD_CLOUD_LIBRARY_URL_LABEL"
+					description="PLG_SERMONSPEAKER_JWPLAYER7_FIELD_CLOUD_LIBRARY_URL_DESC"
+					class="input-xxlarge"
+					showon="hosting:1"
+				/>
+
+				<field
+					name="license_self"
+					type="text"
+					label="PLG_SERMONSPEAKER_JWPLAYER7_FIELD_LICENSE_SELF_LABEL"
+					description="PLG_SERMONSPEAKER_JWPLAYER7_FIELD_LICENSE_SELF_DESC"
+					class="input-xxlarge"
+					showon="hosting:0"
+				/>
+
+				<field
+					name="autostart"
+					type="radio"
+					label="PLG_SERMONSPEAKER_COMMON_FIELD_AUTOSTART_LABEL"
+					description="PLG_SERMONSPEAKER_COMMON_FIELD_AUTOSTART_DESC"
+					class="btn-group btn-group-yesno"
+					default="0"
+					>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+
+				<field
+					name="fileprio"
+					type="list"
+					label="PLG_SERMONSPEAKER_COMMON_FIELD_FILEPRIO_LABEL"
+					description="PLG_SERMONSPEAKER_COMMON_FIELD_FILEPRIO_DESC"
+					default="0"
+					>
+					<option value="1">Video</option>
+					<option value="0">Audio</option>
+				</field>
+
+				<field
+					name="filetoggle"
+					type="radio"
+					label="PLG_SERMONSPEAKER_COMMON_FIELD_FILETOGGLE_LABEL"
+					description="PLG_SERMONSPEAKER_COMMON_FIELD_FILETOGGLE_DESC"
+					class="btn-group btn-group-yesno"
+					default="0"
+					>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+
+				<field
+					name="mode"
+					type="radio"
+					label="PLG_SERMONSPEAKER_JWPLAYER7_FIELD_MODE_LABEL"
+					description="PLG_SERMONSPEAKER_JWPLAYER7_FIELD_MODE_DESC"
+					class="btn-group"
+					default="1"
+					>
+					<option value="1">PLG_SERMONSPEAKER_JWPLAYER7_FIELD_MODE_OPTION_HTML5</option>
+					<option value="0">PLG_SERMONSPEAKER_JWPLAYER7_FIELD_MODE_OPTION_FLASH</option>
+				</field>
+
+				<field
+					name="skin"
+					type="text"
+					label="PLG_SERMONSPEAKER_JWPLAYER7_FIELD_JWSKIN_LABEL"
+					description="PLG_SERMONSPEAKER_JWPLAYER7_FIELD_JWSKIN_DESC"
+					class="input-xxlarge"
+					>
+					<option value="media/plg_sermonspeaker_jwplayer7/skins/seven.css">Seven</option>
+					<option value="media/plg_sermonspeaker_jwplayer7/skins/six.css">Six</option>
+					<option value="media/plg_sermonspeaker_jwplayer7/skins/five.css">Five</option>
+					<option value="media/plg_sermonspeaker_jwplayer7/skins/beelden.css">Beelden</option>
+					<option value="media/plg_sermonspeaker_jwplayer7/skins/bekle.css">Bekle</option>
+					<option value="media/plg_sermonspeaker_jwplayer7/skins/glow.css">Glow</option>
+					<option value="media/plg_sermonspeaker_jwplayer7/skins/roundster.css">Roundster</option>
+					<option value="media/plg_sermonspeaker_jwplayer7/skins/stormtrooper.css">Stormtrooper</option>
+					<option value="media/plg_sermonspeaker_jwplayer7/skins/vapor.css">Vapor</option>
+				</field>
+
+				<field
+					name="awidth"
+					type="text"
+					label="PLG_SERMONSPEAKER_COMMON_FIELD_AWIDTH_LABEL"
+					description="PLG_SERMONSPEAKER_COMMON_FIELD_AWIDTH_DESC"
+					default="100%"
+					/>
+
+				<field
+					name="aheight"
+					type="text"
+					label="PLG_SERMONSPEAKER_COMMON_FIELD_AHEIGHT_LABEL"
+					description="PLG_SERMONSPEAKER_COMMON_FIELD_AHEIGHT_DESC"
+					default="33"
+					/>
+
+				<field
+					name="vwidth"
+					type="text"
+					label="PLG_SERMONSPEAKER_COMMON_FIELD_VWIDTH_LABEL"
+					description="PLG_SERMONSPEAKER_COMMON_FIELD_VWIDTH_DESC"
+					default="100%"
+					/>
+
+				<field
+					name="vheight"
+					type="text"
+					label="PLG_SERMONSPEAKER_COMMON_FIELD_VHEIGHT_LABEL"
+					description="PLG_SERMONSPEAKER_COMMON_FIELD_VHEIGHT_DESC"
+					default="300px"
+					/>
+
+				<field
+					name="ga"
+					type="radio"
+					label="PLG_SERMONSPEAKER_JWPLAYER7_FIELD_GA_LABEL"
+					description="PLG_SERMONSPEAKER_JWPLAYER7_FIELD_GA_DESC"
+					class="btn-group btn-group-yesno"
+					default="0"
+					>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+
+				<field
+					name="share"
+					type="radio"
+					label="PLG_SERMONSPEAKER_JWPLAYER7_FIELD_SHARE_LABEL"
+					description="PLG_SERMONSPEAKER_JWPLAYER7_FIELD_SHARE_DESC"
+					class="btn-group btn-group-yesno"
+					default="0"
+					>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+			</fieldset>
+		</fields>
+	</config>
+</extension>
