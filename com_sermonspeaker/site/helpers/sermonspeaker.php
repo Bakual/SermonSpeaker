@@ -114,7 +114,7 @@ class SermonspeakerHelperSermonspeaker
 
 		if (self::$params->get('enable_ga_events'))
 		{
-			$onclick = " onclick=\"_gaq.push(['_trackEvent', 'SermonSpeaker Download', 'Additional File', '" . $addfile . "']);\"";
+			$onclick = " onclick=\"ga('send', 'event', 'SermonSpeaker Download', 'Additional File', '" . $addfile . "');\"";
 		}
 
 		if ($show_icon)
@@ -208,7 +208,7 @@ class SermonspeakerHelperSermonspeaker
 			// Link with Icon
 			if (self::$params->get('enable_ga_events'))
 			{
-				$onclick = "onclick=\"_gaq.push(['_trackEvent', 'SermonSpeaker Download', '" . $type . "', 'id:" . $id . "']);\"";
+				$onclick = "onclick=\"ga('send', 'event', 'SermonSpeaker Download', '" . $type . "', 'id:" . $id . "');\"";
 			}
 
 			$html = '<a href="' . $fileurl . '" target="_new" ' . $onclick . ' class="hasTooltip" title="::' . $text . '">'
@@ -220,7 +220,7 @@ class SermonspeakerHelperSermonspeaker
 			// Button with Bootstrap Icon
 			if (self::$params->get('enable_ga_events'))
 			{
-				$onclick = "_gaq.push(['_trackEvent', 'SermonSpeaker Download', '" . $type . "', 'id:" . $id . "']);";
+				$onclick = "ga('send', 'event', 'SermonSpeaker Download', '" . $type . "', 'id:" . $id . "');";
 			}
 
 			$html = '<button id="sermon_download" class="btn btn-small download_btn" onclick="' . $onclick . 'window.location.href=\'' . $fileurl . '\';" >'
@@ -231,7 +231,7 @@ class SermonspeakerHelperSermonspeaker
 			// Link with Bootstrap Icon
 			if (self::$params->get('enable_ga_events'))
 			{
-				$onclick = "onclick=\"_gaq.push(['_trackEvent', 'SermonSpeaker Download', '" . $type . "', 'id:" . $id . "']);\"";
+				$onclick = "onclick=\"ga('send', 'event', 'SermonSpeaker Download', '" . $type . "', 'id:" . $id . "');\"";
 			}
 
 			$html = '<a href="' . $fileurl . '" target="_new" ' . $onclick . ' class="hasTooltip" title="' . $text . '">'
@@ -243,7 +243,7 @@ class SermonspeakerHelperSermonspeaker
 			// Link with Text
 			if (self::$params->get('enable_ga_events'))
 			{
-				$onclick = "onclick=\"_gaq.push(['_trackEvent', 'SermonSpeaker Download', '" . $type . "', 'id:" . $id . "']);\"";
+				$onclick = "onclick=\"ga('send', 'event', 'SermonSpeaker Download', '" . $type . "', 'id:" . $id . "');\"";
 			}
 
 			$html = '<a href="' . $fileurl . '" target="_new" ' . $onclick . ' class="download">' . $text . '</a>';
@@ -253,7 +253,7 @@ class SermonspeakerHelperSermonspeaker
 			// Button with Text
 			if (self::$params->get('enable_ga_events'))
 			{
-				$onclick = "_gaq.push(['_trackEvent', 'SermonSpeaker Download', '" . $type . "', 'id:" . $id . "']);";
+				$onclick = "ga('send', 'event', 'SermonSpeaker Download', '" . $type . "', 'id:" . $id . "');";
 			}
 
 			$html = '<input id="sermon_download" class="btn download_btn" type="button" value="' . $text . '" onclick="'

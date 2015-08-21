@@ -119,11 +119,15 @@
 
 				<field
 					name="ga_id"
-					type="text"
+					type="radio"
 					label="PLG_SERMONSPEAKER_JWPLAYER5_FIELD_GAID_LABEL"
 					description="PLG_SERMONSPEAKER_JWPLAYER5_FIELD_GAID_DESC"
-					default=""
-					/>
+					class="btn-group btn-group-yesno"
+					default="0"
+					>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
 
 				<field
 					name="share"

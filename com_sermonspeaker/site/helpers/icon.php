@@ -221,7 +221,7 @@ class JHtmlIcon
 		if ($params->get('enable_ga_events'))
 		{
 			$output = '<meta itemprop="contentUrl" content="' . $fileurl . '" />';
-			$onclick = "_gaq.push(['_trackEvent', 'SermonSpeaker Download', '" . $attribs['type'] . "', 'id:" . $item->id . "']);"
+			$onclick = "ga('send', 'event', 'SermonSpeaker Download', '" . $attribs['type'] . "', 'id:" . $item->id . "');"
 					. "window.location.href='" . $fileurl . "';";
 			$output = '<a href="#" onclick="' . $onclick . '">' . $text . '</a>';
 		}
