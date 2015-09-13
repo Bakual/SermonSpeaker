@@ -34,8 +34,8 @@
 					class="btn-group btn-group-yesno"
 					default="0"
 					>
-					<option value="1">CLOUD</option>
-					<option value="0">SELF</option>
+					<option value="1">PLG_SERMONSPEAKER_JWPLAYER7_FIELD_HOSTING_OPTION_CLOUD</option>
+					<option value="0">PLG_SERMONSPEAKER_JWPLAYER7_FIELD_HOSTING_OPTION_SELF</option>
 				</field>
 
 				<field
@@ -104,56 +104,6 @@
 				</field>
 
 				<field
-					name="skin"
-					type="text"
-					label="PLG_SERMONSPEAKER_JWPLAYER7_FIELD_JWSKIN_LABEL"
-					description="PLG_SERMONSPEAKER_JWPLAYER7_FIELD_JWSKIN_DESC"
-					class="input-xxlarge"
-					>
-					<option value="media/plg_sermonspeaker_jwplayer7/skins/seven.css">Seven</option>
-					<option value="media/plg_sermonspeaker_jwplayer7/skins/six.css">Six</option>
-					<option value="media/plg_sermonspeaker_jwplayer7/skins/five.css">Five</option>
-					<option value="media/plg_sermonspeaker_jwplayer7/skins/beelden.css">Beelden</option>
-					<option value="media/plg_sermonspeaker_jwplayer7/skins/bekle.css">Bekle</option>
-					<option value="media/plg_sermonspeaker_jwplayer7/skins/glow.css">Glow</option>
-					<option value="media/plg_sermonspeaker_jwplayer7/skins/roundster.css">Roundster</option>
-					<option value="media/plg_sermonspeaker_jwplayer7/skins/stormtrooper.css">Stormtrooper</option>
-					<option value="media/plg_sermonspeaker_jwplayer7/skins/vapor.css">Vapor</option>
-				</field>
-
-				<field
-					name="awidth"
-					type="text"
-					label="PLG_SERMONSPEAKER_COMMON_FIELD_AWIDTH_LABEL"
-					description="PLG_SERMONSPEAKER_COMMON_FIELD_AWIDTH_DESC"
-					default="100%"
-					/>
-
-				<field
-					name="aheight"
-					type="text"
-					label="PLG_SERMONSPEAKER_COMMON_FIELD_AHEIGHT_LABEL"
-					description="PLG_SERMONSPEAKER_COMMON_FIELD_AHEIGHT_DESC"
-					default="33"
-					/>
-
-				<field
-					name="vwidth"
-					type="text"
-					label="PLG_SERMONSPEAKER_COMMON_FIELD_VWIDTH_LABEL"
-					description="PLG_SERMONSPEAKER_COMMON_FIELD_VWIDTH_DESC"
-					default="100%"
-					/>
-
-				<field
-					name="vheight"
-					type="text"
-					label="PLG_SERMONSPEAKER_COMMON_FIELD_VHEIGHT_LABEL"
-					description="PLG_SERMONSPEAKER_COMMON_FIELD_VHEIGHT_DESC"
-					default="300px"
-					/>
-
-				<field
 					name="ga"
 					type="radio"
 					label="PLG_SERMONSPEAKER_JWPLAYER7_FIELD_GA_LABEL"
@@ -176,6 +126,84 @@
 					<option value="1">JYES</option>
 					<option value="0">JNO</option>
 				</field>
+			</fieldset>
+			<fieldset
+				name="skin"
+				label="PLG_SERMONSPEAKER_JWPLAYER7_FIELDSET_APPEARANCE_LABEL"
+				description="PLG_SERMONSPEAKER_JWPLAYER7_FIELDSET_APPEARANCE_DESC"
+				>
+
+				<field
+					name="skin"
+					type="list"
+					label="PLG_SERMONSPEAKER_JWPLAYER7_FIELD_SKIN_LABEL"
+					description="PLG_SERMONSPEAKER_JWPLAYER7_FIELD_SKIN_DESC"
+					default="seven"
+					>
+					<option value="seven">Seven</option>
+					<option value="six">Six</option>
+					<option value="five">Five</option>
+					<option value="beelden">Beelden</option>
+					<option value="bekle">Bekle</option>
+					<option value="glow">Glow</option>
+					<option value="roundster">Roundster</option>
+					<option value="stormtrooper">Stormtrooper</option>
+					<option value="vapor">Vapor</option>
+				</field>
+
+				<field
+					name="skin_active"
+					type="color"
+					label="PLG_SERMONSPEAKER_JWPLAYER7_FIELD_SKIN_ACTIVE_LABEL"
+					description="PLG_SERMONSPEAKER_JWPLAYER7_FIELD_SKIN_ACTIVE_DESC"
+				/>
+
+				<field
+					name="skin_inactive"
+					type="color"
+					label="PLG_SERMONSPEAKER_JWPLAYER7_FIELD_SKIN_INACTIVE_LABEL"
+					description="PLG_SERMONSPEAKER_JWPLAYER7_FIELD_SKIN_INACTIVE_DESC"
+				/>
+
+				<field
+					name="skin_background"
+					type="color"
+					label="PLG_SERMONSPEAKER_JWPLAYER7_FIELD_SKIN_BACKGROUND_LABEL"
+					description="PLG_SERMONSPEAKER_JWPLAYER7_FIELD_SKIN_BACKGROUND_DESC"
+				/>
+
+				<field
+					name="awidth"
+					type="text"
+					label="PLG_SERMONSPEAKER_COMMON_FIELD_AWIDTH_LABEL"
+					description="PLG_SERMONSPEAKER_COMMON_FIELD_AWIDTH_DESC"
+					default="100%"
+					/>
+
+				<field
+					name="aheight"
+					type="text"
+					label="PLG_SERMONSPEAKER_COMMON_FIELD_AHEIGHT_LABEL"
+					description="PLG_SERMONSPEAKER_COMMON_FIELD_AHEIGHT_DESC"
+					default="33px"
+					/>
+
+				<field
+					name="vwidth"
+					type="text"
+					label="PLG_SERMONSPEAKER_COMMON_FIELD_VWIDTH_LABEL"
+					description="PLG_SERMONSPEAKER_COMMON_FIELD_VWIDTH_DESC"
+					default="100%"
+					/>
+
+				<field
+					name="vheight"
+					type="text"
+					label="PLG_SERMONSPEAKER_COMMON_FIELD_VHEIGHT_LABEL"
+					description="PLG_SERMONSPEAKER_COMMON_FIELD_VHEIGHT_DESC"
+					default="300px"
+					/>
+
 			</fieldset>
 		</fields>
 	</config>
