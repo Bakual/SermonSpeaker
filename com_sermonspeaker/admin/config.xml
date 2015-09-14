@@ -1104,7 +1104,7 @@
 			type="textarea"
 			label="COM_SERMONSPEAKER_FIELD_AUDIO_FILETYPES_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_FILETYPES_DESC"
-			default="aac, m4a, mp3, wma, ra, ram, rm, rpm"
+			default="aac, m4a, f4a, mp3, ogg, oga"
 			/>
 
 		<field
@@ -1112,7 +1112,7 @@
 			type="textarea"
 			label="COM_SERMONSPEAKER_FIELD_VIDEO_FILETYPES_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_FILETYPES_DESC"
-			default="mp4, mov, f4v, 3gp, 3g2, wmv, flv, rv"
+			default="mp4, m4v, f4v, mov, flv, webm"
 			/>
 
 		<field
