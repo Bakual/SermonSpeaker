@@ -14,7 +14,7 @@
 		<folder>language</folder>
 	</files>
 	<media destination="plg_sermonspeaker_jwplayer7" folder="media">
-		<folder>skins</folder>
+		<folder>css</folder>
 		<filename>jwplayer.js</filename>
 		<filename>jwplayer.flash.swf</filename>
 		<filename>provider.shaka.js</filename>
