@@ -180,7 +180,7 @@
 			type="componentlayout"
 			label="COM_SERMONSPEAKER_SERMON_VIEW_TITLE"
 			description="COM_SERMONSPEAKER_FIELD_LAYOUT_DESC"
-			default="_:icon"
+			default="_:content"
 			useglobal="false"
 			extension="com_sermonspeaker"
 			view="sermon"
