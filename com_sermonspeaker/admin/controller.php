@@ -7,7 +7,17 @@ class SermonspeakerController extends JControllerLegacy
 
 	public function display($cachable = false, $urlparams = false)
 	{
-		require_once JPATH_COMPONENT . '/helpers/sermonspeaker.php';
+		$params = JComponentHelper::getParams('com_sermonspeaker');
+
+		if ($params->get('css_icomoon') == '')
+		{
+			JFactory::getApplication()->enqueueMessage(JText::_('COM_SERMONSPEAKER_NOTSAVED'), 'warning');
+		}
+
+		if ($params->get('alt_player'))
+		{
+			JFactory::getApplication()->enqueueMessage(JText::_('COM_SERMONSPEAKER_PLAYER_DEPRECATED'), 'notice');
+		}
 
 		return parent::display();
 	}

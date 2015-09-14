@@ -1,15 +1,10 @@
 <?php
 defined('_JEXEC') or die;
+
 class SermonspeakerViewMain extends JViewLegacy
 {
 	function display($tpl = null)
 	{
-		$params	= JComponentHelper::getParams('com_sermonspeaker');
-		if ($params->get('css_icomoon') == '')
-		{
-			JFactory::getApplication()->enqueueMessage(JText::_('COM_SERMONSPEAKER_NOTSAVED'), 'warning');
-		}
-
 		$this->addToolbar();
 
 		parent::display($tpl);
