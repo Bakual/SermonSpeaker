@@ -65,7 +65,7 @@ class SermonspeakerViewSermons extends JViewLegacy
 		$user   = JFactory::getUser();
 		$groups = $user->getAuthorisedViewLevels();
 
-		if (in_array($category->access, $groups))
+		if (!in_array($category->access, $groups))
 		{
 			JFactory::getApplication()->setHeader('status',  403 . ' ' .  JText::_('JERROR_ALERTNOAUTHOR'));
 			echo new JResponseJson(null, JText::_('JERROR_ALERTNOAUTHOR'), true);
@@ -73,11 +73,64 @@ class SermonspeakerViewSermons extends JViewLegacy
 			return;
 		}
 
+		$reponse = array();
+
 		foreach ($items as $item)
 		{
+			$tmp = new stdClass();
+			$tmp->id    = $item->id;
+			$tmp->title = $item->title;
+			$tmp->alias = $item->alias;
+			$tmp->slug = $item->slug;
+			$tmp->audiofile = $item->audiofile;
+			$tmp->audiofilesize = $item->audiofilesize;
+			$tmp->videofile = $item->videofile;
+			$tmp->videofilesize = $item->videofilesize;
+			$tmp->addfile = $item->addfile;
+			$tmp->addfileDesc = $item->addfileDesc;
+			$tmp->picture = $item->picture;
+			$tmp->hits = $item->hits;
+			$tmp->notes = $item->notes;
+			$tmp->sermon_date = $item->sermon_date;
+			$tmp->sermon_time = $item->sermon_time;
+			$tmp->sermon_number = $item->sermon_number;
+			$tmp->scripture = SermonspeakerHelperSermonspeaker::buildScripture($item->scripture, false);
 
+			// Category
+			$tmp->category = new stdClass();
+			$tmp->category->title = $item->category_title;
+			$tmp->category->slug = $item->catslug;
+
+			// Speaker
+			$tmp->speaker = new stdClass();
+			$tmp->speaker->title = $item->speaker_title;
+
+			// Show only details when speaker is published
+			if ($item->speaker_state)
+			{
+				$tmp->speaker->slug = $item->speaker_slug;
+				$tmp->speaker->pic = $item->pic;
+				$tmp->speaker->intro = $item->intro;
+				$tmp->speaker->bio = $item->bio;
+				$tmp->speaker->website = $item->website;
+			}
+
+			// Series
+			$tmp->series = new stdClass();
+			$tmp->series->title = $item->series_title;
+
+			// Show only details when series is published
+			if ($item->series_state)
+			{
+				$tmp->series->slug = $item->series_slug;
+				$tmp->series->avatar = $item->avatar;
+			}
+
+
+
+			$response[] = $tmp;
 		}
 
-		echo new JResponseJson($items);
+		echo new JResponseJson($response);
 	}
 }
