@@ -20,7 +20,7 @@
 			<field name="count_items_type" type="list"
 				label="COM_SERMONSPEAKER_CATEGORY_ITEMS_TYPE_LABEL"
 				description="COM_SERMONSPEAKER_CATEGORY_ITEMS_TYPE_DESC"
-			>
+				>
 				<option value="">JGLOBAL_USE_GLOBAL</option>
 				<option value="sermons">COM_SERMONSPEAKER_SERMONS</option>
 				<option value="series">COM_SERMONSPEAKER_SERIES</option>
@@ -29,7 +29,7 @@
 			<field name="maxLevel" type="list"
 				label="JGLOBAL_MAXIMUM_CATEGORY_LEVELS_LABEL"
 				description="JGLOBAL_MAXIMUM_CATEGORY_LEVELS_DESC"
-				default="-1">
+				>
 				<option value="">JGLOBAL_USE_GLOBAL</option>
 				<option value="0">JNONE</option>
 				<option value="-1">JALL</option>
