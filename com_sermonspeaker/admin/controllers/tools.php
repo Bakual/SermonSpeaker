@@ -165,6 +165,7 @@ class SermonspeakerControllerTools extends JControllerLegacy
 		{
 			$app->login($credentials);
 		}
+
 		$user = JFactory::getUser();
 
 		if (!$user->authorise('core.create', 'com_sermonspeaker') || !$user->authorise('com_sermonspeaker.script', 'com_sermonspeaker'))
@@ -181,19 +182,23 @@ class SermonspeakerControllerTools extends JControllerLegacy
 		$file_model = $this->getModel('Files');
 		$files      = $file_model->getItems();
 		$catid      = $file_model->getCategory();
+		$state      = $user->authorise('core.edit.state', 'com_sermonsepaker') ? 1 : 0;
 
 		$params = JComponentHelper::getParams('com_sermonspeaker');
 		require_once JPATH_COMPONENT_SITE . '/helpers/id3.php';
-		// manually loading sermon model so the correct instance will be used from frontend.
+
+		// Manually loading sermon model so the correct instance will be used from frontend.
 		require_once JPATH_COMPONENT_ADMINISTRATOR . '/models/sermon.php';
 		$i       = 0;
 		$missing = array();
+
 		foreach ($files as $file)
 		{
 			$id3          = SermonspeakerHelperId3::getID3($file['file'], $params);
 			$sermon_model = $this->getModel('Sermon');
 			$sermon       = $sermon_model->getItem();
 			$sermon->setProperties($id3);
+
 			if ($file['type'] == 'audio')
 			{
 				$sermon->audiofile = $file['file'];
@@ -206,8 +211,9 @@ class SermonspeakerControllerTools extends JControllerLegacy
 			{
 				continue;
 			}
-			$sermon->state       = 1;
-			$sermon->podcast     = 1;
+
+			$sermon->state       = $state;
+			$sermon->podcast     = $state;
 			$sermon->catid       = $catid;
 			$file_timestamp      = filemtime(JPATH_SITE . $file['file']);
 			$sermon->sermon_date = date('Y-m-d H:i:s', $file_timestamp);
@@ -283,6 +289,7 @@ class SermonspeakerControllerTools extends JControllerLegacy
 		$writer->tagformats     = array('id3v2.3');
 		$writer->overwrite_tags = true;
 		$writer->tag_encoding   = 'UTF-8';
+
 		foreach ($items as $item)
 		{
 			$canEdit    = $user->authorise('core.edit', 'com_sermonspeaker.category.' . $item->catid);
@@ -306,11 +313,14 @@ class SermonspeakerControllerTools extends JControllerLegacy
 				{
 					ob_start();
 					$pic = $item->picture;
+
 					if (substr($pic, 0, 1) == '/')
 					{
 						$pic = substr($pic, 1);
 					}
+
 					$pic = JPATH_ROOT . '/' . $pic;
+
 					if ($fd = fopen($pic, 'rb'))
 					{
 						ob_end_clean();
