@@ -262,6 +262,10 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 					browse_button: "browse_' . $this->fieldname . '",
 					url: "' . $uploadURL . '&type=' . $this->file . '",
 					drop_element: "' . $this->fieldname . '_drop",
+					multipart_params: {
+						"date":document.id("' . $this->formControl . '_sermon_date").value,
+						"language":document.id("' . $this->formControl . '_language").value,
+					},
 		';
 
 		// Add File filters
