@@ -262,10 +262,6 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 					browse_button: "browse_' . $this->fieldname . '",
 					url: "' . $uploadURL . '&type=' . $this->file . '",
 					drop_element: "' . $this->fieldname . '_drop",
-					multipart_params: {
-						"date":document.id("' . $this->formControl . '_sermon_date").value,
-						"language":document.id("' . $this->formControl . '_language").value,
-					},
 		';
 
 		// Add File filters
@@ -299,6 +295,13 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 					});
 					document.getElementById("filelist_' . $this->fieldname . '").innerHTML += html;
 					uploader_' . $this->fieldname . '.start();
+				});
+
+				uploader_' . $this->fieldname . '.bind("BeforeUpload", function(up, file) {
+					up.setOption("multipart_params", {
+						"date":document.id("' . $this->formControl . '_sermon_date").value,
+						"language":document.id("' . $this->formControl . '_language").value,
+					})
 				});
 
 				uploader_' . $this->fieldname . '.bind("UploadProgress", function(up, file) {
