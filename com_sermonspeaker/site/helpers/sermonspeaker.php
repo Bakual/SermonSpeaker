@@ -565,7 +565,7 @@ class SermonspeakerHelperSermonspeaker
 
 		$explode = explode('|', $scripture);
 
-		if (count($explode) != 5)
+		if (count($explode) != 6)
 		{
 			return '';
 		}
