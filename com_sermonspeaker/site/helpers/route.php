@@ -47,6 +47,8 @@ abstract class SermonspeakerHelperRoute
 				$path               = array_reverse($category->getPath());
 				$needles['sermons'] = \Joomla\Utilities\ArrayHelper::toInteger($path);
 			}
+
+			$link .= '&catid=' . (int) $catid;
 		}
 
 		if ($language && $language != "*" && JLanguageMultilang::isEnabled())
@@ -157,6 +159,8 @@ abstract class SermonspeakerHelperRoute
 				$path              = array_reverse($category->getPath());
 				$needles['series'] = \Joomla\Utilities\ArrayHelper::toInteger($path);
 			}
+
+			$link .= '&catid=' . (int) $catid;
 		}
 
 		if ($language && $language != "*" && JLanguageMultilang::isEnabled())
@@ -267,6 +271,8 @@ abstract class SermonspeakerHelperRoute
 				$path                = array_reverse($category->getPath());
 				$needles['speakers'] = \Joomla\Utilities\ArrayHelper::toInteger($path);
 			}
+
+			$link .= '&catid=' . (int) $catid;
 		}
 
 		if ($language && $language != "*" && JLanguageMultilang::isEnabled())
