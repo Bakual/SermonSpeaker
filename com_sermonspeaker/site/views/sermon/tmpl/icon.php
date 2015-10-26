@@ -147,7 +147,7 @@ if ($canEdit or ($canEditOwn and ($user->id == $this->item->created_by))) : ?>
 	</div>
 	<br style="clear:both" />
 </div>
-<?php if ($this->params->get('show_tags', 1) and !empty($this->item->tags)) :
+<?php if ($this->params->get('show_tags', 1) and !empty($this->item->tags->itemTags)) :
 	$tagLayout = new JLayoutFile('joomla.content.tags');
 	echo $tagLayout->render($this->item->tags->itemTags);
 endif;

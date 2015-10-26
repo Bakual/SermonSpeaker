@@ -158,7 +158,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 		<div class="img-polaroid pull-right item-image sermon-image"><img src="<?php echo $picture; ?>"></div>
 	<?php endif;
 
-	if ($this->params->get('show_tags', 1) and !empty($this->item->tags)) :
+	if ($this->params->get('show_tags', 1) and !empty($this->item->tags->itemTags)) :
 		$tagLayout = new JLayoutFile('joomla.content.tags');
 		echo $tagLayout->render($this->item->tags->itemTags); ?>
 		<br />
