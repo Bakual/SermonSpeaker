@@ -3,7 +3,7 @@
  * @package     SermonSpeaker
  * @subpackage  Component.Site
  * @author      Thomas Hunziker <admin@sermonspeaker.net>
- * @copyright   (C) 2015 - Thomas Hunziker
+ * @copyright   2015 - Thomas Hunziker
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
@@ -31,27 +31,38 @@ class SermonspeakerRouter extends JComponentRouterBase
 		$app      = JFactory::getApplication();
 		$view     = '';
 
+		// We need a menu item.  Either the one specified in the query, or the current active one if none specified
+		$menu     = $app->getMenu();
+		$menuItem = (empty($query['Itemid'])) ? $menu->getActive() : $menu->getItem($query['Itemid']);
+
+		// Calculate View
 		if (isset($query['view']))
 		{
-			$segments[] = $query['view'];
-			$view       = $query['view'];
+			$view = $query['view'];
 			unset($query['view']);
-		}
-		else
-		{
-			// Get a menu item based on Itemid or currently active
-			$menu = $app->getMenu();
 
-			// We need a menu item.  Either the one specified in the query, or the current active one if none specified
-			if (empty($query['Itemid']))
+			// Check if menuitem matches the query
+			if (isset($query['id']))
 			{
-				$menuItem = $menu->getActive();
+				$menuView = isset($menuItem->query['view']) ? $menuItem->query['view'] : '';
+				$menuId   = isset($menuItem->query['id']) ? $menuItem->query['id'] : 0;
+
+				if ($menuView == $view && $menuId == (int) $query['id'])
+				{
+					unset($query['id']);
+				}
+				else
+				{
+					$segments[] = $view;
+				}
 			}
 			else
 			{
-				$menuItem = $menu->getItem($query['Itemid']);
+				$segments[] = $view;
 			}
-
+		}
+		else
+		{
 			// Get view from Itemid
 			if (isset($menuItem->query['view']))
 			{
@@ -74,50 +85,20 @@ class SermonspeakerRouter extends JComponentRouterBase
 
 		if (isset($query['id']))
 		{
-			if ($view == 'sermon')
+			// Make sure we have the id and the alias
+			if ($view == 'sermon'
+				|| $view == 'serie'
+				|| $view == 'speaker')
 			{
-				// Make sure we have the id and the alias
 				if (strpos($query['id'], ':') === false)
 				{
-					$db = JFactory::getDbo();
+					$db      = JFactory::getDbo();
 					$dbQuery = $db->getQuery(true)
 						->select('alias')
-						->from('#__sermon_sermons')
+						->from('#__sermon_' . $view . 's')
 						->where('id = ' . (int) $query['id']);
 					$db->setQuery($dbQuery);
-					$alias = $db->loadResult();
-					$query['id'] = $query['id'] . ':' . $alias;
-				}
-			}
-
-			if ($view == 'serie')
-			{
-				// Make sure we have the id and the alias
-				if (strpos($query['id'], ':') === false)
-				{
-					$db = JFactory::getDbo();
-					$dbQuery = $db->getQuery(true)
-						->select('alias')
-						->from('#__sermon_series')
-						->where('id = ' . (int) $query['id']);
-					$db->setQuery($dbQuery);
-					$alias = $db->loadResult();
-					$query['id'] = $query['id'] . ':' . $alias;
-				}
-			}
-
-			if ($view == 'speaker')
-			{
-				// Make sure we have the id and the alias
-				if (strpos($query['id'], ':') === false)
-				{
-					$db = JFactory::getDbo();
-					$dbQuery = $db->getQuery(true)
-						->select('alias')
-						->from('#__sermon_speakers')
-						->where('id = ' . (int) $query['id']);
-					$db->setQuery($dbQuery);
-					$alias = $db->loadResult();
+					$alias       = $db->loadResult();
 					$query['id'] = $query['id'] . ':' . $alias;
 				}
 			}
