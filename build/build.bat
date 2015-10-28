@@ -90,3 +90,4 @@ del pkg_sermonspeaker.xml
 copy pkg_sermonspeaker.zip ..\packages
 cd ..
 rmdir /q /s package
+exit
