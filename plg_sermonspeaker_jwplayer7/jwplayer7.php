@@ -310,7 +310,7 @@ class PlgSermonspeakerJwplayer7 extends SermonspeakerPluginPlayer
 		$this->options['skin'] = '{' . implode(',', $skinOptions) . '}';
 
 		// Responsive
-		if ($this->params->get('responsive'))
+		if ($this->params->get('responsive') && $this->mode == 'video')
 		{
 			$this->options['aspectratio'] = "'" . $this->params->get('aspectratio', '4:3') . "'";
 		}
