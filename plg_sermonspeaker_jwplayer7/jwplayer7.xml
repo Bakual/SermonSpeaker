@@ -189,6 +189,18 @@
 					/>
 
 				<field
+					name="responsive"
+					type="radio"
+					label="PLG_SERMONSPEAKER_JWPLAYER7_FIELD_RESPONSIVE_LABEL"
+					description="PLG_SERMONSPEAKER_JWPLAYER7_FIELD_RESPONSIVE_DESC"
+					class="btn-group btn-group-yesno"
+					default="0"
+					>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+
+				<field
 					name="vwidth"
 					type="text"
 					label="PLG_SERMONSPEAKER_COMMON_FIELD_VWIDTH_LABEL"
@@ -202,8 +214,21 @@
 					label="PLG_SERMONSPEAKER_COMMON_FIELD_VHEIGHT_LABEL"
 					description="PLG_SERMONSPEAKER_COMMON_FIELD_VHEIGHT_DESC"
 					default="300px"
+					showon="responsive:0"
 					/>
 
+				<field
+					name="aspectratio"
+					type="list"
+					label="PLG_SERMONSPEAKER_JWPLAYER7_FIELD_ASPECTRATIO_LABEL"
+					description="PLG_SERMONSPEAKER_JWPLAYER7_FIELD_ASPECTRATIO_DESC"
+					default="4:3"
+					showon="responsive:1"
+					>
+					<option value="16:9">16:9</option>
+					<option value="24:10">24:10</option>
+					<option value="4:3">4:3</option>
+				</field>
 			</fieldset>
 		</fields>
 	</config>
