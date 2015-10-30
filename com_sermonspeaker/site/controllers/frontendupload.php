@@ -43,9 +43,9 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 	 */
 	protected function allowAdd($data = array())
 	{
-		$user		= JFactory::getUser();
-		$categoryId	= JArrayHelper::getValue($data, 'catid', JFactory::getApplication()->input->get('filter_category_id'), 'int');
-		$allow = null;
+		$user       = JFactory::getUser();
+		$categoryId = Joomla\Utilities\ArrayHelper::getValue($data, 'catid', JFactory::getApplication()->input->get('filter_category_id'), 'int');
+		$allow      = null;
 
 		if ($categoryId)
 		{

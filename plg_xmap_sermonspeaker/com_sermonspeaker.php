@@ -88,20 +88,20 @@ class Xmap_Com_Sermonspeaker
 		}
 
 		// Calculate Params
-		$priority	= JArrayHelper::getValue($params, 'serie_priority', $parent->priority, '');
-		$changefreq	= JArrayHelper::getValue($params, 'serie_changefreq', $parent->changefreq, '');
-		$params['serie_priority']	= ($priority == '-1') ? $parent->priority : $priority;
-		$params['serie_changefreq']	= ($changefreq == '-1') ? $parent->changefreq : $changefreq;
+		$priority                   = Joomla\Utilities\ArrayHelper::getValue($params, 'serie_priority', $parent->priority, '');
+		$changefreq                 = Joomla\Utilities\ArrayHelper::getValue($params, 'serie_changefreq', $parent->changefreq, '');
+		$params['serie_priority']   = ($priority == '-1') ? $parent->priority : $priority;
+		$params['serie_changefreq'] = ($changefreq == '-1') ? $parent->changefreq : $changefreq;
 
-		$priority	= JArrayHelper::getValue($params, 'speaker_priority', $parent->priority, '');
-		$changefreq	= JArrayHelper::getValue($params, 'speaker_changefreq', $parent->changefreq, '');
-		$params['speaker_priority']		= ($priority == '-1') ? $parent->priority : $priority;
-		$params['speaker_changefreq']	= ($changefreq == '-1') ? $parent->changefreq : $changefreq;
+		$priority                     = Joomla\Utilities\ArrayHelper::getValue($params, 'speaker_priority', $parent->priority, '');
+		$changefreq                   = Joomla\Utilities\ArrayHelper::getValue($params, 'speaker_changefreq', $parent->changefreq, '');
+		$params['speaker_priority']   = ($priority == '-1') ? $parent->priority : $priority;
+		$params['speaker_changefreq'] = ($changefreq == '-1') ? $parent->changefreq : $changefreq;
 
-		$priority	= JArrayHelper::getValue($params, 'sermon_priority', $parent->priority, '');
-		$changefreq	= JArrayHelper::getValue($params, 'sermon_changefreq', $parent->changefreq, '');
-		$params['sermon_priority']		= ($priority == '-1') ? $parent->priority : $priority;
-		$params['sermon_changefreq']	= ($changefreq == '-1') ? $parent->changefreq : $changefreq;
+		$priority                    = Joomla\Utilities\ArrayHelper::getValue($params, 'sermon_priority', $parent->priority, '');
+		$changefreq                  = Joomla\Utilities\ArrayHelper::getValue($params, 'sermon_changefreq', $parent->changefreq, '');
+		$params['sermon_priority']   = ($priority == '-1') ? $parent->priority : $priority;
+		$params['sermon_changefreq'] = ($changefreq == '-1') ? $parent->changefreq : $changefreq;
 
 		switch ($view)
 		{

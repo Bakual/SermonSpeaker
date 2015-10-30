@@ -664,7 +664,7 @@ class SermonspeakerModelSermon extends JModelAdmin
 	{
 		// Sanitize user ids.
 		$pks = array_unique($pks);
-		Joomla\Utilities\ArrayHelper::toInteger($pks);
+		$pks = Joomla\Utilities\ArrayHelper::toInteger($pks);
 
 		// Remove any values of zero.
 		if (array_search(0, $pks, true))
@@ -683,7 +683,7 @@ class SermonspeakerModelSermon extends JModelAdmin
 
 		if (!empty($commands['category_id']))
 		{
-			$cmd = JArrayHelper::getValue($commands, 'move_copy', 'c');
+			$cmd = Joomla\Utilities\ArrayHelper::getValue($commands, 'move_copy', 'c');
 
 			if ($cmd == 'c')
 			{

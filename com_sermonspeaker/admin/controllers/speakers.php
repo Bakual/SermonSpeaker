@@ -44,7 +44,7 @@ class SermonspeakerControllerSpeakers extends JControllerAdmin
 				throw new Exception(JText::_('JERROR_NO_ITEMS_SELECTED'));
 			}
 
-			JArrayHelper::toInteger($pks);
+			$pks = Joomla\Utilities\ArrayHelper::toInteger($pks);
 
 			// Pop off the first element.
 			$id = array_shift($pks);
@@ -74,8 +74,8 @@ class SermonspeakerControllerSpeakers extends JControllerAdmin
 		$order = $this->input->post->get('order', array(), 'array');
 
 		// Sanitize the input
-		JArrayHelper::toInteger($pks);
-		JArrayHelper::toInteger($order);
+		$pks   = Joomla\Utilities\ArrayHelper::toInteger($pks);
+		$order = Joomla\Utilities\ArrayHelper::toInteger($order);
 
 		// Get the model
 		$model = $this->getModel();

@@ -109,7 +109,7 @@ abstract class ModLatestsermonsHelper
 		if ($idlist = $params->get('idlist', 0))
 		{
 			$id_array = explode(',', $idlist);
-			JArrayHelper::toInteger($id_array);
+			$id_array = Joomla\Utilities\ArrayHelper::toInteger($id_array);
 			$query->where('a.id IN (' . implode(',', $id_array) . ')');
 		}
 
