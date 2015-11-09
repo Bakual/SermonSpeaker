@@ -694,6 +694,9 @@ class SermonspeakerHelperSermonspeaker
 	 */
 	public static function getPlayer($item, $config = array())
 	{
+		// Joomla doesn't autoload JFile and JFolder
+		JLoader::register('JFile', JPATH_LIBRARIES . '/joomla/filesystem/file.php');
+
 		if (!is_array($config))
 		{
 			JFactory::getApplication()->enqueueMessage('Wrong calling of getPlayer(), second parameter needs to be an array', 'warning');
