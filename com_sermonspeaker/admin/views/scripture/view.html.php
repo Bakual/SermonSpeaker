@@ -93,7 +93,10 @@ class SermonspeakerViewScripture extends JViewLegacy
 			window.onload = function(){
 				value = window.parent.document.getElementById('jform_scripture_" . $id . "').value;
 				split = value.split('|');
-				if(split[0] > 0){document.getElementById('book').value = split[0];}
+				if(split[0] > 0){
+					document.getElementById('book').value = split[0];
+					jQuery('#book').trigger('liszt:updated');
+				}
 				if(split[1] > 0){document.getElementById('cap1').value = split[1];}
 				if(split[2] > 0){document.getElementById('vers1').value = split[2];}
 				if(split[3] > 0){document.getElementById('cap2').value = split[3];}
