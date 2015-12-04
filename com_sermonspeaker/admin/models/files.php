@@ -27,7 +27,10 @@ class SermonspeakerModelFiles extends JModelLegacy
 
 		foreach ($files as $key => $value)
 		{
-			$value = substr($value, $start);
+			if (strpos($value, JPATH_SITE) === 0)
+			{
+				$value = substr($value, $start);
+			}
 
 			if (in_array($value, $sermons))
 			{
@@ -36,7 +39,7 @@ class SermonspeakerModelFiles extends JModelLegacy
 			}
 
 			$ext                 = JFile::getExt($value);
-			$items[$key]['file'] = '/' . $value;
+			$items[$key]['file'] = (strpos($value, 'http') === 0) ? $value : '/' . $value;
 
 			if (in_array($ext, $audio_ext))
 			{
@@ -58,7 +61,8 @@ class SermonspeakerModelFiles extends JModelLegacy
 	private function getFiles()
 	{
 		// Initialise variables.
-		$app = JFactory::getApplication();
+		$app    = JFactory::getApplication();
+		$params = JComponentHelper::getParams('com_sermonspeaker');
 
 		$type = $app->getUserStateFromRequest('com_sermonspeaker.tools.filter.type', 'type', 'all', 'string');
 		$this->setState('filter.type', $type);
@@ -67,24 +71,54 @@ class SermonspeakerModelFiles extends JModelLegacy
 		{
 			case 'audio':
 				$filters = array('.aac', '.m4a', '.mp3', '.wma');
+				$mode    = $params->get('path_mode_audio', 0);
+
 				break;
 			case 'video':
 				$filters = array('.mp4', '.mov', '.f4v', '.flv', '.3gp', '.3g2', '.wmv');
+				$mode    = $params->get('path_mode_video', 0);
+
 				break;
 			default:
 				$filters = array('');
+
+				if (!$mode = $params->get('path_mode_audio', 0))
+				{
+					$mode = $params->get('path_mode_video', 0);
+				}
+
 				break;
 		}
 
-		$params    = JComponentHelper::getParams('com_sermonspeaker');
 		$folders[] = JPATH_SITE . '/' . $params->get('path_audio');
+		$files     = array();
 
+		if ($mode == 2)
+		{
+			// Amazon S3
+			require_once JPATH_COMPONENT_ADMINISTRATOR . '/s3/S3.php';
+
+			// AWS access info
+			$awsAccessKey    = $params->get('s3_access_key');
+			$awsSecretKey    = $params->get('s3_secret_key');
+			$bucket          = $params->get('s3_bucket');
+			$s3              = new S3($awsAccessKey, $awsSecretKey);
+			$region          = $s3->getBucketLocation($bucket);
+			$prefix          = ($region == 'US') ? 's3' : 's3-' . $region;
+			$bucket_contents = $s3->getBucket($bucket);
+
+			foreach ($bucket_contents as $file)
+			{
+				$fname   = $file['name'];
+				$files[] = 'http://' . $prefix . '.amazonaws.com/' . $bucket . '/' . $fname;
+			}
+		}
+
+		// Local files
 		if ($params->get('path_audio') != $params->get('path_video'))
 		{
 			$folders[] = JPATH_SITE . '/' . $params->get('path_video');
 		}
-
-		$files = array();
 
 		foreach ($folders as $folder)
 		{
