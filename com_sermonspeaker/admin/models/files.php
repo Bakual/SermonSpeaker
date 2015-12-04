@@ -18,27 +18,38 @@ class SermonspeakerModelFiles extends JModelLegacy
 {
 	public function getItems()
 	{
-		$audio_ext	= array('aac', 'm4a', 'mp3', 'wma', 'ra', 'ram', 'rm', 'rpm');
-		$video_ext	= array('mp4', 'mov', 'f4v', 'flv', '3gp', '3g2', 'wmv', 'rv');
-		$start		= strlen(JPATH_SITE)+1;
+		$audio_ext = array('aac', 'm4a', 'mp3', 'wma', 'ra', 'ram', 'rm', 'rpm');
+		$video_ext = array('mp4', 'mov', 'f4v', 'flv', '3gp', '3g2', 'wmv', 'rv');
+		$start     = strlen(JPATH_SITE) + 1;
+		$files     = $this->getFiles();
+		$sermons   = $this->getSermons();
+		$items     = array();
 
-		$files		= $this->getFiles();
-		$sermons	= $this->getSermons();
-
-		$items = array();
 		foreach ($files as $key => $value)
 		{
 			$value = substr($value, $start);
+
 			if (in_array($value, $sermons))
 			{
 				unset($files[$key]);
 				continue;
 			}
-			$ext = JFile::getExt($value);
-			$items[$key]['file'] = '/'.$value;
-			if(in_array($ext, $audio_ext)){$items[$key]['type'] = 'audio';}
-			elseif(in_array($ext, $video_ext)){$items[$key]['type'] = 'video';}
-			else{$items[$key]['type'] = $ext;}
+
+			$ext                 = JFile::getExt($value);
+			$items[$key]['file'] = '/' . $value;
+
+			if (in_array($ext, $audio_ext))
+			{
+				$items[$key]['type'] = 'audio';
+			}
+			elseif (in_array($ext, $video_ext))
+			{
+				$items[$key]['type'] = 'video';
+			}
+			else
+			{
+				$items[$key]['type'] = $ext;
+			}
 		}
 
 		return $items;
@@ -92,7 +103,7 @@ class SermonspeakerModelFiles extends JModelLegacy
 	{
 		$db    = JFactory::getDbo();
 		$query = "SELECT `audiofile` AS `file` FROM #__sermon_sermons WHERE `audiofile` != '' \n"
-				. "UNION SELECT `videofile` FROM #__sermon_sermons WHERE `videofile` != '' ";
+			. "UNION SELECT `videofile` FROM #__sermon_sermons WHERE `videofile` != '' ";
 
 		$db->setQuery($query);
 
@@ -114,7 +125,7 @@ class SermonspeakerModelFiles extends JModelLegacy
 
 	public function getCategory()
 	{
-		$db = JFactory::getDbo();
+		$db    = JFactory::getDbo();
 		$query = $db->getQuery(true);
 
 		$query->select('a.id, a.title');
@@ -127,7 +138,7 @@ class SermonspeakerModelFiles extends JModelLegacy
 		$db->setQuery($query);
 		$items = $db->loadObjectList();
 
-		foreach($items as $item)
+		foreach ($items as $item)
 		{
 			if ($item->title == 'Uncategorized')
 			{
