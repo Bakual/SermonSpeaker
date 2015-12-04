@@ -194,6 +194,15 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 
 			$bucket_contents = $s3->getBucket($bucket);
 
+			// Show last modified files first
+			uasort(
+					$bucket_contents,
+					function ($a, $b)
+					{
+						return $b['time'] - $a['time'];
+					}
+			);
+
 			foreach ($bucket_contents as $file)
 			{
 				$fname           = $file['name'];
