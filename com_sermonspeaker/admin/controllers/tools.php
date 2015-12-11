@@ -215,8 +215,12 @@ class SermonspeakerControllerTools extends JControllerLegacy
 			$sermon->state       = $state;
 			$sermon->podcast     = $state;
 			$sermon->catid       = $catid;
-			$file_timestamp      = filemtime(JPATH_SITE . $file['file']);
-			$sermon->sermon_date = date('Y-m-d H:i:s', $file_timestamp);
+
+			if (!$sermon->sermon_date)
+			{
+				$file_timestamp      = filemtime(JPATH_SITE . $file['file']);
+				$sermon->sermon_date = date('Y-m-d H:i:s', $file_timestamp);
+			}
 
 			if (!$sermon_model->save($sermon->getProperties()))
 			{
