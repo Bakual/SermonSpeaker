@@ -154,13 +154,11 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 			$folder .= '/';
 		}
 
-		$name = JFile::makeSafe($rows[0]['title']);
+		// Make filename URL safe. Eg replaces ä with ae.
+		$name = JFilterOutput::stringURLSafe($rows[0]['title']);
 
-		// Replace spaces in filename as long as makeSafe doesn't do this
-		$name = str_replace(' ', '_', $name);
-
-		// Check if filename has more chars than only underscores, making a new filename based on series id if not
-		if (!$name || (count_chars($name, 3) == '_'))
+		// Check if filename has more chars than only dashes, making a new filename based on series id if not
+		if (!$name || (count_chars($name, 3) == '-'))
 		{
 			$name = 'series-' . $id;
 		}
@@ -357,13 +355,10 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 			$folder .= '/';
 		}
 
-		$name = JFile::makeSafe($series['title']);
+		$name = JFilterOutput::stringURLSafe($series['title']);
 
-		// Replace spaces in filename as long as makeSafe doesn't do this
-		$name = str_replace(' ', '_', $name);
-
-		// Check if filename has more chars than only underscores, making a new filename based on series id if not
-		if (!$name || (count_chars($name, 3) == '_'))
+		// Check if filename has more chars than only dashes, making a new filename based on series id if not
+		if (!$name || (count_chars($name, 3) == '-'))
 		{
 			$name = 'series-' . $id;
 		}

@@ -76,14 +76,8 @@ class SermonspeakerControllerFile extends JControllerLegacy
 		// Make filename URL safe. Eg replaces ä with ae.
 		$file['name'] = JFilterOutput::stringURLSafe(JFile::stripExt($file['name'])) . '.' . $ext;
 
-		// Make the filename safe
-		$file['name'] = JFile::makeSafe($file['name']);
-
-		// Replace spaces in filename as long as makeSafe doesn't do this
-		$file['name'] = str_replace(' ', '_', $file['name']);
-
-		// Check if filename has more chars than only underscores, making a new filename based on current date/time if not
-		if (count_chars(JFile::stripExt($file['name']), 3) == '_')
+		// Check if filename has more chars than only dashes, making a new filename based on current date/time if not
+		if (count_chars(JFile::stripExt($file['name']), 3) == '-')
 		{
 			$file['name'] = JFactory::getDate()->format("Y-m-d-H-i-s") . '.' . $ext;
 		}

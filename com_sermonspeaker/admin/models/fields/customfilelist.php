@@ -49,7 +49,7 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 		// Check Filename for possible problems
 		$filename = JFile::stripExt(basename($this->value));
 
-		if ($filename != JApplicationHelper::stringURLSafe($filename) && $filename != str_replace(' ', '_', JFile::makeSafe($filename)))
+		if ($filename != JApplicationHelper::stringURLSafe($filename))
 		{
 			$html .= '<div class="alert alert-warning">'
 						. '<button type="button" class="close" data-dismiss="alert">&times;</button>'

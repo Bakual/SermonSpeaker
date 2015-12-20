@@ -149,7 +149,7 @@ class SermonspeakerControllerSermon extends JControllerForm
 		{
 			$filename = JFile::stripExt(basename($validData[$file]));
 
-			if ($filename != JApplicationHelper::stringURLSafe($filename) && $filename != str_replace(' ', '_', JFile::makeSafe($filename)))
+			if ($filename != JApplicationHelper::stringURLSafe($filename))
 			{
 				$text = JText::_('COM_SERMONSPEAKER_FILENAME_NOT_IDEAL') . ': ' . $validData[$file];
 				$app->enqueueMessage($text, 'warning');
