@@ -426,9 +426,20 @@ abstract class SermonspeakerHelperRoute
 				{
 					foreach ($ids as $id)
 					{
-						if (isset(self::$lookup[$language][$view][(int) $id]))
+						if ($id)
 						{
-							return self::$lookup[$language][$view][(int) $id];
+							if (isset(self::$lookup[$language][$view][(int) $id]))
+							{
+								return self::$lookup[$language][$view][(int) $id];
+							}
+						}
+						else
+						{
+							// $id is 0 in case no category is specified by the calling layout
+							if (isset(self::$lookup[$language][$view]))
+							{
+								return reset(self::$lookup[$language][$view]);
+							}
 						}
 					}
 				}
