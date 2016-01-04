@@ -36,7 +36,7 @@ if (!isset($legacy))
 			<a href="#sermonspeaker-modal-speaker-<?php echo $item->speaker_id; ?>" data-toggle="modal">
 		<?php endif;
 	else : ?>
-		<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->speaker_slug)); ?>" itemprop="url">
+		<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->speaker_slug, $item->speaker_catid, $item->speaker_language)); ?>" itemprop="url">
 	<?php endif; ?>
 		<?php if ($item->pic) :
 			JHtmlBootstrap::popover();
