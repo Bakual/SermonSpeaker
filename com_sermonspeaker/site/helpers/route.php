@@ -449,9 +449,23 @@ abstract class SermonspeakerHelperRoute
 		// Check for an active SermonSpeaker menuitem
 		$active = $menus->getActive();
 
-		if ($active && $active->component == 'com_sermonspeaker' && ($active->language == '*' || !JLanguageMultilang::isEnabled()))
+		if ($active && $active->component == 'com_sermonspeaker'
+			&& ($active->language == '*' || $language == '*' || $active->language == $language
+				|| !JLanguageMultilang::isEnabled())
+		)
 		{
 			return $active->id;
+		}
+
+		// Get first SermonSpeaker sermons list menuitem found
+		if (isset(self::$lookup[$language]['sermons']))
+		{
+			$sermonslist = reset(self::$lookup[$language]['sermons']);
+
+			if ($sermonslist)
+			{
+				return $sermonslist;
+			}
 		}
 
 		// Get first SermonSpeaker menuitem found
