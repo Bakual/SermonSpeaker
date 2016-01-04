@@ -154,16 +154,19 @@ class SermonspeakerModelSerie extends JModelItem
 	 */
 	public function getSpeakers($series)
 	{
-		$db = JFactory::getDBO();
-		$query = 'SELECT sermons.speaker_id, speakers.title as speaker_title, speakers.pic, speakers.state, '
-		. ' CASE WHEN CHAR_LENGTH(speakers.alias) THEN CONCAT_WS(\':\', speakers.id, speakers.alias) ELSE speakers.id END as slug'
-		. ' FROM #__sermon_sermons AS sermons'
-		. ' LEFT JOIN #__sermon_speakers AS speakers ON sermons.speaker_id = speakers.id'
-		. ' WHERE sermons.state = 1'
-		. ' AND sermons.speaker_id != 0'
-		. ' AND sermons.series_id = ' . (int) $series
-		. ' GROUP BY sermons.speaker_id'
-		. ' ORDER BY speakers.title';
+		$db    = $this->getDbo();
+		$query = $db->getQuery(true);
+		$query->select('sermons.speaker_id, speakers.title as speaker_title, speakers.pic, speakers.state');
+		$query->select('speakers.catid as speaker_catid, speakers.language as speaker_language');
+		$query->select('CASE WHEN CHAR_LENGTH(speakers.alias) THEN CONCAT_WS(\':\', speakers.id, speakers.alias) ELSE speakers.id END as slug');
+		$query->from('#__sermon_sermons AS sermons');
+		$query->join('LEFT', '#__sermon_speakers AS speakers ON sermons.speaker_id = speakers.id');
+		$query->where('sermons.state = 1');
+		$query->where('sermons.speaker_id != 0');
+		$query->where('sermons.series_id = ' . (int) $series);
+		$query->group('sermons.speaker_id');
+		$query->order('speakers.title');
+
 		$db->setQuery($query);
 		$speakers = $db->loadObjectList();
 

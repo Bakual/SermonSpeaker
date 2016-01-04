@@ -19,7 +19,7 @@ class SermonspeakerViewSpeaker extends JViewLegacy
 	/**
 	 * Execute and display a template script.
 	 *
-	 * @param   string  $tpl  The name of the template file to parse; automatically searches through the template paths.
+	 * @param   string $tpl The name of the template file to parse; automatically searches through the template paths.
 	 *
 	 * @return  mixed  A string if successful, otherwise a Error object.
 	 */
@@ -35,10 +35,10 @@ class SermonspeakerViewSpeaker extends JViewLegacy
 		require_once JPATH_COMPONENT . '/helpers/player.php';
 
 		// Get data from the model
-		$state		= $this->get('State');
-		$this->item	= $this->get('Item');
-		$user		= JFactory::getUser();
-		$this->params = $state->get('params');
+		$state         = $this->get('State');
+		$this->item    = $this->get('Item');
+		$user          = JFactory::getUser();
+		$this->params  = $state->get('params');
 		$this->columns = $this->params->get('col_speaker');
 
 		if (!$this->columns)
@@ -78,7 +78,7 @@ class SermonspeakerViewSpeaker extends JViewLegacy
 		// Check if access is not public
 		if ($this->item->category_access)
 		{
-			$groups	= $user->getAuthorisedViewLevels();
+			$groups = $user->getAuthorisedViewLevels();
 
 			if (!in_array($this->item->category_access, $groups))
 			{
@@ -87,29 +87,29 @@ class SermonspeakerViewSpeaker extends JViewLegacy
 		}
 
 		// Get sermons data from the sermons model
-		$sermon_model			= $this->getModel('Sermons');
-		$this->state_sermons	= $sermon_model->getState();
+		$sermon_model        = $this->getModel('Sermons');
+		$this->state_sermons = $sermon_model->getState();
 		$this->state_sermons->set('speaker.id', $state->get('speaker.id'));
-		$this->sermons			= $sermon_model->getItems();
-		$this->pag_sermons		= $sermon_model->getPagination();
-		$this->years			= $sermon_model->getYears();
-		$this->months			= $sermon_model->getMonths();
-		$books					= $sermon_model->getBooks();
+		$this->sermons     = $sermon_model->getItems();
+		$this->pag_sermons = $sermon_model->getPagination();
+		$this->years       = $sermon_model->getYears();
+		$this->months      = $sermon_model->getMonths();
+		$books             = $sermon_model->getBooks();
 
 		// Get Category stuff from models
-		$this->category			= $sermon_model->getCategory();
-		$this->parent			= $sermon_model->getParent();
+		$this->category = $sermon_model->getCategory();
+		$this->parent   = $sermon_model->getParent();
 
 		// Add filter to pagination, needed since it's no longer stored in userState.
 		$this->pag_sermons->setAdditionalUrlParam('year', $this->state_sermons->get('date.year'));
 		$this->pag_sermons->setAdditionalUrlParam('month', $this->state_sermons->get('date.month'));
 
 		// Get series data from the series model
-		$series_model			= $this->getModel('Series');
-		$this->state_series		= $series_model->getState();
+		$series_model       = $this->getModel('Series');
+		$this->state_series = $series_model->getState();
 		$this->state_series->set('speaker.id', $state->get('speaker.id'));
-		$this->series			= $series_model->getItems();
-		$this->pag_series		= $series_model->getPagination();
+		$this->series     = $series_model->getItems();
+		$this->pag_series = $series_model->getPagination();
 
 		// Check if there are avatars at all, only showing column if needed
 		$this->av = 0;
@@ -130,7 +130,7 @@ class SermonspeakerViewSpeaker extends JViewLegacy
 				{
 					$speaker->speaker_slug  = $speaker->slug;
 					$speaker->speaker_state = $speaker->state;
-					$names[] = JLayoutHelper::render('titles.speaker', array('item' => $speaker, 'params' => $this->params));
+					$names[]                = JLayoutHelper::render('titles.speaker', array('item' => $speaker, 'params' => $this->params));
 				}
 
 				$serie->speakers = implode(', ', $names);
@@ -140,11 +140,11 @@ class SermonspeakerViewSpeaker extends JViewLegacy
 		// Update Statistic
 		if ($this->params->get('track_speaker'))
 		{
-			$user	= JFactory::getUser();
+			$user = JFactory::getUser();
 
 			if (!$user->authorise('com_sermonspeaker.hit', 'com_sermonspeaker'))
 			{
-				$model 	= $this->getModel();
+				$model = $this->getModel();
 				$model->hit();
 			}
 		}
@@ -193,30 +193,30 @@ class SermonspeakerViewSpeaker extends JViewLegacy
 		$this->document->addScriptDeclaration($js);
 
 		// Build Books
-		$groups			= array();
+		$groups = array();
 
 		foreach ($books as $book)
 		{
 			switch ($book)
 			{
 				case ($book < 40):
-					$group	= 'OLD_TESTAMENT';
+					$group = 'OLD_TESTAMENT';
 					break;
 				case ($book < 67):
-					$group	= 'NEW_TESTAMENT';
+					$group = 'NEW_TESTAMENT';
 					break;
 				case ($book < 74):
-					$group	= 'APOCRYPHA';
+					$group = 'APOCRYPHA';
 					break;
 				default:
-					$group	= 'CUSTOMBOOKS';
+					$group = 'CUSTOMBOOKS';
 					break;
 			}
 
-			$object					= new stdClass;
-			$object->value			= $book;
-			$object->text			= JText::_('COM_SERMONSPEAKER_BOOK_' . $book);
-			$groups[$group][]	= $object;
+			$object           = new stdClass;
+			$object->value    = $book;
+			$object->text     = JText::_('COM_SERMONSPEAKER_BOOK_' . $book);
+			$groups[$group][] = $object;
 		}
 
 		foreach ($groups as $key => &$group)
@@ -225,10 +225,10 @@ class SermonspeakerViewSpeaker extends JViewLegacy
 			array_push($group, JHtml::_('select.optgroup', JText::_('COM_SERMONSPEAKER_' . $key)));
 		}
 
-		$this->books	= array_reduce($groups, 'array_merge', array());
+		$this->books = array_reduce($groups, 'array_merge', array());
 
-		$this->pageclass_sfx	= htmlspecialchars($this->params->get('pageclass_sfx'));
-		$this->maxLevel			= $this->params->get('maxLevel', -1);
+		$this->pageclass_sfx = htmlspecialchars($this->params->get('pageclass_sfx'));
+		$this->maxLevel      = $this->params->get('maxLevel', -1);
 		$this->_prepareDocument();
 		parent::display($tpl);
 	}
@@ -240,8 +240,8 @@ class SermonspeakerViewSpeaker extends JViewLegacy
 	 */
 	protected function _prepareDocument()
 	{
-		$app	= JFactory::getApplication();
-		$menus	= $app->getMenu();
+		$app     = JFactory::getApplication();
+		$menus   = $app->getMenu();
 		$pathway = $app->getPathway();
 
 		// Because the application sets a default page title,

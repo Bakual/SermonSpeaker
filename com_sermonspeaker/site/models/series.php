@@ -232,10 +232,11 @@ class SermonspeakerModelSeries extends JModelList
 	 */
 	public function getSpeakers($series)
 	{
-		$db    = JFactory::getDBO();
+		$db    = $this->getDBO();
 		$query = $db->getQuery(true);
 		$query->select('sermons.speaker_id, speakers.title as speaker_title, speakers.pic, speakers.state');
 		$query->select('speakers.intro, speakers.bio, speakers.website');
+		$query->select('speakers.catid as speaker_catid, speakers.language as speaker_language');
 		$query->select('CASE WHEN CHAR_LENGTH(speakers.alias) THEN CONCAT_WS(\':\', speakers.id, speakers.alias) ELSE speakers.id END as slug');
 		$query->from('#__sermon_sermons AS sermons');
 		$query->join('LEFT', '#__sermon_speakers AS speakers ON sermons.speaker_id = speakers.id');
