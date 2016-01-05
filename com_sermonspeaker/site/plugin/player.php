@@ -29,17 +29,17 @@ abstract class SermonspeakerPluginPlayer extends JPlugin
 	/**
 	 * Creates the player
 	 *
-	 * @param   string                    $context  The context from where it's triggered
-	 * @param   object                    &$player  Player object
-	 * @param   array|object              $items    An array of sermnon objects or a single sermon object
-	 * @param   Joomla\Registry\Registry  $config   A config object. Special properties:
-	 *  - count (id of the player)
-	 *  - type (may be audio, video or auto)
-	 *  - prio (may be 0 for audio or 1 for video)
-	 *  - autostart (overwrites the backend setting)
-	 *  - alt_player (overwrites the backend setting)
-	 *  - awidth, aheight (width and height for audio)
-	 *  - vwidth, vheight (width and height for video)
+	 * @param   string                   $context The context from where it's triggered
+	 * @param   object                   &$player Player object
+	 * @param   array|object             $items   An array of sermnon objects or a single sermon object
+	 * @param   Joomla\Registry\Registry $config  A config object. Special properties:
+	 *                                            - count (id of the player)
+	 *                                            - type (may be audio, video or auto)
+	 *                                            - prio (may be 0 for audio or 1 for video)
+	 *                                            - autostart (overwrites the backend setting)
+	 *                                            - alt_player (overwrites the backend setting)
+	 *                                            - awidth, aheight (width and height for audio)
+	 *                                            - vwidth, vheight (width and height for video)
 	 *
 	 * @return  void
 	 */
@@ -48,8 +48,8 @@ abstract class SermonspeakerPluginPlayer extends JPlugin
 	/**
 	 * Sets the dimensions of the player for audio and video. $height and $width are default values.
 	 *
-	 * @param   string  $height  Height of the player
-	 * @param   string  $width   Width of the player
+	 * @param   string $height Height of the player
+	 * @param   string $width  Width of the player
 	 *
 	 * @return  void
 	 */
@@ -66,14 +66,26 @@ abstract class SermonspeakerPluginPlayer extends JPlugin
 	/**
 	 * Sets the dimensions of the Popup window. $type can be 'a' (audio) or 'v' (video)
 	 *
-	 * @param   string  $type  a => audio, v => video
+	 * @param   string $type a => audio, v => video
 	 *
 	 * @return  void
 	 */
 	protected function setPopup($type = 'a')
 	{
-		$this->player->popup['width']  = (strpos($this->config[$type . 'width'], '%')) ? 500 : $this->config[$type . 'width'] + 130;
-		$this->player->popup['height'] = $this->config[$type . 'height'] + $this->params->get('popup_height');
+		$this->player->popup['width']  = (strpos($this->config[$type . 'width'], '%')) ? 500 : (int) $this->config[$type . 'width'] + 130;
+		$this->player->popup['height'] = (int) $this->config[$type . 'height'];
+
+		if (!empty($this->c_params))
+		{
+			$popup_height = (int) $this->c_params->get('popup_height');
+		}
+		else
+		{
+			$c_params     = JComponentHelper::getParams('com_sermonspeaker');
+			$popup_height = (int) $c_params->get('popup_height');
+		}
+
+		$this->player->popup['height'] += $popup_height;
 
 		return;
 	}
