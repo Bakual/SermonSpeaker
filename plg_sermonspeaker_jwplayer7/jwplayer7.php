@@ -50,6 +50,11 @@ class PlgSermonspeakerJwplayer7 extends SermonspeakerPluginPlayer
 	private $options;
 
 	/**
+	 * @var \Joomla\Registry\Registry Component Parameters
+	 */
+	protected $c_params;
+
+	/**
 	 * Creates the player
 	 *
 	 * @param   string                   $context The context from where it's triggered
@@ -84,6 +89,9 @@ class PlgSermonspeakerJwplayer7 extends SermonspeakerPluginPlayer
 
 		// Merge $config into plugin params. $config takes priority.
 		$this->params->merge($config);
+
+		// Get component params
+		$this->c_params = JComponentHelper::getParams('com_sermonspeaker');
 
 		$this->fileprio = $this->params->get('fileprio');
 		$this->type     = $this->params->get('type', 'auto');
@@ -419,7 +427,7 @@ class PlgSermonspeakerJwplayer7 extends SermonspeakerPluginPlayer
 			else
 			{
 				// Todo: Pick correct default pic (from component or add param to plugin?)
-				$entry['file']  = ($img) ? $img : JURI::base(true) . '/media/com_sermonspeaker/images/' . $this->params->get('defaultpic', 'nopict.jpg');
+				$entry['file']  = ($img) ? $img : JURI::base(true) . '/media/com_sermonspeaker/images/' . $this->c_params->get('defaultpic', 'nopict.jpg');
 				$entry['error'] = JText::_('JGLOBAL_RESOURCE_NOT_FOUND');
 			}
 
@@ -429,7 +437,7 @@ class PlgSermonspeakerJwplayer7 extends SermonspeakerPluginPlayer
 			if ($item->sermon_date)
 			{
 				// Todo: Pick correct date format (from component or add param to plugin?)
-				$desc[] = JText::_('JDATE') . ': ' . JHtml::Date($item->sermon_date, JText::_($this->params->get('date_format')), true);
+				$desc[] = JText::_('JDATE') . ': ' . JHtml::Date($item->sermon_date, JText::_($this->c_params->get('date_format')), true);
 			}
 
 			if ($item->speaker_title)
@@ -468,7 +476,7 @@ class PlgSermonspeakerJwplayer7 extends SermonspeakerPluginPlayer
 				}
 				else
 				{
-					$file           = ($img) ? $img : JURI::base(true) . '/media/com_sermonspeaker/images/' . $this->params->get('defaultpic', 'nopict.jpg');
+					$file           = ($img) ? $img : JURI::base(true) . '/media/com_sermonspeaker/images/' . $this->c_params->get('defaultpic', 'nopict.jpg');
 					$entry['error'] = "error:'" . JText::_('JGLOBAL_RESOURCE_NOT_FOUND') . "'";
 				}
 
@@ -482,7 +490,7 @@ class PlgSermonspeakerJwplayer7 extends SermonspeakerPluginPlayer
 				}
 				else
 				{
-					$file           = ($img) ? $img : JURI::base(true) . '/media/com_sermonspeaker/images/' . $this->params->get('defaultpic', 'nopict.jpg');
+					$file           = ($img) ? $img : JURI::base(true) . '/media/com_sermonspeaker/images/' . $this->c_params->get('defaultpic', 'nopict.jpg');
 					$entry['error'] = "error:'" . JText::_('JGLOBAL_RESOURCE_NOT_FOUND') . "'";
 				}
 
