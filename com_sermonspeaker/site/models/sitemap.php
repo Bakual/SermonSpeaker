@@ -24,10 +24,10 @@ class SermonspeakerModelSitemap extends JModelLegacy
 	public function getSermons()
 	{
 		// Create a new query object.
-		$db		= $this->getDbo();
-		$query	= $db->getQuery(true);
+		$db    = $this->getDbo();
+		$query = $db->getQuery(true);
 
-		$query->select('id, title, sermon_date, created');
+		$query->select('id, title, sermon_date, created, catid, language');
 		$query->select("CASE WHEN CHAR_LENGTH(alias) THEN CONCAT_WS(':', id, alias) ELSE id END as slug");
 		$query->from('#__sermon_sermons');
 		$query->where('state = 1');

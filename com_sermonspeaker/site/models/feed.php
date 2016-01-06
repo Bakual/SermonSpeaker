@@ -29,24 +29,25 @@ class SermonspeakerModelFeed extends JModelLegacy
 		$user   = JFactory::getUser();
 		$groups = implode(',', $user->getAuthorisedViewLevels());
 
-		$db     = $this->getDbo();
+		$db = $this->getDbo();
 
 		// Force utf8 connection
 		$query = "SET character_set_results ='utf8';";
 		$db->setQuery($query);
 
 		// Create a new query object.
-		$query	= $db->getQuery(true);
+		$query = $db->getQuery(true);
 
 		// Select required fields from the table.
 		$query->select('sermons.sermon_date, sermons.title, sermons.audiofile, sermons.videofile, sermons.notes');
 		$query->select('sermons.sermon_time, sermons.id, sermons.picture, sermons.custom1, sermons.custom2');
+		$query->select('sermons.catid, sermons.language');
 		$query->select('CASE WHEN CHAR_LENGTH(sermons.alias) THEN CONCAT_WS(\':\', sermons.id, sermons.alias) ELSE sermons.id END as slug');
 		$query->from('`#__sermon_sermons` AS sermons');
 
 		// Join over the scriptures.
 		$query->select('GROUP_CONCAT(script.book,"|",script.cap1,"|",script.vers1,"|",script.cap2,"|",script.vers2,"|",script.text '
-						. 'ORDER BY script.ordering ASC SEPARATOR "!") AS scripture');
+			. 'ORDER BY script.ordering ASC SEPARATOR "!") AS scripture');
 		$query->join('LEFT', '#__sermon_scriptures AS script ON script.sermon_id = sermons.id');
 		$query->group('sermons.id');
 

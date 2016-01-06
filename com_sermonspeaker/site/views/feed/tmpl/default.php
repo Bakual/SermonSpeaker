@@ -108,9 +108,9 @@ foreach ($this->items as $item) :
 		<link><?php
 		if ($this->params->get('use_sef', 1)) :
 			$uri = JURI::getInstance(JURI::root());
-			echo $this->make_xml_safe($uri->toString(array('scheme', 'host', 'port')) . JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug)));
+			echo $this->make_xml_safe($uri->toString(array('scheme', 'host', 'port')) . JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug, $item->catid, $item->language)));
 		else :
-			echo $this->make_xml_safe(JURI::root() . SermonspeakerHelperRoute::getSermonRoute($item->id));
+			echo $this->make_xml_safe(JURI::root() . SermonspeakerHelperRoute::getSermonRoute($item->id, $item->catid, $item->language));
 		endif; ?></link>
 		<guid><?php echo JURI::root() . 'index.php?option=com_sermonspeaker&amp;view=sermon&amp;id=' . $item->id; ?></guid>
 <?php

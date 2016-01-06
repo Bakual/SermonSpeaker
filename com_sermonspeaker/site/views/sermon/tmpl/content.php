@@ -33,7 +33,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 	<div class="page-header">
 		<h2 itemprop="name">
 			<?php echo JLayoutHelper::render('blocks.state_info', array('item' => $this->item, 'show' => $showState)); ?>
-			<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonRoute($this->item->slug)); ?>" itemprop="url">
+			<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonRoute($this->item->slug, $this->item->catid, $this->item->language)); ?>" itemprop="url">
 				<?php echo $this->escape($this->item->title); ?></a>
 		</h2>
 		<?php if (in_array('sermon:speaker', $this->columns) and $this->item->speaker_title) : ?>

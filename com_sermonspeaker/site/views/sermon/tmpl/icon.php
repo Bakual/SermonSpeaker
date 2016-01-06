@@ -31,7 +31,7 @@ if ($this->params->get('show_page_heading', 1)) : ?>
 	<h1><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
 <?php endif; ?>
 <h2 itemprop="name">
-	<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonRoute($this->item->slug)); ?>" itemprop="url">
+	<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonRoute($this->item->slug, $this->item->catid, $this->item->language)); ?>" itemprop="url">
 		<?php echo $this->item->title; ?>
 	</a>
 </h2>
@@ -59,7 +59,7 @@ if ($canEdit or ($canEditOwn and ($user->id == $this->item->created_by))) : ?>
 		if ($this->params->get('popup_player') or in_array('sermon:download', $this->columns)) : ?>
 			<div class="ss-mp3-links">
 			<?php if ($this->params->get('popup_player')) : ?>
-				<a href="<?php echo JURI::current(); ?>" class="new-window" onclick="popup = window.open('<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonRoute($this->item->slug) . '&layout=popup&tmpl=component'); ?>', 'PopupPage', 'height=<?php echo $player->popup['height']; ?>,width=<?php echo $player->popup['width']; ?>,scrollbars=yes,resizable=yes'); return false">
+				<a href="<?php echo JURI::current(); ?>" class="new-window" onclick="popup = window.open('<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonRoute($this->item->slug, $this->item->catid, $this->item->language) . '&layout=popup&tmpl=component'); ?>', 'PopupPage', 'height=<?php echo $player->popup['height']; ?>,width=<?php echo $player->popup['width']; ?>,scrollbars=yes,resizable=yes'); return false">
 					<?php echo JText::_('COM_SERMONSPEAKER_POPUPPLAYER'); ?>
 				</a>
 			<?php endif;
@@ -83,7 +83,7 @@ if ($canEdit or ($canEditOwn and ($user->id == $this->item->created_by))) : ?>
 				<br style="clear:left;" />
 			<?php endif; ?>
 			<div class="ss-player-video">
-				<a href="<?php echo JURI::current(); ?>" onclick="popup = window.open('<?php echo  JRoute::_(SermonspeakerHelperRoute::getSermonRoute($this->item->slug) . '&layout=popup&type=video&tmpl=component'); ?>', 'PopupPage', 'height=<?php echo $player->popup['height']; ?>,width=<?php echo $player->popup['width']; ?>,scrollbars=yes,resizable=yes'); return false">
+				<a href="<?php echo JURI::current(); ?>" onclick="popup = window.open('<?php echo  JRoute::_(SermonspeakerHelperRoute::getSermonRoute($this->item->slug, $this->item->catid, $this->item->language) . '&layout=popup&type=video&tmpl=component'); ?>', 'PopupPage', 'height=<?php echo $player->popup['height']; ?>,width=<?php echo $player->popup['width']; ?>,scrollbars=yes,resizable=yes'); return false">
 					<img src="media/com_sermonspeaker/images/player.png">
 				</a>
 			</div>

@@ -29,7 +29,7 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>';?>
 		$date	= '';
 	endif; ?>
 	<url>
-		<loc><?php echo $base . JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug)); ?></loc>
+		<loc><?php echo $base . JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug, $item->catid, $item->language)); ?></loc>
 		<?php
 		if ($date) : ?><lastmod><?php echo JHtml::Date($date, 'c'); ?></lastmod><?php endif; ?>
  		<changefreq><?php echo $freq; ?></changefreq>

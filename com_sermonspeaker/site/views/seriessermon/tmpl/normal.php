@@ -89,7 +89,7 @@ if ($this->params->get('show_description', 1) or $this->params->def('show_descri
 				<?php foreach($sermons as $sermon) :
 					$config['count'] ++;?>
 					<h4 style="margin-left:-5%;">
-						<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonRoute($sermon->slug)); ?>">
+						<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonRoute($sermon->slug, $sermon->catid, $sermon->language)); ?>">
 							<?php echo $this->escape($sermon->title);
 
 							if (in_array('seriessermon:date', $this->columns) and ($sermon->sermon_date != '0000-00-00 00:00:00')):
