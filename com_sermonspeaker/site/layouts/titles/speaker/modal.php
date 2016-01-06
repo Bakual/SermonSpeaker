@@ -9,7 +9,7 @@
 
 defined('_JEXEC') or die();
 
-$url = JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($displayData->speaker_slug));
+$url = JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($displayData->speaker_slug, $displayData->speaker_catid, $displayData->speaker_language));
 ?>
 <div id="sermonspeaker-modal-speaker-<?php echo $displayData->speaker_id; ?>" class="modal hide fade">
 	<div class="modal-header">

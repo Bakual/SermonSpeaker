@@ -188,11 +188,11 @@ class SermonspeakerViewSermon extends JViewLegacy
 
 		if ($menu && ($menu->query['view'] == 'series'))
 		{
-			$pathway->addItem($this->item->series_title, JRoute::_(SermonspeakerHelperRoute::getSerieRoute($this->item->series_slug)));
+			$pathway->addItem($this->item->series_title, JRoute::_(SermonspeakerHelperRoute::getSerieRoute($this->item->series_slug, $this->item->series_catid, $this->item->series_language)));
 		}
 		elseif ($menu && ($menu->query['view'] == 'speakers'))
 		{
-			$pathway->addItem($this->item->speaker_title, JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($this->item->speaker_slug)));
+			$pathway->addItem($this->item->speaker_title, JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($this->item->speaker_slug, $this->item->speaker_catid, $this->item->speaker_language)));
 		}
 
 		$pathway->addItem($this->item->title, '');
@@ -273,7 +273,7 @@ class SermonspeakerViewSermon extends JViewLegacy
 				{
 					$this->document->addCustomTag(
 							'<meta property="article:author" content="'
-								. JURI::base() . trim(JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($this->item->speaker_slug)), '/')
+								. JURI::base() . trim(JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($this->item->speaker_slug, $this->item->speaker_catid, $this->item->speaker_language)), '/')
 							. '"/>'
 						);
 				}

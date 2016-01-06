@@ -147,7 +147,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 												<dd>
 													<div class="category-name">
 														<?php echo JText::_('JCATEGORY'); ?>:
-														<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonsRoute($item->catslug)); ?>"><?php echo $item->category_title; ?></a>
+														<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonsRoute($item->catslug, $item->language)); ?>"><?php echo $item->category_title; ?></a>
 													</div>
 												</dd>
 											<?php endif;
@@ -159,7 +159,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 														<?php echo JText::_('COM_SERMONSPEAKER_SERIE_TITLE'); ?>:
 														<?php
 														if ($item->series_state) : ?>
-															<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->series_slug)); ?>"><?php echo $this->escape($item->series_title); ?></a>
+															<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->series_slug, $item->series_catid, $item->series_language)); ?>"><?php echo $this->escape($item->series_title); ?></a>
 														<?php else :
 															echo $this->escape($item->series_title);
 														endif; ?>
@@ -290,7 +290,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 										</ul>
 									</div>
 									<div class="page-header">
-										<a title="<?php echo JText::_('COM_SERMONSPEAKER_SERIESLINK_HOOVER'); ?>" href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->slug)); ?>">
+										<a title="<?php echo JText::_('COM_SERMONSPEAKER_SERIESLINK_HOOVER'); ?>" href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->slug, $item->catid, $item->language)); ?>">
 											<h2><?php echo $item->title; ?></h2>
 										</a>
 										<?php echo JLayoutHelper::render('blocks.state_info', array('item' => $item, 'show' => $showState)); ?>
@@ -304,7 +304,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 									</div>
 									<?php if ($item->avatar) : ?>
 										<div class="img-polaroid pull-right item-image">
-											<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->slug)); ?>">
+											<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->slug, $item->catid, $item->language)); ?>">
 												<img src="<?php echo SermonspeakerHelperSermonspeaker::makelink($item->avatar); ?>">
 											</a>
 										</div>
@@ -317,7 +317,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 												<dd>
 													<div class="category-name">
 														<?php echo JText::_('JCATEGORY'); ?>:
-														<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSeriesRoute($item->catslug)); ?>"><?php echo $item->category_title; ?></a>
+														<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSeriesRoute($item->catslug, $item->language)); ?>"><?php echo $item->category_title; ?></a>
 													</div>
 												</dd>
 											<?php endif;

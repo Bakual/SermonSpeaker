@@ -55,7 +55,7 @@ $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 			</ul>
 		</div>
 		<div class="page-header">
-			<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($this->item->slug)); ?>">
+			<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($this->item->slug, $this->item->catid, $this->item->language)); ?>">
 				<h2><?php echo $this->item->title; ?></h2>
 			</a>
 			<?php echo JLayoutHelper::render('blocks.state_info', array('item' => $this->item, 'show' => $showState)); ?>
@@ -69,7 +69,7 @@ $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 		</div>
 		<?php if ($this->item->avatar) : ?>
 			<div class="img-polaroid pull-right item-image">
-				<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($this->item->slug)); ?>">
+				<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($this->item->slug, $this->item->catid, $this->item->language)); ?>">
 					<img src="<?php echo SermonspeakerHelperSermonspeaker::makelink($this->item->avatar); ?>">
 				</a>
 			</div>
@@ -82,7 +82,7 @@ $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 					<dd>
 						<div class="category-name">
 							<?php echo JText::_('JCATEGORY'); ?>:
-							<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSeriesRoute($this->item->catslug)); ?>"><?php echo $this->item->category_title; ?></a>
+							<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSeriesRoute($this->item->catid, $this->item->language)); ?>"><?php echo $this->item->category_title; ?></a>
 						</div>
 					</dd>
 				<?php endif;
@@ -198,7 +198,7 @@ $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 										<dd>
 											<div class="category-name">
 												<?php echo JText::_('JCATEGORY'); ?>:
-												<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonsRoute($item->catslug)); ?>"><?php echo $item->category_title; ?></a>
+												<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonsRoute($item->catslug, $item->language)); ?>"><?php echo $item->category_title; ?></a>
 											</div>
 										</dd>
 									<?php endif;

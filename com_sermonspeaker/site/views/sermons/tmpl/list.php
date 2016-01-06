@@ -129,7 +129,7 @@ $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 									<?php echo JText::_('COM_SERMONSPEAKER_SERIE'); ?>: 
 									<?php
 									if ($item->series_state): ?>
-										<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->series_slug)); ?>">
+										<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->series_slug, $item->series_catid, $item->series_language)); ?>">
 											<?php echo $item->series_title; ?>
 										</a>
 									<?php else :

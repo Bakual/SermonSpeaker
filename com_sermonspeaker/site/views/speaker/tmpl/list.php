@@ -130,7 +130,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 											<?php echo JText::_('COM_SERMONSPEAKER_SERIE'); ?>: 
 											<?php
 											if ($item->series_state): ?>
-												<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->series_slug)); ?>"><?php echo $item->series_title; ?></a>
+												<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->series_slug, $item->series_catid, $item->series_language)); ?>"><?php echo $item->series_title; ?></a>
 											<?php else :
 												echo $item->series_title;
 											endif; ?>
@@ -228,7 +228,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 										</span>
 									<?php endif; ?>
 									<strong class="ss-title">
-										<a title="<?php echo JText::_('COM_SERMONSPEAKER_SERIESLINK_HOOVER'); ?>" href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->slug)); ?>">
+										<a title="<?php echo JText::_('COM_SERMONSPEAKER_SERIESLINK_HOOVER'); ?>" href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->slug, $item->catid, $item->language)); ?>">
 											<?php echo $item->title; ?>
 										</a>
 									</strong>

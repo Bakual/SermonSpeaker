@@ -74,7 +74,7 @@ class JHtmlIcon
 		$base     = $uri->toString(array('scheme', 'host', 'port'));
 		$template = JFactory::getApplication()->getTemplate();
 		$function = 'get' . ucfirst($attribs['type']) . 'Route';
-		$link     = $base . JRoute::_(SermonspeakerHelperRoute::$function($item->slug, $item->catid), false);
+		$link     = $base . JRoute::_(SermonspeakerHelperRoute::$function($item->slug, $item->catid, $item->language), false);
 		$url      = 'index.php?option=com_mailto&tmpl=component&template=' . $template . '&link=' . MailToHelper::addLink($link);
 
 		$status = 'width=400,height=350,menubar=yes,resizable=yes';

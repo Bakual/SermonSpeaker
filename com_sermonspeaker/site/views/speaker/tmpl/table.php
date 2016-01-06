@@ -230,7 +230,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 										</td>
 										<?php if (in_array('speaker:category', $this->col_sermon)) : ?>
 											<td class="ss-col ss-category hidden-phone">
-												<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonsRoute($item->catslug)); ?>"><?php echo $item->category_title; ?></a>
+												<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonsRoute($item->catslug, $item->language)); ?>"><?php echo $item->category_title; ?></a>
 											</td>
 										<?php endif;
 
@@ -258,7 +258,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 										if (in_array('speaker:series', $this->col_sermon)) : ?>
 											<td class="ss-col ss-series hidden-phone">
 												<?php if ($item->series_state): ?>
-													<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->series_slug)); ?>"><?php echo $item->series_title; ?></a>
+													<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->series_slug, $item->series_catid, $item->series_language)); ?>"><?php echo $item->series_title; ?></a>
 												<?php else:
 													echo $item->series_title;
 												endif; ?>
@@ -373,13 +373,13 @@ $this->document->addScriptDeclaration('jQuery(function() {
 									<?php
 									if ($this->av) :
 										if ($item->avatar) : ?>
-											<td class="ss-col ss-av hidden-phone hidden-tablet"><a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->slug)); ?>"><img class="img-polaroid" src="<?php echo SermonspeakerHelperSermonspeaker::makelink($item->avatar); ?>"></a></td>
+											<td class="ss-col ss-av hidden-phone hidden-tablet"><a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->slug, $item->catid, $item->language)); ?>"><img class="img-polaroid" src="<?php echo SermonspeakerHelperSermonspeaker::makelink($item->avatar); ?>"></a></td>
 										<?php else : ?>
 											<td class="ss-col ss-av hidden-phone hidden-tablet"></td>
 										<?php endif;
 									endif; ?>
 									<td class="ss-title">
-										<a title='<?php echo JText::_('COM_SERMONSPEAKER_SERIESLINK_HOOVER'); ?>' href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->slug)); ?>">
+										<a title='<?php echo JText::_('COM_SERMONSPEAKER_SERIESLINK_HOOVER'); ?>' href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->slug, $item->catid, $item->language)); ?>">
 											<?php echo $item->title; ?>
 										</a>
 										<?php if ($canEdit or ($canEditOwn and ($user->id == $item->created_by))) : ?>
@@ -391,7 +391,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 									</td>
 									<?php if (in_array('speaker:category', $this->col_serie)) : ?>
 										<td class="ss-col ss-category hidden-phone">
-											<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSeriesRoute($item->catslug)); ?>"><?php echo $item->category_title; ?></a>
+											<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSeriesRoute($item->catslug, $item->language)); ?>"><?php echo $item->category_title; ?></a>
 										</td>
 									<?php endif;
 

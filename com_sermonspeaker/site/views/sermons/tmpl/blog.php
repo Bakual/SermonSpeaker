@@ -144,7 +144,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 										<dd>
 											<div class="category-name">
 												<?php echo JText::_('JCATEGORY'); ?>:
-												<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonsRoute($item->catslug)); ?>"><?php echo $item->category_title; ?></a>
+												<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonsRoute($item->catid, $item->language)); ?>"><?php echo $item->category_title; ?></a>
 											</div>
 										</dd>
 									<?php endif;
@@ -156,7 +156,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 												<?php echo JText::_('COM_SERMONSPEAKER_SERIE_TITLE'); ?>:
 												<?php
 												if ($item->series_state) : ?>
-													<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->series_slug)); ?>">
+													<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->series_slug, $item->series_catid, $item->series_language)); ?>">
 												<?php echo $this->escape($item->series_title); ?></a>
 												<?php else :
 													echo $this->escape($item->series_title);

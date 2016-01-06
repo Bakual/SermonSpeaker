@@ -68,7 +68,7 @@ if ($canEdit or ($canEditOwn and ($user->id == $this->item->created_by))) : ?>
 		<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_SERIE_TITLE'); ?>:</div>
 		<div class="ss-sermondetail-text">
 			<?php if ($this->item->series_state) : ?>
-				<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($this->item->series_slug)); ?>">
+				<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($this->item->series_slug, $this->item->series_catid, $this->item->series_language)); ?>">
 			<?php echo $this->escape($this->item->series_title); ?></a>
 			<?php else :
 				echo $this->escape($this->item->series_title);

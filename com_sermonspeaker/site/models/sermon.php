@@ -23,18 +23,18 @@ class SermonspeakerModelSermon extends JModelItem
 	 *
 	 * Note. Calling getState in this method will result in recursion
 	 *
-	 * @param   string  $ordering   Ordering column
-	 * @param   string  $direction  'ASC' or 'DESC'
+	 * @param   string $ordering  Ordering column
+	 * @param   string $direction 'ASC' or 'DESC'
 	 *
 	 * @return  void
 	 */
 	protected function populateState($ordering = null, $direction = null)
 	{
-		$app = JFactory::getApplication();
-		$params	= $app->getParams();
+		$app    = JFactory::getApplication();
+		$params = $app->getParams();
 
 		// Load the object state.
-		$id	= $app->input->get('id', 0, 'int');
+		$id = $app->input->get('id', 0, 'int');
 		$this->setState('sermon.id', $id);
 
 		// Load the parameters.
@@ -44,7 +44,7 @@ class SermonspeakerModelSermon extends JModelItem
 	/**
 	 * Method to get an object
 	 *
-	 * @param   integer  $id  The id of the object to get
+	 * @param   integer $id The id of the object to get
 	 *
 	 * @return  mixed  Object on success, false on failure
 	 */
@@ -64,7 +64,7 @@ class SermonspeakerModelSermon extends JModelItem
 		{
 			try
 			{
-				$db = $this->getDbo();
+				$db    = $this->getDbo();
 				$query = $db->getQuery(true);
 
 				$query->select(
@@ -86,7 +86,7 @@ class SermonspeakerModelSermon extends JModelItem
 
 				// Join over the scriptures.
 				$query->select('GROUP_CONCAT(script.book,"|",script.cap1,"|",script.vers1,"|",script.cap2,"|",script.vers2,"|",script.text '
-								. 'ORDER BY script.ordering ASC SEPARATOR "!") AS scripture');
+					. 'ORDER BY script.ordering ASC SEPARATOR "!") AS scripture');
 				$query->join('LEFT', '#__sermon_scriptures AS script ON script.sermon_id = sermon.id');
 				$query->group('sermon.id');
 
@@ -111,7 +111,7 @@ class SermonspeakerModelSermon extends JModelItem
 
 				// Join on speakers table.
 				$query->select('speakers.title AS speaker_title, speakers.pic AS pic, speakers.state as speaker_state');
-				$query->select('speakers.intro, speakers.bio, speakers.website');
+				$query->select('speakers.intro, speakers.bio, speakers.website, speakers.catid as speaker_catid, speakers.language as speaker_language');
 				$query->select("CASE WHEN CHAR_LENGTH(speakers.alias) THEN CONCAT_WS(':', speakers.id, speakers.alias) ELSE speakers.id END as speaker_slug");
 				$query->join('LEFT', '#__sermon_speakers AS speakers on speakers.id = sermon.speaker_id');
 
@@ -121,10 +121,8 @@ class SermonspeakerModelSermon extends JModelItem
 				$query->where('(sermon.speaker_id = 0 OR speakers.catid = 0 OR c_speaker.published = 1)');
 
 				// Join on series table.
-				$query->select(
-						'series.title AS series_title, series.avatar, series.state as series_state, '
-						. "CASE WHEN CHAR_LENGTH(series.alias) THEN CONCAT_WS(':', series.id, series.alias) ELSE series.id END as series_slug "
-				);
+				$query->select('series.title AS series_title, series.avatar, series.state as series_state, series.catid as series_catid, series.language as series_language');
+				$query->select("CASE WHEN CHAR_LENGTH(series.alias) THEN CONCAT_WS(':', series.id, series.alias) ELSE series.id END as series_slug ");
 				$query->join('LEFT', '#__sermon_series AS series on series.id = sermon.series_id');
 
 				// Join on category table for series
@@ -169,7 +167,7 @@ class SermonspeakerModelSermon extends JModelItem
 	/**
 	 * Method to increment the hit counter for the sermon
 	 *
-	 * @param   int  $id  Optional ID of the sermon
+	 * @param   int $id Optional ID of the sermon
 	 *
 	 * @return  boolean  True on success
 	 */
@@ -192,7 +190,7 @@ class SermonspeakerModelSermon extends JModelItem
 	 */
 	public function getLatest()
 	{
-		$db = $this->getDbo();
+		$db    = $this->getDbo();
 		$query = $db->getQuery(true);
 
 		$query->select('id');

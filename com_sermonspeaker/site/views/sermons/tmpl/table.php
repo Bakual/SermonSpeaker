@@ -215,7 +215,7 @@ $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 								</td>
 								<?php if (in_array('sermons:category', $this->columns)) : ?>
 									<td class="ss-col ss-category hidden-phone">
-										<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonsRoute($item->catslug)); ?>"><?php echo $item->category_title; ?></a>
+										<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonsRoute($item->catid, $item->language)); ?>"><?php echo $item->category_title; ?></a>
 									</td>
 								<?php endif;
 
@@ -249,7 +249,7 @@ $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 								if (in_array('sermons:series', $this->columns)) : ?>
 									<td class="ss-col ss-series hidden-phone">
 										<?php if ($item->series_state): ?>
-											<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->series_slug)); ?>">
+											<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->series_slug, $item->series_catid, $item->series_language)); ?>">
 												<?php echo $item->series_title; ?>
 											</a>
 										<?php else:

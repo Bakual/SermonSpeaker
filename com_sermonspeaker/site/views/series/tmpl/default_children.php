@@ -20,7 +20,7 @@ if (count($this->children[$this->category->id]) > 0) :
 			<div<?php echo $class; ?>>
 				<?php $class = ''; ?>
 				<h3 class="page-header item-title">
-					<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSeriesRoute($child->id));?>">
+					<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSeriesRoute($child->id, $child->language));?>">
 						<?php echo $this->escape($child->title); ?>
 					</a>
 					<?php if ($this->params->get('show_cat_num_items', 1)) : ?>

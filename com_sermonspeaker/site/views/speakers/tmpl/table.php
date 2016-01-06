@@ -97,7 +97,7 @@ $listDirn	= $this->state->get('list.direction');
 						<?php foreach($this->items as $i => $item) : ?>
 							<tr class="<?php echo ($item->state) ? '': 'system-unpublished '; ?>cat-list-row<?php echo $i % 2; ?>">
 								<td class="ss-title">
-									<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug)); ?>">
+									<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug, $item->catid, $item->language)); ?>">
 										<?php echo $item->title; ?>
 									</a>
 									<?php if ($canEdit or ($canEditOwn and ($user->id == $item->created_by))) : ?>
@@ -109,7 +109,7 @@ $listDirn	= $this->state->get('list.direction');
 								</td>
 								<?php if (in_array('speakers:category', $this->col_speaker)) : ?>
 									<td class="ss-col ss-category hidden-phone">
-										<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakersRoute($item->catslug)); ?>"><?php echo $item->category_title; ?></a>
+										<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakersRoute($item->catslug, $item->language)); ?>"><?php echo $item->category_title; ?></a>
 									</td>
 								<?php endif;
 
@@ -124,7 +124,7 @@ $listDirn	= $this->state->get('list.direction');
 									<ul class="unstyled">
 									<?php if ($item->sermons) : ?>
 									<li>
-										<a class="badge badge-info" href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug) . '#sermons'); ?>">
+										<a class="badge badge-info" href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug, $item->catid, $item->language) . '#sermons'); ?>">
 											<?php echo JText::_('COM_SERMONSPEAKER_SERMONS'); ?>
 										</a>
 									</li>
@@ -132,7 +132,7 @@ $listDirn	= $this->state->get('list.direction');
 
 									if ($item->series) : ?>
 									<li>
-										<a class="badge badge-info" href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug) . '#series'); ?>">
+										<a class="badge badge-info" href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug, $item->catid, $item->language) . '#series'); ?>">
 											<?php echo JText::_('COM_SERMONSPEAKER_SERIES'); ?>
 										</a>
 									</li>

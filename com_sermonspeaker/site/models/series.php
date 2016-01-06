@@ -66,7 +66,7 @@ class SermonspeakerModelSeries extends JModelList
 		$query->select(
 			$this->getState(
 				'list.select',
-				'series.id, series.title, series.catid, series.avatar, '
+				'series.id, series.title, series.catid, series.avatar, series.language, '
 				. 'CASE WHEN CHAR_LENGTH(series.alias) THEN CONCAT_WS(\':\', series.id, series.alias) ELSE series.id END as slug, '
 				. 'series.hits, series.series_description, series.alias, series.checked_out, series.checked_out_time, '
 				. 'series.state, series.ordering, series.created, series.created_by, '

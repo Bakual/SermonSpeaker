@@ -94,7 +94,7 @@ $listDirn	= $this->state->get('list.direction');
 								</ul>
 							</div>
 							<div class="page-header">
-								<a title="<?php echo JText::_('COM_SERMONSPEAKER_SERIESLINK_HOOVER'); ?>" href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->slug)); ?>">
+								<a title="<?php echo JText::_('COM_SERMONSPEAKER_SERIESLINK_HOOVER'); ?>" href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->slug, $item->catid, $item->language)); ?>">
 									<h2><?php echo $item->title; ?></h2>
 								</a>
 								<?php echo JLayoutHelper::render('blocks.state_info', array('item' => $item, 'show' => $showState)); ?>
@@ -108,7 +108,7 @@ $listDirn	= $this->state->get('list.direction');
 							</div>
 							<?php if ($item->avatar) : ?>
 								<div class="img-polaroid pull-right item-image">
-									<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->slug)); ?>">
+									<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->slug, $item->catid, $item->language)); ?>">
 										<img src="<?php echo SermonspeakerHelperSermonspeaker::makelink($item->avatar); ?>">
 									</a>
 								</div>
@@ -121,7 +121,7 @@ $listDirn	= $this->state->get('list.direction');
 										<dd>
 											<div class="category-name">
 												<?php echo JText::_('JCATEGORY'); ?>:
-												<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSeriesRoute($item->catslug)); ?>"><?php echo $item->category_title; ?></a>
+												<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSeriesRoute($item->catslug, $item->language)); ?>"><?php echo $item->category_title; ?></a>
 											</div>
 										</dd>
 									<?php endif;

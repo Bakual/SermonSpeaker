@@ -29,7 +29,7 @@ if (!isset($legacy))
 		if ($legacy) :
 			// Mootools variant
 			JHtml::_('behavior.modal');
-			$url   = JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->speaker_slug) . '&layout=popup&tmpl=component'); ?>
+			$url   = JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->speaker_slug, $item->speaker_catid, $item->speaker_language) . '&layout=popup&tmpl=component'); ?>
 			<a href="<?php echo $url; ?>" class="modal" rel="{handler:'iframe', size: {x: 700, y: 500}}" itemprop="url">
 		<?php else :
 			echo $this->sublayout('modal', $item); ?>

@@ -18,7 +18,7 @@ extract($displayData);
 ?>
 <div class="page-header">
 	<h2 itemprop="name">
-		<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug)); ?>" itemprop="url">
+		<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug, $item->catid, $item->language)); ?>" itemprop="url">
 			<?php echo $item->title; ?>
 		</a>
 	</h2>
@@ -26,7 +26,7 @@ extract($displayData);
 </div>
 <?php if ($item->pic) : ?>
 	<div class="img-polaroid pull-right item-image">
-		<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug)); ?>" itemprop="url">
+		<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug, $item->catid, $item->language)); ?>" itemprop="url">
 			<img src="<?php echo SermonspeakerHelperSermonspeaker::makelink($item->pic); ?>" itemprop="image">
 		</a>
 	</div>
@@ -39,7 +39,7 @@ extract($displayData);
 			<dd>
 				<div class="category-name">
 					<?php echo JText::_('JCATEGORY'); ?>:
-					<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakersRoute($item->catslug)); ?>" itemprop="genre">
+					<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakersRoute($item->catid, $item->language)); ?>" itemprop="genre">
 						<?php echo $item->category_title; ?>
 					</a>
 				</div>
