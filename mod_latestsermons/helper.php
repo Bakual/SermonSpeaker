@@ -19,20 +19,20 @@ abstract class ModLatestsermonsHelper
 	/**
 	 * Gets the items from the database
 	 *
-	 * @param   object  $params  parameters
+	 * @param   object $params parameters
 	 *
 	 * @return  array  $items  Array of items
 	 */
 	public static function getList($params)
 	{
-		$user	= JFactory::getUser();
-		$groups	= implode(',', $user->getAuthorisedViewLevels());
+		$user   = JFactory::getUser();
+		$groups = implode(',', $user->getAuthorisedViewLevels());
 
-		$db		= JFactory::getDbo();
-		$query	= $db->getQuery(true);
-		$query->select('a.title, a.id, a.sermon_date, a.audiofile, a.videofile, a.sermon_time, a.picture, a.notes, a.hits, a.catid');
-		$query->select('b.title as speaker_title, b.pic, b.state AS speaker_state, b.catid AS speaker_catid');
-		$query->select('c.title AS series_title, c.avatar, c.state AS series_state, c.catid AS series_catid');
+		$db    = JFactory::getDbo();
+		$query = $db->getQuery(true);
+		$query->select('a.title, a.id, a.sermon_date, a.audiofile, a.videofile, a.sermon_time, a.picture, a.notes, a.hits, a.catid, a.language');
+		$query->select('b.title as speaker_title, b.pic, b.state AS speaker_state, b.catid AS speaker_catid, b.language AS speaker_language');
+		$query->select('c.title AS series_title, c.avatar, c.state AS series_state, c.catid AS series_catid, c.language AS series_language');
 		$query->select('CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(\':\', a.id, a.alias) ELSE a.id END as slug');
 		$query->select('CASE WHEN CHAR_LENGTH(b.alias) THEN CONCAT_WS(\':\', b.id, b.alias) ELSE b.id END as speaker_slug');
 		$query->select('CASE WHEN CHAR_LENGTH(c.alias) THEN CONCAT_WS(\':\', c.id, c.alias) ELSE c.id END as series_slug');
@@ -55,13 +55,13 @@ abstract class ModLatestsermonsHelper
 			switch ($params->get('cat_type', 'sermons'))
 			{
 				case 'sermons':
-					$type	= 'a';
+					$type = 'a';
 					break;
 				case 'speakers':
-					$type	= 'b';
+					$type = 'b';
 					break;
 				case 'series':
-					$type	= 'c';
+					$type = 'c';
 					break;
 			}
 
@@ -141,8 +141,8 @@ abstract class ModLatestsermonsHelper
 		}
 
 		// Ordering
-		$mode	= $params->get('mode', 0);
-		$dir	= $params->get('dir', 1) ? 'DESC' : 'ASC';
+		$mode = $params->get('mode', 0);
+		$dir  = $params->get('dir', 1) ? 'DESC' : 'ASC';
 
 		switch ($mode)
 		{
@@ -159,7 +159,7 @@ abstract class ModLatestsermonsHelper
 		}
 
 		$db->setQuery($query, 0, (int) $params->get('ls_count', 3));
-		$items	= $db->loadObjectList();
+		$items = $db->loadObjectList();
 
 		return $items;
 	}

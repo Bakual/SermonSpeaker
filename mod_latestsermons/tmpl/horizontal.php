@@ -18,11 +18,11 @@ $count = count($list);
 			<?php foreach($list as $row) : ?>
 				<?php $i++; ?>
 				<div class="latestsermons_entry<?php echo $i; ?> text-center span<?php echo (int) 12/$count; ?>">
-					<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonRoute($row->slug, $row->catid)); ?>">
+					<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonRoute($row->slug, $row->catid, $row->language)); ?>">
 						<img src="<?php echo SermonspeakerHelperSermonspeaker::insertPicture($row); ?>" class="img-polaroid">
 					</a>
 					<h3>
-						<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonRoute($row->slug, $row->catid)); ?>">
+						<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonRoute($row->slug, $row->catid, $row->language)); ?>">
 							<?php echo $row->title; ?>
 							<?php if ($params->get('show_hits', 0) > 1 and $row->hits) : ?>
 								&nbsp;<small>(<?php echo $row->hits; ?>)</small>
@@ -32,7 +32,7 @@ $count = count($list);
 					<?php if ($params->get('ls_show_mo_series') and $row->series_title) : ?>
 						<span>
 							<?php if ($row->series_state) : ?>
-								<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($row->series_slug, $row->series_catid)); ?>">
+								<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($row->series_slug, $row->series_catid, $row->series_language)); ?>">
 									<?php echo $row->series_title; ?></a>
 							<?php else : ?>
 								<?php echo $row->series_title; ?>
@@ -45,7 +45,7 @@ $count = count($list);
 								 |
 							<?php endif; ?>
 							<?php if ($row->speaker_state): ?>
-								<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($row->speaker_slug, $row->speaker_catid)); ?>">
+								<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($row->speaker_slug, $row->speaker_catid, $row->speaker_language)); ?>">
 									<?php echo $row->speaker_title; ?></a>
 							<?php else : ?>
 								<?php echo $row->speaker_title; ?>

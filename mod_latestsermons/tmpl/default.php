@@ -39,7 +39,7 @@ if ($tooltip)
 				if ($itemid) :
 					$link = JRoute::_('index.php?option=com_sermonspeaker&view=sermon&id=' . $row->slug . '&Itemid=' . $itemid);
 				else :
-					$link = JRoute::_(SermonspeakerHelperRoute::getSermonRoute($row->slug, $row->catid));
+					$link = JRoute::_(SermonspeakerHelperRoute::getSermonRoute($row->slug, $row->catid, $row->language));
 				endif;
 
 				if ($tooltip) :

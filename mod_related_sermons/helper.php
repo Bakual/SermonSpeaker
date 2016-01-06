@@ -157,7 +157,7 @@ class ModRelatedSermonsHelper
 		}
 
 		$query = self::$db->getQuery(true);
-		$query->select('a.title, a.created');
+		$query->select('a.title, a.created, a.catid, a.language');
 		$query->select('CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(":", a.id, a.alias) ELSE a.id END as slug');
 		$query->select('CASE WHEN CHAR_LENGTH(cc.alias) THEN CONCAT_WS(":", cc.id, cc.alias) ELSE cc.id END as catslug');
 		$query->from('#__sermon_sermons AS a');
@@ -203,7 +203,7 @@ class ModRelatedSermonsHelper
 
 		foreach ($temp as $row)
 		{
-			$row->route = JRoute::_(SermonspeakerHelperRoute::getSermonRoute($row->slug));
+			$row->route = JRoute::_(SermonspeakerHelperRoute::getSermonRoute($row->slug, $row->catid, $row->language));
 			$related[] = $row;
 		}
 

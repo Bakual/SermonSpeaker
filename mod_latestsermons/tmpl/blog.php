@@ -22,7 +22,7 @@ if ($params->get('show_list')) : ?>
 		if ($itemid) :
 			$link = JRoute::_('index.php?option=com_sermonspeaker&view=sermon&id=' . $row->slug . '&Itemid=' . $itemid);
 		else :
-			$link = JRoute::_(SermonspeakerHelperRoute::getSermonRoute($row->slug, $row->catid));
+			$link = JRoute::_(SermonspeakerHelperRoute::getSermonRoute($row->slug, $row->catid, $row->language));
 		endif;
 		?>
 		<div class="latestsermons_entry<?php echo $i; ?>">
@@ -37,7 +37,7 @@ if ($params->get('show_list')) : ?>
 				<?php if ($params->get('show_category') and $row->category_title) : ?>
 					<dd class="category-name">
 						<?php echo JText::_('JCATEGORY'); ?>: 
-						<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonsRoute($row->catid)); ?>">
+						<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonsRoute($row->catid, $row->language)); ?>">
 							<?php echo $row->category_title; ?>
 						</a>
 					</dd>
@@ -46,7 +46,7 @@ if ($params->get('show_list')) : ?>
 					<dd class="category-name">
 						<?php echo JText::_('MOD_LATESTSERMONS_SERIE'); ?>: 
 						<?php if ($row->series_state) : ?>
-							<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($row->series_slug, $row->series_catid)); ?>">
+							<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($row->series_slug, $row->series_catid, $row->series_language)); ?>">
 								<?php echo $row->series_title; ?>
 							</a>
 						<?php else : ?>
@@ -64,7 +64,7 @@ if ($params->get('show_list')) : ?>
 					<dd class="createdby">
 						<?php echo JText::_('MOD_LATESTSERMONS_SPEAKER'); ?>: 
 						<?php if ($row->speaker_state): ?>
-							<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($row->speaker_slug, $row->speaker_catid)); ?>">
+							<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($row->speaker_slug, $row->speaker_catid, $row->speaker_language)); ?>">
 								<?php echo $row->speaker_title; ?>
 							</a>
 						<?php else :
