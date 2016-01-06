@@ -80,7 +80,7 @@ class SermonspeakerModelSermons extends JModelList
 				. 'CASE WHEN CHAR_LENGTH(sermons.alias) THEN CONCAT_WS(\':\', sermons.id, sermons.alias) ELSE sermons.id END as slug,'
 				. 'sermons.picture, sermons.hits, sermons.notes, sermons.checked_out, sermons.checked_out_time,'
 				. 'sermons.sermon_date, sermons.alias, sermons.sermon_time,'
-				. 'sermons.state, sermons.ordering, sermons.podcast,'
+				. 'sermons.state, sermons.ordering, sermons.podcast, sermons.language,'
 				. 'sermons.sermon_number, sermons.addfile, sermons.addfileDesc,'
 				. 'sermons.created, sermons.created_by,'
 				. 'sermons.publish_up, sermons.publish_down'
@@ -102,10 +102,9 @@ class SermonspeakerModelSermons extends JModelList
 		$query->join('LEFT', '#__sermon_speakers AS speakers ON speakers.id = sermons.speaker_id');
 
 		// Join over Series
-		$query->select(
-			'series.title AS series_title, series.state as series_state, series.avatar, '
-			. 'CASE WHEN CHAR_LENGTH(series.alias) THEN CONCAT_WS(\':\', series.id, series.alias) ELSE series.id END as series_slug'
-		);
+		$query->select('series.title AS series_title, series.state as series_state, series.avatar');
+		$query->select('series.catid AS series_catid, series.language AS series_language');
+		$query->select('CASE WHEN CHAR_LENGTH(series.alias) THEN CONCAT_WS(\':\', series.id, series.alias) ELSE series.id END as series_slug');
 		$query->join('LEFT', '#__sermon_series AS series ON series.id = sermons.series_id');
 
 		// Join over Sermons Category.

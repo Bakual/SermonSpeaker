@@ -335,7 +335,7 @@ class SermonspeakerHelperSermonspeaker
 			{
 				case 0:
 					$pic = '<i class="icon-play hasTooltip" title="::' . JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER') . '"> </i>';
-					$return .= JHtml::Link(JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug)), $pic) . ' ';
+					$return .= JHtml::Link(JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug, $item->catid, $item->language)), $pic) . ' ';
 					break;
 				case 1:
 					$pic = '<i class="icon-play hasTooltip" title="::' . JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER') . '"> </i>';
@@ -378,7 +378,7 @@ class SermonspeakerHelperSermonspeaker
 		{
 			case 0:
 				$options['title'] = JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER');
-				$return .= JHtml::Link(JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug)), $item->title, $options);
+				$return .= JHtml::Link(JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug, $item->catid, $item->language)), $item->title, $options);
 				break;
 			case 1:
 				$options['title'] = JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER');
@@ -402,7 +402,7 @@ class SermonspeakerHelperSermonspeaker
 				else
 				{
 					$options['title'] = JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER');
-					$return .= JHtml::Link(JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug)), $item->title, $options);
+					$return .= JHtml::Link(JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug, $item->catid, $item->language)), $item->title, $options);
 				}
 
 				break;
