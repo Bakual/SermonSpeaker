@@ -223,7 +223,7 @@ class PlgFinderSermonspeaker extends FinderIndexerAdapter
 
 		// Build the necessary route and path information.
 		$item->url = $this->getURL($item->id, $this->extension, $this->layout);
-		$item->route = SermonspeakerHelperRoute::getSermonRoute($item->slug);
+		$item->route = SermonspeakerHelperRoute::getSermonRoute($item->slug, $item->catid, $item->language);
 		$item->path = FinderIndexerHelper::getContentPath($item->route);
 
 		// Handle the link to the meta-data.
