@@ -146,14 +146,28 @@ class SermonspeakerControllerFile extends JControllerLegacy
 				$folder .= $lang . '/';
 			}
 
+			$uri = $folder . $file['name'];
+
+			// Check if file exists
+			if ($s3->getObjectInfo($bucket, $uri))
+			{
+				$response = array(
+					'status' => '0',
+					'error'  => JText::_('COM_SERMONSPEAKER_FU_ERROR_EXISTS')
+				);
+				echo json_encode($response);
+
+				return;
+			}
+
 			// Upload the file
-			if ($s3->putObjectFile($file['tmp_name'], $bucket, $folder . $file['name'], S3::ACL_PUBLIC_READ))
+			if ($s3->putObjectFile($file['tmp_name'], $bucket, $uri, S3::ACL_PUBLIC_READ))
 			{
 				$response = array(
 					'status'   => '1',
 					'filename' => $file['name'],
-					'path'     => 'http://' . $prefix . '.amazonaws.com/' . $bucket . '/' . $folder . $file['name'],
-					'error'    => JText::sprintf('COM_SERMONSPEAKER_FU_FILENAME', $prefix . '.amazonaws.com/' . $bucket . '/' . $folder . $file['name'])
+					'path'     => 'http://' . $prefix . '.amazonaws.com/' . $bucket . '/' . $uri,
+					'error'    => JText::sprintf('COM_SERMONSPEAKER_FU_FILENAME', $prefix . '.amazonaws.com/' . $bucket . '/' . $uri)
 				);
 				echo json_encode($response);
 
