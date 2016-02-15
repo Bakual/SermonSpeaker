@@ -128,14 +128,32 @@ class SermonspeakerControllerFile extends JControllerLegacy
 			$region = $s3->getBucketLocation($bucket);
 			$prefix = ($region == 'US') ? 's3' : 's3-' . $region;
 
+			$date   = $jinput->get('date', '', 'string');
+			$time   = ($date) ? strtotime($date) : time();
+			$folder = ($params->get('append_path', 0)) ? date('Y', $time) . '/' . date('m', $time) : '';
+			$folder .= '/';
+
+			if ($params->get('append_path_lang', 0))
+			{
+				$lang = $jinput->get('select-language');
+
+				if (!$lang || $lang == '*')
+				{
+					$jlang = JFactory::getLanguage();
+					$lang  = $jlang->getTag();
+				}
+
+				$folder .= $lang . '/';
+			}
+
 			// Upload the file
-			if ($s3->putObjectFile($file['tmp_name'], $bucket, $file['name'], S3::ACL_PUBLIC_READ))
+			if ($s3->putObjectFile($file['tmp_name'], $bucket, $folder . $file['name'], S3::ACL_PUBLIC_READ))
 			{
 				$response = array(
 					'status'   => '1',
 					'filename' => $file['name'],
-					'path'     => 'http://' . $prefix . '.amazonaws.com/' . $bucket . '/' . $file['name'],
-					'error'    => JText::sprintf('COM_SERMONSPEAKER_FU_FILENAME', $prefix . '.amazonaws.com/' . $bucket . '/' . $file['name'])
+					'path'     => 'http://' . $prefix . '.amazonaws.com/' . $bucket . '/' . $folder . $file['name'],
+					'error'    => JText::sprintf('COM_SERMONSPEAKER_FU_FILENAME', $prefix . '.amazonaws.com/' . $bucket . '/' . $folder . $file['name'])
 				);
 				echo json_encode($response);
 

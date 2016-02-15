@@ -97,8 +97,9 @@ $self = $uri->toString();
 									if ($this->s3audio) :
 										echo ' http://' . $this->prefix . '.amazonaws.com/' . $this->bucket . '/';
 									else :
-										echo ' /' . trim($this->params->get('path_audio'), '/') . '/<span id="audiopathdate" class="pathdate">' . $this->append_date . '</span><span id="audiopathlang" class="pathlang">' . $this->append_lang . '</span>';
-									endif; ?>
+										echo ' /' . trim($this->params->get('path_audio'), '/') . '/';
+									endif;
+									echo '<span id="audiopathdate" class="pathdate">' . $this->append_date . '</span><span id="audiopathlang" class="pathlang">' . $this->append_lang . '</span>'; ?>
 								</div>
 							<?php endif; ?>
 						</div>
@@ -118,8 +119,9 @@ $self = $uri->toString();
 									if ($this->s3video):
 										echo ' http://' . $this->prefix . '.amazonaws.com/' . $this->bucket . '/';
 									else:
-										echo ' /' . trim($this->params->get('path_video'), '/') . '/<span id="videopathdate" class="pathdate">' . $this->append_date . '</span><span id="videopathlang" class="pathlang">' . $this->append_lang . '</span>';
-									endif; ?>
+										echo ' /' . trim($this->params->get('path_video'), '/') . '/';
+									endif;
+									echo '<span id="videopathdate" class="pathdate">' . $this->append_date . '</span><span id="videopathlang" class="pathlang">' . $this->append_lang . '</span>'; ?>
 								</div>
 							<?php endif; ?>
 						</div>
@@ -135,8 +137,8 @@ $self = $uri->toString();
 							if ($this->params->get('enable_flash')) : ?>
 								<div id="addfilepathinfo" class="label label-info hasTooltip" title="<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO_TOOLTIP'); ?>">
 									<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO') . ' /' . trim($this->params->get('path_addfile'), '/')
-									. '/<span id="addfilepathdate" class="pathdate">' . $this->append_date . '</span>'
-									. '<span id="addfilepathlang" class="pathlang">' . $this->append_lang . '</span>'; ?>
+										. '/<span id="addfilepathdate" class="pathdate">' . $this->append_date . '</span>'
+										. '<span id="addfilepathlang" class="pathlang">' . $this->append_lang . '</span>'; ?>
 								</div>
 							<?php endif; ?>
 						</div>

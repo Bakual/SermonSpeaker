@@ -65,10 +65,11 @@ $input = $app->input;
 							<div id="audiopathinfo" class="pathinfo hasTooltip" title="<?php echo JHtml::tooltipText(JText::_('COM_SERMONSPEAKER_UPLOADINFO_TOOLTIP'), '', 0); ?>">
 								<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO');
 								if ($this->s3audio) :
-									echo ' http://'.$this->prefix.'.amazonaws.com/'.$this->bucket.'/';
+									echo ' http://' . $this->prefix . '.amazonaws.com/' . $this->bucket . '/';
 								else :
-									echo ' /'.trim($this->params->get('path_audio'), '/').'/<span id="audiopathdate" class="pathdate">'.$this->append_date.'</span><span id="audiopathlang" class="pathlang">'.$this->append_lang.'</span>';
-								endif; ?>
+									echo ' /' . trim($this->params->get('path_audio'), '/') . '/';
+								endif;
+								echo '<span id="audiopathdate" class="pathdate">' . $this->append_date . '</span><span id="audiopathlang" class="pathlang">' . $this->append_lang . '</span>'; ?>
 							</div>
 						</div>
 					</div>
@@ -92,8 +93,9 @@ $input = $app->input;
 								if ($this->s3video) :
 									echo ' http://' . $this->prefix . '.amazonaws.com/' . $this->bucket . '/';
 								else :
-									echo ' /' . trim($this->params->get('path_video'), '/') . '/<span id="videopathdate" class="pathdate">' . $this->append_date . '</span><span id="videopathlang" class="pathlang">' . $this->append_lang . '</span>';
-								endif; ?>
+									echo ' /' . trim($this->params->get('path_video'), '/') . '/';
+								endif;
+								echo '<span id="videopathdate" class="pathdate">' . $this->append_date . '</span><span id="videopathlang" class="pathlang">' . $this->append_lang . '</span>'; ?>
 							</div>
 						</div>
 					</div>
@@ -113,7 +115,9 @@ $input = $app->input;
 						<div class="controls">
 							<?php echo $this->form->getInput('addfile'); ?>
 							<div id="addfilepathinfo" class="pathinfo hasTooltip" title="<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO_TOOLTIP'); ?>">
-								<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO').' /'.trim($this->params->get('path_addfile'), '/').'/<span id="addfilepathdate" class="pathdate">'.$this->append_date.'</span><span id="addfilepathlang" class="pathlang">'.$this->append_lang.'</span>'; ?>
+								<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO') . ' /' . trim($this->params->get('path_addfile'), '/')
+									. '/<span id="addfilepathdate" class="pathdate">' . $this->append_date . '</span><span id="addfilepathlang" class="pathlang">'
+									. $this->append_lang . '</span>'; ?>
 							</div>
 						</div>
 					</div>

@@ -120,7 +120,7 @@ class SermonspeakerViewSermon extends JViewLegacy
 			xmlhttp = new XMLHttpRequest();
 			xmlhttp.onreadystatechange=function(){
 				if (xmlhttp.readyState==4 && xmlhttp.status==200){
-					var data = JSON.decode(xmlhttp.responseText);
+					var data = jQuery.parseJSON(xmlhttp.responseText);
 					if (data.status==1){
 						if(data.filename_title==false || document.getElementById("jform_title").value==""){
 							document.getElementById("jform_title").value = data.title;
@@ -302,20 +302,12 @@ class SermonspeakerViewSermon extends JViewLegacy
 						if (month < 10){
 							month = '0'+month;
 						}
-					}";
-
-			if (!$this->s3audio)
-			{
-				$changedate .= "document.id('audiopathdate').innerHTML = year+'/'+month+'/';";
-			}
-
-			if (!$this->s3video)
-			{
-				$changedate .= "document.id('videopathdate').innerHTML = year+'/'+month+'/';";
-			}
-
-			$changedate .= "document.id('addfilepathdate').innerHTML = year+'/'+month+'/';
+					}
+					document.id('audiopathdate').innerHTML = year+'/'+month+'/';
+					document.id('videopathdate').innerHTML = year+'/'+month+'/';
+					document.id('addfilepathdate').innerHTML = year+'/'+month+'/';
 				}";
+
 			$time = ($this->item->sermon_date && $this->item->sermon_date != '0000-00-00 00:00:00') ? strtotime($this->item->sermon_date) : time();
 			$this->append_date = date('Y', $time) . '/' . date('m', $time) . '/';
 		}

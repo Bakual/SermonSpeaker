@@ -192,7 +192,33 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 			$region = $s3->getBucketLocation($bucket);
 			$prefix = ($region == 'US') ? 's3' : 's3-' . $region;
 
-			$bucket_contents = $s3->getBucket($bucket);
+			$folder = '';
+
+			// Add year/month to the directory if enabled.
+			if ($this->params->get('append_path', 0))
+			{
+				// In case of an edit, we check for the sermon_date and choose the year/month of the sermon.
+				$folder .= ($ts = strtotime($this->form->getValue('sermon_date'))) ? date('Y', $ts) . '/' . date('m', $ts) : date('Y') . '/' . date('m');
+				$folder .= '/';
+			}
+
+			// Add language to the directory if enabled.
+			if ($this->params->get('append_path_lang', 0))
+			{
+				// In case of an edit, we check for the language set, otherwise we use the active language.
+				$language = $this->form->getValue('language');
+				$jlang    = JFactory::getLanguage();
+				$folder   .= ($language && ($language != '*')) ? $language : $jlang->getTag();
+				$folder .= '/';
+			}
+
+			$bucket_contents = $s3->getBucket($bucket, $folder);
+
+			// Fallback to root if folder doesn't exist
+			if (!$bucket_contents)
+			{
+				$bucket_contents = $s3->getBucket($bucket);
+			}
 
 			// Show last modified files first
 			uasort(
@@ -205,6 +231,12 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 
 			foreach ($bucket_contents as $file)
 			{
+				// Don't show the "folder"
+				if (substr($file['name'], -1) == '/')
+				{
+					continue;
+				}
+
 				$fname           = $file['name'];
 				$furl            = 'http://' . $prefix . '.amazonaws.com/' . $bucket . '/' . $fname;
 				$option['value'] = $furl;
@@ -320,7 +352,7 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 
 				uploader_' . $this->fieldname . '.bind("FileUploaded", function(up, file, response) {
 					if(response.status == 200){
-						var data = JSON.decode(response.response);
+						var data = jQuery.parseJSON(response.response);
 						if (data.status == 1){
 							jQuery("#" + file.id).removeClass("alert-info").addClass("alert-success");
 							document.getElementById(file.id).innerHTML = data.error + closeButton;
