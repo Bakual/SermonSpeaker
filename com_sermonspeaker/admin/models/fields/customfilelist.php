@@ -52,38 +52,38 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 		if ($filename != JApplicationHelper::stringURLSafe($filename))
 		{
 			$html .= '<div class="alert alert-warning">'
-						. '<button type="button" class="close" data-dismiss="alert">&times;</button>'
-						. '<span class="icon-notification"></span> '
-						. JText::_('COM_SERMONSPEAKER_FILENAME_NOT_IDEAL')
-					. '</div>';
+				. '<button type="button" class="close" data-dismiss="alert">&times;</button>'
+				. '<span class="icon-notification"></span> '
+				. JText::_('COM_SERMONSPEAKER_FILENAME_NOT_IDEAL')
+				. '</div>';
 		}
 
 		$html .= '<div class="input-prepend input-append">'
-					. '<div id="' . $this->fieldname . '_text_icon" class="btn add-on icon-radio-checked" onclick="toggleElement(\''
-						. $this->fieldname . '\', 0);"> </div>'
-					. '<input name="' . $this->name . '" id="' . $this->id . '_text" class="' . $this->class . '" value="'
-						. htmlspecialchars($this->value, ENT_COMPAT, 'UTF-8') . '" type="text">';
+			. '<div id="' . $this->fieldname . '_text_icon" class="btn add-on icon-radio-checked" onclick="toggleElement(\''
+			. $this->fieldname . '\', 0);"> </div>'
+			. '<input name="' . $this->name . '" id="' . $this->id . '_text" class="' . $this->class . '" value="'
+			. htmlspecialchars($this->value, ENT_COMPAT, 'UTF-8') . '" type="text">';
 
 		// Add Lookup button if not addfile field
 		if ($this->file != 'addfile')
 		{
 			$html .= '<div class="btn add-on hasTooltip icon-wand" onclick="lookup(document.getElementById(\'' . $this->id . '_text\'))" title="'
-						. JText::_('COM_SERMONSPEAKER_LOOKUP') . '"> </div>';
+				. JText::_('COM_SERMONSPEAKER_LOOKUP') . '"> </div>';
 		}
 
 		// Add Google Picker if enabled and not audio field
 		if ($this->params->get('googlepicker') && $this->file != 'audio')
 		{
 			$html .= '<div class="btn add-on hasTooltip" onclick="create' . ucfirst($this->file) . 'Picker();" title="' . JText::_('COM_SERMONSPEAKER_GOOGLEPICKER_TIP') . '">'
-							. '<img src="' . JURI::root() . 'media/com_sermonspeaker/icons/16/drive.png">'
-						. '</div>';
+				. '<img src="' . JURI::root() . 'media/com_sermonspeaker/icons/16/drive.png">'
+				. '</div>';
 		}
 
 		$html .= '</div>'
-				. '<br />'
-				. '<div class="input-prepend input-append">'
-					. '<div id="' . $this->fieldname . '_icon" class="btn add-on icon-radio-unchecked" onclick="toggleElement(\''
-						. $this->fieldname . '\', 1);"> </div>';
+			. '<br />'
+			. '<div class="input-prepend input-append">'
+			. '<div id="' . $this->fieldname . '_icon" class="btn add-on icon-radio-unchecked" onclick="toggleElement(\''
+			. $this->fieldname . '\', 1);"> </div>';
 
 		$html .= parent::getInput();
 
@@ -169,7 +169,7 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 					$option['value'] = $video->url;
 					$option['text']  = $video->title;
 					$options[]       = $option;
-				}   
+				}
 
 				return $options;
 			}
@@ -185,12 +185,17 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 			// AWS access info
 			$awsAccessKey = $this->params->get('s3_access_key');
 			$awsSecretKey = $this->params->get('s3_secret_key');
+			$customBucket = $this->params->get('s3_custom_bucket');
 			$bucket       = $this->params->get('s3_bucket');
 
 			// Instantiate the class
-			$s3     = new S3($awsAccessKey, $awsSecretKey);
-			$region = $s3->getBucketLocation($bucket);
-			$prefix = ($region == 'US') ? 's3' : 's3-' . $region;
+			$s3 = new S3($awsAccessKey, $awsSecretKey);
+
+			if (!$customBucket)
+			{
+				$region = $s3->getBucketLocation($bucket);
+				$prefix = ($region == 'US') ? 's3' : 's3-' . $region;
+			}
 
 			$folder = '';
 
@@ -208,7 +213,7 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 				// In case of an edit, we check for the language set, otherwise we use the active language.
 				$language = $this->form->getValue('language');
 				$jlang    = JFactory::getLanguage();
-				$folder   .= ($language && ($language != '*')) ? $language : $jlang->getTag();
+				$folder .= ($language && ($language != '*')) ? $language : $jlang->getTag();
 				$folder .= '/';
 			}
 
@@ -222,11 +227,11 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 
 			// Show last modified files first
 			uasort(
-					$bucket_contents,
-					function ($a, $b)
-					{
-						return $b['time'] - $a['time'];
-					}
+				$bucket_contents,
+				function ($a, $b)
+				{
+					return $b['time'] - $a['time'];
+				}
 			);
 
 			foreach ($bucket_contents as $file)
@@ -237,12 +242,13 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 					continue;
 				}
 
+				$domain          = ($customBucket) ? $bucket : $prefix . '.amazonaws.com/' . $bucket;
 				$fname           = $file['name'];
-				$furl            = 'http://' . $prefix . '.amazonaws.com/' . $bucket . '/' . $fname;
+				$furl            = 'http://' . $domain . '/' . $fname;
 				$option['value'] = $furl;
 				$option['text']  = $fname;
 				$options[]       = $option;
-			}   
+			}
 
 			return $options;
 		}
@@ -259,6 +265,7 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 					$option['text']  = $file->name;
 					$options[]       = $option;
 				}
+
 				return $options;
 			}
 		}
@@ -382,8 +389,8 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 		$html = '<div id="plupload_' . $this->fieldname . '" class="uploader">
 					<div id="filelist_' . $this->fieldname . '" class="filelist"></div>
 					<a id="browse_' . $this->fieldname . '" href="javascript:;" class="btn btn-small">'
-						. JText::_('COM_SERMONSPEAKER_UPLOAD')
-					. '</a>
+			. JText::_('COM_SERMONSPEAKER_UPLOAD')
+			. '</a>
 				</div>';
 
 		return $html;

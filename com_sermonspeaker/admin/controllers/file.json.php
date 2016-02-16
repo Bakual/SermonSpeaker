@@ -42,7 +42,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 		{
 			$response = array(
 				'status' => '0',
-				'error'  => JText::_('JGLOBAL_AUTH_ACCESS_DENIED')
+				'error'  => JText::_('JGLOBAL_AUTH_ACCESS_DENIED'),
 			);
 			echo json_encode($response);
 
@@ -62,7 +62,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 		{
 			$response = array(
 				'status' => '0',
-				'error'  => JText::_('COM_SERMONSPEAKER_FU_FAILED')
+				'error'  => JText::_('COM_SERMONSPEAKER_FU_FAILED'),
 			);
 			echo json_encode($response);
 
@@ -106,7 +106,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 		{
 			$response = array(
 				'status' => '0',
-				'error'  => JText::sprintf('COM_SERMONSPEAKER_FILETYPE_NOT_ALLOWED', $ext)
+				'error'  => JText::sprintf('COM_SERMONSPEAKER_FILETYPE_NOT_ALLOWED', $ext),
 			);
 			echo json_encode($response);
 
@@ -121,12 +121,17 @@ class SermonspeakerControllerFile extends JControllerLegacy
 			// AWS access info
 			$awsAccessKey = $params->get('s3_access_key');
 			$awsSecretKey = $params->get('s3_secret_key');
+			$customBucket = $params->get('s3_custom_bucket');
 			$bucket       = $params->get('s3_bucket');
 
 			// Instantiate the class
-			$s3     = new S3($awsAccessKey, $awsSecretKey);
-			$region = $s3->getBucketLocation($bucket);
-			$prefix = ($region == 'US') ? 's3' : 's3-' . $region;
+			$s3 = new S3($awsAccessKey, $awsSecretKey);
+
+			if (!$customBucket)
+			{
+				$region = $s3->getBucketLocation($bucket);
+				$prefix = ($region == 'US') ? 's3' : 's3-' . $region;
+			}
 
 			$date   = $jinput->get('date', '', 'string');
 			$time   = ($date) ? strtotime($date) : time();
@@ -153,7 +158,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 			{
 				$response = array(
 					'status' => '0',
-					'error'  => JText::_('COM_SERMONSPEAKER_FU_ERROR_EXISTS')
+					'error'  => JText::_('COM_SERMONSPEAKER_FU_ERROR_EXISTS'),
 				);
 				echo json_encode($response);
 
@@ -163,11 +168,12 @@ class SermonspeakerControllerFile extends JControllerLegacy
 			// Upload the file
 			if ($s3->putObjectFile($file['tmp_name'], $bucket, $uri, S3::ACL_PUBLIC_READ))
 			{
+				$domain   = ($customBucket) ? $bucket : $prefix . '.amazonaws.com/' . $bucket;
 				$response = array(
 					'status'   => '1',
 					'filename' => $file['name'],
-					'path'     => 'http://' . $prefix . '.amazonaws.com/' . $bucket . '/' . $uri,
-					'error'    => JText::sprintf('COM_SERMONSPEAKER_FU_FILENAME', $prefix . '.amazonaws.com/' . $bucket . '/' . $uri)
+					'path'     => 'http://' . $domain . '/' . $uri,
+					'error'    => JText::sprintf('COM_SERMONSPEAKER_FU_FILENAME', $domain . '/' . $uri),
 				);
 				echo json_encode($response);
 
@@ -177,7 +183,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 			{
 				$response = array(
 					'status' => '0',
-					'error'  => JText::_('COM_SERMONSPEAKER_FU_ERROR_UNABLE_TO_UPLOAD_FILE')
+					'error'  => JText::_('COM_SERMONSPEAKER_FU_ERROR_UNABLE_TO_UPLOAD_FILE'),
 				);
 				echo json_encode($response);
 
@@ -224,7 +230,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 				// File exists
 				$response = array(
 					'status' => '0',
-					'error'  => JText::_('COM_SERMONSPEAKER_FU_ERROR_EXISTS')
+					'error'  => JText::_('COM_SERMONSPEAKER_FU_ERROR_EXISTS'),
 				);
 				echo json_encode($response);
 
@@ -238,7 +244,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 				// Error in upload
 				$response = array(
 					'status' => '0',
-					'error'  => JText::_('COM_SERMONSPEAKER_FU_ERROR_UNABLE_TO_UPLOAD_FILE')
+					'error'  => JText::_('COM_SERMONSPEAKER_FU_ERROR_UNABLE_TO_UPLOAD_FILE'),
 				);
 				echo json_encode($response);
 
@@ -250,7 +256,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 					'status'   => '1',
 					'filename' => strtolower($file['name']),
 					'path'     => str_replace('\\', '/', '/' . $path . $append . '/' . strtolower($file['name'])),
-					'error'    => JText::sprintf('COM_SERMONSPEAKER_FU_FILENAME', substr($file['filepath'], strlen(JPATH_ROOT)))
+					'error'    => JText::sprintf('COM_SERMONSPEAKER_FU_FILENAME', substr($file['filepath'], strlen(JPATH_ROOT))),
 				);
 				echo json_encode($response);
 
@@ -267,7 +273,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 		{
 			$response = array(
 				'status' => '0',
-				'msg' => JText::_('COM_SERMONSPEAKER_ERROR_ID3')
+				'msg' => JText::_('COM_SERMONSPEAKER_ERROR_ID3'),
 			);
 			echo json_encode($response);
 
@@ -287,7 +293,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 		{
 			$response = array(
 				'status' => '0',
-				'msg'    => JText::_('COM_SERMONSPEAKER_ERROR_ID3')
+				'msg'    => JText::_('COM_SERMONSPEAKER_ERROR_ID3'),
 			);
 		}
 

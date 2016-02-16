@@ -83,7 +83,7 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 	/**
 	 * Execute and display a template script.
 	 *
-	 * @param   string  $tpl  The name of the template file to parse; automatically searches through the template paths.
+	 * @param   string $tpl The name of the template file to parse; automatically searches through the template paths.
 	 *
 	 * @return  mixed  A string if successful, otherwise a Error object.
 	 *
@@ -335,12 +335,19 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 			// AWS access info
 			$awsAccessKey = $this->params->get('s3_access_key');
 			$awsSecretKey = $this->params->get('s3_secret_key');
-			$this->bucket = $this->params->get('s3_bucket');
+			$customBucket = $this->params->get('s3_custom_bucket');
+			$bucket       = $this->params->get('s3_bucket');
 
 			// Instantiate the class
-			$s3           = new S3($awsAccessKey, $awsSecretKey);
-			$region       = $s3->getBucketLocation($this->bucket);
-			$this->prefix = ($region == 'US') ? 's3' : 's3-' . $region;
+			$s3 = new S3($awsAccessKey, $awsSecretKey);
+
+			if (!$customBucket)
+			{
+				$region = $s3->getBucketLocation($this->bucket);
+				$prefix = ($region == 'US') ? 's3' : 's3-' . $region;
+			}
+
+			$this->domain = ($customBucket) ? $bucket : $prefix . '.amazonaws.com/' . $bucket;
 		}
 
 		// Calculate destination path to show
@@ -363,12 +370,12 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 					document.id('addfilepathdate').innerHTML = year+'/'+month+'/';
 				}";
 
-			$time = ($this->item->sermon_date && $this->item->sermon_date != '0000-00-00 00:00:00') ? strtotime($this->item->sermon_date) : time();
+			$time              = ($this->item->sermon_date && $this->item->sermon_date != '0000-00-00 00:00:00') ? strtotime($this->item->sermon_date) : time();
 			$this->append_date = date('Y', $time) . '/' . date('m', $time) . '/';
 		}
 		else
 		{
-			$changedate = "function changedate(datestring) {}";
+			$changedate        = "function changedate(datestring) {}";
 			$this->append_date = '';
 		}
 
@@ -393,12 +400,12 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 
 			$changelang .= "document.id('addfilepathlang').innerHTML = language+'/';
 				}";
-			$lang = ($this->item->language && $this->item->language == '*') ? $this->item->language : JFactory::getLanguage()->getTag();
+			$lang              = ($this->item->language && $this->item->language == '*') ? $this->item->language : JFactory::getLanguage()->getTag();
 			$this->append_lang = $lang . '/';
 		}
 		else
 		{
-			$changelang = "function changelang(language) {}";
+			$changelang        = "function changelang(language) {}";
 			$this->append_lang = '';
 		}
 
@@ -499,7 +506,7 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 	/**
 	 * Function to return bytes from the PHP settings. Taken from the ini_get() manual
 	 *
-	 * @param   string  $val  Value from the PHP setting
+	 * @param   string $val Value from the PHP setting
 	 *
 	 * @return  int  $val  Value in bytes
 	 */

@@ -99,18 +99,25 @@ class SermonspeakerModelFiles extends JModelLegacy
 			require_once JPATH_COMPONENT_ADMINISTRATOR . '/s3/S3.php';
 
 			// AWS access info
-			$awsAccessKey    = $params->get('s3_access_key');
-			$awsSecretKey    = $params->get('s3_secret_key');
-			$bucket          = $params->get('s3_bucket');
-			$s3              = new S3($awsAccessKey, $awsSecretKey);
-			$region          = $s3->getBucketLocation($bucket);
-			$prefix          = ($region == 'US') ? 's3' : 's3-' . $region;
+			$awsAccessKey = $params->get('s3_access_key');
+			$awsSecretKey = $params->get('s3_secret_key');
+			$customBucket = $params->get('s3_custom_bucket');
+			$bucket       = $params->get('s3_bucket');
+			$s3           = new S3($awsAccessKey, $awsSecretKey);
+
+			if (!$customBucket)
+			{
+				$region = $s3->getBucketLocation($bucket);
+				$prefix = ($region == 'US') ? 's3' : 's3-' . $region;
+			}
+
 			$bucket_contents = $s3->getBucket($bucket);
+			$domain          = ($customBucket) ? $bucket : $prefix . '.amazonaws.com/' . $bucket;
 
 			foreach ($bucket_contents as $file)
 			{
 				$fname   = $file['name'];
-				$files[] = 'http://' . $prefix . '.amazonaws.com/' . $bucket . '/' . $fname;
+				$files[] = 'http://' . $domain . '/' . $fname;
 			}
 		}
 

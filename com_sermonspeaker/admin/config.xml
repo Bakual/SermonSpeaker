@@ -446,16 +446,29 @@
 			type="text"
 			label="COM_SERMONSPEAKER_FIELD_VIMEO_ID_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_VIMEO_ID_DESC"
-			size="50"
+			showon="path_mode_video:1"
 			default=""
 			/>
+
+		<field
+			name="s3_custom_bucket"
+			type="radio"
+			label="COM_SERMONSPEAKER_FIELD_S3_CUSTOM_BUCKET_LABEL"
+			description="COM_SERMONSPEAKER_FIELD_S3_CUSTOM_BUCKET_DESC"
+			showon="path_mode_audio:2[OR]path_mode_video:2"
+			class="btn-group btn-group-yesno"
+			default="0"
+			>
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
 
 		<field
 			name="s3_bucket"
 			type="text"
 			label="COM_SERMONSPEAKER_FIELD_S3_BUCKET_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_S3_BUCKET_DESC"
-			size="50"
+			showon="path_mode_audio:2[OR]path_mode_video:2"
 			default=""
 			/>
 
@@ -464,7 +477,7 @@
 			type="text"
 			label="COM_SERMONSPEAKER_FIELD_S3_ACCESS_KEY_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_S3_ACCESS_KEY_DESC"
-			size="50"
+			showon="path_mode_audio:2[OR]path_mode_video:2"
 			default=""
 			/>
 
@@ -473,7 +486,7 @@
 			type="text"
 			label="COM_SERMONSPEAKER_FIELD_S3_SECRET_KEY_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_S3_SECRET_KEY_DESC"
-			size="50"
+			showon="path_mode_audio:2[OR]path_mode_video:2"
 			default=""
 			/>
 
@@ -482,7 +495,7 @@
 			type="text"
 			label="COM_SERMONSPEAKER_FIELD_EXTERN_PATH_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_EXTERN_PATH_DESC"
-			size="50"
+			showon="path_mode_audio:3[OR]path_mode_video:3"
 			default=""
 			/>
 
@@ -1524,6 +1537,7 @@
 			type="text"
 			label="COM_SERMONSPEAKER_FIELD_FBADMINS_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_FBADMINS_DESC"
+			showon="opengraph:1"
 			default=""
 			/>
 
@@ -1532,6 +1546,7 @@
 			type="text"
 			label="COM_SERMONSPEAKER_FIELD_FBAPPID_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_FBAPPID_DESC"
+			showon="opengraph:1"
 			default=""
 			/>
 
@@ -1540,6 +1555,7 @@
 			type="list"
 			label="COM_SERMONSPEAKER_FIELD_FBMODE_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_FBMODE_DESC"
+			showon="opengraph:1"
 			default="0"
 			>
 			<option value="0">COM_SERMONSPEAKER_FIELD_FBMODE_OPTION_AUTO</option>

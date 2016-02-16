@@ -65,7 +65,7 @@ $input = $app->input;
 							<div id="audiopathinfo" class="pathinfo hasTooltip" title="<?php echo JHtml::tooltipText(JText::_('COM_SERMONSPEAKER_UPLOADINFO_TOOLTIP'), '', 0); ?>">
 								<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO');
 								if ($this->s3audio) :
-									echo ' http://' . $this->prefix . '.amazonaws.com/' . $this->bucket . '/';
+									echo ' http://' . $this->domain . '/';
 								else :
 									echo ' /' . trim($this->params->get('path_audio'), '/') . '/';
 								endif;
@@ -91,7 +91,7 @@ $input = $app->input;
 							<div id="videopathinfo" class="pathinfo hasTooltip" title="<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO_TOOLTIP'); ?>">
 								<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO');
 								if ($this->s3video) :
-									echo ' http://' . $this->prefix . '.amazonaws.com/' . $this->bucket . '/';
+									echo ' http://' . $this->domain . '/';
 								else :
 									echo ' /' . trim($this->params->get('path_video'), '/') . '/';
 								endif;
