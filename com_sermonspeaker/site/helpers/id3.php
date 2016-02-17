@@ -18,9 +18,9 @@ class SermonspeakerHelperId3
 {
 	/**
 	 * Read ID3 tags from file
-	 * 
-	 * @param   string  $file    Path to the file
-	 * @param   object  $params  Params, deprecated
+	 *
+	 * @param   string $file   Path to the file
+	 * @param   object $params Params, deprecated
 	 *
 	 * @return  array  Array of ID3 information
 	 */
@@ -48,9 +48,9 @@ class SermonspeakerHelperId3
 		if (array_key_exists('playtime_seconds', $FileInfo))
 		{
 			$length = $FileInfo['playtime_seconds'];
-			$hrs = (int) ($length / 3600);
-			$min = (int) (($length - $hrs * 3600) / 60);
-			$sec = (int) ($length - $hrs * 3600 - $min * 60);
+			$hrs    = (int) ($length / 3600);
+			$min    = (int) (($length - $hrs * 3600) / 60);
+			$sec    = (int) ($length - $hrs * 3600 - $min * 60);
 
 			if ($sec == '60')
 			{
@@ -63,6 +63,16 @@ class SermonspeakerHelperId3
 		else
 		{
 			$id3['sermon_time'] = '';
+		}
+
+		if (array_key_exists('audio', $FileInfo))
+		{
+			$audio                = array();
+			$audio['channelmode'] = (array_key_exists('channelmode', $FileInfo['audio'])) ? $FileInfo['audio']['channelmode'] : '';
+			$audio['bitrate']     = (array_key_exists('bitrate', $FileInfo['audio'])) ? $FileInfo['audio']['bitrate'] . ' bps' : '';
+			$audio['sample_rate'] = (array_key_exists('sample_rate', $FileInfo['audio'])) ? $FileInfo['audio']['sample_rate'] . ' Hz' : '';
+
+			$id3['audio'] = $audio;
 		}
 
 		if (array_key_exists('comments', $FileInfo))
@@ -89,7 +99,7 @@ class SermonspeakerHelperId3
 
 			if (array_key_exists('year', $FileInfo['comments']) && array_key_exists('date', $FileInfo['comments']))
 			{
-				$ddmm = $FileInfo['comments']['date'][0];
+				$ddmm               = $FileInfo['comments']['date'][0];
 				$id3['sermon_date'] = $FileInfo['comments']['year'][0] . '-' . substr($ddmm, 2, 2) . '-' . substr($ddmm, 0, 2);
 
 				if (array_key_exists('time', $FileInfo['comments']))
@@ -172,8 +182,8 @@ class SermonspeakerHelperId3
 
 	/**
 	 * Get Vimeo data
-	 * 
-	 * @param   string  $file  Path to the file
+	 *
+	 * @param   string $file Path to the file
 	 *
 	 * @return  array  Array of Vimeo informations
 	 */
@@ -186,10 +196,10 @@ class SermonspeakerHelperId3
 
 		if (is_object($video))
 		{
-			$duration = (string) $video->duration;
-			$hrs      = (int) ($duration / 3600);
-			$min      = (int) (($duration - $hrs * 3600) / 60);
-			$sec      = (int) ($video->duration - $hrs * 3600 - $min * 60);
+			$duration             = (string) $video->duration;
+			$hrs                  = (int) ($duration / 3600);
+			$min                  = (int) (($duration - $hrs * 3600) / 60);
+			$sec                  = (int) ($video->duration - $hrs * 3600 - $min * 60);
 			$id3['sermon_time']   = $hrs . ':' . sprintf('%02d', $min) . ':' . sprintf('%02d', $sec);
 			$id3['title']         = (string) $video->title;
 			$id3['alias']         = JApplicationHelper::stringURLSafe($id3['title']);

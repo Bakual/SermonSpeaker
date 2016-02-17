@@ -160,3 +160,11 @@ div.icon-radio-unchecked:focus {
 #sermonList a > .icon-feed {
     color: #b94a48;
 }
+.id3-info {
+	float: right;
+	margin-right: 20px;
+	border: 1px dotted grey;
+	border-radius: 5px;
+	padding: 4px 8px;
+	background-color: lightyellow;
+}

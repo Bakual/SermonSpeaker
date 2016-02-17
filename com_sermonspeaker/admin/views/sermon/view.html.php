@@ -150,12 +150,22 @@ class SermonspeakerViewSermon extends JViewLegacy
 						if(data.notes && document.getElementById("jform_notes")){
 							jInsertEditorText(data.notes, "jform_notes");
 						}
+						var splits = elem.id.split("_");
+						var field = splits[0]+"_"+splits[1];
 						if(data.filesize){
-							splits = elem.id.split("_");
-							field = splits[0]+"_"+splits[1]+"size";
-							if(document.getElementById(field)){
-								document.getElementById(field).value = data.filesize;
+							if(document.getElementById(field+"size")){
+								document.getElementById(field+"size").value = data.filesize;
 							}
+						}
+						if(data.audio){
+							var info;
+							info = "<dl class=\"dl-horizontal id3-info\">";
+							jQuery.each(data.audio, function(key,val){
+								info += "<dt>"+key+"</dt><dd>"+val+"</dd>";
+							})
+							info += "</dl>";
+							jQuery(elem).parents(".controls").children(".id3-info").remove();
+							jQuery(elem).parents(".controls").prepend(info);
 						}
 					} else {
 						alert(data.msg);

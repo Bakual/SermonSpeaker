@@ -210,6 +210,18 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 						if(data.notes && document.getElementById("jform_notes")){
 							jInsertEditorText(data.notes, "jform_notes");
 						}
+						if(data.audio){
+							var splits = elem.id.split("_");
+							var field = splits[0]+"_"+splits[1];
+							var info;
+							info = "<dl class=\"dl-horizontal id3-info\">";
+							jQuery.each(data.audio, function(key,val){
+								info += "<dt>"+key+"</dt><dd>"+val+"</dd>";
+							})
+							info += "</dl>";
+							jQuery("#"+field+"-lbl + dl").remove();
+							jQuery("#"+field+"-lbl").after(info);
+						}
 					} else {
 						alert(data.msg);
 					}
