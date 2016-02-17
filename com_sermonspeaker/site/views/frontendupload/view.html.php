@@ -343,7 +343,7 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 
 			if (!$customBucket)
 			{
-				$region = $s3->getBucketLocation($this->bucket);
+				$region = $s3->getBucketLocation($bucket);
 				$prefix = ($region == 'US') ? 's3' : 's3-' . $region;
 			}
 
