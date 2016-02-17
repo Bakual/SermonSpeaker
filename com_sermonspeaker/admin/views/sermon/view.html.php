@@ -271,6 +271,9 @@ class SermonspeakerViewSermon extends JViewLegacy
 
 		if ($this->s3audio || $this->s3video)
 		{
+			// Add missing constant in PHP < 5.5
+			defined('CURL_SSLVERSION_TLSv1') or define('CURL_SSLVERSION_TLSv1', 1);
+
 			// Include the S3 class
 			require_once JPATH_COMPONENT_ADMINISTRATOR . '/s3/S3.php';
 

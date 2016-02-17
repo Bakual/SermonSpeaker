@@ -115,6 +115,9 @@ class SermonspeakerControllerFile extends JControllerLegacy
 
 		if ($mode == 2)
 		{
+			// Add missing constant in PHP < 5.5
+			defined('CURL_SSLVERSION_TLSv1') or define('CURL_SSLVERSION_TLSv1', 1);
+
 			// Amazon S3 Upload
 			require_once JPATH_COMPONENT_ADMINISTRATOR . '/s3/S3.php';
 
