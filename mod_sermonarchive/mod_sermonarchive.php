@@ -18,8 +18,9 @@ if (!count($list))
 	return;
 }
 
-$moduleclass_sfx	= htmlspecialchars($params->get('moduleclass_sfx'));
-$itemid				= (int) $params->get('menuitem');
-$mode				= ($params->get('archive_switch') == 'month');
+$moduleclass_sfx = htmlspecialchars($params->get('moduleclass_sfx'));
+$itemid          = (int) $params->get('menuitem');
+$mode            = ($params->get('archive_switch') == 'month');
+$state           = (int) $params->get('state', 1);
 
 require JModuleHelper::getLayoutPath('mod_sermonarchive', $params->get('layout', 'default'));

@@ -17,56 +17,94 @@
 		<folder>tmpl</folder>
 	</files>
 	<updateservers>
-		<server type="extension" priority="1" name="SermonSpeaker.net">http://www.sermonspeaker.net/update/mod_sermonarchive.xml</server>
+		<server type="extension" priority="1" name="SermonSpeaker.net">
+			http://www.sermonspeaker.net/update/mod_sermonarchive.xml
+		</server>
 	</updateservers>
 	<config>
 		<fields name="params">
 			<fieldset name="basic">
-				<field name="archive_count" type="text" 
-					default="" 
-					label="MOD_SERMONARCHIVE_PARAM_COUNT" 
-					description="MOD_SERMONARCHIVE_PARAM_COUNT_DESC" />
-				<field name="archive_switch" type="list" 
-					default="month" 
-					label="MOD_SERMONARCHIVE_PARAM_SWITCH" 
-					description="MOD_SERMONARCHIVE_PARAM_SWITCH_DESC">
+				<field
+					name="archive_count"
+					type="text"
+					default=""
+					label="MOD_SERMONARCHIVE_PARAM_COUNT"
+					description="MOD_SERMONARCHIVE_PARAM_COUNT_DESC"
+				/>
+				<field
+					name="archive_switch"
+					type="list"
+					default="month"
+					label="MOD_SERMONARCHIVE_PARAM_SWITCH"
+					description="MOD_SERMONARCHIVE_PARAM_SWITCH_DESC"
+				>
 					<option value="month">MOD_SERMONARCHIVE_PARAM_MONTH</option>
 					<option value="year">MOD_SERMONARCHIVE_PARAM_YEAR</option>
 				</field>
-				<field name="menuitem" type="menuitem" 
+				<field
+					name="menuitem"
+					type="menuitem"
 					default=""
-					label="MOD_SERMONARCHIVE_PARAM_MENUITEM" 
-					description="MOD_SERMONARCHIVE_PARAM_MENUITEM_DESC" 
+					label="MOD_SERMONARCHIVE_PARAM_MENUITEM"
+					description="MOD_SERMONARCHIVE_PARAM_MENUITEM_DESC"
 					state="1"
 				/>
-				<field name="sermon_cat" type="category" 
-					label="MOD_SERMONARCHIVE_PARAM_CATEGORY_SERMON_LABEL" 
-					description="MOD_SERMONARCHIVE_PARAM_CATEGORY_DESC" 
-					extension="com_sermonspeaker" 
+				<field
+					name="sermon_cat"
+					type="category"
+					label="MOD_SERMONARCHIVE_PARAM_CATEGORY_SERMON_LABEL"
+					description="MOD_SERMONARCHIVE_PARAM_CATEGORY_DESC"
+					extension="com_sermonspeaker"
 					show_root="true"
 				/>
+				<field
+					name="state"
+					type="radio"
+					label="MOD_SERMONARCHIVE_FIELD_STATE_LABEL"
+					description="MOD_SERMONARCHIVE_FIELD_STATE_DESC"
+					class="btn-group btn-group-yesno"
+					default="1"
+					>
+					<option value="2">JARCHIVED</option>
+					<option value="1">JPUBLISHED</option>
+				</field>
 			</fieldset>
 			<fieldset name="advanced">
-				<field name="layout" type="modulelayout"
+				<field
+					name="layout"
+					type="modulelayout"
 					label="JFIELD_ALT_LAYOUT_LABEL"
-					description="JFIELD_ALT_MODULE_LAYOUT_DESC" />
-				<field name="moduleclass_sfx" type="textarea"
+					description="JFIELD_ALT_MODULE_LAYOUT_DESC"
+				/>
+				<field
+					name="moduleclass_sfx"
+					type="textarea"
 					label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL"
 					description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC"
-					rows="3" />
-				<field name="cache" type="list"
+					rows="3"
+				/>
+				<field
+					name="cache"
+					type="list"
 					label="COM_MODULES_FIELD_CACHING_LABEL"
 					description="COM_MODULES_FIELD_CACHING_DESC"
-					default="1">
+					default="1"
+				>
 					<option value="1">JGLOBAL_USE_GLOBAL</option>
 					<option value="0">COM_MODULES_FIELD_VALUE_NOCACHING</option>
 				</field>
-				<field name="cache_time" type="text"
+				<field
+					name="cache_time"
+					type="text"
 					label="COM_MODULES_FIELD_CACHE_TIME_LABEL"
 					description="COM_MODULES_FIELD_CACHE_TIME_DESC"
-					default="900" />
-				<field name="cachemode" type="hidden"
-					default="static">
+					default="900"
+				/>
+				<field
+					name="cachemode"
+					type="hidden"
+					default="static"
+				>
 					<option value="static"></option>
 				</field>
 			</fieldset>

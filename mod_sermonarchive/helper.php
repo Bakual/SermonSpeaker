@@ -19,7 +19,7 @@ abstract class ModSermonarchiveHelper
 	/**
 	 * Gets the items from the database
 	 *
-	 * @param   object  $params  parameters
+	 * @param   object $params parameters
 	 *
 	 * @return  array  $items  Array of items
 	 */
@@ -27,6 +27,8 @@ abstract class ModSermonarchiveHelper
 	{
 		// Collect params
 		$mode  = ($params->get('archive_switch') == 'month');
+		$state = (int) ($params->get('state', 1));
+		$state = $state ?: 1;
 
 		$db    = JFactory::getDbo();
 		$query = $db->getQuery(true);
@@ -34,7 +36,7 @@ abstract class ModSermonarchiveHelper
 		$query->select('YEAR(`sermon_date`) AS `year`');
 		$query->select("CONCAT_WS('-', YEAR(`sermon_date`), MONTH(`sermon_date`), '15') AS `date`");
 		$query->from('#__sermon_sermons');
-		$query->where('`state` = 1');
+		$query->where('`state` = ' . $state);
 
 		// Define null and now dates
 		$nullDate = $db->quote($db->getNullDate());
