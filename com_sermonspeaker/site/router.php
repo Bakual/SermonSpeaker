@@ -107,6 +107,16 @@ class SermonspeakerRouter extends JComponentRouterBase
 			unset($query['id']);
 		}
 
+		if (isset($query['state']))
+		{
+			if ($query['state'] == 2)
+			{
+				$segments[] = 'archive';
+			}
+
+			unset($query['state']);
+		}
+
 		if (isset($query['year']))
 		{
 			$segments[] = $query['year'];
@@ -180,15 +190,33 @@ class SermonspeakerRouter extends JComponentRouterBase
 			case 'sermons':
 				$vars['view'] = 'sermons';
 
-				if (isset($segments[1]) && $segments[1])
+				if (isset($segments[1]) && $segments[1] == 'archive')
 				{
-					$vars['year'] = (int) $segments[1];
+					$vars['state'] = 2;
+
+					if (isset($segments[2]) && $segments[2])
+					{
+						$vars['year'] = (int) $segments[2];
+					}
+
+					if (isset($segments[3]) && $segments[3])
+					{
+						$vars['month'] = (int) $segments[3];
+					}
+				}
+				else
+				{
+					if (isset($segments[1]) && $segments[1])
+					{
+						$vars['year'] = (int) $segments[1];
+					}
+
+					if (isset($segments[2]) && $segments[2])
+					{
+						$vars['month'] = (int) $segments[2];
+					}
 				}
 
-				if (isset($segments[2]) && $segments[2])
-				{
-					$vars['month'] = (int) $segments[2];
-				}
 				break;
 			case 'sermon':
 				$vars['view'] = 'sermon';

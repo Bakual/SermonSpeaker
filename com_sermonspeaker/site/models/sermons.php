@@ -25,7 +25,7 @@ class SermonspeakerModelSermons extends JModelList
 	/**
 	 * Constructor
 	 *
-	 * @param   array  $config  An optional associative array of configuration settings
+	 * @param   array $config An optional associative array of configuration settings
 	 */
 	public function __construct($config = array())
 	{
@@ -90,7 +90,7 @@ class SermonspeakerModelSermons extends JModelList
 
 		// Join over the scriptures
 		$query->select('GROUP_CONCAT(script.book,"|",script.cap1,"|",script.vers1,"|",script.cap2,"|",script.vers2,"|",script.text '
-						. 'ORDER BY script.ordering ASC SEPARATOR "!") AS scripture');
+			. 'ORDER BY script.ordering ASC SEPARATOR "!") AS scripture');
 		$query->join('LEFT', '#__sermon_scriptures AS script ON script.sermon_id = sermons.id');
 		$query->group('sermons.id');
 
@@ -213,9 +213,10 @@ class SermonspeakerModelSermons extends JModelList
 		{
 			$query->where('sermons.state = ' . (int) $state);
 		}
-
-		// Do not show trashed links on the front-end
-		$query->where('sermons.state != -2');
+		else
+		{
+			$query->where('sermons.state != -2');
+		}
 
 		// Filter by speaker (needed in speaker view)
 		if ($speakerId = $this->getState('speaker.id'))
@@ -237,7 +238,7 @@ class SermonspeakerModelSermons extends JModelList
 
 		if ($this->getState('list.ordering') == 'book')
 		{
-			$dir	= $db->escape($this->getState('list.direction', 'ASC'));
+			$dir = $db->escape($this->getState('list.direction', 'ASC'));
 			$query->order($db->escape('book') . ' ' . $dir . ', ' . $db->escape('cap1') . ' ' . $dir . ', ' . $db->escape('vers1') . ' ' . $dir);
 		}
 
@@ -252,8 +253,8 @@ class SermonspeakerModelSermons extends JModelList
 	 *
 	 * Note. Calling getState in this method will result in recursion.
 	 *
-	 * @param   string  $ordering   Ordering column
-	 * @param   string  $direction  'ASC' or 'DESC'
+	 * @param   string $ordering  Ordering column
+	 * @param   string $direction 'ASC' or 'DESC'
 	 *
 	 * @return  void
 	 */
@@ -279,10 +280,13 @@ class SermonspeakerModelSermons extends JModelList
 
 		$user = JFactory::getUser();
 
-		if ((!$user->authorise('core.edit.state', 'com_sermonspeaker')) &&  (!$user->authorise('core.edit', 'com_sermonspeaker')))
+		if ((!$user->authorise('core.edit.state', 'com_sermonspeaker')) && (!$user->authorise('core.edit', 'com_sermonspeaker')))
 		{
-			// Filter on published for those who do not have edit or edit.state rights.
-			$this->setState('filter.state', 1);
+			// Filter on published or archived for those who do not have edit or edit.state rights.
+			$validStates = array(1, 2);
+			$state       = $jinput->get('state', 1, 'int');
+			$state       = (in_array($state, $validStates)) ? $state : 1;
+			$this->setState('filter.state', $state);
 		}
 
 		$this->setState('filter.language', $app->getLanguageFilter());
@@ -334,7 +338,7 @@ class SermonspeakerModelSermons extends JModelList
 	 * different modules that might need different sets of data or different
 	 * ordering requirements.
 	 *
-	 * @param   string  $id  An identifier string to generate the store id.
+	 * @param   string $id An identifier string to generate the store id.
 	 *
 	 * @return  string  A store id.
 	 */
@@ -357,15 +361,15 @@ class SermonspeakerModelSermons extends JModelList
 	public function getMonths()
 	{
 		$months = array(
-			1 => 'JANUARY',
-			2 => 'FEBRUARY',
-			3 => 'MARCH',
-			4 => 'APRIL',
-			5 => 'MAY',
-			6 => 'JUNE',
-			7 => 'JULY',
-			8 => 'AUGUST',
-			9 => 'SEPTEMBER',
+			1  => 'JANUARY',
+			2  => 'FEBRUARY',
+			3  => 'MARCH',
+			4  => 'APRIL',
+			5  => 'MAY',
+			6  => 'JUNE',
+			7  => 'JULY',
+			8  => 'AUGUST',
+			9  => 'SEPTEMBER',
 			10 => 'OCTOBER',
 			11 => 'NOVEMBER',
 			12 => 'DECEMBER',
@@ -392,7 +396,7 @@ class SermonspeakerModelSermons extends JModelList
 
 		foreach ($options as &$option)
 		{
-			$option['text']	= $months[$option['value']];
+			$option['text'] = $months[$option['value']];
 		}
 
 		return $options;
@@ -468,8 +472,8 @@ class SermonspeakerModelSermons extends JModelList
 		{
 			if (isset($this->state->params))
 			{
-				$params = $this->state->params;
-				$options = array();
+				$params                = $this->state->params;
+				$options               = array();
 				$options['countItems'] = $params->get('show_cat_num_items', 1) || !$params->get('show_empty_categories', 0);
 			}
 			else
@@ -479,15 +483,15 @@ class SermonspeakerModelSermons extends JModelList
 
 			$options['table'] = '#__sermon_' . $this->state->get('category.type', 'sermons');
 
-			$categories = JCategories::getInstance('Sermonspeaker', $options);
+			$categories  = JCategories::getInstance('Sermonspeaker', $options);
 			$this->_item = $categories->get($this->getState('category.id', 'root'));
 
 			// Compute selected asset permissions
 			if (is_object($this->_item))
 			{
-				$user	= JFactory::getUser();
-				$userId	= $user->get('id');
-				$asset	= 'com_sermonspeaker.category.' . $this->_item->id;
+				$user   = JFactory::getUser();
+				$userId = $user->get('id');
+				$asset  = 'com_sermonspeaker.category.' . $this->_item->id;
 
 				// Check general create permission
 				if ($user->authorise('core.create', $asset))
@@ -497,7 +501,7 @@ class SermonspeakerModelSermons extends JModelList
 
 				// TODO: Why aren't we lazy loading the children and siblings?
 				$this->_children = $this->_item->getChildren();
-				$this->_parent = false;
+				$this->_parent   = false;
 
 				if ($this->_item->getParent())
 				{
@@ -505,12 +509,12 @@ class SermonspeakerModelSermons extends JModelList
 				}
 
 				$this->_rightsibling = $this->_item->getSibling();
-				$this->_leftsibling = $this->_item->getSibling(false);
+				$this->_leftsibling  = $this->_item->getSibling(false);
 			}
 			else
 			{
 				$this->_children = false;
-				$this->_parent = false;
+				$this->_parent   = false;
 			}
 		}
 
