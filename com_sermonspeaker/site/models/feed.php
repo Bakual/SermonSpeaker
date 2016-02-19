@@ -123,7 +123,7 @@ class SermonspeakerModelFeed extends JModelLegacy
 
 		// Filter by state
 		$query->where('sermons.podcast = 1');
-		$query->where('sermons.state != -2');
+		$query->where('sermons.state = 1');
 
 		// Grouping
 		$query->order('sermons.sermon_date DESC');
