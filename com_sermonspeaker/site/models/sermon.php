@@ -131,7 +131,7 @@ class SermonspeakerModelSermon extends JModelItem
 				$query->where('(sermon.series_id = 0 OR series.catid = 0 OR c_series.published = 1)');
 
 				$query->where('sermon.id = ' . (int) $id);
-				$query->where('sermon.state = 1');
+				$query->where('sermon.state > 0');
 
 				$db->setQuery($query);
 
