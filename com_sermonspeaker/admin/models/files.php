@@ -120,7 +120,7 @@ class SermonspeakerModelFiles extends JModelLegacy
 			foreach ($bucket_contents as $file)
 			{
 				$fname   = $file['name'];
-				$files[] = 'http://' . $domain . '/' . $fname;
+				$files[] = 'https://' . $domain . '/' . $fname;
 			}
 		}
 

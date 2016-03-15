@@ -95,7 +95,7 @@ $self = $uri->toString();
 									<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO');
 
 									if ($this->s3audio) :
-										echo ' http://' . $this->domain . '/';
+										echo ' https://' . $this->domain . '/';
 									else :
 										echo ' /' . trim($this->params->get('path_audio'), '/') . '/';
 									endif;
@@ -117,7 +117,7 @@ $self = $uri->toString();
 									<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO');
 
 									if ($this->s3video):
-										echo ' http://' . $this->domain . '/';
+										echo ' https://' . $this->domain . '/';
 									else:
 										echo ' /' . trim($this->params->get('path_video'), '/') . '/';
 									endif;

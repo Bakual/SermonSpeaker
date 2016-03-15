@@ -247,7 +247,7 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 
 				$domain          = ($customBucket) ? $bucket : $prefix . '.amazonaws.com/' . $bucket;
 				$fname           = $file['name'];
-				$furl            = 'http://' . $domain . '/' . $fname;
+				$furl            = 'https://' . $domain . '/' . $fname;
 				$option['value'] = $furl;
 				$option['text']  = $fname;
 				$options[]       = $option;

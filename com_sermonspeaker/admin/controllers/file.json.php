@@ -175,7 +175,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 				$response = array(
 					'status'   => '1',
 					'filename' => $file['name'],
-					'path'     => 'http://' . $domain . '/' . $uri,
+					'path'     => 'https://' . $domain . '/' . $uri,
 					'error'    => JText::sprintf('COM_SERMONSPEAKER_FU_FILENAME', $domain . '/' . $uri),
 				);
 				echo json_encode($response);
