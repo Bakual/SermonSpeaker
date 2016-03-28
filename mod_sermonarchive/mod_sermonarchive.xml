@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<extension type="module" version="3.4" method="upgrade">
+<extension type="module" version="3.5" method="upgrade">
 	<name>Sermons Archive</name>
 	<author>Thomas Hunziker, Rajesh K</author>
-	<creationDate>2015-06-02</creationDate>
+	<creationDate>2016-03-28</creationDate>
 	<copyright>© 2016</copyright>
 	<authorEmail>admin@sermonspeaker.net</authorEmail>
 	<authorUrl>http://www.sermonspeaker.net</authorUrl>
-	<version>5.4.0</version>
+	<version>5.5.0</version>
 	<license>http://www.gnu.org/licenses/gpl.html</license>
 	<description>MOD_SERMONARCHIVE_XML_DESCRIPTION</description>
 	<files>

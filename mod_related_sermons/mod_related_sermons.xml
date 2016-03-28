@@ -2,11 +2,11 @@
 <extension type="module" version="3.4" method="upgrade">
 	<name>Related Sermons</name>
 	<author>Thomas Hunziker</author>
-	<creationDate>2015-06-02</creationDate>
+	<creationDate>2016-03-28</creationDate>
 	<copyright>© 2016</copyright>
 	<authorEmail>admin@sermonspeaker.net</authorEmail>
 	<authorUrl>http://www.sermonspeaker.net</authorUrl>
-	<version>5.4.0</version>
+	<version>5.4.1</version>
 	<license>http://www.gnu.org/licenses/gpl.html</license>
 	<description>MOD_RELATED_SERMONS_XML_DESCRIPTION</description>
 	<files>
