@@ -3,7 +3,7 @@
  * @package     SermonSpeaker
  * @subpackage  Layouts.Columns
  * @author      Thomas Hunziker <admin@sermonspeaker.net>
- * @copyright   © 2015 - Thomas Hunziker
+ * @copyright   © 2016 - Thomas Hunziker
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
