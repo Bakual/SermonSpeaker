@@ -278,10 +278,12 @@ class SermonspeakerControllerTools extends JControllerLegacy
 		JSession::checkToken('request') or jexit(JText::_('JINVALID_TOKEN'));
 		$app   = JFactory::getApplication();
 		$db    = JFactory::getDBO();
-		$query = "SELECT audiofile, videofile, sermons.created_by, sermons.catid, sermons.title, speakers.title as speaker_title, series.title AS series_title, YEAR(sermon_date) AS date, notes, sermon_number, picture \n"
-			. "FROM #__sermon_sermons AS sermons \n"
-			. "LEFT JOIN #__sermon_speakers AS speakers ON speaker_id = speakers.id \n"
-			. "LEFT JOIN #__sermon_series AS series ON series_id = series.id \n";
+		$query->select('audiofile, videofile, sermons.created_by, sermons.catid, sermons.title, speakers.title as speaker_title');
+		$query->select('series.title AS series_title, notes, sermon_number, picture');
+		$query->select('YEAR(sermon_date) AS year, DATE_FORMAT(sermon_date, "%H%i") AS time, DATE_FORMAT(sermon_date, "%d%m") AS date');
+		$query->from('#__sermon_sermons AS sermons');
+		$query->join('LEFT', '#__sermon_speakers AS speakers ON speaker_id = speakers.id');
+		$query->join('LEFT', '#__sermon_series AS series ON series_id = series.id');
 		$db->setQuery($query);
 		$items = $db->loadObjectList();
 		$user  = JFactory::getUser();
@@ -307,8 +309,10 @@ class SermonspeakerControllerTools extends JControllerLegacy
 					'title'  => array($item->title),
 					'artist' => array($item->speaker_title),
 					'album'  => array($item->series_title),
-					'year'   => array($item->date),
 					'track'  => array($item->sermon_number),
+					'year'   => array($item->year),
+					'date'   => array($item->date),
+					'time'   => array($item->time),
 				);
 				$TagData['comment'] = array(strip_tags(JHtml::_('content.prepare', $item->notes)));
 
