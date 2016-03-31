@@ -199,11 +199,26 @@ class SermonspeakerModelSermon extends JModelItem
 	 */
 	public function getLatest()
 	{
+		$app    = JFactory::getApplication();
+		$params = $app->getParams();
+
 		$db    = $this->getDbo();
 		$query = $db->getQuery(true);
 
 		$query->select('id');
 		$query->from('#__sermon_sermons');
+
+		// Filter by filetype
+		$filetype = $params->get('filetype', '');
+		if ($filetype == 'video')
+		{
+			$query->where('videofile != ""');
+		}
+		elseif ($filetype == 'audio')
+		{
+			$query->where('audiofile != ""');
+		}
+
 		$query->order('sermon_date DESC');
 
 		$db->setQuery($query, 0, 1);
