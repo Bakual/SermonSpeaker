@@ -136,7 +136,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 				endif; ?>
 				<div id="sermon<?php echo $i; ?>" class="ss-entry tile">
 				<span class="hasTooltip"
-					  title="<?php echo $this->escape($item->title) . '::' . $this->escape($tooltip); ?>">
+					  title="<?php echo JHtml::tooltipText($item->title, $tooltip); ?>">
 				<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->id)); ?>">
 					<img border="0" align="middle" src="<?php echo $picture; ?>">
 					<span class="item-title">

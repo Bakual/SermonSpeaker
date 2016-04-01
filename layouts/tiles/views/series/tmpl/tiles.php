@@ -118,7 +118,7 @@ $orderlist  = array(
 			$image   = ($item->avatar) ? $item->avatar : 'media/com_sermonspeaker/images/' . $this->params->get('defaultpic', 'nopict.jpg'); ?>
 			<div id="serie<?php echo $i; ?>" class="ss-entry tile">
 				<span class="hasTooltip"
-					  title="<?php echo $this->escape($item->title) . '::' . $this->escape($tooltip); ?>">
+					  title="<?php echo JHtml::tooltipText($item->title, $tooltip); ?>">
 				<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->id)); ?>">
 					<img border="0" align="middle" src="<?php echo trim($image, '/'); ?>">
 					<span class="item-title">

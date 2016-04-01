@@ -30,7 +30,7 @@ if (count($this->children[$this->category->id]) and $this->maxLevel != 0) : ?>
 				endif;
 				$tooltip = implode('<br/>', $tip);
 				?>
-				<span class="hasTooltip" title="<?php echo $this->escape($child->title) . '::' . $tooltip; ?>">
+				<span class="hasTooltip" title="<?php echo JHtml::tooltipText($child->title, $tooltip); ?>">
 					<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSeriesRoute($child->id)); ?>">
 						<img border="0" align="middle" src="<?php echo $image; ?>"/>
 						<?php
