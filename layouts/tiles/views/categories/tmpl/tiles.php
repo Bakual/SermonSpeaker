@@ -12,11 +12,11 @@ defined('_JEXEC') or die();
 JHtml::stylesheet('com_sermonspeaker/tiles.css', '', true);
 
 // Layout supports max 3 level
-if($this->maxLevelcat == -1 or $this->maxLevelcat > 3):
+if ($this->maxLevelcat == -1 or $this->maxLevelcat > 3):
 	$this->maxLevelcat = 3;
 endif;
 ?>
-<div class="categories-list<?php echo $this->pageclass_sfx;?>">
+<div class="categories-list<?php echo $this->pageclass_sfx; ?>">
 	<?php
 	if ($this->params->get('show_page_heading', 1)) : ?>
 		<h1>
@@ -25,11 +25,11 @@ endif;
 	<?php endif;
 
 	if ($this->params->get('show_base_description')) :
-		if($this->params->get('categories_description')) : ?>
+		if ($this->params->get('categories_description')) : ?>
 			<div class="category-desc">
-				<p><?php echo  JHtml::_('content.prepare', $this->params->get('categories_description')); ?></p>
+				<p><?php echo JHtml::_('content.prepare', $this->params->get('categories_description')); ?></p>
 			</div>
-		<?php elseif($this->parent->description) : ?>
+		<?php elseif ($this->parent->description) : ?>
 			<div class="category-desc">
 				<?php echo JHtml::_('content.prepare', $this->parent->description); ?>
 			</div>

@@ -9,30 +9,30 @@
 
 defined('_JEXEC') or die();
 
-$class	= 'first';
+$class = 'first';
 
 if (count($this->children[$this->category->id]) AND $this->maxLevel != 0) : ?>
 	<?php
-	foreach($this->children[$this->category->id] as $id => $child) :
+	foreach ($this->children[$this->category->id] as $id => $child) :
 		if ($this->params->get('show_empty_categories_cat') or $child->getNumItems(true) or $child->hasChildren()) :
 			if (!$image = $child->getParams()->get('image')):
 				$image = 'media/com_sermonspeaker/images/category.png';
 			endif; ?>
 			<div class="tile level<?php echo $child->level; ?> <?php echo $class; ?>">
-			<?php $class = '';
-				$tip = array();
+				<?php $class = '';
+				$tip         = array();
 
 				if ($this->params->get('show_cat_num_items_cat')):
-					$tip[]	= JText::_('COM_SERMONSPEAKER_NUM_ITEMS') . ' ' . $child->numitems;
+					$tip[] = JText::_('COM_SERMONSPEAKER_NUM_ITEMS') . ' ' . $child->numitems;
 				endif;
 
 				if ($this->params->get('show_subcat_desc_cat')):
-					$tip[]	= JHtml::_('content.prepare', $child->description);
+					$tip[] = JHtml::_('content.prepare', $child->description);
 				endif;
 				$tooltip = implode('<br/>', $tip);
 				?>
 				<span class="hasTooltip" title="<?php echo $this->escape($child->title) . '::' . $tooltip; ?>">
-					<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakersRoute($child->id));?>">
+					<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakersRoute($child->id)); ?>">
 						<img border="0" align="middle" src="<?php echo $image; ?>"/>
 						<?php
 						if ($child->level == 1) : ?>
@@ -44,7 +44,7 @@ if (count($this->children[$this->category->id]) AND $this->maxLevel != 0) : ?>
 				</span>
 				<?php if ($child->hasChildren()) :
 					$this->children[$child->id] = $child->getChildren();
-					$this->category = $child;
+					$this->category             = $child;
 					$this->maxLevel--;
 
 					if ($this->maxLevel != 0) :
