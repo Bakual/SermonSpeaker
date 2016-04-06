@@ -111,7 +111,7 @@ if ($this->params->get('show_category_title', 0) or in_array('speaker:hits', $th
 		<hr class="ss-speaker-player" style="clear:both" />
 		<?php foreach ($this->sermons as $i => $item) : ?>
 			<div id="sermon<?php echo $i; ?>" class="ss-entry">
-				<div class="column-picture" onclick="ss_play('<?php echo $i; ?>')">
+				<div class="column-picture" onclick="ss_play(<?php echo $i; ?>)">
 					<div class="ss-picture">
 						<?php $picture = SermonspeakerHelperSermonspeaker::insertPicture($item);
 
@@ -121,7 +121,7 @@ if ($this->params->get('show_category_title', 0) or in_array('speaker:hits', $th
 						<img src="<?php echo $picture; ?>">
 					</div>
 				</div>
-				<div class="column-content" onclick="ss_play('<?php echo $i; ?>')">
+				<div class="column-content" onclick="ss_play(<?php echo $i; ?>)">
 					<h3 class="title"><a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug)); ?>"><?php echo $item->title; ?></a>
 						<?php
 						if ($canEdit or ($canEditOwn and ($user->id == $item->created_by))) :
@@ -208,7 +208,7 @@ if ($this->params->get('show_category_title', 0) or in_array('speaker:hits', $th
 						</a>
 					<?php endif; ?>
 				</div>
-				<div class="column-detail" onclick="ss_play('<?php echo $i; ?>')">
+				<div class="column-detail" onclick="ss_play(<?php echo $i; ?>)">
 					<?php
 					if (in_array('speaker:date', $this->col_sermon) and ($item->sermon_date != '0000-00-00 00:00:00')) : ?>
 						<div class="create">
