@@ -422,7 +422,7 @@ class PlgSermonspeakerJwplayer7 extends SermonspeakerPluginPlayer
 
 			if ($file)
 			{
-				$entry['file'] = SermonspeakerHelperSermonspeaker::makeLink($file);
+				$entry['file'] = addslashes(SermonspeakerHelperSermonspeaker::makeLink($file));
 			}
 			else
 			{
@@ -471,7 +471,7 @@ class PlgSermonspeakerJwplayer7 extends SermonspeakerPluginPlayer
 				// Preparing specific playlists for audio and video
 				if ($item->audiofile)
 				{
-					$file = SermonspeakerHelperSermonspeaker::makeLink($item->audiofile);
+					$file = addslashes(SermonspeakerHelperSermonspeaker::makeLink($item->audiofile));
 					unset($entry['error']);
 				}
 				else
@@ -485,7 +485,7 @@ class PlgSermonspeakerJwplayer7 extends SermonspeakerPluginPlayer
 
 				if ($item->videofile)
 				{
-					$file = SermonspeakerHelperSermonspeaker::makeLink($item->videofile);
+					$file = addslashes(SermonspeakerHelperSermonspeaker::makeLink($item->videofile));
 					unset($entry['error']);
 				}
 				else
