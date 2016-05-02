@@ -56,6 +56,20 @@ class SermonspeakerRouter extends JComponentRouterBase
 					$segments[] = $view;
 				}
 			}
+			elseif (isset($query['catid']))
+			{
+				$menuView  = isset($menuItem->query['view']) ? $menuItem->query['view'] : '';
+				$menuCatid = $menuItem->params->get('catid');
+
+				if ($menuView == $view && $menuCatid == (int) $query['catid'])
+				{
+					unset($query['catid']);
+				}
+				else
+				{
+					$segments[] = $view;
+				}
+			}
 			else
 			{
 				$segments[] = $view;
