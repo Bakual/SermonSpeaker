@@ -102,7 +102,7 @@ if ($params->get('itRedirect')) : ?>
 
 // Starting with items
 foreach ($this->items as $item) :
-	$notes = $this->getNotes($item->notes); ?>
+	$notes = $this->getNotes($item->notes, $item->metadesc); ?>
 	<item>
 		<title><?php echo $this->make_xml_safe($item->title); ?></title>
 		<link><?php

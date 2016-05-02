@@ -29,18 +29,18 @@ class SermonspeakerViewFeed extends JViewLegacy
 	/**
 	 * Execute and display a template script.
 	 *
-	 * @param   string  $tpl  The name of the template file to parse; automatically searches through the template paths.
+	 * @param   string $tpl The name of the template file to parse; automatically searches through the template paths.
 	 *
 	 * @return  mixed  A string if successful, otherwise a Error object.
 	 */
 	public function display($tpl = null)
 	{
-		/* @var  JApplicationSite  $app  The application */
+		/* @var  JApplicationSite $app The application */
 		$app          = JFactory::getApplication();
 		$this->params = $app->getParams();
 
 		// Get the log in credentials.
-		$credentials = array();
+		$credentials             = array();
 		$credentials['username'] = $app->input->get->get('username', '', 'USERNAME');
 		$credentials['password'] = $app->input->get->get('password', '', 'RAW');
 
@@ -65,8 +65,8 @@ class SermonspeakerViewFeed extends JViewLegacy
 		$this->items = $this->get('Data');
 
 		// Get current version of SermonSpeaker
-		$component     = JComponentHelper::getComponent('com_sermonspeaker');
-		$extensions    = JTable::getInstance('extension');
+		$component  = JComponentHelper::getComponent('com_sermonspeaker');
+		$extensions = JTable::getInstance('extension');
 		$extensions->load($component->id);
 		$manifest      = json_decode($extensions->manifest_cache);
 		$this->version = $manifest->version;
@@ -77,7 +77,7 @@ class SermonspeakerViewFeed extends JViewLegacy
 	/**
 	 * Makes a string save to use in a XML file
 	 *
-	 * @param   string  $string  The string to be escaped
+	 * @param   string $string The string to be escaped
 	 *
 	 * @return  string  $string  The escaped string
 	 */
@@ -93,7 +93,7 @@ class SermonspeakerViewFeed extends JViewLegacy
 	/**
 	 * Creates an iTunes Category
 	 *
-	 * @param   array  $cat  iTunes categories
+	 * @param   array $cat iTunes categories
 	 *
 	 * @return  string  $tags  The iTunes category tag
 	 */
@@ -118,23 +118,30 @@ class SermonspeakerViewFeed extends JViewLegacy
 	/**
 	 * Process notes
 	 *
-	 * @param   string  $text  notes
+	 * @param   string $text notes
+	 * @param   string $meta meta description
 	 *
 	 * @return  string  $tags  processed notes
 	 */
-	protected function getNotes($text)
+	protected function getNotes($text, $meta = '')
 	{
+		// If meta description is present, use that one over the notes field.
+		if ($meta)
+		{
+			$text = $meta;
+		}
+
 		if ($this->params->get('prepare_content', 1))
 		{
 			$text = JHtml::_('content.prepare', $text);
 		}
 
-		$text = str_replace(array("\r","\n",'  '), ' ', $this->make_xml_safe($text));
+		$text = str_replace(array("\r", "\n", '  '), ' ', $this->make_xml_safe($text));
 
 		if ($this->params->get('limit_text'))
 		{
-			$length	= $this->params->get('text_length');
-			$array	= explode(' ', $text, $length + 1);
+			$length = $this->params->get('text_length');
+			$array  = explode(' ', $text, $length + 1);
 
 			if (isset($array[$length]))
 			{
@@ -150,14 +157,14 @@ class SermonspeakerViewFeed extends JViewLegacy
 	/**
 	 * Creates Enclosure
 	 *
-	 * @param   object  $item  The row
+	 * @param   object $item The row
 	 *
 	 * @return  array  $enclosure  Enclosure
 	 */
 	protected function getEnclosure($item)
 	{
-		$type	= JFactory::getApplication()->input->get('type', 'auto');
-		$prio	= $this->params->get('fileprio', 0);
+		$type = JFactory::getApplication()->input->get('type', 'auto');
+		$prio = $this->params->get('fileprio', 0);
 
 		// Create Enclosure
 		if ($type == 'video')
@@ -184,13 +191,13 @@ class SermonspeakerViewFeed extends JViewLegacy
 				if ((strpos($file, 'http://vimeo.com') === 0) || (strpos($file, 'http://player.vimeo.com') === 0))
 				{
 					// Vimeo
-					$id					= trim(strrchr($file, '/'), '/ ');
-					$file				= 'http://vimeo.com/moogaloop.swf?clip_id=' . $id;
-					$enclosure['type']	= 'application/x-shockwave-flash';
+					$id                = trim(strrchr($file, '/'), '/ ');
+					$file              = 'http://vimeo.com/moogaloop.swf?clip_id=' . $id;
+					$enclosure['type'] = 'application/x-shockwave-flash';
 				}
 
-				$enclosure['url']		= $file;
-				$enclosure['length']	= 1;
+				$enclosure['url']    = $file;
+				$enclosure['length'] = 1;
 			}
 			else
 			{
@@ -224,7 +231,7 @@ class SermonspeakerViewFeed extends JViewLegacy
 	/**
 	 * Create keywords from series_title and scripture (title and speaker are searchable anyway)
 	 *
-	 * @param   object  $item  The row
+	 * @param   object $item The row
 	 *
 	 * @return  string  keywords
 	 */
@@ -234,22 +241,29 @@ class SermonspeakerViewFeed extends JViewLegacy
 
 		if ($item->scripture)
 		{
-			$scripture	= SermonspeakerHelperSermonspeaker::insertScriptures($item->scripture, '-/*', false);
+			$scripture = SermonspeakerHelperSermonspeaker::insertScriptures($item->scripture, '-/*', false);
 
 			if ($this->params->get('prepare_content', 1))
 			{
-				$scripture	= JHtml::_('content.prepare', $scripture);
+				$scripture = JHtml::_('content.prepare', $scripture);
 			}
 
 			// Make english scripture format
-			$scripture	= str_replace(',', ':', $scripture);
-			$scripture	= str_replace("\n", '', $this->make_xml_safe($scripture));
-			$keywords	= explode('-/*', $scripture);
+			$scripture = str_replace(',', ':', $scripture);
+			$scripture = str_replace("\n", '', $this->make_xml_safe($scripture));
+			$keywords  = explode('-/*', $scripture);
 		}
 
 		if ($item->series_title)
 		{
-			$keywords[]	= $this->make_xml_safe($item->series_title);
+			$keywords[] = $this->make_xml_safe($item->series_title);
+		}
+
+		// Add meta keywords
+		if ($item->metakey)
+		{
+			$metakey  = $this->make_xml_safe($item->metakey);
+			$keywords = array_merge($keywords, explode(',', $metakey));
 		}
 
 		return implode(',', $keywords);
