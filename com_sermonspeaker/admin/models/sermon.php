@@ -418,7 +418,7 @@ class SermonspeakerModelSermon extends JModelAdmin
 			$bad_characters = array("\n", "\r", '"', '<', '>');
 
 			// Remove bad characters
-			$after_clean = Joomla\String\String::str_ireplace($bad_characters, '', $table->metakey);
+			$after_clean = Joomla\String\StringHelper::str_ireplace($bad_characters, '', $table->metakey);
 
 			// Create array using commas as delimiter
 			$keys       = explode(',', $after_clean);
