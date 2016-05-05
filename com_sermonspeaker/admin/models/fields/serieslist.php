@@ -123,7 +123,16 @@ class JFormFieldSerieslist extends JFormFieldList
 
 		$query = $db->getQuery(true);
 		$query->select('series.id As value, home');
-		$query->select('CASE WHEN CHAR_LENGTH(c_series.title) THEN CONCAT(series.title, " (", c_series.title, ")") ELSE series.title END AS text');
+
+		if ($this->element['hidecategory'])
+		{
+			$query->select('series.title AS text');
+		}
+		else
+		{
+			$query->select('CASE WHEN CHAR_LENGTH(c_series.title) THEN CONCAT(series.title, " (", c_series.title, ")") ELSE series.title END AS text');
+		}
+
 		$query->from('#__sermon_series AS series');
 		$query->join('LEFT', '#__categories AS c_series ON c_series.id = series.catid');
 		$query->where('series.state = 0');

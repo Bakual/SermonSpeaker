@@ -100,7 +100,6 @@ class JFormFieldSpeakerlist extends JFormFieldList
 		$query->from('#__sermon_speakers AS speakers');
 		$query->join('LEFT', '#__categories AS c_speakers ON c_speakers.id = speakers.catid');
 		$query->where('speakers.state = 1');
-		$query->where('speakers.state = 1');
 
 		if ($catfilter)
 		{
@@ -123,7 +122,16 @@ class JFormFieldSpeakerlist extends JFormFieldList
 
 		$query = $db->getQuery(true);
 		$query->select('speakers.id As value, home');
-		$query->select('CASE WHEN CHAR_LENGTH(c_speakers.title) THEN CONCAT(speakers.title, " (", c_speakers.title, ")") ELSE speakers.title END AS text');
+
+		if ($this->element['hidecategory'])
+		{
+			$query->select('speakers.title AS text');
+		}
+		else
+		{
+			$query->select('CASE WHEN CHAR_LENGTH(c_speakers.title) THEN CONCAT(speakers.title, " (", c_speakers.title, ")") ELSE speakers.title END AS text');
+		}
+
 		$query->from('#__sermon_speakers AS speakers');
 		$query->join('LEFT', '#__categories AS c_speakers ON c_speakers.id = speakers.catid');
 		$query->where('speakers.state = 0');
