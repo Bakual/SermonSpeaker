@@ -141,7 +141,12 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 		}
 		else
 		{
-			$authorised = ($this->user->authorise('core.edit', 'com_sermonspeaker'));
+			$authorised = ($this->user->authorise('core.edit', 'com_sermonspeaker.category.' . $this->item->catid));
+
+			if (!$authorised && ($this->item->created_by == $this->user->id))
+			{
+				$authorised = ($this->user->authorise('core.edit.own', 'com_sermonspeaker.category.' . $this->item->catid));
+			}
 		}
 
 		if ($authorised !== true)
