@@ -18,16 +18,16 @@ JFormHelper::loadFieldClass('list');
  * Serieslist Field class for the SermonSpeaker.
  * Based on the Bannerlist field from com_banners
  *
- * @package		SermonSpeaker
- * @since		4.0
+ * @package        SermonSpeaker
+ * @since          4.0
  */
 class JFormFieldSerieslist extends JFormFieldList
 {
 	/**
 	 * The form field type.
 	 *
-	 * @var		string
-	 * @since	1.6
+	 * @var        string
+	 * @since    1.6
 	 */
 	protected $type = 'Serieslist';
 	protected $translateLabel = false;
@@ -42,7 +42,7 @@ class JFormFieldSerieslist extends JFormFieldList
 	 */
 	protected function getInput()
 	{
-		$html = array();
+		$html   = array();
 		$html[] = parent::getInput();
 
 		if (!$this->element['hidebutton'])
@@ -61,8 +61,8 @@ class JFormFieldSerieslist extends JFormFieldList
 			}
 
 			array_unshift($html, '<div class="input-append">');
-			$html[] = '<a class="modal" href="'.$url.'" rel="{handler: \'iframe\', size: {x: 950, y: 650}}">';
-			$html[] = '<div class="btn add-on icon-plus-2" rel="tooltip" title="'.JText::_('COM_SERMONSPEAKER_NEW_SERIE').'"> </div>';
+			$html[] = '<a class="modal" href="' . $url . '" rel="{handler: \'iframe\', size: {x: 950, y: 650}}">';
+			$html[] = '<div class="btn add-on icon-plus-2" rel="tooltip" title="' . JText::_('COM_SERMONSPEAKER_NEW_SERIE') . '"> </div>';
 			$html[] = '</a></div>';
 		}
 
@@ -72,8 +72,8 @@ class JFormFieldSerieslist extends JFormFieldList
 	/**
 	 * Method to get the field options.
 	 *
-	 * @return	array	The field option objects.
-	 * @since	1.6
+	 * @return    array    The field option objects.
+	 * @since    1.6
 	 */
 	public function getOptions()
 	{
@@ -106,11 +106,11 @@ class JFormFieldSerieslist extends JFormFieldList
 		{
 			if ($catids)
 			{
-				$query->where('(series.catid IN ('.$catids.') OR series.id = '.$db->quote($this->value).')');
+				$query->where('(series.catid IN (' . $catids . ') OR series.id = ' . $db->quote($this->value) . ')');
 			}
 			else
 			{
-				$query->where('series.id = '.$db->quote($this->value));
+				$query->where('series.id = ' . $db->quote($this->value));
 			}
 		}
 
@@ -121,9 +121,18 @@ class JFormFieldSerieslist extends JFormFieldList
 
 		$published = $db->loadObjectList();
 
-		$query	= $db->getQuery(true);
+		$query = $db->getQuery(true);
 		$query->select('series.id As value, home');
-		$query->select('CASE WHEN CHAR_LENGTH(c_series.title) THEN CONCAT(series.title, " (", c_series.title, ")") ELSE series.title END AS text');
+
+		if ($this->element['hidecategory'])
+		{
+			$query->select('series.title AS text');
+		}
+		else
+		{
+			$query->select('CASE WHEN CHAR_LENGTH(c_series.title) THEN CONCAT(series.title, " (", c_series.title, ")") ELSE series.title END AS text');
+		}
+
 		$query->from('#__sermon_series AS series');
 		$query->join('LEFT', '#__categories AS c_series ON c_series.id = series.catid');
 		$query->where('series.state = 0');
@@ -132,11 +141,11 @@ class JFormFieldSerieslist extends JFormFieldList
 		{
 			if ($catids)
 			{
-				$query->where('(series.catid IN ('.$catids.') OR series.id = '.$db->quote($this->value).')');
+				$query->where('(series.catid IN (' . $catids . ') OR series.id = ' . $db->quote($this->value) . ')');
 			}
 			else
 			{
-				$query->where('series.id = '.$db->quote($this->value));
+				$query->where('series.id = ' . $db->quote($this->value));
 			}
 		}
 

@@ -18,16 +18,16 @@ JFormHelper::loadFieldClass('list');
  * Speakerlist Field class for the SermonSpeaker.
  * Based on the Bannerlist field from com_banners
  *
- * @package		SermonSpeaker
- * @since		4.0
+ * @package        SermonSpeaker
+ * @since          4.0
  */
 class JFormFieldSpeakerlist extends JFormFieldList
 {
 	/**
 	 * The form field type.
 	 *
-	 * @var		string
-	 * @since	1.6
+	 * @var        string
+	 * @since    1.6
 	 */
 	protected $type = 'Speakerlist';
 
@@ -41,12 +41,12 @@ class JFormFieldSpeakerlist extends JFormFieldList
 	 */
 	protected function getInput()
 	{
-		$html = array();
+		$html   = array();
 		$html[] = parent::getInput();
 
 		if (!$this->element['hidebutton'])
 		{
-			$app   = JFactory::getApplication();
+			$app = JFactory::getApplication();
 
 			if ($app->isAdmin())
 			{
@@ -60,7 +60,7 @@ class JFormFieldSpeakerlist extends JFormFieldList
 			}
 
 			array_unshift($html, '<div class="input-append">');
-			$html[] = '<a class="modal" href="'.$url.'" rel="{handler: \'iframe\', size: {x: 950, y: 650}}">';
+			$html[] = '<a class="modal" href="' . $url . '" rel="{handler: \'iframe\', size: {x: 950, y: 650}}">';
 			$html[] = '<div class="btn add-on icon-plus-2" rel="tooltip" title="' . JText::_('COM_SERMONSPEAKER_NEW_SPEAKER') . '"> </div>';
 			$html[] = '</a></div>';
 		}
@@ -71,8 +71,8 @@ class JFormFieldSpeakerlist extends JFormFieldList
 	/**
 	 * Method to get the field options.
 	 *
-	 * @return	array	The field option objects.
-	 * @since	1.6
+	 * @return    array    The field option objects.
+	 * @since    1.6
 	 */
 	public function getOptions()
 	{
@@ -100,7 +100,6 @@ class JFormFieldSpeakerlist extends JFormFieldList
 		$query->from('#__sermon_speakers AS speakers');
 		$query->join('LEFT', '#__categories AS c_speakers ON c_speakers.id = speakers.catid');
 		$query->where('speakers.state = 1');
-		$query->where('speakers.state = 1');
 
 		if ($catfilter)
 		{
@@ -123,7 +122,16 @@ class JFormFieldSpeakerlist extends JFormFieldList
 
 		$query = $db->getQuery(true);
 		$query->select('speakers.id As value, home');
-		$query->select('CASE WHEN CHAR_LENGTH(c_speakers.title) THEN CONCAT(speakers.title, " (", c_speakers.title, ")") ELSE speakers.title END AS text');
+
+		if ($this->element['hidecategory'])
+		{
+			$query->select('speakers.title AS text');
+		}
+		else
+		{
+			$query->select('CASE WHEN CHAR_LENGTH(c_speakers.title) THEN CONCAT(speakers.title, " (", c_speakers.title, ")") ELSE speakers.title END AS text');
+		}
+
 		$query->from('#__sermon_speakers AS speakers');
 		$query->join('LEFT', '#__categories AS c_speakers ON c_speakers.id = speakers.catid');
 		$query->where('speakers.state = 0');
@@ -132,11 +140,11 @@ class JFormFieldSpeakerlist extends JFormFieldList
 		{
 			if ($catids)
 			{
-				$query->where('(speakers.catid IN ('.$catids.') OR speakers.id = '.$db->quote($this->value).')');
+				$query->where('(speakers.catid IN (' . $catids . ') OR speakers.id = ' . $db->quote($this->value) . ')');
 			}
 			else
 			{
-				$query->where('speakers.id = '.$db->quote($this->value));
+				$query->where('speakers.id = ' . $db->quote($this->value));
 			}
 		}
 
