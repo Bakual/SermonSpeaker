@@ -638,7 +638,7 @@ class SermonspeakerModelSermon extends JModelAdmin
 		}
 
 		// Attempt to change the state of the records.
-		if (!$table->podcast($pks, $value, $user->get('id')))
+		if (!$table->podcast($pks, $value, $user->id))
 		{
 			$this->setError($table->getError());
 

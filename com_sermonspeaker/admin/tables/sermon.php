@@ -55,7 +55,7 @@ class SermonspeakerTableSermon extends JTable
 		$user	= JFactory::getUser();
 		if (empty($this->created_by))
 		{
-			$this->created_by = $user->get('id');
+			$this->created_by = $user->id;
 		}
 		if ($this->id)
 		{
@@ -65,7 +65,7 @@ class SermonspeakerTableSermon extends JTable
 				$this->created	= $this->sermon_date;
 			}
 			$this->modified		= $date->toSql();
-			$this->modified_by	= $user->get('id');
+			$this->modified_by	= $user->id;
 		}
 		else
 		{

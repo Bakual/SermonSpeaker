@@ -25,7 +25,7 @@ class SermonspeakerModelSeries extends JModelList
 	/**
 	 * Constructor
 	 *
-	 * @param   array  $config  An optional associative array of configuration settings
+	 * @param   array $config An optional associative array of configuration settings
 	 */
 	public function __construct($config = array())
 	{
@@ -181,8 +181,8 @@ class SermonspeakerModelSeries extends JModelList
 	 *
 	 * Note. Calling getState in this method will result in recursion
 	 *
-	 * @param   string  $ordering   Ordering column
-	 * @param   string  $direction  'ASC' or 'DESC'
+	 * @param   string $ordering  Ordering column
+	 * @param   string $direction 'ASC' or 'DESC'
 	 *
 	 * @return  void
 	 */
@@ -202,7 +202,7 @@ class SermonspeakerModelSeries extends JModelList
 
 		$user = JFactory::getUser();
 
-		if ((!$user->authorise('core.edit.state', 'com_sermonspeaker')) &&  (!$user->authorise('core.edit', 'com_sermonspeaker')))
+		if ((!$user->authorise('core.edit.state', 'com_sermonspeaker')) && (!$user->authorise('core.edit', 'com_sermonspeaker')))
 		{
 			// Filter on published for those who do not have edit or edit.state rights
 			$this->setState('filter.state', 1);
@@ -226,7 +226,7 @@ class SermonspeakerModelSeries extends JModelList
 	/**
 	 * Method to get speakers for a series
 	 *
-	 * @param   int  $series  Id of series
+	 * @param   int $series Id of series
 	 *
 	 * @return  array
 	 */
@@ -260,10 +260,10 @@ class SermonspeakerModelSeries extends JModelList
 	{
 		if (!is_object($this->_item))
 		{
-			if (isset( $this->state->params))
+			if (isset($this->state->params))
 			{
-				$params = $this->state->params;
-				$options = array();
+				$params                = $this->state->params;
+				$options               = array();
 				$options['countItems'] = $params->get('show_cat_num_items', 1) || !$params->get('show_empty_categories', 0);
 			}
 			else
@@ -273,15 +273,14 @@ class SermonspeakerModelSeries extends JModelList
 
 			$options['table'] = '#__sermon_series';
 
-			$categories = JCategories::getInstance('Sermonspeaker', $options);
+			$categories  = JCategories::getInstance('Sermonspeaker', $options);
 			$this->_item = $categories->get($this->getState('category.id', 'root'));
 
 			// Compute selected asset permissions.
 			if (is_object($this->_item))
 			{
-				$user	= JFactory::getUser();
-				$userId	= $user->get('id');
-				$asset	= 'com_sermonspeaker.category.' . $this->_item->id;
+				$user  = JFactory::getUser();
+				$asset = 'com_sermonspeaker.category.' . $this->_item->id;
 
 				// Check general create permission.
 				if ($user->authorise('core.create', $asset))
@@ -291,7 +290,7 @@ class SermonspeakerModelSeries extends JModelList
 
 				// TODO: Why aren't we lazy loading the children and siblings?
 				$this->_children = $this->_item->getChildren();
-				$this->_parent = false;
+				$this->_parent   = false;
 
 				if ($this->_item->getParent())
 				{
@@ -299,12 +298,12 @@ class SermonspeakerModelSeries extends JModelList
 				}
 
 				$this->_rightsibling = $this->_item->getSibling();
-				$this->_leftsibling = $this->_item->getSibling(false);
+				$this->_leftsibling  = $this->_item->getSibling(false);
 			}
 			else
 			{
 				$this->_children = false;
-				$this->_parent = false;
+				$this->_parent   = false;
 			}
 		}
 

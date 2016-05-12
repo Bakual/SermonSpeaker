@@ -489,9 +489,8 @@ class SermonspeakerModelSermons extends JModelList
 			// Compute selected asset permissions
 			if (is_object($this->_item))
 			{
-				$user   = JFactory::getUser();
-				$userId = $user->get('id');
-				$asset  = 'com_sermonspeaker.category.' . $this->_item->id;
+				$user  = JFactory::getUser();
+				$asset = 'com_sermonspeaker.category.' . $this->_item->id;
 
 				// Check general create permission
 				if ($user->authorise('core.create', $asset))

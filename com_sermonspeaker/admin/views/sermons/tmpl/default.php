@@ -16,7 +16,6 @@ JHtml::_('dropdown.init');
 JHtml::_('formbehavior.chosen', 'select');
 
 $user      = JFactory::getUser();
-$userId    = $user->get('id');
 $listOrder = $this->escape($this->state->get('list.ordering'));
 $listDirn  = $this->escape($this->state->get('list.direction'));
 $archived  = $this->state->get('filter.state') == 2 ? true : false;
@@ -107,8 +106,8 @@ $assoc = JLanguageAssociations::isEnabled();
 				<?php foreach ($this->items as $i => $item) :
 					$ordering   = ($listOrder == 'sermons.ordering');
 					$canEdit    = $user->authorise('core.edit', 'com_sermonspeaker.category.'.$item->catid);
-					$canCheckin = $user->authorise('core.manage', 'com_checkin') || $item->checked_out == $userId || $item->checked_out == 0;
-					$canEditOwn = $user->authorise('core.edit.own', 'com_sermonspeaker.category.'.$item->catid) && $item->created_by == $userId;
+					$canCheckin = $user->authorise('core.manage', 'com_checkin') || $item->checked_out == $user->id || $item->checked_out == 0;
+					$canEditOwn = $user->authorise('core.edit.own', 'com_sermonspeaker.category.'.$item->catid) && $item->created_by == $user->id;
 					$canChange  = $user->authorise('core.edit.state', 'com_sermonspeaker.category.'.$item->catid) && $canCheckin;
 					?>
 					<tr class="row<?php echo $i % 2; ?>" sortable-group-id="<?php echo $item->catid; ?>">

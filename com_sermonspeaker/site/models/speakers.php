@@ -25,7 +25,7 @@ class SermonspeakerModelspeakers extends JModelList
 	/**
 	 * Constructor.
 	 *
-	 * @param   array  $config  An optional associative array of configuration settings.
+	 * @param   array $config An optional associative array of configuration settings.
 	 */
 	public function __construct($config = array())
 	{
@@ -56,14 +56,14 @@ class SermonspeakerModelspeakers extends JModelList
 	 */
 	protected function getListQuery()
 	{
-		$user	= JFactory::getUser();
-		$groups	= implode(',', $user->getAuthorisedViewLevels());
+		$user   = JFactory::getUser();
+		$groups = implode(',', $user->getAuthorisedViewLevels());
 
 		// Create a new query object.
-		$db		= $this->getDbo();
-		$query	= $db->getQuery(true);
+		$db    = $this->getDbo();
+		$query = $db->getQuery(true);
 
-				// Select required fields from the table.
+		// Select required fields from the table.
 		$query->select(
 			$this->getState(
 				'list.select',
@@ -102,8 +102,8 @@ class SermonspeakerModelspeakers extends JModelList
 
 				// Add the subquery to the main query
 				$query->where('(speakers.catid = ' . (int) $categoryId
-						. ' OR speakers.catid IN (' . $subQuery->__toString() . '))'
-					);
+					. ' OR speakers.catid IN (' . $subQuery->__toString() . '))'
+				);
 			}
 			else
 			{
@@ -113,11 +113,11 @@ class SermonspeakerModelspeakers extends JModelList
 
 		// Subquery to get counts of sermons and series
 		$query->select('(SELECT COUNT(DISTINCT sermons.id) FROM #__sermon_sermons AS sermons '
-				. 'WHERE sermons.speaker_id = speakers.id AND sermons.id > 0 AND sermons.state = 1) AS sermons'
-			);
+			. 'WHERE sermons.speaker_id = speakers.id AND sermons.id > 0 AND sermons.state = 1) AS sermons'
+		);
 		$query->select('(SELECT COUNT(DISTINCT sermons2.series_id) FROM #__sermon_sermons AS sermons2 '
-				. 'WHERE sermons2.speaker_id = speakers.id AND sermons2.series_id > 0 AND sermons2.state = 1) AS series'
-			);
+			. 'WHERE sermons2.speaker_id = speakers.id AND sermons2.series_id > 0 AND sermons2.state = 1) AS series'
+		);
 
 		// Grouping by speaker
 		$query->group('speakers.id');
@@ -172,27 +172,27 @@ class SermonspeakerModelspeakers extends JModelList
 	 *
 	 * Note. Calling getState in this method will result in recursion.
 	 *
-	 * @param   string  $ordering   Ordering column
-	 * @param   string  $direction  'ASC' or 'DESC'
+	 * @param   string $ordering  Ordering column
+	 * @param   string $direction 'ASC' or 'DESC'
 	 *
 	 * @return  void
 	 */
 	protected function populateState($ordering = null, $direction = null)
 	{
-		$app	= JFactory::getApplication();
-		$params	= $app->getParams();
+		$app    = JFactory::getApplication();
+		$params = $app->getParams();
 		$this->setState('params', $params);
 
 		// Category filter (priority on request so subcategories work)
-		$id	= $app->input->get('catid', $params->get('catid', 0), 'int');
+		$id = $app->input->get('catid', $params->get('catid', 0), 'int');
 		$this->setState('category.id', $id);
 
 		// Include Subcategories or not
 		$this->setState('filter.subcategories', $params->get('show_subcategory_content', 0));
 
-		$user	= JFactory::getUser();
+		$user = JFactory::getUser();
 
-		if ((!$user->authorise('core.edit.state', 'com_sermonspeaker')) &&  (!$user->authorise('core.edit', 'com_sermonspeaker')))
+		if ((!$user->authorise('core.edit.state', 'com_sermonspeaker')) && (!$user->authorise('core.edit', 'com_sermonspeaker')))
 		{
 			// Filter on published for those who do not have edit or edit.state rights.
 			$this->setState('filter.state', 1);
@@ -217,8 +217,8 @@ class SermonspeakerModelspeakers extends JModelList
 		{
 			if (isset($this->state->params))
 			{
-				$params = $this->state->params;
-				$options = array();
+				$params                = $this->state->params;
+				$options               = array();
 				$options['countItems'] = $params->get('show_cat_numitems', 1) || !$params->get('show_empty_categories', 0);
 			}
 			else
@@ -234,9 +234,8 @@ class SermonspeakerModelspeakers extends JModelList
 			// Compute selected asset permissions
 			if (is_object($this->item))
 			{
-				$user	= JFactory::getUser();
-				$userId	= $user->get('id');
-				$asset	= 'com_sermonspeaker.category.' . $this->item->id;
+				$user  = JFactory::getUser();
+				$asset = 'com_sermonspeaker.category.' . $this->item->id;
 
 				// Check general create permission
 				if ($user->authorise('core.create', $asset))
@@ -246,7 +245,7 @@ class SermonspeakerModelspeakers extends JModelList
 
 				// TODO: Why aren't we lazy loading the children and siblings?
 				$this->children = $this->item->getChildren();
-				$this->parent = false;
+				$this->parent   = false;
 
 				if ($this->item->getParent())
 				{
@@ -254,12 +253,12 @@ class SermonspeakerModelspeakers extends JModelList
 				}
 
 				$this->_rightsibling = $this->item->getSibling();
-				$this->_leftsibling = $this->item->getSibling(false);
+				$this->_leftsibling  = $this->item->getSibling(false);
 			}
 			else
 			{
 				$this->children = false;
-				$this->parent = false;
+				$this->parent   = false;
 			}
 		}
 

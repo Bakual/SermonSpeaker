@@ -126,7 +126,7 @@ class JHtmlIcon
 
 		// Show checked_out icon if the item is checked out by a different user
 		if (property_exists($item, 'checked_out') && property_exists($item, 'checked_out_time')
-			&& $item->checked_out > 0 && $item->checked_out != $user->get('id'))
+			&& $item->checked_out > 0 && $item->checked_out != $user->id)
 		{
 			$checkoutUser = JFactory::getUser($item->checked_out);
 			$button = JHtml::_('image', 'system/checked_out.png', null, null, true);

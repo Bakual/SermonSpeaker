@@ -408,9 +408,8 @@ class SermonspeakerViewSermon extends JViewLegacy
 	{
 		JFactory::getApplication()->input->set('hidemainmenu', true);
 		$user       = JFactory::getUser();
-		$userId     = $user->get('id');
 		$isNew      = ($this->item->id == 0);
-		$checkedOut = !($this->item->checked_out == 0 || $this->item->checked_out == $userId);
+		$checkedOut = !($this->item->checked_out == 0 || $this->item->checked_out == $user->id);
 		$canDo      = SermonspeakerHelper::getActions();
 		JToolbarHelper::title(
 			JText::sprintf('COM_SERMONSPEAKER_PAGE_' . ($checkedOut ? 'VIEW' : ($isNew ? 'ADD' : 'EDIT')),
@@ -437,7 +436,7 @@ class SermonspeakerViewSermon extends JViewLegacy
 			if (!$checkedOut)
 			{
 				// Since it's an existing record, check the edit permission, or fall back to edit own if the owner.
-				if ($canDo->get('core.edit') || ($canDo->get('core.edit.own') && $this->item->created_by == $userId))
+				if ($canDo->get('core.edit') || ($canDo->get('core.edit.own') && $this->item->created_by == $user->id))
 				{
 					JToolBarHelper::apply('sermon.apply');
 					JToolBarHelper::save('sermon.save');

@@ -46,7 +46,7 @@ class SermonspeakerTableSpeaker extends JTable
 		$date	= JFactory::getDate();
 		$user	= JFactory::getUser();
 		if (empty($this->created_by)) {
-			$this->created_by = $user->get('id');
+			$this->created_by = $user->id;
 		}
 		if (!intval($this->created)) {
 			$this->created = $date->toSql();
@@ -55,7 +55,7 @@ class SermonspeakerTableSpeaker extends JTable
 		if ($this->id)
 		{
 			$this->modified		= $date->toSql();
-			$this->modified_by	= $user->get('id');
+			$this->modified_by	= $user->id;
 		}
 
 		// Verify that the alias is unique
