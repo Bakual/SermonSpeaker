@@ -29,7 +29,9 @@ class SermonspeakerHelperPlayerVimeo extends SermonspeakerHelperPlayer
 	 */
 	public function isSupported($item)
 	{
-		if ((strpos($item, 'http://vimeo.com') === 0) || (strpos($item, 'http://player.vimeo.com') === 0))
+		if (parse_url($item, PHP_URL_HOST) == 'vimeo.com'
+			|| parse_url($item, PHP_URL_HOST) == 'player.vimeo.com'
+		)
 		{
 			$this->mode = 'video';
 		}
