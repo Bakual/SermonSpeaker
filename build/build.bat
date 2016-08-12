@@ -75,6 +75,10 @@ cd ../plg_sermonspeaker_pixelout/
 zip -r ../build/packages/plg_sermonspeaker_pixelout.zip *
 copy ..\build\packages\plg_sermonspeaker_pixelout.zip ..\build\package
 
+cd ../plg_sermonspeaker_vimeo/
+zip -r ../build/packages/plg_sermonspeaker_vimeo.zip *
+copy ..\build\packages\plg_sermonspeaker_vimeo.zip ..\build\package
+
 cd ../plg_content_churchtoolsermonspeaker/
 zip -r ../build/packages/plg_content_churchtoolsermonspeaker.zip *
 

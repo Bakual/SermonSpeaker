@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.6.0" type="plugin" group="sermonspeaker" method="upgrade">
+	<name>plg_sermonspeaker_vimeo</name>
+	<author>Thomas Hunziker</author>
+	<creationDate>2016-08-12</creationDate>
+	<copyright>© 2016</copyright>
+	<license>http://www.gnu.org/licenses/gpl.html</license>
+	<authorEmail>admin@sermonspeaker.net</authorEmail>
+	<authorUrl>http://www.sermonspeaker.net</authorUrl>
+	<version>5.5.0</version>
+	<description>PLG_SERMONSPEAKER_VIMEO_XML_DESCRIPTION</description>
+	<files>
+		<filename plugin="vimeo">vimeo.php</filename>
+		<folder>language</folder>
+	</files>
+	<media destination="plg_sermonspeaker_vimeo" folder="media">
+		<folder>js</folder>
+	</media>
+	<updateservers>
+		<server type="extension" priority="1" name="SermonSpeaker.net">http://www.sermonspeaker.net/update/plg_sermonspeaker_vimeo.xml</server>
+	</updateservers>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field
+					name="ga"
+					type="radio"
+					label="PLG_SERMONSPEAKER_VIMEO_FIELD_GA_LABEL"
+					description="PLG_SERMONSPEAKER_VIMEO_FIELD_GA_DESC"
+					class="btn-group btn-group-yesno"
+					default="0"
+					>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+			</fieldset>
+		</fields>
+	</config>
+</extension>
