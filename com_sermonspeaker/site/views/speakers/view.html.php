@@ -19,24 +19,24 @@ class SermonspeakerViewSpeakers extends JViewLegacy
 	/**
 	 * Execute and display a template script.
 	 *
-	 * @param   string  $tpl  The name of the template file to parse; automatically searches through the template paths.
+	 * @param   string $tpl The name of the template file to parse; automatically searches through the template paths.
 	 *
 	 * @return  mixed  A string if successful, otherwise a Error object.
 	 */
 	public function display($tpl = null)
 	{
 		// Get some data from the models
-		$this->state		= $this->get('State');
-		$this->items		= $this->get('Items');
-		$this->pagination	= $this->get('Pagination');
+		$this->state      = $this->get('State');
+		$this->items      = $this->get('Items');
+		$this->pagination = $this->get('Pagination');
 
 		// Get Category stuff from models
-		$this->category		= $this->get('Category');
-		$children			= $this->get('Children');
-		$this->parent		= $this->get('Parent');
-		$this->children		= array($this->category->id => $children);
-		$this->params = $this->state->get('params');
-		$this->col_speaker	= $this->params->get('col_speaker');
+		$this->category    = $this->get('Category');
+		$children          = $this->get('Children');
+		$this->parent      = $this->get('Parent');
+		$this->children    = array($this->category->id => $children);
+		$this->params      = $this->state->get('params');
+		$this->col_speaker = $this->params->get('col_speaker');
 
 		if (!$this->col_speaker)
 		{
@@ -98,8 +98,8 @@ class SermonspeakerViewSpeakers extends JViewLegacy
 	 */
 	protected function _prepareDocument()
 	{
-		$app	= JFactory::getApplication();
-		$menus	= $app->getMenu();
+		$app   = JFactory::getApplication();
+		$menus = $app->getMenu();
 
 		// Because the application sets a default page title, we need to get it from the menu item itself
 		$menu = $menus->getActive();
