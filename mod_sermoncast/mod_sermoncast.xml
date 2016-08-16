@@ -116,22 +116,6 @@
 					<option value="0">JNO</option>
 				</field>
 				<field
-					name="sc_helpwidth"
-					type="text"
-					label="MOD_SERMONCAST_PARAM_HELPWIDTH"
-					description="MOD_SERMONCAST_PARAM_HELPWIDTH_DESC"
-					default="700"
-					showon="sc_showhelp:1"
-				/>
-				<field
-					name="sc_helpheight"
-					type="text"
-					label="MOD_SERMONCAST_PARAM_HELPHEIGHT"
-					description="MOD_SERMONCAST_PARAM_HELPHEIGHT_DESC"
-					default="500"
-					showon="sc_showhelp:1"
-				/>
-				<field
 					name="sc_helpcontent"
 					type="modal_article"
 					label="MOD_SERMONCAST_PARAM_HELPCONTENT"

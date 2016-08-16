@@ -10,7 +10,6 @@
 defined('_JEXEC') or die();
 
 JHtml::_('bootstrap.tooltip');
-JHtml::_('behavior.modal');
 ?>
 <div class="syndicate-module<?php echo $params->get('$moduleclass_sfx'); ?>">
 	<?php if ($params->get('sc_introtext')) : ?>
@@ -42,10 +41,16 @@ JHtml::_('behavior.modal');
 		<a href="<?php echo $feedFile; ?>"><img src="<?php echo JURI::root(); ?>modules/mod_sermoncast/feed_rss.gif" border="0" alt="rss feed" /></a><br />
 	<?php endif; ?>
 	<?php if ($params->get('sc_showhelp')) : ?>
-		<?php $url = JRoute::_('index.php?option=com_content&view=article&tmpl=component&id=' . (int) $params->get('sc_helpcontent')); ?>
-		<?php $rel = "{handler: 'iframe', size: {x: " . (int) $params->get('sc_helpwidth') . ', y: ' . (int) $params->get('sc_helpheight') . '}}'; ?>
-		<p><a class="modal" href="<?php echo $url; ?>" rel="<?php echo $rel; ?>">
-			<?php echo JText::_('MOD_SERMONCAST_HELP'); ?>
-		</a></p>
+		<?php $modalParams = array(); ?>
+		<?php $modalParams['closeButton'] = false; ?>
+		<?php $modalParams['url'] = JRoute::_('index.php?option=com_content&view=article&tmpl=component&id=' . (int) $params->get('sc_helpcontent')); ?>
+		<?php $modalParams['bodyHeight'] = 70; ?>
+		<?php $modalParams['modalWidth'] = 80; ?>
+		<?php echo JHtmlBootstrap::renderModal('sc_modal', $modalParams); ?>
+		<p>
+			<a class="modal" href="#sc_modal" data-toggle="modal" >
+				<?php echo JText::_('MOD_SERMONCAST_HELP'); ?>
+			</a>
+		</p>
 	<?php endif; ?>
 </div>

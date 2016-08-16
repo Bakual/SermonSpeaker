@@ -10,7 +10,6 @@
 defined('_JEXEC') or die();
 
 JHtml::_('bootstrap.tooltip');
-JHtml::_('behavior.modal');
 JHtml::stylesheet('com_sermonspeaker/font.css', false, true, false);
 ?>
 <div class="syndicate-module<?php echo $params->get('$moduleclass_sfx'); ?>">
@@ -39,10 +38,14 @@ JHtml::stylesheet('com_sermonspeaker/font.css', false, true, false);
 			</p>
 		<?php endif; ?>
 		<?php if ($params->get('sc_showhelp')) : ?>
-			<?php $url = JRoute::_('index.php?option=com_content&view=article&tmpl=component&id=' . (int) $params->get('sc_helpcontent')); ?>
-			<?php $rel = "{handler: 'iframe', size: {x: " . (int) $params->get('sc_helpwidth') . ', y: ' . (int) $params->get('sc_helpheight') . '}}'; ?>
+			<?php $modalParams = array(); ?>
+			<?php $modalParams['closeButton'] = false; ?>
+			<?php $modalParams['url'] = JRoute::_('index.php?option=com_content&view=article&tmpl=component&id=' . (int) $params->get('sc_helpcontent')); ?>
+			<?php $modalParams['bodyHeight'] = 70; ?>
+			<?php $modalParams['modalWidth'] = 80; ?>
+			<?php echo JHtmlBootstrap::renderModal('sc_modal', $modalParams); ?>
 			<p>
-				<a class="modal" href="<?php echo $url; ?>" rel="<?php echo $rel; ?>">
+				<a class="modal" href="#sc_modal" data-toggle="modal" >
 					<?php echo JText::_('MOD_SERMONCAST_HELP'); ?>
 				</a>
 			</p>
