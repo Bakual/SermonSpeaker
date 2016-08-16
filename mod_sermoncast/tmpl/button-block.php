@@ -43,7 +43,7 @@ JHtml::stylesheet('com_sermonspeaker/font.css', false, true, false);
 			<?php $modalParams['url'] = JRoute::_('index.php?option=com_content&view=article&tmpl=component&id=' . (int) $params->get('sc_helpcontent')); ?>
 			<?php $modalParams['bodyHeight'] = 70; ?>
 			<?php $modalParams['modalWidth'] = 80; ?>
-			<?php echo JHtmlBootstrap::renderModal('sc_modal', $modalParams); ?>
+			<?php echo JHtml::_('bootstrap.renderModal', 'sc_modal', $modalParams); ?>
 			<p>
 				<a class="modal" href="#sc_modal" data-toggle="modal" >
 					<?php echo JText::_('MOD_SERMONCAST_HELP'); ?>
