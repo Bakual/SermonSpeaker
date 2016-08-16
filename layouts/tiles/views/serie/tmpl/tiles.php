@@ -12,7 +12,6 @@ defined('_JEXEC') or die();
 JHtml::stylesheet('com_sermonspeaker/tiles.css', '', true);
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
 JHtml::_('bootstrap.tooltip');
-JHtml::_('behavior.modal');
 $user       = JFactory::getUser();
 $canEdit    = $user->authorise('core.edit', 'com_sermonspeaker');
 $canEditOwn = $user->authorise('core.edit.own', 'com_sermonspeaker');
