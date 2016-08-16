@@ -13,22 +13,21 @@ JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
 
 JHtml::_('bootstrap.framework');
 JHtml::_('bootstrap.tooltip');
-JHtml::_('behavior.modal');
 
 // Needed for pictures in blog layout
 JHtml::stylesheet('com_sermonspeaker/blog.css', '', true);
 
-$user		= JFactory::getUser();
-$showState  = $user->authorise('core.edit', 'com_sermonspeaker');
-$fu_enable	= $this->params->get('fu_enable');
-$canEdit	= ($fu_enable and $user->authorise('core.edit', 'com_sermonspeaker'));
-$canEditOwn	= ($fu_enable and $user->authorise('core.edit.own', 'com_sermonspeaker'));
-$listOrderSermons	= $this->state_sermons->get('list.ordering');
-$listDirnSermons	= $this->state_sermons->get('list.direction');
-$listOrderSeries	= $this->state_series->get('list.ordering');
-$listDirnSeries		= $this->state_series->get('list.direction');
-$limit 		= (int) $this->params->get('limit', '');
-$player		= SermonspeakerHelperSermonspeaker::getPlayer($this->sermons);
+$user             = JFactory::getUser();
+$showState        = $user->authorise('core.edit', 'com_sermonspeaker');
+$fu_enable        = $this->params->get('fu_enable');
+$canEdit          = ($fu_enable and $user->authorise('core.edit', 'com_sermonspeaker'));
+$canEditOwn       = ($fu_enable and $user->authorise('core.edit.own', 'com_sermonspeaker'));
+$listOrderSermons = $this->state_sermons->get('list.ordering');
+$listDirnSermons  = $this->state_sermons->get('list.direction');
+$listOrderSeries  = $this->state_series->get('list.ordering');
+$listDirnSeries   = $this->state_series->get('list.direction');
+$limit            = (int) $this->params->get('limit', '');
+$player           = SermonspeakerHelperSermonspeaker::getPlayer($this->sermons);
 $this->document->addScriptDeclaration('jQuery(function() {
 		if (location.hash == \'#series\') {
 			tab = \'#tab_series\';
@@ -38,12 +37,13 @@ $this->document->addScriptDeclaration('jQuery(function() {
 		jQuery(\'#speakerTab a[href="\' + tab + \'"]\').tab(\'show\');
 	})');
 ?>
-<div class="category-list<?php echo $this->pageclass_sfx;?> ss-speaker-container<?php echo $this->pageclass_sfx; ?>" itemscope itemtype="http://schema.org/Person">
+<div class="category-list<?php echo $this->pageclass_sfx; ?> ss-speaker-container<?php echo $this->pageclass_sfx; ?>"
+     itemscope itemtype="http://schema.org/Person">
 	<?php
 	if ($this->params->get('show_page_heading', 1)) : ?>
 		<h1><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
 	<?php endif; ?>
-	<div class="<?php echo ($this->item->state) ? '': 'system-unpublished'; ?>">
+	<div class="<?php echo ($this->item->state) ? '' : 'system-unpublished'; ?>">
 		<div class="btn-group pull-right">
 			<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
 				<i class="icon-cog"></i>
@@ -70,10 +70,10 @@ $this->document->addScriptDeclaration('jQuery(function() {
 				JHtml::stylesheet('com_sermonspeaker/player.css', '', true); ?>
 				<div id="ss-speaker-player" class="ss-player row-fluid">
 					<div class="span10 offset1">
-						<hr />
+						<hr/>
 						<?php if ($player->player != 'PixelOut') : ?>
 							<div id="playing">
-								<img id="playing-pic" class="picture" src="" alt="" />
+								<img id="playing-pic" class="picture" src="" alt=""/>
 								<span id="playing-duration" class="duration"></span>
 								<div class="text">
 									<span id="playing-title" class="title"></span>
@@ -85,29 +85,34 @@ $this->document->addScriptDeclaration('jQuery(function() {
 						echo $player->mspace;
 						echo $player->script;
 						?>
-						<hr />
+						<hr/>
 						<?php if ($player->toggle) : ?>
 							<div class="span2 offset4 btn-group">
-								<img class="btn" src="media/com_sermonspeaker/images/Video.png" onclick="Video()" alt="Video" title="<?php echo JText::_('COM_SERMONSPEAKER_SWITCH_VIDEO'); ?>" />
-								<img class="btn" src="media/com_sermonspeaker/images/Sound.png" onclick="Audio()" alt="Audio" title="<?php echo JText::_('COM_SERMONSPEAKER_SWITCH_AUDIO'); ?>" />
+								<img class="btn" src="media/com_sermonspeaker/images/Video.png" onclick="Video()"
+								     alt="Video" title="<?php echo JText::_('COM_SERMONSPEAKER_SWITCH_VIDEO'); ?>"/>
+								<img class="btn" src="media/com_sermonspeaker/images/Sound.png" onclick="Audio()"
+								     alt="Audio" title="<?php echo JText::_('COM_SERMONSPEAKER_SWITCH_AUDIO'); ?>"/>
 							</div>
 						<?php endif; ?>
 					</div>
 				</div>
 			<?php endif; ?>
 			<div class="cat-items">
-				<form action="<?php echo htmlspecialchars(JUri::getInstance()->toString() . '#sermons'); ?>" method="post" id="adminForm" name="adminForm" class="form-inline">
+				<form action="<?php echo htmlspecialchars(JUri::getInstance()->toString() . '#sermons'); ?>"
+				      method="post" id="adminForm" name="adminForm" class="form-inline">
 					<?php
 					if ($this->params->get('filter_field') or $this->params->get('show_pagination_limit')) :
 						echo $this->loadTemplate('filters');
 					endif; ?>
 					<div class="clearfix"></div>
 					<?php if (!count($this->sermons)) : ?>
-						<div class="no_entries alert alert-error"><?php echo JText::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', JText::_('COM_SERMONSPEAKER_SERMONS')); ?></div>
+						<div
+							class="no_entries alert alert-error"><?php echo JText::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', JText::_('COM_SERMONSPEAKER_SERMONS')); ?></div>
 					<?php else : ?>
 						<div class="items-leading">
-							<?php foreach($this->sermons as $i => $item) : ?>
-								<div id="sermon<?php echo $i; ?>" class="clearfix<?php echo ($item->state) ? '': ' system-unpublished'; ?>">
+							<?php foreach ($this->sermons as $i => $item) : ?>
+								<div id="sermon<?php echo $i; ?>"
+								     class="clearfix<?php echo ($item->state) ? '' : ' system-unpublished'; ?>">
 									<div class="btn-group pull-right">
 										<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
 											<i class="icon-cog"></i>
@@ -137,11 +142,12 @@ $this->document->addScriptDeclaration('jQuery(function() {
 										<?php echo JLayoutHelper::render('blocks.state_info', array('item' => $item, 'show' => $showState)); ?>
 									</div>
 									<?php if ($picture = SermonspeakerHelperSermonspeaker::insertPicture($item)) : ?>
-										<div class="img-polaroid pull-right item-image sermon-image"><img src="<?php echo $picture; ?>"></div>
+										<div class="img-polaroid pull-right item-image sermon-image"><img
+												src="<?php echo $picture; ?>"></div>
 									<?php endif; ?>
 									<div class="article-info sermon-info muted">
 										<dl class="article-info">
-											<dt class="article-info-term"><?php  echo JText::_('JDETAILS'); ?></dt>
+											<dt class="article-info-term"><?php echo JText::_('JDETAILS'); ?></dt>
 											<?php
 											if (in_array('speaker:category', $this->col_sermon) and $item->category_title) : ?>
 												<dd>
@@ -191,7 +197,8 @@ $this->document->addScriptDeclaration('jQuery(function() {
 												<dd>
 													<div class="ss-sermondetail-info">
 														<i class="icon-quote"></i>
-														<?php echo JText::_('COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL'); ?>:
+														<?php echo JText::_('COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL'); ?>
+														:
 														<?php $scriptures = SermonspeakerHelperSermonspeaker::insertScriptures($item->scripture, '; ');
 														echo JHtml::_('content.prepare', $scriptures, '', 'com_sermonspeaker.scripture'); ?>
 													</div>
@@ -208,7 +215,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 												</dd>
 											<?php endif;
 
-											if (in_array('speaker:addfile', $this->col_sermon) and$item->addfile) : ?>
+											if (in_array('speaker:addfile', $this->col_sermon) and $item->addfile) : ?>
 												<dd>
 													<div class="ss-sermondetail-info">
 														<?php echo JText::_('COM_SERMONSPEAKER_ADDFILE'); ?>:
@@ -238,16 +245,17 @@ $this->document->addScriptDeclaration('jQuery(function() {
 							echo $this->pag_sermons->getPagesLinks(); ?>
 						</div>
 					<?php endif; ?>
-					<input type="hidden" name="task" value="" />
-					<input type="hidden" name="filter_order" value="<?php echo $listOrderSermons; ?>" />
-					<input type="hidden" name="filter_order_Dir" value="<?php echo $listDirnSermons; ?>" />
-					<input type="hidden" name="limitstart" value="" />
+					<input type="hidden" name="task" value=""/>
+					<input type="hidden" name="filter_order" value="<?php echo $listOrderSermons; ?>"/>
+					<input type="hidden" name="filter_order_Dir" value="<?php echo $listDirnSermons; ?>"/>
+					<input type="hidden" name="limitstart" value=""/>
 				</form>
 			</div>
 		</div>
 		<div class="pill-pane" id="tab_series">
 			<div class="cat-items">
-				<form action="<?php echo htmlspecialchars(JUri::getInstance()->toString() . '#series'); ?>" method="post" id="adminFormSeries" name="adminFormSeries">
+				<form action="<?php echo htmlspecialchars(JUri::getInstance()->toString() . '#series'); ?>"
+				      method="post" id="adminFormSeries" name="adminFormSeries">
 					<?php
 					if ($this->params->get('filter_field') or $this->params->get('show_pagination_limit')) : ?>
 						<div class="filters btn-toolbar">
@@ -263,11 +271,12 @@ $this->document->addScriptDeclaration('jQuery(function() {
 					<?php endif; ?>
 					<div class="clearfix"></div>
 					<?php if (!count($this->series)) : ?>
-						<div class="no_entries alert alert-error"><?php echo JText::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', JText::_('COM_SERMONSPEAKER_SERIES')); ?></div>
+						<div
+							class="no_entries alert alert-error"><?php echo JText::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', JText::_('COM_SERMONSPEAKER_SERIES')); ?></div>
 					<?php else : ?>
 						<div class="items-leading">
-							<?php foreach($this->series as $i => $item) : ?>
-								<div class="clearfix<?php echo ($item->state) ? '': ' system-unpublished'; ?>">
+							<?php foreach ($this->series as $i => $item) : ?>
+								<div class="clearfix<?php echo ($item->state) ? '' : ' system-unpublished'; ?>">
 									<div class="btn-group pull-right">
 										<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
 											<i class="icon-cog"></i>
@@ -276,8 +285,9 @@ $this->document->addScriptDeclaration('jQuery(function() {
 										<ul class="dropdown-menu">
 											<?php if (in_array('speaker:download', $this->col_serie)) : ?>
 												<li class="download-icon">
-													<a href="<?php echo JRoute::_('index.php?view=serie&layout=download&tmpl=component&id=' . $item->slug); ?>" class="modal" rel="{handler:'iframe',size:{x:400,y:200}}">
-														<i class="icon-download" > </i> 
+													<a href="<?php echo JRoute::_('index.php?view=serie&layout=download&tmpl=component&id=' . $item->slug); ?>"
+													   class="modal" rel="{handler:'iframe',size:{x:400,y:200}}">
+														<i class="icon-download"> </i>
 														<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADSERIES_LABEL'); ?>
 													</a>
 												</li>
@@ -290,14 +300,15 @@ $this->document->addScriptDeclaration('jQuery(function() {
 										</ul>
 									</div>
 									<div class="page-header">
-										<a title="<?php echo JText::_('COM_SERMONSPEAKER_SERIESLINK_HOOVER'); ?>" href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->slug, $item->catid, $item->language)); ?>">
+										<a title="<?php echo JText::_('COM_SERMONSPEAKER_SERIESLINK_HOOVER'); ?>"
+										   href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->slug, $item->catid, $item->language)); ?>">
 											<h2><?php echo $item->title; ?></h2>
 										</a>
 										<?php echo JLayoutHelper::render('blocks.state_info', array('item' => $item, 'show' => $showState)); ?>
 
 										<?php if (in_array('speaker:speaker', $this->col_serie) and $item->speakers) : ?>
 											<small class="ss-speakers createdby">
-												<?php echo JText::_('COM_SERMONSPEAKER_SPEAKERS'); ?>: 
+												<?php echo JText::_('COM_SERMONSPEAKER_SPEAKERS'); ?>:
 												<?php echo $item->speakers; ?>
 											</small>
 										<?php endif; ?>
@@ -305,13 +316,14 @@ $this->document->addScriptDeclaration('jQuery(function() {
 									<?php if ($item->avatar) : ?>
 										<div class="img-polaroid pull-right item-image">
 											<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->slug, $item->catid, $item->language)); ?>">
-												<img src="<?php echo SermonspeakerHelperSermonspeaker::makelink($item->avatar); ?>">
+												<img
+													src="<?php echo SermonspeakerHelperSermonspeaker::makelink($item->avatar); ?>">
 											</a>
 										</div>
 									<?php endif; ?>
 									<div class="article-info serie-info muted">
 										<dl class="article-info">
-											<dt class="article-info-term"><?php  echo JText::_('JDETAILS'); ?></dt>
+											<dt class="article-info-term"><?php echo JText::_('JDETAILS'); ?></dt>
 											<?php
 											if (in_array('speaker:category', $this->col_serie) and $item->category_title) : ?>
 												<dd>
@@ -353,10 +365,10 @@ $this->document->addScriptDeclaration('jQuery(function() {
 							echo $this->pag_series->getPagesLinks(); ?>
 						</div>
 					<?php endif; ?>
-					<input type="hidden" name="task" value="" />
-					<input type="hidden" name="filter_order" value="<?php echo $listOrderSeries; ?>" />
-					<input type="hidden" name="filter_order_Dir" value="<?php echo $listDirnSeries; ?>" />
-					<input type="hidden" name="limitstart" value="" />
+					<input type="hidden" name="task" value=""/>
+					<input type="hidden" name="filter_order" value="<?php echo $listOrderSeries; ?>"/>
+					<input type="hidden" name="filter_order_Dir" value="<?php echo $listDirnSeries; ?>"/>
+					<input type="hidden" name="limitstart" value=""/>
 				</form>
 			</div>
 		</div>
