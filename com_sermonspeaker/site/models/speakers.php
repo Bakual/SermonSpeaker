@@ -72,7 +72,8 @@ class SermonspeakerModelspeakers extends JModelList
 				. 'speakers.hits, speakers.intro, speakers.bio, speakers.website, speakers.alias, '
 				. 'speakers.checked_out, speakers.checked_out_time, '
 				. 'speakers.state, speakers.ordering, speakers.created, speakers.created_by, '
-				. 'speakers.publish_up, speakers.publish_down'
+				. 'speakers.publish_up, speakers.publish_down, '
+				. 'speakers.language'
 			)
 		);
 		$query->from('`#__sermon_speakers` AS speakers');
