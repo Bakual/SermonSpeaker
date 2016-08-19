@@ -24,9 +24,17 @@ class SermonspeakerModelSermon extends JModelAdmin
 	protected $text_prefix = 'COM_SERMONSPEAKER';
 
 	/**
+	 * The context used for the associations table
+	 *
+	 * @var     string
+	 * @since   3.4.4
+	 */
+	protected $associationsContext = 'com_sermonspeaker.sermon';
+
+	/**
 	 * Method to test whether a record can be deleted.
 	 *
-	 * @param   object  $record  A record object.
+	 * @param   object $record A record object.
 	 *
 	 * @return  boolean  True if allowed to delete the record. Defaults to the permission set in the component.
 	 *
@@ -59,7 +67,7 @@ class SermonspeakerModelSermon extends JModelAdmin
 	/**
 	 * Method to delete one or more records.
 	 *
-	 * @param   array  &$pks  An array of record primary keys.
+	 * @param   array &$pks An array of record primary keys.
 	 *
 	 * @return  boolean  True if successful, false if an error occurs.
 	 *
@@ -133,9 +141,10 @@ class SermonspeakerModelSermon extends JModelAdmin
 	/**
 	 * Method to test whether a record can have its state edited.
 	 *
-	 * @param   object  $record  A record object.
+	 * @param   object $record A record object.
 	 *
-	 * @return  boolean  True if allowed to change the state of the record. Defaults to the permission set in the component.
+	 * @return  boolean  True if allowed to change the state of the record. Defaults to the permission set in the
+	 *                   component.
 	 *
 	 * @since   1.6
 	 */
@@ -156,9 +165,9 @@ class SermonspeakerModelSermon extends JModelAdmin
 	/**
 	 * Returns a Table object, always creating it.
 	 *
-	 * @param   string  $type    The table type to instantiate
-	 * @param   string  $prefix  A prefix for the table class name. Optional.
-	 * @param   array   $config  Configuration array for model. Optional.
+	 * @param   string $type   The table type to instantiate
+	 * @param   string $prefix A prefix for the table class name. Optional.
+	 * @param   array  $config Configuration array for model. Optional.
 	 *
 	 * @return  JTable    A database object
 	 */
@@ -170,8 +179,8 @@ class SermonspeakerModelSermon extends JModelAdmin
 	/**
 	 * Method to get the record form.
 	 *
-	 * @param   array    $data      Data for the form.
-	 * @param   boolean  $loadData  True if the form is to load its own data (default case), false if not.
+	 * @param   array   $data     Data for the form.
+	 * @param   boolean $loadData True if the form is to load its own data (default case), false if not.
 	 *
 	 * @return  mixed  A JForm object on success, false on failure
 	 *
@@ -304,7 +313,7 @@ class SermonspeakerModelSermon extends JModelAdmin
 	/**
 	 * Method to get a single record.
 	 *
-	 * @param   integer  $pk  The id of the primary key.
+	 * @param   integer $pk The id of the primary key.
 	 *
 	 * @return  mixed  Object on success, false on failure.
 	 */
@@ -342,7 +351,7 @@ class SermonspeakerModelSermon extends JModelAdmin
 
 			if ($item->id != null)
 			{
-				$associations = JLanguageAssociations::getAssociations('com_sermonspeaker', '#__sermon_sermons', 'com_sermonspeaker.sermon', $item->id);
+				$associations = JLanguageAssociations::getAssociations('com_sermonspeaker', '#__sermon_sermons', $this->associationsContext, $item->id);
 
 				foreach ($associations as $tag => $association)
 				{
@@ -357,7 +366,7 @@ class SermonspeakerModelSermon extends JModelAdmin
 	/**
 	 * Prepare and sanitise the table data prior to saving.
 	 *
-	 * @param   JTable  $table  A JTable object.
+	 * @param   JTable $table A JTable object.
 	 *
 	 * @return  void
 	 *
@@ -448,96 +457,11 @@ class SermonspeakerModelSermon extends JModelAdmin
 	}
 
 	/**
-	 * Method to save the form data.
-	 *
-	 * @param   array  $data  The form data.
-	 *
-	 * @return  boolean  True on success, False on error.
-	 *
-	 * @since   12.2
-	 */
-	public function save($data)
-	{
-		if (parent::save($data))
-		{
-			if (JLanguageAssociations::isEnabled())
-			{
-				$id   = (int) $this->getState($this->getName() . '.id');
-				$item = $this->getItem($id);
-
-				// Adding self to the association
-				$associations = $data['associations'];
-
-				foreach ($associations as $tag => $id)
-				{
-					if (empty($id))
-					{
-						unset($associations[$tag]);
-					}
-				}
-
-				// Detecting all item menus
-				$all_language = $item->language == '*';
-
-				if ($all_language && !empty($associations))
-				{
-					JFactory::getApplication()->enqueueMessage(JText::_('COM_SERMONSPEAKER_ERROR_ALL_LANGUAGE_ASSOCIATED'), 'notice');
-				}
-
-				$associations[$item->language] = $item->id;
-
-				// Deleting old association for these items
-				$db    = JFactory::getDbo();
-				$query = $db->getQuery(true)
-					->delete('#__associations')
-					->where('context=' . $db->quote('com_sermonspeaker.sermon'))
-					->where('id IN (' . implode(',', $associations) . ')');
-				$db->setQuery($query);
-				$db->execute();
-
-				if ($error = $db->getErrorMsg())
-				{
-					$this->setError($error);
-
-					return false;
-				}
-
-				if (!$all_language && count($associations))
-				{
-					// Adding new association for these items
-					$key = md5(json_encode($associations));
-					$query->clear()
-						->insert('#__associations');
-
-					foreach ($associations as $tag => $id)
-					{
-						$query->values($id . ',' . $db->quote('com_sermonspeaker.sermon') . ',' . $db->quote($key));
-					}
-
-					$db->setQuery($query);
-					$db->execute();
-
-					if ($error = $db->getErrorMsg())
-					{
-						$this->setError($error);
-
-						return false;
-					}
-				}
-			}
-
-			return true;
-		}
-
-		return false;
-	}
-
-	/**
 	 * Method to allow derived classes to preprocess the form.
 	 *
-	 * @param   JForm   $form   A JForm object.
-	 * @param   mixed   $data   The data expected for the form.
-	 * @param   string  $group  The name of the plugin group to import (defaults to "content").
+	 * @param   JForm  $form  A JForm object.
+	 * @param   mixed  $data  The data expected for the form.
+	 * @param   string $group The name of the plugin group to import (defaults to "content").
 	 *
 	 * @return  void
 	 *
@@ -589,7 +513,7 @@ class SermonspeakerModelSermon extends JModelAdmin
 	/**
 	 * A protected method to get a set of ordering conditions.
 	 *
-	 * @param   object  $table  A record object.
+	 * @param   object $table A record object.
 	 *
 	 * @return  array  An array of conditions to add to add to ordering queries.
 	 *
@@ -597,7 +521,7 @@ class SermonspeakerModelSermon extends JModelAdmin
 	 */
 	protected function getReorderConditions($table = null)
 	{
-		$condition = array();
+		$condition   = array();
 		$condition[] = 'catid = ' . (int) $table->catid;
 
 		return $condition;
@@ -606,8 +530,8 @@ class SermonspeakerModelSermon extends JModelAdmin
 	/**
 	 * Method to change the podcast state of one or more records.
 	 *
-	 * @param   array    &$pks   A list of the primary keys to change.
-	 * @param   integer  $value  The value of the published state.
+	 * @param   array   &$pks  A list of the primary keys to change.
+	 * @param   integer $value The value of the published state.
 	 *
 	 * @return  boolean  True on success.
 	 *
@@ -652,9 +576,9 @@ class SermonspeakerModelSermon extends JModelAdmin
 	 * Method to perform batch operations on an item or a set of items.
 	 * Copy from modeladmin with added commands for speaker and series.
 	 *
-	 * @param   array  $commands  An array of commands to perform.
-	 * @param   array  $pks       An array of item ids.
-	 * @param   array  $contexts  An array of item contexts.
+	 * @param   array $commands An array of commands to perform.
+	 * @param   array $pks      An array of item ids.
+	 * @param   array $contexts An array of item contexts.
 	 *
 	 * @return  boolean  Returns true on success, false on failure.
 	 *
@@ -763,9 +687,9 @@ class SermonspeakerModelSermon extends JModelAdmin
 	 * Batch copy items to a new category or current.
 	 * Override from modeladmin to adjust title field.
 	 *
-	 * @param   integer  $value     The new category.
-	 * @param   array    $pks       An array of row IDs.
-	 * @param   array    $contexts  An array of item contexts.
+	 * @param   integer $value    The new category.
+	 * @param   array   $pks      An array of row IDs.
+	 * @param   array   $contexts An array of item contexts.
 	 *
 	 * @return  mixed  An array of new IDs on success, boolean false on failure.
 	 *
@@ -776,7 +700,7 @@ class SermonspeakerModelSermon extends JModelAdmin
 		$categoryId = (int) $value;
 
 		$table = $this->getTable();
-		$i = 0;
+		$i     = 0;
 
 		// Check that the category exists
 		if ($categoryId)
@@ -810,7 +734,7 @@ class SermonspeakerModelSermon extends JModelAdmin
 
 		// Check that the user has create permission for the component
 		$extension = JFactory::getApplication()->input->get('option', '');
-		$user = JFactory::getUser();
+		$user      = JFactory::getUser();
 
 		if (!$user->authorise('core.create', $extension . '.category.' . $categoryId))
 		{
@@ -894,9 +818,9 @@ class SermonspeakerModelSermon extends JModelAdmin
 	/**
 	 * Batch speaker changes for a group of rows.
 	 *
-	 * @param   string  $value     The new value matching a speaker.
-	 * @param   array   $pks       An array of row IDs.
-	 * @param   array   $contexts  An array of item contexts.
+	 * @param   string $value    The new value matching a speaker.
+	 * @param   array  $pks      An array of row IDs.
+	 * @param   array  $contexts An array of item contexts.
 	 *
 	 * @return  boolean  True if successful, false otherwise and internal error is set.
 	 *
@@ -940,9 +864,9 @@ class SermonspeakerModelSermon extends JModelAdmin
 	/**
 	 * Batch serie changes for a group of rows.
 	 *
-	 * @param   string  $value     The new value matching a serie.
-	 * @param   array   $pks       An array of row IDs.
-	 * @param   array   $contexts  An array of item contexts.
+	 * @param   string $value    The new value matching a serie.
+	 * @param   array  $pks      An array of row IDs.
+	 * @param   array  $contexts An array of item contexts.
 	 *
 	 * @return  boolean  True if successful, false otherwise and internal error is set.
 	 *
