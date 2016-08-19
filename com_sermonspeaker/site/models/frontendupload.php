@@ -21,7 +21,7 @@ class SermonspeakerModelFrontendupload extends SermonspeakerModelSermon
 	/**
 	 * Get the return URL.
 	 *
-	 * @return	string	The return URL.
+	 * @return    string    The return URL.
 	 */
 	public function getReturnPage()
 	{
@@ -33,8 +33,8 @@ class SermonspeakerModelFrontendupload extends SermonspeakerModelSermon
 	 *
 	 * Note. Calling getState in this method will result in recursion.
 	 *
-	 * @param   string  $ordering   Ordering column
-	 * @param   string  $direction  'ASC' or 'DESC'
+	 * @param   string $ordering  Ordering column
+	 * @param   string $direction 'ASC' or 'DESC'
 	 *
 	 * @return  void
 	 */
@@ -50,7 +50,7 @@ class SermonspeakerModelFrontendupload extends SermonspeakerModelSermon
 		// Add compatibility variable for default naming conventions.
 		$this->setState('form.id', $pk);
 
-		$categoryId	= $jinput->get('catid', 0, 'int');
+		$categoryId = $jinput->get('catid', 0, 'int');
 		$this->setState('frontendupload.catid', $categoryId);
 
 		$return = $jinput->get('return', '', 'base64');
@@ -63,7 +63,7 @@ class SermonspeakerModelFrontendupload extends SermonspeakerModelSermon
 		$this->setState('return_page', base64_decode($return));
 
 		// Load the parameters.
-		$params	= $app->getParams();
+		$params = $app->getParams();
 		$this->setState('params', $params);
 
 		$this->setState('layout', $jinput->get('layout'));
@@ -72,7 +72,7 @@ class SermonspeakerModelFrontendupload extends SermonspeakerModelSermon
 	/**
 	 * Method to get the data that should be injected in the form.
 	 *
-	 * @return	mixed	The data for the form.
+	 * @return    mixed    The data for the form.
 	 */
 	protected function loadFormData()
 	{
@@ -103,7 +103,7 @@ class SermonspeakerModelFrontendupload extends SermonspeakerModelSermon
 
 		// Deprecated with SermonSpeaker 4.4.4. Using Ajax now for Lookup.
 		// Reading ID3 Tags if the Lookup Button was pressed
-		$jinput	= JFactory::getApplication()->input;
+		$jinput = JFactory::getApplication()->input;
 
 		if ($id3_file = $jinput->get('file', '', 'string'))
 		{
@@ -145,7 +145,7 @@ class SermonspeakerModelFrontendupload extends SermonspeakerModelSermon
 	/**
 	 * Method to save the form data.
 	 *
-	 * @param   array  $data  The form data.
+	 * @param   array $data The form data.
 	 *
 	 * @return  boolean  True on success.
 	 *

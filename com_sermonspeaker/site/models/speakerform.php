@@ -35,15 +35,15 @@ class SermonspeakerModelSpeakerform extends SermonspeakerModelSpeaker
 	 *
 	 * Note. Calling getState in this method will result in recursion.
 	 *
-	 * @param   string  $ordering   Ordering column
-	 * @param   string  $direction  'ASC' or 'DESC'
+	 * @param   string $ordering  Ordering column
+	 * @param   string $direction 'ASC' or 'DESC'
 	 *
 	 * @return  void
 	 */
 	protected function populateState($ordering = null, $direction = null)
 	{
-		$app	= JFactory::getApplication();
-		$jinput	= $app->input;
+		$app    = JFactory::getApplication();
+		$jinput = $app->input;
 
 		// Load state from the request.
 		$pk = $jinput->get('s_id', 0, 'int');
@@ -52,7 +52,7 @@ class SermonspeakerModelSpeakerform extends SermonspeakerModelSpeaker
 		// Add compatibility variable for default naming conventions.
 		$this->setState('form.id', $pk);
 
-		$categoryId	= $jinput->get('catid', 0, 'int');
+		$categoryId = $jinput->get('catid', 0, 'int');
 		$this->setState('speakerform.catid', $categoryId);
 
 		$return = $jinput->get('return', '', 'base64');
@@ -65,7 +65,7 @@ class SermonspeakerModelSpeakerform extends SermonspeakerModelSpeaker
 		$this->setState('return_page', base64_decode($return));
 
 		// Load the parameters.
-		$params	= $app->getParams();
+		$params = $app->getParams();
 		$this->setState('params', $params);
 
 		$this->setState('layout', $jinput->get('layout'));
@@ -74,7 +74,7 @@ class SermonspeakerModelSpeakerform extends SermonspeakerModelSpeaker
 	/**
 	 * Method to save the form data.
 	 *
-	 * @param   array  $data  The form data.
+	 * @param   array $data The form data.
 	 *
 	 * @return  boolean  True on success.
 	 *
