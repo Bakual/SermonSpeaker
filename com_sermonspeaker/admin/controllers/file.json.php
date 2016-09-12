@@ -138,8 +138,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 
 			$date   = $jinput->get('date', '', 'string');
 			$time   = ($date) ? strtotime($date) : time();
-			$folder = ($params->get('append_path', 0)) ? date('Y', $time) . '/' . date('m', $time) : '';
-			$folder .= '/';
+			$folder = ($params->get('append_path', 0)) ? date('Y', $time) . '/' . date('m', $time) . '/' : '';
 
 			if ($params->get('append_path_lang', 0))
 			{
