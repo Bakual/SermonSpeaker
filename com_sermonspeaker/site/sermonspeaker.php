@@ -33,6 +33,6 @@ $jlang = JFactory::getLanguage();
 $jlang->load('com_sermonspeaker', JPATH_COMPONENT, 'en-GB', true);
 $jlang->load('com_sermonspeaker', JPATH_COMPONENT, null, true);
 
-$controller	= JControllerLegacy::getInstance('Sermonspeaker');
+$controller = JControllerLegacy::getInstance('Sermonspeaker');
 $controller->execute($jinput->get('task'));
 $controller->redirect();
