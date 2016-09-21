@@ -11,6 +11,7 @@ defined('_JEXEC') or die();
 
 /**
  * SermonSpeaker Component Controller
+ * @since  1.0
  */
 class SermonspeakerController extends JControllerLegacy
 {
@@ -25,9 +26,9 @@ class SermonspeakerController extends JControllerLegacy
 	/**
 	 * Constructor.
 	 *
-	 * @param   array  $config  An optional associative array of configuration settings.
-	 * Recognized key values include 'name', 'default_task', 'model_path', and
-	 * 'view_path' (this list is not meant to be comprehensive).
+	 * @param   array $config An optional associative array of configuration settings.
+	 *                        Recognized key values include 'name', 'default_task', 'model_path', and
+	 *                        'view_path' (this list is not meant to be comprehensive).
 	 *
 	 * @since   4.0
 	 */
@@ -47,8 +48,9 @@ class SermonspeakerController extends JControllerLegacy
 	/**
 	 * View method.
 	 *
-	 * @param   boolean  $cachable   If true, the view output will be cached
-	 * @param   array    $urlparams  An array of safe url parameters and their variable types, for valid values see {@link JFilterInput::clean()}.
+	 * @param   boolean $cachable  If true, the view output will be cached
+	 * @param   array   $urlparams An array of safe url parameters and their variable types, for valid values see
+	 *                             {@link JFilterInput::clean()}.
 	 *
 	 * @return  JControllerLegacy  A JControllerLegacy object to support chaining.
 	 *
@@ -59,7 +61,9 @@ class SermonspeakerController extends JControllerLegacy
 		$cachable = JFactory::getUser()->get('id') ? false : true;
 		$viewName = $this->input->get('view', $this->default_view);
 
-		$params   = JFactory::getApplication()->getParams();
+		/** @var $app JApplicationSite */
+		$app    = JFactory::getApplication();
+		$params = $app->getParams();
 
 		if ($params->get('css_icomoon'))
 		{
@@ -72,46 +76,46 @@ class SermonspeakerController extends JControllerLegacy
 		{
 			// JFactory::$document = JDocument::getInstance('raw');
 			header('HTTP/1.1 301 Moved Permanently');
-			header('Location: ' . JURI::root() . 'index.php?option=com_sermonspeaker&view=' . $viewName . '&format=raw');
+			header('Location: ' . JUri::root() . 'index.php?option=com_sermonspeaker&view=' . $viewName . '&format=raw');
 
 			return $this;
 		}
 
 		$safeurlparams = array(
-							'id' => 'INT',
-							'catid' => 'INT',
-							'limit' => 'INT',
-							'limitstart' => 'INT',
-							'filter_order' => 'CMD',
-							'filter_order_Dir' => 'CMD',
-							'lang' => 'CMD',
-							'year' => 'INT',
-							'month' => 'INT',
-							'filter-search' => 'STRING',
-							'return' => 'BASE64',
-							'book' => 'INT',
-							'Itemid' => 'INT'
-						);
+			'id'               => 'INT',
+			'catid'            => 'INT',
+			'limit'            => 'INT',
+			'limitstart'       => 'INT',
+			'filter_order'     => 'CMD',
+			'filter_order_Dir' => 'CMD',
+			'lang'             => 'CMD',
+			'year'             => 'INT',
+			'month'            => 'INT',
+			'filter-search'    => 'STRING',
+			'return'           => 'BASE64',
+			'book'             => 'INT',
+			'Itemid'           => 'INT',
+		);
 
 		switch ($viewName)
 		{
 			case 'speaker':
-				$viewLayout = $this->input->get('layout', 'default');
-				$view = $this->getView($viewName, 'html', '', array('base_path' => $this->basePath, 'layout' => $viewLayout));
+				$viewLayout   = $this->input->get('layout', 'default');
+				$view         = $this->getView($viewName, 'html', '', array('base_path' => $this->basePath, 'layout' => $viewLayout));
 				$series_model = $this->getModel('series');
 				$view->setModel($series_model);
 				$sermons_model = $this->getModel('sermons');
 				$view->setModel($sermons_model);
 				break;
 			case 'serie':
-				$viewLayout = $this->input->get('layout', 'default');
-				$view = $this->getView($viewName, 'html', '', array('base_path' => $this->basePath, 'layout' => $viewLayout));
+				$viewLayout    = $this->input->get('layout', 'default');
+				$view          = $this->getView($viewName, 'html', '', array('base_path' => $this->basePath, 'layout' => $viewLayout));
 				$sermons_model = $this->getModel('sermons');
 				$view->setModel($sermons_model);
 				break;
 			case 'seriessermon':
-				$viewLayout = $this->input->get('layout', 'default');
-				$view = $this->getView($viewName, 'html', '', array('base_path' => $this->basePath, 'layout' => $viewLayout));
+				$viewLayout   = $this->input->get('layout', 'default');
+				$view         = $this->getView($viewName, 'html', '', array('base_path' => $this->basePath, 'layout' => $viewLayout));
 				$series_model = $this->getModel('series');
 				$view->setModel($series_model);
 				$sermons_model = $this->getModel('sermons');
@@ -132,19 +136,28 @@ class SermonspeakerController extends JControllerLegacy
 			die("<html><body onload=\"alert('I have no clue what you want to download...');history.back();\"></body></html>");
 		}
 
-		$db = JFactory::getDBO();
+		$db       = JFactory::getDbo();
+		$nullDate = $db->quote($db->getNullDate());
+		$nowDate  = $db->quote(JFactory::getDate()->toSql());
+		$query    = $db->getQuery(true);
 
 		if ($this->input->get('type', 'audio', 'word') == 'video')
 		{
-			$query = "SELECT videofile FROM #__sermon_sermons WHERE id = " . $id;
+			$query->select($db->quoteName('videofile'));
 		}
 		else
 		{
-			$query = "SELECT audiofile FROM #__sermon_sermons WHERE id = " . $id;
+			$query->select($db->quoteName('audiofile'));
 		}
 
+		$query->from('#__sermon_sermons');
+		$query->where($db->quoteName('id') . ' = ' . $id);
+		$query->where($db->quoteName('state') . ' = 1');
+		$query->where('(publish_up = ' . $nullDate . ' OR publish_up <= ' . $nowDate . ')');
+		$query->where('(publish_down = ' . $nullDate . ' OR publish_down >= ' . $nowDate . ')');
+
 		$db->setQuery($query);
-		$result = $db->loadResult() or die ("<html><body onload=\"alert('Encountered an error while accessing the database');
+		$result = $db->loadResult() or die ("<html><body onload=\"alert('I haven\'t found a valid file');
 			history.back();\"></body></html>");
 		$result = rtrim($result);
 
