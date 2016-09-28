@@ -188,3 +188,52 @@ file_filter = mod_sermonupload\language\<lang>\<lang>.mod_sermonupload.ini
 source_file = mod_sermonupload\language\en-GB\en-GB.mod_sermonupload.ini
 source_lang = en_GB
 minimum_perc = 1
+
+[sermonspeaker.plg_sermonspeaker_jwplayer7sysini]
+file_filter = plg_sermonspeaker_jwplayer7\language\<lang>\<lang>.plg_sermonspeaker_jwplayer7.sys.ini
+source_file = plg_sermonspeaker_jwplayer7\language\en-GB\en-GB.plg_sermonspeaker_jwplayer7.sys.ini
+source_lang = en_GB
+minimum_perc = 1
+
+[sermonspeaker.plg_sermonspeaker_jwplayer7ini]
+file_filter = plg_sermonspeaker_jwplayer7\language\<lang>\<lang>.plg_sermonspeaker_jwplayer7.ini
+source_file = plg_sermonspeaker_jwplayer7\language\en-GB\en-GB.plg_sermonspeaker_jwplayer7.ini
+source_lang = en_GB
+minimum_perc = 1
+
+[sermonspeaker.plg_sermonspeaker_genericsysini]
+file_filter = plg_sermonspeaker_generic\language\<lang>\<lang>.plg_sermonspeaker_generic.sys.ini
+source_file = plg_sermonspeaker_generic\language\en-GB\en-GB.plg_sermonspeaker_generic.sys.ini
+source_lang = en_GB
+minimum_perc = 1
+
+[sermonspeaker.plg_sermonspeaker_genericini]
+file_filter = plg_sermonspeaker_generic\language\<lang>\<lang>.plg_sermonspeaker_generic.ini
+source_file = plg_sermonspeaker_generic\language\en-GB\en-GB.plg_sermonspeaker_generic.ini
+source_lang = en_GB
+minimum_perc = 1
+
+[sermonspeaker.plg_sermonspeaker_pixeloutsysini]
+file_filter = plg_sermonspeaker_pixelout\language\<lang>\<lang>.plg_sermonspeaker_pixelout.sys.ini
+source_file = plg_sermonspeaker_pixelout\language\en-GB\en-GB.plg_sermonspeaker_pixelout.sys.ini
+source_lang = en_GB
+minimum_perc = 1
+
+[sermonspeaker.plg_sermonspeaker_pixeloutini]
+file_filter = plg_sermonspeaker_pixelout\language\<lang>\<lang>.plg_sermonspeaker_pixelout.ini
+source_file = plg_sermonspeaker_pixelout\language\en-GB\en-GB.plg_sermonspeaker_pixelout.ini
+source_lang = en_GB
+minimum_perc = 1
+
+[sermonspeaker.plg_sermonspeaker_vimeosysini]
+file_filter = plg_sermonspeaker_vimeo\language\<lang>\<lang>.plg_sermonspeaker_vimeo.sys.ini
+source_file = plg_sermonspeaker_vimeo\language\en-GB\en-GB.plg_sermonspeaker_vimeo.sys.ini
+source_lang = en_GB
+minimum_perc = 1
+
+[sermonspeaker.plg_sermonspeaker_vimeoini]
+file_filter = plg_sermonspeaker_vimeo\language\<lang>\<lang>.plg_sermonspeaker_vimeo.ini
+source_file = plg_sermonspeaker_vimeo\language\en-GB\en-GB.plg_sermonspeaker_vimeo.ini
+source_lang = en_GB
+minimum_perc = 1
+
