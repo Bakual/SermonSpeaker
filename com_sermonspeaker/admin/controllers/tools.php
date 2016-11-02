@@ -264,12 +264,13 @@ class SermonspeakerControllerTools extends JControllerLegacy
 			}
 
 			$message .= '</div>';
+
+			$app->enqueueMessage($message, 'notice');
 		}
 
-		$app->enqueueMessage($message, 'notice');
 		$this->setRedirect('index.php?option=com_sermonspeaker&view=tools');
 
-		return;
+		return true;
 	}
 
 	public function write_id3()
