@@ -73,9 +73,12 @@ extract($displayData);
 <?php if ($params->get('show_tags', 1) and !empty($item->tags)) :
 	$tagLayout = new JLayoutFile('joomla.content.tags');
 	echo $tagLayout->render($item->tags->itemTags); ?>
-<?php endif;
-
-if (in_array('speaker:intro', $columns) and $item->intro) : ?>
+<?php endif; ?>
+<?php if(isset($item->event)) : ?>
+	<?php echo $item->event->afterDisplayTitle; ?>
+	<?php echo $item->event->beforeDisplayContent; ?>
+<?php endif; ?>
+<?php if (in_array('speaker:intro', $columns) and $item->intro) : ?>
 	<div itemprop="description">
 		<?php echo JHtml::_('content.prepare', $item->intro, '', 'com_sermonspeaker.intro'); ?>
 	</div>
@@ -85,4 +88,7 @@ if(in_array('speaker:bio', $columns) and $item->bio) : ?>
 	<div itemprop="description">
 		<?php echo JHtml::_('content.prepare', $item->bio, '', 'com_sermonspeaker.bio'); ?>
 	</div>
+<?php endif; ?>
+<?php if(isset($item->event)) : ?>
+	<?php echo $item->event->afterDisplayContent; ?>
 <?php endif;

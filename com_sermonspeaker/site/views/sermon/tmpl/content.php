@@ -154,6 +154,8 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 			<?php endif; ?>
 		</dl>
 	</div>
+	<?php echo $this->item->event->afterDisplayTitle; ?>
+	<?php echo $this->item->event->beforeDisplayContent; ?>
 	<?php if ($picture = SermonspeakerHelperSermonspeaker::insertPicture($this->item)) : ?>
 		<div class="img-polaroid pull-right item-image sermon-image"><img src="<?php echo $picture; ?>"></div>
 	<?php endif;
@@ -188,4 +190,5 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 			<?php echo JHtml::_('content.prepare', $this->item->notes, '', 'com_sermonspeaker.notes'); ?>
 		</div>
 	<?php endif; ?>
+	<?php echo $this->item->event->afterDisplayContent; ?>
 </div>
