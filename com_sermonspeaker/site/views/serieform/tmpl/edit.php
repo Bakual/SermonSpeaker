@@ -53,6 +53,9 @@ JHtml::_('formbehavior.chosen', 'select');
 			<ul class="nav nav-tabs">
 				<li class="active"><a href="#editor" data-toggle="tab"><?php echo JText::_('JEDITOR') ?></a></li>
 				<li><a href="#details" data-toggle="tab"><?php echo JText::_('JDETAILS') ?></a></li>
+				<?php foreach ($this->form->getFieldsets('params') as $name => $fieldSet) : ?>
+					<li><a href="#params-<?php echo $name; ?>" data-toggle="tab"><?php echo JText::_($fieldSet->label) ?></a></li>
+				<?php endforeach; ?>
 				<li><a href="#publishing" data-toggle="tab"><?php echo JText::_('COM_SERMONSPEAKER_PUBLISHING') ?></a></li>
 				<li><a href="#language" data-toggle="tab"><?php echo JText::_('JFIELD_LANGUAGE_LABEL') ?></a></li>
 				<li><a href="#metadata" data-toggle="tab"><?php echo JText::_('COM_SERMONSPEAKER_METADATA') ?></a></li>
@@ -73,6 +76,16 @@ JHtml::_('formbehavior.chosen', 'select');
 						<?php echo $this->form->renderField($field->fieldname); ?>
 					<?php endforeach; ?>
 				</div>
+				<?php foreach ($this->form->getFieldsets('params') as $name => $fieldSet) : ?>
+					<div class="tab-pane" id="params-<?php echo $name; ?>">
+						<?php if (isset($fieldSet->description) && trim($fieldSet->description)): ?>
+							<?php echo '<p class="alert alert-info">' . $this->escape(JText::_($fieldSet->description)) . '</p>'; ?>
+						<?php endif; ?>
+						<?php foreach ($this->form->getFieldset($name) as $field) : ?>
+							<?php echo $field->renderField(); ?>
+						<?php endforeach; ?>
+					</div>
+				<?php endforeach; ?>
 				<div class="tab-pane" id="publishing">
 					<?php echo $this->form->renderField('catid'); ?>
 					<?php echo $this->form->renderField('tags'); ?>
