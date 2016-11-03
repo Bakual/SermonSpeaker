@@ -11,6 +11,8 @@ JHtml::_('behavior.formvalidation');
 JHtml::_('behavior.keepalive');
 JHtml::_('formbehavior.chosen', 'select');
 
+$this->ignore_fieldsets = array('general', 'info', 'detail', 'jmetadata', 'item_associations');
+
 $app	= JFactory::getApplication();
 $input	= $app->input;
 ?>
@@ -53,8 +55,9 @@ $input	= $app->input;
 			<?php foreach($this->form->getFieldset('detail') as $field): ?>
 				<?php echo $field->getControlGroup(); ?>
 			<?php endforeach; ?>
-		<?php echo JHtml::_('bootstrap.endTab');
-		echo JHtml::_('bootstrap.addTab', 'myTab', 'publishing', JText::_('JGLOBAL_FIELDSET_PUBLISHING', true)); ?>
+		<?php echo JHtml::_('bootstrap.endTab'); ?>
+		<?php echo JLayoutHelper::render('joomla.edit.params', $this); ?>
+		<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'publishing', JText::_('JGLOBAL_FIELDSET_PUBLISHING', true)); ?>
 			<div class="row-fluid form-horizontal-desktop">
 				<div class="span6">
 					<?php echo JLayoutHelper::render('joomla.edit.publishingdata', $this); ?>

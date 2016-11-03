@@ -11,6 +11,8 @@ JHtml::_('behavior.keepalive');
 JHtml::_('behavior.modal');
 JHtml::_('formbehavior.chosen', 'select');
 
+$this->ignore_fieldsets = array('general', 'info', 'custom', 'detail', 'jmetadata', 'item_associations');
+
 $uri = JUri::getInstance();
 $uri->delVar('file');
 $uri->delVar('type');
@@ -136,8 +138,9 @@ $input = $app->input;
 					<?php endforeach; ?>
 				</div>
 			</div>
-		<?php echo JHtml::_('bootstrap.endTab');
-		echo JHtml::_('bootstrap.addTab', 'myTab', 'publishing', JText::_('JGLOBAL_FIELDSET_PUBLISHING', true)); ?>
+		<?php echo JHtml::_('bootstrap.endTab'); ?>
+		<?php echo JLayoutHelper::render('joomla.edit.params', $this); ?>
+		<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'publishing', JText::_('JGLOBAL_FIELDSET_PUBLISHING', true)); ?>
 			<div class="row-fluid form-horizontal-desktop">
 				<div class="span6">
 					<?php echo JLayoutHelper::render('joomla.edit.publishingdata', $this); ?>

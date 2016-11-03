@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fields name="custom">
+		<fieldset name="custom">
+			<field name="section" type="section" default="com_sermonspeaker.sermon">
+				<option value="com_sermonspeaker.sermon">COM_SERMONSPEAKER_FIELDS_CONTEXT_SERMON</option>
+				<option value="com_sermonspeaker.serie">COM_SERMONSPEAKER_FIELDS_CONTEXT_SERIE</option>
+				<option value="com_sermonspeaker.speaker">COM_SERMONSPEAKER_FIELDS_CONTEXT_SPEAKER</option>
+			</field>
+		</fieldset>
+	</fields>
+</form>
