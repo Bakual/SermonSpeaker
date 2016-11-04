@@ -16,9 +16,14 @@ abstract class JHtmlSermonspeakerAdministrator
 	/**
 	 * Get the associated language flags
 	 *
-	 * @param   int  $itemid  The item id
+	 * @param   int  $itemid The item id
 	 *
-	 * @return  string  The language HTML
+	 * @param string $type
+	 *
+	 * @return string The language HTML
+	 *
+	 * @throws \Exception
+	 * @since ?
 	 */
 	public static function association($itemid, $type = 'sermon')
 	{
@@ -66,7 +71,7 @@ abstract class JHtmlSermonspeakerAdministrator
 			{
 				$items = $db->loadObjectList('id');
 			}
-			catch (runtimeException $e)
+			catch (RuntimeException $e)
 			{
 				throw new Exception($e->getMessage(), 500);
 			}
@@ -104,7 +109,9 @@ abstract class JHtmlSermonspeakerAdministrator
 	 * @param   int      $i          Row number
 	 * @param   boolean  $canChange  Is user allowed to change?
 	 *
-	 * @return  string       HTML code
+	 * @return  string   HTML code
+	 *
+	 * @since ?
 	 */
 	public static function podcasted($value = 0, $i, $canChange = true)
 	{

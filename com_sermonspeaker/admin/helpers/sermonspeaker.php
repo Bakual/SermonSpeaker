@@ -66,6 +66,12 @@ class SermonspeakerHelper
 
 	/**
 	 * Get the actions for ACL
+	 *
+	 * @since ?
+	 *
+	 * @param int $categoryId
+	 *
+	 * @return \JObject
 	 */
 	public static function getActions($categoryId = 0)
 	{
