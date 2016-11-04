@@ -19,7 +19,7 @@ class SermonspeakerHelper
 	/**
 	 * Configure the Linkbar.
 	 *
-	 * @param  string  $vName  The name of the active view.
+	 * @param  string $vName The name of the active view.
 	 *
 	 * @since  1.6
 	 *
@@ -75,8 +75,8 @@ class SermonspeakerHelper
 	 */
 	public static function getActions($categoryId = 0)
 	{
-		$user	= JFactory::getUser();
-		$result	= new JObject;
+		$user   = JFactory::getUser();
+		$result = new JObject;
 
 		if (empty($categoryId))
 		{
@@ -84,7 +84,7 @@ class SermonspeakerHelper
 		}
 		else
 		{
-			$assetName = 'com_sermonspeaker.category.'.(int) $categoryId;
+			$assetName = 'com_sermonspeaker.category.' . (int) $categoryId;
 		}
 
 		$actions = JAccess::getActionsFromFile(
