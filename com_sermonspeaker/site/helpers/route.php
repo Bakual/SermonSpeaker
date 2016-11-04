@@ -45,7 +45,7 @@ abstract class SermonspeakerHelperRoute
 			if ($category)
 			{
 				$path               = array_reverse($category->getPath());
-				$needles['sermons'] = \Joomla\Utilities\ArrayHelper::toInteger($path);
+				$needles['sermons'] = Joomla\Utilities\ArrayHelper::toInteger($path);
 			}
 
 			$link .= '&catid=' . (int) $catid;
@@ -103,7 +103,7 @@ abstract class SermonspeakerHelperRoute
 			if ($category)
 			{
 				$path               = array_reverse($category->getPath());
-				$needles['sermons'] = \Joomla\Utilities\ArrayHelper::toInteger($path);
+				$needles['sermons'] = Joomla\Utilities\ArrayHelper::toInteger($path);
 			}
 		}
 
@@ -157,7 +157,7 @@ abstract class SermonspeakerHelperRoute
 			if ($category)
 			{
 				$path              = array_reverse($category->getPath());
-				$needles['series'] = \Joomla\Utilities\ArrayHelper::toInteger($path);
+				$needles['series'] = Joomla\Utilities\ArrayHelper::toInteger($path);
 			}
 
 			$link .= '&catid=' . (int) $catid;
@@ -215,7 +215,7 @@ abstract class SermonspeakerHelperRoute
 			if ($category)
 			{
 				$path              = array_reverse($category->getPath());
-				$needles['series'] = \Joomla\Utilities\ArrayHelper::toInteger($path);
+				$needles['series'] = Joomla\Utilities\ArrayHelper::toInteger($path);
 			}
 		}
 
@@ -269,7 +269,7 @@ abstract class SermonspeakerHelperRoute
 			if ($category)
 			{
 				$path                = array_reverse($category->getPath());
-				$needles['speakers'] = \Joomla\Utilities\ArrayHelper::toInteger($path);
+				$needles['speakers'] = Joomla\Utilities\ArrayHelper::toInteger($path);
 			}
 
 			$link .= '&catid=' . (int) $catid;
@@ -327,7 +327,7 @@ abstract class SermonspeakerHelperRoute
 			if ($category)
 			{
 				$path                = array_reverse($category->getPath());
-				$needles['speakers'] = \Joomla\Utilities\ArrayHelper::toInteger($path);
+				$needles['speakers'] = Joomla\Utilities\ArrayHelper::toInteger($path);
 			}
 		}
 

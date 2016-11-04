@@ -50,7 +50,7 @@ class PlgSermonspeakerJwplayer7 extends SermonspeakerPluginPlayer
 	private $options;
 
 	/**
-	 * @var \Joomla\Registry\Registry Component Parameters
+	 * @var Joomla\Registry\Registry Component Parameters
 	 */
 	protected $c_params;
 

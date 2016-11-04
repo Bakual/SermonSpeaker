@@ -51,7 +51,7 @@ class JFormFieldChurchtool extends JFormFieldSQL
 
 		// Create the database object to access the ChurchTool database.
 		$form   = $this->form->getData();
-		$params = new \Joomla\Registry\Registry($form->get('params'));
+		$params = new Joomla\Registry\Registry($form->get('params'));
 
 		$option = array();
 		$option['driver']   = $params->get('db_type', 'mysqli');
