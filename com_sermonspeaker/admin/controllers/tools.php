@@ -11,21 +11,30 @@ defined('_JEXEC') or die;
 
 /**
  * Tools Sermonspeaker Controller
+ *
+ * @since ?
  */
 class SermonspeakerControllerTools extends JControllerLegacy
 {
+	/**
+	 * Reorder the sermons by date
+	 *
+	 * @since ?
+	 */
 	public function order()
 	{
 		// Check for request forgeries
 		JSession::checkToken('request') or jexit(JText::_('JINVALID_TOKEN'));
-		$db    = JFactory::getDBO();
+		$db    = JFactory::getDbo();
 		$query = "SET @c := 0";
 		$db->setQuery($query);
 		$db->execute();
-		$query = "UPDATE #__sermon_sermons SET ordering = ( SELECT @c := @c + 1 ) ORDER BY sermon_date ASC, id ASC;";
+		/** @noinspection SqlResolve */
+		$query = "UPDATE #__sermon_sermons SET `ordering` = ( SELECT @c := @c + 1 ) ORDER BY `sermon_date` ASC, `id` ASC;";
 		$db->setQuery($query);
 		$db->execute();
 		$error = $db->getErrorMsg();
+
 		if ($error)
 		{
 			$this->setMessage('Error: ' . $error, 'error');
@@ -34,17 +43,24 @@ class SermonspeakerControllerTools extends JControllerLegacy
 		{
 			$this->setMessage('Successfully reordered the sermons');
 		}
+
 		$this->setRedirect('index.php?option=com_sermonspeaker&view=sermons');
 	}
 
+	/**
+	 * Reorder the series by title
+	 *
+	 * @since ?
+	 */
 	public function seriesorder()
 	{
 		// Check for request forgeries
 		JSession::checkToken('request') or jexit(JText::_('JINVALID_TOKEN'));
-		$db    = JFactory::getDBO();
+		$db    = JFactory::getDbo();
 		$query = "SET @c := 0";
 		$db->setQuery($query);
 		$db->execute();
+		/** @noinspection SqlResolve */
 		$query = "UPDATE #__sermon_series SET ordering = ( SELECT @c := @c + 1 ) ORDER BY title ASC, id ASC;";
 		$db->setQuery($query);
 		$db->execute();
@@ -60,14 +76,20 @@ class SermonspeakerControllerTools extends JControllerLegacy
 		$this->setRedirect('index.php?option=com_sermonspeaker&view=series');
 	}
 
+	/**
+	 * Reorder the speakers by title
+	 *
+	 * @since ?
+	 */
 	public function speakersorder()
 	{
 		// Check for request forgeries
 		JSession::checkToken('request') or jexit(JText::_('JINVALID_TOKEN'));
-		$db    = JFactory::getDBO();
+		$db    = JFactory::getDbo();
 		$query = "SET @c := 0";
 		$db->setQuery($query);
 		$db->execute();
+		/** @noinspection SqlResolve */
 		$query = "UPDATE #__sermon_speakers SET ordering = ( SELECT @c := @c + 1 ) ORDER BY title ASC, id ASC;";
 		$db->setQuery($query);
 		$db->execute();
@@ -90,7 +112,7 @@ class SermonspeakerControllerTools extends JControllerLegacy
 		JSession::checkToken('request') or jexit(JText::_('JINVALID_TOKEN'));
 		$app    = JFactory::getApplication();
 		$jinput = $app->input;
-		$db     = JFactory::getDBO();
+		$db     = JFactory::getDbo();
 		$mode   = $jinput->get('submit');
 
 		if (isset($mode['diff']))
@@ -127,7 +149,7 @@ class SermonspeakerControllerTools extends JControllerLegacy
 			$config = JFactory::getConfig();
 			$user   = JFactory::getUser();
 			$date   = JFactory::getDate($time, $user->getParam('timezone', $config->get('offset')));
-			$date->setTimeZone(new DateTimeZone('UTC'));
+			$date->setTimezone(new DateTimeZone('UTC'));
 			$t_utc = $date->format('H:i:s', true);
 			$query = "UPDATE #__sermon_sermons \n"
 				. "SET sermon_date = CONCAT(DATE(sermon_date), ' " . $t_utc . "') \n"
@@ -158,7 +180,7 @@ class SermonspeakerControllerTools extends JControllerLegacy
 		// Get the log in credentials.
 		$credentials             = array();
 		$credentials['username'] = $jinput->get->get('username', '', 'username');
-		$credentials['password'] = JRequest::getString('password', '', 'get', JREQUEST_ALLOWRAW);
+		$credentials['password']  = $jinput->get->get('password', '', 'RAW');
 
 		// Perform the log in.
 		if ($credentials['username'] && $credentials['password'])
@@ -179,6 +201,7 @@ class SermonspeakerControllerTools extends JControllerLegacy
 			return false;
 		}
 
+		/** @var SermonspeakerModelFiles $file_model */
 		$file_model = $this->getModel('Files');
 		$files      = $file_model->getItems();
 		$catid      = $file_model->getCategory();
@@ -195,6 +218,7 @@ class SermonspeakerControllerTools extends JControllerLegacy
 		foreach ($files as $file)
 		{
 			$id3          = SermonspeakerHelperId3::getID3($file['file'], $params);
+			/** @var SermonspeakerModelSermon $sermon_model */
 			$sermon_model = $this->getModel('Sermon');
 			$sermon       = $sermon_model->getItem();
 			$sermon->setProperties($id3);
@@ -212,9 +236,9 @@ class SermonspeakerControllerTools extends JControllerLegacy
 				continue;
 			}
 
-			$sermon->state       = $state;
-			$sermon->podcast     = $state;
-			$sermon->catid       = $catid;
+			$sermon->state   = $state;
+			$sermon->podcast = $state;
+			$sermon->catid   = $catid;
 
 			if (!$sermon->sermon_date)
 			{
@@ -278,7 +302,7 @@ class SermonspeakerControllerTools extends JControllerLegacy
 		// Check for request forgeries
 		JSession::checkToken('request') or jexit(JText::_('JINVALID_TOKEN'));
 		$app   = JFactory::getApplication();
-		$db    = JFactory::getDBO();
+		$db    = JFactory::getDbo();
 		$query = $db->getQuery(true);
 		$query->select('audiofile, videofile, sermons.created_by, sermons.catid, sermons.title, speakers.title as speaker_title');
 		$query->select('series.title AS series_title, notes, sermon_number, picture');
@@ -341,13 +365,12 @@ class SermonspeakerControllerTools extends JControllerLegacy
 						{ // 1 = gif, 2 = jpg, 3 = png
 							$TagData['attached_picture'][0]['data']          = $APICdata;
 							$TagData['attached_picture'][0]['picturetypeid'] = 0;
-							$TagData['attached_picture'][0]['description']   = JFile::getName($pic);
+							$TagData['attached_picture'][0]['description']   = basename($pic);
 							$TagData['attached_picture'][0]['mime']          = $image['mime'];
 						}
 					}
 					else
 					{
-						$errormessage = ob_get_contents();
 						ob_end_clean();
 						$app->enqueueMessage("Couldn't open the picture: $pic", 'notice');
 					}
@@ -421,13 +444,15 @@ class SermonspeakerControllerTools extends JControllerLegacy
 	 * Imports data from Preach It
 	 *
 	 * @throws Exception
+	 *
+	 * @since ?
 	 */
 	public function piimport()
 	{
 		// Check for request forgeries
 		JSession::checkToken('request') or jexit(JText::_('JINVALID_TOKEN'));
 		$app = JFactory::getApplication();
-		$db  = JFactory::getDBO();
+		$db  = JFactory::getDbo();
 
 		// Get Studies
 		$query = $db->getQuery(true);
@@ -493,6 +518,7 @@ class SermonspeakerControllerTools extends JControllerLegacy
 		}
 
 		// Store the Series
+		/** @noinspection SqlResolve */
 		$query = "INSERT INTO #__sermon_series \n"
 			. "(title, alias, series_description, state, ordering, created_by, created, avatar) \n"
 			. "SELECT a.series_name, a.series_alias, a.series_description, a.published, a.ordering, a.user, NOW(), \n"
@@ -514,6 +540,7 @@ class SermonspeakerControllerTools extends JControllerLegacy
 		}
 
 		// Store the Speakers
+		/** @noinspection SqlResolve */
 		$query = "INSERT INTO #__sermon_speakers \n"
 			. "(title, alias, website, intro, state, ordering, created_by, created, pic) \n"
 			. "SELECT CONCAT(a.teacher_name, ' ', a.lastname), a.teacher_alias, a.teacher_website, a.teacher_description, a.published, a.ordering, a.user, NOW(), \n"
@@ -564,6 +591,7 @@ class SermonspeakerControllerTools extends JControllerLegacy
 				$scripture[]       = $bible;
 			}
 
+			/** @noinspection SqlResolve */
 			$query = "INSERT INTO #__sermon_sermons \n"
 				. "(`audiofile`, `videofile`, `picture`, `title`, `alias`, `sermon_date`, `sermon_time`, `notes`, `state`, `hits`, `created_by`, `addfile`, `podcast`, `created`) \n"
 				. 'VALUES (' . $db->quote($study->audiofile) . ',' . $db->quote($study->videofile) . ',' . $db->quote($study->study_pic) . ',' . $db->quote($study->study_name) . ',' . $db->quote($study->study_alias) . ',' . $db->quote($study->study_date) . ',' . $db->quote($study->duration) . ',' . $db->quote($study->study_description) . ',' . $db->quote($study->published) . ',' . $db->quote($study->hits) . ',' . $db->quote($study->user) . ',' . $db->quote($study->addfile) . ', 1, NOW())';
@@ -581,6 +609,7 @@ class SermonspeakerControllerTools extends JControllerLegacy
 			foreach ($scripture as $passage)
 			{
 				// Insert Scriptures
+				/** @noinspection SqlResolve */
 				$query = "INSERT INTO #__sermon_scriptures \n"
 					. "(`book`, `cap1`, `vers1`, `cap2`, `vers2`, `text`, `ordering`, `sermon_id`) \n"
 					. "VALUES ('" . $passage['book'] . "','" . $passage['cap1'] . "','" . $passage['vers1'] . "','" . $passage['cap2'] . "','" . $passage['vers2'] . "','','" . $passage['ordering'] . "','" . $id . "')";
@@ -641,6 +670,8 @@ class SermonspeakerControllerTools extends JControllerLegacy
 	 * Imports data from Bible Study
 	 *
 	 * @throws Exception
+	 *
+	 * @since ?
 	 */
 	public function bsimport()
 	{
@@ -648,7 +679,7 @@ class SermonspeakerControllerTools extends JControllerLegacy
 		JSession::checkToken('request') or jexit(JText::_('JINVALID_TOKEN'));
 		$app  = JFactory::getApplication();
 		$user = JFactory::getUser();
-		$db   = JFactory::getDBO();
+		$db   = JFactory::getDbo();
 
 		// Get Studies
 		$query = $db->getQuery(true);
@@ -679,6 +710,7 @@ class SermonspeakerControllerTools extends JControllerLegacy
 		$studies = $db->loadObjectList();
 
 		// Store the Series
+		/** @noinspection SqlResolve */
 		$query = "INSERT INTO #__sermon_series \n"
 			. "(title, alias, series_description, state, ordering, created_by, created, avatar) \n"
 			. "SELECT a.series_text, a.alias, a.description, a.published, a.ordering, \n"
@@ -691,6 +723,7 @@ class SermonspeakerControllerTools extends JControllerLegacy
 		$app->enqueueMessage($db->getAffectedRows() . ' series migrated!');
 
 		// Store the Speakers
+		/** @noinspection SqlResolve */
 		$query = "INSERT INTO #__sermon_speakers \n"
 			. "(title, alias, website, intro, state, ordering, created_by, created, pic) \n"
 			. "SELECT a.teachername, a.alias, a.website, a.information, a.published, a.ordering, \n"
@@ -732,6 +765,7 @@ class SermonspeakerControllerTools extends JControllerLegacy
 				$scripture[]       = $bible;
 			}
 
+			/** @noinspection SqlResolve */
 			$query = "INSERT INTO #__sermon_sermons \n"
 				. "(`audiofile`, `title`, `alias`, `sermon_date`, `sermon_time`, `notes`, `state`, `hits`, `created_by`, `podcast`, `created`) \n"
 				. 'VALUES (' . $db->quote($study->audiofile) . ',' . $db->quote($study->studytitle) . ',' . $db->quote($study->alias) . ','
@@ -746,6 +780,7 @@ class SermonspeakerControllerTools extends JControllerLegacy
 			foreach ($scripture as $passage)
 			{
 				// Insert Scriptures
+				/** @noinspection SqlResolve */
 				$query = "INSERT INTO #__sermon_scriptures \n"
 					. "(`book`, `cap1`, `vers1`, `cap2`, `vers2`, `text`, `ordering`, `sermon_id`) \n"
 					. "VALUES ('" . $passage['book'] . "','" . $passage['cap1'] . "','" . $passage['vers1'] . "','"

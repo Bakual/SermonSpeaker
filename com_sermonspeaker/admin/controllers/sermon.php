@@ -12,26 +12,31 @@ defined('_JEXEC') or die;
 /**
  * Serie controller class.
  *
- * @package		SermonSpeaker.Administrator
+ * @package   SermonSpeaker.Administrator
+ *
+ * @since     3.4
  */
 class SermonspeakerControllerSermon extends JControllerForm
 {
 	/**
 	 * Method override to check if you can add a new record.
 	 *
-	 * @param	array	$data	An array of input data.
-	 * @return	boolean
+	 * @param    array $data An array of input data.
+	 *
+	 * @return    boolean
+	 *
+	 * @since     3.4
 	 */
 	protected function allowAdd($data = array())
 	{
-		$user		= JFactory::getUser();
-		$categoryId	= Joomla\Utilities\ArrayHelper::getValue($data, 'catid', JFactory::getApplication()->input->get('filter_category_id'), 'int');
-		$allow = null;
+		$user       = JFactory::getUser();
+		$categoryId = Joomla\Utilities\ArrayHelper::getValue($data, 'catid', JFactory::getApplication()->input->get('filter_category_id'), 'int');
+		$allow      = null;
 
 		if ($categoryId)
 		{
 			// If the category has been passed in the data or URL check it.
-			$allow = $user->authorise('core.create', $this->option.'.category.'.$categoryId);
+			$allow = $user->authorise('core.create', $this->option . '.category.' . $categoryId);
 		}
 
 		if ($allow === null)
@@ -48,70 +53,83 @@ class SermonspeakerControllerSermon extends JControllerForm
 	/**
 	 * Method to check if you can add a new record.
 	 *
-	 * @param   array   $data   An array of input data.
-	 * @param   string  $key    The name of the key for the primary key.
+	 * @param   array  $data An array of input data.
+	 * @param   string $key  The name of the key for the primary key.
 	 *
 	 * @return  boolean
+	 *
+	 * @since     3.4
 	 */
 	protected function allowEdit($data = array(), $key = 'id')
 	{
 		$recordId   = (int) isset($data[$key]) ? $data[$key] : 0;
-		$categoryId = 0;
 
-		if ($recordId)
+		if (!$recordId)
 		{
-			// Need to do a lookup from the model.
-			$record     = $this->getModel()->getItem($recordId);
-			$categoryId = (int) $record->catid;
-		}
-
-		if ($categoryId)
-		{
-			$user = JFactory::getUser();
-
-			// The category has been set. Check the category permissions.
-			if ($user->authorise('core.edit', $this->option . '.category.' . $categoryId))
-			{
-				return true;
-			}
-
-			// Fallback on edit.own.
-			if ($user->authorise('core.edit.own', $this->option . '.category.' . $categoryId))
-			{
-				return ($record->created_by == $user->id);
-			}
-		}
-		else
-		{
-			// Since there is no asset tracking, revert to the component permissions.
 			return parent::allowEdit($data, $key);
+		}
+
+		// Need to do a lookup from the model.
+		/** @var SermonspeakerModelSermon $model */
+		$model      = $this->getModel();
+		$record     = $model->getItem($recordId);
+		$categoryId = (int) $record->catid;
+
+		if (!$categoryId)
+		{
+			// No category set, fall back to component permissions
+			return parent::allowEdit($data, $key);
+		}
+
+		$user = JFactory::getUser();
+
+		// The category has been set. Check the category permissions.
+		if ($user->authorise('core.edit', $this->option . '.category.' . $categoryId))
+		{
+			return true;
+		}
+
+		// Fallback on edit.own.
+		if ($user->authorise('core.edit.own', $this->option . '.category.' . $categoryId))
+		{
+			return ($record->created_by == $user->id);
 		}
 
 		return false;
 	}
 
+	/**
+	 * Reset hit counters
+	 *
+	 * @return  void
+	 *
+	 * @since ?
+	 */
 	public function reset()
 	{
-		$app	= JFactory::getApplication();
-		$jinput	= $app->input;
-		$db		= JFactory::getDBO();
-		$id 	= $jinput->get('id', 0, 'int');
+		$app    = JFactory::getApplication();
+		$jinput = $app->input;
+		$db     = JFactory::getDbo();
+		$id     = $jinput->get('id', 0, 'int');
+
 		if (!$id)
 		{
 			$app->redirect('index.php?option=com_sermonspeaker&view=sermons', JText::_('JERROR_AN_ERROR_HAS_OCCURRED'), 'error');
+
 			return;
 		}
-		$model 	= $this->getModel();
-		$item 	= $model->getItem($id);
-		$user	= JFactory::getUser();
-		$canEdit	= $user->authorise('core.edit', 'com_sermonspeaker.category.'.$item->catid);
-		$canEditOwn	= $user->authorise('core.edit.own', 'com_sermonspeaker.category.'.$item->catid) && $item->created_by == $user->id;
+
+		/** @var SermonspeakerModelSermon $model */
+		$model      = $this->getModel();
+		$item       = $model->getItem($id);
+		$user       = JFactory::getUser();
+		$canEdit    = $user->authorise('core.edit', 'com_sermonspeaker.category.' . $item->catid);
+		$canEditOwn = $user->authorise('core.edit.own', 'com_sermonspeaker.category.' . $item->catid) && $item->created_by == $user->id;
 		if ($canEdit || $canEditOwn)
 		{
-			$query	= "UPDATE #__sermon_sermons \n"
-					. "SET hits='0' \n"
-					. "WHERE id='".$id."'"
-					;
+			$query = "UPDATE #__sermon_sermons \n"
+				. "SET hits='0' \n"
+				. "WHERE id='" . $id . "'";
 			$db->setQuery($query);
 			$db->execute();
 			$app->redirect('index.php?option=com_sermonspeaker&view=sermons', JText::sprintf('COM_SERMONSPEAKER_RESET_OK', JText::_('COM_SERMONSPEAKER_SERMON'), $item->title));
@@ -120,6 +138,7 @@ class SermonspeakerControllerSermon extends JControllerForm
 		{
 			$app->redirect('index.php?option=com_sermonspeaker&view=sermons', JText::_('JERROR_ALERTNOAUTHOR'), 'error');
 		}
+
 		return;
 	}
 
@@ -127,8 +146,8 @@ class SermonspeakerControllerSermon extends JControllerForm
 	 * Function that allows child controller access to model data
 	 * after the data has been saved.
 	 *
-	 * @param   JModelLegacy  $model      The data model object.
-	 * @param   array         $validData  The validated data.
+	 * @param   JModelLegacy $model     The data model object.
+	 * @param   array        $validData The validated data.
 	 *
 	 * @return  void
 	 *
@@ -140,7 +159,7 @@ class SermonspeakerControllerSermon extends JControllerForm
 		$params   = JComponentHelper::getParams('com_sermonspeaker');
 
 		$app = JFactory::getApplication();
-		$db  = JFactory::getDBO();
+		$db  = JFactory::getDbo();
 
 		// Check filenames and show a warning if one isn't save to use in an URL. Store anyway.
 		$files = array('audiofile', 'videofile', 'addfile');
@@ -157,9 +176,8 @@ class SermonspeakerControllerSermon extends JControllerForm
 		}
 
 		// Scriptures
-		$query  = "DELETE FROM #__sermon_scriptures \n"
-				. "WHERE sermon_id = " . $recordId
-				;
+		$query = "DELETE FROM #__sermon_scriptures \n"
+			. "WHERE sermon_id = " . $recordId;
 		$db->setQuery($query);
 		$db->execute();
 		$i = 1;
@@ -168,13 +186,12 @@ class SermonspeakerControllerSermon extends JControllerForm
 		{
 			foreach ($validData['scripture'] as $scripture)
 			{
-				$item   = explode('|', $scripture);
-				$query  = "INSERT INTO #__sermon_scriptures \n"
-						. "(`book`,`cap1`,`vers1`,`cap2`,`vers2`,`text`,`ordering`,`sermon_id`) \n"
-						. "VALUES ('" . (int) $item[0] . "','" . (int) $item[1] . "','"
-						. (int) $item[2] . "','" . (int) $item[3] . "','" . (int) $item[4] . "',"
-						. $db->quote($item[5]) . ",'" . $i . "','" . $recordId . "')"
-						;
+				$item  = explode('|', $scripture);
+				$query = "INSERT INTO #__sermon_scriptures \n"
+					. "(`book`,`cap1`,`vers1`,`cap2`,`vers2`,`text`,`ordering`,`sermon_id`) \n"
+					. "VALUES ('" . (int) $item[0] . "','" . (int) $item[1] . "','"
+					. (int) $item[2] . "','" . (int) $item[3] . "','" . (int) $item[4] . "',"
+					. $db->quote($item[5]) . ",'" . $i . "','" . $recordId . "')";
 				$db->setQuery($query);
 				$db->execute();
 				$i++;
@@ -201,9 +218,11 @@ class SermonspeakerControllerSermon extends JControllerForm
 	}
 
 	/**
-	 * @param   integer  $id
+	 * @param   integer $id The id of the sermon
 	 *
 	 * @return  void
+	 *
+	 * @since ?
 	 */
 	public function write_id3($id)
 	{
@@ -216,13 +235,12 @@ class SermonspeakerControllerSermon extends JControllerForm
 			return;
 		}
 
-		$db     = JFactory::getDBO();
-		$query  = "SELECT audiofile, videofile, sermons.created_by, sermons.catid, sermons.title, speakers.title as speaker_title, series.title AS series_title, YEAR(sermon_date) AS year, DATE_FORMAT(sermon_date, '%H%i') AS time, DATE_FORMAT(sermon_date, '%d%m') AS date, notes, sermon_number, picture \n"
-				. "FROM #__sermon_sermons AS sermons \n"
-				. "LEFT JOIN #__sermon_speakers AS speakers ON speaker_id = speakers.id \n"
-				. "LEFT JOIN #__sermon_series AS series ON series_id = series.id \n"
-				. "WHERE sermons.id='" . $id . "'"
-				;
+		$db    = JFactory::getDbo();
+		$query = "SELECT audiofile, videofile, sermons.created_by, sermons.catid, sermons.title, speakers.title as speaker_title, series.title AS series_title, YEAR(sermon_date) AS year, DATE_FORMAT(sermon_date, '%H%i') AS time, DATE_FORMAT(sermon_date, '%d%m') AS date, notes, sermon_number, picture \n"
+			. "FROM #__sermon_sermons AS sermons \n"
+			. "LEFT JOIN #__sermon_speakers AS speakers ON speaker_id = speakers.id \n"
+			. "LEFT JOIN #__sermon_series AS series ON series_id = series.id \n"
+			. "WHERE sermons.id='" . $id . "'";
 		$db->setQuery($query);
 		$item       = $db->loadObject();
 		$user       = JFactory::getUser();
@@ -234,26 +252,26 @@ class SermonspeakerControllerSermon extends JControllerForm
 			$files[] = $item->audiofile;
 			$files[] = $item->videofile;
 			require_once JPATH_COMPONENT_SITE . '/id3/getid3/getid3.php';
-			$getID3  = new getID3;
-			$getID3->setOption(array('encoding'=>'UTF-8'));
+			$getID3 = new getID3;
+			$getID3->setOption(array('encoding' => 'UTF-8'));
 			require_once JPATH_COMPONENT_SITE . '/id3/getid3/write.php';
-			$writer  = new getid3_writetags;
-			$writer->tagformats        = array('id3v2.3');
+			$writer             = new getid3_writetags;
+			$writer->tagformats = array('id3v2.3');
 
 			// False would merge, but is currently known to be buggy and throws an exception
 			$writer->overwrite_tags    = true;
 			$writer->remove_other_tags = false;
 			$writer->tag_encoding      = 'UTF-8';
-			$TagData = array(
-				'title'   => array($item->title),
-				'artist'  => array($item->speaker_title),
-				'album'   => array($item->series_title),
-				'track'   => array($item->sermon_number),
-				'year'    => array($item->year),
-				'date'    => array($item->date),
-				'time'    => array($item->time),
+			$TagData                   = array(
+				'title'  => array($item->title),
+				'artist' => array($item->speaker_title),
+				'album'  => array($item->series_title),
+				'track'  => array($item->sermon_number),
+				'year'   => array($item->year),
+				'date'   => array($item->date),
+				'time'   => array($item->time),
 			);
-			$TagData['comment'] = array(strip_tags(JHtml::_('content.prepare', $item->notes)));
+			$TagData['comment']        = array(strip_tags(JHtml::_('content.prepare', $item->notes)));
 
 			// Adding the picture to the id3 tags, taken from getID3 Demos -> demo.write.php
 			if ($item->picture && !parse_url($item->picture, PHP_URL_SCHEME))
@@ -265,7 +283,7 @@ class SermonspeakerControllerSermon extends JControllerForm
 				{
 					ob_end_clean();
 					$APICdata = fread($fd, filesize($pic));
-					fclose ($fd);
+					fclose($fd);
 					$image = getimagesize($pic);
 
 					// 1 = gif, 2 = jpg, 3 = png
@@ -279,7 +297,6 @@ class SermonspeakerControllerSermon extends JControllerForm
 				}
 				else
 				{
-					$errormessage = ob_get_contents();
 					ob_end_clean();
 					$app->enqueueMessage("Couldn't open the picture: " . $pic, 'notice');
 				}
@@ -332,7 +349,7 @@ class SermonspeakerControllerSermon extends JControllerForm
 	/**
 	 * Method to run batch operations.
 	 *
-	 * @param   object  $model  The model.
+	 * @param   object $model The model.
 	 *
 	 * @return  boolean  True if successful, false otherwise and internal error is set.
 	 *
@@ -346,7 +363,7 @@ class SermonspeakerControllerSermon extends JControllerForm
 		$model = $this->getModel('Sermon', '', array());
 
 		// Preset the redirect
-		$this->setRedirect(JRoute::_('index.php?option=com_sermonspeaker&view=sermons'.$this->getRedirectToListAppend(), false));
+		$this->setRedirect(JRoute::_('index.php?option=com_sermonspeaker&view=sermons' . $this->getRedirectToListAppend(), false));
 
 		return parent::batch($model);
 	}

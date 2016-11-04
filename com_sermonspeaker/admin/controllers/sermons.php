@@ -12,16 +12,25 @@ defined('_JEXEC') or die;
 /**
  * Series list controller class.
  *
- * @package		SermonSpeaker.Administrator
+ * @package        SermonSpeaker.Administrator
+ *
+ * @since 3.4
  */
 class SermonspeakerControllerSermons extends JControllerAdmin
 {
+	/**
+	 * SermonspeakerControllerSermons constructor.
+	 *
+	 * @param array $config
+	 *
+	 * @since 3.4
+	 */
 	public function __construct($config = array())
 	{
 		parent::__construct($config);
 
 		// Define standard task mappings.
-		$this->registerTask('podcast_unpublish',	'podcast_publish');
+		$this->registerTask('podcast_unpublish', 'podcast_publish');
 	}
 
 	/**
@@ -31,17 +40,22 @@ class SermonspeakerControllerSermons extends JControllerAdmin
 	 * @param   string  $prefix  The class prefix. Optional.
 	 * @param   array   $config  Configuration array for model. Optional.
 	 *
-	 * @return  object  The model.
+	 * @return  SermonspeakerModelSermon|boolean  Model object on success; otherwise false on failure.
 	 *
 	 * @since   4.5
 	 */
-	public function &getModel($name = 'Sermon', $prefix = 'SermonspeakerModel', $config = array())
+	public function &getModel($name = 'Sermon', $prefix = 'SermonspeakerModel', $config = array('ignore_request' => true))
 	{
-		$model = parent::getModel($name, $prefix, array('ignore_request' => true));
-
-		return $model;
+		return parent::getModel($name, $prefix, $config);
 	}
 
+	/**
+	 * Publish/Unpiblish the podcast state
+	 *
+	 * @return void
+	 *
+	 * @since ?
+	 */
 	function podcast_publish()
 	{
 		// Check for request forgeries
@@ -55,7 +69,7 @@ class SermonspeakerControllerSermons extends JControllerAdmin
 
 		if (empty($cid))
 		{
-			JFactory::getApplication()->enqueueMessage(JText::_($this->text_prefix.'_NO_ITEM_SELECTED'), 'warning');
+			JFactory::getApplication()->enqueueMessage(JText::_($this->text_prefix . '_NO_ITEM_SELECTED'), 'warning');
 		}
 		else
 		{
@@ -66,31 +80,32 @@ class SermonspeakerControllerSermons extends JControllerAdmin
 			$cid = Joomla\Utilities\ArrayHelper::toInteger($cid);
 
 			// Podcast the items.
-			if (!$model->podcast($cid, $value)) {
+			if (!$model->podcast($cid, $value))
+			{
 				JFactory::getApplication()->enqueueMessage($model->getError(), 'warning');
-			} else {
-				if ($value == 1) {
-					$ntext = $this->text_prefix.'_N_ITEMS_PODCASTED';
-				} else if ($value == 0) {
-					$ntext = $this->text_prefix.'_N_ITEMS_UNPODCASTED';
-				}
+			}
+			else
+			{
+				$ntext = $this->text_prefix;
+				$ntext .= ($value == 1) ? '_N_ITEMS_PODCASTED' : '_N_ITEMS_UNPODCASTED';
+
 				$this->setMessage(JText::plural($ntext, count($cid)));
 			}
 		}
 
-		$this->setRedirect(JRoute::_('index.php?option='.$this->option.'&view='.$this->view_list, false));
+		$this->setRedirect(JRoute::_('index.php?option=' . $this->option . '&view=' . $this->view_list, false));
 	}
 
 	/**
 	 * Method to save the submitted ordering values for records via AJAX.
 	 *
-	 * @return	void
+	 * @return    void
 	 *
 	 * @since   3.0
 	 */
 	public function saveOrderAjax()
 	{
-		$pks = $this->input->post->get('cid', array(), 'array');
+		$pks   = $this->input->post->get('cid', array(), 'array');
 		$order = $this->input->post->get('order', array(), 'array');
 
 		// Sanitize the input

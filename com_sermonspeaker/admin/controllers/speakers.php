@@ -12,23 +12,32 @@ defined('_JEXEC') or die;
 /**
  * Speakers list controller class.
  *
- * @package		SermonSpeaker.Administrator
+ * @package        SermonSpeaker.Administrator
+ *
+ * @since 3.4
  */
 class SermonspeakerControllerSpeakers extends JControllerAdmin
 {
 	/**
 	 * Proxy for getModel.
+	 *
+	 * @param   string  $name    The model name. Optional.
+	 * @param   string  $prefix  The class prefix. Optional.
+	 * @param   array   $config  Configuration array for model. Optional.
+	 *
+	 * @return  SermonspeakerModelSpeaker|boolean  Model object on success; otherwise false on failure.
+	 *
+	 * @since 3.4
 	 */
-	public function &getModel($name = 'Speaker', $prefix = 'SermonspeakerModel')
+	public function &getModel($name = 'Speaker', $prefix = 'SermonspeakerModel', $config = array('ignore_request' => true))
 	{
-		$model = parent::getModel($name, $prefix, array('ignore_request' => true));
-		return $model;
+		return parent::getModel($name, $prefix, $config);
 	}
 
 	/**
 	 * Method to set the default speaker. Copied from template styles
 	 *
-	 * @since	1.6
+	 * @since    1.6
 	 */
 	public function setDefault()
 	{
@@ -40,14 +49,15 @@ class SermonspeakerControllerSpeakers extends JControllerAdmin
 
 		try
 		{
-			if (empty($pks)) {
+			if (empty($pks))
+			{
 				throw new Exception(JText::_('JERROR_NO_ITEMS_SELECTED'));
 			}
 
 			$pks = Joomla\Utilities\ArrayHelper::toInteger($pks);
 
 			// Pop off the first element.
-			$id = array_shift($pks);
+			$id    = array_shift($pks);
 			$model = $this->getModel();
 			$model->setDefault($id);
 			$this->setMessage(JText::_('COM_SERMONSPEAKER_SUCCESS_HOME_SET'));
@@ -64,13 +74,13 @@ class SermonspeakerControllerSpeakers extends JControllerAdmin
 	/**
 	 * Method to save the submitted ordering values for records via AJAX.
 	 *
-	 * @return	void
+	 * @return    void
 	 *
 	 * @since   3.0
 	 */
 	public function saveOrderAjax()
 	{
-		$pks = $this->input->post->get('cid', array(), 'array');
+		$pks   = $this->input->post->get('cid', array(), 'array');
 		$order = $this->input->post->get('order', array(), 'array');
 
 		// Sanitize the input
