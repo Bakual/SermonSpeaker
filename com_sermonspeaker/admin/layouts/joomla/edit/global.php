@@ -9,6 +9,7 @@
 
 defined('_JEXEC') or die;
 
+/** @var JViewLegacy $displayData */
 $form = $displayData->getForm();
 
 $fields = $displayData->get('fields') ?: array(
@@ -22,7 +23,7 @@ $fields = $displayData->get('fields') ?: array(
 	'access',
 	'language',
 	'note',
-	'version_note'
+	'version_note',
 );
 
 $hiddenFields = $displayData->get('hidden_fields') ?: array();
@@ -35,7 +36,7 @@ if (!JComponentHelper::getParams('com_sermonspeaker')->get('save_history', 0))
 	$hiddenFields[] = 'version_note';
 }
 
-$html = array();
+$html   = array();
 $html[] = '<fieldset class="form-vertical">';
 
 foreach ($fields as $field)
