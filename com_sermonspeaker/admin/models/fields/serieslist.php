@@ -72,7 +72,9 @@ class JFormFieldSerieslist extends JFormFieldList
 	/**
 	 * Method to get the field options.
 	 *
-	 * @return    array    The field option objects.
+	 * @return array The field option objects.
+	 * @throws \Exception
+	 *
 	 * @since    1.6
 	 */
 	public function getOptions()

@@ -16,6 +16,8 @@ JFormHelper::loadFieldClass('filelist');
 
 /**
  * Creates the filelist dropdown for sermon file select
+ *
+ * @since ?
  */
 class JFormFieldCustomFileList extends JFormFieldFileList
 {
@@ -23,6 +25,8 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 	 * The form field type.
 	 *
 	 * @var    string
+	 *
+	 * @since ?
 	 */
 	public $type = 'CustomFileList';
 
@@ -75,7 +79,7 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 		if ($this->params->get('googlepicker') && $this->file != 'audio')
 		{
 			$html .= '<div class="btn add-on hasTooltip" onclick="create' . ucfirst($this->file) . 'Picker();" title="' . JText::_('COM_SERMONSPEAKER_GOOGLEPICKER_TIP') . '">'
-				. '<img src="' . JURI::root() . 'media/com_sermonspeaker/icons/16/drive.png">'
+				. '<img src="' . JUri::root() . 'media/com_sermonspeaker/icons/16/drive.png">'
 				. '</div>';
 		}
 
@@ -104,6 +108,8 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 	 * Method to get the field options.
 	 *
 	 * @return  array  The field option objects.
+	 *
+	 * @since ?
 	 */
 	protected function getOptions()
 	{
@@ -272,17 +278,21 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 				return $options;
 			}
 		}
+
+		return array();
 	}
 
 	/**
 	 * Generates the Uploader
 	 *
 	 * @return string
+	 *
+	 * @since ?
 	 */
 	protected function getUploader()
 	{
 		JHtml::_('jquery.framework');
-		JHtml::Script('media/com_sermonspeaker/plupload/plupload.full.min.js');
+		JHtml::script('media/com_sermonspeaker/plupload/plupload.full.min.js');
 
 		// Load localisation
 		$tag  = str_replace('-', '_', JFactory::getLanguage()->getTag());
@@ -291,7 +301,7 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 
 		if (file_exists(JPATH_SITE . '/' . $path . $file))
 		{
-			JHtml::Script($path . $file);
+			JHtml::script($path . $file);
 		}
 		else
 		{
@@ -300,7 +310,7 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 
 			if (file_exists(JPATH_SITE . '/' . $path . $file))
 			{
-				JHtml::Script($path . $file);
+				JHtml::script($path . $file);
 			}
 		}
 

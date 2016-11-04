@@ -20,6 +20,8 @@ class SermonspeakerModelSermon extends JModelAdmin
 	 * The prefix to use with controller messages.
 	 *
 	 * @var    string
+	 *
+	 * @since ?
 	 */
 	protected $text_prefix = 'COM_SERMONSPEAKER';
 
@@ -170,6 +172,8 @@ class SermonspeakerModelSermon extends JModelAdmin
 	 * @param   array  $config Configuration array for model. Optional.
 	 *
 	 * @return  JTable    A database object
+	 *
+	 * @since ?
 	 */
 	public function getTable($type = 'Sermon', $prefix = 'SermonspeakerTable', $config = array())
 	{
@@ -259,7 +263,7 @@ class SermonspeakerModelSermon extends JModelAdmin
 
 			if ($data['id'])
 			{
-				$db    = JFactory::getDBO();
+				$db    = JFactory::getDbo();
 				$query = $db->getQuery(true)
 					->select($db->quoteName(array('book', 'cap1', 'vers1', 'cap2', 'vers2', 'text')))
 					->from($db->quoteName('#__sermon_scriptures'))
@@ -316,6 +320,8 @@ class SermonspeakerModelSermon extends JModelAdmin
 	 * @param   integer $pk The id of the primary key.
 	 *
 	 * @return  mixed  Object on success, false on failure.
+	 *
+	 * @since ?
 	 */
 	public function getItem($pk = null)
 	{
@@ -325,7 +331,7 @@ class SermonspeakerModelSermon extends JModelAdmin
 
 		if ($item->id)
 		{
-			$db    = JFactory::getDBO();
+			$db    = JFactory::getDbo();
 			$query = $db->getQuery(true)
 				->select($db->quoteName(array('book', 'cap1', 'vers1', 'cap2', 'vers2', 'text')))
 				->from($db->quoteName('#__sermon_scriptures'))

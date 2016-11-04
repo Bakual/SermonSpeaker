@@ -13,6 +13,8 @@ jimport('joomla.form.formfield');
 
 /**
  * Scripture Field class for the SermonSpeaker
+ *
+ * @since ?
  */
 class JFormFieldScripture extends JFormField
 {
@@ -20,6 +22,8 @@ class JFormFieldScripture extends JFormField
 	 * The form field type.
 	 *
 	 * @var  string
+	 *
+	 * @since ?
 	 */
 	protected $type = 'Scripture';
 
@@ -27,6 +31,8 @@ class JFormFieldScripture extends JFormField
 	 * Method to get the field input markup.
 	 *
 	 * @return  string   The field input markup.
+	 *
+	 * @since ?
 	 */
 	protected function getInput()
 	{

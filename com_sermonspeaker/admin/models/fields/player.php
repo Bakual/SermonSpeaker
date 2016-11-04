@@ -23,6 +23,8 @@ class JFormFieldPlayer extends JFormFieldList
 	 * The form field type.
 	 *
 	 * @var  string  $type  Name of the field
+	 *
+	 * @since ?
 	 */
 	protected $type = 'Player';
 
@@ -30,6 +32,8 @@ class JFormFieldPlayer extends JFormFieldList
 	 * Method to get the field options.
 	 *
 	 * @return  array  The field option objects.
+	 *
+	 * @since ?
 	 */
 	public function getOptions()
 	{

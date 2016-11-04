@@ -60,11 +60,11 @@ class JFormFieldDateformat extends JFormFieldList
 	{
 		// Initialize variables.
 		$options = array();
-		$date	 = JHtml::Date('', 'Y-m-d H:m:s', true);
+		$date	 = JHtml::date('', 'Y-m-d H:m:s', true);
 		$dateformats = array('DATE_FORMAT_LC', 'DATE_FORMAT_LC1', 'DATE_FORMAT_LC2', 'DATE_FORMAT_LC3', 'DATE_FORMAT_LC4');
 		foreach ($dateformats AS $key => $format){
 			$options[$key]['value']	 = $format;
-			$options[$key]['text']	 = JHtml::Date($date, JText::_($format), true);
+			$options[$key]['text']	 = JHtml::date($date, JText::_($format), true);
 		}
 
 		return $options;

@@ -6,11 +6,15 @@ defined('_JEXEC') or die;
  * Speaker model.
  *
  * @package   Sermonspeaker.Administrator
+ *
+ * @since ?
  */
 class SermonspeakerModelSpeaker extends JModelAdmin
 {
 	/**
 	 * @var   string  The prefix to use with controller messages.
+	 *
+	 * @since ?
 	 */
 	protected $text_prefix = 'COM_SERMONSPEAKER';
 
@@ -63,9 +67,9 @@ class SermonspeakerModelSpeaker extends JModelAdmin
 	/**
 	 * Returns a reference to the a Table object, always creating it.
 	 *
-	 * @param    type      The table type to instantiate
-	 * @param    string    A prefix for the table class name. Optional.
-	 * @param    array     Configuration array for model. Optional.
+	 * @param    string  $type     The table type to instantiate
+	 * @param    string  $prefix   A prefix for the table class name. Optional.
+	 * @param    array   $config   Configuration array for model. Optional.
 	 *
 	 * @return    JTable    A database object
 	 * @since    1.6
@@ -81,7 +85,7 @@ class SermonspeakerModelSpeaker extends JModelAdmin
 	 * @param    array   $data     An optional array of data for the form to interogate.
 	 * @param    boolean $loadData True if the form is to load its own data (default case), false if not.
 	 *
-	 * @return    JForm    A JForm object on success, false on failure
+	 * @return bool|JForm
 	 * @since    1.6
 	 */
 	public function getForm($data = array(), $loadData = true)
@@ -194,6 +198,8 @@ class SermonspeakerModelSpeaker extends JModelAdmin
 	/**
 	 * Prepare and sanitise the table prior to saving.
 	 *
+	 * @param JTable $table
+	 *
 	 * @since    1.6
 	 */
 	protected function prepareTable($table)
@@ -249,7 +255,10 @@ class SermonspeakerModelSpeaker extends JModelAdmin
 	 *
 	 * Note. Calling getState in this method will result in recursion.
 	 *
-	 * @return  void
+	 * @param JForm  $form
+	 * @param mixed  $data
+	 * @param string $group
+	 *
 	 * @since    3.0
 	 */
 	protected function preprocessForm(JForm $form, $data, $group = 'sermonspeaker')
@@ -315,6 +324,8 @@ class SermonspeakerModelSpeaker extends JModelAdmin
 	 *
 	 * @return    boolean    True if successful.
 	 * @throws    Exception
+	 *
+	 * @since ?
 	 */
 	public function setDefault($id = 0)
 	{

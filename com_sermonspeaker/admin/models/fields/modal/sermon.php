@@ -13,6 +13,7 @@ defined('_JEXEC') or die();
 /**
  * Supports a modal sermon picker.
  *
+ * @since ?
  */
 class JFormFieldModal_Sermon extends JFormField
 {
@@ -27,7 +28,9 @@ class JFormFieldModal_Sermon extends JFormField
 	/**
 	 * Method to get the field input markup.
 	 *
-	 * @return  string	The field input markup.
+	 * @return string The field input markup.
+	 * @throws \Exception
+	 *
 	 * @since   1.6
 	 */
 	protected function getInput()

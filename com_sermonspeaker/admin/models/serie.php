@@ -13,11 +13,15 @@ defined('_JEXEC') or die();
  * Serie model.
  *
  * @package   Sermonspeaker.Administrator
+ *
+ * @since ?
  */
 class SermonspeakerModelSerie extends JModelAdmin
 {
 	/**
 	 * @var   string  The prefix to use with controller messages.
+	 *
+	 * @since ?
 	 */
 	protected $text_prefix = 'COM_SERMONSPEAKER';
 
@@ -70,9 +74,9 @@ class SermonspeakerModelSerie extends JModelAdmin
 	/**
 	 * Returns a reference to the a Table object, always creating it.
 	 *
-	 * @param    type      The table type to instantiate
-	 * @param    string    A prefix for the table class name. Optional.
-	 * @param    array     Configuration array for model. Optional.
+	 * @param    string  $type     The table type to instantiate
+	 * @param    string  $prefix   A prefix for the table class name. Optional.
+	 * @param    array   $config   Configuration array for model. Optional.
 	 *
 	 * @return    JTable    A database object
 	 * @since    1.6
@@ -88,7 +92,7 @@ class SermonspeakerModelSerie extends JModelAdmin
 	 * @param    array   $data     An optional array of data for the form to interogate.
 	 * @param    boolean $loadData True if the form is to load its own data (default case), false if not.
 	 *
-	 * @return    JForm    A JForm object on success, false on failure
+	 * @return    bool|JForm    A JForm object on success, false on failure
 	 * @since    1.6
 	 */
 	public function getForm($data = array(), $loadData = true)
@@ -201,6 +205,8 @@ class SermonspeakerModelSerie extends JModelAdmin
 	/**
 	 * Prepare and sanitise the table prior to saving.
 	 *
+	 * @param JTable $table
+	 *
 	 * @since    1.6
 	 */
 	protected function prepareTable($table)
@@ -222,7 +228,7 @@ class SermonspeakerModelSerie extends JModelAdmin
 		{
 			// only process if not empty
 			$bad_characters = array("\n", "\r", "\"", "<", ">"); // array of characters to remove
-			$after_clean    = JString::str_ireplace($bad_characters, "", $table->metakey); // remove bad characters
+			$after_clean    = Joomla\String\StringHelper::str_ireplace($bad_characters, "", $table->metakey); // remove bad characters
 			$keys           = explode(',', $after_clean); // create array using commas as delimiter
 			$clean_keys     = array();
 			foreach ($keys as $key)
@@ -256,7 +262,10 @@ class SermonspeakerModelSerie extends JModelAdmin
 	 *
 	 * Note. Calling getState in this method will result in recursion.
 	 *
-	 * @return  void
+	 * @param JForm  $form
+	 * @param mixed  $data
+	 * @param string $group
+	 *
 	 * @since    3.0
 	 */
 	protected function preprocessForm(JForm $form, $data, $group = 'sermonspeaker')
@@ -322,6 +331,8 @@ class SermonspeakerModelSerie extends JModelAdmin
 	 *
 	 * @return    boolean    True if successful.
 	 * @throws    Exception
+	 *
+	 * @since ?
 	 */
 	public function setDefault($id = 0)
 	{
