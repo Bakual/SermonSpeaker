@@ -20,6 +20,8 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 	 * Redirecting to new AJAX based download function for backward compatibility
 	 *
 	 * @return  void
+	 *
+	 * @since ?
 	 */
 	public function download()
 	{

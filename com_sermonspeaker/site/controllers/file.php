@@ -19,17 +19,20 @@ class SermonspeakerControllerFile extends JControllerLegacy
 	/**
 	 * Upload a file
 	 *
-	 * @return boolean
+	 * @return bool
+	 * @throws \Exception
+	 *
+	 * @since ?
 	 */
 	public function upload()
 	{
 		// Check for request forgeries
 		JSession::checkToken('request') or jexit(JText::_('JINVALID_TOKEN'));
 
-		// Initialise variables.
-		$app		= JFactory::getApplication();
-		$params		= $app->getParams();
-		$jinput		= $app->input;
+		/** @var JApplicationSite $app */
+		$app    = JFactory::getApplication();
+		$params = $app->getParams();
+		$jinput = $app->input;
 
 		// Get the user
 		$user		= JFactory::getUser();
@@ -127,7 +130,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 		$return = base64_decode($jinput->post->get('return-url', '', 'base64'));
 
 		// Make sure to only redirect to internal links
-		if (!Juri::isInternal($return))
+		if (!JUri::isInternal($return))
 		{
 			$return = JUri::base();
 		}

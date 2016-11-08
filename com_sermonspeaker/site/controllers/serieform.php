@@ -26,14 +26,20 @@ class SermonspeakerControllerSerieform extends JControllerForm
 	 * Method to add a new record
 	 *
 	 * @return  boolean  True if the article can be added, false if not
+	 *
+	 * @since ?
 	 */
 	public function add()
 	{
-		if (!parent::add())
+		$return = parent::add();
+
+		if (!$return)
 		{
 			// Redirect to the return page.
 			$this->setRedirect($this->getReturnPage());
 		}
+
+		return $return;
 	}
 
 	/**
@@ -42,6 +48,8 @@ class SermonspeakerControllerSerieform extends JControllerForm
 	 * @param   array  $data  An array of input data
 	 *
 	 * @return  boolean
+	 *
+	 * @since ?
 	 */
 	protected function allowAdd($data = array())
 	{
@@ -73,6 +81,8 @@ class SermonspeakerControllerSerieform extends JControllerForm
 	 * @param   string  $key   The name of the key for the primary key
 	 *
 	 * @return  boolean
+	 *
+	 * @since ?
 	 */
 	protected function allowEdit($data = array(), $key = 'id')
 	{
@@ -117,13 +127,17 @@ class SermonspeakerControllerSerieform extends JControllerForm
 	 * @param   string  $key  The name of the primary key of the URL variable
 	 *
 	 * @return  Boolean  True if access level checks pass, false otherwise
+	 *
+	 * @since ?
 	 */
 	public function cancel($key = 's_id')
 	{
-		parent::cancel($key);
+		$return = parent::cancel($key);
 
 		// Redirect to the return page.
 		$this->setRedirect($this->getReturnPage());
+
+		return $return;
 	}
 
 	/**
@@ -133,6 +147,8 @@ class SermonspeakerControllerSerieform extends JControllerForm
 	 * @param   string  $urlVar  The name of the URL variable if different from the primary key (sometimes required to avoid router collisions)
 	 *
 	 * @return  Boolean  True if access level check and checkout passes, false otherwise
+	 *
+	 * @since ?
 	 */
 	public function edit($key = null, $urlVar = 's_id')
 	{
@@ -149,6 +165,8 @@ class SermonspeakerControllerSerieform extends JControllerForm
 	 * @param   array   $config  Configuration array for model. Optional
 	 *
 	 * @return  object  The model
+	 *
+	 * @since ?
 	 */
 	public function getModel($name = 'serieform', $prefix = '', $config = array('ignore_request' => true))
 	{
@@ -164,6 +182,8 @@ class SermonspeakerControllerSerieform extends JControllerForm
 	 * @param   string  $urlVar    The name of the URL variable for the id
 	 *
 	 * @return  string  The arguments to append to the redirect URL
+	 *
+	 * @since ?
 	 */
 	protected function getRedirectToItemAppend($recordId = null, $urlVar = null)
 	{
@@ -197,6 +217,8 @@ class SermonspeakerControllerSerieform extends JControllerForm
 	 * If a "return" variable has been passed in the request
 	 *
 	 * @return  string  The return URL
+	 *
+	 * @since ?
 	 */
 	protected function getReturnPage()
 	{
@@ -215,10 +237,10 @@ class SermonspeakerControllerSerieform extends JControllerForm
 	/**
 	 * Function that allows child controller access to model data after the data has been saved
 	 *
-	 * @param   JModel  $model      The data model object
-	 * @param   array   $validData  The validated data
+	 * @param \JModel|\JModelLegacy $model     The data model object
+	 * @param   array               $validData The validated data
 	 *
-	 * @return  void
+	 * @since ?
 	 */
 	protected function postSaveHook(JModelLegacy $model, $validData = array())
 	{
@@ -237,6 +259,8 @@ class SermonspeakerControllerSerieform extends JControllerForm
 	 * @param   string  $urlVar  The name of the URL variable if different from the primary key (sometimes required to avoid router collisions)
 	 *
 	 * @return  Boolean  True if successful, false otherwise
+	 *
+	 * @since ?
 	 */
 	public function save($key = null, $urlVar = 's_id')
 	{

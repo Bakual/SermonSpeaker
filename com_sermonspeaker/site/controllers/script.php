@@ -20,6 +20,8 @@ class SermonspeakerControllerScript extends JControllerLegacy
 	 * Creates sermons automatically
 	 *
 	 * @return  void
+	 *
+	 * @since ?
 	 */
 	public function createAutomatic()
 	{

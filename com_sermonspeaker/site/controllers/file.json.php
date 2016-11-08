@@ -20,6 +20,8 @@ class SermonspeakerControllerFile extends JControllerLegacy
 	 * Upload a file
 	 *
 	 * @return  void  Echoes an AJAX response
+	 *
+	 * @since ?
 	 */
 	public function upload()
 	{
@@ -50,6 +52,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 		}
 
 		// Initialise variables.
+		/** @var JApplicationSite $app */
 		$app    = JFactory::getApplication();
 		$params = $app->getParams();
 		$jinput = $app->input;
@@ -219,10 +222,8 @@ class SermonspeakerControllerFile extends JControllerLegacy
 			jimport('joomla.client.helper');
 			JClientHelper::setCredentialsFromRequest('ftp');
 
-			$filepath = JPath::clean($folder . '/' . strtolower($file['name']));
-
-			$object_file = new JObject($file);
-			$object_file->filepath = $filepath;
+			$filepath         = JPath::clean($folder . '/' . strtolower($file['name']));
+			$file['filepath'] = $filepath;
 
 			if (JFile::exists($filepath))
 			{
@@ -235,8 +236,6 @@ class SermonspeakerControllerFile extends JControllerLegacy
 
 				return;
 			}
-
-			$file = (array) $object_file;
 
 			if (!JFile::upload($file['tmp_name'], $file['filepath']))
 			{
@@ -268,6 +267,8 @@ class SermonspeakerControllerFile extends JControllerLegacy
 	 * Lookup the ID3 tags
 	 *
 	 * @return  void  Echoes an AJAX response
+	 *
+	 * @since ?
 	 */
 	public function lookup()
 	{

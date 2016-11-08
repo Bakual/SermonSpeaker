@@ -24,14 +24,20 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 	 * Method to add a new record
 	 *
 	 * @return  boolean  True if the article can be added, false if not
+	 *
+	 * @since ?
 	 */
 	public function add()
 	{
-		if (!parent::add())
+		$return = parent::add();
+
+		if (!$return)
 		{
 			// Redirect to the return page.
 			$this->setRedirect($this->getReturnPage());
 		}
+
+		return $return;
 	}
 
 	/**
@@ -40,6 +46,8 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 	 * @param   array  $data  An array of input data
 	 *
 	 * @return  boolean
+	 *
+	 * @since ?
 	 */
 	protected function allowAdd($data = array())
 	{
@@ -71,6 +79,8 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 	 * @param   string  $key   The name of the key for the primary key
 	 *
 	 * @return  boolean
+	 *
+	 * @since ?
 	 */
 	protected function allowEdit($data = array(), $key = 'id')
 	{
@@ -105,6 +115,8 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 			// Since there is no asset tracking, revert to the component permissions.
 			return parent::allowEdit($data, $key);
 		}
+
+		return false;
 	}
 
 	/**
@@ -113,13 +125,17 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 	 * @param   string  $key  The name of the primary key of the URL variable
 	 *
 	 * @return  Boolean  True if access level checks pass, false otherwise
+	 *
+	 * @since ?
 	 */
 	public function cancel($key = 's_id')
 	{
-		parent::cancel($key);
+		$return = parent::cancel($key);
 
 		// Redirect to the return page.
 		$this->setRedirect($this->getReturnPage());
+
+		return $return;
 	}
 
 	/**
@@ -129,6 +145,8 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 	 * @param   string  $urlVar  The name of the URL variable if different from the primary key (sometimes required to avoid router collisions)
 	 *
 	 * @return  Boolean  True if access level check and checkout passes, false otherwise
+	 *
+	 * @since ?
 	 */
 	public function edit($key = null, $urlVar = 's_id')
 	{
@@ -145,6 +163,8 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 	 * @param   array   $config  Configuration array for model. Optional
 	 *
 	 * @return  object  The model
+	 *
+	 * @since ?
 	 */
 	public function getModel($name = 'frontendupload', $prefix = '', $config = array('ignore_request' => true))
 	{
@@ -160,6 +180,8 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 	 * @param   string  $urlVar    The name of the URL variable for the id
 	 *
 	 * @return  string  The arguments to append to the redirect URL
+	 *
+	 * @since ?
 	 */
 	protected function getRedirectToItemAppend($recordId = null, $urlVar = 's_id')
 	{
@@ -188,6 +210,8 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 	 * If a "return" variable has been passed in the request
 	 *
 	 * @return  string  The return URL
+	 *
+	 * @since ?
 	 */
 	protected function getReturnPage()
 	{
@@ -206,10 +230,10 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 	/**
 	 * Function that allows child controller access to model data after the data has been saved.
 	 *
-	 * @param   JModel  $model      The data model object.
-	 * @param   array   $validData  The validated data.
+	 * @param \JModel|\JModelLegacy $model     The data model object.
+	 * @param   array               $validData The validated data.
 	 *
-	 * @return  void
+	 * @since ?
 	 */
 	protected function postSaveHook(JModelLegacy $model, $validData = array())
 	{
@@ -268,8 +292,10 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 			$app = JFactory::getApplication();
 			$app->enqueueMessage($this->setMessage(''));
 
-			return $this->write_id3($recordId);
+			$this->write_id3($recordId);
 		}
+
+		return;
 	}
 
 	/**
@@ -279,6 +305,8 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 	 * @param   string  $urlVar  The name of the URL variable if different from the primary key (sometimes required to avoid router collisions)
 	 *
 	 * @return  Boolean  True if successful, false otherwise
+	 *
+	 * @since ?
 	 */
 	public function save($key = null, $urlVar = 's_id')
 	{
@@ -293,6 +321,8 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 	 * @param   int  $id  The id of the record
 	 *
 	 * @return  Boolean  True if successful, false otherwise
+	 *
+	 * @since ?
 	 */
 	public function write_id3($id)
 	{
@@ -302,7 +332,7 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 		{
 			$app->redirect('index.php?option=com_sermonspeaker&view=frontendupload', JText::_('JERROR_AN_ERROR_HAS_OCCURRED'), 'error');
 
-			return;
+			return false;
 		}
 
 		$db = JFactory::getDbo();
@@ -364,13 +394,12 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 					{
 						$TagData['attached_picture'][0]['data']          = $APICdata;
 						$TagData['attached_picture'][0]['picturetypeid'] = 0;
-						$TagData['attached_picture'][0]['description']   = JFile::getName($pic);
+						$TagData['attached_picture'][0]['description']   = basename($pic);
 						$TagData['attached_picture'][0]['mime']          = $image['mime'];
 					}
 				}
 				else
 				{
-					$errormessage = ob_get_contents();
 					ob_end_clean();
 					$app->enqueueMessage('Couldn\'t open the picture: ' . $pic, 'notice');
 				}
@@ -416,7 +445,7 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 		{
 			$app->redirect('index.php?option=com_sermonspeaker&view=sermons', JText::_('JERROR_ALERTNOAUTHOR'), 'error');
 
-			return;
+			return false;
 		}
 	}
 }

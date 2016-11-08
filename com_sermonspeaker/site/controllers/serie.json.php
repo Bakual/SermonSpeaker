@@ -20,6 +20,8 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 	 * AJAX Method to add a new record
 	 *
 	 * @return  void  Echos AJAX response
+	 *
+	 * @since ?
 	 */
 	public function download()
 	{
@@ -226,7 +228,7 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 			ignore_user_abort(true);
 			$i = 0;
 
-			if ($zip->open($filename, ZIPARCHIVE::OVERWRITE) !== true)
+			if ($zip->open($filename, ZipArchive::OVERWRITE) !== true)
 			{
 				$response = array(
 					'status' => '0',
@@ -300,6 +302,8 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 	 * Method to check the progress of the zipfile creation
 	 *
 	 * @return  void  Function echoes an AJAX answer
+	 *
+	 * @since ?
 	 */
 	public function checkprogress()
 	{
