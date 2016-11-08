@@ -20,6 +20,8 @@ class SermonspeakerViewSermons extends JViewLegacy
 	 * Holds an array of item objects
 	 *
 	 * @var    array
+	 *
+	 * @since  ?
 	 */
 	protected $items;
 
@@ -29,6 +31,8 @@ class SermonspeakerViewSermons extends JViewLegacy
 	 * A state object
 	 *
 	 * @var    JObject
+	 *
+	 * @since  ?
 	 */
 	protected $state;
 
@@ -50,6 +54,8 @@ class SermonspeakerViewSermons extends JViewLegacy
 	 * @return mixed A string if successful, otherwise a Error object.
 	 *
 	 * @throws Exception
+	 *
+	 * @since  ?
 	 */
 	public function display($tpl = null)
 	{
@@ -84,6 +90,8 @@ class SermonspeakerViewSermons extends JViewLegacy
 	 * Add the page title and toolbar.
 	 *
 	 * @return  void
+	 *
+	 * @since  ?
 	 */
 	protected function addToolbar()
 	{

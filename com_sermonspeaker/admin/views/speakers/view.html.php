@@ -24,6 +24,8 @@ class SermonspeakerViewSpeakers extends JViewLegacy
 	 * A state object
 	 *
 	 * @var    JObject
+	 *
+	 * @since  ?
 	 */
 	protected $state;
 
@@ -41,6 +43,8 @@ class SermonspeakerViewSpeakers extends JViewLegacy
 	 * @return mixed A string if successful, otherwise a Error object.
 	 *
 	 * @throws Exception
+	 *
+	 * @since  ?
 	 */
 	public function display($tpl = null)
 	{
@@ -77,6 +81,8 @@ class SermonspeakerViewSpeakers extends JViewLegacy
 	 * Add the page title and toolbar.
 	 *
 	 * @return  void
+	 *
+	 * @since  ?
 	 */
 	protected function addToolbar()
 	{

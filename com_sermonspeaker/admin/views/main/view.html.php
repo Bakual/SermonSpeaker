@@ -14,6 +14,8 @@ class SermonspeakerViewMain extends JViewLegacy
 	 * Add the page title and toolbar.
 	 *
 	 * @return  void
+	 *
+	 * @since  ?
 	 */
 	protected function addToolbar()
 	{

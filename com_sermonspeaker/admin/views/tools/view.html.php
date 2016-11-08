@@ -20,8 +20,24 @@ class SermonspeakerViewTools extends JViewLegacy
 	 * The HTML code for the sidebar.
 	 *
 	 * @var string
+	 *
+	 * @since  ?
 	 */
 	protected $sidebar;
+
+	/**
+	 * @var bool
+	 *
+	 * @since  ?
+	 */
+	protected $pi;
+
+	/**
+	 * @var bool
+	 *
+	 * @since  ?
+	 */
+	protected $bs;
 
 	/**
 	 * Execute and display a template script.
@@ -63,6 +79,8 @@ class SermonspeakerViewTools extends JViewLegacy
 	 * Add the page title and toolbar.
 	 *
 	 * @return  void
+	 *
+	 * @since  ?
 	 */
 	protected function addToolbar()
 	{

@@ -16,7 +16,35 @@ defined('_JEXEC') or die();
  */
 class SermonspeakerViewStatistics extends JViewLegacy
 {
-	function display( $tpl = null )
+	/**
+	 * @var
+	 *
+	 * @since ?
+	 */
+	protected $series;
+
+	/**
+	 * @var
+	 *
+	 * @since ?
+	 */
+	protected $speakers;
+
+	/**
+	 * @var
+	 *
+	 * @since ?
+	 */
+	protected $sermons;
+
+	/**
+	 * @param null $tpl
+	 *
+	 * @return mixed|void
+	 *
+	 * @since  ?
+	 */
+	function display($tpl = null )
 	{
 		$document = JFactory::getDocument();
 		$document->setMimeEncoding('text/xml');

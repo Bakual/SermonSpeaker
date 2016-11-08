@@ -6,6 +6,8 @@ defined('_JEXEC') or die;
  * View to edit a speaker.
  *
  * @package        Sermonspeaker.Administrator
+ *
+ * @since  ?
  */
 class SermonspeakerViewSpeaker extends JViewLegacy
 {
@@ -15,6 +17,13 @@ class SermonspeakerViewSpeaker extends JViewLegacy
 
 	/**
 	 * Display the view
+	 *
+	 * @since  ?
+	 *
+	 * @param null $tpl
+	 *
+	 * @return mixed
+	 * @throws \Exception
 	 */
 	public function display($tpl = null)
 	{

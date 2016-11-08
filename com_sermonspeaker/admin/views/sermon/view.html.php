@@ -20,6 +20,8 @@ class SermonspeakerViewSermon extends JViewLegacy
 	 * A state object
 	 *
 	 * @var    JObject
+	 *
+	 * @since  ?
 	 */
 	protected $state;
 
@@ -37,6 +39,8 @@ class SermonspeakerViewSermon extends JViewLegacy
 	 * AmazonS3 information
 	 *
 	 * @var    string
+	 *
+	 * @since  ?
 	 */
 	protected $s3audio;
 
@@ -44,13 +48,26 @@ class SermonspeakerViewSermon extends JViewLegacy
 	 * AmazonS3 information
 	 *
 	 * @var    string
+	 *
+	 * @since  ?
 	 */
 	protected $s3video;
+
+	/**
+	 * Amazon S3 domain name
+	 *
+	 * @var    string
+	 *
+	 * @since  ?
+	 */
+	protected $domain;
 
 	/**
 	 * A params object
 	 *
 	 * @var    Joomla\Registry\Registry
+	 *
+	 * @since  ?
 	 */
 	protected $params;
 
@@ -62,6 +79,8 @@ class SermonspeakerViewSermon extends JViewLegacy
 	 * @return  mixed  A string if successful, otherwise a Error object.
 	 *
 	 * @throws Exception
+	 *
+	 * @since  ?
 	 */
 	public function display($tpl = null)
 	{
@@ -392,6 +411,8 @@ class SermonspeakerViewSermon extends JViewLegacy
 	 * Add the page title and toolbar.
 	 *
 	 * @return  void
+	 *
+	 * @since  ?
 	 */
 	protected function addToolbar()
 	{
@@ -459,6 +480,8 @@ class SermonspeakerViewSermon extends JViewLegacy
 	 * @param   string $val PHP setting (eg 2M)
 	 *
 	 * @return  integer
+	 *
+	 * @since  ?
 	 */
 	protected function return_bytes($val)
 	{
@@ -468,8 +491,10 @@ class SermonspeakerViewSermon extends JViewLegacy
 		switch ($last)
 		{
 			// The 'G' modifier is available since PHP 5.1.0
+			/** @noinspection PhpMissingBreakStatementInspection */
 			case 'g':
 				$val *= 1024;
+			/** @noinspection PhpMissingBreakStatementInspection */
 			case 'm':
 				$val *= 1024;
 			case 'k':

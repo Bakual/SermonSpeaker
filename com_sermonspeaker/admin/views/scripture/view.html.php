@@ -16,7 +16,21 @@ defined('_JEXEC') or die();
  */
 class SermonspeakerViewScripture extends JViewLegacy
 {
-	function display( $tpl = null )
+	/**
+	 * @var \Joomla\Registry\Registry
+	 *
+	 * @since ?
+	 */
+	protected $params;
+
+	/**
+	 * @param null $tpl
+	 *
+	 * @return mixed|void
+	 *
+	 * @since ?
+	 */
+	function display($tpl = null )
 	{
 		$id			= JFactory::getApplication()->input->get('id', 0, 'int');
 		$separator	= JText::_('COM_SERMONSPEAKER_SCRIPTURE_SEPARATOR');

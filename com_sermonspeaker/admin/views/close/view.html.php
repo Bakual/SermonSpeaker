@@ -5,11 +5,19 @@ defined('_JEXEC') or die;
  * View to close a modal.
  *
  * @package		Sermonspeaker.Administrator
+ *
+ * @since  ?
  */
 class SermonspeakerViewClose extends JViewLegacy
 {
 	/**
 	 * Display the view
+	 *
+	 * @since  ?
+	 *
+	 * @param null $tpl
+	 *
+	 * @return mixed|void
 	 */
 	public function display($tpl = null)
 	{
@@ -19,5 +27,7 @@ class SermonspeakerViewClose extends JViewLegacy
 
 		$document = JFactory::getDocument();
 		$document->addScriptDeclaration($js);
+
+		return;
 	}
 }

@@ -16,7 +16,64 @@ defined('_JEXEC') or die();
  */
 class SermonspeakerViewLanguages extends JViewLegacy
 {
-	function display( $tpl = null )
+	/**
+	 * @var  string  Site to fetch data from
+	 *
+	 * @since  ?
+	 */
+	protected $site;
+
+	/**
+	 * @var  string component name
+	 *
+	 * @since  ?
+	 */
+	protected $prefix;
+
+	/**
+	 * @var  SimpleXMLElement  The XML file
+	 *
+	 * @since  ?
+	 */
+	protected $xml;
+
+	/**
+	 * @var  array  The known installed languages
+	 *
+	 * @since  ?
+	 */
+
+	protected $languages;
+
+	/**
+	 * @var array
+	 *
+	 * @since  ?
+	 */
+	protected $manifest;
+
+	/**
+	 * @var array
+	 *
+	 * @since  ?
+	 */
+	protected $installed;
+
+	/**
+	 * @var string
+	 *
+	 * @since  ?
+	 */
+	protected $sidebar;
+
+	/**
+	 * @param null $tpl
+	 *
+	 * @return mixed|void
+	 *
+	 * @since  ?
+	 */
+	function display($tpl = null )
 	{
 		SermonspeakerHelper::addSubmenu('languages');
 
@@ -38,7 +95,7 @@ class SermonspeakerViewLanguages extends JViewLegacy
 		$query	= $db->getQuery(true);
 		$query->select('ext.name, ext.manifest_cache, ext.element');
 		$query->from('`#__extensions` AS ext');
-		$query->where('`element` LIKE "'.$this->xml->extension_name.'%"');
+		$query->where('`element` LIKE "'. (string) $this->xml->extension_name.'%"');
 		$db->setQuery($query);
 		$this->installed	= $db->loadObjectList('element');
 		foreach ($this->installed as $item)
@@ -76,6 +133,8 @@ class SermonspeakerViewLanguages extends JViewLegacy
 	 * Add the page title and toolbar.
 	 *
 	 * @return  void
+	 *
+	 * @since  ?
 	 */
 	protected function addToolbar()
 	{
@@ -86,5 +145,7 @@ class SermonspeakerViewLanguages extends JViewLegacy
 		{
 			JToolbarHelper::preferences('com_sermonspeaker');
 		}
+
+		return;
 	}
 }
