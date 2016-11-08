@@ -18,7 +18,19 @@ require_once JPATH_SITE . '/components/com_sermonspeaker/helpers/player.php';
  */
 class SermonspeakerHelperPlayerWmvplayer extends SermonspeakerHelperPlayer
 {
+	/**
+	 * @var bool
+	 *
+	 * @since ?
+	 */
 	private static $script_loaded;
+
+	/**
+	 * @var string
+	 *
+	 * @since ?
+	 */
+	public $mode;
 
 	/**
 	 * Checks the filename if it's supported by the player
@@ -26,6 +38,8 @@ class SermonspeakerHelperPlayerWmvplayer extends SermonspeakerHelperPlayer
 	 * @param   string  $file  Filename
 	 *
 	 * @return  mixed  Mode (audio or video) or false when not supported
+	 *
+	 * @since ?
 	 */
 	public function isSupported($file)
 	{
@@ -51,6 +65,8 @@ class SermonspeakerHelperPlayerWmvplayer extends SermonspeakerHelperPlayer
 	 * Gets name of player
 	 *
 	 * @return  string  Name of player
+	 *
+	 * @since ?
 	 */
 	public function getName()
 	{
@@ -64,6 +80,8 @@ class SermonspeakerHelperPlayerWmvplayer extends SermonspeakerHelperPlayer
 	 * @param   array   $config  Config array
 	 *
 	 * @return  void
+	 *
+	 * @since ?
 	 */
 	public function preparePlayer($item, $config)
 	{

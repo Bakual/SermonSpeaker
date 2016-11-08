@@ -38,6 +38,8 @@ abstract class SermonspeakerHelperPlayer
 
 	/**
 	 * Constructor
+	 *
+	 * @since ?
 	 */
 	public function __construct()
 	{
@@ -51,6 +53,8 @@ abstract class SermonspeakerHelperPlayer
 	 * @param   string  $width   Width of the player
 	 *
 	 * @return  void
+	 *
+	 * @since ?
 	 */
 	protected function setDimensions($height, $width)
 	{
@@ -68,6 +72,8 @@ abstract class SermonspeakerHelperPlayer
 	 * @param   string  $type  a => audio, v => video
 	 *
 	 * @return  void
+	 *
+	 * @since ?
 	 */
 	protected function setPopup($type = 'a')
 	{

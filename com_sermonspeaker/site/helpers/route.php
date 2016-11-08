@@ -23,10 +23,12 @@ abstract class SermonspeakerHelperRoute
 	/**
 	 * Get Sermons Route
 	 *
-	 * @param   int    $catid    Category ID of the sermons
-	 * @param   string $language Language tag
+	 * @param   int      $catid    Category ID of the sermons
+	 * @param int|string $language Language tag
 	 *
 	 * @return string URL
+	 *
+	 * @since ?
 	 */
 	public static function getSermonsRoute($catid = 0, $language = 0)
 	{
@@ -79,11 +81,13 @@ abstract class SermonspeakerHelperRoute
 	/**
 	 * Get Sermon Route
 	 *
-	 * @param   int    $id       ID of the sermon
-	 * @param   int    $catid    Category ID of the sermon
-	 * @param   string $language Language tag
+	 * @param   int      $id       ID of the sermon
+	 * @param   int      $catid    Category ID of the sermon
+	 * @param int|string $language Language tag
 	 *
 	 * @return string URL
+	 *
+	 * @since ?
 	 */
 	public static function getSermonRoute($id, $catid = 0, $language = 0)
 	{
@@ -135,10 +139,12 @@ abstract class SermonspeakerHelperRoute
 	/**
 	 * Get Series Route
 	 *
-	 * @param   int    $catid    Category ID of the series
-	 * @param   string $language Language tag
+	 * @param   int      $catid    Category ID of the series
+	 * @param int|string $language Language tag
 	 *
 	 * @return string URL
+	 *
+	 * @since ?
 	 */
 	public static function getSeriesRoute($catid = 0, $language = 0)
 	{
@@ -191,11 +197,13 @@ abstract class SermonspeakerHelperRoute
 	/**
 	 * Get Serie Route
 	 *
-	 * @param   int    $id       ID of the serie
-	 * @param   int    $catid    Category ID of the serie
-	 * @param   string $language Language tag
+	 * @param   int      $id       ID of the serie
+	 * @param   int      $catid    Category ID of the serie
+	 * @param int|string $language Language tag
 	 *
 	 * @return string URL
+	 *
+	 * @since ?
 	 */
 	public static function getSerieRoute($id, $catid = 0, $language = 0)
 	{
@@ -247,10 +255,12 @@ abstract class SermonspeakerHelperRoute
 	/**
 	 * Get Speakers Route
 	 *
-	 * @param   int    $catid    Category ID of the speakers
-	 * @param   string $language Language tag
+	 * @param   int      $catid    Category ID of the speakers
+	 * @param int|string $language Language tag
 	 *
 	 * @return string URL
+	 *
+	 * @since ?
 	 */
 	public static function getSpeakersRoute($catid = 0, $language = 0)
 	{
@@ -303,11 +313,13 @@ abstract class SermonspeakerHelperRoute
 	/**
 	 * Get Speaker Route
 	 *
-	 * @param   int    $id       ID of the speaker
-	 * @param   int    $catid    Category ID of the speaker
-	 * @param   string $language Language tag
+	 * @param   int      $id       ID of the speaker
+	 * @param   int      $catid    Category ID of the speaker
+	 * @param int|string $language Language tag
 	 *
 	 * @return string URL
+	 *
+	 * @since ?
 	 */
 	public static function getSpeakerRoute($id, $catid = 0, $language = 0)
 	{
@@ -362,6 +374,8 @@ abstract class SermonspeakerHelperRoute
 	 * @param   array $needles Array of properties to search
 	 *
 	 * @return int ID of the menu item
+	 *
+	 * @since ?
 	 */
 	protected static function _findItem($needles = null)
 	{
@@ -489,6 +503,8 @@ abstract class SermonspeakerHelperRoute
 	 * Stores languages
 	 *
 	 * @return void
+	 *
+	 * @since ?
 	 */
 	protected static function _getLanguages()
 	{

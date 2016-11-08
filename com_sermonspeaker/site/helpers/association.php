@@ -26,6 +26,8 @@ abstract class SermonspeakerHelperAssociation extends CategoryHelperAssociation
 	 * @param   string   $view  Name of the view
 	 *
 	 * @return  array   Array of associations for the item
+	 *
+	 * @since ?
 	 */
 	public static function getAssociations($id = 0, $view = null)
 	{
@@ -59,6 +61,8 @@ abstract class SermonspeakerHelperAssociation extends CategoryHelperAssociation
 	 * @param   string  $tablename   The name of the table.
 	 *
 	 * @return  array  Matching items
+	 *
+	 * @since ?
 	 */
 	protected static function _findItems($id, $view, $tablename)
 	{

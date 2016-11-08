@@ -18,7 +18,33 @@ require_once JPATH_SITE . '/components/com_sermonspeaker/helpers/player.php';
  */
 class SermonspeakerHelperPlayerVimeo extends SermonspeakerHelperPlayer
 {
+	/**
+	 * @var bool
+	 *
+	 * @since ?
+	 */
 	private static $script_loaded;
+
+	/**
+	 * @var string
+	 *
+	 * @since ?
+	 */
+	public $mode;
+
+	/**
+	 * @var string
+	 *
+	 * @since ?
+	 */
+	public $file;
+
+	/**
+	 * @var string
+	 *
+	 * @since ?
+	 */
+	public $fb_file;
 
 	/**
 	 * Checks the filename if it's supported by the player
@@ -26,6 +52,8 @@ class SermonspeakerHelperPlayerVimeo extends SermonspeakerHelperPlayer
 	 * @param   string  $item  Filename
 	 *
 	 * @return  mixed  Mode (audio or video) or false when not supported
+	 *
+	 * @since ?
 	 */
 	public function isSupported($item)
 	{
@@ -47,6 +75,8 @@ class SermonspeakerHelperPlayerVimeo extends SermonspeakerHelperPlayer
 	 * Gets name of player
 	 *
 	 * @return  string  Name of player
+	 *
+	 * @since ?
 	 */
 	public function getName()
 	{
@@ -60,6 +90,8 @@ class SermonspeakerHelperPlayerVimeo extends SermonspeakerHelperPlayer
 	 * @param   array   $config  Config array
 	 *
 	 * @return  void
+	 *
+	 * @since ?
 	 */
 	public function preparePlayer($item, $config)
 	{

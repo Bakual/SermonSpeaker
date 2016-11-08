@@ -18,11 +18,15 @@ class SermonspeakerHelperSermonspeaker
 {
 	/**
 	 * @var  Joomla\Registry\Registry  $params  Registry object
+	 *
+	 * @since ?
 	 */
 	private static $params;
 
 	/**
 	 * @var  string  $view  Name of current view
+	 *
+	 * @since ?
 	 */
 	private static $view;
 
@@ -30,6 +34,8 @@ class SermonspeakerHelperSermonspeaker
 	 * Stores the params
 	 *
 	 * @return  void
+	 *
+	 * @since ?
 	 */
 	private static function getParams()
 	{
@@ -44,6 +50,8 @@ class SermonspeakerHelperSermonspeaker
 	 * Stores the view. Used by the insertSermonTitle method
 	 *
 	 * @return  void
+	 *
+	 * @since ?
 	 */
 	private static function getView()
 	{
@@ -60,6 +68,8 @@ class SermonspeakerHelperSermonspeaker
 	 * @deprecated  5.2  Use "JLayoutHelper::render('titles.speaker', array('item' => $this->item, 'params' => $this->params))" instead
 	 *
 	 * @return  string  Tooltip
+	 *
+	 * @since ?
 	 */
 	public static function SpeakerTooltip($id, $pic, $speaker_title)
 	{
@@ -85,6 +95,8 @@ class SermonspeakerHelperSermonspeaker
 	 * @param   int     $show_icon    Show an icon
 	 *
 	 * @return  string  Addfile Link
+	 *
+	 * @since ?
 	 */
 	public static function insertAddfile($addfile, $addfileDesc, $show_icon = 0)
 	{
@@ -168,6 +180,8 @@ class SermonspeakerHelperSermonspeaker
 	 * @param   bool    $abs   absolute or relative link
 	 *
 	 * @return  string  URL
+	 *
+	 * @since ?
 	 */
 	public static function makeLink($path, $abs = false)
 	{
@@ -188,6 +202,8 @@ class SermonspeakerHelperSermonspeaker
 	 * @param   int     $size  Filesize
 	 *
 	 * @return  string  button
+	 *
+	 * @since ?
 	 */
 	public static function insertdlbutton($id, $type = 'audio', $mode = 0, $size = 0)
 	{
@@ -270,6 +286,8 @@ class SermonspeakerHelperSermonspeaker
 	 * @param   object  $player  Player object for popup dimensions
 	 *
 	 * @return  string  button
+	 *
+	 * @since ?
 	 */
 	public static function insertPopupButton($id, $player)
 	{
@@ -287,6 +305,8 @@ class SermonspeakerHelperSermonspeaker
 	 * @param   string  $time  Time
 	 *
 	 * @return  string  formatted time
+	 *
+	 * @since ?
 	 */
 	public static function insertTime($time)
 	{
@@ -311,6 +331,8 @@ class SermonspeakerHelperSermonspeaker
 	 * @param   bool    $icon    Show icon or not
 	 *
 	 * @return  string  title
+	 *
+	 * @since ?
 	 */
 	public static function insertSermonTitle($i, $item, $player, $icon = true)
 	{
@@ -425,6 +447,8 @@ class SermonspeakerHelperSermonspeaker
 	 * @param   string  $separator  Separator between the tags
 	 *
 	 * @return  string  Searchtags
+	 *
+	 * @since ?
 	 */
 	public static function insertSearchTags($item, $separator = ', ')
 	{
@@ -482,6 +506,8 @@ class SermonspeakerHelperSermonspeaker
 	 * @param   bool    $abs       Makes the link absolute, only relevant together with $makeLink
 	 *
 	 * @return  string  Path to picture
+	 *
+	 * @since ?
 	 */
 	public static function insertPicture($item, $makeLink = false, $abs = false)
 	{
@@ -529,6 +555,8 @@ class SermonspeakerHelperSermonspeaker
 	 * @param   bool    $addTag     Adds plugin tags around scripture
 	 *
 	 * @return  string  Scriptures
+	 *
+	 * @since ?
 	 */
 	public static function insertScriptures($scripture, $between, $addTag = true)
 	{
@@ -555,6 +583,8 @@ class SermonspeakerHelperSermonspeaker
 	 * @param   bool    $addTag     Adds plugin tags around scripture
 	 *
 	 * @return  string  Scripture
+	 *
+	 * @since ?
 	 */
 	public static function buildScripture($scripture, $addTag = true)
 	{
@@ -633,6 +663,8 @@ class SermonspeakerHelperSermonspeaker
 	 * @param   string  $ext  File extension
 	 *
 	 * @return  string  MIME type
+	 *
+	 * @since ?
 	 */
 	public static function getMime($ext)
 	{
@@ -691,6 +723,8 @@ class SermonspeakerHelperSermonspeaker
 	 *  - vwidth, vheight (width and height for video)
 	 *
 	 * @return  object  Player
+	 *
+	 * @since ?
 	 */
 	public static function getPlayer($item, $config = array())
 	{
@@ -881,6 +915,8 @@ class SermonspeakerHelperSermonspeaker
 	 * @param   bool    $prio  True for audio or false for video
 	 *
 	 * @return  mixed  filepath or false
+	 *
+	 * @since ?
 	 */
 	public static function getFileByPrio($item, $prio)
 	{
@@ -905,6 +941,8 @@ class SermonspeakerHelperSermonspeaker
 	 * @param   bool  $short  use short prefix
 	 *
 	 * @return  string  converted bytes
+	 *
+	 * @since ?
 	 */
 	public static function convertBytes($bytes, $si = true, $short = true)
 	{

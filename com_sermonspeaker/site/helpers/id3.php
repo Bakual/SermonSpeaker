@@ -22,7 +22,9 @@ class SermonspeakerHelperId3
 	 * @param   string $file   Path to the file
 	 * @param   object $params Params, deprecated
 	 *
-	 * @return  array  Array of ID3 information
+	 * @return array|bool
+	 *
+	 * @since ?
 	 */
 	public static function getID3($file, $params = null)
 	{
@@ -83,7 +85,7 @@ class SermonspeakerHelperId3
 			}
 			else
 			{
-				$id3['title'] = JFile::stripExt(JFile::getName($file));
+				$id3['title'] = JFile::stripExt(basename($file));
 			}
 
 			$id3['alias'] = JApplicationHelper::stringURLSafe($id3['title']);
@@ -166,7 +168,7 @@ class SermonspeakerHelperId3
 		}
 		else
 		{
-			$id3['title']         = JFile::stripExt(JFile::getName($path));
+			$id3['title']         = JFile::stripExt(basename($path));
 			$id3['alias']         = JApplicationHelper::stringURLSafe($id3['title']);
 			$id3['sermon_number'] = '';
 			$id3['notes']         = '';
@@ -185,13 +187,16 @@ class SermonspeakerHelperId3
 	 *
 	 * @param   string $file Path to the file
 	 *
-	 * @return  array  Array of Vimeo informations
+	 * @return  array|bool  Array of Vimeo informations
+	 *
+	 * @since ?
 	 */
 	private static function getVimeo($file)
 	{
 		$id    = trim(strrchr($file, '/'), '/ ');
 		$url   = 'http://vimeo.com/api/v2/video/' . $id . '.xml';
 		$xml   = simplexml_load_file($url);
+		/** @var SimpleXMLElement $video */
 		$video = $xml->video;
 
 		if (is_object($video))
@@ -213,5 +218,7 @@ class SermonspeakerHelperId3
 
 			return $id3;
 		}
+
+		return false;
 	}
 }

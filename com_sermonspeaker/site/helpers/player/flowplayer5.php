@@ -18,7 +18,19 @@ require_once JPATH_SITE . '/components/com_sermonspeaker/helpers/player.php';
  */
 class SermonspeakerHelperPlayerFlowplayer5 extends SermonspeakerHelperPlayer
 {
+	/**
+	 * @var bool
+	 *
+	 * @since ?
+	 */
 	private static $script_loaded;
+
+	/**
+	 * @var string
+	 *
+	 * @since ?
+	 */
+	public $mode;
 
 	/**
 	 * Checks the filename if it's supported by the player
@@ -26,6 +38,8 @@ class SermonspeakerHelperPlayerFlowplayer5 extends SermonspeakerHelperPlayer
 	 * @param   string  $file  Filename
 	 *
 	 * @return  mixed  Mode (audio or video) or false when not supported
+	 *
+	 * @since ?
 	 */
 	public function isSupported($file)
 	{
@@ -48,6 +62,8 @@ class SermonspeakerHelperPlayerFlowplayer5 extends SermonspeakerHelperPlayer
 	 * Gets name of player
 	 *
 	 * @return  string  Name of player
+	 *
+	 * @since ?
 	 */
 	public function getName()
 	{
@@ -60,7 +76,9 @@ class SermonspeakerHelperPlayerFlowplayer5 extends SermonspeakerHelperPlayer
 	 * @param   object  $item    Itemobject
 	 * @param   array   $config  Config array
 	 *
-	 * @return  object  Player object
+	 * @return void
+	 *
+	 * @since ?
 	 */
 	public function preparePlayer($item, $config)
 	{
@@ -118,6 +136,7 @@ class SermonspeakerHelperPlayerFlowplayer5 extends SermonspeakerHelperPlayer
 			$this->toggle = $this->params->get('fileswitch', 0);
 			$type    = ($this->config['type'] == 'audio' || ($this->config['type'] == 'auto' && !$this->config['prio'])) ? 'a' : 'v';
 			$entries = array();
+			$file    = '';
 
 			foreach ($item as $temp_item)
 			{
@@ -154,7 +173,6 @@ class SermonspeakerHelperPlayerFlowplayer5 extends SermonspeakerHelperPlayer
 		{
 			$this->setDimensions('23px', '300px');
 			$type = ($this->mode == 'audio') ? 'a' : 'v';
-			$cat  = ($type == 'a') ? 'Audio' : 'Video';
 			$file = ($type == 'a') ? $item->audiofile : $item->videofile;
 			$file = SermonspeakerHelperSermonspeaker::makeLink($file);
 			$this->playlist['default'] = $file;

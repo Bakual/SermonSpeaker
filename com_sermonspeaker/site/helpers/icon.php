@@ -24,6 +24,8 @@ class JHtmlIcon
 	 * @param   string  $view      Which edit view to load (sermon, serie or speaker)
 	 *
 	 * @return  string  Create link
+	 *
+	 * @since ?
 	 */
 	public static function create($category, $params, $view = 'sermon')
 	{
@@ -66,6 +68,8 @@ class JHtmlIcon
 	 * @param   array   $attribs  Attributes
 	 *
 	 * @return  string  Email link
+	 *
+	 * @since ?
 	 */
 	public static function email($item, $params, $attribs = array())
 	{
@@ -97,6 +101,8 @@ class JHtmlIcon
 	 * @param   array   $attribs  Attributes
 	 *
 	 * @return  string  Edit link
+	 *
+	 * @since ?
 	 */
 	public static function edit($item, $params, $attribs = array())
 	{
@@ -194,15 +200,16 @@ class JHtmlIcon
 	/**
 	 * Download link
 	 *
-	 * @param   object  $item     Sermon object
-	 * @param   object  $params   Parameters
-	 * @param   object  $attribs  Attributes
+	 * @param   object     $item    Sermon object
+	 * @param   object     $params  Parameters
+	 * @param   array      $attribs Attributes
 	 *
-	 * @return  string  Download link
+	 * @return string Download link
+	 *
+	 * @since ?
 	 */
 	public static function download($item, $params, $attribs = array())
 	{
-		$onclick  = '';
 		$fileurl  = JRoute::_('index.php?task=download&id=' . $item->id . '&type=' . $attribs['type']);
 		$filesize = $attribs['type'] . 'filesize';
 
@@ -223,7 +230,7 @@ class JHtmlIcon
 			$output = '<meta itemprop="contentUrl" content="' . $fileurl . '" />';
 			$onclick = "ga('send', 'event', 'SermonSpeaker Download', '" . $attribs['type'] . "', 'id:" . $item->id . "');"
 					. "window.location.href='" . $fileurl . "';";
-			$output = '<a href="#" onclick="' . $onclick . '">' . $text . '</a>';
+			$output .= '<a href="#" onclick="' . $onclick . '">' . $text . '</a>';
 		}
 		else
 		{
@@ -236,17 +243,19 @@ class JHtmlIcon
 	/**
 	 * Play icon to control the player
 	 *
-	 * @param   object  $item     Sermon object
-	 * @param   object  $params   Parameters
-	 * @param   object  $attribs  Attributes
+	 * @param   object     $item    Sermon object
+	 * @param   object     $params  Parameters
+	 * @param   array $attribs Attributes
 	 *
-	 * @return  string  Play icon
+	 * @return string Play icon
+	 *
+	 * @since ?
 	 */
 	public static function play($item, $params, $attribs = array())
 	{
 		if ($params->get('list_icon_function') != 2)
 		{
-			return;
+			return '';
 		}
 
 		$text   = '<i class="icon-play"> </i> ' . JText::_('COM_SERMONSPEAKER_PLAYICON_HOOVER');

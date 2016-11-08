@@ -19,15 +19,38 @@ require_once JPATH_SITE . '/components/com_sermonspeaker/helpers/player.php';
 class SermonspeakerHelperPlayerSoundcloud extends SermonspeakerHelperPlayer
 {
 	/**
+	 * @var string
+	 *
+	 * @since ?
+	 */
+	public $mode;
+
+	/**
+	 * @var string
+	 *
+	 * @since ?
+	 */
+	public $file;
+
+	/**
+	 * @var string
+	 *
+	 * @since ?
+	 */
+	public $fb_file;
+
+	/**
 	 * Checks the filename if it's supported by the player
 	 *
 	 * @param   string  $file  Filename
 	 *
 	 * @return  mixed  Mode (audio or video) or false when not supported
+	 *
+	 * @since ?
 	 */
 	public function isSupported($file)
 	{
-		if (parse_url($item, PHP_URL_HOST) == 'soundcloud.com')
+		if (parse_url($file, PHP_URL_HOST) == 'soundcloud.com')
 		{
 			$this->mode = 'audio';
 		}
@@ -43,6 +66,8 @@ class SermonspeakerHelperPlayerSoundcloud extends SermonspeakerHelperPlayer
 	 * Gets name of player
 	 *
 	 * @return  string  Name of player
+	 *
+	 * @since ?
 	 */
 	public function getName()
 	{
@@ -55,7 +80,9 @@ class SermonspeakerHelperPlayerSoundcloud extends SermonspeakerHelperPlayer
 	 * @param   object  $item    Itemobject
 	 * @param   array   $config  Config array
 	 *
-	 * @return  object  Player object
+	 * @return void
+	 *
+	 * @since ?
 	 */
 	public function preparePlayer($item, $config)
 	{

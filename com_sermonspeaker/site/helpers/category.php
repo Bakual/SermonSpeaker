@@ -20,6 +20,8 @@ class SermonspeakerCategories extends JCategories
 	 * Constructor
 	 *
 	 * @param   array  $options  Obtions
+	 *
+	 * @since ?
 	 */
 	public function __construct($options = array())
 	{
