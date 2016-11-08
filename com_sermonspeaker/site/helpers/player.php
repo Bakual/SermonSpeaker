@@ -14,7 +14,7 @@ defined('_JEXEC') or die();
  *
  * @since  3.4
  */
-class SermonspeakerHelperPlayer
+abstract class SermonspeakerHelperPlayer
 {
 	public $mspace;
 
@@ -76,4 +76,13 @@ class SermonspeakerHelperPlayer
 
 		return;
 	}
+
+	/**
+	 * Returns the name of player
+	 *
+	 * @return  string  Name of player
+	 *
+	 * @since ?
+	 */
+	abstract public function getName();
 }
