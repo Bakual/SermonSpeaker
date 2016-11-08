@@ -68,7 +68,7 @@ $published = $this->state->get('filter.state');
 	</div>
 	<div class="modal-footer">
 		<button class="btn" type="button" data-dismiss="modal"
-			onclick="document.getElementById('batch-category-id').value='';document.getElementById('batch-language-id').value='';document.getElementById('batch-tag-id').value=''document.getElementById('batch-speaker-id').value='';document.getElementById('batch-serie-id').value=''">
+			onclick="document.getElementById('batch-category-id').value='';document.getElementById('batch-language-id').value='';document.getElementById('batch-tag-id').value='';document.getElementById('batch-speaker-id').value='';document.getElementById('batch-serie-id').value=''">
 			<?php echo JText::_('JCANCEL'); ?>
 		</button>
 		<button class="btn btn-primary" type="submit" onclick="Joomla.submitbutton('sermon.batch');">

@@ -384,7 +384,8 @@ class SermonspeakerViewSermon extends JViewLegacy
 		}
 
 		$this->addToolbar();
-		parent::display($tpl);
+
+		return parent::display($tpl);
 	}
 
 	/**
