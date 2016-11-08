@@ -139,6 +139,6 @@ class SermonspeakerViewScripture extends JViewLegacy
 		$document = JFactory::getDocument();
 		$document->addScriptDeclaration($javascript);
 
-		parent::display($tpl);
+		return parent::display($tpl);
 	}
 }

@@ -52,6 +52,7 @@ class SermonspeakerViewStatistics extends JViewLegacy
 		$this->series	= $this->get('Series');
 		$this->speakers	= $this->get('Speakers');
 		$this->sermons	= $this->get('Sermons');
-		parent::display($tpl);
+
+		return parent::display($tpl);
 	}
 }
