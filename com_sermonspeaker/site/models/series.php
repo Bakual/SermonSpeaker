@@ -232,7 +232,7 @@ class SermonspeakerModelSeries extends JModelList
 	 */
 	public function getSpeakers($series)
 	{
-		$db    = $this->getDBO();
+		$db    = $this->getDbo();
 		$query = $db->getQuery(true);
 		$query->select('sermons.speaker_id, speakers.title as speaker_title, speakers.pic, speakers.state');
 		$query->select('speakers.intro, speakers.bio, speakers.website');

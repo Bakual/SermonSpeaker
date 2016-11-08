@@ -44,7 +44,7 @@ class OBSSInAddonSermonspeaker extends OBSSInAddon{
 		// Getting Speaker
 		$speaker = array();
 		if ($item->speaker_id) {
-			$db		= JFactory::getDBO();
+			$db		= JFactory::getDbo();
 			$query	= "SELECT `title`, `pic` FROM #__sermon_speakers WHERE `id` = ".(int)$item->speaker_id;
 			$db->setQuery($query);
 			$speaker	= $db->loadAssoc();
@@ -190,7 +190,7 @@ class OBSSInAddonSermonspeaker extends OBSSInAddon{
 
 	public function getConfigs(){
 		if(!$this->configs){
-			$db 	= &JFactory::getDBO();
+			$db 	= &JFactory::getDbo();
 			$sql 	= "
 				SELECT `params`
 				FROM `#__obsocialsubmit_addons`

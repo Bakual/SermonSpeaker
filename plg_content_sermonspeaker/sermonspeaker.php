@@ -61,7 +61,7 @@ class PlgContentSermonspeaker extends JPlugin
 			require_once JPATH_ROOT . '/components/com_sermonspeaker/helpers/player.php';
 			require_once JPATH_ROOT . '/components/com_sermonspeaker/helpers/route.php';
 
-			$db = JFactory::getDBO();
+			$db = JFactory::getDbo();
 
 			foreach ($matches as $i => $match)
 			{

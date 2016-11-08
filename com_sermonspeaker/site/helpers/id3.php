@@ -124,7 +124,7 @@ class SermonspeakerHelperId3
 				$id3['scripture'] = '';
 			}
 
-			$db = JFactory::getDBO();
+			$db = JFactory::getDbo();
 
 			if (array_key_exists('album', $FileInfo['comments']))
 			{

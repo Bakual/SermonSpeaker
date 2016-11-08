@@ -90,7 +90,7 @@ class SermonspeakerModelFrontendupload extends SermonspeakerModelSermon
 
 			if ($data['id'])
 			{
-				$db    = JFactory::getDBO();
+				$db    = JFactory::getDbo();
 				$query = $db->getQuery(true);
 				$query->select('book, cap1, vers1, cap2, vers2, text');
 				$query->from('#__sermon_scriptures');

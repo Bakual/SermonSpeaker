@@ -36,7 +36,7 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 			return;
 		}
 
-		$db     = JFactory::getDBO();
+		$db     = JFactory::getDbo();
 		$user   = JFactory::getUser();
 		$groups = implode(',', $user->getAuthorisedViewLevels());
 
@@ -316,7 +316,7 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 			return;
 		}
 
-		$db = JFactory::getDBO();
+		$db = JFactory::getDbo();
 		$query = $db->getQuery(true);
 		$query->select('title, zip_size, zip_progress, zip_state');
 		$query->from('#__sermon_series');

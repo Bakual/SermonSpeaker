@@ -224,7 +224,7 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 		$params = JComponentHelper::getParams('com_sermonspeaker');
 
 		$app = JFactory::getApplication();
-		$db  = JFactory::getDBO();
+		$db  = JFactory::getDbo();
 
 		// Check filenames and show a warning if one isn't save to use in an URL. Store anyway.
 		$files	= array('audiofile', 'videofile', 'addfile');
@@ -305,7 +305,7 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 			return;
 		}
 
-		$db = JFactory::getDBO();
+		$db = JFactory::getDbo();
 		$query = $db->getQuery(true);
 		$query->select('audiofile, videofile, sermons.created_by, sermons.catid, sermons.title, speakers.title as speaker_title');
 		$query->select('series.title AS series_title, notes, sermon_number, picture');
