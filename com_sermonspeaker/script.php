@@ -20,16 +20,22 @@ class Com_SermonspeakerInstallerScript
 {
 	/**
 	 * @var  JApplicationCms  Holds the application object
+	 *
+	 * @since ?
 	 */
 	private $app;
 
 	/**
 	 * @var  string  During an update, it will be populated with the old release version
+	 *
+	 * @since ?
 	 */
 	private $oldRelease;
 
 	/**
 	 *  Constructor
+	 *
+	 * @since ?
 	 */
 	public function __construct()
 	{
@@ -43,6 +49,8 @@ class Com_SermonspeakerInstallerScript
 	 * @param   JInstallerAdapterComponent  $parent  Installerobject
 	 *
 	 * @return  boolean  false will terminate the installation
+	 *
+	 * @since ?
 	 */
 	public function preflight($type, $parent)
 	{
@@ -79,12 +87,14 @@ class Com_SermonspeakerInstallerScript
 	 * @param   JInstallerAdapterComponent  $parent  Installerobject
 	 *
 	 * @return void
+	 *
+	 * @since ?
 	 */
 	public function install($parent)
 	{
 		// Notice $parent->getParent() returns JInstaller object
 		/** @noinspection PhpUndefinedMethodInspection */
-		$parent->getParent()->setRedirectURL('index.php?option=com_sermonspeaker');
+		$parent->getParent()->setRedirectUrl('index.php?option=com_sermonspeaker');
 	}
 
 	/**
@@ -93,6 +103,8 @@ class Com_SermonspeakerInstallerScript
 	 * @param   JInstallerAdapterComponent  $parent  Installerobject
 	 *
 	 * @return void
+	 *
+	 * @since ?
 	 */
 	public function uninstall($parent)
 	{
@@ -104,6 +116,8 @@ class Com_SermonspeakerInstallerScript
 	 * @param   JInstallerAdapterComponent  $parent  Installerobject
 	 *
 	 * @return void
+	 *
+	 * @since ?
 	 */
 	public function update($parent)
 	{
@@ -219,6 +233,8 @@ class Com_SermonspeakerInstallerScript
 	 * @param   JInstallerAdapterComponent  $parent  Installerobject
 	 *
 	 * @return void
+	 *
+	 * @since ?
 	 */
  	public function postflight($type, $parent)
 	{
@@ -253,7 +269,7 @@ class Com_SermonspeakerInstallerScript
 				. ']';
 			$params['col_speaker'] = '"col_speaker":["speakers:bio","speaker:bio","speaker:intro"]';
 
-			$db    = JFactory::getDBO();
+			$db    = JFactory::getDbo();
 			$query = $db->getQuery(true);
 			$query->update($db->quoteName('#__extensions'));
 			$query->set($db->quoteName('params') . ' = ' . $db->quote('{' . implode(',', $params) . '}'));
@@ -265,7 +281,7 @@ class Com_SermonspeakerInstallerScript
 		// Migrate tags on update if table exists
 		if ($type == 'update')
 		{
-			$db     = JFactory::getDBO();
+			$db     = JFactory::getDbo();
 			$tables = $db->getTableList();
 			$prefix = $db->getPrefix();
 
@@ -303,6 +319,8 @@ class Com_SermonspeakerInstallerScript
 	 * Method to add a default category "uncategorized"
 	 *
 	 * @return void
+	 *
+	 * @since ?
 	 */
 	private function addCategory()
 	{
@@ -316,7 +334,7 @@ class Com_SermonspeakerInstallerScript
 		$catmodel->save($catData);
 		$id = $catmodel->getItem()->id;
 
-		$db = JFactory::getDBO();
+		$db = JFactory::getDbo();
 
 		// Updating the example data with 'Uncategorized'
 		$query = $db->getQuery(true);
