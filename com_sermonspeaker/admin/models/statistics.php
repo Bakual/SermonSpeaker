@@ -1,45 +1,52 @@
 <?php
 defined('_JEXEC') or die;
 
+/**
+ * Class SermonspeakerModelStatistics
+ *
+ * @since ?
+ */
 class SermonspeakerModelStatistics extends JModelLegacy
 {
-	function __construct()
-	{
-		parent::__construct();
-
-		$this->db = JFactory::getDbo();
-	}
-
-	function getSpeakers()
+	/**
+	 * @return \object[]
+	 *
+	 * @since ?
+	 */
+	public function getSpeakers()
 	{
 		$query = "SELECT id, title, hits FROM #__sermon_speakers \n"
 				."ORDER BY id"
 				;
-				
-		$rows = $this->_getList($query); 
 
-        return $rows;
+		return $this->_getList($query);
 	}
 
-	function getSeries()
+	/**
+	 * @return \object[]
+	 *
+	 * @since ?
+	 */
+	public function getSeries()
 	{
 		$query = "SELECT id, title, hits FROM #__sermon_series \n"
 				."ORDER BY id"
 				;
 
-		$rows = $this->_getList($query); 
-
-        return $rows;
+		return $this->_getList($query);
 	}
 
-	function getSermons()
+	/**
+	 * @return \object[]
+	 *
+	 * @since ?
+	 */
+	public function getSermons()
 	{
 		$query = "SELECT id, title, hits FROM #__sermon_sermons \n"
 				."ORDER BY id"
 				;
 
-		$rows = $this->_getList($query); 
-
-        return $rows;
+		return $this->_getList($query);
 	}
 }

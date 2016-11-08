@@ -434,6 +434,8 @@ class SermonspeakerModelSerie extends JModelAdmin
 			return false;
 		}
 
+		$newIds = array();
+
 		// Parent exists so we let's proceed
 		while (!empty($pks))
 		{

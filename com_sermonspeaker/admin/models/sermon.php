@@ -548,6 +548,7 @@ class SermonspeakerModelSermon extends JModelAdmin
 	{
 		// Initialise variables.
 		$user  = JFactory::getUser();
+		/** @var SermonspeakerTableSermon $table */
 		$table = $this->getTable();
 		$pks   = (array) $pks;
 
@@ -748,6 +749,8 @@ class SermonspeakerModelSermon extends JModelAdmin
 
 			return false;
 		}
+
+		$newIds = array();
 
 		// Parent exists so we let's proceed
 		while (!empty($pks))
