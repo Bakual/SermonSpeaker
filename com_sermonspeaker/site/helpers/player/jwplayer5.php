@@ -24,7 +24,7 @@ class SermonspeakerHelperPlayerJwplayer5 extends SermonspeakerHelperPlayer
 	/**
 	 * Checks the filename if it's supported by the player
 	 *
-	 * @param   string  $file  Filename
+	 * @param   string $file Filename
 	 *
 	 * @return  mixed  Mode (audio or video) or false when not supported
 	 *
@@ -32,7 +32,7 @@ class SermonspeakerHelperPlayerJwplayer5 extends SermonspeakerHelperPlayer
 	 */
 	public function isSupported($file)
 	{
-		$ext       = JFile::getExt($file);
+		$ext = JFile::getExt($file);
 		$audio_ext = array('aac', 'm4a', 'mp3');
 		$video_ext = array('mp4', 'mov', 'f4v', 'flv', '3gp', '3g2');
 
@@ -72,8 +72,8 @@ class SermonspeakerHelperPlayerJwplayer5 extends SermonspeakerHelperPlayer
 	/**
 	 * Prepares the player
 	 *
-	 * @param   object|array  $item    Itemobject
-	 * @param   array         $config  Config array
+	 * @param   object|array $item   Itemobject
+	 * @param   array        $config Config array
 	 *
 	 * @return void
 	 *
@@ -91,8 +91,8 @@ class SermonspeakerHelperPlayerJwplayer5 extends SermonspeakerHelperPlayer
 		$modes[1] = "{type:'html5'}";
 		$modes[2] = "{type:'download'}";
 		$options['modes'] = ($this->params->get('jwmode', 0)) ? '[' . $modes[1] . ',' . $modes[0] . ',' . $modes[2] . ']'
-															: '[' . $modes[0] . ',' . $modes[1] . ',' . $modes[2] . ']';
-		$options['autostart']  = $this->config['autostart'] ? 'true' : 'false';
+			: '[' . $modes[0] . ',' . $modes[1] . ',' . $modes[2] . ']';
+		$options['autostart'] = $this->config['autostart'] ? 'true' : 'false';
 		$options['controlbar'] = "'bottom'";
 
 		if ($skin = $this->params->get('jwskin', ''))
@@ -149,52 +149,52 @@ class SermonspeakerHelperPlayerJwplayer5 extends SermonspeakerHelperPlayer
 
 			// Make sure to not use < or && in JavaScript code as it will break XHTML compatibility
 			$options['events'] = '{'
-					. 'onPlaylistItem: function(event){'
-						. 'for (var i = 0; jQuery("#sermon"+i).length; i++){'
-							. 'jQuery("#sermon"+i).removeClass("ss-current");'
-						. '}'
-						. 'jQuery("#sermon"+event.index).addClass("ss-current");'
-						. 'var entry = jwplayer().getPlaylistItem();'
-						. 'if (entry.duration > 0){'
-							. 'time = new Array();'
-							. 'var hrs = Math.floor(entry.duration/3600);'
-							. 'if (hrs > 0){time.push(hrs);}'
-							. 'var min = Math.floor((entry.duration - hrs * 3600)/60);'
-							. 'if (hrs == 0 || min >= 10){'
-								. 'time.push(min);'
-							. '} else {'
-								. 'time.push("0" + min);'
-							. '}'
-							. 'var sec = entry.duration - hrs * 3600 - min * 60;'
-							. 'if (sec >= 10){'
-								. 'time.push(sec);'
-							. '} else {'
-								. 'time.push("0" + sec);'
-							. '}'
-							. 'var duration = time.join(":");'
-							. 'jQuery("#playing-duration").html(duration);'
-						. '} else {'
-							. 'jQuery("#playing-duration").html("");'
-						. '}'
-						. 'jQuery("#playing-pic").attr("src", entry.image);'
-						. 'if(entry.image){'
-							. 'jQuery("#playing-pic").show();'
-						. '}else{'
-							. 'jQuery("#playing-pic").hide();'
-						. '}'
-						. 'if(entry.error){'
-							. 'jQuery("#playing-error").html(entry.error);'
-							. 'jQuery("#playing-error").show();'
-						. '}else{'
-							. 'jQuery("#playing-error").hide();'
-						. '}'
-						. 'jQuery("#playing-title").html(entry.title);'
-						. 'jQuery("#playing-desc").html(entry.description);'
-					. '}'
+				. 'onPlaylistItem: function(event){'
+				. 'for (var i = 0; jQuery("#sermon"+i).length; i++){'
+				. 'jQuery("#sermon"+i).removeClass("ss-current");'
+				. '}'
+				. 'jQuery("#sermon"+event.index).addClass("ss-current");'
+				. 'var entry = jwplayer().getPlaylistItem();'
+				. 'if (entry.duration > 0){'
+				. 'time = new Array();'
+				. 'var hrs = Math.floor(entry.duration/3600);'
+				. 'if (hrs > 0){time.push(hrs);}'
+				. 'var min = Math.floor((entry.duration - hrs * 3600)/60);'
+				. 'if (hrs == 0 || min >= 10){'
+				. 'time.push(min);'
+				. '} else {'
+				. 'time.push("0" + min);'
+				. '}'
+				. 'var sec = entry.duration - hrs * 3600 - min * 60;'
+				. 'if (sec >= 10){'
+				. 'time.push(sec);'
+				. '} else {'
+				. 'time.push("0" + sec);'
+				. '}'
+				. 'var duration = time.join(":");'
+				. 'jQuery("#playing-duration").html(duration);'
+				. '} else {'
+				. 'jQuery("#playing-duration").html("");'
+				. '}'
+				. 'jQuery("#playing-pic").attr("src", entry.image);'
+				. 'if(entry.image){'
+				. 'jQuery("#playing-pic").show();'
+				. '}else{'
+				. 'jQuery("#playing-pic").hide();'
+				. '}'
+				. 'if(entry.error){'
+				. 'jQuery("#playing-error").html(entry.error);'
+				. 'jQuery("#playing-error").show();'
+				. '}else{'
+				. 'jQuery("#playing-error").hide();'
+				. '}'
+				. 'jQuery("#playing-title").html(entry.title);'
+				. 'jQuery("#playing-desc").html(entry.description);'
+				. '}'
 				. '}';
 			$entries = array();
-			$audios  = array();
-			$videos  = array();
+			$audios = array();
+			$videos = array();
 
 			foreach ($item as $temp_item)
 			{
@@ -219,7 +219,7 @@ class SermonspeakerHelperPlayerJwplayer5 extends SermonspeakerHelperPlayer
 				}
 				else
 				{
-					$entry['file']  = ($img) ? $img : JUri::base(true) . '/media/com_sermonspeaker/images/' . $this->params->get('defaultpic', 'nopict.jpg');
+					$entry['file'] = ($img) ? $img : JUri::base(true) . '/media/com_sermonspeaker/images/' . $this->params->get('defaultpic', 'nopict.jpg');
 					$entry['error'] = JText::_('JGLOBAL_RESOURCE_NOT_FOUND');
 				}
 
@@ -302,7 +302,7 @@ class SermonspeakerHelperPlayerJwplayer5 extends SermonspeakerHelperPlayer
 		{
 			// Single
 			$this->setDimensions('23px', '250px');
-			$type  = ($this->mode == 'audio') ? 'a' : 'v';
+			$type = ($this->mode == 'audio') ? 'a' : 'v';
 			$entry = array();
 
 			// Detect file to use
@@ -357,13 +357,13 @@ class SermonspeakerHelperPlayerJwplayer5 extends SermonspeakerHelperPlayer
 
 		$this->setPopup($type);
 		$this->script = '<script type="text/javascript">'
-							. "jwplayer('mediaspace" . $this->config['count'] . "').setup({"
-								. "playlist:[" . $this->playlist['default'] . "],"
-								. "width:'" . $this->config[$type . 'width'] . "',"
-								. "height:'" . $this->config[$type . 'height'] . "',"
-								. implode(',', $options)
-							. '});'
-						. '</script>';
+			. "jwplayer('mediaspace" . $this->config['count'] . "').setup({"
+			. "playlist:[" . $this->playlist['default'] . "],"
+			. "width:'" . $this->config[$type . 'width'] . "',"
+			. "height:'" . $this->config[$type . 'height'] . "',"
+			. implode(',', $options)
+			. '});'
+			. '</script>';
 
 		// Loading needed Javascript only once
 		if (!self::$script_loaded)
@@ -375,9 +375,9 @@ class SermonspeakerHelperPlayerJwplayer5 extends SermonspeakerHelperPlayer
 
 			if ($this->toggle)
 			{
-				$awidth  = is_numeric($this->config['awidth']) ? $this->config['awidth'] . 'px' : $this->config['awidth'];
+				$awidth = is_numeric($this->config['awidth']) ? $this->config['awidth'] . 'px' : $this->config['awidth'];
 				$aheight = is_numeric($this->config['aheight']) ? $this->config['aheight'] . 'px' : $this->config['aheight'];
-				$vwidth  = is_numeric($this->config['vwidth']) ? $this->config['vwidth'] . 'px' : $this->config['vwidth'];
+				$vwidth = is_numeric($this->config['vwidth']) ? $this->config['vwidth'] . 'px' : $this->config['vwidth'];
 				$vheight = is_numeric($this->config['vheight']) ? $this->config['vheight'] . 'px' : $this->config['vheight'];
 
 				if (!is_array($item))

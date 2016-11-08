@@ -28,7 +28,7 @@ class SermonspeakerHelperPlayerReal extends SermonspeakerHelperPlayer
 	/**
 	 * Checks the filename if it's supported by the player
 	 *
-	 * @param   string  $file  Filename
+	 * @param   string $file Filename
 	 *
 	 * @return  mixed  Mode (audio or video) or false when not supported
 	 *
@@ -36,7 +36,7 @@ class SermonspeakerHelperPlayerReal extends SermonspeakerHelperPlayer
 	 */
 	public function isSupported($file)
 	{
-		$ext       = JFile::getExt($file);
+		$ext = JFile::getExt($file);
 		$audio_ext = array('ra', 'ram', 'rm', 'rpm');
 		$video_ext = array('rv');
 
@@ -72,8 +72,8 @@ class SermonspeakerHelperPlayerReal extends SermonspeakerHelperPlayer
 	/**
 	 * Prepares the player
 	 *
-	 * @param   object  $item    Itemobject
-	 * @param   array   $config  Config array
+	 * @param   object $item   Itemobject
+	 * @param   array  $config Config array
 	 *
 	 * @return  void
 	 *
@@ -117,26 +117,26 @@ class SermonspeakerHelperPlayerReal extends SermonspeakerHelperPlayer
 		// For controls, see http://service.real.com/help/library/guides/realone/ProductionGuide/HTML/samples/embed/plugin2.htm
 		// "ImageWindow" brings the video window, "All" brings all the controls (but not the video), "ControlPanel" only the controls
 		$this->mspace = '<object id="mediaspace' . $this->config['count'] . '" classid="clsid:CFCDAA03-8BE4-11cf-B84B-0020AFBBCCFA" height="'
-						. $this->config[$type . 'height'] . '" width="' . $this->config[$type . 'width'] . '">'
-						. '<param name="controls" value="ControlPanel">'
-						. '<param name="console" value="media' . $this->config['count'] . '">'
-						. '<param name="autostart" value="' . $autostart . '">'
-						. '<param name="src" value="' . $file . '">'
-						. '<embed height="' . $this->config[$type . 'height'] . '" width="' . $this->config[$type . 'width'] . '" controls="ImageWindow" src="'
-						. $file . '" type="audio/x-pn-realaudio-plugin" autostart=' . $autostart . '>'
-					. '</object>';
+			. $this->config[$type . 'height'] . '" width="' . $this->config[$type . 'width'] . '">'
+			. '<param name="controls" value="ControlPanel">'
+			. '<param name="console" value="media' . $this->config['count'] . '">'
+			. '<param name="autostart" value="' . $autostart . '">'
+			. '<param name="src" value="' . $file . '">'
+			. '<embed height="' . $this->config[$type . 'height'] . '" width="' . $this->config[$type . 'width'] . '" controls="ImageWindow" src="'
+			. $file . '" type="audio/x-pn-realaudio-plugin" autostart=' . $autostart . '>'
+			. '</object>';
 
-					// Add video before controls
+		// Add video before controls
 		if ($this->config['type'] == 'video')
 		{
 			$this->mspace = '<object id="mediaspace' . $this->config['count'] . '" classid="clsid:CFCDAA03-8BE4-11cf-B84B-0020AFBBCCFA" height="'
-						. $this->config[$type . 'height'] . '" width="' . $this->config[$type . 'width'] . '">'
-						. '<param name="controls" value="ImageWindow">'
-						. '<param name="console" value="media' . $this->config['count'] . '">'
-						. '<embed height="' . $this->config[$type . 'height'] . '" width="' . $this->config[$type . 'width'] . '" controls="ImageWindow" src="'
-						. $file . '" type="audio/x-pn-realaudio-plugin">'
-					. '</object><br>'
-					. $this->mspace;
+				. $this->config[$type . 'height'] . '" width="' . $this->config[$type . 'width'] . '">'
+				. '<param name="controls" value="ImageWindow">'
+				. '<param name="console" value="media' . $this->config['count'] . '">'
+				. '<embed height="' . $this->config[$type . 'height'] . '" width="' . $this->config[$type . 'width'] . '" controls="ImageWindow" src="'
+				. $file . '" type="audio/x-pn-realaudio-plugin">'
+				. '</object><br>'
+				. $this->mspace;
 		}
 
 		return;

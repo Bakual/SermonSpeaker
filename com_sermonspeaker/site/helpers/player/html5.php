@@ -28,7 +28,7 @@ class SermonspeakerHelperPlayerHtml5 extends SermonspeakerHelperPlayer
 	/**
 	 * Checks the filename if it's supported by the player
 	 *
-	 * @param   string  $file  Filename
+	 * @param   string $file Filename
 	 *
 	 * @return  mixed  Mode (audio or video) or false when not supported
 	 *
@@ -37,7 +37,7 @@ class SermonspeakerHelperPlayerHtml5 extends SermonspeakerHelperPlayer
 	public function isSupported($file)
 	{
 		// Exclude wma and wmv files since these are not supported by HTML5 and we have a player for those
-		$ext     = JFile::getExt($file);
+		$ext = JFile::getExt($file);
 		$exclude = array('wma', 'wmv');
 
 		if (in_array($ext, $exclude))
@@ -64,8 +64,8 @@ class SermonspeakerHelperPlayerHtml5 extends SermonspeakerHelperPlayer
 	/**
 	 * Prepares the player
 	 *
-	 * @param   object  $item    Itemobject
-	 * @param   array   $config  Config array
+	 * @param   object $item   Itemobject
+	 * @param   array  $config Config array
 	 *
 	 * @return  void
 	 *
@@ -79,7 +79,7 @@ class SermonspeakerHelperPlayerHtml5 extends SermonspeakerHelperPlayer
 		if (is_array($item))
 		{
 			$this->mspace = '<div class="alert"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>Warning!</strong> '
-							. $this->player . ' doesn\'t support Playlists</div>';
+				. $this->player . ' doesn\'t support Playlists</div>';
 			$this->script = '';
 
 			return;
@@ -89,14 +89,14 @@ class SermonspeakerHelperPlayerHtml5 extends SermonspeakerHelperPlayer
 		$this->setDimensions('21px', '250px');
 		$this->setPopup($type);
 
-		$autoplay   = $this->config['autostart'] ? 'autoplay="autoplay"' : '';
+		$autoplay = $this->config['autostart'] ? 'autoplay="autoplay"' : '';
 		$this->mode = ($this->config['prio']) ? 'video' : 'audio';
-		$property   = $this->mode . 'file';
-		$file       = $item->$property;
+		$property = $this->mode . 'file';
+		$file = $item->$property;
 		$this->mspace = '<' . $this->mode . ' id="mediaspace' . $this->config['count'] . '" ' . $autoplay . ' controls="controls" width="'
-						. $this->config[$type . 'width'] . '" height="' . $this->config[$type . 'height'] . '">'
-							. '<source src="' . SermonspeakerHelperSermonspeaker::makeLink($file) . '">'
-						. '</' . $this->mode . '>';
+			. $this->config[$type . 'width'] . '" height="' . $this->config[$type . 'height'] . '">'
+			. '<source src="' . SermonspeakerHelperSermonspeaker::makeLink($file) . '">'
+			. '</' . $this->mode . '>';
 
 		$this->script = '';
 		$this->toggle = false;

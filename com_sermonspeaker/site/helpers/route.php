@@ -42,11 +42,11 @@ abstract class SermonspeakerHelperRoute
 		if ((int) $catid > 1)
 		{
 			$categories = JCategories::getInstance('Sermonspeaker', array('table' => '#__sermon_sermons'));
-			$category   = $categories->get((int) $catid);
+			$category = $categories->get((int) $catid);
 
 			if ($category)
 			{
-				$path               = array_reverse($category->getPath());
+				$path = array_reverse($category->getPath());
 				$needles['sermons'] = Joomla\Utilities\ArrayHelper::toInteger($path);
 			}
 
@@ -102,11 +102,11 @@ abstract class SermonspeakerHelperRoute
 		if ((int) $catid > 1)
 		{
 			$categories = JCategories::getInstance('Sermonspeaker', array('table' => '#__sermon_sermons'));
-			$category   = $categories->get((int) $catid);
+			$category = $categories->get((int) $catid);
 
 			if ($category)
 			{
-				$path               = array_reverse($category->getPath());
+				$path = array_reverse($category->getPath());
 				$needles['sermons'] = Joomla\Utilities\ArrayHelper::toInteger($path);
 			}
 		}
@@ -158,11 +158,11 @@ abstract class SermonspeakerHelperRoute
 		if ((int) $catid > 1)
 		{
 			$categories = JCategories::getInstance('Sermonspeaker', array('table' => '#__sermon_series'));
-			$category   = $categories->get((int) $catid);
+			$category = $categories->get((int) $catid);
 
 			if ($category)
 			{
-				$path              = array_reverse($category->getPath());
+				$path = array_reverse($category->getPath());
 				$needles['series'] = Joomla\Utilities\ArrayHelper::toInteger($path);
 			}
 
@@ -218,11 +218,11 @@ abstract class SermonspeakerHelperRoute
 		if ((int) $catid > 1)
 		{
 			$categories = JCategories::getInstance('Sermonspeaker', array('table' => '#__sermon_series'));
-			$category   = $categories->get((int) $catid);
+			$category = $categories->get((int) $catid);
 
 			if ($category)
 			{
-				$path              = array_reverse($category->getPath());
+				$path = array_reverse($category->getPath());
 				$needles['series'] = Joomla\Utilities\ArrayHelper::toInteger($path);
 			}
 		}
@@ -274,11 +274,11 @@ abstract class SermonspeakerHelperRoute
 		if ((int) $catid > 1)
 		{
 			$categories = JCategories::getInstance('Sermonspeaker', array('table' => '#__sermon_speakers'));
-			$category   = $categories->get((int) $catid);
+			$category = $categories->get((int) $catid);
 
 			if ($category)
 			{
-				$path                = array_reverse($category->getPath());
+				$path = array_reverse($category->getPath());
 				$needles['speakers'] = Joomla\Utilities\ArrayHelper::toInteger($path);
 			}
 
@@ -334,11 +334,11 @@ abstract class SermonspeakerHelperRoute
 		if ((int) $catid > 1)
 		{
 			$categories = JCategories::getInstance('Sermonspeaker', array('table' => '#__sermon_speakers'));
-			$category   = $categories->get((int) $catid);
+			$category = $categories->get((int) $catid);
 
 			if ($category)
 			{
-				$path                = array_reverse($category->getPath());
+				$path = array_reverse($category->getPath());
 				$needles['speakers'] = Joomla\Utilities\ArrayHelper::toInteger($path);
 			}
 		}
@@ -379,8 +379,8 @@ abstract class SermonspeakerHelperRoute
 	 */
 	protected static function _findItem($needles = null)
 	{
-		$app      = JFactory::getApplication();
-		$menus    = $app->getMenu('site');
+		$app = JFactory::getApplication();
+		$menus = $app->getMenu('site');
 		$language = isset($needles['language']) ? $needles['language'] : '*';
 
 		// Prepare the reverse lookup array.
@@ -391,12 +391,12 @@ abstract class SermonspeakerHelperRoute
 			$component = JComponentHelper::getComponent('com_sermonspeaker');
 
 			$attributes = array('component_id');
-			$values     = array($component->id);
+			$values = array($component->id);
 
 			if ($language != '*')
 			{
 				$attributes[] = 'language';
-				$values[]     = array($needles['language'], '*');
+				$values[] = array($needles['language'], '*');
 			}
 
 			$items = $menus->getItems($attributes, $values);
@@ -508,7 +508,7 @@ abstract class SermonspeakerHelperRoute
 	 */
 	protected static function _getLanguages()
 	{
-		$db    = JFactory::getDbo();
+		$db = JFactory::getDbo();
 		$query = $db->getQuery(true)
 			->select('a.sef AS sef')
 			->select('a.lang_code AS lang_code')

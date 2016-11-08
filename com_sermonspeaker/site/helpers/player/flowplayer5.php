@@ -35,7 +35,7 @@ class SermonspeakerHelperPlayerFlowplayer5 extends SermonspeakerHelperPlayer
 	/**
 	 * Checks the filename if it's supported by the player
 	 *
-	 * @param   string  $file  Filename
+	 * @param   string $file Filename
 	 *
 	 * @return  mixed  Mode (audio or video) or false when not supported
 	 *
@@ -43,16 +43,16 @@ class SermonspeakerHelperPlayerFlowplayer5 extends SermonspeakerHelperPlayer
 	 */
 	public function isSupported($file)
 	{
-		$ext       = JFile::getExt($file);
+		$ext = JFile::getExt($file);
 		$video_ext = array('mp4', 'webm', 'ogg', 'ogv', 'avi', 'm3u8', 'ts');
 
 		if (in_array($ext, $video_ext))
 		{
-			$this->mode	= 'video';
+			$this->mode = 'video';
 		}
 		else
 		{
-			$this->mode	= false;
+			$this->mode = false;
 		}
 
 		return $this->mode;
@@ -73,8 +73,8 @@ class SermonspeakerHelperPlayerFlowplayer5 extends SermonspeakerHelperPlayer
 	/**
 	 * Prepares the player
 	 *
-	 * @param   object  $item    Itemobject
-	 * @param   array   $config  Config array
+	 * @param   object $item   Itemobject
+	 * @param   array  $config Config array
 	 *
 	 * @return void
 	 *
@@ -92,51 +92,51 @@ class SermonspeakerHelperPlayerFlowplayer5 extends SermonspeakerHelperPlayer
 
 			// Make sure to not use < or && in JavaScript code as it will break XHTML compatibility
 			$options['onStart'] = 'function(){'
-					. 'for (var i = 0; jQuery("#sermon"+i).length; i++){'
-						. 'jQuery("#sermon"+i).removeClass("ss-current");'
-					. '}'
-					. 'var entry = flowplayer().getClip();'
-					. 'jQuery("#sermon"+entry.index).addClass("ss-current");'
-					. 'if (entry.duration > 0){'
-						. 'time = new Array();'
-						. 'var hrs = Math.floor(entry.duration/3600);'
-						. 'if (hrs > 0){time.push(hrs);}'
-						. 'var min = Math.floor((entry.duration - hrs * 3600)/60);'
-						. 'if (hrs == 0 || min >= 10){'
-							. 'time.push(min);'
-						. '} else {'
-							. 'time.push("0" + min);'
-						. '}'
-						. 'var sec = entry.duration - hrs * 3600 - min * 60;'
-						. 'if (sec >= 10){'
-							. 'time.push(sec);'
-						. '} else {'
-							. 'time.push("0" + sec);'
-						. '}'
-						. 'var duration = time.join(":");'
-						. 'jQuery("#playing-duration").html(duration);'
-					. '} else {'
-						. 'jQuery("#playing-duration").html("");'
-					. '}'
-					. 'jQuery("#playing-pic").attr("src", entry.coverImage);'
-					. 'if(entry.coverImage){'
-						. 'jQuery("#playing-pic").show();'
-					. '}else{'
-						. 'jQuery("#playing-pic").hide();'
-					. '}'
-					. 'if(entry.error){'
-						. 'jQuery("#playing-error").html(entry.error);'
-						. 'jQuery("#playing-error").show();'
-					. '}else{'
-						. 'jQuery("#playing-error").hide();'
-					. '}'
-					. 'jQuery("#playing-title").html(entry.title);'
-					. 'jQuery("#playing-desc").html(entry.description);'
+				. 'for (var i = 0; jQuery("#sermon"+i).length; i++){'
+				. 'jQuery("#sermon"+i).removeClass("ss-current");'
+				. '}'
+				. 'var entry = flowplayer().getClip();'
+				. 'jQuery("#sermon"+entry.index).addClass("ss-current");'
+				. 'if (entry.duration > 0){'
+				. 'time = new Array();'
+				. 'var hrs = Math.floor(entry.duration/3600);'
+				. 'if (hrs > 0){time.push(hrs);}'
+				. 'var min = Math.floor((entry.duration - hrs * 3600)/60);'
+				. 'if (hrs == 0 || min >= 10){'
+				. 'time.push(min);'
+				. '} else {'
+				. 'time.push("0" + min);'
+				. '}'
+				. 'var sec = entry.duration - hrs * 3600 - min * 60;'
+				. 'if (sec >= 10){'
+				. 'time.push(sec);'
+				. '} else {'
+				. 'time.push("0" + sec);'
+				. '}'
+				. 'var duration = time.join(":");'
+				. 'jQuery("#playing-duration").html(duration);'
+				. '} else {'
+				. 'jQuery("#playing-duration").html("");'
+				. '}'
+				. 'jQuery("#playing-pic").attr("src", entry.coverImage);'
+				. 'if(entry.coverImage){'
+				. 'jQuery("#playing-pic").show();'
+				. '}else{'
+				. 'jQuery("#playing-pic").hide();'
+				. '}'
+				. 'if(entry.error){'
+				. 'jQuery("#playing-error").html(entry.error);'
+				. 'jQuery("#playing-error").show();'
+				. '}else{'
+				. 'jQuery("#playing-error").hide();'
+				. '}'
+				. 'jQuery("#playing-title").html(entry.title);'
+				. 'jQuery("#playing-desc").html(entry.description);'
 				. '}';
 			$this->toggle = $this->params->get('fileswitch', 0);
-			$type    = ($this->config['type'] == 'audio' || ($this->config['type'] == 'auto' && !$this->config['prio'])) ? 'a' : 'v';
+			$type = ($this->config['type'] == 'audio' || ($this->config['type'] == 'auto' && !$this->config['prio'])) ? 'a' : 'v';
 			$entries = array();
-			$file    = '';
+			$file = '';
 
 			foreach ($item as $temp_item)
 			{
@@ -181,10 +181,10 @@ class SermonspeakerHelperPlayerFlowplayer5 extends SermonspeakerHelperPlayer
 		$this->setPopup($type);
 		$this->mspace = '<div id="mediaspace' . $this->config['count'] . '"></div>';
 		$this->script = '<script type="text/javascript">'
-							. 'jQuery("#mediaspace' . $this->config['count'] . '").flowplayer({'
-								. 'playlist: ["' . $file . '"]'
-							. '});'
-						. '</script>';
+			. 'jQuery("#mediaspace' . $this->config['count'] . '").flowplayer({'
+			. 'playlist: ["' . $file . '"]'
+			. '});'
+			. '</script>';
 
 		// Loading needed Javascript only once
 		if (!self::$script_loaded)
@@ -197,10 +197,10 @@ class SermonspeakerHelperPlayerFlowplayer5 extends SermonspeakerHelperPlayer
 
 			if ($this->toggle)
 			{
-				$awidth		= is_numeric($this->config['awidth']) ? $this->config['awidth'] . 'px' : $this->config['awidth'];
-				$aheight	= is_numeric($this->config['aheight']) ? $this->config['aheight'] . 'px' : $this->config['aheight'];
-				$vwidth		= is_numeric($this->config['vwidth']) ? $this->config['vwidth'] . 'px' : $this->config['vwidth'];
-				$vheight	= is_numeric($this->config['vheight']) ? $this->config['vheight'] . 'px' : $this->config['vheight'];
+				$awidth = is_numeric($this->config['awidth']) ? $this->config['awidth'] . 'px' : $this->config['awidth'];
+				$aheight = is_numeric($this->config['aheight']) ? $this->config['aheight'] . 'px' : $this->config['aheight'];
+				$vwidth = is_numeric($this->config['vwidth']) ? $this->config['vwidth'] . 'px' : $this->config['vwidth'];
+				$vheight = is_numeric($this->config['vheight']) ? $this->config['vheight'] . 'px' : $this->config['vheight'];
 
 				if (!is_array($item))
 				{

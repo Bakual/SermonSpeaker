@@ -42,7 +42,7 @@ class SermonspeakerHelperPlayerSoundcloud extends SermonspeakerHelperPlayer
 	/**
 	 * Checks the filename if it's supported by the player
 	 *
-	 * @param   string  $file  Filename
+	 * @param   string $file Filename
 	 *
 	 * @return  mixed  Mode (audio or video) or false when not supported
 	 *
@@ -77,8 +77,8 @@ class SermonspeakerHelperPlayerSoundcloud extends SermonspeakerHelperPlayer
 	/**
 	 * Prepares the player
 	 *
-	 * @param   object  $item    Itemobject
-	 * @param   array   $config  Config array
+	 * @param   object $item   Itemobject
+	 * @param   array  $config Config array
 	 *
 	 * @return void
 	 *
@@ -95,15 +95,15 @@ class SermonspeakerHelperPlayerSoundcloud extends SermonspeakerHelperPlayer
 		{
 			// Get first item and work from that
 			$first = reset($item);
-			$link  = $first->audiofile;
-			$link  = substr($link, 0, strrpos($link, '/'));
+			$link = $first->audiofile;
+			$link = substr($link, 0, strrpos($link, '/'));
 		}
 		else
 		{
 			$link = $item->audiofile;
 		}
 
-		$this->file    = $link;
+		$this->file = $link;
 		$this->fb_file = $link;
 		$this->setDimensions('305', '100%');
 		$this->setPopup('a');
@@ -115,7 +115,7 @@ class SermonspeakerHelperPlayerSoundcloud extends SermonspeakerHelperPlayer
 			$url .= '&maxwidth=' . $this->config['awidth'];
 		}
 
-		$xml    = simplexml_load_file($url);
+		$xml = simplexml_load_file($url);
 		$string = str_replace('<![CDATA[', '', $xml->html);
 		$string = str_replace(']]>', '', $string);
 		$this->mspace = $string;

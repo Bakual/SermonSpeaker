@@ -17,14 +17,14 @@ defined('_JEXEC') or die();
 class SermonspeakerHelperSermonspeaker
 {
 	/**
-	 * @var  Joomla\Registry\Registry  $params  Registry object
+	 * @var  Joomla\Registry\Registry $params Registry object
 	 *
 	 * @since ?
 	 */
 	private static $params;
 
 	/**
-	 * @var  string  $view  Name of current view
+	 * @var  string $view Name of current view
 	 *
 	 * @since ?
 	 */
@@ -61,15 +61,16 @@ class SermonspeakerHelperSermonspeaker
 	/**
 	 * Inserts tooltip for speaker
 	 *
-	 * @param   int     $id             ID of the speaker
-	 * @param   string  $pic            URL to picture
-	 * @param   string  $speaker_title  Speaker name
+	 * @param   int    $id            ID of the speaker
+	 * @param   string $pic           URL to picture
+	 * @param   string $speaker_title Speaker name
 	 *
-	 * @deprecated  5.2  Use "JLayoutHelper::render('titles.speaker', array('item' => $this->item, 'params' => $this->params))" instead
+	 * @deprecated  5.2  Use "JLayoutHelper::render('titles.speaker', array('item' => $this->item, 'params' =>
+	 *              $this->params))" instead
 	 *
 	 * @return  string  Tooltip
 	 *
-	 * @since ?
+	 * @since       ?
 	 */
 	public static function SpeakerTooltip($id, $pic, $speaker_title)
 	{
@@ -81,8 +82,8 @@ class SermonspeakerHelperSermonspeaker
 		// BC Code to call the layout instead
 		$item = new stdclass;
 		$item->speaker_title = $speaker_title;
-		$item->speaker_slug  = $id;
-		$item->pic           = $pic;
+		$item->speaker_slug = $id;
+		$item->pic = $pic;
 
 		return JLayoutHelper::render('titles.speaker', array('item' => $item, 'params' => self::$params, 'legacy' => true));
 	}
@@ -90,9 +91,9 @@ class SermonspeakerHelperSermonspeaker
 	/**
 	 * Inserts Addfile link
 	 *
-	 * @param   string  $addfile      URL
-	 * @param   string  $addfileDesc  Description
-	 * @param   int     $show_icon    Show an icon
+	 * @param   string $addfile     URL
+	 * @param   string $addfileDesc Description
+	 * @param   int    $show_icon   Show an icon
 	 *
 	 * @return  string  Addfile Link
 	 *
@@ -105,21 +106,21 @@ class SermonspeakerHelperSermonspeaker
 			return '';
 		}
 
-		$html		= '';
-		$onclick	= '';
-		$icon		= '';
+		$html = '';
+		$onclick = '';
+		$icon = '';
 
 		if (!self::$params)
 		{
 			self::getParams();
 		}
 
-		$pos	= strpos($addfile, 'icon=');
+		$pos = strpos($addfile, 'icon=');
 
 		if ($pos !== false)
 		{
-			$icon		= substr($addfile, $pos + 5);
-			$addfile	= substr($addfile, 0, $pos - 1);
+			$icon = substr($addfile, $pos + 5);
+			$addfile = substr($addfile, 0, $pos - 1);
 		}
 
 		$link = self::makeLink($addfile);
@@ -176,8 +177,8 @@ class SermonspeakerHelperSermonspeaker
 	/**
 	 * Creates full links, adding base path
 	 *
-	 * @param   string  $path  URL
-	 * @param   bool    $abs   absolute or relative link
+	 * @param   string $path URL
+	 * @param   bool   $abs  absolute or relative link
 	 *
 	 * @return  string  URL
 	 *
@@ -196,10 +197,10 @@ class SermonspeakerHelperSermonspeaker
 	/**
 	 * Inserts download button
 	 *
-	 * @param   int     $id    ID of the sermon
-	 * @param   string  $type  Audio or video download
-	 * @param   int     $mode  Various modes
-	 * @param   int     $size  Filesize
+	 * @param   int    $id   ID of the sermon
+	 * @param   string $type Audio or video download
+	 * @param   int    $mode Various modes
+	 * @param   int    $size Filesize
 	 *
 	 * @return  string  button
 	 *
@@ -215,7 +216,7 @@ class SermonspeakerHelperSermonspeaker
 		$id = (int) $id;
 
 		$text = ($size) ? JText::sprintf('COM_SERMONSPEAKER_DOWNLOADBUTTON_' . $type . '_WITH_SIZE', self::convertBytes($size))
-						: JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_' . $type);
+			: JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_' . $type);
 		$onclick = '';
 		$fileurl = JRoute::_('index.php?task=download&id=' . $id . '&type=' . $type);
 
@@ -228,8 +229,8 @@ class SermonspeakerHelperSermonspeaker
 			}
 
 			$html = '<a href="' . $fileurl . '" target="_new" ' . $onclick . ' class="hasTooltip" title="::' . $text . '">'
-						. '<img src="media/com_sermonspeaker/images/download.png" alt="' . $text . '" />'
-					. '</a>';
+				. '<img src="media/com_sermonspeaker/images/download.png" alt="' . $text . '" />'
+				. '</a>';
 		}
 		elseif ($mode == 2)
 		{
@@ -251,8 +252,8 @@ class SermonspeakerHelperSermonspeaker
 			}
 
 			$html = '<a href="' . $fileurl . '" target="_new" ' . $onclick . ' class="hasTooltip" title="' . $text . '">'
-						. '<i class="icon-download"> </i>'
-					. '</a>';
+				. '<i class="icon-download"> </i>'
+				. '</a>';
 		}
 		elseif ($mode == 4)
 		{
@@ -282,8 +283,8 @@ class SermonspeakerHelperSermonspeaker
 	/**
 	 * Inserts popup button
 	 *
-	 * @param   int     $id      ID of the sermon
-	 * @param   object  $player  Player object for popup dimensions
+	 * @param   int    $id     ID of the sermon
+	 * @param   object $player Player object for popup dimensions
 	 *
 	 * @return  string  button
 	 *
@@ -302,7 +303,7 @@ class SermonspeakerHelperSermonspeaker
 	/**
 	 * Inserts time
 	 *
-	 * @param   string  $time  Time
+	 * @param   string $time Time
 	 *
 	 * @return  string  formatted time
 	 *
@@ -325,10 +326,10 @@ class SermonspeakerHelperSermonspeaker
 	/**
 	 * Inserts sermon title
 	 *
-	 * @param   int     $i       Counter
-	 * @param   object  $item    Sermon
-	 * @param   object  $player  Player
-	 * @param   bool    $icon    Show icon or not
+	 * @param   int    $i      Counter
+	 * @param   object $item   Sermon
+	 * @param   object $player Player
+	 * @param   bool   $icon   Show icon or not
 	 *
 	 * @return  string  title
 	 *
@@ -443,8 +444,8 @@ class SermonspeakerHelperSermonspeaker
 	/**
 	 * Inserts Searchtags. Based on code from Douglas Machado
 	 *
-	 * @param   object  $item       Item
-	 * @param   string  $separator  Separator between the tags
+	 * @param   object $item      Item
+	 * @param   string $separator Separator between the tags
 	 *
 	 * @return  string  Searchtags
 	 *
@@ -461,7 +462,7 @@ class SermonspeakerHelperSermonspeaker
 		$tags = array();
 
 		// @codingStandardsIgnoreStart
-		if ($enable_keywords&1)
+		if ($enable_keywords & 1)
 		{
 			// @codingStandardsIgnoreEnd
 			$metakey = (is_object($item)) ? $item->metakey : $item;
@@ -501,9 +502,9 @@ class SermonspeakerHelperSermonspeaker
 	/**
 	 * Searchs for a matching picture in the order sermon > series > speaker
 	 *
-	 * @param   object  $item      Item
-	 * @param   bool    $makeLink  Makes a link
-	 * @param   bool    $abs       Makes the link absolute, only relevant together with $makeLink
+	 * @param   object $item     Item
+	 * @param   bool   $makeLink Makes a link
+	 * @param   bool   $abs      Makes the link absolute, only relevant together with $makeLink
 	 *
 	 * @return  string  Path to picture
 	 *
@@ -550,9 +551,9 @@ class SermonspeakerHelperSermonspeaker
 	/**
 	 * Inserting the scriptures
 	 *
-	 * @param   string  $scripture  String containing the scripture
-	 * @param   string  $between    Delimiter
-	 * @param   bool    $addTag     Adds plugin tags around scripture
+	 * @param   string $scripture String containing the scripture
+	 * @param   string $between   Delimiter
+	 * @param   bool   $addTag    Adds plugin tags around scripture
 	 *
 	 * @return  string  Scriptures
 	 *
@@ -579,8 +580,8 @@ class SermonspeakerHelperSermonspeaker
 	/**
 	 * Building the scripture
 	 *
-	 * @param   string  $scripture  String containing the scripture
-	 * @param   bool    $addTag     Adds plugin tags around scripture
+	 * @param   string $scripture String containing the scripture
+	 * @param   bool   $addTag    Adds plugin tags around scripture
 	 *
 	 * @return  string  Scripture
 	 *
@@ -660,7 +661,7 @@ class SermonspeakerHelperSermonspeaker
 	/**
 	 * Get MIME type for extension
 	 *
-	 * @param   string  $ext  File extension
+	 * @param   string $ext File extension
 	 *
 	 * @return  string  MIME type
 	 *
@@ -712,15 +713,15 @@ class SermonspeakerHelperSermonspeaker
 	/**
 	 * Loading the correct playerclass and defining some default config
 	 *
-	 * @param   object|array  $item    Can be a single sermon object or an array of sermon objects
-	 * @param   array         $config  Should be an array of config options. Valid options:
-	 *  - count (id of the player)
-	 *  - type (may be audio, video or auto)
-	 *  - prio (may be 0 for audio or 1 for video)
-	 *  - autostart (overwrites the backend setting)
-	 *  - alt_player (overwrites the backend setting)
-	 *  - awidth, aheight (width and height for audio)
-	 *  - vwidth, vheight (width and height for video)
+	 * @param   object|array $item   Can be a single sermon object or an array of sermon objects
+	 * @param   array        $config Should be an array of config options. Valid options:
+	 *                               - count (id of the player)
+	 *                               - type (may be audio, video or auto)
+	 *                               - prio (may be 0 for audio or 1 for video)
+	 *                               - autostart (overwrites the backend setting)
+	 *                               - alt_player (overwrites the backend setting)
+	 *                               - awidth, aheight (width and height for audio)
+	 *                               - vwidth, vheight (width and height for video)
 	 *
 	 * @return  object  Player
 	 *
@@ -748,12 +749,12 @@ class SermonspeakerHelperSermonspeaker
 			// Create player object to pass through plugins
 			$player = new stdClass;
 			$player->popup['height'] = 0;
-			$player->popup['width']  = 0;
-			$player->error           = '';
-			$player->toggle          = false;
-			$player->script          = '';
-			$player->player          = '';
-			$player->mspace          = '';
+			$player->popup['width'] = 0;
+			$player->error = '';
+			$player->toggle = false;
+			$player->script = '';
+			$player->player = '';
+			$player->mspace = '';
 
 			// Convert $config to an Registry object
 			$registry = new Joomla\Registry\Registry;
@@ -771,11 +772,11 @@ class SermonspeakerHelperSermonspeaker
 		}
 
 		// Setting default values
-		$config['count']	= (isset($config['count'])) ? $config['count'] : 1;
+		$config['count'] = (isset($config['count'])) ? $config['count'] : 1;
 
 		// Allow a fixed value for the type; may be audio, video or auto. "Auto" is default behaviour and takes care of the "prio" param.
-		$config['type']		= (isset($config['type'])) ? $config['type'] : 'auto';
-		$config['prio']		= (isset($config['prio'])) ? $config['prio'] : self::$params->get('fileprio', 0);
+		$config['type'] = (isset($config['type'])) ? $config['type'] : 'auto';
+		$config['prio'] = (isset($config['prio'])) ? $config['prio'] : self::$params->get('fileprio', 0);
 
 		// Autostart parameter may be overridden by a layout (eg for Series/Sermon View)
 		$config['autostart'] = (isset($config['autostart'])) ? $config['autostart'] : self::$params->get('autostart');
@@ -810,8 +811,8 @@ class SermonspeakerHelperSermonspeaker
 		require_once JPATH_SITE . '/components/com_sermonspeaker/helpers/player/' . $config['alt_player'] . '.php';
 		$classname = 'SermonspeakerHelperPlayer' . ucfirst($config['alt_player']);
 
-		/* @var  SermonspeakerHelperPlayerJwplayer5  $player  Default player class is JW Player, but can be any other */
-		$player    = new $classname;
+		/* @var  SermonspeakerHelperPlayerJwplayer5 $player Default player class is JW Player, but can be any other */
+		$player = new $classname;
 
 		if (is_array($item))
 		{
@@ -835,9 +836,9 @@ class SermonspeakerHelperSermonspeaker
 			{
 				// Nothing available
 				$player->popup['height'] = 0;
-				$player->popup['width']  = 0;
-				$player->error           = JText::_('JGLOBAL_RESOURCE_NOT_FOUND');
-				$player->toggle          = false;
+				$player->popup['width'] = 0;
+				$player->error = JText::_('JGLOBAL_RESOURCE_NOT_FOUND');
+				$player->toggle = false;
 
 				return $player;
 			}
@@ -885,7 +886,7 @@ class SermonspeakerHelperSermonspeaker
 
 					require_once $classfile;
 					$classname = 'SermonspeakerHelperPlayer' . ucfirst($playername);
-					$player    = new $classname;
+					$player = new $classname;
 
 					if ($player->isSupported($file))
 					{
@@ -898,10 +899,10 @@ class SermonspeakerHelperSermonspeaker
 					}
 				}
 
-				$player->popup['height']	= 0;
-				$player->popup['width']		= 0;
-				$player->error				= 'Unsupported Filetype';
-				$player->toggle				= false;
+				$player->popup['height'] = 0;
+				$player->popup['width'] = 0;
+				$player->error = 'Unsupported Filetype';
+				$player->toggle = false;
 
 				return $player;
 			}
@@ -911,8 +912,8 @@ class SermonspeakerHelperSermonspeaker
 	/**
 	 * Method to convert bytes into Megabytes or what is needed
 	 *
-	 * @param   object  $item  Item
-	 * @param   bool    $prio  True for audio or false for video
+	 * @param   object $item Item
+	 * @param   bool   $prio True for audio or false for video
 	 *
 	 * @return  mixed  filepath or false
 	 *
@@ -936,9 +937,9 @@ class SermonspeakerHelperSermonspeaker
 	 * Method to convert bytes into Megabytes or what is needed
 	 * Based on function "binary_multiples" from Damir Enseleit <info@selfphp.de>
 	 *
-	 * @param   int   $bytes  Bytes
-	 * @param   bool  $si     use prefix based on SI norm instead the new IEC norm
-	 * @param   bool  $short  use short prefix
+	 * @param   int  $bytes Bytes
+	 * @param   bool $si    use prefix based on SI norm instead the new IEC norm
+	 * @param   bool $short use short prefix
 	 *
 	 * @return  string  converted bytes
 	 *
@@ -955,15 +956,15 @@ class SermonspeakerHelperSermonspeaker
 			else
 			{
 				$unit = array('Byte',
-							'Kilobyte',
-							'Megabyte',
-							'Gigabyte',
-							'Terabyte',
-							'Petabyte',
-							'Exabyte',
-							'Zettabyte',
-							'Yottabyte'
-							);
+					'Kilobyte',
+					'Megabyte',
+					'Gigabyte',
+					'Terabyte',
+					'Petabyte',
+					'Exabyte',
+					'Zettabyte',
+					'Yottabyte',
+				);
 			}
 
 			$factor = 1000;
@@ -977,15 +978,15 @@ class SermonspeakerHelperSermonspeaker
 			else
 			{
 				$unit = array('Byte',
-							'Kibibyte',
-							'Mebibyte',
-							'Gibibyte',
-							'Tebibyte',
-							'Pebibyte',
-							'Exbibyte',
-							'Zebibyte',
-							'Yobibyte'
-							);
+					'Kibibyte',
+					'Mebibyte',
+					'Gibibyte',
+					'Tebibyte',
+					'Pebibyte',
+					'Exbibyte',
+					'Zebibyte',
+					'Yobibyte',
+				);
 			}
 
 			$factor = 1024;

@@ -49,7 +49,7 @@ class SermonspeakerHelperPlayerVimeo extends SermonspeakerHelperPlayer
 	/**
 	 * Checks the filename if it's supported by the player
 	 *
-	 * @param   string  $item  Filename
+	 * @param   string $item Filename
 	 *
 	 * @return  mixed  Mode (audio or video) or false when not supported
 	 *
@@ -86,8 +86,8 @@ class SermonspeakerHelperPlayerVimeo extends SermonspeakerHelperPlayer
 	/**
 	 * Prepares the player
 	 *
-	 * @param   object  $item    Itemobject
-	 * @param   array   $config  Config array
+	 * @param   object $item   Itemobject
+	 * @param   array  $config Config array
 	 *
 	 * @return  void
 	 *
@@ -103,21 +103,21 @@ class SermonspeakerHelperPlayerVimeo extends SermonspeakerHelperPlayer
 		if (is_array($item))
 		{
 			$this->mspace = '<div class="alert"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>Warning!</strong> '
-							. $this->player . ' doesn\'t support Playlists</div>';
+				. $this->player . ' doesn\'t support Playlists</div>';
 
-							return;
+			return;
 		}
 
-		$id            = trim(strrchr($item->videofile, '/'), '/ ');
-		$this->file    = 'http://vimeo.com/' . $id;
+		$id = trim(strrchr($item->videofile, '/'), '/ ');
+		$this->file = 'http://vimeo.com/' . $id;
 		$this->fb_file = 'http://vimeo.com/moogaloop.swf?clip_id=' . $id
 			. '&amp;server=vimeo.com&amp;show_title=0&amp;show_byline=0&amp;show_portrait=0&amp;color=00adef&amp;fullscreen=1&amp;autoplay=0&amp;loop=0';
 		$this->setDimensions(50, '100%');
 		$this->setPopup('v');
 		$start = $this->config['autostart'] ? 1 : 0;
 		$this->mspace = '<iframe id="mediaspace' . $this->config['count'] . '" width="' . $this->config['vwidth'] . '" height="' . $this->config['vheight']
-						. '" src="http://player.vimeo.com/video/' . $id . '?title=0&byline=0&portrait=0&border=0&autoplay=' . $start . '&player_id=vimeo'
-						. $this->config['count'] . '&api=1"></iframe>';
+			. '" src="http://player.vimeo.com/video/' . $id . '?title=0&byline=0&portrait=0&border=0&autoplay=' . $start . '&player_id=vimeo'
+			. $this->config['count'] . '&api=1"></iframe>';
 
 		// Loading needed Javascript only once
 		if (!self::$script_loaded)

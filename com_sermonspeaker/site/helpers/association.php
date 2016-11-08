@@ -22,8 +22,8 @@ abstract class SermonspeakerHelperAssociation extends CategoryHelperAssociation
 	/**
 	 * Method to get the associations for a given item
 	 *
-	 * @param   integer  $id    Id of the item
-	 * @param   string   $view  Name of the view
+	 * @param   integer $id   Id of the item
+	 * @param   string  $view Name of the view
 	 *
 	 * @return  array   Array of associations for the item
 	 *
@@ -34,8 +34,8 @@ abstract class SermonspeakerHelperAssociation extends CategoryHelperAssociation
 		jimport('helper.route', JPATH_COMPONENT_SITE);
 
 		$jinput = JFactory::getApplication()->input;
-		$view   = is_null($view) ? $jinput->get('view') : $view;
-		$id     = empty($id) ? $jinput->getInt('id') : $id;
+		$view = is_null($view) ? $jinput->get('view') : $view;
+		$id = empty($id) ? $jinput->getInt('id') : $id;
 
 		switch ($view)
 		{
@@ -56,9 +56,9 @@ abstract class SermonspeakerHelperAssociation extends CategoryHelperAssociation
 	/**
 	 * Search items
 	 *
-	 * @param   int     $id          ID to find
-	 * @param   string  $view        Viewname
-	 * @param   string  $tablename   The name of the table.
+	 * @param   int    $id        ID to find
+	 * @param   string $view      Viewname
+	 * @param   string $tablename The name of the table.
 	 *
 	 * @return  array  Matching items
 	 *

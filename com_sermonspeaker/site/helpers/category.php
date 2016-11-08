@@ -19,7 +19,7 @@ class SermonspeakerCategories extends JCategories
 	/**
 	 * Constructor
 	 *
-	 * @param   array  $options  Obtions
+	 * @param   array $options Obtions
 	 *
 	 * @since ?
 	 */

@@ -35,7 +35,7 @@ class SermonspeakerHelperPlayerWmvplayer extends SermonspeakerHelperPlayer
 	/**
 	 * Checks the filename if it's supported by the player
 	 *
-	 * @param   string  $file  Filename
+	 * @param   string $file Filename
 	 *
 	 * @return  mixed  Mode (audio or video) or false when not supported
 	 *
@@ -43,7 +43,7 @@ class SermonspeakerHelperPlayerWmvplayer extends SermonspeakerHelperPlayer
 	 */
 	public function isSupported($file)
 	{
-		$ext	= JFile::getExt($file);
+		$ext = JFile::getExt($file);
 
 		if ($ext == 'wma')
 		{
@@ -76,8 +76,8 @@ class SermonspeakerHelperPlayerWmvplayer extends SermonspeakerHelperPlayer
 	/**
 	 * Prepares the player
 	 *
-	 * @param   object  $item    Itemobject
-	 * @param   array   $config  Config array
+	 * @param   object $item   Itemobject
+	 * @param   array  $config Config array
 	 *
 	 * @return  void
 	 *
@@ -91,7 +91,7 @@ class SermonspeakerHelperPlayerWmvplayer extends SermonspeakerHelperPlayer
 		if (is_array($item))
 		{
 			$this->mspace = '<div class="alert"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>Warning!</strong> '
-							. $this->player . ' doesn\'t support Playlists</div>';
+				. $this->player . ' doesn\'t support Playlists</div>';
 			$this->script = '';
 
 			return;
@@ -117,23 +117,23 @@ class SermonspeakerHelperPlayerWmvplayer extends SermonspeakerHelperPlayer
 		if ($item->sermon_time != '00:00:00')
 		{
 			$time_arr = explode(':', $item->sermon_time);
-			$seconds  = ($time_arr[0] * 3600) + ($time_arr[1] * 60) + $time_arr[2];
+			$seconds = ($time_arr[0] * 3600) + ($time_arr[1] * 60) + $time_arr[2];
 			$duration = 'duration: ' . $seconds . ',';
 		}
 
 		$start = $this->config['autostart'] ? 'true' : 'false';
 		$this->script = '<script type="text/javascript">'
-						. 'var elm = document.getElementById("mediaspace' . $this->config['count'] . '");'
-						. 'var cfg = {'
-						. " file:'" . $file . "',"
-						. ' autostart:' . $start . ','
-						. $duration
-						. $image
-						. " width: '" . $this->config[$type . 'width'] . "',"
-						. " height: '" . $this->config[$type . 'height'] . "'"
-						. '};'
-						. "var ply = new jeroenwijering.Player(elm,'" . $player . "',cfg);"
-					. '</script>';
+			. 'var elm = document.getElementById("mediaspace' . $this->config['count'] . '");'
+			. 'var cfg = {'
+			. " file:'" . $file . "',"
+			. ' autostart:' . $start . ','
+			. $duration
+			. $image
+			. " width: '" . $this->config[$type . 'width'] . "',"
+			. " height: '" . $this->config[$type . 'height'] . "'"
+			. '};'
+			. "var ply = new jeroenwijering.Player(elm,'" . $player . "',cfg);"
+			. '</script>';
 		$this->toggle = false;
 
 		// Loading needed Javascript only once

@@ -19,9 +19,9 @@ class JHtmlIcon
 	/**
 	 * Create link
 	 *
-	 * @param   object  $category  Category object
-	 * @param   object  $params    Parameters
-	 * @param   string  $view      Which edit view to load (sermon, serie or speaker)
+	 * @param   object $category Category object
+	 * @param   object $params   Parameters
+	 * @param   string $view     Which edit view to load (sermon, serie or speaker)
 	 *
 	 * @return  string  Create link
 	 *
@@ -46,7 +46,7 @@ class JHtmlIcon
 				break;
 			case 'sermon':
 			default:
-				$view       = 'sermon';
+				$view = 'sermon';
 				$controller = 'frontendupload';
 				break;
 		}
@@ -63,9 +63,9 @@ class JHtmlIcon
 	/**
 	 * Email link
 	 *
-	 * @param   object  $item     Sermon object
-	 * @param   object  $params   Parameters
-	 * @param   array   $attribs  Attributes
+	 * @param   object $item    Sermon object
+	 * @param   object $params  Parameters
+	 * @param   array  $attribs Attributes
 	 *
 	 * @return  string  Email link
 	 *
@@ -74,18 +74,18 @@ class JHtmlIcon
 	public static function email($item, $params, $attribs = array())
 	{
 		require_once JPATH_SITE . '/components/com_mailto/helpers/mailto.php';
-		$uri      = JUri::getInstance();
-		$base     = $uri->toString(array('scheme', 'host', 'port'));
+		$uri = JUri::getInstance();
+		$base = $uri->toString(array('scheme', 'host', 'port'));
 		$template = JFactory::getApplication()->getTemplate();
 		$function = 'get' . ucfirst($attribs['type']) . 'Route';
-		$link     = $base . JRoute::_(SermonspeakerHelperRoute::$function($item->slug, $item->catid, $item->language), false);
-		$url      = 'index.php?option=com_mailto&tmpl=component&template=' . $template . '&link=' . MailToHelper::addLink($link);
+		$link = $base . JRoute::_(SermonspeakerHelperRoute::$function($item->slug, $item->catid, $item->language), false);
+		$url = 'index.php?option=com_mailto&tmpl=component&template=' . $template . '&link=' . MailToHelper::addLink($link);
 
 		$status = 'width=400,height=350,menubar=yes,resizable=yes';
 
 		$text = '<span class="icon-envelope"></span> ' . JText::_('JGLOBAL_EMAIL');
 
-		$attribs['title']   = JText::_('JGLOBAL_EMAIL');
+		$attribs['title'] = JText::_('JGLOBAL_EMAIL');
 		$attribs['onclick'] = "window.open(this.href,'win2','" . $status . "'); return false;";
 
 		$output = JHtml::_('link', JRoute::_($url), $text, $attribs);
@@ -96,9 +96,9 @@ class JHtmlIcon
 	/**
 	 * Edit link
 	 *
-	 * @param   object  $item     Sermon object
-	 * @param   object  $params   Parameters
-	 * @param   array   $attribs  Attributes
+	 * @param   object $item    Sermon object
+	 * @param   object $params  Parameters
+	 * @param   array  $attribs Attributes
 	 *
 	 * @return  string  Edit link
 	 *
@@ -107,8 +107,8 @@ class JHtmlIcon
 	public static function edit($item, $params, $attribs = array())
 	{
 		// Initialise variables.
-		$user   = JFactory::getUser();
-		$uri    = JUri::getInstance();
+		$user = JFactory::getUser();
+		$uri = JUri::getInstance();
 
 		// Ignore if Frontend Uploading is disabled
 		if ($params && !$params->get('fu_enable'))
@@ -132,13 +132,14 @@ class JHtmlIcon
 
 		// Show checked_out icon if the item is checked out by a different user
 		if (property_exists($item, 'checked_out') && property_exists($item, 'checked_out_time')
-			&& $item->checked_out > 0 && $item->checked_out != $user->id)
+			&& $item->checked_out > 0 && $item->checked_out != $user->id
+		)
 		{
 			$checkoutUser = JFactory::getUser($item->checked_out);
 			$button = JHtml::_('image', 'system/checked_out.png', null, null, true);
 			$date = JHtml::_('date', $item->checked_out_time);
 			$tooltip = JText::_('JLIB_HTML_CHECKED_OUT') . ' :: ' . JText::sprintf('COM_SERMONSPEAKER_CHECKED_OUT_BY', $checkoutUser->name)
-						. ' <br /> ' . $date;
+				. ' <br /> ' . $date;
 
 			return '<span class="hasTooltip" title="' . htmlspecialchars($tooltip, ENT_COMPAT, 'UTF-8') . '">' . $button . '</span>';
 		}
@@ -184,13 +185,14 @@ class JHtmlIcon
 		$icon = $item->state ? 'edit' : 'eye-close';
 
 		if (strtotime($item->publish_up) > strtotime(JFactory::getDate())
-			|| ((strtotime($item->publish_down) < strtotime(JFactory::getDate())) && $item->publish_down != JFactory::getDbo()->getNullDate()))
+			|| ((strtotime($item->publish_down) < strtotime(JFactory::getDate())) && $item->publish_down != JFactory::getDbo()->getNullDate())
+		)
 		{
 			$icon = 'eye-close';
 		}
 
 		$text = '<span class="hasTooltip icon-' . $icon . ' tip" title="' . JHtml::tooltipText(JText::_('JACTION_EDIT'), $overlib, 0, 0) . '"></span> '
-				. JText::_('JGLOBAL_EDIT');
+			. JText::_('JGLOBAL_EDIT');
 
 		$output = JHtml::_('link', JRoute::_($url), $text);
 
@@ -200,9 +202,9 @@ class JHtmlIcon
 	/**
 	 * Download link
 	 *
-	 * @param   object     $item    Sermon object
-	 * @param   object     $params  Parameters
-	 * @param   array      $attribs Attributes
+	 * @param   object $item    Sermon object
+	 * @param   object $params  Parameters
+	 * @param   array  $attribs Attributes
 	 *
 	 * @return string Download link
 	 *
@@ -210,7 +212,7 @@ class JHtmlIcon
 	 */
 	public static function download($item, $params, $attribs = array())
 	{
-		$fileurl  = JRoute::_('index.php?task=download&id=' . $item->id . '&type=' . $attribs['type']);
+		$fileurl = JRoute::_('index.php?task=download&id=' . $item->id . '&type=' . $attribs['type']);
 		$filesize = $attribs['type'] . 'filesize';
 
 		if ($item->$filesize)
@@ -229,7 +231,7 @@ class JHtmlIcon
 		{
 			$output = '<meta itemprop="contentUrl" content="' . $fileurl . '" />';
 			$onclick = "ga('send', 'event', 'SermonSpeaker Download', '" . $attribs['type'] . "', 'id:" . $item->id . "');"
-					. "window.location.href='" . $fileurl . "';";
+				. "window.location.href='" . $fileurl . "';";
 			$output .= '<a href="#" onclick="' . $onclick . '">' . $text . '</a>';
 		}
 		else
@@ -243,9 +245,9 @@ class JHtmlIcon
 	/**
 	 * Play icon to control the player
 	 *
-	 * @param   object     $item    Sermon object
-	 * @param   object     $params  Parameters
-	 * @param   array $attribs Attributes
+	 * @param   object $item    Sermon object
+	 * @param   object $params  Parameters
+	 * @param   array  $attribs Attributes
 	 *
 	 * @return string Play icon
 	 *
@@ -258,7 +260,7 @@ class JHtmlIcon
 			return '';
 		}
 
-		$text   = '<i class="icon-play"> </i> ' . JText::_('COM_SERMONSPEAKER_PLAYICON_HOOVER');
+		$text = '<i class="icon-play"> </i> ' . JText::_('COM_SERMONSPEAKER_PLAYICON_HOOVER');
 		$output = '<a href="#" onclick="ss_play(' . $attribs['index'] . ');return false;">' . $text . '</a>';
 
 		return $output;
