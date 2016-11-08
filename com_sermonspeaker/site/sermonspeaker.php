@@ -15,7 +15,7 @@ $jinput = JFactory::getApplication()->input;
 if ($jinput->get('task') == 'podcast')
 {
 	header('HTTP/1.1 301 Moved Permanently');
-	header('Location: ' . JURI::root() . 'index.php?option=com_sermonspeaker&view=feed&format=raw');
+	header('Location: ' . JUri::root() . 'index.php?option=com_sermonspeaker&view=feed&format=raw');
 
 	return;
 }

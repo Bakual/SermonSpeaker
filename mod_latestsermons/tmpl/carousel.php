@@ -63,7 +63,7 @@ if ($params->get('show_list')) : ?>
 						<?php if ($params->get('ls_show_mo_date') and $row->sermon_date) : ?>
 							<dd class="published">
 								<?php $date_format = JText::_($params->get('ls_mo_date_format', 'DATE_FORMAT_LC4'));
-								echo JText::_('JDATE') . ': ' . JHtml::Date($row->sermon_date, $date_format, true); ?>
+								echo JText::_('JDATE') . ': ' . JHtml::date($row->sermon_date, $date_format, true); ?>
 							</dd>
 						<?php endif; ?>
 						<?php if ($params->get('ls_show_mo_speaker') and $row->speaker_title) : ?>

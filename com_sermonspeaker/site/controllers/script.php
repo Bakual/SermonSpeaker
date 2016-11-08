@@ -27,7 +27,7 @@ class SermonspeakerControllerScript extends JControllerLegacy
 		require_once JPATH_COMPONENT_ADMINISTRATOR . '/controllers/tools.php';
 		$admin_controller = new SermonspeakerControllerTools;
 		$admin_controller->createAutomatic();
-		$this->setRedirect(JURI::root());
+		$this->setRedirect(JUri::root());
 
 		return;
 	}

@@ -90,41 +90,41 @@ class SermonspeakerViewSermons extends JViewLegacy
 		$canDo = SermonspeakerHelper::getActions();
 
 		// Get the toolbar object instance
-		$bar = JToolBar::getInstance('toolbar');
+		$bar = JToolbar::getInstance('toolbar');
 
-		JToolBarHelper::title(JText::_('COM_SERMONSPEAKER_SERMONS_TITLE'), 'quote-3 sermons');
+		JToolbarHelper::title(JText::_('COM_SERMONSPEAKER_SERMONS_TITLE'), 'quote-3 sermons');
 
 		if ($canDo->get('core.create'))
 		{
-			JToolBarHelper::addNew('sermon.add', 'JTOOLBAR_NEW');
+			JToolbarHelper::addNew('sermon.add', 'JTOOLBAR_NEW');
 		}
 
 		if (($canDo->get('core.edit')) || ($canDo->get('core.edit.own')))
 		{
-			JToolBarHelper::editList('sermon.edit', 'JTOOLBAR_EDIT');
+			JToolbarHelper::editList('sermon.edit', 'JTOOLBAR_EDIT');
 		}
 
 		if ($canDo->get('core.edit.state'))
 		{
-			JToolBarHelper::divider();
-			JToolBarHelper::custom('sermons.publish', 'publish', '', 'JTOOLBAR_PUBLISH', true);
-			JToolBarHelper::custom('sermons.unpublish', 'unpublish', '', 'JTOOLBAR_UNPUBLISH', true);
+			JToolbarHelper::divider();
+			JToolbarHelper::custom('sermons.publish', 'publish', '', 'JTOOLBAR_PUBLISH', true);
+			JToolbarHelper::custom('sermons.unpublish', 'unpublish', '', 'JTOOLBAR_UNPUBLISH', true);
 
 			if ($this->state->get('filter.state') != 2)
 			{
-				JToolBarHelper::archiveList('sermons.archive', 'JTOOLBAR_ARCHIVE');
+				JToolbarHelper::archiveList('sermons.archive', 'JTOOLBAR_ARCHIVE');
 			}
 			else
 			{
-				JToolBarHelper::unarchiveList('sermons.publish', 'JTOOLBAR_UNARCHIVE');
+				JToolbarHelper::unarchiveList('sermons.publish', 'JTOOLBAR_UNARCHIVE');
 			}
 
-			JToolBarHelper::checkin('sermons.checkin');
+			JToolbarHelper::checkin('sermons.checkin');
 		}
 
 		if ($canDo->get('core.edit.state'))
 		{
-			JToolBarHelper::custom('tools.order', 'purge icon-lightning', '', 'COM_SERMONSPEAKER_TOOLS_ORDER', false);
+			JToolbarHelper::custom('tools.order', 'purge icon-lightning', '', 'COM_SERMONSPEAKER_TOOLS_ORDER', false);
 		}
 
 		// Add a batch button
@@ -141,16 +141,16 @@ class SermonspeakerViewSermons extends JViewLegacy
 
 		if ($this->state->get('filter.state') == -2 && $canDo->get('core.delete'))
 		{
-			JToolBarHelper::deleteList('', 'sermons.delete', 'JTOOLBAR_EMPTY_TRASH');
+			JToolbarHelper::deleteList('', 'sermons.delete', 'JTOOLBAR_EMPTY_TRASH');
 		}
 		elseif ($canDo->get('core.edit.state'))
 		{
-			JToolBarHelper::trash('sermons.trash', 'JTOOLBAR_TRASH');
+			JToolbarHelper::trash('sermons.trash', 'JTOOLBAR_TRASH');
 		}
 
 		if ($canDo->get('core.admin') || $canDo->get('core.options'))
 		{
-			JToolBarHelper::preferences('com_sermonspeaker');
+			JToolbarHelper::preferences('com_sermonspeaker');
 		}
 	}
 

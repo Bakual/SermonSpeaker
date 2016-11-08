@@ -97,7 +97,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 				endif;
 
 				if (in_array('sermons:date', $this->columns) and ($item->sermon_date != '0000-00-00')) :
-					$tip[] = JText::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL') . ': ' . JHtml::Date($item->sermon_date, JText::_($this->params->get('date_format')), true);
+					$tip[] = JText::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL') . ': ' . JHtml::date($item->sermon_date, JText::_($this->params->get('date_format')), true);
 				endif;
 
 				if (in_array('sermons:category', $this->columns)) :

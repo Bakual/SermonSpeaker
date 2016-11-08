@@ -178,7 +178,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 													<div class="create">
 														<i class="icon-calendar"></i>
 														<?php echo JText::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL'); ?>:
-														<?php echo JHtml::Date($item->sermon_date, JText::_($this->params->get('date_format')), true); ?>
+														<?php echo JHtml::date($item->sermon_date, JText::_($this->params->get('date_format')), true); ?>
 													</div>
 												</dd>
 											<?php endif;

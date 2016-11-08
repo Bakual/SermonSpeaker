@@ -49,7 +49,7 @@ class JHtmlIcon
 				break;
 		}
 
-		$uri = JURI::getInstance();
+		$uri = JUri::getInstance();
 		$url = 'index.php?option=com_sermonspeaker&task=' . $controller . '.add&return=' . base64_encode($uri) . '&s_id=0&catid=' . $category->id;
 		$text = '<span class="icon-plus"></span> ' . JText::_('JNEW') . '&#160;';
 
@@ -70,7 +70,7 @@ class JHtmlIcon
 	public static function email($item, $params, $attribs = array())
 	{
 		require_once JPATH_SITE . '/components/com_mailto/helpers/mailto.php';
-		$uri      = JURI::getInstance();
+		$uri      = JUri::getInstance();
 		$base     = $uri->toString(array('scheme', 'host', 'port'));
 		$template = JFactory::getApplication()->getTemplate();
 		$function = 'get' . ucfirst($attribs['type']) . 'Route';

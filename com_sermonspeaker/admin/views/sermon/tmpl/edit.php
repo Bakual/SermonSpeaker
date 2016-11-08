@@ -11,7 +11,7 @@ JHtml::_('behavior.keepalive');
 JHtml::_('behavior.modal');
 JHtml::_('formbehavior.chosen', 'select');
 
-$uri = JURI::getInstance();
+$uri = JUri::getInstance();
 $uri->delVar('file');
 $uri->delVar('type');
 $self = $uri->toString();

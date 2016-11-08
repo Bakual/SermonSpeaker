@@ -17,7 +17,7 @@ foreach ($list as $item) : ?>
 	<a href="<?php echo $item->route; ?>">
 		<?php
 		if ($showDate) :
-			echo JHtml::Date($item->created, JText::_('DATE_FORMAT_LC4')) . ' - ';
+			echo JHtml::date($item->created, JText::_('DATE_FORMAT_LC4')) . ' - ';
 		endif;
 		echo $item->title; ?></a>
 </li>

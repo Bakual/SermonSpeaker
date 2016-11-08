@@ -170,9 +170,9 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->sermons);
 							$ext = JFile::getExt($item->addfile);
 
 							if (file_exists(JPATH_SITE . '/media/com_sermonspeaker/icons/' . $ext . '.png')) :
-								$file = JURI::root() . 'media/com_sermonspeaker/icons/' . $ext . '.png';
+								$file = JUri::root() . 'media/com_sermonspeaker/icons/' . $ext . '.png';
 							else :
-								$file = JURI::root() . 'media/com_sermonspeaker/icons/icon.png';
+								$file = JUri::root() . 'media/com_sermonspeaker/icons/icon.png';
 							endif;
 
 							// Show filename if no addfileDesc is set
@@ -225,7 +225,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->sermons);
 						<?php
 						if (in_array('speaker:date', $this->col_sermon) and ($item->sermon_date != '0000-00-00 00:00:00')) : ?>
 							<div class="create">
-								<?php echo JHtml::Date($item->sermon_date, JText::_('DATE_FORMAT_LC1'), true); ?>
+								<?php echo JHtml::date($item->sermon_date, JText::_('DATE_FORMAT_LC1'), true); ?>
 							</div>
 						<?php endif;
 

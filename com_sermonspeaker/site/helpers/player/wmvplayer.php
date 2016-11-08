@@ -79,7 +79,7 @@ class SermonspeakerHelperPlayerWmvplayer extends SermonspeakerHelperPlayer
 			return;
 		}
 
-		$player = JURI::root() . 'media/com_sermonspeaker/player/wmvplayer/wmvplayer.xaml';
+		$player = JUri::root() . 'media/com_sermonspeaker/player/wmvplayer/wmvplayer.xaml';
 		$this->mspace = '<div id="mediaspace' . $this->config['count'] . '">' . JText::_('COM_SERMONSPEAKER_PLAYER_NEEDS_JAVASCRIPT') . '</div>';
 		$file = SermonspeakerHelperSermonspeaker::getFileByPrio($item, $this->config['prio']);
 		$file = SermonspeakerHelperSermonspeaker::makeLink($file);

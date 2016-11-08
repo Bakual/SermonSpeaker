@@ -122,7 +122,7 @@ class PlgSermonspeakerPixelout extends SermonspeakerPluginPlayer
 			JHtml::script('media/plg_sermonspeaker_pixelout/audio-player.js');
 			$doc = JFactory::getDocument();
 			$doc->addScriptDeclaration('
-				AudioPlayer.setup("' . JURI::root() . 'media/plg_sermonspeaker_pixelout/player.swf", {
+				AudioPlayer.setup("' . JUri::root() . 'media/plg_sermonspeaker_pixelout/player.swf", {
 					width: "' . $this->params->get('awidth', '100%') . '",
 					initialvolume: 100,
 					transparentpagebg: "yes",
@@ -179,7 +179,7 @@ class PlgSermonspeakerPixelout extends SermonspeakerPluginPlayer
 			}
 			else
 			{
-				$files[]   = urlencode(JURI::root());
+				$files[]   = urlencode(JUri::root());
 				$titles[]  = JText::_('JGLOBAL_RESOURCE_NOT_FOUND');
 				$artists[] = '';
 

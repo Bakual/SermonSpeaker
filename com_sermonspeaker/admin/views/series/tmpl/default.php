@@ -159,10 +159,10 @@ $assoc     = JLanguageAssociations::isEnabled();
 						<?php endif;?>
 						<td class="center small hidden-phone">
 							<?php if (!$item->avatar){
-								$item->avatar = JURI::root().'media/com_sermonspeaker/images/'.$this->state->get('params')->get('defaultpic', 'nopict.jpg');
+								$item->avatar = JUri::root().'media/com_sermonspeaker/images/'.$this->state->get('params')->get('defaultpic', 'nopict.jpg');
 							}
 							if (!parse_url($item->avatar, PHP_URL_SCHEME)) {
-								$item->avatar = JURI::root().trim($item->avatar, '/.');
+								$item->avatar = JUri::root().trim($item->avatar, '/.');
 							} ?>
 							<img src="<?php echo $item->avatar; ?>" border="1" width="50" height="50">
 						</td>

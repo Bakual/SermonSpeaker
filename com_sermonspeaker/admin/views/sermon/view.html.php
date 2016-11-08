@@ -412,8 +412,8 @@ class SermonspeakerViewSermon extends JViewLegacy
 			// For new records, check the create permission.
 			if ($canDo->get('core.create'))
 			{
-				JToolBarHelper::apply('sermon.apply');
-				JToolBarHelper::save('sermon.save');
+				JToolbarHelper::apply('sermon.apply');
+				JToolbarHelper::save('sermon.save');
 				JToolbarHelper::save2new('sermon.save2new');
 			}
 
@@ -427,8 +427,8 @@ class SermonspeakerViewSermon extends JViewLegacy
 				// Since it's an existing record, check the edit permission, or fall back to edit own if the owner.
 				if ($canDo->get('core.edit') || ($canDo->get('core.edit.own') && $this->item->created_by == $user->id))
 				{
-					JToolBarHelper::apply('sermon.apply');
-					JToolBarHelper::save('sermon.save');
+					JToolbarHelper::apply('sermon.apply');
+					JToolbarHelper::save('sermon.save');
 
 					// We can save this record, but check the create permission to see if we can return to make a new one.
 					if ($canDo->get('core.create'))

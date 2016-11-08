@@ -94,7 +94,7 @@ $listDirn  = $this->escape($this->state->get('list.direction'));
 						</td>
 						<td class="center nowrap">
 							<?php if ($item->sermon_date != '0000-00-00 00:00:00'):
-								echo JHtml::Date($item->sermon_date, JText::_('DATE_FORMAT_LC4'), true);
+								echo JHtml::date($item->sermon_date, JText::_('DATE_FORMAT_LC4'), true);
 							endif; ?>
 						</td>
 						<td class="center">

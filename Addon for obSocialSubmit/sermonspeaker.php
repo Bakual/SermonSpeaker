@@ -63,7 +63,7 @@ class OBSSInAddonSermonspeaker extends OBSSInAddon{
 		} else {
 			$slug	= $item->id;
 		}
-		$link = JURI::root().'index.php?option=com_sermonspeaker&view=sermon&id='.$slug;
+		$link = JUri::root().'index.php?option=com_sermonspeaker&view=sermon&id='.$slug;
 
 		if ($item->audiofile and $mode == 'audio'){
 			$file = $this->makeLink($item->audiofile);
@@ -161,7 +161,7 @@ class OBSSInAddonSermonspeaker extends OBSSInAddon{
 	// probably used to get SEF URL by checking the URL. Removed it as it created an error.
 	private function getUrl($unroute_url){
 		
-		$url_root 	= JURI::root();
+		$url_root 	= JUri::root();
 		$tp 		= strpos($url_root,'/components/com_obsocialsubmit/');
 		$url_root 	= ( $tp ) ? substr( $url_root, 0, $tp + 1 ) : $url_root;
 		$urlcommand = $url_root.'components/com_obsocialsubmit/sefurl.php?url='.urlencode($unroute_url);
@@ -208,7 +208,7 @@ class OBSSInAddonSermonspeaker extends OBSSInAddon{
 			if (substr($path, 0, 1) == '/') {
 				$path = substr($path, 1);
 			}
-			$path = JURI::root().$path;
+			$path = JUri::root().$path;
 		}
 		return $path;
 	}

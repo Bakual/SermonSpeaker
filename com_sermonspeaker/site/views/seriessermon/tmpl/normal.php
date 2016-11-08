@@ -93,7 +93,7 @@ if ($this->params->get('show_description', 1) or $this->params->def('show_descri
 							<?php echo $this->escape($sermon->title);
 
 							if (in_array('seriessermon:date', $this->columns) and ($sermon->sermon_date != '0000-00-00 00:00:00')):
-								echo ' (' . JHtml::Date($sermon->sermon_date, JText::_($this->params->get('date_format')), true) . ')';
+								echo ' (' . JHtml::date($sermon->sermon_date, JText::_($this->params->get('date_format')), true) . ')';
 							endif; ?>
 						</a>
 					</h4>

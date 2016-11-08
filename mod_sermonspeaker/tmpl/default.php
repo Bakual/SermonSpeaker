@@ -37,7 +37,7 @@ foreach ($list as $item) :
 				$pic = $item->pic;
 
 				if (strpos($pic, 'http://') !== 0) :
-					$pic = JURI::root() . trim($pic, ' /');
+					$pic = JUri::root() . trim($pic, ' /');
 				endif;
 				$tip	= '<div class="clearfix"><img src="' . $pic . '" alt="" class="pull-right img-rounded">' . $tip . '</div>';
 			endif;

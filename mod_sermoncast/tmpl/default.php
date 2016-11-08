@@ -19,18 +19,18 @@ JHtml::_('bootstrap.tooltip');
 		<?php if ($params->get('sc_otherlink')) : ?>
 			<?php $link = $params->get('sc_otherlink'); ?>
 		<?php else: ?>
-			<?php $uri = JURI::getInstance($feedFile); ?>
+			<?php $uri = JUri::getInstance($feedFile); ?>
 			<?php $uri->setScheme($params->get('sc_pcast_prefix')); ?>
 			<?php $link = $uri->toString(); ?>
 		<?php endif; ?>
 		<?php $img = $params->get('sc_otherimage'); ?>
 		<?php if (!$img) : ?>
 			<?php if ($img = $params->get('logo')): ?>
-				<?php $img = JURI::root() . 'media/com_sermonspeaker/logo/' . $img; ?>
+				<?php $img = JUri::root() . 'media/com_sermonspeaker/logo/' . $img; ?>
 			<?php endif; ?>
 		<?php endif; ?>
 		<?php if (!$img) : ?>
-			<?php $img = JURI::root() . 'modules/mod_sermoncast/podcast-mini.gif'; ?>
+			<?php $img = JUri::root() . 'modules/mod_sermoncast/podcast-mini.gif'; ?>
 		<?php endif; ?>
 		<a href="<?php echo htmlspecialchars($link); ?>">
 			<img src="<?php echo $img; ?>" border="0" alt="Podcast" />
@@ -38,7 +38,7 @@ JHtml::_('bootstrap.tooltip');
 	<?php endif; ?>
 	<?php if ($params->get('sc_showplink')) : ?>
 		<a href="<?php echo $feedFile; ?>"><?php echo JText::_('MOD_SERMONCAST_FULLFEED'); ?></a>
-		<a href="<?php echo $feedFile; ?>"><img src="<?php echo JURI::root(); ?>modules/mod_sermoncast/feed_rss.gif" border="0" alt="rss feed" /></a><br />
+		<a href="<?php echo $feedFile; ?>"><img src="<?php echo JUri::root(); ?>modules/mod_sermoncast/feed_rss.gif" border="0" alt="rss feed" /></a><br />
 	<?php endif; ?>
 	<?php if ($params->get('sc_showhelp')) : ?>
 		<?php $modalParams = array(); ?>

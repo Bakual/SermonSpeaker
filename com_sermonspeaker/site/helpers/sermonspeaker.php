@@ -173,7 +173,7 @@ class SermonspeakerHelperSermonspeaker
 	{
 		if (!parse_url($path, PHP_URL_SCHEME))
 		{
-			$path = ($abs) ? JURI::base() . trim($path, '/') : JURI::base(true) . '/' . trim($path, '/');
+			$path = ($abs) ? JUri::base() . trim($path, '/') : JUri::base(true) . '/' . trim($path, '/');
 		}
 
 		return $path;

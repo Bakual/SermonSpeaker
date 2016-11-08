@@ -74,7 +74,7 @@ class SermonspeakerHelperPlayerFlowplayer3 extends SermonspeakerHelperPlayer
 		$this->player = 'FlowPlayer';
 		$this->toggle = $this->params->get('fileswitch', 0);
 
-		$player       = JURI::base(true) . '/media/com_sermonspeaker/player/flowplayer/flowplayer-3.2.11.swf';
+		$player       = JUri::base(true) . '/media/com_sermonspeaker/player/flowplayer/flowplayer-3.2.11.swf';
 
 		// Load plugins
 		$showplaylist        = (is_array($item)) ? 'true' : 'false';
@@ -184,7 +184,7 @@ class SermonspeakerHelperPlayerFlowplayer3 extends SermonspeakerHelperPlayer
 				}
 				else
 				{
-					$entry['url']   = ($img) ? $img : JURI::base(true) . '/media/com_sermonspeaker/images/' . $this->params->get('defaultpic', 'nopict.jpg');
+					$entry['url']   = ($img) ? $img : JUri::base(true) . '/media/com_sermonspeaker/images/' . $this->params->get('defaultpic', 'nopict.jpg');
 					$entry['error'] = JText::_('JGLOBAL_RESOURCE_NOT_FOUND');
 				}
 
@@ -206,7 +206,7 @@ class SermonspeakerHelperPlayerFlowplayer3 extends SermonspeakerHelperPlayer
 
 				if ($temp_item->sermon_date)
 				{
-					$desc[] = JText::_('JDATE') . ': ' . JHtml::Date($temp_item->sermon_date, JText::_($this->params->get('date_format')), true);
+					$desc[] = JText::_('JDATE') . ': ' . JHtml::date($temp_item->sermon_date, JText::_($this->params->get('date_format')), true);
 				}
 
 				if ($temp_item->speaker_title)
@@ -234,7 +234,7 @@ class SermonspeakerHelperPlayerFlowplayer3 extends SermonspeakerHelperPlayer
 					}
 					else
 					{
-						$file = ($img) ? $img : JURI::base(true) . '/media/com_sermonspeaker/images/' . $this->params->get('defaultpic', 'nopict.jpg');
+						$file = ($img) ? $img : JUri::base(true) . '/media/com_sermonspeaker/images/' . $this->params->get('defaultpic', 'nopict.jpg');
 						$entry['error'] = "error:'" . JText::_('JGLOBAL_RESOURCE_NOT_FOUND') . "'";
 						unset($entry['eventCategory']);
 					}
@@ -250,7 +250,7 @@ class SermonspeakerHelperPlayerFlowplayer3 extends SermonspeakerHelperPlayer
 					}
 					else
 					{
-						$file = ($img) ? $img : JURI::base(true) . '/media/com_sermonspeaker/images/' . $this->params->get('defaultpic', 'nopict.jpg');
+						$file = ($img) ? $img : JUri::base(true) . '/media/com_sermonspeaker/images/' . $this->params->get('defaultpic', 'nopict.jpg');
 						$entry['error'] = "error:'" . JText::_('JGLOBAL_RESOURCE_NOT_FOUND') . "'";
 						unset($entry['eventCategory']);
 					}

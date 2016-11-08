@@ -41,7 +41,7 @@ if ($canEdit or ($canEditOwn and ($user->id == $this->item->created_by))) : ?>
 		<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL'); ?>:</div>
 		<div class="ss-sermondetail-text">
 			<time datetime="<?php echo JHtml::_('date', $this->item->sermon_date, 'c'); ?>" itemprop="dateCreated">
-				<?php echo JHtml::Date($this->item->sermon_date, JText::_($this->params->get('date_format')), true); ?>
+				<?php echo JHtml::date($this->item->sermon_date, JText::_($this->params->get('date_format')), true); ?>
 			</time>
 		</div>
 	<?php endif;

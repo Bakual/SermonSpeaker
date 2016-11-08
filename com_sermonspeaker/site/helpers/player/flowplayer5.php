@@ -142,7 +142,7 @@ class SermonspeakerHelperPlayerFlowplayer5 extends SermonspeakerHelperPlayer
 				}
 				else
 				{
-					$entry['url'] = ($img) ? $img : JURI::base(true) . '/media/com_sermonspeaker/images/' . $this->params->get('defaultpic', 'nopict.jpg');
+					$entry['url'] = ($img) ? $img : JUri::base(true) . '/media/com_sermonspeaker/images/' . $this->params->get('defaultpic', 'nopict.jpg');
 				}
 
 				$entries[] = $entry['url'];

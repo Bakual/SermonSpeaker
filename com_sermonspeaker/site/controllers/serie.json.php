@@ -172,7 +172,7 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 		{
 			$response = array(
 				'status' => '1',
-				'msg' => JURI::root() . $folder . 'series/' . $name . '.zip'
+				'msg' => JUri::root() . $folder . 'series/' . $name . '.zip'
 			);
 			echo json_encode($response);
 
@@ -190,7 +190,7 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 		{
 			$response = array(
 				'status' => '1',
-				'msg' => JURI::root() . $folder . '/series/' . $name . '.zip'
+				'msg' => JUri::root() . $folder . '/series/' . $name . '.zip'
 			);
 			echo json_encode($response);
 
@@ -280,7 +280,7 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 
 			$response = array(
 				'status' => '1',
-				'msg' => JURI::root() . $folder . 'series/' . $name . '.zip'
+				'msg' => JUri::root() . $folder . 'series/' . $name . '.zip'
 			);
 		}
 		else

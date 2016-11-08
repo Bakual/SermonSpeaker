@@ -11,7 +11,7 @@ defined('_JEXEC') or die();
 
 $freq	= $this->params->get('freq', 'weekly');
 $prio	= $this->params->get('prio', 0.5);
-$uri	= JURI::getInstance();
+$uri	= JUri::getInstance();
 $base	= $uri->getScheme() . '://' . $uri->getHost();
 
 if ($port = $uri->getPort())
@@ -31,7 +31,7 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>';?>
 	<url>
 		<loc><?php echo $base . JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug, $item->catid, $item->language)); ?></loc>
 		<?php
-		if ($date) : ?><lastmod><?php echo JHtml::Date($date, 'c'); ?></lastmod><?php endif; ?>
+		if ($date) : ?><lastmod><?php echo JHtml::date($date, 'c'); ?></lastmod><?php endif; ?>
  		<changefreq><?php echo $freq; ?></changefreq>
 		<priority><?php echo $prio; ?></priority>
 	</url>

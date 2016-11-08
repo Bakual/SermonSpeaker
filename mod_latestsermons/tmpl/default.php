@@ -27,7 +27,7 @@ if ($tooltip)
 				<?php
 				if ($params->get('use_date')) :
 					$date_format = JText::_($params->get('ls_mo_date_format', 'DATE_FORMAT_LC4'));
-					$text = JHtml::Date($row->sermon_date, $date_format, true);
+					$text = JHtml::date($row->sermon_date, $date_format, true);
 				else :
 					$text = $row->title;
 				endif;
@@ -64,7 +64,7 @@ if ($tooltip)
 
 					if ($params->get('ls_show_mo_date') and $row->sermon_date) :
 						$date_format = JText::_($params->get('ls_mo_date_format', 'DATE_FORMAT_LC4'));
-						$tips[] = JText::_('JDATE') . ': ' . JHtml::Date($row->sermon_date, $date_format, true);
+						$tips[] = JText::_('JDATE') . ': ' . JHtml::date($row->sermon_date, $date_format, true);
 					endif;
 
 					if (($params->get('show_hits') & 1) and $row->hits) :

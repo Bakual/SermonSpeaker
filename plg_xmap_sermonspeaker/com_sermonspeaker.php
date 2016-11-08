@@ -27,7 +27,7 @@ class Xmap_Com_Sermonspeaker
 	 */
 	public static function prepareMenuItem($node, &$params)
 	{
-		$uri	= JURI::getInstance($node->link);
+		$uri	= JUri::getInstance($node->link);
 		$view	= $uri->getVar('view');
 
 		switch ($view)
@@ -78,7 +78,7 @@ class Xmap_Com_Sermonspeaker
 	 */
 	public static function getTree($xmap, $parent, &$params)
 	{
-		$uri	= JURI::getInstance($parent->link);
+		$uri	= JUri::getInstance($parent->link);
 		$view	= $uri->getVar('view');
 
 		// Nothing to expand

@@ -83,40 +83,40 @@ class SermonspeakerViewSeries extends JViewLegacy
 		$canDo = SermonspeakerHelper::getActions();
 
 		// Get the toolbar object instance
-		$bar = JToolBar::getInstance('toolbar');
+		$bar = JToolbar::getInstance('toolbar');
 
-		JToolBarHelper::title(JText::_('COM_SERMONSPEAKER_SERIES_TITLE'), 'drawer-2 series');
+		JToolbarHelper::title(JText::_('COM_SERMONSPEAKER_SERIES_TITLE'), 'drawer-2 series');
 
 		if ($canDo->get('core.create'))
 		{
-			JToolBarHelper::addNew('serie.add', 'JTOOLBAR_NEW');
+			JToolbarHelper::addNew('serie.add', 'JTOOLBAR_NEW');
 		}
 
 		if (($canDo->get('core.edit')) || ($canDo->get('core.edit.own')))
 		{
-			JToolBarHelper::editList('serie.edit', 'JTOOLBAR_EDIT');
+			JToolbarHelper::editList('serie.edit', 'JTOOLBAR_EDIT');
 		}
 
 		if ($canDo->get('core.edit.state'))
 		{
-			JToolBarHelper::custom('series.publish', 'publish.png', 'publish_f2.png', 'JTOOLBAR_PUBLISH', true);
-			JToolBarHelper::custom('series.unpublish', 'unpublish.png', 'unpublish_f2.png', 'JTOOLBAR_UNPUBLISH', true);
+			JToolbarHelper::custom('series.publish', 'publish.png', 'publish_f2.png', 'JTOOLBAR_PUBLISH', true);
+			JToolbarHelper::custom('series.unpublish', 'unpublish.png', 'unpublish_f2.png', 'JTOOLBAR_UNPUBLISH', true);
 
 			if ($this->state->get('filter.state') != 2)
 			{
-				JToolBarHelper::archiveList('series.archive', 'JTOOLBAR_ARCHIVE');
+				JToolbarHelper::archiveList('series.archive', 'JTOOLBAR_ARCHIVE');
 			}
 			else
 			{
-				JToolBarHelper::unarchiveList('series.publish', 'JTOOLBAR_UNARCHIVE');
+				JToolbarHelper::unarchiveList('series.publish', 'JTOOLBAR_UNARCHIVE');
 			}
 
-			JToolBarHelper::checkin('series.checkin');
+			JToolbarHelper::checkin('series.checkin');
 		}
 
 		if ($canDo->get('core.edit.state'))
 		{
-			JToolBarHelper::custom('tools.seriesorder', 'purge icon-lightning', '', 'COM_SERMONSPEAKER_TOOLS_ORDER', false);
+			JToolbarHelper::custom('tools.seriesorder', 'purge icon-lightning', '', 'COM_SERMONSPEAKER_TOOLS_ORDER', false);
 		}
 
 		// Add a batch button
@@ -133,16 +133,16 @@ class SermonspeakerViewSeries extends JViewLegacy
 
 		if ($this->state->get('filter.state') == -2 && $canDo->get('core.delete'))
 		{
-			JToolBarHelper::deleteList('', 'series.delete', 'JTOOLBAR_EMPTY_TRASH');
+			JToolbarHelper::deleteList('', 'series.delete', 'JTOOLBAR_EMPTY_TRASH');
 		}
 		elseif ($canDo->get('core.edit.state'))
 		{
-			JToolBarHelper::trash('series.trash', 'JTOOLBAR_TRASH');
+			JToolbarHelper::trash('series.trash', 'JTOOLBAR_TRASH');
 		}
 
 		if ($canDo->get('core.admin') || $canDo->get('core.options'))
 		{
-			JToolBarHelper::preferences('com_sermonspeaker');
+			JToolbarHelper::preferences('com_sermonspeaker');
 		}
 	}
 

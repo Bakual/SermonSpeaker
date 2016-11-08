@@ -188,7 +188,7 @@ class SermonspeakerHelperPlayerJwplayer6 extends SermonspeakerHelperPlayer
 				}
 				else
 				{
-					$entry['file']  = ($img) ? $img : JURI::base(true) . '/media/com_sermonspeaker/images/' . $this->params->get('defaultpic', 'nopict.jpg');
+					$entry['file']  = ($img) ? $img : JUri::base(true) . '/media/com_sermonspeaker/images/' . $this->params->get('defaultpic', 'nopict.jpg');
 					$entry['error'] = JText::_('JGLOBAL_RESOURCE_NOT_FOUND');
 				}
 
@@ -197,7 +197,7 @@ class SermonspeakerHelperPlayerJwplayer6 extends SermonspeakerHelperPlayer
 
 				if ($temp_item->sermon_date)
 				{
-					$desc[] = JText::_('JDATE') . ': ' . JHtml::Date($temp_item->sermon_date, JText::_($this->params->get('date_format')), true);
+					$desc[] = JText::_('JDATE') . ': ' . JHtml::date($temp_item->sermon_date, JText::_($this->params->get('date_format')), true);
 				}
 
 				if ($temp_item->speaker_title)
@@ -236,7 +236,7 @@ class SermonspeakerHelperPlayerJwplayer6 extends SermonspeakerHelperPlayer
 					}
 					else
 					{
-						$file = ($img) ? $img : JURI::base(true) . '/media/com_sermonspeaker/images/' . $this->params->get('defaultpic', 'nopict.jpg');
+						$file = ($img) ? $img : JUri::base(true) . '/media/com_sermonspeaker/images/' . $this->params->get('defaultpic', 'nopict.jpg');
 						$entry['error'] = "error:'" . JText::_('JGLOBAL_RESOURCE_NOT_FOUND') . "'";
 					}
 
@@ -250,7 +250,7 @@ class SermonspeakerHelperPlayerJwplayer6 extends SermonspeakerHelperPlayer
 					}
 					else
 					{
-						$file = ($img) ? $img : JURI::base(true) . '/media/com_sermonspeaker/images/' . $this->params->get('defaultpic', 'nopict.jpg');
+						$file = ($img) ? $img : JUri::base(true) . '/media/com_sermonspeaker/images/' . $this->params->get('defaultpic', 'nopict.jpg');
 						$entry['error'] = "error:'" . JText::_('JGLOBAL_RESOURCE_NOT_FOUND') . "'";
 					}
 

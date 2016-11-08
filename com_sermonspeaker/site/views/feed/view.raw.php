@@ -207,7 +207,7 @@ class SermonspeakerViewFeed extends JViewLegacy
 				$path = trim($path, ' /');
 
 				// Url to play
-				$enclosure['url'] = JURI::root() . $path;
+				$enclosure['url'] = JUri::root() . $path;
 
 				// Filesize for length TODO: Get from database if available
 				if (file_exists(JPATH_ROOT . $file))

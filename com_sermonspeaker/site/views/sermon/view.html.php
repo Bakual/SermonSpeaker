@@ -256,7 +256,7 @@ class SermonspeakerViewSermon extends JViewLegacy
 		if ($this->params->get('opengraph', 1))
 		{
 			$this->document->addCustomTag('<meta property="og:title" content="' . $this->escape($this->item->title) . '"/>');
-			$this->document->addCustomTag('<meta property="og:url" content="' . htmlspecialchars(JURI::getInstance()->toString()) . '"/>');
+			$this->document->addCustomTag('<meta property="og:url" content="' . htmlspecialchars(JUri::getInstance()->toString()) . '"/>');
 			$this->document->addCustomTag('<meta property="og:description" content="' . $this->document->getDescription() . '"/>');
 			$this->document->addCustomTag('<meta property="og:site_name" content="' . $app->get('sitename') . '"/>');
 
@@ -273,7 +273,7 @@ class SermonspeakerViewSermon extends JViewLegacy
 				{
 					$this->document->addCustomTag(
 							'<meta property="article:author" content="'
-								. JURI::base() . trim(JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($this->item->speaker_slug, $this->item->speaker_catid, $this->item->speaker_language)), '/')
+								. JUri::base() . trim(JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($this->item->speaker_slug, $this->item->speaker_catid, $this->item->speaker_language)), '/')
 							. '"/>'
 						);
 				}

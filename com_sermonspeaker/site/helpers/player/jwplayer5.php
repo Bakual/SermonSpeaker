@@ -80,7 +80,7 @@ class SermonspeakerHelperPlayerJwplayer5 extends SermonspeakerHelperPlayer
 		$this->toggle = $this->params->get('fileswitch', 0);
 
 		// Setting some general player options
-		$modes[0] = "{type:'flash', src:'" . JURI::base(true) . "/media/com_sermonspeaker/player/jwplayer/player.swf'}";
+		$modes[0] = "{type:'flash', src:'" . JUri::base(true) . "/media/com_sermonspeaker/player/jwplayer/player.swf'}";
 		$modes[1] = "{type:'html5'}";
 		$modes[2] = "{type:'download'}";
 		$options['modes'] = ($this->params->get('jwmode', 0)) ? '[' . $modes[1] . ',' . $modes[0] . ',' . $modes[2] . ']'
@@ -212,7 +212,7 @@ class SermonspeakerHelperPlayerJwplayer5 extends SermonspeakerHelperPlayer
 				}
 				else
 				{
-					$entry['file']  = ($img) ? $img : JURI::base(true) . '/media/com_sermonspeaker/images/' . $this->params->get('defaultpic', 'nopict.jpg');
+					$entry['file']  = ($img) ? $img : JUri::base(true) . '/media/com_sermonspeaker/images/' . $this->params->get('defaultpic', 'nopict.jpg');
 					$entry['error'] = JText::_('JGLOBAL_RESOURCE_NOT_FOUND');
 				}
 
@@ -221,7 +221,7 @@ class SermonspeakerHelperPlayerJwplayer5 extends SermonspeakerHelperPlayer
 
 				if ($temp_item->sermon_date)
 				{
-					$desc[] = JText::_('JDATE') . ': ' . JHtml::Date($temp_item->sermon_date, JText::_($this->params->get('date_format')), true);
+					$desc[] = JText::_('JDATE') . ': ' . JHtml::date($temp_item->sermon_date, JText::_($this->params->get('date_format')), true);
 				}
 
 				if ($temp_item->speaker_title)
@@ -260,7 +260,7 @@ class SermonspeakerHelperPlayerJwplayer5 extends SermonspeakerHelperPlayer
 					}
 					else
 					{
-						$file = ($img) ? $img : JURI::base(true) . '/media/com_sermonspeaker/images/' . $this->params->get('defaultpic', 'nopict.jpg');
+						$file = ($img) ? $img : JUri::base(true) . '/media/com_sermonspeaker/images/' . $this->params->get('defaultpic', 'nopict.jpg');
 						$entry['error'] = "error:'" . JText::_('JGLOBAL_RESOURCE_NOT_FOUND') . "'";
 					}
 
@@ -274,7 +274,7 @@ class SermonspeakerHelperPlayerJwplayer5 extends SermonspeakerHelperPlayer
 					}
 					else
 					{
-						$file = ($img) ? $img : JURI::base(true) . '/media/com_sermonspeaker/images/' . $this->params->get('defaultpic', 'nopict.jpg');
+						$file = ($img) ? $img : JUri::base(true) . '/media/com_sermonspeaker/images/' . $this->params->get('defaultpic', 'nopict.jpg');
 						$entry['error'] = "error:'" . JText::_('JGLOBAL_RESOURCE_NOT_FOUND') . "'";
 					}
 

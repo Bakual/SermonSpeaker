@@ -262,7 +262,7 @@ class PlgSermonspeakerJwplayer5 extends SermonspeakerPluginPlayer
 	private function setOptions()
 	{
 		$modes   = array();
-		$modes[0] = "{type:'flash', src:'" . JURI::base(true) . "/media/plg_sermonspeaker_jwplayer5/player.swf'}";
+		$modes[0] = "{type:'flash', src:'" . JUri::base(true) . "/media/plg_sermonspeaker_jwplayer5/player.swf'}";
 		$modes[1] = "{type:'html5'}";
 		$modes[2] = "{type:'download'}";
 		$this->options['modes'] = ($this->params->get('jwmode', 0))
@@ -405,7 +405,7 @@ class PlgSermonspeakerJwplayer5 extends SermonspeakerPluginPlayer
 			else
 			{
 				// Todo: Pick correct default pic (from component or add param to plugin?)
-				$entry['file']  = ($img) ? $img : JURI::base(true) . '/media/com_sermonspeaker/images/' . $this->params->get('defaultpic', 'nopict.jpg');
+				$entry['file']  = ($img) ? $img : JUri::base(true) . '/media/com_sermonspeaker/images/' . $this->params->get('defaultpic', 'nopict.jpg');
 				$entry['error'] = JText::_('JGLOBAL_RESOURCE_NOT_FOUND');
 			}
 
@@ -415,7 +415,7 @@ class PlgSermonspeakerJwplayer5 extends SermonspeakerPluginPlayer
 			if ($item->sermon_date)
 			{
 				// Todo: Pick correct date format (from component or add param to plugin?)
-				$desc[] = JText::_('JDATE') . ': ' . JHtml::Date($item->sermon_date, JText::_($this->params->get('date_format')), true);
+				$desc[] = JText::_('JDATE') . ': ' . JHtml::date($item->sermon_date, JText::_($this->params->get('date_format')), true);
 			}
 
 			if ($item->speaker_title)
@@ -454,7 +454,7 @@ class PlgSermonspeakerJwplayer5 extends SermonspeakerPluginPlayer
 				}
 				else
 				{
-					$file = ($img) ? $img : JURI::base(true) . '/media/com_sermonspeaker/images/' . $this->params->get('defaultpic', 'nopict.jpg');
+					$file = ($img) ? $img : JUri::base(true) . '/media/com_sermonspeaker/images/' . $this->params->get('defaultpic', 'nopict.jpg');
 					$entry['error'] = "error:'" . JText::_('JGLOBAL_RESOURCE_NOT_FOUND') . "'";
 				}
 
@@ -468,7 +468,7 @@ class PlgSermonspeakerJwplayer5 extends SermonspeakerPluginPlayer
 				}
 				else
 				{
-					$file = ($img) ? $img : JURI::base(true) . '/media/com_sermonspeaker/images/' . $this->params->get('defaultpic', 'nopict.jpg');
+					$file = ($img) ? $img : JUri::base(true) . '/media/com_sermonspeaker/images/' . $this->params->get('defaultpic', 'nopict.jpg');
 					$entry['error'] = "error:'" . JText::_('JGLOBAL_RESOURCE_NOT_FOUND') . "'";
 				}
 

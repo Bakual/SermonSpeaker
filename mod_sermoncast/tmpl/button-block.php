@@ -21,7 +21,7 @@ JHtml::stylesheet('com_sermonspeaker/font.css', false, true, false);
 			<?php if ($params->get('sc_otherlink')) : ?>
 				<?php $link = $params->get('sc_otherlink'); ?>
 			<?php else : ?>
-				<?php $uri = JURI::getInstance($feedFile); ?>
+				<?php $uri = JUri::getInstance($feedFile); ?>
 				<?php $uri->setScheme($params->get('sc_pcast_prefix')); ?>
 				<?php $link = $uri->toString(); ?>
 			<?php endif; ?>

@@ -89,7 +89,7 @@ class SermonspeakerHelperPlayerPixelout extends SermonspeakerHelperPlayer
 				}
 				else
 				{
-					$files[]   = urlencode(JURI::root());
+					$files[]   = urlencode(JUri::root());
 					$titles[]  = JText::_('JGLOBAL_RESOURCE_NOT_FOUND');
 					$artists[] = '';
 
@@ -130,7 +130,7 @@ class SermonspeakerHelperPlayerPixelout extends SermonspeakerHelperPlayer
 			JHtml::Script('media/com_sermonspeaker/player/audio_player/audio-player.js');
 			$doc = JFactory::getDocument();
 			$doc->addScriptDeclaration('
-				AudioPlayer.setup("' . JURI::root() . 'media/com_sermonspeaker/player/audio_player/player.swf", {
+				AudioPlayer.setup("' . JUri::root() . 'media/com_sermonspeaker/player/audio_player/player.swf", {
 					width: "' . $this->config['awidth'] . '",
 					initialvolume: 100,
 					transparentpagebg: "yes",

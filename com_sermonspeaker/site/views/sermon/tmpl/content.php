@@ -101,7 +101,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 					<span class="icon-calendar"></span>
 					<?php echo JText::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL'); ?>:
 					<time datetime="<?php echo JHtml::_('date', $this->item->sermon_date, 'c'); ?>" itemprop="dateCreated">
-						<?php echo JHtml::Date($this->item->sermon_date, JText::_($this->params->get('date_format')), true); ?>
+						<?php echo JHtml::date($this->item->sermon_date, JText::_($this->params->get('date_format')), true); ?>
 					</time>
 				</dd>
 			<?php endif;

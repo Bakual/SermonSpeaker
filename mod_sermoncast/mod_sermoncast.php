@@ -24,6 +24,6 @@ if ($menuitem)
 	$options .= '&amp;Itemid=' . $menuitem;
 }
 
-$feedFile = JURI::root() . 'index.php?option=com_sermonspeaker&amp;view=feed&amp;format=raw' . $options;
+$feedFile = JUri::root() . 'index.php?option=com_sermonspeaker&amp;view=feed&amp;format=raw' . $options;
 
 require JModuleHelper::getLayoutPath('mod_sermoncast', $params->get('layout', 'default'));
