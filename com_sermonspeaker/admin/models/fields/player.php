@@ -47,6 +47,7 @@ class JFormFieldPlayer extends JFormFieldList
 			require_once $file;
 			$value           = basename($file, '.php');
 			$classname       = 'SermonspeakerHelperPlayer' . ucfirst($value);
+			/** @var SermonspeakerHelperPlayer $class */
 			$class           = new $classname;
 			$text            = $class->getName();
 			$options[$value] = $text;

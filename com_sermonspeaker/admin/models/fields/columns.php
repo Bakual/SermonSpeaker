@@ -101,6 +101,8 @@ class JFormFieldColumns extends JFormField
 	{
 		// Initialize variables.
 		$options = array();
+
+		/** @var SimpleXMLElement $option */
 		foreach ($this->element->children() as $option) {
 			// Only add <option /> elements.
 			if ($option->getName() != 'option') {
