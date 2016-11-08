@@ -14,7 +14,7 @@ defined('_JEXEC') or die;
  *
  * @package        SermonSpeaker.Administrator
  *
- * @since 3.4
+ * @since          3.4
  */
 class SermonspeakerControllerSermons extends JControllerAdmin
 {
@@ -36,9 +36,9 @@ class SermonspeakerControllerSermons extends JControllerAdmin
 	/**
 	 * Method to get a model object, loading it if required.
 	 *
-	 * @param   string  $name    The model name. Optional.
-	 * @param   string  $prefix  The class prefix. Optional.
-	 * @param   array   $config  Configuration array for model. Optional.
+	 * @param   string $name   The model name. Optional.
+	 * @param   string $prefix The class prefix. Optional.
+	 * @param   array  $config Configuration array for model. Optional.
 	 *
 	 * @return  SermonspeakerModelSermon|boolean  Model object on success; otherwise false on failure.
 	 *

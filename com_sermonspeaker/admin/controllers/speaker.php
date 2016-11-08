@@ -14,7 +14,7 @@ defined('_JEXEC') or die;
  *
  * @package        SermonSpeaker.Administrator
  *
- * @since 3.4
+ * @since          3.4
  */
 class SermonspeakerControllerSpeaker extends JControllerForm
 {
@@ -62,7 +62,7 @@ class SermonspeakerControllerSpeaker extends JControllerForm
 	 */
 	protected function allowEdit($data = array(), $key = 'id')
 	{
-		$recordId   = (int) isset($data[$key]) ? $data[$key] : 0;
+		$recordId = (int) isset($data[$key]) ? $data[$key] : 0;
 
 		if (!$recordId)
 		{

@@ -180,7 +180,7 @@ class SermonspeakerControllerTools extends JControllerLegacy
 		// Get the log in credentials.
 		$credentials             = array();
 		$credentials['username'] = $jinput->get->get('username', '', 'username');
-		$credentials['password']  = $jinput->get->get('password', '', 'RAW');
+		$credentials['password'] = $jinput->get->get('password', '', 'RAW');
 
 		// Perform the log in.
 		if ($credentials['username'] && $credentials['password'])
@@ -217,7 +217,7 @@ class SermonspeakerControllerTools extends JControllerLegacy
 
 		foreach ($files as $file)
 		{
-			$id3          = SermonspeakerHelperId3::getID3($file['file'], $params);
+			$id3 = SermonspeakerHelperId3::getID3($file['file'], $params);
 			/** @var SermonspeakerModelSermon $sermon_model */
 			$sermon_model = $this->getModel('Sermon');
 			$sermon       = $sermon_model->getItem();
