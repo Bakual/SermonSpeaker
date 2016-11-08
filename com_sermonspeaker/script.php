@@ -45,8 +45,8 @@ class Com_SermonspeakerInstallerScript
 	/**
 	 * method to run before an install/update/uninstall method
 	 *
-	 * @param   string                      $type    'install', 'update' or 'discover_install'
-	 * @param   JInstallerAdapterComponent  $parent  Installerobject
+	 * @param   string                     $type   'install', 'update' or 'discover_install'
+	 * @param   JInstallerAdapterComponent $parent Installerobject
 	 *
 	 * @return  boolean  false will terminate the installation
 	 *
@@ -74,6 +74,7 @@ class Com_SermonspeakerInstallerScript
 			if (version_compare($this->oldRelease, '4.5.0', '<'))
 			{
 				$this->app->enqueueMessage(JText::sprintf('COM_SERMONSPEAKER_UPDATE_UNSUPPORTED', $this->oldRelease, '4.5.0'), 'error');
+
 				return false;
 			}
 		}
@@ -84,7 +85,7 @@ class Com_SermonspeakerInstallerScript
 	/**
 	 * Method to install the component
 	 *
-	 * @param   JInstallerAdapterComponent  $parent  Installerobject
+	 * @param   JInstallerAdapterComponent $parent Installerobject
 	 *
 	 * @return void
 	 *
@@ -100,7 +101,7 @@ class Com_SermonspeakerInstallerScript
 	/**
 	 * Method to uninstall the component
 	 *
-	 * @param   JInstallerAdapterComponent  $parent  Installerobject
+	 * @param   JInstallerAdapterComponent $parent Installerobject
 	 *
 	 * @return void
 	 *
@@ -113,7 +114,7 @@ class Com_SermonspeakerInstallerScript
 	/**
 	 * method to update the component
 	 *
-	 * @param   JInstallerAdapterComponent  $parent  Installerobject
+	 * @param   JInstallerAdapterComponent $parent Installerobject
 	 *
 	 * @return void
 	 *
@@ -229,14 +230,14 @@ class Com_SermonspeakerInstallerScript
 	/**
 	 * method to run after an install/update/uninstall method
 	 *
-	 * @param   string                      $type    'install', 'update' or 'discover_install'
-	 * @param   JInstallerAdapterComponent  $parent  Installerobject
+	 * @param   string                     $type   'install', 'update' or 'discover_install'
+	 * @param   JInstallerAdapterComponent $parent Installerobject
 	 *
 	 * @return void
 	 *
 	 * @since ?
 	 */
- 	public function postflight($type, $parent)
+	public function postflight($type, $parent)
 	{
 		// Adding Category "uncategorized" if installing or discovering.
 		if ($type != 'update')
@@ -253,19 +254,19 @@ class Com_SermonspeakerInstallerScript
 		// Setting some default values for columns on install
 		if ($type == 'install')
 		{
-			$params = array();
-			$params['col'] = '"col":['
-					. '"sermons:scripture","sermons:speaker","sermons:date","sermons:series","sermons:player"'
-					. ',"sermon:scripture","sermon:speaker","sermon:date","sermon:series","sermon:player","sermon:notes","sermon:addfile"'
-					. ',"serie:scripture","serie:speaker","serie:date","serie:player"'
-					. ',"speaker:scripture","speaker:date","speaker:series","speaker:player"'
-					. ',"seriessermon:scripture","seriessermon:speaker","seriessermon:date"'
+			$params                = array();
+			$params['col']         = '"col":['
+				. '"sermons:scripture","sermons:speaker","sermons:date","sermons:series","sermons:player"'
+				. ',"sermon:scripture","sermon:speaker","sermon:date","sermon:series","sermon:player","sermon:notes","sermon:addfile"'
+				. ',"serie:scripture","serie:speaker","serie:date","serie:player"'
+				. ',"speaker:scripture","speaker:date","speaker:series","speaker:player"'
+				. ',"seriessermon:scripture","seriessermon:speaker","seriessermon:date"'
 				. ']';
-			$params['col_serie'] = '"col_serie":['
-					. '"series:speaker"'
-					. ',"serie:description","serie:speaker"'
-					. ',"speaker:description"'
-					. ',"seriessermon:description","seriessermon:speaker"'
+			$params['col_serie']   = '"col_serie":['
+				. '"series:speaker"'
+				. ',"serie:description","serie:speaker"'
+				. ',"speaker:description"'
+				. ',"seriessermon:description","seriessermon:speaker"'
 				. ']';
 			$params['col_speaker'] = '"col_speaker":["speakers:bio","speaker:bio","speaker:intro"]';
 
@@ -301,7 +302,7 @@ class Com_SermonspeakerInstallerScript
 				foreach ($result as $sermon)
 				{
 					$sermontable->load($sermon->sermon_id);
-					$sermontable->newTags = explode (',', $sermon->tagtitles);
+					$sermontable->newTags = explode(',', $sermon->tagtitles);
 					$sermontable->store();
 				}
 
@@ -327,10 +328,10 @@ class Com_SermonspeakerInstallerScript
 		// Create categories for our component
 		$basePath = JPATH_ADMINISTRATOR . '/components/com_categories';
 		require_once $basePath . '/models/category.php';
-		$config   = array('table_path' => $basePath.'/tables');
+		$config   = array('table_path' => $basePath . '/tables');
 		$catmodel = new CategoriesModelCategory($config);
-		$catData  = array('id' => 0, 'parent_id' => 0, 'level' => 1, 'path' => 'uncategorized', 'extension' => 'com_sermonspeaker',
-					'title' => 'Uncategorized', 'alias' => 'uncategorized', 'description' => '', 'published' => 1, 'language' => '*');
+		$catData  = array('id'    => 0, 'parent_id' => 0, 'level' => 1, 'path' => 'uncategorized', 'extension' => 'com_sermonspeaker',
+		                  'title' => 'Uncategorized', 'alias' => 'uncategorized', 'description' => '', 'published' => 1, 'language' => '*');
 		$catmodel->save($catData);
 		$id = $catmodel->getItem()->id;
 
@@ -339,7 +340,7 @@ class Com_SermonspeakerInstallerScript
 		// Updating the example data with 'Uncategorized'
 		$query = $db->getQuery(true);
 		$query->update('#__sermon_sermons');
-		$query->set('catid = '.(int)$id);
+		$query->set('catid = ' . (int) $id);
 		$query->where('catid = 0');
 		$db->setQuery($query);
 		$db->execute();
@@ -363,7 +364,7 @@ class Com_SermonspeakerInstallerScript
 		$table = JTable::getInstance('Contenttype', 'JTable');
 
 		// Generic FieldMappings
-		$common = new stdClass;
+		$common                       = new stdClass;
 		$common->core_content_item_id = 'id';
 		$common->core_title           = 'title';
 		$common->core_state           = 'state';
@@ -390,27 +391,27 @@ class Com_SermonspeakerInstallerScript
 		$common->core_catid           = 'catid';
 		$common->core_xreference      = null;
 		$common->asset_id             = null;
-		$field_mappings          = new stdClass;
-		$field_mappings->common  = $common;
-		$field_mappings->special = new stdClass;
-		$history                   = new stdClass;
-		$history->form_file        = 'administrator/components/com_sermonspeaker/models/forms/sermon.xml';
-		$history->hide_fields      = array('checked_out','checked_out_time','version');
-		$history->display_lookup   = array();
+		$field_mappings               = new stdClass;
+		$field_mappings->common       = $common;
+		$field_mappings->special      = new stdClass;
+		$history                      = new stdClass;
+		$history->form_file           = 'administrator/components/com_sermonspeaker/models/forms/sermon.xml';
+		$history->hide_fields         = array('checked_out', 'checked_out_time', 'version');
+		$history->display_lookup      = array();
 		$source_user1                 = new stdClass;
 		$source_user1->source_column  = 'created_by';
 		$source_user1->target_table   = '#__users';
 		$source_user1->target_column  = 'id';
 		$source_user1->display_column = 'name';
-		$source_user2                = clone $source_user1;
-		$source_user2->source_column = 'modified_by';
+		$source_user2                 = clone $source_user1;
+		$source_user2->source_column  = 'modified_by';
 		$source_catid                 = clone $source_user1;
 		$source_catid->source_column  = 'catid';
 		$source_catid->target_table   = '#__categories';
 		$source_catid->display_column = 'title';
-		$history->display_lookup[] = $source_user1;
-		$history->display_lookup[] = $source_user2;
-		$history->display_lookup[] = $source_catid;
+		$history->display_lookup[]    = $source_user1;
+		$history->display_lookup[]    = $source_user2;
+		$history->display_lookup[]    = $source_catid;
 
 		// Create/Update Sermon Type
 		$table->load(array('type_alias' => 'com_sermonspeaker.sermon'));
@@ -425,9 +426,9 @@ class Com_SermonspeakerInstallerScript
 		$source_speaker                = clone $source_catid;
 		$source_speaker->source_column = 'speaker_id';
 		$source_speaker->target_table  = '#__sermon_speakers';
-		$source_serie                = clone $source_catid;
-		$source_serie->source_column = 'series_id';
-		$source_serie->target_table  = '#__sermon_series';
+		$source_serie                  = clone $source_catid;
+		$source_serie->source_column   = 'series_id';
+		$source_serie->target_table    = '#__sermon_series';
 
 		$history->form_file        = 'administrator/components/com_sermonspeaker/models/forms/sermon.xml';
 		$history->display_lookup[] = $source_speaker;
@@ -463,7 +464,7 @@ class Com_SermonspeakerInstallerScript
 
 		$history->form_file = 'administrator/components/com_sermonspeaker/models/forms/speaker.xml';
 
-		$table_object = new stdClass;
+		$table_object          = new stdClass;
 		$table_object->special = $special;
 
 		$contenttype['type_id']                 = ($table->type_id) ? $table->type_id : 0;
@@ -493,7 +494,7 @@ class Com_SermonspeakerInstallerScript
 
 		$history->form_file = 'administrator/components/com_sermonspeaker/models/forms/serie.xml';
 
-		$table_object = new stdClass;
+		$table_object          = new stdClass;
 		$table_object->special = $special;
 
 		$contenttype['type_id']                 = ($table->type_id) ? $table->type_id : 0;
@@ -537,36 +538,36 @@ class Com_SermonspeakerInstallerScript
 		$special->prefix  = 'JTable';
 		$special->config  = 'array()';
 
-		$history = new stdClass;
+		$history                = new stdClass;
 		$history->form_file     = 'administrator/components/com_categories/models/forms/category.xml';
 		$history->hideFields    = array('asset_id', 'checked_out', 'checked_out_time', 'version', 'lft', 'rgt', 'level', 'path', 'extension');
 		$history->ignoreChanges = array('modified_user_id', 'modified_time', 'checked_out', 'checked_out_time', 'version', 'hits', 'path');
 		$history->convertToInt  = array('publish_up', 'publish_down');
 
-		$displayLookup1 = new stdClass;
+		$displayLookup1                = new stdClass;
 		$displayLookup1->sourceColumn  = 'created_user_id';
 		$displayLookup1->targetTable   = '#__users';
 		$displayLookup1->targetColumn  = 'id';
 		$displayLookup1->displayColumn = 'name';
 		$history->displayLookup[]      = $displayLookup1;
 
-		$displayLookup2 = clone $displayLookup1;
+		$displayLookup2               = clone $displayLookup1;
 		$displayLookup2->sourceColumn = 'modified_user_id';
 		$displayLookup2->targetTable  = '#__users';
 		$history->displayLookup[]     = $displayLookup2;
 
-		$displayLookup3 = clone $displayLookup1;
+		$displayLookup3                = clone $displayLookup1;
 		$displayLookup3->sourceColumn  = 'access';
 		$displayLookup3->targetTable   = '#__viewlevels';
 		$displayLookup3->displayColumn = 'title';
 		$history->displayLookup[]      = $displayLookup3;
 
-		$displayLookup4 = clone $displayLookup1;
+		$displayLookup4               = clone $displayLookup1;
 		$displayLookup4->sourceColumn = 'parent_id';
 		$displayLookup4->targetTable  = '#__categories';
 		$history->displayLookup[]     = $displayLookup4;
 
-		$table_object = new stdClass;
+		$table_object          = new stdClass;
 		$table_object->special = $special;
 
 		$contenttype['type_id']                 = ($table->type_id) ? $table->type_id : 0;
