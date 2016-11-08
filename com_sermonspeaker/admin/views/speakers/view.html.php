@@ -38,7 +38,7 @@ class SermonspeakerViewSpeakers extends JViewLegacy
 	/**
 	 * Execute and display a template script.
 	 *
-	 * @param   string  $tpl  The name of the template file to parse; automatically searches through the template paths.
+	 * @param   string $tpl The name of the template file to parse; automatically searches through the template paths.
 	 *
 	 * @return mixed A string if successful, otherwise a Error object.
 	 *
@@ -163,14 +163,14 @@ class SermonspeakerViewSpeakers extends JViewLegacy
 	{
 		return array(
 			'speakers.ordering' => JText::_('JGRID_HEADING_ORDERING'),
-			'speakers.state' => JText::_('JSTATUS'),
-			'speakers.title' => JText::_('COM_SERMONSPEAKER_FIELD_NAME_LABEL'),
-			'category_title' => JText::_('JCATEGORY'),
-			'speakers.pic' => JText::_('COM_SERMONSPEAKER_FIELD_PICTURE_LABEL'),
-			'speakers.home' => JText::_('JDEFAULT'),
-			'speakers.hits' => JText::_('JGLOBAL_HITS'),
-			'language' => JText::_('JGRID_HEADING_LANGUAGE'),
-			'speakers.id' => JText::_('JGRID_HEADING_ID')
+			'speakers.state'    => JText::_('JSTATUS'),
+			'speakers.title'    => JText::_('COM_SERMONSPEAKER_FIELD_NAME_LABEL'),
+			'category_title'    => JText::_('JCATEGORY'),
+			'speakers.pic'      => JText::_('COM_SERMONSPEAKER_FIELD_PICTURE_LABEL'),
+			'speakers.home'     => JText::_('JDEFAULT'),
+			'speakers.hits'     => JText::_('JGLOBAL_HITS'),
+			'language'          => JText::_('JGRID_HEADING_LANGUAGE'),
+			'speakers.id'       => JText::_('JGRID_HEADING_ID'),
 		);
 	}
 }

@@ -30,16 +30,16 @@ class SermonspeakerViewScripture extends JViewLegacy
 	 *
 	 * @since ?
 	 */
-	function display($tpl = null )
+	function display($tpl = null)
 	{
-		$id			= JFactory::getApplication()->input->get('id', 0, 'int');
-		$separator	= JText::_('COM_SERMONSPEAKER_SCRIPTURE_SEPARATOR');
+		$id        = JFactory::getApplication()->input->get('id', 0, 'int');
+		$separator = JText::_('COM_SERMONSPEAKER_SCRIPTURE_SEPARATOR');
 
 		// Get Params
-		$this->params	= JComponentHelper::getParams('com_sermonspeaker');
+		$this->params = JComponentHelper::getParams('com_sermonspeaker');
 
 		// add Javascript for Scripture
-		$javascript	= "function AddScripture() {
+		$javascript = "function AddScripture() {
 				var error = 0;
 				var book = document.getElementById('book');
 				var cap1 = parseInt(document.getElementById('cap1').value);
@@ -70,7 +70,7 @@ class SermonspeakerViewScripture extends JViewLegacy
 						var error = 1;
 					}
 					if (error){
-						alert('".JText::_('JGLOBAL_VALIDATION_FORM_FAILED')."');
+						alert('" . JText::_('JGLOBAL_VALIDATION_FORM_FAILED') . "');
 						return;
 					}
 				}
@@ -82,14 +82,14 @@ class SermonspeakerViewScripture extends JViewLegacy
 					if (cap1){
 						text += ' ' + cap1;
 						if (vers1){
-							text += '".$separator."' + vers1;
+							text += '" . $separator . "' + vers1;
 						}
 						if (cap2 || vers2){
 							text += '-';
 							if (cap2){
 								text += cap2;
 								if (vers2){
-									text += '".$separator."' + vers2;
+									text += '" . $separator . "' + vers2;
 								}
 							} else {
 								text += vers2;

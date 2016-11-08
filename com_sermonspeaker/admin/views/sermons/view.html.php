@@ -49,7 +49,7 @@ class SermonspeakerViewSermons extends JViewLegacy
 	/**
 	 * Execute and display a template script.
 	 *
-	 * @param   string  $tpl  The name of the template file to parse; automatically searches through the template paths.
+	 * @param   string $tpl The name of the template file to parse; automatically searches through the template paths.
 	 *
 	 * @return mixed A string if successful, otherwise a Error object.
 	 *
@@ -172,18 +172,18 @@ class SermonspeakerViewSermons extends JViewLegacy
 	protected function getSortFields()
 	{
 		return array(
-			'sermons.ordering' => JText::_('JGRID_HEADING_ORDERING'),
-			'sermons.state' => JText::_('JSTATUS'),
-			'sermons.podcast' => JText::_('COM_SERMONSPEAKER_FIELD_SERMONCAST_LABEL'),
-			'sermons.title' => JText::_('JGLOBAL_TITLE'),
-			'category_title' => JText::_('JCATEGORY'),
-			'speaker_title' => JText::_('COM_SERMONSPEAKER_SPEAKER'),
-			'scripture' => JText::_('COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL'),
-			'series_title' => JText::_('COM_SERMONSPEAKER_SERIE'),
+			'sermons.ordering'    => JText::_('JGRID_HEADING_ORDERING'),
+			'sermons.state'       => JText::_('JSTATUS'),
+			'sermons.podcast'     => JText::_('COM_SERMONSPEAKER_FIELD_SERMONCAST_LABEL'),
+			'sermons.title'       => JText::_('JGLOBAL_TITLE'),
+			'category_title'      => JText::_('JCATEGORY'),
+			'speaker_title'       => JText::_('COM_SERMONSPEAKER_SPEAKER'),
+			'scripture'           => JText::_('COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL'),
+			'series_title'        => JText::_('COM_SERMONSPEAKER_SERIE'),
 			'sermons.sermon_date' => JText::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL'),
-			'sermons.hits' => JText::_('JGLOBAL_HITS'),
-			'language' => JText::_('JGRID_HEADING_LANGUAGE'),
-			'sermons.id' => JText::_('JGRID_HEADING_ID')
+			'sermons.hits'        => JText::_('JGLOBAL_HITS'),
+			'language'            => JText::_('JGRID_HEADING_LANGUAGE'),
+			'sermons.id'          => JText::_('JGRID_HEADING_ID'),
 		);
 	}
 }

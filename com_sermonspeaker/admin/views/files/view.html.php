@@ -30,7 +30,7 @@ class SermonspeakerViewFiles extends JViewLegacy
 	 */
 	function display($tpl = null)
 	{
-		$this->state	= $this->get('state');
+		$this->state = $this->get('state');
 		$this->items = $this->get('items');
 
 		return parent::display($tpl);

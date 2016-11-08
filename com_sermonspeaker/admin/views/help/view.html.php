@@ -35,7 +35,7 @@ class SermonspeakerViewHelp extends JViewLegacy
 	/**
 	 * Execute and display a template script.
 	 *
-	 * @param   string  $tpl  The name of the template file to parse; automatically searches through the template paths.
+	 * @param   string $tpl The name of the template file to parse; automatically searches through the template paths.
 	 *
 	 * @return  mixed  A string if successful, otherwise a Error object.
 	 *
@@ -47,8 +47,8 @@ class SermonspeakerViewHelp extends JViewLegacy
 		SermonspeakerHelper::addSubmenu('help');
 
 		// Get current version of SermonSpeaker
-		$component     = JComponentHelper::getComponent('com_sermonspeaker');
-		$extensions    = JTable::getInstance('extension');
+		$component  = JComponentHelper::getComponent('com_sermonspeaker');
+		$extensions = JTable::getInstance('extension');
 		$extensions->load($component->id);
 		$manifest      = json_decode($extensions->manifest_cache);
 		$this->version = $manifest->version;

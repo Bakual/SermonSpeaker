@@ -7,7 +7,7 @@ defined('_JEXEC') or die;
  *
  * @package        Sermonspeaker.Administrator
  *
- * @since  ?
+ * @since          ?
  */
 class SermonspeakerViewSpeaker extends JViewLegacy
 {
