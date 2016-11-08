@@ -15,24 +15,24 @@ JFormHelper::loadFieldClass('text');
 /**
  * Filesize Field class for the SermonSpeaker
  *
- * @package		SermonSpeaker
- * @since		4.0
+ * @package        SermonSpeaker
+ * @since          4.0
  */
 class JFormFieldFilesize extends JFormFieldText
 {
 	/**
 	 * The form field type.
 	 *
-	 * @var		string
-	 * @since	1.6
+	 * @var        string
+	 * @since    1.6
 	 */
 	protected $type = 'Filesize';
 
 	/**
 	 * Method to get the field input markup.
 	 *
-	 * @return	string	The field input markup.
-	 * @since	1.6
+	 * @return    string    The field input markup.
+	 * @since    1.6
 	 */
 	protected function getInput()
 	{

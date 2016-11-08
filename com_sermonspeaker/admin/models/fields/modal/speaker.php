@@ -19,7 +19,7 @@ class JFormFieldModal_Speaker extends JFormField
 	/**
 	 * The form field type.
 	 *
-	 * @var		string
+	 * @var        string
 	 * @since   1.6
 	 */
 	protected $type = 'Modal_Speaker';
@@ -38,10 +38,10 @@ class JFormFieldModal_Speaker extends JFormField
 		JHtml::_('behavior.modal', 'a.modal');
 
 		// Build the script.
-		$script = array();
-		$script[] = '	function jSelectSpeaker_'.$this->id.'(id, title, catid, object) {';
-		$script[] = '		document.id("'.$this->id.'_id").value = id;';
-		$script[] = '		document.id("'.$this->id.'_name").value = title;';
+		$script   = array();
+		$script[] = '	function jSelectSpeaker_' . $this->id . '(id, title, catid, object) {';
+		$script[] = '		document.id("' . $this->id . '_id").value = id;';
+		$script[] = '		document.id("' . $this->id . '_name").value = title;';
 		$script[] = '		SqueezeBox.close();';
 		$script[] = '	}';
 
@@ -49,19 +49,19 @@ class JFormFieldModal_Speaker extends JFormField
 		JFactory::getDocument()->addScriptDeclaration(implode("\n", $script));
 
 		// Setup variables for display.
-		$html	= array();
-		$link	= 'index.php?option=com_sermonspeaker&amp;view=speakers&amp;layout=modal&amp;tmpl=component&amp;function=jSelectSpeaker_'.$this->id;
+		$html = array();
+		$link = 'index.php?option=com_sermonspeaker&amp;view=speakers&amp;layout=modal&amp;tmpl=component&amp;function=jSelectSpeaker_' . $this->id;
 
 		if (isset($this->element['language']))
 		{
-			$link .= '&amp;forcedLanguage='.$this->element['language'];
+			$link .= '&amp;forcedLanguage=' . $this->element['language'];
 		}
 
-		$db	= JFactory::getDbo();
+		$db = JFactory::getDbo();
 		$db->setQuery(
 			'SELECT title' .
 			' FROM #__sermon_speakers' .
-			' WHERE id = '.(int) $this->value
+			' WHERE id = ' . (int) $this->value
 		);
 
 		try
@@ -81,7 +81,7 @@ class JFormFieldModal_Speaker extends JFormField
 
 		// The current user display field.
 		$html[] = '<span class="input-append">';
-		$html[] = '<input type="text" class="input-medium" id="'.$this->id.'_name" value="'.$title.'" disabled="disabled" size="35" /><a class="modal btn" title="'.JText::_('COM_SERMONSPEAKER_CHANGE_SPEAKER').'"  href="'.$link.'&amp;'.JSession::getFormToken().'=1" rel="{handler: \'iframe\', size: {x: 800, y: 450}}"><i class="icon-file"></i> '.JText::_('JSELECT').'</a>';
+		$html[] = '<input type="text" class="input-medium" id="' . $this->id . '_name" value="' . $title . '" disabled="disabled" size="35" /><a class="modal btn" title="' . JText::_('COM_SERMONSPEAKER_CHANGE_SPEAKER') . '"  href="' . $link . '&amp;' . JSession::getFormToken() . '=1" rel="{handler: \'iframe\', size: {x: 800, y: 450}}"><i class="icon-file"></i> ' . JText::_('JSELECT') . '</a>';
 		$html[] = '</span>';
 
 		// The active article id field.
@@ -101,7 +101,7 @@ class JFormFieldModal_Speaker extends JFormField
 			$class = ' class="required modal-value"';
 		}
 
-		$html[] = '<input type="hidden" id="'.$this->id.'_id"'.$class.' name="'.$this->name.'" value="'.$value.'" />';
+		$html[] = '<input type="hidden" id="' . $this->id . '_id"' . $class . ' name="' . $this->name . '" value="' . $value . '" />';
 
 		return implode("\n", $html);
 	}

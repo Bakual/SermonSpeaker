@@ -61,7 +61,7 @@ class JFormFieldScripture extends JFormField
 		}
 
 		$html = '<span id="scripture_span">';
-		$i = 1;
+		$i    = 1;
 
 		foreach ($this->value as $value)
 		{
@@ -71,7 +71,7 @@ class JFormFieldScripture extends JFormField
 			{
 				$text = $value['text'];
 
-				if(!$value['book'])
+				if (!$value['book'])
 				{
 					$title = 'old" title="' . JText::_('COM_SERMONSPEAKER_SCRIPTURE_NOT_SEARCHABLE');
 				}
@@ -112,7 +112,7 @@ class JFormFieldScripture extends JFormField
 			}
 
 			$html .= '<span id="scripture_span_' . $i . '">';
-			$html .= '<input id="' . $this->id . '_' . $i . '" type="hidden" value="' . implode('|',$value) . '" name="' . $this->name . '[' . $i . ']">';
+			$html .= '<input id="' . $this->id . '_' . $i . '" type="hidden" value="' . implode('|', $value) . '" name="' . $this->name . '[' . $i . ']">';
 			$html .= '<div class="input-prepend">';
 			$html .= '<div class="btn add-on icon-trash" onclick="delete_scripture(' . $i . ');"> </div>';
 			$html .= '<a class="modal" href="' . $url . '&id=' . $i . '" rel="{handler: \'iframe\', size: {x: 550, y: 420}}">';

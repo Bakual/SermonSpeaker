@@ -21,7 +21,8 @@ class JFormFieldMediaWrapper extends JFormFieldMedia
 	protected function getInput()
 	{
 		$params = JComponentHelper::getParams('com_sermonspeaker');
-		switch ($this->fieldname){
+		switch ($this->fieldname)
+		{
 			case 'picture':
 				$directory = $params->get('path_sermonpic');
 				break;
@@ -34,7 +35,8 @@ class JFormFieldMediaWrapper extends JFormFieldMedia
 				break;
 		}
 		$directory = trim($directory, ' /');
-		if (strpos ($directory, 'images') === 0){
+		if (strpos($directory, 'images') === 0)
+		{
 			$directory = substr($directory, 7);
 		}
 		$this->directory = $directory;
