@@ -547,7 +547,7 @@ class SermonspeakerModelSermon extends JModelAdmin
 	public function podcast(&$pks, $value = 1)
 	{
 		// Initialise variables.
-		$user  = JFactory::getUser();
+		$user = JFactory::getUser();
 		/** @var SermonspeakerTableSermon $table */
 		$table = $this->getTable();
 		$pks   = (array) $pks;

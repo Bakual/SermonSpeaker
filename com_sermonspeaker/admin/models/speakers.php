@@ -6,7 +6,8 @@ class SermonspeakerModelSpeakers extends JModelList
 	/**
 	 * Constructor.
 	 *
-	 * @param  array  $config  An optional associative array of configuration settings.
+	 * @param  array $config An optional associative array of configuration settings.
+	 *
 	 * @see    JController
 	 * @since  1.6
 	 */
@@ -87,17 +88,18 @@ class SermonspeakerModelSpeakers extends JModelList
 	 * different modules that might need different sets of data or different
 	 * ordering requirements.
 	 *
-	 * @param	string		$id	A prefix for the store id.
-	 * @return	string		A store id.
-	 * @since	1.6
+	 * @param    string $id A prefix for the store id.
+	 *
+	 * @return    string        A store id.
+	 * @since    1.6
 	 */
 	protected function getStoreId($id = '')
 	{
 		// Compile the store id.
-		$id.= ':' . $this->getState('filter.search');
-		$id.= ':' . $this->getState('filter.state');
-		$id.= ':' . $this->getState('filter.category_id');
-		$id.= ':' . $this->getState('filter.language');
+		$id .= ':' . $this->getState('filter.search');
+		$id .= ':' . $this->getState('filter.state');
+		$id .= ':' . $this->getState('filter.category_id');
+		$id .= ':' . $this->getState('filter.language');
 
 		return parent::getStoreId($id);
 	}
@@ -105,8 +107,8 @@ class SermonspeakerModelSpeakers extends JModelList
 	/**
 	 * Build an SQL query to load the list data.
 	 *
-	 * @return	JDatabaseQuery
-	 * @since	1.6
+	 * @return    JDatabaseQuery
+	 * @since    1.6
 	 */
 	protected function getListQuery()
 	{
@@ -171,8 +173,8 @@ class SermonspeakerModelSpeakers extends JModelList
 		{
 			$cat_tbl = JTable::getInstance('Category', 'JTable');
 			$cat_tbl->load($categoryId);
-			$rgt = $cat_tbl->rgt;
-			$lft = $cat_tbl->lft;
+			$rgt       = $cat_tbl->rgt;
+			$lft       = $cat_tbl->lft;
 			$baselevel = (int) $cat_tbl->level;
 			$query->where('c.lft >= ' . (int) $lft)
 				->where('c.rgt <= ' . (int) $rgt);
@@ -203,7 +205,7 @@ class SermonspeakerModelSpeakers extends JModelList
 		// Filter on the language.
 		if ($language = $this->getState('filter.language'))
 		{
-			$query->where('speakers.language = '.$db->quote($language));
+			$query->where('speakers.language = ' . $db->quote($language));
 		}
 
 		// Add the list ordering clause.

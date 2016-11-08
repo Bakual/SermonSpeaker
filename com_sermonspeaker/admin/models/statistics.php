@@ -16,8 +16,7 @@ class SermonspeakerModelStatistics extends JModelLegacy
 	public function getSpeakers()
 	{
 		$query = "SELECT id, title, hits FROM #__sermon_speakers \n"
-				."ORDER BY id"
-				;
+			. "ORDER BY id";
 
 		return $this->_getList($query);
 	}
@@ -30,8 +29,7 @@ class SermonspeakerModelStatistics extends JModelLegacy
 	public function getSeries()
 	{
 		$query = "SELECT id, title, hits FROM #__sermon_series \n"
-				."ORDER BY id"
-				;
+			. "ORDER BY id";
 
 		return $this->_getList($query);
 	}
@@ -44,8 +42,7 @@ class SermonspeakerModelStatistics extends JModelLegacy
 	public function getSermons()
 	{
 		$query = "SELECT id, title, hits FROM #__sermon_sermons \n"
-				."ORDER BY id"
-				;
+			. "ORDER BY id";
 
 		return $this->_getList($query);
 	}

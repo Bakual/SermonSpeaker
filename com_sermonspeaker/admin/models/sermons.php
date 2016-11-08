@@ -6,9 +6,10 @@ class SermonspeakerModelSermons extends JModelList
 	/**
 	 * Constructor.
 	 *
-	 * @param	array  $config  An optional associative array of configuration settings.
-	 * @see		JController
-	 * @since	1.6
+	 * @param    array $config An optional associative array of configuration settings.
+	 *
+	 * @see        JController
+	 * @since      1.6
 	 */
 	public function __construct($config = array())
 	{
@@ -62,8 +63,8 @@ class SermonspeakerModelSermons extends JModelList
 	 *
 	 * Note. Calling getState in this method will result in recursion.
 	 *
-	 * @param   string  $ordering   An optional ordering field.
-	 * @param   string  $direction  An optional direction (asc|desc).
+	 * @param   string $ordering  An optional ordering field.
+	 * @param   string $direction An optional direction (asc|desc).
 	 *
 	 * @return  void
 	 *
@@ -88,7 +89,7 @@ class SermonspeakerModelSermons extends JModelList
 
 		if ($forcedLanguage)
 		{
-			$userstate = $app->getUserState($this->context);
+			$userstate                     = $app->getUserState($this->context);
 			$userstate->filter['language'] = $forcedLanguage;
 			$app->setUserState($this->context, $userstate);
 			$this->setState('filter.language', $forcedLanguage);
@@ -103,20 +104,21 @@ class SermonspeakerModelSermons extends JModelList
 	 * different modules that might need different sets of data or different
 	 * ordering requirements.
 	 *
-	 * @param	string		$id	A prefix for the store id.
-	 * @return	string		A store id.
-	 * @since	1.6
+	 * @param    string $id A prefix for the store id.
+	 *
+	 * @return    string        A store id.
+	 * @since    1.6
 	 */
 	protected function getStoreId($id = '')
 	{
 		// Compile the store id.
-		$id.= ':' . $this->getState('filter.search');
-		$id.= ':' . $this->getState('filter.state');
-		$id.= ':' . $this->getState('filter.podcast');
-		$id.= ':' . $this->getState('filter.speaker');
-		$id.= ':' . $this->getState('filter.series');
-		$id.= ':' . $this->getState('filter.category_id');
-		$id.= ':' . $this->getState('filter.language');
+		$id .= ':' . $this->getState('filter.search');
+		$id .= ':' . $this->getState('filter.state');
+		$id .= ':' . $this->getState('filter.podcast');
+		$id .= ':' . $this->getState('filter.speaker');
+		$id .= ':' . $this->getState('filter.series');
+		$id .= ':' . $this->getState('filter.category_id');
+		$id .= ':' . $this->getState('filter.language');
 
 		return parent::getStoreId($id);
 	}
@@ -231,8 +233,8 @@ class SermonspeakerModelSermons extends JModelList
 		{
 			$cat_tbl = JTable::getInstance('Category', 'JTable');
 			$cat_tbl->load($categoryId);
-			$rgt = $cat_tbl->rgt;
-			$lft = $cat_tbl->lft;
+			$rgt       = $cat_tbl->rgt;
+			$lft       = $cat_tbl->lft;
 			$baselevel = (int) $cat_tbl->level;
 			$query->where('c.lft >= ' . (int) $lft)
 				->where('c.rgt <= ' . (int) $rgt);

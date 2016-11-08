@@ -7,7 +7,7 @@ defined('_JEXEC') or die;
  *
  * @package   Sermonspeaker.Administrator
  *
- * @since ?
+ * @since     ?
  */
 class SermonspeakerModelSpeaker extends JModelAdmin
 {
@@ -67,9 +67,9 @@ class SermonspeakerModelSpeaker extends JModelAdmin
 	/**
 	 * Returns a reference to the a Table object, always creating it.
 	 *
-	 * @param    string  $type     The table type to instantiate
-	 * @param    string  $prefix   A prefix for the table class name. Optional.
-	 * @param    array   $config   Configuration array for model. Optional.
+	 * @param    string $type   The table type to instantiate
+	 * @param    string $prefix A prefix for the table class name. Optional.
+	 * @param    array  $config Configuration array for model. Optional.
 	 *
 	 * @return    JTable    A database object
 	 * @since    1.6
