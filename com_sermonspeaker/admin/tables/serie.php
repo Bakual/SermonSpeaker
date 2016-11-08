@@ -7,7 +7,7 @@ defined('_JEXEC') or die;
  *
  * @package        Sermonspeaker.Administrator
  *
- * @since ?
+ * @since          ?
  */
 class SermonspeakerTableSerie extends JTable
 {
@@ -84,10 +84,10 @@ class SermonspeakerTableSerie extends JTable
 	 * table.  The method respects checked out rows by other users and will attempt
 	 * to checkin rows that it can after adjustments are made.
 	 *
-	 * @param    $pks     mixed    An optional array of primary key values to update.  If not
+	 * @param    $pks              mixed    An optional array of primary key values to update.  If not
 	 *                             set the instance property value is used.
-	 * @param    $state   integer  The publishing state. eg. [0 = unpublished, 1 = published]
-	 * @param    $userId  integer  The user id of the user performing the operation.
+	 * @param    $state            integer  The publishing state. eg. [0 = unpublished, 1 = published]
+	 * @param    $userId           integer  The user id of the user performing the operation.
 	 *
 	 * @return    boolean    True on success.
 	 *
