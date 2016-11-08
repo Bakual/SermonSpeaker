@@ -5,6 +5,8 @@ defined('_JEXEC') or die;
  * Speaker Table class
  *
  * @package		Sermonspeaker.Administrator
+ *
+ * @since ?
  */
 class SermonspeakerTableSpeaker extends JTable
 {
@@ -12,6 +14,8 @@ class SermonspeakerTableSpeaker extends JTable
 	 * Constructor
 	 *
 	 * @param  JDatabaseDriver  $db  JDatabaseDriver object.
+	 *
+	 * @since ?
 	 */
 	public function __construct(&$db)
 	{
@@ -24,10 +28,14 @@ class SermonspeakerTableSpeaker extends JTable
 	/**
 	 * Overloaded bind function to pre-process the params.
 	 *
-	 * @param   array  Named array
-	 * @return  null|string	null is operation was satisfactory, otherwise returns an error
-	 * @see     JTable:bind
-	 * @since   1.5
+	 * @param array  $array
+	 * @param string $ignore
+	 *
+	 * @return null|string null is operation was satisfactory, otherwise returns an error
+	 *
+	 * @see      JTable::bind
+	 *
+	 * @since    1.5
 	 */
 	public function bind($array, $ignore = '')
 	{
@@ -74,10 +82,10 @@ class SermonspeakerTableSpeaker extends JTable
 	 * table.  The method respects checked out rows by other users and will attempt
 	 * to checkin rows that it can after adjustments are made.
 	 *
-	 * @param	mixed	An optional array of primary key values to update.  If not
+	 * @param	mixed	$pks  An optional array of primary key values to update.  If not
 	 *					set the instance property value is used.
-	 * @param	integer The publishing state. eg. [0 = unpublished, 1 = published]
-	 * @param	integer The user id of the user performing the operation.
+	 * @param	integer $state  The publishing state. eg. [0 = unpublished, 1 = published]
+	 * @param	integer $userId  The user id of the user performing the operation.
 	 * @return	boolean	True on success.
 	 * @since	1.0.4
 	 */
@@ -129,7 +137,7 @@ class SermonspeakerTableSpeaker extends JTable
 			// Checkin the rows.
 			foreach($pks as $pk)
 			{
-				$this->checkin($pk);
+				$this->checkIn($pk);
 			}
 		}
 		// If the JTable instance value is in the list of primary keys that were set, set the instance.

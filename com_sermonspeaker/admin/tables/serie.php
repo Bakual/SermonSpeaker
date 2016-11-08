@@ -6,6 +6,8 @@ defined('_JEXEC') or die;
  * Serie Table class
  *
  * @package        Sermonspeaker.Administrator
+ *
+ * @since ?
  */
 class SermonspeakerTableSerie extends JTable
 {
@@ -13,6 +15,8 @@ class SermonspeakerTableSerie extends JTable
 	 * Constructor
 	 *
 	 * @param  JDatabaseDriver $db JDatabaseDriver object.
+	 *
+	 * @since ?
 	 */
 	public function __construct(&$db)
 	{
@@ -25,11 +29,14 @@ class SermonspeakerTableSerie extends JTable
 	/**
 	 * Overloaded bind function to pre-process the params.
 	 *
-	 * @param   array  Named array
+	 * @param array  $array
+	 * @param string $ignore
 	 *
-	 * @return  null|string    null is operation was satisfactory, otherwise returns an error
-	 * @see     JTable:bind
-	 * @since   1.5
+	 * @return null|string null is operation was satisfactory, otherwise returns an error
+	 *
+	 * @see      JTable::bind
+	 *
+	 * @since    1.5
 	 */
 	public function bind($array, $ignore = '')
 	{
@@ -83,6 +90,7 @@ class SermonspeakerTableSerie extends JTable
 	 * @param    $userId  integer  The user id of the user performing the operation.
 	 *
 	 * @return    boolean    True on success.
+	 *
 	 * @since    1.0.4
 	 */
 	public function publish($pks = null, $state = 1, $userId = 0)
@@ -147,7 +155,7 @@ class SermonspeakerTableSerie extends JTable
 			// Checkin the rows.
 			foreach ($pks as $pk)
 			{
-				$this->checkin($pk);
+				$this->checkIn($pk);
 			}
 		}
 
