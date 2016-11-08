@@ -104,18 +104,21 @@ class SermonspeakerModelFiles extends JModelLegacy
 			// AWS access info
 			$awsAccessKey = $params->get('s3_access_key');
 			$awsSecretKey = $params->get('s3_secret_key');
-			$customBucket = $params->get('s3_custom_bucket');
 			$bucket       = $params->get('s3_bucket');
 			$s3           = new S3($awsAccessKey, $awsSecretKey);
 
-			if (!$customBucket)
+			$bucket_contents = $s3->getBucket($bucket);
+
+			if ($params->get('s3_custom_bucket'))
+			{
+				$domain = $bucket;
+			}
+			else
 			{
 				$region = $s3->getBucketLocation($bucket);
 				$prefix = ($region == 'US') ? 's3' : 's3-' . $region;
+				$domain = $prefix . '.amazonaws.com/' . $bucket;
 			}
-
-			$bucket_contents = $s3->getBucket($bucket);
-			$domain          = ($customBucket) ? $bucket : $prefix . '.amazonaws.com/' . $bucket;
 
 			foreach ($bucket_contents as $file)
 			{

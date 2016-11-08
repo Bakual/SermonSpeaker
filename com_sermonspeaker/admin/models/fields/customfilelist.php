@@ -31,6 +31,42 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 	public $type = 'CustomFileList';
 
 	/**
+	 * The component params.
+	 *
+	 * @var    Joomla\Registry\Registry
+	 *
+	 * @since ?
+	 */
+	private $params;
+
+	/**
+	 * The file path
+	 *
+	 * @var    string
+	 *
+	 * @since ?
+	 */
+	private $file;
+
+	/**
+	 * Mode: 0 = Default, 1 = Vimeo, 2 = Amazon S3, 3 = Extern
+	 *
+	 * @var    integer
+	 *
+	 * @since ?
+	 */
+	private $mode;
+
+	/**
+	 * Filetype: audio or video
+	 *
+	 * @var    string
+	 *
+	 * @since ?
+	 */
+	private $filetypes;
+
+	/**
 	 * Method to get the field input markup for the custom filelist.
 	 *
 	 * @return  string  The field input markup.
@@ -170,11 +206,14 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 
 			if ($xml = simplexml_load_file($url))
 			{
+				/** @noinspection PhpUndefinedFieldInspection */
 				foreach ($xml->video as $video)
 				{
+					/** @noinspection PhpUndefinedFieldInspection */
 					$option['value'] = $video->url;
-					$option['text']  = $video->title;
-					$options[]       = $option;
+					/** @noinspection PhpUndefinedFieldInspection */
+					$option['text'] = $video->title;
+					$options[]      = $option;
 				}
 
 				return $options;
@@ -194,17 +233,10 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 			// AWS access info
 			$awsAccessKey = $this->params->get('s3_access_key');
 			$awsSecretKey = $this->params->get('s3_secret_key');
-			$customBucket = $this->params->get('s3_custom_bucket');
 			$bucket       = $this->params->get('s3_bucket');
 
 			// Instantiate the class
 			$s3 = new S3($awsAccessKey, $awsSecretKey);
-
-			if (!$customBucket)
-			{
-				$region = $s3->getBucketLocation($bucket);
-				$prefix = ($region == 'US') ? 's3' : 's3-' . $region;
-			}
 
 			$folder = '';
 
@@ -243,6 +275,17 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 				}
 			);
 
+			if ($this->params->get('s3_custom_bucket'))
+			{
+				$domain = $bucket;
+			}
+			else
+			{
+				$region = $s3->getBucketLocation($bucket);
+				$prefix = ($region == 'US') ? 's3' : 's3-' . $region;
+				$domain = $prefix . '.amazonaws.com/' . $bucket;
+			}
+
 			foreach ($bucket_contents as $file)
 			{
 				// Don't show the "folder"
@@ -251,7 +294,6 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 					continue;
 				}
 
-				$domain          = ($customBucket) ? $bucket : $prefix . '.amazonaws.com/' . $bucket;
 				$fname           = $file['name'];
 				$furl            = 'https://' . $domain . '/' . $fname;
 				$option['value'] = $furl;
@@ -268,11 +310,14 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 
 			if ($xml = simplexml_load_file($url))
 			{
+				/** @noinspection PhpUndefinedFieldInspection */
 				foreach ($xml->file as $file)
 				{
+					/** @noinspection PhpUndefinedFieldInspection */
 					$option['value'] = $file->URL;
-					$option['text']  = $file->name;
-					$options[]       = $option;
+					/** @noinspection PhpUndefinedFieldInspection */
+					$option['text'] = $file->name;
+					$options[]      = $option;
 				}
 
 				return $options;

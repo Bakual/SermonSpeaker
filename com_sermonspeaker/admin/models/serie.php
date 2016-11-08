@@ -36,7 +36,7 @@ class SermonspeakerModelSerie extends JModelAdmin
 	/**
 	 * Method to test whether a record can be deleted.
 	 *
-	 * @param    object    A record object.
+	 * @param    $record  object      A record object.
 	 *
 	 * @return    boolean    True if allowed to delete the record. Defaults to the permission set in the component.
 	 * @since    1.6
@@ -49,7 +49,7 @@ class SermonspeakerModelSerie extends JModelAdmin
 	/**
 	 * Method to test whether a records state can be changed.
 	 *
-	 * @param    object    A record object.
+	 * @param    $record  object    A record object.
 	 *
 	 * @return    boolean    True if allowed to change the state of the record. Defaults to the permission set in the
 	 *                       component.
@@ -163,7 +163,7 @@ class SermonspeakerModelSerie extends JModelAdmin
 	/**
 	 * Method to get a single record.
 	 *
-	 * @param    integer    The id of the primary key.
+	 * @param    $pk integer    The id of the primary key.
 	 *
 	 * @return    mixed    Object on success, false on failure.
 	 * @since    1.6
@@ -310,7 +310,7 @@ class SermonspeakerModelSerie extends JModelAdmin
 	/**
 	 * A protected method to get a set of ordering conditions.
 	 *
-	 * @param    object    A record object.
+	 * @param    $table  JTable    A record object.
 	 *
 	 * @return    array    An array of conditions to add to add to ordering queries.
 	 * @since    1.6
@@ -327,7 +327,7 @@ class SermonspeakerModelSerie extends JModelAdmin
 	 * Method to set a default series.
 	 * Copied from template style.
 	 *
-	 * @param    int        The primary key ID for the series.
+	 * @param    $id int        The primary key ID for the series.
 	 *
 	 * @return    boolean    True if successful.
 	 * @throws    Exception

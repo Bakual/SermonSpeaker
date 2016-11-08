@@ -81,12 +81,6 @@ class JFormFieldSpeakerlist extends JFormFieldList
 		$db     = JFactory::getDbo();
 		$params = JComponentHelper::getParams('com_sermonspeaker');
 
-		if ($catfilter = $params->get('catfilter_lists', 0))
-		{
-			$action = ($this->value === '') ? 'core.create' : 'core.edit.state';
-			$catids = implode(',', JFactory::getUser()->getAuthorisedCategories('com_sermonspeaker', $action));
-		}
-
 		$query = $db->getQuery(true);
 		$query->select('speakers.id As value, home');
 
@@ -103,16 +97,23 @@ class JFormFieldSpeakerlist extends JFormFieldList
 		$query->join('LEFT', '#__categories AS c_speakers ON c_speakers.id = speakers.catid');
 		$query->where('speakers.state = 1');
 
-		if ($catfilter)
+		if ($params->get('catfilter_lists', 0))
 		{
-			if ($catids)
-			{
-				$query->where('(speakers.catid IN (' . $catids . ') OR speakers.id = ' . $db->quote($this->value) . ')');
-			}
-			else
-			{
-				$query->where('speakers.id = ' . $db->quote($this->value));
-			}
+			$action = ($this->value === '') ? 'core.create' : 'core.edit.state';
+			$catids = implode(',', JFactory::getUser()->getAuthorisedCategories('com_sermonspeaker', $action));
+		}
+		else
+		{
+			$catids = 0;
+		}
+
+		if ($catids)
+		{
+			$query->where('(speakers.catid IN (' . $catids . ') OR speakers.id = ' . $db->quote($this->value) . ')');
+		}
+		else
+		{
+			$query->where('speakers.id = ' . $db->quote($this->value));
 		}
 
 		$query->order('speakers.title');
@@ -138,16 +139,13 @@ class JFormFieldSpeakerlist extends JFormFieldList
 		$query->join('LEFT', '#__categories AS c_speakers ON c_speakers.id = speakers.catid');
 		$query->where('speakers.state = 0');
 
-		if ($catfilter)
+		if ($catids)
 		{
-			if ($catids)
-			{
-				$query->where('(speakers.catid IN (' . $catids . ') OR speakers.id = ' . $db->quote($this->value) . ')');
-			}
-			else
-			{
-				$query->where('speakers.id = ' . $db->quote($this->value));
-			}
+			$query->where('(speakers.catid IN (' . $catids . ') OR speakers.id = ' . $db->quote($this->value) . ')');
+		}
+		else
+		{
+			$query->where('speakers.id = ' . $db->quote($this->value));
 		}
 
 		$query->order('speakers.title');

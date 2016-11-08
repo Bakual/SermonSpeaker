@@ -39,20 +39,6 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 	protected $s3video;
 
 	/**
-	 * AmazonS3 information
-	 *
-	 * @var    string
-	 */
-	protected $bucket;
-
-	/**
-	 * AmazonS3 information
-	 *
-	 * @var    string
-	 */
-	protected $prefix;
-
-	/**
 	 * A params object
 	 *
 	 * @var    Joomla\Registry\Registry
@@ -355,19 +341,21 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 			// AWS access info
 			$awsAccessKey = $this->params->get('s3_access_key');
 			$awsSecretKey = $this->params->get('s3_secret_key');
-			$customBucket = $this->params->get('s3_custom_bucket');
 			$bucket       = $this->params->get('s3_bucket');
 
 			// Instantiate the class
 			$s3 = new S3($awsAccessKey, $awsSecretKey);
 
-			if (!$customBucket)
+			if ($this->params->get('s3_custom_bucket'))
+			{
+				$this->domain = $bucket;
+			}
+			else
 			{
 				$region = $s3->getBucketLocation($bucket);
 				$prefix = ($region == 'US') ? 's3' : 's3-' . $region;
+				$this->domain = $prefix . '.amazonaws.com/' . $bucket;
 			}
-
-			$this->domain = ($customBucket) ? $bucket : $prefix . '.amazonaws.com/' . $bucket;
 		}
 
 		// Calculate destination path to show

@@ -119,17 +119,10 @@ class SermonspeakerControllerFile extends JControllerLegacy
 			// AWS access info
 			$awsAccessKey = $params->get('s3_access_key');
 			$awsSecretKey = $params->get('s3_secret_key');
-			$customBucket = $params->get('s3_custom_bucket');
 			$bucket       = $params->get('s3_bucket');
 
 			// Instantiate the class
 			$s3 = new S3($awsAccessKey, $awsSecretKey);
-
-			if (!$customBucket)
-			{
-				$region = $s3->getBucketLocation($bucket);
-				$prefix = ($region == 'US') ? 's3' : 's3-' . $region;
-			}
 
 			$date   = $jinput->get('date', '', 'string');
 			$time   = ($date) ? strtotime($date) : time();
@@ -162,10 +155,20 @@ class SermonspeakerControllerFile extends JControllerLegacy
 				return;
 			}
 
+			if ($params->get('s3_custom_bucket'))
+			{
+				$domain = $bucket;
+			}
+			else
+			{
+				$region = $s3->getBucketLocation($bucket);
+				$prefix = ($region == 'US') ? 's3' : 's3-' . $region;
+				$domain = $prefix . '.amazonaws.com/' . $bucket;
+			}
+
 			// Upload the file
 			if ($s3->putObjectFile($file['tmp_name'], $bucket, $uri, S3::ACL_PUBLIC_READ))
 			{
-				$domain   = ($customBucket) ? $bucket : $prefix . '.amazonaws.com/' . $bucket;
 				$response = array(
 					'status'   => '1',
 					'filename' => $file['name'],
