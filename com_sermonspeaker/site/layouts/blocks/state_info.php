@@ -10,8 +10,9 @@
 defined('_JEXEC') or die();
 
 /**
- * $item     object    The sermon item
- * $show     boolean   Whether to show the states or not
+ * @var  array   $displayData Contains the following items:
+ * @var  object  $item        The sermon item
+ * @var  boolean $show        Whether to show the states or not
  */
 extract($displayData);
 

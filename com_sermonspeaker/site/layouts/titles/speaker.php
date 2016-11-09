@@ -10,10 +10,11 @@
 defined('_JEXEC') or die();
 
 /**
- * $item    object                    The sermon item
- * $params  Joomla\Registry\Registry  The item params
- * $legacy  bool                      Set if coming from SermonspeakerHelperSermonspeaker::SpeakerTooltip()
- *                                    Item only contains speaker_title, speaker_slug and pic in this case
+ * @var  array                    $displayData Contains the following items:
+ * @var  object                   $item        The sermon item
+ * @var  Joomla\Registry\Registry $params      The item params
+ * @var  bool                     $legacy      Set if coming from SermonspeakerHelperSermonspeaker::SpeakerTooltip()
+ *                                             Item only contains speaker_title, speaker_slug and pic in this case
  */
 extract($displayData);
 

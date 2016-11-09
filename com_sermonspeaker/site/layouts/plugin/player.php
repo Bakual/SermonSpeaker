@@ -10,9 +10,10 @@
 defined('_JEXEC') or die();
 
 /**
- * @var  array/object              $items    An array of sermon objects or a single object
- * @var  object                    $player   The player object
- * @var  Joomla\Registry\Registry  $params   The params
+ * @var  array                    $displayData Contains the following items:
+ * @var  array|object             $items       An array of sermon objects or a single object
+ * @var  object                   $player      The player object
+ * @var  Joomla\Registry\Registry $params      The params
  */
 extract($displayData);
 
@@ -24,7 +25,7 @@ endif; ?>
 echo $player->mspace;
 echo $player->script;
 ?>
-<hr />
+<hr/>
 <?php if ($player->toggle) :
 	echo $this->sublayout('toggler', $items);
 endif; ?>

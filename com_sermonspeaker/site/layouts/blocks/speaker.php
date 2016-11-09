@@ -10,9 +10,10 @@
 defined('_JEXEC') or die();
 
 /**
- * $item     object                    The sermon item
- * $params   Joomla\Registry\Registry  The item params
- * $columns  array                     The columns to show
+ * @var  array                    $displayData Contains the following items:
+ * @var  object                   $item        The sermon item
+ * @var  Joomla\Registry\Registry $params      The item params
+ * @var  array                    $columns     The columns to show
  */
 extract($displayData);
 ?>
@@ -27,7 +28,7 @@ extract($displayData);
 <?php if ($item->pic) : ?>
 	<div class="img-polaroid pull-right item-image">
 		<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug, $item->catid, $item->language)); ?>" itemprop="url">
-			<img src="<?php echo SermonspeakerHelperSermonspeaker::makelink($item->pic); ?>" itemprop="image">
+			<img src="<?php echo SermonspeakerHelperSermonspeaker::makeLink($item->pic); ?>" itemprop="image">
 		</a>
 	</div>
 <?php endif; ?>

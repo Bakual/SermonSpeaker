@@ -9,6 +9,7 @@
 
 defined('_JEXEC') or die();
 
+/** @var stdClass $displayData */
 $url = JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($displayData->speaker_slug, $displayData->speaker_catid, $displayData->speaker_language));
 ?>
 <div id="sermonspeaker-modal-speaker-<?php echo $displayData->speaker_id; ?>" class="modal hide fade">
@@ -20,7 +21,7 @@ $url = JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($displayData->speaker
 	</div>
 	<div class="modal-body">
 		<a href="<?php echo $url; ?>" itemprop="url">
-			<img class="item-image pull-left" src="<?php echo SermonspeakerHelperSermonspeaker::makelink($displayData->pic); ?>" />
+			<img class="item-image pull-left" src="<?php echo SermonspeakerHelperSermonspeaker::makeLink($displayData->pic); ?>" />
 		</a>
 		<?php if ($displayData->intro) : ?>
 			<div>
