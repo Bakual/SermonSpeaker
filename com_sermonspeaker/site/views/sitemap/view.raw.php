@@ -19,7 +19,7 @@ class SermonspeakerViewSitemap extends JViewLegacy
 	/**
 	 * Execute and display a template script.
 	 *
-	 * @param   string  $tpl  The name of the template file to parse; automatically searches through the template paths.
+	 * @param   string $tpl The name of the template file to parse; automatically searches through the template paths.
 	 *
 	 * @return  mixed  A string if successful, otherwise a Error object.
 	 *
@@ -30,9 +30,9 @@ class SermonspeakerViewSitemap extends JViewLegacy
 		$this->document->setMimeEncoding('text/xml');
 
 		// Get data from the model
-		$this->sermons	= $this->get('Sermons');
-		$app			= JFactory::getApplication();
-		$this->params	= $app->getParams();
+		$this->sermons = $this->get('Sermons');
+		$app           = JFactory::getApplication();
+		$this->params  = $app->getParams();
 
 		return parent::display($tpl);
 	}
