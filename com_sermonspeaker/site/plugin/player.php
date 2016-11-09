@@ -18,11 +18,15 @@ abstract class SermonspeakerPluginPlayer extends JPlugin
 {
 	/**
 	 * @var  Joomla\Registry\Registry
+	 *
+	 * @since ?
 	 */
 	protected $config;
 
 	/**
 	 * @var  object
+	 *
+	 * @since ?
 	 */
 	protected $player;
 
@@ -42,6 +46,8 @@ abstract class SermonspeakerPluginPlayer extends JPlugin
 	 *                                            - vwidth, vheight (width and height for video)
 	 *
 	 * @return  void
+	 *
+	 * @since ?
 	 */
 	public abstract function onGetPlayer($context, &$player, $items, $config);
 
@@ -52,6 +58,8 @@ abstract class SermonspeakerPluginPlayer extends JPlugin
 	 * @param   string $width  Width of the player
 	 *
 	 * @return  void
+	 *
+	 * @since ?
 	 */
 	protected function setDimensions($height, $width)
 	{
@@ -69,6 +77,8 @@ abstract class SermonspeakerPluginPlayer extends JPlugin
 	 * @param   string $type a => audio, v => video
 	 *
 	 * @return  void
+	 *
+	 * @since ?
 	 */
 	protected function setPopup($type = 'a')
 	{
