@@ -19,7 +19,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 	/**
 	 * Upload a file
 	 *
-	 * @return bool
+	 * @return void
 	 * @throws \Exception
 	 *
 	 * @since ?
@@ -65,6 +65,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 
 		// Get files
 		$files	= $jinput->files->get('Filedata', '', 'array');
+		$redirect = '';
 
 		foreach ($files as $key => $file)
 		{
@@ -122,7 +123,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 				else
 				{
 					$app->enqueueMessage(JText::sprintf('COM_SERMONSPEAKER_FU_FILENAME', $filepath));
-					$redirect .= 'file' . $i . '=/' . str_replace('\\', '/', substr($filepath, strlen(JPATH_ROOT . '/')));
+					$redirect .= 'file' . $key . '=/' . str_replace('\\', '/', substr($filepath, strlen(JPATH_ROOT . '/')));
 				}
 			}
 		}
@@ -152,6 +153,6 @@ class SermonspeakerControllerFile extends JControllerLegacy
 			$this->setRedirect($return);
 		}
 
-		return $success;
+		return;
 	}
 }

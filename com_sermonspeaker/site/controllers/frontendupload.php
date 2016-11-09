@@ -85,14 +85,15 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 	protected function allowEdit($data = array(), $key = 'id')
 	{
 		$recordId = (int) isset($data[$key]) ? $data[$key] : 0;
-		$categoryId = 0;
 
-		if ($recordId)
+		if (!$recordId)
 		{
-			// Need to do a lookup from the model.
-			$record = $this->getModel()->getItem($recordId);
-			$categoryId = (int) $record->catid;
+			return false;
 		}
+
+		// Need to do a lookup from the model.
+		$record = $this->getModel()->getItem($recordId);
+		$categoryId = (int) $record->catid;
 
 		if ($categoryId)
 		{
