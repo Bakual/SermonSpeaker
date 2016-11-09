@@ -108,7 +108,7 @@ $listDirn	= $this->state->get('list.direction');
 								<?php
 								if ($this->av) :
 									if ($item->avatar) : ?>
-										<td class="ss-col ss-av hidden-phone hidden-tablet"><a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->slug, $item->catid, $item->language)); ?>"><img class="img-polaroid" src="<?php echo SermonspeakerHelperSermonspeaker::makelink($item->avatar); ?>"></a></td>
+										<td class="ss-col ss-av hidden-phone hidden-tablet"><a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->slug, $item->catid, $item->language)); ?>"><img class="img-polaroid" src="<?php echo SermonspeakerHelperSermonspeaker::makeLink($item->avatar); ?>"></a></td>
 									<?php else : ?>
 										<td class="ss-col ss-av hidden-phone hidden-tablet"></td>
 									<?php endif;

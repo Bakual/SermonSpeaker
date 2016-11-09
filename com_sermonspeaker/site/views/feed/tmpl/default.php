@@ -134,7 +134,7 @@ if ($pic) : ?>
 		<itunes:image href="<?php echo $pic; ?>" />
 <?php endif; ?>
 		<itunes:author><?php echo $this->make_xml_safe($item->speaker_title); ?></itunes:author>
-		<itunes:duration><?php echo SermonspeakerHelperSermonSpeaker::insertTime($item->sermon_time); ?></itunes:duration>
+		<itunes:duration><?php echo SermonspeakerHelperSermonspeaker::insertTime($item->sermon_time); ?></itunes:duration>
 		<itunes:explicit>no</itunes:explicit>
 		<itunes:keywords><?php echo $this->getKeywords($item); ?></itunes:keywords>
 		<itunes:subtitle><?php echo (strlen($notes) > 255) ? mb_substr($notes, 0, 252, 'UTF-8') . '...' : $notes; ?></itunes:subtitle>

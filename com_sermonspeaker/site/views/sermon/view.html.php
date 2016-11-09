@@ -23,9 +23,12 @@ class SermonspeakerViewSermon extends JViewLegacy
 	/**
 	 * Execute and display a template script.
 	 *
-	 * @param   string  $tpl  The name of the template file to parse; automatically searches through the template paths.
+	 * @param   string $tpl The name of the template file to parse; automatically searches through the template paths.
 	 *
-	 * @return  mixed  A string if successful, otherwise a Error object.
+	 * @return mixed A string if successful, otherwise a Error object.
+	 *
+	 * @throws \Exception
+	 * @since ?
 	 */
 	public function display($tpl = null)
 	{
@@ -126,13 +129,15 @@ class SermonspeakerViewSermon extends JViewLegacy
 		$this->pageclass_sfx = htmlspecialchars($this->params->get('pageclass_sfx'));
 
 		$this->_prepareDocument();
-		parent::display($tpl);
+		return parent::display($tpl);
 	}
 
 	/**
 	 * Prepares the document
 	 *
 	 * @return  void
+	 *
+	 * @since ?
 	 */
 	protected function _prepareDocument()
 	{
@@ -239,12 +244,12 @@ class SermonspeakerViewSermon extends JViewLegacy
 
 		if ($keywords)
 		{
-			$this->document->setMetadata('keywords', $keywords);
+			$this->document->setMetaData('keywords', $keywords);
 		}
 
 		if ($this->params->get('robots'))
 		{
-			$this->document->setMetadata('robots', $this->params->get('robots'));
+			$this->document->setMetaData('robots', $this->params->get('robots'));
 		}
 
 		if ($app->get('MetaAuthor'))
@@ -262,7 +267,7 @@ class SermonspeakerViewSermon extends JViewLegacy
 
 			if ($picture = SermonspeakerHelperSermonspeaker::insertPicture($this->item))
 			{
-				$this->document->addCustomTag('<meta property="og:image" content="' . SermonSpeakerHelperSermonSpeaker::makelink($picture, true) . '"/>');
+				$this->document->addCustomTag('<meta property="og:image" content="' . SermonspeakerHelperSermonspeaker::makeLink($picture, true) . '"/>');
 			}
 
 			if ($this->params->get('fbmode', 0))
@@ -297,7 +302,7 @@ class SermonspeakerViewSermon extends JViewLegacy
 					}
 					else
 					{
-						$file	= SermonSpeakerHelperSermonSpeaker::makelink($this->item->videofile, true);
+						$file	= SermonspeakerHelperSermonspeaker::makeLink($this->item->videofile, true);
 					}
 
 					$this->document->addCustomTag('<meta property="og:video" content="' . $file . '"/>');
@@ -306,7 +311,7 @@ class SermonspeakerViewSermon extends JViewLegacy
 				{
 					$this->document->addCustomTag('<meta property="og:type" content="song"/>');
 					$this->document->addCustomTag(
-							'<meta property="og:audio" content="' . SermonSpeakerHelperSermonSpeaker::makelink($this->item->audiofile, true) . '"/>'
+							'<meta property="og:audio" content="' . SermonspeakerHelperSermonspeaker::makeLink($this->item->audiofile, true) . '"/>'
 						);
 					$this->document->addCustomTag('<meta property="og:audio:title" content="' . $this->escape($this->item->title) . '"/>');
 

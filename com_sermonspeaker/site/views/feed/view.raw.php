@@ -18,11 +18,15 @@ class SermonspeakerViewFeed extends JViewLegacy
 {
 	/**
 	 * @var  $params  Joomla\Registry\Registry  Holds the component params
+	 *
+	 * @since ?
 	 */
 	protected $params;
 
 	/**
 	 * @var  $items  array  Array with the item objects
+	 *
+	 * @since ?
 	 */
 	protected $items;
 
@@ -32,6 +36,8 @@ class SermonspeakerViewFeed extends JViewLegacy
 	 * @param   string $tpl The name of the template file to parse; automatically searches through the template paths.
 	 *
 	 * @return  mixed  A string if successful, otherwise a Error object.
+	 *
+	 * @since ?
 	 */
 	public function display($tpl = null)
 	{
@@ -71,7 +77,7 @@ class SermonspeakerViewFeed extends JViewLegacy
 		$manifest      = json_decode($extensions->manifest_cache);
 		$this->version = $manifest->version;
 
-		parent::display($tpl);
+		return parent::display($tpl);
 	}
 
 	/**
@@ -80,6 +86,8 @@ class SermonspeakerViewFeed extends JViewLegacy
 	 * @param   string $string The string to be escaped
 	 *
 	 * @return  string  $string  The escaped string
+	 *
+	 * @since ?
 	 */
 	protected function make_xml_safe($string)
 	{
@@ -96,6 +104,8 @@ class SermonspeakerViewFeed extends JViewLegacy
 	 * @param   array $cat iTunes categories
 	 *
 	 * @return  string  $tags  The iTunes category tag
+	 *
+	 * @since ?
 	 */
 	protected function make_itCat($cat)
 	{
@@ -122,6 +132,8 @@ class SermonspeakerViewFeed extends JViewLegacy
 	 * @param   string $meta meta description
 	 *
 	 * @return  string  $tags  processed notes
+	 *
+	 * @since ?
 	 */
 	protected function getNotes($text, $meta = '')
 	{
@@ -160,6 +172,8 @@ class SermonspeakerViewFeed extends JViewLegacy
 	 * @param   object $item The row
 	 *
 	 * @return  array  $enclosure  Enclosure
+	 *
+	 * @since ?
 	 */
 	protected function getEnclosure($item)
 	{
@@ -234,6 +248,8 @@ class SermonspeakerViewFeed extends JViewLegacy
 	 * @param   object $item The row
 	 *
 	 * @return  string  keywords
+	 *
+	 * @since ?
 	 */
 	protected function getKeywords($item)
 	{

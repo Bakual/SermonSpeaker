@@ -66,7 +66,7 @@ $player		= SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 		<?php if ($this->item->avatar) : ?>
 			<div class="img-polaroid pull-right item-image">
 				<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($this->item->slug, $this->item->catid, $this->item->language)); ?>">
-					<img src="<?php echo SermonspeakerHelperSermonspeaker::makelink($this->item->avatar); ?>">
+					<img src="<?php echo SermonspeakerHelperSermonspeaker::makeLink($this->item->avatar); ?>">
 				</a>
 			</div>
 		<?php endif; ?>

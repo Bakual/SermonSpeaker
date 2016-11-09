@@ -23,18 +23,17 @@ class SermonspeakerViewSermons extends JViewLegacy
 	 *
 	 * @return mixed A string if successful, otherwise a Error object.
 	 * @throws \Exception
-	*/
+	 *
+	 * @since ?
+	 */
 	public function display($tpl = null)
 	{
 		// Get some data from the models
-		$state = $this->get('State');
 		$items = $this->get('Items');
 
 		// Get Category stuff from models
 		$category = $this->get('Category');
-		$children = $this->get('Children');
 		$parent   = $this->get('Parent');
-		$children = array($category->id => $children);
 
 		// Check for errors.
 		if (count($errors = $this->get('Errors')))
@@ -73,7 +72,7 @@ class SermonspeakerViewSermons extends JViewLegacy
 			return;
 		}
 
-		$reponse = array();
+		$response = array();
 
 		foreach ($items as $item)
 		{
@@ -132,5 +131,7 @@ class SermonspeakerViewSermons extends JViewLegacy
 		}
 
 		echo new JResponseJson($response);
+
+		return;
 	}
 }

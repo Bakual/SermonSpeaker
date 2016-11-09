@@ -27,9 +27,12 @@ class SermonspeakerViewSerieform extends JViewLegacy
 	/**
 	 * Execute and display a template script.
 	 *
-	 * @param   string  $tpl  The name of the template file to parse; automatically searches through the template paths.
+	 * @param   string $tpl The name of the template file to parse; automatically searches through the template paths.
 	 *
-	 * @return  mixed  A string if successful, otherwise a Error object.
+	 * @return mixed A string if successful, otherwise a Error object.
+	 *
+	 * @throws \Exception
+	 * @since ?
 	 */
 	public function display($tpl = null)
 	{
@@ -71,13 +74,15 @@ class SermonspeakerViewSerieform extends JViewLegacy
 		$this->user		= $user;
 		$this->_prepareDocument();
 
-		parent::display($tpl);
+		return parent::display($tpl);
 	}
 
 	/**
 	 * Prepares the document
 	 *
 	 * @return  void
+	 *
+	 * @since ?
 	 */
 	protected function _prepareDocument()
 	{
@@ -120,12 +125,12 @@ class SermonspeakerViewSerieform extends JViewLegacy
 
 		if ($this->params->get('menu-meta_keywords'))
 		{
-			$this->document->setMetadata('keywords', $this->params->get('menu-meta_keywords'));
+			$this->document->setMetaData('keywords', $this->params->get('menu-meta_keywords'));
 		}
 
 		if ($this->params->get('robots'))
 		{
-			$this->document->setMetadata('robots', $this->params->get('robots'));
+			$this->document->setMetaData('robots', $this->params->get('robots'));
 		}
 	}
 }

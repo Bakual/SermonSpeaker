@@ -85,7 +85,7 @@ if ($canEdit or ($canEditOwn and ($user->id == $this->item->created_by))) : ?>
 		</div>
 		<?php if ($this->item->pic) : ?>
 			<div class="ss-sermondetail-label"></div>
-			<div class="ss-sermondetail-text"><img height="150" src="<?php echo SermonSpeakerHelperSermonSpeaker::makelink($this->item->pic); ?>"></div>
+			<div class="ss-sermondetail-text"><img height="150" src="<?php echo SermonspeakerHelperSermonspeaker::makeLink($this->item->pic); ?>"></div>
 		<?php endif;
 	endif;
 

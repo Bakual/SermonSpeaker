@@ -28,6 +28,8 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 	 * AmazonS3 information
 	 *
 	 * @var    string
+	 *
+	 * @since ?
 	 */
 	protected $s3audio;
 
@@ -35,6 +37,8 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 	 * AmazonS3 information
 	 *
 	 * @var    string
+	 *
+	 * @since ?
 	 */
 	protected $s3video;
 
@@ -42,13 +46,17 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 	 * A params object
 	 *
 	 * @var    Joomla\Registry\Registry
+	 *
+	 * @since ?
 	 */
-
 	protected $params;
+
 	/**
 	 * The URL to return to
 	 *
 	 * @var    string
+	 *
+	 * @since ?
 	 */
 	protected $return_page;
 
@@ -56,6 +64,8 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 	 * Injected from the controller
 	 *
 	 * @var    JDocument
+	 *
+	 * @since ?
 	 */
 	public $document;
 
@@ -63,6 +73,8 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 	 * A state object
 	 *
 	 * @var    JObject
+	 *
+	 * @since ?
 	 */
 	protected $state;
 
@@ -74,6 +86,8 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 	 * @return  mixed  A string if successful, otherwise a Error object.
 	 *
 	 * @throws Exception
+	 *
+	 * @since ?
 	 */
 	public function display($tpl = null)
 	{
@@ -460,6 +474,8 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 	 * Prepares the document
 	 *
 	 * @return  void
+	 *
+	 * @since ?
 	 */
 	protected function _prepareDocument()
 	{
@@ -502,12 +518,12 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 
 		if ($this->params->get('menu-meta_keywords'))
 		{
-			$this->document->setMetadata('keywords', $this->params->get('menu-meta_keywords'));
+			$this->document->setMetaData('keywords', $this->params->get('menu-meta_keywords'));
 		}
 
 		if ($this->params->get('robots'))
 		{
-			$this->document->setMetadata('robots', $this->params->get('robots'));
+			$this->document->setMetaData('robots', $this->params->get('robots'));
 		}
 	}
 
@@ -517,6 +533,8 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 	 * @param   string $val Value from the PHP setting
 	 *
 	 * @return  int  $val  Value in bytes
+	 *
+	 * @since ?
 	 */
 	protected function return_bytes($val)
 	{
@@ -526,8 +544,10 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 		switch ($last)
 		{
 			// The 'G' modifier is available since PHP 5.1.0
+			/** @noinspection PhpMissingBreakStatementInspection */
 			case 'g':
 				$val *= 1024;
+			/** @noinspection PhpMissingBreakStatementInspection */
 			case 'm':
 				$val *= 1024;
 			case 'k':

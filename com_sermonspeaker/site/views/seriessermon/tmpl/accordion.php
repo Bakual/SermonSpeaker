@@ -79,7 +79,7 @@ if ($this->params->get('show_description', 1) or $this->params->def('show_descri
 			<?php endif; ?>
 			<div>
 				<?php if($item->avatar) : ?>
-					<img src="<?php echo SermonspeakerHelperSermonspeaker::makelink($item->avatar); ?>" style="float:right; margin-top:25px;">
+					<img src="<?php echo SermonspeakerHelperSermonspeaker::makeLink($item->avatar); ?>" style="float:right; margin-top:25px;">
 				<?php endif;
 
 				if (in_array('seriessermon:description', $this->col_serie)): ?>

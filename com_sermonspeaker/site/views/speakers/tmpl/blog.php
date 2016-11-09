@@ -97,7 +97,7 @@ $listDirn   = $this->state->get('list.direction');
 								<div class="img-polaroid pull-right item-image">
 									<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug, $item->catid, $item->language)); ?>">
 										<img
-											src="<?php echo SermonspeakerHelperSermonspeaker::makelink($item->pic); ?>">
+											src="<?php echo SermonspeakerHelperSermonspeaker::makeLink($item->pic); ?>">
 									</a>
 								</div>
 							<?php endif; ?>

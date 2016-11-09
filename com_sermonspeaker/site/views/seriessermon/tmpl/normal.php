@@ -46,7 +46,7 @@ if ($this->params->get('show_description', 1) or $this->params->def('show_descri
 		<div class="clearfix"></div>
 	</div>
 <?php endif; ?>
-<form action="<?php echo JFilterOutput::ampReplace(JFactory::getURI()->toString()); ?>" method="post" id="adminForm" name="adminForm">
+<form action="<?php echo JFilterOutput::ampReplace(JUri::getInstance()->toString()); ?>" method="post" id="adminForm" name="adminForm">
 	<?php
 	if ($this->params->get('show_pagination_limit')) : ?>
 	<div class="display-limit">
@@ -69,7 +69,7 @@ if ($this->params->get('show_description', 1) or $this->params->def('show_descri
 			$sermons = $model->getItems(); ?>
 			<div>
 				<?php if($item->avatar) : ?>
-					<img src="<?php echo SermonspeakerHelperSermonspeaker::makelink($item->avatar); ?>" style="float:right; margin-top:25px;">
+					<img src="<?php echo SermonspeakerHelperSermonspeaker::makeLink($item->avatar); ?>" style="float:right; margin-top:25px;">
 				<?php endif; ?>
 				<h3 class="contentheading"><?php echo $this->escape($item->title); ?></h3>
 				<?php

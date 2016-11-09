@@ -166,7 +166,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 					</div>
 					<div class="column-files">
 						<?php if (in_array('serie:addfile', $this->columns) && $item->addfile) :
-							$link = SermonspeakerHelperSermonspeaker::makelink($item->addfile);
+							$link = SermonspeakerHelperSermonspeaker::makeLink($item->addfile);
 
 							// Get extension of file
 							$ext = JFile::getExt($item->addfile);

@@ -317,7 +317,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 										<div class="img-polaroid pull-right item-image">
 											<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->slug, $item->catid, $item->language)); ?>">
 												<img
-													src="<?php echo SermonspeakerHelperSermonspeaker::makelink($item->avatar); ?>">
+													src="<?php echo SermonspeakerHelperSermonspeaker::makeLink($item->avatar); ?>">
 											</a>
 										</div>
 									<?php endif; ?>

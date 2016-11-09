@@ -26,7 +26,7 @@ if (!$this->item->pic) {
 			<?php echo JLayoutHelper::render('blocks.state_info', array('item' => $this->item, 'show' => $user->authorise('core.edit', 'com_sermonspeaker'))); ?>
 		</div>
 		<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($this->item->slug, $this->item->catid, $this->item->language)); ?>">
-			<img class="img-polaroid pull-left item-image" src="<?php echo SermonspeakerHelperSermonspeaker::makelink($this->item->pic); ?>">
+			<img class="img-polaroid pull-left item-image" src="<?php echo SermonspeakerHelperSermonspeaker::makeLink($this->item->pic); ?>">
 		</a>
 		<?php if (in_array('speaker:intro', $this->columns) and $this->item->intro) : ?>
 			<div>

@@ -21,7 +21,10 @@ class SermonspeakerViewSpeaker extends JViewLegacy
 	 *
 	 * @param   string $tpl The name of the template file to parse; automatically searches through the template paths.
 	 *
-	 * @return  mixed  A string if successful, otherwise a Error object.
+	 * @return mixed A string if successful, otherwise a Error object.
+	 *
+	 * @throws \Exception
+	 * @since ?
 	 */
 	public function display($tpl = null)
 	{
@@ -230,19 +233,20 @@ class SermonspeakerViewSpeaker extends JViewLegacy
 		$this->pageclass_sfx = htmlspecialchars($this->params->get('pageclass_sfx'));
 		$this->maxLevel      = $this->params->get('maxLevel', -1);
 		$this->_prepareDocument();
-		parent::display($tpl);
+		return parent::display($tpl);
 	}
 
 	/**
 	 * Prepares the document
 	 *
 	 * @return  void
+	 *
+	 * @since ?
 	 */
 	protected function _prepareDocument()
 	{
 		$app     = JFactory::getApplication();
 		$menus   = $app->getMenu();
-		$pathway = $app->getPathway();
 
 		// Because the application sets a default page title,
 		// we need to get it from the menu item itself
@@ -305,16 +309,16 @@ class SermonspeakerViewSpeaker extends JViewLegacy
 
 		if ($this->item->metakey)
 		{
-			$this->document->setMetadata('keywords', $this->item->metakey);
+			$this->document->setMetaData('keywords', $this->item->metakey);
 		}
 		elseif (!$this->item->metakey && $this->params->get('menu-meta_keywords'))
 		{
-			$this->document->setMetadata('keywords', $this->params->get('menu-meta_keywords'));
+			$this->document->setMetaData('keywords', $this->params->get('menu-meta_keywords'));
 		}
 
 		if ($this->params->get('robots'))
 		{
-			$this->document->setMetadata('robots', $this->params->get('robots'));
+			$this->document->setMetaData('robots', $this->params->get('robots'));
 		}
 
 		// Add Metadata for Facebook Open Graph API
@@ -328,7 +332,7 @@ class SermonspeakerViewSpeaker extends JViewLegacy
 
 			if ($this->item->pic)
 			{
-				$this->document->addCustomTag('<meta property="og:image" content="' . SermonSpeakerHelperSermonSpeaker::makelink($this->item->pic, true) . '"/>');
+				$this->document->addCustomTag('<meta property="og:image" content="' . SermonspeakerHelperSermonspeaker::makeLink($this->item->pic, true) . '"/>');
 			}
 		}
 	}
