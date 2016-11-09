@@ -295,6 +295,7 @@ class SermonspeakerModelSermons extends JModelList
 	 */
 	protected function populateState($ordering = null, $direction = null)
 	{
+		/** @var JApplicationSite $app */
 		$app    = JFactory::getApplication();
 		$params = $app->getParams();
 		$this->setState('params', $params);
@@ -517,6 +518,7 @@ class SermonspeakerModelSermons extends JModelList
 		{
 			if (isset($this->state->params))
 			{
+				/** @var \Joomla\Registry\Registry $params */
 				$params                = $this->state->params;
 				$options               = array();
 				$options['countItems'] = $params->get('show_cat_num_items', 1) || !$params->get('show_empty_categories', 0);
@@ -633,6 +635,7 @@ class SermonspeakerModelSermons extends JModelList
 		// Order subcategories
 		if (sizeof($this->children))
 		{
+			/** @var \Joomla\Registry\Registry $params */
 			$params = $this->getState()->get('params');
 
 			if ($params->get('orderby_pri') == 'alpha' || $params->get('orderby_pri') == 'ralpha')

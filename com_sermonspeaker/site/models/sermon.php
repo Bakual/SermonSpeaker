@@ -32,6 +32,7 @@ class SermonspeakerModelSermon extends JModelItem
 	 */
 	protected function populateState($ordering = null, $direction = null)
 	{
+		/** @var JApplicationSite $app */
 		$app    = JFactory::getApplication();
 		$params = $app->getParams();
 

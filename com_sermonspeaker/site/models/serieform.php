@@ -51,6 +51,7 @@ class SermonspeakerModelSerieform extends SermonspeakerModelSerie
 	 */
 	protected function populateState($ordering = null, $direction = null)
 	{
+		/** @var JApplicationSite $app */
 		$app    = JFactory::getApplication();
 		$jinput = $app->input;
 

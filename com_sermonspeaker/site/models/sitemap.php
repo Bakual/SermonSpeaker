@@ -43,6 +43,7 @@ class SermonspeakerModelSitemap extends JModelLegacy
 		$query->where('(publish_down = ' . $nullDate . ' OR publish_down >= ' . $nowDate . ')');
 
 		// Filter by cat if set
+		/** @var JApplicationSite $app */
 		$app    = JFactory::getApplication();
 		$params = $app->getParams();
 		$cat    = (int) $params->get('cat', 0);

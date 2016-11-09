@@ -44,6 +44,7 @@ class SermonspeakerModelFrontendupload extends SermonspeakerModelSermon
 	 */
 	public function populateState($ordering = null, $direction = null)
 	{
+		/** @var JApplicationSite $app */
 		$app    = JFactory::getApplication();
 		$jinput = $app->input;
 
@@ -143,6 +144,7 @@ class SermonspeakerModelFrontendupload extends SermonspeakerModelSermon
 			}
 		}
 
+		/** @noinspection PhpUndefinedMethodInspection */
 		$this->preprocessData('com_sermonspeaker.sermon', $data);
 
 		return $data;

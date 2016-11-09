@@ -25,6 +25,7 @@ class SermonspeakerModelFeed extends JModelLegacy
 	 */
 	function getData()
 	{
+		/** @var JApplicationSite $app */
 		$app    = JFactory::getApplication();
 		$params = $app->getParams();
 		$jinput = $app->input;

@@ -49,6 +49,7 @@ class SermonspeakerModelCategories extends JModelLegacy
 	 */
 	protected function populateState()
 	{
+		/** @var JApplicationSite $app */
 		$app = JFactory::getApplication();
 		$this->setState('filter.extension', $this->_extension);
 
@@ -84,7 +85,7 @@ class SermonspeakerModelCategories extends JModelLegacy
 		$id .= ':' . $this->getState('filter.access');
 		$id .= ':' . $this->getState('filter.parentId');
 
-		return parent::getStoreId($id);
+		return $id;
 	}
 
 	/**
