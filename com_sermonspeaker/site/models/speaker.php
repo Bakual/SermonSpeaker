@@ -27,6 +27,8 @@ class SermonspeakerModelSpeaker extends JModelItem
 	 * @param   string  $direction  'ASC' or 'DESC'
 	 *
 	 * @return  void
+	 *
+	 * @since ?
 	 */
 	protected function populateState($ordering = null, $direction = null)
 	{
@@ -44,9 +46,11 @@ class SermonspeakerModelSpeaker extends JModelItem
 	/**
 	 * Method to get an object.
 	 *
-	 * @param   int  $id  The id of the object to get.
+	 * @param   int $id The id of the object to get.
 	 *
-	 * @return  mixed  Object on success, false on failure.
+	 * @return mixed Object on success, false on failure.
+	 *
+	 * @since ?
 	 */
 	public function &getItem($id = null)
 	{
@@ -114,12 +118,12 @@ class SermonspeakerModelSpeaker extends JModelItem
 
 				if (!$data)
 				{
-					throw new JException(JText::_('JGLOBAL_RESOURCE_NOT_FOUND'), 404);
+					throw new Exception(JText::_('JGLOBAL_RESOURCE_NOT_FOUND'));
 				}
 
 				$this->_item[$id] = $data;
 			}
-			catch (JException $e)
+			catch (Exception $e)
 			{
 				$this->setError($e);
 				$this->_item[$id] = false;
@@ -135,6 +139,8 @@ class SermonspeakerModelSpeaker extends JModelItem
 	 * @param   int  $id  Optional ID of the speaker.
 	 *
 	 * @return  boolean  True on success
+	 *
+	 * @since ?
 	 */
 	public function hit($id = null)
 	{

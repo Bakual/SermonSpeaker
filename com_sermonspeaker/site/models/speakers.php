@@ -16,16 +16,47 @@ defined('_JEXEC') or die();
  */
 class SermonspeakerModelspeakers extends JModelList
 {
-	protected $item = null;
+	/**
+	 * @var object
+	 *
+	 * @since ?
+	 */
+	private $item;
 
-	protected $children = null;
+	/**
+	 * @var
+	 *
+	 * @since ?
+	 */
+	private $children;
 
-	protected $parent = null;
+	/**
+	 * @var
+	 *
+	 * @since ?
+	 */
+	private $parent;
+
+	/**
+	 * @var
+	 *
+	 * @since ?
+	 */
+	private $leftsibling;
+
+	/**
+	 * @var
+	 *
+	 * @since ?
+	 */
+	private $rightsibling;
 
 	/**
 	 * Constructor.
 	 *
 	 * @param   array $config An optional associative array of configuration settings.
+	 *
+	 * @since ?
 	 */
 	public function __construct($config = array())
 	{
@@ -53,6 +84,8 @@ class SermonspeakerModelspeakers extends JModelList
 	 * Get the master query for retrieving a list of items subject to the model state.
 	 *
 	 * @return  JDatabaseQuery
+	 *
+	 * @since ?
 	 */
 	protected function getListQuery()
 	{
@@ -177,6 +210,10 @@ class SermonspeakerModelspeakers extends JModelList
 	 * @param   string $direction 'ASC' or 'DESC'
 	 *
 	 * @return  void
+	 *
+	 * @since ?
+	 *
+	 * @since ?
 	 */
 	protected function populateState($ordering = null, $direction = null)
 	{
@@ -211,6 +248,8 @@ class SermonspeakerModelspeakers extends JModelList
 	 * Method to get category data for the current category
 	 *
 	 * @return  object
+	 *
+	 * @since ?
 	 */
 	public function getCategory()
 	{
@@ -253,8 +292,8 @@ class SermonspeakerModelspeakers extends JModelList
 					$this->parent = $this->item->getParent();
 				}
 
-				$this->_rightsibling = $this->item->getSibling();
-				$this->_leftsibling  = $this->item->getSibling(false);
+				$this->rightsibling = $this->item->getSibling();
+				$this->leftsibling  = $this->item->getSibling(false);
 			}
 			else
 			{
@@ -270,6 +309,8 @@ class SermonspeakerModelspeakers extends JModelList
 	 * Get the parent category
 	 *
 	 * @return  mixed  An array of categories or false if an error occurs
+	 *
+	 * @since ?
 	 */
 	public function getParent()
 	{
@@ -285,6 +326,8 @@ class SermonspeakerModelspeakers extends JModelList
 	 * Get the left sibling (adjacent) categories
 	 *
 	 * @return  mixed  An array of categories or false if an error occurs
+	 *
+	 * @since ?
 	 */
 	public function &getLeftSibling()
 	{
@@ -293,13 +336,15 @@ class SermonspeakerModelspeakers extends JModelList
 			$this->getCategory();
 		}
 
-		return $this->_leftsibling;
+		return $this->leftsibling;
 	}
 
 	/**
 	 * Get the right sibling (adjacent) categories
 	 *
 	 * @return  mixed  An array of categories or false if an error occurs
+	 *
+	 * @since ?
 	 */
 	public function &getRightSibling()
 	{
@@ -308,13 +353,15 @@ class SermonspeakerModelspeakers extends JModelList
 			$this->getCategory();
 		}
 
-		return $this->_rightsibling;
+		return $this->rightsibling;
 	}
 
 	/**
 	 * Get the child categories
 	 *
 	 * @return  mixed  An array of categories or false if an error occurs
+	 *
+	 * @since ?
 	 */
 	public function &getChildren()
 	{

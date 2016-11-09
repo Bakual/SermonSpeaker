@@ -20,6 +20,8 @@ class SermonspeakerModelSitemap extends JModelLegacy
 	 * Method to get sermons
 	 *
 	 * @return  array
+	 *
+	 * @since ?
 	 */
 	public function getSermons()
 	{

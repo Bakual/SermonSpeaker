@@ -22,6 +22,8 @@ class SermonspeakerModelFrontendupload extends SermonspeakerModelSermon
 	 * Get the return URL.
 	 *
 	 * @return    string    The return URL.
+	 *
+	 * @since ?
 	 */
 	public function getReturnPage()
 	{
@@ -37,6 +39,8 @@ class SermonspeakerModelFrontendupload extends SermonspeakerModelSermon
 	 * @param   string $direction 'ASC' or 'DESC'
 	 *
 	 * @return  void
+	 *
+	 * @since ?
 	 */
 	public function populateState($ordering = null, $direction = null)
 	{
@@ -73,6 +77,8 @@ class SermonspeakerModelFrontendupload extends SermonspeakerModelSermon
 	 * Method to get the data that should be injected in the form.
 	 *
 	 * @return    mixed    The data for the form.
+	 *
+	 * @since ?
 	 */
 	protected function loadFormData()
 	{

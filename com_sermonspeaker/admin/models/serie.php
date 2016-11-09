@@ -205,7 +205,7 @@ class SermonspeakerModelSerie extends JModelAdmin
 	/**
 	 * Prepare and sanitise the table prior to saving.
 	 *
-	 * @param JTable $table
+	 * @param SermonspeakerModelSerie $table
 	 *
 	 * @since    1.6
 	 */

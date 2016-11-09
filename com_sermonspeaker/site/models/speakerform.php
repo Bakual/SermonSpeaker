@@ -24,6 +24,8 @@ class SermonspeakerModelSpeakerform extends SermonspeakerModelSpeaker
 	 * Get the return URL.
 	 *
 	 * @return  string  The return URL.
+	 *
+	 * @since ?
 	 */
 	public function getReturnPage()
 	{
@@ -39,6 +41,8 @@ class SermonspeakerModelSpeakerform extends SermonspeakerModelSpeaker
 	 * @param   string $direction 'ASC' or 'DESC'
 	 *
 	 * @return  void
+	 *
+	 * @since ?
 	 */
 	protected function populateState($ordering = null, $direction = null)
 	{

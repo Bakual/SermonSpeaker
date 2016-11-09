@@ -16,16 +16,47 @@ defined('_JEXEC') or die();
  */
 class SermonspeakerModelSeries extends JModelList
 {
-	protected $_item = null;
+	/**
+	 * @var object
+	 *
+	 * @since ?
+	 */
+	private $item;
 
-	protected $_children = null;
+	/**
+	 * @var
+	 *
+	 * @since ?
+	 */
+	private $children;
 
-	protected $_parent = null;
+	/**
+	 * @var
+	 *
+	 * @since ?
+	 */
+	private $parent;
+
+	/**
+	 * @var
+	 *
+	 * @since ?
+	 */
+	private $leftsibling;
+
+	/**
+	 * @var
+	 *
+	 * @since ?
+	 */
+	private $rightsibling;
 
 	/**
 	 * Constructor
 	 *
 	 * @param   array $config An optional associative array of configuration settings
+	 *
+	 * @since ?
 	 */
 	public function __construct($config = array())
 	{
@@ -52,6 +83,8 @@ class SermonspeakerModelSeries extends JModelList
 	 * Get the master query for retrieving a list of items subject to the model state.
 	 *
 	 * @return  JDatabaseQuery
+	 *
+	 * @since ?
 	 */
 	protected function getListQuery()
 	{
@@ -185,6 +218,8 @@ class SermonspeakerModelSeries extends JModelList
 	 * @param   string $direction 'ASC' or 'DESC'
 	 *
 	 * @return  void
+	 *
+	 * @since ?
 	 */
 	protected function populateState($ordering = null, $direction = null)
 	{
@@ -229,6 +264,8 @@ class SermonspeakerModelSeries extends JModelList
 	 * @param   int $series Id of series
 	 *
 	 * @return  array
+	 *
+	 * @since ?
 	 */
 	public function getSpeakers($series)
 	{
@@ -255,10 +292,12 @@ class SermonspeakerModelSeries extends JModelList
 	 * Method to get category data for the current category
 	 *
 	 * @return  object
+	 *
+	 * @since ?
 	 */
 	public function getCategory()
 	{
-		if (!is_object($this->_item))
+		if (!is_object($this->item))
 		{
 			if (isset($this->state->params))
 			{
@@ -273,111 +312,119 @@ class SermonspeakerModelSeries extends JModelList
 
 			$options['table'] = '#__sermon_series';
 
-			$categories  = JCategories::getInstance('Sermonspeaker', $options);
-			$this->_item = $categories->get($this->getState('category.id', 'root'));
+			$categories = JCategories::getInstance('Sermonspeaker', $options);
+			$this->item = $categories->get($this->getState('category.id', 'root'));
 
 			// Compute selected asset permissions.
-			if (is_object($this->_item))
+			if (is_object($this->item))
 			{
 				$user  = JFactory::getUser();
-				$asset = 'com_sermonspeaker.category.' . $this->_item->id;
+				$asset = 'com_sermonspeaker.category.' . $this->item->id;
 
 				// Check general create permission.
 				if ($user->authorise('core.create', $asset))
 				{
-					$this->_item->getParams()->set('access-create', true);
+					$this->item->getParams()->set('access-create', true);
 				}
 
 				// TODO: Why aren't we lazy loading the children and siblings?
-				$this->_children = $this->_item->getChildren();
-				$this->_parent   = false;
+				$this->children = $this->item->getChildren();
+				$this->parent   = false;
 
-				if ($this->_item->getParent())
+				if ($this->item->getParent())
 				{
-					$this->_parent = $this->_item->getParent();
+					$this->parent = $this->item->getParent();
 				}
 
-				$this->_rightsibling = $this->_item->getSibling();
-				$this->_leftsibling  = $this->_item->getSibling(false);
+				$this->rightsibling = $this->item->getSibling();
+				$this->leftsibling  = $this->item->getSibling(false);
 			}
 			else
 			{
-				$this->_children = false;
-				$this->_parent   = false;
+				$this->children = false;
+				$this->parent   = false;
 			}
 		}
 
-		return $this->_item;
+		return $this->item;
 	}
 
 	/**
 	 * Get the parent category
 	 *
 	 * @return  mixed  An array of categories or false if an error occurs
+	 *
+	 * @since ?
 	 */
 	public function getParent()
 	{
-		if (!is_object($this->_item))
+		if (!is_object($this->item))
 		{
 			$this->getCategory();
 		}
 
-		return $this->_parent;
+		return $this->parent;
 	}
 
 	/**
 	 * Get the left sibling (adjacent) categories
 	 *
 	 * @return  mixed  An array of categories or false if an error occurs
+	 *
+	 * @since ?
 	 */
 	public function &getLeftSibling()
 	{
-		if (!is_object($this->_item))
+		if (!is_object($this->item))
 		{
 			$this->getCategory();
 		}
 
-		return $this->_leftsibling;
+		return $this->leftsibling;
 	}
 
 	/**
 	 * Get the right sibling (adjacent) categories
 	 *
 	 * @return  mixed  An array of categories or false if an error occurs
+	 *
+	 * @since ?
 	 */
 	public function &getRightSibling()
 	{
-		if (!is_object($this->_item))
+		if (!is_object($this->item))
 		{
 			$this->getCategory();
 		}
 
-		return $this->_rightsibling;
+		return $this->rightsibling;
 	}
 
 	/**
 	 * Get the child categories
 	 *
 	 * @return  mixed  An array of categories or false if an error occurs
+	 *
+	 * @since ?
 	 */
 	public function &getChildren()
 	{
-		if (!is_object($this->_item))
+		if (!is_object($this->item))
 		{
 			$this->getCategory();
 		}
 
 		// Order subcategories
-		if (sizeof($this->_children))
+		if (sizeof($this->children))
 		{
 			$params = $this->getState()->get('params');
 
 			if ($params->get('orderby_pri') == 'alpha' || $params->get('orderby_pri') == 'ralpha')
 			{
-				$this->_children = Joomla\Utilities\ArrayHelper::sortObjects($this->_children, 'title', ($params->get('orderby_pri') == 'alpha') ? 1 : -1);
+				$this->children = Joomla\Utilities\ArrayHelper::sortObjects($this->children, 'title', ($params->get('orderby_pri') == 'alpha') ? 1 : -1);
 			}
 		}
 
-		return $this->_children;
+		return $this->children;
 	}
 }

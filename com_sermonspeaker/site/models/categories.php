@@ -20,6 +20,8 @@ class SermonspeakerModelCategories extends JModelLegacy
 	 * Model context string.
 	 *
 	 * @var		string
+	 *
+	 * @since ?
 	 */
 	public $_context = 'com_sermonspeaker.categories';
 
@@ -27,6 +29,8 @@ class SermonspeakerModelCategories extends JModelLegacy
 	 * The category context (allows other extensions to derived from this model).
 	 *
 	 * @var		string
+	 *
+	 * @since ?
 	 */
 	protected $_extension = 'com_sermonspeaker';
 
@@ -40,6 +44,8 @@ class SermonspeakerModelCategories extends JModelLegacy
 	 * Note. Calling getState in this method will result in recursion
 	 *
 	 * @return  void
+	 *
+	 * @since ?
 	 */
 	protected function populateState()
 	{
@@ -67,6 +73,8 @@ class SermonspeakerModelCategories extends JModelLegacy
 	 * @param   string  $id  A prefix for the store id.
 	 *
 	 * @return  string  A store id.
+	 *
+	 * @since ?
 	 */
 	protected function getStoreId($id = '')
 	{
@@ -85,6 +93,8 @@ class SermonspeakerModelCategories extends JModelLegacy
 	 * @param   bool  $recursive  True if you want to return children recursively.
 	 *
 	 * @return  mixed  An array of data items on success, false on failure.
+	 *
+	 * @since ?
 	 */
 	public function getItems($recursive = false)
 	{
@@ -123,6 +133,8 @@ class SermonspeakerModelCategories extends JModelLegacy
 	 * Get the parent category
 	 *
 	 * @return  mixed  An array of categories or false if an error occurs
+	 *
+	 * @since ?
 	 */
 	public function getParent()
 	{

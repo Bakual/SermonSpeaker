@@ -27,6 +27,8 @@ class SermonspeakerModelSermon extends JModelItem
 	 * @param   string $direction 'ASC' or 'DESC'
 	 *
 	 * @return  void
+	 *
+	 * @since ?
 	 */
 	protected function populateState($ordering = null, $direction = null)
 	{
@@ -46,7 +48,9 @@ class SermonspeakerModelSermon extends JModelItem
 	 *
 	 * @param   integer $id The id of the object to get
 	 *
-	 * @return  mixed  Object on success, false on failure
+	 * @return mixed Object on success, false on failure
+	 *
+	 * @since ?
 	 */
 	public function &getItem($id = null)
 	{
@@ -144,7 +148,7 @@ class SermonspeakerModelSermon extends JModelItem
 
 				if (!$data)
 				{
-					throw new JException(JText::_('JGLOBAL_RESOURCE_NOT_FOUND'), 404);
+					throw new Exception(JText::_('JGLOBAL_RESOURCE_NOT_FOUND'));
 				}
 
 				// Convert the metadata field to an array.
@@ -154,7 +158,7 @@ class SermonspeakerModelSermon extends JModelItem
 
 				$this->_item[$id] = $data;
 			}
-			catch (JException $e)
+			catch (Exception $e)
 			{
 				$this->setError($e);
 				$this->_item[$id] = false;
@@ -170,6 +174,8 @@ class SermonspeakerModelSermon extends JModelItem
 	 * @param   int $id Optional ID of the sermon
 	 *
 	 * @return  boolean  True on success
+	 *
+	 * @since ?
 	 */
 	public function hit($id = null)
 	{
@@ -187,6 +193,8 @@ class SermonspeakerModelSermon extends JModelItem
 	 * Method to get the latest sermon
 	 *
 	 * @return  object  sermon object
+	 *
+	 * @since ?
 	 */
 	public function getLatest()
 	{

@@ -20,6 +20,8 @@ class SermonspeakerModelFeed extends JModelLegacy
 	 * Method to get an list of object
 	 *
 	 * @return  mixed  array of objects
+	 *
+	 * @since ?
 	 */
 	function getData()
 	{

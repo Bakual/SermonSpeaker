@@ -79,6 +79,7 @@ class SermonspeakerModelSermon extends JModelAdmin
 	{
 		// Initialise variables.
 		$pks   = (array) $pks;
+		/** @var SermonspeakerTableSermon $table */
 		$table = $this->getTable();
 		$db    = $this->getDbo();
 
@@ -171,7 +172,7 @@ class SermonspeakerModelSermon extends JModelAdmin
 	 * @param   string $prefix A prefix for the table class name. Optional.
 	 * @param   array  $config Configuration array for model. Optional.
 	 *
-	 * @return  JTable    A database object
+	 * @return  JTable|boolean    A database object
 	 *
 	 * @since ?
 	 */
