@@ -30,7 +30,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 		{
 			$response = array(
 				'status' => '0',
-				'error' => JText::_('JINVALID_TOKEN'),
+				'error'  => JText::_('JINVALID_TOKEN'),
 			);
 			echo json_encode($response);
 
@@ -44,7 +44,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 		{
 			$response = array(
 				'status' => '0',
-				'error' => JText::_('JGLOBAL_AUTH_ACCESS_DENIED'),
+				'error'  => JText::_('JGLOBAL_AUTH_ACCESS_DENIED'),
 			);
 			echo json_encode($response);
 
@@ -66,7 +66,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 		{
 			$response = array(
 				'status' => '0',
-				'error' => JText::_('COM_SERMONSPEAKER_FU_FAILED'),
+				'error'  => JText::_('COM_SERMONSPEAKER_FU_FAILED'),
 			);
 			echo json_encode($response);
 
@@ -104,7 +104,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 		{
 			$response = array(
 				'status' => '0',
-				'error' => JText::sprintf('COM_SERMONSPEAKER_FILETYPE_NOT_ALLOWED', $ext),
+				'error'  => JText::sprintf('COM_SERMONSPEAKER_FILETYPE_NOT_ALLOWED', $ext),
 			);
 			echo json_encode($response);
 
@@ -129,7 +129,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 
 			$date   = $jinput->get('date', '', 'string');
 			$time   = ($date) ? strtotime($date) : time();
-			$folder = ($params->get('append_path', 0)) ? date('Y', $time) . '/' . date('m', $time) .'/' : '';
+			$folder = ($params->get('append_path', 0)) ? date('Y', $time) . '/' . date('m', $time) . '/' : '';
 
 			if ($params->get('append_path_lang', 0))
 			{
@@ -186,7 +186,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 			{
 				$response = array(
 					'status' => '0',
-					'error' => JText::_('COM_SERMONSPEAKER_FU_ERROR_UNABLE_TO_UPLOAD_FILE'),
+					'error'  => JText::_('COM_SERMONSPEAKER_FU_ERROR_UNABLE_TO_UPLOAD_FILE'),
 				);
 				echo json_encode($response);
 
@@ -230,7 +230,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 				// File exists
 				$response = array(
 					'status' => '0',
-					'error' => JText::_('COM_SERMONSPEAKER_FU_ERROR_EXISTS'),
+					'error'  => JText::_('COM_SERMONSPEAKER_FU_ERROR_EXISTS'),
 				);
 				echo json_encode($response);
 
@@ -242,7 +242,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 				// Error in upload
 				$response = array(
 					'status' => '0',
-					'error' => JText::_('COM_SERMONSPEAKER_FU_ERROR_UNABLE_TO_UPLOAD_FILE'),
+					'error'  => JText::_('COM_SERMONSPEAKER_FU_ERROR_UNABLE_TO_UPLOAD_FILE'),
 				);
 				echo json_encode($response);
 
@@ -251,10 +251,10 @@ class SermonspeakerControllerFile extends JControllerLegacy
 			else
 			{
 				$response = array(
-					'status' => '1',
+					'status'   => '1',
 					'filename' => strtolower($file['name']),
-					'path' => str_replace('\\', '/', '/' . $path . $append . '/' . strtolower($file['name'])),
-					'error' => JText::sprintf('COM_SERMONSPEAKER_FU_FILENAME', substr($file['filepath'], strlen(JPATH_ROOT))),
+					'path'     => str_replace('\\', '/', '/' . $path . $append . '/' . strtolower($file['name'])),
+					'error'    => JText::sprintf('COM_SERMONSPEAKER_FU_FILENAME', substr($file['filepath'], strlen(JPATH_ROOT))),
 				);
 				echo json_encode($response);
 
@@ -278,7 +278,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 		{
 			$response = array(
 				'status' => '0',
-				'msg' => JText::_('COM_SERMONSPEAKER_ERROR_ID3'),
+				'msg'    => JText::_('COM_SERMONSPEAKER_ERROR_ID3'),
 			);
 			echo json_encode($response);
 

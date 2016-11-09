@@ -31,7 +31,7 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 		{
 			$response = array(
 				'status' => '0',
-				'msg' => JText::_('I have no clue what you want to download...')
+				'msg'    => JText::_('I have no clue what you want to download...'),
 			);
 			echo json_encode($response);
 
@@ -72,7 +72,7 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 		{
 			$response = array(
 				'status' => '0',
-				'msg' => JText::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', JText::_('COM_SERMONSPEAKER_SERMONS'))
+				'msg'    => JText::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', JText::_('COM_SERMONSPEAKER_SERMONS')),
 			);
 			echo json_encode($response);
 
@@ -86,15 +86,15 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 		{
 			$response = array(
 				'status' => '0',
-				'msg' => JText::_('COM_SERMONSPEAKER_SERIES_DOWNLOAD_NOT_ALLOWED')
+				'msg'    => JText::_('COM_SERMONSPEAKER_SERIES_DOWNLOAD_NOT_ALLOWED'),
 			);
 			echo json_encode($response);
 
 			return;
 		}
 
-		$files = array();
-		$content = array();
+		$files     = array();
+		$content   = array();
 		$calc_size = 0;
 
 		foreach ($rows as $row)
@@ -102,7 +102,7 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 			if ($row['audiofile'] && !parse_url($row['audiofile'], PHP_URL_SCHEME) && JFile::exists(JPATH_BASE . '/' . $row['audiofile']))
 			{
 				$file['path'] = JPATH_BASE . '/' . $row['audiofile'];
-				$slash = strrpos($row['audiofile'], '/');
+				$slash        = strrpos($row['audiofile'], '/');
 
 				if ($slash !== false)
 				{
@@ -126,7 +126,7 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 			if ($row['videofile'] && !parse_url($row['videofile'], PHP_URL_SCHEME) && JFile::exists(JPATH_BASE . '/' . $row['videofile']))
 			{
 				$file['path'] = JPATH_BASE . '/' . $row['videofile'];
-				$slash = strrpos($row['videofile'], '/');
+				$slash        = strrpos($row['videofile'], '/');
 
 				if ($slash !== false)
 				{
@@ -174,7 +174,7 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 		{
 			$response = array(
 				'status' => '1',
-				'msg' => JUri::root() . $folder . 'series/' . $name . '.zip'
+				'msg'    => JUri::root() . $folder . 'series/' . $name . '.zip',
 			);
 			echo json_encode($response);
 
@@ -192,7 +192,7 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 		{
 			$response = array(
 				'status' => '1',
-				'msg' => JUri::root() . $folder . '/series/' . $name . '.zip'
+				'msg'    => JUri::root() . $folder . '/series/' . $name . '.zip',
 			);
 			echo json_encode($response);
 
@@ -232,7 +232,7 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 			{
 				$response = array(
 					'status' => '0',
-					'msg' => JText::_('I cannot open the file: [' . $filename . ']')
+					'msg'    => JText::_('I cannot open the file: [' . $filename . ']'),
 				);
 				echo json_encode($response);
 
@@ -245,7 +245,7 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 				{
 					$response = array(
 						'status' => '0',
-						'msg' => JText::_('I found the file [stop.txt] in the directory and thus terminated the script')
+						'msg'    => JText::_('I found the file [stop.txt] in the directory and thus terminated the script'),
 					);
 					echo json_encode($response);
 
@@ -264,7 +264,7 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 			{
 				$response = array(
 					'status' => '0',
-					'msg' => JText::_('I cannot write the file: [' . $filename . ']')
+					'msg'    => JText::_('I cannot write the file: [' . $filename . ']'),
 				);
 				echo json_encode($response);
 
@@ -282,14 +282,14 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 
 			$response = array(
 				'status' => '1',
-				'msg' => JUri::root() . $folder . 'series/' . $name . '.zip'
+				'msg'    => JUri::root() . $folder . 'series/' . $name . '.zip',
 			);
 		}
 		else
 		{
 			$response = array(
 				'status' => '0',
-				'msg' => JText::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', JText::_('COM_SERMONSPEAKER_SERMONS'))
+				'msg'    => JText::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', JText::_('COM_SERMONSPEAKER_SERMONS')),
 			);
 		}
 
@@ -313,14 +313,14 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 		{
 			$response = array(
 				'status' => '0',
-				'msg' => JText::_('I have no clue what you want to download...')
+				'msg'    => JText::_('I have no clue what you want to download...'),
 			);
 			echo json_encode($response);
 
 			return;
 		}
 
-		$db = JFactory::getDbo();
+		$db    = JFactory::getDbo();
 		$query = $db->getQuery(true);
 		$query->select('title, zip_size, zip_progress, zip_state');
 		$query->from('#__sermon_series');
@@ -332,7 +332,7 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 		{
 			$response = array(
 				'status' => '2',
-				'msg' => 100
+				'msg'    => 100,
 			);
 			echo json_encode($response);
 
@@ -343,7 +343,7 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 		{
 			$response = array(
 				'status' => '1',
-				'msg' => $series['zip_progress']
+				'msg'    => $series['zip_progress'],
 			);
 			echo json_encode($response);
 
@@ -368,20 +368,20 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 		}
 
 		$files = JFolder::files(JPATH_BASE . '/' . $folder . 'series/', '^' . $name . '\.zip\.');
-		$size = ($files) ? filesize(JPATH_BASE . '/' . $folder . 'series/' . $files[0]) : 0;
+		$size  = ($files) ? filesize(JPATH_BASE . '/' . $folder . 'series/' . $files[0]) : 0;
 
 		if ($size)
 		{
 			$response = array(
 				'status' => '2',
-				'msg' => (int) 100 / $series['zip_size'] * $size
+				'msg'    => (int) 100 / $series['zip_size'] * $size,
 			);
 		}
 		else
 		{
 			$response = array(
 				'status' => '2',
-				'msg' => 0
+				'msg'    => 0,
 			);
 		}
 

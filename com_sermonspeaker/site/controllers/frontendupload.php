@@ -43,7 +43,7 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 	/**
 	 * Method override to check if you can add a new record
 	 *
-	 * @param   array  $data  An array of input data
+	 * @param   array $data An array of input data
 	 *
 	 * @return  boolean
 	 *
@@ -75,8 +75,8 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 	/**
 	 * Method to check if you can add a new record
 	 *
-	 * @param   array   $data  An array of input data
-	 * @param   string  $key   The name of the key for the primary key
+	 * @param   array  $data An array of input data
+	 * @param   string $key  The name of the key for the primary key
 	 *
 	 * @return  boolean
 	 *
@@ -92,7 +92,7 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 		}
 
 		// Need to do a lookup from the model.
-		$record = $this->getModel()->getItem($recordId);
+		$record     = $this->getModel()->getItem($recordId);
 		$categoryId = (int) $record->catid;
 
 		if ($categoryId)
@@ -123,7 +123,7 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 	/**
 	 * Method to cancel an edit
 	 *
-	 * @param   string  $key  The name of the primary key of the URL variable
+	 * @param   string $key The name of the primary key of the URL variable
 	 *
 	 * @return  Boolean  True if access level checks pass, false otherwise
 	 *
@@ -142,8 +142,9 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 	/**
 	 * Method to edit an existing record
 	 *
-	 * @param   string  $key     The name of the primary key of the URL variable
-	 * @param   string  $urlVar  The name of the URL variable if different from the primary key (sometimes required to avoid router collisions)
+	 * @param   string $key    The name of the primary key of the URL variable
+	 * @param   string $urlVar The name of the URL variable if different from the primary key (sometimes required to
+	 *                         avoid router collisions)
 	 *
 	 * @return  Boolean  True if access level check and checkout passes, false otherwise
 	 *
@@ -159,9 +160,9 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 	/**
 	 * Method to get a model object, loading it if required.
 	 *
-	 * @param   string  $name    The model name. Optional
-	 * @param   string  $prefix  The class prefix. Optional
-	 * @param   array   $config  Configuration array for model. Optional
+	 * @param   string $name   The model name. Optional
+	 * @param   string $prefix The class prefix. Optional
+	 * @param   array  $config Configuration array for model. Optional
 	 *
 	 * @return  object  The model
 	 *
@@ -177,8 +178,8 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 	/**
 	 * Gets the URL arguments to append to an item redirect
 	 *
-	 * @param   int     $recordId  The primary key id for the item.
-	 * @param   string  $urlVar    The name of the URL variable for the id
+	 * @param   int    $recordId The primary key id for the item.
+	 * @param   string $urlVar   The name of the URL variable for the id
 	 *
 	 * @return  string  The arguments to append to the redirect URL
 	 *
@@ -246,13 +247,13 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 		}
 
 		$recordId = (int) $model->getState($this->context . '.id');
-		$params = JComponentHelper::getParams('com_sermonspeaker');
+		$params   = JComponentHelper::getParams('com_sermonspeaker');
 
 		$app = JFactory::getApplication();
 		$db  = JFactory::getDbo();
 
 		// Check filenames and show a warning if one isn't save to use in an URL. Store anyway.
-		$files	= array('audiofile', 'videofile', 'addfile');
+		$files = array('audiofile', 'videofile', 'addfile');
 
 		foreach ($files as $file)
 		{
@@ -267,7 +268,7 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 
 		// Scriptures
 		$query = "DELETE FROM #__sermon_scriptures \n"
-				. "WHERE sermon_id = " . $recordId;
+			. "WHERE sermon_id = " . $recordId;
 		$db->setQuery($query);
 		$db->execute();
 		$i = 1;
@@ -302,8 +303,9 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 	/**
 	 * Method to save a record
 	 *
-	 * @param   string  $key     The name of the primary key of the URL variable
-	 * @param   string  $urlVar  The name of the URL variable if different from the primary key (sometimes required to avoid router collisions)
+	 * @param   string $key    The name of the primary key of the URL variable
+	 * @param   string $urlVar The name of the URL variable if different from the primary key (sometimes required to
+	 *                         avoid router collisions)
 	 *
 	 * @return  Boolean  True if successful, false otherwise
 	 *
@@ -319,7 +321,7 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 	/**
 	 * Method to write the ID3 tags to the file
 	 *
-	 * @param   int  $id  The id of the record
+	 * @param   int $id The id of the record
 	 *
 	 * @return  Boolean  True if successful, false otherwise
 	 *
@@ -336,7 +338,7 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 			return false;
 		}
 
-		$db = JFactory::getDbo();
+		$db    = JFactory::getDbo();
 		$query = $db->getQuery(true);
 		$query->select('audiofile, videofile, sermons.created_by, sermons.catid, sermons.title, speakers.title as speaker_title');
 		$query->select('series.title AS series_title, notes, sermon_number, picture');
@@ -346,7 +348,7 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 		$query->join('LEFT', '#__sermon_series AS series ON series_id = series.id');
 		$query->where('sermons.id = ' . $id);
 		$db->setQuery($query);
-		$item     = $db->loadObject();
+		$item       = $db->loadObject();
 		$user       = JFactory::getUser();
 		$canEdit    = $user->authorise('core.edit', 'com_sermonspeaker.category.' . $item->catid);
 		$canEditOwn = $user->authorise('core.edit.own', 'com_sermonspeaker.category.' . $item->catid) && $item->created_by == $user->id;
@@ -359,23 +361,23 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 			$getID3 = new getID3;
 			$getID3->setOption(array('encoding' => 'UTF-8'));
 			require_once JPATH_COMPONENT_SITE . '/id3/getid3/write.php';
-			$writer = new getid3_writetags;
+			$writer             = new getid3_writetags;
 			$writer->tagformats = array('id3v2.3');
 
 			// False would merge, but is currently known to be buggy and throws an exception
 			$writer->overwrite_tags    = true;
 			$writer->remove_other_tags = false;
 			$writer->tag_encoding      = 'UTF-8';
-			$TagData = array(
-				'title'   => array($item->title),
-				'artist'  => array($item->speaker_title),
-				'album'   => array($item->series_title),
-				'track'   => array($item->sermon_number),
-				'year'    => array($item->year),
-				'date'    => array($item->date),
-				'time'    => array($item->time),
+			$TagData                   = array(
+				'title'  => array($item->title),
+				'artist' => array($item->speaker_title),
+				'album'  => array($item->series_title),
+				'track'  => array($item->sermon_number),
+				'year'   => array($item->year),
+				'date'   => array($item->date),
+				'time'   => array($item->time),
 			);
-			$TagData['comment'] = array(strip_tags(JHtml::_('content.prepare', $item->notes)));
+			$TagData['comment']        = array(strip_tags(JHtml::_('content.prepare', $item->notes)));
 
 			// Adding the picture to the id3 tags, taken from getID3 Demos -> demo.write.php
 			if ($item->picture && !parse_url($item->picture, PHP_URL_SCHEME))
@@ -423,7 +425,7 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 					continue;
 				}
 
-				$writer->filename	= $path;
+				$writer->filename = $path;
 
 				if ($writer->WriteTags())
 				{

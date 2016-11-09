@@ -35,7 +35,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 		$jinput = $app->input;
 
 		// Get the user
-		$user		= JFactory::getUser();
+		$user = JFactory::getUser();
 
 		// Access check
 		if (!$params->get('fu_enable') || !$user->authorise('core.create', 'com_sermonspeaker'))
@@ -45,7 +45,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 
 		// Create append
 		$append = ($params->get('append_path', 0)) ? '/' . $jinput->get('year', date('Y'), 'int') . '/'
-				. str_pad($jinput->get('month', date('m'), 'int'), 2, '0', STR_PAD_LEFT) : '';
+			. str_pad($jinput->get('month', date('m'), 'int'), 2, '0', STR_PAD_LEFT) : '';
 
 		if ($params->get('append_path_lang', 0))
 		{
@@ -53,7 +53,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 
 			if (strlen($lang) != 5)
 			{
-				$lang	= JFactory::getLanguage()->getTag();
+				$lang = JFactory::getLanguage()->getTag();
 			}
 
 			$append .= '/' . $lang;
@@ -64,7 +64,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 		JClientHelper::setCredentialsFromRequest('ftp');
 
 		// Get files
-		$files	= $jinput->files->get('Filedata', '', 'array');
+		$files    = $jinput->files->get('Filedata', '', 'array');
 		$redirect = '';
 
 		foreach ($files as $key => $file)

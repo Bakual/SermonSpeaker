@@ -25,8 +25,8 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 	 */
 	public function download()
 	{
-		$app	= JFactory::getApplication();
-		$id		= $app->input->get('id', 0, 'int');
+		$app = JFactory::getApplication();
+		$id  = $app->input->get('id', 0, 'int');
 		$app->redirect(JRoute::_(SermonspeakerHelperRoute::getSerieRoute($id) . '&layout=download'));
 	}
 }
