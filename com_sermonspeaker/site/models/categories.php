@@ -19,7 +19,7 @@ class SermonspeakerModelCategories extends JModelLegacy
 	/**
 	 * Model context string.
 	 *
-	 * @var		string
+	 * @var        string
 	 *
 	 * @since ?
 	 */
@@ -28,7 +28,7 @@ class SermonspeakerModelCategories extends JModelLegacy
 	/**
 	 * The category context (allows other extensions to derived from this model).
 	 *
-	 * @var		string
+	 * @var        string
 	 *
 	 * @since ?
 	 */
@@ -60,8 +60,8 @@ class SermonspeakerModelCategories extends JModelLegacy
 		$params = $app->getParams();
 		$this->setState('params', $params);
 
-		$this->setState('filter.state',	1);
-		$this->setState('filter.access',	true);
+		$this->setState('filter.state', 1);
+		$this->setState('filter.access', true);
 	}
 
 	/**
@@ -71,7 +71,7 @@ class SermonspeakerModelCategories extends JModelLegacy
 	 * different modules that might need different sets of data or different
 	 * ordering requirements.
 	 *
-	 * @param   string  $id  A prefix for the store id.
+	 * @param   string $id A prefix for the store id.
 	 *
 	 * @return  string  A store id.
 	 *
@@ -91,7 +91,7 @@ class SermonspeakerModelCategories extends JModelLegacy
 	/**
 	 * Redefine the function an add some properties to make the styling more easy
 	 *
-	 * @param   bool  $recursive  True if you want to return children recursively.
+	 * @param   bool $recursive True if you want to return children recursively.
 	 *
 	 * @return  mixed  An array of data items on success, false on failure.
 	 *
@@ -101,8 +101,8 @@ class SermonspeakerModelCategories extends JModelLegacy
 	{
 		if (!count($this->_items))
 		{
-			$app = JFactory::getApplication();
-			$menu = $app->getMenu();
+			$app    = JFactory::getApplication();
+			$menu   = $app->getMenu();
 			$active = $menu->getActive();
 			$params = new Joomla\Registry\Registry;
 
@@ -111,11 +111,11 @@ class SermonspeakerModelCategories extends JModelLegacy
 				$params->loadString($active->params);
 			}
 
-			$options = array();
-			$options['table'] = '#__sermon_' . $params->get('count_items_type', 'sermons');
+			$options               = array();
+			$options['table']      = '#__sermon_' . $params->get('count_items_type', 'sermons');
 			$options['countItems'] = $params->get('show_cat_num_items_cat', 1) || !$params->get('show_empty_categories_cat', 0);
-			$categories = JCategories::getInstance('Sermonspeaker', $options);
-			$this->_parent = $categories->get($this->getState('filter.parentId', 'root'));
+			$categories            = JCategories::getInstance('Sermonspeaker', $options);
+			$this->_parent         = $categories->get($this->getState('filter.parentId', 'root'));
 
 			if (is_object($this->_parent))
 			{

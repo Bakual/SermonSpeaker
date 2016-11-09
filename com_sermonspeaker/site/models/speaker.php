@@ -23,8 +23,8 @@ class SermonspeakerModelSpeaker extends JModelItem
 	 *
 	 * Note. Calling getState in this method will result in recursion.
 	 *
-	 * @param   string  $ordering   Ordering column
-	 * @param   string  $direction  'ASC' or 'DESC'
+	 * @param   string $ordering  Ordering column
+	 * @param   string $direction 'ASC' or 'DESC'
 	 *
 	 * @return  void
 	 *
@@ -33,11 +33,11 @@ class SermonspeakerModelSpeaker extends JModelItem
 	protected function populateState($ordering = null, $direction = null)
 	{
 		/** @var JApplicationSite $app */
-		$app = JFactory::getApplication();
-		$params	= $app->getParams();
+		$app    = JFactory::getApplication();
+		$params = $app->getParams();
 
 		// Load the object state.
-		$id	= $app->input->get('id', 0, 'int');
+		$id = $app->input->get('id', 0, 'int');
 		$this->setState('speaker.id', $id);
 
 		// Load the parameters.
@@ -69,7 +69,7 @@ class SermonspeakerModelSpeaker extends JModelItem
 		{
 			try
 			{
-				$db = $this->getDbo();
+				$db    = $this->getDbo();
 				$query = $db->getQuery(true);
 
 				$query->select(
@@ -137,7 +137,7 @@ class SermonspeakerModelSpeaker extends JModelItem
 	/**
 	 * Method to increment the hit counter for the speaker
 	 *
-	 * @param   int  $id  Optional ID of the speaker.
+	 * @param   int $id Optional ID of the speaker.
 	 *
 	 * @return  boolean  True on success
 	 *
