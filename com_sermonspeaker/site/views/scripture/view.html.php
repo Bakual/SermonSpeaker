@@ -19,22 +19,22 @@ class SermonspeakerViewScripture extends JViewLegacy
 	/**
 	 * Execute and display a template script.
 	 *
-	 * @param   string  $tpl  The name of the template file to parse; automatically searches through the template paths.
+	 * @param   string $tpl The name of the template file to parse; automatically searches through the template paths.
 	 *
 	 * @return  mixed  A string if successful, otherwise a Error object.
 	 *
 	 * @since ?
 	 */
-	public function display( $tpl = null )
+	public function display($tpl = null)
 	{
-		$id			= JFactory::getApplication()->input->get('id', 0, 'int');
-		$separator	= JText::_('COM_SERMONSPEAKER_SCRIPTURE_SEPARATOR');
+		$id        = JFactory::getApplication()->input->get('id', 0, 'int');
+		$separator = JText::_('COM_SERMONSPEAKER_SCRIPTURE_SEPARATOR');
 
 		// Get Params
 		$this->params = JComponentHelper::getParams('com_sermonspeaker');
 
 		// Add Javascript for Scripture
-		$javascript	= "function AddScripture() {
+		$javascript = "function AddScripture() {
 			var error = 0;
 			var book = document.getElementById('book');
 			var cap1 = parseInt(document.getElementById('cap1').value);
@@ -134,6 +134,7 @@ class SermonspeakerViewScripture extends JViewLegacy
 
 		$document = JFactory::getDocument();
 		$document->addScriptDeclaration($javascript);
+
 		return parent::display($tpl);
 	}
 }

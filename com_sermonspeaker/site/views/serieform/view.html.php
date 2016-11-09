@@ -37,16 +37,16 @@ class SermonspeakerViewSerieform extends JViewLegacy
 	public function display($tpl = null)
 	{
 		// Initialise variables.
-		$user		= JFactory::getUser();
+		$user = JFactory::getUser();
 
 		// Get model data.
-		$this->state		= $this->get('State');
-		$this->item			= $this->get('Item');
-		$this->form			= $this->get('Form');
-		$this->return_page	= $this->get('ReturnPage');
+		$this->state       = $this->get('State');
+		$this->item        = $this->get('Item');
+		$this->form        = $this->get('Form');
+		$this->return_page = $this->get('ReturnPage');
 
 		// Create a shortcut to the parameters.
-		$params	= &$this->state->params;
+		$params = &$this->state->params;
 
 		if (empty($this->item->id))
 		{
@@ -70,8 +70,8 @@ class SermonspeakerViewSerieform extends JViewLegacy
 
 		// Escape strings for HTML output
 		$this->pageclass_sfx = htmlspecialchars($params->get('pageclass_sfx'));
-		$this->params	= $params;
-		$this->user		= $user;
+		$this->params        = $params;
+		$this->user          = $user;
 		$this->_prepareDocument();
 
 		return parent::display($tpl);
@@ -86,8 +86,8 @@ class SermonspeakerViewSerieform extends JViewLegacy
 	 */
 	protected function _prepareDocument()
 	{
-		$app	= JFactory::getApplication();
-		$menus	= $app->getMenu();
+		$app   = JFactory::getApplication();
+		$menus = $app->getMenu();
 
 		// Because the application sets a default page title, we need to get it from the menu item itself
 		$menu = $menus->getActive();

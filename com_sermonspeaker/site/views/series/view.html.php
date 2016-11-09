@@ -29,17 +29,17 @@ class SermonspeakerViewSeries extends JViewLegacy
 	public function display($tpl = null)
 	{
 		// Get some data from the models
-		$this->state		= $this->get('State');
-		$this->items		= $this->get('Items');
-		$this->pagination	= $this->get('Pagination');
+		$this->state      = $this->get('State');
+		$this->items      = $this->get('Items');
+		$this->pagination = $this->get('Pagination');
 
 		// Get Category stuff from models
-		$this->category		= $this->get('Category');
-		$children			= $this->get('Children');
-		$this->parent		= $this->get('Parent');
-		$this->children		= array($this->category->id => $children);
-		$this->params		= $this->state->get('params');
-		$this->col_serie	= $this->params->get('col_serie');
+		$this->category  = $this->get('Category');
+		$children        = $this->get('Children');
+		$this->parent    = $this->get('Parent');
+		$this->children  = array($this->category->id => $children);
+		$this->params    = $this->state->get('params');
+		$this->col_serie = $this->params->get('col_serie');
 
 		if (!$this->col_serie)
 		{
@@ -54,7 +54,7 @@ class SermonspeakerViewSeries extends JViewLegacy
 
 		// Getting the Speakers for each Series and check if there are avatars at all, only showing column if needed
 		$this->av = null;
-		$model = $this->getModel();
+		$model    = $this->getModel();
 
 		foreach ($this->items as $item)
 		{
@@ -72,7 +72,7 @@ class SermonspeakerViewSeries extends JViewLegacy
 				{
 					$speaker->speaker_slug  = $speaker->slug;
 					$speaker->speaker_state = $speaker->state;
-					$names[] = JLayoutHelper::render('titles.speaker', array('item' => $speaker, 'params' => $this->params));
+					$names[]                = JLayoutHelper::render('titles.speaker', array('item' => $speaker, 'params' => $this->params));
 				}
 
 				$item->speakers = implode(', ', $names);
@@ -101,8 +101,8 @@ class SermonspeakerViewSeries extends JViewLegacy
 		}
 
 		// Check whether category access level allows access.
-		$user	= JFactory::getUser();
-		$groups	= $user->getAuthorisedViewLevels();
+		$user   = JFactory::getUser();
+		$groups = $user->getAuthorisedViewLevels();
 
 		if (!in_array($this->category->access, $groups))
 		{
@@ -115,8 +115,8 @@ class SermonspeakerViewSeries extends JViewLegacy
 			$this->setLayout($this->params->get('serieslayout', 'normal'));
 		}
 
-		$this->pageclass_sfx	= htmlspecialchars($this->params->get('pageclass_sfx'));
-		$this->maxLevel			= $this->params->get('maxLevel', -1);
+		$this->pageclass_sfx = htmlspecialchars($this->params->get('pageclass_sfx'));
+		$this->maxLevel      = $this->params->get('maxLevel', -1);
 		$this->_prepareDocument();
 
 		return parent::display($tpl);
@@ -131,8 +131,8 @@ class SermonspeakerViewSeries extends JViewLegacy
 	 */
 	protected function _prepareDocument()
 	{
-		$app	= JFactory::getApplication();
-		$menus	= $app->getMenu();
+		$app   = JFactory::getApplication();
+		$menus = $app->getMenu();
 
 		// Because the application sets a default page title, we need to get it from the menu item itself
 		$menu = $menus->getActive();

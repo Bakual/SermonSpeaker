@@ -30,9 +30,9 @@ class SermonspeakerViewSeriessermon extends JViewLegacy
 	{
 		// Applying CSS file
 		JHtml::stylesheet('com_sermonspeaker/sermonspeaker.css', '', true);
-		$app			= JFactory::getApplication();
-		$this->params	= $app->getParams();
-		$this->columns	= $this->params->get('col');
+		$app           = JFactory::getApplication();
+		$this->params  = $app->getParams();
+		$this->columns = $this->params->get('col');
 
 		if (!$this->columns)
 		{
@@ -46,8 +46,8 @@ class SermonspeakerViewSeriessermon extends JViewLegacy
 			$this->col_serie = array();
 		}
 		// Check if access is not public
-		$user = JFactory::getUser();
-		$groups	= $user->getAuthorisedViewLevels();
+		$user   = JFactory::getUser();
+		$groups = $user->getAuthorisedViewLevels();
 
 		if (!in_array($this->params->get('access'), $groups))
 		{
@@ -55,15 +55,15 @@ class SermonspeakerViewSeriessermon extends JViewLegacy
 		}
 
 		// Get some data from the models
-		$this->state		= $this->get('State', 'Series');
-		$this->items		= $this->get('Items', 'Series');
-		$this->pagination	= $this->get('Pagination', 'Series');
+		$this->state      = $this->get('State', 'Series');
+		$this->items      = $this->get('Items', 'Series');
+		$this->pagination = $this->get('Pagination', 'Series');
 
 		// Get Category stuff from models
-		$this->category		= $this->get('Category', 'Series');
-		$children			= $this->get('Children', 'Series');
-		$this->parent		= $this->get('Parent', 'Series');
-		$this->children		= array($this->category->id => $children);
+		$this->category = $this->get('Category', 'Series');
+		$children       = $this->get('Children', 'Series');
+		$this->parent   = $this->get('Parent', 'Series');
+		$this->children = array($this->category->id => $children);
 
 		// Check for errors.
 		if (count($errors = $this->get('Errors')))
@@ -98,9 +98,10 @@ class SermonspeakerViewSeriessermon extends JViewLegacy
 			$this->setLayout($this->params->get('seriessermonlayout', 'normal'));
 		}
 
-		$this->pageclass_sfx	= htmlspecialchars($this->params->get('pageclass_sfx'));
-		$this->maxLevel			= $this->params->get('maxLevel', -1);
+		$this->pageclass_sfx = htmlspecialchars($this->params->get('pageclass_sfx'));
+		$this->maxLevel      = $this->params->get('maxLevel', -1);
 		$this->_prepareDocument();
+
 		return parent::display($tpl);
 	}
 
@@ -113,8 +114,8 @@ class SermonspeakerViewSeriessermon extends JViewLegacy
 	 */
 	protected function _prepareDocument()
 	{
-		$app	= JFactory::getApplication();
-		$menus	= $app->getMenu();
+		$app   = JFactory::getApplication();
+		$menus = $app->getMenu();
 
 		// Because the application sets a default page title,
 		// we need to get it from the menu item itself

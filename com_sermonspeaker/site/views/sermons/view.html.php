@@ -31,18 +31,18 @@ class SermonspeakerViewSermons extends JViewLegacy
 		require_once JPATH_COMPONENT . '/helpers/player.php';
 
 		// Get some data from the models
-		$this->state		= $this->get('State');
-		$this->items		= $this->get('Items');
-		$this->pagination	= $this->get('Pagination');
-		$this->years		= $this->get('Years');
-		$this->months		= $this->get('Months');
-		$books				= $this->get('Books');
+		$this->state      = $this->get('State');
+		$this->items      = $this->get('Items');
+		$this->pagination = $this->get('Pagination');
+		$this->years      = $this->get('Years');
+		$this->months     = $this->get('Months');
+		$books            = $this->get('Books');
 
 		// Get Category stuff from models
-		$this->category		= $this->get('Category');
-		$children			= $this->get('Children');
-		$this->parent		= $this->get('Parent');
-		$this->children		= array($this->category->id => $children);
+		$this->category = $this->get('Category');
+		$children       = $this->get('Children');
+		$this->parent   = $this->get('Parent');
+		$this->children = array($this->category->id => $children);
 
 		// Add view to pagination, needed since it may be called from module?
 		$this->pagination->setAdditionalUrlParam('view', 'sermons');
@@ -60,7 +60,7 @@ class SermonspeakerViewSermons extends JViewLegacy
 			$this->params->set('show_pagination_results', 0);
 		}
 
-		$this->columns	= $this->params->get('col');
+		$this->columns = $this->params->get('col');
 
 		if (!$this->columns)
 		{
@@ -95,8 +95,8 @@ class SermonspeakerViewSermons extends JViewLegacy
 		}
 
 		// Check whether category access level allows access.
-		$user	= JFactory::getUser();
-		$groups	= $user->getAuthorisedViewLevels();
+		$user   = JFactory::getUser();
+		$groups = $user->getAuthorisedViewLevels();
 
 		if (!in_array($this->category->access, $groups))
 		{
@@ -127,30 +127,30 @@ class SermonspeakerViewSermons extends JViewLegacy
 		$this->document->addScriptDeclaration($js);
 
 		// Build Books
-		$groups			= array();
+		$groups = array();
 
 		foreach ($books as $book)
 		{
 			switch ($book)
 			{
 				case ($book < 40):
-					$group	= 'OLD_TESTAMENT';
+					$group = 'OLD_TESTAMENT';
 					break;
 				case ($book < 67):
-					$group	= 'NEW_TESTAMENT';
+					$group = 'NEW_TESTAMENT';
 					break;
 				case ($book < 74):
-					$group	= 'APOCRYPHA';
+					$group = 'APOCRYPHA';
 					break;
 				default:
-					$group	= 'CUSTOMBOOKS';
+					$group = 'CUSTOMBOOKS';
 					break;
 			}
 
-			$object					= new stdClass;
-			$object->value			= $book;
-			$object->text			= JText::_('COM_SERMONSPEAKER_BOOK_' . $book);
-			$groups[$group][]	= $object;
+			$object           = new stdClass;
+			$object->value    = $book;
+			$object->text     = JText::_('COM_SERMONSPEAKER_BOOK_' . $book);
+			$groups[$group][] = $object;
 		}
 
 		foreach ($groups as $key => &$group)
@@ -159,11 +159,12 @@ class SermonspeakerViewSermons extends JViewLegacy
 			array_push($group, JHtml::_('select.optgroup', JText::_('COM_SERMONSPEAKER_' . $key)));
 		}
 
-		$this->books	= array_reduce($groups, 'array_merge', array());
+		$this->books = array_reduce($groups, 'array_merge', array());
 
-		$this->pageclass_sfx	= htmlspecialchars($this->params->get('pageclass_sfx'));
-		$this->maxLevel			= $this->params->get('maxLevel', -1);
+		$this->pageclass_sfx = htmlspecialchars($this->params->get('pageclass_sfx'));
+		$this->maxLevel      = $this->params->get('maxLevel', -1);
 		$this->_prepareDocument();
+
 		return parent::display($tpl);
 	}
 
@@ -176,8 +177,8 @@ class SermonspeakerViewSermons extends JViewLegacy
 	 */
 	protected function _prepareDocument()
 	{
-		$app	= JFactory::getApplication();
-		$menus	= $app->getMenu();
+		$app   = JFactory::getApplication();
+		$menus = $app->getMenu();
 
 		// Because the application sets a default page title, we need to get it from the menu item itself
 		$menu = $menus->getActive();

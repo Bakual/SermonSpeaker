@@ -35,10 +35,10 @@ class SermonspeakerViewCategories extends JViewLegacy
 	public function display($tpl = null)
 	{
 		// Initialise variables
-		$this->state	= $this->get('State');
-		$items			= $this->get('Items');
-		$this->parent	= $this->get('Parent');
-		$this->items	= array($this->parent->id => $items);
+		$this->state  = $this->get('State');
+		$items        = $this->get('Items');
+		$this->parent = $this->get('Parent');
+		$this->items  = array($this->parent->id => $items);
 
 		// Check for errors.
 		if (count($errors = $this->get('Errors')))
@@ -51,7 +51,7 @@ class SermonspeakerViewCategories extends JViewLegacy
 			throw new Exception(JText::_('JGLOBAL_CATEGORY_NOT_FOUND'), 404);
 		}
 
-		$this->params	= &$this->state->params;
+		$this->params = &$this->state->params;
 
 		// Set layout from parameters if not already set elsewhere
 		if ($this->getLayout() == 'default')
@@ -60,9 +60,9 @@ class SermonspeakerViewCategories extends JViewLegacy
 		}
 
 		// Escape strings for HTML output
-		$this->pageclass_sfx	= htmlspecialchars($this->params->get('pageclass_sfx'));
+		$this->pageclass_sfx = htmlspecialchars($this->params->get('pageclass_sfx'));
 
-		$this->maxLevelcat		= $this->params->get('maxLevelcat', -1);
+		$this->maxLevelcat = $this->params->get('maxLevelcat', -1);
 
 		$this->_prepareDocument();
 
@@ -78,8 +78,8 @@ class SermonspeakerViewCategories extends JViewLegacy
 	 */
 	protected function _prepareDocument()
 	{
-		$app	= JFactory::getApplication();
-		$menus	= $app->getMenu();
+		$app   = JFactory::getApplication();
+		$menus = $app->getMenu();
 
 		// Because the application sets a default page title, we need to get it from the menu item itself
 		$menu = $menus->getActive();

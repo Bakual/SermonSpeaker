@@ -91,6 +91,7 @@ class SermonspeakerViewSpeakers extends JViewLegacy
 		$this->pageclass_sfx = htmlspecialchars($this->params->get('pageclass_sfx'));
 		$this->maxLevel      = $this->params->get('maxLevel', -1);
 		$this->_prepareDocument();
+
 		return parent::display($tpl);
 	}
 

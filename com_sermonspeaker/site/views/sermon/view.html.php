@@ -32,8 +32,8 @@ class SermonspeakerViewSermon extends JViewLegacy
 	 */
 	public function display($tpl = null)
 	{
-		$app	= JFactory::getApplication();
-		$jinput	= $app->input;
+		$app    = JFactory::getApplication();
+		$jinput = $app->input;
 
 		if (!$jinput->get('id', 0, 'int'))
 		{
@@ -50,9 +50,9 @@ class SermonspeakerViewSermon extends JViewLegacy
 		require_once JPATH_COMPONENT . '/helpers/player.php';
 
 		// Initialise variables.
-		$params		= $app->getParams();
-		$this->user	= JFactory::getUser();
-		$groups		= $this->user->getAuthorisedViewLevels();
+		$params     = $app->getParams();
+		$this->user = JFactory::getUser();
+		$groups     = $this->user->getAuthorisedViewLevels();
 
 		// Check if access is not public
 		if (!in_array($params->get('access'), $groups))
@@ -67,8 +67,8 @@ class SermonspeakerViewSermon extends JViewLegacy
 			$this->columns = array();
 		}
 		// Get model data (/models/sermon.php)
-		$this->state	= $this->get('State');
-		$item	= $this->get('Item');
+		$this->state = $this->get('State');
+		$item        = $this->get('Item');
 
 		if (!$item)
 		{
@@ -122,13 +122,14 @@ class SermonspeakerViewSermon extends JViewLegacy
 			$model->hit();
 		}
 
-		$this->params	= $params;
-		$this->item		= $item;
+		$this->params = $params;
+		$this->item   = $item;
 
 		// Escape strings for HTML output
 		$this->pageclass_sfx = htmlspecialchars($this->params->get('pageclass_sfx'));
 
 		$this->_prepareDocument();
+
 		return parent::display($tpl);
 	}
 
@@ -141,8 +142,8 @@ class SermonspeakerViewSermon extends JViewLegacy
 	 */
 	protected function _prepareDocument()
 	{
-		$app	= JFactory::getApplication();
-		$menus	= $app->getMenu();
+		$app   = JFactory::getApplication();
+		$menus = $app->getMenu();
 
 		// Because the application sets a default page title, we need to get it from the menu item itself
 		$menu = $menus->getActive();
@@ -277,10 +278,10 @@ class SermonspeakerViewSermon extends JViewLegacy
 				if ($this->item->speaker_title)
 				{
 					$this->document->addCustomTag(
-							'<meta property="article:author" content="'
-								. JUri::base() . trim(JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($this->item->speaker_slug, $this->item->speaker_catid, $this->item->speaker_language)), '/')
-							. '"/>'
-						);
+						'<meta property="article:author" content="'
+						. JUri::base() . trim(JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($this->item->speaker_slug, $this->item->speaker_catid, $this->item->speaker_language)), '/')
+						. '"/>'
+					);
 				}
 
 				if ($this->item->series_title)
@@ -296,13 +297,13 @@ class SermonspeakerViewSermon extends JViewLegacy
 
 					if ((strpos($this->item->videofile, 'http://vimeo.com') === 0) || (strpos($this->item->videofile, 'http://player.vimeo.com') === 0))
 					{
-						$id		= trim(strrchr($this->item->videofile, '/'), '/ ');
-						$file	= 'http://vimeo.com/moogaloop.swf?clip_id=' . $id
+						$id   = trim(strrchr($this->item->videofile, '/'), '/ ');
+						$file = 'http://vimeo.com/moogaloop.swf?clip_id=' . $id
 							. '&amp;server=vimeo.com&amp;show_title=0&amp;show_byline=0&amp;show_portrait=0&amp;color=00adef&amp;fullscreen=1&amp;autoplay=0&amp;loop=0';
 					}
 					else
 					{
-						$file	= SermonspeakerHelperSermonspeaker::makeLink($this->item->videofile, true);
+						$file = SermonspeakerHelperSermonspeaker::makeLink($this->item->videofile, true);
 					}
 
 					$this->document->addCustomTag('<meta property="og:video" content="' . $file . '"/>');
@@ -311,8 +312,8 @@ class SermonspeakerViewSermon extends JViewLegacy
 				{
 					$this->document->addCustomTag('<meta property="og:type" content="song"/>');
 					$this->document->addCustomTag(
-							'<meta property="og:audio" content="' . SermonspeakerHelperSermonspeaker::makeLink($this->item->audiofile, true) . '"/>'
-						);
+						'<meta property="og:audio" content="' . SermonspeakerHelperSermonspeaker::makeLink($this->item->audiofile, true) . '"/>'
+					);
 					$this->document->addCustomTag('<meta property="og:audio:title" content="' . $this->escape($this->item->title) . '"/>');
 
 					if ($this->item->speaker_title)

@@ -233,6 +233,7 @@ class SermonspeakerViewSpeaker extends JViewLegacy
 		$this->pageclass_sfx = htmlspecialchars($this->params->get('pageclass_sfx'));
 		$this->maxLevel      = $this->params->get('maxLevel', -1);
 		$this->_prepareDocument();
+
 		return parent::display($tpl);
 	}
 
@@ -245,8 +246,8 @@ class SermonspeakerViewSpeaker extends JViewLegacy
 	 */
 	protected function _prepareDocument()
 	{
-		$app     = JFactory::getApplication();
-		$menus   = $app->getMenu();
+		$app   = JFactory::getApplication();
+		$menus = $app->getMenu();
 
 		// Because the application sets a default page title,
 		// we need to get it from the menu item itself
