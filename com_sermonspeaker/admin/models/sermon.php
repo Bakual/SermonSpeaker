@@ -78,7 +78,7 @@ class SermonspeakerModelSermon extends JModelAdmin
 	public function delete(&$pks)
 	{
 		// Initialise variables.
-		$pks   = (array) $pks;
+		$pks = (array) $pks;
 		/** @var SermonspeakerTableSermon $table */
 		$table = $this->getTable();
 		$db    = $this->getDbo();
