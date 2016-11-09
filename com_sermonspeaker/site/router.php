@@ -19,7 +19,7 @@ class SermonspeakerRouter extends JComponentRouterBase
 	/**
 	 * Build the route for the com_sermonspeaker component
 	 *
-	 * @param   array  &$query  An array of URL arguments
+	 * @param   array &$query An array of URL arguments
 	 *
 	 * @return  array  The URL arguments to use to assemble the subsequent URL.
 	 *
@@ -102,7 +102,8 @@ class SermonspeakerRouter extends JComponentRouterBase
 			// Make sure we have the id and the alias
 			if ($view == 'sermon'
 				|| $view == 'serie'
-				|| $view == 'speaker')
+				|| $view == 'speaker'
+			)
 			{
 				if (strpos($query['id'], ':') === false)
 				{
@@ -168,7 +169,7 @@ class SermonspeakerRouter extends JComponentRouterBase
 	/**
 	 * Parse the segments of a URL.
 	 *
-	 * @param   array  &$segments  The segments of the URL to parse.
+	 * @param   array &$segments The segments of the URL to parse.
 	 *
 	 * @return  array  The URL attributes to be used by the application.
 	 *
@@ -189,7 +190,7 @@ class SermonspeakerRouter extends JComponentRouterBase
 			case 'serie':
 				$vars['view'] = 'serie';
 				$id           = explode(':', $segments[1]);
-				$vars['id'] = (int) $id[0];
+				$vars['id']   = (int) $id[0];
 
 				if (isset($segments[2]) && $segments[2])
 				{
@@ -234,8 +235,8 @@ class SermonspeakerRouter extends JComponentRouterBase
 				break;
 			case 'sermon':
 				$vars['view'] = 'sermon';
-				$id = explode(':', $segments[1]);
-				$vars['id'] = (int) $id[0];
+				$id           = explode(':', $segments[1]);
+				$vars['id']   = (int) $id[0];
 
 				if (isset($segments[2]))
 				{
@@ -248,8 +249,8 @@ class SermonspeakerRouter extends JComponentRouterBase
 				break;
 			case 'speaker':
 				$vars['view'] = 'speaker';
-				$id = explode(':', $segments[1]);
-				$vars['id'] = (int) $id[0];
+				$id           = explode(':', $segments[1]);
+				$vars['id']   = (int) $id[0];
 
 				if (isset($segments[2]) && is_numeric($segments[2]))
 				{
@@ -286,23 +287,23 @@ class SermonspeakerRouter extends JComponentRouterBase
 				$vars['view'] = 'speakerform';
 				break;
 			case 'feed':
-				$vars['view'] = 'feed';
+				$vars['view']   = 'feed';
 				$vars['format'] = 'raw';
 				break;
 			case 'sitemap':
-				$vars['view'] = 'sitemap';
+				$vars['view']   = 'sitemap';
 				$vars['format'] = 'raw';
 				break;
 			case 'serie_download':
 				$vars['task'] = 'serie.download';
-				$id = explode(':', $segments[1]);
-				$vars['id'] = (int) $id[0];
+				$id           = explode(':', $segments[1]);
+				$vars['id']   = (int) $id[0];
 				break;
 			case 'download':
 				$vars['task'] = 'download';
 				$vars['type'] = $segments[1];
-				$id = explode(':', $segments[2]);
-				$vars['id'] = (int) $id[0];
+				$id           = explode(':', $segments[2]);
+				$vars['id']   = (int) $id[0];
 				break;
 			case 'frontendupload_edit':
 				$vars['task'] = 'frontendupload.edit';
@@ -339,11 +340,13 @@ class SermonspeakerRouter extends JComponentRouterBase
  *
  * Proxys for the new router interface for old SEF extensions
  *
- * @param   array  &$query  An array of URL arguments
+ * @param   array &$query An array of URL arguments
  *
  * @return  array  The URL arguments to use to assemble the subsequent URL.
  *
  * @deprecated  J4.0  Use Class based routers instead
+ *
+ * @since       ?
  */
 function sermonspeakerBuildRoute(&$query)
 {
@@ -357,11 +360,13 @@ function sermonspeakerBuildRoute(&$query)
  *
  * Proxys for the new router interface for old SEF extensions
  *
- * @param   array  $segments  The segments of the URL to parse.
+ * @param   array $segments The segments of the URL to parse.
  *
  * @return  array  The URL attributes to be used by the application.
  *
  * @deprecated  J4.0  Use Class based routers instead
+ *
+ * @since       ?
  */
 function sermonspeakerParseRoute($segments)
 {
