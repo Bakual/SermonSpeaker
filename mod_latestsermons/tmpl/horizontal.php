@@ -9,23 +9,31 @@
 
 defined('_JEXEC') or die();
 
+/**
+ * @var array                     $list
+ * @var \Joomla\Registry\Registry $params
+ * @var int                       $itemid
+ */
+
 $i     = 0;
 $count = count($list);
 ?>
 <div class="latestsermons<?php echo $moduleclass_sfx; ?>">
 	<?php if ($params->get('show_list')) : ?>
 		<div class="row-fluid">
-			<?php foreach($list as $row) : ?>
+			<?php foreach ($list as $row) : ?>
 				<?php $i++; ?>
-				<div class="latestsermons_entry<?php echo $i; ?> text-center span<?php echo (int) 12/$count; ?>">
+				<div class="latestsermons_entry<?php echo $i; ?> text-center span<?php echo (int) 12 / $count; ?>">
 					<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonRoute($row->slug, $row->catid, $row->language)); ?>">
-						<img src="<?php echo SermonspeakerHelperSermonspeaker::insertPicture($row); ?>" class="img-polaroid">
+						<img src="<?php echo SermonspeakerHelperSermonspeaker::insertPicture($row); ?>"
+							class="img-polaroid">
 					</a>
 					<h3>
 						<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonRoute($row->slug, $row->catid, $row->language)); ?>">
 							<?php echo $row->title; ?>
 							<?php if ($params->get('show_hits', 0) > 1 and $row->hits) : ?>
-								&nbsp;<small>(<?php echo $row->hits; ?>)</small>
+								&nbsp;
+								<small>(<?php echo $row->hits; ?>)</small>
 							<?php endif; ?>
 						</a>
 					</h3>
@@ -42,7 +50,7 @@ $count = count($list);
 					<?php if ($params->get('ls_show_mo_speaker') and $row->speaker_title) : ?>
 						<span>
 							<?php if ($params->get('ls_show_mo_series') and $row->series_title) : ?>
-								 |
+								|
 							<?php endif; ?>
 							<?php if ($row->speaker_state): ?>
 								<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($row->speaker_slug, $row->speaker_catid, $row->speaker_language)); ?>">
@@ -63,17 +71,17 @@ $count = count($list);
 	<?php endif; ?>
 	<?php if ($params->get('show_player')) : ?>
 		<?php if ($params->get('show_list')) : ?>
-			<br />
+			<br/>
 		<?php endif; ?>
 		<div class="latestsermons_player">
 			<?php
-			$c_params = JComponentHelper::getParams('com_sermonspeaker');
+			$c_params             = JComponentHelper::getParams('com_sermonspeaker');
 			$config['autostart']  = 0;
 			$config['count']      = 'ls';
 			$config['type']       = $c_params->get('fileprio') ? 'video' : 'audio';
 			$config['alt_player'] = $c_params->get('alt_player');
 			$config['vheight']    = $params->get('vheight');
-			$player = SermonspeakerHelperSermonspeaker::getPlayer($list, $config);
+			$player               = SermonspeakerHelperSermonspeaker::getPlayer($list, $config);
 			echo $player->mspace;
 			echo $player->script;
 			?>
@@ -85,7 +93,7 @@ $count = count($list);
 		else :
 			$link = SermonspeakerHelperRoute::getSermonsRoute();
 		endif; ?>
-		<br />
+		<br/>
 		<div class="latestsermons_link">
 			<a href="<?php echo JRoute::_($link); ?>"><?php echo JText::_('MOD_LATESTSERMONS_LINK'); ?></a>
 		</div>

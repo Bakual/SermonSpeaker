@@ -22,6 +22,8 @@ abstract class ModLatestsermonsHelper
 	 * @param   object $params parameters
 	 *
 	 * @return  array  $items  Array of items
+	 *
+	 * @since  1.0
 	 */
 	public static function getList($params)
 	{
@@ -52,8 +54,9 @@ abstract class ModLatestsermonsHelper
 		// Category
 		if ($cat = (int) $params->get('cat', 0))
 		{
-			switch ($params->get('cat_type', 'sermons'))
+			switch ($params->get('cat_type'))
 			{
+				default:
 				case 'sermons':
 					$type = 'a';
 					break;
@@ -116,15 +119,16 @@ abstract class ModLatestsermonsHelper
 		// SmartFilter
 		if ($params->get('smartfilter', 0))
 		{
-			$view = JRequest::getCmd('view');
+			$jinput = JFactory::getApplication()->input;
+			$view   = $jinput::getCmd('view');
 
 			if ($view == 'speaker')
 			{
-				$query->where('a.speaker_id = ' . JRequest::getInt('id'));
+				$query->where('a.speaker_id = ' . $jinput::getInt('id'));
 			}
 			elseif ($view == 'serie')
 			{
-				$query->where('a.series_id = ' . JRequest::getInt('id'));
+				$query->where('a.series_id = ' . $jinput::getInt('id'));
 			}
 		}
 		// Filetype filter

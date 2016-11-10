@@ -9,11 +9,13 @@
 
 defined('_JEXEC') or die();
 
+/** @var \Joomla\Registry\Registry $params */
+
 require_once __DIR__ . '/helper.php';
 
 JLoader::discover('SermonspeakerHelper', JPATH_SITE . '/components/com_sermonspeaker/helpers');
 
-$list = modLatestsermonsHelper::getList($params);
+$list = ModLatestsermonsHelper::getList($params);
 
 if (!count($list))
 {
