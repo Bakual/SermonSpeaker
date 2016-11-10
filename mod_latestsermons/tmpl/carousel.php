@@ -20,11 +20,10 @@ $i     = 0;
 $count = count($list);
 $id    = 'sermonCarousel' . $module->id;
 
-JHtmlBootstrap::carousel();
+JHtml::_('bootstrap.carousel');
 ?>
 <div id="<?php echo $id; ?>" class="latestsermons<?php echo $moduleclass_sfx; ?> carousel slide">
-	<?php
-	if ($params->get('show_list')) : ?>
+	<?php if ($params->get('show_list')) : ?>
 		<div id="sermonCarousel<?php echo $module->id; ?>" class="latestsermons_list">
 			<ol class="carousel-indicators">
 				<?php for ($j = 0; $j < $count; $j++): ?>
@@ -43,7 +42,6 @@ JHtmlBootstrap::carousel();
 						<h4><a href="<?php echo $link; ?>">
 								<?php echo $row->title; ?>
 								<?php if ($params->get('show_hits', 0) > 1 and $row->hits) : ?>
-									&nbsp;
 									<small>(<?php echo $row->hits; ?>)</small>
 								<?php endif; ?>
 							</a></h4>
@@ -112,10 +110,9 @@ JHtmlBootstrap::carousel();
 			<br/>
 		<?php endif; ?>
 		<div class="latestsermons_player">
-			<?php
-			$c_params             = JComponentHelper::getParams('com_sermonspeaker');
+			<?php $c_params       = JComponentHelper::getParams('com_sermonspeaker');
 			$config['autostart']  = 0;
-			$config['count']      = 'ls';
+			$config['count']      = 'ls' . $module->id;
 			$config['type']       = $c_params->get('fileprio') ? 'video' : 'audio';
 			$config['alt_player'] = $c_params->get('alt_player');
 			$config['vheight']    = $params->get('vheight');
@@ -124,12 +121,12 @@ JHtmlBootstrap::carousel();
 			echo $player->script; ?>
 		</div>
 	<?php endif; ?>
-	<?php if ($params->get('ls_show_mo_link')) :
-		if ($itemid) :
-			$link = 'index.php?option=com_sermonspeaker&view=sermons&Itemid=' . $itemid;
-		else :
-			$link = SermonspeakerHelperRoute::getSermonsRoute();
-		endif; ?>
+	<?php if ($params->get('ls_show_mo_link')) : ?>
+		<?php if ($itemid) : ?>
+			<?php $link = 'index.php?option=com_sermonspeaker&view=sermons&Itemid=' . $itemid; ?>
+		<?php else : ?>
+			<?php $link = SermonspeakerHelperRoute::getSermonsRoute(); ?>
+		<?php endif; ?>
 		<br/>
 		<div class="latestsermons_link">
 			<a href="<?php echo JRoute::_($link); ?>"><?php echo JText::_('MOD_LATESTSERMONS_LINK'); ?></a>

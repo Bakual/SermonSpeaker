@@ -17,30 +17,32 @@
 		<folder>language</folder>
 	</files>
 	<updateservers>
-		<server type="extension" priority="1" name="SermonSpeaker.net">http://www.sermonspeaker.net/update/mod_latestsermons.xml</server>
+		<server type="extension" priority="1" name="SermonSpeaker.net">
+			http://www.sermonspeaker.net/update/mod_latestsermons.xml
+		</server>
 	</updateservers>
 	<config>
 		<fields name="params">
 			<fieldset name="basic"
 				addfieldpath="/administrator/components/com_sermonspeaker/models/fields">
-				<field name="mode" type="list" 
-					label="JFIELD_ORDERING_LABEL" 
+				<field name="mode" type="list"
+					label="JFIELD_ORDERING_LABEL"
 					description="JFIELD_ORDERING_DESC"
-					default="0" >
+					default="0">
 					<option value="0">JDATE</option>
 					<option value="1">JGLOBAL_HITS</option>
 					<option value="2">JGLOBAL_CREATED</option>
 				</field>
-				<field name="dir" type="radio" 
-					label="JGLOBAL_ORDER_DIRECTION_LABEL" 
+				<field name="dir" type="radio"
+					label="JGLOBAL_ORDER_DIRECTION_LABEL"
 					description="JGLOBAL_ORDER_DIRECTION_DESC"
 					class="btn-group btn-group-yesno"
-					default="1" >
+					default="1">
 					<option value="1">JGLOBAL_ORDER_DESCENDING</option>
 					<option value="0">JGLOBAL_ORDER_ASCENDING</option>
 				</field>
-				<field name="ls_count" type="text" 
-					label="MOD_LATESTSERMONS_PARAM_COUNT" 
+				<field name="ls_count" type="text"
+					label="MOD_LATESTSERMONS_PARAM_COUNT"
 					description="MOD_LATESTSERMONS_PARAM_COUNT_DESC"
 					required="true"
 					default="3" />
@@ -51,76 +53,92 @@
 					description="MOD_LATESTSERMONS_PARAM_MO_MENUITEM_DESC"
 					state="1"
 					default=""
-					>
+				>
 					<option value="">MOD_LATESTSERMONS_PARAM_MO_MENUITEM_OPTION_AUTO</option>
 				</field>
 				<field name="spacer1" type="spacer"
 					hr="true" />
-				<field name="show_list" type="radio" 
+				<field name="show_list" type="radio"
+					label="MOD_LATESTSERMONS_PARAM_SHOW_LIST_LABEL"
+					description="MOD_LATESTSERMONS_PARAM_SHOW_LIST_DESC"
 					default="1"
 					class="btn-group btn-group-yesno"
-					label="MOD_LATESTSERMONS_PARAM_SHOW_LIST_LABEL" 
-					description="MOD_LATESTSERMONS_PARAM_SHOW_LIST_DESC">
+				>
 					<option value="1">JYES</option>
 					<option value="0">JNO</option>
 				</field>
-				<field name="use_date" type="radio" 
+				<field name="use_date" type="radio"
+					label="MOD_LATESTSERMONS_FIELD_USE_DATE_LABEL"
+					description="MOD_LATESTSERMONS_FIELD_USE_DATE_DESC"
+					class="btn-group btn-group-yesno"
 					default="0"
-					class="btn-group btn-group-yesno"
-					label="MOD_LATESTSERMONS_FIELD_USE_DATE_LABEL" 
-					description="MOD_LATESTSERMONS_FIELD_USE_DATE_DESC">
+					showon="show_list:1"
+				>
 					<option value="1">JYES</option>
 					<option value="0">JNO</option>
 				</field>
-				<field name="show_tooltip_title" type="radio" 
-					default="0" 
+				<field name="show_tooltip_title" type="radio"
+					label="MOD_LATESTSERMONS_FIELD_SHOW_TOOLTIP_TITLE_LABEL"
+					description="MOD_LATESTSERMONS_FIELD_SHOW_TOOLTIP_TITLE_DESC"
 					class="btn-group btn-group-yesno"
-					label="MOD_LATESTSERMONS_FIELD_SHOW_TOOLTIP_TITLE_LABEL" 
-					description="MOD_LATESTSERMONS_FIELD_SHOW_TOOLTIP_TITLE_DESC">
+					default="0"
+					showon="show_list:1"
+				>
 					<option value="1">JYES</option>
 					<option value="0">JNO</option>
 				</field>
-				<field name="show_category" type="radio" 
-					default="0" 
+				<field name="show_category" type="radio"
+					label="MOD_LATESTSERMONS_FIELD_SHOW_CATEGORY_LABEL"
+					description="MOD_LATESTSERMONS_FIELD_SHOW_CATEGORY_DESC"
 					class="btn-group btn-group-yesno"
-					label="MOD_LATESTSERMONS_FIELD_SHOW_CATEGORY_LABEL" 
-					description="MOD_LATESTSERMONS_FIELD_SHOW_CATEGORY_DESC">
+					default="0"
+					showon="show_list:1"
+				>
 					<option value="1">JYES</option>
 					<option value="0">JNO</option>
 				</field>
-				<field name="ls_show_mo_speaker" type="radio" 
-					default="1" 
+				<field name="ls_show_mo_speaker" type="radio"
+					label="MOD_LATESTSERMONS_PARAM_SHOW_MO_SPEAKER"
+					description="MOD_LATESTSERMONS_PARAM_SHOW_MO_SPEAKER_DESC"
 					class="btn-group btn-group-yesno"
-					label="MOD_LATESTSERMONS_PARAM_SHOW_MO_SPEAKER" 
-					description="MOD_LATESTSERMONS_PARAM_SHOW_MO_SPEAKER_DESC">
+					default="1"
+					showon="show_list:1"
+				>
 					<option value="1">JYES</option>
 					<option value="0">JNO</option>
 				</field>
-				<field name="ls_show_mo_series" type="radio" 
-					default="1" 
+				<field name="ls_show_mo_series" type="radio"
+					label="MOD_LATESTSERMONS_PARAM_SHOW_MO_SERIES"
+					description="MOD_LATESTSERMONS_PARAM_SHOW_MO_SERIES_DESC"
 					class="btn-group btn-group-yesno"
-					label="MOD_LATESTSERMONS_PARAM_SHOW_MO_SERIES" 
-					description="MOD_LATESTSERMONS_PARAM_SHOW_MO_SERIES_DESC">
+					default="1"
+					showon="show_list:1"
+				>
 					<option value="1">JYES</option>
 					<option value="0">JNO</option>
 				</field>
-				<field name="ls_show_mo_date" type="radio" 
-					default="1" 
+				<field name="ls_show_mo_date" type="radio"
+					label="MOD_LATESTSERMONS_PARAM_SHOW_MO_DATE"
+					description="MOD_LATESTSERMONS_PARAM_SHOW_MO_DATE_DESC"
 					class="btn-group btn-group-yesno"
-					label="MOD_LATESTSERMONS_PARAM_SHOW_MO_DATE" 
-					description="MOD_LATESTSERMONS_PARAM_SHOW_MO_DATE_DESC">
+					default="1"
+					showon="show_list:1"
+				>
 					<option value="1">JYES</option>
 					<option value="0">JNO</option>
 				</field>
-				<field name="ls_mo_date_format" type="dateformat" 
-					default="DATE_FORMAT_LC4" 
-					label="MOD_LATESTSERMONS_PARAM_MO_DATE_FORMAT" 
-					description="MOD_LATESTSERMONS_PARAM_MO_DATE_FORMAT_DESC">
-				</field>
-				<field name="show_hits" type="list" 
-					default="0" 
-					label="MOD_LATESTSERMONS_FIELD_SHOW_HITS_LABEL" 
-					description="MOD_LATESTSERMONS_FIELD_SHOW_HITS_DESC">
+				<field name="ls_mo_date_format" type="dateformat"
+					label="MOD_LATESTSERMONS_PARAM_MO_DATE_FORMAT"
+					description="MOD_LATESTSERMONS_PARAM_MO_DATE_FORMAT_DESC"
+					default="DATE_FORMAT_LC4"
+					showon="show_list:1[AND]ls_show_mo_date:1"
+				/>
+				<field name="show_hits" type="list"
+					label="MOD_LATESTSERMONS_FIELD_SHOW_HITS_LABEL"
+					description="MOD_LATESTSERMONS_FIELD_SHOW_HITS_DESC"
+					default="0"
+					showon="show_list:1"
+				>
 					<option value="0">JNO</option>
 					<option value="1">MOD_LATESTSERMONS_FIELD_SHOW_HITS_OPTION_INFO</option>
 					<option value="2">MOD_LATESTSERMONS_FIELD_SHOW_HITS_OPTION_ATTACH</option>
@@ -128,57 +146,65 @@
 				</field>
 				<field name="spacer2" type="spacer"
 					hr="true" />
-				<field name="show_player" type="radio" 
-					default="0" 
+				<field name="show_player" type="radio"
+					label="MOD_LATESTSERMONS_PARAM_SHOW_PLAYER_LABEL"
+					description="MOD_LATESTSERMONS_PARAM_SHOW_PLAYER_DESC"
 					class="btn-group btn-group-yesno"
-					label="MOD_LATESTSERMONS_PARAM_SHOW_PLAYER_LABEL" 
-					description="MOD_LATESTSERMONS_PARAM_SHOW_PLAYER_DESC">
+					default="0"
+				>
 					<option value="1">JYES</option>
 					<option value="0">JNO</option>
 				</field>
-				<field name="vheight" type="text" 
-					default="300px" 
-					label="MOD_LATESTSERMONS_PARAM_VHEIGHT_LABEL" 
-					description="MOD_LATESTSERMONS_PARAM_VHEIGHT_DESC" />
+				<field name="vheight" type="text"
+					label="MOD_LATESTSERMONS_PARAM_VHEIGHT_LABEL"
+					description="MOD_LATESTSERMONS_PARAM_VHEIGHT_DESC"
+					default="300px"
+					showon="show_player:1"
+				/>
 				<field name="spacer3" type="spacer"
 					hr="true" />
-				<field name="ls_show_mo_link" type="radio" 
-					default="0" 
+				<field name="ls_show_mo_link" type="radio"
+					label="MOD_LATESTSERMONS_PARAM_SHOW_MO_LINK"
+					description="MOD_LATESTSERMONS_PARAM_SHOW_MO_LINK_DESC"
 					class="btn-group btn-group-yesno"
-					label="MOD_LATESTSERMONS_PARAM_SHOW_MO_LINK" 
-					description="MOD_LATESTSERMONS_PARAM_SHOW_MO_LINK_DESC">
+					default="0"
+				>
 					<option value="1">JYES</option>
 					<option value="0">JNO</option>
 				</field>
 			</fieldset>
 			<fieldset name="filters" label="MOD_LATESTSERMONS_FILTERS_FIELDSET_LABEL">
-				<field name="smartfilter" type="radio" 
-					default="0"
+				<field name="smartfilter" type="radio"
+					label="MOD_LATESTSERMONS_FIELD_SMARTFILTER_LABEL"
+					description="MOD_LATESTSERMONS_FIELD_SMARTFILTER_DESC"
 					class="btn-group btn-group-yesno"
-					label="MOD_LATESTSERMONS_FIELD_SMARTFILTER_LABEL" 
-					description="MOD_LATESTSERMONS_FIELD_SMARTFILTER_DESC" >
+					default="0"
+				>
 					<option value="1">JYES</option>
 					<option value="0">JNO</option>
 				</field>
-				<field name="filetype" type="radio" 
-					default="0"
+				<field name="filetype" type="radio"
+					label="MOD_LATESTSERMONS_FIELD_FILETYPE_LABEL"
+					description="MOD_LATESTSERMONS_FIELD_FILETYPE_DESC"
 					class="btn-group"
-					label="MOD_LATESTSERMONS_FIELD_FILETYPE_LABEL" 
-					description="MOD_LATESTSERMONS_FIELD_FILETYPE_DESC" >
+					default="0"
+				>
 					<option value="0">JALL</option>
 					<option value="1">MOD_LATESTSERMONS_FIELD_FILETYPE_OPTION_AUDIO</option>
 					<option value="2">MOD_LATESTSERMONS_FIELD_FILETYPE_OPTION_VIDEO</option>
 				</field>
-				<field name="cat" type="category" 
-					label="JGLOBAL_CHOOSE_CATEGORY_LABEL" 
-					description="JGLOBAL_CHOOSE_CATEGORY_DESC" 
-					extension="com_sermonspeaker" >
+				<field name="cat" type="category"
+					label="JGLOBAL_CHOOSE_CATEGORY_LABEL"
+					description="JGLOBAL_CHOOSE_CATEGORY_DESC"
+					extension="com_sermonspeaker"
+				>
 					<option value="">JOPTION_SELECT_CATEGORY</option>
 				</field>
-				<field name="cat_type" type="list" 
-					label="MOD_LATESTSERMONS_FIELD_CATEGORY_TYPE_LABEL" 
-					description="MOD_LATESTSERMONS_FIELD_CATEGORY_TYPE_DESC" 
-					default="sermons" >
+				<field name="cat_type" type="list"
+					label="MOD_LATESTSERMONS_FIELD_CATEGORY_TYPE_LABEL"
+					description="MOD_LATESTSERMONS_FIELD_CATEGORY_TYPE_DESC"
+					default="sermons"
+				>
 					<option value="sermons">MOD_LATESTSERMONS_FIELD_CATEGORY_TYPE_OPTION_SERMONS</option>
 					<option value="series">MOD_LATESTSERMONS_FIELD_CATEGORY_TYPE_OPTION_SERIES</option>
 					<option value="speakers">MOD_LATESTSERMONS_FIELD_CATEGORY_TYPE_OPTION_SPEAKERS</option>
@@ -186,7 +212,8 @@
 				<field name="show_subcategory_content" type="list"
 					label="JGLOBAL_SHOW_SUBCATEGORY_CONTENT_LABEL"
 					description="JGLOBAL_SHOW_SUBCATEGORY_CONTENT_DESC"
-					default="0">
+					default="0"
+				>
 					<option value="0">JNONE</option>
 					<option value="-1">JALL</option>
 					<option value="1">J1</option>
@@ -195,50 +222,56 @@
 					<option value="4">J4</option>
 					<option value="5">J5</option>
 				</field>
-				<field name="speaker" type="sql" 
-					label="MOD_LATESTSERMONS_FIELD_SPEAKER_LABEL" 
+				<field name="speaker" type="sql"
+					label="MOD_LATESTSERMONS_FIELD_SPEAKER_LABEL"
 					description="MOD_LATESTSERMONS_FIELD_SPEAKER_DESC"
 					query="SELECT `id`, `title` FROM #__sermon_speakers ORDER BY title ASC"
 					key_field="id"
-					value_field="title">
+					value_field="title"
+				>
 					<option value="0">MOD_LATESTSERMONS_FIELD_SPEAKER_OPTION_SELECT</option>
 				</field>
-				<field name="series" type="sql" 
-					label="MOD_LATESTSERMONS_FIELD_SERIES_LABEL" 
+				<field name="series" type="sql"
+					label="MOD_LATESTSERMONS_FIELD_SERIES_LABEL"
 					description="MOD_LATESTSERMONS_FIELD_SERIES_DESC"
 					query="SELECT `id`, `title` FROM #__sermon_series ORDER BY title ASC"
 					key_field="id"
-					value_field="title">
+					value_field="title"
+				>
 					<option value="0">MOD_LATESTSERMONS_FIELD_SERIES_OPTION_SELECT</option>
 				</field>
-				<field name="idlist" type="text" 
-					label="MOD_LATESTSERMONS_FIELD_IDLIST_LABEL" 
-					description="MOD_LATESTSERMONS_FIELD_IDLIST_DESC" />
+				<field name="idlist" type="text"
+					label="MOD_LATESTSERMONS_FIELD_IDLIST_LABEL"
+					description="MOD_LATESTSERMONS_FIELD_IDLIST_DESC"
+				/>
 			</fieldset>
 			<fieldset name="advanced">
 				<field name="layout" type="modulelayout"
 					label="JFIELD_ALT_LAYOUT_LABEL"
 					description="JFIELD_ALT_MODULE_LAYOUT_DESC"
-					default="_:default" />
+					default="_:default"
+				/>
 				<field name="moduleclass_sfx" type="textarea"
 					label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL"
 					description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC"
-					rows="3" />
+					rows="3"
+				/>
 				<field name="cache" type="list"
 					label="COM_MODULES_FIELD_CACHING_LABEL"
 					description="COM_MODULES_FIELD_CACHING_DESC"
-					default="1">
+					default="1"
+				>
 					<option value="1">JGLOBAL_USE_GLOBAL</option>
 					<option value="0">COM_MODULES_FIELD_VALUE_NOCACHING</option>
 				</field>
 				<field name="cache_time" type="text"
 					label="COM_MODULES_FIELD_CACHE_TIME_LABEL"
 					description="COM_MODULES_FIELD_CACHE_TIME_DESC"
-					default="900" />
+					default="900"
+				/>
 				<field name="cachemode" type="hidden"
-					default="static">
-					<option value="static"></option>
-				</field>
+					default="static"
+				/>
 			</fieldset>
 		</fields>
 	</config>

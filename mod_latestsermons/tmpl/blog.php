@@ -13,29 +13,26 @@ defined('_JEXEC') or die();
  * @var array                     $list
  * @var \Joomla\Registry\Registry $params
  * @var int                       $itemid
+ * @var stdClass                  $module
  */
 
 $i     = 0;
 $count = count($list);
 ?>
 <div class="latestsermons<?php echo $moduleclass_sfx; ?>">
-	<?php
-	if ($params->get('show_list')) : ?>
+	<?php if ($params->get('show_list')) : ?>
 		<div class="latestsermons_list">
-			<?php
-			foreach ($list as $row) :
-				$i++;
-				if ($itemid) :
-					$link = JRoute::_('index.php?option=com_sermonspeaker&view=sermon&id=' . $row->slug . '&Itemid=' . $itemid);
-				else :
-					$link = JRoute::_(SermonspeakerHelperRoute::getSermonRoute($row->slug, $row->catid, $row->language));
-				endif;
-				?>
+			<?php foreach ($list as $row) : ?>
+				<?php $i++; ?>
+				<?php if ($itemid) : ?>
+					<?php $link = JRoute::_('index.php?option=com_sermonspeaker&view=sermon&id=' . $row->slug . '&Itemid=' . $itemid); ?>
+				<?php else : ?>
+					<?php $link = JRoute::_(SermonspeakerHelperRoute::getSermonRoute($row->slug, $row->catid, $row->language)); ?>
+				<?php endif; ?>
 				<div class="latestsermons_entry<?php echo $i; ?>">
 					<h4><a href="<?php echo $link; ?>">
 							<?php echo $row->title; ?>
 							<?php if ($params->get('show_hits', 0) > 1 and $row->hits) : ?>
-								&nbsp;
 								<small>(<?php echo $row->hits; ?>)</small>
 							<?php endif; ?>
 						</a></h4>
@@ -104,10 +101,9 @@ $count = count($list);
 			<br/>
 		<?php endif; ?>
 		<div class="latestsermons_player">
-			<?php
-			$c_params             = JComponentHelper::getParams('com_sermonspeaker');
+			<?php $c_params       = JComponentHelper::getParams('com_sermonspeaker');
 			$config['autostart']  = 0;
-			$config['count']      = 'ls';
+			$config['count']      = 'ls' . $module->id;
 			$config['type']       = $c_params->get('fileprio') ? 'video' : 'audio';
 			$config['alt_player'] = $c_params->get('alt_player');
 			$config['vheight']    = $params->get('vheight');
@@ -116,12 +112,12 @@ $count = count($list);
 			echo $player->script; ?>
 		</div>
 	<?php endif; ?>
-	<?php if ($params->get('ls_show_mo_link')) :
-		if ($itemid) :
-			$link = 'index.php?option=com_sermonspeaker&view=sermons&Itemid=' . $itemid;
-		else :
-			$link = SermonspeakerHelperRoute::getSermonsRoute();
-		endif; ?>
+	<?php if ($params->get('ls_show_mo_link')) : ?>
+		<?php if ($itemid) : ?>
+			<?php $link = 'index.php?option=com_sermonspeaker&view=sermons&Itemid=' . $itemid; ?>
+		<?php else : ?>
+			<?php $link = SermonspeakerHelperRoute::getSermonsRoute(); ?>
+		<?php endif; ?>
 		<br/>
 		<div class="latestsermons_link">
 			<a href="<?php echo JRoute::_($link); ?>"><?php echo JText::_('MOD_LATESTSERMONS_LINK'); ?></a>
