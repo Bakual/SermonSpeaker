@@ -90,7 +90,7 @@ class SermonspeakerHelper
 	 */
 	public static function getActions($categoryId = 0)
 	{
-		$user   = JFactory::getUser();
+		$user = JFactory::getUser();
 		$result = new JObject;
 
 		if (empty($categoryId))
@@ -113,5 +113,27 @@ class SermonspeakerHelper
 		}
 
 		return $result;
+	}
+
+	/**
+	 * Returns valid contexts
+	 *
+	 * @return  array
+	 *
+	 * @since   5.6.0
+	 */
+	public static function getContexts()
+	{
+		$lang = JFactory::getLanguage();
+		$lang->load('com_sermonspeaker', JPATH_ADMINISTRATOR)
+		|| $lang->load('com_sermonspeaker', JPATH_ADMINISTRATOR . '/components/com_sermonspeaker');
+
+		$contexts = array(
+			'com_sermonspeaker.sermon'  => JText::_('COM_SERMONSPEAKER_FIELDS_CONTEXT_SERMON'),
+			'com_sermonspeaker.serie'   => JText::_('COM_SERMONSPEAKER_FIELDS_CONTEXT_SERIE'),
+			'com_sermonspeaker.speaker' => JText::_('COM_SERMONSPEAKER_FIELDS_CONTEXT_SPEAKER'),
+		);
+
+		return $contexts;
 	}
 }
