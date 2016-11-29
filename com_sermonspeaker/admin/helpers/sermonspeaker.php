@@ -136,4 +136,27 @@ class SermonspeakerHelper
 
 		return $contexts;
 	}
+
+	/**
+	 * Map the section for custom fields.
+	 *
+	 * @param   string  $section  The section to get the mapping for
+	 *
+	 * @return  string  The new section
+	 *
+	 * @since  5.6.0
+	 */
+	public static function getRealSection($section)
+	{
+		$mapping = array(
+			'sermon'         => 'sermon',
+			'frontendupload' => 'sermon',
+			'speaker'        => 'speaker',
+			'speakerform'    => 'speaker',
+			'serie'          => 'serie',
+			'serieform'      => 'serie',
+		);
+
+		return isset($mapping[$section]) ? $mapping[$section] : null;
+	}
 }
