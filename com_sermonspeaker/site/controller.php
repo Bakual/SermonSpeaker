@@ -60,6 +60,19 @@ class SermonspeakerController extends JControllerLegacy
 	{
 		$cachable = JFactory::getUser()->get('id') ? false : true;
 		$viewName = $this->input->get('view', $this->default_view);
+		$id       = $this->input->getInt('id');
+		$views    = array('frontendupload', 'serieform', 'speakerform');
+
+		// Check for edit form.
+		if (in_array($viewName, $views) && !$this->checkEditId('com_sermonspeaker.edit.' . $viewName, $id))
+		{
+			// Somehow the person just went to the form - we don't allow that.
+			$this->setError(JText::sprintf('JLIB_APPLICATION_ERROR_UNHELD_ID', $id));
+			$this->setMessage($this->getError(), 'error');
+			$this->setRedirect(JRoute::_('index.php?option=com_sermonspeaker&view=main', false));
+
+			return false;
+		}
 
 		/** @var $app JApplicationSite */
 		$app    = JFactory::getApplication();
