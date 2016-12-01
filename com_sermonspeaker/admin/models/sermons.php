@@ -149,7 +149,7 @@ class SermonspeakerModelSermons extends JModelList
 		$query->from('`#__sermon_sermons` AS sermons');
 
 		// Join over the language
-		$query->select('l.title AS language_title');
+		$query->select('l.title AS language_title, l.image AS language_image');
 		$query->join('LEFT', $db->quoteName('#__languages') . ' AS l ON l.lang_code = sermons.language');
 
 		// Join over the users for the checked out user.

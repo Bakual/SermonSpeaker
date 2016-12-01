@@ -93,10 +93,10 @@ $assoc = JLanguageAssociations::isEnabled();
 							<?php echo JHtml::_('searchtools.sort',  'COM_SERMONSPEAKER_FIELD_DATE_LABEL', 'sermons.sermon_date', $listDirn, $listOrder); ?>
 						</th>
 						<th width="7%" class="nowrap hidden-phone">
-							<?php echo JHtml::_('searchtools.sort',  'JGLOBAL_HITS', 'sermons.hits', $listDirn, $listOrder); ?>
+							<?php echo JHtml::_('searchtools.sort',  'JGRID_HEADING_LANGUAGE', 'language', $listDirn, $listOrder); ?>
 						</th>
 						<th width="5%" class="nowrap hidden-phone">
-							<?php echo JHtml::_('searchtools.sort',  'JGRID_HEADING_LANGUAGE', 'language', $listDirn, $listOrder); ?>
+							<?php echo JHtml::_('searchtools.sort', 'JGLOBAL_HITS', 'speakers.hits', $listDirn, $listOrder); ?>
 						</th>
 						<th width="1%" class="nowrap hidden-phone">
 							<?php echo JHtml::_('searchtools.sort',  'JGRID_HEADING_ID', 'sermons.id', $listDirn, $listOrder); ?>
@@ -229,18 +229,20 @@ $assoc = JLanguageAssociations::isEnabled();
 								echo JHtml::date($item->sermon_date, JText::_('DATE_FORMAT_LC4'), true);
 							endif; ?>
 						</td>
-						<td class="center small hidden-phone">
-							<?php echo $item->hits; ?>
-							<?php if ($canEdit || $canEditOwn) : ?>
-								&nbsp;<a href="index.php?option=com_sermonspeaker&task=sermon.reset&id=<?php echo $item->id; ?>"><i class="icon-loop" rel="tooltip" title="<?php echo JText::_('JSEARCH_RESET'); ?>"> </i></a>
-							<?php endif; ?>
-						</td>
 						<td class="small hidden-phone">
-							<?php if ($item->language == '*'):?>
-								<?php echo JText::alt('JALL', 'language'); ?>
-							<?php else:?>
-								<?php echo $item->language_title ? $this->escape($item->language_title) : JText::_('JUNDEFINED'); ?>
-							<?php endif;?>
+							<?php echo JLayoutHelper::render('joomla.content.language', $item); ?>
+						</td>
+						<td class="hidden-phone center">
+							<span class="badge badge-info">
+								<?php echo (int) $item->hits; ?>
+							</span>
+							<?php if ($canEdit || $canEditOwn) : ?>
+								<span class="badge badge-warning">
+									<a href="index.php?option=com_sermonspeaker&task=speaker.reset&id=<?php echo $item->id; ?>">
+										<i class="icon-loop" rel="tooltip" title="<?php echo JText::_('JSEARCH_RESET'); ?>"> </i>
+									</a>
+								</span>
+							<?php endif; ?>
 						</td>
 						<td class="center hidden-phone">
 							<?php echo (int) $item->id; ?>
