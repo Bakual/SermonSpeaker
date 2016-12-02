@@ -57,14 +57,14 @@ abstract class JHtmlSermonspeakerAdministrator
 			// Get the associated menu items
 			$db    = JFactory::getDbo();
 			$query = $db->getQuery(true)
-				->select('c.*')
-				->from($table . ' as c')
+				->select('a.*')
+				->from($table . ' as a')
 				->select('cat.title as category_title')
-				->join('LEFT', '#__categories as cat ON cat.id=c.catid')
-				->where('c.id IN (' . implode(',', array_values($associations)) . ')')
-				->join('LEFT', '#__languages as l ON c.language=l.lang_code')
-				->select('l.image')
-				->select('l.title as language_title');
+				->join('LEFT', '#__categories as cat ON cat.id = a.catid')
+				->where('a.id IN (' . implode(',', array_values($associations)) . ')')
+				->select('l.image, l.sef as lang_sef, l.lang_code')
+				->select('l.title as language_title')
+				->join('LEFT', '#__languages as l ON a.language = l.lang_code');
 			$db->setQuery($query);
 
 			try
@@ -76,27 +76,25 @@ abstract class JHtmlSermonspeakerAdministrator
 				throw new Exception($e->getMessage(), 500);
 			}
 
-			$flags = array();
-
-			// Construct html
-			foreach ($associations as $associated)
+			if ($items)
 			{
-				if ($associated != $itemid)
+				foreach ($items as &$item)
 				{
-					$flags[] = JText::sprintf(
-						'COM_SERMONSPEAKER_TIP_ASSOCIATED_LANGUAGE',
-						JHtml::_('image', 'mod_languages/' . $items[$associated]->image . '.gif',
-							$items[$associated]->language_title,
-							array('title' => $items[$associated]->language_title),
-							true
-						),
-						$items[$associated]->title, $items[$associated]->category_title
-					);
+					$text    = $item->lang_sef ? strtoupper($item->lang_sef) : 'XX';
+					$url     = JRoute::_('index.php?option=com_sermonspeaker&task=' . $type . '.edit&id=' . (int) $item->id);
+
+					$tooltip = htmlspecialchars($item->title, ENT_QUOTES, 'UTF-8') . '<br />' . JText::sprintf('JCATEGORY_SPRINTF', $item->category_title);
+					$classes = 'hasPopover label label-association label-' . $item->lang_sef;
+
+					$item->link = '<a href="' . $url . '" title="' . $item->language_title . '" class="' . $classes
+						. '" data-content="' . $tooltip . '" data-placement="top">'
+						. $text . '</a>';
 				}
 			}
 
-			$html = JHtml::_('tooltip', implode('<br />', $flags), JText::_('COM_SERMONSPEAKER_TIP_ASSOCIATION'), 'admin/icon-16-links.png');
+			JHtml::_('bootstrap.popover');
 
+			$html = JLayoutHelper::render('joomla.content.associations', $items);
 		}
 
 		return $html;
