@@ -31,7 +31,7 @@ if (count($this->children[$this->category->id]) and $this->maxLevel != 0) : ?>
 				$tooltip = implode('<br/>', $tip);
 				?>
 				<span class="hasTooltip" title="<?php echo JHtml::tooltipText($child->title, $tooltip); ?>">
-					<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSeriesRoute($child->id)); ?>">
+					<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSeriesRoute($child->id, $child->language)); ?>">
 						<img border="0" align="middle" src="<?php echo $image; ?>"/>
 						<?php
 						if ($child->level == 1) : ?>

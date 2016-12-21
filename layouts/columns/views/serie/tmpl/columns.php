@@ -24,7 +24,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 		<h1><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
 	<?php endif; ?>
 	<h2>
-		<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($this->item->slug)); ?>"><?php echo $this->item->title; ?></a>
+		<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($this->item->slug, $this->item->catid, $this->item->language)); ?>"><?php echo $this->item->title; ?></a>
 	</h2>
 	<?php
 	if ($canEdit or ($canEditOwn and ($user->id == $this->item->created_by))) : ?>
@@ -136,7 +136,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 					</div>
 					<div class="column-content" onclick="ss_play(<?php echo $i; ?>)">
 						<h3 class="title"><a
-								href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug)); ?>"><?php echo $item->title; ?></a>
+								href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug, $item->catid, $item->language)); ?>"><?php echo $item->title; ?></a>
 							<?php
 							if ($canEdit or ($canEditOwn && ($user->id == $item->created_by))) :
 								echo JHtml::_('icon.edit', $item, $this->params, array('type' => 'sermon'));
@@ -233,7 +233,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 
 						if (in_array('serie:category', $this->columns)) : ?>
 							<div class="category-name">
-								<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonsRoute($item->catslug)); ?>"><?php echo $item->category_title; ?></a>
+								<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonsRoute($item->catid, $item->language)); ?>"><?php echo $item->category_title; ?></a>
 							</div>
 						<?php endif;
 

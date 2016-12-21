@@ -117,7 +117,7 @@ $orderlist  = array(
 			<div id="serie<?php echo $i; ?>" class="ss-entry tile">
 				<span class="hasTooltip"
 				      title="<?php echo JHtml::tooltipText($item->title, $tooltip); ?>">
-				<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->id)); ?>">
+				<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug, $item->catid, $item->language)); ?>">
 					<img border="0" align="middle" src="<?php echo trim($image, '/'); ?>">
 					<span class="item-title">
 						<?php echo $item->title; ?>

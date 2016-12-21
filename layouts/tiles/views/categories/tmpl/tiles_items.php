@@ -35,7 +35,7 @@ if (count($this->items[$this->parent->id]) and $this->maxLevelcat != 0) : ?>
 				?>
 				<span class="hasTooltip"
 					  title="<?php echo JHtml::tooltipText($item->title, $tooltip); ?>">
-					<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::$type_function($item->id)); ?>">
+					<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::$type_function($item->id, $item->language)); ?>">
 						<img border="0" align="middle" src="<?php echo $image; ?>"/>
 						<?php
 						if ($item->level == 1) : ?>

@@ -23,7 +23,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->sermons);
 		<h1><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
 	<?php endif; ?>
 	<h2>
-		<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($this->item->slug) . '&layout=sermons'); ?>"><?php echo $this->item->title; ?></a>
+		<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($this->item->slug, $this->item->catid, $this->item->language) . '&layout=sermons'); ?>"><?php echo $this->item->title; ?></a>
 	</h2>
 	<?php
 	if ($canEdit || ($canEditOwn && ($user->id == $this->item->created_by))) : ?>
@@ -164,7 +164,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->sermons);
 				<div id="sermon<?php echo $i; ?>" class="ss-entry tile">
 				<span class="hasTooltip"
 					  title="<?php echo JHtml::tooltipText($item->title, $tooltip); ?>">
-				<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->id)); ?>">
+				<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug, $item->catid, $item->language)); ?>">
 					<img border="0" align="middle" src="<?php echo trim($picture, '/'); ?>">
 					<span class="item-title">
 						<?php echo $item->title; ?>
