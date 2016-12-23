@@ -205,6 +205,7 @@ class SermonspeakerControllerTools extends JControllerLegacy
 		$file_model = $this->getModel('Files');
 		$files      = $file_model->getItems();
 		$catid      = $file_model->getCategory();
+		$catTable   = JTable::getInstance('Category');
 		$state      = $user->authorise('core.edit.state', 'com_sermonsepaker') ? 1 : 0;
 
 		$params = JComponentHelper::getParams('com_sermonspeaker');
@@ -238,7 +239,13 @@ class SermonspeakerControllerTools extends JControllerLegacy
 
 			$sermon->state   = $state;
 			$sermon->podcast = $state;
-			$sermon->catid   = $catid;
+
+			// Check if folder is corresponding with a category
+			$dirs = explode('/', str_replace('\\', '/', $file['file']));
+			array_pop($dirs);
+			$dir = array_pop($dirs);
+			$catTable->load(array('alias' => $dir, 'extension' => 'com_sermonspeaker', 'published' => 1));
+			$sermon->catid = $catTable->id ?: $catid;
 
 			if (!$sermon->sermon_date)
 			{
