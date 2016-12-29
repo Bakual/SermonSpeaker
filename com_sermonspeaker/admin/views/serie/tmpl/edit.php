@@ -37,7 +37,7 @@ JHtml::_('formbehavior.chosen', 'select');
 	<div class="form-horizontal">
 		<?php echo JHtml::_('bootstrap.startTabSet', 'myTab', array('active' => 'general'));
 
-		echo JHtml::_('bootstrap.addTab', 'myTab', 'general', JText::_('JDETAILS', true)); ?>
+		echo JHtml::_('bootstrap.addTab', 'myTab', 'general', JText::_('JGLOBAL_FIELDSET_CONTENT', true)); ?>
 			<div class="row-fluid">
 				<div class="span9">
 					<fieldset class="adminform">
