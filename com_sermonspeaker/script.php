@@ -252,7 +252,7 @@ class Com_SermonspeakerInstallerScript
 		$this->saveContentTypes();
 
 		// Setting some default values for columns on install
-		if ($type == 'install')
+		if ($type == 'install' || $type == 'discover_install')
 		{
 			$params                = array();
 			$params['col']         = '"col":['
