@@ -101,15 +101,15 @@ class SermonSpeakerAssociationsHelper extends JAssociationExtensionHelper
 		switch ($typeName)
 		{
 			case 'serie':
-				$table = JTable::getInstance('Serie', 'SerieTable');
+				$table = JTable::getInstance('Serie', 'SermonspeakerTable');
 				break;
 	
 			case 'sermon':
-				$table = JTable::getInstance('Sermon', 'SermonTable');
+				$table = JTable::getInstance('Sermon', 'SermonspeakerTable');
 				break;
 
 			case 'speaker':
-				$table = JTable::getInstance('Speaker', 'SpeakerTable');
+				$table = JTable::getInstance('Speaker', 'SermonspeakerTable');
 				break;
 
 			case 'category':
