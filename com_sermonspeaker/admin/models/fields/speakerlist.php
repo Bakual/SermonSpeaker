@@ -48,7 +48,7 @@ class JFormFieldSpeakerlist extends JFormFieldList
 		{
 			$app = JFactory::getApplication();
 
-			if ($app->isAdmin())
+			if ($app->isClient('administrator'))
 			{
 				$returnpage = base64_encode('index.php?option=com_sermonspeaker&view=close&tmpl=component');
 				$url        = 'index.php?option=com_sermonspeaker&task=speaker.add&layout=modal&tmpl=component&return=' . $returnpage;
@@ -104,16 +104,12 @@ class JFormFieldSpeakerlist extends JFormFieldList
 		}
 		else
 		{
-			$catids = 0;
+			$catids = false;
 		}
 
 		if ($catids)
 		{
 			$query->where('(speakers.catid IN (' . $catids . ') OR speakers.id = ' . $db->quote($this->value) . ')');
-		}
-		else
-		{
-			$query->where('speakers.id = ' . $db->quote($this->value));
 		}
 
 		$query->order('speakers.title');
@@ -142,10 +138,6 @@ class JFormFieldSpeakerlist extends JFormFieldList
 		if ($catids)
 		{
 			$query->where('(speakers.catid IN (' . $catids . ') OR speakers.id = ' . $db->quote($this->value) . ')');
-		}
-		else
-		{
-			$query->where('speakers.id = ' . $db->quote($this->value));
 		}
 
 		$query->order('speakers.title');

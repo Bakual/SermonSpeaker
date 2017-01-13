@@ -49,7 +49,7 @@ class JFormFieldSerieslist extends JFormFieldList
 		{
 			$app = JFactory::getApplication();
 
-			if ($app->isAdmin())
+			if ($app->isClient('administrator'))
 			{
 				$returnpage = base64_encode('index.php?option=com_sermonspeaker&view=close&tmpl=component');
 				$url        = 'index.php?option=com_sermonspeaker&task=serie.add&layout=modal&tmpl=component&return=' . $returnpage;
@@ -105,16 +105,12 @@ class JFormFieldSerieslist extends JFormFieldList
 		}
 		else
 		{
-			$catids = 0;
+			$catids = false;
 		}
 
 		if ($catids)
 		{
 			$query->where('(series.catid IN (' . $catids . ') OR series.id = ' . $db->quote($this->value) . ')');
-		}
-		else
-		{
-			$query->where('series.id = ' . $db->quote($this->value));
 		}
 
 		$query->order('series.title');
@@ -143,10 +139,6 @@ class JFormFieldSerieslist extends JFormFieldList
 		if ($catids)
 		{
 			$query->where('(series.catid IN (' . $catids . ') OR series.id = ' . $db->quote($this->value) . ')');
-		}
-		else
-		{
-			$query->where('series.id = ' . $db->quote($this->value));
 		}
 
 		$query->order('series.title');
