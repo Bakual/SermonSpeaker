@@ -227,6 +227,18 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 							jQuery("#"+field+"-lbl + dl").remove();
 							jQuery("#"+field+"-lbl").after(info);
 						}
+						if(data.not_found){
+							var notice = new Array();
+							if (data.not_found.series){
+								notice.push(Joomla.JText._("COM_SERMONSPEAKER_SERIE") + ": " + data.not_found.series);
+							}
+							if (data.not_found.speakers){
+								notice.push(Joomla.JText._("COM_SERMONSPEAKER_SPEAKER") + ": " + data.not_found.speakers);
+							}
+							notice.push(Joomla.JText._("COM_SERMONSPEAKER_ID3_NO_MATCH_FOUND"));
+							var messages = {"notice":notice};
+							Joomla.renderMessages(messages);
+						}
 					} else {
 						alert(data.msg);
 					}

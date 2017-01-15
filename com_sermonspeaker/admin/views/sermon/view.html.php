@@ -121,6 +121,9 @@ class SermonspeakerViewSermon extends JViewLegacy
 		}';
 
 		// Add Javascript for ID3 Lookup (ajax)
+		JText::script('COM_SERMONSPEAKER_ID3_NO_MATCH_FOUND');
+		JText::script('COM_SERMONSPEAKER_SERIE');
+		JText::script('COM_SERMONSPEAKER_SPEAKER');
 		$lookup = 'function lookup(elem) {
 			xmlhttp = new XMLHttpRequest();
 			xmlhttp.onreadystatechange=function(){
@@ -171,6 +174,18 @@ class SermonspeakerViewSermon extends JViewLegacy
 							info += "</dl>";
 							jQuery(elem).parents(".controls").children(".id3-info").remove();
 							jQuery(elem).parents(".controls").prepend(info);
+						}
+						if(data.not_found){
+							var notice = new Array();
+							if (data.not_found.series){
+								notice.push(Joomla.JText._("COM_SERMONSPEAKER_SERIE") + ": " + data.not_found.series);
+							}
+							if (data.not_found.speakers){
+								notice.push(Joomla.JText._("COM_SERMONSPEAKER_SPEAKER") + ": " + data.not_found.speakers);
+							}
+							notice.push(Joomla.JText._("COM_SERMONSPEAKER_ID3_NO_MATCH_FOUND"));
+							var messages = {"notice":notice};
+							Joomla.renderMessages(messages);
 						}
 					} else {
 						alert(data.msg);
