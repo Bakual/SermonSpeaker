@@ -81,7 +81,7 @@ class SermonspeakerHelperId3
 		{
 			if (array_key_exists('title', $FileInfo['comments']))
 			{
-				$id3['title'] = $FileInfo['comments']['title'][0];
+				$id3['title'] = end($FileInfo['comments']['title']);
 			}
 			else
 			{
