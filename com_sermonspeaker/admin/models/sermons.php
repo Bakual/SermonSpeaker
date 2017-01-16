@@ -255,10 +255,15 @@ class SermonspeakerModelSermons extends JModelList
 			{
 				$query->where('sermons.id = ' . (int) substr($search, 3));
 			}
+			if (stripos($search, 'file:') === 0)
+			{
+				$search = $db->quote('%' . $db->escape(substr($search, 5), true) . '%');
+				$query->where('(sermons.audiofile LIKE ' . $search . ' OR sermons.videofile LIKE ' . $search . ')');
+			}
 			else
 			{
 				$search = $db->quote('%' . $db->escape($search, true) . '%');
-				$query->where('(sermons.title LIKE ' . $search . ')');
+				$query->where('sermons.title LIKE ' . $search);
 			}
 		}
 
