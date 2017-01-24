@@ -53,7 +53,7 @@ class SermonspeakerHelper
 			$vName == 'tools'
 		);
 
-		if (JComponentHelper::isEnabled('com_fields') && JComponentHelper::getParams('com_sermonspeaker')->get('custom_fields_enable', '1'))
+		if (JComponentHelper::isEnabled('com_fields'))
 		{
 			JHtmlSidebar::addEntry(
 				JText::_('JGLOBAL_FIELD_GROUPS'),
