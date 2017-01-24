@@ -3,7 +3,7 @@
 defined('_JEXEC') or die;
 
 $app = JFactory::getApplication();
-if ($app->isSite())
+if ($app->isClient('site'))
 {
 	JSession::checkToken('get') or die(JText::_('JINVALID_TOKEN'));
 }
@@ -34,7 +34,7 @@ $listDirn	= $this->escape($this->state->get('list.direction'));
 				<button type="button" class="btn hasTooltip" data-placement="bottom" title="<?php echo JText::_('JSEARCH_FILTER_CLEAR'); ?>" onclick="document.id('filter_search').value='';this.form.submit();">
 					<span class="icon-remove"></span><?php echo '&#160;' . JText::_('JSEARCH_FILTER_CLEAR'); ?></button>
 			</div>
-			<?php if ($app->isAdmin()) : ?>
+			<?php if ($app->isClient('administrator')) : ?>
 				<input onclick="if (window.parent) window.parent.<?php echo $this->escape($function);?>('0', '<?php echo $this->escape(addslashes(JText::_('COM_SERMONSPEAKER_SELECT_AN_ITEM'))); ?>', null, null);" class="btn" type="button" value="<?php echo JText::_('JNONE'); ?>" />
 			<?php endif; ?>
 			<div class="clearfix"></div>

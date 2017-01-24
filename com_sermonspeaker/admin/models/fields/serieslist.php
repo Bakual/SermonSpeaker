@@ -49,7 +49,7 @@ class JFormFieldSerieslist extends JFormFieldList
 		{
 			$app = JFactory::getApplication();
 
-			if ($app->isAdmin())
+			if ($app->isClient('administrator'))
 			{
 				$returnpage = base64_encode('index.php?option=com_sermonspeaker&view=close&tmpl=component');
 				$url        = 'index.php?option=com_sermonspeaker&task=serie.add&layout=modal&tmpl=component&return=' . $returnpage;
