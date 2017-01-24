@@ -56,9 +56,9 @@ class SermonspeakerHelper
 		if (JComponentHelper::isEnabled('com_fields'))
 		{
 			JHtmlSidebar::addEntry(
-				JText::_('JGLOBAL_FIELD_GROUPS'),
-				'index.php?option=com_fields&view=groups&context=com_content.article',
-				$vName == 'fields.groups'
+				JText::_('JGLOBAL_FIELDS'),
+				'index.php?option=com_fields&context=com_sermonspeaker.sermon',
+				$vName == 'fields.fields'
 			);
 			JHtmlSidebar::addEntry(
 				JText::_('JGLOBAL_FIELD_GROUPS'),
