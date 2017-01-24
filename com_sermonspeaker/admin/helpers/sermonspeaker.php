@@ -56,14 +56,14 @@ class SermonspeakerHelper
 		if (JComponentHelper::isEnabled('com_fields') && JComponentHelper::getParams('com_sermonspeaker')->get('custom_fields_enable', '1'))
 		{
 			JHtmlSidebar::addEntry(
-				JText::_('JGLOBAL_FIELDS'),
-				'index.php?option=com_fields&context=com_sermonspeaker.sermon',
-				$vName == 'fields.sermon'
+				JText::_('JGLOBAL_FIELD_GROUPS'),
+				'index.php?option=com_fields&view=groups&context=com_content.article',
+				$vName == 'fields.groups'
 			);
 			JHtmlSidebar::addEntry(
 				JText::_('JGLOBAL_FIELD_GROUPS'),
-				'index.php?option=com_categories&extension=com_sermonspeaker.sermon.fields',
-				$vName == 'categories.sermon'
+				'index.php?option=com_fields&view=groups&context=com_sermonspeaker.sermon',
+				$vName == 'fields.groups'
 			);
 		}
 
@@ -146,7 +146,7 @@ class SermonspeakerHelper
 	 *
 	 * @since  5.6.0
 	 */
-	public static function getRealSection($section)
+	public static function validateSection($section)
 	{
 		$mapping = array(
 			'sermon'         => 'sermon',
