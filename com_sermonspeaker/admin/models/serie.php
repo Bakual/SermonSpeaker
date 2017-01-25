@@ -34,59 +34,6 @@ class SermonspeakerModelSerie extends JModelAdmin
 	protected $associationsContext = 'com_sermonspeaker.serie';
 
 	/**
-	 * Method to test whether a record can be deleted.
-	 *
-	 * @param    $record  object      A record object.
-	 *
-	 * @return    boolean    True if allowed to delete the record. Defaults to the permission set in the component.
-	 * @since    1.6
-	 */
-	protected function canDelete($record)
-	{
-		return true;
-	}
-
-	/**
-	 * Method to test whether a records state can be changed.
-	 *
-	 * @param    $record  object    A record object.
-	 *
-	 * @return    boolean    True if allowed to change the state of the record. Defaults to the permission set in the
-	 *                       component.
-	 * @since    1.6
-	 */
-	protected function canEditState($record)
-	{
-		$user = JFactory::getUser();
-
-		// Check against the category.
-		if (!empty($record->catid))
-		{
-			return $user->authorise('core.edit.state', 'com_sermonspeaker.category.' . (int) $record->catid);
-		}
-		// Default to component settings if neither article nor category known.
-		else
-		{
-			return parent::canEditState($record);
-		}
-	}
-
-	/**
-	 * Returns a reference to the a Table object, always creating it.
-	 *
-	 * @param    string $type   The table type to instantiate
-	 * @param    string $prefix A prefix for the table class name. Optional.
-	 * @param    array  $config Configuration array for model. Optional.
-	 *
-	 * @return    JTable    A database object
-	 * @since    1.6
-	 */
-	public function getTable($type = 'Serie', $prefix = 'SermonspeakerTable', $config = array())
-	{
-		return JTable::getInstance($type, $prefix, $config);
-	}
-
-	/**
 	 * Method to get the record form.
 	 *
 	 * @param    array   $data     An optional array of data for the form to interogate.
@@ -137,6 +84,151 @@ class SermonspeakerModelSerie extends JModelAdmin
 		}
 
 		return $form;
+	}
+
+	/**
+	 * Method to test whether a records state can be changed.
+	 *
+	 * @param    $record  object    A record object.
+	 *
+	 * @return    boolean    True if allowed to change the state of the record. Defaults to the permission set in the
+	 *                       component.
+	 * @since    1.6
+	 */
+	protected function canEditState($record)
+	{
+		$user = JFactory::getUser();
+
+		// Check against the category.
+		if (!empty($record->catid))
+		{
+			return $user->authorise('core.edit.state', 'com_sermonspeaker.category.' . (int) $record->catid);
+		}
+		// Default to component settings if neither article nor category known.
+		else
+		{
+			return parent::canEditState($record);
+		}
+	}
+
+	/**
+	 * Method to save the form data.
+	 *
+	 * @param   array $data The form data.
+	 *
+	 * @return  boolean  True on success, False on error.
+	 *
+	 * @since   5.6.0
+	 */
+	public function save($data)
+	{
+		$jinput = JFactory::getApplication()->input;
+
+		// Alter the title for save as copy
+		if ($jinput->get('task') == 'save2copy')
+		{
+			$origTable = clone $this->getTable();
+			$origTable->load($jinput->getInt('id'));
+
+			if ($data['title'] == $origTable->title)
+			{
+				list($title, $alias) = $this->generateNewTitle($data['catid'], $data['alias'], $data['title']);
+				$data['title'] = $title;
+				$data['alias'] = $alias;
+			}
+			else
+			{
+				if ($data['alias'] == $origTable->alias)
+				{
+					$data['alias'] = '';
+				}
+			}
+
+			$data['state'] = 0;
+		}
+
+		return parent::save($data);
+	}
+
+	/**
+	 * Returns a reference to the a Table object, always creating it.
+	 *
+	 * @param    string $type   The table type to instantiate
+	 * @param    string $prefix A prefix for the table class name. Optional.
+	 * @param    array  $config Configuration array for model. Optional.
+	 *
+	 * @return    JTable    A database object
+	 * @since    1.6
+	 */
+	public function getTable($type = 'Serie', $prefix = 'SermonspeakerTable', $config = array())
+	{
+		return JTable::getInstance($type, $prefix, $config);
+	}
+
+	/**
+	 * Method to set a default series.
+	 * Copied from template style.
+	 *
+	 * @param    $id int        The primary key ID for the series.
+	 *
+	 * @return    boolean    True if successful.
+	 * @throws    Exception
+	 *
+	 * @since ?
+	 */
+	public function setDefault($id = 0)
+	{
+		// Initialise variables.
+		$user = JFactory::getUser();
+		$db = $this->getDbo();
+
+		// Access checks.
+		if (!$user->authorise('core.edit.state', 'com_sermonspeaker'))
+		{
+			throw new Exception(JText::_('JLIB_APPLICATION_ERROR_EDITSTATE_NOT_PERMITTED'));
+		}
+
+		// Reset the home fields for the client_id.
+		$db->setQuery(
+			'UPDATE #__sermon_series' .
+			" SET home = '0'" .
+			" WHERE home = '1'"
+		);
+
+		if (!$db->execute())
+		{
+			throw new Exception($db->getErrorMsg());
+		}
+
+		// Set the new home style.
+		$db->setQuery(
+			'UPDATE #__sermon_series' .
+			" SET home = '1'" .
+			' WHERE id = ' . (int) $id
+		);
+
+		if (!$db->execute())
+		{
+			throw new Exception($db->getErrorMsg());
+		}
+
+		// Clean the cache.
+		$this->cleanCache();
+
+		return true;
+	}
+
+	/**
+	 * Method to test whether a record can be deleted.
+	 *
+	 * @param    $record  object      A record object.
+	 *
+	 * @return    boolean    True if allowed to delete the record. Defaults to the permission set in the component.
+	 * @since    1.6
+	 */
+	protected function canDelete($record)
+	{
+		return true;
 	}
 
 	/**
@@ -228,9 +320,9 @@ class SermonspeakerModelSerie extends JModelAdmin
 		{
 			// only process if not empty
 			$bad_characters = array("\n", "\r", "\"", "<", ">"); // array of characters to remove
-			$after_clean    = Joomla\String\StringHelper::str_ireplace($bad_characters, "", $table->metakey); // remove bad characters
-			$keys           = explode(',', $after_clean); // create array using commas as delimiter
-			$clean_keys     = array();
+			$after_clean = Joomla\String\StringHelper::str_ireplace($bad_characters, "", $table->metakey); // remove bad characters
+			$keys = explode(',', $after_clean); // create array using commas as delimiter
+			$clean_keys = array();
 			foreach ($keys as $key)
 			{
 				if (trim($key))
@@ -279,7 +371,7 @@ class SermonspeakerModelSerie extends JModelAdmin
 			$data = (array) $data;
 
 			$addform = new SimpleXMLElement('<form />');
-			$fields  = $addform->addChild('fields');
+			$fields = $addform->addChild('fields');
 			$fields->addAttribute('name', 'associations');
 			$fieldset = $fields->addChild('fieldset');
 			$fieldset->addAttribute('name', 'item_associations');
@@ -289,7 +381,7 @@ class SermonspeakerModelSerie extends JModelAdmin
 			{
 				if (empty($data['language']) || $tag != $data['language'])
 				{
-					$add   = true;
+					$add = true;
 					$field = $fieldset->addChild('field');
 					$field->addAttribute('name', $tag);
 					$field->addAttribute('type', 'modal_serie');
@@ -317,63 +409,10 @@ class SermonspeakerModelSerie extends JModelAdmin
 	 */
 	protected function getReorderConditions($table = null)
 	{
-		$condition   = array();
+		$condition = array();
 		$condition[] = 'catid = ' . (int) $table->catid;
 
 		return $condition;
-	}
-
-	/**
-	 * Method to set a default series.
-	 * Copied from template style.
-	 *
-	 * @param    $id int        The primary key ID for the series.
-	 *
-	 * @return    boolean    True if successful.
-	 * @throws    Exception
-	 *
-	 * @since ?
-	 */
-	public function setDefault($id = 0)
-	{
-		// Initialise variables.
-		$user = JFactory::getUser();
-		$db   = $this->getDbo();
-
-		// Access checks.
-		if (!$user->authorise('core.edit.state', 'com_sermonspeaker'))
-		{
-			throw new Exception(JText::_('JLIB_APPLICATION_ERROR_EDITSTATE_NOT_PERMITTED'));
-		}
-
-		// Reset the home fields for the client_id.
-		$db->setQuery(
-			'UPDATE #__sermon_series' .
-			" SET home = '0'" .
-			" WHERE home = '1'"
-		);
-
-		if (!$db->execute())
-		{
-			throw new Exception($db->getErrorMsg());
-		}
-
-		// Set the new home style.
-		$db->setQuery(
-			'UPDATE #__sermon_series' .
-			" SET home = '1'" .
-			' WHERE id = ' . (int) $id
-		);
-
-		if (!$db->execute())
-		{
-			throw new Exception($db->getErrorMsg());
-		}
-
-		// Clean the cache.
-		$this->cleanCache();
-
-		return true;
 	}
 
 	/**
@@ -393,7 +432,7 @@ class SermonspeakerModelSerie extends JModelAdmin
 		$categoryId = (int) $value;
 
 		$table = $this->getTable();
-		$i     = 0;
+		$i = 0;
 
 		// Check that the category exists
 		if ($categoryId)
@@ -426,7 +465,7 @@ class SermonspeakerModelSerie extends JModelAdmin
 
 		// Check that the user has create permission for the component
 		$extension = JFactory::getApplication()->input->get('option', '');
-		$user      = JFactory::getUser();
+		$user = JFactory::getUser();
 		if (!$user->authorise('core.create', $extension . '.category.' . $categoryId))
 		{
 			$this->setError(JText::_('JLIB_APPLICATION_ERROR_BATCH_CANNOT_CREATE'));
@@ -464,10 +503,10 @@ class SermonspeakerModelSerie extends JModelAdmin
 
 			// Alter the title & alias
 			// Custom: defining the title and set "home" to 0
-			$data         = $this->generateNewTitle($categoryId, $table->alias, $table->title);
+			$data = $this->generateNewTitle($categoryId, $table->alias, $table->title);
 			$table->title = $data['0'];
 			$table->alias = $data['1'];
-			$table->home  = 0;
+			$table->home = 0;
 
 			// Reset the ID because we are making a copy
 			$table->id = 0;
