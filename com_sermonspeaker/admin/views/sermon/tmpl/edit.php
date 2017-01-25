@@ -18,8 +18,9 @@ $uri->delVar('file');
 $uri->delVar('type');
 $self = $uri->toString();
 
-$app   = JFactory::getApplication();
-$input = $app->input;
+// Check if tmpl=component was set (needed for com_associations)
+$jinput = JFactory::getApplication()->input;
+$tmpl   = $jinput->getCmd('tmpl') === 'component' ? '&tmpl=component' : '';
 ?>
 
 <script type="text/javascript">
@@ -33,7 +34,7 @@ $input = $app->input;
 	}
 </script>
 
-<form action="<?php echo JRoute::_('index.php?option=com_sermonspeaker&layout=edit&id='.(int) $this->item->id); ?>" method="post" name="adminForm" id="adminForm" class="form-validate">
+<form action="<?php echo JRoute::_('index.php?option=com_sermonspeaker&layout=edit&id='.(int) $this->item->id . $tmpl); ?>" method="post" name="adminForm" id="adminForm" class="form-validate">
 
 	<?php echo JLayoutHelper::render('joomla.edit.title_alias', $this); ?>
 
@@ -168,7 +169,7 @@ $input = $app->input;
 		endif;
 		echo JHtml::_('bootstrap.endTabSet'); ?>
 		<input type="hidden" name="task" value="" />
-		<input type="hidden" name="return" value="<?php echo $input->getCmd('return');?>" />
+		<input type="hidden" name="return" value="<?php echo $jinput->getCmd('return');?>" />
 		<?php echo JHtml::_('form.token'); ?>
 
 	</div>
