@@ -16,28 +16,28 @@ JTable::addIncludePath(__DIR__ . '/../tables');
 /**
  * Content associations helper.
  *
- * @since  __DEPLOY_VERSION__
+ * @since  5.6.0
  */
 class SermonSpeakerAssociationsHelper extends JAssociationExtensionHelper
 {
 	/**
 	 * var       array   $extension  The extension name
 	 *
-	 * @since    __DEPLOY_VERSION__
+	 * @since    5.6.0
 	 */
 	protected $extension = 'com_sermonspeaker';
 
 	/**
 	 * var       array   $itemTypes  Array of item types
 	 *
-	 * @since    __DEPLOY_VERSION__
+	 * @since    5.6.0
 	 */
 	protected $itemTypes = array('serie', 'sermon', 'speaker', 'category');
 
 	/**
 	 * var       boolean   $associationsSupport  Has the extension association support
 	 *
-	 * @since    __DEPLOY_VERSION__
+	 * @since    5.6.0
 	 */
 	protected $associationsSupport = true;
 
@@ -49,14 +49,19 @@ class SermonSpeakerAssociationsHelper extends JAssociationExtensionHelper
 	 *
 	 * @return  array
 	 *
-	 * @since    __DEPLOY_VERSION__
+	 * @since    5.6.0
 	 */
 
 	public function getAssociations($typeName, $id)
 	{
+		if (!in_array($typeName, $this->itemTypes))
+		{
+			return array();
+		}
+
 		$type = $this->getType($typeName);
 
-		$context    = $this->extension . '.item';
+		$context    = $this->extension . '.' . $typeName;
 		$catidField = 'catid';
 
 		if ($typeName === 'category')
@@ -87,7 +92,7 @@ class SermonSpeakerAssociationsHelper extends JAssociationExtensionHelper
 	 *
 	 * @return  JTable|null
 	 *
-	 * @since    __DEPLOY_VERSION__
+	 * @since    5.6.0
 	 */
 	public function getItem($typeName, $id)
 	{
@@ -134,7 +139,7 @@ class SermonSpeakerAssociationsHelper extends JAssociationExtensionHelper
 	 *
 	 * @return  array  Array of item types
 	 *
-	 * @since  __DEPLOY_VERSION__
+	 * @since  5.6.0
 	 */
 	public function getType($typeName = '')
 	{
