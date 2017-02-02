@@ -234,8 +234,13 @@ class SermonspeakerViewSpeaker extends JViewLegacy
 		$dispatcher = JEventDispatcher::getInstance();
 		JPluginHelper::importPlugin('content');
 
-		$this->item->text = '';
+		$this->item->text = $this->item->intro;
 		$dispatcher->trigger('onContentPrepare', array ('com_sermonspeaker.speaker', &$this->item, &$params, 0));
+		$this->item->intro = $this->item->text;
+
+		$this->item->text = $this->item->bio;
+		$dispatcher->trigger('onContentPrepare', array ('com_sermonspeaker.speaker', &$this->item, &$params, 0));
+		$this->item->bio = $this->item->text;
 
 		// Store the events for later
 		$this->item->event = new stdClass;
