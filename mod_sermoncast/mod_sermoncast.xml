@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<extension type="module" version="3.4" method="upgrade">
+<extension type="module" version="3.4" client="site" method="upgrade">
 	<name>SermonCast</name>
 	<author>Thomas Hunziker, Martin Hess</author>
 	<creationDate>2016-09-30</creationDate>

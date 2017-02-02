@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<extension type="module" version="3.5" method="upgrade">
+<extension type="module" version="3.5" client="site" method="upgrade">
 	<name>Sermons Archive</name>
 	<author>Thomas Hunziker, Rajesh K</author>
 	<creationDate>2016-03-28</creationDate>
