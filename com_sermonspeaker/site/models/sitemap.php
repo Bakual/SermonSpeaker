@@ -26,21 +26,27 @@ class SermonspeakerModelSitemap extends JModelLegacy
 	public function getSermons()
 	{
 		// Create a new query object.
-		$db    = $this->getDbo();
-		$query = $db->getQuery(true);
+		$db     = $this->getDbo();
+		$query  = $db->getQuery(true);
+		$groups = JFactory::getUser()->getAuthorisedViewLevels();
 
-		$query->select('id, title, sermon_date, created, catid, language');
-		$query->select("CASE WHEN CHAR_LENGTH(alias) THEN CONCAT_WS(':', id, alias) ELSE id END as slug");
-		$query->from('#__sermon_sermons');
-		$query->where('state = 1');
+		$query->select('a.id, a.title, a.sermon_date, a.created, a.catid, a.language');
+		$query->select("CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(':', a.id, a.alias) ELSE a.id END as slug");
+		$query->from('#__sermon_sermons AS a');
+		$query->where('a.state = 1');
 		$query->order('sermon_date DESC');
+
+		// Join over categories.
+		$query->join('LEFT', '#__categories AS c ON a.catid = c.id');
+		$query->where('c.published = 1');
+		$query->where('c.access IN (' . implode(',', $groups) . ')');
 
 		// Filter by start and end dates.
 		$nullDate = $db->quote($db->getNullDate());
 		$nowDate  = $db->quote(JFactory::getDate()->toSql());
 
-		$query->where('(publish_up = ' . $nullDate . ' OR publish_up <= ' . $nowDate . ')');
-		$query->where('(publish_down = ' . $nullDate . ' OR publish_down >= ' . $nowDate . ')');
+		$query->where('(a.publish_up = ' . $nullDate . ' OR a.publish_up <= ' . $nowDate . ')');
+		$query->where('(a.publish_down = ' . $nullDate . ' OR a.publish_down >= ' . $nowDate . ')');
 
 		// Filter by cat if set
 		/** @var JApplicationSite $app */
@@ -50,9 +56,9 @@ class SermonspeakerModelSitemap extends JModelLegacy
 
 		if ($cat)
 		{
-			$query->where('catid = ' . $cat);
+			$query->where('a.catid = ' . $cat);
 		}
-
+$string = (string) $query;
 		$rows = $this->_getList($query);
 
 		return $rows;
