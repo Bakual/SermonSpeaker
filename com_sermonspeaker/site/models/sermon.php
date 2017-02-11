@@ -199,29 +199,32 @@ class SermonspeakerModelSermon extends JModelItem
 	 */
 	public function getLatest()
 	{
-		$app    = JFactory::getApplication();
-		$params = $app->getParams();
+		$levels = JFactory::getUser()->getAuthorisedViewLevels();
+		$db     = $this->getDbo();
+		$query  = $db->getQuery(true);
 
-		$db    = $this->getDbo();
-		$query = $db->getQuery(true);
-
-		$query->select('id');
-		$query->from('#__sermon_sermons');
+		$query->select('a.id');
+		$query->from('#__sermon_sermons AS a');
+		$query->where('a.state = 1');
+		$query->join('left', '#__categories AS c ON a.catid = c.id');
+		$query->where('c.published = 1');
+		$query->where('c.access IN (' . implode(',', $levels) . ')');
 
 		// Filter by filetype
-		$filetype = $params->get('filetype', '');
+		$filetype = $this->getState('params')->get('filetype', '');
+
 		if ($filetype == 'video')
 		{
-			$query->where('videofile != ""');
+			$query->where('a.videofile != ""');
 		}
 		elseif ($filetype == 'audio')
 		{
-			$query->where('audiofile != ""');
+			$query->where('a.audiofile != ""');
 		}
 
-		$query->order('sermon_date DESC');
+		$query->order('a.sermon_date DESC');
 
-		$db->setQuery($query, 0, 1);
+		$db->setQuery($query);
 
 		return $db->loadResult();
 	}

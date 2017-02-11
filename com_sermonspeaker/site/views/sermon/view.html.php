@@ -32,10 +32,12 @@ class SermonspeakerViewSermon extends JViewLegacy
 	 */
 	public function display($tpl = null)
 	{
-		$app    = JFactory::getApplication();
-		$jinput = $app->input;
+		$app = JFactory::getApplication();
 
-		if (!$jinput->get('id', 0, 'int'))
+		// Get model data (/models/sermon.php)
+		$this->state = $this->get('State');
+
+		if (!$this->state->get('sermon.id'))
 		{
 			$id = $this->get('Latest');
 
@@ -44,13 +46,14 @@ class SermonspeakerViewSermon extends JViewLegacy
 				throw new Exception(JText::_('JGLOBAL_RESOURCE_NOT_FOUND'), 404);
 			}
 
-			$jinput->set('id', $id);
+			$this->state->set('sermon.id', $id);
+			$app->input->set('id', $id);
 		}
 
 		require_once JPATH_COMPONENT . '/helpers/player.php';
 
 		// Initialise variables.
-		$params     = $app->getParams();
+		$params     = $this->state->get('params');
 		$this->user = JFactory::getUser();
 		$groups     = $this->user->getAuthorisedViewLevels();
 
@@ -66,14 +69,14 @@ class SermonspeakerViewSermon extends JViewLegacy
 		{
 			$this->columns = array();
 		}
-		// Get model data (/models/sermon.php)
-		$this->state = $this->get('State');
-		$item        = $this->get('Item');
+
+		$item = $this->get('Item');
 
 		if (!$item)
 		{
 			$app->redirect(JRoute::_('index.php?view=sermons'), JText::_('JGLOBAL_RESOURCE_NOT_FOUND'), 'error');
 		}
+
 		// Get Tags
 		$item->tags = new JHelperTags;
 		$item->tags->getItemTags('com_sermonspeaker.sermon', $item->id);
