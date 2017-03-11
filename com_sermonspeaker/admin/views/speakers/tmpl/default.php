@@ -1,7 +1,15 @@
 <?php
+/**
+ * @package     SermonSpeaker
+ * @subpackage  Component.Administrator
+ * @author      Thomas Hunziker <admin@sermonspeaker.net>
+ * @copyright   © 2016 - Thomas Hunziker
+ * @license     http://www.gnu.org/licenses/gpl.html
+ **/
+
 defined('_JEXEC') or die;
 
-JHtml::addIncludePath(JPATH_COMPONENT.'/helpers/html');
+JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
 JHtml::_('bootstrap.tooltip');
 JHtml::_('behavior.multiselect');
 JHtml::_('dropdown.init');
@@ -13,11 +21,14 @@ $listDirn  = $this->escape($this->state->get('list.direction'));
 $archived  = $this->state->get('filter.state') == 2 ? true : false;
 $trashed   = $this->state->get('filter.state') == -2 ? true : false;
 $saveOrder = $listOrder == 'speakers.ordering';
-if ($saveOrder) :
+
+if ($saveOrder)
+{
 	$saveOrderingUrl = 'index.php?option=com_sermonspeaker&task=speakers.saveOrderAjax&tmpl=component';
 	JHtml::_('sortablelist.sortable', 'speakerList', 'adminForm', strtolower($listDirn), $saveOrderingUrl);
-endif;
-$assoc     = JLanguageAssociations::isEnabled();
+}
+
+$assoc = JLanguageAssociations::isEnabled();
 ?>
 <script type="text/javascript">
 	Joomla.orderTable = function() {
@@ -35,14 +46,14 @@ $assoc     = JLanguageAssociations::isEnabled();
 </script>
 
 <form action="<?php echo JRoute::_('index.php?option=com_sermonspeaker&view=speakers'); ?>" method="post" name="adminForm" id="adminForm">
-<?php if(!empty( $this->sidebar)): ?>
+<?php if(!empty($this->sidebar)): ?>
 	<div id="j-sidebar-container" class="span2">
 		<?php echo $this->sidebar; ?>
 	</div>
 	<div id="j-main-container" class="span10">
 <?php else : ?>
 	<div id="j-main-container">
-<?php endif;?>
+<?php endif; ?>
 		<?php echo JLayoutHelper::render('joomla.searchtools.default', array('view' => $this)); ?>
 		<?php if (empty($this->items)) : ?>
 			<div class="alert alert-no-items">
@@ -189,7 +200,6 @@ $assoc     = JLanguageAssociations::isEnabled();
 				</tbody>
 			</table>
 		<?php endif; ?>
-
 		<?php echo $this->pagination->getListFooter(); ?>
 		<?php //Load the batch processing form. ?>
 		<?php if ($user->authorise('core.create', 'com_sermonspeaker')
