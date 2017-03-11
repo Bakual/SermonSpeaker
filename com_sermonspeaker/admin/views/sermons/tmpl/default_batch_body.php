@@ -1,12 +1,14 @@
 <?php
 /**
- * @package     Joomla.Administrator
- * @subpackage  com_content
- *
- * @copyright   Copyright (C) 2005 - 2017 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE.txt
- */
+ * @package     SermonSpeaker
+ * @subpackage  Component.Administrator
+ * @author      Thomas Hunziker <admin@sermonspeaker.net>
+ * @copyright   © 2016 - Thomas Hunziker
+ * @license     http://www.gnu.org/licenses/gpl.html
+ **/
+
 defined('_JEXEC') or die;
+
 $published = $this->state->get('filter.published');
 ?>
 
@@ -34,6 +36,18 @@ $published = $this->state->get('filter.published');
 					<option value=""><?php echo JText::_('COM_SERMONSPEAKER_BATCH_SERIE_NOCHANGE'); ?></option>
 					<?php echo JHtml::_('select.options', $this->series, 'value', 'text'); ?>
 				</select>
+			</div>
+		</div>
+	</div>
+	<div class="row-fluid">
+		<div class="control-group span6">
+			<div class="controls">
+				<?php echo JLayoutHelper::render('joomla.html.batch.language', array()); ?>
+			</div>
+		</div>
+		<div class="control-group span6">
+			<div class="controls">
+				<?php echo JLayoutHelper::render('joomla.html.batch.tag', array());?>
 			</div>
 		</div>
 	</div>
