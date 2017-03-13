@@ -237,7 +237,7 @@ $assoc = JLanguageAssociations::isEnabled();
 								<?php echo (int) $item->hits; ?>
 							</span>
 							<?php if ($canEdit || $canEditOwn) : ?>
-								<a class="btn btn-mini btn-warning" href="index.php?option=com_sermonspeaker&task=speaker.reset&id=<?php echo $item->id; ?>">
+								<a class="btn btn-mini btn-warning" href="index.php?option=com_sermonspeaker&task=sermon.reset&id=<?php echo $item->id; ?>">
 									<i class="icon-loop" rel="tooltip" title="<?php echo JText::_('JSEARCH_RESET'); ?>"> </i>
 								</a>
 							<?php endif; ?>
