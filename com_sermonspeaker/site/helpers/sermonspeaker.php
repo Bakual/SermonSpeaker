@@ -352,18 +352,95 @@ class SermonspeakerHelperSermonspeaker
 		// Prepare play icon function
 		$options = array();
 
-		if ($icon && ($item->audiofile || $item->videofile))
+		if ($icon)
 		{
-			switch (self::$params->get('list_icon_function', 3))
+			// 0: Detailpage, 1: Download, 2: Control Player, 3: Popup
+			$list_icon_function = self::$params->get('list_icon_function', 3);
+
+			if ($list_icon_function && !$item->audiofile && !$item->videofile)
+			{
+				$return .= '<i class="icon-"> </i> ';
+			}
+			else
+			{
+				switch ($list_icon_function)
+				{
+					case 0:
+						$pic = '<i class="icon-play hasTooltip" title="::' . JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER') . '"> </i>';
+						$return .= JHtml::Link(JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug, $item->catid, $item->language)), $pic) . ' ';
+						break;
+					case 1:
+						if (!$item->audiofile && !$item->videofile)
+						{
+							break;
+						}
+
+						$pic = '<i class="icon-play hasTooltip" title="::' . JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER') . '"> </i>';
+						$file = ($item->videofile && (self::$params->get('fileprio', 0) || !$item->audiofile)) ? $item->videofile : $item->audiofile;
+						$return .= JHtml::Link(self::makeLink($file), $pic) . ' ';
+						break;
+					case 2:
+						if (!$item->audiofile && !$item->videofile)
+						{
+							break;
+						}
+
+						$cols = self::$params->get('col');
+
+						if (!is_array($cols))
+						{
+							$cols = array();
+						}
+
+						if (in_array(self::$view . ':player', $cols))
+						{
+							$options['onclick'] = 'ss_play(' . $i . ');return false;';
+							$options['title'] = JText::_('COM_SERMONSPEAKER_PLAYICON_HOOVER');
+							$return = '<i class="icon-play pointer hasTooltip" onclick="' . $options['onclick'] . '" title="' . $options['title'] . '"> </i> ';
+						}
+
+						break;
+					case 3:
+						if (!$item->audiofile && !$item->videofile)
+						{
+							break;
+						}
+
+						$options['onclick'] = "popup=window.open('" . JRoute::_('index.php?view=sermon&layout=popup&id=' . $item->id . '&tmpl=component')
+							. "', 'PopupPage', 'height=" . $player->popup['height'] . ',width=' . $player->popup['width']
+							. ",scrollbars=yes,resizable=yes'); return false";
+						$options['title'] = JText::_('COM_SERMONSPEAKER_POPUPPLAYER');
+						$options['class'] = 'icon_play pointer hasTooltip';
+						$return .= JHtml::Image('media/com_sermonspeaker/images/play.gif', JText::_('COM_SERMONSPEAKER_POPUPPLAYER'), $options) . ' ';
+						break;
+					case 4:
+						break;
+				}
+			}
+		}
+
+		// Prepare title link function
+		$options = array('class' => 'hasTooltip');
+
+		// 0: Detailpage, 1: Download, 2: Control Player, 3: Popup
+		$list_title_function = self::$params->get('list_title_function', 0);
+
+		if ($list_title_function && !$item->audiofile && !$item->videofile)
+		{
+			$return .= $item->title;
+		}
+		else
+		{
+			switch (self::$params->get('list_title_function', 0))
 			{
 				case 0:
-					$pic = '<i class="icon-play hasTooltip" title="::' . JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER') . '"> </i>';
-					$return .= JHtml::Link(JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug, $item->catid, $item->language)), $pic) . ' ';
+					$options['title'] = JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER');
+					$return .= JHtml::Link(JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug, $item->catid, $item->language)), $item->title, $options);
 					break;
 				case 1:
-					$pic = '<i class="icon-play hasTooltip" title="::' . JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER') . '"> </i>';
-					$file = ($item->videofile && (self::$params->get('fileprio', 0) || !$item->audiofile)) ? $item->videofile : $item->audiofile;
-					$return .= JHtml::Link(self::makeLink($file), $pic) . ' ';
+					$options['title'] = JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER');
+					$file             = ($item->videofile && (self::$params->get('fileprio', 0) || !$item->audiofile)) ? $item->videofile : $item->audiofile;
+					$return .= JHtml::Link(self::makeLink($file), $item->title, $options);
 					break;
 				case 2:
 					$cols = self::$params->get('col');
@@ -376,8 +453,13 @@ class SermonspeakerHelperSermonspeaker
 					if (in_array(self::$view . ':player', $cols))
 					{
 						$options['onclick'] = 'ss_play(' . $i . ');return false;';
-						$options['title'] = JText::_('COM_SERMONSPEAKER_PLAYICON_HOOVER');
-						$return = '<i class="icon-play pointer hasTooltip" onclick="' . $options['onclick'] . '" title="' . $options['title'] . '"> </i> ';
+						$options['title']   = JText::_('COM_SERMONSPEAKER_PLAYICON_HOOVER');
+						$return .= JHtml::Link('#', $item->title, $options);
+					}
+					else
+					{
+						$options['title'] = JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER');
+						$return .= JHtml::Link(JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug, $item->catid, $item->language)), $item->title, $options);
 					}
 
 					break;
@@ -385,57 +467,10 @@ class SermonspeakerHelperSermonspeaker
 					$options['onclick'] = "popup=window.open('" . JRoute::_('index.php?view=sermon&layout=popup&id=' . $item->id . '&tmpl=component')
 						. "', 'PopupPage', 'height=" . $player->popup['height'] . ',width=' . $player->popup['width']
 						. ",scrollbars=yes,resizable=yes'); return false";
-					$options['title'] = JText::_('COM_SERMONSPEAKER_POPUPPLAYER');
-					$options['class'] = 'icon_play pointer hasTooltip';
-					$return .= JHtml::Image('media/com_sermonspeaker/images/play.gif', JText::_('COM_SERMONSPEAKER_POPUPPLAYER'), $options) . ' ';
-					break;
-				case 4:
+					$options['title']   = JText::_('COM_SERMONSPEAKER_POPUPPLAYER');
+					$return .= JHtml::Link('#', $item->title, $options);
 					break;
 			}
-		}
-
-		// Prepare title link function
-		$options = array('class' => 'hasTooltip');
-
-		switch (self::$params->get('list_title_function', 0))
-		{
-			case 0:
-				$options['title'] = JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER');
-				$return .= JHtml::Link(JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug, $item->catid, $item->language)), $item->title, $options);
-				break;
-			case 1:
-				$options['title'] = JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER');
-				$file = ($item->videofile && (self::$params->get('fileprio', 0) || !$item->audiofile)) ? $item->videofile : $item->audiofile;
-				$return .= JHtml::Link(self::makeLink($file), $item->title, $options);
-				break;
-			case 2:
-				$cols = self::$params->get('col');
-
-				if (!is_array($cols))
-				{
-					$cols = array();
-				}
-
-				if (in_array(self::$view . ':player', $cols))
-				{
-					$options['onclick'] = 'ss_play(' . $i . ');return false;';
-					$options['title'] = JText::_('COM_SERMONSPEAKER_PLAYICON_HOOVER');
-					$return .= JHtml::Link('#', $item->title, $options);
-				}
-				else
-				{
-					$options['title'] = JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER');
-					$return .= JHtml::Link(JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug, $item->catid, $item->language)), $item->title, $options);
-				}
-
-				break;
-			case 3:
-				$options['onclick'] = "popup=window.open('" . JRoute::_('index.php?view=sermon&layout=popup&id=' . $item->id . '&tmpl=component')
-					. "', 'PopupPage', 'height=" . $player->popup['height'] . ',width=' . $player->popup['width']
-					. ",scrollbars=yes,resizable=yes'); return false";
-				$options['title'] = JText::_('COM_SERMONSPEAKER_POPUPPLAYER');
-				$return .= JHtml::Link('#', $item->title, $options);
-				break;
 		}
 
 		return $return;
