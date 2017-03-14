@@ -406,9 +406,6 @@ class PlgSermonspeakerJwplayer7 extends SermonspeakerPluginPlayer
 		{
 			$entry = array();
 
-			// Choose picture to show
-			$img = SermonspeakerHelperSermonspeaker::insertPicture($item, 1);
-
 			if ($this->type == 'auto')
 			{
 				// Choosing the default file to play based on prio and availabilty
@@ -426,8 +423,7 @@ class PlgSermonspeakerJwplayer7 extends SermonspeakerPluginPlayer
 			}
 			else
 			{
-				// Todo: Pick correct default pic (from component or add param to plugin?)
-				$entry['file']  = ($img) ? $img : JUri::base(true) . '/media/com_sermonspeaker/images/' . $this->c_params->get('defaultpic', 'nopict.jpg');
+				$entry['file']  = JUri::base(true) . '/media/com_sermonspeaker/images/blank.mp3';
 				$entry['error'] = JText::_('JGLOBAL_RESOURCE_NOT_FOUND');
 			}
 
@@ -454,7 +450,7 @@ class PlgSermonspeakerJwplayer7 extends SermonspeakerPluginPlayer
 				$entry['duration'] = $seconds;
 			}
 
-			if ($img)
+			if ($img = SermonspeakerHelperSermonspeaker::insertPicture($item, 1))
 			{
 				$entry['image'] = $img;
 			}
@@ -476,7 +472,7 @@ class PlgSermonspeakerJwplayer7 extends SermonspeakerPluginPlayer
 				}
 				else
 				{
-					$file           = ($img) ? $img : JUri::base(true) . '/media/com_sermonspeaker/images/' . $this->c_params->get('defaultpic', 'nopict.jpg');
+					$file           = JUri::base(true) . '/media/com_sermonspeaker/images/blank.mp3';
 					$entry['error'] = "error:'" . JText::_('JGLOBAL_RESOURCE_NOT_FOUND') . "'";
 				}
 
@@ -490,7 +486,7 @@ class PlgSermonspeakerJwplayer7 extends SermonspeakerPluginPlayer
 				}
 				else
 				{
-					$file           = ($img) ? $img : JUri::base(true) . '/media/com_sermonspeaker/images/' . $this->c_params->get('defaultpic', 'nopict.jpg');
+					$file           = JUri::base(true) . '/media/com_sermonspeaker/images/blank.mp3';
 					$entry['error'] = "error:'" . JText::_('JGLOBAL_RESOURCE_NOT_FOUND') . "'";
 				}
 
