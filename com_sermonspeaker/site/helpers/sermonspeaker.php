@@ -352,7 +352,7 @@ class SermonspeakerHelperSermonspeaker
 		// Prepare play icon function
 		$options = array();
 
-		if ($icon)
+		if ($icon && ($item->audiofile || $item->videofile))
 		{
 			switch (self::$params->get('list_icon_function', 3))
 			{
