@@ -110,6 +110,8 @@ class SermonSpeakerAssociationsHelper extends JAssociationExtensionHelper
 			switch ($typeName)
 			{
 				case 'serie':
+					$support['category'] = true;
+
 					$tables = array(
 						'a' => '#__sermon_series',
 					);
@@ -117,6 +119,8 @@ class SermonSpeakerAssociationsHelper extends JAssociationExtensionHelper
 					break;
 
 				case 'sermon':
+					$support['category'] = true;
+
 					$tables = array(
 						'a' => '#__sermon_sermons',
 					);
@@ -124,6 +128,8 @@ class SermonSpeakerAssociationsHelper extends JAssociationExtensionHelper
 					break;
 
 				case 'speaker':
+					$support['category'] = true;
+
 					$tables = array(
 						'a' => '#__sermon_speakers',
 					);
@@ -140,6 +146,7 @@ class SermonSpeakerAssociationsHelper extends JAssociationExtensionHelper
 					$support['state'] = true;
 					$support['acl'] = true;
 					$support['checkout'] = true;
+					$support['level'] = true;
 
 					$tables = array(
 						'a' => '#__categories',
