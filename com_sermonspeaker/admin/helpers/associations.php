@@ -104,6 +104,7 @@ class SermonSpeakerAssociationsHelper extends JAssociationExtensionHelper
 		$support['state'] = true;
 		$support['acl'] = false;
 		$support['checkout'] = true;
+		$support['save2copy'] = true;
 
 		if (in_array($typeName, $this->itemTypes))
 		{
