@@ -60,7 +60,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 				<dd class="hits">
 					<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADSERIES_LABEL') . ': '; ?>
 					<a href="<?php echo JRoute::_('index.php?task=serie.download&id=' . $this->item->slug); ?>"
-					   target="_new" title="<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADSERIES_DESC'); ?>">
+					   target="_blank" title="<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADSERIES_DESC'); ?>">
 						<img src="media/com_sermonspeaker/images/download.png"
 							 alt="<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADSERIES_LABEL'); ?>"/>
 					</a></dd>

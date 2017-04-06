@@ -228,7 +228,7 @@ class SermonspeakerHelperSermonspeaker
 				$onclick = "onclick=\"ga('send', 'event', 'SermonSpeaker Download', '" . $type . "', 'id:" . $id . "');\"";
 			}
 
-			$html = '<a href="' . $fileurl . '" target="_new" ' . $onclick . ' class="hasTooltip" title="::' . $text . '">'
+			$html = '<a href="' . $fileurl . '" target="_blank" ' . $onclick . ' class="hasTooltip" title="::' . $text . '">'
 				. '<img src="media/com_sermonspeaker/images/download.png" alt="' . $text . '" />'
 				. '</a>';
 		}
@@ -251,7 +251,7 @@ class SermonspeakerHelperSermonspeaker
 				$onclick = "onclick=\"ga('send', 'event', 'SermonSpeaker Download', '" . $type . "', 'id:" . $id . "');\"";
 			}
 
-			$html = '<a href="' . $fileurl . '" target="_new" ' . $onclick . ' class="hasTooltip" title="' . $text . '">'
+			$html = '<a href="' . $fileurl . '" target="_blank" ' . $onclick . ' class="hasTooltip" title="' . $text . '">'
 				. '<i class="icon-download"> </i>'
 				. '</a>';
 		}
@@ -263,7 +263,7 @@ class SermonspeakerHelperSermonspeaker
 				$onclick = "onclick=\"ga('send', 'event', 'SermonSpeaker Download', '" . $type . "', 'id:" . $id . "');\"";
 			}
 
-			$html = '<a href="' . $fileurl . '" target="_new" ' . $onclick . ' class="download">' . $text . '</a>';
+			$html = '<a href="' . $fileurl . '" target="_blank" ' . $onclick . ' class="download">' . $text . '</a>';
 		}
 		else
 		{
