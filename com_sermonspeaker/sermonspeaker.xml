@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<extension type="component" version="3.7.0.rc" method="upgrade">
+<extension type="component" version="4.0.0" method="upgrade">
 	<name>com_sermonspeaker</name>
 	<author>Thomas Hunziker</author>
-	<creationDate>2017-05-15</creationDate>
+	<creationDate>2017-04-29</creationDate>
 	<copyright>© 2017</copyright>
 	<authorEmail>admin@sermonspeaker.net</authorEmail>
 	<authorUrl>http://www.sermonspeaker.net</authorUrl>
-	<version>5.6.2</version>
+	<version>6.0.0</version>
 	<license>http://www.gnu.org/licenses/gpl.html</license>
 	<description>COM_SERMONSPEAKER_DESCRIPTION</description>
 	<scriptfile>script.php</scriptfile>
@@ -50,15 +50,16 @@
 		<folder>plupload</folder>
 	</media>
 	<administration>
-		<menu img="components/com_sermonspeaker/images/speakers-16.png">COM_SERMONSPEAKER</menu>
+		<menu>COM_SERMONSPEAKER</menu>
 		<submenu>
-			<menu img="components/com_sermonspeaker/images/series-16.png" view="series">COM_SERMONSPEAKER_MENU_SERIES</menu>
-			<menu img="components/com_sermonspeaker/images/speakers-16.png" view="speakers">COM_SERMONSPEAKER_MENU_SPEAKERS</menu>
-			<menu img="components/com_sermonspeaker/images/sermon-16.png" view="sermons">COM_SERMONSPEAKER_MENU_SERMONS</menu>
-			<menu img="class:category" link="option=com_categories&amp;extension=com_sermonspeaker">COM_SERMONSPEAKER_MENU_CATEGORY</menu>
-			<menu img="components/com_sermonspeaker/images/tools-16.png" view="tools">COM_SERMONSPEAKER_MENU_TOOLS</menu>
-			<menu img="components/com_sermonspeaker/images/globe-16.png" view="languages">COM_SERMONSPEAKER_MENU_LANGUAGES</menu>
-			<menu img="components/com_sermonspeaker/images/help-16.png" view="help">COM_SERMONSPEAKER_MENU_HELP</menu>
+			<menu view="main">COM_SERMONSPEAKER_MENU_MAIN</menu>
+			<menu view="series">COM_SERMONSPEAKER_MENU_SERIES</menu>
+			<menu view="speakers">COM_SERMONSPEAKER_MENU_SPEAKERS</menu>
+			<menu view="sermons">COM_SERMONSPEAKER_MENU_SERMONS</menu>
+			<menu link="option=com_categories&amp;extension=com_sermonspeaker">COM_SERMONSPEAKER_MENU_CATEGORY</menu>
+			<menu view="tools">COM_SERMONSPEAKER_MENU_TOOLS</menu>
+			<menu view="languages">COM_SERMONSPEAKER_MENU_LANGUAGES</menu>
+			<menu view="help">COM_SERMONSPEAKER_MENU_HELP</menu>
 		</submenu>
 		<files folder="admin">
 			<filename>config.xml</filename>
