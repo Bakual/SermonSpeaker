@@ -228,7 +228,15 @@ class SermonspeakerViewSermon extends JViewLegacy
 		// Set MetaData
 		if ($this->item->metadesc)
 		{
-			$this->document->setDescription($this->item->metadesc);
+			if(mb_strlen($this->item->metadesc)>=146)
+			{
+				$str_descript = trim(mb_substr($this->item->metadesc,0,146))." ...";
+			}
+			else
+			{
+				$str_descript = $this->item->metadesc;
+			}		
+			$this->document->setDescription($str_descript);
 		}
 		elseif (!$this->item->metadesc && $this->params->get('menu-meta_description'))
 		{
@@ -239,7 +247,26 @@ class SermonspeakerViewSermon extends JViewLegacy
 
 		if ($this->item->metakey)
 		{
-			$keywords = $this->item->metakey;
+			$arr_keywords = explode(',',$this->item->metakey);
+			$cnt_keywords = count($arr_keywords);
+			if($cnt_keywords > 10)
+			{
+				for($u = 0; $u<10; $u++)
+				{
+					if($u >0)
+					{
+						$keywords = $keywords.",".$arr_keywords[$u];
+					}
+					else
+					{
+						$keywords = $keywords.$arr_keywords[$u];
+					}
+				}
+			}
+			else
+			{
+				$keywords = $this->item->metakey;
+			}
 		}
 		elseif ($this->params->get('menu-meta_keywords'))
 		{
