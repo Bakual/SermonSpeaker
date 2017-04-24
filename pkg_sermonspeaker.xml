@@ -2,7 +2,7 @@
 <extension type="package" version="3.7.0" method="upgrade">
 	<name>SermonSpeaker Package</name>
 	<author>Thomas Hunziker</author>
-	<creationDate>2017-01-24</creationDate>
+	<creationDate>2017-04-25</creationDate>
 	<copyright>© 2017</copyright>
 	<authorEmail>admin@sermonspeaker.net</authorEmail>
 	<authorUrl>http://www.sermonspeaker.net</authorUrl>
