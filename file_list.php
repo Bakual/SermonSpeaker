@@ -1,5 +1,5 @@
 <?php
-/* Will create an XML containing all files in a directory */
+// Will create an XML containing all files in a directory
 // Adjust directory here
 $path	= '/server/path/to/html/images/stories'; // intern directory path
 $URL	= 'http://www.yourdomain.com/images/folder'; // public URL to the directory

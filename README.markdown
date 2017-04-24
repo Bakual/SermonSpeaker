@@ -1,5 +1,5 @@
 SermonSpeaker
-=============
+==============
 
 SermonSpeaker is a free Joomla component which will manage sermons (and the associated series and speakers) on a Joomla website.
  
