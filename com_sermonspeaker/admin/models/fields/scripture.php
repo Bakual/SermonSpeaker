@@ -49,7 +49,7 @@ class JFormFieldScripture extends JFormField
 			document.getElementById('scripture_span').removeChild(child);
 		}";
 		$document->addScriptDeclaration($javascript);
-		$admin = $app->isAdmin();
+		$admin = $app->isClient('administrator');
 
 		if ($admin)
 		{

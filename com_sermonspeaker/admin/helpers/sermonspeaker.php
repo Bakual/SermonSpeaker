@@ -52,6 +52,21 @@ class SermonspeakerHelper
 			'index.php?option=com_sermonspeaker&view=tools',
 			$vName == 'tools'
 		);
+
+		if (JComponentHelper::isEnabled('com_fields'))
+		{
+			JHtmlSidebar::addEntry(
+				JText::_('JGLOBAL_FIELDS'),
+				'index.php?option=com_fields&context=com_sermonspeaker.sermon',
+				$vName == 'fields.fields'
+			);
+			JHtmlSidebar::addEntry(
+				JText::_('JGLOBAL_FIELD_GROUPS'),
+				'index.php?option=com_fields&view=groups&context=com_sermonspeaker.sermon',
+				$vName == 'fields.groups'
+			);
+		}
+
 		JHtmlSidebar::addEntry(
 			JText::_('COM_SERMONSPEAKER_MENU_LANGUAGES'),
 			'index.php?option=com_sermonspeaker&view=languages',
@@ -75,7 +90,7 @@ class SermonspeakerHelper
 	 */
 	public static function getActions($categoryId = 0)
 	{
-		$user   = JFactory::getUser();
+		$user = JFactory::getUser();
 		$result = new JObject;
 
 		if (empty($categoryId))
@@ -98,5 +113,50 @@ class SermonspeakerHelper
 		}
 
 		return $result;
+	}
+
+	/**
+	 * Returns valid contexts
+	 *
+	 * @return  array
+	 *
+	 * @since   5.6.0
+	 */
+	public static function getContexts()
+	{
+		$lang = JFactory::getLanguage();
+		$lang->load('com_sermonspeaker', JPATH_ADMINISTRATOR)
+		|| $lang->load('com_sermonspeaker', JPATH_ADMINISTRATOR . '/components/com_sermonspeaker');
+
+		$contexts = array(
+			'com_sermonspeaker.sermon'  => JText::_('COM_SERMONSPEAKER_FIELDS_CONTEXT_SERMON'),
+			'com_sermonspeaker.serie'   => JText::_('COM_SERMONSPEAKER_FIELDS_CONTEXT_SERIE'),
+			'com_sermonspeaker.speaker' => JText::_('COM_SERMONSPEAKER_FIELDS_CONTEXT_SPEAKER'),
+		);
+
+		return $contexts;
+	}
+
+	/**
+	 * Map the section for custom fields.
+	 *
+	 * @param   string  $section  The section to get the mapping for
+	 *
+	 * @return  string  The new section
+	 *
+	 * @since  5.6.0
+	 */
+	public static function validateSection($section)
+	{
+		$mapping = array(
+			'sermon'         => 'sermon',
+			'frontendupload' => 'sermon',
+			'speaker'        => 'speaker',
+			'speakerform'    => 'speaker',
+			'serie'          => 'serie',
+			'serieform'      => 'serie',
+		);
+
+		return isset($mapping[$section]) ? $mapping[$section] : null;
 	}
 }

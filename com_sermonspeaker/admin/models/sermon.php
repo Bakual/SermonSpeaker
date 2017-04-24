@@ -34,39 +34,6 @@ class SermonspeakerModelSermon extends JModelAdmin
 	protected $associationsContext = 'com_sermonspeaker.sermon';
 
 	/**
-	 * Method to test whether a record can be deleted.
-	 *
-	 * @param   object $record A record object.
-	 *
-	 * @return  boolean  True if allowed to delete the record. Defaults to the permission set in the component.
-	 *
-	 * @since   1.6
-	 */
-	protected function canDelete($record)
-	{
-		if (!empty($record->id))
-		{
-			if ($record->state != -2)
-			{
-				return false;
-			}
-
-			$user = JFactory::getUser();
-
-			if ($record->catid)
-			{
-				return $user->authorise('core.delete', 'com_sermonspeaker.category.' . (int) $record->catid);
-			}
-			else
-			{
-				return parent::canDelete($record);
-			}
-		}
-
-		return false;
-	}
-
-	/**
 	 * Method to delete one or more records.
 	 *
 	 * @param   array &$pks An array of record primary keys.
@@ -81,7 +48,7 @@ class SermonspeakerModelSermon extends JModelAdmin
 		$pks = (array) $pks;
 		/** @var SermonspeakerTableSermon $table */
 		$table = $this->getTable();
-		$db    = $this->getDbo();
+		$db = $this->getDbo();
 
 		// Iterate the items to delete the files.
 		foreach ($pks as $pk)
@@ -142,30 +109,6 @@ class SermonspeakerModelSermon extends JModelAdmin
 	}
 
 	/**
-	 * Method to test whether a record can have its state edited.
-	 *
-	 * @param   object $record A record object.
-	 *
-	 * @return  boolean  True if allowed to change the state of the record. Defaults to the permission set in the
-	 *                   component.
-	 *
-	 * @since   1.6
-	 */
-	protected function canEditState($record)
-	{
-		$user = JFactory::getUser();
-
-		if (!empty($record->catid))
-		{
-			return $user->authorise('core.edit.state', 'com_sermonspeaker.category.' . (int) $record->catid);
-		}
-		else
-		{
-			return parent::canEditState($record);
-		}
-	}
-
-	/**
 	 * Returns a Table object, always creating it.
 	 *
 	 * @param   string $type   The table type to instantiate
@@ -179,6 +122,39 @@ class SermonspeakerModelSermon extends JModelAdmin
 	public function getTable($type = 'Sermon', $prefix = 'SermonspeakerTable', $config = array())
 	{
 		return JTable::getInstance($type, $prefix, $config);
+	}
+
+	/**
+	 * Method to test whether a record can be deleted.
+	 *
+	 * @param   object $record A record object.
+	 *
+	 * @return  boolean  True if allowed to delete the record. Defaults to the permission set in the component.
+	 *
+	 * @since   1.6
+	 */
+	protected function canDelete($record)
+	{
+		if (!empty($record->id))
+		{
+			if ($record->state != -2)
+			{
+				return false;
+			}
+
+			$user = JFactory::getUser();
+
+			if ($record->catid)
+			{
+				return $user->authorise('core.delete', 'com_sermonspeaker.category.' . (int) $record->catid);
+			}
+			else
+			{
+				return parent::canDelete($record);
+			}
+		}
+
+		return false;
 	}
 
 	/**
@@ -241,297 +217,66 @@ class SermonspeakerModelSermon extends JModelAdmin
 	}
 
 	/**
-	 * Method to get the data that should be injected in the form.
+	 * Method to test whether a record can have its state edited.
 	 *
-	 * @return  mixed  The data for the form.
+	 * @param   object $record A record object.
+	 *
+	 * @return  boolean  True if allowed to change the state of the record. Defaults to the permission set in the
+	 *                   component.
 	 *
 	 * @since   1.6
 	 */
-	protected function loadFormData()
+	protected function canEditState($record)
 	{
-		// Check the session for previously entered form data.
-		$data   = JFactory::getApplication()->getUserState('com_sermonspeaker.edit.sermon.data', array());
-		$jinput = JFactory::getApplication()->input;
+		$user = JFactory::getUser();
 
-		if (empty($data))
+		if (!empty($record->catid))
 		{
-			$data = $this->getItem();
+			return $user->authorise('core.edit.state', 'com_sermonspeaker.category.' . (int) $record->catid);
 		}
 		else
 		{
-			// Catch scriptures from database again because the values in UserState can't be used due to formatting.
-			$data['scripture'] = array();
-
-			if ($data['id'])
-			{
-				$db    = JFactory::getDbo();
-				$query = $db->getQuery(true)
-					->select($db->quoteName(array('book', 'cap1', 'vers1', 'cap2', 'vers2', 'text')))
-					->from($db->quoteName('#__sermon_scriptures'))
-					->where($db->quoteName('sermon_id') . ' = ' . (int) $data['id'])
-					->order('ordering ASC');
-
-				$db->setQuery($query);
-				$data['scripture'] = $db->loadAssocList();
-			}
+			return parent::canEditState($record);
 		}
+	}
 
-		// Deprecated with SermonSpeaker 4.4.4. Using Ajax now for Lookup. Still used for tools function files to create sermon from file.
-		if ($id3_file = $jinput->get('file', '', 'string'))
+	/**
+	 * Method to save the form data.
+	 *
+	 * @param   array $data The form data.
+	 *
+	 * @return  boolean  True on success, False on error.
+	 *
+	 * @since   5.6.0
+	 */
+	public function save($data)
+	{
+		$jinput = JFactory::getApplication()->input;
+
+		// Alter the title for save as copy
+		if ($jinput->get('task') == 'save2copy')
 		{
-			if ($jinput->get('type') == 'video')
+			$origTable = clone $this->getTable();
+			$origTable->load($jinput->getInt('id'));
+
+			if ($data['title'] == $origTable->title)
 			{
-				$data->videofile = $id3_file;
+				list($title, $alias) = $this->generateNewTitle($data['catid'], $data['alias'], $data['title']);
+				$data['title'] = $title;
+				$data['alias'] = $alias;
 			}
 			else
 			{
-				$data->audiofile = $id3_file;
-			}
-
-			require_once JPATH_COMPONENT_SITE . '/helpers/id3.php';
-
-			$params = JComponentHelper::getParams('com_sermonspeaker');
-
-			$id3 = SermonspeakerHelperId3::getID3($id3_file, $params);
-
-			if ($id3)
-			{
-				foreach ($id3 as $key => $value)
+				if ($data['alias'] == $origTable->alias)
 				{
-					if ($value)
-					{
-						$data->$key = $value;
-					}
-				}
-			}
-			else
-			{
-				JFactory::getApplication()->enqueueMessage(JText::_('COM_SERMONSPEAKER_ERROR_ID3'), 'notice');
-			}
-		}
-
-		$this->preprocessData('com_sermonspeaker.sermon', $data);
-
-		return $data;
-	}
-
-	/**
-	 * Method to get a single record.
-	 *
-	 * @param   integer $pk The id of the primary key.
-	 *
-	 * @return  mixed  Object on success, false on failure.
-	 *
-	 * @since ?
-	 */
-	public function getItem($pk = null)
-	{
-		$item = parent::getItem($pk);
-
-		$item->scripture = array();
-
-		if ($item->id)
-		{
-			$db    = JFactory::getDbo();
-			$query = $db->getQuery(true)
-				->select($db->quoteName(array('book', 'cap1', 'vers1', 'cap2', 'vers2', 'text')))
-				->from($db->quoteName('#__sermon_scriptures'))
-				->where($db->quoteName('sermon_id') . ' = ' . (int) $item->id)
-				->order('ordering ASC');
-
-			$db->setQuery($query);
-			$item->scripture = $db->loadAssocList();
-
-			// Convert the metadata field to an array.
-			$registry = new Joomla\Registry\Registry;
-			$registry->loadString($item->metadata);
-			$item->metadata = $registry->toArray();
-
-			$item->tags = new JHelperTags;
-			$item->tags->getTagIds($item->id, 'com_sermonspeaker.sermon');
-		}
-
-		// Load associated items
-		if (JLanguageAssociations::isEnabled())
-		{
-			$item->associations = array();
-
-			if ($item->id != null)
-			{
-				$associations = JLanguageAssociations::getAssociations('com_sermonspeaker', '#__sermon_sermons', $this->associationsContext, $item->id);
-
-				foreach ($associations as $tag => $association)
-				{
-					$item->associations[$tag] = $association->id;
-				}
-			}
-		}
-
-		return $item;
-	}
-
-	/**
-	 * Prepare and sanitise the table data prior to saving.
-	 *
-	 * @param   JTable $table A JTable object.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.6
-	 */
-	protected function prepareTable($table)
-	{
-		$table->title = htmlspecialchars_decode($table->title, ENT_QUOTES);
-		$table->alias = JApplicationHelper::stringURLSafe($table->alias);
-
-		if (empty($table->alias))
-		{
-			$table->alias = JApplicationHelper::stringURLSafe($table->title);
-
-			if (empty($table->alias))
-			{
-				$table->alias = JFactory::getDate()->format("Y-m-d-H-i-s");
-			}
-		}
-
-		if (!$table->audiofilesize && $table->audiofile)
-		{
-			if (!parse_url($table->audiofile, PHP_URL_SCHEME))
-			{
-				$table->audiofilesize = filesize(JPATH_SITE . $table->audiofile);
-			}
-		}
-
-		if (!$table->videofilesize && $table->videofile)
-		{
-			if (!parse_url($table->videofile, PHP_URL_SCHEME))
-			{
-				$table->videofilesize = filesize(JPATH_SITE . $table->videofile);
-			}
-		}
-
-		$time_arr = explode(':', $table->sermon_time);
-
-		foreach ($time_arr as &$time_int)
-		{
-			$time_int = (int) $time_int;
-			$time_int = str_pad($time_int, 2, '0', STR_PAD_LEFT);
-		}
-
-		if (count($time_arr) == 2)
-		{
-			$table->sermon_time = '00:' . $time_arr[0] . ':' . $time_arr[1];
-		}
-		elseif (count($time_arr) == 3)
-		{
-			$table->sermon_time = $time_arr[0] . ':' . $time_arr[1] . ':' . $time_arr[2];
-		}
-
-		// Only process if not empty
-		if (!empty($table->metakey))
-		{
-			// Array of characters to remove
-			$bad_characters = array("\n", "\r", '"', '<', '>');
-
-			// Remove bad characters
-			$after_clean = Joomla\String\StringHelper::str_ireplace($bad_characters, '', $table->metakey);
-
-			// Create array using commas as delimiter
-			$keys       = explode(',', $after_clean);
-			$clean_keys = array();
-
-			foreach ($keys as $key)
-			{
-				// Ignore blank keywords
-				if ($key = trim($key))
-				{
-					$clean_keys[] = $key;
+					$data['alias'] = '';
 				}
 			}
 
-			// Put array back together delimited by ", "
-			$table->metakey = implode(', ', $clean_keys);
+			$data['state'] = 0;
 		}
 
-		// Reorder the articles within the category so the new sermon is first
-		if (empty($table->id))
-		{
-			$table->reorder('catid = ' . (int) $table->catid . ' AND state >= 0');
-		}
-
-		// Increment the content version number.
-		$table->version++;
-	}
-
-	/**
-	 * Method to allow derived classes to preprocess the form.
-	 *
-	 * @param   JForm  $form  A JForm object.
-	 * @param   mixed  $data  The data expected for the form.
-	 * @param   string $group The name of the plugin group to import (defaults to "content").
-	 *
-	 * @return  void
-	 *
-	 * @see     JFormField
-	 * @since   12.2
-	 * @throws  Exception if there is an error in the form event.
-	 */
-	protected function preprocessForm(JForm $form, $data, $group = 'sermonspeaker')
-	{
-		// Association items
-		if (JLanguageAssociations::isEnabled())
-		{
-			$languages = JLanguageHelper::getLanguages('lang_code');
-
-			// Force to array (perhaps move to $this->loadFormData())
-			$data = (array) $data;
-
-			$addform = new SimpleXMLElement('<form />');
-			$fields  = $addform->addChild('fields');
-			$fields->addAttribute('name', 'associations');
-			$fieldset = $fields->addChild('fieldset');
-			$fieldset->addAttribute('name', 'item_associations');
-			$fieldset->addAttribute('description', 'COM_SERMONSPEAKER_ITEM_ASSOCIATIONS_FIELDSET_DESC');
-			$add = false;
-
-			foreach ($languages as $tag => $language)
-			{
-				if (empty($data['language']) || $tag != $data['language'])
-				{
-					$add   = true;
-					$field = $fieldset->addChild('field');
-					$field->addAttribute('name', $tag);
-					$field->addAttribute('type', 'modal_sermon');
-					$field->addAttribute('language', $tag);
-					$field->addAttribute('label', $language->title);
-					$field->addAttribute('translate_label', 'false');
-				}
-			}
-
-			if ($add)
-			{
-				$form->load($addform, false);
-			}
-		}
-
-		parent::preprocessForm($form, $data, $group);
-	}
-
-	/**
-	 * A protected method to get a set of ordering conditions.
-	 *
-	 * @param   object $table A record object.
-	 *
-	 * @return  array  An array of conditions to add to add to ordering queries.
-	 *
-	 * @since   1.6
-	 */
-	protected function getReorderConditions($table = null)
-	{
-		$condition   = array();
-		$condition[] = 'catid = ' . (int) $table->catid;
-
-		return $condition;
+		return parent::save($data);
 	}
 
 	/**
@@ -551,7 +296,7 @@ class SermonspeakerModelSermon extends JModelAdmin
 		$user = JFactory::getUser();
 		/** @var SermonspeakerTableSermon $table */
 		$table = $this->getTable();
-		$pks   = (array) $pks;
+		$pks = (array) $pks;
 
 		// Access checks.
 		foreach ($pks as $i => $pk)
@@ -708,7 +453,7 @@ class SermonspeakerModelSermon extends JModelAdmin
 		$categoryId = (int) $value;
 
 		$table = $this->getTable();
-		$i     = 0;
+		$i = 0;
 
 		// Check that the category exists
 		if ($categoryId)
@@ -742,7 +487,7 @@ class SermonspeakerModelSermon extends JModelAdmin
 
 		// Check that the user has create permission for the component
 		$extension = JFactory::getApplication()->input->get('option', '');
-		$user      = JFactory::getUser();
+		$user = JFactory::getUser();
 
 		if (!$user->authorise('core.create', $extension . '.category.' . $categoryId))
 		{
@@ -782,7 +527,7 @@ class SermonspeakerModelSermon extends JModelAdmin
 
 			// Alter the title & alias
 			// Custom: defining the title
-			$data         = $this->generateNewTitle($categoryId, $table->alias, $table->title);
+			$data = $this->generateNewTitle($categoryId, $table->alias, $table->title);
 			$table->title = $data['0'];
 			$table->alias = $data['1'];
 
@@ -839,7 +584,7 @@ class SermonspeakerModelSermon extends JModelAdmin
 	protected function batchSpeaker($value, $pks, $contexts)
 	{
 		// Set the variables
-		$user  = JFactory::getUser();
+		$user = JFactory::getUser();
 		$table = $this->getTable();
 
 		foreach ($pks as $pk)
@@ -885,7 +630,7 @@ class SermonspeakerModelSermon extends JModelAdmin
 	protected function batchSerie($value, $pks, $contexts)
 	{
 		// Set the variables
-		$user  = JFactory::getUser();
+		$user = JFactory::getUser();
 		$table = $this->getTable();
 
 		foreach ($pks as $pk)
@@ -915,5 +660,299 @@ class SermonspeakerModelSermon extends JModelAdmin
 		$this->cleanCache();
 
 		return true;
+	}
+
+	/**
+	 * Method to get the data that should be injected in the form.
+	 *
+	 * @return  mixed  The data for the form.
+	 *
+	 * @since   1.6
+	 */
+	protected function loadFormData()
+	{
+		// Check the session for previously entered form data.
+		$data = JFactory::getApplication()->getUserState('com_sermonspeaker.edit.sermon.data', array());
+		$jinput = JFactory::getApplication()->input;
+
+		if (empty($data))
+		{
+			$data = $this->getItem();
+		}
+		else
+		{
+			// Catch scriptures from database again because the values in UserState can't be used due to formatting.
+			$data['scripture'] = array();
+
+			if ($data['id'])
+			{
+				$db = JFactory::getDbo();
+				$query = $db->getQuery(true)
+					->select($db->quoteName(array('book', 'cap1', 'vers1', 'cap2', 'vers2', 'text')))
+					->from($db->quoteName('#__sermon_scriptures'))
+					->where($db->quoteName('sermon_id') . ' = ' . (int) $data['id'])
+					->order('ordering ASC');
+
+				$db->setQuery($query);
+				$data['scripture'] = $db->loadAssocList();
+			}
+		}
+
+		// Deprecated with SermonSpeaker 4.4.4. Using Ajax now for Lookup. Still used for tools function files to create sermon from file.
+		if ($id3_file = $jinput->get('file', '', 'string'))
+		{
+			if ($jinput->get('type') == 'video')
+			{
+				$data->videofile = $id3_file;
+			}
+			else
+			{
+				$data->audiofile = $id3_file;
+			}
+
+			require_once JPATH_COMPONENT_SITE . '/helpers/id3.php';
+
+			$params = JComponentHelper::getParams('com_sermonspeaker');
+
+			$id3 = SermonspeakerHelperId3::getID3($id3_file, $params);
+
+			if ($id3)
+			{
+				foreach ($id3 as $key => $value)
+				{
+					if ($value)
+					{
+						$data->$key = $value;
+					}
+				}
+			}
+			else
+			{
+				JFactory::getApplication()->enqueueMessage(JText::_('COM_SERMONSPEAKER_ERROR_ID3'), 'notice');
+			}
+		}
+
+		$this->preprocessData('com_sermonspeaker.sermon', $data);
+
+		return $data;
+	}
+
+	/**
+	 * Method to get a single record.
+	 *
+	 * @param   integer $pk The id of the primary key.
+	 *
+	 * @return  mixed  Object on success, false on failure.
+	 *
+	 * @since ?
+	 */
+	public function getItem($pk = null)
+	{
+		$item = parent::getItem($pk);
+
+		$item->scripture = array();
+
+		if ($item->id)
+		{
+			$db = JFactory::getDbo();
+			$query = $db->getQuery(true)
+				->select($db->quoteName(array('book', 'cap1', 'vers1', 'cap2', 'vers2', 'text')))
+				->from($db->quoteName('#__sermon_scriptures'))
+				->where($db->quoteName('sermon_id') . ' = ' . (int) $item->id)
+				->order('ordering ASC');
+
+			$db->setQuery($query);
+			$item->scripture = $db->loadAssocList();
+
+			// Convert the metadata field to an array.
+			$registry = new Joomla\Registry\Registry;
+			$registry->loadString($item->metadata);
+			$item->metadata = $registry->toArray();
+
+			$item->tags = new JHelperTags;
+			$item->tags->getTagIds($item->id, 'com_sermonspeaker.sermon');
+		}
+
+		// Load associated items
+		if (JLanguageAssociations::isEnabled())
+		{
+			$item->associations = array();
+
+			if ($item->id != null)
+			{
+				$associations = JLanguageAssociations::getAssociations('com_sermonspeaker', '#__sermon_sermons', $this->associationsContext, $item->id);
+
+				foreach ($associations as $tag => $association)
+				{
+					$item->associations[$tag] = $association->id;
+				}
+			}
+		}
+
+		return $item;
+	}
+
+	/**
+	 * Prepare and sanitise the table data prior to saving.
+	 *
+	 * @param   JTable $table A JTable object.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.6
+	 */
+	protected function prepareTable($table)
+	{
+		$table->title = htmlspecialchars_decode($table->title, ENT_QUOTES);
+		$table->alias = JApplicationHelper::stringURLSafe($table->alias);
+
+		if (empty($table->alias))
+		{
+			$table->alias = JApplicationHelper::stringURLSafe($table->title);
+
+			if (empty($table->alias))
+			{
+				$table->alias = JFactory::getDate()->format("Y-m-d-H-i-s");
+			}
+		}
+
+		if (!$table->audiofilesize && $table->audiofile)
+		{
+			if (!parse_url($table->audiofile, PHP_URL_SCHEME))
+			{
+				$table->audiofilesize = filesize(JPATH_SITE . $table->audiofile);
+			}
+		}
+
+		if (!$table->videofilesize && $table->videofile)
+		{
+			if (!parse_url($table->videofile, PHP_URL_SCHEME))
+			{
+				$table->videofilesize = filesize(JPATH_SITE . $table->videofile);
+			}
+		}
+
+		$time_arr = explode(':', $table->sermon_time);
+
+		foreach ($time_arr as &$time_int)
+		{
+			$time_int = (int) $time_int;
+			$time_int = str_pad($time_int, 2, '0', STR_PAD_LEFT);
+		}
+
+		if (count($time_arr) == 2)
+		{
+			$table->sermon_time = '00:' . $time_arr[0] . ':' . $time_arr[1];
+		}
+		elseif (count($time_arr) == 3)
+		{
+			$table->sermon_time = $time_arr[0] . ':' . $time_arr[1] . ':' . $time_arr[2];
+		}
+
+		// Only process if not empty
+		if (!empty($table->metakey))
+		{
+			// Array of characters to remove
+			$bad_characters = array("\n", "\r", '"', '<', '>');
+
+			// Remove bad characters
+			$after_clean = Joomla\String\StringHelper::str_ireplace($bad_characters, '', $table->metakey);
+
+			// Create array using commas as delimiter
+			$keys = explode(',', $after_clean);
+			$clean_keys = array();
+
+			foreach ($keys as $key)
+			{
+				// Ignore blank keywords
+				if ($key = trim($key))
+				{
+					$clean_keys[] = $key;
+				}
+			}
+
+			// Put array back together delimited by ", "
+			$table->metakey = implode(', ', $clean_keys);
+		}
+
+		// Reorder the articles within the category so the new sermon is first
+		if (empty($table->id))
+		{
+			$table->reorder('catid = ' . (int) $table->catid . ' AND state >= 0');
+		}
+
+		// Increment the content version number.
+		$table->version++;
+	}
+
+	/**
+	 * Method to allow derived classes to preprocess the form.
+	 *
+	 * @param   JForm  $form  A JForm object.
+	 * @param   mixed  $data  The data expected for the form.
+	 * @param   string $group The name of the plugin group to import (defaults to "content").
+	 *
+	 * @return  void
+	 *
+	 * @see     JFormField
+	 * @since   12.2
+	 * @throws  Exception if there is an error in the form event.
+	 */
+	protected function preprocessForm(JForm $form, $data, $group = 'sermonspeaker')
+	{
+		// Association items
+		if (JLanguageAssociations::isEnabled())
+		{
+			$languages = JLanguageHelper::getLanguages('lang_code');
+
+			// Force to array (perhaps move to $this->loadFormData())
+			$data = (array) $data;
+
+			$addform = new SimpleXMLElement('<form />');
+			$fields = $addform->addChild('fields');
+			$fields->addAttribute('name', 'associations');
+			$fieldset = $fields->addChild('fieldset');
+			$fieldset->addAttribute('name', 'item_associations');
+			$fieldset->addAttribute('description', 'COM_SERMONSPEAKER_ITEM_ASSOCIATIONS_FIELDSET_DESC');
+			$add = false;
+
+			foreach ($languages as $tag => $language)
+			{
+				if (empty($data['language']) || $tag != $data['language'])
+				{
+					$add = true;
+					$field = $fieldset->addChild('field');
+					$field->addAttribute('name', $tag);
+					$field->addAttribute('type', 'modal_sermon');
+					$field->addAttribute('language', $tag);
+					$field->addAttribute('label', $language->title);
+					$field->addAttribute('translate_label', 'false');
+				}
+			}
+
+			if ($add)
+			{
+				$form->load($addform, false);
+			}
+		}
+
+		parent::preprocessForm($form, $data, $group);
+	}
+
+	/**
+	 * A protected method to get a set of ordering conditions.
+	 *
+	 * @param   object $table A record object.
+	 *
+	 * @return  array  An array of conditions to add to add to ordering queries.
+	 *
+	 * @since   1.6
+	 */
+	protected function getReorderConditions($table = null)
+	{
+		$condition = array();
+		$condition[] = 'catid = ' . (int) $table->catid;
+
+		return $condition;
 	}
 }

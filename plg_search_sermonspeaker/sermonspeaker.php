@@ -252,7 +252,7 @@ class PlgSearchSermonspeaker extends JPlugin
 				$query->order($order);
 
 				// Filter by language
-				if ($app->isSite() && $app->getLanguageFilter())
+				if ($app->isClient('site') && $app->getLanguageFilter())
 				{
 					$tag = JFactory::getLanguage()->getTag();
 					$query->where('c.language in (' . $db->quote($tag) . ',' . $db->quote('*') . ')');
@@ -341,7 +341,7 @@ class PlgSearchSermonspeaker extends JPlugin
 				$query->order($order);
 
 				// Filter by language
-				if ($app->isSite() && $app->getLanguageFilter())
+				if ($app->isClient('site') && $app->getLanguageFilter())
 				{
 					$tag = JFactory::getLanguage()->getTag();
 					$query->where('c.language in (' . $db->quote($tag) . ',' . $db->quote('*') . ')');
@@ -432,7 +432,7 @@ class PlgSearchSermonspeaker extends JPlugin
 				$query->order($order);
 
 				// Filter by language
-				if ($app->isSite() && $app->getLanguageFilter())
+				if ($app->isClient('site') && $app->getLanguageFilter())
 				{
 					$tag = JFactory::getLanguage()->getTag();
 					$query->where('c.language in (' . $db->quote($tag) . ',' . $db->quote('*') . ')');

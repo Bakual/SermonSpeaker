@@ -35,6 +35,8 @@ if ($this->params->get('show_page_heading', 1)) : ?>
 		<?php echo $this->item->title; ?>
 	</a>
 </h2>
+<?php echo $this->item->event->afterDisplayTitle; ?>
+<?php echo $this->item->event->beforeDisplayContent; ?>
 <?php
 if ($canEdit or ($canEditOwn and ($user->id == $this->item->created_by))) : ?>
 	<ul class="actions">
@@ -171,9 +173,9 @@ if (in_array('sermon:hits', $this->columns) and $this->item->hits) : ?>
 		<meta itemprop="interactionCount" content="UserPageVisits:<?php echo $this->item->hits; ?>" />
 		<?php echo JText::_('JGLOBAL_HITS') . ': ' . $this->item->hits; ?>
 	</div>
-<?php endif;
-
-// Support for JComments
+<?php endif; ?>
+<?php echo $this->item->event->afterDisplayContent; ?>
+<?php // Support for JComments
 $comments = JPATH_BASE . '/components/com_jcomments/jcomments.php';
 
 if ($this->params->get('enable_jcomments') && file_exists($comments)) : ?>

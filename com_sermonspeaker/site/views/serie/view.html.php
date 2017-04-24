@@ -211,6 +211,25 @@ class SermonspeakerViewSerie extends JViewLegacy
 
 		$this->books = array_reduce($groups, 'array_merge', array());
 
+		// Process the content plugins.
+		$dispatcher = JEventDispatcher::getInstance();
+		JPluginHelper::importPlugin('content');
+
+		$this->item->text = $this->item->series_description;
+		$dispatcher->trigger('onContentPrepare', array ('com_sermonspeaker.serie', &$this->item, &$params, 0));
+		$this->item->series_description = $this->item->text;
+
+		// Store the events for later
+		$this->item->event = new stdClass;
+		$results = $dispatcher->trigger('onContentAfterTitle', array('com_sermonspeaker.serie', &$this->item, &$params, 0));
+		$this->item->event->afterDisplayTitle = trim(implode("\n", $results));
+
+		$results = $dispatcher->trigger('onContentBeforeDisplay', array('com_sermonspeaker.serie', &$this->item, &$params, 0));
+		$this->item->event->beforeDisplayContent = trim(implode("\n", $results));
+
+		$results = $dispatcher->trigger('onContentAfterDisplay', array('com_sermonspeaker.serie', &$this->item, &$params, 0));
+		$this->item->event->afterDisplayContent = trim(implode("\n", $results));
+
 		$this->pageclass_sfx = htmlspecialchars($this->params->get('pageclass_sfx'));
 		$this->maxLevel      = $this->params->get('maxLevel', -1);
 		$this->_prepareDocument();
