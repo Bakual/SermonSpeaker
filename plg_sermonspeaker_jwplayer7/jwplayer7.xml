@@ -2,12 +2,12 @@
 <extension version="3.4.0" type="plugin" group="sermonspeaker" method="upgrade">
 	<name>plg_sermonspeaker_jwplayer7</name>
 	<author>Thomas Hunziker</author>
-	<creationDate>2017-02-02</creationDate>
+	<creationDate>2017-04-25</creationDate>
 	<copyright>© 2017</copyright>
 	<license>http://www.gnu.org/licenses/gpl.html</license>
 	<authorEmail>admin@sermonspeaker.net</authorEmail>
 	<authorUrl>http://www.sermonspeaker.net</authorUrl>
-	<version>5.4.3</version>
+	<version>5.4.4</version>
 	<description>PLG_SERMONSPEAKER_JWPLAYER7_XML_DESCRIPTION</description>
 	<files>
 		<filename plugin="jwplayer7">jwplayer7.php</filename>
