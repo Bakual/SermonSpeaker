@@ -255,12 +255,12 @@ class PlgSermonspeakerJwplayer7 extends SermonspeakerPluginPlayer
 		$audio_ext = array('aac', 'm4a', 'f4a', 'mp3', 'ogg', 'oga');
 		$video_ext = array('mp4', 'm4v', 'f4v', 'mov', 'flv', 'webm');
 
-		if (in_array(JFile::getExt($item->audiofile), $audio_ext))
+		if (in_array(JFile::getExt(strtok($item->audiofile, '?')), $audio_ext))
 		{
 			$supported[] = 'audio';
 		}
 
-		if (in_array(JFile::getExt($item->videofile), $video_ext))
+		if (in_array(JFile::getExt(strtok($item->videofile, '?')), $video_ext))
 		{
 			$supported[] = 'video';
 		}

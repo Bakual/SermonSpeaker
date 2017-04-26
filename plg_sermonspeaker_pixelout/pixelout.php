@@ -150,7 +150,7 @@ class PlgSermonspeakerPixelout extends SermonspeakerPluginPlayer
 			return false;
 		}
 
-		if (JFile::getExt($item->audiofile) == 'mp3')
+		if (JFile::getExt(strtok($item->audiofile, '?')) == 'mp3')
 		{
 			return true;
 		}
