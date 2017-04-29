@@ -320,10 +320,10 @@ class SermonspeakerControllerTools extends JControllerLegacy
 		$db->setQuery($query);
 		$items = $db->loadObjectList();
 		$user  = JFactory::getUser();
-		require_once(JPATH_COMPONENT_SITE . '/id3/getid3/getid3.php');
+
 		$getID3 = new getID3;
 		$getID3->setOption(array('encoding' => 'UTF-8'));
-		require_once(JPATH_COMPONENT_SITE . '/id3/getid3/write.php');
+
 		$writer                 = new getid3_writetags;
 		$writer->tagformats     = array('id3v2.3');
 		$writer->overwrite_tags = true;
