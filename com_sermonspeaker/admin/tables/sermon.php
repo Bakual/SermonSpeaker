@@ -22,8 +22,8 @@ class SermonspeakerTableSermon extends JTable
 	{
 		parent::__construct('#__sermon_sermons', 'id', $db);
 
-		JTableObserverTags::createObserver($this, array('typeAlias' => 'com_sermonspeaker.sermon'));
-		JTableObserverContenthistory::createObserver($this, array('typeAlias' => 'com_sermonspeaker.sermon'));
+//		JTableObserverTags::createObserver($this, array('typeAlias' => 'com_sermonspeaker.sermon'));
+//		JTableObserverContenthistory::createObserver($this, array('typeAlias' => 'com_sermonspeaker.sermon'));
 	}
 
 	/**
