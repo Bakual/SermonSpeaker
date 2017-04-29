@@ -184,7 +184,14 @@ class SermonspeakerModelSermons extends JModelList
 		// Join over the scriptures.
 		$query->select('GROUP_CONCAT(script.book,"|",script.cap1,"|",script.vers1,"|",script.cap2,"|",script.vers2,"|",script.text ORDER BY script.ordering ASC SEPARATOR "!") AS scripture');
 		$query->join('LEFT', '#__sermon_scriptures AS script ON script.sermon_id = sermons.id');
-		$query->group('sermons.id');
+		$query->group(
+			'sermons.id, sermons.title, sermons.catid, sermons.language, '
+			. 'sermons.hits, sermons.notes, sermons.checked_out, sermons.checked_out_time, '
+			. 'sermons.sermon_date, sermons.alias, sermons.created, sermons.created_by, '
+			. 'sermons.state, sermons.ordering, sermons.podcast, '
+			. 'sermons.publish_up, sermons.publish_down, '
+			. 'l.title, l.image, uc.name, ua.name, c.title, speakers.title, series.title'
+		);
 
 		// Join over the categories.
 		$query->select('c.title AS category_title')
