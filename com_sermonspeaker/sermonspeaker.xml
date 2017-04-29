@@ -36,7 +36,6 @@
 		<folder>models</folder>
 		<folder>language</folder>
 		<folder>layouts</folder>
-		<folder>id3</folder>
 		<folder>media</folder>
 		<folder>plugin</folder>
 	</files>
@@ -71,12 +70,12 @@
 			<folder>layouts</folder>
 			<folder>models</folder>
 			<folder>sql</folder>
-			<folder>s3</folder>
 			<folder>tables</folder>
 			<folder>images</folder>
 			<folder>helpers</folder>
 			<folder>language</folder>
 			<folder>views</folder>
+			<folder>vendor</folder>
 		</files>
 	</administration>
 	<tables>
