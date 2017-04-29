@@ -1,0 +1,91 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "2cae5cad3d0aadb40cc4bff81db52ac4",
+    "packages": [
+        {
+            "name": "james-heinrich/getid3",
+            "version": "v1.9.14",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/JamesHeinrich/getID3.git",
+                "reference": "30bd11473b0eef6f1b47866ef7ab0a557917fc21"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/JamesHeinrich/getID3/zipball/30bd11473b0eef6f1b47866ef7ab0a557917fc21",
+                "reference": "30bd11473b0eef6f1b47866ef7ab0a557917fc21",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "getid3/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL"
+            ],
+            "description": "PHP script that extracts useful information from popular multimedia file formats",
+            "homepage": "http://www.getid3.org/",
+            "keywords": [
+                "codecs",
+                "php",
+                "tags"
+            ],
+            "time": "2017-03-27T21:12:55+00:00"
+        },
+        {
+            "name": "tpyo/amazon-s3-php-class",
+            "version": "v0.5.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tpyo/amazon-s3-php-class.git",
+                "reference": "121318e65e857a994b22ffe0aa04a0c55e832bea"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tpyo/amazon-s3-php-class/zipball/121318e65e857a994b22ffe0aa04a0c55e832bea",
+                "reference": "121318e65e857a994b22ffe0aa04a0c55e832bea",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "S3.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-2-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Donovan Schönknecht",
+                    "email": "don@tpyo.net"
+                }
+            ],
+            "description": "A standalone Amazon S3 (REST) client for PHP 5.2.x using CURL that does not require PEAR.",
+            "homepage": "https://github.com/tpyo/amazon-s3-php-class",
+            "time": "2015-04-27T06:12:39+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}

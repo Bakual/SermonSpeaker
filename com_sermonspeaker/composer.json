@@ -1,0 +1,26 @@
+{
+  "name": "bakual/sermonspeaker",
+  "description": "The SermonSpeaker Joomla! component",
+  "minimum-stability": "stable",
+  "license": "gpl",
+  "authors": [
+    {
+      "name": "Thomas Hunziker",
+      "email": "admin@sermonspeaker.net"
+    }
+  ],
+  "config": {
+    "vendor-dir": "admin/vendor"
+  },
+  "autoload": {
+    "psr-4": {"Bakual\\Sermonspeaker\\": ""}
+  },
+  "scripts": {
+    "post-install-cmd": "Bakual\\Sermonspeaker\\ComposerCommands::cleanup",
+    "post-update-cmd": "Bakual\\Sermonspeaker\\ComposerCommands::cleanup"
+  },
+  "require": {
+    "james-heinrich/getid3": "v1.*",
+    "tpyo/amazon-s3-php-class": "v0.5.1"
+  }
+}
