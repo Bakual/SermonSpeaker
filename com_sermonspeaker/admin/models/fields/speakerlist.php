@@ -52,16 +52,18 @@ class JFormFieldSpeakerlist extends JFormFieldList
 			{
 				$returnpage = base64_encode('index.php?option=com_sermonspeaker&view=close&tmpl=component');
 				$url        = 'index.php?option=com_sermonspeaker&task=speaker.add&layout=modal&tmpl=component&return=' . $returnpage;
+				$string     = 'COM_SERMONSPEAKER_NEW_SPEAKER';
 			}
 			else
 			{
 				$returnpage = base64_encode(JRoute::_('index.php?view=close&tmpl=component'));
-				$url        = JRoute::_('index.php?task=speakerform.edit&layout=modal&tmpl=component&return=' . $returnpage);
+				$url        = JRoute::_('index.php?task=speakerform.add&layout=modal&tmpl=component&return=' . $returnpage);
+				$string     = 'COM_SERMONSPEAKER_BUTTON_NEW_SPEAKER';
 			}
 
 			array_unshift($html, '<div class="input-append">');
 			$html[] = '<a class="modal" href="' . $url . '" rel="{handler: \'iframe\', size: {x: 950, y: 650}}">';
-			$html[] = '<div class="btn add-on icon-plus-2" rel="tooltip" title="' . JText::_('COM_SERMONSPEAKER_NEW_SPEAKER') . '"> </div>';
+			$html[] = '<div class="btn add-on icon-plus-2" rel="tooltip" title="' . JText::_($string) . '"> </div>';
 			$html[] = '</a></div>';
 		}
 

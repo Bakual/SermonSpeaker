@@ -53,16 +53,18 @@ class JFormFieldSerieslist extends JFormFieldList
 			{
 				$returnpage = base64_encode('index.php?option=com_sermonspeaker&view=close&tmpl=component');
 				$url        = 'index.php?option=com_sermonspeaker&task=serie.add&layout=modal&tmpl=component&return=' . $returnpage;
+				$string     = 'COM_SERMONSPEAKER_NEW_SERIE';
 			}
 			else
 			{
 				$returnpage = base64_encode(JRoute::_('index.php?view=close&tmpl=component'));
-				$url        = JRoute::_('index.php?task=serieform.edit&layout=modal&tmpl=component&return=' . $returnpage);
+				$url        = JRoute::_('index.php?task=serieform.add&layout=modal&tmpl=component&return=' . $returnpage);
+				$string     = 'COM_SERMONSPEAKER_BUTTON_NEW_SERIE';
 			}
 
 			array_unshift($html, '<div class="input-append">');
 			$html[] = '<a class="modal" href="' . $url . '" rel="{handler: \'iframe\', size: {x: 950, y: 650}}">';
-			$html[] = '<div class="btn add-on icon-plus-2" rel="tooltip" title="' . JText::_('COM_SERMONSPEAKER_NEW_SERIE') . '"> </div>';
+			$html[] = '<div class="btn add-on icon-plus-2" rel="tooltip" title="' . JText::_($string) . '"> </div>';
 			$html[] = '</a></div>';
 		}
 
