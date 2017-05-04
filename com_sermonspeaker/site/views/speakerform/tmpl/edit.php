@@ -13,6 +13,7 @@ JHtml::_('bootstrap.tooltip');
 JHtml::_('behavior.formvalidation');
 JHtml::_('behavior.keepalive');
 JHtml::_('formbehavior.chosen', 'select');
+JHtml::_('behavior.tabstate');
 
 ?>
 <script type="text/javascript">
