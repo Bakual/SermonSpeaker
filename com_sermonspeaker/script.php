@@ -42,14 +42,6 @@ class Com_SermonspeakerInstallerScript extends JInstallerScript
 	protected $minimumPhp = '5.3.10';
 
 	/**
-	 * Minimum Joomla! version required to install the extension
-	 *
-	 * @var    string
-	 * @since  5.4.0
-	 */
-	protected $minimumJoomla = '3.7.0';
-
-	/**
 	 * @var  string  During an update, it will be populated with the old release version
 	 *
 	 * @since ?
@@ -78,6 +70,8 @@ class Com_SermonspeakerInstallerScript extends JInstallerScript
 	 */
 	public function preflight($type, $parent)
 	{
+		$this->minimumJoomla = (string) $parent->get('manifest')->attributes()->version;
+
 		// Storing old release number for process in postflight
 		if (strtolower($type) == 'update')
 		{
@@ -93,7 +87,7 @@ class Com_SermonspeakerInstallerScript extends JInstallerScript
 			}
 		}
 
-		return true;
+		return parent::preflight($type, $parent);
 	}
 
 	/**
@@ -214,9 +208,9 @@ class Com_SermonspeakerInstallerScript extends JInstallerScript
 			$this->deleteFiles[] = '/components/com_sermonspeaker/views/speakers/tmpl/protostar-blog.xml';
 
 			// Cleanup tag view as we're now using the core tags in J!3.1
-			$this->deleteFolders = '/administrator/components/com_sermonspeaker/views/tags';
-			$this->deleteFolders = '/administrator/components/com_sermonspeaker/views/tag';
-			$this->deleteFolders = '/components/com_sermonspeaker/views/tagform';
+			$this->deleteFolders[] = '/administrator/components/com_sermonspeaker/views/tags';
+			$this->deleteFolders[] = '/administrator/components/com_sermonspeaker/views/tag';
+			$this->deleteFolders[] = '/components/com_sermonspeaker/views/tagform';
 			$this->deleteFiles[] = '/administrator/components/com_sermonspeaker/models/tags.php';
 			$this->deleteFiles[] = '/administrator/components/com_sermonspeaker/models/tag.php';
 			$this->deleteFiles[] = '/administrator/components/com_sermonspeaker/models/forms/tag.xml';
@@ -233,7 +227,7 @@ class Com_SermonspeakerInstallerScript extends JInstallerScript
 		// Remove swfupload folder
 		if (version_compare($this->oldRelease, '5.4.3', '<'))
 		{
-			$this->deleteFolders = '/media/com_sermonspeaker/swfupload';
+			$this->deleteFolders[] = '/media/com_sermonspeaker/swfupload';
 		}
 	}
 
@@ -249,8 +243,10 @@ class Com_SermonspeakerInstallerScript extends JInstallerScript
 	 */
 	public function postflight($type, $parent)
 	{
+		$type = strtolower($type);
+
 		// Adding Category "uncategorized" if installing or discovering.
-		if ($type != 'update')
+		if ($type == 'install' || $type == 'discover_install')
 		{
 			$this->addCategory();
 		}
