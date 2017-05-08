@@ -5,11 +5,10 @@ defined('_JEXEC') or die;
 // Include the component HTML helpers.
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
 
-// Load the tooltip behavior.
-JHtml::_('behavior.formvalidation');
+JHtml::_('behavior.formvalidator');
 JHtml::_('behavior.keepalive');
-JHtml::_('behavior.modal');
-JHtml::_('formbehavior.chosen', 'select');
+JHtml::_('behavior.tabstate');
+JHtml::_('bootstrap.tooltip');
 
 $this->ignore_fieldsets = array('general', 'info', 'custom', 'detail', 'jmetadata', 'item_associations');
 
@@ -22,25 +21,10 @@ $self = $uri->toString();
 $jinput = JFactory::getApplication()->input;
 $tmpl   = $jinput->getCmd('tmpl') === 'component' ? '&tmpl=component' : '';
 ?>
-
-<script type="text/javascript">
-	Joomla.submitbutton = function(task) {
-		if (task == 'sermon.cancel' || navigator.appName == 'Microsoft Internet Explorer' || navigator.userAgent.match(/Trident/) || document.formvalidator.isValid(document.id('adminForm'))) {
-			<?php echo $this->form->getField('notes')->save(); ?>
-			Joomla.submitform(task, document.getElementById('adminForm'));
-		} else {
-			alert('<?php echo $this->escape(JText::_('JGLOBAL_VALIDATION_FORM_FAILED'));?>');
-		}
-	}
-</script>
-
 <form action="<?php echo JRoute::_('index.php?option=com_sermonspeaker&layout=edit&id='.(int) $this->item->id . $tmpl); ?>" method="post" name="adminForm" id="adminForm" class="form-validate">
-
 	<?php echo JLayoutHelper::render('joomla.edit.title_alias', $this); ?>
-
 	<div class="form-horizontal">
 		<?php echo JHtml::_('bootstrap.startTabSet', 'myTab', array('active' => 'general')); ?>
-
 		<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'general', JText::_('COM_SERMONSPEAKER_FIELD_NOTES_LABEL', true)); ?>
 			<div class="row-fluid">
 				<div class="span9">
@@ -52,8 +36,8 @@ $tmpl   = $jinput->getCmd('tmpl') === 'component' ? '&tmpl=component' : '';
 					<?php echo JLayoutHelper::render('joomla.edit.global', $this); ?>
 				</div>
 			</div>
-		<?php echo JHtml::_('bootstrap.endTab');
-		echo JHtml::_('bootstrap.addTab', 'myTab', 'files', JText::_('COM_SERMONSPEAKER_TAB_FILES_DETAILS', true)); ?>
+		<?php echo JHtml::_('bootstrap.endTab'); ?>
+		<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'files', JText::_('COM_SERMONSPEAKER_TAB_FILES_DETAILS', true)); ?>
 			<div class="row-fluid form-horizontal-desktop">
 				<div class="span6">
 					<div id="upload_limit" class="well well-small">

@@ -23,27 +23,11 @@ $saveOrder = $listOrder == 'speakers.ordering';
 
 if ($saveOrder)
 {
-	$saveOrderingUrl = 'index.php?option=com_sermonspeaker&task=speakers.saveOrderAjax&tmpl=component';
-	JHtml::_('sortablelist.sortable', 'speakerList', 'adminForm', strtolower($listDirn), $saveOrderingUrl);
+	$saveOrderingUrl = 'index.php?option=com_sermonspeaker&task=speakers.saveOrderAjax&tmpl=component' . JSession::getFormToken() . '=1';
 }
 
 $assoc = JLanguageAssociations::isEnabled();
 ?>
-<script type="text/javascript">
-	Joomla.orderTable = function() {
-		var table = document.getElementById("sortTable");
-		var direction = document.getElementById("directionTable");
-		var order = table.options[table.selectedIndex].value;
-		var dirn;
-		if (order != '<?php echo $listOrder; ?>') {
-			dirn = 'asc';
-		} else {
-			dirn = direction.options[direction.selectedIndex].value;
-		}
-		Joomla.tableOrdering(order, dirn, '');
-	}
-</script>
-
 <form action="<?php echo JRoute::_('index.php?option=com_sermonspeaker&view=speakers'); ?>" method="post" name="adminForm" id="adminForm">
 	<div class="row">
 		<div id="j-sidebar-container" class="col-md-2">
@@ -99,44 +83,33 @@ $assoc = JLanguageAssociations::isEnabled();
 							$canEditOwn = $user->authorise('core.edit.own', 'com_sermonspeaker.category.'.$item->catid) && $item->created_by == $user->id;
 							$canChange  = $user->authorise('core.edit.state', 'com_sermonspeaker.category.'.$item->catid) && $canCheckin;
 							?>
-							<tr class="row<?php echo $i % 2; ?>" sortable-group-id="<?php echo $item->catid; ?>">
-								<td class="order nowrap center hidden-phone">
-									<?php if ($canChange) :
-										$disableClassName = '';
-										$disabledLabel    = '';
-
-										if (!$saveOrder) :
-											$disabledLabel    = JText::_('JORDERINGDISABLED');
-											$disableClassName = 'inactive tip-top';
-										endif; ?>
-										<span class="sortable-handler <?php echo $disableClassName?>" title="<?php echo $disabledLabel?>" rel="tooltip">
-								<i class="icon-menu"></i>
-							</span>
-										<input type="text" style="display:none"  name="order[]" size="5" value="<?php echo $item->ordering;?>" class="width-20 text-area-order " />
-									<?php else : ?>
-										<span class="sortable-handler inactive" >
-								<i class="icon-menu"></i>
-							</span>
+							<tr class="row<?php echo $i % 2; ?>" data-dragable-group="<?php echo $item->catid; ?>">
+								<td class="order nowrap center hidden-sm-down">
+									<?php
+									$iconClass = '';
+									if (!$canChange)
+									{
+										$iconClass = ' inactive';
+									}
+									elseif (!$saveOrder)
+									{
+										$iconClass = ' inactive tip-top hasTooltip" title="' . JHtml::_('tooltipText', 'JORDERINGDISABLED');
+									}
+									?>
+									<span class="sortable-handler<?php echo $iconClass ?>">
+										<span class="icon-menu" aria-hidden="true"></span>
+									</span>
+									<?php if ($canChange && $saveOrder) : ?>
+										<input type="text" style="display:none" name="order[]" size="5" value="<?php echo $item->ordering; ?>" class="width-20 text-area-order ">
 									<?php endif; ?>
 								</td>
-								<td class="center hidden-phone">
+								<td class="text-center">
 									<?php echo JHtml::_('grid.id', $i, $item->id); ?>
 								</td>
-								<td class="center">
+								<td class="text-center">
 									<div class="btn-group">
 										<?php echo JHtml::_('jgrid.published', $item->state, $i, 'speakers.', $canChange, 'cb', $item->publish_up, $item->publish_down); ?>
 										<?php echo JHtml::_('jgrid.isdefault', $item->home, $i, 'speakers.', $canChange && !$item->home);?>
-										<?php
-										// Create dropdown items
-										$action = $archived ? 'unarchive' : 'archive';
-										JHtml::_('actionsdropdown.' . $action, 'cb' . $i, 'speakers');
-
-										$action = $trashed ? 'untrash' : 'trash';
-										JHtml::_('actionsdropdown.' . $action, 'cb' . $i, 'speakers');
-
-										// Render dropdown list
-										echo JHtml::_('actionsdropdown.render', $this->escape($item->title));
-										?>
 									</div>
 								</td>
 								<td class="nowrap has-context">
@@ -184,7 +157,7 @@ $assoc = JLanguageAssociations::isEnabled();
 								<?php echo (int) $item->hits; ?>
 							</span>
 									<?php if ($canEdit || $canEditOwn) : ?>
-										<a class="btn btn-mini btn-warning" href="index.php?option=com_sermonspeaker&task=speaker.reset&id=<?php echo $item->id; ?>">
+										<a class="btn btn-xs btn-warning" href="index.php?option=com_sermonspeaker&task=speaker.reset&id=<?php echo $item->id; ?>">
 											<i class="icon-loop" rel="tooltip" title="<?php echo JText::_('JSEARCH_RESET'); ?>"> </i>
 										</a>
 									<?php endif; ?>

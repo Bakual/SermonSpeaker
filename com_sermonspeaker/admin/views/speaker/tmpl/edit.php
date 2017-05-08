@@ -5,11 +5,9 @@ defined('_JEXEC') or die;
 // Include the component HTML helpers.
 JHtml::addIncludePath(JPATH_COMPONENT.'/helpers/html');
 
-// Load the tooltip behavior.
-JHtml::_('bootstrap.tooltip');
-JHtml::_('behavior.formvalidation');
+JHtml::_('behavior.formvalidator');
 JHtml::_('behavior.keepalive');
-JHtml::_('formbehavior.chosen', 'select');
+JHtml::_('behavior.tabstate');
 
 $this->ignore_fieldsets = array('general', 'info', 'detail', 'jmetadata', 'item_associations');
 
@@ -17,27 +15,11 @@ $this->ignore_fieldsets = array('general', 'info', 'detail', 'jmetadata', 'item_
 $jinput = JFactory::getApplication()->input;
 $tmpl   = $jinput->getCmd('tmpl') === 'component' ? '&tmpl=component' : '';
 ?>
-
-<script type="text/javascript">
-	Joomla.submitbutton = function(task) {
-		if (task == 'speaker.cancel' || document.formvalidator.isValid(document.id('adminForm'))) {
-			<?php echo $this->form->getField('intro')->save(); ?>
-			<?php echo $this->form->getField('bio')->save(); ?>
-			Joomla.submitform(task, document.getElementById('adminForm'));
-		} else {
-			alert('<?php echo $this->escape(JText::_('JGLOBAL_VALIDATION_FORM_FAILED'));?>');
-		}
-	}
-</script>
-
 <form action="<?php echo JRoute::_('index.php?option=com_sermonspeaker&layout=edit&id='.(int) $this->item->id . $tmpl); ?>" method="post" name="adminForm" id="adminForm" class="form-validate">
-
 	<?php echo JLayoutHelper::render('joomla.edit.title_alias', $this); ?>
-
 	<div class="form-horizontal">
-		<?php echo JHtml::_('bootstrap.startTabSet', 'myTab', array('active' => 'general'));
-
-		echo JHtml::_('bootstrap.addTab', 'myTab', 'general', JText::_('COM_SERMONSPEAKER_FIELD_BIO_LABEL', true)); ?>
+		<?php echo JHtml::_('bootstrap.startTabSet', 'myTab', array('active' => 'general')); ?>
+		<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'general', JText::_('COM_SERMONSPEAKER_FIELD_BIO_LABEL', true)); ?>
 			<div class="row-fluid">
 				<div class="span9">
 					<fieldset class="adminform">

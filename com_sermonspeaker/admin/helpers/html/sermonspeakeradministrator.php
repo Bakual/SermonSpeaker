@@ -143,17 +143,17 @@ abstract class JHtmlSermonspeakerAdministrator
 
 		if ($canChange)
 		{
-			$html = '<a class="btn btn-micro' . ($value == 1 ? ' active' : '') . ' hasTooltip"'
-				. ' href="javascript:void(0);" onclick="return listItemTask(\'cb' . $i . '\',\'' . $state['task'] . '\')"'
-				. ' title="' . JHtml::tooltipText($state['active_title']) . '">'
-				. '<i class="icon-' . $state['active_class'] . '"></i>'
+			$html = '<a class="btn btn-xs btn-secondary hasTooltip' . ($value == 1 ? ' active' : '') .'"'
+				. ' href="#" onclick="return listItemTask(\'cb' . $i . '\',\'' . $state['task'] . '\')"'
+				. ' title="' . JHtml::_('tooltipText', $state['active_title']) . '">'
+				. '<span class="icon-' . $state['active_class'] . '"></span>'
 				. '</a>';
 		}
 		else
 		{
-			$html = '<a class="btn btn-micro hasTooltip disabled' . ($value == 1 ? ' active' : '')
-				. '" title="' . JHtml::tooltipText($state['inactive_title']) . '">'
-				. '<i class="icon-' . $state['inactive_class'] . '"></i>'
+			$html = '<a class="btn btn-xs btn-secondary hasTooltip disabled' . ($value == 1 ? ' active' : '')
+				. '" title="' . JHtml::_('tooltipText', $state['inactive_title']) . '">'
+				. '<span class="icon-' . $state['inactive_class'] . '"></span>'
 				. '</a>';
 		}
 
