@@ -42,6 +42,14 @@ class Com_SermonspeakerInstallerScript extends JInstallerScript
 	protected $minimumPhp = '5.3.10';
 
 	/**
+	 * Minimum Joomla! version required to install the extension
+	 *
+	 * @var    string
+	 * @since  6.0.0
+	 */
+	protected $minimumJoomla = '4.4.0-dev';
+
+	/**
 	 * @var  string  During an update, it will be populated with the old release version
 	 *
 	 * @since ?
@@ -70,8 +78,6 @@ class Com_SermonspeakerInstallerScript extends JInstallerScript
 	 */
 	public function preflight($type, $parent)
 	{
-		$this->minimumJoomla = (string) $parent->getManifest()->attributes()->version;
-
 		// Following two checks are a workaround for https://github.com/joomla/joomla-cms/pull/15890.
 		// Check for the minimum PHP version before continuing
 		if (!empty($this->minimumPhp) && version_compare(PHP_VERSION, $this->minimumPhp, '<'))
