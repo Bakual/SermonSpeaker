@@ -548,16 +548,6 @@
 		>
 
 		<field
-			name="alt_player"
-			type="player"
-			label="COM_SERMONSPEAKER_FIELD_ALT_PLAYER_LABEL"
-			description="COM_SERMONSPEAKER_FIELD_ALT_PLAYER_DESC"
-			default=""
-			>
-			<option value="">COM_SERMONSPEAKER_FIELD_PLAYER_OPTION_USE_PLUGIN</option>
-		</field>
-
-		<field
 			name="fileprio"
 			type="list"
 			label="COM_SERMONSPEAKER_PARAM_FILEPRIO_LABEL"

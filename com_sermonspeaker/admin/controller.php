@@ -30,16 +30,9 @@ class SermonspeakerController extends JControllerLegacy
 			JFactory::getApplication()->enqueueMessage(JText::_('COM_SERMONSPEAKER_NOTSAVED'), 'warning');
 		}
 
-		if ($params->get('alt_player'))
+		if (!JPluginHelper::isEnabled('sermonspeaker'))
 		{
-			JFactory::getApplication()->enqueueMessage(JText::_('COM_SERMONSPEAKER_PLAYER_DEPRECATED'), 'notice');
-		}
-		else
-		{
-			if (!JPluginHelper::isEnabled('sermonspeaker'))
-			{
-				JFactory::getApplication()->enqueueMessage(JText::_('COM_SERMONSPEAKER_NO_PLAYER_ENABLED'), 'warning');
-			}
+			JFactory::getApplication()->enqueueMessage(JText::_('COM_SERMONSPEAKER_NO_PLAYER_ENABLED'), 'warning');
 		}
 
 		return parent::display();

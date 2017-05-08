@@ -764,184 +764,35 @@ class SermonspeakerHelperSermonspeaker
 	 */
 	public static function getPlayer($item, $config = array())
 	{
-		// Joomla doesn't autoload JFile and JFolder
-		JLoader::register('JFile', JPATH_LIBRARIES . '/joomla/filesystem/file.php');
-
 		if (!is_array($config))
 		{
 			JFactory::getApplication()->enqueueMessage('Wrong calling of getPlayer(), second parameter needs to be an array', 'warning');
 			$config = array();
 		}
 
-		if (!self::$params)
+		// Create player object to pass through plugins
+		$player = new stdClass;
+		$player->popup['height'] = 0;
+		$player->popup['width'] = 0;
+		$player->error = '';
+		$player->toggle = false;
+		$player->script = '';
+		$player->player = '';
+		$player->mspace = '';
+
+		// Convert $config to an Registry object
+		$registry = new Joomla\Registry\Registry;
+		$registry->loadArray($config);
+
+		JPluginHelper::importPlugin('sermonspeaker');
+		JFactory::getApplication()->triggerEvent('onGetPlayer', array('SermonspeakerHelperSermonspeaker.getPlayer', &$player, $item, $registry));
+
+		if (!$player->mspace)
 		{
-			self::getParams();
+			$player->mspace = '<div class="alert">No matching player found</div>';
 		}
 
-		// Use Plugin
-		if (!self::$params->get('alt_player'))
-		{
-			// Create player object to pass through plugins
-			$player = new stdClass;
-			$player->popup['height'] = 0;
-			$player->popup['width'] = 0;
-			$player->error = '';
-			$player->toggle = false;
-			$player->script = '';
-			$player->player = '';
-			$player->mspace = '';
-
-			// Convert $config to an Registry object
-			$registry = new Joomla\Registry\Registry;
-			$registry->loadArray($config);
-
-			JPluginHelper::importPlugin('sermonspeaker');
-			JFactory::getApplication()->triggerEvent('onGetPlayer', array('SermonspeakerHelperSermonspeaker.getPlayer', &$player, $item, $registry));
-
-			if (!$player->mspace)
-			{
-				$player->mspace = '<div class="alert">No matching player found</div>';
-			}
-
-			return $player;
-		}
-
-		// Setting default values
-		$config['count'] = (isset($config['count'])) ? $config['count'] : 1;
-
-		// Allow a fixed value for the type; may be audio, video or auto. "Auto" is default behaviour and takes care of the "prio" param.
-		$config['type'] = (isset($config['type'])) ? $config['type'] : 'auto';
-		$config['prio'] = (isset($config['prio'])) ? $config['prio'] : self::$params->get('fileprio', 0);
-
-		// Autostart parameter may be overridden by a layout (eg for Series/Sermon View)
-		$config['autostart'] = (isset($config['autostart'])) ? $config['autostart'] : self::$params->get('autostart');
-
-		// Allow a player to be chosen by the layout (eg for icon layout); 0 = JWPlayer, 1 = PixelOut, 2 = FlowPlayer
-		$config['alt_player'] = (isset($config['alt_player'])) ? $config['alt_player'] : self::$params->get('alt_player');
-
-		// Backward compatibility for layouts (params are changed with script)
-		if (is_numeric($config['alt_player']))
-		{
-			switch ($config['alt_player'])
-			{
-				case 1:
-					$config['alt_player'] = 'pixelout';
-					break;
-				case 2:
-					$config['alt_player'] = 'flowplayer3';
-					break;
-				case 0:
-				default:
-					$config['alt_player'] = 'jwplayer5';
-					break;
-			}
-		}
-
-		// Dispatching
-		if (!JFile::exists(JPATH_SITE . '/components/com_sermonspeaker/helpers/player/' . $config['alt_player'] . '.php'))
-		{
-			$config['alt_player'] = 'jwplayer5';
-		}
-
-		require_once JPATH_SITE . '/components/com_sermonspeaker/helpers/player/' . $config['alt_player'] . '.php';
-		$classname = 'SermonspeakerHelperPlayer' . ucfirst($config['alt_player']);
-
-		/* @var  SermonspeakerHelperPlayerJwplayer5 $player Default player class is JW Player, but can be any other */
-		$player = new $classname;
-
-		if (is_array($item))
-		{
-			$player->preparePlayer($item, $config);
-
-			return $player;
-		}
-		else
-		{
-			// Detect file to use
-			if ($config['type'] == 'auto')
-			{
-				$file = self::getFileByPrio($item, $config['prio']);
-			}
-			else
-			{
-				$file = ($config['type'] == 'video') ? $item->videofile : $item->audiofile;
-			}
-
-			if (!$file)
-			{
-				// Nothing available
-				$player->popup['height'] = 0;
-				$player->popup['width'] = 0;
-				$player->error = JText::_('JGLOBAL_RESOURCE_NOT_FOUND');
-				$player->toggle = false;
-
-				return $player;
-			}
-
-			$file = self::makeLink($file);
-
-			// Check if filetype is suported
-			if ($player->isSupported($file))
-			{
-				// Prepare player
-				$player->preparePlayer($item, $config);
-
-				return $player;
-			}
-			else
-			{
-				// Try with JW Player
-				if ($config['alt_player'] != 'jwplayer5')
-				{
-					require_once JPATH_SITE . '/components/com_sermonspeaker/helpers/player/jwplayer5.php';
-					$player = new SermonspeakerHelperPlayerJwplayer5;
-
-					if ($player->isSupported($file))
-					{
-						$config['alt_player'] = 'jwplayer5';
-
-						// Prepare player
-						$player->preparePlayer($item, $config);
-
-						return $player;
-					}
-				}
-
-				// Try to find a fallback
-				$classfiles = JFolder::files(JPATH_SITE . '/components/com_sermonspeaker/helpers/player', '^[^_]*\.php$', false, true);
-
-				foreach ($classfiles as $classfile)
-				{
-					$playername = JFile::stripExt(basename($classfile));
-
-					if ($playername == 'jwplayer5' || $playername == $config['alt_player'])
-					{
-						continue;
-					}
-
-					require_once $classfile;
-					$classname = 'SermonspeakerHelperPlayer' . ucfirst($playername);
-					$player = new $classname;
-
-					if ($player->isSupported($file))
-					{
-						$config['alt_player'] = $playername;
-
-						// Prepare player
-						$player->preparePlayer($item, $config);
-
-						return $player;
-					}
-				}
-
-				$player->popup['height'] = 0;
-				$player->popup['width'] = 0;
-				$player->error = 'Unsupported Filetype';
-				$player->toggle = false;
-
-				return $player;
-			}
-		}
+		return $player;
 	}
 
 	/**
