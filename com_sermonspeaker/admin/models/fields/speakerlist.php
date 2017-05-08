@@ -30,6 +30,7 @@ class JFormFieldSpeakerlist extends JFormFieldList
 	 * @since    1.6
 	 */
 	protected $type = 'Speakerlist';
+	protected $translateLabel = false;
 
 	/**
 	 * Method to get the field input markup for a generic list.
