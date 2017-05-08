@@ -70,7 +70,24 @@ class Com_SermonspeakerInstallerScript extends JInstallerScript
 	 */
 	public function preflight($type, $parent)
 	{
-		$this->minimumJoomla = (string) $parent->get('manifest')->attributes()->version;
+		$this->minimumJoomla = (string) $parent->getManifest()->attributes()->version;
+
+		// Following two checks are a workaround for https://github.com/joomla/joomla-cms/pull/15890.
+		// Check for the minimum PHP version before continuing
+		if (!empty($this->minimumPhp) && version_compare(PHP_VERSION, $this->minimumPhp, '<'))
+		{
+			JLog::add(JText::sprintf('JLIB_INSTALLER_MINIMUM_PHP', $this->minimumPhp), JLog::WARNING, 'jerror');
+
+			return false;
+		}
+
+		// Check for the minimum Joomla version before continuing
+		if (!empty($this->minimumJoomla) && version_compare(JVERSION, $this->minimumJoomla, '<'))
+		{
+			JLog::add(JText::sprintf('JLIB_INSTALLER_MINIMUM_JOOMLA', $this->minimumJoomla), JLog::WARNING, 'jerror');
+
+			return false;
+		}
 
 		// Storing old release number for process in postflight
 		if (strtolower($type) == 'update')
@@ -341,10 +358,18 @@ class Com_SermonspeakerInstallerScript extends JInstallerScript
 	private function addCategory()
 	{
 		// Create categories for our component
-		$basePath = JPATH_ADMINISTRATOR . '/components/com_categories';
-		require_once $basePath . '/models/category.php';
-		$config   = array('table_path' => $basePath . '/tables');
-		$catmodel = new CategoriesModelCategory($config);
+		if (class_exists('Joomla\Component\Categories\Administrator\Model\Category'))
+		{
+			$catmodel = new Joomla\Component\Categories\Administrator\Model\Category(array(), new Joomla\CMS\Mvc\Factory\MvcFactory('Joomla\Component\Categories', $this->app));
+		}
+		else
+		{
+			$basePath = JPATH_ADMINISTRATOR . '/components/com_categories';
+			require_once $basePath . '/models/category.php';
+			$config   = array('table_path' => $basePath . '/tables');
+			$catmodel = new CategoriesModelCategory($config);
+		}
+
 		$catData  = array('id'    => 0, 'parent_id' => 0, 'level' => 1, 'path' => 'uncategorized', 'extension' => 'com_sermonspeaker',
 		                  'title' => 'Uncategorized', 'alias' => 'uncategorized', 'description' => '', 'published' => 1, 'language' => '*');
 		$catmodel->save($catData);
