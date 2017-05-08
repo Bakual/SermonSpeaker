@@ -370,8 +370,19 @@ class Com_SermonspeakerInstallerScript extends JInstallerScript
 			$catmodel = new CategoriesModelCategory($config);
 		}
 
-		$catData  = array('id'    => 0, 'parent_id' => 0, 'level' => 1, 'path' => 'uncategorized', 'extension' => 'com_sermonspeaker',
-		                  'title' => 'Uncategorized', 'alias' => 'uncategorized', 'description' => '', 'published' => 1, 'language' => '*');
+		$catData = array(
+			'id'          => 0,
+			'parent_id'   => 0,
+			'level'       => 1,
+			'path'        => 'uncategorized',
+			'extension'   => 'com_sermonspeaker',
+			'title'       => 'Uncategorized',
+			'alias'       => 'uncategorized',
+			'description' => '',
+			'published'   => 1,
+			'language'    => '*',
+			'params'      => '',
+		);
 		$catmodel->save($catData);
 		$id = $catmodel->getItem()->id;
 
