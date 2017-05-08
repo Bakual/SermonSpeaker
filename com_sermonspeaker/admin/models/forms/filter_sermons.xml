@@ -127,7 +127,6 @@
 		<field
 			name="limit"
 			type="limitbox"
-			class="input-mini"
 			default="25"
 			label="COM_SERMONSPEAKER_LIST_LIMIT"
 			description="COM_SERMONSPEAKER_LIST_LIMIT_DESC"
