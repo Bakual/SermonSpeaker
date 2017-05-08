@@ -47,7 +47,7 @@ class Com_SermonspeakerInstallerScript extends JInstallerScript
 	 * @var    string
 	 * @since  6.0.0
 	 */
-	protected $minimumJoomla = '4.4.0-dev';
+	protected $minimumJoomla = '4.0.0-dev';
 
 	/**
 	 * @var  string  During an update, it will be populated with the old release version
@@ -80,7 +80,7 @@ class Com_SermonspeakerInstallerScript extends JInstallerScript
 	{
 		// Following two checks are a workaround for https://github.com/joomla/joomla-cms/pull/15890.
 		// Check for the minimum PHP version before continuing
-		if (!empty($this->minimumPhp) && version_compare(PHP_VERSION, $this->minimumPhp, '<'))
+		if (version_compare(PHP_VERSION, $this->minimumPhp, '<'))
 		{
 			JLog::add(JText::sprintf('JLIB_INSTALLER_MINIMUM_PHP', $this->minimumPhp), JLog::WARNING, 'jerror');
 
@@ -88,7 +88,7 @@ class Com_SermonspeakerInstallerScript extends JInstallerScript
 		}
 
 		// Check for the minimum Joomla version before continuing
-		if (!empty($this->minimumJoomla) && version_compare(JVERSION, $this->minimumJoomla, '<'))
+		if (version_compare(JVERSION, $this->minimumJoomla, '<'))
 		{
 			JLog::add(JText::sprintf('JLIB_INSTALLER_MINIMUM_JOOMLA', $this->minimumJoomla), JLog::WARNING, 'jerror');
 
@@ -259,6 +259,12 @@ class Com_SermonspeakerInstallerScript extends JInstallerScript
 			$this->deleteFolders[] = '/administrator/components/com_sermonspeaker/views/sermon/tmpl/edit_associations.php';
 			$this->deleteFolders[] = '/administrator/components/com_sermonspeaker/views/serie/tmpl/edit_associations.php';
 			$this->deleteFolders[] = '/administrator/components/com_sermonspeaker/views/speaker/tmpl/edit_associations.php';
+		}
+
+		// Remove integrated player classes
+		if (version_compare($this->oldRelease, '6.0.0', '<'))
+		{
+			$this->deleteFolders[] = '/components/com_sermonspeaker/helpers/player';
 		}
 	}
 
