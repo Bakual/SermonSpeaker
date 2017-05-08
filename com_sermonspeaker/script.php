@@ -360,10 +360,12 @@ class Com_SermonspeakerInstallerScript extends JInstallerScript
 		// Create categories for our component
 		if (class_exists('Joomla\Component\Categories\Administrator\Model\Category'))
 		{
+			// J4
 			$catmodel = new Joomla\Component\Categories\Administrator\Model\Category(array(), new Joomla\CMS\Mvc\Factory\MvcFactory('Joomla\Component\Categories', $this->app));
 		}
 		else
 		{
+			// J3.7
 			$basePath = JPATH_ADMINISTRATOR . '/components/com_categories';
 			require_once $basePath . '/models/category.php';
 			$config   = array('table_path' => $basePath . '/tables');
