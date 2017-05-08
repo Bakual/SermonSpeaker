@@ -361,7 +361,8 @@ class Com_SermonspeakerInstallerScript extends JInstallerScript
 		if (class_exists('Joomla\Component\Categories\Administrator\Model\Category'))
 		{
 			// J4
-			$catmodel = new Joomla\Component\Categories\Administrator\Model\Category(array(), new Joomla\CMS\Mvc\Factory\MvcFactory('Joomla\Component\Categories', $this->app));
+			$catFactory = new Joomla\CMS\Mvc\Factory\MvcFactory('Joomla\Component\Categories', $this->app);
+			$catmodel = $catFactory->createModel('Category');
 		}
 		else
 		{
