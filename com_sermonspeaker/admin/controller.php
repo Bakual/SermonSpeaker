@@ -1,7 +1,18 @@
 <?php
+/**
+ * @package     SermonSpeaker
+ * @subpackage  Component.Administrator
+ * @author      Thomas Hunziker <admin@sermonspeaker.net>
+ * @copyright   © 2016 - Thomas Hunziker
+ * @license     http://www.gnu.org/licenses/gpl.html
+ **/
+
 defined('_JEXEC') or die;
 
-class SermonspeakerController extends JControllerLegacy
+use Joomla\CMS\Controller\Controller;
+use Joomla\CMS\Access\Exception\Notallowed;
+
+class SermonspeakerController extends Controller
 {
 	protected $default_view = 'main';
 
@@ -15,12 +26,7 @@ class SermonspeakerController extends JControllerLegacy
 		// Check for edit form.
 		if (in_array($view, $views) && $layout == 'edit' && !$this->checkEditId('com_sermonspeaker.edit.' . $view, $id))
 		{
-			// Somehow the person just went to the form - we don't allow that.
-			$this->setError(JText::sprintf('JLIB_APPLICATION_ERROR_UNHELD_ID', $id));
-			$this->setMessage($this->getError(), 'error');
-			$this->setRedirect(JRoute::_('index.php?option=com_sermonspeaker&view=main', false));
-
-			return false;
+			throw new Notallowed($this->app->getLanguage()->_('JERROR_ALERTNOAUTHOR'), 403);
 		}
 
 		$params = JComponentHelper::getParams('com_sermonspeaker');
