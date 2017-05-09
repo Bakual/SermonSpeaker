@@ -3,13 +3,13 @@
  * Scriptfile for the SermonSpeaker installation
  *
  * @package     SermonSpeaker
- * @subpackage  Component.Site
+ * @subpackage  Component.Administrator
  * @author      Thomas Hunziker <admin@sermonspeaker.net>
- * @copyright   2014 - Thomas Hunziker
+ * @copyright   © 2016 - Thomas Hunziker
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
-defined('_JEXEC') or die();
+defined('_JEXEC') or die;
 
 /**
  * Class Com_SermonspeakerInstallerScript
