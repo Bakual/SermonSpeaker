@@ -12,7 +12,7 @@ defined('_JEXEC') or die();
 jimport('joomla.html.html');
 jimport('joomla.form.formfield');
 jimport('joomla.form.helper');
-JFormHelper::loadFieldClass('list');
+JFormHelper::loadFieldClass('groupedlist');
 
 /**
  * Speakerlist Field class for the SermonSpeaker.
@@ -21,7 +21,7 @@ JFormHelper::loadFieldClass('list');
  * @package        SermonSpeaker
  * @since          4.0
  */
-class JFormFieldSpeakerlist extends JFormFieldList
+class JFormFieldSpeakerlist extends JFormFieldGroupedList
 {
 	/**
 	 * The form field type.
@@ -79,7 +79,7 @@ class JFormFieldSpeakerlist extends JFormFieldList
 	 *
 	 * @since    1.6
 	 */
-	public function getOptions()
+	public function getGroups()
 	{
 		$db     = JFactory::getDbo();
 		$params = JComponentHelper::getParams('com_sermonspeaker');
@@ -150,25 +150,30 @@ class JFormFieldSpeakerlist extends JFormFieldList
 
 		$unpublished = $db->loadObjectList();
 
-		if (count($unpublished))
-		{
-			if (count($published))
-			{
-				array_unshift($published, JHtml::_('select.optgroup', JText::_('JPUBLISHED')));
-				array_push($published, JHtml::_('select.optgroup', JText::_('JPUBLISHED')));
-			}
-
-			array_unshift($unpublished, JHtml::_('select.optgroup', JText::_('JUNPUBLISHED')));
-			array_push($unpublished, JHtml::_('select.optgroup', JText::_('JUNPUBLISHED')));
-		}
-
 		// Check for a database error.
 		if ($db->getErrorNum())
 		{
 			throw new Exception($db->getErrorMsg(), 500);
 		}
 
-		$options = array_merge(parent::getOptions(), $published, $unpublished);
+		if (count($unpublished))
+		{
+			if (count($published))
+			{
+				$options[JText::_('JPUBLISHED')] = $published;
+			}
+
+			$options[JText::_('JUNPUBLISHED')] = $unpublished;
+
+			$groups = array_merge(parent::getGroups(), $options);
+		}
+		else
+		{
+			$options = $published;
+
+			// Fake a single group.
+			$groups[] = array_merge(parent::getGroups()[0], $options);
+		}
 
 		if ($this->value === '' && !$this->element['ignoredefault'])
 		{
@@ -182,6 +187,6 @@ class JFormFieldSpeakerlist extends JFormFieldList
 			}
 		}
 
-		return $options;
+		return $groups;
 	}
 }
