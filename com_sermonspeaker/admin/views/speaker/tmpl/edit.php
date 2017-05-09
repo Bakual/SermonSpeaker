@@ -2,11 +2,15 @@
 // no direct access
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Language\Associations;
+use Joomla\CMS\Layout\LayoutHelper;
+
 // Include the component HTML helpers.
 JHtml::addIncludePath(JPATH_COMPONENT.'/helpers/html');
 
 JHtml::_('behavior.formvalidator');
 JHtml::_('behavior.keepalive');
+JHtml::_('formbehavior.chosen', '#jform_catid', null, array('disable_search_threshold' => 0 ));
 JHtml::_('behavior.tabstate');
 
 $this->ignore_fieldsets = array('general', 'info', 'detail', 'jmetadata', 'item_associations');
@@ -16,46 +20,54 @@ $jinput = JFactory::getApplication()->input;
 $tmpl   = $jinput->getCmd('tmpl') === 'component' ? '&tmpl=component' : '';
 ?>
 <form action="<?php echo JRoute::_('index.php?option=com_sermonspeaker&layout=edit&id='.(int) $this->item->id . $tmpl); ?>" method="post" name="adminForm" id="adminForm" class="form-validate">
-	<?php echo JLayoutHelper::render('joomla.edit.title_alias', $this); ?>
-	<div class="form-horizontal">
+
+	<?php echo LayoutHelper::render('joomla.edit.title_alias', $this); ?>
+
+	<div>
 		<?php echo JHtml::_('bootstrap.startTabSet', 'myTab', array('active' => 'general')); ?>
+
 		<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'general', JText::_('COM_SERMONSPEAKER_FIELD_BIO_LABEL', true)); ?>
-			<div class="row-fluid">
-				<div class="span9">
-					<fieldset class="adminform">
-						<?php echo $this->form->getLabel('intro'); ?>
-						<?php echo $this->form->getInput('intro'); ?>
-						<?php echo $this->form->getLabel('bio'); ?>
-						<?php echo $this->form->getInput('bio'); ?>
+			<div class="row">
+				<div class="col-md-9">
+					<fieldset class="adminform form-no-margin">
+						<?php echo $this->form->renderField('intro'); ?>
+						<?php echo $this->form->renderField('bio'); ?>
 					</fieldset>
 				</div>
-				<div class="span3">
-					<?php echo JLayoutHelper::render('joomla.edit.global', $this); ?>
+				<div class="col-md-3">
+					<div class="card card-block card-light">
+						<?php echo LayoutHelper::render('joomla.edit.global', $this); ?>
+					</div>
 				</div>
 			</div>
-		<?php echo JHtml::_('bootstrap.endTab');
-		echo JHtml::_('bootstrap.addTab', 'myTab', 'details', JText::_('JDETAILS', true)); ?>
+		<?php echo JHtml::_('bootstrap.endTab'); ?>
+
+		<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'details', JText::_('JDETAILS', true)); ?>
 			<?php foreach($this->form->getFieldset('detail') as $field): ?>
-				<?php echo $field->getControlGroup(); ?>
+				<?php echo $field->renderField(); ?>
 			<?php endforeach; ?>
 		<?php echo JHtml::_('bootstrap.endTab'); ?>
-		<?php echo JLayoutHelper::render('joomla.edit.params', $this); ?>
+
+		<?php echo LayoutHelper::render('joomla.edit.params', $this); ?>
+
 		<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'publishing', JText::_('JGLOBAL_FIELDSET_PUBLISHING', true)); ?>
-			<div class="row-fluid form-horizontal-desktop">
-				<div class="span6">
-					<?php echo JLayoutHelper::render('joomla.edit.publishingdata', $this); ?>
+			<div class="row form-horizontal-desktop">
+				<div class="col-md-6">
+					<?php echo LayoutHelper::render('joomla.edit.publishingdata', $this); ?>
 				</div>
-				<div class="span6">
-					<?php echo JLayoutHelper::render('joomla.edit.metadata', $this); ?>
+				<div class="col-md-6">
+					<?php echo LayoutHelper::render('joomla.edit.metadata', $this); ?>
 				</div>
 			</div>
-		<?php echo JHtml::_('bootstrap.endTab');
-		if (JLanguageAssociations::isEnabled()) :
+		<?php echo JHtml::_('bootstrap.endTab'); ?>
+
+		<?php if (Associations::isEnabled()) :
 			echo JHtml::_('bootstrap.addTab', 'myTab', 'associations', JText::_('JGLOBAL_FIELDSET_ASSOCIATIONS', true));
 				echo JLayoutHelper::render('joomla.edit.associations', $this);
 			echo JHtml::_('bootstrap.endTab');
-		endif;
-		echo JHtml::_('bootstrap.endTabSet'); ?>
+		endif; ?>
+
+		<?php echo JHtml::_('bootstrap.endTabSet'); ?>
 		<input type="hidden" name="task" value="" />
 		<input type="hidden" name="return" value="<?php echo $jinput->getCmd('return');?>" />
 		<?php echo JHtml::_('form.token'); ?>

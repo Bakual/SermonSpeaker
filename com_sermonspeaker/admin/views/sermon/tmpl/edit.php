@@ -149,8 +149,9 @@ $tmpl   = $jinput->getCmd('tmpl') === 'component' ? '&tmpl=component' : '';
 					<?php echo LayoutHelper::render('joomla.edit.metadata', $this); ?>
 				</div>
 			</div>
-		<?php echo JHtml::_('bootstrap.endTab');
-		if ($this->params->get('custom1') OR $this->params->get('custom2')) :
+		<?php echo JHtml::_('bootstrap.endTab'); ?>
+
+		<?php if ($this->params->get('custom1') OR $this->params->get('custom2')) :
 			echo JHtml::_('bootstrap.addTab', 'myTab', 'custom', JText::_('COM_SERMONSPEAKER_FIELDSET_CUSTOM_LABEL', true)); ?>
 				<div class="row">
 					<div class="col-md-6">
@@ -160,14 +161,15 @@ $tmpl   = $jinput->getCmd('tmpl') === 'component' ? '&tmpl=component' : '';
 					</div>
 				</div>
 			<?php echo JHtml::_('bootstrap.endTab');
-		endif;
-		if (Associations::isEnabled()) :
+		endif; ?>
+
+		<?php if (Associations::isEnabled()) :
 			echo JHtml::_('bootstrap.addTab', 'myTab', 'associations', JText::_('JGLOBAL_FIELDSET_ASSOCIATIONS', true));
 				echo JLayoutHelper::render('joomla.edit.associations', $this);
 			echo JHtml::_('bootstrap.endTab');
-		endif;
-		echo JHtml::_('bootstrap.endTabSet'); ?>
+		endif; ?>
 
+		<?php echo JHtml::_('bootstrap.endTabSet'); ?>
 		<input type="hidden" name="task" value="" />
 		<input type="hidden" name="return" value="<?php echo $jinput->getCmd('return');?>" />
 		<input type="hidden" name="forcedLanguage" value="<?php echo $jinput->get('forcedLanguage', '', 'cmd'); ?>" />
