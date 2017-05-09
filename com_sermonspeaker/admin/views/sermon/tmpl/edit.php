@@ -151,18 +151,6 @@ $tmpl   = $jinput->getCmd('tmpl') === 'component' ? '&tmpl=component' : '';
 			</div>
 		<?php echo JHtml::_('bootstrap.endTab'); ?>
 
-		<?php if ($this->params->get('custom1') OR $this->params->get('custom2')) :
-			echo JHtml::_('bootstrap.addTab', 'myTab', 'custom', JText::_('COM_SERMONSPEAKER_FIELDSET_CUSTOM_LABEL', true)); ?>
-				<div class="row">
-					<div class="col-md-6">
-						<?php foreach($this->form->getFieldset('custom') as $field): ?>
-							<?php echo $field->renderField(); ?>
-						<?php endforeach; ?>
-					</div>
-				</div>
-			<?php echo JHtml::_('bootstrap.endTab');
-		endif; ?>
-
 		<?php if (Associations::isEnabled()) :
 			echo JHtml::_('bootstrap.addTab', 'myTab', 'associations', JText::_('JGLOBAL_FIELDSET_ASSOCIATIONS', true));
 				echo JLayoutHelper::render('joomla.edit.associations', $this);

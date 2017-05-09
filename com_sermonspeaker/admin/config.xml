@@ -752,30 +752,6 @@
 			/>
 
 		<field
-			name="custom1"
-			type="radio"
-			label="COM_SERMONSPEAKER_FIELD_CUSTOM1_LABEL"
-			description="COM_SERMONSPEAKER_FIELD_CUSTOM1_DESC"
-			class="btn-group btn-group-yesno"
-			default="0"
-			>
-			<option value="1">JYES</option>
-			<option value="0">JNO</option>
-		</field>
-
-		<field
-			name="custom2"
-			type="radio"
-			label="COM_SERMONSPEAKER_FIELD_CUSTOM2_LABEL"
-			description="COM_SERMONSPEAKER_FIELD_CUSTOM2_DESC"
-			class="btn-group btn-group-yesno"
-			default="0"
-			>
-			<option value="1">JYES</option>
-			<option value="0">JNO</option>
-		</field>
-
-		<field
 			name="show_tags"
 			type="radio"
 			label="COM_SERMONSPEAKER_FIELD_SHOW_TAGS_LABEL"

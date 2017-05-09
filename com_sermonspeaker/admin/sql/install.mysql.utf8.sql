@@ -77,8 +77,6 @@ CREATE TABLE `#__sermon_sermons` (
 	`title` VARCHAR(255) NOT NULL,
 	`alias` VARCHAR(255) NOT NULL,
 	`sermon_number` INT(10) NOT NULL DEFAULT '0',
-	`custom1` MEDIUMTEXT NULL,
-	`custom2` MEDIUMTEXT NULL,
 	`sermon_date` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
 	`sermon_time` TIME NOT NULL DEFAULT '00:00:00',
 	`notes` LONGTEXT NULL,

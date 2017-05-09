@@ -81,7 +81,7 @@ class SermonspeakerModelSermon extends JModelItem
 						. 'sermon.sermon_date, sermon.picture, sermon.checked_out, sermon.checked_out_time, '
 						. 'sermon.sermon_time, sermon.notes, sermon.state, sermon.language, '
 						. 'sermon.hits, sermon.addfile, sermon.addfileDesc, '
-						. 'sermon.metakey, sermon.metadesc, sermon.custom1, sermon.custom2, '
+						. 'sermon.metakey, sermon.metadesc, '
 						. 'sermon.created, sermon.created_by, sermon.audiofilesize, sermon.videofilesize, '
 						. 'sermon.metadata, '
 						. 'sermon.publish_up, sermon.publish_down'

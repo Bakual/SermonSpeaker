@@ -127,20 +127,6 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 				</dd>
 			<?php endif;
 
-			if ($this->params->get('custom1') and $this->item->custom1) : ?>
-				<dd class="ss-sermondetail-info">
-					<?php echo JText::_('COM_SERMONSPEAKER_CUSTOM1'); ?>:
-					<?php echo $this->item->custom1; ?>
-				</dd>
-			<?php endif;
-
-			if ($this->params->get('custom2') and $this->item->custom2) : ?>
-				<dd class="ss-sermondetail-info">
-					<?php echo JText::_('COM_SERMONSPEAKER_CUSTOM2'); ?>:
-					<?php echo $this->item->custom2; ?>
-				</dd>
-			<?php endif;
-
 			if (in_array('sermon:length', $this->columns) and $this->item->sermon_time != '00:00:00') : ?>
 				<dd class="ss-sermondetail-info">
 					<i class="icon-clock"></i>

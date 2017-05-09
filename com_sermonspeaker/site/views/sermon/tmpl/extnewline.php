@@ -56,16 +56,6 @@ if ($canEdit or ($canEditOwn and ($user->id == $this->item->created_by))) : ?>
 		</div>
 	<?php endif;
 
-	if ($this->params->get('custom1') and $this->item->custom1) : ?>
-		<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_CUSTOM1'); ?>:</div>
-		<div class="ss-sermondetail-text"><?php echo $this->item->custom1; ?></div>
-	<?php endif;
-
-	if ($this->params->get('custom2') and $this->item->custom2) : ?>
-		<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_CUSTOM2'); ?>:</div>
-		<div class="ss-sermondetail-text"><?php echo $this->item->custom2; ?></div>
-	<?php endif;
-
 	if (in_array('sermon:series', $this->columns) and $this->item->series_id) : ?>
 		<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_SERIE_TITLE'); ?>:</div>
 		<div class="ss-sermondetail-text">

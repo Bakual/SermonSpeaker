@@ -109,7 +109,7 @@ class SermonspeakerModelSermons extends JModelList
 			$this->getState(
 				'list.select',
 				'sermons.id, sermons.title, sermons.catid, sermons.audiofile, sermons.videofile, '
-				. 'sermons.custom1, sermons.custom2, sermons.audiofilesize, sermons.videofilesize, '
+				. 'sermons.audiofilesize, sermons.videofilesize, '
 				. 'CASE WHEN CHAR_LENGTH(sermons.alias) THEN CONCAT_WS(\':\', sermons.id, sermons.alias) ELSE sermons.id END as slug,'
 				. 'sermons.picture, sermons.hits, sermons.notes, sermons.checked_out, sermons.checked_out_time,'
 				. 'sermons.sermon_date, sermons.alias, sermons.sermon_time,'

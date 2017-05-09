@@ -202,17 +202,6 @@
 
 	</fieldset>
 
-	<fieldset name="custom" label="COM_SERMONSPEAKER_FIELDSET_CUSTOM_LABEL">
-		<field name="custom1" type="text" class="inputbox"
-			label="COM_SERMONSPEAKER_FIELD_CUSTOM1_LABEL" description="COM_SERMONSPEAKER_FIELD_CUSTOM1_DESC"
-			size="50" />
-
-		<field name="custom2" type="text" class="inputbox"
-			label="COM_SERMONSPEAKER_FIELD_CUSTOM2_LABEL" description="COM_SERMONSPEAKER_FIELD_CUSTOM2_DESC"
-			size="50" />
-
-	</fieldset>
-
 	<fieldset name="metadata" label="JGLOBAL_FIELDSET_METADATA_OPTIONS">
 		<field name="metadesc" type="textarea"
 			label="JFIELD_META_DESCRIPTION_LABEL" description="JFIELD_META_DESCRIPTION_DESC"

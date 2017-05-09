@@ -67,6 +67,7 @@
 			<filename>sermonspeaker.css</filename>
 			<filename>controller.php</filename>
 			<folder>controllers</folder>
+			<folder>layouts</folder>
 			<folder>models</folder>
 			<folder>sql</folder>
 			<folder>tables</folder>
