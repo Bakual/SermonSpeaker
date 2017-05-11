@@ -42,8 +42,7 @@ class JFormFieldSerieslist extends JFormFieldGroupedList
 	 */
 	protected function getInput()
 	{
-		$html   = array();
-		$html[] = parent::getInput();
+		$input = parent::getInput();
 
 		if (!$this->element['hidebutton'])
 		{
@@ -62,13 +61,52 @@ class JFormFieldSerieslist extends JFormFieldGroupedList
 				$string     = 'COM_SERMONSPEAKER_BUTTON_NEW_SERIE';
 			}
 
-			array_unshift($html, '<div class="input-append">');
-			$html[] = '<a class="modal" href="' . $url . '" rel="{handler: \'iframe\', size: {x: 950, y: 650}}">';
-			$html[] = '<div class="btn add-on icon-plus-2" rel="tooltip" title="' . JText::_($string) . '"> </div>';
-			$html[] = '</a></div>';
+			$html = '<div class="input-group">' . $input .
+						'<span class="input-group-btn">
+							<a href="#serieModal_' . $this->id .'"
+								class="btn btn-secondary hasTooltip"
+								title="' . JText::_($string) . '"
+								data-toggle="modal"
+								role="button"
+							>
+								<span class="icon-new"></span>
+							</a>
+						</span>
+					</div>';
+
+			// Add the modal field script to the document head.
+			JHtml::_('jquery.framework');
+			JHtml::_('script', 'system/fields/modal-fields.js', array('version' => 'auto', 'relative' => true));
+//			JHtml::_('script', 'system/modal-fields.js', array('version' => 'auto', 'relative' => true));
+
+			$html .= JHtml::_(
+				'bootstrap.renderModal',
+				'serieModal_' . $this->id,
+				array(
+					'title'       => JText::_($string),
+					'backdrop'    => 'static',
+					'keyboard'    => false,
+					'closeButton' => false,
+					'url'         => $url,
+					'height'      => '100%',
+					'width'       => '100%',
+					'bodyHeight'  => 70,
+					'modalWidth'  => 80,
+					'footer'      => '<a role="button" class="btn btn-secondary" aria-hidden="true"'
+						. ' onclick="window.processModalEdit(this, \'' . $this->id . '\', \'add\', \'serie\', \'cancel\', \'item-form\'); return false;">'
+						. JText::_('JLIB_HTML_BEHAVIOR_CLOSE') . '</a>'
+						. '<a role="button" class="btn btn-primary" aria-hidden="true"'
+						. ' onclick="window.processModalEdit(this, \'' . $this->id . '\', \'add\', \'serie\', \'save\', \'item-form\'); return false;">'
+						. JText::_('JSAVE') . '</a>'
+						. '<a role="button" class="btn btn-success" aria-hidden="true"'
+						. ' onclick="window.processModalEdit(this, \'' . $this->id . '\', \'add\', \'serie\', \'apply\', \'item-form\'); return false;">'
+						. JText::_('JAPPLY') . '</a>',
+				)
+			);
+			// 			$html[] = '<a class="input-group-addon hasTooltip" href="' . $url . '" rel="{handler: \'iframe\', size: {x: 950, y: 650}}" title="' . JText::_($string) . '">';
 		}
 
-		return implode('', $html);
+		return $html;
 	}
 
 	/**

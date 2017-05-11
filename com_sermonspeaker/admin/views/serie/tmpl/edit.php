@@ -24,9 +24,13 @@ $this->ignore_fieldsets = array('general', 'info', 'detail', 'jmetadata', 'item_
 
 // Check if tmpl=component was set (needed for com_associations)
 $jinput = JFactory::getApplication()->input;
-$tmpl   = $jinput->getCmd('tmpl') === 'component' ? '&tmpl=component' : '';
+
+// In case of modal
+$isModal = $jinput->get('layout') == 'modal' ? true : false;
+$layout  = $isModal ? 'modal' : 'edit';
+$tmpl    = $isModal || $jinput->get('tmpl', '', 'cmd') === 'component' ? '&tmpl=component' : '';
 ?>
-<form action="<?php echo JRoute::_('index.php?option=com_sermonspeaker&layout=edit&id='.(int) $this->item->id . $tmpl); ?>" method="post" name="adminForm" id="adminForm" class="form-validate">
+<form action="<?php echo JRoute::_('index.php?option=com_sermonspeaker&layout=' . $layout . $tmpl . '&id=' . (int) $this->item->id); ?>" method="post" name="adminForm" id="item-form" class="form-validate">
 
 	<?php echo LayoutHelper::render('joomla.edit.title_alias', $this); ?>
 
@@ -67,10 +71,16 @@ $tmpl   = $jinput->getCmd('tmpl') === 'component' ? '&tmpl=component' : '';
 			</div>
 		<?php echo JHtml::_('bootstrap.endTab'); ?>
 
-		<?php if (Associations::isEnabled()) :
-			echo JHtml::_('bootstrap.addTab', 'myTab', 'associations', JText::_('JGLOBAL_FIELDSET_ASSOCIATIONS', true));
-				echo JLayoutHelper::render('joomla.edit.associations', $this);
-			echo JHtml::_('bootstrap.endTab');
+		<?php if (Associations::isEnabled()) : ?>
+			<?php if ($isModal) : ?>
+				<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'associations', JText::_('JGLOBAL_FIELDSET_ASSOCIATIONS', true)); ?>
+					<?php echo JLayoutHelper::render('joomla.edit.associations', $this);
+				<?php echo JHtml::_('bootstrap.endTab'); ?>
+			<?php elseif ($isModal && $assoc) : ?>
+				<div class="hidden"><?php echo JLayoutHelper::render('joomla.edit.associations', $this); ?></div>
+			<?php endif; ?>
+		<?php endif; ?>
+
 		endif; ?>
 
 		<?php echo JHtml::_('bootstrap.endTabSet'); ?>

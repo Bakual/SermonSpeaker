@@ -62,10 +62,12 @@ class JFormFieldSpeakerlist extends JFormFieldGroupedList
 				$string     = 'COM_SERMONSPEAKER_BUTTON_NEW_SPEAKER';
 			}
 
-			array_unshift($html, '<div class="input-append">');
-			$html[] = '<a class="modal" href="' . $url . '" rel="{handler: \'iframe\', size: {x: 950, y: 650}}">';
-			$html[] = '<div class="btn add-on icon-plus-2" rel="tooltip" title="' . JText::_($string) . '"> </div>';
-			$html[] = '</a></div>';
+			array_unshift($html, '<div class="input-group">');
+			$html[] = '<span class="input-group-btn hasTooltip" title="' . JText::_($string) . '">';
+			$html[] = '<button class="btn btn-secondary" type="button" ><span class="icon-plus-2"> </span></button>';
+			$html[] = '</span>';
+			$html[] = '</div>';
+			// $html[] = '<a class="input-group-addon hasTooltip" href="' . $url . '" rel="{handler: \'iframe\', size: {x: 950, y: 650}}" title="' . JText::_($string) . '">';
 		}
 
 		return implode('', $html);
