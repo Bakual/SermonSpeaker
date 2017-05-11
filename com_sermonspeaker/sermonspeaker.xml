@@ -35,7 +35,6 @@
 		<folder>views</folder>
 		<folder>models</folder>
 		<folder>language</folder>
-		<folder>layouts</folder>
 		<folder>media</folder>
 		<folder>plugin</folder>
 	</files>
