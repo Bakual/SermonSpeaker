@@ -102,7 +102,6 @@ class SermonspeakerViewScripture extends JViewLegacy
 			$javascript .= "var id = " . $id . ";
 				window.parent.document.getElementById('jform_scripture_'+id).value = value;
 				window.parent.document.getElementById('jform_scripture_text_'+id).value = text;
-				window.parent.SqueezeBox.close();
 			}
 			window.onload = function(){
 				value = window.parent.document.getElementById('jform_scripture_" . $id . "').value;
@@ -132,13 +131,12 @@ class SermonspeakerViewScripture extends JViewLegacy
 					<label></label>\
 				</span>';
 				window.parent.document.getElementById('scripture_id').value = id+1;
-				window.parent.SqueezeBox.close();
 			}";
 		}
 
 		$document = JFactory::getDocument();
 		$document->addScriptDeclaration($javascript);
 
-		return parent::display($tpl);
+		parent::display($tpl);
 	}
 }

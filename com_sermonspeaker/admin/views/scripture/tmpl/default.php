@@ -10,17 +10,9 @@
 defined('_JEXEC') or die();
 
 JHtml::_('bootstrap.tooltip');
-JHtml::_('formbehavior.chosen', 'select');
+JHtml::_('formbehavior.chosen');
 ?>
-<form action="#" method="post" name="adminForm" id="adminForm" class="form-validate form-inline">
-	<div class="well">
-		<button type="button" class="btn btn-primary" onclick="AddScripture();">
-			<?php echo JText::_('JSAVE') ?>
-		</button>
-		<button type="button" class="btn" onclick="window.parent.SqueezeBox.close();">
-			<?php echo JText::_('JCANCEL') ?>
-		</button>
-	</div>
+<form action="#" method="post" name="adminForm" id="item-form" class="form-validate form-inline">
 	<table>
 		<tr>
 			<th rowspan="2" valign="bottom"><label for="book"><?php echo JText::_('COM_SERMONSPEAKER_BOOK'); ?></label></th>
@@ -39,7 +31,7 @@ JHtml::_('formbehavior.chosen', 'select');
 		</tr>
 		<tr>
 			<td>
-				<select name="from[book]" class="input-medium" id="book">
+				<select name="from[book]" class="input-medium advancedSelect" id="book">
 					<option value="0"><?php echo JText::_('COM_SERMONSPEAKER_SELECT_BOOK'); ?></option>
 					<optgroup label="<?php echo JText::_('COM_SERMONSPEAKER_OLD_TESTAMENT'); ?>">
 					<?php for ($i = 1; $i < 40; $i++): ?>

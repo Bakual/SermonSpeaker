@@ -36,6 +36,10 @@ class JFormFieldScripture extends JFormField
 	 */
 	protected function getInput()
 	{
+		// Add the modal field script to the document head.
+		JHtml::_('jquery.framework');
+		JHtml::_('script', 'system/fields/modal-fields.js', array('version' => 'auto', 'relative' => true));
+
 		// Initialize some field attributes.
 		$size      = $this->element['size'] ? ' size="' . (int) $this->element['size'] . '"' : '';
 		$maxLength = $this->element['maxlength'] ? ' maxlength="' . (int) $this->element['maxlength'] . '"' : '';
@@ -60,8 +64,9 @@ class JFormFieldScripture extends JFormField
 			$url = JRoute::_('index.php?option=com_sermonspeaker&view=scripture&tmpl=component');
 		}
 
-		$html = '<span id="scripture_span">';
-		$i    = 1;
+		$modalId = 'scriptureModal_' . $this->id;
+		$html    = '<span id="scripture_span">';
+		$i       = 1;
 
 		foreach ($this->value as $value)
 		{
@@ -113,13 +118,39 @@ class JFormFieldScripture extends JFormField
 
 			$html .= '<span id="scripture_span_' . $i . '">';
 			$html .= '<input id="' . $this->id . '_' . $i . '" type="hidden" value="' . implode('|', $value) . '" name="' . $this->name . '[' . $i . ']">';
-			$html .= '<div class="input-prepend">';
-			$html .= '<div class="btn add-on icon-trash" onclick="delete_scripture(' . $i . ');"> </div>';
-			$html .= '<a class="modal" href="' . $url . '&id=' . $i . '" rel="{handler: \'iframe\', size: {x: 550, y: 420}}">';
+			$html .= '<div class="input-group">';
+			$html .= '<span class="input-group-btn">';
+			$html .= '<button class="btn btn-secondary" onclick="delete_scripture(' . $i . ');"><span class="icon-trash"></span></button>';
+			$html .= '</span>';
+
 			$html .= '<input id="' . $this->id . '_text_' . $i . '" type="text" class="readonly scripture pointer' . $title . '" '
-				. $size . $disabled . $readonly . $maxLength . ' value="' . $text . '" name="jform[' . $this->fieldname . '_text][' . $i . ']" />';
-			$html .= '</a>';
+							. 'data-toggle="modal" data-target="#' . $modalId . $i . '" '
+							. $size . $disabled . $readonly . $maxLength . ' value="' . $text . '" name="jform[' . $this->fieldname . '_text][' . $i . ']" />';
+
 			$html .= '</div>';
+
+			$html .= JHtml::_(
+				'bootstrap.renderModal',
+				$modalId . $i,
+				array(
+					'title'       => JText::_('COM_SERMONSPEAKER_EDIT_SCRIPTURE'),
+					'backdrop'    => 'static',
+					'keyboard'    => false,
+					'closeButton' => false,
+					'url'         => $url . '&id=' . $i,
+					'height'      => '400px',
+					'width'       => '100%',
+					'modalWidth'  => 50,
+					'footer'      => '<a role="button" class="btn btn-secondary" aria-hidden="true"'
+						. ' onclick="jQuery(\'#' . $modalId . $i . '\').modal(\'hide\'); return false;">'
+						. JText::_('JLIB_HTML_BEHAVIOR_CLOSE') . '</a>'
+						. '<a role="button" class="btn btn-primary" aria-hidden="true"'
+						. ' onclick="jQuery(\'#' . $modalId . $i . ' .iframe\')[0].contentWindow.AddScripture();'
+						. ' jQuery(\'#' . $modalId . $i . '\').modal(\'hide\'); return false;">'
+						. JText::_('JSAVE') . '</a>',
+				)
+			);
+
 
 			if (!$admin)
 			{
@@ -131,9 +162,37 @@ class JFormFieldScripture extends JFormField
 		}
 
 		$html .= '<input type="hidden" id="scripture_id" value="' . $i . '" /></span>';
-		$html .= '<a class="modal btn btn-small" href="' . $url . '" rel="{handler: \'iframe\', size: {x: 550, y: 420}}">';
-		$html .= '<div class="icon-plus-2"></div>';
-		$html .= '</a>';
+
+		$html .= '<a href="#' . $modalId . '"
+						class="btn btn-secondary hasTooltip"
+						title="' . JText::_('COM_SERMONSPEAKER_NEW_SCRIPTURE') . '"
+						data-toggle="modal"
+						role="button"
+					>
+						<span class="icon-new"></span>
+					</a>';
+
+		$html .= JHtml::_(
+			'bootstrap.renderModal',
+			$modalId,
+			array(
+				'title'       => JText::_('COM_SERMONSPEAKER_NEW_SCRIPTURE'),
+				'backdrop'    => 'static',
+				'keyboard'    => false,
+				'closeButton' => false,
+				'url'         => $url,
+				'height'      => '400px',
+				'width'       => '100%',
+				'modalWidth'  => 50,
+				'footer'      => '<a role="button" class="btn btn-secondary" aria-hidden="true"'
+					. ' onclick="jQuery(\'#' . $modalId . '\').modal(\'hide\'); return false;">'
+					. JText::_('JLIB_HTML_BEHAVIOR_CLOSE') . '</a>'
+					. '<a role="button" class="btn btn-primary" aria-hidden="true"'
+					. ' onclick="jQuery(\'#' . $modalId . ' .iframe\')[0].contentWindow.AddScripture();'
+						. ' jQuery(\'#' . $modalId . '\').modal(\'hide\'); return false;">'
+					. JText::_('JSAVE') . '</a>',
+			)
+		);
 
 		return $html;
 	}
