@@ -16,20 +16,25 @@ JFormHelper::loadFieldClass('groupedlist');
 
 /**
  * Speakerlist Field class for the SermonSpeaker.
- * Based on the Bannerlist field from com_banners
  *
- * @package        SermonSpeaker
- * @since          4.0
+ * @since  4.0
  */
 class JFormFieldSpeakerlist extends JFormFieldGroupedList
 {
 	/**
 	 * The form field type.
 	 *
-	 * @var        string
-	 * @since    1.6
+	 * @var    string
+	 * @since  4.0
 	 */
 	protected $type = 'Speakerlist';
+
+	/**
+	 * True to translate the field label string.
+	 *
+	 * @var    boolean
+	 * @since  4.0
+	 */
 	protected $translateLabel = false;
 
 	/**
@@ -38,39 +43,71 @@ class JFormFieldSpeakerlist extends JFormFieldGroupedList
 	 *
 	 * @return  string  The field input markup.
 	 *
-	 * @since   11.1
+	 * @since   4.0
 	 */
 	protected function getInput()
 	{
-		$html   = array();
-		$html[] = parent::getInput();
+		$html = parent::getInput();
 
 		if (!$this->element['hidebutton'])
 		{
-			$app = JFactory::getApplication();
-
-			if ($app->isClient('administrator'))
+			if (JFactory::getApplication()->isClient('administrator'))
 			{
 				$returnpage = base64_encode('index.php?option=com_sermonspeaker&view=close&tmpl=component');
-				$url        = 'index.php?option=com_sermonspeaker&task=speaker.add&layout=modal&tmpl=component&return=' . $returnpage;
-				$string     = 'COM_SERMONSPEAKER_NEW_SPEAKER';
+				$url = 'index.php?option=com_sermonspeaker&task=speaker.add&layout=modal&tmpl=component&return=' . $returnpage;
+				$string = 'COM_SERMONSPEAKER_NEW_SPEAKER';
 			}
 			else
 			{
 				$returnpage = base64_encode(JRoute::_('index.php?view=close&tmpl=component'));
-				$url        = JRoute::_('index.php?task=speakerform.add&layout=modal&tmpl=component&return=' . $returnpage);
-				$string     = 'COM_SERMONSPEAKER_BUTTON_NEW_SPEAKER';
+				$url = JRoute::_('index.php?task=speakerform.add&layout=modal&tmpl=component&return=' . $returnpage);
+				$string = 'COM_SERMONSPEAKER_BUTTON_NEW_SPEAKER';
 			}
 
-			array_unshift($html, '<div class="input-group">');
-			$html[] = '<span class="input-group-btn hasTooltip" title="' . JText::_($string) . '">';
-			$html[] = '<button class="btn btn-secondary" type="button" ><span class="icon-plus-2"> </span></button>';
-			$html[] = '</span>';
-			$html[] = '</div>';
-			// $html[] = '<a class="input-group-addon hasTooltip" href="' . $url . '" rel="{handler: \'iframe\', size: {x: 950, y: 650}}" title="' . JText::_($string) . '">';
+			$html = '<div class="input-group">' . $html .
+				'<span class="input-group-btn">
+							<a href="#speakerModal_' . $this->id . '"
+								class="btn btn-secondary hasTooltip"
+								title="' . JText::_($string) . '"
+								data-toggle="modal"
+								role="button"
+							>
+								<span class="icon-new"></span>
+							</a>
+						</span>
+					</div>';
+
+			// Add the modal field script to the document head.
+			JHtml::_('jquery.framework');
+			JHtml::_('script', 'system/fields/modal-fields.js', array('version' => 'auto', 'relative' => true));
+
+			$html .= JHtml::_(
+				'bootstrap.renderModal',
+				'speakerModal_' . $this->id,
+				array(
+					'title'       => JText::_($string),
+					'backdrop'    => 'static',
+					'keyboard'    => false,
+					'closeButton' => false,
+					'url'         => $url,
+					'height'      => '100%',
+					'width'       => '100%',
+					'bodyHeight'  => 70,
+					'modalWidth'  => 80,
+					'footer'      => '<a role="button" class="btn btn-secondary" aria-hidden="true"'
+						. ' onclick="window.processModalEdit(this, \'' . $this->id . '\', \'add\', \'speaker\', \'cancel\', \'item-form\'); return false;">'
+						. JText::_('JLIB_HTML_BEHAVIOR_CLOSE') . '</a>'
+						. '<a role="button" class="btn btn-primary" aria-hidden="true"'
+						. ' onclick="window.processModalEdit(this, \'' . $this->id . '\', \'add\', \'speaker\', \'save\', \'item-form\'); return false;">'
+						. JText::_('JSAVE') . '</a>'
+						. '<a role="button" class="btn btn-success" aria-hidden="true"'
+						. ' onclick="window.processModalEdit(this, \'' . $this->id . '\', \'add\', \'speaker\', \'apply\', \'item-form\'); return false;">'
+						. JText::_('JAPPLY') . '</a>',
+				)
+			);
 		}
 
-		return implode('', $html);
+		return $html;
 	}
 
 	/**
@@ -79,7 +116,7 @@ class JFormFieldSpeakerlist extends JFormFieldGroupedList
 	 * @return array The field option objects.
 	 * @throws \Exception
 	 *
-	 * @since    1.6
+	 * @since  6.0.0
 	 */
 	public function getGroups()
 	{

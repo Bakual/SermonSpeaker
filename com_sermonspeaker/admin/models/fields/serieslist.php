@@ -9,6 +9,8 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Component\ComponentHelper;
+
 jimport('joomla.html.html');
 jimport('joomla.form.formfield');
 jimport('joomla.form.helper');
@@ -16,20 +18,25 @@ JFormHelper::loadFieldClass('groupedlist');
 
 /**
  * Serieslist Field class for the SermonSpeaker.
- * Based on the Bannerlist field from com_banners
  *
- * @package        SermonSpeaker
- * @since          4.0
+ * @since  4.0
  */
 class JFormFieldSerieslist extends JFormFieldGroupedList
 {
 	/**
 	 * The form field type.
 	 *
-	 * @var        string
-	 * @since    1.6
+	 * @var    string
+	 * @since  4.0
 	 */
 	protected $type = 'Serieslist';
+
+	/**
+	 * True to translate the field label string.
+	 *
+	 * @var    boolean
+	 * @since  4.0
+	 */
 	protected $translateLabel = false;
 
 	/**
@@ -38,17 +45,15 @@ class JFormFieldSerieslist extends JFormFieldGroupedList
 	 *
 	 * @return  string  The field input markup.
 	 *
-	 * @since   11.1
+	 * @since   4.0
 	 */
 	protected function getInput()
 	{
-		$input = parent::getInput();
+		$html = parent::getInput();
 
 		if (!$this->element['hidebutton'])
 		{
-			$app = JFactory::getApplication();
-
-			if ($app->isClient('administrator'))
+			if (JFactory::getApplication()->isClient('administrator'))
 			{
 				$returnpage = base64_encode('index.php?option=com_sermonspeaker&view=close&tmpl=component');
 				$url        = 'index.php?option=com_sermonspeaker&task=serie.add&layout=modal&tmpl=component&return=' . $returnpage;
@@ -61,7 +66,7 @@ class JFormFieldSerieslist extends JFormFieldGroupedList
 				$string     = 'COM_SERMONSPEAKER_BUTTON_NEW_SERIE';
 			}
 
-			$html = '<div class="input-group">' . $input .
+			$html = '<div class="input-group">' . $html .
 						'<span class="input-group-btn">
 							<a href="#serieModal_' . $this->id .'"
 								class="btn btn-secondary hasTooltip"
@@ -77,7 +82,6 @@ class JFormFieldSerieslist extends JFormFieldGroupedList
 			// Add the modal field script to the document head.
 			JHtml::_('jquery.framework');
 			JHtml::_('script', 'system/fields/modal-fields.js', array('version' => 'auto', 'relative' => true));
-//			JHtml::_('script', 'system/modal-fields.js', array('version' => 'auto', 'relative' => true));
 
 			$html .= JHtml::_(
 				'bootstrap.renderModal',
@@ -103,7 +107,6 @@ class JFormFieldSerieslist extends JFormFieldGroupedList
 						. JText::_('JAPPLY') . '</a>',
 				)
 			);
-			// 			$html[] = '<a class="input-group-addon hasTooltip" href="' . $url . '" rel="{handler: \'iframe\', size: {x: 950, y: 650}}" title="' . JText::_($string) . '">';
 		}
 
 		return $html;
@@ -115,12 +118,12 @@ class JFormFieldSerieslist extends JFormFieldGroupedList
 	 * @return array The field option objects.
 	 * @throws \Exception
 	 *
-	 * @since    1.6
+	 * @since  6.0.0
 	 */
 	public function getGroups()
 	{
 		$db     = JFactory::getDbo();
-		$params = JComponentHelper::getParams('com_sermonspeaker');
+		$params = ComponentHelper::getParams('com_sermonspeaker');
 
 		$query = $db->getQuery(true);
 		$query->select('series.id As value, home');
@@ -186,12 +189,16 @@ class JFormFieldSerieslist extends JFormFieldGroupedList
 		// Get the options.
 		$db->setQuery($query);
 
-		$unpublished = $db->loadObjectList();
-
-		// Check for a database error.
-		if ($db->getErrorNum())
+		try
 		{
-			throw new Exception($db->getErrorMsg(), 500);
+			$unpublished = $db->loadObjectList();
+
+		}
+		catch (Exception $e)
+		{
+			JFactory::getApplication()->enqueueMessage($e->getMessage(), 'ERROR');
+
+			return parent::getGroups();
 		}
 
 		if (count($unpublished))

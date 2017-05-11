@@ -22,7 +22,6 @@ JHtml::_('behavior.tabstate');
 
 $this->ignore_fieldsets = array('general', 'info', 'detail', 'jmetadata', 'item_associations');
 
-// Check if tmpl=component was set (needed for com_associations)
 $jinput = JFactory::getApplication()->input;
 
 // In case of modal
@@ -72,16 +71,14 @@ $tmpl    = $isModal || $jinput->get('tmpl', '', 'cmd') === 'component' ? '&tmpl=
 		<?php echo JHtml::_('bootstrap.endTab'); ?>
 
 		<?php if (Associations::isEnabled()) : ?>
-			<?php if ($isModal) : ?>
+			<?php if (!$isModal) : ?>
 				<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'associations', JText::_('JGLOBAL_FIELDSET_ASSOCIATIONS', true)); ?>
 					<?php echo JLayoutHelper::render('joomla.edit.associations', $this);
 				<?php echo JHtml::_('bootstrap.endTab'); ?>
-			<?php elseif ($isModal && $assoc) : ?>
+			<?php else : ?>
 				<div class="hidden"><?php echo JLayoutHelper::render('joomla.edit.associations', $this); ?></div>
 			<?php endif; ?>
 		<?php endif; ?>
-
-		endif; ?>
 
 		<?php echo JHtml::_('bootstrap.endTabSet'); ?>
 		<input type="hidden" name="task" value="" />

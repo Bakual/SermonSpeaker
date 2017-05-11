@@ -1,5 +1,12 @@
 <?php
-// no direct access
+/**
+ * @package     SermonSpeaker
+ * @subpackage  Component.Administrator
+ * @author      Thomas Hunziker <admin@sermonspeaker.net>
+ * @copyright   © 2016 - Thomas Hunziker
+ * @license     http://www.gnu.org/licenses/gpl.html
+ **/
+
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Language\Associations;
@@ -15,11 +22,14 @@ JHtml::_('behavior.tabstate');
 
 $this->ignore_fieldsets = array('general', 'info', 'detail', 'jmetadata', 'item_associations');
 
-// Check if tmpl=component was set (needed for com_associations)
 $jinput = JFactory::getApplication()->input;
-$tmpl   = $jinput->getCmd('tmpl') === 'component' ? '&tmpl=component' : '';
+
+// In case of modal
+$isModal = $jinput->get('layout') == 'modal' ? true : false;
+$layout  = $isModal ? 'modal' : 'edit';
+$tmpl    = $isModal || $jinput->get('tmpl', '', 'cmd') === 'component' ? '&tmpl=component' : '';
 ?>
-<form action="<?php echo JRoute::_('index.php?option=com_sermonspeaker&layout=edit&id='.(int) $this->item->id . $tmpl); ?>" method="post" name="adminForm" id="adminForm" class="form-validate">
+<form action="<?php echo JRoute::_('index.php?option=com_sermonspeaker&layout=' . $layout . $tmpl . '&id='.(int) $this->item->id); ?>" method="post" name="adminForm" id="item-form" class="form-validate">
 
 	<?php echo LayoutHelper::render('joomla.edit.title_alias', $this); ?>
 
@@ -61,11 +71,15 @@ $tmpl   = $jinput->getCmd('tmpl') === 'component' ? '&tmpl=component' : '';
 			</div>
 		<?php echo JHtml::_('bootstrap.endTab'); ?>
 
-		<?php if (Associations::isEnabled()) :
-			echo JHtml::_('bootstrap.addTab', 'myTab', 'associations', JText::_('JGLOBAL_FIELDSET_ASSOCIATIONS', true));
-				echo JLayoutHelper::render('joomla.edit.associations', $this);
-			echo JHtml::_('bootstrap.endTab');
-		endif; ?>
+		<?php if (Associations::isEnabled()) : ?>
+			<?php if (!$isModal) : ?>
+				<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'associations', JText::_('JGLOBAL_FIELDSET_ASSOCIATIONS', true)); ?>
+					<?php echo echo JLayoutHelper::render('joomla.edit.associations', $this); ?>
+				<?php echo JHtml::_('bootstrap.endTab'); ?>
+			<?php else : ?>
+				<div class="hidden"><?php echo echo JLayoutHelper::render('joomla.edit.associations', $this); ?></div>
+			<?php endif; ?>
+		<?php endif; ?>
 
 		<?php echo JHtml::_('bootstrap.endTabSet'); ?>
 		<input type="hidden" name="task" value="" />
