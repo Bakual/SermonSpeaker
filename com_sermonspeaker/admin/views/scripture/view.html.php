@@ -123,12 +123,13 @@ class SermonspeakerViewScripture extends JViewLegacy
 				window.parent.document.getElementById('scripture_span').innerHTML +=
 				'<span id=\"scripture_span_' + id + '\">\
 					<input type=\"hidden\" name=\"jform[scripture][' + id + ']\" id=\"jform_scripture_' + id + '\" value=\"' + value + '\" />\
-					<div class=\"input-prepend\">\
-						<div class=\"btn add-on icon-trash\" onclick=\"delete_scripture(' + id + ');\"> </div>\
-						<input readonly=\"readonly\" type=\"text\" class=\"readonly scripture\" size=\"30\" name=\"jform[scripture_text][' + id + ']\"\
+					<div class=\"input-group\">\
+						<span class=\"input-group-btn\">\
+							<button class=\"btn btn-secondary\" onclick=\"delete_scripture(' + id + ');\"><span class=\"icon-trash\"></span></button>\
+						</span>\
+						<input readonly=\"readonly\" type=\"text\" class=\"readonly form-control scripture unsaved\" size=\"30\" name=\"jform[scripture_text][' + id + ']\"\
 							id=\"jform_scripture_text_' + id + '\" value=\"' + text + '\" />\
 					</div>\
-					<label></label>\
 				</span>';
 				window.parent.document.getElementById('scripture_id').value = id+1;
 			}";

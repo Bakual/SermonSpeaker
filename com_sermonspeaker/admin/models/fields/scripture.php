@@ -71,6 +71,7 @@ class JFormFieldScripture extends JFormField
 		foreach ($this->value as $value)
 		{
 			$title = '';
+			$class = '';
 
 			if ($value['text'])
 			{
@@ -78,7 +79,8 @@ class JFormFieldScripture extends JFormField
 
 				if (!$value['book'])
 				{
-					$title = 'old" title="' . JText::_('COM_SERMONSPEAKER_SCRIPTURE_NOT_SEARCHABLE');
+					$class = ' old hasTooltip';
+					$title = ' title="' . JText::_('COM_SERMONSPEAKER_SCRIPTURE_NOT_SEARCHABLE') .'"';
 				}
 			}
 			else
@@ -116,27 +118,22 @@ class JFormFieldScripture extends JFormField
 				}
 			}
 
-			$html .= '<span id="scripture_span_' . $i . '">';
-			$html .= '<input id="' . $this->id . '_' . $i . '" type="hidden" value="' . implode('|', $value) . '" name="' . $this->name . '[' . $i . ']">';
-			$html .= '<div class="input-group">';
-			$html .= '<span class="input-group-btn">';
-			$html .= '<button class="btn btn-secondary" onclick="delete_scripture(' . $i . ');"><span class="icon-trash"></span></button>';
-			$html .= '</span>';
-
-			$html .= '<input id="' . $this->id . '_text_' . $i . '" type="text" class="readonly scripture pointer' . $title . '" '
+			$html .= '<span id="scripture_span_' . $i . '">
+						<input id="' . $this->id . '_' . $i . '" type="hidden" value="' . implode('|', $value) . '" name="' . $this->name . '[' . $i . ']">
+						<div class="input-group">
+							<span class="input-group-btn">
+								<button class="btn btn-secondary" onclick="delete_scripture(' . $i . ');"><span class="icon-trash"></span></button>
+							</span>
+							<input id="' . $this->id . '_text_' . $i . '" type="text" class="readonly form-control pointer scripture' . $class . '"' . $title
 							. 'data-toggle="modal" data-target="#' . $modalId . $i . '" '
-							. $size . $disabled . $readonly . $maxLength . ' value="' . $text . '" name="jform[' . $this->fieldname . '_text][' . $i . ']" />';
-
-			$html .= '</div>';
+							. $size . $disabled . $readonly . $maxLength . ' value="' . $text . '" name="jform[' . $this->fieldname . '_text][' . $i . ']" />
+						</div>';
 
 			$html .= JHtml::_(
 				'bootstrap.renderModal',
 				$modalId . $i,
 				array(
 					'title'       => JText::_('COM_SERMONSPEAKER_EDIT_SCRIPTURE'),
-					'backdrop'    => 'static',
-					'keyboard'    => false,
-					'closeButton' => false,
 					'url'         => $url . '&id=' . $i,
 					'height'      => '400px',
 					'width'       => '100%',
@@ -151,13 +148,12 @@ class JFormFieldScripture extends JFormField
 				)
 			);
 
-
 			if (!$admin)
 			{
 				$html .= '<br />';
 			}
 
-			$html .= '<label></label> </span>';
+			$html .= '</span>';
 			$i++;
 		}
 
@@ -177,9 +173,6 @@ class JFormFieldScripture extends JFormField
 			$modalId,
 			array(
 				'title'       => JText::_('COM_SERMONSPEAKER_NEW_SCRIPTURE'),
-				'backdrop'    => 'static',
-				'keyboard'    => false,
-				'closeButton' => false,
 				'url'         => $url,
 				'height'      => '400px',
 				'width'       => '100%',
