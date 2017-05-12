@@ -9,6 +9,9 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Application\ApplicationHelper;
+use Joomla\CMS\Component\ComponentHelper;
+
 jimport('joomla.html.html');
 jimport('joomla.form.formfield');
 jimport('joomla.form.helper');
@@ -75,7 +78,7 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 	 */
 	protected function getInput()
 	{
-		$this->params = JComponentHelper::getParams('com_sermonspeaker');
+		$this->params = ComponentHelper::getParams('com_sermonspeaker');
 
 		// Get and sanitize file parameter
 		$this->file = (string) $this->element['file'];
@@ -89,7 +92,7 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 		// Check Filename for possible problems
 		$filename = JFile::stripExt(basename($this->value));
 
-		if ($filename != JApplicationHelper::stringURLSafe($filename))
+		if ($filename != ApplicationHelper::stringURLSafe($filename))
 		{
 			$html .= '<div class="alert alert-warning">'
 				. '<button type="button" class="close" data-dismiss="alert">&times;</button>'
@@ -98,39 +101,61 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 				. '</div>';
 		}
 
-		$html .= '<div class="input-prepend input-append">'
-			. '<div id="' . $this->fieldname . '_text_icon" class="btn add-on icon-radio-checked" onclick="toggleElement(\''
-			. $this->fieldname . '\', 0);"> </div>'
-			. '<input name="' . $this->name . '" id="' . $this->id . '_text" class="' . $this->class . '" value="'
-			. htmlspecialchars($this->value, ENT_COMPAT, 'UTF-8') . '" type="text">';
+		$html .= '<div class="input-group">
+					<span class="input-group-btn"> 
+						<button class="btn btn-secondary" 
+							type="button" onclick="toggleElement(\'' . $this->fieldname . '\', 0);">
+							<span id="' . $this->fieldname . '_text_icon" class="icon-radio-checked"></span>
+						</button>
+					</span>
+					<input name="' . $this->name . '" id="' . $this->id . '_text" class="form-control ' . $this->class . '" value="'
+						. htmlspecialchars($this->value, ENT_COMPAT, 'UTF-8') . '" type="text">';
 
 		// Add Lookup button if not addfile field
 		if ($this->file != 'addfile')
 		{
-			$html .= '<div class="btn add-on hasTooltip icon-wand" onclick="lookup(document.getElementById(\'' . $this->id . '_text\'))" title="'
-				. JText::_('COM_SERMONSPEAKER_LOOKUP') . '"> </div>';
+			$html .= '<span class="input-group-btn">
+						<button class="btn btn-secondary hasTooltip" 
+							type="button" onclick="lookup(document.getElementById(\'' . $this->id . '_text\'))" 
+							title="' . JText::_('COM_SERMONSPEAKER_LOOKUP') . '">
+							<span class="icon-wand"></span>
+						 </button>
+					</span>';
 		}
 
 		// Add Google Picker if enabled and not audio field
 		if ($this->params->get('googlepicker') && $this->file != 'audio')
 		{
-			$html .= '<div class="btn add-on hasTooltip" onclick="create' . ucfirst($this->file) . 'Picker();" title="' . JText::_('COM_SERMONSPEAKER_GOOGLEPICKER_TIP') . '">'
-				. '<img src="' . JUri::root() . 'media/com_sermonspeaker/icons/16/drive.png">'
-				. '</div>';
+			$html .= '<span class="input-group-btn">
+						<button class="btn btn-secondary hasTooltip"
+							type="button" onclick="create' . ucfirst($this->file) . 'Picker();" 
+							title="' . JText::_('COM_SERMONSPEAKER_GOOGLEPICKER_TIP') . '">
+							<img src="' . JUri::root() . 'media/com_sermonspeaker/icons/16/drive.png">
+						</button>
+					</span>';
 		}
 
-		$html .= '</div>'
-			. '<br />'
-			. '<div class="input-prepend input-append">'
-			. '<div id="' . $this->fieldname . '_icon" class="btn add-on icon-radio-unchecked" onclick="toggleElement(\''
-			. $this->fieldname . '\', 1);"> </div>';
+		$html .= '</div>
+				<div class="input-group">
+					<span class="input-group-btn">
+						<button class="btn btn-secondary"
+							type="button" onclick="toggleElement(\'' . $this->fieldname . '\', 1);"> 
+							<span id="' . $this->fieldname . '_icon" class="icon-radio-unchecked"></span>
+						</button>
+					</span>';
+
 
 		$html .= parent::getInput();
 
 		if (!$this->mode && $this->file != 'addfile')
 		{
-			$html .= '<div class="btn add-on hasTooltip icon-wand" onclick="lookup(document.getElementById(\''
-				. $this->id . '\'))" title="' . JText::_('COM_SERMONSPEAKER_LOOKUP') . '"> </div>';
+			$html .= '<span class="input-group-btn">
+						<button class="btn btn-secondary hasTooltip" 
+							type="button" onclick="lookup(document.getElementById(\'' . $this->id . '\'))"
+							title="' . JText::_('COM_SERMONSPEAKER_LOOKUP') . '">
+							<span class="icon-wand"></span>
+						</button>
+					</span>';
 		}
 
 		$html .= '</div>';

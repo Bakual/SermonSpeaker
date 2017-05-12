@@ -41,13 +41,13 @@
 
 .scripture{
 	background-color:#CF9 !important;
-	border-radius:5px;
-	padding-left:5px;
 }
-.scriptureold{
+.scripture.old{
 	background-color:#FF997F !important;
-	border-radius:5px;
-	padding-left:5px;
+}
+.scripture.unsaved {
+	cursor: not-allowed;
+	background-color: #eee !important;
 }
 
 .pathinfo {
@@ -131,21 +131,21 @@ input[type="text"].invalid, select.invalid, .invalid span, .invalid{
 	border-color:red;
 	color:red;
 }
-div.icon-radio-checked,
-div.icon-plus-2{
+.icon-radio-checked,
+.icon-plus-2{
 	color: #468847;
 }
-div.icon-radio-checked:hover,
-div.icon-radio-checked:focus,
-div.icon-plus-2:hover,
-div.icon-plus-2:focus{
+.icon-radio-checked:hover,
+.icon-radio-checked:focus,
+.icon-plus-2:hover,
+.icon-plus-2:focus{
 	color: #356635;
 }
-div.icon-radio-unchecked{
+.icon-radio-unchecked{
 	color: #b94a48;
 }
-div.icon-radio-unchecked:hover,
-div.icon-radio-unchecked:focus {
+.icon-radio-unchecked:hover,
+.icon-radio-unchecked:focus {
 	color: #953b39;
 }
 

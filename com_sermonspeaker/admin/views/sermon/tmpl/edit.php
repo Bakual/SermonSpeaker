@@ -53,7 +53,7 @@ $tmpl   = $jinput->getCmd('tmpl') === 'component' ? '&tmpl=component' : '';
 		<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'files', JText::_('COM_SERMONSPEAKER_TAB_FILES_DETAILS', true)); ?>
 		<div class="row">
 			<div class="col-md-6">
-				<div id="upload_limit" class="well well-small">
+				<div id="upload_limit" class="alert alert-info">
 					<?php echo JText::sprintf('COM_SERMONSPEAKER_UPLOAD_LIMIT', $this->upload_limit); ?>
 				</div>
 				<div id="audiofile_drop" class="control-group">
