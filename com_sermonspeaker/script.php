@@ -265,8 +265,6 @@ class Com_SermonspeakerInstallerScript extends JInstallerScript
 		if (version_compare($this->oldRelease, '6.0.0', '<'))
 		{
 			$this->deleteFolders[] = '/components/com_sermonspeaker/helpers/player';
-			$this->deleteFolders[] = '/media/com_sermonspeaker/player';
-			$this->deleteFolders[] = '/media/com_sermonspeaker/plupload';
 		}
 	}
 
