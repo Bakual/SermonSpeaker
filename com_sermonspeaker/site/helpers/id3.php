@@ -33,7 +33,9 @@ class SermonspeakerHelperId3
 			return self::getVimeo($file);
 		}
 
-		require_once JPATH_COMPONENT_SITE . '/id3/getid3/getid3.php';
+		// Load Composer Autoloader
+		require_once (JPATH_COMPONENT_ADMINISTRATOR . '/vendor/autoload.php');
+
 		$getID3 = new getID3;
 		$path = JPATH_SITE . $file;
 		$path = str_replace('//', '/', $path);
