@@ -471,9 +471,9 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 
 		$html = '<div id="plupload_' . $this->fieldname . '" class="uploader">
 					<div id="filelist_' . $this->fieldname . '" class="filelist"></div>
-					<a id="browse_' . $this->fieldname . '" href="javascript:;" class="btn btn-small">'
+					<button type="button" id="browse_' . $this->fieldname . '" class="btn btn-secondary">'
 			. JText::_('COM_SERMONSPEAKER_UPLOAD')
-			. '</a>
+			. '</button>
 				</div>';
 
 		return $html;

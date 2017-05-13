@@ -62,7 +62,7 @@ $tmpl   = $jinput->getCmd('tmpl') === 'component' ? '&tmpl=component' : '';
 					</div>
 					<div class="controls">
 						<?php echo $this->form->getInput('audiofile'); ?>
-						<div id="audiopathinfo" class="pathinfo hasTooltip" title="<?php echo JHtml::tooltipText(JText::_('COM_SERMONSPEAKER_UPLOADINFO_TOOLTIP'), '', 0); ?>">
+						<div id="audiopathinfo" class="badge badge-info hasTooltip" title="<?php echo JHtml::tooltipText(JText::_('COM_SERMONSPEAKER_UPLOADINFO_TOOLTIP'), '', 0); ?>">
 							<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO');
 							if ($this->s3audio) :
 								echo ' https://' . $this->domain . '/';
@@ -88,7 +88,7 @@ $tmpl   = $jinput->getCmd('tmpl') === 'component' ? '&tmpl=component' : '';
 					</div>
 					<div class="controls">
 						<?php echo $this->form->getInput('videofile'); ?>
-						<div id="videopathinfo" class="pathinfo hasTooltip" title="<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO_TOOLTIP'); ?>">
+						<div id="videopathinfo" class="badge badge-info hasTooltip" title="<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO_TOOLTIP'); ?>">
 							<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO');
 							if ($this->s3video) :
 								echo ' https://' . $this->domain . '/';
@@ -114,7 +114,7 @@ $tmpl   = $jinput->getCmd('tmpl') === 'component' ? '&tmpl=component' : '';
 					</div>
 					<div class="controls">
 						<?php echo $this->form->getInput('addfile'); ?>
-						<div id="addfilepathinfo" class="pathinfo hasTooltip" title="<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO_TOOLTIP'); ?>">
+						<div id="addfilepathinfo" class="badge badge-info hasTooltip" title="<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO_TOOLTIP'); ?>">
 							<?php echo JText::_('COM_SERMONSPEAKER_UPLOADINFO') . ' /' . trim($this->params->get('path_addfile'), '/')
 								. '/<span id="addfilepathdate" class="pathdate">' . $this->append_date . '</span><span id="addfilepathlang" class="pathlang">'
 								. $this->append_lang . '</span>'; ?>
