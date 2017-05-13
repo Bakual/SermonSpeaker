@@ -362,16 +362,16 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 	protected function getUploader()
 	{
 		JHtml::_('jquery.framework');
-		JHtml::script('media/com_sermonspeaker/plupload/plupload.full.min.js');
+		JHtml::_('script', 'com_sermonspeaker/plupload/plupload.full.min.js', array('relative' => true));
 
 		// Load localisation
 		$tag  = str_replace('-', '_', JFactory::getLanguage()->getTag());
-		$path = 'media/com_sermonspeaker/plupload/i18n/';
+		$path = '/media/com_sermonspeaker/js/plupload/i18n/';
 		$file = $tag . '.js';
 
 		if (file_exists(JPATH_SITE . '/' . $path . $file))
 		{
-			JHtml::script($path . $file);
+			JHtml::_('script', 'com_sermonspeaker/plupload/i18n/' . $file, array('relative' => true));
 		}
 		else
 		{
@@ -380,7 +380,7 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 
 			if (file_exists(JPATH_SITE . '/' . $path . $file))
 			{
-				JHtml::script($path . $file);
+				JHtml::_('script', 'com_sermonspeaker/plupload/i18n/' . $file, array('relative' => true));
 			}
 		}
 
@@ -430,8 +430,8 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 
 				uploader_' . $this->fieldname . '.bind("BeforeUpload", function(up, file) {
 					up.setOption("multipart_params", {
-						"date":document.id("' . $this->formControl . '_sermon_date").value,
-						"language":document.id("' . $this->formControl . '_language").value,
+						"date":document.getElementById("' . $this->formControl . '_sermon_date").value,
+						"language":document.getElementById("' . $this->formControl . '_language").value,
 					})
 				});
 
@@ -446,7 +446,7 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 						if (data.status == 1){
 							jQuery("#" + file.id).removeClass("alert-info").addClass("alert-success");
 							document.getElementById(file.id).innerHTML = data.error + closeButton;
-							document.id("' . $this->id . '_text").value = data.path;
+							document.getElementById("' . $this->id . '_text").value = data.path;
 						}else{
 							jQuery("#" + file.id).removeClass("alert-info").addClass("alert-error");
 							jQuery("#" + file.id + "_progress").replaceWith(" &raquo; ' . JText::_('ERROR') . ': " + data.error + closeButton);
