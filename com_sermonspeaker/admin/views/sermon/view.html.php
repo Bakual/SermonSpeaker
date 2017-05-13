@@ -124,6 +124,7 @@ class SermonspeakerViewSermon extends JViewLegacy
 		JText::script('COM_SERMONSPEAKER_ID3_NO_MATCH_FOUND');
 		JText::script('COM_SERMONSPEAKER_SERIE');
 		JText::script('COM_SERMONSPEAKER_SPEAKER');
+		JText::script('NOTICE');
 		$lookup = 'function lookup(elem) {
 			xmlhttp = new XMLHttpRequest();
 			xmlhttp.onreadystatechange=function(){
@@ -156,7 +157,7 @@ class SermonspeakerViewSermon extends JViewLegacy
 							}
 						}
 						if(data.notes && document.getElementById("jform_notes")){
-							jInsertEditorText(data.notes, "jform_notes");
+							window.parent.Joomla.editors.instances["jform_notes"].replaceSelection(data.notes);
 						}
 						var splits = elem.id.split("_");
 						var field = splits[0]+"_"+splits[1];
@@ -167,11 +168,11 @@ class SermonspeakerViewSermon extends JViewLegacy
 						}
 						if(data.audio){
 							var info;
-							info = "<dl class=\"dl-horizontal id3-info\">";
+							info = "<div class=\"clearfix\"><dl class=\"row id3-info\">";
 							jQuery.each(data.audio, function(key,val){
-								info += "<dt>"+key+"</dt><dd>"+val+"</dd>";
+								info += "<dt class=\"col-sm-3\">"+key+"</dt><dd class=\"col-sm-9\">"+val+"</dd>";
 							})
-							info += "</dl>";
+							info += "</dl></div>";
 							jQuery(elem).parents(".controls").children(".id3-info").remove();
 							jQuery(elem).parents(".controls").prepend(info);
 						}
