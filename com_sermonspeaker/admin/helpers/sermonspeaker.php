@@ -150,10 +150,13 @@ class SermonspeakerHelper
 	{
 		$mapping = array(
 			'sermon'         => 'sermon',
+			'sermons'        => 'sermon',
 			'frontendupload' => 'sermon',
 			'speaker'        => 'speaker',
+			'speakers'       => 'speaker',
 			'speakerform'    => 'speaker',
 			'serie'          => 'serie',
+			'series'         => 'serie',
 			'serieform'      => 'serie',
 		);
 
