@@ -44,10 +44,8 @@ if (!isset($legacy))
 			$popover = htmlspecialchars('<img src="' . SermonspeakerHelperSermonspeaker::makeLink($item->pic) . '" />'); ?>
 			<meta itemprop="image" content="<?php echo SermonspeakerHelperSermonspeaker::makeLink($item->pic, true); ?>" />
 			<span class="hasPopover" data-html="true" data-placement="top" data-title="<?php echo $item->speaker_title; ?>" data-content="<?php echo $popover; ?>">
-				<span itemprop="name"><?php echo $item->speaker_title; ?></span>
-			</span>
-		<?php else : ?>
-			<span itemprop="name"><?php echo $item->speaker_title; ?></span>
-		<?php endif; ?>
-	</a>
+				<span itemprop="name"><?php echo $item->speaker_title; ?></span></span><?php
+		else : ?>
+			<span itemprop="name"><?php echo $item->speaker_title; ?></span><?php
+		endif; ?></a>
 <?php endif;
