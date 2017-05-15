@@ -264,6 +264,7 @@ class Com_SermonspeakerInstallerScript extends JInstallerScript
 		// Remove integrated player classes
 		if (version_compare($this->oldRelease, '6.0.0', '<'))
 		{
+			$this->deleteFiles[] = '/administrator/components/com_sermonspeaker/models/fields/player.php';
 			$this->deleteFolders[] = '/components/com_sermonspeaker/helpers/player';
 		}
 	}
