@@ -13,7 +13,7 @@ JHtml::_('script', 'system/progressbar.js', true, true);
 JHtml::_('stylesheet', 'media/mediamanager.css', array(), true);
 $base = JUri::base();
 
-$js	= 'function CheckProgress() {
+$js = 'function CheckProgress() {
 		var xmlhttp = new XMLHttpRequest();
 		var t = 0;
 		xmlhttp.onreadystatechange=function(){
@@ -67,10 +67,10 @@ $js	= 'function CheckProgress() {
 $this->document->addScriptDeclaration($js);
 ?>
 <div class="ss-seriesdownload-container">
-<h3><?php echo $this->item->title; ?></h3>
-<div id="status"><span class="badge"><?php echo JText::_('COM_SERMONSPEAKER_PREPARING_DOWNLOAD'); ?></span></div>
-<br />
-<img src="media/media/images/bar.gif" class="progress" id="progress" />
-<br /><br />
-<div id="link" style="display:none;"></div>
+	<h3><?php echo $this->item->title; ?></h3>
+	<div id="status"><span class="badge"><?php echo JText::_('COM_SERMONSPEAKER_PREPARING_DOWNLOAD'); ?></span></div>
+	<br/>
+	<img src="media/media/images/bar.gif" class="progress" id="progress"/>
+	<br/><br/>
+	<div id="link" style="display:none;"></div>
 </div>

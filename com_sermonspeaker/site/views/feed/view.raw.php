@@ -81,24 +81,6 @@ class SermonspeakerViewFeed extends JViewLegacy
 	}
 
 	/**
-	 * Makes a string save to use in a XML file
-	 *
-	 * @param   string $string The string to be escaped
-	 *
-	 * @return  string  $string  The escaped string
-	 *
-	 * @since ?
-	 */
-	protected function make_xml_safe($string)
-	{
-		$string = strip_tags($string);
-		$string = html_entity_decode($string, ENT_NOQUOTES, 'UTF-8');
-		$string = htmlspecialchars($string, ENT_QUOTES, 'UTF-8', false);
-
-		return $string;
-	}
-
-	/**
 	 * Creates an iTunes Category
 	 *
 	 * @param   array $cat iTunes categories
@@ -164,6 +146,24 @@ class SermonspeakerViewFeed extends JViewLegacy
 		}
 
 		return $text;
+	}
+
+	/**
+	 * Makes a string save to use in a XML file
+	 *
+	 * @param   string $string The string to be escaped
+	 *
+	 * @return  string  $string  The escaped string
+	 *
+	 * @since ?
+	 */
+	protected function make_xml_safe($string)
+	{
+		$string = strip_tags($string);
+		$string = html_entity_decode($string, ENT_NOQUOTES, 'UTF-8');
+		$string = htmlspecialchars($string, ENT_QUOTES, 'UTF-8', false);
+
+		return $string;
 	}
 
 	/**

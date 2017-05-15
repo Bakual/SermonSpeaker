@@ -16,50 +16,6 @@ defined('_JEXEC') or die();
  */
 class SermonspeakerViewFrontendupload extends JViewLegacy
 {
-	protected $form;
-
-	protected $item;
-
-	protected $user;
-
-	protected $pageclass_sfx;
-
-	/**
-	 * AmazonS3 information
-	 *
-	 * @var    string
-	 *
-	 * @since ?
-	 */
-	protected $s3audio;
-
-	/**
-	 * AmazonS3 information
-	 *
-	 * @var    string
-	 *
-	 * @since ?
-	 */
-	protected $s3video;
-
-	/**
-	 * A params object
-	 *
-	 * @var    Joomla\Registry\Registry
-	 *
-	 * @since ?
-	 */
-	protected $params;
-
-	/**
-	 * The URL to return to
-	 *
-	 * @var    string
-	 *
-	 * @since ?
-	 */
-	protected $return_page;
-
 	/**
 	 * Injected from the controller
 	 *
@@ -68,7 +24,42 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 	 * @since ?
 	 */
 	public $document;
-
+	protected $form;
+	protected $item;
+	protected $user;
+	protected $pageclass_sfx;
+	/**
+	 * AmazonS3 information
+	 *
+	 * @var    string
+	 *
+	 * @since ?
+	 */
+	protected $s3audio;
+	/**
+	 * AmazonS3 information
+	 *
+	 * @var    string
+	 *
+	 * @since ?
+	 */
+	protected $s3video;
+	/**
+	 * A params object
+	 *
+	 * @var    Joomla\Registry\Registry
+	 *
+	 * @since ?
+	 */
+	protected $params;
+	/**
+	 * The URL to return to
+	 *
+	 * @var    string
+	 *
+	 * @since ?
+	 */
+	protected $return_page;
 	/**
 	 * A state object
 	 *
@@ -432,7 +423,7 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 				$changelang .= "document.id('videopathlang').innerHTML = language+'/';";
 			}
 
-			$changelang .= "document.id('addfilepathlang').innerHTML = language+'/';
+			$changelang        .= "document.id('addfilepathlang').innerHTML = language+'/';
 				}";
 			$lang              = ($this->item->language && $this->item->language == '*') ? $this->item->language : JFactory::getLanguage()->getTag();
 			$this->append_lang = $lang . '/';
@@ -480,6 +471,36 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 		$this->_prepareDocument();
 
 		return parent::display($tpl);
+	}
+
+	/**
+	 * Function to return bytes from the PHP settings. Taken from the ini_get() manual
+	 *
+	 * @param   string $val Value from the PHP setting
+	 *
+	 * @return  int  $val  Value in bytes
+	 *
+	 * @since ?
+	 */
+	protected function return_bytes($val)
+	{
+		$val  = trim($val);
+		$last = strtolower($val[strlen($val) - 1]);
+
+		switch ($last)
+		{
+			// The 'G' modifier is available since PHP 5.1.0
+			/** @noinspection PhpMissingBreakStatementInspection */
+			case 'g':
+				$val *= 1024;
+			/** @noinspection PhpMissingBreakStatementInspection */
+			case 'm':
+				$val *= 1024;
+			case 'k':
+				$val *= 1024;
+		}
+
+		return $val;
 	}
 
 	/**
@@ -537,35 +558,5 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 		{
 			$this->document->setMetaData('robots', $this->params->get('robots'));
 		}
-	}
-
-	/**
-	 * Function to return bytes from the PHP settings. Taken from the ini_get() manual
-	 *
-	 * @param   string $val Value from the PHP setting
-	 *
-	 * @return  int  $val  Value in bytes
-	 *
-	 * @since ?
-	 */
-	protected function return_bytes($val)
-	{
-		$val  = trim($val);
-		$last = strtolower($val[strlen($val) - 1]);
-
-		switch ($last)
-		{
-			// The 'G' modifier is available since PHP 5.1.0
-			/** @noinspection PhpMissingBreakStatementInspection */
-			case 'g':
-				$val *= 1024;
-			/** @noinspection PhpMissingBreakStatementInspection */
-			case 'm':
-				$val *= 1024;
-			case 'k':
-				$val *= 1024;
-		}
-
-		return $val;
 	}
 }

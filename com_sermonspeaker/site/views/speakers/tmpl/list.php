@@ -51,7 +51,7 @@ $listDirn   = $this->state->get('list.direction');
 	<?php endif; ?>
 	<div class="cat-items">
 		<form action="<?php echo htmlspecialchars(JUri::getInstance()->toString()); ?>" method="post" id="adminForm"
-		      name="adminForm">
+			name="adminForm">
 			<?php
 			if ($this->params->get('filter_field') or $this->params->get('show_pagination_limit')) : ?>
 				<div class="filters btn-toolbar">

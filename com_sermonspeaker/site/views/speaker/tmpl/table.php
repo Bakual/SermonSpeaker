@@ -48,7 +48,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 
 ?>
 <div class="category-list<?php echo $this->pageclass_sfx; ?> ss-speaker-container<?php echo $this->pageclass_sfx; ?>"
-     itemscope itemtype="http://schema.org/Person">
+	itemscope itemtype="http://schema.org/Person">
 	<?php
 	if ($this->params->get('show_page_heading', 1)) : ?>
 		<h1><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
@@ -72,7 +72,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 	<div class="clearfix"></div>
 	<ul class="nav nav-pills" id="speakerTab">
 		<li class="active"><a href="#tab_sermons"
-		                      data-toggle="pill"><?php echo JText::_('COM_SERMONSPEAKER_SERMONS'); ?></a></li>
+				data-toggle="pill"><?php echo JText::_('COM_SERMONSPEAKER_SERMONS'); ?></a></li>
 		<li><a href="#tab_series" data-toggle="pill"><?php echo JText::_('COM_SERMONSPEAKER_SERIES'); ?></a></li>
 	</ul>
 	<div class="pill-content">
@@ -100,9 +100,9 @@ $this->document->addScriptDeclaration('jQuery(function() {
 						<?php if ($player->toggle) : ?>
 							<div class="span2 offset4 btn-group">
 								<img class="btn" src="media/com_sermonspeaker/images/Video.png" onclick="Video()"
-								     alt="Video" title="<?php echo JText::_('COM_SERMONSPEAKER_SWITCH_VIDEO'); ?>"/>
+									alt="Video" title="<?php echo JText::_('COM_SERMONSPEAKER_SWITCH_VIDEO'); ?>"/>
 								<img class="btn" src="media/com_sermonspeaker/images/Sound.png" onclick="Audio()"
-								     alt="Audio" title="<?php echo JText::_('COM_SERMONSPEAKER_SWITCH_AUDIO'); ?>"/>
+									alt="Audio" title="<?php echo JText::_('COM_SERMONSPEAKER_SWITCH_AUDIO'); ?>"/>
 							</div>
 						<?php endif; ?>
 					</div>
@@ -110,7 +110,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 			<?php endif; ?>
 			<div class="cat-items">
 				<form action="<?php echo htmlspecialchars(JUri::getInstance()->toString() . '#sermons'); ?>"
-				      method="post" id="adminForm" name="adminForm" class="form-inline">
+					method="post" id="adminForm" name="adminForm" class="form-inline">
 					<?php
 					if ($this->params->get('filter_field') or $this->params->get('show_pagination_limit')) :
 						echo $this->loadTemplate('filters');
@@ -219,7 +219,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 							<tbody>
 							<?php foreach ($this->sermons as $i => $item) : ?>
 								<tr id="sermon<?php echo $i; ?>"
-								    class="<?php echo ($item->state) ? '' : 'system-unpublished '; ?>cat-list-row<?php echo $i % 2; ?>">
+									class="<?php echo ($item->state) ? '' : 'system-unpublished '; ?>cat-list-row<?php echo $i % 2; ?>">
 									<?php
 									if (in_array('speaker:num', $this->col_sermon)) : ?>
 										<td class="num hidden-phone hidden-tablet">
@@ -321,7 +321,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 		</div>
 		<div class="pill-pane" id="tab_series">
 			<form action="<?php echo htmlspecialchars(JUri::getInstance()->toString() . '#series'); ?>" method="post"
-			      id="adminFormSeries" name="adminFormSeries">
+				id="adminFormSeries" name="adminFormSeries">
 				<?php
 				if ($this->params->get('filter_field') or $this->params->get('show_pagination_limit')) : ?>
 					<div class="filters btn-toolbar">
@@ -396,7 +396,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 								endif; ?>
 								<td class="ss-title">
 									<a title='<?php echo JText::_('COM_SERMONSPEAKER_SERIESLINK_HOOVER'); ?>'
-									   href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->slug, $item->catid, $item->language)); ?>">
+										href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->slug, $item->catid, $item->language)); ?>">
 										<?php echo $item->title; ?>
 									</a>
 									<?php if ($canEdit or ($canEditOwn and ($user->id == $item->created_by))) : ?>

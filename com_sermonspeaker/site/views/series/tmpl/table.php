@@ -13,14 +13,14 @@ JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
 
 JHtml::_('bootstrap.tooltip');
 
-$user		= JFactory::getUser();
-$fu_enable	= $this->params->get('fu_enable');
-$canEdit	= ($fu_enable and $user->authorise('core.edit', 'com_sermonspeaker'));
-$canEditOwn	= ($fu_enable and $user->authorise('core.edit.own', 'com_sermonspeaker'));
-$listOrder	= $this->state->get('list.ordering');
-$listDirn	= $this->state->get('list.direction');
+$user       = JFactory::getUser();
+$fu_enable  = $this->params->get('fu_enable');
+$canEdit    = ($fu_enable and $user->authorise('core.edit', 'com_sermonspeaker'));
+$canEditOwn = ($fu_enable and $user->authorise('core.edit.own', 'com_sermonspeaker'));
+$listOrder  = $this->state->get('list.ordering');
+$listDirn   = $this->state->get('list.direction');
 ?>
-<div class="category-list<?php echo $this->pageclass_sfx;?> ss-series-container<?php echo $this->pageclass_sfx; ?>">
+<div class="category-list<?php echo $this->pageclass_sfx; ?> ss-series-container<?php echo $this->pageclass_sfx; ?>">
 	<?php
 	if ($this->params->get('show_page_heading', 1)) : ?>
 		<h1><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
@@ -31,7 +31,7 @@ $listDirn	= $this->state->get('list.direction');
 			<?php echo $this->escape($this->params->get('page_subheading'));
 
 			if ($this->params->get('show_category_title')) : ?>
-				<span class="subheading-category"><?php echo $this->category->title;?></span>
+				<span class="subheading-category"><?php echo $this->category->title; ?></span>
 			<?php endif; ?>
 		</h2>
 	<?php endif;
@@ -49,7 +49,8 @@ $listDirn	= $this->state->get('list.direction');
 		</div>
 	<?php endif; ?>
 	<div class="cat-items">
-		<form action="<?php echo htmlspecialchars(JUri::getInstance()->toString()); ?>" method="post" id="adminForm" name="adminForm">
+		<form action="<?php echo htmlspecialchars(JUri::getInstance()->toString()); ?>" method="post" id="adminForm"
+			name="adminForm">
 			<?php
 			if ($this->params->get('filter_field') or $this->params->get('show_pagination_limit')) : ?>
 				<div class="filters btn-toolbar">
@@ -65,12 +66,14 @@ $listDirn	= $this->state->get('list.direction');
 			<?php endif; ?>
 			<div class="clearfix"></div>
 			<?php if (!count($this->items)) : ?>
-				<div class="no_entries alert alert-error"><?php echo JText::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', JText::_('COM_SERMONSPEAKER_SERIES')); ?></div>
+				<div
+					class="no_entries alert alert-error"><?php echo JText::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', JText::_('COM_SERMONSPEAKER_SERIES')); ?></div>
 			<?php else : ?>
 				<table class="table table-striped table-hover table-condensed">
-					<thead><tr>
+					<thead>
+					<tr>
 						<?php if ($this->av) : ?>
-							<th class="ss-av hidden-phone hidden-tablet"> </th>
+							<th class="ss-av hidden-phone hidden-tablet"></th>
 						<?php endif; ?>
 						<th class="ss-title">
 							<?php echo JHtml::_('grid.sort', 'JGLOBAL_TITLE', 'title', $listDirn, $listOrder); ?>
@@ -100,55 +103,65 @@ $listDirn	= $this->state->get('list.direction');
 						if (in_array('series:download', $this->col_serie)) : ?>
 							<th class="ss-col ss-dl hidden-phone"></th>
 						<?php endif; ?>
-					</tr></thead>
-				<!-- Begin Data -->
+					</tr>
+					</thead>
+					<!-- Begin Data -->
 					<tbody>
-						<?php foreach($this->items as $i => $item) : ?>
-							<tr class="<?php echo ($item->state) ? '': 'system-unpublished '; ?>cat-list-row<?php echo $i % 2; ?>">
-								<?php
-								if ($this->av) :
-									if ($item->avatar) : ?>
-										<td class="ss-col ss-av hidden-phone hidden-tablet"><a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->slug, $item->catid, $item->language)); ?>"><img class="img-polaroid" src="<?php echo SermonspeakerHelperSermonspeaker::makeLink($item->avatar); ?>"></a></td>
-									<?php else : ?>
-										<td class="ss-col ss-av hidden-phone hidden-tablet"></td>
-									<?php endif;
-								endif; ?>
-								<td class="ss-title">
-									<a class="hasTooltip" title="::<?php echo JText::_('COM_SERMONSPEAKER_SERIESLINK_HOOVER'); ?>" href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->slug, $item->catid, $item->language)); ?>">
-										<?php echo $item->title; ?>
-									</a>
-									<?php if ($canEdit or ($canEditOwn and ($user->id == $item->created_by))) : ?>
-										<span class="list-edit pull-left width-50">
+					<?php foreach ($this->items as $i => $item) : ?>
+						<tr class="<?php echo ($item->state) ? '' : 'system-unpublished '; ?>cat-list-row<?php echo $i % 2; ?>">
+							<?php
+							if ($this->av) :
+								if ($item->avatar) : ?>
+									<td class="ss-col ss-av hidden-phone hidden-tablet"><a
+											href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->slug, $item->catid, $item->language)); ?>"><img
+												class="img-polaroid"
+												src="<?php echo SermonspeakerHelperSermonspeaker::makeLink($item->avatar); ?>"></a>
+									</td>
+								<?php else : ?>
+									<td class="ss-col ss-av hidden-phone hidden-tablet"></td>
+								<?php endif;
+							endif; ?>
+							<td class="ss-title">
+								<a class="hasTooltip"
+									title="::<?php echo JText::_('COM_SERMONSPEAKER_SERIESLINK_HOOVER'); ?>"
+									href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->slug, $item->catid, $item->language)); ?>">
+									<?php echo $item->title; ?>
+								</a>
+								<?php if ($canEdit or ($canEditOwn and ($user->id == $item->created_by))) : ?>
+									<span class="list-edit pull-left width-50">
 											<?php echo JHtml::_('icon.edit', $item, $this->params, array('type' => 'serie')); ?>
 											<?php echo JLayoutHelper::render('blocks.state_info', array('item' => $item, 'show' => true)); ?>
 										</span>
-									<?php endif; ?>
+								<?php endif; ?>
+							</td>
+							<?php if (in_array('series:category', $this->col_serie)) : ?>
+								<td class="ss-col ss-category hidden-phone">
+									<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSeriesRoute($item->catslug, $item->language)); ?>"><?php echo $item->category_title; ?></a>
 								</td>
-								<?php if (in_array('series:category', $this->col_serie)) : ?>
-									<td class="ss-col ss-category hidden-phone">
-										<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSeriesRoute($item->catslug, $item->language)); ?>"><?php echo $item->category_title; ?></a>
-									</td>
-								<?php endif;
+							<?php endif;
 
-								if (in_array('series:description', $this->col_serie)): ?>
-									<td class="ss-col ss-series_desc hidden-phone"><?php echo JHtml::_('content.prepare', $item->series_description); ?></td>
-								<?php endif;
+							if (in_array('series:description', $this->col_serie)): ?>
+								<td class="ss-col ss-series_desc hidden-phone"><?php echo JHtml::_('content.prepare', $item->series_description); ?></td>
+							<?php endif;
 
-								if (in_array('series:speaker', $this->col_serie)) : ?>
-									<td class="ss-col ss-speakers hidden-phone hidden-tablet"><?php echo $item->speakers; ?></td>
-								<?php endif;
+							if (in_array('series:speaker', $this->col_serie)) : ?>
+								<td class="ss-col ss-speakers hidden-phone hidden-tablet"><?php echo $item->speakers; ?></td>
+							<?php endif;
 
-								if (in_array('series:hits', $this->col_serie)) : ?>
-									<td class="ss-col ss-hits hidden-phone hidden-tablet"><?php echo $item->hits; ?></td>
-								<?php endif;
+							if (in_array('series:hits', $this->col_serie)) : ?>
+								<td class="ss-col ss-hits hidden-phone hidden-tablet"><?php echo $item->hits; ?></td>
+							<?php endif;
 
-								if (in_array('series:download', $this->col_serie)) : ?>
-									<td class="ss-col ss-dl hidden-phone"><a href="<?php echo JRoute::_('index.php?view=serie&layout=download&tmpl=component&id=' . $item->slug); ?>" class="modal hasTooltip" rel="{handler:'iframe',size:{x:400,y:200}}" title="::<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADSERIES_DESC'); ?>">
+							if (in_array('series:download', $this->col_serie)) : ?>
+								<td class="ss-col ss-dl hidden-phone"><a
+										href="<?php echo JRoute::_('index.php?view=serie&layout=download&tmpl=component&id=' . $item->slug); ?>"
+										class="modal hasTooltip" rel="{handler:'iframe',size:{x:400,y:200}}"
+										title="::<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADSERIES_DESC'); ?>">
 										<i class="icon-download"> </i>
 									</a></td>
-								<?php endif; ?>
-							</tr>
-						<?php endforeach; ?>
+							<?php endif; ?>
+						</tr>
+					<?php endforeach; ?>
 					</tbody>
 				</table>
 			<?php endif;
@@ -167,10 +180,10 @@ $listDirn	= $this->state->get('list.direction');
 					echo $this->pagination->getPagesLinks(); ?>
 				</div>
 			<?php endif; ?>
-			<input type="hidden" name="task" value="" />
-			<input type="hidden" name="filter_order" value="<?php echo $listOrder; ?>" />
-			<input type="hidden" name="filter_order_Dir" value="<?php echo $listDirn; ?>" />
-			<input type="hidden" name="limitstart" value="" />
+			<input type="hidden" name="task" value=""/>
+			<input type="hidden" name="filter_order" value="<?php echo $listOrder; ?>"/>
+			<input type="hidden" name="filter_order_Dir" value="<?php echo $listDirn; ?>"/>
+			<input type="hidden" name="limitstart" value=""/>
 		</form>
 	</div>
 	<?php if (!empty($this->children[$this->category->id]) and $this->maxLevel != 0) : ?>

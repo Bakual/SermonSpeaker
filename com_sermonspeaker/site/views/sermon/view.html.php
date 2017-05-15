@@ -130,18 +130,18 @@ class SermonspeakerViewSermon extends JViewLegacy
 		JPluginHelper::importPlugin('content');
 
 		$item->text = $item->notes;
-		$dispatcher->trigger('onContentPrepare', array ('com_sermonspeaker.sermon', &$item, &$params, 0));
+		$dispatcher->trigger('onContentPrepare', array('com_sermonspeaker.sermon', &$item, &$params, 0));
 		$item->notes = $item->text;
 
 		// Store the events for later
-		$item->event = new stdClass;
-		$results = $dispatcher->trigger('onContentAfterTitle', array('com_sermonspeaker.sermon', &$item, &$params, 0));
+		$item->event                    = new stdClass;
+		$results                        = $dispatcher->trigger('onContentAfterTitle', array('com_sermonspeaker.sermon', &$item, &$params, 0));
 		$item->event->afterDisplayTitle = trim(implode("\n", $results));
 
-		$results = $dispatcher->trigger('onContentBeforeDisplay', array('com_sermonspeaker.sermon', &$item, &$params, 0));
+		$results                           = $dispatcher->trigger('onContentBeforeDisplay', array('com_sermonspeaker.sermon', &$item, &$params, 0));
 		$item->event->beforeDisplayContent = trim(implode("\n", $results));
 
-		$results = $dispatcher->trigger('onContentAfterDisplay', array('com_sermonspeaker.sermon', &$item, &$params, 0));
+		$results                          = $dispatcher->trigger('onContentAfterDisplay', array('com_sermonspeaker.sermon', &$item, &$params, 0));
 		$item->event->afterDisplayContent = trim(implode("\n", $results));
 
 		$this->params = $params;

@@ -11,7 +11,7 @@ defined('_JEXEC') or die();
 
 $class = ' class="first"';
 ?>
-<div class="categories-list<?php echo $this->pageclass_sfx;?>">
+<div class="categories-list<?php echo $this->pageclass_sfx; ?>">
 	<?php
 	if ($this->params->get('show_page_heading', 1)) : ?>
 		<h1>
@@ -20,11 +20,11 @@ $class = ' class="first"';
 	<?php endif;
 
 	if ($this->params->get('show_base_description')) :
-		if($this->params->get('categories_description')) : ?>
+		if ($this->params->get('categories_description')) : ?>
 			<div class="category-desc">
-				<p><?php echo  JHtml::_('content.prepare', $this->params->get('categories_description')); ?></p>
+				<p><?php echo JHtml::_('content.prepare', $this->params->get('categories_description')); ?></p>
 			</div>
-		<?php elseif($this->parent->description) : ?>
+		<?php elseif ($this->parent->description) : ?>
 			<div class="category-desc">
 				<?php echo JHtml::_('content.prepare', $this->parent->description); ?>
 			</div>

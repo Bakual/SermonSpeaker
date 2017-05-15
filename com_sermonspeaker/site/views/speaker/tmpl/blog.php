@@ -38,7 +38,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 	})');
 ?>
 <div class="category-list<?php echo $this->pageclass_sfx; ?> ss-speaker-container<?php echo $this->pageclass_sfx; ?>"
-     itemscope itemtype="http://schema.org/Person">
+	itemscope itemtype="http://schema.org/Person">
 	<?php
 	if ($this->params->get('show_page_heading', 1)) : ?>
 		<h1><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
@@ -89,9 +89,9 @@ $this->document->addScriptDeclaration('jQuery(function() {
 						<?php if ($player->toggle) : ?>
 							<div class="span2 offset4 btn-group">
 								<img class="btn" src="media/com_sermonspeaker/images/Video.png" onclick="Video()"
-								     alt="Video" title="<?php echo JText::_('COM_SERMONSPEAKER_SWITCH_VIDEO'); ?>"/>
+									alt="Video" title="<?php echo JText::_('COM_SERMONSPEAKER_SWITCH_VIDEO'); ?>"/>
 								<img class="btn" src="media/com_sermonspeaker/images/Sound.png" onclick="Audio()"
-								     alt="Audio" title="<?php echo JText::_('COM_SERMONSPEAKER_SWITCH_AUDIO'); ?>"/>
+									alt="Audio" title="<?php echo JText::_('COM_SERMONSPEAKER_SWITCH_AUDIO'); ?>"/>
 							</div>
 						<?php endif; ?>
 					</div>
@@ -99,7 +99,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 			<?php endif; ?>
 			<div class="cat-items">
 				<form action="<?php echo htmlspecialchars(JUri::getInstance()->toString() . '#sermons'); ?>"
-				      method="post" id="adminForm" name="adminForm" class="form-inline">
+					method="post" id="adminForm" name="adminForm" class="form-inline">
 					<?php
 					if ($this->params->get('filter_field') or $this->params->get('show_pagination_limit')) :
 						echo $this->loadTemplate('filters');
@@ -112,7 +112,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 						<div class="items-leading">
 							<?php foreach ($this->sermons as $i => $item) : ?>
 								<div id="sermon<?php echo $i; ?>"
-								     class="clearfix<?php echo ($item->state) ? '' : ' system-unpublished'; ?>">
+									class="clearfix<?php echo ($item->state) ? '' : ' system-unpublished'; ?>">
 									<div class="btn-group pull-right">
 										<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
 											<i class="icon-cog"></i>
@@ -264,7 +264,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 		<div class="pill-pane" id="tab_series">
 			<div class="cat-items">
 				<form action="<?php echo htmlspecialchars(JUri::getInstance()->toString() . '#series'); ?>"
-				      method="post" id="adminFormSeries" name="adminFormSeries">
+					method="post" id="adminFormSeries" name="adminFormSeries">
 					<?php
 					if ($this->params->get('filter_field') or $this->params->get('show_pagination_limit')) : ?>
 						<div class="filters btn-toolbar">
@@ -295,7 +295,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 											<?php if (in_array('speaker:download', $this->col_serie)) : ?>
 												<li class="download-icon">
 													<a href="<?php echo JRoute::_('index.php?view=serie&layout=download&tmpl=component&id=' . $item->slug); ?>"
-													   class="modal" rel="{handler:'iframe',size:{x:400,y:200}}">
+														class="modal" rel="{handler:'iframe',size:{x:400,y:200}}">
 														<i class="icon-download"> </i>
 														<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADSERIES_LABEL'); ?>
 													</a>
@@ -310,7 +310,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 									</div>
 									<div class="page-header">
 										<a title="<?php echo JText::_('COM_SERMONSPEAKER_SERIESLINK_HOOVER'); ?>"
-										   href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->slug, $item->catid, $item->language)); ?>">
+											href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->slug, $item->catid, $item->language)); ?>">
 											<h2><?php echo $item->title; ?></h2>
 										</a>
 										<?php echo JLayoutHelper::render('blocks.state_info', array('item' => $item, 'show' => $showState)); ?>

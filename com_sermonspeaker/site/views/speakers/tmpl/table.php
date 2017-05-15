@@ -13,14 +13,14 @@ JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
 
 JHtml::_('bootstrap.tooltip');
 
-$user		= JFactory::getUser();
-$fu_enable	= $this->params->get('fu_enable');
-$canEdit	= ($fu_enable and $user->authorise('core.edit', 'com_sermonspeaker'));
-$canEditOwn	= ($fu_enable and $user->authorise('core.edit.own', 'com_sermonspeaker'));
-$listOrder	= $this->state->get('list.ordering');
-$listDirn	= $this->state->get('list.direction');
+$user       = JFactory::getUser();
+$fu_enable  = $this->params->get('fu_enable');
+$canEdit    = ($fu_enable and $user->authorise('core.edit', 'com_sermonspeaker'));
+$canEditOwn = ($fu_enable and $user->authorise('core.edit.own', 'com_sermonspeaker'));
+$listOrder  = $this->state->get('list.ordering');
+$listDirn   = $this->state->get('list.direction');
 ?>
-<div class="category-list<?php echo $this->pageclass_sfx;?> ss-speakers-container<?php echo $this->pageclass_sfx; ?>">
+<div class="category-list<?php echo $this->pageclass_sfx; ?> ss-speakers-container<?php echo $this->pageclass_sfx; ?>">
 	<?php
 	if ($this->params->get('show_page_heading', 1)) : ?>
 		<h1><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
@@ -31,7 +31,7 @@ $listDirn	= $this->state->get('list.direction');
 			<?php echo $this->escape($this->params->get('page_subheading'));
 
 			if ($this->params->get('show_category_title')) : ?>
-				<span class="subheading-category"><?php echo $this->category->title;?></span>
+				<span class="subheading-category"><?php echo $this->category->title; ?></span>
 			<?php endif; ?>
 		</h2>
 	<?php endif;
@@ -49,7 +49,8 @@ $listDirn	= $this->state->get('list.direction');
 		</div>
 	<?php endif; ?>
 	<div class="cat-items">
-		<form action="<?php echo htmlspecialchars(JUri::getInstance()->toString()); ?>" method="post" id="adminForm" name="adminForm">
+		<form action="<?php echo htmlspecialchars(JUri::getInstance()->toString()); ?>" method="post" id="adminForm"
+			name="adminForm">
 			<?php
 			if ($this->params->get('filter_field') or $this->params->get('show_pagination_limit')) : ?>
 				<div class="filters btn-toolbar">
@@ -65,10 +66,12 @@ $listDirn	= $this->state->get('list.direction');
 			<?php endif; ?>
 			<div class="clearfix"></div>
 			<?php if (!count($this->items)) : ?>
-				<div class="no_entries alert alert-error"><?php echo JText::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', JText::_('COM_SERMONSPEAKER_SPEAKERS')); ?></div>
+				<div
+					class="no_entries alert alert-error"><?php echo JText::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', JText::_('COM_SERMONSPEAKER_SPEAKERS')); ?></div>
 			<?php else : ?>
 				<table class="table table-striped table-hover table-condensed">
-					<thead><tr>
+					<thead>
+					<tr>
 						<th class="ss-title">
 							<?php echo JHtml::_('grid.sort', 'COM_SERMONSPEAKER_FIELD_NAME_LABEL', 'title', $listDirn, $listOrder); ?>
 						</th>
@@ -90,64 +93,67 @@ $listDirn	= $this->state->get('list.direction');
 							</th>
 						<?php endif; ?>
 						<th></th>
-					</tr></thead>
-				<!-- Begin Data -->
+					</tr>
+					</thead>
+					<!-- Begin Data -->
 					<tbody>
-						<?php foreach($this->items as $i => $item) : ?>
-							<tr class="<?php echo ($item->state) ? '': 'system-unpublished '; ?>cat-list-row<?php echo $i % 2; ?>">
-								<td class="ss-title">
-									<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug, $item->catid, $item->language)); ?>">
-										<?php echo $item->title; ?>
-									</a>
-									<?php if ($canEdit or ($canEditOwn and ($user->id == $item->created_by))) : ?>
-										<span class="list-edit pull-left width-50">
+					<?php foreach ($this->items as $i => $item) : ?>
+						<tr class="<?php echo ($item->state) ? '' : 'system-unpublished '; ?>cat-list-row<?php echo $i % 2; ?>">
+							<td class="ss-title">
+								<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug, $item->catid, $item->language)); ?>">
+									<?php echo $item->title; ?>
+								</a>
+								<?php if ($canEdit or ($canEditOwn and ($user->id == $item->created_by))) : ?>
+									<span class="list-edit pull-left width-50">
 											<?php echo JHtml::_('icon.edit', $item, $this->params, array('type' => 'speaker')); ?>
 										</span>
-										<?php echo JLayoutHelper::render('blocks.state_info', array('item' => $item, 'show' => true)); ?>
-									<?php endif; ?>
-								</td>
-								<?php if (in_array('speakers:category', $this->col_speaker)) : ?>
-									<td class="ss-col ss-category hidden-phone">
-										<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakersRoute($item->catslug, $item->language)); ?>"><?php echo $item->category_title; ?></a>
-									</td>
-								<?php endif;
-
-								if (in_array('speakers:intro', $this->col_speaker)) : ?>
-									<td class="ss-col ss-intro hidden-phone"><?php echo JHtml::_('content.prepare', $item->intro, '', 'com_sermonspeaker.intro'); ?></td>
-								<?php endif;
-
-								if (in_array('speakers:hits', $this->col_speaker)) : ?>
-									<td class="ss-col ss-hits hidden-phone hidden-tablet"><?php echo $item->hits; ?></td>
+									<?php echo JLayoutHelper::render('blocks.state_info', array('item' => $item, 'show' => true)); ?>
 								<?php endif; ?>
-								<td class="ss-col ss-links">
-									<ul class="unstyled">
+							</td>
+							<?php if (in_array('speakers:category', $this->col_speaker)) : ?>
+								<td class="ss-col ss-category hidden-phone">
+									<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakersRoute($item->catslug, $item->language)); ?>"><?php echo $item->category_title; ?></a>
+								</td>
+							<?php endif;
+
+							if (in_array('speakers:intro', $this->col_speaker)) : ?>
+								<td class="ss-col ss-intro hidden-phone"><?php echo JHtml::_('content.prepare', $item->intro, '', 'com_sermonspeaker.intro'); ?></td>
+							<?php endif;
+
+							if (in_array('speakers:hits', $this->col_speaker)) : ?>
+								<td class="ss-col ss-hits hidden-phone hidden-tablet"><?php echo $item->hits; ?></td>
+							<?php endif; ?>
+							<td class="ss-col ss-links">
+								<ul class="unstyled">
 									<?php if ($item->sermons) : ?>
-									<li>
-										<a class="badge badge-info" href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug, $item->catid, $item->language) . '#sermons'); ?>">
-											<?php echo JText::_('COM_SERMONSPEAKER_SERMONS'); ?>
-										</a>
-									</li>
+										<li>
+											<a class="badge badge-info"
+												href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug, $item->catid, $item->language) . '#sermons'); ?>">
+												<?php echo JText::_('COM_SERMONSPEAKER_SERMONS'); ?>
+											</a>
+										</li>
 									<?php endif;
 
 									if ($item->series) : ?>
-									<li>
-										<a class="badge badge-info" href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug, $item->catid, $item->language) . '#series'); ?>">
-											<?php echo JText::_('COM_SERMONSPEAKER_SERIES'); ?>
-										</a>
-									</li>
+										<li>
+											<a class="badge badge-info"
+												href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug, $item->catid, $item->language) . '#series'); ?>">
+												<?php echo JText::_('COM_SERMONSPEAKER_SERIES'); ?>
+											</a>
+										</li>
 									<?php endif;
 
 									if ($item->website) : ?>
-									<li>
-										<a class="badge badge-info" href="<?php echo $item->website; ?>">
-											<?php echo JText::_('COM_SERMONSPEAKER_FIELD_WEBSITE_LABEL'); ?>
-										</a>
-									</li>
+										<li>
+											<a class="badge badge-info" href="<?php echo $item->website; ?>">
+												<?php echo JText::_('COM_SERMONSPEAKER_FIELD_WEBSITE_LABEL'); ?>
+											</a>
+										</li>
 									<?php endif; ?>
-									</ul>
-								</td>
-							</tr>
-						<?php endforeach; ?>
+								</ul>
+							</td>
+						</tr>
+					<?php endforeach; ?>
 					</tbody>
 				</table>
 			<?php endif;
@@ -166,10 +172,10 @@ $listDirn	= $this->state->get('list.direction');
 					echo $this->pagination->getPagesLinks(); ?>
 				</div>
 			<?php endif; ?>
-			<input type="hidden" name="task" value="" />
-			<input type="hidden" name="filter_order" value="<?php echo $listOrder; ?>" />
-			<input type="hidden" name="filter_order_Dir" value="<?php echo $listDirn; ?>" />
-			<input type="hidden" name="limitstart" value="" />
+			<input type="hidden" name="task" value=""/>
+			<input type="hidden" name="filter_order" value="<?php echo $listOrder; ?>"/>
+			<input type="hidden" name="filter_order_Dir" value="<?php echo $listDirn; ?>"/>
+			<input type="hidden" name="limitstart" value=""/>
 		</form>
 	</div>
 	<?php if (!empty($this->children[$this->category->id]) and $this->maxLevel != 0) : ?>
