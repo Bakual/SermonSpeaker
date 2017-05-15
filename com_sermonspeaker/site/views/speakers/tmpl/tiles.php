@@ -50,7 +50,7 @@ $orderlist  = array(
 		</div>
 	<?php endif; ?>
 	<form action="<?php echo JFilterOutput::ampReplace(JUri::getInstance()->toString()); ?>" method="post"
-	      id="adminForm" name="adminForm">
+		id="adminForm" name="adminForm">
 		<?php
 		if ($this->params->get('filter_field')) : ?>
 		<fieldset class="filters">
@@ -59,11 +59,11 @@ $orderlist  = array(
 			</legend>
 			<div class="filter-search">
 				<label class="filter-search-lbl"
-				       for="filter-search"><?php echo JText::_('JGLOBAL_FILTER_LABEL') . '&nbsp;'; ?></label>
+					for="filter-search"><?php echo JText::_('JGLOBAL_FILTER_LABEL') . '&nbsp;'; ?></label>
 				<input type="text" name="filter-search" id="filter-search"
-				       value="<?php echo $this->escape($this->state->get('filter.search')); ?>" class="inputbox"
-				       onchange="document.adminForm.submit();"
-				       title="<?php echo JText::_('COM_SERMONSPEAKER_FILTER_SEARCH_DESC'); ?>"/>
+					value="<?php echo $this->escape($this->state->get('filter.search')); ?>" class="inputbox"
+					onchange="document.adminForm.submit();"
+					title="<?php echo JText::_('COM_SERMONSPEAKER_FILTER_SEARCH_DESC'); ?>"/>
 			</div>
 			<div class="ordering-select">
 				<label for="filter_order"><?php echo JText::_('JFIELD_ORDERING_LABEL') . '&nbsp;'; ?></label>
@@ -116,7 +116,7 @@ $orderlist  = array(
 			$image   = ($item->pic) ? $item->pic : 'media/com_sermonspeaker/images/' . $this->params->get('defaultpic', 'nopict.jpg'); ?>
 			<div id="serie<?php echo $i; ?>" class="ss-entry tile">
 				<span class="hasTooltip"
-				      title="<?php echo JHtml::tooltipText($item->title, $tooltip); ?>">
+					title="<?php echo JHtml::tooltipText($item->title, $tooltip); ?>">
 				<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug, $item->catid, $item->language)); ?>">
 					<img border="0" align="middle" src="<?php echo trim($image, '/'); ?>">
 					<span class="item-title">

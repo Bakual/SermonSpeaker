@@ -55,7 +55,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->sermons);
 		<div class="ss-pic">
 			<?php if ($this->item->pic) : ?>
 				<img src="<?php echo trim($this->item->pic, '/'); ?>" title="<?php echo $this->item->title; ?>"
-					 alt="<?php echo $this->item->title; ?>"/>
+					alt="<?php echo $this->item->title; ?>"/>
 			<?php endif; ?>
 		</div>
 		<?php if (($this->item->bio && in_array('speaker:bio', $this->columns)) || ($this->item->intro && in_array('speaker:intro', $this->columns))) : ?>
@@ -72,7 +72,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->sermons);
 		<div class="clear-left"></div>
 		<?php if ($this->item->website && $this->item->website != 'http://') : ?>
 			<a href="<?php echo $this->item->website; ?>" target="_blank"
-			   title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKER_WEBLINK_HOOVER'); ?>"><?php echo JText::sprintf('COM_SERMONSPEAKER_SPEAKER_WEBLINK', $this->item->title); ?></a>
+				title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKER_WEBLINK_HOOVER'); ?>"><?php echo JText::sprintf('COM_SERMONSPEAKER_SPEAKER_WEBLINK', $this->item->title); ?></a>
 		<?php endif; ?>
 	</div>
 	<?php if (in_array('speaker:player', $this->col_sermon) and count($this->sermons)) :
@@ -97,15 +97,15 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->sermons);
 			<?php if ($player->toggle): ?>
 				<div>
 					<img class="pointer" src="media/com_sermonspeaker/images/Video.png" onclick="Video()" alt="Video"
-						 title="<?php echo JText::_('COM_SERMONSPEAKER_SWITCH_VIDEO'); ?>"/>
+						title="<?php echo JText::_('COM_SERMONSPEAKER_SWITCH_VIDEO'); ?>"/>
 					<img class="pointer" src="media/com_sermonspeaker/images/Sound.png" onclick="Audio()" alt="Audio"
-						 title="<?php echo JText::_('COM_SERMONSPEAKER_SWITCH_AUDIO'); ?>"/>
+						title="<?php echo JText::_('COM_SERMONSPEAKER_SWITCH_AUDIO'); ?>"/>
 				</div>
 			<?php endif; ?>
 		</div>
 	<?php endif; ?>
 	<form action="<?php echo JFilterOutput::ampReplace(JUri::getInstance()->toString()); ?>" method="post"
-		  id="adminForm" name="adminForm" class="form-inline">
+		id="adminForm" name="adminForm" class="form-inline">
 		<?php
 		if ($this->params->get('filter_field') or $this->params->get('show_pagination_limit')) :
 			echo $this->loadTemplate('filters');
@@ -163,7 +163,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->sermons);
 				endif; ?>
 				<div id="sermon<?php echo $i; ?>" class="ss-entry tile">
 				<span class="hasTooltip"
-					  title="<?php echo JHtml::tooltipText($item->title, $tooltip); ?>">
+					title="<?php echo JHtml::tooltipText($item->title, $tooltip); ?>">
 				<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug, $item->catid, $item->language)); ?>">
 					<img border="0" align="middle" src="<?php echo trim($picture, '/'); ?>">
 					<span class="item-title">
