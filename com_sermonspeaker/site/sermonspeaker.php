@@ -26,7 +26,6 @@ JLoader::register('JFolder', JPATH_LIBRARIES . '/joomla/filesystem/folder.php');
 
 // Register Helperclasses for autoloading
 JLoader::discover('SermonspeakerHelper', JPATH_COMPONENT . '/helpers');
-JLoader::discover('SermonspeakerHelperPlayer', JPATH_COMPONENT . '/helpers/player');
 
 // Load languages and merge with fallbacks
 $jlang = JFactory::getLanguage();
