@@ -16,15 +16,15 @@
 	<!-- Add fields to the parameters object for the layout. -->
 	<fields name="params">
 		<fieldset name="basic">
-			<field name="cat" type="category" 
-				label="JGLOBAL_CHOOSE_CATEGORY_LABEL" 
-				description="JGLOBAL_CHOOSE_CATEGORY_DESC" 
-				extension="com_sermonspeaker" 
+			<field name="cat" type="category"
+				label="JGLOBAL_CHOOSE_CATEGORY_LABEL"
+				description="JGLOBAL_CHOOSE_CATEGORY_DESC"
+				extension="com_sermonspeaker"
 				required="true"
 			/>
 
-			<field name="freq" type="list" 
-				label="COM_SERMONSPEAKER_PARAM_FREQ_LABEL" 
+			<field name="freq" type="list"
+				label="COM_SERMONSPEAKER_PARAM_FREQ_LABEL"
 				description="COM_SERMONSPEAKER_PARAM_FREQ_DESC"
 				default="">
 				<option value="">JGLOBAL_USE_GLOBAL</option>
@@ -37,8 +37,8 @@
 				<option value="never">never</option>
 			</field>
 
-			<field name="prio" type="list" 
-				label="COM_SERMONSPEAKER_PARAM_PRIO_LABEL" 
+			<field name="prio" type="list"
+				label="COM_SERMONSPEAKER_PARAM_PRIO_LABEL"
 				description="COM_SERMONSPEAKER_PARAM_PRIO_DESC"
 				default="">
 				<option value="">JGLOBAL_USE_GLOBAL</option>

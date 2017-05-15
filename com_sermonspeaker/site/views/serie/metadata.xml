@@ -4,18 +4,18 @@
 		<message><![CDATA[COM_SERMONSPEAKER_SERIE_VIEW_DESC]]></message>
 		<options>
 			<default
-				name="COM_SERMONSPEAKER_SERIE_VIEW_TITLE" 
+				name="COM_SERMONSPEAKER_SERIE_VIEW_TITLE"
 				msg="COM_SERMONSPEAKER_SERIE_VIEW_DESC"
 			/>
 		</options>
 	</view>
 	<fields name="request">
 		<fieldset name="request">
-			<field name="id" type="sql" 
-				label="COM_SERMONSPEAKER_PARAM_SELECT_SERIE" 
-				description="COM_SERMONSPEAKER_PARAM_SELECT_SERIE_DESC" 
-				query="SELECT id, title FROM #__sermon_series" 
-				key_field="id" 
+			<field name="id" type="sql"
+				label="COM_SERMONSPEAKER_PARAM_SELECT_SERIE"
+				description="COM_SERMONSPEAKER_PARAM_SELECT_SERIE_DESC"
+				query="SELECT id, title FROM #__sermon_series"
+				key_field="id"
 				value_field="title"
 				required="true"
 			/>
@@ -23,10 +23,10 @@
 	</fields>
 	<fields name="params">
 		<fieldset name="basic">
-			<field name="catid" type="category" 
-				label="JGLOBAL_CHOOSE_CATEGORY_LABEL" 
-				description="JGLOBAL_CHOOSE_CATEGORY_DESC" 
-				extension="com_sermonspeaker" 
+			<field name="catid" type="category"
+				label="JGLOBAL_CHOOSE_CATEGORY_LABEL"
+				description="JGLOBAL_CHOOSE_CATEGORY_DESC"
+				extension="com_sermonspeaker"
 				required="true"
 			/>
 			<field name="count_items_type" type="list"
@@ -39,16 +39,16 @@
 			</field>
 		</fieldset>
 		<fieldset name="advanced"
-			addfieldpath="/administrator/components/com_sermonspeaker/models/fields" >
-			<field name="plugin_tag" 
-				type="plugintag" 
+			addfieldpath="/administrator/components/com_sermonspeaker/models/fields">
+			<field name="plugin_tag"
+				type="plugintag"
 				class="btn-group"
-				label="COM_SERMONSPEAKER_PARAM_PLUGIN_LABEL" 
+				label="COM_SERMONSPEAKER_PARAM_PLUGIN_LABEL"
 				description="COM_SERMONSPEAKER_PARAM_PLUGIN_DESC"
 				useglobal="true" />
 			<field name="filetype"
 				type="list"
-				label="COM_SERMONSPEAKER_FIELD_FILETYPE_LABEL" 
+				label="COM_SERMONSPEAKER_FIELD_FILETYPE_LABEL"
 				description="COM_SERMONSPEAKER_FIELD_FILETYPE_DESC">
 				<option value="">COM_SERMONSPEAKER_NO_FILTER</option>
 				<option value="audio">COM_SERMONSPEAKER_AUDIO</option>
@@ -56,16 +56,16 @@
 			</field>
 			<field name="fileprio"
 				type="list"
-				label="COM_SERMONSPEAKER_PARAM_FILEPRIO_LABEL" 
+				label="COM_SERMONSPEAKER_PARAM_FILEPRIO_LABEL"
 				description="COM_SERMONSPEAKER_PARAM_FILEPRIO_DESC">
 				<option value="">JGLOBAL_USE_GLOBAL</option>
 				<option value="0">COM_SERMONSPEAKER_AUDIO</option>
 				<option value="1">COM_SERMONSPEAKER_VIDEO</option>
 			</field>
 		</fieldset>
-		<fieldset name="layout" 
-			label="COM_SERMONSPEAKER_FIELDSET_LAYOUTS_LABEL" 
-			description="COM_SERMONSPEAKER_FIELDSET_LAYOUTS_DESC" >
+		<fieldset name="layout"
+			label="COM_SERMONSPEAKER_FIELDSET_LAYOUTS_LABEL"
+			description="COM_SERMONSPEAKER_FIELDSET_LAYOUTS_DESC">
 			<field
 				name="sermonslayout" type="componentlayout"
 				label="COM_SERMONSPEAKER_SERMONS_VIEW_TITLE"
