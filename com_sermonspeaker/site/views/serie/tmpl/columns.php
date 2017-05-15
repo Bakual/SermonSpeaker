@@ -61,9 +61,9 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 				<dd class="hits">
 					<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADSERIES_LABEL') . ': '; ?>
 					<a href="<?php echo JRoute::_('index.php?task=serie.download&id=' . $this->item->slug); ?>"
-					   target="_blank" title="<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADSERIES_DESC'); ?>">
+						target="_blank" title="<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADSERIES_DESC'); ?>">
 						<img src="media/com_sermonspeaker/images/download.png"
-						     alt="<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADSERIES_LABEL'); ?>"/>
+							alt="<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADSERIES_LABEL'); ?>"/>
 					</a></dd>
 			<?php endif; ?>
 		</dl>
@@ -103,15 +103,15 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 			<?php if ($player->toggle): ?>
 				<div>
 					<img class="pointer" src="media/com_sermonspeaker/images/Video.png" onclick="Video()" alt="Video"
-					     title="<?php echo JText::_('COM_SERMONSPEAKER_SWITCH_VIDEO'); ?>"/>
+						title="<?php echo JText::_('COM_SERMONSPEAKER_SWITCH_VIDEO'); ?>"/>
 					<img class="pointer" src="media/com_sermonspeaker/images/Sound.png" onclick="Audio()" alt="Audio"
-					     title="<?php echo JText::_('COM_SERMONSPEAKER_SWITCH_AUDIO'); ?>"/>
+						title="<?php echo JText::_('COM_SERMONSPEAKER_SWITCH_AUDIO'); ?>"/>
 				</div>
 			<?php endif; ?>
 		</div>
 	<?php endif; ?>
 	<form action="<?php echo JFilterOutput::ampReplace(JUri::getInstance()->toString()); ?>" method="post"
-	      id="adminForm" name="adminForm" class="form-inline">
+		id="adminForm" name="adminForm" class="form-inline">
 		<?php
 		if ($this->params->get('filter_field') or $this->params->get('show_pagination_limit')) :
 			echo $this->loadTemplate('filters');
@@ -192,7 +192,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 								endif;
 							endif; ?>
 							<a href="<?php echo $link; ?>" class="addfile" target="_blank"
-							   title="<?php echo JText::_('COM_SERMONSPEAKER_ADDFILE_HOOVER'); ?>">
+								title="<?php echo JText::_('COM_SERMONSPEAKER_ADDFILE_HOOVER'); ?>">
 								<img src="<?php echo $file; ?>" alt=""/> <?php echo $item->addfileDesc; ?>
 							</a>
 						<?php endif;
@@ -209,16 +209,16 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 
 						if ($item->audiofile) : ?>
 							<a href="#"
-							   onclick="popup=window.open('<?php echo JRoute::_('index.php?view=sermon&layout=popup&tmpl=component&type=audio&id=' . $item->slug); ?>', 'PopupPage', 'height=150px, width=400px, scrollbars=yes, resizable=yes'); return false"
-							   class="listen" title="<?php echo JText::_('COM_SERMONSPEAKER_POPUPPLAYER'); ?>">
+								onclick="popup=window.open('<?php echo JRoute::_('index.php?view=sermon&layout=popup&tmpl=component&type=audio&id=' . $item->slug); ?>', 'PopupPage', 'height=150px, width=400px, scrollbars=yes, resizable=yes'); return false"
+								class="listen" title="<?php echo JText::_('COM_SERMONSPEAKER_POPUPPLAYER'); ?>">
 								Listen
 							</a>
 						<?php endif;
 
 						if ($item->videofile) : ?>
 							<a href="#"
-							   onclick="popup=window.open('<?php echo JRoute::_('index.php?view=sermon&layout=popup&tmpl=component&type=video&id=' . $item->slug); ?>', 'PopupPage', 'height=400px, width=450px, scrollbars=yes, resizable=yes'); return false"
-							   class="watch" title="<?php echo JText::_('COM_SERMONSPEAKER_POPUPPLAYER'); ?>">
+								onclick="popup=window.open('<?php echo JRoute::_('index.php?view=sermon&layout=popup&tmpl=component&type=video&id=' . $item->slug); ?>', 'PopupPage', 'height=400px, width=450px, scrollbars=yes, resizable=yes'); return false"
+								class="watch" title="<?php echo JText::_('COM_SERMONSPEAKER_POPUPPLAYER'); ?>">
 								Watch
 							</a>
 						<?php endif; ?>
