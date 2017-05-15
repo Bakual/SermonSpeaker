@@ -216,19 +216,42 @@ class SermonspeakerViewSerie extends JViewLegacy
 		JPluginHelper::importPlugin('content');
 
 		$this->item->text = $this->item->series_description;
-		$dispatcher->trigger('onContentPrepare', array ('com_sermonspeaker.serie', &$this->item, &$params, 0));
+		$dispatcher->trigger('onContentPrepare', array ('com_sermonspeaker.serie', &$this->item, &$this->params, 0));
 		$this->item->series_description = $this->item->text;
 
 		// Store the events for later
 		$this->item->event = new stdClass;
-		$results = $dispatcher->trigger('onContentAfterTitle', array('com_sermonspeaker.serie', &$this->item, &$params, 0));
+		$results = $dispatcher->trigger('onContentAfterTitle', array('com_sermonspeaker.serie', &$this->item, &$this->params, 0));
 		$this->item->event->afterDisplayTitle = trim(implode("\n", $results));
 
-		$results = $dispatcher->trigger('onContentBeforeDisplay', array('com_sermonspeaker.serie', &$this->item, &$params, 0));
+		$results = $dispatcher->trigger('onContentBeforeDisplay', array('com_sermonspeaker.serie', &$this->item, &$this->params, 0));
 		$this->item->event->beforeDisplayContent = trim(implode("\n", $results));
 
-		$results = $dispatcher->trigger('onContentAfterDisplay', array('com_sermonspeaker.serie', &$this->item, &$params, 0));
+		$results = $dispatcher->trigger('onContentAfterDisplay', array('com_sermonspeaker.serie', &$this->item, &$this->params, 0));
 		$this->item->event->afterDisplayContent = trim(implode("\n", $results));
+
+		// Trigger events for Sermons.
+		foreach ($this->items as $item)
+		{
+			$item->event   = new stdClass;
+
+			// Old plugins: Ensure that text property is available
+			$item->text = $item->notes;
+
+			$dispatcher->trigger('onContentPrepare', array('com_sermonspeaker.sermons', &$item, &$this->params, 0));
+
+			// Old plugins: Use processed text as notes
+			$item->notes = $item->text;
+
+			$results = $dispatcher->trigger('onContentAfterTitle', array('com_sermonspeaker.sermons', &$item, &$this->params, 0));
+			$item->event->afterDisplayTitle = trim(implode("\n", $results));
+
+			$results = $dispatcher->trigger('onContentBeforeDisplay', array('com_sermonspeaker.sermons', &$item, &$this->params, 0));
+			$item->event->beforeDisplayContent = trim(implode("\n", $results));
+
+			$results = $dispatcher->trigger('onContentAfterDisplay', array('com_sermonspeaker.sermons', &$item, &$this->params, 0));
+			$item->event->afterDisplayContent = trim(implode("\n", $results));
+		}
 
 		$this->pageclass_sfx = htmlspecialchars($this->params->get('pageclass_sfx'));
 		$this->maxLevel      = $this->params->get('maxLevel', -1);

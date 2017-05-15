@@ -141,6 +141,9 @@ $this->document->addScriptDeclaration('jQuery(function() {
 										<h2><?php echo SermonspeakerHelperSermonspeaker::insertSermonTitle($i, $item, $player, false); ?></h2>
 										<?php echo JLayoutHelper::render('blocks.state_info', array('item' => $item, 'show' => $showState)); ?>
 									</div>
+
+									<?php echo $item->event->afterDisplayTitle; ?>
+
 									<?php if ($picture = SermonspeakerHelperSermonspeaker::insertPicture($item)) : ?>
 										<div class="img-polaroid pull-right item-image sermon-image"><img
 												src="<?php echo $picture; ?>"></div>
@@ -225,11 +228,17 @@ $this->document->addScriptDeclaration('jQuery(function() {
 											<?php endif; ?>
 										</dl>
 									</div>
+
+									<?php echo $item->event->beforeDisplayContent; ?>
+
 									<?php if (in_array('speaker:notes', $this->col_sermon) and $item->notes) : ?>
 										<div>
 											<?php echo JHtml::_('content.prepare', $item->notes, '', 'com_sermonspeaker.notes'); ?>
 										</div>
 									<?php endif; ?>
+
+									<?php echo $item->event->afterDisplayContent; ?>
+
 								</div>
 							<?php endforeach; ?>
 						</div>
@@ -313,6 +322,9 @@ $this->document->addScriptDeclaration('jQuery(function() {
 											</small>
 										<?php endif; ?>
 									</div>
+
+									<?php echo $item->event->afterDisplayTitle; ?>
+
 									<?php if ($item->avatar) : ?>
 										<div class="img-polaroid pull-right item-image">
 											<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->slug, $item->catid, $item->language)); ?>">
@@ -345,11 +357,17 @@ $this->document->addScriptDeclaration('jQuery(function() {
 											<?php endif; ?>
 										</dl>
 									</div>
+
+									<?php echo $item->event->beforeDisplayContent; ?>
+
 									<?php if (in_array('speaker:description', $this->col_serie) and $item->series_description) : ?>
 										<div>
 											<?php echo JHtml::_('content.prepare', $item->series_description, '', 'com_sermonspeaker.series_description'); ?>
 										</div>
 									<?php endif; ?>
+
+									<?php echo $item->event->afterDisplayContent; ?>
+
 								</div>
 							<?php endforeach; ?>
 						</div>
