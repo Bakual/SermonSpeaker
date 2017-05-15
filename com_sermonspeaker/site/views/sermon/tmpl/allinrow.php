@@ -29,15 +29,14 @@ if ($this->params->get('show_page_heading', 1)) : ?>
 		<?php echo $this->item->title; ?></a>
 </h2>
 <?php echo $this->item->event->afterDisplayTitle; ?>
-<?php echo $this->item->event->beforeDisplayContent; ?>
-<?php
-if ($canEdit or ($canEditOwn and ($user->id == $this->item->created_by))) : ?>
+<?php if ($canEdit or ($canEditOwn and ($user->id == $this->item->created_by))) : ?>
 	<ul class="actions">
 		<li class="edit-icon">
 			<?php echo JHtml::_('icon.edit', $this->item, $this->params, array('type' => 'sermon')); ?>
 		</li>
 	</ul>
 <?php endif; ?>
+<?php echo $this->item->event->beforeDisplayContent; ?>
 <!-- Begin Header -->
 <table border="0" cellpadding="2" cellspacing="0" width="100%">
 	<tr>

@@ -36,7 +36,6 @@ if ($this->params->get('show_page_heading', 1)) : ?>
 	</a>
 </h2>
 <?php echo $this->item->event->afterDisplayTitle; ?>
-<?php echo $this->item->event->beforeDisplayContent; ?>
 <?php
 if ($canEdit or ($canEditOwn and ($user->id == $this->item->created_by))) : ?>
 	<ul class="actions">
@@ -45,6 +44,7 @@ if ($canEdit or ($canEditOwn and ($user->id == $this->item->created_by))) : ?>
 		</li>
 	</ul>
 <?php endif; ?>
+<?php echo $this->item->event->beforeDisplayContent; ?>
 <div id="sermon-infobox">
 	<div id="sermon-player-container">
 		<?php if (in_array('sermon:player', $this->columns)) : ?>

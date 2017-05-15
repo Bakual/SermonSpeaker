@@ -69,6 +69,9 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 			<?php endif; ?>
 		</ul>
 	</div>
+
+	<?php echo $this->item->event->afterDisplayTitle; ?>
+
 	<div class="article-info sermon-info muted">
 		<dl class="article-info">
 			<dt class="article-info-term"><?php  echo JText::_('JDETAILS'); ?></dt>
@@ -154,7 +157,6 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 			<?php endif; ?>
 		</dl>
 	</div>
-	<?php echo $this->item->event->afterDisplayTitle; ?>
 	<?php echo $this->item->event->beforeDisplayContent; ?>
 	<?php if ($picture = SermonspeakerHelperSermonspeaker::insertPicture($this->item)) : ?>
 		<div class="img-polaroid pull-right item-image sermon-image"><img src="<?php echo $picture; ?>"></div>

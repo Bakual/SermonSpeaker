@@ -29,7 +29,6 @@ if ($this->params->get('show_page_heading', 1)) : ?>
 		<?php echo $this->item->title; ?></a>
 </h2>
 <?php echo $this->item->event->afterDisplayTitle; ?>
-<?php echo $this->item->event->beforeDisplayContent; ?>
 <?php
 if ($canEdit or ($canEditOwn and ($user->id == $this->item->created_by))) : ?>
 	<ul class="actions">
@@ -38,6 +37,7 @@ if ($canEdit or ($canEditOwn and ($user->id == $this->item->created_by))) : ?>
 		</li>
 	</ul>
 <?php endif; ?>
+<?php echo $this->item->event->beforeDisplayContent; ?>
 <div class="ss-sermondetail-container">
 	<?php if (in_array('sermon:date', $this->columns) and ($this->item->sermon_date != '0000-00-00 00:00:00')) : ?>
 		<div class="ss-sermondetail-label"><?php echo JText::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL'); ?>:</div>
