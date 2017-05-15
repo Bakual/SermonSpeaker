@@ -52,7 +52,7 @@ $listDirn   = $this->state->get('list.direction');
 	<?php endif; ?>
 	<div class="cat-items">
 		<form action="<?php echo htmlspecialchars(JUri::getInstance()->toString()); ?>" method="post" id="adminForm"
-		      name="adminForm">
+			name="adminForm">
 			<?php
 			if ($this->params->get('filter_field') or $this->params->get('show_pagination_limit')) : ?>
 				<div class="filters btn-toolbar">
@@ -93,6 +93,9 @@ $listDirn   = $this->state->get('list.direction');
 								</a>
 								<?php echo JLayoutHelper::render('blocks.state_info', array('item' => $item, 'show' => $showState)); ?>
 							</div>
+
+							<?php echo $item->event->afterDisplayTitle; ?>
+
 							<?php if ($item->pic) : ?>
 								<div class="img-polaroid pull-right item-image">
 									<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug, $item->catid, $item->language)); ?>">
@@ -136,31 +139,38 @@ $listDirn   = $this->state->get('list.direction');
 									<?php endif; ?>
 								</dl>
 							</div>
+
+							<?php echo $item->event->beforeDisplayContent; ?>
+
 							<?php if (in_array('speakers:intro', $this->col_speaker) and $item->intro) : ?>
 								<div>
 									<?php echo JHtml::_('content.prepare', $item->intro, '', 'com_sermonspeaker.intro'); ?>
 								</div>
-							<?php endif;
+							<?php endif; ?>
 
-							if (in_array('speakers:bio', $this->col_speaker) and $item->bio) : ?>
+							<?php if (in_array('speakers:bio', $this->col_speaker) and $item->bio) : ?>
 								<div>
 									<?php echo JHtml::_('content.prepare', $item->bio, '', 'com_sermonspeaker.bio'); ?>
 								</div>
 							<?php endif; ?>
-						</div>
-						<?php if ($item->sermons) : ?>
-							<a class="badge badge-info"
-							   title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKERS_SERMONSLINK_HOOVER'); ?>"
-							   href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug, $item->catid, $item->language) . '#sermons'); ?>">
-								<?php echo JText::_('COM_SERMONSPEAKER_SERMONS') . ': ' . $item->sermons; ?></a>&nbsp;
-						<?php endif;
 
-						if ($item->series) : ?>
-							<a class="badge badge-info"
-							   title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKERS_SERIESLINK_HOOVER'); ?>"
-							   href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug, $item->catid, $item->language) . '#series'); ?>">
-								<?php echo JText::_('COM_SERMONSPEAKER_SERIES') . ': ' . $item->series; ?></a>&nbsp;
-						<?php endif; ?>
+							<?php if ($item->sermons) : ?>
+								<a class="badge badge-info"
+									title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKERS_SERMONSLINK_HOOVER'); ?>"
+									href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug, $item->catid, $item->language) . '#sermons'); ?>">
+									<?php echo JText::_('COM_SERMONSPEAKER_SERMONS') . ': ' . $item->sermons; ?></a>&nbsp;
+							<?php endif; ?>
+
+							<?php if ($item->series) : ?>
+								<a class="badge badge-info"
+									title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKERS_SERIESLINK_HOOVER'); ?>"
+									href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug, $item->catid, $item->language) . '#series'); ?>">
+									<?php echo JText::_('COM_SERMONSPEAKER_SERIES') . ': ' . $item->series; ?></a>&nbsp;
+							<?php endif; ?>
+
+							<?php echo $item->event->afterDisplayContent; ?>
+
+						</div>
 						<div class="clearfix"></div>
 					<?php endforeach; ?>
 				</div>

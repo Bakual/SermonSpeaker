@@ -82,6 +82,31 @@ class SermonspeakerViewSpeakers extends JViewLegacy
 			throw new Exception(JText::_('JERROR_ALERTNOAUTHOR'), 403);
 		}
 
+		$app = JFactory::getApplication();
+
+		// Run plugin events for each item.
+		foreach ($this->items as $item)
+		{
+			$item->event   = new stdClass;
+
+			// Old plugins: Ensure that text property is available
+			$item->text = $item->intro;
+
+			$app->triggerEvent('onContentPrepare', array('com_sermonspeaker.speakers', &$item, $this->params, 0));
+
+			// Old plugins: Use processed text as notes
+			$item->intro = $item->text;
+
+			$results = $app->triggerEvent('onContentAfterTitle', array('com_sermonspeaker.speakers', &$item, &$this->params, 0));
+			$item->event->afterDisplayTitle = trim(implode("\n", $results));
+
+			$results = $app->triggerEvent('onContentBeforeDisplay', array('com_sermonspeaker.speakers', &$item, &$this->params, 0));
+			$item->event->beforeDisplayContent = trim(implode("\n", $results));
+
+			$results = $app->triggerEvent('onContentAfterDisplay', array('com_sermonspeaker.speakers', &$item, &$this->params, 0));
+			$item->event->afterDisplayContent = trim(implode("\n", $results));
+		}
+
 		// Set layout from parameters if not already set elsewhere
 		if ($this->getLayout() == 'default')
 		{

@@ -14,15 +14,15 @@ JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
 JHtml::_('bootstrap.framework');
 JHtml::_('bootstrap.tooltip');
 
-$user		= JFactory::getUser();
+$user       = JFactory::getUser();
 $showState  = $user->authorise('core.edit', 'com_sermonspeaker');
-$fu_enable	= $this->params->get('fu_enable');
-$canEdit	= ($fu_enable and $user->authorise('core.edit', 'com_sermonspeaker'));
-$canEditOwn	= ($fu_enable and $user->authorise('core.edit.own', 'com_sermonspeaker'));
-$listOrder	= $this->state->get('list.ordering');
-$listDirn	= $this->state->get('list.direction');
+$fu_enable  = $this->params->get('fu_enable');
+$canEdit    = ($fu_enable and $user->authorise('core.edit', 'com_sermonspeaker'));
+$canEditOwn = ($fu_enable and $user->authorise('core.edit.own', 'com_sermonspeaker'));
+$listOrder  = $this->state->get('list.ordering');
+$listDirn   = $this->state->get('list.direction');
 ?>
-<div class="category-list<?php echo $this->pageclass_sfx;?> ss-series-container<?php echo $this->pageclass_sfx; ?>">
+<div class="category-list<?php echo $this->pageclass_sfx; ?> ss-series-container<?php echo $this->pageclass_sfx; ?>">
 	<?php
 	if ($this->params->get('show_page_heading', 1)) : ?>
 		<h1><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
@@ -33,7 +33,7 @@ $listDirn	= $this->state->get('list.direction');
 			<?php echo $this->escape($this->params->get('page_subheading'));
 
 			if ($this->params->get('show_category_title')) : ?>
-				<span class="subheading-category"><?php echo $this->category->title;?></span>
+				<span class="subheading-category"><?php echo $this->category->title; ?></span>
 			<?php endif; ?>
 		</h2>
 	<?php endif;
@@ -51,7 +51,8 @@ $listDirn	= $this->state->get('list.direction');
 		</div>
 	<?php endif; ?>
 	<div class="cat-items">
-		<form action="<?php echo htmlspecialchars(JUri::getInstance()->toString()); ?>" method="post" id="adminForm" name="adminForm">
+		<form action="<?php echo htmlspecialchars(JUri::getInstance()->toString()); ?>" method="post" id="adminForm"
+			name="adminForm">
 			<?php
 			if ($this->params->get('filter_field') or $this->params->get('show_pagination_limit')) : ?>
 				<div class="filters btn-toolbar">
@@ -67,11 +68,12 @@ $listDirn	= $this->state->get('list.direction');
 			<?php endif; ?>
 			<div class="clearfix"></div>
 			<?php if (!count($this->items)) : ?>
-				<div class="no_entries alert alert-error"><?php echo JText::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', JText::_('COM_SERMONSPEAKER_SERIES')); ?></div>
+				<div
+					class="no_entries alert alert-error"><?php echo JText::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', JText::_('COM_SERMONSPEAKER_SERIES')); ?></div>
 			<?php else : ?>
 				<div class="items-leading">
-					<?php foreach($this->items as $i => $item) : ?>
-						<div class="<?php echo ($item->state) ? '': 'system-unpublished'; ?>">
+					<?php foreach ($this->items as $i => $item) : ?>
+						<div class="<?php echo ($item->state) ? '' : 'system-unpublished'; ?>">
 							<div class="btn-group pull-right">
 								<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
 									<i class="icon-cog"></i>
@@ -80,8 +82,9 @@ $listDirn	= $this->state->get('list.direction');
 								<ul class="dropdown-menu">
 									<?php if (in_array('series:download', $this->col_serie)) : ?>
 										<li class="download-icon">
-											<a href="<?php echo JRoute::_('index.php?view=serie&layout=download&tmpl=component&id=' . $item->slug); ?>" class="modal" rel="{handler:'iframe',size:{x:400,y:200}}">
-												<i class="icon-download" > </i> 
+											<a href="<?php echo JRoute::_('index.php?view=serie&layout=download&tmpl=component&id=' . $item->slug); ?>"
+												class="modal" rel="{handler:'iframe',size:{x:400,y:200}}">
+												<i class="icon-download"> </i>
 												<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADSERIES_LABEL'); ?>
 											</a>
 										</li>
@@ -94,28 +97,33 @@ $listDirn	= $this->state->get('list.direction');
 								</ul>
 							</div>
 							<div class="page-header">
-								<a title="<?php echo JText::_('COM_SERMONSPEAKER_SERIESLINK_HOOVER'); ?>" href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->slug, $item->catid, $item->language)); ?>">
+								<a title="<?php echo JText::_('COM_SERMONSPEAKER_SERIESLINK_HOOVER'); ?>"
+									href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->slug, $item->catid, $item->language)); ?>">
 									<h2><?php echo $item->title; ?></h2>
 								</a>
 								<?php echo JLayoutHelper::render('blocks.state_info', array('item' => $item, 'show' => $showState)); ?>
 
 								<?php if (in_array('series:speaker', $this->col_serie) and $item->speakers) : ?>
 									<small class="ss-speakers createdby">
-										<?php echo JText::_('COM_SERMONSPEAKER_SPEAKERS'); ?>: 
+										<?php echo JText::_('COM_SERMONSPEAKER_SPEAKERS'); ?>:
 										<?php echo $item->speakers; ?>
 									</small>
 								<?php endif; ?>
 							</div>
+
+							<?php echo $item->event->afterDisplayTitle; ?>
+
 							<?php if ($item->avatar) : ?>
 								<div class="img-polaroid pull-right item-image">
 									<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->slug, $item->catid, $item->language)); ?>">
-										<img src="<?php echo SermonspeakerHelperSermonspeaker::makeLink($item->avatar); ?>">
+										<img
+											src="<?php echo SermonspeakerHelperSermonspeaker::makeLink($item->avatar); ?>">
 									</a>
 								</div>
 							<?php endif; ?>
 							<div class="article-info serie-info muted">
 								<dl class="article-info">
-									<dt class="article-info-term"><?php  echo JText::_('JDETAILS'); ?></dt>
+									<dt class="article-info-term"><?php echo JText::_('JDETAILS'); ?></dt>
 									<?php
 									if (in_array('series:category', $this->col_serie) and $item->category_title) : ?>
 										<dd>
@@ -137,11 +145,17 @@ $listDirn	= $this->state->get('list.direction');
 									<?php endif; ?>
 								</dl>
 							</div>
+
+							<?php echo $item->event->beforeDisplayContent; ?>
+
 							<?php if (in_array('series:description', $this->col_serie) and $item->series_description) : ?>
 								<div>
 									<?php echo JHtml::_('content.prepare', $item->series_description, '', 'com_sermonspeaker.series_description'); ?>
 								</div>
 							<?php endif; ?>
+
+							<?php echo $item->event->afterDisplayContent; ?>
+
 						</div>
 						<div class="clearfix"></div>
 					<?php endforeach; ?>
@@ -158,10 +172,10 @@ $listDirn	= $this->state->get('list.direction');
 					echo $this->pagination->getPagesLinks(); ?>
 				</div>
 			<?php endif; ?>
-			<input type="hidden" name="task" value="" />
-			<input type="hidden" name="filter_order" value="<?php echo $listOrder; ?>" />
-			<input type="hidden" name="filter_order_Dir" value="<?php echo $listDirn; ?>" />
-			<input type="hidden" name="limitstart" value="" />
+			<input type="hidden" name="task" value=""/>
+			<input type="hidden" name="filter_order" value="<?php echo $listOrder; ?>"/>
+			<input type="hidden" name="filter_order_Dir" value="<?php echo $listDirn; ?>"/>
+			<input type="hidden" name="limitstart" value=""/>
 		</form>
 	</div>
 	<?php if (!empty($this->children[$this->category->id]) and $this->maxLevel != 0) : ?>
