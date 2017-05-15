@@ -143,10 +143,8 @@ input[type="text"].invalid, select.invalid, .invalid span, .invalid{
 }
 
 #sermonList a.active > .icon-feed {
-    color: #51a351;
-}
-#sermonList a > .icon-feed {
-    color: #b94a48;
+	color: #f0ad4e;
+	border-color: #f0ad4e;
 }
 .id3-info {
 	float: left;

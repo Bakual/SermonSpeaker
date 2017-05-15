@@ -143,7 +143,7 @@ abstract class JHtmlSermonspeakerAdministrator
 
 		if ($canChange)
 		{
-			$html = '<a class="btn btn-xs btn-secondary hasTooltip' . ($value == 1 ? ' active' : '') .'"'
+			$html = '<a class="tbody-icon' . ($value == 1 ? ' active' : '') . ' hasTooltip"'
 				. ' href="#" onclick="return listItemTask(\'cb' . $i . '\',\'' . $state['task'] . '\')"'
 				. ' title="' . JHtml::_('tooltipText', $state['active_title']) . '">'
 				. '<span class="icon-' . $state['active_class'] . '"></span>'
@@ -151,8 +151,8 @@ abstract class JHtmlSermonspeakerAdministrator
 		}
 		else
 		{
-			$html = '<a class="btn btn-xs btn-secondary hasTooltip disabled' . ($value == 1 ? ' active' : '')
-				. '" title="' . JHtml::_('tooltipText', $state['inactive_title']) . '">'
+			$html = '<a class="tbody-icon' . ($value == 1 ? ' active' : '') . ' hasTooltip disabled"'
+				. ' title="' . JHtml::_('tooltipText', $state['inactive_title']) . '">'
 				. '<span class="icon-' . $state['inactive_class'] . '"></span>'
 				. '</a>';
 		}
