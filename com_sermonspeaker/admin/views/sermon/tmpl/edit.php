@@ -164,13 +164,14 @@ $tmpl   = $jinput->getCmd('tmpl') === 'component' ? '&tmpl=component' : '';
 		endif;
 		if (JLanguageAssociations::isEnabled()) :
 			echo JHtml::_('bootstrap.addTab', 'myTab', 'associations', JText::_('JGLOBAL_FIELDSET_ASSOCIATIONS', true));
-				echo $this->loadTemplate('associations');
+				echo JLayoutHelper::render('joomla.edit.associations', $this);
 			echo JHtml::_('bootstrap.endTab');
 		endif;
 		echo JHtml::_('bootstrap.endTabSet'); ?>
+
 		<input type="hidden" name="task" value="" />
 		<input type="hidden" name="return" value="<?php echo $jinput->getCmd('return');?>" />
+		<input type="hidden" name="forcedLanguage" value="<?php echo $jinput->get('forcedLanguage', '', 'cmd'); ?>" />
 		<?php echo JHtml::_('form.token'); ?>
-
 	</div>
 </form>

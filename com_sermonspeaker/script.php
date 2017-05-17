@@ -229,6 +229,14 @@ class Com_SermonspeakerInstallerScript extends JInstallerScript
 		{
 			$this->deleteFolders[] = '/media/com_sermonspeaker/swfupload';
 		}
+
+		// Remove unused association templates
+		if (version_compare($this->oldRelease, '5.6.2', '<'))
+		{
+			$this->deleteFolders[] = '/administrator/components/com_sermonspeaker/views/sermon/tmpl/edit_associations.php';
+			$this->deleteFolders[] = '/administrator/components/com_sermonspeaker/views/serie/tmpl/edit_associations.php';
+			$this->deleteFolders[] = '/administrator/components/com_sermonspeaker/views/speaker/tmpl/edit_associations.php';
+		}
 	}
 
 	/**

@@ -73,7 +73,7 @@ $tmpl   = $jinput->getCmd('tmpl') === 'component' ? '&tmpl=component' : '';
 		<?php echo JHtml::_('bootstrap.endTab');
 		if (JLanguageAssociations::isEnabled()) :
 			echo JHtml::_('bootstrap.addTab', 'myTab', 'associations', JText::_('JGLOBAL_FIELDSET_ASSOCIATIONS', true));
-				echo $this->loadTemplate('associations');
+				echo JLayoutHelper::render('joomla.edit.associations', $this);
 			echo JHtml::_('bootstrap.endTab');
 		endif;
 		echo JHtml::_('bootstrap.endTabSet'); ?>
