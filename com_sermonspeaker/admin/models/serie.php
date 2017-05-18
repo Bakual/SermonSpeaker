@@ -365,33 +365,30 @@ class SermonspeakerModelSerie extends JModelAdmin
 		// Association items
 		if (JLanguageAssociations::isEnabled())
 		{
-			$languages = JLanguageHelper::getLanguages('lang_code');
+			$languages = JLanguageHelper::getContentLanguages(false, true, null, 'ordering', 'asc');
 
-			// force to array (perhaps move to $this->loadFormData())
-			$data = (array) $data;
-
-			$addform = new SimpleXMLElement('<form />');
-			$fields = $addform->addChild('fields');
-			$fields->addAttribute('name', 'associations');
-			$fieldset = $fields->addChild('fieldset');
-			$fieldset->addAttribute('name', 'item_associations');
-			$fieldset->addAttribute('description', 'COM_SERMONSPEAKER_ITEM_ASSOCIATIONS_FIELDSET_DESC');
-			$add = false;
-			foreach ($languages as $tag => $language)
+			if ($languages)
 			{
-				if (empty($data['language']) || $tag != $data['language'])
+				$addform = new SimpleXMLElement('<form />');
+				$fields = $addform->addChild('fields');
+				$fields->addAttribute('name', 'associations');
+				$fieldset = $fields->addChild('fieldset');
+				$fieldset->addAttribute('name', 'item_associations');
+
+				foreach ($languages as $language)
 				{
-					$add = true;
 					$field = $fieldset->addChild('field');
-					$field->addAttribute('name', $tag);
+					$field->addAttribute('name', $language->lang_code);
 					$field->addAttribute('type', 'modal_serie');
-					$field->addAttribute('language', $tag);
+					$field->addAttribute('language', $language->lang_code);
 					$field->addAttribute('label', $language->title);
 					$field->addAttribute('translate_label', 'false');
+					$field->addAttribute('select', 'true');
+					$field->addAttribute('new', 'true');
+					$field->addAttribute('edit', 'true');
+					$field->addAttribute('clear', 'true');
 				}
-			}
-			if ($add)
-			{
+
 				$form->load($addform, false);
 			}
 		}

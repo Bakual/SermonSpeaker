@@ -43,7 +43,7 @@ class JFormFieldModal_Sermon extends JFormField
 		// Load language
 		JFactory::getLanguage()->load('com_sermonspeaker', JPATH_ADMINISTRATOR);
 
-		// The active article id field.
+		// The active sermon id field.
 		$value = (int) $this->value > 0 ? (int) $this->value : '';
 
 		// Create the modal id.
@@ -115,7 +115,7 @@ class JFormFieldModal_Sermon extends JFormField
 
 		$title = empty($title) ? JText::_('COM_SERMONSPEAKER_SELECT_A_SERMON') : htmlspecialchars($title, ENT_QUOTES, 'UTF-8');
 
-		// The current article display field.
+		// The current sermon display field.
 		$html  = '<span class="input-append">';
 		$html .= '<input class="input-medium" id="' . $this->id . '_name" type="text" value="' . $title . '" disabled="disabled" size="35" />';
 
@@ -147,7 +147,7 @@ class JFormFieldModal_Sermon extends JFormField
 				. '</a>';
 		}
 
-		// Edit article button
+		// Edit sermon button
 		if ($allowEdit)
 		{
 			$html .= '<a'
@@ -161,7 +161,7 @@ class JFormFieldModal_Sermon extends JFormField
 				. '</a>';
 		}
 
-		// Clear article button
+		// Clear sermon button
 		if ($allowClear)
 		{
 			$html .= '<a'
@@ -175,7 +175,7 @@ class JFormFieldModal_Sermon extends JFormField
 
 		$html .= '</span>';
 
-		// Select article modal
+		// Select sermon modal
 		if ($allowSelect)
 		{
 			$html .= JHtml::_(
@@ -193,7 +193,7 @@ class JFormFieldModal_Sermon extends JFormField
 			);
 		}
 
-		// New article modal
+		// New sermon modal
 		if ($allowNew)
 		{
 			$html .= JHtml::_(
@@ -222,7 +222,7 @@ class JFormFieldModal_Sermon extends JFormField
 			);
 		}
 
-		// Edit article modal
+		// Edit sermon modal
 		if ($allowEdit)
 		{
 			$html .= JHtml::_(

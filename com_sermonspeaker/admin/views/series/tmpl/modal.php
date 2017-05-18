@@ -8,118 +8,89 @@ if ($app->isClient('site'))
 	JSession::checkToken('get') or die(JText::_('JINVALID_TOKEN'));
 }
 
-require_once JPATH_ROOT.'/components/com_sermonspeaker/helpers/route.php';
+JLoader::register('SermonspeakerHelperRoute', JPATH_ROOT . '/components/com_sermonspeaker/helpers/route.php');
 
 JHtml::addIncludePath(JPATH_COMPONENT.'/helpers/html');
-JHtml::_('bootstrap.tooltip');
+
+JHtml::_('behavior.core');
+JHtml::_('behavior.polyfill', array('event'), 'lt IE 9');
+JHtml::_('bootstrap.tooltip', '.hasTooltip', array('placement' => 'bottom'));
+JHtml::_('formbehavior.chosen', 'select');
 
 $function	= JFactory::getApplication()->input->get('function', 'jSelectSerie');
 $listOrder	= $this->escape($this->state->get('list.ordering'));
 $listDirn	= $this->escape($this->state->get('list.direction'));
 ?>
-<form action="<?php echo JRoute::_('index.php?option=com_sermonspeaker&view=series&layout=modal&tmpl=component&function='.$function.'&'.JSession::getFormToken().'=1');?>" method="post" name="adminForm" id="adminForm" class="form-inline">
-	<fieldset class="filter clearfix">
-		<div class="btn-toolbar">
-			<div class="btn-group pull-left">
-				<label for="filter_search">
-					<?php echo JText::_('JSEARCH_FILTER_LABEL'); ?>
-				</label>
-			</div>
-			<div class="btn-group pull-left">
-				<input type="text" name="filter_search" id="filter_search" value="<?php echo $this->escape($this->state->get('filter.search')); ?>" size="30" title="<?php echo JText::_('COM_SERMONSPEAKER_FILTER_SEARCH_DESC'); ?>" />
-			</div>
-			<div class="btn-group pull-left">
-				<button type="submit" class="btn hasTooltip" data-placement="bottom" title="<?php echo JText::_('JSEARCH_FILTER_SUBMIT'); ?>">
-					<span class="icon-search"></span><?php echo '&#160;' . JText::_('JSEARCH_FILTER_SUBMIT'); ?></button>
-				<button type="button" class="btn hasTooltip" data-placement="bottom" title="<?php echo JText::_('JSEARCH_FILTER_CLEAR'); ?>" onclick="document.id('filter_search').value='';this.form.submit();">
-					<span class="icon-remove"></span><?php echo '&#160;' . JText::_('JSEARCH_FILTER_CLEAR'); ?></button>
-			</div>
-			<?php if ($app->isClient('administrator')) : ?>
-				<input onclick="if (window.parent) window.parent.<?php echo $this->escape($function);?>('0', '<?php echo $this->escape(addslashes(JText::_('COM_SERMONSPEAKER_SELECT_AN_ITEM'))); ?>', null, null);" class="btn" type="button" value="<?php echo JText::_('JNONE'); ?>" />
-			<?php endif; ?>
-			<div class="clearfix"></div>
+<div class="container-popup">
+
+	<form action="<?php echo JRoute::_('index.php?option=com_sermonspeaker&view=series&layout=modal&tmpl=component&function='.$function.'&'.JSession::getFormToken().'=1');?>" method="post" name="adminForm" id="adminForm" class="form-inline">
+
+		<?php echo JLayoutHelper::render('joomla.searchtools.default', array('view' => $this)); ?>
+
+		<table class="table table-striped table-condensed">
+			<thead>
+				<tr>
+					<th width="1%" class="center nowrap">
+						<?php echo JHtml::_('searchtools.sort', 'JSTATUS', 'sermons.state', $listDirn, $listOrder); ?>
+					</th>
+					<th class="title">
+						<?php echo JHtml::_('searchtools.sort', 'JGLOBAL_TITLE', 'series.title', $listDirn, $listOrder); ?>
+					</th>
+					<th width="10%" class="nowrap">
+						<?php echo JHtml::_('searchtools.sort', 'JCATEGORY', 'series.catid', $listDirn, $listOrder); ?>
+					</th>
+					<th width="15%" class="nowrap">
+						<?php echo JHtml::_('searchtools.sort', 'JGRID_HEADING_LANGUAGE', 'language', $listDirn, $listOrder); ?>
+					</th>
+					<th width="1%" class="nowrap">
+						<?php echo JHtml::_('searchtools.sort', 'JGRID_HEADING_ID', 'series.id', $listDirn, $listOrder); ?>
+					</th>
+				</tr>
+			</thead>
+			<tfoot>
+				<tr>
+					<td colspan="15">
+						<?php echo $this->pagination->getListFooter(); ?>
+					</td>
+				</tr>
+			</tfoot>
+			<tbody>
+			<?php
+			$iconStates = array(
+				-2 => 'icon-trash',
+				0 => 'icon-unpublish',
+				1 => 'icon-publish',
+				2 => 'icon-archive',
+			);
+			?>
+			<?php foreach ($this->items as $i => $item) : ?>
+				<tr class="row<?php echo $i % 2; ?>">
+					<td class="center">
+						<span class="<?php echo $iconStates[$this->escape($item->state)]; ?>"></span>
+					</td>
+					<td>
+						<a class="pointer" onclick="if (window.parent) window.parent.<?php echo $this->escape($function);?>('<?php echo $item->id; ?>', '<?php echo $this->escape(addslashes($item->title)); ?>', '<?php echo $this->escape($item->catid); ?>', '<?php echo $this->escape(SermonspeakerHelperRoute::getSermonRoute($item->id)); ?>');">
+							<?php echo $this->escape($item->title); ?></a>
+					</td>
+					<td class="small hidden-phone">
+						<?php echo $this->escape($item->category_title); ?>
+					</td>
+					<td class="small">
+						<?php echo JLayoutHelper::render('joomla.content.language', $item); ?>
+					</td>
+					<td class="nowrap small hidden-phone">
+						<?php echo (int) $item->id; ?>
+					</td>
+				</tr>
+				<?php endforeach; ?>
+			</tbody>
+		</table>
+
+		<div>
+			<input type="hidden" name="forcedLanguage" value="<?php echo $this->escape($this->state->get('filter.forcedLanguage')); ?>" />
+			<input type="hidden" name="task" value="" />
+			<input type="hidden" name="boxchecked" value="0" />
+			<?php echo JHtml::_('form.token'); ?>
 		</div>
-		<hr class="hr-condensed" />
-		<div class="filters">
-			<select name="filter_published" class="input-medium" onchange="this.form.submit()">
-				<option value=""><?php echo JText::_('JOPTION_SELECT_PUBLISHED');?></option>
-				<?php echo JHtml::_('select.options', JHtml::_('jgrid.publishedOptions'), 'value', 'text', $this->state->get('filter.state'), true);?>
-			</select>
-
-			<?php if ($this->state->get('filter.forcedLanguage')) : ?>
-				<select name="filter_category_id" class="input-medium" onchange="this.form.submit()">
-					<option value=""><?php echo JText::_('JOPTION_SELECT_CATEGORY');?></option>
-					<?php echo JHtml::_('select.options', JHtml::_('category.options', 'com_sermonspeaker', array('filter.language' => array('*', $this->state->get('filter.forcedLanguage')))), 'value', 'text', $this->state->get('filter.category_id'));?>
-				</select>
-				<input type="hidden" name="forcedLanguage" value="<?php echo $this->escape($this->state->get('filter.forcedLanguage')); ?>" />
-				<input type="hidden" name="filter_language" value="<?php echo $this->escape($this->state->get('filter.language')); ?>" />
-			<?php else : ?>
-				<select name="filter_category_id" class="input-medium" onchange="this.form.submit()">
-					<option value=""><?php echo JText::_('JOPTION_SELECT_CATEGORY');?></option>
-					<?php echo JHtml::_('select.options', JHtml::_('category.options', 'com_sermonspeaker'), 'value', 'text', $this->state->get('filter.category_id'));?>
-				</select>
-				<select name="filter_language" class="input-medium" onchange="this.form.submit()">
-					<option value=""><?php echo JText::_('JOPTION_SELECT_LANGUAGE');?></option>
-					<?php echo JHtml::_('select.options', JHtml::_('contentlanguage.existing', true, true), 'value', 'text', $this->state->get('filter.language'));?>
-				</select>
-			<?php endif; ?>
-		</div>
-	</fieldset>
-
-	<table class="table table-striped table-condensed">
-		<thead>
-			<tr>
-				<th class="title">
-					<?php echo JHtml::_('searchtools.sort', 'JGLOBAL_TITLE', 'series.title', $listDirn, $listOrder); ?>
-				</th>
-				<th width="15%" class="center nowrap">
-					<?php echo JHtml::_('searchtools.sort', 'JCATEGORY', 'series.catid', $listDirn, $listOrder); ?>
-				</th>
-				<th width="5%" class="center nowrap">
-					<?php echo JHtml::_('searchtools.sort', 'JGRID_HEADING_LANGUAGE', 'language', $listDirn, $listOrder); ?>
-				</th>
-				<th width="1%" class="center nowrap">
-					<?php echo JHtml::_('searchtools.sort', 'JGRID_HEADING_ID', 'series.id', $listDirn, $listOrder); ?>
-				</th>
-			</tr>
-		</thead>
-		<tfoot>
-			<tr>
-				<td colspan="15">
-					<?php echo $this->pagination->getListFooter(); ?>
-				</td>
-			</tr>
-		</tfoot>
-		<tbody>
-		<?php foreach ($this->items as $i => $item) : ?>
-			<tr class="row<?php echo $i % 2; ?>">
-				<td>
-					<a class="pointer" onclick="if (window.parent) window.parent.<?php echo $this->escape($function);?>('<?php echo $item->id; ?>', '<?php echo $this->escape(addslashes($item->title)); ?>', '<?php echo $this->escape($item->catid); ?>', '<?php echo $this->escape(SermonspeakerHelperRoute::getSermonRoute($item->id)); ?>');">
-						<?php echo $this->escape($item->title); ?></a>
-				</td>
-				<td class="center">
-					<?php echo $this->escape($item->category_title); ?>
-				</td>
-				<td class="center">
-					<?php if ($item->language == '*'):?>
-						<?php echo JText::alt('JALL', 'language'); ?>
-					<?php else:?>
-						<?php echo $item->language_title ? $this->escape($item->language_title) : JText::_('JUNDEFINED'); ?>
-					<?php endif;?>
-				</td>
-				<td class="center">
-					<?php echo (int) $item->id; ?>
-				</td>
-			</tr>
-			<?php endforeach; ?>
-		</tbody>
-	</table>
-
-	<div>
-		<input type="hidden" name="task" value="" />
-		<input type="hidden" name="boxchecked" value="0" />
-		<input type="hidden" name="filter_order" value="<?php echo $listOrder; ?>" />
-		<input type="hidden" name="filter_order_Dir" value="<?php echo $listDirn; ?>" />
-		<?php echo JHtml::_('form.token'); ?>
-	</div>
-</form>
+	</form>
+</div>

@@ -65,12 +65,18 @@ class SermonspeakerModelSeries extends JModelList
 		$app = JFactory::getApplication();
 
 		// Force a language
-		$forcedLanguage = $app->input->get('forcedLanguage');
+		$forcedLanguage = $app->input->get('forcedLanguage', '' , 'cmd');
 
-		if (!empty($forcedLanguage))
+		// Adjust the context to support modal layouts.
+		if ($layout = $app->input->get('layout'))
 		{
-			$this->setState('filter.language', $forcedLanguage);
-			$this->setState('filter.forcedLanguage', $forcedLanguage);
+			$this->context .= '.' . $layout;
+		}
+
+		// Adjust the context to support forced languages.
+		if ($forcedLanguage)
+		{
+			$this->context .= '.' . $forcedLanguage;
 		}
 
 		// Load the parameters.
@@ -79,6 +85,12 @@ class SermonspeakerModelSeries extends JModelList
 
 		// List state information.
 		parent::populateState('series.title', 'asc');
+
+		if ($forcedLanguage)
+		{
+			$this->setState('filter.language', $forcedLanguage);
+			$this->setState('filter.forcedLanguage', $forcedLanguage);
+		}
 	}
 
 	/**
