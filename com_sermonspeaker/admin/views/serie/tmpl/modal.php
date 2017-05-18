@@ -23,9 +23,9 @@ JFactory::getDocument()->addScriptDeclaration('
 	}
 ');
 ?>
-<button id="applyBtn" type="button" class="hidden" onclick="Joomla.submitbutton('article.apply'); jEditSerieModal();"></button>
-<button id="saveBtn" type="button" class="hidden" onclick="Joomla.submitbutton('article.save'); jEditSerieModal();"></button>
-<button id="closeBtn" type="button" class="hidden" onclick="Joomla.submitbutton('article.cancel');"></button>
+<button id="applyBtn" type="button" class="hidden" onclick="Joomla.submitbutton('serie.apply'); jEditSerieModal();"></button>
+<button id="saveBtn" type="button" class="hidden" onclick="Joomla.submitbutton('serie.save'); jEditSerieModal();"></button>
+<button id="closeBtn" type="button" class="hidden" onclick="Joomla.submitbutton('serie.cancel');"></button>
 
 <div class="container-popup">
 	<?php $this->setLayout('edit'); ?>
