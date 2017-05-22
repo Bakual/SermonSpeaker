@@ -243,18 +243,26 @@
 
 		<field
 			name="speaker_id"
-			type="speakerlist"
+			type="modal_speaker"
 			label="COM_SERMONSPEAKER_SPEAKER"
 			description="COM_SERMONSPEAKER_FIELD_SPEAKER_DESC"
+			select="true"
+			new="true"
+			edit="true"
+			clear="true"
 		>
 			<option value="0">COM_SERMONSPEAKER_SELECT_SPEAKER</option>
 		</field>
 
 		<field
 			name="series_id"
-			type="serieslist"
+			type="modal_serie"
 			label="COM_SERMONSPEAKER_SERIE"
 			description="COM_SERMONSPEAKER_FIELD_SERIE_DESC"
+			select="true"
+			new="true"
+			edit="true"
+			clear="true"
 		>
 			<option value="0">COM_SERMONSPEAKER_SELECT_SERIES</option>
 		</field>

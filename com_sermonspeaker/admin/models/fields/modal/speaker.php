@@ -93,9 +93,28 @@ class JFormFieldModal_Speaker extends JFormField
 		$urlEdit   = $linkSpeaker . '&amp;task=speaker.edit&amp;id=\' + document.getElementById("' . $this->id . '_id").value + \'';
 		$urlNew    = $linkSpeaker . '&amp;task=speaker.add';
 
+		$db = JFactory::getDbo();
+
+		if ($value === '' && !$this->element['ignoredefault'])
+		{
+			$query = $db->getQuery(true)
+				->select($db->quoteName('id'))
+				->from($db->quoteName('#__sermon_speakers'))
+				->where($db->quoteName('home') . ' = 1');
+			$db->setQuery($query);
+
+			try
+			{
+				$value = $db->loadResult();
+			}
+			catch (RuntimeException $e)
+			{
+				JError::raiseWarning(500, $e->getMessage());
+			}
+		}
+
 		if ($value)
 		{
-			$db    = JFactory::getDbo();
 			$query = $db->getQuery(true)
 				->select($db->quoteName('title'))
 				->from($db->quoteName('#__sermon_speakers'))

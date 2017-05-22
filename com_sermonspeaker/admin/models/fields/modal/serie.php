@@ -83,20 +83,39 @@ class JFormFieldModal_Serie extends JFormField
 		{
 			$linkSeries .= '&amp;forcedLanguage=' . $this->element['language'];
 			$linkSerie  .= '&amp;forcedLanguage=' . $this->element['language'];
-			$modalTitle    = JText::_('COM_SERMONSPEAKER_CHANGE_SERIE') . ' &#8212; ' . $this->element['label'];
+			$modalTitle = JText::_('COM_SERMONSPEAKER_CHANGE_SERIE') . ' &#8212; ' . $this->element['label'];
 		}
 		else
 		{
-			$modalTitle    = JText::_('COM_SERMONSPEAKER_CHANGE_SERIE');
+			$modalTitle = JText::_('COM_SERMONSPEAKER_CHANGE_SERIE');
 		}
 
 		$urlSelect = $linkSeries . '&amp;function=jSelectSerie_' . $this->id;
 		$urlEdit   = $linkSerie . '&amp;task=serie.edit&amp;id=\' + document.getElementById("' . $this->id . '_id").value + \'';
 		$urlNew    = $linkSerie . '&amp;task=serie.add';
 
+		$db = JFactory::getDbo();
+
+		if ($value === '' && !$this->element['ignoredefault'])
+		{
+			$query = $db->getQuery(true)
+				->select($db->quoteName('id'))
+				->from($db->quoteName('#__sermon_series'))
+				->where($db->quoteName('home') . ' = 1');
+			$db->setQuery($query);
+
+			try
+			{
+				$value = $db->loadResult();
+			}
+			catch (RuntimeException $e)
+			{
+				JError::raiseWarning(500, $e->getMessage());
+			}
+		}
+
 		if ($value)
 		{
-			$db    = JFactory::getDbo();
 			$query = $db->getQuery(true)
 				->select($db->quoteName('title'))
 				->from($db->quoteName('#__sermon_series'))
@@ -116,7 +135,7 @@ class JFormFieldModal_Serie extends JFormField
 		$title = empty($title) ? JText::_('COM_SERMONSPEAKER_SELECT_A_SERIE') : htmlspecialchars($title, ENT_QUOTES, 'UTF-8');
 
 		// The current serie display field.
-		$html  = '<span class="input-append">';
+		$html = '<span class="input-append">';
 		$html .= '<input class="input-medium" id="' . $this->id . '_name" type="text" value="' . $title . '" disabled="disabled" size="35" />';
 
 		// Select serie button
@@ -182,13 +201,13 @@ class JFormFieldModal_Serie extends JFormField
 				'bootstrap.renderModal',
 				'ModalSelect' . $modalId,
 				array(
-					'title'       => $modalTitle,
-					'url'         => $urlSelect,
-					'height'      => '400px',
-					'width'       => '800px',
-					'bodyHeight'  => '70',
-					'modalWidth'  => '80',
-					'footer'      => '<a role="button" class="btn" data-dismiss="modal" aria-hidden="true">' . JText::_('JLIB_HTML_BEHAVIOR_CLOSE') . '</a>',
+					'title'      => $modalTitle,
+					'url'        => $urlSelect,
+					'height'     => '400px',
+					'width'      => '800px',
+					'bodyHeight' => '70',
+					'modalWidth' => '80',
+					'footer'     => '<a role="button" class="btn" data-dismiss="modal" aria-hidden="true">' . JText::_('JLIB_HTML_BEHAVIOR_CLOSE') . '</a>',
 				)
 			);
 		}
