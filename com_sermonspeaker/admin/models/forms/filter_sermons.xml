@@ -36,6 +36,7 @@
 			onchange="this.form.submit();"
 			hidebutton="true"
 			hidecategory="true"
+			ignoredefault="true"
 		>
 			<option value="">COM_SERMONSPEAKER_SELECT_SPEAKER</option>
 		</field>
@@ -47,6 +48,7 @@
 			onchange="this.form.submit();"
 			hidebutton="true"
 			hidecategory="true"
+			ignoredefault="true"
 		>
 			<option value="">COM_SERMONSPEAKER_SELECT_SERIES</option>
 		</field>

@@ -169,6 +169,18 @@ class JFormFieldSpeakerlist extends JFormFieldList
 
 		$options = array_merge(parent::getOptions(), $published, $unpublished);
 
+		if ($this->value === '' && !$this->element['ignoredefault'])
+		{
+			foreach ($options as $option)
+			{
+				if (isset($option->home) && $option->home)
+				{
+					$this->value = $option->value;
+					break;
+				}
+			}
+		}
+
 		return $options;
 	}
 }
