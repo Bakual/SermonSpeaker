@@ -95,7 +95,7 @@ class JFormFieldModal_Speaker extends JFormField
 
 		$db = JFactory::getDbo();
 
-		if ($value === '' && !$this->element['ignoredefault'])
+		if ($value === '' && !$this->element['ignoredefault'] && !$this->form->getValue('id'))
 		{
 			$query = $db->getQuery(true)
 				->select($db->quoteName('id'))
