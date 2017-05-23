@@ -74,10 +74,10 @@ $tmpl    = $isModal || $jinput->get('tmpl', '', 'cmd') === 'component' ? '&tmpl=
 		<?php if (Associations::isEnabled()) : ?>
 			<?php if (!$isModal) : ?>
 				<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'associations', JText::_('JGLOBAL_FIELDSET_ASSOCIATIONS', true)); ?>
-					<?php echo echo JLayoutHelper::render('joomla.edit.associations', $this); ?>
+					<?php echo LayoutHelper::render('joomla.edit.associations', $this); ?>
 				<?php echo JHtml::_('bootstrap.endTab'); ?>
 			<?php else : ?>
-				<div class="hidden"><?php echo echo JLayoutHelper::render('joomla.edit.associations', $this); ?></div>
+				<div class="hidden"><?php echo LayoutHelper::render('joomla.edit.associations', $this); ?></div>
 			<?php endif; ?>
 		<?php endif; ?>
 

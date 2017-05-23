@@ -151,11 +151,11 @@ $tmpl   = $jinput->getCmd('tmpl') === 'component' ? '&tmpl=component' : '';
 			</div>
 		<?php echo JHtml::_('bootstrap.endTab'); ?>
 
-		<?php if (Associations::isEnabled()) :
-			echo JHtml::_('bootstrap.addTab', 'myTab', 'associations', JText::_('JGLOBAL_FIELDSET_ASSOCIATIONS', true));
-				echo JLayoutHelper::render('joomla.edit.associations', $this);
-			echo JHtml::_('bootstrap.endTab');
-		endif; ?>
+		<?php if (Associations::isEnabled()) : ?>
+			<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'associations', JText::_('JGLOBAL_FIELDSET_ASSOCIATIONS', true)); ?>
+				<?php echo LayoutHelper::render('joomla.edit.associations', $this); ?>
+			<?php echo JHtml::_('bootstrap.endTab'); ?>
+		<?php endif; ?>
 
 		<?php echo JHtml::_('bootstrap.endTabSet'); ?>
 		<input type="hidden" name="task" value="" />
