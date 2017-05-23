@@ -233,11 +233,22 @@ class SermonspeakerModelSpeaker extends JModelAdmin
 	protected function loadFormData()
 	{
 		// Check the session for previously entered form data.
-		$data = JFactory::getApplication()->getUserState('com_sermonspeaker.edit.speaker.data', array());
+		$app  = JFactory::getApplication();
+		$data = $app->getUserState('com_sermonspeaker.edit.speaker.data', array());
 
 		if (empty($data))
 		{
 			$data = $this->getItem();
+
+			// Pre-select some filters (Status, Category, Language) in edit form if those have been selected in Speaker Manager: Speakers
+			if ($this->getState('speaker.id') == 0)
+			{
+				$filters = (array) $app->getUserState('com_sermonspeaker.speakers.filter');
+				$data->set('state', $app->input->getInt('state', ((isset($filters['state']) && $filters['state'] !== '') ? $filters['state'] : null)));
+				$data->set('podcast', $app->input->getInt('podcast', ((isset($filters['podcast']) && $filters['podcast'] !== '') ? $filters['podcast'] : null)));
+				$data->set('catid', $app->input->getInt('catid', (!empty($filters['category_id']) ? $filters['category_id'] : null)));
+				$data->set('language', $app->input->getString('language', (!empty($filters['language']) ? $filters['language'] : null)));
+			}
 		}
 
 		$this->preprocessData('com_sermonspeaker.speaker', $data);
@@ -380,6 +391,7 @@ class SermonspeakerModelSpeaker extends JModelAdmin
 					$field->addAttribute('new', 'true');
 					$field->addAttribute('edit', 'true');
 					$field->addAttribute('clear', 'true');
+					$field->addAttribute('ignoredefault', 'true');
 				}
 
 				$form->load($addform, false);

@@ -48,7 +48,7 @@ class SermonspeakerModelSermon extends JModelAdmin
 		$pks = (array) $pks;
 		/** @var SermonspeakerTableSermon $table */
 		$table = $this->getTable();
-		$db = $this->getDbo();
+		$db    = $this->getDbo();
 
 		// Iterate the items to delete the files.
 		foreach ($pks as $pk)
@@ -296,7 +296,7 @@ class SermonspeakerModelSermon extends JModelAdmin
 		$user = JFactory::getUser();
 		/** @var SermonspeakerTableSermon $table */
 		$table = $this->getTable();
-		$pks = (array) $pks;
+		$pks   = (array) $pks;
 
 		// Access checks.
 		foreach ($pks as $i => $pk)
@@ -453,7 +453,7 @@ class SermonspeakerModelSermon extends JModelAdmin
 		$categoryId = (int) $value;
 
 		$table = $this->getTable();
-		$i = 0;
+		$i     = 0;
 
 		// Check that the category exists
 		if ($categoryId)
@@ -487,7 +487,7 @@ class SermonspeakerModelSermon extends JModelAdmin
 
 		// Check that the user has create permission for the component
 		$extension = JFactory::getApplication()->input->get('option', '');
-		$user = JFactory::getUser();
+		$user      = JFactory::getUser();
 
 		if (!$user->authorise('core.create', $extension . '.category.' . $categoryId))
 		{
@@ -527,7 +527,7 @@ class SermonspeakerModelSermon extends JModelAdmin
 
 			// Alter the title & alias
 			// Custom: defining the title
-			$data = $this->generateNewTitle($categoryId, $table->alias, $table->title);
+			$data         = $this->generateNewTitle($categoryId, $table->alias, $table->title);
 			$table->title = $data['0'];
 			$table->alias = $data['1'];
 
@@ -584,7 +584,7 @@ class SermonspeakerModelSermon extends JModelAdmin
 	protected function batchSpeaker($value, $pks, $contexts)
 	{
 		// Set the variables
-		$user = JFactory::getUser();
+		$user  = JFactory::getUser();
 		$table = $this->getTable();
 
 		foreach ($pks as $pk)
@@ -630,7 +630,7 @@ class SermonspeakerModelSermon extends JModelAdmin
 	protected function batchSerie($value, $pks, $contexts)
 	{
 		// Set the variables
-		$user = JFactory::getUser();
+		$user  = JFactory::getUser();
 		$table = $this->getTable();
 
 		foreach ($pks as $pk)
@@ -672,12 +672,23 @@ class SermonspeakerModelSermon extends JModelAdmin
 	protected function loadFormData()
 	{
 		// Check the session for previously entered form data.
-		$data = JFactory::getApplication()->getUserState('com_sermonspeaker.edit.sermon.data', array());
-		$jinput = JFactory::getApplication()->input;
+		$app    = JFactory::getApplication();
+		$data   = $app->getUserState('com_sermonspeaker.edit.sermon.data', array());
+		$jinput = $app->input;
 
 		if (empty($data))
 		{
 			$data = $this->getItem();
+
+			// Pre-select some filters (Status, Category, Language, Podcast) in edit form if those have been selected in Sermon Manager: Sermons
+			if ($this->getState('sermon.id') == 0)
+			{
+				$filters = (array) $app->getUserState('com_sermonspeaker.sermons.filter');
+				$data->set('state', $jinput->getInt('state', ((isset($filters['state']) && $filters['state'] !== '') ? $filters['state'] : null)));
+				$data->set('podcast', $jinput->getInt('podcast', ((isset($filters['podcast']) && $filters['podcast'] !== '') ? $filters['podcast'] : null)));
+				$data->set('catid', $jinput->getInt('catid', (!empty($filters['category_id']) ? $filters['category_id'] : null)));
+				$data->set('language', $jinput->getString('language', (!empty($filters['language']) ? $filters['language'] : null)));
+			}
 		}
 		else
 		{
@@ -686,7 +697,7 @@ class SermonspeakerModelSermon extends JModelAdmin
 
 			if ($data['id'])
 			{
-				$db = JFactory::getDbo();
+				$db    = JFactory::getDbo();
 				$query = $db->getQuery(true)
 					->select($db->quoteName(array('book', 'cap1', 'vers1', 'cap2', 'vers2', 'text')))
 					->from($db->quoteName('#__sermon_scriptures'))
@@ -754,7 +765,7 @@ class SermonspeakerModelSermon extends JModelAdmin
 
 		if ($item->id)
 		{
-			$db = JFactory::getDbo();
+			$db    = JFactory::getDbo();
 			$query = $db->getQuery(true)
 				->select($db->quoteName(array('book', 'cap1', 'vers1', 'cap2', 'vers2', 'text')))
 				->from($db->quoteName('#__sermon_scriptures'))
@@ -859,7 +870,7 @@ class SermonspeakerModelSermon extends JModelAdmin
 			$after_clean = Joomla\String\StringHelper::str_ireplace($bad_characters, '', $table->metakey);
 
 			// Create array using commas as delimiter
-			$keys = explode(',', $after_clean);
+			$keys       = explode(',', $after_clean);
 			$clean_keys = array();
 
 			foreach ($keys as $key)
@@ -908,7 +919,7 @@ class SermonspeakerModelSermon extends JModelAdmin
 			if ($languages)
 			{
 				$addform = new SimpleXMLElement('<form />');
-				$fields = $addform->addChild('fields');
+				$fields  = $addform->addChild('fields');
 				$fields->addAttribute('name', 'associations');
 				$fieldset = $fields->addChild('fieldset');
 				$fieldset->addAttribute('name', 'item_associations');
@@ -925,6 +936,7 @@ class SermonspeakerModelSermon extends JModelAdmin
 					$field->addAttribute('new', 'true');
 					$field->addAttribute('edit', 'true');
 					$field->addAttribute('clear', 'true');
+					$field->addAttribute('ignore_default', 'true');
 				}
 
 				$form->load($addform, false);
@@ -945,7 +957,7 @@ class SermonspeakerModelSermon extends JModelAdmin
 	 */
 	protected function getReorderConditions($table = null)
 	{
-		$condition = array();
+		$condition   = array();
 		$condition[] = 'catid = ' . (int) $table->catid;
 
 		return $condition;
