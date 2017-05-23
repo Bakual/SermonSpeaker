@@ -48,9 +48,11 @@
 			hide="pagebreak,readmore"
 			filter="JComponentHelper::filterText" />
 
-		<field name="language" type="contentlanguage"
-			label="JFIELD_LANGUAGE_LABEL" description="COM_SERMONSPEAKER_FIELD_LANGUAGE_DESC"
-			class="span12"
+		<field
+			name="language"
+			type="contentlanguage"
+			label="JFIELD_LANGUAGE_LABEL"
+			description="COM_SERMONSPEAKER_FIELD_LANGUAGE_DESC"
 		>
 			<option value="*">JALL</option>
 		</field>
