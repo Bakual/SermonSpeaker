@@ -9,7 +9,7 @@
 
 defined('_JEXEC') or die();
 
-JHtml::stylesheet('com_sermonspeaker/tiles.css', '', true);
+JHtml::_('stylesheet', 'com_sermonspeaker/tiles.css', array('relative' => true));
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
 JHtml::_('bootstrap.tooltip');
 $user       = JFactory::getUser();

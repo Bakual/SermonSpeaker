@@ -10,7 +10,7 @@
 defined('_JEXEC') or die();
 
 JHtml::_('script', 'system/progressbar.js', true, true);
-JHtml::_('stylesheet', 'media/mediamanager.css', array(), true);
+JHtml::_('stylesheet', 'media/mediamanager.css', array('relative' => true));
 $base = JUri::base();
 
 $js	= 'function CheckProgress() {

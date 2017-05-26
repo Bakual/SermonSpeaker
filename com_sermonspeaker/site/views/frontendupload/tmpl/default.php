@@ -9,7 +9,7 @@
 
 defined('_JEXEC') or die();
 
-JHtml::stylesheet('com_sermonspeaker/frontendupload.css', '', true);
+JHtml::_('stylesheet', 'com_sermonspeaker/frontendupload.css', array('relative' => true));
 JHtml::_('behavior.keepalive');
 JHtml::_('bootstrap.tooltip');
 JHtml::_('behavior.calendar');

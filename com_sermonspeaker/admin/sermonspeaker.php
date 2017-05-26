@@ -15,7 +15,7 @@ JLoader::register('JFolder', JPATH_LIBRARIES . '/joomla/filesystem/folder.php');
 JLoader::register('SermonspeakerHelper', JPATH_COMPONENT_ADMINISTRATOR . '/helpers/sermonspeaker.php');
 
 JHtml::_('behavior.tabstate');
-JHtml::stylesheet('administrator/components/com_sermonspeaker/sermonspeaker.css');
+JHtml::_('stylesheet', 'administrator/components/com_sermonspeaker/sermonspeaker.css');
 
 $controller = JControllerLegacy::getInstance('Sermonspeaker');
 $controller->execute(JFactory::getApplication()->input->get('task'));

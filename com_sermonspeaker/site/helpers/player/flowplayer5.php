@@ -191,7 +191,7 @@ class SermonspeakerHelperPlayerFlowplayer5 extends SermonspeakerHelperPlayer
 		{
 			JHtmlJQuery::framework();
 			JHtml::Script('media/com_sermonspeaker/player/flowplayer5/flowplayer.min.js');
-			JHtml::Stylesheet('media/com_sermonspeaker/player/flowplayer5/skin/minimalist.css');
+			JHtml::_('stylesheet', 'media/com_sermonspeaker/player/flowplayer5/skin/minimalist.css');
 			$doc = JFactory::getDocument();
 			$doc->addScriptDeclaration("function ss_play(id){flowplayer('mediaspace" . $this->config['count'] . "').play(parseInt(id));}");
 

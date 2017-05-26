@@ -17,7 +17,7 @@ defined('_JEXEC') or die();
  */
 extract($displayData);
 
-JHtml::stylesheet('com_sermonspeaker/player.css', '', true);
+JHtml::_('stylesheet', 'com_sermonspeaker/player.css', array('relative' => true));
 ?>
 <?php if (is_array($items)) :
 	echo $this->sublayout('info', $items);
