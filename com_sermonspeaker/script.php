@@ -12,6 +12,7 @@
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Installer\InstallerScript;
+use Joomla\CMS\Table\Table;
 
 /**
  * Class Com_SermonspeakerInstallerScript
@@ -321,10 +322,11 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 			$db->execute();
 		}
 
-		// Migrate tags on update if table exists
 		if ($type == 'update')
 		{
-			$db     = JFactory::getDbo();
+			$db = JFactory::getDbo();
+
+			// Migrate tags on update if table exists
 			$tables = $db->getTableList();
 			$prefix = $db->getPrefix();
 
@@ -352,6 +354,9 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 				$db->dropTable('#__sermon_sermons_tags');
 				$this->app->enqueueMessage(JText::sprintf('COM_SERMONSPEAKER_TAGS_MIGRATED', count($result)), 'notice');
 			}
+
+			// Migrate categories to new section based ones
+			$this->moveCategories();
 		}
 
 		$this->removeFiles();
@@ -368,57 +373,36 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 	 */
 	private function addCategory()
 	{
-		// Create categories for our component
-		if (class_exists('Joomla\Component\Categories\Administrator\Model\Category'))
+		$db         = JFactory::getDbo();
+		$catFactory = new Joomla\CMS\Mvc\Factory\MvcFactory('Joomla\Component\Categories', $this->app);
+		$catModel   = new Joomla\Component\Categories\Administrator\Model\Category($catFactory);
+		$sections   = array('sermons', 'series', 'speakers');
+
+		foreach ($sections as $section)
 		{
-			// J4
-			$catFactory = new Joomla\CMS\Mvc\Factory\MvcFactory('Joomla\Component\Categories', $this->app);
-			$catmodel   = $catFactory->createModel('Category');
+			$catData = array(
+				'id'          => 0,
+				'parent_id'   => 0,
+				'level'       => 1,
+				'path'        => 'uncategorized',
+				'extension'   => 'com_sermonspeaker.' . $section,
+				'title'       => 'Uncategorized',
+				'alias'       => 'uncategorized',
+				'description' => '',
+				'published'   => 1,
+				'language'    => '*',
+				'params'      => '',
+			);
+			$catModel->save($catData);
+			$id = $catModel->getItem()->id;
+
+			$query = $db->getQuery(true);
+			$query->update($db->quoteName('#__sermon_' . $section));
+			$query->set($db->quoteName('catid') . ' = ' . (int) $id);
+			$query->where($db->quoteName('catid') . ' = 0');
+			$db->setQuery($query);
+			$db->execute();
 		}
-		else
-		{
-			// J3.7
-			$basePath = JPATH_ADMINISTRATOR . '/components/com_categories';
-			require_once $basePath . '/models/category.php';
-			$config   = array('table_path' => $basePath . '/tables');
-			$catmodel = new CategoriesModelCategory($config);
-		}
-
-		$catData = array(
-			'id'          => 0,
-			'parent_id'   => 0,
-			'level'       => 1,
-			'path'        => 'uncategorized',
-			'extension'   => 'com_sermonspeaker',
-			'title'       => 'Uncategorized',
-			'alias'       => 'uncategorized',
-			'description' => '',
-			'published'   => 1,
-			'language'    => '*',
-			'params'      => '',
-		);
-		$catmodel->save($catData);
-		$id = $catmodel->getItem()->id;
-
-		$db = JFactory::getDbo();
-
-		// Updating the example data with 'Uncategorized'
-		$query = $db->getQuery(true);
-		$query->update('#__sermon_sermons');
-		$query->set('catid = ' . (int) $id);
-		$query->where('catid = 0');
-		$db->setQuery($query);
-		$db->execute();
-
-		// Speakers
-		$query->update('#__sermon_speakers');
-		$db->setQuery($query);
-		$db->execute();
-
-		// Series
-		$query->update('#__sermon_series');
-		$db->setQuery($query);
-		$db->execute();
 
 		return;
 	}
@@ -426,7 +410,7 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 	private function saveContentTypes()
 	{
 		// Adding content_type for tags
-		$table = JTable::getInstance('Contenttype', 'JTable');
+		$table = Table::getInstance('Contenttype', 'JTable');
 
 		// Generic FieldMappings
 		$common                       = new stdClass;
@@ -645,6 +629,49 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 		$contenttype['content_history_options'] = json_encode($history);
 
 		$table->save($contenttype);
+
+		return;
+	}
+
+	/**
+	 * Method to move the categories to new section based ones.
+	 *
+	 * @return void
+	 *
+	 * @since 6.0.0
+	 */
+	private function moveCategories()
+	{
+		$db         = JFactory::getDbo();
+		$catFactory = new Joomla\CMS\Mvc\Factory\MvcFactory('Joomla\Component\Categories', $this->app);
+		$catModel   = new Joomla\Component\Categories\Administrator\Model\Category(array(), $catFactory);
+		$sections   = array('sermons', 'series', 'speakers');
+
+		$query = $db->getQuery(true);
+		$query->select('*')
+			->from('#__categories')
+			->where($db->quoteName('extension') . ' = ' . $db->quote('com_sermonspeaker'));
+		$db->setQuery($query);
+		$categories = $db->loadAssocList();
+
+		foreach ($categories as $category)
+		{
+			foreach ($sections as $section)
+			{
+				$category['extension'] = 'com_sermonspeaker.' . $section;
+				$catModel->save($category);
+				$id = $catModel->getItem()->id;
+
+				$query = $db->getQuery(true);
+				$query->update($db->quoteName('#__sermon_' . $section));
+				$query->set($db->quoteName('catid') . ' = ' . (int) $id);
+				$query->where($db->quoteName('catid') . ' = ' . $category['id']);
+				$db->setQuery($query);
+				$db->execute();
+			}
+
+			$catModel->delete($category['id']);
+		}
 
 		return;
 	}
