@@ -34,6 +34,8 @@ class JFormFieldModal_Speaker extends JFormField
 	 */
 	protected function getInput()
 	{
+		$isSite = JFactory::getApplication()->isClient('site');
+
 		$allowNew    = ((string) $this->element['new'] == 'true');
 		$allowEdit   = ((string) $this->element['edit'] == 'true');
 		$allowClear  = ((string) $this->element['clear'] != 'false');
@@ -46,7 +48,8 @@ class JFormFieldModal_Speaker extends JFormField
 		$value = (int) $this->value > 0 ? (int) $this->value : '';
 
 		// Create the modal id.
-		$modalId = 'Speaker_' . $this->id;
+		$modalPrefix = $isSite ? 'Speakerform' : 'Speaker';
+		$modalId     = $modalPrefix . '_' . $this->id;
 
 		// Add the modal field script to the document head.
 		JHtml::_('jquery.framework');
@@ -66,7 +69,7 @@ class JFormFieldModal_Speaker extends JFormField
 			{
 				JFactory::getDocument()->addScriptDeclaration("
 				function jSelectSpeaker_" . $this->id . "(id, title, catid, object, url, language) {
-					window.processModalSelect('Speaker', '" . $this->id . "', id, title, catid, object, url, language);
+					window.processModalSelect('" . $modalPrefix . "', '" . $this->id . "', id, title, catid, object, url, language);
 				}
 				");
 
@@ -77,21 +80,23 @@ class JFormFieldModal_Speaker extends JFormField
 		// Setup variables for display.
 		$linkSpeakers = 'index.php?option=com_sermonspeaker&amp;view=speakers&amp;layout=modal&amp;tmpl=component&amp;' . JSession::getFormToken() . '=1';
 		$linkSpeaker  = 'index.php?option=com_sermonspeaker&amp;view=speaker&amp;layout=modal&amp;tmpl=component&amp;' . JSession::getFormToken() . '=1';
+		$controller   = $isSite ? 'speakerform' : 'speaker';
+		$urlVar       = $isSite ? 's_id' : 'id';
 
 		if (isset($this->element['language']))
 		{
 			$linkSpeakers .= '&amp;forcedLanguage=' . $this->element['language'];
 			$linkSpeaker  .= '&amp;forcedLanguage=' . $this->element['language'];
-			$modalTitle    = JText::_('COM_SERMONSPEAKER_CHANGE_SPEAKER') . ' &#8212; ' . $this->element['label'];
+			$modalTitle   = JText::_('COM_SERMONSPEAKER_CHANGE_SPEAKER') . ' &#8212; ' . $this->element['label'];
 		}
 		else
 		{
-			$modalTitle    = JText::_('COM_SERMONSPEAKER_CHANGE_SPEAKER');
+			$modalTitle = JText::_('COM_SERMONSPEAKER_CHANGE_SPEAKER');
 		}
 
 		$urlSelect = $linkSpeakers . '&amp;function=jSelectSpeaker_' . $this->id;
-		$urlEdit   = $linkSpeaker . '&amp;task=speaker.edit&amp;id=\' + document.getElementById("' . $this->id . '_id").value + \'';
-		$urlNew    = $linkSpeaker . '&amp;task=speaker.add';
+		$urlEdit   = $linkSpeaker . '&amp;task=' . $controller . '.edit&amp;' . $urlVar . '=\' + document.getElementById("' . $this->id . '_id").value + \'';
+		$urlNew    = $linkSpeaker . '&amp;task=' . $controller . '.add';
 
 		$db = JFactory::getDbo();
 
@@ -211,13 +216,13 @@ class JFormFieldModal_Speaker extends JFormField
 				'bootstrap.renderModal',
 				'ModalSelect' . $modalId,
 				array(
-					'title'       => $modalTitle,
-					'url'         => $urlSelect,
-					'height'      => '400px',
-					'width'       => '800px',
-					'bodyHeight'  => 70,
-					'modalWidth'  => 80,
-					'footer'      => '<a role="button" class="btn" data-dismiss="modal" aria-hidden="true">' . JText::_('JLIB_HTML_BEHAVIOR_CLOSE') . '</a>',
+					'title'      => $modalTitle,
+					'url'        => $urlSelect,
+					'height'     => '400px',
+					'width'      => '800px',
+					'bodyHeight' => '70',
+					'modalWidth' => '80',
+					'footer'     => '<a role="button" class="btn" data-dismiss="modal" aria-hidden="true">' . JText::_('JLIB_HTML_BEHAVIOR_CLOSE') . '</a>',
 				)
 			);
 		}
@@ -225,6 +230,20 @@ class JFormFieldModal_Speaker extends JFormField
 		// New speaker modal
 		if ($allowNew)
 		{
+			$footer = '<a role="button" class="btn btn-secondary" aria-hidden="true"'
+				. ' onclick="window.processModalEdit(this, \'' . $this->id . '\', \'add\', \'' . $controller . '\', \'cancel\', \'adminForm\'); return false;">'
+				. JText::_('JLIB_HTML_BEHAVIOR_CLOSE') . '</a>'
+				. '<a role="button" class="btn btn-primary" aria-hidden="true"'
+				. ' onclick="window.processModalEdit(this, \'' . $this->id . '\', \'add\', \'' . $controller . '\', \'save\', \'adminForm\'); return false;">'
+				. JText::_('JSAVE') . '</a>';
+
+			if (!$isSite)
+			{
+				$footer .= '<a role="button" class="btn btn-success" aria-hidden="true"'
+					. ' onclick="window.processModalEdit(this, \'' . $this->id . '\', \'add\', \'' . $controller . '\', \'apply\', \'adminForm\'); return false;">'
+					. JText::_('JAPPLY') . '</a>';
+			}
+
 			$html .= JHtml::_(
 				'bootstrap.renderModal',
 				'ModalNew' . $modalId,
@@ -238,15 +257,7 @@ class JFormFieldModal_Speaker extends JFormField
 					'width'       => '800px',
 					'bodyHeight'  => 70,
 					'modalWidth'  => 80,
-					'footer'      => '<a role="button" class="btn btn-secondar" aria-hidden="true"'
-						. ' onclick="window.processModalEdit(this, \'' . $this->id . '\', \'add\', \'speaker\', \'cancel\', \'item-form\'); return false;">'
-						. JText::_('JLIB_HTML_BEHAVIOR_CLOSE') . '</a>'
-						. '<a role="button" class="btn btn-primary" aria-hidden="true"'
-						. ' onclick="window.processModalEdit(this, \'' . $this->id . '\', \'add\', \'speaker\', \'save\', \'item-form\'); return false;">'
-						. JText::_('JSAVE') . '</a>'
-						. '<a role="button" class="btn btn-success" aria-hidden="true"'
-						. ' onclick="window.processModalEdit(this, \'' . $this->id . '\', \'add\', \'speaker\', \'apply\', \'item-form\'); return false;">'
-						. JText::_('JAPPLY') . '</a>',
+					'footer'      => $footer,
 				)
 			);
 		}
@@ -254,6 +265,20 @@ class JFormFieldModal_Speaker extends JFormField
 		// Edit speaker modal
 		if ($allowEdit)
 		{
+			$footer = '<a role="button" class="btn btn-secondary" aria-hidden="true"'
+				. ' onclick="window.processModalEdit(this, \'' . $this->id . '\', \'edit\', \'' . $controller . '\', \'cancel\', \'adminForm\'); return false;">'
+				. JText::_('JLIB_HTML_BEHAVIOR_CLOSE') . '</a>'
+				. '<a role="button" class="btn btn-primary" aria-hidden="true"'
+				. ' onclick="window.processModalEdit(this, \'' . $this->id . '\', \'edit\', \'' . $controller . '\', \'save\', \'adminForm\'); return false;">'
+				. JText::_('JSAVE') . '</a>';
+
+			if (!$isSite)
+			{
+				$footer .= '<a role="button" class="btn btn-success" aria-hidden="true"'
+					. ' onclick="window.processModalEdit(this, \'' . $this->id . '\', \'edit\', \'' . $controller . '\', \'apply\', \'adminForm\'); return false;">'
+					. JText::_('JAPPLY') . '</a>';
+			}
+
 			$html .= JHtml::_(
 				'bootstrap.renderModal',
 				'ModalEdit' . $modalId,
@@ -267,15 +292,7 @@ class JFormFieldModal_Speaker extends JFormField
 					'width'       => '800px',
 					'bodyHeight'  => 70,
 					'modalWidth'  => 80,
-					'footer'      => '<a role="button" class="btn btn-secondar" aria-hidden="true"'
-						. ' onclick="window.processModalEdit(this, \'' . $this->id . '\', \'edit\', \'speaker\', \'cancel\', \'item-form\'); return false;">'
-						. JText::_('JLIB_HTML_BEHAVIOR_CLOSE') . '</a>'
-						. '<a role="button" class="btn btn-primary" aria-hidden="true"'
-						. ' onclick="window.processModalEdit(this, \'' . $this->id . '\', \'edit\', \'speaker\', \'save\', \'item-form\'); return false;">'
-						. JText::_('JSAVE') . '</a>'
-						. '<a role="button" class="btn btn-success" aria-hidden="true"'
-						. ' onclick="window.processModalEdit(this, \'' . $this->id . '\', \'edit\', \'speaker\', \'apply\', \'item-form\'); return false;">'
-						. JText::_('JAPPLY') . '</a>',
+					'footer'      => $footer,
 				)
 			);
 		}

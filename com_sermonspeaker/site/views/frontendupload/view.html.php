@@ -117,11 +117,8 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 		if ($this->user->guest)
 		{
 			$redirectUrl = urlencode(base64_encode(JUri::getInstance()->toString()));
-			$app->redirect(
-				JRoute::_('index.php?option=com_users&view=login&return=' . $redirectUrl),
-				JText::_('JGLOBAL_YOU_MUST_LOGIN_FIRST'),
-				'error'
-			);
+			$app->enqueueMessage(JText::_('JGLOBAL_YOU_MUST_LOGIN_FIRST'), 'error');
+			$app->redirect(JRoute::_('index.php?option=com_users&view=login&return=' . $redirectUrl));
 
 			return false;
 		}

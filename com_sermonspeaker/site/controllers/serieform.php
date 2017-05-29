@@ -16,11 +16,11 @@ defined('_JEXEC') or die();
  */
 class SermonspeakerControllerSerieform extends JControllerForm
 {
-	protected $context = 'serie';
-
 	protected $view_item = 'serieform';
 
 	protected $view_list = 'series';
+
+	protected $context = 'serieform';
 
 	/**
 	 * Method to add a new record
@@ -54,7 +54,7 @@ class SermonspeakerControllerSerieform extends JControllerForm
 	protected function allowAdd($data = array())
 	{
 		$user       = JFactory::getUser();
-		$categoryId = Joomla\Utilities\ArrayHelper::getValue($data, 'catid', JFactory::getApplication()->input->get('filter_category_id'), 'int');
+		$categoryId = Joomla\Utilities\ArrayHelper::getValue($data, 'catid', $this->input->get('filter_category_id'), 'int');
 		$allow      = null;
 
 		if ($categoryId)
@@ -189,10 +189,9 @@ class SermonspeakerControllerSerieform extends JControllerForm
 	 */
 	protected function getRedirectToItemAppend($recordId = null, $urlVar = null)
 	{
-		$jinput = JFactory::getApplication()->input;
 		$append = parent::getRedirectToItemAppend($recordId, $urlVar);
-		$itemId = $jinput->get('Itemid', 0, 'int');
-		$modal  = $jinput->get('modal', 0, 'int');
+		$itemId = $this->input->get('Itemid', 0, 'int');
+		$modal  = $this->input->get('modal', 0, 'int');
 		$return = $this->getReturnPage();
 
 		if ($itemId)
@@ -228,7 +227,7 @@ class SermonspeakerControllerSerieform extends JControllerForm
 
 		if (empty($return) || !JUri::isInternal(base64_decode($return)))
 		{
-			return JUri::base();
+			return false;
 		}
 		else
 		{
@@ -270,9 +269,9 @@ class SermonspeakerControllerSerieform extends JControllerForm
 		$result = parent::save($key, $urlVar);
 
 		// If ok, redirect to the return page
-		if ($result)
+		if ($result && ($return = $this->getReturnPage()))
 		{
-			$this->setRedirect($this->getReturnPage());
+			$this->setRedirect($return);
 		}
 
 		return $result;

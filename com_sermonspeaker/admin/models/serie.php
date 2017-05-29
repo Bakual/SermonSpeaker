@@ -219,6 +219,42 @@ class SermonspeakerModelSerie extends JModelAdmin
 	}
 
 	/**
+	 * Method to unset a default series.
+	 * Copied from template style.
+	 *
+	 * @param   integer  $id  The primary key ID for the series.
+	 *
+	 * @return  boolean  True if successful.
+	 * @throws  Exception
+	 *
+	 * @since 5.8.0
+	 */
+	public function unsetDefault($id = 0)
+	{
+		$user = JFactory::getUser();
+		$db   = $this->getDbo();
+
+		// Access checks.
+		if (!$user->authorise('core.edit.state', 'com_sermonspeaker'))
+		{
+			throw new Exception(JText::_('JLIB_APPLICATION_ERROR_EDITSTATE_NOT_PERMITTED'));
+		}
+
+		// Set the new home style.
+		$db->setQuery(
+			'UPDATE #__sermon_series' .
+			" SET home = '0'" .
+			' WHERE id = ' . (int) $id
+		);
+		$db->execute();
+
+		// Clean the cache.
+		$this->cleanCache();
+
+		return true;
+	}
+
+	/**
 	 * Method to test whether a record can be deleted.
 	 *
 	 * @param    $record  object      A record object.

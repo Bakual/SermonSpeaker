@@ -296,7 +296,7 @@ class PlgSermonspeakerJwplayer7 extends SermonspeakerPluginPlayer
 
 		// Load CSS file from media folder
 		$file = 'plg_sermonspeaker_jwplayer7/' . $skinName . '.css';
-		JHtml::_('stylesheet', $file, false, true, false);
+		JHtml::_('stylesheet', $file, array('relative' => true));
 
 		$skinOptions[] = "name:'" . $skinName . "'";
 

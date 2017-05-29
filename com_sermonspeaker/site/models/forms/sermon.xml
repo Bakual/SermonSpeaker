@@ -178,23 +178,25 @@
 
 		<field
 			name="speaker_id"
-			type="speakerlist"
+			type="modal_speaker"
 			label="COM_SERMONSPEAKER_SPEAKER"
 			description="COM_SERMONSPEAKER_FIELD_SPEAKER_DESC"
-			class="inputbox"
-		>
-			<option value="0">COM_SERMONSPEAKER_SELECT_SPEAKER</option>
-		</field>
+			select="true"
+			new="true"
+			edit="true"
+			clear="true"
+		/>
 
 		<field
 			name="series_id"
-			type="serieslist"
+			type="modal_serie"
 			label="COM_SERMONSPEAKER_SERIE"
 			description="COM_SERMONSPEAKER_FIELD_SERIE_DESC"
-			class="inputbox"
-		>
-			<option value="0">COM_SERMONSPEAKER_SELECT_SERIES</option>
-		</field>
+			select="true"
+			new="true"
+			edit="true"
+			clear="true"
+		/>
 
 		<field name="picture" type="mediawrapper" class="inputbox"
 			label="COM_SERMONSPEAKER_FIELD_PICTURE_LABEL"

@@ -8,7 +8,7 @@
 	<fields name="request">
 		<fieldset name="request">
 			<field name="format" type="hidden"
-				default="raw"
+				   default="raw"
 			/>
 			<field name="type" type="list"
 				label="COM_SERMONSPEAKER_FIELD_TYPE_LABEL"
@@ -32,10 +32,10 @@
 			/>
 
 			<field name="count_items_type" type="list"
-				label="COM_SERMONSPEAKER_CATEGORY_ITEMS_TYPE_LABEL"
-				description="COM_SERMONSPEAKER_CATEGORY_ITEMS_TYPE_DESC"
+				   label="COM_SERMONSPEAKER_CATEGORY_ITEMS_TYPE_LABEL"
+				   description="COM_SERMONSPEAKER_CATEGORY_ITEMS_TYPE_DESC"
+				   useglobal="true"
 			>
-				<option value="">JGLOBAL_USE_GLOBAL</option>
 				<option value="sermons">COM_SERMONSPEAKER_SERMONS</option>
 				<option value="series">COM_SERMONSPEAKER_SERIES</option>
 				<option value="speakers">COM_SERMONSPEAKER_SPEAKERS</option>
@@ -70,7 +70,8 @@
 				type="list"
 				label="COM_SERMONSPEAKER_PARAM_FEED_LIMITTEXT"
 				description="COM_SERMONSPEAKER_PARAM_FEED_LIMITTEXT_DESC">
-				<option value="">JGLOBAL_USE_GLOBAL</option>
+				   useglobal="true"
+			>
 				<option value="0">JNO</option>
 				<option value="1">JYES</option>
 			</field>
@@ -79,14 +80,14 @@
 				label="COM_SERMONSPEAKER_PARAM_FEED_TEXTLENGTH"
 				description="COM_SERMONSPEAKER_PARAM_FEED_TEXTLENGTH_DESC" />
 			<field name="sc_custom"
-				type="textarea"
-				rows="5"
-				cols="5"
-				default=""
-				label="COM_SERMONSPEAKER_PARAM_FEED_CUSTOM_LABEL"
-				description="COM_SERMONSPEAKER_PARAM_FEED_CUSTOM_DESC" />
+				   type="textarea"
+				   rows="5"
+				   cols="5"
+				   default=""
+				   label="COM_SERMONSPEAKER_PARAM_FEED_CUSTOM_LABEL"
+				   description="COM_SERMONSPEAKER_PARAM_FEED_CUSTOM_DESC"/>
 
-			<field type="spacer" />
+			<field type="spacer"/>
 
 			<field name="itKeywords"
 				type="text"
@@ -105,7 +106,8 @@
 				default="Religion &amp; Spirituality"
 				label="COM_SERMONSPEAKER_PARAM_FEED_ITCATEGORY1"
 				description="COM_SERMONSPEAKER_PARAM_FEED_ITCATEGORY1_DESC">
-				<option value="">JGLOBAL_USE_GLOBAL</option>
+				   useglobal="true"
+			>
 				<option value="Education">Education</option>
 				<option value="Religion &amp; Spirituality">Religion + Spirituality</option>
 				<option value="Religion &amp; Spirituality > Christianity">Religion + Spirituality > Christianity
@@ -124,7 +126,8 @@
 				default="Religion &amp; Spirituality > Christianity"
 				label="COM_SERMONSPEAKER_PARAM_FEED_ITCATEGORY2"
 				description="COM_SERMONSPEAKER_PARAM_FEED_ITCATEGORY2_DESC">
-				<option value="">JGLOBAL_USE_GLOBAL</option>
+				   useglobal="true"
+			>
 				<option value="Education">Education</option>
 				<option value="Religion &amp; Spirituality">Religion + Spirituality</option>
 				<option value="Religion &amp; Spirituality > Christianity">Religion + Spirituality > Christianity
@@ -143,7 +146,8 @@
 				default=""
 				label="COM_SERMONSPEAKER_PARAM_FEED_ITCATEGORY3"
 				description="COM_SERMONSPEAKER_PARAM_FEED_ITCATEGORY3_DESC">
-				<option value="">JGLOBAL_USE_GLOBAL</option>
+				   useglobal="true"
+			>
 				<option value="Education">Education</option>
 				<option value="Religion &amp; Spirituality">Religion + Spirituality</option>
 				<option value="Religion &amp; Spirituality > Christianity">Religion + Spirituality > Christianity

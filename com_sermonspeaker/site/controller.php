@@ -35,10 +35,12 @@ class SermonspeakerController extends JControllerLegacy
 	public function __construct($config = array())
 	{
 		$this->input = JFactory::getApplication()->input;
+		$view        = $this->input->get('view');
 
 		// Frontpage Editor sermons proxying:
-		if ($this->input->get('view') === 'sermons' && $this->input->get('layout') === 'modal')
+		if (($view === 'sermons' || $view === 'series' || $view === 'speakers') && $this->input->get('layout') === 'modal')
 		{
+			JHtml::_('stylesheet', 'system/adminlist.css', array('version' => 'auto', 'relative' => true));
 			$config['base_path'] = JPATH_COMPONENT_ADMINISTRATOR;
 		}
 
@@ -80,7 +82,7 @@ class SermonspeakerController extends JControllerLegacy
 
 		if ($params->get('css_icomoon'))
 		{
-			JHtml::_('stylesheet', 'jui/icomoon.css', array(), true);
+			JHtml::_('stylesheet', 'jui/icomoon.css', array('relative' => true));
 		}
 
 		// Make sure the format is raw for feed and sitemap view

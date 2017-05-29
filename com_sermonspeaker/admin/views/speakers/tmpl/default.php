@@ -109,7 +109,7 @@ $assoc = JLanguageAssociations::isEnabled();
 								<td class="text-center">
 									<div class="btn-group">
 										<?php echo JHtml::_('jgrid.published', $item->state, $i, 'speakers.', $canChange, 'cb', $item->publish_up, $item->publish_down); ?>
-										<?php echo JHtml::_('jgrid.isdefault', $item->home, $i, 'speakers.', $canChange && !$item->home);?>
+										<?php echo JHtml::_('jgrid.isdefault', $item->home, $i, 'speakers.', $canChange);?>
 									</div>
 								</td>
 								<td class="nowrap has-context">

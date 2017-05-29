@@ -29,7 +29,7 @@ class SermonspeakerControllerSerie extends JControllerForm
 	protected function allowAdd($data = array())
 	{
 		$user       = JFactory::getUser();
-		$categoryId = Joomla\Utilities\ArrayHelper::getValue($data, 'catid', JFactory::getApplication()->input->get('filter_category_id'), 'int');
+		$categoryId = Joomla\Utilities\ArrayHelper::getValue($data, 'catid', $this->input->get('filter_category_id'), 'int');
 		$allow      = null;
 
 		if ($categoryId)
@@ -106,22 +106,25 @@ class SermonspeakerControllerSerie extends JControllerForm
 	 */
 	public function reset()
 	{
-		$app    = JFactory::getApplication();
-		$jinput = $app->input;
-		$db     = JFactory::getDbo();
-		$id     = $jinput->get('id', 0, 'int');
+		$app = JFactory::getApplication();
+		$db  = JFactory::getDbo();
+		$id  = $this->input->get('id', 0, 'int');
+
 		if (!$id)
 		{
-			$app->redirect('index.php?option=com_sermonspeaker&view=series', JText::_('JERROR_AN_ERROR_HAS_OCCURRED'), 'error');
+			$app->enqueueMessage(JText::_('JERROR_AN_ERROR_HAS_OCCURRED'), 'error');
+			$app->redirect('index.php?option=com_sermonspeaker&view=series');
 
 			return;
 		}
+
 		/** @var SermonspeakerModelSerie $model */
 		$model      = $this->getModel();
 		$item       = $model->getItem($id);
 		$user       = JFactory::getUser();
 		$canEdit    = $user->authorise('core.edit', 'com_sermonspeaker.category.' . $item->catid);
 		$canEditOwn = $user->authorise('core.edit.own', 'com_sermonspeaker.category.' . $item->catid) && $item->created_by == $user->id;
+
 		if ($canEdit || $canEditOwn)
 		{
 			$query = "UPDATE #__sermon_series \n"
@@ -129,12 +132,14 @@ class SermonspeakerControllerSerie extends JControllerForm
 				. "WHERE id='" . $id . "'";
 			$db->setQuery($query);
 			$db->execute();
-			$app->redirect('index.php?option=com_sermonspeaker&view=series', JText::sprintf('COM_SERMONSPEAKER_RESET_OK', JText::_('COM_SERMONSPEAKER_SERIE'), $item->title));
+			$app->enqueueMessage(JText::sprintf('COM_SERMONSPEAKER_RESET_OK', JText::_('COM_SERMONSPEAKER_SERIE'), $item->title));
 		}
 		else
 		{
-			$app->redirect('index.php?option=com_sermonspeaker&view=series', JText::_('JERROR_ALERTNOAUTHOR'), 'error');
+			$app->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'error');
 		}
+
+		$app->redirect('index.php?option=com_sermonspeaker&view=series');
 
 		return;
 	}
@@ -164,7 +169,7 @@ class SermonspeakerControllerSerie extends JControllerForm
 	protected function getRedirectToItemAppend($recordId = null, $urlVar = null)
 	{
 		$append = parent::getRedirectToItemAppend($recordId, $urlVar);
-		$modal  = JFactory::getApplication()->input->get('modal', 0, 'int');
+		$modal  = $this->input->get('modal', 0, 'int');
 		$return = $this->getReturnPage();
 
 		if ($modal)
@@ -190,7 +195,7 @@ class SermonspeakerControllerSerie extends JControllerForm
 	 */
 	protected function getReturnPage()
 	{
-		$return = JFactory::getApplication()->input->get('return', '', 'base64');
+		$return = $this->input->get('return', '', 'base64');
 
 		if (empty($return) || !JUri::isInternal(base64_decode($return)))
 		{

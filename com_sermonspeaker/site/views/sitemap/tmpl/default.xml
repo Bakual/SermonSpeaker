@@ -8,7 +8,7 @@
 	<fields name="request">
 		<fieldset name="request">
 			<field name="format" type="hidden"
-				default="raw"
+				   default="raw"
 			/>
 		</fieldset>
 	</fields>
@@ -26,8 +26,8 @@
 			<field name="freq" type="list"
 				label="COM_SERMONSPEAKER_PARAM_FREQ_LABEL"
 				description="COM_SERMONSPEAKER_PARAM_FREQ_DESC"
-				default="">
-				<option value="">JGLOBAL_USE_GLOBAL</option>
+				   useglobal="true"
+			>
 				<option value="always">always</option>
 				<option value="hourly">hourly</option>
 				<option value="daily">daily</option>
@@ -41,7 +41,7 @@
 				label="COM_SERMONSPEAKER_PARAM_PRIO_LABEL"
 				description="COM_SERMONSPEAKER_PARAM_PRIO_DESC"
 				default="">
-				<option value="">JGLOBAL_USE_GLOBAL</option>
+			>
 				<option value="0.0">0.0</option>
 				<option value="0.2">0.2</option>
 				<option value="0.3">0.3</option>

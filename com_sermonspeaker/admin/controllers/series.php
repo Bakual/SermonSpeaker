@@ -9,6 +9,8 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\Utilities\ArrayHelper;
+
 /**
  * Series list controller class.
  *
@@ -18,6 +20,43 @@ defined('_JEXEC') or die;
  */
 class SermonspeakerControllerSeries extends JControllerAdmin
 {
+	/**
+	 * Method to set the default series. Copied from template styles
+	 *
+	 * @since    1.6
+	 */
+	public function setDefault()
+	{
+		// Check for request forgeries
+		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+
+		// Initialise variables.
+		$pks = $this->input->post->get('cid', array(), 'array');
+
+		try
+		{
+			if (empty($pks))
+			{
+				throw new Exception(JText::_('JERROR_NO_ITEMS_SELECTED'));
+			}
+
+			$pks = ArrayHelper::toInteger($pks);
+
+			// Pop off the first element.
+			$id    = array_shift($pks);
+			$model = $this->getModel();
+			$model->setDefault($id);
+			$this->setMessage(JText::_('COM_SERMONSPEAKER_SUCCESS_HOME_SET'));
+
+		}
+		catch (Exception $e)
+		{
+			JFactory::getApplication()->enqueueMessage($e->getMessage(), 'warning');
+		}
+
+		$this->setRedirect('index.php?option=com_sermonspeaker&view=series');
+	}
+
 	/**
 	 * Proxy for getModel.
 	 *
@@ -35,17 +74,17 @@ class SermonspeakerControllerSeries extends JControllerAdmin
 	}
 
 	/**
-	 * Method to set the default series. Copied from template styles
+	 * Method to unset the default series. Copied from template styles
 	 *
-	 * @since    1.6
+	 * @since    5.8.0
 	 */
-	public function setDefault()
+	public function unsetDefault()
 	{
 		// Check for request forgeries
-		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+		JSession::checkToken('request') or jexit(JText::_('JINVALID_TOKEN'));
 
-		// Initialise variables.
-		$pks = JFactory::getApplication()->input->post->get('cid', array(), 'array');
+		$pks = $this->input->post->get('cid', array(), 'array');
+		$pks = ArrayHelper::toInteger($pks);
 
 		try
 		{
@@ -54,14 +93,11 @@ class SermonspeakerControllerSeries extends JControllerAdmin
 				throw new Exception(JText::_('JERROR_NO_ITEMS_SELECTED'));
 			}
 
-			$pks = Joomla\Utilities\ArrayHelper::toInteger($pks);
-
 			// Pop off the first element.
 			$id    = array_shift($pks);
 			$model = $this->getModel();
-			$model->setDefault($id);
-			$this->setMessage(JText::_('COM_SERMONSPEAKER_SUCCESS_HOME_SET'));
-
+			$model->unsetDefault($id);
+			$this->setMessage(JText::_('COM_SERMONSPEAKER_SUCCESS_HOME_UNSET'));
 		}
 		catch (Exception $e)
 		{
@@ -84,8 +120,8 @@ class SermonspeakerControllerSeries extends JControllerAdmin
 		$order = $this->input->post->get('order', array(), 'array');
 
 		// Sanitize the input
-		$pks   = Joomla\Utilities\ArrayHelper::toInteger($pks);
-		$order = Joomla\Utilities\ArrayHelper::toInteger($order);
+		$pks   = ArrayHelper::toInteger($pks);
+		$order = ArrayHelper::toInteger($order);
 
 		// Get the model
 		$model = $this->getModel();

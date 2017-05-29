@@ -52,7 +52,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 	<?php endif;
 
 	if (in_array('sermons:player', $this->columns) and count($this->items)) :
-		JHtml::stylesheet('com_sermonspeaker/player.css', '', true); ?>
+		JHtml::_('stylesheet', 'com_sermonspeaker/player.css', array('relative' => true)); ?>
 		<div id="ss-sermons-player" class="ss-player row-fluid">
 			<div class="span10 offset1">
 				<hr/>
