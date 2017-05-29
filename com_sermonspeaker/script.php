@@ -666,9 +666,18 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 					$category['parent_id'] = $parentIds[$section][$oldId];
 				}
 
-				$category['id'] = 0;
+				$category['id']        = 0;
 				$category['extension'] = 'com_sermonspeaker.' . $section;
-				$catModel->save($category);
+
+				try
+				{
+					$catModel->save($category);
+				}
+				catch (Exception $e)
+				{
+					$this->app->enqueueMessage($e->getMessage(), 'ERROR');
+				}
+
 				$newId = $catModel->getItem()->id;
 
 				$parentIds[$section][$oldId] = $newId;
@@ -681,7 +690,19 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 				$db->execute();
 			}
 
-			$catModel->delete($oldId);
+			try
+			{
+				// Trash the old category so it can be deleted
+				$category['id']        = $oldId;
+				$category['published'] = -2;
+				$category['extension'] = 'com_sermonspeaker';
+				$catModel->save($category);
+				$catModel->delete($oldId);
+			}
+			catch (Exception $e)
+			{
+				$this->app->enqueueMessage($e->getMessage(), 'ERROR');
+			}
 		}
 
 		return;
