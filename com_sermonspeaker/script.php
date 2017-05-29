@@ -375,7 +375,7 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 	{
 		$db         = JFactory::getDbo();
 		$catFactory = new Joomla\CMS\Mvc\Factory\MvcFactory('Joomla\Component\Categories', $this->app);
-		$catModel   = new Joomla\Component\Categories\Administrator\Model\Category($catFactory);
+		$catModel   = new Joomla\Component\Categories\Administrator\Model\Category(array(), $catFactory);
 		$sections   = array('sermons', 'series', 'speakers');
 
 		foreach ($sections as $section)
