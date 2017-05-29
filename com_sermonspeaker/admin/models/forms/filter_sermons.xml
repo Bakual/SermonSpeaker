@@ -56,7 +56,7 @@
 			name="category_id"
 			type="category"
 			label="JOPTION_FILTER_CATEGORY"
-			extension="com_sermonspeaker"
+			extension="com_sermonspeaker.sermons"
 			description="JOPTION_FILTER_CATEGORY_DESC"
 			onchange="this.form.submit();"
 		>

@@ -22,7 +22,7 @@
 
 		<field name="catid" type="categoryedit"
 			label="JCATEGORY" description="JFIELD_CATEGORY_DESC"
-			extension="com_sermonspeaker"
+			extension="com_sermonspeaker.series"
 			required="true" />
 
 		<field name="state" type="list"
