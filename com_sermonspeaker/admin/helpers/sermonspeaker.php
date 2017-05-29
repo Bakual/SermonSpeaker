@@ -28,14 +28,14 @@ class SermonspeakerHelper
 	public static function addSubmenu($vName = 'main')
 	{
 		JHtmlSidebar::addEntry(
+			JText::_('COM_SERMONSPEAKER_MENU_SERMONS'),
+			'index.php?option=com_sermonspeaker&view=sermons',
+			$vName == 'sermons'
+		);
+		JHtmlSidebar::addEntry(
 			JText::_('COM_SERMONSPEAKER_MENU_SERIES'),
 			'index.php?option=com_sermonspeaker&view=series',
 			$vName == 'series'
-		);
-		JHtmlSidebar::addEntry(
-			JText::_('COM_SERMONSPEAKER_MENU_CATEGORIES_SERIES'),
-			'index.php?option=com_categories&extension=com_sermonspeaker.series',
-			$vName == 'categories'
 		);
 		JHtmlSidebar::addEntry(
 			JText::_('COM_SERMONSPEAKER_MENU_SPEAKERS'),
@@ -43,18 +43,18 @@ class SermonspeakerHelper
 			$vName == 'speakers'
 		);
 		JHtmlSidebar::addEntry(
-			JText::_('COM_SERMONSPEAKER_MENU_CATEGORIES_SPEAKERS'),
-			'index.php?option=com_categories&extension=com_sermonspeaker.speakers',
+			JText::_('COM_SERMONSPEAKER_MENU_CATEGORIES_SERMONS'),
+			'index.php?option=com_categories&extension=com_sermonspeaker.sermons',
 			$vName == 'categories'
 		);
 		JHtmlSidebar::addEntry(
-			JText::_('COM_SERMONSPEAKER_MENU_SERMONS'),
-			'index.php?option=com_sermonspeaker&view=sermons',
-			$vName == 'sermons'
+			JText::_('COM_SERMONSPEAKER_MENU_CATEGORIES_SERIES'),
+			'index.php?option=com_categories&extension=com_sermonspeaker.series',
+			$vName == 'categories'
 		);
 		JHtmlSidebar::addEntry(
-			JText::_('COM_SERMONSPEAKER_MENU_CATEGORIES_SERMONS'),
-			'index.php?option=com_categories&extension=com_sermonspeaker.sermons',
+			JText::_('COM_SERMONSPEAKER_MENU_CATEGORIES_SPEAKERS'),
+			'index.php?option=com_categories&extension=com_sermonspeaker.speakers',
 			$vName == 'categories'
 		);
 		JHtmlSidebar::addEntry(
