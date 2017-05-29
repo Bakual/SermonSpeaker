@@ -11,20 +11,15 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Installer\InstallerScript;
+
 /**
  * Class Com_SermonspeakerInstallerScript
  *
  * @since  4.x
  */
-class Com_SermonspeakerInstallerScript extends JInstallerScript
+class Com_SermonspeakerInstallerScript extends InstallerScript
 {
-	/**
-	 * @var  JApplicationCms  Holds the application object
-	 *
-	 * @since ?
-	 */
-	private $app;
-
 	/**
 	 * The extension name. This should be set in the installer script.
 	 *
@@ -32,7 +27,6 @@ class Com_SermonspeakerInstallerScript extends JInstallerScript
 	 * @since  5.4.0
 	 */
 	protected $extension = 'com_sermonspeaker';
-
 	/**
 	 * Minimum PHP version required to install the extension
 	 *
@@ -40,7 +34,6 @@ class Com_SermonspeakerInstallerScript extends JInstallerScript
 	 * @since  5.4.0
 	 */
 	protected $minimumPhp = '5.3.10';
-
 	/**
 	 * Minimum Joomla! version required to install the extension
 	 *
@@ -48,7 +41,12 @@ class Com_SermonspeakerInstallerScript extends JInstallerScript
 	 * @since  6.0.0
 	 */
 	protected $minimumJoomla = '4.0.0-dev';
-
+	/**
+	 * @var  Joomla\CMS\Application\CMSApplication  Holds the application object
+	 *
+	 * @since ?
+	 */
+	private $app;
 	/**
 	 * @var  string  During an update, it will be populated with the old release version
 	 *
@@ -69,8 +67,8 @@ class Com_SermonspeakerInstallerScript extends JInstallerScript
 	/**
 	 * method to run before an install/update/uninstall method
 	 *
-	 * @param   string                     $type   'install', 'update' or 'discover_install'
-	 * @param   JInstallerAdapterComponent $parent Installerobject
+	 * @param   string                                        $type   'install', 'update' or 'discover_install'
+	 * @param   Joomla\CMS\Installer\Adapter\ComponentAdapter $parent Installerobject
 	 *
 	 * @return  boolean  false will terminate the installation
 	 *
@@ -98,7 +96,7 @@ class Com_SermonspeakerInstallerScript extends JInstallerScript
 		// Storing old release number for process in postflight
 		if (strtolower($type) == 'update')
 		{
-			$manifest = $this->getItemArray('manifest_cache', '#__extensions', 'element', JFactory::getDbo()->quote($this->extension));
+			$manifest         = $this->getItemArray('manifest_cache', '#__extensions', 'element', JFactory::getDbo()->quote($this->extension));
 			$this->oldRelease = $manifest['version'];
 
 			// Check if update is allowed (only update from 4.5.0 and higher)
@@ -116,7 +114,7 @@ class Com_SermonspeakerInstallerScript extends JInstallerScript
 	/**
 	 * Method to install the component
 	 *
-	 * @param   JInstallerAdapterComponent $parent Installerobject
+	 * @param   Joomla\CMS\Installer\Adapter\ComponentAdapter $parent Installerobject
 	 *
 	 * @return void
 	 *
@@ -131,7 +129,7 @@ class Com_SermonspeakerInstallerScript extends JInstallerScript
 	/**
 	 * Method to uninstall the component
 	 *
-	 * @param   JInstallerAdapterComponent $parent Installerobject
+	 * @param   Joomla\CMS\Installer\Adapter\ComponentAdapter $parent Installerobject
 	 *
 	 * @return void
 	 *
@@ -144,7 +142,7 @@ class Com_SermonspeakerInstallerScript extends JInstallerScript
 	/**
 	 * method to update the component
 	 *
-	 * @param   JInstallerAdapterComponent $parent Installerobject
+	 * @param   Joomla\CMS\Installer\Adapter\ComponentAdapter $parent Installerobject
 	 *
 	 * @return void
 	 *
@@ -234,17 +232,17 @@ class Com_SermonspeakerInstallerScript extends JInstallerScript
 			$this->deleteFolders[] = '/administrator/components/com_sermonspeaker/views/tags';
 			$this->deleteFolders[] = '/administrator/components/com_sermonspeaker/views/tag';
 			$this->deleteFolders[] = '/components/com_sermonspeaker/views/tagform';
-			$this->deleteFiles[] = '/administrator/components/com_sermonspeaker/models/tags.php';
-			$this->deleteFiles[] = '/administrator/components/com_sermonspeaker/models/tag.php';
-			$this->deleteFiles[] = '/administrator/components/com_sermonspeaker/models/forms/tag.xml';
-			$this->deleteFiles[] = '/administrator/components/com_sermonspeaker/models/fields/tag.php';
-			$this->deleteFiles[] = '/administrator/components/com_sermonspeaker/models/fields/tagslist.php';
-			$this->deleteFiles[] = '/administrator/components/com_sermonspeaker/tables/tag.php';
-			$this->deleteFiles[] = '/administrator/components/com_sermonspeaker/controllers/tags.php';
-			$this->deleteFiles[] = '/administrator/components/com_sermonspeaker/controllers/tag.php';
-			$this->deleteFiles[] = '/components/com_sermonspeaker/models/tagform.php';
-			$this->deleteFiles[] = '/components/com_sermonspeaker/models/forms/tag.xml';
-			$this->deleteFiles[] = '/components/com_sermonspeaker/controllers/tagform.php';
+			$this->deleteFiles[]   = '/administrator/components/com_sermonspeaker/models/tags.php';
+			$this->deleteFiles[]   = '/administrator/components/com_sermonspeaker/models/tag.php';
+			$this->deleteFiles[]   = '/administrator/components/com_sermonspeaker/models/forms/tag.xml';
+			$this->deleteFiles[]   = '/administrator/components/com_sermonspeaker/models/fields/tag.php';
+			$this->deleteFiles[]   = '/administrator/components/com_sermonspeaker/models/fields/tagslist.php';
+			$this->deleteFiles[]   = '/administrator/components/com_sermonspeaker/tables/tag.php';
+			$this->deleteFiles[]   = '/administrator/components/com_sermonspeaker/controllers/tags.php';
+			$this->deleteFiles[]   = '/administrator/components/com_sermonspeaker/controllers/tag.php';
+			$this->deleteFiles[]   = '/components/com_sermonspeaker/models/tagform.php';
+			$this->deleteFiles[]   = '/components/com_sermonspeaker/models/forms/tag.xml';
+			$this->deleteFiles[]   = '/components/com_sermonspeaker/controllers/tagform.php';
 		}
 
 		// Remove swfupload folder
@@ -264,7 +262,7 @@ class Com_SermonspeakerInstallerScript extends JInstallerScript
 		// Remove integrated player classes
 		if (version_compare($this->oldRelease, '6.0.0', '<'))
 		{
-			$this->deleteFiles[] = '/administrator/components/com_sermonspeaker/models/fields/player.php';
+			$this->deleteFiles[]   = '/administrator/components/com_sermonspeaker/models/fields/player.php';
 			$this->deleteFolders[] = '/components/com_sermonspeaker/helpers/player';
 		}
 	}
@@ -272,8 +270,8 @@ class Com_SermonspeakerInstallerScript extends JInstallerScript
 	/**
 	 * method to run after an install/update/uninstall method
 	 *
-	 * @param   string                     $type   'install', 'update' or 'discover_install'
-	 * @param   JInstallerAdapterComponent $parent Installerobject
+	 * @param   string                                        $type   'install', 'update' or 'discover_install'
+	 * @param   Joomla\CMS\Installer\Adapter\ComponentAdapter $parent Installerobject
 	 *
 	 * @return void
 	 *
@@ -375,7 +373,7 @@ class Com_SermonspeakerInstallerScript extends JInstallerScript
 		{
 			// J4
 			$catFactory = new Joomla\CMS\Mvc\Factory\MvcFactory('Joomla\Component\Categories', $this->app);
-			$catmodel = $catFactory->createModel('Category');
+			$catmodel   = $catFactory->createModel('Category');
 		}
 		else
 		{
