@@ -9,7 +9,7 @@
 
 defined('_JEXEC') or die();
 
-JHtml::stylesheet('com_sermonspeaker/sermonspeaker.css', '', true);
+JHtml::_('stylesheet', 'com_sermonspeaker/sermonspeaker.css', array('relative' => true));
 $config = array('type' => JFactory::getApplication()->input->get('type', 'auto'));
 $player = SermonspeakerHelperSermonspeaker::getPlayer($this->item, $config);
 ?>

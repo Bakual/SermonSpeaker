@@ -63,7 +63,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 	<div class="pill-content">
 		<div class="pill-pane active" id="tab_sermons">
 			<?php if (in_array('speaker:player', $this->col_sermon) and count($this->sermons)) :
-				JHtml::stylesheet('com_sermonspeaker/player.css', '', true); ?>
+				JHtml::_('stylesheet', 'com_sermonspeaker/player.css', array('relative' => true)); ?>
 				<div id="ss-speaker-player" class="ss-player row-fluid">
 					<div class="span10 offset1">
 						<hr/>

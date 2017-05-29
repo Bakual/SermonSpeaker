@@ -14,7 +14,7 @@ JHtml::_('bootstrap.framework');
 JHtml::_('bootstrap.tooltip');
 
 // Needed for pictures in blog layout
-JHtml::stylesheet('com_sermonspeaker/blog.css', '', true);
+JHtml::_('stylesheet', 'com_sermonspeaker/blog.css', array('relative' => true));
 
 $user       = JFactory::getUser();
 $showState  = $user->authorise('core.edit', 'com_sermonspeaker');

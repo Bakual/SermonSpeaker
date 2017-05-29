@@ -11,7 +11,7 @@ defined('_JEXEC') or die();
 
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
 JHtml::_('bootstrap.tooltip');
-JHtml::stylesheet('com_sermonspeaker/columns.css', '', true);
+JHtml::_('stylesheet', 'com_sermonspeaker/columns.css', array('relative' => true));
 $user       = JFactory::getUser();
 $canEdit    = $user->authorise('core.edit', 'com_sermonspeaker');
 $canEditOwn = $user->authorise('core.edit.own', 'com_sermonspeaker');
@@ -48,7 +48,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 	<?php endif;
 
 	if (in_array('sermons:player', $this->columns) and count($this->items)) :
-		JHtml::stylesheet('com_sermonspeaker/player.css', '', true); ?>
+		JHtml::_('stylesheet', 'com_sermonspeaker/player.css', array('relative' => true)); ?>
 		<div class="ss-sermons-player">
 			<hr class="ss-sermons-player"/>
 			<?php if (empty($player->hideInfo)): ?>

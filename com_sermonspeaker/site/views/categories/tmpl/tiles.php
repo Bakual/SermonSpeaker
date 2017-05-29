@@ -9,7 +9,7 @@
 
 defined('_JEXEC') or die();
 
-JHtml::stylesheet('com_sermonspeaker/tiles.css', '', true);
+JHtml::_('stylesheet', 'com_sermonspeaker/tiles.css', array('relative' => true));
 
 // Layout supports max 3 level
 if ($this->maxLevelcat == -1 or $this->maxLevelcat > 3):

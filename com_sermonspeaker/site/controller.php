@@ -80,7 +80,7 @@ class SermonspeakerController extends JControllerLegacy
 
 		if ($params->get('css_icomoon'))
 		{
-			JHtml::_('stylesheet', 'jui/icomoon.css', array(), true);
+			JHtml::_('stylesheet', 'jui/icomoon.css', array('relative' => true));
 		}
 
 		// Make sure the format is raw for feed and sitemap view

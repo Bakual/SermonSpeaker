@@ -102,7 +102,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 	</div>
 	<div class="clearfix"></div>
 	<?php if (in_array('serie:player', $this->columns) and count($this->items)) :
-		JHtml::stylesheet('com_sermonspeaker/player.css', '', true); ?>
+		JHtml::_('stylesheet', 'com_sermonspeaker/player.css', array('relative' => true)); ?>
 		<div id="ss-serie-player" class="ss-player row-fluid">
 			<div class="span10 offset1">
 				<hr/>
