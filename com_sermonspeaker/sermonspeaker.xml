@@ -52,9 +52,11 @@
 		<submenu>
 			<menu view="main">COM_SERMONSPEAKER_MENU_MAIN</menu>
 			<menu view="series">COM_SERMONSPEAKER_MENU_SERIES</menu>
+			<menu link="option=com_categories&amp;extension=com_sermonspeaker.series">COM_SERMONSPEAKER_MENU_CATEGORIES_SERIES</menu>
 			<menu view="speakers">COM_SERMONSPEAKER_MENU_SPEAKERS</menu>
+			<menu link="option=com_categories&amp;extension=com_sermonspeaker.speakers">COM_SERMONSPEAKER_MENU_CATEGORIES_SPEAKERS</menu>
 			<menu view="sermons">COM_SERMONSPEAKER_MENU_SERMONS</menu>
-			<menu link="option=com_categories&amp;extension=com_sermonspeaker">COM_SERMONSPEAKER_MENU_CATEGORY</menu>
+			<menu link="option=com_categories&amp;extension=com_sermonspeaker.sermons">COM_SERMONSPEAKER_MENU_CATEGORIES_SERMONS</menu>
 			<menu view="tools">COM_SERMONSPEAKER_MENU_TOOLS</menu>
 			<menu view="languages">COM_SERMONSPEAKER_MENU_LANGUAGES</menu>
 			<menu view="help">COM_SERMONSPEAKER_MENU_HELP</menu>
