@@ -656,21 +656,32 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 
 		foreach ($categories as $category)
 		{
+			$oldId     = $category['id'];
+			$parentIds = array('sermons', 'series', 'speakers');
+
 			foreach ($sections as $section)
 			{
+				if (isset($parentIds[$section][$category['parent_id']]))
+				{
+					$category['parent_id'] = $parentIds[$section][$oldId];
+				}
+
+				$category['id'] = 0;
 				$category['extension'] = 'com_sermonspeaker.' . $section;
 				$catModel->save($category);
-				$id = $catModel->getItem()->id;
+				$newId = $catModel->getItem()->id;
+
+				$parentIds[$section][$oldId] = $newId;
 
 				$query = $db->getQuery(true);
 				$query->update($db->quoteName('#__sermon_' . $section));
-				$query->set($db->quoteName('catid') . ' = ' . (int) $id);
-				$query->where($db->quoteName('catid') . ' = ' . $category['id']);
+				$query->set($db->quoteName('catid') . ' = ' . (int) $newId);
+				$query->where($db->quoteName('catid') . ' = ' . $oldId);
 				$db->setQuery($query);
 				$db->execute();
 			}
 
-			$catModel->delete($category['id']);
+			$catModel->delete($oldId);
 		}
 
 		return;
