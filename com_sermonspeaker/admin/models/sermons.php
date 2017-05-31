@@ -206,13 +206,13 @@ class SermonspeakerModelSermons extends JModelList
 		$query->join('LEFT', '#__sermon_series AS series ON series.id = sermons.series_id');
 
 		// Filter by published state
-		$published = $this->getState('filter.state');
+		$published = (string) $this->getState('filter.state');
 
 		if (is_numeric($published))
 		{
 			$query->where('sermons.state = ' . (int) $published);
 		}
-		elseif ($published === '' || $published === null)
+		elseif ($published === '')
 		{
 			$query->where('(sermons.state IN (0, 1))');
 		}
