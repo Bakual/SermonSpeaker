@@ -34,7 +34,7 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 	 * @var    string
 	 * @since  5.4.0
 	 */
-	protected $minimumPhp = '5.3.10';
+	protected $minimumPhp = '5.6.0';
 	/**
 	 * Minimum Joomla! version required to install the extension
 	 *
@@ -77,33 +77,16 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 	 */
 	public function preflight($type, $parent)
 	{
-		// Following two checks are a workaround for https://github.com/joomla/joomla-cms/pull/15890.
-		// Check for the minimum PHP version before continuing
-		if (version_compare(PHP_VERSION, $this->minimumPhp, '<'))
-		{
-			JLog::add(JText::sprintf('JLIB_INSTALLER_MINIMUM_PHP', $this->minimumPhp), JLog::WARNING, 'jerror');
-
-			return false;
-		}
-
-		// Check for the minimum Joomla version before continuing
-		if (version_compare(JVERSION, $this->minimumJoomla, '<'))
-		{
-			JLog::add(JText::sprintf('JLIB_INSTALLER_MINIMUM_JOOMLA', $this->minimumJoomla), JLog::WARNING, 'jerror');
-
-			return false;
-		}
-
 		// Storing old release number for process in postflight
 		if (strtolower($type) == 'update')
 		{
 			$manifest         = $this->getItemArray('manifest_cache', '#__extensions', 'element', JFactory::getDbo()->quote($this->extension));
 			$this->oldRelease = $manifest['version'];
 
-			// Check if update is allowed (only update from 4.5.0 and higher)
-			if (version_compare($this->oldRelease, '4.5.0', '<'))
+			// Check if update is allowed (only update from 5.6.0 and higher)
+			if (version_compare($this->oldRelease, '5.6.0', '<'))
 			{
-				$this->app->enqueueMessage(JText::sprintf('COM_SERMONSPEAKER_UPDATE_UNSUPPORTED', $this->oldRelease, '4.5.0'), 'error');
+				$this->app->enqueueMessage(JText::sprintf('COM_SERMONSPEAKER_UPDATE_UNSUPPORTED', $this->oldRelease, '5.6.0'), 'error');
 
 				return false;
 			}
@@ -151,115 +134,6 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 	 */
 	public function update($parent)
 	{
-		if (version_compare($this->oldRelease, '5.0.0', '<'))
-		{
-			// Cleanup non-bootstrap layout files from old installations
-			$this->deleteFiles[] = '/administrator/components/com_sermonspeaker/views/files/tmpl/modal30.php';
-			$this->deleteFiles[] = '/administrator/components/com_sermonspeaker/views/help/tmpl/default30.php';
-			$this->deleteFiles[] = '/administrator/components/com_sermonspeaker/views/languages/tmpl/default30.php';
-			$this->deleteFiles[] = '/administrator/components/com_sermonspeaker/views/main/tmpl/default30.php';
-			$this->deleteFiles[] = '/administrator/components/com_sermonspeaker/views/scripture/tmpl/default30.php';
-			$this->deleteFiles[] = '/administrator/components/com_sermonspeaker/views/serie/tmpl/edit30.php';
-			$this->deleteFiles[] = '/administrator/components/com_sermonspeaker/views/serie/tmpl/modal30.php';
-			$this->deleteFiles[] = '/administrator/components/com_sermonspeaker/views/series/tmpl/default_batch30.php';
-			$this->deleteFiles[] = '/administrator/components/com_sermonspeaker/views/series/tmpl/default30.php';
-			$this->deleteFiles[] = '/administrator/components/com_sermonspeaker/views/sermon/tmpl/edit30.php';
-			$this->deleteFiles[] = '/administrator/components/com_sermonspeaker/views/sermons/tmpl/default_batch30.php';
-			$this->deleteFiles[] = '/administrator/components/com_sermonspeaker/views/sermons/tmpl/default30.php';
-			$this->deleteFiles[] = '/administrator/components/com_sermonspeaker/views/sermons/tmpl/modal30.php';
-			$this->deleteFiles[] = '/administrator/components/com_sermonspeaker/views/speaker/tmpl/edit30.php';
-			$this->deleteFiles[] = '/administrator/components/com_sermonspeaker/views/speaker/tmpl/modal30.php';
-			$this->deleteFiles[] = '/administrator/components/com_sermonspeaker/views/speakers/tmpl/default_batch30.php';
-			$this->deleteFiles[] = '/administrator/components/com_sermonspeaker/views/speakers/tmpl/default30.php';
-			$this->deleteFiles[] = '/administrator/components/com_sermonspeaker/views/tools/tmpl/default30.php';
-			$this->deleteFiles[] = '/components/com_sermonspeaker/views/frontendupload/tmpl/default30.php';
-			$this->deleteFiles[] = '/components/com_sermonspeaker/views/scripture/tmpl/default30.php';
-			$this->deleteFiles[] = '/components/com_sermonspeaker/views/serieform/tmpl/edit30.php';
-			$this->deleteFiles[] = '/components/com_sermonspeaker/views/serieform/tmpl/modal30.php';
-			$this->deleteFiles[] = '/components/com_sermonspeaker/views/speakerform/tmpl/edit30.php';
-			$this->deleteFiles[] = '/components/com_sermonspeaker/views/speakerform/tmpl/modal30.php';
-			$this->deleteFiles[] = '/components/com_sermonspeaker/views/serie/tmpl/default_filters30.php';
-			$this->deleteFiles[] = '/components/com_sermonspeaker/views/serie/tmpl/default_filtersorder30.php';
-			$this->deleteFiles[] = '/components/com_sermonspeaker/views/serie/tmpl/protostar-table.php';
-			$this->deleteFiles[] = '/components/com_sermonspeaker/views/serie/tmpl/protostar-table.xml';
-			$this->deleteFiles[] = '/components/com_sermonspeaker/views/serie/tmpl/protostar-list.php';
-			$this->deleteFiles[] = '/components/com_sermonspeaker/views/serie/tmpl/protostar-list.xml';
-			$this->deleteFiles[] = '/components/com_sermonspeaker/views/serie/tmpl/protostar-blog.php';
-			$this->deleteFiles[] = '/components/com_sermonspeaker/views/serie/tmpl/protostar-blog.xml';
-			$this->deleteFiles[] = '/components/com_sermonspeaker/views/series/tmpl/default_children30.php';
-			$this->deleteFiles[] = '/components/com_sermonspeaker/views/series/tmpl/normal.php';
-			$this->deleteFiles[] = '/components/com_sermonspeaker/views/series/tmpl/normal.xml';
-			$this->deleteFiles[] = '/components/com_sermonspeaker/views/series/tmpl/protostar-table.php';
-			$this->deleteFiles[] = '/components/com_sermonspeaker/views/series/tmpl/protostar-table.xml';
-			$this->deleteFiles[] = '/components/com_sermonspeaker/views/series/tmpl/protostar-list.php';
-			$this->deleteFiles[] = '/components/com_sermonspeaker/views/series/tmpl/protostar-list.xml';
-			$this->deleteFiles[] = '/components/com_sermonspeaker/views/series/tmpl/protostar-blog.php';
-			$this->deleteFiles[] = '/components/com_sermonspeaker/views/series/tmpl/protostar-blog.xml';
-			$this->deleteFiles[] = '/components/com_sermonspeaker/views/sermons/tmpl/default_children30.php';
-			$this->deleteFiles[] = '/components/com_sermonspeaker/views/sermons/tmpl/default_filters30.php';
-			$this->deleteFiles[] = '/components/com_sermonspeaker/views/sermons/tmpl/default_filtersorder30.php';
-			$this->deleteFiles[] = '/components/com_sermonspeaker/views/sermons/tmpl/tableless.php';
-			$this->deleteFiles[] = '/components/com_sermonspeaker/views/sermons/tmpl/tableless.xml';
-			$this->deleteFiles[] = '/components/com_sermonspeaker/views/sermons/tmpl/protostar-table.php';
-			$this->deleteFiles[] = '/components/com_sermonspeaker/views/sermons/tmpl/protostar-table.xml';
-			$this->deleteFiles[] = '/components/com_sermonspeaker/views/sermons/tmpl/protostar-list.php';
-			$this->deleteFiles[] = '/components/com_sermonspeaker/views/sermons/tmpl/protostar-list.xml';
-			$this->deleteFiles[] = '/components/com_sermonspeaker/views/sermons/tmpl/protostar-blog.php';
-			$this->deleteFiles[] = '/components/com_sermonspeaker/views/sermons/tmpl/protostar-blog.xml';
-			$this->deleteFiles[] = '/components/com_sermonspeaker/views/speaker/tmpl/default_filters30.php';
-			$this->deleteFiles[] = '/components/com_sermonspeaker/views/speaker/tmpl/default_filtersorder30.php';
-			$this->deleteFiles[] = '/components/com_sermonspeaker/views/speaker/tmpl/series.php';
-			$this->deleteFiles[] = '/components/com_sermonspeaker/views/speaker/tmpl/series.xml';
-			$this->deleteFiles[] = '/components/com_sermonspeaker/views/speaker/tmpl/sermons.php';
-			$this->deleteFiles[] = '/components/com_sermonspeaker/views/speaker/tmpl/sermons.xml';
-			$this->deleteFiles[] = '/components/com_sermonspeaker/views/speaker/tmpl/popup30.php';
-			$this->deleteFiles[] = '/components/com_sermonspeaker/views/speaker/tmpl/protostar-table.php';
-			$this->deleteFiles[] = '/components/com_sermonspeaker/views/speaker/tmpl/protostar-table.xml';
-			$this->deleteFiles[] = '/components/com_sermonspeaker/views/speaker/tmpl/protostar-list.php';
-			$this->deleteFiles[] = '/components/com_sermonspeaker/views/speaker/tmpl/protostar-list.xml';
-			$this->deleteFiles[] = '/components/com_sermonspeaker/views/speaker/tmpl/protostar-blog.php';
-			$this->deleteFiles[] = '/components/com_sermonspeaker/views/speaker/tmpl/protostar-blog.xml';
-			$this->deleteFiles[] = '/components/com_sermonspeaker/views/speakers/tmpl/default_children30.php';
-			$this->deleteFiles[] = '/components/com_sermonspeaker/views/speakers/tmpl/normal.php';
-			$this->deleteFiles[] = '/components/com_sermonspeaker/views/speakers/tmpl/normal.xml';
-			$this->deleteFiles[] = '/components/com_sermonspeaker/views/speakers/tmpl/protostar-table.php';
-			$this->deleteFiles[] = '/components/com_sermonspeaker/views/speakers/tmpl/protostar-table.xml';
-			$this->deleteFiles[] = '/components/com_sermonspeaker/views/speakers/tmpl/protostar-list.php';
-			$this->deleteFiles[] = '/components/com_sermonspeaker/views/speakers/tmpl/protostar-list.xml';
-			$this->deleteFiles[] = '/components/com_sermonspeaker/views/speakers/tmpl/protostar-blog.php';
-			$this->deleteFiles[] = '/components/com_sermonspeaker/views/speakers/tmpl/protostar-blog.xml';
-
-			// Cleanup tag view as we're now using the core tags in J!3.1
-			$this->deleteFolders[] = '/administrator/components/com_sermonspeaker/views/tags';
-			$this->deleteFolders[] = '/administrator/components/com_sermonspeaker/views/tag';
-			$this->deleteFolders[] = '/components/com_sermonspeaker/views/tagform';
-			$this->deleteFiles[]   = '/administrator/components/com_sermonspeaker/models/tags.php';
-			$this->deleteFiles[]   = '/administrator/components/com_sermonspeaker/models/tag.php';
-			$this->deleteFiles[]   = '/administrator/components/com_sermonspeaker/models/forms/tag.xml';
-			$this->deleteFiles[]   = '/administrator/components/com_sermonspeaker/models/fields/tag.php';
-			$this->deleteFiles[]   = '/administrator/components/com_sermonspeaker/models/fields/tagslist.php';
-			$this->deleteFiles[]   = '/administrator/components/com_sermonspeaker/tables/tag.php';
-			$this->deleteFiles[]   = '/administrator/components/com_sermonspeaker/controllers/tags.php';
-			$this->deleteFiles[]   = '/administrator/components/com_sermonspeaker/controllers/tag.php';
-			$this->deleteFiles[]   = '/components/com_sermonspeaker/models/tagform.php';
-			$this->deleteFiles[]   = '/components/com_sermonspeaker/models/forms/tag.xml';
-			$this->deleteFiles[]   = '/components/com_sermonspeaker/controllers/tagform.php';
-		}
-
-		// Remove swfupload folder
-		if (version_compare($this->oldRelease, '5.4.3', '<'))
-		{
-			$this->deleteFolders[] = '/media/com_sermonspeaker/swfupload';
-		}
-
-		// Remove unused association templates
-		if (version_compare($this->oldRelease, '5.6.2', '<'))
-		{
-			$this->deleteFolders[] = '/administrator/components/com_sermonspeaker/views/sermon/tmpl/edit_associations.php';
-			$this->deleteFolders[] = '/administrator/components/com_sermonspeaker/views/serie/tmpl/edit_associations.php';
-			$this->deleteFolders[] = '/administrator/components/com_sermonspeaker/views/speaker/tmpl/edit_associations.php';
-		}
-
 		// Remove integrated player classes
 		if (version_compare($this->oldRelease, '6.0.0', '<'))
 		{
@@ -282,21 +156,15 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 	{
 		$type = strtolower($type);
 
-		// Adding Category "uncategorized" if installing or discovering.
 		if ($type == 'install' || $type == 'discover_install')
 		{
+			// Adding Category "Uncategorised" if installing or discovering.
 			$this->addCategory();
-		}
 
-		/* Adding ContentTypes
-		 * needed in all cases for 5.0.4 to add content_history stuff.
-		 * Only needs to run on install and updates from "< 5.0.4" afterwards.
-		 * However no harm done when running always. */
-		$this->saveContentTypes();
+			// Adding ContentTypes
+			$this->saveContentTypes();
 
-		// Setting some default values for columns on install
-		if ($type == 'install' || $type == 'discover_install')
-		{
+			// Setting some default values for columns on install
 			$params                = array();
 			$params['col']         = '"col":['
 				. '"sermons:scripture","sermons:speaker","sermons:date","sermons:series","sermons:player"'
@@ -324,37 +192,6 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 
 		if ($type == 'update')
 		{
-			$db = JFactory::getDbo();
-
-			// Migrate tags on update if table exists
-			$tables = $db->getTableList();
-			$prefix = $db->getPrefix();
-
-			if (in_array($prefix . 'sermon_tags', $tables))
-			{
-				require_once(JPATH_ADMINISTRATOR . '/components/com_sermonspeaker/tables/sermon.php');
-				$sermontable = new SermonspeakerTableSermon($db);
-				$query       = $db->getQuery(true);
-				$query->select($db->quoteName('sermon_id'));
-				$query->select('GROUP_CONCAT(CONCAT(' . $db->quote('#new#') . ',' . $db->quoteName('t.title') . ') SEPARATOR \',\') AS tagtitles');
-				$query->from($db->quoteName('#__sermon_sermons_tags') . ' AS s');
-				$query->join('LEFT', $db->quoteName('#__sermon_tags') . ' AS t ON ' . $db->quoteName('s.tag_id') . ' = ' . $db->quoteName('t.id'));
-				$query->group($db->quoteName('sermon_id'));
-				$db->setQuery($query);
-				$result = $db->loadObjectList('sermon_id');
-
-				foreach ($result as $sermon)
-				{
-					$sermontable->load($sermon->sermon_id);
-					$sermontable->newTags = explode(',', $sermon->tagtitles);
-					$sermontable->store();
-				}
-
-				$db->dropTable('#__sermon_tags');
-				$db->dropTable('#__sermon_sermons_tags');
-				$this->app->enqueueMessage(JText::sprintf('COM_SERMONSPEAKER_TAGS_MIGRATED', count($result)), 'notice');
-			}
-
 			// Migrate categories to new section based ones
 			$this->moveCategories();
 		}
@@ -365,7 +202,7 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 
 
 	/**
-	 * Method to add a default category "uncategorized"
+	 * Method to add a default category "Uncategorised"
 	 *
 	 * @return void
 	 *
@@ -384,10 +221,10 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 				'id'          => 0,
 				'parent_id'   => 0,
 				'level'       => 1,
-				'path'        => 'uncategorized',
+				'path'        => 'uncategorised',
 				'extension'   => 'com_sermonspeaker.' . $section,
-				'title'       => 'Uncategorized',
-				'alias'       => 'uncategorized',
+				'title'       => 'Uncategorised',
+				'alias'       => 'uncategorised',
 				'description' => '',
 				'published'   => 1,
 				'language'    => '*',
