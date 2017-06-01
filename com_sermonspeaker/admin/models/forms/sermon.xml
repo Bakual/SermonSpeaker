@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <form>
-	<fieldset name="general"
-		addfieldpath="/administrator/components/com_categories/models/fields"
-	>
+	<fieldset name="general">
 		<field name="title"
 			type="text"
 			label="JGLOBAL_TITLE"
@@ -60,6 +58,7 @@
 			description="JFIELD_CATEGORY_DESC"
 			extension="com_sermonspeaker"
 			required="true"
+			addfieldprefix="Joomla\Component\Categories\Administrator\Field"
 		/>
 
 		<field name="language"
