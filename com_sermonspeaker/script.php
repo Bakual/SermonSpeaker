@@ -313,7 +313,7 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 		$history->display_lookup[]    = $source_user2;
 		$history->display_lookup[]    = $source_catid;
 
-		// Create/Update Sermon Type
+		// Create Sermon Type
 		$table->load(array('type_alias' => 'com_sermonspeaker.sermon'));
 
 		$special          = new stdClass;
@@ -348,7 +348,7 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 
 		$table->save($contenttype);
 
-		// Create/Update Speaker Type
+		// Create Speaker Type
 		$table->type_id = 0;
 		$table->load(array('type_alias' => 'com_sermonspeaker.speaker'));
 
@@ -378,7 +378,7 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 
 		$table->save($contenttype);
 
-		// Create/Update Series Type
+		// Create Series Type
 		$table->type_id = 0;
 		$table->load(array('type_alias' => 'com_sermonspeaker.serie'));
 
