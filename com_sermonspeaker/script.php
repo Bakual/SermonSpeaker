@@ -76,23 +76,6 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 	 */
 	public function preflight($type, $parent)
 	{
-		// Following two checks are a workaround for https://github.com/joomla/joomla-cms/pull/15890.
-		// Check for the minimum PHP version before continuing
-		if (version_compare(PHP_VERSION, $this->minimumPhp, '<'))
-		{
-			JLog::add(JText::sprintf('JLIB_INSTALLER_MINIMUM_PHP', $this->minimumPhp), JLog::WARNING, 'jerror');
-
-			return false;
-		}
-
-		// Check for the minimum Joomla version before continuing
-		if (version_compare(JVERSION, $this->minimumJoomla, '<'))
-		{
-			JLog::add(JText::sprintf('JLIB_INSTALLER_MINIMUM_JOOMLA', $this->minimumJoomla), JLog::WARNING, 'jerror');
-
-			return false;
-		}
-
 		// Storing old release number for process in postflight
 		if (strtolower($type) == 'update')
 		{
