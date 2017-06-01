@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <form>
-	<fieldset name="general"
-		addfieldpath="/administrator/components/com_categories/models/fields"
-	>
+	<fieldset name="general">
 		<field name="title"
 			type="text"
 			label="JGLOBAL_TITLE"
@@ -60,6 +58,7 @@
 			description="JFIELD_CATEGORY_DESC"
 			extension="com_sermonspeaker.sermons"
 			required="true"
+			addfieldprefix="Joomla\Component\Categories\Administrator\Field"
 		/>
 
 		<field name="language"
@@ -214,6 +213,7 @@
 			type="hits"
 			label="JGLOBAL_HITS"
 			description="COM_SERMONSPEAKER_FIELD_HITS_DESC"
+			default="0"
 			class="readonly"
 			readonly="true"
 			filter="unset"
@@ -237,6 +237,7 @@
 			type="text"
 			label="COM_SERMONSPEAKER_FIELD_NUM_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_NUM_DESC"
+			default="0"
 			size="5"
 		/>
 

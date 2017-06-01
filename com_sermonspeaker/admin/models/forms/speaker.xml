@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <form>
-	<fieldset name="general"
-		addfieldpath="/administrator/components/com_categories/models/fields">
+	<fieldset name="general">
 		<field name="title" type="text"
 			label="COM_SERMONSPEAKER_FIELD_NAME_LABEL" description="COM_SERMONSPEAKER_FIELD_NAME_DESC"
 			class="input-xxlarge input-large-text"
@@ -20,10 +19,15 @@
 			size="45"
 		/>
 
-		<field name="catid" type="categoryedit"
-			label="JCATEGORY" description="JFIELD_CATEGORY_DESC"
+		<field
+			name="catid"
+			type="categoryedit"
+			label="JCATEGORY"
+			description="JFIELD_CATEGORY_DESC"
 			extension="com_sermonspeaker.speakers"
-			required="true" />
+			required="true"
+			addfieldprefix="Joomla\Component\Categories\Administrator\Field"
+		/>
 
 		<field name="state" type="list"
 			label="JSTATUS" description="JFIELD_PUBLISHED_DESC"
@@ -135,6 +139,7 @@
 			type="hits"
 			label="JGLOBAL_HITS"
 			description="COM_SERMONSPEAKER_FIELD_HITS_DESC"
+			default="0"
 			class="readonly"
 			readonly="true"
 			filter="unset"
