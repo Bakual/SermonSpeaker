@@ -133,11 +133,25 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 	 */
 	public function update($parent)
 	{
-		// Remove integrated player classes
 		if (version_compare($this->oldRelease, '6.0.0', '<'))
 		{
+			// Remove integrated player classes
 			$this->deleteFiles[]   = '/administrator/components/com_sermonspeaker/models/fields/player.php';
 			$this->deleteFolders[] = '/components/com_sermonspeaker/helpers/player';
+
+			// Remove old SQL files
+			$this->deleteFiles[]   = '/administrator/components/com_sermonspeaker/sql/updates/mysql/4.5.0.sql';
+			$this->deleteFiles[]   = '/administrator/components/com_sermonspeaker/sql/updates/mysql/4.5.1.sql';
+			$this->deleteFiles[]   = '/administrator/components/com_sermonspeaker/sql/updates/mysql/4.5.2.sql';
+			$this->deleteFiles[]   = '/administrator/components/com_sermonspeaker/sql/updates/mysql/4.5.3.sql';
+			$this->deleteFiles[]   = '/administrator/components/com_sermonspeaker/sql/updates/mysql/4.5.4.sql';
+			$this->deleteFiles[]   = '/administrator/components/com_sermonspeaker/sql/updates/mysql/5.0.0.sql';
+			$this->deleteFiles[]   = '/administrator/components/com_sermonspeaker/sql/updates/mysql/5.0.1.sql';
+			$this->deleteFiles[]   = '/administrator/components/com_sermonspeaker/sql/updates/mysql/5.0.2.sql';
+			$this->deleteFiles[]   = '/administrator/components/com_sermonspeaker/sql/updates/mysql/5.0.3.sql';
+			$this->deleteFiles[]   = '/administrator/components/com_sermonspeaker/sql/updates/mysql/5.0.4.sql';
+			$this->deleteFiles[]   = '/administrator/components/com_sermonspeaker/sql/updates/mysql/5.4.0.sql';
+			$this->deleteFiles[]   = '/administrator/components/com_sermonspeaker/sql/updates/mysql/5.5.0.sql';
 		}
 	}
 
