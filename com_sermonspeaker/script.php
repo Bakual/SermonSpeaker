@@ -33,7 +33,7 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 	 * @var    string
 	 * @since  5.4.0
 	 */
-	protected $minimumPhp = '5.3.10';
+	protected $minimumPhp = '5.6.0';
 	/**
 	 * Minimum Joomla! version required to install the extension
 	 *
@@ -99,10 +99,10 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 			$manifest         = $this->getItemArray('manifest_cache', '#__extensions', 'element', JFactory::getDbo()->quote($this->extension));
 			$this->oldRelease = $manifest['version'];
 
-			// Check if update is allowed (only update from 4.5.0 and higher)
-			if (version_compare($this->oldRelease, '4.5.0', '<'))
+			// Check if update is allowed (only update from 5.6.0 and higher)
+			if (version_compare($this->oldRelease, '5.6.0', '<'))
 			{
-				$this->app->enqueueMessage(JText::sprintf('COM_SERMONSPEAKER_UPDATE_UNSUPPORTED', $this->oldRelease, '4.5.0'), 'error');
+				$this->app->enqueueMessage(JText::sprintf('COM_SERMONSPEAKER_UPDATE_UNSUPPORTED', $this->oldRelease, '5.6.0'), 'error');
 
 				return false;
 			}
