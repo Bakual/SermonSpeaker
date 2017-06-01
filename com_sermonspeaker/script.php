@@ -668,6 +668,7 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 
 				$category['id']        = 0;
 				$category['extension'] = 'com_sermonspeaker.' . $section;
+				unset($category['tagsHelper']);
 
 				try
 				{
