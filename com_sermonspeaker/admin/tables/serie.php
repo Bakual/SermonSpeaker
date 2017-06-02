@@ -88,20 +88,26 @@ class SermonspeakerTableSerie extends Table
 			$this->alias = JFactory::getDate()->format('Y-m-d-H-i-s');
 		}
 
+		// Set modified to null date if not set
+		if (!$this->modified)
+		{
+			$this->modified = $this->getDbo()->getNullDate();
+		}
+
 		// Set publish_up to null date if not set
 		if (!$this->publish_up)
 		{
-			$this->publish_up = $this->_db->getNullDate();
+			$this->publish_up = $this->getDbo()->getNullDate();
 		}
 
 		// Set publish_down to null date if not set
 		if (!$this->publish_down)
 		{
-			$this->publish_down = $this->_db->getNullDate();
+			$this->publish_down = $this->getDbo()->getNullDate();
 		}
 
 		// Check the publish down date is not earlier than publish up.
-		if ($this->publish_down > $this->_db->getNullDate() && $this->publish_down < $this->publish_up)
+		if ($this->publish_down > $this->getDbo()->getNullDate() && $this->publish_down < $this->publish_up)
 		{
 			// Swap the dates.
 			$temp               = $this->publish_up;

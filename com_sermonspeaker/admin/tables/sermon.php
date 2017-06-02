@@ -89,20 +89,26 @@ class SermonspeakerTableSermon extends Table
 			$this->alias = JFactory::getDate()->format('Y-m-d-H-i-s');
 		}
 
+		// Set modified to null date if not set
+		if (!$this->modified)
+		{
+			$this->modified = $this->getDbo()->getNullDate();
+		}
+
 		// Set publish_up to null date if not set
 		if (!$this->publish_up)
 		{
-			$this->publish_up = $this->_db->getNullDate();
+			$this->publish_up = $this->getDbo()->getNullDate();
 		}
 
 		// Set publish_down to null date if not set
 		if (!$this->publish_down)
 		{
-			$this->publish_down = $this->_db->getNullDate();
+			$this->publish_down = $this->getDbo()->getNullDate();
 		}
 
 		// Check the publish down date is not earlier than publish up.
-		if ($this->publish_down > $this->_db->getNullDate() && $this->publish_down < $this->publish_up)
+		if ($this->publish_down > $this->getDbo()->getNullDate() && $this->publish_down < $this->publish_up)
 		{
 			// Swap the dates.
 			$temp               = $this->publish_up;
@@ -275,22 +281,22 @@ class SermonspeakerTableSermon extends Table
 			$checkin = ' AND (checked_out = 0 OR checked_out = ' . (int) $userId . ')';
 		}
 		// Update the podcasting state for rows with the given primary keys.
-		$this->_db->setQuery(
+		$this->getDbo()->setQuery(
 			'UPDATE `' . $this->_tbl . '`' .
 			' SET `podcast` = ' . (int) $state .
 			' WHERE (' . $where . ')' .
 			$checkin
 		);
-		$this->_db->execute();
+		$this->getDbo()->execute();
 		// Check for a database error.
-		if ($this->_db->getErrorNum())
+		if ($this->getDbo()->getErrorNum())
 		{
-			$this->setError($this->_db->getErrorMsg());
+			$this->setError($this->getDbo()->getErrorMsg());
 
 			return false;
 		}
 		// If checkin is supported and all rows were adjusted, check them in.
-		if ($checkin && (count($pks) == $this->_db->getAffectedRows()))
+		if ($checkin && (count($pks) == $this->getDbo()->getAffectedRows()))
 		{
 			// Checkin the rows.
 			foreach ($pks as $pk)
