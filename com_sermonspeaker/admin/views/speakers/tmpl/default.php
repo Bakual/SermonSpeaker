@@ -49,13 +49,13 @@ $assoc = Associations::isEnabled();
 					<table class="table table-striped" id="speakerList">
 						<thead>
 						<tr>
-							<th width="1%" class="nowrap center hidden-phone">
+							<th width="1%" class="nowrap text-center hidden-phone">
 								<?php echo JHtml::_('searchtools.sort', '', 'speakers.ordering', $listDirn, $listOrder, null, 'asc', 'JGRID_HEADING_ORDERING', 'icon-menu-2'); ?>
 							</th>
 							<th width="1%" class="hidden-phone">
 								<input type="checkbox" name="checkall-toggle" value="" title="<?php echo JText::_('JGLOBAL_CHECK_ALL'); ?>" onclick="Joomla.checkAll(this)" />
 							</th>
-							<th width="1%" style="min-width:40px" class="nowrap center">
+							<th width="1%" style="min-width:40px" class="nowrap text-center">
 								<?php echo JHtml::_('searchtools.sort', 'JSTATUS', 'speakers.state', $listDirn, $listOrder); ?>
 							</th>
 							<th>
@@ -89,7 +89,7 @@ $assoc = Associations::isEnabled();
 							$canChange  = $user->authorise('core.edit.state', 'com_sermonspeaker.category.'.$item->catid) && $canCheckin;
 							?>
 							<tr class="row<?php echo $i % 2; ?>" data-dragable-group="<?php echo $item->catid; ?>">
-								<td class="order nowrap center hidden-sm-down">
+								<td class="order nowrap text-center hidden-sm-down">
 									<?php
 									$iconClass = '';
 									if (!$canChange)
@@ -145,7 +145,7 @@ $assoc = Associations::isEnabled();
 										<?php endif; ?>
 									</td>
 								<?php endif;?>
-								<td class="center small hidden-phone">
+								<td class="text-center small hidden-phone">
 									<?php if (!$item->pic){
 										$item->pic = Uri::root().'media/com_sermonspeaker/images/'.$this->state->get('params')->get('defaultpic', 'nopict.jpg');
 									}
@@ -157,7 +157,7 @@ $assoc = Associations::isEnabled();
 								<td class="small hidden-phone">
 									<?php echo LayoutHelper::render('joomla.content.language', $item); ?>
 								</td>
-								<td class="hidden-phone center">
+								<td class="hidden-phone text-center">
 							<span class="badge badge-info">
 								<?php echo (int) $item->hits; ?>
 							</span>
@@ -167,7 +167,7 @@ $assoc = Associations::isEnabled();
 										</a>
 									<?php endif; ?>
 								</td>
-								<td class="center hidden-phone">
+								<td class="text-center hidden-phone">
 									<?php echo (int) $item->id; ?>
 								</td>
 							</tr>
