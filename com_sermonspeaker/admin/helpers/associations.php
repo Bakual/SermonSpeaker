@@ -70,7 +70,7 @@ class SermonSpeakerAssociationsHelper extends JAssociationExtensionHelper
 
 		// Get the associations.
 		$associations = JLanguageAssociations::getAssociations(
-			$this->extension,
+			$context . 's',
 			$type['tables']['a'],
 			$context,
 			$id,

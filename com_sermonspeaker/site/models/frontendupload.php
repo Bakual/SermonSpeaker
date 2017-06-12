@@ -164,7 +164,7 @@ class SermonspeakerModelFrontendupload extends SermonspeakerModelSermon
 		// Associations are not edited in frontend ATM so we have to inherit them
 		if (JLanguageAssociations::isEnabled() && !empty($data['id']))
 		{
-			if ($associations = JLanguageAssociations::getAssociations('com_sermonspeaker', '#__sermon_sermons', 'com_sermonspeaker.sermon', $data['id']))
+			if ($associations = JLanguageAssociations::getAssociations('com_sermonspeaker.sermons', '#__sermon_sermons', 'com_sermonspeaker.sermon', $data['id']))
 			{
 				foreach ($associations as $tag => $associated)
 				{

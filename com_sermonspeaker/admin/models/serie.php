@@ -292,7 +292,7 @@ class SermonspeakerModelSerie extends JModelAdmin
 
 			if ($item->id != null)
 			{
-				$associations = JLanguageAssociations::getAssociations('com_sermonspeaker', '#__sermon_series', 'com_sermonspeaker.serie', $item->id);
+				$associations = JLanguageAssociations::getAssociations('com_sermonspeaker.series', '#__sermon_series', $this->associationsContext, $item->id);
 
 				foreach ($associations as $tag => $association)
 				{

@@ -68,7 +68,7 @@ abstract class SermonspeakerHelperAssociation extends CategoryHelperAssociation
 	{
 		if ($id)
 		{
-			$associations = JLanguageAssociations::getAssociations('com_sermonspeaker', $tablename, 'com_sermonspeaker.' . $view, $id);
+			$associations = JLanguageAssociations::getAssociations('com_sermonspeaker.' . $view . 's', $tablename, 'com_sermonspeaker.' . $view, $id);
 			$function = 'get' . $view . 'Route';
 
 			$return = array();
