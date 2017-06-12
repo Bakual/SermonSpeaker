@@ -1,6 +1,19 @@
 <?php
-// No direct access.
+/**
+ * @package     SermonSpeaker
+ * @subpackage  Component.Administrator
+ * @author      Thomas Hunziker <admin@sermonspeaker.net>
+ * @copyright   © 2016 - Thomas Hunziker
+ * @license     http://www.gnu.org/licenses/gpl.html
+ **/
+
 defined('_JEXEC') or die;
+
+use Joomla\CMS\Application\ApplicationHelper;
+use Joomla\CMS\Helper\TagsHelper;
+use Joomla\CMS\Language\Associations;
+use Joomla\CMS\Language\LanguageHelper;
+use Joomla\CMS\Table\Table;
 
 /**
  * Speaker model.
@@ -275,18 +288,18 @@ class SermonspeakerModelSpeaker extends JModelAdmin
 			$registry->loadString($item->metadata);
 			$item->metadata = $registry->toArray();
 
-			$item->tags = new JHelperTags;
+			$item->tags = new TagsHelper();
 			$item->tags->getTagIds($item->id, 'com_sermonspeaker.speaker');
 		}
 
 		// Load associated items
-		if (JLanguageAssociations::isEnabled())
+		if (Associations::isEnabled())
 		{
 			$item->associations = array();
 
 			if ($item->id != null)
 			{
-				$associations = JLanguageAssociations::getAssociations('com_sermonspeaker.speakers', '#__sermon_speakers', $this->associationsContext, $item->id);
+				$associations = Associations::getAssociations('com_sermonspeaker.speakers', '#__sermon_speakers', $this->associationsContext, $item->id);
 
 				foreach ($associations as $tag => $association)
 				{
@@ -301,7 +314,7 @@ class SermonspeakerModelSpeaker extends JModelAdmin
 	/**
 	 * Prepare and sanitise the table prior to saving.
 	 *
-	 * @param JTable $table
+	 * @param Table $table
 	 *
 	 * @since    1.6
 	 */
@@ -310,10 +323,10 @@ class SermonspeakerModelSpeaker extends JModelAdmin
 		jimport('joomla.filter.output');
 
 		$table->title = htmlspecialchars_decode($table->title, ENT_QUOTES);
-		$table->alias = JApplicationHelper::stringURLSafe($table->alias);
+		$table->alias = ApplicationHelper::stringURLSafe($table->alias);
 		if (empty($table->alias))
 		{
-			$table->alias = JApplicationHelper::stringURLSafe($table->title);
+			$table->alias = ApplicationHelper::stringURLSafe($table->title);
 			if (empty($table->alias))
 			{
 				$table->alias = JFactory::getDate()->format("Y-m-d-H-i-s");
@@ -367,9 +380,9 @@ class SermonspeakerModelSpeaker extends JModelAdmin
 	protected function preprocessForm(JForm $form, $data, $group = 'sermonspeaker')
 	{
 		// Association items
-		if (JLanguageAssociations::isEnabled())
+		if (Associations::isEnabled())
 		{
-			$languages = JLanguageHelper::getContentLanguages(false, true, null, 'ordering', 'asc');
+			$languages = LanguageHelper::getContentLanguages(false, true, null, 'ordering', 'asc');
 
 			if ($languages)
 			{

@@ -1,7 +1,20 @@
 <?php
+/**
+ * @package     SermonSpeaker
+ * @subpackage  Component.Administrator
+ * @author      Thomas Hunziker <admin@sermonspeaker.net>
+ * @copyright   © 2016 - Thomas Hunziker
+ * @license     http://www.gnu.org/licenses/gpl.html
+ **/
+
 defined('_JEXEC') or die;
 
-class SermonspeakerModelSeries extends JModelList
+use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\Language\Associations;
+use Joomla\CMS\Model\ListModel;
+use Joomla\CMS\Table\Table;
+
+class SermonspeakerModelSeries extends ListModel
 {
 	/**
 	 * Constructor.
@@ -40,7 +53,7 @@ class SermonspeakerModelSeries extends JModelList
 			$config['filter_fields'][] = 'level';
 			$config['filter_fields'][] = 'tag';
 
-			if (JLanguageAssociations::isEnabled())
+			if (Associations::isEnabled())
 			{
 				$config['filter_fields'][] = 'association';
 			}
@@ -80,7 +93,7 @@ class SermonspeakerModelSeries extends JModelList
 		}
 
 		// Load the parameters.
-		$params = JComponentHelper::getParams('com_sermonspeaker');
+		$params = ComponentHelper::getParams('com_sermonspeaker');
 		$this->setState('params', $params);
 
 		// List state information.
@@ -153,7 +166,7 @@ class SermonspeakerModelSeries extends JModelList
 			->join('LEFT', '#__users AS ua ON ua.id = series.created_by');
 
 		// Join over the associations.
-		if (JLanguageAssociations::isEnabled())
+		if (Associations::isEnabled())
 		{
 			$query->select('COUNT(asso2.id)>1 as association')
 				->join('LEFT', '#__associations AS asso ON asso.id = series.id AND asso.context=' . $db->quote('com_sermonspeaker.serie'))
@@ -189,7 +202,7 @@ class SermonspeakerModelSeries extends JModelList
 
 		if (is_numeric($categoryId))
 		{
-			$cat_tbl = JTable::getInstance('Category', 'JTable');
+			$cat_tbl = Table::getInstance('Category', 'JTable');
 			$cat_tbl->load($categoryId);
 			$rgt       = $cat_tbl->rgt;
 			$lft       = $cat_tbl->lft;

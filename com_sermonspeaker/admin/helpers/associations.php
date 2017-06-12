@@ -9,14 +9,18 @@
 
 defined('_JEXEC') or die;
 
-JTable::addIncludePath(__DIR__ . '/../tables');
+use Joomla\CMS\Table\Table;
+use Joomla\CMS\Association\AssociationExtensionHelper;
+use Joomla\CMS\Language\Associations;
+
+Table::addIncludePath(__DIR__ . '/../tables');
 
 /**
  * Content associations helper.
  *
  * @since  5.6.0
  */
-class SermonSpeakerAssociationsHelper extends JAssociationExtensionHelper
+class SermonSpeakerAssociationsHelper extends AssociationExtensionHelper
 {
 	/**
 	 * var       array   $extension  The extension name
@@ -69,7 +73,7 @@ class SermonSpeakerAssociationsHelper extends JAssociationExtensionHelper
 		}
 
 		// Get the associations.
-		$associations = JLanguageAssociations::getAssociations(
+		$associations = Associations::getAssociations(
 			$context . 's',
 			$type['tables']['a'],
 			$context,
@@ -172,7 +176,7 @@ class SermonSpeakerAssociationsHelper extends JAssociationExtensionHelper
 	 * @param   string $typeName The item type
 	 * @param   int    $id       The id of item for which we need the associated items
 	 *
-	 * @return  JTable|null
+	 * @return  Table|null
 	 *
 	 * @since    5.6.0
 	 */
@@ -188,19 +192,19 @@ class SermonSpeakerAssociationsHelper extends JAssociationExtensionHelper
 		switch ($typeName)
 		{
 			case 'serie':
-				$table = JTable::getInstance('Serie', 'SermonspeakerTable');
+				$table = Table::getInstance('Serie', 'SermonspeakerTable');
 				break;
 
 			case 'sermon':
-				$table = JTable::getInstance('Sermon', 'SermonspeakerTable');
+				$table = Table::getInstance('Sermon', 'SermonspeakerTable');
 				break;
 
 			case 'speaker':
-				$table = JTable::getInstance('Speaker', 'SermonspeakerTable');
+				$table = Table::getInstance('Speaker', 'SermonspeakerTable');
 				break;
 
 			case 'category':
-				$table = JTable::getInstance('Category');
+				$table = Table::getInstance('Category');
 				break;
 		}
 
