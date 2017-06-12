@@ -158,7 +158,13 @@ class SermonspeakerModelSpeakers extends JModelList
 			$query->select('COUNT(asso2.id)>1 as association')
 				->join('LEFT', '#__associations AS asso ON asso.id = speakers.id AND asso.context=' . $db->quote('com_sermonspeaker.speaker'))
 				->join('LEFT', '#__associations AS asso2 ON asso2.key = asso.key')
-				->group('speakers.id');
+				->group(
+					'speakers.id, speakers.title, speakers.catid, speakers.created_by, speakers.language, '
+					. 'speakers.hits, speakers.home, speakers.pic, speakers.website, '
+					. 'speakers.alias, speakers.state, speakers.ordering, speakers.checked_out, speakers.checked_out_time, '
+					. 'speakers.publish_up, speakers.publish_down, '
+					. 'l.title, l.image, uc.name, ua.name, c.title'
+				);
 		}
 
 		// Join over the categories.
