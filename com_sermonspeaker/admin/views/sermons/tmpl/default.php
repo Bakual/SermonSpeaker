@@ -9,6 +9,10 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Language\Associations;
+use Joomla\CMS\Layout\LayoutHelper;
+use Joomla\CMS\Session\Session;
+
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
 
 JHtml::_('bootstrap.tooltip');
@@ -23,11 +27,11 @@ $saveOrder = $listOrder == 'sermons.ordering';
 
 if ($saveOrder)
 {
-	$saveOrderingUrl = 'index.php?option=com_sermonspeaker&task=sermons.saveOrderAjax&tmpl=component' . JSession::getFormToken() . '=1';
+	$saveOrderingUrl = 'index.php?option=com_sermonspeaker&task=sermons.saveOrderAjax&tmpl=component' . Session::getFormToken() . '=1';
 	JHtml::_('draggablelist.draggable');
 }
 
-$assoc = JLanguageAssociations::isEnabled();
+$assoc = Associations::isEnabled();
 ?>
 <form action="<?php echo JRoute::_('index.php?option=com_sermonspeaker&view=sermons'); ?>" method="post" name="adminForm" id="adminForm">
 	<div class="row">
@@ -36,7 +40,7 @@ $assoc = JLanguageAssociations::isEnabled();
 		</div>
 		<div class="col-md-10">
 			<div id="j-main-container" class="j-main-container">
-				<?php echo JLayoutHelper::render('joomla.searchtools.default', array('view' => $this)); ?>
+				<?php echo LayoutHelper::render('joomla.searchtools.default', array('view' => $this)); ?>
 				<?php if (empty($this->items)) : ?>
 					<div class="alert alert-warning alert-no-items">
 						<?php echo JText::_('JGLOBAL_NO_MATCHING_RESULTS'); ?>
@@ -201,7 +205,7 @@ $assoc = JLanguageAssociations::isEnabled();
 								endif; ?>
 							</td>
 							<td class="small hidden-phone">
-								<?php echo JLayoutHelper::render('joomla.content.language', $item); ?>
+								<?php echo LayoutHelper::render('joomla.content.language', $item); ?>
 							</td>
 							<td class="hidden-phone center">
 								<span class="badge badge-info">

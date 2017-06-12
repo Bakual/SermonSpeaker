@@ -9,6 +9,10 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Application\SiteApplication;
+use Joomla\CMS\Language\Associations;
+use Joomla\CMS\Uri\Uri;
+
 require_once JPATH_COMPONENT_ADMINISTRATOR . '/models/speaker.php';
 
 /**
@@ -46,7 +50,7 @@ class SermonspeakerModelSpeakerform extends SermonspeakerModelSpeaker
 	 */
 	protected function populateState($ordering = null, $direction = null)
 	{
-		/** @var JApplicationSite $app */
+		/** @var SiteApplication $app */
 		$app    = JFactory::getApplication();
 		$jinput = $app->input;
 
@@ -62,7 +66,7 @@ class SermonspeakerModelSpeakerform extends SermonspeakerModelSpeaker
 
 		$return = $jinput->get('return', '', 'base64');
 
-		if (!JUri::isInternal(base64_decode($return)))
+		if (!Uri::isInternal(base64_decode($return)))
 		{
 			$return = null;
 		}
@@ -88,9 +92,9 @@ class SermonspeakerModelSpeakerform extends SermonspeakerModelSpeaker
 	public function save($data)
 	{
 		// Associations are not edited in frontend ATM so we have to inherit them
-		if (JLanguageAssociations::isEnabled() && !empty($data['id']))
+		if (Associations::isEnabled() && !empty($data['id']))
 		{
-			if ($associations = JLanguageAssociations::getAssociations('com_sermonspeaker', '#__sermon_speakers', 'com_sermonspeaker.speaker', $data['id']))
+			if ($associations = Associations::getAssociations('com_sermonspeaker', '#__sermon_speakers', 'com_sermonspeaker.speaker', $data['id']))
 			{
 				foreach ($associations as $tag => $associated)
 				{

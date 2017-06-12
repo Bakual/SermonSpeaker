@@ -9,6 +9,11 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Language\Associations;
+use Joomla\CMS\Layout\LayoutHelper;
+use Joomla\CMS\Session\Session;
+use Joomla\CMS\Uri\Uri;
+
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
 
 JHtml::_('bootstrap.tooltip');
@@ -23,10 +28,10 @@ $saveOrder = $listOrder == 'speakers.ordering';
 
 if ($saveOrder)
 {
-	$saveOrderingUrl = 'index.php?option=com_sermonspeaker&task=speakers.saveOrderAjax&tmpl=component' . JSession::getFormToken() . '=1';
+	$saveOrderingUrl = 'index.php?option=com_sermonspeaker&task=speakers.saveOrderAjax&tmpl=component' . Session::getFormToken() . '=1';
 }
 
-$assoc = JLanguageAssociations::isEnabled();
+$assoc = Associations::isEnabled();
 ?>
 <form action="<?php echo JRoute::_('index.php?option=com_sermonspeaker&view=speakers'); ?>" method="post" name="adminForm" id="adminForm">
 	<div class="row">
@@ -35,7 +40,7 @@ $assoc = JLanguageAssociations::isEnabled();
 		</div>
 		<div class="col-md-10">
 			<div id="j-main-container" class="j-main-container">
-		<?php echo JLayoutHelper::render('joomla.searchtools.default', array('view' => $this)); ?>
+		<?php echo LayoutHelper::render('joomla.searchtools.default', array('view' => $this)); ?>
 				<?php if (empty($this->items)) : ?>
 					<div class="alert alert-no-items">
 						<?php echo JText::_('JGLOBAL_NO_MATCHING_RESULTS'); ?>
@@ -142,15 +147,15 @@ $assoc = JLanguageAssociations::isEnabled();
 								<?php endif;?>
 								<td class="center small hidden-phone">
 									<?php if (!$item->pic){
-										$item->pic = JUri::root().'media/com_sermonspeaker/images/'.$this->state->get('params')->get('defaultpic', 'nopict.jpg');
+										$item->pic = Uri::root().'media/com_sermonspeaker/images/'.$this->state->get('params')->get('defaultpic', 'nopict.jpg');
 									}
 									if (!parse_url($item->pic, PHP_URL_SCHEME)) {
-										$item->pic = JUri::root().trim($item->pic, '/.');
+										$item->pic = Uri::root().trim($item->pic, '/.');
 									} ?>
 									<img src="<?php echo $item->pic; ?>" border="1" width="50" height="50">
 								</td>
 								<td class="small hidden-phone">
-									<?php echo JLayoutHelper::render('joomla.content.language', $item); ?>
+									<?php echo LayoutHelper::render('joomla.content.language', $item); ?>
 								</td>
 								<td class="hidden-phone center">
 							<span class="badge badge-info">

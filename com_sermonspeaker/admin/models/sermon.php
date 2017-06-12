@@ -9,12 +9,19 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Application\ApplicationHelper;
+use Joomla\CMS\Helper\TagsHelper;
+use Joomla\CMS\Language\Associations;
+use Joomla\CMS\Language\LanguageHelper;
+use Joomla\CMS\Model\Admin;
+use Joomla\CMS\Table\Table;
+
 /**
  * Item Model for a Sermon.
  *
  * @since  3.4
  */
-class SermonspeakerModelSermon extends JModelAdmin
+class SermonspeakerModelSermon extends Admin
 {
 	/**
 	 * The prefix to use with controller messages.
@@ -115,13 +122,13 @@ class SermonspeakerModelSermon extends JModelAdmin
 	 * @param   string $prefix A prefix for the table class name. Optional.
 	 * @param   array  $config Configuration array for model. Optional.
 	 *
-	 * @return  JTable|boolean    A database object
+	 * @return  Table|boolean    A database object
 	 *
 	 * @since ?
 	 */
 	public function getTable($type = 'Sermon', $prefix = 'SermonspeakerTable', $config = array())
 	{
-		return JTable::getInstance($type, $prefix, $config);
+		return Table::getInstance($type, $prefix, $config);
 	}
 
 	/**
@@ -780,18 +787,18 @@ class SermonspeakerModelSermon extends JModelAdmin
 			$registry->loadString($item->metadata);
 			$item->metadata = $registry->toArray();
 
-			$item->tags = new JHelperTags;
+			$item->tags = new TagsHelper();
 			$item->tags->getTagIds($item->id, 'com_sermonspeaker.sermon');
 		}
 
 		// Load associated items
-		if (JLanguageAssociations::isEnabled())
+		if (Associations::isEnabled())
 		{
 			$item->associations = array();
 
 			if ($item->id != null)
 			{
-				$associations = JLanguageAssociations::getAssociations('com_sermonspeaker', '#__sermon_sermons', $this->associationsContext, $item->id);
+				$associations = Associations::getAssociations('com_sermonspeaker', '#__sermon_sermons', $this->associationsContext, $item->id);
 
 				foreach ($associations as $tag => $association)
 				{
@@ -806,7 +813,7 @@ class SermonspeakerModelSermon extends JModelAdmin
 	/**
 	 * Prepare and sanitise the table data prior to saving.
 	 *
-	 * @param   JTable $table A JTable object.
+	 * @param   Table $table A JTable object.
 	 *
 	 * @return  void
 	 *
@@ -815,11 +822,11 @@ class SermonspeakerModelSermon extends JModelAdmin
 	protected function prepareTable($table)
 	{
 		$table->title = htmlspecialchars_decode($table->title, ENT_QUOTES);
-		$table->alias = JApplicationHelper::stringURLSafe($table->alias);
+		$table->alias = ApplicationHelper::stringURLSafe($table->alias);
 
 		if (empty($table->alias))
 		{
-			$table->alias = JApplicationHelper::stringURLSafe($table->title);
+			$table->alias = ApplicationHelper::stringURLSafe($table->title);
 
 			if (empty($table->alias))
 			{
@@ -912,9 +919,9 @@ class SermonspeakerModelSermon extends JModelAdmin
 	protected function preprocessForm(JForm $form, $data, $group = 'sermonspeaker')
 	{
 		// Association items
-		if (JLanguageAssociations::isEnabled())
+		if (Associations::isEnabled())
 		{
-			$languages = JLanguageHelper::getContentLanguages(false, true, null, 'ordering', 'asc');
+			$languages = LanguageHelper::getContentLanguages(false, true, null, 'ordering', 'asc');
 
 			if ($languages)
 			{
