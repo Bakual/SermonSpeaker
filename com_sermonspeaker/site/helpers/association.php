@@ -9,6 +9,8 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Language\Associations;
+
 JLoader::register('SermonspeakerHelper', JPATH_ADMINISTRATOR . '/components/com_sermonspeaker/helpers/sermonspeaker.php');
 JLoader::register('CategoryHelperAssociation', JPATH_ADMINISTRATOR . '/components/com_categories/helpers/association.php');
 
@@ -68,7 +70,7 @@ abstract class SermonspeakerHelperAssociation extends CategoryHelperAssociation
 	{
 		if ($id)
 		{
-			$associations = JLanguageAssociations::getAssociations('com_sermonspeaker', $tablename, 'com_sermonspeaker.' . $view, $id);
+			$associations = Associations::getAssociations('com_sermonspeaker', $tablename, 'com_sermonspeaker.' . $view, $id);
 			$function = 'get' . $view . 'Route';
 
 			$return = array();

@@ -1,5 +1,18 @@
 <?php
+/**
+ * @package     SermonSpeaker
+ * @subpackage  Component.Administrator
+ * @author      Thomas Hunziker <admin@sermonspeaker.net>
+ * @copyright   © 2016 - Thomas Hunziker
+ * @license     http://www.gnu.org/licenses/gpl.html
+ **/
+
 defined('_JEXEC') or die;
+
+use Joomla\CMS\Language\Associations;
+use Joomla\CMS\Layout\LayoutHelper;
+use Joomla\CMS\Session\Session;
+use Joomla\CMS\Uri\Uri;
 
 JHtml::addIncludePath(JPATH_COMPONENT.'/helpers/html');
 
@@ -14,11 +27,11 @@ $trashed   = $this->state->get('filter.state') == -2 ? true : false;
 $saveOrder = $listOrder == 'series.ordering';
 if ($saveOrder)
 {
-	$saveOrderingUrl = 'index.php?option=com_sermonspeaker&task=series.saveOrderAjax&tmpl=component' . JSession::getFormToken() . '=1';
+	$saveOrderingUrl = 'index.php?option=com_sermonspeaker&task=series.saveOrderAjax&tmpl=component' . Session::getFormToken() . '=1';
 	JHtml::_('draggablelist.draggable');
 }
 
-$assoc     = JLanguageAssociations::isEnabled();
+$assoc = Associations::isEnabled();
 ?>
 <form action="<?php echo JRoute::_('index.php?option=com_sermonspeaker&view=series'); ?>" method="post" name="adminForm" id="adminForm">
 	<div class="row">
@@ -27,7 +40,7 @@ $assoc     = JLanguageAssociations::isEnabled();
 		</div>
 		<div class="col-md-10">
 			<div id="j-main-container" class="j-main-container">
-				<?php echo JLayoutHelper::render('joomla.searchtools.default', array('view' => $this)); ?>
+				<?php echo LayoutHelper::render('joomla.searchtools.default', array('view' => $this)); ?>
 				<?php if (empty($this->items)) : ?>
 					<div class="alert alert-no-items">
 						<?php echo JText::_('JGLOBAL_NO_MATCHING_RESULTS'); ?>
@@ -133,15 +146,15 @@ $assoc     = JLanguageAssociations::isEnabled();
 								<?php endif;?>
 								<td class="center small hidden-phone">
 									<?php if (!$item->avatar){
-										$item->avatar = JUri::root().'media/com_sermonspeaker/images/'.$this->state->get('params')->get('defaultpic', 'nopict.jpg');
+										$item->avatar = Uri::root().'media/com_sermonspeaker/images/'.$this->state->get('params')->get('defaultpic', 'nopict.jpg');
 									}
 									if (!parse_url($item->avatar, PHP_URL_SCHEME)) {
-										$item->avatar = JUri::root().trim($item->avatar, '/.');
+										$item->avatar = Uri::root().trim($item->avatar, '/.');
 									} ?>
 									<img src="<?php echo $item->avatar; ?>" border="1" width="50" height="50">
 								</td>
 								<td class="small hidden-phone">
-									<?php echo JLayoutHelper::render('joomla.content.language', $item); ?>
+									<?php echo LayoutHelper::render('joomla.content.language', $item); ?>
 								</td>
 								<td class="hidden-phone center">
 									<span class="badge badge-info">

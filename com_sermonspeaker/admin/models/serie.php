@@ -7,7 +7,15 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
-defined('_JEXEC') or die();
+defined('_JEXEC') or die;
+
+use Joomla\CMS\Application\ApplicationHelper;
+use Joomla\CMS\Form\Form;
+use Joomla\CMS\Helper\TagsHelper;
+use Joomla\CMS\Language\Associations;
+use Joomla\CMS\Language\LanguageHelper;
+use Joomla\CMS\Model\Admin;
+use Joomla\CMS\Table\Table;
 
 /**
  * Serie model.
@@ -16,7 +24,7 @@ defined('_JEXEC') or die();
  *
  * @since     ?
  */
-class SermonspeakerModelSerie extends JModelAdmin
+class SermonspeakerModelSerie extends Admin
 {
 	/**
 	 * @var   string  The prefix to use with controller messages.
@@ -39,7 +47,7 @@ class SermonspeakerModelSerie extends JModelAdmin
 	 * @param    array   $data     An optional array of data for the form to interogate.
 	 * @param    boolean $loadData True if the form is to load its own data (default case), false if not.
 	 *
-	 * @return    bool|JForm    A JForm object on success, false on failure
+	 * @return    bool|Form    A JForm object on success, false on failure
 	 * @since    1.6
 	 */
 	public function getForm($data = array(), $loadData = true)
@@ -157,12 +165,12 @@ class SermonspeakerModelSerie extends JModelAdmin
 	 * @param    string $prefix A prefix for the table class name. Optional.
 	 * @param    array  $config Configuration array for model. Optional.
 	 *
-	 * @return    JTable    A database object
+	 * @return    Table    A database object
 	 * @since    1.6
 	 */
 	public function getTable($type = 'Serie', $prefix = 'SermonspeakerTable', $config = array())
 	{
-		return JTable::getInstance($type, $prefix, $config);
+		return Table::getInstance($type, $prefix, $config);
 	}
 
 	/**
@@ -281,18 +289,18 @@ class SermonspeakerModelSerie extends JModelAdmin
 			$registry->loadString($item->metadata);
 			$item->metadata = $registry->toArray();
 
-			$item->tags = new JHelperTags;
+			$item->tags = new TagsHelper();
 			$item->tags->getTagIds($item->id, 'com_sermonspeaker.serie');
 		}
 
 		// Load associated items
-		if (JLanguageAssociations::isEnabled())
+		if (Associations::isEnabled())
 		{
 			$item->associations = array();
 
 			if ($item->id != null)
 			{
-				$associations = JLanguageAssociations::getAssociations('com_sermonspeaker', '#__sermon_series', 'com_sermonspeaker.serie', $item->id);
+				$associations = Associations::getAssociations('com_sermonspeaker', '#__sermon_series', 'com_sermonspeaker.serie', $item->id);
 
 				foreach ($associations as $tag => $association)
 				{
@@ -316,10 +324,10 @@ class SermonspeakerModelSerie extends JModelAdmin
 		jimport('joomla.filter.output');
 
 		$table->title = htmlspecialchars_decode($table->title, ENT_QUOTES);
-		$table->alias = JApplicationHelper::stringURLSafe($table->alias);
+		$table->alias = ApplicationHelper::stringURLSafe($table->alias);
 		if (empty($table->alias))
 		{
-			$table->alias = JApplicationHelper::stringURLSafe($table->title);
+			$table->alias = ApplicationHelper::stringURLSafe($table->title);
 			if (empty($table->alias))
 			{
 				$table->alias = JFactory::getDate()->format("Y-m-d-H-i-s");
@@ -373,9 +381,9 @@ class SermonspeakerModelSerie extends JModelAdmin
 	protected function preprocessForm(JForm $form, $data, $group = 'sermonspeaker')
 	{
 		// Association items
-		if (JLanguageAssociations::isEnabled())
+		if (Associations::isEnabled())
 		{
-			$languages = JLanguageHelper::getContentLanguages(false, true, null, 'ordering', 'asc');
+			$languages = LanguageHelper::getContentLanguages(false, true, null, 'ordering', 'asc');
 
 			if ($languages)
 			{
@@ -410,7 +418,7 @@ class SermonspeakerModelSerie extends JModelAdmin
 	/**
 	 * A protected method to get a set of ordering conditions.
 	 *
-	 * @param    $table  JTable    A record object.
+	 * @param    $table  Table    A record object.
 	 *
 	 * @return    array    An array of conditions to add to add to ordering queries.
 	 * @since    1.6
@@ -445,7 +453,7 @@ class SermonspeakerModelSerie extends JModelAdmin
 		// Check that the category exists
 		if ($categoryId)
 		{
-			$categoryTable = JTable::getInstance('Category');
+			$categoryTable = Table::getInstance('Category');
 			if (!$categoryTable->load($categoryId))
 			{
 				if ($error = $categoryTable->getError())
