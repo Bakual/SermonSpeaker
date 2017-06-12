@@ -49,13 +49,13 @@ $assoc = Associations::isEnabled();
 					<table class="table table-striped" id="sermonList">
 					<thead>
 						<tr>
-							<th width="1%" class="nowrap center hidden-phone">
+							<th width="1%" class="nowrap text-center hidden-phone">
 								<?php echo JHtml::_('searchtools.sort', '', 'sermons.ordering', $listDirn, $listOrder, null, 'asc', 'JGRID_HEADING_ORDERING', 'icon-menu-2'); ?>
 							</th>
 							<th width="1%" class="hidden-phone">
 								<input type="checkbox" name="checkall-toggle" value="" title="<?php echo JText::_('JGLOBAL_CHECK_ALL'); ?>" onclick="Joomla.checkAll(this)" />
 							</th>
-							<th width="1%" style="min-width:40px" class="nowrap center">
+							<th width="1%" style="min-width:40px" class="nowrap text-center">
 								<?php echo JHtml::_('searchtools.sort', 'JSTATUS', 'sermons.state', $listDirn, $listOrder); ?>
 							</th>
 							<th>
@@ -76,10 +76,10 @@ $assoc = Associations::isEnabled();
 								<?php echo JHtml::_('searchtools.sort',  'COM_SERMONSPEAKER_SERIE', 'series_title', $listDirn, $listOrder); ?>
 							</th>
 							<th width="7%" class="nowrap hidden-phone">
-								<?php echo JHtml::_('searchtools.sort',  'COM_SERMONSPEAKER_FIELD_DATE_LABEL', 'sermons.sermon_date', $listDirn, $listOrder); ?>
+								<?php echo JHtml::_('searchtools.sort',  'JGRID_HEADING_LANGUAGE', 'language', $listDirn, $listOrder); ?>
 							</th>
 							<th width="7%" class="nowrap hidden-phone">
-								<?php echo JHtml::_('searchtools.sort',  'JGRID_HEADING_LANGUAGE', 'language', $listDirn, $listOrder); ?>
+								<?php echo JHtml::_('searchtools.sort',  'COM_SERMONSPEAKER_FIELD_DATE_LABEL', 'sermons.sermon_date', $listDirn, $listOrder); ?>
 							</th>
 							<th width="5%" class="nowrap hidden-phone">
 								<?php echo JHtml::_('searchtools.sort', 'JGLOBAL_HITS', 'sermons.hits', $listDirn, $listOrder); ?>
@@ -98,7 +98,7 @@ $assoc = Associations::isEnabled();
 						$canChange  = $user->authorise('core.edit.state', 'com_sermonspeaker.category.'.$item->catid) && $canCheckin;
 						?>
 						<tr class="row<?php echo $i % 2; ?>" data-dragable-group="<?php echo $item->catid; ?>">
-							<td class="order nowrap center hidden-sm-down">
+							<td class="order nowrap text-center hidden-sm-down">
 								<?php
 								$iconClass = '';
 								if (!$canChange)
@@ -156,7 +156,7 @@ $assoc = Associations::isEnabled();
 							<td class="nowrap small hidden-phone hidden-tablet">
 								<?php echo $this->escape($item->speaker_title); ?>
 							</td>
-							<td class="center small hidden-phone hidden-tablet">
+							<td class="text-center small hidden-phone hidden-tablet">
 								<?php if ($item->scripture):
 									$passages	= explode('!', $item->scripture);
 									$separator	= JText::_('COM_SERMONSPEAKER_SCRIPTURE_SEPARATOR');
@@ -199,15 +199,15 @@ $assoc = Associations::isEnabled();
 							<td class="small hidden-phone hidden-tablet">
 								<?php echo $this->escape($item->series_title); ?>
 							</td>
+							<td class="small hidden-phone">
+								<?php echo LayoutHelper::render('joomla.content.language', $item); ?>
+							</td>
 							<td class="nowrap small hidden-phone">
 								<?php if ($item->sermon_date != '0000-00-00 00:00:00'):
 									echo JHtml::date($item->sermon_date, JText::_('DATE_FORMAT_LC4'), true);
 								endif; ?>
 							</td>
-							<td class="small hidden-phone">
-								<?php echo LayoutHelper::render('joomla.content.language', $item); ?>
-							</td>
-							<td class="hidden-phone center">
+							<td class="hidden-phone text-center">
 								<span class="badge badge-info">
 									<?php echo (int) $item->hits; ?>
 								</span>
@@ -217,7 +217,7 @@ $assoc = Associations::isEnabled();
 									</a>
 								<?php endif; ?>
 							</td>
-							<td class="center hidden-phone">
+							<td class="text-center hidden-phone">
 								<?php echo (int) $item->id; ?>
 							</td>
 						</tr>
