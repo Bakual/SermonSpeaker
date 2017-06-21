@@ -156,12 +156,15 @@ class SermonspeakerModelFiles extends JModelLegacy
 
 		$db->setQuery($query);
 
-		$sermons = $db->loadColumn();
-
-		// Check for a database error.
-		if ($db->getErrorNum())
+		try
 		{
-			throw new Exception($db->getErrorMsg(), 500);
+			$sermons = $db->loadColumn();
+
+		}
+		catch (Exception $e)
+		{
+			JFactory::getApplication()->enqueueMessage($e->getMessage(), 'ERROR');
+			$sermons = array();
 		}
 
 		foreach ($sermons as &$sermon)

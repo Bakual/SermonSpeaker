@@ -287,14 +287,21 @@ class SermonspeakerTableSermon extends Table
 			' WHERE (' . $where . ')' .
 			$checkin
 		);
+
 		$this->getDbo()->execute();
-		// Check for a database error.
-		if ($this->getDbo()->getErrorNum())
+
+		try
 		{
-			$this->setError($this->getDbo()->getErrorMsg());
+			$this->getDbo()->execute();
+
+		}
+		catch (Exception $e)
+		{
+			JFactory::getApplication()->enqueueMessage($e->getMessage(), 'ERROR');
 
 			return false;
 		}
+
 		// If checkin is supported and all rows were adjusted, check them in.
 		if ($checkin && (count($pks) == $this->getDbo()->getAffectedRows()))
 		{
