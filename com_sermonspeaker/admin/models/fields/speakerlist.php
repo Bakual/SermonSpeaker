@@ -162,7 +162,6 @@ class JFormFieldSpeakerlist extends JFormFieldGroupedList
 		try
 		{
 			$published = $db->loadObjectList();
-
 		}
 		catch (Exception $e)
 		{
