@@ -159,7 +159,17 @@ class JFormFieldSpeakerlist extends JFormFieldGroupedList
 		// Get the options.
 		$db->setQuery($query);
 
-		$published = $db->loadObjectList();
+		try
+		{
+			$published = $db->loadObjectList();
+
+		}
+		catch (Exception $e)
+		{
+			JFactory::getApplication()->enqueueMessage($e->getMessage(), 'ERROR');
+
+			return parent::getGroups();
+		}
 
 		$query = $db->getQuery(true);
 		$query->select('speakers.id As value, home');
@@ -187,12 +197,16 @@ class JFormFieldSpeakerlist extends JFormFieldGroupedList
 		// Get the options.
 		$db->setQuery($query);
 
-		$unpublished = $db->loadObjectList();
-
-		// Check for a database error.
-		if ($db->getErrorNum())
+		try
 		{
-			throw new Exception($db->getErrorMsg(), 500);
+			$unpublished = $db->loadObjectList();
+
+		}
+		catch (Exception $e)
+		{
+			JFactory::getApplication()->enqueueMessage($e->getMessage(), 'ERROR');
+
+			return parent::getGroups();
 		}
 
 		if (count($unpublished))
