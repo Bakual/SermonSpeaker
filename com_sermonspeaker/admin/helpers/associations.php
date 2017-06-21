@@ -9,9 +9,9 @@
 
 defined('_JEXEC') or die;
 
-use Joomla\CMS\Table\Table;
 use Joomla\CMS\Association\AssociationExtensionHelper;
 use Joomla\CMS\Language\Associations;
+use Joomla\CMS\Table\Table;
 
 Table::addIncludePath(__DIR__ . '/../tables');
 
@@ -63,20 +63,22 @@ class SermonSpeakerAssociationsHelper extends AssociationExtensionHelper
 
 		$type = $this->getType($typeName);
 
-		$context = $this->extension . '.' . $typeName;
+		$context    = $this->extension . '.' . $typeName;
+		$extension  = $context . 's';
 		$catidField = 'catid';
 
 		$categories = array('sermons.category', 'series.category', 'speakers.category');
 
 		if (in_array($typeName, $categories))
 		{
+			$extension = 'com_sermonspeaker.' . str_replace('.category', '', $typeName);
 			$context = 'com_categories.item';
 			$catidField = '';
 		}
 
 		// Get the associations.
 		$associations = Associations::getAssociations(
-			$context . 's',
+			$extension,
 			$type['tables']['a'],
 			$context,
 			$id,
