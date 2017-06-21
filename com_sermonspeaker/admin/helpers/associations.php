@@ -34,7 +34,7 @@ class SermonSpeakerAssociationsHelper extends AssociationExtensionHelper
 	 *
 	 * @since    5.6.0
 	 */
-	protected $itemTypes = array('serie', 'sermon', 'speaker', 'category');
+	protected $itemTypes = array('sermon', 'serie', 'speaker', 'sermons.category', 'series.category', 'speakers.category');
 
 	/**
 	 * var       boolean   $associationsSupport  Has the extension association support
@@ -66,7 +66,9 @@ class SermonSpeakerAssociationsHelper extends AssociationExtensionHelper
 		$context = $this->extension . '.' . $typeName;
 		$catidField = 'catid';
 
-		if ($typeName === 'category')
+		$categories = array('sermons.category', 'series.category', 'speakers.category');
+
+		if (in_array($typeName, $categories))
 		{
 			$context = 'com_categories.item';
 			$catidField = '';
@@ -141,7 +143,9 @@ class SermonSpeakerAssociationsHelper extends AssociationExtensionHelper
 					$title = 'speaker';
 					break;
 
-				case 'category':
+				case 'sermons.category':
+				case 'series.category':
+				case 'speakers.category':
 					$fields['created_user_id'] = 'a.created_user_id';
 					$fields['ordering'] = 'a.lft';
 					$fields['level'] = 'a.level';
@@ -156,7 +160,7 @@ class SermonSpeakerAssociationsHelper extends AssociationExtensionHelper
 					$tables = array(
 						'a' => '#__categories',
 					);
-					$title = 'category';
+					$title = str_replace('.', '_', $typeName);
 					break;
 			}
 		}
@@ -203,7 +207,9 @@ class SermonSpeakerAssociationsHelper extends AssociationExtensionHelper
 				$table = Table::getInstance('Speaker', 'SermonspeakerTable');
 				break;
 
-			case 'category':
+			case 'sermons.category':
+			case 'series.category':
+			case 'speakers.category':
 				$table = Table::getInstance('Category');
 				break;
 		}
