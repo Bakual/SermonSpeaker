@@ -101,15 +101,20 @@ class SermonspeakerModelFiles extends JModelLegacy
 			defined('CURL_SSLVERSION_TLSv1') or define('CURL_SSLVERSION_TLSv1', 1);
 
 			// Amazon S3
-			require_once JPATH_COMPONENT_ADMINISTRATOR . '/s3/S3.php';
 
 			// AWS access info
 			$awsAccessKey = $params->get('s3_access_key');
 			$awsSecretKey = $params->get('s3_secret_key');
 			$bucket       = $params->get('s3_bucket');
-			$s3           = new S3($awsAccessKey, $awsSecretKey);
+			$s3 = (new \Aws\Sdk)->createMultiRegionS3([
+				'version'     => '2006-03-01',
+				'credentials' => [
+					'key'    => $awsAccessKey,
+					'secret' => $awsSecretKey,
+				],
+			]);
 
-			$bucket_contents = $s3->getBucket($bucket);
+			$bucket_contents = $s3->listObjects(['Bucket' => $bucket]);
 
 			if ($params->get('s3_custom_bucket'))
 			{
@@ -117,7 +122,7 @@ class SermonspeakerModelFiles extends JModelLegacy
 			}
 			else
 			{
-				$region = $s3->getBucketLocation($bucket);
+				$region = $s3->getBucketLocation(['Bucket' => $bucket]);
 				$prefix = ($region == 'US') ? 's3' : 's3-' . $region;
 				$domain = $prefix . '.amazonaws.com/' . $bucket;
 			}
