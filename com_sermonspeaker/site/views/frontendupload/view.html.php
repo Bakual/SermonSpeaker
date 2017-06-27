@@ -349,16 +349,19 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 			// Add missing constant in PHP < 5.5
 			defined('CURL_SSLVERSION_TLSv1') or define('CURL_SSLVERSION_TLSv1', 1);
 
-			// Include the S3 class
-			require_once JPATH_COMPONENT_ADMINISTRATOR . '/s3/S3.php';
-
 			// AWS access info
 			$awsAccessKey = $this->params->get('s3_access_key');
 			$awsSecretKey = $this->params->get('s3_secret_key');
 			$bucket       = $this->params->get('s3_bucket');
 
 			// Instantiate the class
-			$s3 = new S3($awsAccessKey, $awsSecretKey);
+			$s3 = (new \Aws\Sdk)->createMultiRegionS3([
+				'version'     => '2006-03-01',
+				'credentials' => [
+					'key'    => $awsAccessKey,
+					'secret' => $awsSecretKey,
+				],
+			]);
 
 			if ($this->params->get('s3_custom_bucket'))
 			{
@@ -366,7 +369,7 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 			}
 			else
 			{
-				$region       = $s3->getBucketLocation($bucket);
+				$region       = $s3->getBucketLocation(['Bucket' => $bucket]);
 				$prefix       = ($region == 'US') ? 's3' : 's3-' . $region;
 				$this->domain = $prefix . '.amazonaws.com/' . $bucket;
 			}

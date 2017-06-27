@@ -117,7 +117,6 @@ class SermonspeakerControllerFile extends JControllerLegacy
 			defined('CURL_SSLVERSION_TLSv1') or define('CURL_SSLVERSION_TLSv1', 1);
 
 			// Amazon S3 Upload
-			require_once JPATH_COMPONENT_ADMINISTRATOR . '/s3/S3.php';
 
 			// AWS access info
 			$awsAccessKey = $params->get('s3_access_key');
@@ -125,7 +124,13 @@ class SermonspeakerControllerFile extends JControllerLegacy
 			$bucket       = $params->get('s3_bucket');
 
 			// Instantiate the class
-			$s3 = new S3($awsAccessKey, $awsSecretKey);
+			$s3 = (new \Aws\Sdk)->createMultiRegionS3([
+				'version'     => '2006-03-01',
+				'credentials' => [
+					'key'    => $awsAccessKey,
+					'secret' => $awsSecretKey,
+				],
+			]);
 
 			$date   = $jinput->get('date', '', 'string');
 			$time   = ($date) ? strtotime($date) : time();
@@ -147,7 +152,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 			$uri = $folder . $file['name'];
 
 			// Check if file exists
-			if ($s3->getObjectInfo($bucket, $uri))
+			if ($s3->getObject(['Bucket' => $bucket, 'Key' => $uri]))
 			{
 				$response = array(
 					'status' => '0',
@@ -164,13 +169,13 @@ class SermonspeakerControllerFile extends JControllerLegacy
 			}
 			else
 			{
-				$region = $s3->getBucketLocation($bucket);
+				$region = $s3->getBucketLocation(['Bucket' => $bucket]);
 				$prefix = ($region == 'US') ? 's3' : 's3-' . $region;
 				$domain = $prefix . '.amazonaws.com/' . $bucket;
 			}
 
 			// Upload the file
-			if ($s3->putObjectFile($file['tmp_name'], $bucket, $uri, S3::ACL_PUBLIC_READ))
+			if ($s3->putObject(['Bucket' => $bucket, 'Key' => $uri, 'SourcFile' => $file['tmp_name'], 'ACL' => 'public-reead']))
 			{
 				$response = array(
 					'status'   => '1',
