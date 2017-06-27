@@ -8,7 +8,6 @@
 
 namespace Bakual\Sermonspeaker;
 
-
 class ComposerCommands
 {
 	public static function cleanup()
@@ -16,6 +15,12 @@ class ComposerCommands
 		self::deleteDirectory('james-heinrich/getid3/demos');
 		self::deleteDirectory('james-heinrich/getid3/helperapps');
 		self::deleteDirectory('james-heinrich/getid3/licenses');
+		self::deleteDirectory('aws/aws-sdk-php/.changes');
+		self::deleteDirectory('mtdowling/jmespath.php/tests/compliance/perf');
+		self::deleteDirectory('mtdowling/jmespath.php/tests/compliance');
+		self::deleteDirectory('mtdowling/jmespath.php/tests');
+		self::deleteDirectory('mtdowling/jmespath.php/bin');
+		self::deleteDirectory('bin');
 		$files = array(
 			'james-heinrich\getid3\getid3\extension.cache.dbm.php',
 			'james-heinrich\getid3\getid3\extension.cache.mysql.php',
@@ -95,6 +100,17 @@ class ComposerCommands
 			'tpyo\amazon-s3-php-class\example-cloudfront.php',
 			'tpyo\amazon-s3-php-class\example-form.php',
 			'tpyo\amazon-s3-php-class\example-wrapper.php',
+			'mtdowling/jmespath.php/.gitignore',
+			'mtdowling/jmespath.php/.travis.yml',
+			'mtdowling/jmespath.php/CHANGELOG.md',
+			'mtdowling/jmespath.php/composer.json',
+			'mtdowling/jmespath.php/Makefile',
+			'mtdowling/jmespath.php/Makefile',
+			'mtdowling/jmespath.php/phpunit.xml.dist',
+			'mtdowling/jmespath.php/README.rst',
+			'psr/http-message/CHANGELOG.md',
+			'psr/http-message/composer.json',
+			'psr/http-message/README.md',
 		);
 
 		foreach ($files as $file)
