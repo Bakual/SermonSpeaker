@@ -42,7 +42,7 @@ $user    = JFactory::getUser();
 						</div>
 					</a>
 					<a class="card text-center hasTooltip"
-						href="index.php?option=com_sermonspeaker&view=files&layout=time&tmpl=component"
+						href="index.php?option=com_sermonspeaker&view=files&layout=modal&tmpl=component"
 						title="<?php echo JText::_('COM_SERMONSPEAKER_TOOLS_FIND_DESC'); ?>"
 					>
 						<div class="card-block">
