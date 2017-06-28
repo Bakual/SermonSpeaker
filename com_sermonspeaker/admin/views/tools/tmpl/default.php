@@ -9,13 +9,13 @@
 
 defined('_JEXEC') or die;
 
-JHtml::_('behavior.modal');
 JHtml::_('bootstrap.tooltip');
 
 $session = JFactory::getApplication()->getSession();
 $user    = JFactory::getUser();
 ?>
-<form action="<?php echo JRoute::_('index.php?option=com_sermonspeaker&view=tools'); ?>" method="post" name="adminForm" id="adminForm">
+<form action="<?php echo JRoute::_('index.php?option=com_sermonspeaker&view=tools'); ?>" method="post" name="adminForm"
+	id="adminForm">
 	<div class="row">
 		<div id="j-sidebar-container" class="col-md-2">
 			<?php echo $this->sidebar; ?>
@@ -24,38 +24,58 @@ $user    = JFactory::getUser();
 			<div id="j-main-container">
 				<div class="card-deck">
 					<a class="card text-center hasTooltip"
-						href="index.php?option=com_sermonspeaker&task=tools.write_id3&<?php echo $session->getName().'='.$session->getId().'&'.JSession::getFormToken(); ?>=1"
+						href="index.php?option=com_sermonspeaker&task=tools.write_id3&<?php echo $session->getName() . '=' . $session->getId() . '&' . JSession::getFormToken(); ?>=1"
 						title="<?php echo JText::_('COM_SERMONSPEAKER_TOOLS_ID3_DESC'); ?>"
 					>
 						<div class="card-block">
-							<img src="<?php echo JUri::base()."components/com_sermonspeaker/images/download.png"; ?>">
+							<img src="<?php echo JUri::base() . "components/com_sermonspeaker/images/download.png"; ?>">
 							<h3 class="card-title"><?php echo JText::_('COM_SERMONSPEAKER_TOOLS_ID3'); ?></h3>
 						</div>
 					</a>
 					<a class="card text-center hasTooltip"
-						href="index.php?option=com_sermonspeaker&view=tools&layout=time&tmpl=component"
+						href="#tools-time-modal"
+						data-toggle="modal"
 						title="<?php echo JText::_('COM_SERMONSPEAKER_TOOLS_TIME_DESC'); ?>"
 					>
 						<div class="card-block">
-							<img src="<?php echo JUri::base()."components/com_sermonspeaker/images/clock.png"; ?>"/>
+							<img src="<?php echo JUri::base() . "components/com_sermonspeaker/images/clock.png"; ?>"/>
 							<h3 class="card-title"><?php echo JText::_('COM_SERMONSPEAKER_TOOLS_TIME'); ?></h3>
 						</div>
 					</a>
+					<?php echo JHtml::_(
+						'bootstrap.renderModal',
+						'tools-time-modal',
+						array(
+							'url'   => JRoute::_('index.php?option=com_sermonspeaker&view=tools&layout=time&tmpl=component'),
+							'title' => JText::_('COM_SERMONSPEAKER_TOOLS_TIME'),
+						)
+					); ?>
 					<a class="card text-center hasTooltip"
-						href="index.php?option=com_sermonspeaker&view=files&layout=modal&tmpl=component"
+						href="#tools-files-modal"
+						data-toggle="modal"
 						title="<?php echo JText::_('COM_SERMONSPEAKER_TOOLS_FIND_DESC'); ?>"
 					>
 						<div class="card-block">
-							<img src="<?php echo JUri::base()."components/com_sermonspeaker/images/find.png"; ?>"/>
-							<h3 class="card-title"><?php echo JText::_('COM_SERMONSPEAKER_TOOLS_FIND'); ?></h3>
+							<img src="<?php echo JUri::base() . "components/com_sermonspeaker/images/find.png"; ?>"/>
+							<h3 class="card-title"><?php echo JText::_('COM_SERMONSPEAKER_TOOLS_FIND_DESC'); ?></h3>
 						</div>
 					</a>
+					<?php echo JHtml::_(
+						'bootstrap.renderModal',
+						'tools-files-modal',
+						array(
+							'url'   => JRoute::_('index.php?option=com_sermonspeaker&view=files&layout=modal&tmpl=component'),
+							'title' => JText::_('COM_SERMONSPEAKER_TOOLS_FIND_DESC'),
+							'bodyHeight'  => 70,
+							'modalWidth'  => 50,
+						)
+					); ?>
 					<?php // Check Access
 					if (!$user->authorise('com_sermonspeaker.script', 'com_sermonspeaker')):
-						$link = 'href="#" onclick="alert(\''.JText::_('JERROR_ALERTNOAUTHOR').'\')"';
+						$link  = 'href="#" onclick="alert(\'' . JText::_('JERROR_ALERTNOAUTHOR') . '\')"';
 						$class = ' disabled';
 					else:
-						$link = 'href="index.php?option=com_sermonspeaker&task=tools.createAutomatic"';
+						$link  = 'href="index.php?option=com_sermonspeaker&task=tools.createAutomatic"';
 						$class = '';
 					endif; ?>
 					<a class="card text-center hasTooltip<?php echo $class; ?>"
@@ -64,7 +84,7 @@ $user    = JFactory::getUser();
 						title="<?php echo JText::sprintf('COM_SERMONSPEAKER_TOOLS_AUTOMATIC_DESC', JUri::root()); ?>"
 					>
 						<div class="card-block">
-							<img src="<?php echo JUri::base()."components/com_sermonspeaker/images/run.png"; ?>"/>
+							<img src="<?php echo JUri::base() . "components/com_sermonspeaker/images/run.png"; ?>"/>
 							<h3 class="card-title"><?php echo JText::_('COM_SERMONSPEAKER_TOOLS_AUTOMATIC'); ?></h3>
 						</div>
 					</a>
@@ -74,7 +94,8 @@ $user    = JFactory::getUser();
 							title="<?php echo JText::_('COM_SERMONSPEAKER_TOOLS_IMPORT_DESC'); ?>"
 						>
 							<div class="card-block">
-								<img src="<?php echo JUri::base()."components/com_sermonspeaker/images/import.png"; ?>"/>
+								<img
+									src="<?php echo JUri::base() . "components/com_sermonspeaker/images/import.png"; ?>"/>
 								<h3 class="card-title"><?php echo JText::_('COM_SERMONSPEAKER_TOOLS_IMPORT'); ?></h3>
 							</div>
 						</a>
@@ -85,14 +106,15 @@ $user    = JFactory::getUser();
 							title="<?php echo JText::_('COM_SERMONSPEAKER_TOOLS_IMPORT_BS_DESC'); ?>"
 						>
 							<div class="card-block">
-								<img src="<?php echo JUri::base()."components/com_sermonspeaker/images/import.png"; ?>"/>
+								<img
+									src="<?php echo JUri::base() . "components/com_sermonspeaker/images/import.png"; ?>"/>
 								<h3 class="card-title"><?php echo JText::_('COM_SERMONSPEAKER_TOOLS_IMPORT_BS'); ?></h3>
 							</div>
 						</a>
 					<?php endif; ?>
 					<a class="card text-center" href="index.php?option=com_sermonspeaker&view=statistics&format=raw">
 						<div class="card-block">
-							<img src="<?php echo JUri::base()."components/com_sermonspeaker/images/stats.png"; ?>"/>
+							<img src="<?php echo JUri::base() . "components/com_sermonspeaker/images/stats.png"; ?>"/>
 							<h3 class="card-title"><?php echo JText::_('COM_SERMONSPEAKER_STATISTICS_TITLE'); ?></h3>
 						</div>
 					</a>
