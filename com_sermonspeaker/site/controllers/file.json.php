@@ -152,7 +152,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 			$uri = $folder . $file['name'];
 
 			// Check if file exists
-			if ($s3->getObject(['Bucket' => $bucket, 'Key' => $uri]))
+			if ($s3->doesObjectExist($bucket, $uri))
 			{
 				$response = array(
 					'status' => '0',
@@ -163,31 +163,12 @@ class SermonspeakerControllerFile extends JControllerLegacy
 				return;
 			}
 
-			if ($params->get('s3_custom_bucket'))
-			{
-				$domain = $bucket;
-			}
-			else
-			{
-				$region = $s3->getBucketLocation(['Bucket' => $bucket]);
-				$prefix = ($region == 'US') ? 's3' : 's3-' . $region;
-				$domain = $prefix . '.amazonaws.com/' . $bucket;
-			}
-
 			// Upload the file
-			if ($s3->putObject(['Bucket' => $bucket, 'Key' => $uri, 'SourcFile' => $file['tmp_name'], 'ACL' => 'public-reead']))
+			try
 			{
-				$response = array(
-					'status'   => '1',
-					'filename' => $file['name'],
-					'path'     => 'https://' . $domain . '/' . $uri,
-					'error'    => JText::sprintf('COM_SERMONSPEAKER_FU_FILENAME', $domain . '/' . $uri),
-				);
-				echo json_encode($response);
-
-				return;
+				$result = $s3->putObject(['Bucket' => $bucket, 'Key' => $uri, 'SourceFile' => $file['tmp_name'], 'ACL' => 'public-read']);
 			}
-			else
+			catch (Exception $e)
 			{
 				$response = array(
 					'status' => '0',
@@ -197,6 +178,16 @@ class SermonspeakerControllerFile extends JControllerLegacy
 
 				return;
 			}
+
+			$response = array(
+				'status'   => '1',
+				'filename' => $file['name'],
+				'path'     => $result['ObjectUrl'],
+				'error'    => JText::sprintf('COM_SERMONSPEAKER_FU_FILENAME', $result['ObjectUrl']),
+			);
+			echo json_encode($response);
+
+			return;
 		}
 		else
 		{

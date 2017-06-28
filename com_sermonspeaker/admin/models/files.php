@@ -114,23 +114,11 @@ class SermonspeakerModelFiles extends JModelLegacy
 				],
 			]);
 
-			$bucket_contents = $s3->listObjects(['Bucket' => $bucket]);
-
-			if ($params->get('s3_custom_bucket'))
-			{
-				$domain = $bucket;
-			}
-			else
-			{
-				$region = $s3->getBucketLocation(['Bucket' => $bucket]);
-				$prefix = ($region == 'US') ? 's3' : 's3-' . $region;
-				$domain = $prefix . '.amazonaws.com/' . $bucket;
-			}
+			$bucket_contents = $s3->listObjects(['Bucket' => $bucket])['Contents'];
 
 			foreach ($bucket_contents as $file)
 			{
-				$fname   = $file['name'];
-				$files[] = 'https://' . $domain . '/' . $fname;
+				$files[] = $s3->getObjectUrl($bucket, $file['Key']);;
 			}
 		}
 

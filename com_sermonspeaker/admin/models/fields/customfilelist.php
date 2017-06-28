@@ -166,194 +166,6 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 	}
 
 	/**
-	 * Method to get the field options.
-	 *
-	 * @return  array  The field option objects.
-	 *
-	 * @since ?
-	 */
-	protected function getOptions()
-	{
-		if (!$this->mode)
-		{
-			// Fallback to 'path' for B/C with versions < 5.0.3
-			$dir = trim($this->params->get('path_' . $this->file, $this->params->get('path', 'images')), '/');
-
-			// Add year/month to the directory if enabled.
-			if ($this->params->get('append_path', 0))
-			{
-				// In case of an edit, we check for the sermon_date and choose the year/month of the sermon.
-				$append = ($ts = strtotime($this->form->getValue('sermon_date'))) ? '/' . date('Y', $ts) . '/' . date('m', $ts) : '/' . date('Y') . '/' . date('m');
-
-				// Check if directory exists, fallback to base directory if not.
-				$dir = is_dir(JPATH_ROOT . '/' . $dir . $append) ? $dir . $append : $dir;
-			}
-
-			// Add language to the directory if enabled.
-			if ($this->params->get('append_path_lang', 0))
-			{
-				// In case of an edit, we check for the language set, otherwise we use the active language.
-				$language = $this->form->getValue('language');
-				$jlang    = JFactory::getLanguage();
-				$append   = ($language && ($language != '*')) ? '/' . $language : '/' . $jlang->getTag();
-
-				// Check if directory exists, fallback to base directory if not.
-				$dir = is_dir(JPATH_ROOT . '/' . $dir . $append) ? $dir . $append : $dir;
-			}
-
-			$this->directory = $dir;
-
-			// Set file filter from params
-			$this->filetypes = $this->params->get($this->file . '_filetypes');
-
-			if ($this->filetypes)
-			{
-				$this->filetypes = array_map('trim', explode(',', $this->filetypes));
-				$filter          = '\.' . implode('$|\.', $this->filetypes) . '$';
-				$this->filter    = $filter;
-			}
-
-			// Get the field options.
-			$options = parent::getOptions();
-
-			// Add directory to the value.
-			foreach ($options as $option)
-			{
-				$option->value = '/' . $dir . '/' . $option->value;
-			}
-
-			return $options;
-		}
-		elseif ($this->mode == 1)
-		{
-			$options = array();
-			$url     = 'http://vimeo.com/api/v2/' . $this->params->get('vimeo_id') . '/videos.xml';
-
-			if ($xml = simplexml_load_file($url))
-			{
-				/** @noinspection PhpUndefinedFieldInspection */
-				foreach ($xml->video as $video)
-				{
-					/** @noinspection PhpUndefinedFieldInspection */
-					$option['value'] = $video->url;
-					/** @noinspection PhpUndefinedFieldInspection */
-					$option['text'] = $video->title;
-					$options[]      = $option;
-				}
-
-				return $options;
-			}
-		}
-		elseif ($this->mode == 2)
-		{
-			// Initialize variables.
-			$options = array();
-
-			// Add missing constant in PHP < 5.5
-			defined('CURL_SSLVERSION_TLSv1') or define('CURL_SSLVERSION_TLSv1', 1);
-
-			// AWS access info
-			$awsAccessKey = $this->params->get('s3_access_key');
-			$awsSecretKey = $this->params->get('s3_secret_key');
-			$bucket       = $this->params->get('s3_bucket');
-
-			// Instantiate the class
-			$s3 = (new \Aws\Sdk)->createMultiRegionS3([
-				'version'     => '2006-03-01',
-				'credentials' => [
-					'key'    => $awsAccessKey,
-					'secret' => $awsSecretKey,
-				],
-			]);
-
-			$folder = '';
-
-			// Add year/month to the directory if enabled.
-			if ($this->params->get('append_path', 0))
-			{
-				// In case of an edit, we check for the sermon_date and choose the year/month of the sermon.
-				$folder .= ($ts = strtotime($this->form->getValue('sermon_date'))) ? date('Y', $ts) . '/' . date('m', $ts) : date('Y') . '/' . date('m');
-				$folder .= '/';
-			}
-
-			// Add language to the directory if enabled.
-			if ($this->params->get('append_path_lang', 0))
-			{
-				// In case of an edit, we check for the language set, otherwise we use the active language.
-				$language = $this->form->getValue('language');
-				$jlang    = JFactory::getLanguage();
-				$folder .= ($language && ($language != '*')) ? $language : $jlang->getTag();
-				$folder .= '/';
-			}
-
-			$bucket_contents = $s3->listObjects(['Bucket' => $bucket, 'Delimiter' => $folder])['Contents'];
-
-			// Fallback to root if folder doesn't exist
-			if (!$bucket_contents)
-			{
-				$bucket_contents = $s3->listObjects(['Bucket' => $bucket])['Contents'];
-			}
-
-			// Show last modified files first
-			uasort(
-				$bucket_contents,
-				function ($a, $b)
-				{
-					return $b['LastModified']->date - $a['LastModified']->date;
-				}
-			);
-
-			// TODO: Need to take care of VirtualHosts, see https://github.com/aws/aws-sdk-php/issues/347
-			if ($this->params->get('s3_custom_bucket'))
-			{
-				$domain = $bucket;
-			}
-			else
-			{
-				$region = $s3->getBucketLocation(['Bucket' => $bucket])['LocationConstraint'];
-				$prefix = ($region == 'US') ? 's3' : 's3-' . $region;
-			}
-
-			foreach ($bucket_contents as $file)
-			{
-				// Don't show the "folder"
-				if (substr($file['Key'], -1) == '/')
-				{
-					continue;
-				}
-
-				$option['value'] = $s3->getObjectUrl($bucket, $file['Key']);
-				$option['text']  = $file['Key'];
-				$options[]       = $option;
-			}
-
-			return $options;
-		}
-		elseif ($this->mode == 3)
-		{
-			$options = array();
-			$url     = $this->params->get('extern_path');
-
-			if ($xml = simplexml_load_file($url))
-			{
-				/** @noinspection PhpUndefinedFieldInspection */
-				foreach ($xml->file as $file)
-				{
-					/** @noinspection PhpUndefinedFieldInspection */
-					$option['value'] = $file->URL;
-					/** @noinspection PhpUndefinedFieldInspection */
-					$option['text'] = $file->name;
-					$options[]      = $option;
-				}
-
-				return $options;
-			}
-		}
-
-		return array();
-	}
-
-	/**
 	 * Generates the Uploader
 	 *
 	 * @return string
@@ -449,14 +261,14 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 							document.getElementById(file.id).innerHTML = data.error + closeButton;
 							document.getElementById("' . $this->id . '_text").value = data.path;
 						}else{
-							jQuery("#" + file.id).removeClass("alert-info").addClass("alert-error");
+							jQuery("#" + file.id).removeClass("alert-info").addClass("alert-danger");
 							jQuery("#" + file.id + "_progress").replaceWith(" &raquo; ' . JText::_('ERROR') . ': " + data.error + closeButton);
 						}
 					}
 				});
 
 				uploader_' . $this->fieldname . '.bind("Error", function(up, err) {
-					document.getElementById("filelist_' . $this->fieldname . '").innerHTML += "<div class=\"alert alert-error\">Error #"
+					document.getElementById("filelist_' . $this->fieldname . '").innerHTML += "<div class=\"alert alert-danger\">Error #"
 						+ err.code + ": " + err.message + closeButton + "</div>";
 				});
 
@@ -478,5 +290,176 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 				</div>';
 
 		return $html;
+	}
+
+	/**
+	 * Method to get the field options.
+	 *
+	 * @return  array  The field option objects.
+	 *
+	 * @since ?
+	 */
+	protected function getOptions()
+	{
+		if (!$this->mode)
+		{
+			// Fallback to 'path' for B/C with versions < 5.0.3
+			$dir = trim($this->params->get('path_' . $this->file, $this->params->get('path', 'images')), '/');
+
+			// Add year/month to the directory if enabled.
+			if ($this->params->get('append_path', 0))
+			{
+				// In case of an edit, we check for the sermon_date and choose the year/month of the sermon.
+				$append = ($ts = strtotime($this->form->getValue('sermon_date'))) ? '/' . date('Y', $ts) . '/' . date('m', $ts) : '/' . date('Y') . '/' . date('m');
+
+				// Check if directory exists, fallback to base directory if not.
+				$dir = is_dir(JPATH_ROOT . '/' . $dir . $append) ? $dir . $append : $dir;
+			}
+
+			// Add language to the directory if enabled.
+			if ($this->params->get('append_path_lang', 0))
+			{
+				// In case of an edit, we check for the language set, otherwise we use the active language.
+				$language = $this->form->getValue('language');
+				$jlang    = JFactory::getLanguage();
+				$append   = ($language && ($language != '*')) ? '/' . $language : '/' . $jlang->getTag();
+
+				// Check if directory exists, fallback to base directory if not.
+				$dir = is_dir(JPATH_ROOT . '/' . $dir . $append) ? $dir . $append : $dir;
+			}
+
+			$this->directory = $dir;
+
+			// Set file filter from params
+			$this->filetypes = $this->params->get($this->file . '_filetypes');
+
+			if ($this->filetypes)
+			{
+				$this->filetypes = array_map('trim', explode(',', $this->filetypes));
+				$filter          = '\.' . implode('$|\.', $this->filetypes) . '$';
+				$this->filter    = $filter;
+			}
+
+			// Get the field options.
+			$options = parent::getOptions();
+
+			// Add directory to the value.
+			foreach ($options as $option)
+			{
+				$option->value = '/' . $dir . '/' . $option->value;
+			}
+
+			return $options;
+		}
+		elseif ($this->mode == 1)
+		{
+			$options = array();
+			$url     = 'http://vimeo.com/api/v2/' . $this->params->get('vimeo_id') . '/videos.xml';
+
+			if ($xml = simplexml_load_file($url))
+			{
+				/** @noinspection PhpUndefinedFieldInspection */
+				foreach ($xml->video as $video)
+				{
+					/** @noinspection PhpUndefinedFieldInspection */
+					$option['value'] = $video->url;
+					/** @noinspection PhpUndefinedFieldInspection */
+					$option['text'] = $video->title;
+					$options[]      = $option;
+				}
+
+				return $options;
+			}
+		}
+		elseif ($this->mode == 2)
+		{
+			// Initialize variables.
+			$options = array();
+
+			// Add missing constant in PHP < 5.5
+			defined('CURL_SSLVERSION_TLSv1') or define('CURL_SSLVERSION_TLSv1', 1);
+
+			// AWS access info
+			$awsAccessKey = $this->params->get('s3_access_key');
+			$awsSecretKey = $this->params->get('s3_secret_key');
+			$bucket       = $this->params->get('s3_bucket');
+
+			// Instantiate the class
+			$s3 = new \Aws\S3\S3MultiRegionClient([
+				'version'     => '2006-03-01',
+				'credentials' => [
+					'key'    => $awsAccessKey,
+					'secret' => $awsSecretKey,
+				],
+			]);
+
+			$folder = '';
+
+			// Add year/month to the directory if enabled.
+			if ($this->params->get('append_path', 0))
+			{
+				// In case of an edit, we check for the sermon_date and choose the year/month of the sermon.
+				$folder .= ($ts = strtotime($this->form->getValue('sermon_date'))) ? date('Y', $ts) . '/' . date('m', $ts) : date('Y') . '/' . date('m');
+				$folder .= '/';
+			}
+
+			// Add language to the directory if enabled.
+			if ($this->params->get('append_path_lang', 0))
+			{
+				// In case of an edit, we check for the language set, otherwise we use the active language.
+				$language = $this->form->getValue('language');
+				$jlang    = JFactory::getLanguage();
+				$folder   .= ($language && ($language != '*')) ? $language : $jlang->getTag();
+				$folder   .= '/';
+			}
+
+			$bucket_contents = $s3->listObjects(['Bucket' => $bucket, 'Prefix' => $folder])['Contents'];
+
+			// Fallback to root if folder doesn't exist
+			if (!$bucket_contents)
+			{
+				$bucket_contents = $s3->listObjects(['Bucket' => $bucket])['Contents'];
+			}
+
+			// Show last modified files first
+			uasort(
+				$bucket_contents,
+				function ($a, $b)
+				{
+					return (string) $b['LastModified'] - (string) $a['LastModified'];
+				}
+			);
+
+			foreach ($bucket_contents as $file)
+			{
+				$option['value'] = $s3->getObjectUrl($bucket, $file['Key']);
+				$option['text']  = $file['Key'];
+				$options[]       = $option;
+			}
+
+			return $options;
+		}
+		elseif ($this->mode == 3)
+		{
+			$options = array();
+			$url     = $this->params->get('extern_path');
+
+			if ($xml = simplexml_load_file($url))
+			{
+				/** @noinspection PhpUndefinedFieldInspection */
+				foreach ($xml->file as $file)
+				{
+					/** @noinspection PhpUndefinedFieldInspection */
+					$option['value'] = $file->URL;
+					/** @noinspection PhpUndefinedFieldInspection */
+					$option['text'] = $file->name;
+					$options[]      = $option;
+				}
+
+				return $options;
+			}
+		}
+
+		return array();
 	}
 }

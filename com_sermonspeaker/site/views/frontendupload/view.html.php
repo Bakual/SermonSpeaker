@@ -363,16 +363,7 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 				],
 			]);
 
-			if ($this->params->get('s3_custom_bucket'))
-			{
-				$this->domain = $bucket;
-			}
-			else
-			{
-				$region       = $s3->getBucketLocation(['Bucket' => $bucket]);
-				$prefix       = ($region == 'US') ? 's3' : 's3-' . $region;
-				$this->domain = $prefix . '.amazonaws.com/' . $bucket;
-			}
+			$this->domain = $s3->headBucket(['Bucket' => $bucket])->get('@metadata')['effectiveUri'];
 		}
 
 		// Calculate destination path to show
