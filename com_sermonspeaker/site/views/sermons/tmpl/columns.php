@@ -289,8 +289,8 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 			<?php endforeach;
 		endif;
 
-		if ($this->params->get('show_pagination') and ($this->pagination->get('pages.total') > 1)) : ?>
-            <div class="pagination">
+		if ($this->params->get('show_pagination') and ($this->pagination->pagesTotal > 1)) : ?>
+			<div class="pagination">
 				<?php if ($this->params->get('show_pagination_results', 1)) : ?>
                     <p class="counter">
 						<?php echo $this->pagination->getPagesCounter(); ?>

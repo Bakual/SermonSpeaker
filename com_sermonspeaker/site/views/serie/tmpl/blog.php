@@ -283,7 +283,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 				</div>
 			<?php endif;
 
-			if ($this->params->get('show_pagination') and ($this->pagination->get('pages.total') > 1)) : ?>
+			if ($this->params->get('show_pagination') and ($this->pagination->pagesTotal > 1)) : ?>
 				<div class="pagination">
 					<?php if ($this->params->get('show_pagination_results', 1)) : ?>
 						<p class="counter pull-right">
