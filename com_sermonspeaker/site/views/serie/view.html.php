@@ -38,7 +38,6 @@ class SermonspeakerViewSerie extends JViewLegacy
 
 		// Applying CSS file
 		JHtml::_('stylesheet', 'com_sermonspeaker/sermonspeaker.css', array('relative' => true));
-		require_once JPATH_COMPONENT . '/helpers/player.php';
 
 		// Initialise variables.
 		$user = JFactory::getUser();
