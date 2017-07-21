@@ -448,7 +448,7 @@ class SermonspeakerControllerTools extends JControllerLegacy
 
 
 	/**
-	 * Imports data from Preach It
+	 * Imports data from Preach It 4.1
 	 *
 	 * @throws Exception
 	 *
@@ -461,22 +461,51 @@ class SermonspeakerControllerTools extends JControllerLegacy
 		$app = JFactory::getApplication();
 		$db  = JFactory::getDbo();
 
+		// Check version of table structure (changed somewhere with PI 4)
+		$v4 = array_key_exists('date', $db->getTableColumns('#__pistudies'));
+
 		// Get Studies
 		$query = $db->getQuery(true);
 		$query->from('`#__pistudies` AS a');
-		$query->select('a.study_date, a.study_name, a.study_alias, a.study_description');
+
+		if ($v4)
+		{
+			$query->select('a.date as study_date, a.name as study_name, a.alias as study_alias, a.description as study_description');
+		}
+		else
+		{
+			$query->select('a.study_date, a.study_name, a.study_alias, a.study_description');
+		}
+
 		$query->select('a.study_book, a.ref_ch_beg, a.ref_ch_end, a.ref_vs_beg, a.ref_vs_end');
 		$query->select('a.study_book2, a.ref_ch_beg2, a.ref_ch_end2, a.ref_vs_beg2, a.ref_vs_end2');
 		$query->select('CONCAT_WS(":", a.dur_hrs, a.dur_mins, a.dur_secs) AS duration');
 		$query->select('a.published, a.hits, a.user');
 
 		// Join over the series.
-		$query->select('b.series_name');
+		if ($v4)
+		{
+			$query->select('b.name as series_name');
+		}
+		else
+		{
+			$query->select('b.series_name');
+		}
+
 		$query->join('LEFT', '#__piseries AS b ON b.id = a.series');
 
 		// Join over the teachers. This fails on newer PI versions because it stores the teachers as json_encoded array
 		$query->select('a.teacher');
-		$query->select('c.teacher_name');
+
+		if ($v4)
+		{
+			$query->select('c.name as teacher_name');
+		}
+		else
+		{
+			$query->select('c.teacher_name');
+		}
+
 		$query->join('LEFT', '#__piteachers AS c ON c.id = a.teacher');
 
 		// Join over the audio path.
@@ -511,7 +540,16 @@ class SermonspeakerControllerTools extends JControllerLegacy
 		if ($studies[0]->teacher{0} == '{')
 		{
 			$query = $db->getQuery(true);
-			$query->select("id, CONCAT(teacher_name, ' ', lastname) AS name");
+
+			if ($v4)
+			{
+				$query->select("id, CONCAT(name, ' ', lastname) AS name");
+			}
+			else
+			{
+				$query->select("id, CONCAT(teacher_name, ' ', lastname) AS name");
+			}
+
 			$query->from('#__piteachers');
 			$db->setQuery($query);
 
@@ -525,10 +563,20 @@ class SermonspeakerControllerTools extends JControllerLegacy
 		}
 
 		// Store the Series
-		/** @noinspection SqlResolve */
 		$query = "INSERT INTO #__sermon_series \n"
-			. "(title, alias, series_description, state, ordering, created_by, created, avatar) \n"
-			. "SELECT a.series_name, a.series_alias, a.series_description, a.published, a.ordering, a.user, NOW(), \n"
+			. "(title, alias, series_description, state, ordering, created_by, created, avatar) \n";
+
+		if ($v4)
+		{
+			$query .= "SELECT a.name, a.alias, a.description, ";
+		}
+		else
+		{
+			$query .= "SELECT a.series_name, a.series_alias, a.series_description, ";
+		}
+
+
+		$query .= "a.published, a.ordering, a.user, NOW(), \n"
 			. "IF (b.server != '', CONCAT('http://', CONCAT_WS('/', b.server, b.folder, a.series_image_lrg)), "
 			. "IF (LEFT(b.folder, 7) = 'http://', CONCAT(b.folder, '/', a.series_image_lrg), CONCAT('/', b.folder, '/', a.series_image_lrg))) \n"
 			. "FROM #__piseries AS a \n"
@@ -549,8 +597,18 @@ class SermonspeakerControllerTools extends JControllerLegacy
 		// Store the Speakers
 		/** @noinspection SqlResolve */
 		$query = "INSERT INTO #__sermon_speakers \n"
-			. "(title, alias, website, intro, state, ordering, created_by, created, pic) \n"
-			. "SELECT CONCAT(a.teacher_name, ' ', a.lastname), a.teacher_alias, a.teacher_website, a.teacher_description, a.published, a.ordering, a.user, NOW(), \n"
+			. "(title, alias, website, intro, state, ordering, created_by, created, pic) \n";
+
+		if ($v4)
+		{
+			$query .= "SELECT CONCAT(a.name, ' ', a.lastname), a.alias, a.website, a.description, ";
+		}
+		else
+		{
+			$query .= "SELECT a.series_name, a.series_alias, a.series_description, ";
+		}
+
+		$query .= "a.published, a.ordering, a.user, NOW(), \n"
 			. "IF (b.server != '', CONCAT('http://', CONCAT_WS('/', b.server, b.folder, a.teacher_image_lrg)), "
 			. "IF (LEFT(b.folder, 7) = 'http://', CONCAT(b.folder, '/', a.teacher_image_lrg), CONCAT('/', b.folder, '/', a.teacher_image_lrg))) \n"
 			. "FROM #__piteachers AS a \n"
