@@ -121,7 +121,7 @@ class SermonspeakerHelperPlayerPixelout extends SermonspeakerHelperPlayer
 		}
 		else
 		{
-			$file = urlencode(SermonspeakerHelperSermonspeaker::makeLink($item->audiofile));
+			$file = SermonspeakerHelperSermonspeaker::makeLink($item->audiofile);
 			$this->mspace = '<div id="mediaspace' . $this->config['count'] . '"><audio src="' . $file . '" controls="controls" preload="auto" >'
 				. JText::_('COM_SERMONSPEAKER_PLAYER_NEEDS_FLASH') . '</audio></div>';
 			$this->setDimensions(23, 290);
