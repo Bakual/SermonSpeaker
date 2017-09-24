@@ -32,6 +32,8 @@ class SermonspeakerModelFiles extends JModelLegacy
 				$value = substr($value, $start);
 			}
 
+			$value = str_replace('\\', '/', $value);
+
 			if (in_array($value, $sermons))
 			{
 				unset($files[$key]);
