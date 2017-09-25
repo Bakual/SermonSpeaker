@@ -2,7 +2,7 @@
 <extension type="module" version="3.4" client="site" method="upgrade">
 	<name>MOD_SERMONUPLOAD</name>
 	<author>Thomas Hunziker</author>
-	<creationDate>2017-09-18</creationDate>
+	<creationDate>2017-09-25</creationDate>
 	<copyright>© 2017</copyright>
 	<authorEmail>admin@sermonspeaker.net</authorEmail>
 	<authorUrl>http://www.sermonspeaker.net</authorUrl>
