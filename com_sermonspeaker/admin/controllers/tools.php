@@ -206,7 +206,7 @@ class SermonspeakerControllerTools extends JControllerLegacy
 		$files      = $file_model->getItems();
 		$catid      = $file_model->getCategory();
 		$catTable   = JTable::getInstance('Category');
-		$state      = $user->authorise('core.edit.state', 'com_sermonsepaker') ? 1 : 0;
+		$state      = $user->authorise('core.edit.state', 'com_sermonspeaker') ? 1 : 0;
 
 		$params = JComponentHelper::getParams('com_sermonspeaker');
 		require_once JPATH_COMPONENT_SITE . '/helpers/id3.php';
