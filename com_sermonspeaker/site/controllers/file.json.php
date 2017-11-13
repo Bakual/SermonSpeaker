@@ -133,7 +133,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 
 			if ($params->get('append_path_lang', 0))
 			{
-				$lang = $jinput->get('select-language');
+				$lang = $jinput->get('language');
 
 				if (!$lang || $lang == '*')
 				{
@@ -205,7 +205,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 
 			if ($params->get('append_path_lang', 0))
 			{
-				$lang = $jinput->get('select-language');
+				$lang = $jinput->get('language');
 
 				if (!$lang || $lang == '*')
 				{
