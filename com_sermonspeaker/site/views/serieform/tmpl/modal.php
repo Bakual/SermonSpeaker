@@ -9,33 +9,40 @@
 
 defined('_JEXEC') or die();
 
-JHtml::_('bootstrap.tooltip');
+JHtml::_('bootstrap.tooltip', '.hasTooltip', array('placement' => 'bottom'));
 JHtml::_('behavior.formvalidation');
 JHtml::_('behavior.keepalive');
 JHtml::_('formbehavior.chosen', 'select');
-?>
-<script type="text/javascript">
-	Joomla.submitbutton = function(task) {
-		if (task == 'serieform.cancel' || document.formvalidator.isValid(document.id('adminForm'))) {
-			<?php echo $this->form->getField('series_description')->save(); ?>
-			Joomla.submitform(task, document.getElementById('adminForm'));
-		} else {
-			alert('<?php echo $this->escape(JText::_('JGLOBAL_VALIDATION_FORM_FAILED'));?>');
+
+// @deprecated 4.0 the function parameter, the inline js and the buttons are not needed since 3.7.0.
+$jinput   = JFactory::getApplication()->input;
+$function = $jinput->getCmd('function', 'jEditSerie_' . (int) $this->item->id);
+
+// Function to update input title when changed
+JFactory::getDocument()->addScriptDeclaration('
+	function jEditSerieModal() {
+		if (window.parent && document.formvalidator.isValid(document.getElementById("adminForm"))) {
+			return window.parent.' . $this->escape($function) . '(document.getElementById("jform_title").value);
 		}
 	}
-</script>
+');
+?>
+<button id="applyBtn" type="button" class="hidden" onclick="Joomla.submitbutton('serieform.apply'); jEditSerieModal();"></button>
+<button id="saveBtn" type="button" class="hidden" onclick="Joomla.submitbutton('serieform.save'); jEditSerieModal();"></button>
+<button id="closeBtn" type="button" class="hidden" onclick="Joomla.submitbutton('serieform.cancel');"></button>
 
 <div class="edit item-page<?php echo $this->pageclass_sfx; ?>">
 	<?php
 	if ($this->params->get('show_page_heading', 1)) : ?>
-	<div class="page-header">
-		<h1>
-			<?php echo $this->escape($this->params->get('page_heading')); ?>
-		</h1>
-	</div>
+		<div class="page-header">
+			<h1>
+				<?php echo $this->escape($this->params->get('page_heading')); ?>
+			</h1>
+		</div>
 	<?php endif; ?>
 
-	<form action="<?php echo JRoute::_('index.php?option=com_sermonspeaker&view=serieform&modal=1&s_id=' . (int) $this->item->id); ?>" method="post" name="adminForm" id="adminForm" class="form-validate form form-vertical">
+	<form action="<?php echo JRoute::_('index.php?option=com_sermonspeaker&view=serieform&modal=1&s_id=' . (int) $this->item->id); ?>"
+		  method="post" name="adminForm" id="adminForm" class="form-validate form form-vertical">
 		<div class="btn-toolbar">
 			<div class="btn-group">
 				<button type="button" class="btn btn-primary" onclick="Joomla.submitbutton('serieform.save')">
@@ -52,7 +59,8 @@ JHtml::_('formbehavior.chosen', 'select');
 			<ul class="nav nav-tabs">
 				<li class="active"><a href="#editor" data-toggle="tab"><?php echo JText::_('JEDITOR') ?></a></li>
 				<li><a href="#details" data-toggle="tab"><?php echo JText::_('JDETAILS') ?></a></li>
-				<li><a href="#publishing" data-toggle="tab"><?php echo JText::_('COM_SERMONSPEAKER_PUBLISHING') ?></a></li>
+				<li><a href="#publishing" data-toggle="tab"><?php echo JText::_('COM_SERMONSPEAKER_PUBLISHING') ?></a>
+				</li>
 				<li><a href="#language" data-toggle="tab"><?php echo JText::_('JFIELD_LANGUAGE_LABEL') ?></a></li>
 				<li><a href="#metadata" data-toggle="tab"><?php echo JText::_('COM_SERMONSPEAKER_METADATA') ?></a></li>
 			</ul>
@@ -82,7 +90,7 @@ JHtml::_('formbehavior.chosen', 'select');
 					<?php echo $this->form->getInput('series_description'); ?>
 				</div>
 				<div class="tab-pane" id="details">
-					<?php foreach($this->form->getFieldset('detail') as $field): ?>
+					<?php foreach ($this->form->getFieldset('detail') as $field): ?>
 						<div class="control-group">
 							<div class="control-label">
 								<?php echo $field->label; ?>
@@ -142,8 +150,10 @@ JHtml::_('formbehavior.chosen', 'select');
 					</div>
 				</div>
 			</div>
-			<input type="hidden" name="task" value="" />
-			<input type="hidden" name="return" value="<?php echo $this->return_page; ?>" />
+			<input type="hidden" id="jform_id" value="<?php echo $this->form->getValue('id'); ?>" />
+			<input type="hidden" name="layout" value="modal" />
+			<input type="hidden" name="task" value=""/>
+			<input type="hidden" name="return" value="<?php echo $this->return_page; ?>"/>
 			<?php echo JHtml::_('form.token'); ?>
 		</fieldset>
 	</form>

@@ -17,7 +17,7 @@ $function  = JFactory::getApplication()->input->getCmd('function', 'jEditSpeaker
 // Function to update input title when changed
 JFactory::getDocument()->addScriptDeclaration('
 	function jEditSpeakerModal() {
-		if (window.parent && document.formvalidator.isValid(document.getElementById("item-form"))) {
+		if (window.parent && document.formvalidator.isValid(document.getElementById("adminform"))) {
 			return window.parent.' . $this->escape($function) . '(document.getElementById("jform_title").value);
 		}
 	}

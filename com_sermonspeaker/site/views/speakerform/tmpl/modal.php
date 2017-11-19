@@ -9,23 +9,27 @@
 
 defined('_JEXEC') or die();
 
-JHtml::_('bootstrap.tooltip');
+JHtml::_('bootstrap.tooltip', '.hasTooltip', array('placement' => 'bottom'));
 JHtml::_('behavior.formvalidation');
 JHtml::_('behavior.keepalive');
 JHtml::_('formbehavior.chosen', 'select');
 
-?>
-<script type="text/javascript">
-	Joomla.submitbutton = function(task) {
-		if (task == 'speakerform.cancel' || document.formvalidator.isValid(document.id('adminForm'))) {
-			<?php echo $this->form->getField('intro')->save(); ?>
-			<?php echo $this->form->getField('bio')->save(); ?>
-			Joomla.submitform(task, document.getElementById('adminForm'));
-		} else {
-			alert('<?php echo $this->escape(JText::_('JGLOBAL_VALIDATION_FORM_FAILED'));?>');
+// @deprecated 4.0 the function parameter, the inline js and the buttons are not needed since 3.7.0.
+$jinput = JFactory::getApplication()->input;
+$function  = $jinput->getCmd('function', 'jEditSpeaker_' . (int) $this->item->id);
+
+// Function to update input title when changed
+JFactory::getDocument()->addScriptDeclaration('
+	function jEditSpeakerModal() {
+		if (window.parent && document.formvalidator.isValid(document.getElementById("adminForm"))) {
+			return window.parent.' . $this->escape($function) . '(document.getElementById("jform_title").value);
 		}
 	}
-</script>
+');
+?>
+<button id="applyBtn" type="button" class="hidden" onclick="Joomla.submitbutton('speakerform.apply'); jEditSpeakerModal();"></button>
+<button id="saveBtn" type="button" class="hidden" onclick="Joomla.submitbutton('speakerform.save'); jEditSpeakerModal();"></button>
+<button id="closeBtn" type="button" class="hidden" onclick="Joomla.submitbutton('speakerform.cancel');"></button>
 
 <div class="edit item-page<?php echo $this->pageclass_sfx; ?>">
 	<?php
@@ -158,8 +162,10 @@ JHtml::_('formbehavior.chosen', 'select');
 					</div>
 				</div>
 			</div>
+			<input type="hidden" id="jform_id" value="<?php echo $this->form->getValue('id'); ?>" />
+			<input type="hidden" name="layout" value="modal" />
 			<input type="hidden" name="task" value="" />
-			<input type="hidden" name="return" value="<?php echo $this->return_page; ?>" />
+			<input type="hidden" name="return" value="<?php echo $jinput->getCmd('return');?>" />
 			<?php echo JHtml::_('form.token'); ?>
 		</fieldset>
 	</form>
