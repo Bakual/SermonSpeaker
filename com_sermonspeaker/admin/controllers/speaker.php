@@ -30,7 +30,7 @@ class SermonspeakerControllerSpeaker extends JControllerForm
 	protected function allowAdd($data = array())
 	{
 		$user       = JFactory::getUser();
-		$categoryId = Joomla\Utilities\ArrayHelper::getValue($data, 'catid', JFactory::getApplication()->input->get('filter_category_id'), 'int');
+		$categoryId = Joomla\Utilities\ArrayHelper::getValue($data, 'catid', $this->input->get('filter_category_id'), 'int');
 		$allow      = null;
 
 		if ($categoryId)
@@ -108,9 +108,8 @@ class SermonspeakerControllerSpeaker extends JControllerForm
 	public function reset()
 	{
 		$app    = JFactory::getApplication();
-		$jinput = $app->input;
 		$db     = JFactory::getDbo();
-		$id     = $jinput->get('id', 0, 'int');
+		$id     = $this->input->get('id', 0, 'int');
 
 		if (!$id)
 		{
@@ -176,7 +175,7 @@ class SermonspeakerControllerSpeaker extends JControllerForm
 	protected function getRedirectToItemAppend($recordId = null, $urlVar = null)
 	{
 		$append = parent::getRedirectToItemAppend($recordId, $urlVar);
-		$modal  = JFactory::getApplication()->input->get('modal', 0, 'int');
+		$modal  = $this->input->get('modal', 0, 'int');
 		$return = $this->getReturnPage();
 
 		if ($modal)
@@ -202,7 +201,7 @@ class SermonspeakerControllerSpeaker extends JControllerForm
 	 */
 	protected function getReturnPage()
 	{
-		$return = JFactory::getApplication()->input->get('return', '', 'base64');
+		$return = $this->input->get('return', '', 'base64');
 
 		if (empty($return) || !JUri::isInternal(base64_decode($return)))
 		{
