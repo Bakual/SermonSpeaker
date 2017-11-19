@@ -117,7 +117,7 @@ $assoc     = JLanguageAssociations::isEnabled();
 						<td class="center">
 							<div class="btn-group">
 								<?php echo JHtml::_('jgrid.published', $item->state, $i, 'series.', $canChange, 'cb', $item->publish_up, $item->publish_down); ?>
-								<?php echo JHtml::_('jgrid.isdefault', $item->home, $i, 'series.', $canChange && !$item->home);?>
+								<?php echo JHtml::_('jgrid.isdefault', $item->home, $i, 'series.', $canChange);?>
 								<?php
 								// Create dropdown items
 								$action = $archived ? 'unarchive' : 'archive';
