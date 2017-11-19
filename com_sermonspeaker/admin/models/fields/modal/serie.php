@@ -49,8 +49,8 @@ class JFormFieldModal_Serie extends JFormField
 		$value = (int) $this->value > 0 ? (int) $this->value : '';
 
 		// Create the modal id.
-		$modalId = $isSite ? 'Serieform_' : 'Serie_';
-		$modalId .= 'Serie_' . $this->id;
+		$modalPrefix = $isSite ? 'Serieform' : 'Serie';
+		$modalId     = $modalPrefix . '_' . $this->id;
 
 		// Add the modal field script to the document head.
 		JHtml::_('jquery.framework');
@@ -70,7 +70,7 @@ class JFormFieldModal_Serie extends JFormField
 			{
 				JFactory::getDocument()->addScriptDeclaration("
 				function jSelectSerie_" . $this->id . "(id, title, catid, object, url, language) {
-					window.processModalSelect('Serie', '" . $this->id . "', id, title, catid, object, url, language);
+					window.processModalSelect('" . $modalPrefix . "', '" . $this->id . "', id, title, catid, object, url, language);
 				}
 				");
 

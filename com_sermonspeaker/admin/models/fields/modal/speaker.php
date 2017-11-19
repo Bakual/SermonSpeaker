@@ -48,8 +48,8 @@ class JFormFieldModal_Speaker extends JFormField
 		$value = (int) $this->value > 0 ? (int) $this->value : '';
 
 		// Create the modal id.
-		$modalId = $isSite ? 'Speakerform_' : 'Speaker_';
-		$modalId .= $this->id;
+		$modalPrefix = $isSite ? 'Speakerform' : 'Speaker';
+		$modalId     = $modalPrefix . '_' . $this->id;
 
 		// Add the modal field script to the document head.
 		JHtml::_('jquery.framework');
@@ -69,7 +69,7 @@ class JFormFieldModal_Speaker extends JFormField
 			{
 				JFactory::getDocument()->addScriptDeclaration("
 				function jSelectSpeaker_" . $this->id . "(id, title, catid, object, url, language) {
-					window.processModalSelect('Speaker', '" . $this->id . "', id, title, catid, object, url, language);
+					window.processModalSelect('" . $modalPrefix . "', '" . $this->id . "', id, title, catid, object, url, language);
 				}
 				");
 
