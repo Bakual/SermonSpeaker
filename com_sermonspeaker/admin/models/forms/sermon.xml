@@ -253,9 +253,7 @@
 			new="true"
 			edit="true"
 			clear="true"
-		>
-			<option value="0">COM_SERMONSPEAKER_SELECT_SPEAKER</option>
-		</field>
+		/>
 
 		<field
 			name="series_id"
@@ -266,9 +264,7 @@
 			new="true"
 			edit="true"
 			clear="true"
-		>
-			<option value="0">COM_SERMONSPEAKER_SELECT_SERIES</option>
-		</field>
+		/>
 
 		<field name="picture" type="mediawrapper"
 			label="COM_SERMONSPEAKER_FIELD_PICTURE_LABEL"
