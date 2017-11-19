@@ -27,10 +27,6 @@ JFactory::getDocument()->addScriptDeclaration('
 	}
 ');
 ?>
-<button id="applyBtn" type="button" class="hidden" onclick="Joomla.submitbutton('serieform.apply'); jEditSerieModal();"></button>
-<button id="saveBtn" type="button" class="hidden" onclick="Joomla.submitbutton('serieform.save'); jEditSerieModal();"></button>
-<button id="closeBtn" type="button" class="hidden" onclick="Joomla.submitbutton('serieform.cancel');"></button>
-
 <div class="edit item-page<?php echo $this->pageclass_sfx; ?>">
 	<?php
 	if ($this->params->get('show_page_heading', 1)) : ?>
@@ -43,18 +39,6 @@ JFactory::getDocument()->addScriptDeclaration('
 
 	<form action="<?php echo JRoute::_('index.php?option=com_sermonspeaker&view=serieform&modal=1&s_id=' . (int) $this->item->id); ?>"
 		  method="post" name="adminForm" id="adminForm" class="form-validate form form-vertical">
-		<div class="btn-toolbar">
-			<div class="btn-group">
-				<button type="button" class="btn btn-primary" onclick="Joomla.submitbutton('serieform.save')">
-					<i class="icon-ok"></i> <?php echo JText::_('JSAVE') ?>
-				</button>
-			</div>
-			<div class="btn-group">
-				<button type="button" class="btn" onclick="window.parent.SqueezeBox.close();">
-					<i class="icon-cancel"></i> <?php echo JText::_('JCANCEL') ?>
-				</button>
-			</div>
-		</div>
 		<fieldset>
 			<ul class="nav nav-tabs">
 				<li class="active"><a href="#editor" data-toggle="tab"><?php echo JText::_('JEDITOR') ?></a></li>
@@ -150,8 +134,8 @@ JFactory::getDocument()->addScriptDeclaration('
 					</div>
 				</div>
 			</div>
-			<input type="hidden" id="jform_id" value="<?php echo $this->form->getValue('id'); ?>" />
-			<input type="hidden" name="layout" value="modal" />
+			<input type="hidden" id="jform_id" value="<?php echo $this->form->getValue('id'); ?>"/>
+			<input type="hidden" name="layout" value="modal"/>
 			<input type="hidden" name="task" value=""/>
 			<input type="hidden" name="return" value="<?php echo $this->return_page; ?>"/>
 			<?php echo JHtml::_('form.token'); ?>
