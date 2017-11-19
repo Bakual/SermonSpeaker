@@ -189,7 +189,7 @@
 
 		<field
 			name="series_id"
-			type="modal_series"
+			type="modal_serie"
 			label="COM_SERMONSPEAKER_SERIE"
 			description="COM_SERMONSPEAKER_FIELD_SERIE_DESC"
 			select="true"
