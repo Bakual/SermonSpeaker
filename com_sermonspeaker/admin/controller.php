@@ -9,10 +9,14 @@
 
 defined('_JEXEC') or die;
 
-use Joomla\CMS\Controller\Controller;
 use Joomla\CMS\Access\Exception\Notallowed;
+use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\MVC\Controller\BaseController;
+use Joomla\CMS\Plugin\PluginHelper;
 
-class SermonspeakerController extends Controller
+class SermonspeakerController extends BaseController
 {
 	protected $default_view = 'main';
 
@@ -29,16 +33,16 @@ class SermonspeakerController extends Controller
 			throw new Notallowed($this->app->getLanguage()->_('JERROR_ALERTNOAUTHOR'), 403);
 		}
 
-		$params = JComponentHelper::getParams('com_sermonspeaker');
+		$params = ComponentHelper::getParams('com_sermonspeaker');
 
 		if ($params->get('css_icomoon') == '')
 		{
-			JFactory::getApplication()->enqueueMessage(JText::_('COM_SERMONSPEAKER_NOTSAVED'), 'warning');
+			Factory::getApplication()->enqueueMessage(Text::_('COM_SERMONSPEAKER_NOTSAVED'), 'warning');
 		}
 
-		if (!JPluginHelper::isEnabled('sermonspeaker'))
+		if (!PluginHelper::isEnabled('sermonspeaker'))
 		{
-			JFactory::getApplication()->enqueueMessage(JText::_('COM_SERMONSPEAKER_NO_PLAYER_ENABLED'), 'warning');
+			Factory::getApplication()->enqueueMessage(Text::_('COM_SERMONSPEAKER_NO_PLAYER_ENABLED'), 'warning');
 		}
 
 		return parent::display();
