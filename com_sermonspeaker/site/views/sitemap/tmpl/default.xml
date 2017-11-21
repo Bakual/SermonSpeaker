@@ -8,7 +8,7 @@
 	<fields name="request">
 		<fieldset name="request">
 			<field name="format" type="hidden"
-				default="raw"
+				   default="raw"
 			/>
 		</fieldset>
 	</fields>
@@ -16,18 +16,18 @@
 	<!-- Add fields to the parameters object for the layout. -->
 	<fields name="params">
 		<fieldset name="basic">
-			<field name="cat" type="category" 
-				label="JGLOBAL_CHOOSE_CATEGORY_LABEL" 
-				description="JGLOBAL_CHOOSE_CATEGORY_DESC" 
-				extension="com_sermonspeaker" 
-				required="true"
+			<field name="cat" type="category"
+				   label="JGLOBAL_CHOOSE_CATEGORY_LABEL"
+				   description="JGLOBAL_CHOOSE_CATEGORY_DESC"
+				   extension="com_sermonspeaker"
+				   required="true"
 			/>
 
-			<field name="freq" type="list" 
-				label="COM_SERMONSPEAKER_PARAM_FREQ_LABEL" 
-				description="COM_SERMONSPEAKER_PARAM_FREQ_DESC"
-				default="">
-				<option value="">JGLOBAL_USE_GLOBAL</option>
+			<field name="freq" type="list"
+				   label="COM_SERMONSPEAKER_PARAM_FREQ_LABEL"
+				   description="COM_SERMONSPEAKER_PARAM_FREQ_DESC"
+				   useglobal="true"
+			>
 				<option value="always">always</option>
 				<option value="hourly">hourly</option>
 				<option value="daily">daily</option>
@@ -37,11 +37,11 @@
 				<option value="never">never</option>
 			</field>
 
-			<field name="prio" type="list" 
-				label="COM_SERMONSPEAKER_PARAM_PRIO_LABEL" 
-				description="COM_SERMONSPEAKER_PARAM_PRIO_DESC"
-				default="">
-				<option value="">JGLOBAL_USE_GLOBAL</option>
+			<field name="prio" type="list"
+				   label="COM_SERMONSPEAKER_PARAM_PRIO_LABEL"
+				   description="COM_SERMONSPEAKER_PARAM_PRIO_DESC"
+				   useglobal="true"
+			>
 				<option value="0.0">0.0</option>
 				<option value="0.2">0.2</option>
 				<option value="0.3">0.3</option>

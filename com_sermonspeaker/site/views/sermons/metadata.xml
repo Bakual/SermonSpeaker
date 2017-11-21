@@ -12,25 +12,25 @@
 	<fields name="params">
 		<fieldset name="basic">
 			<field name="catid" type="category"
-				label="JGLOBAL_CHOOSE_CATEGORY_LABEL"
-				description="JGLOBAL_CHOOSE_CATEGORY_DESC"
-				extension="com_sermonspeaker"
-				required="true"
+				   label="JGLOBAL_CHOOSE_CATEGORY_LABEL"
+				   description="JGLOBAL_CHOOSE_CATEGORY_DESC"
+				   extension="com_sermonspeaker"
+				   required="true"
 			/>
 			<field name="count_items_type" type="list"
-				label="COM_SERMONSPEAKER_CATEGORY_ITEMS_TYPE_LABEL"
-				description="COM_SERMONSPEAKER_CATEGORY_ITEMS_TYPE_DESC"
-				>
-				<option value="">JGLOBAL_USE_GLOBAL</option>
+				   label="COM_SERMONSPEAKER_CATEGORY_ITEMS_TYPE_LABEL"
+				   description="COM_SERMONSPEAKER_CATEGORY_ITEMS_TYPE_DESC"
+				   useglobal="true"
+			>
 				<option value="sermons">COM_SERMONSPEAKER_SERMONS</option>
 				<option value="series">COM_SERMONSPEAKER_SERIES</option>
 				<option value="speakers">COM_SERMONSPEAKER_SPEAKERS</option>
 			</field>
 			<field name="maxLevel" type="list"
-				label="JGLOBAL_MAXIMUM_CATEGORY_LEVELS_LABEL"
-				description="JGLOBAL_MAXIMUM_CATEGORY_LEVELS_DESC"
-				>
-				<option value="">JGLOBAL_USE_GLOBAL</option>
+				   label="JGLOBAL_MAXIMUM_CATEGORY_LEVELS_LABEL"
+				   description="JGLOBAL_MAXIMUM_CATEGORY_LEVELS_DESC"
+				   useglobal="true"
+			>
 				<option value="0">JNONE</option>
 				<option value="-1">JALL</option>
 				<option value="1">J1</option>
@@ -48,49 +48,50 @@
 			/>
 
 			<field name="limit" type="text"
-				label="COM_SERMONSPEAKER_PARAM_LIMIT_LABEL"
-				description="COM_SERMONSPEAKER_PARAM_LIMIT_DESC"
-				default=""
-				size="2"
+				   label="COM_SERMONSPEAKER_PARAM_LIMIT_LABEL"
+				   description="COM_SERMONSPEAKER_PARAM_LIMIT_DESC"
+				   default=""
+				   size="2"
 			/>
 		</fieldset>
 		<fieldset name="advanced"
-			addfieldpath="/administrator/components/com_sermonspeaker/models/fields" >
+				  addfieldpath="/administrator/components/com_sermonspeaker/models/fields">
 			<field name="plugin_tag"
-				type="plugintag"
-				class="btn-group"
-				label="COM_SERMONSPEAKER_PARAM_PLUGIN_LABEL"
-				description="COM_SERMONSPEAKER_PARAM_PLUGIN_DESC"
-				useglobal="true" />
+				   type="plugintag"
+				   class="btn-group"
+				   label="COM_SERMONSPEAKER_PARAM_PLUGIN_LABEL"
+				   description="COM_SERMONSPEAKER_PARAM_PLUGIN_DESC"
+				   useglobal="true"/>
 			<field name="filetype"
-				type="list"
-				label="COM_SERMONSPEAKER_FIELD_FILETYPE_LABEL"
-				description="COM_SERMONSPEAKER_FIELD_FILETYPE_DESC">
+				   type="list"
+				   label="COM_SERMONSPEAKER_FIELD_FILETYPE_LABEL"
+				   description="COM_SERMONSPEAKER_FIELD_FILETYPE_DESC">
 				<option value="">COM_SERMONSPEAKER_NO_FILTER</option>
 				<option value="audio">COM_SERMONSPEAKER_AUDIO</option>
 				<option value="video">COM_SERMONSPEAKER_VIDEO</option>
 			</field>
 			<field name="fileprio"
-				type="list"
-				label="COM_SERMONSPEAKER_PARAM_FILEPRIO_LABEL"
-				description="COM_SERMONSPEAKER_PARAM_FILEPRIO_DESC">
-				<option value="">JGLOBAL_USE_GLOBAL</option>
+				   type="list"
+				   label="COM_SERMONSPEAKER_PARAM_FILEPRIO_LABEL"
+				   description="COM_SERMONSPEAKER_PARAM_FILEPRIO_DESC"
+				   useglobal="true"
+			>
 				<option value="0">COM_SERMONSPEAKER_AUDIO</option>
 				<option value="1">COM_SERMONSPEAKER_VIDEO</option>
 			</field>
 			<field name="year"
-				type="sql"
-				label="COM_SERMONSPEAKER_FIELD_YEAR_LABEL"
-				description="COM_SERMONSPEAKER_FIELD_YEAR_DESC"
-				query="SELECT DISTINCT YEAR(`sermon_date`) AS `year` FROM `#__sermon_sermons` WHERE `sermon_date` != '0000-00-00' ORDER BY `sermon_date` DESC"
-				key_field="year"
-				value_field="year">
+				   type="sql"
+				   label="COM_SERMONSPEAKER_FIELD_YEAR_LABEL"
+				   description="COM_SERMONSPEAKER_FIELD_YEAR_DESC"
+				   query="SELECT DISTINCT YEAR(`sermon_date`) AS `year` FROM `#__sermon_sermons` WHERE `sermon_date` != '0000-00-00' ORDER BY `sermon_date` DESC"
+				   key_field="year"
+				   value_field="year">
 				<option value="">COM_SERMONSPEAKER_NO_FILTER</option>
 			</field>
 			<field name="month"
-				type="list"
-				label="COM_SERMONSPEAKER_FIELD_MONTH_LABEL"
-				description="COM_SERMONSPEAKER_FIELD_MONTH_DESC">
+				   type="list"
+				   label="COM_SERMONSPEAKER_FIELD_MONTH_LABEL"
+				   description="COM_SERMONSPEAKER_FIELD_MONTH_DESC">
 				<option value="">COM_SERMONSPEAKER_NO_FILTER</option>
 				<option value="1">JANUARY</option>
 				<option value="2">FEBRUARY</option>
@@ -107,8 +108,8 @@
 			</field>
 		</fieldset>
 		<fieldset name="layout"
-			label="COM_SERMONSPEAKER_FIELDSET_LAYOUTS_LABEL"
-			description="COM_SERMONSPEAKER_FIELDSET_LAYOUTS_DESC" >
+				  label="COM_SERMONSPEAKER_FIELDSET_LAYOUTS_LABEL"
+				  description="COM_SERMONSPEAKER_FIELDSET_LAYOUTS_DESC">
 			<field
 				name="sermonslayout" type="componentlayout"
 				label="COM_SERMONSPEAKER_SERMONS_VIEW_TITLE"
