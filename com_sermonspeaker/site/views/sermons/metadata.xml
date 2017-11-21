@@ -4,17 +4,17 @@
 		<message><![CDATA[COM_SERMONSPEAKER_SERMONS_VIEW_DESC]]></message>
 		<options>
 			<default
-				name="COM_SERMONSPEAKER_SERMONS_VIEW_TITLE" 
+				name="COM_SERMONSPEAKER_SERMONS_VIEW_TITLE"
 				msg="COM_SERMONSPEAKER_SERMONS_VIEW_DESC"
 			/>
 		</options>
 	</view>
 	<fields name="params">
 		<fieldset name="basic">
-			<field name="catid" type="category" 
-				label="JGLOBAL_CHOOSE_CATEGORY_LABEL" 
-				description="JGLOBAL_CHOOSE_CATEGORY_DESC" 
-				extension="com_sermonspeaker" 
+			<field name="catid" type="category"
+				label="JGLOBAL_CHOOSE_CATEGORY_LABEL"
+				description="JGLOBAL_CHOOSE_CATEGORY_DESC"
+				extension="com_sermonspeaker"
 				required="true"
 			/>
 			<field name="count_items_type" type="list"
@@ -39,24 +39,32 @@
 				<option value="4">J4</option>
 				<option value="5">J5</option>
 			</field>
+			<field
+				name="default_pagination_limit"
+				type="limitbox"
+				label="COM_SERMONSPEAKER_FIELD_DEFAULT_PAGINATION_LIMIT_LABEL"
+				description="COM_SERMONSPEAKER_FIELD_DEFAULT_PAGINATION_LIMIT_DESC"
+				useglobal="true"
+			/>
+
 			<field name="limit" type="text"
-				label="COM_SERMONSPEAKER_PARAM_LIMIT_LABEL" 
-				description="COM_SERMONSPEAKER_PARAM_LIMIT_DESC" 
+				label="COM_SERMONSPEAKER_PARAM_LIMIT_LABEL"
+				description="COM_SERMONSPEAKER_PARAM_LIMIT_DESC"
 				default=""
 				size="2"
 			/>
 		</fieldset>
 		<fieldset name="advanced"
 			addfieldpath="/administrator/components/com_sermonspeaker/models/fields" >
-			<field name="plugin_tag" 
-				type="plugintag" 
+			<field name="plugin_tag"
+				type="plugintag"
 				class="btn-group"
-				label="COM_SERMONSPEAKER_PARAM_PLUGIN_LABEL" 
+				label="COM_SERMONSPEAKER_PARAM_PLUGIN_LABEL"
 				description="COM_SERMONSPEAKER_PARAM_PLUGIN_DESC"
 				useglobal="true" />
 			<field name="filetype"
 				type="list"
-				label="COM_SERMONSPEAKER_FIELD_FILETYPE_LABEL" 
+				label="COM_SERMONSPEAKER_FIELD_FILETYPE_LABEL"
 				description="COM_SERMONSPEAKER_FIELD_FILETYPE_DESC">
 				<option value="">COM_SERMONSPEAKER_NO_FILTER</option>
 				<option value="audio">COM_SERMONSPEAKER_AUDIO</option>
@@ -64,7 +72,7 @@
 			</field>
 			<field name="fileprio"
 				type="list"
-				label="COM_SERMONSPEAKER_PARAM_FILEPRIO_LABEL" 
+				label="COM_SERMONSPEAKER_PARAM_FILEPRIO_LABEL"
 				description="COM_SERMONSPEAKER_PARAM_FILEPRIO_DESC">
 				<option value="">JGLOBAL_USE_GLOBAL</option>
 				<option value="0">COM_SERMONSPEAKER_AUDIO</option>
@@ -81,7 +89,7 @@
 			</field>
 			<field name="month"
 				type="list"
-				label="COM_SERMONSPEAKER_FIELD_MONTH_LABEL" 
+				label="COM_SERMONSPEAKER_FIELD_MONTH_LABEL"
 				description="COM_SERMONSPEAKER_FIELD_MONTH_DESC">
 				<option value="">COM_SERMONSPEAKER_NO_FILTER</option>
 				<option value="1">JANUARY</option>
@@ -98,8 +106,8 @@
 				<option value="12">DECEMBER</option>
 			</field>
 		</fieldset>
-		<fieldset name="layout" 
-			label="COM_SERMONSPEAKER_FIELDSET_LAYOUTS_LABEL" 
+		<fieldset name="layout"
+			label="COM_SERMONSPEAKER_FIELDSET_LAYOUTS_LABEL"
 			description="COM_SERMONSPEAKER_FIELDSET_LAYOUTS_DESC" >
 			<field
 				name="sermonslayout" type="componentlayout"

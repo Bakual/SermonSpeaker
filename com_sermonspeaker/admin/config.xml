@@ -136,9 +136,9 @@
 			name="default_pagination_limit"
 			type="limitbox"
 			label="COM_SERMONSPEAKER_FIELD_DEFAULT_PAGINATION_LIMIT_LABEL"
-			description="COM_SERMONSPEAKER_FIELD_DEFAULT_PAGINATION_LIMIT_DESC">
-			<option value="">JGLOBAL_USE_GLOBAL</option>
-		</field>
+			description="COM_SERMONSPEAKER_FIELD_DEFAULT_PAGINATION_LIMIT_DESC"
+			useglobal="true"
+		/>
 
 		<field
 			name="show_pagination"

@@ -35,6 +35,13 @@
 				description="COM_SERMONSPEAKER_CATEGORY_ITEMS_TYPE_DESC"
 				default="series"
 			/>
+			<field
+				name="default_pagination_limit"
+				type="limitbox"
+				label="COM_SERMONSPEAKER_FIELD_DEFAULT_PAGINATION_LIMIT_LABEL"
+				description="COM_SERMONSPEAKER_FIELD_DEFAULT_PAGINATION_LIMIT_DESC"
+				useglobal="true"
+			/>
 		</fieldset>
 		<fieldset name="advanced"
 			addfieldpath="/administrator/components/com_sermonspeaker/models/fields" >
