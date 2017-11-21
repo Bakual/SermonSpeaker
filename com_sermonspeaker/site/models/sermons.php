@@ -364,6 +364,10 @@ class SermonspeakerModelSermons extends JModelList
 			$dir   = $params->get('default_order_dir', 'ASC');
 
 			parent::populateState($order, $dir);
+
+			$defaultLimit = $params->get('default_pagination_limit', $app->get('list_limit'));
+			$limit = $app->getUserStateFromRequest($this->context . '.list.limit', 'limit', $defaultLimit, 'uint');
+			$this->setState('list.limit', $limit);
 		}
 	}
 

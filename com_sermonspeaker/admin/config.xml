@@ -3,7 +3,7 @@
 	<fieldset
 		name="component"
 		label="COM_SERMONSPEAKER_FIELDSET_COMPONENT_LABEL"
-		>
+	>
 
 		<field
 			name="date_format"
@@ -11,14 +11,14 @@
 			label="COM_SERMONSPEAKER_PARAM_DATE_FORMAT"
 			description="COM_SERMONSPEAKER_PARAM_DATE_FORMAT_DESC"
 			default="DATE_FORMAT_LC4"
-			/>
+		/>
 
 		<field
 			name="plugin_tag"
 			type="plugintag"
 			label="COM_SERMONSPEAKER_PARAM_PLUGIN_LABEL"
 			description="COM_SERMONSPEAKER_PARAM_PLUGIN_DESC"
-			/>
+		/>
 
 		<field
 			name="speakerpopup"
@@ -27,7 +27,7 @@
 			description="COM_SERMONSPEAKER_FIELD_SPEAKERPOPUP_DESC"
 			class="btn-group btn-group-yesno"
 			default="1"
-			>
+		>
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
@@ -39,7 +39,7 @@
 			description="COM_SERMONSPEAKER_PARAM_SERIESDL_DESC"
 			class="btn-group btn-group-yesno"
 			default="1"
-			>
+		>
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
@@ -50,13 +50,13 @@
 			default=""
 			label="COM_SERMONSPEAKER_PARAM_LIMITSERIESDL_LABEL"
 			description="COM_SERMONSPEAKER_PARAM_LIMITSERIESDL_DESC"
-			/>
+		/>
 
 		<field
 			name="spacer1"
 			type="spacer"
 			hr="true"
-			/>
+		/>
 
 		<field
 			name="default_order"
@@ -64,7 +64,7 @@
 			label="COM_SERMONSPEAKER_PARAM_DEFAULT_ORDER_LABEL"
 			description="COM_SERMONSPEAKER_PARAM_DEFAULT_ORDER_DESC"
 			default="ordering"
-			>
+		>
 			<option value="ordering">COM_SERMONSPEAKER_PARAM_DEFAULT_ORDER_OPTION_ORDERING</option>
 			<option value="sermon_date">COM_SERMONSPEAKER_PARAM_DEFAULT_ORDER_OPTION_DATE</option>
 			<option value="title">COM_SERMONSPEAKER_PARAM_DEFAULT_ORDER_OPTION_TITLE</option>
@@ -76,7 +76,7 @@
 			label="COM_SERMONSPEAKER_PARAM_DEFAULT_ORDER_DIR_LABEL"
 			description="COM_SERMONSPEAKER_PARAM_DEFAULT_ORDER_DIR_DESC"
 			default="ASC"
-			>
+		>
 			<option value="ASC">COM_SERMONSPEAKER_PARAM_DEFAULT_ORDER_DIR_OPTION_ASC</option>
 			<option value="DESC">COM_SERMONSPEAKER_PARAM_DEFAULT_ORDER_DIR_OPTION_DESC</option>
 		</field>
@@ -87,7 +87,7 @@
 			label="COM_SERMONSPEAKER_PARAM_LIST_ICON_FUNCTION_LABEL"
 			description="COM_SERMONSPEAKER_PARAM_LIST_ICON_FUNCTION_DESC"
 			default="2"
-			>
+		>
 			<option value="0">COM_SERMONSPEAKER_PARAM_LIST_OPTION_DETAIL</option>
 			<option value="1">COM_SERMONSPEAKER_PARAM_LIST_OPTION_FILE</option>
 			<option value="2">COM_SERMONSPEAKER_PARAM_LIST_OPTION_PLAYER</option>
@@ -101,7 +101,7 @@
 			label="COM_SERMONSPEAKER_PARAM_LIST_TITLE_FUNCTION_LABEL"
 			description="COM_SERMONSPEAKER_PARAM_LIST_TITLE_FUNCTION_DESC"
 			default="0"
-			>
+		>
 			<option value="0">COM_SERMONSPEAKER_PARAM_LIST_OPTION_DETAIL</option>
 			<option value="1">COM_SERMONSPEAKER_PARAM_LIST_OPTION_FILE</option>
 			<option value="2">COM_SERMONSPEAKER_PARAM_LIST_OPTION_PLAYER</option>
@@ -115,7 +115,7 @@
 			description="COM_SERMONSPEAKER_FILTER_FIELD_DESC"
 			class="btn-group btn-group-yesno"
 			default="0"
-			>
+		>
 			<option value="1">JSHOW</option>
 			<option value="0">JHIDE</option>
 		</field>
@@ -127,9 +127,17 @@
 			description="JGLOBAL_DISPLAY_SELECT_DESC"
 			class="btn-group btn-group-yesno"
 			default="1"
-			>
+		>
 			<option value="1">JSHOW</option>
 			<option value="0">JHIDE</option>
+		</field>
+
+		<field
+			name="default_pagination_limit"
+			type="limitbox"
+			label="COM_SERMONSPEAKER_FIELD_DEFAULT_PAGINATION_LIMIT_LABEL"
+			description="COM_SERMONSPEAKER_FIELD_DEFAULT_PAGINATION_LIMIT_DESC">
+			<option value="">JGLOBAL_USE_GLOBAL</option>
 		</field>
 
 		<field
@@ -138,7 +146,7 @@
 			label="JGLOBAL_Pagination_Label"
 			description="JGLOBAL_Pagination_Desc"
 			default="2"
-			>
+		>
 			<option value="0">JHIDE</option>
 			<option value="1">JSHOW</option>
 			<option value="2">JGLOBAL_AUTO</option>
@@ -151,7 +159,7 @@
 			description="JGLOBAL_PAGINATION_RESULTS_DESC"
 			class="btn-group btn-group-yesno"
 			default="1"
-			>
+		>
 			<option value="1">JSHOW</option>
 			<option value="0">JHIDE</option>
 		</field>
@@ -162,7 +170,7 @@
 		name="layouts"
 		label="COM_SERMONSPEAKER_FIELDSET_LAYOUTS_LABEL"
 		description="COM_SERMONSPEAKER_FIELDSET_LAYOUTS_DESC"
-		>
+	>
 
 		<field
 			name="sermonslayout"
@@ -173,7 +181,7 @@
 			useglobal="false"
 			extension="com_sermonspeaker"
 			view="sermons"
-			/>
+		/>
 
 		<field
 			name="sermonlayout"
@@ -184,7 +192,7 @@
 			useglobal="false"
 			extension="com_sermonspeaker"
 			view="sermon"
-			/>
+		/>
 
 		<field
 			name="serieslayout"
@@ -195,7 +203,7 @@
 			useglobal="false"
 			extension="com_sermonspeaker"
 			view="series"
-			/>
+		/>
 
 		<field
 			name="serielayout"
@@ -206,7 +214,7 @@
 			useglobal="false"
 			extension="com_sermonspeaker"
 			view="serie"
-			/>
+		/>
 
 		<field
 			name="speakerslayout"
@@ -217,7 +225,7 @@
 			useglobal="false"
 			extension="com_sermonspeaker"
 			view="speakers"
-			/>
+		/>
 
 		<field
 			name="speakerlayout"
@@ -228,7 +236,7 @@
 			useglobal="false"
 			extension="com_sermonspeaker"
 			view="speaker"
-			/>
+		/>
 
 		<field
 			name="seriessermonlayout"
@@ -239,7 +247,7 @@
 			useglobal="false"
 			extension="com_sermonspeaker"
 			view="seriessermon"
-			/>
+		/>
 
 		<field
 			name="categorieslayout"
@@ -250,7 +258,7 @@
 			useglobal="false"
 			extension="com_sermonspeaker"
 			view="categories"
-			/>
+		/>
 
 		<field
 			name="css_icomoon"
@@ -259,7 +267,7 @@
 			description="COM_SERMONSPEAKER_FIELD_CSS_ICOMOON_DESC"
 			class="btn-group btn-group-yesno"
 			default="0"
-			>
+		>
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
@@ -271,7 +279,7 @@
 		label="COM_SERMONSPEAKER_FIELDSET_CLIENTCOL_LABEL"
 		description="COM_SERMONSPEAKER_FIELDSET_CLIENTCOL_DESC"
 		addfieldpath="/administrator/components/com_sermonspeaker/models/fields"
-		>
+	>
 
 		<field
 			name="col"
@@ -279,7 +287,7 @@
 			label="COM_SERMONSPEAKER_SERMON"
 			description="COM_SERMONSPEAKER_FIELD_COL_DESC"
 			cols="num,category,scripture,speaker,date,length,series,addfile,notes,player,hits,download"
-			>
+		>
 			<option value="sermons">COM_SERMONSPEAKER_SERMONS_VIEW_TITLE</option>
 			<option value="sermon">COM_SERMONSPEAKER_SERMON_VIEW_TITLE</option>
 			<option value="serie" exclude="series">COM_SERMONSPEAKER_SERIE_VIEW_TITLE</option>
@@ -293,7 +301,7 @@
 			label="COM_SERMONSPEAKER_SERIE"
 			description="COM_SERMONSPEAKER_FIELD_COL_DESC"
 			cols="category,description,speaker,hits,download"
-			>
+		>
 			<option value="series">COM_SERMONSPEAKER_SERIES_VIEW_TITLE</option>
 			<option value="serie">COM_SERMONSPEAKER_SERIE_VIEW_TITLE</option>
 			<option value="speaker">COM_SERMONSPEAKER_SPEAKER_VIEW_TITLE</option>
@@ -306,7 +314,7 @@
 			label="COM_SERMONSPEAKER_SPEAKER"
 			description="COM_SERMONSPEAKER_FIELD_COL_DESC"
 			cols="category,intro,bio,hits"
-			>
+		>
 			<option value="speakers">COM_SERMONSPEAKER_SPEAKERS_VIEW_TITLE</option>
 			<option value="speaker">COM_SERMONSPEAKER_SPEAKER_VIEW_TITLE</option>
 		</field>
@@ -317,12 +325,12 @@
 		name="paths"
 		label="COM_SERMONSPEAKER_FIELDSET_PATHS_LABEL"
 		description="COM_SERMONSPEAKER_FIELDSET_PATHS_DESC"
-		>
+	>
 
 		<field
 			name="path"
 			type="hidden"
-			/>
+		/>
 
 		<field
 			name="path_audio"
@@ -331,7 +339,7 @@
 			description="COM_SERMONSPEAKER_FIELD_PATH_AUDIO_DESC"
 			size="50"
 			default="images"
-			/>
+		/>
 
 		<field
 			name="path_video"
@@ -340,7 +348,7 @@
 			description="COM_SERMONSPEAKER_FIELD_PATH_VIDEO_DESC"
 			size="50"
 			default="images"
-			/>
+		/>
 
 		<field
 			name="path_addfile"
@@ -349,7 +357,7 @@
 			description="COM_SERMONSPEAKER_PARAM_PATH_ADDFILE_DESC"
 			size="50"
 			default="images"
-			/>
+		/>
 
 		<field
 			name="append_path"
@@ -358,7 +366,7 @@
 			description="COM_SERMONSPEAKER_FIELD_APPEND_PATH_DESC"
 			class="btn-group btn-group-yesno"
 			default="0"
-			>
+		>
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
@@ -370,7 +378,7 @@
 			description="COM_SERMONSPEAKER_FIELD_APPEND_PATH_LANG_DESC"
 			class="btn-group btn-group-yesno"
 			default="0"
-			>
+		>
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
@@ -382,7 +390,7 @@
 			description="COM_SERMONSPEAKER_FIELD_GOOGLEPICKER_DESC"
 			class="btn-group btn-group-yesno"
 			default="0"
-			>
+		>
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
@@ -393,7 +401,7 @@
 			label="COM_SERMONSPEAKER_FIELD_GAPI_DEVKEY_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_GAPI_DEVKEY_DESC"
 			showon="googlepicker:1"
-			/>
+		/>
 
 		<field
 			name="gapi_clientId"
@@ -401,20 +409,20 @@
 			label="COM_SERMONSPEAKER_FIELD_GAPI_CLIENTKEY_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_GAPI_CLIENTKEY_DESC"
 			showon="googlepicker:1"
-			/>
+		/>
 
 		<field
 			name="spacer1"
 			type="spacer"
 			hr="true"
-			/>
+		/>
 
 		<field
 			name="spacer_path"
 			type="spacer"
 			label="COM_SERMONSPEAKER_SPACER_SERMON_LABEL"
 			description="COM_SERMONSPEAKER_SPACER_SERMON_DESC"
-			/>
+		/>
 
 		<field
 			name="path_mode_audio"
@@ -422,7 +430,7 @@
 			label="COM_SERMONSPEAKER_FIELD_PATH_MODE_AUDIO_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_PATH_MODE_AUDIO_DESC"
 			default="0"
-			>
+		>
 			<option value="0">JDEFAULT</option>
 			<option value="2">COM_SERMONSPEAKER_FIELD_PATH_MODE_S3</option>
 			<option value="3">COM_SERMONSPEAKER_FIELD_PATH_MODE_EXTERNAL</option>
@@ -434,7 +442,7 @@
 			label="COM_SERMONSPEAKER_FIELD_PATH_MODE_VIDEO_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_PATH_MODE_VIDEO_DESC"
 			default="0"
-			>
+		>
 			<option value="0">JDEFAULT</option>
 			<option value="1">COM_SERMONSPEAKER_FIELD_PATH_MODE_VIMEO</option>
 			<option value="2">COM_SERMONSPEAKER_FIELD_PATH_MODE_S3</option>
@@ -448,7 +456,7 @@
 			description="COM_SERMONSPEAKER_FIELD_VIMEO_ID_DESC"
 			showon="path_mode_video:1"
 			default=""
-			/>
+		/>
 
 		<field
 			name="s3_custom_bucket"
@@ -458,7 +466,7 @@
 			showon="path_mode_audio:2[OR]path_mode_video:2"
 			class="btn-group btn-group-yesno"
 			default="0"
-			>
+		>
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
@@ -470,7 +478,7 @@
 			description="COM_SERMONSPEAKER_FIELD_S3_BUCKET_DESC"
 			showon="path_mode_audio:2[OR]path_mode_video:2"
 			default=""
-			/>
+		/>
 
 		<field
 			name="s3_access_key"
@@ -479,7 +487,7 @@
 			description="COM_SERMONSPEAKER_FIELD_S3_ACCESS_KEY_DESC"
 			showon="path_mode_audio:2[OR]path_mode_video:2"
 			default=""
-			/>
+		/>
 
 		<field
 			name="s3_secret_key"
@@ -488,7 +496,7 @@
 			description="COM_SERMONSPEAKER_FIELD_S3_SECRET_KEY_DESC"
 			showon="path_mode_audio:2[OR]path_mode_video:2"
 			default=""
-			/>
+		/>
 
 		<field
 			name="extern_path"
@@ -497,20 +505,20 @@
 			description="COM_SERMONSPEAKER_FIELD_EXTERN_PATH_DESC"
 			showon="path_mode_audio:3[OR]path_mode_video:3"
 			default=""
-			/>
+		/>
 
 		<field
 			name="spacer2"
 			type="spacer"
 			hr="true"
-			/>
+		/>
 
 		<field
 			name="spacer_pictures"
 			type="spacer"
 			label="COM_SERMONSPEAKER_SPACER_PICTURES_LABEL"
 			description="COM_SERMONSPEAKER_SPACER_PICTURES_DESC"
-			/>
+		/>
 
 		<field
 			name="path_avatar"
@@ -519,7 +527,7 @@
 			description="COM_SERMONSPEAKER_PARAM_PATH_AVATAR_DESC"
 			size="50"
 			default="images"
-			/>
+		/>
 
 		<field
 			name="path_speakerpic"
@@ -528,7 +536,7 @@
 			description="COM_SERMONSPEAKER_PARAM_PATH_SPEAKERPIC_DESC"
 			size="50"
 			default="images"
-			/>
+		/>
 
 		<field
 			name="path_sermonpic"
@@ -537,7 +545,7 @@
 			description="COM_SERMONSPEAKER_PARAM_PATH_SERMONPIC_DESC"
 			size="50"
 			default="images"
-			/>
+		/>
 
 	</fieldset>
 
@@ -545,7 +553,7 @@
 		name="player"
 		label="COM_SERMONSPEAKER_FIELDSET_PLAYER_LABEL"
 		description="COM_SERMONSPEAKER_FIELDSET_PLAYER_DESC"
-		>
+	>
 
 		<field
 			name="alt_player"
@@ -553,7 +561,7 @@
 			label="COM_SERMONSPEAKER_FIELD_ALT_PLAYER_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_ALT_PLAYER_DESC"
 			default=""
-			>
+		>
 			<option value="">COM_SERMONSPEAKER_FIELD_PLAYER_OPTION_USE_PLUGIN</option>
 		</field>
 
@@ -563,7 +571,7 @@
 			label="COM_SERMONSPEAKER_PARAM_FILEPRIO_LABEL"
 			description="COM_SERMONSPEAKER_PARAM_FILEPRIO_DESC"
 			default="0"
-			>
+		>
 			<option value="0">COM_SERMONSPEAKER_AUDIO</option>
 			<option value="1">COM_SERMONSPEAKER_VIDEO</option>
 		</field>
@@ -575,7 +583,7 @@
 			description="COM_SERMONSPEAKER_PARAM_AUTOSTART_DESC"
 			class="btn-group btn-group-yesno"
 			default="0"
-			>
+		>
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
@@ -587,7 +595,7 @@
 			description="COM_SERMONSPEAKER_PARAM_FILESWITCH_DESC"
 			class="btn-group btn-group-yesno"
 			default="0"
-			>
+		>
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
@@ -598,7 +606,7 @@
 			label="COM_SERMONSPEAKER_FIELD_AWIDTH_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_AWIDTH_DESC"
 			default=""
-			/>
+		/>
 
 		<field
 			name="aheight"
@@ -606,7 +614,7 @@
 			label="COM_SERMONSPEAKER_FIELD_AHEIGHT_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_AHEIGHT_DESC"
 			default=""
-			/>
+		/>
 
 		<field
 			name="vwidth"
@@ -614,7 +622,7 @@
 			label="COM_SERMONSPEAKER_FIELD_VWIDTH_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_VWIDTH_DESC"
 			default=""
-			/>
+		/>
 
 		<field
 			name="vheight"
@@ -622,7 +630,7 @@
 			label="COM_SERMONSPEAKER_FIELD_VHEIGHT_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_VHEIGHT_DESC"
 			default=""
-			/>
+		/>
 
 		<field
 			name="jwmode"
@@ -630,7 +638,7 @@
 			label="COM_SERMONSPEAKER_PARAM_JWMODE_LABEL"
 			description="COM_SERMONSPEAKER_PARAM_JWMODE_DESC"
 			default="0"
-			>
+		>
 			<option value="0">COM_SERMONSPEAKER_PARAM_JWMODE_OPTION_FLASH</option>
 			<option value="1">COM_SERMONSPEAKER_PARAM_JWMODE_OPTION_HTML5</option>
 		</field>
@@ -642,20 +650,20 @@
 			description="COM_SERMONSPEAKER_FIELD_JWSKIN_DESC"
 			default=""
 			size="75"
-			/>
+		/>
 
 		<field
 			name="plugins_spacer1"
 			type="spacer"
 			hr="true"
-			/>
+		/>
 
 		<field
 			name="plugins_spacer2"
 			type="spacer"
 			label="COM_SERMONSPEAKER_FIELD_PLUGINSSPACER_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_PLUGINSSPACER_DESC"
-			/>
+		/>
 
 		<field
 			name="ga_id"
@@ -663,7 +671,7 @@
 			label="COM_SERMONSPEAKER_FIELD_GAID_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_GAID_DESC"
 			default=""
-			/>
+		/>
 
 		<field
 			name="share"
@@ -672,7 +680,7 @@
 			description="COM_SERMONSPEAKER_FIELD_SHARE_DESC"
 			class="btn-group btn-group-yesno"
 			default="0"
-			>
+		>
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
@@ -684,7 +692,7 @@
 			description="COM_SERMONSPEAKER_FIELD_VIRAL_DESC"
 			class="btn-group btn-group-yesno"
 			default="0"
-			>
+		>
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
@@ -696,7 +704,7 @@
 			description="COM_SERMONSPEAKER_FIELD_FBIT_DESC"
 			class="btn-group btn-group-yesno"
 			default="0"
-			>
+		>
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
@@ -708,7 +716,7 @@
 			description="COM_SERMONSPEAKER_FIELD_TWEETIT_DESC"
 			class="btn-group btn-group-yesno"
 			default="0"
-			>
+		>
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
@@ -720,7 +728,7 @@
 			description="COM_SERMONSPEAKER_FIELD_PLUSONE_DESC"
 			class="btn-group btn-group-yesno"
 			default="0"
-			>
+		>
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
@@ -731,7 +739,7 @@
 		name="detailpage"
 		label="COM_SERMONSPEAKER_FIELDSET_DETAILPAGE_LABEL"
 		description="COM_SERMONSPEAKER_FIELDSET_DETAILPAGE_DESC"
-		>
+	>
 
 		<field
 			name="popup_player"
@@ -740,7 +748,7 @@
 			description="COM_SERMONSPEAKER_PARAM_POPUPBTN_DESC"
 			class="btn-group btn-group-yesno"
 			default="1"
-			>
+		>
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
@@ -751,7 +759,7 @@
 			label="COM_SERMONSPEAKER_PARAM_POPUPCOLOR"
 			description="COM_SERMONSPEAKER_PARAM_POPUPCOLOR_DESC"
 			default="#FFFFFF"
-			/>
+		/>
 
 		<field
 			name="popup_height"
@@ -759,7 +767,7 @@
 			label="COM_SERMONSPEAKER_PARAM_POPUPHEIGHT"
 			description="COM_SERMONSPEAKER_PARAM_POPUPHEIGHT_DESC"
 			default="150"
-			/>
+		/>
 
 		<field
 			name="custom1"
@@ -768,7 +776,7 @@
 			description="COM_SERMONSPEAKER_FIELD_CUSTOM1_DESC"
 			class="btn-group btn-group-yesno"
 			default="0"
-			>
+		>
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
@@ -780,7 +788,7 @@
 			description="COM_SERMONSPEAKER_FIELD_CUSTOM2_DESC"
 			class="btn-group btn-group-yesno"
 			default="0"
-			>
+		>
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
@@ -793,7 +801,7 @@
 			class="btn-group btn-group-yesno"
 			id="show_tags"
 			default="1"
-			>
+		>
 			<option value="1">JSHOW</option>
 			<option value="0">JHIDE</option>
 		</field>
@@ -804,7 +812,7 @@
 			label="COM_SERMONSPEAKER_FIELD_ENABLE_KEYWORDS_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_ENABLE_KEYWORDS_DESC"
 			default="0"
-			>
+		>
 			<option value="0">JNO</option>
 			<option value="1">JFIELD_META_KEYWORDS_LABEL</option>
 			<option value="2">COM_SERMONSPEAKER_FIELD_TAGS_LABEL</option>
@@ -818,7 +826,7 @@
 			description="COM_SERMONSPEAKER_FIELD_TAGS_TO_METAKEY_DESC"
 			class="btn-group btn-group-yesno"
 			default="0"
-			>
+		>
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
@@ -829,7 +837,7 @@
 			label="COM_SERMONSPEAKER_PARAM_ACCESS"
 			description="COM_SERMONSPEAKER_PARAM_ACCESS_DESC"
 			default="1"
-			/>
+		/>
 
 	</fieldset>
 
@@ -837,7 +845,7 @@
 		name="category"
 		label="JCATEGORY"
 		description="COM_SERMONSPEAKER_CONFIG_CATEGORY_SETTINGS_DESC"
-		>
+	>
 
 		<field
 			name="show_category_title"
@@ -846,7 +854,7 @@
 			description="JGLOBAL_SHOW_CATEGORY_TITLE_DESC"
 			class="btn-group btn-group-yesno"
 			default="1"
-			>
+		>
 			<option value="1">JSHOW</option>
 			<option value="0">JHIDE</option>
 		</field>
@@ -858,7 +866,7 @@
 			description="JGLOBAL_SHOW_CATEGORY_DESCRIPTION_DESC"
 			class="btn-group btn-group-yesno"
 			default="1"
-			>
+		>
 			<option value="1">JSHOW</option>
 			<option value="0">JHIDE</option>
 		</field>
@@ -870,7 +878,7 @@
 			description="JGLOBAL_SHOW_CATEGORY_IMAGE_DESC"
 			class="btn-group btn-group-yesno"
 			default="0"
-			>
+		>
 			<option value="1">JSHOW</option>
 			<option value="0">JHIDE</option>
 		</field>
@@ -881,7 +889,7 @@
 			label="JGLOBAL_MAXIMUM_CATEGORY_LEVELS_LABEL"
 			description="JGLOBAL_MAXIMUM_CATEGORY_LEVELS_DESC"
 			default="-1"
-			>
+		>
 			<option value="0">JNONE</option>
 			<option value="-1">JALL</option>
 			<option value="1">J1</option>
@@ -898,7 +906,7 @@
 			description="COM_SERMONSPEAKER_SHOW_EMPTY_CATEGORIES_DESC"
 			class="btn-group btn-group-yesno"
 			default="0"
-			>
+		>
 			<option value="1">JSHOW</option>
 			<option value="0">JHIDE</option>
 		</field>
@@ -910,7 +918,7 @@
 			description="JGLOBAL_SHOW_SUBCATEGORIES_DESCRIPTION_DESC"
 			class="btn-group btn-group-yesno"
 			default="1"
-			>
+		>
 			<option value="1">JSHOW</option>
 			<option value="0">JHIDE</option>
 		</field>
@@ -922,7 +930,7 @@
 			description="COM_SERMONSPEAKER_NUMBER_CATEGORY_ITEMS_DESC"
 			class="btn-group btn-group-yesno"
 			default="1"
-			>
+		>
 			<option value="1">JSHOW</option>
 			<option value="0">JHIDE</option>
 		</field>
@@ -933,7 +941,7 @@
 			label="JGLOBAL_SHOW_SUBCATEGORY_CONTENT_LABEL"
 			description="JGLOBAL_SHOW_SUBCATEGORY_CONTENT_DESC"
 			default="0"
-			>
+		>
 			<option value="0">JNONE</option>
 			<option value="-1">JALL</option>
 			<option value="1">J1</option>
@@ -948,7 +956,7 @@
 		name="categories"
 		label="JCATEGORIES"
 		description="COM_SERMONSPEAKER_CONFIG_CATEGORIES_SETTINGS_DESC"
-		>
+	>
 
 		<field
 			name="show_base_description"
@@ -957,7 +965,7 @@
 			description="JGLOBAL_FIELD_SHOW_BASE_DESCRIPTION_DESC"
 			class="btn-group btn-group-yesno"
 			default="1"
-			>
+		>
 			<option value="1">JSHOW</option>
 			<option value="0">JHIDE</option>
 		</field>
@@ -968,7 +976,7 @@
 			label="JGLOBAL_MAXIMUM_CATEGORY_LEVELS_LABEL"
 			description="JGLOBAL_MAXIMUM_CATEGORY_LEVELS_DESC"
 			default="-1"
-			>
+		>
 			<option value="-1">JALL</option>
 			<option value="1">J1</option>
 			<option value="2">J2</option>
@@ -984,7 +992,7 @@
 			description="COM_SERMONSPEAKER_SHOW_EMPTY_CATEGORIES_DESC"
 			class="btn-group btn-group-yesno"
 			default="0"
-			>
+		>
 			<option value="1">JSHOW</option>
 			<option value="0">JHIDE</option>
 		</field>
@@ -996,7 +1004,7 @@
 			description="JGLOBAL_SHOW_SUBCATEGORIES_DESCRIPTION_DESC"
 			class="btn-group btn-group-yesno"
 			default="1"
-			>
+		>
 			<option value="1">JSHOW</option>
 			<option value="0">JHIDE</option>
 		</field>
@@ -1008,7 +1016,7 @@
 			description="COM_SERMONSPEAKER_NUMBER_CATEGORY_ITEMS_DESC"
 			class="btn-group btn-group-yesno"
 			default="1"
-			>
+		>
 			<option value="1">JSHOW</option>
 			<option value="0">JHIDE</option>
 		</field>
@@ -1018,7 +1026,7 @@
 			type="list"
 			label="COM_SERMONSPEAKER_CATEGORY_ITEMS_TYPE_LABEL"
 			description="COM_SERMONSPEAKER_CATEGORY_ITEMS_TYPE_DESC"
-			>
+		>
 			<option value="sermons">COM_SERMONSPEAKER_SERMONS</option>
 			<option value="series">COM_SERMONSPEAKER_SERIES</option>
 			<option value="speakers">COM_SERMONSPEAKER_SPEAKERS</option>
@@ -1030,7 +1038,7 @@
 		name="statistics"
 		label="COM_SERMONSPEAKER_FIELDSET_STATISTICS_LABEL"
 		description="COM_SERMONSPEAKER_FIELDSET_STATISTICS_DESC"
-		>
+	>
 
 		<field
 			name="track_speaker"
@@ -1039,7 +1047,7 @@
 			description="COM_SERMONSPEAKER_PARAM_TRACKSPEAKER_DESC"
 			class="btn-group btn-group-yesno"
 			default="1"
-			>
+		>
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
@@ -1051,7 +1059,7 @@
 			description="COM_SERMONSPEAKER_PARAM_TRACKSERIES_DESC"
 			class="btn-group btn-group-yesno"
 			default="1"
-			>
+		>
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
@@ -1063,7 +1071,7 @@
 			description="COM_SERMONSPEAKER_PARAM_TRACKSERMON_DESC"
 			class="btn-group btn-group-yesno"
 			default="1"
-			>
+		>
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
@@ -1074,7 +1082,7 @@
 		name="frup"
 		label="COM_SERMONSPEAKER_FIELDSET_FRUP_LABEL"
 		description="COM_SERMONSPEAKER_FIELDSET_FRUP_DESC"
-		>
+	>
 
 		<field
 			name="fu_enable"
@@ -1083,7 +1091,7 @@
 			default="0"
 			label="COM_SERMONSPEAKER_PARAM_FU_ENABLE"
 			description="COM_SERMONSPEAKER_PARAM_FU_ENABLE_DESC"
-			>
+		>
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
@@ -1095,7 +1103,7 @@
 			description="COM_SERMONSPEAKER_FIELD_ENABLE_FLASH_UPLOADER_DESC"
 			class="btn-group btn-group-yesno"
 			default="1"
-			>
+		>
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
@@ -1107,7 +1115,7 @@
 			description="COM_SERMONSPEAKER_FIELD_ENABLE_NON_FLASH_UPLOADER_DESC"
 			class="btn-group btn-group-yesno"
 			default="1"
-			>
+		>
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
@@ -1118,7 +1126,7 @@
 			label="COM_SERMONSPEAKER_FIELD_AUDIO_FILETYPES_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_FILETYPES_DESC"
 			default="aac, m4a, f4a, mp3, ogg, oga"
-			/>
+		/>
 
 		<field
 			name="video_filetypes"
@@ -1126,7 +1134,7 @@
 			label="COM_SERMONSPEAKER_FIELD_VIDEO_FILETYPES_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_FILETYPES_DESC"
 			default="mp4, m4v, f4v, mov, flv, webm"
-			/>
+		/>
 
 		<field
 			name="addfile_filetypes"
@@ -1134,7 +1142,7 @@
 			label="COM_SERMONSPEAKER_FIELD_ADDFILE_FILETYPES_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_FILETYPES_DESC"
 			default="png, gif, jpg, bmp, pdf, txt, doc, docx, ppt, pptx, pps"
-			/>
+		/>
 
 		<field
 			name="write_id3"
@@ -1143,7 +1151,7 @@
 			description="COM_SERMONSPEAKER_FIELD_WRITE_ID3_DESC"
 			class="btn-group btn-group-yesno"
 			default="0"
-			>
+		>
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
@@ -1155,7 +1163,7 @@
 			description="COM_SERMONSPEAKER_FIELD_CATFILTER_LISTS_DESC"
 			class="btn-group btn-group-yesno"
 			default="0"
-			>
+		>
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
@@ -1165,7 +1173,7 @@
 			type="text"
 			label="COM_SERMONSPEAKER_PARAM_ADDFILEDESC_LABEL"
 			description=""
-			/>
+		/>
 
 		<field
 			name="picture_prio"
@@ -1173,7 +1181,7 @@
 			label="COM_SERMONSPEAKER_FIELD_PICTURE_PRIO_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_PICTURE_PRIO_DESC"
 			default="0"
-			>
+		>
 			<option value="0">COM_SERMONSPEAKER_FIELD_PICTURE_PRIO_OPTION_SERMON_SERIE_SPEAKER</option>
 			<option value="1">COM_SERMONSPEAKER_FIELD_PICTURE_PRIO_OPTION_SERMON_SERIE</option>
 			<option value="2">COM_SERMONSPEAKER_FIELD_PICTURE_PRIO_OPTION_SERMON_SPEAKER_SERIE</option>
@@ -1187,7 +1195,7 @@
 			description="COM_SERMONSPEAKER_FIELD_DEFAULTPIC_DESC"
 			hide_none="1"
 			directory="/media/com_sermonspeaker/images"
-			/>
+		/>
 
 		<field
 			name="save_history"
@@ -1196,7 +1204,7 @@
 			description="JGLOBAL_SAVE_HISTORY_OPTIONS_DESC"
 			class="btn-group btn-group-yesno"
 			default="0"
-			>
+		>
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
@@ -1208,7 +1216,7 @@
 			description="JGLOBAL_HISTORY_LIMIT_OPTIONS_DESC"
 			filter="integer"
 			default="10"
-			/>
+		/>
 
 		<field
 			name="addbooks"
@@ -1216,7 +1224,7 @@
 			label="COM_SERMONSPEAKER_FIELD_ADDBOOKS_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_ADDBOOKS_DESC"
 			default=""
-			/>
+		/>
 
 	</fieldset>
 
@@ -1224,7 +1232,7 @@
 		name="sermoncast"
 		label="COM_SERMONSPEAKER_FIELDSET_SERMONCAST_LABEL"
 		description="COM_SERMONSPEAKER_FIELDSET_SERMONCAST_DESC"
-		>
+	>
 
 		<field
 			name="sc_title"
@@ -1232,7 +1240,7 @@
 			label="COM_SERMONSPEAKER_PARAM_FEED_TITLE_LABEL"
 			description="COM_SERMONSPEAKER_PARAM_FEED_TITLE_DESC"
 			default="MyChurch Podcast"
-			/>
+		/>
 
 		<field
 			name="description"
@@ -1240,7 +1248,7 @@
 			label="COM_SERMONSPEAKER_PARAM_FEED_DESCRIPTION_LABEL"
 			description="COM_SERMONSPEAKER_PARAM_FEED_DESCRIPTION_DESC"
 			default="Predigt / Sermon"
-			/>
+		/>
 
 		<field
 			name="rssImage"
@@ -1249,7 +1257,7 @@
 			description="COM_SERMONSPEAKER_FIELD_RSSIMAGE_DESC"
 			default=""
 			directory=""
-			/>
+		/>
 
 		<field
 			name="copyright"
@@ -1257,7 +1265,7 @@
 			label="COM_SERMONSPEAKER_PARAM_FEED_COPYRIGHT_LABEL"
 			description="COM_SERMONSPEAKER_PARAM_FEED_COPYRIGHT_DESC"
 			default="(c) mychurch"
-			/>
+		/>
 
 		<field
 			name="editor"
@@ -1265,7 +1273,7 @@
 			label="COM_SERMONSPEAKER_PARAM_FEED_EDITOR"
 			description="COM_SERMONSPEAKER_PARAM_FEED_EDITOR_DESC"
 			default="MyChurch"
-			/>
+		/>
 
 		<field
 			name="editorEmail"
@@ -1273,7 +1281,7 @@
 			label="COM_SERMONSPEAKER_PARAM_FEED_EDITOREMAIL"
 			description="COM_SERMONSPEAKER_PARAM_FEED_EDITOREMAIL_DESC"
 			default="admin@mychurch.com"
-			/>
+		/>
 
 		<field
 			name="use_sef"
@@ -1282,7 +1290,7 @@
 			description="COM_SERMONSPEAKER_FIELD_USE_SEF_DESC"
 			class="btn-group btn-group-yesno"
 			default="1"
-			>
+		>
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
@@ -1294,7 +1302,7 @@
 			description="COM_SERMONSPEAKER_FIELD_PREPARE_CONTENT_DESC"
 			class="btn-group btn-group-yesno"
 			default="1"
-			>
+		>
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
@@ -1306,7 +1314,7 @@
 			description="COM_SERMONSPEAKER_PARAM_FEED_LIMITTEXT_DESC"
 			class="btn-group btn-group-yesno"
 			default="1"
-			>
+		>
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
@@ -1317,7 +1325,7 @@
 			label="COM_SERMONSPEAKER_PARAM_FEED_TEXTLENGTH"
 			description="COM_SERMONSPEAKER_PARAM_FEED_TEXTLENGTH_DESC"
 			default="20"
-			/>
+		/>
 
 		<field
 			name="sc_custom"
@@ -1328,7 +1336,7 @@
 			cols="5"
 			default=""
 			filter="raw"
-			/>
+		/>
 
 		<field
 			name="spacer_itunes"
@@ -1336,7 +1344,7 @@
 			label="COM_SERMONSPEAKER_FIELDSET_ITUNES_LABEL"
 			description="COM_SERMONSPEAKER_FIELDSET_ITUNES_DESC"
 			hr="false"
-			/>
+		/>
 
 		<field
 			name="itKeywords"
@@ -1344,7 +1352,7 @@
 			label="COM_SERMONSPEAKER_PARAM_FEED_ITKEYWORDS"
 			description="COM_SERMONSPEAKER_PARAM_FEED_ITKEYWORDS_DESC"
 			default="MyChurch"
-			/>
+		/>
 
 		<field
 			name="itSubtitle"
@@ -1352,7 +1360,7 @@
 			label="COM_SERMONSPEAKER_PARAM_FEED_ITSUBTITLE"
 			description="COM_SERMONSPEAKER_PARAM_FEED_ITSUBTITLE_DESC"
 			default=""
-			/>
+		/>
 
 		<field
 			name="itImage"
@@ -1361,7 +1369,7 @@
 			description="COM_SERMONSPEAKER_PARAM_FEED_ITIMAGE_DESC"
 			default=""
 			directory=""
-			/>
+		/>
 
 		<field
 			name="itCategory1"
@@ -1369,7 +1377,7 @@
 			label="COM_SERMONSPEAKER_PARAM_FEED_ITCATEGORY1"
 			description="COM_SERMONSPEAKER_PARAM_FEED_ITCATEGORY1_DESC"
 			default="Religion &amp; Spirituality"
-			/>
+		/>
 
 		<field
 			name="itCategory2"
@@ -1377,7 +1385,7 @@
 			label="COM_SERMONSPEAKER_PARAM_FEED_ITCATEGORY2"
 			description="COM_SERMONSPEAKER_PARAM_FEED_ITCATEGORY2_DESC"
 			default="Religion &amp; Spirituality > Christianity"
-			/>
+		/>
 
 		<field
 			name="itCategory3"
@@ -1385,7 +1393,7 @@
 			label="COM_SERMONSPEAKER_PARAM_FEED_ITCATEGORY3"
 			description="COM_SERMONSPEAKER_PARAM_FEED_ITCATEGORY3_DESC"
 			default=""
-			/>
+		/>
 
 		<field
 			name="itOwnerName"
@@ -1393,7 +1401,7 @@
 			label="COM_SERMONSPEAKER_PARAM_FEED_ITOWNERNAME"
 			description="COM_SERMONSPEAKER_PARAM_FEED_ITOWNERNAME_DESC"
 			default=""
-			/>
+		/>
 
 		<field
 			name="itOwnerEmail"
@@ -1401,7 +1409,7 @@
 			label="COM_SERMONSPEAKER_PARAM_FEED_ITOWNEREMAIL"
 			description="COM_SERMONSPEAKER_PARAM_FEED_ITOWNEREMAIL_DESC"
 			default="admin@mychurch.com"
-			/>
+		/>
 
 		<field
 			name="itLanguage"
@@ -1409,7 +1417,7 @@
 			label="COM_SERMONSPEAKER_PARAM_FEED_ITLANGUAGE"
 			description="COM_SERMONSPEAKER_PARAM_FEED_ITLANGUAGE_DESC"
 			default="en"
-			/>
+		/>
 
 		<field
 			name="itRedirect"
@@ -1417,7 +1425,7 @@
 			label="COM_SERMONSPEAKER_PARAM_FEED_ITREDIRECT"
 			description="COM_SERMONSPEAKER_PARAM_FEED_ITREDIRECT_DESC"
 			default=""
-			/>
+		/>
 
 	</fieldset>
 
@@ -1425,7 +1433,7 @@
 		name="sitemap"
 		label="COM_SERMONSPEAKER_FIELDSET_SITEMAP_LABEL"
 		description="COM_SERMONSPEAKER_FIELDSET_SITEMAP_DESC"
-		>
+	>
 
 		<field
 			name="freq"
@@ -1434,7 +1442,7 @@
 			description="COM_SERMONSPEAKER_PARAM_FREQ_DESC"
 			useglobal="true"
 			default="weekly"
-			>
+		>
 			<option value="always">always</option>
 			<option value="hourly">hourly</option>
 			<option value="daily">daily</option>
@@ -1451,7 +1459,7 @@
 			description="COM_SERMONSPEAKER_PARAM_PRIO_DESC"
 			useglobal="true"
 			default="0.5"
-			>
+		>
 			<option value="0.0">0.0</option>
 			<option value="0.2">0.2</option>
 			<option value="0.3">0.3</option>
@@ -1469,7 +1477,7 @@
 	<fieldset
 		name="integration"
 		label="JGLOBAL_INTEGRATION_LABEL"
-		>
+	>
 
 		<field
 			name="enable_jcomments"
@@ -1478,7 +1486,7 @@
 			description="COM_SERMONSPEAKER_FIELD_ENABLE_JCOMMENTS_DESC"
 			class="btn-group btn-group-yesno"
 			default="0"
-			>
+		>
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
@@ -1490,7 +1498,7 @@
 			description="COM_SERMONSPEAKER_FIELD_ENABLE_GA_EVENTS_DESC"
 			class="btn-group btn-group-yesno"
 			default="0"
-			>
+		>
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
@@ -1502,7 +1510,7 @@
 			description="JGLOBAL_SHOW_FEED_LINK_DESC"
 			class="btn-group btn-group-yesno"
 			default="1"
-			>
+		>
 			<option value="1">JSHOW</option>
 			<option value="0">JHIDE</option>
 		</field>
@@ -1511,14 +1519,14 @@
 			name="facebook_spacer1"
 			type="spacer"
 			hr="true"
-			/>
+		/>
 
 		<field
 			name="facebook_spacer2"
 			type="spacer"
 			label="COM_SERMONSPEAKER_FIELD_FBSPACER_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_FBSPACER_DESC"
-			/>
+		/>
 
 		<field
 			name="opengraph"
@@ -1527,7 +1535,7 @@
 			description="COM_SERMONSPEAKER_FIELD_OPENGRAPH_DESC"
 			class="btn-group btn-group-yesno"
 			default="1"
-			>
+		>
 			<option value="1">JENABLED</option>
 			<option value="0">JDISABLED</option>
 		</field>
@@ -1539,7 +1547,7 @@
 			description="COM_SERMONSPEAKER_FIELD_FBADMINS_DESC"
 			showon="opengraph:1"
 			default=""
-			/>
+		/>
 
 		<field
 			name="fbapp_id"
@@ -1548,7 +1556,7 @@
 			description="COM_SERMONSPEAKER_FIELD_FBAPPID_DESC"
 			showon="opengraph:1"
 			default=""
-			/>
+		/>
 
 		<field
 			name="fbmode"
@@ -1557,7 +1565,7 @@
 			description="COM_SERMONSPEAKER_FIELD_FBMODE_DESC"
 			showon="opengraph:1"
 			default="0"
-			>
+		>
 			<option value="0">COM_SERMONSPEAKER_FIELD_FBMODE_OPTION_AUTO</option>
 			<option value="1">COM_SERMONSPEAKER_FIELD_FBMODE_OPTION_ARTICLE</option>
 		</field>
@@ -1568,7 +1576,7 @@
 		name="permissions"
 		label="JCONFIG_PERMISSIONS_LABEL"
 		description="JCONFIG_PERMISSIONS_DESC"
-		>
+	>
 
 		<field
 			name="rules"
@@ -1579,7 +1587,7 @@
 			filter="rules"
 			component="com_sermonspeaker"
 			section="component"
-			/>
+		/>
 
 	</fieldset>
 </config>
