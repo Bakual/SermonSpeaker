@@ -216,13 +216,13 @@ class JFormFieldModal_Speaker extends JFormField
 				'bootstrap.renderModal',
 				'ModalSelect' . $modalId,
 				array(
-					'title'      => $modalTitle,
-					'url'        => $urlSelect,
-					'height'     => '400px',
-					'width'      => '800px',
-					'bodyHeight' => '70',
-					'modalWidth' => '80',
-					'footer'     => '<a role="button" class="btn" data-dismiss="modal" aria-hidden="true">' . JText::_('JLIB_HTML_BEHAVIOR_CLOSE') . '</a>',
+					'title'       => $modalTitle,
+					'url'         => $urlSelect,
+					'height'      => '400px',
+					'width'       => '800px',
+					'bodyHeight'  => 70,
+					'modalWidth'  => 80,
+					'footer'      => '<a role="button" class="btn" data-dismiss="modal" aria-hidden="true">' . JText::_('JLIB_HTML_BEHAVIOR_CLOSE') . '</a>',
 				)
 			);
 		}
