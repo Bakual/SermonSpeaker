@@ -782,10 +782,13 @@ class SermonspeakerModelSermon extends AdminModel
 			$db->setQuery($query);
 			$item->scripture = $db->loadAssocList();
 
-			// Convert the metadata field to an array.
-			$registry = new Joomla\Registry\Registry;
-			$registry->loadString($item->metadata);
-			$item->metadata = $registry->toArray();
+			if ($item->metadata)
+			{
+				// Convert the metadata field to an array.
+				$registry = new Joomla\Registry\Registry;
+				$registry->loadString($item->metadata);
+				$item->metadata = $registry->toArray();
+			}
 
 			$item->tags = new TagsHelper();
 			$item->tags->getTagIds($item->id, 'com_sermonspeaker.sermon');
