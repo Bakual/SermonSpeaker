@@ -113,7 +113,8 @@ class SermonspeakerControllerSpeaker extends JControllerForm
 
 		if (!$id)
 		{
-			$app->redirect('index.php?option=com_sermonspeaker&view=speakers', JText::_('JERROR_AN_ERROR_HAS_OCCURRED'), 'error');
+			$app->enqueueMessage(JText::_('JERROR_AN_ERROR_HAS_OCCURRED'), 'error');
+			$app->redirect('index.php?option=com_sermonspeaker&view=speakers');
 
 			return;
 		}
@@ -132,12 +133,14 @@ class SermonspeakerControllerSpeaker extends JControllerForm
 				. "WHERE id='" . $id . "'";
 			$db->setQuery($query);
 			$db->execute();
-			$app->redirect('index.php?option=com_sermonspeaker&view=speakers', JText::sprintf('COM_SERMONSPEAKER_RESET_OK', JText::_('COM_SERMONSPEAKER_SPEAKER'), $item->title));
+			$app->enqueueMessage(JText::sprintf('COM_SERMONSPEAKER_RESET_OK', JText::_('COM_SERMONSPEAKER_SPEAKER'), $item->title));
 		}
 		else
 		{
-			$app->redirect('index.php?option=com_sermonspeaker&view=speakers', JText::_('JERROR_ALERTNOAUTHOR'), 'error');
+			$app->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'error');
 		}
+
+		$app->redirect('index.php?option=com_sermonspeaker&view=speakers');
 
 		return;
 	}

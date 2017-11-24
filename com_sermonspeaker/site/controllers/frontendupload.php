@@ -333,7 +333,8 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 
 		if (!$id)
 		{
-			$app->redirect('index.php?option=com_sermonspeaker&view=frontendupload', JText::_('JERROR_AN_ERROR_HAS_OCCURRED'), 'error');
+			$app->enqueueMessage(JText::_('JERROR_AN_ERROR_HAS_OCCURRED'), 'error');
+			$app->redirect('index.php?option=com_sermonspeaker&view=frontendupload');
 
 			return false;
 		}
@@ -446,7 +447,8 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 		}
 		else
 		{
-			$app->redirect('index.php?option=com_sermonspeaker&view=sermons', JText::_('JERROR_ALERTNOAUTHOR'), 'error');
+			$app->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'error');
+			$app->redirect('index.php?option=com_sermonspeaker&view=sermons');
 
 			return false;
 		}

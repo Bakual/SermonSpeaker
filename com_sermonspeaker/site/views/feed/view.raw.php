@@ -62,7 +62,8 @@ class SermonspeakerViewFeed extends JViewLegacy
 
 		if (!in_array($this->params->get('access'), $groups))
 		{
-			$app->redirect('', JText::_('JERROR_ALERTNOAUTHOR'), 'error');
+			$app->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'error');
+			$app->redirect('');
 		}
 
 		$this->document->setMimeEncoding('application/rss+xml');
