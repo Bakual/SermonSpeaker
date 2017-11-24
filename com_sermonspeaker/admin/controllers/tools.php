@@ -7,6 +7,13 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
+use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Session\Session;
+use Joomla\CMS\MVC\Controller\BaseController;
+use Joomla\CMS\Table\Table;
+
 defined('_JEXEC') or die;
 
 /**
@@ -14,7 +21,7 @@ defined('_JEXEC') or die;
  *
  * @since ?
  */
-class SermonspeakerControllerTools extends JControllerLegacy
+class SermonspeakerControllerTools extends BaseController
 {
 	/**
 	 * Reorder the sermons by date
@@ -24,24 +31,23 @@ class SermonspeakerControllerTools extends JControllerLegacy
 	public function order()
 	{
 		// Check for request forgeries
-		JSession::checkToken('request') or jexit(JText::_('JINVALID_TOKEN'));
-		$db    = JFactory::getDbo();
+		Session::checkToken('request') or jexit(Text::_('JINVALID_TOKEN'));
+		$db    = Factory::getDbo();
 		$query = "SET @c := 0";
 		$db->setQuery($query);
 		$db->execute();
 		/** @noinspection SqlResolve */
 		$query = "UPDATE #__sermon_sermons SET `ordering` = ( SELECT @c := @c + 1 ) ORDER BY `sermon_date` ASC, `id` ASC;";
 		$db->setQuery($query);
-		$db->execute();
-		$error = $db->getErrorMsg();
 
-		if ($error)
+		try
 		{
-			$this->setMessage('Error: ' . $error, 'error');
-		}
-		else
-		{
+			$db->execute();
 			$this->setMessage('Successfully reordered the sermons');
+		}
+		catch (Exception $e)
+		{
+			$this->setMessage('Error: ' . $e->getMessage(), 'error');
 		}
 
 		$this->setRedirect('index.php?option=com_sermonspeaker&view=sermons');
@@ -55,24 +61,24 @@ class SermonspeakerControllerTools extends JControllerLegacy
 	public function seriesorder()
 	{
 		// Check for request forgeries
-		JSession::checkToken('request') or jexit(JText::_('JINVALID_TOKEN'));
-		$db    = JFactory::getDbo();
+		Session::checkToken('request') or jexit(Text::_('JINVALID_TOKEN'));
+		$db    = Factory::getDbo();
 		$query = "SET @c := 0";
 		$db->setQuery($query);
 		$db->execute();
-		/** @noinspection SqlResolve */
 		$query = "UPDATE #__sermon_series SET ordering = ( SELECT @c := @c + 1 ) ORDER BY title ASC, id ASC;";
 		$db->setQuery($query);
-		$db->execute();
-		$error = $db->getErrorMsg();
-		if ($error)
+
+		try
 		{
-			$this->setMessage('Error: ' . $error, 'error');
-		}
-		else
-		{
+			$db->execute();
 			$this->setMessage('Successfully reordered the series');
 		}
+		catch(Exception $e)
+		{
+			$this->setMessage('Error: ' . $e->getMessage(), 'error');
+		}
+
 		$this->setRedirect('index.php?option=com_sermonspeaker&view=series');
 	}
 
@@ -84,24 +90,24 @@ class SermonspeakerControllerTools extends JControllerLegacy
 	public function speakersorder()
 	{
 		// Check for request forgeries
-		JSession::checkToken('request') or jexit(JText::_('JINVALID_TOKEN'));
-		$db    = JFactory::getDbo();
+		Session::checkToken('request') or jexit(Text::_('JINVALID_TOKEN'));
+		$db    = Factory::getDbo();
 		$query = "SET @c := 0";
 		$db->setQuery($query);
 		$db->execute();
-		/** @noinspection SqlResolve */
 		$query = "UPDATE #__sermon_speakers SET ordering = ( SELECT @c := @c + 1 ) ORDER BY title ASC, id ASC;";
 		$db->setQuery($query);
-		$db->execute();
-		$error = $db->getErrorMsg();
-		if ($error)
+
+		try
 		{
-			$this->setMessage('Error: ' . $error, 'error');
-		}
-		else
-		{
+			$db->execute();
 			$this->setMessage('Successfully reordered the speakers');
 		}
+		catch(Exception $e)
+		{
+			$this->setMessage('Error: ' . $e->getMessage(), 'error');
+		}
+
 		$this->setRedirect('index.php?option=com_sermonspeaker&view=speakers');
 	}
 
@@ -109,10 +115,10 @@ class SermonspeakerControllerTools extends JControllerLegacy
 	public function time()
 	{
 		// Check for request forgeries
-		JSession::checkToken('request') or jexit(JText::_('JINVALID_TOKEN'));
-		$app    = JFactory::getApplication();
+		Session::checkToken('request') or jexit(Text::_('JINVALID_TOKEN'));
+		$app    = Factory::getApplication();
 		$jinput = $app->input;
-		$db     = JFactory::getDbo();
+		$db     = Factory::getDbo();
 		$mode   = $jinput->get('submit');
 
 		if (isset($mode['diff']))
@@ -126,13 +132,11 @@ class SermonspeakerControllerTools extends JControllerLegacy
 				. "WHERE sermon_date != '0000-00-00 00:00:00' \n"
 				. "AND state = 1";
 			$db->setQuery($query);
-			$db->execute();
-			if ($db->getErrorMsg())
+
+			try
 			{
-				$app->enqueueMessage($db->getErrorMsg(), 'error');
-			}
-			else
-			{
+				$db->execute();
+
 				if ($minus)
 				{
 					$app->enqueueMessage('Successfully substracted ' . $hrs . ' hours and ' . $mins . ' minutes from the sermon date!');
@@ -142,13 +146,18 @@ class SermonspeakerControllerTools extends JControllerLegacy
 					$app->enqueueMessage('Successfully added ' . $hrs . ' hours and ' . $mins . ' minutes to the sermon date!');
 				}
 			}
+			catch(Exception $e)
+			{
+				$this->setMessage($e->getMessage(), 'error');
+			}
+
 		}
 		elseif (isset($mode['time']))
 		{
 			$time   = $jinput->get('time', '', 'string');
-			$config = JFactory::getConfig();
-			$user   = JFactory::getUser();
-			$date   = JFactory::getDate($time, $user->getParam('timezone', $config->get('offset')));
+			$config = Factory::getConfig();
+			$user   = Factory::getUser();
+			$date   = Factory::getDate($time, $user->getParam('timezone', $config->get('offset')));
 			$date->setTimezone(new DateTimeZone('UTC'));
 			$t_utc = $date->format('H:i:s', true);
 			$query = "UPDATE #__sermon_sermons \n"
@@ -156,14 +165,15 @@ class SermonspeakerControllerTools extends JControllerLegacy
 				. "WHERE sermon_date != '0000-00-00 00:00:00' \n"
 				. "AND state = 1";
 			$db->setQuery($query);
-			$db->execute();
-			if ($db->getErrorMsg())
+
+			try
 			{
-				$app->enqueueMessage($db->getErrorMsg(), 'error');
-			}
-			else
-			{
+				$db->execute();
 				$app->enqueueMessage('Successfully set time to ' . $time . ' for each sermon date!');
+			}
+			catch(Exception $e)
+			{
+				$this->setMessage($e->getMessage(), 'error');
 			}
 		}
 
@@ -174,7 +184,7 @@ class SermonspeakerControllerTools extends JControllerLegacy
 
 	public function createAutomatic()
 	{
-		$app    = JFactory::getApplication();
+		$app    = Factory::getApplication();
 		$jinput = $app->input;
 
 		// Get the log in credentials.
@@ -188,7 +198,7 @@ class SermonspeakerControllerTools extends JControllerLegacy
 			$app->login($credentials);
 		}
 
-		$user = JFactory::getUser();
+		$user = Factory::getUser();
 
 		if (!$user->authorise('core.create', 'com_sermonspeaker') || !$user->authorise('com_sermonspeaker.script', 'com_sermonspeaker'))
 		{
@@ -196,7 +206,7 @@ class SermonspeakerControllerTools extends JControllerLegacy
 			{
 				$app->logout($user->id);
 			}
-			$app->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'error');
+			$app->enqueueMessage(Text::_('JERROR_ALERTNOAUTHOR'), 'error');
 
 			return false;
 		}
@@ -205,10 +215,10 @@ class SermonspeakerControllerTools extends JControllerLegacy
 		$file_model = $this->getModel('Files');
 		$files      = $file_model->getItems();
 		$catid      = $file_model->getCategory();
-		$catTable   = JTable::getInstance('Category');
+		$catTable   = Table::getInstance('Category');
 		$state      = $user->authorise('core.edit.state', 'com_sermonspeaker') ? 1 : 0;
 
-		$params = JComponentHelper::getParams('com_sermonspeaker');
+		$params = ComponentHelper::getParams('com_sermonspeaker');
 		require_once JPATH_COMPONENT_SITE . '/helpers/id3.php';
 
 		// Manually loading sermon model so the correct instance will be used from frontend.
@@ -255,7 +265,7 @@ class SermonspeakerControllerTools extends JControllerLegacy
 
 			if (!$sermon_model->save($sermon->getProperties()))
 			{
-				$app->enqueueMessage(JText::sprintf('COM_SERMONSPEAKER_TOOLS_AUTOMATIC_FAILED', $file['file'], $sermon_model->getError()), 'error');
+				$app->enqueueMessage(Text::sprintf('COM_SERMONSPEAKER_TOOLS_AUTOMATIC_FAILED', $file['file'], $sermon_model->getError()), 'error');
 			}
 			else
 			{
@@ -271,19 +281,19 @@ class SermonspeakerControllerTools extends JControllerLegacy
 			}
 		}
 
-		$app->enqueueMessage(JText::sprintf('COM_SERMONSPEAKER_TOOLS_AUTOMATIC_CREATED', $i));
+		$app->enqueueMessage(Text::sprintf('COM_SERMONSPEAKER_TOOLS_AUTOMATIC_CREATED', $i));
 
 		if ($missing)
 		{
 			$message = '<div class="row-fluid">'
-				. '<div class="span12">' . JText::_('COM_SERMONSPEAKER_ID3_NO_MATCH_FOUND') . '</div>';
+				. '<div class="span12">' . Text::_('COM_SERMONSPEAKER_ID3_NO_MATCH_FOUND') . '</div>';
 			$span    = 'span' . (int) 12 / count($missing);
 
 			foreach ($missing as $key => $values)
 			{
 				$arrayCount = array_count_values($values);
 				$message .= '<div class="' . $span . '">'
-					. '<h5>' . JText::_('COM_SERMONSPEAKER_' . strtoupper($key)) . '</h5>'
+					. '<h5>' . Text::_('COM_SERMONSPEAKER_' . strtoupper($key)) . '</h5>'
 					. '<ul>';
 
 				foreach ($arrayCount as $countKey => $countValue)
@@ -307,9 +317,9 @@ class SermonspeakerControllerTools extends JControllerLegacy
 	public function write_id3()
 	{
 		// Check for request forgeries
-		JSession::checkToken('request') or jexit(JText::_('JINVALID_TOKEN'));
-		$app   = JFactory::getApplication();
-		$db    = JFactory::getDbo();
+		Session::checkToken('request') or jexit(Text::_('JINVALID_TOKEN'));
+		$app   = Factory::getApplication();
+		$db    = Factory::getDbo();
 		$query = $db->getQuery(true);
 		$query->select('audiofile, videofile, sermons.created_by, sermons.catid, sermons.title, speakers.title as speaker_title');
 		$query->select('series.title AS series_title, notes, sermon_number, picture');
@@ -319,7 +329,7 @@ class SermonspeakerControllerTools extends JControllerLegacy
 		$query->join('LEFT', '#__sermon_series AS series ON series_id = series.id');
 		$db->setQuery($query);
 		$items = $db->loadObjectList();
-		$user  = JFactory::getUser();
+		$user  = Factory::getUser();
 
 		$getID3 = new getID3;
 		$getID3->setOption(array('encoding' => 'UTF-8'));
@@ -414,7 +424,7 @@ class SermonspeakerControllerTools extends JControllerLegacy
 			}
 			else
 			{
-				$app->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR') . ' - ' . $item->title, 'error');
+				$app->enqueueMessage(Text::_('JERROR_ALERTNOAUTHOR') . ' - ' . $item->title, 'error');
 				continue;
 			}
 		}
@@ -426,8 +436,8 @@ class SermonspeakerControllerTools extends JControllerLegacy
 	public function delete()
 	{
 		// Check for request forgeries
-		JSession::checkToken('request') or jexit(JText::_('JINVALID_TOKEN'));
-		$app  = JFactory::getApplication();
+		Session::checkToken('request') or jexit(Text::_('JINVALID_TOKEN'));
+		$app  = Factory::getApplication();
 		$file = $app->input->get('file', '', 'string');
 		$file = JPATH_SITE . $file;
 
@@ -457,9 +467,9 @@ class SermonspeakerControllerTools extends JControllerLegacy
 	public function piimport()
 	{
 		// Check for request forgeries
-		JSession::checkToken('request') or jexit(JText::_('JINVALID_TOKEN'));
-		$app = JFactory::getApplication();
-		$db  = JFactory::getDbo();
+		Session::checkToken('request') or jexit(Text::_('JINVALID_TOKEN'));
+		$app = Factory::getApplication();
+		$db  = Factory::getDbo();
 
 		// Check version of table structure (changed somewhere with PI 4)
 		$v4 = array_key_exists('date', $db->getTableColumns('#__pistudies'));
@@ -529,11 +539,14 @@ class SermonspeakerControllerTools extends JControllerLegacy
 		$query->join('LEFT', '#__pifilepath AS g ON g.id = a.notes_folder');
 		$db->setQuery($query);
 
-		$studies = $db->loadObjectList();
-
-		if ($db->getErrorMsg())
+		try
 		{
-			$app->enqueueMessage($db->getErrorMsg(), 'error');
+			$studies = $db->loadObjectList();
+		}
+		catch (Exception $e)
+		{
+			$app->enqueueMessage($e->getMessage(), 'error');
+			$studies = array();
 		}
 
 		// Get the speakers if the teacher is stored as json string.
@@ -583,15 +596,16 @@ class SermonspeakerControllerTools extends JControllerLegacy
 			. "LEFT JOIN #__pifilepath AS b ON b.id = a.image_folderlrg \n";
 
 		$db->setQuery($query);
-		$db->execute();
 
-		if ($db->getErrorMsg())
+		try
 		{
-			$app->enqueueMessage($db->getErrorMsg(), 'error');
-		}
-		else
-		{
+			$db->execute();
 			$app->enqueueMessage($db->getAffectedRows() . ' series migrated!');
+		}
+		catch (Exception $e)
+		{
+			$app->enqueueMessage($e->getMessage(), 'error');
+
 		}
 
 		// Store the Speakers
@@ -615,15 +629,15 @@ class SermonspeakerControllerTools extends JControllerLegacy
 			. "LEFT JOIN #__pifilepath AS b ON b.id = a.image_folderlrg \n";
 
 		$db->setQuery($query);
-		$db->execute();
 
-		if ($db->getErrorMsg())
+		try
 		{
-			$app->enqueueMessage($db->getErrorMsg(), 'error');
-		}
-		else
-		{
+			$db->execute();
 			$app->enqueueMessage($db->getAffectedRows() . ' speakers migrated!');
+		}
+		catch (Exception $e)
+		{
+			$app->enqueueMessage($e->getMessage(), 'error');
 		}
 
 		// Prepare and Store the Sermons for SermonSpeaker
@@ -661,11 +675,14 @@ class SermonspeakerControllerTools extends JControllerLegacy
 				. "(`audiofile`, `videofile`, `picture`, `title`, `alias`, `sermon_date`, `sermon_time`, `notes`, `state`, `hits`, `created_by`, `addfile`, `podcast`, `created`) \n"
 				. 'VALUES (' . $db->quote($study->audiofile) . ',' . $db->quote($study->videofile) . ',' . $db->quote($study->study_pic) . ',' . $db->quote($study->study_name) . ',' . $db->quote($study->study_alias) . ',' . $db->quote($study->study_date) . ',' . $db->quote($study->duration) . ',' . $db->quote($study->study_description) . ',' . $db->quote($study->published) . ',' . $db->quote($study->hits) . ',' . $db->quote($study->user) . ',' . $db->quote($study->addfile) . ', 1, NOW())';
 			$db->setQuery($query);
-			$db->execute();
 
-			if ($db->getErrorMsg())
+			try
 			{
-				$app->enqueueMessage($db->getErrorMsg(), 'error');
+				$db->execute();
+			}
+			catch (Exception $e)
+			{
+				$app->enqueueMessage($e->getMessage(), 'error');
 				break;
 			}
 
@@ -680,11 +697,14 @@ class SermonspeakerControllerTools extends JControllerLegacy
 					. "VALUES ('" . $passage['book'] . "','" . $passage['cap1'] . "','" . $passage['vers1'] . "','" . $passage['cap2'] . "','" . $passage['vers2'] . "','','" . $passage['ordering'] . "','" . $id . "')";
 
 				$db->setQuery($query);
-				$db->execute();
 
-				if ($db->getErrorMsg())
+				try
 				{
-					$app->enqueueMessage($db->getErrorMsg(), 'error');
+					$db->execute();
+				}
+				catch (Exception $e)
+				{
+					$app->enqueueMessage($e->getMessage(), 'error');
 					break;
 				}
 			}
@@ -697,11 +717,14 @@ class SermonspeakerControllerTools extends JControllerLegacy
 					. "WHERE `id` = " . $db->quote($id);
 
 				$db->setQuery($query);
-				$db->execute();
 
-				if ($db->getErrorMsg())
+				try
 				{
-					$app->enqueueMessage($db->getErrorMsg(), 'error');
+					$db->execute();
+				}
+				catch (Exception $e)
+				{
+					$app->enqueueMessage($e->getMessage(), 'error');
 				}
 			}
 
@@ -713,11 +736,13 @@ class SermonspeakerControllerTools extends JControllerLegacy
 					. "WHERE `id` = " . $db->quote($id);
 
 				$db->setQuery($query);
-				$db->execute();
-
-				if ($db->getErrorMsg())
+				try
 				{
-					$app->enqueueMessage($db->getErrorMsg(), 'error');
+					$db->execute();
+				}
+				catch (Exception $e)
+				{
+					$app->enqueueMessage($e->getMessage(), 'error');
 				}
 			}
 
@@ -741,10 +766,10 @@ class SermonspeakerControllerTools extends JControllerLegacy
 	public function bsimport()
 	{
 		// Check for request forgeries
-		JSession::checkToken('request') or jexit(JText::_('JINVALID_TOKEN'));
-		$app  = JFactory::getApplication();
-		$user = JFactory::getUser();
-		$db   = JFactory::getDbo();
+		Session::checkToken('request') or jexit(Text::_('JINVALID_TOKEN'));
+		$app  = Factory::getApplication();
+		$user = Factory::getUser();
+		$db   = Factory::getDbo();
 
 		// Get Studies
 		$query = $db->getQuery(true);
