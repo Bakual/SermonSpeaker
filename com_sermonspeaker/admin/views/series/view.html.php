@@ -138,7 +138,7 @@ class SermonspeakerViewSeries extends JViewLegacy
 
 		if ($canDo->get('core.edit.state'))
 		{
-			JToolbarHelper::custom('tools.seriesorder', 'purge icon-lightning', '', 'COM_SERMONSPEAKER_TOOLS_ORDER', false);
+			JToolbarHelper::custom('tools.seriesorder', 'lightning', '', 'COM_SERMONSPEAKER_TOOLS_ORDER', false);
 		}
 
 		// Add a batch button

@@ -13,7 +13,7 @@ use Joomla\CMS\Application\ApplicationHelper;
 use Joomla\CMS\Helper\TagsHelper;
 use Joomla\CMS\Language\Associations;
 use Joomla\CMS\Language\LanguageHelper;
-use Joomla\CMS\Model\Admin;
+use Joomla\CMS\MVC\Model\AdminModel;
 use Joomla\CMS\Table\Table;
 
 /**
@@ -21,7 +21,7 @@ use Joomla\CMS\Table\Table;
  *
  * @since  3.4
  */
-class SermonspeakerModelSermon extends Admin
+class SermonspeakerModelSermon extends AdminModel
 {
 	/**
 	 * The prefix to use with controller messages.
@@ -782,10 +782,13 @@ class SermonspeakerModelSermon extends Admin
 			$db->setQuery($query);
 			$item->scripture = $db->loadAssocList();
 
-			// Convert the metadata field to an array.
-			$registry = new Joomla\Registry\Registry;
-			$registry->loadString($item->metadata);
-			$item->metadata = $registry->toArray();
+			if ($item->metadata)
+			{
+				// Convert the metadata field to an array.
+				$registry = new Joomla\Registry\Registry;
+				$registry->loadString($item->metadata);
+				$item->metadata = $registry->toArray();
+			}
 
 			$item->tags = new TagsHelper();
 			$item->tags->getTagIds($item->id, 'com_sermonspeaker.sermon');

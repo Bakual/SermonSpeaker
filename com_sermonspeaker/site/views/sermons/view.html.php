@@ -28,8 +28,6 @@ class SermonspeakerViewSermons extends JViewLegacy
 	 */
 	public function display($tpl = null)
 	{
-		require_once JPATH_COMPONENT . '/helpers/player.php';
-
 		// Get some data from the models
 		$this->state      = $this->get('State');
 		$this->items      = $this->get('Items');

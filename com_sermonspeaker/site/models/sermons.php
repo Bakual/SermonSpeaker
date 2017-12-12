@@ -9,12 +9,17 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Categories\Categories;
+use Joomla\CMS\Factory;
+use Joomla\CMS\Model\ListModel;
+use Joomla\Database\DatabaseQuery;
+
 /**
  * Model class for the SermonSpeaker Component
  *
  * @since  3.4
  */
-class SermonspeakerModelSermons extends JModelList
+class SermonspeakerModelSermons extends Listmodel
 {
 	/**
 	 * @var object
@@ -85,19 +90,19 @@ class SermonspeakerModelSermons extends JModelList
 		parent::__construct($config);
 
 		// Adding viewname to context so UserStates aren't saved accross the various views
-		$this->context .= '.' . JFactory::getApplication()->input->get('view', 'sermons');
+		$this->context .= '.' . Factory::getApplication()->input->get('view', 'sermons');
 	}
 
 	/**
 	 * Get the master query for retrieving a list of items subject to the model state
 	 *
-	 * @return  JDatabaseQuery
+	 * @return  DatabaseQuery
 	 *
 	 * @since ?
 	 */
 	protected function getListQuery()
 	{
-		$user   = JFactory::getUser();
+		$user   = Factory::getUser();
 		$groups = implode(',', $user->getAuthorisedViewLevels());
 
 		// Create a new query object
@@ -125,10 +130,24 @@ class SermonspeakerModelSermons extends JModelList
 		$query->select('GROUP_CONCAT(script.book,"|",script.cap1,"|",script.vers1,"|",script.cap2,"|",script.vers2,"|",script.text '
 			. 'ORDER BY script.ordering ASC SEPARATOR "!") AS scripture');
 		$query->join('LEFT', '#__sermon_scriptures AS script ON script.sermon_id = sermons.id');
-		$query->group('sermons.id');
+		$query->group(
+			'sermons.id, sermons.title, sermons.catid, sermons.audiofile, sermons.videofile, '
+			. 'sermons.audiofilesize, sermons.videofilesize, '
+			. 'sermons.picture, sermons.hits, sermons.notes, sermons.checked_out, sermons.checked_out_time,'
+			. 'sermons.sermon_date, sermons.alias, sermons.sermon_time,'
+			. 'sermons.state, sermons.ordering, sermons.podcast, sermons.language,'
+			. 'sermons.sermon_number, sermons.addfile, sermons.addfileDesc,'
+			. 'sermons.created, sermons.created_by,'
+			. 'sermons.publish_up, sermons.publish_down,'
+			. 'speakers.title, speakers.pic, speakers.state, speakers.catid, speakers.language, '
+			. 'speakers.id, speakers.alias, speakers.intro, speakers.bio, speakers.website,'
+			. 'series.title, series.avatar, series.state, series.catid, series.language, series.id, series.alias,'
+			. 'c_sermons.title, c_sermons.id, c_sermons.alias,'
+			. 'user.name'
+		);
 
 		// Join over Speaker
-		$query->select('speakers.title AS speaker_title, speakers.pic AS pic, speakers.state as speaker_state');
+		$query->select('speakers.title AS speaker_title, speakers.pic AS pic, speakers.state as speaker_state, speakers.bio, speakers.website');
 		$query->select('speakers.catid AS speaker_catid, speakers.language AS speaker_language');
 		$query->select('speakers.id AS speaker_id, speakers.intro, speakers.bio, speakers.website');
 		$query->select('CASE WHEN CHAR_LENGTH(speakers.alias) THEN CONCAT_WS(\':\', speakers.id, speakers.alias) ELSE speakers.id END as speaker_slug');
@@ -189,7 +208,7 @@ class SermonspeakerModelSermons extends JModelList
 		if ((!$user->authorise('core.edit.state', 'com_sermonspeaker')) && (!$user->authorise('core.edit', 'com_sermonspeaker')))
 		{
 			$nullDate = $db->quote($db->getNullDate());
-			$nowDate  = $db->quote(JFactory::getDate()->toSql());
+			$nowDate  = $db->quote(Factory::getDate()->toSql());
 
 			$query->where('(sermons.publish_up = ' . $nullDate . ' OR sermons.publish_up <= ' . $nowDate . ')');
 			$query->where('(sermons.publish_down = ' . $nullDate . ' OR sermons.publish_down >= ' . $nowDate . ')');
@@ -266,7 +285,7 @@ class SermonspeakerModelSermons extends JModelList
 		// Filter by language
 		if ($this->getState('filter.language'))
 		{
-			$query->where('sermons.language in (' . $db->quote(JFactory::getLanguage()->getTag()) . ',' . $db->quote('*') . ')');
+			$query->where('sermons.language in (' . $db->quote(Factory::getLanguage()->getTag()) . ',' . $db->quote('*') . ')');
 		}
 
 		if ($this->getState('list.ordering') == 'book')
@@ -296,7 +315,7 @@ class SermonspeakerModelSermons extends JModelList
 	protected function populateState($ordering = null, $direction = null)
 	{
 		/** @var JApplicationSite $app */
-		$app    = JFactory::getApplication();
+		$app    = Factory::getApplication();
 		$params = $app->getParams();
 		$this->setState('params', $params);
 		$jinput = $app->input;
@@ -314,7 +333,7 @@ class SermonspeakerModelSermons extends JModelList
 		// Include Subcategories or not
 		$this->setState('filter.subcategories', $params->get('show_subcategory_content', 0));
 
-		$user = JFactory::getUser();
+		$user = Factory::getUser();
 
 		if ((!$user->authorise('core.edit.state', 'com_sermonspeaker')) && (!$user->authorise('core.edit', 'com_sermonspeaker')))
 		{
@@ -364,6 +383,10 @@ class SermonspeakerModelSermons extends JModelList
 			$dir   = $params->get('default_order_dir', 'ASC');
 
 			parent::populateState($order, $dir);
+
+			$defaultLimit = $params->get('default_pagination_limit', $app->get('list_limit'));
+			$limit = $app->getUserStateFromRequest($this->context . '.list.limit', 'limit', $defaultLimit, 'uint');
+			$this->setState('list.limit', $limit);
 		}
 	}
 
@@ -530,13 +553,13 @@ class SermonspeakerModelSermons extends JModelList
 
 			$options['table'] = '#__sermon_' . $this->state->get('category.type', 'sermons');
 
-			$categories = JCategories::getInstance('Sermonspeaker', $options);
+			$categories = Categories::getInstance('Sermonspeaker', $options);
 			$this->item = $categories->get($this->getState('category.id', 'root'));
 
 			// Compute selected asset permissions
 			if (is_object($this->item))
 			{
-				$user  = JFactory::getUser();
+				$user  = Factory::getUser();
 				$asset = 'com_sermonspeaker.category.' . $this->item->id;
 
 				// Check general create permission

@@ -38,14 +38,14 @@ class SermonspeakerRouter extends JComponentRouterBase
 		// Calculate View
 		if (isset($query['view']))
 		{
-			$view = $query['view'];
+			$menuView = isset($menuItem->query['view']) ? $menuItem->query['view'] : '';
+			$view     = $query['view'];
 			unset($query['view']);
 
 			// Check if menuitem matches the query
 			if (isset($query['id']))
 			{
-				$menuView = isset($menuItem->query['view']) ? $menuItem->query['view'] : '';
-				$menuId   = isset($menuItem->query['id']) ? $menuItem->query['id'] : 0;
+				$menuId = isset($menuItem->query['id']) ? $menuItem->query['id'] : 0;
 
 				if ($menuView == $view && $menuId == (int) $query['id'])
 				{
@@ -58,7 +58,6 @@ class SermonspeakerRouter extends JComponentRouterBase
 			}
 			elseif (isset($query['catid']))
 			{
-				$menuView  = isset($menuItem->query['view']) ? $menuItem->query['view'] : '';
 				$menuCatid = ($menuItem) ? $menuItem->params->get('catid') : null;
 
 				if ($menuView == $view && $menuCatid == (int) $query['catid'])
@@ -72,7 +71,10 @@ class SermonspeakerRouter extends JComponentRouterBase
 			}
 			else
 			{
-				$segments[] = $view;
+				if ($view !== $menuView)
+				{
+					$segments[] = $view;
+				}
 			}
 		}
 		else

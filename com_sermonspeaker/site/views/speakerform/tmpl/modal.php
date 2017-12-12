@@ -9,7 +9,7 @@
 
 defined('_JEXEC') or die();
 
-JHtml::_('bootstrap.tooltip');
+JHtml::_('bootstrap.tooltip', '.hasTooltip', array('placement' => 'bottom'));
 JHtml::_('behavior.formvalidation');
 JHtml::_('behavior.keepalive');
 JHtml::_('formbehavior.chosen', 'select');
@@ -51,6 +51,9 @@ JHtml::_('formbehavior.chosen', 'select');
 				</button>
 			</div>
 		</div>
+	<?php endif; ?>
+	<form action="<?php echo JRoute::_('index.php?option=com_sermonspeaker&view=speakerform&modal=1&s_id=' . (int) $this->item->id); ?>"
+		  method="post" name="adminForm" id="adminForm" class="form-validate form form-vertical">
 		<fieldset>
 			<ul class="nav nav-tabs">
 				<li class="active"><a href="#editor" data-toggle="tab"><?php echo JText::_('JEDITOR') ?></a></li>
@@ -161,8 +164,10 @@ JHtml::_('formbehavior.chosen', 'select');
 					</div>
 				</div>
 			</div>
+			<input type="hidden" id="jform_id" value="<?php echo $this->form->getValue('id'); ?>"/>
+			<input type="hidden" name="layout" value="modal"/>
 			<input type="hidden" name="task" value=""/>
-			<input type="hidden" name="return" value="<?php echo $this->return_page; ?>"/>
+			<input type="hidden" name="return" value="<?php echo $jinput->getCmd('return'); ?>"/>
 			<?php echo JHtml::_('form.token'); ?>
 		</fieldset>
 	</form>

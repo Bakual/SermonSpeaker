@@ -44,7 +44,8 @@
 				type="list"
 				label="COM_SERMONSPEAKER_PARAM_FILEPRIO_LABEL"
 				description="COM_SERMONSPEAKER_PARAM_FILEPRIO_DESC">
-				<option value="">JGLOBAL_USE_GLOBAL</option>
+				   useglobal="true"
+			>
 				<option value="0">COM_SERMONSPEAKER_AUDIO</option>
 				<option value="1">COM_SERMONSPEAKER_VIDEO</option>
 			</field>

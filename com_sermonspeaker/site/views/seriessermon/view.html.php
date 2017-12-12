@@ -161,10 +161,5 @@ class SermonspeakerViewSeriessermon extends JViewLegacy
 		{
 			$this->document->setMetaData('robots', $this->params->get('robots'));
 		}
-
-		if (in_array('seriessermon:player', $this->columns))
-		{
-			require_once JPATH_COMPONENT . '/helpers/player.php';
-		}
 	}
 }

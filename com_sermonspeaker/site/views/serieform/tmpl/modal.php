@@ -9,7 +9,7 @@
 
 defined('_JEXEC') or die();
 
-JHtml::_('bootstrap.tooltip');
+JHtml::_('bootstrap.tooltip', '.hasTooltip', array('placement' => 'bottom'));
 JHtml::_('behavior.formvalidation');
 JHtml::_('behavior.keepalive');
 JHtml::_('formbehavior.chosen', 'select');
@@ -145,6 +145,8 @@ JHtml::_('formbehavior.chosen', 'select');
 					</div>
 				</div>
 			</div>
+			<input type="hidden" id="jform_id" value="<?php echo $this->form->getValue('id'); ?>"/>
+			<input type="hidden" name="layout" value="modal"/>
 			<input type="hidden" name="task" value=""/>
 			<input type="hidden" name="return" value="<?php echo $this->return_page; ?>"/>
 			<?php echo JHtml::_('form.token'); ?>

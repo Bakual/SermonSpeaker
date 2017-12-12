@@ -50,8 +50,6 @@ class SermonspeakerViewSermon extends JViewLegacy
 			$app->input->set('id', $id);
 		}
 
-		require_once JPATH_COMPONENT . '/helpers/player.php';
-
 		// Initialise variables.
 		$params     = $this->state->get('params');
 		$this->user = JFactory::getUser();
@@ -60,7 +58,8 @@ class SermonspeakerViewSermon extends JViewLegacy
 		// Check if access is not public
 		if (!in_array($params->get('access'), $groups))
 		{
-			$app->redirect(JRoute::_('index.php?view=sermons'), JText::_('JERROR_ALERTNOAUTHOR'), 'error');
+			$app->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'error');
+			$app->redirect(JRoute::_('index.php?view=sermons'));
 		}
 
 		$this->columns = $params->get('col');
@@ -74,7 +73,8 @@ class SermonspeakerViewSermon extends JViewLegacy
 
 		if (!$item)
 		{
-			$app->redirect(JRoute::_('index.php?view=sermons'), JText::_('JGLOBAL_RESOURCE_NOT_FOUND'), 'error');
+			$app->enqueueMessage(JText::_('JGLOBAL_RESOURCE_NOT_FOUND'), 'error');
+			$app->redirect(JRoute::_('index.php?view=sermons'));
 		}
 
 		// Get Tags
@@ -86,7 +86,8 @@ class SermonspeakerViewSermon extends JViewLegacy
 		{
 			if (!in_array($item->category_access, $groups))
 			{
-				$app->redirect(JRoute::_('index.php?view=sermons'), JText::_('JERROR_ALERTNOAUTHOR'), 'error');
+				$app->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'error');
+				$app->redirect(JRoute::_('index.php?view=sermons'));
 			}
 		}
 
@@ -94,7 +95,8 @@ class SermonspeakerViewSermon extends JViewLegacy
 		{
 			if (!in_array($item->speaker_category_access, $groups))
 			{
-				$app->redirect(JRoute::_('index.php?view=sermons'), JText::_('JERROR_ALERTNOAUTHOR'), 'error');
+				$app->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'error');
+				$app->redirect(JRoute::_('index.php?view=sermons'));
 			}
 		}
 
@@ -102,7 +104,8 @@ class SermonspeakerViewSermon extends JViewLegacy
 		{
 			if (!in_array($item->series_category_access, $groups))
 			{
-				$app->redirect(JRoute::_('index.php?view=sermons'), JText::_('JERROR_ALERTNOAUTHOR'), 'error');
+				$app->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'error');
+				$app->redirect(JRoute::_('index.php?view=sermons'));
 			}
 		}
 

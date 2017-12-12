@@ -13,6 +13,7 @@ use Joomla\CMS\Application\ApplicationHelper;
 use Joomla\CMS\Helper\TagsHelper;
 use Joomla\CMS\Language\Associations;
 use Joomla\CMS\Language\LanguageHelper;
+use Joomla\CMS\MVC\Model\AdminModel;
 use Joomla\CMS\Table\Table;
 
 /**
@@ -22,7 +23,7 @@ use Joomla\CMS\Table\Table;
  *
  * @since     ?
  */
-class SermonspeakerModelSpeaker extends JModelAdmin
+class SermonspeakerModelSpeaker extends AdminModel
 {
 	/**
 	 * @var   string  The prefix to use with controller messages.
@@ -186,7 +187,7 @@ class SermonspeakerModelSpeaker extends JModelAdmin
 	{
 		// Initialise variables.
 		$user = JFactory::getUser();
-		$db = $this->getDbo();
+		$db   = $this->getDbo();
 
 		// Access checks.
 		if (!$user->authorise('core.edit.state', 'com_sermonspeaker'))
@@ -217,6 +218,42 @@ class SermonspeakerModelSpeaker extends JModelAdmin
 		{
 			throw new Exception($db->getErrorMsg());
 		}
+
+		// Clean the cache.
+		$this->cleanCache();
+
+		return true;
+	}
+
+	/**
+	 * Method to unset a default speaker.
+	 * Copied from template style.
+	 *
+	 * @param   integer $id The primary key ID for the speaker.
+	 *
+	 * @return  boolean  True if successful.
+	 * @throws  Exception
+	 *
+	 * @since 5.8.0
+	 */
+	public function unsetDefault($id = 0)
+	{
+		$user = JFactory::getUser();
+		$db   = $this->getDbo();
+
+		// Access checks.
+		if (!$user->authorise('core.edit.state', 'com_sermonspeaker'))
+		{
+			throw new Exception(JText::_('JLIB_APPLICATION_ERROR_EDITSTATE_NOT_PERMITTED'));
+		}
+
+		// Set the new home style.
+		$db->setQuery(
+			'UPDATE #__sermon_speakers' .
+			" SET home = '0'" .
+			' WHERE id = ' . (int) $id
+		);
+		$db->execute();
 
 		// Clean the cache.
 		$this->cleanCache();
@@ -283,10 +320,13 @@ class SermonspeakerModelSpeaker extends JModelAdmin
 
 		if ($item->id)
 		{
-			// Convert the metadata field to an array.
-			$registry = new Joomla\Registry\Registry;
-			$registry->loadString($item->metadata);
-			$item->metadata = $registry->toArray();
+			if ($item->metadata)
+			{
+				// Convert the metadata field to an array.
+				$registry = new Joomla\Registry\Registry;
+				$registry->loadString($item->metadata);
+				$item->metadata = $registry->toArray();
+			}
 
 			$item->tags = new TagsHelper();
 			$item->tags->getTagIds($item->id, 'com_sermonspeaker.speaker');
@@ -337,9 +377,9 @@ class SermonspeakerModelSpeaker extends JModelAdmin
 		{
 			// only process if not empty
 			$bad_characters = array("\n", "\r", "\"", "<", ">"); // array of characters to remove
-			$after_clean = Joomla\String\StringHelper::str_ireplace($bad_characters, "", $table->metakey); // remove bad characters
-			$keys = explode(',', $after_clean); // create array using commas as delimiter
-			$clean_keys = array();
+			$after_clean    = Joomla\String\StringHelper::str_ireplace($bad_characters, "", $table->metakey); // remove bad characters
+			$keys           = explode(',', $after_clean); // create array using commas as delimiter
+			$clean_keys     = array();
 			foreach ($keys as $key)
 			{
 				if (trim($key))
@@ -387,7 +427,7 @@ class SermonspeakerModelSpeaker extends JModelAdmin
 			if ($languages)
 			{
 				$addform = new SimpleXMLElement('<form />');
-				$fields = $addform->addChild('fields');
+				$fields  = $addform->addChild('fields');
 				$fields->addAttribute('name', 'associations');
 				$fieldset = $fields->addChild('fieldset');
 				$fieldset->addAttribute('name', 'item_associations');
@@ -424,7 +464,7 @@ class SermonspeakerModelSpeaker extends JModelAdmin
 	 */
 	protected function getReorderConditions($table = null)
 	{
-		$condition = array();
+		$condition   = array();
 		$condition[] = 'catid = ' . (int) $table->catid;
 
 		return $condition;
@@ -447,7 +487,7 @@ class SermonspeakerModelSpeaker extends JModelAdmin
 		$categoryId = (int) $value;
 
 		$table = $this->getTable();
-		$i = 0;
+		$i     = 0;
 
 		// Check that the category exists
 		if ($categoryId)
@@ -480,7 +520,7 @@ class SermonspeakerModelSpeaker extends JModelAdmin
 
 		// Check that the user has create permission for the component
 		$extension = JFactory::getApplication()->input->get('option', '');
-		$user = JFactory::getUser();
+		$user      = JFactory::getUser();
 		if (!$user->authorise('core.create', $extension . '.category.' . $categoryId))
 		{
 			$this->setError(JText::_('JLIB_APPLICATION_ERROR_BATCH_CANNOT_CREATE'));
@@ -518,10 +558,10 @@ class SermonspeakerModelSpeaker extends JModelAdmin
 
 			// Alter the title & alias
 			// Custom: defining the title and set "home" to 0
-			$data = $this->generateNewTitle($categoryId, $table->alias, $table->title);
+			$data         = $this->generateNewTitle($categoryId, $table->alias, $table->title);
 			$table->title = $data['0'];
 			$table->alias = $data['1'];
-			$table->home = 0;
+			$table->home  = 0;
 
 			// Reset the ID because we are making a copy
 			$table->id = 0;

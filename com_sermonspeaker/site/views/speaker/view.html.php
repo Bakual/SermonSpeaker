@@ -32,10 +32,9 @@ class SermonspeakerViewSpeaker extends JViewLegacy
 
 		if (!$app->input->get('id', 0, 'int'))
 		{
-			$app->redirect(JRoute::_('index.php?view=speakers'), JText::_('JGLOBAL_RESOURCE_NOT_FOUND'), 'error');
+			$app->enqueueMessage(JText::_('JGLOBAL_RESOURCE_NOT_FOUND'), 'error');
+			$app->redirect(JRoute::_('index.php?view=speakers'));
 		}
-
-		require_once JPATH_COMPONENT . '/helpers/player.php';
 
 		// Get data from the model
 		$state         = $this->get('State');
@@ -71,7 +70,8 @@ class SermonspeakerViewSpeaker extends JViewLegacy
 
 		if (!$this->item)
 		{
-			$app->redirect(JRoute::_('index.php?view=speakers'), JText::_('JGLOBAL_RESOURCE_NOT_FOUND'), 'error');
+			$app->enqueueMessage(JText::_('JGLOBAL_RESOURCE_NOT_FOUND'), 'error');
+			$app->redirect(JRoute::_('index.php?view=speakers'));
 		}
 
 		// Get Tags
@@ -85,7 +85,8 @@ class SermonspeakerViewSpeaker extends JViewLegacy
 
 			if (!in_array($this->item->category_access, $groups))
 			{
-				$app->redirect(JRoute::_('index.php?view=speakers'), JText::_('JERROR_ALERTNOAUTHOR'), 'error');
+				$app->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'error');
+				$app->redirect(JRoute::_('index.php?view=speakers'));
 			}
 		}
 

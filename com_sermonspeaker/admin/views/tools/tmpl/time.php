@@ -7,8 +7,7 @@ JHtml::_('bootstrap.tooltip');
 $session	= JFactory::getSession();
 ?>
 <form action="index.php?option=com_sermonspeaker&task=tools.time" target="_parent" method="post" id="adminForm" name="adminForm">
-	<h1><?php echo JText::_('COM_SERMONSPEAKER_TOOLS_TIME'); ?></h1>
-	<h3><?php echo JText::_('COM_SERMONSPEAKER_TOOLS_TIME_REM'); ?></h3>
+	<h4><?php echo JText::_('COM_SERMONSPEAKER_TOOLS_TIME_REM'); ?></h4>
 	<table class="adminlist">
 		<tr>
 			<td><label for="diff"><?php echo JText::_('COM_SERMONSPEAKER_TOOLS_TIME_DIFF'); ?></label></td>

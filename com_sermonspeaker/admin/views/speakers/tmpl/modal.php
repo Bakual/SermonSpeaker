@@ -14,6 +14,7 @@ $app = JFactory::getApplication();
 if ($app->isClient('site'))
 {
 	JSession::checkToken('get') or die(JText::_('JINVALID_TOKEN'));
+	JHtml::_('stylesheet', 'com_sermonspeaker/sermonspeaker.css', array('relative' => true));
 }
 
 JLoader::register('SermonspeakerHelperRoute', JPATH_ROOT . '/components/com_sermonspeaker/helpers/route.php');

@@ -117,11 +117,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 
 		if ($mode == 2)
 		{
-			// Add missing constant in PHP < 5.5
-			defined('CURL_SSLVERSION_TLSv1') or define('CURL_SSLVERSION_TLSv1', 1);
-
 			// Amazon S3 Upload
-			require_once JPATH_COMPONENT_ADMINISTRATOR . '/s3/S3.php';
 
 			// AWS access info
 			$awsAccessKey = $params->get('s3_access_key');
@@ -129,7 +125,13 @@ class SermonspeakerControllerFile extends JControllerLegacy
 			$bucket       = $params->get('s3_bucket');
 
 			// Instantiate the class
-			$s3 = new S3($awsAccessKey, $awsSecretKey);
+			$s3 = (new \Aws\Sdk)->createMultiRegionS3([
+				'version'     => '2006-03-01',
+				'credentials' => [
+					'key'    => $awsAccessKey,
+					'secret' => $awsSecretKey,
+				],
+			]);
 
 			$date   = $jinput->get('date', '', 'string');
 			$time   = ($date) ? strtotime($date) : time();
@@ -137,7 +139,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 
 			if ($params->get('append_path_lang', 0))
 			{
-				$lang = $jinput->get('select-language');
+				$lang = $jinput->get('language');
 
 				if (!$lang || $lang == '*')
 				{
@@ -151,7 +153,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 			$uri = $folder . $file['name'];
 
 			// Check if file exists
-			if ($s3->getObjectInfo($bucket, $uri))
+			if ($s3->doesObjectExist($bucket, $uri))
 			{
 				$response = array(
 					'status' => '0',
@@ -163,30 +165,11 @@ class SermonspeakerControllerFile extends JControllerLegacy
 			}
 
 			// Upload the file
-			if ($s3->putObjectFile($file['tmp_name'], $bucket, $uri, S3::ACL_PUBLIC_READ))
+			try
 			{
-				if ($params->get('s3_custom_bucket'))
-				{
-					$domain = $bucket;
-				}
-				else
-				{
-					$region = $s3->getBucketLocation($bucket);
-					$prefix = ($region == 'US') ? 's3' : 's3-' . $region;
-					$domain = $prefix . '.amazonaws.com/' . $bucket;
-				}
-
-				$response = array(
-					'status'   => '1',
-					'filename' => $file['name'],
-					'path'     => 'https://' . $domain . '/' . $uri,
-					'error'    => JText::sprintf('COM_SERMONSPEAKER_FU_FILENAME', $domain . '/' . $uri),
-				);
-				echo json_encode($response);
-
-				return;
+				$result = $s3->putObject(['Bucket' => $bucket, 'Key' => $uri, 'SourceFile' => $file['tmp_name'], 'ACL' => 'public-read']);
 			}
-			else
+			catch (Exception $e)
 			{
 				$response = array(
 					'status' => '0',
@@ -196,6 +179,16 @@ class SermonspeakerControllerFile extends JControllerLegacy
 
 				return;
 			}
+
+			$response = array(
+				'status'   => '1',
+				'filename' => $file['name'],
+				'path'     => $result['ObjectUrl'],
+				'error'    => JText::sprintf('COM_SERMONSPEAKER_FU_FILENAME', $result['ObjectUrl']),
+			);
+			echo json_encode($response);
+
+			return;
 		}
 		else
 		{
@@ -209,7 +202,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 
 			if ($params->get('append_path_lang', 0))
 			{
-				$lang = $jinput->get('select-language');
+				$lang = $jinput->get('language');
 
 				if (!$lang || $lang == '*')
 				{
@@ -287,7 +280,6 @@ class SermonspeakerControllerFile extends JControllerLegacy
 			return;
 		}
 
-		require_once JPATH_COMPONENT_SITE . '/helpers/id3.php';
 		$params = JComponentHelper::getParams('com_sermonspeaker');
 		$id3    = SermonspeakerHelperId3::getID3($file, $params);
 

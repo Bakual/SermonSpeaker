@@ -30,10 +30,10 @@
 				required="true"
 			/>
 			<field name="count_items_type" type="list"
-				label="COM_SERMONSPEAKER_CATEGORY_ITEMS_TYPE_LABEL"
-				description="COM_SERMONSPEAKER_CATEGORY_ITEMS_TYPE_DESC"
+				   label="COM_SERMONSPEAKER_CATEGORY_ITEMS_TYPE_LABEL"
+				   description="COM_SERMONSPEAKER_CATEGORY_ITEMS_TYPE_DESC"
+				   useglobal="true"
 			>
-				<option value="">JGLOBAL_USE_GLOBAL</option>
 				<option value="sermons">COM_SERMONSPEAKER_SERMONS</option>
 				<option value="speakers">COM_SERMONSPEAKER_SPEAKERS</option>
 			</field>
@@ -58,7 +58,8 @@
 				type="list"
 				label="COM_SERMONSPEAKER_PARAM_FILEPRIO_LABEL"
 				description="COM_SERMONSPEAKER_PARAM_FILEPRIO_DESC">
-				<option value="">JGLOBAL_USE_GLOBAL</option>
+				   useglobal="true"
+			>
 				<option value="0">COM_SERMONSPEAKER_AUDIO</option>
 				<option value="1">COM_SERMONSPEAKER_VIDEO</option>
 			</field>

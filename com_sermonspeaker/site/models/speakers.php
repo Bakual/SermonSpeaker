@@ -243,6 +243,10 @@ class SermonspeakerModelspeakers extends JModelList
 		$this->setState('filter.search', $search);
 
 		parent::populateState('ordering', 'ASC');
+
+		$defaultLimit = $params->get('default_pagination_limit', $app->get('list_limit'));
+		$limit = $app->getUserStateFromRequest($this->context . '.list.limit', 'limit', $defaultLimit, 'uint');
+		$this->setState('list.limit', $limit);
 	}
 
 	/**

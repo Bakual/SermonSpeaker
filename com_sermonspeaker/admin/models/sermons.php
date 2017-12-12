@@ -12,6 +12,9 @@ defined('_JEXEC') or die;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Language\Associations;
 use Joomla\CMS\Model\ListModel;
+use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Associations;
+use Joomla\CMS\MVC\Model\ListModel;
 use Joomla\CMS\Table\Table;
 
 class SermonspeakerModelSermons extends ListModel
@@ -86,10 +89,10 @@ class SermonspeakerModelSermons extends ListModel
 	protected function populateState($ordering = null, $direction = null)
 	{
 		// Initialise variables.
-		$app = JFactory::getApplication();
+		$app = Factory::getApplication();
 
 		// Force a language
-		$forcedLanguage = $app->input->get('forcedLanguage', '' , 'cmd');
+		$forcedLanguage = $app->input->get('forcedLanguage', '', 'cmd');
 
 		// Adjust the context to support modal layouts.
 		if ($layout = $app->input->get('layout'))
@@ -148,7 +151,7 @@ class SermonspeakerModelSermons extends ListModel
 	/**
 	 * Build an SQL query to load the list data.
 	 *
-	 * @return  JDatabaseQuery
+	 * @return  Joomla\Database\DatabaseQuery
 	 * @since   1.6
 	 */
 	protected function getListQuery()

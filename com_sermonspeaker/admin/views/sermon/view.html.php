@@ -302,30 +302,21 @@ class SermonspeakerViewSermon extends JViewLegacy
 
 		if ($this->s3audio || $this->s3video)
 		{
-			// Add missing constant in PHP < 5.5
-			defined('CURL_SSLVERSION_TLSv1') or define('CURL_SSLVERSION_TLSv1', 1);
-
-			// Include the S3 class
-			require_once JPATH_COMPONENT_ADMINISTRATOR . '/s3/S3.php';
-
 			// AWS access info
 			$awsAccessKey = $this->params->get('s3_access_key');
 			$awsSecretKey = $this->params->get('s3_secret_key');
 			$bucket       = $this->params->get('s3_bucket');
 
 			// Instantiate the class
-			$s3 = new S3($awsAccessKey, $awsSecretKey);
+			$s3 = (new \Aws\Sdk)->createMultiRegionS3([
+				'version'     => '2006-03-01',
+				'credentials' => [
+					'key'    => $awsAccessKey,
+					'secret' => $awsSecretKey,
+				],
+			]);
 
-			if ($this->params->get('s3_custom_bucket'))
-			{
-				$this->domain = $bucket;
-			}
-			else
-			{
-				$region       = $s3->getBucketLocation($bucket);
-				$prefix       = ($region == 'US') ? 's3' : 's3-' . $region;
-				$this->domain = $prefix . '.amazonaws.com/' . $bucket;
-			}
+			$this->domain = $s3->headBucket(['Bucket' => $bucket])->get('@metadata')['effectiveUri'];
 		}
 
 		// Calculate destination path to show
@@ -438,6 +429,37 @@ class SermonspeakerViewSermon extends JViewLegacy
 	}
 
 	/**
+	 * Function to return bytes from the PHP settings. Taken from the ini_get() manual.
+	 *
+	 * @param   string $val PHP setting (eg 2M)
+	 *
+	 * @return  integer
+	 *
+	 * @since  ?
+	 */
+	protected function return_bytes($val)
+	{
+		$val  = trim($val);
+		$last = strtolower($val[strlen($val) - 1]);
+		$val  = (int) $val;
+
+		switch ($last)
+		{
+			// The 'G' modifier is available since PHP 5.1.0
+			/** @noinspection PhpMissingBreakStatementInspection */
+			case 'g':
+				$val *= 1024;
+			/** @noinspection PhpMissingBreakStatementInspection */
+			case 'm':
+				$val *= 1024;
+			case 'k':
+				$val *= 1024;
+		}
+
+		return $val;
+	}
+
+	/**
 	 * Add the page title and toolbar.
 	 *
 	 * @return  void
@@ -502,35 +524,5 @@ class SermonspeakerViewSermon extends JViewLegacy
 		{
 			JToolbarHelper::versions('com_sermonspeaker.sermon', $this->item->id);
 		}
-	}
-
-	/**
-	 * Function to return bytes from the PHP settings. Taken from the ini_get() manual.
-	 *
-	 * @param   string $val PHP setting (eg 2M)
-	 *
-	 * @return  integer
-	 *
-	 * @since  ?
-	 */
-	protected function return_bytes($val)
-	{
-		$val  = trim($val);
-		$last = strtolower($val[strlen($val) - 1]);
-
-		switch ($last)
-		{
-			// The 'G' modifier is available since PHP 5.1.0
-			/** @noinspection PhpMissingBreakStatementInspection */
-			case 'g':
-				$val *= 1024;
-			/** @noinspection PhpMissingBreakStatementInspection */
-			case 'm':
-				$val *= 1024;
-			case 'k':
-				$val *= 1024;
-		}
-
-		return $val;
 	}
 }

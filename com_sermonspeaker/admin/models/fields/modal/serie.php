@@ -35,6 +35,8 @@ class JFormFieldModal_Serie extends JFormField
 	 */
 	protected function getInput()
 	{
+		$isSite = JFactory::getApplication()->isClient('site');
+
 		$allowNew    = ((string) $this->element['new'] == 'true');
 		$allowEdit   = ((string) $this->element['edit'] == 'true');
 		$allowClear  = ((string) $this->element['clear'] != 'false');
@@ -47,7 +49,8 @@ class JFormFieldModal_Serie extends JFormField
 		$value = (int) $this->value > 0 ? (int) $this->value : '';
 
 		// Create the modal id.
-		$modalId = 'Serie_' . $this->id;
+		$modalPrefix = $isSite ? 'Serieform' : 'Serie';
+		$modalId     = $modalPrefix . '_' . $this->id;
 
 		// Add the modal field script to the document head.
 		JHtml::_('jquery.framework');
@@ -67,7 +70,7 @@ class JFormFieldModal_Serie extends JFormField
 			{
 				JFactory::getDocument()->addScriptDeclaration("
 				function jSelectSerie_" . $this->id . "(id, title, catid, object, url, language) {
-					window.processModalSelect('Serie', '" . $this->id . "', id, title, catid, object, url, language);
+					window.processModalSelect('" . $modalPrefix . "', '" . $this->id . "', id, title, catid, object, url, language);
 				}
 				");
 
@@ -78,6 +81,8 @@ class JFormFieldModal_Serie extends JFormField
 		// Setup variables for display.
 		$linkSeries = 'index.php?option=com_sermonspeaker&amp;view=series&amp;layout=modal&amp;tmpl=component&amp;' . JSession::getFormToken() . '=1';
 		$linkSerie  = 'index.php?option=com_sermonspeaker&amp;view=serie&amp;layout=modal&amp;tmpl=component&amp;' . JSession::getFormToken() . '=1';
+		$controller = $isSite ? 'serieform' : 'serie';
+		$urlVar     = $isSite ? 's_id' : 'id';
 
 		if (isset($this->element['language']))
 		{
@@ -91,8 +96,8 @@ class JFormFieldModal_Serie extends JFormField
 		}
 
 		$urlSelect = $linkSeries . '&amp;function=jSelectSerie_' . $this->id;
-		$urlEdit   = $linkSerie . '&amp;task=serie.edit&amp;id=\' + document.getElementById("' . $this->id . '_id").value + \'';
-		$urlNew    = $linkSerie . '&amp;task=serie.add';
+		$urlEdit   = $linkSerie . '&amp;task=' . $controller . '.edit&amp;' . $urlVar . '=\' + document.getElementById("' . $this->id . '_id").value + \'';
+		$urlNew    = $linkSerie . '&amp;task=' . $controller . '.add';
 
 		$db = JFactory::getDbo();
 
@@ -230,6 +235,20 @@ class JFormFieldModal_Serie extends JFormField
 		// New serie modal
 		if ($allowNew)
 		{
+			$footer = '<a role="button" class="btn btn-secondary" aria-hidden="true"'
+				. ' onclick="window.processModalEdit(this, \'' . $this->id . '\', \'add\', \'' . $controller . '\', \'cancel\', \'adminForm\'); return false;">'
+				. JText::_('JLIB_HTML_BEHAVIOR_CLOSE') . '</a>'
+				. '<a role="button" class="btn btn-primary" aria-hidden="true"'
+				. ' onclick="window.processModalEdit(this, \'' . $this->id . '\', \'add\', \'' . $controller . '\', \'save\', \'adminForm\'); return false;">'
+				. JText::_('JSAVE') . '</a>';
+
+			if (!$isSite)
+			{
+				$footer .= '<a role="button" class="btn btn-success" aria-hidden="true"'
+					. ' onclick="window.processModalEdit(this, \'' . $this->id . '\', \'add\', \'' . $controller . '\', \'apply\', \'adminForm\'); return false;">'
+					. JText::_('JAPPLY') . '</a>';
+			}
+
 			$html .= JHtml::_(
 				'bootstrap.renderModal',
 				'ModalNew' . $modalId,
@@ -243,15 +262,7 @@ class JFormFieldModal_Serie extends JFormField
 					'width'       => '800px',
 					'bodyHeight'  => 70,
 					'modalWidth'  => 80,
-					'footer'      => '<a role="button" class="btn btn-secondar" aria-hidden="true"'
-						. ' onclick="window.processModalEdit(this, \'' . $this->id . '\', \'add\', \'serie\', \'cancel\', \'item-form\'); return false;">'
-						. JText::_('JLIB_HTML_BEHAVIOR_CLOSE') . '</a>'
-						. '<a role="button" class="btn btn-primary" aria-hidden="true"'
-						. ' onclick="window.processModalEdit(this, \'' . $this->id . '\', \'add\', \'serie\', \'save\', \'item-form\'); return false;">'
-						. JText::_('JSAVE') . '</a>'
-						. '<a role="button" class="btn btn-success" aria-hidden="true"'
-						. ' onclick="window.processModalEdit(this, \'' . $this->id . '\', \'add\', \'serie\', \'apply\', \'item-form\'); return false;">'
-						. JText::_('JAPPLY') . '</a>',
+					'footer'      => $footer,
 				)
 			);
 		}
@@ -259,6 +270,20 @@ class JFormFieldModal_Serie extends JFormField
 		// Edit serie modal
 		if ($allowEdit)
 		{
+			$footer = '<a role="button" class="btn btn-secondary" aria-hidden="true"'
+				. ' onclick="window.processModalEdit(this, \'' . $this->id . '\', \'edit\', \'' . $controller . '\', \'cancel\', \'adminForm\'); return false;">'
+				. JText::_('JLIB_HTML_BEHAVIOR_CLOSE') . '</a>'
+				. '<a role="button" class="btn btn-primary" aria-hidden="true"'
+				. ' onclick="window.processModalEdit(this, \'' . $this->id . '\', \'edit\', \'' . $controller . '\', \'save\', \'adminForm\'); return false;">'
+				. JText::_('JSAVE') . '</a>';
+
+			if (!$isSite)
+			{
+				$footer .= '<a role="button" class="btn btn-success" aria-hidden="true"'
+					. ' onclick="window.processModalEdit(this, \'' . $this->id . '\', \'edit\', \'' . $controller . '\', \'apply\', \'adminForm\'); return false;">'
+					. JText::_('JAPPLY') . '</a>';
+			}
+
 			$html .= JHtml::_(
 				'bootstrap.renderModal',
 				'ModalEdit' . $modalId,
@@ -272,15 +297,7 @@ class JFormFieldModal_Serie extends JFormField
 					'width'       => '800px',
 					'bodyHeight'  => 70,
 					'modalWidth'  => 80,
-					'footer'      => '<a role="button" class="btn btn-secondar" aria-hidden="true"'
-						. ' onclick="window.processModalEdit(this, \'' . $this->id . '\', \'edit\', \'serie\', \'cancel\', \'item-form\'); return false;">'
-						. JText::_('JLIB_HTML_BEHAVIOR_CLOSE') . '</a>'
-						. '<a role="button" class="btn btn-primary" aria-hidden="true"'
-						. ' onclick="window.processModalEdit(this, \'' . $this->id . '\', \'edit\', \'serie\', \'save\', \'item-form\'); return false;">'
-						. JText::_('JSAVE') . '</a>'
-						. '<a role="button" class="btn btn-success" aria-hidden="true"'
-						. ' onclick="window.processModalEdit(this, \'' . $this->id . '\', \'edit\', \'serie\', \'apply\', \'item-form\'); return false;">'
-						. JText::_('JAPPLY') . '</a>',
+					'footer'      => $footer,
 				)
 			);
 		}
