@@ -102,7 +102,7 @@ class SermonspeakerModelspeakers extends ListModel
 		$query->select(
 			$this->getState(
 				'list.select',
-				'speakers.id, speakers.title, speakers.catid, speakers.pic, '
+				'DISTINCT speakers.id, speakers.title, speakers.catid, speakers.pic, '
 				. 'CASE WHEN CHAR_LENGTH(speakers.alias) THEN CONCAT_WS(\':\', speakers.id, speakers.alias) ELSE speakers.id END as slug, '
 				. 'speakers.hits, speakers.intro, speakers.bio, speakers.website, speakers.alias, '
 				. 'speakers.checked_out, speakers.checked_out_time, '
@@ -154,9 +154,6 @@ class SermonspeakerModelspeakers extends ListModel
 		$query->select('(SELECT COUNT(DISTINCT sermons2.series_id) FROM #__sermon_sermons AS sermons2 '
 			. 'WHERE sermons2.speaker_id = speakers.id AND sermons2.series_id > 0 AND sermons2.state = 1) AS series'
 		);
-
-		// Grouping by speaker
-		$query->group('speakers.id');
 
 		// Join over users for the author names.
 		$query->select("user.name AS author");
