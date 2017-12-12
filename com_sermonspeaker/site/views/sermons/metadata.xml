@@ -11,33 +11,39 @@
 	</view>
 	<fields name="params">
 		<fieldset name="basic">
-			<field name="catid" type="category"
+			<field
+				name="catid"
+				type="category"
 				label="JGLOBAL_CHOOSE_CATEGORY_LABEL"
 				description="JGLOBAL_CHOOSE_CATEGORY_DESC"
 				extension="com_sermonspeaker"
 				required="true"
 			/>
-			<field name="count_items_type" type="list"
+			<field
+				name="count_items_type"
+				type="list"
 				label="COM_SERMONSPEAKER_CATEGORY_ITEMS_TYPE_LABEL"
 				description="COM_SERMONSPEAKER_CATEGORY_ITEMS_TYPE_DESC"
-				   label="JGLOBAL_CHOOSE_CATEGORY_LABEL"
-				   description="JGLOBAL_CHOOSE_CATEGORY_DESC"
-				   extension="com_sermonspeaker"
-				   required="true"
+				extension="com_sermonspeaker"
+				required="true"
 			/>
-			<field name="count_items_type" type="list"
-				   label="COM_SERMONSPEAKER_CATEGORY_ITEMS_TYPE_LABEL"
-				   description="COM_SERMONSPEAKER_CATEGORY_ITEMS_TYPE_DESC"
-				   useglobal="true"
+			<field
+				name="count_items_type"
+				type="list"
+				label="COM_SERMONSPEAKER_CATEGORY_ITEMS_TYPE_LABEL"
+				description="COM_SERMONSPEAKER_CATEGORY_ITEMS_TYPE_DESC"
+				useglobal="true"
 			>
 				<option value="sermons">COM_SERMONSPEAKER_SERMONS</option>
 				<option value="series">COM_SERMONSPEAKER_SERIES</option>
 				<option value="speakers">COM_SERMONSPEAKER_SPEAKERS</option>
 			</field>
-			<field name="maxLevel" type="list"
+			<field
+				name="maxLevel"
+				type="list"
 				label="JGLOBAL_MAXIMUM_CATEGORY_LEVELS_LABEL"
 				description="JGLOBAL_MAXIMUM_CATEGORY_LEVELS_DESC"
-				   useglobal="true"
+				useglobal="true"
 			>
 				<option value="0">JNONE</option>
 				<option value="-1">JALL</option>
@@ -55,51 +61,64 @@
 				useglobal="true"
 			/>
 
-			<field name="limit" type="text"
+			<field
+				name="limit"
+				type="text"
 				label="COM_SERMONSPEAKER_PARAM_LIMIT_LABEL"
 				description="COM_SERMONSPEAKER_PARAM_LIMIT_DESC"
 				default=""
 				size="2"
 			/>
 		</fieldset>
-		<fieldset name="advanced"
-			addfieldpath="/administrator/components/com_sermonspeaker/models/fields">
-			<field name="plugin_tag"
+		<fieldset
+			name="advanced"
+			addfieldpath="/administrator/components/com_sermonspeaker/models/fields"
+		>
+			<field
+				name="plugin_tag"
 				type="plugintag"
 				class="btn-group"
 				label="COM_SERMONSPEAKER_PARAM_PLUGIN_LABEL"
 				description="COM_SERMONSPEAKER_PARAM_PLUGIN_DESC"
-				useglobal="true" />
-			<field name="filetype"
+				useglobal="true"
+			/>
+			<field
+				name="filetype"
 				type="list"
 				label="COM_SERMONSPEAKER_FIELD_FILETYPE_LABEL"
-				description="COM_SERMONSPEAKER_FIELD_FILETYPE_DESC">
+				description="COM_SERMONSPEAKER_FIELD_FILETYPE_DESC"
+			>
 				<option value="">COM_SERMONSPEAKER_NO_FILTER</option>
 				<option value="audio">COM_SERMONSPEAKER_AUDIO</option>
 				<option value="video">COM_SERMONSPEAKER_VIDEO</option>
 			</field>
-			<field name="fileprio"
+			<field
+				name="fileprio"
 				type="list"
 				label="COM_SERMONSPEAKER_PARAM_FILEPRIO_LABEL"
 				description="COM_SERMONSPEAKER_PARAM_FILEPRIO_DESC">
-				   useglobal="true"
-			>
+				useglobal="true"
+				>
 				<option value="0">COM_SERMONSPEAKER_AUDIO</option>
 				<option value="1">COM_SERMONSPEAKER_VIDEO</option>
 			</field>
-			<field name="year"
-				   type="sql"
-				   label="COM_SERMONSPEAKER_FIELD_YEAR_LABEL"
-				   description="COM_SERMONSPEAKER_FIELD_YEAR_DESC"
-				   query="SELECT DISTINCT YEAR(`sermon_date`) AS `year` FROM `#__sermon_sermons` WHERE `sermon_date` != '0000-00-00' ORDER BY `sermon_date` DESC"
-				   key_field="year"
-				   value_field="year">
+			<field
+				name="year"
+				type="sql"
+				label="COM_SERMONSPEAKER_FIELD_YEAR_LABEL"
+				description="COM_SERMONSPEAKER_FIELD_YEAR_DESC"
+				query="SELECT DISTINCT YEAR(`sermon_date`) AS `year` FROM `#__sermon_sermons` WHERE `sermon_date` != '0000-00-00' ORDER BY `sermon_date` DESC"
+				key_field="year"
+				value_field="year"
+			>
 				<option value="">COM_SERMONSPEAKER_NO_FILTER</option>
 			</field>
-			<field name="month"
+			<field
+				name="month"
 				type="list"
 				label="COM_SERMONSPEAKER_FIELD_MONTH_LABEL"
-				description="COM_SERMONSPEAKER_FIELD_MONTH_DESC">
+				description="COM_SERMONSPEAKER_FIELD_MONTH_DESC"
+			>
 				<option value="">COM_SERMONSPEAKER_NO_FILTER</option>
 				<option value="1">JANUARY</option>
 				<option value="2">FEBRUARY</option>
@@ -115,11 +134,14 @@
 				<option value="12">DECEMBER</option>
 			</field>
 		</fieldset>
-		<fieldset name="layout"
+		<fieldset
+			name="layout"
 			label="COM_SERMONSPEAKER_FIELDSET_LAYOUTS_LABEL"
-			description="COM_SERMONSPEAKER_FIELDSET_LAYOUTS_DESC">
+			description="COM_SERMONSPEAKER_FIELDSET_LAYOUTS_DESC"
+		>
 			<field
-				name="sermonslayout" type="componentlayout"
+				name="sermonslayout"
+				type="componentlayout"
 				label="COM_SERMONSPEAKER_SERMONS_VIEW_TITLE"
 				description="COM_SERMONSPEAKER_FIELD_LAYOUT_DESC"
 				useglobal="true"
@@ -127,7 +149,8 @@
 				view="sermons"
 			/>
 			<field
-				name="sermonlayout" type="componentlayout"
+				name="sermonlayout"
+				type="componentlayout"
 				label="COM_SERMONSPEAKER_SERMON_VIEW_TITLE"
 				description="COM_SERMONSPEAKER_FIELD_LAYOUT_DESC"
 				useglobal="true"
@@ -135,7 +158,8 @@
 				view="sermon"
 			/>
 			<field
-				name="serieslayout" type="componentlayout"
+				name="serieslayout"
+				type="componentlayout"
 				label="COM_SERMONSPEAKER_SERIES_VIEW_TITLE"
 				description="COM_SERMONSPEAKER_FIELD_LAYOUT_DESC"
 				useglobal="true"
@@ -143,7 +167,8 @@
 				view="series"
 			/>
 			<field
-				name="serielayout" type="componentlayout"
+				name="serielayout"
+				type="componentlayout"
 				label="COM_SERMONSPEAKER_SERIE_VIEW_TITLE"
 				description="COM_SERMONSPEAKER_FIELD_LAYOUT_DESC"
 				useglobal="true"
@@ -151,7 +176,8 @@
 				view="serie"
 			/>
 			<field
-				name="speakerslayout" type="componentlayout"
+				name="speakerslayout"
+				type="componentlayout"
 				label="COM_SERMONSPEAKER_SPEAKERS_VIEW_TITLE"
 				description="COM_SERMONSPEAKER_FIELD_LAYOUT_DESC"
 				useglobal="true"
@@ -159,7 +185,8 @@
 				view="speakers"
 			/>
 			<field
-				name="speakerlayout" type="componentlayout"
+				name="speakerlayout"
+				type="componentlayout"
 				label="COM_SERMONSPEAKER_SPEAKER_VIEW_TITLE"
 				description="COM_SERMONSPEAKER_FIELD_LAYOUT_DESC"
 				useglobal="true"
@@ -167,7 +194,8 @@
 				view="speaker"
 			/>
 			<field
-				name="seriessermonlayout" type="componentlayout"
+				name="seriessermonlayout"
+				type="componentlayout"
 				label="COM_SERMONSPEAKER_SERIESSERMON_VIEW_TITLE"
 				description="COM_SERMONSPEAKER_FIELD_LAYOUT_DESC"
 				useglobal="true"
@@ -175,7 +203,8 @@
 				view="seriessermon"
 			/>
 			<field
-				name="categorieslayout" type="componentlayout"
+				name="categorieslayout"
+				type="componentlayout"
 				label="COM_SERMONSPEAKER_CATEGORIES_VIEW_TITLE"
 				description="COM_SERMONSPEAKER_FIELD_LAYOUT_DESC"
 				useglobal="true"
