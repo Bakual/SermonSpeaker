@@ -94,7 +94,7 @@ class SermonspeakerModelSpeakerform extends SermonspeakerModelSpeaker
 		// Associations are not edited in frontend ATM so we have to inherit them
 		if (Associations::isEnabled() && !empty($data['id']))
 		{
-			if ($associations = Associations::getAssociations('com_sermonspeaker', '#__sermon_speakers', 'com_sermonspeaker.speaker', $data['id']))
+			if ($associations = Associations::getAssociations('com_sermonspeaker.speakers', '#__sermon_speakers', 'com_sermonspeaker.speaker', $data['id']))
 			{
 				foreach ($associations as $tag => $associated)
 				{

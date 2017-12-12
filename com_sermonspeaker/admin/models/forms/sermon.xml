@@ -56,7 +56,7 @@
 			type="categoryedit"
 			label="JCATEGORY"
 			description="JFIELD_CATEGORY_DESC"
-			extension="com_sermonspeaker"
+			extension="com_sermonspeaker.sermons"
 			required="true"
 			addfieldprefix="Joomla\Component\Categories\Administrator\Field"
 		/>

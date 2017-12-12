@@ -322,9 +322,8 @@ class SermonspeakerModelSermons extends Listmodel
 
 		// Category filter
 		$id   = $jinput->get('catid', $params->get('catid', 0), 'int');
-		$type = $params->get('count_items_type', 'sermons');
 		$this->setState('category.id', $id);
-		$this->setState('category.type', $type);
+		$this->setState('category.type', 'sermons');
 
 		// Filetype filter
 		$filetype = $params->get('filetype', '');

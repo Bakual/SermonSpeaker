@@ -28,6 +28,11 @@ class SermonspeakerHelper
 	public static function addSubmenu($vName = 'main')
 	{
 		JHtmlSidebar::addEntry(
+			JText::_('COM_SERMONSPEAKER_MENU_SERMONS'),
+			'index.php?option=com_sermonspeaker&view=sermons',
+			$vName == 'sermons'
+		);
+		JHtmlSidebar::addEntry(
 			JText::_('COM_SERMONSPEAKER_MENU_SERIES'),
 			'index.php?option=com_sermonspeaker&view=series',
 			$vName == 'series'
@@ -38,13 +43,18 @@ class SermonspeakerHelper
 			$vName == 'speakers'
 		);
 		JHtmlSidebar::addEntry(
-			JText::_('COM_SERMONSPEAKER_MENU_SERMONS'),
-			'index.php?option=com_sermonspeaker&view=sermons',
-			$vName == 'sermons'
+			JText::_('COM_SERMONSPEAKER_MENU_CATEGORIES_SERMONS'),
+			'index.php?option=com_categories&extension=com_sermonspeaker.sermons',
+			$vName == 'categories'
 		);
 		JHtmlSidebar::addEntry(
-			JText::_('COM_SERMONSPEAKER_MENU_CATEGORY'),
-			'index.php?option=com_categories&extension=com_sermonspeaker',
+			JText::_('COM_SERMONSPEAKER_MENU_CATEGORIES_SERIES'),
+			'index.php?option=com_categories&extension=com_sermonspeaker.series',
+			$vName == 'categories'
+		);
+		JHtmlSidebar::addEntry(
+			JText::_('COM_SERMONSPEAKER_MENU_CATEGORIES_SPEAKERS'),
+			'index.php?option=com_categories&extension=com_sermonspeaker.speakers',
 			$vName == 'categories'
 		);
 		JHtmlSidebar::addEntry(
@@ -129,9 +139,12 @@ class SermonspeakerHelper
 		|| $lang->load('com_sermonspeaker', JPATH_ADMINISTRATOR . '/components/com_sermonspeaker');
 
 		$contexts = array(
-			'com_sermonspeaker.sermon'  => JText::_('COM_SERMONSPEAKER_FIELDS_CONTEXT_SERMON'),
-			'com_sermonspeaker.serie'   => JText::_('COM_SERMONSPEAKER_FIELDS_CONTEXT_SERIE'),
-			'com_sermonspeaker.speaker' => JText::_('COM_SERMONSPEAKER_FIELDS_CONTEXT_SPEAKER'),
+			'com_sermonspeaker.sermon'              => JText::_('COM_SERMONSPEAKER_FIELDS_CONTEXT_SERMON'),
+			'com_sermonspeaker.serie'               => JText::_('COM_SERMONSPEAKER_FIELDS_CONTEXT_SERIE'),
+			'com_sermonspeaker.speaker'             => JText::_('COM_SERMONSPEAKER_FIELDS_CONTEXT_SPEAKER'),
+			'com_sermonspeaker.sermons.categories'  => JText::_('COM_SERMONSPEAKER_FIELDS_CONTEXT_CATEGORY_SERMONS'),
+			'com_sermonspeaker.series.categories'   => JText::_('COM_SERMONSPEAKER_FIELDS_CONTEXT_CATEGORY_SERIES'),
+			'com_sermonspeaker.speakers.categories' => JText::_('COM_SERMONSPEAKER_FIELDS_CONTEXT_CATEGORY_SPEAKERS'),
 		);
 
 		return $contexts;

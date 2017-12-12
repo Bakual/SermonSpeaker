@@ -49,7 +49,7 @@ abstract class JHtmlSermonspeakerAdministrator
 		$html = '';
 
 		// Get the associations
-		if ($associations = Associations::getAssociations('com_sermonspeaker', $table, 'com_sermonspeaker.' . $type, $itemid))
+		if ($associations = Associations::getAssociations('com_sermonspeaker.' . $type . 's', $table, 'com_sermonspeaker.' . $type, $itemid))
 		{
 
 			foreach ($associations as $tag => $associated)

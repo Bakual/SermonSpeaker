@@ -11,7 +11,10 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\Installer\InstallerScript;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Table\Table;
 
 /**
  * Class Com_SermonspeakerInstallerScript
@@ -61,7 +64,7 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 	 */
 	public function __construct()
 	{
-		$this->app = JFactory::getApplication();
+		$this->app = Factory::getApplication();
 	}
 
 	/**
@@ -79,13 +82,13 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 		// Storing old release number for process in postflight
 		if (strtolower($type) == 'update')
 		{
-			$manifest         = $this->getItemArray('manifest_cache', '#__extensions', 'element', JFactory::getDbo()->quote($this->extension));
+			$manifest         = $this->getItemArray('manifest_cache', '#__extensions', 'element', Factory::getDbo()->quote($this->extension));
 			$this->oldRelease = $manifest['version'];
 
 			// Check if update is allowed (only update from 5.6.0 and higher)
 			if (version_compare($this->oldRelease, '5.6.0', '<'))
 			{
-				$this->app->enqueueMessage(JText::sprintf('COM_SERMONSPEAKER_UPDATE_UNSUPPORTED', $this->oldRelease, '5.6.0'), 'error');
+				$this->app->enqueueMessage(Text::sprintf('COM_SERMONSPEAKER_UPDATE_UNSUPPORTED', $this->oldRelease, '5.6.0'), 'error');
 
 				return false;
 			}
@@ -194,7 +197,7 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 				. ']';
 			$params['col_speaker'] = '"col_speaker":["speakers:bio","speaker:bio","speaker:intro"]';
 
-			$db    = JFactory::getDbo();
+			$db    = Factory::getDbo();
 			$query = $db->getQuery(true);
 			$query->update($db->quoteName('#__extensions'));
 			$query->set($db->quoteName('params') . ' = ' . $db->quote('{' . implode(',', $params) . '}'));
@@ -203,8 +206,14 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 			$db->execute();
 		}
 
+		if ($type == 'update')
+		{
+			// Migrate categories to new section based ones
+			$this->moveCategories();
+		}
+
 		$this->removeFiles();
-		$this->app->enqueueMessage(JText::_('COM_SERMONSPEAKER_POSTFLIGHT'), 'warning');
+		$this->app->enqueueMessage(Text::_('COM_SERMONSPEAKER_POSTFLIGHT'), 'warning');
 	}
 
 
@@ -217,45 +226,36 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 	 */
 	private function addCategory()
 	{
-		// Create categories for our component
+		$db         = Factory::getDbo();
 		$catFactory = new Joomla\CMS\Mvc\Factory\MvcFactory('Joomla\Component\Categories', $this->app);
-		$catmodel   = $catFactory->createModel('Category');
+		$catModel   = new Joomla\Component\Categories\Administrator\Model\CategoryModel(array(), $catFactory);
+		$sections   = array('sermons', 'series', 'speakers');
 
-		$catData = array(
-			'id'          => 0,
-			'parent_id'   => 0,
-			'level'       => 1,
-			'path'        => 'uncategorised',
-			'extension'   => 'com_sermonspeaker',
-			'title'       => 'Uncategorised',
-			'alias'       => 'uncategorised',
-			'description' => '',
-			'published'   => 1,
-			'language'    => '*',
-			'params'      => '',
-		);
-		$catmodel->save($catData);
-		$id = $catmodel->getItem()->id;
+		foreach ($sections as $section)
+		{
+			$catData = array(
+				'id'          => 0,
+				'parent_id'   => 0,
+				'level'       => 1,
+				'path'        => 'uncategorised',
+				'extension'   => 'com_sermonspeaker.' . $section,
+				'title'       => 'Uncategorised',
+				'alias'       => 'uncategorised',
+				'description' => '',
+				'published'   => 1,
+				'language'    => '*',
+				'params'      => '',
+			);
+			$catModel->save($catData);
+			$id = $catModel->getItem()->id;
 
-		$db = JFactory::getDbo();
-
-		// Updating the example data with 'Uncategorized'
-		$query = $db->getQuery(true);
-		$query->update('#__sermon_sermons');
-		$query->set('catid = ' . (int) $id);
-		$query->where('catid = 0');
-		$db->setQuery($query);
-		$db->execute();
-
-		// Speakers
-		$query->update('#__sermon_speakers');
-		$db->setQuery($query);
-		$db->execute();
-
-		// Series
-		$query->update('#__sermon_series');
-		$db->setQuery($query);
-		$db->execute();
+			$query = $db->getQuery(true);
+			$query->update($db->quoteName('#__sermon_' . $section));
+			$query->set($db->quoteName('catid') . ' = ' . (int) $id);
+			$query->where($db->quoteName('catid') . ' = 0');
+			$db->setQuery($query);
+			$db->execute();
+		}
 
 		return;
 	}
@@ -263,7 +263,7 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 	private function saveContentTypes()
 	{
 		// Adding content_type for tags
-		$table = JTable::getInstance('Contenttype', 'JTable');
+		$table = Table::getInstance('Contenttype', 'JTable');
 
 		// Generic FieldMappings
 		$common                       = new stdClass;
@@ -315,7 +315,7 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 		$history->display_lookup[]    = $source_user2;
 		$history->display_lookup[]    = $source_catid;
 
-		// Create/Update Sermon Type
+		// Create Sermon Type
 		$table->load(array('type_alias' => 'com_sermonspeaker.sermon'));
 
 		$special          = new stdClass;
@@ -350,7 +350,7 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 
 		$table->save($contenttype);
 
-		// Create/Update Speaker Type
+		// Create Speaker Type
 		$table->type_id = 0;
 		$table->load(array('type_alias' => 'com_sermonspeaker.speaker'));
 
@@ -380,7 +380,7 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 
 		$table->save($contenttype);
 
-		// Create/Update Series Type
+		// Create Series Type
 		$table->type_id = 0;
 		$table->load(array('type_alias' => 'com_sermonspeaker.serie'));
 
@@ -482,6 +482,81 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 		$contenttype['content_history_options'] = json_encode($history);
 
 		$table->save($contenttype);
+
+		return;
+	}
+
+	/**
+	 * Method to move the categories to new section based ones.
+	 *
+	 * @return void
+	 *
+	 * @since 6.0.0
+	 */
+	private function moveCategories()
+	{
+		$db         = Factory::getDbo();
+		$catFactory = new Joomla\CMS\Mvc\Factory\MvcFactory('Joomla\Component\Categories', $this->app);
+		$catModel   = new Joomla\Component\Categories\Administrator\Model\CategoryModel(array(), $catFactory);
+		$sections   = array('sermons', 'series', 'speakers');
+
+		$query = $db->getQuery(true);
+		$query->select('*')
+			->from('#__categories')
+			->where($db->quoteName('extension') . ' = ' . $db->quote('com_sermonspeaker'));
+		$db->setQuery($query);
+		$categories = $db->loadAssocList();
+
+		foreach ($categories as $category)
+		{
+			$oldId     = $category['id'];
+			$parentIds = array('sermons', 'series', 'speakers');
+
+			foreach ($sections as $section)
+			{
+				if (isset($parentIds[$section][$category['parent_id']]))
+				{
+					$category['parent_id'] = $parentIds[$section][$oldId];
+				}
+
+				$category['id']        = 0;
+				$category['extension'] = 'com_sermonspeaker.' . $section;
+
+				try
+				{
+					$catModel->save($category);
+				}
+				catch (Exception $e)
+				{
+					$this->app->enqueueMessage($e->getMessage(), 'ERROR');
+				}
+
+				$newId = $catModel->getItem()->id;
+
+				$parentIds[$section][$oldId] = $newId;
+
+				$query = $db->getQuery(true);
+				$query->update($db->quoteName('#__sermon_' . $section));
+				$query->set($db->quoteName('catid') . ' = ' . (int) $newId);
+				$query->where($db->quoteName('catid') . ' = ' . $oldId);
+				$db->setQuery($query);
+				$db->execute();
+			}
+
+			try
+			{
+				// Trash the old category so it can be deleted
+				$category['id']        = $oldId;
+				$category['published'] = -2;
+				$category['extension'] = 'com_sermonspeaker';
+				$catModel->save($category);
+				$catModel->delete($oldId);
+			}
+			catch (Exception $e)
+			{
+				$this->app->enqueueMessage($e->getMessage(), 'ERROR');
+			}
+		}
 
 		return;
 	}

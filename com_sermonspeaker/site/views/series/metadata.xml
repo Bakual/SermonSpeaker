@@ -14,7 +14,7 @@
 			<field name="catid" type="category"
 				label="JGLOBAL_CHOOSE_CATEGORY_LABEL"
 				description="JGLOBAL_CHOOSE_CATEGORY_DESC"
-				extension="com_sermonspeaker"
+				extension="com_sermonspeaker.series"
 				required="true"
 			/>
 			<field name="maxLevel" type="list"
@@ -30,11 +30,6 @@
 				<option value="4">J4</option>
 				<option value="5">J5</option>
 			</field>
-			<field name="count_items_type" type="hidden"
-				   label="COM_SERMONSPEAKER_CATEGORY_ITEMS_TYPE_LABEL"
-				   description="COM_SERMONSPEAKER_CATEGORY_ITEMS_TYPE_DESC"
-				   default="series"
-			/>
 			<field
 				name="default_pagination_limit"
 				type="limitbox"

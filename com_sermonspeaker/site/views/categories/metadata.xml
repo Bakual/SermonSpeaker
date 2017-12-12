@@ -91,18 +91,6 @@
 				<option value="0">JHIDE</option>
 				<option value="1">JSHOW</option>
 			</field>
-
-			<field
-				name="count_items_type"
-				type="list"
-				label="COM_SERMONSPEAKER_CATEGORY_ITEMS_TYPE_LABEL"
-				description="COM_SERMONSPEAKER_CATEGORY_ITEMS_TYPE_DESC"
-				useglobal="true"
-			>
-				<option value="sermons">COM_SERMONSPEAKER_SERMONS</option>
-				<option value="series">COM_SERMONSPEAKER_SERIES</option>
-				<option value="speakers">COM_SERMONSPEAKER_SPEAKERS</option>
-			</field>
 		</fieldset>
 		<fieldset name="advanced"
 			addfieldpath="/administrator/components/com_sermonspeaker/models/fields">

@@ -339,7 +339,7 @@ class SermonspeakerModelSerie extends AdminModel
 
 			if ($item->id != null)
 			{
-				$associations = Associations::getAssociations('com_sermonspeaker', '#__sermon_series', 'com_sermonspeaker.serie', $item->id);
+				$associations = Associations::getAssociations('com_sermonspeaker.series', '#__sermon_series', $this->associationsContext, $item->id);
 
 				foreach ($associations as $tag => $association)
 				{
