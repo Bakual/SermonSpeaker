@@ -27,19 +27,9 @@
 			<field name="catid" type="category"
 				label="JGLOBAL_CHOOSE_CATEGORY_LABEL"
 				description="JGLOBAL_CHOOSE_CATEGORY_DESC"
-				extension="com_sermonspeaker"
+				extension="com_sermonspeaker.sermons"
 				required="true"
 			/>
-
-			<field name="count_items_type" type="list"
-				   label="COM_SERMONSPEAKER_CATEGORY_ITEMS_TYPE_LABEL"
-				   description="COM_SERMONSPEAKER_CATEGORY_ITEMS_TYPE_DESC"
-				   useglobal="true"
-			>
-				<option value="sermons">COM_SERMONSPEAKER_SERMONS</option>
-				<option value="series">COM_SERMONSPEAKER_SERIES</option>
-				<option value="speakers">COM_SERMONSPEAKER_SPEAKERS</option>
-			</field>
 		</fieldset>
 		<fieldset name="sermoncast" label="COM_SERMONSPEAKER_FIELDSET_SERMONCAST_LABEL">
 			<field name="sc_title"
