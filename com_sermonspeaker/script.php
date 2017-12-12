@@ -11,7 +11,9 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\Installer\InstallerScript;
+use Joomla\CMS\Language\Text;
 use Joomla\CMS\Table\Table;
 
 /**
@@ -62,7 +64,7 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 	 */
 	public function __construct()
 	{
-		$this->app = JFactory::getApplication();
+		$this->app = Factory::getApplication();
 	}
 
 	/**
@@ -80,13 +82,13 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 		// Storing old release number for process in postflight
 		if (strtolower($type) == 'update')
 		{
-			$manifest         = $this->getItemArray('manifest_cache', '#__extensions', 'element', JFactory::getDbo()->quote($this->extension));
+			$manifest         = $this->getItemArray('manifest_cache', '#__extensions', 'element', Factory::getDbo()->quote($this->extension));
 			$this->oldRelease = $manifest['version'];
 
 			// Check if update is allowed (only update from 5.6.0 and higher)
 			if (version_compare($this->oldRelease, '5.6.0', '<'))
 			{
-				$this->app->enqueueMessage(JText::sprintf('COM_SERMONSPEAKER_UPDATE_UNSUPPORTED', $this->oldRelease, '5.6.0'), 'error');
+				$this->app->enqueueMessage(Text::sprintf('COM_SERMONSPEAKER_UPDATE_UNSUPPORTED', $this->oldRelease, '5.6.0'), 'error');
 
 				return false;
 			}
@@ -195,7 +197,7 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 				. ']';
 			$params['col_speaker'] = '"col_speaker":["speakers:bio","speaker:bio","speaker:intro"]';
 
-			$db    = JFactory::getDbo();
+			$db    = Factory::getDbo();
 			$query = $db->getQuery(true);
 			$query->update($db->quoteName('#__extensions'));
 			$query->set($db->quoteName('params') . ' = ' . $db->quote('{' . implode(',', $params) . '}'));
@@ -211,7 +213,7 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 		}
 
 		$this->removeFiles();
-		$this->app->enqueueMessage(JText::_('COM_SERMONSPEAKER_POSTFLIGHT'), 'warning');
+		$this->app->enqueueMessage(Text::_('COM_SERMONSPEAKER_POSTFLIGHT'), 'warning');
 	}
 
 
@@ -224,9 +226,9 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 	 */
 	private function addCategory()
 	{
-		$db         = JFactory::getDbo();
+		$db         = Factory::getDbo();
 		$catFactory = new Joomla\CMS\Mvc\Factory\MvcFactory('Joomla\Component\Categories', $this->app);
-		$catModel   = new Joomla\Component\Categories\Administrator\Model\Category(array(), $catFactory);
+		$catModel   = new Joomla\Component\Categories\Administrator\Model\CategoryModel(array(), $catFactory);
 		$sections   = array('sermons', 'series', 'speakers');
 
 		foreach ($sections as $section)
@@ -493,9 +495,9 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 	 */
 	private function moveCategories()
 	{
-		$db         = JFactory::getDbo();
+		$db         = Factory::getDbo();
 		$catFactory = new Joomla\CMS\Mvc\Factory\MvcFactory('Joomla\Component\Categories', $this->app);
-		$catModel   = new Joomla\Component\Categories\Administrator\Model\Category(array(), $catFactory);
+		$catModel   = new Joomla\Component\Categories\Administrator\Model\CategoryModel(array(), $catFactory);
 		$sections   = array('sermons', 'series', 'speakers');
 
 		$query = $db->getQuery(true);
