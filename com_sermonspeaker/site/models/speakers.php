@@ -9,12 +9,14 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\MVC\Model\ListModel;
+
 /**
  * Model class for the SermonSpeaker Component
  *
  * @since  3.4
  */
-class SermonspeakerModelspeakers extends JModelList
+class SermonspeakerModelspeakers extends ListModel
 {
 	/**
 	 * @var object

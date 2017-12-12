@@ -11,7 +11,7 @@ defined('_JEXEC') or die();
 
 use Joomla\CMS\Categories\Categories;
 use Joomla\CMS\Factory;
-use Joomla\CMS\Model\ListModel;
+use Joomla\CMS\MVC\Model\ListModel;
 use Joomla\Database\DatabaseQuery;
 
 /**
