@@ -191,12 +191,12 @@ class SermonspeakerModelSermons extends Listmodel
 				}
 
 				// Add the subquery to the main query
-				$query->where('(' . $this->getState('category.type', 'sermons') . '.catid = ' . (int) $categoryId
-					. ' OR ' . $this->getState('category.type', 'sermons') . '.catid IN (' . $subQuery->__toString() . '))');
+				$query->where('(sermons.catid = ' . (int) $categoryId
+					. ' OR sermons.catid IN (' . $subQuery->__toString() . '))');
 			}
 			else
 			{
-				$query->where($this->getState('category.type', 'sermons') . '.catid = ' . (int) $categoryId);
+				$query->where('sermons.catid = ' . (int) $categoryId);
 			}
 		}
 
@@ -323,7 +323,6 @@ class SermonspeakerModelSermons extends Listmodel
 		// Category filter
 		$id   = $jinput->get('catid', $params->get('catid', 0), 'int');
 		$this->setState('category.id', $id);
-		$this->setState('category.type', 'sermons');
 
 		// Filetype filter
 		$filetype = $params->get('filetype', '');
@@ -408,7 +407,6 @@ class SermonspeakerModelSermons extends Listmodel
 		$id .= ':' . $this->getState('speaker.id');
 		$id .= ':' . $this->getState('serie.id');
 		$id .= ':' . $this->getState('category.id');
-		$id .= ':' . $this->getState('category.type');
 
 		return parent::getStoreId($id);
 	}
@@ -550,7 +548,7 @@ class SermonspeakerModelSermons extends Listmodel
 				$options['countItems'] = 0;
 			}
 
-			$options['table'] = '#__sermon_' . $this->state->get('category.type', 'sermons');
+			$options['table'] = '#__sermon_sermons';
 
 			$categories = Categories::getInstance('Sermonspeaker', $options);
 			$this->item = $categories->get($this->getState('category.id', 'root'));
