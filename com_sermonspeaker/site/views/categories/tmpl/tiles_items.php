@@ -11,8 +11,6 @@ defined('_JEXEC') or die();
 
 JHtml::_('bootstrap.tooltip');
 $class         = 'first';
-$type          = $this->params->get('count_items_type', 'sermons');
-$type_function = 'get' . ucfirst($type) . 'Route';
 
 if (count($this->items[$this->parent->id]) and $this->maxLevelcat != 0) : ?>
 	<?php foreach ($this->items[$this->parent->id] as $id => $item) :
@@ -35,7 +33,7 @@ if (count($this->items[$this->parent->id]) and $this->maxLevelcat != 0) : ?>
 				?>
 				<span class="hasTooltip"
 					title="<?php echo JHtml::tooltipText($item->title, $tooltip); ?>">
-					<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::$type_function($item->id, $item->language)); ?>">
+					<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonsRoute($item->id, $item->language)); ?>">
 						<img border="0" align="middle" src="<?php echo $image; ?>"/>
 						<?php
 						if ($item->level == 1) : ?>

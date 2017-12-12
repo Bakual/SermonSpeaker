@@ -78,8 +78,6 @@ class SermonspeakerModelFeed extends JModelLegacy
 		// Category filter
 		if ($categoryId = $jinput->get('catid', $params->get('catid', 0), 'int'))
 		{
-			$type = $params->get('count_items_type', 'sermons');
-
 			// Check if we have to include sermons from subcategories
 			if ($levels = (int) $params->get('show_subcategory_content', 0))
 			{
@@ -96,12 +94,12 @@ class SermonspeakerModelFeed extends JModelLegacy
 				}
 
 				// Add the subquery to the main query
-				$query->where('(' . $type . '.catid = ' . (int) $categoryId
-					. ' OR ' . $type . '.catid IN (' . $subQuery->__toString() . '))');
+				$query->where('(sermons.catid = ' . (int) $categoryId
+					. ' OR sermons.catid IN (' . $subQuery->__toString() . '))');
 			}
 			else
 			{
-				$query->where($type . '.catid = ' . (int) $categoryId);
+				$query->where('sermons.catid = ' . (int) $categoryId);
 			}
 		}
 

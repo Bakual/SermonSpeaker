@@ -10,8 +10,6 @@
 defined('_JEXEC') or die();
 
 $class         = ' class="first"';
-$type          = $this->params->get('count_items_type', 'sermons');
-$type_function = 'get' . ucfirst($type) . 'Route';
 
 if (count($this->items[$this->parent->id]) and $this->maxLevelcat != 0) : ?>
 	<ul>
@@ -23,7 +21,7 @@ if (count($this->items[$this->parent->id]) and $this->maxLevelcat != 0) : ?>
 				<li<?php echo $class; ?>>
 					<?php $class = ''; ?>
 					<span class="item-title">
-					<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::$type_function($item->id)); ?>">
+					<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonsRoute($item->id)); ?>">
 						<?php echo $this->escape($item->title); ?>
 					</a>
 				</span>
