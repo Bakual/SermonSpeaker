@@ -273,7 +273,7 @@ class SermonspeakerModelspeakers extends ListModel
 
 			$options['table'] = '#__sermon_' . $this->state->get('category.type', 'speakers');
 
-			$categories = JCategories::getInstance('Sermonspeaker', $options);
+			$categories = \JCategories::getInstance('sermonspeaker.speakers', $options);
 			$this->item = $categories->get($this->getState('category.id', 'root'));
 
 			// Compute selected asset permissions

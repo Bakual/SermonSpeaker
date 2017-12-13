@@ -16,6 +16,15 @@ use Joomla\CMS\Categories\Categories;
  *
  * @since  6.0.0
  */
+class SermonspeakerSermonCategories extends SermonspeakerSermonsCategories
+{
+}
+
+/**
+ * SermonSpeaker Component Sermons Category Tree
+ *
+ * @since  6.0.0
+ */
 class SermonspeakerSermonsCategories extends Categories
 {
 	/**
@@ -43,6 +52,15 @@ class SermonspeakerSermonsCategories extends Categories
  *
  * @since  6.0.0
  */
+class SermonspeakerSerieCategories extends SermonspeakerSeriesCategories
+{
+}
+
+/**
+ * SermonSpeaker Component Series Category Tree
+ *
+ * @since  6.0.0
+ */
 class SermonspeakerSeriesCategories extends Categories
 {
 	/**
@@ -63,6 +81,15 @@ class SermonspeakerSeriesCategories extends Categories
 
 		parent::__construct($options);
 	}
+}
+
+/**
+ * SermonSpeaker Component Speakers Category Tree
+ *
+ * @since  6.0.0
+ */
+class SermonspeakerSpeakerCategories extends SermonspeakerSpeakersCategories
+{
 }
 
 /**

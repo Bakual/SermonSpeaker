@@ -114,7 +114,7 @@ class SermonspeakerModelCategories extends JModelLegacy
 			$options               = array();
 			$options['table']      = '#__sermon_sermons';
 			$options['countItems'] = $params->get('show_cat_num_items_cat', 1) || !$params->get('show_empty_categories_cat', 0);
-			$categories            = JCategories::getInstance('Sermonspeaker', $options);
+			$categories            = \JCategories::getInstance('sermonspeaker.sermons', $options);
 			$this->_parent         = $categories->get($this->getState('filter.parentId', 'root'));
 
 			if (is_object($this->_parent))

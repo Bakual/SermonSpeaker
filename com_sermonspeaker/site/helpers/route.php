@@ -41,7 +41,7 @@ abstract class SermonspeakerHelperRoute
 
 		if ((int) $catid > 1)
 		{
-			$categories = JCategories::getInstance('Sermonspeaker', array('table' => '#__sermon_sermons'));
+			$categories = \JCategories::getInstance('sermonspeaker.sermons', array('table' => '#__sermon_sermons'));
 			$category = $categories->get((int) $catid);
 
 			if ($category)
@@ -101,7 +101,7 @@ abstract class SermonspeakerHelperRoute
 
 		if ((int) $catid > 1)
 		{
-			$categories = JCategories::getInstance('Sermonspeaker', array('table' => '#__sermon_sermons'));
+			$categories = \JCategories::getInstance('sermonspeaker.sermons', array('table' => '#__sermon_sermons'));
 			$category = $categories->get((int) $catid);
 
 			if ($category)
@@ -157,7 +157,7 @@ abstract class SermonspeakerHelperRoute
 
 		if ((int) $catid > 1)
 		{
-			$categories = JCategories::getInstance('Sermonspeaker', array('table' => '#__sermon_series'));
+			$categories = \JCategories::getInstance('sermonspeaker.series', array('table' => '#__sermon_series'));
 			$category = $categories->get((int) $catid);
 
 			if ($category)
@@ -217,7 +217,7 @@ abstract class SermonspeakerHelperRoute
 
 		if ((int) $catid > 1)
 		{
-			$categories = JCategories::getInstance('Sermonspeaker', array('table' => '#__sermon_series'));
+			$categories = \JCategories::getInstance('sermonspeaker.series', array('table' => '#__sermon_series'));
 			$category = $categories->get((int) $catid);
 
 			if ($category)
@@ -273,7 +273,7 @@ abstract class SermonspeakerHelperRoute
 
 		if ((int) $catid > 1)
 		{
-			$categories = JCategories::getInstance('Sermonspeaker', array('table' => '#__sermon_speakers'));
+			$categories = \JCategories::getInstance('sermonspeaker.speakers', array('table' => '#__sermon_speakers'));
 			$category = $categories->get((int) $catid);
 
 			if ($category)
@@ -333,7 +333,7 @@ abstract class SermonspeakerHelperRoute
 
 		if ((int) $catid > 1)
 		{
-			$categories = JCategories::getInstance('Sermonspeaker', array('table' => '#__sermon_speakers'));
+			$categories = \JCategories::getInstance('sermonspeaker.speakers', array('table' => '#__sermon_speakers'));
 			$category = $categories->get((int) $catid);
 
 			if ($category)
