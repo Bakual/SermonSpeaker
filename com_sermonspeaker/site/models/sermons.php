@@ -550,7 +550,7 @@ class SermonspeakerModelSermons extends Listmodel
 
 			$options['table'] = '#__sermon_sermons';
 
-			$categories = Categories::getInstance('Sermonspeaker', $options);
+			$categories = Categories::getInstance('sermonspeaker.sermons', $options);
 			$this->item = $categories->get($this->getState('category.id', 'root'));
 
 			// Compute selected asset permissions
