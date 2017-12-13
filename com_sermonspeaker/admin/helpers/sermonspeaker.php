@@ -100,7 +100,7 @@ class SermonspeakerHelper
 	 */
 	public static function getActions($categoryId = 0)
 	{
-		$user = JFactory::getUser();
+		$user   = JFactory::getUser();
 		$result = new JObject;
 
 		if (empty($categoryId))
@@ -153,7 +153,7 @@ class SermonspeakerHelper
 	/**
 	 * Map the section for custom fields.
 	 *
-	 * @param   string  $section  The section to get the mapping for
+	 * @param   string $section The section to get the mapping for
 	 *
 	 * @return  string  The new section
 	 *
@@ -165,6 +165,8 @@ class SermonspeakerHelper
 			'sermon'         => 'sermon',
 			'sermons'        => 'sermon',
 			'frontendupload' => 'sermon',
+			'intro'          => 'speaker',
+			'bio'            => 'speaker',
 			'speaker'        => 'speaker',
 			'speakers'       => 'speaker',
 			'speakerform'    => 'speaker',
