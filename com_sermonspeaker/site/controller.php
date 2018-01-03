@@ -9,11 +9,18 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Factory;
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Router\Route;
+use Joomla\CMS\MVC\Controller\BaseController;
+use Joomla\CMS\Uri\Uri;
+
 /**
  * SermonSpeaker Component Controller
  * @since  1.0
  */
-class SermonspeakerController extends JControllerLegacy
+class SermonspeakerController extends BaseController
 {
 	/**
 	 * The default view for the display method.
@@ -34,13 +41,13 @@ class SermonspeakerController extends JControllerLegacy
 	 */
 	public function __construct($config = array())
 	{
-		$this->input = JFactory::getApplication()->input;
+		$this->input = Factory::getApplication()->input;
 		$view        = $this->input->get('view');
 
 		// Frontpage Editor sermons proxying:
 		if (($view === 'sermons' || $view === 'series' || $view === 'speakers') && $this->input->get('layout') === 'modal')
 		{
-			JHtml::_('stylesheet', 'system/adminlist.css', array('version' => 'auto', 'relative' => true));
+			HTMLHelper::_('stylesheet', 'system/adminlist.css', array('version' => 'auto', 'relative' => true));
 			$config['base_path'] = JPATH_COMPONENT_ADMINISTRATOR;
 		}
 
@@ -54,13 +61,13 @@ class SermonspeakerController extends JControllerLegacy
 	 * @param   array   $urlparams An array of safe url parameters and their variable types, for valid values see
 	 *                             {@link JFilterInput::clean()}.
 	 *
-	 * @return  JControllerLegacy  A JControllerLegacy object to support chaining.
+	 * @return  false|BaseController  A JControllerLegacy object to support chaining.
 	 *
 	 * @since   4.0
 	 */
 	public function display($cachable = false, $urlparams = array())
 	{
-		$cachable = JFactory::getUser()->get('id') ? false : true;
+		$cachable = Factory::getUser()->id ? false : true;
 		$viewName = $this->input->get('view', $this->default_view);
 		$id       = $this->input->getInt('id');
 		$views    = array('frontendupload', 'serieform', 'speakerform');
@@ -69,29 +76,27 @@ class SermonspeakerController extends JControllerLegacy
 		if (in_array($viewName, $views) && !$this->checkEditId('com_sermonspeaker.edit.' . $viewName, $id))
 		{
 			// Somehow the person just went to the form - we don't allow that.
-			$this->setError(JText::sprintf('JLIB_APPLICATION_ERROR_UNHELD_ID', $id));
-			$this->setMessage($this->getError(), 'error');
-			$this->setRedirect(JRoute::_('index.php?option=com_sermonspeaker&view=main', false));
+			$this->setMessage(Text::sprintf('JLIB_APPLICATION_ERROR_UNHELD_ID', $id), 'error');
+			$this->setRedirect(Route::_('index.php?option=com_sermonspeaker&view=main', false));
 
 			return false;
 		}
 
-		/** @var $app JApplicationSite */
-		$app    = JFactory::getApplication();
+		/** @var $app \Joomla\CMS\Application\SiteApplication */
+		$app    = Factory::getApplication();
 		$params = $app->getParams();
 
-		if ($params->get('css_icomoon'))
+		if ($params->get('css_fontawesome'))
 		{
-			JHtml::_('stylesheet', 'jui/icomoon.css', array('relative' => true));
+			HTMLHelper::_('stylesheet', 'font-awesome.min.css', ['version' => 'auto', 'relative' => true]);
 		}
 
 		// Make sure the format is raw for feed and sitemap view
 		// Bug: Doesn't take into account additional filters (type, cat)
 		if (($viewName == 'feed' || $viewName == 'sitemap') && $this->input->get('format') != 'raw')
 		{
-			// JFactory::$document = JDocument::getInstance('raw');
 			header('HTTP/1.1 301 Moved Permanently');
-			header('Location: ' . JUri::root() . 'index.php?option=com_sermonspeaker&view=' . $viewName . '&format=raw');
+			header('Location: ' . Uri::root() . 'index.php?option=com_sermonspeaker&view=' . $viewName . '&format=raw');
 
 			return $this;
 		}
@@ -143,7 +148,7 @@ class SermonspeakerController extends JControllerLegacy
 
 	public function download()
 	{
-		$this->input = JFactory::getApplication()->input;
+		$this->input = Factory::getApplication()->input;
 		$id          = $this->input->get('id', 0, 'int');
 
 		if (!$id)
@@ -151,9 +156,9 @@ class SermonspeakerController extends JControllerLegacy
 			die("<html><body onload=\"alert('I have no clue what you want to download...');history.back();\"></body></html>");
 		}
 
-		$db       = JFactory::getDbo();
+		$db       = Factory::getDbo();
 		$nullDate = $db->quote($db->getNullDate());
-		$nowDate  = $db->quote(JFactory::getDate()->toSql());
+		$nowDate  = $db->quote(Factory::getDate()->toSql());
 		$query    = $db->getQuery(true);
 
 		if ($this->input->get('type', 'audio', 'word') == 'video')

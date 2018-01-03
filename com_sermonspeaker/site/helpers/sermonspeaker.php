@@ -9,6 +9,14 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\Factory;
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Plugin\PluginHelper;
+use Joomla\CMS\Router\Route;
+use Joomla\CMS\Uri\Uri;
+
 /**
  * Sermonspeaker Component Sermonspeaker Helper
  *
@@ -41,9 +49,9 @@ class SermonspeakerHelperSermonspeaker
 	{
 		$option = 'com_sermonspeaker';
 
-		/* @var  $app  JApplicationSite */
-		$app = JFactory::getApplication();
-		self::$params = (method_exists($app, 'getParams')) ? $app->getParams($option) : JComponentHelper::getParams($option);;
+		/* @var  $app  \Joomla\CMS\Application\SiteApplication */
+		$app          = Factory::getApplication();
+		self::$params = (method_exists($app, 'getParams')) ? $app->getParams($option) : ComponentHelper::getParams($option);;
 	}
 
 	/**
@@ -55,37 +63,7 @@ class SermonspeakerHelperSermonspeaker
 	 */
 	private static function getView()
 	{
-		self::$view = JFactory::getApplication()->input->get('view', 'sermons');
-	}
-
-	/**
-	 * Inserts tooltip for speaker
-	 *
-	 * @param   int    $id            ID of the speaker
-	 * @param   string $pic           URL to picture
-	 * @param   string $speaker_title Speaker name
-	 *
-	 * @deprecated  5.2  Use "JLayoutHelper::render('titles.speaker', array('item' => $this->item, 'params' =>
-	 *              $this->params))" instead
-	 *
-	 * @return  string  Tooltip
-	 *
-	 * @since       ?
-	 */
-	public static function SpeakerTooltip($id, $pic, $speaker_title)
-	{
-		if (!self::$params)
-		{
-			self::getParams();
-		}
-
-		// BC Code to call the layout instead
-		$item = new stdclass;
-		$item->speaker_title = $speaker_title;
-		$item->speaker_slug = $id;
-		$item->pic = $pic;
-
-		return JLayoutHelper::render('titles.speaker', array('item' => $item, 'params' => self::$params, 'legacy' => true));
+		self::$view = Factory::getApplication()->input->get('view', 'sermons');
 	}
 
 	/**
@@ -106,9 +84,9 @@ class SermonspeakerHelperSermonspeaker
 			return '';
 		}
 
-		$html = '';
+		$html    = '';
 		$onclick = '';
-		$icon = '';
+		$icon    = '';
 
 		if (!self::$params)
 		{
@@ -119,7 +97,7 @@ class SermonspeakerHelperSermonspeaker
 
 		if ($pos !== false)
 		{
-			$icon = substr($addfile, $pos + 5);
+			$icon    = substr($addfile, $pos + 5);
 			$addfile = substr($addfile, 0, $pos - 1);
 		}
 
@@ -147,7 +125,7 @@ class SermonspeakerHelperSermonspeaker
 				}
 			}
 
-			$html .= '<a class="hasTooltip" title="::' . JText::_('COM_SERMONSPEAKER_ADDFILE_HOOVER') . '" href="'
+			$html .= '<a class="hasTooltip" title="::' . Text::_('COM_SERMONSPEAKER_ADDFILE_HOOVER') . '" href="'
 				. $link . '" ' . $onclick . ' target="_blank"><img src="' . $icon . '" width="18" height="20" alt="" /></a>&nbsp;';
 		}
 
@@ -162,12 +140,12 @@ class SermonspeakerHelperSermonspeaker
 				}
 				else
 				{
-					$slash = strrpos($addfile, '/');
+					$slash       = strrpos($addfile, '/');
 					$addfileDesc = ($slash !== false) ? substr($addfile, $slash + 1) : $addfile;
 				}
 			}
 
-			$html .= '<a class="hasTooltip" title="::' . JText::_('COM_SERMONSPEAKER_ADDFILE_HOOVER') . '" href="'
+			$html .= '<a class="hasTooltip" title="::' . Text::_('COM_SERMONSPEAKER_ADDFILE_HOOVER') . '" href="'
 				. $link . '"' . $onclick . ' target="_blank">' . $addfileDesc . '</a>';
 		}
 
@@ -188,7 +166,7 @@ class SermonspeakerHelperSermonspeaker
 	{
 		if (!parse_url($path, PHP_URL_SCHEME))
 		{
-			$path = ($abs) ? JUri::base() . trim($path, '/') : JUri::base(true) . '/' . trim($path, '/');
+			$path = ($abs) ? Uri::base() . trim($path, '/') : Uri::base(true) . '/' . trim($path, '/');
 		}
 
 		return $path;
@@ -215,24 +193,12 @@ class SermonspeakerHelperSermonspeaker
 
 		$id = (int) $id;
 
-		$text = ($size) ? JText::sprintf('COM_SERMONSPEAKER_DOWNLOADBUTTON_' . $type . '_WITH_SIZE', self::convertBytes($size))
-			: JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_' . $type);
+		$text    = ($size) ? Text::sprintf('COM_SERMONSPEAKER_DOWNLOADBUTTON_' . $type . '_WITH_SIZE', self::convertBytes($size))
+			: Text::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_' . $type);
 		$onclick = '';
-		$fileurl = JRoute::_('index.php?task=download&id=' . $id . '&type=' . $type);
+		$fileurl = Route::_('index.php?task=download&id=' . $id . '&type=' . $type);
 
-		if ($mode == 1)
-		{
-			// Link with Icon
-			if (self::$params->get('enable_ga_events'))
-			{
-				$onclick = "onclick=\"ga('send', 'event', 'SermonSpeaker Download', '" . $type . "', 'id:" . $id . "');\"";
-			}
-
-			$html = '<a href="' . $fileurl . '" target="_blank" ' . $onclick . ' class="hasTooltip" title="::' . $text . '">'
-				. '<img src="media/com_sermonspeaker/images/download.png" alt="' . $text . '" />'
-				. '</a>';
-		}
-		elseif ($mode == 2)
+		if ($mode == 2)
 		{
 			// Button with Bootstrap Icon
 			if (self::$params->get('enable_ga_events'))
@@ -243,7 +209,7 @@ class SermonspeakerHelperSermonspeaker
 			$html = '<button id="sermon_download" class="btn btn-small download_btn" onclick="' . $onclick . 'window.location.href=\'' . $fileurl . '\';" >'
 				. '<i class="icon-download"> </i> ' . $text . '</button>';
 		}
-		elseif ($mode == 3)
+		elseif ($mode == 1 || $mode == 3)
 		{
 			// Link with Bootstrap Icon
 			if (self::$params->get('enable_ga_events'))
@@ -292,9 +258,9 @@ class SermonspeakerHelperSermonspeaker
 	 */
 	public static function insertPopupButton($id, $player)
 	{
-		$html = '<input class="btn popup_btn" type="button" name="' . JText::_('COM_SERMONSPEAKER_POPUPPLAYER') . '" value="'
-			. JText::_('COM_SERMONSPEAKER_POPUPPLAYER') . '" onclick="popup=window.open(\''
-			. JRoute::_('index.php?view=sermon&layout=popup&id=' . (int) $id . '&tmpl=component') . '\', \'PopupPage\', \'height='
+		$html = '<input class="btn popup_btn" type="button" name="' . Text::_('COM_SERMONSPEAKER_POPUPPLAYER') . '" value="'
+			. Text::_('COM_SERMONSPEAKER_POPUPPLAYER') . '" onclick="popup=window.open(\''
+			. Route::_('index.php?view=sermon&layout=popup&id=' . (int) $id . '&tmpl=component') . '\', \'PopupPage\', \'height='
 			. $player->popup['height'] . ',width=' . $player->popup['width'] . ',scrollbars=yes,resizable=yes\'); return false" />';
 
 		return $html;
@@ -359,15 +325,15 @@ class SermonspeakerHelperSermonspeaker
 
 			if ($list_icon_function && !$item->audiofile && !$item->videofile)
 			{
-				$return .= '<i class="icon-"> </i> ';
+				$return .= '<span class="fa fa-"> </span> ';
 			}
 			else
 			{
 				switch ($list_icon_function)
 				{
 					case 0:
-						$pic = '<i class="icon-play hasTooltip" title="::' . JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER') . '"> </i>';
-						$return .= JHtml::Link(JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug, $item->catid, $item->language)), $pic) . ' ';
+						$pic    = '<span class="fa fa-play hasTooltip" title="' . Text::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER') . '"></span>';
+						$return .= HtmlHelper::link(Route::_(SermonspeakerHelperRoute::getSermonRoute($item->slug, $item->catid, $item->language)), $pic) . ' ';
 						break;
 					case 1:
 						if (!$item->audiofile && !$item->videofile)
@@ -375,9 +341,9 @@ class SermonspeakerHelperSermonspeaker
 							break;
 						}
 
-						$pic = '<i class="icon-play hasTooltip" title="::' . JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER') . '"> </i>';
-						$file = ($item->videofile && (self::$params->get('fileprio', 0) || !$item->audiofile)) ? $item->videofile : $item->audiofile;
-						$return .= JHtml::Link(self::makeLink($file), $pic) . ' ';
+						$pic    = '<span class="fa fa-play hasTooltip" title="' . Text::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER') . '"> </span>';
+						$file   = ($item->videofile && (self::$params->get('fileprio', 0) || !$item->audiofile)) ? $item->videofile : $item->audiofile;
+						$return .= HtmlHelper::link(self::makeLink($file), $pic) . ' ';
 						break;
 					case 2:
 						if (!$item->audiofile && !$item->videofile)
@@ -395,8 +361,8 @@ class SermonspeakerHelperSermonspeaker
 						if (in_array(self::$view . ':player', $cols))
 						{
 							$options['onclick'] = 'ss_play(' . $i . ');return false;';
-							$options['title'] = JText::_('COM_SERMONSPEAKER_PLAYICON_HOOVER');
-							$return = '<i class="icon-play pointer hasTooltip" onclick="' . $options['onclick'] . '" title="' . $options['title'] . '"> </i> ';
+							$options['title']   = Text::_('COM_SERMONSPEAKER_PLAYICON_HOOVER');
+							$return             = '<span class="fa fa-play pointer hasTooltip" onclick="' . $options['onclick'] . '" title="' . $options['title'] . '"> </span> ';
 						}
 
 						break;
@@ -406,12 +372,11 @@ class SermonspeakerHelperSermonspeaker
 							break;
 						}
 
-						$options['onclick'] = "popup=window.open('" . JRoute::_('index.php?view=sermon&layout=popup&id=' . $item->id . '&tmpl=component')
+						$options['onclick'] = "popup=window.open('" . Route::_('index.php?view=sermon&layout=popup&id=' . $item->id . '&tmpl=component')
 							. "', 'PopupPage', 'height=" . $player->popup['height'] . ',width=' . $player->popup['width']
 							. ",scrollbars=yes,resizable=yes'); return false";
-						$options['title'] = JText::_('COM_SERMONSPEAKER_POPUPPLAYER');
-						$options['class'] = 'icon_play pointer hasTooltip';
-						$return .= JHtml::Image('media/com_sermonspeaker/images/play.gif', JText::_('COM_SERMONSPEAKER_POPUPPLAYER'), $options) . ' ';
+						$options['title']   = Text::_('COM_SERMONSPEAKER_POPUPPLAYER');
+						$return             = '<span class="fa fa-play pointer hasTooltip" onclick="' . $options['onclick'] . '" title="' . $options['title'] . '"> </span> ';
 						break;
 					case 4:
 						break;
@@ -434,13 +399,13 @@ class SermonspeakerHelperSermonspeaker
 			switch (self::$params->get('list_title_function', 0))
 			{
 				case 0:
-					$options['title'] = JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER');
-					$return .= JHtml::Link(JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug, $item->catid, $item->language)), $item->title, $options);
+					$options['title'] = Text::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER');
+					$return           .= HtmlHelper::link(Route::_(SermonspeakerHelperRoute::getSermonRoute($item->slug, $item->catid, $item->language)), $item->title, $options);
 					break;
 				case 1:
-					$options['title'] = JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER');
+					$options['title'] = Text::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER');
 					$file             = ($item->videofile && (self::$params->get('fileprio', 0) || !$item->audiofile)) ? $item->videofile : $item->audiofile;
-					$return .= JHtml::Link(self::makeLink($file), $item->title, $options);
+					$return           .= HtmlHelper::link(self::makeLink($file), $item->title, $options);
 					break;
 				case 2:
 					$cols = self::$params->get('col');
@@ -453,22 +418,22 @@ class SermonspeakerHelperSermonspeaker
 					if (in_array(self::$view . ':player', $cols))
 					{
 						$options['onclick'] = 'ss_play(' . $i . ');return false;';
-						$options['title']   = JText::_('COM_SERMONSPEAKER_PLAYICON_HOOVER');
-						$return .= JHtml::Link('#', $item->title, $options);
+						$options['title']   = Text::_('COM_SERMONSPEAKER_PLAYICON_HOOVER');
+						$return             .= HtmlHelper::link('#', $item->title, $options);
 					}
 					else
 					{
-						$options['title'] = JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER');
-						$return .= JHtml::Link(JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug, $item->catid, $item->language)), $item->title, $options);
+						$options['title'] = Text::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER');
+						$return           .= HtmlHelper::link(Route::_(SermonspeakerHelperRoute::getSermonRoute($item->slug, $item->catid, $item->language)), $item->title, $options);
 					}
 
 					break;
 				case 3:
-					$options['onclick'] = "popup=window.open('" . JRoute::_('index.php?view=sermon&layout=popup&id=' . $item->id . '&tmpl=component')
+					$options['onclick'] = "popup=window.open('" . Route::_('index.php?view=sermon&layout=popup&id=' . $item->id . '&tmpl=component')
 						. "', 'PopupPage', 'height=" . $player->popup['height'] . ',width=' . $player->popup['width']
 						. ",scrollbars=yes,resizable=yes'); return false";
-					$options['title']   = JText::_('COM_SERMONSPEAKER_POPUPPLAYER');
-					$return .= JHtml::Link('#', $item->title, $options);
+					$options['title']   = Text::_('COM_SERMONSPEAKER_POPUPPLAYER');
+					$return             .= HtmlHelper::link('#', $item->title, $options);
 					break;
 			}
 		}
@@ -494,13 +459,13 @@ class SermonspeakerHelperSermonspeaker
 		}
 
 		$enable_keywords = self::$params->get('enable_keywords', 0);
-		$tags = array();
+		$tags            = array();
 
 		// @codingStandardsIgnoreStart
 		if ($enable_keywords & 1)
 		{
 			// @codingStandardsIgnoreEnd
-			$metakey = (is_object($item)) ? $item->metakey : $item;
+			$metakey  = (is_object($item)) ? $item->metakey : $item;
 			$keywords = explode(',', $metakey);
 
 			foreach ($keywords as $keyword)
@@ -527,7 +492,7 @@ class SermonspeakerHelperSermonspeaker
 		{
 			if ($tag)
 			{
-				$links[] = '<a href="' . JRoute::_('index.php?option=com_search&ordering=newest&searchphrase=all&searchword=' . $tag) . '" >' . $tag . '</a>';
+				$links[] = '<a href="' . Route::_('index.php?option=com_search&ordering=newest&searchphrase=all&searchword=' . $tag) . '" >' . $tag . '</a>';
 			}
 		}
 
@@ -601,7 +566,7 @@ class SermonspeakerHelperSermonspeaker
 			return '';
 		}
 
-		$explode = explode('!', $scripture);
+		$explode    = explode('!', $scripture);
 		$scriptures = array();
 
 		foreach ($explode as $passage)
@@ -644,8 +609,8 @@ class SermonspeakerHelperSermonspeaker
 		}
 		else
 		{
-			$separator = JText::_('COM_SERMONSPEAKER_SCRIPTURE_SEPARATOR');
-			$text .= JText::_('COM_SERMONSPEAKER_BOOK_' . $explode[0]);
+			$separator = Text::_('COM_SERMONSPEAKER_SCRIPTURE_SEPARATOR');
+			$text      .= Text::_('COM_SERMONSPEAKER_BOOK_' . $explode[0]);
 
 			if ($explode[1])
 			{
@@ -683,7 +648,7 @@ class SermonspeakerHelperSermonspeaker
 				// Due to a strange behavior of the menuitem (Registry?), I manually retrieve component params if "Use Global" was selected.
 				if (!$tags)
 				{
-					$tags = JComponentHelper::getParams('com_sermonspeaker')->get('plugin_tag');
+					$tags = ComponentHelper::getParams('com_sermonspeaker')->get('plugin_tag');
 				}
 
 				$text = $tags[0] . $text . $tags[1];
@@ -766,26 +731,26 @@ class SermonspeakerHelperSermonspeaker
 	{
 		if (!is_array($config))
 		{
-			JFactory::getApplication()->enqueueMessage('Wrong calling of getPlayer(), second parameter needs to be an array', 'warning');
+			Factory::getApplication()->enqueueMessage('Wrong calling of getPlayer(), second parameter needs to be an array', 'warning');
 			$config = array();
 		}
 
 		// Create player object to pass through plugins
-		$player = new stdClass;
+		$player                  = new stdClass;
 		$player->popup['height'] = 0;
-		$player->popup['width'] = 0;
-		$player->error = '';
-		$player->toggle = false;
-		$player->script = '';
-		$player->player = '';
-		$player->mspace = '';
+		$player->popup['width']  = 0;
+		$player->error           = '';
+		$player->toggle          = false;
+		$player->script          = '';
+		$player->player          = '';
+		$player->mspace          = '';
 
 		// Convert $config to an Registry object
 		$registry = new Joomla\Registry\Registry;
 		$registry->loadArray($config);
 
-		JPluginHelper::importPlugin('sermonspeaker');
-		JFactory::getApplication()->triggerEvent('onGetPlayer', array('SermonspeakerHelperSermonspeaker.getPlayer', &$player, $item, $registry));
+		PluginHelper::importPlugin('sermonspeaker');
+		Factory::getApplication()->triggerEvent('onGetPlayer', array('SermonspeakerHelperSermonspeaker.getPlayer', &$player, $item, $registry));
 
 		if (!$player->mspace)
 		{
@@ -879,7 +844,7 @@ class SermonspeakerHelperSermonspeaker
 		}
 
 		$count = count($unit) - 1;
-		$x = 0;
+		$x     = 0;
 		$bytes = (int) $bytes;
 
 		while (($bytes >= $factor) && ($x < $count))

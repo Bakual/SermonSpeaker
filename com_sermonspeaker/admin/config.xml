@@ -25,7 +25,7 @@
 			type="radio"
 			label="COM_SERMONSPEAKER_FIELD_SPEAKERPOPUP_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_SPEAKERPOPUP_DESC"
-			class="btn-group btn-group-yesno switcher inverted"
+			class="btn-group btn-group-yesno"
 			default="1"
 		>
 			<option value="1">JYES</option>
@@ -261,10 +261,10 @@
 		/>
 
 		<field
-			name="css_icomoon"
+			name="css_fontawesome"
 			type="radio"
-			label="COM_SERMONSPEAKER_FIELD_CSS_ICOMOON_LABEL"
-			description="COM_SERMONSPEAKER_FIELD_CSS_ICOMOON_DESC"
+			label="COM_SERMONSPEAKER_FIELD_CSS_FONTAWESOME_LABEL"
+			description="COM_SERMONSPEAKER_FIELD_CSS_FONTAWESOME_DESC"
 			class="btn-group btn-group-yesno"
 			default="0"
 		>

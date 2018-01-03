@@ -35,7 +35,7 @@ class SermonspeakerController extends BaseController
 
 		$params = ComponentHelper::getParams('com_sermonspeaker');
 
-		if ($params->get('css_icomoon') == '')
+		if ($params->get('css_fontawesome') == '')
 		{
 			Factory::getApplication()->enqueueMessage(Text::_('COM_SERMONSPEAKER_NOTSAVED'), 'warning');
 		}
