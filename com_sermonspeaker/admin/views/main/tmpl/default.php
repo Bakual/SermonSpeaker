@@ -39,8 +39,8 @@ use Joomla\CMS\Uri\Uri;
             <a class="card text-center" href="index.php?option=com_categories&extension=com_sermonspeaker.sermons">
                 <div class="card-body">
                     <span class="fa-stack fa-2x">
-                        <i class="fa fa-folder-o fa-stack-2x"></i>
-                        <i class="fa fa-list-alt fa-stack-1x"></i>
+                        <span class="fa fa-folder-o fa-stack-2x"></span>
+                        <span class="fa fa-list-alt fa-stack-1x"></span>
                     </span>
                     <h3 class="card-title"><?php echo Text::_('COM_SERMONSPEAKER_MENU_CATEGORIES_SERMONS'); ?></h3>
                 </div>
@@ -48,8 +48,8 @@ use Joomla\CMS\Uri\Uri;
             <a class="card text-center" href="index.php?option=com_categories&extension=com_sermonspeaker.series">
                 <div class="card-body">
                     <span class="fa-stack fa-2x">
-                        <i class="fa fa-folder-o fa-stack-2x fa-2x"></i>
-                        <i class="fa fa-object-group fa-stack-1x"></i>
+                        <span class="fa fa-folder-o fa-stack-2x fa-2x"></span>
+                        <span class="fa fa-object-group fa-stack-1x"></span>
                     </span>
                     <h3 class="card-title"><?php echo Text::_('COM_SERMONSPEAKER_MENU_CATEGORIES_SERIES'); ?></h3>
                 </div>
@@ -57,8 +57,8 @@ use Joomla\CMS\Uri\Uri;
             <a class="card text-center" href="index.php?option=com_categories&extension=com_sermonspeaker.speakers">
                 <div class="card-body">
                     <span class="fa-stack fa-2x">
-                        <i class="fa fa-folder-o fa-stack-2x"></i>
-                        <i class="fa fa-commenting-o fa-stack-1x"></i>
+                        <span class="fa fa-folder-o fa-stack-2x"></span>
+                        <span class="fa fa-commenting-o fa-stack-1x"></span>
                     </span>
                     <h3 class="card-title"><?php echo Text::_('COM_SERMONSPEAKER_MENU_CATEGORIES_SPEAKERS'); ?></h3>
                 </div>
