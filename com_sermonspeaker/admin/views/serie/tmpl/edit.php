@@ -44,7 +44,7 @@ $tmpl    = $isModal || $jinput->get('tmpl', '', 'cmd') === 'component' ? '&tmpl=
 					</fieldset>
 				</div>
 				<div class="col-md-3">
-					<div class="card card-block card-light">
+					<div class="card card-body card-light">
 						<?php echo LayoutHelper::render('joomla.edit.global', $this); ?>
 					</div>
 				</div>

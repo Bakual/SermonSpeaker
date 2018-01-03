@@ -12,7 +12,7 @@ JHtml::_('bootstrap.tooltip');
 			<div id="j-main-container" class="j-main-container">
 				<?php if (!$this->xml) : ?>
 					<div class="card card-info">
-						<div class="card-block">
+						<div class="card-body">
 							<h4 class="card-title"><?php echo JText::_('NOTICE'); ?></h4>
 							<p class="card-text"><?php echo JText::_('COM_SERMONSPEAKER_XML_ERROR'); ?></p>
 							<a href="http://www.sermonspeaker.net/download/language-packs.html" class="btn btn-primary" target="_blank">SermonSpeaker.net</a>
@@ -20,7 +20,7 @@ JHtml::_('bootstrap.tooltip');
 					</div>
 				<?php else : ?>
 					<div class="card">
-						<div class="card-block">
+						<div class="card-body">
 							<h3 class="card-title"><?php echo $this->xml->title; ?></h3>
 							<p class="card-text"><?php echo (string)$this->xml->description; ?></p>
 						</div>
