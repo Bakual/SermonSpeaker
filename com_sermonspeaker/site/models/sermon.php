@@ -9,6 +9,8 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Factory;
+
 /**
  * Model class for the SermonSpeaker Component
  *
@@ -29,11 +31,12 @@ class SermonspeakerModelSermon extends JModelItem
 	 * @return  void
 	 *
 	 * @since ?
+	 * @throws Exception
 	 */
 	protected function populateState($ordering = null, $direction = null)
 	{
-		/** @var JApplicationSite $app */
-		$app    = JFactory::getApplication();
+		/** @var \Joomla\CMS\Application\SiteApplication $app */
+		$app    = Factory::getApplication();
 		$params = $app->getParams();
 
 		// Load the object state.
@@ -52,6 +55,7 @@ class SermonspeakerModelSermon extends JModelItem
 	 * @return mixed Object on success, false on failure
 	 *
 	 * @since ?
+	 * @throws Exception
 	 */
 	public function &getItem($id = null)
 	{
@@ -67,103 +71,105 @@ class SermonspeakerModelSermon extends JModelItem
 
 		if (!isset($this->_item[$id]))
 		{
+			$db    = $this->getDbo();
+			$query = $db->getQuery(true);
+
+			$query->select(
+				$this->getState(
+					'item.select',
+					'sermon.id, sermon.speaker_id, sermon.series_id, sermon.alias, sermon.catid, '
+					. 'CASE WHEN CHAR_LENGTH(sermon.alias) THEN CONCAT_WS(\':\', sermon.id, sermon.alias) ELSE sermon.id END as slug,'
+					. 'sermon.audiofile, sermon.videofile, sermon.title, sermon.sermon_number, '
+					. 'sermon.sermon_date, sermon.picture, sermon.checked_out, sermon.checked_out_time, '
+					. 'sermon.sermon_time, sermon.notes, sermon.state, sermon.language, '
+					. 'sermon.hits, sermon.addfile, sermon.addfileDesc, '
+					. 'sermon.metakey, sermon.metadesc, '
+					. 'sermon.created, sermon.created_by, sermon.audiofilesize, sermon.videofilesize, '
+					. 'sermon.metadata, '
+					. 'sermon.publish_up, sermon.publish_down'
+				)
+			);
+			$query->from('#__sermon_sermons AS sermon');
+
+			// Join over users for the author names.
+			$query->select("user.name AS author");
+			$query->join('LEFT', '#__users AS user ON user.id = sermon.created_by');
+
+			// Filter by start and end dates.
+			if ((!$user->authorise('core.edit.state', 'com_sermonspeaker')) && (!$user->authorise('core.edit', 'com_sermonspeaker')))
+			{
+				$nullDate = $db->quote($db->getNullDate());
+				$nowDate  = $db->quote(JFactory::getDate()->toSql());
+
+				$query->where('(sermon.publish_up = ' . $nullDate . ' OR sermon.publish_up <= ' . $nowDate . ')');
+				$query->where('(sermon.publish_down = ' . $nullDate . ' OR sermon.publish_down >= ' . $nowDate . ')');
+			}
+
+			// Join on category table.
+			$query->select('c.title AS category_title, c.access AS category_access');
+			$query->select('CASE WHEN CHAR_LENGTH(c.alias) THEN CONCAT_WS(\':\', c.id, c.alias) ELSE c.id END as catslug');
+			$query->join('LEFT', '#__categories AS c on c.id = sermon.catid');
+
+			// Join on speakers table.
+			$query->select('speakers.title AS speaker_title, speakers.pic AS pic, speakers.state as speaker_state');
+			$query->select('speakers.intro, speakers.bio, speakers.website, speakers.catid as speaker_catid, speakers.language as speaker_language');
+			$query->select("CASE WHEN CHAR_LENGTH(speakers.alias) THEN CONCAT_WS(':', speakers.id, speakers.alias) ELSE speakers.id END as speaker_slug");
+			$query->join('LEFT', '#__sermon_speakers AS speakers on speakers.id = sermon.speaker_id');
+
+			// Join on category table for speaker
+			$query->select('c_speaker.access AS speaker_category_access');
+			$query->join('LEFT', '#__categories AS c_speaker on c_speaker.id = speakers.catid');
+			$query->where('(sermon.speaker_id = 0 OR speakers.catid = 0 OR c_speaker.published = 1)');
+
+			// Join on series table.
+			$query->select('series.title AS series_title, series.avatar, series.state as series_state, series.catid as series_catid, series.language as series_language');
+			$query->select("CASE WHEN CHAR_LENGTH(series.alias) THEN CONCAT_WS(':', series.id, series.alias) ELSE series.id END as series_slug ");
+			$query->join('LEFT', '#__sermon_series AS series on series.id = sermon.series_id');
+
+			// Join on category table for series
+			$query->select('c_series.access AS series_category_access');
+			$query->join('LEFT', '#__categories AS c_series on c_series.id = series.catid');
+			$query->where('(sermon.series_id = 0 OR series.catid = 0 OR c_series.published = 1)');
+
+			$query->where('sermon.id = ' . (int) $id);
+			$query->where('sermon.state > 0');
+
+			$db->setQuery($query);
+
 			try
 			{
-				$db    = $this->getDbo();
-				$query = $db->getQuery(true);
-
-				$query->select(
-					$this->getState(
-						'item.select',
-						'sermon.id, sermon.speaker_id, sermon.series_id, sermon.alias, sermon.catid, '
-						. 'CASE WHEN CHAR_LENGTH(sermon.alias) THEN CONCAT_WS(\':\', sermon.id, sermon.alias) ELSE sermon.id END as slug,'
-						. 'sermon.audiofile, sermon.videofile, sermon.title, sermon.sermon_number, '
-						. 'sermon.sermon_date, sermon.picture, sermon.checked_out, sermon.checked_out_time, '
-						. 'sermon.sermon_time, sermon.notes, sermon.state, sermon.language, '
-						. 'sermon.hits, sermon.addfile, sermon.addfileDesc, '
-						. 'sermon.metakey, sermon.metadesc, '
-						. 'sermon.created, sermon.created_by, sermon.audiofilesize, sermon.videofilesize, '
-						. 'sermon.metadata, '
-						. 'sermon.publish_up, sermon.publish_down'
-					)
-				);
-				$query->from('#__sermon_sermons AS sermon');
-
-				// Join over the scriptures.
-				$query->select('GROUP_CONCAT(script.book,"|",script.cap1,"|",script.vers1,"|",script.cap2,"|",script.vers2,"|",script.text '
-					. 'ORDER BY script.ordering ASC SEPARATOR "!") AS scripture');
-				$query->join('LEFT', '#__sermon_scriptures AS script ON script.sermon_id = sermon.id');
-				$query->group('sermon.id');
-
-				// Join over users for the author names.
-				$query->select("user.name AS author");
-				$query->join('LEFT', '#__users AS user ON user.id = sermon.created_by');
-
-				// Filter by start and end dates.
-				if ((!$user->authorise('core.edit.state', 'com_sermonspeaker')) && (!$user->authorise('core.edit', 'com_sermonspeaker')))
-				{
-					$nullDate = $db->quote($db->getNullDate());
-					$nowDate  = $db->quote(JFactory::getDate()->toSql());
-
-					$query->where('(sermon.publish_up = ' . $nullDate . ' OR sermon.publish_up <= ' . $nowDate . ')');
-					$query->where('(sermon.publish_down = ' . $nullDate . ' OR sermon.publish_down >= ' . $nowDate . ')');
-				}
-
-				// Join on category table.
-				$query->select('c.title AS category_title, c.access AS category_access');
-				$query->select('CASE WHEN CHAR_LENGTH(c.alias) THEN CONCAT_WS(\':\', c.id, c.alias) ELSE c.id END as catslug');
-				$query->join('LEFT', '#__categories AS c on c.id = sermon.catid');
-
-				// Join on speakers table.
-				$query->select('speakers.title AS speaker_title, speakers.pic AS pic, speakers.state as speaker_state');
-				$query->select('speakers.intro, speakers.bio, speakers.website, speakers.catid as speaker_catid, speakers.language as speaker_language');
-				$query->select("CASE WHEN CHAR_LENGTH(speakers.alias) THEN CONCAT_WS(':', speakers.id, speakers.alias) ELSE speakers.id END as speaker_slug");
-				$query->join('LEFT', '#__sermon_speakers AS speakers on speakers.id = sermon.speaker_id');
-
-				// Join on category table for speaker
-				$query->select('c_speaker.access AS speaker_category_access');
-				$query->join('LEFT', '#__categories AS c_speaker on c_speaker.id = speakers.catid');
-				$query->where('(sermon.speaker_id = 0 OR speakers.catid = 0 OR c_speaker.published = 1)');
-
-				// Join on series table.
-				$query->select('series.title AS series_title, series.avatar, series.state as series_state, series.catid as series_catid, series.language as series_language');
-				$query->select("CASE WHEN CHAR_LENGTH(series.alias) THEN CONCAT_WS(':', series.id, series.alias) ELSE series.id END as series_slug ");
-				$query->join('LEFT', '#__sermon_series AS series on series.id = sermon.series_id');
-
-				// Join on category table for series
-				$query->select('c_series.access AS series_category_access');
-				$query->join('LEFT', '#__categories AS c_series on c_series.id = series.catid');
-				$query->where('(sermon.series_id = 0 OR series.catid = 0 OR c_series.published = 1)');
-
-				$query->where('sermon.id = ' . (int) $id);
-				$query->where('sermon.state > 0');
-
-				$db->setQuery($query);
-
 				$data = $db->loadObject();
-
-				if ($error = $db->getErrorMsg())
-				{
-					throw new Exception($error);
-				}
-
-				if (!$data)
-				{
-					throw new Exception(JText::_('JGLOBAL_RESOURCE_NOT_FOUND'));
-				}
-
-				// Convert the metadata field to an array.
-				$registry = new Joomla\Registry\Registry;
-				$registry->loadString($data->metadata);
-				$data->metadata = $registry;
-
-				$this->_item[$id] = $data;
 			}
 			catch (Exception $e)
 			{
-				$this->setError($e);
 				$this->_item[$id] = false;
+
+				throw new Exception($e->getMessage());
 			}
+
+			if (!$data)
+			{
+				throw new Exception(JText::_('JGLOBAL_RESOURCE_NOT_FOUND'));
+			}
+
+			// Query Scripture
+			// Join over the scriptures.
+			$scriptureQuery = $db->getQuery(true);
+			$scriptureQuery->select('GROUP_CONCAT(book,"|",cap1,"|",vers1,"|",cap2,"|",vers2,"|",text '
+				. 'ORDER BY ordering ASC SEPARATOR "!") AS scripture');
+			$scriptureQuery->from('#__sermon_scriptures');
+			$scriptureQuery->where('sermon_id = ' . $data->id);
+			$scriptureQuery->group('sermon_id');
+
+			$db->setQuery($scriptureQuery);
+			$data->scripture = $db->loadResult();
+
+			// Convert the metadata field to an array.
+			$registry = new Joomla\Registry\Registry;
+			$registry->loadString($data->metadata);
+			$data->metadata = $registry;
+
+			$this->_item[$id] = $data;
 		}
 
 		return $this->_item[$id];
@@ -177,6 +183,7 @@ class SermonspeakerModelSermon extends JModelItem
 	 * @return  boolean  True on success
 	 *
 	 * @since ?
+	 * @throws Exception
 	 */
 	public function hit($id = null)
 	{
