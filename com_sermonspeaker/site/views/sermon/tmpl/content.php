@@ -7,14 +7,16 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
+use Joomla\CMS\HTML\HTMLHelper;
+
 defined('_JEXEC') or die();
 
-JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
-JHtml::_('bootstrap.framework');
-JHtml::_('bootstrap.tooltip');
+HTMLHelper::addIncludePath(JPATH_COMPONENT . '/helpers');
+HTMLHelper::_('bootstrap.framework');
+HTMLHelper::_('bootstrap.tooltip');
 
 // Needed for pictures in blog layout
-JHtml::_('stylesheet', 'com_sermonspeaker/blog.css', array('relative' => true));
+HTMLHelper::_('stylesheet', 'com_sermonspeaker/blog.css', array('relative' => true));
 
 $user       = JFactory::getUser();
 $showState  = $user->authorise('core.edit', 'com_sermonspeaker');
@@ -55,20 +57,20 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 			<?php if (in_array('sermon:download', $this->columns)) :
 				if ($this->item->audiofile) : ?>
 					<li class="download-icon" itemprop="audio" itemscope itemtype="http://schema.org/AudioObject">
-						<?php echo JHtml::_('icon.download', $this->item, $this->params, array('type' => 'audio')); ?>
+						<?php echo HTMLHelper::_('icon.download', $this->item, $this->params, array('type' => 'audio')); ?>
 					</li>
 				<?php endif;
 
 				if ($this->item->videofile) : ?>
 					<li class="download-icon" itemprop="video" itemscope itemtype="http://schema.org/VideoObject">
-						<?php echo JHtml::_('icon.download', $this->item, $this->params, array('type' => 'video')); ?>
+						<?php echo HTMLHelper::_('icon.download', $this->item, $this->params, array('type' => 'video')); ?>
 					</li>
 				<?php endif; ?>
 			<?php endif; ?>
-			<li class="email-icon"><?php echo JHtml::_('icon.email', $this->item, $this->params, array('type' => 'sermon')); ?></li>
+			<li class="email-icon"><?php echo HTMLHelper::_('icon.email', $this->item, $this->params, array('type' => 'sermon')); ?></li>
 			<?php
 			if ($canEdit or ($canEditOwn and ($user->id == $this->item->created_by))) : ?>
-				<li class="edit-icon"><?php echo JHtml::_('icon.edit', $this->item, $this->params, array('type' => 'sermon')); ?></li>
+				<li class="edit-icon"><?php echo HTMLHelper::_('icon.edit', $this->item, $this->params, array('type' => 'sermon')); ?></li>
 			<?php endif; ?>
 		</ul>
 	</div>
@@ -107,9 +109,9 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 				<dd class="create">
 					<span class="icon-calendar"></span>
 					<?php echo JText::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL'); ?>:
-					<time datetime="<?php echo JHtml::_('date', $this->item->sermon_date, 'c'); ?>"
+					<time datetime="<?php echo HTMLHelper::_('date', $this->item->sermon_date, 'c'); ?>"
 						itemprop="dateCreated">
-						<?php echo JHtml::date($this->item->sermon_date, JText::_($this->params->get('date_format')), true); ?>
+						<?php echo HTMLHelper::date($this->item->sermon_date, JText::_($this->params->get('date_format')), true); ?>
 					</time>
 				</dd>
 			<?php endif;
@@ -128,7 +130,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 					<span class="icon-quote"></span>
 					<?php echo JText::_('COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL'); ?>:
 					<?php $scriptures = SermonspeakerHelperSermonspeaker::insertScriptures($this->item->scripture, '; ');
-					echo JHtml::_('content.prepare', $scriptures, '', 'com_sermonspeaker.scripture'); ?>
+					echo HTMLHelper::_('content.prepare', $scriptures, '', 'com_sermonspeaker.scripture'); ?>
 				</dd>
 			<?php endif;
 
@@ -186,7 +188,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 
 	if (in_array('sermon:notes', $this->columns) and $this->item->notes) : ?>
 		<div>
-			<?php echo JHtml::_('content.prepare', $this->item->notes, '', 'com_sermonspeaker.notes'); ?>
+			<?php echo HTMLHelper::_('content.prepare', $this->item->notes, '', 'com_sermonspeaker.notes'); ?>
 		</div>
 	<?php endif; ?>
 	<?php echo $this->item->event->afterDisplayContent; ?>

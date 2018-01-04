@@ -7,6 +7,14 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
+use Joomla\CMS\Factory;
+use Joomla\CMS\Helper\TagsHelper;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\MVC\View\HtmlView;
+use Joomla\CMS\Plugin\PluginHelper;
+use Joomla\CMS\Router\Route;
+use Joomla\CMS\Uri\Uri;
+
 defined('_JEXEC') or die();
 
 /**
@@ -14,11 +22,31 @@ defined('_JEXEC') or die();
  *
  * @since  3.4
  */
-class SermonspeakerViewSermon extends JViewLegacy
+class SermonspeakerViewSermon extends HtmlView
 {
+	/**
+	 * @var
+	 * @since ?
+	 */
 	protected $state;
 
+	/**
+	 * @var
+	 * @since ?
+	 */
 	protected $item;
+
+	/**
+	 * @var  \Joomla\Registry\Registry
+	 * @since 6
+	 */
+	protected $params;
+
+	/**
+	 * @var  \Joomla\CMS\User\User
+	 * @since 6
+	 */
+	protected $user;
 
 	/**
 	 * Execute and display a template script.
@@ -32,7 +60,7 @@ class SermonspeakerViewSermon extends JViewLegacy
 	 */
 	public function display($tpl = null)
 	{
-		$app = JFactory::getApplication();
+		$app = Factory::getApplication();
 
 		// Get model data (/models/sermon.php)
 		$this->state = $this->get('State');
@@ -43,7 +71,7 @@ class SermonspeakerViewSermon extends JViewLegacy
 
 			if (!$id)
 			{
-				throw new Exception(JText::_('JGLOBAL_RESOURCE_NOT_FOUND'), 404);
+				throw new Exception(Text::_('JGLOBAL_RESOURCE_NOT_FOUND'), 404);
 			}
 
 			$this->state->set('sermon.id', $id);
@@ -52,19 +80,19 @@ class SermonspeakerViewSermon extends JViewLegacy
 
 		// Initialise variables.
 		$params     = $this->state->get('params');
-		$this->user = JFactory::getUser();
+		$this->user = Factory::getUser();
 		$groups     = $this->user->getAuthorisedViewLevels();
 
 		// Check if access is not public
 		if (!in_array($params->get('access'), $groups))
 		{
-			$app->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'error');
-			$app->redirect(JRoute::_('index.php?view=sermons'));
+			$app->enqueueMessage(Text::_('JERROR_ALERTNOAUTHOR'), 'error');
+			$app->redirect(Route::_('index.php?view=sermons'));
 		}
 
 		$this->columns = $params->get('col');
 
-		if (!$this->columns)
+		if (empty($this->columns))
 		{
 			$this->columns = array();
 		}
@@ -73,12 +101,12 @@ class SermonspeakerViewSermon extends JViewLegacy
 
 		if (!$item)
 		{
-			$app->enqueueMessage(JText::_('JGLOBAL_RESOURCE_NOT_FOUND'), 'error');
-			$app->redirect(JRoute::_('index.php?view=sermons'));
+			$app->enqueueMessage(Text::_('JGLOBAL_RESOURCE_NOT_FOUND'), 'error');
+			$app->redirect(Route::_('index.php?view=sermons'));
 		}
 
 		// Get Tags
-		$item->tags = new JHelperTags;
+		$item->tags = new TagsHelper;
 		$item->tags->getItemTags('com_sermonspeaker.sermon', $item->id);
 
 		// Check for category ACL
@@ -86,8 +114,8 @@ class SermonspeakerViewSermon extends JViewLegacy
 		{
 			if (!in_array($item->category_access, $groups))
 			{
-				$app->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'error');
-				$app->redirect(JRoute::_('index.php?view=sermons'));
+				$app->enqueueMessage(Text::_('JERROR_ALERTNOAUTHOR'), 'error');
+				$app->redirect(Route::_('index.php?view=sermons'));
 			}
 		}
 
@@ -95,8 +123,8 @@ class SermonspeakerViewSermon extends JViewLegacy
 		{
 			if (!in_array($item->speaker_category_access, $groups))
 			{
-				$app->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'error');
-				$app->redirect(JRoute::_('index.php?view=sermons'));
+				$app->enqueueMessage(Text::_('JERROR_ALERTNOAUTHOR'), 'error');
+				$app->redirect(Route::_('index.php?view=sermons'));
 			}
 		}
 
@@ -104,8 +132,8 @@ class SermonspeakerViewSermon extends JViewLegacy
 		{
 			if (!in_array($item->series_category_access, $groups))
 			{
-				$app->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'error');
-				$app->redirect(JRoute::_('index.php?view=sermons'));
+				$app->enqueueMessage(Text::_('JERROR_ALERTNOAUTHOR'), 'error');
+				$app->redirect(Route::_('index.php?view=sermons'));
 			}
 		}
 
@@ -129,22 +157,21 @@ class SermonspeakerViewSermon extends JViewLegacy
 		}
 
 		// Process the content plugins.
-		$dispatcher = JEventDispatcher::getInstance();
-		JPluginHelper::importPlugin('content');
+		PluginHelper::importPlugin('content');
 
 		$item->text = $item->notes;
-		$dispatcher->trigger('onContentPrepare', array('com_sermonspeaker.sermon', &$item, &$params, 0));
+		$app->triggerEvent('onContentPrepare', array('com_sermonspeaker.sermon', &$item, &$params, 0));
 		$item->notes = $item->text;
 
 		// Store the events for later
 		$item->event                    = new stdClass;
-		$results                        = $dispatcher->trigger('onContentAfterTitle', array('com_sermonspeaker.sermon', &$item, &$params, 0));
+		$results                        = $app->triggerEvent('onContentAfterTitle', array('com_sermonspeaker.sermon', &$item, &$params, 0));
 		$item->event->afterDisplayTitle = trim(implode("\n", $results));
 
-		$results                           = $dispatcher->trigger('onContentBeforeDisplay', array('com_sermonspeaker.sermon', &$item, &$params, 0));
+		$results                           = $app->triggerEvent('onContentBeforeDisplay', array('com_sermonspeaker.sermon', &$item, &$params, 0));
 		$item->event->beforeDisplayContent = trim(implode("\n", $results));
 
-		$results                          = $dispatcher->trigger('onContentAfterDisplay', array('com_sermonspeaker.sermon', &$item, &$params, 0));
+		$results                          = $app->triggerEvent('onContentAfterDisplay', array('com_sermonspeaker.sermon', &$item, &$params, 0));
 		$item->event->afterDisplayContent = trim(implode("\n", $results));
 
 		$this->params = $params;
@@ -164,10 +191,11 @@ class SermonspeakerViewSermon extends JViewLegacy
 	 * @return  void
 	 *
 	 * @since ?
+	 * @throws Exception
 	 */
 	protected function _prepareDocument()
 	{
-		$app   = JFactory::getApplication();
+		$app   = Factory::getApplication();
 		$menus = $app->getMenu();
 
 		// Because the application sets a default page title, we need to get it from the menu item itself
@@ -179,7 +207,7 @@ class SermonspeakerViewSermon extends JViewLegacy
 		}
 		else
 		{
-			$this->params->def('page_heading', JText::_('COM_SERMONSPEAKER_SERMON_TITLE'));
+			$this->params->def('page_heading', Text::_('COM_SERMONSPEAKER_SERMON_TITLE'));
 		}
 
 		$title = $this->params->get('page_title', '');
@@ -200,11 +228,11 @@ class SermonspeakerViewSermon extends JViewLegacy
 		}
 		elseif ($app->get('sitename_pagetitles', 0) == 1)
 		{
-			$title = JText::sprintf('JPAGETITLE', $app->get('sitename'), $title);
+			$title = Text::sprintf('JPAGETITLE', $app->get('sitename'), $title);
 		}
 		elseif ($app->get('sitename_pagetitles', 0) == 2)
 		{
-			$title = JText::sprintf('JPAGETITLE', $title, $app->get('sitename'));
+			$title = Text::sprintf('JPAGETITLE', $title, $app->get('sitename'));
 		}
 
 		if (empty($title))
@@ -219,11 +247,11 @@ class SermonspeakerViewSermon extends JViewLegacy
 
 		if ($menu && ($menu->query['view'] == 'series'))
 		{
-			$pathway->addItem($this->item->series_title, JRoute::_(SermonspeakerHelperRoute::getSerieRoute($this->item->series_slug, $this->item->series_catid, $this->item->series_language)));
+			$pathway->addItem($this->item->series_title, Route::_(SermonspeakerHelperRoute::getSerieRoute($this->item->series_slug, $this->item->series_catid, $this->item->series_language)));
 		}
 		elseif ($menu && ($menu->query['view'] == 'speakers'))
 		{
-			$pathway->addItem($this->item->speaker_title, JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($this->item->speaker_slug, $this->item->speaker_catid, $this->item->speaker_language)));
+			$pathway->addItem($this->item->speaker_title, Route::_(SermonspeakerHelperRoute::getSpeakerRoute($this->item->speaker_slug, $this->item->speaker_catid, $this->item->speaker_language)));
 		}
 
 		$pathway->addItem($this->item->title, '');
@@ -287,7 +315,7 @@ class SermonspeakerViewSermon extends JViewLegacy
 		if ($this->params->get('opengraph', 1))
 		{
 			$this->document->addCustomTag('<meta property="og:title" content="' . $this->escape($this->item->title) . '"/>');
-			$this->document->addCustomTag('<meta property="og:url" content="' . htmlspecialchars(JUri::getInstance()->toString()) . '"/>');
+			$this->document->addCustomTag('<meta property="og:url" content="' . htmlspecialchars(Uri::getInstance()->toString()) . '"/>');
 			$this->document->addCustomTag('<meta property="og:description" content="' . $this->document->getDescription() . '"/>');
 			$this->document->addCustomTag('<meta property="og:site_name" content="' . $app->get('sitename') . '"/>');
 
@@ -304,7 +332,7 @@ class SermonspeakerViewSermon extends JViewLegacy
 				{
 					$this->document->addCustomTag(
 						'<meta property="article:author" content="'
-						. JUri::base() . trim(JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($this->item->speaker_slug, $this->item->speaker_catid, $this->item->speaker_language)), '/')
+						. JUri::base() . trim(Route::_(SermonspeakerHelperRoute::getSpeakerRoute($this->item->speaker_slug, $this->item->speaker_catid, $this->item->speaker_language)), '/')
 						. '"/>'
 					);
 				}
