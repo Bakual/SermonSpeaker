@@ -7,6 +7,8 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
+use Joomla\CMS\Layout\LayoutHelper;
+
 defined('_JEXEC') or die();
 
 JHtml::_('stylesheet', 'com_sermonspeaker/sermonspeaker.css', array('relative' => true));
@@ -77,25 +79,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 
 			if (in_array('sermon:player', $this->columns)) : ?>
 				<td align="center" valign="top">
-					<?php if ($player->error): ?>
-						<span class="no_entries"><?php echo $player->error; ?></span>
-					<?php else:
-						echo $player->mspace;
-						echo $player->script;
-					endif;
-
-					if ($player->toggle): ?>
-                        <div class="row">
-                            <div class="mx-auto btn-group">
-                                <button type="button" onclick="Video()" class="btn btn-secondary" title="<?php echo JText::_('COM_SERMONSPEAKER_SWITCH_VIDEO'); ?>">
-                                    <span class="fa fa-film fa-4x"></span>
-                                </button>
-                                <button type="button" onclick="Audio()" class="btn btn-secondary" title="<?php echo JText::_('COM_SERMONSPEAKER_SWITCH_AUDIO'); ?>">
-                                    <span class="fa fa-music fa-4x"></span>
-                                </button>
-                            </div>
-                        </div>
-					<?php endif; ?>
+					<?php echo LayoutHelper::render('plugin.player', array('player' => $player, 'items' => $this->item, 'view' => 'sermon')); ?>
 				</td>
 			<?php endif; ?>
 		</tr>
@@ -115,10 +99,9 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 			echo SermonspeakerHelperSermonspeaker::insertPopupButton($this->item->id, $player);
 		endif; ?>
 	</div>
-	<?php if ($this->params->get('show_tags', 1) and !empty($this->item->tags->itemTags)) :
-		$tagLayout = new JLayoutFile('joomla.content.tags');
-		echo $tagLayout->render($this->item->tags->itemTags);
-	endif;
+	<?php if ($this->params->get('show_tags', 1) and !empty($this->item->tags->itemTags)) : ?>
+    	<?php echo LayoutHelper::render('joomla.content.tags', $this->item->tags->itemTags); ?>
+	<?php endif;
 
 	if ($this->params->get('enable_keywords')):
 		$tags = SermonspeakerHelperSermonspeaker::insertSearchTags($this->item);

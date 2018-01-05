@@ -72,12 +72,6 @@ div.column-files a.watch {
     padding-left: 26px;
 }
 
-div.ss-serie-player, div.ss-sermons-player, div.ss-speaker-player {
-    text-align: center;
-    width: 80%;
-    margin: auto auto 10px;
-}
-
 @media (max-width: 979px) {
     div.ss-entry {
         flex-direction: column;

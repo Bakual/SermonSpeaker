@@ -9,15 +9,22 @@
 
 defined('_JEXEC') or die();
 
-JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
+use Joomla\CMS\Factory;
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Layout\LayoutHelper;
+use Joomla\CMS\Router\Route;
+use Joomla\CMS\Uri\Uri;
 
-JHtml::_('bootstrap.framework');
-JHtml::_('bootstrap.tooltip');
+HTMLHelper::addIncludePath(JPATH_COMPONENT . '/helpers');
+
+HtmlHelper::_('bootstrap.framework');
+HtmlHelper::_('bootstrap.tooltip');
 
 // Needed for pictures in blog layout
-JHtml::_('stylesheet', 'com_sermonspeaker/blog.css', array('relative' => true));
+HtmlHelper::_('stylesheet', 'com_sermonspeaker/blog.css', array('relative' => true));
 
-$user       = JFactory::getUser();
+$user       = Factory::getUser();
 $showState  = $user->authorise('core.edit', 'com_sermonspeaker');
 $fu_enable  = $this->params->get('fu_enable');
 $canEdit    = ($fu_enable and $user->authorise('core.edit', 'com_sermonspeaker'));
@@ -50,49 +57,17 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 			<?php endif;
 
 			if ($this->params->get('show_description') and $this->category->description) :
-				echo JHtml::_('content.prepare', $this->category->description, '', 'com_sermonspeaker.category');
+				echo HtmlHelper::_('content.prepare', $this->category->description, '', 'com_sermonspeaker.category');
 			endif; ?>
 			<div class="clearfix"></div>
 		</div>
 	<?php endif;
 
-	if (in_array('sermons:player', $this->columns) and count($this->items)) :
-		JHtml::_('stylesheet', 'com_sermonspeaker/player.css', array('relative' => true)); ?>
-		<div id="ss-sermons-player" class="ss-player row-fluid">
-			<div class="span10 offset1">
-				<hr/>
-				<?php if ($player->player != 'PixelOut') : ?>
-					<div id="playing">
-						<img id="playing-pic" class="picture" src="" alt=""/>
-						<span id="playing-duration" class="duration"></span>
-						<div class="text">
-							<span id="playing-title" class="title"></span>
-							<span id="playing-desc" class="desc"></span>
-						</div>
-						<span id="playing-error" class="error"></span>
-					</div>
-				<?php endif;
-				echo $player->mspace;
-				echo $player->script;
-				?>
-				<hr/>
-				<?php if ($player->toggle) : ?>
-                    <div class="row">
-                        <div class="mx-auto btn-group">
-                            <button type="button" onclick="Video()" class="btn btn-secondary" title="<?php echo JText::_('COM_SERMONSPEAKER_SWITCH_VIDEO'); ?>">
-                                <span class="fa fa-film fa-4x"></span>
-                            </button>
-                            <button type="button" onclick="Audio()" class="btn btn-secondary" title="<?php echo JText::_('COM_SERMONSPEAKER_SWITCH_AUDIO'); ?>">
-                                <span class="fa fa-music fa-4x"></span>
-                            </button>
-                        </div>
-                    </div>
-				<?php endif; ?>
-			</div>
-		</div>
+	if (in_array('sermons:player', $this->columns) and count($this->items)) : ?>
+		<?php echo LayoutHelper::render('plugin.player', array('player' => $player, 'items' => $this->items, 'view' => 'sermons')); ?>
 	<?php endif; ?>
 	<div class="cat-items">
-		<form action="<?php echo htmlspecialchars(JUri::getInstance()->toString()); ?>" method="post" id="adminForm"
+		<form action="<?php echo htmlspecialchars(Uri::getInstance()->toString()); ?>" method="post" id="adminForm"
 			name="adminForm" class="form-inline">
 			<?php
 			if ($this->params->get('filter_field') or $this->params->get('show_pagination_limit')) :
@@ -101,7 +76,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 			<div class="clearfix"></div>
 			<?php if (!count($this->items)) : ?>
 				<div
-					class="no_entries alert alert-error"><?php echo JText::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', JText::_('COM_SERMONSPEAKER_SERMONS')); ?></div>
+					class="no_entries alert alert-error"><?php echo Text::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', Text::_('COM_SERMONSPEAKER_SERMONS')); ?></div>
 			<?php else : ?>
 				<div class="items-leading">
 					<?php foreach ($this->items as $i => $item) : ?>
@@ -109,12 +84,12 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 							class="<?php echo ($item->state) ? '' : 'system-unpublished'; ?>">
 							<div class="page-header">
 								<h2><?php echo SermonspeakerHelperSermonspeaker::insertSermonTitle($i, $item, $player, false); ?></h2>
-								<?php echo JLayoutHelper::render('blocks.state_info', array('item' => $item, 'show' => $showState)); ?>
+								<?php echo LayoutHelper::render('blocks.state_info', array('item' => $item, 'show' => $showState)); ?>
 
 								<?php if (in_array('sermons:speaker', $this->columns) and $item->speaker_title) : ?>
 									<small class="ss-speaker createdby">
-										<?php echo JText::_('COM_SERMONSPEAKER_SPEAKER'); ?>:
-										<?php echo JLayoutHelper::render('titles.speaker', array('item' => $item, 'params' => $this->params)); ?>
+										<?php echo Text::_('COM_SERMONSPEAKER_SPEAKER'); ?>:
+										<?php echo LayoutHelper::render('titles.speaker', array('item' => $item, 'params' => $this->params)); ?>
 									</small>
 								<?php endif; ?>
 							</div>
@@ -124,21 +99,21 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 									<span class="caret"></span>
 								</a>
 								<ul class="dropdown-menu">
-									<li class="play-icon"><?php echo JHtml::_('icon.play', $item, $this->params, array('index' => $i)); ?></li>
+									<li class="play-icon"><?php echo HtmlHelper::_('icon.play', $item, $this->params, array('index' => $i)); ?></li>
 									<?php
 									if (in_array('sermons:download', $this->columns)) :
 										if ($item->audiofile) : ?>
-											<li class="download-icon"><?php echo JHtml::_('icon.download', $item, $this->params, array('type' => 'audio')); ?></li>
+											<li class="download-icon"><?php echo HtmlHelper::_('icon.download', $item, $this->params, array('type' => 'audio')); ?></li>
 										<?php endif;
 
 										if ($item->videofile) : ?>
-											<li class="download-icon"><?php echo JHtml::_('icon.download', $item, $this->params, array('type' => 'video')); ?></li>
+											<li class="download-icon"><?php echo HtmlHelper::_('icon.download', $item, $this->params, array('type' => 'video')); ?></li>
 										<?php endif; ?>
 									<?php endif; ?>
-									<li class="email-icon"><?php echo JHtml::_('icon.email', $item, $this->params, array('type' => 'sermon')); ?></li>
+									<li class="email-icon"><?php echo HtmlHelper::_('icon.email', $item, $this->params, array('type' => 'sermon')); ?></li>
 									<?php
 									if ($canEdit or ($canEditOwn and ($user->id == $item->created_by))) : ?>
-										<li class="edit-icon"><?php echo JHtml::_('icon.edit', $item, $this->params, array('type' => 'sermon')); ?></li>
+										<li class="edit-icon"><?php echo HtmlHelper::_('icon.edit', $item, $this->params, array('type' => 'sermon')); ?></li>
 									<?php endif; ?>
 								</ul>
 							</div>
@@ -151,13 +126,13 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 							<?php endif; ?>
 							<div class="article-info sermon-info muted">
 								<dl class="article-info">
-									<dt class="article-info-term"><?php echo JText::_('JDETAILS'); ?></dt>
+									<dt class="article-info-term"><?php echo Text::_('JDETAILS'); ?></dt>
 									<?php
 									if (in_array('sermons:category', $this->columns) and $item->category_title) : ?>
 										<dd>
 											<div class="category-name">
-												<?php echo JText::_('JCATEGORY'); ?>:
-												<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonsRoute($item->catid, $item->language)); ?>"><?php echo $item->category_title; ?></a>
+												<?php echo Text::_('JCATEGORY'); ?>:
+												<a href="<?php echo Route::_(SermonspeakerHelperRoute::getSermonsRoute($item->catid, $item->language)); ?>"><?php echo $item->category_title; ?></a>
 											</div>
 										</dd>
 									<?php endif;
@@ -166,10 +141,10 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 										<dd>
 											<div class="ss-sermondetail-info">
 												<span class="icon-drawer-2"></span>
-												<?php echo JText::_('COM_SERMONSPEAKER_SERIE_TITLE'); ?>:
+												<?php echo Text::_('COM_SERMONSPEAKER_SERIE_TITLE'); ?>:
 												<?php
 												if ($item->series_state) : ?>
-													<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->series_slug, $item->series_catid, $item->series_language)); ?>">
+													<a href="<?php echo Route::_(SermonspeakerHelperRoute::getSerieRoute($item->series_slug, $item->series_catid, $item->series_language)); ?>">
 														<?php echo $this->escape($item->series_title); ?></a>
 												<?php else :
 													echo $this->escape($item->series_title);
@@ -182,8 +157,8 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 										<dd>
 											<div class="create">
 												<i class="icon-calendar"></i>
-												<?php echo JText::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL'); ?>:
-												<?php echo JHtml::date($item->sermon_date, JText::_($this->params->get('date_format')), true); ?>
+												<?php echo Text::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL'); ?>:
+												<?php echo HtmlHelper::date($item->sermon_date, Text::_($this->params->get('date_format')), true); ?>
 											</div>
 										</dd>
 									<?php endif;
@@ -192,7 +167,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 										<dd>
 											<div class="hits">
 												<i class="icon-eye-open"></i>
-												<?php echo JText::_('JGLOBAL_HITS'); ?>:
+												<?php echo Text::_('JGLOBAL_HITS'); ?>:
 												<?php echo $item->hits; ?>
 											</div>
 										</dd>
@@ -202,9 +177,9 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 										<dd>
 											<div class="ss-sermondetail-info">
 												<i class="icon-quote"></i>
-												<?php echo JText::_('COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL'); ?>:
+												<?php echo Text::_('COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL'); ?>:
 												<?php $scriptures = SermonspeakerHelperSermonspeaker::insertScriptures($item->scripture, '; ');
-												echo JHtml::_('content.prepare', $scriptures, '', 'com_sermonspeaker.scripture'); ?>
+												echo HtmlHelper::_('content.prepare', $scriptures, '', 'com_sermonspeaker.scripture'); ?>
 											</div>
 										</dd>
 									<?php endif;
@@ -213,7 +188,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 										<dd>
 											<div class="ss-sermondetail-info">
 												<i class="icon-clock"></i>
-												<?php echo JText::_('COM_SERMONSPEAKER_FIELD_LENGTH_LABEL'); ?>:
+												<?php echo Text::_('COM_SERMONSPEAKER_FIELD_LENGTH_LABEL'); ?>:
 												<?php echo SermonspeakerHelperSermonspeaker::insertTime($item->sermon_time); ?>
 											</div>
 										</dd>
@@ -222,7 +197,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 									if (in_array('sermons:addfile', $this->columns) and $item->addfile) : ?>
 										<dd>
 											<div class="ss-sermondetail-info">
-												<?php echo JText::_('COM_SERMONSPEAKER_ADDFILE'); ?>:
+												<?php echo Text::_('COM_SERMONSPEAKER_ADDFILE'); ?>:
 												<?php echo SermonspeakerHelperSermonspeaker::insertAddfile($item->addfile, $item->addfileDesc); ?>
 											</div>
 										</dd>
@@ -234,7 +209,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 
 							<?php if (in_array('sermons:notes', $this->columns) and $item->notes) : ?>
 								<div>
-									<?php echo JHtml::_('content.prepare', $item->notes, '', 'com_sermonspeaker.notes'); ?>
+									<?php echo HtmlHelper::_('content.prepare', $item->notes, '', 'com_sermonspeaker.notes'); ?>
 								</div>
 							<?php endif; ?>
 
@@ -264,7 +239,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 	</div>
 	<?php if (!empty($this->children[$this->category->id]) and $this->maxLevel != 0) : ?>
 		<div class="cat-children">
-			<h3><?php echo JTEXT::_('JGLOBAL_SUBCATEGORIES'); ?></h3>
+			<h3><?php echo Text::_('JGLOBAL_SUBCATEGORIES'); ?></h3>
 			<?php echo $this->loadTemplate('children'); ?>
 		</div>
 	<?php endif; ?>

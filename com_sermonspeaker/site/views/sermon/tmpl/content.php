@@ -7,7 +7,11 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Layout\LayoutHelper;
+use Joomla\CMS\Router\Route;
 
 defined('_JEXEC') or die();
 
@@ -18,7 +22,7 @@ HTMLHelper::_('bootstrap.tooltip');
 // Needed for pictures in blog layout
 HTMLHelper::_('stylesheet', 'com_sermonspeaker/blog.css', array('relative' => true));
 
-$user       = JFactory::getUser();
+$user       = Factory::getUser();
 $showState  = $user->authorise('core.edit', 'com_sermonspeaker');
 $fu_enable  = $this->params->get('fu_enable');
 $canEdit    = ($fu_enable and $user->authorise('core.edit', 'com_sermonspeaker'));
@@ -36,15 +40,15 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 	<?php endif; ?>
 	<div class="page-header">
 		<h2 itemprop="name">
-			<?php echo JLayoutHelper::render('blocks.state_info', array('item' => $this->item, 'show' => $showState)); ?>
-			<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonRoute($this->item->slug, $this->item->catid, $this->item->language)); ?>"
+			<?php echo LayoutHelper::render('blocks.state_info', array('item' => $this->item, 'show' => $showState)); ?>
+			<a href="<?php echo Route::_(SermonspeakerHelperRoute::getSermonRoute($this->item->slug, $this->item->catid, $this->item->language)); ?>"
 				itemprop="url">
 				<?php echo $this->escape($this->item->title); ?></a>
 		</h2>
 		<?php if (in_array('sermon:speaker', $this->columns) and $this->item->speaker_title) : ?>
 			<small class="ss-speaker createdby" itemprop="author" itemscope itemtype="http://schema.org/Person">
-				<?php echo JText::_('COM_SERMONSPEAKER_SPEAKER'); ?>:
-				<?php echo JLayoutHelper::render('titles.speaker', array('item' => $this->item, 'params' => $this->params)); ?>
+				<?php echo Text::_('COM_SERMONSPEAKER_SPEAKER'); ?>:
+				<?php echo LayoutHelper::render('titles.speaker', array('item' => $this->item, 'params' => $this->params)); ?>
 			</small>
 		<?php endif; ?>
 	</div>
@@ -79,12 +83,12 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 
 	<div class="article-info sermon-info muted">
 		<dl class="article-info">
-			<dt class="article-info-term"><?php echo JText::_('JDETAILS'); ?></dt>
+			<dt class="article-info-term"><?php echo Text::_('JDETAILS'); ?></dt>
 			<?php
 			if (in_array('sermon:category', $this->columns) and $this->item->category_title) : ?>
 				<dd class="category-name">
-					<?php echo JText::_('JCATEGORY'); ?>:
-					<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonsRoute($this->item->catid, $this->item->language)); ?>"
+					<?php echo Text::_('JCATEGORY'); ?>:
+					<a href="<?php echo Route::_(SermonspeakerHelperRoute::getSermonsRoute($this->item->catid, $this->item->language)); ?>"
 						itemprop="genre">
 						<?php echo $this->item->category_title; ?>
 					</a>
@@ -94,10 +98,10 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 			if (in_array('sermon:series', $this->columns) and $this->item->series_title) : ?>
 				<dd class="ss-sermondetail-info">
 					<span class="icon-drawer-2"></span>
-					<?php echo JText::_('COM_SERMONSPEAKER_SERIE_TITLE'); ?>:
+					<?php echo Text::_('COM_SERMONSPEAKER_SERIE_TITLE'); ?>:
 					<?php
 					if ($this->item->series_state) : ?>
-						<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($this->item->series_slug, $this->item->series_catid, $this->item->series_language)); ?>">
+						<a href="<?php echo Route::_(SermonspeakerHelperRoute::getSerieRoute($this->item->series_slug, $this->item->series_catid, $this->item->series_language)); ?>">
 							<?php echo $this->escape($this->item->series_title); ?></a>
 					<?php else :
 						echo $this->escape($this->item->series_title);
@@ -108,10 +112,10 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 			if (in_array('sermon:date', $this->columns) and ($this->item->sermon_date != '0000-00-00 00:00:00')) : ?>
 				<dd class="create">
 					<span class="icon-calendar"></span>
-					<?php echo JText::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL'); ?>:
+					<?php echo Text::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL'); ?>:
 					<time datetime="<?php echo HTMLHelper::_('date', $this->item->sermon_date, 'c'); ?>"
 						itemprop="dateCreated">
-						<?php echo HTMLHelper::date($this->item->sermon_date, JText::_($this->params->get('date_format')), true); ?>
+						<?php echo HTMLHelper::date($this->item->sermon_date, Text::_($this->params->get('date_format')), true); ?>
 					</time>
 				</dd>
 			<?php endif;
@@ -120,7 +124,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 				<dd class="hits">
 					<span class="icon-eye-open"></span>
 					<meta itemprop="interactionCount" content="UserPageVisits:<?php echo $this->item->hits; ?>"/>
-					<?php echo JText::_('JGLOBAL_HITS'); ?>:
+					<?php echo Text::_('JGLOBAL_HITS'); ?>:
 					<?php echo $this->item->hits; ?>
 				</dd>
 			<?php endif;
@@ -128,7 +132,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 			if (in_array('sermon:scripture', $this->columns) and $this->item->scripture) : ?>
 				<dd class="ss-sermondetail-info">
 					<span class="icon-quote"></span>
-					<?php echo JText::_('COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL'); ?>:
+					<?php echo Text::_('COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL'); ?>:
 					<?php $scriptures = SermonspeakerHelperSermonspeaker::insertScriptures($this->item->scripture, '; ');
 					echo HTMLHelper::_('content.prepare', $scriptures, '', 'com_sermonspeaker.scripture'); ?>
 				</dd>
@@ -137,14 +141,14 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 			if (in_array('sermon:length', $this->columns) and $this->item->sermon_time != '00:00:00') : ?>
 				<dd class="ss-sermondetail-info">
 					<i class="icon-clock"></i>
-					<?php echo JText::_('COM_SERMONSPEAKER_FIELD_LENGTH_LABEL'); ?>:
+					<?php echo Text::_('COM_SERMONSPEAKER_FIELD_LENGTH_LABEL'); ?>:
 					<?php echo SermonspeakerHelperSermonspeaker::insertTime($this->item->sermon_time); ?>
 				</dd>
 			<?php endif;
 
 			if (in_array('sermon:addfile', $this->columns) and $this->item->addfile) : ?>
 				<dd class="ss-sermondetail-info">
-					<?php echo JText::_('COM_SERMONSPEAKER_ADDFILE'); ?>:
+					<?php echo Text::_('COM_SERMONSPEAKER_ADDFILE'); ?>:
 					<?php echo SermonspeakerHelperSermonspeaker::insertAddfile($this->item->addfile, $this->item->addfileDesc); ?>
 				</dd>
 			<?php endif; ?>
@@ -153,40 +157,18 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 	<?php echo $this->item->event->beforeDisplayContent; ?>
 	<?php if ($picture = SermonspeakerHelperSermonspeaker::insertPicture($this->item)) : ?>
 		<div class="img-polaroid pull-right item-image sermon-image"><img src="<?php echo $picture; ?>"></div>
-	<?php endif;
+	<?php endif; ?>
 
-	if ($this->params->get('show_tags', 1) and !empty($this->item->tags->itemTags)) :
-		$tagLayout = new JLayoutFile('joomla.content.tags');
-		echo $tagLayout->render($this->item->tags->itemTags); ?>
+	<?php if ($this->params->get('show_tags', 1) and !empty($this->item->tags->itemTags)) : ?>
+		<?php echo LayoutHelper::render('joomla.content.tags', $this->item->tags->itemTags); ?>
 		<br/>
-	<?php endif;
+	<?php endif; ?>
 
-	if (in_array('sermon:player', $this->columns)) : ?>
-		<div class="ss-sermon-player">
-			<?php if ($player->toggle): ?>
-                <div class="row">
-                    <div class="mx-auto btn-group">
-                        <button type="button" onclick="Video()" class="btn btn-secondary" title="<?php echo JText::_('COM_SERMONSPEAKER_SWITCH_VIDEO'); ?>">
-                            <span class="fa fa-film fa-4x"></span>
-                        </button>
-                        <button type="button" onclick="Audio()" class="btn btn-secondary" title="<?php echo JText::_('COM_SERMONSPEAKER_SWITCH_AUDIO'); ?>">
-                            <span class="fa fa-music fa-4x"></span>
-                        </button>
-                    </div>
-                </div>
-			<?php endif;
+	<?php if (in_array('sermon:player', $this->columns)) : ?>
+        <?php echo LayoutHelper::render('plugin.player', array('player' => $player, 'items' => $this->item, 'view' => 'sermon')); ?>
+	<?php endif; ?>
 
-			if ($player->error) : ?>
-				<span class="well well-small"><?php echo $player->error; ?></span>
-			<?php else:
-				echo $player->mspace;
-				echo $player->script;
-			endif; ?>
-		</div>
-		<br/>
-	<?php endif;
-
-	if (in_array('sermon:notes', $this->columns) and $this->item->notes) : ?>
+	<?php if (in_array('sermon:notes', $this->columns) and $this->item->notes) : ?>
 		<div>
 			<?php echo HTMLHelper::_('content.prepare', $this->item->notes, '', 'com_sermonspeaker.notes'); ?>
 		</div>
