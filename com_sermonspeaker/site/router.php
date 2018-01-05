@@ -186,9 +186,6 @@ class SermonspeakerRouter extends JComponentRouterBase
 			case 'series':
 				$vars['view'] = 'series';
 				break;
-			case 'seriessermon':
-				$vars['view'] = 'seriessermon';
-				break;
 			case 'serie':
 				$vars['view'] = 'serie';
 				$id           = explode(':', $segments[1]);

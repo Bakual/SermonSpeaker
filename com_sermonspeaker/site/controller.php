@@ -133,14 +133,6 @@ class SermonspeakerController extends BaseController
 				$sermons_model = $this->getModel('sermons');
 				$view->setModel($sermons_model);
 				break;
-			case 'seriessermon':
-				$viewLayout   = $this->input->get('layout', 'default');
-				$view         = $this->getView($viewName, 'html', '', array('base_path' => $this->basePath, 'layout' => $viewLayout));
-				$series_model = $this->getModel('series');
-				$view->setModel($series_model);
-				$sermons_model = $this->getModel('sermons');
-				$view->setModel($sermons_model);
-				break;
 		}
 
 		return parent::display($cachable, $safeurlparams);

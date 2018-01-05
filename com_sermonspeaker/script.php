@@ -187,13 +187,11 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 				. ',"sermon:scripture","sermon:speaker","sermon:date","sermon:series","sermon:player","sermon:notes","sermon:addfile"'
 				. ',"serie:scripture","serie:speaker","serie:date","serie:player"'
 				. ',"speaker:scripture","speaker:date","speaker:series","speaker:player"'
-				. ',"seriessermon:scripture","seriessermon:speaker","seriessermon:date"'
 				. ']';
 			$params['col_serie']   = '"col_serie":['
 				. '"series:speaker"'
 				. ',"serie:description","serie:speaker"'
 				. ',"speaker:description"'
-				. ',"seriessermon:description","seriessermon:speaker"'
 				. ']';
 			$params['col_speaker'] = '"col_speaker":["speakers:bio","speaker:bio","speaker:intro"]';
 

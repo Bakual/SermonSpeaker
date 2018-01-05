@@ -116,14 +116,6 @@
 				view="speaker"
 			/>
 			<field
-				name="seriessermonlayout" type="componentlayout"
-				label="COM_SERMONSPEAKER_SERIESSERMON_VIEW_TITLE"
-				description="COM_SERMONSPEAKER_FIELD_LAYOUT_DESC"
-				useglobal="true"
-				extension="com_sermonspeaker"
-				view="seriessermon"
-			/>
-			<field
 				name="categorieslayout" type="componentlayout"
 				label="COM_SERMONSPEAKER_CATEGORIES_VIEW_TITLE"
 				description="COM_SERMONSPEAKER_FIELD_LAYOUT_DESC"
