@@ -152,8 +152,7 @@ class SermonspeakerModelSermon extends JModelItem
 				throw new Exception(JText::_('JGLOBAL_RESOURCE_NOT_FOUND'));
 			}
 
-			// Query Scripture
-			// Join over the scriptures.
+			// Query Scripture.
 			$scriptureQuery = $db->getQuery(true);
 			$scriptureQuery->select('GROUP_CONCAT(book,"|",cap1,"|",vers1,"|",cap2,"|",vers2,"|",text '
 				. 'ORDER BY ordering ASC SEPARATOR "!") AS scripture');
