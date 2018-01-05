@@ -8,6 +8,9 @@
  **/
 
 defined('_JEXEC') or die();
+
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
 ?>
 <div class="filters btn-toolbar">
 	<?php if ($this->params->get('filter_field')) : ?>

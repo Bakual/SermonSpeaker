@@ -9,6 +9,9 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Layout\LayoutHelper;
+
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
 
 JHtml::_('bootstrap.framework');
@@ -60,58 +63,29 @@ $this->document->addScriptDeclaration('jQuery(function() {
 		<?php echo JLayoutHelper::render('blocks.speaker', array('item' => $this->item, 'params' => $this->params, 'columns' => $this->columns)); ?>
 	</div>
 	<div class="clearfix"></div>
-	<ul class="nav nav-pills" id="speakerTab">
-		<li><a href="#tab_sermons" data-toggle="pill"><?php echo JText::_('COM_SERMONSPEAKER_SERMONS'); ?></a></li>
-		<li><a href="#tab_series" data-toggle="pill"><?php echo JText::_('COM_SERMONSPEAKER_SERIES'); ?></a></li>
+	<ul class="nav nav-tabs" id="speakerTab" role="tablist">
+		<li class="nav-link-item">
+            <a href="#tab_sermons" class="nav-link" data-toggle="tab" role="tab"><?php echo Text::_('COM_SERMONSPEAKER_SERMONS'); ?></a>
+        </li>
+		<li class="nav-link-item">
+            <a href="#tab_series" class="nav-link" data-toggle="tab" role="tab"><?php echo Text::_('COM_SERMONSPEAKER_SERIES'); ?></a>
+        </li>
 	</ul>
-	<div class="pill-content">
-		<div class="pill-pane active" id="tab_sermons">
-			<?php if (in_array('speaker:player', $this->col_sermon) and count($this->sermons)) :
-				JHtml::_('stylesheet', 'com_sermonspeaker/player.css', array('relative' => true)); ?>
-				<div id="ss-speaker-player" class="ss-player row-fluid">
-					<div class="span10 offset1">
-						<hr/>
-						<?php if ($player->player != 'PixelOut') : ?>
-							<div id="playing">
-								<img id="playing-pic" class="picture" src="" alt=""/>
-								<span id="playing-duration" class="duration"></span>
-								<div class="text">
-									<span id="playing-title" class="title"></span>
-									<span id="playing-desc" class="desc"></span>
-								</div>
-								<span id="playing-error" class="error"></span>
-							</div>
-						<?php endif;
-						echo $player->mspace;
-						echo $player->script;
-						?>
-						<hr/>
-						<?php if ($player->toggle) : ?>
-                            <div class="row">
-                                <div class="mx-auto btn-group">
-                                    <button type="button" onclick="Video()" class="btn btn-secondary" title="<?php echo JText::_('COM_SERMONSPEAKER_SWITCH_VIDEO'); ?>">
-                                        <span class="fa fa-film fa-4x"></span>
-                                    </button>
-                                    <button type="button" onclick="Audio()" class="btn btn-secondary" title="<?php echo JText::_('COM_SERMONSPEAKER_SWITCH_AUDIO'); ?>">
-                                        <span class="fa fa-music fa-4x"></span>
-                                    </button>
-                                </div>
-                            </div>
-						<?php endif; ?>
-					</div>
-				</div>
+	<div class="tab-content">
+		<div class="tab-pane active" id="tab_sermons" role="tabpanel">
+			<?php if (in_array('speaker:player', $this->col_sermon) and count($this->sermons)) : ?>
+				<?php echo LayoutHelper::render('plugin.player', array('player' => $player, 'items' => $this->sermons, 'view' => 'speaker')); ?>
 			<?php endif; ?>
 			<div class="cat-items">
-				<form action="<?php echo htmlspecialchars(JUri::getInstance()->toString() . '#sermons'); ?>"
-					method="post" id="adminForm" name="adminForm" class="form-inline">
-					<?php
-					if ($this->params->get('filter_field') or $this->params->get('show_pagination_limit')) :
-						echo $this->loadTemplate('filters');
-					endif; ?>
+				<form action="<?php echo htmlspecialchars(JUri::getInstance()->toString() . '#sermons'); ?>" method="post" id="adminForm" name="adminForm">
+					<?php $this->params->set('filter_field', 1); ?>
+					<?php if ($this->params->get('filter_field') or $this->params->get('show_pagination_limit')) : ?>
+						<?php echo $this->loadTemplate('filters'); ?>
+					<?php endif; ?>
 					<div class="clearfix"></div>
 					<?php if (!count($this->sermons)) : ?>
 						<div
-							class="no_entries alert alert-error"><?php echo JText::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', JText::_('COM_SERMONSPEAKER_SERMONS')); ?></div>
+							class="no_entries alert alert-error"><?php echo Text::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', Text::_('COM_SERMONSPEAKER_SERMONS')); ?></div>
 					<?php else : ?>
 						<div class="items-leading">
 							<?php foreach ($this->sermons as $i => $item) : ?>
@@ -154,12 +128,12 @@ $this->document->addScriptDeclaration('jQuery(function() {
 									<?php endif; ?>
 									<div class="article-info sermon-info muted">
 										<dl class="article-info">
-											<dt class="article-info-term"><?php echo JText::_('JDETAILS'); ?></dt>
+											<dt class="article-info-term"><?php echo Text::_('JDETAILS'); ?></dt>
 											<?php
 											if (in_array('speaker:category', $this->col_sermon) and $item->category_title) : ?>
 												<dd>
 													<div class="category-name">
-														<?php echo JText::_('JCATEGORY'); ?>:
+														<?php echo Text::_('JCATEGORY'); ?>:
 														<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonsRoute($item->catslug, $item->language)); ?>"><?php echo $item->category_title; ?></a>
 													</div>
 												</dd>
@@ -169,7 +143,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 												<dd>
 													<div class="ss-sermondetail-info">
 														<span class="icon-drawer-2"></span>
-														<?php echo JText::_('COM_SERMONSPEAKER_SERIE_TITLE'); ?>:
+														<?php echo Text::_('COM_SERMONSPEAKER_SERIE_TITLE'); ?>:
 														<?php
 														if ($item->series_state) : ?>
 															<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->series_slug, $item->series_catid, $item->series_language)); ?>"><?php echo $this->escape($item->series_title); ?></a>
@@ -184,8 +158,8 @@ $this->document->addScriptDeclaration('jQuery(function() {
 												<dd>
 													<div class="create">
 														<i class="icon-calendar"></i>
-														<?php echo JText::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL'); ?>:
-														<?php echo JHtml::date($item->sermon_date, JText::_($this->params->get('date_format')), true); ?>
+														<?php echo Text::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL'); ?>:
+														<?php echo JHtml::date($item->sermon_date, Text::_($this->params->get('date_format')), true); ?>
 													</div>
 												</dd>
 											<?php endif;
@@ -194,7 +168,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 												<dd>
 													<div class="hits">
 														<i class="icon-eye-open"></i>
-														<?php echo JText::_('JGLOBAL_HITS'); ?>:
+														<?php echo Text::_('JGLOBAL_HITS'); ?>:
 														<?php echo $item->hits; ?>
 													</div>
 												</dd>
@@ -204,7 +178,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 												<dd>
 													<div class="ss-sermondetail-info">
 														<i class="icon-quote"></i>
-														<?php echo JText::_('COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL'); ?>
+														<?php echo Text::_('COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL'); ?>
 														:
 														<?php $scriptures = SermonspeakerHelperSermonspeaker::insertScriptures($item->scripture, '; ');
 														echo JHtml::_('content.prepare', $scriptures, '', 'com_sermonspeaker.scripture'); ?>
@@ -216,7 +190,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 												<dd>
 													<div class="ss-sermondetail-info">
 														<i class="icon-clock"></i>
-														<?php echo JText::_('COM_SERMONSPEAKER_FIELD_LENGTH_LABEL'); ?>:
+														<?php echo Text::_('COM_SERMONSPEAKER_FIELD_LENGTH_LABEL'); ?>:
 														<?php echo SermonspeakerHelperSermonspeaker::insertTime($item->sermon_time); ?>
 													</div>
 												</dd>
@@ -225,7 +199,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 											if (in_array('speaker:addfile', $this->col_sermon) and $item->addfile) : ?>
 												<dd>
 													<div class="ss-sermondetail-info">
-														<?php echo JText::_('COM_SERMONSPEAKER_ADDFILE'); ?>:
+														<?php echo Text::_('COM_SERMONSPEAKER_ADDFILE'); ?>:
 														<?php echo SermonspeakerHelperSermonspeaker::insertAddfile($item->addfile, $item->addfileDesc); ?>
 													</div>
 												</dd>
@@ -265,7 +239,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 				</form>
 			</div>
 		</div>
-		<div class="pill-pane" id="tab_series">
+		<div class="tab-pane" id="tab_series" role="tabpanel">
 			<div class="cat-items">
 				<form action="<?php echo htmlspecialchars(JUri::getInstance()->toString() . '#series'); ?>"
 					method="post" id="adminFormSeries" name="adminFormSeries">
@@ -275,17 +249,17 @@ $this->document->addScriptDeclaration('jQuery(function() {
 							<?php if ($this->params->get('show_pagination_limit')) : ?>
 								<div class="btn-group pull-right">
 									<label class="element-invisible">
-										<?php echo JText::_('JGLOBAL_DISPLAY_NUM'); ?>
+										<?php echo Text::_('JGLOBAL_DISPLAY_NUM'); ?>
 									</label>
 									<?php echo $this->pag_series->getLimitBox(); ?>
 								</div>
 							<?php endif; ?>
 						</div>
 					<?php endif; ?>
-					<div class="clearfix"></div>
+                    <div class="clearfix"></div>
 					<?php if (!count($this->series)) : ?>
 						<div
-							class="no_entries alert alert-error"><?php echo JText::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', JText::_('COM_SERMONSPEAKER_SERIES')); ?></div>
+							class="no_entries alert alert-error"><?php echo Text::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', Text::_('COM_SERMONSPEAKER_SERIES')); ?></div>
 					<?php else : ?>
 						<div class="items-leading">
 							<?php foreach ($this->series as $i => $item) : ?>
@@ -301,7 +275,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 													<a href="<?php echo JRoute::_('index.php?view=serie&layout=download&tmpl=component&id=' . $item->slug); ?>"
 														class="modal" rel="{handler:'iframe',size:{x:400,y:200}}">
 														<i class="icon-download"> </i>
-														<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADSERIES_LABEL'); ?>
+														<?php echo Text::_('COM_SERMONSPEAKER_DOWNLOADSERIES_LABEL'); ?>
 													</a>
 												</li>
 											<?php endif; ?>
@@ -313,7 +287,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 										</ul>
 									</div>
 									<div class="page-header">
-										<a title="<?php echo JText::_('COM_SERMONSPEAKER_SERIESLINK_HOOVER'); ?>"
+										<a title="<?php echo Text::_('COM_SERMONSPEAKER_SERIESLINK_HOOVER'); ?>"
 											href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->slug, $item->catid, $item->language)); ?>">
 											<h2><?php echo $item->title; ?></h2>
 										</a>
@@ -321,7 +295,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 
 										<?php if (in_array('speaker:speaker', $this->col_serie) and $item->speakers) : ?>
 											<small class="ss-speakers createdby">
-												<?php echo JText::_('COM_SERMONSPEAKER_SPEAKERS'); ?>:
+												<?php echo Text::_('COM_SERMONSPEAKER_SPEAKERS'); ?>:
 												<?php echo $item->speakers; ?>
 											</small>
 										<?php endif; ?>
@@ -339,12 +313,12 @@ $this->document->addScriptDeclaration('jQuery(function() {
 									<?php endif; ?>
 									<div class="article-info serie-info muted">
 										<dl class="article-info">
-											<dt class="article-info-term"><?php echo JText::_('JDETAILS'); ?></dt>
+											<dt class="article-info-term"><?php echo Text::_('JDETAILS'); ?></dt>
 											<?php
 											if (in_array('speaker:category', $this->col_serie) and $item->category_title) : ?>
 												<dd>
 													<div class="category-name">
-														<?php echo JText::_('JCATEGORY'); ?>:
+														<?php echo Text::_('JCATEGORY'); ?>:
 														<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSeriesRoute($item->catslug, $item->language)); ?>"><?php echo $item->category_title; ?></a>
 													</div>
 												</dd>
@@ -354,7 +328,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 												<dd>
 													<div class="hits">
 														<i class="icon-eye-open"></i>
-														<?php echo JText::_('JGLOBAL_HITS'); ?>:
+														<?php echo Text::_('JGLOBAL_HITS'); ?>:
 														<?php echo $item->hits; ?>
 													</div>
 												</dd>
