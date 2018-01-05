@@ -27,10 +27,9 @@ defined('_JEXEC') or die();
 		</div>
 		<div class="btn-group filter-select">
 			<?php if ($this->books) : ?>
-				<select name="book" id="filter_books" class="input-medium" onchange="this.form.submit()">
-					<option value="0"><?php echo JText::_('COM_SERMONSPEAKER_SELECT_BOOK'); ?></option>
-					<?php echo JHtml::_('select.options', $this->books, 'value', 'text', $this->state->get('scripture.book'), true); ?>
-				</select>
+				<?php array_unshift($this->books, array('items' => array(array('value' => 0, 'text' => Text::_('COM_SERMONSPEAKER_SELECT_BOOK'))))); ?>
+				<?php $options = array('id' => 'filter_books', 'list.attr' => 'onchange="this.form.submit()"', 'list.select' => $this->state->get('scripture.book')); ?>
+				<?php echo HtmlHelper::_('select.groupedlist', $this->books, 'book', $options); ?>
 			<?php endif; ?>
 			<select name="month" id="filter_months" class="input-medium" onchange="this.form.submit()">
 				<option value="0"><?php echo JText::_('COM_SERMONSPEAKER_SELECT_MONTH'); ?></option>

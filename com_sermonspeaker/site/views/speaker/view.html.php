@@ -7,6 +7,14 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
+use Joomla\CMS\Factory;
+use Joomla\CMS\Helper\TagsHelper;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Layout\LayoutHelper;
+use Joomla\CMS\MVC\View\HtmlView;
+use Joomla\CMS\Plugin\PluginHelper;
+use Joomla\CMS\Router\Route;
+
 defined('_JEXEC') or die();
 
 /**
@@ -14,8 +22,32 @@ defined('_JEXEC') or die();
  *
  * @since  3.4
  */
-class SermonspeakerViewSpeaker extends JViewLegacy
+class SermonspeakerViewSpeaker extends HtmlView
 {
+	/**
+	 * @var   stdClass
+	 * @since 6
+	 */
+	protected $item;
+
+	/**
+	 * @var   \Joomla\Registry\Registry
+	 * @since 6
+	 */
+	protected $state_sermons;
+
+	/**
+	 * @var   \Joomla\Registry\Registry
+	 * @since 6
+	 */
+	protected $state_series;
+
+	/**
+	 * @var  \Joomla\Registry\Registry
+	 * @since 6
+	 */
+	protected $params;
+
 	/**
 	 * Execute and display a template script.
 	 *
@@ -28,36 +60,36 @@ class SermonspeakerViewSpeaker extends JViewLegacy
 	 */
 	public function display($tpl = null)
 	{
-		$app = JFactory::getApplication();
+		$app = Factory::getApplication();
 
 		if (!$app->input->get('id', 0, 'int'))
 		{
-			$app->enqueueMessage(JText::_('JGLOBAL_RESOURCE_NOT_FOUND'), 'error');
-			$app->redirect(JRoute::_('index.php?view=speakers'));
+			$app->enqueueMessage(Text::_('JGLOBAL_RESOURCE_NOT_FOUND'), 'error');
+			$app->redirect(Route::_('index.php?view=speakers'));
 		}
 
 		// Get data from the model
 		$state         = $this->get('State');
 		$this->item    = $this->get('Item');
-		$user          = JFactory::getUser();
+		$user          = Factory::getUser();
 		$this->params  = $state->get('params');
 		$this->columns = $this->params->get('col_speaker');
 
-		if (!$this->columns)
+		if (empty($this->columns))
 		{
 			$this->columns = array();
 		}
 
 		$this->col_sermon = $this->params->get('col');
 
-		if (!$this->col_sermon)
+		if (empty($this->col_sermon))
 		{
 			$this->col_sermon = array();
 		}
 
 		$this->col_serie = $this->params->get('col_serie');
 
-		if (!$this->col_serie)
+		if (empty($this->col_serie))
 		{
 			$this->col_serie = array();
 		}
@@ -70,12 +102,12 @@ class SermonspeakerViewSpeaker extends JViewLegacy
 
 		if (!$this->item)
 		{
-			$app->enqueueMessage(JText::_('JGLOBAL_RESOURCE_NOT_FOUND'), 'error');
-			$app->redirect(JRoute::_('index.php?view=speakers'));
+			$app->enqueueMessage(Text::_('JGLOBAL_RESOURCE_NOT_FOUND'), 'error');
+			$app->redirect(Route::_('index.php?view=speakers'));
 		}
 
 		// Get Tags
-		$this->item->tags = new JHelperTags;
+		$this->item->tags = new TagsHelper;
 		$this->item->tags->getItemTags('com_sermonspeaker.speaker', $this->item->id);
 
 		// Check if access is not public
@@ -85,8 +117,8 @@ class SermonspeakerViewSpeaker extends JViewLegacy
 
 			if (!in_array($this->item->category_access, $groups))
 			{
-				$app->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'error');
-				$app->redirect(JRoute::_('index.php?view=speakers'));
+				$app->enqueueMessage(Text::_('JERROR_ALERTNOAUTHOR'), 'error');
+				$app->redirect(Route::_('index.php?view=speakers'));
 			}
 		}
 
@@ -94,6 +126,7 @@ class SermonspeakerViewSpeaker extends JViewLegacy
 		$sermon_model        = $this->getModel('Sermons');
 		$this->state_sermons = $sermon_model->getState();
 		$this->state_sermons->set('speaker.id', $state->get('speaker.id'));
+		$this->state_sermons->set('category.id', 0);
 		$this->sermons     = $sermon_model->getItems();
 		$this->pag_sermons = $sermon_model->getPagination();
 		$this->years       = $sermon_model->getYears();
@@ -112,6 +145,7 @@ class SermonspeakerViewSpeaker extends JViewLegacy
 		$series_model       = $this->getModel('Series');
 		$this->state_series = $series_model->getState();
 		$this->state_series->set('speaker.id', $state->get('speaker.id'));
+		$this->state_series->set('category.id', 0);
 		$this->series     = $series_model->getItems();
 		$this->pag_series = $series_model->getPagination();
 
@@ -134,7 +168,7 @@ class SermonspeakerViewSpeaker extends JViewLegacy
 				{
 					$speaker->speaker_slug  = $speaker->slug;
 					$speaker->speaker_state = $speaker->state;
-					$names[]                = JLayoutHelper::render('titles.speaker', array('item' => $speaker, 'params' => $this->params));
+					$names[]                = LayoutHelper::render('titles.speaker', array('item' => $speaker, 'params' => $this->params));
 				}
 
 				$serie->speakers = implode(', ', $names);
@@ -144,7 +178,7 @@ class SermonspeakerViewSpeaker extends JViewLegacy
 		// Update Statistic
 		if ($this->params->get('track_speaker'))
 		{
-			$user = JFactory::getUser();
+			$user = Factory::getUser();
 
 			if (!$user->authorise('com_sermonspeaker.hit', 'com_sermonspeaker'))
 			{
@@ -157,27 +191,6 @@ class SermonspeakerViewSpeaker extends JViewLegacy
 		if (count($errors = $this->get('Errors')))
 		{
 			throw new Exception(implode("\n", $errors), 500);
-		}
-
-		if ($this->category == false)
-		{
-			throw new Exception(JText::_('JGLOBAL_CATEGORY_NOT_FOUND'), 404);
-		}
-
-		if ($this->parent == false && $this->category->id != 'root')
-		{
-			throw new Exception(JText::_('JGLOBAL_CATEGORY_NOT_FOUND'), 404);
-		}
-
-		if ($this->category->id == 'root')
-		{
-			$this->params->set('show_category_title', 0);
-			$this->cat = '';
-		}
-		else
-		{
-			// Get the category title for backward compatibility
-			$this->cat = $this->category->title;
 		}
 
 		$js = 'function clear_all(){
@@ -217,41 +230,39 @@ class SermonspeakerViewSpeaker extends JViewLegacy
 					break;
 			}
 
-			$object           = new stdClass;
-			$object->value    = $book;
-			$object->text     = JText::_('COM_SERMONSPEAKER_BOOK_' . $book);
-			$groups[$group][] = $object;
+			$object                    = new stdClass;
+			$object->value             = $book;
+			$object->text              = JText::_('COM_SERMONSPEAKER_BOOK_' . $book);
+			$groups[$group]['items'][] = $object;
 		}
 
 		foreach ($groups as $key => &$group)
 		{
-			array_unshift($group, JHtml::_('select.optgroup', JText::_('COM_SERMONSPEAKER_' . $key)));
-			array_push($group, JHtml::_('select.optgroup', JText::_('COM_SERMONSPEAKER_' . $key)));
+			$group['text'] = JText::_('COM_SERMONSPEAKER_' . $key);
 		}
 
-		$this->books = array_reduce($groups, 'array_merge', array());
+		$this->books = $groups;
 
 		// Process the content plugins.
-		$dispatcher = JEventDispatcher::getInstance();
-		JPluginHelper::importPlugin('content');
+		PluginHelper::importPlugin('content');
 
 		$this->item->text = $this->item->intro;
-		$dispatcher->trigger('onContentPrepare', array('com_sermonspeaker.speaker', &$this->item, &$this->params, 0));
+		$app->triggerEvent('onContentPrepare', array('com_sermonspeaker.speaker', &$this->item, &$this->params, 0));
 		$this->item->intro = $this->item->text;
 
 		$this->item->text = $this->item->bio;
-		$dispatcher->trigger('onContentPrepare', array('com_sermonspeaker.speaker', &$this->item, &$this->params, 0));
+		$app->triggerEvent('onContentPrepare', array('com_sermonspeaker.speaker', &$this->item, &$this->params, 0));
 		$this->item->bio = $this->item->text;
 
 		// Store the events for later
 		$this->item->event                    = new stdClass;
-		$results                              = $dispatcher->trigger('onContentAfterTitle', array('com_sermonspeaker.speaker', &$this->item, &$this->params, 0));
+		$results                              = $app->triggerEvent('onContentAfterTitle', array('com_sermonspeaker.speaker', &$this->item, &$this->params, 0));
 		$this->item->event->afterDisplayTitle = trim(implode("\n", $results));
 
-		$results                                 = $dispatcher->trigger('onContentBeforeDisplay', array('com_sermonspeaker.speaker', &$this->item, &$this->params, 0));
+		$results                                 = $app->triggerEvent('onContentBeforeDisplay', array('com_sermonspeaker.speaker', &$this->item, &$this->params, 0));
 		$this->item->event->beforeDisplayContent = trim(implode("\n", $results));
 
-		$results                                = $dispatcher->trigger('onContentAfterDisplay', array('com_sermonspeaker.speaker', &$this->item, &$this->params, 0));
+		$results                                = $app->triggerEvent('onContentAfterDisplay', array('com_sermonspeaker.speaker', &$this->item, &$this->params, 0));
 		$this->item->event->afterDisplayContent = trim(implode("\n", $results));
 
 		// Trigger events for Sermons.
@@ -262,18 +273,18 @@ class SermonspeakerViewSpeaker extends JViewLegacy
 			// Old plugins: Ensure that text property is available
 			$item->text = $item->notes;
 
-			$dispatcher->trigger('onContentPrepare', array('com_sermonspeaker.sermons', &$item, &$this->params, 0));
+			$app->triggerEvent('onContentPrepare', array('com_sermonspeaker.sermons', &$item, &$this->params, 0));
 
 			// Old plugins: Use processed text as notes
 			$item->notes = $item->text;
 
-			$results                        = $dispatcher->trigger('onContentAfterTitle', array('com_sermonspeaker.sermons', &$item, &$this->params, 0));
+			$results                        = $app->triggerEvent('onContentAfterTitle', array('com_sermonspeaker.sermons', &$item, &$this->params, 0));
 			$item->event->afterDisplayTitle = trim(implode("\n", $results));
 
-			$results                           = $dispatcher->trigger('onContentBeforeDisplay', array('com_sermonspeaker.sermons', &$item, &$this->params, 0));
+			$results                           = $app->triggerEvent('onContentBeforeDisplay', array('com_sermonspeaker.sermons', &$item, &$this->params, 0));
 			$item->event->beforeDisplayContent = trim(implode("\n", $results));
 
-			$results                          = $dispatcher->trigger('onContentAfterDisplay', array('com_sermonspeaker.sermons', &$item, &$this->params, 0));
+			$results                          = $app->triggerEvent('onContentAfterDisplay', array('com_sermonspeaker.sermons', &$item, &$this->params, 0));
 			$item->event->afterDisplayContent = trim(implode("\n", $results));
 		}
 
@@ -285,18 +296,18 @@ class SermonspeakerViewSpeaker extends JViewLegacy
 			// Old plugins: Ensure that text property is available
 			$item->text = $item->series_description;
 
-			$dispatcher->trigger('onContentPrepare', array('com_sermonspeaker.series', &$item, &$this->params, 0));
+			$app->triggerEvent('onContentPrepare', array('com_sermonspeaker.series', &$item, &$this->params, 0));
 
 			// Old plugins: Use processed text as notes
 			$item->series_description = $item->text;
 
-			$results                        = $dispatcher->trigger('onContentAfterTitle', array('com_sermonspeaker.series', &$item, &$this->params, 0));
+			$results                        = $app->triggerEvent('onContentAfterTitle', array('com_sermonspeaker.series', &$item, &$this->params, 0));
 			$item->event->afterDisplayTitle = trim(implode("\n", $results));
 
-			$results                           = $dispatcher->trigger('onContentBeforeDisplay', array('com_sermonspeaker.series', &$item, &$this->params, 0));
+			$results                           = $app->triggerEvent('onContentBeforeDisplay', array('com_sermonspeaker.series', &$item, &$this->params, 0));
 			$item->event->beforeDisplayContent = trim(implode("\n", $results));
 
-			$results                          = $dispatcher->trigger('onContentAfterDisplay', array('com_sermonspeaker.series', &$item, &$this->params, 0));
+			$results                          = $app->triggerEvent('onContentAfterDisplay', array('com_sermonspeaker.series', &$item, &$this->params, 0));
 			$item->event->afterDisplayContent = trim(implode("\n", $results));
 		}
 
@@ -316,7 +327,7 @@ class SermonspeakerViewSpeaker extends JViewLegacy
 	 */
 	protected function _prepareDocument()
 	{
-		$app   = JFactory::getApplication();
+		$app   = Factory::getApplication();
 		$menus = $app->getMenu();
 
 		// Because the application sets a default page title,
@@ -329,7 +340,7 @@ class SermonspeakerViewSpeaker extends JViewLegacy
 		}
 		else
 		{
-			$this->params->def('page_heading', JText::_('COM_SERMONSPEAKER_SPEAKER_TITLE'));
+			$this->params->def('page_heading', Text::_('COM_SERMONSPEAKER_SPEAKER_TITLE'));
 		}
 
 		$title = $this->params->get('page_title', '');
@@ -350,11 +361,11 @@ class SermonspeakerViewSpeaker extends JViewLegacy
 		}
 		elseif ($app->get('sitename_pagetitles', 0) == 1)
 		{
-			$title = JText::sprintf('JPAGETITLE', $app->get('sitename'), $title);
+			$title = Text::sprintf('JPAGETITLE', $app->get('sitename'), $title);
 		}
 		elseif ($app->get('sitename_pagetitles', 0) == 2)
 		{
-			$title = JText::sprintf('JPAGETITLE', $title, $app->get('sitename'));
+			$title = Text::sprintf('JPAGETITLE', $title, $app->get('sitename'));
 		}
 
 		if (empty($title))

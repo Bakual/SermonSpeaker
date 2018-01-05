@@ -199,37 +199,35 @@ class SermonspeakerViewSerie extends JViewLegacy
 					break;
 			}
 
-			$object           = new stdClass;
-			$object->value    = $book;
-			$object->text     = JText::_('COM_SERMONSPEAKER_BOOK_' . $book);
-			$groups[$group][] = $object;
+			$object                    = new stdClass;
+			$object->value             = $book;
+			$object->text              = JText::_('COM_SERMONSPEAKER_BOOK_' . $book);
+			$groups[$group]['items'][] = $object;
 		}
 
 		foreach ($groups as $key => &$group)
 		{
-			array_unshift($group, JHtml::_('select.optgroup', JText::_('COM_SERMONSPEAKER_' . $key)));
-			array_push($group, JHtml::_('select.optgroup', JText::_('COM_SERMONSPEAKER_' . $key)));
+			$group['text'] = JText::_('COM_SERMONSPEAKER_' . $key);
 		}
 
-		$this->books = array_reduce($groups, 'array_merge', array());
+		$this->books = $groups;
 
 		// Process the content plugins.
-		$dispatcher = JEventDispatcher::getInstance();
 		JPluginHelper::importPlugin('content');
 
 		$this->item->text = $this->item->series_description;
-		$dispatcher->trigger('onContentPrepare', array('com_sermonspeaker.serie', &$this->item, &$this->params, 0));
+		$app->triggerEvent('onContentPrepare', array('com_sermonspeaker.serie', &$this->item, &$this->params, 0));
 		$this->item->series_description = $this->item->text;
 
 		// Store the events for later
 		$this->item->event                    = new stdClass;
-		$results                              = $dispatcher->trigger('onContentAfterTitle', array('com_sermonspeaker.serie', &$this->item, &$this->params, 0));
+		$results                              = $app->triggerEvent('onContentAfterTitle', array('com_sermonspeaker.serie', &$this->item, &$this->params, 0));
 		$this->item->event->afterDisplayTitle = trim(implode("\n", $results));
 
-		$results                                 = $dispatcher->trigger('onContentBeforeDisplay', array('com_sermonspeaker.serie', &$this->item, &$this->params, 0));
+		$results                                 = $app->triggerEvent('onContentBeforeDisplay', array('com_sermonspeaker.serie', &$this->item, &$this->params, 0));
 		$this->item->event->beforeDisplayContent = trim(implode("\n", $results));
 
-		$results                                = $dispatcher->trigger('onContentAfterDisplay', array('com_sermonspeaker.serie', &$this->item, &$this->params, 0));
+		$results                                = $app->triggerEvent('onContentAfterDisplay', array('com_sermonspeaker.serie', &$this->item, &$this->params, 0));
 		$this->item->event->afterDisplayContent = trim(implode("\n", $results));
 
 		// Trigger events for Sermons.
@@ -240,18 +238,18 @@ class SermonspeakerViewSerie extends JViewLegacy
 			// Old plugins: Ensure that text property is available
 			$item->text = $item->notes;
 
-			$dispatcher->trigger('onContentPrepare', array('com_sermonspeaker.sermons', &$item, &$this->params, 0));
+			$app->triggerEvent('onContentPrepare', array('com_sermonspeaker.sermons', &$item, &$this->params, 0));
 
 			// Old plugins: Use processed text as notes
 			$item->notes = $item->text;
 
-			$results                        = $dispatcher->trigger('onContentAfterTitle', array('com_sermonspeaker.sermons', &$item, &$this->params, 0));
+			$results                        = $app->triggerEvent('onContentAfterTitle', array('com_sermonspeaker.sermons', &$item, &$this->params, 0));
 			$item->event->afterDisplayTitle = trim(implode("\n", $results));
 
-			$results                           = $dispatcher->trigger('onContentBeforeDisplay', array('com_sermonspeaker.sermons', &$item, &$this->params, 0));
+			$results                           = $app->triggerEvent('onContentBeforeDisplay', array('com_sermonspeaker.sermons', &$item, &$this->params, 0));
 			$item->event->beforeDisplayContent = trim(implode("\n", $results));
 
-			$results                          = $dispatcher->trigger('onContentAfterDisplay', array('com_sermonspeaker.sermons', &$item, &$this->params, 0));
+			$results                          = $app->triggerEvent('onContentAfterDisplay', array('com_sermonspeaker.sermons', &$item, &$this->params, 0));
 			$item->event->afterDisplayContent = trim(implode("\n", $results));
 		}
 

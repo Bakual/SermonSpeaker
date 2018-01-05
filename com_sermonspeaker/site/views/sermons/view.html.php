@@ -170,9 +170,9 @@ class SermonspeakerViewSermons extends JViewLegacy
 					break;
 			}
 
-			$object                = new stdClass;
-			$object->value         = $book;
-			$object->text          = JText::_('COM_SERMONSPEAKER_BOOK_' . $book);
+			$object                    = new stdClass;
+			$object->value             = $book;
+			$object->text              = JText::_('COM_SERMONSPEAKER_BOOK_' . $book);
 			$groups[$group]['items'][] = $object;
 		}
 
@@ -182,7 +182,6 @@ class SermonspeakerViewSermons extends JViewLegacy
 		}
 
 		$this->books = $groups;
-//		$this->books = array_reduce($groups, 'array_merge', array());
 
 		$this->pageclass_sfx = htmlspecialchars($this->params->get('pageclass_sfx'));
 		$this->maxLevel      = $this->params->get('maxLevel', -1);
