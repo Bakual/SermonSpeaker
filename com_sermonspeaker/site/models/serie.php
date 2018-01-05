@@ -50,6 +50,7 @@ class SermonspeakerModelSerie extends JModelItem
 	 * @return mixed Object on success, false on failure
 	 *
 	 * @since ?
+	 * @throws Exception
 	 */
 	public function &getItem($id = null)
 	{
@@ -65,67 +66,63 @@ class SermonspeakerModelSerie extends JModelItem
 
 		if (!isset($this->_item[$id]))
 		{
+			$db    = $this->getDbo();
+			$query = $db->getQuery(true);
+
+			$query->select(
+				$this->getState(
+					'item.select',
+					'serie.id, serie.title, serie.series_description, serie.avatar, serie.catid, serie.metakey, serie.metadesc, '
+					. 'serie.checked_out, serie.checked_out_time, serie.language, '
+					. 'serie.hits, serie.state, serie.created, serie.created_by, serie.metakey, serie.metadesc, '
+					. 'CASE WHEN CHAR_LENGTH(serie.alias) THEN CONCAT_WS(\':\', serie.id, serie.alias) ELSE serie.id END as slug, '
+					. 'serie.publish_up, serie.publish_down'
+				)
+			);
+			$query->from('#__sermon_series AS serie');
+
+			// Filter by start and end dates.
+			if ((!$user->authorise('core.edit.state', 'com_sermonspeaker')) && (!$user->authorise('core.edit', 'com_sermonspeaker')))
+			{
+				$nullDate = $db->quote($db->getNullDate());
+				$nowDate  = $db->quote(JFactory::getDate()->toSql());
+
+				$query->where('(serie.publish_up = ' . $nullDate . ' OR serie.publish_up <= ' . $nowDate . ')');
+				$query->where('(serie.publish_down = ' . $nullDate . ' OR serie.publish_down >= ' . $nowDate . ')');
+			}
+
+			// Join on category table
+			$query->select('c.title AS category_title, c.access AS category_access');
+			$query->select('CASE WHEN CHAR_LENGTH(c.alias) THEN CONCAT_WS(\':\', c.id, c.alias) ELSE c.id END as catslug');
+			$query->join('LEFT', '#__categories AS c on c.id = serie.catid');
+			$query->where('(serie.catid = 0 OR c.published = 1)');
+
+			$query->where('serie.id = ' . (int) $id);
+			$query->where('serie.state = 1');
+
+			// Join over users for the author names
+			$query->select("user.name AS author");
+			$query->join('LEFT', '#__users AS user ON user.id = serie.created_by');
+
+			$db->setQuery($query);
+
 			try
 			{
-				$db    = $this->getDbo();
-				$query = $db->getQuery(true);
-
-				$query->select(
-					$this->getState(
-						'item.select',
-						'serie.id, serie.title, serie.series_description, serie.avatar, serie.catid, serie.metakey, serie.metadesc, '
-						. 'serie.checked_out, serie.checked_out_time, serie.language, '
-						. 'serie.hits, serie.state, serie.created, serie.created_by, serie.metakey, serie.metadesc, '
-						. 'CASE WHEN CHAR_LENGTH(serie.alias) THEN CONCAT_WS(\':\', serie.id, serie.alias) ELSE serie.id END as slug, '
-						. 'serie.publish_up, serie.publish_down'
-					)
-				);
-				$query->from('#__sermon_series AS serie');
-
-				// Filter by start and end dates.
-				if ((!$user->authorise('core.edit.state', 'com_sermonspeaker')) && (!$user->authorise('core.edit', 'com_sermonspeaker')))
-				{
-					$nullDate = $db->quote($db->getNullDate());
-					$nowDate  = $db->quote(JFactory::getDate()->toSql());
-
-					$query->where('(serie.publish_up = ' . $nullDate . ' OR serie.publish_up <= ' . $nowDate . ')');
-					$query->where('(serie.publish_down = ' . $nullDate . ' OR serie.publish_down >= ' . $nowDate . ')');
-				}
-
-				// Join on category table
-				$query->select('c.title AS category_title, c.access AS category_access');
-				$query->select('CASE WHEN CHAR_LENGTH(c.alias) THEN CONCAT_WS(\':\', c.id, c.alias) ELSE c.id END as catslug');
-				$query->join('LEFT', '#__categories AS c on c.id = serie.catid');
-				$query->where('(serie.catid = 0 OR c.published = 1)');
-
-				$query->where('serie.id = ' . (int) $id);
-				$query->where('serie.state = 1');
-
-				// Join over users for the author names
-				$query->select("user.name AS author");
-				$query->join('LEFT', '#__users AS user ON user.id = serie.created_by');
-
-				$db->setQuery($query);
-
 				$data = $db->loadObject();
-
-				if ($error = $db->getErrorMsg())
-				{
-					throw new Exception($error);
-				}
-
-				if (!$data)
-				{
-					throw new Exception(JText::_('JGLOBAL_RESOURCE_NOT_FOUND'));
-				}
-
-				$this->_item[$id] = $data;
 			}
 			catch (Exception $e)
 			{
-				$this->setError($e);
 				$this->_item[$id] = false;
+
+				throw new Exception($e->getMessage());
 			}
+
+			if (!$data)
+			{
+				throw new Exception(JText::_('JGLOBAL_RESOURCE_NOT_FOUND'));
+			}
+
+			$this->_item[$id] = $data;
 		}
 
 		return $this->_item[$id];
