@@ -180,23 +180,23 @@ class SermonspeakerModelSeries extends ListModel
 		// Filter by speaker (needed in speaker view)
 		if ($speakerId = $this->getState('speaker.id'))
 		{
-			// Join over Sermons
-			$query->join('LEFT', '#__sermon_sermons AS sermons ON sermons.series_id = series.id');
+			$subQuerySeries = $db->getQuery(true);
+			$subQuerySeries->select('DISTINCT series_id');
+			$subQuerySeries->from('#__sermon_sermons');
 
 			// Filter by speaker
 			if ($speakerId = $this->getState('speaker.id'))
 			{
-				$query->where('sermons.speaker_id = ' . (int) $speakerId);
+				$subQuerySeries->where('speaker_id = ' . (int) $speakerId);
 			}
 
 			// Filter by state
 			if (is_numeric($state))
 			{
-				$query->where('sermons.state = ' . (int) $state);
+				$subQuerySeries->where('state = ' . (int) $state);
 			}
 
-			// Group by id
-			$query->group('series.id');
+			$query->where('series.id IN (' . (string) $subQuerySeries . ')');
 		}
 
 		// Filter by language
