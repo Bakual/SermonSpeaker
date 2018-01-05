@@ -313,7 +313,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->sermons);
 			<?php endforeach;
 		endif;
 
-		if ($this->params->get('show_pagination') and ($this->pag_sermons->get('pages.total') > 1)) : ?>
+		if ($this->params->get('show_pagination') and ($this->pag_sermons->pagesTotal > 1)) : ?>
             <div class="pagination">
 				<?php if ($this->params->get('show_pagination_results', 1)) : ?>
                     <p class="counter">

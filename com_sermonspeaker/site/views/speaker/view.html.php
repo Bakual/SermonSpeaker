@@ -37,10 +37,22 @@ class SermonspeakerViewSpeaker extends HtmlView
 	protected $state_sermons;
 
 	/**
+	 * @var   \Joomla\CMS\Pagination\Pagination
+	 * @since 6
+	 */
+	protected $pag_sermons;
+
+	/**
 	 * @var   \Joomla\Registry\Registry
 	 * @since 6
 	 */
 	protected $state_series;
+
+	/**
+	 * @var   \Joomla\CMS\Pagination\Pagination
+	 * @since 6
+	 */
+	protected $pag_series;
 
 	/**
 	 * @var  \Joomla\Registry\Registry
