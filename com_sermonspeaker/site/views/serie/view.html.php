@@ -75,6 +75,7 @@ class SermonspeakerViewSerie extends JViewLegacy
 		$sermon_model = $this->getModel('Sermons');
 		$this->state  = $sermon_model->getState();
 		$this->state->set('serie.id', $state->get('serie.id'));
+		$this->state->set('category.id', 0);
 		$this->items      = $sermon_model->getItems();
 		$this->pagination = $sermon_model->getPagination();
 		$this->years      = $sermon_model->getYears();
@@ -133,27 +134,6 @@ class SermonspeakerViewSerie extends JViewLegacy
 		if (count($errors = $this->get('Errors')))
 		{
 			throw new Exception(implode("\n", $errors), 500);
-		}
-
-		if ($this->category == false)
-		{
-			throw new Exception(JText::_('JGLOBAL_CATEGORY_NOT_FOUND'), 404);
-		}
-
-		if ($this->parent == false && $this->category->id != 'root')
-		{
-			throw new Exception(JText::_('JGLOBAL_CATEGORY_NOT_FOUND'), 404);
-		}
-
-		if ($this->category->id == 'root')
-		{
-			$this->params->set('show_category_title', 0);
-			$this->cat = '';
-		}
-		else
-		{
-			// Get the category title for backward compatibility
-			$this->cat = $this->category->title;
 		}
 
 		// Set layout from parameters if not already set elsewhere
