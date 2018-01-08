@@ -56,6 +56,13 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 				<h2><?php echo $this->item->title; ?></h2>
 			</a>
 			<?php echo JLayoutHelper::render('blocks.state_info', array('item' => $this->item, 'show' => $showState)); ?>
+
+			<?php if (in_array('serie:speaker', $this->col_serie) and $this->item->speakers) : ?>
+                <small class="ss-speakers createdby">
+					<?php echo JText::_('COM_SERMONSPEAKER_SPEAKERS'); ?>:
+					<?php echo $this->item->speakers; ?>
+                </small>
+			<?php endif; ?>
 		</div>
 		<?php if ($this->item->avatar) : ?>
 			<div class="img-polaroid pull-right item-image">
