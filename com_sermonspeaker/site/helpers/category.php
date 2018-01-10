@@ -12,6 +12,35 @@ defined('_JEXEC') or die();
 use Joomla\CMS\Categories\Categories;
 
 /**
+ * SermonSpeaker Component Category Tree
+ * Dirty Workaround as long as https://github.com/joomla/joomla-cms/pull/19288 isn't merged
+ *
+ * @since  6.0.0
+ */
+class SermonspeakerCategories extends Categories
+{
+	/**
+	 * Constructor
+	 *
+	 * @param   array $options Obtions
+	 *
+	 * @since 6.0.0
+	 */
+	public function __construct($options = array())
+	{
+		if (!isset($options['table']))
+		{
+			$options['table'] = '#__sermon_sermons';
+		}
+
+		$options['extension'] = 'com_sermonspeaker.sermons';
+
+		parent::__construct($options);
+	}
+
+}
+
+/**
  * SermonSpeaker Component Sermons Category Tree
  *
  * @since  6.0.0
