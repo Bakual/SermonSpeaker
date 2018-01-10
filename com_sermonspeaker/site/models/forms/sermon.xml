@@ -2,7 +2,7 @@
 <form>
 	<fieldset name="general">
 		<field name="title" type="text"
-			label="JGLOBAL_TITLE" description="COM_SERMONSPEAKER_FIELD_TITLE_DESC"
+			label="JGLOBAL_TITLE"
 			onchange="check(this.value, 70, 0)"
 			class="inputbox input-xlarge"
 			size="30"
