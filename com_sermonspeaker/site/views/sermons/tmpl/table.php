@@ -191,9 +191,9 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 								<?php echo SermonspeakerHelperSermonspeaker::insertSermonTitle($i, $item, $player);
 
 								if ($canEdit or ($canEditOwn and ($user->id == $item->created_by))) : ?>
-                                    <span class="list-edit pull-left width-50">
-											<?php echo HTMLHelper::_('icon.edit', $item, $this->params, array('type' => 'sermon')); ?>
-										</span>
+                                    <span class="list-edit pull-left mr-1">
+                                        <?php echo HTMLHelper::_('icon.edit', $item, $this->params, array('type' => 'sermon', 'hide_text' => true)); ?>
+                                    </span>
 									<?php echo LayoutHelper::render('blocks.state_info', array('item' => $item, 'show' => true)); ?>
 								<?php endif; ?>
                             </td>

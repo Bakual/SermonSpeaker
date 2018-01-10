@@ -9,6 +9,12 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Factory;
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Router\Route;
+use Joomla\CMS\Uri\Uri;
+
 /**
  * Sermonspeaker Component Sermonspeaker Helper
  *
@@ -51,13 +57,13 @@ class JHtmlIcon
 				break;
 		}
 
-		$uri = JUri::getInstance();
+		$uri = Uri::getInstance();
 		$url = 'index.php?option=com_sermonspeaker&task=' . $controller . '.add&return=' . base64_encode($uri) . '&s_id=0&catid=' . $category->id;
-		$text = '<span class="icon-plus"></span> ' . JText::_('JNEW') . '&#160;';
+		$text = '<span class="icon-plus"></span> ' . Text::_('JNEW') . '&#160;';
 
-		$button = JHtml::_('link', JRoute::_($url), $text, 'class="btn btn-primary"');
+		$button = HtmlHelper::_('link', Route::_($url), $text, 'class="btn btn-primary"');
 
-		return '<span class="hasTooltip" title="' . JText::_('COM_SERMONSPEAKER_BUTTON_NEW_' . $view) . '">' . $button . '</span>';
+		return '<span class="hasTooltip" title="' . Text::_('COM_SERMONSPEAKER_BUTTON_NEW_' . $view) . '">' . $button . '</span>';
 	}
 
 	/**
@@ -69,26 +75,27 @@ class JHtmlIcon
 	 *
 	 * @return  string  Email link
 	 *
+	 * @throws Exception
 	 * @since ?
 	 */
 	public static function email($item, $params, $attribs = array())
 	{
 		require_once JPATH_SITE . '/components/com_mailto/helpers/mailto.php';
-		$uri = JUri::getInstance();
+		$uri = Uri::getInstance();
 		$base = $uri->toString(array('scheme', 'host', 'port'));
-		$template = JFactory::getApplication()->getTemplate();
+		$template = Factory::getApplication()->getTemplate();
 		$function = 'get' . ucfirst($attribs['type']) . 'Route';
-		$link = $base . JRoute::_(SermonspeakerHelperRoute::$function($item->slug, $item->catid, $item->language), false);
+		$link = $base . Route::_(SermonspeakerHelperRoute::$function($item->slug, $item->catid, $item->language), false);
 		$url = 'index.php?option=com_mailto&tmpl=component&template=' . $template . '&link=' . MailToHelper::addLink($link);
 
 		$status = 'width=400,height=350,menubar=yes,resizable=yes';
 
-		$text = '<span class="icon-envelope"></span> ' . JText::_('JGLOBAL_EMAIL');
+		$text = '<span class="icon-envelope"></span> ' . Text::_('JGLOBAL_EMAIL');
 
-		$attribs['title'] = JText::_('JGLOBAL_EMAIL');
+		$attribs['title'] = Text::_('JGLOBAL_EMAIL');
 		$attribs['onclick'] = "window.open(this.href,'win2','" . $status . "'); return false;";
 
-		$output = JHtml::_('link', JRoute::_($url), $text, $attribs);
+		$output = HtmlHelper::_('link', Route::_($url), $text, $attribs);
 
 		return $output;
 	}
@@ -107,8 +114,8 @@ class JHtmlIcon
 	public static function edit($item, $params, $attribs = array())
 	{
 		// Initialise variables.
-		$user = JFactory::getUser();
-		$uri = JUri::getInstance();
+		$user = Factory::getUser();
+		$uri = Uri::getInstance();
 
 		// Ignore if Frontend Uploading is disabled
 		if ($params && !$params->get('fu_enable'))
@@ -128,17 +135,17 @@ class JHtmlIcon
 			return '';
 		}
 
-		JHtml::_('bootstrap.tooltip');
+		HtmlHelper::_('bootstrap.tooltip');
 
 		// Show checked_out icon if the item is checked out by a different user
 		if (property_exists($item, 'checked_out') && property_exists($item, 'checked_out_time')
 			&& $item->checked_out > 0 && $item->checked_out != $user->id
 		)
 		{
-			$checkoutUser = JFactory::getUser($item->checked_out);
-			$button = JHtml::_('image', 'system/checked_out.png', null, null, true);
-			$date = JHtml::_('date', $item->checked_out_time);
-			$tooltip = JText::_('JLIB_HTML_CHECKED_OUT') . ' :: ' . JText::sprintf('COM_SERMONSPEAKER_CHECKED_OUT_BY', $checkoutUser->name)
+			$checkoutUser = Factory::getUser($item->checked_out);
+			$button = HtmlHelper::_('image', 'system/checked_out.png', null, null, true);
+			$date = HtmlHelper::_('date', $item->checked_out_time);
+			$tooltip = Text::_('JLIB_HTML_CHECKED_OUT') . ' :: ' . Text::sprintf('COM_SERMONSPEAKER_CHECKED_OUT_BY', $checkoutUser->name)
 				. ' <br /> ' . $date;
 
 			return '<span class="hasTooltip" title="' . htmlspecialchars($tooltip, ENT_COMPAT, 'UTF-8') . '">' . $button . '</span>';
@@ -162,39 +169,43 @@ class JHtmlIcon
 
 		if ($item->state == 0)
 		{
-			$overlib = JText::_('JUNPUBLISHED');
+			$overlib = Text::_('JUNPUBLISHED');
 		}
 		else
 		{
-			$overlib = JText::_('JPUBLISHED');
+			$overlib = Text::_('JPUBLISHED');
 		}
 
-		if ($item->created != JFactory::getDbo()->getNullDate())
+		if ($item->created != Factory::getDbo()->getNullDate())
 		{
-			$date = JHtml::_('date', $item->created);
+			$date = HtmlHelper::_('date', $item->created);
 			$overlib .= '&lt;br /&gt;';
-			$overlib .= JText::sprintf('JGLOBAL_CREATED_DATE_ON', $date);
+			$overlib .= Text::sprintf('JGLOBAL_CREATED_DATE_ON', $date);
 		}
 
 		if ($item->author)
 		{
 			$overlib .= '&lt;br /&gt;';
-			$overlib .= JText::_('JAUTHOR') . ': ' . htmlspecialchars($item->author, ENT_COMPAT, 'UTF-8');
+			$overlib .= Text::_('JAUTHOR') . ': ' . htmlspecialchars($item->author, ENT_COMPAT, 'UTF-8');
 		}
 
-		$icon = $item->state ? 'edit' : 'eye-close';
+		$icon = $item->state ? 'pencil-square-o' : 'eye-slash';
 
-		if (strtotime($item->publish_up) > strtotime(JFactory::getDate())
-			|| ((strtotime($item->publish_down) < strtotime(JFactory::getDate())) && $item->publish_down != JFactory::getDbo()->getNullDate())
+		if (strtotime($item->publish_up) > strtotime(Factory::getDate())
+			|| ((strtotime($item->publish_down) < strtotime(Factory::getDate())) && $item->publish_down != Factory::getDbo()->getNullDate())
 		)
 		{
 			$icon = 'eye-close';
 		}
 
-		$text = '<span class="hasTooltip icon-' . $icon . ' tip" title="' . JHtml::tooltipText(JText::_('JACTION_EDIT'), $overlib, 0, 0) . '"></span> '
-			. JText::_('JGLOBAL_EDIT');
+		$text = '<span class="hasTooltip fa fa-' . $icon . '" title="' . HtmlHelper::tooltipText(Text::_('JACTION_EDIT'), $overlib, 0, 0) . '"></span> ';
 
-		$output = JHtml::_('link', JRoute::_($url), $text);
+		if (empty($attribs['hide_text']))
+		{
+			$text .= Text::_('JACTION_EDIT');
+		}
+
+		$output = HtmlHelper::_('link', Route::_($url), $text);
 
 		return $output;
 	}
@@ -212,17 +223,17 @@ class JHtmlIcon
 	 */
 	public static function download($item, $params, $attribs = array())
 	{
-		$fileurl = JRoute::_('index.php?task=download&id=' . $item->id . '&type=' . $attribs['type']);
+		$fileurl = Route::_('index.php?task=download&id=' . $item->id . '&type=' . $attribs['type']);
 		$filesize = $attribs['type'] . 'filesize';
 
 		if ($item->$filesize)
 		{
 			$size = '<span itemprop="contentSize">' . SermonspeakerHelperSermonspeaker::convertBytes($item->$filesize) . '</span>';
-			$text = JText::sprintf('COM_SERMONSPEAKER_DOWNLOADBUTTON_' . $attribs['type'] . '_WITH_SIZE', $size);
+			$text = Text::sprintf('COM_SERMONSPEAKER_DOWNLOADBUTTON_' . $attribs['type'] . '_WITH_SIZE', $size);
 		}
 		else
 		{
-			$text = JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_' . $attribs['type']);
+			$text = Text::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_' . $attribs['type']);
 		}
 
 		$text = '<i class="icon-download" > </i> ' . $text;
@@ -260,7 +271,7 @@ class JHtmlIcon
 			return '';
 		}
 
-		$text = '<i class="icon-play"> </i> ' . JText::_('COM_SERMONSPEAKER_PLAYICON_HOOVER');
+		$text = '<i class="icon-play"> </i> ' . Text::_('COM_SERMONSPEAKER_PLAYICON_HOOVER');
 		$output = '<a href="#" onclick="ss_play(' . $attribs['index'] . ');return false;">' . $text . '</a>';
 
 		return $output;
