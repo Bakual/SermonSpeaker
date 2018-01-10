@@ -27,25 +27,26 @@
 	</update>
 
 	<files folder="site">
+		<filename>controller.php</filename>
 		<filename>router.php</filename>
 		<filename>sermonspeaker.php</filename>
-		<filename>controller.php</filename>
 		<folder>controllers</folder>
 		<folder>helpers</folder>
-		<folder>views</folder>
-		<folder>models</folder>
-		<folder>layouts</folder>
 		<folder>language</folder>
+		<folder>layouts</folder>
 		<folder>media</folder>
+		<folder>models</folder>
 		<folder>plugin</folder>
+		<folder>views</folder>
 	</files>
 	<media destination="com_sermonspeaker" folder="media">
 		<folder>css</folder>
-		<folder>js</folder>
 		<folder>fonts</folder>
 		<folder>icons</folder>
-		<folder>logo</folder>
 		<folder>images</folder>
+		<folder>js</folder>
+		<folder>logo</folder>
+		<folder>media</folder>
 	</media>
 	<administration>
 		<menu>COM_SERMONSPEAKER</menu>
@@ -62,19 +63,19 @@
 			<menu view="help">COM_SERMONSPEAKER_MENU_HELP</menu>
 		</submenu>
 		<files folder="admin">
-			<filename>config.xml</filename>
 			<filename>access.xml</filename>
-			<filename>sermonspeaker.php</filename>
-			<filename>sermonspeaker.css</filename>
+			<filename>config.xml</filename>
 			<filename>controller.php</filename>
+			<filename>sermonspeaker.css</filename>
+			<filename>sermonspeaker.php</filename>
 			<folder>controllers</folder>
+			<folder>helpers</folder>
+			<folder>language</folder>
 			<folder>models</folder>
 			<folder>sql</folder>
 			<folder>tables</folder>
-			<folder>helpers</folder>
-			<folder>language</folder>
-			<folder>views</folder>
 			<folder>vendor</folder>
+			<folder>views</folder>
 		</files>
 	</administration>
 	<tables>

@@ -423,7 +423,7 @@ class PlgSermonspeakerJwplayer7 extends SermonspeakerPluginPlayer
 			}
 			else
 			{
-				$entry['file']  = JUri::base(true) . '/media/com_sermonspeaker/images/blank.mp3';
+				$entry['file']  = JUri::base(true) . '/media/com_sermonspeaker/media/blank.mp3';
 				$entry['error'] = JText::_('JGLOBAL_RESOURCE_NOT_FOUND');
 			}
 
@@ -472,7 +472,7 @@ class PlgSermonspeakerJwplayer7 extends SermonspeakerPluginPlayer
 				}
 				else
 				{
-					$file           = JUri::base(true) . '/media/com_sermonspeaker/images/blank.mp3';
+					$file           = JUri::base(true) . '/media/com_sermonspeaker/media/blank.mp3';
 					$entry['error'] = "error:'" . JText::_('JGLOBAL_RESOURCE_NOT_FOUND') . "'";
 				}
 
@@ -486,7 +486,7 @@ class PlgSermonspeakerJwplayer7 extends SermonspeakerPluginPlayer
 				}
 				else
 				{
-					$file           = JUri::base(true) . '/media/com_sermonspeaker/images/blank.mp3';
+					$file           = JUri::base(true) . '/media/com_sermonspeaker/media/blank.mp3';
 					$entry['error'] = "error:'" . JText::_('JGLOBAL_RESOURCE_NOT_FOUND') . "'";
 				}
 
