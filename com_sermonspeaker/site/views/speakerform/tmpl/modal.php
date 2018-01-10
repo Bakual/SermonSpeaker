@@ -51,7 +51,6 @@ JHtml::_('formbehavior.chosen', 'select');
 				</button>
 			</div>
 		</div>
-	<?php endif; ?>
 	<form action="<?php echo JRoute::_('index.php?option=com_sermonspeaker&view=speakerform&modal=1&s_id=' . (int) $this->item->id); ?>"
 		  method="post" name="adminForm" id="adminForm" class="form-validate form form-vertical">
 		<fieldset>

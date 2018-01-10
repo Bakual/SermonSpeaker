@@ -11,11 +11,11 @@ JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
 
 JHtml::_('behavior.formvalidator');
 JHtml::_('behavior.keepalive');
-JHtml::_('formbehavior.chosen', '#jform_catid', null, array('disable_search_threshold' => 0 ));
 JHtml::_('behavior.tabstate');
 JHtml::_('bootstrap.tooltip');
+JHtml::_('formbehavior.chosen', '#jform_catid', null, array('disable_search_threshold' => 0 ));
 
-$this->ignore_fieldsets = array('general', 'files', 'info', 'custom', 'detail', 'publishingdata', 'jmetadata', 'item_associations');
+$this->ignore_fieldsets = array('general', 'files', 'info', 'detail', 'publishingdata', 'jmetadata', 'item_associations');
 
 $uri = JUri::getInstance();
 $uri->delVar('file');
