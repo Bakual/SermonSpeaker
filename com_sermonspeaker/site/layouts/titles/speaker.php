@@ -9,43 +9,42 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Router\Route;
+
 /**
  * @var  array                    $displayData Contains the following items:
  * @var  object                   $item        The sermon item
  * @var  Joomla\Registry\Registry $params      The item params
- * @var  bool                     $legacy      Set if coming from SermonspeakerHelperSermonspeaker::SpeakerTooltip()
- *                                             Item only contains speaker_title, speaker_slug and pic in this case
  */
 extract($displayData);
-
-if (!isset($legacy))
-{
-	$legacy = false;
-}
 ?>
-<?php if (!$legacy and !$item->speaker_state) : ?>
-	<span itemprop="name"><?php echo $item->speaker_title; ?></span>
+<?php if (!$item->speaker_state) : ?>
+    <span itemprop="name"><?php echo $item->speaker_title; ?></span>
 <?php else :
-	if ($params->get('speakerpopup', 1)) :
-		if ($legacy) :
-			// Mootools variant
-			JHtml::_('behavior.modal');
-			$url   = JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->speaker_slug, $item->speaker_catid, $item->speaker_language) . '&layout=popup&tmpl=component'); ?>
-			<a href="<?php echo $url; ?>" class="modal" rel="{handler:'iframe', size: {x: 700, y: 500}}" itemprop="url">
-		<?php else :
-			echo $this->sublayout('modal', $item); ?>
-			<a href="#sermonspeaker-modal-speaker-<?php echo $item->speaker_id; ?>" data-toggle="modal">
-		<?php endif;
-	else : ?>
-		<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->speaker_slug, $item->speaker_catid, $item->speaker_language)); ?>" itemprop="url">
+	if ($params->get('speakerpopup', 1)) : ?>
+		<?php echo HtmlHelper::_(
+			'bootstrap.renderModal',
+			'sermonspeaker-modal-speaker-' . $item->speaker_id,
+			array(
+				'title'  => $item->speaker_title,
+				'footer' => $this->sublayout('modal_footer', $item),
+			),
+			$this->sublayout('modal_body', $item)
+        ); ?>
+        <a href="#sermonspeaker-modal-speaker-<?php echo $item->speaker_id; ?>" data-toggle="modal">
+	<?php else : ?>
+        <a href="<?php echo Route::_(SermonspeakerHelperRoute::getSpeakerRoute($item->speaker_slug, $item->speaker_catid, $item->speaker_language)); ?>" itemprop="url">
 	<?php endif; ?>
-		<?php if ($item->pic) :
-			JHtmlBootstrap::popover();
-			$popover = htmlspecialchars('<img src="' . SermonspeakerHelperSermonspeaker::makeLink($item->pic) . '" />'); ?>
-			<meta itemprop="image" content="<?php echo SermonspeakerHelperSermonspeaker::makeLink($item->pic, true); ?>" />
-			<span class="hasPopover" data-html="true" data-placement="top" data-title="<?php echo $item->speaker_title; ?>" data-content="<?php echo $popover; ?>">
-				<span itemprop="name"><?php echo $item->speaker_title; ?></span></span><?php
-		else : ?>
-			<span itemprop="name"><?php echo $item->speaker_title; ?></span><?php
-		endif; ?></a>
+	<?php if ($item->pic) : ?>
+	    <?php JHtmlBootstrap::popover(); ?>
+        <meta itemprop="image" content="<?php echo SermonspeakerHelperSermonspeaker::makeLink($item->pic, true); ?>"/>
+        <span class="hasPopover" data-html="true" data-placement="top" data-title="<?php echo $item->speaker_title; ?>"
+              data-content="<?php echo htmlspecialchars('<img src="' . SermonspeakerHelperSermonspeaker::makeLink($item->pic) . '" />'); ?>">
+            <span itemprop="name"><?php echo $item->speaker_title; ?></span>
+        </span>
+    <?php else : ?>
+        <span itemprop="name"><?php echo $item->speaker_title; ?></span>
+    <?php endif; ?>
+    </a>
 <?php endif;
