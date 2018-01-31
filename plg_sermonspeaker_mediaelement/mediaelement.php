@@ -164,11 +164,30 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 		$autoplay = $this->params->get('autostart') ? ' autoplay="autoplay"' : '';
 		$file = $this->mode . 'file';
 
+		$sources = array();
+		if (is_array($items))
+		{
+			foreach ($items as $item)
+			{
+				$sources[] = $item->$file;
+			}
+		}
+		else
+		{
+			$sources[] = $items->$file;
+		}
+
 		$player->mspace = '<' . $this->mode . ' " class="mejs__player"' . $autoplay . ' controls="controls"'
 			. ' width="' . $dimensions[$this->mode . 'width'] . '" height="' . $dimensions[$this->mode . 'height'] . '"'
-			. ' src="' . SermonspeakerHelperSermonspeaker::makeLink($items->$file) . '"'
-			. ' data-mejsoptions=\'{"alwaysShowControls": "true"}\'>'
-			. '</' . $this->mode . '>';
+			. ' data-mejsoptions=\'{"alwaysShowControls": "true", "features": ["playpause", "current", "progress", "duration", "tracks", "volume", "fullscreen", "playlist", "prevtrack", "nexttrack"]}\''
+			. '>';
+
+		foreach ($sources as $source)
+		{
+			$player->mspace .= '<source src="' . SermonspeakerHelperSermonspeaker::makeLink($source) . '" title="foo">';
+		}
+
+		$player->mspace .= '</' . $this->mode . '>';
 		$player->toggle = $toggle;
 		$this->loadLanguage();
 
@@ -179,6 +198,12 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 		{
 			JHtml::_('script', 'plg_sermonspeaker_mediaelement/mediaelement-and-player.min.js', false, true, false);
 			JHtml::_('stylesheet', 'plg_sermonspeaker_mediaelement/mediaelementplayer.min.css', false, true, false);
+
+			if (is_array($items))
+			{
+				JHtml::_('script', 'plg_sermonspeaker_mediaelement/playlist/playlist.min.js', false, true, false);
+				JHtml::_('stylesheet', 'plg_sermonspeaker_mediaelement/playlist/playlist.min.css', false, true, false);
+			}
 
 //			JFactory::getDocument()->addScriptDeclaration("function ss_play(id){jwplayer('mediaspace" . $count . "').playlistItem(id);}");
 

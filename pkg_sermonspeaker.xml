@@ -28,6 +28,7 @@
 		<file type="plugin" id="sermonspeaker" group="content">plg_content_sermonspeaker.zip</file>
 		<file type="plugin" id="sermonspeaker" group="editors-xtd">plg_editors_xtd_sermonspeaker.zip</file>
 		<file type="plugin" id="jwplayer7" group="sermonspeaker">plg_sermonspeaker_jwplayer7.zip</file>
+		<file type="plugin" id="mediaelement" group="sermonspeaker">plg_sermonspeaker_mediaelement.zip</file>
 		<file type="plugin" id="pixelout" group="sermonspeaker">plg_sermonspeaker_pixelout.zip</file>
 		<file type="plugin" id="sermonspeaker" group="quickicon">plg_quickicon_sermonspeaker.zip</file>
 	</files>

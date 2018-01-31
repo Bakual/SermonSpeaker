@@ -15,7 +15,6 @@
 	</files>
 	<media destination="plg_sermonspeaker_mediaelement" folder="media">
 		<folder>css</folder>
-		<folder>flash</folder>
 		<folder>js</folder>
 	</media>
 	<updateservers>
@@ -72,7 +71,7 @@
 					type="text"
 					label="PLG_SERMONSPEAKER_COMMON_FIELD_AHEIGHT_LABEL"
 					description="PLG_SERMONSPEAKER_COMMON_FIELD_AHEIGHT_DESC"
-					default="33px"
+					default="40"
 					/>
 
 				<field
@@ -88,7 +87,7 @@
 					type="text"
 					label="PLG_SERMONSPEAKER_COMMON_FIELD_VHEIGHT_LABEL"
 					description="PLG_SERMONSPEAKER_COMMON_FIELD_VHEIGHT_DESC"
-					default="300px"
+					default="300"
 					/>
 			</fieldset>
 		</fields>
