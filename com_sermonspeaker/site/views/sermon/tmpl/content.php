@@ -49,6 +49,24 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 			<span class="caret"></span>
 		</a>
 		<ul class="dropdown-menu">
+            <?php if ($this->params->get('popup_player') and $player) : ?>
+				<?php if ($this->item->audiofile) : ?>
+					<li class="download-icon" itemprop="audio" itemscope itemtype="http://schema.org/AudioObject">
+                        <a href="#"
+                           onclick="popup=window.open(
+                               '<?php echo JRoute::_('index.php?view=sermon&layout=popup&id=' . $this->item->id . '&tmpl=component'); ?>',
+                               'PopupPage',
+                               'height=<?php echo $player->popup['height']; ?>',
+                               'width=<?php echo $player->popup['width']; ?>',
+                               'scrollbars=yes',
+                               'resizable=yes'
+                           ); return false"
+                        >
+                            <?php echo JText::_('COM_SERMONSPEAKER_POPUPPLAYER'); ?>
+                        </a>
+					</li>
+				<?php endif; ?>
+            <?php endif; ?>
 			<?php if (in_array('sermon:download', $this->columns)) :
 				if ($this->item->audiofile) : ?>
 					<li class="download-icon" itemprop="audio" itemscope itemtype="http://schema.org/AudioObject">
