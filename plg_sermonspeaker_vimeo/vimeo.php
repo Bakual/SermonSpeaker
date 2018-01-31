@@ -90,6 +90,11 @@ class PlgSermonspeakerVimeo extends SermonspeakerPluginPlayer
 		// Merge $config into plugin params. $config takes priority.
 		$this->params->merge($config);
 
+		if ($this->params->get('type') === 'audio')
+		{
+			return;
+		}
+
 		$count = $this->params->get('count', 1);
 
 		$supported = $this->isSupported($items);
