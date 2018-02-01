@@ -63,7 +63,7 @@
 					type="text"
 					label="PLG_SERMONSPEAKER_COMMON_FIELD_AWIDTH_LABEL"
 					description="PLG_SERMONSPEAKER_COMMON_FIELD_AWIDTH_DESC"
-					default="100%"
+					default="600"
 					/>
 
 				<field
@@ -79,7 +79,7 @@
 					type="text"
 					label="PLG_SERMONSPEAKER_COMMON_FIELD_VWIDTH_LABEL"
 					description="PLG_SERMONSPEAKER_COMMON_FIELD_VWIDTH_DESC"
-					default="100%"
+					default="600"
 					/>
 
 				<field

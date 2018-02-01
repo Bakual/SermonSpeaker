@@ -153,38 +153,37 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 			}
 		}
 
-		$player->player = $this->_name;
+		$player->player   = $this->_name;
+		$player->hideInfo = true;
 
 		// Set width and height for later use
-		$dimensions['audiowidth']  = $this->params->get('awidth', '100%');
+		$dimensions['audiowidth']  = $this->params->get('awidth', '100');
 		$dimensions['audioheight'] = $this->params->get('aheight', '40');
-		$dimensions['videowidth']  = $this->params->get('vwidth', '100%');
+		$dimensions['videowidth']  = $this->params->get('vwidth', '600');
 		$dimensions['videoheight'] = $this->params->get('vheight', '300');
 
 		$autoplay = $this->params->get('autostart') ? ' autoplay="autoplay"' : '';
-		$file = $this->mode . 'file';
+		$field = $this->mode . 'file';
+		$langCode = explode('-', JFactory::getLanguage()->getTag())[0];
 
-		$sources = array();
+		$player->mspace = '<' . $this->mode . ' id="mediaspace' . $count . '" class="mejs__player"' . $autoplay . ' preload="metadata" controls="controls"'
+			. ' width="' . $dimensions[$this->mode . 'width'] . '" height="' . $dimensions[$this->mode . 'height'] . '"'
+			. ' data-mejsoptions=\'{"showPlaylist": true, "stretching": "responsive", "features": ["playpause", "prevtrack", "nexttrack", "current", "progress", "duration", "volume", "playlist", "fullscreen"]}\''
+			. '>';
+
 		if (is_array($items))
 		{
 			foreach ($items as $item)
 			{
-				$sources[] = $item->$file;
+				if ($file = $item->$field)
+				{
+					$player->mspace .= $this->createSource($item, $file);
+				}
 			}
 		}
 		else
 		{
-			$sources[] = $items->$file;
-		}
-
-		$player->mspace = '<' . $this->mode . ' " class="mejs__player"' . $autoplay . ' controls="controls"'
-			. ' width="' . $dimensions[$this->mode . 'width'] . '" height="' . $dimensions[$this->mode . 'height'] . '"'
-			. ' data-mejsoptions=\'{"alwaysShowControls": "true", "features": ["playpause", "current", "progress", "duration", "tracks", "volume", "fullscreen", "playlist", "prevtrack", "nexttrack"]}\''
-			. '>';
-
-		foreach ($sources as $source)
-		{
-			$player->mspace .= '<source src="' . SermonspeakerHelperSermonspeaker::makeLink($source) . '" title="foo">';
+			$player->mspace .= $this->createSource($items, $items->$field);
 		}
 
 		$player->mspace .= '</' . $this->mode . '>';
@@ -196,16 +195,29 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 		// Loading needed Javascript only once
 		if (!self::$script_loaded)
 		{
+			JFactory::getDocument()->addScriptDeclaration('mejs.i18n.language(\'' . $langCode . '\');');
 			JHtml::_('script', 'plg_sermonspeaker_mediaelement/mediaelement-and-player.min.js', false, true, false);
+			JHtml::_('script', 'plg_sermonspeaker_mediaelement/renderers/vimeo.min.js', false, true, false);
+			JHtml::_('script', 'plg_sermonspeaker_mediaelement/lang/' . $langCode . '.js', false, true, false);
 			JHtml::_('stylesheet', 'plg_sermonspeaker_mediaelement/mediaelementplayer.min.css', false, true, false);
 
 			if (is_array($items))
 			{
 				JHtml::_('script', 'plg_sermonspeaker_mediaelement/playlist/playlist.min.js', false, true, false);
+				JHtml::_('script', 'plg_sermonspeaker_mediaelement/playlist/playlist-i18n.js', false, true, false);
 				JHtml::_('stylesheet', 'plg_sermonspeaker_mediaelement/playlist/playlist.min.css', false, true, false);
 			}
 
-//			JFactory::getDocument()->addScriptDeclaration("function ss_play(id){jwplayer('mediaspace" . $count . "').playlistItem(id);}");
+			JFactory::getDocument()->addScriptDeclaration(
+				"function ss_play(id){
+					let player = document.getElementById('mediaspace" . $count . "');
+					let activeplayer = player.lastChild.player;
+					activeplayer.currentPlaylistItem = id;
+					player.setSrc(activeplayer.playlist[id].src);
+					player.load();
+					player.play();
+				}"
+			);
 
 			self::$script_loaded = 1;
 		}
@@ -253,6 +265,61 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 			$supported[] = 'video';
 		}
 
+		if (parse_url($item->videofile, PHP_URL_HOST) == 'vimeo.com'
+			|| parse_url($item->videofile, PHP_URL_HOST) == 'player.vimeo.com'
+		)
+		{
+			$supported[] = 'video';
+		}
+
 		return $supported;
 	}
+
+	/**
+	 * @param $item  object The sermon item
+	 * @param $file  string The file to use
+	 *
+	 * @return string
+	 *
+	 * @since 1.0.0
+	 */
+	private function createSource($item, $file)
+	{
+		$attributes['type'] = SermonspeakerHelperSermonspeaker::getMime(JFile::getExt($file), false);
+
+		if (!$attributes['type'])
+		{
+			if (parse_url($item->videofile, PHP_URL_HOST) == 'vimeo.com'
+				|| parse_url($item->videofile, PHP_URL_HOST) == 'player.vimeo.com'
+			)
+			{
+				$attributes['type'] = 'video/vimeo';
+			}
+
+			if (!$attributes['type'] && (parse_url($item->videofile, PHP_URL_HOST) == 'youtube.com'
+					|| parse_url($item->videofile, PHP_URL_HOST) == 'www.youtube.com'
+					|| parse_url($item->videofile, PHP_URL_HOST) == 'youtu.be')
+			)
+			{
+				$attributes['type'] = 'video/youtube';
+			}
+		}
+
+		if ($img = SermonspeakerHelperSermonspeaker::insertPicture($item, 1))
+		{
+			$attributes['data-thumbnail'] = $img;
+		}
+
+		$attributes['src'] = SermonspeakerHelperSermonspeaker::makeLink($file);
+		$attributes['title'] = $item->title;
+
+		$attrs = '';
+
+		foreach ($attributes as $key => $value)
+		{
+			$attrs .= ' ' . $key . '="' . $value . '"';
+		}
+
+		return '<source' . $attrs . '>';
+}
 }
