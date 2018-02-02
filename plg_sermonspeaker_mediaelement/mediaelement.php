@@ -114,6 +114,8 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 		$count          = $this->params->get('count', 1);
 		$toggle         = $this->params->get('filetoggle');
 
+		$this->loadLanguage();
+
 		// Detect mode and which filetype to use
 		if (is_array($items))
 		{
@@ -154,7 +156,8 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 		}
 
 		$player->player   = $this->_name;
-		$player->hideInfo = true;
+		$player->id       = 'mediaspace' . $count;
+//		$player->hideInfo = true;
 
 		// Set width and height for later use
 		$dimensions['audiowidth']  = $this->params->get('awidth', '100');
@@ -162,13 +165,17 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 		$dimensions['videowidth']  = $this->params->get('vwidth', '600');
 		$dimensions['videoheight'] = $this->params->get('vheight', '300');
 
-		$autoplay = $this->params->get('autostart') ? ' autoplay="autoplay"' : '';
-		$field = $this->mode . 'file';
-		$langCode = explode('-', JFactory::getLanguage()->getTag())[0];
+		$autoplay   = $this->params->get('autostart') ? ' autoplay="autoplay"' : '';
+		$field      = $this->mode . 'file';
+		$langCode   = explode('-', JFactory::getLanguage()->getTag())[0];
+		$stretching = $this->params->get('responsive') ? 'responsive' : 'none';
 
-		$player->mspace = '<' . $this->mode . ' id="mediaspace' . $count . '" class="mejs__player"' . $autoplay . ' preload="metadata" controls="controls"'
+		$player->mspace = '<' . $this->mode . ' id="' . $player->id . '" class="mejs__player"'
+			. $autoplay . ' preload="metadata" controls="controls"'
 			. ' width="' . $dimensions[$this->mode . 'width'] . '" height="' . $dimensions[$this->mode . 'height'] . '"'
-			. ' data-mejsoptions=\'{"showPlaylist": true, "stretching": "responsive", "features": ["playpause", "prevtrack", "nexttrack", "current", "progress", "duration", "volume", "playlist", "fullscreen"]}\''
+			. ' data-mejsoptions=\'{"showPlaylist": false, "stretching": "' . $stretching . '",'
+			. ' "currentMessage": "' . JText::_('PLG_SERMONSPEAKER_MEDIAELEMENT_CURRENT_MESSAGE') . '",'
+			. ' "features": ["playpause", "prevtrack", "nexttrack", "current", "progress", "duration", "volume", "playlist", "fullscreen"]}\''
 			. '>';
 
 		if (is_array($items))
@@ -206,18 +213,8 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 				JHtml::_('script', 'plg_sermonspeaker_mediaelement/playlist/playlist.min.js', false, true, false);
 				JHtml::_('script', 'plg_sermonspeaker_mediaelement/playlist/playlist-i18n.js', false, true, false);
 				JHtml::_('stylesheet', 'plg_sermonspeaker_mediaelement/playlist/playlist.min.css', false, true, false);
+				JHtml::_('script', 'plg_sermonspeaker_mediaelement/sermonspeaker.js', false, true, false);
 			}
-
-			JFactory::getDocument()->addScriptDeclaration(
-				"function ss_play(id){
-					let player = document.getElementById('mediaspace" . $count . "');
-					let activeplayer = player.lastChild.player;
-					activeplayer.currentPlaylistItem = id;
-					player.setSrc(activeplayer.playlist[id].src);
-					player.load();
-					player.play();
-				}"
-			);
 
 			self::$script_loaded = 1;
 		}
@@ -312,6 +309,7 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 
 		$attributes['src'] = SermonspeakerHelperSermonspeaker::makeLink($file);
 		$attributes['title'] = $item->title;
+		$attributes['duration'] = $item->sermon_time;
 
 		$attrs = '';
 

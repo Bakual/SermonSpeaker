@@ -59,35 +59,55 @@
 				</field>
 
 				<field
+					name="responsive"
+					type="radio"
+					label="PLG_SERMONSPEAKER_MEDIAELEMENT_FIELD_RESPONSIVE_LABEL"
+					description="PLG_SERMONSPEAKER_MEDIAELEMENT_FIELD_RESPONSIVE_DESC"
+					default="0"
+					class="btn-group btn-group-yesno"
+					>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+
+				<field
 					name="awidth"
-					type="text"
+					type="number"
 					label="PLG_SERMONSPEAKER_COMMON_FIELD_AWIDTH_LABEL"
 					description="PLG_SERMONSPEAKER_COMMON_FIELD_AWIDTH_DESC"
 					default="600"
+					filter="integer"
+					showon="responsive:0"
 					/>
 
 				<field
 					name="aheight"
-					type="text"
+					type="number"
 					label="PLG_SERMONSPEAKER_COMMON_FIELD_AHEIGHT_LABEL"
 					description="PLG_SERMONSPEAKER_COMMON_FIELD_AHEIGHT_DESC"
 					default="40"
+					filter="integer"
+					showon="responsive:0"
 					/>
 
 				<field
 					name="vwidth"
-					type="text"
+					type="number"
 					label="PLG_SERMONSPEAKER_COMMON_FIELD_VWIDTH_LABEL"
 					description="PLG_SERMONSPEAKER_COMMON_FIELD_VWIDTH_DESC"
 					default="600"
+					filter="integer"
+					showon="responsive:0"
 					/>
 
 				<field
 					name="vheight"
-					type="text"
+					type="number"
 					label="PLG_SERMONSPEAKER_COMMON_FIELD_VHEIGHT_LABEL"
 					description="PLG_SERMONSPEAKER_COMMON_FIELD_VHEIGHT_DESC"
 					default="300"
+					filter="integer"
+					showon="responsive:0"
 					/>
 			</fieldset>
 		</fields>

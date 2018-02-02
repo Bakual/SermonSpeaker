@@ -396,7 +396,7 @@ class SermonspeakerHelperSermonspeaker
 						{
 							$options['onclick'] = 'ss_play(' . $i . ');return false;';
 							$options['title'] = JText::_('COM_SERMONSPEAKER_PLAYICON_HOOVER');
-							$return = '<i class="icon-play pointer hasTooltip" onclick="' . $options['onclick'] . '" title="' . $options['title'] . '"> </i> ';
+							$return = '<i class="icon-play ss-play pointer hasTooltip" data-id="' . $i . '" data-player="' . $player->id . '" onclick="' . $options['onclick'] . '" title="' . $options['title'] . '"> </i> ';
 						}
 
 						break;
@@ -452,8 +452,11 @@ class SermonspeakerHelperSermonspeaker
 
 					if (in_array(self::$view . ':player', $cols))
 					{
-						$options['onclick'] = 'ss_play(' . $i . ');return false;';
-						$options['title']   = JText::_('COM_SERMONSPEAKER_PLAYICON_HOOVER');
+						$options['onclick']     = 'ss_play(' . $i . ');return false;';
+						$options['title']       = JText::_('COM_SERMONSPEAKER_PLAYICON_HOOVER');
+						$options['class']       = 'ss-play';
+						$options['data-id']     = $i;
+						$options['data-player'] = $player->id;
 						$return .= JHtml::Link('#', $item->title, $options);
 					}
 					else
@@ -696,18 +699,21 @@ class SermonspeakerHelperSermonspeaker
 	/**
 	 * Get MIME type for extension
 	 *
-	 * @param   string $ext File extension
+	 * @param  string         $ext       File extension
+	 * @param  string|false   $default   Default value to be returned, defaults to 'video/mp4'
 	 *
 	 * @return  string  MIME type
 	 *
 	 * @since ?
 	 */
-	public static function getMime($ext)
+	public static function getMime($ext, $default = 'video/mp4')
 	{
+		$mime = '';
+
 		switch ($ext)
 		{
 			case 'mp3':
-				$mime = 'audio/mpeg';
+				$mime = 'audio/mp3';
 				break;
 			case 'aac':
 				$mime = 'audio/aac';
@@ -737,9 +743,11 @@ class SermonspeakerHelperSermonspeaker
 			case 'pdf':
 				$mime = 'application/pdf';
 				break;
-			default:
-				$mime = 'video/mp4';
-				break;
+		}
+
+		if (!$mime && $default)
+		{
+			$mime = $default;
 		}
 
 		return $mime;
