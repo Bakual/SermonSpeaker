@@ -19,6 +19,14 @@ defined('_JEXEC') or die();
 class SermonspeakerModelSerie extends JModelAdmin
 {
 	/**
+	 * The type alias for this content type.
+	 *
+	 * @var    string
+	 * @since  5.8.0
+	 */
+	public $typeAlias = 'com_sermonspeaker.serie';
+
+	/**
 	 * @var   string  The prefix to use with controller messages.
 	 *
 	 * @since ?
