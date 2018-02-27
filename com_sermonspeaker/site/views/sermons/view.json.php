@@ -129,6 +129,11 @@ class SermonspeakerViewSermons extends JViewLegacy
 			$response[] = $tmp;
 		}
 
+		$app = JFactory::getApplication();
+		$app->mimeType = 'application/json';
+		$app->setHeader('Content-Type', $app->mimeType . '; charset=' . $app->charSet);
+		$app->sendHeaders();
+
 		echo new JResponseJson($response);
 
 		return;
