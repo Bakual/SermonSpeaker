@@ -7,7 +7,7 @@
 	<license>http://www.gnu.org/licenses/gpl.html</license>
 	<authorEmail>admin@sermonspeaker.net</authorEmail>
 	<authorUrl>http://www.sermonspeaker.net</authorUrl>
-	<version>1.0.0</version>
+	<version>1.0.0-alpha</version>
 	<description>PLG_SERMONSPEAKER_MEDIAELEMENT_XML_DESCRIPTION</description>
 	<files>
 		<filename plugin="mediaelement">mediaelement.php</filename>
