@@ -281,7 +281,7 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 	{
 		if (!$file)
 		{
-			$file = JUri::base(true) . '/media/com_sermonspeaker/images/blank.mp3';
+			$file = JUri::base(true) . '/media/com_sermonspeaker/media/blank.mp3';
 			$attributes['error'] = JText::_('JGLOBAL_RESOURCE_NOT_FOUND');
 		}
 
