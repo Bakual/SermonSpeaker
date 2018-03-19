@@ -157,7 +157,6 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 
 		$player->player   = $this->_name;
 		$player->id       = 'mediaspace' . $count;
-//		$player->hideInfo = true;
 
 		// Set width and height for later use
 		$dimensions['audiowidth']  = $this->params->get('awidth', '100');
@@ -182,10 +181,8 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 		{
 			foreach ($items as $item)
 			{
-				if ($file = $item->$field)
-				{
-					$player->mspace .= $this->createSource($item, $file);
-				}
+				$file = $item->$field;
+				$player->mspace .= $this->createSource($item, $file);
 			}
 		}
 		else
@@ -282,6 +279,12 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 	 */
 	private function createSource($item, $file)
 	{
+		if (!$file)
+		{
+			$file = JUri::base(true) . '/media/com_sermonspeaker/images/blank.mp3';
+			$attributes['error'] = JText::_('JGLOBAL_RESOURCE_NOT_FOUND');
+		}
+
 		$attributes['type'] = SermonspeakerHelperSermonspeaker::getMime(JFile::getExt($file), false);
 
 		if (!$attributes['type'])
