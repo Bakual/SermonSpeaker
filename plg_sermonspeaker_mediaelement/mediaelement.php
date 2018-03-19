@@ -311,6 +311,21 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 		$attributes['title'] = $item->title;
 		$attributes['duration'] = $item->sermon_time;
 
+
+		$desc           = array();
+
+		if ($item->sermon_date)
+		{
+			$desc[] = JText::_('JDATE') . ': ' . JHtml::date($item->sermon_date, JText::_('DATE_FORMAT_LC4'), true);
+		}
+
+		if ($item->speaker_title)
+		{
+			$desc[] = JText::_('PLG_SERMONSPEAKER_COMMON_SPEAKER') . ': ' . $item->speaker_title;
+		}
+
+		$attributes['description'] = implode('<br>', $desc);
+
 		$attrs = '';
 
 		foreach ($attributes as $key => $value)

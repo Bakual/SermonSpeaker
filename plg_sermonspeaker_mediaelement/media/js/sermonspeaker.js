@@ -31,23 +31,23 @@ function ss_changeListItem(event) {
         document.getElementById("sermon" + i).classList.remove("ss-current");
     }
     document.getElementById("sermon" + activeplayer.currentPlaylistItem).classList.add("ss-current");
-    if (entry.duration > 0) {
-        document.getElementById('playing-duration').innerHTML = entry.duration;
+    if (entry['duration']) {
+        document.getElementById('playing-duration').innerHTML = entry['duration'];
     } else {
-        document.getElementById('playing-duration').innerHTML = "";
+        document.getElementById('playing-duration').innerHTML = '';
     }
     document.getElementById("playing-pic").src = entry['data-thumbnail'];
     if (entry['data-thumbnail']) {
-        document.getElementById("playing-pic").show();
+        document.getElementById('playing-pic').style.display = 'block';
     } else {
-        document.getElementById("playing-pic").hide();
+        document.getElementById('playing-pic').style.display = 'none';
     }
     if (entry.error) {
-        document.getElementById("playing-error").html(entry.error);
-        document.getElementById("playing-error").show();
+        document.getElementById('playing-error').innerHTML = entry.error;
+        document.getElementById('playing-error').style.display = 'block';
     } else {
-        document.getElementById("playing-error").hide();
+        document.getElementById('playing-error').style.display = 'none';
     }
-    document.getElementById("playing-title").html(entry.title);
-    document.getElementById("playing-desc").html(entry.description);
+    document.getElementById('playing-title').innerHTML = entry.title;
+    document.getElementById('playing-desc').innerHTML = entry.description;
 }
