@@ -228,7 +228,7 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 			ignore_user_abort(true);
 			$i = 0;
 
-			if ($zip->open($filename, ZipArchive::OVERWRITE) !== true)
+			if ($zip->open($filename, ZipArchive::CREATE | ZipArchive::OVERWRITE) !== true)
 			{
 				$response = array(
 					'status' => '0',
