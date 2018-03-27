@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<extension type="package" version="3.7.0" method="upgrade">
+<extension type="package" version="3.8.0" method="upgrade">
 	<name>SermonSpeaker Package</name>
 	<author>Thomas Hunziker</author>
-	<creationDate>2017-10-14</creationDate>
-	<copyright>© 2017</copyright>
+	<creationDate>2018-03-27</creationDate>
+	<copyright>© 2018</copyright>
 	<authorEmail>admin@sermonspeaker.net</authorEmail>
 	<authorUrl>http://www.sermonspeaker.net</authorUrl>
-	<version>5.7.1</version>
+	<version>5.8.0</version>
 	<license>http://www.gnu.org/licenses/gpl.html</license>
 	<packagename>sermonspeaker</packagename>
 	<url>http://www.sermonspeaker.net</url>
