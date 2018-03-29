@@ -396,7 +396,8 @@ class SermonspeakerHelperSermonspeaker
 						{
 							$options['onclick'] = 'ss_play(' . $i . ');return false;';
 							$options['title'] = JText::_('COM_SERMONSPEAKER_PLAYICON_HOOVER');
-							$return = '<i class="icon-play ss-play pointer hasTooltip" data-id="' . $i . '" data-player="' . $player->id . '" onclick="' . $options['onclick'] . '" title="' . $options['title'] . '"> </i> ';
+							$playerId = !empty($player->id) ? $player->id : '';
+							$return = '<i class="icon-play ss-play pointer hasTooltip" data-id="' . $i . '" data-player="' . $playerId . '" onclick="' . $options['onclick'] . '" title="' . $options['title'] . '"> </i> ';
 						}
 
 						break;
