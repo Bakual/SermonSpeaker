@@ -457,7 +457,7 @@ class SermonspeakerHelperSermonspeaker
 						$options['title']       = JText::_('COM_SERMONSPEAKER_PLAYICON_HOOVER');
 						$options['class']       = 'ss-play';
 						$options['data-id']     = $i;
-						$options['data-player'] = $player->id;
+						$options['data-player'] = !empty($player->id) ? $player->id : '';
 						$return .= JHtml::Link('#', $item->title, $options);
 					}
 					else
