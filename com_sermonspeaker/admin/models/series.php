@@ -165,6 +165,13 @@ class SermonspeakerModelSeries extends JModelList
 		$query->select('c.title AS category_title');
 		$query->join('LEFT', '#__categories AS c ON c.id = series.catid');
 
+		// Subquery to get counts of sermons
+		$query->select('(SELECT COUNT(DISTINCT sermons.id) FROM #__sermon_sermons AS sermons '
+			. 'WHERE sermons.series_id = series.id AND sermons.id > 0 AND sermons.state = 1) AS sermons'
+		);
+    	// Grouping by series
+		$query->group('series.id');
+
 		// Filter by published state
 		$published = $this->getState('filter.state');
 
