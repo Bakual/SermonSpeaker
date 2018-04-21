@@ -49,12 +49,24 @@ JHtml::_('bootstrap.tooltip');
 								<?php echo $item->author_name; ?>
 							</small>
 						<?php endif; ?>
+						<?php if ($params->get('show_counts')) : ?>
+							<?php if (isset($item->sermons)) : ?>
+								<span class="badge badge-info">
+								<?php echo JText::_('MOD_SERMONSPEAKER_SERMONS'); ?>: <?php echo $item->sermons; ?>
+							</span>
+							<?php endif; ?>
+							<?php if (isset($item->series)) : ?>
+								<span class="badge badge-info">
+								<?php echo JText::_('MOD_SERMONSPEAKER_SERIES'); ?>: <?php echo $item->series; ?>
+							</span>
+							<?php endif; ?>
+						<?php endif; ?>
 					</div>
 					<div class="span3">
-						<span class="small">
-							<span class="icon-calendar"></span>
-							<?php echo JHtml::_('date', $item->created, JText::_('DATE_FORMAT_LC4')); ?>
-						</span>
+						<div class="small pull-right hasTooltip" title="<?php echo JHtml::_('tooltipText', 'JGLOBAL_FIELD_CREATED_LABEL'); ?>">
+							<span class="icon-calendar" aria-hidden="true"></span>
+							<?php echo JHtml::_('date', $item->created, JText::_('DATE_FORMAT_LC5')); ?>
+						</div>
 					</div>
 				</div>
 			<?php endforeach; ?>

@@ -32,7 +32,7 @@ class ModSermonspeakerHelper
 			return false;
 		}
 
-		// Get an instance of the generic articles model
+		// Get an instance of the SermonSpeaker item model
 		$model = JModelLegacy::getInstance($type, 'SermonspeakerModel', array('ignore_request' => true));
 
 		// Set States
