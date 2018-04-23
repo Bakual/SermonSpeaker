@@ -51,14 +51,18 @@ JHtml::_('bootstrap.tooltip');
 						<?php endif; ?>
 						<?php if ($params->get('show_counts')) : ?>
 							<?php if (isset($item->sermons)) : ?>
-								<span class="badge badge-info">
-								<?php echo JText::_('MOD_SERMONSPEAKER_SERMONS'); ?>: <?php echo $item->sermons; ?>
-							</span>
+								<a href="index.php?option=com_sermonspeaker&view=sermons&filter[<?php echo rtrim($type, 's'); ?>]=<?php echo $item->id; ?>">
+									<span class="badge badge-info">
+										<?php echo JText::_('MOD_SERMONSPEAKER_SERMONS'); ?>: <?php echo $item->sermons; ?>
+									</span>
+								</a>
 							<?php endif; ?>
 							<?php if (isset($item->series)) : ?>
-								<span class="badge badge-info">
-								<?php echo JText::_('MOD_SERMONSPEAKER_SERIES'); ?>: <?php echo $item->series; ?>
-							</span>
+								<a href="index.php?option=com_sermonspeaker&view=series">
+									<span class="badge badge-info">
+										<?php echo JText::_('MOD_SERMONSPEAKER_SERIES'); ?>: <?php echo $item->series; ?>
+									</span>
+								</a>
 							<?php endif; ?>
 						<?php endif; ?>
 					</div>
