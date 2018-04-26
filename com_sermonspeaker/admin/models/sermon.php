@@ -894,10 +894,21 @@ class SermonspeakerModelSermon extends JModelAdmin
 			$table->metakey = implode(', ', $clean_keys);
 		}
 
-		// Reorder the articles within the category so the new sermon is first
+		// Reorder the sermons within the category so the new sermon is first
 		if (empty($table->id))
 		{
 			$table->reorder('catid = ' . (int) $table->catid . ' AND state >= 0');
+		}
+
+		// Set the publish date to now
+		if ($table->state == 1 && (int) $table->publish_up == 0)
+		{
+			$table->publish_up = JFactory::getDate()->toSql();
+		}
+
+		if ($table->state == 1 && intval($table->publish_down) == 0)
+		{
+			$table->publish_down = $this->getDbo()->getNullDate();
 		}
 
 		// Increment the content version number.

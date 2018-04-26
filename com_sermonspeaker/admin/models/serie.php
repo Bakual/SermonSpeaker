@@ -399,6 +399,18 @@ class SermonspeakerModelSerie extends JModelAdmin
 				$table->ordering = $max + 1;
 			}
 		}
+
+		// Set the publish date to now
+		if ($table->state == 1 && (int) $table->publish_up == 0)
+		{
+			$table->publish_up = JFactory::getDate()->toSql();
+		}
+
+		if ($table->state == 1 && intval($table->publish_down) == 0)
+		{
+			$table->publish_down = $this->getDbo()->getNullDate();
+		}
+
 		// Increment the content version number.
 		$table->version++;
 	}
