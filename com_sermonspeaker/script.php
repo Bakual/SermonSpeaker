@@ -262,7 +262,8 @@ class Com_SermonspeakerInstallerScript extends JInstallerScript
 		/* Adding ContentTypes
 		 * needed in all cases for 5.0.4 to add content_history stuff.
 		 * Only needs to run on install and updates from "< 5.0.4" afterwards.
-		 * However no harm done when running always. */
+		 * However no harm done when running always.
+		 * Last change in content types: 5.8.3 */
 		$this->saveContentTypes();
 
 		// Setting some default values for columns on install
@@ -388,8 +389,8 @@ class Com_SermonspeakerInstallerScript extends JInstallerScript
 		$common->core_modified_time   = 'modified';
 		$common->core_body            = 'notes';
 		$common->core_hits            = 'hits';
-		$common->core_publish_up      = null;
-		$common->core_publish_down    = null;
+		$common->core_publish_up      = 'publish_up';
+		$common->core_publish_down    = 'publish_down';
 		$common->core_access          = null;
 		$common->core_params          = null;
 		$common->core_featured        = null;
