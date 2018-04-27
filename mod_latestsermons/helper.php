@@ -98,6 +98,12 @@ abstract class ModLatestsermonsHelper
 		$query->join('LEFT', '#__categories AS cat ON cat.id = a.catid');
 		$query->where('(a.catid = 0 OR (cat.access IN (' . $groups . ') AND cat.published = 1))');
 
+		// Only sermons created by User
+		if ($user->guest !== 1 && $params->get('created'))
+		{
+			$query->where('a.created_by = ' . $user->id);
+		}
+
 		// Others
 		if ($speaker = (int) $params->get('speaker', 0))
 		{

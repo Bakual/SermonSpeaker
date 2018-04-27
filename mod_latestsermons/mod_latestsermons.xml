@@ -244,6 +244,15 @@
 					label="MOD_LATESTSERMONS_FIELD_IDLIST_LABEL"
 					description="MOD_LATESTSERMONS_FIELD_IDLIST_DESC"
 				/>
+				<field name="created" type="radio"
+					label="MOD_LATESTSERMONS_FIELD_CREATED_LABEL"
+					description="MOD_LATESTSERMONS_FIELD_CREATED_DESC"
+					class="btn-group btn-group-yesno"
+					default="0"
+				>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
 			</fieldset>
 			<fieldset name="advanced">
 				<field name="layout" type="modulelayout"
