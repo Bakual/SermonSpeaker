@@ -155,8 +155,8 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 			}
 		}
 
-		$player->player   = $this->_name;
-		$player->id       = 'mediaspace' . $count;
+		$player->player = $this->_name;
+		$player->id     = 'mediaspace' . $count;
 
 		// Set width and height for later use
 		$dimensions['audiowidth']  = $this->params->get('awidth', '100');
@@ -191,7 +191,37 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 		}
 
 		$player->mspace .= '</' . $this->mode . '>';
+
 		$player->toggle = $toggle;
+
+		if ($toggle)
+		{
+			$mode  = ($this->mode == 'audio') ? 'video' : 'audio';
+			$field = $mode . 'file';
+			$player->mspace .= '<' . $mode . ' id="' . $player->id . '-other" class="mejs__player hidden"'
+				. $autoplay . ' preload="metadata" controls="controls"'
+				. ' width="' . $dimensions[$mode . 'width'] . '" height="' . $dimensions[$mode . 'height'] . '"'
+				. ' data-mejsoptions=\'{"showPlaylist": false, "stretching": "' . $stretching . '",'
+				. ' "currentMessage": "' . JText::_('PLG_SERMONSPEAKER_MEDIAELEMENT_CURRENT_MESSAGE') . '",'
+				. ' "features": ["playpause", "prevtrack", "nexttrack", "current", "progress", "duration", "volume", "playlist", "fullscreen"]}\''
+				. '>';
+
+			if (is_array($items))
+			{
+				foreach ($items as $item)
+				{
+					$file = $item->$field;
+					$player->mspace .= $this->createSource($item, $file);
+				}
+			}
+			else
+			{
+				$player->mspace .= $this->createSource($items, $items->$field);
+			}
+
+			$player->mspace .= '</' . $mode . '>';
+		}
+
 		$this->loadLanguage();
 
 		$this->setPopup($this->mode[0]);
