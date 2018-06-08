@@ -2,12 +2,12 @@
 <extension version="3.8.0" type="plugin" group="sermonspeaker" method="upgrade">
 	<name>plg_sermonspeaker_mediaelement</name>
 	<author>Thomas Hunziker</author>
-	<creationDate>2018-01-31</creationDate>
+	<creationDate>2018-06-08</creationDate>
 	<copyright>© 2018</copyright>
 	<license>http://www.gnu.org/licenses/gpl.html</license>
 	<authorEmail>admin@sermonspeaker.net</authorEmail>
 	<authorUrl>http://www.sermonspeaker.net</authorUrl>
-	<version>1.0.0-alpha</version>
+	<version>1.0.0</version>
 	<description>PLG_SERMONSPEAKER_MEDIAELEMENT_XML_DESCRIPTION</description>
 	<files>
 		<filename plugin="mediaelement">mediaelement.php</filename>
