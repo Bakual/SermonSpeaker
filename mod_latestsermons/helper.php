@@ -126,7 +126,7 @@ abstract class ModLatestsermonsHelper
 		if ($params->get('smartfilter', 0))
 		{
 			$jinput = JFactory::getApplication()->input;
-			$view   = $jinput::getCmd('view');
+			$view   = $jinput->getCmd('view');
 
 			if ($view == 'speaker')
 			{
