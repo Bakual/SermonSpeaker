@@ -482,7 +482,7 @@ abstract class SermonspeakerHelperRoute
 		// Get first SermonSpeaker sermons list menuitem found
 		if (isset(self::$lookup[$language]['sermons']))
 		{
-			$sermonslist = reset(self::$lookup[$language]['sermons']);
+			$sermonslist = reset(self::$lookup[$language]['sermons'])[0];
 
 			if ($sermonslist)
 			{
@@ -495,9 +495,14 @@ abstract class SermonspeakerHelperRoute
 		{
 			$first = reset(self::$lookup[$language]);
 
+			while (is_array($first))
+			{
+				$first = reset($first);
+			}
+
 			if ($first)
 			{
-				return reset($first);
+				return $first;
 			}
 		}
 
