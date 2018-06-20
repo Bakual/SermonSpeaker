@@ -146,7 +146,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 						if (in_array('sermons:date', $this->columns)) : ?>
 							<th class="ss-col ss-date">
 								<?php if (!$limit) :
-									echo JHtml::_('grid.sort', 'COM_SERMONSPEAKER_FIELD_DATE_LABEL', 'sermons.sermon_date', $listDirn, $listOrder);
+									echo JHtml::_('grid.sort', 'COM_SERMONSPEAKER_FIELD_DATE_LABEL', 'sermon_date', $listDirn, $listOrder);
 								else :
 									echo JText::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL');
 								endif; ?>
