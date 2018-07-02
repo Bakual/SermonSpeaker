@@ -109,6 +109,9 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 		{
 			$html .= '<div class="btn add-on hasTooltip icon-wand" onclick="lookup(document.getElementById(\'' . $this->id . '_text\'))" title="'
 				. JText::_('COM_SERMONSPEAKER_LOOKUP') . '"> </div>';
+			$html .= '<div class="btn add-on hasTooltip icon-play" 
+						onclick="var player = document.getElementById(\'player_' . $this->file . '\');player.src=\'' . JUri::root() . '\'+document.getElementById(\'' . $this->id . '_text\').value;player.classList.remove(\'hidden\');player.play();" 
+						title="' . JText::_('COM_SERMONSPEAKER_PREVIEW') . '"> </div>';
 		}
 
 		// Add Google Picker if enabled and not audio field
@@ -131,9 +134,17 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 		{
 			$html .= '<div class="btn add-on hasTooltip icon-wand" onclick="lookup(document.getElementById(\''
 				. $this->id . '\'))" title="' . JText::_('COM_SERMONSPEAKER_LOOKUP') . '"> </div>';
+			$html .= '<div class="btn add-on hasTooltip icon-play" 
+						onclick="var player = document.getElementById(\'player_' . $this->file . '\');player.src=\'' . JUri::root() . '\'+document.getElementById(\'' . $this->id . '\').value;player.classList.remove(\'hidden\');player.play();" 
+						title="' . JText::_('COM_SERMONSPEAKER_PREVIEW') . '"> </div>';
 		}
 
 		$html .= '</div>';
+
+		if ($this->file != 'addfile')
+		{
+			$html .= '<br><' . $this->file . ' id="player_' . $this->file . '" controls class="hidden" src=""></' . $this->file . '>';
+		}
 
 		$html .= $this->getUploader();
 
