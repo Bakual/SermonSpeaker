@@ -37,6 +37,29 @@
 				<option value="sermons">COM_SERMONSPEAKER_SERMONS</option>
 				<option value="speakers">COM_SERMONSPEAKER_SPEAKERS</option>
 			</field>
+
+			<field
+				name="default_order"
+				type="list"
+				label="COM_SERMONSPEAKER_PARAM_DEFAULT_ORDER_LABEL"
+				description="COM_SERMONSPEAKER_PARAM_DEFAULT_ORDER_DESC"
+				useglobal="true"
+			>
+				<option value="ordering">COM_SERMONSPEAKER_PARAM_DEFAULT_ORDER_OPTION_ORDERING</option>
+				<option value="sermon_date">COM_SERMONSPEAKER_PARAM_DEFAULT_ORDER_OPTION_DATE</option>
+				<option value="title">COM_SERMONSPEAKER_PARAM_DEFAULT_ORDER_OPTION_TITLE</option>
+			</field>
+
+			<field
+				name="default_order_dir"
+				type="list"
+				label="COM_SERMONSPEAKER_PARAM_DEFAULT_ORDER_DIR_LABEL"
+				description="COM_SERMONSPEAKER_PARAM_DEFAULT_ORDER_DIR_DESC"
+				useglobal="true"
+			>
+				<option value="ASC">COM_SERMONSPEAKER_PARAM_DEFAULT_ORDER_DIR_OPTION_ASC</option>
+				<option value="DESC">COM_SERMONSPEAKER_PARAM_DEFAULT_ORDER_DIR_OPTION_DESC</option>
+			</field>
 		</fieldset>
 		<fieldset name="advanced"
 				  addfieldpath="/administrator/components/com_sermonspeaker/models/fields">
