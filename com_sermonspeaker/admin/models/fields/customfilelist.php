@@ -245,11 +245,10 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 			$awsAccessKey = $this->params->get('s3_access_key');
 			$awsSecretKey = $this->params->get('s3_secret_key');
 			$bucket       = $this->params->get('s3_bucket');
+			$folder       = $this->params->get('s3_folder') ? trim($this->params->get('s3_folder'), ' /') . '/' : '';
 
 			// Instantiate the class
 			$s3 = new S3($awsAccessKey, $awsSecretKey);
-
-			$folder = '';
 
 			// Add year/month to the directory if enabled.
 			if ($this->params->get('append_path', 0))

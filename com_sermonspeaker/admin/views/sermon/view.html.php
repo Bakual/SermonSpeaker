@@ -311,19 +311,20 @@ class SermonspeakerViewSermon extends JViewLegacy
 			$awsAccessKey = $this->params->get('s3_access_key');
 			$awsSecretKey = $this->params->get('s3_secret_key');
 			$bucket       = $this->params->get('s3_bucket');
+			$folder       = $this->params->get('s3_folder') ? '/' . $this->params->get('s3_folder') : '';
 
 			// Instantiate the class
 			$s3 = new S3($awsAccessKey, $awsSecretKey);
 
 			if ($this->params->get('s3_custom_bucket'))
 			{
-				$this->domain = $bucket;
+				$this->domain = $bucket . $folder;
 			}
 			else
 			{
 				$region       = $s3->getBucketLocation($bucket);
 				$prefix       = ($region == 'US') ? 's3' : 's3-' . $region;
-				$this->domain = $prefix . '.amazonaws.com/' . $bucket;
+				$this->domain = $prefix . '.amazonaws.com/' . $bucket . $folder;
 			}
 		}
 

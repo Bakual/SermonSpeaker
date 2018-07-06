@@ -123,13 +123,14 @@ class SermonspeakerControllerFile extends JControllerLegacy
 			$awsAccessKey = $params->get('s3_access_key');
 			$awsSecretKey = $params->get('s3_secret_key');
 			$bucket       = $params->get('s3_bucket');
+			$folder       = $params->get('s3_folder') ? trim($params->get('s3_folder'), ' /') . '/' : '';
 
 			// Instantiate the class
 			$s3 = new S3($awsAccessKey, $awsSecretKey);
 
 			$date   = $jinput->get('date', '', 'string');
 			$time   = ($date) ? strtotime($date) : time();
-			$folder = ($params->get('append_path', 0)) ? date('Y', $time) . '/' . date('m', $time) . '/' : '';
+			$folder .= ($params->get('append_path', 0)) ? date('Y', $time) . '/' . date('m', $time) . '/' : '';
 
 			if ($params->get('append_path_lang', 0))
 			{
