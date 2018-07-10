@@ -90,6 +90,9 @@ cd ../plg_quickicon_sermonspeaker/
 zip -r ../build/packages/plg_quickicon_sermonspeaker.zip *
 copy ..\build\packages\plg_quickicon_sermonspeaker.zip ..\build\package
 
+cd ../plg_sb_sermonspeaker/
+zip -r ../build/packages/plg_sb_sermonspeaker.zip *
+
 REM Package
 cd ../build/package/
 copy ..\..\pkg_sermonspeaker.xml
