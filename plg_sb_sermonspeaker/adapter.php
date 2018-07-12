@@ -54,17 +54,9 @@ class PlgSBSermonspeakerAdapter extends SBPluginsContent
 	 */
 	public function getItemRoute($item)
 	{
-		JLoader::register('K2HelperRoute', JPATH_ROOT . '/components/com_k2/helpers/route.php');
-		$slug = empty($item->alias) ? $item->id : $item->id . ':' . $item->alias;
+		JLoader::register('SermonspeakerHelperRoute', JPATH_ROOT . '/components/com_sermonspeaker/helpers/route.php');
 
-		if ($item->catid !== 0)
-		{
-			$categoryNode = Categories::get($item->catid);
-
-			$catslug = empty($categoryNode->alias) ? $categoryNode->id : $categoryNode->id . ':' . $categoryNode->alias;
-		}
-
-		return K2HelperRoute::getItemRoute($slug, $catslug);
+		return SermonspeakerHelperRoute::getSermonRoute($item->id, $item->catid);
 	}
 
 	/**
