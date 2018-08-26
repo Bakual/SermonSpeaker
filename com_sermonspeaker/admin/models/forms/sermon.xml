@@ -120,7 +120,7 @@
 
 		<field name="metadesc" type="textarea"
 			label="JFIELD_META_DESCRIPTION_LABEL" description="JFIELD_META_DESCRIPTION_DESC"
-			onchange="check(this.value, 160, 0)"
+			onchange="check(this.value, 320, 0)"
 			rows="3"
 			cols="30" />
 
