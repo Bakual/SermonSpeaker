@@ -17,6 +17,14 @@ defined('_JEXEC') or die();
 class plgSocialbacklinksSermonspeaker extends JPlugin
 {
 	/**
+	 * Affects constructor behavior. If true, language files will be loaded automatically.
+	 *
+	 * @var    boolean
+	 * @since  1.0
+	 */
+	protected $autoloadLanguage = true;
+
+	/**
 	 * Register the plugin to SocialBacklinks
 	 *
 	 * @since 1.0.0
@@ -32,10 +40,5 @@ class plgSocialbacklinksSermonspeaker extends JPlugin
 
 		JLoader::register('PlgSBSermonspeakerAdapter', JPATH_ROOT . '/plugins/socialbacklinks/sermonspeaker/adapter.php');
 		SBPlugin::register(new PlgSBSermonspeakerAdapter($this));
-
-		// Add component language file
-		$lang = JFactory::getLanguage();
-		$lang->load('com_socialbacklinks', JPATH_ADMINISTRATOR . '/components/com_socialbacklinks', null, true);
-		$lang->load('com_socialbacklinks.override', JPATH_ADMINISTRATOR . '/components/com_socialbacklinks', null, true);
 	}
 }

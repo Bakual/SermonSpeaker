@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension version="3.8" type="plugin" group="socialbacklinks" method="upgrade">
 	<name>plg_socialbacklinks_sermonspeaker</name>
-	<creationDate>July 2018</creationDate>
+	<creationDate>2018-08-28</creationDate>
 	<author>Thomas Hunziker</author>
 	<authorEmail>admin@sermonspeaker.net</authorEmail>
 	<authorUrl>https://www.www.sermonspeaker.net</authorUrl>

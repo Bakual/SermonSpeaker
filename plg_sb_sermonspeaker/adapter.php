@@ -20,12 +20,12 @@ defined('_JEXEC') or die();
 class PlgSBSermonspeakerAdapter extends SBPluginsContent
 {
 	protected $_map = array(
-		'items_table'      => array('__table' => '#__sermonspeaker_sermons'),
+		'items_table'      => array('__table' => '#__sermon_sermons'),
 		'categories_table' => array('__table' => '#__categories', 'title' => 'title'),
 	);
 
 	/**
-	 * @see   SBAdaptersPlugin::getAlias()
+	 * @see   SBPluginsInterface::getAlias()
 	 *
 	 * @since 1.0.0
 	 */
@@ -56,7 +56,17 @@ class PlgSBSermonspeakerAdapter extends SBPluginsContent
 	{
 		JLoader::register('SermonspeakerHelperRoute', JPATH_ROOT . '/components/com_sermonspeaker/helpers/route.php');
 
-		return SermonspeakerHelperRoute::getSermonRoute($item->id, $item->catid);
+		return SermonspeakerHelperRoute::getSermonRoute($item->id, $item->catid, $item->language);
+	}
+
+	/**
+	 * @see SBPluginsContentsInterface::getItemsDetailed()
+	 */
+	public function getItemsDetailed()
+	{
+		$query =  parent::getItemsDetailed();
+
+		return $query;
 	}
 
 	/**
@@ -66,8 +76,7 @@ class PlgSBSermonspeakerAdapter extends SBPluginsContent
 	 */
 	public function getTreeOfCategories()
 	{
-		$cats  = Categories::getInstance('com_sermonspeaker');
-
+		$cats  = Categories::getInstance('sermonspeaker')->get()->getChildren(true);
 		$categories = array();
 
 		foreach ($cats as $cat)
@@ -84,7 +93,7 @@ class PlgSBSermonspeakerAdapter extends SBPluginsContent
 
 		$root = array(
 			'_type'        => 'category',
-			'title'        => 'Select a category',
+			'title'        => 'SB_UNCATEGORISED',
 			'id'           => 0,
 			'parent_id'    => null,
 			'_hasChildren' => false,
@@ -92,9 +101,7 @@ class PlgSBSermonspeakerAdapter extends SBPluginsContent
 		);
 		$this->assignChildren($root, $categories);
 
-		$result[] = $root;
-
-		return $result;
+		return array($root);
 	}
 
 	/**
