@@ -128,6 +128,8 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 			. '<div id="' . $this->fieldname . '_icon" class="btn add-on icon-radio-unchecked" onclick="toggleElement(\''
 			. $this->fieldname . '\', 1);"> </div>';
 
+		// Don't put disabled into the XML. It will break since J3.8.12.
+		$this->disabled = true;
 		$html .= parent::getInput();
 
 		if (!$this->mode && $this->file != 'addfile')

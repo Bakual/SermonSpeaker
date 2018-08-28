@@ -61,7 +61,6 @@
 			class="input-xlarge"
 			hide_default="true"
 			hide_none="true"
-			disabled="true"
 			onchange="toggleElement('audiofile', 1);" />
 
 		<field name="audiofilesize" type="filesize"
@@ -74,7 +73,6 @@
 			class="input-xlarge"
 			hide_default="true"
 			hide_none="true"
-			disabled="true"
 			onchange="toggleElement('videofile', 1);" />
 
 		<field name="videofilesize" type="filesize"
@@ -93,7 +91,6 @@
 			class="input-xlarge"
 			hide_default="true"
 			hide_none="true"
-			disabled="true"
 			onchange="toggleElement('addfile', 1);" />
 
 		<field name="addfileDesc" type="text"

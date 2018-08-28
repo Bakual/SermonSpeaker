@@ -57,7 +57,6 @@
 			file="audio"
 			hide_default="true"
 			hide_none="true"
-			disabled="true"
 			onchange="toggleElement('audiofile', 1);"
 			label="COM_SERMONSPEAKER_FIELD_AUDIOFILE_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_AUDIOFILE_DESC" />
@@ -66,7 +65,6 @@
 			file="video"
 			hide_default="true"
 			hide_none="true"
-			disabled="true"
 			label="COM_SERMONSPEAKER_FIELD_VIDEOFILE_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_VIDEOFILE_DESC" />
 
@@ -80,7 +78,6 @@
 			file="addfile"
 			hide_default="true"
 			hide_none="true"
-			disabled="true"
 			label="COM_SERMONSPEAKER_FIELD_ADDFILE_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_ADDFILE_DESC" />
 
