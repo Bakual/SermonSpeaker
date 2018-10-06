@@ -92,7 +92,7 @@ class SermonspeakerViewSpeakers extends JViewLegacy
 			// Old plugins: Ensure that text property is available
 			$item->text = $item->intro;
 
-			$app->triggerEvent('onContentPrepare', array('com_sermonspeaker.speakers', &$item, $this->params, 0));
+			$app->triggerEvent('onContentPrepare', array('com_sermonspeaker.speakers', &$item, &$this->params, 0));
 
 			// Old plugins: Use processed text as notes
 			$item->intro = $item->text;
