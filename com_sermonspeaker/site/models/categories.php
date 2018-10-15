@@ -99,7 +99,7 @@ class SermonspeakerModelCategories extends JModelLegacy
 	 */
 	public function getItems($recursive = false)
 	{
-		if (!count($this->_items))
+		if (!$this->_items)
 		{
 			$app    = JFactory::getApplication();
 			$menu   = $app->getMenu();
