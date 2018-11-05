@@ -273,8 +273,8 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 		$common->core_modified_time   = 'modified';
 		$common->core_body            = 'notes';
 		$common->core_hits            = 'hits';
-		$common->core_publish_up      = null;
-		$common->core_publish_down    = null;
+		$common->core_publish_up      = 'publish_up';
+		$common->core_publish_down    = 'publish_down';
 		$common->core_access          = null;
 		$common->core_params          = null;
 		$common->core_featured        = null;

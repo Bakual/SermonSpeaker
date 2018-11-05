@@ -101,7 +101,6 @@
 			class="form-control input-xlarge"
 			hide_default="true"
 			hide_none="true"
-			disabled="true"
 			onchange="toggleElement('audiofile', 1);"
 		/>
 
@@ -119,7 +118,6 @@
 			class="form-control input-xlarge"
 			hide_default="true"
 			hide_none="true"
-			disabled="true"
 			onchange="toggleElement('videofile', 1);"
 		/>
 
@@ -137,7 +135,6 @@
 			class="form-control input-xlarge"
 			hide_default="true"
 			hide_none="true"
-			disabled="true"
 			onchange="toggleElement('addfile', 1);"
 		/>
 

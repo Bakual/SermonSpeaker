@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.8" type="plugin" group="socialbacklinks" method="upgrade">
+	<name>plg_socialbacklinks_sermonspeaker</name>
+	<creationDate>2018-08-28</creationDate>
+	<author>Thomas Hunziker</author>
+	<authorEmail>admin@sermonspeaker.net</authorEmail>
+	<authorUrl>https://www.www.sermonspeaker.net</authorUrl>
+	<copyright>(c) 2018 SermonSpeaker. All rights reserved.</copyright>
+	<license>GNU General Public License version 2 or later; http://www.gnu.org/licenses/gpl-2.0.html</license>
+    <version>1.0.0</version>
+	<description>PLG_SB_SERMONSPEAKER_XML_DESCRIPTION</description>
+	<files>
+		<file plugin="sermonspeaker">sermonspeaker.php</file>
+		<file>adapter.php</file>
+		<folder>language</folder>
+	</files>
+</extension>

@@ -3,7 +3,7 @@
  * @package     SermonSpeaker
  * @subpackage  Administrator.Module.SermonSpeaker
  * @author      Thomas Hunziker <admin@sermonspeaker.net>
- * @copyright   © 2016 - Thomas Hunziker
+ * @copyright   © 2018 - Thomas Hunziker
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
@@ -32,7 +32,7 @@ class ModSermonspeakerHelper
 			return false;
 		}
 
-		// Get an instance of the generic articles model
+		// Get an instance of the SermonSpeaker item model
 		$model = JModelLegacy::getInstance($type, 'SermonspeakerModel', array('ignore_request' => true));
 
 		// Set States

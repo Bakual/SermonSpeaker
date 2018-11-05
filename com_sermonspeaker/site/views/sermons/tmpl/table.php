@@ -3,7 +3,7 @@
  * @package     SermonSpeaker
  * @subpackage  Component.Site
  * @author      Thomas Hunziker <admin@sermonspeaker.net>
- * @copyright   © 2016 - Thomas Hunziker
+ * @copyright   © 2018 - Thomas Hunziker
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
@@ -123,7 +123,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 						if (in_array('sermons:date', $this->columns)) : ?>
                             <th class="ss-col ss-date">
 								<?php if (!$limit) :
-									echo HTMLHelper::_('grid.sort', 'COM_SERMONSPEAKER_FIELD_DATE_LABEL', 'sermons.sermon_date', $listDirn, $listOrder);
+									echo HTMLHelper::_('grid.sort', 'COM_SERMONSPEAKER_FIELD_DATE_LABEL', 'sermon_date', $listDirn, $listOrder);
 								else :
 									echo Text::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL');
 								endif; ?>

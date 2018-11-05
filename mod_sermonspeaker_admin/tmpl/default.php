@@ -1,11 +1,11 @@
 <?php
 /**
- * @package     Joomla.Administrator
- * @subpackage  mod_sermonspeaker
- *
- * @copyright   Copyright (C) 2005 - 2015 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE.txt
- */
+ * @package     SermonSpeaker
+ * @subpackage  Module.Sermonspeaker
+ * @author      Thomas Hunziker <admin@sermonspeaker.net>
+ * @copyright   © 2018 - Thomas Hunziker
+ * @license     http://www.gnu.org/licenses/gpl.html
+ **/
 
 defined('_JEXEC') or die;
 
@@ -49,12 +49,28 @@ JHtml::_('bootstrap.tooltip');
 								<?php echo $item->author_name; ?>
 							</small>
 						<?php endif; ?>
+						<?php if ($params->get('show_counts')) : ?>
+							<?php if (isset($item->sermons)) : ?>
+								<a href="index.php?option=com_sermonspeaker&view=sermons&filter[<?php echo rtrim($type, 's'); ?>]=<?php echo $item->id; ?>">
+									<span class="badge badge-info">
+										<?php echo JText::_('MOD_SERMONSPEAKER_SERMONS'); ?>: <?php echo $item->sermons; ?>
+									</span>
+								</a>
+							<?php endif; ?>
+							<?php if (isset($item->series)) : ?>
+								<a href="index.php?option=com_sermonspeaker&view=series">
+									<span class="badge badge-info">
+										<?php echo JText::_('MOD_SERMONSPEAKER_SERIES'); ?>: <?php echo $item->series; ?>
+									</span>
+								</a>
+							<?php endif; ?>
+						<?php endif; ?>
 					</div>
 					<div class="span3">
-						<span class="small">
-							<span class="icon-calendar"></span>
-							<?php echo JHtml::_('date', $item->created, JText::_('DATE_FORMAT_LC4')); ?>
-						</span>
+						<div class="small pull-right hasTooltip" title="<?php echo JHtml::_('tooltipText', 'JGLOBAL_FIELD_CREATED_LABEL'); ?>">
+							<span class="icon-calendar" aria-hidden="true"></span>
+							<?php echo JHtml::_('date', $item->created, JText::_('DATE_FORMAT_LC5')); ?>
+						</div>
 					</div>
 				</div>
 			<?php endforeach; ?>

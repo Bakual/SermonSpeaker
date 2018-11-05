@@ -3,7 +3,7 @@
  * @package     SermonSpeaker
  * @subpackage  Component.Site
  * @author      Thomas Hunziker <admin@sermonspeaker.net>
- * @copyright   © 2016 - Thomas Hunziker
+ * @copyright   © 2018 - Thomas Hunziker
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
@@ -228,7 +228,7 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 			ignore_user_abort(true);
 			$i = 0;
 
-			if ($zip->open($filename, ZipArchive::OVERWRITE) !== true)
+			if ($zip->open($filename, ZipArchive::CREATE | ZipArchive::OVERWRITE) !== true)
 			{
 				$response = array(
 					'status' => '0',

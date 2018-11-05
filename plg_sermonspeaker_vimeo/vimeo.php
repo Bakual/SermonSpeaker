@@ -3,7 +3,7 @@
  * @package         SermonSpeaker
  * @subpackage      Plugin.SermonSpeaker
  * @author          Thomas Hunziker <admin@sermonspeaker.net>
- * @copyright       © 2016 - Thomas Hunziker
+ * @copyright       © 2018 - Thomas Hunziker
  * @license         http://www.gnu.org/licenses/gpl.html
  **/
 
@@ -89,6 +89,11 @@ class PlgSermonspeakerVimeo extends SermonspeakerPluginPlayer
 
 		// Merge $config into plugin params. $config takes priority.
 		$this->params->merge($config);
+
+		if ($this->params->get('type') === 'audio')
+		{
+			return;
+		}
 
 		$count = $this->params->get('count', 1);
 

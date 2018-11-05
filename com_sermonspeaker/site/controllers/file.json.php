@@ -3,7 +3,7 @@
  * @package     SermonSpeaker
  * @subpackage  Component.Site
  * @author      Thomas Hunziker <admin@sermonspeaker.net>
- * @copyright   © 2016 - Thomas Hunziker
+ * @copyright   © 2018 - Thomas Hunziker
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
@@ -122,6 +122,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 			$awsAccessKey = $params->get('s3_access_key');
 			$awsSecretKey = $params->get('s3_secret_key');
 			$bucket       = $params->get('s3_bucket');
+			$folder       = $params->get('s3_folder') ? trim($params->get('s3_folder'), ' /') . '/' : '';
 
 			// Instantiate the class
 			$s3 = (new \Aws\Sdk)->createMultiRegionS3([
@@ -134,7 +135,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 
 			$date   = $jinput->get('date', '', 'string');
 			$time   = ($date) ? strtotime($date) : time();
-			$folder = ($params->get('append_path', 0)) ? date('Y', $time) . '/' . date('m', $time) . '/' : '';
+			$folder .= ($params->get('append_path', 0)) ? date('Y', $time) . '/' . date('m', $time) . '/' : '';
 
 			if ($params->get('append_path_lang', 0))
 			{

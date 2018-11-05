@@ -3,7 +3,7 @@
  * @package     SermonSpeaker
  * @subpackage  Component.Site
  * @author      Thomas Hunziker <admin@sermonspeaker.net>
- * @copyright   © 2016 - Thomas Hunziker
+ * @copyright   © 2018 - Thomas Hunziker
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
@@ -128,6 +128,11 @@ class SermonspeakerViewSermons extends JViewLegacy
 
 			$response[] = $tmp;
 		}
+
+		$app = JFactory::getApplication();
+		$app->mimeType = 'application/json';
+		$app->setHeader('Content-Type', $app->mimeType . '; charset=' . $app->charSet);
+		$app->sendHeaders();
 
 		echo new JResponseJson($response);
 

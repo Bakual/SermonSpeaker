@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<extension type="package" version="3.7.0" method="upgrade">
+<extension type="package" version="3.8.0" method="upgrade">
 	<name>SermonSpeaker Package</name>
 	<author>Thomas Hunziker</author>
-	<creationDate>2017-10-14</creationDate>
-	<copyright>© 2017</copyright>
+	<creationDate>2018-08-30</creationDate>
+	<copyright>© 2018</copyright>
 	<authorEmail>admin@sermonspeaker.net</authorEmail>
 	<authorUrl>http://www.sermonspeaker.net</authorUrl>
-	<version>5.7.1</version>
+	<version>5.9.0</version>
 	<license>http://www.gnu.org/licenses/gpl.html</license>
 	<packagename>sermonspeaker</packagename>
 	<url>http://www.sermonspeaker.net</url>
@@ -28,6 +28,7 @@
 		<file type="plugin" id="sermonspeaker" group="content">plg_content_sermonspeaker.zip</file>
 		<file type="plugin" id="sermonspeaker" group="editors-xtd">plg_editors_xtd_sermonspeaker.zip</file>
 		<file type="plugin" id="jwplayer7" group="sermonspeaker">plg_sermonspeaker_jwplayer7.zip</file>
+		<file type="plugin" id="mediaelement" group="sermonspeaker">plg_sermonspeaker_mediaelement.zip</file>
 		<file type="plugin" id="pixelout" group="sermonspeaker">plg_sermonspeaker_pixelout.zip</file>
 		<file type="plugin" id="sermonspeaker" group="quickicon">plg_quickicon_sermonspeaker.zip</file>
 	</files>

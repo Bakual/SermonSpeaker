@@ -3,7 +3,7 @@
  * @package     SermonSpeaker
  * @subpackage  Component.Site
  * @author      Thomas Hunziker <admin@sermonspeaker.net>
- * @copyright   © 2016 - Thomas Hunziker
+ * @copyright   © 2018 - Thomas Hunziker
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
@@ -385,6 +385,10 @@ class SermonspeakerModelSermons extends Listmodel
 			$defaultLimit = $params->get('default_pagination_limit', $app->get('list_limit'));
 			$limit = $app->getUserStateFromRequest($this->context . '.list.limit', 'limit', $defaultLimit, 'uint');
 			$this->setState('list.limit', $limit);
+
+			$value = $app->getUserStateFromRequest($this->context . '.limitstart', 'limitstart', 0, 'int');
+			$limitstart = ($limit != 0 ? (floor($value / $limit) * $limit) : 0);
+			$this->setState('list.start', $limitstart);
 		}
 	}
 

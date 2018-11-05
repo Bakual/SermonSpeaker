@@ -3,7 +3,7 @@
  * @package     SermonSpeaker
  * @subpackage  Component.Site
  * @author      Thomas Hunziker <admin@sermonspeaker.net>
- * @copyright   2015 - Thomas Hunziker
+ * @copyright   © 2018 - Thomas Hunziker
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
@@ -381,6 +381,7 @@ abstract class SermonspeakerHelperRoute
 	{
 		$app = JFactory::getApplication();
 		$menus = $app->getMenu('site');
+		$active = $menus->getActive();
 		$language = isset($needles['language']) ? $needles['language'] : '*';
 
 		// Prepare the reverse lookup array.
@@ -416,8 +417,10 @@ abstract class SermonspeakerHelperRoute
 					{
 						if (!isset(self::$lookup[$language][$view][$item->query['id']]) || $item->language != '*')
 						{
-							self::$lookup[$language][$view][$item->query['id']] = $item->id;
+							self::$lookup[$language][$view][$item->query['id']] = array();
 						}
+
+						self::$lookup[$language][$view][$item->query['id']][] = $item->id;
 					}
 					else
 					{
@@ -425,8 +428,10 @@ abstract class SermonspeakerHelperRoute
 
 						if (!isset(self::$lookup[$language][$view][$catid]) || $item->language != '*')
 						{
-							self::$lookup[$language][$view][$catid] = $item->id;
+							self::$lookup[$language][$view][$catid] = array();
 						}
+
+						self::$lookup[$language][$view][$catid][] = $item->id;
 					}
 				}
 			}
@@ -444,7 +449,13 @@ abstract class SermonspeakerHelperRoute
 						{
 							if (isset(self::$lookup[$language][$view][(int) $id]))
 							{
-								return self::$lookup[$language][$view][(int) $id];
+								// Check if active menuitem is part of the valid options
+								if (in_array($active->id, self::$lookup[$language][$view][(int) $id]))
+								{
+									return $active->id;
+								}
+
+								return self::$lookup[$language][$view][(int) $id][0];
 							}
 						}
 						else
@@ -452,16 +463,13 @@ abstract class SermonspeakerHelperRoute
 							// $id is 0 in case no category is specified by the calling layout
 							if (isset(self::$lookup[$language][$view]))
 							{
-								return reset(self::$lookup[$language][$view]);
+								return reset(self::$lookup[$language][$view])[0];
 							}
 						}
 					}
 				}
 			}
 		}
-
-		// Check for an active SermonSpeaker menuitem
-		$active = $menus->getActive();
 
 		if ($active && $active->component == 'com_sermonspeaker'
 			&& ($active->language == '*' || $language == '*' || $active->language == $language
@@ -474,7 +482,7 @@ abstract class SermonspeakerHelperRoute
 		// Get first SermonSpeaker sermons list menuitem found
 		if (isset(self::$lookup[$language]['sermons']))
 		{
-			$sermonslist = reset(self::$lookup[$language]['sermons']);
+			$sermonslist = reset(self::$lookup[$language]['sermons'])[0];
 
 			if ($sermonslist)
 			{
@@ -487,9 +495,14 @@ abstract class SermonspeakerHelperRoute
 		{
 			$first = reset(self::$lookup[$language]);
 
+			while (is_array($first))
+			{
+				$first = reset($first);
+			}
+
 			if ($first)
 			{
-				return reset($first);
+				return $first;
 			}
 		}
 

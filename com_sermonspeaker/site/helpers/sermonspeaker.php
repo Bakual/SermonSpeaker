@@ -3,7 +3,7 @@
  * @package     SermonSpeaker
  * @subpackage  Component.Site
  * @author      Thomas Hunziker <admin@sermonspeaker.net>
- * @copyright   © 2016 - Thomas Hunziker
+ * @copyright   © 2018 - Thomas Hunziker
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
@@ -362,7 +362,8 @@ class SermonspeakerHelperSermonspeaker
 						{
 							$options['onclick'] = 'ss_play(' . $i . ');return false;';
 							$options['title']   = Text::_('COM_SERMONSPEAKER_PLAYICON_HOOVER');
-							$return             = '<span class="fa fa-play pointer hasTooltip" onclick="' . $options['onclick'] . '" title="' . $options['title'] . '"> </span> ';
+							$playerId           = !empty($player->id) ? $player->id : '';
+							$return             = '<span class="fa fa-play pointer hasTooltip" data-id="' . $i . '" data-player="' . $playerId . '" onclick="' . $options['onclick'] . '" title="' . $options['title'] . '"> </span> ';
 						}
 
 						break;
@@ -417,9 +418,12 @@ class SermonspeakerHelperSermonspeaker
 
 					if (in_array(self::$view . ':player', $cols))
 					{
-						$options['onclick'] = 'ss_play(' . $i . ');return false;';
-						$options['title']   = Text::_('COM_SERMONSPEAKER_PLAYICON_HOOVER');
-						$return             .= HtmlHelper::link('#', $item->title, $options);
+						$options['onclick']     = 'ss_play(' . $i . ');return false;';
+						$options['title']       = JText::_('COM_SERMONSPEAKER_PLAYICON_HOOVER');
+						$options['class']       = 'ss-play';
+						$options['data-id']     = $i;
+						$options['data-player'] = !empty($player->id) ? $player->id : '';
+						$return                 .= HtmlHelper::link('#', $item->title, $options);
 					}
 					else
 					{
@@ -661,18 +665,21 @@ class SermonspeakerHelperSermonspeaker
 	/**
 	 * Get MIME type for extension
 	 *
-	 * @param   string $ext File extension
+	 * @param  string         $ext       File extension
+	 * @param  string|false   $default   Default value to be returned, defaults to 'video/mp4'
 	 *
 	 * @return  string  MIME type
 	 *
 	 * @since ?
 	 */
-	public static function getMime($ext)
+	public static function getMime($ext, $default = 'video/mp4')
 	{
+		$mime = '';
+
 		switch ($ext)
 		{
 			case 'mp3':
-				$mime = 'audio/mpeg';
+				$mime = 'audio/mp3';
 				break;
 			case 'aac':
 				$mime = 'audio/aac';
@@ -702,9 +709,11 @@ class SermonspeakerHelperSermonspeaker
 			case 'pdf':
 				$mime = 'application/pdf';
 				break;
-			default:
-				$mime = 'video/mp4';
-				break;
+		}
+
+		if (!$mime && $default)
+		{
+			$mime = $default;
 		}
 
 		return $mime;

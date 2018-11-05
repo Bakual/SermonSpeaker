@@ -3,7 +3,7 @@
  * @package     SermonSpeaker
  * @subpackage  Component.Administrator
  * @author      Thomas Hunziker <admin@sermonspeaker.net>
- * @copyright   © 2016 - Thomas Hunziker
+ * @copyright   © 2018 - Thomas Hunziker
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
@@ -23,6 +23,14 @@ use Joomla\CMS\Table\Table;
  */
 class SermonspeakerModelSermon extends AdminModel
 {
+	/**
+	 * The type alias for this content type.
+	 *
+	 * @var    string
+	 * @since  5.8.0
+	 */
+	public $typeAlias = 'com_sermonspeaker.sermon';
+
 	/**
 	 * The prefix to use with controller messages.
 	 *
@@ -896,10 +904,21 @@ class SermonspeakerModelSermon extends AdminModel
 			$table->metakey = implode(', ', $clean_keys);
 		}
 
-		// Reorder the articles within the category so the new sermon is first
+		// Reorder the sermons within the category so the new sermon is first
 		if (empty($table->id))
 		{
 			$table->reorder('catid = ' . (int) $table->catid . ' AND state >= 0');
+		}
+
+		// Set the publish date to now
+		if ($table->state == 1 && (int) $table->publish_up == 0)
+		{
+			$table->publish_up = JFactory::getDate()->toSql();
+		}
+
+		if ($table->state == 1 && intval($table->publish_down) == 0)
+		{
+			$table->publish_down = $this->getDbo()->getNullDate();
 		}
 
 		// Increment the content version number.

@@ -3,7 +3,7 @@
  * @package     SermonSpeaker
  * @subpackage  Module.LatestSermons
  * @author      Thomas Hunziker <admin@sermonspeaker.net>
- * @copyright   © 2016 - Thomas Hunziker
+ * @copyright   © 2018 - Thomas Hunziker
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
@@ -59,6 +59,10 @@ $count = count($list);
 								<?php echo $row->speaker_title; ?>
 							<?php endif; ?>
 						</span>
+					<?php endif; ?>
+					<?php if ($params->get('use_date')) : ?>
+						<?php $date_format = JText::_($params->get('ls_mo_date_format', 'DATE_FORMAT_LC4')); ?>
+						<?php echo JText::_('JDATE') . ': ' . JHtml::date($row->sermon_date, $date_format, true); ?>
 					<?php endif; ?>
 					<?php if ($params->get('show_hits', 0) & 1) : ?>
 						<div class="hits">

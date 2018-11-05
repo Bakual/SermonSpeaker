@@ -3,7 +3,7 @@
  * @package     SermonSpeaker
  * @subpackage  Component.Site
  * @author      Thomas Hunziker <admin@sermonspeaker.net>
- * @copyright   © 2016 - Thomas Hunziker
+ * @copyright   © 2018 - Thomas Hunziker
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
@@ -99,7 +99,7 @@ class SermonspeakerModelCategories extends JModelLegacy
 	 */
 	public function getItems($recursive = false)
 	{
-		if (!count($this->_items))
+		if (!$this->_items)
 		{
 			$app    = JFactory::getApplication();
 			$menu   = $app->getMenu();

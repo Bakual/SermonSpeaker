@@ -3,7 +3,7 @@
  * @package     SermonSpeaker
  * @subpackage  Component.Administrator
  * @author      Thomas Hunziker <admin@sermonspeaker.net>
- * @copyright   © 2016 - Thomas Hunziker
+ * @copyright   © 2018 - Thomas Hunziker
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
@@ -145,6 +145,8 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 					</span>';
 
 
+		// Don't put disabled into the XML. It will break since J3.8.12.
+		$this->disabled = true;
 		$html .= parent::getInput();
 
 		if (!$this->mode && $this->file != 'addfile')
@@ -159,6 +161,11 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 		}
 
 		$html .= '</div>';
+
+		if ($this->file != 'addfile')
+		{
+			$html .= '<br><' . $this->file . ' id="player_' . $this->file . '" controls class="hidden" src=""></' . $this->file . '>';
+		}
 
 		$html .= $this->getUploader();
 
@@ -383,6 +390,7 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 			$awsAccessKey = $this->params->get('s3_access_key');
 			$awsSecretKey = $this->params->get('s3_secret_key');
 			$bucket       = $this->params->get('s3_bucket');
+			$folder       = $this->params->get('s3_folder') ? trim($this->params->get('s3_folder'), ' /') . '/' : '';
 
 			// Instantiate the class
 			$s3 = new \Aws\S3\S3MultiRegionClient([
@@ -392,8 +400,6 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 					'secret' => $awsSecretKey,
 				],
 			]);
-
-			$folder = '';
 
 			// Add year/month to the directory if enabled.
 			if ($this->params->get('append_path', 0))

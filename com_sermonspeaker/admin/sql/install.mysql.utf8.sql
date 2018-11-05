@@ -29,7 +29,13 @@ CREATE TABLE `#__sermon_speakers` (
 	`checked_out_time` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
 	`language` CHAR(7) NOT NULL DEFAULT '*',
 	`version` int(10) unsigned NOT NULL DEFAULT '1',
-	PRIMARY KEY (`id`)
+	PRIMARY KEY (`id`),
+	KEY `idx_checkout` (`checked_out`),
+	KEY `idx_state` (`state`),
+	KEY `idx_catid` (`catid`),
+	KEY `idx_createdby` (`created_by`),
+	KEY `idx_language` (`language`),
+	KEY `idx_alias` (`alias`(191))
 ) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `#__sermon_series` (
@@ -62,7 +68,13 @@ CREATE TABLE `#__sermon_series` (
 	`zip_dl` TINYINT(3) NOT NULL DEFAULT '0',
 	`language` CHAR(7) NOT NULL DEFAULT '*',
 	`version` int(10) unsigned NOT NULL DEFAULT '1',
-	PRIMARY KEY (`id`)
+	PRIMARY KEY (`id`),
+	KEY `idx_checkout` (`checked_out`),
+	KEY `idx_state` (`state`),
+	KEY `idx_catid` (`catid`),
+	KEY `idx_createdby` (`created_by`),
+	KEY `idx_language` (`language`),
+	KEY `idx_alias` (`alias`(191))
 ) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `#__sermon_sermons` (
@@ -100,7 +112,15 @@ CREATE TABLE `#__sermon_sermons` (
 	`checked_out_time` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
 	`language` CHAR(7) NOT NULL DEFAULT '*',
 	`version` int(10) unsigned NOT NULL DEFAULT '1',
-	PRIMARY KEY (`id`)
+	PRIMARY KEY (`id`),
+	KEY `idx_checkout` (`checked_out`),
+	KEY `idx_state` (`state`),
+	KEY `idx_catid` (`catid`),
+	KEY `idx_createdby` (`created_by`),
+	KEY `idx_language` (`language`),
+	KEY `idx_alias` (`alias`(191)),
+	KEY `idx_speaker_id` (`speaker_id`),
+	KEY `idx_series_id` (`series_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `#__sermon_scriptures` (
@@ -111,7 +131,8 @@ CREATE TABLE `#__sermon_scriptures` (
 	`vers2` INT(4) NOT NULL DEFAULT '0',
 	`text` MEDIUMTEXT NULL,
 	`ordering` INT(11) NOT NULL DEFAULT '0',
-	`sermon_id` INT(10) NOT NULL DEFAULT '0'
+	`sermon_id` INT(10) NOT NULL DEFAULT '0',
+	KEY `idx_sermon_id` (`sermon_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
 
 INSERT INTO `#__sermon_speakers`

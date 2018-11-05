@@ -3,7 +3,7 @@
  * @package     SermonSpeaker
  * @subpackage  Component.Site
  * @author      Thomas Hunziker <admin@sermonspeaker.net>
- * @copyright   © 2016 - Thomas Hunziker
+ * @copyright   © 2018 - Thomas Hunziker
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
@@ -353,6 +353,7 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 			$awsAccessKey = $this->params->get('s3_access_key');
 			$awsSecretKey = $this->params->get('s3_secret_key');
 			$bucket       = $this->params->get('s3_bucket');
+			$folder       = $this->params->get('s3_folder') ? '/' . $this->params->get('s3_folder') : '';
 
 			// Instantiate the class
 			$s3 = (new \Aws\Sdk)->createMultiRegionS3([

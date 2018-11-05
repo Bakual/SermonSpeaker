@@ -30,6 +30,29 @@
 				<option value="5">J5</option>
 			</field>
 			<field
+				name="default_order"
+				type="list"
+				label="COM_SERMONSPEAKER_PARAM_DEFAULT_ORDER_LABEL"
+				description="COM_SERMONSPEAKER_PARAM_DEFAULT_ORDER_DESC"
+				useglobal="true"
+			>
+				<option value="ordering">COM_SERMONSPEAKER_PARAM_DEFAULT_ORDER_OPTION_ORDERING</option>
+				<option value="sermon_date">COM_SERMONSPEAKER_PARAM_DEFAULT_ORDER_OPTION_DATE</option>
+				<option value="title">COM_SERMONSPEAKER_PARAM_DEFAULT_ORDER_OPTION_TITLE</option>
+			</field>
+
+			<field
+				name="default_order_dir"
+				type="list"
+				label="COM_SERMONSPEAKER_PARAM_DEFAULT_ORDER_DIR_LABEL"
+				description="COM_SERMONSPEAKER_PARAM_DEFAULT_ORDER_DIR_DESC"
+				useglobal="true"
+			>
+				<option value="ASC">COM_SERMONSPEAKER_PARAM_DEFAULT_ORDER_DIR_OPTION_ASC</option>
+				<option value="DESC">COM_SERMONSPEAKER_PARAM_DEFAULT_ORDER_DIR_OPTION_DESC</option>
+			</field>
+
+			<field
 				name="default_pagination_limit"
 				type="limitbox"
 				label="COM_SERMONSPEAKER_FIELD_DEFAULT_PAGINATION_LIMIT_LABEL"

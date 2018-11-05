@@ -26,6 +26,14 @@ use Joomla\CMS\Table\Table;
 class SermonspeakerModelSpeaker extends AdminModel
 {
 	/**
+	 * The type alias for this content type.
+	 *
+	 * @var    string
+	 * @since  5.8.0
+	 */
+	public $typeAlias = 'com_sermonspeaker.speaker';
+
+	/**
 	 * @var   string  The prefix to use with controller messages.
 	 *
 	 * @since ?
@@ -402,6 +410,18 @@ class SermonspeakerModelSpeaker extends AdminModel
 				$table->ordering = $max + 1;
 			}
 		}
+
+		// Set the publish date to now
+		if ($table->state == 1 && (int) $table->publish_up == 0)
+		{
+			$table->publish_up = JFactory::getDate()->toSql();
+		}
+
+		if ($table->state == 1 && intval($table->publish_down) == 0)
+		{
+			$table->publish_down = $this->getDbo()->getNullDate();
+		}
+
 		// Increment the content version number.
 		$table->version++;
 	}

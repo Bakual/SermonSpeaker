@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.8.0" type="plugin" group="sermonspeaker" method="upgrade">
+	<name>plg_sermonspeaker_mediaelement</name>
+	<author>Thomas Hunziker</author>
+	<creationDate>2018-06-08</creationDate>
+	<copyright>© 2018</copyright>
+	<license>http://www.gnu.org/licenses/gpl.html</license>
+	<authorEmail>admin@sermonspeaker.net</authorEmail>
+	<authorUrl>http://www.sermonspeaker.net</authorUrl>
+	<version>1.0.0</version>
+	<description>PLG_SERMONSPEAKER_MEDIAELEMENT_XML_DESCRIPTION</description>
+	<files>
+		<filename plugin="mediaelement">mediaelement.php</filename>
+		<folder>language</folder>
+	</files>
+	<media destination="plg_sermonspeaker_mediaelement" folder="media">
+		<folder>css</folder>
+		<folder>js</folder>
+	</media>
+	<updateservers>
+		<server type="extension" priority="1" name="SermonSpeaker.net">http://www.sermonspeaker.net/update/plg_sermonspeaker_mediaelement.xml</server>
+	</updateservers>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field
+					name="autostart"
+					type="radio"
+					label="PLG_SERMONSPEAKER_COMMON_FIELD_AUTOSTART_LABEL"
+					description="PLG_SERMONSPEAKER_COMMON_FIELD_AUTOSTART_DESC"
+					class="btn-group btn-group-yesno"
+					default="0"
+					>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+
+				<field
+					name="fileprio"
+					type="list"
+					label="PLG_SERMONSPEAKER_COMMON_FIELD_FILEPRIO_LABEL"
+					description="PLG_SERMONSPEAKER_COMMON_FIELD_FILEPRIO_DESC"
+					default="0"
+					>
+					<option value="1">Video</option>
+					<option value="0">Audio</option>
+				</field>
+
+				<field
+					name="filetoggle"
+					type="radio"
+					label="PLG_SERMONSPEAKER_COMMON_FIELD_FILETOGGLE_LABEL"
+					description="PLG_SERMONSPEAKER_COMMON_FIELD_FILETOGGLE_DESC"
+					class="btn-group btn-group-yesno"
+					default="0"
+					>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+
+				<field
+					name="responsive"
+					type="radio"
+					label="PLG_SERMONSPEAKER_MEDIAELEMENT_FIELD_RESPONSIVE_LABEL"
+					description="PLG_SERMONSPEAKER_MEDIAELEMENT_FIELD_RESPONSIVE_DESC"
+					default="0"
+					class="btn-group btn-group-yesno"
+					>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+
+				<field
+					name="awidth"
+					type="number"
+					label="PLG_SERMONSPEAKER_COMMON_FIELD_AWIDTH_LABEL"
+					description="PLG_SERMONSPEAKER_COMMON_FIELD_AWIDTH_DESC"
+					default="600"
+					filter="integer"
+					showon="responsive:0"
+					/>
+
+				<field
+					name="aheight"
+					type="number"
+					label="PLG_SERMONSPEAKER_COMMON_FIELD_AHEIGHT_LABEL"
+					description="PLG_SERMONSPEAKER_COMMON_FIELD_AHEIGHT_DESC"
+					default="40"
+					filter="integer"
+					showon="responsive:0"
+					/>
+
+				<field
+					name="vwidth"
+					type="number"
+					label="PLG_SERMONSPEAKER_COMMON_FIELD_VWIDTH_LABEL"
+					description="PLG_SERMONSPEAKER_COMMON_FIELD_VWIDTH_DESC"
+					default="600"
+					filter="integer"
+					showon="responsive:0"
+					/>
+
+				<field
+					name="vheight"
+					type="number"
+					label="PLG_SERMONSPEAKER_COMMON_FIELD_VHEIGHT_LABEL"
+					description="PLG_SERMONSPEAKER_COMMON_FIELD_VHEIGHT_DESC"
+					default="300"
+					filter="integer"
+					showon="responsive:0"
+					/>
+			</fieldset>
+		</fields>
+	</config>
+</extension>

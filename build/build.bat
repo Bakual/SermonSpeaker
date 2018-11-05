@@ -71,6 +71,10 @@ cd ../plg_sermonspeaker_jwplayer7/
 zip -r ../build/packages/plg_sermonspeaker_jwplayer7.zip *
 copy ..\build\packages\plg_sermonspeaker_jwplayer7.zip ..\build\package
 
+cd ../plg_sermonspeaker_mediaelement/
+zip -r ../build/packages/plg_sermonspeaker_mediaelement.zip *
+copy ..\build\packages\plg_sermonspeaker_mediaelement.zip ..\build\package
+
 cd ../plg_sermonspeaker_pixelout/
 zip -r ../build/packages/plg_sermonspeaker_pixelout.zip *
 copy ..\build\packages\plg_sermonspeaker_pixelout.zip ..\build\package
@@ -85,6 +89,9 @@ zip -r ../build/packages/plg_content_churchtoolsermonspeaker.zip *
 cd ../plg_quickicon_sermonspeaker/
 zip -r ../build/packages/plg_quickicon_sermonspeaker.zip *
 copy ..\build\packages\plg_quickicon_sermonspeaker.zip ..\build\package
+
+cd ../plg_sb_sermonspeaker/
+zip -r ../build/packages/plg_sb_sermonspeaker.zip *
 
 REM Package
 cd ../build/package/

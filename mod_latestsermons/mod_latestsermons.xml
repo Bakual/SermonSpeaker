@@ -2,11 +2,11 @@
 <extension type="module" version="3.4" client="site" method="upgrade">
 	<name>Latest Sermons</name>
 	<author>Thomas Hunziker</author>
-	<creationDate>2016-05-15</creationDate>
-	<copyright>© 2017</copyright>
+	<creationDate>2018-08-30</creationDate>
+	<copyright>© 2018</copyright>
 	<authorEmail>admin@sermonspeaker.net</authorEmail>
 	<authorUrl>http://www.sermonspeaker.net</authorUrl>
-	<version>5.5.0</version>
+	<version>5.6.2</version>
 	<license>http://www.gnu.org/licenses/gpl.html</license>
 	<description>MOD_LATESTSERMONS_XML_DESCRIPTION</description>
 	<files>
@@ -244,6 +244,15 @@
 					label="MOD_LATESTSERMONS_FIELD_IDLIST_LABEL"
 					description="MOD_LATESTSERMONS_FIELD_IDLIST_DESC"
 				/>
+				<field name="created" type="radio"
+					label="MOD_LATESTSERMONS_FIELD_CREATED_LABEL"
+					description="MOD_LATESTSERMONS_FIELD_CREATED_DESC"
+					class="btn-group btn-group-yesno"
+					default="0"
+				>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
 			</fieldset>
 			<fieldset name="advanced">
 				<field name="layout" type="modulelayout"

@@ -53,6 +53,12 @@
     z-index: 15;
 }
 
+/* Preview Player */
+#player_video,
+#player_audio {
+	max-width: 99%;
+}
+
 /* Joomla 3.0 stuff */
 /* Fixing input-append */
 .input-append .chzn-container-single .chzn-single {

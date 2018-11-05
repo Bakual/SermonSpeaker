@@ -3,7 +3,7 @@
  * @package     SermonSpeaker
  * @subpackage  Component.Site
  * @author      Thomas Hunziker <admin@sermonspeaker.net>
- * @copyright   © 2016 - Thomas Hunziker
+ * @copyright   © 2018 - Thomas Hunziker
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
@@ -92,7 +92,7 @@ class SermonspeakerViewSpeakers extends JViewLegacy
 			// Old plugins: Ensure that text property is available
 			$item->text = $item->intro;
 
-			$app->triggerEvent('onContentPrepare', array('com_sermonspeaker.speakers', &$item, $this->params, 0));
+			$app->triggerEvent('onContentPrepare', array('com_sermonspeaker.speakers', &$item, &$this->params, 0));
 
 			// Old plugins: Use processed text as notes
 			$item->intro = $item->text;

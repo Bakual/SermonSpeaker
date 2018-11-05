@@ -185,6 +185,17 @@ class SermonspeakerModelSpeakers extends ListModel
 		$query->select('c.title AS category_title');
 		$query->join('LEFT', '#__categories AS c ON c.id = speakers.catid');
 
+		// Subquery to get counts of sermons and series
+		$query->select('(SELECT COUNT(DISTINCT sermons.id) FROM #__sermon_sermons AS sermons '
+			. 'WHERE sermons.speaker_id = speakers.id AND sermons.id > 0 AND sermons.state = 1) AS sermons'
+		);
+		$query->select('(SELECT COUNT(DISTINCT sermons2.series_id) FROM #__sermon_sermons AS sermons2 '
+			. 'WHERE sermons2.speaker_id = speakers.id AND sermons2.series_id > 0 AND sermons2.state = 1) AS series'
+		);
+
+		// Grouping by speaker
+		$query->group('speakers.id');
+
 		// Filter by published state
 		$published = (string) $this->getState('filter.state');
 
