@@ -22,6 +22,8 @@ class SermonspeakerTableSpeaker extends JTable
 	{
 		parent::__construct('#__sermon_speakers', 'id', $db);
 
+		$this->setColumnAlias('published', 'state');
+
 		JTableObserverTags::createObserver($this, array('typeAlias' => 'com_sermonspeaker.speaker'));
 		JTableObserverContenthistory::createObserver($this, array('typeAlias' => 'com_sermonspeaker.speaker'));
 	}
