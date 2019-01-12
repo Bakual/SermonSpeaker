@@ -171,6 +171,12 @@ class SermonspeakerControllerSermon extends JControllerForm
 		{
 			$filename = JFile::stripExt(basename($validData[$file]));
 
+			// Remove query part (eg for YouTube URLs
+			if ($pos = strpos($filename, '?'))
+			{
+				$filename = substr($filename, 0, $pos);
+			}
+
 			if ($filename != JApplicationHelper::stringURLSafe($filename))
 			{
 				$text = JText::_('COM_SERMONSPEAKER_FILENAME_NOT_IDEAL') . ': ' . $validData[$file];

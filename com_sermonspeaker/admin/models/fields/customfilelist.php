@@ -89,6 +89,12 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 		// Check Filename for possible problems
 		$filename = JFile::stripExt(basename($this->value));
 
+		// Remove query part (eg for YouTube URLs
+		if ($pos = strpos($filename, '?'))
+		{
+			$filename = substr($filename, 0, $pos);
+		}
+
 		if ($filename != JApplicationHelper::stringURLSafe($filename))
 		{
 			$html .= '<div class="alert alert-warning">'
