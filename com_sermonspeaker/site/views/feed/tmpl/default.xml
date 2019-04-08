@@ -103,7 +103,6 @@
 				   description="COM_SERMONSPEAKER_PARAM_FEED_ITIMAGE_DESC"/>
 			<field name="itCategory1"
 				   type="list"
-				   default="Religion &amp; Spirituality"
 				   label="COM_SERMONSPEAKER_PARAM_FEED_ITCATEGORY1"
 				   description="COM_SERMONSPEAKER_PARAM_FEED_ITCATEGORY1_DESC"
 				   useglobal="true"
@@ -123,7 +122,6 @@
 			</field>
 			<field name="itCategory2"
 				   type="list"
-				   default="Religion &amp; Spirituality > Christianity"
 				   label="COM_SERMONSPEAKER_PARAM_FEED_ITCATEGORY2"
 				   description="COM_SERMONSPEAKER_PARAM_FEED_ITCATEGORY2_DESC"
 				   useglobal="true"
@@ -143,7 +141,6 @@
 			</field>
 			<field name="itCategory3"
 				   type="list"
-				   default=""
 				   label="COM_SERMONSPEAKER_PARAM_FEED_ITCATEGORY3"
 				   description="COM_SERMONSPEAKER_PARAM_FEED_ITCATEGORY3_DESC"
 				   useglobal="true"
