@@ -1,0 +1,3 @@
+files:
+  - source: /com_sermonspeaker/admin/language/en-GB/en-GB.com_sermonspeaker.ini
+    translation: /com_sermonspeaker/admin/language/%locale%/%locale%.com_sermonspeaker.ini
