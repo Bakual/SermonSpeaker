@@ -93,7 +93,7 @@ class SermonspeakerViewLanguages extends JViewLegacy
 
 		// Get installed language packs
 		$query = $db->getQuery(true);
-		$query->select('ext.name, ext.manifest_cache, ext.element');
+		$query->select('ext.extension_id, ext.name, ext.manifest_cache, ext.element');
 		$query->from('`#__extensions` AS ext');
 		$query->where('`element` LIKE "' . (string) $this->xml->extension_name . '%"');
 		$db->setQuery($query);
