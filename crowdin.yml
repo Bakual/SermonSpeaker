@@ -1,12 +1,11 @@
 files:
-  # Component
   - source: /com_sermonspeaker/admin/language/en-GB/en-GB.com_sermonspeaker.ini
     translation: /com_sermonspeaker/admin/language/%locale%/%locale%.com_sermonspeaker.ini
   - source: /com_sermonspeaker/admin/language/en-GB/en-GB.com_sermonspeaker.sys.ini
-    translation: /com_sermonspeaker/admin/language/%locale%/%locale%.com_sermonspeaker.sys.ini
+    translation: >-
+      /com_sermonspeaker/admin/language/%locale%/%locale%.com_sermonspeaker.sys.ini
   - source: /com_sermonspeaker/site/language/en-GB/en-GB.com_sermonspeaker.ini
     translation: /com_sermonspeaker/site/language/%locale%/%locale%.com_sermonspeaker.ini
-  # Modules
   - source: /mod_latestsermons/language/en-GB/en-GB.mod_latestsermons.ini
     translation: /mod_latestsermons/language/%locale%/%locale%.mod_latestsermons.ini
   - source: /mod_latestsermons/language/en-GB/en-GB.mod_latestsermons.sys.ini
@@ -14,7 +13,8 @@ files:
   - source: /mod_related_sermons/language/en-GB/en-GB.mod_related_sermons.ini
     translation: /mod_related_sermons/language/%locale%/%locale%.mod_related_sermons.ini
   - source: /mod_related_sermons/language/en-GB/en-GB.mod_related_sermons.sys.ini
-    translation: /mod_related_sermons/language/%locale%/%locale%.mod_related_sermons.sys.ini
+    translation: >-
+      /mod_related_sermons/language/%locale%/%locale%.mod_related_sermons.sys.ini
   - source: /mod_sermonarchive/language/en-GB/en-GB.mod_sermonarchive.ini
     translation: /mod_sermonarchive/language/%locale%/%locale%.mod_sermonarchive.ini
   - source: /mod_sermonarchive/language/en-GB/en-GB.mod_sermonarchive.sys.ini
@@ -30,73 +30,135 @@ files:
   - source: /mod_sermonspeaker_admin/language/en-GB/en-GB.mod_sermonspeaker.ini
     translation: /mod_sermonspeaker_admin/language/%locale%/%locale%.mod_sermonspeaker.ini
   - source: /mod_sermonspeaker_admin/language/en-GB/en-GB.mod_sermonspeaker.sys.ini
-    translation: /mod_sermonspeaker_admin/language/%locale%/%locale%.mod_sermonspeaker.sys.ini
+    translation: >-
+      /mod_sermonspeaker_admin/language/%locale%/%locale%.mod_sermonspeaker.sys.ini
   - source: /mod_sermonupload/language/en-GB/en-GB.mod_sermonupload.ini
     translation: /mod_sermonupload/language/%locale%/%locale%.mod_sermonupload.ini
   - source: /mod_sermonupload/language/en-GB/en-GB.mod_sermonupload.sys.ini
     translation: /mod_sermonupload/language/%locale%/%locale%.mod_sermonupload.sys.ini
-  # Plugins
-  - source: /plg_content_autotweetsermonspeaker/language/en-GB/en-GB.plg_content_autotweetsermonspeaker.ini
-    translation: /plg_content_autotweetsermonspeaker/language/%locale%/%locale%.plg_content_autotweetsermonspeaker.ini
-  - source: /plg_content_autotweetsermonspeaker/language/en-GB/en-GB.plg_content_autotweetsermonspeaker.sys.ini
-    translation: /plg_content_autotweetsermonspeaker/language/%locale%/%locale%.plg_content_autotweetsermonspeaker.sys.ini
-  - source: /plg_content_churchtoolsermonspeaker/language/en-GB/en-GB.plg_content_churchtoolsermonspeaker.ini
-    translation: /plg_content_churchtoolsermonspeaker/language/%locale%/%locale%.plg_content_churchtoolsermonspeaker.ini
-  - source: /plg_content_churchtoolsermonspeaker/language/en-GB/en-GB.plg_content_churchtoolsermonspeaker.sys.ini
-    translation: /plg_content_churchtoolsermonspeaker/language/%locale%/%locale%.plg_content_churchtoolsermonspeaker.sys.ini
-  - source: /plg_content_sermonspeaker/language/en-GB/en-GB.plg_content_sermonspeaker.ini
-    translation: /plg_content_sermonspeaker/language/%locale%/%locale%.plg_content_sermonspeaker.ini
-  - source: /plg_content_sermonspeaker/language/en-GB/en-GB.plg_content_sermonspeaker.sys.ini
-    translation: /plg_content_sermonspeaker/language/%locale%/%locale%.plg_content_sermonspeaker.sys.ini
-  - source: /plg_editors_xtd_sermonspeaker/language/en-GB/en-GB.plg_editors_xtd_sermonspeaker.ini
-    translation: /plg_editors_xtd_sermonspeaker/language/%locale%/%locale%.plg_editors_xtd_sermonspeaker.ini
-  - source: /plg_editors_xtd_sermonspeaker/language/en-GB/en-GB.plg_editors_xtd_sermonspeaker.sys.ini
-    translation: /plg_editors_xtd_sermonspeaker/language/%locale%/%locale%.plg_editors_xtd_sermonspeaker.sys.ini
-  - source: /plg_finder_sermonspeaker/language/en-GB/en-GB.plg_finder_sermonspeaker.ini
-    translation: /plg_finder_sermonspeaker/language/%locale%/%locale%.plg_finder_sermonspeaker.ini
-  - source: /plg_finder_sermonspeaker/language/en-GB/en-GB.plg_finder_sermonspeaker.sys.ini
-    translation: /plg_finder_sermonspeaker/language/%locale%/%locale%.plg_finder_sermonspeaker.sys.ini
-  - source: /plg_quickicon_sermonspeaker/language/en-GB/en-GB.plg_quickicon_sermonspeaker.ini
-    translation: /plg_quickicon_sermonspeaker/language/%locale%/%locale%.plg_quickicon_sermonspeaker.ini
-  - source: /plg_quickicon_sermonspeaker/language/en-GB/en-GB.plg_quickicon_sermonspeaker.sys.ini
-    translation: /plg_quickicon_sermonspeaker/language/%locale%/%locale%.plg_quickicon_sermonspeaker.sys.ini
-  - source: /plg_sb_sermonspeaker/language/en-GB/en-GB.plg_socialbacklinks_sermonspeaker.ini
-    translation: /plg_sb_sermonspeaker/language/%locale%/%locale%.plg_socialbacklinks_sermonspeaker.ini
-  - source: /plg_sb_sermonspeaker/language/en-GB/en-GB.plg_socialbacklinks_sermonspeaker.sys.ini
-    translation: /plg_sb_sermonspeaker/language/%locale%/%locale%.plg_socialbacklinks_sermonspeaker.sys.ini
-  - source: /plg_search_sermonspeaker/language/en-GB/en-GB.plg_search_sermonspeaker.ini
-    translation: /plg_search_sermonspeaker/language/%locale%/%locale%.plg_search_sermonspeaker.ini
-  - source: /plg_search_sermonspeaker/language/en-GB/en-GB.plg_search_sermonspeaker.sys.ini
-    translation: /plg_search_sermonspeaker/language/%locale%/%locale%.plg_search_sermonspeaker.sys.ini
-  - source: /plg_sermonspeaker_generic/language/en-GB/en-GB.plg_sermonspeaker_generic.ini
-    translation: /plg_sermonspeaker_generic/language/%locale%/%locale%.plg_sermonspeaker_generic.ini
-  - source: /plg_sermonspeaker_generic/language/en-GB/en-GB.plg_sermonspeaker_generic.sys.ini
-    translation: /plg_sermonspeaker_generic/language/%locale%/%locale%.plg_sermonspeaker_generic.sys.ini
-  - source: /plg_sermonspeaker_jwplayer5/language/en-GB/en-GB.plg_sermonspeaker_jwplayer5.ini
-    translation: /plg_sermonspeaker_jwplayer5/language/%locale%/%locale%.plg_sermonspeaker_jwplayer5.ini
-  - source: /plg_sermonspeaker_jwplayer5/language/en-GB/en-GB.plg_sermonspeaker_jwplayer5.sys.ini
-    translation: /plg_sermonspeaker_jwplayer5/language/%locale%/%locale%.plg_sermonspeaker_jwplayer5.sys.ini
-  - source: /plg_sermonspeaker_jwplayer6/language/en-GB/en-GB.plg_sermonspeaker_jwplayer6.ini
-    translation: /plg_sermonspeaker_jwplayer6/language/%locale%/%locale%.plg_sermonspeaker_jwplayer6.ini
-  - source: /plg_sermonspeaker_jwplayer6/language/en-GB/en-GB.plg_sermonspeaker_jwplayer6.sys.ini
-    translation: /plg_sermonspeaker_jwplayer6/language/%locale%/%locale%.plg_sermonspeaker_jwplayer6.sys.ini
-  - source: /plg_sermonspeaker_jwplayer7/language/en-GB/en-GB.plg_sermonspeaker_jwplayer7.ini
-    translation: /plg_sermonspeaker_jwplayer7/language/%locale%/%locale%.plg_sermonspeaker_jwplayer7.ini
-  - source: /plg_sermonspeaker_jwplayer7/language/en-GB/en-GB.plg_sermonspeaker_jwplayer7.sys.ini
-    translation: /plg_sermonspeaker_jwplayer7/language/%locale%/%locale%.plg_sermonspeaker_jwplayer7.sys.ini
-  - source: /plg_sermonspeaker_mediaelement/language/en-GB/en-GB.plg_sermonspeaker_mediaelement.ini
-    translation: /plg_sermonspeaker_mediaelement/language/%locale%/%locale%.plg_sermonspeaker_mediaelement.ini
-  - source: /plg_sermonspeaker_mediaelement/language/en-GB/en-GB.plg_sermonspeaker_mediaelement.sys.ini
-    translation: /plg_sermonspeaker_mediaelement/language/%locale%/%locale%.plg_sermonspeaker_mediaelement.sys.ini
-  - source: /plg_sermonspeaker_pixelout/language/en-GB/en-GB.plg_sermonspeaker_pixelout.ini
-    translation: /plg_sermonspeaker_pixelout/language/%locale%/%locale%.plg_sermonspeaker_pixelout.ini
-  - source: /plg_sermonspeaker_pixelout/language/en-GB/en-GB.plg_sermonspeaker_pixelout.sys.ini
-    translation: /plg_sermonspeaker_pixelout/language/%locale%/%locale%.plg_sermonspeaker_pixelout.sys.ini
+  - source: >-
+      /plg_content_autotweetsermonspeaker/language/en-GB/en-GB.plg_content_autotweetsermonspeaker.ini
+    translation: >-
+      /plg_content_autotweetsermonspeaker/language/%locale%/%locale%.plg_content_autotweetsermonspeaker.ini
+  - source: >-
+      /plg_content_autotweetsermonspeaker/language/en-GB/en-GB.plg_content_autotweetsermonspeaker.sys.ini
+    translation: >-
+      /plg_content_autotweetsermonspeaker/language/%locale%/%locale%.plg_content_autotweetsermonspeaker.sys.ini
+  - source: >-
+      /plg_content_churchtoolsermonspeaker/language/en-GB/en-GB.plg_content_churchtoolsermonspeaker.ini
+    translation: >-
+      /plg_content_churchtoolsermonspeaker/language/%locale%/%locale%.plg_content_churchtoolsermonspeaker.ini
+  - source: >-
+      /plg_content_churchtoolsermonspeaker/language/en-GB/en-GB.plg_content_churchtoolsermonspeaker.sys.ini
+    translation: >-
+      /plg_content_churchtoolsermonspeaker/language/%locale%/%locale%.plg_content_churchtoolsermonspeaker.sys.ini
+  - source: >-
+      /plg_content_sermonspeaker/language/en-GB/en-GB.plg_content_sermonspeaker.ini
+    translation: >-
+      /plg_content_sermonspeaker/language/%locale%/%locale%.plg_content_sermonspeaker.ini
+  - source: >-
+      /plg_content_sermonspeaker/language/en-GB/en-GB.plg_content_sermonspeaker.sys.ini
+    translation: >-
+      /plg_content_sermonspeaker/language/%locale%/%locale%.plg_content_sermonspeaker.sys.ini
+  - source: >-
+      /plg_editors_xtd_sermonspeaker/language/en-GB/en-GB.plg_editors_xtd_sermonspeaker.ini
+    translation: >-
+      /plg_editors_xtd_sermonspeaker/language/%locale%/%locale%.plg_editors_xtd_sermonspeaker.ini
+  - source: >-
+      /plg_editors_xtd_sermonspeaker/language/en-GB/en-GB.plg_editors_xtd_sermonspeaker.sys.ini
+    translation: >-
+      /plg_editors_xtd_sermonspeaker/language/%locale%/%locale%.plg_editors_xtd_sermonspeaker.sys.ini
+  - source: >-
+      /plg_finder_sermonspeaker/language/en-GB/en-GB.plg_finder_sermonspeaker.ini
+    translation: >-
+      /plg_finder_sermonspeaker/language/%locale%/%locale%.plg_finder_sermonspeaker.ini
+  - source: >-
+      /plg_finder_sermonspeaker/language/en-GB/en-GB.plg_finder_sermonspeaker.sys.ini
+    translation: >-
+      /plg_finder_sermonspeaker/language/%locale%/%locale%.plg_finder_sermonspeaker.sys.ini
+  - source: >-
+      /plg_quickicon_sermonspeaker/language/en-GB/en-GB.plg_quickicon_sermonspeaker.ini
+    translation: >-
+      /plg_quickicon_sermonspeaker/language/%locale%/%locale%.plg_quickicon_sermonspeaker.ini
+  - source: >-
+      /plg_quickicon_sermonspeaker/language/en-GB/en-GB.plg_quickicon_sermonspeaker.sys.ini
+    translation: >-
+      /plg_quickicon_sermonspeaker/language/%locale%/%locale%.plg_quickicon_sermonspeaker.sys.ini
+  - source: >-
+      /plg_sb_sermonspeaker/language/en-GB/en-GB.plg_socialbacklinks_sermonspeaker.ini
+    translation: >-
+      /plg_sb_sermonspeaker/language/%locale%/%locale%.plg_socialbacklinks_sermonspeaker.ini
+  - source: >-
+      /plg_sb_sermonspeaker/language/en-GB/en-GB.plg_socialbacklinks_sermonspeaker.sys.ini
+    translation: >-
+      /plg_sb_sermonspeaker/language/%locale%/%locale%.plg_socialbacklinks_sermonspeaker.sys.ini
+  - source: >-
+      /plg_search_sermonspeaker/language/en-GB/en-GB.plg_search_sermonspeaker.ini
+    translation: >-
+      /plg_search_sermonspeaker/language/%locale%/%locale%.plg_search_sermonspeaker.ini
+  - source: >-
+      /plg_search_sermonspeaker/language/en-GB/en-GB.plg_search_sermonspeaker.sys.ini
+    translation: >-
+      /plg_search_sermonspeaker/language/%locale%/%locale%.plg_search_sermonspeaker.sys.ini
+  - source: >-
+      /plg_sermonspeaker_generic/language/en-GB/en-GB.plg_sermonspeaker_generic.ini
+    translation: >-
+      /plg_sermonspeaker_generic/language/%locale%/%locale%.plg_sermonspeaker_generic.ini
+  - source: >-
+      /plg_sermonspeaker_generic/language/en-GB/en-GB.plg_sermonspeaker_generic.sys.ini
+    translation: >-
+      /plg_sermonspeaker_generic/language/%locale%/%locale%.plg_sermonspeaker_generic.sys.ini
+  - source: >-
+      /plg_sermonspeaker_jwplayer5/language/en-GB/en-GB.plg_sermonspeaker_jwplayer5.ini
+    translation: >-
+      /plg_sermonspeaker_jwplayer5/language/%locale%/%locale%.plg_sermonspeaker_jwplayer5.ini
+  - source: >-
+      /plg_sermonspeaker_jwplayer5/language/en-GB/en-GB.plg_sermonspeaker_jwplayer5.sys.ini
+    translation: >-
+      /plg_sermonspeaker_jwplayer5/language/%locale%/%locale%.plg_sermonspeaker_jwplayer5.sys.ini
+  - source: >-
+      /plg_sermonspeaker_jwplayer6/language/en-GB/en-GB.plg_sermonspeaker_jwplayer6.ini
+    translation: >-
+      /plg_sermonspeaker_jwplayer6/language/%locale%/%locale%.plg_sermonspeaker_jwplayer6.ini
+  - source: >-
+      /plg_sermonspeaker_jwplayer6/language/en-GB/en-GB.plg_sermonspeaker_jwplayer6.sys.ini
+    translation: >-
+      /plg_sermonspeaker_jwplayer6/language/%locale%/%locale%.plg_sermonspeaker_jwplayer6.sys.ini
+  - source: >-
+      /plg_sermonspeaker_jwplayer7/language/en-GB/en-GB.plg_sermonspeaker_jwplayer7.ini
+    translation: >-
+      /plg_sermonspeaker_jwplayer7/language/%locale%/%locale%.plg_sermonspeaker_jwplayer7.ini
+  - source: >-
+      /plg_sermonspeaker_jwplayer7/language/en-GB/en-GB.plg_sermonspeaker_jwplayer7.sys.ini
+    translation: >-
+      /plg_sermonspeaker_jwplayer7/language/%locale%/%locale%.plg_sermonspeaker_jwplayer7.sys.ini
+  - source: >-
+      /plg_sermonspeaker_mediaelement/language/en-GB/en-GB.plg_sermonspeaker_mediaelement.ini
+    translation: >-
+      /plg_sermonspeaker_mediaelement/language/%locale%/%locale%.plg_sermonspeaker_mediaelement.ini
+  - source: >-
+      /plg_sermonspeaker_mediaelement/language/en-GB/en-GB.plg_sermonspeaker_mediaelement.sys.ini
+    translation: >-
+      /plg_sermonspeaker_mediaelement/language/%locale%/%locale%.plg_sermonspeaker_mediaelement.sys.ini
+  - source: >-
+      /plg_sermonspeaker_pixelout/language/en-GB/en-GB.plg_sermonspeaker_pixelout.ini
+    translation: >-
+      /plg_sermonspeaker_pixelout/language/%locale%/%locale%.plg_sermonspeaker_pixelout.ini
+  - source: >-
+      /plg_sermonspeaker_pixelout/language/en-GB/en-GB.plg_sermonspeaker_pixelout.sys.ini
+    translation: >-
+      /plg_sermonspeaker_pixelout/language/%locale%/%locale%.plg_sermonspeaker_pixelout.sys.ini
   - source: /plg_sermonspeaker_vimeo/language/en-GB/en-GB.plg_sermonspeaker_vimeo.ini
-    translation: /plg_sermonspeaker_vimeo/language/%locale%/%locale%.plg_sermonspeaker_vimeo.ini
-  - source: /plg_sermonspeaker_vimeo/language/en-GB/en-GB.plg_sermonspeaker_vimeo.sys.ini
-    translation: /plg_sermonspeaker_vimeo/language/%locale%/%locale%.plg_sermonspeaker_vimeo.sys.ini
+    translation: >-
+      /plg_sermonspeaker_vimeo/language/%locale%/%locale%.plg_sermonspeaker_vimeo.ini
+  - source: >-
+      /plg_sermonspeaker_vimeo/language/en-GB/en-GB.plg_sermonspeaker_vimeo.sys.ini
+    translation: >-
+      /plg_sermonspeaker_vimeo/language/%locale%/%locale%.plg_sermonspeaker_vimeo.sys.ini
   - source: /plg_xmap_sermonspeaker/language/en-GB/en-GB.plg_xmap_sermonspeaker.ini
-    translation: /plg_xmap_sermonspeaker/language/%locale%/%locale%.plg_xmap_sermonspeaker.ini
-  - source: /plg_xmap_sermonspeaker/language/en-GB/en-GB.plg_xmap_sermonspeaker.sys.ini
-    translation: /plg_xmap_sermonspeaker/language/%locale%/%locale%.plg_xmap_sermonspeaker.sys.ini
+    translation: >-
+      /plg_xmap_sermonspeaker/language/%locale%/%locale%.plg_xmap_sermonspeaker.ini
+  - source: >-
+      /plg_xmap_sermonspeaker/language/en-GB/en-GB.plg_xmap_sermonspeaker.sys.ini
+    translation: >-
+      /plg_xmap_sermonspeaker/language/%locale%/%locale%.plg_xmap_sermonspeaker.sys.ini
