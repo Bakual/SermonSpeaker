@@ -155,10 +155,11 @@ files:
       /plg_sermonspeaker_vimeo/language/en-GB/en-GB.plg_sermonspeaker_vimeo.sys.ini
     translation: >-
       /plg_sermonspeaker_vimeo/language/%locale%/%locale%.plg_sermonspeaker_vimeo.sys.ini
-  - source: /plg_xmap_sermonspeaker/language/en-GB/en-GB.plg_xmap_sermonspeaker.ini
-    translation: >-
-      /plg_xmap_sermonspeaker/language/%locale%/%locale%.plg_xmap_sermonspeaker.ini
   - source: >-
-      /plg_xmap_sermonspeaker/language/en-GB/en-GB.plg_xmap_sermonspeaker.sys.ini
+      /plg_xmap_sermonspeaker/language/en-GB/en-GB.plg_xmap_com_sermonspeaker.ini
     translation: >-
-      /plg_xmap_sermonspeaker/language/%locale%/%locale%.plg_xmap_sermonspeaker.sys.ini
+      /plg_xmap_sermonspeaker/language/%locale%/%locale%.plg_xmap_com_sermonspeaker.ini
+  - source: >-
+      /plg_xmap_sermonspeaker/language/en-GB/en-GB.plg_xmap_com_sermonspeaker.sys.ini
+    translation: >-
+      /plg_xmap_sermonspeaker/language/%locale%/%locale%.plg_xmap_com_sermonspeaker.sys.ini
