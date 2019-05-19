@@ -84,14 +84,14 @@ files:
       /plg_content_sermonspeaker/language/%locale%/%locale%.plg_content_sermonspeaker.sys.ini
     update_option: update_as_unapproved
   - source: >-
-      /plg_editors_xtd_sermonspeaker/language/en-GB/en-GB.plg_editors_xtd_sermonspeaker.ini
+      /plg_editors_xtd_sermonspeaker/language/en-GB/en-GB.plg_editors-xtd_sermonspeaker.ini
     translation: >-
-      /plg_editors_xtd_sermonspeaker/language/%locale%/%locale%.plg_editors_xtd_sermonspeaker.ini
+      /plg_editors_xtd_sermonspeaker/language/%locale%/%locale%.plg_editors-xtd_sermonspeaker.ini
     update_option: update_as_unapproved
   - source: >-
-      /plg_editors_xtd_sermonspeaker/language/en-GB/en-GB.plg_editors_xtd_sermonspeaker.sys.ini
+      /plg_editors_xtd_sermonspeaker/language/en-GB/en-GB.plg_editors-xtd_sermonspeaker.sys.ini
     translation: >-
-      /plg_editors_xtd_sermonspeaker/language/%locale%/%locale%.plg_editors_xtd_sermonspeaker.sys.ini
+      /plg_editors_xtd_sermonspeaker/language/%locale%/%locale%.plg_editors-xtd_sermonspeaker.sys.ini
     update_option: update_as_unapproved
   - source: >-
       /plg_finder_sermonspeaker/language/en-GB/en-GB.plg_finder_sermonspeaker.ini
