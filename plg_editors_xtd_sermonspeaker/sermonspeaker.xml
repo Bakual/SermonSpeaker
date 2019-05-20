@@ -27,6 +27,7 @@
 					<option value="0">JOPTION_USE_DEFAULT</option>
 					<option value="1">PLG_EDITORS-XTD_SERMONSPEAKER_FIELD_MODE_OPTION_LINK</option>
 					<option value="2">PLG_EDITORS-XTD_SERMONSPEAKER_FIELD_MODE_OPTION_PLAYER</option>
+					<option value="3">PLG_EDITORS-XTD_SERMONSPEAKER_FIELD_MODE_OPTION_MODULE</option>
 				</field>
 			</fieldset>
 		</fields>
