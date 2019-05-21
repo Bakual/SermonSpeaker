@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <extension type="module" version="3.4" client="site" method="upgrade">
-	<name>Latest Sermons</name>
+	<name>MOD_LATESTSERMONS</name>
 	<author>Thomas Hunziker</author>
 	<creationDate>2018-08-30</creationDate>
 	<copyright>© 2019</copyright>
