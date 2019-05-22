@@ -14,7 +14,7 @@
 				   label="COM_SERMONSPEAKER_FIELD_TYPE_LABEL"
 				   description="COM_SERMONSPEAKER_FIELD_TYPE_DESC"
 				   default="">
-				<option value="">COM_SERMONSPEAKER_FIELD_TYPE_OPTION_AUTO</option>
+				<option value="">JGLOBAL_AUTO</option>
 				<option value="audio">COM_SERMONSPEAKER_FIELD_TYPE_OPTION_AUDIO</option>
 				<option value="video">COM_SERMONSPEAKER_FIELD_TYPE_OPTION_VIDEO</option>
 			</field>
