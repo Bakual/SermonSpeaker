@@ -36,9 +36,9 @@
 					label="MOD_SERMONCAST_FIELD_TYPE_LABEL" 
 					description="MOD_SERMONCAST_FIELD_TYPE_DESC"
 					default="">
-					<option value="">Auto</option>
-					<option value="audio">Audio</option>
-					<option value="video">Video</option>
+					<option value="">MOD_SERMONCAST_FIELD_TYPE_OPTION_AUTO</option>
+					<option value="audio">MOD_SERMONCAST_FIELD_TYPE_OPTION_AUDIO</option>
+					<option value="video">MOD_SERMONCAST_FIELD_TYPE_OPTION_VIDEO</option>
 				</field>
 				<field type="spacer" />
 				<field
