@@ -107,7 +107,7 @@ class SermonspeakerViewSpeakers extends JViewLegacy
 		// Get the toolbar object instance
 		$bar = JToolbar::getInstance('toolbar');
 
-		JToolbarHelper::title(JText::_('COM_SERMONSPEAKER_SPEAKERS_TITLE'), 'users speakers');
+		JToolbarHelper::title(JText::_(JText::sprintf('COM_SERMONSPEAKER').': '.JText::sprintf('COM_SERMONSPEAKER_SPEAKERS_TITLE')), 'users speakers');
 
 		if ($canDo->get('core.create'))
 		{
