@@ -177,18 +177,6 @@
 					<option value="0">JNO</option>
 				</field>
 
-				<field
-					name="plusone"
-					type="radio"
-					label="PLG_SERMONSPEAKER_JWPLAYER5_FIELD_PLUSONE_LABEL"
-					description="PLG_SERMONSPEAKER_JWPLAYER5_FIELD_PLUSONE_DESC"
-					class="btn-group btn-group-yesno"
-					default="0"
-					>
-					<option value="1">JYES</option>
-					<option value="0">JNO</option>
-				</field>
-
 			</fieldset>
 		</fields>
 	</config>

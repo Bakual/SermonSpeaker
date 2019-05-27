@@ -292,11 +292,6 @@ class PlgSermonspeakerJwplayer5 extends SermonspeakerPluginPlayer
 			$plugins['tweetit-1'] = '{}';
 		}
 
-		if ($this->params->get('plusone', 0))
-		{
-			$plugins['plusone-1'] = '{}';
-		}
-
 		if ($this->params->get('share', 0))
 		{
 			$plugins['sharing-3'] = '{}';
