@@ -85,7 +85,7 @@ class SermonspeakerViewTools extends JViewLegacy
 	protected function addToolbar()
 	{
 		$canDo = SermonspeakerHelper::getActions();
-		JToolbarHelper::title(JText::_('COM_SERMONSPEAKER_MAIN_TOOLS'), 'tools');
+		JToolbarHelper::title(JText::sprintf('COM_SERMONSPEAKER_TOOLBAR_TITLE', JText::_('COM_SERMONSPEAKER_MAIN_TOOLS')), 'tools');
 
 		if ($canDo->get('core.admin') || $canDo->get('core.options'))
 		{
