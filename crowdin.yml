@@ -98,11 +98,13 @@ files:
     translation: >-
       /plg_finder_sermonspeaker/language/%locale%/%locale%.plg_finder_sermonspeaker.ini
     update_option: update_as_unapproved
+    type: ini
   - source: >-
       /plg_finder_sermonspeaker/language/en-GB/en-GB.plg_finder_sermonspeaker.sys.ini
     translation: >-
       /plg_finder_sermonspeaker/language/%locale%/%locale%.plg_finder_sermonspeaker.sys.ini
     update_option: update_as_unapproved
+    type: ini
   - source: >-
       /plg_quickicon_sermonspeaker/language/en-GB/en-GB.plg_quickicon_sermonspeaker.ini
     translation: >-
