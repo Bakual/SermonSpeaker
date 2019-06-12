@@ -147,7 +147,7 @@ class SermonspeakerHelperSermonspeaker
 				}
 			}
 
-			$html .= '<a class="hasTooltip" title="::' . JText::_('COM_SERMONSPEAKER_ADDFILE_HOOVER') . '" href="'
+			$html .= '<a class="hasTooltip" title="' . JText::_('COM_SERMONSPEAKER_ADDFILE_HOOVER') . '" href="'
 				. $link . '" ' . $onclick . ' target="_blank"><img src="' . $icon . '" width="18" height="20" alt="" /></a>&nbsp;';
 		}
 
@@ -167,7 +167,7 @@ class SermonspeakerHelperSermonspeaker
 				}
 			}
 
-			$html .= '<a class="hasTooltip" title="::' . JText::_('COM_SERMONSPEAKER_ADDFILE_HOOVER') . '" href="'
+			$html .= '<a class="hasTooltip" title="' . JText::_('COM_SERMONSPEAKER_ADDFILE_HOOVER') . '" href="'
 				. $link . '"' . $onclick . ' target="_blank">' . $addfileDesc . '</a>';
 		}
 
@@ -228,7 +228,7 @@ class SermonspeakerHelperSermonspeaker
 				$onclick = "onclick=\"ga('send', 'event', 'SermonSpeaker Download', '" . $type . "', 'id:" . $id . "');\"";
 			}
 
-			$html = '<a href="' . $fileurl . '" target="_blank" ' . $onclick . ' class="hasTooltip" title="::' . $text . '">'
+			$html = '<a href="' . $fileurl . '" target="_blank" ' . $onclick . ' class="hasTooltip" title="' . $text . '">'
 				. '<img src="media/com_sermonspeaker/images/download.png" alt="' . $text . '" />'
 				. '</a>';
 		}
@@ -366,7 +366,7 @@ class SermonspeakerHelperSermonspeaker
 				switch ($list_icon_function)
 				{
 					case 0:
-						$pic = '<i class="icon-play hasTooltip" title="::' . JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER') . '"> </i>';
+						$pic = '<i class="icon-play hasTooltip" title="' . JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER') . '"> </i>';
 						$return .= JHtml::Link(JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug, $item->catid, $item->language)), $pic) . ' ';
 						break;
 					case 1:
@@ -375,7 +375,7 @@ class SermonspeakerHelperSermonspeaker
 							break;
 						}
 
-						$pic = '<i class="icon-play hasTooltip" title="::' . JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER') . '"> </i>';
+						$pic = '<i class="icon-play hasTooltip" title="' . JText::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER') . '"> </i>';
 						$file = ($item->videofile && (self::$params->get('fileprio', 0) || !$item->audiofile)) ? $item->videofile : $item->audiofile;
 						$return .= JHtml::Link(self::makeLink($file), $pic) . ' ';
 						break;
@@ -455,7 +455,7 @@ class SermonspeakerHelperSermonspeaker
 					{
 						$options['onclick']     = 'ss_play(' . $i . ');return false;';
 						$options['title']       = JText::_('COM_SERMONSPEAKER_PLAYICON_HOOVER');
-						$options['class']       = 'ss-play';
+						$options['class']       = 'ss-play hasTooltip';
 						$options['data-id']     = $i;
 						$options['data-player'] = !empty($player->id) ? $player->id : '';
 						$return .= JHtml::Link('#', $item->title, $options);
