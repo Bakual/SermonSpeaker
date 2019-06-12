@@ -116,16 +116,6 @@ files:
       /plg_quickicon_sermonspeaker/language/%locale%/%locale%.plg_quickicon_sermonspeaker.sys.ini
     update_option: update_as_unapproved
   - source: >-
-      /plg_sb_sermonspeaker/language/en-GB/en-GB.plg_socialbacklinks_sermonspeaker.ini
-    translation: >-
-      /plg_sb_sermonspeaker/language/%locale%/%locale%.plg_socialbacklinks_sermonspeaker.ini
-    update_option: update_as_unapproved
-  - source: >-
-      /plg_sb_sermonspeaker/language/en-GB/en-GB.plg_socialbacklinks_sermonspeaker.sys.ini
-    translation: >-
-      /plg_sb_sermonspeaker/language/%locale%/%locale%.plg_socialbacklinks_sermonspeaker.sys.ini
-    update_option: update_as_unapproved
-  - source: >-
       /plg_search_sermonspeaker/language/en-GB/en-GB.plg_search_sermonspeaker.ini
     translation: >-
       /plg_search_sermonspeaker/language/%locale%/%locale%.plg_search_sermonspeaker.ini
@@ -203,14 +193,4 @@ files:
       /plg_sermonspeaker_vimeo/language/en-GB/en-GB.plg_sermonspeaker_vimeo.sys.ini
     translation: >-
       /plg_sermonspeaker_vimeo/language/%locale%/%locale%.plg_sermonspeaker_vimeo.sys.ini
-    update_option: update_as_unapproved
-  - source: >-
-      /plg_xmap_sermonspeaker/language/en-GB/en-GB.plg_xmap_com_sermonspeaker.ini
-    translation: >-
-      /plg_xmap_sermonspeaker/language/%locale%/%locale%.plg_xmap_com_sermonspeaker.ini
-    update_option: update_as_unapproved
-  - source: >-
-      /plg_xmap_sermonspeaker/language/en-GB/en-GB.plg_xmap_com_sermonspeaker.sys.ini
-    translation: >-
-      /plg_xmap_sermonspeaker/language/%locale%/%locale%.plg_xmap_com_sermonspeaker.sys.ini
     update_option: update_as_unapproved
