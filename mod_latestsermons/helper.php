@@ -130,11 +130,11 @@ abstract class ModLatestsermonsHelper
 
 			if ($view == 'speaker')
 			{
-				$query->where('a.speaker_id = ' . $jinput::getInt('id'));
+				$query->where('a.speaker_id = ' . $jinput->getInt('id'));
 			}
 			elseif ($view == 'serie')
 			{
-				$query->where('a.series_id = ' . $jinput::getInt('id'));
+				$query->where('a.series_id = ' . $jinput->getInt('id'));
 			}
 		}
 		// Filetype filter
