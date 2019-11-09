@@ -66,7 +66,7 @@ class SermonspeakerViewSeriessermon extends JViewLegacy
 		$this->children = array($this->category->id => $children);
 
 		// Check for errors.
-		if (count($errors = $this->get('Errors')))
+		if (count($errors = $this->get('Errors', 'Series')))
 		{
 			throw new Exception(implode("\n", $errors), 500);
 		}
