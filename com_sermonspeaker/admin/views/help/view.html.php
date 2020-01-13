@@ -3,7 +3,7 @@
  * @package     SermonSpeaker
  * @subpackage  Component.Administrator
  * @author      Thomas Hunziker <admin@sermonspeaker.net>
- * @copyright   © 2018 - Thomas Hunziker
+ * @copyright   © 2019 - Thomas Hunziker
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
@@ -69,7 +69,7 @@ class SermonspeakerViewHelp extends JViewLegacy
 	protected function addToolbar()
 	{
 		$canDo = SermonspeakerHelper::getActions();
-		JToolbarHelper::title(JText::_('JHELP'), 'support sermonhelp');
+		JToolbarHelper::title(JText::sprintf('COM_SERMONSPEAKER_TOOLBAR_TITLE', JText::_('JHELP')), 'support sermonhelp');
 
 		if ($canDo->get('core.admin') || $canDo->get('core.options'))
 		{

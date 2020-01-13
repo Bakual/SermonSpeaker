@@ -3,7 +3,7 @@
  * @package     SermonSpeaker
  * @subpackage  Component.Administrator
  * @author      Thomas Hunziker <admin@sermonspeaker.net>
- * @copyright   © 2018 - Thomas Hunziker
+ * @copyright   © 2019 - Thomas Hunziker
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
@@ -107,7 +107,7 @@ class SermonspeakerViewSpeakers extends JViewLegacy
 		// Get the toolbar object instance
 		$bar = JToolbar::getInstance('toolbar');
 
-		JToolbarHelper::title(JText::_('COM_SERMONSPEAKER_SPEAKERS_TITLE'), 'users speakers');
+		JToolbarHelper::title(JText::sprintf('COM_SERMONSPEAKER_TOOLBAR_TITLE', JText::_('COM_SERMONSPEAKER_SPEAKERS_TITLE')), 'users speakers');
 
 		if ($canDo->get('core.create'))
 		{

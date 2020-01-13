@@ -3,7 +3,7 @@
  * @package     SermonSpeaker
  * @subpackage  Component.Site
  * @author      Thomas Hunziker <admin@sermonspeaker.net>
- * @copyright   © 2018 - Thomas Hunziker
+ * @copyright   © 2019 - Thomas Hunziker
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
@@ -125,7 +125,7 @@ class SermonspeakerHelperSermonspeaker
 				}
 			}
 
-			$html .= '<a class="hasTooltip" title="::' . Text::_('COM_SERMONSPEAKER_ADDFILE_HOOVER') . '" href="'
+			$html .= '<a class="hasTooltip" title="' . Text::_('COM_SERMONSPEAKER_ADDFILE_HOOVER') . '" href="'
 				. $link . '" ' . $onclick . ' target="_blank"><img src="' . $icon . '" width="18" height="20" alt="" /></a>&nbsp;';
 		}
 
@@ -145,7 +145,7 @@ class SermonspeakerHelperSermonspeaker
 				}
 			}
 
-			$html .= '<a class="hasTooltip" title="::' . Text::_('COM_SERMONSPEAKER_ADDFILE_HOOVER') . '" href="'
+			$html .= '<a class="hasTooltip" title="' . Text::_('COM_SERMONSPEAKER_ADDFILE_HOOVER') . '" href="'
 				. $link . '"' . $onclick . ' target="_blank">' . $addfileDesc . '</a>';
 		}
 
@@ -333,7 +333,7 @@ class SermonspeakerHelperSermonspeaker
 				{
 					case 0:
 						$pic    = '<span class="fa fa-play hasTooltip" title="' . Text::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER') . '"></span>';
-						$return .= HtmlHelper::link(Route::_(SermonspeakerHelperRoute::getSermonRoute($item->slug, $item->catid, $item->language)), $pic) . ' ';
+						$return .= HtmlHelper:link(Route::_(SermonspeakerHelperRoute::getSermonRoute($item->slug, $item->catid, $item->language)), $pic) . ' ';
 						break;
 					case 1:
 						if (!$item->audiofile && !$item->videofile)
@@ -420,7 +420,7 @@ class SermonspeakerHelperSermonspeaker
 					{
 						$options['onclick']     = 'ss_play(' . $i . ');return false;';
 						$options['title']       = JText::_('COM_SERMONSPEAKER_PLAYICON_HOOVER');
-						$options['class']       = 'ss-play';
+						$options['class']       = 'ss-play hasTooltip';
 						$options['data-id']     = $i;
 						$options['data-player'] = !empty($player->id) ? $player->id : '';
 						$return                 .= HtmlHelper::link('#', $item->title, $options);

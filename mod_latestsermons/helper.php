@@ -3,7 +3,7 @@
  * @package     SermonSpeaker
  * @subpackage  Module.LatestSermons
  * @author      Thomas Hunziker <admin@sermonspeaker.net>
- * @copyright   © 2018 - Thomas Hunziker
+ * @copyright   © 2019 - Thomas Hunziker
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
@@ -130,11 +130,11 @@ abstract class ModLatestsermonsHelper
 
 			if ($view == 'speaker')
 			{
-				$query->where('a.speaker_id = ' . $jinput::getInt('id'));
+				$query->where('a.speaker_id = ' . $jinput->getInt('id'));
 			}
 			elseif ($view == 'serie')
 			{
-				$query->where('a.series_id = ' . $jinput::getInt('id'));
+				$query->where('a.series_id = ' . $jinput->getInt('id'));
 			}
 		}
 		// Filetype filter

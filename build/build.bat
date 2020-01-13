@@ -86,12 +86,12 @@ copy ..\build\packages\plg_sermonspeaker_vimeo.zip ..\build\package
 cd ../plg_content_churchtoolsermonspeaker/
 zip -r ../build/packages/plg_content_churchtoolsermonspeaker.zip *
 
+cd ../plg_content_autotweetsermonspeaker/
+zip -r ../build/packages/plg_content_autotweetsermonspeaker.zip *
+
 cd ../plg_quickicon_sermonspeaker/
 zip -r ../build/packages/plg_quickicon_sermonspeaker.zip *
 copy ..\build\packages\plg_quickicon_sermonspeaker.zip ..\build\package
-
-cd ../plg_sb_sermonspeaker/
-zip -r ../build/packages/plg_sb_sermonspeaker.zip *
 
 REM Package
 cd ../build/package/

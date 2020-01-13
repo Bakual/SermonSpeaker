@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <extension type="module" version="3.4" client="site" method="upgrade">
-	<name>Related Sermons</name>
+	<name>MOD_RELATED_SERMONS</name>
 	<author>Thomas Hunziker</author>
-	<creationDate>2016-03-28</creationDate>
-	<copyright>© 2018</copyright>
+	<creationDate>2019-06-12</creationDate>
+	<copyright>© 2019</copyright>
 	<authorEmail>admin@sermonspeaker.net</authorEmail>
 	<authorUrl>http://www.sermonspeaker.net</authorUrl>
-	<version>5.4.1</version>
+	<version>5.4.2</version>
 	<license>http://www.gnu.org/licenses/gpl.html</license>
 	<description>MOD_RELATED_SERMONS_XML_DESCRIPTION</description>
 	<files>

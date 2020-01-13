@@ -1,0 +1,196 @@
+files:
+  - source: /com_sermonspeaker/admin/language/en-GB/en-GB.com_sermonspeaker.ini
+    translation: /com_sermonspeaker/admin/language/%locale%/%locale%.com_sermonspeaker.ini
+    update_option: update_as_unapproved
+  - source: /com_sermonspeaker/admin/language/en-GB/en-GB.com_sermonspeaker.sys.ini
+    translation: >-
+      /com_sermonspeaker/admin/language/%locale%/%locale%.com_sermonspeaker.sys.ini
+    update_option: update_as_unapproved
+  - source: /com_sermonspeaker/site/language/en-GB/en-GB.com_sermonspeaker.ini
+    translation: /com_sermonspeaker/site/language/%locale%/%locale%.com_sermonspeaker.ini
+    update_option: update_as_unapproved
+  - source: /mod_latestsermons/language/en-GB/en-GB.mod_latestsermons.ini
+    translation: /mod_latestsermons/language/%locale%/%locale%.mod_latestsermons.ini
+    update_option: update_as_unapproved
+  - source: /mod_latestsermons/language/en-GB/en-GB.mod_latestsermons.sys.ini
+    translation: /mod_latestsermons/language/%locale%/%locale%.mod_latestsermons.sys.ini
+    update_option: update_as_unapproved
+  - source: /mod_related_sermons/language/en-GB/en-GB.mod_related_sermons.ini
+    translation: /mod_related_sermons/language/%locale%/%locale%.mod_related_sermons.ini
+    update_option: update_as_unapproved
+  - source: /mod_related_sermons/language/en-GB/en-GB.mod_related_sermons.sys.ini
+    translation: >-
+      /mod_related_sermons/language/%locale%/%locale%.mod_related_sermons.sys.ini
+    update_option: update_as_unapproved
+  - source: /mod_sermonarchive/language/en-GB/en-GB.mod_sermonarchive.ini
+    translation: /mod_sermonarchive/language/%locale%/%locale%.mod_sermonarchive.ini
+    update_option: update_as_unapproved
+  - source: /mod_sermonarchive/language/en-GB/en-GB.mod_sermonarchive.sys.ini
+    translation: /mod_sermonarchive/language/%locale%/%locale%.mod_sermonarchive.sys.ini
+    update_option: update_as_unapproved
+  - source: /mod_sermoncast/language/en-GB/en-GB.mod_sermoncast.ini
+    translation: /mod_sermoncast/language/%locale%/%locale%.mod_sermoncast.ini
+    update_option: update_as_unapproved
+  - source: /mod_sermoncast/language/en-GB/en-GB.mod_sermoncast.sys.ini
+    translation: /mod_sermoncast/language/%locale%/%locale%.mod_sermoncast.sys.ini
+    update_option: update_as_unapproved
+  - source: /mod_sermonspeaker/language/en-GB/en-GB.mod_sermonspeaker.ini
+    translation: /mod_sermonspeaker/language/%locale%/%locale%.mod_sermonspeaker.ini
+    update_option: update_as_unapproved
+  - source: /mod_sermonspeaker/language/en-GB/en-GB.mod_sermonspeaker.sys.ini
+    translation: /mod_sermonspeaker/language/%locale%/%locale%.mod_sermonspeaker.sys.ini
+    update_option: update_as_unapproved
+  - source: /mod_sermonspeaker_admin/language/en-GB/en-GB.mod_sermonspeaker.ini
+    translation: /mod_sermonspeaker_admin/language/%locale%/%locale%.mod_sermonspeaker.ini
+    update_option: update_as_unapproved
+  - source: /mod_sermonspeaker_admin/language/en-GB/en-GB.mod_sermonspeaker.sys.ini
+    translation: >-
+      /mod_sermonspeaker_admin/language/%locale%/%locale%.mod_sermonspeaker.sys.ini
+    update_option: update_as_unapproved
+  - source: /mod_sermonupload/language/en-GB/en-GB.mod_sermonupload.ini
+    translation: /mod_sermonupload/language/%locale%/%locale%.mod_sermonupload.ini
+    update_option: update_as_unapproved
+  - source: /mod_sermonupload/language/en-GB/en-GB.mod_sermonupload.sys.ini
+    translation: /mod_sermonupload/language/%locale%/%locale%.mod_sermonupload.sys.ini
+    update_option: update_as_unapproved
+  - source: >-
+      /plg_content_autotweetsermonspeaker/language/en-GB/en-GB.plg_content_autotweetsermonspeaker.ini
+    translation: >-
+      /plg_content_autotweetsermonspeaker/language/%locale%/%locale%.plg_content_autotweetsermonspeaker.ini
+    update_option: update_as_unapproved
+  - source: >-
+      /plg_content_autotweetsermonspeaker/language/en-GB/en-GB.plg_content_autotweetsermonspeaker.sys.ini
+    translation: >-
+      /plg_content_autotweetsermonspeaker/language/%locale%/%locale%.plg_content_autotweetsermonspeaker.sys.ini
+    update_option: update_as_unapproved
+  - source: >-
+      /plg_content_churchtoolsermonspeaker/language/en-GB/en-GB.plg_content_churchtoolsermonspeaker.ini
+    translation: >-
+      /plg_content_churchtoolsermonspeaker/language/%locale%/%locale%.plg_content_churchtoolsermonspeaker.ini
+    update_option: update_as_unapproved
+  - source: >-
+      /plg_content_churchtoolsermonspeaker/language/en-GB/en-GB.plg_content_churchtoolsermonspeaker.sys.ini
+    translation: >-
+      /plg_content_churchtoolsermonspeaker/language/%locale%/%locale%.plg_content_churchtoolsermonspeaker.sys.ini
+    update_option: update_as_unapproved
+  - source: >-
+      /plg_content_sermonspeaker/language/en-GB/en-GB.plg_content_sermonspeaker.ini
+    translation: >-
+      /plg_content_sermonspeaker/language/%locale%/%locale%.plg_content_sermonspeaker.ini
+    update_option: update_as_unapproved
+  - source: >-
+      /plg_content_sermonspeaker/language/en-GB/en-GB.plg_content_sermonspeaker.sys.ini
+    translation: >-
+      /plg_content_sermonspeaker/language/%locale%/%locale%.plg_content_sermonspeaker.sys.ini
+    update_option: update_as_unapproved
+  - source: >-
+      /plg_editors_xtd_sermonspeaker/language/en-GB/en-GB.plg_editors-xtd_sermonspeaker.ini
+    translation: >-
+      /plg_editors_xtd_sermonspeaker/language/%locale%/%locale%.plg_editors-xtd_sermonspeaker.ini
+    update_option: update_as_unapproved
+  - source: >-
+      /plg_editors_xtd_sermonspeaker/language/en-GB/en-GB.plg_editors-xtd_sermonspeaker.sys.ini
+    translation: >-
+      /plg_editors_xtd_sermonspeaker/language/%locale%/%locale%.plg_editors-xtd_sermonspeaker.sys.ini
+    update_option: update_as_unapproved
+  - source: >-
+      /plg_finder_sermonspeaker/language/en-GB/en-GB.plg_finder_sermonspeaker.ini
+    translation: >-
+      /plg_finder_sermonspeaker/language/%locale%/%locale%.plg_finder_sermonspeaker.ini
+    update_option: update_as_unapproved
+    type: ini
+  - source: >-
+      /plg_finder_sermonspeaker/language/en-GB/en-GB.plg_finder_sermonspeaker.sys.ini
+    translation: >-
+      /plg_finder_sermonspeaker/language/%locale%/%locale%.plg_finder_sermonspeaker.sys.ini
+    update_option: update_as_unapproved
+    type: ini
+  - source: >-
+      /plg_quickicon_sermonspeaker/language/en-GB/en-GB.plg_quickicon_sermonspeaker.ini
+    translation: >-
+      /plg_quickicon_sermonspeaker/language/%locale%/%locale%.plg_quickicon_sermonspeaker.ini
+    update_option: update_as_unapproved
+  - source: >-
+      /plg_quickicon_sermonspeaker/language/en-GB/en-GB.plg_quickicon_sermonspeaker.sys.ini
+    translation: >-
+      /plg_quickicon_sermonspeaker/language/%locale%/%locale%.plg_quickicon_sermonspeaker.sys.ini
+    update_option: update_as_unapproved
+  - source: >-
+      /plg_search_sermonspeaker/language/en-GB/en-GB.plg_search_sermonspeaker.ini
+    translation: >-
+      /plg_search_sermonspeaker/language/%locale%/%locale%.plg_search_sermonspeaker.ini
+    update_option: update_as_unapproved
+  - source: >-
+      /plg_search_sermonspeaker/language/en-GB/en-GB.plg_search_sermonspeaker.sys.ini
+    translation: >-
+      /plg_search_sermonspeaker/language/%locale%/%locale%.plg_search_sermonspeaker.sys.ini
+    update_option: update_as_unapproved
+  - source: >-
+      /plg_sermonspeaker_generic/language/en-GB/en-GB.plg_sermonspeaker_generic.ini
+    translation: >-
+      /plg_sermonspeaker_generic/language/%locale%/%locale%.plg_sermonspeaker_generic.ini
+    update_option: update_as_unapproved
+  - source: >-
+      /plg_sermonspeaker_generic/language/en-GB/en-GB.plg_sermonspeaker_generic.sys.ini
+    translation: >-
+      /plg_sermonspeaker_generic/language/%locale%/%locale%.plg_sermonspeaker_generic.sys.ini
+    update_option: update_as_unapproved
+  - source: >-
+      /plg_sermonspeaker_jwplayer5/language/en-GB/en-GB.plg_sermonspeaker_jwplayer5.ini
+    translation: >-
+      /plg_sermonspeaker_jwplayer5/language/%locale%/%locale%.plg_sermonspeaker_jwplayer5.ini
+    update_option: update_as_unapproved
+  - source: >-
+      /plg_sermonspeaker_jwplayer5/language/en-GB/en-GB.plg_sermonspeaker_jwplayer5.sys.ini
+    translation: >-
+      /plg_sermonspeaker_jwplayer5/language/%locale%/%locale%.plg_sermonspeaker_jwplayer5.sys.ini
+    update_option: update_as_unapproved
+  - source: >-
+      /plg_sermonspeaker_jwplayer6/language/en-GB/en-GB.plg_sermonspeaker_jwplayer6.ini
+    translation: >-
+      /plg_sermonspeaker_jwplayer6/language/%locale%/%locale%.plg_sermonspeaker_jwplayer6.ini
+    update_option: update_as_unapproved
+  - source: >-
+      /plg_sermonspeaker_jwplayer6/language/en-GB/en-GB.plg_sermonspeaker_jwplayer6.sys.ini
+    translation: >-
+      /plg_sermonspeaker_jwplayer6/language/%locale%/%locale%.plg_sermonspeaker_jwplayer6.sys.ini
+    update_option: update_as_unapproved
+  - source: >-
+      /plg_sermonspeaker_jwplayer7/language/en-GB/en-GB.plg_sermonspeaker_jwplayer7.ini
+    translation: >-
+      /plg_sermonspeaker_jwplayer7/language/%locale%/%locale%.plg_sermonspeaker_jwplayer7.ini
+    update_option: update_as_unapproved
+  - source: >-
+      /plg_sermonspeaker_jwplayer7/language/en-GB/en-GB.plg_sermonspeaker_jwplayer7.sys.ini
+    translation: >-
+      /plg_sermonspeaker_jwplayer7/language/%locale%/%locale%.plg_sermonspeaker_jwplayer7.sys.ini
+    update_option: update_as_unapproved
+  - source: >-
+      /plg_sermonspeaker_mediaelement/language/en-GB/en-GB.plg_sermonspeaker_mediaelement.ini
+    translation: >-
+      /plg_sermonspeaker_mediaelement/language/%locale%/%locale%.plg_sermonspeaker_mediaelement.ini
+    update_option: update_as_unapproved
+  - source: >-
+      /plg_sermonspeaker_mediaelement/language/en-GB/en-GB.plg_sermonspeaker_mediaelement.sys.ini
+    translation: >-
+      /plg_sermonspeaker_mediaelement/language/%locale%/%locale%.plg_sermonspeaker_mediaelement.sys.ini
+    update_option: update_as_unapproved
+  - source: >-
+      /plg_sermonspeaker_pixelout/language/en-GB/en-GB.plg_sermonspeaker_pixelout.ini
+    translation: >-
+      /plg_sermonspeaker_pixelout/language/%locale%/%locale%.plg_sermonspeaker_pixelout.ini
+    update_option: update_as_unapproved
+  - source: >-
+      /plg_sermonspeaker_pixelout/language/en-GB/en-GB.plg_sermonspeaker_pixelout.sys.ini
+    translation: >-
+      /plg_sermonspeaker_pixelout/language/%locale%/%locale%.plg_sermonspeaker_pixelout.sys.ini
+    update_option: update_as_unapproved
+  - source: /plg_sermonspeaker_vimeo/language/en-GB/en-GB.plg_sermonspeaker_vimeo.ini
+    translation: >-
+      /plg_sermonspeaker_vimeo/language/%locale%/%locale%.plg_sermonspeaker_vimeo.ini
+    update_option: update_as_unapproved
+  - source: >-
+      /plg_sermonspeaker_vimeo/language/en-GB/en-GB.plg_sermonspeaker_vimeo.sys.ini
+    translation: >-
+      /plg_sermonspeaker_vimeo/language/%locale%/%locale%.plg_sermonspeaker_vimeo.sys.ini
+    update_option: update_as_unapproved

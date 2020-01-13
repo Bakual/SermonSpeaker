@@ -3,7 +3,7 @@
  * @package     SermonSpeaker
  * @subpackage  Component.Administrator
  * @author      Thomas Hunziker <admin@sermonspeaker.net>
- * @copyright   © 2018 - Thomas Hunziker
+ * @copyright   © 2019 - Thomas Hunziker
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
@@ -170,6 +170,12 @@ class SermonspeakerControllerSermon extends JControllerForm
 		foreach ($files as $file)
 		{
 			$filename = JFile::stripExt(basename($validData[$file]));
+
+			// Remove query part (eg for YouTube URLs
+			if ($pos = strpos($filename, '?'))
+			{
+				$filename = substr($filename, 0, $pos);
+			}
 
 			if ($filename != JApplicationHelper::stringURLSafe($filename))
 			{
