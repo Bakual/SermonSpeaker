@@ -25,7 +25,6 @@ JLoader::register('SermonspeakerHelper', JPATH_COMPONENT_ADMINISTRATOR . '/helpe
 // Load Composer Autoloader
 require_once (JPATH_COMPONENT_ADMINISTRATOR . '/vendor/autoload.php');
 
-JHtml::_('behavior.tabstate');
 JHtml::_('stylesheet', 'administrator/components/com_sermonspeaker/sermonspeaker.css');
 
 $controller = JControllerLegacy::getInstance('Sermonspeaker');

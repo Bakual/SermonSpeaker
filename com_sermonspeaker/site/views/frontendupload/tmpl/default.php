@@ -19,7 +19,6 @@ use Joomla\CMS\Uri\Uri;
 HTMLHelper::_('stylesheet', 'com_sermonspeaker/frontendupload.css', array('relative' => true));
 HTMLHelper::_('behavior.formvalidator');
 HTMLHelper::_('behavior.keepalive');
-HTMLHelper::_('behavior.tabstate');
 HTMLHelper::_('behavior.calendar');
 HTMLHelper::_('behavior.modal');
 HTMLHelper::_('bootstrap.tooltip');
