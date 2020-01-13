@@ -82,7 +82,7 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 		// Storing old release number for process in postflight
 		if (strtolower($type) == 'update')
 		{
-			$manifest         = $this->getItemArray('manifest_cache', '#__extensions', 'element', Factory::getDbo()->quote($this->extension));
+			$manifest         = $this->getItemArray('manifest_cache', '#__extensions', 'element', $this->extension);
 			$this->oldRelease = $manifest['version'];
 
 			// Check if update is allowed (only update from 5.6.0 and higher)
