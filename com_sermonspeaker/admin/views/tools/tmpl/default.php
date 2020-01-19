@@ -44,7 +44,7 @@ $user    = Factory::getUser();
                        title="<?php echo Text::_('COM_SERMONSPEAKER_TOOLS_TIME_DESC'); ?>"
                     >
                         <div class="card-body">
-                            <span class="fa fa-clock-o fa-4x"></span>
+                            <span class="fa fa-clock fa-4x"></span>
                             <h3 class="card-title"><?php echo Text::_('COM_SERMONSPEAKER_TOOLS_TIME'); ?></h3>
                         </div>
                     </a>
@@ -101,7 +101,7 @@ $user    = Factory::getUser();
                         >
                             <div class="card-body">
                                 <span class="fa-stack fa-2x">
-                                    <span class="fa fa-file-o fa-stack-2x"></span>
+                                    <span class="fa fa-file fa-stack-2x"></span>
                                     <span class="fa fa-arrow-left fa-stack-1x"></span>
                                 </span>
                                 <h3 class="card-title"><?php echo Text::_('COM_SERMONSPEAKER_TOOLS_IMPORT'); ?></h3>
@@ -115,7 +115,7 @@ $user    = Factory::getUser();
                         >
                             <div class="card-body">
                                 <span class="fa-stack fa-2x">
-                                    <span class="fa fa-file-o fa-stack-2x"></span>
+                                    <span class="fa fa-file fa-stack-2x"></span>
                                     <span class="fa fa-arrow-left fa-stack-1x"></span>
                                 </span>
                                 <h3 class="card-title"><?php echo Text::_('COM_SERMONSPEAKER_TOOLS_IMPORT_BS'); ?></h3>
@@ -124,7 +124,7 @@ $user    = Factory::getUser();
 					<?php endif; ?>
                     <a class="card text-center" href="index.php?option=com_sermonspeaker&view=statistics&format=raw">
                         <div class="card-body">
-                            <span class="fa fa-bar-chart fa-4x"></span>
+                            <span class="fa fa-chart-bar fa-4x"></span>
                             <h3 class="card-title"><?php echo Text::_('COM_SERMONSPEAKER_STATISTICS_TITLE'); ?></h3>
                         </div>
                     </a>
