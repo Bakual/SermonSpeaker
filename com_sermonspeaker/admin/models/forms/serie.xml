@@ -8,7 +8,8 @@
 			required="true" />
 
 		<field name="alias" type="text"
-			label="JFIELD_ALIAS_LABEL" description="JFIELD_ALIAS_DESC"
+			label="JFIELD_ALIAS_LABEL"
+			hint="JFIELD_ALIAS_PLACEHOLDER"
 			size="40" />
 
 		<field name="version_note"
