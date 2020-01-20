@@ -333,7 +333,7 @@ class SermonspeakerHelperSermonspeaker
 				{
 					case 0:
 						$pic    = '<span class="fa fa-play hasTooltip" title="' . Text::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER') . '"></span>';
-						$return .= HtmlHelper:link(Route::_(SermonspeakerHelperRoute::getSermonRoute($item->slug, $item->catid, $item->language)), $pic) . ' ';
+						$return .= HtmlHelper::link(Route::_(SermonspeakerHelperRoute::getSermonRoute($item->slug, $item->catid, $item->language)), $pic) . ' ';
 						break;
 					case 1:
 						if (!$item->audiofile && !$item->videofile)
