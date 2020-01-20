@@ -7,6 +7,11 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
+use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Toolbar\Toolbar;
+use Joomla\CMS\Toolbar\ToolbarHelper;
+
 defined('_JEXEC') or die;
 
 /**
@@ -121,10 +126,10 @@ class SermonspeakerViewSermon extends JViewLegacy
 		}';
 
 		// Add Javascript for ID3 Lookup (ajax)
-		JText::script('COM_SERMONSPEAKER_ID3_NO_MATCH_FOUND');
-		JText::script('COM_SERMONSPEAKER_SERIE');
-		JText::script('COM_SERMONSPEAKER_SPEAKER');
-		JText::script('NOTICE');
+		Text::script('COM_SERMONSPEAKER_ID3_NO_MATCH_FOUND');
+		Text::script('COM_SERMONSPEAKER_SERIE');
+		Text::script('COM_SERMONSPEAKER_SPEAKER');
+		Text::script('NOTICE');
 		$lookup = 'function lookup(elem) {
 			xmlhttp = new XMLHttpRequest();
 			xmlhttp.onreadystatechange=function(){
@@ -179,12 +184,12 @@ class SermonspeakerViewSermon extends JViewLegacy
 						if(data.not_found){
 							var notice = new Array();
 							if (data.not_found.series){
-								notice.push(Joomla.JText._("COM_SERMONSPEAKER_SERIE") + ": " + data.not_found.series);
+								notice.push(Joomla.Text._("COM_SERMONSPEAKER_SERIE") + ": " + data.not_found.series);
 							}
 							if (data.not_found.speakers){
-								notice.push(Joomla.JText._("COM_SERMONSPEAKER_SPEAKER") + ": " + data.not_found.speakers);
+								notice.push(Joomla.Text._("COM_SERMONSPEAKER_SPEAKER") + ": " + data.not_found.speakers);
 							}
-							notice.push(Joomla.JText._("COM_SERMONSPEAKER_ID3_NO_MATCH_FOUND"));
+							notice.push(Joomla.Text._("COM_SERMONSPEAKER_ID3_NO_MATCH_FOUND"));
 							var messages = {"notice":notice};
 							Joomla.renderMessages(messages);
 						}
@@ -200,7 +205,7 @@ class SermonspeakerViewSermon extends JViewLegacy
 
 		$this->params = JComponentHelper::getParams('com_sermonspeaker');
 
-		$document = JFactory::getDocument();
+		$document = Factory::getDocument();
 		$document->addScriptDeclaration($enElem);
 		$document->addScriptDeclaration($toggle);
 		$document->addScriptDeclaration($lookup);
@@ -355,7 +360,7 @@ class SermonspeakerViewSermon extends JViewLegacy
 		{
 			$changelang = "function changelang(language) {
 					if(!language || language == '*'){
-						language = '" . JFactory::getLanguage()->getTag() . "'
+						language = '" . Factory::getLanguage()->getTag() . "'
 					}";
 
 			if (!$this->s3audio)
@@ -370,7 +375,7 @@ class SermonspeakerViewSermon extends JViewLegacy
 
 			$changelang .= "document.id('addfilepathlang').innerHTML = language+'/';
 				}";
-			$lang              = ($this->item->language && $this->item->language == '*') ? $this->item->language : JFactory::getLanguage()->getTag();
+			$lang              = ($this->item->language && $this->item->language == '*') ? $this->item->language : Factory::getLanguage()->getTag();
 			$this->append_lang = $lang . '/';
 		}
 		else
@@ -382,20 +387,20 @@ class SermonspeakerViewSermon extends JViewLegacy
 		$document->addScriptDeclaration($changelang);
 
 		// Add javascript validation script
-		JText::script('COM_SERMONSPEAKER_JS_CHECK_KEYWORDS', false, true);
-		JText::script('COM_SERMONSPEAKER_JS_CHECK_CHARS', false, true);
+		Text::script('COM_SERMONSPEAKER_JS_CHECK_KEYWORDS', false, true);
+		Text::script('COM_SERMONSPEAKER_JS_CHECK_CHARS', false, true);
 		$valscript = 'function check(string, count, mode){
 					if(mode){
 						split = string.split(",");
 						if(split.length > count){
-							message = Joomla.JText._("COM_SERMONSPEAKER_JS_CHECK_KEYWORDS");
+							message = Joomla.Text._("COM_SERMONSPEAKER_JS_CHECK_KEYWORDS");
 							message = message.replace("{0}", split.length);
 							message = message.replace("{1}", count);
 							alert(message);
 						}
 					}else{
 						if(string.length > count){
-							message = Joomla.JText._("COM_SERMONSPEAKER_JS_CHECK_CHARS");
+							message = Joomla.Text._("COM_SERMONSPEAKER_JS_CHECK_CHARS");
 							message = message.replace("{0}", string.length);
 							message = message.replace("{1}", count);
 							alert(message);
@@ -411,7 +416,7 @@ class SermonspeakerViewSermon extends JViewLegacy
 		}
 
 		// If we are forcing a language in modal (used for associations).
-		if ($this->getLayout() === 'modal' && $forcedLanguage = JFactory::getApplication()->input->get('forcedLanguage', '', 'cmd'))
+		if ($this->getLayout() === 'modal' && $forcedLanguage = Factory::getApplication()->input->get('forcedLanguage', '', 'cmd'))
 		{
 			// Set the language field to the forcedLanguage and disable changing it.
 			$this->form->setValue('language', null, $forcedLanguage);
@@ -469,15 +474,17 @@ class SermonspeakerViewSermon extends JViewLegacy
 	 */
 	protected function addToolbar()
 	{
-		JFactory::getApplication()->input->set('hidemainmenu', true);
-		$user       = JFactory::getUser();
+		Factory::getApplication()->input->set('hidemainmenu', true);
+		$user       = Factory::getUser();
 		$isNew      = ($this->item->id == 0);
 		$checkedOut = !($this->item->checked_out == 0 || $this->item->checked_out == $user->id);
 		$canDo      = SermonspeakerHelper::getActions();
-		JToolbarHelper::title(
-			JText::sprintf('COM_SERMONSPEAKER_PAGE_' . ($checkedOut ? 'VIEW' : ($isNew ? 'ADD' : 'EDIT')),
-				JText::_('COM_SERMONSPEAKER_SERMONS_TITLE'), JText::_('COM_SERMONSPEAKER_SERMON')
-			), 'pencil-2 sermons'
+		$toolbar    = Toolbar::getInstance();
+
+		ToolbarHelper::title(
+			Text::sprintf('COM_SERMONSPEAKER_PAGE_' . ($checkedOut ? 'VIEW' : ($isNew ? 'ADD' : 'EDIT')),
+				Text::_('COM_SERMONSPEAKER_SERMONS_TITLE')),
+			'pencil-2 sermons'
 		);
 
 		// Build the actions for new and existing records.
@@ -486,12 +493,18 @@ class SermonspeakerViewSermon extends JViewLegacy
 			// For new records, check the create permission.
 			if ($canDo->get('core.create'))
 			{
-				JToolbarHelper::apply('sermon.apply');
-				JToolbarHelper::save('sermon.save');
-				JToolbarHelper::save2new('sermon.save2new');
-			}
+				$toolbar->apply('sermon.apply');
 
-			JToolbarHelper::cancel('sermon.cancel');
+				$saveGroup = $toolbar->dropdownButton('save-group');
+
+				$saveGroup->configure(
+					function (Toolbar $childBar)
+					{
+						$childBar->save('sermon.save');
+						$childBar->save2new('sermon.save2new');
+					}
+				);
+			}
 		}
 		else
 		{
@@ -517,13 +530,13 @@ class SermonspeakerViewSermon extends JViewLegacy
 			{
 				JToolbarHelper::save2copy('sermon.save2copy');
 			}
-
-			JToolbarHelper::cancel('sermon.cancel', 'JTOOLBAR_CLOSE');
 		}
 
 		if ($this->state->params->get('save_history') && $user->authorise('core.edit'))
 		{
 			JToolbarHelper::versions('com_sermonspeaker.sermon', $this->item->id);
 		}
+
+		$toolbar->cancel('sermon.cancel', 'JTOOLBAR_CLOSE');
 	}
 }
