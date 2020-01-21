@@ -42,13 +42,18 @@ $tmpl    = $isModal || $jinput->get('tmpl', '', 'cmd') === 'component' ? '&tmpl=
 
 		<?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'general', Text::_('JGLOBAL_FIELDSET_CONTENT', true)); ?>
 			<div class="row">
-				<div class="col-lg-9">
-					<fieldset class="adminform">
-						<?php echo $this->form->getInput('series_description'); ?>
-					</fieldset>
+				<div class="col-12 col-lg-9">
+					<div class="card">
+						<div class="card-body">
+							<fieldset class="adminform">
+								<?php echo $this->form->getLabel('series_description'); ?>
+								<?php echo $this->form->getInput('series_description'); ?>
+							</fieldset>
+						</div>
+					</div>
 				</div>
-				<div class="col-lg-3">
-					<div class="card card-body card-light">
+				<div class="col-12 col-lg-3">
+					<div class="bg-white px-3">
 						<?php echo LayoutHelper::render('joomla.edit.global', $this); ?>
 					</div>
 				</div>
@@ -56,20 +61,35 @@ $tmpl    = $isModal || $jinput->get('tmpl', '', 'cmd') === 'component' ? '&tmpl=
 		<?php echo HTMLHelper::_('uitab.endTab'); ?>
 
 		<?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'details', Text::_('JDETAILS', true)); ?>
-			<?php foreach($this->form->getFieldset('detail') as $field): ?>
-				<?php echo $field->renderField(); ?>
-			<?php endforeach; ?>
+			<div class="col-12 col-lg-6">
+				<fieldset id="fieldset-detail" class="options-form">
+					<legend><?php echo Text::_('COM_SERMONSPEAKER_DETAIL'); ?></legend>
+					<?php foreach($this->form->getFieldset('detail') as $field): ?>
+						<?php echo $field->renderField(); ?>
+					<?php endforeach; ?>
+				</fieldset>
+			</div>
 		<?php echo HTMLHelper::_('uitab.endTab'); ?>
 
 		<?php echo LayoutHelper::render('joomla.edit.params', $this); ?>
 
 		<?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'publishing', Text::_('JGLOBAL_FIELDSET_PUBLISHING', true)); ?>
 			<div class="row">
-				<div class="col-lg-6">
-					<?php echo LayoutHelper::render('joomla.edit.publishingdata', $this); ?>
+				<div class="col-12 col-lg-6">
+					<fieldset id="fieldset-publishingdata" class="options-form">
+						<legend><?php echo Text::_('JGLOBAL_FIELDSET_PUBLISHING'); ?></legend>
+						<div>
+							<?php echo LayoutHelper::render('joomla.edit.publishingdata', $this); ?>
+						</div>
+					</fieldset>
 				</div>
-				<div class="col-lg-6">
-					<?php echo LayoutHelper::render('joomla.edit.metadata', $this); ?>
+				<div class="col-12 col-lg-6">
+					<fieldset id="fieldset-metadata" class="options-form">
+						<legend><?php echo Text::_('JGLOBAL_FIELDSET_METADATA_OPTIONS'); ?></legend>
+						<div>
+							<?php echo LayoutHelper::render('joomla.edit.metadata', $this); ?>
+						</div>
+					</fieldset>
 				</div>
 			</div>
 		<?php echo HTMLHelper::_('uitab.endTab'); ?>

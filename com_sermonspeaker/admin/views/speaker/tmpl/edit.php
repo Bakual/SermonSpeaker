@@ -42,14 +42,18 @@ $tmpl    = $isModal || $jinput->get('tmpl', '', 'cmd') === 'component' ? '&tmpl=
 
 		<?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'general', Text::_('COM_SERMONSPEAKER_FIELD_BIO_LABEL', true)); ?>
 			<div class="row">
-				<div class="col-lg-9">
-					<fieldset class="adminform form-no-margin">
-						<?php echo $this->form->renderField('intro'); ?>
-						<?php echo $this->form->renderField('bio'); ?>
+				<div class="col-12 col-lg-9">
+					<fieldset class="options-form">
+						<legend><?php echo Text::_('COM_SERMONSPEAKER_FIELD_INTRO_LABEL'); ?></legend>
+						<?php echo $this->form->getInput('intro'); ?>
+					</fieldset>
+					<fieldset class="options-form">
+						<legend><?php echo Text::_('COM_SERMONSPEAKER_FIELD_BIO_LABEL'); ?></legend>
+						<?php echo $this->form->getInput('bio'); ?>
 					</fieldset>
 				</div>
-				<div class="col-lg-3">
-					<div class="card card-body card-light">
+				<div class="col-12 col-lg-3">
+					<div class="bg-white px-3">
 						<?php echo LayoutHelper::render('joomla.edit.global', $this); ?>
 					</div>
 				</div>
@@ -57,20 +61,35 @@ $tmpl    = $isModal || $jinput->get('tmpl', '', 'cmd') === 'component' ? '&tmpl=
 		<?php echo HTMLHelper::_('uitab.endTab'); ?>
 
 		<?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'details', Text::_('JDETAILS', true)); ?>
-			<?php foreach($this->form->getFieldset('detail') as $field): ?>
-				<?php echo $field->renderField(); ?>
-			<?php endforeach; ?>
+			<div class="col-12 col-lg-6">
+				<fieldset id="fieldset-detail" class="options-form">
+					<legend><?php echo Text::_('COM_SERMONSPEAKER_DETAIL'); ?></legend>
+					<?php foreach($this->form->getFieldset('detail') as $field): ?>
+						<?php echo $field->renderField(); ?>
+					<?php endforeach; ?>
+				</fieldset>
+			</div>
 		<?php echo HTMLHelper::_('uitab.endTab'); ?>
 
 		<?php echo LayoutHelper::render('joomla.edit.params', $this); ?>
 
 		<?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'publishing', Text::_('JGLOBAL_FIELDSET_PUBLISHING', true)); ?>
-			<div class="row form-horizontal-desktop">
-				<div class="col-lg-6">
-					<?php echo LayoutHelper::render('joomla.edit.publishingdata', $this); ?>
+			<div class="row">
+				<div class="col-12 col-lg-6">
+					<fieldset id="fieldset-publishingdata" class="options-form">
+						<legend><?php echo Text::_('JGLOBAL_FIELDSET_PUBLISHING'); ?></legend>
+						<div>
+							<?php echo LayoutHelper::render('joomla.edit.publishingdata', $this); ?>
+						</div>
+					</fieldset>
 				</div>
-				<div class="col-lg-6">
-					<?php echo LayoutHelper::render('joomla.edit.metadata', $this); ?>
+				<div class="col-12 col-lg-6">
+					<fieldset id="fieldset-metadata" class="options-form">
+						<legend><?php echo Text::_('JGLOBAL_FIELDSET_METADATA_OPTIONS'); ?></legend>
+						<div>
+							<?php echo LayoutHelper::render('joomla.edit.metadata', $this); ?>
+						</div>
+					</fieldset>
 				</div>
 			</div>
 		<?php echo HTMLHelper::_('uitab.endTab'); ?>

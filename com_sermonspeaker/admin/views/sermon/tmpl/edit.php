@@ -38,75 +38,75 @@ $tmpl   = $jinput->getCmd('tmpl') === 'component' ? '&tmpl=component' : '';
 		<?php echo HTMLHelper::_('uitab.startTabSet', 'myTab', array('active' => 'general')); ?>
 
 		<?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'general', Text::_('COM_SERMONSPEAKER_FIELD_NOTES_LABEL', true)); ?>
-		<div class="row">
-			<div class="col-lg-9">
-				<div class="card">
-					<div class="card-body">
-						<fieldset class="adminform">
-							<?php echo $this->form->getLabel('notes'); ?>
-							<?php echo $this->form->getInput('notes'); ?>
-						</fieldset>
+			<div class="row">
+				<div class="col-12 col-lg-9">
+					<div class="card">
+						<div class="card-body">
+							<fieldset class="adminform">
+								<?php echo $this->form->getLabel('notes'); ?>
+								<?php echo $this->form->getInput('notes'); ?>
+							</fieldset>
+						</div>
+					</div>
+				</div>
+				<div class="col-12 col-lg-3">
+					<div class="bg-white px-3">
+						<?php $this->fields = array('state', 'catid', 'podcast', 'language', 'tags', 'version_note'); ?>
+						<?php echo LayoutHelper::render('joomla.edit.global', $this); ?>
+						<?php unset($this->fields); ?>
 					</div>
 				</div>
 			</div>
-			<div class="col-lg-3">
-				<div class="bg-white px-3">
-					<?php $this->fields = array('state', 'catid', 'podcast', 'language', 'tags', 'version_note'); ?>
-					<?php echo LayoutHelper::render('joomla.edit.global', $this); ?>
-					<?php unset($this->fields); ?>
-				</div>
-			</div>
-		</div>
 		<?php echo HTMLHelper::_('uitab.endTab'); ?>
 
 		<?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'files', Text::_('COM_SERMONSPEAKER_TAB_FILES_DETAILS')); ?>
-		<div class="row">
-			<div class="col-12 col-lg-6">
-				<div id="upload_limit" class="alert alert-info">
-					<?php echo Text::sprintf('COM_SERMONSPEAKER_UPLOAD_LIMIT', $this->upload_limit); ?>
-				</div>
+			<div class="row">
+				<div class="col-12 col-lg-6">
+					<div id="upload_limit" class="alert alert-info">
+						<?php echo Text::sprintf('COM_SERMONSPEAKER_UPLOAD_LIMIT', $this->upload_limit); ?>
+					</div>
 
-				<?php foreach (['audiofile', 'videofile', 'addfile'] as $fieldset) : ?>
-					<?php $fields = $this->form->getFieldset($fieldset); ?>
-					<fieldset id="<?php echo $fieldset; ?>_drop" class="options-form">
-						<legend><?php echo Text::_($this->form->getFieldsets()[$fieldset]->label); ?></legend>
-						<div>
-							<?php $fileFieldName = array_shift($fields)->fieldname; ?>
+					<?php foreach (['audiofile', 'videofile', 'addfile'] as $fieldset) : ?>
+						<?php $fields = $this->form->getFieldset($fieldset); ?>
+						<fieldset id="<?php echo $fieldset; ?>_drop" class="options-form">
+							<legend><?php echo Text::_($this->form->getFieldsets()[$fieldset]->label); ?></legend>
+							<div>
+								<?php $fileFieldName = array_shift($fields)->fieldname; ?>
 
-							<div class="control-group">
-								<div class="control-label">
-									<?php echo $this->form->getLabel($fileFieldName); ?>
-								</div>
-								<div class="controls">
-									<?php echo $this->form->getInput($fileFieldName); ?>
-									<div id="audiopathinfo" class="badge badge-info hasTooltip" title="<?php echo HTMLHelper::tooltipText(Text::_('COM_SERMONSPEAKER_UPLOADINFO_TOOLTIP'), '', 0); ?>">
-										<?php echo Text::_('COM_SERMONSPEAKER_UPLOADINFO');
-										if ($this->s3audio) :
-											echo ' https://' . $this->domain . '/';
-										else :
-											echo ' /' . trim($this->params->get('path_audio'), '/') . '/';
-										endif;
-										echo '<span id="audiopathdate" class="pathdate">' . $this->append_date . '</span><span id="audiopathlang" class="pathlang">' . $this->append_lang . '</span>'; ?>
+								<div class="control-group">
+									<div class="control-label">
+										<?php echo $this->form->getLabel($fileFieldName); ?>
+									</div>
+									<div class="controls">
+										<?php echo $this->form->getInput($fileFieldName); ?>
+										<div id="audiopathinfo" class="badge badge-info hasTooltip" title="<?php echo HTMLHelper::tooltipText(Text::_('COM_SERMONSPEAKER_UPLOADINFO_TOOLTIP'), '', 0); ?>">
+											<?php echo Text::_('COM_SERMONSPEAKER_UPLOADINFO');
+											if ($this->s3audio) :
+												echo ' https://' . $this->domain . '/';
+											else :
+												echo ' /' . trim($this->params->get('path_audio'), '/') . '/';
+											endif;
+											echo '<span id="audiopathdate" class="pathdate">' . $this->append_date . '</span><span id="audiopathlang" class="pathlang">' . $this->append_lang . '</span>'; ?>
+										</div>
 									</div>
 								</div>
-							</div>
 
-							<?php foreach ($fields as $field) : ?>
-								<?php echo $this->form->renderField($field->fieldname); ?>
-							<?php endforeach; ?>
+								<?php foreach ($fields as $field) : ?>
+									<?php echo $this->form->renderField($field->fieldname); ?>
+								<?php endforeach; ?>
+							</div>
+						</fieldset>
+					<?php endforeach; ?>
+				</div>
+				<div class="col-12 col-lg-6">
+					<fieldset id="fieldset-detail" class="options-form">
+						<legend><?php echo Text::_('COM_SERMONSPEAKER_DETAIL'); ?></legend>
+						<div>
+							<?php echo $this->form->renderFieldset('detail'); ?>
 						</div>
 					</fieldset>
-				<?php endforeach; ?>
+				</div>
 			</div>
-			<div class="col-12 col-lg-6">
-				<fieldset id="fieldset-detail" class="options-form">
-					<legend><?php echo Text::_('COM_SERMONSPEAKER_DETAIL'); ?></legend>
-					<div>
-						<?php echo $this->form->renderFieldset('detail'); ?>
-					</div>
-				</fieldset>
-			</div>
-		</div>
 		<?php echo HTMLHelper::_('uitab.endTab'); ?>
 
 		<?php echo LayoutHelper::render('joomla.edit.params', $this); ?>
