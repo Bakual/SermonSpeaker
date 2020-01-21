@@ -14,15 +14,16 @@ defined('_JEXEC') or die();
  *
  * @since  5.1.3
  */
-class SermonspeakerRouter extends JComponentRouterBase
+class SermonspeakerRouter extends \Joomla\CMS\Component\Router\RouterBase
 {
 	/**
 	 * Build the route for the com_sermonspeaker component
 	 *
-	 * @param   array &$query An array of URL arguments
+	 * @param array &$query An array of URL arguments
 	 *
 	 * @return  array  The URL arguments to use to assemble the subsequent URL.
 	 *
+	 * @throws Exception
 	 * @since   5.1.2
 	 */
 	public function build(&$query)
@@ -58,7 +59,7 @@ class SermonspeakerRouter extends JComponentRouterBase
 			}
 			elseif (isset($query['catid']))
 			{
-				$menuCatid = ($menuItem) ? $menuItem->params->get('catid') : null;
+				$menuCatid = ($menuItem) ? $menuItem->getParams()->get('catid') : null;
 
 				if ($menuView == $view && $menuCatid == (int) $query['catid'])
 				{
@@ -184,38 +185,47 @@ class SermonspeakerRouter extends JComponentRouterBase
 		switch ($segments[0])
 		{
 			case 'series':
+				unset($segments[0]);
 				$vars['view'] = 'series';
 				break;
 			case 'serie':
+				unset($segments[0]);
 				$vars['view'] = 'serie';
 				$id           = explode(':', $segments[1]);
 				$vars['id']   = (int) $id[0];
+				unset($segments[1]);
 
 				if (isset($segments[2]) && $segments[2])
 				{
 					$vars['year'] = (int) $segments[2];
+					unset($segments[2]);
 				}
 
 				if (isset($segments[3]) && $segments[3])
 				{
 					$vars['month'] = (int) $segments[3];
+					unset($segments[3]);
 				}
 				break;
 			case 'sermons':
+				unset($segments[0]);
 				$vars['view'] = 'sermons';
 
 				if (isset($segments[1]) && $segments[1] == 'archive')
 				{
 					$vars['state'] = 2;
+					unset($segments[1]);
 
 					if (isset($segments[2]) && $segments[2])
 					{
 						$vars['year'] = (int) $segments[2];
+						unset($segments[2]);
 					}
 
 					if (isset($segments[3]) && $segments[3])
 					{
 						$vars['month'] = (int) $segments[3];
+						unset($segments[3]);
 					}
 				}
 				else
@@ -223,49 +233,60 @@ class SermonspeakerRouter extends JComponentRouterBase
 					if (isset($segments[1]) && $segments[1])
 					{
 						$vars['year'] = (int) $segments[1];
+						unset($segments[1]);
 					}
 
 					if (isset($segments[2]) && $segments[2])
 					{
 						$vars['month'] = (int) $segments[2];
+						unset($segments[2]);
 					}
 				}
 
 				break;
 			case 'sermon':
+				unset($segments[0]);
 				$vars['view'] = 'sermon';
-				$id           = explode(':', $segments[1]);
+				$id           = explode('-', $segments[1]);
 				$vars['id']   = (int) $id[0];
+				unset($segments[1]);
 
 				if (isset($segments[2]))
 				{
 					$vars['layout'] = $segments[2];
+					unset($segments[2]);
 				}
 
 				break;
 			case 'speakers':
+				unset($segments[0]);
 				$vars['view'] = 'speakers';
 				break;
 			case 'speaker':
+				unset($segments[0]);
 				$vars['view'] = 'speaker';
 				$id           = explode(':', $segments[1]);
 				$vars['id']   = (int) $id[0];
+				unset($segments[1]);
 
 				if (isset($segments[2]) && is_numeric($segments[2]))
 				{
 					if ($segments[2])
 					{
 						$vars['year'] = (int) $segments[2];
+						unset($segments[2]);
 					}
 
 					if (isset($segments[3]) && $segments[3])
 					{
 						$vars['month'] = (int) $segments[3];
+						unset($segments[3]);
 					}
 
 					if (isset($segments[4]))
 					{
 						$vars['layout'] = $segments[4];
+						unset($segments[4]);
 					}
 				}
 				else
@@ -273,59 +294,78 @@ class SermonspeakerRouter extends JComponentRouterBase
 					if (isset($segments[2]))
 					{
 						$vars['layout'] = $segments[2];
+						unset($segments[2]);
 					}
 				}
 				break;
 			case 'frontendupload':
+				unset($segments[0]);
 				$vars['view'] = 'frontendupload';
 				break;
 			case 'serieform':
+				unset($segments[0]);
 				$vars['view'] = 'serieform';
 				break;
 			case 'speakerform':
+				unset($segments[0]);
 				$vars['view'] = 'speakerform';
 				break;
 			case 'feed':
+				unset($segments[0]);
 				$vars['view']   = 'feed';
 				$vars['format'] = 'raw';
 				break;
 			case 'sitemap':
+				unset($segments[0]);
 				$vars['view']   = 'sitemap';
 				$vars['format'] = 'raw';
 				break;
 			case 'serie_download':
+				unset($segments[0]);
 				$vars['task'] = 'serie.download';
 				$id           = explode(':', $segments[1]);
 				$vars['id']   = (int) $id[0];
+				unset($segments[1]);
 				break;
 			case 'download':
+				unset($segments[0]);
 				$vars['task'] = 'download';
 				$vars['type'] = $segments[1];
 				$id           = explode(':', $segments[2]);
 				$vars['id']   = (int) $id[0];
+				unset($segments[1]);
+				unset($segments[2]);
 				break;
 			case 'frontendupload_edit':
+				unset($segments[0]);
 				$vars['task'] = 'frontendupload.edit';
 				break;
 			case 'frontendupload_add':
+				unset($segments[0]);
 				$vars['task'] = 'frontendupload.add';
 				break;
 			case 'serieform_edit':
+				unset($segments[0]);
 				$vars['task'] = 'serieform.edit';
 				break;
 			case 'serieform_add':
+				unset($segments[0]);
 				$vars['task'] = 'serieform.add';
 				break;
 			case 'speakerform_edit':
+				unset($segments[0]);
 				$vars['task'] = 'speakerform.edit';
 				break;
 			case 'speakerform_add':
+				unset($segments[0]);
 				$vars['task'] = 'speakerform.add';
 				break;
 			case 'scripture':
+				unset($segments[0]);
 				$vars['view'] = 'scripture';
 				break;
 			case 'close':
+				unset($segments[0]);
 				$vars['view'] = 'close';
 				break;
 		}
