@@ -75,6 +75,7 @@ class SermonspeakerViewSpeaker extends JViewLegacy
 		$isNew      = ($this->item->id == 0);
 		$checkedOut = !($this->item->checked_out == 0 || $this->item->checked_out == $user->id);
 		$canDo      = SermonspeakerHelper::getActions();
+		$toolbar    = Toolbar::getInstance();
 
 		ToolbarHelper::title(
 			Text::sprintf('COM_SERMONSPEAKER_PAGE_' . ($checkedOut ? 'VIEW' : ($isNew ? 'ADD' : 'EDIT')),
