@@ -9,19 +9,24 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Factory;
+use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Associations;
+use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
 
 // Include the component HTML helpers.
-JHtml::addIncludePath(JPATH_COMPONENT.'/helpers/html');
+HTMLHelper::addIncludePath(JPATH_COMPONENT.'/helpers/html');
 
-JHtml::_('behavior.formvalidator');
-JHtml::_('behavior.keepalive');
-JHtml::_('formbehavior.chosen', '#jform_catid', null, array('disable_search_threshold' => 0 ));
+HTMLHelper::_('behavior.formvalidator');
+HTMLHelper::_('behavior.keepalive');
+
+HTMLHelper::_('script', 'com_contenthistory/admin-history-versions.js', ['version' => 'auto', 'relative' => true]);
 
 $this->ignore_fieldsets = array('general', 'info', 'detail', 'jmetadata', 'item_associations');
+$this->useCoreUI = true;
 
-$jinput = JFactory::getApplication()->input;
+$jinput = Factory::getApplication()->input;
 
 // In case of modal
 $isModal = $jinput->get('layout') == 'modal' ? true : false;
@@ -33,56 +38,56 @@ $tmpl    = $isModal || $jinput->get('tmpl', '', 'cmd') === 'component' ? '&tmpl=
 	<?php echo LayoutHelper::render('joomla.edit.title_alias', $this); ?>
 
 	<div>
-		<?php echo JHtml::_('bootstrap.startTabSet', 'myTab', array('active' => 'general')); ?>
+		<?php echo HTMLHelper::_('uitab.startTabSet', 'myTab', array('active' => 'general')); ?>
 
-		<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'general', JText::_('COM_SERMONSPEAKER_FIELD_BIO_LABEL', true)); ?>
+		<?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'general', Text::_('COM_SERMONSPEAKER_FIELD_BIO_LABEL', true)); ?>
 			<div class="row">
-				<div class="col-md-9">
+				<div class="col-lg-9">
 					<fieldset class="adminform form-no-margin">
 						<?php echo $this->form->renderField('intro'); ?>
 						<?php echo $this->form->renderField('bio'); ?>
 					</fieldset>
 				</div>
-				<div class="col-md-3">
+				<div class="col-lg-3">
 					<div class="card card-body card-light">
 						<?php echo LayoutHelper::render('joomla.edit.global', $this); ?>
 					</div>
 				</div>
 			</div>
-		<?php echo JHtml::_('bootstrap.endTab'); ?>
+		<?php echo HTMLHelper::_('uitab.endTab'); ?>
 
-		<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'details', JText::_('JDETAILS', true)); ?>
+		<?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'details', Text::_('JDETAILS', true)); ?>
 			<?php foreach($this->form->getFieldset('detail') as $field): ?>
 				<?php echo $field->renderField(); ?>
 			<?php endforeach; ?>
-		<?php echo JHtml::_('bootstrap.endTab'); ?>
+		<?php echo HTMLHelper::_('uitab.endTab'); ?>
 
 		<?php echo LayoutHelper::render('joomla.edit.params', $this); ?>
 
-		<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'publishing', JText::_('JGLOBAL_FIELDSET_PUBLISHING', true)); ?>
+		<?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'publishing', Text::_('JGLOBAL_FIELDSET_PUBLISHING', true)); ?>
 			<div class="row form-horizontal-desktop">
-				<div class="col-md-6">
+				<div class="col-lg-6">
 					<?php echo LayoutHelper::render('joomla.edit.publishingdata', $this); ?>
 				</div>
-				<div class="col-md-6">
+				<div class="col-lg-6">
 					<?php echo LayoutHelper::render('joomla.edit.metadata', $this); ?>
 				</div>
 			</div>
-		<?php echo JHtml::_('bootstrap.endTab'); ?>
+		<?php echo HTMLHelper::_('uitab.endTab'); ?>
 
 		<?php if (Associations::isEnabled()) : ?>
 			<?php if (!$isModal) : ?>
-				<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'associations', JText::_('JGLOBAL_FIELDSET_ASSOCIATIONS', true)); ?>
+				<?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'associations', Text::_('JGLOBAL_FIELDSET_ASSOCIATIONS', true)); ?>
 					<?php echo LayoutHelper::render('joomla.edit.associations', $this); ?>
-				<?php echo JHtml::_('bootstrap.endTab'); ?>
+				<?php echo HTMLHelper::_('uitab.endTab'); ?>
 			<?php else : ?>
 				<div class="hidden"><?php echo LayoutHelper::render('joomla.edit.associations', $this); ?></div>
 			<?php endif; ?>
 		<?php endif; ?>
 
-		<?php echo JHtml::_('bootstrap.endTabSet'); ?>
+		<?php echo HTMLHelper::_('uitab.endTabSet'); ?>
 		<input type="hidden" name="task" value="" />
 		<input type="hidden" name="return" value="<?php echo $jinput->getCmd('return');?>" />
-		<?php echo JHtml::_('form.token'); ?>
+		<?php echo HTMLHelper::_('form.token'); ?>
 	</div>
 </form>
