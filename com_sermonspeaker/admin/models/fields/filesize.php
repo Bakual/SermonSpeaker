@@ -42,7 +42,13 @@ class JFormFieldFilesize extends JFormFieldText
 		require_once(JPATH_COMPONENT_SITE . '/helpers/sermonspeaker.php');
 		$title = SermonspeakerHelperSermonspeaker::convertBytes($this->value, true, false);
 
-		$html .= '<span class="input-group-addon hasTooltip" title="' . $title . '" id="' . $this->id . '_info"><span class="icon-help"></span></span>';
+		$html .= '<span class="input-group-btn" id="' . $this->id . '_info">
+						<button class="btn btn-secondary hasTooltip" 
+							type="button"
+							title="' . $title . '">
+							<span class="icon-help"></span>
+						</button>
+					</span>';
 		$html .= '</div>';
 
 		return $html;

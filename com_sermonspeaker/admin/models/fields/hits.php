@@ -9,8 +9,10 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Language\Text;
+
 jimport('joomla.form.formfield');
-JFormHelper::loadFieldClass('text');
+JFormHelper::loadFieldClass('number');
 
 /**
  * Hits Field class for the SermonSpeaker
@@ -18,7 +20,7 @@ JFormHelper::loadFieldClass('text');
  * @package        SermonSpeaker
  * @since          4.0
  */
-class JFormFieldHits extends JFormFieldText
+class JFormFieldHits extends JFormFieldNumber
 {
 	/**
 	 * The form field type.
@@ -36,14 +38,21 @@ class JFormFieldHits extends JFormFieldText
 	 */
 	protected function getInput()
 	{
-		$onclick = ' onclick="document.id(\'' . $this->id . '\').value=\'0\';"';
-
-		$html = '<div class="input-append">';
+		$html = '<div class="input-group">';
 		$html .= parent::getInput();
+
 		if ($this->value)
 		{
-			$html .= '<i' . $onclick . ' class="btn add-on icon-loop" rel="tooltip" title="' . JText::_('JSEARCH_RESET') . '"> </i>';
+			$html .= '<span class="input-group-btn">
+						<button class="btn btn-secondary hasTooltip" 
+							type="button"
+							onclick="document.getElementById(\'' . $this->id . '\').value=\'0\'"
+							title="' . Text::_('JSEARCH_RESET') . '">
+							<span class="icon-loop"></span>
+						</button>
+					</span>';
 		}
+
 		$html .= '</div>';
 
 		return $html;
