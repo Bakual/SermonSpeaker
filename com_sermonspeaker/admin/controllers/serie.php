@@ -9,6 +9,8 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Router\Route;
+
 /**
  * Serie controller class.
  *
@@ -142,6 +144,45 @@ class SermonspeakerControllerSerie extends JControllerForm
 		$app->redirect('index.php?option=com_sermonspeaker&view=series');
 
 		return;
+	}
+
+	/**
+	 * Function that allows child controller access to model data
+	 * after the data has been saved.
+	 *
+	 * @param JModelLegacy $model     The data model object.
+	 * @param array        $validData The validated data.
+	 *
+	 * @return  void
+	 *
+	 * @throws \Exception
+	 * @since   6.0
+	 */
+	protected function postSaveHook(JModelLegacy $model, $validData = array())
+	{
+		if ($this->getTask() === 'save2menu')
+		{
+			$editState = [];
+
+			$id = $model->getState('serie.id');
+
+			$link = 'index.php?option=com_sermonspeaker&view=serie';
+			$type = 'component';
+
+			$editState['id']            = $id;
+			$editState['link']          = $link;
+			$editState['title']         = $model->getItem($id)->title;
+			$editState['type']          = $type;
+			$editState['request']['id'] = $id;
+
+			$this->app->setUserState('com_menus.edit.item', array(
+					'data' => $editState,
+					'type' => $type,
+					'link' => $link)
+			);
+
+			$this->setRedirect(Route::_('index.php?option=com_menus&view=item&client_id=0&menutype=mainmenu&layout=edit', false));
+		}
 	}
 
 	/**
