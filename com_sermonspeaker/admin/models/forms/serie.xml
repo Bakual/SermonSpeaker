@@ -11,7 +11,7 @@
 		<field name="alias" type="text"
 			label="JFIELD_ALIAS_LABEL"
 			hint="JFIELD_ALIAS_PLACEHOLDER"
-			size="40" />
+			size="40"/>
 
 		<field name="version_note"
 			type="text"
@@ -45,13 +45,13 @@
 		<field name="ordering" type="sermonordering"
 			table="sermon_series" field="title"
 			label="JFIELD_ORDERING_LABEL"
-			description="JFIELD_ORDERING_DESC" />
+			description="JFIELD_ORDERING_DESC"/>
 
 		<field name="series_description" type="editor"
 			label="JGLOBAL_DESCRIPTION"
 			buttons="true"
 			hide="pagebreak,readmore"
-			filter="JComponentHelper::filterText" />
+			filter="JComponentHelper::filterText"/>
 
 		<field
 			name="language"
@@ -88,7 +88,7 @@
 			label="JGLOBAL_FIELD_ID_LABEL"
 			class="readonly"
 			default="0"
-			readonly="true" />
+			readonly="true"/>
 
 		<field name="created_by" type="user"
 			label="JGLOBAL_FIELD_CREATED_BY_LABEL"
@@ -155,7 +155,7 @@
 			size="6"
 			class="readonly"
 			readonly="true"
-			filter="unset" />
+			filter="unset"/>
 	</fieldset>
 
 	<fieldset name="detail">

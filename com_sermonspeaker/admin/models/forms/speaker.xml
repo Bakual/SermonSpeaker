@@ -46,19 +46,19 @@
 		<field name="ordering" type="sermonordering"
 			table="sermon_speakers" field="title"
 			label="JFIELD_ORDERING_LABEL"
-			description="JFIELD_ORDERING_DESC" />
+			description="JFIELD_ORDERING_DESC"/>
 
 		<field name="intro" type="editor"
 			label="COM_SERMONSPEAKER_FIELD_INTRO_LABEL"
 			buttons="true"
 			hide="pagebreak,readmore"
-			filter="JComponentHelper::filterText" />
+			filter="JComponentHelper::filterText"/>
 
 		<field name="bio" type="editor"
 			label="COM_SERMONSPEAKER_FIELD_BIO_LABEL"
 			buttons="true"
 			hide="pagebreak,readmore"
-			filter="JComponentHelper::filterText" />
+			filter="JComponentHelper::filterText"/>
 
 		<field
 			name="language"
@@ -96,7 +96,7 @@
 			label="JGLOBAL_FIELD_ID_LABEL"
 			class="readonly"
 			default="0"
-			readonly="true" />
+			readonly="true"/>
 
 		<field name="created_by"
 			type="user"
