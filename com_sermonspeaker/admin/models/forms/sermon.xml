@@ -5,7 +5,6 @@
 			type="text"
 			label="JGLOBAL_TITLE"
 			onchange="check(this.value, 70, 0)"
-			class="input-xxlarge input-large-text"
 			size="40"
 			required="true"
 		/>
@@ -29,7 +28,6 @@
 		<field name="state"
 			type="list"
 			label="JSTATUS"
-			description="JFIELD_PUBLISHED_DESC"
 			class="custom-select-color-state"
 			filter="intval"
 			size="1"
@@ -41,24 +39,23 @@
 			<option value="-2">JTRASH</option>
 		</field>
 
-		<field name="podcast"
-			type="list"
-			label="COM_SERMONSPEAKER_FIELD_SERMONCAST_LABEL"
-			description="COM_SERMONSPEAKER_FIELD_SERMONCAST_DESC"
-			default="1"
-		>
-			<option value="1">JPUBLISHED</option>
-			<option value="0">JUNPUBLISHED</option>
-		</field>
-
 		<field name="catid"
-			type="categoryedit"
-			label="JCATEGORY"
-			description="JFIELD_CATEGORY_DESC"
-			extension="com_sermonspeaker.sermons"
-			required="true"
-			addfieldprefix="Joomla\Component\Categories\Administrator\Field"
+			   type="categoryedit"
+			   label="JCATEGORY"
+			   addfieldprefix="Joomla\Component\Categories\Administrator\Field"
+			   extension="com_sermonspeaker.sermons"
+			   required="true"
 		/>
+
+		<field name="podcast"
+			   type="radio"
+			   label="COM_SERMONSPEAKER_FIELD_SERMONCAST_LABEL"
+			   class="switcher"
+			   default="1"
+		>
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
+		</field>
 
 		<field name="language"
 			type="contentlanguage"
@@ -69,17 +66,17 @@
 		</field>
 
 		<field name="tags"
-			type="tag"
-			label="JTAG"
-			description="JTAG_DESC"
-			class="advancedSelect col-md-12"
-			multiple="true"
+			   type="tag"
+			   label="JTAG"
+			   multiple="true"
 		/>
 
-		<field name="version_note"
+		<field
+			name="version_note"
 			type="text"
 			label="JGLOBAL_FIELD_VERSION_NOTE_LABEL"
-			description="JGLOBAL_FIELD_VERSION_NOTE_DESC"
+			maxlength="255"
+			size="45"
 		/>
 
 		<field name="ordering"
@@ -92,11 +89,10 @@
 
 	</fieldset>
 
-	<fieldset name="files">
+	<fieldset name="audiofile" label="COM_SERMONSPEAKER_FIELD_AUDIOFILE_LABEL">
 		<field name="audiofile"
 			type="customfilelist"
 			label="COM_SERMONSPEAKER_FIELD_AUDIOFILE_LABEL"
-			description="COM_SERMONSPEAKER_FIELD_AUDIOFILE_DESC"
 			file="audio"
 			class="form-control input-xlarge"
 			hide_default="true"
@@ -109,11 +105,12 @@
 			label="COM_SERMONSPEAKER_FIELD_AUDIOFILESIZE_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_AUDIOFILESIZE_DESC"
 		/>
+	</fieldset>
 
+	<fieldset name="videofile" label="COM_SERMONSPEAKER_FIELD_VIDEOFILE_LABEL">
 		<field name="videofile"
 			type="customfilelist"
 			label="COM_SERMONSPEAKER_FIELD_VIDEOFILE_LABEL"
-			description="COM_SERMONSPEAKER_FIELD_VIDEOFILE_DESC"
 			file="video"
 			class="form-control input-xlarge"
 			hide_default="true"
@@ -126,11 +123,12 @@
 			label="COM_SERMONSPEAKER_FIELD_VIDEOFILESIZE_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_VIDEOFILESIZE_DESC"
 		/>
+	</fieldset>
 
+	<fieldset name="addfile" label="COM_SERMONSPEAKER_FIELD_ADDFILE_LABEL">
 		<field name="addfile"
 			type="customfilelist"
 			label="COM_SERMONSPEAKER_FIELD_ADDFILE_LABEL"
-			description="COM_SERMONSPEAKER_FIELD_ADDFILE_DESC"
 			file="addfile"
 			class="form-control input-xlarge"
 			hide_default="true"
@@ -148,43 +146,46 @@
 
 	<fieldset name="publishingdata">
 		<field name="publish_up"
-			type="calendar"
-			label="JGLOBAL_FIELD_PUBLISH_UP_LABEL"
-			description="JGLOBAL_FIELD_PUBLISH_UP_DESC"
-			format="%Y-%m-%d %H:%M:%S"
-			filter="user_utc"
+			   type="calendar"
+			   label="JGLOBAL_FIELD_PUBLISH_UP_LABEL"
+			   translateformat="true"
+			   showtime="true"
+			   size="22"
+			   filter="user_utc"
 		/>
 
 		<field name="publish_down"
-			type="calendar"
-			label="JGLOBAL_FIELD_PUBLISH_DOWN_LABEL"
-			description="JGLOBAL_FIELD_PUBLISH_DOWN_DESC"
-			format="%Y-%m-%d %H:%M:%S"
-			filter="user_utc"
+			   type="calendar"
+			   label="JGLOBAL_FIELD_PUBLISH_DOWN_LABEL"
+			   translateformat="true"
+			   showtime="true"
+			   size="22"
+			   filter="user_utc"
 		/>
 
 		<field name="created"
-			type="calendar"
-			label="JGLOBAL_FIELD_CREATED_LABEL"
-			description="JGLOBAL_FIELD_CREATED_DESC"
-			format="%Y-%m-%d %H:%M:%S"
-			filter="user_utc"
+			   type="calendar"
+			   label="JGLOBAL_FIELD_CREATED_LABEL"
+			   translateformat="true"
+			   showtime="true"
+			   size="22"
+			   filter="user_utc"
 		/>
 
 		<field name="created_by"
 			type="user"
 			label="JGLOBAL_FIELD_CREATED_BY_LABEL"
-			description="JGLOBAL_FIELD_CREATED_BY_DESC"
 		/>
 
 		<field name="modified"
-			type="calendar"
-			label="JGLOBAL_FIELD_MODIFIED_LABEL"
-			description="COM_SERMONSPEAKER_FIELD_MODIFIED_DESC"
-			format="%Y-%m-%d %H:%M:%S"
-			filter="user_utc"
-			class="readonly"
-			readonly="true"
+			   type="calendar"
+			   label="JGLOBAL_FIELD_MODIFIED_LABEL"
+			   translateformat="true"
+			   showtime="true"
+			   size="22"
+			   filter="user_utc"
+			   class="readonly"
+			   readonly="true"
 		/>
 
 		<field name="modified_by"
@@ -198,7 +199,6 @@
 		<field name="version"
 			type="text"
 			label="COM_SERMONSPEAKER_FIELD_VERSION_LABEL"
-			description="COM_SERMONSPEAKER_FIELD_VERSION_DESC"
 			size="6"
 			class="readonly"
 			readonly="true"
@@ -208,7 +208,6 @@
 		<field name="hits"
 			type="hits"
 			label="JGLOBAL_HITS"
-			description="COM_SERMONSPEAKER_FIELD_HITS_DESC"
 			default="0"
 			class="readonly"
 			readonly="true"
@@ -216,11 +215,9 @@
 		/>
 
 		<field name="id"
-			type="text"
+			type="number"
 			label="JGLOBAL_FIELD_ID_LABEL"
-			description="JGLOBAL_FIELD_ID_DESC"
 			class="readonly"
-			size="10"
 			default="0"
 			readonly="true"
 		/>
@@ -230,11 +227,10 @@
 		label="COM_SERMONSPEAKER_DETAIL"
 	>
 		<field name="sermon_number"
-			type="text"
-			label="COM_SERMONSPEAKER_FIELD_NUM_LABEL"
-			description="COM_SERMONSPEAKER_FIELD_NUM_DESC"
-			default="0"
-			size="5"
+			   type="text"
+			   label="COM_SERMONSPEAKER_FIELD_NUM_LABEL"
+			   default="0"
+			   size="5"
 		/>
 
 		<field name="sermon_date"
@@ -265,7 +261,6 @@
 		<field name="speaker_id"
 			type="modal_speaker"
 			label="COM_SERMONSPEAKER_SPEAKER"
-			description="COM_SERMONSPEAKER_FIELD_SPEAKER_DESC"
 			select="true"
 			new="true"
 			edit="true"
@@ -275,7 +270,6 @@
 		<field name="series_id"
 			type="modal_serie"
 			label="COM_SERMONSPEAKER_SERIE"
-			description="COM_SERMONSPEAKER_FIELD_SERIE_DESC"
 			select="true"
 			new="true"
 			edit="true"
@@ -285,7 +279,6 @@
 		<field name="picture"
 			type="mediawrapper"
 			label="COM_SERMONSPEAKER_FIELD_PICTURE_LABEL"
-			description="COM_SERMONSPEAKER_FIELD_PICTURE_DESC"
 		/>
 	</fieldset>
 
@@ -296,7 +289,6 @@
 			<field name="metadesc"
 				type="textarea"
 				label="JFIELD_META_DESCRIPTION_LABEL"
-				description="JFIELD_META_DESCRIPTION_DESC"
 				onchange="check(this.value, 160, 0)"
 				rows="3"
 				cols="30"
@@ -305,7 +297,6 @@
 			<field name="metakey"
 				type="textarea"
 				label="JFIELD_META_KEYWORDS_LABEL"
-				description="JFIELD_META_KEYWORDS_DESC"
 				onchange="check(this.value, 10, 1)"
 				rows="3"
 				cols="30"
@@ -314,7 +305,6 @@
 			<field name="robots"
 				type="list"
 				label="JFIELD_METADATA_ROBOTS_LABEL"
-				description="JFIELD_METADATA_ROBOTS_DESC"
 			>
 				<option value="">JGLOBAL_USE_GLOBAL</option>
 				<option value="index, follow">JGLOBAL_INDEX_FOLLOW</option>
@@ -324,9 +314,8 @@
 			</field>
 
 			<field name="rights"
-				type="text"
-				label="JFIELD_META_RIGHTS_LABEL" description="JFIELD_META_RIGHTS_DESC"
-				required="false"
+				type="textarea"
+				label="JFIELD_META_RIGHTS_LABEL"
 				filter="string"
 				cols="30"
 				rows="2"
