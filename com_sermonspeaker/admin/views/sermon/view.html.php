@@ -7,12 +7,14 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
+defined('_JEXEC') or die;
+
+use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Router\Route;
 use Joomla\CMS\Toolbar\Toolbar;
 use Joomla\CMS\Toolbar\ToolbarHelper;
-
-defined('_JEXEC') or die;
 
 /**
  * HTML View class for the SermonSpeaker Component
@@ -498,9 +500,15 @@ class SermonspeakerViewSermon extends JViewLegacy
 				$saveGroup = $toolbar->dropdownButton('save-group');
 
 				$saveGroup->configure(
-					function (Toolbar $childBar)
+					function (Toolbar $childBar) use ($user)
 					{
 						$childBar->save('sermon.save');
+
+						if ($user->authorise('core.create', 'com_menus.menu'))
+						{
+							$childBar->save('sermon.save2menu', Text::_('JTOOLBAR_SAVE_TO_MENU'));
+						}
+
 						$childBar->save2new('sermon.save2new');
 					}
 				);
@@ -508,33 +516,60 @@ class SermonspeakerViewSermon extends JViewLegacy
 		}
 		else
 		{
-			// Can't save the record if it's checked out.
-			if (!$checkedOut)
-			{
-				// Since it's an existing record, check the edit permission, or fall back to edit own if the owner.
-				if ($canDo->get('core.edit') || ($canDo->get('core.edit.own') && $this->item->created_by == $user->id))
-				{
-					JToolbarHelper::apply('sermon.apply');
-					JToolbarHelper::save('sermon.save');
+			// Since it's an existing record, check the edit permission, or fall back to edit own if the owner.
+			$itemEditable = $canDo->get('core.edit') || ($canDo->get('core.edit.own') && $this->item->created_by == $user->id);
 
-					// We can save this record, but check the create permission to see if we can return to make a new one.
+			if (!$checkedOut && $itemEditable)
+			{
+				$toolbar->apply('sermon.apply');
+			}
+
+			$saveGroup = $toolbar->dropdownButton('save-group');
+
+			$saveGroup->configure(
+				function (Toolbar $childBar) use ($checkedOut, $itemEditable, $canDo, $user)
+				{
+					// Can't save the record if it's checked out and editable
+					if (!$checkedOut && $itemEditable)
+					{
+						$childBar->save('sermon.save');
+
+						// We can save this record, but check the create permission to see if we can return to make a new one.
+						if ($canDo->get('core.create'))
+						{
+							$childBar->save2new('sermon.save2new');
+						}
+					}
+
+					// If checked out, we can still save2menu
+					if ($user->authorise('core.create', 'com_menus.menu'))
+					{
+						$childBar->save('sermon.save2menu', Text::_('JTOOLBAR_SAVE_TO_MENU'));
+					}
+
+					// If checked out, we can still save2copy
 					if ($canDo->get('core.create'))
 					{
-						JToolbarHelper::save2new('sermon.save2new');
+						$childBar->save2copy('sermon.save2copy');
 					}
 				}
-			}
+			);
 
-			// If checked out, we can still save to copy
-			if ($canDo->get('core.create'))
+			if (ComponentHelper::isEnabled('com_contenthistory') && $this->state->params->get('save_history') && $itemEditable)
 			{
-				JToolbarHelper::save2copy('sermon.save2copy');
+				$toolbar->versions('com_sermonspeaker.sermon', $this->item->id);
 			}
-		}
 
-		if ($this->state->params->get('save_history') && $user->authorise('core.edit'))
-		{
-			JToolbarHelper::versions('com_sermonspeaker.sermon', $this->item->id);
+			require_once JPATH_COMPONENT_SITE . '/helpers/route.php';
+			$url = Route::link(
+				'site',
+				SermonspeakerHelperRoute::getSermonRoute($this->item->id . ':' . $this->item->alias, $this->item->catid, $this->item->language),
+				true
+			);
+
+			$toolbar->preview($url, 'JGLOBAL_PREVIEW')
+				->bodyHeight(80)
+				->modalWidth(90);
 		}
 
 		$toolbar->cancel('sermon.cancel', 'JTOOLBAR_CLOSE');

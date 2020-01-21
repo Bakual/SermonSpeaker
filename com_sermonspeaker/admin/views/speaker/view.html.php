@@ -2,6 +2,13 @@
 // No direct access
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Router\Route;
+use Joomla\CMS\Toolbar\Toolbar;
+use Joomla\CMS\Toolbar\ToolbarHelper;
+
 /**
  * View to edit a speaker.
  *
@@ -38,7 +45,7 @@ class SermonspeakerViewSpeaker extends JViewLegacy
 		}
 
 		// If we are forcing a language in modal (used for associations).
-		if ($this->getLayout() === 'modal' && $forcedLanguage = JFactory::getApplication()->input->get('forcedLanguage', '', 'cmd'))
+		if ($this->getLayout() === 'modal' && $forcedLanguage = Factory::getApplication()->input->get('forcedLanguage', '', 'cmd'))
 		{
 			// Set the language field to the forcedLanguage and disable changing it.
 			$this->form->setValue('language', null, $forcedLanguage);
@@ -63,12 +70,17 @@ class SermonspeakerViewSpeaker extends JViewLegacy
 	 */
 	protected function addToolbar()
 	{
-		JFactory::getApplication()->input->set('hidemainmenu', true);
-		$user       = JFactory::getUser();
+		Factory::getApplication()->input->set('hidemainmenu', true);
+		$user       = Factory::getUser();
 		$isNew      = ($this->item->id == 0);
 		$checkedOut = !($this->item->checked_out == 0 || $this->item->checked_out == $user->id);
 		$canDo      = SermonspeakerHelper::getActions();
-		JToolbarHelper::title(JText::sprintf('COM_SERMONSPEAKER_PAGE_' . ($checkedOut ? 'VIEW' : ($isNew ? 'ADD' : 'EDIT')), JText::_('COM_SERMONSPEAKER_SPEAKERS_TITLE'), JText::_('COM_SERMONSPEAKER_SPEAKER')), 'pencil-2 speakers');
+
+		ToolbarHelper::title(
+			Text::sprintf('COM_SERMONSPEAKER_PAGE_' . ($checkedOut ? 'VIEW' : ($isNew ? 'ADD' : 'EDIT')),
+				Text::_('COM_SERMONSPEAKER_SPEAKERS_TITLE')),
+			'pencil-2 speakers'
+		);
 
 		// Build the actions for new and existing records.
 		if ($isNew)
@@ -76,43 +88,83 @@ class SermonspeakerViewSpeaker extends JViewLegacy
 			// For new records, check the create permission.
 			if ($canDo->get('core.create'))
 			{
-				JToolbarHelper::apply('speaker.apply');
-				JToolbarHelper::save('speaker.save');
-				JToolbarHelper::save2new('speaker.save2new');
+				$toolbar->apply('speaker.apply');
+
+				$saveGroup = $toolbar->dropdownButton('save-group');
+
+				$saveGroup->configure(
+					function (Toolbar $childBar) use ($user)
+					{
+						$childBar->save('speaker.save');
+
+						if ($user->authorise('core.create', 'com_menus.menu'))
+						{
+							$childBar->save('speaker.save2menu', Text::_('JTOOLBAR_SAVE_TO_MENU'));
+						}
+
+						$childBar->save2new('speaker.save2new');
+					}
+				);
 			}
-			JToolbarHelper::cancel('speaker.cancel');
 		}
 		else
 		{
-			// Can't save the record if it's checked out.
-			if (!$checkedOut)
-			{
-				// Since it's an existing record, check the edit permission, or fall back to edit own if the owner.
-				if ($canDo->get('core.edit') || ($canDo->get('core.edit.own') && $this->item->created_by == $user->id))
-				{
-					JToolbarHelper::apply('speaker.apply');
-					JToolbarHelper::save('speaker.save');
+			// Since it's an existing record, check the edit permission, or fall back to edit own if the owner.
+			$itemEditable = $canDo->get('core.edit') || ($canDo->get('core.edit.own') && $this->item->created_by == $user->id);
 
-					// We can save this record, but check the create permission to see if we can return to make a new one.
+			if (!$checkedOut && $itemEditable)
+			{
+				$toolbar->apply('speaker.apply');
+			}
+
+			$saveGroup = $toolbar->dropdownButton('save-group');
+
+			$saveGroup->configure(
+				function (Toolbar $childBar) use ($checkedOut, $itemEditable, $canDo, $user)
+				{
+					// Can't save the record if it's checked out and editable
+					if (!$checkedOut && $itemEditable)
+					{
+						$childBar->save('speaker.save');
+
+						// We can save this record, but check the create permission to see if we can return to make a new one.
+						if ($canDo->get('core.create'))
+						{
+							$childBar->save2new('speaker.save2new');
+						}
+					}
+
+					// If checked out, we can still save2menu
+					if ($user->authorise('core.create', 'com_menus.menu'))
+					{
+						$childBar->save('speaker.save2menu', Text::_('JTOOLBAR_SAVE_TO_MENU'));
+					}
+
+					// If checked out, we can still save2copy
 					if ($canDo->get('core.create'))
 					{
-						JToolbarHelper::save2new('speaker.save2new');
+						$childBar->save2copy('speaker.save2copy');
 					}
 				}
-			}
+			);
 
-			// If checked out, we can still save to copy
-			if ($canDo->get('core.create'))
+			if (ComponentHelper::isEnabled('com_contenthistory') && $this->state->params->get('save_history') && $itemEditable)
 			{
-				JToolbarHelper::save2copy('speaker.save2copy');
+				$toolbar->versions('com_sermonspeaker.speaker', $this->item->id);
 			}
 
-			JToolbarHelper::cancel('speaker.cancel', 'JTOOLBAR_CLOSE');
+			require_once JPATH_COMPONENT_SITE . '/helpers/route.php';
+			$url = Route::link(
+				'site',
+				SermonspeakerHelperRoute::getSpeakerRoute($this->item->id . ':' . $this->item->alias, $this->item->catid, $this->item->language),
+				true
+			);
+
+			$toolbar->preview($url, 'JGLOBAL_PREVIEW')
+				->bodyHeight(80)
+				->modalWidth(90);
 		}
 
-		if ($this->state->params->get('save_history') && $user->authorise('core.edit'))
-		{
-			JToolbarHelper::versions('com_sermonspeaker.speaker', $this->item->id);
-		}
+		$toolbar->cancel('speaker.cancel', 'JTOOLBAR_CLOSE');
 	}
 }
