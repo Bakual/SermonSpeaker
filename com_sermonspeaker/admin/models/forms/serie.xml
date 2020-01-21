@@ -23,7 +23,7 @@
 		<field name="state"
 			type="list"
 			label="JSTATUS"
-			class="chzn-color-state"
+			class="custom-select-color-state"
 			filter="intval"
 			size="1"
 			default="1">
@@ -162,7 +162,6 @@
 		<field name="avatar"
 			type="mediawrapper"
 			label="COM_SERMONSPEAKER_FIELD_PICTURE_LABEL"
-			description="COM_SERMONSPEAKER_FIELD_PICTURE_DESC"
 		/>
 
 		<field name="zip_dl"
