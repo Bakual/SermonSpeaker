@@ -218,6 +218,16 @@ class SermonspeakerTableSermon extends Table
 			}
 		}
 
+		if (empty($this->speaker_id))
+		{
+			$this->speaker_id = 0;
+		}
+
+		if (empty($this->series_id))
+		{
+			$this->series_id = 0;
+		}
+
 		// Verify that the alias is unique
 		$table = Table::getInstance('Sermon', 'SermonspeakerTable');
 
