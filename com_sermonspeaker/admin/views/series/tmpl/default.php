@@ -9,201 +9,266 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Factory;
+use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Associations;
+use Joomla\CMS\Language\Multilanguage;
+use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
+use Joomla\CMS\Router\Route;
 use Joomla\CMS\Session\Session;
 use Joomla\CMS\Uri\Uri;
 
-JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
+HTMLHelper::addIncludePath(JPATH_COMPONENT . '/helpers/html');
 
-JHtml::_('bootstrap.tooltip');
-JHtml::_('behavior.multiselect');
+HTMLHelper::_('bootstrap.tooltip');
+HTMLHelper::_('behavior.multiselect');
 
-$user      = JFactory::getUser();
+$user      = Factory::getUser();
 $listOrder = $this->escape($this->state->get('list.ordering'));
 $listDirn  = $this->escape($this->state->get('list.direction'));
 $archived  = $this->state->get('filter.state') == 2 ? true : false;
 $trashed   = $this->state->get('filter.state') == -2 ? true : false;
 $saveOrder = $listOrder == 'series.ordering';
+
 if ($saveOrder)
 {
 	$saveOrderingUrl = 'index.php?option=com_sermonspeaker&task=series.saveOrderAjax&tmpl=component' . Session::getFormToken() . '=1';
-	JHtml::_('draggablelist.draggable');
+	HTMLHelper::_('draggablelist.draggable');
 }
 
 $assoc = Associations::isEnabled();
 ?>
-<form action="<?php echo JRoute::_('index.php?option=com_sermonspeaker&view=series'); ?>" method="post" name="adminForm"
-      id="adminForm">
-    <div class="row">
-        <div id="j-sidebar-container" class="col-md-2">
-			<?php echo $this->sidebar; ?>
-        </div>
-        <div class="col-md-10">
-            <div id="j-main-container" class="j-main-container">
-				<?php echo LayoutHelper::render('joomla.searchtools.default', array('view' => $this)); ?>
+<form action="<?php echo JRoute::_('index.php?option=com_sermonspeaker&view=series'); ?>" method="post" name="adminForm" id="adminForm">
+	<div class="row">
+		<div class="col-md-12">
+			<div id="j-main-container" class="j-main-container">
+			<?php echo LayoutHelper::render('joomla.searchtools.default', array('view' => $this)); ?>
 				<?php if (empty($this->items)) : ?>
-                    <div class="alert alert-no-items">
-						<?php echo JText::_('JGLOBAL_NO_MATCHING_RESULTS'); ?>
-                    </div>
+					<div class="alert alert-info">
+						<span class="fa fa-info-circle" aria-hidden="true"></span><span class="sr-only"><?php echo Text::_('INFO'); ?></span>
+						<?php echo Text::_('JGLOBAL_NO_MATCHING_RESULTS'); ?>
+					</div>
 				<?php else : ?>
-                    <table class="table table-striped" id="serieList">
-                        <thead>
-                        <tr>
-                            <th width="1%" class="nowrap text-center hidden-phone">
-								<?php echo JHtml::_('searchtools.sort', '', 'series.ordering', $listDirn, $listOrder, null, 'asc', 'JGRID_HEADING_ORDERING', 'icon-menu-2'); ?>
-                            </th>
-                            <th width="1%" class="hidden-phone">
-                                <input type="checkbox" name="checkall-toggle" value=""
-                                       title="<?php echo JText::_('JGLOBAL_CHECK_ALL'); ?>"
-                                       onclick="Joomla.checkAll(this)"/>
-                            </th>
-                            <th width="1%" style="min-width:40px" class="nowrap text-center">
-								<?php echo JHtml::_('searchtools.sort', 'JSTATUS', 'series.state', $listDirn, $listOrder); ?>
-                            </th>
-                            <th>
-								<?php echo JHtml::_('searchtools.sort', 'JGLOBAL_TITLE', 'series.title', $listDirn, $listOrder); ?>
-                            </th>
-							<?php if ($assoc) : ?>
-                                <th width="5%" class="nowrap hidden-phone">
-									<?php echo JHtml::_('searchtools.sort', 'COM_SERMONSPEAKER_HEADING_ASSOCIATION', 'association', $listDirn, $listOrder); ?>
-                                </th>
-							<?php endif; ?>
-                            <th width="5%" class="hidden-phone">
-								<?php echo JHtml::_('searchtools.sort', 'COM_SERMONSPEAKER_FIELD_PICTURE_LABEL', 'series.avatar', $listDirn, $listOrder); ?>
-                            </th>
-                            <th width="7%" class="nowrap hidden-phone">
-								<?php echo JHtml::_('searchtools.sort', 'JGRID_HEADING_LANGUAGE', 'language', $listDirn, $listOrder); ?>
-                            </th>
-                            <th width="5%" class="nowrap hidden-phone">
-								<?php echo JHtml::_('searchtools.sort', 'JGLOBAL_HITS', 'series.hits', $listDirn, $listOrder); ?>
-                            </th>
-                            <th width="1%" class="nowrap hidden-phone">
-								<?php echo JHtml::_('searchtools.sort', 'JGRID_HEADING_ID', 'series.id', $listDirn, $listOrder); ?>
-                            </th>
-                        </tr>
-                        </thead>
-                        <tbody>
-						<?php foreach ($this->items as $i => $item) :
-							$ordering = ($listOrder == 'series.ordering');
-							$canEdit = $user->authorise('core.edit', 'com_sermonspeaker.category.' . $item->catid);
-							$canCheckin = $user->authorise('core.manage', 'com_checkin') || $item->checked_out == $user->id || $item->checked_out == 0;
-							$canEditOwn = $user->authorise('core.edit.own', 'com_sermonspeaker.category.' . $item->catid) && $item->created_by == $user->id;
-							$canChange = $user->authorise('core.edit.state', 'com_sermonspeaker.category.' . $item->catid) && $canCheckin;
-							?>
-                            <tr class="row<?php echo $i % 2; ?>" data-dragable-group="<?php echo $item->catid; ?>">
-                                <td class="order nowrap text-center hidden-sm-down">
-									<?php
-									$iconClass = '';
-									if (!$canChange)
-									{
-										$iconClass = ' inactive';
-									}
-                                    elseif (!$saveOrder)
-									{
-										$iconClass = ' inactive tip-top hasTooltip" title="' . JHtml::_('tooltipText', 'JORDERINGDISABLED');
-									}
-									?>
-                                    <span class="sortable-handler<?php echo $iconClass ?>">
-										<span class="icon-menu" aria-hidden="true"></span>
-									</span>
-									<?php if ($canChange && $saveOrder) : ?>
-                                        <input type="text" style="display:none" name="order[]" size="5"
-                                               value="<?php echo $item->ordering; ?>" class="width-20 text-area-order ">
-									<?php endif; ?>
-                                </td>
-                                <td class="text-center">
-									<?php echo JHtml::_('grid.id', $i, $item->id); ?>
-                                </td>
-                                <td class="text-center">
-                                    <div class="btn-group">
-										<?php echo JHtml::_('jgrid.published', $item->state, $i, 'series.', $canChange, 'cb', $item->publish_up, $item->publish_down); ?>
-										<?php echo JHtml::_('jgrid.isdefault', $item->home, $i, 'series.', $canChange); ?>
-                                    </div>
-                                </td>
-                                <td class="nowrap has-context">
-                                    <div class="pull-left">
-										<?php if ($item->checked_out) : ?>
-											<?php echo JHtml::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time, 'series.', $canCheckin); ?>
-										<?php endif; ?>
-										<?php if ($canEdit || $canEditOwn) : ?>
-                                            <a href="<?php echo JRoute::_('index.php?option=com_sermonspeaker&task=serie.edit&id=' . (int) $item->id); ?>">
-												<?php echo $this->escape($item->title); ?>
-                                            </a>
-										<?php else : ?>
-											<?php echo $this->escape($item->title); ?>
-										<?php endif; ?>
-                                        <span class="small">
-											<?php echo JText::sprintf('JGLOBAL_LIST_ALIAS', $this->escape($item->alias)); ?>
-										</span>
-                                        <div class="small">
-											<?php echo JText::_('JCATEGORY') . ': ' . $this->escape($item->category_title); ?>
-                                        </div>
-                                    </div>
-                                </td>
+					<table class="table" id="serieList">
+						<caption id="captionTable" class="sr-only">
+							<?php echo Text::_('COM_SERMONSPEAKER_SERIES_TABLE_CAPTION'); ?>, <?php echo Text::_('JGLOBAL_SORTED_BY'); ?>
+						</caption>
+						<thead>
+							<tr>
+								<td style="width:1%" class="text-center">
+									<?php echo HTMLHelper::_('grid.checkall'); ?>
+								</td>
+								<th scope="col" style="width:1%" class="text-center d-none d-md-table-cell">
+									<?php echo HTMLHelper::_('searchtools.sort', '', 'series.ordering', $listDirn, $listOrder, null, 'asc', 'JGRID_HEADING_ORDERING', 'icon-menu-2'); ?>
+								</th>
+								<th scope="col" style="width:1%" class="text-center">
+									<?php echo HTMLHelper::_('searchtools.sort', 'JSTATUS', 'series.state', $listDirn, $listOrder); ?>
+								</th>
+								<th scope="col" style="width:1%" class="text-center d-none d-md-table-cell">
+									<?php echo HTMLHelper::_('searchtools.sort', 'COM_SERMONSPEAKER_DEFAULT', 'series.home', $listDirn, $listOrder); ?>
+								</th>
+								<th scope="col" style="min-width:100px">
+									<?php echo HTMLHelper::_('searchtools.sort', 'JGLOBAL_TITLE', 'series.title', $listDirn, $listOrder); ?>
+								</th>
 								<?php if ($assoc) : ?>
-                                    <td class="hidden-phone">
-										<?php if ($item->association) : ?>
-											<?php echo JHtml::_('sermonspeakeradministrator.association', $item->id, 'serie'); ?>
-										<?php endif; ?>
-                                    </td>
+									<th scope="col" style="width:5%" class="d-none d-md-table-cell">
+										<?php echo HTMLHelper::_('searchtools.sort', 'COM_SERMONSPEAKER_HEADING_ASSOCIATION', 'association', $listDirn, $listOrder); ?>
+									</th>
 								<?php endif; ?>
-                                <td class="text-center small hidden-phone">
-									<?php if (!$item->avatar && $avatar = $this->state->get('params')->get('defaultpic')) : ?>
-                                        <?php $item->avatar = Uri::root() . 'media/com_sermonspeaker/images/' . $avatar; ?>
-									<?php elseif ($item->avatar && !parse_url($item->avatar, PHP_URL_SCHEME)) : ?>
-									    <?php $item->avatar = Uri::root() . trim($item->avatar, '/.'); ?>
+								<th scope="col" style="width:10%" class="d-none d-md-table-cell">
+									<?php echo HTMLHelper::_('searchtools.sort', 'COM_SERMONSPEAKER_FIELD_PICTURE_LABEL', 'series.avatar', $listDirn, $listOrder); ?>
+								</th>
+								<?php if (Multilanguage::isEnabled()) : ?>
+									<th scope="col" style="width:10%" class="d-none d-md-table-cell">
+										<?php echo HTMLHelper::_('searchtools.sort',  'JGRID_HEADING_LANGUAGE', 'language', $listDirn, $listOrder); ?>
+									</th>
+								<?php endif; ?>
+								<th scope="col" style="width:6%" class="d-none d-lg-table-cell text-center">
+									<?php echo HTMLHelper::_('searchtools.sort', 'JGLOBAL_HITS', 'series.hits', $listDirn, $listOrder); ?>
+								</th>
+								<th scope="col" style="width:3%" class="d-none d-lg-table-cell">
+									<?php echo HTMLHelper::_('searchtools.sort', 'JGRID_HEADING_ID', 'series.id', $listDirn, $listOrder); ?>
+								</th>
+							</tr>
+						</thead>
+						<tbody <?php if ($saveOrder) :?> class="js-draggable" data-url="<?php echo $saveOrderingUrl; ?>" data-direction="<?php echo strtolower($listDirn); ?>" data-nested="true"<?php endif; ?>>
+							<?php foreach ($this->items as $i => $item) :
+								$ordering         = ($listOrder == 'series.ordering');
+								$canEdit          = $user->authorise('core.edit', 'com_sermonspeaker.category.' . $item->catid);
+								$canCheckin       = $user->authorise('core.manage', 'com_checkin') || $item->checked_out == $user->id || $item->checked_out == 0;
+								$canEditOwn       = $user->authorise('core.edit.own', 'com_sermonspeaker.category.' . $item->catid) && $item->created_by == $user->id;
+								$canChange        = $user->authorise('core.edit.state', 'com_sermonspeaker.category.' . $item->catid) && $canCheckin;
+								$canEditCat       = $user->authorise('core.edit',       'com_sermonspeaker.category.' . $item->catid);
+								$canEditOwnCat    = $user->authorise('core.edit.own',   'com_sermonspeaker.category.' . $item->catid) && $item->category_uid == $user->id;
+								$canEditParCat    = $user->authorise('core.edit',       'com_sermonspeaker.category.' . $item->parent_category_id);
+								$canEditOwnParCat = $user->authorise('core.edit.own',   'com_sermonspeaker.category.' . $item->parent_category_id) && $item->parent_category_uid == $user->id;
+								?>
+								<tr class="row<?php echo $i % 2; ?>" data-dragable-group="<?php echo $item->catid; ?>">
+									<td class="text-center">
+										<?php echo HTMLHelper::_('grid.id', $i, $item->id, false, 'cid', 'cb', $item->title); ?>
+									</td>
+									<td class="text-center d-none d-md-table-cell">
+										<?php
+										$iconClass = '';
+										if (!$canChange)
+										{
+											$iconClass = ' inactive';
+										}
+										elseif (!$saveOrder)
+										{
+											$iconClass = ' inactive" title="' . Text::_('JORDERINGDISABLED');
+										}
+										?>
+										<span class="sortable-handler<?php echo $iconClass ?>">
+											<span class="fa fa-ellipsis-v" aria-hidden="true"></span>
+										</span>
+										<?php if ($canChange && $saveOrder) : ?>
+											<input type="text" name="order[]" size="5" value="<?php echo $item->ordering; ?>" class="width-20 text-area-order hidden">
+										<?php endif; ?>
+									</td>
+									<td class="text-center">
+										<?php echo HTMLHelper::_('jgrid.published', $item->state, $i, 'series.', $canChange, 'cb', $item->publish_up, $item->publish_down); ?>
+									</td>
+									<td class="text-center d-none d-md-table-cell">
+										<?php echo HTMLHelper::_('jgrid.isdefault', $item->home, $i, 'series.', $canChange); ?>
+									</td>
+									<td class="nowrap has-context">
+										<div class="pull-left">
+											<?php if ($item->checked_out) : ?>
+												<?php echo HTMLHelper::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time, 'series.', $canCheckin); ?>
+											<?php endif; ?>
+											<?php if ($canEdit || $canEditOwn) : ?>
+												<a href="<?php echo Route::_('index.php?option=com_sermonspeaker&task=serie.edit&id='
+													. (int) $item->id);?>" title="<?php echo Text::_('JACTION_EDIT'); ?> <?php echo $this->escape(addslashes($item->title)); ?>">
+													<?php echo $this->escape($item->title); ?>
+												</a>
+											<?php else : ?>
+												<?php echo $this->escape($item->title); ?>
+											<?php endif; ?>
+											<span class="small break-word">
+												<?php echo Text::sprintf('JGLOBAL_LIST_ALIAS', $this->escape($item->alias)); ?>
+											</span>
+											<div class="small">
+												<?php
+												$ParentCatUrl = Route::_('index.php?option=com_categories&task=category.edit&id=' . $item->parent_category_id . '&extension=com_sermonspeaker.series');
+												$CurrentCatUrl = Route::_('index.php?option=com_categories&task=category.edit&id=' . $item->catid . '&extension=com_sermonspeaker.series');
+												$EditCatTxt = Text::_('COM_SERMONSPEAKER_EDIT_CATEGORY');
+												echo Text::_('JCATEGORY') . ': ';
+												if ($item->category_level != '1') :
+													if ($item->parent_category_level != '1') :
+														echo ' &#187; ';
+													endif;
+												endif;
+												if (Factory::getLanguage()->isRtl())
+												{
+													if ($canEditCat || $canEditOwnCat) :
+														echo '<a href="' . $CurrentCatUrl . '" title="' . $EditCatTxt . '">';
+													endif;
+													echo $this->escape($item->category_title);
+													if ($canEditCat || $canEditOwnCat) :
+														echo '</a>';
+													endif;
+													if ($item->category_level != '1') :
+														echo ' &#171; ';
+														if ($canEditParCat || $canEditOwnParCat) :
+															echo '<a href="' . $ParentCatUrl . '" title="' . $EditCatTxt . '">';
+														endif;
+														echo $this->escape($item->parent_category_title);
+														if ($canEditParCat || $canEditOwnParCat) :
+															echo '</a>';
+														endif;
+													endif;
+												}
+												else
+												{
+													if ($item->category_level != '1') :
+														if ($canEditParCat || $canEditOwnParCat) :
+															echo '<a href="' . $ParentCatUrl . '" title="' . $EditCatTxt . '">';
+														endif;
+														echo $this->escape($item->parent_category_title);
+														if ($canEditParCat || $canEditOwnParCat) :
+															echo '</a>';
+														endif;
+														echo ' &#187; ';
+													endif;
+													if ($canEditCat || $canEditOwnCat) :
+														echo '<a href="' . $CurrentCatUrl . '" title="' . $EditCatTxt . '">';
+													endif;
+													echo $this->escape($item->category_title);
+													if ($canEditCat || $canEditOwnCat) :
+														echo '</a>';
+													endif;
+												}
+												?>
+											</div>
+										</div>
+									</td>
+									<?php if ($assoc) : ?>
+										<td class="d-none d-md-table-cell">
+											<?php if ($item->association) : ?>
+												<?php echo HTMLHelper::_('sermonspeakeradministrator.association', $item->id, 'serie'); ?>
+											<?php endif; ?>
+										</td>
 									<?php endif; ?>
-                                    <?php if ($item->avatar) : ?>
-                                        <img src="<?php echo $item->avatar; ?>" border="1" width="50" height="50">
-                                    <?php else : ?>
-                                        <span class="fa fa-picture-o fa-3x text-secondary"></span>
-                                    <?php endif; ?>
-                                </td>
-                                <td class="small hidden-phone">
-									<?php echo LayoutHelper::render('joomla.content.language', $item); ?>
-                                </td>
-                                <td class="hidden-phone text-center">
-									<span class="badge badge-info">
-										<?php echo (int) $item->hits; ?>
-									</span>
-									<?php if ($canEdit || $canEditOwn) : ?>
-                                        <a class="btn btn-xs btn-warning"
-                                           href="index.php?option=com_sermonspeaker&task=serie.reset&id=<?php echo $item->id; ?>">
-                                            <i class="icon-loop" rel="tooltip"
-                                               title="<?php echo JText::_('JSEARCH_RESET'); ?>"> </i>
-                                        </a>
+									<td class="small d-none d-md-table-cell">
+										<?php if (!$item->avatar && $avatar = $this->state->get('params')->get('defaultpic')) : ?>
+											<?php $item->avatar = Uri::root() . 'media/com_sermonspeaker/images/' . $avatar; ?>
+										<?php elseif ($item->avatar && !parse_url($item->avatar, PHP_URL_SCHEME)) : ?>
+											<?php $item->avatar = Uri::root() . trim($item->avatar, '/.'); ?>
+										<?php endif; ?>
+										<?php if ($item->avatar) : ?>
+											<img src="<?php echo $item->avatar; ?>" style="max-height: 40px">
+										<?php else : ?>
+											<span class="fa fa-picture-o fa-3x text-secondary"></span>
+										<?php endif; ?>
+									</td>
+									<?php if (Multilanguage::isEnabled()) : ?>
+										<td class="small d-none d-md-table-cell">
+											<?php echo LayoutHelper::render('joomla.content.language', $item); ?>
+										</td>
 									<?php endif; ?>
-                                </td>
-                                <td class="text-center hidden-phone">
-									<?php echo (int) $item->id; ?>
-                                </td>
-                            </tr>
-						<?php endforeach; ?>
-                        </tbody>
-                    </table>
+									<td class="d-none d-lg-table-cell text-center">
+											<span class="badge badge-info">
+												<?php echo (int) $item->hits; ?>
+											</span>
+										<?php if ($canEdit || $canEditOwn) : ?>
+											<a class="btn btn-sm btn-warning" href="index.php?option=com_sermonspeaker&task=serie.reset&id=<?php echo $item->id; ?>">
+												<span class="icon-loop hasTooltip" title="<?php echo Text::_('JSEARCH_RESET'); ?>"></span>
+											</a>
+										<?php endif; ?>
+									</td>
+									<td class="d-none d-lg-table-cell">
+										<?php echo (int) $item->id; ?>
+									</td>
+								</tr>
+							<?php endforeach; ?>
+						</tbody>
+					</table>
+
+					<?php // load the pagination. ?>
+					<?php echo $this->pagination->getListFooter(); ?>
+
+					<?php //Load the batch processing form. ?>
+					<?php if ($user->authorise('core.create', 'com_sermonspeaker')
+						&& $user->authorise('core.edit', 'com_sermonspeaker')
+						&& $user->authorise('core.edit.state', 'com_sermonspeaker')) : ?>
+						<?php echo HTMLHelper::_(
+							'bootstrap.renderModal',
+							'collapseModal',
+							array(
+								'title'  => Text::_('COM_SERMONSPEAKER_BATCH_OPTIONS'),
+								'footer' => $this->loadTemplate('batch_footer')
+							),
+							$this->loadTemplate('batch_body')
+						); ?>
+					<?php endif; ?>
 				<?php endif; ?>
 
-				<?php echo $this->pagination->getListFooter(); ?>
-				<?php //Load the batch processing form. ?>
-				<?php if ($user->authorise('core.create', 'com_sermonspeaker')
-					&& $user->authorise('core.edit', 'com_sermonspeaker')
-					&& $user->authorise('core.edit.state', 'com_sermonspeaker')) : ?>
-					<?php echo JHtml::_(
-						'bootstrap.renderModal',
-						'collapseModal',
-						array(
-							'title'  => JText::_('COM_SERMONSPEAKER_BATCH_OPTIONS'),
-							'footer' => $this->loadTemplate('batch_footer')
-						),
-						$this->loadTemplate('batch_body')
-					); ?>
-				<?php endif; ?>
-
-                <input type="hidden" name="task" value=""/>
-                <input type="hidden" name="boxchecked" value="0"/>
-				<?php echo JHtml::_('form.token'); ?>
-            </div>
-        </div>
-    </div>
+				<input type="hidden" name="task" value=""/>
+				<input type="hidden" name="boxchecked" value="0"/>
+				<?php echo HTMLHelper::_('form.token'); ?>
+			</div>
+		</div>
+	</div>
 </form>

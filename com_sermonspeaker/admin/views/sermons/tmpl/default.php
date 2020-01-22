@@ -146,7 +146,8 @@ $assoc = Associations::isEnabled();
 												<?php echo HTMLHelper::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time, 'sermons.', $canCheckin); ?>
 											<?php endif; ?>
 											<?php if ($canEdit || $canEditOwn) : ?>
-												<a href="<?php echo JRoute::_('index.php?option=com_sermonspeaker&task=sermon.edit&id=' . (int) $item->id);?>" title="<?php echo Text::_('JACTION_EDIT'); ?> <?php echo $this->escape(addslashes($item->title)); ?>">
+												<a href="<?php echo Route::_('index.php?option=com_sermonspeaker&task=sermon.edit&id='
+													. (int) $item->id);?>" title="<?php echo Text::_('JACTION_EDIT'); ?> <?php echo $this->escape(addslashes($item->title)); ?>">
 													<?php echo $this->escape($item->title); ?>
 												</a>
 											<?php else : ?>
@@ -211,7 +212,7 @@ $assoc = Associations::isEnabled();
 										</div>
 									</td>
 									<?php if ($assoc) : ?>
-										<td class="hidden-phone">
+										<td class="d-none d-md-table-cell">
 											<?php if ($item->association) : ?>
 												<?php echo HTMLHelper::_('sermonspeakeradministrator.association', $item->id, 'sermon'); ?>
 											<?php endif; ?>
