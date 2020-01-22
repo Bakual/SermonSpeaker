@@ -199,7 +199,9 @@ class SermonspeakerViewSermons extends JViewLegacy
 
 		if ($canDo->get('core.edit.state'))
 		{
-			$toolbar->custom('tools.order', 'lightning', '', 'COM_SERMONSPEAKER_TOOLS_ORDER', false);
+			$toolbar->standardButton('lightning')
+				->text('COM_SERMONSPEAKER_TOOLS_ORDER')
+				->task('tools.order');
 		}
 
 		if ($canDo->get('core.admin') || $canDo->get('core.options'))
