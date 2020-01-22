@@ -208,8 +208,15 @@ class SermonspeakerModelSermons extends ListModel
 		);
 
 		// Join over the categories.
-		$query->select('c.title AS category_title')
+		$query->select('c.title AS category_title, c.created_user_id AS category_uid, c.level AS category_level')
 			->join('LEFT', '#__categories AS c ON c.id = sermons.catid');
+
+		// Join over the parent categories.
+		$query->select(
+			'parent.title AS parent_category_title, parent.id AS parent_category_id,' .
+			'parent.created_user_id AS parent_category_uid, parent.level AS parent_category_level'
+		)
+			->join('LEFT', '#__categories AS parent ON parent.id = c.parent_id');
 
 		// Join over the speakers.
 		$query->select('speakers.title AS speaker_title')
