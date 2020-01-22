@@ -147,7 +147,7 @@ abstract class JHtmlSermonspeakerAdministrator
 		if ($canChange)
 		{
 			$html = '<a class="tbody-icon' . ($value == 1 ? ' active' : '') . ' hasTooltip"'
-				. ' href="#" onclick="return listItemTask(\'cb' . $i . '\',\'' . $state['task'] . '\')"'
+				. ' href="#" onclick="return Joomla.listItemTask(\'cb' . $i . '\',\'' . $state['task'] . '\')"'
 				. ' title="' . JHtml::_('tooltipText', $state['active_title']) . '">'
 				. '<span class="icon-' . $state['active_class'] . '"></span>'
 				. '</a>';
