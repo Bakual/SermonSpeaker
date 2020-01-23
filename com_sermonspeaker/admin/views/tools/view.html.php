@@ -53,11 +53,6 @@ class SermonspeakerViewTools extends JViewLegacy
 	{
 		$layout = $this->getLayout();
 
-		if ($layout !== 'time')
-		{
-			SermonspeakerHelper::addSubmenu('tools');
-		}
-
 		// Check if PreachIt is installed
 		$db       = JFactory::getDbo();
 		$prefix   = $db->getPrefix();

@@ -75,8 +75,6 @@ class SermonspeakerViewLanguages extends JViewLegacy
 	 */
 	function display($tpl = null)
 	{
-		SermonspeakerHelper::addSubmenu('languages');
-
 		/* Settings for XML parsing */
 		$url          = 'http://www.sermonspeaker.net/languages.raw';
 		$this->site   = 'http://www.sermonspeaker.net';

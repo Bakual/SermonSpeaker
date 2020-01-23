@@ -44,8 +44,6 @@ class SermonspeakerViewHelp extends JViewLegacy
 	 */
 	public function display($tpl = null)
 	{
-		SermonspeakerHelper::addSubmenu('help');
-
 		// Get current version of SermonSpeaker
 		$component  = JComponentHelper::getComponent('com_sermonspeaker');
 		$extensions = JTable::getInstance('extension');

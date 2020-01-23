@@ -50,11 +50,6 @@ class SermonspeakerViewSeries extends JViewLegacy
 	{
 		$layout = $this->getLayout();
 
-		if ($layout !== 'modal')
-		{
-			SermonspeakerHelper::addSubmenu('series');
-		}
-
 		$this->state         = $this->get('State');
 		$this->items         = $this->get('Items');
 		$this->pagination    = $this->get('Pagination');
