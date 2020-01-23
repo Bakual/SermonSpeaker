@@ -9,6 +9,10 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Factory;
+use Joomla\CMS\Language\LanguageHelper;
+use Joomla\CMS\Language\Text;
+
 /**
  * HTML View class for the SermonSpeaker Component
  *
@@ -17,42 +21,6 @@ defined('_JEXEC') or die();
 class SermonspeakerViewLanguages extends JViewLegacy
 {
 	/**
-	 * @var  string  Site to fetch data from
-	 *
-	 * @since  ?
-	 */
-	protected $site;
-
-	/**
-	 * @var  string component name
-	 *
-	 * @since  ?
-	 */
-	protected $prefix;
-
-	/**
-	 * @var  SimpleXMLElement  The XML file
-	 *
-	 * @since  ?
-	 */
-	protected $xml;
-
-	/**
-	 * @var  array  The known installed languages
-	 *
-	 * @since  ?
-	 */
-
-	protected $languages;
-
-	/**
-	 * @var array
-	 *
-	 * @since  ?
-	 */
-	protected $manifest;
-
-	/**
 	 * @var array
 	 *
 	 * @since  ?
@@ -60,71 +28,29 @@ class SermonspeakerViewLanguages extends JViewLegacy
 	protected $installed;
 
 	/**
-	 * @var string
-	 *
-	 * @since  ?
-	 */
-	protected $sidebar;
-
-	/**
 	 * @param null $tpl
 	 *
 	 * @return mixed|void
 	 *
+	 * @throws Exception
 	 * @since  ?
 	 */
 	function display($tpl = null)
 	{
-		/* Settings for XML parsing */
-		$url          = 'http://www.sermonspeaker.net/languages.raw';
-		$this->site   = 'http://www.sermonspeaker.net';
-		$this->prefix = strtoupper(JApplicationHelper::getComponentName());
-
-		/* Loading XML and installed languages */
-		$this->xml       = simplexml_load_file($url);
-		$this->languages = JFactory::getLanguage()->getKnownLanguages();
-
-		// Get extension info
-		$db = JFactory::getDbo();
-		$db->setQuery('SELECT manifest_cache FROM #__extensions WHERE name = "' . $this->prefix . '"');
-		$this->manifest = json_decode($db->loadResult(), true);
+		$db = Factory::getDbo();
 
 		// Get installed language packs
 		$query = $db->getQuery(true);
-		$query->select('ext.extension_id, ext.name, ext.manifest_cache, ext.element');
+		$query->select('ext.extension_id, ext.name, ext.element');
 		$query->from('`#__extensions` AS ext');
-		$query->where('`element` LIKE "' . (string) $this->xml->extension_name . '%"');
+		$query->where('`element` LIKE "SermonSpeaker LanguagePack%"');
 		$db->setQuery($query);
+
 		$this->installed = $db->loadObjectList('element');
-		foreach ($this->installed as $item)
-		{
-			$data = json_decode($item->manifest_cache);
-			if ($data)
-			{
-				foreach ($data as $key => $value)
-				{
-					if ($key == 'type')
-					{
-						// Ignore the type field
-						continue;
-					}
-					elseif ($key == 'creationDate')
-					{
-						$date = explode('.', $value);
-						if (count($date) == 3)
-						{
-							$value = $date[2] . '-' . $date[1] . '-' . $date[0];
-						}
-					}
-					$item->$key = $value;
-				}
-			}
-		}
 
 		$this->addToolbar();
-		$this->sidebar = JHtmlSidebar::render();
 
-		return parent::display($tpl);
+		parent::display($tpl);
 	}
 
 	/**
@@ -137,7 +63,7 @@ class SermonspeakerViewLanguages extends JViewLegacy
 	protected function addToolbar()
 	{
 		$canDo = SermonspeakerHelper::getActions();
-		JToolbarHelper::title(JText::sprintf('COM_SERMONSPEAKER_TOOLBAR_TITLE', JText::_('COM_SERMONSPEAKER_MAIN_LANGUAGES')), 'comments-2 languages');
+		JToolbarHelper::title(Text::_('COM_SERMONSPEAKER_MAIN_LANGUAGES'), 'comments-2 languages');
 
 		if ($canDo->get('core.admin') || $canDo->get('core.options'))
 		{
