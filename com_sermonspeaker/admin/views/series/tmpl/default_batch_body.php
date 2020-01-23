@@ -9,27 +9,29 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Layout\LayoutHelper;
+
 $published = $this->state->get('filter.published');
 ?>
 
-<div class="container-fluid">
-	<div class="row-fluid">
-		<div class="control-group span6">
+<div class="container">
+	<div class="row">
+		<div class="form-group col-md-6">
 			<div class="controls">
-				<?php echo JLayoutHelper::render('joomla.html.batch.language', array()); ?>
+				<?php echo LayoutHelper::render('joomla.html.batch.language', array()); ?>
 			</div>
 		</div>
-		<div class="control-group span6">
+		<div class="form-group col-md-6">
 			<div class="controls">
-				<?php echo JLayoutHelper::render('joomla.html.batch.tag', array()); ?>
+				<?php echo LayoutHelper::render('joomla.html.batch.tag', array()); ?>
 			</div>
 		</div>
 	</div>
-	<div class="row-fluid">
+	<div class="row">
 		<?php if ($published >= 0) : ?>
-			<div class="control-group span6">
+			<div class="form-group col-md-6">
 				<div class="controls">
-					<?php echo JLayoutHelper::render('joomla.html.batch.item', array('extension' => 'com_sermonspeaker')) ?>
+					<?php echo JLayoutHelper::render('joomla.html.batch.item', array('extension' => 'com_sermonspeaker.series')) ?>
 				</div>
 			</div>
 		<?php endif; ?>
