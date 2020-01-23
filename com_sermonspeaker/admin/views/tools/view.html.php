@@ -17,15 +17,6 @@ defined('_JEXEC') or die;
 class SermonspeakerViewTools extends JViewLegacy
 {
 	/**
-	 * The HTML code for the sidebar.
-	 *
-	 * @var string
-	 *
-	 * @since  ?
-	 */
-	protected $sidebar;
-
-	/**
 	 * @var bool
 	 *
 	 * @since  ?
@@ -42,12 +33,11 @@ class SermonspeakerViewTools extends JViewLegacy
 	/**
 	 * Execute and display a template script.
 	 *
-	 * @param   string $tpl The name of the template file to parse; automatically searches through the template paths.
+	 * @param string $tpl The name of the template file to parse; automatically searches through the template paths.
 	 *
-	 * @return  mixed  A string if successful, otherwise a Error object.
-	 *
-	 * @see     JViewLegacy::loadTemplate()
+	 * @throws Exception
 	 * @since   3.4
+	 * @see     JViewLegacy::loadTemplate()
 	 */
 	public function display($tpl = null)
 	{
@@ -64,10 +54,9 @@ class SermonspeakerViewTools extends JViewLegacy
 		if ($layout !== 'time')
 		{
 			$this->addToolbar();
-			$this->sidebar = JHtmlSidebar::render();
 		}
 
-		return parent::display($tpl);
+		parent::display($tpl);
 	}
 
 	/**

@@ -20,13 +20,9 @@ JHtml::_('bootstrap.tooltip');
 $session = Factory::getApplication()->getSession();
 $user    = Factory::getUser();
 ?>
-<form action="<?php echo Route::_('index.php?option=com_sermonspeaker&view=tools'); ?>" method="post" name="adminForm"
-      id="adminForm">
+<form action="<?php echo Route::_('index.php?option=com_sermonspeaker&view=tools'); ?>" method="post" name="adminForm" id="adminForm">
     <div class="row">
-        <div id="j-sidebar-container" class="col-md-2">
-			<?php echo $this->sidebar; ?>
-        </div>
-        <div class="col-md-10">
+        <div class="col-md-12">
             <div id="j-main-container">
                 <div class="card-deck m-3">
                     <a class="card text-center hasTooltip"

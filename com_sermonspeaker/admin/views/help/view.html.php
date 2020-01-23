@@ -9,6 +9,11 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Table\Table;
+use Joomla\CMS\Toolbar\ToolbarHelper;
+
 /**
  * HTML View class for the SermonSpeaker Component
  *
@@ -35,26 +40,24 @@ class SermonspeakerViewHelp extends JViewLegacy
 	/**
 	 * Execute and display a template script.
 	 *
-	 * @param   string $tpl The name of the template file to parse; automatically searches through the template paths.
+	 * @param string $tpl The name of the template file to parse; automatically searches through the template paths.
 	 *
-	 * @return  mixed  A string if successful, otherwise a Error object.
-	 *
-	 * @see     JViewLegacy::loadTemplate()
+	 * @throws Exception
 	 * @since   3.4
+	 * @see     JViewLegacy::loadTemplate()
 	 */
 	public function display($tpl = null)
 	{
 		// Get current version of SermonSpeaker
-		$component  = JComponentHelper::getComponent('com_sermonspeaker');
-		$extensions = JTable::getInstance('extension');
+		$component  = ComponentHelper::getComponent('com_sermonspeaker');
+		$extensions = Table::getInstance('extension');
 		$extensions->load($component->id);
 		$manifest      = json_decode($extensions->manifest_cache);
 		$this->version = $manifest->version;
 
 		$this->addToolbar();
-		$this->sidebar = JHtmlSidebar::render();
 
-		return parent::display($tpl);
+		parent::display($tpl);
 	}
 
 	/**
@@ -67,11 +70,11 @@ class SermonspeakerViewHelp extends JViewLegacy
 	protected function addToolbar()
 	{
 		$canDo = SermonspeakerHelper::getActions();
-		JToolbarHelper::title(JText::sprintf('COM_SERMONSPEAKER_TOOLBAR_TITLE', JText::_('JHELP')), 'support sermonhelp');
+		ToolbarHelper::title(Text::_('JHELP'), 'support sermonhelp');
 
 		if ($canDo->get('core.admin') || $canDo->get('core.options'))
 		{
-			JToolbarHelper::preferences('com_sermonspeaker');
+			ToolbarHelper::preferences('com_sermonspeaker');
 		}
 	}
 }
