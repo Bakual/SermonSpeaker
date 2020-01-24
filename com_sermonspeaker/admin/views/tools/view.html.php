@@ -7,6 +7,9 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Toolbar\ToolbarHelper;
+
 defined('_JEXEC') or die;
 
 /**
@@ -69,11 +72,11 @@ class SermonspeakerViewTools extends JViewLegacy
 	protected function addToolbar()
 	{
 		$canDo = SermonspeakerHelper::getActions();
-		JToolbarHelper::title(JText::sprintf('COM_SERMONSPEAKER_TOOLBAR_TITLE', JText::_('COM_SERMONSPEAKER_MAIN_TOOLS')), 'tools');
+		ToolbarHelper::title(Text::_('COM_SERMONSPEAKER_MAIN_TOOLS'), 'tools');
 
 		if ($canDo->get('core.admin') || $canDo->get('core.options'))
 		{
-			JToolbarHelper::preferences('com_sermonspeaker');
+			ToolbarHelper::preferences('com_sermonspeaker');
 		}
 	}
 }

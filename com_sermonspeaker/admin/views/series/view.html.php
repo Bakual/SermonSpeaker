@@ -9,6 +9,13 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Multilanguage;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\MVC\View\GenericDataException;
+use Joomla\CMS\Toolbar\Toolbar;
+use Joomla\CMS\Toolbar\ToolbarHelper;
+
 /**
  * HTML View class for the SermonSpeaker Component
  *
@@ -16,8 +23,22 @@ defined('_JEXEC') or die;
  */
 class SermonspeakerViewSeries extends JViewLegacy
 {
+	/**
+	 * Holds an array of item objects
+	 *
+	 * @var    array
+	 *
+	 * @since  ?
+	 */
 	protected $items;
 
+	/**
+	 * The pagination object
+	 *
+	 * @var  \JPagination
+	 *
+	 * @since  ?
+	 */
 	protected $pagination;
 
 	/**
@@ -29,18 +50,28 @@ class SermonspeakerViewSeries extends JViewLegacy
 	 */
 	protected $state;
 
+	/**
+	 * Form object for search filters
+	 *
+	 * @var  \JForm
+	 *
+	 * @since  ?
+	 */
 	public $filterForm;
 
+	/**
+	 * The active search filters
+	 *
+	 * @var  array
+	 *
+	 * @since  ?
+	 */
 	public $activeFilters;
-
-	protected $sidebar;
 
 	/**
 	 * Execute and display a template script.
 	 *
 	 * @param   string $tpl The name of the template file to parse; automatically searches through the template paths.
-	 *
-	 * @return mixed A string if successful, otherwise a Error object.
 	 *
 	 * @throws Exception
 	 *
@@ -59,19 +90,26 @@ class SermonspeakerViewSeries extends JViewLegacy
 		// Check for errors.
 		if (count($errors = $this->get('Errors')))
 		{
-			throw new Exception(implode("\n", $errors), 500);
+			throw new GenericDataException(implode("\n", $errors), 500);
 		}
 
 		// We don't need toolbar in the modal window.
 		if ($layout !== 'modal')
 		{
 			$this->addToolbar();
-			$this->sidebar = JHtmlSidebar::render();
+
+			// We do not need to filter by language when multilingual is disabled
+			if (!Multilanguage::isEnabled())
+			{
+				unset($this->activeFilters['language']);
+				$this->filterForm->removeField('language', 'filter');
+			}
 		}
 		else
 		{
-			// In sermon associations modal we need to remove language filter if forcing a language.
-			if ($forcedLanguage = JFactory::getApplication()->input->get('forcedLanguage', '', 'CMD'))
+			// In series associations modal we need to remove language filter if forcing a language.
+			// We also need to change the category filter to show show categories with All or the forced language.
+			if ($forcedLanguage = Factory::getApplication()->input->get('forcedLanguage', '', 'CMD'))
 			{
 				// If the language is forced we can't allow to select the language, so transform the language selector filter into an hidden field.
 				$languageXml = new SimpleXMLElement('<field name="language" type="hidden" default="' . $forcedLanguage . '" />');
@@ -85,7 +123,7 @@ class SermonspeakerViewSeries extends JViewLegacy
 			}
 		}
 
-		return parent::display($tpl);
+		parent::display($tpl);
 	}
 
 	/**
@@ -98,68 +136,73 @@ class SermonspeakerViewSeries extends JViewLegacy
 	protected function addToolbar()
 	{
 		$canDo = SermonspeakerHelper::getActions();
+		$user  = Factory::getUser();
 
 		// Get the toolbar object instance
-		$bar = JToolbar::getInstance('toolbar');
+		$toolbar = Toolbar::getInstance('toolbar');
 
-        JToolbarHelper::title(JText::sprintf('COM_SERMONSPEAKER_TOOLBAR_TITLE', JText::_('COM_SERMONSPEAKER_SERIES_TITLE')), 'drawer-2 series');
+		ToolbarHelper::title(Text::_('COM_SERMONSPEAKER_SERIES_TITLE'), 'drawer-2 series');
 
-		if ($canDo->get('core.create'))
+		if ($canDo->get('core.create') || count($user->getAuthorisedCategories('com_sermonspeaker', 'core.create')) > 0)
 		{
-			JToolbarHelper::addNew('serie.add', 'JTOOLBAR_NEW');
-		}
-
-		if (($canDo->get('core.edit')) || ($canDo->get('core.edit.own')))
-		{
-			JToolbarHelper::editList('serie.edit', 'JTOOLBAR_EDIT');
+			$toolbar->addNew('serie.add');
 		}
 
 		if ($canDo->get('core.edit.state'))
 		{
-			JToolbarHelper::custom('series.publish', 'publish.png', 'publish_f2.png', 'JTOOLBAR_PUBLISH', true);
-			JToolbarHelper::custom('series.unpublish', 'unpublish.png', 'unpublish_f2.png', 'JTOOLBAR_UNPUBLISH', true);
+			$dropdown = $toolbar->dropdownButton('status-group')
+				->text('JTOOLBAR_CHANGE_STATUS')
+				->toggleSplit(false)
+				->icon('fa fa-ellipsis-h')
+				->buttonClass('btn btn-action')
+				->listCheck(true);
 
-			if ($this->state->get('filter.state') != 2)
+			$childBar = $dropdown->getChildToolbar();
+
+			$childBar->publish('series.publish')->listCheck(true);
+
+			$childBar->unpublish('series.unpublish')->listCheck(true);
+
+			$childBar->archive('series.archive')->listCheck(true);
+
+			if ($user->authorise('core.admin'))
 			{
-				JToolbarHelper::archiveList('series.archive', 'JTOOLBAR_ARCHIVE');
-			}
-			else
-			{
-				JToolbarHelper::unarchiveList('series.publish', 'JTOOLBAR_UNARCHIVE');
+				$childBar->checkin('series.checkin')->listCheck(true);
 			}
 
-			JToolbarHelper::checkin('series.checkin');
+			if ($this->state->get('filter.published') != -2)
+			{
+				$childBar->trash('series.trash')->listCheck(true);
+			}
+
+			// Add a batch button
+			if ($user->authorise('core.create', 'com_sermonspeaker')
+				&& $user->authorise('core.edit', 'com_sermonspeaker')
+				&& $user->authorise('core.edit.state', 'com_sermonspeaker'))
+			{
+				$childBar->popupButton('batch')
+					->text('JTOOLBAR_BATCH')
+					->selector('collapseModal')
+					->listCheck(true);
+			}
+
+			if ($this->state->get('filter.published') == -2 && $canDo->get('core.delete'))
+			{
+				$childBar->delete('series.delete')
+					->text('JTOOLBAR_EMPTY_TRASH')
+					->message('JGLOBAL_CONFIRM_DELETE')
+					->listCheck(true);
+			}
 		}
 
 		if ($canDo->get('core.edit.state'))
 		{
-			JToolbarHelper::custom('tools.seriesorder', 'lightning', '', 'COM_SERMONSPEAKER_TOOLS_ORDER', false);
-		}
-
-		// Add a batch button
-		if ($canDo->get('core.edit'))
-		{
-			$title = JText::_('JTOOLBAR_BATCH');
-
-			// Instantiate a new JLayoutFile instance and render the batch button
-			$layout = new JLayoutFile('joomla.toolbar.batch');
-
-			$dhtml = $layout->render(array('title' => $title));
-			$bar->appendButton('Custom', $dhtml, 'batch');
-		}
-
-		if ($this->state->get('filter.state') == -2 && $canDo->get('core.delete'))
-		{
-			JToolbarHelper::deleteList('', 'series.delete', 'JTOOLBAR_EMPTY_TRASH');
-		}
-		elseif ($canDo->get('core.edit.state'))
-		{
-			JToolbarHelper::trash('series.trash', 'JTOOLBAR_TRASH');
+			$toolbar->standardButton('lightning', 'COM_SERMONSPEAKER_TOOLS_ORDER', 'tools.seriesorder');
 		}
 
 		if ($canDo->get('core.admin') || $canDo->get('core.options'))
 		{
-			JToolbarHelper::preferences('com_sermonspeaker');
+			$toolbar->preferences('com_sermonspeaker');
 		}
 	}
 
@@ -173,15 +216,15 @@ class SermonspeakerViewSeries extends JViewLegacy
 	protected function getSortFields()
 	{
 		return array(
-			'series.ordering' => JText::_('JGRID_HEADING_ORDERING'),
-			'series.state'    => JText::_('JSTATUS'),
-			'series.title'    => JText::_('JGLOBAL_TITLE'),
-			'category_title'  => JText::_('JCATEGORY'),
-			'series.avatar'   => JText::_('COM_SERMONSPEAKER_FIELD_PICTURE_LABEL'),
-			'series.home'     => JText::_('JDEFAULT'),
-			'series.hits'     => JText::_('JGLOBAL_HITS'),
-			'language'        => JText::_('JGRID_HEADING_LANGUAGE'),
-			'series.id'       => JText::_('JGRID_HEADING_ID'),
+			'series.ordering' => Text::_('JGRID_HEADING_ORDERING'),
+			'series.state'    => Text::_('JSTATUS'),
+			'series.title'    => Text::_('JGLOBAL_TITLE'),
+			'category_title'  => Text::_('JCATEGORY'),
+			'series.avatar'   => Text::_('COM_SERMONSPEAKER_FIELD_PICTURE_LABEL'),
+			'series.home'     => Text::_('JDEFAULT'),
+			'series.hits'     => Text::_('JGLOBAL_HITS'),
+			'language'        => Text::_('JGRID_HEADING_LANGUAGE'),
+			'series.id'       => Text::_('JGRID_HEADING_ID'),
 		);
 	}
 }
