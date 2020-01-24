@@ -61,6 +61,8 @@
 			<menu view="tools">COM_SERMONSPEAKER_MENU_TOOLS</menu>
 			<menu view="languages">COM_SERMONSPEAKER_MENU_LANGUAGES</menu>
 			<menu view="help">COM_SERMONSPEAKER_MENU_HELP</menu>
+			<menu link="option=com_fields&amp;view=fields&amp;context=com_sermonspeaker.sermon">JGLOBAL_FIELDS</menu>
+			<menu link="option=com_fields&amp;view=groups&amp;context=com_sermonspeaker.sermon">JGLOBAL_FIELD_GROUPS</menu>
 		</submenu>
 		<files folder="admin">
 			<filename>access.xml</filename>
