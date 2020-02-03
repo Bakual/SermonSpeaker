@@ -49,7 +49,7 @@
 		<folder>media</folder>
 	</media>
 	<administration>
-		<menu>COM_SERMONSPEAKER</menu>
+		<menu img="class:comment">COM_SERMONSPEAKER</menu>
 		<submenu>
 			<menu view="main">COM_SERMONSPEAKER_MENU_MAIN</menu>
 			<menu view="sermons">COM_SERMONSPEAKER_MENU_SERMONS</menu>
