@@ -10,16 +10,16 @@
 defined('_JEXEC') or die();
 
 use Joomla\CMS\Language\Associations;
+use Joomla\Component\Categories\Administrator\Helper\CategoryAssociationHelper;
 
 JLoader::register('SermonspeakerHelper', JPATH_ADMINISTRATOR . '/components/com_sermonspeaker/helpers/sermonspeaker.php');
-JLoader::register('CategoryHelperAssociation', JPATH_ADMINISTRATOR . '/components/com_categories/helpers/association.php');
 
 /**
  * SermonSpeaker Association Helper
  *
  * @since  5
  */
-abstract class SermonspeakerHelperAssociation extends CategoryHelperAssociation
+abstract class SermonspeakerHelperAssociation extends CategoryAssociationHelper
 {
 	/**
 	 * Method to get the associations for a given item
