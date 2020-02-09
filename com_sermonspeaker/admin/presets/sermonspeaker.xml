@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+<menu
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="urn:joomla.org"
+	xsi:schemaLocation="urn:joomla.org menu.xsd"
+	>
+	<menuitem
+		title="COM_SERMONSPEAKER"
+		type="heading"
+		icon="comment"
+		class="class:comment"
+		>
+		<menuitem
+			title="COM_SERMONSPEAKER_MENU_SERMONS"
+			type="component"
+			element="com_sermonspeaker"
+			link="index.php?option=com_sermonspeaker&amp;view=sermons"
+			quicktask="index.php?option=com_sermonspeaker&amp;task=sermon.add"
+			quicktask-title="COM_SERMONSPEAKER_MENU_ADD_SERMON"
+		/>
+
+		<menuitem
+			title="COM_SERMONSPEAKER_MENU_SERIES"
+			type="component"
+			element="com_sermonspeaker"
+			link="index.php?option=com_sermonspeaker&amp;view=series"
+			quicktask="index.php?option=com_sermonspeaker&amp;task=serie.add"
+			quicktask-title="COM_SERMONSPEAKER_MENU_ADD_SERIE"
+		/>
+
+		<menuitem
+			title="COM_SERMONSPEAKER_MENU_SPEAKERS"
+			type="component"
+			element="com_sermonspeaker"
+			link="index.php?option=com_sermonspeaker&amp;view=speakers"
+			quicktask="index.php?option=com_sermonspeaker&amp;task=speaker.add"
+			quicktask-title="COM_SERMONSPEAKER_MENU_ADD_SPEAKER"
+		/>
+
+		<menuitem
+			title="COM_SERMONSPEAKER_MENU_CATEGORIES_SERMONS"
+			type="component"
+			element="com_categories"
+			link="index.php?option=com_categories&amp;view=categories&amp;extension=com_sermonspeaker.sermons"
+			quicktask="index.php?option=com_categories&amp;extension=com_sermonspeaker&amp;task=category.add"
+			quicktask-title="COM_SERMONSPEAKER_MENU_ADD_SERMONS_CATEGORY"
+		/>
+
+		<menuitem
+			title="COM_SERMONSPEAKER_MENU_CATEGORIES_SERIES"
+			type="component"
+			element="com_categories"
+			link="index.php?option=com_categories&amp;view=categories&amp;extension=com_sermonspeaker.series"
+			quicktask="index.php?option=com_categories&amp;extension=com_sermonspeaker&amp;task=category.add"
+			quicktask-title="COM_SERMONSPEAKER_MENU_ADD_SERIE_CATEGORY"
+		/>
+
+		<menuitem
+			title="COM_SERMONSPEAKER_MENU_CATEGORIES_SERMONS"
+			type="component"
+			element="com_categories"
+			link="index.php?option=com_categories&amp;view=categories&amp;extension=com_sermonspeaker.speakers"
+			quicktask="index.php?option=com_categories&amp;extension=com_sermonspeaker&amp;task=category.add"
+			quicktask-title="COM_SERMONSPEAKER_MENU_ADD_SPEAKER_CATEGORY"
+		/>
+
+	</menuitem>
+
+	<menuitem
+		title="COM_SERMONSPEAKER_MANAGE"
+		type="heading"
+		icon="cog"
+		class="class:file-alt"
+		>
+		<menuitem
+			title="COM_SERMONSPEAKER_MENU_TOOLS"
+			type="component"
+			element="com_sermonspeaker"
+			link="index.php?option=com_sermonspeaker&amp;view=tools"
+		/>
+
+		<menuitem
+			title="MOD_MENU_FIELDS"
+			type="component"
+			element="com_fields"
+			link="index.php?option=com_fields&amp;view=fields&amp;context=com_sermonspeaker.sermon"
+		/>
+
+		<menuitem
+			title="MOD_MENU_FIELDS_GROUP"
+			type="component"
+			element="com_fields"
+			link="index.php?option=com_fields&amp;view=groups&amp;context=com_sermonspeaker.sermon"
+		/>
+	</menuitem>
+</menu>
