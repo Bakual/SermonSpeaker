@@ -110,6 +110,9 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 	{
 		// Notice $parent->getParent() returns JInstaller object
 		$parent->getParent()->setRedirectUrl('index.php?option=com_sermonspeaker');
+
+		// Add Dashboard menu on update
+		$this->addDashboardMenu('sermonspeaker', 'sermonspeaker');
 	}
 
 	/**
@@ -155,6 +158,9 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 			$this->deleteFiles[]   = '/administrator/components/com_sermonspeaker/sql/updates/mysql/5.0.4.sql';
 			$this->deleteFiles[]   = '/administrator/components/com_sermonspeaker/sql/updates/mysql/5.4.0.sql';
 			$this->deleteFiles[]   = '/administrator/components/com_sermonspeaker/sql/updates/mysql/5.5.0.sql';
+
+			// Add Dashboard menu on update
+			$this->addDashboardMenu('sermonspeaker', 'sermonspeaker');
 		}
 	}
 
