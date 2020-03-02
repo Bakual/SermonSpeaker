@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<extension type="component" version="4.0" method="upgrade">
+<extension type="component" version="4.0.0" method="upgrade">
 	<name>com_sermonspeaker</name>
 	<author>Thomas Hunziker</author>
-	<creationDate>2018-11-05</creationDate>
-	<copyright>© 2018</copyright>
+	<creationDate>2020-03-02</creationDate>
+	<copyright>© 2020</copyright>
 	<authorEmail>admin@sermonspeaker.net</authorEmail>
 	<authorUrl>http://www.sermonspeaker.net</authorUrl>
 	<version>6.0.0</version>
