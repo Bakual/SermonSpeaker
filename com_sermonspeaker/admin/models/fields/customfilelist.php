@@ -257,6 +257,7 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 
 			// Instantiate the class
 			$s3 = new S3($awsAccessKey, $awsSecretKey);
+			$s3->setRegion($this->params->get('s3_region'));
 
 			// Add year/month to the directory if enabled.
 			if ($this->params->get('append_path', 0))

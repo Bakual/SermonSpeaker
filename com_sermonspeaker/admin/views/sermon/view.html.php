@@ -315,6 +315,7 @@ class SermonspeakerViewSermon extends JViewLegacy
 
 			// Instantiate the class
 			$s3 = new S3($awsAccessKey, $awsSecretKey);
+			$s3->setRegion($this->params->get('s3_region'));
 
 			if ($this->params->get('s3_custom_bucket'))
 			{

@@ -109,6 +109,7 @@ class SermonspeakerModelFiles extends JModelLegacy
 			$bucket       = $params->get('s3_bucket');
 			$bucketfolder = $params->get('s3_folder') ? trim($params->get('s3_folder'), ' /') . '/' : '';
 			$s3           = new S3($awsAccessKey, $awsSecretKey);
+			$s3->setRegion($params->get('s3_region'));
 
 			$bucket_contents = $s3->getBucket($bucket, $bucketfolder);
 

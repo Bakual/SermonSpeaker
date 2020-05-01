@@ -131,6 +131,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 
 			// Instantiate the class
 			$s3 = new S3($awsAccessKey, $awsSecretKey);
+			$s3->setRegion($params->get('s3_region'));
 
 			$date   = $jinput->get('date', '', 'string');
 			$time   = ($date) ? strtotime($date) : time();
