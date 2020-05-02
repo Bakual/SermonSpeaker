@@ -122,12 +122,13 @@ class SermonspeakerControllerFile extends JControllerLegacy
 			// AWS access info
 			$awsAccessKey = $params->get('s3_access_key');
 			$awsSecretKey = $params->get('s3_secret_key');
+			$region       = $params->get('s3_region');
 			$bucket       = $params->get('s3_bucket');
 			$folder       = $params->get('s3_folder') ? trim($params->get('s3_folder'), ' /') . '/' : '';
 
 			// Instantiate the class
 			$s3 = new S3($awsAccessKey, $awsSecretKey);
-			$s3->setRegion($params->get('s3_region'));
+			$s3->setRegion($region);
 
 			$date   = $jinput->get('date', '', 'string');
 			$time   = ($date) ? strtotime($date) : time();
@@ -166,8 +167,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 			}
 			else
 			{
-				$region = $s3->getBucketLocation($bucket);
-				$prefix = ($region == 'US') ? 's3' : 's3-' . $region;
+				$prefix = ($region === 'us-east-1') ? 's3' : 's3-' . $region;
 				$domain = $prefix . '.amazonaws.com/' . $bucket;
 			}
 

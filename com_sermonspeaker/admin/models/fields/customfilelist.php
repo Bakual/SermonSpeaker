@@ -252,12 +252,13 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 			// AWS access info
 			$awsAccessKey = $this->params->get('s3_access_key');
 			$awsSecretKey = $this->params->get('s3_secret_key');
+			$region       = $this->params->get('s3_region');
 			$bucket       = $this->params->get('s3_bucket');
 			$folder       = $this->params->get('s3_folder') ? trim($this->params->get('s3_folder'), ' /') . '/' : '';
 
 			// Instantiate the class
 			$s3 = new S3($awsAccessKey, $awsSecretKey);
-			$s3->setRegion($this->params->get('s3_region'));
+			$s3->setRegion($region);
 
 			// Add year/month to the directory if enabled.
 			if ($this->params->get('append_path', 0))
@@ -300,8 +301,7 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 			}
 			else
 			{
-				$region = $s3->getBucketLocation($bucket);
-				$prefix = ($region == 'US') ? 's3' : 's3-' . $region;
+				$prefix = ($region === 'us-east-1') ? 's3' : 's3-' . $region;
 				$domain = $prefix . '.amazonaws.com/' . $bucket;
 			}
 
