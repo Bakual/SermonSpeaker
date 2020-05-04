@@ -32,6 +32,6 @@
 		<folder type="plugin" id="pixelout" group="sermonspeaker">plg_sermonspeaker_pixelout</folder>
 	</files>
 	<updateservers>
-		<server type="collection" priority="1" name="SermonSpeaker.net">http://www.sermonspeaker.net/update/package.xml</server>
+		<server type="collection" priority="1" name="SermonSpeaker.net">https://www.sermonspeaker.net/update/package.xml</server>
 	</updateservers>
 </extension>
