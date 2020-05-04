@@ -17,7 +17,7 @@
 		<folder>language</folder>
 	</files>
 	<updateservers>
-		<server type="extension" priority="1" name="SermonSpeaker.net">http://www.sermonspeaker.net/update/mod_related_sermons.xml</server>
+		<server type="extension" priority="1" name="SermonSpeaker.net">https://www.sermonspeaker.net/update/mod_related_sermons.xml</server>
 	</updateservers>
 	<config>
 		<fields name="params">

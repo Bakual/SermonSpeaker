@@ -18,7 +18,7 @@
 	</files>
 	<updateservers>
 		<server type="extension" priority="1" name="SermonSpeaker.net">
-			http://www.sermonspeaker.net/update/mod_sermonarchive.xml
+			https://www.sermonspeaker.net/update/mod_sermonarchive.xml
 		</server>
 	</updateservers>
 	<config>
