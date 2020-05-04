@@ -20,7 +20,7 @@
 		<filename>jwplayer.html5.js</filename>
 	</media>
 	<updateservers>
-		<server type="extension" priority="1" name="SermonSpeaker.net">http://www.sermonspeaker.net/update/plg_sermonspeaker_jwplayer6.xml</server>
+		<server type="extension" priority="1" name="SermonSpeaker.net">https://www.sermonspeaker.net/update/plg_sermonspeaker_jwplayer6.xml</server>
 	</updateservers>
 	<config>
 		<fields name="params">
