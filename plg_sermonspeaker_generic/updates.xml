@@ -1,13 +1,13 @@
 <updates>
 	<update>
-		<name>SermonCast Module</name>
-		<description>SermonCast Module</description>
-		<element>mod_sermoncast</element>
-		<type>module</type>
-		<version>5.3.4</version>
+		<name>SermonSpeaker Generic Player Module</name>
+		<description>SermonSpeaker Generic Player Module</description>
+		<element>generic</element>
+		<type>plugin</type>
+		<version>5.3.1</version>
 		<downloads>
 			<downloadurl type="full" format="zip">
-				https://github.com/Bakual/SermonSpeaker/releases/download/5.9.3/mod_sermoncast.zip
+				https://github.com/Bakual/SermonSpeaker/releases/download/5.9.3/plg_sermonspeaker_generic.zip
 			</downloadurl>
 		</downloads>
 		<tags>
@@ -17,5 +17,6 @@
 		<maintainerurl>https://www.sermonspeaker.net/</maintainerurl>
 		<targetplatform name="joomla" version="3.[89]|10"/>
 		<client>0</client>
+		<folder>sermonspeaker</folder>
 	</update>
 </updates>
