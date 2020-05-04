@@ -1,0 +1,23 @@
+<updates>
+	<script/>
+	<update>
+		<name>SermonSpeaker Finder Module</name>
+		<description>SermonSpeaker Finder Module</description>
+		<element>sermonspeaker</element>
+		<type>plugin</type>
+		<version>1.0.2</version>
+		<downloads>
+			<downloadurl type="full" format="zip">
+				https://github.com/Bakual/SermonSpeaker/releases/download/5.9.3/plg_quickicon_sermonspeaker.zip
+			</downloadurl>
+		</downloads>
+		<tags>
+			<tag>stable</tag>
+		</tags>
+		<maintainer>Thomas Hunziker</maintainer>
+		<maintainerurl>https://www.sermonspeaker.net/</maintainerurl>
+		<targetplatform name="joomla" version="3.[89]|10"/>
+		<client>1</client>
+		<folder>quickicon</folder>
+	</update>
+</updates>
