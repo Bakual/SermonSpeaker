@@ -229,6 +229,7 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 		// Loading needed Javascript only once
 		if (!self::$script_loaded)
 		{
+			JHtml::_('jquery.framework');
 			JFactory::getDocument()->addScriptDeclaration('mejs.i18n.language(\'' . $langCode . '\');');
 			JHtml::_('script', 'plg_sermonspeaker_mediaelement/mediaelement-and-player.min.js', false, true, false);
 			JHtml::_('script', 'plg_sermonspeaker_mediaelement/renderers/vimeo.min.js', false, true, false);
