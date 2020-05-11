@@ -368,6 +368,11 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 			$bucket       = $this->params->get('s3_bucket');
 			$folder       = $this->params->get('s3_folder') ? '/' . $this->params->get('s3_folder') : '';
 
+			if (!$awsAccessKey || !$awsSecretKey || !$region || !$bucket)
+			{
+				JFactory::getApplication()->enqueueMessage(JText::_('COM_SERMONSPEAKER_S3_MISSING_PARAMETER'), 'warning');
+			}
+
 			// Instantiate the class
 			$s3 = new S3($awsAccessKey, $awsSecretKey);
 			$s3->setRegion($region);
