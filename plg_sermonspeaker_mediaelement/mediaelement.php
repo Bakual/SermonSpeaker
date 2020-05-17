@@ -229,10 +229,10 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 		// Loading needed Javascript only once
 		if (!self::$script_loaded)
 		{
-			JHtml::_('jquery.framework');
 			JFactory::getDocument()->addScriptDeclaration('mejs.i18n.language(\'' . $langCode . '\');');
 			JHtml::_('script', 'plg_sermonspeaker_mediaelement/mediaelement-and-player.min.js', false, true, false);
 			JHtml::_('script', 'plg_sermonspeaker_mediaelement/renderers/vimeo.min.js', false, true, false);
+			JHtml::_('script', 'plg_sermonspeaker_mediaelement/renderers/facebook.min.js', false, true, false);
 			JHtml::_('script', 'plg_sermonspeaker_mediaelement/lang/' . $langCode . '.js', false, true, false);
 			JHtml::_('stylesheet', 'plg_sermonspeaker_mediaelement/mediaelementplayer.min.css', false, true, false);
 
@@ -292,6 +292,13 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 
 		if (parse_url($item->videofile, PHP_URL_HOST) == 'vimeo.com'
 			|| parse_url($item->videofile, PHP_URL_HOST) == 'player.vimeo.com'
+		)
+		{
+			$supported[] = 'video';
+		}
+
+		if (parse_url($item->videofile, PHP_URL_HOST) == 'www.facebook.com'
+			|| parse_url($item->videofile, PHP_URL_HOST) == 'facebook.com'
 		)
 		{
 			$supported[] = 'video';
