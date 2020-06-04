@@ -105,6 +105,18 @@ class SermonspeakerModelFeed extends JModelLegacy
 			}
 		}
 
+		// Series filter
+		if ($series = $params->get('series_filter', 0))
+		{
+			$query->where('sermons.series_id = ' . $series);
+		}
+
+		// Speakers filter
+		if ($speaker = $params->get('speaker_filter', 0))
+		{
+			$query->where('sermons.speaker_id = ' . $speaker);
+		}
+
 		// Define null and now dates
 		$nullDate = $db->quote($db->getNullDate());
 		$nowDate  = $db->quote(JFactory::getDate()->toSql());

@@ -40,6 +40,22 @@
 				<option value="series">COM_SERMONSPEAKER_SERIES</option>
 				<option value="speakers">COM_SERMONSPEAKER_SPEAKERS</option>
 			</field>
+
+			<field name="series_filter" type="sql"
+				   label="COM_SERMONSPEAKER_FIELD_SERIES_LABEL"
+				   query="SELECT id, title FROM #__sermon_series"
+				   key_field="id"
+				   value_field="title">
+				<option value="">COM_SERMONSPEAKER_SELECT_SERIES</option>
+			</field>
+
+			<field name="speaker_filter" type="sql"
+				   label="COM_SERMONSPEAKER_FIELD_SPEAKER_LABEL"
+				   query="SELECT id, title FROM #__sermon_speakers"
+				   key_field="id"
+				   value_field="title">
+				<option value="">COM_SERMONSPEAKER_SELECT_SPEAKER</option>
+			</field>
 		</fieldset>
 		<fieldset name="sermoncast" label="COM_SERMONSPEAKER_FIELDSET_SERMONCAST_LABEL">
 			<field name="sc_title"
