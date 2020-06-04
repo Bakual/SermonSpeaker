@@ -224,7 +224,9 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 
 		$this->loadLanguage();
 
-		$this->setPopup($this->mode[0]);
+		// Popup Dimensions
+		$this->player->popup['width']  = $dimensions[$this->mode . 'width'] + 130;
+		$this->player->popup['height'] = $dimensions[$this->mode . 'height'] + (int) $this->c_params->get('popup_height', 150);
 
 		// Loading needed Javascript only once
 		if (!self::$script_loaded)
