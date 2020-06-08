@@ -261,7 +261,7 @@ class JHtmlIcon
 		}
 
 		$text = '<i class="icon-play"> </i> ' . JText::_('COM_SERMONSPEAKER_PLAYICON_HOOVER');
-		$output = '<a href="#" onclick="ss_play(' . $attribs['index'] . ');return false;">' . $text . '</a>';
+		$output = '<a href="#" class="ss-play" data-id="' . $attribs['index'] . '" data-player="' . $attribs['playerid'] . '" onclick="ss_play(' . $attribs['index'] . ');return false;">' . $text . '</a>';
 
 		return $output;
 	}

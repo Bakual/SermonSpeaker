@@ -120,7 +120,9 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 									<span class="caret"></span>
 								</a>
 								<ul class="dropdown-menu">
-									<li class="play-icon"><?php echo JHtml::_('icon.play', $item, $this->params, array('index' => $i)); ?></li>
+									<?php if ($playerid = !empty($player->id) ? $player->id : '') : ?>
+										<li class="play-icon"><?php echo JHtml::_('icon.play', $item, $this->params, array('index' => $i, 'playerid' => $playerid)); ?></li>
+									<?php endif; ?>
 									<?php
 									if (in_array('sermons:download', $this->columns)) :
 										if ($item->audiofile) : ?>
