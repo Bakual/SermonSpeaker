@@ -341,16 +341,16 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 
 		if (!$attributes['type'])
 		{
-			if (parse_url($item->videofile, PHP_URL_HOST) == 'vimeo.com'
-				|| parse_url($item->videofile, PHP_URL_HOST) == 'player.vimeo.com'
+			if (parse_url($file, PHP_URL_HOST) == 'vimeo.com'
+				|| parse_url($file, PHP_URL_HOST) == 'player.vimeo.com'
 			)
 			{
 				$attributes['type'] = 'video/vimeo';
 			}
 
-			if (!$attributes['type'] && (parse_url($item->videofile, PHP_URL_HOST) == 'youtube.com'
-					|| parse_url($item->videofile, PHP_URL_HOST) == 'www.youtube.com'
-					|| parse_url($item->videofile, PHP_URL_HOST) == 'youtu.be')
+			if (!$attributes['type'] && (parse_url($file, PHP_URL_HOST) == 'youtube.com'
+					|| parse_url($file, PHP_URL_HOST) == 'www.youtube.com'
+					|| parse_url($file, PHP_URL_HOST) == 'youtu.be')
 			)
 			{
 				$attributes['type'] = 'video/youtube';
