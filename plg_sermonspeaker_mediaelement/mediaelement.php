@@ -89,6 +89,8 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 	 */
 	public function onGetPlayer($context, &$player, $items, $config)
 	{
+		JHtml::_('bootstrap.framework');
+
 		$this->player = $player;
 
 		// There is already a player loaded
@@ -279,7 +281,17 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 			$supported[] = 'audio';
 		}
 
+		if (parse_url($item->audiofile, PHP_URL_HOST) == 'drive.google.com')
+		{
+			$supported[] = 'audio';
+		}
+
 		if (in_array(JFile::getExt(strtok($item->videofile, '?')), $video_ext))
+		{
+			$supported[] = 'video';
+		}
+
+		if (parse_url($item->videofile, PHP_URL_HOST) == 'drive.google.com')
 		{
 			$supported[] = 'video';
 		}
