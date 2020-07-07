@@ -282,7 +282,7 @@ class SermonspeakerControllerTools extends JControllerLegacy
 			foreach ($missing as $key => $values)
 			{
 				$arrayCount = array_count_values($values);
-				$message .= '<div class="' . $span . '">'
+				$message    .= '<div class="' . $span . '">'
 					. '<h5>' . JText::_('COM_SERMONSPEAKER_' . strtoupper($key)) . '</h5>'
 					. '<ul>';
 
@@ -461,6 +461,58 @@ class SermonspeakerControllerTools extends JControllerLegacy
 		$app = JFactory::getApplication();
 		$db  = JFactory::getDbo();
 
+		// Get Ministries and create Categories for it
+		$query = $db->getQuery(true);
+		$query->select('id, name, alias, description, published, access, language, metakey, metadesc');
+		$query->from('`#__piministry`');
+		$db->setQuery($query);
+		$ministries = $db->loadObjectList();
+
+		// Create categories for our component
+		$basePath = JPATH_ADMINISTRATOR . '/components/com_categories';
+		require_once $basePath . '/models/category.php';
+		$config   = array('table_path' => $basePath . '/tables');
+		$catmodel = new CategoriesModelCategory($config);
+		$catConversion = array();
+
+		$catData = array(
+			'id'          => 0,
+			'parent_id'   => 0,
+			'level'       => 1,
+			'path'        => 'preachitmigration',
+			'extension'   => 'com_sermonspeaker',
+			'title'       => 'Preach It Migration',
+			'alias'       => 'preachitmigration',
+			'description' => 'Items migrated from Preach It',
+			'published'   => 1,
+			'language'    => '*',
+		);
+		$catmodel->save($catData);
+		$catConversion[0] = $catmodel->getItem()->id;
+
+		foreach ($ministries as $ministry)
+		{
+			$catData = array(
+				'id'          => 0,
+				'parent_id'   => 0,
+				'level'       => 1,
+				'path'        => $ministry->alias,
+				'extension'   => 'com_sermonspeaker',
+				'title'       => $ministry->name,
+				'alias'       => $ministry->alias,
+				'description' => $ministry->description,
+				'published'   => $ministry->published,
+				'language'    => $ministry->language,
+				'metakey'     => $ministry->metakey,
+				'metadesc'    => $ministry->metadesc,
+				'access'      => $ministry->access,
+			);
+			$catmodel->save($catData);
+			$catConversion[$ministry->id] = $catmodel->getItem()->id;
+		}
+
+		$app->enqueueMessage(count($catConversion) . ' categories created!');
+
 		// Check version of table structure (changed somewhere with PI 4)
 		$v4 = array_key_exists('date', $db->getTableColumns('#__pistudies'));
 
@@ -470,7 +522,7 @@ class SermonspeakerControllerTools extends JControllerLegacy
 
 		if ($v4)
 		{
-			$query->select('a.date as study_date, a.name as study_name, a.alias as study_alias, a.description as study_description');
+			$query->select('a.date as study_date, a.name as study_name, a.alias as study_alias, CONCAT(a.description, a.study_text) as study_description, a.ministry');
 		}
 		else
 		{
@@ -510,22 +562,26 @@ class SermonspeakerControllerTools extends JControllerLegacy
 
 		// Join over the audio path.
 		$query->select("IF (d.server != '', CONCAT('http://', CONCAT_WS('/', d.server, d.folder, a.audio_link)), "
-			. "IF (LEFT(d.folder, 7) = 'http://', CONCAT(d.folder, '/', a.audio_link), CONCAT('/', d.folder, '/', a.audio_link))) AS audiofile");
+			. "IF (LEFT(d.folder, 7) = 'http://', CONCAT(d.folder, '/', a.audio_link), "
+			. "IF (d.folder != '', CONCAT(d.folder, '/', a.audio_link), a.audio_link))) AS audiofile");
 		$query->join('LEFT', '#__pifilepath AS d ON d.id = a.audio_folder');
 
 		// Join over the video path.
 		$query->select("IF (e.server != '', CONCAT('http://', CONCAT_WS('/', e.server, e.folder, a.video_link)), "
-			. "IF (LEFT(e.folder, 7) = 'http://', CONCAT(e.folder, '/', a.video_link), CONCAT('/', e.folder, '/', a.video_link))) AS videofile");
+			. "IF (LEFT(e.folder, 7) = 'http://', CONCAT(e.folder, '/', a.video_link), "
+			. "IF (e.folder != '', CONCAT(e.folder, '/', a.video_link), a.video_link))) AS videofile");
 		$query->join('LEFT', '#__pifilepath AS e ON e.id = a.video_folder');
 
 		// Join over the study pic path.
 		$query->select("IF (f.server != '', CONCAT('http://', CONCAT_WS('/', f.server, f.folder, a.imagelrg)), "
-			. "IF (LEFT(f.folder, 7) = 'http://', CONCAT(f.folder, '/', a.imagelrg), CONCAT('/', f.folder, '/', a.imagelrg))) AS study_pic");
+			. "IF (LEFT(f.folder, 7) = 'http://', CONCAT(f.folder, '/', a.imagelrg), "
+			. "IF (f.folder != '', CONCAT(f.folder, '/', a.imagelrg), a.imagelrg))) AS study_pic");
 		$query->join('LEFT', '#__pifilepath AS f ON f.id = a.image_folderlrg');
 
 		// Join over the study notes path.
 		$query->select("IF (g.server != '', CONCAT('http://', CONCAT_WS('/', g.server, g.folder, a.notes_link)), "
-			. "IF (LEFT(g.folder, 7) = 'http://', CONCAT(g.folder, '/', a.notes_link), CONCAT('/', g.folder, '/', a.notes_link))) AS addfile");
+			. "IF (LEFT(g.folder, 7) = 'http://', CONCAT(g.folder, '/', a.notes_link), "
+			. "IF (g.folder != '', CONCAT(g.folder, '/', a.notes_link), a.notes_link))) AS addfile");
 		$query->join('LEFT', '#__pifilepath AS g ON g.id = a.notes_folder');
 		$db->setQuery($query);
 
@@ -564,7 +620,7 @@ class SermonspeakerControllerTools extends JControllerLegacy
 
 		// Store the Series
 		$query = "INSERT INTO #__sermon_series \n"
-			. "(title, alias, series_description, state, ordering, created_by, created, avatar) \n";
+			. "(title, alias, series_description, state, ordering, created_by, created, catid, avatar) \n";
 
 		if ($v4)
 		{
@@ -576,7 +632,7 @@ class SermonspeakerControllerTools extends JControllerLegacy
 		}
 
 
-		$query .= "a.published, a.ordering, a.user, NOW(), \n"
+		$query .= "a.published, a.ordering, a.user, NOW(), '" . $catConversion[0] . "', \n"
 			. "IF (b.server != '', CONCAT('http://', CONCAT_WS('/', b.server, b.folder, a.series_image_lrg)), "
 			. "IF (LEFT(b.folder, 7) = 'http://', CONCAT(b.folder, '/', a.series_image_lrg), CONCAT('/', b.folder, '/', a.series_image_lrg))) \n"
 			. "FROM #__piseries AS a \n"
@@ -597,7 +653,7 @@ class SermonspeakerControllerTools extends JControllerLegacy
 		// Store the Speakers
 		/** @noinspection SqlResolve */
 		$query = "INSERT INTO #__sermon_speakers \n"
-			. "(title, alias, website, intro, state, ordering, created_by, created, pic) \n";
+			. "(title, alias, website, intro, state, ordering, created_by, created, catid, pic) \n";
 
 		if ($v4)
 		{
@@ -608,7 +664,7 @@ class SermonspeakerControllerTools extends JControllerLegacy
 			$query .= "SELECT a.series_name, a.series_alias, a.series_description, ";
 		}
 
-		$query .= "a.published, a.ordering, a.user, NOW(), \n"
+		$query .= "a.published, a.ordering, a.user, NOW(), '" . $catConversion[0] . "', \n"
 			. "IF (b.server != '', CONCAT('http://', CONCAT_WS('/', b.server, b.folder, a.teacher_image_lrg)), "
 			. "IF (LEFT(b.folder, 7) = 'http://', CONCAT(b.folder, '/', a.teacher_image_lrg), CONCAT('/', b.folder, '/', a.teacher_image_lrg))) \n"
 			. "FROM #__piteachers AS a \n"
@@ -656,10 +712,16 @@ class SermonspeakerControllerTools extends JControllerLegacy
 				$scripture[]       = $bible;
 			}
 
+			if ($study->ministry)
+			{
+				$ministry = json_decode($study->ministry, true);
+				$study->catid = $catConversion[$ministry[0]];
+			}
+
 			/** @noinspection SqlResolve */
 			$query = "INSERT INTO #__sermon_sermons \n"
-				. "(`audiofile`, `videofile`, `picture`, `title`, `alias`, `sermon_date`, `sermon_time`, `notes`, `state`, `hits`, `created_by`, `addfile`, `podcast`, `created`) \n"
-				. 'VALUES (' . $db->quote($study->audiofile) . ',' . $db->quote($study->videofile) . ',' . $db->quote($study->study_pic) . ',' . $db->quote($study->study_name) . ',' . $db->quote($study->study_alias) . ',' . $db->quote($study->study_date) . ',' . $db->quote($study->duration) . ',' . $db->quote($study->study_description) . ',' . $db->quote($study->published) . ',' . $db->quote($study->hits) . ',' . $db->quote($study->user) . ',' . $db->quote($study->addfile) . ', 1, NOW())';
+				. "(`audiofile`, `videofile`, `picture`, `title`, `alias`, `sermon_date`, `sermon_time`, `notes`, `state`, `hits`, `created_by`, `addfile`, `podcast`, `created`, `catid`) \n"
+				. 'VALUES (' . $db->quote($study->audiofile) . ',' . $db->quote($study->videofile) . ',' . $db->quote($study->study_pic) . ',' . $db->quote($study->study_name) . ',' . $db->quote($study->study_alias) . ',' . $db->quote($study->study_date) . ',' . $db->quote($study->duration) . ',' . $db->quote($study->study_description) . ',' . $db->quote($study->published) . ',' . $db->quote($study->hits) . ',' . $db->quote($study->user) . ',' . $db->quote($study->addfile) . ', 1, NOW(), ' . $db->quote($study->catid) . ')';
 			$db->setQuery($query);
 			$db->execute();
 
