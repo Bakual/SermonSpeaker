@@ -21,13 +21,6 @@
   },
   "require": {
     "james-heinrich/getid3": "v1.*",
-    "aws/aws-sdk-php": "3.30.*"
-  },
-  "replace": {
-	"guzzlehttp/guzzle": "*",
-	"guzzlehttp/promises": "*",
-	"guzzlehttp/psr7": "*",
-	"psr/http-message": "*",
-	"symfony/polyfill-mbstring": "*"
+    "tpyo/amazon-s3-php-class": "dev-master"
   }
 }

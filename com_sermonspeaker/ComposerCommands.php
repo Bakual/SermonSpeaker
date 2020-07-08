@@ -15,12 +15,7 @@ class ComposerCommands
 		self::deleteDirectory('james-heinrich/getid3/demos');
 		self::deleteDirectory('james-heinrich/getid3/helperapps');
 		self::deleteDirectory('james-heinrich/getid3/licenses');
-		self::deleteDirectory('aws/aws-sdk-php/.changes');
-		self::deleteDirectory('mtdowling/jmespath.php/tests/compliance/perf');
-		self::deleteDirectory('mtdowling/jmespath.php/tests/compliance');
-		self::deleteDirectory('mtdowling/jmespath.php/tests');
-		self::deleteDirectory('mtdowling/jmespath.php/bin');
-		self::deleteDirectory('bin');
+		self::deleteDirectory('tpyo/amazon-s3-php-class/.git');
 		$files = array(
 			'james-heinrich\getid3\getid3\extension.cache.dbm.php',
 			'james-heinrich\getid3\getid3\extension.cache.mysql.php',
@@ -95,17 +90,13 @@ class ComposerCommands
 			'james-heinrich\getid3\README.md',
 			'james-heinrich\getid3\readme.txt',
 			'james-heinrich\getid3\structure.txt',
-			'mtdowling/jmespath.php/.gitignore',
-			'mtdowling/jmespath.php/.travis.yml',
-			'mtdowling/jmespath.php/CHANGELOG.md',
-			'mtdowling/jmespath.php/composer.json',
-			'mtdowling/jmespath.php/Makefile',
-			'mtdowling/jmespath.php/Makefile',
-			'mtdowling/jmespath.php/phpunit.xml.dist',
-			'mtdowling/jmespath.php/README.rst',
-			'psr/http-message/CHANGELOG.md',
-			'psr/http-message/composer.json',
-			'psr/http-message/README.md',
+			'tpyo\amazon-s3-php-class\.gitignore',
+			'tpyo\amazon-s3-php-class\composer.json',
+			'tpyo\amazon-s3-php-class\example.php',
+			'tpyo\amazon-s3-php-class\example-cloudfront.php',
+			'tpyo\amazon-s3-php-class\example-form.php',
+			'tpyo\amazon-s3-php-class\example-wrapper.php',
+			'tpyo\amazon-s3-php-class\README.md',
 		);
 
 		foreach ($files as $file)

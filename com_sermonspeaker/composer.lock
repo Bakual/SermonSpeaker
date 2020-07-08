@@ -4,100 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a76d91329fab58995cc07eb36c7b5731",
+    "content-hash": "9a3aa55a4b8ee04b3c66a2122c2c7af7",
     "packages": [
         {
-            "name": "aws/aws-sdk-php",
-            "version": "3.30.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "69696dd3ec8c92170a4e7083ced867d01b8b3f55"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/69696dd3ec8c92170a4e7083ced867d01b8b3f55",
-                "reference": "69696dd3ec8c92170a4e7083ced867d01b8b3f55",
-                "shasum": ""
-            },
-            "require": {
-                "guzzlehttp/guzzle": "^5.3.1|^6.2.1",
-                "guzzlehttp/promises": "~1.0",
-                "guzzlehttp/psr7": "^1.4.1",
-                "mtdowling/jmespath.php": "~2.2",
-                "php": ">=5.5"
-            },
-            "require-dev": {
-                "andrewsville/php-token-reflection": "^1.4",
-                "aws/aws-php-sns-message-validator": "~1.0",
-                "behat/behat": "~3.0",
-                "doctrine/cache": "~1.4",
-                "ext-dom": "*",
-                "ext-json": "*",
-                "ext-openssl": "*",
-                "ext-pcre": "*",
-                "ext-simplexml": "*",
-                "ext-spl": "*",
-                "nette/neon": "^2.3",
-                "phpunit/phpunit": "^4.8.35|^5.4.0",
-                "psr/cache": "^1.0"
-            },
-            "suggest": {
-                "aws/aws-php-sns-message-validator": "To validate incoming SNS notifications",
-                "doctrine/cache": "To use the DoctrineCacheAdapter",
-                "ext-curl": "To send requests using cURL",
-                "ext-openssl": "Allows working with CloudFront private distributions and verifying received SNS messages"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "3.0-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Aws\\": "src/"
-                },
-                "files": [
-                    "src/functions.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "Apache-2.0"
-            ],
-            "authors": [
-                {
-                    "name": "Amazon Web Services",
-                    "homepage": "http://aws.amazon.com"
-                }
-            ],
-            "description": "AWS SDK for PHP - Use Amazon Web Services in your PHP project",
-            "homepage": "http://aws.amazon.com/sdkforphp",
-            "keywords": [
-                "amazon",
-                "aws",
-                "cloud",
-                "dynamodb",
-                "ec2",
-                "glacier",
-                "s3",
-                "sdk"
-            ],
-            "time": "2017-06-29T18:44:14+00:00"
-        },
-        {
             "name": "james-heinrich/getid3",
-            "version": "v1.9.19",
+            "version": "v1.9.20",
             "source": {
                 "type": "git",
                 "url": "https://github.com/JamesHeinrich/getID3.git",
-                "reference": "c6fd499a690ae67eea2eec6b2edba5df13f60f6f"
+                "reference": "3c15e353b9bb1252201c73394bb8390b573a751d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JamesHeinrich/getID3/zipball/c6fd499a690ae67eea2eec6b2edba5df13f60f6f",
-                "reference": "c6fd499a690ae67eea2eec6b2edba5df13f60f6f",
+                "url": "https://api.github.com/repos/JamesHeinrich/getID3/zipball/3c15e353b9bb1252201c73394bb8390b573a751d",
+                "reference": "3c15e353b9bb1252201c73394bb8390b573a751d",
                 "shasum": ""
             },
             "require": {
@@ -147,70 +67,52 @@
                 "php",
                 "tags"
             ],
-            "time": "2019-12-17T21:17:26+00:00"
+            "time": "2020-06-30T18:43:34+00:00"
         },
         {
-            "name": "mtdowling/jmespath.php",
-            "version": "2.5.0",
+            "name": "tpyo/amazon-s3-php-class",
+            "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/jmespath/jmespath.php.git",
-                "reference": "52168cb9472de06979613d365c7f1ab8798be895"
+                "url": "https://github.com/tpyo/amazon-s3-php-class.git",
+                "reference": "62ae202afaac4cc01feffe6ce54f1b7d36a8d79e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jmespath/jmespath.php/zipball/52168cb9472de06979613d365c7f1ab8798be895",
-                "reference": "52168cb9472de06979613d365c7f1ab8798be895",
+                "url": "https://api.github.com/repos/tpyo/amazon-s3-php-class/zipball/62ae202afaac4cc01feffe6ce54f1b7d36a8d79e",
+                "reference": "62ae202afaac4cc01feffe6ce54f1b7d36a8d79e",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.4.0",
-                "symfony/polyfill-mbstring": "^1.4"
+                "php": ">=5.2.0"
             },
-            "require-dev": {
-                "composer/xdebug-handler": "^1.2",
-                "phpunit/phpunit": "^4.8.36|^7.5.15"
-            },
-            "bin": [
-                "bin/jp.php"
-            ],
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.5-dev"
-                }
-            },
             "autoload": {
-                "psr-4": {
-                    "JmesPath\\": "src/"
-                },
-                "files": [
-                    "src/JmesPath.php"
+                "classmap": [
+                    "S3.php"
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "MIT"
+                "BSD-2-Clause"
             ],
             "authors": [
                 {
-                    "name": "Michael Dowling",
-                    "email": "mtdowling@gmail.com",
-                    "homepage": "https://github.com/mtdowling"
+                    "name": "Donovan Schönknecht",
+                    "email": "don@tpyo.net"
                 }
             ],
-            "description": "Declaratively specify how to extract elements from a JSON document",
-            "keywords": [
-                "json",
-                "jsonpath"
-            ],
-            "time": "2019-12-30T18:03:34+00:00"
+            "description": "A standalone Amazon S3 (REST) client for PHP 5.2.x using CURL that does not require PEAR.",
+            "homepage": "https://github.com/tpyo/amazon-s3-php-class",
+            "time": "2019-05-05T19:32:17+00:00"
         }
     ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "tpyo/amazon-s3-php-class": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],

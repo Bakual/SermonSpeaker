@@ -6,38 +6,17 @@ namespace Composer\Autoload;
 
 class ComposerStaticInit126059dab1c1fc1a43d94a51ba0b6f25
 {
-    public static $files = array (
-        'b067bc7112e384b61c701452d53a14a8' => __DIR__ . '/..' . '/mtdowling/jmespath.php/src/JmesPath.php',
-        '8a9dc1de0ca7e01f3e08231539562f61' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/functions.php',
-    );
-
     public static $prefixLengthsPsr4 = array (
-        'J' => 
-        array (
-            'JmesPath\\' => 9,
-        ),
         'B' => 
         array (
             'Bakual\\Sermonspeaker\\' => 21,
         ),
-        'A' => 
-        array (
-            'Aws\\' => 4,
-        ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'JmesPath\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/mtdowling/jmespath.php/src',
-        ),
         'Bakual\\Sermonspeaker\\' => 
         array (
             0 => __DIR__ . '/../../..' . '/',
-        ),
-        'Aws\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/aws/aws-sdk-php/src',
         ),
     );
 
@@ -45,23 +24,28 @@ class ComposerStaticInit126059dab1c1fc1a43d94a51ba0b6f25
         'AMFReader' => __DIR__ . '/..' . '/james-heinrich/getid3/getid3/module.audio-video.flv.php',
         'AMFStream' => __DIR__ . '/..' . '/james-heinrich/getid3/getid3/module.audio-video.flv.php',
         'AVCSequenceParameterSetReader' => __DIR__ . '/..' . '/james-heinrich/getid3/getid3/module.audio-video.flv.php',
+        'S3' => __DIR__ . '/..' . '/tpyo/amazon-s3-php-class/S3.php',
+        'S3Exception' => __DIR__ . '/..' . '/tpyo/amazon-s3-php-class/S3.php',
+        'S3Request' => __DIR__ . '/..' . '/tpyo/amazon-s3-php-class/S3.php',
         'getID3' => __DIR__ . '/..' . '/james-heinrich/getid3/getid3/getid3.php',
         'getid3_aac' => __DIR__ . '/..' . '/james-heinrich/getid3/getid3/module.audio.aac.php',
         'getid3_apetag' => __DIR__ . '/..' . '/james-heinrich/getid3/getid3/module.tag.apetag.php',
+        'getid3_dsdiff' => __DIR__ . '/..' . '/james-heinrich/getid3/getid3/module.audio.dsdiff.php',
         'getid3_exception' => __DIR__ . '/..' . '/james-heinrich/getid3/getid3/getid3.php',
         'getid3_flv' => __DIR__ . '/..' . '/james-heinrich/getid3/getid3/module.audio-video.flv.php',
         'getid3_handler' => __DIR__ . '/..' . '/james-heinrich/getid3/getid3/getid3.php',
+        'getid3_hpk' => __DIR__ . '/..' . '/james-heinrich/getid3/getid3/module.archive.hpk.php',
         'getid3_id3v1' => __DIR__ . '/..' . '/james-heinrich/getid3/getid3/module.tag.id3v1.php',
         'getid3_id3v2' => __DIR__ . '/..' . '/james-heinrich/getid3/getid3/module.tag.id3v2.php',
+        'getid3_ivf' => __DIR__ . '/..' . '/james-heinrich/getid3/getid3/module.audio-video.ivf.php',
         'getid3_lib' => __DIR__ . '/..' . '/james-heinrich/getid3/getid3/getid3.lib.php',
         'getid3_lyrics3' => __DIR__ . '/..' . '/james-heinrich/getid3/getid3/module.tag.lyrics3.php',
         'getid3_mp3' => __DIR__ . '/..' . '/james-heinrich/getid3/getid3/module.audio.mp3.php',
         'getid3_mpeg' => __DIR__ . '/..' . '/james-heinrich/getid3/getid3/module.audio-video.mpeg.php',
         'getid3_quicktime' => __DIR__ . '/..' . '/james-heinrich/getid3/getid3/module.audio-video.quicktime.php',
+        'getid3_tak' => __DIR__ . '/..' . '/james-heinrich/getid3/getid3/module.audio.tak.php',
         'getid3_write_id3v2' => __DIR__ . '/..' . '/james-heinrich/getid3/getid3/write.id3v2.php',
         'getid3_writetags' => __DIR__ . '/..' . '/james-heinrich/getid3/getid3/write.php',
-        'getid3_wtv' => __DIR__ . '/..' . '/james-heinrich/getid3/getid3/module.audio-video.wtv.php',
-        'getid3_xz' => __DIR__ . '/..' . '/james-heinrich/getid3/getid3/module.archive.xz.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
