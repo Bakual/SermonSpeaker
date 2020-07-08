@@ -3,7 +3,7 @@
 	<name>plg_sermonspeaker_generic</name>
 	<author>Thomas Hunziker</author>
 	<creationDate>2019-06-12</creationDate>
-	<copyright>© 2019</copyright>
+	<copyright>© 2020</copyright>
 	<license>http://www.gnu.org/licenses/gpl.html</license>
 	<authorEmail>admin@sermonspeaker.net</authorEmail>
 	<authorUrl>http://www.sermonspeaker.net</authorUrl>
@@ -14,7 +14,7 @@
 		<folder>language</folder>
 	</files>
 	<updateservers>
-		<server type="extension" priority="1" name="SermonSpeaker.net">http://www.sermonspeaker.net/update/plg_sermonspeaker_generic.xml</server>
+		<server type="extension" priority="1" name="SermonSpeaker.net">https://www.sermonspeaker.net/update/plg_sermonspeaker_generic.xml</server>
 	</updateservers>
 	<config>
 		<fields name="params">

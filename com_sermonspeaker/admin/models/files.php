@@ -3,7 +3,7 @@
  * @package     SermonSpeaker
  * @subpackage  Component.Administrator
  * @author      Thomas Hunziker <admin@sermonspeaker.net>
- * @copyright   © 2019 - Thomas Hunziker
+ * @copyright   © 2020 - Thomas Hunziker
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
@@ -105,16 +105,23 @@ class SermonspeakerModelFiles extends JModelLegacy
 			// AWS access info
 			$awsAccessKey = $params->get('s3_access_key');
 			$awsSecretKey = $params->get('s3_secret_key');
+			$region       = $params->get('s3_region');
 			$bucket       = $params->get('s3_bucket');
-			$s3 = (new \Aws\Sdk)->createMultiRegionS3([
-				'version'     => '2006-03-01',
-				'credentials' => [
-					'key'    => $awsAccessKey,
-					'secret' => $awsSecretKey,
-				],
-			]);
+			$bucketfolder = $params->get('s3_folder') ? trim($params->get('s3_folder'), ' /') . '/' : '';
+			$s3           = new S3($awsAccessKey, $awsSecretKey);
+			$s3->setRegion($region);
 
-			$bucket_contents = $s3->listObjects(['Bucket' => $bucket])['Contents'];
+			$bucket_contents = $s3->getBucket($bucket, $bucketfolder);
+
+			if ($params->get('s3_custom_bucket'))
+			{
+				$domain = $bucket;
+			}
+			else
+			{
+				$prefix = ($region === 'us-east-1') ? 's3' : 's3-' . $region;
+				$domain = $prefix . '.amazonaws.com/' . $bucket;
+			}
 
 			foreach ($bucket_contents as $file)
 			{

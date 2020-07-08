@@ -3,7 +3,7 @@
  * @package     SermonSpeaker
  * @subpackage  Component.Administrator
  * @author      Thomas Hunziker <admin@sermonspeaker.net>
- * @copyright   © 2019 - Thomas Hunziker
+ * @copyright   © 2020 - Thomas Hunziker
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
@@ -395,17 +395,13 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 			// AWS access info
 			$awsAccessKey = $this->params->get('s3_access_key');
 			$awsSecretKey = $this->params->get('s3_secret_key');
+			$region       = $this->params->get('s3_region');
 			$bucket       = $this->params->get('s3_bucket');
 			$folder       = $this->params->get('s3_folder') ? trim($this->params->get('s3_folder'), ' /') . '/' : '';
 
 			// Instantiate the class
-			$s3 = new \Aws\S3\S3MultiRegionClient([
-				'version'     => '2006-03-01',
-				'credentials' => [
-					'key'    => $awsAccessKey,
-					'secret' => $awsSecretKey,
-				],
-			]);
+			$s3 = new S3($awsAccessKey, $awsSecretKey);
+			$s3->setRegion($region);
 
 			// Add year/month to the directory if enabled.
 			if ($this->params->get('append_path', 0))
@@ -441,6 +437,16 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 					return (string) $b['LastModified'] - (string) $a['LastModified'];
 				}
 			);
+
+			if ($this->params->get('s3_custom_bucket'))
+			{
+				$domain = $bucket;
+			}
+			else
+			{
+				$prefix = ($region === 'us-east-1') ? 's3' : 's3-' . $region;
+				$domain = $prefix . '.amazonaws.com/' . $bucket;
+			}
 
 			foreach ($bucket_contents as $file)
 			{

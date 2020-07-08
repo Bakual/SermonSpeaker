@@ -3,7 +3,7 @@
  * @package     SermonSpeaker
  * @subpackage  Component.Site
  * @author      Thomas Hunziker <admin@sermonspeaker.net>
- * @copyright   © 2019 - Thomas Hunziker
+ * @copyright   © 2020 - Thomas Hunziker
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
@@ -352,19 +352,28 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 			// AWS access info
 			$awsAccessKey = $this->params->get('s3_access_key');
 			$awsSecretKey = $this->params->get('s3_secret_key');
+			$region       = $this->params->get('s3_region');
 			$bucket       = $this->params->get('s3_bucket');
 			$folder       = $this->params->get('s3_folder') ? '/' . $this->params->get('s3_folder') : '';
 
-			// Instantiate the class
-			$s3 = (new \Aws\Sdk)->createMultiRegionS3([
-				'version'     => '2006-03-01',
-				'credentials' => [
-					'key'    => $awsAccessKey,
-					'secret' => $awsSecretKey,
-				],
-			]);
+			if (!$awsAccessKey || !$awsSecretKey || !$region || !$bucket)
+			{
+				JFactory::getApplication()->enqueueMessage(JText::_('COM_SERMONSPEAKER_S3_MISSING_PARAMETER'), 'warning');
+			}
 
-			$this->domain = $s3->headBucket(['Bucket' => $bucket])->get('@metadata')['effectiveUri'];
+			// Instantiate the class
+			$s3 = new S3($awsAccessKey, $awsSecretKey);
+			$s3->setRegion($region);
+
+			if ($this->params->get('s3_custom_bucket'))
+			{
+				$this->domain = $bucket . $folder;
+			}
+			else
+			{
+				$prefix = ($region === 'us-east-1') ? 's3' : 's3-' . $region;
+				$this->domain = $prefix . '.amazonaws.com/' . $bucket . $folder;
+			}
 		}
 
 		// Calculate destination path to show

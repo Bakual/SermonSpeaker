@@ -2,12 +2,12 @@
 <extension version="3.4.0" type="plugin" group="sermonspeaker" method="upgrade">
 	<name>plg_sermonspeaker_jwplayer7</name>
 	<author>Thomas Hunziker</author>
-	<creationDate>2019-06-12</creationDate>
-	<copyright>© 2019</copyright>
+	<creationDate>2020-05-04</creationDate>
+	<copyright>© 2020</copyright>
 	<license>http://www.gnu.org/licenses/gpl.html</license>
 	<authorEmail>admin@sermonspeaker.net</authorEmail>
 	<authorUrl>http://www.sermonspeaker.net</authorUrl>
-	<version>5.4.5</version>
+	<version>5.4.6</version>
 	<description>PLG_SERMONSPEAKER_JWPLAYER7_XML_DESCRIPTION</description>
 	<files>
 		<filename plugin="jwplayer7">jwplayer7.php</filename>
@@ -20,7 +20,7 @@
 		<filename>provider.shaka.js</filename>
 	</media>
 	<updateservers>
-		<server type="extension" priority="1" name="SermonSpeaker.net">http://www.sermonspeaker.net/update/plg_sermonspeaker_jwplayer7.xml</server>
+		<server type="extension" priority="1" name="SermonSpeaker.net">https://www.sermonspeaker.net/update/plg_sermonspeaker_jwplayer7.xml</server>
 	</updateservers>
 	<config>
 		<fields name="params">

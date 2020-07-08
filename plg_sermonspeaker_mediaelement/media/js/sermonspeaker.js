@@ -7,7 +7,10 @@ function ss_eventListeners() {
     Array.from(elements).forEach(function (element) {
         element.addEventListener('click', ss_playListItem);
     });
-    document.getElementById("mediaspace1").addEventListener('play', ss_changeListItem);
+    let mediaspace = document.getElementById("mediaspace1");
+    if (mediaspace) {
+        mediaspace.addEventListener('play', ss_changeListItem);
+    }
     let toggleplayer = document.getElementById("mediaspace1-other");
     if (toggleplayer) {
         toggleplayer.addEventListener('play', ss_changeListItem);

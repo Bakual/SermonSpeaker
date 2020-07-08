@@ -3,7 +3,7 @@
  * @package     SermonSpeaker
  * @subpackage  Plugin.Search
  * @author      Thomas Hunziker <admin@sermonspeaker.net>
- * @copyright   © 2019 - Thomas Hunziker
+ * @copyright   © 2020 - Thomas Hunziker
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 

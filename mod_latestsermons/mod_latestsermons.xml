@@ -2,11 +2,11 @@
 <extension type="module" version="3.4" client="site" method="upgrade">
 	<name>MOD_LATESTSERMONS</name>
 	<author>Thomas Hunziker</author>
-	<creationDate>2019-09-18</creationDate>
-	<copyright>© 2019</copyright>
+	<creationDate>2020-05-04</creationDate>
+	<copyright>© 2020</copyright>
 	<authorEmail>admin@sermonspeaker.net</authorEmail>
 	<authorUrl>http://www.sermonspeaker.net</authorUrl>
-	<version>5.6.4</version>
+	<version>5.6.5</version>
 	<license>http://www.gnu.org/licenses/gpl.html</license>
 	<description>MOD_LATESTSERMONS_XML_DESCRIPTION</description>
 	<files>
@@ -18,7 +18,7 @@
 	</files>
 	<updateservers>
 		<server type="extension" priority="1" name="SermonSpeaker.net">
-			http://www.sermonspeaker.net/update/mod_latestsermons.xml
+			https://www.sermonspeaker.net/update/mod_latestsermons.xml
 		</server>
 	</updateservers>
 	<config>

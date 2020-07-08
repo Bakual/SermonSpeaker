@@ -3,7 +3,7 @@
  * @package         SermonSpeaker
  * @subpackage      Plugin.SermonSpeaker
  * @author          Thomas Hunziker <admin@sermonspeaker.net>
- * @copyright   © 2019 - Thomas Hunziker
+ * @copyright   © 2020 - Thomas Hunziker
  * @license         http://www.gnu.org/licenses/gpl.html
  **/
 
@@ -89,6 +89,8 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 	 */
 	public function onGetPlayer($context, &$player, $items, $config)
 	{
+		JHtml::_('bootstrap.framework');
+
 		$this->player = $player;
 
 		// There is already a player loaded
@@ -224,7 +226,9 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 
 		$this->loadLanguage();
 
-		$this->setPopup($this->mode[0]);
+		// Popup Dimensions
+		$this->player->popup['width']  = $dimensions[$this->mode . 'width'] + 130;
+		$this->player->popup['height'] = $dimensions[$this->mode . 'height'] + (int) $this->c_params->get('popup_height', 150);
 
 		// Loading needed Javascript only once
 		if (!self::$script_loaded)
@@ -232,6 +236,7 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 			JFactory::getDocument()->addScriptDeclaration('mejs.i18n.language(\'' . $langCode . '\');');
 			JHtml::_('script', 'plg_sermonspeaker_mediaelement/mediaelement-and-player.min.js', false, true, false);
 			JHtml::_('script', 'plg_sermonspeaker_mediaelement/renderers/vimeo.min.js', false, true, false);
+			JHtml::_('script', 'plg_sermonspeaker_mediaelement/renderers/facebook.min.js', false, true, false);
 			JHtml::_('script', 'plg_sermonspeaker_mediaelement/lang/' . $langCode . '.js', false, true, false);
 			JHtml::_('stylesheet', 'plg_sermonspeaker_mediaelement/mediaelementplayer.min.css', false, true, false);
 
@@ -276,7 +281,17 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 			$supported[] = 'audio';
 		}
 
+		if (parse_url($item->audiofile, PHP_URL_HOST) == 'drive.google.com')
+		{
+			$supported[] = 'audio';
+		}
+
 		if (in_array(JFile::getExt(strtok($item->videofile, '?')), $video_ext))
+		{
+			$supported[] = 'video';
+		}
+
+		if (parse_url($item->videofile, PHP_URL_HOST) == 'drive.google.com')
 		{
 			$supported[] = 'video';
 		}
@@ -291,6 +306,13 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 
 		if (parse_url($item->videofile, PHP_URL_HOST) == 'vimeo.com'
 			|| parse_url($item->videofile, PHP_URL_HOST) == 'player.vimeo.com'
+		)
+		{
+			$supported[] = 'video';
+		}
+
+		if (parse_url($item->videofile, PHP_URL_HOST) == 'www.facebook.com'
+			|| parse_url($item->videofile, PHP_URL_HOST) == 'facebook.com'
 		)
 		{
 			$supported[] = 'video';
@@ -319,16 +341,16 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 
 		if (!$attributes['type'])
 		{
-			if (parse_url($item->videofile, PHP_URL_HOST) == 'vimeo.com'
-				|| parse_url($item->videofile, PHP_URL_HOST) == 'player.vimeo.com'
+			if (parse_url($file, PHP_URL_HOST) == 'vimeo.com'
+				|| parse_url($file, PHP_URL_HOST) == 'player.vimeo.com'
 			)
 			{
 				$attributes['type'] = 'video/vimeo';
 			}
 
-			if (!$attributes['type'] && (parse_url($item->videofile, PHP_URL_HOST) == 'youtube.com'
-					|| parse_url($item->videofile, PHP_URL_HOST) == 'www.youtube.com'
-					|| parse_url($item->videofile, PHP_URL_HOST) == 'youtu.be')
+			if (!$attributes['type'] && (parse_url($file, PHP_URL_HOST) == 'youtube.com'
+					|| parse_url($file, PHP_URL_HOST) == 'www.youtube.com'
+					|| parse_url($file, PHP_URL_HOST) == 'youtu.be')
 			)
 			{
 				$attributes['type'] = 'video/youtube';

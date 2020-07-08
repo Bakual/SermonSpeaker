@@ -3,7 +3,7 @@
  * @package     SermonSpeaker
  * @subpackage  Plugin.SermonSpeaker
  * @author      Thomas Hunziker <admin@sermonspeaker.net>
- * @copyright   © 2019 - Thomas Hunziker
+ * @copyright   © 2020 - Thomas Hunziker
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
@@ -114,7 +114,10 @@ class PlgSermonspeakerPixelout extends SermonspeakerPluginPlayer
 			. '})'
 			. '</script>';
 
-		$this->setPopup('a');
+		// Popup Dimensions
+		$width = $this->params->get('awidth', '100%');
+		$this->player->popup['width']  = (strpos($width, '%')) ? 500 : (int) $width + 130;
+		$this->player->popup['height'] = 54 + (int) JComponentHelper::getParams('com_sermonspeaker')->get('popup_height', 150);
 
 		// Loading needed Javascript only once
 		if (!self::$script_loaded)
@@ -123,7 +126,7 @@ class PlgSermonspeakerPixelout extends SermonspeakerPluginPlayer
 			$doc = JFactory::getDocument();
 			$doc->addScriptDeclaration('
 				AudioPlayer.setup("' . JUri::root() . 'media/plg_sermonspeaker_pixelout/player.swf", {
-					width: "' . $this->params->get('awidth', '100%') . '",
+					width: "' . $width . '",
 					initialvolume: 100,
 					transparentpagebg: "yes",
 					left: "000000",

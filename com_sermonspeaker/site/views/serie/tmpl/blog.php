@@ -3,7 +3,7 @@
  * @package     SermonSpeaker
  * @subpackage  Component.Site
  * @author      Thomas Hunziker <admin@sermonspeaker.net>
- * @copyright   © 2019 - Thomas Hunziker
+ * @copyright   © 2020 - Thomas Hunziker
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
@@ -170,7 +170,9 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 									<span class="caret"></span>
 								</a>
 								<ul class="dropdown-menu">
-									<li class="play-icon"><?php echo JHtml::_('icon.play', $item, $this->params, array('index' => $i)); ?></li>
+									<?php if ($playerid = !empty($player->id) ? $player->id : '') : ?>
+										<li class="play-icon"><?php echo JHtml::_('icon.play', $item, $this->params, array('index' => $i, 'playerid' => $playerid)); ?></li>
+									<?php endif; ?>
 									<?php
 									if (in_array('serie:download', $this->columns)) :
 										if ($item->audiofile) : ?>

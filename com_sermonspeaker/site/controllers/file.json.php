@@ -3,7 +3,7 @@
  * @package     SermonSpeaker
  * @subpackage  Component.Site
  * @author      Thomas Hunziker <admin@sermonspeaker.net>
- * @copyright   © 2019 - Thomas Hunziker
+ * @copyright   © 2020 - Thomas Hunziker
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
@@ -121,17 +121,13 @@ class SermonspeakerControllerFile extends JControllerLegacy
 			// AWS access info
 			$awsAccessKey = $params->get('s3_access_key');
 			$awsSecretKey = $params->get('s3_secret_key');
+			$region       = $params->get('s3_region');
 			$bucket       = $params->get('s3_bucket');
 			$folder       = $params->get('s3_folder') ? trim($params->get('s3_folder'), ' /') . '/' : '';
 
 			// Instantiate the class
-			$s3 = (new \Aws\Sdk)->createMultiRegionS3([
-				'version'     => '2006-03-01',
-				'credentials' => [
-					'key'    => $awsAccessKey,
-					'secret' => $awsSecretKey,
-				],
-			]);
+			$s3 = new S3($awsAccessKey, $awsSecretKey);
+			$s3->setRegion($region);
 
 			$date   = $jinput->get('date', '', 'string');
 			$time   = ($date) ? strtotime($date) : time();
@@ -162,6 +158,16 @@ class SermonspeakerControllerFile extends JControllerLegacy
 				echo json_encode($response);
 
 				return;
+			}
+
+			if ($params->get('s3_custom_bucket'))
+			{
+				$domain = $bucket;
+			}
+			else
+			{
+				$prefix = ($region === 'us-east-1') ? 's3' : 's3-' . $region;
+				$domain = $prefix . '.amazonaws.com/' . $bucket;
 			}
 
 			// Upload the file

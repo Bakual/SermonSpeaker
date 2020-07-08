@@ -3,7 +3,7 @@
  * @package     SermonSpeaker
  * @subpackage  Component.Site
  * @author      Thomas Hunziker <admin@sermonspeaker.net>
- * @copyright   © 2019 - Thomas Hunziker
+ * @copyright   © 2020 - Thomas Hunziker
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
@@ -101,6 +101,18 @@ class SermonspeakerModelFeed extends JModelLegacy
 			{
 				$query->where('sermons.catid = ' . (int) $categoryId);
 			}
+		}
+
+		// Series filter
+		if ($series = $params->get('series_filter', 0))
+		{
+			$query->where('sermons.series_id = ' . $series);
+		}
+
+		// Speakers filter
+		if ($speaker = $params->get('speaker_filter', 0))
+		{
+			$query->where('sermons.speaker_id = ' . $speaker);
 		}
 
 		// Define null and now dates
