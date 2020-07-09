@@ -84,6 +84,8 @@ class SermonspeakerViewSermons extends JViewLegacy
 		$this->state         = $this->get('State');
 		$this->items         = $this->get('Items');
 		$this->pagination    = $this->get('Pagination');
+		$this->speakers      = $this->get('Speakers');
+		$this->series        = $this->get('Series');
 		$this->filterForm    = $this->get('FilterForm');
 		$this->activeFilters = $this->get('ActiveFilters');
 
