@@ -60,49 +60,43 @@
 			<menu view="sermons">
 				COM_SERMONSPEAKER_MENU_SERMONS
 				<params>
-					<menu-quicktask>true</menu-quicktask>
+					<menu-quicktask>index.php?option=com_sermonspeaker&amp;task=sermon.add</menu-quicktask>
 					<menu-quicktask-title>COM_SERMONSPEAKER_MENU_ADD_SERMON</menu-quicktask-title>
-					<menu-quicktask-link>index.php?option=com_sermonspeaker&amp;task=sermon.add</menu-quicktask-link>
 				</params>
 			</menu>
 			<menu view="series">
 				COM_SERMONSPEAKER_MENU_SERIES
 				<params>
-					<menu-quicktask>true</menu-quicktask>
+					<menu-quicktask>index.php?option=com_sermonspeaker&amp;task=serie.add</menu-quicktask>
 					<menu-quicktask-title>COM_SERMONSPEAKER_MENU_ADD_SERIE</menu-quicktask-title>
-					<menu-quicktask-link>index.php?option=com_sermonspeaker&amp;task=serie.add</menu-quicktask-link>
 				</params>
 			</menu>
 			<menu view="speakers">
 				COM_SERMONSPEAKER_MENU_SPEAKERS
 				<params>
-					<menu-quicktask>true</menu-quicktask>
+					<menu-quicktask>index.php?option=com_sermonspeaker&amp;task=speaker.add</menu-quicktask>
 					<menu-quicktask-title>COM_SERMONSPEAKER_MENU_ADD_SPEAKER</menu-quicktask-title>
-					<menu-quicktask-link>index.php?option=com_sermonspeaker&amp;task=speaker.add</menu-quicktask-link>
 				</params>
 			</menu>
-			<menu link="option=com_categories&amp;extension=com_sermonspeaker.sermons">
+			<menu link="option=com_categories&amp;view=categories&amp;extension=com_sermonspeaker.sermons">
 				COM_SERMONSPEAKER_MENU_CATEGORIES_SERMONS
 				<params>
-					<menu-quicktask>true</menu-quicktask>
+					<menu-quicktask>index.php?option=com_categories&amp;extension=com_sermonspeaker.sermons&amp;task=category.add</menu-quicktask>
 					<menu-quicktask-title>COM_SERMONSPEAKER_MENU_ADD_SERMONS_CATEGORY</menu-quicktask-title>
-					<menu-quicktask-link>index.php?option=com_categories&amp;extension=com_sermonspeaker.sermons&amp;task=category.add</menu-quicktask-link>
 				</params>
 			</menu>
-			<menu link="option=com_categories&amp;extension=com_sermonspeaker.series">
+			<menu link="option=com_categories&amp;view=categories&amp;extension=com_sermonspeaker.series">
 				COM_SERMONSPEAKER_MENU_CATEGORIES_SERIES
 				<params>
-					<menu-quicktask>true</menu-quicktask>
+					<menu-quicktask>index.php?option=com_categories&amp;extension=com_sermonspeaker.series&amp;task=category.add</menu-quicktask>
 					<menu-quicktask-title>COM_SERMONSPEAKER_MENU_ADD_SERIES_CATEGORY</menu-quicktask-title>
-					<menu-quicktask-link>index.php?option=com_categories&amp;extension=com_sermonspeaker.series&amp;task=category.add</menu-quicktask-link>
 				</params>
 			</menu>
-			<menu link="option=com_categories&amp;extension=com_sermonspeaker.speakers">
+			<menu link="option=com_categories&amp;view=categories&amp;extension=com_sermonspeaker.speakers">
 				COM_SERMONSPEAKER_MENU_CATEGORIES_SPEAKERS
 				<params>
-					<menu-quicktask>true</menu-quicktask>
+					<menu-quicktask>index.php?option=com_categories&amp;extension=com_sermonspeaker.speakers&amp;task=category.add</menu-quicktask>
 					<menu-quicktask-title>COM_SERMONSPEAKER_MENU_ADD_SPEAKERS_CATEGORY</menu-quicktask-title>
-					<menu-quicktask-link>index.php?option=com_categories&amp;extension=com_sermonspeaker.speakers&amp;task=category.add</menu-quicktask-link>
 				</params>
 			</menu>
 			<menu view="tools">COM_SERMONSPEAKER_MENU_TOOLS</menu>
