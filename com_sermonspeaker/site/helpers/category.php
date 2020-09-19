@@ -45,15 +45,6 @@ class SermonspeakerCategories extends Categories
  *
  * @since  6.0.0
  */
-class SermonspeakerSermonCategories extends SermonspeakerSermonsCategories
-{
-}
-
-/**
- * SermonSpeaker Component Sermons Category Tree
- *
- * @since  6.0.0
- */
 class SermonspeakerSermonsCategories extends Categories
 {
 	/**
@@ -77,11 +68,11 @@ class SermonspeakerSermonsCategories extends Categories
 }
 
 /**
- * SermonSpeaker Component Series Category Tree
+ * SermonSpeaker Component Sermons Category Tree
  *
  * @since  6.0.0
  */
-class SermonspeakerSerieCategories extends SermonspeakerSeriesCategories
+class SermonspeakerSermonCategories extends SermonspeakerSermonsCategories
 {
 }
 
@@ -113,11 +104,11 @@ class SermonspeakerSeriesCategories extends Categories
 }
 
 /**
- * SermonSpeaker Component Speakers Category Tree
+ * SermonSpeaker Component Series Category Tree
  *
  * @since  6.0.0
  */
-class SermonspeakerSpeakerCategories extends SermonspeakerSpeakersCategories
+class SermonspeakerSerieCategories extends SermonspeakerSeriesCategories
 {
 }
 
@@ -146,4 +137,13 @@ class SermonspeakerSpeakersCategories extends Categories
 
 		parent::__construct($options);
 	}
+}
+
+/**
+ * SermonSpeaker Component Speakers Category Tree
+ *
+ * @since  6.0.0
+ */
+class SermonspeakerSpeakerCategories extends SermonspeakerSpeakersCategories
+{
 }
