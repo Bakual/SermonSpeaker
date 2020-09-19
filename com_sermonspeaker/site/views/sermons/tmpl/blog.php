@@ -112,7 +112,6 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 											<li class="download-icon"><?php echo HtmlHelper::_('icon.download', $item, $this->params, array('type' => 'video')); ?></li>
 										<?php endif; ?>
 									<?php endif; ?>
-									<li class="email-icon"><?php echo HtmlHelper::_('icon.email', $item, $this->params, array('type' => 'sermon')); ?></li>
 									<?php
 									if ($canEdit or ($canEditOwn and ($user->id == $item->created_by))) : ?>
 										<li class="edit-icon"><?php echo HtmlHelper::_('icon.edit', $item, $this->params, array('type' => 'sermon')); ?></li>

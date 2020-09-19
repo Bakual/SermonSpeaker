@@ -53,7 +53,6 @@ $this->document->addScriptDeclaration('jQuery(function() {
 				<span class="caret"></span>
 			</a>
 			<ul class="dropdown-menu">
-				<li class="email-icon"><?php echo JHtml::_('icon.email', $this->item, $this->params, array('type' => 'speaker')); ?></li>
 				<?php
 				if ($canEdit or ($canEditOwn and ($user->id == $this->item->created_by))) : ?>
 					<li class="edit-icon"><?php echo JHtml::_('icon.edit', $this->item, $this->params, array('type' => 'speaker')); ?></li>
@@ -110,7 +109,6 @@ $this->document->addScriptDeclaration('jQuery(function() {
 													<li class="download-icon"><?php echo JHtml::_('icon.download', $item, $this->params, array('type' => 'video')); ?></li>
 												<?php endif; ?>
 											<?php endif; ?>
-											<li class="email-icon"><?php echo JHtml::_('icon.email', $item, $this->params, array('type' => 'sermon')); ?></li>
 											<?php
 											if ($canEdit or ($canEditOwn and ($user->id == $item->created_by))) : ?>
 												<li class="edit-icon"><?php echo JHtml::_('icon.edit', $item, $this->params, array('type' => 'sermon')); ?></li>
@@ -281,7 +279,6 @@ $this->document->addScriptDeclaration('jQuery(function() {
 													</a>
 												</li>
 											<?php endif; ?>
-											<li class="email-icon"><?php echo JHtml::_('icon.email', $item, $this->params, array('type' => 'serie')); ?></li>
 											<?php
 											if ($canEdit or ($canEditOwn and ($user->id == $item->created_by))) : ?>
 												<li class="edit-icon"><?php echo JHtml::_('icon.edit', $item, $this->params, array('type' => 'serie')); ?></li>

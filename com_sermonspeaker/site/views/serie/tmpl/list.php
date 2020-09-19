@@ -44,7 +44,6 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 						</a>
 					</li>
 				<?php endif; ?>
-				<li class="email-icon"><?php echo JHtml::_('icon.email', $this->item, $this->params, array('type' => 'serie')); ?></li>
 				<?php
 				if ($canEdit or ($canEditOwn and ($user->id == $this->item->created_by))) : ?>
 					<li class="edit-icon"><?php echo JHtml::_('icon.edit', $this->item, $this->params, array('type' => 'serie')); ?></li>

@@ -48,7 +48,6 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 						</a>
 					</li>
 				<?php endif; ?>
-				<li class="email-icon"><?php echo JHtml::_('icon.email', $this->item, $this->params, array('type' => 'serie')); ?></li>
 				<?php
 				if ($canEdit or ($canEditOwn and ($user->id == $this->item->created_by))) : ?>
 					<li class="edit-icon"><?php echo JHtml::_('icon.edit', $this->item, $this->params, array('type' => 'serie')); ?></li>
@@ -183,7 +182,6 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 											<li class="download-icon"><?php echo JHtml::_('icon.download', $item, $this->params, array('type' => 'video')); ?></li>
 										<?php endif;
 									endif; ?>
-									<li class="email-icon"><?php echo JHtml::_('icon.email', $item, $this->params, array('type' => 'sermon')); ?></li>
 									<?php
 									if ($canEdit or ($canEditOwn and ($user->id == $item->created_by))) : ?>
 										<li class="edit-icon"><?php echo JHtml::_('icon.edit', $item, $this->params, array('type' => 'sermon')); ?></li>

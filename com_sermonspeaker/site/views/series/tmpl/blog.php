@@ -89,7 +89,6 @@ $listDirn   = $this->state->get('list.direction');
 											</a>
 										</li>
 									<?php endif; ?>
-									<li class="email-icon"><?php echo JHtml::_('icon.email', $item, $this->params, array('type' => 'serie')); ?></li>
 									<?php
 									if ($canEdit or ($canEditOwn and ($user->id == $item->created_by))) : ?>
 										<li class="edit-icon"><?php echo JHtml::_('icon.edit', $item, $this->params, array('type' => 'serie')); ?></li>

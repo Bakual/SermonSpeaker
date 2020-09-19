@@ -67,40 +67,6 @@ class JHtmlIcon
 	}
 
 	/**
-	 * Email link
-	 *
-	 * @param   object $item    Sermon object
-	 * @param   object $params  Parameters
-	 * @param   array  $attribs Attributes
-	 *
-	 * @return  string  Email link
-	 *
-	 * @throws Exception
-	 * @since ?
-	 */
-	public static function email($item, $params, $attribs = array())
-	{
-		require_once JPATH_SITE . '/components/com_mailto/helpers/mailto.php';
-		$uri = Uri::getInstance();
-		$base = $uri->toString(array('scheme', 'host', 'port'));
-		$template = Factory::getApplication()->getTemplate();
-		$function = 'get' . ucfirst($attribs['type']) . 'Route';
-		$link = $base . Route::_(SermonspeakerHelperRoute::$function($item->slug, $item->catid, $item->language), false);
-		$url = 'index.php?option=com_mailto&tmpl=component&template=' . $template . '&link=' . MailToHelper::addLink($link);
-
-		$status = 'width=400,height=350,menubar=yes,resizable=yes';
-
-		$text = '<span class="icon-envelope"></span> ' . Text::_('JGLOBAL_EMAIL');
-
-		$attribs['title'] = Text::_('JGLOBAL_EMAIL');
-		$attribs['onclick'] = "window.open(this.href,'win2','" . $status . "'); return false;";
-
-		$output = HtmlHelper::_('link', Route::_($url), $text, $attribs);
-
-		return $output;
-	}
-
-	/**
 	 * Edit link
 	 *
 	 * @param   object $item    Sermon object
