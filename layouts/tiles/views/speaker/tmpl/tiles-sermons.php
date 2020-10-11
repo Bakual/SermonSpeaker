@@ -76,7 +76,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->sermons);
 		<?php endif; ?>
 	</div>
 	<?php if (in_array('speaker:player', $this->col_sermon) and count($this->sermons)) :
-		JHtml::_('stylesheet', 'com_sermonspeaker/player.css', array('relative' => true));
+		JHtml::_('stylesheet', 'com_sermonspeaker/player.css', array('relative' => true)); ?>
 		<div class="ss-speaker-player">
 			<hr class="ss-speaker-player"/>
 			<?php if (empty($player->hideInfo)): ?>
