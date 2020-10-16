@@ -23,7 +23,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->sermons);
         <h1><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
 	<?php endif; ?>
     <h2>
-        <a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($this->item->slug, $this->item->catid, $this->item->language) . '&layout=sermons'); ?>"><?php echo $this->item->name; ?></a>
+        <a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($this->item->slug, $this->item->catid, $this->item->language) . '&layout=sermons'); ?>"><?php echo $this->item->title; ?></a>
     </h2>
 	<?php
 	if ($canEdit || ($canEditOwn && ($user->id == $this->item->created_by))) : ?>
@@ -55,7 +55,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->sermons);
         <div class="ss-pic">
 			<?php if ($this->item->pic) : ?>
 				<img src="<?php echo trim($this->item->pic, '/'); ?>" title="<?php echo $this->item->speaker_title; ?>"
-					alt="<?php echo $this->item->speaker_title; ?>"/>
+					alt="<?php echo $this->item->title; ?>"/>
 			<?php endif; ?>
         </div>
 		<?php if (($this->item->bio and in_array('speaker:bio', $this->columns)) or ($this->item->intro and in_array('speaker:intro', $this->columns))) : ?>
@@ -72,7 +72,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->sermons);
         <div class="clear-left"></div>
 		<?php if ($this->item->website and $this->item->website != 'http://') : ?>
 			<a href="<?php echo $this->item->website; ?>" target="_blank"
-				title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKER_WEBLINK_HOOVER'); ?>"><?php echo JText::sprintf('COM_SERMONSPEAKER_SPEAKER_WEBLINK', $this->item->speaker_title); ?></a>
+				title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKER_WEBLINK_HOOVER'); ?>"><?php echo JText::sprintf('COM_SERMONSPEAKER_SPEAKER_WEBLINK', $this->item->title); ?></a>
 		<?php endif; ?>
     </div>
 	<?php if (in_array('speaker:player', $this->col_sermon) and count($this->sermons)) :
