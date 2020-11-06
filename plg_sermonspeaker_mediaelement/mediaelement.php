@@ -239,9 +239,13 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 			JHtml::_('script', 'plg_sermonspeaker_mediaelement/renderers/facebook.min.js', false, true, false);
 			JHtml::_('script', 'plg_sermonspeaker_mediaelement/lang/' . $langCode . '.js', false, true, false);
 			JHtml::_('stylesheet', 'plg_sermonspeaker_mediaelement/mediaelementplayer.min.css', false, true, false);
-			JHtml::_('script', 'plg_sermonspeaker_mediaelement/speed/speed.min.js', false, true, false);
-			JHtml::_('script', 'plg_sermonspeaker_mediaelement/speed/speed-i18n.js', false, true, false);
-			JHtml::_('stylesheet', 'plg_sermonspeaker_mediaelement/speed/speed.min.css', false, true, false);
+
+			if ($this->params->get('speedplugin'))
+			{
+				JHtml::_('script', 'plg_sermonspeaker_mediaelement/speed/speed.min.js', false, true, false);
+				JHtml::_('script', 'plg_sermonspeaker_mediaelement/speed/speed-i18n.js', false, true, false);
+				JHtml::_('stylesheet', 'plg_sermonspeaker_mediaelement/speed/speed.min.css', false, true, false);
+			}
 
 			if (is_array($items))
 			{
