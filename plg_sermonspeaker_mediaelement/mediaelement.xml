@@ -109,6 +109,18 @@
 					filter="integer"
 					showon="responsive:0"
 					/>
+
+				<field
+					name="speedplugin"
+					type="radio"
+					label="PLG_SERMONSPEAKER_MEDIAELEMENT_FIELD_SPEEDPLUGIN_LABEL"
+					description="PLG_SERMONSPEAKER_MEDIAELEMENT_FIELD_SPEEDPLUGIN_DESC"
+					default="0"
+					class="btn-group btn-group-yesno"
+				>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
 			</fieldset>
 		</fields>
 	</config>

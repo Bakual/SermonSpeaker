@@ -47,7 +47,11 @@
 				<option value="">COM_SERMONSPEAKER_SELECT_SPEAKER</option>
 			</field>
 		</fieldset>
-		<fieldset name="sermoncast" label="COM_SERMONSPEAKER_FIELDSET_SERMONCAST_LABEL">
+		<fieldset
+			name="sermoncast"
+			label="COM_SERMONSPEAKER_FIELDSET_SERMONCAST_LABEL"
+			addfieldpath="/administrator/components/com_sermonspeaker/models/fields"
+		>
 			<field name="sc_title"
 				type="text"
 				label="COM_SERMONSPEAKER_PARAM_FEED_TITLE_LABEL"
@@ -108,62 +112,23 @@
 				label="COM_SERMONSPEAKER_PARAM_FEED_ITIMAGE"
 				description="COM_SERMONSPEAKER_PARAM_FEED_ITIMAGE_DESC" />
 			<field name="itCategory1"
-				type="list"
-				label="COM_SERMONSPEAKER_PARAM_FEED_ITCATEGORY1"
-				description="COM_SERMONSPEAKER_PARAM_FEED_ITCATEGORY1_DESC"
-				useglobal="true"
-			>
-				<option value="Education">Education</option>
-				<option value="Religion &amp; Spirituality">Religion + Spirituality</option>
-				<option value="Religion &amp; Spirituality > Christianity">Religion + Spirituality > Christianity
-				</option>
-				<option value="Religion &amp; Spirituality > Judaism">Religion + Spirituality > Judaism</option>
-				<option value="Religion &amp; Spirituality > Other">Religion + Spirituality > Other</option>
-				<option value="Religion &amp; Spirituality > Spirituality">Religion + Spirituality > Spirituality
-				</option>
-				<option value="Music">Music</option>
-				<option value="Kids &amp; Family">Kids + Family</option>
-				<option value="Sports &amp; Recreation">Sports + Recreation</option>
-				<option value="Sports &amp; Recreation > Professional">Sports + Recreation > Professional</option>
-			</field>
+				   type="itcategorieslist"
+				   label="COM_SERMONSPEAKER_PARAM_FEED_ITCATEGORY1"
+				   description="COM_SERMONSPEAKER_PARAM_FEED_ITCATEGORY1_DESC"
+				   useglobal="true"
+			/>
 			<field name="itCategory2"
-				type="list"
-				label="COM_SERMONSPEAKER_PARAM_FEED_ITCATEGORY2"
-				description="COM_SERMONSPEAKER_PARAM_FEED_ITCATEGORY2_DESC"
-				useglobal="true"
-			>
-				<option value="Education">Education</option>
-				<option value="Religion &amp; Spirituality">Religion + Spirituality</option>
-				<option value="Religion &amp; Spirituality > Christianity">Religion + Spirituality > Christianity
-				</option>
-				<option value="Religion &amp; Spirituality > Judaism">Religion + Spirituality > Judaism</option>
-				<option value="Religion &amp; Spirituality > Other">Religion + Spirituality > Other</option>
-				<option value="Religion &amp; Spirituality > Spirituality">Religion + Spirituality > Spirituality
-				</option>
-				<option value="Music">Music</option>
-				<option value="Kids &amp; Family">Kids + Family</option>
-				<option value="Sports &amp; Recreation">Sports + Recreation</option>
-				<option value="Sports &amp; Recreation > Professional">Sports + Recreation > Professional</option>
-			</field>
+				type="itcategorieslist"
+				   label="COM_SERMONSPEAKER_PARAM_FEED_ITCATEGORY2"
+				   description="COM_SERMONSPEAKER_PARAM_FEED_ITCATEGORY2_DESC"
+				   useglobal="true"
+			/>
 			<field name="itCategory3"
-				type="list"
-				label="COM_SERMONSPEAKER_PARAM_FEED_ITCATEGORY3"
-				description="COM_SERMONSPEAKER_PARAM_FEED_ITCATEGORY3_DESC">
-				useglobal="true"
-			>
-				<option value="Education">Education</option>
-				<option value="Religion &amp; Spirituality">Religion + Spirituality</option>
-				<option value="Religion &amp; Spirituality > Christianity">Religion + Spirituality > Christianity
-				</option>
-				<option value="Religion &amp; Spirituality > Judaism">Religion + Spirituality > Judaism</option>
-				<option value="Religion &amp; Spirituality > Other">Religion + Spirituality > Other</option>
-				<option value="Religion &amp; Spirituality > Spirituality">Religion + Spirituality > Spirituality
-				</option>
-				<option value="Music">Music</option>
-				<option value="Kids &amp; Family">Kids + Family</option>
-				<option value="Sports &amp; Recreation">Sports + Recreation</option>
-				<option value="Sports &amp; Recreation > Professional">Sports + Recreation > Professional</option>
-			</field>
+				type="itcategorieslist"
+				   label="COM_SERMONSPEAKER_PARAM_FEED_ITCATEGORY3"
+				   description="COM_SERMONSPEAKER_PARAM_FEED_ITCATEGORY3_DESC"
+				   useglobal="true"
+			/>
 			<field name="itOwnerName"
 				type="text"
 				label="COM_SERMONSPEAKER_PARAM_FEED_ITOWNERNAME"

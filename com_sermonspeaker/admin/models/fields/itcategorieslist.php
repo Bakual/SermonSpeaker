@@ -134,6 +134,8 @@ class JFormFieldItcategorieslist extends JFormFieldList
 			}
 		}
 
+		$options = array_merge(parent::getOptions(), $options);
+
 		return $options;
 	}
 }
