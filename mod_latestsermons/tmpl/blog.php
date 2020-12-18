@@ -76,6 +76,16 @@ $count = count($list);
 								endif; ?>
 							</dd>
 						<?php endif; ?>
+						<?php if ($params->get('show_scripture') and $row->scripture) : ?>
+							<dd class="scripture">
+								<?php echo JText::_('MOD_LATESTSERMONS_SCRIPTURE'); ?>:
+								<ul>
+									<li>
+										<?php echo SermonspeakerHelperSermonspeaker::insertScriptures($row->scripture, '</li><li>'); ?>
+									</li>
+								</ul>
+							</dd>
+						<?php endif; ?>
 						<?php if ($params->get('show_hits', 0) & 1) : ?>
 							<dd class="hits">
 								<?php echo JText::_('JGLOBAL_HITS'); ?>:
