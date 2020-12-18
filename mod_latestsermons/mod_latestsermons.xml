@@ -127,6 +127,15 @@
 					<option value="1">JYES</option>
 					<option value="0">JNO</option>
 				</field>
+				<field name="show_scripture" type="radio"
+					label="MOD_LATESTSERMONS_PARAM_SHOW_SCRIPTURE_LABEL"
+					class="btn-group btn-group-yesno"
+					default="0"
+					showon="show_list:1"
+				>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
 				<field name="ls_mo_date_format" type="dateformat"
 					label="MOD_LATESTSERMONS_PARAM_MO_DATE_FORMAT"
 					description="MOD_LATESTSERMONS_PARAM_MO_DATE_FORMAT_DESC"

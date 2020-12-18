@@ -64,6 +64,9 @@ if ($tooltip)
 							<?php $date_format = JText::_($params->get('ls_mo_date_format', 'DATE_FORMAT_LC4')); ?>
 							<?php $tips[] = JText::_('JDATE') . ': ' . JHtml::date($row->sermon_date, $date_format, true); ?>
 						<?php endif; ?>
+						<?php if ($params->get('show_scripture') and $row->scripture) : ?>
+							<?php $tips[] = JText::_('MOD_LATESTSERMONS_SCRIPTURE') . ': ' . SermonspeakerHelperSermonspeaker::insertScriptures($row->scripture, ',', false);  ?>
+						<?php endif; ?>
 						<?php if (($params->get('show_hits') & 1) and $row->hits) : ?>
 							<?php $tips[] = JText::_('JGLOBAL_HITS') . ': ' . $row->hits; ?>
 						<?php endif; ?>
