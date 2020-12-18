@@ -45,6 +45,12 @@ abstract class ModLatestsermonsHelper
 
 		if ($params->get('show_scripture'))
 		{
+			// Load component language file for bible books
+			$lang = JFactory::getLanguage();
+			$lang = JFactory::getLanguage();
+			$lang->load('com_sermonspeaker')
+			|| $lang->load('com_sermonspeaker', JPATH_BASE . '/components/com_sermonspeaker');
+
 			// Join over the scriptures
 			$query->select('GROUP_CONCAT(script.book,"|",script.cap1,"|",script.vers1,"|",script.cap2,"|",script.vers2,"|",script.text '
 				. 'ORDER BY script.ordering ASC SEPARATOR "!") AS scripture');
