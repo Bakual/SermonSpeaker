@@ -64,6 +64,12 @@ $count = count($list);
 						<?php $date_format = JText::_($params->get('ls_mo_date_format', 'DATE_FORMAT_LC4')); ?>
 						<?php echo JText::_('JDATE') . ': ' . JHtml::date($row->sermon_date, $date_format, true); ?>
 					<?php endif; ?>
+					<?php if ($params->get('show_scripture') and $row->scripture) : ?>
+						<span>
+							<?php echo JText::_('MOD_LATESTSERMONS_SCRIPTURE'); ?>:
+									<?php echo SermonspeakerHelperSermonspeaker::insertScriptures($row->scripture, ', '); ?>
+						</span>
+					<?php endif; ?>
 					<?php if ($params->get('show_hits', 0) & 1) : ?>
 						<div class="hits">
 							<?php echo JText::_('JGLOBAL_HITS'); ?>: <?php echo $row->hits; ?>
