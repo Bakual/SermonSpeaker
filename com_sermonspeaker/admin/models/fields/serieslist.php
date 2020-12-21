@@ -67,7 +67,7 @@ class JFormFieldSerieslist extends JFormFieldGroupedList
 			}
 
 			$html = '<div class="input-group">' . $html .
-						'<span class="input-group-btn">
+						'<span class="input-group-append">
 							<a href="#serieModal_' . $this->id .'"
 								class="btn btn-secondary hasTooltip"
 								title="' . JText::_($string) . '"
