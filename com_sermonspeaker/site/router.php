@@ -7,6 +7,8 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
+use Joomla\CMS\Component\Router\RouterBase;
+
 defined('_JEXEC') or die();
 
 /**
@@ -14,7 +16,7 @@ defined('_JEXEC') or die();
  *
  * @since  5.1.3
  */
-class SermonspeakerRouter extends \Joomla\CMS\Component\Router\RouterBase
+class SermonspeakerRouter extends RouterBase
 {
 	/**
 	 * Build the route for the com_sermonspeaker component

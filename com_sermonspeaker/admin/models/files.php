@@ -125,7 +125,7 @@ class SermonspeakerModelFiles extends JModelLegacy
 
 			foreach ($bucket_contents as $file)
 			{
-				$files[] = $s3->getObjectUrl($bucket, $file['Key']);;
+				$files[] = $s3->getObjectUrl($bucket, $file['Key']);
 			}
 		}
 

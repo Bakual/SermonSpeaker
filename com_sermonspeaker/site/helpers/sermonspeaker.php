@@ -51,7 +51,7 @@ class SermonspeakerHelperSermonspeaker
 
 		/* @var  $app  \Joomla\CMS\Application\SiteApplication */
 		$app          = Factory::getApplication();
-		self::$params = (method_exists($app, 'getParams')) ? $app->getParams($option) : ComponentHelper::getParams($option);;
+		self::$params = (method_exists($app, 'getParams')) ? $app->getParams($option) : ComponentHelper::getParams($option);
 	}
 
 	/**

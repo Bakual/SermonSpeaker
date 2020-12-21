@@ -65,7 +65,7 @@ class SermonspeakerTableSerie extends Table
 		{
 			parent::check();
 		}
-		catch (\Exception $e)
+		catch (Exception $e)
 		{
 			$this->setError($e->getMessage());
 

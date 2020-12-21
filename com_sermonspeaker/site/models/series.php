@@ -323,7 +323,7 @@ class SermonspeakerModelSeries extends ListModel
 
 			$options['table'] = '#__sermon_series';
 
-			$categories = \JCategories::getInstance('sermonspeaker.series', $options);
+			$categories = JCategories::getInstance('sermonspeaker.series', $options);
 			$this->item = $categories->get($this->getState('category.id', 'root'));
 
 			// Compute selected asset permissions.
