@@ -47,7 +47,6 @@ abstract class ModLatestsermonsHelper
 		{
 			// Load component language file for bible books
 			$lang = JFactory::getLanguage();
-			$lang = JFactory::getLanguage();
 			$lang->load('com_sermonspeaker')
 			|| $lang->load('com_sermonspeaker', JPATH_BASE . '/components/com_sermonspeaker');
 
