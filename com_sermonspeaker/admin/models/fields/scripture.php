@@ -114,7 +114,7 @@ class JFormFieldScripture extends JFormField
 			$html .= '<span id="scripture_span_' . $i . '">';
 			$html .= '<input id="' . $this->id . '_' . $i . '" type="hidden" value="' . implode('|', $value) . '" name="' . $this->name . '[' . $i . ']">';
 			$html .= '<div class="input-prepend">';
-			$html .= '<div class="btn add-on icon-trash" onclick="delete_scripture(' . $i . ');"> </div>';
+			$html .= '<div class="btn add-on icon-trash" onclick="delete_scripture(' . $i . ')"> </div>';
 			$html .= '<a class="modal" href="' . $url . '&id=' . $i . '" rel="{handler: \'iframe\', size: {x: 550, y: 420}}">';
 			$html .= '<input id="' . $this->id . '_text_' . $i . '" type="text" class="readonly scripture pointer' . $title . '" '
 				. $size . $disabled . $readonly . $maxLength . ' value="' . $text . '" name="jform[' . $this->fieldname . '_text][' . $i . ']" />';

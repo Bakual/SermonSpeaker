@@ -9,8 +9,8 @@
 * More info: http://www.jeroenwijering.com/?item=JW_WMV_Player
 ****************************************************************************/
 if(typeof jeroenwijering == "undefined") {
-	var jeroenwijering = new Object();
-	jeroenwijering.utils = new Object();
+	var jeroenwijering = {};
+	jeroenwijering.utils = {};
 }
 
 

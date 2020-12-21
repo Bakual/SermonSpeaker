@@ -43,7 +43,7 @@ class SermonspeakerHelperSermonspeaker
 
 		/* @var  $app  JApplicationSite */
 		$app = JFactory::getApplication();
-		self::$params = (method_exists($app, 'getParams')) ? $app->getParams($option) : JComponentHelper::getParams($option);;
+		self::$params = (method_exists($app, 'getParams')) ? $app->getParams($option) : JComponentHelper::getParams($option);
 	}
 
 	/**

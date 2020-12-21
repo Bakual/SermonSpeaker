@@ -1252,7 +1252,7 @@ function URLResolver(videoTag) {
       return video;
    };
 
-};
+}
 /* A minimal jQuery Slider plugin with all goodies */
 
 // skip IE policies

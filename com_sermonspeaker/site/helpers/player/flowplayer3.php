@@ -328,7 +328,7 @@ class SermonspeakerHelperPlayerFlowplayer3 extends SermonspeakerHelperPlayer
 			. $this->playlist['default']
 			. '}],'
 			. implode(',', $options)
-			. '});'
+			. '})'
 			. '</script>';
 
 		// Loading needed Javascript only once

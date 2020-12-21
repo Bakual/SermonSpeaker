@@ -8466,7 +8466,7 @@ define("moxie/runtime/html5/image/Image", [
 				if (blob.isDetached()) {
 					_binStr = blob.getSource();
 					_preload.call(this, _binStr);
-					return;
+
 				} else {
 					_readAsDataUrl.call(this, blob.getSource(), function(dataUrl) {
 						if (asBinary) {

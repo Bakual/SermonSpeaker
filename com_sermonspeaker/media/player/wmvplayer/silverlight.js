@@ -218,7 +218,7 @@ else
 
 Silverlight.createObject = function(source, parentElement, id, properties, events, initParams, userContext)
 {
-    var slPluginHelper = new Object();
+    var slPluginHelper = {};
     var slProperties = properties;
     var slEvents = events;
     
