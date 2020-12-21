@@ -1,106 +1,112 @@
-[
-    {
-        "name": "james-heinrich/getid3",
-        "version": "v1.9.20",
-        "version_normalized": "1.9.20.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/JamesHeinrich/getID3.git",
-            "reference": "3c15e353b9bb1252201c73394bb8390b573a751d"
+{
+    "packages": [
+        {
+            "name": "james-heinrich/getid3",
+            "version": "v1.9.20",
+            "version_normalized": "1.9.20.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/JamesHeinrich/getID3.git",
+                "reference": "3c15e353b9bb1252201c73394bb8390b573a751d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/JamesHeinrich/getID3/zipball/3c15e353b9bb1252201c73394bb8390b573a751d",
+                "reference": "3c15e353b9bb1252201c73394bb8390b573a751d",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "jakub-onderka/php-parallel-lint": "^0.9 || ^1.0"
+            },
+            "suggest": {
+                "ext-SimpleXML": "SimpleXML extension is required to analyze RIFF/WAV/BWF audio files (also requires `ext-libxml`).",
+                "ext-com_dotnet": "COM extension is required when loading files larger than 2GB on Windows.",
+                "ext-ctype": "ctype extension is required when loading files larger than 2GB on 32-bit PHP (also on 64-bit PHP on Windows) or executing `getid3_lib::CopyTagsToComments`.",
+                "ext-dba": "DBA extension is required to use the DBA database as a cache storage.",
+                "ext-exif": "EXIF extension is required for graphic modules.",
+                "ext-iconv": "iconv extension is required to work with different character sets (when `ext-mbstring` is not available).",
+                "ext-json": "JSON extension is required to analyze Apple Quicktime videos.",
+                "ext-libxml": "libxml extension is required to analyze RIFF/WAV/BWF audio files.",
+                "ext-mbstring": "mbstring extension is required to work with different character sets.",
+                "ext-mysql": "MySQL extension is required to use the MySQL database as a cache storage (deprecated in PHP 5.5, removed in PHP >= 7.0, use `ext-mysqli` instead).",
+                "ext-mysqli": "MySQLi extension is required to use the MySQL database as a cache storage.",
+                "ext-rar": "RAR extension is required for RAR archive module.",
+                "ext-sqlite3": "SQLite3 extension is required to use the SQLite3 database as a cache storage.",
+                "ext-xml": "XML extension is required for graphic modules to analyze the XML metadata.",
+                "ext-zlib": "Zlib extension is required for archive modules and compressed metadata."
+            },
+            "time": "2020-06-30T18:43:34+00:00",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.9.x-dev"
+                }
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "classmap": [
+                    "getid3/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-1.0-or-later",
+                "LGPL-3.0-only",
+                "MPL-2.0"
+            ],
+            "description": "PHP script that extracts useful information from popular multimedia file formats",
+            "homepage": "https://www.getid3.org/",
+            "keywords": [
+                "codecs",
+                "php",
+                "tags"
+            ],
+            "install-path": "../james-heinrich/getid3"
         },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/JamesHeinrich/getID3/zipball/3c15e353b9bb1252201c73394bb8390b573a751d",
-            "reference": "3c15e353b9bb1252201c73394bb8390b573a751d",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.3.0"
-        },
-        "require-dev": {
-            "jakub-onderka/php-parallel-lint": "^0.9 || ^1.0"
-        },
-        "suggest": {
-            "ext-SimpleXML": "SimpleXML extension is required to analyze RIFF/WAV/BWF audio files (also requires `ext-libxml`).",
-            "ext-com_dotnet": "COM extension is required when loading files larger than 2GB on Windows.",
-            "ext-ctype": "ctype extension is required when loading files larger than 2GB on 32-bit PHP (also on 64-bit PHP on Windows) or executing `getid3_lib::CopyTagsToComments`.",
-            "ext-dba": "DBA extension is required to use the DBA database as a cache storage.",
-            "ext-exif": "EXIF extension is required for graphic modules.",
-            "ext-iconv": "iconv extension is required to work with different character sets (when `ext-mbstring` is not available).",
-            "ext-json": "JSON extension is required to analyze Apple Quicktime videos.",
-            "ext-libxml": "libxml extension is required to analyze RIFF/WAV/BWF audio files.",
-            "ext-mbstring": "mbstring extension is required to work with different character sets.",
-            "ext-mysql": "MySQL extension is required to use the MySQL database as a cache storage (deprecated in PHP 5.5, removed in PHP >= 7.0, use `ext-mysqli` instead).",
-            "ext-mysqli": "MySQLi extension is required to use the MySQL database as a cache storage.",
-            "ext-rar": "RAR extension is required for RAR archive module.",
-            "ext-sqlite3": "SQLite3 extension is required to use the SQLite3 database as a cache storage.",
-            "ext-xml": "XML extension is required for graphic modules to analyze the XML metadata.",
-            "ext-zlib": "Zlib extension is required for archive modules and compressed metadata."
-        },
-        "time": "2020-06-30T18:43:34+00:00",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "1.9.x-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "classmap": [
-                "getid3/"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "GPL-1.0-or-later",
-            "LGPL-3.0-only",
-            "MPL-2.0"
-        ],
-        "description": "PHP script that extracts useful information from popular multimedia file formats",
-        "homepage": "https://www.getid3.org/",
-        "keywords": [
-            "codecs",
-            "php",
-            "tags"
-        ]
-    },
-    {
-        "name": "tpyo/amazon-s3-php-class",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/tpyo/amazon-s3-php-class.git",
-            "reference": "62ae202afaac4cc01feffe6ce54f1b7d36a8d79e"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/tpyo/amazon-s3-php-class/zipball/62ae202afaac4cc01feffe6ce54f1b7d36a8d79e",
-            "reference": "62ae202afaac4cc01feffe6ce54f1b7d36a8d79e",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.2.0"
-        },
-        "time": "2019-05-05T19:32:17+00:00",
-        "type": "library",
-        "installation-source": "source",
-        "autoload": {
-            "classmap": [
-                "S3.php"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "BSD-2-Clause"
-        ],
-        "authors": [
-            {
-                "name": "Donovan Schönknecht",
-                "email": "don@tpyo.net"
-            }
-        ],
-        "description": "A standalone Amazon S3 (REST) client for PHP 5.2.x using CURL that does not require PEAR.",
-        "homepage": "https://github.com/tpyo/amazon-s3-php-class"
-    }
-]
+        {
+            "name": "tpyo/amazon-s3-php-class",
+            "version": "dev-master",
+            "version_normalized": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tpyo/amazon-s3-php-class.git",
+                "reference": "62ae202afaac4cc01feffe6ce54f1b7d36a8d79e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tpyo/amazon-s3-php-class/zipball/62ae202afaac4cc01feffe6ce54f1b7d36a8d79e",
+                "reference": "62ae202afaac4cc01feffe6ce54f1b7d36a8d79e",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.0"
+            },
+            "time": "2019-05-05T19:32:17+00:00",
+            "type": "library",
+            "installation-source": "source",
+            "autoload": {
+                "classmap": [
+                    "S3.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-2-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Donovan Schönknecht",
+                    "email": "don@tpyo.net"
+                }
+            ],
+            "description": "A standalone Amazon S3 (REST) client for PHP 5.2.x using CURL that does not require PEAR.",
+            "homepage": "https://github.com/tpyo/amazon-s3-php-class",
+            "install-path": "../tpyo/amazon-s3-php-class"
+        }
+    ],
+    "dev": true,
+    "dev-package-names": []
+}

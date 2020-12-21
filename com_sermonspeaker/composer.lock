@@ -67,6 +67,10 @@
                 "php",
                 "tags"
             ],
+            "support": {
+                "issues": "https://github.com/JamesHeinrich/getID3/issues",
+                "source": "https://github.com/JamesHeinrich/getID3/tree/master"
+            },
             "time": "2020-06-30T18:43:34+00:00"
         },
         {
@@ -86,6 +90,7 @@
             "require": {
                 "php": ">=5.2.0"
             },
+            "default-branch": true,
             "type": "library",
             "autoload": {
                 "classmap": [
@@ -104,6 +109,10 @@
             ],
             "description": "A standalone Amazon S3 (REST) client for PHP 5.2.x using CURL that does not require PEAR.",
             "homepage": "https://github.com/tpyo/amazon-s3-php-class",
+            "support": {
+                "issues": "https://github.com/tpyo/amazon-s3-php-class/issues",
+                "source": "https://github.com/tpyo/amazon-s3-php-class/tree/master"
+            },
             "time": "2019-05-05T19:32:17+00:00"
         }
     ],
@@ -116,5 +125,6 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "2.0.0"
 }

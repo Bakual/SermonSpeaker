@@ -9,6 +9,7 @@ return array(
     'AMFReader' => $vendorDir . '/james-heinrich/getid3/getid3/module.audio-video.flv.php',
     'AMFStream' => $vendorDir . '/james-heinrich/getid3/getid3/module.audio-video.flv.php',
     'AVCSequenceParameterSetReader' => $vendorDir . '/james-heinrich/getid3/getid3/module.audio-video.flv.php',
+    'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
     'S3' => $vendorDir . '/tpyo/amazon-s3-php-class/S3.php',
     'S3Exception' => $vendorDir . '/tpyo/amazon-s3-php-class/S3.php',
     'S3Request' => $vendorDir . '/tpyo/amazon-s3-php-class/S3.php',

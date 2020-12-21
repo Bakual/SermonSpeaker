@@ -24,6 +24,7 @@ class ComposerStaticInit126059dab1c1fc1a43d94a51ba0b6f25
         'AMFReader' => __DIR__ . '/..' . '/james-heinrich/getid3/getid3/module.audio-video.flv.php',
         'AMFStream' => __DIR__ . '/..' . '/james-heinrich/getid3/getid3/module.audio-video.flv.php',
         'AVCSequenceParameterSetReader' => __DIR__ . '/..' . '/james-heinrich/getid3/getid3/module.audio-video.flv.php',
+        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'S3' => __DIR__ . '/..' . '/tpyo/amazon-s3-php-class/S3.php',
         'S3Exception' => __DIR__ . '/..' . '/tpyo/amazon-s3-php-class/S3.php',
         'S3Request' => __DIR__ . '/..' . '/tpyo/amazon-s3-php-class/S3.php',
