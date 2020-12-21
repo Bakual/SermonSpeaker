@@ -21,7 +21,7 @@ JHtml::_('stylesheet', 'com_sermonspeaker/frontendupload.css', array('relative' 
 			<div class="upload-header"><?php echo JText::_('MOD_SERMONUPLOAD_UPLOAD_' . $type . 'FILE'); ?></div>
 			<div id="plupload_<?php echo $id; ?>" class="uploader">
 				<div id="filelist_<?php echo $id; ?>" class="filelist"></div>
-				<a id="browse_<?php echo $id; ?>" href="javascript:;" class="btn btn-small">
+				<a id="browse_<?php echo $id; ?>" href="javascript:" class="btn btn-small">
 					<?php echo JText::_('MOD_SERMONIPLOAD_UPLOAD'); ?>
 				</a>
 			</div>
