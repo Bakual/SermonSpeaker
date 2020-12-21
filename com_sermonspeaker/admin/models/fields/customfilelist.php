@@ -108,7 +108,7 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 		}
 
 		$html .= '<div class="input-group">
-					<span class="input-group-btn"> 
+					<span class="input-group-prepend"> 
 						<button class="btn btn-secondary" 
 							type="button" onclick="toggleElement(\'' . $this->fieldname . '\', 0);">
 							<span id="' . $this->fieldname . '_text_icon" class="icon-radio-checked"></span>
@@ -120,11 +120,17 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 		// Add Lookup button if not addfile field
 		if ($this->file != 'addfile')
 		{
-			$html .= '<span class="input-group-btn">
+			$html .= '<span class="input-group-append">
 						<button class="btn btn-secondary hasTooltip" 
 							type="button" onclick="lookup(document.getElementById(\'' . $this->id . '_text\'))" 
 							title="' . JText::_('COM_SERMONSPEAKER_LOOKUP') . '">
-							<span class="icon-wand"></span>
+							<span class="fas fa-magic"></span>
+						</button>
+						<button class="btn btn-secondary hasTooltip" 
+							type="button"
+							onclick="var player = document.getElementById(\'player_' . $this->file . '\');player.src=\'' . JUri::root() . '\'+document.getElementById(\'' . $this->id . '_text\').value;player.classList.remove(\'hidden\');player.play();" 
+							title="' . JText::_('COM_SERMONSPEAKER_PREVIEW') . '">
+							<span class="fas fa-play"></span>
 						 </button>
 					</span>';
 		}
@@ -132,7 +138,7 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 		// Add Google Picker if enabled and not audio field
 		if ($this->params->get('googlepicker') && $this->file != 'audio')
 		{
-			$html .= '<span class="input-group-btn">
+			$html .= '<span class="input-group-append">
 						<button class="btn btn-secondary hasTooltip"
 							type="button" onclick="create' . ucfirst($this->file) . 'Picker();" 
 							title="' . JText::_('COM_SERMONSPEAKER_GOOGLEPICKER_TIP') . '">
@@ -143,7 +149,7 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 
 		$html .= '</div>
 				<div class="input-group">
-					<span class="input-group-btn">
+					<span class="input-group-prepend">
 						<button class="btn btn-secondary"
 							type="button" onclick="toggleElement(\'' . $this->fieldname . '\', 1);"> 
 							<span id="' . $this->fieldname . '_icon" class="icon-radio-unchecked"></span>
@@ -157,11 +163,11 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 
 		if (!$this->mode && $this->file != 'addfile')
 		{
-			$html .= '<span class="input-group-btn">
+			$html .= '<span class="input-group-append">
 						<button class="btn btn-secondary hasTooltip" 
 							type="button" onclick="lookup(document.getElementById(\'' . $this->id . '\'))"
 							title="' . JText::_('COM_SERMONSPEAKER_LOOKUP') . '">
-							<span class="icon-wand"></span>
+							<span class="fas fa-magic"></span>
 						</button>
 					</span>';
 		}
