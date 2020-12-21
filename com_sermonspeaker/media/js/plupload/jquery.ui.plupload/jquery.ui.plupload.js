@@ -1134,7 +1134,7 @@ $.widget("ui.plupload", {
 				'<div class="plupload_file_dummy ui-widget-content" style="line-height: {thumb_height}px;"><span class="ui-state-disabled">{ext} </span></div>' +
 			'</div>' +
 			'<div class="plupload_file_status">' +
-				'<div class="plupload_file_progress ui-widget-header" style="width: 0%"> </div>' +
+				'<div class="plupload_file_progress ui-widget-header" style="width: 0"> </div>' +
 				'<span class="plupload_file_percent">{percent} </span>' +
 			'</div>' +
 			'<div class="plupload_file_name" title="{name}">' +

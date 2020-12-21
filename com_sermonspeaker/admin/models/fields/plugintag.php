@@ -71,7 +71,7 @@ class JFormFieldPlugintag extends JFormField
 		}
 
 		$html .= '<input type="text" size="10" name="' . $this->name . '" id="' . $this->id . '_start" value="' . htmlspecialchars($this->value[0], ENT_COMPAT, 'UTF-8') . '" class="inputbox input-mini"' . $disabled . ' />'
-			. '<span class="faux-label" style="clear:none; min-width:0px; margin-left:2px; margin-right:2px;">John 3,16</span>'
+			. '<span class="faux-label" style="clear:none; min-width:0; margin-left:2px; margin-right:2px;">John 3,16</span>'
 			. '<input type="text" size="5" name="' . $this->name . '" id="' . $this->id . '_end" value="' . htmlspecialchars($this->value[1], ENT_COMPAT, 'UTF-8') . '" class="inputbox input-mini"' . $disabled . ' />';
 
 		return $html;
