@@ -12,6 +12,7 @@ defined('_JEXEC') or die();
 use Joomla\CMS\Application\SiteApplication;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Language\Associations;
+use Joomla\CMS\Language\Text;
 
 require_once JPATH_COMPONENT_ADMINISTRATOR . '/models/sermon.php';
 
@@ -144,11 +145,10 @@ class SermonspeakerModelFrontendupload extends SermonspeakerModelSermon
 			}
 			else
 			{
-				JFactory::getApplication()->enqueueMessage(JText::_('COM_SERMONSPEAKER_ERROR_ID3'), 'notice');
+				JFactory::getApplication()->enqueueMessage(Text::_('COM_SERMONSPEAKER_ERROR_ID3'), 'notice');
 			}
 		}
 
-		/** @noinspection PhpUndefinedMethodInspection */
 		$this->preprocessData('com_sermonspeaker.sermon', $data);
 
 		return $data;
