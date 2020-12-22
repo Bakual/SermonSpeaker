@@ -128,7 +128,7 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 						</button>
 						<button class="btn btn-secondary hasTooltip" 
 							type="button"
-							onclick="var player = document.getElementById(\'player_' . $this->file . '\');player.src=\'' . JUri::root() . '\'+document.getElementById(\'' . $this->id . '_text\').value;player.classList.remove(\'hidden\');player.play();" 
+							onclick="let player = document.getElementById(\'player_' . $this->file . '\');player.src=\'' . JUri::root() . '\'+document.getElementById(\'' . $this->id . '_text\').value;player.classList.remove(\'hidden\');player.play();" 
 							title="' . JText::_('COM_SERMONSPEAKER_PREVIEW') . '">
 							<span class="fas fa-play"></span>
 						 </button>
@@ -377,12 +377,9 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 
 			if ($xml = simplexml_load_file($url))
 			{
-				/** @noinspection PhpUndefinedFieldInspection */
 				foreach ($xml->video as $video)
 				{
-					/** @noinspection PhpUndefinedFieldInspection */
 					$option['value'] = $video->url;
-					/** @noinspection PhpUndefinedFieldInspection */
 					$option['text'] = $video->title;
 					$options[]      = $option;
 				}
@@ -470,12 +467,9 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 
 			if ($xml = simplexml_load_file($url))
 			{
-				/** @noinspection PhpUndefinedFieldInspection */
 				foreach ($xml->file as $file)
 				{
-					/** @noinspection PhpUndefinedFieldInspection */
 					$option['value'] = $file->URL;
-					/** @noinspection PhpUndefinedFieldInspection */
 					$option['text'] = $file->name;
 					$options[]      = $option;
 				}

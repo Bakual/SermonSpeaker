@@ -42,7 +42,7 @@ function ss_changeListItem(event) {
         activeplayer = document.getElementById('mediaspace1').lastChild.player;
     }
     let entry = activeplayer.playlist[activeplayer.currentPlaylistItem];
-    for (var i = 0; document.getElementById("sermon" + i); i++) {
+    for (let i = 0; document.getElementById("sermon" + i); i++) {
         document.getElementById("sermon" + i).classList.remove("ss-current");
     }
     document.getElementById("sermon" + activeplayer.currentPlaylistItem).classList.add("ss-current");

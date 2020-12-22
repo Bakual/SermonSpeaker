@@ -65,10 +65,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->item);
                            onclick="popup=window.open(
                                '<?php echo JRoute::_('index.php?view=sermon&layout=popup&id=' . $this->item->id . '&tmpl=component'); ?>',
                                'PopupPage',
-                               'height=<?php echo $player->popup['height']; ?>',
-                               'width=<?php echo $player->popup['width']; ?>',
-                               'scrollbars=yes',
-                               'resizable=yes'
+                               'height=<?php echo $player->popup['height']; ?>,width=<?php echo $player->popup['width']; ?>,scrollbars=yes,resizable=yes'
                            ); return false"
                         >
                             <?php echo JText::_('COM_SERMONSPEAKER_POPUPPLAYER'); ?>

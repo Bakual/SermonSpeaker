@@ -173,7 +173,7 @@ class PlgSermonspeakerJwplayer7 extends SermonspeakerPluginPlayer
 			. "width:'" . $dimensions[$this->mode . 'width'] . "',"
 			. "height:'" . $dimensions[$this->mode . 'height'] . "',"
 			. implode(',', $this->options)
-			. '});'
+			. '})'
 			. '</script>';
 
 		// Loading needed Javascript only once
