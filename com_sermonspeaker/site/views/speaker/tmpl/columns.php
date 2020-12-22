@@ -98,10 +98,10 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->sermons);
                 <div class="row">
                     <div class="mx-auto btn-group">
                         <button type="button" onclick="Video()" class="btn btn-secondary" title="<?php echo JText::_('COM_SERMONSPEAKER_SWITCH_VIDEO'); ?>">
-                            <span class="fa fa-film fa-4x"></span>
+                            <span class="fas fa-film fa-4x"></span>
                         </button>
                         <button type="button" onclick="Audio()" class="btn btn-secondary" title="<?php echo JText::_('COM_SERMONSPEAKER_SWITCH_AUDIO'); ?>">
-                            <span class="fa fa-music fa-4x"></span>
+                            <span class="fas fa-music fa-4x"></span>
                         </button>
                     </div>
                 </div>

@@ -164,7 +164,7 @@ class JHtmlIcon
 			$icon = 'eye-close';
 		}
 
-		$text = '<span class="hasTooltip fa fa-' . $icon . '" title="' . HtmlHelper::tooltipText(Text::_('JACTION_EDIT'), $overlib, 0, 0) . '"></span> ';
+		$text = '<span class="hasTooltip fas fa-' . $icon . '" title="' . HtmlHelper::tooltipText(Text::_('JACTION_EDIT'), $overlib, 0, 0) . '"></span> ';
 
 		if (empty($attribs['hide_text']))
 		{

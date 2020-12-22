@@ -33,7 +33,7 @@ use Joomla\CMS\Language\Text;
                        placeholder="<?php echo Text::_('COM_SERMONSPEAKER_FILTER_SEARCH_DESC'); ?>"/>
                 <div class="input-group-append">
                    <span class="input-group-text hasTooltip btn" onclick="clear_all();" title="<?php echo Text::_('JSEARCH_FILTER_CLEAR'); ?>">
-                       <span class="fa fa-times"></span>
+                       <span class="fas fa-times"></span>
                    </span>
                 </div>
             </div>

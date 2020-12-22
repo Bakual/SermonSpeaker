@@ -46,7 +46,7 @@ $assoc = Associations::isEnabled();
 				<?php echo LayoutHelper::render('joomla.searchtools.default', array('view' => $this)); ?>
 				<?php if (empty($this->items)) : ?>
 					<div class="alert alert-info">
-						<span class="fa fa-info-circle" aria-hidden="true"></span><span class="sr-only"><?php echo Text::_('INFO'); ?></span>
+						<span class="fas fa-info-circle" aria-hidden="true"></span><span class="sr-only"><?php echo Text::_('INFO'); ?></span>
 						<?php echo Text::_('JGLOBAL_NO_MATCHING_RESULTS'); ?>
 					</div>
 				<?php else : ?>
@@ -121,7 +121,7 @@ $assoc = Associations::isEnabled();
 										}
 										?>
 										<span class="sortable-handler<?php echo $iconClass ?>">
-											<span class="fa fa-ellipsis-v" aria-hidden="true"></span>
+											<span class="fas fa-ellipsis-v" aria-hidden="true"></span>
 										</span>
 										<?php if ($canChange && $saveOrder) : ?>
 											<input type="text" name="order[]" size="5" value="<?php echo $item->ordering; ?>" class="width-20 text-area-order hidden">
@@ -220,7 +220,7 @@ $assoc = Associations::isEnabled();
 										<?php if ($item->pic) : ?>
 											<img src="<?php echo $item->pic; ?>" style="max-height: 40px">
 										<?php else : ?>
-											<span class="fa fa-picture-o fa-3x text-secondary"></span>
+											<span class="fas fa-picture-o fa-3x text-secondary"></span>
 										<?php endif; ?>
 									</td>
 									<?php if (Multilanguage::isEnabled()) : ?>
