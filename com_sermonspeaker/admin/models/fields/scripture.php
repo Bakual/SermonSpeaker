@@ -124,7 +124,7 @@ class JFormFieldScripture extends JFormField
 							<span class="input-group-btn">
 								<button class="btn btn-secondary" onclick="delete_scripture(' . $i . ')"><span class="icon-trash"></span></button>
 							</span>
-							<input id="' . $this->id . '_text_' . $i . '" type="text" class="readonly form-control pointer scripture' . $class . '"' . $title
+							<input id="' . $this->id . '_text_' . $i . '" type="text" class="readonly form-control scripture' . $class . '"' . $title
 							. 'data-toggle="modal" data-target="#' . $modalId . $i . '" '
 							. $size . $disabled . $readonly . $maxLength . ' value="' . $text . '" name="jform[' . $this->fieldname . '_text][' . $i . ']" />
 						</div>';

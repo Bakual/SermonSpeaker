@@ -70,7 +70,7 @@ $listDirn	= $this->escape($this->state->get('list.direction'));
 						<span class="<?php echo $iconStates[$this->escape($item->state)]; ?>"></span>
 					</td>
 					<td>
-						<a class="pointer" onclick="if (window.parent) window.parent.<?php echo $this->escape($function);?>('<?php echo $item->id; ?>', '<?php echo $this->escape(addslashes($item->title)); ?>', '<?php echo $this->escape($item->catid); ?>', '<?php echo $this->escape(SermonspeakerHelperRoute::getSermonRoute($item->id)); ?>');">
+						<a onclick="if (window.parent) window.parent.<?php echo $this->escape($function);?>('<?php echo $item->id; ?>', '<?php echo $this->escape(addslashes($item->title)); ?>', '<?php echo $this->escape($item->catid); ?>', '<?php echo $this->escape(SermonspeakerHelperRoute::getSermonRoute($item->id)); ?>');">
 							<?php echo $this->escape($item->title); ?></a>
 					</td>
 					<td class="small hidden-phone">
