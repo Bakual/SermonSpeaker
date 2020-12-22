@@ -9,6 +9,8 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Language\Text;
+
 require_once JPATH_SITE . '/components/com_sermonspeaker/helpers/route.php';
 
 /**
@@ -59,7 +61,7 @@ class PlgSearchSermonspeaker extends JPlugin
 
 			foreach ($speakers as $speaker)
 			{
-				$areas['spspeakers-' . $speaker['id']] = JText::sprintf('PLG_SEARCH_SERMONSPEAKER_SERMONS_FROM', $speaker['title']);
+				$areas['spspeakers-' . $speaker['id']] = Text::sprintf('PLG_SEARCH_SERMONSPEAKER_SERMONS_FROM', $speaker['title']);
 			}
 		}
 
@@ -92,7 +94,7 @@ class PlgSearchSermonspeaker extends JPlugin
 
 		for ($i = 1; $i <= $max; $i++)
 		{
-			$books[$i] = strtolower(JText::_('COM_SERMONSPEAKER_BOOK_' . $i));
+			$books[$i] = strtolower(Text::_('COM_SERMONSPEAKER_BOOK_' . $i));
 		}
 
 		$searchText = $text;
@@ -148,7 +150,7 @@ class PlgSearchSermonspeaker extends JPlugin
 
 		if (in_array('spsermons', $areas) || $speakers)
 		{
-			$section = JText::_('PLG_SEARCH_SERMONSPEAKER_SERMONS');
+			$section = Text::_('PLG_SEARCH_SERMONSPEAKER_SERMONS');
 			$wheres  = array();
 
 			switch ($phrase)
@@ -275,7 +277,7 @@ class PlgSearchSermonspeaker extends JPlugin
 
 		if (in_array('spseries', $areas))
 		{
-			$section = JText::_('PLG_SEARCH_SERMONSPEAKER_SERIES');
+			$section = Text::_('PLG_SEARCH_SERMONSPEAKER_SERIES');
 			$wheres  = array();
 
 			switch ($phrase)
@@ -364,7 +366,7 @@ class PlgSearchSermonspeaker extends JPlugin
 
 		if (in_array('spspeakers', $areas))
 		{
-			$section = JText::_('PLG_SEARCH_SERMONSPEAKER_SPEAKERS');
+			$section = Text::_('PLG_SEARCH_SERMONSPEAKER_SPEAKERS');
 			$wheres  = array();
 
 			switch ($phrase)

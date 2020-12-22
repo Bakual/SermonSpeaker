@@ -9,6 +9,8 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Language\Text;
+
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
 
 JHtml::_('bootstrap.tooltip');
@@ -57,7 +59,7 @@ $listDirn   = $this->state->get('list.direction');
 					<?php if ($this->params->get('show_pagination_limit')) : ?>
 						<div class="btn-group pull-right">
 							<label class="element-invisible">
-								<?php echo JText::_('JGLOBAL_DISPLAY_NUM'); ?>
+								<?php echo Text::_('JGLOBAL_DISPLAY_NUM'); ?>
 							</label>
 							<?php echo $this->pagination->getLimitBox(); ?>
 						</div>
@@ -67,7 +69,7 @@ $listDirn   = $this->state->get('list.direction');
 			<div class="clearfix"></div>
 			<?php if (!count($this->items)) : ?>
 				<div
-					class="no_entries alert alert-error"><?php echo JText::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', JText::_('COM_SERMONSPEAKER_SERIES')); ?></div>
+					class="no_entries alert alert-error"><?php echo Text::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', Text::_('COM_SERMONSPEAKER_SERIES')); ?></div>
 			<?php else : ?>
 				<table class="table table-striped table-hover table-condensed">
 					<thead>
@@ -91,7 +93,7 @@ $listDirn   = $this->state->get('list.direction');
 						<?php endif;
 
 						if (in_array('series:speaker', $this->col_serie)) : ?>
-							<th class="ss-col ss-speakers hidden-phone hidden-tablet"><?php echo JText::_('COM_SERMONSPEAKER_SPEAKERS'); ?></th>
+							<th class="ss-col ss-speakers hidden-phone hidden-tablet"><?php echo Text::_('COM_SERMONSPEAKER_SPEAKERS'); ?></th>
 						<?php endif;
 
 						if (in_array('series:hits', $this->col_serie)) : ?>
@@ -123,7 +125,7 @@ $listDirn   = $this->state->get('list.direction');
 							endif; ?>
 							<td class="ss-title">
 								<a class="hasTooltip"
-									title="::<?php echo JText::_('COM_SERMONSPEAKER_SERIESLINK_HOOVER'); ?>"
+									title="::<?php echo Text::_('COM_SERMONSPEAKER_SERIESLINK_HOOVER'); ?>"
 									href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->slug, $item->catid, $item->language)); ?>">
 									<?php echo $item->title; ?>
 								</a>
@@ -156,7 +158,7 @@ $listDirn   = $this->state->get('list.direction');
 								<td class="ss-col ss-dl hidden-phone"><a
 										href="<?php echo JRoute::_('index.php?view=serie&layout=download&tmpl=component&id=' . $item->slug); ?>"
 										class="modal hasTooltip" rel="{handler:'iframe',size:{x:400,y:200}}"
-										title="::<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADSERIES_DESC'); ?>">
+										title="::<?php echo Text::_('COM_SERMONSPEAKER_DOWNLOADSERIES_DESC'); ?>">
 										<i class="icon-download"> </i>
 									</a></td>
 							<?php endif; ?>
@@ -188,7 +190,7 @@ $listDirn   = $this->state->get('list.direction');
 	</div>
 	<?php if (!empty($this->children[$this->category->id]) and $this->maxLevel != 0) : ?>
 		<div class="cat-children">
-			<h3><?php echo JTEXT::_('JGLOBAL_SUBCATEGORIES'); ?></h3>
+			<h3><?php echo Text::_('JGLOBAL_SUBCATEGORIES'); ?></h3>
 			<?php echo $this->loadTemplate('children'); ?>
 		</div>
 	<?php endif; ?>

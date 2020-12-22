@@ -9,6 +9,8 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Language\Text;
+
 /**
  * HTML View class for the SermonSpeaker Component
  *
@@ -73,12 +75,12 @@ class SermonspeakerViewSermons extends JViewLegacy
 
 		if ($this->category == false)
 		{
-			throw new Exception(JText::_('JGLOBAL_CATEGORY_NOT_FOUND'), 404);
+			throw new Exception(Text::_('JGLOBAL_CATEGORY_NOT_FOUND'), 404);
 		}
 
 		if ($this->parent == false && $this->category->id != 'root')
 		{
-			throw new Exception(JText::_('JGLOBAL_CATEGORY_NOT_FOUND'), 404);
+			throw new Exception(Text::_('JGLOBAL_CATEGORY_NOT_FOUND'), 404);
 		}
 
 		if ($this->category->id == 'root')
@@ -98,7 +100,7 @@ class SermonspeakerViewSermons extends JViewLegacy
 
 		if (!in_array($this->category->access, $groups))
 		{
-			throw new Exception(JText::_('JERROR_ALERTNOAUTHOR'), 403);
+			throw new Exception(Text::_('JERROR_ALERTNOAUTHOR'), 403);
 		}
 
 		$app = JFactory::getApplication();
@@ -172,13 +174,13 @@ class SermonspeakerViewSermons extends JViewLegacy
 
 			$object                    = new stdClass;
 			$object->value             = $book;
-			$object->text              = JText::_('COM_SERMONSPEAKER_BOOK_' . $book);
+			$object->text              = Text::_('COM_SERMONSPEAKER_BOOK_' . $book);
 			$groups[$group]['items'][] = $object;
 		}
 
 		foreach ($groups as $key => &$group)
 		{
-			$group['text'] = JText::_('COM_SERMONSPEAKER_' . $key);
+			$group['text'] = Text::_('COM_SERMONSPEAKER_' . $key);
 		}
 
 		$this->books = $groups;
@@ -211,7 +213,7 @@ class SermonspeakerViewSermons extends JViewLegacy
 		}
 		else
 		{
-			$this->params->def('page_heading', JText::_('COM_SERMONSPEAKER_SERMONS_TITLE'));
+			$this->params->def('page_heading', Text::_('COM_SERMONSPEAKER_SERMONS_TITLE'));
 		}
 
 		$title = $this->params->get('page_title', '');
@@ -222,11 +224,11 @@ class SermonspeakerViewSermons extends JViewLegacy
 		}
 		elseif ($app->get('sitename_pagetitles', 0) == 1)
 		{
-			$title = JText::sprintf('JPAGETITLE', $app->get('sitename'), $title);
+			$title = Text::sprintf('JPAGETITLE', $app->get('sitename'), $title);
 		}
 		elseif ($app->get('sitename_pagetitles', 0) == 2)
 		{
-			$title = JText::sprintf('JPAGETITLE', $title, $app->get('sitename'));
+			$title = Text::sprintf('JPAGETITLE', $title, $app->get('sitename'));
 		}
 
 		$this->document->setTitle($title);

@@ -9,6 +9,8 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Language\Text;
+
 /**
  * HTML View class for the SermonSpeaker Component
  *
@@ -59,7 +61,7 @@ class SermonspeakerViewSerieform extends JViewLegacy
 
 		if ($authorised !== true)
 		{
-			throw new Exception(JText::_('JERROR_ALERTNOAUTHOR'), 403);
+			throw new Exception(Text::_('JERROR_ALERTNOAUTHOR'), 403);
 		}
 
 		// Check for errors.
@@ -98,7 +100,7 @@ class SermonspeakerViewSerieform extends JViewLegacy
 		}
 		else
 		{
-			$this->params->def('page_heading', JText::_('JEDITOR'));
+			$this->params->def('page_heading', Text::_('JEDITOR'));
 		}
 
 		$title = $this->params->get('page_title', '');
@@ -109,11 +111,11 @@ class SermonspeakerViewSerieform extends JViewLegacy
 		}
 		elseif ($app->get('sitename_pagetitles', 0) == 1)
 		{
-			$title = JText::sprintf('JPAGETITLE', $app->get('sitename'), $title);
+			$title = Text::sprintf('JPAGETITLE', $app->get('sitename'), $title);
 		}
 		elseif ($app->get('sitename_pagetitles', 0) == 2)
 		{
-			$title = JText::sprintf('JPAGETITLE', $title, $app->get('sitename'));
+			$title = Text::sprintf('JPAGETITLE', $title, $app->get('sitename'));
 		}
 
 		$this->document->setTitle($title);

@@ -9,6 +9,7 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Language\Text;
 use Joomla\CMS\Router\Route;
 
 /**
@@ -116,7 +117,7 @@ class SermonspeakerControllerSermon extends JControllerForm
 
 		if (!$id)
 		{
-			$app->enqueueMessage(JText::_('JERROR_AN_ERROR_HAS_OCCURRED'), 'error');
+			$app->enqueueMessage(Text::_('JERROR_AN_ERROR_HAS_OCCURRED'), 'error');
 			$app->redirect('index.php?option=com_sermonspeaker&view=sermons');
 
 			return;
@@ -135,11 +136,11 @@ class SermonspeakerControllerSermon extends JControllerForm
 				. "WHERE id='" . $id . "'";
 			$db->setQuery($query);
 			$db->execute();
-			$app->enqueueMessage(JText::sprintf('COM_SERMONSPEAKER_RESET_OK', JText::_('COM_SERMONSPEAKER_SERMON'), $item->title));
+			$app->enqueueMessage(Text::sprintf('COM_SERMONSPEAKER_RESET_OK', Text::_('COM_SERMONSPEAKER_SERMON'), $item->title));
 		}
 		else
 		{
-			$app->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'error');
+			$app->enqueueMessage(Text::_('JERROR_ALERTNOAUTHOR'), 'error');
 		}
 
 		$app->redirect('index.php?option=com_sermonspeaker&view=sermons');
@@ -182,7 +183,7 @@ class SermonspeakerControllerSermon extends JControllerForm
 
 			if ($filename != JApplicationHelper::stringURLSafe($filename))
 			{
-				$text = JText::_('COM_SERMONSPEAKER_FILENAME_NOT_IDEAL') . ': ' . $validData[$file];
+				$text = Text::_('COM_SERMONSPEAKER_FILENAME_NOT_IDEAL') . ': ' . $validData[$file];
 				$app->enqueueMessage($text, 'warning');
 			}
 		}
@@ -266,7 +267,7 @@ class SermonspeakerControllerSermon extends JControllerForm
 
 		if (!$id)
 		{
-			$app->enqueueMessage(JText::_('JERROR_AN_ERROR_HAS_OCCURRED'), 'error');
+			$app->enqueueMessage(Text::_('JERROR_AN_ERROR_HAS_OCCURRED'), 'error');
 			$app->redirect('index.php?option=com_sermonspeaker&view=sermons');
 
 			return;
@@ -375,7 +376,7 @@ class SermonspeakerControllerSermon extends JControllerForm
 		}
 		else
 		{
-			$app->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'error');
+			$app->enqueueMessage(Text::_('JERROR_ALERTNOAUTHOR'), 'error');
 			$app->redirect('index.php?option=com_sermonspeaker&view=sermons');
 
 			return;
@@ -393,7 +394,7 @@ class SermonspeakerControllerSermon extends JControllerForm
 	 */
 	public function batch($model = null)
 	{
-		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+		JSession::checkToken() or jexit(Text::_('JINVALID_TOKEN'));
 
 		// Set the model
 		$model = $this->getModel('Sermon', '', array());

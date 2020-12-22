@@ -9,6 +9,8 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Language\Text;
+
 /**
  * Controller class for the SermonSpeaker Component
  *
@@ -27,7 +29,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 	public function upload()
 	{
 		// Check for request forgeries
-		JSession::checkToken('request') or jexit(JText::_('JINVALID_TOKEN'));
+		JSession::checkToken('request') or jexit(Text::_('JINVALID_TOKEN'));
 
 		/** @var JApplicationSite $app */
 		$app    = JFactory::getApplication();
@@ -40,7 +42,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 		// Access check
 		if (!$params->get('fu_enable') || !$user->authorise('core.create', 'com_sermonspeaker'))
 		{
-			throw new Exception(JText::_('JGLOBAL_AUTH_ACCESS_DENIED'), 403);
+			throw new Exception(Text::_('JGLOBAL_AUTH_ACCESS_DENIED'), 403);
 		}
 
 		// Create append
@@ -94,7 +96,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 
 			if (!in_array($ext, $types))
 			{
-				$app->enqueueMessage(JText::sprintf('COM_SERMONSPEAKER_FILETYPE_NOT_ALLOWED', $ext), 'error');
+				$app->enqueueMessage(Text::sprintf('COM_SERMONSPEAKER_FILETYPE_NOT_ALLOWED', $ext), 'error');
 				continue;
 			}
 
@@ -110,19 +112,19 @@ class SermonspeakerControllerFile extends JControllerLegacy
 				if (JFile::exists($filepath))
 				{
 					// File exists
-					$app->enqueueMessage(JText::_('COM_SERMONSPEAKER_FU_ERROR_EXISTS'), 'warning');
+					$app->enqueueMessage(Text::_('COM_SERMONSPEAKER_FU_ERROR_EXISTS'), 'warning');
 					continue;
 				}
 
 				if (!JFile::upload($file['tmp_name'], $filepath))
 				{
 					// Error in upload
-					$app->enqueueMessage(JText::_('COM_SERMONSPEAKER_FU_ERROR_UNABLE_TO_UPLOAD_FILE'), 'warning');
+					$app->enqueueMessage(Text::_('COM_SERMONSPEAKER_FU_ERROR_UNABLE_TO_UPLOAD_FILE'), 'warning');
 					continue;
 				}
 				else
 				{
-					$app->enqueueMessage(JText::sprintf('COM_SERMONSPEAKER_FU_FILENAME', $filepath));
+					$app->enqueueMessage(Text::sprintf('COM_SERMONSPEAKER_FU_FILENAME', $filepath));
 					$redirect .= 'file' . $key . '=/' . str_replace('\\', '/', substr($filepath, strlen(JPATH_ROOT . '/')));
 				}
 			}

@@ -9,6 +9,8 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Language\Text;
+
 /**
  * HTML View class for the SermonSpeaker Component
  *
@@ -111,13 +113,13 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 
 		if (!$this->params->get('fu_enable', 0))
 		{
-			throw new Exception(JText::_('JERROR_ALERTNOAUTHOR'), 403);
+			throw new Exception(Text::_('JERROR_ALERTNOAUTHOR'), 403);
 		}
 
 		if ($this->user->guest)
 		{
 			$redirectUrl = urlencode(base64_encode(JUri::getInstance()->toString()));
-			$app->enqueueMessage(JText::_('JGLOBAL_YOU_MUST_LOGIN_FIRST'), 'error');
+			$app->enqueueMessage(Text::_('JGLOBAL_YOU_MUST_LOGIN_FIRST'), 'error');
 			$app->redirect(JRoute::_('index.php?option=com_users&view=login&return=' . $redirectUrl));
 
 			return false;
@@ -139,7 +141,7 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 
 		if ($authorised !== true)
 		{
-			throw new Exception(JText::_('JERROR_ALERTNOAUTHOR'), 403);
+			throw new Exception(Text::_('JERROR_ALERTNOAUTHOR'), 403);
 		}
 
 		// Check some PHP settings for upload limit so I can show it as an info
@@ -218,12 +220,12 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 						if(data.not_found){
 							var notice = new Array();
 							if (data.not_found.series){
-								notice.push(Joomla.JText._("COM_SERMONSPEAKER_SERIE") + ": " + data.not_found.series);
+								notice.push(Joomla.Text._("COM_SERMONSPEAKER_SERIE") + ": " + data.not_found.series);
 							}
 							if (data.not_found.speakers){
-								notice.push(Joomla.JText._("COM_SERMONSPEAKER_SPEAKER") + ": " + data.not_found.speakers);
+								notice.push(Joomla.Text._("COM_SERMONSPEAKER_SPEAKER") + ": " + data.not_found.speakers);
 							}
-							notice.push(Joomla.JText._("COM_SERMONSPEAKER_ID3_NO_MATCH_FOUND"));
+							notice.push(Joomla.Text._("COM_SERMONSPEAKER_ID3_NO_MATCH_FOUND"));
 							var messages = {"notice":notice};
 							Joomla.renderMessages(messages);
 						}
@@ -358,7 +360,7 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 
 			if (!$awsAccessKey || !$awsSecretKey || !$region || !$bucket)
 			{
-				JFactory::getApplication()->enqueueMessage(JText::_('COM_SERMONSPEAKER_S3_MISSING_PARAMETER'), 'warning');
+				JFactory::getApplication()->enqueueMessage(Text::_('COM_SERMONSPEAKER_S3_MISSING_PARAMETER'), 'warning');
 			}
 
 			// Instantiate the class
@@ -438,20 +440,20 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 		$this->document->addScriptDeclaration($changelang);
 
 		// Add javascript validation script
-		JText::script('COM_SERMONSPEAKER_JS_CHECK_KEYWORDS', false, true);
-		JText::script('COM_SERMONSPEAKER_JS_CHECK_CHARS', false, true);
+		Text::script('COM_SERMONSPEAKER_JS_CHECK_KEYWORDS', false, true);
+		Text::script('COM_SERMONSPEAKER_JS_CHECK_CHARS', false, true);
 		$valscript = 'function check(string, count, mode){
 					if(mode){
 						split = string.split(",");
 						if(split.length > count){
-							message = Joomla.JText._("COM_SERMONSPEAKER_JS_CHECK_KEYWORDS");
+							message = Joomla.Text._("COM_SERMONSPEAKER_JS_CHECK_KEYWORDS");
 							message = message.replace("{0}", split.length);
 							message = message.replace("{1}", count);
 							alert(message);
 						}
 					}else{
 						if(string.length > count){
-							message = Joomla.JText._("COM_SERMONSPEAKER_JS_CHECK_CHARS");
+							message = Joomla.Text._("COM_SERMONSPEAKER_JS_CHECK_CHARS");
 							message = message.replace("{0}", string.length);
 							message = message.replace("{1}", count);
 							alert(message);
@@ -526,7 +528,7 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 		}
 		else
 		{
-			$this->params->def('page_heading', JText::_('COM_SERMONSPEAKER_FU_TITLE'));
+			$this->params->def('page_heading', Text::_('COM_SERMONSPEAKER_FU_TITLE'));
 		}
 
 		$title = $this->params->get('page_title', '');
@@ -537,11 +539,11 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 		}
 		elseif ($app->get('sitename_pagetitles', 0) == 1)
 		{
-			$title = JText::sprintf('JPAGETITLE', $app->get('sitename'), $title);
+			$title = Text::sprintf('JPAGETITLE', $app->get('sitename'), $title);
 		}
 		elseif ($app->get('sitename_pagetitles', 0) == 2)
 		{
-			$title = JText::sprintf('JPAGETITLE', $title, $app->get('sitename'));
+			$title = Text::sprintf('JPAGETITLE', $title, $app->get('sitename'));
 		}
 
 		$this->document->setTitle($title);

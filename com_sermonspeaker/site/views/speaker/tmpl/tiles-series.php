@@ -9,6 +9,8 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Language\Text;
+
 JHtml::_('stylesheet', 'com_sermonspeaker/tiles.css', array('relative' => true));
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
 JHtml::_('bootstrap.tooltip');
@@ -41,17 +43,17 @@ $orderlist  = array(
 
 	if ($this->params->get('show_category_title', 0) || in_array('speaker:hits', $this->columns)) : ?>
 		<dl class="article-info speaker-info">
-			<dt class="article-info-term"><?php echo JText::_('JDETAILS'); ?></dt>
+			<dt class="article-info-term"><?php echo Text::_('JDETAILS'); ?></dt>
 			<?php
 			if ($this->params->get('show_category_title', 0)) : ?>
 				<dd class="category-name">
-					<?php echo JText::_('JCATEGORY') . ': ' . $this->category->title; ?>
+					<?php echo Text::_('JCATEGORY') . ': ' . $this->category->title; ?>
 				</dd>
 			<?php endif;
 
 			if (in_array('speaker:hits', $this->columns)) : ?>
 				<dd class="hits">
-					<?php echo JText::_('JGLOBAL_HITS') . ': ' . $this->item->hits; ?>
+					<?php echo Text::_('JGLOBAL_HITS') . ': ' . $this->item->hits; ?>
 				</dd>
 			<?php endif; ?>
 		</dl>
@@ -64,7 +66,7 @@ $orderlist  = array(
 			<?php endif; ?>
 		</div>
 		<?php if (($this->item->bio && in_array('speaker:bio', $this->columns)) || ($this->item->intro && in_array('speaker:intro', $this->columns))) : ?>
-			<h3><?php echo JText::_('COM_SERMONSPEAKER_SPEAKER_BIO'); ?></h3>
+			<h3><?php echo Text::_('COM_SERMONSPEAKER_SPEAKER_BIO'); ?></h3>
 			<?php
 			if (in_array('speaker:intro', $this->columns)) :
 				echo JHtml::_('content.prepare', $this->item->intro);
@@ -77,7 +79,7 @@ $orderlist  = array(
 		<div class="clear-left"></div>
 		<?php if ($this->item->website && $this->item->website != 'http://') : ?>
 			<a href="<?php echo $this->item->website; ?>" target="_blank"
-				title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKER_WEBLINK_HOOVER'); ?>"><?php echo JText::sprintf('COM_SERMONSPEAKER_SPEAKER_WEBLINK', $this->item->title); ?></a>
+				title="<?php echo Text::_('COM_SERMONSPEAKER_SPEAKER_WEBLINK_HOOVER'); ?>"><?php echo Text::sprintf('COM_SERMONSPEAKER_SPEAKER_WEBLINK', $this->item->title); ?></a>
 		<?php endif; ?>
 	</div>
 	<form action="<?php echo JFilterOutput::ampReplace(JUri::getInstance()->toString()); ?>" method="post"
@@ -86,24 +88,24 @@ $orderlist  = array(
 		if ($this->params->get('filter_field')) : ?>
 		<fieldset class="filters">
 			<legend class="hidelabeltxt">
-				<?php echo JText::_('JGLOBAL_FILTER_LABEL'); ?>
+				<?php echo Text::_('JGLOBAL_FILTER_LABEL'); ?>
 			</legend>
 			<div class="filter-search">
 				<label class="filter-search-lbl"
-					for="filter-search"><?php echo JText::_('JGLOBAL_FILTER_LABEL') . '&nbsp;'; ?></label>
+					for="filter-search"><?php echo Text::_('JGLOBAL_FILTER_LABEL') . '&nbsp;'; ?></label>
 				<input type="text" name="filter-search" id="filter-search"
 					value="<?php echo $this->escape($this->state_series->get('filter.search')); ?>" class="inputbox"
 					onchange="document.adminForm.submit();"
-					title="<?php echo JText::_('COM_SERMONSPEAKER_FILTER_SEARCH_DESC'); ?>"/>
+					title="<?php echo Text::_('COM_SERMONSPEAKER_FILTER_SEARCH_DESC'); ?>"/>
 			</div>
 			<div class="ordering-select">
-				<label for="filter_order"><?php echo JText::_('JFIELD_ORDERING_LABEL') . '&nbsp;'; ?></label>
+				<label for="filter_order"><?php echo Text::_('JFIELD_ORDERING_LABEL') . '&nbsp;'; ?></label>
 				<select name="filter_order" id="filter_order" class="inputbox" onchange="this.form.submit()">
-					<option value="0"><?php echo JText::_('COM_SERMONSPEAKER_SELECT_ORDERING'); ?></option>
+					<option value="0"><?php echo Text::_('COM_SERMONSPEAKER_SELECT_ORDERING'); ?></option>
 					<?php echo JHtml::_('select.options', $orderlist, '', '', $this->state_series->get('list.ordering'), true); ?>
 				</select>
 				<select name="filter_order_Dir" id="filter_order_Dir" class="inputbox" onchange="this.form.submit()">
-					<option value="0"><?php echo JText::_('COM_SERMONSPEAKER_SELECT_ORDER_DIR'); ?></option>
+					<option value="0"><?php echo Text::_('COM_SERMONSPEAKER_SELECT_ORDER_DIR'); ?></option>
 					<?php echo JHtml::_('select.options', array('ASC' => 'COM_SERMONSPEAKER_SELECT_ORDER_DIR_OPTION_ASC', 'DESC' => 'COM_SERMONSPEAKER_SELECT_ORDER_DIR_OPTION_DESC'), '', '', $this->state_series->get('list.direction'), true); ?>
 				</select>
 			</div>
@@ -111,7 +113,7 @@ $orderlist  = array(
 
 			if ($this->params->get('show_pagination_limit')) : ?>
 				<div class="display-limit">
-					<?php echo JText::_('JGLOBAL_DISPLAY_NUM'); ?>&nbsp;
+					<?php echo Text::_('JGLOBAL_DISPLAY_NUM'); ?>&nbsp;
 					<?php echo $this->pag_series->getLimitBox(); ?>
 				</div>
 			<?php endif;
@@ -122,26 +124,26 @@ $orderlist  = array(
 
 	if (!count($this->series)) : ?>
 		<div
-			class="no_entries"><?php echo JText::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', JText::_('COM_SERMONSPEAKER_SERIES')); ?></div>
+			class="no_entries"><?php echo Text::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', Text::_('COM_SERMONSPEAKER_SERIES')); ?></div>
 	<?php else :
 		foreach ($this->series as $i => $item) :
 			// Preparing tooltip
 			$tip = array();
 
 			if (in_array('series:category', $this->col_serie)) :
-				$tip[] = JText::_('JCATEGORY') . ': ' . $item->category_title;
+				$tip[] = Text::_('JCATEGORY') . ': ' . $item->category_title;
 			endif;
 
 			if (in_array('series:speaker', $this->col_serie) and $item->names) :
-				$tip[] = JText::_('COM_SERMONSPEAKER_FIELD_SPEAKER_LABEL') . ': ' . $item->names;
+				$tip[] = Text::_('COM_SERMONSPEAKER_FIELD_SPEAKER_LABEL') . ': ' . $item->names;
 			endif;
 
 			if (in_array('series:hits', $this->col_serie) and $item->hits) :
-				$tip[] = JText::_('JGLOBAL_HITS') . ': ' . $item->hits;
+				$tip[] = Text::_('JGLOBAL_HITS') . ': ' . $item->hits;
 			endif;
 
 			if (in_array('series:description', $this->col_serie) and $item->series_description) :
-				$tip[] = JText::_('JGLOBAL_DESCRIPTION') . ': ' . JHtml::_('content.prepare', $item->series_description);
+				$tip[] = Text::_('JGLOBAL_DESCRIPTION') . ': ' . JHtml::_('content.prepare', $item->series_description);
 			endif;
 			$tooltip = implode('<br/>', $tip);
 			$image   = ($item->avatar) ? $item->avatar : 'media/com_sermonspeaker/images/' . $this->params->get('defaultpic', 'nopict.jpg'); ?>

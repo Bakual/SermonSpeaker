@@ -9,6 +9,8 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Language\Text;
+
 /**
  * Controller class for the SermonSpeaker Component
  *
@@ -31,7 +33,7 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 		{
 			$response = array(
 				'status' => '0',
-				'msg'    => JText::_('I have no clue what you want to download...'),
+				'msg'    => Text::_('I have no clue what you want to download...'),
 			);
 			echo json_encode($response);
 
@@ -72,7 +74,7 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 		{
 			$response = array(
 				'status' => '0',
-				'msg'    => JText::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', JText::_('COM_SERMONSPEAKER_SERMONS')),
+				'msg'    => Text::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', Text::_('COM_SERMONSPEAKER_SERMONS')),
 			);
 			echo json_encode($response);
 
@@ -86,7 +88,7 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 		{
 			$response = array(
 				'status' => '0',
-				'msg'    => JText::_('COM_SERMONSPEAKER_SERIES_DOWNLOAD_NOT_ALLOWED'),
+				'msg'    => Text::_('COM_SERMONSPEAKER_SERIES_DOWNLOAD_NOT_ALLOWED'),
 			);
 			echo json_encode($response);
 
@@ -232,7 +234,7 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 			{
 				$response = array(
 					'status' => '0',
-					'msg'    => JText::_('I cannot open the file: [' . $filename . ']'),
+					'msg'    => Text::_('I cannot open the file: [' . $filename . ']'),
 				);
 				echo json_encode($response);
 
@@ -245,7 +247,7 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 				{
 					$response = array(
 						'status' => '0',
-						'msg'    => JText::_('I found the file [stop.txt] in the directory and thus terminated the script'),
+						'msg'    => Text::_('I found the file [stop.txt] in the directory and thus terminated the script'),
 					);
 					echo json_encode($response);
 
@@ -264,7 +266,7 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 			{
 				$response = array(
 					'status' => '0',
-					'msg'    => JText::_('I cannot write the file: [' . $filename . ']'),
+					'msg'    => Text::_('I cannot write the file: [' . $filename . ']'),
 				);
 				echo json_encode($response);
 
@@ -289,7 +291,7 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 		{
 			$response = array(
 				'status' => '0',
-				'msg'    => JText::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', JText::_('COM_SERMONSPEAKER_SERMONS')),
+				'msg'    => Text::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', Text::_('COM_SERMONSPEAKER_SERMONS')),
 			);
 		}
 
@@ -313,7 +315,7 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 		{
 			$response = array(
 				'status' => '0',
-				'msg'    => JText::_('I have no clue what you want to download...'),
+				'msg'    => Text::_('I have no clue what you want to download...'),
 			);
 			echo json_encode($response);
 

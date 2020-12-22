@@ -9,6 +9,8 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Language\Text;
+
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
 
 JHtml::_('bootstrap.framework');
@@ -59,7 +61,7 @@ $listDirn   = $this->state->get('list.direction');
 					<?php if ($this->params->get('show_pagination_limit')) : ?>
 						<div class="btn-group pull-right">
 							<label class="element-invisible">
-								<?php echo JText::_('JGLOBAL_DISPLAY_NUM'); ?>
+								<?php echo Text::_('JGLOBAL_DISPLAY_NUM'); ?>
 							</label>
 							<?php echo $this->pagination->getLimitBox(); ?>
 						</div>
@@ -69,7 +71,7 @@ $listDirn   = $this->state->get('list.direction');
 			<div class="clearfix"></div>
 			<?php if (!count($this->items)) : ?>
 				<div
-					class="no_entries alert alert-error"><?php echo JText::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', JText::_('COM_SERMONSPEAKER_SPEAKERS')); ?></div>
+					class="no_entries alert alert-error"><?php echo Text::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', Text::_('COM_SERMONSPEAKER_SPEAKERS')); ?></div>
 			<?php else : ?>
 				<div class="items-leading">
 					<?php foreach ($this->items as $i => $item) : ?>
@@ -105,12 +107,12 @@ $listDirn   = $this->state->get('list.direction');
 							<?php endif; ?>
 							<div class="article-info speaker-info muted">
 								<dl class="article-info">
-									<dt class="article-info-term"><?php echo JText::_('JDETAILS'); ?></dt>
+									<dt class="article-info-term"><?php echo Text::_('JDETAILS'); ?></dt>
 									<?php
 									if (in_array('speakers:category', $this->col_speaker) and $item->category_title) : ?>
 										<dd>
 											<div class="category-name">
-												<?php echo JText::_('JCATEGORY'); ?>:
+												<?php echo Text::_('JCATEGORY'); ?>:
 												<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakersRoute($item->catslug, $item->language)); ?>"><?php echo $item->category_title; ?></a>
 											</div>
 										</dd>
@@ -120,7 +122,7 @@ $listDirn   = $this->state->get('list.direction');
 										<dd>
 											<div class="hits">
 												<i class="icon-eye-open"></i>
-												<?php echo JText::_('JGLOBAL_HITS'); ?>:
+												<?php echo Text::_('JGLOBAL_HITS'); ?>:
 												<?php echo $item->hits; ?>
 											</div>
 										</dd>
@@ -131,7 +133,7 @@ $listDirn   = $this->state->get('list.direction');
 											<div class="website">
 												<i class=" icon-out-2"></i>
 												<a href="<?php echo $item->website; ?>">
-													<?php echo JText::_('COM_SERMONSPEAKER_FIELD_WEBSITE_LABEL'); ?>
+													<?php echo Text::_('COM_SERMONSPEAKER_FIELD_WEBSITE_LABEL'); ?>
 												</a>
 											</div>
 										</dd>
@@ -155,16 +157,16 @@ $listDirn   = $this->state->get('list.direction');
 
 							<?php if ($item->sermons) : ?>
 								<a class="badge badge-info"
-									title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKERS_SERMONSLINK_HOOVER'); ?>"
+									title="<?php echo Text::_('COM_SERMONSPEAKER_SPEAKERS_SERMONSLINK_HOOVER'); ?>"
 									href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug, $item->catid, $item->language) . '#sermons'); ?>">
-									<?php echo JText::_('COM_SERMONSPEAKER_SERMONS') . ': ' . $item->sermons; ?></a>&nbsp;
+									<?php echo Text::_('COM_SERMONSPEAKER_SERMONS') . ': ' . $item->sermons; ?></a>&nbsp;
 							<?php endif; ?>
 
 							<?php if ($item->series) : ?>
 								<a class="badge badge-info"
-									title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKERS_SERIESLINK_HOOVER'); ?>"
+									title="<?php echo Text::_('COM_SERMONSPEAKER_SPEAKERS_SERIESLINK_HOOVER'); ?>"
 									href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug, $item->catid, $item->language) . '#series'); ?>">
-									<?php echo JText::_('COM_SERMONSPEAKER_SERIES') . ': ' . $item->series; ?></a>&nbsp;
+									<?php echo Text::_('COM_SERMONSPEAKER_SERIES') . ': ' . $item->series; ?></a>&nbsp;
 							<?php endif; ?>
 
 							<?php echo $item->event->afterDisplayContent; ?>
@@ -193,7 +195,7 @@ $listDirn   = $this->state->get('list.direction');
 	</div>
 	<?php if (!empty($this->children[$this->category->id]) and $this->maxLevel != 0) : ?>
 		<div class="cat-children">
-			<h3><?php echo JTEXT::_('JGLOBAL_SUBCATEGORIES'); ?></h3>
+			<h3><?php echo Text::_('JGLOBAL_SUBCATEGORIES'); ?></h3>
 			<?php echo $this->loadTemplate('children'); ?>
 		</div>
 	<?php endif; ?>

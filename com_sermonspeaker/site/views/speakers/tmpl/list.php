@@ -9,6 +9,8 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Language\Text;
+
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
 
 JHtml::_('bootstrap.tooltip');
@@ -58,7 +60,7 @@ $listDirn   = $this->state->get('list.direction');
 					<?php if ($this->params->get('show_pagination_limit')) : ?>
 						<div class="btn-group pull-right">
 							<label class="element-invisible">
-								<?php echo JText::_('JGLOBAL_DISPLAY_NUM'); ?>
+								<?php echo Text::_('JGLOBAL_DISPLAY_NUM'); ?>
 							</label>
 							<?php echo $this->pagination->getLimitBox(); ?>
 						</div>
@@ -68,7 +70,7 @@ $listDirn   = $this->state->get('list.direction');
 			<div class="clearfix"></div>
 			<?php if (!count($this->items)) : ?>
 				<div
-					class="no_entries alert alert-error"><?php echo JText::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', JText::_('COM_SERMONSPEAKER_SPEAKERS')); ?></div>
+					class="no_entries alert alert-error"><?php echo Text::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', Text::_('COM_SERMONSPEAKER_SPEAKERS')); ?></div>
 			<?php else : ?>
 				<ul class="category list-striped list-condensed">
 					<?php foreach ($this->items as $i => $item) :
@@ -77,7 +79,7 @@ $listDirn   = $this->state->get('list.direction');
 							<?php
 							if (in_array('speakers:hits', $this->col_speaker)) : ?>
 								<span class="ss-hits badge badge-info pull-right">
-									<?php echo JText::sprintf('JGLOBAL_HITS_COUNT', $item->hits); ?>
+									<?php echo Text::sprintf('JGLOBAL_HITS_COUNT', $item->hits); ?>
 								</span>
 							<?php endif;
 
@@ -97,7 +99,7 @@ $listDirn   = $this->state->get('list.direction');
 								$sep = 1; ?>
 								<small class="ss-sermons">
 									<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug, $item->catid, $item->language) . '#sermons'); ?>">
-										<?php echo JText::_('COM_SERMONSPEAKER_SERMONS'); ?></a>
+										<?php echo Text::_('COM_SERMONSPEAKER_SERMONS'); ?></a>
 								</small>
 							<?php endif;
 
@@ -108,7 +110,7 @@ $listDirn   = $this->state->get('list.direction');
 								$sep = 1; ?>
 								<small class="ss-series">
 									<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug, $item->catid, $item->language) . '#series'); ?>">
-										<?php echo JText::_('COM_SERMONSPEAKER_SERIES'); ?></a>
+										<?php echo Text::_('COM_SERMONSPEAKER_SERIES'); ?></a>
 								</small>
 							<?php endif;
 
@@ -119,7 +121,7 @@ $listDirn   = $this->state->get('list.direction');
 								$sep = 1; ?>
 								<small class="ss-website">
 									<a href="<?php echo $item->website; ?>">
-										<?php echo JText::_('COM_SERMONSPEAKER_FIELD_WEBSITE_LABEL'); ?></a>
+										<?php echo Text::_('COM_SERMONSPEAKER_FIELD_WEBSITE_LABEL'); ?></a>
 								</small>
 							<?php endif; ?>
 						</li>
@@ -149,7 +151,7 @@ $listDirn   = $this->state->get('list.direction');
 	</div>
 	<?php if (!empty($this->children[$this->category->id]) and $this->maxLevel != 0) : ?>
 		<div class="cat-children">
-			<h3><?php echo JTEXT::_('JGLOBAL_SUBCATEGORIES'); ?></h3>
+			<h3><?php echo Text::_('JGLOBAL_SUBCATEGORIES'); ?></h3>
 			<?php echo $this->loadTemplate('children'); ?>
 		</div>
 	<?php endif; ?>

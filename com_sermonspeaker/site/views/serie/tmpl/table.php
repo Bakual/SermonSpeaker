@@ -9,6 +9,8 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Language\Text;
+
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
 
 JHtml::_('bootstrap.tooltip');
@@ -40,7 +42,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 						<a href="<?php echo JRoute::_('index.php?view=serie&layout=download&tmpl=component&id=' . $this->item->slug); ?>"
 							class="modal" rel="{handler:'iframe',size:{x:400,y:200}}">
 							<i class="icon-download"> </i>
-							<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADSERIES_LABEL'); ?>
+							<?php echo Text::_('COM_SERMONSPEAKER_DOWNLOADSERIES_LABEL'); ?>
 						</a>
 					</li>
 				<?php endif; ?>
@@ -58,7 +60,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 
 			<?php if (in_array('serie:speaker', $this->col_serie) and $this->item->speakers) : ?>
                 <small class="ss-speakers createdby">
-					<?php echo JText::_('COM_SERMONSPEAKER_SPEAKERS'); ?>:
+					<?php echo Text::_('COM_SERMONSPEAKER_SPEAKERS'); ?>:
 					<?php echo $this->item->speakers; ?>
                 </small>
 			<?php endif; ?>
@@ -72,12 +74,12 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 		<?php endif; ?>
 		<div class="article-info serie-info muted">
 			<dl class="article-info">
-				<dt class="article-info-term"><?php echo JText::_('JDETAILS'); ?></dt>
+				<dt class="article-info-term"><?php echo Text::_('JDETAILS'); ?></dt>
 				<?php
 				if (in_array('serie:category', $this->col_serie) and $this->item->category_title) : ?>
 					<dd>
 						<div class="category-name">
-							<?php echo JText::_('JCATEGORY'); ?>:
+							<?php echo Text::_('JCATEGORY'); ?>:
 							<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSeriesRoute($this->item->catslug, $this->item->language)); ?>"><?php echo $this->item->category_title; ?></a>
 						</div>
 					</dd>
@@ -87,7 +89,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 					<dd>
 						<div class="hits">
 							<i class="icon-eye-open"></i>
-							<?php echo JText::_('JGLOBAL_HITS'); ?>:
+							<?php echo Text::_('JGLOBAL_HITS'); ?>:
 							<?php echo $this->item->hits; ?>
 						</div>
 					</dd>
@@ -130,10 +132,10 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 				<?php if ($player->toggle) : ?>
                     <div class="row">
                         <div class="mx-auto btn-group">
-                            <button type="button" onclick="Video()" class="btn btn-secondary" title="<?php echo JText::_('COM_SERMONSPEAKER_SWITCH_VIDEO'); ?>">
+                            <button type="button" onclick="Video()" class="btn btn-secondary" title="<?php echo Text::_('COM_SERMONSPEAKER_SWITCH_VIDEO'); ?>">
                                 <span class="fas fa-film fa-4x"></span>
                             </button>
-                            <button type="button" onclick="Audio()" class="btn btn-secondary" title="<?php echo JText::_('COM_SERMONSPEAKER_SWITCH_AUDIO'); ?>">
+                            <button type="button" onclick="Audio()" class="btn btn-secondary" title="<?php echo Text::_('COM_SERMONSPEAKER_SWITCH_AUDIO'); ?>">
                                 <span class="fas fa-music fa-4x"></span>
                             </button>
                         </div>
@@ -153,7 +155,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 			<div class="clearfix"></div>
 			<?php if (!count($this->items)) : ?>
 				<div
-					class="no_entries alert alert-error"><?php echo JText::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', JText::_('COM_SERMONSPEAKER_SERMONS')); ?></div>
+					class="no_entries alert alert-error"><?php echo Text::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', Text::_('COM_SERMONSPEAKER_SERMONS')); ?></div>
 			<?php else : ?>
 				<table class="table table-striped table-hover table-condensed">
 					<thead>
@@ -163,7 +165,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 								<?php if (!$limit) :
 									echo JHtml::_('grid.sort', 'COM_SERMONSPEAKER_SERMONNUMBER', 'sermon_number', $listDirn, $listOrder);
 								else :
-									echo JText::_('COM_SERMONSPEAKER_SERMONNUMBER');
+									echo Text::_('COM_SERMONSPEAKER_SERMONNUMBER');
 								endif; ?>
 							</th>
 						<?php endif; ?>
@@ -171,7 +173,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 							<?php if (!$limit) :
 								echo JHtml::_('grid.sort', 'JGLOBAL_TITLE', 'title', $listDirn, $listOrder);
 							else :
-								echo JText::_('JGLOBAL_TITLE');
+								echo Text::_('JGLOBAL_TITLE');
 							endif; ?>
 						</th>
 						<?php if (in_array('serie:category', $this->columns)) : ?>
@@ -179,7 +181,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 								<?php if (!$limit) :
 									echo JHtml::_('grid.sort', 'JCATEGORY', 'category_title', $listDirn, $listOrder);
 								else :
-									echo JText::_('JCATEGORY');
+									echo Text::_('JCATEGORY');
 								endif; ?>
 							</th>
 						<?php endif;
@@ -189,7 +191,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 								<?php if (!$limit) :
 									echo JHtml::_('grid.sort', 'COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL', 'book', $listDirn, $listOrder);
 								else :
-									echo JText::_('COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL');
+									echo Text::_('COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL');
 								endif; ?>
 							</th>
 						<?php endif;
@@ -199,7 +201,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 								<?php if (!$limit) :
 									echo JHtml::_('grid.sort', 'COM_SERMONSPEAKER_SPEAKER', 'speaker_title', $listDirn, $listOrder);
 								else :
-									echo JText::_('COM_SERMONSPEAKER_SPEAKER');
+									echo Text::_('COM_SERMONSPEAKER_SPEAKER');
 								endif; ?>
 							</th>
 						<?php endif;
@@ -209,7 +211,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 								<?php if (!$limit) :
 									echo JHtml::_('grid.sort', 'COM_SERMONSPEAKER_FIELD_DATE_LABEL', 'sermons.sermon_date', $listDirn, $listOrder);
 								else :
-									echo JText::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL');
+									echo Text::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL');
 								endif; ?>
 							</th>
 						<?php endif;
@@ -219,7 +221,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 								<?php if (!$limit) :
 									echo JHtml::_('grid.sort', 'COM_SERMONSPEAKER_FIELD_LENGTH_LABEL', 'sermon_time', $listDirn, $listOrder);
 								else :
-									echo JText::_('COM_SERMONSPEAKER_FIELD_LENGTH_LABEL');
+									echo Text::_('COM_SERMONSPEAKER_FIELD_LENGTH_LABEL');
 								endif; ?>
 							</th>
 						<?php endif;
@@ -229,7 +231,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 								<?php if (!$limit) :
 									echo JHtml::_('grid.sort', 'COM_SERMONSPEAKER_ADDFILE', 'addfileDesc', $listDirn, $listOrder);
 								else :
-									echo JText::_('COM_SERMONSPEAKER_ADDFILE');
+									echo Text::_('COM_SERMONSPEAKER_ADDFILE');
 								endif; ?>
 							</th>
 						<?php endif;
@@ -239,7 +241,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 								<?php if (!$limit) :
 									echo JHtml::_('grid.sort', 'JGLOBAL_HITS', 'hits', $listDirn, $listOrder);
 								else :
-									echo JText::_('JGLOBAL_HITS');
+									echo Text::_('JGLOBAL_HITS');
 								endif; ?>
 							</th>
 						<?php endif;
@@ -294,7 +296,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 							if (in_array('serie:date', $this->columns)) : ?>
 								<td class="ss-col ss-date">
 									<?php if ($item->sermon_date != '0000-00-00 00:00:00'):
-										echo JHtml::date($item->sermon_date, JText::_($this->params->get('date_format')), true);
+										echo JHtml::date($item->sermon_date, Text::_($this->params->get('date_format')), true);
 									endif; ?>
 								</td>
 							<?php endif;

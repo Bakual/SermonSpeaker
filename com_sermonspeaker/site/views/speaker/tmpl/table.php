@@ -9,6 +9,8 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Language\Text;
+
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
 
 JHtml::_('bootstrap.tooltip');
@@ -70,8 +72,8 @@ $this->document->addScriptDeclaration('jQuery(function() {
 	</div>
 	<div class="clearfix"></div>
 	<ul class="nav nav-pills" id="speakerTab">
-		<li class="active"><a href="#tab_sermons" data-toggle="tab"><?php echo JText::_('COM_SERMONSPEAKER_SERMONS'); ?></a></li>
-		<li><a href="#tab_series" data-toggle="tab"><?php echo JText::_('COM_SERMONSPEAKER_SERIES'); ?></a></li>
+		<li class="active"><a href="#tab_sermons" data-toggle="tab"><?php echo Text::_('COM_SERMONSPEAKER_SERMONS'); ?></a></li>
+		<li><a href="#tab_series" data-toggle="tab"><?php echo Text::_('COM_SERMONSPEAKER_SERIES'); ?></a></li>
 	</ul>
 	<div class="tab-content">
 		<div class="tab-pane active" id="tab_sermons">
@@ -98,10 +100,10 @@ $this->document->addScriptDeclaration('jQuery(function() {
 						<?php if ($player->toggle) : ?>
                             <div class="row">
                                 <div class="mx-auto btn-group">
-                                    <button type="button" onclick="Video()" class="btn btn-secondary" title="<?php echo JText::_('COM_SERMONSPEAKER_SWITCH_VIDEO'); ?>">
+                                    <button type="button" onclick="Video()" class="btn btn-secondary" title="<?php echo Text::_('COM_SERMONSPEAKER_SWITCH_VIDEO'); ?>">
                                         <span class="fas fa-film fa-4x"></span>
                                     </button>
-                                    <button type="button" onclick="Audio()" class="btn btn-secondary" title="<?php echo JText::_('COM_SERMONSPEAKER_SWITCH_AUDIO'); ?>">
+                                    <button type="button" onclick="Audio()" class="btn btn-secondary" title="<?php echo Text::_('COM_SERMONSPEAKER_SWITCH_AUDIO'); ?>">
                                         <span class="fas fa-music fa-4x"></span>
                                     </button>
                                 </div>
@@ -120,7 +122,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 					<div class="clearfix"></div>
 					<?php if (!count($this->sermons)) : ?>
 						<div
-							class="no_entries alert alert-error"><?php echo JText::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', JText::_('COM_SERMONSPEAKER_SERMONS')); ?></div>
+							class="no_entries alert alert-error"><?php echo Text::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', Text::_('COM_SERMONSPEAKER_SERMONS')); ?></div>
 					<?php else : ?>
 						<table class="table table-striped table-hover table-condensed">
 							<thead>
@@ -130,7 +132,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 										<?php if (!$limit) :
 											echo JHtml::_('grid.sort', 'COM_SERMONSPEAKER_SERMONNUMBER', 'sermon_number', $listDirnSermons, $listOrderSermons);
 										else :
-											echo JText::_('COM_SERMONSPEAKER_SERMONNUMBER');
+											echo Text::_('COM_SERMONSPEAKER_SERMONNUMBER');
 										endif; ?>
 									</th>
 								<?php endif; ?>
@@ -138,7 +140,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 									<?php if (!$limit) :
 										echo JHtml::_('grid.sort', 'JGLOBAL_TITLE', 'title', $listDirnSermons, $listOrderSermons);
 									else :
-										echo JText::_('JGLOBAL_TITLE');
+										echo Text::_('JGLOBAL_TITLE');
 									endif; ?>
 								</th>
 								<?php if (in_array('speaker:category', $this->col_sermon)) : ?>
@@ -146,7 +148,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 										<?php if (!$limit) :
 											echo JHtml::_('grid.sort', 'JCATEGORY', 'category_title', $listDirnSermons, $listOrderSermons);
 										else :
-											echo JText::_('JCATEGORY');
+											echo Text::_('JCATEGORY');
 										endif; ?>
 									</th>
 								<?php endif;
@@ -156,7 +158,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 										<?php if (!$limit) :
 											echo JHtml::_('grid.sort', 'COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL', 'book', $listDirnSermons, $listOrderSermons);
 										else :
-											echo JText::_('COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL');
+											echo Text::_('COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL');
 										endif; ?>
 									</th>
 								<?php endif;
@@ -166,7 +168,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 										<?php if (!$limit) :
 											echo JHtml::_('grid.sort', 'COM_SERMONSPEAKER_FIELD_DATE_LABEL', 'sermons.sermon_date', $listDirnSermons, $listOrderSermons);
 										else :
-											echo JText::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL');
+											echo Text::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL');
 										endif; ?>
 									</th>
 								<?php endif;
@@ -176,7 +178,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 										<?php if (!$limit) :
 											echo JHtml::_('grid.sort', 'COM_SERMONSPEAKER_FIELD_LENGTH_LABEL', 'sermon_time', $listDirnSermons, $listOrderSermons);
 										else :
-											echo JText::_('COM_SERMONSPEAKER_FIELD_LENGTH_LABEL');
+											echo Text::_('COM_SERMONSPEAKER_FIELD_LENGTH_LABEL');
 										endif; ?>
 									</th>
 								<?php endif;
@@ -186,7 +188,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 										<?php if (!$limit) :
 											echo JHtml::_('grid.sort', 'COM_SERMONSPEAKER_SERIES', 'series_title', $listDirnSermons, $listOrderSermons);
 										else :
-											echo JText::_('COM_SERMONSPEAKER_SERIES');
+											echo Text::_('COM_SERMONSPEAKER_SERIES');
 										endif; ?>
 									</th>
 								<?php endif;
@@ -196,7 +198,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 										<?php if (!$limit) :
 											echo JHtml::_('grid.sort', 'COM_SERMONSPEAKER_ADDFILE', 'addfileDesc', $listDirnSermons, $listOrderSermons);
 										else :
-											echo JText::_('COM_SERMONSPEAKER_ADDFILE');
+											echo Text::_('COM_SERMONSPEAKER_ADDFILE');
 										endif; ?>
 									</th>
 								<?php endif;
@@ -206,7 +208,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 										<?php if (!$limit) :
 											echo JHtml::_('grid.sort', 'JGLOBAL_HITS', 'hits', $listDirnSermons, $listOrderSermons);
 										else :
-											echo JText::_('JGLOBAL_HITS');
+											echo Text::_('JGLOBAL_HITS');
 										endif; ?>
 									</th>
 								<?php endif;
@@ -254,7 +256,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 									if (in_array('speaker:date', $this->col_sermon)) : ?>
 										<td class="ss-col ss-date">
 											<?php if ($item->sermon_date != '0000-00-00 00:00:00'):
-												echo JHtml::date($item->sermon_date, JText::_($this->params->get('date_format')), true);
+												echo JHtml::date($item->sermon_date, Text::_($this->params->get('date_format')), true);
 											endif; ?>
 										</td>
 									<?php endif;
@@ -330,7 +332,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 						<?php if ($this->params->get('show_pagination_limit')) : ?>
 							<div class="btn-group pull-right">
 								<label class="element-invisible">
-									<?php echo JText::_('JGLOBAL_DISPLAY_NUM'); ?>
+									<?php echo Text::_('JGLOBAL_DISPLAY_NUM'); ?>
 								</label>
 								<?php echo $this->pag_series->getLimitBox(); ?>
 							</div>
@@ -340,7 +342,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 				<div class="clearfix"></div>
 				<?php if (!count($this->series)) : ?>
 					<div
-						class="no_entries alert alert-error"><?php echo JText::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', JText::_('COM_SERMONSPEAKER_SERIES')); ?></div>
+						class="no_entries alert alert-error"><?php echo Text::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', Text::_('COM_SERMONSPEAKER_SERIES')); ?></div>
 				<?php else : ?>
 					<table class="table table-striped table-hover table-condensed">
 						<thead>
@@ -365,7 +367,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 
 							if (in_array('speaker:speaker', $this->col_serie)): ?>
 								<th class="ss-col ss-speakers hidden-phone">
-									<?php echo JText::_('COM_SERMONSPEAKER_SPEAKERS'); ?>
+									<?php echo Text::_('COM_SERMONSPEAKER_SPEAKERS'); ?>
 								</th>
 							<?php endif;
 
@@ -397,7 +399,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 									<?php endif;
 								endif; ?>
 								<td class="ss-title">
-									<a title='<?php echo JText::_('COM_SERMONSPEAKER_SERIESLINK_HOOVER'); ?>'
+									<a title='<?php echo Text::_('COM_SERMONSPEAKER_SERIESLINK_HOOVER'); ?>'
 										href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->slug, $item->catid, $item->language)); ?>">
 										<?php echo $item->title; ?>
 									</a>
@@ -430,7 +432,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 									<td class="ss-col ss-dl hidden-phone"><a
 											href="<?php echo JRoute::_('index.php?view=serie&layout=download&tmpl=component&id=' . $item->slug); ?>"
 											class="modal hasTooltip" rel="{handler:'iframe',size:{x:400,y:200}}"
-											title="::<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADSERIES_DESC'); ?>">
+											title="::<?php echo Text::_('COM_SERMONSPEAKER_DOWNLOADSERIES_DESC'); ?>">
 											<i class="icon-download"> </i>
 										</a></td>
 								<?php endif; ?>

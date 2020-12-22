@@ -9,6 +9,8 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Language\Text;
+
 JHtml::_('stylesheet', 'com_sermonspeaker/tiles.css', array('relative' => true));
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
 JHtml::_('bootstrap.tooltip');
@@ -69,10 +71,10 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 			<?php if ($player->toggle) : ?>
                 <div class="row">
                     <div class="mx-auto btn-group">
-                        <button type="button" onclick="Video()" class="btn btn-secondary" title="<?php echo JText::_('COM_SERMONSPEAKER_SWITCH_VIDEO'); ?>">
+                        <button type="button" onclick="Video()" class="btn btn-secondary" title="<?php echo Text::_('COM_SERMONSPEAKER_SWITCH_VIDEO'); ?>">
                             <span class="fas fa-film fa-4x"></span>
                         </button>
-                        <button type="button" onclick="Audio()" class="btn btn-secondary" title="<?php echo JText::_('COM_SERMONSPEAKER_SWITCH_AUDIO'); ?>">
+                        <button type="button" onclick="Audio()" class="btn btn-secondary" title="<?php echo Text::_('COM_SERMONSPEAKER_SWITCH_AUDIO'); ?>">
                             <span class="fas fa-music fa-4x"></span>
                         </button>
                     </div>
@@ -89,7 +91,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 
 		if (!count($this->items)) : ?>
 			<div
-				class="no_entries"><?php echo JText::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', JText::_('COM_SERMONSPEAKER_SERMONS')); ?></div>
+				class="no_entries"><?php echo Text::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', Text::_('COM_SERMONSPEAKER_SERMONS')); ?></div>
 		<?php else : ?>
 			<?php
 			foreach ($this->items as $i => $item) :
@@ -97,39 +99,39 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 				$tip = array();
 
 				if (in_array('sermons:num', $this->columns) and $item->sermon_number) :
-					$tip[] = JText::_('COM_SERMONSPEAKER_FIELD_NUM_LABEL') . ': ' . $item->sermon_number;
+					$tip[] = Text::_('COM_SERMONSPEAKER_FIELD_NUM_LABEL') . ': ' . $item->sermon_number;
 				endif;
 
 				if (in_array('sermons:date', $this->columns) and ($item->sermon_date != '0000-00-00')) :
-					$tip[] = JText::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL') . ': ' . JHtml::date($item->sermon_date, JText::_($this->params->get('date_format')), true);
+					$tip[] = Text::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL') . ': ' . JHtml::date($item->sermon_date, Text::_($this->params->get('date_format')), true);
 				endif;
 
 				if (in_array('sermons:category', $this->columns)) :
-					$tip[] = JText::_('JCATEGORY') . ': ' . $item->category_title;
+					$tip[] = Text::_('JCATEGORY') . ': ' . $item->category_title;
 				endif;
 
 				if (in_array('sermons:speaker', $this->columns) and $item->speaker_title) :
-					$tip[] = JText::_('COM_SERMONSPEAKER_FIELD_SPEAKER_LABEL') . ': ' . $item->speaker_title;
+					$tip[] = Text::_('COM_SERMONSPEAKER_FIELD_SPEAKER_LABEL') . ': ' . $item->speaker_title;
 				endif;
 
 				if (in_array('sermons:series', $this->columns) and $item->series_title) :
-					$tip[] = JText::_('COM_SERMONSPEAKER_FIELD_SERIES_LABEL') . ': ' . $item->series_title;
+					$tip[] = Text::_('COM_SERMONSPEAKER_FIELD_SERIES_LABEL') . ': ' . $item->series_title;
 				endif;
 
 				if (in_array('sermons:scripture', $this->columns) and $item->scripture) :
-					$tip[] = JText::_('COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL') . ': ' . SermonspeakerHelperSermonspeaker::insertScriptures($item->scripture, '; ', false);
+					$tip[] = Text::_('COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL') . ': ' . SermonspeakerHelperSermonspeaker::insertScriptures($item->scripture, '; ', false);
 				endif;
 
 				if (in_array('sermons:length', $this->columns) and $item->sermon_time) :
-					$tip[] = JText::_('COM_SERMONSPEAKER_FIELD_LENGTH_LABEL') . ': ' . SermonspeakerHelperSermonspeaker::insertTime($item->sermon_time);
+					$tip[] = Text::_('COM_SERMONSPEAKER_FIELD_LENGTH_LABEL') . ': ' . SermonspeakerHelperSermonspeaker::insertTime($item->sermon_time);
 				endif;
 
 				if (in_array('sermons:hits', $this->columns) and $item->hits) :
-					$tip[] = JText::_('JGLOBAL_HITS') . ': ' . $item->hits;
+					$tip[] = Text::_('JGLOBAL_HITS') . ': ' . $item->hits;
 				endif;
 
 				if (in_array('sermons:notes', $this->columns) and $item->notes) :
-					$tip[] = JText::_('COM_SERMONSPEAKER_FIELD_NOTES_LABEL') . ': ' . $item->notes;
+					$tip[] = Text::_('COM_SERMONSPEAKER_FIELD_NOTES_LABEL') . ': ' . $item->notes;
 				endif;
 				$tooltip = implode('<br/>', $tip);
 				$picture = SermonspeakerHelperSermonspeaker::insertPicture($item);
@@ -167,7 +169,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 	<?php if (!empty($this->children[$this->category->id]) and $this->maxLevel != 0) : ?>
 		<div class="cat-children">
 			<h3>
-				<?php echo JTEXT::_('JGLOBAL_SUBCATEGORIES'); ?>
+				<?php echo Text::_('JGLOBAL_SUBCATEGORIES'); ?>
 			</h3>
 			<?php echo $this->loadTemplate('children'); ?>
 		</div>

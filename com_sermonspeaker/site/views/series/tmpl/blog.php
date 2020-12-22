@@ -9,6 +9,8 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Language\Text;
+
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
 
 JHtml::_('bootstrap.framework');
@@ -59,7 +61,7 @@ $listDirn   = $this->state->get('list.direction');
 					<?php if ($this->params->get('show_pagination_limit')) : ?>
 						<div class="btn-group pull-right">
 							<label class="element-invisible">
-								<?php echo JText::_('JGLOBAL_DISPLAY_NUM'); ?>
+								<?php echo Text::_('JGLOBAL_DISPLAY_NUM'); ?>
 							</label>
 							<?php echo $this->pagination->getLimitBox(); ?>
 						</div>
@@ -69,7 +71,7 @@ $listDirn   = $this->state->get('list.direction');
 			<div class="clearfix"></div>
 			<?php if (!count($this->items)) : ?>
 				<div
-					class="no_entries alert alert-error"><?php echo JText::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', JText::_('COM_SERMONSPEAKER_SERIES')); ?></div>
+					class="no_entries alert alert-error"><?php echo Text::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', Text::_('COM_SERMONSPEAKER_SERIES')); ?></div>
 			<?php else : ?>
 				<div class="items-leading">
 					<?php foreach ($this->items as $i => $item) : ?>
@@ -85,7 +87,7 @@ $listDirn   = $this->state->get('list.direction');
 											<a href="<?php echo JRoute::_('index.php?view=serie&layout=download&tmpl=component&id=' . $item->slug); ?>"
 												class="modal" rel="{handler:'iframe',size:{x:400,y:200}}">
 												<i class="icon-download"> </i>
-												<?php echo JText::_('COM_SERMONSPEAKER_DOWNLOADSERIES_LABEL'); ?>
+												<?php echo Text::_('COM_SERMONSPEAKER_DOWNLOADSERIES_LABEL'); ?>
 											</a>
 										</li>
 									<?php endif; ?>
@@ -96,7 +98,7 @@ $listDirn   = $this->state->get('list.direction');
 								</ul>
 							</div>
 							<div class="page-header">
-								<a title="<?php echo JText::_('COM_SERMONSPEAKER_SERIESLINK_HOOVER'); ?>"
+								<a title="<?php echo Text::_('COM_SERMONSPEAKER_SERIESLINK_HOOVER'); ?>"
 									href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->slug, $item->catid, $item->language)); ?>">
 									<h2><?php echo $item->title; ?></h2>
 								</a>
@@ -104,7 +106,7 @@ $listDirn   = $this->state->get('list.direction');
 
 								<?php if (in_array('series:speaker', $this->col_serie) and $item->speakers) : ?>
 									<small class="ss-speakers createdby">
-										<?php echo JText::_('COM_SERMONSPEAKER_SPEAKERS'); ?>:
+										<?php echo Text::_('COM_SERMONSPEAKER_SPEAKERS'); ?>:
 										<?php echo $item->speakers; ?>
 									</small>
 								<?php endif; ?>
@@ -122,12 +124,12 @@ $listDirn   = $this->state->get('list.direction');
 							<?php endif; ?>
 							<div class="article-info serie-info muted">
 								<dl class="article-info">
-									<dt class="article-info-term"><?php echo JText::_('JDETAILS'); ?></dt>
+									<dt class="article-info-term"><?php echo Text::_('JDETAILS'); ?></dt>
 									<?php
 									if (in_array('series:category', $this->col_serie) and $item->category_title) : ?>
 										<dd>
 											<div class="category-name">
-												<?php echo JText::_('JCATEGORY'); ?>:
+												<?php echo Text::_('JCATEGORY'); ?>:
 												<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSeriesRoute($item->catslug, $item->language)); ?>"><?php echo $item->category_title; ?></a>
 											</div>
 										</dd>
@@ -137,7 +139,7 @@ $listDirn   = $this->state->get('list.direction');
 										<dd>
 											<div class="hits">
 												<i class="icon-eye-open"></i>
-												<?php echo JText::_('JGLOBAL_HITS'); ?>:
+												<?php echo Text::_('JGLOBAL_HITS'); ?>:
 												<?php echo $item->hits; ?>
 											</div>
 										</dd>
@@ -179,7 +181,7 @@ $listDirn   = $this->state->get('list.direction');
 	</div>
 	<?php if (!empty($this->children[$this->category->id]) and $this->maxLevel != 0) : ?>
 		<div class="cat-children">
-			<h3><?php echo JTEXT::_('JGLOBAL_SUBCATEGORIES'); ?></h3>
+			<h3><?php echo Text::_('JGLOBAL_SUBCATEGORIES'); ?></h3>
 			<?php echo $this->loadTemplate('children'); ?>
 		</div>
 	<?php endif; ?>
