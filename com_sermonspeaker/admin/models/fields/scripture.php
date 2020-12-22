@@ -122,7 +122,7 @@ class JFormFieldScripture extends JFormField
 						<input id="' . $this->id . '_' . $i . '" type="hidden" value="' . implode('|', $value) . '" name="' . $this->name . '[' . $i . ']">
 						<div class="input-group">
 							<span class="input-group-btn">
-								<button class="btn btn-secondary" onclick="delete_scripture(' . $i . ')"><span class="icon-trash"></span></button>
+								<button class="btn btn-secondary" onclick="delete_scripture(' . $i . ')"><span class="fas fas-trash"></span></button>
 							</span>
 							<input id="' . $this->id . '_text_' . $i . '" type="text" class="readonly form-control scripture' . $class . '"' . $title
 							. 'data-toggle="modal" data-target="#' . $modalId . $i . '" '
@@ -165,7 +165,7 @@ class JFormFieldScripture extends JFormField
 						data-toggle="modal"
 						role="button"
 					>
-						<span class="icon-new"></span>
+						<span class="fas fa-plus"></span>
 					</a>';
 
 		$html .= JHtml::_(
