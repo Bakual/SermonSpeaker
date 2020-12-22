@@ -42,72 +42,14 @@
 	background-color:#F4F4F4 !important;
 }
 
-.tip-wrap{
-    z-index: 15;
-}
 
-/* Preview Player */
-#player_video,
-#player_audio {
-	max-width: 99%;
-}
-
-/* Joomla 3.0 stuff */
-/* Fixing input-append */
-.input-append .chzn-container-single .chzn-single {
-	border-color: #ccc;
-	height: 26px;
-	-webkit-border-radius: 3px 0 0 3px;
-	-moz-border-radius: 3px 0 0 3px;
-	border-radius: 3px 0 0 3px;
-	-moz-box-shadow: none;
-	-webkit-box-shadow: none;
-	box-shadow: none;
-}
-.input-append .chzn-container-active .chzn-single-with-drop {
-	-webkit-border-radius: 3px 0 0 3px;
-	-moz-border-radius: 3px 0 0 3px;
-	border-radius: 3px 0 0 3px;
-}
-.input-append .chzn-container-single .chzn-drop {
-	border-color: #ccc;
-}
-/* Progress bar in J2.5 */
-table.adminlist div.progress{
-	width:100%;
-	padding:2px;
-	background-color:white;
-	border:1px solid black;
-	color:black;
-	text-align:center;
-}
-table.adminlist div.progress div.bar{
-	background-color:CornFlowerBlue;
-}
-table.adminlist .btn-warning{
-	background-color: #F89406;
-	color:white;
-}
-table.adminlist .btn-success{
-	background-color: #51A351;
-	color:white;
-}
-table.adminlist .btn-primary{
-	background-color: #04C;
-	color:white;
-}
-table.adminlist .btn-info{
-	background-color: #2F96B4;
-	color:white;
-}
 a.contribute{
 	background: none repeat scroll 0 0 #F4F4F4;
 	border: 1px solid #CCCCCC;
 	padding: 5px;
 }
 
-/* Custom Joomla 3.0 stuff */
-.pointer, .pointer[disabled], .pointer[readonly]{
+.pointer{
 	cursor:pointer;
 }
 input[type="text"].invalid, select.invalid, .invalid span, .invalid{
