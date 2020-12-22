@@ -66,7 +66,7 @@ class ModRelatedSermonsHelper
 
 				if ($supportContent && $limitSermons > count($related))
 				{
-					$articles = self::getRelatedItemsById($keywords, $orderBy, $limitSermons - count($related));
+					$articles = self::getRelatedItemsById($keywords, $limitSermons - count($related));
 					$related = array_merge($related, $articles);
 				}
 			}
