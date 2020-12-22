@@ -56,14 +56,11 @@ input[type="text"].invalid, select.invalid, .invalid span, .invalid{
 	border-color:red;
 	color:red;
 }
-.icon-radio-checked,
-.icon-plus-2{
+.icon-radio-checked{
 	color: #468847;
 }
 .icon-radio-checked:hover,
-.icon-radio-checked:focus,
-.icon-plus-2:hover,
-.icon-plus-2:focus{
+.icon-radio-checked:focus{
 	color: #356635;
 }
 .icon-radio-unchecked{

@@ -99,8 +99,3 @@
 .clear-left {
 	clear: left;
 }
-
-/* Fix for some templates */
-.tip-wrap {
-	z-index: 10000;
-}
