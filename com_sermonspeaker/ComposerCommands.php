@@ -1,10 +1,11 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Thomas
- * Date: 29.04.2017
- * Time: 23:17
- */
+ * @package     SermonSpeaker
+ * @subpackage  Component.Composer
+ * @author      Thomas Hunziker <admin@sermonspeaker.net>
+ * @copyright   © 2020 - Thomas Hunziker
+ * @license     http://www.gnu.org/licenses/gpl.html
+ **/
 
 namespace Bakual\Sermonspeaker;
 
