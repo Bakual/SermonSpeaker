@@ -30,7 +30,5 @@ class SermonspeakerControllerScript extends JControllerLegacy
 		$admin_controller = new SermonspeakerControllerTools;
 		$admin_controller->createAutomatic();
 		$this->setRedirect(JUri::root());
-
-		return;
 	}
 }

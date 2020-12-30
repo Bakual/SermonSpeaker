@@ -529,7 +529,5 @@ abstract class SermonspeakerHelperRoute
 
 		$db->setQuery($query);
 		self::$langs = $db->loadObjectList();
-
-		return;
 	}
 }

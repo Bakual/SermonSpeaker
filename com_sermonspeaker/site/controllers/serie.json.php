@@ -296,8 +296,6 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 		}
 
 		echo json_encode($response);
-
-		return;
 	}
 
 	/**
@@ -388,7 +386,5 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 		}
 
 		echo json_encode($response);
-
-		return;
 	}
 }

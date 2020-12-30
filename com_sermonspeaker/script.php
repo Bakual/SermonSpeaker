@@ -260,8 +260,6 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 			$db->setQuery($query);
 			$db->execute();
 		}
-
-		return;
 	}
 
 	private function saveContentTypes()
@@ -486,8 +484,6 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 		$contenttype['content_history_options'] = json_encode($history);
 
 		$table->save($contenttype);
-
-		return;
 	}
 
 	/**
@@ -561,7 +557,5 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 				$this->app->enqueueMessage($e->getMessage(), 'ERROR');
 			}
 		}
-
-		return;
 	}
 }

@@ -144,8 +144,6 @@ class SermonspeakerControllerSermon extends JControllerForm
 		}
 
 		$app->redirect('index.php?option=com_sermonspeaker&view=sermons');
-
-		return;
 	}
 
 	/**
@@ -240,8 +238,6 @@ class SermonspeakerControllerSermon extends JControllerForm
 
 			$this->setRedirect(Route::_('index.php?option=com_menus&view=item&client_id=0&menutype=mainmenu&layout=edit', false));
 		}
-
-		return;
 	}
 
 	public function id3()
@@ -250,8 +246,6 @@ class SermonspeakerControllerSermon extends JControllerForm
 		$id  = $app->input->get('id', 0, 'int');
 		$this->write_id3($id);
 		$app->redirect('index.php?option=com_sermonspeaker&view=sermon&layout=edit&id=' . $id);
-
-		return;
 	}
 
 	/**
@@ -371,15 +365,11 @@ class SermonspeakerControllerSermon extends JControllerForm
 					$app->enqueueMessage('Failed to write id3 tags to "' . $file . '"! ' . implode(', ', $writer->errors), 'warning');
 				}
 			}
-
-			return;
 		}
 		else
 		{
 			$app->enqueueMessage(Text::_('JERROR_ALERTNOAUTHOR'), 'error');
 			$app->redirect('index.php?option=com_sermonspeaker&view=sermons');
-
-			return;
 		}
 	}
 

@@ -144,8 +144,6 @@ class SermonspeakerControllerSpeaker extends JControllerForm
 		}
 
 		$app->redirect('index.php?option=com_sermonspeaker&view=speakers');
-
-		return;
 	}
 
 	/**

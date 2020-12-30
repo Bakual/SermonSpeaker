@@ -67,8 +67,6 @@ abstract class SermonspeakerPluginPlayer extends JPlugin
 		$this->config['awidth']  = (isset($this->config['awidth'])) ? $this->config['awidth'] : $this->params->get('awidth', $width);
 		$this->config['vheight'] = (isset($this->config['vheight'])) ? $this->config['vheight'] : $this->params->get('vheight', '300px');
 		$this->config['vwidth']  = (isset($this->config['vwidth'])) ? $this->config['vwidth'] : $this->params->get('vwidth', '100%');
-
-		return;
 	}
 
 	/**
@@ -96,8 +94,6 @@ abstract class SermonspeakerPluginPlayer extends JPlugin
 		}
 
 		$this->player->popup['height'] += $popup_height;
-
-		return;
 	}
 
 }

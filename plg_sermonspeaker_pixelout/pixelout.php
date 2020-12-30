@@ -135,8 +135,6 @@ class PlgSermonspeakerPixelout extends SermonspeakerPluginPlayer
 
 			self::$script_loaded = 1;
 		}
-
-		return;
 	}
 
 	/**

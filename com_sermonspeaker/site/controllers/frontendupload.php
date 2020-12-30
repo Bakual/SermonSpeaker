@@ -302,8 +302,6 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 
 			$this->write_id3($recordId);
 		}
-
-		return;
 	}
 
 	/**

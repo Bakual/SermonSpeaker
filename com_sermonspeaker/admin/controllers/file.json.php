@@ -204,8 +204,6 @@ class SermonspeakerControllerFile extends JControllerLegacy
 				'error'    => Text::sprintf('COM_SERMONSPEAKER_FU_FILENAME', $result['ObjectUrl']),
 			);
 			echo json_encode($response);
-
-			return;
 		}
 		else
 		{
@@ -314,7 +312,5 @@ class SermonspeakerControllerFile extends JControllerLegacy
 		}
 
 		echo json_encode($response);
-
-		return;
 	}
 }

@@ -154,7 +154,5 @@ class SermonspeakerControllerFile extends JControllerLegacy
 		{
 			$this->setRedirect($return);
 		}
-
-		return;
 	}
 }

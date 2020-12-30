@@ -231,8 +231,6 @@ class PlgSermonspeakerJwplayer7 extends SermonspeakerPluginPlayer
 
 			self::$script_loaded = 1;
 		}
-
-		return;
 	}
 
 	/**
@@ -338,8 +336,6 @@ class PlgSermonspeakerJwplayer7 extends SermonspeakerPluginPlayer
 		$this->options['displaytitle']       = 'false';
 		$this->options['displaydescription'] = 'false';
 		$this->options['visualplaylist']     = 'false';
-
-		return;
 	}
 
 	/**
@@ -502,8 +498,6 @@ class PlgSermonspeakerJwplayer7 extends SermonspeakerPluginPlayer
 			$this->player->playlist['audio'] = implode(',', $audios);
 			$this->player->playlist['video'] = implode(',', $videos);
 		}
-
-		return;
 	}
 
 	/**
@@ -555,7 +549,5 @@ class PlgSermonspeakerJwplayer7 extends SermonspeakerPluginPlayer
 				$this->player->toggle = false;
 			}
 		}
-
-		return;
 	}
 }

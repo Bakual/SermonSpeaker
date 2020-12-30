@@ -69,7 +69,5 @@ class SermonspeakerViewLanguages extends JViewLegacy
 		{
 			JToolbarHelper::preferences('com_sermonspeaker');
 		}
-
-		return;
 	}
 }

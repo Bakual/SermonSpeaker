@@ -90,7 +90,5 @@ class PlgSermonspeakerGeneric extends SermonspeakerPluginPlayer
 
 		$player->player = $this->_name;
 		$player->mspace = JHtml::_('content.prepare', $content);
-
-		return;
 	}
 }

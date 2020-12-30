@@ -135,7 +135,5 @@ class SermonspeakerViewSermons extends JViewLegacy
 		$app->sendHeaders();
 
 		echo new JResponseJson($response);
-
-		return;
 	}
 }

@@ -143,8 +143,6 @@ class SermonspeakerControllerSerie extends JControllerForm
 		}
 
 		$app->redirect('index.php?option=com_sermonspeaker&view=series');
-
-		return;
 	}
 
 	/**

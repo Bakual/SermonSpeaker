@@ -178,8 +178,6 @@ class SermonspeakerControllerTools extends BaseController
 		}
 
 		$app->redirect('index.php?option=com_sermonspeaker&view=tools');
-
-		return;
 	}
 
 	public function createAutomatic()
@@ -429,8 +427,6 @@ class SermonspeakerControllerTools extends BaseController
 			}
 		}
 		$app->redirect('index.php?option=com_sermonspeaker&view=tools');
-
-		return;
 	}
 
 	public function delete()
@@ -452,8 +448,6 @@ class SermonspeakerControllerTools extends BaseController
 		}
 
 		$app->redirect('index.php?option=com_sermonspeaker&view=tools');
-
-		return;
 	}
 
 
@@ -814,8 +808,6 @@ class SermonspeakerControllerTools extends BaseController
 		$app->enqueueMessage($count . ' sermons migrated!');
 
 		$app->redirect('index.php?option=com_sermonspeaker&view=tools');
-
-		return;
 	}
 
 	/**
@@ -970,7 +962,5 @@ class SermonspeakerControllerTools extends BaseController
 		$app->enqueueMessage($count . ' sermons migrated!');
 
 		$app->redirect('index.php?option=com_sermonspeaker&view=tools');
-
-		return;
 	}
 }

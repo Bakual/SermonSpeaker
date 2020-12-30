@@ -28,7 +28,5 @@ class SermonspeakerViewClose extends JViewLegacy
 
 		$document = JFactory::getDocument();
 		$document->addScriptDeclaration($js);
-
-		return;
 	}
 }
