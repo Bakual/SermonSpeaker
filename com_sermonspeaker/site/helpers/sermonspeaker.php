@@ -258,12 +258,10 @@ class SermonspeakerHelperSermonspeaker
 	 */
 	public static function insertPopupButton($id, $player)
 	{
-		$html = '<input class="btn popup_btn" type="button" name="' . Text::_('COM_SERMONSPEAKER_POPUPPLAYER') . '" value="'
+		return '<input class="btn popup_btn" type="button" name="' . Text::_('COM_SERMONSPEAKER_POPUPPLAYER') . '" value="'
 			. Text::_('COM_SERMONSPEAKER_POPUPPLAYER') . '" onclick="popup=window.open(\''
 			. Route::_('index.php?view=sermon&layout=popup&id=' . (int) $id . '&tmpl=component') . '\', \'PopupPage\', \'height='
 			. $player->popup['height'] . ',width=' . $player->popup['width'] . ',scrollbars=yes,resizable=yes\'); return false" />';
-
-		return $html;
 	}
 
 	/**

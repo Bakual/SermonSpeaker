@@ -65,8 +65,7 @@ abstract class ModSermonarchiveHelper
 		}
 
 		$db->setQuery($query, 0, (int) $params->get('archive_count'));
-		$items = $db->loadObjectList();
 
-		return $items;
+		return $db->loadObjectList();
 	}
 }

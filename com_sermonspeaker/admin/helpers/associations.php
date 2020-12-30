@@ -77,7 +77,7 @@ class SermonSpeakerAssociationsHelper extends AssociationExtensionHelper
 		}
 
 		// Get the associations.
-		$associations = Associations::getAssociations(
+		return Associations::getAssociations(
 			$extension,
 			$type['tables']['a'],
 			$context,
@@ -86,8 +86,6 @@ class SermonSpeakerAssociationsHelper extends AssociationExtensionHelper
 			'alias',
 			$catidField
 		);
-
-		return $associations;
 	}
 
 	/**

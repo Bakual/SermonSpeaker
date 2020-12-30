@@ -174,8 +174,7 @@ class SermonspeakerModelSerie extends JModelItem
 		$query->order('speakers.title');
 
 		$db->setQuery($query);
-		$speakers = $db->loadObjectList();
 
-		return $speakers;
+		return $db->loadObjectList();
 	}
 }

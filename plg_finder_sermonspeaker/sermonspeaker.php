@@ -348,8 +348,6 @@ class PlgFinderSermonspeaker extends FinderIndexerAdapter
 	{
 		// Build an SQL query based on the modified time.
 		// We don't have a modified time, so we just give the query back unchanged.
-		$sql = $this->db->getQuery(true);
-
-		return $sql;
+		return $this->db->getQuery(true);
 	}
 }

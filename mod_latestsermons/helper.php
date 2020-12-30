@@ -183,8 +183,7 @@ abstract class ModLatestsermonsHelper
 		}
 
 		$db->setQuery($query, 0, (int) $params->get('ls_count', 3));
-		$items = $db->loadObjectList();
 
-		return $items;
+		return $db->loadObjectList();
 	}
 }

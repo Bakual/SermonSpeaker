@@ -293,9 +293,8 @@ class SermonspeakerModelSeries extends ListModel
 		$query->where('sermons.series_id = ' . (int) $series);
 		$query->order('speakers.title ASC');
 		$db->setQuery($query);
-		$speakers = $db->loadObjectList();
 
-		return $speakers;
+		return $db->loadObjectList();
 	}
 
 	/**

@@ -171,9 +171,7 @@ class JHtmlIcon
 			$text .= Text::_('JACTION_EDIT');
 		}
 
-		$output = HtmlHelper::_('link', Route::_($url), $text);
-
-		return $output;
+		return HtmlHelper::_('link', Route::_($url), $text);
 	}
 
 	/**
@@ -238,8 +236,7 @@ class JHtmlIcon
 		}
 
 		$text = '<i class="icon-play"> </i> ' . JText::_('COM_SERMONSPEAKER_PLAYICON_HOOVER');
-		$output = '<a href="#" class="ss-play" data-id="' . $attribs['index'] . '" data-player="' . $attribs['playerid'] . '" onclick="ss_play(' . $attribs['index'] . ')return false;">' . $text . '</a>';
 
-		return $output;
+		return '<a href="#" class="ss-play" data-id="' . $attribs['index'] . '" data-player="' . $attribs['playerid'] . '" onclick="ss_play(' . $attribs['index'] . ')return false;">' . $text . '</a>';
 	}
 }

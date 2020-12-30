@@ -492,9 +492,8 @@ class SermonspeakerModelSermons extends Listmodel
 		$query->order('`year` ASC');
 
 		$db->setQuery($query);
-		$options = $db->loadAssocList();
 
-		return $options;
+		return $db->loadAssocList();
 	}
 
 	/**
@@ -524,9 +523,8 @@ class SermonspeakerModelSermons extends Listmodel
 		$query->order('`book` ASC');
 
 		$db->setQuery($query);
-		$options = $db->loadColumn();
 
-		return $options;
+		return $db->loadColumn();
 	}
 
 	/**

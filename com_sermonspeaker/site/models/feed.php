@@ -143,8 +143,7 @@ class SermonspeakerModelFeed extends JModelLegacy
 		$query->order('sermons.sermon_date DESC');
 
 		$db->setQuery($query, '0', $app->get('feed_limit'));
-		$rows = $db->loadObjectList();
 
-		return $rows;
+		return $db->loadObjectList();
 	}
 }

@@ -292,14 +292,12 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 		';
 		JFactory::getDocument()->addScriptDeclaration($plupload_script);
 
-		$html = '<div id="plupload_' . $this->fieldname . '" class="uploader">
+		return '<div id="plupload_' . $this->fieldname . '" class="uploader">
 					<div id="filelist_' . $this->fieldname . '" class="filelist"></div>
 					<button type="button" id="browse_' . $this->fieldname . '" class="btn btn-secondary">'
 			. JText::_('COM_SERMONSPEAKER_UPLOAD')
 			. '</button>
 				</div>';
-
-		return $html;
 	}
 
 	/**

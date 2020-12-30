@@ -152,9 +152,7 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 	 */
 	public function edit($key = null, $urlVar = 's_id')
 	{
-		$result = parent::edit($key, $urlVar);
-
-		return $result;
+		return parent::edit($key, $urlVar);
 	}
 
 	/**
@@ -170,9 +168,7 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 	 */
 	public function getModel($name = 'frontendupload', $prefix = '', $config = array('ignore_request' => true))
 	{
-		$model = parent::getModel($name, $prefix, $config);
-
-		return $model;
+		return parent::getModel($name, $prefix, $config);
 	}
 
 	/**
@@ -317,9 +313,7 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 	 */
 	public function save($key = null, $urlVar = 's_id')
 	{
-		$result = parent::save($key, $urlVar);
-
-		return $result;
+		return parent::save($key, $urlVar);
 	}
 
 	/**

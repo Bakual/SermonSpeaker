@@ -58,9 +58,7 @@ class SermonspeakerModelSitemap extends JModelLegacy
 		{
 			$query->where('a.catid = ' . $cat);
 		}
-$string = (string) $query;
-		$rows = $this->_getList($query);
 
-		return $rows;
+		return $this->_getList($query);
 	}
 }

@@ -154,9 +154,7 @@ class SermonspeakerControllerSpeakerform extends JControllerForm
 	 */
 	public function edit($key = null, $urlVar = 's_id')
 	{
-		$result = parent::edit($key, $urlVar);
-
-		return $result;
+		return parent::edit($key, $urlVar);
 	}
 
 	/**
@@ -172,9 +170,7 @@ class SermonspeakerControllerSpeakerform extends JControllerForm
 	 */
 	public function getModel($name = 'speakerform', $prefix = '', $config = array('ignore_request' => true))
 	{
-		$model = parent::getModel($name, $prefix, $config);
-
-		return $model;
+		return parent::getModel($name, $prefix, $config);
 	}
 
 	/**
