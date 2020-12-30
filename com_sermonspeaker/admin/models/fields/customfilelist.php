@@ -61,15 +61,6 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 	private $mode;
 
 	/**
-	 * Filetype: audio or video
-	 *
-	 * @var    string
-	 *
-	 * @since ?
-	 */
-	private $filetypes;
-
-	/**
 	 * Method to get the field input markup for the custom filelist.
 	 *
 	 * @return  string  The field input markup.
@@ -350,13 +341,13 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 			$this->directory = $dir;
 
 			// Set file filter from params
-			$this->filetypes = $this->params->get($this->file . '_filetypes');
+			$filetypes = $this->params->get($this->file . '_filetypes');
 
-			if ($this->filetypes)
+			if ($filetypes)
 			{
-				$this->filetypes = array_map('trim', explode(',', $this->filetypes));
-				$filter          = '\.' . implode('$|\.', $this->filetypes) . '$';
-				$this->filter    = $filter;
+				$filetypes    = array_map('trim', explode(',', $filetypes));
+				$filter       = '\.' . implode('$|\.', $filetypes) . '$';
+				$this->filter = $filter;
 			}
 
 			// Get the field options.

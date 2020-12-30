@@ -34,27 +34,6 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 	private static $script_loaded = false;
 
 	/**
-	 * @var string player mode. Either 'audio' or 'video'.
-	 *
-	 * @since  1.0.0
-	 */
-	private $mode;
-
-	/**
-	 * @var string filetype mode. Either 'audio', 'video' or 'auto' (default).
-	 *
-	 * @since  1.0.0
-	 */
-	private $type;
-
-	/**
-	 * @var int which file to prioritise. Either 0 (audio) or 1 (video).
-	 *
-	 * @since  1.0.0
-	 */
-	private $fileprio;
-
-	/**
 	 * @var array Player options
 	 *
 	 * @since  1.0.0
@@ -111,17 +90,17 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 		// Get component params
 		$this->c_params = JComponentHelper::getParams('com_sermonspeaker');
 
-		$this->fileprio = $this->params->get('fileprio');
-		$this->type     = $this->params->get('type', 'auto');
-		$count          = $this->params->get('count', 1);
-		$toggle         = $this->params->get('filetoggle');
+		$fileprio = $this->params->get('fileprio');
+		$type     = $this->params->get('type', 'auto');
+		$count    = $this->params->get('count', 1);
+		$toggle   = $this->params->get('filetoggle');
 
 		$this->loadLanguage();
 
 		// Detect mode and which filetype to use
 		if (is_array($items))
 		{
-			$this->mode = ($this->type == 'audio' || ($this->type == 'auto' && !$this->fileprio)) ? 'audio' : 'video';
+			$mode1 = ($type == 'audio' || ($type == 'auto' && !$fileprio)) ? 'audio' : 'video';
 		}
 		else
 		{
@@ -132,27 +111,27 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 				return;
 			}
 
-			if ($this->type != 'auto')
+			if ($type != 'auto')
 			{
-				if (!in_array($this->type, $supported))
+				if (!in_array($type, $supported))
 				{
 					return;
 				}
 
-				$this->mode = $this->type;
+				$mode1 = $type;
 			}
 			else
 			{
 				if (count($supported) == 1)
 				{
 					// Only one file is supported
-					$this->mode = $supported[0];
-					$toggle     = false;
+					$mode1  = $supported[0];
+					$toggle = false;
 				}
 				else
 				{
 					// Both files are supported
-					$this->mode = $supported[$this->fileprio];
+					$mode1 = $supported[$fileprio];
 				}
 			}
 		}
@@ -167,13 +146,13 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 		$dimensions['videoheight'] = $this->params->get('vheight', '300');
 
 		$autoplay   = $this->params->get('autostart') ? ' autoplay="autoplay"' : '';
-		$field      = $this->mode . 'file';
+		$field      = $mode1 . 'file';
 		$langCode   = explode('-', JFactory::getLanguage()->getTag())[0];
 		$stretching = $this->params->get('responsive') ? 'responsive' : 'none';
 
-		$player->mspace = '<' . $this->mode . ' id="' . $player->id . '" class="mejs__player"'
+		$player->mspace = '<' . $mode1 . ' id="' . $player->id . '" class="mejs__player"'
 			. $autoplay . ' preload="metadata" controls="controls"'
-			. ' width="' . $dimensions[$this->mode . 'width'] . '" height="' . $dimensions[$this->mode . 'height'] . '"'
+			. ' width="' . $dimensions[$mode1 . 'width'] . '" height="' . $dimensions[$mode1 . 'height'] . '"'
 			. ' data-mejsoptions=\'{"showPlaylist": false, "stretching": "' . $stretching . '",'
 			. ' "currentMessage": "' . JText::_('PLG_SERMONSPEAKER_MEDIAELEMENT_CURRENT_MESSAGE') . '",'
 			. ' "features": ["playpause", "prevtrack", "nexttrack", "current", "progress", "duration", "volume", "playlist", "fullscreen", "speed"]}\''
@@ -192,13 +171,13 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 			$player->mspace .= $this->createSource($items, $items->$field);
 		}
 
-		$player->mspace .= '</' . $this->mode . '>';
+		$player->mspace .= '</' . $mode1 . '>';
 
 		$player->toggle = $toggle;
 
 		if ($toggle)
 		{
-			$mode  = ($this->mode == 'audio') ? 'video' : 'audio';
+			$mode  = ($mode1 == 'audio') ? 'video' : 'audio';
 			$field = $mode . 'file';
 			$player->mspace .= '<' . $mode . ' id="' . $player->id . '-other" class="mejs__player hidden"'
 				. $autoplay . ' preload="metadata" controls="controls"'
@@ -227,8 +206,8 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 		$this->loadLanguage();
 
 		// Popup Dimensions
-		$this->player->popup['width']  = $dimensions[$this->mode . 'width'] + 130;
-		$this->player->popup['height'] = $dimensions[$this->mode . 'height'] + (int) $this->c_params->get('popup_height', 150);
+		$this->player->popup['width']  = $dimensions[$mode1 . 'width'] + 130;
+		$this->player->popup['height'] = $dimensions[$mode1 . 'height'] + (int) $this->c_params->get('popup_height', 150);
 
 		// Loading needed Javascript only once
 		if (!self::$script_loaded)
