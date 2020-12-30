@@ -31,7 +31,7 @@ $jinput = Factory::getApplication()->input;
 // In case of modal
 $isModal = $jinput->get('layout') == 'modal' ? true : false;
 $layout  = $isModal ? 'modal' : 'edit';
-$tmpl    = $isModal || $jinput->get('tmpl', '', 'cmd') === 'component' ? '&tmpl=component' : '';
+$tmpl    = $isModal || $jinput->get('tmpl', '') === 'component' ? '&tmpl=component' : '';
 ?>
 <form action="<?php echo JRoute::_('index.php?option=com_sermonspeaker&layout=' . $layout . $tmpl . '&id='.(int) $this->item->id); ?>" method="post" name="adminForm" id="item-form" class="form-validate">
 

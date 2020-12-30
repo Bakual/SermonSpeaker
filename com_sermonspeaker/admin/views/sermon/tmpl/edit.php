@@ -141,7 +141,7 @@ $tmpl   = $jinput->getCmd('tmpl') === 'component' ? '&tmpl=component' : '';
 		<?php echo HTMLHelper::_('uitab.endTabSet'); ?>
 		<input type="hidden" name="task" value="" />
 		<input type="hidden" name="return" value="<?php echo $jinput->getCmd('return');?>" />
-		<input type="hidden" name="forcedLanguage" value="<?php echo $jinput->get('forcedLanguage', '', 'cmd'); ?>" />
+		<input type="hidden" name="forcedLanguage" value="<?php echo $jinput->get('forcedLanguage', ''); ?>" />
 		<?php echo HTMLHelper::_('form.token'); ?>
 	</div>
 </form>

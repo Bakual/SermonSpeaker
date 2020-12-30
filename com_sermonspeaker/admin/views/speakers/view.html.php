@@ -139,7 +139,7 @@ class SermonspeakerViewSpeakers extends JViewLegacy
 		$user  = Factory::getUser();
 
 		// Get the toolbar object instance
-		$toolbar = Toolbar::getInstance('toolbar');
+		$toolbar = Toolbar::getInstance();
 
 		ToolbarHelper::title(Text::_('COM_SERMONSPEAKER_SPEAKERS_TITLE'), 'users speakers');
 

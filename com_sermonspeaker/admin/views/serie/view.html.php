@@ -50,7 +50,7 @@ class SermonspeakerViewSerie extends JViewLegacy
 		}
 
 		// If we are forcing a language in modal (used for associations).
-		if ($this->getLayout() === 'modal' && $forcedLanguage = Factory::getApplication()->input->get('forcedLanguage', '', 'cmd'))
+		if ($this->getLayout() === 'modal' && $forcedLanguage = Factory::getApplication()->input->get('forcedLanguage', ''))
 		{
 			// Set the language field to the forcedLanguage and disable changing it.
 			$this->form->setValue('language', null, $forcedLanguage);
@@ -166,11 +166,11 @@ class SermonspeakerViewSerie extends JViewLegacy
 				true
 			);
 
-			$toolbar->preview($url, 'JGLOBAL_PREVIEW')
+			$toolbar->preview($url)
 				->bodyHeight(80)
 				->modalWidth(90);
 		}
 
-		$toolbar->cancel('serie.cancel', 'JTOOLBAR_CLOSE');
+		$toolbar->cancel('serie.cancel');
 	}
 }

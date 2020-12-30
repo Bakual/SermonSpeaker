@@ -267,7 +267,7 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 	private function saveContentTypes()
 	{
 		// Adding content_type for tags
-		$table = Table::getInstance('Contenttype', 'JTable');
+		$table = Table::getInstance('Contenttype');
 
 		// Generic FieldMappings
 		$common                       = new stdClass;

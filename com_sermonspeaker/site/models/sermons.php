@@ -455,7 +455,7 @@ class SermonspeakerModelSermons extends Listmodel
 
 		$query->order('`value` ASC');
 
-		$db->setQuery($query, 0);
+		$db->setQuery($query);
 		$options = $db->loadAssocList();
 
 		foreach ($options as &$option)
@@ -491,7 +491,7 @@ class SermonspeakerModelSermons extends Listmodel
 
 		$query->order('`year` ASC');
 
-		$db->setQuery($query, 0);
+		$db->setQuery($query);
 		$options = $db->loadAssocList();
 
 		return $options;
@@ -523,7 +523,7 @@ class SermonspeakerModelSermons extends Listmodel
 
 		$query->order('`book` ASC');
 
-		$db->setQuery($query, 0);
+		$db->setQuery($query);
 		$options = $db->loadColumn();
 
 		return $options;

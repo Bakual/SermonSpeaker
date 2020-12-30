@@ -79,7 +79,7 @@ class SermonspeakerModelSeries extends ListModel
 		$app = Factory::getApplication();
 
 		// Force a language
-		$forcedLanguage = $app->input->get('forcedLanguage', '' , 'cmd');
+		$forcedLanguage = $app->input->get('forcedLanguage', '');
 
 		// Adjust the context to support modal layouts.
 		if ($layout = $app->input->get('layout'))
@@ -217,7 +217,7 @@ class SermonspeakerModelSeries extends ListModel
 
 		if (is_numeric($categoryId))
 		{
-			$cat_tbl = Table::getInstance('Category', 'JTable');
+			$cat_tbl = Table::getInstance('Category');
 			$cat_tbl->load($categoryId);
 			$rgt       = $cat_tbl->rgt;
 			$lft       = $cat_tbl->lft;

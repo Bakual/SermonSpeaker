@@ -40,8 +40,7 @@ class SermonspeakerHelper
 		}
 
 		$actions = JAccess::getActionsFromFile(
-			JPATH_ADMINISTRATOR . '/components/com_sermonspeaker/access.xml',
-			"/access/section[@name='component']/"
+			JPATH_ADMINISTRATOR . '/components/com_sermonspeaker/access.xml'
 		);
 
 		foreach ($actions as $action)
