@@ -114,7 +114,7 @@ class JHtmlIcon
 			$tooltip = Text::_('JLIB_HTML_CHECKED_OUT') . ' :: ' . Text::sprintf('COM_SERMONSPEAKER_CHECKED_OUT_BY', $checkoutUser->name)
 				. ' <br /> ' . $date;
 
-			return '<span class="hasTooltip" title="' . htmlspecialchars($tooltip, ENT_COMPAT, 'UTF-8') . '">' . $button . '</span>';
+			return '<span class="hasTooltip" title="' . htmlspecialchars($tooltip, ENT_COMPAT) . '">' . $button . '</span>';
 		}
 
 		switch ($attribs['type'])
@@ -152,7 +152,7 @@ class JHtmlIcon
 		if ($item->author)
 		{
 			$overlib .= '&lt;br /&gt;';
-			$overlib .= Text::_('JAUTHOR') . ': ' . htmlspecialchars($item->author, ENT_COMPAT, 'UTF-8');
+			$overlib .= Text::_('JAUTHOR') . ': ' . htmlspecialchars($item->author, ENT_COMPAT);
 		}
 
 		$icon = $item->state ? 'pencil-square-o' : 'eye-slash';

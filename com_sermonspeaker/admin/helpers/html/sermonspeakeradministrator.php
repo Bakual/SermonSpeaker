@@ -87,7 +87,7 @@ abstract class JHtmlSermonspeakerAdministrator
 					$text    = $item->lang_sef ? strtoupper($item->lang_sef) : 'XX';
 					$url     = JRoute::_('index.php?option=com_sermonspeaker&task=' . $type . '.edit&id=' . (int) $item->id);
 
-					$tooltip = htmlspecialchars($item->title, ENT_QUOTES, 'UTF-8') . '<br />' . Text::sprintf('JCATEGORY_SPRINTF', $item->category_title);
+					$tooltip = htmlspecialchars($item->title, ENT_QUOTES) . '<br />' . Text::sprintf('JCATEGORY_SPRINTF', $item->category_title);
 					$classes = 'hasPopover badge badge-association badge-' . $item->lang_sef;
 
 					$item->link = '<a href="' . $url . '" title="' . $item->language_title . '" class="' . $classes

@@ -81,7 +81,7 @@ class JFormFieldColumns extends JFormField
 
 				$html[] = '<td align="center">';
 				$html[] = '<input style="float:none; margin:0;" type="checkbox" id="' . $this->id . $i . '" name="' . $this->name . '"' .
-					' value="' . htmlspecialchars($option->value . ':' . $column, ENT_COMPAT, 'UTF-8') . '"' . $checked . $class . $onclick . $disabled . '/>';
+					' value="' . htmlspecialchars($option->value . ':' . $column, ENT_COMPAT) . '"' . $checked . $class . $onclick . $disabled . '/>';
 				$html[] = '</td>';
 			}
 			$html[] = '</tr>';

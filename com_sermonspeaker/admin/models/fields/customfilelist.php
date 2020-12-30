@@ -106,7 +106,7 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 						</button>
 					</span>
 					<input name="' . $this->name . '" id="' . $this->id . '_text" class="form-control ' . $this->class . '" value="'
-						. htmlspecialchars($this->value, ENT_COMPAT, 'UTF-8') . '" type="text">';
+						. htmlspecialchars($this->value, ENT_COMPAT) . '" type="text">';
 
 		// Add Lookup button if not addfile field
 		if ($this->file != 'addfile')

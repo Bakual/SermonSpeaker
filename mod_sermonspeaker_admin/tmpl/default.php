@@ -38,9 +38,9 @@ JHtml::_('bootstrap.tooltip');
 						<strong class="row-title break-word">
 							<?php if ($item->link) : ?>
 								<a href="<?php echo $item->link; ?>">
-									<?php echo htmlspecialchars($item->title, ENT_QUOTES, 'UTF-8'); ?></a>
+									<?php echo htmlspecialchars($item->title, ENT_QUOTES); ?></a>
 							<?php else : ?>
-								<?php echo htmlspecialchars($item->title, ENT_QUOTES, 'UTF-8'); ?>
+								<?php echo htmlspecialchars($item->title, ENT_QUOTES); ?>
 							<?php endif; ?>
 						</strong>
 

@@ -113,7 +113,7 @@ class JFormFieldModal_Sermon extends JFormField
 			}
 		}
 
-		$title = empty($title) ? JText::_('COM_SERMONSPEAKER_SELECT_A_SERMON') : htmlspecialchars($title, ENT_QUOTES, 'UTF-8');
+		$title = empty($title) ? JText::_('COM_SERMONSPEAKER_SELECT_A_SERMON') : htmlspecialchars($title, ENT_QUOTES);
 
 		// The current sermon display field.
 		$html  = '';
@@ -266,7 +266,7 @@ class JFormFieldModal_Sermon extends JFormField
 		$class = $this->required ? ' class="required modal-value"' : '';
 
 		$html .= '<input type="hidden" id="' . $this->id . '_id" ' . $class . ' data-required="' . (int) $this->required . '" name="' . $this->name
-			. '" data-text="' . htmlspecialchars(JText::_('COM_SERMONSPEAKER_SELECT_A_SERMON', true), ENT_COMPAT, 'UTF-8') . '" value="' . $value . '" />';
+			. '" data-text="' . htmlspecialchars(JText::_('COM_SERMONSPEAKER_SELECT_A_SERMON', true), ENT_COMPAT) . '" value="' . $value . '" />';
 
 		return $html;
 	}
