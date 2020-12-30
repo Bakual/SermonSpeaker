@@ -231,7 +231,7 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 	private function addCategory()
 	{
 		$db         = Factory::getDbo();
-		$catFactory = new Joomla\CMS\Mvc\Factory\MvcFactory('Joomla\Component\Categories', $this->app);
+		$catFactory = new Joomla\CMS\Mvc\Factory\MvcFactory('Joomla\Component\Categories');
 		$catModel   = new Joomla\Component\Categories\Administrator\Model\CategoryModel(array(), $catFactory);
 		$sections   = array('sermons', 'series', 'speakers');
 
@@ -500,7 +500,7 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 	private function moveCategories()
 	{
 		$db         = Factory::getDbo();
-		$catFactory = new Joomla\CMS\Mvc\Factory\MvcFactory('Joomla\Component\Categories', $this->app);
+		$catFactory = new Joomla\CMS\Mvc\Factory\MvcFactory('Joomla\Component\Categories');
 		$catModel   = new Joomla\Component\Categories\Administrator\Model\CategoryModel(array(), $catFactory);
 		$sections   = array('sermons', 'series', 'speakers');
 
