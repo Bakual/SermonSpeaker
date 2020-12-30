@@ -29,7 +29,7 @@ $this->useCoreUI = true;
 $jinput = Factory::getApplication()->input;
 
 // In case of modal
-$isModal = $jinput->get('layout') == 'modal' ? true : false;
+$isModal = $jinput->get('layout') == 'modal';
 $layout  = $isModal ? 'modal' : 'edit';
 $tmpl    = $isModal || $jinput->get('tmpl', '') === 'component' ? '&tmpl=component' : '';
 ?>

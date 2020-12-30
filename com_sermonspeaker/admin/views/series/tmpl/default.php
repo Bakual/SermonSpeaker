@@ -27,8 +27,8 @@ HTMLHelper::_('behavior.multiselect');
 $user      = Factory::getUser();
 $listOrder = $this->escape($this->state->get('list.ordering'));
 $listDirn  = $this->escape($this->state->get('list.direction'));
-$archived  = $this->state->get('filter.state') == 2 ? true : false;
-$trashed   = $this->state->get('filter.state') == -2 ? true : false;
+$archived  = $this->state->get('filter.state') == 2;
+$trashed   = $this->state->get('filter.state') == -2;
 $saveOrder = $listOrder == 'series.ordering';
 
 if ($saveOrder)
