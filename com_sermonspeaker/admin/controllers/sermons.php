@@ -44,7 +44,7 @@ class SermonspeakerControllerSermons extends JControllerAdmin
 	 *
 	 * @since   4.5
 	 */
-	public function &getModel($name = 'Sermon', $prefix = 'SermonspeakerModel', $config = array('ignore_request' => true))
+	public function getModel($name = 'Sermon', $prefix = 'SermonspeakerModel', $config = array('ignore_request' => true))
 	{
 		return parent::getModel($name, $prefix, $config);
 	}

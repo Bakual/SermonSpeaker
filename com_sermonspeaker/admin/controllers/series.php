@@ -68,7 +68,7 @@ class SermonspeakerControllerSeries extends JControllerAdmin
 	 *
 	 * @return  SermonspeakerModelSerie|boolean  Model object on success; otherwise false on failure.
 	 */
-	public function &getModel($name = 'Serie', $prefix = 'SermonspeakerModel', $config = array('ignore_request' => true))
+	public function getModel($name = 'Serie', $prefix = 'SermonspeakerModel', $config = array('ignore_request' => true))
 	{
 		return parent::getModel($name, $prefix, $config);
 	}

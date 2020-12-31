@@ -3,7 +3,7 @@
 class jc_com_sermonspeaker extends JCommentsPlugin {
 	function getObjectTitle($id) {
 		// Data load from database by given id 
-		$db = & JFactory::getDbo();
+		$db = JFactory::getDbo();
 		$db->setQuery("SELECT title FROM #__sermon_sermons WHERE id='$id'");
 		return $db->loadResult();
 	}
@@ -14,7 +14,7 @@ class jc_com_sermonspeaker extends JCommentsPlugin {
 		return JRoute::_('index.php?option=com_sermonspeaker&view=sermon&id='.$id.'&Itemid='.$_Itemid);
 	}
 	function getObjectOwner($id) {
-		$db = & JFactory::getDbo();
+		$db = JFactory::getDbo();
 		$db->setQuery('SELECT created_by, id FROM #__sermon_sermons WHERE id = '.$id);
 		return $db->loadResult();
 	}
