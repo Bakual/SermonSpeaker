@@ -239,7 +239,7 @@ class PlgContentAutotweetSermonspeaker extends plgAutotweetBase
 	 *
 	 * @since	1.5
 	 */
-	public function getExtendedData($id, $typeinfo, &$native_object)
+	public function getExtendedData($id, $typeinfo, $native_object)
 	{
 		$item = json_decode($native_object);
 

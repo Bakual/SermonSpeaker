@@ -35,7 +35,7 @@ class PlgSermonspeakerGeneric extends SermonspeakerPluginPlayer
 	 *
 	 * @return  void
 	 */
-	public function onGetPlayer($context, &$player, $items, $config)
+	public function onGetPlayer($context, $player, $items, $config)
 	{
 		// There is already a player loaded
 		if ($player->mspace)

@@ -46,7 +46,7 @@ class SermonspeakerTableSerie extends Table
 	 *
 	 * @since ?
 	 */
-	public function __construct(&$db)
+	public function __construct($db)
 	{
 		parent::__construct('#__sermon_series', 'id', $db);
 	}

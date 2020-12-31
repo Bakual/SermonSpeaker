@@ -66,7 +66,7 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 	 *
 	 * @since  1.0.0
 	 */
-	public function onGetPlayer($context, &$player, $items, $config)
+	public function onGetPlayer($context, $player, $items, $config)
 	{
 		JHtml::_('bootstrap.framework');
 

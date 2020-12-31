@@ -71,7 +71,7 @@ class PlgSermonspeakerJwplayer7 extends SermonspeakerPluginPlayer
 	 *
 	 * @return  void
 	 */
-	public function onGetPlayer($context, &$player, $items, $config)
+	public function onGetPlayer($context, $player, $items, $config)
 	{
 		$this->player = $player;
 

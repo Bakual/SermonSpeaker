@@ -49,7 +49,7 @@ abstract class SermonspeakerPluginPlayer extends JPlugin
 	 *
 	 * @since ?
 	 */
-	public abstract function onGetPlayer($context, &$player, $items, $config);
+	public abstract function onGetPlayer($context, $player, $items, $config);
 
 	/**
 	 * Sets the dimensions of the player for audio and video. $height and $width are default values.

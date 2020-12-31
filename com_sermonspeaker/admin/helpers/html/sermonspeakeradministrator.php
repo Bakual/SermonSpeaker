@@ -82,7 +82,7 @@ abstract class JHtmlSermonspeakerAdministrator
 
 			if ($items)
 			{
-				foreach ($items as &$item)
+				foreach ($items as $item)
 				{
 					$text    = $item->lang_sef ? strtoupper($item->lang_sef) : 'XX';
 					$url     = JRoute::_('index.php?option=com_sermonspeaker&task=' . $type . '.edit&id=' . (int) $item->id);

@@ -27,7 +27,7 @@ class PlgContentSermonspeaker extends JPlugin
 	 *
 	 * @return void
 	 */
-	public function onContentPrepare($context, &$article, &$params, $page = 0)
+	public function onContentPrepare($context, $article, &$params, $page = 0)
 	{
 		// Don't run this plugin when the content is being indexed
 		if ($context == 'com_finder.indexer')

@@ -75,7 +75,7 @@ class ModSermonspeakerHelper
 		$user = JFactory::getuser();
 		$view = rtrim($type, 's');
 
-		foreach ($items as &$item)
+		foreach ($items as $item)
 		{
 			if ($user->authorise('core.edit', 'com_sermonspeaker.category.' . $item->catid))
 			{
