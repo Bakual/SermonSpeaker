@@ -196,14 +196,6 @@ class SermonspeakerControllerFile extends JControllerLegacy
 
 				return;
 			}
-
-			$response = array(
-				'status'   => '1',
-				'filename' => $file['name'],
-				'path'     => $result['ObjectUrl'],
-				'error'    => Text::sprintf('COM_SERMONSPEAKER_FU_FILENAME', $result['ObjectUrl']),
-			);
-			echo json_encode($response);
 		}
 		else
 		{
