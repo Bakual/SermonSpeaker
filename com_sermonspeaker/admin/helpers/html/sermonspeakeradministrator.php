@@ -115,7 +115,7 @@ abstract class JHtmlSermonspeakerAdministrator
 	 *
 	 * @since ?
 	 */
-	public static function podcasted($value = 0, $i, $canChange = true)
+	public static function podcasted($value, $i, $canChange = true)
 	{
 		JHtml::_('bootstrap.tooltip');
 
