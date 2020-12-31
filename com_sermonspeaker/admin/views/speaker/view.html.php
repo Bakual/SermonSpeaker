@@ -60,7 +60,7 @@ class SermonspeakerViewSpeaker extends JViewLegacy
 
 		$this->addToolbar();
 
-		return parent::display($tpl);
+		parent::display($tpl);
 	}
 
 	/**

@@ -34,6 +34,6 @@ class SermonspeakerViewSitemap extends JViewLegacy
 		$app           = JFactory::getApplication();
 		$this->params  = $app->getParams();
 
-		return parent::display($tpl);
+		parent::display($tpl);
 	}
 }

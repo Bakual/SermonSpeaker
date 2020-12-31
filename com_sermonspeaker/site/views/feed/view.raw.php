@@ -78,7 +78,7 @@ class SermonspeakerViewFeed extends JViewLegacy
 		$manifest      = json_decode($extensions->manifest_cache);
 		$this->version = $manifest->version;
 
-		return parent::display($tpl);
+		parent::display($tpl);
 	}
 
 	/**
