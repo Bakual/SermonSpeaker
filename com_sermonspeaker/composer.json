@@ -21,6 +21,9 @@
   },
   "require": {
     "james-heinrich/getid3": "v1.*",
-    "tpyo/amazon-s3-php-class": "dev-master"
+    "tpyo/amazon-s3-php-class": "dev-master",
+    "ext-json": "*",
+    "ext-simplexml": "*",
+    "ext-zip": "*"
   }
 }
