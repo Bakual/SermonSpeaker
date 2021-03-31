@@ -24,9 +24,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 	if ($this->params->get('show_page_heading', 1)) : ?>
 		<h1><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
 	<?php endif; ?>
-	<h2>
-		<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($this->item->slug, $this->item->catid, $this->item->language)); ?>"><?php echo $this->item->title; ?></a>
-	</h2>
+	<h2><?php echo $this->item->title; ?></h2>
 	<?php
 	if ($canEdit or ($canEditOwn and ($user->id == $this->item->created_by))) : ?>
 		<ul class="actions">

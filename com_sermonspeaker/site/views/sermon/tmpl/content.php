@@ -41,9 +41,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 	<div class="page-header">
 		<h2 itemprop="name">
 			<?php echo LayoutHelper::render('blocks.state_info', array('item' => $this->item, 'show' => $showState)); ?>
-			<a href="<?php echo Route::_(SermonspeakerHelperRoute::getSermonRoute($this->item->slug, $this->item->catid, $this->item->language)); ?>"
-				itemprop="url">
-				<?php echo $this->escape($this->item->title); ?></a>
+			<?php echo $this->escape($this->item->title); ?>
 		</h2>
 		<?php if (in_array('sermon:speaker', $this->columns) and $this->item->speaker_title) : ?>
 			<small class="ss-speaker createdby" itemprop="author" itemscope itemtype="http://schema.org/Person">

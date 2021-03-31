@@ -53,9 +53,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 			</ul>
 		</div>
 		<div class="page-header">
-			<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($this->item->slug, $this->item->catid, $this->item->language)); ?>">
-				<h2><?php echo $this->item->title; ?></h2>
-			</a>
+			<h2><?php echo $this->item->title; ?></h2>
 			<?php echo JLayoutHelper::render('blocks.state_info', array('item' => $this->item, 'show' => $showState)); ?>
 
 			<?php if (in_array('serie:speaker', $this->col_serie) and $this->item->speakers) : ?>
@@ -67,9 +65,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 		</div>
 		<?php if ($this->item->avatar) : ?>
 			<div class="img-polaroid pull-right item-image">
-				<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($this->item->slug, $this->item->catid, $this->item->language)); ?>">
-					<img src="<?php echo SermonspeakerHelperSermonspeaker::makeLink($this->item->avatar); ?>">
-				</a>
+				<img src="<?php echo SermonspeakerHelperSermonspeaker::makeLink($this->item->avatar); ?>">
 			</div>
 		<?php endif; ?>
 		<div class="article-info serie-info muted">
