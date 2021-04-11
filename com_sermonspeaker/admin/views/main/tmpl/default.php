@@ -82,14 +82,6 @@ use Joomla\CMS\Uri\Uri;
 				</a>
 			</div>
 			<div class="col">
-				<a class="card text-center" href="index.php?option=com_sermonspeaker&view=languages">
-					<div class="card-body">
-						<span class="fas fa-language fa-4x"></span>
-						<h3 class="card-title"><?php echo Text::_('COM_SERMONSPEAKER_MAIN_LANGUAGES'); ?></h3>
-					</div>
-				</a>
-			</div>
-			<div class="col">
 				<a class="card text-center" href="index.php?option=com_sermonspeaker&view=help">
 					<div class="card-body">
 						<span class="fas fa-question-circle fa-4x"></span>
