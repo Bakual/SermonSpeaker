@@ -11,11 +11,15 @@ defined('_JEXEC') or die();
 
 use Joomla\CMS\Application\ApplicationHelper;
 use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\Filesystem\File;
+use Joomla\CMS\Form\FormHelper;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Uri\Uri;
 
 jimport('joomla.html.html');
 jimport('joomla.form.formfield');
 jimport('joomla.form.helper');
-JFormHelper::loadFieldClass('filelist');
+FormHelper::loadFieldClass('filelist');
 
 /**
  * Creates the filelist dropdown for sermon file select
@@ -81,7 +85,7 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 		$html = '';
 
 		// Check Filename for possible problems
-		$filename = JFile::stripExt(basename($this->value));
+		$filename = File::stripExt(basename($this->value));
 
 		// Remove query part (eg for YouTube URLs
 		if ($pos = strpos($filename, '?'))
@@ -91,76 +95,64 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 
 		if ($filename != ApplicationHelper::stringURLSafe($filename))
 		{
-			$html .= '<div class="alert alert-warning">'
-				. '<button type="button" class="close" data-dismiss="alert">&times;</button>'
-				. '<span class="icon-notification"></span> '
-				. JText::_('COM_SERMONSPEAKER_FILENAME_NOT_IDEAL')
+			$html .= '<div class="alert alert-warning" role="alert">'
+				. Text::_('COM_SERMONSPEAKER_FILENAME_NOT_IDEAL')
 				. '</div>';
 		}
 
 		$html .= '<div class="input-group">
-					<span class="input-group-prepend"> 
-						<button class="btn btn-secondary" 
+						<button class="btn btn-secondary"
 							type="button" onclick="toggleElement(\'' . $this->fieldname . '\', 0);">
 							<span id="' . $this->fieldname . '_text_icon" class="icon-radio-checked"></span>
 						</button>
-					</span>
 					<input name="' . $this->name . '" id="' . $this->id . '_text" class="form-control ' . $this->class . '" value="'
-						. htmlspecialchars($this->value, ENT_COMPAT) . '" type="text">';
+			. htmlspecialchars($this->value, ENT_COMPAT) . '" type="text">';
 
 		// Add Lookup button if not addfile field
 		if ($this->file != 'addfile')
 		{
-			$html .= '<span class="input-group-append">
-						<button class="btn btn-secondary hasTooltip" 
-							type="button" onclick="lookup(document.getElementById(\'' . $this->id . '_text\'))" 
-							title="' . JText::_('COM_SERMONSPEAKER_LOOKUP') . '">
+			$html .= '<button class="btn btn-secondary"
+							type="button" onclick="lookup(document.getElementById(\'' . $this->id . '_text\'))"
+							title="' . Text::_('COM_SERMONSPEAKER_LOOKUP') . '">
 							<span class="fas fa-magic"></span>
 						</button>
-						<button class="btn btn-secondary hasTooltip" 
+						<button class="btn btn-secondary"
 							type="button"
-							onclick="let player = document.getElementById(\'player_' . $this->file . '\');player.src=\'' . JUri::root() . '\'+document.getElementById(\'' . $this->id . '_text\').value;player.classList.remove(\'hidden\');player.play();" 
-							title="' . JText::_('COM_SERMONSPEAKER_PREVIEW') . '">
+							onclick="let player = document.getElementById(\'player_' . $this->file . '\');player.src=\'' . Uri::root() . '\'+document.getElementById(\'' . $this->id . '_text\').value;player.classList.remove(\'hidden\');player.play();"
+							title="' . Text::_('COM_SERMONSPEAKER_PREVIEW') . '">
 							<span class="fas fa-play"></span>
-						 </button>
-					</span>';
+						 </button>';
 		}
 
 		// Add Google Picker if enabled and not audio field
 		if ($this->params->get('googlepicker') && $this->file != 'audio')
 		{
-			$html .= '<span class="input-group-append">
-						<button class="btn btn-secondary hasTooltip"
-							type="button" onclick="create' . ucfirst($this->file) . 'Picker();" 
-							title="' . JText::_('COM_SERMONSPEAKER_GOOGLEPICKER_TIP') . '">
-							<img src="' . JUri::root() . 'media/com_sermonspeaker/icons/16/drive.png">
-						</button>
-					</span>';
+			$html .= '<button class="btn btn-secondary"
+							type="button" onclick="create' . ucfirst($this->file) . 'Picker();"
+							title="' . Text::_('COM_SERMONSPEAKER_GOOGLEPICKER_TIP') . '">
+							<img src="' . Uri::root() . 'media/com_sermonspeaker/icons/16/drive.png">
+						</button>';
 		}
 
 		$html .= '</div>
 				<div class="input-group">
-					<span class="input-group-prepend">
-						<button class="btn btn-secondary"
-							type="button" onclick="toggleElement(\'' . $this->fieldname . '\', 1);"> 
-							<span id="' . $this->fieldname . '_icon" class="icon-radio-unchecked"></span>
-						</button>
-					</span>';
+					<button class="btn btn-secondary"
+						type="button" onclick="toggleElement(\'' . $this->fieldname . '\', 1);">
+						<span id="' . $this->fieldname . '_icon" class="icon-radio-unchecked"></span>
+					</button>';
 
 
 		// Don't put disabled into the XML. It will break since J3.8.12.
 		$this->disabled = true;
-		$html .= parent::getInput();
+		$html           .= parent::getInput();
 
 		if (!$this->mode && $this->file != 'addfile')
 		{
-			$html .= '<span class="input-group-append">
-						<button class="btn btn-secondary hasTooltip" 
+			$html .= '<button class="btn btn-secondary"
 							type="button" onclick="lookup(document.getElementById(\'' . $this->id . '\'))"
-							title="' . JText::_('COM_SERMONSPEAKER_LOOKUP') . '">
+							title="' . Text::_('COM_SERMONSPEAKER_LOOKUP') . '">
 							<span class="fas fa-magic"></span>
-						</button>
-					</span>';
+						</button>';
 		}
 
 		$html .= '</div>';
@@ -207,7 +199,7 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 			}
 		}
 
-		$uploadURL = JUri::base() . 'index.php?option=com_sermonspeaker&task=file.upload&'
+		$uploadURL = Uri::base() . 'index.php?option=com_sermonspeaker&task=file.upload&'
 			. JSession::getFormToken() . '=1&format=json';
 
 		$plupload_script = '
@@ -229,7 +221,7 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 			$plupload_script .= '
 					filters : {
 						mime_types: [
-							{title : "' . JText::_($text, 'true') . '", extensions : "' . $types . '"},
+							{title : "' . Text::_($text, 'true') . '", extensions : "' . $types . '"},
 						]
 					},';
 		}
@@ -272,7 +264,7 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 							document.getElementById("' . $this->id . '_text").value = data.path;
 						}else{
 							jQuery("#" + file.id).removeClass("alert-info").addClass("alert-danger");
-							jQuery("#" + file.id + "_progress").replaceWith(" &raquo; ' . JText::_('ERROR') . ': " + data.error + closeButton);
+							jQuery("#" + file.id + "_progress").replaceWith(" &raquo; ' . Text::_('ERROR') . ': " + data.error + closeButton);
 						}
 					}
 				});
@@ -295,7 +287,7 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 		return '<div id="plupload_' . $this->fieldname . '" class="uploader">
 					<div id="filelist_' . $this->fieldname . '" class="filelist"></div>
 					<button type="button" id="browse_' . $this->fieldname . '" class="btn btn-secondary">'
-			. JText::_('COM_SERMONSPEAKER_UPLOAD')
+			. Text::_('COM_SERMONSPEAKER_UPLOAD')
 			. '</button>
 				</div>';
 	}
@@ -369,8 +361,8 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 				foreach ($xml->video as $video)
 				{
 					$option['value'] = $video->url;
-					$option['text'] = $video->title;
-					$options[]      = $option;
+					$option['text']  = $video->title;
+					$options[]       = $option;
 				}
 
 				return $options;
@@ -424,8 +416,7 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 			// Show last modified files first
 			uasort(
 				$bucket_contents,
-				function ($a, $b)
-				{
+				function ($a, $b) {
 					return (string) $b['LastModified'] - (string) $a['LastModified'];
 				}
 			);
@@ -459,8 +450,8 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 				foreach ($xml->file as $file)
 				{
 					$option['value'] = $file->URL;
-					$option['text'] = $file->name;
-					$options[]      = $option;
+					$option['text']  = $file->name;
+					$options[]       = $option;
 				}
 
 				return $options;

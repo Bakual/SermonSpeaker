@@ -149,20 +149,15 @@ class JFormFieldModal_Serie extends JFormField
 
 		$html .= '<input class="form-control" id="' . $this->id . '_name" type="text" value="' . $title . '" disabled="disabled" size="35">';
 
-		if ($allowSelect || $allowNew || $allowEdit || $allowClear)
-		{
-			$html .= '<span class="input-group-btn">';
-		}
-
 		// Select serie button
 		if ($allowSelect)
 		{
 			$html .= '<a'
-				. ' class="btn btn-primary hasTooltip' . ($value ? ' sr-only' : '') . '"'
+				. ' class="btn btn-primary' . ($value ? ' sr-only' : '') . '"'
 				. ' id="' . $this->id . '_select"'
-				. ' data-toggle="modal"'
+				. ' data-bs-toggle="modal"'
 				. ' role="button"'
-				. ' href="#ModalSelect' . $modalId . '"'
+				. ' data-bs-target="#ModalSelect' . $modalId . '"'
 				. ' title="' . JHtml::tooltipText('COM_SERMONSPEAKER_CHANGE_SERIE') . '">'
 				. '<span class="icon-file" aria-hidden="true"></span> ' . JText::_('JSELECT')
 				. '</a>';
@@ -172,11 +167,11 @@ class JFormFieldModal_Serie extends JFormField
 		if ($allowNew)
 		{
 			$html .= '<a'
-				. ' class="btn btn-secondary hasTooltip' . ($value ? ' sr-only' : '') . '"'
+				. ' class="btn btn-primary' . ($value ? ' sr-only' : '') . '"'
 				. ' id="' . $this->id . '_new"'
-				. ' data-toggle="modal"'
+				. ' data-bs-toggle="modal"'
 				. ' role="button"'
-				. ' href="#ModalNew' . $modalId . '"'
+				. ' data-bs-target="#ModalNew' . $modalId . '"'
 				. ' title="' . JHtml::tooltipText('COM_SERMONSPEAKER_NEW_SERIE') . '">'
 				. '<span class="icon-new" aria-hidden="true"></span> ' . JText::_('JACTION_CREATE')
 				. '</a>';
@@ -186,11 +181,11 @@ class JFormFieldModal_Serie extends JFormField
 		if ($allowEdit)
 		{
 			$html .= '<a'
-				. ' class="btn btn-secondary hasTooltip' . ($value ? '' : ' sr-only') . '"'
+				. ' class="btn btn-primary' . ($value ? '' : ' sr-only') . '"'
 				. ' id="' . $this->id . '_edit"'
-				. ' data-toggle="modal"'
+				. ' data-bs-toggle="modal"'
 				. ' role="button"'
-				. ' href="#ModalEdit' . $modalId . '"'
+				. ' data-bs-target="#ModalEdit' . $modalId . '"'
 				. ' title="' . JHtml::tooltipText('COM_SERMONSPEAKER_EDIT_SERIE') . '">'
 				. '<span class="icon-edit" aria-hidden="true"></span> ' . JText::_('JACTION_EDIT')
 				. '</a>';
@@ -206,11 +201,6 @@ class JFormFieldModal_Serie extends JFormField
 				. ' onclick="window.processModalParent(\'' . $this->id . '\'); return false;">'
 				. '<span class="icon-remove" aria-hidden="true"></span>' . JText::_('JCLEAR')
 				. '</a>';
-		}
-
-		if ($allowSelect || $allowNew || $allowEdit || $allowClear)
-		{
-			$html .= '</span></span>';
 		}
 
 		// Select serie modal

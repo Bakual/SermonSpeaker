@@ -125,20 +125,15 @@ class JFormFieldModal_Sermon extends JFormField
 
 		$html .= '<input class="form-control" id="' . $this->id . '_name" type="text" value="' . $title . '" disabled="disabled" size="35">';
 
-		if ($allowSelect || $allowNew || $allowEdit || $allowClear)
-		{
-			$html .= '<span class="input-group-btn">';
-		}
-
 		// Select sermon button
 		if ($allowSelect)
 		{
 			$html .= '<a'
-				. ' class="btn btn-primary hasTooltip' . ($value ? ' sr-only' : '') . '"'
+				. ' class="btn btn-primary' . ($value ? ' sr-only' : '') . '"'
 				. ' id="' . $this->id . '_select"'
-				. ' data-toggle="modal"'
+				. ' data-bs-toggle="modal"'
 				. ' role="button"'
-				. ' href="#ModalSelect' . $modalId . '"'
+				. ' data-bs-target="#ModalSelect' . $modalId . '"'
 				. ' title="' . JHtml::tooltipText('COM_SERMONSPEAKER_CHANGE_SERMON') . '">'
 				. '<span class="icon-file" aria-hidden="true"></span> ' . JText::_('JSELECT')
 				. '</a>';
@@ -148,11 +143,11 @@ class JFormFieldModal_Sermon extends JFormField
 		if ($allowNew)
 		{
 			$html .= '<a'
-				. ' class="btn btn-secondary hasTooltip' . ($value ? ' sr-only' : '') . '"'
+				. ' class="btn btn-primary' . ($value ? ' sr-only' : '') . '"'
 				. ' id="' . $this->id . '_new"'
-				. ' data-toggle="modal"'
+				. ' data-bs-toggle="modal"'
 				. ' role="button"'
-				. ' href="#ModalNew' . $modalId . '"'
+				. ' data-bs-target="#ModalNew' . $modalId . '"'
 				. ' title="' . JHtml::tooltipText('COM_SERMONSPEAKER_NEW_SERMON') . '">'
 				. '<span class="icon-new" aria-hidden="true"></span> ' . JText::_('JACTION_CREATE')
 				. '</a>';
@@ -162,11 +157,11 @@ class JFormFieldModal_Sermon extends JFormField
 		if ($allowEdit)
 		{
 			$html .= '<a'
-				. ' class="btn btn-secondary hasTooltip' . ($value ? '' : ' sr-only') . '"'
+				. ' class="btn btn-primary' . ($value ? '' : ' sr-only') . '"'
 				. ' id="' . $this->id . '_edit"'
-				. ' data-toggle="modal"'
+				. ' data-bs-toggle="modal"'
 				. ' role="button"'
-				. ' href="#ModalEdit' . $modalId . '"'
+				. ' data-bs-target="#ModalEdit' . $modalId . '"'
 				. ' title="' . JHtml::tooltipText('COM_SERMONSPEAKER_EDIT_SERMON') . '">'
 				. '<span class="icon-edit" aria-hidden="true"></span> ' . JText::_('JACTION_EDIT')
 				. '</a>';
@@ -183,8 +178,6 @@ class JFormFieldModal_Sermon extends JFormField
 				. '<span class="icon-remove" aria-hidden="true"></span>' . JText::_('JCLEAR')
 				. '</a>';
 		}
-
-		$html .= '</span>';
 
 		// Select sermon modal
 		if ($allowSelect)
