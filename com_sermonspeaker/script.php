@@ -108,10 +108,7 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 	 */
 	public function install($parent)
 	{
-		// Notice $parent->getParent() returns JInstaller object
-		$parent->getParent()->setRedirectUrl('index.php?option=com_sermonspeaker');
-
-		// Add Dashboard menu on update
+		// Add Dashboard menu on install
 		$this->addDashboardMenu('sermonspeaker', 'sermonspeaker');
 	}
 
@@ -217,7 +214,6 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 		}
 
 		$this->removeFiles();
-		$this->app->enqueueMessage(Text::_('COM_SERMONSPEAKER_POSTFLIGHT'), 'warning');
 	}
 
 
