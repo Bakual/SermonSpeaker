@@ -9,10 +9,11 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Form\FormHelper;
 use Joomla\CMS\Language\Text;
 
 jimport('joomla.form.formfield');
-JFormHelper::loadFieldClass('number');
+FormHelper::loadFieldClass('number');
 
 /**
  * Hits Field class for the SermonSpeaker
@@ -43,14 +44,13 @@ class JFormFieldHits extends JFormFieldNumber
 
 		if ($this->value)
 		{
-			$html .= '<span class="input-group-btn">
-						<button class="btn btn-secondary hasTooltip" 
+			$html .= '<button class="btn btn-primary"
 							type="button"
 							onclick="document.getElementById(\'' . $this->id . '\').value=\'0\'"
 							title="' . Text::_('JSEARCH_RESET') . '">
-							<span class="icon-loop"></span>
-						</button>
-					</span>';
+							<span class="icon-loop" aria-hidden="true"></span>
+							<span class="visually-hidden">' . Text::_('JSEARCH_RESET') . '</span>
+						</button>';
 		}
 
 		$html .= '</div>';
