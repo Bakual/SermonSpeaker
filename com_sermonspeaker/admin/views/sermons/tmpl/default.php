@@ -281,12 +281,12 @@ $assoc = Associations::isEnabled();
 										<?php echo $item->sermon_date > 0 ? HTMLHelper::_('date', $item->sermon_date, Text::_('DATE_FORMAT_LC4')) : '-'; ?>
 									</td>
 									<td class="d-none d-lg-table-cell text-center">
-										<span class="badge badge-info">
+										<span class="badge bg-info">
 											<?php echo (int) $item->hits; ?>
 										</span>
 										<?php if ($canEdit || $canEditOwn) : ?>
 											<a class="btn btn-sm btn-warning" href="index.php?option=com_sermonspeaker&task=sermon.reset&id=<?php echo $item->id; ?>">
-												<span class="icon-loop hasTooltip" title="<?php echo Text::_('JSEARCH_RESET'); ?>"></span>
+												<span class="icon-loop" title="<?php echo Text::_('JSEARCH_RESET'); ?>"></span>
 											</a>
 										<?php endif; ?>
 									</td>

@@ -229,7 +229,7 @@ $assoc = Associations::isEnabled();
 										</td>
 									<?php endif; ?>
 									<td class="d-none d-lg-table-cell text-center">
-											<span class="badge badge-info">
+											<span class="badge bg-info">
 												<?php echo (int) $item->hits; ?>
 											</span>
 										<?php if ($canEdit || $canEditOwn) : ?>

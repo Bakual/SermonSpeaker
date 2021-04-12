@@ -229,12 +229,12 @@ $assoc = Associations::isEnabled();
 										</td>
 									<?php endif; ?>
 									<td class="d-none d-lg-table-cell text-center">
-										<span class="badge badge-info">
+										<span class="badge bg-info">
 											<?php echo (int) $item->hits; ?>
 										</span>
 										<?php if ($canEdit || $canEditOwn) : ?>
 											<a class="btn btn-sm btn-warning" href="index.php?option=com_sermonspeaker&task=speaker.reset&id=<?php echo $item->id; ?>">
-												<span class="icon-loop hasTooltip" title="<?php echo Text::_('JSEARCH_RESET'); ?>"></span>
+												<span class="icon-loop" title="<?php echo Text::_('JSEARCH_RESET'); ?>"></span>
 											</a>
 										<?php endif; ?>
 									</td>
