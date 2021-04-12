@@ -108,7 +108,6 @@
 			<filename>access.xml</filename>
 			<filename>config.xml</filename>
 			<filename>controller.php</filename>
-			<filename>sermonspeaker.css</filename>
 			<filename>sermonspeaker.php</filename>
 			<folder>controllers</folder>
 			<folder>helpers</folder>

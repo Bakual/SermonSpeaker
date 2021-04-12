@@ -9,6 +9,8 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\HTML\HTMLHelper;
+
 // Access check.
 if (!JFactory::getUser()->authorise('core.manage', 'com_sermonspeaker'))
 {
@@ -25,7 +27,7 @@ JLoader::register('SermonspeakerHelper', JPATH_COMPONENT_ADMINISTRATOR . '/helpe
 // Load Composer Autoloader
 require_once (JPATH_COMPONENT_ADMINISTRATOR . '/vendor/autoload.php');
 
-JHtml::_('stylesheet', 'administrator/components/com_sermonspeaker/sermonspeaker.css');
+HTMLHelper::_('stylesheet', 'com_sermonspeaker/sermonspeaker-admin.css', array('relative' => true));
 
 $controller = JControllerLegacy::getInstance('Sermonspeaker');
 $controller->execute(JFactory::getApplication()->input->get('task'));
