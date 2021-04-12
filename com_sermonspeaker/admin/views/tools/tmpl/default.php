@@ -66,7 +66,7 @@ $user    = Factory::getUser();
 							</div>
 							<div class="card-body">
 								<a class="stretched-link" data-bs-toggle="modal" data-bs-target="#tools-files-modal">
-									<h3 class="card-title"><?php echo Text::_('COM_SERMONSPEAKER_TOOLS_FIND_LABEL'); ?></h3>
+									<h3 class="card-title"><?php echo Text::_('COM_SERMONSPEAKER_TOOLS_FIND'); ?></h3>
 								</a>
 							</div>
 						</div>
