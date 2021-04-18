@@ -124,15 +124,15 @@ abstract class JHtmlSermonspeakerAdministrator
 				'task'           => 'sermons.podcast_publish',
 				'active_title'   => 'COM_SERMONSPEAKER_TOGGLE_PODCASTED',
 				'inactive_title' => 'COM_SERMONSPEAKER_UNPODCASTED',
-				'active_class'   => 'feed text-success',
-				'inactive_class' => 'feed text-success',
+				'active_class'   => 'feed',
+				'inactive_class' => 'feed',
 			),
 			1 => array(
 				'task'           => 'sermons.podcast_unpublish',
 				'active_title'   => 'COM_SERMONSPEAKER_TOGGLE_PODCASTED',
 				'inactive_title' => 'COM_SERMONSPEAKER_PODCASTED',
-				'active_class'   => 'feed',
-				'inactive_class' => 'feed',
+				'active_class'   => 'feed text-success',
+				'inactive_class' => 'feed text-success',
 			),
 		);
 
