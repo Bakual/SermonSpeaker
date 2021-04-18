@@ -296,7 +296,7 @@ class SermonspeakerControllerTools extends BaseController
 
 				foreach ($arrayCount as $countKey => $countValue)
 				{
-					$message .= '<li>' . $countKey . ' <span class="badge">' . $countValue . '</span></li>';
+					$message .= '<li>' . $countKey . ' <span class="badge bg-info">' . $countValue . '</span></li>';
 				}
 
 				$message .= '</ul></div>';
