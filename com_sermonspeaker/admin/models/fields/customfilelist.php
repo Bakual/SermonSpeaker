@@ -103,7 +103,7 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 		$html .= '<div class="input-group">
 						<button class="btn btn-secondary"
 							type="button" onclick="toggleElement(\'' . $this->fieldname . '\', 0);">
-							<span id="' . $this->fieldname . '_text_icon" class="icon-radio-checked"></span>
+							<span id="' . $this->fieldname . '_text_icon" class="icon-radio-checked text-success"></span>
 						</button>
 					<input name="' . $this->name . '" id="' . $this->id . '_text" class="form-control ' . $this->class . '" value="'
 			. htmlspecialchars($this->value, ENT_COMPAT) . '" type="text">';
@@ -138,7 +138,7 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 				<div class="input-group">
 					<button class="btn btn-secondary"
 						type="button" onclick="toggleElement(\'' . $this->fieldname . '\', 1);">
-						<span id="' . $this->fieldname . '_icon" class="icon-radio-unchecked"></span>
+						<span id="' . $this->fieldname . '_icon" class="icon-radio-unchecked text-danger"></span>
 					</button>';
 
 
