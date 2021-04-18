@@ -91,7 +91,7 @@ $assoc = Associations::isEnabled();
 								<th scope="col" style="width:10%" class="d-none d-md-table-cell">
 									<?php echo HTMLHelper::_('searchtools.sort',  'COM_SERMONSPEAKER_FIELD_DATE_LABEL', 'sermons.sermon_date', $listDirn, $listOrder); ?>
 								</th>
-								<th scope="col" style="width:6%" class="d-none d-lg-table-cell text-center">
+								<th scope="col" style="width:7%" class="d-none d-lg-table-cell text-center">
 									<?php echo HTMLHelper::_('searchtools.sort', 'JGLOBAL_HITS', 'sermons.hits', $listDirn, $listOrder); ?>
 								</th>
 								<th scope="col" style="width:3%" class="d-none d-lg-table-cell">
