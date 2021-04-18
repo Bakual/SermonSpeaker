@@ -12,7 +12,7 @@ defined('_JEXEC') or die;
 use Joomla\CMS\Language\Text;
 
 ?>
-<button type="button" class="btn btn-secondary" data-dismiss="modal"
+<button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
 	onclick="document.getElementById('batch-category-id').value='';document.getElementById('batch-language-id').value='';document.getElementById('batch-tag-id').value='';document.getElementById('batch-speaker-id').value='';document.getElementById('batch-serie-id').value=''">
 	<?php echo Text::_('JCANCEL'); ?>
 </button>
