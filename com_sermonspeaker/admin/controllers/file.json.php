@@ -288,6 +288,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 		}
 
 		$params = JComponentHelper::getParams('com_sermonspeaker');
+		require_once JPATH_COMPONENT_SITE . '/helpers/id3.php';
 		$id3    = SermonspeakerHelperId3::getID3($file, $params);
 
 		if ($id3)
