@@ -185,19 +185,19 @@ class SermonspeakerViewSeries extends JViewLegacy
 					->selector('collapseModal')
 					->listCheck(true);
 			}
-
-			if ($this->state->get('filter.published') == -2 && $canDo->get('core.delete'))
-			{
-				$childBar->delete('series.delete')
-					->text('JTOOLBAR_EMPTY_TRASH')
-					->message('JGLOBAL_CONFIRM_DELETE')
-					->listCheck(true);
-			}
 		}
 
 		if ($canDo->get('core.edit.state'))
 		{
 			$toolbar->standardButton('lightning', 'COM_SERMONSPEAKER_TOOLS_ORDER', 'tools.seriesorder');
+		}
+
+		if ($this->state->get('filter.state') == -2 && $canDo->get('core.delete'))
+		{
+			$toolbar->delete('series.delete')
+				->text('JTOOLBAR_EMPTY_TRASH')
+				->message('JGLOBAL_CONFIRM_DELETE')
+				->listCheck(true);
 		}
 
 		if ($canDo->get('core.admin') || $canDo->get('core.options'))
