@@ -303,10 +303,9 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 			$supported[] = 'video';
 		}
 
-		if (parse_url($item->videofile, PHP_URL_HOST) == 'youtube.com'
-			|| parse_url($item->videofile, PHP_URL_HOST) == 'www.youtube.com'
-			|| parse_url($item->videofile, PHP_URL_HOST) == 'youtu.be'
-		)
+		$host = parse_url($item->videofile, PHP_URL_HOST);
+
+		if ($host == 'youtube.com' || $host == 'www.youtube.com' || $host == 'youtu.be')
 		{
 			$supported[] = 'video';
 		}
