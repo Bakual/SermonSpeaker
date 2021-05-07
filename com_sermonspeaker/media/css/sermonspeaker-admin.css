@@ -40,3 +40,7 @@
   padding: 4px 8px;
   background-color: lightyellow;
 }
+
+.com_sermonspeaker .card-header {
+  background-color: rgba(0, 0, 0, .03);
+}
