@@ -20,7 +20,7 @@ use Joomla\CMS\Uri\Uri;
 				<div class="col">
 					<div class="card text-center">
 						<div class="card-header">
-							<span class="fas fa-list-alt fa-4x"></span>
+							<span class="fas fa-list-alt fa-4x m-auto"></span>
 						</div>
 						<div class="card-body">
 							<a class="stretched-link" href="index.php?option=com_sermonspeaker&view=sermons">
@@ -32,7 +32,7 @@ use Joomla\CMS\Uri\Uri;
 				<div class="col">
 					<div class="card text-center">
 						<div class="card-header">
-							<span class="fas fa-object-group fa-4x"></span>
+							<span class="fas fa-object-group fa-4x m-auto"></span>
 						</div>
 						<div class="card-body">
 							<a class="stretched-link" href="index.php?option=com_sermonspeaker&view=series">
@@ -44,7 +44,7 @@ use Joomla\CMS\Uri\Uri;
 				<div class="col">
 					<div class="card text-center">
 						<div class="card-header">
-							<span class="fas fa-comment fa-4x"></span>
+							<span class="fas fa-comment fa-4x m-auto"></span>
 						</div>
 						<div class="card-body">
 							<a class="stretched-link" href="index.php?option=com_sermonspeaker&view=speakers">
@@ -56,7 +56,7 @@ use Joomla\CMS\Uri\Uri;
 				<div class="col">
 					<div class="card text-center">
 						<div class="card-header">
-							<span class="fa-stack fa-2x">
+							<span class="fa-stack fa-2x m-auto">
 								<span class="fas fa-folder fa-stack-2x"></span>
 								<span class="fas fa-list-alt fa-stack-1x fa-inverse"></span>
 							</span>
@@ -71,8 +71,8 @@ use Joomla\CMS\Uri\Uri;
 				<div class="col">
 					<div class="card text-center">
 						<div class="card-header">
-							<span class="fa-stack fa-2x">
-								<span class="fas fa-folder fa-stack-2x fa-2x"></span>
+							<span class="fa-stack fa-2x m-auto">
+								<span class="fas fa-folder fa-stack-2x"></span>
 								<span class="fas fa-object-group fa-stack-1x fa-inverse"></span>
 							</span>
 						</div>
@@ -86,7 +86,7 @@ use Joomla\CMS\Uri\Uri;
 				<div class="col">
 					<div class="card text-center">
 						<div class="card-header">
-							<span class="fa-stack fa-2x">
+							<span class="fa-stack fa-2x m-auto">
 								<span class="fas fa-folder fa-stack-2x"></span>
 								<span class="fas fa-comment fa-stack-1x fa-inverse"></span>
 							</span>
@@ -101,7 +101,7 @@ use Joomla\CMS\Uri\Uri;
 				<div class="col">
 					<div class="card text-center">
 						<div class="card-header">
-							<span class="fas fa-wrench fa-4x"></span>
+							<span class="fas fa-wrench fa-4x m-auto"></span>
 						</div>
 						<div class="card-body">
 							<a class="stretched-link" href="index.php?option=com_sermonspeaker&view=tools">
@@ -113,7 +113,7 @@ use Joomla\CMS\Uri\Uri;
 				<div class="col">
 					<div class="card text-center">
 						<div class="card-header">
-							<span class="fas fa-question-circle fa-4x"></span>
+							<span class="fas fa-question-circle fa-4x m-auto"></span>
 						</div>
 						<div class="card-body">
 							<a class="stretched-link" href="index.php?option=com_sermonspeaker&view=help">
