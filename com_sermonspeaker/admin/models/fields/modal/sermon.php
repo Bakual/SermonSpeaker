@@ -215,7 +215,7 @@ class JFormFieldModal_Sermon extends JFormField
 		// Select sermon modal
 		if ($allowSelect)
 		{
-			$html .= JHtml::_(
+			$html .= HTMLHelper::_(
 				'bootstrap.renderModal',
 				'ModalSelect' . $modalId,
 				array(
