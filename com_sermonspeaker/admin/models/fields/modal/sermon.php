@@ -9,7 +9,11 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Factory;
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\LanguageHelper;
 use Joomla\CMS\Language\Text;
+use Joomla\Database\ParameterType;
 
 /**
  * Supports a modal sermon picker.
@@ -36,23 +40,27 @@ class JFormFieldModal_Sermon extends JFormField
 	 */
 	protected function getInput()
 	{
-		$allowNew    = ((string) $this->element['new'] == 'true');
-		$allowEdit   = ((string) $this->element['edit'] == 'true');
-		$allowClear  = ((string) $this->element['clear'] != 'false');
-		$allowSelect = ((string) $this->element['select'] != 'false');
+		$allowNew       = ((string) $this->element['new'] == 'true');
+		$allowEdit      = ((string) $this->element['edit'] == 'true');
+		$allowClear     = ((string) $this->element['clear'] != 'false');
+		$allowSelect    = ((string) $this->element['select'] != 'false');
+		$allowPropagate = ((string) $this->element['propagate'] == 'true');
+
+		$languages = LanguageHelper::getContentLanguages(array(0, 1), false);
 
 		// Load language
-		JFactory::getLanguage()->load('com_sermonspeaker', JPATH_ADMINISTRATOR);
+		Factory::getLanguage()->load('com_sermonspeaker', JPATH_ADMINISTRATOR);
 
-		// The active sermon id field.
-		$value = (int) $this->value > 0 ? (int) $this->value : '';
+		// The active serie id field.
+		$value = (int) $this->value ?: '';
 
 		// Create the modal id.
 		$modalId = 'Sermon_' . $this->id;
 
+		$wa = Factory::getApplication()->getDocument()->getWebAssetManager();
+
 		// Add the modal field script to the document head.
-		JHtml::_('jquery.framework');
-		JHtml::_('script', 'system/fields/modal-fields.min.js', array('version' => 'auto', 'relative' => true));
+		$wa->useScript('field.modal-fields');
 
 		// Script to proxy the select modal function to the modal-fields.js file.
 		if ($allowSelect)
@@ -66,11 +74,15 @@ class JFormFieldModal_Sermon extends JFormField
 
 			if (!isset($scriptSelect[$this->id]))
 			{
-				JFactory::getDocument()->addScriptDeclaration("
-				function jSelectSermon_" . $this->id . "(id, title, catid, object, url, language) {
+				$wa->addInlineScript("
+				window.jSelectSermon_" . $this->id . "(id, title, catid, object, url, language) {
 					window.processModalSelect('Sermon', '" . $this->id . "', id, title, catid, object, url, language);
-				}
-				");
+				}",
+					[],
+					['type' => 'module']
+				);
+
+				Text::script('JGLOBAL_ASSOCIATIONS_PROPAGATE_FAILED');
 
 				$scriptSelect[$this->id] = true;
 			}
@@ -101,7 +113,8 @@ class JFormFieldModal_Sermon extends JFormField
 			$query = $db->getQuery(true)
 				->select($db->quoteName('title'))
 				->from($db->quoteName('#__sermon_sermons'))
-				->where($db->quoteName('id') . ' = ' . (int) $value);
+				->where($db->quoteName('id') . ' = :value')
+				->bind(':value', $value, ParameterType::INTEGER);
 			$db->setQuery($query);
 
 			try
@@ -110,7 +123,7 @@ class JFormFieldModal_Sermon extends JFormField
 			}
 			catch (RuntimeException $e)
 			{
-				JError::raiseWarning(500, $e->getMessage());
+				Factory::getApplication()->enqueueMessage($e->getMessage(), 'error');
 			}
 		}
 
@@ -177,6 +190,28 @@ class JFormFieldModal_Sermon extends JFormField
 				. '</button>';
 		}
 
+		// Propagate sermon button
+		if ($allowPropagate && count($languages) > 2)
+		{
+			// Strip off language tag at the end
+			$tagLength = (int) strlen($this->element['language']);
+			$callbackFunctionStem = substr("jSelectSermon_" . $this->id, 0, -$tagLength);
+
+			$html .= '<button'
+				. ' class="btn btn-primary' . ($value ? '' : ' hidden') . '"'
+				. ' type="button"'
+				. ' id="' . $this->id . '_propagate"'
+				. ' title="' . Text::_('JGLOBAL_ASSOCIATIONS_PROPAGATE_TIP') . '"'
+				. ' onclick="Joomla.propagateAssociation(\'' . $this->id . '\', \'' . $callbackFunctionStem . '\');">'
+				. '<span class="icon-sync" aria-hidden="true"></span> ' . Text::_('JGLOBAL_ASSOCIATIONS_PROPAGATE_BUTTON')
+				. '</button>';
+		}
+
+		if ($allowSelect || $allowNew || $allowEdit || $allowClear)
+		{
+			$html .= '</span>';
+		}
+
 		// Select sermon modal
 		if ($allowSelect)
 		{
@@ -190,7 +225,8 @@ class JFormFieldModal_Sermon extends JFormField
 					'width'       => '800px',
 					'bodyHeight'  => 70,
 					'modalWidth'  => 80,
-					'footer'      => '<a role="button" class="btn" data-dismiss="modal" aria-hidden="true">' . Text::_('JLIB_HTML_BEHAVIOR_CLOSE') . '</a>',
+					'footer'     => '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">'
+						. Text::_('JLIB_HTML_BEHAVIOR_CLOSE') . '</button>',
 				)
 			);
 		}
@@ -198,7 +234,7 @@ class JFormFieldModal_Sermon extends JFormField
 		// New sermon modal
 		if ($allowNew)
 		{
-			$html .= JHtml::_(
+			$html .= HTMLHelper::_(
 				'bootstrap.renderModal',
 				'ModalNew' . $modalId,
 				array(
@@ -211,15 +247,15 @@ class JFormFieldModal_Sermon extends JFormField
 					'width'       => '800px',
 					'bodyHeight'  => 70,
 					'modalWidth'  => 80,
-					'footer'      => '<a role="button" class="btn btn-secondar" aria-hidden="true"'
+					'footer'      => '<button type="button" class="btn btn-secondar"'
 						. ' onclick="window.processModalEdit(this, \'' . $this->id . '\', \'add\', \'sermon\', \'cancel\', \'item-form\'); return false;">'
-						. Text::_('JLIB_HTML_BEHAVIOR_CLOSE') . '</a>'
-						. '<a role="button" class="btn btn-primary" aria-hidden="true"'
+						. Text::_('JLIB_HTML_BEHAVIOR_CLOSE') . '</button>'
+						. '<button type="button" class="btn btn-primary"'
 						. ' onclick="window.processModalEdit(this, \'' . $this->id . '\', \'add\', \'sermon\', \'save\', \'item-form\'); return false;">'
-						. Text::_('JSAVE') . '</a>'
-						. '<a role="button" class="btn btn-success" aria-hidden="true"'
+						. Text::_('JSAVE') . '</button>'
+						. '<button type="button" class="btn btn-success"'
 						. ' onclick="window.processModalEdit(this, \'' . $this->id . '\', \'add\', \'sermon\', \'apply\', \'item-form\'); return false;">'
-						. Text::_('JAPPLY') . '</a>',
+						. Text::_('JAPPLY') . '</button>',
 				)
 			);
 		}
@@ -227,7 +263,7 @@ class JFormFieldModal_Sermon extends JFormField
 		// Edit sermon modal
 		if ($allowEdit)
 		{
-			$html .= JHtml::_(
+			$html .= HTMLHelper::_(
 				'bootstrap.renderModal',
 				'ModalEdit' . $modalId,
 				array(
@@ -240,15 +276,15 @@ class JFormFieldModal_Sermon extends JFormField
 					'width'       => '800px',
 					'bodyHeight'  => 70,
 					'modalWidth'  => 80,
-					'footer'      => '<a role="button" class="btn btn-secondar" aria-hidden="true"'
+					'footer'      => '<button type="button" class="btn btn-secondar"'
 						. ' onclick="window.processModalEdit(this, \'' . $this->id . '\', \'edit\', \'sermon\', \'cancel\', \'item-form\'); return false;">'
-						. Text::_('JLIB_HTML_BEHAVIOR_CLOSE') . '</a>'
-						. '<a role="button" class="btn btn-primary" aria-hidden="true"'
+						. Text::_('JLIB_HTML_BEHAVIOR_CLOSE') . '</button>'
+						. '<button type="button" class="btn btn-primary"'
 						. ' onclick="window.processModalEdit(this, \'' . $this->id . '\', \'edit\', \'sermon\', \'save\', \'item-form\'); return false;">'
-						. Text::_('JSAVE') . '</a>'
-						. '<a role="button" class="btn btn-success" aria-hidden="true"'
+						. Text::_('JSAVE') . '</button>'
+						. '<button type="button" class="btn btn-success"'
 						. ' onclick="window.processModalEdit(this, \'' . $this->id . '\', \'edit\', \'sermon\', \'apply\', \'item-form\'); return false;">'
-						. Text::_('JAPPLY') . '</a>',
+						. Text::_('JAPPLY') . '</button>',
 				)
 			);
 		}
@@ -260,5 +296,17 @@ class JFormFieldModal_Sermon extends JFormField
 			. '" data-text="' . htmlspecialchars(Text::_('COM_SERMONSPEAKER_SELECT_A_SERMON', true), ENT_COMPAT) . '" value="' . $value . '" />';
 
 		return $html;
+	}
+
+	/**
+	 * Method to get the field label markup.
+	 *
+	 * @return  string  The field label markup.
+	 *
+	 * @since   6.0
+	 */
+	protected function getLabel()
+	{
+		return str_replace($this->id, $this->id . '_name', parent::getLabel());
 	}
 }
