@@ -75,7 +75,7 @@ class JFormFieldModal_Sermon extends JFormField
 			if (!isset($scriptSelect[$this->id]))
 			{
 				$wa->addInlineScript("
-				window.jSelectSermon_" . $this->id . "(id, title, catid, object, url, language) {
+				window.jSelectSermon_" . $this->id . " = function (id, title, catid, object, url, language) {
 					window.processModalSelect('Sermon', '" . $this->id . "', id, title, catid, object, url, language);
 				}",
 					[],

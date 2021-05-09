@@ -78,7 +78,7 @@ class JFormFieldModal_Speaker extends JFormField
 			if (!isset($scriptSelect[$this->id]))
 			{
 				$wa->addInlineScript("
-				window.jSelectSpeaker_" . $this->id . "(id, title, catid, object, url, language) {
+				window.jSelectSpeaker_" . $this->id . " = function (id, title, catid, object, url, language) {
 					window.processModalSelect('" . $modalPrefix . "', '" . $this->id . "', id, title, catid, object, url, language);
 				}",
 					[],
