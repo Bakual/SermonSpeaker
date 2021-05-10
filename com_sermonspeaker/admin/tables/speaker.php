@@ -11,6 +11,9 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\Application\ApplicationHelper;
 use Joomla\CMS\Table\Table;
+use Joomla\CMS\Tag\TaggableTableInterface;
+use Joomla\CMS\Tag\TaggableTableTrait;
+use Joomla\CMS\Versioning\VersionableTableInterface;
 use Joomla\Registry\Registry;
 use Joomla\String\StringHelper;
 
@@ -21,8 +24,10 @@ use Joomla\String\StringHelper;
  *
  * @since    ?
  */
-class SermonspeakerTableSpeaker extends Table
+class SermonspeakerTableSpeaker extends Table implements VersionableTableInterface, TaggableTableInterface
 {
+	use TaggableTableTrait;
+
 	/**
 	 * Array with alias for "special" columns such as ordering, hits etc etc
 	 *
@@ -217,5 +222,17 @@ class SermonspeakerTableSpeaker extends Table
 		}
 
 		return parent::store($updateNulls);
+	}
+
+	/**
+	 * Get the type alias for UCM features
+	 *
+	 * @return  string  The alias as described above
+	 *
+	 * @since   4.0.0
+	 */
+	public function getTypeAlias()
+	{
+		return $this->typeAlias;
 	}
 }

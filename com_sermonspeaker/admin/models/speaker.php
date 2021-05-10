@@ -16,6 +16,7 @@ use Joomla\CMS\Language\LanguageHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Model\AdminModel;
 use Joomla\CMS\Table\Table;
+use Joomla\CMS\Versioning\VersionableModelTrait;
 
 /**
  * Speaker model.
@@ -26,6 +27,8 @@ use Joomla\CMS\Table\Table;
  */
 class SermonspeakerModelSpeaker extends AdminModel
 {
+	use VersionableModelTrait;
+
 	/**
 	 * The type alias for this content type.
 	 *

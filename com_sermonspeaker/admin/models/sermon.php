@@ -16,6 +16,7 @@ use Joomla\CMS\Language\LanguageHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Model\AdminModel;
 use Joomla\CMS\Table\Table;
+use Joomla\CMS\Versioning\VersionableModelTrait;
 
 /**
  * Item Model for a Sermon.
@@ -24,6 +25,8 @@ use Joomla\CMS\Table\Table;
  */
 class SermonspeakerModelSermon extends AdminModel
 {
+	use VersionableModelTrait;
+
 	/**
 	 * The type alias for this content type.
 	 *

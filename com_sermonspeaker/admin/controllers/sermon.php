@@ -10,7 +10,9 @@
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\MVC\Controller\FormController;
 use Joomla\CMS\Router\Route;
+use Joomla\CMS\Versioning\VersionableControllerTrait;
 
 /**
  * Serie controller class.
@@ -19,8 +21,10 @@ use Joomla\CMS\Router\Route;
  *
  * @since     3.4
  */
-class SermonspeakerControllerSermon extends JControllerForm
+class SermonspeakerControllerSermon extends FormController
 {
+	use VersionableControllerTrait;
+
 	/**
 	 * Method override to check if you can add a new record.
 	 *

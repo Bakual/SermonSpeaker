@@ -18,10 +18,12 @@ use Joomla\CMS\Layout\LayoutHelper;
 // Include the component HTML helpers.
 HTMLHelper::addIncludePath(JPATH_COMPONENT.'/helpers/html');
 
-HTMLHelper::_('behavior.formvalidator');
-HTMLHelper::_('behavior.keepalive');
-
-HTMLHelper::_('script', 'com_contenthistory/admin-history-versions.js', ['version' => 'auto', 'relative' => true]);
+/** @var Joomla\CMS\WebAsset\WebAssetManager $wa */
+$wa = $this->document->getWebAssetManager();
+$wa->getRegistry()->addExtensionRegistryFile('com_contenthistory');
+$wa->useScript('keepalive')
+		->useScript('form.validate')
+		->useScript('com_contenthistory.admin-history-versions');
 
 $this->ignore_fieldsets = array('general', 'info', 'detail', 'jmetadata', 'item_associations');
 $this->useCoreUI = true;

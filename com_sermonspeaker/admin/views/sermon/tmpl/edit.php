@@ -12,11 +12,14 @@ use Joomla\CMS\Layout\LayoutHelper;
 // Include the component HTML helpers.
 HTMLHelper::addIncludePath(JPATH_COMPONENT . '/helpers/html');
 
-HTMLHelper::_('behavior.formvalidator');
-HTMLHelper::_('behavior.keepalive');
-HTMLHelper::_('bootstrap.tooltip');
+/** @var Joomla\CMS\WebAsset\WebAssetManager $wa */
+$wa = $this->document->getWebAssetManager();
+$wa->getRegistry()->addExtensionRegistryFile('com_contenthistory');
+$wa->useScript('keepalive')
+		->useScript('form.validate')
+		->useScript('com_contenthistory.admin-history-versions');
 
-HTMLHelper::_('script', 'com_contenthistory/admin-history-versions.js', ['version' => 'auto', 'relative' => true]);
+HTMLHelper::_('bootstrap.tooltip');
 
 $this->ignore_fieldsets = array('general', 'audiofile', 'videofile', 'addfile', 'info', 'detail', 'publishingdata', 'jmetadata', 'item_associations');
 $this->useCoreUI = true;
