@@ -156,7 +156,7 @@ class SermonspeakerViewSerie extends JViewLegacy
 
 			if (ComponentHelper::isEnabled('com_contenthistory') && $this->state->params->get('save_history') && $itemEditable)
 			{
-				$toolbar->versions('com_sermonserie.speaker', $this->item->id);
+				$toolbar->versions('com_sermonspeaker.serie', $this->item->id);
 			}
 
 			require_once JPATH_COMPONENT_SITE . '/helpers/route.php';
