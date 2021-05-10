@@ -117,7 +117,7 @@ class SermonspeakerViewSerie extends JViewLegacy
 
 		if ($this->state->params->get('save_history') && $user->authorise('core.edit'))
 		{
-			JToolbarHelper::versions('com_sermonspeaker.sermon', $this->item->id);
+			JToolbarHelper::versions('com_sermonspeaker.serie', $this->item->id);
 		}
 	}
 }
