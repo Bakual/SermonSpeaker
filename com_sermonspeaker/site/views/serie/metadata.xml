@@ -60,6 +60,16 @@
 				<option value="ASC">COM_SERMONSPEAKER_PARAM_DEFAULT_ORDER_DIR_OPTION_ASC</option>
 				<option value="DESC">COM_SERMONSPEAKER_PARAM_DEFAULT_ORDER_DIR_OPTION_DESC</option>
 			</field>
+			<field
+				name="filter_field"
+				type="list"
+				label="JGLOBAL_FILTER_FIELD_LABEL"
+				description="COM_SERMONSPEAKER_FILTER_FIELD_DESC"
+				useglobal="true"
+			>
+				<option value="1">JSHOW</option>
+				<option value="0">JHIDE</option>
+			</field>
 		</fieldset>
 		<fieldset name="advanced"
 				  addfieldpath="/administrator/components/com_sermonspeaker/models/fields">
