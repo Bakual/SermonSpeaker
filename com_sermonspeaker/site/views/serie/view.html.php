@@ -83,6 +83,8 @@ class SermonspeakerViewSerie extends JViewLegacy
 		$this->years      = $sermon_model->getYears();
 		$this->months     = $sermon_model->getMonths();
 		$books            = $sermon_model->getBooks();
+		$this->hasTags     = $sermon_model->getTags();
+		$this->filterForm  = $sermon_model->getFilterForm();
 
 		// Get Category stuff from models
 		$this->category = $sermon_model->getCategory();
@@ -145,6 +147,9 @@ class SermonspeakerViewSerie extends JViewLegacy
 		}
 
 		$js = 'function clear_all(){
+			if(document.getElementById(\'filter_tag\')){
+				document.getElementById(\'filter_tag\').value="";
+			}
 			if(document.getElementById(\'filter_books\')){
 				document.getElementById(\'filter_books\').value=0;
 			}

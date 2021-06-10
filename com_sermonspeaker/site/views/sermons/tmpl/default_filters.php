@@ -37,6 +37,9 @@ use Joomla\CMS\Language\Text;
                    </span>
                 </div>
             </div>
+			<?php if ($this->hasTags) : ?>
+				<?php echo $this->filterForm->getInput('tag', 'filter'); ?>
+			<?php endif; ?>
 			<?php if ($this->books) : ?>
                 <?php array_unshift($this->books, array('items' => array(array('value' => 0, 'text' => Text::_('COM_SERMONSPEAKER_SELECT_BOOK'))))); ?>
                 <?php $options = array('id' => 'filter_books', 'list.attr' => 'onchange="this.form.submit()"', 'list.select' => $this->state->get('scripture.book')); ?>

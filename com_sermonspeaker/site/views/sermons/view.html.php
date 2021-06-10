@@ -37,6 +37,8 @@ class SermonspeakerViewSermons extends JViewLegacy
 		$this->years      = $this->get('Years');
 		$this->months     = $this->get('Months');
 		$books            = $this->get('Books');
+		$this->hasTags    = $this->get('Tags');
+		$this->filterForm = $this->get('FilterForm');
 
 		// Get Category stuff from models
 		$this->category = $this->get('Category');
@@ -135,6 +137,9 @@ class SermonspeakerViewSermons extends JViewLegacy
 		}
 
 		$js = 'function clear_all(){
+			if(document.getElementById(\'filter_tag\')){
+				document.getElementById(\'filter_tag\').value="";
+			}
 			if(document.getElementById(\'filter_books\')){
 				document.getElementById(\'filter_books\').value=0;
 			}
