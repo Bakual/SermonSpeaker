@@ -26,6 +26,9 @@ $orderlist	= array(
 			<span class="add-on hasTooltip hidden-phone hidden-tablet icon-remove" onclick="clear_all();" title="<?php echo JText::_('JSEARCH_FILTER_CLEAR'); ?>"> </span>
 		</div>
 		<div class="btn-group filter-select">
+			<?php if ($this->hasTags) : ?>
+				<?php echo $this->filterForm->getInput('tag', 'filter'); ?>
+			<?php endif; ?>
 			<?php if ($this->books) : ?>
 				<select name="book" id="filter_books" class="input-medium" onchange="this.form.submit()">
 					<option value="0"><?php echo JText::_('COM_SERMONSPEAKER_SELECT_BOOK'); ?></option>

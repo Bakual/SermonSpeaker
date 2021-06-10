@@ -20,6 +20,9 @@ defined('_JEXEC') or die();
 			<button class="btn tip hidden-phone hidden-tablet" type="button" onclick="clear_all();this.form.submit();" rel="tooltip" title="<?php echo JText::_('JSEARCH_FILTER_CLEAR'); ?>"><i class="icon-remove"></i></button>
 		</div>
 		<div class="btn-group filter-select">
+			<?php if ($this->hasTags) : ?>
+				<?php echo $this->filterForm->getInput('tag', 'filter'); ?>
+			<?php endif; ?>
 			<?php if ($this->books) : ?>
 				<select name="book" id="filter_books" class="input-medium" onchange="this.form.submit()">
 					<option value="0"><?php echo JText::_('COM_SERMONSPEAKER_SELECT_BOOK'); ?></option>

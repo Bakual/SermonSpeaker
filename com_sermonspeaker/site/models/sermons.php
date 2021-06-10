@@ -275,6 +275,19 @@ class SermonspeakerModelSermons extends JModelList
 			$query->order($db->escape('book') . ' ' . $dir . ', ' . $db->escape('cap1') . ' ' . $dir . ', ' . $db->escape('vers1') . ' ' . $dir);
 		}
 
+		// Filter by a single tag.
+		$tagId = $this->getState('filter.tag');
+
+		if (is_numeric($tagId))
+		{
+			$query->where($db->quoteName('tagmap.tag_id') . ' = ' . (int) $tagId)
+				->join(
+					'LEFT', $db->quoteName('#__contentitem_tag_map', 'tagmap')
+					. ' ON ' . $db->quoteName('tagmap.content_item_id') . ' = ' . $db->quoteName('sermons.id')
+					. ' AND ' . $db->quoteName('tagmap.type_alias') . ' = ' . $db->quote('com_sermonspeaker.sermon')
+				);
+		}
+
 		// Add the list ordering clause.
 		$query->order($db->escape($this->getState('list.ordering', 'ordering')) . ' ' . $db->escape($this->getState('list.direction', 'ASC')));
 
@@ -511,6 +524,27 @@ class SermonspeakerModelSermons extends JModelList
 		$options = $db->loadColumn();
 
 		return $options;
+	}
+
+	/**
+	 * Method to check if there are Tags assigned to the sermons
+	 *
+	 * @return  boolean
+	 *
+	 * @since 5.9.7
+	 */
+	public function getTags()
+	{
+		$db    = $this->getDbo();
+		$query = $db->getQuery(true);
+		$query->select('COUNT(1)');
+		$query->from('`#__contentitem_tag_map`');
+		$query->where("`type_alias` = 'com_sermonspeaker.sermon'");
+
+		$db->setQuery($query, 0);
+		$count = $db->loadResult();
+
+		return ($count > 0);
 	}
 
 	/**

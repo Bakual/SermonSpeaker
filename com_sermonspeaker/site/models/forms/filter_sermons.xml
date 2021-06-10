@@ -9,26 +9,6 @@
 			hint="JSEARCH_FILTER"
 		/>
 		<field
-			name="state"
-			type="status"
-			label="COM_SERMONSPEAKER_FILTER_PUBLISHED"
-			description="COM_SERMONSPEAKER_FILTER_PUBLISHED_DESC"
-			onchange="this.form.submit();"
-		>
-			<option value="">JOPTION_SELECT_PUBLISHED</option>
-		</field>
-		<field
-			name="podcast"
-			type="list"
-			label="COM_SERMONSPEAKER_FILTER_PCAST"
-			description="COM_SERMONSPEAKER_FILTER_PCAST_DESC"
-			onchange="this.form.submit();"
-		>
-			<option value="">COM_SERMONSPEAKER_SELECT_PCAST</option>
-			<option value="1">JPUBLISHED</option>
-			<option value="0">JUNPUBLISHED</option>
-		</field>
-		<field
 			name="speaker"
 			type="speakerlist"
 			label="COM_SERMONSPEAKER_FILTER_SPEAKER"
@@ -36,6 +16,7 @@
 			onchange="this.form.submit();"
 			hidebutton="true"
 			hidecategory="true"
+			ignoredefault="true"
 		>
 			<option value="">COM_SERMONSPEAKER_SELECT_SPEAKER</option>
 		</field>
@@ -47,6 +28,7 @@
 			onchange="this.form.submit();"
 			hidebutton="true"
 			hidecategory="true"
+			ignoredefault="true"
 		>
 			<option value="">COM_SERMONSPEAKER_SELECT_SERIES</option>
 		</field>
