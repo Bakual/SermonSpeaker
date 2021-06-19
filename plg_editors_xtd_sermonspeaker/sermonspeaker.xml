@@ -2,12 +2,12 @@
 <extension version="3.4" type="plugin" group="editors-xtd" method="upgrade">
 	<name>plg_editors-xtd_sermonspeaker</name>
 	<author>Thomas Hunziker</author>
-	<creationDate>2020-05-04</creationDate>
-	<copyright>© 2020</copyright>
+	<creationDate>2021-06-19</creationDate>
+	<copyright>© 2021</copyright>
 	<license>http://www.gnu.org/licenses/gpl.html</license>
 	<authorEmail>admin@sermonspeaker.net</authorEmail>
 	<authorUrl>http://www.sermonspeaker.net</authorUrl>
-	<version>5.3.2</version>
+	<version>5.3.3</version>
 	<description>PLG_EDITORS-XTD_SERMONSPEAKER_XML_DESCRIPTION</description>
 	<files>
 		<filename plugin="sermonspeaker">sermonspeaker.php</filename>

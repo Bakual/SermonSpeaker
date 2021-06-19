@@ -2,11 +2,11 @@
 <extension type="module" version="3.5" client="site" method="upgrade">
 	<name>MOD_SERMONARCHIVE</name>
 	<author>Thomas Hunziker, Rajesh K</author>
-	<creationDate>2019-06-12</creationDate>
-	<copyright>© 2020</copyright>
+	<creationDate>2021-06-19</creationDate>
+	<copyright>© 2021</copyright>
 	<authorEmail>admin@sermonspeaker.net</authorEmail>
 	<authorUrl>http://www.sermonspeaker.net</authorUrl>
-	<version>5.5.1</version>
+	<version>5.5.2</version>
 	<license>http://www.gnu.org/licenses/gpl.html</license>
 	<description>MOD_SERMONARCHIVE_XML_DESCRIPTION</description>
 	<files>
