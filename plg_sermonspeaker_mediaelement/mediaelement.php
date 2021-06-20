@@ -7,6 +7,8 @@
  * @license         http://www.gnu.org/licenses/gpl.html
  **/
 
+use Joomla\CMS\HTML\HTMLHelper;
+
 defined('_JEXEC') or die();
 
 JLoader::register('SermonspeakerPluginPlayer', JPATH_SITE . '/components/com_sermonspeaker/plugin/player.php');
@@ -68,8 +70,6 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 	 */
 	public function onGetPlayer($context, $player, $items, $config)
 	{
-		JHtml::_('bootstrap.framework');
-
 		$this->player = $player;
 
 		// There is already a player loaded
@@ -212,26 +212,29 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 		// Loading needed Javascript only once
 		if (!self::$script_loaded)
 		{
+			HtmlHelper::_('jquery.framework');
+
 			JFactory::getDocument()->addScriptDeclaration('mejs.i18n.language(\'' . $langCode . '\');');
-			JHtml::_('script', 'plg_sermonspeaker_mediaelement/mediaelement-and-player.min.js', false, true, false);
-			JHtml::_('script', 'plg_sermonspeaker_mediaelement/renderers/vimeo.min.js', false, true, false);
-			JHtml::_('script', 'plg_sermonspeaker_mediaelement/renderers/facebook.min.js', false, true, false);
-			JHtml::_('script', 'plg_sermonspeaker_mediaelement/lang/' . $langCode . '.js', false, true, false);
-			JHtml::_('stylesheet', 'plg_sermonspeaker_mediaelement/mediaelementplayer.min.css', false, true, false);
+			JHtml::_('script', 'plg_sermonspeaker_mediaelement/mediaelement-and-player.min.js', array('relative' => true));
+			JHtml::_('script', 'plg_sermonspeaker_mediaelement/mediaelement-and-player.min.js',  array('relative' => true));
+			JHtml::_('script', 'plg_sermonspeaker_mediaelement/renderers/vimeo.min.js',  array('relative' => true));
+			JHtml::_('script', 'plg_sermonspeaker_mediaelement/renderers/facebook.min.js',  array('relative' => true));
+			JHtml::_('script', 'plg_sermonspeaker_mediaelement/lang/' . $langCode . '.js',  array('relative' => true));
+			JHtml::_('stylesheet', 'plg_sermonspeaker_mediaelement/mediaelementplayer.min.css',  array('relative' => true));
 
 			if ($this->params->get('speedplugin'))
 			{
-				JHtml::_('script', 'plg_sermonspeaker_mediaelement/speed/speed.min.js', false, true, false);
-				JHtml::_('script', 'plg_sermonspeaker_mediaelement/speed/speed-i18n.js', false, true, false);
-				JHtml::_('stylesheet', 'plg_sermonspeaker_mediaelement/speed/speed.min.css', false, true, false);
+				JHtml::_('script', 'plg_sermonspeaker_mediaelement/speed/speed.min.js',  array('relative' => true));
+				JHtml::_('script', 'plg_sermonspeaker_mediaelement/speed/speed-i18n.js',  array('relative' => true));
+				JHtml::_('stylesheet', 'plg_sermonspeaker_mediaelement/speed/speed.min.css',  array('relative' => true));
 			}
 
 			if (is_array($items))
 			{
-				JHtml::_('script', 'plg_sermonspeaker_mediaelement/playlist/playlist.min.js', false, true, false);
-				JHtml::_('script', 'plg_sermonspeaker_mediaelement/playlist/playlist-i18n.js', false, true, false);
-				JHtml::_('stylesheet', 'plg_sermonspeaker_mediaelement/playlist/playlist.min.css', false, true, false);
-				JHtml::_('script', 'plg_sermonspeaker_mediaelement/sermonspeaker.js', false, true, false);
+				JHtml::_('script', 'plg_sermonspeaker_mediaelement/playlist/playlist.min.js',  array('relative' => true));
+				JHtml::_('script', 'plg_sermonspeaker_mediaelement/playlist/playlist-i18n.js',  array('relative' => true));
+				JHtml::_('stylesheet', 'plg_sermonspeaker_mediaelement/playlist/playlist.min.css',  array('relative' => true));
+				JHtml::_('script', 'plg_sermonspeaker_mediaelement/sermonspeaker.js',  array('relative' => true));
 			}
 
 			self::$script_loaded = 1;

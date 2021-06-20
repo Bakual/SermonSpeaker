@@ -18,7 +18,7 @@ use Joomla\CMS\Uri\Uri;
 
 HTMLHelper::addIncludePath(JPATH_COMPONENT . '/helpers');
 
-HtmlHelper::_('bootstrap.framework');
+HtmlHelper::_('jquery.framework');
 HtmlHelper::_('bootstrap.tooltip');
 
 // Needed for pictures in blog layout

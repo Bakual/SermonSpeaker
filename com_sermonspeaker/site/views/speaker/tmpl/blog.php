@@ -14,7 +14,7 @@ use Joomla\CMS\Layout\LayoutHelper;
 
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
 
-JHtml::_('bootstrap.framework');
+HtmlHelper::_('jquery.framework');
 JHtml::_('bootstrap.tooltip');
 
 // Needed for pictures in blog layout

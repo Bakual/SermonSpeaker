@@ -16,7 +16,7 @@ use Joomla\CMS\Router\Route;
 defined('_JEXEC') or die();
 
 HTMLHelper::addIncludePath(JPATH_COMPONENT . '/helpers');
-HTMLHelper::_('bootstrap.framework');
+HtmlHelper::_('jquery.framework');
 HTMLHelper::_('bootstrap.tooltip');
 
 // Needed for pictures in blog layout
