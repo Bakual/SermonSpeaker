@@ -49,7 +49,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 	<?php endif; ?>
 	<div class="<?php echo ($this->item->state) ? '' : 'system-unpublished'; ?>">
 		<div class="btn-group pull-right">
-			<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+			<a class="btn dropdown-toggle" data-bs-toggle="dropdown" href="#">
 				<i class="icon-cog"></i>
 				<span class="caret"></span>
 			</a>
@@ -65,10 +65,10 @@ $this->document->addScriptDeclaration('jQuery(function() {
 	<div class="clearfix"></div>
 	<ul class="nav nav-tabs" id="speakerTab" role="tablist">
 		<li class="nav-link-item">
-            <a href="#tab_sermons" class="nav-link" data-toggle="tab" role="tab"><?php echo Text::_('COM_SERMONSPEAKER_SERMONS'); ?></a>
+            <a href="#tab_sermons" class="nav-link" data-bs-toggle="tab" role="tab"><?php echo Text::_('COM_SERMONSPEAKER_SERMONS'); ?></a>
         </li>
 		<li class="nav-link-item">
-            <a href="#tab_series" class="nav-link" data-toggle="tab" role="tab"><?php echo Text::_('COM_SERMONSPEAKER_SERIES'); ?></a>
+            <a href="#tab_series" class="nav-link" data-bs-toggle="tab" role="tab"><?php echo Text::_('COM_SERMONSPEAKER_SERIES'); ?></a>
         </li>
 	</ul>
 	<div class="tab-content">
@@ -92,7 +92,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 								<div id="sermon<?php echo $i; ?>"
 									class="clearfix<?php echo ($item->state) ? '' : ' system-unpublished'; ?>">
 									<div class="btn-group pull-right">
-										<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+										<a class="btn dropdown-toggle" data-bs-toggle="dropdown" href="#">
 											<i class="icon-cog"></i>
 											<span class="caret"></span>
 										</a>
@@ -266,7 +266,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 							<?php foreach ($this->series as $i => $item) : ?>
 								<div class="clearfix<?php echo ($item->state) ? '' : ' system-unpublished'; ?>">
 									<div class="btn-group pull-right">
-										<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+										<a class="btn dropdown-toggle" data-bs-toggle="dropdown" href="#">
 											<i class="icon-cog"></i>
 											<span class="caret"></span>
 										</a>

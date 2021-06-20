@@ -45,7 +45,7 @@ JHtml::_('stylesheet', 'com_sermonspeaker/font.css', array('relative' => true));
 			<?php $modalParams['modalWidth'] = 80; ?>
 			<?php echo JHtml::_('bootstrap.renderModal', 'sc_modal', $modalParams); ?>
 			<p>
-				<a class="modal" href="#sc_modal" data-toggle="modal" >
+				<a class="modal" href="#sc_modal" data-bs-toggle="modal" >
 					<?php echo JText::_('MOD_SERMONCAST_HELP'); ?>
 				</a>
 			</p>

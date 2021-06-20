@@ -69,7 +69,7 @@ class JFormFieldSpeakerlist extends JFormFieldGroupedList
 							<a href="#speakerModal_' . $this->id . '"
 								class="btn btn-secondary hasTooltip"
 								title="' . JText::_($string) . '"
-								data-toggle="modal"
+								data-bs-toggle="modal"
 								role="button"
 							>
 								<span class="icon-new"></span>

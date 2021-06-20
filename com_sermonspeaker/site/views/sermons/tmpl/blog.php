@@ -94,7 +94,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 								<?php endif; ?>
 							</div>
 							<div class="btn-group pull-right">
-								<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+								<a class="btn dropdown-toggle" data-bs-toggle="dropdown" href="#">
 									<span class="icon-cog"></span>
 									<span class="caret"></span>
 								</a>

@@ -78,7 +78,7 @@ $listDirn   = $this->state->get('list.direction');
 					<?php foreach ($this->items as $i => $item) : ?>
 						<div class="<?php echo ($item->state) ? '' : 'system-unpublished'; ?>">
 							<div class="btn-group pull-right">
-								<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+								<a class="btn dropdown-toggle" data-bs-toggle="dropdown" href="#">
 									<i class="icon-cog"></i>
 									<span class="caret"></span>
 								</a>

@@ -37,7 +37,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 	<?php endif; ?>
 	<div class="<?php echo ($this->item->state) ? '' : 'system-unpublished'; ?>">
 		<div class="btn-group pull-right">
-			<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+			<a class="btn dropdown-toggle" data-bs-toggle="dropdown" href="#">
 				<i class="icon-cog"></i>
 				<span class="caret"></span>
 			</a>
@@ -163,7 +163,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 						<div id="sermon<?php echo $i; ?>"
 							class="<?php echo ($item->state) ? '' : 'system-unpublished'; ?>">
 							<div class="btn-group pull-right">
-								<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+								<a class="btn dropdown-toggle" data-bs-toggle="dropdown" href="#">
 									<i class="icon-cog"></i>
 									<span class="caret"></span>
 								</a>

@@ -57,7 +57,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 	<?php endif; ?>
 	<div class="<?php echo ($this->item->state) ? '' : 'system-unpublished'; ?>">
 		<div class="btn-group pull-right">
-			<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+			<a class="btn dropdown-toggle" data-bs-toggle="dropdown" href="#">
 				<i class="icon-cog"></i>
 				<span class="caret"></span>
 			</a>
@@ -72,8 +72,8 @@ $this->document->addScriptDeclaration('jQuery(function() {
 	</div>
 	<div class="clearfix"></div>
 	<ul class="nav nav-pills" id="speakerTab">
-		<li class="active"><a href="#tab_sermons" data-toggle="tab"><?php echo Text::_('COM_SERMONSPEAKER_SERMONS'); ?></a></li>
-		<li><a href="#tab_series" data-toggle="tab"><?php echo Text::_('COM_SERMONSPEAKER_SERIES'); ?></a></li>
+		<li class="active"><a href="#tab_sermons" data-bs-toggle="tab"><?php echo Text::_('COM_SERMONSPEAKER_SERMONS'); ?></a></li>
+		<li><a href="#tab_series" data-bs-toggle="tab"><?php echo Text::_('COM_SERMONSPEAKER_SERIES'); ?></a></li>
 	</ul>
 	<div class="tab-content">
 		<div class="tab-pane active" id="tab_sermons">

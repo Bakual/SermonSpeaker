@@ -52,12 +52,12 @@ JHtml::_('formbehavior.chosen', 'select');
 		</div>
 		<fieldset>
 			<ul class="nav nav-tabs">
-				<li class="active"><a href="#editor" data-toggle="tab"><?php echo JText::_('JEDITOR') ?></a></li>
-				<li><a href="#details" data-toggle="tab"><?php echo JText::_('JDETAILS') ?></a></li>
-				<li><a href="#publishing" data-toggle="tab"><?php echo JText::_('COM_SERMONSPEAKER_PUBLISHING') ?></a>
+				<li class="active"><a href="#editor" data-bs-toggle="tab"><?php echo JText::_('JEDITOR') ?></a></li>
+				<li><a href="#details" data-bs-toggle="tab"><?php echo JText::_('JDETAILS') ?></a></li>
+				<li><a href="#publishing" data-bs-toggle="tab"><?php echo JText::_('COM_SERMONSPEAKER_PUBLISHING') ?></a>
 				</li>
-				<li><a href="#language" data-toggle="tab"><?php echo JText::_('JFIELD_LANGUAGE_LABEL') ?></a></li>
-				<li><a href="#metadata" data-toggle="tab"><?php echo JText::_('COM_SERMONSPEAKER_METADATA') ?></a></li>
+				<li><a href="#language" data-bs-toggle="tab"><?php echo JText::_('JFIELD_LANGUAGE_LABEL') ?></a></li>
+				<li><a href="#metadata" data-bs-toggle="tab"><?php echo JText::_('COM_SERMONSPEAKER_METADATA') ?></a></li>
 			</ul>
 
 			<div class="tab-content">

@@ -31,7 +31,7 @@ if (count($this->children[$this->category->id]) > 0) :
 					<?php endif;
 
 					if (count($child->getChildren()) > 0) : ?>
-						<a href="#category-<?php echo $child->id; ?>" data-toggle="collapse" data-toggle="button"
+						<a href="#category-<?php echo $child->id; ?>" data-bs-toggle="collapse" data-bs-toggle="button"
 							class="btn btn-mini pull-right">
 							<i class="icon-plus"></i>
 						</a>
