@@ -1,5 +1,8 @@
 <?php
+
 defined('_JEXEC') or die;
+
+use Joomla\CMS\Language\Text;
 
 class SermonspeakerViewMain extends JViewLegacy
 {
@@ -20,7 +23,7 @@ class SermonspeakerViewMain extends JViewLegacy
 	protected function addToolbar()
 	{
 		$canDo = SermonspeakerHelper::getActions();
-		JToolbarHelper::title(JText::_('COM_SERMONSPEAKER'), 'speakers');
+		JToolbarHelper::title(Text::_('COM_SERMONSPEAKER'), 'speakers');
 
 		if ($canDo->get('core.admin') || $canDo->get('core.options'))
 		{

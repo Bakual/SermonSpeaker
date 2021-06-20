@@ -7,9 +7,10 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
-use Joomla\CMS\HTML\HTMLHelper;
-
 defined('_JEXEC') or die();
+
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
 
 /**
  * Controller class for the SermonSpeaker Component
@@ -265,7 +266,7 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 
 			if ($filename != JApplicationHelper::stringURLSafe($filename))
 			{
-				$text = JText::_('COM_SERMONSPEAKER_FILENAME_NOT_IDEAL') . ': ' . $validData[$file];
+				$text = Text::_('COM_SERMONSPEAKER_FILENAME_NOT_IDEAL') . ': ' . $validData[$file];
 				$app->enqueueMessage($text, 'warning');
 			}
 		}
@@ -333,7 +334,7 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 
 		if (!$id)
 		{
-			$app->enqueueMessage(JText::_('JERROR_AN_ERROR_HAS_OCCURRED'), 'error');
+			$app->enqueueMessage(Text::_('JERROR_AN_ERROR_HAS_OCCURRED'), 'error');
 			$app->redirect('index.php?option=com_sermonspeaker&view=frontendupload');
 
 			return false;
@@ -447,7 +448,7 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 		}
 		else
 		{
-			$app->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'error');
+			$app->enqueueMessage(Text::_('JERROR_ALERTNOAUTHOR'), 'error');
 			$app->redirect('index.php?option=com_sermonspeaker&view=sermons');
 
 			return false;

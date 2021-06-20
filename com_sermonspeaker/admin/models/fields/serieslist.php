@@ -11,6 +11,7 @@ defined('_JEXEC') or die();
 
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
 
 jimport('joomla.html.html');
 jimport('joomla.form.formfield');
@@ -71,7 +72,7 @@ class JFormFieldSerieslist extends JFormFieldGroupedList
 						'<span class="input-group-append">
 							<a href="#serieModal_' . $this->id .'"
 								class="btn btn-secondary hasTooltip"
-								title="' . JText::_($string) . '"
+								title="' . Text::_($string) . '"
 								data-bs-toggle="modal"
 								role="button"
 							>
@@ -88,7 +89,7 @@ class JFormFieldSerieslist extends JFormFieldGroupedList
 				'bootstrap.renderModal',
 				'serieModal_' . $this->id,
 				array(
-					'title'       => JText::_($string),
+					'title'       => Text::_($string),
 					'backdrop'    => 'static',
 					'keyboard'    => false,
 					'closeButton' => false,
@@ -99,13 +100,13 @@ class JFormFieldSerieslist extends JFormFieldGroupedList
 					'modalWidth'  => 80,
 					'footer'      => '<a role="button" class="btn btn-secondary" aria-hidden="true"'
 						. ' onclick="window.processModalEdit(this, \'' . $this->id . '\', \'add\', \'serie\', \'cancel\', \'item-form\'); return false;">'
-						. JText::_('JLIB_HTML_BEHAVIOR_CLOSE') . '</a>'
+						. Text::_('JLIB_HTML_BEHAVIOR_CLOSE') . '</a>'
 						. '<a role="button" class="btn btn-primary" aria-hidden="true"'
 						. ' onclick="window.processModalEdit(this, \'' . $this->id . '\', \'add\', \'serie\', \'save\', \'item-form\'); return false;">'
-						. JText::_('JSAVE') . '</a>'
+						. Text::_('JSAVE') . '</a>'
 						. '<a role="button" class="btn btn-success" aria-hidden="true"'
 						. ' onclick="window.processModalEdit(this, \'' . $this->id . '\', \'add\', \'serie\', \'apply\', \'item-form\'); return false;">'
-						. JText::_('JAPPLY') . '</a>',
+						. Text::_('JAPPLY') . '</a>',
 				)
 			);
 		}
@@ -206,10 +207,10 @@ class JFormFieldSerieslist extends JFormFieldGroupedList
 		{
 			if (count($published))
 			{
-				$options[JText::_('JPUBLISHED')] = $published;
+				$options[Text::_('JPUBLISHED')] = $published;
 			}
 
-			$options[JText::_('JUNPUBLISHED')] = $unpublished;
+			$options[Text::_('JUNPUBLISHED')] = $unpublished;
 
 			$groups = array_merge(parent::getGroups(), $options);
 		}

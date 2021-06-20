@@ -221,15 +221,15 @@ class SermonspeakerViewSpeakers extends JViewLegacy
 	protected function getSortFields()
 	{
 		return array(
-			'speakers.ordering' => JText::_('JGRID_HEADING_ORDERING'),
-			'speakers.state'    => JText::_('JSTATUS'),
-			'speakers.title'    => JText::_('COM_SERMONSPEAKER_FIELD_NAME_LABEL'),
-			'category_title'    => JText::_('JCATEGORY'),
-			'speakers.pic'      => JText::_('COM_SERMONSPEAKER_FIELD_PICTURE_LABEL'),
-			'speakers.home'     => JText::_('JDEFAULT'),
-			'speakers.hits'     => JText::_('JGLOBAL_HITS'),
-			'language'          => JText::_('JGRID_HEADING_LANGUAGE'),
-			'speakers.id'       => JText::_('JGRID_HEADING_ID'),
+			'speakers.ordering' => Text::_('JGRID_HEADING_ORDERING'),
+			'speakers.state'    => Text::_('JSTATUS'),
+			'speakers.title'    => Text::_('COM_SERMONSPEAKER_FIELD_NAME_LABEL'),
+			'category_title'    => Text::_('JCATEGORY'),
+			'speakers.pic'      => Text::_('COM_SERMONSPEAKER_FIELD_PICTURE_LABEL'),
+			'speakers.home'     => Text::_('JDEFAULT'),
+			'speakers.hits'     => Text::_('JGLOBAL_HITS'),
+			'language'          => Text::_('JGRID_HEADING_LANGUAGE'),
+			'speakers.id'       => Text::_('JGRID_HEADING_ID'),
 		);
 	}
 }

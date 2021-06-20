@@ -9,6 +9,8 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Language\Text;
+
 /**
  * Series list controller class.
  *
@@ -59,7 +61,7 @@ class SermonspeakerControllerSermons extends JControllerAdmin
 	function podcast_publish()
 	{
 		// Check for request forgeries
-		JSession::checkToken() or die(JText::_('JINVALID_TOKEN'));
+		JSession::checkToken() or die(Text::_('JINVALID_TOKEN'));
 
 		// Get items to podcast from the request.
 		$cid   = JFactory::getApplication()->input->get('cid', array(), 'array');
@@ -69,7 +71,7 @@ class SermonspeakerControllerSermons extends JControllerAdmin
 
 		if (empty($cid))
 		{
-			JFactory::getApplication()->enqueueMessage(JText::_($this->text_prefix . '_NO_ITEM_SELECTED'), 'warning');
+			JFactory::getApplication()->enqueueMessage(Text::_($this->text_prefix . '_NO_ITEM_SELECTED'), 'warning');
 		}
 		else
 		{
@@ -89,7 +91,7 @@ class SermonspeakerControllerSermons extends JControllerAdmin
 				$ntext = $this->text_prefix;
 				$ntext .= ($value == 1) ? '_N_ITEMS_PODCASTED' : '_N_ITEMS_UNPODCASTED';
 
-				$this->setMessage(JText::plural($ntext, count($cid)));
+				$this->setMessage(Text::plural($ntext, count($cid)));
 			}
 		}
 

@@ -9,6 +9,8 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Language\Text;
+
 /**
  * Sermonspeaker Helper
  *
@@ -65,12 +67,12 @@ class SermonspeakerHelper
 		|| $lang->load('com_sermonspeaker', JPATH_ADMINISTRATOR . '/components/com_sermonspeaker');
 
 		return array(
-			'com_sermonspeaker.sermon'              => JText::_('COM_SERMONSPEAKER_FIELDS_CONTEXT_SERMON'),
-			'com_sermonspeaker.serie'               => JText::_('COM_SERMONSPEAKER_FIELDS_CONTEXT_SERIE'),
-			'com_sermonspeaker.speaker'             => JText::_('COM_SERMONSPEAKER_FIELDS_CONTEXT_SPEAKER'),
-			'com_sermonspeaker.sermons.categories'  => JText::_('COM_SERMONSPEAKER_FIELDS_CONTEXT_CATEGORY_SERMONS'),
-			'com_sermonspeaker.series.categories'   => JText::_('COM_SERMONSPEAKER_FIELDS_CONTEXT_CATEGORY_SERIES'),
-			'com_sermonspeaker.speakers.categories' => JText::_('COM_SERMONSPEAKER_FIELDS_CONTEXT_CATEGORY_SPEAKERS'),
+			'com_sermonspeaker.sermon'              => Text::_('COM_SERMONSPEAKER_FIELDS_CONTEXT_SERMON'),
+			'com_sermonspeaker.serie'               => Text::_('COM_SERMONSPEAKER_FIELDS_CONTEXT_SERIE'),
+			'com_sermonspeaker.speaker'             => Text::_('COM_SERMONSPEAKER_FIELDS_CONTEXT_SPEAKER'),
+			'com_sermonspeaker.sermons.categories'  => Text::_('COM_SERMONSPEAKER_FIELDS_CONTEXT_CATEGORY_SERMONS'),
+			'com_sermonspeaker.series.categories'   => Text::_('COM_SERMONSPEAKER_FIELDS_CONTEXT_CATEGORY_SERIES'),
+			'com_sermonspeaker.speakers.categories' => Text::_('COM_SERMONSPEAKER_FIELDS_CONTEXT_CATEGORY_SPEAKERS'),
 		);
 	}
 

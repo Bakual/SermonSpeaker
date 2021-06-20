@@ -7,9 +7,10 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
-use Joomla\CMS\HTML\HTMLHelper;
-
 defined('_JEXEC') or die();
+
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
 
 jimport('joomla.form.formfield');
 
@@ -58,7 +59,7 @@ class JFormFieldColumns extends JFormField
 		foreach ($columns as $column)
 		{
 			$label  = ($column == 'category') ? 'JCATEGORY' : 'COM_SERMONSPEAKER_FIELD_' . strtoupper($column) . '_LABEL';
-			$html[] = '<th style="height: 25px; background: #F4F4F4; border-bottom: 1px solid silver; vertical-align:middle;">' . JText::_($label) . '</th>';
+			$html[] = '<th style="height: 25px; background: #F4F4F4; border-bottom: 1px solid silver; vertical-align:middle;">' . Text::_($label) . '</th>';
 		}
 		$html[] = '</tr></thead>';
 		$html[] = '<tbody>';
@@ -117,7 +118,7 @@ class JFormFieldColumns extends JFormField
 			}
 
 			// Create a new option object based on the <option /> element.
-			$tmp = HtmlHelper::_('select.option', (string) $option['value'], JText::_(trim((string) $option)), 'value', 'text', ((string) $option['disabled'] == 'true'));
+			$tmp = HtmlHelper::_('select.option', (string) $option['value'], Text::_(trim((string) $option)), 'value', 'text', ((string) $option['disabled'] == 'true'));
 
 			// Set some option attributes.
 			$tmp->class = (string) $option['class'];

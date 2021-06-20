@@ -10,6 +10,7 @@
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Application\ApplicationHelper;
+use Joomla\CMS\Language\Text;
 use Joomla\CMS\Table\Table;
 use Joomla\CMS\Tag\TaggableTableInterface;
 use Joomla\CMS\Tag\TaggableTableTrait;
@@ -218,7 +219,7 @@ class SermonspeakerTableSerie extends Table implements VersionableTableInterface
 
 		if ($table->load(array('alias' => $this->alias, 'catid' => $this->catid)) && ($table->id != $this->id || $this->id == 0))
 		{
-			throw new Exception(JText::_('COM_SERMONSPEAKER_ERROR_ALIAS'));
+			throw new Exception(Text::_('COM_SERMONSPEAKER_ERROR_ALIAS'));
 		}
 
 		return parent::store($updateNulls);

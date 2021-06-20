@@ -9,6 +9,7 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Language\Text;
 use Joomla\Utilities\ArrayHelper;
 
 /**
@@ -28,7 +29,7 @@ class SermonspeakerControllerSeries extends JControllerAdmin
 	public function setDefault()
 	{
 		// Check for request forgeries
-		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+		JSession::checkToken() or jexit(Text::_('JINVALID_TOKEN'));
 
 		// Initialise variables.
 		$pks = $this->input->post->get('cid', array(), 'array');
@@ -37,7 +38,7 @@ class SermonspeakerControllerSeries extends JControllerAdmin
 		{
 			if (empty($pks))
 			{
-				throw new Exception(JText::_('JERROR_NO_ITEMS_SELECTED'));
+				throw new Exception(Text::_('JERROR_NO_ITEMS_SELECTED'));
 			}
 
 			$pks = ArrayHelper::toInteger($pks);
@@ -46,7 +47,7 @@ class SermonspeakerControllerSeries extends JControllerAdmin
 			$id    = array_shift($pks);
 			$model = $this->getModel();
 			$model->setDefault($id);
-			$this->setMessage(JText::_('COM_SERMONSPEAKER_SUCCESS_HOME_SET'));
+			$this->setMessage(Text::_('COM_SERMONSPEAKER_SUCCESS_HOME_SET'));
 
 		}
 		catch (Exception $e)
@@ -81,7 +82,7 @@ class SermonspeakerControllerSeries extends JControllerAdmin
 	public function unsetDefault()
 	{
 		// Check for request forgeries
-		JSession::checkToken('request') or jexit(JText::_('JINVALID_TOKEN'));
+		JSession::checkToken('request') or jexit(Text::_('JINVALID_TOKEN'));
 
 		$pks = $this->input->post->get('cid', array(), 'array');
 		$pks = ArrayHelper::toInteger($pks);
@@ -90,14 +91,14 @@ class SermonspeakerControllerSeries extends JControllerAdmin
 		{
 			if (empty($pks))
 			{
-				throw new Exception(JText::_('JERROR_NO_ITEMS_SELECTED'));
+				throw new Exception(Text::_('JERROR_NO_ITEMS_SELECTED'));
 			}
 
 			// Pop off the first element.
 			$id    = array_shift($pks);
 			$model = $this->getModel();
 			$model->unsetDefault($id);
-			$this->setMessage(JText::_('COM_SERMONSPEAKER_SUCCESS_HOME_UNSET'));
+			$this->setMessage(Text::_('COM_SERMONSPEAKER_SUCCESS_HOME_UNSET'));
 		}
 		catch (Exception $e)
 		{

@@ -7,9 +7,10 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
-use Joomla\CMS\HTML\HTMLHelper;
-
 defined('_JEXEC') or die();
+
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
 
 jimport('joomla.html.html');
 jimport('joomla.form.formfield');
@@ -70,7 +71,7 @@ class JFormFieldSpeakerlist extends JFormFieldGroupedList
 				'<span class="input-group-append">
 							<a href="#speakerModal_' . $this->id . '"
 								class="btn btn-secondary hasTooltip"
-								title="' . JText::_($string) . '"
+								title="' . Text::_($string) . '"
 								data-bs-toggle="modal"
 								role="button"
 							>
@@ -87,7 +88,7 @@ class JFormFieldSpeakerlist extends JFormFieldGroupedList
 				'bootstrap.renderModal',
 				'speakerModal_' . $this->id,
 				array(
-					'title'       => JText::_($string),
+					'title'       => Text::_($string),
 					'backdrop'    => 'static',
 					'keyboard'    => false,
 					'closeButton' => false,
@@ -98,13 +99,13 @@ class JFormFieldSpeakerlist extends JFormFieldGroupedList
 					'modalWidth'  => 80,
 					'footer'      => '<a role="button" class="btn btn-secondary" aria-hidden="true"'
 						. ' onclick="window.processModalEdit(this, \'' . $this->id . '\', \'add\', \'speaker\', \'cancel\', \'item-form\'); return false;">'
-						. JText::_('JLIB_HTML_BEHAVIOR_CLOSE') . '</a>'
+						. Text::_('JLIB_HTML_BEHAVIOR_CLOSE') . '</a>'
 						. '<a role="button" class="btn btn-primary" aria-hidden="true"'
 						. ' onclick="window.processModalEdit(this, \'' . $this->id . '\', \'add\', \'speaker\', \'save\', \'item-form\'); return false;">'
-						. JText::_('JSAVE') . '</a>'
+						. Text::_('JSAVE') . '</a>'
 						. '<a role="button" class="btn btn-success" aria-hidden="true"'
 						. ' onclick="window.processModalEdit(this, \'' . $this->id . '\', \'add\', \'speaker\', \'apply\', \'item-form\'); return false;">'
-						. JText::_('JAPPLY') . '</a>',
+						. Text::_('JAPPLY') . '</a>',
 				)
 			);
 		}
@@ -214,10 +215,10 @@ class JFormFieldSpeakerlist extends JFormFieldGroupedList
 		{
 			if (count($published))
 			{
-				$options[JText::_('JPUBLISHED')] = $published;
+				$options[Text::_('JPUBLISHED')] = $published;
 			}
 
-			$options[JText::_('JUNPUBLISHED')] = $unpublished;
+			$options[Text::_('JUNPUBLISHED')] = $unpublished;
 
 			$groups = array_merge(parent::getGroups(), $options);
 		}

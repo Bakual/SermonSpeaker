@@ -10,11 +10,12 @@
 defined('_JEXEC') or die;
 
 use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
 
 // Access check.
 if (!JFactory::getUser()->authorise('core.manage', 'com_sermonspeaker'))
 {
-	throw new Exception(JText::_('JERROR_ALERTNOAUTHOR'), 403);
+	throw new Exception(Text::_('JERROR_ALERTNOAUTHOR'), 403);
 }
 
 // Joomla doesn't autoload JFile and JFolder

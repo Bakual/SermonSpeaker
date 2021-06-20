@@ -9,6 +9,8 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Language\Text;
+
 jimport('joomla.form.formfield');
 
 /**
@@ -51,7 +53,7 @@ class JFormFieldPlugintag extends JFormField
 			$active0  = (!$this->value) ? ' checked="checked"' : '';
 			$active1  = ($this->value) ? ' checked="checked"' : '';
 			$disabled = (!$this->value) ? ' disabled="disabled"' : '';
-			$html     .= '<input class type="radio" name="' . $this->fieldname . '_radio" id="' . $this->id . '_radio0" value="0" onclick="this.form.elements[\'' . $this->id . '_start\'].disabled = true; this.form.elements[\'' . $this->id . '_end\'].disabled = true;"' . $active0 . ' /><input type="text" class="readonly input-small" disabled="disabled" value="' . JText::_('JGLOBAL_USE_GLOBAL') . '" />';
+			$html     .= '<input class type="radio" name="' . $this->fieldname . '_radio" id="' . $this->id . '_radio0" value="0" onclick="this.form.elements[\'' . $this->id . '_start\'].disabled = true; this.form.elements[\'' . $this->id . '_end\'].disabled = true;"' . $active0 . ' /><input type="text" class="readonly input-small" disabled="disabled" value="' . Text::_('JGLOBAL_USE_GLOBAL') . '" />';
 			$html     .= '<span class="faux-label"></span><input type="radio" name="' . $this->fieldname . '_radio" id="' . $this->id . '_radio1" value="1"  onclick="this.form.elements[\'' . $this->id . '_start\'].disabled = false; this.form.elements[\'' . $this->id . '_end\'].disabled = false;"' . $active1 . ' />';
 		}
 

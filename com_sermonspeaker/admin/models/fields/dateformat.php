@@ -7,9 +7,10 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
-use Joomla\CMS\HTML\HTMLHelper;
-
 defined('_JEXEC') or die();
+
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
 
 jimport('joomla.html.html');
 jimport('joomla.form.formfield');
@@ -67,7 +68,7 @@ class JFormFieldDateformat extends JFormFieldList
 		foreach ($dateformats AS $key => $format)
 		{
 			$options[$key]['value'] = $format;
-			$options[$key]['text']  = HtmlHelper::date($date, JText::_($format), true);
+			$options[$key]['text']  = HtmlHelper::date($date, Text::_($format), true);
 		}
 
 		return $options;

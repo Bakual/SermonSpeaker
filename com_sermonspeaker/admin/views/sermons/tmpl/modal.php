@@ -7,15 +7,16 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
-use Joomla\CMS\HTML\HTMLHelper;
-
 defined('_JEXEC') or die;
+
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
 
 $app = JFactory::getApplication();
 
 if ($app->isClient('site'))
 {
-	JSession::checkToken('get') or die(JText::_('JINVALID_TOKEN'));
+	JSession::checkToken('get') or die(Text::_('JINVALID_TOKEN'));
 }
 
 JLoader::register('SermonspeakerHelperRoute', JPATH_ROOT . '/components/com_sermonspeaker/helpers/route.php');
@@ -41,12 +42,12 @@ $listDirn  = $this->escape($this->state->get('list.direction'));
 		<?php if ($this->state->get('filter.forcedLanguage')) : ?>
 			<input type="hidden" id="mode" name="mode" value="" />
 		<?php else : ?>
-			<div id="mode_wrapper" class="btn-group pull-right hasTooltip" title="<?php echo JText::_('PLG_EDITORS-XTD_SERMONSPEAKER_FIELD_MODE_DESC'); ?>">
+			<div id="mode_wrapper" class="btn-group pull-right hasTooltip" title="<?php echo Text::_('PLG_EDITORS-XTD_SERMONSPEAKER_FIELD_MODE_DESC'); ?>">
 				<select name="mode" id="mode" class="input-medium">
-					<option value=""><?php echo JText::_('JOPTION_USE_DEFAULT'); ?></option>
-					<option value="1"><?php echo JText::_('PLG_EDITORS-XTD_SERMONSPEAKER_FIELD_MODE_OPTION_LINK'); ?></option>
-					<option value="2"><?php echo JText::_('PLG_EDITORS-XTD_SERMONSPEAKER_FIELD_MODE_OPTION_PLAYER'); ?></option>
-					<option value="3"><?php echo JText::_('PLG_EDITORS-XTD_SERMONSPEAKER_FIELD_MODE_OPTION_MODULE'); ?></option>
+					<option value=""><?php echo Text::_('JOPTION_USE_DEFAULT'); ?></option>
+					<option value="1"><?php echo Text::_('PLG_EDITORS-XTD_SERMONSPEAKER_FIELD_MODE_OPTION_LINK'); ?></option>
+					<option value="2"><?php echo Text::_('PLG_EDITORS-XTD_SERMONSPEAKER_FIELD_MODE_OPTION_PLAYER'); ?></option>
+					<option value="3"><?php echo Text::_('PLG_EDITORS-XTD_SERMONSPEAKER_FIELD_MODE_OPTION_MODULE'); ?></option>
 				</select>
 			</div>
 		<?php endif; ?>
@@ -55,7 +56,7 @@ $listDirn  = $this->escape($this->state->get('list.direction'));
 
 		<?php if (empty($this->items)) : ?>
 			<div class="alert alert-no-items">
-				<?php echo JText::_('JGLOBAL_NO_MATCHING_RESULTS'); ?>
+				<?php echo Text::_('JGLOBAL_NO_MATCHING_RESULTS'); ?>
 			</div>
 		<?php else : ?>
 			<table class="table table-striped table-condensed" id="sermonList">
@@ -106,7 +107,7 @@ $listDirn  = $this->escape($this->state->get('list.direction'));
 								<?php echo JLayoutHelper::render('joomla.content.language', $item); ?>
 							</td>
 							<td class="nowrap small hidden-phone">
-								<?php echo HtmlHelper::_('date', $item->sermon_date, JText::_('DATE_FORMAT_LC4'), true); ?>
+								<?php echo HtmlHelper::_('date', $item->sermon_date, Text::_('DATE_FORMAT_LC4'), true); ?>
 							</td>
 							<td class="nowrap small hidden-phone">
 								<?php echo (int) $item->id; ?>

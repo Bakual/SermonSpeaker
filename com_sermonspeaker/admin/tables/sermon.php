@@ -11,6 +11,7 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\Application\ApplicationHelper;
 use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
 use Joomla\CMS\Table\Table;
 use Joomla\CMS\Tag\TaggableTableInterface;
 use Joomla\CMS\Tag\TaggableTableTrait;
@@ -239,7 +240,7 @@ class SermonspeakerTableSermon extends Table implements VersionableTableInterfac
 
 		if ($table->load(array('alias' => $this->alias, 'catid' => $this->catid)) && ($table->id != $this->id || $this->id == 0))
 		{
-			$this->setError(JText::_('COM_SERMONSPEAKER_ERROR_ALIAS'));
+			$this->setError(Text::_('COM_SERMONSPEAKER_ERROR_ALIAS'));
 
 			return false;
 		}
@@ -280,7 +281,7 @@ class SermonspeakerTableSermon extends Table implements VersionableTableInterfac
 			// Nothing to set podcasting state on, return false.
 			else
 			{
-				$this->setError(JText::_('JLIB_DATABASE_ERROR_NO_ROWS_SELECTED'));
+				$this->setError(Text::_('JLIB_DATABASE_ERROR_NO_ROWS_SELECTED'));
 
 				return false;
 			}

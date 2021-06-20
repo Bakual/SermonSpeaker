@@ -7,9 +7,10 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
-use Joomla\CMS\HTML\HTMLHelper;
-
 defined('_JEXEC') or die();
+
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
 
 /**
  * @var  array                    $displayData Contains the following items:
@@ -36,12 +37,12 @@ extract($displayData);
 <?php endif; ?>
 <div class="article-info speaker-info muted">
 	<dl class="article-info">
-		<dt class="article-info-term"><?php  echo JText::_('JDETAILS'); ?></dt>
+		<dt class="article-info-term"><?php  echo Text::_('JDETAILS'); ?></dt>
 		<?php
 		if (in_array('speaker:category', $columns) and $item->category_title) : ?>
 			<dd>
 				<div class="category-name">
-					<?php echo JText::_('JCATEGORY'); ?>:
+					<?php echo Text::_('JCATEGORY'); ?>:
 					<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakersRoute($item->catid, $item->language)); ?>" itemprop="genre">
 						<?php echo $item->category_title; ?>
 					</a>
@@ -54,7 +55,7 @@ extract($displayData);
 				<div class="hits">
 					<i class="icon-eye-open"></i>
 					<meta itemprop="interactionCount" content="UserPageVisits:<?php echo $item->hits; ?>" />
-					<?php echo JText::_('JGLOBAL_HITS'); ?>:
+					<?php echo Text::_('JGLOBAL_HITS'); ?>:
 					<?php echo $item->hits; ?>
 				</div>
 			</dd>
@@ -65,7 +66,7 @@ extract($displayData);
 				<div class="website">
 					<i class=" icon-out-2"></i>
 					<a href="<?php echo $item->website; ?>" itemprop="sameAs">
-						<?php echo JText::_('COM_SERMONSPEAKER_FIELD_WEBSITE_LABEL'); ?>
+						<?php echo Text::_('COM_SERMONSPEAKER_FIELD_WEBSITE_LABEL'); ?>
 					</a>
 				</div>
 			</dd>

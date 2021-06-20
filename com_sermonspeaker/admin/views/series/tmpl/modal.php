@@ -1,13 +1,14 @@
 <?php
 // no direct access
-use Joomla\CMS\HTML\HTMLHelper;
-
 defined('_JEXEC') or die;
+
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
 
 $app = JFactory::getApplication();
 if ($app->isClient('site'))
 {
-	JSession::checkToken('get') or die(JText::_('JINVALID_TOKEN'));
+	JSession::checkToken('get') or die(Text::_('JINVALID_TOKEN'));
 	HtmlHelper::_('stylesheet', 'com_sermonspeaker/sermonspeaker.css', array('relative' => true));
 }
 
