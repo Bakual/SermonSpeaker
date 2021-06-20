@@ -7,10 +7,12 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
+use Joomla\CMS\HTML\HTMLHelper;
+
 defined('_JEXEC') or die;
 
 $header = count($list) - 1;
-JHtml::_('bootstrap.tooltip');
+HtmlHelper::_('bootstrap.tooltip');
 ?>
 <?php if ($list) : ?>
 	<?php foreach ($list as $type => $items) : ?>
@@ -22,7 +24,7 @@ JHtml::_('bootstrap.tooltip');
 				<div class="row-fluid">
 					<div class="span9">
 						<?php if ($params->get('show_state', 1)) : ?>
-							<?php echo JHtml::_('jgrid.published', $item->state, $i, '', false); ?>
+							<?php echo HtmlHelper::_('jgrid.published', $item->state, $i, '', false); ?>
 						<?php endif; ?>
 						<?php if ($params->get('show_hits')) : ?>
 							<?php $hits = (int) $item->hits; ?>
@@ -32,7 +34,7 @@ JHtml::_('bootstrap.tooltip');
 							</span>
 						<?php endif; ?>
 						<?php if ($item->checked_out) : ?>
-								<?php echo JHtml::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time); ?>
+								<?php echo HtmlHelper::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time); ?>
 						<?php endif; ?>
 
 						<strong class="row-title break-word">
@@ -67,9 +69,9 @@ JHtml::_('bootstrap.tooltip');
 						<?php endif; ?>
 					</div>
 					<div class="span3">
-						<div class="small pull-right hasTooltip" title="<?php echo JHtml::_('tooltipText', 'JGLOBAL_FIELD_CREATED_LABEL'); ?>">
+						<div class="small pull-right hasTooltip" title="<?php echo HtmlHelper::_('tooltipText', 'JGLOBAL_FIELD_CREATED_LABEL'); ?>">
 							<span class="icon-calendar" aria-hidden="true"></span>
-							<?php echo JHtml::_('date', $item->created, JText::_('DATE_FORMAT_LC5')); ?>
+							<?php echo HtmlHelper::_('date', $item->created, JText::_('DATE_FORMAT_LC5')); ?>
 						</div>
 					</div>
 				</div>

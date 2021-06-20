@@ -9,11 +9,12 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 
-JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
+HtmlHelper::addIncludePath(JPATH_COMPONENT . '/helpers');
 
-JHtml::_('bootstrap.tooltip');
+HtmlHelper::_('bootstrap.tooltip');
 
 $user       = JFactory::getUser();
 $showState  = $user->authorise('core.edit', 'com_sermonspeaker');
@@ -46,7 +47,7 @@ $listDirn   = $this->state->get('list.direction');
 			<?php endif;
 
 			if ($this->params->get('show_description') and $this->category->description) :
-				echo JHtml::_('content.prepare', $this->category->description, '', 'com_sermonspeaker.category');
+				echo HtmlHelper::_('content.prepare', $this->category->description, '', 'com_sermonspeaker.category');
 			endif; ?>
 			<div class="clearfix"></div>
 		</div>
@@ -85,7 +86,7 @@ $listDirn   = $this->state->get('list.direction');
 
 							if ($canEdit or ($canEditOwn and ($user->id == $item->created_by))) : ?>
 								<span class="list-edit pull-left width-50">
-									<?php echo JHtml::_('icon.edit', $item, $this->params, array('type' => 'speaker')); ?>
+									<?php echo HtmlHelper::_('icon.edit', $item, $this->params, array('type' => 'speaker')); ?>
 								</span>
 							<?php endif; ?>
 							<strong class="ss-title">
@@ -130,7 +131,7 @@ $listDirn   = $this->state->get('list.direction');
 			<?php endif;
 
 			if ($user->authorise('core.create', 'com_sermonspeaker')) :
-				echo JHtml::_('icon.create', $this->category, $this->params, 'speaker');
+				echo HtmlHelper::_('icon.create', $this->category, $this->params, 'speaker');
 			endif;
 
 			if ($this->params->get('show_pagination') and ($this->pagination->pagesTotal > 1)) : ?>

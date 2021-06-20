@@ -9,11 +9,12 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 
-JHtml::_('stylesheet', 'com_sermonspeaker/tiles.css', array('relative' => true));
-JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
-JHtml::_('bootstrap.tooltip');
+HtmlHelper::_('stylesheet', 'com_sermonspeaker/tiles.css', array('relative' => true));
+HtmlHelper::addIncludePath(JPATH_COMPONENT . '/helpers');
+HtmlHelper::_('bootstrap.tooltip');
 $user       = JFactory::getUser();
 $canEdit    = $user->authorise('core.edit', 'com_sermonspeaker');
 $canEditOwn = $user->authorise('core.edit.own', 'com_sermonspeaker');
@@ -43,14 +44,14 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 			<?php endif;
 
 			if ($this->params->get('show_description') and $this->category->description) :
-				echo JHtml::_('content.prepare', $this->category->description);
+				echo HtmlHelper::_('content.prepare', $this->category->description);
 			endif; ?>
 			<div class="clr"></div>
 		</div>
 	<?php endif;
 
 	if (in_array('sermons:player', $this->columns) and count($this->items)) :
-		JHtml::_('stylesheet', 'com_sermonspeaker/player.css', array('relative' => true)); ?>
+		HtmlHelper::_('stylesheet', 'com_sermonspeaker/player.css', array('relative' => true)); ?>
 		<div class="ss-sermons-player">
 			<hr class="ss-sermons-player"/>
 			<?php if (empty($player->hideInfo)): ?>
@@ -103,7 +104,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 				endif;
 
 				if (in_array('sermons:date', $this->columns) and ($item->sermon_date != '0000-00-00')) :
-					$tip[] = Text::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL') . ': ' . JHtml::date($item->sermon_date, Text::_($this->params->get('date_format')), true);
+					$tip[] = Text::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL') . ': ' . HtmlHelper::date($item->sermon_date, Text::_($this->params->get('date_format')), true);
 				endif;
 
 				if (in_array('sermons:category', $this->columns)) :
@@ -141,7 +142,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 				endif; ?>
 				<div id="sermon<?php echo $i; ?>" class="ss-entry tile">
 				<span class="hasTooltip"
-					title="<?php echo JHtml::tooltipText($item->title, $tooltip); ?>">
+					title="<?php echo HtmlHelper::tooltipText($item->title, $tooltip); ?>">
 				<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug, $item->catid, $item->language)); ?>">
 					<img border="0" align="middle" src="<?php echo $picture; ?>">
 					<span class="item-title">

@@ -7,6 +7,8 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
+use Joomla\CMS\HTML\HTMLHelper;
+
 defined('_JEXEC') or die();
 
 /**
@@ -61,7 +63,7 @@ $count = count($list);
 						<?php if ($params->get('ls_show_mo_date') and $row->sermon_date) : ?>
 							<dd class="published">
 								<?php $date_format = JText::_($params->get('ls_mo_date_format', 'DATE_FORMAT_LC4'));
-								echo JText::_('JDATE') . ': ' . JHtml::date($row->sermon_date, $date_format, true); ?>
+								echo JText::_('JDATE') . ': ' . HtmlHelper::date($row->sermon_date, $date_format, true); ?>
 							</dd>
 						<?php endif; ?>
 						<?php if ($params->get('ls_show_mo_speaker') and $row->speaker_title) : ?>
@@ -96,7 +98,7 @@ $count = count($list);
 					<div style="clear:left;"></div>
 					<?php if (strlen($row->notes) > 0) : ?>
 						<div>
-							<?php echo JHtml::_('content.prepare', $row->notes); ?>
+							<?php echo HtmlHelper::_('content.prepare', $row->notes); ?>
 						</div>
 					<?php endif; ?>
 					<?php if ($i < $count) : ?>

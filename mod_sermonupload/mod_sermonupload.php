@@ -7,6 +7,8 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
+use Joomla\CMS\HTML\HTMLHelper;
+
 defined('_JEXEC') or die();
 
 require_once __DIR__ . '/helper.php';
@@ -20,8 +22,8 @@ if (!$user->authorise('core.create', 'com_sermonspeaker'))
 }
 
 // Prepare Upload Script
-JHtml::_('jquery.framework');
-JHtml::Script('media/com_sermonspeaker/plupload/plupload.full.min.js');
+HtmlHelper::_('jquery.framework');
+HtmlHelper::Script('media/com_sermonspeaker/plupload/plupload.full.min.js');
 
 // Load localisation
 $tag  = str_replace('-', '_', JFactory::getLanguage()->getTag());
@@ -30,7 +32,7 @@ $file = $tag . '.js';
 
 if (file_exists(JPATH_SITE . '/' . $path . $file))
 {
-	JHtml::Script($path . $file);
+	HtmlHelper::Script($path . $file);
 }
 else
 {
@@ -39,7 +41,7 @@ else
 
 	if (file_exists(JPATH_SITE . '/' . $path . $file))
 	{
-		JHtml::Script($path . $file);
+		HtmlHelper::Script($path . $file);
 	}
 }
 

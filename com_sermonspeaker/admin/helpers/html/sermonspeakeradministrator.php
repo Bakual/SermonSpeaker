@@ -9,6 +9,7 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Associations;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
@@ -96,7 +97,7 @@ abstract class JHtmlSermonspeakerAdministrator
 				}
 			}
 
-			JHtml::_('bootstrap.popover');
+			HtmlHelper::_('bootstrap.popover');
 
 			$html = LayoutHelper::render('joomla.content.associations', $items);
 		}
@@ -117,7 +118,7 @@ abstract class JHtmlSermonspeakerAdministrator
 	 */
 	public static function podcasted($value, $i, $canChange = true)
 	{
-		JHtml::_('bootstrap.tooltip');
+		HtmlHelper::_('bootstrap.tooltip');
 
 		$states = array(
 			0 => array(
@@ -149,14 +150,14 @@ abstract class JHtmlSermonspeakerAdministrator
 		{
 			$html = '<a class="tbody-icon' . ($value == 1 ? ' active' : '') . ' hasTooltip"'
 				. ' href="#" onclick="return Joomla.listItemTask(\'cb' . $i . '\',\'' . $state['task'] . '\')"'
-				. ' title="' . JHtml::_('tooltipText', $state['active_title']) . '">'
+				. ' title="' . HtmlHelper::_('tooltipText', $state['active_title']) . '">'
 				. '<span class="icon-' . $state['active_class'] . '"></span>'
 				. '</a>';
 		}
 		else
 		{
 			$html = '<a class="tbody-icon' . ($value == 1 ? ' active' : '') . ' hasTooltip disabled"'
-				. ' title="' . JHtml::_('tooltipText', $state['inactive_title']) . '">'
+				. ' title="' . HtmlHelper::_('tooltipText', $state['inactive_title']) . '">'
 				. '<span class="icon-' . $state['inactive_class'] . '"></span>'
 				. '</a>';
 		}

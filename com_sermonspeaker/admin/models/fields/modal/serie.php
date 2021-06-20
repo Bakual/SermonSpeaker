@@ -307,7 +307,7 @@ class JFormFieldModal_Serie extends JFormField
 					. Text::_('JAPPLY') . '</button>';
 			}
 
-			$html .= JHtml::_(
+			$html .= HtmlHelper::_(
 				'bootstrap.renderModal',
 				'ModalEdit' . $modalId,
 				array(

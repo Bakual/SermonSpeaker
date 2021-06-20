@@ -7,6 +7,8 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
+use Joomla\CMS\HTML\HTMLHelper;
+
 defined('_JEXEC') or die();
 
 /**
@@ -128,7 +130,7 @@ class SermonspeakerViewFeed extends JViewLegacy
 
 		if ($this->params->get('prepare_content', 1))
 		{
-			$text = JHtml::_('content.prepare', $text);
+			$text = HtmlHelper::_('content.prepare', $text);
 		}
 
 		$text = str_replace(array("\r", "\n", '  '), ' ', $this->make_xml_safe($text));
@@ -262,7 +264,7 @@ class SermonspeakerViewFeed extends JViewLegacy
 
 			if ($this->params->get('prepare_content', 1))
 			{
-				$scripture = JHtml::_('content.prepare', $scripture);
+				$scripture = HtmlHelper::_('content.prepare', $scripture);
 			}
 
 			// Make english scripture format

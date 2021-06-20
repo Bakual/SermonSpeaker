@@ -7,6 +7,8 @@
  * @license         http://www.gnu.org/licenses/gpl.html
  **/
 
+use Joomla\CMS\HTML\HTMLHelper;
+
 defined('_JEXEC') or die();
 
 JLoader::register('SermonspeakerPluginPlayer', JPATH_SITE . '/components/com_sermonspeaker/plugin/player.php');
@@ -181,15 +183,15 @@ class PlgSermonspeakerJwplayer7 extends SermonspeakerPluginPlayer
 		{
 			$doc = JFactory::getDocument();
 
-			JHtml::_('jquery.framework');
+			HtmlHelper::_('jquery.framework');
 
 			if ($this->params->get('hosting'))
 			{
-				JHtml::_('script', $this->params->get('cloud_library_url'));
+				HtmlHelper::_('script', $this->params->get('cloud_library_url'));
 			}
 			else
 			{
-				JHtml::_('script', 'media/plg_sermonspeaker_jwplayer7/jwplayer.js');
+				HtmlHelper::_('script', 'media/plg_sermonspeaker_jwplayer7/jwplayer.js');
 				$doc->addScriptDeclaration('jwplayer.key="' . $this->params->get('license_self') . '";');
 			}
 
@@ -293,7 +295,7 @@ class PlgSermonspeakerJwplayer7 extends SermonspeakerPluginPlayer
 
 		// Load CSS file from media folder
 		$file = 'plg_sermonspeaker_jwplayer7/' . $skinName . '.css';
-		JHtml::_('stylesheet', $file, array('relative' => true));
+		HtmlHelper::_('stylesheet', $file, array('relative' => true));
 
 		$skinOptions[] = "name:'" . $skinName . "'";
 
@@ -428,7 +430,7 @@ class PlgSermonspeakerJwplayer7 extends SermonspeakerPluginPlayer
 			if ($item->sermon_date)
 			{
 				// Todo: Pick correct date format (from component or add param to plugin?)
-				$desc[] = JText::_('JDATE') . ': ' . JHtml::date($item->sermon_date, JText::_($this->c_params->get('date_format')), true);
+				$desc[] = JText::_('JDATE') . ': ' . HtmlHelper::date($item->sermon_date, JText::_($this->c_params->get('date_format')), true);
 			}
 
 			if ($item->speaker_title)

@@ -9,6 +9,7 @@
 
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
+use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Session\Session;
 use Joomla\CMS\MVC\Controller\BaseController;
@@ -355,7 +356,7 @@ class SermonspeakerControllerTools extends BaseController
 					'date'   => array($item->date),
 					'time'   => array($item->time),
 				);
-				$TagData['comment'] = array(strip_tags(JHtml::_('content.prepare', $item->notes)));
+				$TagData['comment'] = array(strip_tags(HtmlHelper::_('content.prepare', $item->notes)));
 
 				// Adding the picture to the id3 tags, taken from getID3 Demos -> demo.write.php
 				if ($item->picture && !parse_url($item->picture, PHP_URL_SCHEME))

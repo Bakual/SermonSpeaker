@@ -7,9 +7,11 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
+use Joomla\CMS\HTML\HTMLHelper;
+
 defined('_JEXEC') or die();
 
-JHtml::_('bootstrap.tooltip');
+HtmlHelper::_('bootstrap.tooltip');
 
 $user = JFactory::getUser();
 
@@ -33,13 +35,13 @@ if (!$this->item->pic)
 		</a>
 		<?php if (in_array('speaker:intro', $this->columns) and $this->item->intro) : ?>
 			<div>
-				<?php echo JHtml::_('content.prepare', $this->item->intro, '', 'com_sermonspeaker.intro'); ?>
+				<?php echo HtmlHelper::_('content.prepare', $this->item->intro, '', 'com_sermonspeaker.intro'); ?>
 			</div>
 		<?php endif;
 
 		if (in_array('speaker:bio', $this->columns) and $this->item->bio) : ?>
 			<div>
-				<?php echo JHtml::_('content.prepare', $this->item->bio, '', 'com_sermonspeaker.bio'); ?>
+				<?php echo HtmlHelper::_('content.prepare', $this->item->bio, '', 'com_sermonspeaker.bio'); ?>
 			</div>
 		<?php endif; ?>
 	</div>

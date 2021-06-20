@@ -7,11 +7,13 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
+use Joomla\CMS\HTML\HTMLHelper;
+
 defined('_JEXEC') or die();
 
 if ($params->get('tooltip'))
 {
-	JHtml::_('bootstrap.tooltip');
+	HtmlHelper::_('bootstrap.tooltip');
 }
 
 $level = 1;
@@ -41,7 +43,7 @@ foreach ($list as $item) :
 				endif;
 				$tip	= '<div class="clearfix"><img src="' . $pic . '" alt="" class="pull-right img-rounded">' . $tip . '</div>';
 			endif;
-			echo JHtml::tooltip($tip, $options);
+			echo HtmlHelper::tooltip($tip, $options);
 		else : ?>
 			<a href="<?php echo $link ?>">
 				<?php echo $item->title; ?>

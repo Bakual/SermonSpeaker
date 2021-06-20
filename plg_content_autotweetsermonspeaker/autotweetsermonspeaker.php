@@ -7,6 +7,8 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
+use Joomla\CMS\HTML\HTMLHelper;
+
 defined('_JEXEC') or die();
 
 // Check for component
@@ -250,7 +252,7 @@ class PlgContentAutotweetSermonspeaker extends plgAutotweetBase
 
 		// Use item title or text as message
 		$title     = $item->title;
-		$item_text = JHtml::_('content.prepare', $item->notes);
+		$item_text = HtmlHelper::_('content.prepare', $item->notes);
 		$text      = $this->getMessagetext($this->use_text, $this->use_text_count, $title, $item_text);
 		$hashtags  = '';
 

@@ -7,6 +7,8 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
+use Joomla\CMS\HTML\HTMLHelper;
+
 defined('_JEXEC') or die();
 
 /**
@@ -80,13 +82,13 @@ extract($displayData);
 <?php endif; ?>
 <?php if (in_array('speaker:intro', $columns) and $item->intro) : ?>
 	<div itemprop="description">
-		<?php echo JHtml::_('content.prepare', $item->intro, '', 'com_sermonspeaker.intro'); ?>
+		<?php echo HtmlHelper::_('content.prepare', $item->intro, '', 'com_sermonspeaker.intro'); ?>
 	</div>
 <?php endif;
 
 if(in_array('speaker:bio', $columns) and $item->bio) : ?>
 	<div itemprop="description">
-		<?php echo JHtml::_('content.prepare', $item->bio, '', 'com_sermonspeaker.bio'); ?>
+		<?php echo HtmlHelper::_('content.prepare', $item->bio, '', 'com_sermonspeaker.bio'); ?>
 	</div>
 <?php endif; ?>
 <?php if(isset($item->event)) : ?>

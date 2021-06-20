@@ -7,6 +7,8 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
+use Joomla\CMS\HTML\HTMLHelper;
+
 defined('_JEXEC') or die();
 
 $orderlist = array(
@@ -38,26 +40,26 @@ $orderlist = array(
 			<?php if ($this->books) : ?>
 				<select name="book" id="filter_books" class="input-medium" onchange="this.form.submit()">
 					<option value="0"><?php echo JText::_('COM_SERMONSPEAKER_SELECT_BOOK'); ?></option>
-					<?php echo JHtml::_('select.options', $this->books, 'value', 'text', $this->state_sermons->get('scripture.book'), true); ?>
+					<?php echo HtmlHelper::_('select.options', $this->books, 'value', 'text', $this->state_sermons->get('scripture.book'), true); ?>
 				</select>
 			<?php endif; ?>
 			<select name="month" id="filter_months" class="input-medium" onchange="this.form.submit()">
 				<option value="0"><?php echo JText::_('COM_SERMONSPEAKER_SELECT_MONTH'); ?></option>
-				<?php echo JHtml::_('select.options', $this->months, 'value', 'text', $this->state_sermons->get('date.month'), true); ?>
+				<?php echo HtmlHelper::_('select.options', $this->months, 'value', 'text', $this->state_sermons->get('date.month'), true); ?>
 			</select>
 			<select name="year" id="filter_years" class="input-small" onchange="this.form.submit()">
 				<option value="0"><?php echo JText::_('COM_SERMONSPEAKER_SELECT_YEAR_SHORT'); ?></option>
-				<?php echo JHtml::_('select.options', $this->years, 'year', 'year', $this->state_sermons->get('date.year'), true); ?>
+				<?php echo HtmlHelper::_('select.options', $this->years, 'year', 'year', $this->state_sermons->get('date.year'), true); ?>
 			</select>
 		</div>
 		<div class="btn-group ordering-select">
 			<select name="filter_order" id="filter_order" class="input-medium" onchange="this.form.submit()">
 				<option value="0"><?php echo JText::_('COM_SERMONSPEAKER_SELECT_ORDERING'); ?></option>
-				<?php echo JHtml::_('select.options', $orderlist, '', '', $this->state_sermons->get('list.ordering'), true); ?>
+				<?php echo HtmlHelper::_('select.options', $orderlist, '', '', $this->state_sermons->get('list.ordering'), true); ?>
 			</select>
 			<select name="filter_order_Dir" id="filter_order_Dir" class="input-medium" onchange="this.form.submit()">
 				<option value="0"><?php echo JText::_('COM_SERMONSPEAKER_SELECT_ORDER_DIR'); ?></option>
-				<?php echo JHtml::_('select.options', array('ASC' => 'COM_SERMONSPEAKER_SELECT_ORDER_DIR_OPTION_ASC', 'DESC' => 'COM_SERMONSPEAKER_SELECT_ORDER_DIR_OPTION_DESC'), '', '', $this->state_sermons->get('list.direction'), true); ?>
+				<?php echo HtmlHelper::_('select.options', array('ASC' => 'COM_SERMONSPEAKER_SELECT_ORDER_DIR_OPTION_ASC', 'DESC' => 'COM_SERMONSPEAKER_SELECT_ORDER_DIR_OPTION_DESC'), '', '', $this->state_sermons->get('list.direction'), true); ?>
 			</select>
 		</div>
 	<?php endif;

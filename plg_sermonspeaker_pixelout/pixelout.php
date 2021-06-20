@@ -122,7 +122,7 @@ class PlgSermonspeakerPixelout extends SermonspeakerPluginPlayer
 		// Loading needed Javascript only once
 		if (!self::$script_loaded)
 		{
-			JHtml::script('media/plg_sermonspeaker_pixelout/audio-player.js');
+			HtmlHelper::script('media/plg_sermonspeaker_pixelout/audio-player.js');
 			$doc = JFactory::getDocument();
 			$doc->addScriptDeclaration('
 				AudioPlayer.setup("' . JUri::root() . 'media/plg_sermonspeaker_pixelout/player.swf", {

@@ -120,7 +120,7 @@ class PlgSermonspeakerVimeo extends SermonspeakerPluginPlayer
 		{
 			if ($this->params->get('ga', ''))
 			{
-				JHtml::Script('media/plg_sermonspeaker_vimeo/js/ganalytics.js', true);
+				HtmlHelper::Script('media/plg_sermonspeaker_vimeo/js/ganalytics.js', true);
 				$doc = JFactory::getDocument();
 				$doc->addScriptDeclaration("window.addEvent('domready', _trackVimeo);");
 			}

@@ -1,22 +1,24 @@
 <?php
 // no direct access
+use Joomla\CMS\HTML\HTMLHelper;
+
 defined('_JEXEC') or die;
 
 $app = JFactory::getApplication();
 if ($app->isClient('site'))
 {
 	JSession::checkToken('get') or die(JText::_('JINVALID_TOKEN'));
-	JHtml::_('stylesheet', 'com_sermonspeaker/sermonspeaker.css', array('relative' => true));
+	HtmlHelper::_('stylesheet', 'com_sermonspeaker/sermonspeaker.css', array('relative' => true));
 }
 
 JLoader::register('SermonspeakerHelperRoute', JPATH_ROOT . '/components/com_sermonspeaker/helpers/route.php');
 
-JHtml::addIncludePath(JPATH_COMPONENT.'/helpers/html');
+HtmlHelper::addIncludePath(JPATH_COMPONENT.'/helpers/html');
 
-JHtml::_('behavior.core');
-JHtml::_('behavior.polyfill', array('event'), 'lt IE 9');
-JHtml::_('bootstrap.tooltip', '.hasTooltip', array('placement' => 'bottom'));
-JHtml::_('formbehavior.chosen', 'select');
+HtmlHelper::_('behavior.core');
+HtmlHelper::_('behavior.polyfill', array('event'), 'lt IE 9');
+HtmlHelper::_('bootstrap.tooltip', '.hasTooltip', array('placement' => 'bottom'));
+HtmlHelper::_('formbehavior.chosen', 'select');
 
 $function	= JFactory::getApplication()->input->get('function', 'jSelectSerie');
 $listOrder	= $this->escape($this->state->get('list.ordering'));
@@ -32,19 +34,19 @@ $listDirn	= $this->escape($this->state->get('list.direction'));
 			<thead>
 				<tr>
 					<th width="1%" class="center nowrap">
-						<?php echo JHtml::_('searchtools.sort', 'JSTATUS', 'sermons.state', $listDirn, $listOrder); ?>
+						<?php echo HtmlHelper::_('searchtools.sort', 'JSTATUS', 'sermons.state', $listDirn, $listOrder); ?>
 					</th>
 					<th class="title">
-						<?php echo JHtml::_('searchtools.sort', 'JGLOBAL_TITLE', 'series.title', $listDirn, $listOrder); ?>
+						<?php echo HtmlHelper::_('searchtools.sort', 'JGLOBAL_TITLE', 'series.title', $listDirn, $listOrder); ?>
 					</th>
 					<th width="10%" class="nowrap">
-						<?php echo JHtml::_('searchtools.sort', 'JCATEGORY', 'series.catid', $listDirn, $listOrder); ?>
+						<?php echo HtmlHelper::_('searchtools.sort', 'JCATEGORY', 'series.catid', $listDirn, $listOrder); ?>
 					</th>
 					<th width="15%" class="nowrap">
-						<?php echo JHtml::_('searchtools.sort', 'JGRID_HEADING_LANGUAGE', 'language', $listDirn, $listOrder); ?>
+						<?php echo HtmlHelper::_('searchtools.sort', 'JGRID_HEADING_LANGUAGE', 'language', $listDirn, $listOrder); ?>
 					</th>
 					<th width="1%" class="nowrap">
-						<?php echo JHtml::_('searchtools.sort', 'JGRID_HEADING_ID', 'series.id', $listDirn, $listOrder); ?>
+						<?php echo HtmlHelper::_('searchtools.sort', 'JGRID_HEADING_ID', 'series.id', $listDirn, $listOrder); ?>
 					</th>
 				</tr>
 			</thead>
@@ -91,7 +93,7 @@ $listDirn	= $this->escape($this->state->get('list.direction'));
 			<input type="hidden" name="forcedLanguage" value="<?php echo $this->escape($this->state->get('filter.forcedLanguage')); ?>" />
 			<input type="hidden" name="task" value="" />
 			<input type="hidden" name="boxchecked" value="0" />
-			<?php echo JHtml::_('form.token'); ?>
+			<?php echo HtmlHelper::_('form.token'); ?>
 		</div>
 	</form>
 </div>

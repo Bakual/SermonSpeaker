@@ -9,9 +9,10 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 
-JHtml::_('stylesheet', 'com_sermonspeaker/frontendupload.css', array('relative' => true));
+HtmlHelper::_('stylesheet', 'com_sermonspeaker/frontendupload.css', array('relative' => true));
 ?>
 <div class="sermonupload<?php echo $moduleclass_sfx; ?>">
 	<div id="upload_limit" class="well well-small">

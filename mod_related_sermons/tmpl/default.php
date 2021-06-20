@@ -7,6 +7,8 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
+use Joomla\CMS\HTML\HTMLHelper;
+
 defined('_JEXEC') or die();
 
 ?>
@@ -17,7 +19,7 @@ foreach ($list as $item) : ?>
 	<a href="<?php echo $item->route; ?>">
 		<?php
 		if ($showDate) :
-			echo JHtml::date($item->created, JText::_('DATE_FORMAT_LC4')) . ' - ';
+			echo HtmlHelper::date($item->created, JText::_('DATE_FORMAT_LC4')) . ' - ';
 		endif;
 		echo $item->title; ?></a>
 </li>

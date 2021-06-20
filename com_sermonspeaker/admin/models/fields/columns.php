@@ -7,6 +7,8 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
+use Joomla\CMS\HTML\HTMLHelper;
+
 defined('_JEXEC') or die();
 
 jimport('joomla.form.formfield');
@@ -115,7 +117,7 @@ class JFormFieldColumns extends JFormField
 			}
 
 			// Create a new option object based on the <option /> element.
-			$tmp = JHtml::_('select.option', (string) $option['value'], JText::_(trim((string) $option)), 'value', 'text', ((string) $option['disabled'] == 'true'));
+			$tmp = HtmlHelper::_('select.option', (string) $option['value'], JText::_(trim((string) $option)), 'value', 'text', ((string) $option['disabled'] == 'true'));
 
 			// Set some option attributes.
 			$tmp->class = (string) $option['class'];

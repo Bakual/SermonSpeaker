@@ -7,10 +7,12 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
+use Joomla\CMS\HTML\HTMLHelper;
+
 defined('_JEXEC') or die();
 
-JHtml::_('script', 'system/progressbar.js', true, true);
-JHtml::_('stylesheet', 'media/mediamanager.css', array('relative' => true));
+HtmlHelper::_('script', 'system/progressbar.js', true, true);
+HtmlHelper::_('stylesheet', 'media/mediamanager.css', array('relative' => true));
 $base = JUri::base();
 
 $js = 'function CheckProgress() {

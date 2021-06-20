@@ -9,6 +9,7 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 
 /**
@@ -39,7 +40,7 @@ class SermonspeakerViewSerie extends JViewLegacy
 		}
 
 		// Applying CSS file
-		JHtml::_('stylesheet', 'com_sermonspeaker/sermonspeaker.css', array('relative' => true));
+		HtmlHelper::_('stylesheet', 'com_sermonspeaker/sermonspeaker.css', array('relative' => true));
 
 		// Initialise variables.
 		$user = JFactory::getUser();

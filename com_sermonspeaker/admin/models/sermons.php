@@ -10,6 +10,7 @@
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Associations;
 use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Model\ListModel;
@@ -372,12 +373,12 @@ class SermonspeakerModelSermons extends ListModel
 		{
 			if (count($published))
 			{
-				array_unshift($published, JHtml::_('select.optgroup', JText::_('JPUBLISHED')));
-				array_push($published, JHtml::_('select.optgroup', JText::_('JPUBLISHED')));
+				array_unshift($published, HtmlHelper::_('select.optgroup', JText::_('JPUBLISHED')));
+				array_push($published, HtmlHelper::_('select.optgroup', JText::_('JPUBLISHED')));
 			}
 
-			array_unshift($unpublished, JHtml::_('select.optgroup', JText::_('JUNPUBLISHED')));
-			array_push($unpublished, JHtml::_('select.optgroup', JText::_('JUNPUBLISHED')));
+			array_unshift($unpublished, HtmlHelper::_('select.optgroup', JText::_('JUNPUBLISHED')));
+			array_push($unpublished, HtmlHelper::_('select.optgroup', JText::_('JUNPUBLISHED')));
 		}
 
 		return array_merge($published, $unpublished);
@@ -418,12 +419,12 @@ class SermonspeakerModelSermons extends ListModel
 		{
 			if (count($published))
 			{
-				array_unshift($published, JHtml::_('select.optgroup', JText::_('JPUBLISHED')));
-				array_push($published, JHtml::_('select.optgroup', JText::_('JPUBLISHED')));
+				array_unshift($published, HtmlHelper::_('select.optgroup', JText::_('JPUBLISHED')));
+				array_push($published, HtmlHelper::_('select.optgroup', JText::_('JPUBLISHED')));
 			}
 
-			array_unshift($unpublished, JHtml::_('select.optgroup', JText::_('JUNPUBLISHED')));
-			array_push($unpublished, JHtml::_('select.optgroup', JText::_('JUNPUBLISHED')));
+			array_unshift($unpublished, HtmlHelper::_('select.optgroup', JText::_('JUNPUBLISHED')));
+			array_push($unpublished, HtmlHelper::_('select.optgroup', JText::_('JUNPUBLISHED')));
 		}
 
 		return array_merge($published, $unpublished);

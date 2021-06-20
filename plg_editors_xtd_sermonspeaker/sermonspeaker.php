@@ -7,6 +7,8 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
+use Joomla\CMS\HTML\HTMLHelper;
+
 defined('_JEXEC') or die();
 
 /**
@@ -47,7 +49,7 @@ class PlgButtonSermonspeaker extends JPlugin
 		$doc = JFactory::getDocument();
 		$doc->addScriptDeclaration($js);
 
-		JHtml::_('behavior.modal');
+		HtmlHelper::_('behavior.modal');
 
 		// Use the built-in element view to select the sermon.
 		$link = 'index.php?option=com_sermonspeaker&amp;view=sermons&amp;layout=modal&amp;tmpl=component&amp;' . JSession::getFormToken() . '=1';

@@ -10,12 +10,13 @@
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Session\Session;
 use Joomla\CMS\Uri\Uri;
 
-JHtml::_('bootstrap.tooltip', '.hasTooltip');
+HtmlHelper::_('bootstrap.tooltip', '.hasTooltip');
 
 $session = Factory::getApplication()->getSession();
 $user    = Factory::getUser();
@@ -50,7 +51,7 @@ $user    = Factory::getUser();
 								</a>
 							</div>
 						</div>
-						<?php echo JHtml::_(
+						<?php echo HtmlHelper::_(
 							'bootstrap.renderModal',
 							'tools-time-modal',
 							array(
@@ -70,7 +71,7 @@ $user    = Factory::getUser();
 								</a>
 							</div>
 						</div>
-						<?php echo JHtml::_(
+						<?php echo HtmlHelper::_(
 							'bootstrap.renderModal',
 							'tools-files-modal',
 							array(

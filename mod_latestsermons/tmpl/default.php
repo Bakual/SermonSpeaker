@@ -7,6 +7,8 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
+use Joomla\CMS\HTML\HTMLHelper;
+
 defined('_JEXEC') or die();
 
 /**
@@ -22,7 +24,7 @@ $tooltip = ($params->get('ls_show_mo_speaker') || $params->get('ls_show_mo_serie
 if ($tooltip)
 {
 	// Include only if needed...
-	JHtml::_('bootstrap.tooltip');
+	HtmlHelper::_('bootstrap.tooltip');
 }
 ?>
 <div class="latestsermons<?php echo $moduleclass_sfx; ?>">
@@ -33,7 +35,7 @@ if ($tooltip)
 				<li class="latestsermons_entry<?php echo $i; ?>">
 					<?php if ($params->get('use_date')) : ?>
 						<?php $date_format = JText::_($params->get('ls_mo_date_format', 'DATE_FORMAT_LC4')); ?>
-						<?php $text = JHtml::date($row->sermon_date, $date_format, true); ?>
+						<?php $text = HtmlHelper::date($row->sermon_date, $date_format, true); ?>
 					<?php else : ?>
 						<?php $text = $row->title; ?>
 					<?php endif; ?>
@@ -62,7 +64,7 @@ if ($tooltip)
 						<?php endif; ?>
 						<?php if ($params->get('ls_show_mo_date') and $row->sermon_date) : ?>
 							<?php $date_format = JText::_($params->get('ls_mo_date_format', 'DATE_FORMAT_LC4')); ?>
-							<?php $tips[] = JText::_('JDATE') . ': ' . JHtml::date($row->sermon_date, $date_format, true); ?>
+							<?php $tips[] = JText::_('JDATE') . ': ' . HtmlHelper::date($row->sermon_date, $date_format, true); ?>
 						<?php endif; ?>
 						<?php if ($params->get('show_scripture') and $row->scripture) : ?>
 							<?php $tips[] = JText::_('MOD_LATESTSERMONS_SCRIPTURE') . ': ' . SermonspeakerHelperSermonspeaker::insertScriptures($row->scripture, ', ', false);  ?>
@@ -71,7 +73,7 @@ if ($tooltip)
 							<?php $tips[] = JText::_('JGLOBAL_HITS') . ': ' . $row->hits; ?>
 						<?php endif; ?>
 						<?php $tip = implode('<br/>', $tips); ?>
-						<?php echo JHtml::tooltip($tip, $title, '', $text, $link); ?>
+						<?php echo HtmlHelper::tooltip($tip, $title, '', $text, $link); ?>
 					<?php else : ?>
 						<a href="<?php echo $link; ?>">
 							<?php echo $text; ?>

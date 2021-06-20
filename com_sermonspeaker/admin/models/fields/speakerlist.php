@@ -7,6 +7,8 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
+use Joomla\CMS\HTML\HTMLHelper;
+
 defined('_JEXEC') or die();
 
 jimport('joomla.html.html');
@@ -78,10 +80,10 @@ class JFormFieldSpeakerlist extends JFormFieldGroupedList
 					</div>';
 
 			// Add the modal field script to the document head.
-			JHtml::_('jquery.framework');
-			JHtml::_('script', 'system/fields/modal-fields.js', array('version' => 'auto', 'relative' => true));
+			HtmlHelper::_('jquery.framework');
+			HtmlHelper::_('script', 'system/fields/modal-fields.js', array('version' => 'auto', 'relative' => true));
 
-			$html .= JHtml::_(
+			$html .= HtmlHelper::_(
 				'bootstrap.renderModal',
 				'speakerModal_' . $this->id,
 				array(

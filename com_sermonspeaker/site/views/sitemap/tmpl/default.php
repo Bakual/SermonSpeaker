@@ -7,6 +7,8 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
+use Joomla\CMS\HTML\HTMLHelper;
+
 defined('_JEXEC') or die();
 
 $freq = $this->params->get('freq', 'weekly');
@@ -32,7 +34,7 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>'; ?>
 			<loc><?php echo $base . JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug, $item->catid, $item->language)); ?></loc>
 			<?php
 			if ($date) : ?>
-				<lastmod><?php echo JHtml::date($date, 'c'); ?></lastmod><?php endif; ?>
+				<lastmod><?php echo HtmlHelper::date($date, 'c'); ?></lastmod><?php endif; ?>
 			<changefreq><?php echo $freq; ?></changefreq>
 			<priority><?php echo $prio; ?></priority>
 		</url>

@@ -38,11 +38,11 @@ use Joomla\CMS\Language\Text;
 			<?php endif; ?>
 			<select name="month" id="filter_months" class="input-medium" onchange="this.form.submit()">
 				<option value="0"><?php echo JText::_('COM_SERMONSPEAKER_SELECT_MONTH'); ?></option>
-				<?php echo JHtml::_('select.options', $this->months, 'value', 'text', $this->state_sermons->get('date.month'), true); ?>
+				<?php echo HtmlHelper::_('select.options', $this->months, 'value', 'text', $this->state_sermons->get('date.month'), true); ?>
 			</select>
 			<select name="year" id="filter_years" class="input-small" onchange="this.form.submit()">
 				<option value="0"><?php echo JText::_('COM_SERMONSPEAKER_SELECT_YEAR_SHORT'); ?></option>
-				<?php echo JHtml::_('select.options', $this->years, 'year', 'year', $this->state_sermons->get('date.year'), true); ?>
+				<?php echo HtmlHelper::_('select.options', $this->years, 'year', 'year', $this->state_sermons->get('date.year'), true); ?>
 			</select>
 		</div>
 	<?php endif;

@@ -10,6 +10,7 @@
 defined('_JEXEC') or die();
 
 use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\HTML\HTMLHelper;
 
 jimport('joomla.html.html');
 jimport('joomla.form.formfield');
@@ -80,10 +81,10 @@ class JFormFieldSerieslist extends JFormFieldGroupedList
 					</div>';
 
 			// Add the modal field script to the document head.
-			JHtml::_('jquery.framework');
-			JHtml::_('script', 'system/fields/modal-fields.js', array('version' => 'auto', 'relative' => true));
+			HtmlHelper::_('jquery.framework');
+			HtmlHelper::_('script', 'system/fields/modal-fields.js', array('version' => 'auto', 'relative' => true));
 
-			$html .= JHtml::_(
+			$html .= HtmlHelper::_(
 				'bootstrap.renderModal',
 				'serieModal_' . $this->id,
 				array(

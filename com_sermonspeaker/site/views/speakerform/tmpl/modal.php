@@ -7,12 +7,14 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
+use Joomla\CMS\HTML\HTMLHelper;
+
 defined('_JEXEC') or die();
 
-JHtml::_('bootstrap.tooltip', '.hasTooltip', array('placement' => 'bottom'));
-JHtml::_('behavior.formvalidation');
-JHtml::_('behavior.keepalive');
-JHtml::_('formbehavior.chosen', 'select');
+HtmlHelper::_('bootstrap.tooltip', '.hasTooltip', array('placement' => 'bottom'));
+HtmlHelper::_('behavior.formvalidation');
+HtmlHelper::_('behavior.keepalive');
+HtmlHelper::_('formbehavior.chosen', 'select');
 
 ?>
 <script type="text/javascript">
@@ -167,7 +169,7 @@ JHtml::_('formbehavior.chosen', 'select');
 			<input type="hidden" name="layout" value="modal"/>
 			<input type="hidden" name="task" value=""/>
 			<input type="hidden" name="return" value="<?php echo $jinput->getCmd('return'); ?>"/>
-			<?php echo JHtml::_('form.token'); ?>
+			<?php echo HtmlHelper::_('form.token'); ?>
 		</fieldset>
 	</form>
 </div>

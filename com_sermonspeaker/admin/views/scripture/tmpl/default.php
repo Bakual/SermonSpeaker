@@ -7,10 +7,12 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
+use Joomla\CMS\HTML\HTMLHelper;
+
 defined('_JEXEC') or die();
 
-JHtml::_('bootstrap.tooltip');
-JHtml::_('formbehavior.chosen');
+HtmlHelper::_('bootstrap.tooltip');
+HtmlHelper::_('formbehavior.chosen');
 ?>
 <form action="#" method="post" name="adminForm" id="item-form" class="form-validate form-inline">
 	<table>

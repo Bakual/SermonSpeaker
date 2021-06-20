@@ -7,6 +7,8 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
+use Joomla\CMS\HTML\HTMLHelper;
+
 defined('_JEXEC') or die();
 
 JLoader::register('SermonspeakerPluginPlayer', JPATH_SITE . '/components/com_sermonspeaker/plugin/player.php');
@@ -89,6 +91,6 @@ class PlgSermonspeakerGeneric extends SermonspeakerPluginPlayer
 		$content = $start . $file . $end;
 
 		$player->player = $this->_name;
-		$player->mspace = JHtml::_('content.prepare', $content);
+		$player->mspace = HtmlHelper::_('content.prepare', $content);
 	}
 }

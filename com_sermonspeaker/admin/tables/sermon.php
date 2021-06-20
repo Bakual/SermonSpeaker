@@ -10,6 +10,7 @@
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Application\ApplicationHelper;
+use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Table\Table;
 use Joomla\CMS\Tag\TaggableTableInterface;
 use Joomla\CMS\Tag\TaggableTableTrait;
@@ -211,7 +212,7 @@ class SermonspeakerTableSermon extends Table implements VersionableTableInterfac
 			{
 				if ($this->sermon_date == '')
 				{
-					$this->sermon_date = JHtml::date($date, 'Y-m-d H:i:s', 'UTC');
+					$this->sermon_date = HtmlHelper::date($date, 'Y-m-d H:i:s', 'UTC');
 				}
 
 				$this->created = $date->toSql();

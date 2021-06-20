@@ -7,7 +7,7 @@
  * @license         http://www.gnu.org/licenses/gpl.html
  **/
 
-use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\HTML\HTMLHelper as HtmlHelperAlias;
 
 defined('_JEXEC') or die();
 
@@ -212,29 +212,29 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 		// Loading needed Javascript only once
 		if (!self::$script_loaded)
 		{
-			HtmlHelper::_('jquery.framework');
+			HtmlHelperAlias::_('jquery.framework');
 
 			JFactory::getDocument()->addScriptDeclaration('mejs.i18n.language(\'' . $langCode . '\');');
-			JHtml::_('script', 'plg_sermonspeaker_mediaelement/mediaelement-and-player.min.js', array('relative' => true));
-			JHtml::_('script', 'plg_sermonspeaker_mediaelement/mediaelement-and-player.min.js',  array('relative' => true));
-			JHtml::_('script', 'plg_sermonspeaker_mediaelement/renderers/vimeo.min.js',  array('relative' => true));
-			JHtml::_('script', 'plg_sermonspeaker_mediaelement/renderers/facebook.min.js',  array('relative' => true));
-			JHtml::_('script', 'plg_sermonspeaker_mediaelement/lang/' . $langCode . '.js',  array('relative' => true));
-			JHtml::_('stylesheet', 'plg_sermonspeaker_mediaelement/mediaelementplayer.min.css',  array('relative' => true));
+			HtmlHelperAlias::_('script', 'plg_sermonspeaker_mediaelement/mediaelement-and-player.min.js', array('relative' => true));
+			HtmlHelperAlias::_('script', 'plg_sermonspeaker_mediaelement/mediaelement-and-player.min.js',  array('relative' => true));
+			HtmlHelperAlias::_('script', 'plg_sermonspeaker_mediaelement/renderers/vimeo.min.js',  array('relative' => true));
+			HtmlHelperAlias::_('script', 'plg_sermonspeaker_mediaelement/renderers/facebook.min.js',  array('relative' => true));
+			HtmlHelperAlias::_('script', 'plg_sermonspeaker_mediaelement/lang/' . $langCode . '.js',  array('relative' => true));
+			HtmlHelperAlias::_('stylesheet', 'plg_sermonspeaker_mediaelement/mediaelementplayer.min.css',  array('relative' => true));
 
 			if ($this->params->get('speedplugin'))
 			{
-				JHtml::_('script', 'plg_sermonspeaker_mediaelement/speed/speed.min.js',  array('relative' => true));
-				JHtml::_('script', 'plg_sermonspeaker_mediaelement/speed/speed-i18n.js',  array('relative' => true));
-				JHtml::_('stylesheet', 'plg_sermonspeaker_mediaelement/speed/speed.min.css',  array('relative' => true));
+				HtmlHelperAlias::_('script', 'plg_sermonspeaker_mediaelement/speed/speed.min.js',  array('relative' => true));
+				HtmlHelperAlias::_('script', 'plg_sermonspeaker_mediaelement/speed/speed-i18n.js',  array('relative' => true));
+				HtmlHelperAlias::_('stylesheet', 'plg_sermonspeaker_mediaelement/speed/speed.min.css',  array('relative' => true));
 			}
 
 			if (is_array($items))
 			{
-				JHtml::_('script', 'plg_sermonspeaker_mediaelement/playlist/playlist.min.js',  array('relative' => true));
-				JHtml::_('script', 'plg_sermonspeaker_mediaelement/playlist/playlist-i18n.js',  array('relative' => true));
-				JHtml::_('stylesheet', 'plg_sermonspeaker_mediaelement/playlist/playlist.min.css',  array('relative' => true));
-				JHtml::_('script', 'plg_sermonspeaker_mediaelement/sermonspeaker.js',  array('relative' => true));
+				HtmlHelperAlias::_('script', 'plg_sermonspeaker_mediaelement/playlist/playlist.min.js',  array('relative' => true));
+				HtmlHelperAlias::_('script', 'plg_sermonspeaker_mediaelement/playlist/playlist-i18n.js',  array('relative' => true));
+				HtmlHelperAlias::_('stylesheet', 'plg_sermonspeaker_mediaelement/playlist/playlist.min.css',  array('relative' => true));
+				HtmlHelperAlias::_('script', 'plg_sermonspeaker_mediaelement/sermonspeaker.js',  array('relative' => true));
 			}
 
 			self::$script_loaded = 1;
@@ -357,7 +357,7 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 
 		if ($item->sermon_date)
 		{
-			$desc[] = JText::_('JDATE') . ': ' . JHtml::date($item->sermon_date, JText::_('DATE_FORMAT_LC4'), true);
+			$desc[] = JText::_('JDATE') . ': ' . HtmlHelperAlias::date($item->sermon_date, JText::_('DATE_FORMAT_LC4'), true);
 		}
 
 		if ($item->speaker_title)

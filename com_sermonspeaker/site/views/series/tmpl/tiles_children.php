@@ -7,6 +7,8 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
+use Joomla\CMS\HTML\HTMLHelper;
+
 defined('_JEXEC') or die();
 
 $class = 'first';
@@ -26,11 +28,11 @@ if (count($this->children[$this->category->id]) and $this->maxLevel != 0) : ?>
 				endif;
 
 				if ($this->params->get('show_subcat_desc_cat')) :
-					$tip[] = JHtml::_('content.prepare', $child->description);
+					$tip[] = HtmlHelper::_('content.prepare', $child->description);
 				endif;
 				$tooltip = implode('<br/>', $tip);
 				?>
-				<span class="hasTooltip" title="<?php echo JHtml::tooltipText($child->title, $tooltip); ?>">
+				<span class="hasTooltip" title="<?php echo HtmlHelper::tooltipText($child->title, $tooltip); ?>">
 					<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSeriesRoute($child->id, $child->language)); ?>">
 						<img border="0" align="middle" src="<?php echo $image; ?>"/>
 						<?php

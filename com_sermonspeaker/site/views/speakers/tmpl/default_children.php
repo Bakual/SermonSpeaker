@@ -7,6 +7,8 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
+use Joomla\CMS\HTML\HTMLHelper;
+
 defined('_JEXEC') or die();
 
 $class = ' class="first"';
@@ -40,7 +42,7 @@ if (count($this->children[$this->category->id]) > 0) :
 				<?php if ($this->params->get('show_subcat_desc') == 1) :
 					if ($child->description) : ?>
 						<div class="category-desc">
-							<?php echo JHtml::_('content.prepare', $child->description, '', 'com_sermonspeaker.category'); ?>
+							<?php echo HtmlHelper::_('content.prepare', $child->description, '', 'com_sermonspeaker.category'); ?>
 						</div>
 					<?php endif;
 				endif;

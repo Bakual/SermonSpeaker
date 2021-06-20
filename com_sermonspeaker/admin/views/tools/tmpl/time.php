@@ -1,9 +1,11 @@
 <?php
 // no direct access
+use Joomla\CMS\HTML\HTMLHelper;
+
 defined('_JEXEC') or die;
 
-JHtml::addIncludePath(JPATH_COMPONENT.'/helpers/html');
-JHtml::_('bootstrap.tooltip');
+HtmlHelper::addIncludePath(JPATH_COMPONENT.'/helpers/html');
+HtmlHelper::_('bootstrap.tooltip');
 $session	= JFactory::getSession();
 ?>
 <form action="index.php?option=com_sermonspeaker&task=tools.time" target="_parent" method="post" id="adminForm" name="adminForm">
@@ -25,6 +27,6 @@ $session	= JFactory::getSession();
 		</tr>
 	</table>
 	<div>
-		<?php echo JHtml::_('form.token'); ?>
+		<?php echo HtmlHelper::_('form.token'); ?>
 	</div>
 </form>

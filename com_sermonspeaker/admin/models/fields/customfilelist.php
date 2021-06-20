@@ -13,6 +13,7 @@ use Joomla\CMS\Application\ApplicationHelper;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Filesystem\File;
 use Joomla\CMS\Form\FormHelper;
+use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Uri\Uri;
 
@@ -176,8 +177,8 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 	 */
 	protected function getUploader()
 	{
-		JHtml::_('jquery.framework');
-		JHtml::_('script', 'com_sermonspeaker/plupload/plupload.full.min.js', array('relative' => true));
+		HtmlHelper::_('jquery.framework');
+		HtmlHelper::_('script', 'com_sermonspeaker/plupload/plupload.full.min.js', array('relative' => true));
 
 		// Load localisation
 		$tag  = str_replace('-', '_', JFactory::getLanguage()->getTag());
@@ -186,7 +187,7 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 
 		if (file_exists(JPATH_SITE . '/' . $path . $file))
 		{
-			JHtml::_('script', 'com_sermonspeaker/plupload/i18n/' . $file, array('relative' => true));
+			HtmlHelper::_('script', 'com_sermonspeaker/plupload/i18n/' . $file, array('relative' => true));
 		}
 		else
 		{
@@ -195,7 +196,7 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 
 			if (file_exists(JPATH_SITE . '/' . $path . $file))
 			{
-				JHtml::_('script', 'com_sermonspeaker/plupload/i18n/' . $file, array('relative' => true));
+				HtmlHelper::_('script', 'com_sermonspeaker/plupload/i18n/' . $file, array('relative' => true));
 			}
 		}
 

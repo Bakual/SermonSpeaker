@@ -9,11 +9,12 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 
-JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
+HtmlHelper::addIncludePath(JPATH_COMPONENT . '/helpers');
 
-JHtml::_('bootstrap.tooltip');
+HtmlHelper::_('bootstrap.tooltip');
 
 $user       = JFactory::getUser();
 $fu_enable  = $this->params->get('fu_enable');
@@ -45,7 +46,7 @@ $listDirn   = $this->state->get('list.direction');
 			<?php endif;
 
 			if ($this->params->get('show_description') and $this->category->description) :
-				echo JHtml::_('content.prepare', $this->category->description, '', 'com_sermonspeaker.category');
+				echo HtmlHelper::_('content.prepare', $this->category->description, '', 'com_sermonspeaker.category');
 			endif; ?>
 			<div class="clearfix"></div>
 		</div>
@@ -75,23 +76,23 @@ $listDirn   = $this->state->get('list.direction');
 					<thead>
 					<tr>
 						<th class="ss-title">
-							<?php echo JHtml::_('grid.sort', 'COM_SERMONSPEAKER_FIELD_NAME_LABEL', 'title', $listDirn, $listOrder); ?>
+							<?php echo HtmlHelper::_('grid.sort', 'COM_SERMONSPEAKER_FIELD_NAME_LABEL', 'title', $listDirn, $listOrder); ?>
 						</th>
 						<?php if (in_array('speakers:category', $this->col_speaker)) : ?>
 							<th class="ss-col ss-category hidden-phone">
-								<?php echo JHtml::_('grid.sort', 'JCATEGORY', 'category_title', $listDirn, $listOrder); ?>
+								<?php echo HtmlHelper::_('grid.sort', 'JCATEGORY', 'category_title', $listDirn, $listOrder); ?>
 							</th>
 						<?php endif;
 
 						if (in_array('speakers:intro', $this->col_speaker)) : ?>
 							<th class="ss-col ss-intro hidden-phone">
-								<?php echo JHtml::_('grid.sort', 'COM_SERMONSPEAKER_FIELD_INTRO_LABEL', 'intro', $listDirn, $listOrder); ?>
+								<?php echo HtmlHelper::_('grid.sort', 'COM_SERMONSPEAKER_FIELD_INTRO_LABEL', 'intro', $listDirn, $listOrder); ?>
 							</th>
 						<?php endif;
 
 						if (in_array('speakers:hits', $this->col_speaker)) : ?>
 							<th class="ss-col ss-hits hidden-phone hidden-tablet">
-								<?php echo JHtml::_('grid.sort', 'JGLOBAL_HITS', 'hits', $listDirn, $listOrder); ?>
+								<?php echo HtmlHelper::_('grid.sort', 'JGLOBAL_HITS', 'hits', $listDirn, $listOrder); ?>
 							</th>
 						<?php endif; ?>
 						<th></th>
@@ -107,7 +108,7 @@ $listDirn   = $this->state->get('list.direction');
 								</a>
 								<?php if ($canEdit or ($canEditOwn and ($user->id == $item->created_by))) : ?>
 									<span class="list-edit pull-left width-50">
-											<?php echo JHtml::_('icon.edit', $item, $this->params, array('type' => 'speaker')); ?>
+											<?php echo HtmlHelper::_('icon.edit', $item, $this->params, array('type' => 'speaker')); ?>
 										</span>
 									<?php echo JLayoutHelper::render('blocks.state_info', array('item' => $item, 'show' => true)); ?>
 								<?php endif; ?>
@@ -119,7 +120,7 @@ $listDirn   = $this->state->get('list.direction');
 							<?php endif;
 
 							if (in_array('speakers:intro', $this->col_speaker)) : ?>
-								<td class="ss-col ss-intro hidden-phone"><?php echo JHtml::_('content.prepare', $item->intro, '', 'com_sermonspeaker.intro'); ?></td>
+								<td class="ss-col ss-intro hidden-phone"><?php echo HtmlHelper::_('content.prepare', $item->intro, '', 'com_sermonspeaker.intro'); ?></td>
 							<?php endif;
 
 							if (in_array('speakers:hits', $this->col_speaker)) : ?>
@@ -161,7 +162,7 @@ $listDirn   = $this->state->get('list.direction');
 			<?php endif;
 
 			if ($user->authorise('core.create', 'com_sermonspeaker')) :
-				echo JHtml::_('icon.create', $this->category, $this->params, 'speaker');
+				echo HtmlHelper::_('icon.create', $this->category, $this->params, 'speaker');
 			endif;
 
 			if ($this->params->get('show_pagination') and ($this->pagination->pagesTotal > 1)) : ?>
