@@ -21,8 +21,8 @@ extract($displayData);
 ?>
 <?php if (!$item->speaker_state) : ?>
     <span itemprop="name"><?php echo $item->speaker_title; ?></span>
-<?php else :
-	if ($params->get('speakerpopup', 1)) : ?>
+<?php else : ?>
+	<?php if ($params->get('speakerpopup', 1)) : ?>
 		<?php echo HtmlHelper::_(
 			'bootstrap.renderModal',
 			'sermonspeaker-modal-speaker-' . $item->speaker_id,
@@ -37,7 +37,7 @@ extract($displayData);
         <a href="<?php echo Route::_(SermonspeakerHelperRoute::getSpeakerRoute($item->speaker_slug, $item->speaker_catid, $item->speaker_language)); ?>" itemprop="url">
 	<?php endif; ?>
 	<?php if ($item->pic) : ?>
-	    <?php JHtmlBootstrap::popover(); ?>
+	    <?php HTMLHelper::_('bootstrap.popover'); ?>
         <meta itemprop="image" content="<?php echo SermonspeakerHelperSermonspeaker::makeLink($item->pic, true); ?>"/>
         <span class="hasPopover" data-html="true" data-placement="top" data-title="<?php echo $item->speaker_title; ?>"
               data-content="<?php echo htmlspecialchars('<img src="' . SermonspeakerHelperSermonspeaker::makeLink($item->pic) . '" />'); ?>">
