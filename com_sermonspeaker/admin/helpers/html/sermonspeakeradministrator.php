@@ -91,7 +91,7 @@ abstract class JHtmlSermonspeakerAdministrator
 					$classes = 'hasPopover badge badge-association badge-' . $item->lang_sef;
 
 					$item->link = '<a href="' . $url . '" title="' . $item->language_title . '" class="' . $classes
-						. '" data-content="' . $tooltip . '" data-placement="top">'
+						. '" data-bs-content="' . $tooltip . '" data-bs-placement="top">'
 						. $text . '</a>';
 				}
 			}

@@ -59,7 +59,7 @@ abstract class ModSermonuploadHelper
 				});
 
 				uploader_' . $identifier . '.init();
-				var closeButton = "<button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>";
+				var closeButton = "<button type=\"button\" class=\"close\" data-bs-dismiss=\"alert\">&times;</button>";
 
 				uploader_' . $identifier . '.bind("FilesAdded", function(up, files) {
 					var html = "";

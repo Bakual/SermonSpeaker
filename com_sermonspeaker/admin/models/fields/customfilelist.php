@@ -230,7 +230,7 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 				});
 
 				uploader_' . $this->fieldname . '.init();
-				var closeButton = "<button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>";
+				var closeButton = "<button type=\"button\" class=\"close\" data-bs-dismiss=\"alert\">&times;</button>";
 
 				uploader_' . $this->fieldname . '.bind("FilesAdded", function(up, files) {
 					var html = "";
