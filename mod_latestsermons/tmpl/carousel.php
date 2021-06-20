@@ -27,8 +27,8 @@ JHtml::_('bootstrap.carousel');
 		<div id="sermonCarousel<?php echo $module->id; ?>" class="latestsermons_list">
 			<ol class="carousel-indicators">
 				<?php for ($j = 0; $j < $count; $j++): ?>
-					<li data-target="#<?php echo $id; ?>"
-						data-slide-to="<?php echo $j; ?>"<?php echo ($j) ? '' : ' class="active"'; ?>></li>
+					<li data-bs-target="#<?php echo $id; ?>"
+						data-bs-slide-to="<?php echo $j; ?>"<?php echo ($j) ? '' : ' class="active"'; ?>></li>
 				<?php endfor; ?>
 			</ol>
 			<div class="carousel-inner">
@@ -111,8 +111,8 @@ JHtml::_('bootstrap.carousel');
 					</div>
 				<?php endforeach; ?>
 			</div>
-			<a class="carousel-control left" href="#<?php echo $id; ?>" data-slide="prev">&lsaquo;</a>
-			<a class="carousel-control right" href="#<?php echo $id; ?>" data-slide="next">&rsaquo;</a>
+			<a class="carousel-control left" href="#<?php echo $id; ?>" data-bs-slide="prev">&lsaquo;</a>
+			<a class="carousel-control right" href="#<?php echo $id; ?>" data-bs-slide="next">&rsaquo;</a>
 		</div>
 	<?php endif; ?>
 	<?php if ($params->get('show_player')) : ?>
