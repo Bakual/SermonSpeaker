@@ -2,12 +2,12 @@
 <extension version="3.4.0" type="plugin" group="sermonspeaker" method="upgrade">
 	<name>plg_sermonspeaker_pixelout</name>
 	<author>Thomas Hunziker</author>
-	<creationDate>2020-06-04</creationDate>
-	<copyright>© 2020</copyright>
+	<creationDate>2021-06-19</creationDate>
+	<copyright>© 2021</copyright>
 	<license>http://www.gnu.org/licenses/gpl.html</license>
 	<authorEmail>admin@sermonspeaker.net</authorEmail>
 	<authorUrl>http://www.sermonspeaker.net</authorUrl>
-	<version>5.3.3</version>
+	<version>5.3.4</version>
 	<description>PLG_SERMONSPEAKER_PIXELOUT_XML_DESCRIPTION</description>
 	<files>
 		<filename plugin="pixelout">pixelout.php</filename>

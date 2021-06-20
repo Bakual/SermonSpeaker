@@ -2,11 +2,11 @@
 <extension type="module" version="3.4" client="site" method="upgrade">
 	<name>MOD_SERMONUPLOAD</name>
 	<author>Thomas Hunziker</author>
-	<creationDate>2020-05-04</creationDate>
-	<copyright>© 2020</copyright>
+	<creationDate>2021-06-19</creationDate>
+	<copyright>© 2021</copyright>
 	<authorEmail>admin@sermonspeaker.net</authorEmail>
 	<authorUrl>http://www.sermonspeaker.net</authorUrl>
-	<version>1.0.3</version>
+	<version>1.0.4</version>
 	<license>http://www.gnu.org/licenses/gpl.html</license>
 	<description>MOD_SERMONUPLOAD_XML_DESCRIPTION</description>
 	<files>

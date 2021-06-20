@@ -4,10 +4,10 @@
 		<description>SermonSpeaker JW Player 7 Player Module</description>
 		<element>jwplayer7</element>
 		<type>plugin</type>
-		<version>5.4.6</version>
+		<version>5.4.7</version>
 		<downloads>
 			<downloadurl type="full" format="zip">
-				https://github.com/Bakual/SermonSpeaker/releases/download/5.9.3/plg_sermonspeaker_jwplayer7.zip
+				https://github.com/Bakual/SermonSpeaker/releases/download/5.9.8/plg_sermonspeaker_jwplayer7.zip
 			</downloadurl>
 		</downloads>
 		<tags>
