@@ -10,6 +10,7 @@
 defined('_JEXEC') or die();
 
 use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
 
 HtmlHelper::_('bootstrap.tooltip');
 ?>
@@ -39,7 +40,7 @@ HtmlHelper::_('bootstrap.tooltip');
 		</a><br />
 	<?php endif; ?>
 	<?php if ($params->get('sc_showplink')) : ?>
-		<a href="<?php echo $feedFile; ?>"><?php echo JText::_('MOD_SERMONCAST_FULLFEED'); ?></a>
+		<a href="<?php echo $feedFile; ?>"><?php echo Text::_('MOD_SERMONCAST_FULLFEED'); ?></a>
 		<a href="<?php echo $feedFile; ?>"><img src="<?php echo JUri::root(); ?>modules/mod_sermoncast/feed_rss.gif" border="0" alt="rss feed" /></a><br />
 	<?php endif; ?>
 	<?php if ($params->get('sc_showhelp')) : ?>
@@ -51,7 +52,7 @@ HtmlHelper::_('bootstrap.tooltip');
 		<?php echo HtmlHelper::_('bootstrap.renderModal', 'sc_modal', $modalParams); ?>
 		<p>
 			<a class="modal" href="#sc_modal" data-bs-toggle="modal" >
-				<?php echo JText::_('MOD_SERMONCAST_HELP'); ?>
+				<?php echo Text::_('MOD_SERMONCAST_HELP'); ?>
 			</a>
 		</p>
 	<?php endif; ?>

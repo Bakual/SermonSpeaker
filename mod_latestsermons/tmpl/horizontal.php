@@ -7,9 +7,10 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
-use Joomla\CMS\HTML\HTMLHelper;
-
 defined('_JEXEC') or die();
+
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
 
 /**
  * @var array                     $list
@@ -63,18 +64,18 @@ $count = count($list);
 						</span>
 					<?php endif; ?>
 					<?php if ($params->get('use_date')) : ?>
-						<?php $date_format = JText::_($params->get('ls_mo_date_format', 'DATE_FORMAT_LC4')); ?>
-						<?php echo JText::_('JDATE') . ': ' . HtmlHelper::date($row->sermon_date, $date_format, true); ?>
+						<?php $date_format = Text::_($params->get('ls_mo_date_format', 'DATE_FORMAT_LC4')); ?>
+						<?php echo Text::_('JDATE') . ': ' . HtmlHelper::date($row->sermon_date, $date_format, true); ?>
 					<?php endif; ?>
 					<?php if ($params->get('show_scripture') and $row->scripture) : ?>
 						<span>
-							<?php echo JText::_('MOD_LATESTSERMONS_SCRIPTURE'); ?>:
+							<?php echo Text::_('MOD_LATESTSERMONS_SCRIPTURE'); ?>:
 									<?php echo SermonspeakerHelperSermonspeaker::insertScriptures($row->scripture, ', '); ?>
 						</span>
 					<?php endif; ?>
 					<?php if ($params->get('show_hits', 0) & 1) : ?>
 						<div class="hits">
-							<?php echo JText::_('JGLOBAL_HITS'); ?>: <?php echo $row->hits; ?>
+							<?php echo Text::_('JGLOBAL_HITS'); ?>: <?php echo $row->hits; ?>
 						</div>
 					<?php endif; ?>
 				</div>
@@ -104,7 +105,7 @@ $count = count($list);
 		<?php endif; ?>
 		<br/>
 		<div class="latestsermons_link">
-			<a href="<?php echo JRoute::_($link); ?>"><?php echo JText::_('MOD_LATESTSERMONS_LINK'); ?></a>
+			<a href="<?php echo JRoute::_($link); ?>"><?php echo Text::_('MOD_LATESTSERMONS_LINK'); ?></a>
 		</div>
 	<?php endif; ?>
 </div>

@@ -7,9 +7,10 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
-use Joomla\CMS\HTML\HTMLHelper;
-
 defined('_JEXEC') or die();
+
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
 
 /**
  * Editorbutton for the SermonSpeaker content plugin
@@ -58,7 +59,7 @@ class PlgButtonSermonspeaker extends JPlugin
 		$button->modal   = true;
 		$button->class   = 'btn';
 		$button->link    = $link;
-		$button->text    = JText::_('PLG_EDITORS-XTD_SERMONSPEAKER_BUTTON_SERMONSPEAKER');
+		$button->text    = Text::_('PLG_EDITORS-XTD_SERMONSPEAKER_BUTTON_SERMONSPEAKER');
 		$button->name    = 'broadcast';
 		$button->options = "{handler: 'iframe', size: {x: 800, y: 500}}";
 

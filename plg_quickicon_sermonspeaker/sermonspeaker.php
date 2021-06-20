@@ -9,6 +9,8 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Language\Text;
+
 /**
  * SermonSpeaker Quickicons plugin
  *
@@ -50,7 +52,7 @@ class PlgQuickiconSermonspeaker extends JPlugin
 			$buttons[] = array(
 				'link' => 'index.php?option=com_sermonspeaker&task=sermon.add',
 				'image' => 'pencil-2',
-				'text' => JText::_('PLG_QUICKICON_SERMONSPEAKER_NEW_SERMON'),
+				'text' => Text::_('PLG_QUICKICON_SERMONSPEAKER_NEW_SERMON'),
 				'id' => 'plg_quickicon_sermonspeaker_new_sermon',
 				'access' => array('core.create', 'com_sermonspeaker'),
 				'group' => 'PLG_QUICKICON_SERMONSPEAKER_GROUP'
@@ -58,7 +60,7 @@ class PlgQuickiconSermonspeaker extends JPlugin
 			$buttons[] = array(
 				'link' => 'index.php?option=com_sermonspeaker&view=sermons',
 				'image' => 'quote-3',
-				'text' => JText::_('PLG_QUICKICON_SERMONSPEAKER_SERMONS_MANAGER'),
+				'text' => Text::_('PLG_QUICKICON_SERMONSPEAKER_SERMONS_MANAGER'),
 				'id' => 'plg_quickicon_sermonspeaker_sermons_manager',
 				'group' => 'PLG_QUICKICON_SERMONSPEAKER_GROUP'
 			);
@@ -69,7 +71,7 @@ class PlgQuickiconSermonspeaker extends JPlugin
 			$buttons[] = array(
 				'link'  => 'index.php?option=com_sermonspeaker&task=speaker.add',
 				'image' => 'pencil-2',
-				'text'  => JText::_('PLG_QUICKICON_SERMONSPEAKER_NEW_SPEAKER'),
+				'text'  => Text::_('PLG_QUICKICON_SERMONSPEAKER_NEW_SPEAKER'),
 				'access' => array('core.create', 'com_sermonspeaker'),
 				'id'    => 'plg_quickicon_sermonspeaker_new_speaker',
 				'group' => 'PLG_QUICKICON_SERMONSPEAKER_GROUP'
@@ -77,7 +79,7 @@ class PlgQuickiconSermonspeaker extends JPlugin
 			$buttons[] = array(
 				'link'  => 'index.php?option=com_sermonspeaker&view=speakers',
 				'image' => 'users',
-				'text'  => JText::_('PLG_QUICKICON_SERMONSPEAKER_SPEAKERS_MANAGER'),
+				'text'  => Text::_('PLG_QUICKICON_SERMONSPEAKER_SPEAKERS_MANAGER'),
 				'id'    => 'plg_quickicon_sermonspeaker_speakers_manager',
 				'group' => 'PLG_QUICKICON_SERMONSPEAKER_GROUP'
 			);
@@ -87,7 +89,7 @@ class PlgQuickiconSermonspeaker extends JPlugin
 			$buttons[] = array(
 				'link'  => 'index.php?option=com_sermonspeaker&task=serie.add',
 				'image' => 'pencil-2',
-				'text'  => JText::_('PLG_QUICKICON_SERMONSPEAKER_NEW_SERIE'),
+				'text'  => Text::_('PLG_QUICKICON_SERMONSPEAKER_NEW_SERIE'),
 				'access' => array('core.create', 'com_sermonspeaker'),
 				'id'    => 'plg_quickicon_sermonspeaker_new_serie',
 				'group' => 'PLG_QUICKICON_SERMONSPEAKER_GROUP'
@@ -95,7 +97,7 @@ class PlgQuickiconSermonspeaker extends JPlugin
 			$buttons[] = array(
 				'link'  => 'index.php?option=com_sermonspeaker&view=series',
 				'image' => 'drawer-2',
-				'text'  => JText::_('PLG_QUICKICON_SERMONSPEAKER_SERIES_MANAGER'),
+				'text'  => Text::_('PLG_QUICKICON_SERMONSPEAKER_SERIES_MANAGER'),
 				'id'    => 'plg_quickicon_sermonspeaker_series_manager',
 				'group' => 'PLG_QUICKICON_SERMONSPEAKER_GROUP'
 			);

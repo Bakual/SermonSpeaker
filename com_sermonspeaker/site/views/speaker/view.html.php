@@ -7,6 +7,8 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
+defined('_JEXEC') or die();
+
 use Joomla\CMS\Factory;
 use Joomla\CMS\Helper\TagsHelper;
 use Joomla\CMS\Language\Text;
@@ -14,8 +16,6 @@ use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\MVC\View\HtmlView;
 use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\CMS\Router\Route;
-
-defined('_JEXEC') or die();
 
 /**
  * HTML View class for the SermonSpeaker Component
@@ -249,13 +249,13 @@ class SermonspeakerViewSpeaker extends HtmlView
 
 			$object                    = new stdClass;
 			$object->value             = $book;
-			$object->text              = JText::_('COM_SERMONSPEAKER_BOOK_' . $book);
+			$object->text              = Text::_('COM_SERMONSPEAKER_BOOK_' . $book);
 			$groups[$group]['items'][] = $object;
 		}
 
 		foreach ($groups as $key => &$group)
 		{
-			$group['text'] = JText::_('COM_SERMONSPEAKER_' . $key);
+			$group['text'] = Text::_('COM_SERMONSPEAKER_' . $key);
 		}
 
 		$this->books = $groups;

@@ -7,10 +7,11 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
-use Joomla\CMS\HTML\HTMLHelper;
-use Joomla\CMS\Layout\LayoutHelper;
-
 defined('_JEXEC') or die();
+
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Layout\LayoutHelper;
 
 HtmlHelper::_('stylesheet', 'com_sermonspeaker/sermonspeaker.css', array('relative' => true));
 HtmlHelper::addIncludePath(JPATH_COMPONENT . '/helpers');
@@ -41,19 +42,19 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 	<table border="0" cellpadding="2" cellspacing="0" width="100%">
 		<tr>
 			<?php if (in_array('sermon:scripture', $this->columns) and $this->item->scripture) : ?>
-				<th align="left" valign="bottom"><?php echo JText::_('COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL'); ?></th>
+				<th align="left" valign="bottom"><?php echo Text::_('COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL'); ?></th>
 			<?php endif;
 
 			if (in_array('sermon:notes', $this->columns) and strlen($this->item->notes) > 0) : ?>
-				<th align="left" valign="bottom"> <?php echo JText::_('COM_SERMONSPEAKER_FIELD_NOTES_LABEL'); ?></th>
+				<th align="left" valign="bottom"> <?php echo Text::_('COM_SERMONSPEAKER_FIELD_NOTES_LABEL'); ?></th>
 			<?php endif;
 
 			if (in_array('sermon:addfile', $this->columns) and $this->item->addfile) : ?>
-				<th align="left" valign="bottom"><?php echo JText::_('COM_SERMONSPEAKER_ADDFILE'); ?></th>
+				<th align="left" valign="bottom"><?php echo Text::_('COM_SERMONSPEAKER_ADDFILE'); ?></th>
 			<?php endif;
 
 			if (in_array('sermon:player', $this->columns)) : ?>
-				<th align="left" valign="bottom"><?php echo JText::_('COM_SERMONSPEAKER_SERMON_PLAYER'); ?></th>
+				<th align="left" valign="bottom"><?php echo Text::_('COM_SERMONSPEAKER_SERMON_PLAYER'); ?></th>
 			<?php endif; ?>
 		</tr>
 		<!-- Begin Data -->
@@ -104,7 +105,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 		$tags = SermonspeakerHelperSermonspeaker::insertSearchTags($this->item);
 
 		if ($tags): ?>
-			<div class="tag"><?php echo JText::_('COM_SERMONSPEAKER_TAGS') . ' ' . $tags; ?></div>
+			<div class="tag"><?php echo Text::_('COM_SERMONSPEAKER_TAGS') . ' ' . $tags; ?></div>
 		<?php endif;
 	endif; ?>
 	<?php echo $this->item->event->afterDisplayContent; ?>

@@ -7,9 +7,10 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
-use Joomla\CMS\HTML\HTMLHelper;
-
 defined('_JEXEC') or die();
+
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
 
 HtmlHelper::_('bootstrap.tooltip');
 $class         = 'first';
@@ -25,7 +26,7 @@ if (count($this->items[$this->parent->id]) and $this->maxLevelcat != 0) : ?>
 				$tip         = array();
 
 				if ($this->params->get('show_cat_num_items_cat')) :
-					$tip[] = JText::_('COM_SERMONSPEAKER_NUM_ITEMS') . ' ' . $item->numitems;
+					$tip[] = Text::_('COM_SERMONSPEAKER_NUM_ITEMS') . ' ' . $item->numitems;
 				endif;
 
 				if ($this->params->get('show_subcat_desc_cat')):

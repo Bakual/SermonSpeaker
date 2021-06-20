@@ -7,9 +7,10 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
-use Joomla\CMS\HTML\HTMLHelper;
-
 defined('_JEXEC') or die;
+
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
 
 $header = count($list) - 1;
 HtmlHelper::_('bootstrap.tooltip');
@@ -17,7 +18,7 @@ HtmlHelper::_('bootstrap.tooltip');
 <?php if ($list) : ?>
 	<?php foreach ($list as $type => $items) : ?>
 		<?php if ($header) : ?>
-			<div class="nav-header"><?php echo JTExt::_('MOD_SERMONSPEAKER_' . $type); ?></div>
+			<div class="nav-header"><?php echo Text::_('MOD_SERMONSPEAKER_' . $type); ?></div>
 		<?php endif; ?>
 		<div class="row-striped">
 			<?php foreach ($items as $i => $item) : ?>
@@ -29,7 +30,7 @@ HtmlHelper::_('bootstrap.tooltip');
 						<?php if ($params->get('show_hits')) : ?>
 							<?php $hits = (int) $item->hits; ?>
 							<?php $hits_class = ($hits >= 10000 ? 'important' : ($hits >= 1000 ? 'warning' : ($hits >= 100 ? 'info' : ''))); ?>
-							<span class="badge badge-<?php echo $hits_class; ?> hasTooltip" title="<?php echo JText::_('JGLOBAL_HITS'); ?>">
+							<span class="badge badge-<?php echo $hits_class; ?> hasTooltip" title="<?php echo Text::_('JGLOBAL_HITS'); ?>">
 								<?php echo $item->hits; ?>
 							</span>
 						<?php endif; ?>
@@ -47,7 +48,7 @@ HtmlHelper::_('bootstrap.tooltip');
 						</strong>
 
 						<?php if ($params->get('show_author', 1)) : ?>
-							<small class="hasTooltip" title="<?php echo JText::_('JGLOBAL_FIELD_CREATED_BY_LABEL'); ?>">
+							<small class="hasTooltip" title="<?php echo Text::_('JGLOBAL_FIELD_CREATED_BY_LABEL'); ?>">
 								<?php echo $item->author_name; ?>
 							</small>
 						<?php endif; ?>
@@ -55,14 +56,14 @@ HtmlHelper::_('bootstrap.tooltip');
 							<?php if (isset($item->sermons)) : ?>
 								<a href="index.php?option=com_sermonspeaker&view=sermons&filter[<?php echo rtrim($type, 's'); ?>]=<?php echo $item->id; ?>">
 									<span class="badge badge-info">
-										<?php echo JText::_('MOD_SERMONSPEAKER_SERMONS'); ?>: <?php echo $item->sermons; ?>
+										<?php echo Text::_('MOD_SERMONSPEAKER_SERMONS'); ?>: <?php echo $item->sermons; ?>
 									</span>
 								</a>
 							<?php endif; ?>
 							<?php if (isset($item->series)) : ?>
 								<a href="index.php?option=com_sermonspeaker&view=series">
 									<span class="badge badge-info">
-										<?php echo JText::_('MOD_SERMONSPEAKER_SERIES'); ?>: <?php echo $item->series; ?>
+										<?php echo Text::_('MOD_SERMONSPEAKER_SERIES'); ?>: <?php echo $item->series; ?>
 									</span>
 								</a>
 							<?php endif; ?>
@@ -71,7 +72,7 @@ HtmlHelper::_('bootstrap.tooltip');
 					<div class="span3">
 						<div class="small pull-right hasTooltip" title="<?php echo HtmlHelper::_('tooltipText', 'JGLOBAL_FIELD_CREATED_LABEL'); ?>">
 							<span class="icon-calendar" aria-hidden="true"></span>
-							<?php echo HtmlHelper::_('date', $item->created, JText::_('DATE_FORMAT_LC5')); ?>
+							<?php echo HtmlHelper::_('date', $item->created, Text::_('DATE_FORMAT_LC5')); ?>
 						</div>
 					</div>
 				</div>
@@ -81,7 +82,7 @@ HtmlHelper::_('bootstrap.tooltip');
 <?php else: ?>
 	<div class="row-fluid">
 		<div class="span12">
-			<div class="alert"><?php echo JText::_('JGLOBAL_NO_MATCHING_RESULTS'); ?></div>
+			<div class="alert"><?php echo Text::_('JGLOBAL_NO_MATCHING_RESULTS'); ?></div>
 		</div>
 	</div>
 <?php endif; ?>

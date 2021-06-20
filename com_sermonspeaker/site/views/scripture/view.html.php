@@ -9,6 +9,8 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Language\Text;
+
 /**
  * HTML View class for the SermonSpeaker Component
  *
@@ -28,7 +30,7 @@ class SermonspeakerViewScripture extends JViewLegacy
 	public function display($tpl = null)
 	{
 		$id        = JFactory::getApplication()->input->get('id', 0, 'int');
-		$separator = JText::_('COM_SERMONSPEAKER_SCRIPTURE_SEPARATOR');
+		$separator = Text::_('COM_SERMONSPEAKER_SCRIPTURE_SEPARATOR');
 
 		// Get Params
 		$this->params = JComponentHelper::getParams('com_sermonspeaker');
@@ -65,7 +67,7 @@ class SermonspeakerViewScripture extends JViewLegacy
 					var error = 1;
 				}
 				if (error){
-					alert('" . JText::_('JGLOBAL_VALIDATION_FORM_FAILED') . "');
+					alert('" . Text::_('JGLOBAL_VALIDATION_FORM_FAILED') . "');
 					return;
 				}
 			}

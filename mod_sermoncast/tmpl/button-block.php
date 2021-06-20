@@ -10,6 +10,7 @@
 defined('_JEXEC') or die();
 
 use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
 
 HtmlHelper::_('bootstrap.tooltip');
 HtmlHelper::_('stylesheet', 'com_sermonspeaker/font.css', array('relative' => true));
@@ -29,13 +30,13 @@ HtmlHelper::_('stylesheet', 'com_sermonspeaker/font.css', array('relative' => tr
 			<?php endif; ?>
 				<a class="btn sc-podcastLink btn-block" style="text-align: left; padding-left:10px;padding-right:10px;" href="<?php echo htmlspecialchars($link); ?>">
 					<span class="spicon-sermonspeakerpodcast"> </span>
-					<?php echo JText::_('MOD_SERMONCAST_SUBSCRIBE_PODCAST'); ?>
+					<?php echo Text::_('MOD_SERMONCAST_SUBSCRIBE_PODCAST'); ?>
 				</a>
 		<?php endif; ?>
 		<?php if ($params->get('sc_showplink')) : ?>
 				<a class="btn sc-feedLink btn-block" style="text-align: left; padding-left:10px;padding-right:10px;" href="<?php echo $feedFile; ?>">
 					<span class="spicon-sermonspeakerfeed"> </span>
-					<?php echo JText::_('MOD_SERMONCAST_SUBSCRIBE_FEED'); ?>
+					<?php echo Text::_('MOD_SERMONCAST_SUBSCRIBE_FEED'); ?>
 				</a>
 			</p>
 		<?php endif; ?>
@@ -48,7 +49,7 @@ HtmlHelper::_('stylesheet', 'com_sermonspeaker/font.css', array('relative' => tr
 			<?php echo HtmlHelper::_('bootstrap.renderModal', 'sc_modal', $modalParams); ?>
 			<p>
 				<a class="modal" href="#sc_modal" data-bs-toggle="modal" >
-					<?php echo JText::_('MOD_SERMONCAST_HELP'); ?>
+					<?php echo Text::_('MOD_SERMONCAST_HELP'); ?>
 				</a>
 			</p>
 		<?php endif; ?>

@@ -7,9 +7,10 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
-use Joomla\CMS\HTML\HTMLHelper;
-
 defined('_JEXEC') or die();
+
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
 
 $class = ' class="first"';
 
@@ -27,7 +28,7 @@ if (count($this->children[$this->category->id]) > 0) :
 					</a>
 					<?php if ($this->params->get('show_cat_num_items', 1)) : ?>
 						<span class="badge badge-info tip hasTooltip"
-							title="<?php echo JText::_('COM_SERMONSPEAKER_NUM_ITEMS'); ?>">
+							title="<?php echo Text::_('COM_SERMONSPEAKER_NUM_ITEMS'); ?>">
 							<?php echo $child->getNumItems(true); ?>
 						</span>
 					<?php endif;

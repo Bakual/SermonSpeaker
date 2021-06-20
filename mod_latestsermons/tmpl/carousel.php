@@ -7,9 +7,10 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
-use Joomla\CMS\HTML\HTMLHelper;
-
 defined('_JEXEC') or die();
+
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
 
 /**
  * @var array                     $list
@@ -48,10 +49,10 @@ HtmlHelper::_('bootstrap.carousel');
 								<?php endif; ?>
 							</a></h4>
 						<dl class="article-info sermon-info" style="display:block; margin:0;">
-							<dt class="article-info-term"><?php echo JText::_('JDETAILS'); ?></dt>
+							<dt class="article-info-term"><?php echo Text::_('JDETAILS'); ?></dt>
 							<?php if ($params->get('show_category') and $row->category_title) : ?>
 								<dd class="category-name">
-									<?php echo JText::_('JCATEGORY'); ?>:
+									<?php echo Text::_('JCATEGORY'); ?>:
 									<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonsRoute($row->catid, $row->language)); ?>">
 										<?php echo $row->category_title; ?>
 									</a>
@@ -59,7 +60,7 @@ HtmlHelper::_('bootstrap.carousel');
 							<?php endif; ?>
 							<?php if ($params->get('ls_show_mo_series') and $row->series_title) : ?>
 								<dd class="category-name">
-									<?php echo JText::_('MOD_LATESTSERMONS_SERIE'); ?>:
+									<?php echo Text::_('MOD_LATESTSERMONS_SERIE'); ?>:
 									<?php if ($row->series_state) : ?>
 										<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($row->series_slug, $row->series_catid, $row->series_language)); ?>">
 											<?php echo $row->series_title; ?>
@@ -71,13 +72,13 @@ HtmlHelper::_('bootstrap.carousel');
 							<?php endif; ?>
 							<?php if ($params->get('ls_show_mo_date') and $row->sermon_date) : ?>
 								<dd class="published">
-									<?php $date_format = JText::_($params->get('ls_mo_date_format', 'DATE_FORMAT_LC4'));
-									echo JText::_('JDATE') . ': ' . HtmlHelper::date($row->sermon_date, $date_format, true); ?>
+									<?php $date_format = Text::_($params->get('ls_mo_date_format', 'DATE_FORMAT_LC4'));
+									echo Text::_('JDATE') . ': ' . HtmlHelper::date($row->sermon_date, $date_format, true); ?>
 								</dd>
 							<?php endif; ?>
 							<?php if ($params->get('ls_show_mo_speaker') and $row->speaker_title) : ?>
 								<dd class="createdby">
-									<?php echo JText::_('MOD_LATESTSERMONS_SPEAKER'); ?>:
+									<?php echo Text::_('MOD_LATESTSERMONS_SPEAKER'); ?>:
 									<?php if ($row->speaker_state): ?>
 										<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($row->speaker_slug, $row->speaker_catid, $row->speaker_language)); ?>">
 											<?php echo $row->speaker_title; ?>
@@ -89,7 +90,7 @@ HtmlHelper::_('bootstrap.carousel');
 							<?php endif; ?>
 							<?php if ($params->get('show_scripture') and $row->scripture) : ?>
 								<dd class="scripture">
-									<?php echo JText::_('MOD_LATESTSERMONS_SCRIPTURE'); ?>:
+									<?php echo Text::_('MOD_LATESTSERMONS_SCRIPTURE'); ?>:
 									<ul>
 										<li>
 											<?php echo SermonspeakerHelperSermonspeaker::insertScriptures($row->scripture, '</li><li>'); ?>
@@ -99,7 +100,7 @@ HtmlHelper::_('bootstrap.carousel');
 							<?php endif; ?>
 							<?php if ($params->get('show_hits', 0) & 1) : ?>
 								<dd class="hits">
-									<?php echo JText::_('JGLOBAL_HITS'); ?>:
+									<?php echo Text::_('JGLOBAL_HITS'); ?>:
 									<?php echo $row->hits; ?>
 								</dd>
 							<?php endif; ?>
@@ -140,7 +141,7 @@ HtmlHelper::_('bootstrap.carousel');
 		<?php endif; ?>
 		<br/>
 		<div class="latestsermons_link">
-			<a href="<?php echo JRoute::_($link); ?>"><?php echo JText::_('MOD_LATESTSERMONS_LINK'); ?></a>
+			<a href="<?php echo JRoute::_($link); ?>"><?php echo Text::_('MOD_LATESTSERMONS_LINK'); ?></a>
 		</div>
 	<?php endif; ?>
 </div>

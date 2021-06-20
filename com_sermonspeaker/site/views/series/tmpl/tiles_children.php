@@ -7,9 +7,10 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
-use Joomla\CMS\HTML\HTMLHelper;
-
 defined('_JEXEC') or die();
+
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
 
 $class = 'first';
 
@@ -24,7 +25,7 @@ if (count($this->children[$this->category->id]) and $this->maxLevel != 0) : ?>
 				$tip         = array();
 
 				if ($this->params->get('show_cat_num_items_cat')) :
-					$tip[] = JText::_('COM_SERMONSPEAKER_NUM_ITEMS') . ' ' . $child->numitems;
+					$tip[] = Text::_('COM_SERMONSPEAKER_NUM_ITEMS') . ' ' . $child->numitems;
 				endif;
 
 				if ($this->params->get('show_subcat_desc_cat')) :

@@ -9,6 +9,8 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Language\Text;
+
 JLoader::register('SermonspeakerPluginPlayer', JPATH_SITE . '/components/com_sermonspeaker/plugin/player.php');
 JLoader::register('SermonspeakerHelperSermonspeaker', JPATH_SITE . '/components/com_sermonspeaker/helpers/sermonspeaker.php');
 
@@ -83,7 +85,7 @@ class PlgSermonspeakerPixelout extends SermonspeakerPluginPlayer
 			$playlist = $this->createMultiPlaylist($items);
 
 			$this->player->mspace = '<div id="mediaspace' . $count . '">'
-				. JText::_('COM_SERMONSPEAKER_PLAYER_NEEDS_FLASH')
+				. Text::_('COM_SERMONSPEAKER_PLAYER_NEEDS_FLASH')
 				. '</div>';
 		}
 		else
@@ -93,7 +95,7 @@ class PlgSermonspeakerPixelout extends SermonspeakerPluginPlayer
 			// Special mediaspace to have a HTML5 fallback.
 			$this->player->mspace = '<div id="mediaspace' . $count . '">'
 				. '<audio src="' . $playlist['soundFile'] . '" controls="controls" preload="auto" >'
-				. JText::_('COM_SERMONSPEAKER_PLAYER_NEEDS_FLASH')
+				. Text::_('COM_SERMONSPEAKER_PLAYER_NEEDS_FLASH')
 				. '</audio>'
 				. '</div>';
 		}
@@ -181,7 +183,7 @@ class PlgSermonspeakerPixelout extends SermonspeakerPluginPlayer
 			else
 			{
 				$files[]   = urlencode(JUri::root());
-				$titles[]  = JText::_('JGLOBAL_RESOURCE_NOT_FOUND');
+				$titles[]  = Text::_('JGLOBAL_RESOURCE_NOT_FOUND');
 				$artists[] = '';
 
 				continue;

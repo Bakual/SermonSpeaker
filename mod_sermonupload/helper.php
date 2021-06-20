@@ -9,6 +9,8 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Language\Text;
+
 /**
  * Helper class for SermonUpload module
  *
@@ -50,7 +52,7 @@ abstract class ModSermonuploadHelper
 			$plupload_script .= '
 					filters : {
 						mime_types: [
-							{title : "' . JText::_($text, 'true') . '", extensions : "' . $types . '"},
+							{title : "' . Text::_($text, 'true') . '", extensions : "' . $types . '"},
 						]
 					},';
 		}
@@ -85,7 +87,7 @@ abstract class ModSermonuploadHelper
 							document.getElementById(file.id).innerHTML = data.error + closeButton;
 						}else{
 							jQuery("#" + file.id).removeClass("alert-info").addClass("alert-error");
-							jQuery("#" + file.id + "_progress").replaceWith(" &raquo; ' . JText::_('ERROR') . ': " + data.error + closeButton);
+							jQuery("#" + file.id + "_progress").replaceWith(" &raquo; ' . Text::_('ERROR') . ': " + data.error + closeButton);
 						}
 					}
 				});

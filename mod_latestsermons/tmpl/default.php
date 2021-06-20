@@ -7,9 +7,10 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
-use Joomla\CMS\HTML\HTMLHelper;
-
 defined('_JEXEC') or die();
+
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
 
 /**
  * @var array                     $list
@@ -34,7 +35,7 @@ if ($tooltip)
 				<?php $i++; ?>
 				<li class="latestsermons_entry<?php echo $i; ?>">
 					<?php if ($params->get('use_date')) : ?>
-						<?php $date_format = JText::_($params->get('ls_mo_date_format', 'DATE_FORMAT_LC4')); ?>
+						<?php $date_format = Text::_($params->get('ls_mo_date_format', 'DATE_FORMAT_LC4')); ?>
 						<?php $text = HtmlHelper::date($row->sermon_date, $date_format, true); ?>
 					<?php else : ?>
 						<?php $text = $row->title; ?>
@@ -54,23 +55,23 @@ if ($tooltip)
 							<?php $title = $row->title; ?>
 						<?php endif; ?>
 						<?php if ($params->get('show_category') and $row->category_title) : ?>
-							<?php $tips[] = JText::_('JCATEGORY') . ': ' . $row->category_title; ?>
+							<?php $tips[] = Text::_('JCATEGORY') . ': ' . $row->category_title; ?>
 						<?php endif; ?>
 						<?php if ($params->get('ls_show_mo_speaker') and $row->speaker_title) : ?>
-							<?php $tips[] = JText::_('MOD_LATESTSERMONS_SPEAKER') . ': ' . $row->speaker_title; ?>
+							<?php $tips[] = Text::_('MOD_LATESTSERMONS_SPEAKER') . ': ' . $row->speaker_title; ?>
 						<?php endif; ?>
 						<?php if ($params->get('ls_show_mo_series') and $row->series_title) : ?>
-							<?php $tips[] = JText::_('MOD_LATESTSERMONS_SERIE') . ': ' . $row->series_title; ?>
+							<?php $tips[] = Text::_('MOD_LATESTSERMONS_SERIE') . ': ' . $row->series_title; ?>
 						<?php endif; ?>
 						<?php if ($params->get('ls_show_mo_date') and $row->sermon_date) : ?>
-							<?php $date_format = JText::_($params->get('ls_mo_date_format', 'DATE_FORMAT_LC4')); ?>
-							<?php $tips[] = JText::_('JDATE') . ': ' . HtmlHelper::date($row->sermon_date, $date_format, true); ?>
+							<?php $date_format = Text::_($params->get('ls_mo_date_format', 'DATE_FORMAT_LC4')); ?>
+							<?php $tips[] = Text::_('JDATE') . ': ' . HtmlHelper::date($row->sermon_date, $date_format, true); ?>
 						<?php endif; ?>
 						<?php if ($params->get('show_scripture') and $row->scripture) : ?>
-							<?php $tips[] = JText::_('MOD_LATESTSERMONS_SCRIPTURE') . ': ' . SermonspeakerHelperSermonspeaker::insertScriptures($row->scripture, ', ', false);  ?>
+							<?php $tips[] = Text::_('MOD_LATESTSERMONS_SCRIPTURE') . ': ' . SermonspeakerHelperSermonspeaker::insertScriptures($row->scripture, ', ', false);  ?>
 						<?php endif; ?>
 						<?php if (($params->get('show_hits') & 1) and $row->hits) : ?>
-							<?php $tips[] = JText::_('JGLOBAL_HITS') . ': ' . $row->hits; ?>
+							<?php $tips[] = Text::_('JGLOBAL_HITS') . ': ' . $row->hits; ?>
 						<?php endif; ?>
 						<?php $tip = implode('<br/>', $tips); ?>
 						<?php echo HtmlHelper::tooltip($tip, $title, '', $text, $link); ?>
@@ -103,7 +104,7 @@ if ($tooltip)
 		<?php endif; ?>
 		<br/>
 		<div class="latestsermons_link">
-			<a href="<?php echo JRoute::_($link); ?>"><?php echo JText::_('MOD_LATESTSERMONS_LINK'); ?></a>
+			<a href="<?php echo JRoute::_($link); ?>"><?php echo Text::_('MOD_LATESTSERMONS_LINK'); ?></a>
 		</div>
 	<?php endif; ?>
 </div>

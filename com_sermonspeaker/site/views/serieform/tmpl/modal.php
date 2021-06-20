@@ -7,9 +7,10 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
-use Joomla\CMS\HTML\HTMLHelper;
-
 defined('_JEXEC') or die();
+
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
 
 HtmlHelper::_('bootstrap.tooltip', '.hasTooltip', array('placement' => 'bottom'));
 HtmlHelper::_('behavior.formvalidation');
@@ -17,14 +18,14 @@ HtmlHelper::_('behavior.keepalive');
 HtmlHelper::_('formbehavior.chosen', 'select');
 ?>
 <script type="text/javascript">
-    Joomla.submitbutton = function (task) {
-        if (task == 'serieform.cancel' || document.formvalidator.isValid(document.id('adminForm'))) {
+	Joomla.submitbutton = function (task) {
+		if (task == 'serieform.cancel' || document.formvalidator.isValid(document.id('adminForm'))) {
 			<?php echo $this->form->getField('series_description')->save(); ?>
-            Joomla.submitform(task, document.getElementById('adminForm'));
-        } else {
-            alert('<?php echo $this->escape(JText::_('JGLOBAL_VALIDATION_FORM_FAILED'));?>');
-        }
-    }
+			Joomla.submitform(task, document.getElementById('adminForm'));
+		} else {
+			alert('<?php echo $this->escape(Text::_('JGLOBAL_VALIDATION_FORM_FAILED'));?>');
+		}
+	}
 </script>
 
 <div class="edit item-page<?php echo $this->pageclass_sfx; ?>">
@@ -43,23 +44,23 @@ HtmlHelper::_('formbehavior.chosen', 'select');
 		<div class="btn-toolbar">
 			<div class="btn-group">
 				<button type="button" class="btn btn-primary" onclick="Joomla.submitbutton('serieform.save')">
-					<i class="icon-ok"></i> <?php echo JText::_('JSAVE') ?>
+					<i class="icon-ok"></i> <?php echo Text::_('JSAVE') ?>
 				</button>
 			</div>
 			<div class="btn-group">
 				<button type="button" class="btn" onclick="window.parent.SqueezeBox.close();">
-					<i class="icon-cancel"></i> <?php echo JText::_('JCANCEL') ?>
+					<i class="icon-cancel"></i> <?php echo Text::_('JCANCEL') ?>
 				</button>
 			</div>
 		</div>
 		<fieldset>
 			<ul class="nav nav-tabs">
-				<li class="active"><a href="#editor" data-bs-toggle="tab"><?php echo JText::_('JEDITOR') ?></a></li>
-				<li><a href="#details" data-bs-toggle="tab"><?php echo JText::_('JDETAILS') ?></a></li>
-				<li><a href="#publishing" data-bs-toggle="tab"><?php echo JText::_('COM_SERMONSPEAKER_PUBLISHING') ?></a>
+				<li class="active"><a href="#editor" data-bs-toggle="tab"><?php echo Text::_('JEDITOR') ?></a></li>
+				<li><a href="#details" data-bs-toggle="tab"><?php echo Text::_('JDETAILS') ?></a></li>
+				<li><a href="#publishing" data-bs-toggle="tab"><?php echo Text::_('COM_SERMONSPEAKER_PUBLISHING') ?></a>
 				</li>
-				<li><a href="#language" data-bs-toggle="tab"><?php echo JText::_('JFIELD_LANGUAGE_LABEL') ?></a></li>
-				<li><a href="#metadata" data-bs-toggle="tab"><?php echo JText::_('COM_SERMONSPEAKER_METADATA') ?></a></li>
+				<li><a href="#language" data-bs-toggle="tab"><?php echo Text::_('JFIELD_LANGUAGE_LABEL') ?></a></li>
+				<li><a href="#metadata" data-bs-toggle="tab"><?php echo Text::_('COM_SERMONSPEAKER_METADATA') ?></a></li>
 			</ul>
 
 			<div class="tab-content">

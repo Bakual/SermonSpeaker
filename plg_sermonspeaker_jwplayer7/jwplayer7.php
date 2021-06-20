@@ -7,9 +7,10 @@
  * @license         http://www.gnu.org/licenses/gpl.html
  **/
 
-use Joomla\CMS\HTML\HTMLHelper;
-
 defined('_JEXEC') or die();
+
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
 
 JLoader::register('SermonspeakerPluginPlayer', JPATH_SITE . '/components/com_sermonspeaker/plugin/player.php');
 JLoader::register('SermonspeakerHelperSermonspeaker', JPATH_SITE . '/components/com_sermonspeaker/helpers/sermonspeaker.php');
@@ -203,9 +204,9 @@ class PlgSermonspeakerJwplayer7 extends SermonspeakerPluginPlayer
 				{
 					$url            = 'index.php?&task=download&id=' . $items->slug . '&type=';
 					$download_video = 'document.getElementById("sermon_download").onclick=function(){window.location.href=\'' . JRoute::_($url . 'video')
-						. '\'};document.getElementById("sermon_download").value="' . JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_VIDEO') . '"';
+						. '\'};document.getElementById("sermon_download").value="' . Text::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_VIDEO') . '"';
 					$download_audio = 'document.getElementById("sermon_download").onclick=function(){window.location.href=\'' . JRoute::_($url . 'audio')
-						. '\'};document.getElementById("sermon_download").value="' . JText::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_AUDIO') . '"';
+						. '\'};document.getElementById("sermon_download").value="' . Text::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_AUDIO') . '"';
 				}
 				else
 				{
@@ -421,7 +422,7 @@ class PlgSermonspeakerJwplayer7 extends SermonspeakerPluginPlayer
 			else
 			{
 				$entry['file']  = JUri::base(true) . '/media/com_sermonspeaker/media/blank.mp3';
-				$entry['error'] = JText::_('JGLOBAL_RESOURCE_NOT_FOUND');
+				$entry['error'] = Text::_('JGLOBAL_RESOURCE_NOT_FOUND');
 			}
 
 			$entry['title'] = addslashes($item->title);
@@ -430,12 +431,12 @@ class PlgSermonspeakerJwplayer7 extends SermonspeakerPluginPlayer
 			if ($item->sermon_date)
 			{
 				// Todo: Pick correct date format (from component or add param to plugin?)
-				$desc[] = JText::_('JDATE') . ': ' . HtmlHelper::date($item->sermon_date, JText::_($this->c_params->get('date_format')), true);
+				$desc[] = Text::_('JDATE') . ': ' . HtmlHelper::date($item->sermon_date, Text::_($this->c_params->get('date_format')), true);
 			}
 
 			if ($item->speaker_title)
 			{
-				$desc[] = JText::_('PLG_SERMONSPEAKER_COMMON_SPEAKER') . ': ' . addslashes($item->speaker_title);
+				$desc[] = Text::_('PLG_SERMONSPEAKER_COMMON_SPEAKER') . ': ' . addslashes($item->speaker_title);
 			}
 
 			$entry['description'] = implode('\x3Cbr />', $desc);
@@ -470,7 +471,7 @@ class PlgSermonspeakerJwplayer7 extends SermonspeakerPluginPlayer
 				else
 				{
 					$file           = JUri::base(true) . '/media/com_sermonspeaker/media/blank.mp3';
-					$entry['error'] = "error:'" . JText::_('JGLOBAL_RESOURCE_NOT_FOUND') . "'";
+					$entry['error'] = "error:'" . Text::_('JGLOBAL_RESOURCE_NOT_FOUND') . "'";
 				}
 
 				$entry['file'] = "file:'" . $file . "'";
@@ -484,7 +485,7 @@ class PlgSermonspeakerJwplayer7 extends SermonspeakerPluginPlayer
 				else
 				{
 					$file           = JUri::base(true) . '/media/com_sermonspeaker/media/blank.mp3';
-					$entry['error'] = "error:'" . JText::_('JGLOBAL_RESOURCE_NOT_FOUND') . "'";
+					$entry['error'] = "error:'" . Text::_('JGLOBAL_RESOURCE_NOT_FOUND') . "'";
 				}
 
 				$entry['file'] = "file:'" . $file . "'";

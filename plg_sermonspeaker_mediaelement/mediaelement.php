@@ -7,9 +7,10 @@
  * @license         http://www.gnu.org/licenses/gpl.html
  **/
 
-use Joomla\CMS\HTML\HTMLHelper as HtmlHelperAlias;
-
 defined('_JEXEC') or die();
+
+use Joomla\CMS\HTML\HTMLHelper as HtmlHelperAlias;
+use Joomla\CMS\Language\Text;
 
 JLoader::register('SermonspeakerPluginPlayer', JPATH_SITE . '/components/com_sermonspeaker/plugin/player.php');
 JLoader::register('SermonspeakerHelperSermonspeaker', JPATH_SITE . '/components/com_sermonspeaker/helpers/sermonspeaker.php');
@@ -154,7 +155,7 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 			. $autoplay . ' preload="metadata" controls="controls"'
 			. ' width="' . $dimensions[$mode1 . 'width'] . '" height="' . $dimensions[$mode1 . 'height'] . '"'
 			. ' data-mejsoptions=\'{"showPlaylist": false, "stretching": "' . $stretching . '",'
-			. ' "currentMessage": "' . JText::_('PLG_SERMONSPEAKER_MEDIAELEMENT_CURRENT_MESSAGE') . '",'
+			. ' "currentMessage": "' . Text::_('PLG_SERMONSPEAKER_MEDIAELEMENT_CURRENT_MESSAGE') . '",'
 			. ' "features": ["playpause", "prevtrack", "nexttrack", "current", "progress", "duration", "volume", "playlist", "fullscreen", "speed"]}\''
 			. '>';
 
@@ -183,7 +184,7 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 				. $autoplay . ' preload="metadata" controls="controls"'
 				. ' width="' . $dimensions[$mode . 'width'] . '" height="' . $dimensions[$mode . 'height'] . '"'
 				. ' data-mejsoptions=\'{"showPlaylist": false, "stretching": "' . $stretching . '",'
-				. ' "currentMessage": "' . JText::_('PLG_SERMONSPEAKER_MEDIAELEMENT_CURRENT_MESSAGE') . '",'
+				. ' "currentMessage": "' . Text::_('PLG_SERMONSPEAKER_MEDIAELEMENT_CURRENT_MESSAGE') . '",'
 				. ' "features": ["playpause", "prevtrack", "nexttrack", "current", "progress", "duration", "volume", "playlist", "fullscreen", "speed"]}\''
 				. '>';
 
@@ -320,7 +321,7 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 		if (!$file)
 		{
 			$file = '/media/com_sermonspeaker/media/blank.mp3';
-			$attributes['error'] = JText::_('JGLOBAL_RESOURCE_NOT_FOUND');
+			$attributes['error'] = Text::_('JGLOBAL_RESOURCE_NOT_FOUND');
 		}
 
 		$attributes['type'] = SermonspeakerHelperSermonspeaker::getMime(JFile::getExt($file), false);
@@ -357,12 +358,12 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 
 		if ($item->sermon_date)
 		{
-			$desc[] = JText::_('JDATE') . ': ' . HtmlHelperAlias::date($item->sermon_date, JText::_('DATE_FORMAT_LC4'), true);
+			$desc[] = Text::_('JDATE') . ': ' . HtmlHelperAlias::date($item->sermon_date, Text::_('DATE_FORMAT_LC4'), true);
 		}
 
 		if ($item->speaker_title)
 		{
-			$desc[] = JText::_('PLG_SERMONSPEAKER_COMMON_SPEAKER') . ': ' . $item->speaker_title;
+			$desc[] = Text::_('PLG_SERMONSPEAKER_COMMON_SPEAKER') . ': ' . $item->speaker_title;
 		}
 
 		$attributes['description'] = implode('<br>', $desc);

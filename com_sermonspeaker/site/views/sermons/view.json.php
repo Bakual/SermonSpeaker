@@ -9,6 +9,8 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Language\Text;
+
 /**
  * JSON View class for the SermonSpeaker Component
  *
@@ -46,16 +48,16 @@ class SermonspeakerViewSermons extends JViewLegacy
 
 		if ($category == false)
 		{
-			JFactory::getApplication()->setHeader('status', 404 . ' ' . JText::_('JGLOBAL_CATEGORY_NOT_FOUND'));
-			echo new JResponseJson(null, JText::_('JGLOBAL_CATEGORY_NOT_FOUND'), true);
+			JFactory::getApplication()->setHeader('status', 404 . ' ' . Text::_('JGLOBAL_CATEGORY_NOT_FOUND'));
+			echo new JResponseJson(null, Text::_('JGLOBAL_CATEGORY_NOT_FOUND'), true);
 
 			return;
 		}
 
 		if ($parent == false && $category->id != 'root')
 		{
-			JFactory::getApplication()->setHeader('status', 404 . ' ' . JText::_('JGLOBAL_CATEGORY_NOT_FOUND'));
-			echo new JResponseJson(null, JText::_('JGLOBAL_CATEGORY_NOT_FOUND'), true);
+			JFactory::getApplication()->setHeader('status', 404 . ' ' . Text::_('JGLOBAL_CATEGORY_NOT_FOUND'));
+			echo new JResponseJson(null, Text::_('JGLOBAL_CATEGORY_NOT_FOUND'), true);
 
 			return;
 		}
@@ -66,8 +68,8 @@ class SermonspeakerViewSermons extends JViewLegacy
 
 		if (!in_array($category->access, $groups))
 		{
-			JFactory::getApplication()->setHeader('status', 403 . ' ' . JText::_('JERROR_ALERTNOAUTHOR'));
-			echo new JResponseJson(null, JText::_('JERROR_ALERTNOAUTHOR'), true);
+			JFactory::getApplication()->setHeader('status', 403 . ' ' . Text::_('JERROR_ALERTNOAUTHOR'));
+			echo new JResponseJson(null, Text::_('JERROR_ALERTNOAUTHOR'), true);
 
 			return;
 		}

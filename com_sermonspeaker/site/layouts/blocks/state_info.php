@@ -9,6 +9,8 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Language\Text;
+
 /**
  * @var  array   $displayData Contains the following items:
  * @var  object  $item        The sermon item
@@ -23,16 +25,16 @@ if (!$show)
 ?>
 <?php if (!$item->state) : ?>
 	<span class="label label-warning">
-		<?php echo JText::_('JUNPUBLISHED'); ?>
+		<?php echo Text::_('JUNPUBLISHED'); ?>
 	</span>
 <?php endif; ?>
 <?php if (strtotime($item->publish_up) > strtotime(JFactory::getDate())) : ?>
 	<span class="label label-warning">
-		<?php echo JText::_('JNOTPUBLISHEDYET'); ?>
+		<?php echo Text::_('JNOTPUBLISHEDYET'); ?>
 	</span>
 <?php endif; ?>
 <?php if ((strtotime($item->publish_down) < strtotime(JFactory::getDate())) && $item->publish_down != JFactory::getDbo()->getNullDate()) : ?>
 	<span class="label label-warning">
-		<?php echo JText::_('JEXPIRED'); ?>
+		<?php echo Text::_('JEXPIRED'); ?>
 	</span>
 <?php endif; ?>

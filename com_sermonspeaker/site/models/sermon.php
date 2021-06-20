@@ -10,6 +10,7 @@
 defined('_JEXEC') or die();
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
 
 /**
  * Model class for the SermonSpeaker Component
@@ -149,7 +150,7 @@ class SermonspeakerModelSermon extends JModelItem
 
 			if (!$data)
 			{
-				throw new Exception(JText::_('JGLOBAL_RESOURCE_NOT_FOUND'));
+				throw new Exception(Text::_('JGLOBAL_RESOURCE_NOT_FOUND'));
 			}
 
 			// Query Scripture.

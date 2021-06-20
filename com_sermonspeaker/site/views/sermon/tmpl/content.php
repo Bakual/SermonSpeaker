@@ -7,13 +7,13 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
+defined('_JEXEC') or die();
+
 use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
-
-defined('_JEXEC') or die();
 
 HTMLHelper::addIncludePath(JPATH_COMPONENT . '/helpers');
 HtmlHelper::_('jquery.framework');
@@ -67,7 +67,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->item);
                                'height=<?php echo $player->popup['height']; ?>,width=<?php echo $player->popup['width']; ?>,scrollbars=yes,resizable=yes'
                            ); return false"
                         >
-                            <?php echo JText::_('COM_SERMONSPEAKER_POPUPPLAYER'); ?>
+                            <?php echo Text::_('COM_SERMONSPEAKER_POPUPPLAYER'); ?>
                         </a>
 					</li>
 				<?php endif; ?>

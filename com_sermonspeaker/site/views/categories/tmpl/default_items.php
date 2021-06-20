@@ -7,9 +7,10 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
-use Joomla\CMS\HTML\HTMLHelper;
-
 defined('_JEXEC') or die();
+
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
 
 $class         = ' class="first"';
 
@@ -35,7 +36,7 @@ if (count($this->items[$this->parent->id]) and $this->maxLevelcat != 0) : ?>
 
 					if ($this->params->get('show_cat_num_items_cat')) : ?>
 						<dl class="article-count">
-							<dt><?php echo JText::_('COM_SERMONSPEAKER_NUM_ITEMS'); ?></dt>
+							<dt><?php echo Text::_('COM_SERMONSPEAKER_NUM_ITEMS'); ?></dt>
 							<dd><?php echo $item->numitems; ?></dd>
 						</dl>
 					<?php endif;

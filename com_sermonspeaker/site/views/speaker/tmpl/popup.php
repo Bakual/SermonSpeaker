@@ -7,9 +7,10 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
-use Joomla\CMS\HTML\HTMLHelper;
-
 defined('_JEXEC') or die();
+
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
 
 HtmlHelper::_('bootstrap.tooltip');
 
@@ -47,21 +48,21 @@ if (!$this->item->pic)
 	</div>
 	<div class="clearfix"></div>
 	<?php if ($this->sermons): ?>
-		<a class="badge hasTooltip" title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKERS_SERMONSLINK_HOOVER'); ?>"
+		<a class="badge hasTooltip" title="<?php echo Text::_('COM_SERMONSPEAKER_SPEAKERS_SERMONSLINK_HOOVER'); ?>"
 			href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($this->item->slug, $this->item->catid, $this->item->language)); ?>"
 			target="_parent">
-			<?php echo JText::_('COM_SERMONSPEAKER_SERMONS'); ?></a>&nbsp;
+			<?php echo Text::_('COM_SERMONSPEAKER_SERMONS'); ?></a>&nbsp;
 	<?php endif;
 
 	if ($this->series) : ?>
-		<a class="badge hasTooltip" title="<?php echo JText::_('COM_SERMONSPEAKER_SPEAKERS_SERIESLINK_HOOVER'); ?>"
+		<a class="badge hasTooltip" title="<?php echo Text::_('COM_SERMONSPEAKER_SPEAKERS_SERIESLINK_HOOVER'); ?>"
 			href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($this->item->slug, $this->item->catid, $this->item->language) . '#series'); ?>"
 			target="_parent">
-			<?php echo JText::_('COM_SERMONSPEAKER_SERIES'); ?></a>&nbsp;
+			<?php echo Text::_('COM_SERMONSPEAKER_SERIES'); ?></a>&nbsp;
 	<?php endif;
 
 	if ($this->item->website and $this->item->website != 'http://') : ?>
 		<a class="badge" href="<?php echo $this->item->website; ?>" target="_blank">
-			<?php echo JText::_('COM_SERMONSPEAKER_FIELD_WEBSITE_LABEL'); ?></a>
+			<?php echo Text::_('COM_SERMONSPEAKER_FIELD_WEBSITE_LABEL'); ?></a>
 	<?php endif; ?>
 </div>

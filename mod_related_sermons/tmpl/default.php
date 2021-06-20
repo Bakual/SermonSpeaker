@@ -7,10 +7,10 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
-use Joomla\CMS\HTML\HTMLHelper;
-
 defined('_JEXEC') or die();
 
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
 ?>
 <ul class="relateditems<?php echo $moduleclass_sfx; ?>">
 <?php
@@ -19,7 +19,7 @@ foreach ($list as $item) : ?>
 	<a href="<?php echo $item->route; ?>">
 		<?php
 		if ($showDate) :
-			echo HtmlHelper::date($item->created, JText::_('DATE_FORMAT_LC4')) . ' - ';
+			echo HtmlHelper::date($item->created, Text::_('DATE_FORMAT_LC4')) . ' - ';
 		endif;
 		echo $item->title; ?></a>
 </li>

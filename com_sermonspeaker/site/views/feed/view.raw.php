@@ -7,9 +7,9 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
-use Joomla\CMS\HTML\HTMLHelper;
-
 defined('_JEXEC') or die();
+
+use Joomla\CMS\HTML\HTMLHelper;
 
 /**
  * HTML View class for the SermonSpeaker Component
@@ -64,7 +64,7 @@ class SermonspeakerViewFeed extends JViewLegacy
 
 		if (!in_array($this->params->get('access'), $groups))
 		{
-			$app->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'error');
+			$app->enqueueMessage(Text::_('JERROR_ALERTNOAUTHOR'), 'error');
 			$app->redirect('');
 		}
 

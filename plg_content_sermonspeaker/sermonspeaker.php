@@ -7,9 +7,10 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
-use Joomla\CMS\HTML\HTMLHelper;
-
 defined('_JEXEC') or die();
+
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
 
 /**
  * Plug-in to show a SermonSpeaker player in an article
@@ -126,7 +127,7 @@ class PlgContentSermonspeaker extends JPlugin
 
 						if ($item->speaker_title)
 						{
-							$contents .= '<tr><td>' . JText::_('PLG_CONTENT_SERMONSPEAKER_SPEAKER') . '</td>';
+							$contents .= '<tr><td>' . Text::_('PLG_CONTENT_SERMONSPEAKER_SPEAKER') . '</td>';
 
 							if ($item->speaker_state)
 							{
@@ -142,19 +143,19 @@ class PlgContentSermonspeaker extends JPlugin
 
 						if ($item->series_title)
 						{
-							$contents .= '<tr><td>' . JText::_('PLG_CONTENT_SERMONSPEAKER_SERIE') . '</td>';
+							$contents .= '<tr><td>' . Text::_('PLG_CONTENT_SERMONSPEAKER_SERIE') . '</td>';
 							$contents .= '<td><a href="' . $serieslnk . '">' . $item->series_title . '</a></td></tr>';
 						}
 
 						if ($item->sermon_date != '0000-00-00 00:00:00')
 						{
-							$contents .= '<tr><td>' . JText::_('JDATE') . '</td>';
-							$contents .= '<td>' . HtmlHelper::date($item->sermon_date, JText::_('DATE_FORMAT_LC3')) . '</td></tr>';
+							$contents .= '<tr><td>' . Text::_('JDATE') . '</td>';
+							$contents .= '<td>' . HtmlHelper::date($item->sermon_date, Text::_('DATE_FORMAT_LC3')) . '</td></tr>';
 						}
 
 						if ($item->hits)
 						{
-							$contents .= '<tr><td>' . JText::_('JGLOBAL_HITS') . '</td>';
+							$contents .= '<tr><td>' . Text::_('JGLOBAL_HITS') . '</td>';
 							$contents .= '<td>' . $item->hits . '</td></tr>';
 						}
 

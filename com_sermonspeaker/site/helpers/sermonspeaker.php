@@ -417,7 +417,7 @@ class SermonspeakerHelperSermonspeaker
 					if (in_array(self::$view . ':player', $cols))
 					{
 						$options['onclick']     = 'ss_play(' . $i . ');return false;';
-						$options['title']       = JText::_('COM_SERMONSPEAKER_PLAYICON_HOOVER');
+						$options['title']       = Text::_('COM_SERMONSPEAKER_PLAYICON_HOOVER');
 						$options['class']       = 'ss-play hasTooltip';
 						$options['data-id']     = $i;
 						$options['data-player'] = !empty($player->id) ? $player->id : '';
