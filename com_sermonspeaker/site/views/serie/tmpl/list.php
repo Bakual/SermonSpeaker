@@ -9,11 +9,13 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 
-JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
+HtmlHelper::addIncludePath(JPATH_COMPONENT . '/helpers');
 
-JHtml::_('bootstrap.tooltip');
+HtmlHelper::_('bootstrap.tooltip');
+HtmlHelper::_('bootstrap.dropdown');
 
 $user       = JFactory::getUser();
 $showState  = $user->authorise('core.edit', 'com_sermonspeaker');
@@ -48,7 +50,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 				<?php endif; ?>
 				<?php
 				if ($canEdit or ($canEditOwn and ($user->id == $this->item->created_by))) : ?>
-					<li class="edit-icon"><?php echo JHtml::_('icon.edit', $this->item, $this->params, array('type' => 'serie')); ?></li>
+					<li class="edit-icon"><?php echo HtmlHelper::_('icon.edit', $this->item, $this->params, array('type' => 'serie')); ?></li>
 				<?php endif; ?>
 			</ul>
 		</div>
@@ -100,13 +102,13 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 		<?php echo $this->item->event->beforeDisplayContent; ?>
 		<?php if (in_array('serie:description', $this->col_serie) and $this->item->series_description) : ?>
 			<div>
-				<?php echo JHtml::_('content.prepare', $this->item->series_description, '', 'com_sermonspeaker.description'); ?>
+				<?php echo HtmlHelper::_('content.prepare', $this->item->series_description, '', 'com_sermonspeaker.description'); ?>
 			</div>
 		<?php endif; ?>
 	</div>
 	<div class="clearfix"></div>
 	<?php if (in_array('serie:player', $this->columns) and count($this->items)) :
-		JHtml::_('stylesheet', 'com_sermonspeaker/player.css', array('relative' => true)); ?>
+		HtmlHelper::_('stylesheet', 'com_sermonspeaker/player.css', array('relative' => true)); ?>
 		<div id="ss-serie-player" class="ss-player row-fluid">
 			<div class="span10 offset1">
 				<hr/>
@@ -167,7 +169,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 
 							if ($canEdit or ($canEditOwn and ($user->id == $item->created_by))) : ?>
 								<span class="list-edit pull-left width-50">
-									<?php echo JHtml::_('icon.edit', $item, $this->params, array('type' => 'sermon')); ?>
+									<?php echo HtmlHelper::_('icon.edit', $item, $this->params, array('type' => 'sermon')); ?>
 								</span>
 							<?php endif; ?>
 							<strong class="ss-title">
@@ -202,13 +204,13 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 								<small class="ss-scripture">
 									<?php echo Text::_('COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL'); ?>:
 									<?php $scriptures = SermonspeakerHelperSermonspeaker::insertScriptures($item->scripture, '; ');
-									echo JHtml::_('content.prepare', $scriptures, '', 'com_sermonspeaker.scripture'); ?>
+									echo HtmlHelper::_('content.prepare', $scriptures, '', 'com_sermonspeaker.scripture'); ?>
 								</small>
 							<?php endif;
 
 							if (in_array('serie:date', $this->columns) and ($item->sermon_date != '0000-00-00 00:00:00')) : ?>
 								<span class="ss-date small pull-right">
-									<?php echo JHtml::date($item->sermon_date, Text::_($this->params->get('date_format')), true); ?>
+									<?php echo HtmlHelper::date($item->sermon_date, Text::_($this->params->get('date_format')), true); ?>
 								</span>&nbsp;
 							<?php endif; ?>
 						</li>
@@ -217,7 +219,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 			<?php endif;
 
 			if ($user->authorise('core.create', 'com_sermonspeaker')) :
-				echo JHtml::_('icon.create', $this->category, $this->params);
+				echo HtmlHelper::_('icon.create', $this->category, $this->params);
 			endif;
 
 			if ($this->params->get('show_pagination') and ($this->pagination->pagesTotal > 1)) : ?>

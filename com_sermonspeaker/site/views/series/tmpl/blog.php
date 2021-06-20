@@ -16,6 +16,7 @@ HtmlHelper::addIncludePath(JPATH_COMPONENT . '/helpers');
 
 HtmlHelper::_('jquery.framework');
 HtmlHelper::_('bootstrap.tooltip');
+HtmlHelper::_('bootstrap.dropdown');
 
 $user       = JFactory::getUser();
 $showState  = $user->authorise('core.edit', 'com_sermonspeaker');

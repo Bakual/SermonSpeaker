@@ -18,6 +18,7 @@ defined('_JEXEC') or die();
 HTMLHelper::addIncludePath(JPATH_COMPONENT . '/helpers');
 HtmlHelper::_('jquery.framework');
 HTMLHelper::_('bootstrap.tooltip');
+HtmlHelper::_('bootstrap.dropdown');
 
 // Needed for pictures in blog layout
 HTMLHelper::_('stylesheet', 'com_sermonspeaker/blog.css', array('relative' => true));

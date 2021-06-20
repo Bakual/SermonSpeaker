@@ -16,6 +16,7 @@ HtmlHelper::addIncludePath(JPATH_COMPONENT . '/helpers');
 
 HtmlHelper::_('jquery.framework');
 HtmlHelper::_('bootstrap.tooltip');
+HtmlHelper::_('bootstrap.dropdown');
 
 // Needed for pictures in blog layout
 HtmlHelper::_('stylesheet', 'com_sermonspeaker/blog.css', array('relative' => true));
