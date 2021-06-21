@@ -594,7 +594,7 @@
 
 		<field
 			name="popup_color"
-			type="text"
+			type="color"
 			label="COM_SERMONSPEAKER_PARAM_POPUPCOLOR"
 			description="COM_SERMONSPEAKER_PARAM_POPUPCOLOR_DESC"
 			default="#FFFFFF"
@@ -666,7 +666,6 @@
 			name="show_category_title"
 			type="radio"
 			label="JGLOBAL_SHOW_CATEGORY_TITLE"
-			description="JGLOBAL_SHOW_CATEGORY_TITLE_DESC"
 			layout="joomla.form.field.radio.switcher"
 			default="1"
 		>
@@ -678,7 +677,6 @@
 			name="show_description"
 			type="radio"
 			label="JGLOBAL_SHOW_CATEGORY_DESCRIPTION_LABEL"
-			description="JGLOBAL_SHOW_CATEGORY_DESCRIPTION_DESC"
 			layout="joomla.form.field.radio.switcher"
 			default="1"
 		>
@@ -690,7 +688,6 @@
 			name="show_description_image"
 			type="radio"
 			label="JGLOBAL_SHOW_CATEGORY_IMAGE_LABEL"
-			description="JGLOBAL_SHOW_CATEGORY_IMAGE_DESC"
 			layout="joomla.form.field.radio.switcher"
 			default="0"
 		>
@@ -702,7 +699,6 @@
 			name="maxLevel"
 			type="list"
 			label="JGLOBAL_MAXIMUM_CATEGORY_LEVELS_LABEL"
-			description="JGLOBAL_MAXIMUM_CATEGORY_LEVELS_DESC"
 			default="-1"
 		>
 			<option value="0">JNONE</option>
@@ -718,7 +714,6 @@
 			name="show_empty_categories"
 			type="radio"
 			label="JGLOBAL_SHOW_EMPTY_CATEGORIES_LABEL"
-			description="COM_SERMONSPEAKER_SHOW_EMPTY_CATEGORIES_DESC"
 			layout="joomla.form.field.radio.switcher"
 			default="0"
 		>
@@ -730,7 +725,6 @@
 			name="show_subcat_desc"
 			type="radio"
 			label="JGLOBAL_SHOW_SUBCATEGORIES_DESCRIPTION_LABEL"
-			description="JGLOBAL_SHOW_SUBCATEGORIES_DESCRIPTION_DESC"
 			layout="joomla.form.field.radio.switcher"
 			default="1"
 		>
@@ -742,7 +736,6 @@
 			name="show_cat_num_items"
 			type="radio"
 			label="COM_SERMONSPEAKER_NUMBER_CATEGORY_ITEMS_LABEL"
-			description="COM_SERMONSPEAKER_NUMBER_CATEGORY_ITEMS_DESC"
 			layout="joomla.form.field.radio.switcher"
 			default="1"
 		>
@@ -754,7 +747,6 @@
 			name="show_subcategory_content"
 			type="list"
 			label="JGLOBAL_SHOW_SUBCATEGORY_CONTENT_LABEL"
-			description="JGLOBAL_SHOW_SUBCATEGORY_CONTENT_DESC"
 			default="0"
 		>
 			<option value="0">JNONE</option>
@@ -777,7 +769,6 @@
 			name="show_base_description"
 			type="radio"
 			label="JGLOBAL_FIELD_SHOW_BASE_DESCRIPTION_LABEL"
-			description="JGLOBAL_FIELD_SHOW_BASE_DESCRIPTION_DESC"
 			layout="joomla.form.field.radio.switcher"
 			default="1"
 		>
@@ -789,7 +780,6 @@
 			name="maxLevelcat"
 			type="list"
 			label="JGLOBAL_MAXIMUM_CATEGORY_LEVELS_LABEL"
-			description="JGLOBAL_MAXIMUM_CATEGORY_LEVELS_DESC"
 			default="-1"
 		>
 			<option value="-1">JALL</option>
@@ -804,7 +794,6 @@
 			name="show_empty_categories_cat"
 			type="radio"
 			label="JGLOBAL_SHOW_EMPTY_CATEGORIES_LABEL"
-			description="COM_SERMONSPEAKER_SHOW_EMPTY_CATEGORIES_DESC"
 			layout="joomla.form.field.radio.switcher"
 			default="0"
 		>
@@ -816,7 +805,6 @@
 			name="show_subcat_desc_cat"
 			type="radio"
 			label="JGLOBAL_SHOW_SUBCATEGORIES_DESCRIPTION_LABEL"
-			description="JGLOBAL_SHOW_SUBCATEGORIES_DESCRIPTION_DESC"
 			layout="joomla.form.field.radio.switcher"
 			default="1"
 		>
@@ -828,7 +816,6 @@
 			name="show_cat_num_items_cat"
 			type="radio"
 			label="COM_SERMONSPEAKER_NUMBER_CATEGORY_ITEMS_LABEL"
-			description="COM_SERMONSPEAKER_NUMBER_CATEGORY_ITEMS_DESC"
 			layout="joomla.form.field.radio.switcher"
 			default="1"
 		>
@@ -859,7 +846,6 @@
 			name="track_speaker"
 			type="radio"
 			label="COM_SERMONSPEAKER_PARAM_TRACKSPEAKER"
-			description="COM_SERMONSPEAKER_PARAM_TRACKSPEAKER_DESC"
 			layout="joomla.form.field.radio.switcher"
 			default="1"
 		>
@@ -871,7 +857,6 @@
 			name="track_series"
 			type="radio"
 			label="COM_SERMONSPEAKER_PARAM_TRACKSERIES"
-			description="COM_SERMONSPEAKER_PARAM_TRACKSERIES_DESC"
 			layout="joomla.form.field.radio.switcher"
 			default="1"
 		>
@@ -883,7 +868,6 @@
 			name="track_sermon"
 			type="radio"
 			label="COM_SERMONSPEAKER_PARAM_TRACKSERMON"
-			description="COM_SERMONSPEAKER_PARAM_TRACKSERMON_DESC"
 			layout="joomla.form.field.radio.switcher"
 			default="1"
 		>
@@ -1016,9 +1000,8 @@
 			name="save_history"
 			type="radio"
 			label="JGLOBAL_SAVE_HISTORY_OPTIONS_LABEL"
-			description="JGLOBAL_SAVE_HISTORY_OPTIONS_DESC"
 			layout="joomla.form.field.radio.switcher"
-			default="0"
+			default="1"
 		>
 			<option value="0">JNO</option>
 			<option value="1">JYES</option>
@@ -1028,9 +1011,9 @@
 			name="history_limit"
 			type="text"
 			label="JGLOBAL_HISTORY_LIMIT_OPTIONS_LABEL"
-			description="JGLOBAL_HISTORY_LIMIT_OPTIONS_DESC"
 			filter="integer"
 			default="10"
+			showon="save_history:1"
 		/>
 
 		<field
@@ -1046,14 +1029,12 @@
 	<fieldset
 		name="sermoncast"
 		label="COM_SERMONSPEAKER_FIELDSET_SERMONCAST_LABEL"
-		description="COM_SERMONSPEAKER_FIELDSET_SERMONCAST_DESC"
 	>
 
 		<field
 			name="sc_title"
 			type="text"
 			label="COM_SERMONSPEAKER_PARAM_FEED_TITLE_LABEL"
-			description="COM_SERMONSPEAKER_PARAM_FEED_TITLE_DESC"
 			default="MyChurch Podcast"
 		/>
 
@@ -1061,7 +1042,6 @@
 			name="description"
 			type="text"
 			label="COM_SERMONSPEAKER_PARAM_FEED_DESCRIPTION_LABEL"
-			description="COM_SERMONSPEAKER_PARAM_FEED_DESCRIPTION_DESC"
 			default="Predigt / Sermon"
 		/>
 
@@ -1078,7 +1058,6 @@
 			name="copyright"
 			type="text"
 			label="COM_SERMONSPEAKER_PARAM_FEED_COPYRIGHT_LABEL"
-			description="COM_SERMONSPEAKER_PARAM_FEED_COPYRIGHT_DESC"
 			default="(c) mychurch"
 		/>
 
@@ -1140,13 +1119,13 @@
 			label="COM_SERMONSPEAKER_PARAM_FEED_TEXTLENGTH"
 			description="COM_SERMONSPEAKER_PARAM_FEED_TEXTLENGTH_DESC"
 			default="20"
+			showon="limit_text:1"
 		/>
 
 		<field
 			name="feed_limit"
 			type="list"
 			label="COM_SERMONSPEAKER_PARAM_FEED_LIMIT_LABEL"
-			description="COM_SERMONSPEAKER_PARAM_FEED_LIMIT_DESC"
 			filter="integer"
 			useglobal="true"
 		>
@@ -1175,7 +1154,6 @@
 			name="spacer_itunes"
 			type="spacer"
 			label="COM_SERMONSPEAKER_FIELDSET_ITUNES_LABEL"
-			description="COM_SERMONSPEAKER_FIELDSET_ITUNES_DESC"
 			hr="false"
 		/>
 
@@ -1208,7 +1186,6 @@
 			name="itCategory1"
 			type="itcategorieslist"
 			label="COM_SERMONSPEAKER_PARAM_FEED_ITCATEGORY1"
-			description="COM_SERMONSPEAKER_PARAM_FEED_ITCATEGORY1_DESC"
 			default="Religion &amp; Spirituality"
 		/>
 
@@ -1216,7 +1193,6 @@
 			name="itCategory2"
 			type="itcategorieslist"
 			label="COM_SERMONSPEAKER_PARAM_FEED_ITCATEGORY2"
-			description="COM_SERMONSPEAKER_PARAM_FEED_ITCATEGORY2_DESC"
 			default="Religion &amp; Spirituality > Christianity"
 		/>
 
@@ -1224,7 +1200,6 @@
 			name="itCategory3"
 			type="itcategorieslist"
 			label="COM_SERMONSPEAKER_PARAM_FEED_ITCATEGORY3"
-			description="COM_SERMONSPEAKER_PARAM_FEED_ITCATEGORY3_DESC"
 			default=""
 		/>
 
@@ -1365,12 +1340,11 @@
 			name="opengraph"
 			type="radio"
 			label="COM_SERMONSPEAKER_FIELD_OPENGRAPH_LABEL"
-			description="COM_SERMONSPEAKER_FIELD_OPENGRAPH_DESC"
 			layout="joomla.form.field.radio.switcher"
 			default="1"
 		>
-			<option value="1">JENABLED</option>
 			<option value="0">JDISABLED</option>
+			<option value="1">JENABLED</option>
 		</field>
 
 		<field
