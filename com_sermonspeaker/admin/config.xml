@@ -25,11 +25,11 @@
 			type="radio"
 			label="COM_SERMONSPEAKER_FIELD_SPEAKERPOPUP_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_SPEAKERPOPUP_DESC"
-			class="btn-group btn-group-yesno"
+			layout="joomla.form.field.radio.switcher"
 			default="1"
 		>
-			<option value="1">JYES</option>
 			<option value="0">JNO</option>
+			<option value="1">JYES</option>
 		</field>
 
 		<field
@@ -37,11 +37,11 @@
 			type="radio"
 			label="COM_SERMONSPEAKER_PARAM_SERIESDL_LABEL"
 			description="COM_SERMONSPEAKER_PARAM_SERIESDL_DESC"
-			class="btn-group btn-group-yesno"
+			layout="joomla.form.field.radio.switcher"
 			default="1"
 		>
-			<option value="1">JYES</option>
 			<option value="0">JNO</option>
+			<option value="1">JYES</option>
 		</field>
 
 		<field
@@ -113,11 +113,11 @@
 			type="radio"
 			label="JGLOBAL_FILTER_FIELD_LABEL"
 			description="COM_SERMONSPEAKER_FILTER_FIELD_DESC"
-			class="btn-group btn-group-yesno"
+			layout="joomla.form.field.radio.switcher"
 			default="0"
 		>
-			<option value="1">JSHOW</option>
 			<option value="0">JHIDE</option>
+			<option value="1">JSHOW</option>
 		</field>
 
 		<field
@@ -125,11 +125,11 @@
 			type="radio"
 			label="JGLOBAL_DISPLAY_SELECT_LABEL"
 			description="JGLOBAL_DISPLAY_SELECT_DESC"
-			class="btn-group btn-group-yesno"
+			layout="joomla.form.field.radio.switcher"
 			default="1"
 		>
-			<option value="1">JSHOW</option>
 			<option value="0">JHIDE</option>
+			<option value="1">JSHOW</option>
 		</field>
 
 		<field
@@ -157,11 +157,11 @@
 			type="radio"
 			label="JGLOBAL_PAGINATION_RESULTS_LABEL"
 			description="JGLOBAL_PAGINATION_RESULTS_DESC"
-			class="btn-group btn-group-yesno"
+			layout="joomla.form.field.radio.switcher"
 			default="1"
 		>
-			<option value="1">JSHOW</option>
 			<option value="0">JHIDE</option>
+			<option value="1">JSHOW</option>
 		</field>
 
 	</fieldset>
@@ -176,7 +176,6 @@
 			name="sermonslayout"
 			type="componentlayout"
 			label="COM_SERMONSPEAKER_SERMONS_VIEW_TITLE"
-			description="COM_SERMONSPEAKER_FIELD_LAYOUT_DESC"
 			default="_:table"
 			useglobal="false"
 			extension="com_sermonspeaker"
@@ -187,7 +186,6 @@
 			name="sermonlayout"
 			type="componentlayout"
 			label="COM_SERMONSPEAKER_SERMON_VIEW_TITLE"
-			description="COM_SERMONSPEAKER_FIELD_LAYOUT_DESC"
 			default="_:content"
 			useglobal="false"
 			extension="com_sermonspeaker"
@@ -198,7 +196,6 @@
 			name="serieslayout"
 			type="componentlayout"
 			label="COM_SERMONSPEAKER_SERIES_VIEW_TITLE"
-			description="COM_SERMONSPEAKER_FIELD_LAYOUT_DESC"
 			default="_:normal"
 			useglobal="false"
 			extension="com_sermonspeaker"
@@ -209,7 +206,6 @@
 			name="serielayout"
 			type="componentlayout"
 			label="COM_SERMONSPEAKER_SERIE_VIEW_TITLE"
-			description="COM_SERMONSPEAKER_FIELD_LAYOUT_DESC"
 			default="_:table"
 			useglobal="false"
 			extension="com_sermonspeaker"
@@ -220,7 +216,6 @@
 			name="speakerslayout"
 			type="componentlayout"
 			label="COM_SERMONSPEAKER_SPEAKERS_VIEW_TITLE"
-			description="COM_SERMONSPEAKER_FIELD_LAYOUT_DESC"
 			default="_:normal"
 			useglobal="false"
 			extension="com_sermonspeaker"
@@ -231,7 +226,6 @@
 			name="speakerlayout"
 			type="componentlayout"
 			label="COM_SERMONSPEAKER_SPEAKER_VIEW_TITLE"
-			description="COM_SERMONSPEAKER_FIELD_LAYOUT_DESC"
 			default="_:sermons"
 			useglobal="false"
 			extension="com_sermonspeaker"
@@ -242,7 +236,6 @@
 			name="categorieslayout"
 			type="componentlayout"
 			label="COM_SERMONSPEAKER_CATEGORIES_VIEW_TITLE"
-			description="COM_SERMONSPEAKER_FIELD_LAYOUT_DESC"
 			default="_:normal"
 			useglobal="false"
 			extension="com_sermonspeaker"
@@ -254,11 +247,11 @@
 			type="radio"
 			label="COM_SERMONSPEAKER_FIELD_CSS_FONTAWESOME_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_CSS_FONTAWESOME_DESC"
-			class="btn-group btn-group-yesno"
+			layout="joomla.form.field.radio.switcher"
 			default="0"
 		>
-			<option value="1">JYES</option>
 			<option value="0">JNO</option>
+			<option value="1">JYES</option>
 		</field>
 
 	</fieldset>
@@ -351,11 +344,11 @@
 			type="radio"
 			label="COM_SERMONSPEAKER_FIELD_APPEND_PATH_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_APPEND_PATH_DESC"
-			class="btn-group btn-group-yesno"
+			layout="joomla.form.field.radio.switcher"
 			default="0"
 		>
-			<option value="1">JYES</option>
 			<option value="0">JNO</option>
+			<option value="1">JYES</option>
 		</field>
 
 		<field
@@ -363,11 +356,11 @@
 			type="radio"
 			label="COM_SERMONSPEAKER_FIELD_APPEND_PATH_LANG_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_APPEND_PATH_LANG_DESC"
-			class="btn-group btn-group-yesno"
+			layout="joomla.form.field.radio.switcher"
 			default="0"
 		>
-			<option value="1">JYES</option>
 			<option value="0">JNO</option>
+			<option value="1">JYES</option>
 		</field>
 
 		<field
@@ -375,11 +368,11 @@
 			type="radio"
 			label="COM_SERMONSPEAKER_FIELD_GOOGLEPICKER_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_GOOGLEPICKER_DESC"
-			class="btn-group btn-group-yesno"
+			layout="joomla.form.field.radio.switcher"
 			default="0"
 		>
-			<option value="1">JYES</option>
 			<option value="0">JNO</option>
+			<option value="1">JYES</option>
 		</field>
 
 		<field
@@ -451,11 +444,11 @@
 			label="COM_SERMONSPEAKER_FIELD_S3_CUSTOM_BUCKET_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_S3_CUSTOM_BUCKET_DESC"
 			showon="path_mode_audio:2[OR]path_mode_video:2"
-			class="btn-group btn-group-yesno"
+			layout="joomla.form.field.radio.switcher"
 			default="0"
 		>
-			<option value="1">JYES</option>
 			<option value="0">JNO</option>
+			<option value="1">JYES</option>
 		</field>
 
 		<field
@@ -605,11 +598,11 @@
 			type="radio"
 			label="COM_SERMONSPEAKER_PARAM_POPUPBTN"
 			description="COM_SERMONSPEAKER_PARAM_POPUPBTN_DESC"
-			class="btn-group btn-group-yesno"
+			layout="joomla.form.field.radio.switcher"
 			default="1"
 		>
-			<option value="1">JYES</option>
 			<option value="0">JNO</option>
+			<option value="1">JYES</option>
 		</field>
 
 		<field
@@ -633,12 +626,12 @@
 			type="radio"
 			label="COM_SERMONSPEAKER_FIELD_SHOW_TAGS_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_SHOW_TAGS_DESC"
-			class="btn-group btn-group-yesno"
+			layout="joomla.form.field.radio.switcher"
 			id="show_tags"
 			default="1"
 		>
-			<option value="1">JSHOW</option>
 			<option value="0">JHIDE</option>
+			<option value="1">JSHOW</option>
 		</field>
 
 		<field
@@ -659,11 +652,11 @@
 			type="radio"
 			label="COM_SERMONSPEAKER_FIELD_TAGS_TO_METAKEY_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_TAGS_TO_METAKEY_DESC"
-			class="btn-group btn-group-yesno"
+			layout="joomla.form.field.radio.switcher"
 			default="0"
 		>
-			<option value="1">JYES</option>
 			<option value="0">JNO</option>
+			<option value="1">JYES</option>
 		</field>
 
 		<field
@@ -687,11 +680,11 @@
 			type="radio"
 			label="JGLOBAL_SHOW_CATEGORY_TITLE"
 			description="JGLOBAL_SHOW_CATEGORY_TITLE_DESC"
-			class="btn-group btn-group-yesno"
+			layout="joomla.form.field.radio.switcher"
 			default="1"
 		>
-			<option value="1">JSHOW</option>
 			<option value="0">JHIDE</option>
+			<option value="1">JSHOW</option>
 		</field>
 
 		<field
@@ -699,11 +692,11 @@
 			type="radio"
 			label="JGLOBAL_SHOW_CATEGORY_DESCRIPTION_LABEL"
 			description="JGLOBAL_SHOW_CATEGORY_DESCRIPTION_DESC"
-			class="btn-group btn-group-yesno"
+			layout="joomla.form.field.radio.switcher"
 			default="1"
 		>
-			<option value="1">JSHOW</option>
 			<option value="0">JHIDE</option>
+			<option value="1">JSHOW</option>
 		</field>
 
 		<field
@@ -711,11 +704,11 @@
 			type="radio"
 			label="JGLOBAL_SHOW_CATEGORY_IMAGE_LABEL"
 			description="JGLOBAL_SHOW_CATEGORY_IMAGE_DESC"
-			class="btn-group btn-group-yesno"
+			layout="joomla.form.field.radio.switcher"
 			default="0"
 		>
-			<option value="1">JSHOW</option>
 			<option value="0">JHIDE</option>
+			<option value="1">JSHOW</option>
 		</field>
 
 		<field
@@ -739,11 +732,11 @@
 			type="radio"
 			label="JGLOBAL_SHOW_EMPTY_CATEGORIES_LABEL"
 			description="COM_SERMONSPEAKER_SHOW_EMPTY_CATEGORIES_DESC"
-			class="btn-group btn-group-yesno"
+			layout="joomla.form.field.radio.switcher"
 			default="0"
 		>
-			<option value="1">JSHOW</option>
 			<option value="0">JHIDE</option>
+			<option value="1">JSHOW</option>
 		</field>
 
 		<field
@@ -751,11 +744,11 @@
 			type="radio"
 			label="JGLOBAL_SHOW_SUBCATEGORIES_DESCRIPTION_LABEL"
 			description="JGLOBAL_SHOW_SUBCATEGORIES_DESCRIPTION_DESC"
-			class="btn-group btn-group-yesno"
+			layout="joomla.form.field.radio.switcher"
 			default="1"
 		>
-			<option value="1">JSHOW</option>
 			<option value="0">JHIDE</option>
+			<option value="1">JSHOW</option>
 		</field>
 
 		<field
@@ -763,11 +756,11 @@
 			type="radio"
 			label="COM_SERMONSPEAKER_NUMBER_CATEGORY_ITEMS_LABEL"
 			description="COM_SERMONSPEAKER_NUMBER_CATEGORY_ITEMS_DESC"
-			class="btn-group btn-group-yesno"
+			layout="joomla.form.field.radio.switcher"
 			default="1"
 		>
-			<option value="1">JSHOW</option>
 			<option value="0">JHIDE</option>
+			<option value="1">JSHOW</option>
 		</field>
 
 		<field
@@ -798,11 +791,11 @@
 			type="radio"
 			label="JGLOBAL_FIELD_SHOW_BASE_DESCRIPTION_LABEL"
 			description="JGLOBAL_FIELD_SHOW_BASE_DESCRIPTION_DESC"
-			class="btn-group btn-group-yesno"
+			layout="joomla.form.field.radio.switcher"
 			default="1"
 		>
-			<option value="1">JSHOW</option>
 			<option value="0">JHIDE</option>
+			<option value="1">JSHOW</option>
 		</field>
 
 		<field
@@ -825,11 +818,11 @@
 			type="radio"
 			label="JGLOBAL_SHOW_EMPTY_CATEGORIES_LABEL"
 			description="COM_SERMONSPEAKER_SHOW_EMPTY_CATEGORIES_DESC"
-			class="btn-group btn-group-yesno"
+			layout="joomla.form.field.radio.switcher"
 			default="0"
 		>
-			<option value="1">JSHOW</option>
 			<option value="0">JHIDE</option>
+			<option value="1">JSHOW</option>
 		</field>
 
 		<field
@@ -837,11 +830,11 @@
 			type="radio"
 			label="JGLOBAL_SHOW_SUBCATEGORIES_DESCRIPTION_LABEL"
 			description="JGLOBAL_SHOW_SUBCATEGORIES_DESCRIPTION_DESC"
-			class="btn-group btn-group-yesno"
+			layout="joomla.form.field.radio.switcher"
 			default="1"
 		>
-			<option value="1">JSHOW</option>
 			<option value="0">JHIDE</option>
+			<option value="1">JSHOW</option>
 		</field>
 
 		<field
@@ -849,11 +842,11 @@
 			type="radio"
 			label="COM_SERMONSPEAKER_NUMBER_CATEGORY_ITEMS_LABEL"
 			description="COM_SERMONSPEAKER_NUMBER_CATEGORY_ITEMS_DESC"
-			class="btn-group btn-group-yesno"
+			layout="joomla.form.field.radio.switcher"
 			default="1"
 		>
-			<option value="1">JSHOW</option>
 			<option value="0">JHIDE</option>
+			<option value="1">JSHOW</option>
 		</field>
 
 		<field
@@ -880,11 +873,11 @@
 			type="radio"
 			label="COM_SERMONSPEAKER_PARAM_TRACKSPEAKER"
 			description="COM_SERMONSPEAKER_PARAM_TRACKSPEAKER_DESC"
-			class="btn-group btn-group-yesno"
+			layout="joomla.form.field.radio.switcher"
 			default="1"
 		>
-			<option value="1">JYES</option>
 			<option value="0">JNO</option>
+			<option value="1">JYES</option>
 		</field>
 
 		<field
@@ -892,11 +885,11 @@
 			type="radio"
 			label="COM_SERMONSPEAKER_PARAM_TRACKSERIES"
 			description="COM_SERMONSPEAKER_PARAM_TRACKSERIES_DESC"
-			class="btn-group btn-group-yesno"
+			layout="joomla.form.field.radio.switcher"
 			default="1"
 		>
-			<option value="1">JYES</option>
 			<option value="0">JNO</option>
+			<option value="1">JYES</option>
 		</field>
 
 		<field
@@ -904,11 +897,11 @@
 			type="radio"
 			label="COM_SERMONSPEAKER_PARAM_TRACKSERMON"
 			description="COM_SERMONSPEAKER_PARAM_TRACKSERMON_DESC"
-			class="btn-group btn-group-yesno"
+			layout="joomla.form.field.radio.switcher"
 			default="1"
 		>
-			<option value="1">JYES</option>
 			<option value="0">JNO</option>
+			<option value="1">JYES</option>
 		</field>
 
 	</fieldset>
@@ -922,13 +915,13 @@
 		<field
 			name="fu_enable"
 			type="radio"
-			class="btn-group btn-group-yesno"
+			layout="joomla.form.field.radio.switcher"
 			default="0"
 			label="COM_SERMONSPEAKER_PARAM_FU_ENABLE"
 			description="COM_SERMONSPEAKER_PARAM_FU_ENABLE_DESC"
 		>
-			<option value="1">JYES</option>
 			<option value="0">JNO</option>
+			<option value="1">JYES</option>
 		</field>
 
 		<field
@@ -936,11 +929,11 @@
 			type="radio"
 			label="COM_SERMONSPEAKER_FIELD_ENABLE_FLASH_UPLOADER_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_ENABLE_FLASH_UPLOADER_DESC"
-			class="btn-group btn-group-yesno"
+			layout="joomla.form.field.radio.switcher"
 			default="1"
 		>
-			<option value="1">JYES</option>
 			<option value="0">JNO</option>
+			<option value="1">JYES</option>
 		</field>
 
 		<field
@@ -948,11 +941,11 @@
 			type="radio"
 			label="COM_SERMONSPEAKER_FIELD_ENABLE_NON_FLASH_UPLOADER_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_ENABLE_NON_FLASH_UPLOADER_DESC"
-			class="btn-group btn-group-yesno"
+			layout="joomla.form.field.radio.switcher"
 			default="1"
 		>
-			<option value="1">JYES</option>
 			<option value="0">JNO</option>
+			<option value="1">JYES</option>
 		</field>
 
 		<field
@@ -984,11 +977,11 @@
 			type="radio"
 			label="COM_SERMONSPEAKER_FIELD_WRITE_ID3_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_WRITE_ID3_DESC"
-			class="btn-group btn-group-yesno"
+			layout="joomla.form.field.radio.switcher"
 			default="0"
 		>
-			<option value="1">JYES</option>
 			<option value="0">JNO</option>
+			<option value="1">JYES</option>
 		</field>
 
 		<field
@@ -996,11 +989,11 @@
 			type="radio"
 			label="COM_SERMONSPEAKER_FIELD_CATFILTER_LISTS_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_CATFILTER_LISTS_DESC"
-			class="btn-group btn-group-yesno"
+			layout="joomla.form.field.radio.switcher"
 			default="0"
 		>
-			<option value="1">JYES</option>
 			<option value="0">JNO</option>
+			<option value="1">JYES</option>
 		</field>
 
 		<field
@@ -1037,11 +1030,11 @@
 			type="radio"
 			label="JGLOBAL_SAVE_HISTORY_OPTIONS_LABEL"
 			description="JGLOBAL_SAVE_HISTORY_OPTIONS_DESC"
-			class="btn-group btn-group-yesno"
+			layout="joomla.form.field.radio.switcher"
 			default="0"
 		>
-			<option value="1">JYES</option>
 			<option value="0">JNO</option>
+			<option value="1">JYES</option>
 		</field>
 
 		<field
@@ -1123,11 +1116,11 @@
 			type="radio"
 			label="COM_SERMONSPEAKER_FIELD_USE_SEF_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_USE_SEF_DESC"
-			class="btn-group btn-group-yesno"
+			layout="joomla.form.field.radio.switcher"
 			default="1"
 		>
-			<option value="1">JYES</option>
 			<option value="0">JNO</option>
+			<option value="1">JYES</option>
 		</field>
 
 		<field
@@ -1135,11 +1128,11 @@
 			type="radio"
 			label="COM_SERMONSPEAKER_FIELD_PREPARE_CONTENT_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_PREPARE_CONTENT_DESC"
-			class="btn-group btn-group-yesno"
+			layout="joomla.form.field.radio.switcher"
 			default="1"
 		>
-			<option value="1">JYES</option>
 			<option value="0">JNO</option>
+			<option value="1">JYES</option>
 		</field>
 
 		<field
@@ -1147,11 +1140,11 @@
 			type="radio"
 			label="COM_SERMONSPEAKER_PARAM_FEED_LIMITTEXT"
 			description="COM_SERMONSPEAKER_PARAM_FEED_LIMITTEXT_DESC"
-			class="btn-group btn-group-yesno"
+			layout="joomla.form.field.radio.switcher"
 			default="1"
 		>
-			<option value="1">JYES</option>
 			<option value="0">JNO</option>
+			<option value="1">JYES</option>
 		</field>
 
 		<field
@@ -1337,11 +1330,11 @@
 			type="radio"
 			label="COM_SERMONSPEAKER_FIELD_ENABLE_JCOMMENTS_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_ENABLE_JCOMMENTS_DESC"
-			class="btn-group btn-group-yesno"
+			layout="joomla.form.field.radio.switcher"
 			default="0"
 		>
-			<option value="1">JYES</option>
 			<option value="0">JNO</option>
+			<option value="1">JYES</option>
 		</field>
 
 		<field
@@ -1349,11 +1342,11 @@
 			type="radio"
 			label="COM_SERMONSPEAKER_FIELD_ENABLE_GA_EVENTS_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_ENABLE_GA_EVENTS_DESC"
-			class="btn-group btn-group-yesno"
+			layout="joomla.form.field.radio.switcher"
 			default="0"
 		>
-			<option value="1">JYES</option>
 			<option value="0">JNO</option>
+			<option value="1">JYES</option>
 		</field>
 
 		<field
@@ -1361,11 +1354,11 @@
 			type="radio"
 			label="JGLOBAL_SHOW_FEED_LINK_LABEL"
 			description="JGLOBAL_SHOW_FEED_LINK_DESC"
-			class="btn-group btn-group-yesno"
+			layout="joomla.form.field.radio.switcher"
 			default="1"
 		>
-			<option value="1">JSHOW</option>
 			<option value="0">JHIDE</option>
+			<option value="1">JSHOW</option>
 		</field>
 
 		<field
@@ -1386,7 +1379,7 @@
 			type="radio"
 			label="COM_SERMONSPEAKER_FIELD_OPENGRAPH_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_OPENGRAPH_DESC"
-			class="btn-group btn-group-yesno"
+			layout="joomla.form.field.radio.switcher"
 			default="1"
 		>
 			<option value="1">JENABLED</option>
