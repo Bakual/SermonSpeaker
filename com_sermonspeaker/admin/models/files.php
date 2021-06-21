@@ -113,15 +113,8 @@ class SermonspeakerModelFiles extends JModelLegacy
 
 			$bucket_contents = $s3->getBucket($bucket, $bucketfolder);
 
-			if ($params->get('s3_custom_bucket'))
-			{
-				$domain = $bucket;
-			}
-			else
-			{
-				$prefix = ($region === 'us-east-1') ? 's3' : 's3-' . $region;
-				$domain = $prefix . '.amazonaws.com/' . $bucket;
-			}
+			$prefix = ($region === 'us-east-1') ? 's3' : 's3-' . $region;
+			$domain = $prefix . '.amazonaws.com/' . $bucket;
 
 			foreach ($bucket_contents as $file)
 			{

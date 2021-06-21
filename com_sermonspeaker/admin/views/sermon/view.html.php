@@ -325,15 +325,8 @@ class SermonspeakerViewSermon extends JViewLegacy
 			$s3 = new S3($awsAccessKey, $awsSecretKey);
 			$s3->setRegion($region);
 
-			if ($this->params->get('s3_custom_bucket'))
-			{
-				$this->domain = $bucket . $folder;
-			}
-			else
-			{
-				$prefix = ($region === 'us-east-1') ? 's3' : 's3-' . $region;
-				$this->domain = $prefix . '.amazonaws.com/' . $bucket . $folder;
-			}
+			$prefix = ($region === 'us-east-1') ? 's3' : 's3-' . $region;
+			$this->domain = $prefix . '.amazonaws.com/' . $bucket . $folder;
 		}
 
 		// Calculate destination path to show

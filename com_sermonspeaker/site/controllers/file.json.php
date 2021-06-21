@@ -162,15 +162,8 @@ class SermonspeakerControllerFile extends JControllerLegacy
 				return;
 			}
 
-			if ($params->get('s3_custom_bucket'))
-			{
-				$domain = $bucket;
-			}
-			else
-			{
-				$prefix = ($region === 'us-east-1') ? 's3' : 's3-' . $region;
-				$domain = $prefix . '.amazonaws.com/' . $bucket;
-			}
+			$prefix = ($region === 'us-east-1') ? 's3' : 's3-' . $region;
+			$domain = $prefix . '.amazonaws.com/' . $bucket;
 
 			// Upload the file
 			try
