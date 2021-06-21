@@ -88,7 +88,7 @@ class SermonspeakerController extends BaseController
 
 		if ($params->get('css_fontawesome'))
 		{
-			HTMLHelper::_('stylesheet', 'font-awesome.min.css', ['version' => 'auto', 'relative' => true]);
+			HTMLHelper::_('stylesheet', 'vendor/fontawesome-free/fontawesome.css', ['relative' => true]);
 		}
 
 		// Make sure the format is raw for feed and sitemap view
