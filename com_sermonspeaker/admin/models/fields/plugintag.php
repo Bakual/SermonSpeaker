@@ -54,7 +54,7 @@ class JFormFieldPlugintag extends JFormField
 			$active1  = ($this->value) ? ' checked="checked"' : '';
 			$disabled = (!$this->value) ? ' disabled="disabled"' : '';
 			$html     .= '<input class type="radio" name="' . $this->fieldname . '_radio" id="' . $this->id . '_radio0" value="0" onclick="this.form.elements[\'' . $this->id . '_start\'].disabled = true; this.form.elements[\'' . $this->id . '_end\'].disabled = true;"' . $active0 . ' /><input type="text" class="readonly input-small" disabled="disabled" value="' . Text::_('JGLOBAL_USE_GLOBAL') . '" />';
-			$html     .= '<span class="faux-label"></span><input type="radio" name="' . $this->fieldname . '_radio" id="' . $this->id . '_radio1" value="1"  onclick="this.form.elements[\'' . $this->id . '_start\'].disabled = false; this.form.elements[\'' . $this->id . '_end\'].disabled = false;"' . $active1 . ' />';
+			$html     .= '<br><input type="radio" name="' . $this->fieldname . '_radio" id="' . $this->id . '_radio1" value="1"  onclick="this.form.elements[\'' . $this->id . '_start\'].disabled = false; this.form.elements[\'' . $this->id . '_end\'].disabled = false;"' . $active1 . ' />';
 		}
 
 		if (!is_array($this->value))
@@ -73,7 +73,7 @@ class JFormFieldPlugintag extends JFormField
 		}
 
 		$html .= '<input type="text" size="10" name="' . $this->name . '" id="' . $this->id . '_start" value="' . htmlspecialchars($this->value[0], ENT_COMPAT) . '" class="inputbox input-mini"' . $disabled . ' />'
-			. '<span class="faux-label" style="clear:none; min-width:0; margin-left:2px; margin-right:2px;">John 3,16</span>'
+			. '<span style="margin-left:5px; margin-right:5px;">John 3,16</span>'
 			. '<input type="text" size="5" name="' . $this->name . '" id="' . $this->id . '_end" value="' . htmlspecialchars($this->value[1], ENT_COMPAT) . '" class="inputbox input-mini"' . $disabled . ' />';
 
 		return $html;
