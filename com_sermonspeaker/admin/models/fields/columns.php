@@ -53,13 +53,13 @@ class JFormFieldColumns extends JFormField
 		$columns = explode(',', (string) $this->element['cols']);
 
 		// Start the table.
-		$html[] = '<table style="width:100%; clear:left;">';
+		$html[] = '<table class="table table-sm align-middle">';
 		$html[] = '<thead><tr>';
-		$html[] = '<th style="height: 25px; background: #F4F4F4; border-bottom: 1px solid silver; vertical-align:middle;">View</th>';
+		$html[] = '<th>View</th>';
 		foreach ($columns as $column)
 		{
 			$label  = ($column == 'category') ? 'JCATEGORY' : 'COM_SERMONSPEAKER_FIELD_' . strtoupper($column) . '_LABEL';
-			$html[] = '<th style="height: 25px; background: #F4F4F4; border-bottom: 1px solid silver; vertical-align:middle;">' . Text::_($label) . '</th>';
+			$html[] = '<th class="text-center">' . Text::_($label) . '</th>';
 		}
 		$html[] = '</tr></thead>';
 		$html[] = '<tbody>';
@@ -75,15 +75,15 @@ class JFormFieldColumns extends JFormField
 			$onclick = !empty($option->onclick) ? ' onclick="' . $option->onclick . '"' : '';
 
 			$html[] = '<tr>';
-			$html[] = '<th style="height: 25px; background: #F4F4F4; border-bottom: 1px solid silver; vertical-align:middle;">' . $option->text . '</th>';
+			$html[] = '<th>' . $option->text . '</th>';
 			foreach ($columns as $column)
 			{
 				// Initialize some option attributes.
 				$checked  = (in_array((string) $option->value . ':' . $column, (array) $this->value) ? ' checked="checked"' : '');
 				$disabled = in_array($column, (array) $option->exclude) ? ' disabled="disabled"' : '';
 
-				$html[] = '<td align="center">';
-				$html[] = '<input style="float:none; margin:0;" type="checkbox" id="' . $this->id . $i . '" name="' . $this->name . '"' .
+				$html[] = '<td class="text-center">';
+				$html[] = '<input type="checkbox" id="' . $this->id . $i . '" name="' . $this->name . '"' .
 					' value="' . htmlspecialchars($option->value . ':' . $column, ENT_COMPAT) . '"' . $checked . $class . $onclick . $disabled . '/>';
 				$html[] = '</td>';
 			}
