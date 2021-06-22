@@ -17,7 +17,6 @@ use Joomla\CMS\Router\Route;
 HtmlHelper::_('behavior.formvalidator');
 HtmlHelper::_('behavior.keepalive');
 HtmlHelper::_('bootstrap.tooltip');
-HtmlHelper::_('formbehavior.chosen', 'select');
 
 $this->ignore_fieldsets = array('general', 'info', 'detail', 'jmetadata', 'metadata', 'item_associations');
 $this->tab_name = 'speakerEditTab';

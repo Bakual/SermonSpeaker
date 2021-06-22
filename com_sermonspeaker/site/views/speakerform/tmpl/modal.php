@@ -15,7 +15,6 @@ use Joomla\CMS\Language\Text;
 HtmlHelper::_('bootstrap.tooltip', '.hasTooltip', array('placement' => 'bottom'));
 HtmlHelper::_('behavior.formvalidation');
 HtmlHelper::_('behavior.keepalive');
-HtmlHelper::_('formbehavior.chosen', 'select');
 
 ?>
 <script type="text/javascript">

@@ -19,7 +19,6 @@ HtmlHelper::addIncludePath(JPATH_COMPONENT.'/helpers/html');
 HtmlHelper::_('behavior.core');
 HtmlHelper::_('behavior.polyfill', array('event'), 'lt IE 9');
 HtmlHelper::_('bootstrap.tooltip', '.hasTooltip', array('placement' => 'bottom'));
-HtmlHelper::_('formbehavior.chosen', 'select');
 
 $function	= JFactory::getApplication()->input->get('function', 'jSelectSerie');
 $listOrder	= $this->escape($this->state->get('list.ordering'));

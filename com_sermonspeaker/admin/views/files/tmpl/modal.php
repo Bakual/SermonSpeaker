@@ -9,7 +9,6 @@ use Joomla\CMS\Uri\Uri;
 
 HtmlHelper::addIncludePath(JPATH_COMPONENT.'/helpers/html');
 HtmlHelper::_('bootstrap.tooltip');
-HtmlHelper::_('formbehavior.chosen', 'select');
 
 $session = Factory::getApplication()->getSession();
 ?>
