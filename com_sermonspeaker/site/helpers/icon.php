@@ -59,11 +59,9 @@ class JHtmlIcon
 
 		$uri = Uri::getInstance();
 		$url = 'index.php?option=com_sermonspeaker&task=' . $controller . '.add&return=' . base64_encode($uri) . '&s_id=0&catid=' . $category->id;
-		$text = '<span class="icon-plus"></span> ' . Text::_('JNEW') . '&#160;';
+		$text = Text::_('JNEW') . '&#160;';
 
-		$button = HtmlHelper::_('link', Route::_($url), $text, 'class="btn btn-primary"');
-
-		return '<span class="hasTooltip" title="' . Text::_('COM_SERMONSPEAKER_BUTTON_NEW_' . $view) . '">' . $button . '</span>';
+		return HtmlHelper::_('link', Route::_($url), $text, 'class="btn btn-primary"');
 	}
 
 	/**
@@ -101,7 +99,7 @@ class JHtmlIcon
 			return '';
 		}
 
-		HtmlHelper::_('bootstrap.tooltip');
+		HtmlHelper::_('bootstrap.tooltip', '.hasTooltip');
 
 		// Show checked_out icon if the item is checked out by a different user
 		if (property_exists($item, 'checked_out') && property_exists($item, 'checked_out_time')
@@ -135,36 +133,36 @@ class JHtmlIcon
 
 		if ($item->state == 0)
 		{
-			$overlib = Text::_('JUNPUBLISHED');
+			$tooltip = Text::_('JUNPUBLISHED');
 		}
 		else
 		{
-			$overlib = Text::_('JPUBLISHED');
+			$tooltip = Text::_('JPUBLISHED');
 		}
 
 		if ($item->created != Factory::getDbo()->getNullDate())
 		{
 			$date = HtmlHelper::_('date', $item->created);
-			$overlib .= '&lt;br /&gt;';
-			$overlib .= Text::sprintf('JGLOBAL_CREATED_DATE_ON', $date);
+			$tooltip .= '<br>';
+			$tooltip .= Text::sprintf('JGLOBAL_CREATED_DATE_ON', $date);
 		}
 
 		if ($item->author)
 		{
-			$overlib .= '&lt;br /&gt;';
-			$overlib .= Text::_('JAUTHOR') . ': ' . htmlspecialchars($item->author, ENT_COMPAT);
+			$tooltip .= '<br>';
+			$tooltip .= Text::_('JAUTHOR') . ': ' . htmlspecialchars($item->author, ENT_COMPAT);
 		}
 
-		$icon = $item->state ? 'pencil-square-o' : 'eye-slash';
+		$icon = $item->state ? 'edit' : 'eye-slash';
 
 		if (strtotime($item->publish_up) > strtotime(Factory::getDate())
 			|| ((strtotime($item->publish_down) < strtotime(Factory::getDate())) && $item->publish_down != Factory::getDbo()->getNullDate())
 		)
 		{
-			$icon = 'eye-close';
+			$icon = 'eye-slash';
 		}
 
-		$text = '<span class="hasTooltip fas fa-' . $icon . '" title="' . HtmlHelper::tooltipText(Text::_('JACTION_EDIT'), $overlib, 0, 0) . '"></span> ';
+		$text = '<span class="hasTooltip fas fa-' . $icon . '"  title="<strong>' . Text::_('JACTION_EDIT') . '</strong><br>' . $tooltip . '"></span> ';
 
 		if (empty($attribs['hide_text']))
 		{
