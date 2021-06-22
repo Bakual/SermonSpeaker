@@ -403,12 +403,11 @@ $this->document->addScriptDeclaration('jQuery(function() {
 								endif; ?>
 								<td class="ss-title">
 									<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->slug, $item->catid, $item->language)); ?>">
-										<?php echo $item->title; ?>
-									</a>
+										<?php echo $item->title; ?></a>
 									<?php if ($canEdit or ($canEditOwn and ($user->id == $item->created_by))) : ?>
-										<span class="list-edit pull-left width-50">
-												<?php echo HtmlHelper::_('icon.edit', $item, $this->params, array('type' => 'serie')); ?>
-											</span>
+										<span class="list-edit">
+											<?php echo HtmlHelper::_('icon.edit', $item, $this->params, array('type' => 'serie')); ?>
+										</span>
 										<?php echo JLayoutHelper::render('blocks.state_info', array('item' => $item, 'show' => true)); ?>
 									<?php endif; ?>
 								</td>
