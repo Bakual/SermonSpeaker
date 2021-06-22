@@ -17,7 +17,7 @@ use Joomla\CMS\Router\Route;
 
 HTMLHelper::addIncludePath(JPATH_COMPONENT . '/helpers');
 HtmlHelper::_('jquery.framework');
-HTMLHelper::_('bootstrap.tooltip');
+HtmlHelper::_('bootstrap.tooltip', '.hasTooltip');
 HtmlHelper::_('bootstrap.dropdown');
 
 // Needed for pictures in blog layout

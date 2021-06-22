@@ -15,7 +15,7 @@ use Joomla\CMS\Layout\LayoutHelper;
 
 HtmlHelper::_('stylesheet', 'com_sermonspeaker/sermonspeaker.css', array('relative' => true));
 HtmlHelper::addIncludePath(JPATH_COMPONENT . '/helpers');
-HtmlHelper::_('bootstrap.tooltip');
+HtmlHelper::_('bootstrap.tooltip', '.hasTooltip');
 
 $user       = JFactory::getUser();
 $fu_enable  = $this->params->get('fu_enable');

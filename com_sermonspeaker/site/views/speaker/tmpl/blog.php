@@ -16,7 +16,7 @@ use Joomla\CMS\Layout\LayoutHelper;
 HtmlHelper::addIncludePath(JPATH_COMPONENT . '/helpers');
 
 HtmlHelper::_('jquery.framework');
-HtmlHelper::_('bootstrap.tooltip');
+HtmlHelper::_('bootstrap.tooltip', '.hasTooltip');
 HtmlHelper::_('bootstrap.dropdown');
 HtmlHelper::_('bootstrap.tab');
 

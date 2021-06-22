@@ -25,7 +25,7 @@ $tooltip = ($params->get('ls_show_mo_speaker') || $params->get('ls_show_mo_serie
 if ($tooltip)
 {
 	// Include only if needed...
-	HtmlHelper::_('bootstrap.tooltip');
+	HtmlHelper::_('bootstrap.tooltip', '.hasTooltip');
 }
 ?>
 <div class="latestsermons<?php echo $moduleclass_sfx; ?>">

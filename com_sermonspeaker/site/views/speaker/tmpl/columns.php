@@ -14,7 +14,7 @@ use Joomla\CMS\Language\Text;
 
 HtmlHelper::_('stylesheet', 'com_sermonspeaker/columns.css', array('relative' => true));
 HtmlHelper::addIncludePath(JPATH_COMPONENT . '/helpers');
-HtmlHelper::_('bootstrap.tooltip');
+HtmlHelper::_('bootstrap.tooltip', '.hasTooltip');
 $user       = JFactory::getUser();
 $canEdit    = $user->authorise('core.edit', 'com_sermonspeaker');
 $canEditOwn = $user->authorise('core.edit.own', 'com_sermonspeaker');

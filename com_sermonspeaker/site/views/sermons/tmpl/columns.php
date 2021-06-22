@@ -17,7 +17,7 @@ use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
 
 HtmlHelper::addIncludePath(JPATH_COMPONENT . '/helpers');
-HtmlHelper::_('bootstrap.tooltip');
+HtmlHelper::_('bootstrap.tooltip', '.hasTooltip');
 HtmlHelper::_('stylesheet', 'com_sermonspeaker/columns.css', array('relative' => true));
 $user       = Factory::getUser();
 $canEdit    = $user->authorise('core.edit', 'com_sermonspeaker');

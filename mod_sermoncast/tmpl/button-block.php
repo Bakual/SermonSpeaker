@@ -12,7 +12,7 @@ defined('_JEXEC') or die();
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 
-HtmlHelper::_('bootstrap.tooltip');
+HtmlHelper::_('bootstrap.tooltip', '.hasTooltip');
 HtmlHelper::_('stylesheet', 'com_sermonspeaker/font.css', array('relative' => true));
 ?>
 <div class="syndicate-module<?php echo $params->get('$moduleclass_sfx'); ?>">

@@ -13,7 +13,7 @@ defined('_JEXEC') or die();
 
 if ($params->get('tooltip'))
 {
-	HtmlHelper::_('bootstrap.tooltip');
+	HtmlHelper::_('bootstrap.tooltip', '.hasTooltip');
 }
 
 $level = 1;

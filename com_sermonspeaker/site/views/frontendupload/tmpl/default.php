@@ -22,7 +22,7 @@ $wa->useScript('keepalive');
 $wa->useScript('form.validate');
 
 HTMLHelper::_('stylesheet', 'com_sermonspeaker/frontendupload.css', array('relative' => true));
-HTMLHelper::_('bootstrap.tooltip');
+HtmlHelper::_('bootstrap.tooltip', '.hasTooltip');
 
 // TODO:Replace HTMLHelper::_('bootstrap.modal') with Bootstrap equivalent.
 

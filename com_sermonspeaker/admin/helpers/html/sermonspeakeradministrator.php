@@ -118,7 +118,7 @@ abstract class JHtmlSermonspeakerAdministrator
 	 */
 	public static function podcasted($value, $i, $canChange = true)
 	{
-		HtmlHelper::_('bootstrap.tooltip');
+		HtmlHelper::_('bootstrap.tooltip', '.hasTooltip');
 
 		$states = array(
 			0 => array(

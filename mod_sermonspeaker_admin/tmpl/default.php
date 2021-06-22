@@ -13,7 +13,7 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 
 $header = count($list) - 1;
-HtmlHelper::_('bootstrap.tooltip');
+HtmlHelper::_('bootstrap.tooltip', '.hasTooltip');
 ?>
 <?php if ($list) : ?>
 	<?php foreach ($list as $type => $items) : ?>
