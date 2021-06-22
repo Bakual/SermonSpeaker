@@ -97,7 +97,7 @@ abstract class JHtmlSermonspeakerAdministrator
 				}
 			}
 
-			HtmlHelper::_('bootstrap.popover');
+			HtmlHelper::_('bootstrap.popover', '.hasPopover');
 
 			$html = LayoutHelper::render('joomla.content.associations', $items);
 		}
