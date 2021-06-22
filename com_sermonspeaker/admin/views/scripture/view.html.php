@@ -110,7 +110,6 @@ class SermonspeakerViewScripture extends JViewLegacy
 				split = value.split('|');
 				if(split[0] > 0){
 					document.getElementById('book').value = split[0];
-					jQuery('#book').trigger('liszt:updated');
 				}
 				if(split[1] > 0){document.getElementById('cap1').value = split[1];}
 				if(split[2] > 0){document.getElementById('vers1').value = split[2];}
