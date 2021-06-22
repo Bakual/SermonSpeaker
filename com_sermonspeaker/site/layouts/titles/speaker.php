@@ -24,22 +24,22 @@ extract($displayData);
 <?php else : ?>
 	<?php if ($params->get('speakerpopup', 1)) : ?>
 		<?php echo HtmlHelper::_(
-				'bootstrap.renderModal',
-				'sermonspeaker-modal-speaker-' . $item->speaker_id,
-				array(
-						'title'  => $item->speaker_title,
-						'footer' => $this->sublayout('modal_footer', $item),
-				),
-				$this->sublayout('modal_body', $item)
+			'bootstrap.renderModal',
+			'sermonspeaker-modal-speaker-' . $item->speaker_id,
+			array(
+				'title'  => $item->speaker_title,
+				'footer' => $this->sublayout('modal_footer', $item),
+			),
+			$this->sublayout('modal_body', $item)
 		); ?>
 		<a href="#sermonspeaker-modal-speaker-<?php echo $item->speaker_id; ?>" data-bs-toggle="modal">
 	<?php else : ?>
 		<a href="<?php echo Route::_(SermonspeakerHelperRoute::getSpeakerRoute($item->speaker_slug, $item->speaker_catid, $item->speaker_language)); ?>" itemprop="url">
 	<?php endif; ?>
 	<?php if ($item->pic) : ?>
-		<?php HTMLHelper::_('bootstrap.popover'); ?>
+		<?php HTMLHelper::_('bootstrap.popover', '.hasPopover'); ?>
 		<meta itemprop="image" content="<?php echo SermonspeakerHelperSermonspeaker::makeLink($item->pic, true); ?>"/>
-		<span class="hasPopover" data-bs-html="true" data-bs-placement="top" title="<?php echo $item->speaker_title; ?>"
+		<span class="hasPopover" title="<?php echo $item->speaker_title; ?>"
 			  data-bs-content="<?php echo htmlspecialchars('<img src="' . SermonspeakerHelperSermonspeaker::makeLink($item->pic) . '" />'); ?>">
 			<span itemprop="name"><?php echo $item->speaker_title; ?></span>
 		</span>
