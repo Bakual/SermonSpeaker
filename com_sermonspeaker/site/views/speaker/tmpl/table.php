@@ -402,8 +402,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 									<?php endif;
 								endif; ?>
 								<td class="ss-title">
-									<a title='<?php echo Text::_('COM_SERMONSPEAKER_SERIESLINK_HOOVER'); ?>'
-										href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->slug, $item->catid, $item->language)); ?>">
+									<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->slug, $item->catid, $item->language)); ?>">
 										<?php echo $item->title; ?>
 									</a>
 									<?php if ($canEdit or ($canEditOwn and ($user->id == $item->created_by))) : ?>

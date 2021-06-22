@@ -100,8 +100,7 @@ $listDirn   = $this->state->get('list.direction');
 								</ul>
 							</div>
 							<div class="page-header">
-								<a title="<?php echo Text::_('COM_SERMONSPEAKER_SERIESLINK_HOOVER'); ?>"
-									href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->slug, $item->catid, $item->language)); ?>">
+								<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->slug, $item->catid, $item->language)); ?>">
 									<h2><?php echo $item->title; ?></h2>
 								</a>
 								<?php echo JLayoutHelper::render('blocks.state_info', array('item' => $item, 'show' => $showState)); ?>

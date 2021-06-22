@@ -90,8 +90,7 @@ $listDirn   = $this->state->get('list.direction');
 								</span>
 							<?php endif; ?>
 							<strong class="ss-title">
-								<a title="<?php echo Text::_('COM_SERMONSPEAKER_SERIESLINK_HOOVER'); ?>"
-									href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->slug, $item->catid, $item->language)); ?>">
+								<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->slug, $item->catid, $item->language)); ?>">
 									<?php echo $item->title; ?>
 								</a>
 							</strong>

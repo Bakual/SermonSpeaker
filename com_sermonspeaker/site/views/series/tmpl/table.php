@@ -72,7 +72,7 @@ $listDirn   = $this->state->get('list.direction');
 				<div
 					class="no_entries alert alert-error"><?php echo Text::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', Text::_('COM_SERMONSPEAKER_SERIES')); ?></div>
 			<?php else : ?>
-				<table class="table table-striped table-hover table-condensed">
+				<table class="com-sermonspeaker-series__table category table table-striped table-bordered table-hover">
 					<thead>
 					<tr>
 						<?php if ($this->av) : ?>
@@ -124,19 +124,17 @@ $listDirn   = $this->state->get('list.direction');
 									<td class="ss-col ss-av hidden-phone hidden-tablet"></td>
 								<?php endif;
 							endif; ?>
-							<td class="ss-title">
-								<a class="hasTooltip"
-									title="::<?php echo Text::_('COM_SERMONSPEAKER_SERIESLINK_HOOVER'); ?>"
-									href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->slug, $item->catid, $item->language)); ?>">
+							<th class="ss-title">
+								<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->slug, $item->catid, $item->language)); ?>">
 									<?php echo $item->title; ?>
 								</a>
 								<?php if ($canEdit or ($canEditOwn and ($user->id == $item->created_by))) : ?>
 									<span class="list-edit pull-left width-50">
-											<?php echo HtmlHelper::_('icon.edit', $item, $this->params, array('type' => 'serie')); ?>
+											<?php echo HtmlHelper::_('icon.edit', $item, $this->params, array('type' => 'serie', 'hide_text' => true)); ?>
 											<?php echo JLayoutHelper::render('blocks.state_info', array('item' => $item, 'show' => true)); ?>
 										</span>
 								<?php endif; ?>
-							</td>
+							</th>
 							<?php if (in_array('series:category', $this->col_serie)) : ?>
 								<td class="ss-col ss-category hidden-phone">
 									<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSeriesRoute($item->catslug, $item->language)); ?>"><?php echo $item->category_title; ?></a>
