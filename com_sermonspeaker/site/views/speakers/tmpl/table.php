@@ -11,6 +11,7 @@ defined('_JEXEC') or die();
 
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
 
 HtmlHelper::addIncludePath(JPATH_COMPONENT . '/helpers');
@@ -108,9 +109,9 @@ $listDirn   = $this->state->get('list.direction');
 									<?php echo $item->title; ?></a>
 								<?php if ($canEdit or ($canEditOwn and ($user->id == $item->created_by))) : ?>
 									<span class="list-edit">
-										<?php echo HtmlHelper::_('icon.edit', $item, $this->params, array('type' => 'speaker', 'hide_text' => true)); ?>
+										<?php echo LayoutHelper::render('icons.edit', ['item' => $item, 'params' => $this->params, 'type' => 'speaker', 'hide_text' => true]); ?>
 									</span>
-									<?php echo JLayoutHelper::render('blocks.state_info', array('item' => $item, 'show' => true)); ?>
+									<?php echo LayoutHelper::render('blocks.state_info', array('item' => $item, 'show' => true)); ?>
 								<?php endif; ?>
 							</th>
 							<?php if (in_array('speakers:category', $this->col_speaker)) : ?>

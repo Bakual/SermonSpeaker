@@ -192,7 +192,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 
 								if ($canEdit or ($canEditOwn and ($user->id == $item->created_by))) : ?>
 									<span class="list-edit">
-										<?php echo HTMLHelper::_('icon.edit', $item, $this->params, array('type' => 'sermon', 'hide_text' => true)); ?>
+										<?php echo LayoutHelper::render('icons.edit', ['item' => $item, 'params' => $this->params, 'type' => 'sermon', 'hide_text' => true]); ?>
 									</span>
 									<?php echo LayoutHelper::render('blocks.state_info', array('item' => $item, 'show' => true)); ?>
 								<?php endif; ?>

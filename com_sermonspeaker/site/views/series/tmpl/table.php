@@ -129,7 +129,7 @@ $listDirn   = $this->state->get('list.direction');
 									<?php echo $item->title; ?></a>
 								<?php if ($canEdit or ($canEditOwn and ($user->id == $item->created_by))) : ?>
 									<span class="list-edit">
-										<?php echo HtmlHelper::_('icon.edit', $item, $this->params, array('type' => 'serie', 'hide_text' => true)); ?>
+										<?php echo LayoutHelper::render('icons.edit', ['item' => $item, 'params' => $this->params, 'type' => 'serie', 'hide_text' => true]); ?>
 									</span>
 									<?php echo JLayoutHelper::render('blocks.state_info', array('item' => $item, 'show' => true)); ?>
 								<?php endif; ?>
