@@ -18,8 +18,8 @@ use Joomla\CMS\Uri\Uri;
 // Initialise variables.
 $item     = $displayData['item'];
 $params   = $displayData['params'];
-$type     = $displayData['type'] ?: '';
-$hideText = $displayData['hide_text'] ?: '';
+$type     = $displayData['type'] ?? '';
+$hideText = $displayData['hide_text'] ?? '';
 
 // Ignore if Frontend Uploading is disabled
 if ($params && !$params->get('fu_enable'))
