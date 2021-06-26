@@ -7,30 +7,21 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
-use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Layout\LayoutHelper;
 
-defined('_JEXEC') or die();
+// Add strings for translations in Javascript.
+Text::script('JGLOBAL_EXPAND_CATEGORIES');
+Text::script('JGLOBAL_COLLAPSE_CATEGORIES');
 
-$class = ' class="first"';
+/** @var Joomla\CMS\WebAsset\WebAssetManager $wa */
+$wa = $this->document->getWebAssetManager();
+$wa->getRegistry()->addExtensionRegistryFile('com_categories');
+$wa->useScript('com_categories.shared-categories-accordion');
 ?>
-<div class="categories-list<?php echo $this->pageclass_sfx; ?>">
+<div class="com-content-categories categories-list">
 	<?php
-	if ($this->params->get('show_page_heading', 1)) : ?>
-		<h1>
-			<?php echo $this->escape($this->params->get('page_heading')); ?>
-		</h1>
-	<?php endif;
-
-	if ($this->params->get('show_base_description')) :
-		if ($this->params->get('categories_description')) : ?>
-			<div class="category-desc">
-				<p><?php echo HTMLHelper::_('content.prepare', $this->params->get('categories_description')); ?></p>
-			</div>
-		<?php elseif ($this->parent->description) : ?>
-			<div class="category-desc">
-				<?php echo HTMLHelper::_('content.prepare', $this->parent->description); ?>
-			</div>
-		<?php endif;
-	endif;
-	echo $this->loadTemplate('items'); ?>
+	echo LayoutHelper::render('joomla.content.categories_default', $this);
+	echo $this->loadTemplate('items');
+	?>
 </div>

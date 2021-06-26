@@ -7,6 +7,8 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
+use Joomla\Registry\Registry;
+
 defined('_JEXEC') or die();
 
 /**
@@ -104,11 +106,14 @@ class SermonspeakerModelCategories extends JModelLegacy
 			$app    = JFactory::getApplication();
 			$menu   = $app->getMenu();
 			$active = $menu->getActive();
-			$params = new Joomla\Registry\Registry;
 
 			if ($active)
 			{
-				$params->loadString($active->params);
+				$params = $active->getParams();
+			}
+			else
+			{
+				$params = new Registry;
 			}
 
 			$options               = array();

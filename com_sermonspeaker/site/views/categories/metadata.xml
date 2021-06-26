@@ -15,8 +15,7 @@
 		<fieldset name="request">
 			<field name="id" type="category"
 				   label="JGLOBAL_FIELD_CATEGORIES_CHOOSE_CATEGORY_LABEL"
-				   description="JGLOBAL_FIELD_CATEGORIES_CHOOSE_CATEGORY_DESC"
-				   extension="COM_SERMONSPEAKER"
+				   extension="COM_SERMONSPEAKER.SERMONS"
 				   show_root="true"
 				   required="true"
 			/>
