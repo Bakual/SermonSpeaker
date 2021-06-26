@@ -11,6 +11,7 @@ defined('_JEXEC') or die();
 
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Layout\LayoutHelper;
 
 HTMLHelper::addIncludePath(JPATH_COMPONENT . '/helpers');
 
@@ -53,7 +54,9 @@ $this->document->addScriptDeclaration('jQuery(function() {
 			<ul class="dropdown-menu">
 				<?php
 				if ($canEdit or ($canEditOwn and ($user->id == $this->item->created_by))) : ?>
-					<li class="edit-icon"><?php echo HTMLHelper::_('icon.edit', $this->item, $this->params, array('type' => 'speaker')); ?></li>
+					<li class="edit-icon">
+						<?php echo LayoutHelper::render('icons.edit', ['item' => $this->item, 'params' => $this->params, 'type' => 'speaker']); ?>
+					</li>
 				<?php endif; ?>
 			</ul>
 		</div>
@@ -132,9 +135,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 									<?php endif;
 
 									if ($canEdit or ($canEditOwn and ($user->id == $item->created_by))) : ?>
-										<span class="list-edit pull-left width-50">
-											<?php echo HTMLHelper::_('icon.edit', $item, $this->params, array('type' => 'sermon')); ?>
-										</span>
+										<span class="list-edit"><?php echo LayoutHelper::render('icons.edit', ['item' => $item, 'params' => $this->params, 'type' => 'sermon', 'hide_text' => true]); ?></span>
 									<?php endif; ?>
 									<strong class="ss-title">
 										<?php echo SermonspeakerHelperSermonspeaker::insertSermonTitle($i, $item, $player); ?>
@@ -245,9 +246,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 									<?php endif;
 
 									if ($canEdit or ($canEditOwn and ($user->id == $item->created_by))) : ?>
-										<span class="list-edit pull-left width-50">
-											<?php echo HTMLHelper::_('icon.edit', $item, $this->params, array('type' => 'serie')); ?>
-										</span>
+										<span class="list-edit"><?php echo LayoutHelper::render('icons.edit', ['item' => $item, 'params' => $this->params, 'type' => 'serie', 'hide_text' => true]); ?></span>
 									<?php endif; ?>
 									<strong class="ss-title">
 										<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->slug, $item->catid, $item->language)); ?>">
