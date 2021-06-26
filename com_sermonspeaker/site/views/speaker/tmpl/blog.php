@@ -44,7 +44,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 	})');
 ?>
 <div class="category-list<?php echo $this->pageclass_sfx; ?> ss-speaker-container<?php echo $this->pageclass_sfx; ?>"
-	itemscope itemtype="http://schema.org/Person">
+	 itemscope itemtype="http://schema.org/Person">
 	<?php
 	if ($this->params->get('show_page_heading', 1)) : ?>
 		<h1><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
@@ -67,11 +67,13 @@ $this->document->addScriptDeclaration('jQuery(function() {
 	<div class="clearfix"></div>
 	<ul class="nav nav-tabs" id="speakerTab" role="tablist">
 		<li class="nav-link-item">
-            <a href="#tab_sermons" class="nav-link" data-bs-toggle="tab" role="tab"><?php echo Text::_('COM_SERMONSPEAKER_SERMONS'); ?></a>
-        </li>
+			<a href="#tab_sermons" class="nav-link" data-bs-toggle="tab"
+			   role="tab"><?php echo Text::_('COM_SERMONSPEAKER_SERMONS'); ?></a>
+		</li>
 		<li class="nav-link-item">
-            <a href="#tab_series" class="nav-link" data-bs-toggle="tab" role="tab"><?php echo Text::_('COM_SERMONSPEAKER_SERIES'); ?></a>
-        </li>
+			<a href="#tab_series" class="nav-link" data-bs-toggle="tab"
+			   role="tab"><?php echo Text::_('COM_SERMONSPEAKER_SERIES'); ?></a>
+		</li>
 	</ul>
 	<div class="tab-content">
 		<div class="tab-pane active" id="tab_sermons" role="tabpanel">
@@ -79,7 +81,8 @@ $this->document->addScriptDeclaration('jQuery(function() {
 				<?php echo LayoutHelper::render('plugin.player', array('player' => $player, 'items' => $this->sermons, 'view' => 'speaker')); ?>
 			<?php endif; ?>
 			<div class="cat-items">
-				<form action="<?php echo htmlspecialchars(JUri::getInstance()->toString() . '#sermons'); ?>" method="post" id="adminForm" name="adminForm">
+				<form action="<?php echo htmlspecialchars(JUri::getInstance()->toString() . '#sermons'); ?>"
+					  method="post" id="adminForm" name="adminForm">
 					<?php $this->params->set('filter_field', 1); ?>
 					<?php if ($this->params->get('filter_field') or $this->params->get('show_pagination_limit')) : ?>
 						<?php echo $this->loadTemplate('filters'); ?>
@@ -87,12 +90,12 @@ $this->document->addScriptDeclaration('jQuery(function() {
 					<div class="clearfix"></div>
 					<?php if (!count($this->sermons)) : ?>
 						<div
-							class="no_entries alert alert-error"><?php echo Text::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', Text::_('COM_SERMONSPEAKER_SERMONS')); ?></div>
+								class="no_entries alert alert-error"><?php echo Text::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', Text::_('COM_SERMONSPEAKER_SERMONS')); ?></div>
 					<?php else : ?>
 						<div class="items-leading">
 							<?php foreach ($this->sermons as $i => $item) : ?>
 								<div id="sermon<?php echo $i; ?>"
-									class="clearfix<?php echo ($item->state) ? '' : ' system-unpublished'; ?>">
+									 class="clearfix<?php echo ($item->state) ? '' : ' system-unpublished'; ?>">
 									<div class="btn-group pull-right">
 										<a class="btn dropdown-toggle" data-bs-toggle="dropdown" href="#">
 											<i class="icon-cog"></i>
@@ -127,7 +130,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 
 									<?php if ($picture = SermonspeakerHelperSermonspeaker::insertPicture($item)) : ?>
 										<div class="img-polaroid pull-right item-image sermon-image"><img
-												src="<?php echo $picture; ?>"></div>
+													src="<?php echo $picture; ?>"></div>
 									<?php endif; ?>
 									<div class="article-info sermon-info muted">
 										<dl class="article-info">
@@ -245,7 +248,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 		<div class="tab-pane" id="tab_series" role="tabpanel">
 			<div class="cat-items">
 				<form action="<?php echo htmlspecialchars(JUri::getInstance()->toString() . '#series'); ?>"
-					method="post" id="adminFormSeries" name="adminFormSeries">
+					  method="post" id="adminFormSeries" name="adminFormSeries">
 					<?php
 					if ($this->params->get('filter_field') or $this->params->get('show_pagination_limit')) : ?>
 						<div class="filters btn-toolbar">
@@ -259,10 +262,10 @@ $this->document->addScriptDeclaration('jQuery(function() {
 							<?php endif; ?>
 						</div>
 					<?php endif; ?>
-                    <div class="clearfix"></div>
+					<div class="clearfix"></div>
 					<?php if (!count($this->series)) : ?>
 						<div
-							class="no_entries alert alert-error"><?php echo Text::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', Text::_('COM_SERMONSPEAKER_SERIES')); ?></div>
+								class="no_entries alert alert-error"><?php echo Text::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', Text::_('COM_SERMONSPEAKER_SERIES')); ?></div>
 					<?php else : ?>
 						<div class="items-leading">
 							<?php foreach ($this->series as $i => $item) : ?>
@@ -276,7 +279,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 											<?php if (in_array('speaker:download', $this->col_serie)) : ?>
 												<li class="download-icon">
 													<a href="<?php echo JRoute::_('index.php?view=serie&layout=download&tmpl=component&id=' . $item->slug); ?>"
-														class="modal" rel="{handler:'iframe',size:{x:400,y:200}}">
+													   class="modal" rel="{handler:'iframe',size:{x:400,y:200}}">
 														<i class="icon-download"> </i>
 														<?php echo Text::_('COM_SERMONSPEAKER_DOWNLOADSERIES_LABEL'); ?>
 													</a>
@@ -308,7 +311,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 										<div class="img-polaroid pull-right item-image">
 											<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->slug, $item->catid, $item->language)); ?>">
 												<img
-													src="<?php echo SermonspeakerHelperSermonspeaker::makeLink($item->avatar); ?>">
+														src="<?php echo SermonspeakerHelperSermonspeaker::makeLink($item->avatar); ?>">
 											</a>
 										</div>
 									<?php endif; ?>
