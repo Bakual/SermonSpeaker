@@ -12,6 +12,7 @@ defined('_JEXEC') or die();
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
+use Joomla\CMS\Router\Route;
 
 HTMLHelper::addIncludePath(JPATH_COMPONENT . '/helpers');
 
@@ -68,16 +69,24 @@ $this->document->addScriptDeclaration('jQuery(function() {
 			<ul class="dropdown-menu">
 				<?php
 				if ($canEdit or ($canEditOwn and ($user->id == $this->item->created_by))) : ?>
-					<li class="edit-icon"><?php echo HTMLHelper::_('icon.edit', $this->item, $this->params, array('type' => 'speaker')); ?></li>
+					<li class="edit-icon">
+						<?php echo LayoutHelper::render('icons.edit', ['item' => $this->item, 'params' => $this->params, 'type' => 'speaker']); ?>
+					</li>
 				<?php endif; ?>
 			</ul>
 		</div>
-		<?php echo JLayoutHelper::render('blocks.speaker', array('item' => $this->item, 'params' => $this->params, 'columns' => $this->columns)); ?>
+		<?php echo LayoutHelper::render('blocks.speaker', array('item' => $this->item, 'params' => $this->params, 'columns' => $this->columns)); ?>
 	</div>
 	<div class="clearfix"></div>
-	<ul class="nav nav-pills" id="speakerTab">
-		<li class="active"><a href="#tab_sermons" data-bs-toggle="tab"><?php echo Text::_('COM_SERMONSPEAKER_SERMONS'); ?></a></li>
-		<li><a href="#tab_series" data-bs-toggle="tab"><?php echo Text::_('COM_SERMONSPEAKER_SERIES'); ?></a></li>
+	<ul class="nav nav-tabs" id="speakerTab" role="tablist">
+		<li class="nav-link-item">
+			<a href="#tab_sermons" class="nav-link" data-bs-toggle="tab"
+			   role="tab"><?php echo Text::_('COM_SERMONSPEAKER_SERMONS'); ?></a>
+		</li>
+		<li class="nav-link-item">
+			<a href="#tab_series" class="nav-link" data-bs-toggle="tab"
+			   role="tab"><?php echo Text::_('COM_SERMONSPEAKER_SERIES'); ?></a>
+		</li>
 	</ul>
 	<div class="tab-content">
 		<div class="tab-pane active" id="tab_sermons">
@@ -246,7 +255,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 									</td>
 									<?php if (in_array('speaker:category', $this->col_sermon)) : ?>
 										<td class="ss-col ss-category hidden-phone">
-											<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonsRoute($item->catslug, $item->language)); ?>"><?php echo $item->category_title; ?></a>
+											<a href="<?php echo Route::_(SermonspeakerHelperRoute::getSermonsRoute($item->catslug, $item->language)); ?>"><?php echo $item->category_title; ?></a>
 										</td>
 									<?php endif;
 
@@ -274,7 +283,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 									if (in_array('speaker:series', $this->col_sermon)) : ?>
 										<td class="ss-col ss-series hidden-phone">
 											<?php if ($item->series_state): ?>
-												<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->series_slug, $item->series_catid, $item->series_language)); ?>"><?php echo $item->series_title; ?></a>
+												<a href="<?php echo Route::_(SermonspeakerHelperRoute::getSerieRoute($item->series_slug, $item->series_catid, $item->series_language)); ?>"><?php echo $item->series_title; ?></a>
 											<?php else:
 												echo $item->series_title;
 											endif; ?>
@@ -394,7 +403,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 								if ($this->av) :
 									if ($item->avatar) : ?>
 										<td class="ss-col ss-av hidden-phone hidden-tablet"><a
-												href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->slug, $item->catid, $item->language)); ?>"><img
+												href="<?php echo Route::_(SermonspeakerHelperRoute::getSerieRoute($item->slug, $item->catid, $item->language)); ?>"><img
 													class="img-polaroid"
 													src="<?php echo SermonspeakerHelperSermonspeaker::makeLink($item->avatar); ?>"></a>
 										</td>
@@ -403,18 +412,18 @@ $this->document->addScriptDeclaration('jQuery(function() {
 									<?php endif;
 								endif; ?>
 								<td class="ss-title">
-									<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->slug, $item->catid, $item->language)); ?>">
+									<a href="<?php echo Route::_(SermonspeakerHelperRoute::getSerieRoute($item->slug, $item->catid, $item->language)); ?>">
 										<?php echo $item->title; ?></a>
 									<?php if ($canEdit or ($canEditOwn and ($user->id == $item->created_by))) : ?>
 										<span class="list-edit">
-											<?php echo HTMLHelper::_('icon.edit', $item, $this->params, array('type' => 'serie')); ?>
+											<?php echo LayoutHelper::render('icons.edit', ['item' => $item, 'params' => $this->params, 'type' => 'serie', 'hide_text' => true]); ?>
 										</span>
-										<?php echo JLayoutHelper::render('blocks.state_info', array('item' => $item, 'show' => true)); ?>
+										<?php echo LayoutHelper::render('blocks.state_info', array('item' => $item, 'show' => true)); ?>
 									<?php endif; ?>
 								</td>
 								<?php if (in_array('speaker:category', $this->col_serie)) : ?>
 									<td class="ss-col ss-category hidden-phone">
-										<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSeriesRoute($item->catslug, $item->language)); ?>"><?php echo $item->category_title; ?></a>
+										<a href="<?php echo Route::_(SermonspeakerHelperRoute::getSeriesRoute($item->catslug, $item->language)); ?>"><?php echo $item->category_title; ?></a>
 									</td>
 								<?php endif;
 
@@ -432,7 +441,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 
 								if (in_array('speaker:download', $this->col_serie)) : ?>
 									<td class="ss-col ss-dl hidden-phone"><a
-											href="<?php echo JRoute::_('index.php?view=serie&layout=download&tmpl=component&id=' . $item->slug); ?>"
+											href="<?php echo Route::_('index.php?view=serie&layout=download&tmpl=component&id=' . $item->slug); ?>"
 											class="modal hasTooltip" rel="{handler:'iframe',size:{x:400,y:200}}"
 											title="::<?php echo Text::_('COM_SERMONSPEAKER_DOWNLOADSERIES_DESC'); ?>">
 											<i class="icon-download"> </i>

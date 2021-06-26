@@ -60,9 +60,15 @@ $this->document->addScriptDeclaration('jQuery(function() {
 		<?php echo JLayoutHelper::render('blocks.speaker', array('item' => $this->item, 'params' => $this->params, 'columns' => $this->columns)); ?>
 	</div>
 	<div class="clearfix"></div>
-	<ul class="nav nav-pills" id="speakerTab">
-		<li><a href="#tab_sermons" data-bs-toggle="tab"><?php echo Text::_('COM_SERMONSPEAKER_SERMONS'); ?></a></li>
-		<li><a href="#tab_series" data-bs-toggle="tab"><?php echo Text::_('COM_SERMONSPEAKER_SERIES'); ?></a></li>
+	<ul class="nav nav-tabs" id="speakerTab" role="tablist">
+		<li class="nav-link-item">
+			<a href="#tab_sermons" class="nav-link" data-bs-toggle="tab"
+			   role="tab"><?php echo Text::_('COM_SERMONSPEAKER_SERMONS'); ?></a>
+		</li>
+		<li class="nav-link-item">
+			<a href="#tab_series" class="nav-link" data-bs-toggle="tab"
+			   role="tab"><?php echo Text::_('COM_SERMONSPEAKER_SERIES'); ?></a>
+		</li>
 	</ul>
 	<div class="tab-content">
 		<div class="tab-pane active" id="tab_sermons">
