@@ -11,6 +11,8 @@ defined('_JEXEC') or die();
 
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Layout\LayoutHelper;
+use Joomla\CMS\Router\Route;
 
 HTMLHelper::addIncludePath(JPATH_COMPONENT . '/helpers');
 
@@ -116,7 +118,7 @@ $listDirn   = $this->state->get('list.direction');
 							if ($this->av) :
 								if ($item->avatar) : ?>
 									<td class="ss-col ss-av hidden-phone hidden-tablet"><a
-											href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->slug, $item->catid, $item->language)); ?>"><img
+											href="<?php echo Route::_(SermonspeakerHelperRoute::getSerieRoute($item->slug, $item->catid, $item->language)); ?>"><img
 												class="img-polaroid"
 												src="<?php echo SermonspeakerHelperSermonspeaker::makeLink($item->avatar); ?>"></a>
 									</td>
@@ -125,18 +127,18 @@ $listDirn   = $this->state->get('list.direction');
 								<?php endif;
 							endif; ?>
 							<th class="ss-title">
-								<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->slug, $item->catid, $item->language)); ?>">
+								<a href="<?php echo Route::_(SermonspeakerHelperRoute::getSerieRoute($item->slug, $item->catid, $item->language)); ?>">
 									<?php echo $item->title; ?></a>
 								<?php if ($canEdit or ($canEditOwn and ($user->id == $item->created_by))) : ?>
 									<span class="list-edit">
 										<?php echo LayoutHelper::render('icons.edit', ['item' => $item, 'params' => $this->params, 'type' => 'serie', 'hide_text' => true]); ?>
 									</span>
-									<?php echo JLayoutHelper::render('blocks.state_info', array('item' => $item, 'show' => true)); ?>
+									<?php echo LayoutHelper::render('blocks.state_info', array('item' => $item, 'show' => true)); ?>
 								<?php endif; ?>
 							</th>
 							<?php if (in_array('series:category', $this->col_serie)) : ?>
 								<td class="ss-col ss-category hidden-phone">
-									<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSeriesRoute($item->catslug, $item->language)); ?>"><?php echo $item->category_title; ?></a>
+									<a href="<?php echo Route::_(SermonspeakerHelperRoute::getSeriesRoute($item->catslug, $item->language)); ?>"><?php echo $item->category_title; ?></a>
 								</td>
 							<?php endif;
 
@@ -154,7 +156,7 @@ $listDirn   = $this->state->get('list.direction');
 
 							if (in_array('series:download', $this->col_serie)) : ?>
 								<td class="ss-col ss-dl hidden-phone"><a
-										href="<?php echo JRoute::_('index.php?view=serie&layout=download&tmpl=component&id=' . $item->slug); ?>"
+										href="<?php echo Route::_('index.php?view=serie&layout=download&tmpl=component&id=' . $item->slug); ?>"
 										class="modal hasTooltip" rel="{handler:'iframe',size:{x:400,y:200}}"
 										title="::<?php echo Text::_('COM_SERMONSPEAKER_DOWNLOADSERIES_DESC'); ?>">
 										<i class="icon-download"> </i>
