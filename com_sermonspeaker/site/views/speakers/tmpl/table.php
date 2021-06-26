@@ -116,7 +116,7 @@ $listDirn   = $this->state->get('list.direction');
 							</th>
 							<?php if (in_array('speakers:category', $this->col_speaker)) : ?>
 								<td class="ss-col ss-category hidden-phone">
-									<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakersRoute($item->catslug, $item->language)); ?>"><?php echo $item->category_title; ?></a>
+									<a href="<?php echo Route::_(SermonspeakerHelperRoute::getSpeakersRoute($item->catslug, $item->language)); ?>"><?php echo $item->category_title; ?></a>
 								</td>
 							<?php endif;
 
@@ -128,11 +128,11 @@ $listDirn   = $this->state->get('list.direction');
 								<td class="ss-col ss-hits hidden-phone hidden-tablet"><?php echo $item->hits; ?></td>
 							<?php endif; ?>
 							<td class="ss-col ss-links">
-								<ul class="unstyled">
+								<ul class="list-unstyled">
 									<?php if ($item->sermons) : ?>
 										<li>
-											<a class="badge badge-info"
-												href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug, $item->catid, $item->language) . '#sermons'); ?>">
+											<a class="badge bg-info"
+												href="<?php echo Route::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug, $item->catid, $item->language) . '#sermons'); ?>">
 												<?php echo Text::_('COM_SERMONSPEAKER_SERMONS'); ?>
 											</a>
 										</li>
@@ -140,8 +140,8 @@ $listDirn   = $this->state->get('list.direction');
 
 									if ($item->series) : ?>
 										<li>
-											<a class="badge badge-info"
-												href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug, $item->catid, $item->language) . '#series'); ?>">
+											<a class="badge bg-info"
+												href="<?php echo Route::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug, $item->catid, $item->language) . '#series'); ?>">
 												<?php echo Text::_('COM_SERMONSPEAKER_SERIES'); ?>
 											</a>
 										</li>
@@ -149,7 +149,7 @@ $listDirn   = $this->state->get('list.direction');
 
 									if ($item->website) : ?>
 										<li>
-											<a class="badge badge-info" href="<?php echo $item->website; ?>">
+											<a class="badge bg-info" href="<?php echo $item->website; ?>">
 												<?php echo Text::_('COM_SERMONSPEAKER_FIELD_WEBSITE_LABEL'); ?>
 											</a>
 										</li>
