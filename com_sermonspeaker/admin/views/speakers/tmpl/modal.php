@@ -17,16 +17,16 @@ $app = JFactory::getApplication();
 if ($app->isClient('site'))
 {
 	JSession::checkToken('get') or die(Text::_('JINVALID_TOKEN'));
-	HtmlHelper::_('stylesheet', 'com_sermonspeaker/sermonspeaker.css', array('relative' => true));
+	HTMLHelper::_('stylesheet', 'com_sermonspeaker/sermonspeaker.css', array('relative' => true));
 }
 
 JLoader::register('SermonspeakerHelperRoute', JPATH_ROOT . '/components/com_sermonspeaker/helpers/route.php');
 
-HtmlHelper::addIncludePath(JPATH_COMPONENT . '/helpers/html');
+HTMLHelper::addIncludePath(JPATH_COMPONENT . '/helpers/html');
 
-HtmlHelper::_('behavior.core');
-HtmlHelper::_('behavior.polyfill', array('event'), 'lt IE 9');
-HtmlHelper::_('bootstrap.tooltip', '.hasTooltip', array('placement' => 'bottom'));
+HTMLHelper::_('behavior.core');
+HTMLHelper::_('behavior.polyfill', array('event'), 'lt IE 9');
+HTMLHelper::_('bootstrap.tooltip', '.hasTooltip', array('placement' => 'bottom'));
 
 $function  = JFactory::getApplication()->input->get('function', 'jSelectSpeaker');
 $listOrder = $this->escape($this->state->get('list.ordering'));
@@ -42,19 +42,19 @@ $listDirn  = $this->escape($this->state->get('list.direction'));
 			<thead>
 				<tr>
 					<th width="1%" class="center nowrap">
-						<?php echo HtmlHelper::_('searchtools.sort', 'JSTATUS', 'sermons.state', $listDirn, $listOrder); ?>
+						<?php echo HTMLHelper::_('searchtools.sort', 'JSTATUS', 'sermons.state', $listDirn, $listOrder); ?>
 					</th>
 					<th class="title">
-						<?php echo HtmlHelper::_('searchtools.sort', 'JGLOBAL_TITLE', 'speakers.title', $listDirn, $listOrder); ?>
+						<?php echo HTMLHelper::_('searchtools.sort', 'JGLOBAL_TITLE', 'speakers.title', $listDirn, $listOrder); ?>
 					</th>
 					<th width="10%" class="nowrap">
-						<?php echo HtmlHelper::_('searchtools.sort', 'JCATEGORY', 'speakers.catid', $listDirn, $listOrder); ?>
+						<?php echo HTMLHelper::_('searchtools.sort', 'JCATEGORY', 'speakers.catid', $listDirn, $listOrder); ?>
 					</th>
 					<th width="15%" class="nowrap">
-						<?php echo HtmlHelper::_('searchtools.sort', 'JGRID_HEADING_LANGUAGE', 'language', $listDirn, $listOrder); ?>
+						<?php echo HTMLHelper::_('searchtools.sort', 'JGRID_HEADING_LANGUAGE', 'language', $listDirn, $listOrder); ?>
 					</th>
 					<th width="1%" class="nowrap">
-						<?php echo HtmlHelper::_('searchtools.sort', 'JGRID_HEADING_ID', 'speakers.id', $listDirn, $listOrder); ?>
+						<?php echo HTMLHelper::_('searchtools.sort', 'JGRID_HEADING_ID', 'speakers.id', $listDirn, $listOrder); ?>
 					</th>
 				</tr>
 			</thead>
@@ -101,7 +101,7 @@ $listDirn  = $this->escape($this->state->get('list.direction'));
 			<input type="hidden" name="forcedLanguage" value="<?php echo $this->escape($this->state->get('filter.forcedLanguage')); ?>" />
 			<input type="hidden" name="task" value="" />
 			<input type="hidden" name="boxchecked" value="0" />
-			<?php echo HtmlHelper::_('form.token'); ?>
+			<?php echo HTMLHelper::_('form.token'); ?>
 		</div>
 	</form>
 </div>

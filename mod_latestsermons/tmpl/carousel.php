@@ -23,7 +23,7 @@ $i     = 0;
 $count = count($list);
 $id    = 'sermonCarousel' . $module->id;
 
-HtmlHelper::_('bootstrap.carousel');
+HTMLHelper::_('bootstrap.carousel');
 ?>
 <div id="<?php echo $id; ?>" class="latestsermons<?php echo $moduleclass_sfx; ?> carousel slide">
 	<?php if ($params->get('show_list')) : ?>
@@ -73,7 +73,7 @@ HtmlHelper::_('bootstrap.carousel');
 							<?php if ($params->get('ls_show_mo_date') and $row->sermon_date) : ?>
 								<dd class="published">
 									<?php $date_format = Text::_($params->get('ls_mo_date_format', 'DATE_FORMAT_LC4'));
-									echo Text::_('JDATE') . ': ' . HtmlHelper::date($row->sermon_date, $date_format, true); ?>
+									echo Text::_('JDATE') . ': ' . HTMLHelper::date($row->sermon_date, $date_format, true); ?>
 								</dd>
 							<?php endif; ?>
 							<?php if ($params->get('ls_show_mo_speaker') and $row->speaker_title) : ?>
@@ -108,7 +108,7 @@ HtmlHelper::_('bootstrap.carousel');
 						<div style="clear:left;"></div>
 						<?php if (strlen($row->notes) > 0) : ?>
 							<div>
-								<?php echo HtmlHelper::_('content.prepare', $row->notes); ?>
+								<?php echo HTMLHelper::_('content.prepare', $row->notes); ?>
 							</div>
 						<?php endif; ?>
 					</div>

@@ -331,7 +331,7 @@ class SermonspeakerHelperSermonspeaker
 				{
 					case 0:
 						$pic    = '<span class="fas fa-play hasTooltip" title="' . Text::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER') . '"></span>';
-						$return .= HtmlHelper::link(Route::_(SermonspeakerHelperRoute::getSermonRoute($item->slug, $item->catid, $item->language)), $pic) . ' ';
+						$return .= HTMLHelper::link(Route::_(SermonspeakerHelperRoute::getSermonRoute($item->slug, $item->catid, $item->language)), $pic) . ' ';
 						break;
 					case 1:
 						if (!$item->audiofile && !$item->videofile)
@@ -341,7 +341,7 @@ class SermonspeakerHelperSermonspeaker
 
 						$pic    = '<span class="fas fa-play hasTooltip" title="' . Text::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER') . '"> </span>';
 						$file   = ($item->videofile && (self::$params->get('fileprio', 0) || !$item->audiofile)) ? $item->videofile : $item->audiofile;
-						$return .= HtmlHelper::link(self::makeLink($file), $pic) . ' ';
+						$return .= HTMLHelper::link(self::makeLink($file), $pic) . ' ';
 						break;
 					case 2:
 						if (!$item->audiofile && !$item->videofile)
@@ -399,12 +399,12 @@ class SermonspeakerHelperSermonspeaker
 			{
 				case 0:
 					$options['title'] = Text::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER');
-					$return           .= HtmlHelper::link(Route::_(SermonspeakerHelperRoute::getSermonRoute($item->slug, $item->catid, $item->language)), $item->title, $options);
+					$return           .= HTMLHelper::link(Route::_(SermonspeakerHelperRoute::getSermonRoute($item->slug, $item->catid, $item->language)), $item->title, $options);
 					break;
 				case 1:
 					$options['title'] = Text::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER');
 					$file             = ($item->videofile && (self::$params->get('fileprio', 0) || !$item->audiofile)) ? $item->videofile : $item->audiofile;
-					$return           .= HtmlHelper::link(self::makeLink($file), $item->title, $options);
+					$return           .= HTMLHelper::link(self::makeLink($file), $item->title, $options);
 					break;
 				case 2:
 					$cols = self::$params->get('col');
@@ -421,12 +421,12 @@ class SermonspeakerHelperSermonspeaker
 						$options['class']       = 'ss-play hasTooltip';
 						$options['data-id']     = $i;
 						$options['data-player'] = !empty($player->id) ? $player->id : '';
-						$return                 .= HtmlHelper::link('#', $item->title, $options);
+						$return                 .= HTMLHelper::link('#', $item->title, $options);
 					}
 					else
 					{
 						$options['title'] = Text::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER');
-						$return           .= HtmlHelper::link(Route::_(SermonspeakerHelperRoute::getSermonRoute($item->slug, $item->catid, $item->language)), $item->title, $options);
+						$return           .= HTMLHelper::link(Route::_(SermonspeakerHelperRoute::getSermonRoute($item->slug, $item->catid, $item->language)), $item->title, $options);
 					}
 
 					break;
@@ -435,7 +435,7 @@ class SermonspeakerHelperSermonspeaker
 						. "', 'PopupPage', 'height=" . $player->popup['height'] . ',width=' . $player->popup['width']
 						. ",scrollbars=yes,resizable=yes'); return false";
 					$options['title']   = Text::_('COM_SERMONSPEAKER_POPUPPLAYER');
-					$return             .= HtmlHelper::link('#', $item->title, $options);
+					$return             .= HTMLHelper::link('#', $item->title, $options);
 					break;
 			}
 		}

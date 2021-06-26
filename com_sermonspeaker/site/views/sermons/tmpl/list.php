@@ -16,9 +16,9 @@ use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
 
-HtmlHelper::addIncludePath(JPATH_COMPONENT . '/helpers');
+HTMLHelper::addIncludePath(JPATH_COMPONENT . '/helpers');
 
-HtmlHelper::_('bootstrap.tooltip', '.hasTooltip');
+HTMLHelper::_('bootstrap.tooltip', '.hasTooltip');
 
 $user       = Factory::getUser();
 $showState  = $user->authorise('core.edit', 'com_sermonspeaker');
@@ -53,7 +53,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 			<?php endif;
 
 			if ($this->params->get('show_description') and $this->category->description) :
-				echo HtmlHelper::_('content.prepare', $this->category->description, '', 'com_sermonspeaker.category');
+				echo HTMLHelper::_('content.prepare', $this->category->description, '', 'com_sermonspeaker.category');
 			endif; ?>
 			<div class="clearfix"></div>
 		</div>
@@ -86,7 +86,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 							<?php endif; ?>
 							<?php if ($canEdit or ($canEditOwn and ($user->id == $item->created_by))) : ?>
 								<span class="list-edit pull-left width-50">
-									<?php echo HtmlHelper::_('icon.edit', $item, $this->params, array('type' => 'sermon')); ?>
+									<?php echo HTMLHelper::_('icon.edit', $item, $this->params, array('type' => 'sermon')); ?>
 								</span>
 							<?php endif; ?>
 							<strong class="ss-title">
@@ -137,13 +137,13 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 								<small class="ss-scripture">
 									<?php echo Text::_('COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL'); ?>:
 									<?php $scriptures = SermonspeakerHelperSermonspeaker::insertScriptures($item->scripture, '; ');
-									echo HtmlHelper::_('content.prepare', $scriptures, '', 'com_sermonspeaker.scripture'); ?>
+									echo HTMLHelper::_('content.prepare', $scriptures, '', 'com_sermonspeaker.scripture'); ?>
 								</small>
 							<?php endif; ?>
 
 							<?php if (in_array('sermons:date', $this->columns) and ($item->sermon_date != '0000-00-00 00:00:00')) : ?>
 								<span class="ss-date small pull-right">
-									<?php echo HtmlHelper::date($item->sermon_date, Text::_($this->params->get('date_format')), true); ?>
+									<?php echo HTMLHelper::date($item->sermon_date, Text::_($this->params->get('date_format')), true); ?>
 								</span>&nbsp;
 							<?php endif; ?>
 						</li>
@@ -152,7 +152,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 			<?php endif; ?>
 
 			<?php if ($user->authorise('core.create', 'com_sermonspeaker')) : ?>
-				<?php echo HtmlHelper::_('icon.create', $this->category, $this->params); ?>
+				<?php echo HTMLHelper::_('icon.create', $this->category, $this->params); ?>
 			<?php endif; ?>
 
 			<?php if ($this->params->get('show_pagination') and ($this->pagination->pagesTotal > 1)) : ?>

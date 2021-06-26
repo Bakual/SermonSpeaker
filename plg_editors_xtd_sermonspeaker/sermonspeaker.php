@@ -50,7 +50,7 @@ class PlgButtonSermonspeaker extends JPlugin
 		$doc = JFactory::getDocument();
 		$doc->addScriptDeclaration($js);
 
-		HtmlHelper::_('behavior.modal');
+		HTMLHelper::_('behavior.modal');
 
 		// Use the built-in element view to select the sermon.
 		$link = 'index.php?option=com_sermonspeaker&amp;view=sermons&amp;layout=modal&amp;tmpl=component&amp;' . JSession::getFormToken() . '=1';

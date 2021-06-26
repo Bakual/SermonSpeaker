@@ -13,7 +13,7 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 
 $header = count($list) - 1;
-HtmlHelper::_('bootstrap.tooltip', '.hasTooltip');
+HTMLHelper::_('bootstrap.tooltip', '.hasTooltip');
 ?>
 <?php if ($list) : ?>
 	<?php foreach ($list as $type => $items) : ?>
@@ -25,7 +25,7 @@ HtmlHelper::_('bootstrap.tooltip', '.hasTooltip');
 				<div class="row-fluid">
 					<div class="span9">
 						<?php if ($params->get('show_state', 1)) : ?>
-							<?php echo HtmlHelper::_('jgrid.published', $item->state, $i, '', false); ?>
+							<?php echo HTMLHelper::_('jgrid.published', $item->state, $i, '', false); ?>
 						<?php endif; ?>
 						<?php if ($params->get('show_hits')) : ?>
 							<?php $hits = (int) $item->hits; ?>
@@ -35,7 +35,7 @@ HtmlHelper::_('bootstrap.tooltip', '.hasTooltip');
 							</span>
 						<?php endif; ?>
 						<?php if ($item->checked_out) : ?>
-								<?php echo HtmlHelper::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time); ?>
+								<?php echo HTMLHelper::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time); ?>
 						<?php endif; ?>
 
 						<strong class="row-title break-word">
@@ -70,9 +70,9 @@ HtmlHelper::_('bootstrap.tooltip', '.hasTooltip');
 						<?php endif; ?>
 					</div>
 					<div class="span3">
-						<div class="small pull-right hasTooltip" title="<?php echo HtmlHelper::_('tooltipText', 'JGLOBAL_FIELD_CREATED_LABEL'); ?>">
+						<div class="small pull-right hasTooltip" title="<?php echo HTMLHelper::_('tooltipText', 'JGLOBAL_FIELD_CREATED_LABEL'); ?>">
 							<span class="icon-calendar" aria-hidden="true"></span>
-							<?php echo HtmlHelper::_('date', $item->created, Text::_('DATE_FORMAT_LC5')); ?>
+							<?php echo HTMLHelper::_('date', $item->created, Text::_('DATE_FORMAT_LC5')); ?>
 						</div>
 					</div>
 				</div>

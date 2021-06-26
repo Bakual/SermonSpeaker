@@ -65,13 +65,13 @@ class JFormFieldSermonordering extends JFormField
 		// Create a read-only list (no name) with a hidden input to store the value.
 		if ((string) $this->element['readonly'] == 'true')
 		{
-			$html[] = HtmlHelper::_('list.ordering', '', $query, trim($attr), $this->value, $Id ? 0 : 1);
+			$html[] = HTMLHelper::_('list.ordering', '', $query, trim($attr), $this->value, $Id ? 0 : 1);
 			$html[] = '<input type="hidden" name="' . $this->name . '" value="' . $this->value . '"/>';
 		}
 		// Create a regular list.
 		else
 		{
-			$html[] = HtmlHelper::_('list.ordering', $this->name, $query, trim($attr), $this->value, $Id ? 0 : 1);
+			$html[] = HTMLHelper::_('list.ordering', $this->name, $query, trim($attr), $this->value, $Id ? 0 : 1);
 		}
 
 		return implode($html);

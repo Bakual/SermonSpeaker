@@ -43,7 +43,7 @@ if (count($this->children[$this->category->id]) > 0) :
 				<?php if ($this->params->get('show_subcat_desc') == 1) :
 					if ($child->description) : ?>
 						<div class="category-desc">
-							<?php echo HtmlHelper::_('content.prepare', $child->description, '', 'com_sermonspeaker.category'); ?>
+							<?php echo HTMLHelper::_('content.prepare', $child->description, '', 'com_sermonspeaker.category'); ?>
 						</div>
 					<?php endif;
 				endif;

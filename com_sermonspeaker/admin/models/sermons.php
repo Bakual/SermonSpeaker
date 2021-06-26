@@ -374,12 +374,12 @@ class SermonspeakerModelSermons extends ListModel
 		{
 			if (count($published))
 			{
-				array_unshift($published, HtmlHelper::_('select.optgroup', Text::_('JPUBLISHED')));
-				array_push($published, HtmlHelper::_('select.optgroup', Text::_('JPUBLISHED')));
+				array_unshift($published, HTMLHelper::_('select.optgroup', Text::_('JPUBLISHED')));
+				array_push($published, HTMLHelper::_('select.optgroup', Text::_('JPUBLISHED')));
 			}
 
-			array_unshift($unpublished, HtmlHelper::_('select.optgroup', Text::_('JUNPUBLISHED')));
-			array_push($unpublished, HtmlHelper::_('select.optgroup', Text::_('JUNPUBLISHED')));
+			array_unshift($unpublished, HTMLHelper::_('select.optgroup', Text::_('JUNPUBLISHED')));
+			array_push($unpublished, HTMLHelper::_('select.optgroup', Text::_('JUNPUBLISHED')));
 		}
 
 		return array_merge($published, $unpublished);
@@ -420,12 +420,12 @@ class SermonspeakerModelSermons extends ListModel
 		{
 			if (count($published))
 			{
-				array_unshift($published, HtmlHelper::_('select.optgroup', Text::_('JPUBLISHED')));
-				array_push($published, HtmlHelper::_('select.optgroup', Text::_('JPUBLISHED')));
+				array_unshift($published, HTMLHelper::_('select.optgroup', Text::_('JPUBLISHED')));
+				array_push($published, HTMLHelper::_('select.optgroup', Text::_('JPUBLISHED')));
 			}
 
-			array_unshift($unpublished, HtmlHelper::_('select.optgroup', Text::_('JUNPUBLISHED')));
-			array_push($unpublished, HtmlHelper::_('select.optgroup', Text::_('JUNPUBLISHED')));
+			array_unshift($unpublished, HTMLHelper::_('select.optgroup', Text::_('JUNPUBLISHED')));
+			array_push($unpublished, HTMLHelper::_('select.optgroup', Text::_('JUNPUBLISHED')));
 		}
 
 		return array_merge($published, $unpublished);

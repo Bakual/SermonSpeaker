@@ -12,9 +12,9 @@ defined('_JEXEC') or die();
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 
-HtmlHelper::addIncludePath(JPATH_COMPONENT . '/helpers');
+HTMLHelper::addIncludePath(JPATH_COMPONENT . '/helpers');
 
-HtmlHelper::_('bootstrap.tooltip', '.hasTooltip');
+HTMLHelper::_('bootstrap.tooltip', '.hasTooltip');
 
 $user       = JFactory::getUser();
 $fu_enable  = $this->params->get('fu_enable');
@@ -46,7 +46,7 @@ $listDirn   = $this->state->get('list.direction');
 			<?php endif;
 
 			if ($this->params->get('show_description') and $this->category->description) :
-				echo HtmlHelper::_('content.prepare', $this->category->description, '', 'com_sermonspeaker.category');
+				echo HTMLHelper::_('content.prepare', $this->category->description, '', 'com_sermonspeaker.category');
 			endif; ?>
 			<div class="clearfix"></div>
 		</div>
@@ -79,17 +79,17 @@ $listDirn   = $this->state->get('list.direction');
 							<th class="ss-av hidden-phone hidden-tablet"></th>
 						<?php endif; ?>
 						<th class="ss-title">
-							<?php echo HtmlHelper::_('grid.sort', 'JGLOBAL_TITLE', 'title', $listDirn, $listOrder); ?>
+							<?php echo HTMLHelper::_('grid.sort', 'JGLOBAL_TITLE', 'title', $listDirn, $listOrder); ?>
 						</th>
 						<?php if (in_array('series:category', $this->col_serie)) : ?>
 							<th class="ss-col ss-category hidden-phone">
-								<?php echo HtmlHelper::_('grid.sort', 'JCATEGORY', 'category_title', $listDirn, $listOrder); ?>
+								<?php echo HTMLHelper::_('grid.sort', 'JCATEGORY', 'category_title', $listDirn, $listOrder); ?>
 							</th>
 						<?php endif;
 
 						if (in_array('series:description', $this->col_serie)) : ?>
 							<th class="ss-col ss-series_desc hidden-phone">
-								<?php echo HtmlHelper::_('grid.sort', 'JGLOBAL_DESCRIPTION', 'series_description', $listDirn, $listOrder); ?>
+								<?php echo HTMLHelper::_('grid.sort', 'JGLOBAL_DESCRIPTION', 'series_description', $listDirn, $listOrder); ?>
 							</th>
 						<?php endif;
 
@@ -99,7 +99,7 @@ $listDirn   = $this->state->get('list.direction');
 
 						if (in_array('series:hits', $this->col_serie)) : ?>
 							<th class="ss-col ss-hits hidden-phone hidden-tablet">
-								<?php echo HtmlHelper::_('grid.sort', 'JGLOBAL_HITS', 'hits', $listDirn, $listOrder); ?>
+								<?php echo HTMLHelper::_('grid.sort', 'JGLOBAL_HITS', 'hits', $listDirn, $listOrder); ?>
 							</th>
 						<?php endif;
 
@@ -141,7 +141,7 @@ $listDirn   = $this->state->get('list.direction');
 							<?php endif;
 
 							if (in_array('series:description', $this->col_serie)): ?>
-								<td class="ss-col ss-series_desc hidden-phone"><?php echo HtmlHelper::_('content.prepare', $item->series_description); ?></td>
+								<td class="ss-col ss-series_desc hidden-phone"><?php echo HTMLHelper::_('content.prepare', $item->series_description); ?></td>
 							<?php endif;
 
 							if (in_array('series:speaker', $this->col_serie)) : ?>
@@ -167,7 +167,7 @@ $listDirn   = $this->state->get('list.direction');
 			<?php endif;
 
 			if ($user->authorise('core.create', 'com_sermonspeaker')) :
-				echo HtmlHelper::_('icon.create', $this->category, $this->params, 'serie');
+				echo HTMLHelper::_('icon.create', $this->category, $this->params, 'serie');
 			endif;
 
 			if ($this->params->get('show_pagination') and ($this->pagination->pagesTotal > 1)) : ?>

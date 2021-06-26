@@ -150,7 +150,7 @@ class PlgContentSermonspeaker extends JPlugin
 						if ($item->sermon_date != '0000-00-00 00:00:00')
 						{
 							$contents .= '<tr><td>' . Text::_('JDATE') . '</td>';
-							$contents .= '<td>' . HtmlHelper::date($item->sermon_date, Text::_('DATE_FORMAT_LC3')) . '</td></tr>';
+							$contents .= '<td>' . HTMLHelper::date($item->sermon_date, Text::_('DATE_FORMAT_LC3')) . '</td></tr>';
 						}
 
 						if ($item->hits)

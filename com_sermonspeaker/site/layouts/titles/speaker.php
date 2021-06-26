@@ -23,7 +23,7 @@ extract($displayData);
 	<span itemprop="name"><?php echo $item->speaker_title; ?></span>
 <?php else : ?>
 	<?php if ($params->get('speakerpopup', 1)) : ?>
-		<?php echo HtmlHelper::_(
+		<?php echo HTMLHelper::_(
 			'bootstrap.renderModal',
 			'sermonspeaker-modal-speaker-' . $item->speaker_id,
 			array(

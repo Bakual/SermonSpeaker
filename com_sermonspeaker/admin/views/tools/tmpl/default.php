@@ -16,7 +16,7 @@ use Joomla\CMS\Router\Route;
 use Joomla\CMS\Session\Session;
 use Joomla\CMS\Uri\Uri;
 
-HtmlHelper::_('bootstrap.tooltip', '.hasTooltip');
+HTMLHelper::_('bootstrap.tooltip', '.hasTooltip');
 
 $session = Factory::getApplication()->getSession();
 $user    = Factory::getUser();
@@ -51,7 +51,7 @@ $user    = Factory::getUser();
 								</a>
 							</div>
 						</div>
-						<?php echo HtmlHelper::_(
+						<?php echo HTMLHelper::_(
 							'bootstrap.renderModal',
 							'tools-time-modal',
 							array(
@@ -71,7 +71,7 @@ $user    = Factory::getUser();
 								</a>
 							</div>
 						</div>
-						<?php echo HtmlHelper::_(
+						<?php echo HTMLHelper::_(
 							'bootstrap.renderModal',
 							'tools-files-modal',
 							array(

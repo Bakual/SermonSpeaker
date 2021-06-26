@@ -21,11 +21,11 @@ if ($app->isClient('site'))
 
 JLoader::register('SermonspeakerHelperRoute', JPATH_ROOT . '/components/com_sermonspeaker/helpers/route.php');
 
-HtmlHelper::addIncludePath(JPATH_COMPONENT . '/helpers/html');
+HTMLHelper::addIncludePath(JPATH_COMPONENT . '/helpers/html');
 
-HtmlHelper::_('behavior.core');
-HtmlHelper::_('behavior.polyfill', array('event'), 'lt IE 9');
-HtmlHelper::_('bootstrap.tooltip', '.hasTooltip', array('placement' => 'bottom'));
+HTMLHelper::_('behavior.core');
+HTMLHelper::_('behavior.polyfill', array('event'), 'lt IE 9');
+HTMLHelper::_('bootstrap.tooltip', '.hasTooltip', array('placement' => 'bottom'));
 
 // Load plugin language file
 $jlang = JFactory::getLanguage();
@@ -62,22 +62,22 @@ $listDirn  = $this->escape($this->state->get('list.direction'));
 				<thead>
 					<tr>
 						<th width="1%" class="center nowrap">
-							<?php echo HtmlHelper::_('searchtools.sort', 'JSTATUS', 'sermons.state', $listDirn, $listOrder); ?>
+							<?php echo HTMLHelper::_('searchtools.sort', 'JSTATUS', 'sermons.state', $listDirn, $listOrder); ?>
 						</th>
 						<th class="title">
-							<?php echo HtmlHelper::_('searchtools.sort', 'JGLOBAL_TITLE', 'sermons.title', $listDirn, $listOrder); ?>
+							<?php echo HTMLHelper::_('searchtools.sort', 'JGLOBAL_TITLE', 'sermons.title', $listDirn, $listOrder); ?>
 						</th>
 						<th width="10%" class="nowrap hidden-phone">
-							<?php echo HtmlHelper::_('searchtools.sort', 'JCATEGORY', 'sermons.catid', $listDirn, $listOrder); ?>
+							<?php echo HTMLHelper::_('searchtools.sort', 'JCATEGORY', 'sermons.catid', $listDirn, $listOrder); ?>
 						</th>
 						<th width="15%" class="nowrap">
-							<?php echo HtmlHelper::_('searchtools.sort', 'JGRID_HEADING_LANGUAGE', 'language', $listDirn, $listOrder); ?>
+							<?php echo HTMLHelper::_('searchtools.sort', 'JGRID_HEADING_LANGUAGE', 'language', $listDirn, $listOrder); ?>
 						</th>
 						<th width="5%" class="nowrap hidden-phone">
-							<?php echo HtmlHelper::_('searchtools.sort',  'JDATE', 'sermons.sermon_date', $listDirn, $listOrder); ?>
+							<?php echo HTMLHelper::_('searchtools.sort',  'JDATE', 'sermons.sermon_date', $listDirn, $listOrder); ?>
 						</th>
 						<th width="1%" class="nowrap hidden-phone">
-							<?php echo HtmlHelper::_('searchtools.sort', 'JGRID_HEADING_ID', 'sermons.id', $listDirn, $listOrder); ?>
+							<?php echo HTMLHelper::_('searchtools.sort', 'JGRID_HEADING_ID', 'sermons.id', $listDirn, $listOrder); ?>
 						</th>
 					</tr>
 				</thead>
@@ -106,7 +106,7 @@ $listDirn  = $this->escape($this->state->get('list.direction'));
 								<?php echo JLayoutHelper::render('joomla.content.language', $item); ?>
 							</td>
 							<td class="nowrap small hidden-phone">
-								<?php echo HtmlHelper::_('date', $item->sermon_date, Text::_('DATE_FORMAT_LC4'), true); ?>
+								<?php echo HTMLHelper::_('date', $item->sermon_date, Text::_('DATE_FORMAT_LC4'), true); ?>
 							</td>
 							<td class="nowrap small hidden-phone">
 								<?php echo (int) $item->id; ?>
@@ -121,7 +121,7 @@ $listDirn  = $this->escape($this->state->get('list.direction'));
 			<input type="hidden" name="forcedLanguage" value="<?php echo $this->escape($this->state->get('filter.forcedLanguage')); ?>" />
 			<input type="hidden" name="task" value="" />
 			<input type="hidden" name="boxchecked" value="0" />
-			<?php echo HtmlHelper::_('form.token'); ?>
+			<?php echo HTMLHelper::_('form.token'); ?>
 		</div>
 	</form>
 </div>

@@ -7,8 +7,8 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Uri\Uri;
 
-HtmlHelper::addIncludePath(JPATH_COMPONENT.'/helpers/html');
-HtmlHelper::_('bootstrap.tooltip', '.hasTooltip');
+HTMLHelper::addIncludePath(JPATH_COMPONENT.'/helpers/html');
+HTMLHelper::_('bootstrap.tooltip', '.hasTooltip');
 
 $session = Factory::getApplication()->getSession();
 ?>
@@ -18,7 +18,7 @@ $session = Factory::getApplication()->getSession();
 			<div class="btn-group pull-right">
 				<select name="type" class="inputbox" onchange="this.form.submit()">
 					<option value="">- <?php echo Text::_('COM_SERMONSPEAKER_FIELD_TYPE_LABEL');?> -</option>
-					<?php echo HtmlHelper::_('select.options', array('audio'=>Text::_('COM_SERMONSPEAKER_AUDIO'), 'video'=>Text::_('COM_SERMONSPEAKER_VIDEO')), 'value', 'text', $this->state->get('filter.type'), true);?>
+					<?php echo HTMLHelper::_('select.options', array('audio'=>Text::_('COM_SERMONSPEAKER_AUDIO'), 'video'=>Text::_('COM_SERMONSPEAKER_VIDEO')), 'value', 'text', $this->state->get('filter.type'), true);?>
 				</select>
 			</div>
 		</div>

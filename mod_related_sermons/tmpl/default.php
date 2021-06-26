@@ -19,7 +19,7 @@ foreach ($list as $item) : ?>
 	<a href="<?php echo $item->route; ?>">
 		<?php
 		if ($showDate) :
-			echo HtmlHelper::date($item->created, Text::_('DATE_FORMAT_LC4')) . ' - ';
+			echo HTMLHelper::date($item->created, Text::_('DATE_FORMAT_LC4')) . ' - ';
 		endif;
 		echo $item->title; ?></a>
 </li>

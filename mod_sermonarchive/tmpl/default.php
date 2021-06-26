@@ -21,7 +21,7 @@ foreach ($list as $item) :
 		$url .= '&state=2';
 	endif;
 	$link = JRoute::_($url); ?>
-	<li><a href="<?php echo $link; ?>"><?php echo HtmlHelper::date($item->date, $dateformat, true); ?></a></li>
+	<li><a href="<?php echo $link; ?>"><?php echo HTMLHelper::date($item->date, $dateformat, true); ?></a></li>
 	<?php
 endforeach; ?>
 </ul>

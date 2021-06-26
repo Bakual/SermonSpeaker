@@ -118,7 +118,7 @@ class JFormFieldColumns extends JFormField
 			}
 
 			// Create a new option object based on the <option /> element.
-			$tmp = HtmlHelper::_('select.option', (string) $option['value'], Text::_(trim((string) $option)), 'value', 'text', ((string) $option['disabled'] == 'true'));
+			$tmp = HTMLHelper::_('select.option', (string) $option['value'], Text::_(trim((string) $option)), 'value', 'text', ((string) $option['disabled'] == 'true'));
 
 			// Set some option attributes.
 			$tmp->class = (string) $option['class'];

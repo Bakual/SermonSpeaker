@@ -177,8 +177,8 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 	 */
 	protected function getUploader()
 	{
-		HtmlHelper::_('jquery.framework');
-		HtmlHelper::_('script', 'com_sermonspeaker/plupload/plupload.full.min.js', array('relative' => true));
+		HTMLHelper::_('jquery.framework');
+		HTMLHelper::_('script', 'com_sermonspeaker/plupload/plupload.full.min.js', array('relative' => true));
 
 		// Load localisation
 		$tag  = str_replace('-', '_', JFactory::getLanguage()->getTag());
@@ -187,7 +187,7 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 
 		if (file_exists(JPATH_SITE . '/' . $path . $file))
 		{
-			HtmlHelper::_('script', 'com_sermonspeaker/plupload/i18n/' . $file, array('relative' => true));
+			HTMLHelper::_('script', 'com_sermonspeaker/plupload/i18n/' . $file, array('relative' => true));
 		}
 		else
 		{
@@ -196,7 +196,7 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 
 			if (file_exists(JPATH_SITE . '/' . $path . $file))
 			{
-				HtmlHelper::_('script', 'com_sermonspeaker/plupload/i18n/' . $file, array('relative' => true));
+				HTMLHelper::_('script', 'com_sermonspeaker/plupload/i18n/' . $file, array('relative' => true));
 			}
 		}
 

@@ -12,8 +12,8 @@ defined('_JEXEC') or die();
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 
-HtmlHelper::_('bootstrap.tooltip', '.hasTooltip');
-HtmlHelper::_('stylesheet', 'com_sermonspeaker/font.css', array('relative' => true));
+HTMLHelper::_('bootstrap.tooltip', '.hasTooltip');
+HTMLHelper::_('stylesheet', 'com_sermonspeaker/font.css', array('relative' => true));
 ?>
 <div class="syndicate-module<?php echo $params->get('$moduleclass_sfx'); ?>">
 	<?php if ($params->get('sc_introtext')) : ?>
@@ -46,7 +46,7 @@ HtmlHelper::_('stylesheet', 'com_sermonspeaker/font.css', array('relative' => tr
 			<?php $modalParams['url'] = JRoute::_('index.php?option=com_content&view=article&tmpl=component&id=' . (int) $params->get('sc_helpcontent')); ?>
 			<?php $modalParams['bodyHeight'] = 70; ?>
 			<?php $modalParams['modalWidth'] = 80; ?>
-			<?php echo HtmlHelper::_('bootstrap.renderModal', 'sc_modal', $modalParams); ?>
+			<?php echo HTMLHelper::_('bootstrap.renderModal', 'sc_modal', $modalParams); ?>
 			<p>
 				<a class="modal" href="#sc_modal" data-bs-toggle="modal" >
 					<?php echo Text::_('MOD_SERMONCAST_HELP'); ?>

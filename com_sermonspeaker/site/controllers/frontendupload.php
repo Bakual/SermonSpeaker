@@ -379,7 +379,7 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 				'date'   => array($item->date),
 				'time'   => array($item->time),
 			);
-			$TagData['comment']        = array(strip_tags(HtmlHelper::_('content.prepare', $item->notes)));
+			$TagData['comment']        = array(strip_tags(HTMLHelper::_('content.prepare', $item->notes)));
 
 			// Adding the picture to the id3 tags, taken from getID3 Demos -> demo.write.php
 			if ($item->picture && !parse_url($item->picture, PHP_URL_SCHEME))

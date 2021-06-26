@@ -13,9 +13,9 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
 
-HtmlHelper::_('stylesheet', 'com_sermonspeaker/sermonspeaker.css', array('relative' => true));
-HtmlHelper::addIncludePath(JPATH_COMPONENT . '/helpers');
-HtmlHelper::_('bootstrap.tooltip', '.hasTooltip');
+HTMLHelper::_('stylesheet', 'com_sermonspeaker/sermonspeaker.css', array('relative' => true));
+HTMLHelper::addIncludePath(JPATH_COMPONENT . '/helpers');
+HTMLHelper::_('bootstrap.tooltip', '.hasTooltip');
 
 $user       = JFactory::getUser();
 $fu_enable  = $this->params->get('fu_enable');
@@ -33,7 +33,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 	<?php if ($canEdit or ($canEditOwn and ($user->id == $this->item->created_by))) : ?>
 		<ul class="actions">
 			<li class="edit-icon">
-				<?php echo HtmlHelper::_('icon.edit', $this->item, $this->params, array('type' => 'sermon')); ?>
+				<?php echo HTMLHelper::_('icon.edit', $this->item, $this->params, array('type' => 'sermon')); ?>
 			</li>
 		</ul>
 	<?php endif; ?>
@@ -62,12 +62,12 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 			<?php if (in_array('sermon:scripture', $this->columns) and $this->item->scripture) : ?>
 				<td align="left" valign="top">
 					<?php $scriptures = SermonspeakerHelperSermonspeaker::insertScriptures($this->item->scripture, '; ');
-					echo HtmlHelper::_('content.prepare', $scriptures); ?>
+					echo HTMLHelper::_('content.prepare', $scriptures); ?>
 				</td>
 			<?php endif;
 
 			if (in_array('sermon:notes', $this->columns) and strlen($this->item->notes) > 0) : ?>
-				<td align="left" valign="top"><?php echo HtmlHelper::_('content.prepare', $this->item->notes); ?></td>
+				<td align="left" valign="top"><?php echo HTMLHelper::_('content.prepare', $this->item->notes); ?></td>
 			<?php endif;
 
 			if (in_array('sermon:addfile', $this->columns) and $this->item->addfile) : ?>

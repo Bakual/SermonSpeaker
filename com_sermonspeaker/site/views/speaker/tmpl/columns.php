@@ -12,9 +12,9 @@ defined('_JEXEC') or die();
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 
-HtmlHelper::_('stylesheet', 'com_sermonspeaker/columns.css', array('relative' => true));
-HtmlHelper::addIncludePath(JPATH_COMPONENT . '/helpers');
-HtmlHelper::_('bootstrap.tooltip', '.hasTooltip');
+HTMLHelper::_('stylesheet', 'com_sermonspeaker/columns.css', array('relative' => true));
+HTMLHelper::addIncludePath(JPATH_COMPONENT . '/helpers');
+HTMLHelper::_('bootstrap.tooltip', '.hasTooltip');
 $user       = JFactory::getUser();
 $canEdit    = $user->authorise('core.edit', 'com_sermonspeaker');
 $canEditOwn = $user->authorise('core.edit.own', 'com_sermonspeaker');
@@ -30,7 +30,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->sermons);
 	if ($canEdit || ($canEditOwn && ($user->id == $this->item->created_by))) : ?>
         <ul class="actions">
             <li class="edit-icon">
-				<?php echo HtmlHelper::_('icon.edit', $this->item, $this->params, array('type' => 'speaker')); ?>
+				<?php echo HTMLHelper::_('icon.edit', $this->item, $this->params, array('type' => 'speaker')); ?>
             </li>
         </ul>
 	<?php endif;
@@ -63,11 +63,11 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->sermons);
             <h3><?php echo Text::_('COM_SERMONSPEAKER_SPEAKER_BIO'); ?></h3>
 			<?php
 			if (in_array('speaker:intro', $this->columns)) :
-				echo HtmlHelper::_('content.prepare', $this->item->intro);
+				echo HTMLHelper::_('content.prepare', $this->item->intro);
 			endif;
 
 			if (in_array('speaker:bio', $this->columns)) :
-				echo HtmlHelper::_('content.prepare', $this->item->bio);
+				echo HTMLHelper::_('content.prepare', $this->item->bio);
 			endif;
 		endif; ?>
         <div class="clear-left"></div>
@@ -77,7 +77,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->sermons);
 		<?php endif; ?>
     </div>
 	<?php if (in_array('speaker:player', $this->col_sermon) and count($this->sermons)) :
-		HtmlHelper::_('stylesheet', 'com_sermonspeaker/player.css', array('relative' => true)); ?>
+		HTMLHelper::_('stylesheet', 'com_sermonspeaker/player.css', array('relative' => true)); ?>
         <div class="ss-speaker-player">
             <hr class="ss-speaker-player"/>
 			<?php if (empty($player->hideInfo)): ?>
@@ -138,7 +138,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->sermons);
                                     href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug, $item->catid, $item->language)); ?>"><?php echo $item->title; ?></a>
 							<?php
 							if ($canEdit or ($canEditOwn and ($user->id == $item->created_by))) :
-								echo HtmlHelper::_('icon.edit', $item, $this->params, array('type' => 'sermon'));
+								echo HTMLHelper::_('icon.edit', $item, $this->params, array('type' => 'sermon'));
 							endif; ?>
                         </h3>
 						<?php $class = '';
@@ -147,7 +147,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->sermons);
 							$class = 'scripture'; ?>
                             <span class="scripture">
 							<?php $scriptures = SermonspeakerHelperSermonspeaker::insertScriptures($item->scripture, '; ');
-							echo HtmlHelper::_('content.prepare', $scriptures); ?>
+							echo HTMLHelper::_('content.prepare', $scriptures); ?>
 						</span>
 						<?php endif;
 
@@ -163,7 +163,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->sermons);
 
 						if (in_array('speaker:notes', $this->col_sermon) and $item->notes) : ?>
                             <div>
-								<?php echo HtmlHelper::_('content.prepare', $item->notes); ?>
+								<?php echo HTMLHelper::_('content.prepare', $item->notes); ?>
                             </div>
 						<?php endif; ?>
                     </div>
@@ -171,7 +171,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->sermons);
 						<?php
 						if (in_array('speaker:date', $this->col_sermon) and ($item->sermon_date != '0000-00-00 00:00:00')) : ?>
                             <div class="create">
-								<?php echo HtmlHelper::date($item->sermon_date, Text::_('DATE_FORMAT_LC1'), true); ?>
+								<?php echo HTMLHelper::date($item->sermon_date, Text::_('DATE_FORMAT_LC1'), true); ?>
                             </div>
 						<?php endif;
 
@@ -271,7 +271,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->sermons);
 						<?php
 						if (in_array('speaker:date', $this->col_sermon) and ($item->sermon_date != '0000-00-00 00:00:00')) : ?>
 							<div class="create">
-								<?php echo HtmlHelper::date($item->sermon_date, Text::_('DATE_FORMAT_LC1'), true); ?>
+								<?php echo HTMLHelper::date($item->sermon_date, Text::_('DATE_FORMAT_LC1'), true); ?>
 							</div>
 						<?php endif;
 

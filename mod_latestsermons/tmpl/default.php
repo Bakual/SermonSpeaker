@@ -25,7 +25,7 @@ $tooltip = ($params->get('ls_show_mo_speaker') || $params->get('ls_show_mo_serie
 if ($tooltip)
 {
 	// Include only if needed...
-	HtmlHelper::_('bootstrap.tooltip', '.hasTooltip');
+	HTMLHelper::_('bootstrap.tooltip', '.hasTooltip');
 }
 ?>
 <div class="latestsermons<?php echo $moduleclass_sfx; ?>">
@@ -36,7 +36,7 @@ if ($tooltip)
 				<li class="latestsermons_entry<?php echo $i; ?>">
 					<?php if ($params->get('use_date')) : ?>
 						<?php $date_format = Text::_($params->get('ls_mo_date_format', 'DATE_FORMAT_LC4')); ?>
-						<?php $text = HtmlHelper::date($row->sermon_date, $date_format, true); ?>
+						<?php $text = HTMLHelper::date($row->sermon_date, $date_format, true); ?>
 					<?php else : ?>
 						<?php $text = $row->title; ?>
 					<?php endif; ?>
@@ -65,7 +65,7 @@ if ($tooltip)
 						<?php endif; ?>
 						<?php if ($params->get('ls_show_mo_date') and $row->sermon_date) : ?>
 							<?php $date_format = Text::_($params->get('ls_mo_date_format', 'DATE_FORMAT_LC4')); ?>
-							<?php $tips[] = Text::_('JDATE') . ': ' . HtmlHelper::date($row->sermon_date, $date_format, true); ?>
+							<?php $tips[] = Text::_('JDATE') . ': ' . HTMLHelper::date($row->sermon_date, $date_format, true); ?>
 						<?php endif; ?>
 						<?php if ($params->get('show_scripture') and $row->scripture) : ?>
 							<?php $tips[] = Text::_('MOD_LATESTSERMONS_SCRIPTURE') . ': ' . SermonspeakerHelperSermonspeaker::insertScriptures($row->scripture, ', ', false);  ?>
@@ -74,7 +74,7 @@ if ($tooltip)
 							<?php $tips[] = Text::_('JGLOBAL_HITS') . ': ' . $row->hits; ?>
 						<?php endif; ?>
 						<?php $tip = implode('<br/>', $tips); ?>
-						<?php echo HtmlHelper::tooltip($tip, $title, '', $text, $link); ?>
+						<?php echo HTMLHelper::tooltip($tip, $title, '', $text, $link); ?>
 					<?php else : ?>
 						<a href="<?php echo $link; ?>">
 							<?php echo $text; ?>

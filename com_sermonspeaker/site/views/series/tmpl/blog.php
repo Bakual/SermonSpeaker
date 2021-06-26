@@ -12,11 +12,11 @@ defined('_JEXEC') or die();
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 
-HtmlHelper::addIncludePath(JPATH_COMPONENT . '/helpers');
+HTMLHelper::addIncludePath(JPATH_COMPONENT . '/helpers');
 
-HtmlHelper::_('jquery.framework');
-HtmlHelper::_('bootstrap.tooltip', '.hasTooltip');
-HtmlHelper::_('bootstrap.dropdown');
+HTMLHelper::_('jquery.framework');
+HTMLHelper::_('bootstrap.tooltip', '.hasTooltip');
+HTMLHelper::_('bootstrap.dropdown');
 
 $user       = JFactory::getUser();
 $showState  = $user->authorise('core.edit', 'com_sermonspeaker');
@@ -49,7 +49,7 @@ $listDirn   = $this->state->get('list.direction');
 			<?php endif;
 
 			if ($this->params->get('show_description') and $this->category->description) :
-				echo HtmlHelper::_('content.prepare', $this->category->description, '', 'com_sermonspeaker.category');
+				echo HTMLHelper::_('content.prepare', $this->category->description, '', 'com_sermonspeaker.category');
 			endif; ?>
 			<div class="clearfix"></div>
 		</div>
@@ -95,7 +95,7 @@ $listDirn   = $this->state->get('list.direction');
 									<?php endif; ?>
 									<?php
 									if ($canEdit or ($canEditOwn and ($user->id == $item->created_by))) : ?>
-										<li class="edit-icon"><?php echo HtmlHelper::_('icon.edit', $item, $this->params, array('type' => 'serie')); ?></li>
+										<li class="edit-icon"><?php echo HTMLHelper::_('icon.edit', $item, $this->params, array('type' => 'serie')); ?></li>
 									<?php endif; ?>
 								</ul>
 							</div>
@@ -152,7 +152,7 @@ $listDirn   = $this->state->get('list.direction');
 
 							<?php if (in_array('series:description', $this->col_serie) and $item->series_description) : ?>
 								<div>
-									<?php echo HtmlHelper::_('content.prepare', $item->series_description, '', 'com_sermonspeaker.series_description'); ?>
+									<?php echo HTMLHelper::_('content.prepare', $item->series_description, '', 'com_sermonspeaker.series_description'); ?>
 								</div>
 							<?php endif; ?>
 

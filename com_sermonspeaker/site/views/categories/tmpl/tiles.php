@@ -11,7 +11,7 @@ use Joomla\CMS\HTML\HTMLHelper;
 
 defined('_JEXEC') or die();
 
-HtmlHelper::_('stylesheet', 'com_sermonspeaker/tiles.css', array('relative' => true));
+HTMLHelper::_('stylesheet', 'com_sermonspeaker/tiles.css', array('relative' => true));
 
 // Layout supports max 3 level
 if ($this->maxLevelcat == -1 or $this->maxLevelcat > 3):
@@ -29,11 +29,11 @@ endif;
 	if ($this->params->get('show_base_description')) :
 		if ($this->params->get('categories_description')) : ?>
 			<div class="category-desc">
-				<p><?php echo HtmlHelper::_('content.prepare', $this->params->get('categories_description')); ?></p>
+				<p><?php echo HTMLHelper::_('content.prepare', $this->params->get('categories_description')); ?></p>
 			</div>
 		<?php elseif ($this->parent->description) : ?>
 			<div class="category-desc">
-				<?php echo HtmlHelper::_('content.prepare', $this->parent->description); ?>
+				<?php echo HTMLHelper::_('content.prepare', $this->parent->description); ?>
 			</div>
 		<?php endif;
 	endif;

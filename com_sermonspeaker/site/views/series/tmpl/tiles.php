@@ -12,9 +12,9 @@ defined('_JEXEC') or die();
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 
-HtmlHelper::_('stylesheet', 'com_sermonspeaker/tiles.css', array('relative' => true));
-HtmlHelper::addIncludePath(JPATH_COMPONENT . '/helpers');
-HtmlHelper::_('bootstrap.tooltip', '.hasTooltip');
+HTMLHelper::_('stylesheet', 'com_sermonspeaker/tiles.css', array('relative' => true));
+HTMLHelper::addIncludePath(JPATH_COMPONENT . '/helpers');
+HTMLHelper::_('bootstrap.tooltip', '.hasTooltip');
 $user       = JFactory::getUser();
 $canEdit    = $user->authorise('core.edit', 'com_sermonspeaker');
 $canEditOwn = $user->authorise('core.edit.own', 'com_sermonspeaker');
@@ -48,7 +48,7 @@ $orderlist  = array(
 			<?php endif;
 
 			if ($this->params->get('show_description') and $this->category->description) :
-				echo HtmlHelper::_('content.prepare', $this->category->description);
+				echo HTMLHelper::_('content.prepare', $this->category->description);
 			endif; ?>
 			<div class="clr"></div>
 		</div>
@@ -73,11 +73,11 @@ $orderlist  = array(
 				<label for="filter_order"><?php echo Text::_('JFIELD_ORDERING_LABEL') . '&nbsp;'; ?></label>
 				<select name="filter_order" id="filter_order" class="inputbox" onchange="this.form.submit()">
 					<option value="0"><?php echo Text::_('COM_SERMONSPEAKER_SELECT_ORDERING'); ?></option>
-					<?php echo HtmlHelper::_('select.options', $orderlist, '', '', $this->state->get('list.ordering'), true); ?>
+					<?php echo HTMLHelper::_('select.options', $orderlist, '', '', $this->state->get('list.ordering'), true); ?>
 				</select>
 				<select name="filter_order_Dir" id="filter_order_Dir" class="inputbox" onchange="this.form.submit()">
 					<option value="0"><?php echo Text::_('COM_SERMONSPEAKER_SELECT_ORDER_DIR'); ?></option>
-					<?php echo HtmlHelper::_('select.options', array('ASC' => 'COM_SERMONSPEAKER_SELECT_ORDER_DIR_OPTION_ASC', 'DESC' => 'COM_SERMONSPEAKER_SELECT_ORDER_DIR_OPTION_DESC'), '', '', $this->state->get('list.direction'), true); ?>
+					<?php echo HTMLHelper::_('select.options', array('ASC' => 'COM_SERMONSPEAKER_SELECT_ORDER_DIR_OPTION_ASC', 'DESC' => 'COM_SERMONSPEAKER_SELECT_ORDER_DIR_OPTION_DESC'), '', '', $this->state->get('list.direction'), true); ?>
 				</select>
 			</div>
 			<?php endif;
@@ -114,13 +114,13 @@ $orderlist  = array(
 			endif;
 
 			if (in_array('series:description', $this->col_serie) and $item->series_description) :
-				$tip[] = Text::_('JGLOBAL_DESCRIPTION') . ': ' . HtmlHelper::_('content.prepare', $item->series_description);
+				$tip[] = Text::_('JGLOBAL_DESCRIPTION') . ': ' . HTMLHelper::_('content.prepare', $item->series_description);
 			endif;
 			$tooltip = implode('<br/>', $tip);
 			$image   = ($item->avatar) ? $item->avatar : 'media/com_sermonspeaker/images/' . $this->params->get('defaultpic', 'nopict.jpg'); ?>
 			<div id="serie<?php echo $i; ?>" class="ss-entry tile">
 				<span class="hasTooltip"
-					title="<?php echo HtmlHelper::tooltipText($item->title, $tooltip); ?>">
+					title="<?php echo HTMLHelper::tooltipText($item->title, $tooltip); ?>">
 				<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->slug, $item->catid, $item->language)); ?>">
 					<img border="0" align="middle" src="<?php echo trim($image, '/'); ?>">
 					<span class="item-title">

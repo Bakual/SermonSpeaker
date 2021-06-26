@@ -12,11 +12,11 @@ defined('_JEXEC') or die();
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 
-HtmlHelper::addIncludePath(JPATH_COMPONENT . '/helpers');
+HTMLHelper::addIncludePath(JPATH_COMPONENT . '/helpers');
 
-HtmlHelper::_('bootstrap.tooltip', '.hasTooltip');
-HtmlHelper::_('bootstrap.dropdown');
-HtmlHelper::_('bootstrap.tab');
+HTMLHelper::_('bootstrap.tooltip', '.hasTooltip');
+HTMLHelper::_('bootstrap.dropdown');
+HTMLHelper::_('bootstrap.tab');
 
 $user             = JFactory::getUser();
 $showState        = $user->authorise('core.edit', 'com_sermonspeaker');
@@ -53,7 +53,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 			<ul class="dropdown-menu">
 				<?php
 				if ($canEdit or ($canEditOwn and ($user->id == $this->item->created_by))) : ?>
-					<li class="edit-icon"><?php echo HtmlHelper::_('icon.edit', $this->item, $this->params, array('type' => 'speaker')); ?></li>
+					<li class="edit-icon"><?php echo HTMLHelper::_('icon.edit', $this->item, $this->params, array('type' => 'speaker')); ?></li>
 				<?php endif; ?>
 			</ul>
 		</div>
@@ -67,7 +67,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 	<div class="tab-content">
 		<div class="tab-pane active" id="tab_sermons">
 			<?php if (in_array('speaker:player', $this->col_sermon) and count($this->sermons)) :
-				HtmlHelper::_('stylesheet', 'com_sermonspeaker/player.css', array('relative' => true)); ?>
+				HTMLHelper::_('stylesheet', 'com_sermonspeaker/player.css', array('relative' => true)); ?>
 				<div id="ss-speaker-player" class="ss-player row-fluid">
 					<div class="span10 offset1">
 						<hr/>
@@ -127,7 +127,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 
 									if ($canEdit or ($canEditOwn and ($user->id == $item->created_by))) : ?>
 										<span class="list-edit pull-left width-50">
-											<?php echo HtmlHelper::_('icon.edit', $item, $this->params, array('type' => 'sermon')); ?>
+											<?php echo HTMLHelper::_('icon.edit', $item, $this->params, array('type' => 'sermon')); ?>
 										</span>
 									<?php endif; ?>
 									<strong class="ss-title">
@@ -170,13 +170,13 @@ $this->document->addScriptDeclaration('jQuery(function() {
 										<small class="ss-scripture">
 											<?php echo Text::_('COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL'); ?>:
 											<?php $scriptures = SermonspeakerHelperSermonspeaker::insertScriptures($item->scripture, '; ');
-											echo HtmlHelper::_('content.prepare', $scriptures, '', 'com_sermonspeaker.scripture'); ?>
+											echo HTMLHelper::_('content.prepare', $scriptures, '', 'com_sermonspeaker.scripture'); ?>
 										</small>
 									<?php endif;
 
 									if (in_array('speaker:date', $this->col_sermon) and ($item->sermon_date != '0000-00-00 00:00:00')) : ?>
 										<span class="ss-date small pull-right">
-											<?php echo HtmlHelper::date($item->sermon_date, Text::_($this->params->get('date_format')), true); ?>
+											<?php echo HTMLHelper::date($item->sermon_date, Text::_($this->params->get('date_format')), true); ?>
 										</span>&nbsp;
 									<?php endif; ?>
 								</li>
@@ -185,7 +185,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 					<?php endif;
 
 					if ($user->authorise('core.create', 'com_sermonspeaker')) :
-						echo HtmlHelper::_('icon.create', $this->category, $this->params);
+						echo HTMLHelper::_('icon.create', $this->category, $this->params);
 					endif;
 
 					if ($this->params->get('show_pagination') and ($this->pag_sermons->pagesTotal > 1)) : ?>
@@ -240,7 +240,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 
 									if ($canEdit or ($canEditOwn and ($user->id == $item->created_by))) : ?>
 										<span class="list-edit pull-left width-50">
-											<?php echo HtmlHelper::_('icon.edit', $item, $this->params, array('type' => 'serie')); ?>
+											<?php echo HTMLHelper::_('icon.edit', $item, $this->params, array('type' => 'serie')); ?>
 										</span>
 									<?php endif; ?>
 									<strong class="ss-title">

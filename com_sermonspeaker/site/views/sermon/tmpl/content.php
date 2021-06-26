@@ -16,9 +16,9 @@ use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
 
 HTMLHelper::addIncludePath(JPATH_COMPONENT . '/helpers');
-HtmlHelper::_('jquery.framework');
-HtmlHelper::_('bootstrap.tooltip', '.hasTooltip');
-HtmlHelper::_('bootstrap.dropdown');
+HTMLHelper::_('jquery.framework');
+HTMLHelper::_('bootstrap.tooltip', '.hasTooltip');
+HTMLHelper::_('bootstrap.dropdown');
 
 // Needed for pictures in blog layout
 HTMLHelper::_('stylesheet', 'com_sermonspeaker/blog.css', array('relative' => true));

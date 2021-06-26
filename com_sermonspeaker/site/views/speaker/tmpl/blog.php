@@ -13,15 +13,15 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
 
-HtmlHelper::addIncludePath(JPATH_COMPONENT . '/helpers');
+HTMLHelper::addIncludePath(JPATH_COMPONENT . '/helpers');
 
-HtmlHelper::_('jquery.framework');
-HtmlHelper::_('bootstrap.tooltip', '.hasTooltip');
-HtmlHelper::_('bootstrap.dropdown');
-HtmlHelper::_('bootstrap.tab');
+HTMLHelper::_('jquery.framework');
+HTMLHelper::_('bootstrap.tooltip', '.hasTooltip');
+HTMLHelper::_('bootstrap.dropdown');
+HTMLHelper::_('bootstrap.tab');
 
 // Needed for pictures in blog layout
-HtmlHelper::_('stylesheet', 'com_sermonspeaker/blog.css', array('relative' => true));
+HTMLHelper::_('stylesheet', 'com_sermonspeaker/blog.css', array('relative' => true));
 
 $user             = JFactory::getUser();
 $showState        = $user->authorise('core.edit', 'com_sermonspeaker');
@@ -58,7 +58,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 			<ul class="dropdown-menu">
 				<?php
 				if ($canEdit or ($canEditOwn and ($user->id == $this->item->created_by))) : ?>
-					<li class="edit-icon"><?php echo HtmlHelper::_('icon.edit', $this->item, $this->params, array('type' => 'speaker')); ?></li>
+					<li class="edit-icon"><?php echo HTMLHelper::_('icon.edit', $this->item, $this->params, array('type' => 'speaker')); ?></li>
 				<?php endif; ?>
 			</ul>
 		</div>
@@ -100,21 +100,21 @@ $this->document->addScriptDeclaration('jQuery(function() {
 										</a>
 										<ul class="dropdown-menu">
 											<?php if ($playerid = !empty($player->id) ? $player->id : '') : ?>
-												<li class="play-icon"><?php echo HtmlHelper::_('icon.play', $item, $this->params, array('index' => $i, 'playerid' => $playerid)); ?></li>
+												<li class="play-icon"><?php echo HTMLHelper::_('icon.play', $item, $this->params, array('index' => $i, 'playerid' => $playerid)); ?></li>
 											<?php endif; ?>
 											<?php
 											if (in_array('speaker:download', $this->col_sermon)) :
 												if ($item->audiofile) : ?>
-													<li class="download-icon"><?php echo HtmlHelper::_('icon.download', $item, $this->params, array('type' => 'audio')); ?></li>
+													<li class="download-icon"><?php echo HTMLHelper::_('icon.download', $item, $this->params, array('type' => 'audio')); ?></li>
 												<?php endif;
 
 												if ($item->videofile) : ?>
-													<li class="download-icon"><?php echo HtmlHelper::_('icon.download', $item, $this->params, array('type' => 'video')); ?></li>
+													<li class="download-icon"><?php echo HTMLHelper::_('icon.download', $item, $this->params, array('type' => 'video')); ?></li>
 												<?php endif; ?>
 											<?php endif; ?>
 											<?php
 											if ($canEdit or ($canEditOwn and ($user->id == $item->created_by))) : ?>
-												<li class="edit-icon"><?php echo HtmlHelper::_('icon.edit', $item, $this->params, array('type' => 'sermon')); ?></li>
+												<li class="edit-icon"><?php echo HTMLHelper::_('icon.edit', $item, $this->params, array('type' => 'sermon')); ?></li>
 											<?php endif; ?>
 										</ul>
 									</div>
@@ -162,7 +162,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 													<div class="create">
 														<i class="icon-calendar"></i>
 														<?php echo Text::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL'); ?>:
-														<?php echo HtmlHelper::date($item->sermon_date, Text::_($this->params->get('date_format')), true); ?>
+														<?php echo HTMLHelper::date($item->sermon_date, Text::_($this->params->get('date_format')), true); ?>
 													</div>
 												</dd>
 											<?php endif;
@@ -184,7 +184,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 														<?php echo Text::_('COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL'); ?>
 														:
 														<?php $scriptures = SermonspeakerHelperSermonspeaker::insertScriptures($item->scripture, '; ');
-														echo HtmlHelper::_('content.prepare', $scriptures, '', 'com_sermonspeaker.scripture'); ?>
+														echo HTMLHelper::_('content.prepare', $scriptures, '', 'com_sermonspeaker.scripture'); ?>
 													</div>
 												</dd>
 											<?php endif;
@@ -214,7 +214,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 
 									<?php if (in_array('speaker:notes', $this->col_sermon) and $item->notes) : ?>
 										<div>
-											<?php echo HtmlHelper::_('content.prepare', $item->notes, '', 'com_sermonspeaker.notes'); ?>
+											<?php echo HTMLHelper::_('content.prepare', $item->notes, '', 'com_sermonspeaker.notes'); ?>
 										</div>
 									<?php endif; ?>
 
@@ -284,7 +284,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 											<?php endif; ?>
 											<?php
 											if ($canEdit or ($canEditOwn and ($user->id == $item->created_by))) : ?>
-												<li class="edit-icon"><?php echo HtmlHelper::_('icon.edit', $item, $this->params, array('type' => 'serie')); ?></li>
+												<li class="edit-icon"><?php echo HTMLHelper::_('icon.edit', $item, $this->params, array('type' => 'serie')); ?></li>
 											<?php endif; ?>
 										</ul>
 									</div>
@@ -341,7 +341,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 
 									<?php if (in_array('speaker:description', $this->col_serie) and $item->series_description) : ?>
 										<div>
-											<?php echo HtmlHelper::_('content.prepare', $item->series_description, '', 'com_sermonspeaker.series_description'); ?>
+											<?php echo HTMLHelper::_('content.prepare', $item->series_description, '', 'com_sermonspeaker.series_description'); ?>
 										</div>
 									<?php endif; ?>
 

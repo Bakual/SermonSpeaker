@@ -13,7 +13,7 @@ defined('_JEXEC') or die();
 
 if ($params->get('tooltip'))
 {
-	HtmlHelper::_('bootstrap.tooltip', '.hasTooltip');
+	HTMLHelper::_('bootstrap.tooltip', '.hasTooltip');
 }
 
 $level = 1;
@@ -43,7 +43,7 @@ foreach ($list as $item) :
 				endif;
 				$tip	= '<div class="clearfix"><img src="' . $pic . '" alt="" class="pull-right img-rounded">' . $tip . '</div>';
 			endif;
-			echo HtmlHelper::tooltip($tip, $options);
+			echo HTMLHelper::tooltip($tip, $options);
 		else : ?>
 			<a href="<?php echo $link ?>">
 				<?php echo $item->title; ?>

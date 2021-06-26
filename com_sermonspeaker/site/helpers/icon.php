@@ -61,7 +61,7 @@ class JHtmlIcon
 		$url = 'index.php?option=com_sermonspeaker&task=' . $controller . '.add&return=' . base64_encode($uri) . '&s_id=0&catid=' . $category->id;
 		$text = Text::_('JNEW') . '&#160;';
 
-		return HtmlHelper::_('link', Route::_($url), $text, 'class="btn btn-primary"');
+		return HTMLHelper::_('link', Route::_($url), $text, 'class="btn btn-primary"');
 	}
 
 	/**
@@ -99,7 +99,7 @@ class JHtmlIcon
 			return '';
 		}
 
-		HtmlHelper::_('bootstrap.tooltip', '.hasTooltip');
+		HTMLHelper::_('bootstrap.tooltip', '.hasTooltip');
 
 		// Show checked_out icon if the item is checked out by a different user
 		if (property_exists($item, 'checked_out') && property_exists($item, 'checked_out_time')
@@ -107,8 +107,8 @@ class JHtmlIcon
 		)
 		{
 			$checkoutUser = Factory::getUser($item->checked_out);
-			$button = HtmlHelper::_('image', 'system/checked_out.png', null, null, true);
-			$date = HtmlHelper::_('date', $item->checked_out_time);
+			$button = HTMLHelper::_('image', 'system/checked_out.png', null, null, true);
+			$date = HTMLHelper::_('date', $item->checked_out_time);
 			$tooltip = Text::_('JLIB_HTML_CHECKED_OUT') . ' :: ' . Text::sprintf('COM_SERMONSPEAKER_CHECKED_OUT_BY', $checkoutUser->name)
 				. ' <br /> ' . $date;
 
@@ -142,7 +142,7 @@ class JHtmlIcon
 
 		if ($item->created != Factory::getDbo()->getNullDate())
 		{
-			$date = HtmlHelper::_('date', $item->created);
+			$date = HTMLHelper::_('date', $item->created);
 			$tooltip .= '<br>';
 			$tooltip .= Text::sprintf('JGLOBAL_CREATED_DATE_ON', $date);
 		}
@@ -169,7 +169,7 @@ class JHtmlIcon
 			$text .= Text::_('JACTION_EDIT');
 		}
 
-		return HtmlHelper::_('link', Route::_($url), $text);
+		return HTMLHelper::_('link', Route::_($url), $text);
 	}
 
 	/**

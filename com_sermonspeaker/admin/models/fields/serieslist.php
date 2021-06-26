@@ -82,10 +82,10 @@ class JFormFieldSerieslist extends JFormFieldGroupedList
 					</div>';
 
 			// Add the modal field script to the document head.
-			HtmlHelper::_('jquery.framework');
-			HtmlHelper::_('script', 'system/fields/modal-fields.js', array('version' => 'auto', 'relative' => true));
+			HTMLHelper::_('jquery.framework');
+			HTMLHelper::_('script', 'system/fields/modal-fields.js', array('version' => 'auto', 'relative' => true));
 
-			$html .= HtmlHelper::_(
+			$html .= HTMLHelper::_(
 				'bootstrap.renderModal',
 				'serieModal_' . $this->id,
 				array(

@@ -91,6 +91,6 @@ class PlgSermonspeakerGeneric extends SermonspeakerPluginPlayer
 		$content = $start . $file . $end;
 
 		$player->player = $this->_name;
-		$player->mspace = HtmlHelper::_('content.prepare', $content);
+		$player->mspace = HTMLHelper::_('content.prepare', $content);
 	}
 }

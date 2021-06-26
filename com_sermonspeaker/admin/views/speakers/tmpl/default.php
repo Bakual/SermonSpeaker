@@ -21,7 +21,7 @@ use Joomla\CMS\Uri\Uri;
 
 HTMLHelper::addIncludePath(JPATH_COMPONENT . '/helpers/html');
 
-HtmlHelper::_('bootstrap.tooltip', '.hasTooltip');
+HTMLHelper::_('bootstrap.tooltip', '.hasTooltip');
 HTMLHelper::_('behavior.multiselect');
 
 $user      = JFactory::getUser();

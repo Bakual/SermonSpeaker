@@ -184,15 +184,15 @@ class PlgSermonspeakerJwplayer7 extends SermonspeakerPluginPlayer
 		{
 			$doc = JFactory::getDocument();
 
-			HtmlHelper::_('jquery.framework');
+			HTMLHelper::_('jquery.framework');
 
 			if ($this->params->get('hosting'))
 			{
-				HtmlHelper::_('script', $this->params->get('cloud_library_url'));
+				HTMLHelper::_('script', $this->params->get('cloud_library_url'));
 			}
 			else
 			{
-				HtmlHelper::_('script', 'media/plg_sermonspeaker_jwplayer7/jwplayer.js');
+				HTMLHelper::_('script', 'media/plg_sermonspeaker_jwplayer7/jwplayer.js');
 				$doc->addScriptDeclaration('jwplayer.key="' . $this->params->get('license_self') . '";');
 			}
 
@@ -296,7 +296,7 @@ class PlgSermonspeakerJwplayer7 extends SermonspeakerPluginPlayer
 
 		// Load CSS file from media folder
 		$file = 'plg_sermonspeaker_jwplayer7/' . $skinName . '.css';
-		HtmlHelper::_('stylesheet', $file, array('relative' => true));
+		HTMLHelper::_('stylesheet', $file, array('relative' => true));
 
 		$skinOptions[] = "name:'" . $skinName . "'";
 
@@ -431,7 +431,7 @@ class PlgSermonspeakerJwplayer7 extends SermonspeakerPluginPlayer
 			if ($item->sermon_date)
 			{
 				// Todo: Pick correct date format (from component or add param to plugin?)
-				$desc[] = Text::_('JDATE') . ': ' . HtmlHelper::date($item->sermon_date, Text::_($this->c_params->get('date_format')), true);
+				$desc[] = Text::_('JDATE') . ': ' . HTMLHelper::date($item->sermon_date, Text::_($this->c_params->get('date_format')), true);
 			}
 
 			if ($item->speaker_title)

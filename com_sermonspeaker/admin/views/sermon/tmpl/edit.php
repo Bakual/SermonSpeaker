@@ -19,7 +19,7 @@ $wa->useScript('keepalive')
 		->useScript('form.validate')
 		->useScript('com_contenthistory.admin-history-versions');
 
-HtmlHelper::_('bootstrap.tooltip', '.hasTooltip');
+HTMLHelper::_('bootstrap.tooltip', '.hasTooltip');
 
 $this->ignore_fieldsets = array('general', 'audiofile', 'videofile', 'addfile', 'info', 'detail', 'publishingdata', 'jmetadata', 'item_associations');
 $this->useCoreUI = true;

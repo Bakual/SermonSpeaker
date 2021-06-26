@@ -130,7 +130,7 @@ class SermonspeakerViewFeed extends JViewLegacy
 
 		if ($this->params->get('prepare_content', 1))
 		{
-			$text = HtmlHelper::_('content.prepare', $text);
+			$text = HTMLHelper::_('content.prepare', $text);
 		}
 
 		$text = str_replace(array("\r", "\n", '  '), ' ', $this->make_xml_safe($text));
@@ -264,7 +264,7 @@ class SermonspeakerViewFeed extends JViewLegacy
 
 			if ($this->params->get('prepare_content', 1))
 			{
-				$scripture = HtmlHelper::_('content.prepare', $scripture);
+				$scripture = HTMLHelper::_('content.prepare', $scripture);
 			}
 
 			// Make english scripture format

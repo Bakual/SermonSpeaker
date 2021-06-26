@@ -65,7 +65,7 @@ $count = count($list);
 					<?php endif; ?>
 					<?php if ($params->get('use_date')) : ?>
 						<?php $date_format = Text::_($params->get('ls_mo_date_format', 'DATE_FORMAT_LC4')); ?>
-						<?php echo Text::_('JDATE') . ': ' . HtmlHelper::date($row->sermon_date, $date_format, true); ?>
+						<?php echo Text::_('JDATE') . ': ' . HTMLHelper::date($row->sermon_date, $date_format, true); ?>
 					<?php endif; ?>
 					<?php if ($params->get('show_scripture') and $row->scripture) : ?>
 						<span>

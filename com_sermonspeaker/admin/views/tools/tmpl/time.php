@@ -5,8 +5,8 @@ defined('_JEXEC') or die;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 
-HtmlHelper::addIncludePath(JPATH_COMPONENT.'/helpers/html');
-HtmlHelper::_('bootstrap.tooltip', '.hasTooltip');
+HTMLHelper::addIncludePath(JPATH_COMPONENT.'/helpers/html');
+HTMLHelper::_('bootstrap.tooltip', '.hasTooltip');
 $session	= JFactory::getSession();
 ?>
 <form action="index.php?option=com_sermonspeaker&task=tools.time" target="_parent" method="post" id="adminForm" name="adminForm">
@@ -28,6 +28,6 @@ $session	= JFactory::getSession();
 		</tr>
 	</table>
 	<div>
-		<?php echo HtmlHelper::_('form.token'); ?>
+		<?php echo HTMLHelper::_('form.token'); ?>
 	</div>
 </form>

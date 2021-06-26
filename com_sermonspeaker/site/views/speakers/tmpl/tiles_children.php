@@ -30,11 +30,11 @@ if (count($this->children[$this->category->id]) AND $this->maxLevel != 0) : ?>
 				endif;
 
 				if ($this->params->get('show_subcat_desc_cat')):
-					$tip[] = HtmlHelper::_('content.prepare', $child->description);
+					$tip[] = HTMLHelper::_('content.prepare', $child->description);
 				endif;
 				$tooltip = implode('<br/>', $tip);
 				?>
-				<span class="hasTooltip" title="<?php echo HtmlHelper::tooltipText($child->title, $tooltip); ?>">
+				<span class="hasTooltip" title="<?php echo HTMLHelper::tooltipText($child->title, $tooltip); ?>">
 					<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakersRoute($child->id, $child->language)); ?>">
 						<img border="0" align="middle" src="<?php echo $image; ?>"/>
 						<?php

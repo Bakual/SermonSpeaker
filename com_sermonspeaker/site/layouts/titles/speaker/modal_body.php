@@ -23,12 +23,12 @@ $url = Route::_(SermonspeakerHelperRoute::getSpeakerRoute($displayData->speaker_
 	<?php endif; ?>
 	<?php if ($displayData->intro) : ?>
         <div>
-			<?php echo HtmlHelper::_('content.prepare', $displayData->intro, '', 'com_sermonspeaker.intro'); ?>
+			<?php echo HTMLHelper::_('content.prepare', $displayData->intro, '', 'com_sermonspeaker.intro'); ?>
         </div>
 	<?php endif; ?>
 	<?php if ($displayData->bio) : ?>
         <div>
-			<?php echo HtmlHelper::_('content.prepare', $displayData->bio, '', 'com_sermonspeaker.bio'); ?>
+			<?php echo HTMLHelper::_('content.prepare', $displayData->bio, '', 'com_sermonspeaker.bio'); ?>
         </div>
 	<?php endif; ?>
 </div>

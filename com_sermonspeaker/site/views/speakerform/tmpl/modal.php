@@ -12,9 +12,9 @@ defined('_JEXEC') or die();
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 
-HtmlHelper::_('bootstrap.tooltip', '.hasTooltip', array('placement' => 'bottom'));
-HtmlHelper::_('behavior.formvalidation');
-HtmlHelper::_('behavior.keepalive');
+HTMLHelper::_('bootstrap.tooltip', '.hasTooltip', array('placement' => 'bottom'));
+HTMLHelper::_('behavior.formvalidation');
+HTMLHelper::_('behavior.keepalive');
 
 ?>
 <script type="text/javascript">
@@ -169,7 +169,7 @@ HtmlHelper::_('behavior.keepalive');
 			<input type="hidden" name="layout" value="modal"/>
 			<input type="hidden" name="task" value=""/>
 			<input type="hidden" name="return" value="<?php echo $jinput->getCmd('return'); ?>"/>
-			<?php echo HtmlHelper::_('form.token'); ?>
+			<?php echo HTMLHelper::_('form.token'); ?>
 		</fieldset>
 	</form>
 </div>

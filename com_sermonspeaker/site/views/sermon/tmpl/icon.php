@@ -15,9 +15,9 @@ use Joomla\CMS\Uri\Uri;
 
 defined('_JEXEC') or die();
 
-HtmlHelper::_('stylesheet', 'com_sermonspeaker/icon.css', array('relative' => true));
-HtmlHelper::addIncludePath(JPATH_COMPONENT . '/helpers');
-HtmlHelper::_('bootstrap.tooltip', '.hasTooltip');
+HTMLHelper::_('stylesheet', 'com_sermonspeaker/icon.css', array('relative' => true));
+HTMLHelper::addIncludePath(JPATH_COMPONENT . '/helpers');
+HTMLHelper::_('bootstrap.tooltip', '.hasTooltip');
 
 $user       = JFactory::getUser();
 $fu_enable  = $this->params->get('fu_enable');
@@ -42,7 +42,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->item, $config);
 	if ($canEdit or ($canEditOwn and ($user->id == $this->item->created_by))) : ?>
 		<ul class="actions">
 			<li class="edit-icon">
-				<?php echo HtmlHelper::_('icon.edit', $this->item, $this->params, array('type' => 'sermon')); ?>
+				<?php echo HTMLHelper::_('icon.edit', $this->item, $this->params, array('type' => 'sermon')); ?>
 			</li>
 		</ul>
 	<?php endif; ?>
@@ -112,7 +112,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->item, $config);
 				<div class="ss-field field-bible"
 					title="<?php echo Text::_('COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL'); ?>">
 					<?php $scriptures = SermonspeakerHelperSermonspeaker::insertScriptures($this->item->scripture, '; ');
-					echo HtmlHelper::_('content.prepare', $scriptures); ?>
+					echo HTMLHelper::_('content.prepare', $scriptures); ?>
 				</div>
 			<?php endif; ?>
 		</div>
@@ -120,9 +120,9 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->item, $config);
 			<?php if (in_array('sermon:date', $this->columns) and ($this->item->sermon_date != '0000-00-00 00:00:00')) : ?>
 				<div class="ss-field field-calendar"
 					title="<?php echo Text::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL'); ?>">
-					<time datetime="<?php echo HtmlHelper::_('date', $this->item->sermon_date, 'c'); ?>"
+					<time datetime="<?php echo HTMLHelper::_('date', $this->item->sermon_date, 'c'); ?>"
 						itemprop="dateCreated">
-						<?php echo HtmlHelper::date($this->item->sermon_date, Text::_('DATE_FORMAT_LC1'), true); ?>
+						<?php echo HTMLHelper::date($this->item->sermon_date, Text::_('DATE_FORMAT_LC1'), true); ?>
 					</time>
 				</div>
 			<?php endif;
@@ -161,7 +161,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->item, $config);
 
 	if (in_array('sermon:notes', $this->columns) and $this->item->notes) : ?>
 		<div class="ss-notes">
-			<?php echo HtmlHelper::_('content.prepare', $this->item->notes); ?>
+			<?php echo HTMLHelper::_('content.prepare', $this->item->notes); ?>
 		</div>
 	<?php endif;
 

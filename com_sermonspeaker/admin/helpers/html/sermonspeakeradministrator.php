@@ -118,7 +118,7 @@ abstract class JHtmlSermonspeakerAdministrator
 	 */
 	public static function podcasted($value, $i, $canChange = true)
 	{
-		HtmlHelper::_('bootstrap.tooltip', '.hasTooltip');
+		HTMLHelper::_('bootstrap.tooltip', '.hasTooltip');
 
 		$states = array(
 			0 => array(
@@ -150,14 +150,14 @@ abstract class JHtmlSermonspeakerAdministrator
 		{
 			$html = '<a class="tbody-icon' . ($value == 1 ? ' active' : '') . ' hasTooltip"'
 				. ' href="#" onclick="return Joomla.listItemTask(\'cb' . $i . '\',\'' . $state['task'] . '\')"'
-				. ' title="' . HtmlHelper::_('tooltipText', $state['active_title']) . '">'
+				. ' title="' . HTMLHelper::_('tooltipText', $state['active_title']) . '">'
 				. '<span class="icon-' . $state['active_class'] . '"></span>'
 				. '</a>';
 		}
 		else
 		{
 			$html = '<a class="tbody-icon' . ($value == 1 ? ' active' : '') . ' hasTooltip disabled"'
-				. ' title="' . HtmlHelper::_('tooltipText', $state['inactive_title']) . '">'
+				. ' title="' . HTMLHelper::_('tooltipText', $state['inactive_title']) . '">'
 				. '<span class="icon-' . $state['inactive_class'] . '"></span>'
 				. '</a>';
 		}

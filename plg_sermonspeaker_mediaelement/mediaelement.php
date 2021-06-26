@@ -9,7 +9,7 @@
 
 defined('_JEXEC') or die();
 
-use Joomla\CMS\HTML\HTMLHelper as HtmlHelperAlias;
+use Joomla\CMS\HTML\HTMLHelper as HTMLHelperAlias;
 use Joomla\CMS\Language\Text;
 
 JLoader::register('SermonspeakerPluginPlayer', JPATH_SITE . '/components/com_sermonspeaker/plugin/player.php');
@@ -213,29 +213,29 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 		// Loading needed Javascript only once
 		if (!self::$script_loaded)
 		{
-			HtmlHelperAlias::_('jquery.framework');
+			HTMLHelperAlias::_('jquery.framework');
 
 			JFactory::getDocument()->addScriptDeclaration('mejs.i18n.language(\'' . $langCode . '\');');
-			HtmlHelperAlias::_('script', 'plg_sermonspeaker_mediaelement/mediaelement-and-player.min.js', array('relative' => true));
-			HtmlHelperAlias::_('script', 'plg_sermonspeaker_mediaelement/mediaelement-and-player.min.js',  array('relative' => true));
-			HtmlHelperAlias::_('script', 'plg_sermonspeaker_mediaelement/renderers/vimeo.min.js',  array('relative' => true));
-			HtmlHelperAlias::_('script', 'plg_sermonspeaker_mediaelement/renderers/facebook.min.js',  array('relative' => true));
-			HtmlHelperAlias::_('script', 'plg_sermonspeaker_mediaelement/lang/' . $langCode . '.js',  array('relative' => true));
-			HtmlHelperAlias::_('stylesheet', 'plg_sermonspeaker_mediaelement/mediaelementplayer.min.css',  array('relative' => true));
+			HTMLHelperAlias::_('script', 'plg_sermonspeaker_mediaelement/mediaelement-and-player.min.js', array('relative' => true));
+			HTMLHelperAlias::_('script', 'plg_sermonspeaker_mediaelement/mediaelement-and-player.min.js',  array('relative' => true));
+			HTMLHelperAlias::_('script', 'plg_sermonspeaker_mediaelement/renderers/vimeo.min.js',  array('relative' => true));
+			HTMLHelperAlias::_('script', 'plg_sermonspeaker_mediaelement/renderers/facebook.min.js',  array('relative' => true));
+			HTMLHelperAlias::_('script', 'plg_sermonspeaker_mediaelement/lang/' . $langCode . '.js',  array('relative' => true));
+			HTMLHelperAlias::_('stylesheet', 'plg_sermonspeaker_mediaelement/mediaelementplayer.min.css',  array('relative' => true));
 
 			if ($this->params->get('speedplugin'))
 			{
-				HtmlHelperAlias::_('script', 'plg_sermonspeaker_mediaelement/speed/speed.min.js',  array('relative' => true));
-				HtmlHelperAlias::_('script', 'plg_sermonspeaker_mediaelement/speed/speed-i18n.js',  array('relative' => true));
-				HtmlHelperAlias::_('stylesheet', 'plg_sermonspeaker_mediaelement/speed/speed.min.css',  array('relative' => true));
+				HTMLHelperAlias::_('script', 'plg_sermonspeaker_mediaelement/speed/speed.min.js',  array('relative' => true));
+				HTMLHelperAlias::_('script', 'plg_sermonspeaker_mediaelement/speed/speed-i18n.js',  array('relative' => true));
+				HTMLHelperAlias::_('stylesheet', 'plg_sermonspeaker_mediaelement/speed/speed.min.css',  array('relative' => true));
 			}
 
 			if (is_array($items))
 			{
-				HtmlHelperAlias::_('script', 'plg_sermonspeaker_mediaelement/playlist/playlist.min.js',  array('relative' => true));
-				HtmlHelperAlias::_('script', 'plg_sermonspeaker_mediaelement/playlist/playlist-i18n.js',  array('relative' => true));
-				HtmlHelperAlias::_('stylesheet', 'plg_sermonspeaker_mediaelement/playlist/playlist.min.css',  array('relative' => true));
-				HtmlHelperAlias::_('script', 'plg_sermonspeaker_mediaelement/sermonspeaker.js',  array('relative' => true));
+				HTMLHelperAlias::_('script', 'plg_sermonspeaker_mediaelement/playlist/playlist.min.js',  array('relative' => true));
+				HTMLHelperAlias::_('script', 'plg_sermonspeaker_mediaelement/playlist/playlist-i18n.js',  array('relative' => true));
+				HTMLHelperAlias::_('stylesheet', 'plg_sermonspeaker_mediaelement/playlist/playlist.min.css',  array('relative' => true));
+				HTMLHelperAlias::_('script', 'plg_sermonspeaker_mediaelement/sermonspeaker.js',  array('relative' => true));
 			}
 
 			self::$script_loaded = 1;
@@ -358,7 +358,7 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 
 		if ($item->sermon_date)
 		{
-			$desc[] = Text::_('JDATE') . ': ' . HtmlHelperAlias::date($item->sermon_date, Text::_('DATE_FORMAT_LC4'), true);
+			$desc[] = Text::_('JDATE') . ': ' . HTMLHelperAlias::date($item->sermon_date, Text::_('DATE_FORMAT_LC4'), true);
 		}
 
 		if ($item->speaker_title)

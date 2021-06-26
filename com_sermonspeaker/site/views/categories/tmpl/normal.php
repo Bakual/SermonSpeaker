@@ -24,11 +24,11 @@ $class = ' class="first"';
 	if ($this->params->get('show_base_description')) :
 		if ($this->params->get('categories_description')) : ?>
 			<div class="category-desc">
-				<p><?php echo HtmlHelper::_('content.prepare', $this->params->get('categories_description')); ?></p>
+				<p><?php echo HTMLHelper::_('content.prepare', $this->params->get('categories_description')); ?></p>
 			</div>
 		<?php elseif ($this->parent->description) : ?>
 			<div class="category-desc">
-				<?php echo HtmlHelper::_('content.prepare', $this->parent->description); ?>
+				<?php echo HTMLHelper::_('content.prepare', $this->parent->description); ?>
 			</div>
 		<?php endif;
 	endif;

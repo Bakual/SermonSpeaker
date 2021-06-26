@@ -12,8 +12,8 @@ defined('_JEXEC') or die();
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 
-HtmlHelper::_('script', 'system/progressbar.js', true, true);
-HtmlHelper::_('stylesheet', 'media/mediamanager.css', array('relative' => true));
+HTMLHelper::_('script', 'system/progressbar.js', true, true);
+HTMLHelper::_('stylesheet', 'media/mediamanager.css', array('relative' => true));
 $base = JUri::base();
 
 $js = 'function CheckProgress() {

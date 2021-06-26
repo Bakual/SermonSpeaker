@@ -16,7 +16,7 @@ use Joomla\CMS\Router\Route;
 
 HTMLHelper::_('behavior.formvalidator');
 HTMLHelper::_('behavior.keepalive');
-HtmlHelper::_('bootstrap.tooltip', '.hasTooltip');
+HTMLHelper::_('bootstrap.tooltip', '.hasTooltip');
 
 $this->ignore_fieldsets = array('general', 'info', 'detail', 'jmetadata', 'metadata', 'item_associations');
 $this->tab_name = 'serieEditTab';
@@ -47,9 +47,9 @@ $this->tab_name = 'serieEditTab';
 			</div>
 		</div>
 		<fieldset>
-			<?php echo HtmlHelper::_('bootstrap.startTabSet', $this->tab_name, array('active' => 'editor')); ?>
+			<?php echo HTMLHelper::_('bootstrap.startTabSet', $this->tab_name, array('active' => 'editor')); ?>
 
-			<?php echo HtmlHelper::_('bootstrap.addTab', $this->tab_name, 'editor', Text::_('JEDITOR', true)); ?>
+			<?php echo HTMLHelper::_('bootstrap.addTab', $this->tab_name, 'editor', Text::_('JEDITOR', true)); ?>
                 <?php echo $this->form->renderField('title'); ?>
 
                 <?php if (is_null($this->item->id)): ?>
@@ -57,17 +57,17 @@ $this->tab_name = 'serieEditTab';
                 <?php endif; ?>
 
                 <?php echo $this->form->getInput('series_description'); ?>
-			<?php echo HtmlHelper::_('bootstrap.endTab'); ?>
+			<?php echo HTMLHelper::_('bootstrap.endTab'); ?>
 
-			<?php echo HtmlHelper::_('bootstrap.addTab', $this->tab_name, 'details', Text::_('JDETAILS', true)); ?>
+			<?php echo HTMLHelper::_('bootstrap.addTab', $this->tab_name, 'details', Text::_('JDETAILS', true)); ?>
                 <?php foreach ($this->form->getFieldset('detail') as $field): ?>
                     <?php echo $this->form->renderField($field->fieldname); ?>
                 <?php endforeach; ?>
-			<?php echo HtmlHelper::_('bootstrap.endTab'); ?>
+			<?php echo HTMLHelper::_('bootstrap.endTab'); ?>
 
 			<?php echo LayoutHelper::render('joomla.edit.params', $this); ?>
 
-			<?php echo HtmlHelper::_('bootstrap.addTab', $this->tab_name, 'publishing', Text::_('COM_SERMONSPEAKER_PUBLISHING', true)); ?>
+			<?php echo HTMLHelper::_('bootstrap.addTab', $this->tab_name, 'publishing', Text::_('COM_SERMONSPEAKER_PUBLISHING', true)); ?>
                 <?php echo $this->form->renderField('catid'); ?>
                 <?php echo $this->form->renderField('tags'); ?>
                 <?php if ($this->user->authorise('core.edit.state', 'com_sermonspeaker')): ?>
@@ -75,18 +75,18 @@ $this->tab_name = 'serieEditTab';
                     <?php echo $this->form->renderField('publish_up'); ?>
                     <?php echo $this->form->renderField('publish_down'); ?>
                 <?php endif; ?>
-			<?php echo HtmlHelper::_('bootstrap.endTab'); ?>
+			<?php echo HTMLHelper::_('bootstrap.endTab'); ?>
 
-			<?php echo HtmlHelper::_('bootstrap.addTab', $this->tab_name, 'language', Text::_('JFIELD_LANGUAGE_LABEL', true)); ?>
+			<?php echo HTMLHelper::_('bootstrap.addTab', $this->tab_name, 'language', Text::_('JFIELD_LANGUAGE_LABEL', true)); ?>
     			<?php echo $this->form->renderField('language'); ?>
-			<?php echo HtmlHelper::_('bootstrap.endTab'); ?>
+			<?php echo HTMLHelper::_('bootstrap.endTab'); ?>
 
-			<?php echo HtmlHelper::_('bootstrap.addTab', $this->tab_name, 'metadata', Text::_('COM_SERMONSPEAKER_METADATA', true)); ?>
+			<?php echo HTMLHelper::_('bootstrap.addTab', $this->tab_name, 'metadata', Text::_('COM_SERMONSPEAKER_METADATA', true)); ?>
                 <?php echo $this->form->renderField('metadesc'); ?>
                 <?php echo $this->form->renderField('metakey'); ?>
-			<?php echo HtmlHelper::_('bootstrap.endTab'); ?>
+			<?php echo HTMLHelper::_('bootstrap.endTab'); ?>
 
-            <?php echo HtmlHelper::_('bootstrap.endTabSet'); ?>
+            <?php echo HTMLHelper::_('bootstrap.endTabSet'); ?>
 
 			<input type="hidden" name="task" value=""/>
 			<input type="hidden" name="return" value="<?php echo $this->return_page; ?>"/>

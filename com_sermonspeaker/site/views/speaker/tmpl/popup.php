@@ -12,7 +12,7 @@ defined('_JEXEC') or die();
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 
-HtmlHelper::_('bootstrap.tooltip', '.hasTooltip');
+HTMLHelper::_('bootstrap.tooltip', '.hasTooltip');
 
 $user = JFactory::getUser();
 
@@ -36,13 +36,13 @@ if (!$this->item->pic)
 		</a>
 		<?php if (in_array('speaker:intro', $this->columns) and $this->item->intro) : ?>
 			<div>
-				<?php echo HtmlHelper::_('content.prepare', $this->item->intro, '', 'com_sermonspeaker.intro'); ?>
+				<?php echo HTMLHelper::_('content.prepare', $this->item->intro, '', 'com_sermonspeaker.intro'); ?>
 			</div>
 		<?php endif;
 
 		if (in_array('speaker:bio', $this->columns) and $this->item->bio) : ?>
 			<div>
-				<?php echo HtmlHelper::_('content.prepare', $this->item->bio, '', 'com_sermonspeaker.bio'); ?>
+				<?php echo HTMLHelper::_('content.prepare', $this->item->bio, '', 'com_sermonspeaker.bio'); ?>
 			</div>
 		<?php endif; ?>
 	</div>

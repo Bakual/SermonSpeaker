@@ -18,12 +18,12 @@ use Joomla\CMS\Uri\Uri;
 
 HTMLHelper::addIncludePath(JPATH_COMPONENT . '/helpers');
 
-HtmlHelper::_('jquery.framework');
-HtmlHelper::_('bootstrap.tooltip', '.hasTooltip');
-HtmlHelper::_('bootstrap.dropdown');
+HTMLHelper::_('jquery.framework');
+HTMLHelper::_('bootstrap.tooltip', '.hasTooltip');
+HTMLHelper::_('bootstrap.dropdown');
 
 // Needed for pictures in blog layout
-HtmlHelper::_('stylesheet', 'com_sermonspeaker/blog.css', array('relative' => true));
+HTMLHelper::_('stylesheet', 'com_sermonspeaker/blog.css', array('relative' => true));
 
 $user       = Factory::getUser();
 $showState  = $user->authorise('core.edit', 'com_sermonspeaker');
@@ -58,7 +58,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 			<?php endif;
 
 			if ($this->params->get('show_description') and $this->category->description) :
-				echo HtmlHelper::_('content.prepare', $this->category->description, '', 'com_sermonspeaker.category');
+				echo HTMLHelper::_('content.prepare', $this->category->description, '', 'com_sermonspeaker.category');
 			endif; ?>
 			<div class="clearfix"></div>
 		</div>
@@ -101,21 +101,21 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 								</a>
 								<ul class="dropdown-menu">
 									<?php if ($playerid = !empty($player->id) ? $player->id : '') : ?>
-										<li class="play-icon"><?php echo HtmlHelper::_('icon.play', $item, $this->params, array('index' => $i, 'playerid' => $playerid)); ?></li>
+										<li class="play-icon"><?php echo HTMLHelper::_('icon.play', $item, $this->params, array('index' => $i, 'playerid' => $playerid)); ?></li>
 									<?php endif; ?>
 									<?php
 									if (in_array('sermons:download', $this->columns)) :
 										if ($item->audiofile) : ?>
-											<li class="download-icon"><?php echo HtmlHelper::_('icon.download', $item, $this->params, array('type' => 'audio')); ?></li>
+											<li class="download-icon"><?php echo HTMLHelper::_('icon.download', $item, $this->params, array('type' => 'audio')); ?></li>
 										<?php endif;
 
 										if ($item->videofile) : ?>
-											<li class="download-icon"><?php echo HtmlHelper::_('icon.download', $item, $this->params, array('type' => 'video')); ?></li>
+											<li class="download-icon"><?php echo HTMLHelper::_('icon.download', $item, $this->params, array('type' => 'video')); ?></li>
 										<?php endif; ?>
 									<?php endif; ?>
 									<?php
 									if ($canEdit or ($canEditOwn and ($user->id == $item->created_by))) : ?>
-										<li class="edit-icon"><?php echo HtmlHelper::_('icon.edit', $item, $this->params, array('type' => 'sermon')); ?></li>
+										<li class="edit-icon"><?php echo HTMLHelper::_('icon.edit', $item, $this->params, array('type' => 'sermon')); ?></li>
 									<?php endif; ?>
 								</ul>
 							</div>
@@ -160,7 +160,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 											<div class="create">
 												<i class="icon-calendar"></i>
 												<?php echo Text::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL'); ?>:
-												<?php echo HtmlHelper::date($item->sermon_date, Text::_($this->params->get('date_format')), true); ?>
+												<?php echo HTMLHelper::date($item->sermon_date, Text::_($this->params->get('date_format')), true); ?>
 											</div>
 										</dd>
 									<?php endif;
@@ -181,7 +181,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 												<i class="icon-quote"></i>
 												<?php echo Text::_('COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL'); ?>:
 												<?php $scriptures = SermonspeakerHelperSermonspeaker::insertScriptures($item->scripture, '; ');
-												echo HtmlHelper::_('content.prepare', $scriptures, '', 'com_sermonspeaker.scripture'); ?>
+												echo HTMLHelper::_('content.prepare', $scriptures, '', 'com_sermonspeaker.scripture'); ?>
 											</div>
 										</dd>
 									<?php endif;
@@ -211,7 +211,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 
 							<?php if (in_array('sermons:notes', $this->columns) and $item->notes) : ?>
 								<div>
-									<?php echo HtmlHelper::_('content.prepare', $item->notes, '', 'com_sermonspeaker.notes'); ?>
+									<?php echo HTMLHelper::_('content.prepare', $item->notes, '', 'com_sermonspeaker.notes'); ?>
 								</div>
 							<?php endif; ?>
 

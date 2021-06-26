@@ -22,7 +22,7 @@ $i     = 0;
 $count = count($list);
 $id    = 'sermonspeakerCarousel' . $module->id;
 
-HtmlHelper::_('bootstrap.carousel');
+HTMLHelper::_('bootstrap.carousel');
 ?>
 <div id="<?php echo $id; ?>" class="sermonspeaker<?php echo $moduleclass_sfx; ?> carousel slide">
 	<div id="sermonspeakerCarousel<?php echo $module->id; ?>" class="sermonspeaker_list">
@@ -42,7 +42,7 @@ HtmlHelper::_('bootstrap.carousel');
 					<div style="clear:left;"></div>
 					<?php if (strlen($row->tooltip) > 0) : ?>
 						<div>
-							<?php echo HtmlHelper::_('content.prepare', $row->tooltip); ?>
+							<?php echo HTMLHelper::_('content.prepare', $row->tooltip); ?>
 						</div>
 					<?php endif; ?>
 				</div>

@@ -213,7 +213,7 @@ class SermonspeakerTableSermon extends Table implements VersionableTableInterfac
 			{
 				if ($this->sermon_date == '')
 				{
-					$this->sermon_date = HtmlHelper::date($date, 'Y-m-d H:i:s', 'UTC');
+					$this->sermon_date = HTMLHelper::date($date, 'Y-m-d H:i:s', 'UTC');
 				}
 
 				$this->created = $date->toSql();

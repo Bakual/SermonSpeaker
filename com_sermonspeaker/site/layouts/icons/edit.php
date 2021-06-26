@@ -39,13 +39,13 @@ if ($item->state < 0)
 	return '';
 }
 
-HtmlHelper::_('bootstrap.tooltip', '.hasTooltip');
+HTMLHelper::_('bootstrap.tooltip', '.hasTooltip');
 
 // Show checked_out icon if the item is checked out by a different user
 if ($item->checked_out > 0 && $item->checked_out != Factory::getApplication()->getIdentity()->id)
 {
 	$checkoutUser = Factory::getUser($item->checked_out);
-	$date         = HtmlHelper::_('date', $item->checked_out_time);
+	$date         = HTMLHelper::_('date', $item->checked_out_time);
 	$tooltip      = Text::sprintf('COM_SERMONSPEAKER_CHECKED_OUT_BY', $checkoutUser->name) . ' <br /> ' . $date;
 
 	echo '<span class="hasTooltip icon-lock" title="' . $tooltip . '"></span>';
@@ -80,7 +80,7 @@ else
 
 if ($item->created != Factory::getDbo()->getNullDate())
 {
-	$date    = HtmlHelper::_('date', $item->created);
+	$date    = HTMLHelper::_('date', $item->created);
 	$tooltip .= '<br>';
 	$tooltip .= Text::sprintf('JGLOBAL_CREATED_DATE_ON', $date);
 }
