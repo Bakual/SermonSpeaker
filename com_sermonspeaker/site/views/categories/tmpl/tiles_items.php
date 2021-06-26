@@ -11,6 +11,7 @@ defined('_JEXEC') or die();
 
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Router\Route;
 
 HTMLHelper::_('bootstrap.tooltip', '.hasTooltip');
 $class         = 'first';
@@ -36,7 +37,7 @@ if (count($this->items[$this->parent->id]) and $this->maxLevelcat != 0) : ?>
 				?>
 				<span class="hasTooltip"
 					title="<?php echo HTMLHelper::tooltipText($item->title, $tooltip); ?>">
-					<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonsRoute($item->id, $item->language)); ?>">
+					<a href="<?php echo Route::_(SermonspeakerHelperRoute::getSermonsRoute($item->id, $item->language)); ?>">
 						<img border="0" align="middle" src="<?php echo $image; ?>"/>
 						<?php
 						if ($item->level == 1) : ?>

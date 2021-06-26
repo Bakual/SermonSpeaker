@@ -7,6 +7,7 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
+use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
 
@@ -14,12 +15,9 @@ use Joomla\CMS\Layout\LayoutHelper;
 Text::script('JGLOBAL_EXPAND_CATEGORIES');
 Text::script('JGLOBAL_COLLAPSE_CATEGORIES');
 
-/** @var Joomla\CMS\WebAsset\WebAssetManager $wa */
-$wa = $this->document->getWebAssetManager();
-$wa->getRegistry()->addExtensionRegistryFile('com_categories');
-$wa->useScript('com_categories.shared-categories-accordion');
+HTMLHelper::_('bootstrap.collapse');
 ?>
-<div class="com-content-categories categories-list">
+<div class="com-sermonspeaker-categories categories-list">
 	<?php
 	echo LayoutHelper::render('joomla.content.categories_default', $this);
 	echo $this->loadTemplate('items');
