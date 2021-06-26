@@ -453,6 +453,10 @@ $this->document->addScriptDeclaration('jQuery(function() {
 					</table>
 				<?php endif;
 
+				if ($user->authorise('core.create', 'com_sermonspeaker')) :
+					echo HTMLHelper::_('icon.create', $this->category, $this->params, 'serie');
+				endif;
+
 				if ($this->params->get('show_pagination') and ($this->pag_series->pagesTotal > 1)) : ?>
 					<div class="pagination">
 						<?php if ($this->params->get('show_pagination_results', 1)) : ?>
