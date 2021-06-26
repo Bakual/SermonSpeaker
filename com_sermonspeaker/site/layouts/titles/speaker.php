@@ -37,9 +37,9 @@ extract($displayData);
 		<a href="<?php echo Route::_(SermonspeakerHelperRoute::getSpeakerRoute($item->speaker_slug, $item->speaker_catid, $item->speaker_language)); ?>" itemprop="url">
 	<?php endif; ?>
 	<?php if ($item->pic) : ?>
-		<?php HTMLHelper::_('bootstrap.popover', '.hasPopover'); ?>
+		<?php HTMLHelper::_('bootstrap.popover', '.speakerPopover', ['trigger' => 'hover focus']); ?>
 		<meta itemprop="image" content="<?php echo SermonspeakerHelperSermonspeaker::makeLink($item->pic, true); ?>"/>
-		<span class="hasPopover" title="<?php echo $item->speaker_title; ?>"
+		<span class="speakerPopover" title="<?php echo $item->speaker_title; ?>"
 			  data-bs-content="<?php echo htmlspecialchars('<img src="' . SermonspeakerHelperSermonspeaker::makeLink($item->pic) . '" />'); ?>">
 			<span itemprop="name"><?php echo $item->speaker_title; ?></span>
 		</span>
