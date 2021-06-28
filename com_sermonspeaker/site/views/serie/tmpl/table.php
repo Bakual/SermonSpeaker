@@ -11,6 +11,7 @@ defined('_JEXEC') or die();
 
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Layout\LayoutHelper;
 
 HTMLHelper::addIncludePath(JPATH_COMPONENT . '/helpers');
 
@@ -265,10 +266,10 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 								<?php echo SermonspeakerHelperSermonspeaker::insertSermonTitle($i, $item, $player);
 
 								if ($canEdit or ($canEditOwn and ($user->id == $item->created_by))) : ?>
-									<span class="list-edit pull-left width-50">
-											<?php echo HTMLHelper::_('icon.edit', $item, $this->params, array('type' => 'sermon')); ?>
-											<?php echo JLayoutHelper::render('blocks.state_info', array('item' => $item, 'show' => true)); ?>
-										</span>
+									<span class="list-edit">
+										<?php echo LayoutHelper::render('icons.edit', ['item' => $item, 'params' => $this->params, 'type' => 'sermon', 'hide_text' => true]); ?>
+									</span>
+									<?php echo LayoutHelper::render('blocks.state_info', array('item' => $item, 'show' => true)); ?>
 								<?php endif; ?>
 
 							</td>
