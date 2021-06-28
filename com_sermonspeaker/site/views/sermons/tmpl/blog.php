@@ -12,6 +12,7 @@ defined('_JEXEC') or die();
 use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Layout\FileLayout;
 use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
@@ -34,24 +35,28 @@ $listOrder  = $this->state->get('list.ordering');
 $listDirn   = $this->state->get('list.direction');
 $limit      = (int) $this->params->get('limit', '');
 $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
+
+$htag    = $this->params->get('show_page_heading') ? 'h2' : 'h1';
 ?>
-<div class="category-list<?php echo $this->pageclass_sfx; ?> ss-sermons-container<?php echo $this->pageclass_sfx; ?>">
-	<?php
-	if ($this->params->get('show_page_heading', 1)) : ?>
-		<h1><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
-	<?php endif;
+<div class="com-sermonspeaker-sermons blog">
+	<?php if ($this->params->get('show_page_heading')) : ?>
+		<div class="page-header">
+			<h1> <?php echo $this->escape($this->params->get('page_heading')); ?> </h1>
+		</div>
+	<?php endif; ?>
 
-	if ($this->params->get('show_category_title', 1) or $this->params->get('page_subheading')) : ?>
-		<h2>
-			<?php echo $this->escape($this->params->get('page_subheading'));
+	<?php if ($this->params->get('show_category_title', 1)) : ?>
+	<<?php echo $htag; ?>>
+		<?php echo $this->category->title; ?>
+	</<?php echo $htag; ?>>
+	<?php endif; ?>
 
-			if ($this->params->get('show_category_title')) : ?>
-				<span class="subheading-category"><?php echo $this->category->title; ?></span>
-			<?php endif; ?>
-		</h2>
-	<?php endif;
+	<?php if ($this->params->get('show_cat_tags', 1) && !empty($this->category->tags->itemTags)) : ?>
+		<?php $this->category->tagLayout = new FileLayout('joomla.content.tags'); ?>
+		<?php echo $this->category->tagLayout->render($this->category->tags->itemTags); ?>
+	<?php endif; ?>
 
-	if ($this->params->get('show_description', 1) or $this->params->get('show_description_image', 1)) : ?>
+	<?php if ($this->params->get('show_description', 1) or $this->params->get('show_description_image', 1)) : ?>
 		<div class="category-desc">
 			<?php if ($this->params->get('show_description_image') and $this->category->getParams()->get('image')) : ?>
 				<img src="<?php echo $this->category->getParams()->get('image'); ?>"/>
