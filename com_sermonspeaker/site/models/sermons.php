@@ -574,26 +574,24 @@ class SermonspeakerModelSermons extends Listmodel
 		{
 			if (isset($this->state->params))
 			{
-				/** @var \Joomla\Registry\Registry $params */
 				$params                = $this->state->params;
 				$options               = array();
 				$options['countItems'] = $params->get('show_cat_num_items', 1) || !$params->get('show_empty_categories', 0);
+				$options['access']     = $params->get('check_access_rights', 1);
 			}
 			else
 			{
 				$options['countItems'] = 0;
 			}
 
-			$options['table'] = '#__sermon_sermons';
-
-			$categories = Categories::getInstance('sermonspeaker.sermons', $options);
+			$categories = Categories::getInstance('com_sermonspeaker.sermons', $options);
 			$this->item = $categories->get($this->getState('category.id', 'root'));
 
 			// Compute selected asset permissions
 			if (is_object($this->item))
 			{
 				$user  = Factory::getUser();
-				$asset = 'com_sermonspeaker.category.' . $this->item->id;
+				$asset = 'com_sermonspeaker.sermons.category.' . $this->item->id;
 
 				// Check general create permission
 				if ($user->authorise('core.create', $asset))

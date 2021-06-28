@@ -9,6 +9,7 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Helper\TagsHelper;
 use Joomla\CMS\Language\Text;
 
 /**
@@ -42,6 +43,9 @@ class SermonspeakerViewSermons extends JViewLegacy
 
 		// Get Category stuff from models
 		$this->category = $this->get('Category');
+		$this->category->tags = new TagsHelper;
+		$this->category->tags->getItemTags('com_sermonspeaker.sermons.category', $this->category->id);
+
 		$children       = $this->get('Children');
 		$this->parent   = $this->get('Parent');
 		$this->children = array($this->category->id => $children);
