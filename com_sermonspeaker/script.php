@@ -156,6 +156,12 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 			$this->deleteFiles[]   = '/administrator/components/com_sermonspeaker/sql/updates/mysql/5.4.0.sql';
 			$this->deleteFiles[]   = '/administrator/components/com_sermonspeaker/sql/updates/mysql/5.5.0.sql';
 
+			// Update Content Types (especially new categories)
+			$this->saveContentTypes();
+
+			// Migrate categories to new section based ones
+			$this->moveCategories();
+
 			// Add Dashboard menu on update
 			$this->addDashboardMenu('sermonspeaker', 'sermonspeaker');
 		}
@@ -205,12 +211,6 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 			$query->where($db->quoteName('name') . ' = ' . $db->quote('com_sermonspeaker'));
 			$db->setQuery($query);
 			$db->execute();
-		}
-
-		if ($type == 'update')
-		{
-			// Migrate categories to new section based ones
-			$this->moveCategories();
 		}
 
 		$this->removeFiles();
@@ -408,9 +408,15 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 
 		$table->save($contenttype);
 
-		// Create/Update Category Type
+		// Create/Update Category Types
+		// Sermons Categories
 		$table->type_id = 0;
 		$table->load(array('type_alias' => 'com_sermonspeaker.category'));
+
+		if ($table->type_id === 0)
+		{
+			$table->load(array('type_alias' => 'com_sermonspeaker.sermons.category'));
+		}
 
 		$field_mappings->common->core_state         = 'published';
 		$field_mappings->common->core_created_time  = 'created_time';
@@ -471,11 +477,41 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 		$table_object->special = $special;
 
 		$contenttype['type_id']                 = ($table->type_id) ? $table->type_id : 0;
-		$contenttype['type_title']              = 'SermonSpeaker Category';
-		$contenttype['type_alias']              = 'com_sermonspeaker.category';
+		$contenttype['type_title']              = 'SermonSpeaker Sermons Category';
+		$contenttype['type_alias']              = 'com_sermonspeaker.sermons.category';
 		$contenttype['table']                   = json_encode($table_object);
 		$contenttype['rules']                   = '';
 		$contenttype['router']                  = 'SermonspeakerHelperRoute::getSermonsRoute';
+		$contenttype['field_mappings']          = json_encode($field_mappings);
+		$contenttype['content_history_options'] = json_encode($history);
+
+		$table->save($contenttype);
+
+		// Series Categories
+		$table->type_id = 0;
+		$table->load(array('type_alias' => 'com_sermonspeaker.series.category'));
+
+		$contenttype['type_id']                 = ($table->type_id) ? $table->type_id : 0;
+		$contenttype['type_title']              = 'SermonSpeaker Series Category';
+		$contenttype['type_alias']              = 'com_sermonspeaker.series.category';
+		$contenttype['table']                   = json_encode($table_object);
+		$contenttype['rules']                   = '';
+		$contenttype['router']                  = 'SermonspeakerHelperRoute::getSeriesRoute';
+		$contenttype['field_mappings']          = json_encode($field_mappings);
+		$contenttype['content_history_options'] = json_encode($history);
+
+		$table->save($contenttype);
+
+		// Speakers Categories
+		$table->type_id = 0;
+		$table->load(array('type_alias' => 'com_sermonspeaker.speakers.category'));
+
+		$contenttype['type_id']                 = ($table->type_id) ? $table->type_id : 0;
+		$contenttype['type_title']              = 'SermonSpeaker Speakers Category';
+		$contenttype['type_alias']              = 'com_sermonspeaker.speakers.category';
+		$contenttype['table']                   = json_encode($table_object);
+		$contenttype['rules']                   = '';
+		$contenttype['router']                  = 'SermonspeakerHelperRoute::getSpeakersRoute';
 		$contenttype['field_mappings']          = json_encode($field_mappings);
 		$contenttype['content_history_options'] = json_encode($history);
 
