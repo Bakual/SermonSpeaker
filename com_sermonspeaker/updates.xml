@@ -30,10 +30,10 @@
 			</downloadurl>
 		</downloads>
 		<tags>
-			<tag>stable</tag>
+			<tag>beta</tag>
 		</tags>
 		<maintainer>Thomas Hunziker</maintainer>
 		<maintainerurl>https://www.sermonspeaker.net/</maintainerurl>
-		<targetplatform name="joomla" version="4.[01]"/>
+		<targetplatform name="joomla" version="4.0"/>
 	</update>
 </updates>
