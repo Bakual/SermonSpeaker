@@ -6,6 +6,7 @@
 		<element>com_sermonspeaker</element>
 		<type>component</type>
 		<version>5.9.8</version>
+		<client>site</client>
 		<infourl title="SermonSpeaker Component 5.9.8">https://github.com/Bakual/SermonSpeaker/releases/tag/5.9.8</infourl>
 		<downloads>
 			<downloadurl type="full" format="zip">https://github.com/Bakual/SermonSpeaker/releases/download/5.9.8/com_sermonspeaker.zip</downloadurl>
@@ -23,6 +24,7 @@
 		<element>com_sermonspeaker</element>
 		<type>component</type>
 		<version>6.0.0-beta1</version>
+		<client>site</client>
 		<downloads>
 			<downloadurl type="full" format="zip">https://github.com/Bakual/SermonSpeaker/releases/download/6.0.0-beta1/com_sermonspeaker.zip</downloadurl>
 		</downloads>
