@@ -74,11 +74,11 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 				<div
 					class="no_entries alert alert-error"><?php echo Text::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', Text::_('COM_SERMONSPEAKER_SERMONS')); ?></div>
 			<?php else : ?>
-				<ul class="category list-striped list-condensed">
+				<ul class="list-group list-group-flush">
 					<?php foreach ($this->items as $i => $item) : ?>
 						<?php $sep = 0; ?>
 						<li id="sermon<?php echo $i; ?>"
-							class="<?php echo ($item->state) ? '' : 'system-unpublished '; ?>cat-list-row<?php echo $i % 2; ?>">
+							class="<?php echo ($item->state) ? '' : 'system-unpublished '; ?>cat-list-row<?php echo $i % 2; ?> list-group-item">
 							<?php if (in_array('sermons:hits', $this->columns)) : ?>
 								<span class="ss-hits badge badge-info pull-right">
 									<?php echo Text::sprintf('JGLOBAL_HITS_COUNT', $item->hits); ?>
@@ -142,7 +142,11 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 							<?php endif; ?>
 
 							<?php if (in_array('sermons:date', $this->columns) and ($item->sermon_date != '0000-00-00 00:00:00')) : ?>
+								<?php if ($sep) : ?>
+									|
+								<?php endif; ?>
 								<span class="ss-date small pull-right">
+									<?php echo Text::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL'); ?>:
 									<?php echo HTMLHelper::date($item->sermon_date, Text::_($this->params->get('date_format')), true); ?>
 								</span>&nbsp;
 							<?php endif; ?>
