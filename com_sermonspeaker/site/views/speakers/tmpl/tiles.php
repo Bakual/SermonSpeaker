@@ -11,6 +11,7 @@ defined('_JEXEC') or die();
 
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Layout\LayoutHelper;
 
 HTMLHelper::_('stylesheet', 'com_sermonspeaker/tiles.css', array('relative' => true));
 HTMLHelper::addIncludePath(JPATH_COMPONENT . '/helpers');
@@ -25,33 +26,8 @@ $orderlist  = array(
 );
 ?>
 <div class="category-list<?php echo $this->pageclass_sfx; ?> ss-speakers-container<?php echo $this->pageclass_sfx; ?>">
-	<?php
-	if ($this->params->get('show_page_heading', 1)) : ?>
-		<h1><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
-	<?php endif;
+	<?php echo LayoutHelper::render('blocks.header', array('category' => $this->category, 'params' => $this->params)); ?>
 
-	if ($this->params->get('show_category_title', 1) or $this->params->get('page_subheading')) : ?>
-		<h2>
-			<?php echo $this->escape($this->params->get('page_subheading'));
-
-			if ($this->params->get('show_category_title')) : ?>
-				<span class="subheading-category"><?php echo $this->category->title; ?></span>
-			<?php endif; ?>
-		</h2>
-	<?php endif;
-
-	if ($this->params->get('show_description', 1) || $this->params->def('show_description_image', 1)) : ?>
-		<div class="category-desc">
-			<?php if ($this->params->get('show_description_image') && $this->category->getParams()->get('image')) : ?>
-				<img src="<?php echo $this->category->getParams()->get('image'); ?>"/>
-			<?php endif;
-
-			if ($this->params->get('show_description') && $this->category->description) :
-				echo HTMLHelper::_('content.prepare', $this->category->description);
-			endif; ?>
-			<div class="clr"></div>
-		</div>
-	<?php endif; ?>
 	<form action="<?php echo JFilterOutput::ampReplace(JUri::getInstance()->toString()); ?>" method="post"
 		id="adminForm" name="adminForm">
 		<?php

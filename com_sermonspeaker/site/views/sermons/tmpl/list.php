@@ -30,36 +30,10 @@ $listDirn   = $this->state->get('list.direction');
 $limit      = (int) $this->params->get('limit', '');
 $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 ?>
-<div class="category-list<?php echo $this->pageclass_sfx; ?> ss-sermons-container<?php echo $this->pageclass_sfx; ?>">
-	<?php
-	if ($this->params->get('show_page_heading', 1)) : ?>
-		<h1><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
-	<?php endif;
+<div class="com-sermonspeaker-sermons<?php echo $this->pageclass_sfx; ?> com-sermonspeaker-sermons-list">
+	<?php echo LayoutHelper::render('blocks.header', array('category' => $this->category, 'params' => $this->params)); ?>
 
-	if ($this->params->get('show_category_title', 1) or $this->params->get('page_subheading')) : ?>
-		<h2>
-			<?php echo $this->escape($this->params->get('page_subheading'));
-
-			if ($this->params->get('show_category_title')) : ?>
-				<span class="subheading-category"><?php echo $this->category->title; ?></span>
-			<?php endif; ?>
-		</h2>
-	<?php endif;
-
-	if ($this->params->get('show_description', 1) or $this->params->get('show_description_image', 1)) : ?>
-		<div class="category-desc">
-			<?php if ($this->params->get('show_description_image') and $this->category->getParams()->get('image')) : ?>
-				<img src="<?php echo $this->category->getParams()->get('image'); ?>"/>
-			<?php endif;
-
-			if ($this->params->get('show_description') and $this->category->description) :
-				echo HTMLHelper::_('content.prepare', $this->category->description, '', 'com_sermonspeaker.category');
-			endif; ?>
-			<div class="clearfix"></div>
-		</div>
-	<?php endif;
-
-	if (in_array('sermons:player', $this->columns) and count($this->items)) : ?>
+	<?php if (in_array('sermons:player', $this->columns) and count($this->items)) : ?>
 		<?php echo LayoutHelper::render('plugin.player', array('player' => $player, 'items' => $this->items, 'view' => 'sermons')); ?>
 	<?php endif; ?>
 	<div class="cat-items">
