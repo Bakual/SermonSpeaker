@@ -140,26 +140,6 @@ class SermonspeakerViewSermons extends JViewLegacy
 			$this->setLayout($this->params->get('sermonslayout', 'table'));
 		}
 
-		$js = 'function clear_all(){
-			if(document.getElementById(\'filter_tag\')){
-				document.getElementById(\'filter_tag\').value="";
-			}
-			if(document.getElementById(\'filter_books\')){
-				document.getElementById(\'filter_books\').value=0;
-			}
-			if(document.getElementById(\'filter_months\')){
-				document.getElementById(\'filter_months\').value=0;
-			}
-			if(document.getElementById(\'filter_years\')){
-				document.getElementById(\'filter_years\').value=0;
-			}
-			if(document.getElementById(\'filter-search\')){
-				document.getElementById(\'filter-search\').value="";
-			}
-			adminForm.submit();
-		}';
-		$this->document->addScriptDeclaration($js);
-
 		// Build Books
 		$groups = array();
 
