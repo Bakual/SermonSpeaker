@@ -239,7 +239,7 @@ class SermonspeakerModelSermons extends Listmodel
 		}
 
 		// Filter by scripture
-		$book = $this->getState('scripture.book');
+		$book = $this->getState('filter.book');
 
 		if ($book)
 		{
@@ -368,13 +368,6 @@ class SermonspeakerModelSermons extends Listmodel
 		}
 		else
 		{
-			$search = $app->getUserStateFromRequest($this->context . '.filter.search', 'filter-search', '', 'STRING');
-			$this->setState('filter.search', $search);
-
-			// Scripture filter
-			$book = $app->getUserStateFromRequest($this->context . '.scripture.book', 'book', 0, 'INT');
-			$this->setState('scripture.book', $book);
-
 			// Date filter, don't use UserState here as it could be set from module without the possibility to reset it.
 			// Needs additional URL params in pagination.
 			$month = $app->input->getInt('month', $params->get('month'));
