@@ -175,7 +175,7 @@ class SermonspeakerViewSermons extends JViewLegacy
 		$this->books = $groups;
 
 		$this->pageclass_sfx = htmlspecialchars($this->params->get('pageclass_sfx'));
-		$this->maxLevel      = $this->params->get('maxLevel', -1);
+		$this->maxLevel      = $this->params->get('maxLevel', -1) < 0 ? PHP_INT_MAX : $this->params->get('maxLevel', PHP_INT_MAX);
 		$this->_prepareDocument();
 
 		parent::display($tpl);
