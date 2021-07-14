@@ -48,8 +48,10 @@ $listDirn   = $this->state->get('list.direction');
 			<?php endif; ?>
 			<div class="clearfix"></div>
 			<?php if (!count($this->items)) : ?>
-				<div
-					class="no_entries alert alert-error"><?php echo Text::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', Text::_('COM_SERMONSPEAKER_SPEAKERS')); ?></div>
+				<div class="alert alert-info">
+					<span class="icon-info-circle" aria-hidden="true"></span><span class="visually-hidden"><?php echo Text::_('INFO'); ?></span>
+					<?php echo Text::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', Text::_('COM_SERMONSPEAKER_SPEAKERS')); ?>
+				</div>
 			<?php else : ?>
 				<div class="items-leading">
 					<?php foreach ($this->items as $i => $item) : ?>
@@ -134,14 +136,14 @@ $listDirn   = $this->state->get('list.direction');
 							<?php endif; ?>
 
 							<?php if ($item->sermons) : ?>
-								<a class="badge badge-info"
+								<a class="badge bg-info"
 									title="<?php echo Text::_('COM_SERMONSPEAKER_SPEAKERS_SERMONSLINK_HOOVER'); ?>"
 									href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug, $item->catid, $item->language) . '#sermons'); ?>">
 									<?php echo Text::_('COM_SERMONSPEAKER_SERMONS') . ': ' . $item->sermons; ?></a>&nbsp;
 							<?php endif; ?>
 
 							<?php if ($item->series) : ?>
-								<a class="badge badge-info"
+								<a class="badge bg-info"
 									title="<?php echo Text::_('COM_SERMONSPEAKER_SPEAKERS_SERIESLINK_HOOVER'); ?>"
 									href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug, $item->catid, $item->language) . '#series'); ?>">
 									<?php echo Text::_('COM_SERMONSPEAKER_SERIES') . ': ' . $item->series; ?></a>&nbsp;

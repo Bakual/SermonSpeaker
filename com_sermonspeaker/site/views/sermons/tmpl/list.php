@@ -43,21 +43,18 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 			<?php endif; ?>
 			<div class="clearfix"></div>
 			<?php if (!count($this->items)) : ?>
-				<div
-					class="no_entries alert alert-error"><?php echo Text::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', Text::_('COM_SERMONSPEAKER_SERMONS')); ?></div>
+				<div class="alert alert-info">
+					<span class="icon-info-circle" aria-hidden="true"></span><span class="visually-hidden"><?php echo Text::_('INFO'); ?></span>
+					<?php echo Text::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', Text::_('COM_SERMONSPEAKER_SERMONS')); ?>
+				</div>
 			<?php else : ?>
 				<ul class="list-group list-group-flush">
 					<?php foreach ($this->items as $i => $item) : ?>
 						<?php $sep = 0; ?>
 						<li id="sermon<?php echo $i; ?>"
 							class="<?php echo ($item->state) ? '' : 'system-unpublished '; ?>cat-list-row<?php echo $i % 2; ?> list-group-item">
-							<?php if (in_array('sermons:hits', $this->columns)) : ?>
-								<span class="ss-hits badge badge-info pull-right">
-									<?php echo Text::sprintf('JGLOBAL_HITS_COUNT', $item->hits); ?>
-								</span>
-							<?php endif; ?>
 							<?php if ($canEdit or ($canEditOwn and ($user->id == $item->created_by))) : ?>
-								<span class="list-edit pull-left width-50">
+								<span class="list-edit">
 									<?php echo HTMLHelper::_('icon.edit', $item, $this->params, array('type' => 'sermon')); ?>
 								</span>
 							<?php endif; ?>
@@ -65,6 +62,11 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 								<?php echo SermonspeakerHelperSermonspeaker::insertSermonTitle($i, $item, $player); ?>
 							</strong>
 							<?php echo LayoutHelper::render('blocks.state_info', array('item' => $item, 'show' => $showState)); ?>
+							<?php if (in_array('sermons:hits', $this->columns)) : ?>
+								<span class="ss-hits badge bg-info float-end">
+									<?php echo Text::sprintf('JGLOBAL_HITS_COUNT', $item->hits); ?>
+								</span>
+							<?php endif; ?>
 							<br/>
 							<?php if (in_array('sermons:speaker', $this->columns) and $item->speaker_title) : ?>
 								<?php $sep = 1; ?>
@@ -105,7 +107,6 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 								<?php if ($sep) : ?>
 									|
 								<?php endif; ?>
-								<?php $sep = 1; ?>
 								<small class="ss-scripture">
 									<?php echo Text::_('COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL'); ?>:
 									<?php $scriptures = SermonspeakerHelperSermonspeaker::insertScriptures($item->scripture, '; ');
@@ -114,12 +115,10 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 							<?php endif; ?>
 
 							<?php if (in_array('sermons:date', $this->columns) and ($item->sermon_date != '0000-00-00 00:00:00')) : ?>
-								<?php if ($sep) : ?>
-									|
-								<?php endif; ?>
-								<span class="ss-date small pull-right">
-									<?php echo Text::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL'); ?>:
-									<?php echo HTMLHelper::date($item->sermon_date, Text::_($this->params->get('date_format')), true); ?>
+								<span class="ss-date float-end">
+									<small class="text-muted">
+										<?php echo HTMLHelper::date($item->sermon_date, Text::_($this->params->get('date_format')), true); ?>
+									</small>
 								</span>&nbsp;
 							<?php endif; ?>
 						</li>
@@ -134,7 +133,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 			<?php if ($this->params->get('show_pagination') and ($this->pagination->pagesTotal > 1)) : ?>
 				<div class="pagination">
 					<?php if ($this->params->get('show_pagination_results', 1)) : ?>
-						<p class="counter pull-right">
+						<p class="counter float-end">
 							<?php echo $this->pagination->getPagesCounter(); ?>
 						</p>
 					<?php endif; ?>

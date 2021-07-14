@@ -46,8 +46,10 @@ $listDirn   = $this->state->get('list.direction');
 			<?php endif; ?>
 			<div class="clearfix"></div>
 			<?php if (!count($this->items)) : ?>
-				<div
-					class="no_entries alert alert-error"><?php echo Text::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', Text::_('COM_SERMONSPEAKER_SERIES')); ?></div>
+				<div class="alert alert-info">
+					<span class="icon-info-circle" aria-hidden="true"></span><span class="visually-hidden"><?php echo Text::_('INFO'); ?></span>
+					<?php echo Text::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', Text::_('COM_SERMONSPEAKER_SERIES')); ?>
+				</div>
 			<?php else : ?>
 				<ul class="category list-striped list-condensed">
 					<?php foreach ($this->items as $i => $item) :
@@ -55,7 +57,7 @@ $listDirn   = $this->state->get('list.direction');
 						<li class="<?php echo ($item->state) ? '' : 'system-unpublished '; ?>cat-list-row<?php echo $i % 2; ?>">
 							<?php
 							if (in_array('series:hits', $this->col_serie)) : ?>
-								<span class="ss-hits badge badge-info pull-right">
+								<span class="ss-hits badge bg-info pull-right">
 									<?php echo Text::sprintf('JGLOBAL_HITS_COUNT', $item->hits); ?>
 								</span>
 							<?php endif;

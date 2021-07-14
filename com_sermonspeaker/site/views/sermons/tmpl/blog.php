@@ -51,8 +51,10 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 			endif; ?>
 			<div class="clearfix"></div>
 			<?php if (!count($this->items)) : ?>
-				<div
-					class="no_entries alert alert-error"><?php echo Text::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', Text::_('COM_SERMONSPEAKER_SERMONS')); ?></div>
+				<div class="alert alert-info">
+					<span class="icon-info-circle" aria-hidden="true"></span><span class="visually-hidden"><?php echo Text::_('INFO'); ?></span>
+					<?php echo Text::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', Text::_('COM_SERMONSPEAKER_SERMONS')); ?>
+				</div>
 			<?php else : ?>
 				<div class="items-leading">
 					<?php foreach ($this->items as $i => $item) : ?>
