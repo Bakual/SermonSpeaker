@@ -27,34 +27,16 @@ $groups = $user->getAuthorisedViewLevels();
 		<?php if (in_array($child->access, $groups)) : ?>
 			<?php if ($this->params->get('show_empty_categories') || $child->getNumItems(true) || count($child->getChildren())) : ?>
 				<div class="com-sermonspeaker-sermons__children">
-					<?php if ($lang->isRtl()) : ?>
-						<h3 class="page-header item-title">
+					<h3 class="page-header item-title">
+						<?php if ($lang->isRtl()) : ?>
 							<?php if ( $this->params->get('show_cat_num_articles', 1)) : ?>
-								<span class="badge bg-info tip hasTooltip" title="<?php echo HTMLHelper::_('tooltipText', 'COM_SERMONSPEAKER_NUM_ITEMS'); ?>">
-									<?php echo $child->getNumItems(true); ?>
-								</span>
-								<span class="badge badge-info tip hasTooltip"
-									  title="<?php echo Text::_('COM_SERMONSPEAKER_NUM_ITEMS'); ?>">
+								<span class="badge bg-info hasTooltip" title="<?php echo Text::_('COM_SERMONSPEAKER_NUM_ITEMS'); ?>">
 									<?php echo $child->getNumItems(true); ?>
 								</span>
 							<?php endif; ?>
 							<a href="<?php echo Route::_(SermonspeakerHelperRoute::getSermonsRoute($child->id, $child->language)); ?>">
 								<?php echo $this->escape($child->title); ?></a>
-
-							<?php if (count($child->getChildren()) > 0 && $this->maxLevel > 1) : ?>
-								<button type="button"
-										id="category-btn-<?php echo $child->id; ?>"
-										data-bs-target="#category-<?php echo $child->id; ?>"
-										data-bs-toggle="collapse"
-										class="btn btn-secondary btn-sm float-end"
-										aria-label="<?php echo Text::_('JGLOBAL_EXPAND_CATEGORIES'); ?>"
-								>
-									<span class="icon-plus" aria-hidden="true"></span>
-								</button>
-							<?php endif; ?>
-						</h3>
-					<?php else : ?>
-						<h3 class="page-header item-title">
+						<?php else : ?>
 							<a href="<?php echo Route::_(SermonspeakerHelperRoute::getSermonsRoute($child->id, $child->language)); ?>">
 								<?php echo $this->escape($child->title); ?></a>
 							<?php if ( $this->params->get('show_cat_num_items', 1)) : ?>
@@ -62,19 +44,20 @@ $groups = $user->getAuthorisedViewLevels();
 									<?php echo $child->getNumItems(true); ?>
 								</span>
 							<?php endif; ?>
-							<?php if (count($child->getChildren()) > 0 && $this->maxLevel > 1) : ?>
-								<button type="button"
-										id="category-btn-<?php echo $child->id; ?>"
-										data-bs-target="#category-<?php echo $child->id; ?>"
-										data-bs-toggle="collapse"
-										class="btn btn-secondary btn-sm float-end"
-										aria-label="<?php echo Text::_('JGLOBAL_EXPAND_CATEGORIES'); ?>"
-								>
-									<span class="icon-plus" aria-hidden="true"></span>
-								</button>
-							<?php endif; ?>
-						</h3>
-					<?php endif; ?>
+						<?php endif; ?>
+
+						<?php if (count($child->getChildren()) > 0 && $this->maxLevel > 1) : ?>
+							<button type="button"
+									id="category-btn-<?php echo $child->id; ?>"
+									data-bs-target="#category-<?php echo $child->id; ?>"
+									data-bs-toggle="collapse"
+									class="btn btn-secondary btn-sm float-end"
+									aria-label="<?php echo Text::_('JGLOBAL_EXPAND_CATEGORIES'); ?>"
+							>
+								<span class="icon-plus" aria-hidden="true"></span>
+							</button>
+						<?php endif; ?>
+					</h3>
 					<?php if ($this->params->get('show_subcat_desc') == 1) : ?>
 						<?php if ($child->description) : ?>
 							<div class="category-desc">
