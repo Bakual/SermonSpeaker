@@ -190,11 +190,17 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 		$jinput->set('layout', 'default');
 		$append = parent::getRedirectToItemAppend($recordId, 's_id');
 		$itemId = $jinput->get('Itemid', 0, 'int');
+		$catId  = $jinput->get('catid', 0, 'int');
 		$return = $this->getReturnPage();
 
 		if ($itemId)
 		{
 			$append .= '&Itemid=' . $itemId;
+		}
+
+		if ($catId)
+		{
+			$append .= '&catid=' . $catId;
 		}
 
 		if ($return)

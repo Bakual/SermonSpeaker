@@ -113,39 +113,12 @@ class SermonspeakerModelFrontendupload extends SermonspeakerModelSermon
 			}
 		}
 
-		// Deprecated with SermonSpeaker 4.4.4. Using Ajax now for Lookup.
-		// Reading ID3 Tags if the Lookup Button was pressed
-		$jinput = JFactory::getApplication()->input;
-
-		if ($id3_file = $jinput->get('file', '', 'string'))
+		// Pre-select Category in edit form to the active category
+		if ($this->getState('sermon.id') == 0)
 		{
-			if ($jinput->get('type') == 'video')
+			if ($categoryId = $this->getState('frontendupload.catid'))
 			{
-				$data->videofile = $id3_file;
-			}
-			else
-			{
-				$data->audiofile = $id3_file;
-			}
-
-			require_once JPATH_COMPONENT_SITE . '/helpers/id3.php';
-			$params = ComponentHelper::getParams('com_sermonspeaker');
-
-			$id3 = SermonspeakerHelperId3::getID3($id3_file, $params);
-
-			if ($id3)
-			{
-				foreach ($id3 as $key => $value)
-				{
-					if ($value)
-					{
-						$data->$key = $value;
-					}
-				}
-			}
-			else
-			{
-				JFactory::getApplication()->enqueueMessage(Text::_('COM_SERMONSPEAKER_ERROR_ID3'), 'notice');
+				$data->set('catid', $categoryId);
 			}
 		}
 
