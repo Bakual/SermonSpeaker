@@ -86,7 +86,7 @@ $self = $uri->toString();
                         <?php echo $this->form->getInput('audiofile');
 
                         if ($this->params->get('enable_flash')) : ?>
-                            <div id="audiopathinfo" class="badge badge-info hasTooltip"
+                            <div id="audiopathinfo" class="badge bg-info hasTooltip"
                                  title="<?php echo Text::_('COM_SERMONSPEAKER_UPLOADINFO_TOOLTIP'); ?>">
                                 <?php echo Text::_('COM_SERMONSPEAKER_UPLOADINFO');
 
@@ -109,7 +109,7 @@ $self = $uri->toString();
                         <?php echo $this->form->getInput('videofile');
 
                         if ($this->params->get('enable_flash')) : ?>
-                            <div id="videopathinfo" class="badge badge-info hasTooltip"
+                            <div id="videopathinfo" class="badge bg-info hasTooltip"
                                  title="<?php echo Text::_('COM_SERMONSPEAKER_UPLOADINFO_TOOLTIP'); ?>">
                                 <?php echo Text::_('COM_SERMONSPEAKER_UPLOADINFO');
 
@@ -132,7 +132,7 @@ $self = $uri->toString();
                         <?php echo $this->form->getInput('addfile');
 
                         if ($this->params->get('enable_flash')) : ?>
-                            <div id="addfilepathinfo" class="badge badge-info hasTooltip"
+                            <div id="addfilepathinfo" class="badge bg-info hasTooltip"
                                  title="<?php echo Text::_('COM_SERMONSPEAKER_UPLOADINFO_TOOLTIP'); ?>">
                                 <?php echo Text::_('COM_SERMONSPEAKER_UPLOADINFO') . ' /' . trim($this->params->get('path_addfile'), '/')
                                     . '/<span id="addfilepathdate" class="pathdate">' . $this->append_date . '</span>'

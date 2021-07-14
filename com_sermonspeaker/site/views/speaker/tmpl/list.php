@@ -129,7 +129,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 									class="<?php echo ($item->state) ? '' : 'system-unpublished '; ?>cat-list-row<?php echo $i % 2; ?>">
 									<?php
 									if (in_array('speaker:hits', $this->col_sermon)) : ?>
-										<span class="ss-hits badge badge-info pull-right">
+										<span class="ss-hits badge bg-info pull-right">
 											<?php echo Text::sprintf('JGLOBAL_HITS_COUNT', $item->hits); ?>
 										</span>
 									<?php endif;
@@ -240,7 +240,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 								<li class="<?php echo ($item->state) ? '' : 'system-unpublished '; ?>cat-list-row<?php echo $i % 2; ?>">
 									<?php
 									if (in_array('speaker:hits', $this->col_serie)) : ?>
-										<span class="ss-hits badge badge-info pull-right">
+										<span class="ss-hits badge bg-info pull-right">
 											<?php echo Text::sprintf('JGLOBAL_HITS_COUNT', $item->hits); ?>
 										</span>
 									<?php endif;

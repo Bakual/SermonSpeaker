@@ -162,7 +162,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 							class="<?php echo ($item->state) ? '' : 'system-unpublished '; ?>cat-list-row<?php echo $i % 2; ?>">
 							<?php
 							if (in_array('serie:hits', $this->columns)) : ?>
-								<span class="ss-hits badge badge-info pull-right">
+								<span class="ss-hits badge bg-info pull-right">
 									<?php echo Text::sprintf('JGLOBAL_HITS_COUNT', $item->hits); ?>
 								</span>
 							<?php endif;
