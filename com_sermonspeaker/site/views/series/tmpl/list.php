@@ -12,6 +12,8 @@ defined('_JEXEC') or die();
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
+use Joomla\CMS\Router\Route;
+use Joomla\CMS\Uri\Uri;
 
 HTMLHelper::addIncludePath(JPATH_COMPONENT . '/helpers');
 
@@ -25,25 +27,12 @@ $canEditOwn = ($fu_enable and $user->authorise('core.edit.own', 'com_sermonspeak
 $listOrder  = $this->state->get('list.ordering');
 $listDirn   = $this->state->get('list.direction');
 ?>
-<div class="category-list<?php echo $this->pageclass_sfx; ?> ss-series-container<?php echo $this->pageclass_sfx; ?>">
+<div class="com-sermonspeaker-series<?php echo $this->pageclass_sfx; ?> com-sermonspeaker-series-list">
 	<?php echo LayoutHelper::render('blocks.header', array('category' => $this->category, 'params' => $this->params)); ?>
 
 	<div class="cat-items">
-		<form action="<?php echo htmlspecialchars(JUri::getInstance()->toString()); ?>" method="post" id="adminForm"
-			name="adminForm">
-			<?php
-			if ($this->params->get('filter_field') or $this->params->get('show_pagination_limit')) : ?>
-				<div class="filters btn-toolbar">
-					<?php if ($this->params->get('show_pagination_limit')) : ?>
-						<div class="btn-group pull-right">
-							<label class="element-invisible">
-								<?php echo Text::_('JGLOBAL_DISPLAY_NUM'); ?>
-							</label>
-							<?php echo $this->pagination->getLimitBox(); ?>
-						</div>
-					<?php endif; ?>
-				</div>
-			<?php endif; ?>
+		<form action="<?php echo htmlspecialchars(Uri::getInstance()->toString()); ?>" method="post" name="adminForm" id="adminForm" class="com-sermonspeaker-series__series">
+			<?php echo $this->loadTemplate('filters'); ?>
 			<div class="clearfix"></div>
 			<?php if (!count($this->items)) : ?>
 				<div class="alert alert-info">
@@ -51,28 +40,26 @@ $listDirn   = $this->state->get('list.direction');
 					<?php echo Text::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', Text::_('COM_SERMONSPEAKER_SERIES')); ?>
 				</div>
 			<?php else : ?>
-				<ul class="category list-striped list-condensed">
-					<?php foreach ($this->items as $i => $item) :
-						$sep = 0; ?>
-						<li class="<?php echo ($item->state) ? '' : 'system-unpublished '; ?>cat-list-row<?php echo $i % 2; ?>">
-							<?php
-							if (in_array('series:hits', $this->col_serie)) : ?>
-								<span class="ss-hits badge bg-info pull-right">
-									<?php echo Text::sprintf('JGLOBAL_HITS_COUNT', $item->hits); ?>
-								</span>
-							<?php endif;
-
-							if ($canEdit or ($canEditOwn and ($user->id == $item->created_by))) : ?>
-								<span class="list-edit pull-left width-50">
+				<ul class="list-group list-group-flush">
+					<?php foreach ($this->items as $i => $item) : ?>
+						<?php $sep = 0; ?>
+						<li class="<?php echo ($item->state) ? '' : 'system-unpublished '; ?>cat-list-row<?php echo $i % 2; ?> list-group-item">
+							<?php if ($canEdit or ($canEditOwn and ($user->id == $item->created_by))) : ?>
+								<span class="list-edit">
 									<?php echo HTMLHelper::_('icon.edit', $item, $this->params, array('type' => 'serie')); ?>
 								</span>
 							<?php endif; ?>
 							<strong class="ss-title">
-								<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->slug, $item->catid, $item->language)); ?>">
+								<a href="<?php echo Route::_(SermonspeakerHelperRoute::getSerieRoute($item->slug, $item->catid, $item->language)); ?>">
 									<?php echo $item->title; ?>
 								</a>
 							</strong>
-							<?php echo JLayoutHelper::render('blocks.state_info', array('item' => $item, 'show' => $showState)); ?>
+							<?php echo LayoutHelper::render('blocks.state_info', array('item' => $item, 'show' => $showState)); ?>
+							<?php if (in_array('series:hits', $this->col_serie)) : ?>
+								<span class="ss-hits badge bg-info float-end">
+									<?php echo Text::sprintf('JGLOBAL_HITS_COUNT', $item->hits); ?>
+								</span>
+							<?php endif; ?>
 							<br/>
 							<?php if (in_array('series:speaker', $this->col_serie) and $item->speakers) : ?>
 								<small class="ss-speakers">
@@ -92,7 +79,7 @@ $listDirn   = $this->state->get('list.direction');
 			if ($this->params->get('show_pagination') and ($this->pagination->pagesTotal > 1)) : ?>
 				<div class="pagination">
 					<?php if ($this->params->get('show_pagination_results', 1)) : ?>
-						<p class="counter pull-right">
+						<p class="counter float-end">
 							<?php echo $this->pagination->getPagesCounter(); ?>
 						</p>
 					<?php endif;
