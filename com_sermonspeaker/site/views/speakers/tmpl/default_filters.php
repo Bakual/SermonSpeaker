@@ -12,7 +12,7 @@ defined('_JEXEC') or die();
 use Joomla\CMS\Language\Text;
 ?>
 <?php if ($this->params->get('show_pagination_limit')) : ?>
-	<div class="com-sermonspeaker-sermons__pagination btn-group float-end">
+	<div class="com-sermonspeaker-speakers__pagination btn-group float-end">
 		<label for="limit" class="visually-hidden">
 			<?php echo Text::_('JGLOBAL_DISPLAY_NUM'); ?>
 		</label>
