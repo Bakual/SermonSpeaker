@@ -9,121 +9,41 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Layout\LayoutHelper;
+use Joomla\CMS\Uri\Uri;
 
-HTMLHelper::_('stylesheet', 'com_sermonspeaker/tiles.css', array('relative' => true));
 HTMLHelper::addIncludePath(JPATH_COMPONENT . '/helpers');
+
 HTMLHelper::_('bootstrap.tooltip', '.hasTooltip');
-$user       = JFactory::getUser();
-$canEdit    = $user->authorise('core.edit', 'com_sermonspeaker');
-$canEditOwn = $user->authorise('core.edit.own', 'com_sermonspeaker');
+HTMLHelper::_('stylesheet', 'com_sermonspeaker/tiles.css', array('relative' => true));
+
+$user       = Factory::getUser();
+$fu_enable  = $this->params->get('fu_enable');
+$canEdit    = ($fu_enable and $user->authorise('core.edit', 'com_sermonspeaker'));
+$canEditOwn = ($fu_enable and $user->authorise('core.edit.own', 'com_sermonspeaker'));
 $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 ?>
-<div class="category-list<?php echo $this->pageclass_sfx; ?> ss-serie-container<?php echo $this->pageclass_sfx; ?>">
-	<?php
-	if ($this->params->get('show_page_heading', 1)) : ?>
-		<h1><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
+<div class="com-sermonspeaker-serie<?php echo $this->pageclass_sfx; ?> com-sermonspeaker-serie-tiles">
+	<?php echo $this->loadTemplate('header'); ?>
+	<div class="clearfix"></div>
+	<?php if (in_array('serie:player', $this->columns) and count($this->items)) : ?>
+		<?php echo LayoutHelper::render('plugin.player', array('player' => $player, 'items' => $this->items, 'view' => 'serie')); ?>
 	<?php endif; ?>
-	<h2><?php echo $this->item->title; ?></h2>
-	<?php
-	if ($canEdit or ($canEditOwn and ($user->id == $this->item->created_by))) : ?>
-		<ul class="actions">
-			<li class="edit-icon">
-				<?php echo HTMLHelper::_('icon.edit', $this->item, $this->params, array('type' => 'serie')); ?>
-			</li>
-		</ul>
-	<?php endif;
+	<?php echo $this->item->event->afterDisplayContent; ?>
+	<form action="<?php echo htmlspecialchars(Uri::getInstance()->toString()); ?>" method="post" name="adminForm" id="adminForm" class="com-sermonspeaker-serie__sermons">
+		<?php if ($this->params->get('filter_field') or $this->params->get('show_pagination_limit')) : ?>
+			<?php echo $this->loadTemplate('filters'); ?>
+		<?php endif; ?>
+		<div class="clearfix"></div>
 
-	if ($this->params->get('show_category_title', 0) or in_array('serie:hits', $this->col_serie) or in_array('serie:speaker', $this->col_serie)) : ?>
-		<dl class="article-info serie-info">
-			<dt class="article-info-term"><?php echo Text::_('JDETAILS'); ?></dt>
-			<?php
-			if ($this->params->get('show_category_title', 0)) : ?>
-				<dd class="category-name">
-					<?php echo Text::_('JCATEGORY') . ': ' . $this->category->title; ?>
-				</dd>
-			<?php endif;
-
-			if (in_array('serie:speaker', $this->col_serie) and $this->item->speakers) : ?>
-				<dd class="createdby">
-					<?php echo Text::_('COM_SERMONSPEAKER_SPEAKERS') . ': ' . $this->item->speakers; ?>
-				</dd>
-			<?php endif;
-
-			if (in_array('serie:hits', $this->col_serie)) : ?>
-				<dd class="hits">
-					<?php echo Text::_('JGLOBAL_HITS') . ': ' . $this->item->hits; ?>
-				</dd>
-			<?php endif;
-
-			if (in_array('serie:download', $this->col_serie)) : ?>
-				<dd class="hits">
-					<?php echo Text::_('COM_SERMONSPEAKER_DOWNLOADSERIES_LABEL') . ': '; ?>
-					<a href="<?php echo JRoute::_('index.php?task=serie.download&id=' . $this->item->slug); ?>"
-						target="_blank" title="<?php echo Text::_('COM_SERMONSPEAKER_DOWNLOADSERIES_DESC'); ?>">
-						<img src="media/com_sermonspeaker/images/download.png"
-							alt="<?php echo Text::_('COM_SERMONSPEAKER_DOWNLOADSERIES_LABEL'); ?>"/>
-					</a></dd>
-			<?php endif; ?>
-		</dl>
-	<?php endif;
-
-	if (in_array('serie:description', $this->col_serie)) : ?>
-		<div class="category-desc">
-			<div class="ss-avatar">
-				<?php if ($this->item->avatar) : ?>
-					<img src="<?php echo trim($this->item->avatar, '/'); ?>">
-				<?php endif; ?>
+		<?php if (!count($this->items)) : ?>
+			<div class="alert alert-info">
+				<span class="icon-info-circle" aria-hidden="true"></span><span class="visually-hidden"><?php echo Text::_('INFO'); ?></span>
+				<?php echo Text::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', Text::_('COM_SERMONSPEAKER_SERMONS')); ?>
 			</div>
-			<?php echo HTMLHelper::_('content.prepare', $this->item->series_description); ?>
-			<div class="clear-left"></div>
-		</div>
-	<?php endif;
-
-	if (in_array('serie:player', $this->columns) and count($this->items)) :
-		HTMLHelper::_('stylesheet', 'com_sermonspeaker/player.css', array('relative' => true)); ?>
-		<div class="ss-serie-player">
-			<hr class="ss-serie-player"/>
-			<?php if (empty($player->hideInfo)): ?>
-				<div id="playing">
-					<img id="playing-pic" class="picture" src=""/>
-					<span id="playing-duration" class="duration"></span>
-					<div class="text">
-						<span id="playing-title" class="title"></span>
-						<span id="playing-desc" class="desc"></span>
-					</div>
-					<span id="playing-error" class="error"></span>
-				</div>
-			<?php endif;
-			echo $player->mspace;
-			echo $player->script;
-			?>
-			<hr class="ss-serie-player"/>
-			<?php if ($player->toggle) : ?>
-                <div class="row">
-                    <div class="mx-auto btn-group">
-                        <button type="button" onclick="Video()" class="btn btn-secondary" title="<?php echo Text::_('COM_SERMONSPEAKER_SWITCH_VIDEO'); ?>">
-                            <span class="fas fa-film fa-4x"></span>
-                        </button>
-                        <button type="button" onclick="Audio()" class="btn btn-secondary" title="<?php echo Text::_('COM_SERMONSPEAKER_SWITCH_AUDIO'); ?>">
-                            <span class="fas fa-music fa-4x"></span>
-                        </button>
-                    </div>
-                </div>
-			<?php endif; ?>
-		</div>
-	<?php endif; ?>
-	<form action="<?php echo JFilterOutput::ampReplace(JUri::getInstance()->toString()); ?>" method="post"
-		id="adminForm" name="adminForm" class="form-inline">
-		<?php
-		if ($this->params->get('filter_field') or $this->params->get('show_pagination_limit')) :
-			echo $this->loadTemplate('filters');
-		endif;
-
-		if (!count($this->items)) : ?>
-			<div
-				class="no_entries"><?php echo Text::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', Text::_('COM_SERMONSPEAKER_SERMONS')); ?></div>
 		<?php else : ?>
 			<?php foreach ($this->items as $i => $item) :
 				// Preparing tooltip
