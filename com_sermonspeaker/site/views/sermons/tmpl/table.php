@@ -36,11 +36,10 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 		<?php echo LayoutHelper::render('plugin.player', array('player' => $player, 'items' => $this->items, 'view' => 'sermons')); ?>
 	<?php endif; ?>
 	<div class="cat-items">
-		<form action="<?php echo htmlspecialchars(Uri::getInstance()->toString()); ?>" method="post" id="adminForm"
-			  name="adminForm" class="form-inline">
-			<?php if ($this->params->get('filter_field') or $this->params->get('show_pagination_limit')) :
-				echo $this->loadTemplate('filters');
-			endif; ?>
+		<form action="<?php echo htmlspecialchars(Uri::getInstance()->toString()); ?>" method="post" name="adminForm" id="adminForm" class="com-sermonspeaker-sermons__sermons">
+			<?php if ($this->params->get('filter_field') or $this->params->get('show_pagination_limit')) : ?>
+				<?php echo $this->loadTemplate('filters'); ?>
+			<?php endif; ?>
 			<div class="clearfix"></div>
 			<?php if (!count($this->items)) : ?>
 				<div class="alert alert-info">
@@ -48,7 +47,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 					<?php echo Text::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', Text::_('COM_SERMONSPEAKER_SERMONS')); ?>
 				</div>
 			<?php else : ?>
-				<table class="com-sermonspeaker-series__table category table table-striped table-bordered table-hover">
+				<table class="com-sermonspeaker-sermons__table category table table-striped table-bordered table-hover">
 					<thead>
 					<tr>
 						<?php if (in_array('sermons:num', $this->columns)) : ?>

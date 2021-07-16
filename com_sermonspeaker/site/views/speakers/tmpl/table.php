@@ -25,24 +25,13 @@ $canEditOwn = ($fu_enable and $user->authorise('core.edit.own', 'com_sermonspeak
 $listOrder  = $this->state->get('list.ordering');
 $listDirn   = $this->state->get('list.direction');
 ?>
-<div class="category-list<?php echo $this->pageclass_sfx; ?> ss-speakers-container<?php echo $this->pageclass_sfx; ?>">
+<div class="com-sermonspeaker-speakers<?php echo $this->pageclass_sfx; ?>  com-sermonspeaker-speakers-table category-list">
 	<?php echo LayoutHelper::render('blocks.header', array('category' => $this->category, 'params' => $this->params)); ?>
 
 	<div class="cat-items">
-		<form action="<?php echo htmlspecialchars(JUri::getInstance()->toString()); ?>" method="post" id="adminForm"
-			name="adminForm">
-			<?php
-			if ($this->params->get('filter_field') or $this->params->get('show_pagination_limit')) : ?>
-				<div class="filters btn-toolbar">
-					<?php if ($this->params->get('show_pagination_limit')) : ?>
-						<div class="btn-group pull-right">
-							<label class="element-invisible">
-								<?php echo Text::_('JGLOBAL_DISPLAY_NUM'); ?>
-							</label>
-							<?php echo $this->pagination->getLimitBox(); ?>
-						</div>
-					<?php endif; ?>
-				</div>
+		<form action="<?php echo htmlspecialchars(JUri::getInstance()->toString()); ?>" method="post" name="adminForm" id="adminForm" class="com-sermonspeaker-speakers__speakers">
+			<?php if ($this->params->get('filter_field') or $this->params->get('show_pagination_limit')) : ?>
+				<?php echo $this->loadTemplate('filters'); ?>
 			<?php endif; ?>
 			<div class="clearfix"></div>
 			<?php if (!count($this->items)) : ?>
@@ -51,7 +40,7 @@ $listDirn   = $this->state->get('list.direction');
 					<?php echo Text::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', Text::_('COM_SERMONSPEAKER_SPEAKERS')); ?>
 				</div>
 			<?php else : ?>
-				<table class="com-sermonspeaker-series__table category table table-striped table-bordered table-hover">
+				<table class="com-sermonspeaker-speakers__table category table table-striped table-bordered table-hover">
 					<thead>
 					<tr>
 						<th class="ss-title">
