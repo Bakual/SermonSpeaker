@@ -94,7 +94,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 							<?php echo $item->event->afterDisplayTitle; ?>
 
 							<?php if ($picture = SermonspeakerHelperSermonspeaker::insertPicture($item)) : ?>
-								<div class="img-polaroid pull-right item-image sermon-image"><img
+								<div class="img-thumbnail pull-right item-image sermon-image"><img
 										src="<?php echo $picture; ?>"></div>
 							<?php endif; ?>
 							<div class="article-info sermon-info muted">

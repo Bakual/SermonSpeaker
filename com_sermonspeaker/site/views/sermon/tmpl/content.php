@@ -169,7 +169,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 	</div>
 	<?php echo $this->item->event->beforeDisplayContent; ?>
 	<?php if ($picture = SermonspeakerHelperSermonspeaker::insertPicture($this->item)) : ?>
-		<div class="img-polaroid pull-right item-image sermon-image"><img src="<?php echo $picture; ?>"></div>
+		<div class="img-thumbnail pull-right item-image sermon-image"><img src="<?php echo $picture; ?>"></div>
 	<?php endif; ?>
 
 	<?php if ($this->params->get('show_tags', 1) and !empty($this->item->tags->itemTags)) : ?>

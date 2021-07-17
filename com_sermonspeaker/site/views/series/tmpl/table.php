@@ -96,7 +96,7 @@ $listDirn   = $this->state->get('list.direction');
 								if ($item->avatar) : ?>
 									<td class="ss-col ss-av hidden-phone hidden-tablet"><a
 											href="<?php echo Route::_(SermonspeakerHelperRoute::getSerieRoute($item->slug, $item->catid, $item->language)); ?>"><img
-												class="img-polaroid"
+												class="img-thumbnail "
 												src="<?php echo SermonspeakerHelperSermonspeaker::makeLink($item->avatar); ?>"></a>
 									</td>
 								<?php else : ?>
