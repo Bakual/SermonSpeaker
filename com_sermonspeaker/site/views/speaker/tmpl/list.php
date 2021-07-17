@@ -9,17 +9,18 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
+use Joomla\CMS\Uri\Uri;
 
 HTMLHelper::addIncludePath(JPATH_COMPONENT . '/helpers');
 
 HTMLHelper::_('bootstrap.tooltip', '.hasTooltip');
-HTMLHelper::_('bootstrap.dropdown');
 HTMLHelper::_('bootstrap.tab');
 
-$user             = JFactory::getUser();
+$user             = Factory::getUser();
 $showState        = $user->authorise('core.edit', 'com_sermonspeaker');
 $fu_enable        = $this->params->get('fu_enable');
 $canEdit          = ($fu_enable and $user->authorise('core.edit', 'com_sermonspeaker'));
@@ -30,47 +31,29 @@ $listOrderSeries  = $this->state_series->get('list.ordering');
 $listDirnSeries   = $this->state_series->get('list.direction');
 $limit            = (int) $this->params->get('limit', '');
 $player           = SermonspeakerHelperSermonspeaker::getPlayer($this->sermons);
-$this->document->addScriptDeclaration('jQuery(function() {
-		if (location.hash == \'#series\') {
-			tab = \'#tab_series\';
-		} else {
-			tab = \'#tab_sermons\';
+
+// Determine active tab
+$this->document->addScriptDeclaration("window.onload = function() {
+		let tab = 'tabber_sermons';
+		if (location.hash == '#series') {
+			tab = 'tabber_series';
 		}
-		jQuery(\'#speakerTab a[href="\' + tab + \'"]\').tab(\'show\');
-	})');
+		let bootstrapTab = new bootstrap.Tab(document.getElementById(tab));
+		bootstrapTab.show();
+	}");
 ?>
-<div class="category-list<?php echo $this->pageclass_sfx; ?> ss-speaker-container<?php echo $this->pageclass_sfx; ?>"
-	itemscope itemtype="http://schema.org/Person">
-	<?php
-	if ($this->params->get('show_page_heading', 1)) : ?>
-		<h1><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
-	<?php endif; ?>
-	<div class="<?php echo ($this->item->state) ? '' : 'system-unpublished'; ?>">
-		<div class="btn-group pull-right">
-			<a class="btn dropdown-toggle" data-bs-toggle="dropdown" href="#">
-				<i class="icon-cog"></i>
-				<span class="caret"></span>
-			</a>
-			<ul class="dropdown-menu">
-				<?php
-				if ($canEdit or ($canEditOwn and ($user->id == $this->item->created_by))) : ?>
-					<li class="edit-icon">
-						<?php echo LayoutHelper::render('icons.edit', ['item' => $this->item, 'params' => $this->params, 'type' => 'speaker']); ?>
-					</li>
-				<?php endif; ?>
-			</ul>
-		</div>
-		<?php echo JLayoutHelper::render('blocks.speaker', array('item' => $this->item, 'params' => $this->params, 'columns' => $this->columns)); ?>
-	</div>
+<div class="com-sermonspeaker-speaker<?php echo $this->pageclass_sfx; ?> com-sermonspeaker-speaker-list" itemscope itemtype="http://schema.org/Person">
+	<?php echo $this->loadTemplate('header'); ?>
 	<div class="clearfix"></div>
+
 	<ul class="nav nav-tabs" id="speakerTab" role="tablist">
-		<li class="nav-link-item">
-			<a href="#tab_sermons" class="nav-link" data-bs-toggle="tab"
-			   role="tab"><?php echo Text::_('COM_SERMONSPEAKER_SERMONS'); ?></a>
+		<li class="nav-item">
+			<a href="#tab_sermons" id="tabber_sermons" class="nav-link active" data-bs-toggle="tab" role="tab">
+				<?php echo Text::_('COM_SERMONSPEAKER_SERMONS'); ?></a>
 		</li>
-		<li class="nav-link-item">
-			<a href="#tab_series" class="nav-link" data-bs-toggle="tab"
-			   role="tab"><?php echo Text::_('COM_SERMONSPEAKER_SERIES'); ?></a>
+		<li class="nav-item">
+			<a href="#tab_series" id="tabber_series" class="nav-link" data-bs-toggle="tab" role="tab">
+				<?php echo Text::_('COM_SERMONSPEAKER_SERIES'); ?></a>
 		</li>
 	</ul>
 	<div class="tab-content">
