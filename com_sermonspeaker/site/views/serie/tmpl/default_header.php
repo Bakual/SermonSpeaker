@@ -9,12 +9,13 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
 
-$user       = JFactory::getUser();
+$user       = Factory::getUser();
 $showState  = $user->authorise('core.edit', 'com_sermonspeaker');
 $fu_enable  = $this->params->get('fu_enable');
 $canEdit    = ($fu_enable and $user->authorise('core.edit', 'com_sermonspeaker'));
@@ -66,7 +67,7 @@ $htag = $this->params->get('show_page_heading') ? 'h2' : 'h1';
 </div>
 
 <?php if ($this->item->avatar) : ?>
-	<div class="img-polaroid float-end item-image">
+	<div class="img-thumbnail float-end item-image">
 		<img src="<?php echo SermonspeakerHelperSermonspeaker::makeLink($this->item->avatar); ?>">
 	</div>
 <?php endif; ?>
