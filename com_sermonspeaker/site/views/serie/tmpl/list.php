@@ -61,7 +61,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 							<strong class="ss-title">
 								<?php echo SermonspeakerHelperSermonspeaker::insertSermonTitle($i, $item, $player); ?>
 							</strong>
-							<?php echo JLayoutHelper::render('blocks.state_info', array('item' => $item, 'show' => $showState)); ?>
+							<?php echo LayoutHelper::render('blocks.state_info', array('item' => $item, 'show' => $showState)); ?>
 							<?php if (in_array('serie:hits', $this->columns)) : ?>
 								<span class="ss-hits badge bg-info float-end">
 									<?php echo Text::sprintf('JGLOBAL_HITS_COUNT', $item->hits); ?>
