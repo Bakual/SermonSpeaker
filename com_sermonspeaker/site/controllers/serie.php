@@ -9,6 +9,9 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Factory;
+use Joomla\CMS\Router\Route;
+
 /**
  * Controller class for the SermonSpeaker Component
  *
@@ -25,8 +28,8 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 	 */
 	public function download()
 	{
-		$app = JFactory::getApplication();
+		$app = Factory::getApplication();
 		$id  = $app->input->get('id', 0, 'int');
-		$app->redirect(JRoute::_(SermonspeakerHelperRoute::getSerieRoute($id) . '&layout=download'));
+		$app->redirect(Route::_(SermonspeakerHelperRoute::getSerieRoute($id) . '&layout=download'));
 	}
 }

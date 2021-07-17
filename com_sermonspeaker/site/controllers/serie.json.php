@@ -9,7 +9,12 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\Factory;
+use Joomla\CMS\Filesystem\Folder;
+use Joomla\CMS\Filter\OutputFilter;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Filesystem\File;
 
 /**
  * Controller class for the SermonSpeaker Component
@@ -27,7 +32,7 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 	 */
 	public function download()
 	{
-		$id = JFactory::getApplication()->input->get('id', 0, 'int');
+		$id = Factory::getApplication()->input->get('id', 0, 'int');
 
 		if (!$id)
 		{
@@ -40,8 +45,8 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 			return;
 		}
 
-		$db     = JFactory::getDbo();
-		$user   = JFactory::getUser();
+		$db     = Factory::getDbo();
+		$user   = Factory::getUser();
 		$groups = implode(',', $user->getAuthorisedViewLevels());
 
 		// Checking if file needs to be prepared
@@ -81,7 +86,7 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 			return;
 		}
 
-		$params = JComponentHelper::getParams('com_sermonspeaker');
+		$params = ComponentHelper::getParams('com_sermonspeaker');
 		$limit  = $params->get('limitseriesdl');
 
 		if (!$params->get('seriesdl') || ($rows[0]['zip_dl'] == -1) || ($limit && (count($rows) > $limit) && ($rows[0]['zip_dl'] != 1)))
@@ -101,7 +106,7 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 
 		foreach ($rows as $row)
 		{
-			if ($row['audiofile'] && !parse_url($row['audiofile'], PHP_URL_SCHEME) && JFile::exists(JPATH_BASE . '/' . $row['audiofile']))
+			if ($row['audiofile'] && !parse_url($row['audiofile'], PHP_URL_SCHEME) && File::exists(JPATH_BASE . '/' . $row['audiofile']))
 			{
 				$file['path'] = JPATH_BASE . '/' . $row['audiofile'];
 				$slash        = strrpos($row['audiofile'], '/');
@@ -125,7 +130,7 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 				$content[] = 'a' . $row['id'];
 			}
 
-			if ($row['videofile'] && !parse_url($row['videofile'], PHP_URL_SCHEME) && JFile::exists(JPATH_BASE . '/' . $row['videofile']))
+			if ($row['videofile'] && !parse_url($row['videofile'], PHP_URL_SCHEME) && File::exists(JPATH_BASE . '/' . $row['videofile']))
 			{
 				$file['path'] = JPATH_BASE . '/' . $row['videofile'];
 				$slash        = strrpos($row['videofile'], '/');
@@ -159,7 +164,7 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 		}
 
 		// Make filename URL safe. Eg replaces ä with ae.
-		$name = JFilterOutput::stringURLSafe($rows[0]['title']);
+		$name = OutputFilter::stringURLSafe($rows[0]['title']);
 
 		// Check if filename has more chars than only dashes, making a new filename based on series id if not
 		if (!$name || (count_chars($name, 3) == '-'))
@@ -172,7 +177,7 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 		// Compare to saved zip and if file exists, then skip the creating
 		$content = implode(',', $content);
 
-		if (JFile::exists($filename) && ($content == $zip_content))
+		if (File::exists($filename) && ($content == $zip_content))
 		{
 			$response = array(
 				'status' => '1',
@@ -185,7 +190,7 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 
 		// Check if creating already in progress
 		$query = $db->getQuery(true);
-		$query->select('CASE WHEN `zip_created` < (' . $db->quote(JFactory::getDate()->toSql()) . ' - INTERVAL 1 HOUR) THEN 1 ELSE `zip_state` END');
+		$query->select('CASE WHEN `zip_created` < (' . $db->quote(Factory::getDate()->toSql()) . ' - INTERVAL 1 HOUR) THEN 1 ELSE `zip_state` END');
 		$query->from('#__sermon_series');
 		$query->where('`id` = ' . $id);
 		$db->setQuery($query);
@@ -207,23 +212,23 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 		$query->set('`zip_progress` = 0');
 		$query->set('`zip_state` = 0');
 		$query->set('`zip_size` = ' . $calc_size);
-		$query->set('`zip_created` = "' . JFactory::getDate()->toSql() . '"');
+		$query->set('`zip_created` = "' . Factory::getDate()->toSql() . '"');
 		$query->where('`id` = ' . $id);
 		$db->setQuery($query);
 		$db->execute();
 
 		if ($count = count($files))
 		{
-			if (!JFolder::exists($folder . 'series'))
+			if (!Folder::exists($folder . 'series'))
 			{
-				JFolder::create($folder . 'series');
+				Folder::create($folder . 'series');
 			}
 
-			$temp_files = JFolder::files(JPATH_BASE . '/' . $folder . 'series/', '^' . $name . '\.zip\.');
+			$temp_files = Folder::files(JPATH_BASE . '/' . $folder . 'series/', '^' . $name . '\.zip\.');
 
 			if ($temp_files)
 			{
-				JFile::delete($temp_files);
+				File::delete($temp_files);
 			}
 
 			$zip = new ZipArchive;
@@ -243,7 +248,7 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 
 			foreach ($files as $file)
 			{
-				if (JFile::exists($folder . 'series/stop.txt'))
+				if (File::exists($folder . 'series/stop.txt'))
 				{
 					$response = array(
 						'status' => '0',
@@ -276,7 +281,7 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 			$query = $db->getQuery(true);
 			$query->update('#__sermon_series');
 			$query->set('`zip_state` = 1');
-			$query->set('`zip_created` = "' . JFactory::getDate()->toSql() . '"');
+			$query->set('`zip_created` = "' . Factory::getDate()->toSql() . '"');
 			$query->set('`zip_content` = "' . $content . '"');
 			$query->where('`id` = ' . $id);
 			$db->setQuery($query);
@@ -307,7 +312,7 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 	 */
 	public function checkprogress()
 	{
-		$id = JFactory::getApplication()->input->get('id', 0, 'int');
+		$id = Factory::getApplication()->input->get('id', 0, 'int');
 
 		if (!$id)
 		{
@@ -320,7 +325,7 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 			return;
 		}
 
-		$db    = JFactory::getDbo();
+		$db    = Factory::getDbo();
 		$query = $db->getQuery(true);
 		$query->select('title, zip_size, zip_progress, zip_state');
 		$query->from('#__sermon_series');
@@ -351,7 +356,7 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 		}
 
 		// Prepare filename and path
-		$params = JComponentHelper::getParams('com_sermonspeaker');
+		$params = ComponentHelper::getParams('com_sermonspeaker');
 		$folder = trim($params->get('path_audio'), '/');
 
 		if ($folder)
@@ -359,7 +364,7 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 			$folder .= '/';
 		}
 
-		$name = JFilterOutput::stringURLSafe($series['title']);
+		$name = OutputFilter::stringURLSafe($series['title']);
 
 		// Check if filename has more chars than only dashes, making a new filename based on series id if not
 		if (!$name || (count_chars($name, 3) == '-'))
@@ -367,7 +372,7 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 			$name = 'series-' . $id;
 		}
 
-		$files = JFolder::files(JPATH_BASE . '/' . $folder . 'series/', '^' . $name . '\.zip\.');
+		$files = Folder::files(JPATH_BASE . '/' . $folder . 'series/', '^' . $name . '\.zip\.');
 		$size  = ($files) ? filesize(JPATH_BASE . '/' . $folder . 'series/' . $files[0]) : 0;
 
 		if ($size)
