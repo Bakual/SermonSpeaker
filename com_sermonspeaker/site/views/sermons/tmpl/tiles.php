@@ -9,14 +9,17 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
 
-HTMLHelper::_('stylesheet', 'com_sermonspeaker/tiles.css', array('relative' => true));
 HTMLHelper::addIncludePath(JPATH_COMPONENT . '/helpers');
+
 HTMLHelper::_('bootstrap.tooltip', '.hasTooltip');
-$user       = JFactory::getUser();
+HTMLHelper::_('stylesheet', 'com_sermonspeaker/tiles.css', array('relative' => true));
+
+$user       = Factory::getUser();
 $canEdit    = $user->authorise('core.edit', 'com_sermonspeaker');
 $canEditOwn = $user->authorise('core.edit.own', 'com_sermonspeaker');
 $limit      = (int) $this->params->get('limit', '');
