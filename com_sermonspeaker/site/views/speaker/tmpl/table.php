@@ -9,18 +9,19 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
+use Joomla\CMS\Uri\Uri;
 
 HTMLHelper::addIncludePath(JPATH_COMPONENT . '/helpers');
 
 HTMLHelper::_('bootstrap.tooltip', '.hasTooltip');
-HTMLHelper::_('bootstrap.dropdown');
 HTMLHelper::_('bootstrap.tab');
 
-$user             = JFactory::getUser();
+$user             = Factory::getUser();
 $fu_enable        = $this->params->get('fu_enable');
 $canEdit          = ($fu_enable and $user->authorise('core.edit', 'com_sermonspeaker'));
 $canEditOwn       = ($fu_enable and $user->authorise('core.edit.own', 'com_sermonspeaker'));
@@ -44,100 +45,48 @@ $this->document->addScriptDeclaration('Joomla.tableOrdering = function(order, di
 		form.filter_order_Dir.value = dir;
 		Joomla.submitform(task, form);
 	}');
-$this->document->addScriptDeclaration('jQuery(function() {
-		if (location.hash == \'#series\') {
-			tab = \'#tab_series\';
-		} else {
-			tab = \'#tab_sermons\';
+
+// Determine active tab
+$this->document->addScriptDeclaration("window.onload = function() {
+		let tab = 'tabber_sermons';
+		if (location.hash == '#series') {
+			tab = 'tabber_series';
 		}
-		jQuery(\'#speakerTab a[href="\' + tab + \'"]\').tab(\'show\');
-	})');
+		let bootstrapTab = new bootstrap.Tab(document.getElementById(tab));
+		bootstrapTab.show();
+	}");
 
 ?>
-<div class="category-list<?php echo $this->pageclass_sfx; ?> ss-speaker-container<?php echo $this->pageclass_sfx; ?>"
-	itemscope itemtype="http://schema.org/Person">
-	<?php
-	if ($this->params->get('show_page_heading', 1)) : ?>
-		<h1><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
-	<?php endif; ?>
-	<div class="<?php echo ($this->item->state) ? '' : 'system-unpublished'; ?>">
-		<div class="btn-group pull-right">
-			<a class="btn dropdown-toggle" data-bs-toggle="dropdown" href="#">
-				<i class="icon-cog"></i>
-				<span class="caret"></span>
-			</a>
-			<ul class="dropdown-menu">
-				<?php
-				if ($canEdit or ($canEditOwn and ($user->id == $this->item->created_by))) : ?>
-					<li class="edit-icon">
-						<?php echo LayoutHelper::render('icons.edit', ['item' => $this->item, 'params' => $this->params, 'type' => 'speaker']); ?>
-					</li>
-				<?php endif; ?>
-			</ul>
-		</div>
-		<?php echo LayoutHelper::render('blocks.speaker', array('item' => $this->item, 'params' => $this->params, 'columns' => $this->columns)); ?>
-	</div>
+<div class="com-sermonspeaker-speaker<?php echo $this->pageclass_sfx; ?> com-sermonspeaker-speaker-table" itemscope itemtype="http://schema.org/Person">
+	<?php echo $this->loadTemplate('header'); ?>
 	<div class="clearfix"></div>
+
 	<ul class="nav nav-tabs" id="speakerTab" role="tablist">
-		<li class="nav-link-item">
-			<a href="#tab_sermons" class="nav-link" data-bs-toggle="tab"
-			   role="tab"><?php echo Text::_('COM_SERMONSPEAKER_SERMONS'); ?></a>
+		<li class="nav-item">
+			<a href="#tab_sermons" id="tabber_sermons" class="nav-link active" data-bs-toggle="tab" role="tab">
+				<?php echo Text::_('COM_SERMONSPEAKER_SERMONS'); ?></a>
 		</li>
-		<li class="nav-link-item">
-			<a href="#tab_series" class="nav-link" data-bs-toggle="tab"
-			   role="tab"><?php echo Text::_('COM_SERMONSPEAKER_SERIES'); ?></a>
+		<li class="nav-item">
+			<a href="#tab_series" id="tabber_series" class="nav-link" data-bs-toggle="tab" role="tab">
+				<?php echo Text::_('COM_SERMONSPEAKER_SERIES'); ?></a>
 		</li>
 	</ul>
 	<div class="tab-content">
 		<div class="tab-pane active" id="tab_sermons">
-			<?php if (in_array('speaker:player', $this->col_sermon) and count($this->sermons)) :
-				HTMLHelper::_('stylesheet', 'com_sermonspeaker/player.css', array('relative' => true)); ?>
-				<div id="ss-speaker-player" class="ss-player row-fluid">
-					<div class="span10 offset1">
-						<hr/>
-						<?php if ($player->player != 'PixelOut') : ?>
-							<div id="playing">
-								<img id="playing-pic" class="picture" src="" alt=""/>
-								<span id="playing-duration" class="duration"></span>
-								<div class="text">
-									<span id="playing-title" class="title"></span>
-									<span id="playing-desc" class="desc"></span>
-								</div>
-								<span id="playing-error" class="error"></span>
-							</div>
-						<?php endif;
-						echo $player->mspace;
-						echo $player->script;
-						?>
-						<hr/>
-						<?php if ($player->toggle) : ?>
-                            <div class="row">
-                                <div class="mx-auto btn-group">
-                                    <button type="button" onclick="Video()" class="btn btn-secondary" title="<?php echo Text::_('COM_SERMONSPEAKER_SWITCH_VIDEO'); ?>">
-                                        <span class="fas fa-film fa-4x"></span>
-                                    </button>
-                                    <button type="button" onclick="Audio()" class="btn btn-secondary" title="<?php echo Text::_('COM_SERMONSPEAKER_SWITCH_AUDIO'); ?>">
-                                        <span class="fas fa-music fa-4x"></span>
-                                    </button>
-                                </div>
-                            </div>
-						<?php endif; ?>
-					</div>
-				</div>
+			<?php if (in_array('speaker:player', $this->col_sermon) and count($this->sermons)) : ?>
+				<?php echo LayoutHelper::render('plugin.player', array('player' => $player, 'items' => $this->sermons, 'view' => 'speaker')); ?>
 			<?php endif; ?>
 			<div class="cat-items">
-				<form action="<?php echo htmlspecialchars(JUri::getInstance()->toString() . '#sermons'); ?>"
-					method="post" id="adminForm" name="adminForm" class="form-inline">
-					<?php
-					if ($this->params->get('filter_field') or $this->params->get('show_pagination_limit')) :
-						echo $this->loadTemplate('filters');
-					endif; ?>
+				<form action="<?php echo htmlspecialchars(Uri::getInstance()->toString() . '#sermons'); ?>" method="post" name="adminForm" id="adminForm" class="com-sermonspeaker-speaker__sermons">
+					<?php if ($this->params->get('filter_field') or $this->params->get('show_pagination_limit')) : ?>
+						<?php echo $this->loadTemplate('filters'); ?>
+					<?php endif; ?>
 					<div class="clearfix"></div>
 					<?php if (!count($this->sermons)) : ?>
-						<div
-							class="no_entries alert alert-error"><?php echo Text::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', Text::_('COM_SERMONSPEAKER_SERMONS')); ?></div>
+						<span class="icon-info-circle" aria-hidden="true"></span><span class="visually-hidden"><?php echo Text::_('INFO'); ?></span>
+						<?php echo Text::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', Text::_('COM_SERMONSPEAKER_SERMONS')); ?>
 					<?php else : ?>
-						<table class="table table-striped table-hover table-condensed">
+						<table class="com-sermonspeaker-sermons__table category table table-striped table-bordered table-hover">
 							<thead>
 							<tr>
 								<?php if (in_array('speaker:num', $this->col_sermon)) : ?>
@@ -237,8 +186,7 @@ $this->document->addScriptDeclaration('jQuery(function() {
 							<?php foreach ($this->sermons as $i => $item) : ?>
 								<tr id="sermon<?php echo $i; ?>"
 									class="<?php echo ($item->state) ? '' : 'system-unpublished '; ?>cat-list-row<?php echo $i % 2; ?>">
-									<?php
-									if (in_array('speaker:num', $this->col_sermon)) : ?>
+									<?php if (in_array('speaker:num', $this->col_sermon)) : ?>
 										<td class="num hidden-phone hidden-tablet">
 											<?php echo $item->sermon_number; ?>
 										</td>
