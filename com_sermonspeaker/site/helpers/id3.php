@@ -21,8 +21,8 @@ class SermonspeakerHelperId3
 	/**
 	 * Read ID3 tags from file
 	 *
-	 * @param   string $file   Path to the file
-	 * @param   object $params Params, deprecated
+	 * @param   string  $file    Path to the file
+	 * @param   object  $params  Params, deprecated
 	 *
 	 * @return array|bool
 	 *
@@ -36,11 +36,11 @@ class SermonspeakerHelperId3
 		}
 
 		// Load Composer Autoloader
-		require_once (JPATH_COMPONENT_ADMINISTRATOR . '/vendor/autoload.php');
+		require_once(JPATH_COMPONENT_ADMINISTRATOR . '/vendor/autoload.php');
 
 		$getID3 = new getID3;
-		$path = JPATH_SITE . $file;
-		$path = str_replace('//', '/', $path);
+		$path   = JPATH_SITE . $file;
+		$path   = str_replace('//', '/', $path);
 
 		if (!file_exists($path))
 		{
@@ -54,9 +54,9 @@ class SermonspeakerHelperId3
 		if (array_key_exists('playtime_seconds', $FileInfo))
 		{
 			$length = $FileInfo['playtime_seconds'];
-			$hrs = (int) ($length / 3600);
-			$min = (int) (($length - $hrs * 3600) / 60);
-			$sec = (int) ($length - $hrs * 3600 - $min * 60);
+			$hrs    = (int) ($length / 3600);
+			$min    = (int) (($length - $hrs * 3600) / 60);
+			$sec    = (int) ($length - $hrs * 3600 - $min * 60);
 
 			if ($sec == '60')
 			{
@@ -73,9 +73,9 @@ class SermonspeakerHelperId3
 
 		if (array_key_exists('audio', $FileInfo))
 		{
-			$audio = array();
+			$audio                = array();
 			$audio['channelmode'] = (array_key_exists('channelmode', $FileInfo['audio'])) ? $FileInfo['audio']['channelmode'] : '';
-			$audio['bitrate'] = (array_key_exists('bitrate', $FileInfo['audio'])) ? $FileInfo['audio']['bitrate'] . ' bps' : '';
+			$audio['bitrate']     = (array_key_exists('bitrate', $FileInfo['audio'])) ? $FileInfo['audio']['bitrate'] . ' bps' : '';
 			$audio['sample_rate'] = (array_key_exists('sample_rate', $FileInfo['audio'])) ? $FileInfo['audio']['sample_rate'] . ' Hz' : '';
 
 			$id3['audio'] = $audio;
@@ -105,12 +105,12 @@ class SermonspeakerHelperId3
 
 			if (array_key_exists('year', $FileInfo['comments']) && array_key_exists('date', $FileInfo['comments']))
 			{
-				$ddmm = $FileInfo['comments']['date'][0];
+				$ddmm               = $FileInfo['comments']['date'][0];
 				$id3['sermon_date'] = $FileInfo['comments']['year'][0] . '-' . substr($ddmm, 2, 2) . '-' . substr($ddmm, 0, 2);
 
 				if (array_key_exists('time', $FileInfo['comments']))
 				{
-					$hhmm = $FileInfo['comments']['time'][0];
+					$hhmm               = $FileInfo['comments']['time'][0];
 					$id3['sermon_date'] .= ' ' . substr($hhmm, 0, 2) . ':' . substr($hhmm, 2, 2) . ':00';
 				}
 			}
@@ -121,12 +121,12 @@ class SermonspeakerHelperId3
 
 			if (array_key_exists('comment', $FileInfo['comments']))
 			{
-				$id3['notes'] = end($FileInfo['comments']['comment']);
+				$id3['notes']     = end($FileInfo['comments']['comment']);
 				$id3['scripture'] = '';
 			}
 			else
 			{
-				$id3['notes'] = '';
+				$id3['notes']     = '';
 				$id3['scripture'] = '';
 			}
 
@@ -172,13 +172,13 @@ class SermonspeakerHelperId3
 		}
 		else
 		{
-			$id3['title'] = JFile::stripExt(basename($path));
-			$id3['alias'] = JApplicationHelper::stringURLSafe($id3['title']);
+			$id3['title']         = JFile::stripExt(basename($path));
+			$id3['alias']         = JApplicationHelper::stringURLSafe($id3['title']);
 			$id3['sermon_number'] = '';
-			$id3['notes'] = '';
-			$id3['scripture'] = '';
-			$id3['series_id'] = '';
-			$id3['speaker_id'] = '';
+			$id3['notes']         = '';
+			$id3['scripture']     = '';
+			$id3['series_id']     = '';
+			$id3['speaker_id']    = '';
 		}
 
 		$id3['filesize'] = filesize($path);
@@ -189,7 +189,7 @@ class SermonspeakerHelperId3
 	/**
 	 * Get Vimeo data
 	 *
-	 * @param   string $file Path to the file
+	 * @param   string  $file  Path to the file
 	 *
 	 * @return  array|bool  Array of Vimeo informations
 	 *
@@ -197,7 +197,7 @@ class SermonspeakerHelperId3
 	 */
 	private static function getVimeo($file)
 	{
-		$id = trim(strrchr($file, '/'), '/ ');
+		$id  = trim(strrchr($file, '/'), '/ ');
 		$url = 'http://vimeo.com/api/v2/video/' . $id . '.xml';
 		$xml = simplexml_load_file($url);
 		/** @var SimpleXMLElement $video */
@@ -205,20 +205,20 @@ class SermonspeakerHelperId3
 
 		if (is_object($video))
 		{
-			$duration = (string) $video->duration;
-			$hrs = (int) ($duration / 3600);
-			$min = (int) (($duration - $hrs * 3600) / 60);
-			$sec = (int) ($video->duration - $hrs * 3600 - $min * 60);
-			$id3['sermon_time'] = $hrs . ':' . sprintf('%02d', $min) . ':' . sprintf('%02d', $sec);
-			$id3['title'] = (string) $video->title;
-			$id3['alias'] = JApplicationHelper::stringURLSafe($id3['title']);
-			$id3['sermon_date'] = (string) $video->upload_date;
-			$id3['notes'] = (string) $video->description;
-			$id3['pic'] = $video->thumbnail_medium;
+			$duration             = (string) $video->duration;
+			$hrs                  = (int) ($duration / 3600);
+			$min                  = (int) (($duration - $hrs * 3600) / 60);
+			$sec                  = (int) ($video->duration - $hrs * 3600 - $min * 60);
+			$id3['sermon_time']   = $hrs . ':' . sprintf('%02d', $min) . ':' . sprintf('%02d', $sec);
+			$id3['title']         = (string) $video->title;
+			$id3['alias']         = JApplicationHelper::stringURLSafe($id3['title']);
+			$id3['sermon_date']   = (string) $video->upload_date;
+			$id3['notes']         = (string) $video->description;
+			$id3['pic']           = $video->thumbnail_medium;
 			$id3['sermon_number'] = '';
-			$id3['scripture'] = '';
-			$id3['series_id'] = '';
-			$id3['speaker_id'] = '';
+			$id3['scripture']     = '';
+			$id3['series_id']     = '';
+			$id3['speaker_id']    = '';
 
 			return $id3;
 		}

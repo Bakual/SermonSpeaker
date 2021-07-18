@@ -3,13 +3,13 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns="urn:joomla.org"
 	xsi:schemaLocation="urn:joomla.org menu.xsd"
-	>
+>
 	<menuitem
 		title="COM_SERMONSPEAKER"
 		type="heading"
 		icon="comment"
 		class="class:comment"
-		>
+	>
 		<menuitem
 			title="COM_SERMONSPEAKER_MENU_SERMONS"
 			type="component"
@@ -71,7 +71,7 @@
 		type="heading"
 		icon="cog"
 		class="class:file-alt"
-		>
+	>
 		<menuitem
 			title="COM_SERMONSPEAKER_MENU_TOOLS"
 			type="component"

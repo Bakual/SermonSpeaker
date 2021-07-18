@@ -31,8 +31,8 @@ $canEditOwn = ($fu_enable and $user->authorise('core.edit.own', 'com_sermonspeak
 $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 ?>
 <div
-	class="item-page<?php echo $this->pageclass_sfx; ?> ss-sermon-container<?php echo $this->pageclass_sfx; ?> clearfix"
-	itemscope itemtype="http://schema.org/CreativeWork">
+		class="item-page<?php echo $this->pageclass_sfx; ?> ss-sermon-container<?php echo $this->pageclass_sfx; ?> clearfix"
+		itemscope itemtype="http://schema.org/CreativeWork">
 	<?php
 	if ($this->params->get('show_page_heading')) : ?>
 		<div class="page-header">
@@ -57,21 +57,21 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 			<span class="caret"></span>
 		</a>
 		<ul class="dropdown-menu">
-            <?php if ($this->params->get('popup_player') and $player) : ?>
+			<?php if ($this->params->get('popup_player') and $player) : ?>
 				<?php if ($this->item->audiofile) : ?>
 					<li class="download-icon" itemprop="audio" itemscope itemtype="http://schema.org/AudioObject">
-                        <a href="#"
-                           onclick="popup=window.open(
-                               '<?php echo JRoute::_('index.php?view=sermon&layout=popup&id=' . $this->item->id . '&tmpl=component'); ?>',
-                               'PopupPage',
-                               'height=<?php echo $player->popup['height']; ?>,width=<?php echo $player->popup['width']; ?>,scrollbars=yes,resizable=yes'
-                           ); return false"
-                        >
-                            <?php echo Text::_('COM_SERMONSPEAKER_POPUPPLAYER'); ?>
-                        </a>
+						<a href="#"
+						   onclick="popup=window.open(
+								   '<?php echo JRoute::_('index.php?view=sermon&layout=popup&id=' . $this->item->id . '&tmpl=component'); ?>',
+								   'PopupPage',
+								   'height=<?php echo $player->popup['height']; ?>,width=<?php echo $player->popup['width']; ?>,scrollbars=yes,resizable=yes'
+								   ); return false"
+						>
+							<?php echo Text::_('COM_SERMONSPEAKER_POPUPPLAYER'); ?>
+						</a>
 					</li>
 				<?php endif; ?>
-            <?php endif; ?>
+			<?php endif; ?>
 			<?php if (in_array('sermon:download', $this->columns)) :
 				if ($this->item->audiofile) : ?>
 					<li class="download-icon" itemprop="audio" itemscope itemtype="http://schema.org/AudioObject">
@@ -102,7 +102,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 				<dd class="category-name">
 					<?php echo Text::_('JCATEGORY'); ?>:
 					<a href="<?php echo Route::_(SermonspeakerHelperRoute::getSermonsRoute($this->item->catid, $this->item->language)); ?>"
-						itemprop="genre">
+					   itemprop="genre">
 						<?php echo $this->item->category_title; ?>
 					</a>
 				</dd>
@@ -127,7 +127,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 					<span class="icon-calendar"></span>
 					<?php echo Text::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL'); ?>:
 					<time datetime="<?php echo HTMLHelper::_('date', $this->item->sermon_date, 'c'); ?>"
-						itemprop="dateCreated">
+						  itemprop="dateCreated">
 						<?php echo HTMLHelper::date($this->item->sermon_date, Text::_($this->params->get('date_format')), true); ?>
 					</time>
 				</dd>
@@ -178,7 +178,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 	<?php endif; ?>
 
 	<?php if (in_array('sermon:player', $this->columns)) : ?>
-        <?php echo LayoutHelper::render('plugin.player', array('player' => $player, 'items' => $this->item, 'view' => 'sermon')); ?>
+		<?php echo LayoutHelper::render('plugin.player', array('player' => $player, 'items' => $this->item, 'view' => 'sermon')); ?>
 	<?php endif; ?>
 
 	<?php if (in_array('sermon:notes', $this->columns) and $this->item->notes) : ?>

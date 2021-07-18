@@ -43,12 +43,40 @@ class SermonspeakerModelSerieform extends SermonspeakerModelSerie
 	}
 
 	/**
+	 * Method to save the form data.
+	 *
+	 * @param   array  $data  The form data.
+	 *
+	 * @return  boolean  True on success.
+	 *
+	 * @since   3.2
+	 */
+	public function save($data)
+	{
+		// Associations are not edited in frontend ATM so we have to inherit them
+		if (Associations::isEnabled() && !empty($data['id']))
+		{
+			if ($associations = Associations::getAssociations('com_sermonspeaker.series', '#__sermon_series', 'com_sermonspeaker.serie', $data['id']))
+			{
+				foreach ($associations as $tag => $associated)
+				{
+					$associations[$tag] = (int) $associated->id;
+				}
+
+				$data['associations'] = $associations;
+			}
+		}
+
+		return parent::save($data);
+	}
+
+	/**
 	 * Method to auto-populate the model state
 	 *
 	 * Note. Calling getState in this method will result in recursion
 	 *
-	 * @param   string $ordering  Ordering column
-	 * @param   string $direction 'ASC' or 'DESC'
+	 * @param   string  $ordering   Ordering column
+	 * @param   string  $direction  'ASC' or 'DESC'
 	 *
 	 * @return  void
 	 *
@@ -84,33 +112,5 @@ class SermonspeakerModelSerieform extends SermonspeakerModelSerie
 		$this->setState('params', $params);
 
 		$this->setState('layout', $jinput->get('layout'));
-	}
-
-	/**
-	 * Method to save the form data.
-	 *
-	 * @param   array $data The form data.
-	 *
-	 * @return  boolean  True on success.
-	 *
-	 * @since   3.2
-	 */
-	public function save($data)
-	{
-		// Associations are not edited in frontend ATM so we have to inherit them
-		if (Associations::isEnabled() && !empty($data['id']))
-		{
-			if ($associations = Associations::getAssociations('com_sermonspeaker.series', '#__sermon_series', 'com_sermonspeaker.serie', $data['id']))
-			{
-				foreach ($associations as $tag => $associated)
-				{
-					$associations[$tag] = (int) $associated->id;
-				}
-
-				$data['associations'] = $associations;
-			}
-		}
-
-		return parent::save($data);
 	}
 }

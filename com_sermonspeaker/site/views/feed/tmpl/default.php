@@ -17,12 +17,12 @@ $params = $this->params;
 // Required channel elements
 echo '<?xml version="1.0" encoding="utf-8" ?>'; ?>
 <rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"
-	xmlns:atom="http://www.w3.org/2005/Atom">
+	 xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
 		<title><?php echo $this->make_xml_safe($params->get('sc_title')); ?></title>
 		<link><?php echo JUri::root(); ?></link>
 		<atom:link href="<?php echo $this->make_xml_safe(JUri::getInstance()->toString()); ?>" rel="self"
-			type="application/rss+xml"/>
+				   type="application/rss+xml"/>
 		<description><?php echo $this->make_xml_safe($params->get('description')); ?></description>
 		<?php
 		// Optional channel elements ?>
@@ -128,7 +128,7 @@ echo '<?xml version="1.0" encoding="utf-8" ?>'; ?>
 				<?php
 				if ($enclosure = $this->getEnclosure($item)) : ?>
 					<enclosure url="<?php echo $enclosure['url']; ?>" length="<?php echo $enclosure['length']; ?>"
-						type="<?php echo $enclosure['type']; ?>"></enclosure>
+							   type="<?php echo $enclosure['type']; ?>"></enclosure>
 				<?php endif;
 
 				// Specific to iTunes: per item

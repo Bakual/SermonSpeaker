@@ -23,7 +23,7 @@ class SermonspeakerViewSerie extends JViewLegacy
 	/**
 	 * Execute and display a template script.
 	 *
-	 * @param   string $tpl The name of the template file to parse; automatically searches through the template paths.
+	 * @param   string  $tpl  The name of the template file to parse; automatically searches through the template paths.
 	 *
 	 * @return void
 	 *
@@ -85,8 +85,8 @@ class SermonspeakerViewSerie extends JViewLegacy
 		$this->years      = $sermon_model->getYears();
 		$this->months     = $sermon_model->getMonths();
 		$books            = $sermon_model->getBooks();
-		$this->hasTags     = $sermon_model->getTags();
-		$this->filterForm  = $sermon_model->getFilterForm();
+		$this->hasTags    = $sermon_model->getTags();
+		$this->filterForm = $sermon_model->getFilterForm();
 
 		// Get Category stuff from models
 		$this->category = $sermon_model->getCategory();

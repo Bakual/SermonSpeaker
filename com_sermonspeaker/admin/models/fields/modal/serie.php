@@ -154,7 +154,7 @@ class JFormFieldModal_Serie extends JFormField
 		$title = empty($title) ? Text::_('COM_SERMONSPEAKER_SELECT_A_SERIE') : htmlspecialchars($title, ENT_QUOTES, 'UTF-8');
 
 		// The current serie display field.
-		$html  = '';
+		$html = '';
 
 		if ($allowSelect || $allowNew || $allowEdit || $allowClear)
 		{
@@ -218,7 +218,7 @@ class JFormFieldModal_Serie extends JFormField
 		if ($allowPropagate && count($languages) > 2)
 		{
 			// Strip off language tag at the end
-			$tagLength = (int) strlen($this->element['language']);
+			$tagLength            = (int) strlen($this->element['language']);
 			$callbackFunctionStem = substr("jSelectSerie_" . $this->id, 0, -$tagLength);
 
 			$html .= '<button'
@@ -250,7 +250,7 @@ class JFormFieldModal_Serie extends JFormField
 					'bodyHeight' => 70,
 					'modalWidth' => 80,
 					'footer'     => '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">'
-										. Text::_('JLIB_HTML_BEHAVIOR_CLOSE') . '</button>',
+						. Text::_('JLIB_HTML_BEHAVIOR_CLOSE') . '</button>',
 				)
 			);
 		}

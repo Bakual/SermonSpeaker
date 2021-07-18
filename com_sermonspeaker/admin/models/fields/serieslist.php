@@ -43,79 +43,6 @@ class JFormFieldSerieslist extends JFormFieldGroupedList
 	protected $translateLabel = false;
 
 	/**
-	 * Method to get the field input markup for a generic list.
-	 * Use the multiple attribute to enable multiselect.
-	 *
-	 * @return  string  The field input markup.
-	 *
-	 * @since   4.0
-	 */
-	protected function getInput()
-	{
-		$html = parent::getInput();
-
-		if (!$this->element['hidebutton'])
-		{
-			if (Factory::getApplication()->isClient('administrator'))
-			{
-				$returnpage = base64_encode('index.php?option=com_sermonspeaker&view=close&tmpl=component');
-				$url        = 'index.php?option=com_sermonspeaker&task=serie.add&layout=modal&tmpl=component&return=' . $returnpage;
-				$string     = 'COM_SERMONSPEAKER_NEW_SERIE';
-			}
-			else
-			{
-				$returnpage = base64_encode(JRoute::_('index.php?view=close&tmpl=component'));
-				$url        = JRoute::_('index.php?task=serieform.add&layout=modal&tmpl=component&return=' . $returnpage);
-				$string     = 'COM_SERMONSPEAKER_BUTTON_NEW_SERIE';
-			}
-
-			$html = '<div class="input-group">' . $html .
-						'<span class="input-group-append">
-							<a href="#serieModal_' . $this->id .'"
-								class="btn btn-secondary hasTooltip"
-								title="' . Text::_($string) . '"
-								data-bs-toggle="modal"
-								role="button"
-							>
-								<span class="icon-new"></span>
-							</a>
-						</span>
-					</div>';
-
-			// Add the modal field script to the document head.
-			HTMLHelper::_('jquery.framework');
-			HTMLHelper::_('script', 'system/fields/modal-fields.js', array('version' => 'auto', 'relative' => true));
-
-			$html .= HTMLHelper::_(
-				'bootstrap.renderModal',
-				'serieModal_' . $this->id,
-				array(
-					'title'       => Text::_($string),
-					'backdrop'    => 'static',
-					'keyboard'    => false,
-					'closeButton' => false,
-					'url'         => $url,
-					'height'      => '100%',
-					'width'       => '100%',
-					'bodyHeight'  => 70,
-					'modalWidth'  => 80,
-					'footer'      => '<a role="button" class="btn btn-secondary" aria-hidden="true"'
-						. ' onclick="window.processModalEdit(this, \'' . $this->id . '\', \'add\', \'serie\', \'cancel\', \'item-form\'); return false;">'
-						. Text::_('JLIB_HTML_BEHAVIOR_CLOSE') . '</a>'
-						. '<a role="button" class="btn btn-primary" aria-hidden="true"'
-						. ' onclick="window.processModalEdit(this, \'' . $this->id . '\', \'add\', \'serie\', \'save\', \'item-form\'); return false;">'
-						. Text::_('JSAVE') . '</a>'
-						. '<a role="button" class="btn btn-success" aria-hidden="true"'
-						. ' onclick="window.processModalEdit(this, \'' . $this->id . '\', \'add\', \'serie\', \'apply\', \'item-form\'); return false;">'
-						. Text::_('JAPPLY') . '</a>',
-				)
-			);
-		}
-
-		return $html;
-	}
-
-	/**
 	 * Method to get the field options.
 	 *
 	 * @return array The field option objects.
@@ -236,5 +163,78 @@ class JFormFieldSerieslist extends JFormFieldGroupedList
 		}
 
 		return $groups;
+	}
+
+	/**
+	 * Method to get the field input markup for a generic list.
+	 * Use the multiple attribute to enable multiselect.
+	 *
+	 * @return  string  The field input markup.
+	 *
+	 * @since   4.0
+	 */
+	protected function getInput()
+	{
+		$html = parent::getInput();
+
+		if (!$this->element['hidebutton'])
+		{
+			if (Factory::getApplication()->isClient('administrator'))
+			{
+				$returnpage = base64_encode('index.php?option=com_sermonspeaker&view=close&tmpl=component');
+				$url        = 'index.php?option=com_sermonspeaker&task=serie.add&layout=modal&tmpl=component&return=' . $returnpage;
+				$string     = 'COM_SERMONSPEAKER_NEW_SERIE';
+			}
+			else
+			{
+				$returnpage = base64_encode(JRoute::_('index.php?view=close&tmpl=component'));
+				$url        = JRoute::_('index.php?task=serieform.add&layout=modal&tmpl=component&return=' . $returnpage);
+				$string     = 'COM_SERMONSPEAKER_BUTTON_NEW_SERIE';
+			}
+
+			$html = '<div class="input-group">' . $html .
+				'<span class="input-group-append">
+							<a href="#serieModal_' . $this->id . '"
+								class="btn btn-secondary hasTooltip"
+								title="' . Text::_($string) . '"
+								data-bs-toggle="modal"
+								role="button"
+							>
+								<span class="icon-new"></span>
+							</a>
+						</span>
+					</div>';
+
+			// Add the modal field script to the document head.
+			HTMLHelper::_('jquery.framework');
+			HTMLHelper::_('script', 'system/fields/modal-fields.js', array('version' => 'auto', 'relative' => true));
+
+			$html .= HTMLHelper::_(
+				'bootstrap.renderModal',
+				'serieModal_' . $this->id,
+				array(
+					'title'       => Text::_($string),
+					'backdrop'    => 'static',
+					'keyboard'    => false,
+					'closeButton' => false,
+					'url'         => $url,
+					'height'      => '100%',
+					'width'       => '100%',
+					'bodyHeight'  => 70,
+					'modalWidth'  => 80,
+					'footer'      => '<a role="button" class="btn btn-secondary" aria-hidden="true"'
+						. ' onclick="window.processModalEdit(this, \'' . $this->id . '\', \'add\', \'serie\', \'cancel\', \'item-form\'); return false;">'
+						. Text::_('JLIB_HTML_BEHAVIOR_CLOSE') . '</a>'
+						. '<a role="button" class="btn btn-primary" aria-hidden="true"'
+						. ' onclick="window.processModalEdit(this, \'' . $this->id . '\', \'add\', \'serie\', \'save\', \'item-form\'); return false;">'
+						. Text::_('JSAVE') . '</a>'
+						. '<a role="button" class="btn btn-success" aria-hidden="true"'
+						. ' onclick="window.processModalEdit(this, \'' . $this->id . '\', \'add\', \'serie\', \'apply\', \'item-form\'); return false;">'
+						. Text::_('JAPPLY') . '</a>',
+				)
+			);
+		}
+
+		return $html;
 	}
 }

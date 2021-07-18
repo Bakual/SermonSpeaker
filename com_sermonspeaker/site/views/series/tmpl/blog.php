@@ -33,7 +33,7 @@ $listDirn   = $this->state->get('list.direction');
 
 	<div class="cat-items">
 		<form action="<?php echo htmlspecialchars(JUri::getInstance()->toString()); ?>" method="post" id="adminForm"
-			name="adminForm">
+			  name="adminForm">
 			<?php
 			if ($this->params->get('filter_field') or $this->params->get('show_pagination_limit')) : ?>
 				<div class="filters btn-toolbar">
@@ -50,7 +50,8 @@ $listDirn   = $this->state->get('list.direction');
 			<div class="clearfix"></div>
 			<?php if (!count($this->items)) : ?>
 				<div class="alert alert-info">
-					<span class="icon-info-circle" aria-hidden="true"></span><span class="visually-hidden"><?php echo Text::_('INFO'); ?></span>
+					<span class="icon-info-circle" aria-hidden="true"></span><span
+							class="visually-hidden"><?php echo Text::_('INFO'); ?></span>
 					<?php echo Text::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', Text::_('COM_SERMONSPEAKER_SERIES')); ?>
 				</div>
 			<?php else : ?>
@@ -66,7 +67,7 @@ $listDirn   = $this->state->get('list.direction');
 									<?php if (in_array('series:download', $this->col_serie)) : ?>
 										<li class="download-icon">
 											<a href="<?php echo JRoute::_('index.php?view=serie&layout=download&tmpl=component&id=' . $item->slug); ?>"
-												class="modal" rel="{handler:'iframe',size:{x:400,y:200}}">
+											   class="modal" rel="{handler:'iframe',size:{x:400,y:200}}">
 												<i class="icon-download"> </i>
 												<?php echo Text::_('COM_SERMONSPEAKER_DOWNLOADSERIES_LABEL'); ?>
 											</a>
@@ -98,7 +99,7 @@ $listDirn   = $this->state->get('list.direction');
 								<div class="img-thumbnail pull-right item-image">
 									<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->slug, $item->catid, $item->language)); ?>">
 										<img
-											src="<?php echo SermonspeakerHelperSermonspeaker::makeLink($item->avatar); ?>">
+												src="<?php echo SermonspeakerHelperSermonspeaker::makeLink($item->avatar); ?>">
 									</a>
 								</div>
 							<?php endif; ?>

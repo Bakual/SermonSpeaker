@@ -30,9 +30,99 @@ class SermonspeakerControllerSpeaker extends FormController
 	use VersionableControllerTrait;
 
 	/**
+	 * Reset hit counters
+	 *
+	 * @return  void
+	 *
+	 * @since ?
+	 */
+	public function reset()
+	{
+		$app = Factory::getApplication();
+		$db  = Factory::getDbo();
+		$id  = $this->input->get('id', 0, 'int');
+
+		if (!$id)
+		{
+			$app->enqueueMessage(Text::_('JERROR_AN_ERROR_HAS_OCCURRED'), 'error');
+			$app->redirect('index.php?option=com_sermonspeaker&view=speakers');
+
+			return;
+		}
+
+		/** @var SermonspeakerModelSpeaker $model */
+		$model      = $this->getModel();
+		$item       = $model->getItem($id);
+		$user       = Factory::getUser();
+		$canEdit    = $user->authorise('core.edit', 'com_sermonspeaker.category.' . $item->catid);
+		$canEditOwn = $user->authorise('core.edit.own', 'com_sermonspeaker.category.' . $item->catid) && $item->created_by == $user->id;
+
+		if ($canEdit || $canEditOwn)
+		{
+			$query = "UPDATE #__sermon_speakers \n"
+				. "SET hits='0' \n"
+				. "WHERE id='" . $id . "'";
+			$db->setQuery($query);
+			$db->execute();
+			$app->enqueueMessage(Text::sprintf('COM_SERMONSPEAKER_RESET_OK', Text::_('COM_SERMONSPEAKER_SPEAKER'), $item->title));
+		}
+		else
+		{
+			$app->enqueueMessage(Text::_('JERROR_ALERTNOAUTHOR'), 'error');
+		}
+
+		$app->redirect('index.php?option=com_sermonspeaker&view=speakers');
+	}
+
+	/**
+	 * Method to run batch operations.
+	 *
+	 * @param   object  $model  The model.
+	 *
+	 * @return  boolean     True if successful, false otherwise and internal error is set.
+	 *
+	 * @since   1.7
+	 */
+	public function batch($model = null)
+	{
+		Session::checkToken() or jexit(Text::_('JINVALID_TOKEN'));
+
+		// Set the model
+		$model = $this->getModel('Speaker', '', array());
+
+		// Preset the redirect
+		$this->setRedirect(Route::_('index.php?option=com_sermonspeaker&view=speakers' . $this->getRedirectToListAppend(), false));
+
+		return parent::batch($model);
+	}
+
+	/**
+	 * Method to save a record.
+	 *
+	 * @param   string  $key     The name of the primary key of the URL variable.
+	 * @param   string  $urlVar  The name of the URL variable if different from the primary key (sometimes required to
+	 *                           avoid router collisions).
+	 *
+	 * @return    Boolean    True if successful, false otherwise.
+	 * @since    1.6
+	 */
+	public function save($key = null, $urlVar = 'id')
+	{
+		$result = parent::save($key, $urlVar);
+
+		// If ok, redirect to the return page.
+		if ($result && ($return = $this->getReturnPage()))
+		{
+			$this->setRedirect($return);
+		}
+
+		return $result;
+	}
+
+	/**
 	 * Method override to check if you can add a new record.
 	 *
-	 * @param    array $data An array of input data.
+	 * @param   array  $data  An array of input data.
 	 *
 	 * @return    boolean
 	 *
@@ -64,8 +154,8 @@ class SermonspeakerControllerSpeaker extends FormController
 	/**
 	 * Method to check if you can add a new record.
 	 *
-	 * @param   array  $data An array of input data.
-	 * @param   string $key  The name of the key for the primary key.
+	 * @param   array   $data  An array of input data.
+	 * @param   string  $key   The name of the key for the primary key.
 	 *
 	 * @return  boolean
 	 *
@@ -110,56 +200,11 @@ class SermonspeakerControllerSpeaker extends FormController
 	}
 
 	/**
-	 * Reset hit counters
-	 *
-	 * @return  void
-	 *
-	 * @since ?
-	 */
-	public function reset()
-	{
-		$app    = Factory::getApplication();
-		$db     = Factory::getDbo();
-		$id     = $this->input->get('id', 0, 'int');
-
-		if (!$id)
-		{
-			$app->enqueueMessage(Text::_('JERROR_AN_ERROR_HAS_OCCURRED'), 'error');
-			$app->redirect('index.php?option=com_sermonspeaker&view=speakers');
-
-			return;
-		}
-
-		/** @var SermonspeakerModelSpeaker $model */
-		$model      = $this->getModel();
-		$item       = $model->getItem($id);
-		$user       = Factory::getUser();
-		$canEdit    = $user->authorise('core.edit', 'com_sermonspeaker.category.' . $item->catid);
-		$canEditOwn = $user->authorise('core.edit.own', 'com_sermonspeaker.category.' . $item->catid) && $item->created_by == $user->id;
-
-		if ($canEdit || $canEditOwn)
-		{
-			$query = "UPDATE #__sermon_speakers \n"
-				. "SET hits='0' \n"
-				. "WHERE id='" . $id . "'";
-			$db->setQuery($query);
-			$db->execute();
-			$app->enqueueMessage(Text::sprintf('COM_SERMONSPEAKER_RESET_OK', Text::_('COM_SERMONSPEAKER_SPEAKER'), $item->title));
-		}
-		else
-		{
-			$app->enqueueMessage(Text::_('JERROR_ALERTNOAUTHOR'), 'error');
-		}
-
-		$app->redirect('index.php?option=com_sermonspeaker&view=speakers');
-	}
-
-	/**
 	 * Function that allows child controller access to model data
 	 * after the data has been saved.
 	 *
-	 * @param JModelLegacy $model     The data model object.
-	 * @param array        $validData The validated data.
+	 * @param   JModelLegacy  $model      The data model object.
+	 * @param   array         $validData  The validated data.
 	 *
 	 * @return  void
 	 *
@@ -194,30 +239,8 @@ class SermonspeakerControllerSpeaker extends FormController
 	}
 
 	/**
-	 * Method to run batch operations.
-	 *
-	 * @param   object $model The model.
-	 *
-	 * @return  boolean     True if successful, false otherwise and internal error is set.
-	 *
-	 * @since   1.7
-	 */
-	public function batch($model = null)
-	{
-		Session::checkToken() or jexit(Text::_('JINVALID_TOKEN'));
-
-		// Set the model
-		$model = $this->getModel('Speaker', '', array());
-
-		// Preset the redirect
-		$this->setRedirect(Route::_('index.php?option=com_sermonspeaker&view=speakers' . $this->getRedirectToListAppend(), false));
-
-		return parent::batch($model);
-	}
-
-	/**
-	 * @param null $recordId
-	 * @param null $urlVar
+	 * @param   null  $recordId
+	 * @param   null  $urlVar
 	 *
 	 * @return string
 	 *
@@ -262,28 +285,5 @@ class SermonspeakerControllerSpeaker extends FormController
 		{
 			return base64_decode($return);
 		}
-	}
-
-	/**
-	 * Method to save a record.
-	 *
-	 * @param    string $key    The name of the primary key of the URL variable.
-	 * @param    string $urlVar The name of the URL variable if different from the primary key (sometimes required to
-	 *                          avoid router collisions).
-	 *
-	 * @return    Boolean    True if successful, false otherwise.
-	 * @since    1.6
-	 */
-	public function save($key = null, $urlVar = 'id')
-	{
-		$result = parent::save($key, $urlVar);
-
-		// If ok, redirect to the return page.
-		if ($result && ($return = $this->getReturnPage()))
-		{
-			$this->setRedirect($return);
-		}
-
-		return $result;
 	}
 }

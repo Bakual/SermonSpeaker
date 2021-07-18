@@ -29,8 +29,9 @@ $groups = $user->getAuthorisedViewLevels();
 				<div class="com-sermonspeaker-speakers__children">
 					<h3 class="page-header item-title">
 						<?php if ($lang->isRtl()) : ?>
-							<?php if ( $this->params->get('show_cat_num_articles', 1)) : ?>
-								<span class="badge bg-info hasTooltip" title="<?php echo Text::_('COM_SERMONSPEAKER_NUM_ITEMS'); ?>">
+							<?php if ($this->params->get('show_cat_num_articles', 1)) : ?>
+								<span class="badge bg-info hasTooltip"
+									  title="<?php echo Text::_('COM_SERMONSPEAKER_NUM_ITEMS'); ?>">
 									<?php echo $child->getNumItems(true); ?>
 								</span>
 							<?php endif; ?>
@@ -39,8 +40,9 @@ $groups = $user->getAuthorisedViewLevels();
 						<?php else : ?>
 							<a href="<?php echo Route::_(SermonspeakerHelperRoute::getSpeakersRoute($child->id, $child->language)); ?>">
 								<?php echo $this->escape($child->title); ?></a>
-							<?php if ( $this->params->get('show_cat_num_items', 1)) : ?>
-								<span class="badge bg-info hasTooltip" title="<?php echo Text::_('COM_SERMONSPEAKER_NUM_ITEMS'); ?>">
+							<?php if ($this->params->get('show_cat_num_items', 1)) : ?>
+								<span class="badge bg-info hasTooltip"
+									  title="<?php echo Text::_('COM_SERMONSPEAKER_NUM_ITEMS'); ?>">
 									<?php echo $child->getNumItems(true); ?>
 								</span>
 							<?php endif; ?>
@@ -70,7 +72,7 @@ $groups = $user->getAuthorisedViewLevels();
 						<div class="collapse" id="category-<?php echo $child->id; ?>">
 							<?php
 							$this->children[$child->id] = $child->getChildren();
-							$this->category = $child;
+							$this->category             = $child;
 							$this->maxLevel--;
 							echo $this->loadTemplate('children');
 							$this->category = $child->getParent();

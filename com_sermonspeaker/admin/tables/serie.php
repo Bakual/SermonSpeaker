@@ -31,6 +31,13 @@ class SermonspeakerTableSerie extends Table implements VersionableTableInterface
 	use TaggableTableTrait;
 
 	/**
+	 * The UCM type alias. Used for tags, content versioning etc. Leave blank to effectively disable these features.
+	 *
+	 * @var    string
+	 * @since  6.0.0
+	 */
+	public $typeAlias = 'com_sermonspeaker.serie';
+	/**
 	 * Array with alias for "special" columns such as ordering, hits etc etc
 	 *
 	 * @var    array
@@ -39,17 +46,9 @@ class SermonspeakerTableSerie extends Table implements VersionableTableInterface
 	protected $_columnAlias = array('published' => 'state');
 
 	/**
-	 * The UCM type alias. Used for tags, content versioning etc. Leave blank to effectively disable these features.
-	 *
-	 * @var    string
-	 * @since  6.0.0
-	 */
-	public $typeAlias = 'com_sermonspeaker.serie';
-
-	/**
 	 * Constructor
 	 *
-	 * @param  JDatabaseDriver $db JDatabaseDriver object.
+	 * @param   JDatabaseDriver  $db  JDatabaseDriver object.
 	 *
 	 * @since ?
 	 */
@@ -158,8 +157,8 @@ class SermonspeakerTableSerie extends Table implements VersionableTableInterface
 	/**
 	 * Overloaded bind function to pre-process the params.
 	 *
-	 * @param array  $array
-	 * @param string $ignore
+	 * @param   array   $array
+	 * @param   string  $ignore
 	 *
 	 * @return null|string null is operation was satisfactory, otherwise returns an error
 	 *
@@ -185,7 +184,7 @@ class SermonspeakerTableSerie extends Table implements VersionableTableInterface
 	 * values. If no primary key value is set a new row will be inserted into the database with the properties from the
 	 * Table instance.
 	 *
-	 * @param   boolean $updateNulls True to update fields even if they are null.
+	 * @param   boolean  $updateNulls  True to update fields even if they are null.
 	 *
 	 * @return bool True on success.
 	 *

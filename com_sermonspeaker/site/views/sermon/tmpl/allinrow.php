@@ -99,7 +99,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 		endif; ?>
 	</div>
 	<?php if ($this->params->get('show_tags', 1) and !empty($this->item->tags->itemTags)) : ?>
-    	<?php echo LayoutHelper::render('joomla.content.tags', $this->item->tags->itemTags); ?>
+		<?php echo LayoutHelper::render('joomla.content.tags', $this->item->tags->itemTags); ?>
 	<?php endif;
 
 	if ($this->params->get('enable_keywords')):

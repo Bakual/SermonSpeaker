@@ -25,12 +25,12 @@ class SermonspeakerViewSpeaker extends JViewLegacy
 	/**
 	 * Display the view
 	 *
-	 * @since  ?
-	 *
-	 * @param null $tpl
+	 * @param   null  $tpl
 	 *
 	 * @return mixed
 	 * @throws \Exception
+	 * @since  ?
+	 *
 	 */
 	public function display($tpl = null)
 	{
@@ -94,8 +94,7 @@ class SermonspeakerViewSpeaker extends JViewLegacy
 				$saveGroup = $toolbar->dropdownButton('save-group');
 
 				$saveGroup->configure(
-					function (Toolbar $childBar) use ($user)
-					{
+					function (Toolbar $childBar) use ($user) {
 						$childBar->save('speaker.save');
 
 						if ($user->authorise('core.create', 'com_menus.menu'))
@@ -121,8 +120,7 @@ class SermonspeakerViewSpeaker extends JViewLegacy
 			$saveGroup = $toolbar->dropdownButton('save-group');
 
 			$saveGroup->configure(
-				function (Toolbar $childBar) use ($checkedOut, $itemEditable, $canDo, $user)
-				{
+				function (Toolbar $childBar) use ($checkedOut, $itemEditable, $canDo, $user) {
 					// Can't save the record if it's checked out and editable
 					if (!$checkedOut && $itemEditable)
 					{

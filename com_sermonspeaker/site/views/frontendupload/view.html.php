@@ -75,7 +75,7 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 	/**
 	 * Execute and display a template script.
 	 *
-	 * @param   string $tpl The name of the template file to parse; automatically searches through the template paths.
+	 * @param   string  $tpl  The name of the template file to parse; automatically searches through the template paths.
 	 *
 	 * @return  void
 	 *
@@ -368,7 +368,7 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 			$s3 = new S3($awsAccessKey, $awsSecretKey);
 			$s3->setRegion($region);
 
-			$prefix = ($region === 'us-east-1') ? 's3' : 's3-' . $region;
+			$prefix       = ($region === 'us-east-1') ? 's3' : 's3-' . $region;
 			$this->domain = $prefix . '.amazonaws.com/' . $bucket . $folder;
 		}
 
@@ -473,7 +473,7 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 	/**
 	 * Function to return bytes from the PHP settings. Taken from the ini_get() manual
 	 *
-	 * @param   string $val Value from the PHP setting
+	 * @param   string  $val  Value from the PHP setting
 	 *
 	 * @return  int  $val  Value in bytes
 	 *

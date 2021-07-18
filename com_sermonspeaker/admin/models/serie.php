@@ -58,8 +58,8 @@ class SermonspeakerModelSerie extends AdminModel
 	/**
 	 * Method to get the record form.
 	 *
-	 * @param    array   $data     An optional array of data for the form to interogate.
-	 * @param    boolean $loadData True if the form is to load its own data (default case), false if not.
+	 * @param   array    $data      An optional array of data for the form to interogate.
+	 * @param   boolean  $loadData  True if the form is to load its own data (default case), false if not.
 	 *
 	 * @return    bool|Form    A JForm object on success, false on failure
 	 * @since    1.6
@@ -136,7 +136,7 @@ class SermonspeakerModelSerie extends AdminModel
 	/**
 	 * Method to save the form data.
 	 *
-	 * @param   array $data The form data.
+	 * @param   array  $data  The form data.
 	 *
 	 * @return  boolean  True on success, False on error.
 	 *
@@ -175,9 +175,9 @@ class SermonspeakerModelSerie extends AdminModel
 	/**
 	 * Returns a reference to the a Table object, always creating it.
 	 *
-	 * @param    string $type   The table type to instantiate
-	 * @param    string $prefix A prefix for the table class name. Optional.
-	 * @param    array  $config Configuration array for model. Optional.
+	 * @param   string  $type    The table type to instantiate
+	 * @param   string  $prefix  A prefix for the table class name. Optional.
+	 * @param   array   $config  Configuration array for model. Optional.
 	 *
 	 * @return    Table    A database object
 	 * @since    1.6
@@ -244,7 +244,7 @@ class SermonspeakerModelSerie extends AdminModel
 	 * Method to unset a default series.
 	 * Copied from template style.
 	 *
-	 * @param   integer $id The primary key ID for the series.
+	 * @param   integer  $id  The primary key ID for the series.
 	 *
 	 * @return  boolean  True if successful.
 	 * @throws  Exception
@@ -368,7 +368,7 @@ class SermonspeakerModelSerie extends AdminModel
 	/**
 	 * Prepare and sanitise the table prior to saving.
 	 *
-	 * @param SermonspeakerModelSerie $table
+	 * @param   SermonspeakerModelSerie  $table
 	 *
 	 * @since    1.6
 	 */
@@ -437,9 +437,9 @@ class SermonspeakerModelSerie extends AdminModel
 	 *
 	 * Note. Calling getState in this method will result in recursion.
 	 *
-	 * @param JForm  $form
-	 * @param mixed  $data
-	 * @param string $group
+	 * @param   JForm   $form
+	 * @param   mixed   $data
+	 * @param   string  $group
 	 *
 	 * @since    3.0
 	 */
@@ -500,9 +500,9 @@ class SermonspeakerModelSerie extends AdminModel
 	 * Batch copy items to a new category or current.
 	 * Override from modeladmin to adjust title field.
 	 *
-	 * @param   integer $value    The new category.
-	 * @param   array   $pks      An array of row IDs.
-	 * @param   array   $contexts An array of item contexts.
+	 * @param   integer  $value     The new category.
+	 * @param   array    $pks       An array of row IDs.
+	 * @param   array    $contexts  An array of item contexts.
 	 *
 	 * @return  mixed  An array of new IDs on success, boolean false on failure.
 	 *

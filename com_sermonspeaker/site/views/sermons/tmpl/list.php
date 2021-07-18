@@ -37,14 +37,16 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 		<?php echo LayoutHelper::render('plugin.player', array('player' => $player, 'items' => $this->items, 'view' => 'sermons')); ?>
 	<?php endif; ?>
 	<div class="cat-items">
-		<form action="<?php echo htmlspecialchars(Uri::getInstance()->toString()); ?>" method="post" name="adminForm" id="adminForm" class="com-sermonspeaker-sermons__sermons">
+		<form action="<?php echo htmlspecialchars(Uri::getInstance()->toString()); ?>" method="post" name="adminForm"
+			  id="adminForm" class="com-sermonspeaker-sermons__sermons">
 			<?php if ($this->params->get('filter_field') or $this->params->get('show_pagination_limit')) : ?>
 				<?php echo $this->loadTemplate('filters'); ?>
 			<?php endif; ?>
 			<div class="clearfix"></div>
 			<?php if (!count($this->items)) : ?>
 				<div class="alert alert-info">
-					<span class="icon-info-circle" aria-hidden="true"></span><span class="visually-hidden"><?php echo Text::_('INFO'); ?></span>
+					<span class="icon-info-circle" aria-hidden="true"></span><span
+							class="visually-hidden"><?php echo Text::_('INFO'); ?></span>
 					<?php echo Text::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', Text::_('COM_SERMONSPEAKER_SERMONS')); ?>
 				</div>
 			<?php else : ?>

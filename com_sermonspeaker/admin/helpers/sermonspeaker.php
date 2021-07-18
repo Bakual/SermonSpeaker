@@ -24,11 +24,11 @@ class SermonspeakerHelper
 	/**
 	 * Get the actions for ACL
 	 *
-	 * @since ?
-	 *
-	 * @param int $categoryId
+	 * @param   int  $categoryId
 	 *
 	 * @return \JObject
+	 * @since ?
+	 *
 	 */
 	public static function getActions($categoryId = 0)
 	{
@@ -82,7 +82,7 @@ class SermonspeakerHelper
 	/**
 	 * Map the section for custom fields.
 	 *
-	 * @param   string $section The section to get the mapping for
+	 * @param   string  $section  The section to get the mapping for
 	 *
 	 * @return  string  The new section
 	 *

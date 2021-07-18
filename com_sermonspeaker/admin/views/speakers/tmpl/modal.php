@@ -35,44 +35,45 @@ $listDirn  = $this->escape($this->state->get('list.direction'));
 ?>
 <div class="container-popup">
 
-	<form action="<?php echo JRoute::_('index.php?option=com_sermonspeaker&view=speakers&layout=modal&tmpl=component&function='.$function.'&'.JSession::getFormToken().'=1');?>" method="post" name="adminForm" id="adminForm" class="form-inline">
+	<form action="<?php echo JRoute::_('index.php?option=com_sermonspeaker&view=speakers&layout=modal&tmpl=component&function=' . $function . '&' . JSession::getFormToken() . '=1'); ?>"
+		  method="post" name="adminForm" id="adminForm" class="form-inline">
 
 		<?php echo JLayoutHelper::render('joomla.searchtools.default', array('view' => $this)); ?>
 
 		<table class="table table-striped table-condensed">
 			<thead>
-				<tr>
-					<th width="1%" class="center nowrap">
-						<?php echo HTMLHelper::_('searchtools.sort', 'JSTATUS', 'sermons.state', $listDirn, $listOrder); ?>
-					</th>
-					<th class="title">
-						<?php echo HTMLHelper::_('searchtools.sort', 'JGLOBAL_TITLE', 'speakers.title', $listDirn, $listOrder); ?>
-					</th>
-					<th width="10%" class="nowrap">
-						<?php echo HTMLHelper::_('searchtools.sort', 'JCATEGORY', 'speakers.catid', $listDirn, $listOrder); ?>
-					</th>
-					<th width="15%" class="nowrap">
-						<?php echo HTMLHelper::_('searchtools.sort', 'JGRID_HEADING_LANGUAGE', 'language', $listDirn, $listOrder); ?>
-					</th>
-					<th width="1%" class="nowrap">
-						<?php echo HTMLHelper::_('searchtools.sort', 'JGRID_HEADING_ID', 'speakers.id', $listDirn, $listOrder); ?>
-					</th>
-				</tr>
+			<tr>
+				<th width="1%" class="center nowrap">
+					<?php echo HTMLHelper::_('searchtools.sort', 'JSTATUS', 'sermons.state', $listDirn, $listOrder); ?>
+				</th>
+				<th class="title">
+					<?php echo HTMLHelper::_('searchtools.sort', 'JGLOBAL_TITLE', 'speakers.title', $listDirn, $listOrder); ?>
+				</th>
+				<th width="10%" class="nowrap">
+					<?php echo HTMLHelper::_('searchtools.sort', 'JCATEGORY', 'speakers.catid', $listDirn, $listOrder); ?>
+				</th>
+				<th width="15%" class="nowrap">
+					<?php echo HTMLHelper::_('searchtools.sort', 'JGRID_HEADING_LANGUAGE', 'language', $listDirn, $listOrder); ?>
+				</th>
+				<th width="1%" class="nowrap">
+					<?php echo HTMLHelper::_('searchtools.sort', 'JGRID_HEADING_ID', 'speakers.id', $listDirn, $listOrder); ?>
+				</th>
+			</tr>
 			</thead>
 			<tfoot>
-				<tr>
-					<td colspan="15">
-						<?php echo $this->pagination->getListFooter(); ?>
-					</td>
-				</tr>
+			<tr>
+				<td colspan="15">
+					<?php echo $this->pagination->getListFooter(); ?>
+				</td>
+			</tr>
 			</tfoot>
 			<tbody>
 			<?php
 			$iconStates = array(
 				-2 => 'icon-trash',
-				0 => 'icon-unpublish',
-				1 => 'icon-publish',
-				2 => 'icon-archive',
+				0  => 'icon-unpublish',
+				1  => 'icon-publish',
+				2  => 'icon-archive',
 			);
 			?>
 			<?php foreach ($this->items as $i => $item) : ?>
@@ -81,7 +82,7 @@ $listDirn  = $this->escape($this->state->get('list.direction'));
 						<span class="<?php echo $iconStates[$this->escape($item->state)]; ?>"></span>
 					</td>
 					<td>
-						<a onclick="if (window.parent) window.parent.<?php echo $this->escape($function);?>('<?php echo $item->id; ?>', '<?php echo $this->escape(addslashes($item->title)); ?>', '<?php echo $this->escape($item->catid); ?>', '<?php echo $this->escape(SermonspeakerHelperRoute::getSermonRoute($item->id)); ?>');">
+						<a onclick="if (window.parent) window.parent.<?php echo $this->escape($function); ?>('<?php echo $item->id; ?>', '<?php echo $this->escape(addslashes($item->title)); ?>', '<?php echo $this->escape($item->catid); ?>', '<?php echo $this->escape(SermonspeakerHelperRoute::getSermonRoute($item->id)); ?>');">
 							<?php echo $this->escape($item->title); ?></a>
 					</td>
 					<td class="small hidden-phone">
@@ -94,14 +95,15 @@ $listDirn  = $this->escape($this->state->get('list.direction'));
 						<?php echo (int) $item->id; ?>
 					</td>
 				</tr>
-				<?php endforeach; ?>
+			<?php endforeach; ?>
 			</tbody>
 		</table>
 
 		<div>
-			<input type="hidden" name="forcedLanguage" value="<?php echo $this->escape($this->state->get('filter.forcedLanguage')); ?>" />
-			<input type="hidden" name="task" value="" />
-			<input type="hidden" name="boxchecked" value="0" />
+			<input type="hidden" name="forcedLanguage"
+				   value="<?php echo $this->escape($this->state->get('filter.forcedLanguage')); ?>"/>
+			<input type="hidden" name="task" value=""/>
+			<input type="hidden" name="boxchecked" value="0"/>
 			<?php echo HTMLHelper::_('form.token'); ?>
 		</div>
 	</form>

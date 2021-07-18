@@ -22,7 +22,7 @@ class SermonspeakerViewFiles extends JViewLegacy
 	protected $items;
 
 	/**
-	 * @param null $tpl
+	 * @param   null  $tpl
 	 *
 	 * @return mixed
 	 *

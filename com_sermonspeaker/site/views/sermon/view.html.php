@@ -51,7 +51,7 @@ class SermonspeakerViewSermon extends HtmlView
 	/**
 	 * Execute and display a template script.
 	 *
-	 * @param   string $tpl The name of the template file to parse; automatically searches through the template paths.
+	 * @param   string  $tpl  The name of the template file to parse; automatically searches through the template paths.
 	 *
 	 * @return void
 	 *
@@ -190,8 +190,8 @@ class SermonspeakerViewSermon extends HtmlView
 	 *
 	 * @return  void
 	 *
-	 * @since ?
 	 * @throws Exception
+	 * @since ?
 	 */
 	protected function _prepareDocument()
 	{

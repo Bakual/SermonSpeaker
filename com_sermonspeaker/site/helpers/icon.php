@@ -25,9 +25,9 @@ class JHtmlIcon
 	/**
 	 * Create link
 	 *
-	 * @param   object $category Category object
-	 * @param   object $params   Parameters
-	 * @param   string $view     Which edit view to load (sermon, serie or speaker)
+	 * @param   object  $category  Category object
+	 * @param   object  $params    Parameters
+	 * @param   string  $view      Which edit view to load (sermon, serie or speaker)
 	 *
 	 * @return  string  Create link
 	 *
@@ -52,13 +52,13 @@ class JHtmlIcon
 				break;
 			case 'sermon':
 			default:
-				$view = 'sermon';
+				$view       = 'sermon';
 				$controller = 'frontendupload';
 				break;
 		}
 
-		$uri = Uri::getInstance();
-		$url = 'index.php?option=com_sermonspeaker&task=' . $controller . '.add&return=' . base64_encode($uri) . '&s_id=0&catid=' . $category->id;
+		$uri  = Uri::getInstance();
+		$url  = 'index.php?option=com_sermonspeaker&task=' . $controller . '.add&return=' . base64_encode($uri) . '&s_id=0&catid=' . $category->id;
 		$text = Text::_('JNEW') . '&#160;';
 
 		return HTMLHelper::_('link', Route::_($url), $text, 'class="btn btn-primary"');
@@ -67,9 +67,9 @@ class JHtmlIcon
 	/**
 	 * Edit link
 	 *
-	 * @param   object $item    Sermon object
-	 * @param   object $params  Parameters
-	 * @param   array  $attribs Attributes
+	 * @param   object  $item     Sermon object
+	 * @param   object  $params   Parameters
+	 * @param   array   $attribs  Attributes
 	 *
 	 * @return  string  Edit link
 	 *
@@ -79,7 +79,7 @@ class JHtmlIcon
 	{
 		// Initialise variables.
 		$user = Factory::getUser();
-		$uri = Uri::getInstance();
+		$uri  = Uri::getInstance();
 
 		// Ignore if Frontend Uploading is disabled
 		if ($params && !$params->get('fu_enable'))
@@ -107,9 +107,9 @@ class JHtmlIcon
 		)
 		{
 			$checkoutUser = Factory::getUser($item->checked_out);
-			$button = HTMLHelper::_('image', 'system/checked_out.png', null, null, true);
-			$date = HTMLHelper::_('date', $item->checked_out_time);
-			$tooltip = Text::_('JLIB_HTML_CHECKED_OUT') . ' :: ' . Text::sprintf('COM_SERMONSPEAKER_CHECKED_OUT_BY', $checkoutUser->name)
+			$button       = HTMLHelper::_('image', 'system/checked_out.png', null, null, true);
+			$date         = HTMLHelper::_('date', $item->checked_out_time);
+			$tooltip      = Text::_('JLIB_HTML_CHECKED_OUT') . ' :: ' . Text::sprintf('COM_SERMONSPEAKER_CHECKED_OUT_BY', $checkoutUser->name)
 				. ' <br /> ' . $date;
 
 			return '<span class="hasTooltip" title="' . htmlspecialchars($tooltip, ENT_COMPAT) . '">' . $button . '</span>';
@@ -142,7 +142,7 @@ class JHtmlIcon
 
 		if ($item->created != Factory::getDbo()->getNullDate())
 		{
-			$date = HTMLHelper::_('date', $item->created);
+			$date    = HTMLHelper::_('date', $item->created);
 			$tooltip .= '<br>';
 			$tooltip .= Text::sprintf('JGLOBAL_CREATED_DATE_ON', $date);
 		}
@@ -175,9 +175,9 @@ class JHtmlIcon
 	/**
 	 * Download link
 	 *
-	 * @param   object $item    Sermon object
-	 * @param   object $params  Parameters
-	 * @param   array  $attribs Attributes
+	 * @param   object  $item     Sermon object
+	 * @param   object  $params   Parameters
+	 * @param   array   $attribs  Attributes
 	 *
 	 * @return string Download link
 	 *
@@ -185,7 +185,7 @@ class JHtmlIcon
 	 */
 	public static function download($item, $params, $attribs = array())
 	{
-		$fileurl = Route::_('index.php?task=download&id=' . $item->id . '&type=' . $attribs['type']);
+		$fileurl  = Route::_('index.php?task=download&id=' . $item->id . '&type=' . $attribs['type']);
 		$filesize = $attribs['type'] . 'filesize';
 
 		if ($item->$filesize)
@@ -202,10 +202,10 @@ class JHtmlIcon
 
 		if ($params->get('enable_ga_events'))
 		{
-			$output = '<meta itemprop="contentUrl" content="' . $fileurl . '" />';
+			$output  = '<meta itemprop="contentUrl" content="' . $fileurl . '" />';
 			$onclick = "ga('send', 'event', 'SermonSpeaker Download', '" . $attribs['type'] . "', 'id:" . $item->id . "');"
 				. "window.location.href='" . $fileurl . "';";
-			$output .= '<a href="#" onclick="' . $onclick . '">' . $text . '</a>';
+			$output  .= '<a href="#" onclick="' . $onclick . '">' . $text . '</a>';
 		}
 		else
 		{
@@ -218,9 +218,9 @@ class JHtmlIcon
 	/**
 	 * Play icon to control the player
 	 *
-	 * @param   object $item    Sermon object
-	 * @param   object $params  Parameters
-	 * @param   array  $attribs Attributes
+	 * @param   object  $item     Sermon object
+	 * @param   object  $params   Parameters
+	 * @param   array   $attribs  Attributes
 	 *
 	 * @return string Play icon
 	 *

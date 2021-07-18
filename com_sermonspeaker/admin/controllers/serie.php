@@ -28,86 +28,6 @@ class SermonspeakerControllerSerie extends FormController
 	use VersionableControllerTrait;
 
 	/**
-	 * Method override to check if you can add a new record.
-	 *
-	 * @param    array $data An array of input data.
-	 *
-	 * @return    boolean
-	 *
-	 * @since ?
-	 */
-	protected function allowAdd($data = array())
-	{
-		$user       = Factory::getUser();
-		$categoryId = Joomla\Utilities\ArrayHelper::getValue($data, 'catid', $this->input->get('filter_category_id'), 'int');
-		$allow      = null;
-
-		if ($categoryId)
-		{
-			// If the category has been passed in the data or URL check it.
-			$allow = $user->authorise('core.create', $this->option . '.category.' . $categoryId);
-		}
-
-		if ($allow === null)
-		{
-			// In the absense of better information, revert to the component permissions.
-			return parent::allowAdd($data);
-		}
-		else
-		{
-			return $allow;
-		}
-	}
-
-	/**
-	 * Method to check if you can add a new record.
-	 *
-	 * @param   array  $data An array of input data.
-	 * @param   string $key  The name of the key for the primary key.
-	 *
-	 * @return  boolean
-	 *
-	 * @since ?
-	 */
-	protected function allowEdit($data = array(), $key = 'id')
-	{
-		$recordId = (int) isset($data[$key]) ? $data[$key] : 0;
-
-		if (!$recordId)
-		{
-			return parent::allowEdit($data, $key);
-		}
-
-		// Need to do a lookup from the model.
-		/** @var SermonspeakerModelSerie $model */
-		$model      = $this->getModel();
-		$record     = $model->getItem($recordId);
-		$categoryId = (int) $record->catid;
-
-		if (!$categoryId)
-		{
-			// No category set, fall back to component permissions
-			return parent::allowEdit($data, $key);
-		}
-
-		$user = Factory::getUser();
-
-		// The category has been set. Check the category permissions.
-		if ($user->authorise('core.edit', $this->option . '.category.' . $categoryId))
-		{
-			return true;
-		}
-
-		// Fallback on edit.own.
-		if ($user->authorise('core.edit.own', $this->option . '.category.' . $categoryId))
-		{
-			return ($record->created_by == $user->id);
-		}
-
-		return false;
-	}
-
-	/**
 	 * Reset hit counters
 	 *
 	 * @return  void
@@ -153,11 +73,136 @@ class SermonspeakerControllerSerie extends FormController
 	}
 
 	/**
+	 * Method to run batch operations.
+	 *
+	 * @param   object  $model  The model.
+	 *
+	 * @return  boolean     True if successful, false otherwise and internal error is set.
+	 *
+	 * @since   1.7
+	 */
+	public function batch($model = null)
+	{
+		Session::checkToken() or jexit(Text::_('JINVALID_TOKEN'));
+
+		// Set the model
+		$model = $this->getModel('Serie', '', array());
+
+		// Preset the redirect
+		$this->setRedirect(JRoute::_('index.php?option=com_sermonspeaker&view=series' . $this->getRedirectToListAppend(), false));
+
+		return parent::batch($model);
+	}
+
+	/**
+	 * Method to save a record.
+	 *
+	 * @param   string  $key     The name of the primary key of the URL variable.
+	 * @param   string  $urlVar  The name of the URL variable if different from the primary key (sometimes required to
+	 *                           avoid router collisions).
+	 *
+	 * @return    Boolean    True if successful, false otherwise.
+	 * @since    1.6
+	 */
+	public function save($key = null, $urlVar = 'id')
+	{
+		$result = parent::save($key, $urlVar);
+
+		// If ok, redirect to the return page.
+		if ($result && ($return = $this->getReturnPage()))
+		{
+			$this->setRedirect($return);
+		}
+
+		return $result;
+	}
+
+	/**
+	 * Method override to check if you can add a new record.
+	 *
+	 * @param   array  $data  An array of input data.
+	 *
+	 * @return    boolean
+	 *
+	 * @since ?
+	 */
+	protected function allowAdd($data = array())
+	{
+		$user       = Factory::getUser();
+		$categoryId = Joomla\Utilities\ArrayHelper::getValue($data, 'catid', $this->input->get('filter_category_id'), 'int');
+		$allow      = null;
+
+		if ($categoryId)
+		{
+			// If the category has been passed in the data or URL check it.
+			$allow = $user->authorise('core.create', $this->option . '.category.' . $categoryId);
+		}
+
+		if ($allow === null)
+		{
+			// In the absense of better information, revert to the component permissions.
+			return parent::allowAdd($data);
+		}
+		else
+		{
+			return $allow;
+		}
+	}
+
+	/**
+	 * Method to check if you can add a new record.
+	 *
+	 * @param   array   $data  An array of input data.
+	 * @param   string  $key   The name of the key for the primary key.
+	 *
+	 * @return  boolean
+	 *
+	 * @since ?
+	 */
+	protected function allowEdit($data = array(), $key = 'id')
+	{
+		$recordId = (int) isset($data[$key]) ? $data[$key] : 0;
+
+		if (!$recordId)
+		{
+			return parent::allowEdit($data, $key);
+		}
+
+		// Need to do a lookup from the model.
+		/** @var SermonspeakerModelSerie $model */
+		$model      = $this->getModel();
+		$record     = $model->getItem($recordId);
+		$categoryId = (int) $record->catid;
+
+		if (!$categoryId)
+		{
+			// No category set, fall back to component permissions
+			return parent::allowEdit($data, $key);
+		}
+
+		$user = Factory::getUser();
+
+		// The category has been set. Check the category permissions.
+		if ($user->authorise('core.edit', $this->option . '.category.' . $categoryId))
+		{
+			return true;
+		}
+
+		// Fallback on edit.own.
+		if ($user->authorise('core.edit.own', $this->option . '.category.' . $categoryId))
+		{
+			return ($record->created_by == $user->id);
+		}
+
+		return false;
+	}
+
+	/**
 	 * Function that allows child controller access to model data
 	 * after the data has been saved.
 	 *
-	 * @param JModelLegacy $model     The data model object.
-	 * @param array        $validData The validated data.
+	 * @param   JModelLegacy  $model      The data model object.
+	 * @param   array         $validData  The validated data.
 	 *
 	 * @return  void
 	 *
@@ -189,28 +234,6 @@ class SermonspeakerControllerSerie extends FormController
 
 			$this->setRedirect(Route::_('index.php?option=com_menus&view=item&client_id=0&menutype=mainmenu&layout=edit', false));
 		}
-	}
-
-	/**
-	 * Method to run batch operations.
-	 *
-	 * @param   object $model The model.
-	 *
-	 * @return  boolean     True if successful, false otherwise and internal error is set.
-	 *
-	 * @since   1.7
-	 */
-	public function batch($model = null)
-	{
-		Session::checkToken() or jexit(Text::_('JINVALID_TOKEN'));
-
-		// Set the model
-		$model = $this->getModel('Serie', '', array());
-
-		// Preset the redirect
-		$this->setRedirect(JRoute::_('index.php?option=com_sermonspeaker&view=series' . $this->getRedirectToListAppend(), false));
-
-		return parent::batch($model);
 	}
 
 	protected function getRedirectToItemAppend($recordId = null, $urlVar = null)
@@ -252,28 +275,5 @@ class SermonspeakerControllerSerie extends FormController
 		{
 			return base64_decode($return);
 		}
-	}
-
-	/**
-	 * Method to save a record.
-	 *
-	 * @param    string $key    The name of the primary key of the URL variable.
-	 * @param    string $urlVar The name of the URL variable if different from the primary key (sometimes required to
-	 *                          avoid router collisions).
-	 *
-	 * @return    Boolean    True if successful, false otherwise.
-	 * @since    1.6
-	 */
-	public function save($key = null, $urlVar = 'id')
-	{
-		$result = parent::save($key, $urlVar);
-
-		// If ok, redirect to the return page.
-		if ($result && ($return = $this->getReturnPage()))
-		{
-			$this->setRedirect($return);
-		}
-
-		return $result;
 	}
 }

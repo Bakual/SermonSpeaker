@@ -30,9 +30,9 @@
 				required="true"
 			/>
 			<field name="count_items_type" type="list"
-				   label="COM_SERMONSPEAKER_CATEGORY_ITEMS_TYPE_LABEL"
-				   description="COM_SERMONSPEAKER_CATEGORY_ITEMS_TYPE_DESC"
-				   useglobal="true"
+				label="COM_SERMONSPEAKER_CATEGORY_ITEMS_TYPE_LABEL"
+				description="COM_SERMONSPEAKER_CATEGORY_ITEMS_TYPE_DESC"
+				useglobal="true"
 			>
 				<option value="sermons">COM_SERMONSPEAKER_SERMONS</option>
 				<option value="speakers">COM_SERMONSPEAKER_SPEAKERS</option>
@@ -78,7 +78,7 @@
 				class="btn-group"
 				label="COM_SERMONSPEAKER_PARAM_PLUGIN_LABEL"
 				description="COM_SERMONSPEAKER_PARAM_PLUGIN_DESC"
-				useglobal="true" />
+				useglobal="true"/>
 			<field name="filetype"
 				type="list"
 				label="COM_SERMONSPEAKER_FIELD_FILETYPE_LABEL"
@@ -91,8 +91,8 @@
 				type="list"
 				label="COM_SERMONSPEAKER_PARAM_FILEPRIO_LABEL"
 				description="COM_SERMONSPEAKER_PARAM_FILEPRIO_DESC">
-				   useglobal="true"
-			>
+				useglobal="true"
+				>
 				<option value="0">COM_SERMONSPEAKER_AUDIO</option>
 				<option value="1">COM_SERMONSPEAKER_VIDEO</option>
 			</field>

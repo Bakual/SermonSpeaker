@@ -14,11 +14,11 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Router\Route;
 
 HTMLHelper::_('bootstrap.tooltip', '.hasTooltip');
-$class         = 'first';
+$class = 'first';
 
 if (count($this->items[$this->parent->id]) and $this->maxLevelcat != 0) : ?>
 	<?php foreach ($this->items[$this->parent->id] as $id => $item) :
-		if ($this->params->get('show_empty_categories_cat') or $item->numitems OR $item->hasChildren()) :
+		if ($this->params->get('show_empty_categories_cat') or $item->numitems or $item->hasChildren()) :
 			if (!$image = $item->getParams()->get('image')):
 				$image = 'media/com_sermonspeaker/images/category.png';
 			endif; ?>
@@ -36,7 +36,7 @@ if (count($this->items[$this->parent->id]) and $this->maxLevelcat != 0) : ?>
 				$tooltip = implode('<br/>', $tip);
 				?>
 				<span class="hasTooltip"
-					title="<?php echo HTMLHelper::tooltipText($item->title, $tooltip); ?>">
+					  title="<?php echo HTMLHelper::tooltipText($item->title, $tooltip); ?>">
 					<a href="<?php echo Route::_(SermonspeakerHelperRoute::getSermonsRoute($item->id, $item->language)); ?>">
 						<img border="0" align="middle" src="<?php echo $image; ?>"/>
 						<?php

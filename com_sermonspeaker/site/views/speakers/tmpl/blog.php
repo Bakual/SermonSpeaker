@@ -33,7 +33,7 @@ $listDirn   = $this->state->get('list.direction');
 
 	<div class="cat-items">
 		<form action="<?php echo htmlspecialchars(JUri::getInstance()->toString()); ?>" method="post" id="adminForm"
-			name="adminForm">
+			  name="adminForm">
 			<?php
 			if ($this->params->get('filter_field') or $this->params->get('show_pagination_limit')) : ?>
 				<div class="filters btn-toolbar">
@@ -50,7 +50,8 @@ $listDirn   = $this->state->get('list.direction');
 			<div class="clearfix"></div>
 			<?php if (!count($this->items)) : ?>
 				<div class="alert alert-info">
-					<span class="icon-info-circle" aria-hidden="true"></span><span class="visually-hidden"><?php echo Text::_('INFO'); ?></span>
+					<span class="icon-info-circle" aria-hidden="true"></span><span
+							class="visually-hidden"><?php echo Text::_('INFO'); ?></span>
 					<?php echo Text::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', Text::_('COM_SERMONSPEAKER_SPEAKERS')); ?>
 				</div>
 			<?php else : ?>
@@ -82,7 +83,7 @@ $listDirn   = $this->state->get('list.direction');
 								<div class="img-thumbnail pull-right item-image">
 									<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug, $item->catid, $item->language)); ?>">
 										<img
-											src="<?php echo SermonspeakerHelperSermonspeaker::makeLink($item->pic); ?>">
+												src="<?php echo SermonspeakerHelperSermonspeaker::makeLink($item->pic); ?>">
 									</a>
 								</div>
 							<?php endif; ?>
@@ -138,15 +139,15 @@ $listDirn   = $this->state->get('list.direction');
 
 							<?php if ($item->sermons) : ?>
 								<a class="badge bg-info"
-									title="<?php echo Text::_('COM_SERMONSPEAKER_SPEAKERS_SERMONSLINK_HOOVER'); ?>"
-									href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug, $item->catid, $item->language) . '#sermons'); ?>">
+								   title="<?php echo Text::_('COM_SERMONSPEAKER_SPEAKERS_SERMONSLINK_HOOVER'); ?>"
+								   href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug, $item->catid, $item->language) . '#sermons'); ?>">
 									<?php echo Text::_('COM_SERMONSPEAKER_SERMONS') . ': ' . $item->sermons; ?></a>&nbsp;
 							<?php endif; ?>
 
 							<?php if ($item->series) : ?>
 								<a class="badge bg-info"
-									title="<?php echo Text::_('COM_SERMONSPEAKER_SPEAKERS_SERIESLINK_HOOVER'); ?>"
-									href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug, $item->catid, $item->language) . '#series'); ?>">
+								   title="<?php echo Text::_('COM_SERMONSPEAKER_SPEAKERS_SERIESLINK_HOOVER'); ?>"
+								   href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug, $item->catid, $item->language) . '#series'); ?>">
 									<?php echo Text::_('COM_SERMONSPEAKER_SERIES') . ': ' . $item->series; ?></a>&nbsp;
 							<?php endif; ?>
 

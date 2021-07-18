@@ -58,7 +58,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->item, $config);
 				<div class="ss-mp3-links">
 					<?php if ($this->params->get('popup_player')) : ?>
 						<a href="<?php echo Uri::current(); ?>" class="new-window"
-							onclick="popup = window.open('<?php echo Route::_(SermonspeakerHelperRoute::getSermonRoute($this->item->slug, $this->item->catid, $this->item->language) . '&layout=popup&tmpl=component'); ?>', 'PopupPage', 'height=<?php echo $player->popup['height']; ?>,width=<?php echo $player->popup['width']; ?>,scrollbars=yes,resizable=yes'); return false">
+						   onclick="popup = window.open('<?php echo Route::_(SermonspeakerHelperRoute::getSermonRoute($this->item->slug, $this->item->catid, $this->item->language) . '&layout=popup&tmpl=component'); ?>', 'PopupPage', 'height=<?php echo $player->popup['height']; ?>,width=<?php echo $player->popup['width']; ?>,scrollbars=yes,resizable=yes'); return false">
 							<?php echo Text::_('COM_SERMONSPEAKER_POPUPPLAYER'); ?>
 						</a>
 					<?php endif;
@@ -70,8 +70,8 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->item, $config);
 					if ($this->item->audiofile and in_array('sermon:download', $this->columns)) : ?>
 						<span itemprop="audio" itemscope itemtype="http://schema.org/AudioObject">
 					<a id="sermon_download"
-						href="<?php echo Route::_('index.php?task=download&type=audio&id=' . $this->item->slug); ?>"
-						class="download" itemprop="url">
+					   href="<?php echo Route::_('index.php?task=download&type=audio&id=' . $this->item->slug); ?>"
+					   class="download" itemprop="url">
 						<?php echo Text::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_AUDIO'); ?>
 					</a>
 				</span>
@@ -85,7 +85,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->item, $config);
 				<?php endif; ?>
 				<div class="ss-player-video">
 					<a href="<?php echo Uri::current(); ?>"
-						onclick="popup = window.open('<?php echo Route::_(SermonspeakerHelperRoute::getSermonRoute($this->item->slug, $this->item->catid, $this->item->language) . '&layout=popup&type=video&tmpl=component'); ?>', 'PopupPage', 'height=<?php echo $player->popup['height']; ?>,width=<?php echo $player->popup['width']; ?>,scrollbars=yes,resizable=yes'); return false">
+					   onclick="popup = window.open('<?php echo Route::_(SermonspeakerHelperRoute::getSermonRoute($this->item->slug, $this->item->catid, $this->item->language) . '&layout=popup&type=video&tmpl=component'); ?>', 'PopupPage', 'height=<?php echo $player->popup['height']; ?>,width=<?php echo $player->popup['width']; ?>,scrollbars=yes,resizable=yes'); return false">
 						<img src="media/com_sermonspeaker/images/player.png">
 					</a>
 				</div>
@@ -94,8 +94,8 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->item, $config);
 			if ($this->item->videofile and in_array('sermon:download', $this->columns)) : ?>
 				<div class="ss-mp3-links" itemprop="video" itemscope itemtype="http://schema.org/VideoObject">
 					<a id="sermon_download"
-						href="<?php echo Route::_('index.php?task=download&type=video&id=' . $this->item->slug); ?>"
-						class="download" itemprop="url">
+					   href="<?php echo Route::_('index.php?task=download&type=video&id=' . $this->item->slug); ?>"
+					   class="download" itemprop="url">
 						<?php echo Text::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_VIDEO'); ?>
 					</a>
 				</div>
@@ -104,14 +104,14 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->item, $config);
 		<div class="ss-fields-container">
 			<?php if (in_array('sermon:speaker', $this->columns) and $this->item->speaker_id): ?>
 				<div class="ss-field field-speaker" title="<?php echo Text::_('COM_SERMONSPEAKER_SPEAKER'); ?>"
-					itemprop="author" itemscope itemtype="http://schema.org/Person">
+					 itemprop="author" itemscope itemtype="http://schema.org/Person">
 					<?php echo LayoutHelper::render('titles.speaker', array('item' => $this->item, 'params' => $this->params)); ?>
 				</div>
 			<?php endif;
 
 			if (in_array('sermon:scripture', $this->columns) and $this->item->scripture) : ?>
 				<div class="ss-field field-bible"
-					title="<?php echo Text::_('COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL'); ?>">
+					 title="<?php echo Text::_('COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL'); ?>">
 					<?php $scriptures = SermonspeakerHelperSermonspeaker::insertScriptures($this->item->scripture, '; ');
 					echo HTMLHelper::_('content.prepare', $scriptures); ?>
 				</div>
@@ -120,9 +120,9 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->item, $config);
 		<div class="ss-fields-container">
 			<?php if (in_array('sermon:date', $this->columns) and ($this->item->sermon_date != '0000-00-00 00:00:00')) : ?>
 				<div class="ss-field field-calendar"
-					title="<?php echo Text::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL'); ?>">
+					 title="<?php echo Text::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL'); ?>">
 					<time datetime="<?php echo HTMLHelper::_('date', $this->item->sermon_date, 'c'); ?>"
-						itemprop="dateCreated">
+						  itemprop="dateCreated">
 						<?php echo HTMLHelper::date($this->item->sermon_date, Text::_('DATE_FORMAT_LC1'), true); ?>
 					</time>
 				</div>
@@ -130,7 +130,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->item, $config);
 
 			if (in_array('sermon:length', $this->columns) and ($this->item->sermon_time != '00:00:00')) : ?>
 				<div class="ss-field field-time"
-					title="<?php echo Text::_('COM_SERMONSPEAKER_FIELD_LENGTH_LABEL'); ?>">
+					 title="<?php echo Text::_('COM_SERMONSPEAKER_FIELD_LENGTH_LABEL'); ?>">
 					<?php echo SermonspeakerHelperSermonspeaker::insertTime($this->item->sermon_time); ?>
 				</div>
 			<?php endif; ?>

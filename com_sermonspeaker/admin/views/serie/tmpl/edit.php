@@ -22,11 +22,11 @@ HTMLHelper::addIncludePath(JPATH_COMPONENT . '/helpers/html');
 $wa = $this->document->getWebAssetManager();
 $wa->getRegistry()->addExtensionRegistryFile('com_contenthistory');
 $wa->useScript('keepalive')
-		->useScript('form.validate')
-		->useScript('com_contenthistory.admin-history-versions');
+	->useScript('form.validate')
+	->useScript('com_contenthistory.admin-history-versions');
 
 $this->ignore_fieldsets = array('general', 'info', 'detail', 'jmetadata', 'item_associations');
-$this->useCoreUI = true;
+$this->useCoreUI        = true;
 
 $jinput = Factory::getApplication()->input;
 
@@ -35,7 +35,8 @@ $isModal = $jinput->get('layout') == 'modal';
 $layout  = $isModal ? 'modal' : 'edit';
 $tmpl    = $isModal || $jinput->get('tmpl', '') === 'component' ? '&tmpl=component' : '';
 ?>
-<form action="<?php echo JRoute::_('index.php?option=com_sermonspeaker&layout=' . $layout . $tmpl . '&id=' . (int) $this->item->id); ?>" method="post" name="adminForm" id="item-form" class="form-validate">
+<form action="<?php echo JRoute::_('index.php?option=com_sermonspeaker&layout=' . $layout . $tmpl . '&id=' . (int) $this->item->id); ?>"
+	  method="post" name="adminForm" id="item-form" class="form-validate">
 
 	<?php echo LayoutHelper::render('joomla.edit.title_alias', $this); ?>
 
@@ -43,63 +44,63 @@ $tmpl    = $isModal || $jinput->get('tmpl', '') === 'component' ? '&tmpl=compone
 		<?php echo HTMLHelper::_('uitab.startTabSet', 'myTab', array('active' => 'general')); ?>
 
 		<?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'general', Text::_('JGLOBAL_FIELDSET_CONTENT', true)); ?>
-			<div class="row">
-				<div class="col-12 col-lg-9">
-					<div class="card">
-						<div class="card-body">
-							<fieldset class="adminform">
-								<?php echo $this->form->getLabel('series_description'); ?>
-								<?php echo $this->form->getInput('series_description'); ?>
-							</fieldset>
-						</div>
-					</div>
-				</div>
-				<div class="col-12 col-lg-3">
-					<div class="bg-white px-3">
-						<?php echo LayoutHelper::render('joomla.edit.global', $this); ?>
+		<div class="row">
+			<div class="col-12 col-lg-9">
+				<div class="card">
+					<div class="card-body">
+						<fieldset class="adminform">
+							<?php echo $this->form->getLabel('series_description'); ?>
+							<?php echo $this->form->getInput('series_description'); ?>
+						</fieldset>
 					</div>
 				</div>
 			</div>
+			<div class="col-12 col-lg-3">
+				<div class="bg-white px-3">
+					<?php echo LayoutHelper::render('joomla.edit.global', $this); ?>
+				</div>
+			</div>
+		</div>
 		<?php echo HTMLHelper::_('uitab.endTab'); ?>
 
 		<?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'details', Text::_('JDETAILS', true)); ?>
-			<div class="col-12 col-lg-6">
-				<fieldset id="fieldset-detail" class="options-form">
-					<legend><?php echo Text::_('COM_SERMONSPEAKER_DETAIL'); ?></legend>
-					<?php foreach($this->form->getFieldset('detail') as $field): ?>
-						<?php echo $field->renderField(); ?>
-					<?php endforeach; ?>
-				</fieldset>
-			</div>
+		<div class="col-12 col-lg-6">
+			<fieldset id="fieldset-detail" class="options-form">
+				<legend><?php echo Text::_('COM_SERMONSPEAKER_DETAIL'); ?></legend>
+				<?php foreach ($this->form->getFieldset('detail') as $field): ?>
+					<?php echo $field->renderField(); ?>
+				<?php endforeach; ?>
+			</fieldset>
+		</div>
 		<?php echo HTMLHelper::_('uitab.endTab'); ?>
 
 		<?php echo LayoutHelper::render('joomla.edit.params', $this); ?>
 
 		<?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'publishing', Text::_('JGLOBAL_FIELDSET_PUBLISHING', true)); ?>
-			<div class="row">
-				<div class="col-12 col-lg-6">
-					<fieldset id="fieldset-publishingdata" class="options-form">
-						<legend><?php echo Text::_('JGLOBAL_FIELDSET_PUBLISHING'); ?></legend>
-						<div>
-							<?php echo LayoutHelper::render('joomla.edit.publishingdata', $this); ?>
-						</div>
-					</fieldset>
-				</div>
-				<div class="col-12 col-lg-6">
-					<fieldset id="fieldset-metadata" class="options-form">
-						<legend><?php echo Text::_('JGLOBAL_FIELDSET_METADATA_OPTIONS'); ?></legend>
-						<div>
-							<?php echo LayoutHelper::render('joomla.edit.metadata', $this); ?>
-						</div>
-					</fieldset>
-				</div>
+		<div class="row">
+			<div class="col-12 col-lg-6">
+				<fieldset id="fieldset-publishingdata" class="options-form">
+					<legend><?php echo Text::_('JGLOBAL_FIELDSET_PUBLISHING'); ?></legend>
+					<div>
+						<?php echo LayoutHelper::render('joomla.edit.publishingdata', $this); ?>
+					</div>
+				</fieldset>
 			</div>
+			<div class="col-12 col-lg-6">
+				<fieldset id="fieldset-metadata" class="options-form">
+					<legend><?php echo Text::_('JGLOBAL_FIELDSET_METADATA_OPTIONS'); ?></legend>
+					<div>
+						<?php echo LayoutHelper::render('joomla.edit.metadata', $this); ?>
+					</div>
+				</fieldset>
+			</div>
+		</div>
 		<?php echo HTMLHelper::_('uitab.endTab'); ?>
 
 		<?php if (Associations::isEnabled()) : ?>
 			<?php if (!$isModal) : ?>
 				<?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'associations', Text::_('JGLOBAL_FIELDSET_ASSOCIATIONS', true)); ?>
-					<?php echo LayoutHelper::render('joomla.edit.associations', $this); ?>
+				<?php echo LayoutHelper::render('joomla.edit.associations', $this); ?>
 				<?php echo HTMLHelper::_('uitab.endTab'); ?>
 			<?php else : ?>
 				<div class="hidden"><?php echo LayoutHelper::render('joomla.edit.associations', $this); ?></div>
@@ -107,8 +108,8 @@ $tmpl    = $isModal || $jinput->get('tmpl', '') === 'component' ? '&tmpl=compone
 		<?php endif; ?>
 
 		<?php echo HTMLHelper::_('uitab.endTabSet'); ?>
-		<input type="hidden" name="task" value="" />
-		<input type="hidden" name="return" value="<?php echo $jinput->getCmd('return'); ?>" />
+		<input type="hidden" name="task" value=""/>
+		<input type="hidden" name="return" value="<?php echo $jinput->getCmd('return'); ?>"/>
 		<?php echo HTMLHelper::_('form.token'); ?>
 	</div>
 </form>

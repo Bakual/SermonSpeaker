@@ -19,6 +19,7 @@ $player = SermonspeakerHelperSermonspeaker::getPlayer($this->item, $config);
 ?>
 <script type="text/javascript">
     window.onload = applyChanges();
+
     function applyChanges() {
         window.resizeTo(<?php echo $player->popup['width'] . ', ' . $player->popup['height']; ?>);
         document.body.style.backgroundColor = '<?php echo $this->params->get('popup_color', '#fff'); ?>';

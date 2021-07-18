@@ -96,11 +96,11 @@ class JFormFieldModal_Sermon extends JFormField
 		{
 			$linkSermons .= '&amp;forcedLanguage=' . $this->element['language'];
 			$linkSermon  .= '&amp;forcedLanguage=' . $this->element['language'];
-			$modalTitle    = Text::_('COM_SERMONSPEAKER_CHANGE_SERMON') . ' &#8212; ' . $this->element['label'];
+			$modalTitle  = Text::_('COM_SERMONSPEAKER_CHANGE_SERMON') . ' &#8212; ' . $this->element['label'];
 		}
 		else
 		{
-			$modalTitle    = Text::_('COM_SERMONSPEAKER_CHANGE_SERMON');
+			$modalTitle = Text::_('COM_SERMONSPEAKER_CHANGE_SERMON');
 		}
 
 		$urlSelect = $linkSermons . '&amp;function=jSelectSermon_' . $this->id;
@@ -130,7 +130,7 @@ class JFormFieldModal_Sermon extends JFormField
 		$title = empty($title) ? Text::_('COM_SERMONSPEAKER_SELECT_A_SERMON') : htmlspecialchars($title, ENT_QUOTES);
 
 		// The current sermon display field.
-		$html  = '';
+		$html = '';
 
 		if ($allowSelect || $allowNew || $allowEdit || $allowClear)
 		{
@@ -194,7 +194,7 @@ class JFormFieldModal_Sermon extends JFormField
 		if ($allowPropagate && count($languages) > 2)
 		{
 			// Strip off language tag at the end
-			$tagLength = (int) strlen($this->element['language']);
+			$tagLength            = (int) strlen($this->element['language']);
 			$callbackFunctionStem = substr("jSelectSermon_" . $this->id, 0, -$tagLength);
 
 			$html .= '<button'
@@ -219,12 +219,12 @@ class JFormFieldModal_Sermon extends JFormField
 				'bootstrap.renderModal',
 				'ModalSelect' . $modalId,
 				array(
-					'title'       => $modalTitle,
-					'url'         => $urlSelect,
-					'height'      => '400px',
-					'width'       => '800px',
-					'bodyHeight'  => 70,
-					'modalWidth'  => 80,
+					'title'      => $modalTitle,
+					'url'        => $urlSelect,
+					'height'     => '400px',
+					'width'      => '800px',
+					'bodyHeight' => 70,
+					'modalWidth' => 80,
 					'footer'     => '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">'
 						. Text::_('JLIB_HTML_BEHAVIOR_CLOSE') . '</button>',
 				)

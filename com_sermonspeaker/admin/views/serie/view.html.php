@@ -30,7 +30,7 @@ class SermonspeakerViewSerie extends JViewLegacy
 	/**
 	 * Execute and display a template script.
 	 *
-	 * @param   string $tpl The name of the template file to parse; automatically searches through the template paths.
+	 * @param   string  $tpl  The name of the template file to parse; automatically searches through the template paths.
 	 *
 	 * @return void
 	 *
@@ -99,8 +99,7 @@ class SermonspeakerViewSerie extends JViewLegacy
 				$saveGroup = $toolbar->dropdownButton('save-group');
 
 				$saveGroup->configure(
-					function (Toolbar $childBar) use ($user)
-					{
+					function (Toolbar $childBar) use ($user) {
 						$childBar->save('serie.save');
 
 						if ($user->authorise('core.create', 'com_menus.menu'))
@@ -126,8 +125,7 @@ class SermonspeakerViewSerie extends JViewLegacy
 			$saveGroup = $toolbar->dropdownButton('save-group');
 
 			$saveGroup->configure(
-				function (Toolbar $childBar) use ($checkedOut, $itemEditable, $canDo, $user)
-				{
+				function (Toolbar $childBar) use ($checkedOut, $itemEditable, $canDo, $user) {
 					// Can't save the record if it's checked out and editable
 					if (!$checkedOut && $itemEditable)
 					{

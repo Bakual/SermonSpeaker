@@ -81,7 +81,7 @@ class SermonspeakerViewSermon extends JViewLegacy
 	/**
 	 * Execute and display a template script.
 	 *
-	 * @param   string $tpl The name of the template file to parse; automatically searches through the template paths.
+	 * @param   string  $tpl  The name of the template file to parse; automatically searches through the template paths.
 	 *
 	 * @return  void
 	 *
@@ -325,7 +325,7 @@ class SermonspeakerViewSermon extends JViewLegacy
 			$s3 = new S3($awsAccessKey, $awsSecretKey);
 			$s3->setRegion($region);
 
-			$prefix = ($region === 'us-east-1') ? 's3' : 's3-' . $region;
+			$prefix       = ($region === 'us-east-1') ? 's3' : 's3-' . $region;
 			$this->domain = $prefix . '.amazonaws.com/' . $bucket . $folder;
 		}
 
@@ -377,7 +377,7 @@ class SermonspeakerViewSermon extends JViewLegacy
 				$changelang .= "document.id('videopathlang').innerHTML = language+'/';";
 			}
 
-			$changelang .= "document.id('addfilepathlang').innerHTML = language+'/';
+			$changelang        .= "document.id('addfilepathlang').innerHTML = language+'/';
 				}";
 			$lang              = ($this->item->language && $this->item->language == '*') ? $this->item->language : Factory::getLanguage()->getTag();
 			$this->append_lang = $lang . '/';
@@ -441,7 +441,7 @@ class SermonspeakerViewSermon extends JViewLegacy
 	/**
 	 * Function to return bytes from the PHP settings. Taken from the ini_get() manual.
 	 *
-	 * @param   string $val PHP setting (eg 2M)
+	 * @param   string  $val  PHP setting (eg 2M)
 	 *
 	 * @return  integer
 	 *
@@ -502,8 +502,7 @@ class SermonspeakerViewSermon extends JViewLegacy
 				$saveGroup = $toolbar->dropdownButton('save-group');
 
 				$saveGroup->configure(
-					function (Toolbar $childBar) use ($user)
-					{
+					function (Toolbar $childBar) use ($user) {
 						$childBar->save('sermon.save');
 
 						if ($user->authorise('core.create', 'com_menus.menu'))
@@ -529,8 +528,7 @@ class SermonspeakerViewSermon extends JViewLegacy
 			$saveGroup = $toolbar->dropdownButton('save-group');
 
 			$saveGroup->configure(
-				function (Toolbar $childBar) use ($checkedOut, $itemEditable, $canDo, $user)
-				{
+				function (Toolbar $childBar) use ($checkedOut, $itemEditable, $canDo, $user) {
 					// Can't save the record if it's checked out and editable
 					if (!$checkedOut && $itemEditable)
 					{

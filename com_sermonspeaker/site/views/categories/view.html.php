@@ -9,7 +9,6 @@
 
 defined('_JEXEC') or die();
 
-use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\CategoriesView;
 
 /**
@@ -36,7 +35,7 @@ class SermonspeakerViewCategories extends CategoriesView
 	/**
 	 * Execute and display a template script.
 	 *
-	 * @param   string $tpl The name of the template file to parse; automatically searches through the template paths.
+	 * @param   string  $tpl  The name of the template file to parse; automatically searches through the template paths.
 	 *
 	 * @return void
 	 *

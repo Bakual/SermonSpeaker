@@ -25,8 +25,8 @@ abstract class SermonspeakerHelperRoute
 	/**
 	 * Get Sermons Route
 	 *
-	 * @param   int      $catid    Category ID of the sermons
-	 * @param int|string $language Language tag
+	 * @param   int         $catid     Category ID of the sermons
+	 * @param   int|string  $language  Language tag
 	 *
 	 * @return string URL
 	 *
@@ -44,11 +44,11 @@ abstract class SermonspeakerHelperRoute
 		if ((int) $catid > 1)
 		{
 			$categories = JCategories::getInstance('sermonspeaker.sermons', array('table' => '#__sermon_sermons'));
-			$category = $categories->get((int) $catid);
+			$category   = $categories->get((int) $catid);
 
 			if ($category)
 			{
-				$path = array_reverse($category->getPath());
+				$path               = array_reverse($category->getPath());
 				$needles['sermons'] = Joomla\Utilities\ArrayHelper::toInteger($path);
 			}
 
@@ -66,7 +66,7 @@ abstract class SermonspeakerHelperRoute
 			{
 				if ($language == $lang->lang_code)
 				{
-					$link .= '&lang=' . $lang->sef;
+					$link                .= '&lang=' . $lang->sef;
 					$needles['language'] = $language;
 				}
 			}
@@ -83,9 +83,9 @@ abstract class SermonspeakerHelperRoute
 	/**
 	 * Get Sermon Route
 	 *
-	 * @param   int      $id       ID of the sermon
-	 * @param   int      $catid    Category ID of the sermon
-	 * @param int|string $language Language tag
+	 * @param   int         $id        ID of the sermon
+	 * @param   int         $catid     Category ID of the sermon
+	 * @param   int|string  $language  Language tag
 	 *
 	 * @return string URL
 	 *
@@ -104,11 +104,11 @@ abstract class SermonspeakerHelperRoute
 		if ((int) $catid > 1)
 		{
 			$categories = JCategories::getInstance('sermonspeaker.sermons', array('table' => '#__sermon_sermons'));
-			$category = $categories->get((int) $catid);
+			$category   = $categories->get((int) $catid);
 
 			if ($category)
 			{
-				$path = array_reverse($category->getPath());
+				$path               = array_reverse($category->getPath());
 				$needles['sermons'] = Joomla\Utilities\ArrayHelper::toInteger($path);
 			}
 		}
@@ -124,7 +124,7 @@ abstract class SermonspeakerHelperRoute
 			{
 				if ($language == $lang->lang_code)
 				{
-					$link .= '&lang=' . $lang->sef;
+					$link                .= '&lang=' . $lang->sef;
 					$needles['language'] = $language;
 				}
 			}
@@ -141,8 +141,8 @@ abstract class SermonspeakerHelperRoute
 	/**
 	 * Get Series Route
 	 *
-	 * @param   int      $catid    Category ID of the series
-	 * @param int|string $language Language tag
+	 * @param   int         $catid     Category ID of the series
+	 * @param   int|string  $language  Language tag
 	 *
 	 * @return string URL
 	 *
@@ -160,11 +160,11 @@ abstract class SermonspeakerHelperRoute
 		if ((int) $catid > 1)
 		{
 			$categories = JCategories::getInstance('sermonspeaker.series', array('table' => '#__sermon_series'));
-			$category = $categories->get((int) $catid);
+			$category   = $categories->get((int) $catid);
 
 			if ($category)
 			{
-				$path = array_reverse($category->getPath());
+				$path              = array_reverse($category->getPath());
 				$needles['series'] = Joomla\Utilities\ArrayHelper::toInteger($path);
 			}
 
@@ -182,7 +182,7 @@ abstract class SermonspeakerHelperRoute
 			{
 				if ($language == $lang->lang_code)
 				{
-					$link .= '&lang=' . $lang->sef;
+					$link                .= '&lang=' . $lang->sef;
 					$needles['language'] = $language;
 				}
 			}
@@ -199,9 +199,9 @@ abstract class SermonspeakerHelperRoute
 	/**
 	 * Get Serie Route
 	 *
-	 * @param   int      $id       ID of the serie
-	 * @param   int      $catid    Category ID of the serie
-	 * @param int|string $language Language tag
+	 * @param   int         $id        ID of the serie
+	 * @param   int         $catid     Category ID of the serie
+	 * @param   int|string  $language  Language tag
 	 *
 	 * @return string URL
 	 *
@@ -220,11 +220,11 @@ abstract class SermonspeakerHelperRoute
 		if ((int) $catid > 1)
 		{
 			$categories = JCategories::getInstance('sermonspeaker.series', array('table' => '#__sermon_series'));
-			$category = $categories->get((int) $catid);
+			$category   = $categories->get((int) $catid);
 
 			if ($category)
 			{
-				$path = array_reverse($category->getPath());
+				$path              = array_reverse($category->getPath());
 				$needles['series'] = Joomla\Utilities\ArrayHelper::toInteger($path);
 			}
 		}
@@ -240,7 +240,7 @@ abstract class SermonspeakerHelperRoute
 			{
 				if ($language == $lang->lang_code)
 				{
-					$link .= '&lang=' . $lang->sef;
+					$link                .= '&lang=' . $lang->sef;
 					$needles['language'] = $language;
 				}
 			}
@@ -257,8 +257,8 @@ abstract class SermonspeakerHelperRoute
 	/**
 	 * Get Speakers Route
 	 *
-	 * @param   int      $catid    Category ID of the speakers
-	 * @param int|string $language Language tag
+	 * @param   int         $catid     Category ID of the speakers
+	 * @param   int|string  $language  Language tag
 	 *
 	 * @return string URL
 	 *
@@ -276,11 +276,11 @@ abstract class SermonspeakerHelperRoute
 		if ((int) $catid > 1)
 		{
 			$categories = JCategories::getInstance('sermonspeaker.speakers', array('table' => '#__sermon_speakers'));
-			$category = $categories->get((int) $catid);
+			$category   = $categories->get((int) $catid);
 
 			if ($category)
 			{
-				$path = array_reverse($category->getPath());
+				$path                = array_reverse($category->getPath());
 				$needles['speakers'] = Joomla\Utilities\ArrayHelper::toInteger($path);
 			}
 
@@ -298,7 +298,7 @@ abstract class SermonspeakerHelperRoute
 			{
 				if ($language == $lang->lang_code)
 				{
-					$link .= '&lang=' . $lang->sef;
+					$link                .= '&lang=' . $lang->sef;
 					$needles['language'] = $language;
 				}
 			}
@@ -315,9 +315,9 @@ abstract class SermonspeakerHelperRoute
 	/**
 	 * Get Speaker Route
 	 *
-	 * @param   int      $id       ID of the speaker
-	 * @param   int      $catid    Category ID of the speaker
-	 * @param int|string $language Language tag
+	 * @param   int         $id        ID of the speaker
+	 * @param   int         $catid     Category ID of the speaker
+	 * @param   int|string  $language  Language tag
 	 *
 	 * @return string URL
 	 *
@@ -336,11 +336,11 @@ abstract class SermonspeakerHelperRoute
 		if ((int) $catid > 1)
 		{
 			$categories = JCategories::getInstance('sermonspeaker.speakers', array('table' => '#__sermon_speakers'));
-			$category = $categories->get((int) $catid);
+			$category   = $categories->get((int) $catid);
 
 			if ($category)
 			{
-				$path = array_reverse($category->getPath());
+				$path                = array_reverse($category->getPath());
 				$needles['speakers'] = Joomla\Utilities\ArrayHelper::toInteger($path);
 			}
 		}
@@ -356,7 +356,7 @@ abstract class SermonspeakerHelperRoute
 			{
 				if ($language == $lang->lang_code)
 				{
-					$link .= '&lang=' . $lang->sef;
+					$link                .= '&lang=' . $lang->sef;
 					$needles['language'] = $language;
 				}
 			}
@@ -373,7 +373,7 @@ abstract class SermonspeakerHelperRoute
 	/**
 	 * Find Items
 	 *
-	 * @param   array $needles Array of properties to search
+	 * @param   array  $needles  Array of properties to search
 	 *
 	 * @return int ID of the menu item
 	 *
@@ -381,9 +381,9 @@ abstract class SermonspeakerHelperRoute
 	 */
 	protected static function _findItem($needles = null)
 	{
-		$app = Factory::getApplication();
-		$menus = $app->getMenu('site');
-		$active = $menus->getActive();
+		$app      = Factory::getApplication();
+		$menus    = $app->getMenu('site');
+		$active   = $menus->getActive();
 		$language = isset($needles['language']) ? $needles['language'] : '*';
 
 		// Prepare the reverse lookup array.
@@ -394,12 +394,12 @@ abstract class SermonspeakerHelperRoute
 			$component = JComponentHelper::getComponent('com_sermonspeaker');
 
 			$attributes = array('component_id');
-			$values = array($component->id);
+			$values     = array($component->id);
 
 			if ($language != '*')
 			{
 				$attributes[] = 'language';
-				$values[] = array($needles['language'], '*');
+				$values[]     = array($needles['language'], '*');
 			}
 
 			$items = $menus->getItems($attributes, $values);
@@ -523,7 +523,7 @@ abstract class SermonspeakerHelperRoute
 	 */
 	protected static function _getLanguages()
 	{
-		$db = Factory::getDbo();
+		$db    = Factory::getDbo();
 		$query = $db->getQuery(true)
 			->select('a.sef AS sef')
 			->select('a.lang_code AS lang_code')

@@ -20,40 +20,14 @@ use Joomla\CMS\Language\Text;
 class SermonspeakerModelSerie extends JModelItem
 {
 	/**
-	 * Method to auto-populate the model state
-	 *
-	 * Note. Calling getState in this method will result in recursion
-	 *
-	 * @param   string $ordering  Ordering column
-	 * @param   string $direction 'ASC' or 'DESC'
-	 *
-	 * @return  void
-	 *
-	 * @since ?
-	 */
-	protected function populateState($ordering = null, $direction = null)
-	{
-		/** @var JApplicationSite $app */
-		$app    = Factory::getApplication();
-		$params = $app->getParams();
-
-		// Load the object state.
-		$id = $app->input->get('id', 0, 'int');
-		$this->setState('serie.id', $id);
-
-		// Load the parameters.
-		$this->setState('params', $params);
-	}
-
-	/**
 	 * Method to get an object
 	 *
-	 * @param   int $id The id of the object to get
+	 * @param   int  $id  The id of the object to get
 	 *
 	 * @return mixed Object on success, false on failure
 	 *
-	 * @since ?
 	 * @throws Exception
+	 * @since ?
 	 */
 	public function &getItem($id = null)
 	{
@@ -134,7 +108,7 @@ class SermonspeakerModelSerie extends JModelItem
 	/**
 	 * Method to increment the hit counter for the series
 	 *
-	 * @param   int $id Optional ID of the series
+	 * @param   int  $id  Optional ID of the series
 	 *
 	 * @return  boolean  True on success
 	 *
@@ -155,7 +129,7 @@ class SermonspeakerModelSerie extends JModelItem
 	/**
 	 * Method to get speakers for a series
 	 *
-	 * @param   int $series Id of series
+	 * @param   int  $series  Id of series
 	 *
 	 * @return  array
 	 *
@@ -179,5 +153,31 @@ class SermonspeakerModelSerie extends JModelItem
 		$db->setQuery($query);
 
 		return $db->loadObjectList();
+	}
+
+	/**
+	 * Method to auto-populate the model state
+	 *
+	 * Note. Calling getState in this method will result in recursion
+	 *
+	 * @param   string  $ordering   Ordering column
+	 * @param   string  $direction  'ASC' or 'DESC'
+	 *
+	 * @return  void
+	 *
+	 * @since ?
+	 */
+	protected function populateState($ordering = null, $direction = null)
+	{
+		/** @var JApplicationSite $app */
+		$app    = Factory::getApplication();
+		$params = $app->getParams();
+
+		// Load the object state.
+		$id = $app->input->get('id', 0, 'int');
+		$this->setState('serie.id', $id);
+
+		// Load the parameters.
+		$this->setState('params', $params);
 	}
 }

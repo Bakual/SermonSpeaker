@@ -30,14 +30,16 @@ $listDirn   = $this->state->get('list.direction');
 	<?php echo LayoutHelper::render('blocks.header', array('category' => $this->category, 'params' => $this->params)); ?>
 
 	<div class="cat-items">
-		<form action="<?php echo htmlspecialchars(JUri::getInstance()->toString()); ?>" method="post" name="adminForm" id="adminForm" class="com-sermonspeaker-speakers__speakers">
+		<form action="<?php echo htmlspecialchars(JUri::getInstance()->toString()); ?>" method="post" name="adminForm"
+			  id="adminForm" class="com-sermonspeaker-speakers__speakers">
 			<?php if ($this->params->get('filter_field') or $this->params->get('show_pagination_limit')) : ?>
 				<?php echo $this->loadTemplate('filters'); ?>
 			<?php endif; ?>
 			<div class="clearfix"></div>
 			<?php if (!count($this->items)) : ?>
 				<div class="alert alert-info">
-					<span class="icon-info-circle" aria-hidden="true"></span><span class="visually-hidden"><?php echo Text::_('INFO'); ?></span>
+					<span class="icon-info-circle" aria-hidden="true"></span><span
+							class="visually-hidden"><?php echo Text::_('INFO'); ?></span>
 					<?php echo Text::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', Text::_('COM_SERMONSPEAKER_SPEAKERS')); ?>
 				</div>
 			<?php else : ?>
@@ -99,7 +101,7 @@ $listDirn   = $this->state->get('list.direction');
 									<?php if ($item->sermons) : ?>
 										<li>
 											<a class="badge bg-info"
-												href="<?php echo Route::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug, $item->catid, $item->language) . '#sermons'); ?>">
+											   href="<?php echo Route::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug, $item->catid, $item->language) . '#sermons'); ?>">
 												<?php echo Text::_('COM_SERMONSPEAKER_SERMONS'); ?>
 											</a>
 										</li>
@@ -108,7 +110,7 @@ $listDirn   = $this->state->get('list.direction');
 									if ($item->series) : ?>
 										<li>
 											<a class="badge bg-info"
-												href="<?php echo Route::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug, $item->catid, $item->language) . '#series'); ?>">
+											   href="<?php echo Route::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug, $item->catid, $item->language) . '#series'); ?>">
 												<?php echo Text::_('COM_SERMONSPEAKER_SERIES'); ?>
 											</a>
 										</li>

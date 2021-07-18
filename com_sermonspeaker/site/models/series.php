@@ -57,7 +57,7 @@ class SermonspeakerModelSeries extends ListModel
 	/**
 	 * Constructor
 	 *
-	 * @param   array $config An optional associative array of configuration settings
+	 * @param   array  $config  An optional associative array of configuration settings
 	 *
 	 * @since ?
 	 */
@@ -80,6 +80,197 @@ class SermonspeakerModelSeries extends ListModel
 		}
 
 		parent::__construct($config);
+	}
+
+	/**
+	 * Method to get speakers for a series
+	 *
+	 * @param   int  $series  Id of series
+	 *
+	 * @return  array
+	 *
+	 * @since ?
+	 */
+	public function getSpeakers($series)
+	{
+		$db    = $this->getDbo();
+		$query = $db->getQuery(true);
+		$query->select('DISTINCT sermons.speaker_id, speakers.title as speaker_title, speakers.pic, speakers.state');
+		$query->select('speakers.intro, speakers.bio, speakers.website');
+		$query->select('speakers.catid as speaker_catid, speakers.language as speaker_language');
+		$query->select('CASE WHEN CHAR_LENGTH(speakers.alias) THEN CONCAT_WS(\':\', speakers.id, speakers.alias) ELSE speakers.id END as slug');
+		$query->from('#__sermon_sermons AS sermons');
+		$query->join('LEFT', '#__sermon_speakers AS speakers ON sermons.speaker_id = speakers.id');
+		$query->where('sermons.state = 1');
+		$query->where('sermons.speaker_id != 0');
+		$query->where('sermons.series_id = ' . (int) $series);
+		$query->order('speakers.title ASC');
+		$db->setQuery($query);
+
+		return $db->loadObjectList();
+	}
+
+	/**
+	 * Method to check if there are Tags assigned to the speakers
+	 *
+	 * @return  boolean
+	 *
+	 * @since 6.0.0
+	 */
+	public function getTags()
+	{
+		$db    = $this->getDbo();
+		$query = $db->getQuery(true);
+		$query->select('COUNT(1)');
+		$query->from('`#__contentitem_tag_map`');
+		$query->where("`type_alias` = 'com_sermonspeaker.serie'");
+
+		$db->setQuery($query, 0);
+		$count = $db->loadResult();
+
+		return ($count > 0);
+	}
+
+	/**
+	 * Get the parent category
+	 *
+	 * @return  mixed  An array of categories or false if an error occurs
+	 *
+	 * @since ?
+	 */
+	public function getParent()
+	{
+		if (!is_object($this->item))
+		{
+			$this->getCategory();
+		}
+
+		return $this->parent;
+	}
+
+	/**
+	 * Method to get category data for the current category
+	 *
+	 * @return  object
+	 *
+	 * @since ?
+	 */
+	public function getCategory()
+	{
+		if (!is_object($this->item))
+		{
+			if (isset($this->state->params))
+			{
+				/** @var \Joomla\Registry\Registry $params */
+				$params                = $this->state->params;
+				$options               = array();
+				$options['countItems'] = $params->get('show_cat_num_items', 1) || !$params->get('show_empty_categories', 0);
+			}
+			else
+			{
+				$options['countItems'] = 0;
+			}
+
+			$options['table'] = '#__sermon_series';
+
+			$categories = JCategories::getInstance('sermonspeaker.series', $options);
+			$this->item = $categories->get($this->getState('category.id', 'root'));
+
+			// Compute selected asset permissions.
+			if (is_object($this->item))
+			{
+				$user  = Factory::getUser();
+				$asset = 'com_sermonspeaker.category.' . $this->item->id;
+
+				// Check general create permission.
+				if ($user->authorise('core.create', $asset))
+				{
+					$this->item->getParams()->set('access-create', true);
+				}
+
+				// TODO: Why aren't we lazy loading the children and siblings?
+				$this->children = $this->item->getChildren();
+				$this->parent   = false;
+
+				if ($this->item->getParent())
+				{
+					$this->parent = $this->item->getParent();
+				}
+
+				$this->rightsibling = $this->item->getSibling();
+				$this->leftsibling  = $this->item->getSibling(false);
+			}
+			else
+			{
+				$this->children = false;
+				$this->parent   = false;
+			}
+		}
+
+		return $this->item;
+	}
+
+	/**
+	 * Get the left sibling (adjacent) categories
+	 *
+	 * @return  mixed  An array of categories or false if an error occurs
+	 *
+	 * @since ?
+	 */
+	public function &getLeftSibling()
+	{
+		if (!is_object($this->item))
+		{
+			$this->getCategory();
+		}
+
+		return $this->leftsibling;
+	}
+
+	/**
+	 * Get the right sibling (adjacent) categories
+	 *
+	 * @return  mixed  An array of categories or false if an error occurs
+	 *
+	 * @since ?
+	 */
+	public function &getRightSibling()
+	{
+		if (!is_object($this->item))
+		{
+			$this->getCategory();
+		}
+
+		return $this->rightsibling;
+	}
+
+	/**
+	 * Get the child categories
+	 *
+	 * @return  mixed  An array of categories or false if an error occurs
+	 *
+	 * @since ?
+	 */
+	public function &getChildren()
+	{
+		if (!is_object($this->item))
+		{
+			$this->getCategory();
+		}
+
+		// Order subcategories
+		if (sizeof($this->children))
+		{
+			/** @var \Joomla\Registry\Registry $params */
+			$params = $this->getState()->get('params');
+
+			if ($params->get('orderby_pri') == 'alpha' || $params->get('orderby_pri') == 'ralpha')
+			{
+				$this->children = Joomla\Utilities\ArrayHelper::sortObjects($this->children, 'title', ($params->get('orderby_pri') == 'alpha') ? 1 : -1);
+			}
+		}
+
+		return $this->children;
 	}
 
 	/**
@@ -230,8 +421,8 @@ class SermonspeakerModelSeries extends ListModel
 	 *
 	 * Note. Calling getState in this method will result in recursion
 	 *
-	 * @param   string $ordering  Ordering column
-	 * @param   string $direction 'ASC' or 'DESC'
+	 * @param   string  $ordering   Ordering column
+	 * @param   string  $direction  'ASC' or 'DESC'
 	 *
 	 * @return  void
 	 *
@@ -275,202 +466,11 @@ class SermonspeakerModelSeries extends ListModel
 		parent::populateState('ordering', 'ASC');
 
 		$defaultLimit = $params->get('default_pagination_limit', $app->get('list_limit'));
-		$limit = $app->getUserStateFromRequest($this->context . '.list.limit', 'limit', $defaultLimit, 'uint');
+		$limit        = $app->getUserStateFromRequest($this->context . '.list.limit', 'limit', $defaultLimit, 'uint');
 		$this->setState('list.limit', $limit);
 
-		$value = $app->getUserStateFromRequest($this->context . '.limitstart', 'limitstart', 0, 'int');
+		$value      = $app->getUserStateFromRequest($this->context . '.limitstart', 'limitstart', 0, 'int');
 		$limitstart = ($limit != 0 ? (floor($value / $limit) * $limit) : 0);
 		$this->setState('list.start', $limitstart);
-	}
-
-	/**
-	 * Method to get speakers for a series
-	 *
-	 * @param   int $series Id of series
-	 *
-	 * @return  array
-	 *
-	 * @since ?
-	 */
-	public function getSpeakers($series)
-	{
-		$db    = $this->getDbo();
-		$query = $db->getQuery(true);
-		$query->select('DISTINCT sermons.speaker_id, speakers.title as speaker_title, speakers.pic, speakers.state');
-		$query->select('speakers.intro, speakers.bio, speakers.website');
-		$query->select('speakers.catid as speaker_catid, speakers.language as speaker_language');
-		$query->select('CASE WHEN CHAR_LENGTH(speakers.alias) THEN CONCAT_WS(\':\', speakers.id, speakers.alias) ELSE speakers.id END as slug');
-		$query->from('#__sermon_sermons AS sermons');
-		$query->join('LEFT', '#__sermon_speakers AS speakers ON sermons.speaker_id = speakers.id');
-		$query->where('sermons.state = 1');
-		$query->where('sermons.speaker_id != 0');
-		$query->where('sermons.series_id = ' . (int) $series);
-		$query->order('speakers.title ASC');
-		$db->setQuery($query);
-
-		return $db->loadObjectList();
-	}
-
-	/**
-	 * Method to check if there are Tags assigned to the speakers
-	 *
-	 * @return  boolean
-	 *
-	 * @since 6.0.0
-	 */
-	public function getTags()
-	{
-		$db    = $this->getDbo();
-		$query = $db->getQuery(true);
-		$query->select('COUNT(1)');
-		$query->from('`#__contentitem_tag_map`');
-		$query->where("`type_alias` = 'com_sermonspeaker.serie'");
-
-		$db->setQuery($query, 0);
-		$count = $db->loadResult();
-
-		return ($count > 0);
-	}
-
-	/**
-	 * Method to get category data for the current category
-	 *
-	 * @return  object
-	 *
-	 * @since ?
-	 */
-	public function getCategory()
-	{
-		if (!is_object($this->item))
-		{
-			if (isset($this->state->params))
-			{
-				/** @var \Joomla\Registry\Registry $params */
-				$params                = $this->state->params;
-				$options               = array();
-				$options['countItems'] = $params->get('show_cat_num_items', 1) || !$params->get('show_empty_categories', 0);
-			}
-			else
-			{
-				$options['countItems'] = 0;
-			}
-
-			$options['table'] = '#__sermon_series';
-
-			$categories = JCategories::getInstance('sermonspeaker.series', $options);
-			$this->item = $categories->get($this->getState('category.id', 'root'));
-
-			// Compute selected asset permissions.
-			if (is_object($this->item))
-			{
-				$user  = Factory::getUser();
-				$asset = 'com_sermonspeaker.category.' . $this->item->id;
-
-				// Check general create permission.
-				if ($user->authorise('core.create', $asset))
-				{
-					$this->item->getParams()->set('access-create', true);
-				}
-
-				// TODO: Why aren't we lazy loading the children and siblings?
-				$this->children = $this->item->getChildren();
-				$this->parent   = false;
-
-				if ($this->item->getParent())
-				{
-					$this->parent = $this->item->getParent();
-				}
-
-				$this->rightsibling = $this->item->getSibling();
-				$this->leftsibling  = $this->item->getSibling(false);
-			}
-			else
-			{
-				$this->children = false;
-				$this->parent   = false;
-			}
-		}
-
-		return $this->item;
-	}
-
-	/**
-	 * Get the parent category
-	 *
-	 * @return  mixed  An array of categories or false if an error occurs
-	 *
-	 * @since ?
-	 */
-	public function getParent()
-	{
-		if (!is_object($this->item))
-		{
-			$this->getCategory();
-		}
-
-		return $this->parent;
-	}
-
-	/**
-	 * Get the left sibling (adjacent) categories
-	 *
-	 * @return  mixed  An array of categories or false if an error occurs
-	 *
-	 * @since ?
-	 */
-	public function &getLeftSibling()
-	{
-		if (!is_object($this->item))
-		{
-			$this->getCategory();
-		}
-
-		return $this->leftsibling;
-	}
-
-	/**
-	 * Get the right sibling (adjacent) categories
-	 *
-	 * @return  mixed  An array of categories or false if an error occurs
-	 *
-	 * @since ?
-	 */
-	public function &getRightSibling()
-	{
-		if (!is_object($this->item))
-		{
-			$this->getCategory();
-		}
-
-		return $this->rightsibling;
-	}
-
-	/**
-	 * Get the child categories
-	 *
-	 * @return  mixed  An array of categories or false if an error occurs
-	 *
-	 * @since ?
-	 */
-	public function &getChildren()
-	{
-		if (!is_object($this->item))
-		{
-			$this->getCategory();
-		}
-
-		// Order subcategories
-		if (sizeof($this->children))
-		{
-			/** @var \Joomla\Registry\Registry $params */
-			$params = $this->getState()->get('params');
-
-			if ($params->get('orderby_pri') == 'alpha' || $params->get('orderby_pri') == 'ralpha')
-			{
-				$this->children = Joomla\Utilities\ArrayHelper::sortObjects($this->children, 'title', ($params->get('orderby_pri') == 'alpha') ? 1 : -1);
-			}
-		}
-
-		return $this->children;
 	}
 }

@@ -12,9 +12,9 @@ defined('_JEXEC') or die;
 use Joomla\CMS\Client\ClientHelper;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
+use Joomla\CMS\Filesystem\File;
 use Joomla\CMS\Filter\OutputFilter;
 use Joomla\CMS\Language\Text;
-use Joomla\CMS\Filesystem\File;
 
 /**
  * File Sermonspeaker Controller
@@ -287,7 +287,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 
 		$params = ComponentHelper::getParams('com_sermonspeaker');
 		require_once JPATH_COMPONENT_SITE . '/helpers/id3.php';
-		$id3    = SermonspeakerHelperId3::getID3($file, $params);
+		$id3 = SermonspeakerHelperId3::getID3($file, $params);
 
 		if ($id3)
 		{

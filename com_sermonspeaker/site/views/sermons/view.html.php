@@ -23,7 +23,7 @@ class SermonspeakerViewSermons extends JViewLegacy
 	/**
 	 * Execute and display a template script.
 	 *
-	 * @param   string $tpl The name of the template file to parse; automatically searches through the template paths.
+	 * @param   string  $tpl  The name of the template file to parse; automatically searches through the template paths.
 	 *
 	 * @return void
 	 *
@@ -43,7 +43,7 @@ class SermonspeakerViewSermons extends JViewLegacy
 		$this->filterForm = $this->get('FilterForm');
 
 		// Get Category stuff from models
-		$this->category = $this->get('Category');
+		$this->category       = $this->get('Category');
 		$this->category->tags = new TagsHelper;
 		$this->category->tags->getItemTags('com_sermonspeaker.sermons.category', $this->category->id);
 

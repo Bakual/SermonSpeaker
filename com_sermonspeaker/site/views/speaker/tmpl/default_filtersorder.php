@@ -26,12 +26,12 @@ $orderlist = array(
 				<?php echo Text::_('JGLOBAL_FILTER_LABEL') . '&#160;'; ?>
 			</label>
 			<input type="text" name="filter-search" id="filter-search"
-				value="<?php echo $this->escape($this->state_sermons->get('filter.search')); ?>" class="input-medium"
-				onchange="document.adminForm.submit();"
-				title="<?php echo Text::_('COM_SERMONSPEAKER_FILTER_SEARCH_DESC'); ?>"
-				placeholder="<?php echo Text::_('COM_SERMONSPEAKER_FILTER_SEARCH_DESC'); ?>"/>
+				   value="<?php echo $this->escape($this->state_sermons->get('filter.search')); ?>" class="input-medium"
+				   onchange="document.adminForm.submit();"
+				   title="<?php echo Text::_('COM_SERMONSPEAKER_FILTER_SEARCH_DESC'); ?>"
+				   placeholder="<?php echo Text::_('COM_SERMONSPEAKER_FILTER_SEARCH_DESC'); ?>"/>
 			<button class="btn tip hidden-phone hidden-tablet" type="button" onclick="clear_all();this.form.submit();"
-				rel="tooltip" title="<?php echo Text::_('JSEARCH_FILTER_CLEAR'); ?>"><i class="icon-remove"></i>
+					rel="tooltip" title="<?php echo Text::_('JSEARCH_FILTER_CLEAR'); ?>"><i class="icon-remove"></i>
 			</button>
 		</div>
 		<div class="btn-group filter-select">

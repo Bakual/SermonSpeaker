@@ -57,7 +57,8 @@ $this->document->addScriptDeclaration("window.onload = function() {
 	}");
 
 ?>
-<div class="com-sermonspeaker-speaker<?php echo $this->pageclass_sfx; ?> com-sermonspeaker-speaker-table" itemscope itemtype="http://schema.org/Person">
+<div class="com-sermonspeaker-speaker<?php echo $this->pageclass_sfx; ?> com-sermonspeaker-speaker-table" itemscope
+	 itemtype="http://schema.org/Person">
 	<?php echo $this->loadTemplate('header'); ?>
 	<div class="clearfix"></div>
 
@@ -77,13 +78,15 @@ $this->document->addScriptDeclaration("window.onload = function() {
 				<?php echo LayoutHelper::render('plugin.player', array('player' => $player, 'items' => $this->sermons, 'view' => 'speaker')); ?>
 			<?php endif; ?>
 			<div class="cat-items">
-				<form action="<?php echo htmlspecialchars(Uri::getInstance()->toString() . '#sermons'); ?>" method="post" name="adminForm" id="adminForm" class="com-sermonspeaker-speaker__sermons">
+				<form action="<?php echo htmlspecialchars(Uri::getInstance()->toString() . '#sermons'); ?>"
+					  method="post" name="adminForm" id="adminForm" class="com-sermonspeaker-speaker__sermons">
 					<?php if ($this->params->get('filter_field') or $this->params->get('show_pagination_limit')) : ?>
 						<?php echo $this->loadTemplate('filters'); ?>
 					<?php endif; ?>
 					<div class="clearfix"></div>
 					<?php if (!count($this->sermons)) : ?>
-						<span class="icon-info-circle" aria-hidden="true"></span><span class="visually-hidden"><?php echo Text::_('INFO'); ?></span>
+						<span class="icon-info-circle" aria-hidden="true"></span><span
+								class="visually-hidden"><?php echo Text::_('INFO'); ?></span>
 						<?php echo Text::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', Text::_('COM_SERMONSPEAKER_SERMONS')); ?>
 					<?php else : ?>
 						<table class="com-sermonspeaker-sermons__table category table table-striped table-bordered table-hover">
@@ -286,7 +289,7 @@ $this->document->addScriptDeclaration("window.onload = function() {
 		</div>
 		<div class="tab-pane" id="tab_series">
 			<form action="<?php echo htmlspecialchars(JUri::getInstance()->toString() . '#series'); ?>" method="post"
-				id="adminFormSeries" name="adminFormSeries">
+				  id="adminFormSeries" name="adminFormSeries">
 				<?php
 				if ($this->params->get('filter_field') or $this->params->get('show_pagination_limit')) : ?>
 					<div class="filters btn-toolbar">
@@ -303,7 +306,7 @@ $this->document->addScriptDeclaration("window.onload = function() {
 				<div class="clearfix"></div>
 				<?php if (!count($this->series)) : ?>
 					<div
-						class="no_entries alert alert-error"><?php echo Text::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', Text::_('COM_SERMONSPEAKER_SERIES')); ?></div>
+							class="no_entries alert alert-error"><?php echo Text::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', Text::_('COM_SERMONSPEAKER_SERIES')); ?></div>
 				<?php else : ?>
 					<table class="table table-striped table-hover table-condensed">
 						<thead>
@@ -351,9 +354,9 @@ $this->document->addScriptDeclaration("window.onload = function() {
 								if ($this->av) :
 									if ($item->avatar) : ?>
 										<td class="ss-col ss-av hidden-phone hidden-tablet"><a
-												href="<?php echo Route::_(SermonspeakerHelperRoute::getSerieRoute($item->slug, $item->catid, $item->language)); ?>"><img
-													class="img-thumbnail "
-													src="<?php echo SermonspeakerHelperSermonspeaker::makeLink($item->avatar); ?>"></a>
+													href="<?php echo Route::_(SermonspeakerHelperRoute::getSerieRoute($item->slug, $item->catid, $item->language)); ?>"><img
+														class="img-thumbnail "
+														src="<?php echo SermonspeakerHelperSermonspeaker::makeLink($item->avatar); ?>"></a>
 										</td>
 									<?php else : ?>
 										<td class="ss-col ss-av hidden-phone hidden-tablet"></td>
@@ -389,9 +392,9 @@ $this->document->addScriptDeclaration("window.onload = function() {
 
 								if (in_array('speaker:download', $this->col_serie)) : ?>
 									<td class="ss-col ss-dl hidden-phone"><a
-											href="<?php echo Route::_('index.php?view=serie&layout=download&tmpl=component&id=' . $item->slug); ?>"
-											class="modal hasTooltip" rel="{handler:'iframe',size:{x:400,y:200}}"
-											title="::<?php echo Text::_('COM_SERMONSPEAKER_DOWNLOADSERIES_DESC'); ?>">
+												href="<?php echo Route::_('index.php?view=serie&layout=download&tmpl=component&id=' . $item->slug); ?>"
+												class="modal hasTooltip" rel="{handler:'iframe',size:{x:400,y:200}}"
+												title="::<?php echo Text::_('COM_SERMONSPEAKER_DOWNLOADSERIES_DESC'); ?>">
 											<i class="icon-download"> </i>
 										</a></td>
 								<?php endif; ?>

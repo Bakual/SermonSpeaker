@@ -24,6 +24,22 @@ use Joomla\CMS\Toolbar\ToolbarHelper;
 class SermonspeakerViewSeries extends JViewLegacy
 {
 	/**
+	 * Form object for search filters
+	 *
+	 * @var  \JForm
+	 *
+	 * @since  ?
+	 */
+	public $filterForm;
+	/**
+	 * The active search filters
+	 *
+	 * @var  array
+	 *
+	 * @since  ?
+	 */
+	public $activeFilters;
+	/**
 	 * Holds an array of item objects
 	 *
 	 * @var    array
@@ -31,7 +47,6 @@ class SermonspeakerViewSeries extends JViewLegacy
 	 * @since  ?
 	 */
 	protected $items;
-
 	/**
 	 * The pagination object
 	 *
@@ -40,7 +55,6 @@ class SermonspeakerViewSeries extends JViewLegacy
 	 * @since  ?
 	 */
 	protected $pagination;
-
 	/**
 	 * A state object
 	 *
@@ -51,27 +65,9 @@ class SermonspeakerViewSeries extends JViewLegacy
 	protected $state;
 
 	/**
-	 * Form object for search filters
-	 *
-	 * @var  \JForm
-	 *
-	 * @since  ?
-	 */
-	public $filterForm;
-
-	/**
-	 * The active search filters
-	 *
-	 * @var  array
-	 *
-	 * @since  ?
-	 */
-	public $activeFilters;
-
-	/**
 	 * Execute and display a template script.
 	 *
-	 * @param   string $tpl The name of the template file to parse; automatically searches through the template paths.
+	 * @param   string  $tpl  The name of the template file to parse; automatically searches through the template paths.
 	 *
 	 * @throws Exception
 	 *

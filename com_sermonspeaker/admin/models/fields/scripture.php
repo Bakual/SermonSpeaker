@@ -86,7 +86,7 @@ class JFormFieldScripture extends JFormField
 				if (!$value['book'])
 				{
 					$class = ' old hasTooltip';
-					$title = ' title="' . Text::_('COM_SERMONSPEAKER_SCRIPTURE_NOT_SEARCHABLE') .'"';
+					$title = ' title="' . Text::_('COM_SERMONSPEAKER_SCRIPTURE_NOT_SEARCHABLE') . '"';
 				}
 			}
 			else
@@ -131,20 +131,20 @@ class JFormFieldScripture extends JFormField
 								<button class="btn btn-secondary" onclick="delete_scripture(' . $i . ')"><span class="fas fa-trash"></span></button>
 							</span>
 							<input id="' . $this->id . '_text_' . $i . '" type="text" class="readonly form-control scripture' . $class . '"' . $title
-							. 'data-bs-toggle="modal" data-bs-target="#' . $modalId . $i . '" '
-							. $size . $disabled . $readonly . $maxLength . ' value="' . $text . '" name="jform[' . $this->fieldname . '_text][' . $i . ']" />
+				. 'data-bs-toggle="modal" data-bs-target="#' . $modalId . $i . '" '
+				. $size . $disabled . $readonly . $maxLength . ' value="' . $text . '" name="jform[' . $this->fieldname . '_text][' . $i . ']" />
 						</div>';
 
 			$html .= HTMLHelper::_(
 				'bootstrap.renderModal',
 				$modalId . $i,
 				array(
-					'title'       => Text::_('COM_SERMONSPEAKER_EDIT_SCRIPTURE'),
-					'url'         => $url . '&id=' . $i,
-					'height'      => '400px',
-					'width'       => '100%',
-					'modalWidth'  => 50,
-					'footer'      => '<button type="button" class="btn btn-secondary"'
+					'title'      => Text::_('COM_SERMONSPEAKER_EDIT_SCRIPTURE'),
+					'url'        => $url . '&id=' . $i,
+					'height'     => '400px',
+					'width'      => '100%',
+					'modalWidth' => 50,
+					'footer'     => '<button type="button" class="btn btn-secondary"'
 						. ' onclick="jQuery(\'#' . $modalId . $i . '\').modal(\'hide\'); return false;">'
 						. Text::_('JLIB_HTML_BEHAVIOR_CLOSE') . '</button>'
 						. '<button type="button" class="btn btn-primary"'
@@ -178,17 +178,17 @@ class JFormFieldScripture extends JFormField
 			'bootstrap.renderModal',
 			$modalId,
 			array(
-				'title'       => Text::_('COM_SERMONSPEAKER_NEW_SCRIPTURE'),
-				'url'         => $url,
-				'height'      => '400px',
-				'width'       => '100%',
-				'modalWidth'  => 50,
-				'footer'      => '<button type="button" class="btn btn-secondary"'
+				'title'      => Text::_('COM_SERMONSPEAKER_NEW_SCRIPTURE'),
+				'url'        => $url,
+				'height'     => '400px',
+				'width'      => '100%',
+				'modalWidth' => 50,
+				'footer'     => '<button type="button" class="btn btn-secondary"'
 					. ' onclick="jQuery(\'#' . $modalId . '\').modal(\'hide\'); return false;">'
 					. Text::_('JLIB_HTML_BEHAVIOR_CLOSE') . '</button>'
 					. '<button type="button" class="btn btn-primary"'
 					. ' onclick="jQuery(\'#' . $modalId . ' .iframe\')[0].contentWindow.AddScripture();'
-						. ' jQuery(\'#' . $modalId . '\').modal(\'hide\'); return false;">'
+					. ' jQuery(\'#' . $modalId . '\').modal(\'hide\'); return false;">'
 					. Text::_('JSAVE') . '</button>',
 			)
 		);

@@ -22,40 +22,14 @@ class SermonspeakerModelSpeaker extends JModelItem
 	protected $_context = 'com_sermonspeaker.speaker';
 
 	/**
-	 * Method to auto-populate the model state.
-	 *
-	 * Note. Calling getState in this method will result in recursion.
-	 *
-	 * @param   string $ordering  Ordering column
-	 * @param   string $direction 'ASC' or 'DESC'
-	 *
-	 * @return  void
-	 *
-	 * @since ?
-	 */
-	protected function populateState($ordering = null, $direction = null)
-	{
-		/** @var JApplicationSite $app */
-		$app    = Factory::getApplication();
-		$params = $app->getParams();
-
-		// Load the object state.
-		$id = $app->input->get('id', 0, 'int');
-		$this->setState('speaker.id', $id);
-
-		// Load the parameters.
-		$this->setState('params', $params);
-	}
-
-	/**
 	 * Method to get an object.
 	 *
-	 * @param   int $id The id of the object to get.
+	 * @param   int  $id  The id of the object to get.
 	 *
 	 * @return mixed Object on success, false on failure.
 	 *
-	 * @since ?
 	 * @throws Exception
+	 * @since ?
 	 */
 	public function &getItem($id = null)
 	{
@@ -137,7 +111,7 @@ class SermonspeakerModelSpeaker extends JModelItem
 	/**
 	 * Method to increment the hit counter for the speaker
 	 *
-	 * @param   int $id Optional ID of the speaker.
+	 * @param   int  $id  Optional ID of the speaker.
 	 *
 	 * @return  boolean  True on success
 	 *
@@ -153,5 +127,31 @@ class SermonspeakerModelSpeaker extends JModelItem
 		$speaker = $this->getTable('Speaker', 'SermonspeakerTable');
 
 		return $speaker->hit($id);
+	}
+
+	/**
+	 * Method to auto-populate the model state.
+	 *
+	 * Note. Calling getState in this method will result in recursion.
+	 *
+	 * @param   string  $ordering   Ordering column
+	 * @param   string  $direction  'ASC' or 'DESC'
+	 *
+	 * @return  void
+	 *
+	 * @since ?
+	 */
+	protected function populateState($ordering = null, $direction = null)
+	{
+		/** @var JApplicationSite $app */
+		$app    = Factory::getApplication();
+		$params = $app->getParams();
+
+		// Load the object state.
+		$id = $app->input->get('id', 0, 'int');
+		$this->setState('speaker.id', $id);
+
+		// Load the parameters.
+		$this->setState('params', $params);
 	}
 }

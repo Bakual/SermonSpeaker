@@ -16,11 +16,11 @@ class SermonspeakerViewClose extends JViewLegacy
 	/**
 	 * Display the view
 	 *
-	 * @since  ?
-	 *
-	 * @param null $tpl
+	 * @param   null  $tpl
 	 *
 	 * @return mixed|void
+	 * @since  ?
+	 *
 	 */
 	public function display($tpl = null)
 	{

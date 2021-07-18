@@ -44,13 +44,16 @@ if (($this->params->get('filter_field') === 'tag') && (Multilanguage::isEnabled(
 		<label class="filter-search-lbl visually-hidden" for="filter-search">
 			<?php echo Text::_('JGLOBAL_FILTER_LABEL'); ?>
 		</label>
-		<input type="text" name="filter[search]" id="filter-search" value="<?php echo $this->escape($this->state_sermons->get('filter.search')); ?>" class="inputbox" onchange="document.adminForm.submit();" placeholder="<?php echo Text::_('COM_SERMONSPEAKER_FILTER_SEARCH_DESC'); ?>">
+		<input type="text" name="filter[search]" id="filter-search"
+			   value="<?php echo $this->escape($this->state_sermons->get('filter.search')); ?>" class="inputbox"
+			   onchange="document.adminForm.submit();"
+			   placeholder="<?php echo Text::_('COM_SERMONSPEAKER_FILTER_SEARCH_DESC'); ?>">
 
 		<?php if ($this->hasTags) : ?>
 			<label class="filter-tag-lbl visually-hidden" for="filter-tag">
 				<?php echo Text::_('JOPTION_SELECT_TAG'); ?>
 			</label>
-			<select name="filter[tag]" id="filter-tag" class="form-select" onchange="document.adminForm.submit();" >
+			<select name="filter[tag]" id="filter-tag" class="form-select" onchange="document.adminForm.submit();">
 				<option value=""><?php echo Text::_('JOPTION_SELECT_TAG'); ?></option>
 				<?php echo HTMLHelper::_('select.options', HTMLHelper::_('tag.options', array('filter.published' => array(1), 'filter.language' => $langFilter), true), 'value', 'text', $this->state_sermons->get('filter.tag')); ?>
 			</select>
@@ -78,9 +81,11 @@ if (($this->params->get('filter_field') === 'tag') && (Multilanguage::isEnabled(
 			<option value="0"><?php echo Text::_('COM_SERMONSPEAKER_SELECT_YEAR_SHORT'); ?></option>
 			<?php echo HTMLHelper::_('select.options', $this->years, 'year', 'year', $this->state_sermons->get('date.year'), true); ?>
 		</select>
-		<button type="submit" name="filter_submit" class="btn btn-primary"><?php echo Text::_('JGLOBAL_FILTER_BUTTON'); ?></button>
+		<button type="submit" name="filter_submit"
+				class="btn btn-primary"><?php echo Text::_('JGLOBAL_FILTER_BUTTON'); ?></button>
 		<!-- TODO: Needs custom JS for clearing -->
-		<button type="reset" name="filter-clear-button" class="btn btn-secondary"><?php echo Text::_('JSEARCH_FILTER_CLEAR'); ?></button>
+		<button type="reset" name="filter-clear-button"
+				class="btn btn-secondary"><?php echo Text::_('JSEARCH_FILTER_CLEAR'); ?></button>
 	</div>
 <?php endif; ?>
 

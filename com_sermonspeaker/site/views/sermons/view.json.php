@@ -22,7 +22,7 @@ class SermonspeakerViewSermons extends JViewLegacy
 	/**
 	 * Creates the JSON data.
 	 *
-	 * @param   string $tpl The name of the template file to parse; automatically searches through the template paths.
+	 * @param   string  $tpl  The name of the template file to parse; automatically searches through the template paths.
 	 *
 	 * @return void
 	 * @throws \Exception
@@ -132,7 +132,7 @@ class SermonspeakerViewSermons extends JViewLegacy
 			$response[] = $tmp;
 		}
 
-		$app = Factory::getApplication();
+		$app           = Factory::getApplication();
 		$app->mimeType = 'application/json';
 		$app->setHeader('Content-Type', $app->mimeType . '; charset=' . $app->charSet);
 		$app->sendHeaders();

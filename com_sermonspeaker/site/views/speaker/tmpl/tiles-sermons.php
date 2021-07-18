@@ -25,21 +25,24 @@ $canEdit    = ($fu_enable and $user->authorise('core.edit', 'com_sermonspeaker')
 $canEditOwn = ($fu_enable and $user->authorise('core.edit.own', 'com_sermonspeaker'));
 $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->sermons);
 ?>
-<div class="com-sermonspeaker-speaker<?php echo $this->pageclass_sfx; ?> com-sermonspeaker-speaker-tiles" itemscope itemtype="http://schema.org/Person">
+<div class="com-sermonspeaker-speaker<?php echo $this->pageclass_sfx; ?> com-sermonspeaker-speaker-tiles" itemscope
+	 itemtype="http://schema.org/Person">
 	<?php echo $this->loadTemplate('header'); ?>
 	<div class="clearfix"></div>
 
 	<?php if (in_array('speaker:player', $this->col_sermon) and count($this->sermons)) : ?>
 		<?php echo LayoutHelper::render('plugin.player', array('player' => $player, 'items' => $this->sermons, 'view' => 'speaker')); ?>
 	<?php endif; ?>
-	<form action="<?php echo OutputFilter::ampReplace(Uri::getInstance()->toString()); ?>" method="post" name="adminForm" id="adminForm" class="com-sermonspeaker-speaker__sermons">
+	<form action="<?php echo OutputFilter::ampReplace(Uri::getInstance()->toString()); ?>" method="post"
+		  name="adminForm" id="adminForm" class="com-sermonspeaker-speaker__sermons">
 		<?php if ($this->params->get('filter_field') or $this->params->get('show_pagination_limit')) : ?>
 			<?php echo $this->loadTemplate('filters'); ?>
 		<?php endif; ?>
 		<div class="clearfix"></div>
 
 		<?php if (!count($this->sermons)) : ?>
-			<span class="icon-info-circle" aria-hidden="true"></span><span class="visually-hidden"><?php echo Text::_('INFO'); ?></span>
+			<span class="icon-info-circle" aria-hidden="true"></span><span
+					class="visually-hidden"><?php echo Text::_('INFO'); ?></span>
 			<?php echo Text::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', Text::_('COM_SERMONSPEAKER_SERMONS')); ?>
 		<?php else : ?>
 			<div class="row row-cols-1 row-cols-md-4 g-4">

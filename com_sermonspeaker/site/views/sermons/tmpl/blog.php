@@ -12,7 +12,6 @@ defined('_JEXEC') or die();
 use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
-use Joomla\CMS\Layout\FileLayout;
 use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
@@ -44,7 +43,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 	<?php endif; ?>
 	<div class="cat-items">
 		<form action="<?php echo htmlspecialchars(Uri::getInstance()->toString()); ?>" method="post" id="adminForm"
-			name="adminForm" class="form-inline">
+			  name="adminForm" class="form-inline">
 			<?php
 			if ($this->params->get('filter_field') or $this->params->get('show_pagination_limit')) :
 				echo $this->loadTemplate('filters');
@@ -52,14 +51,15 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 			<div class="clearfix"></div>
 			<?php if (!count($this->items)) : ?>
 				<div class="alert alert-info">
-					<span class="icon-info-circle" aria-hidden="true"></span><span class="visually-hidden"><?php echo Text::_('INFO'); ?></span>
+					<span class="icon-info-circle" aria-hidden="true"></span><span
+							class="visually-hidden"><?php echo Text::_('INFO'); ?></span>
 					<?php echo Text::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', Text::_('COM_SERMONSPEAKER_SERMONS')); ?>
 				</div>
 			<?php else : ?>
 				<div class="items-leading">
 					<?php foreach ($this->items as $i => $item) : ?>
 						<div id="sermon<?php echo $i; ?>"
-							class="<?php echo ($item->state) ? '' : 'system-unpublished'; ?>">
+							 class="<?php echo ($item->state) ? '' : 'system-unpublished'; ?>">
 							<div class="page-header">
 								<h2><?php echo SermonspeakerHelperSermonspeaker::insertSermonTitle($i, $item, $player, false); ?></h2>
 								<?php echo LayoutHelper::render('blocks.state_info', array('item' => $item, 'show' => $showState)); ?>
@@ -101,7 +101,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 
 							<?php if ($picture = SermonspeakerHelperSermonspeaker::insertPicture($item)) : ?>
 								<div class="img-thumbnail pull-right item-image sermon-image"><img
-										src="<?php echo $picture; ?>"></div>
+											src="<?php echo $picture; ?>"></div>
 							<?php endif; ?>
 							<div class="article-info sermon-info muted">
 								<dl class="article-info">

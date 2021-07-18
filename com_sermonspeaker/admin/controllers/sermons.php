@@ -26,7 +26,7 @@ class SermonspeakerControllerSermons extends JControllerAdmin
 	/**
 	 * SermonspeakerControllerSermons constructor.
 	 *
-	 * @param array $config
+	 * @param   array  $config
 	 *
 	 * @since 3.4
 	 */
@@ -36,22 +36,6 @@ class SermonspeakerControllerSermons extends JControllerAdmin
 
 		// Define standard task mappings.
 		$this->registerTask('podcast_unpublish', 'podcast_publish');
-	}
-
-	/**
-	 * Method to get a model object, loading it if required.
-	 *
-	 * @param   string $name   The model name. Optional.
-	 * @param   string $prefix The class prefix. Optional.
-	 * @param   array  $config Configuration array for model. Optional.
-	 *
-	 * @return  SermonspeakerModelSermon|boolean  Model object on success; otherwise false on failure.
-	 *
-	 * @since   4.5
-	 */
-	public function getModel($name = 'Sermon', $prefix = 'SermonspeakerModel', $config = array('ignore_request' => true))
-	{
-		return parent::getModel($name, $prefix, $config);
 	}
 
 	/**
@@ -99,6 +83,22 @@ class SermonspeakerControllerSermons extends JControllerAdmin
 		}
 
 		$this->setRedirect(Route::_('index.php?option=' . $this->option . '&view=' . $this->view_list, false));
+	}
+
+	/**
+	 * Method to get a model object, loading it if required.
+	 *
+	 * @param   string  $name    The model name. Optional.
+	 * @param   string  $prefix  The class prefix. Optional.
+	 * @param   array   $config  Configuration array for model. Optional.
+	 *
+	 * @return  SermonspeakerModelSermon|boolean  Model object on success; otherwise false on failure.
+	 *
+	 * @since   4.5
+	 */
+	public function getModel($name = 'Sermon', $prefix = 'SermonspeakerModel', $config = array('ignore_request' => true))
+	{
+		return parent::getModel($name, $prefix, $config);
 	}
 
 	/**

@@ -27,7 +27,7 @@ HTMLHelper::_('bootstrap.tooltip', '.hasTooltip');
 // TODO:Replace HTMLHelper::_('bootstrap.modal') with Bootstrap equivalent.
 
 $this->ignore_fieldsets = array('general', 'files', 'info', 'detail', 'publishingdata', 'jmetadata', 'metadata', 'item_associations');
-$this->tab_name = 'sermonEditTab';
+$this->tab_name         = 'sermonEditTab';
 
 $uri = Uri::getInstance();
 $uri->delVar('file');
@@ -47,8 +47,8 @@ $self = $uri->toString();
 	<?php endif; ?>
 
 	<form
-		action="<?php echo Route::_('index.php?option=com_sermonspeaker&view=frontendupload&s_id=' . (int) $this->item->id); ?>"
-		method="post" name="adminForm" id="adminForm" class="form-validate form form-vertical">
+			action="<?php echo Route::_('index.php?option=com_sermonspeaker&view=frontendupload&s_id=' . (int) $this->item->id); ?>"
+			method="post" name="adminForm" id="adminForm" class="form-validate form form-vertical">
 		<div class="btn-toolbar">
 			<div class="btn-group">
 				<button type="button" class="btn btn-primary" onclick="Joomla.submitbutton('frontendupload.save')">
@@ -61,178 +61,180 @@ $self = $uri->toString();
 				</button>
 			</div>
 		</div>
-        <fieldset>
-            <?php echo HTMLHelper::_('bootstrap.startTabSet', $this->tab_name, array('active' => 'editor')); ?>
+		<fieldset>
+			<?php echo HTMLHelper::_('bootstrap.startTabSet', $this->tab_name, array('active' => 'editor')); ?>
 
-            <?php echo HTMLHelper::_('bootstrap.addTab', $this->tab_name, 'editor', Text::_('JEDITOR', true)); ?>
-                <?php echo $this->form->renderField('title'); ?>
+			<?php echo HTMLHelper::_('bootstrap.addTab', $this->tab_name, 'editor', Text::_('JEDITOR', true)); ?>
+			<?php echo $this->form->renderField('title'); ?>
 
-                <?php if (is_null($this->item->id)): ?>
-                    <?php echo $this->form->renderField('alias'); ?>
-                <?php endif;
+			<?php if (is_null($this->item->id)): ?>
+				<?php echo $this->form->renderField('alias'); ?>
+			<?php endif;
 
-                echo $this->form->getInput('notes'); ?>
-            <?php echo HTMLHelper::_('bootstrap.endTab'); ?>
+			echo $this->form->getInput('notes'); ?>
+			<?php echo HTMLHelper::_('bootstrap.endTab'); ?>
 
-            <?php echo HTMLHelper::_('bootstrap.addTab', $this->tab_name, 'files', Text::_('COM_SERMONSPEAKER_FU_FILES', true)); ?>
-                <div id="upload_limit" class="well well-small ss-hide">
-                    <?php echo Text::sprintf('COM_SERMONSPEAKER_UPLOAD_LIMIT', $this->upload_limit); ?>
-                </div>
-                <div id="audiofile_drop" class="control-group">
-                    <div class="control-label">
-                        <?php echo $this->form->getLabel('audiofile'); ?>
-                    </div>
-                    <div class="controls">
-                        <?php echo $this->form->getInput('audiofile');
+			<?php echo HTMLHelper::_('bootstrap.addTab', $this->tab_name, 'files', Text::_('COM_SERMONSPEAKER_FU_FILES', true)); ?>
+			<div id="upload_limit" class="well well-small ss-hide">
+				<?php echo Text::sprintf('COM_SERMONSPEAKER_UPLOAD_LIMIT', $this->upload_limit); ?>
+			</div>
+			<div id="audiofile_drop" class="control-group">
+				<div class="control-label">
+					<?php echo $this->form->getLabel('audiofile'); ?>
+				</div>
+				<div class="controls">
+					<?php echo $this->form->getInput('audiofile');
 
-                        if ($this->params->get('enable_flash')) : ?>
-                            <div id="audiopathinfo" class="badge bg-info hasTooltip"
-                                 title="<?php echo Text::_('COM_SERMONSPEAKER_UPLOADINFO_TOOLTIP'); ?>">
-                                <?php echo Text::_('COM_SERMONSPEAKER_UPLOADINFO');
+					if ($this->params->get('enable_flash')) : ?>
+						<div id="audiopathinfo" class="badge bg-info hasTooltip"
+							 title="<?php echo Text::_('COM_SERMONSPEAKER_UPLOADINFO_TOOLTIP'); ?>">
+							<?php echo Text::_('COM_SERMONSPEAKER_UPLOADINFO');
 
-                                if ($this->s3audio) :
-                                    echo ' https://' . $this->domain . '/';
-                                else :
-                                    echo ' /' . trim($this->params->get('path_audio'), '/') . '/';
-                                endif;
-                                echo '<span id="audiopathdate" class="pathdate">' . $this->append_date . '</span><span id="audiopathlang" class="pathlang">' . $this->append_lang . '</span>'; ?>
-                            </div>
-                        <?php endif; ?>
-                    </div>
-                </div>
-                <hr/>
-                <div id="videofile_drop" class="control-group">
-                    <div class="control-label">
-                        <?php echo $this->form->getLabel('videofile'); ?>
-                    </div>
-                    <div class="controls">
-                        <?php echo $this->form->getInput('videofile');
+							if ($this->s3audio) :
+								echo ' https://' . $this->domain . '/';
+							else :
+								echo ' /' . trim($this->params->get('path_audio'), '/') . '/';
+							endif;
+							echo '<span id="audiopathdate" class="pathdate">' . $this->append_date . '</span><span id="audiopathlang" class="pathlang">' . $this->append_lang . '</span>'; ?>
+						</div>
+					<?php endif; ?>
+				</div>
+			</div>
+			<hr/>
+			<div id="videofile_drop" class="control-group">
+				<div class="control-label">
+					<?php echo $this->form->getLabel('videofile'); ?>
+				</div>
+				<div class="controls">
+					<?php echo $this->form->getInput('videofile');
 
-                        if ($this->params->get('enable_flash')) : ?>
-                            <div id="videopathinfo" class="badge bg-info hasTooltip"
-                                 title="<?php echo Text::_('COM_SERMONSPEAKER_UPLOADINFO_TOOLTIP'); ?>">
-                                <?php echo Text::_('COM_SERMONSPEAKER_UPLOADINFO');
+					if ($this->params->get('enable_flash')) : ?>
+						<div id="videopathinfo" class="badge bg-info hasTooltip"
+							 title="<?php echo Text::_('COM_SERMONSPEAKER_UPLOADINFO_TOOLTIP'); ?>">
+							<?php echo Text::_('COM_SERMONSPEAKER_UPLOADINFO');
 
-                                if ($this->s3video):
-                                    echo ' https://' . $this->domain . '/';
-                                else:
-                                    echo ' /' . trim($this->params->get('path_video'), '/') . '/';
-                                endif;
-                                echo '<span id="videopathdate" class="pathdate">' . $this->append_date . '</span><span id="videopathlang" class="pathlang">' . $this->append_lang . '</span>'; ?>
-                            </div>
-                        <?php endif; ?>
-                    </div>
-                </div>
-                <hr/>
-                <div id="addfile_drop" class="control-group">
-                    <div class="control-label">
-                        <?php echo $this->form->getLabel('addfile'); ?>
-                    </div>
-                    <div class="controls">
-                        <?php echo $this->form->getInput('addfile');
+							if ($this->s3video):
+								echo ' https://' . $this->domain . '/';
+							else:
+								echo ' /' . trim($this->params->get('path_video'), '/') . '/';
+							endif;
+							echo '<span id="videopathdate" class="pathdate">' . $this->append_date . '</span><span id="videopathlang" class="pathlang">' . $this->append_lang . '</span>'; ?>
+						</div>
+					<?php endif; ?>
+				</div>
+			</div>
+			<hr/>
+			<div id="addfile_drop" class="control-group">
+				<div class="control-label">
+					<?php echo $this->form->getLabel('addfile'); ?>
+				</div>
+				<div class="controls">
+					<?php echo $this->form->getInput('addfile');
 
-                        if ($this->params->get('enable_flash')) : ?>
-                            <div id="addfilepathinfo" class="badge bg-info hasTooltip"
-                                 title="<?php echo Text::_('COM_SERMONSPEAKER_UPLOADINFO_TOOLTIP'); ?>">
-                                <?php echo Text::_('COM_SERMONSPEAKER_UPLOADINFO') . ' /' . trim($this->params->get('path_addfile'), '/')
-                                    . '/<span id="addfilepathdate" class="pathdate">' . $this->append_date . '</span>'
-                                    . '<span id="addfilepathlang" class="pathlang">' . $this->append_lang . '</span>'; ?>
-                            </div>
-                        <?php endif; ?>
-                    </div>
-                </div>
-                <?php echo $this->form->renderField('addfileDesc'); ?>
-            <?php echo HTMLHelper::_('bootstrap.endTab'); ?>
+					if ($this->params->get('enable_flash')) : ?>
+						<div id="addfilepathinfo" class="badge bg-info hasTooltip"
+							 title="<?php echo Text::_('COM_SERMONSPEAKER_UPLOADINFO_TOOLTIP'); ?>">
+							<?php echo Text::_('COM_SERMONSPEAKER_UPLOADINFO') . ' /' . trim($this->params->get('path_addfile'), '/')
+								. '/<span id="addfilepathdate" class="pathdate">' . $this->append_date . '</span>'
+								. '<span id="addfilepathlang" class="pathlang">' . $this->append_lang . '</span>'; ?>
+						</div>
+					<?php endif; ?>
+				</div>
+			</div>
+			<?php echo $this->form->renderField('addfileDesc'); ?>
+			<?php echo HTMLHelper::_('bootstrap.endTab'); ?>
 
-            <?php echo HTMLHelper::_('bootstrap.addTab', $this->tab_name, 'details', Text::_('JDETAILS', true)); ?>
-                <?php foreach ($this->form->getFieldset('detail') as $field): ?>
-                    <?php echo $this->form->renderField($field->fieldname); ?>
-                <?php endforeach; ?>
-            <?php echo HTMLHelper::_('bootstrap.endTab'); ?>
+			<?php echo HTMLHelper::_('bootstrap.addTab', $this->tab_name, 'details', Text::_('JDETAILS', true)); ?>
+			<?php foreach ($this->form->getFieldset('detail') as $field): ?>
+				<?php echo $this->form->renderField($field->fieldname); ?>
+			<?php endforeach; ?>
+			<?php echo HTMLHelper::_('bootstrap.endTab'); ?>
 
-            <?php echo LayoutHelper::render('joomla.edit.params', $this); ?>
+			<?php echo LayoutHelper::render('joomla.edit.params', $this); ?>
 
-            <?php echo HTMLHelper::_('bootstrap.addTab', $this->tab_name, 'publishing', Text::_('COM_SERMONSPEAKER_PUBLISHING', true)); ?>
-                <?php echo $this->form->renderField('catid'); ?>
-                <?php echo $this->form->renderField('tags'); ?>
-                <?php if ($this->user->authorise('core.edit.state', 'com_sermonspeaker')): ?>
-                    <?php echo $this->form->renderField('state'); ?>
-                    <?php echo $this->form->renderField('podcast'); ?>
-                    <?php echo $this->form->renderField('publish_up'); ?>
-                    <?php echo $this->form->renderField('publish_down'); ?>
-                <?php endif; ?>
-            <?php echo HTMLHelper::_('bootstrap.endTab'); ?>
+			<?php echo HTMLHelper::_('bootstrap.addTab', $this->tab_name, 'publishing', Text::_('COM_SERMONSPEAKER_PUBLISHING', true)); ?>
+			<?php echo $this->form->renderField('catid'); ?>
+			<?php echo $this->form->renderField('tags'); ?>
+			<?php if ($this->user->authorise('core.edit.state', 'com_sermonspeaker')): ?>
+				<?php echo $this->form->renderField('state'); ?>
+				<?php echo $this->form->renderField('podcast'); ?>
+				<?php echo $this->form->renderField('publish_up'); ?>
+				<?php echo $this->form->renderField('publish_down'); ?>
+			<?php endif; ?>
+			<?php echo HTMLHelper::_('bootstrap.endTab'); ?>
 
-            <?php echo HTMLHelper::_('bootstrap.addTab', $this->tab_name, 'language', Text::_('JFIELD_LANGUAGE_LABEL', true)); ?>
-                <?php echo $this->form->renderField('language'); ?>
-            <?php echo HTMLHelper::_('bootstrap.endTab'); ?>
+			<?php echo HTMLHelper::_('bootstrap.addTab', $this->tab_name, 'language', Text::_('JFIELD_LANGUAGE_LABEL', true)); ?>
+			<?php echo $this->form->renderField('language'); ?>
+			<?php echo HTMLHelper::_('bootstrap.endTab'); ?>
 
-            <?php echo HTMLHelper::_('bootstrap.addTab', $this->tab_name, 'metadata', Text::_('COM_SERMONSPEAKER_METADATA', true)); ?>
-                <?php echo $this->form->renderField('metadesc'); ?>
-                <?php echo $this->form->renderField('metakey'); ?>
-            <?php echo HTMLHelper::_('bootstrap.endTab'); ?>
+			<?php echo HTMLHelper::_('bootstrap.addTab', $this->tab_name, 'metadata', Text::_('COM_SERMONSPEAKER_METADATA', true)); ?>
+			<?php echo $this->form->renderField('metadesc'); ?>
+			<?php echo $this->form->renderField('metakey'); ?>
+			<?php echo HTMLHelper::_('bootstrap.endTab'); ?>
 
-            <?php echo HTMLHelper::_('bootstrap.endTabSet'); ?>
+			<?php echo HTMLHelper::_('bootstrap.endTabSet'); ?>
 
-            <input type="hidden" name="task" value=""/>
-            <input type="hidden" name="return" value="<?php echo $this->return_page; ?>"/>
-            <?php echo HTMLHelper::_('form.token'); ?>
-        </fieldset>
+			<input type="hidden" name="task" value=""/>
+			<input type="hidden" name="return" value="<?php echo $this->return_page; ?>"/>
+			<?php echo HTMLHelper::_('form.token'); ?>
+		</fieldset>
 	</form>
 	<?php if ($this->params->get('enable_non_flash')) : ?>
 		<div id="upload-noflash">
 			<form
-				action="<?php echo Uri::root(); ?>index.php?option=com_sermonspeaker&amp;task=file.upload&amp;tmpl=component&amp;<?php echo Factory::getSession()->getName() . '=' . Factory::getSession()->getId(); ?>&amp;<?php echo JSession::getFormToken(); ?>=1"
-				id="uploadForm" name="uploadForm" class="form-validate form form-vertical" method="post"
-				enctype="multipart/form-data">
-                <fieldset>
-                    <legend><?php echo Text::_('COM_SERMONSPEAKER_FU_SELECTFILE'); ?></legend>
-                    <div class="control-group">
-                        <div class="control-label">
-                            <label
-                                    for="upload-audiofile"><?php echo Text::_('COM_SERMONSPEAKER_FIELD_AUDIOFILE_LABEL'); ?></label>
-                        </div>
-                        <div class="controls">
-                            <input type="file" size="50" id="upload-audiofile" name="Filedata[]"/>
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <div class="control-label">
-                            <label
-                                    for="upload-videofile"><?php echo Text::_('COM_SERMONSPEAKER_FIELD_VIDEOFILE_LABEL'); ?></label>
-                        </div>
-                        <div class="controls">
-                            <input type="file" size="50" id="upload-videofile" name="Filedata[]"/>
-                        </div>
-                    </div>
-                    <div class="well well-small">
-                        <div><?php echo Text::_('COM_SERMONSPEAKER_UPLOADINFO'); ?>
-                            <span
-                                    class="label label-info">/<?php echo trim($this->params->get('path_audio', $this->params->get('path')), '/') . '/';
+					action="<?php echo Uri::root(); ?>index.php?option=com_sermonspeaker&amp;task=file.upload&amp;tmpl=component&amp;<?php echo Factory::getSession()->getName() . '=' . Factory::getSession()->getId(); ?>&amp;<?php echo JSession::getFormToken(); ?>=1"
+					id="uploadForm" name="uploadForm" class="form-validate form form-vertical" method="post"
+					enctype="multipart/form-data">
+				<fieldset>
+					<legend><?php echo Text::_('COM_SERMONSPEAKER_FU_SELECTFILE'); ?></legend>
+					<div class="control-group">
+						<div class="control-label">
+							<label
+									for="upload-audiofile"><?php echo Text::_('COM_SERMONSPEAKER_FIELD_AUDIOFILE_LABEL'); ?></label>
+						</div>
+						<div class="controls">
+							<input type="file" size="50" id="upload-audiofile" name="Filedata[]"/>
+						</div>
+					</div>
+					<div class="control-group">
+						<div class="control-label">
+							<label
+									for="upload-videofile"><?php echo Text::_('COM_SERMONSPEAKER_FIELD_VIDEOFILE_LABEL'); ?></label>
+						</div>
+						<div class="controls">
+							<input type="file" size="50" id="upload-videofile" name="Filedata[]"/>
+						</div>
+					</div>
+					<div class="well well-small">
+						<div><?php echo Text::_('COM_SERMONSPEAKER_UPLOADINFO'); ?>
+							<span
+									class="label label-info">/<?php echo trim($this->params->get('path_audio', $this->params->get('path')), '/') . '/';
 
-				                if ($this->params->get('append_path', 0)) :
-					                $time = ($this->item->sermon_date AND $this->item->sermon_date != '0000-00-00 00:00:00') ? strtotime($this->item->sermon_date) : time();
-					                ?><input type="text" id="year" size="4" name="year"
-                                             value="<?php echo date('Y', $time); ?>" />/<input type="text" id="month" size="2"
-                                                                                               name="month" value="<?php echo date('m', $time); ?>"/>/<?php
-				                endif;
+								if ($this->params->get('append_path', 0)) :
+									$time = ($this->item->sermon_date and $this->item->sermon_date != '0000-00-00 00:00:00') ? strtotime($this->item->sermon_date) : time();
+									?><input type="text" id="year" size="4" name="year"
+											 value="<?php echo date('Y', $time); ?>" />/<input type="text" id="month"
+																							   size="2"
+																							   name="month"
+																							   value="<?php echo date('m', $time); ?>"/>/<?php
+								endif;
 
-				                if ($this->params->get('append_path_lang', 0)) :
-					                $lang = $this->item->language;
+								if ($this->params->get('append_path_lang', 0)) :
+									$lang = $this->item->language;
 
-					                if (!$lang || $lang == '*') :
-						                $lang = Factory::getLanguage()->getTag();
-					                endif;
-					                ?><input type="text" id="lang" size="5" name="lang" value="<?php echo $lang; ?>" />/
+									if (!$lang || $lang == '*') :
+										$lang = Factory::getLanguage()->getTag();
+									endif;
+									?><input type="text" id="lang" size="5" name="lang" value="<?php echo $lang; ?>" />/
 					<?php endif; ?></span>.
-                        </div>
-                        <div><?php echo Text::sprintf('COM_SERMONSPEAKER_UPLOAD_LIMIT', $this->upload_limit); ?></div>
-                    </div>
-                    <button type="submit" class="btn">
-                        <i class="icon-upload"></i> <?php echo Text::_('COM_SERMONSPEAKER_FU_START_UPLOAD'); ?>
-                    </button>
-                    <input type="hidden" name="return-url" value="<?php echo base64_encode($self); ?>"/>
-                </fieldset>
+						</div>
+						<div><?php echo Text::sprintf('COM_SERMONSPEAKER_UPLOAD_LIMIT', $this->upload_limit); ?></div>
+					</div>
+					<button type="submit" class="btn">
+						<i class="icon-upload"></i> <?php echo Text::_('COM_SERMONSPEAKER_FU_START_UPLOAD'); ?>
+					</button>
+					<input type="hidden" name="return-url" value="<?php echo base64_encode($self); ?>"/>
+				</fieldset>
 			</form>
 		</div>
 	<?php endif; ?>

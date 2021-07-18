@@ -27,7 +27,7 @@ class SermonspeakerViewScripture extends JViewLegacy
 	protected $params;
 
 	/**
-	 * @param null $tpl
+	 * @param   null  $tpl
 	 *
 	 * @return mixed|void
 	 *

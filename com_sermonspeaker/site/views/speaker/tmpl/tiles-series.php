@@ -23,11 +23,13 @@ $fu_enable  = $this->params->get('fu_enable');
 $canEdit    = ($fu_enable and $user->authorise('core.edit', 'com_sermonspeaker'));
 $canEditOwn = ($fu_enable and $user->authorise('core.edit.own', 'com_sermonspeaker'));
 ?>
-<div class="com-sermonspeaker-speaker<?php echo $this->pageclass_sfx; ?> com-sermonspeaker-speaker-tiles" itemscope itemtype="http://schema.org/Person">
+<div class="com-sermonspeaker-speaker<?php echo $this->pageclass_sfx; ?> com-sermonspeaker-speaker-tiles" itemscope
+	 itemtype="http://schema.org/Person">
 	<?php echo $this->loadTemplate('header'); ?>
 	<div class="clearfix"></div>
 
-	<form action="<?php echo OutputFilter::ampReplace(Uri::getInstance()->toString()); ?>" method="post" name="adminForm" id="adminForm" class="com-sermonspeaker-speaker__series">
+	<form action="<?php echo OutputFilter::ampReplace(Uri::getInstance()->toString()); ?>" method="post"
+		  name="adminForm" id="adminForm" class="com-sermonspeaker-speaker__series">
 		<?php if ($this->params->get('show_pagination_limit')) : ?>
 			<div class="com-sermonspeaker-sermons__pagination btn-group float-end">
 				<label for="limit" class="visually-hidden">
@@ -39,7 +41,8 @@ $canEditOwn = ($fu_enable and $user->authorise('core.edit.own', 'com_sermonspeak
 		<div class="clearfix"></div>
 
 		<?php if (!count($this->series)) : ?>
-			<span class="icon-info-circle" aria-hidden="true"></span><span class="visually-hidden"><?php echo Text::_('INFO'); ?></span>
+			<span class="icon-info-circle" aria-hidden="true"></span><span
+					class="visually-hidden"><?php echo Text::_('INFO'); ?></span>
 			<?php echo Text::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', Text::_('COM_SERMONSPEAKER_SERIES')); ?>
 		<?php else : ?>
 			<div class="row row-cols-1 row-cols-md-4 g-4">

@@ -445,7 +445,7 @@
 			description="COM_SERMONSPEAKER_FIELD_S3_REGION_DESC"
 			showon="path_mode_audio:2[OR]path_mode_video:2"
 			default=""
-			>
+		>
 			<option value="us-east-2">US East (Ohio)</option>
 			<option value="us-east-1">US East (N. Virginia)</option>
 			<option value="us-west-1">US West (N. California)</option>

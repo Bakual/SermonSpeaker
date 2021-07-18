@@ -31,7 +31,7 @@
 				class="btn-group"
 				label="COM_SERMONSPEAKER_PARAM_PLUGIN_LABEL"
 				description="COM_SERMONSPEAKER_PARAM_PLUGIN_DESC"
-				useglobal="true" />
+				useglobal="true"/>
 			<field name="filetype"
 				type="list"
 				label="COM_SERMONSPEAKER_FIELD_FILETYPE_LABEL"
@@ -44,8 +44,8 @@
 				type="list"
 				label="COM_SERMONSPEAKER_PARAM_FILEPRIO_LABEL"
 				description="COM_SERMONSPEAKER_PARAM_FILEPRIO_DESC">
-				   useglobal="true"
-			>
+				useglobal="true"
+				>
 				<option value="0">COM_SERMONSPEAKER_AUDIO</option>
 				<option value="1">COM_SERMONSPEAKER_VIDEO</option>
 			</field>

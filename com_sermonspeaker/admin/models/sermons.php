@@ -10,9 +10,9 @@
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Associations;
-use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Model\ListModel;
 use Joomla\CMS\Table\Table;
@@ -22,7 +22,7 @@ class SermonspeakerModelSermons extends ListModel
 	/**
 	 * Constructor.
 	 *
-	 * @param    array $config An optional associative array of configuration settings.
+	 * @param   array  $config  An optional associative array of configuration settings.
 	 *
 	 * @see        JController
 	 * @since      1.6
@@ -70,6 +70,98 @@ class SermonspeakerModelSermons extends ListModel
 		parent::__construct($config);
 	}
 
+	public function getSpeakers()
+	{
+		$db    = Factory::getDbo();
+		$query = $db->getQuery(true);
+
+		$query->select('speakers.id As value');
+		$query->select('CASE WHEN CHAR_LENGTH(c_speakers.title) THEN CONCAT(speakers.title, " (", c_speakers.title, ")") ELSE speakers.title END AS text');
+		$query->from('#__sermon_speakers AS speakers');
+		$query->join('LEFT', '#__categories AS c_speakers ON c_speakers.id = speakers.catid');
+		$query->where('speakers.state = 1');
+		$query->order('speakers.title');
+
+		// Get the options.
+		$db->setQuery($query);
+
+		$published = $db->loadObjectList();
+
+		$query = $db->getQuery(true);
+
+		$query->select('speakers.id As value');
+		$query->select('CASE WHEN CHAR_LENGTH(c_speakers.title) THEN CONCAT(speakers.title, " (", c_speakers.title, ")") ELSE speakers.title END AS text');
+		$query->from('#__sermon_speakers AS speakers');
+		$query->join('LEFT', '#__categories AS c_speakers ON c_speakers.id = speakers.catid');
+		$query->where('speakers.state = 0');
+		$query->order('speakers.title');
+
+		// Get the options.
+		$db->setQuery($query);
+
+		$unpublished = $db->loadObjectList();
+
+		if (count($unpublished))
+		{
+			if (count($published))
+			{
+				array_unshift($published, HTMLHelper::_('select.optgroup', Text::_('JPUBLISHED')));
+				array_push($published, HTMLHelper::_('select.optgroup', Text::_('JPUBLISHED')));
+			}
+
+			array_unshift($unpublished, HTMLHelper::_('select.optgroup', Text::_('JUNPUBLISHED')));
+			array_push($unpublished, HTMLHelper::_('select.optgroup', Text::_('JUNPUBLISHED')));
+		}
+
+		return array_merge($published, $unpublished);
+	}
+
+	public function getSeries()
+	{
+		$db    = $this->getDbo();
+		$query = $db->getQuery(true);
+
+		$query->select('series.id As value');
+		$query->select('CASE WHEN CHAR_LENGTH(c_series.title) THEN CONCAT(series.title, " (", c_series.title, ")") ELSE series.title END AS text');
+		$query->from('#__sermon_series AS series');
+		$query->join('LEFT', '#__categories AS c_series ON c_series.id = series.catid');
+		$query->where('series.state = 1');
+		$query->order('series.title');
+
+		// Get the options.
+		$db->setQuery($query);
+
+		$published = $db->loadObjectList();
+
+		$query = $db->getQuery(true);
+
+		$query->select('series.id As value');
+		$query->select('CASE WHEN CHAR_LENGTH(c_series.title) THEN CONCAT(series.title, " (", c_series.title, ")") ELSE series.title END AS text');
+		$query->from('#__sermon_series AS series');
+		$query->join('LEFT', '#__categories AS c_series ON c_series.id = series.catid');
+		$query->where('series.state = 0');
+		$query->order('series.title');
+
+		// Get the options.
+		$db->setQuery($query);
+
+		$unpublished = $db->loadObjectList();
+
+		if (count($unpublished))
+		{
+			if (count($published))
+			{
+				array_unshift($published, HTMLHelper::_('select.optgroup', Text::_('JPUBLISHED')));
+				array_push($published, HTMLHelper::_('select.optgroup', Text::_('JPUBLISHED')));
+			}
+
+			array_unshift($unpublished, HTMLHelper::_('select.optgroup', Text::_('JUNPUBLISHED')));
+			array_push($unpublished, HTMLHelper::_('select.optgroup', Text::_('JUNPUBLISHED')));
+		}
+
+		return array_merge($published, $unpublished);
+	}
+
 	/**
 	 * Method to auto-populate the model state.
 	 *
@@ -79,8 +171,8 @@ class SermonspeakerModelSermons extends ListModel
 	 *
 	 * Note. Calling getState in this method will result in recursion.
 	 *
-	 * @param   string $ordering  An optional ordering field.
-	 * @param   string $direction An optional direction (asc|desc).
+	 * @param   string  $ordering   An optional ordering field.
+	 * @param   string  $direction  An optional direction (asc|desc).
 	 *
 	 * @return  void
 	 *
@@ -129,7 +221,7 @@ class SermonspeakerModelSermons extends ListModel
 	 * different modules that might need different sets of data or different
 	 * ordering requirements.
 	 *
-	 * @param    string $id A prefix for the store id.
+	 * @param   string  $id  A prefix for the store id.
 	 *
 	 * @return    string        A store id.
 	 * @since    1.6
@@ -337,97 +429,5 @@ class SermonspeakerModelSermons extends ListModel
 		$query->order($db->escape($orderCol . ' ' . $orderDirn));
 
 		return $query;
-	}
-
-	public function getSpeakers()
-	{
-		$db    = Factory::getDbo();
-		$query = $db->getQuery(true);
-
-		$query->select('speakers.id As value');
-		$query->select('CASE WHEN CHAR_LENGTH(c_speakers.title) THEN CONCAT(speakers.title, " (", c_speakers.title, ")") ELSE speakers.title END AS text');
-		$query->from('#__sermon_speakers AS speakers');
-		$query->join('LEFT', '#__categories AS c_speakers ON c_speakers.id = speakers.catid');
-		$query->where('speakers.state = 1');
-		$query->order('speakers.title');
-
-		// Get the options.
-		$db->setQuery($query);
-
-		$published = $db->loadObjectList();
-
-		$query = $db->getQuery(true);
-
-		$query->select('speakers.id As value');
-		$query->select('CASE WHEN CHAR_LENGTH(c_speakers.title) THEN CONCAT(speakers.title, " (", c_speakers.title, ")") ELSE speakers.title END AS text');
-		$query->from('#__sermon_speakers AS speakers');
-		$query->join('LEFT', '#__categories AS c_speakers ON c_speakers.id = speakers.catid');
-		$query->where('speakers.state = 0');
-		$query->order('speakers.title');
-
-		// Get the options.
-		$db->setQuery($query);
-
-		$unpublished = $db->loadObjectList();
-
-		if (count($unpublished))
-		{
-			if (count($published))
-			{
-				array_unshift($published, HTMLHelper::_('select.optgroup', Text::_('JPUBLISHED')));
-				array_push($published, HTMLHelper::_('select.optgroup', Text::_('JPUBLISHED')));
-			}
-
-			array_unshift($unpublished, HTMLHelper::_('select.optgroup', Text::_('JUNPUBLISHED')));
-			array_push($unpublished, HTMLHelper::_('select.optgroup', Text::_('JUNPUBLISHED')));
-		}
-
-		return array_merge($published, $unpublished);
-	}
-
-	public function getSeries()
-	{
-		$db    = $this->getDbo();
-		$query = $db->getQuery(true);
-
-		$query->select('series.id As value');
-		$query->select('CASE WHEN CHAR_LENGTH(c_series.title) THEN CONCAT(series.title, " (", c_series.title, ")") ELSE series.title END AS text');
-		$query->from('#__sermon_series AS series');
-		$query->join('LEFT', '#__categories AS c_series ON c_series.id = series.catid');
-		$query->where('series.state = 1');
-		$query->order('series.title');
-
-		// Get the options.
-		$db->setQuery($query);
-
-		$published = $db->loadObjectList();
-
-		$query = $db->getQuery(true);
-
-		$query->select('series.id As value');
-		$query->select('CASE WHEN CHAR_LENGTH(c_series.title) THEN CONCAT(series.title, " (", c_series.title, ")") ELSE series.title END AS text');
-		$query->from('#__sermon_series AS series');
-		$query->join('LEFT', '#__categories AS c_series ON c_series.id = series.catid');
-		$query->where('series.state = 0');
-		$query->order('series.title');
-
-		// Get the options.
-		$db->setQuery($query);
-
-		$unpublished = $db->loadObjectList();
-
-		if (count($unpublished))
-		{
-			if (count($published))
-			{
-				array_unshift($published, HTMLHelper::_('select.optgroup', Text::_('JPUBLISHED')));
-				array_push($published, HTMLHelper::_('select.optgroup', Text::_('JPUBLISHED')));
-			}
-
-			array_unshift($unpublished, HTMLHelper::_('select.optgroup', Text::_('JUNPUBLISHED')));
-			array_push($unpublished, HTMLHelper::_('select.optgroup', Text::_('JUNPUBLISHED')));
-		}
-
-		return array_merge($published, $unpublished);
 	}
 }

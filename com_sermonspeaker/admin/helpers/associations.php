@@ -44,141 +44,10 @@ class SermonSpeakerAssociationsHelper extends AssociationExtensionHelper
 	protected $associationsSupport = true;
 
 	/**
-	 * Get the associated items for an item
-	 *
-	 * @param   string $typeName The item type
-	 * @param   int    $id       The id of item for which we need the associated items
-	 *
-	 * @return  array
-	 *
-	 * @since    5.6.0
-	 */
-
-	public function getAssociations($typeName, $id)
-	{
-		if (!in_array($typeName, $this->itemTypes))
-		{
-			return array();
-		}
-
-		$type = $this->getType($typeName);
-
-		$context    = $this->extension . '.' . $typeName;
-		$extension  = $context . 's';
-		$catidField = 'catid';
-
-		$categories = array('sermons.category', 'series.category', 'speakers.category');
-
-		if (in_array($typeName, $categories))
-		{
-			$extension = 'com_sermonspeaker.' . str_replace('.category', '', $typeName);
-			$context = 'com_categories.item';
-			$catidField = '';
-		}
-
-		// Get the associations.
-		return Associations::getAssociations(
-			$extension,
-			$type['tables']['a'],
-			$context,
-			$id,
-			'id',
-			'alias',
-			$catidField
-		);
-	}
-
-	/**
-	 * Get information about the type
-	 *
-	 * @param   string $typeName The item type
-	 *
-	 * @return  array  Array of item types
-	 *
-	 * @since  5.6.0
-	 */
-	public function getType($typeName = '')
-	{
-		$fields = $this->getFieldsTemplate();
-		$tables = array();
-		$joins = array();
-		$support = $this->getSupportTemplate();
-		$title = '';
-
-		// Setting some default values
-		$fields['access'] = '';
-		$support['state'] = true;
-		$support['acl'] = false;
-		$support['checkout'] = true;
-		$support['save2copy'] = true;
-
-		if (in_array($typeName, $this->itemTypes))
-		{
-			switch ($typeName)
-			{
-				case 'serie':
-					$support['category'] = true;
-
-					$tables = array(
-						'a' => '#__sermon_series',
-					);
-					$title = 'serie';
-					break;
-
-				case 'sermon':
-					$support['category'] = true;
-
-					$tables = array(
-						'a' => '#__sermon_sermons',
-					);
-					$title = 'sermon';
-					break;
-
-				case 'speaker':
-					$support['category'] = true;
-
-					$tables = array(
-						'a' => '#__sermon_speakers',
-					);
-					$title = 'speaker';
-					break;
-
-				case 'sermons.category':
-				case 'series.category':
-				case 'speakers.category':
-					$fields['created_user_id'] = 'a.created_user_id';
-					$fields['ordering'] = 'a.lft';
-					$fields['level'] = 'a.level';
-					$fields['catid'] = '';
-					$fields['state'] = 'a.published';
-
-					$support['state'] = true;
-					$support['acl'] = true;
-					$support['checkout'] = true;
-					$support['level'] = true;
-
-					$tables = array(
-						'a' => '#__categories',
-					);
-					$title = str_replace('.', '_', $typeName);
-					break;
-			}
-		}
-
-		return array(
-			'fields'  => $fields,
-			'support' => $support,
-			'tables'  => $tables,
-			'joins'   => $joins,
-			'title'   => $title,
-		);
-	}
-
-	/**
 	 * Get item information
 	 *
-	 * @param   string $typeName The item type
-	 * @param   int    $id       The id of item for which we need the associated items
+	 * @param   string  $typeName  The item type
+	 * @param   int     $id        The id of item for which we need the associated items
 	 *
 	 * @return  Table|null
 	 *
@@ -237,5 +106,136 @@ class SermonSpeakerAssociationsHelper extends AssociationExtensionHelper
 	public function getAssociationsForItem($id = 0, $view = null)
 	{
 		return $this->getAssociations($id, $view);
+	}
+
+	/**
+	 * Get the associated items for an item
+	 *
+	 * @param   string  $typeName  The item type
+	 * @param   int     $id        The id of item for which we need the associated items
+	 *
+	 * @return  array
+	 *
+	 * @since    5.6.0
+	 */
+
+	public function getAssociations($typeName, $id)
+	{
+		if (!in_array($typeName, $this->itemTypes))
+		{
+			return array();
+		}
+
+		$type = $this->getType($typeName);
+
+		$context    = $this->extension . '.' . $typeName;
+		$extension  = $context . 's';
+		$catidField = 'catid';
+
+		$categories = array('sermons.category', 'series.category', 'speakers.category');
+
+		if (in_array($typeName, $categories))
+		{
+			$extension  = 'com_sermonspeaker.' . str_replace('.category', '', $typeName);
+			$context    = 'com_categories.item';
+			$catidField = '';
+		}
+
+		// Get the associations.
+		return Associations::getAssociations(
+			$extension,
+			$type['tables']['a'],
+			$context,
+			$id,
+			'id',
+			'alias',
+			$catidField
+		);
+	}
+
+	/**
+	 * Get information about the type
+	 *
+	 * @param   string  $typeName  The item type
+	 *
+	 * @return  array  Array of item types
+	 *
+	 * @since  5.6.0
+	 */
+	public function getType($typeName = '')
+	{
+		$fields  = $this->getFieldsTemplate();
+		$tables  = array();
+		$joins   = array();
+		$support = $this->getSupportTemplate();
+		$title   = '';
+
+		// Setting some default values
+		$fields['access']     = '';
+		$support['state']     = true;
+		$support['acl']       = false;
+		$support['checkout']  = true;
+		$support['save2copy'] = true;
+
+		if (in_array($typeName, $this->itemTypes))
+		{
+			switch ($typeName)
+			{
+				case 'serie':
+					$support['category'] = true;
+
+					$tables = array(
+						'a' => '#__sermon_series',
+					);
+					$title  = 'serie';
+					break;
+
+				case 'sermon':
+					$support['category'] = true;
+
+					$tables = array(
+						'a' => '#__sermon_sermons',
+					);
+					$title  = 'sermon';
+					break;
+
+				case 'speaker':
+					$support['category'] = true;
+
+					$tables = array(
+						'a' => '#__sermon_speakers',
+					);
+					$title  = 'speaker';
+					break;
+
+				case 'sermons.category':
+				case 'series.category':
+				case 'speakers.category':
+					$fields['created_user_id'] = 'a.created_user_id';
+					$fields['ordering']        = 'a.lft';
+					$fields['level']           = 'a.level';
+					$fields['catid']           = '';
+					$fields['state']           = 'a.published';
+
+					$support['state']    = true;
+					$support['acl']      = true;
+					$support['checkout'] = true;
+					$support['level']    = true;
+
+					$tables = array(
+						'a' => '#__categories',
+					);
+					$title  = str_replace('.', '_', $typeName);
+					break;
+			}
+		}
+
+		return array(
+			'fields'  => $fields,
+			'support' => $support,
+			'tables'  => $tables,
+			'joins'   => $joins,
+			'title'   => $title,
+		);
 	}
 }

@@ -44,7 +44,8 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 		<?php if (in_array('sermon:date', $this->columns) and ($this->item->sermon_date != '0000-00-00 00:00:00')) : ?>
 			<div class="ss-sermondetail-label"><?php echo Text::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL'); ?>:</div>
 			<div class="ss-sermondetail-text">
-				<time datetime="<?php echo HTMLHelper::_('date', $this->item->sermon_date, 'c'); ?>" itemprop="dateCreated">
+				<time datetime="<?php echo HTMLHelper::_('date', $this->item->sermon_date, 'c'); ?>"
+					  itemprop="dateCreated">
 					<?php echo HTMLHelper::date($this->item->sermon_date, Text::_($this->params->get('date_format')), true); ?>
 				</time>
 			</div>
@@ -80,14 +81,15 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 			<?php if ($this->item->pic) : ?>
 				<div class="ss-sermondetail-label"></div>
 				<div class="ss-sermondetail-text"><img height="150"
-						src="<?php echo SermonspeakerHelperSermonspeaker::makeLink($this->item->pic); ?>"></div>
+													   src="<?php echo SermonspeakerHelperSermonspeaker::makeLink($this->item->pic); ?>">
+				</div>
 			<?php endif;
 		endif;
 
 		if (in_array('sermon:length', $this->columns)) : ?>
 			<div class="ss-sermondetail-label"><?php echo Text::_('COM_SERMONSPEAKER_FIELD_LENGTH_LABEL'); ?>:</div>
 			<div
-				class="ss-sermondetail-text"><?php echo SermonspeakerHelperSermonspeaker::insertTime($this->item->sermon_time); ?></div>
+					class="ss-sermondetail-text"><?php echo SermonspeakerHelperSermonspeaker::insertTime($this->item->sermon_time); ?></div>
 		<?php endif;
 
 		if (in_array('sermon:hits', $this->columns)) : ?>
@@ -112,19 +114,19 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 		if ($this->params->get('popup_player') and $player) : ?>
 			<div class="ss-sermondetail-label"></div>
 			<div
-				class="ss-sermondetail-text"><?php echo SermonspeakerHelperSermonspeaker::insertPopupButton($this->item->id, $player); ?></div>
+					class="ss-sermondetail-text"><?php echo SermonspeakerHelperSermonspeaker::insertPopupButton($this->item->id, $player); ?></div>
 		<?php endif;
 
 		if (in_array('sermon:download', $this->columns) and $this->item->audiofile) : ?>
 			<div class="ss-sermondetail-label"></div>
 			<div
-				class="ss-sermondetail-text"><?php echo SermonspeakerHelperSermonspeaker::insertdlbutton($this->item->slug, 'audio', 0, $this->item->audiofilesize); ?></div>
+					class="ss-sermondetail-text"><?php echo SermonspeakerHelperSermonspeaker::insertdlbutton($this->item->slug, 'audio', 0, $this->item->audiofilesize); ?></div>
 		<?php endif;
 
 		if (in_array('sermon:download', $this->columns) and $this->item->videofile) : ?>
 			<div class="ss-sermondetail-label"></div>
 			<div
-				class="ss-sermondetail-text"><?php echo SermonspeakerHelperSermonspeaker::insertdlbutton($this->item->slug, 'video', 0, $this->item->videofilesize); ?></div>
+					class="ss-sermondetail-text"><?php echo SermonspeakerHelperSermonspeaker::insertdlbutton($this->item->slug, 'video', 0, $this->item->videofilesize); ?></div>
 		<?php endif;
 
 		if (in_array('sermon:addfile', $this->columns) and $this->item->addfile) : ?>
@@ -135,7 +137,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 		<?php endif; ?>
 	</div>
 	<?php if ($this->params->get('show_tags', 1) and !empty($this->item->tags->itemTags)) : ?>
-	    <?php echo LayoutHelper::render('joomla.content.tags', $this->item->tags->itemTags); ?>
+		<?php echo LayoutHelper::render('joomla.content.tags', $this->item->tags->itemTags); ?>
 	<?php endif;
 
 	if ($this->params->get('enable_keywords')) :

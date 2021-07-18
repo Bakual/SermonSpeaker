@@ -26,14 +26,16 @@ $player = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 	<?php if (in_array('sermons:player', $this->columns) and count($this->items)) : ?>
 		<?php echo LayoutHelper::render('plugin.player', array('player' => $player, 'items' => $this->items, 'view' => 'sermons')); ?>
 	<?php endif; ?>
-	<form action="<?php echo OutputFilter::ampReplace(Uri::getInstance()->toString()); ?>" method="post" name="adminForm" id="adminForm" class="com-sermonspeaker-sermons__sermons">
+	<form action="<?php echo OutputFilter::ampReplace(Uri::getInstance()->toString()); ?>" method="post"
+		  name="adminForm" id="adminForm" class="com-sermonspeaker-sermons__sermons">
 		<?php if ($this->params->get('filter_field') or $this->params->get('show_pagination_limit')) : ?>
 			<?php echo $this->loadTemplate('filters'); ?>
 		<?php endif; ?>
 		<div class="clearfix"></div>
 
 		<?php if (!count($this->items)) : ?>
-			<span class="icon-info-circle" aria-hidden="true"></span><span class="visually-hidden"><?php echo Text::_('INFO'); ?></span>
+			<span class="icon-info-circle" aria-hidden="true"></span><span
+					class="visually-hidden"><?php echo Text::_('INFO'); ?></span>
 			<?php echo Text::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', Text::_('COM_SERMONSPEAKER_SERMONS')); ?>
 		<?php else : ?>
 			<div class="row row-cols-1 row-cols-md-4 g-4">

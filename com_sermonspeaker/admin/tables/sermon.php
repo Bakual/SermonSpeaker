@@ -33,6 +33,13 @@ class SermonspeakerTableSermon extends Table implements VersionableTableInterfac
 	use TaggableTableTrait;
 
 	/**
+	 * The UCM type alias. Used for tags, content versioning etc. Leave blank to effectively disable these features.
+	 *
+	 * @var    string
+	 * @since  6.0.0
+	 */
+	public $typeAlias = 'com_sermonspeaker.sermon';
+	/**
 	 * Array with alias for "special" columns such as ordering, hits etc etc
 	 *
 	 * @var    array
@@ -41,17 +48,9 @@ class SermonspeakerTableSermon extends Table implements VersionableTableInterfac
 	protected $_columnAlias = array('published' => 'state');
 
 	/**
-	 * The UCM type alias. Used for tags, content versioning etc. Leave blank to effectively disable these features.
-	 *
-	 * @var    string
-	 * @since  6.0.0
-	 */
-	public $typeAlias = 'com_sermonspeaker.sermon';
-
-	/**
 	 * Constructor
 	 *
-	 * @param  JDatabaseDriver $db JDatabaseDriver object.
+	 * @param   JDatabaseDriver  $db  JDatabaseDriver object.
 	 *
 	 * @since ?
 	 */
@@ -164,8 +163,8 @@ class SermonspeakerTableSermon extends Table implements VersionableTableInterfac
 	/**
 	 * Overloaded bind function to pre-process the params.
 	 *
-	 * @param array  $array
-	 * @param string $ignore
+	 * @param   array   $array
+	 * @param   string  $ignore
 	 *
 	 * @return null|string null is operation was satisfactory, otherwise returns an error
 	 *
@@ -191,7 +190,7 @@ class SermonspeakerTableSermon extends Table implements VersionableTableInterfac
 	 * values. If no primary key value is set a new row will be inserted into the database with the properties from the
 	 * Table instance.
 	 *
-	 * @param   boolean $updateNulls True to update fields even if they are null.
+	 * @param   boolean  $updateNulls  True to update fields even if they are null.
 	 *
 	 * @return bool True on success.
 	 *
@@ -255,10 +254,10 @@ class SermonspeakerTableSermon extends Table implements VersionableTableInterfac
 	 * The method respects checked out rows by other users and will attempt to checkin rows that it can after
 	 * adjustments are made.
 	 *
-	 * @param   mixed   $pks    An optional array of primary key values to update. If not set the instance property
-	 *                          value is used.
-	 * @param   integer $state  The publishing state. eg. [0 = unpublished, 1 = published]
-	 * @param   integer $userId The user ID of the user performing the operation.
+	 * @param   mixed    $pks     An optional array of primary key values to update. If not set the instance property
+	 *                            value is used.
+	 * @param   integer  $state   The publishing state. eg. [0 = unpublished, 1 = published]
+	 * @param   integer  $userId  The user ID of the user performing the operation.
 	 *
 	 * @return  boolean  True on success; false if $pks is empty.
 	 *

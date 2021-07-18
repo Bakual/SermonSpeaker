@@ -11,8 +11,8 @@ use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
-use Joomla\CMS\Session\Session;
 use Joomla\CMS\MVC\Controller\BaseController;
+use Joomla\CMS\Session\Session;
 use Joomla\CMS\Table\Table;
 
 defined('_JEXEC') or die;
@@ -75,7 +75,7 @@ class SermonspeakerControllerTools extends BaseController
 			$db->execute();
 			$this->setMessage('Successfully reordered the series');
 		}
-		catch(Exception $e)
+		catch (Exception $e)
 		{
 			$this->setMessage('Error: ' . $e->getMessage(), 'error');
 		}
@@ -104,7 +104,7 @@ class SermonspeakerControllerTools extends BaseController
 			$db->execute();
 			$this->setMessage('Successfully reordered the speakers');
 		}
-		catch(Exception $e)
+		catch (Exception $e)
 		{
 			$this->setMessage('Error: ' . $e->getMessage(), 'error');
 		}
@@ -147,7 +147,7 @@ class SermonspeakerControllerTools extends BaseController
 					$app->enqueueMessage('Successfully added ' . $hrs . ' hours and ' . $mins . ' minutes to the sermon date!');
 				}
 			}
-			catch(Exception $e)
+			catch (Exception $e)
 			{
 				$this->setMessage($e->getMessage(), 'error');
 			}
@@ -172,7 +172,7 @@ class SermonspeakerControllerTools extends BaseController
 				$db->execute();
 				$app->enqueueMessage('Successfully set time to ' . $time . ' for each sermon date!');
 			}
-			catch(Exception $e)
+			catch (Exception $e)
 			{
 				$this->setMessage($e->getMessage(), 'error');
 			}
@@ -476,8 +476,8 @@ class SermonspeakerControllerTools extends BaseController
 		// Create categories for our component
 		$basePath = JPATH_ADMINISTRATOR . '/components/com_categories';
 		require_once $basePath . '/models/category.php';
-		$config   = array('table_path' => $basePath . '/tables');
-		$catmodel = new CategoriesModelCategory($config);
+		$config        = array('table_path' => $basePath . '/tables');
+		$catmodel      = new CategoriesModelCategory($config);
 		$catConversion = array();
 
 		$catData = array(
@@ -723,7 +723,7 @@ class SermonspeakerControllerTools extends BaseController
 
 			if ($study->ministry)
 			{
-				$ministry = json_decode($study->ministry, true);
+				$ministry     = json_decode($study->ministry, true);
 				$study->catid = $catConversion[$ministry[0]];
 			}
 

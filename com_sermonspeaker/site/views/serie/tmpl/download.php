@@ -9,7 +9,6 @@
 
 defined('_JEXEC') or die();
 
-use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Uri\Uri;
 
@@ -75,10 +74,13 @@ $this->document->addScriptDeclaration($js);
 ?>
 <div class="ss-seriesdownload-container">
 	<h3><?php echo $this->item->title; ?></h3>
-	<div id="status"><span class="badge bg-info"><?php echo Text::_('COM_SERMONSPEAKER_PREPARING_DOWNLOAD'); ?></span></div>
+	<div id="status"><span class="badge bg-info"><?php echo Text::_('COM_SERMONSPEAKER_PREPARING_DOWNLOAD'); ?></span>
+	</div>
 	<br/>
 	<div class="progress">
-		<div id="progressbar" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0">0%</div>
+		<div id="progressbar" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+			 style="width: 0">0%
+		</div>
 	</div>
 	<br/><br/>
 	<div id="link" style="display:none;"></div>

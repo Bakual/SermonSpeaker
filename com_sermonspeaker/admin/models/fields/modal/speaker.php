@@ -154,7 +154,7 @@ class JFormFieldModal_Speaker extends JFormField
 		$title = empty($title) ? Text::_('COM_SERMONSPEAKER_SELECT_A_SPEAKER') : htmlspecialchars($title, ENT_QUOTES);
 
 		// The current speaker display field.
-		$html  = '';
+		$html = '';
 
 		if ($allowSelect || $allowNew || $allowEdit || $allowClear)
 		{
@@ -218,7 +218,7 @@ class JFormFieldModal_Speaker extends JFormField
 		if ($allowPropagate && count($languages) > 2)
 		{
 			// Strip off language tag at the end
-			$tagLength = (int) strlen($this->element['language']);
+			$tagLength            = (int) strlen($this->element['language']);
 			$callbackFunctionStem = substr("jSelectSpeaker_" . $this->id, 0, -$tagLength);
 
 			$html .= '<button'
@@ -243,12 +243,12 @@ class JFormFieldModal_Speaker extends JFormField
 				'bootstrap.renderModal',
 				'ModalSelect' . $modalId,
 				array(
-					'title'       => $modalTitle,
-					'url'         => $urlSelect,
-					'height'      => '400px',
-					'width'       => '800px',
-					'bodyHeight'  => 70,
-					'modalWidth'  => 80,
+					'title'      => $modalTitle,
+					'url'        => $urlSelect,
+					'height'     => '400px',
+					'width'      => '800px',
+					'bodyHeight' => 70,
+					'modalWidth' => 80,
 					'footer'     => '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">'
 						. Text::_('JLIB_HTML_BEHAVIOR_CLOSE') . '</button>',
 				)

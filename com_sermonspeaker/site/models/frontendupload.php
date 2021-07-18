@@ -10,10 +10,8 @@
 defined('_JEXEC') or die();
 
 use Joomla\CMS\Application\SiteApplication;
-use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Associations;
-use Joomla\CMS\Language\Text;
 
 require_once JPATH_COMPONENT_ADMINISTRATOR . '/models/sermon.php';
 
@@ -41,8 +39,8 @@ class SermonspeakerModelFrontendupload extends SermonspeakerModelSermon
 	 *
 	 * Note. Calling getState in this method will result in recursion.
 	 *
-	 * @param   string $ordering  Ordering column
-	 * @param   string $direction 'ASC' or 'DESC'
+	 * @param   string  $ordering   Ordering column
+	 * @param   string  $direction  'ASC' or 'DESC'
 	 *
 	 * @return  void
 	 *
@@ -78,6 +76,34 @@ class SermonspeakerModelFrontendupload extends SermonspeakerModelSermon
 		$this->setState('params', $params);
 
 		$this->setState('layout', $jinput->get('layout'));
+	}
+
+	/**
+	 * Method to save the form data.
+	 *
+	 * @param   array  $data  The form data.
+	 *
+	 * @return  boolean  True on success.
+	 *
+	 * @since   3.2
+	 */
+	public function save($data)
+	{
+		// Associations are not edited in frontend ATM so we have to inherit them
+		if (Associations::isEnabled() && !empty($data['id']))
+		{
+			if ($associations = Associations::getAssociations('com_sermonspeaker.sermons', '#__sermon_sermons', 'com_sermonspeaker.sermon', $data['id']))
+			{
+				foreach ($associations as $tag => $associated)
+				{
+					$associations[$tag] = (int) $associated->id;
+				}
+
+				$data['associations'] = $associations;
+			}
+		}
+
+		return parent::save($data);
 	}
 
 	/**
@@ -126,33 +152,5 @@ class SermonspeakerModelFrontendupload extends SermonspeakerModelSermon
 		$this->preprocessData('com_sermonspeaker.sermon', $data);
 
 		return $data;
-	}
-
-	/**
-	 * Method to save the form data.
-	 *
-	 * @param   array $data The form data.
-	 *
-	 * @return  boolean  True on success.
-	 *
-	 * @since   3.2
-	 */
-	public function save($data)
-	{
-		// Associations are not edited in frontend ATM so we have to inherit them
-		if (Associations::isEnabled() && !empty($data['id']))
-		{
-			if ($associations = Associations::getAssociations('com_sermonspeaker.sermons', '#__sermon_sermons', 'com_sermonspeaker.sermon', $data['id']))
-			{
-				foreach ($associations as $tag => $associated)
-				{
-					$associations[$tag] = (int) $associated->id;
-				}
-
-				$data['associations'] = $associations;
-			}
-		}
-
-		return parent::save($data);
 	}
 }

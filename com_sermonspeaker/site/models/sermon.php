@@ -22,41 +22,14 @@ class SermonspeakerModelSermon extends JModelItem
 	protected $_context = 'com_sermonspeaker.sermon';
 
 	/**
-	 * Method to auto-populate the model state
-	 *
-	 * Note. Calling getState in this method will result in recursion
-	 *
-	 * @param   string $ordering  Ordering column
-	 * @param   string $direction 'ASC' or 'DESC'
-	 *
-	 * @return  void
-	 *
-	 * @since ?
-	 * @throws Exception
-	 */
-	protected function populateState($ordering = null, $direction = null)
-	{
-		/** @var \Joomla\CMS\Application\SiteApplication $app */
-		$app    = Factory::getApplication();
-		$params = $app->getParams();
-
-		// Load the object state.
-		$id = $app->input->get('id', 0, 'int');
-		$this->setState('sermon.id', $id);
-
-		// Load the parameters.
-		$this->setState('params', $params);
-	}
-
-	/**
 	 * Method to get an object
 	 *
-	 * @param   integer $id The id of the object to get
+	 * @param   integer  $id  The id of the object to get
 	 *
 	 * @return mixed Object on success, false on failure
 	 *
-	 * @since ?
 	 * @throws Exception
+	 * @since ?
 	 */
 	public function &getItem($id = null)
 	{
@@ -178,12 +151,12 @@ class SermonspeakerModelSermon extends JModelItem
 	/**
 	 * Method to increment the hit counter for the sermon
 	 *
-	 * @param   int $id Optional ID of the sermon
+	 * @param   int  $id  Optional ID of the sermon
 	 *
 	 * @return  boolean  True on success
 	 *
-	 * @since ?
 	 * @throws Exception
+	 * @since ?
 	 */
 	public function hit($id = null)
 	{
@@ -234,5 +207,32 @@ class SermonspeakerModelSermon extends JModelItem
 		$db->setQuery($query);
 
 		return $db->loadResult();
+	}
+
+	/**
+	 * Method to auto-populate the model state
+	 *
+	 * Note. Calling getState in this method will result in recursion
+	 *
+	 * @param   string  $ordering   Ordering column
+	 * @param   string  $direction  'ASC' or 'DESC'
+	 *
+	 * @return  void
+	 *
+	 * @throws Exception
+	 * @since ?
+	 */
+	protected function populateState($ordering = null, $direction = null)
+	{
+		/** @var \Joomla\CMS\Application\SiteApplication $app */
+		$app    = Factory::getApplication();
+		$params = $app->getParams();
+
+		// Load the object state.
+		$id = $app->input->get('id', 0, 'int');
+		$this->setState('sermon.id', $id);
+
+		// Load the parameters.
+		$this->setState('params', $params);
 	}
 }

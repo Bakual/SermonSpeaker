@@ -57,7 +57,7 @@ class SermonspeakerModelSermon extends AdminModel
 	/**
 	 * Method to delete one or more records.
 	 *
-	 * @param   array &$pks An array of record primary keys.
+	 * @param   array &$pks  An array of record primary keys.
 	 *
 	 * @return  boolean  True if successful, false if an error occurs.
 	 *
@@ -132,9 +132,9 @@ class SermonspeakerModelSermon extends AdminModel
 	/**
 	 * Returns a Table object, always creating it.
 	 *
-	 * @param   string $type   The table type to instantiate
-	 * @param   string $prefix A prefix for the table class name. Optional.
-	 * @param   array  $config Configuration array for model. Optional.
+	 * @param   string  $type    The table type to instantiate
+	 * @param   string  $prefix  A prefix for the table class name. Optional.
+	 * @param   array   $config  Configuration array for model. Optional.
 	 *
 	 * @return  Table|boolean    A database object
 	 *
@@ -148,7 +148,7 @@ class SermonspeakerModelSermon extends AdminModel
 	/**
 	 * Method to test whether a record can be deleted.
 	 *
-	 * @param   object $record A record object.
+	 * @param   object  $record  A record object.
 	 *
 	 * @return  boolean  True if allowed to delete the record. Defaults to the permission set in the component.
 	 *
@@ -181,8 +181,8 @@ class SermonspeakerModelSermon extends AdminModel
 	/**
 	 * Method to get the record form.
 	 *
-	 * @param   array   $data     Data for the form.
-	 * @param   boolean $loadData True if the form is to load its own data (default case), false if not.
+	 * @param   array    $data      Data for the form.
+	 * @param   boolean  $loadData  True if the form is to load its own data (default case), false if not.
 	 *
 	 * @return  mixed  A JForm object on success, false on failure
 	 *
@@ -240,7 +240,7 @@ class SermonspeakerModelSermon extends AdminModel
 	/**
 	 * Method to test whether a record can have its state edited.
 	 *
-	 * @param   object $record A record object.
+	 * @param   object  $record  A record object.
 	 *
 	 * @return  boolean  True if allowed to change the state of the record. Defaults to the permission set in the
 	 *                   component.
@@ -264,7 +264,7 @@ class SermonspeakerModelSermon extends AdminModel
 	/**
 	 * Method to save the form data.
 	 *
-	 * @param   array $data The form data.
+	 * @param   array  $data  The form data.
 	 *
 	 * @return  boolean  True on success, False on error.
 	 *
@@ -303,13 +303,13 @@ class SermonspeakerModelSermon extends AdminModel
 	/**
 	 * Method to change the podcast state of one or more records.
 	 *
-	 * @param   array   &$pks  A list of the primary keys to change.
-	 * @param   integer $value The value of the published state.
+	 * @param   array   &$pks    A list of the primary keys to change.
+	 * @param   integer  $value  The value of the published state.
 	 *
 	 * @return  boolean  True on success.
 	 *
-	 * @since   12.2
 	 * @throws  Exception
+	 * @since   12.2
 	 */
 	public function podcast(&$pks, $value = 1)
 	{
@@ -350,9 +350,9 @@ class SermonspeakerModelSermon extends AdminModel
 	 * Method to perform batch operations on an item or a set of items.
 	 * Copy from modeladmin with added commands for speaker and series.
 	 *
-	 * @param   array $commands An array of commands to perform.
-	 * @param   array $pks      An array of item ids.
-	 * @param   array $contexts An array of item contexts.
+	 * @param   array  $commands  An array of commands to perform.
+	 * @param   array  $pks       An array of item ids.
+	 * @param   array  $contexts  An array of item contexts.
 	 *
 	 * @return  boolean  Returns true on success, false on failure.
 	 *
@@ -461,9 +461,9 @@ class SermonspeakerModelSermon extends AdminModel
 	 * Batch copy items to a new category or current.
 	 * Override from modeladmin to adjust title field.
 	 *
-	 * @param   integer $value    The new category.
-	 * @param   array   $pks      An array of row IDs.
-	 * @param   array   $contexts An array of item contexts.
+	 * @param   integer  $value     The new category.
+	 * @param   array    $pks       An array of row IDs.
+	 * @param   array    $contexts  An array of item contexts.
 	 *
 	 * @return  mixed  An array of new IDs on success, boolean false on failure.
 	 *
@@ -594,9 +594,9 @@ class SermonspeakerModelSermon extends AdminModel
 	/**
 	 * Batch speaker changes for a group of rows.
 	 *
-	 * @param   string $value    The new value matching a speaker.
-	 * @param   array  $pks      An array of row IDs.
-	 * @param   array  $contexts An array of item contexts.
+	 * @param   string  $value     The new value matching a speaker.
+	 * @param   array   $pks       An array of row IDs.
+	 * @param   array   $contexts  An array of item contexts.
 	 *
 	 * @return  boolean  True if successful, false otherwise and internal error is set.
 	 *
@@ -640,9 +640,9 @@ class SermonspeakerModelSermon extends AdminModel
 	/**
 	 * Batch serie changes for a group of rows.
 	 *
-	 * @param   string $value    The new value matching a serie.
-	 * @param   array  $pks      An array of row IDs.
-	 * @param   array  $contexts An array of item contexts.
+	 * @param   string  $value     The new value matching a serie.
+	 * @param   array   $pks       An array of row IDs.
+	 * @param   array   $contexts  An array of item contexts.
 	 *
 	 * @return  boolean  True if successful, false otherwise and internal error is set.
 	 *
@@ -772,7 +772,7 @@ class SermonspeakerModelSermon extends AdminModel
 	/**
 	 * Method to get a single record.
 	 *
-	 * @param   integer $pk The id of the primary key.
+	 * @param   integer  $pk  The id of the primary key.
 	 *
 	 * @return  mixed  Object on success, false on failure.
 	 *
@@ -830,7 +830,7 @@ class SermonspeakerModelSermon extends AdminModel
 	/**
 	 * Prepare and sanitise the table data prior to saving.
 	 *
-	 * @param   Table $table A JTable object.
+	 * @param   Table  $table  A JTable object.
 	 *
 	 * @return  void
 	 *
@@ -934,15 +934,15 @@ class SermonspeakerModelSermon extends AdminModel
 	/**
 	 * Method to allow derived classes to preprocess the form.
 	 *
-	 * @param   JForm  $form  A JForm object.
-	 * @param   mixed  $data  The data expected for the form.
-	 * @param   string $group The name of the plugin group to import (defaults to "content").
+	 * @param   JForm   $form   A JForm object.
+	 * @param   mixed   $data   The data expected for the form.
+	 * @param   string  $group  The name of the plugin group to import (defaults to "content").
 	 *
 	 * @return  void
 	 *
-	 * @see     JFormField
-	 * @since   12.2
 	 * @throws  Exception if there is an error in the form event.
+	 * @since   12.2
+	 * @see     JFormField
 	 */
 	protected function preprocessForm(JForm $form, $data, $group = 'sermonspeaker')
 	{
@@ -984,7 +984,7 @@ class SermonspeakerModelSermon extends AdminModel
 	/**
 	 * A protected method to get a set of ordering conditions.
 	 *
-	 * @param   object $table A record object.
+	 * @param   object  $table  A record object.
 	 *
 	 * @return  array  An array of conditions to add to add to ordering queries.
 	 *

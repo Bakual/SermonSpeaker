@@ -43,7 +43,8 @@ $this->document->addScriptDeclaration("window.onload = function() {
 		bootstrapTab.show();
 	}");
 ?>
-<div class="com-sermonspeaker-speaker<?php echo $this->pageclass_sfx; ?> com-sermonspeaker-speaker-list" itemscope itemtype="http://schema.org/Person">
+<div class="com-sermonspeaker-speaker<?php echo $this->pageclass_sfx; ?> com-sermonspeaker-speaker-list" itemscope
+	 itemtype="http://schema.org/Person">
 	<?php echo $this->loadTemplate('header'); ?>
 	<div class="clearfix"></div>
 
@@ -63,13 +64,15 @@ $this->document->addScriptDeclaration("window.onload = function() {
 				<?php echo LayoutHelper::render('plugin.player', array('player' => $player, 'items' => $this->sermons, 'view' => 'speaker')); ?>
 			<?php endif; ?>
 			<div class="cat-items">
-				<form action="<?php echo htmlspecialchars(Uri::getInstance()->toString() . '#sermons'); ?>" method="post" name="adminForm" id="adminForm" class="com-sermonspeaker-speaker__sermons">
+				<form action="<?php echo htmlspecialchars(Uri::getInstance()->toString() . '#sermons'); ?>"
+					  method="post" name="adminForm" id="adminForm" class="com-sermonspeaker-speaker__sermons">
 					<?php if ($this->params->get('filter_field') or $this->params->get('show_pagination_limit')) : ?>
 						<?php echo $this->loadTemplate('filters'); ?>
 					<?php endif; ?>
 					<div class="clearfix"></div>
 					<?php if (!count($this->sermons)) : ?>
-						<span class="icon-info-circle" aria-hidden="true"></span><span class="visually-hidden"><?php echo Text::_('INFO'); ?></span>
+						<span class="icon-info-circle" aria-hidden="true"></span><span
+								class="visually-hidden"><?php echo Text::_('INFO'); ?></span>
 						<?php echo Text::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', Text::_('COM_SERMONSPEAKER_SERMONS')); ?>
 					<?php else : ?>
 						<ul class="list-group list-group-flush">
@@ -166,7 +169,8 @@ $this->document->addScriptDeclaration("window.onload = function() {
 		</div>
 		<div class="tab-pane" id="tab_series">
 			<div class="cat-items">
-				<form action="<?php echo htmlspecialchars(Uri::getInstance()->toString() . '#series'); ?>"  method="post" name="adminForm" id="adminForm" class="com-sermonspeaker-speaker__series">
+				<form action="<?php echo htmlspecialchars(Uri::getInstance()->toString() . '#series'); ?>" method="post"
+					  name="adminForm" id="adminForm" class="com-sermonspeaker-speaker__series">
 					<?php if ($this->params->get('show_pagination_limit')) : ?>
 						<div class="com-sermonspeaker-sermons__pagination btn-group float-end">
 							<label for="limit" class="visually-hidden">
@@ -178,7 +182,8 @@ $this->document->addScriptDeclaration("window.onload = function() {
 					<div class="clearfix"></div>
 					<?php if (!count($this->series)) : ?>
 						<div class="alert alert-info">
-							<span class="icon-info-circle" aria-hidden="true"></span><span class="visually-hidden"><?php echo Text::_('INFO'); ?></span>
+							<span class="icon-info-circle" aria-hidden="true"></span><span
+									class="visually-hidden"><?php echo Text::_('INFO'); ?></span>
 							<?php echo Text::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', Text::_('COM_SERMONSPEAKER_SERIES')); ?>
 						</div>
 					<?php else : ?>

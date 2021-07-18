@@ -23,9 +23,9 @@ abstract class JHtmlSermonspeakerAdministrator
 	/**
 	 * Get the associated language flags
 	 *
-	 * @param   int  $itemid The item id
+	 * @param   int     $itemid  The item id
 	 *
-	 * @param string $type
+	 * @param   string  $type
 	 *
 	 * @return string The language HTML
 	 *
@@ -87,8 +87,8 @@ abstract class JHtmlSermonspeakerAdministrator
 			{
 				foreach ($items as $item)
 				{
-					$text    = $item->lang_sef ? strtoupper($item->lang_sef) : 'XX';
-					$url     = Route::_('index.php?option=com_sermonspeaker&task=' . $type . '.edit&id=' . (int) $item->id);
+					$text = $item->lang_sef ? strtoupper($item->lang_sef) : 'XX';
+					$url  = Route::_('index.php?option=com_sermonspeaker&task=' . $type . '.edit&id=' . (int) $item->id);
 
 					$tooltip = htmlspecialchars($item->title, ENT_QUOTES) . '<br />' . Text::sprintf('JCATEGORY_SPRINTF', $item->category_title);
 					$classes = 'hasPopover badge badge-association badge-' . $item->lang_sef;
@@ -110,9 +110,9 @@ abstract class JHtmlSermonspeakerAdministrator
 	/**
 	 * Show the podcast links, based on JHtmlContentAdministrator::featured
 	 *
-	 * @param   int     $value     The state value
-	 * @param   int     $i         Row number
-	 * @param   boolean $canChange Is user allowed to change?
+	 * @param   int      $value      The state value
+	 * @param   int      $i          Row number
+	 * @param   boolean  $canChange  Is user allowed to change?
 	 *
 	 * @return  string   HTML code
 	 *

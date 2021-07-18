@@ -17,14 +17,14 @@ HTMLHelper::_('behavior.formvalidation');
 HTMLHelper::_('behavior.keepalive');
 ?>
 <script type="text/javascript">
-	Joomla.submitbutton = function (task) {
-		if (task == 'serieform.cancel' || document.formvalidator.isValid(document.id('adminForm'))) {
+    Joomla.submitbutton = function (task) {
+        if (task == 'serieform.cancel' || document.formvalidator.isValid(document.id('adminForm'))) {
 			<?php echo $this->form->getField('series_description')->save(); ?>
-			Joomla.submitform(task, document.getElementById('adminForm'));
-		} else {
-			alert('<?php echo $this->escape(Text::_('JGLOBAL_VALIDATION_FORM_FAILED'));?>');
-		}
-	}
+            Joomla.submitform(task, document.getElementById('adminForm'));
+        } else {
+            alert('<?php echo $this->escape(Text::_('JGLOBAL_VALIDATION_FORM_FAILED'));?>');
+        }
+    }
 </script>
 
 <div class="edit item-page<?php echo $this->pageclass_sfx; ?>">
@@ -38,8 +38,8 @@ HTMLHelper::_('behavior.keepalive');
 	<?php endif; ?>
 
 	<form
-		action="<?php echo JRoute::_('index.php?option=com_sermonspeaker&view=serieform&modal=1&s_id=' . (int) $this->item->id); ?>"
-		method="post" name="adminForm" id="adminForm" class="form-validate form form-vertical">
+			action="<?php echo JRoute::_('index.php?option=com_sermonspeaker&view=serieform&modal=1&s_id=' . (int) $this->item->id); ?>"
+			method="post" name="adminForm" id="adminForm" class="form-validate form form-vertical">
 		<div class="btn-toolbar">
 			<div class="btn-group">
 				<button type="button" class="btn btn-primary" onclick="Joomla.submitbutton('serieform.save')">
@@ -59,7 +59,8 @@ HTMLHelper::_('behavior.keepalive');
 				<li><a href="#publishing" data-bs-toggle="tab"><?php echo Text::_('COM_SERMONSPEAKER_PUBLISHING') ?></a>
 				</li>
 				<li><a href="#language" data-bs-toggle="tab"><?php echo Text::_('JFIELD_LANGUAGE_LABEL') ?></a></li>
-				<li><a href="#metadata" data-bs-toggle="tab"><?php echo Text::_('COM_SERMONSPEAKER_METADATA') ?></a></li>
+				<li><a href="#metadata" data-bs-toggle="tab"><?php echo Text::_('COM_SERMONSPEAKER_METADATA') ?></a>
+				</li>
 			</ul>
 
 			<div class="tab-content">

@@ -10,7 +10,6 @@
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Language\Text;
-use Joomla\CMS\Uri\Uri;
 
 ?>
 <div class="row">
@@ -36,7 +35,7 @@ use Joomla\CMS\Uri\Uri;
 						</div>
 						<div class="card-body">
 							<a class="stretched-link" href="index.php?option=com_sermonspeaker&view=series">
-							<h3 class="card-title"><?php echo Text::_('COM_SERMONSPEAKER_SERIES_TITLE'); ?></h3>
+								<h3 class="card-title"><?php echo Text::_('COM_SERMONSPEAKER_SERIES_TITLE'); ?></h3>
 							</a>
 						</div>
 					</div>
@@ -62,7 +61,8 @@ use Joomla\CMS\Uri\Uri;
 							</span>
 						</div>
 						<div class="card-body">
-							<a class="stretched-link" href="index.php?option=com_categories&extension=com_sermonspeaker.sermons">
+							<a class="stretched-link"
+							   href="index.php?option=com_categories&extension=com_sermonspeaker.sermons">
 								<h3 class="card-title"><?php echo Text::_('COM_SERMONSPEAKER_MENU_CATEGORIES_SERMONS'); ?></h3>
 							</a>
 						</div>
@@ -77,7 +77,8 @@ use Joomla\CMS\Uri\Uri;
 							</span>
 						</div>
 						<div class="card-body">
-							<a class="stretched-link" href="index.php?option=com_categories&extension=com_sermonspeaker.series">
+							<a class="stretched-link"
+							   href="index.php?option=com_categories&extension=com_sermonspeaker.series">
 								<h3 class="card-title"><?php echo Text::_('COM_SERMONSPEAKER_MENU_CATEGORIES_SERIES'); ?></h3>
 							</a>
 						</div>
@@ -92,8 +93,9 @@ use Joomla\CMS\Uri\Uri;
 							</span>
 						</div>
 						<div class="card-body">
-							<a class="stretched-link" href="index.php?option=com_categories&extension=com_sermonspeaker.speakers">
-							<h3 class="card-title"><?php echo Text::_('COM_SERMONSPEAKER_MENU_CATEGORIES_SPEAKERS'); ?></h3>
+							<a class="stretched-link"
+							   href="index.php?option=com_categories&extension=com_sermonspeaker.speakers">
+								<h3 class="card-title"><?php echo Text::_('COM_SERMONSPEAKER_MENU_CATEGORIES_SPEAKERS'); ?></h3>
 							</a>
 						</div>
 					</div>
@@ -105,7 +107,7 @@ use Joomla\CMS\Uri\Uri;
 						</div>
 						<div class="card-body">
 							<a class="stretched-link" href="index.php?option=com_sermonspeaker&view=tools">
-							<h3 class="card-title"><?php echo Text::_('COM_SERMONSPEAKER_MAIN_TOOLS'); ?></h3>
+								<h3 class="card-title"><?php echo Text::_('COM_SERMONSPEAKER_MAIN_TOOLS'); ?></h3>
 							</a>
 						</div>
 					</div>
@@ -117,7 +119,7 @@ use Joomla\CMS\Uri\Uri;
 						</div>
 						<div class="card-body">
 							<a class="stretched-link" href="index.php?option=com_sermonspeaker&view=help">
-							<h3 class="card-title"><?php echo Text::_('COM_SERMONSPEAKER_MENU_HELP'); ?></h3>
+								<h3 class="card-title"><?php echo Text::_('COM_SERMONSPEAKER_MENU_HELP'); ?></h3>
 							</a>
 						</div>
 					</div>

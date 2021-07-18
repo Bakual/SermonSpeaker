@@ -23,7 +23,7 @@ $published = $this->state->get('filter.published');
 		</div>
 		<div class="form-group col-md-6">
 			<div class="controls">
-				<?php echo JLayoutHelper::render('joomla.html.batch.tag', array());?>
+				<?php echo JLayoutHelper::render('joomla.html.batch.tag', array()); ?>
 			</div>
 		</div>
 	</div>

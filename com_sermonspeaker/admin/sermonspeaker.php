@@ -24,7 +24,7 @@ if (!Factory::getUser()->authorise('core.manage', 'com_sermonspeaker'))
 JLoader::register('SermonspeakerHelper', JPATH_COMPONENT_ADMINISTRATOR . '/helpers/sermonspeaker.php');
 
 // Load Composer Autoloader
-require_once (JPATH_COMPONENT_ADMINISTRATOR . '/vendor/autoload.php');
+require_once(JPATH_COMPONENT_ADMINISTRATOR . '/vendor/autoload.php');
 
 HTMLHelper::_('stylesheet', 'com_sermonspeaker/sermonspeaker-admin.css', array('relative' => true));
 

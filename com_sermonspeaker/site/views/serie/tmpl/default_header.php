@@ -20,7 +20,7 @@ $showState  = $user->authorise('core.edit', 'com_sermonspeaker');
 $fu_enable  = $this->params->get('fu_enable');
 $canEdit    = ($fu_enable and $user->authorise('core.edit', 'com_sermonspeaker'));
 $canEditOwn = ($fu_enable and $user->authorise('core.edit.own', 'com_sermonspeaker'));
-$htag = $this->params->get('show_page_heading') ? 'h2' : 'h1';
+$htag       = $this->params->get('show_page_heading') ? 'h2' : 'h1';
 ?>
 <?php if ($this->params->get('show_page_heading')) : ?>
 	<div class="page-header">
@@ -31,7 +31,7 @@ $htag = $this->params->get('show_page_heading') ? 'h2' : 'h1';
 <?php endif; ?>
 
 <<?php echo $htag; ?>>
-	<?php echo $this->item->title; ?>
+<?php echo $this->item->title; ?>
 </<?php echo $htag; ?>>
 
 <?php echo LayoutHelper::render('blocks.state_info', array('item' => $this->item, 'show' => $showState)); ?>

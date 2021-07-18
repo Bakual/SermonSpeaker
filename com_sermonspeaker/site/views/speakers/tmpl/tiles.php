@@ -9,7 +9,6 @@
 
 defined('_JEXEC') or die();
 
-use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
@@ -21,12 +20,14 @@ HTMLHelper::addIncludePath(JPATH_COMPONENT . '/helpers');
 <div class="com-sermonspeaker-speakers<?php echo $this->pageclass_sfx; ?> com-sermonspeaker-speakers-tiles">
 	<?php echo LayoutHelper::render('blocks.header', array('category' => $this->category, 'params' => $this->params)); ?>
 
-	<form action="<?php echo htmlspecialchars(Uri::getInstance()->toString()); ?>" method="post" name="adminForm" id="adminForm" class="com-sermonspeaker-speakers__speakers">
+	<form action="<?php echo htmlspecialchars(Uri::getInstance()->toString()); ?>" method="post" name="adminForm"
+		  id="adminForm" class="com-sermonspeaker-speakers__speakers">
 		<?php echo $this->loadTemplate('filters'); ?>
 		<div class="clearfix"></div>
 		<?php if (!count($this->items)) : ?>
 			<div class="alert alert-info">
-				<span class="icon-info-circle" aria-hidden="true"></span><span class="visually-hidden"><?php echo Text::_('INFO'); ?></span>
+				<span class="icon-info-circle" aria-hidden="true"></span><span
+						class="visually-hidden"><?php echo Text::_('INFO'); ?></span>
 				<?php echo Text::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', Text::_('COM_SERMONSPEAKER_SPEAKERS')); ?>
 			</div>
 		<?php else : ?>

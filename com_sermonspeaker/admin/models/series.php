@@ -20,7 +20,7 @@ class SermonspeakerModelSeries extends ListModel
 	/**
 	 * Constructor.
 	 *
-	 * @param  array $config An optional associative array of configuration settings.
+	 * @param   array  $config  An optional associative array of configuration settings.
 	 *
 	 * @see    JController
 	 * @since  1.6
@@ -68,8 +68,8 @@ class SermonspeakerModelSeries extends ListModel
 	 *
 	 * Note. Calling getState in this method will result in recursion.
 	 *
-	 * @param string $ordering
-	 * @param string $direction
+	 * @param   string  $ordering
+	 * @param   string  $direction
 	 *
 	 * @since    1.6
 	 */
@@ -114,7 +114,7 @@ class SermonspeakerModelSeries extends ListModel
 	 * different modules that might need different sets of data or different
 	 * ordering requirements.
 	 *
-	 * @param    string $id A prefix for the store id.
+	 * @param   string  $id  A prefix for the store id.
 	 *
 	 * @return    string        A store id.
 	 * @since    1.6
@@ -196,7 +196,7 @@ class SermonspeakerModelSeries extends ListModel
 		$query->select('(SELECT COUNT(DISTINCT sermons.id) FROM #__sermon_sermons AS sermons '
 			. 'WHERE sermons.series_id = series.id AND sermons.id > 0 AND sermons.state = 1) AS sermons'
 		);
-    	// Grouping by series
+		// Grouping by series
 		$query->group('series.id');
 
 		// Filter by published state

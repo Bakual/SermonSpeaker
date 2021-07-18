@@ -21,27 +21,30 @@ HTMLHelper::_('bootstrap.tooltip', '.hasTooltip');
 $session = Factory::getApplication()->getSession();
 $user    = Factory::getUser();
 ?>
-<form action="<?php echo Route::_('index.php?option=com_sermonspeaker&view=tools'); ?>" method="post" name="adminForm" id="adminForm">
+<form action="<?php echo Route::_('index.php?option=com_sermonspeaker&view=tools'); ?>" method="post" name="adminForm"
+	  id="adminForm">
 	<div class="row">
 		<div class="col-md-12">
 			<div id="j-main-container" class="j-main-container">
 				<div class="row row-cols-1 row-cols-md-3 g-2">
 					<div class="col">
-						<div class="card text-center hasTooltip" title="<?php echo Text::_('COM_SERMONSPEAKER_TOOLS_ID3_DESC'); ?>">
+						<div class="card text-center hasTooltip"
+							 title="<?php echo Text::_('COM_SERMONSPEAKER_TOOLS_ID3_DESC'); ?>">
 							<div class="card-header">
 								<span class="fas fa-download fa-4x m-auto"></span>
 							</div>
 							<div class="card-body">
 								<a class="stretched-link"
 								   href="index.php?option=com_sermonspeaker&task=tools.write_id3&<?php echo $session->getName()
-										   . '=' . $session->getId() . '&' . Session::getFormToken(); ?>=1">
+									   . '=' . $session->getId() . '&' . Session::getFormToken(); ?>=1">
 									<h3 class="card-title"><?php echo Text::_('COM_SERMONSPEAKER_TOOLS_ID3'); ?></h3>
 								</a>
 							</div>
 						</div>
 					</div>
 					<div class="col">
-						<div class="card text-center hasTooltip" title="<?php echo Text::_('COM_SERMONSPEAKER_TOOLS_TIME_DESC'); ?>">
+						<div class="card text-center hasTooltip"
+							 title="<?php echo Text::_('COM_SERMONSPEAKER_TOOLS_TIME_DESC'); ?>">
 							<div class="card-header">
 								<span class="fas fa-clock fa-4x m-auto"></span>
 							</div>
@@ -61,7 +64,8 @@ $user    = Factory::getUser();
 						); ?>
 					</div>
 					<div class="col">
-						<div class="card text-center hasTooltip" title="<?php echo Text::_('COM_SERMONSPEAKER_TOOLS_FIND_DESC'); ?>">
+						<div class="card text-center hasTooltip"
+							 title="<?php echo Text::_('COM_SERMONSPEAKER_TOOLS_FIND_DESC'); ?>">
 							<div class="card-header">
 								<span class="fas fa-binoculars fa-4x m-auto"></span>
 							</div>
@@ -92,7 +96,8 @@ $user    = Factory::getUser();
 						endif; ?>
 					</div>
 					<div class="col">
-						<div class="card text-center hasTooltip" title="<?php echo Text::sprintf('COM_SERMONSPEAKER_TOOLS_AUTOMATIC_DESC', Uri::root()); ?>">
+						<div class="card text-center hasTooltip"
+							 title="<?php echo Text::sprintf('COM_SERMONSPEAKER_TOOLS_AUTOMATIC_DESC', Uri::root()); ?>">
 							<div class="card-header">
 								<span class="fas fa-cogs fa-4x m-auto"></span>
 							</div>
@@ -105,7 +110,8 @@ $user    = Factory::getUser();
 					</div>
 					<?php if ($this->pi) : ?>
 						<div class="col">
-							<div class="card text-center hasTooltip" title="<?php echo Text::_('COM_SERMONSPEAKER_TOOLS_IMPORT_DESC'); ?>">
+							<div class="card text-center hasTooltip"
+								 title="<?php echo Text::_('COM_SERMONSPEAKER_TOOLS_IMPORT_DESC'); ?>">
 								<div class="card-header">
 									<span class="fa-stack fa-2x m-auto">
 										<span class="fas fa-file fa-stack-2x"></span>
@@ -115,7 +121,7 @@ $user    = Factory::getUser();
 								<div class="card-body">
 									<a class="stretched-link"
 									   href="index.php?option=com_sermonspeaker&task=tools.piimport&<?php echo $session->getName()
-											   . '=' . $session->getId() . '&' . Session::getFormToken(); ?>=1">
+										   . '=' . $session->getId() . '&' . Session::getFormToken(); ?>=1">
 										<h3 class="card-title"><?php echo Text::_('COM_SERMONSPEAKER_TOOLS_IMPORT'); ?></h3>
 									</a>
 								</div>
@@ -124,7 +130,8 @@ $user    = Factory::getUser();
 					<?php endif; ?>
 					<?php if ($this->bs) : ?>
 						<div class="col">
-							<div class="card text-center hasTooltip" title="<?php echo Text::_('COM_SERMONSPEAKER_TOOLS_IMPORT_BS_DESC'); ?>">
+							<div class="card text-center hasTooltip"
+								 title="<?php echo Text::_('COM_SERMONSPEAKER_TOOLS_IMPORT_BS_DESC'); ?>">
 								<div class="card-header">
 									<span class="fa-stack fa-2x m-auto">
 										<span class="fas fa-file fa-stack-2x"></span>
@@ -134,7 +141,7 @@ $user    = Factory::getUser();
 								<div class="card-body">
 									<a class="stretched-link"
 									   href="index.php?option=com_sermonspeaker&task=tools.piimport&<?php echo $session->getName()
-											   . '=' . $session->getId() . '&' . Session::getFormToken(); ?>=1">
+										   . '=' . $session->getId() . '&' . Session::getFormToken(); ?>=1">
 										<h3 class="card-title"><?php echo Text::_('COM_SERMONSPEAKER_TOOLS_IMPORT_BS'); ?></h3>
 									</a>
 								</div>
@@ -147,7 +154,8 @@ $user    = Factory::getUser();
 								<span class="fas fa-chart-bar fa-4x m-auto"></span>
 							</div>
 							<div class="card-body">
-								<a class="stretched-link" href="index.php?option=com_sermonspeaker&view=statistics&format=raw">
+								<a class="stretched-link"
+								   href="index.php?option=com_sermonspeaker&view=statistics&format=raw">
 									<h3 class="card-title"><?php echo Text::_('COM_SERMONSPEAKER_STATISTICS_TITLE'); ?></h3>
 								</a>
 							</div>

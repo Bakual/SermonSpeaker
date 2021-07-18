@@ -16,7 +16,7 @@ HTMLHelper::_('bootstrap.tooltip', '.hasTooltip');
 
 $class = 'first';
 
-if (count($this->children[$this->category->id]) AND $this->maxLevel != 0) : ?>
+if (count($this->children[$this->category->id]) and $this->maxLevel != 0) : ?>
 	<?php
 	foreach ($this->children[$this->category->id] as $id => $child) :
 		if ($this->params->get('show_empty_categories_cat') or $child->getNumItems(true) or $child->hasChildren()) :

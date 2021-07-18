@@ -42,59 +42,26 @@ class SermonspeakerModelCategories extends JModelLegacy
 	private $_items = null;
 
 	/**
-	 * Method to auto-populate the model state
+	 * Get the parent category
 	 *
-	 * Note. Calling getState in this method will result in recursion
-	 *
-	 * @return  void
+	 * @return  mixed  An array of categories or false if an error occurs
 	 *
 	 * @since ?
 	 */
-	protected function populateState()
+	public function getParent()
 	{
-		/** @var JApplicationSite $app */
-		$app = Factory::getApplication();
-		$this->setState('filter.extension', $this->_extension);
+		if (!is_object($this->_parent))
+		{
+			$this->getItems();
+		}
 
-		// Get the parent id if defined.
-		$parentId = $app->input->get('id', 0, 'int');
-		$this->setState('filter.parentId', $parentId);
-
-		$params = $app->getParams();
-		$this->setState('params', $params);
-
-		$this->setState('filter.state', 1);
-		$this->setState('filter.access', true);
-	}
-
-	/**
-	 * Method to get a store id based on model configuration state.
-	 *
-	 * This is necessary because the model is used by the component and
-	 * different modules that might need different sets of data or different
-	 * ordering requirements.
-	 *
-	 * @param   string $id A prefix for the store id.
-	 *
-	 * @return  string  A store id.
-	 *
-	 * @since ?
-	 */
-	protected function getStoreId($id = '')
-	{
-		// Compile the store id.
-		$id .= ':' . $this->getState('filter.extension');
-		$id .= ':' . $this->getState('filter.state');
-		$id .= ':' . $this->getState('filter.access');
-		$id .= ':' . $this->getState('filter.parentId');
-
-		return $id;
+		return $this->_parent;
 	}
 
 	/**
 	 * Redefine the function an add some properties to make the styling more easy
 	 *
-	 * @param   bool $recursive True if you want to return children recursively.
+	 * @param   bool  $recursive  True if you want to return children recursively.
 	 *
 	 * @return  mixed  An array of data items on success, false on failure.
 	 *
@@ -137,19 +104,52 @@ class SermonspeakerModelCategories extends JModelLegacy
 	}
 
 	/**
-	 * Get the parent category
+	 * Method to auto-populate the model state
 	 *
-	 * @return  mixed  An array of categories or false if an error occurs
+	 * Note. Calling getState in this method will result in recursion
+	 *
+	 * @return  void
 	 *
 	 * @since ?
 	 */
-	public function getParent()
+	protected function populateState()
 	{
-		if (!is_object($this->_parent))
-		{
-			$this->getItems();
-		}
+		/** @var JApplicationSite $app */
+		$app = Factory::getApplication();
+		$this->setState('filter.extension', $this->_extension);
 
-		return $this->_parent;
+		// Get the parent id if defined.
+		$parentId = $app->input->get('id', 0, 'int');
+		$this->setState('filter.parentId', $parentId);
+
+		$params = $app->getParams();
+		$this->setState('params', $params);
+
+		$this->setState('filter.state', 1);
+		$this->setState('filter.access', true);
+	}
+
+	/**
+	 * Method to get a store id based on model configuration state.
+	 *
+	 * This is necessary because the model is used by the component and
+	 * different modules that might need different sets of data or different
+	 * ordering requirements.
+	 *
+	 * @param   string  $id  A prefix for the store id.
+	 *
+	 * @return  string  A store id.
+	 *
+	 * @since ?
+	 */
+	protected function getStoreId($id = '')
+	{
+		// Compile the store id.
+		$id .= ':' . $this->getState('filter.extension');
+		$id .= ':' . $this->getState('filter.state');
+		$id .= ':' . $this->getState('filter.access');
+		$id .= ':' . $this->getState('filter.parentId');
+
+		return $id;
 	}
 }

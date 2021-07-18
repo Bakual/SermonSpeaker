@@ -45,7 +45,8 @@ $this->document->addScriptDeclaration("window.onload = function() {
 		bootstrapTab.show();
 	}");
 ?>
-<div class="com-sermonspeaker-speaker<?php echo $this->pageclass_sfx; ?> com-sermonspeaker-speaker-blog" itemscope itemtype="http://schema.org/Person">
+<div class="com-sermonspeaker-speaker<?php echo $this->pageclass_sfx; ?> com-sermonspeaker-speaker-blog" itemscope
+	 itemtype="http://schema.org/Person">
 	<?php echo $this->loadTemplate('header'); ?>
 	<div class="clearfix"></div>
 

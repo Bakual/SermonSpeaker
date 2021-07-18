@@ -20,7 +20,7 @@ $showState  = $user->authorise('core.edit', 'com_sermonspeaker');
 $fu_enable  = $this->params->get('fu_enable');
 $canEdit    = ($fu_enable and $user->authorise('core.edit', 'com_sermonspeaker'));
 $canEditOwn = ($fu_enable and $user->authorise('core.edit.own', 'com_sermonspeaker'));
-$htag = $this->params->get('show_page_heading') ? 'h2' : 'h1';
+$htag       = $this->params->get('show_page_heading') ? 'h2' : 'h1';
 ?>
 <?php if ($this->params->get('show_page_heading')) : ?>
 	<div class="page-header">
@@ -31,7 +31,7 @@ $htag = $this->params->get('show_page_heading') ? 'h2' : 'h1';
 <?php endif; ?>
 
 <<?php echo $htag; ?>>
-	<?php echo $this->item->title; ?>
+<?php echo $this->item->title; ?>
 </<?php echo $htag; ?>>
 
 <?php echo LayoutHelper::render('blocks.state_info', array('item' => $this->item, 'show' => $showState)); ?>
@@ -49,8 +49,10 @@ $htag = $this->params->get('show_page_heading') ? 'h2' : 'h1';
 
 <?php if ($this->item->pic) : ?>
 	<div class="img-thumbnail float-end item-image m-1">
-		<a href="<?php echo Route::_(SermonspeakerHelperRoute::getSpeakerRoute($this->item->slug, $this->item->catid, $this->item->language)); ?>" itemprop="url">
-			<img src="<?php echo SermonspeakerHelperSermonspeaker::makeLink($this->item->pic); ?>" itemprop="image" alt="">
+		<a href="<?php echo Route::_(SermonspeakerHelperRoute::getSpeakerRoute($this->item->slug, $this->item->catid, $this->item->language)); ?>"
+		   itemprop="url">
+			<img src="<?php echo SermonspeakerHelperSermonspeaker::makeLink($this->item->pic); ?>" itemprop="image"
+				 alt="">
 		</a>
 	</div>
 <?php endif; ?>
@@ -62,7 +64,8 @@ $htag = $this->params->get('show_page_heading') ? 'h2' : 'h1';
 			<div class="category-name">
 				<span class="fas fa-folder-open"></span>
 				<?php echo Text::_('JCATEGORY'); ?>:
-				<a href="<?php echo Route::_(SermonspeakerHelperRoute::getSpeakersRoute($this->item->catslug, $this->item->language)); ?>" itemprop="genre">
+				<a href="<?php echo Route::_(SermonspeakerHelperRoute::getSpeakersRoute($this->item->catslug, $this->item->language)); ?>"
+				   itemprop="genre">
 					<?php echo $this->item->category_title; ?>
 				</a>
 			</div>
@@ -73,7 +76,7 @@ $htag = $this->params->get('show_page_heading') ? 'h2' : 'h1';
 		<dd>
 			<div class="hits">
 				<span class="fas fa-eye"></span>
-				<meta itemprop="interactionCount" content="UserPageVisits:<?php echo $this->item->hits; ?>" />
+				<meta itemprop="interactionCount" content="UserPageVisits:<?php echo $this->item->hits; ?>"/>
 				<?php echo Text::_('JGLOBAL_HITS'); ?>:
 				<?php echo $this->item->hits; ?>
 			</div>

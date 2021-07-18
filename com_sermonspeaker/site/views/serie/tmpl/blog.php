@@ -39,21 +39,23 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 	<?php endif; ?>
 	<?php echo $this->item->event->afterDisplayContent; ?>
 	<div class="cat-items">
-		<form action="<?php echo htmlspecialchars(JUri::getInstance()->toString()); ?>" method="post" name="adminForm" id="adminForm" class="com-sermonspeaker-serie__sermons">
+		<form action="<?php echo htmlspecialchars(JUri::getInstance()->toString()); ?>" method="post" name="adminForm"
+			  id="adminForm" class="com-sermonspeaker-serie__sermons">
 			<?php if ($this->params->get('filter_field') or $this->params->get('show_pagination_limit')) : ?>
 				<?php echo $this->loadTemplate('filters'); ?>
 			<?php endif; ?>
 			<div class="clearfix"></div>
 			<?php if (!count($this->items)) : ?>
 				<div class="alert alert-info">
-					<span class="icon-info-circle" aria-hidden="true"></span><span class="visually-hidden"><?php echo Text::_('INFO'); ?></span>
+					<span class="icon-info-circle" aria-hidden="true"></span><span
+							class="visually-hidden"><?php echo Text::_('INFO'); ?></span>
 					<?php echo Text::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', Text::_('COM_SERMONSPEAKER_SERMONS')); ?>
 				</div>
 			<?php else : ?>
 				<div class="items-leading">
 					<?php foreach ($this->items as $i => $item) : ?>
 						<div id="sermon<?php echo $i; ?>"
-							class="<?php echo ($item->state) ? '' : 'system-unpublished'; ?>">
+							 class="<?php echo ($item->state) ? '' : 'system-unpublished'; ?>">
 							<div class="btn-group pull-right">
 								<a class="btn dropdown-toggle" data-bs-toggle="dropdown" href="#">
 									<i class="icon-cog"></i>
@@ -95,7 +97,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 
 							<?php if ($picture = SermonspeakerHelperSermonspeaker::insertPicture($item)) : ?>
 								<div class="img-thumbnail pull-right item-image sermon-image"><img
-										src="<?php echo $picture; ?>"></div>
+											src="<?php echo $picture; ?>"></div>
 							<?php endif; ?>
 							<div class="article-info sermon-info muted">
 								<dl class="article-info">

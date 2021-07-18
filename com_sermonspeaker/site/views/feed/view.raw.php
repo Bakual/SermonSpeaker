@@ -36,7 +36,7 @@ class SermonspeakerViewFeed extends JViewLegacy
 	/**
 	 * Execute and display a template script.
 	 *
-	 * @param   string $tpl The name of the template file to parse; automatically searches through the template paths.
+	 * @param   string  $tpl  The name of the template file to parse; automatically searches through the template paths.
 	 *
 	 * @return  mixed  A string if successful, otherwise a Error object.
 	 *
@@ -87,7 +87,7 @@ class SermonspeakerViewFeed extends JViewLegacy
 	/**
 	 * Creates an iTunes Category
 	 *
-	 * @param   array $cat iTunes categories
+	 * @param   array  $cat  iTunes categories
 	 *
 	 * @return  string  $tags  The iTunes category tag
 	 *
@@ -114,8 +114,8 @@ class SermonspeakerViewFeed extends JViewLegacy
 	/**
 	 * Process notes
 	 *
-	 * @param   string $text notes
-	 * @param   string $meta meta description
+	 * @param   string  $text  notes
+	 * @param   string  $meta  meta description
 	 *
 	 * @return  string  $tags  processed notes
 	 *
@@ -155,7 +155,7 @@ class SermonspeakerViewFeed extends JViewLegacy
 	/**
 	 * Makes a string save to use in a XML file
 	 *
-	 * @param   string $string The string to be escaped
+	 * @param   string  $string  The string to be escaped
 	 *
 	 * @return  string  $string  The escaped string
 	 *
@@ -173,7 +173,7 @@ class SermonspeakerViewFeed extends JViewLegacy
 	/**
 	 * Creates Enclosure
 	 *
-	 * @param   object $item The row
+	 * @param   object  $item  The row
 	 *
 	 * @return  array  $enclosure  Enclosure
 	 *
@@ -249,7 +249,7 @@ class SermonspeakerViewFeed extends JViewLegacy
 	/**
 	 * Create keywords from series_title and scripture (title and speaker are searchable anyway)
 	 *
-	 * @param   object $item The row
+	 * @param   object  $item  The row
 	 *
 	 * @return  string  keywords
 	 *

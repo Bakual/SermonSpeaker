@@ -24,7 +24,7 @@ if ($this->maxLevelcat != 0 && count($this->items[$this->parent->id]) > 0) :
 					<h3 class="page-header item-title">
 						<a href="<?php echo Route::_(SermonspeakerHelperRoute::getSermonsRoute($item->id, $item->language)); ?>">
 							<?php echo $this->escape($item->title); ?></a>
-						<?php if ($this->params->get('show_cat_num_items_cat') == 1) :?>
+						<?php if ($this->params->get('show_cat_num_items_cat') == 1) : ?>
 							<span class="badge bg-info">
 							<?php echo Text::_('COM_SERMONSPEAKER_NUM_ITEMS'); ?>&nbsp;
 							<?php echo $item->numitems; ?>
@@ -44,7 +44,8 @@ if ($this->maxLevelcat != 0 && count($this->items[$this->parent->id]) > 0) :
 						<?php endif; ?>
 					</h3>
 					<?php if ($this->params->get('show_description_image') && $item->getParams()->get('image')) : ?>
-						<img src="<?php echo $item->getParams()->get('image'); ?>" alt="<?php echo htmlspecialchars($item->getParams()->get('image_alt'), ENT_COMPAT, 'UTF-8'); ?>">
+						<img src="<?php echo $item->getParams()->get('image'); ?>"
+							 alt="<?php echo htmlspecialchars($item->getParams()->get('image_alt'), ENT_COMPAT, 'UTF-8'); ?>">
 					<?php endif; ?>
 					<?php if ($this->params->get('show_subcat_desc_cat') == 1) : ?>
 						<?php if ($item->description) : ?>
@@ -55,10 +56,11 @@ if ($this->maxLevelcat != 0 && count($this->items[$this->parent->id]) > 0) :
 					<?php endif; ?>
 
 					<?php if (count($item->getChildren()) > 0 && $this->maxLevelcat > 1) : ?>
-						<div class="com-sermonspeaker-categories__children collapse fade" id="category-<?php echo $item->id; ?>">
+						<div class="com-sermonspeaker-categories__children collapse fade"
+							 id="category-<?php echo $item->id; ?>">
 							<?php
 							$this->items[$item->id] = $item->getChildren();
-							$this->parent = $item;
+							$this->parent           = $item;
 							$this->maxLevelcat--;
 							echo $this->loadTemplate('items');
 							$this->parent = $item->getParent();

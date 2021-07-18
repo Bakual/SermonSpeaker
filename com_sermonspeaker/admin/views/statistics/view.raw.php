@@ -40,7 +40,7 @@ class SermonspeakerViewStatistics extends JViewLegacy
 	protected $sermons;
 
 	/**
-	 * @param null $tpl
+	 * @param   null  $tpl
 	 *
 	 * @return mixed|void
 	 *
