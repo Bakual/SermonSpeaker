@@ -196,7 +196,7 @@ class SermonspeakerHelperSermonspeaker
 		$text    = ($size) ? Text::sprintf('COM_SERMONSPEAKER_DOWNLOADBUTTON_' . $type . '_WITH_SIZE', self::convertBytes($size))
 			: Text::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_' . $type);
 		$onclick = '';
-		$fileurl = Route::_('index.php?task=download&id=' . $id . '&type=' . $type);
+		$fileurl = Route::_('index.php?option=com_sermonspeaker&task=download&id=' . $id . '&type=' . $type);
 
 		if ($mode == 2)
 		{
