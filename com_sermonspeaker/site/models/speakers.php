@@ -195,6 +195,19 @@ class SermonspeakerModelspeakers extends ListModel
 			$query->where('speakers.language in (' . $db->quote(Factory::getLanguage()->getTag()) . ',' . $db->quote('*') . ')');
 		}
 
+		// Filter by a single tag.
+		$tagId = $this->getState('filter.tag');
+
+		if (is_numeric($tagId))
+		{
+			$query->where($db->quoteName('tagmap.tag_id') . ' = ' . (int) $tagId)
+				->join(
+					'LEFT', $db->quoteName('#__contentitem_tag_map', 'tagmap')
+					. ' ON ' . $db->quoteName('tagmap.content_item_id') . ' = ' . $db->quoteName('speakers.id')
+					. ' AND ' . $db->quoteName('tagmap.type_alias') . ' = ' . $db->quote('com_sermonspeaker.speaker')
+				);
+		}
+
 		// Add the list ordering clause.
 		$query->order($db->escape($this->getState('list.ordering', 'ordering')) . ' ' . $db->escape($this->getState('list.direction', 'ASC')));
 
@@ -251,6 +264,27 @@ class SermonspeakerModelspeakers extends ListModel
 		$value = $app->getUserStateFromRequest($this->context . '.limitstart', 'limitstart', 0, 'int');
 		$limitstart = ($limit != 0 ? (floor($value / $limit) * $limit) : 0);
 		$this->setState('list.start', $limitstart);
+	}
+
+	/**
+	 * Method to check if there are Tags assigned to the speakers
+	 *
+	 * @return  boolean
+	 *
+	 * @since 6.0.0
+	 */
+	public function getTags()
+	{
+		$db    = $this->getDbo();
+		$query = $db->getQuery(true);
+		$query->select('COUNT(1)');
+		$query->from('`#__contentitem_tag_map`');
+		$query->where("`type_alias` = 'com_sermonspeaker.speaker'");
+
+		$db->setQuery($query, 0);
+		$count = $db->loadResult();
+
+		return ($count > 0);
 	}
 
 	/**
