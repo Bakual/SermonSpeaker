@@ -9,7 +9,6 @@
 
 defined('_JEXEC') or die();
 
-use Joomla\CMS\Factory;
 use Joomla\CMS\Filter\OutputFilter;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
@@ -19,15 +18,7 @@ use Joomla\CMS\Uri\Uri;
 
 HTMLHelper::addIncludePath(JPATH_COMPONENT . '/helpers');
 
-HTMLHelper::_('bootstrap.tooltip', '.hasTooltip');
-HTMLHelper::_('stylesheet', 'com_sermonspeaker/tiles.css', array('relative' => true));
-
-$user       = Factory::getUser();
-$fu_enable  = $this->params->get('fu_enable');
-$canEdit    = ($fu_enable and $user->authorise('core.edit', 'com_sermonspeaker'));
-$canEditOwn = ($fu_enable and $user->authorise('core.edit.own', 'com_sermonspeaker'));
-$limit      = (int) $this->params->get('limit', '');
-$player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
+$player = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 ?>
 <div class="com-sermonspeaker-sermons<?php echo $this->pageclass_sfx; ?>  com-sermonspeaker-sermons-tiles">
 	<?php echo LayoutHelper::render('blocks.header', array('category' => $this->category, 'params' => $this->params)); ?>
@@ -118,9 +109,9 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 					</div>
 				<?php endforeach; ?>
 			</div>
-		<?php endif;
+		<?php endif; ?>
 
-		if ($this->params->get('show_pagination') && ($this->pagination->pagesTotal > 1)) : ?>
+		<?php if ($this->params->get('show_pagination') && ($this->pagination->pagesTotal > 1)) : ?>
 			<div class="pagination">
 				<?php if ($this->params->get('show_pagination_results', 1)) : ?>
 					<p class="counter">
