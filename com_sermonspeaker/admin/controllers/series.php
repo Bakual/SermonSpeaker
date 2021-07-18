@@ -9,7 +9,9 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Session\Session;
 use Joomla\Utilities\ArrayHelper;
 
 /**
@@ -29,7 +31,7 @@ class SermonspeakerControllerSeries extends JControllerAdmin
 	public function setDefault()
 	{
 		// Check for request forgeries
-		JSession::checkToken() or jexit(Text::_('JINVALID_TOKEN'));
+		Session::checkToken() or jexit(Text::_('JINVALID_TOKEN'));
 
 		// Initialise variables.
 		$pks = $this->input->post->get('cid', array(), 'array');
@@ -52,7 +54,7 @@ class SermonspeakerControllerSeries extends JControllerAdmin
 		}
 		catch (Exception $e)
 		{
-			JFactory::getApplication()->enqueueMessage($e->getMessage(), 'warning');
+			Factory::getApplication()->enqueueMessage($e->getMessage(), 'warning');
 		}
 
 		$this->setRedirect('index.php?option=com_sermonspeaker&view=series');
@@ -82,7 +84,7 @@ class SermonspeakerControllerSeries extends JControllerAdmin
 	public function unsetDefault()
 	{
 		// Check for request forgeries
-		JSession::checkToken('request') or jexit(Text::_('JINVALID_TOKEN'));
+		Session::checkToken('request') or jexit(Text::_('JINVALID_TOKEN'));
 
 		$pks = $this->input->post->get('cid', array(), 'array');
 		$pks = ArrayHelper::toInteger($pks);
@@ -102,7 +104,7 @@ class SermonspeakerControllerSeries extends JControllerAdmin
 		}
 		catch (Exception $e)
 		{
-			JFactory::getApplication()->enqueueMessage($e->getMessage(), 'warning');
+			Factory::getApplication()->enqueueMessage($e->getMessage(), 'warning');
 		}
 
 		$this->setRedirect('index.php?option=com_sermonspeaker&view=series');
@@ -136,6 +138,6 @@ class SermonspeakerControllerSeries extends JControllerAdmin
 		}
 
 		// Close the application
-		JFactory::getApplication()->close();
+		Factory::getApplication()->close();
 	}
 }

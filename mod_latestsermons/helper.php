@@ -7,6 +7,8 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
+use Joomla\CMS\Factory;
+
 defined('_JEXEC') or die();
 
 /**
@@ -27,10 +29,10 @@ abstract class ModLatestsermonsHelper
 	 */
 	public static function getList($params)
 	{
-		$user   = JFactory::getUser();
+		$user   = Factory::getUser();
 		$groups = implode(',', $user->getAuthorisedViewLevels());
 
-		$db    = JFactory::getDbo();
+		$db    = Factory::getDbo();
 		$query = $db->getQuery(true);
 		$query->select('a.title, a.id, a.sermon_date, a.audiofile, a.videofile, a.sermon_time, a.picture, a.notes, a.hits, a.catid, a.language');
 		$query->select('b.title as speaker_title, b.pic, b.state AS speaker_state, b.catid AS speaker_catid, b.language AS speaker_language');
@@ -46,7 +48,7 @@ abstract class ModLatestsermonsHelper
 		if ($params->get('show_scripture'))
 		{
 			// Load component language file for bible books
-			$lang = JFactory::getLanguage();
+			$lang = Factory::getLanguage();
 			$lang->load('com_sermonspeaker')
 			|| $lang->load('com_sermonspeaker', JPATH_BASE . '/components/com_sermonspeaker');
 
@@ -59,7 +61,7 @@ abstract class ModLatestsermonsHelper
 
 		// Define null and now dates
 		$nullDate = $db->quote($db->getNullDate());
-		$nowDate  = $db->quote(JFactory::getDate()->toSql());
+		$nowDate  = $db->quote(Factory::getDate()->toSql());
 
 		// Filter by start and end dates.
 		$query->where('(a.publish_up = ' . $nullDate . ' OR a.publish_up <= ' . $nowDate . ')');
@@ -139,7 +141,7 @@ abstract class ModLatestsermonsHelper
 		// SmartFilter
 		if ($params->get('smartfilter', 0))
 		{
-			$jinput = JFactory::getApplication()->input;
+			$jinput = Factory::getApplication()->input;
 			$view   = $jinput->getCmd('view');
 
 			if ($view == 'speaker')

@@ -9,6 +9,8 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Factory;
+use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 
 JLoader::register('SermonspeakerPluginPlayer', JPATH_SITE . '/components/com_sermonspeaker/plugin/player.php');
@@ -125,7 +127,7 @@ class PlgSermonspeakerPixelout extends SermonspeakerPluginPlayer
 		if (!self::$script_loaded)
 		{
 			HTMLHelper::script('media/plg_sermonspeaker_pixelout/audio-player.js');
-			$doc = JFactory::getDocument();
+			$doc = Factory::getDocument();
 			$doc->addScriptDeclaration('
 				AudioPlayer.setup("' . JUri::root() . 'media/plg_sermonspeaker_pixelout/player.swf", {
 					width: "' . $width . '",

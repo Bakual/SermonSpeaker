@@ -318,7 +318,7 @@ class SermonspeakerViewSermon extends JViewLegacy
 
 			if (!$awsAccessKey || !$awsSecretKey || !$region || !$bucket)
 			{
-				JFactory::getApplication()->enqueueMessage(Text::_('COM_SERMONSPEAKER_S3_MISSING_PARAMETER'), 'warning');
+				Factory::getApplication()->enqueueMessage(Text::_('COM_SERMONSPEAKER_S3_MISSING_PARAMETER'), 'warning');
 			}
 
 			// Instantiate the class

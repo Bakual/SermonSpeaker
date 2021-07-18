@@ -9,6 +9,7 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 
 /**
@@ -105,7 +106,7 @@ abstract class ModSermonuploadHelper
 				});
 			});
 		';
-		JFactory::getDocument()->addScriptDeclaration($plupload_script);
+		Factory::getDocument()->addScriptDeclaration($plupload_script);
 	}
 
 	/**

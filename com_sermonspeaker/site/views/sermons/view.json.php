@@ -9,6 +9,7 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 
 /**
@@ -40,7 +41,7 @@ class SermonspeakerViewSermons extends JViewLegacy
 		// Check for errors.
 		if (count($errors = $this->get('Errors')))
 		{
-			JFactory::getApplication()->setHeader('status', 500 . ' ' . implode("\n", $errors));
+			Factory::getApplication()->setHeader('status', 500 . ' ' . implode("\n", $errors));
 			echo new JResponseJson(null, implode("\n", $errors), true);
 
 			return;
@@ -48,7 +49,7 @@ class SermonspeakerViewSermons extends JViewLegacy
 
 		if ($category == false)
 		{
-			JFactory::getApplication()->setHeader('status', 404 . ' ' . Text::_('JGLOBAL_CATEGORY_NOT_FOUND'));
+			Factory::getApplication()->setHeader('status', 404 . ' ' . Text::_('JGLOBAL_CATEGORY_NOT_FOUND'));
 			echo new JResponseJson(null, Text::_('JGLOBAL_CATEGORY_NOT_FOUND'), true);
 
 			return;
@@ -56,19 +57,19 @@ class SermonspeakerViewSermons extends JViewLegacy
 
 		if ($parent == false && $category->id != 'root')
 		{
-			JFactory::getApplication()->setHeader('status', 404 . ' ' . Text::_('JGLOBAL_CATEGORY_NOT_FOUND'));
+			Factory::getApplication()->setHeader('status', 404 . ' ' . Text::_('JGLOBAL_CATEGORY_NOT_FOUND'));
 			echo new JResponseJson(null, Text::_('JGLOBAL_CATEGORY_NOT_FOUND'), true);
 
 			return;
 		}
 
 		// Check whether category access level allows access.
-		$user   = JFactory::getUser();
+		$user   = Factory::getUser();
 		$groups = $user->getAuthorisedViewLevels();
 
 		if (!in_array($category->access, $groups))
 		{
-			JFactory::getApplication()->setHeader('status', 403 . ' ' . Text::_('JERROR_ALERTNOAUTHOR'));
+			Factory::getApplication()->setHeader('status', 403 . ' ' . Text::_('JERROR_ALERTNOAUTHOR'));
 			echo new JResponseJson(null, Text::_('JERROR_ALERTNOAUTHOR'), true);
 
 			return;
@@ -131,7 +132,7 @@ class SermonspeakerViewSermons extends JViewLegacy
 			$response[] = $tmp;
 		}
 
-		$app = JFactory::getApplication();
+		$app = Factory::getApplication();
 		$app->mimeType = 'application/json';
 		$app->setHeader('Content-Type', $app->mimeType . '; charset=' . $app->charSet);
 		$app->sendHeaders();

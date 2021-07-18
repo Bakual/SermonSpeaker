@@ -9,6 +9,7 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 
@@ -31,7 +32,7 @@ class SermonspeakerViewSerie extends JViewLegacy
 	 */
 	public function display($tpl = null)
 	{
-		$app = JFactory::getApplication();
+		$app = Factory::getApplication();
 
 		if (!$app->input->get('id', 0, 'int'))
 		{
@@ -43,7 +44,7 @@ class SermonspeakerViewSerie extends JViewLegacy
 		HTMLHelper::_('stylesheet', 'com_sermonspeaker/sermonspeaker.css', array('relative' => true));
 
 		// Initialise variables.
-		$user = JFactory::getUser();
+		$user = Factory::getUser();
 
 		// Get some data from the model
 		$this->item = $this->get('Item');
@@ -257,7 +258,7 @@ class SermonspeakerViewSerie extends JViewLegacy
 	 */
 	protected function _prepareDocument()
 	{
-		$app   = JFactory::getApplication();
+		$app   = Factory::getApplication();
 		$menus = $app->getMenu();
 
 		// Because the application sets a default page title, we need to get it from the menu item itself

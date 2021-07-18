@@ -60,7 +60,7 @@ class SermonspeakerModelSermon extends JModelItem
 	 */
 	public function &getItem($id = null)
 	{
-		$user = JFactory::getUser();
+		$user = Factory::getUser();
 
 		// Initialise variables.
 		$id = ($id) ? $id : (int) $this->getState('sermon.id');
@@ -100,7 +100,7 @@ class SermonspeakerModelSermon extends JModelItem
 			if ((!$user->authorise('core.edit.state', 'com_sermonspeaker')) && (!$user->authorise('core.edit', 'com_sermonspeaker')))
 			{
 				$nullDate = $db->quote($db->getNullDate());
-				$nowDate  = $db->quote(JFactory::getDate()->toSql());
+				$nowDate  = $db->quote(Factory::getDate()->toSql());
 
 				$query->where('(sermon.publish_up = ' . $nullDate . ' OR sermon.publish_up <= ' . $nowDate . ')');
 				$query->where('(sermon.publish_down = ' . $nullDate . ' OR sermon.publish_down >= ' . $nowDate . ')');
@@ -206,7 +206,7 @@ class SermonspeakerModelSermon extends JModelItem
 	 */
 	public function getLatest()
 	{
-		$levels = JFactory::getUser()->getAuthorisedViewLevels();
+		$levels = Factory::getUser()->getAuthorisedViewLevels();
 		$db     = $this->getDbo();
 		$query  = $db->getQuery(true);
 

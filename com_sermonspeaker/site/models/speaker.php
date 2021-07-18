@@ -9,6 +9,7 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 
 /**
@@ -35,7 +36,7 @@ class SermonspeakerModelSpeaker extends JModelItem
 	protected function populateState($ordering = null, $direction = null)
 	{
 		/** @var JApplicationSite $app */
-		$app    = JFactory::getApplication();
+		$app    = Factory::getApplication();
 		$params = $app->getParams();
 
 		// Load the object state.
@@ -58,7 +59,7 @@ class SermonspeakerModelSpeaker extends JModelItem
 	 */
 	public function &getItem($id = null)
 	{
-		$user = JFactory::getUser();
+		$user = Factory::getUser();
 
 		// Initialise variables.
 		$id = ($id) ? $id : (int) $this->getState('speaker.id');
@@ -90,7 +91,7 @@ class SermonspeakerModelSpeaker extends JModelItem
 			if ((!$user->authorise('core.edit.state', 'com_sermonspeaker')) && (!$user->authorise('core.edit', 'com_sermonspeaker')))
 			{
 				$nullDate = $db->quote($db->getNullDate());
-				$nowDate  = $db->quote(JFactory::getDate()->toSql());
+				$nowDate  = $db->quote(Factory::getDate()->toSql());
 
 				$query->where('(speaker.publish_up = ' . $nullDate . ' OR speaker.publish_up <= ' . $nowDate . ')');
 				$query->where('(speaker.publish_down = ' . $nullDate . ' OR speaker.publish_down >= ' . $nowDate . ')');

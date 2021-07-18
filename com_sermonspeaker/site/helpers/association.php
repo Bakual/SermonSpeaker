@@ -9,6 +9,7 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Associations;
 use Joomla\Component\Categories\Administrator\Helper\CategoryAssociationHelper;
 
@@ -35,7 +36,7 @@ abstract class SermonspeakerHelperAssociation extends CategoryAssociationHelper
 	{
 		jimport('helper.route', JPATH_COMPONENT_SITE);
 
-		$jinput = JFactory::getApplication()->input;
+		$jinput = Factory::getApplication()->input;
 		$view = is_null($view) ? $jinput->get('view') : $view;
 		$id = empty($id) ? $jinput->getInt('id') : $id;
 

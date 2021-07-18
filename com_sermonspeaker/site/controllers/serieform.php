@@ -7,6 +7,8 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
+use Joomla\CMS\Factory;
+
 defined('_JEXEC') or die();
 
 /**
@@ -53,7 +55,7 @@ class SermonspeakerControllerSerieform extends JControllerForm
 	 */
 	protected function allowAdd($data = array())
 	{
-		$user       = JFactory::getUser();
+		$user       = Factory::getUser();
 		$categoryId = Joomla\Utilities\ArrayHelper::getValue($data, 'catid', $this->input->get('filter_category_id'), 'int');
 		$allow      = null;
 
@@ -99,7 +101,7 @@ class SermonspeakerControllerSerieform extends JControllerForm
 
 		if ($categoryId)
 		{
-			$user = JFactory::getUser();
+			$user = Factory::getUser();
 
 			// The category has been set. Check the category permissions.
 			if ($user->authorise('core.edit', $this->option . '.category.' . $categoryId))
@@ -219,7 +221,7 @@ class SermonspeakerControllerSerieform extends JControllerForm
 	 */
 	protected function getReturnPage()
 	{
-		$return = JFactory::getApplication()->input->get('return', '', 'base64');
+		$return = Factory::getApplication()->input->get('return', '', 'base64');
 
 		if (empty($return) || !JUri::isInternal(base64_decode($return)))
 		{

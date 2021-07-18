@@ -7,6 +7,8 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
+use Joomla\CMS\Factory;
+
 defined('_JEXEC') or die();
 
 /**
@@ -379,7 +381,7 @@ abstract class SermonspeakerHelperRoute
 	 */
 	protected static function _findItem($needles = null)
 	{
-		$app = JFactory::getApplication();
+		$app = Factory::getApplication();
 		$menus = $app->getMenu('site');
 		$active = $menus->getActive();
 		$language = isset($needles['language']) ? $needles['language'] : '*';
@@ -521,7 +523,7 @@ abstract class SermonspeakerHelperRoute
 	 */
 	protected static function _getLanguages()
 	{
-		$db = JFactory::getDbo();
+		$db = Factory::getDbo();
 		$query = $db->getQuery(true)
 			->select('a.sef AS sef')
 			->select('a.lang_code AS lang_code')

@@ -9,6 +9,7 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 
@@ -54,8 +55,8 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 	 */
 	protected function allowAdd($data = array())
 	{
-		$user       = JFactory::getUser();
-		$categoryId = Joomla\Utilities\ArrayHelper::getValue($data, 'catid', JFactory::getApplication()->input->get('filter_category_id'), 'int');
+		$user       = Factory::getUser();
+		$categoryId = Joomla\Utilities\ArrayHelper::getValue($data, 'catid', Factory::getApplication()->input->get('filter_category_id'), 'int');
 		$allow      = null;
 
 		if ($categoryId)
@@ -100,7 +101,7 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 
 		if ($categoryId)
 		{
-			$user = JFactory::getUser();
+			$user = Factory::getUser();
 
 			// The category has been set. Check the category permissions.
 			if ($user->authorise('core.edit', $this->option . '.category.' . $categoryId))
@@ -186,7 +187,7 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 	 */
 	protected function getRedirectToItemAppend($recordId = null, $urlVar = 's_id')
 	{
-		$jinput = JFactory::getApplication()->input;
+		$jinput = Factory::getApplication()->input;
 		$jinput->set('layout', 'default');
 		$append = parent::getRedirectToItemAppend($recordId, 's_id');
 		$itemId = $jinput->get('Itemid', 0, 'int');
@@ -222,7 +223,7 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 	 */
 	protected function getReturnPage()
 	{
-		$return = JFactory::getApplication()->input->get('return', '', 'base64');
+		$return = Factory::getApplication()->input->get('return', '', 'base64');
 
 		if (empty($return) || !JUri::isInternal(base64_decode($return)))
 		{
@@ -254,8 +255,8 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 		$recordId = (int) $model->getState($this->context . '.id');
 		$params   = JComponentHelper::getParams('com_sermonspeaker');
 
-		$app = JFactory::getApplication();
-		$db  = JFactory::getDbo();
+		$app = Factory::getApplication();
+		$db  = Factory::getDbo();
 
 		// Check filenames and show a warning if one isn't save to use in an URL. Store anyway.
 		$files = array('audiofile', 'videofile', 'addfile');
@@ -302,7 +303,7 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 		// ID3
 		if ($params->get('write_id3', 0))
 		{
-			$app = JFactory::getApplication();
+			$app = Factory::getApplication();
 			$app->enqueueMessage($this->setMessage(''));
 
 			$this->write_id3($recordId);
@@ -336,7 +337,7 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 	 */
 	public function write_id3($id)
 	{
-		$app = JFactory::getApplication();
+		$app = Factory::getApplication();
 
 		if (!$id)
 		{
@@ -346,7 +347,7 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 			return false;
 		}
 
-		$db    = JFactory::getDbo();
+		$db    = Factory::getDbo();
 		$query = $db->getQuery(true);
 		$query->select('audiofile, videofile, sermons.created_by, sermons.catid, sermons.title, speakers.title as speaker_title');
 		$query->select('series.title AS series_title, notes, sermon_number, picture');
@@ -357,7 +358,7 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 		$query->where('sermons.id = ' . $id);
 		$db->setQuery($query);
 		$item       = $db->loadObject();
-		$user       = JFactory::getUser();
+		$user       = Factory::getUser();
 		$canEdit    = $user->authorise('core.edit', 'com_sermonspeaker.category.' . $item->catid);
 		$canEditOwn = $user->authorise('core.edit.own', 'com_sermonspeaker.category.' . $item->catid) && $item->created_by == $user->id;
 

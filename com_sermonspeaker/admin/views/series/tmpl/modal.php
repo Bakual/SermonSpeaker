@@ -2,10 +2,11 @@
 // no direct access
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 
-$app = JFactory::getApplication();
+$app = Factory::getApplication();
 if ($app->isClient('site'))
 {
 	JSession::checkToken('get') or die(Text::_('JINVALID_TOKEN'));
@@ -20,7 +21,7 @@ HTMLHelper::_('behavior.core');
 HTMLHelper::_('behavior.polyfill', array('event'), 'lt IE 9');
 HTMLHelper::_('bootstrap.tooltip', '.hasTooltip', array('placement' => 'bottom'));
 
-$function	= JFactory::getApplication()->input->get('function', 'jSelectSerie');
+$function	= Factory::getApplication()->input->get('function', 'jSelectSerie');
 $listOrder	= $this->escape($this->state->get('list.ordering'));
 $listDirn	= $this->escape($this->state->get('list.direction'));
 ?>

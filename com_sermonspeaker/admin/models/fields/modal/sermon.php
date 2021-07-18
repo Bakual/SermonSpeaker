@@ -109,7 +109,7 @@ class JFormFieldModal_Sermon extends JFormField
 
 		if ($value)
 		{
-			$db    = JFactory::getDbo();
+			$db    = Factory::getDbo();
 			$query = $db->getQuery(true)
 				->select($db->quoteName('title'))
 				->from($db->quoteName('#__sermon_sermons'))

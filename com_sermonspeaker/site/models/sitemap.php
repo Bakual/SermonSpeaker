@@ -7,6 +7,8 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
+use Joomla\CMS\Factory;
+
 defined('_JEXEC') or die();
 
 /**
@@ -28,7 +30,7 @@ class SermonspeakerModelSitemap extends JModelLegacy
 		// Create a new query object.
 		$db     = $this->getDbo();
 		$query  = $db->getQuery(true);
-		$groups = JFactory::getUser()->getAuthorisedViewLevels();
+		$groups = Factory::getUser()->getAuthorisedViewLevels();
 
 		$query->select('a.id, a.title, a.sermon_date, a.created, a.catid, a.language');
 		$query->select("CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(':', a.id, a.alias) ELSE a.id END as slug");
@@ -43,14 +45,14 @@ class SermonspeakerModelSitemap extends JModelLegacy
 
 		// Filter by start and end dates.
 		$nullDate = $db->quote($db->getNullDate());
-		$nowDate  = $db->quote(JFactory::getDate()->toSql());
+		$nowDate  = $db->quote(Factory::getDate()->toSql());
 
 		$query->where('(a.publish_up = ' . $nullDate . ' OR a.publish_up <= ' . $nowDate . ')');
 		$query->where('(a.publish_down = ' . $nullDate . ' OR a.publish_down >= ' . $nowDate . ')');
 
 		// Filter by cat if set
 		/** @var JApplicationSite $app */
-		$app    = JFactory::getApplication();
+		$app    = Factory::getApplication();
 		$params = $app->getParams();
 		$cat    = (int) $params->get('cat', 0);
 

@@ -7,6 +7,8 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
+use Joomla\CMS\Factory;
+
 defined('_JEXEC') or die();
 
 require_once JPATH_ADMINISTRATOR . '/components/com_finder/helpers/indexer/adapter.php';
@@ -298,7 +300,7 @@ class PlgFinderSermonspeaker extends FinderIndexerAdapter
 	 */
 	protected function getListQuery($sql = null)
 	{
-		$db = JFactory::getDbo();
+		$db = Factory::getDbo();
 
 		// Check if we can use the supplied SQL query.
 		$sql = is_a($sql, 'JDatabaseQuery') ? $sql : $db->getQuery(true);

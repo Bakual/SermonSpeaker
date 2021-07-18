@@ -40,7 +40,7 @@ class JFormFieldModal_Serie extends JFormField
 	 */
 	protected function getInput()
 	{
-		$isSite = JFactory::getApplication()->isClient('site');
+		$isSite = Factory::getApplication()->isClient('site');
 
 		$allowNew       = ((string) $this->element['new'] == 'true');
 		$allowEdit      = ((string) $this->element['edit'] == 'true');

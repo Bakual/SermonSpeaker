@@ -9,7 +9,10 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Access\Access;
+use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Object\CMSObject;
 
 /**
  * Sermonspeaker Helper
@@ -29,8 +32,8 @@ class SermonspeakerHelper
 	 */
 	public static function getActions($categoryId = 0)
 	{
-		$user   = JFactory::getUser();
-		$result = new JObject;
+		$user   = Factory::getUser();
+		$result = new CMSObject;
 
 		if (empty($categoryId))
 		{
@@ -41,7 +44,7 @@ class SermonspeakerHelper
 			$assetName = 'com_sermonspeaker.category.' . (int) $categoryId;
 		}
 
-		$actions = JAccess::getActionsFromFile(
+		$actions = Access::getActionsFromFile(
 			JPATH_ADMINISTRATOR . '/components/com_sermonspeaker/access.xml'
 		);
 
@@ -62,7 +65,7 @@ class SermonspeakerHelper
 	 */
 	public static function getContexts()
 	{
-		$lang = JFactory::getLanguage();
+		$lang = Factory::getLanguage();
 		$lang->load('com_sermonspeaker', JPATH_ADMINISTRATOR)
 		|| $lang->load('com_sermonspeaker', JPATH_ADMINISTRATOR . '/components/com_sermonspeaker');
 

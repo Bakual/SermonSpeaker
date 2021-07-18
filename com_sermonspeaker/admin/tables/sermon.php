@@ -10,6 +10,7 @@
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Application\ApplicationHelper;
+use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Table\Table;
@@ -93,7 +94,7 @@ class SermonspeakerTableSermon extends Table implements VersionableTableInterfac
 
 		if (trim(str_replace('-', '', $this->alias)) == '')
 		{
-			$this->alias = JFactory::getDate()->format('Y-m-d-H-i-s');
+			$this->alias = Factory::getDate()->format('Y-m-d-H-i-s');
 		}
 
 		// Set modified to null date if not set
@@ -199,8 +200,8 @@ class SermonspeakerTableSermon extends Table implements VersionableTableInterfac
 	 */
 	public function store($updateNulls = false)
 	{
-		$date = JFactory::getDate();
-		$user = JFactory::getUser();
+		$date = Factory::getDate();
+		$user = Factory::getUser();
 
 		if ($this->id)
 		{
@@ -314,7 +315,7 @@ class SermonspeakerTableSermon extends Table implements VersionableTableInterfac
 		}
 		catch (Exception $e)
 		{
-			JFactory::getApplication()->enqueueMessage($e->getMessage(), 'ERROR');
+			Factory::getApplication()->enqueueMessage($e->getMessage(), 'ERROR');
 
 			return false;
 		}

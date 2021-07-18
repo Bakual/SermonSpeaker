@@ -11,6 +11,7 @@ defined('_JEXEC') or die();
 
 use Joomla\CMS\Application\ApplicationHelper;
 use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\Factory;
 use Joomla\CMS\Filesystem\File;
 use Joomla\CMS\Form\FormHelper;
 use Joomla\CMS\HTML\HTMLHelper;
@@ -181,7 +182,7 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 		HTMLHelper::_('script', 'com_sermonspeaker/plupload/plupload.full.min.js', array('relative' => true));
 
 		// Load localisation
-		$tag  = str_replace('-', '_', JFactory::getLanguage()->getTag());
+		$tag  = str_replace('-', '_', Factory::getLanguage()->getTag());
 		$path = '/media/com_sermonspeaker/js/plupload/i18n/';
 		$file = $tag . '.js';
 
@@ -283,7 +284,7 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 				});
 			});
 		';
-		JFactory::getDocument()->addScriptDeclaration($plupload_script);
+		Factory::getDocument()->addScriptDeclaration($plupload_script);
 
 		return '<div id="plupload_' . $this->fieldname . '" class="uploader">
 					<div id="filelist_' . $this->fieldname . '" class="filelist"></div>
@@ -322,7 +323,7 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 			{
 				// In case of an edit, we check for the language set, otherwise we use the active language.
 				$language = $this->form->getValue('language');
-				$jlang    = JFactory::getLanguage();
+				$jlang    = Factory::getLanguage();
 				$append   = ($language && ($language != '*')) ? '/' . $language : '/' . $jlang->getTag();
 
 				// Check if directory exists, fallback to base directory if not.
@@ -401,7 +402,7 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 			{
 				// In case of an edit, we check for the language set, otherwise we use the active language.
 				$language = $this->form->getValue('language');
-				$jlang    = JFactory::getLanguage();
+				$jlang    = Factory::getLanguage();
 				$folder   .= ($language && ($language != '*')) ? $language : $jlang->getTag();
 				$folder   .= '/';
 			}

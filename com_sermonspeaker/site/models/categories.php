@@ -7,6 +7,7 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
+use Joomla\CMS\Factory;
 use Joomla\Registry\Registry;
 
 defined('_JEXEC') or die();
@@ -52,7 +53,7 @@ class SermonspeakerModelCategories extends JModelLegacy
 	protected function populateState()
 	{
 		/** @var JApplicationSite $app */
-		$app = JFactory::getApplication();
+		$app = Factory::getApplication();
 		$this->setState('filter.extension', $this->_extension);
 
 		// Get the parent id if defined.
@@ -103,7 +104,7 @@ class SermonspeakerModelCategories extends JModelLegacy
 	{
 		if (!$this->_items)
 		{
-			$app    = JFactory::getApplication();
+			$app    = Factory::getApplication();
 			$menu   = $app->getMenu();
 			$active = $menu->getActive();
 

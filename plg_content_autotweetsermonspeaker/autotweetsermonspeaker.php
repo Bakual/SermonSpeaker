@@ -7,6 +7,7 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 
 defined('_JEXEC') or die();
@@ -185,7 +186,7 @@ class PlgContentAutotweetSermonspeaker extends plgAutotweetBase
 		}
 		else
 		{
-			$publish_up = JFactory::getDate()->toSql();
+			$publish_up = Factory::getDate()->toSql();
 		}
 
 		$url = SermonspeakerHelperRoute::getSermonRoute($item->id, $item->catid, $item->language);
@@ -193,7 +194,7 @@ class PlgContentAutotweetSermonspeaker extends plgAutotweetBase
 		// Get some additional information
 		if ($series_id = (int) $item->series_id)
 		{
-			$db    = Jfactory::getDbo();
+			$db    = Factory::getDbo();
 			$query = $db->getQuery(true);
 			$query->select('`avatar`, `title` AS series_title');
 			$query->from('#__sermon_series');
@@ -209,7 +210,7 @@ class PlgContentAutotweetSermonspeaker extends plgAutotweetBase
 
 		if ($speaker_id = (int) $item->speaker_id)
 		{
-			$db    = Jfactory::getDbo();
+			$db    = Factory::getDbo();
 			$query = $db->getQuery(true);
 			$query->select('`pic`, `title` AS speaker_title');
 			$query->from('#__sermon_speakers');

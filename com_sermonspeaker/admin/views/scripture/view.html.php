@@ -9,6 +9,7 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 
 /**
@@ -34,7 +35,7 @@ class SermonspeakerViewScripture extends JViewLegacy
 	 */
 	function display($tpl = null)
 	{
-		$id        = JFactory::getApplication()->input->get('id', 0, 'int');
+		$id        = Factory::getApplication()->input->get('id', 0, 'int');
 		$separator = Text::_('COM_SERMONSPEAKER_SCRIPTURE_SEPARATOR');
 
 		// Get Params
@@ -136,7 +137,7 @@ class SermonspeakerViewScripture extends JViewLegacy
 			}";
 		}
 
-		$document = JFactory::getDocument();
+		$document = Factory::getDocument();
 		$document->addScriptDeclaration($javascript);
 
 		parent::display($tpl);

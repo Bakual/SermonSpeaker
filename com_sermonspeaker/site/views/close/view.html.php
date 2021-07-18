@@ -7,6 +7,8 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
+use Joomla\CMS\Factory;
+
 defined('_JEXEC') or die();
 
 /**
@@ -31,7 +33,7 @@ class SermonspeakerViewClose extends JViewLegacy
 				window.setTimeout('parent.location.reload()', 500);
 			}";
 
-		$document = JFactory::getDocument();
+		$document = Factory::getDocument();
 		$document->addScriptDeclaration($js);
 	}
 }

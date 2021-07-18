@@ -9,7 +9,10 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Router\Route;
+use Joomla\Utilities\ArrayHelper;
 
 /**
  * Series list controller class.
@@ -64,14 +67,14 @@ class SermonspeakerControllerSermons extends JControllerAdmin
 		JSession::checkToken() or die(Text::_('JINVALID_TOKEN'));
 
 		// Get items to podcast from the request.
-		$cid   = JFactory::getApplication()->input->get('cid', array(), 'array');
+		$cid   = Factory::getApplication()->input->get('cid', array(), 'array');
 		$data  = array('podcast_publish' => 1, 'podcast_unpublish' => 0);
 		$task  = $this->getTask();
-		$value = Joomla\Utilities\ArrayHelper::getValue($data, $task, 0, 'int');
+		$value = ArrayHelper::getValue($data, $task, 0, 'int');
 
 		if (empty($cid))
 		{
-			JFactory::getApplication()->enqueueMessage(Text::_($this->text_prefix . '_NO_ITEM_SELECTED'), 'warning');
+			Factory::getApplication()->enqueueMessage(Text::_($this->text_prefix . '_NO_ITEM_SELECTED'), 'warning');
 		}
 		else
 		{
@@ -79,12 +82,12 @@ class SermonspeakerControllerSermons extends JControllerAdmin
 			$model = $this->getModel();
 
 			// Make sure the item ids are integers
-			$cid = Joomla\Utilities\ArrayHelper::toInteger($cid);
+			$cid = ArrayHelper::toInteger($cid);
 
 			// Podcast the items.
 			if (!$model->podcast($cid, $value))
 			{
-				JFactory::getApplication()->enqueueMessage($model->getError(), 'warning');
+				Factory::getApplication()->enqueueMessage($model->getError(), 'warning');
 			}
 			else
 			{
@@ -95,7 +98,7 @@ class SermonspeakerControllerSermons extends JControllerAdmin
 			}
 		}
 
-		$this->setRedirect(JRoute::_('index.php?option=' . $this->option . '&view=' . $this->view_list, false));
+		$this->setRedirect(Route::_('index.php?option=' . $this->option . '&view=' . $this->view_list, false));
 	}
 
 	/**
@@ -111,8 +114,8 @@ class SermonspeakerControllerSermons extends JControllerAdmin
 		$order = $this->input->post->get('order', array(), 'array');
 
 		// Sanitize the input
-		$pks   = Joomla\Utilities\ArrayHelper::toInteger($pks);
-		$order = Joomla\Utilities\ArrayHelper::toInteger($order);
+		$pks   = ArrayHelper::toInteger($pks);
+		$order = ArrayHelper::toInteger($order);
 
 		// Get the model
 		$model = $this->getModel();
@@ -126,6 +129,6 @@ class SermonspeakerControllerSermons extends JControllerAdmin
 		}
 
 		// Close the application
-		JFactory::getApplication()->close();
+		Factory::getApplication()->close();
 	}
 }

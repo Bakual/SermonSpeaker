@@ -9,6 +9,7 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 
@@ -182,7 +183,7 @@ class PlgSermonspeakerJwplayer7 extends SermonspeakerPluginPlayer
 		// Loading needed Javascript only once
 		if (!self::$script_loaded)
 		{
-			$doc = JFactory::getDocument();
+			$doc = Factory::getDocument();
 
 			HTMLHelper::_('jquery.framework');
 

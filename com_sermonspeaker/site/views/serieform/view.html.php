@@ -9,6 +9,7 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 
 /**
@@ -39,7 +40,7 @@ class SermonspeakerViewSerieform extends JViewLegacy
 	public function display($tpl = null)
 	{
 		// Initialise variables.
-		$user = JFactory::getUser();
+		$user = Factory::getUser();
 
 		// Get model data.
 		$this->state       = $this->get('State');
@@ -88,7 +89,7 @@ class SermonspeakerViewSerieform extends JViewLegacy
 	 */
 	protected function _prepareDocument()
 	{
-		$app   = JFactory::getApplication();
+		$app   = Factory::getApplication();
 		$menus = $app->getMenu();
 
 		// Because the application sets a default page title, we need to get it from the menu item itself

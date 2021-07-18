@@ -9,6 +9,7 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 
 /**
@@ -40,7 +41,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 		}
 
 		// Authorize User
-		$user = JFactory::getUser();
+		$user = Factory::getUser();
 
 		if (!$user->authorise('core.create', 'com_sermonspeaker'))
 		{
@@ -55,7 +56,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 
 		// Initialise variables.
 		/** @var JApplicationSite $app */
-		$app    = JFactory::getApplication();
+		$app    = Factory::getApplication();
 		$params = $app->getParams();
 		$jinput = $app->input;
 
@@ -84,7 +85,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 		// Check if filename has more chars than only dashes, making a new filename based on current date/time if not
 		if (count_chars(JFile::stripExt($file['name']), 3) == '-')
 		{
-			$file['name'] = JFactory::getDate()->format("Y-m-d-H-i-s") . '.' . $ext;
+			$file['name'] = Factory::getDate()->format("Y-m-d-H-i-s") . '.' . $ext;
 		}
 
 		$mode = 0;
@@ -141,7 +142,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 
 				if (!$lang || $lang == '*')
 				{
-					$jlang = JFactory::getLanguage();
+					$jlang = Factory::getLanguage();
 					$lang  = $jlang->getTag();
 				}
 
@@ -205,7 +206,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 
 				if (!$lang || $lang == '*')
 				{
-					$jlang = JFactory::getLanguage();
+					$jlang = Factory::getLanguage();
 					$lang  = $jlang->getTag();
 				}
 
@@ -268,7 +269,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 	 */
 	public function lookup()
 	{
-		$file = JFactory::getApplication()->input->get('file', '', 'string');
+		$file = Factory::getApplication()->input->get('file', '', 'string');
 
 		if (!$file)
 		{

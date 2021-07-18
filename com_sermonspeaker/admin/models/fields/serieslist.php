@@ -10,6 +10,7 @@
 defined('_JEXEC') or die();
 
 use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 
@@ -55,7 +56,7 @@ class JFormFieldSerieslist extends JFormFieldGroupedList
 
 		if (!$this->element['hidebutton'])
 		{
-			if (JFactory::getApplication()->isClient('administrator'))
+			if (Factory::getApplication()->isClient('administrator'))
 			{
 				$returnpage = base64_encode('index.php?option=com_sermonspeaker&view=close&tmpl=component');
 				$url        = 'index.php?option=com_sermonspeaker&task=serie.add&layout=modal&tmpl=component&return=' . $returnpage;
@@ -124,7 +125,7 @@ class JFormFieldSerieslist extends JFormFieldGroupedList
 	 */
 	public function getGroups()
 	{
-		$db     = JFactory::getDbo();
+		$db     = Factory::getDbo();
 		$params = ComponentHelper::getParams('com_sermonspeaker');
 
 		$query = $db->getQuery(true);
@@ -146,7 +147,7 @@ class JFormFieldSerieslist extends JFormFieldGroupedList
 		if ($params->get('catfilter_lists', 0))
 		{
 			$action = ($this->value === '') ? 'core.create' : 'core.edit.state';
-			$catids = implode(',', JFactory::getUser()->getAuthorisedCategories('com_sermonspeaker', $action));
+			$catids = implode(',', Factory::getUser()->getAuthorisedCategories('com_sermonspeaker', $action));
 		}
 		else
 		{
@@ -198,7 +199,7 @@ class JFormFieldSerieslist extends JFormFieldGroupedList
 		}
 		catch (Exception $e)
 		{
-			JFactory::getApplication()->enqueueMessage($e->getMessage(), 'ERROR');
+			Factory::getApplication()->enqueueMessage($e->getMessage(), 'ERROR');
 
 			return parent::getGroups();
 		}

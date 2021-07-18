@@ -10,6 +10,7 @@
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Application\ApplicationHelper;
+use Joomla\CMS\Factory;
 use Joomla\CMS\Helper\TagsHelper;
 use Joomla\CMS\Language\Associations;
 use Joomla\CMS\Language\LanguageHelper;
@@ -17,6 +18,7 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Model\AdminModel;
 use Joomla\CMS\Table\Table;
 use Joomla\CMS\Versioning\VersionableModelTrait;
+use Joomla\Utilities\ArrayHelper;
 
 /**
  * Item Model for a Sermon.
@@ -161,7 +163,7 @@ class SermonspeakerModelSermon extends AdminModel
 				return false;
 			}
 
-			$user = JFactory::getUser();
+			$user = Factory::getUser();
 
 			if ($record->catid)
 			{
@@ -247,7 +249,7 @@ class SermonspeakerModelSermon extends AdminModel
 	 */
 	protected function canEditState($record)
 	{
-		$user = JFactory::getUser();
+		$user = Factory::getUser();
 
 		if (!empty($record->catid))
 		{
@@ -270,7 +272,7 @@ class SermonspeakerModelSermon extends AdminModel
 	 */
 	public function save($data)
 	{
-		$jinput = JFactory::getApplication()->input;
+		$jinput = Factory::getApplication()->input;
 
 		// Alter the title for save as copy
 		if ($jinput->get('task') == 'save2copy')
@@ -312,7 +314,7 @@ class SermonspeakerModelSermon extends AdminModel
 	public function podcast(&$pks, $value = 1)
 	{
 		// Initialise variables.
-		$user = JFactory::getUser();
+		$user = Factory::getUser();
 		/** @var SermonspeakerTableSermon $table */
 		$table = $this->getTable();
 		$pks   = (array) $pks;
@@ -360,7 +362,7 @@ class SermonspeakerModelSermon extends AdminModel
 	{
 		// Sanitize user ids.
 		$pks = array_unique($pks);
-		$pks = Joomla\Utilities\ArrayHelper::toInteger($pks);
+		$pks = ArrayHelper::toInteger($pks);
 
 		// Remove any values of zero.
 		if (array_search(0, $pks, true))
@@ -379,7 +381,7 @@ class SermonspeakerModelSermon extends AdminModel
 
 		if (!empty($commands['category_id']))
 		{
-			$cmd = Joomla\Utilities\ArrayHelper::getValue($commands, 'move_copy', 'c');
+			$cmd = ArrayHelper::getValue($commands, 'move_copy', 'c');
 
 			if ($cmd == 'c')
 			{
@@ -505,8 +507,8 @@ class SermonspeakerModelSermon extends AdminModel
 		}
 
 		// Check that the user has create permission for the component
-		$extension = JFactory::getApplication()->input->get('option', '');
-		$user      = JFactory::getUser();
+		$extension = Factory::getApplication()->input->get('option', '');
+		$user      = Factory::getUser();
 
 		if (!$user->authorise('core.create', $extension . '.category.' . $categoryId))
 		{
@@ -603,7 +605,7 @@ class SermonspeakerModelSermon extends AdminModel
 	protected function batchSpeaker($value, $pks, $contexts)
 	{
 		// Set the variables
-		$user  = JFactory::getUser();
+		$user  = Factory::getUser();
 		$table = $this->getTable();
 
 		foreach ($pks as $pk)
@@ -649,7 +651,7 @@ class SermonspeakerModelSermon extends AdminModel
 	protected function batchSerie($value, $pks, $contexts)
 	{
 		// Set the variables
-		$user  = JFactory::getUser();
+		$user  = Factory::getUser();
 		$table = $this->getTable();
 
 		foreach ($pks as $pk)
@@ -691,7 +693,7 @@ class SermonspeakerModelSermon extends AdminModel
 	protected function loadFormData()
 	{
 		// Check the session for previously entered form data.
-		$app    = JFactory::getApplication();
+		$app    = Factory::getApplication();
 		$data   = $app->getUserState('com_sermonspeaker.edit.sermon.data', array());
 		$jinput = $app->input;
 
@@ -716,7 +718,7 @@ class SermonspeakerModelSermon extends AdminModel
 
 			if ($data['id'])
 			{
-				$db    = JFactory::getDbo();
+				$db    = Factory::getDbo();
 				$query = $db->getQuery(true)
 					->select($db->quoteName(array('book', 'cap1', 'vers1', 'cap2', 'vers2', 'text')))
 					->from($db->quoteName('#__sermon_scriptures'))
@@ -758,7 +760,7 @@ class SermonspeakerModelSermon extends AdminModel
 			}
 			else
 			{
-				JFactory::getApplication()->enqueueMessage(Text::_('COM_SERMONSPEAKER_ERROR_ID3'), 'notice');
+				Factory::getApplication()->enqueueMessage(Text::_('COM_SERMONSPEAKER_ERROR_ID3'), 'notice');
 			}
 		}
 
@@ -784,7 +786,7 @@ class SermonspeakerModelSermon extends AdminModel
 
 		if ($item->id)
 		{
-			$db    = JFactory::getDbo();
+			$db    = Factory::getDbo();
 			$query = $db->getQuery(true)
 				->select($db->quoteName(array('book', 'cap1', 'vers1', 'cap2', 'vers2', 'text')))
 				->from($db->quoteName('#__sermon_scriptures'))
@@ -845,7 +847,7 @@ class SermonspeakerModelSermon extends AdminModel
 
 			if (empty($table->alias))
 			{
-				$table->alias = JFactory::getDate()->format("Y-m-d-H-i-s");
+				$table->alias = Factory::getDate()->format("Y-m-d-H-i-s");
 			}
 		}
 
@@ -917,7 +919,7 @@ class SermonspeakerModelSermon extends AdminModel
 		// Set the publish date to now
 		if ($table->state == 1 && (int) $table->publish_up == 0)
 		{
-			$table->publish_up = JFactory::getDate()->toSql();
+			$table->publish_up = Factory::getDate()->toSql();
 		}
 
 		if ($table->state == 1 && intval($table->publish_down) == 0)

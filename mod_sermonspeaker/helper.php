@@ -7,6 +7,8 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
+use Joomla\CMS\Factory;
+
 defined('_JEXEC') or die();
 
 /**
@@ -30,7 +32,7 @@ abstract class ModSermonspeakerHelper
 		$cat_id = (int) $params->get('cat');
 		$sort   = (int) $params->get('sort');
 
-		$db     = JFactory::getDbo();
+		$db     = Factory::getDbo();
 		$query  = $db->getQuery(true);
 
 		if ($mode == 2)
@@ -98,7 +100,7 @@ abstract class ModSermonspeakerHelper
 
 			// Define null and now dates
 			$nullDate = $db->quote($db->getNullDate());
-			$nowDate  = $db->quote(JFactory::getDate()->toSql());
+			$nowDate  = $db->quote(Factory::getDate()->toSql());
 
 			// Filter by start and end dates.
 			$query->where('(publish_up = ' . $nullDate . ' OR publish_up <= ' . $nowDate . ')');

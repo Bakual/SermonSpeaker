@@ -11,6 +11,7 @@ defined('_JEXEC') or die();
 
 use Joomla\CMS\Application\SiteApplication;
 use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Associations;
 use Joomla\CMS\Language\Text;
 
@@ -50,7 +51,7 @@ class SermonspeakerModelFrontendupload extends SermonspeakerModelSermon
 	public function populateState($ordering = null, $direction = null)
 	{
 		/** @var SiteApplication $app */
-		$app    = JFactory::getApplication();
+		$app    = Factory::getApplication();
 		$jinput = $app->input;
 
 		// Load state from the request.
@@ -89,7 +90,7 @@ class SermonspeakerModelFrontendupload extends SermonspeakerModelSermon
 	protected function loadFormData()
 	{
 		// Check the session for previously entered form data.
-		$data = JFactory::getApplication()->getUserState('com_sermonspeaker.edit.frontendupload.data', array());
+		$data = Factory::getApplication()->getUserState('com_sermonspeaker.edit.frontendupload.data', array());
 
 		if (empty($data))
 		{
@@ -102,7 +103,7 @@ class SermonspeakerModelFrontendupload extends SermonspeakerModelSermon
 
 			if ($data['id'])
 			{
-				$db    = JFactory::getDbo();
+				$db    = Factory::getDbo();
 				$query = $db->getQuery(true);
 				$query->select('book, cap1, vers1, cap2, vers2, text');
 				$query->from('#__sermon_scriptures');

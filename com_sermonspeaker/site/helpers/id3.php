@@ -7,6 +7,8 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
+use Joomla\CMS\Factory;
+
 defined('_JEXEC') or die();
 
 /**
@@ -128,7 +130,7 @@ class SermonspeakerHelperId3
 				$id3['scripture'] = '';
 			}
 
-			$db = JFactory::getDbo();
+			$db = Factory::getDbo();
 
 			if (array_key_exists('album', $FileInfo['comments']))
 			{

@@ -9,6 +9,7 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 
 /**
@@ -85,7 +86,7 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 	public function display($tpl = null)
 	{
 		// Initialise variables.
-		$app    = JFactory::getApplication();
+		$app    = Factory::getApplication();
 		$jinput = $app->input;
 
 		// Get the log in credentials.
@@ -100,7 +101,7 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 			$app->login($credentials);
 		}
 
-		$this->user = JFactory::getUser();
+		$this->user = Factory::getUser();
 
 		// Get model data.
 		$this->state       = $this->get('State');
@@ -360,7 +361,7 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 
 			if (!$awsAccessKey || !$awsSecretKey || !$region || !$bucket)
 			{
-				JFactory::getApplication()->enqueueMessage(Text::_('COM_SERMONSPEAKER_S3_MISSING_PARAMETER'), 'warning');
+				Factory::getApplication()->enqueueMessage(Text::_('COM_SERMONSPEAKER_S3_MISSING_PARAMETER'), 'warning');
 			}
 
 			// Instantiate the class
@@ -406,7 +407,7 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 		{
 			$changelang = "function changelang(language) {
 					if(!language || language == '*'){
-						language = '" . JFactory::getLanguage()->getTag() . "'
+						language = '" . Factory::getLanguage()->getTag() . "'
 					}";
 
 			if (!$this->s3audio)
@@ -421,7 +422,7 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 
 			$changelang        .= "document.id('addfilepathlang').innerHTML = language+'/';
 				}";
-			$lang              = ($this->item->language && $this->item->language == '*') ? $this->item->language : JFactory::getLanguage()->getTag();
+			$lang              = ($this->item->language && $this->item->language == '*') ? $this->item->language : Factory::getLanguage()->getTag();
 			$this->append_lang = $lang . '/';
 		}
 		else
@@ -509,7 +510,7 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 	 */
 	protected function _prepareDocument()
 	{
-		$app   = JFactory::getApplication();
+		$app   = Factory::getApplication();
 		$menus = $app->getMenu();
 
 		// Because the application sets a default page title, we need to get it from the menu item itself

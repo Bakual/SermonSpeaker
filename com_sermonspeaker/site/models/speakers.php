@@ -9,6 +9,7 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Model\ListModel;
 
 /**
@@ -91,7 +92,7 @@ class SermonspeakerModelspeakers extends ListModel
 	 */
 	protected function getListQuery()
 	{
-		$user   = JFactory::getUser();
+		$user   = Factory::getUser();
 		$groups = implode(',', $user->getAuthorisedViewLevels());
 
 		// Create a new query object.
@@ -163,7 +164,7 @@ class SermonspeakerModelspeakers extends ListModel
 		if ((!$user->authorise('core.edit.state', 'com_sermonspeaker')) && (!$user->authorise('core.edit', 'com_sermonspeaker')))
 		{
 			$nullDate = $db->quote($db->getNullDate());
-			$nowDate  = $db->quote(JFactory::getDate()->toSql());
+			$nowDate  = $db->quote(Factory::getDate()->toSql());
 
 			$query->where('(speakers.publish_up = ' . $nullDate . ' OR speakers.publish_up <= ' . $nowDate . ')');
 			$query->where('(speakers.publish_down = ' . $nullDate . ' OR speakers.publish_down >= ' . $nowDate . ')');
@@ -191,7 +192,7 @@ class SermonspeakerModelspeakers extends ListModel
 		// Filter by language
 		if ($this->getState('filter.language'))
 		{
-			$query->where('speakers.language in (' . $db->quote(JFactory::getLanguage()->getTag()) . ',' . $db->quote('*') . ')');
+			$query->where('speakers.language in (' . $db->quote(Factory::getLanguage()->getTag()) . ',' . $db->quote('*') . ')');
 		}
 
 		// Add the list ordering clause.
@@ -217,7 +218,7 @@ class SermonspeakerModelspeakers extends ListModel
 	protected function populateState($ordering = null, $direction = null)
 	{
 		/** @var JApplicationSite $app */
-		$app    = JFactory::getApplication();
+		$app    = Factory::getApplication();
 		$params = $app->getParams();
 		$this->setState('params', $params);
 
@@ -228,7 +229,7 @@ class SermonspeakerModelspeakers extends ListModel
 		// Include Subcategories or not
 		$this->setState('filter.subcategories', $params->get('show_subcategory_content', 0));
 
-		$user = JFactory::getUser();
+		$user = Factory::getUser();
 
 		if ((!$user->authorise('core.edit.state', 'com_sermonspeaker')) && (!$user->authorise('core.edit', 'com_sermonspeaker')))
 		{
@@ -283,7 +284,7 @@ class SermonspeakerModelspeakers extends ListModel
 			// Compute selected asset permissions
 			if (is_object($this->item))
 			{
-				$user  = JFactory::getUser();
+				$user  = Factory::getUser();
 				$asset = 'com_sermonspeaker.category.' . $this->item->id;
 
 				// Check general create permission

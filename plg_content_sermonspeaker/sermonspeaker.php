@@ -9,6 +9,7 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 
@@ -64,7 +65,7 @@ class PlgContentSermonspeaker extends JPlugin
 			require_once JPATH_ROOT . '/components/com_sermonspeaker/helpers/player.php';
 			require_once JPATH_ROOT . '/components/com_sermonspeaker/helpers/route.php';
 
-			$db = JFactory::getDbo();
+			$db = Factory::getDbo();
 
 			foreach ($matches as $i => $match)
 			{

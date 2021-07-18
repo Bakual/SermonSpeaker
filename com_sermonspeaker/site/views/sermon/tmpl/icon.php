@@ -7,6 +7,7 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
@@ -19,7 +20,7 @@ HTMLHelper::_('stylesheet', 'com_sermonspeaker/icon.css', array('relative' => tr
 HTMLHelper::addIncludePath(JPATH_COMPONENT . '/helpers');
 HTMLHelper::_('bootstrap.tooltip', '.hasTooltip');
 
-$user       = JFactory::getUser();
+$user       = Factory::getUser();
 $fu_enable  = $this->params->get('fu_enable');
 $canEdit    = ($fu_enable and $user->authorise('core.edit', 'com_sermonspeaker'));
 $canEditOwn = ($fu_enable and $user->authorise('core.edit.own', 'com_sermonspeaker'));

@@ -9,6 +9,7 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 
 require_once JPATH_SITE . '/components/com_sermonspeaker/helpers/route.php';
@@ -54,7 +55,7 @@ class PlgSearchSermonspeaker extends JPlugin
 
 		if ($this->params->get('sermons_speaker', 0))
 		{
-			$db    = JFactory::getDbo();
+			$db    = Factory::getDbo();
 			$query = "SELECT `id`, `title` FROM #__sermon_speakers WHERE state = '1'";
 			$db->setQuery($query);
 			$speakers = $db->loadAssocList();
@@ -83,9 +84,9 @@ class PlgSearchSermonspeaker extends JPlugin
 	 */
 	public function onContentSearch($text, $phrase = '', $ordering = '', $areas = null)
 	{
-		$db     = JFactory::getDbo();
-		$app    = JFactory::getApplication();
-		$user   = JFactory::getUser();
+		$db     = Factory::getDbo();
+		$app    = Factory::getApplication();
+		$user   = Factory::getUser();
 		$groups = implode(',', $user->getAuthorisedViewLevels());
 		$query  = 'SELECT `book` FROM #__sermon_scriptures ORDER BY `book` DESC LIMIT 1';
 		$db->setQuery($query);
@@ -256,7 +257,7 @@ class PlgSearchSermonspeaker extends JPlugin
 				// Filter by language
 				if ($app->isClient('site') && $app->getLanguageFilter())
 				{
-					$tag = JFactory::getLanguage()->getTag();
+					$tag = Factory::getLanguage()->getTag();
 					$query->where('c.language in (' . $db->quote($tag) . ',' . $db->quote('*') . ')');
 				}
 
@@ -345,7 +346,7 @@ class PlgSearchSermonspeaker extends JPlugin
 				// Filter by language
 				if ($app->isClient('site') && $app->getLanguageFilter())
 				{
-					$tag = JFactory::getLanguage()->getTag();
+					$tag = Factory::getLanguage()->getTag();
 					$query->where('c.language in (' . $db->quote($tag) . ',' . $db->quote('*') . ')');
 				}
 
@@ -436,7 +437,7 @@ class PlgSearchSermonspeaker extends JPlugin
 				// Filter by language
 				if ($app->isClient('site') && $app->getLanguageFilter())
 				{
-					$tag = JFactory::getLanguage()->getTag();
+					$tag = Factory::getLanguage()->getTag();
 					$query->where('c.language in (' . $db->quote($tag) . ',' . $db->quote('*') . ')');
 				}
 

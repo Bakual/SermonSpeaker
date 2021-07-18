@@ -10,6 +10,7 @@
 defined('_JEXEC') or die();
 
 use Joomla\CMS\Application\SiteApplication;
+use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Associations;
 use Joomla\CMS\Uri\Uri;
 
@@ -56,7 +57,7 @@ class SermonspeakerModelSerieform extends SermonspeakerModelSerie
 	protected function populateState($ordering = null, $direction = null)
 	{
 		/** @var SiteApplication $app */
-		$app    = JFactory::getApplication();
+		$app    = Factory::getApplication();
 		$jinput = $app->input;
 
 		// Load state from the request

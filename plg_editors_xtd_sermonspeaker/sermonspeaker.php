@@ -9,6 +9,7 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 
@@ -47,7 +48,7 @@ class PlgButtonSermonspeaker extends JPlugin
 			SqueezeBox.close();
 		}";
 
-		$doc = JFactory::getDocument();
+		$doc = Factory::getDocument();
 		$doc->addScriptDeclaration($js);
 
 		HTMLHelper::_('behavior.modal');

@@ -9,11 +9,16 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Controller\FormController;
 use Joomla\CMS\Router\Route;
+use Joomla\CMS\Session\Session;
 use Joomla\CMS\Versioning\VersionableControllerTrait;
+use Joomla\Utilities\ArrayHelper;
+use Joomla\CMS\Filesystem\File;
 
 /**
  * Serie controller class.
@@ -37,8 +42,8 @@ class SermonspeakerControllerSermon extends FormController
 	 */
 	protected function allowAdd($data = array())
 	{
-		$user       = JFactory::getUser();
-		$categoryId = Joomla\Utilities\ArrayHelper::getValue($data, 'catid', JFactory::getApplication()->input->get('filter_category_id'), 'int');
+		$user       = Factory::getUser();
+		$categoryId = ArrayHelper::getValue($data, 'catid', Factory::getApplication()->input->get('filter_category_id'), 'int');
 		$allow      = null;
 
 		if ($categoryId)
@@ -89,7 +94,7 @@ class SermonspeakerControllerSermon extends FormController
 			return parent::allowEdit($data, $key);
 		}
 
-		$user = JFactory::getUser();
+		$user = Factory::getUser();
 
 		// The category has been set. Check the category permissions.
 		if ($user->authorise('core.edit', $this->option . '.category.' . $categoryId))
@@ -115,9 +120,9 @@ class SermonspeakerControllerSermon extends FormController
 	 */
 	public function reset()
 	{
-		$app    = JFactory::getApplication();
+		$app    = Factory::getApplication();
 		$jinput = $app->input;
-		$db     = JFactory::getDbo();
+		$db     = Factory::getDbo();
 		$id     = $jinput->get('id', 0, 'int');
 
 		if (!$id)
@@ -131,7 +136,7 @@ class SermonspeakerControllerSermon extends FormController
 		/** @var SermonspeakerModelSermon $model */
 		$model      = $this->getModel();
 		$item       = $model->getItem($id);
-		$user       = JFactory::getUser();
+		$user       = Factory::getUser();
 		$canEdit    = $user->authorise('core.edit', 'com_sermonspeaker.category.' . $item->catid);
 		$canEditOwn = $user->authorise('core.edit.own', 'com_sermonspeaker.category.' . $item->catid) && $item->created_by == $user->id;
 		if ($canEdit || $canEditOwn)
@@ -166,17 +171,17 @@ class SermonspeakerControllerSermon extends FormController
 	protected function postSaveHook(JModelLegacy $model, $validData = array())
 	{
 		$recordId = $model->getState($this->context . '.id');
-		$params   = JComponentHelper::getParams('com_sermonspeaker');
+		$params   = ComponentHelper::getParams('com_sermonspeaker');
 
-		$app = JFactory::getApplication();
-		$db  = JFactory::getDbo();
+		$app = Factory::getApplication();
+		$db  = Factory::getDbo();
 
 		// Check filenames and show a warning if one isn't save to use in an URL. Store anyway.
 		$files = array('audiofile', 'videofile', 'addfile');
 
 		foreach ($files as $file)
 		{
-			$filename = JFile::stripExt(basename($validData[$file]));
+			$filename = File::stripExt(basename($validData[$file]));
 
 			// Remove query part (eg for YouTube URLs
 			if ($pos = strpos($filename, '?'))
@@ -247,7 +252,7 @@ class SermonspeakerControllerSermon extends FormController
 
 	public function id3()
 	{
-		$app = JFactory::getApplication();
+		$app = Factory::getApplication();
 		$id  = $app->input->get('id', 0, 'int');
 		$this->write_id3($id);
 		$app->redirect('index.php?option=com_sermonspeaker&view=sermon&layout=edit&id=' . $id);
@@ -262,7 +267,7 @@ class SermonspeakerControllerSermon extends FormController
 	 */
 	public function write_id3($id)
 	{
-		$app = JFactory::getApplication();
+		$app = Factory::getApplication();
 
 		if (!$id)
 		{
@@ -272,7 +277,7 @@ class SermonspeakerControllerSermon extends FormController
 			return;
 		}
 
-		$db    = JFactory::getDbo();
+		$db    = Factory::getDbo();
 		$query = "SELECT audiofile, videofile, sermons.created_by, sermons.catid, sermons.title, speakers.title as speaker_title, series.title AS series_title, YEAR(sermon_date) AS year, DATE_FORMAT(sermon_date, '%H%i') AS time, DATE_FORMAT(sermon_date, '%d%m') AS date, notes, sermon_number, picture \n"
 			. "FROM #__sermon_sermons AS sermons \n"
 			. "LEFT JOIN #__sermon_speakers AS speakers ON speaker_id = speakers.id \n"
@@ -280,7 +285,7 @@ class SermonspeakerControllerSermon extends FormController
 			. "WHERE sermons.id='" . $id . "'";
 		$db->setQuery($query);
 		$item       = $db->loadObject();
-		$user       = JFactory::getUser();
+		$user       = Factory::getUser();
 		$canEdit    = $user->authorise('core.edit', 'com_sermonspeaker.category.' . $item->catid);
 		$canEditOwn = $user->authorise('core.edit.own', 'com_sermonspeaker.category.' . $item->catid) && $item->created_by == $user->id;
 
@@ -389,7 +394,7 @@ class SermonspeakerControllerSermon extends FormController
 	 */
 	public function batch($model = null)
 	{
-		JSession::checkToken() or jexit(Text::_('JINVALID_TOKEN'));
+		Session::checkToken() or jexit(Text::_('JINVALID_TOKEN'));
 
 		// Set the model
 		$model = $this->getModel('Sermon', '', array());

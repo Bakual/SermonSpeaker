@@ -9,6 +9,7 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper as HTMLHelperAlias;
 use Joomla\CMS\Language\Text;
 
@@ -148,7 +149,7 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 
 		$autoplay   = $this->params->get('autostart') ? ' autoplay="autoplay"' : '';
 		$field      = $mode1 . 'file';
-		$langCode   = explode('-', JFactory::getLanguage()->getTag())[0];
+		$langCode   = explode('-', Factory::getLanguage()->getTag())[0];
 		$stretching = $this->params->get('responsive') ? 'responsive' : 'none';
 
 		$player->mspace = '<' . $mode1 . ' id="' . $player->id . '" class="mejs__player"'
@@ -215,7 +216,7 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 		{
 			HTMLHelperAlias::_('jquery.framework');
 
-			JFactory::getDocument()->addScriptDeclaration('mejs.i18n.language(\'' . $langCode . '\');');
+			Factory::getDocument()->addScriptDeclaration('mejs.i18n.language(\'' . $langCode . '\');');
 			HTMLHelperAlias::_('script', 'plg_sermonspeaker_mediaelement/mediaelement-and-player.min.js', array('relative' => true));
 			HTMLHelperAlias::_('script', 'plg_sermonspeaker_mediaelement/mediaelement-and-player.min.js',  array('relative' => true));
 			HTMLHelperAlias::_('script', 'plg_sermonspeaker_mediaelement/renderers/vimeo.min.js',  array('relative' => true));

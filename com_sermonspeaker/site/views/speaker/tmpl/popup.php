@@ -9,12 +9,13 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 
 HTMLHelper::_('bootstrap.tooltip', '.hasTooltip');
 
-$user = JFactory::getUser();
+$user = Factory::getUser();
 
 if (!$this->item->pic)
 {

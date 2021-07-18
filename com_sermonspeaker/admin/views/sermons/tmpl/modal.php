@@ -9,10 +9,11 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 
-$app = JFactory::getApplication();
+$app = Factory::getApplication();
 
 if ($app->isClient('site'))
 {
@@ -28,10 +29,10 @@ HTMLHelper::_('behavior.polyfill', array('event'), 'lt IE 9');
 HTMLHelper::_('bootstrap.tooltip', '.hasTooltip', array('placement' => 'bottom'));
 
 // Load plugin language file
-$jlang = JFactory::getLanguage();
+$jlang = Factory::getLanguage();
 $jlang->load('plg_editors-xtd_sermonspeaker', JPATH_PLUGINS . '/editors-xtd/sermonspeaker');
 
-$function  = JFactory::getApplication()->input->get('function', 'jSelectSermon');
+$function  = Factory::getApplication()->input->get('function', 'jSelectSermon');
 $listOrder = $this->escape($this->state->get('list.ordering'));
 $listDirn  = $this->escape($this->state->get('list.direction'));
 ?>

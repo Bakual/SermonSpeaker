@@ -9,6 +9,7 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
@@ -22,7 +23,7 @@ HTMLHelper::_('bootstrap.tab');
 // Needed for pictures in blog layout
 HTMLHelper::_('stylesheet', 'com_sermonspeaker/blog.css', array('relative' => true));
 
-$user             = JFactory::getUser();
+$user             = Factory::getUser();
 $showState        = $user->authorise('core.edit', 'com_sermonspeaker');
 $fu_enable        = $this->params->get('fu_enable');
 $canEdit          = ($fu_enable and $user->authorise('core.edit', 'com_sermonspeaker'));

@@ -7,6 +7,8 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
+use Joomla\CMS\Factory;
+
 defined('_JEXEC') or die();
 
 /**
@@ -36,7 +38,7 @@ class ModRelatedSermonsHelper
 	 */
 	public static function getList($params)
 	{
-		$jinput   = JFactory::getApplication()->input;
+		$jinput   = Factory::getApplication()->input;
 		self::$id = $jinput->getInt('id');
 
 		if (!self::$id)
@@ -82,7 +84,7 @@ class ModRelatedSermonsHelper
 	 */
 	private static function getKeywords()
 	{
-		self::$db = JFactory::getDbo();
+		self::$db = Factory::getDbo();
 		$query    = self::$db->getQuery(true);
 
 		$query->select('metakey');
@@ -173,7 +175,7 @@ class ModRelatedSermonsHelper
 
 		// Define null and now dates
 		$nullDate = self::$db->quote(self::$db->getNullDate());
-		$nowDate  = self::$db->quote(JFactory::getDate()->toSql());
+		$nowDate  = self::$db->quote(Factory::getDate()->toSql());
 
 		// Filter by start and end dates.
 		$query->where('(a.publish_up = ' . $nullDate . ' OR a.publish_up <= ' . $nowDate . ')');
@@ -186,11 +188,11 @@ class ModRelatedSermonsHelper
 
 		$query->where('(CONCAT(",", REPLACE(a.metakey, ", ", ","), ",") LIKE "%,'
 			. implode(',%" OR CONCAT(",", REPLACE(a.metakey, ", ", ","), ",") LIKE "%,', $keywords) . ',%")');
-		$app = JFactory::getApplication();
+		$app = Factory::getApplication();
 
 		if ($app->getLanguageFilter())
 		{
-			$query->where('a.language in (' . self::$db->quote(JFactory::getLanguage()->getTag()) . ',' . self::$db->quote('*') . ')');
+			$query->where('a.language in (' . self::$db->quote(Factory::getLanguage()->getTag()) . ',' . self::$db->quote('*') . ')');
 		}
 
 		$query->group('a.id');
@@ -220,11 +222,11 @@ class ModRelatedSermonsHelper
 	 */
 	private static function getRelatedItemsById($keywords, $limit)
 	{
-		$user		= JFactory::getUser();
+		$user		= Factory::getUser();
 		$groups		= implode(',', $user->getAuthorisedViewLevels());
 
 		$nullDate	= self::$db->getNullDate();
-		$date		= JFactory::getDate();
+		$date		= Factory::getDate();
 		$now		= $date->toSql();
 
 		$related 	= array();
@@ -250,11 +252,11 @@ class ModRelatedSermonsHelper
 		$query->where('(a.publish_down = ' . self::$db->quote($nullDate) . ' OR a.publish_down >= ' . self::$db->quote($now) . ')');
 
 		// Filter by language
-		$app = JFactory::getApplication();
+		$app = Factory::getApplication();
 
 		if ($app->getLanguageFilter())
 		{
-			$query->where('a.language in (' . self::$db->quote(JFactory::getLanguage()->getTag()) . ',' . self::$db->quote('*') . ')');
+			$query->where('a.language in (' . self::$db->quote(Factory::getLanguage()->getTag()) . ',' . self::$db->quote('*') . ')');
 		}
 
 		self::$db->setQuery($query, 0, $limit);

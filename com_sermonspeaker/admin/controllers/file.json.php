@@ -9,7 +9,12 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Client\ClientHelper;
+use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\Factory;
+use Joomla\CMS\Filter\OutputFilter;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Filesystem\File;
 
 /**
  * File Sermonspeaker Controller
@@ -40,7 +45,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 		}
 
 		// Authorize User
-		$user = JFactory::getUser();
+		$user = Factory::getUser();
 
 		if (!$user->authorise('core.create', 'com_sermonspeaker'))
 		{
@@ -54,8 +59,8 @@ class SermonspeakerControllerFile extends JControllerLegacy
 		}
 
 		// Initialise variables.
-		$params = JComponentHelper::getParams('com_sermonspeaker');
-		$jinput = JFactory::getApplication()->input;
+		$params = ComponentHelper::getParams('com_sermonspeaker');
+		$jinput = Factory::getApplication()->input;
 
 		// Get some data from the request
 		$file = $jinput->files->get('file');
@@ -74,21 +79,21 @@ class SermonspeakerControllerFile extends JControllerLegacy
 		}
 
 		// Get file extension
-		$ext = JFile::getExt($file['name']);
+		$ext = File::getExt($file['name']);
 
 		// Make filename URL safe. Eg replaces ä with ae.
-		$file['name'] = JFilterOutput::stringURLSafe(JFile::stripExt($file['name'])) . '.' . $ext;
+		$file['name'] = OutputFilter::stringURLSafe(JFile::stripExt($file['name'])) . '.' . $ext;
 
 		// Make the filename safe
-		$file['name'] = JFile::makeSafe($file['name']);
+		$file['name'] = File::makeSafe($file['name']);
 
 		// Replace spaces in filename as long as makeSafe doesn't do this.
 		$file['name'] = str_replace(' ', '_', $file['name']);
 
 		// Check if filename has more chars than only dashes, making a new filename based on current date/time if not.
-		if (count_chars(JFile::stripExt($file['name']), 3) == '-')
+		if (count_chars(File::stripExt($file['name']), 3) == '-')
 		{
-			$file['name'] = JFactory::getDate()->format("Y-m-d-H-i-s") . '.' . $ext;
+			$file['name'] = Factory::getDate()->format("Y-m-d-H-i-s") . '.' . $ext;
 		}
 
 		$mode = 0;
@@ -142,7 +147,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 
 				if (!$lang || $lang == '*')
 				{
-					$jlang = JFactory::getLanguage();
+					$jlang = Factory::getLanguage();
 					$lang  = $jlang->getTag();
 				}
 
@@ -206,7 +211,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 
 				if (!$lang || $lang == '*')
 				{
-					$jlang = JFactory::getLanguage();
+					$jlang = Factory::getLanguage();
 					$lang  = $jlang->getTag();
 				}
 
@@ -217,12 +222,12 @@ class SermonspeakerControllerFile extends JControllerLegacy
 
 			// Set FTP credentials, if given
 			jimport('joomla.client.helper');
-			JClientHelper::setCredentialsFromRequest('ftp');
+			ClientHelper::setCredentialsFromRequest('ftp');
 
 			$filepath         = JPath::clean($folder . '/' . strtolower($file['name']));
 			$file['filepath'] = $filepath;
 
-			if (JFile::exists($filepath))
+			if (File::exists($filepath))
 			{
 				// File exists
 				$response = array(
@@ -234,7 +239,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 				return;
 			}
 
-			if (!JFile::upload($file['tmp_name'], $file['filepath']))
+			if (!File::upload($file['tmp_name'], $file['filepath']))
 			{
 				// Error in upload
 				$response = array(
@@ -267,7 +272,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 	 */
 	public function lookup()
 	{
-		$file = JFactory::getApplication()->input->get('file', '', 'string');
+		$file = Factory::getApplication()->input->get('file', '', 'string');
 
 		if (!$file)
 		{
@@ -280,7 +285,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 			return;
 		}
 
-		$params = JComponentHelper::getParams('com_sermonspeaker');
+		$params = ComponentHelper::getParams('com_sermonspeaker');
 		require_once JPATH_COMPONENT_SITE . '/helpers/id3.php';
 		$id3    = SermonspeakerHelperId3::getID3($file, $params);
 

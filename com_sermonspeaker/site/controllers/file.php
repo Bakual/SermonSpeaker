@@ -9,6 +9,7 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 
 /**
@@ -32,12 +33,12 @@ class SermonspeakerControllerFile extends JControllerLegacy
 		JSession::checkToken('request') or jexit(Text::_('JINVALID_TOKEN'));
 
 		/** @var JApplicationSite $app */
-		$app    = JFactory::getApplication();
+		$app    = Factory::getApplication();
 		$params = $app->getParams();
 		$jinput = $app->input;
 
 		// Get the user
-		$user = JFactory::getUser();
+		$user = Factory::getUser();
 
 		// Access check
 		if (!$params->get('fu_enable') || !$user->authorise('core.create', 'com_sermonspeaker'))
@@ -55,7 +56,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 
 			if (strlen($lang) != 5)
 			{
-				$lang = JFactory::getLanguage()->getTag();
+				$lang = Factory::getLanguage()->getTag();
 			}
 
 			$append .= '/' . $lang;
@@ -85,7 +86,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 			// Check if filename has more chars than only dashes, making a new filename based on current date/time if not.
 			if (count_chars(JFile::stripExt($file['name']), 3) == '-')
 			{
-				$file['name'] = JFactory::getDate()->format("Y-m-d-H-i-s") . '.' . $ext;
+				$file['name'] = Factory::getDate()->format("Y-m-d-H-i-s") . '.' . $ext;
 			}
 
 			$type = $key ? 'video' : 'audio';

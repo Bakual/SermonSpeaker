@@ -9,6 +9,7 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\Helper\TagsHelper;
 use Joomla\CMS\Language\Text;
 
@@ -101,7 +102,7 @@ class SermonspeakerViewSermons extends JViewLegacy
 		}
 
 		// Check whether category access level allows access.
-		$user   = JFactory::getUser();
+		$user   = Factory::getUser();
 		$groups = $user->getAuthorisedViewLevels();
 
 		if (!in_array($this->category->access, $groups))
@@ -109,7 +110,7 @@ class SermonspeakerViewSermons extends JViewLegacy
 			throw new Exception(Text::_('JERROR_ALERTNOAUTHOR'), 403);
 		}
 
-		$app = JFactory::getApplication();
+		$app = Factory::getApplication();
 
 		// Run plugin events for each item.
 		foreach ($this->items as $item)
@@ -190,7 +191,7 @@ class SermonspeakerViewSermons extends JViewLegacy
 	 */
 	protected function _prepareDocument()
 	{
-		$app   = JFactory::getApplication();
+		$app   = Factory::getApplication();
 		$menus = $app->getMenu();
 
 		// Because the application sets a default page title, we need to get it from the menu item itself

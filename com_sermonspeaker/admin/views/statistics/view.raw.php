@@ -7,6 +7,8 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
+use Joomla\CMS\Factory;
+
 defined('_JEXEC') or die();
 
 /**
@@ -46,7 +48,7 @@ class SermonspeakerViewStatistics extends JViewLegacy
 	 */
 	function display($tpl = null)
 	{
-		$document = JFactory::getDocument();
+		$document = Factory::getDocument();
 		$document->setMimeEncoding('text/xml');
 		// get data from the model
 		$this->series   = $this->get('Series');

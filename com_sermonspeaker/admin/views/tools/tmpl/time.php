@@ -2,12 +2,13 @@
 // no direct access
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 
 HTMLHelper::addIncludePath(JPATH_COMPONENT.'/helpers/html');
 HTMLHelper::_('bootstrap.tooltip', '.hasTooltip');
-$session	= JFactory::getSession();
+$session	= Factory::getSession();
 ?>
 <form action="index.php?option=com_sermonspeaker&task=tools.time" target="_parent" method="post" id="adminForm" name="adminForm">
 	<h4><?php echo Text::_('COM_SERMONSPEAKER_TOOLS_TIME_REM'); ?></h4>

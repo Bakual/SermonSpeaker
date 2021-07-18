@@ -7,6 +7,8 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
+use Joomla\CMS\Factory;
+
 defined('_JEXEC') or die();
 
 /**
@@ -31,7 +33,7 @@ class SermonspeakerViewSitemap extends JViewLegacy
 
 		// Get data from the model
 		$this->sermons = $this->get('Sermons');
-		$app           = JFactory::getApplication();
+		$app           = Factory::getApplication();
 		$this->params  = $app->getParams();
 
 		parent::display($tpl);

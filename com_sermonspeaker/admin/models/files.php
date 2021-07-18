@@ -7,6 +7,10 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
+use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\Factory;
+use Joomla\CMS\Filesystem\Folder;
+
 defined('_JEXEC') or die();
 
 /**
@@ -63,8 +67,8 @@ class SermonspeakerModelFiles extends JModelLegacy
 	private function getFiles()
 	{
 		// Initialise variables.
-		$app    = JFactory::getApplication();
-		$params = JComponentHelper::getParams('com_sermonspeaker');
+		$app    = Factory::getApplication();
+		$params = ComponentHelper::getParams('com_sermonspeaker');
 
 		$type = $app->getUserStateFromRequest('com_sermonspeaker.tools.filter.type', 'type', 'all', 'string');
 		$this->setState('filter.type', $type);
@@ -132,7 +136,7 @@ class SermonspeakerModelFiles extends JModelLegacy
 		{
 			foreach ($filters as $filter)
 			{
-				$files = array_merge($files, JFolder::files($folder, $filter, true, true));
+				$files = array_merge($files, Folder::files($folder, $filter, true, true));
 			}
 		}
 
@@ -143,7 +147,7 @@ class SermonspeakerModelFiles extends JModelLegacy
 
 	private function getSermons()
 	{
-		$db    = JFactory::getDbo();
+		$db    = Factory::getDbo();
 		$query = "SELECT `audiofile` AS `file` FROM #__sermon_sermons WHERE `audiofile` != '' \n"
 			. "UNION SELECT `videofile` FROM #__sermon_sermons WHERE `videofile` != '' ";
 
@@ -156,7 +160,7 @@ class SermonspeakerModelFiles extends JModelLegacy
 		}
 		catch (Exception $e)
 		{
-			JFactory::getApplication()->enqueueMessage($e->getMessage(), 'ERROR');
+			Factory::getApplication()->enqueueMessage($e->getMessage(), 'ERROR');
 			$sermons = array();
 		}
 
@@ -170,7 +174,7 @@ class SermonspeakerModelFiles extends JModelLegacy
 
 	public function getCategory()
 	{
-		$db    = JFactory::getDbo();
+		$db    = Factory::getDbo();
 		$query = $db->getQuery(true);
 
 		$query->select('a.id, a.title');

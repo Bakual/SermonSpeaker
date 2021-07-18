@@ -9,6 +9,7 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\Filter\OutputFilter;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
@@ -21,7 +22,7 @@ HTMLHelper::addIncludePath(JPATH_COMPONENT . '/helpers');
 HTMLHelper::_('bootstrap.tooltip', '.hasTooltip');
 HTMLHelper::_('stylesheet', 'com_sermonspeaker/columns.css', array('relative' => true));
 
-$user       = JFactory::getUser();
+$user       = Factory::getUser();
 $fu_enable  = $this->params->get('fu_enable');
 $canEdit    = ($fu_enable and $user->authorise('core.edit', 'com_sermonspeaker'));
 $canEditOwn = ($fu_enable and $user->authorise('core.edit.own', 'com_sermonspeaker'));

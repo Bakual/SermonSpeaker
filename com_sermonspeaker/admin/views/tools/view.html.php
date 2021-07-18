@@ -7,6 +7,7 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 
@@ -47,7 +48,7 @@ class SermonspeakerViewTools extends JViewLegacy
 		$layout = $this->getLayout();
 
 		// Check if PreachIt is installed
-		$db       = JFactory::getDbo();
+		$db       = Factory::getDbo();
 		$prefix   = $db->getPrefix();
 		$tables   = $db->getTableList();
 		$this->pi = in_array($prefix . 'pistudies', $tables);

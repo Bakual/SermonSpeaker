@@ -40,7 +40,7 @@ class JFormFieldModal_Speaker extends JFormField
 	 */
 	protected function getInput()
 	{
-		$isSite = JFactory::getApplication()->isClient('site');
+		$isSite = Factory::getApplication()->isClient('site');
 
 		$allowNew       = ((string) $this->element['new'] == 'true');
 		$allowEdit      = ((string) $this->element['edit'] == 'true');
@@ -112,7 +112,7 @@ class JFormFieldModal_Speaker extends JFormField
 		$urlEdit   = $linkSpeaker . '&amp;task=' . $controller . '.edit&amp;' . $urlVar . '=\' + document.getElementById("' . $this->id . '_id").value + \'';
 		$urlNew    = $linkSpeaker . '&amp;task=' . $controller . '.add';
 
-		$db = JFactory::getDbo();
+		$db = Factory::getDbo();
 
 		if ($value === '' && !$this->element['ignoredefault'] && !$this->form->getValue('id'))
 		{

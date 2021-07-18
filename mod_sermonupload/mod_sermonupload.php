@@ -7,6 +7,7 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 
 defined('_JEXEC') or die();
@@ -14,7 +15,7 @@ defined('_JEXEC') or die();
 require_once __DIR__ . '/helper.php';
 
 // Bail out if user isn't allowed to create a sermon.
-$user = JFactory::getUser();
+$user = Factory::getUser();
 
 if (!$user->authorise('core.create', 'com_sermonspeaker'))
 {
@@ -26,7 +27,7 @@ HTMLHelper::_('jquery.framework');
 HTMLHelper::Script('media/com_sermonspeaker/plupload/plupload.full.min.js');
 
 // Load localisation
-$tag  = str_replace('-', '_', JFactory::getLanguage()->getTag());
+$tag  = str_replace('-', '_', Factory::getLanguage()->getTag());
 $path = 'media/com_sermonspeaker/plupload/i18n/';
 $file = $tag . '.js';
 

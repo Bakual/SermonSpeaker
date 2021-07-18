@@ -8,6 +8,7 @@
  **/
 
 use Joomla\CMS\Component\Router\RouterBase;
+use Joomla\CMS\Factory;
 
 defined('_JEXEC') or die();
 
@@ -31,7 +32,7 @@ class SermonspeakerRouter extends RouterBase
 	public function build(&$query)
 	{
 		$segments = array();
-		$app      = JFactory::getApplication();
+		$app      = Factory::getApplication();
 		$view     = '';
 
 		// We need a menu item.  Either the one specified in the query, or the current active one if none specified
@@ -112,7 +113,7 @@ class SermonspeakerRouter extends RouterBase
 			{
 				if (strpos($query['id'], ':') === false)
 				{
-					$db      = JFactory::getDbo();
+					$db      = Factory::getDbo();
 					$dbQuery = $db->getQuery(true)
 						->select('alias')
 						->from('#__sermon_' . $view . 's')

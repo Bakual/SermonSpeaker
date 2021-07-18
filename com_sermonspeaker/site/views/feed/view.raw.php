@@ -9,6 +9,7 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 
 /**
@@ -44,7 +45,7 @@ class SermonspeakerViewFeed extends JViewLegacy
 	public function display($tpl = null)
 	{
 		/* @var  JApplicationSite $app The application */
-		$app          = JFactory::getApplication();
+		$app          = Factory::getApplication();
 		$this->params = $app->getParams();
 
 		// Get the log in credentials.
@@ -59,7 +60,7 @@ class SermonspeakerViewFeed extends JViewLegacy
 		}
 
 		// Check if access is not public
-		$user   = JFactory::getUser();
+		$user   = Factory::getUser();
 		$groups = $user->getAuthorisedViewLevels();
 
 		if (!in_array($this->params->get('access'), $groups))
@@ -180,7 +181,7 @@ class SermonspeakerViewFeed extends JViewLegacy
 	 */
 	protected function getEnclosure($item)
 	{
-		$type = JFactory::getApplication()->input->get('type', 'auto');
+		$type = Factory::getApplication()->input->get('type', 'auto');
 		$prio = $this->params->get('fileprio', 0);
 
 		// Create Enclosure

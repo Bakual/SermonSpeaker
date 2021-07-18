@@ -9,6 +9,7 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 
 /**
@@ -28,12 +29,12 @@ if (!$show)
 		<?php echo Text::_('JUNPUBLISHED'); ?>
 	</span>
 <?php endif; ?>
-<?php if (strtotime($item->publish_up) > strtotime(JFactory::getDate())) : ?>
+<?php if (strtotime($item->publish_up) > strtotime(Factory::getDate())) : ?>
 	<span class="label label-warning">
 		<?php echo Text::_('JNOTPUBLISHEDYET'); ?>
 	</span>
 <?php endif; ?>
-<?php if ((strtotime($item->publish_down) < strtotime(JFactory::getDate())) && $item->publish_down != JFactory::getDbo()->getNullDate()) : ?>
+<?php if ((strtotime($item->publish_down) < strtotime(Factory::getDate())) && $item->publish_down != Factory::getDbo()->getNullDate()) : ?>
 	<span class="label label-warning">
 		<?php echo Text::_('JEXPIRED'); ?>
 	</span>

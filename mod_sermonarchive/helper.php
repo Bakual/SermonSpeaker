@@ -7,6 +7,8 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
+use Joomla\CMS\Factory;
+
 defined('_JEXEC') or die();
 
 /**
@@ -30,7 +32,7 @@ abstract class ModSermonarchiveHelper
 		$state = (int) ($params->get('state', 1));
 		$state = $state ?: 1;
 
-		$db    = JFactory::getDbo();
+		$db    = Factory::getDbo();
 		$query = $db->getQuery(true);
 
 		$query->select('YEAR(`sermon_date`) AS `year`');
@@ -40,7 +42,7 @@ abstract class ModSermonarchiveHelper
 
 		// Define null and now dates
 		$nullDate = $db->quote($db->getNullDate());
-		$nowDate  = $db->quote(JFactory::getDate()->toSql());
+		$nowDate  = $db->quote(Factory::getDate()->toSql());
 
 		// Filter by start and end dates.
 		$query->where('(`publish_up` = ' . $nullDate . ' OR `publish_up` <= ' . $nowDate . ')');

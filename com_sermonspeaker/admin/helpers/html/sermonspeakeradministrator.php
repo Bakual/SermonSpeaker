@@ -9,10 +9,12 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Associations;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
+use Joomla\CMS\Router\Route;
 
 JLoader::register('SermonspeakerHelper', JPATH_ADMINISTRATOR . '/components/com_sermonspeaker/helpers/sermonspeaker.php');
 
@@ -60,7 +62,7 @@ abstract class JHtmlSermonspeakerAdministrator
 			}
 
 			// Get the associated menu items
-			$db    = JFactory::getDbo();
+			$db    = Factory::getDbo();
 			$query = $db->getQuery(true)
 				->select('a.*')
 				->from($table . ' as a')
@@ -86,7 +88,7 @@ abstract class JHtmlSermonspeakerAdministrator
 				foreach ($items as $item)
 				{
 					$text    = $item->lang_sef ? strtoupper($item->lang_sef) : 'XX';
-					$url     = JRoute::_('index.php?option=com_sermonspeaker&task=' . $type . '.edit&id=' . (int) $item->id);
+					$url     = Route::_('index.php?option=com_sermonspeaker&task=' . $type . '.edit&id=' . (int) $item->id);
 
 					$tooltip = htmlspecialchars($item->title, ENT_QUOTES) . '<br />' . Text::sprintf('JCATEGORY_SPRINTF', $item->category_title);
 					$classes = 'hasPopover badge badge-association badge-' . $item->lang_sef;

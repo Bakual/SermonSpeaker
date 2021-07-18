@@ -10,6 +10,7 @@
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Application\ApplicationHelper;
+use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Form;
 use Joomla\CMS\Helper\TagsHelper;
 use Joomla\CMS\Language\Associations;
@@ -18,6 +19,7 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Model\AdminModel;
 use Joomla\CMS\Table\Table;
 use Joomla\CMS\Versioning\VersionableModelTrait;
+use Joomla\String\StringHelper;
 
 /**
  * Serie model.
@@ -117,7 +119,7 @@ class SermonspeakerModelSerie extends AdminModel
 	 */
 	protected function canEditState($record)
 	{
-		$user = JFactory::getUser();
+		$user = Factory::getUser();
 
 		// Check against the category.
 		if (!empty($record->catid))
@@ -142,7 +144,7 @@ class SermonspeakerModelSerie extends AdminModel
 	 */
 	public function save($data)
 	{
-		$jinput = JFactory::getApplication()->input;
+		$jinput = Factory::getApplication()->input;
 
 		// Alter the title for save as copy
 		if ($jinput->get('task') == 'save2copy')
@@ -199,7 +201,7 @@ class SermonspeakerModelSerie extends AdminModel
 	public function setDefault($id = 0)
 	{
 		// Initialise variables.
-		$user = JFactory::getUser();
+		$user = Factory::getUser();
 		$db   = $this->getDbo();
 
 		// Access checks.
@@ -251,7 +253,7 @@ class SermonspeakerModelSerie extends AdminModel
 	 */
 	public function unsetDefault($id = 0)
 	{
-		$user = JFactory::getUser();
+		$user = Factory::getUser();
 		$db   = $this->getDbo();
 
 		// Access checks.
@@ -296,7 +298,7 @@ class SermonspeakerModelSerie extends AdminModel
 	protected function loadFormData()
 	{
 		// Check the session for previously entered form data.
-		$app  = JFactory::getApplication();
+		$app  = Factory::getApplication();
 		$data = $app->getUserState('com_sermonspeaker.edit.serie.data', array());
 
 		if (empty($data))
@@ -381,7 +383,7 @@ class SermonspeakerModelSerie extends AdminModel
 			$table->alias = ApplicationHelper::stringURLSafe($table->title);
 			if (empty($table->alias))
 			{
-				$table->alias = JFactory::getDate()->format("Y-m-d-H-i-s");
+				$table->alias = Factory::getDate()->format("Y-m-d-H-i-s");
 			}
 		}
 
@@ -389,7 +391,7 @@ class SermonspeakerModelSerie extends AdminModel
 		{
 			// only process if not empty
 			$bad_characters = array("\n", "\r", "\"", "<", ">"); // array of characters to remove
-			$after_clean    = Joomla\String\StringHelper::str_ireplace($bad_characters, "", $table->metakey); // remove bad characters
+			$after_clean    = StringHelper::str_ireplace($bad_characters, "", $table->metakey); // remove bad characters
 			$keys           = explode(',', $after_clean); // create array using commas as delimiter
 			$clean_keys     = array();
 			foreach ($keys as $key)
@@ -407,7 +409,7 @@ class SermonspeakerModelSerie extends AdminModel
 			// Set ordering to the last item if not set
 			if (empty($table->ordering))
 			{
-				$db = JFactory::getDbo();
+				$db = Factory::getDbo();
 				$db->setQuery('SELECT MAX(ordering) FROM #__sermon_series');
 				$max = $db->loadResult();
 
@@ -418,7 +420,7 @@ class SermonspeakerModelSerie extends AdminModel
 		// Set the publish date to now
 		if ($table->state == 1 && (int) $table->publish_up == 0)
 		{
-			$table->publish_up = JFactory::getDate()->toSql();
+			$table->publish_up = Factory::getDate()->toSql();
 		}
 
 		if ($table->state == 1 && intval($table->publish_down) == 0)
@@ -543,8 +545,8 @@ class SermonspeakerModelSerie extends AdminModel
 		}
 
 		// Check that the user has create permission for the component
-		$extension = JFactory::getApplication()->input->get('option', '');
-		$user      = JFactory::getUser();
+		$extension = Factory::getApplication()->input->get('option', '');
+		$user      = Factory::getUser();
 		if (!$user->authorise('core.create', $extension . '.category.' . $categoryId))
 		{
 			$this->setError(Text::_('JLIB_APPLICATION_ERROR_BATCH_CANNOT_CREATE'));

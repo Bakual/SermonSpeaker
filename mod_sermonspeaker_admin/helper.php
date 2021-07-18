@@ -7,6 +7,8 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
+use Joomla\CMS\Factory;
+
 defined('_JEXEC') or die;
 
 JModelLegacy::addIncludePath(JPATH_ADMINISTRATOR . '/components/com_sermonspeaker/models', 'SermonspeakerModel');
@@ -72,7 +74,7 @@ class ModSermonspeakerHelper
 		}
 
 		// Authenticate and create the links
-		$user = JFactory::getuser();
+		$user = Factory::getuser();
 		$view = rtrim($type, 's');
 
 		foreach ($items as $item)

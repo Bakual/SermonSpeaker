@@ -9,9 +9,12 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Controller\FormController;
 use Joomla\CMS\Router\Route;
+use Joomla\CMS\Session\Session;
+use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\Versioning\VersionableControllerTrait;
 
 /**
@@ -35,7 +38,7 @@ class SermonspeakerControllerSerie extends FormController
 	 */
 	protected function allowAdd($data = array())
 	{
-		$user       = JFactory::getUser();
+		$user       = Factory::getUser();
 		$categoryId = Joomla\Utilities\ArrayHelper::getValue($data, 'catid', $this->input->get('filter_category_id'), 'int');
 		$allow      = null;
 
@@ -87,7 +90,7 @@ class SermonspeakerControllerSerie extends FormController
 			return parent::allowEdit($data, $key);
 		}
 
-		$user = JFactory::getUser();
+		$user = Factory::getUser();
 
 		// The category has been set. Check the category permissions.
 		if ($user->authorise('core.edit', $this->option . '.category.' . $categoryId))
@@ -113,8 +116,8 @@ class SermonspeakerControllerSerie extends FormController
 	 */
 	public function reset()
 	{
-		$app = JFactory::getApplication();
-		$db  = JFactory::getDbo();
+		$app = Factory::getApplication();
+		$db  = Factory::getDbo();
 		$id  = $this->input->get('id', 0, 'int');
 
 		if (!$id)
@@ -128,7 +131,7 @@ class SermonspeakerControllerSerie extends FormController
 		/** @var SermonspeakerModelSerie $model */
 		$model      = $this->getModel();
 		$item       = $model->getItem($id);
-		$user       = JFactory::getUser();
+		$user       = Factory::getUser();
 		$canEdit    = $user->authorise('core.edit', 'com_sermonspeaker.category.' . $item->catid);
 		$canEditOwn = $user->authorise('core.edit.own', 'com_sermonspeaker.category.' . $item->catid) && $item->created_by == $user->id;
 
@@ -199,7 +202,7 @@ class SermonspeakerControllerSerie extends FormController
 	 */
 	public function batch($model = null)
 	{
-		JSession::checkToken() or jexit(Text::_('JINVALID_TOKEN'));
+		Session::checkToken() or jexit(Text::_('JINVALID_TOKEN'));
 
 		// Set the model
 		$model = $this->getModel('Serie', '', array());
@@ -241,7 +244,7 @@ class SermonspeakerControllerSerie extends FormController
 	{
 		$return = $this->input->get('return', '', 'base64');
 
-		if (empty($return) || !JUri::isInternal(base64_decode($return)))
+		if (empty($return) || !Uri::isInternal(base64_decode($return)))
 		{
 			return false;
 		}
