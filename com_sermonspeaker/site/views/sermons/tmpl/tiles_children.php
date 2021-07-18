@@ -13,6 +13,8 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Router\Route;
 
+HTMLHelper::_('bootstrap.tooltip', '.hasTooltip');
+
 $class = 'first';
 
 if (count($this->children[$this->category->id]) AND $this->maxLevel != 0) : ?>
@@ -36,7 +38,7 @@ if (count($this->children[$this->category->id]) AND $this->maxLevel != 0) : ?>
 				?>
 				<span class="hasTooltip" title="<?php echo HTMLHelper::tooltipText($child->title, $tooltip); ?>">
 					<a href="<?php echo Route::_(SermonspeakerHelperRoute::getSermonsRoute($child->id, $child->language)); ?>">
-						<img border="0" align="middle" src="<?php echo $image; ?>"/>
+						<img src="<?php echo $image; ?>" />
 						<?php
 						if ($child->level == 1) : ?>
 							<span class="item-title">

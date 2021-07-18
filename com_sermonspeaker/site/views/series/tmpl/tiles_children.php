@@ -12,6 +12,8 @@ defined('_JEXEC') or die();
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 
+HTMLHelper::_('bootstrap.tooltip', '.hasTooltip');
+
 $class = 'first';
 
 if (count($this->children[$this->category->id]) and $this->maxLevel != 0) : ?>
