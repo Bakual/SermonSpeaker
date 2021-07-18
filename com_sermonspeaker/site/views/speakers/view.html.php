@@ -36,6 +36,7 @@ class SermonspeakerViewSpeakers extends JViewLegacy
 		$this->state      = $this->get('State');
 		$this->items      = $this->get('Items');
 		$this->pagination = $this->get('Pagination');
+		$this->hasTags    = $this->get('Tags');
 
 		// Get Category stuff from models
 		$this->category       = $this->get('Category');
