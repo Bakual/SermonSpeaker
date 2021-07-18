@@ -102,7 +102,8 @@
 			<menu view="tools">COM_SERMONSPEAKER_MENU_TOOLS</menu>
 			<menu view="help">COM_SERMONSPEAKER_MENU_HELP</menu>
 			<menu link="option=com_fields&amp;view=fields&amp;context=com_sermonspeaker.sermon">JGLOBAL_FIELDS</menu>
-			<menu link="option=com_fields&amp;view=groups&amp;context=com_sermonspeaker.sermon">JGLOBAL_FIELD_GROUPS</menu>
+			<menu link="option=com_fields&amp;view=groups&amp;context=com_sermonspeaker.sermon">JGLOBAL_FIELD_GROUPS
+			</menu>
 		</submenu>
 		<files folder="admin">
 			<filename>access.xml</filename>
@@ -127,6 +128,8 @@
 		<table>#__sermon_scriptures</table>
 	</tables>
 	<updateservers>
-		<server type="extension" priority="1" name="SermonSpeaker.net">https://www.sermonspeaker.net/update/com_sermonspeaker.xml</server>
+		<server type="extension" priority="1" name="SermonSpeaker.net">
+			https://www.sermonspeaker.net/update/com_sermonspeaker.xml
+		</server>
 	</updateservers>
 </extension>

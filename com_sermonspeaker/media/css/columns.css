@@ -1,93 +1,93 @@
 div.ss-entry {
-    padding: 20px 0;
-    min-height: 130px;
-    display: flex;
+	padding: 20px 0;
+	min-height: 130px;
+	display: flex;
 }
 
 div.column-picture {
-    width: 150px;
-    padding: 0 15px;
+	width: 150px;
+	padding: 0 15px;
 }
 
 div.column-content {
-    flex-grow: 1;
+	flex-grow: 1;
 }
 
 div.column-content h3.title {
-    margin-top: 0;
+	margin-top: 0;
 }
 
 span.speaker.scripture {
-    border-left: 1px solid grey;
-    padding-left: 5px;
+	border-left: 1px solid grey;
+	padding-left: 5px;
 }
 
 div.column-detail {
-    border-left: 1px solid grey;
-    width: 14em;
-    font-size: 0.75em;
-    color: grey;
-    padding: 0 10px;
-    flex-shrink: 0
+	border-left: 1px solid grey;
+	width: 14em;
+	font-size: 0.75em;
+	color: grey;
+	padding: 0 10px;
+	flex-shrink: 0
 }
 
 div.column-files {
-    border-left: 1px solid grey;
-    width: 12.5em;
-    font-size: 0.9em;
-    padding: 0 5px;
-    flex-shrink: 0;
+	border-left: 1px solid grey;
+	width: 12.5em;
+	font-size: 0.9em;
+	padding: 0 5px;
+	flex-shrink: 0;
 }
 
 div.column-files a {
-    padding: 5px;
-    margin: 3px;
-    border: 1px solid grey;
-    border-radius: 5px;
-    display: block;
+	padding: 5px;
+	margin: 3px;
+	border: 1px solid grey;
+	border-radius: 5px;
+	display: block;
 }
 
 div.column-files a.addfile img {
-    vertical-align: middle;
-    position: relative;
-    top: -2px;
+	vertical-align: middle;
+	position: relative;
+	top: -2px;
 }
 
 div.column-files a.addfile {
-    padding-top: 7px;
+	padding-top: 7px;
 }
 
 div.column-files a.download {
-    background: url(../images/download.png) no-repeat 5px center;
-    padding-left: 26px;
+	background: url(../images/download.png) no-repeat 5px center;
+	padding-left: 26px;
 }
 
 div.column-files a.listen {
-    background: url(../images/listen.png) no-repeat 5px center;
-    padding-left: 26px;
+	background: url(../images/listen.png) no-repeat 5px center;
+	padding-left: 26px;
 }
 
 div.column-files a.watch {
-    background: url(../images/watch.png) no-repeat 5px center;
-    padding-left: 26px;
+	background: url(../images/watch.png) no-repeat 5px center;
+	padding-left: 26px;
 }
 
 @media (max-width: 979px) {
-    div.ss-entry {
-        flex-direction: column;
-    }
+	div.ss-entry {
+		flex-direction: column;
+	}
 
-    div.ss-entry > div {
-        width: auto;
-    }
+	div.ss-entry > div {
+		width: auto;
+	}
 
-    div.column-picture {
-        padding-bottom: 15px;
-    }
+	div.column-picture {
+		padding-bottom: 15px;
+	}
 
-    div.column-detail,
-    div.column-files {
-        border: none;
-        padding: 0;
-    }
+	div.column-detail,
+	div.column-files {
+		border: none;
+		padding: 0;
+	}
 }

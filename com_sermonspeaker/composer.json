@@ -13,7 +13,9 @@
     "vendor-dir": "admin/vendor"
   },
   "autoload": {
-    "psr-4": {"Bakual\\Sermonspeaker\\": ""}
+    "psr-4": {
+      "Bakual\\Sermonspeaker\\": ""
+    }
   },
   "scripts": {
     "post-install-cmd": "Bakual\\Sermonspeaker\\ComposerCommands::cleanup",

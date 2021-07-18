@@ -70,8 +70,8 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 	/**
 	 * method to run before an install/update/uninstall method
 	 *
-	 * @param   string                                        $type   'install', 'update' or 'discover_install'
-	 * @param   Joomla\CMS\Installer\Adapter\ComponentAdapter $parent Installerobject
+	 * @param   string                                         $type    'install', 'update' or 'discover_install'
+	 * @param   Joomla\CMS\Installer\Adapter\ComponentAdapter  $parent  Installerobject
 	 *
 	 * @return  boolean  false will terminate the installation
 	 *
@@ -100,7 +100,7 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 	/**
 	 * Method to install the component
 	 *
-	 * @param   Joomla\CMS\Installer\Adapter\ComponentAdapter $parent Installerobject
+	 * @param   Joomla\CMS\Installer\Adapter\ComponentAdapter  $parent  Installerobject
 	 *
 	 * @return void
 	 *
@@ -115,7 +115,7 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 	/**
 	 * Method to uninstall the component
 	 *
-	 * @param   Joomla\CMS\Installer\Adapter\ComponentAdapter $parent Installerobject
+	 * @param   Joomla\CMS\Installer\Adapter\ComponentAdapter  $parent  Installerobject
 	 *
 	 * @return void
 	 *
@@ -128,7 +128,7 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 	/**
 	 * method to update the component
 	 *
-	 * @param   Joomla\CMS\Installer\Adapter\ComponentAdapter $parent Installerobject
+	 * @param   Joomla\CMS\Installer\Adapter\ComponentAdapter  $parent  Installerobject
 	 *
 	 * @return void
 	 *
@@ -143,18 +143,18 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 			$this->deleteFolders[] = '/components/com_sermonspeaker/helpers/player';
 
 			// Remove old SQL files
-			$this->deleteFiles[]   = '/administrator/components/com_sermonspeaker/sql/updates/mysql/4.5.0.sql';
-			$this->deleteFiles[]   = '/administrator/components/com_sermonspeaker/sql/updates/mysql/4.5.1.sql';
-			$this->deleteFiles[]   = '/administrator/components/com_sermonspeaker/sql/updates/mysql/4.5.2.sql';
-			$this->deleteFiles[]   = '/administrator/components/com_sermonspeaker/sql/updates/mysql/4.5.3.sql';
-			$this->deleteFiles[]   = '/administrator/components/com_sermonspeaker/sql/updates/mysql/4.5.4.sql';
-			$this->deleteFiles[]   = '/administrator/components/com_sermonspeaker/sql/updates/mysql/5.0.0.sql';
-			$this->deleteFiles[]   = '/administrator/components/com_sermonspeaker/sql/updates/mysql/5.0.1.sql';
-			$this->deleteFiles[]   = '/administrator/components/com_sermonspeaker/sql/updates/mysql/5.0.2.sql';
-			$this->deleteFiles[]   = '/administrator/components/com_sermonspeaker/sql/updates/mysql/5.0.3.sql';
-			$this->deleteFiles[]   = '/administrator/components/com_sermonspeaker/sql/updates/mysql/5.0.4.sql';
-			$this->deleteFiles[]   = '/administrator/components/com_sermonspeaker/sql/updates/mysql/5.4.0.sql';
-			$this->deleteFiles[]   = '/administrator/components/com_sermonspeaker/sql/updates/mysql/5.5.0.sql';
+			$this->deleteFiles[] = '/administrator/components/com_sermonspeaker/sql/updates/mysql/4.5.0.sql';
+			$this->deleteFiles[] = '/administrator/components/com_sermonspeaker/sql/updates/mysql/4.5.1.sql';
+			$this->deleteFiles[] = '/administrator/components/com_sermonspeaker/sql/updates/mysql/4.5.2.sql';
+			$this->deleteFiles[] = '/administrator/components/com_sermonspeaker/sql/updates/mysql/4.5.3.sql';
+			$this->deleteFiles[] = '/administrator/components/com_sermonspeaker/sql/updates/mysql/4.5.4.sql';
+			$this->deleteFiles[] = '/administrator/components/com_sermonspeaker/sql/updates/mysql/5.0.0.sql';
+			$this->deleteFiles[] = '/administrator/components/com_sermonspeaker/sql/updates/mysql/5.0.1.sql';
+			$this->deleteFiles[] = '/administrator/components/com_sermonspeaker/sql/updates/mysql/5.0.2.sql';
+			$this->deleteFiles[] = '/administrator/components/com_sermonspeaker/sql/updates/mysql/5.0.3.sql';
+			$this->deleteFiles[] = '/administrator/components/com_sermonspeaker/sql/updates/mysql/5.0.4.sql';
+			$this->deleteFiles[] = '/administrator/components/com_sermonspeaker/sql/updates/mysql/5.4.0.sql';
+			$this->deleteFiles[] = '/administrator/components/com_sermonspeaker/sql/updates/mysql/5.5.0.sql';
 
 			// Update Content Types (especially new categories)
 			$this->saveContentTypes();
@@ -164,97 +164,6 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 
 			// Add Dashboard menu on update
 			$this->addDashboardMenu('sermonspeaker', 'sermonspeaker');
-		}
-	}
-
-	/**
-	 * method to run after an install/update/uninstall method
-	 *
-	 * @param   string                                        $type   'install', 'update' or 'discover_install'
-	 * @param   Joomla\CMS\Installer\Adapter\ComponentAdapter $parent Installerobject
-	 *
-	 * @return void
-	 *
-	 * @since ?
-	 */
-	public function postflight($type, $parent)
-	{
-		$type = strtolower($type);
-
-		if ($type == 'install' || $type == 'discover_install')
-		{
-			// Adding Category "Uncategorised" if installing or discovering.
-			$this->addCategory();
-
-			// Adding ContentTypes
-			$this->saveContentTypes();
-
-			// Setting some default values for columns on install
-			$params                = array();
-			$params['col']         = '"col":['
-				. '"sermons:scripture","sermons:speaker","sermons:date","sermons:series","sermons:player"'
-				. ',"sermon:scripture","sermon:speaker","sermon:date","sermon:series","sermon:player","sermon:notes","sermon:addfile"'
-				. ',"serie:scripture","serie:speaker","serie:date","serie:player"'
-				. ',"speaker:scripture","speaker:date","speaker:series","speaker:player"'
-				. ']';
-			$params['col_serie']   = '"col_serie":['
-				. '"series:speaker"'
-				. ',"serie:description","serie:speaker"'
-				. ',"speaker:description"'
-				. ']';
-			$params['col_speaker'] = '"col_speaker":["speakers:bio","speaker:bio","speaker:intro"]';
-
-			$db    = Factory::getDbo();
-			$query = $db->getQuery(true);
-			$query->update($db->quoteName('#__extensions'));
-			$query->set($db->quoteName('params') . ' = ' . $db->quote('{' . implode(',', $params) . '}'));
-			$query->where($db->quoteName('name') . ' = ' . $db->quote('com_sermonspeaker'));
-			$db->setQuery($query);
-			$db->execute();
-		}
-
-		$this->removeFiles();
-	}
-
-
-	/**
-	 * Method to add a default category "Uncategorised"
-	 *
-	 * @return void
-	 *
-	 * @since ?
-	 */
-	private function addCategory()
-	{
-		$db         = Factory::getDbo();
-		$catFactory = new Joomla\CMS\Mvc\Factory\MvcFactory('Joomla\Component\Categories');
-		$catModel   = new Joomla\Component\Categories\Administrator\Model\CategoryModel(array(), $catFactory);
-		$sections   = array('sermons', 'series', 'speakers');
-
-		foreach ($sections as $section)
-		{
-			$catData = array(
-				'id'          => 0,
-				'parent_id'   => 0,
-				'level'       => 1,
-				'path'        => 'uncategorised',
-				'extension'   => 'com_sermonspeaker.' . $section,
-				'title'       => 'Uncategorised',
-				'alias'       => 'uncategorised',
-				'description' => '',
-				'published'   => 1,
-				'language'    => '*',
-				'params'      => '',
-			);
-			$catModel->save($catData);
-			$id = $catModel->getItem()->id;
-
-			$query = $db->getQuery(true);
-			$query->update($db->quoteName('#__sermon_' . $section));
-			$query->set($db->quoteName('catid') . ' = ' . (int) $id);
-			$query->where($db->quoteName('catid') . ' = 0');
-			$db->setQuery($query);
-			$db->execute();
 		}
 	}
 
@@ -588,6 +497,96 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 			{
 				$this->app->enqueueMessage($e->getMessage(), 'ERROR');
 			}
+		}
+	}
+
+	/**
+	 * method to run after an install/update/uninstall method
+	 *
+	 * @param   string                                         $type    'install', 'update' or 'discover_install'
+	 * @param   Joomla\CMS\Installer\Adapter\ComponentAdapter  $parent  Installerobject
+	 *
+	 * @return void
+	 *
+	 * @since ?
+	 */
+	public function postflight($type, $parent)
+	{
+		$type = strtolower($type);
+
+		if ($type == 'install' || $type == 'discover_install')
+		{
+			// Adding Category "Uncategorised" if installing or discovering.
+			$this->addCategory();
+
+			// Adding ContentTypes
+			$this->saveContentTypes();
+
+			// Setting some default values for columns on install
+			$params                = array();
+			$params['col']         = '"col":['
+				. '"sermons:scripture","sermons:speaker","sermons:date","sermons:series","sermons:player"'
+				. ',"sermon:scripture","sermon:speaker","sermon:date","sermon:series","sermon:player","sermon:notes","sermon:addfile"'
+				. ',"serie:scripture","serie:speaker","serie:date","serie:player"'
+				. ',"speaker:scripture","speaker:date","speaker:series","speaker:player"'
+				. ']';
+			$params['col_serie']   = '"col_serie":['
+				. '"series:speaker"'
+				. ',"serie:description","serie:speaker"'
+				. ',"speaker:description"'
+				. ']';
+			$params['col_speaker'] = '"col_speaker":["speakers:bio","speaker:bio","speaker:intro"]';
+
+			$db    = Factory::getDbo();
+			$query = $db->getQuery(true);
+			$query->update($db->quoteName('#__extensions'));
+			$query->set($db->quoteName('params') . ' = ' . $db->quote('{' . implode(',', $params) . '}'));
+			$query->where($db->quoteName('name') . ' = ' . $db->quote('com_sermonspeaker'));
+			$db->setQuery($query);
+			$db->execute();
+		}
+
+		$this->removeFiles();
+	}
+
+	/**
+	 * Method to add a default category "Uncategorised"
+	 *
+	 * @return void
+	 *
+	 * @since ?
+	 */
+	private function addCategory()
+	{
+		$db         = Factory::getDbo();
+		$catFactory = new Joomla\CMS\Mvc\Factory\MvcFactory('Joomla\Component\Categories');
+		$catModel   = new Joomla\Component\Categories\Administrator\Model\CategoryModel(array(), $catFactory);
+		$sections   = array('sermons', 'series', 'speakers');
+
+		foreach ($sections as $section)
+		{
+			$catData = array(
+				'id'          => 0,
+				'parent_id'   => 0,
+				'level'       => 1,
+				'path'        => 'uncategorised',
+				'extension'   => 'com_sermonspeaker.' . $section,
+				'title'       => 'Uncategorised',
+				'alias'       => 'uncategorised',
+				'description' => '',
+				'published'   => 1,
+				'language'    => '*',
+				'params'      => '',
+			);
+			$catModel->save($catData);
+			$id = $catModel->getItem()->id;
+
+			$query = $db->getQuery(true);
+			$query->update($db->quoteName('#__sermon_' . $section));
+			$query->set($db->quoteName('catid') . ' = ' . (int) $id);
+			$query->where($db->quoteName('catid') . ' = 0');
+			$db->setQuery($query);
+			$db->execute();
 		}
 	}
 }

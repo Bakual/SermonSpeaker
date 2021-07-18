@@ -1,46 +1,46 @@
 /* Plupload */
 .filelist {
-  margin: 5px 0 0 0;
+	margin: 5px 0 0 0;
 }
 
 .filelist .alert {
-  padding: 5px;
-  margin-bottom: 2px;
+	padding: 5px;
+	margin-bottom: 2px;
 }
 
 .filelist .alert .close {
-  right: 0;
+	right: 0;
 }
 
 .scripture {
-  background-color: #CF9 !important;
+	background-color: #CF9 !important;
 }
 
 .scripture.old {
-  background-color: #FF997F !important;
+	background-color: #FF997F !important;
 }
 
 .scripture.unsaved {
-  cursor: not-allowed;
-  background-color: #eee !important;
+	cursor: not-allowed;
+	background-color: #eee !important;
 }
 
 .icon.inactive a {
-  background-color: #F4F4F4 !important;
+	background-color: #F4F4F4 !important;
 }
 
 #sermonList .icon-feed.text-success {
-  border-color: var(--success);
+	border-color: var(--success);
 }
 
 .id3-info {
-  float: left;
-  border: 1px dotted grey;
-  border-radius: 5px;
-  padding: 4px 8px;
-  background-color: lightyellow;
+	float: left;
+	border: 1px dotted grey;
+	border-radius: 5px;
+	padding: 4px 8px;
+	background-color: lightyellow;
 }
 
 .com_sermonspeaker .card-header {
-  background-color: rgba(0, 0, 0, .03);
+	background-color: rgba(0, 0, 0, .03);
 }

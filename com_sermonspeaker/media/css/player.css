@@ -1,61 +1,72 @@
 .ss-player {
 	margin-bottom: 10px;
 }
+
 .ss-player hr {
 	margin: 0;
 }
-#playing{
-	width:100%;
-	height:60px;
-	text-align:left;
+
+#playing {
+	width: 100%;
+	height: 60px;
+	text-align: left;
 }
-#playing img{
-	height:100%;
-	display:none;
-	float:left;
+
+#playing img {
+	height: 100%;
+	display: none;
+	float: left;
 }
-#playing .text{
-	float:left;
+
+#playing .text {
+	float: left;
 }
-#playing .title{
-	margin:5px 0 0 10px;
-	display:block;
-	font-size:15px;
-	font-weight:bold;
+
+#playing .title {
+	margin: 5px 0 0 10px;
+	display: block;
+	font-size: 15px;
+	font-weight: bold;
 }
-#playing .desc{
-	margin:5px 0 0 10px;
-	display:block;
-	font-size:10px;
-	line-height:1em;
+
+#playing .desc {
+	margin: 5px 0 0 10px;
+	display: block;
+	font-size: 10px;
+	line-height: 1em;
 }
-#playing .duration{
-	margin:5px;
-	font-weight:bold;
-	font-size:10px;
-	float:right;
+
+#playing .duration {
+	margin: 5px;
+	font-weight: bold;
+	font-size: 10px;
+	float: right;
 }
-#playing .error{
-	margin-right:5px;
-	padding:3px;
-	line-height:10px;
-	font-weight:bold;
-	font-size:10px;
-	float:right;
-	clear:right;
-	display:none;
-	border:1px dotted red;
+
+#playing .error {
+	margin-right: 5px;
+	padding: 3px;
+	line-height: 10px;
+	font-weight: bold;
+	font-size: 10px;
+	float: right;
+	clear: right;
+	display: none;
+	border: 1px dotted red;
 }
-.pointer{
-	cursor:pointer;
+
+.pointer {
+	cursor: pointer;
 }
+
 .ss-current,
 .table-striped tbody > tr.ss-current:nth-child(odd):not(:hover) > td,
-.list-striped li.ss-current:nth-child(odd):not(:hover){
-	background-color:#EBFFEB;
-	border-radius:4px;
-	overflow:auto;
+.list-striped li.ss-current:nth-child(odd):not(:hover) {
+	background-color: #EBFFEB;
+	border-radius: 4px;
+	overflow: auto;
 }
+
 /* MediaElement Player */
 .mejs__playlist-current {
 	display: none;
