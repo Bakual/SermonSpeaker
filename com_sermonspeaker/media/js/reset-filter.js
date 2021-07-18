@@ -24,6 +24,12 @@
     if(document.getElementById('filter-year')){
       document.getElementById('filter-year').value = '';
     }
+    if(document.getElementById('filter_order')){
+      document.getElementById('filter_order').value = '';
+    }
+    if(document.getElementById('filter_order_Dir')){
+      document.getElementById('filter_order_Dir').value = '';
+    }
     form.submit();
   };
 
