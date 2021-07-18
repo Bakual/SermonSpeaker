@@ -79,7 +79,6 @@ if (($this->params->get('filter_field') === 'tag') && (Multilanguage::isEnabled(
 			<?php echo HTMLHelper::_('select.options', $this->years, 'year', 'year', $this->state->get('date.year'), true); ?>
 		</select>
 		<button type="submit" name="filter_submit" class="btn btn-primary"><?php echo Text::_('JGLOBAL_FILTER_BUTTON'); ?></button>
-		<!-- TODO: Needs custom JS for clearing -->
 		<button type="reset" name="filter-clear-button" class="btn btn-secondary"><?php echo Text::_('JSEARCH_FILTER_CLEAR'); ?></button>
 	</div>
 <?php endif; ?>
