@@ -55,7 +55,7 @@ $orderlist = array(
 	</div>
 <?php endif; ?>
 
-<div class="com-sermonspeaker-sermons__ordering btn-group float-end">
+<div class="com-sermonspeaker-sermons__ordering btn-group">
 	<label for="filter_order" class="visually-hidden">
 		<?php echo Text::_('COM_SERMONSPEAKER_SELECT_ORDERING'); ?>
 	</label>
@@ -71,4 +71,3 @@ $orderlist = array(
 		<?php echo HTMLHelper::_('select.options', array('ASC' => 'COM_SERMONSPEAKER_SELECT_ORDER_DIR_OPTION_ASC', 'DESC' => 'COM_SERMONSPEAKER_SELECT_ORDER_DIR_OPTION_DESC'), '', '', $this->state->get('list.direction'), true); ?>
 	</select>
 </div>
-<div class="clearfix"></div>

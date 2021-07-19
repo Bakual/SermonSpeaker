@@ -103,7 +103,7 @@ $orderlist = array(
 	</div>
 <?php endif; ?>
 
-<div class="com-sermonspeaker-sermons__ordering btn-group float-end">
+<div class="com-sermonspeaker-sermons__ordering btn-group">
 	<label for="filter_order" class="visually-hidden">
 		<?php echo Text::_('COM_SERMONSPEAKER_SELECT_ORDERING'); ?>
 	</label>
