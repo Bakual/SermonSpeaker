@@ -9,66 +9,114 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Multilanguage;
 use Joomla\CMS\Language\Text;
 
+HtmlHelper::script('com_sermonspeaker/reset-filter.js', ['relative' => true]);
+
+// Tags filtering based on language filter
+$langFilter = false;
+
+if (($this->params->get('filter_field') === 'tag') && (Multilanguage::isEnabled()))
+{
+	$tagfilter = ComponentHelper::getParams('com_tags')->get('tag_list_language_filter');
+
+	switch ($tagfilter)
+	{
+		case 'current_language':
+			$langFilter = Factory::getApplication()->getLanguage()->getTag();
+			break;
+
+		case 'all':
+			$langFilter = false;
+			break;
+
+		default:
+			$langFilter = $tagfilter;
+	}
+}
+
 $orderlist = array(
-	'title'       => 'JGLOBAL_TITLE',
-	'sermon_date' => 'COM_SERMONSPEAKER_FIELD_DATE_LABEL',
-	'hits'        => 'JGLOBAL_HITS',
-	'ordering'    => 'JFIELD_ORDERING_LABEL',
+		'title'       => 'JGLOBAL_TITLE',
+		'sermon_date' => 'COM_SERMONSPEAKER_FIELD_DATE_LABEL',
+		'hits'        => 'JGLOBAL_HITS',
+		'ordering'    => 'JFIELD_ORDERING_LABEL',
 );
 ?>
-<fieldset class="filters btn-toolbar clearfix">
-	<?php if ($this->params->get('filter_field')) : ?>
-		<div class="btn-group input-append">
-			<label class="filter-search-lbl element-invisible" for="filter-search">
-				<?php echo Text::_('JGLOBAL_FILTER_LABEL') . '&#160;'; ?>
-			</label>
-			<input type="text" name="filter-search" id="filter-search"
-				   value="<?php echo $this->escape($this->state->get('filter.search')); ?>" class="input-medium"
-				   onchange="this.form.submit();" title="<?php echo Text::_('COM_SERMONSPEAKER_FILTER_SEARCH_DESC'); ?>"
-				   placeholder="<?php echo Text::_('COM_SERMONSPEAKER_FILTER_SEARCH_DESC'); ?>"/>
-			<span class="add-on hasTooltip hidden-phone hidden-tablet icon-remove" onclick="clear_all();"
-				  title="<?php echo Text::_('JSEARCH_FILTER_CLEAR'); ?>"> </span>
-		</div>
-		<div class="btn-group filter-select">
-			<?php if ($this->hasTags) : ?>
-				<?php echo $this->filterForm->getInput('tag', 'filter'); ?>
-			<?php endif; ?>
-			<?php if ($this->books) : ?>
-				<select name="book" id="filter_books" class="input-medium" onchange="this.form.submit()">
-					<option value="0"><?php echo Text::_('COM_SERMONSPEAKER_SELECT_BOOK'); ?></option>
-					<?php echo HTMLHelper::_('select.options', $this->books, 'value', 'text', $this->state->get('scripture.book'), true); ?>
-				</select>
-			<?php endif; ?>
-			<select name="month" id="filter_months" class="input-medium" onchange="this.form.submit()">
-				<option value="0"><?php echo Text::_('COM_SERMONSPEAKER_SELECT_MONTH'); ?></option>
-				<?php echo HTMLHelper::_('select.options', $this->months, 'value', 'text', $this->state->get('date.month'), true); ?>
-			</select>
-			<select name="year" id="filter_years" class="input-small" onchange="this.form.submit()">
-				<option value="0"><?php echo Text::_('COM_SERMONSPEAKER_SELECT_YEAR_SHORT'); ?></option>
-				<?php echo HTMLHelper::_('select.options', $this->years, 'year', 'year', $this->state->get('date.year'), true); ?>
-			</select>
-		</div>
-		<div class="btn-group ordering-select">
-			<select name="filter_order" id="filter_order" class="input-medium" onchange="this.form.submit()">
-				<option value="0"><?php echo Text::_('COM_SERMONSPEAKER_SELECT_ORDERING'); ?></option>
-				<?php echo HTMLHelper::_('select.options', $orderlist, '', '', $this->state->get('list.ordering'), true); ?>
-			</select>
-			<select name="filter_order_Dir" id="filter_order_Dir" class="input-medium" onchange="this.form.submit()">
-				<option value="0"><?php echo Text::_('COM_SERMONSPEAKER_SELECT_ORDER_DIR'); ?></option>
-				<?php echo HTMLHelper::_('select.options', array('ASC' => 'COM_SERMONSPEAKER_SELECT_ORDER_DIR_OPTION_ASC', 'DESC' => 'COM_SERMONSPEAKER_SELECT_ORDER_DIR_OPTION_DESC'), '', '', $this->state->get('list.direction'), true); ?>
-			</select>
-		</div>
-	<?php endif;
+<?php if ($this->params->get('filter_field')) : ?>
+	<div class="com-sermonspeaker__filter btn-group">
+		<label class="filter-search-lbl visually-hidden" for="filter-search">
+			<?php echo Text::_('JGLOBAL_FILTER_LABEL'); ?>
+		</label>
+		<input type="text" name="filter[search]" id="filter-search"
+			   value="<?php echo $this->escape($this->state->get('filter.search')); ?>" class="inputbox"
+			   onchange="document.adminForm.submit();"
+			   placeholder="<?php echo Text::_('COM_SERMONSPEAKER_FILTER_SEARCH_DESC'); ?>">
 
-	if ($this->params->get('show_pagination_limit')) : ?>
-		<div class="btn-group pull-right">
-			<label for="limit" class="element-invisible">
-				<?php echo Text::_('JGLOBAL_DISPLAY_NUM'); ?>
+		<?php if ($this->hasTags) : ?>
+			<label class="filter-tag-lbl visually-hidden" for="filter-tag">
+				<?php echo Text::_('JOPTION_SELECT_TAG'); ?>
 			</label>
-			<?php echo $this->pagination->getLimitBox(); ?>
-		</div>
-	<?php endif; ?>
-</fieldset>
+			<select name="filter[tag]" id="filter-tag" class="form-select" onchange="document.adminForm.submit();">
+				<option value=""><?php echo Text::_('JOPTION_SELECT_TAG'); ?></option>
+				<?php echo HTMLHelper::_('select.options', HTMLHelper::_('tag.options', array('filter.published' => array(1), 'filter.language' => $langFilter), true), 'value', 'text', $this->state->get('filter.tag')); ?>
+			</select>
+		<?php endif; ?>
+
+		<?php if ($this->books) : ?>
+			<label class="filter-book-lbl visually-hidden" for="filter-book">
+				<?php echo Text::_('COM_SERMONSPEAKER_SELECT_BOOK'); ?>
+			</label>
+			<?php array_unshift($this->books, array('items' => array(array('value' => 0, 'text' => Text::_('COM_SERMONSPEAKER_SELECT_BOOK'))))); ?>
+			<?php $options = array('id' => 'filter-book', 'list.attr' => 'class="form-select" onchange="document.adminForm.submit()"', 'list.select' => $this->state->get('filter.book')); ?>
+			<?php echo HTMLHelper::_('select.groupedlist', $this->books, 'filter[book]', $options); ?>
+		<?php endif; ?>
+		<label class="filter-month-lbl visually-hidden" for="filter-month">
+			<?php echo Text::_('COM_SERMONSPEAKER_SELECT_MONTH'); ?>
+		</label>
+		<select name="month" id="filter-month" class="form-select" onchange="document.adminForm.submit()">
+			<option value="0"><?php echo Text::_('COM_SERMONSPEAKER_SELECT_MONTH'); ?></option>
+			<?php echo HTMLHelper::_('select.options', $this->months, 'value', 'text', $this->state->get('date.month'), true); ?>
+		</select>
+		<label class="filter-year-lbl visually-hidden" for="filter-year">
+			<?php echo Text::_('COM_SERMONSPEAKER_SELECT_YEAR_SHORT'); ?>
+		</label>
+		<select name="year" id="filter-year" class="form-select" onchange="document.adminForm.submit()">
+			<option value="0"><?php echo Text::_('COM_SERMONSPEAKER_SELECT_YEAR_SHORT'); ?></option>
+			<?php echo HTMLHelper::_('select.options', $this->years, 'year', 'year', $this->state->get('date.year'), true); ?>
+		</select>
+		<button type="submit" name="filter_submit" class="btn btn-primary">
+			<?php echo Text::_('JGLOBAL_FILTER_BUTTON'); ?></button>
+		<button type="reset" name="filter-clear-button" class="btn btn-secondary">
+			<?php echo Text::_('JSEARCH_FILTER_CLEAR'); ?></button>
+	</div>
+<?php endif; ?>
+
+<?php if ($this->params->get('show_pagination_limit')) : ?>
+	<div class="com-sermonspeaker-sermons__pagination btn-group float-end">
+		<label for="limit" class="visually-hidden">
+			<?php echo Text::_('JGLOBAL_DISPLAY_NUM'); ?>
+		</label>
+		<?php echo $this->pagination->getLimitBox(); ?>
+	</div>
+<?php endif; ?>
+
+<div class="com-sermonspeaker-sermons__ordering btn-group float-end">
+	<label for="filter_order" class="visually-hidden">
+		<?php echo Text::_('COM_SERMONSPEAKER_SELECT_ORDERING'); ?>
+	</label>
+	<select name="filter_order" id="filter_order" class="form-select" onchange="document.adminForm.submit()">
+		<option value="0"><?php echo Text::_('COM_SERMONSPEAKER_SELECT_ORDERING'); ?></option>
+		<?php echo HTMLHelper::_('select.options', $orderlist, '', '', $this->state->get('list.ordering'), true); ?>
+	</select>
+	<label for="filter_order_Dir" class="visually-hidden">
+		<?php echo Text::_('COM_SERMONSPEAKER_SELECT_ORDER_DIR'); ?>
+	</label>
+	<select name="filter_order_Dir" id="filter_order_Dir" class="form-select" onchange="document.adminForm.submit()">
+		<option value="0"><?php echo Text::_('COM_SERMONSPEAKER_SELECT_ORDER_DIR'); ?></option>
+		<?php echo HTMLHelper::_('select.options', array('ASC' => 'COM_SERMONSPEAKER_SELECT_ORDER_DIR_OPTION_ASC', 'DESC' => 'COM_SERMONSPEAKER_SELECT_ORDER_DIR_OPTION_DESC'), '', '', $this->state->get('list.direction'), true); ?>
+	</select>
+</div>
+<div class="clearfix"></div>
