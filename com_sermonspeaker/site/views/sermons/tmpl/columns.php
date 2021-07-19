@@ -17,8 +17,10 @@ use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
 
 HTMLHelper::addIncludePath(JPATH_COMPONENT . '/helpers');
+
 HTMLHelper::_('bootstrap.tooltip', '.hasTooltip');
 HTMLHelper::_('stylesheet', 'com_sermonspeaker/columns.css', array('relative' => true));
+
 $user       = Factory::getUser();
 $canEdit    = $user->authorise('core.edit', 'com_sermonspeaker');
 $canEditOwn = $user->authorise('core.edit.own', 'com_sermonspeaker');
@@ -31,23 +33,22 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 	<?php if (in_array('sermons:player', $this->columns) and count($this->items)) : ?>
 		<?php echo LayoutHelper::render('plugin.player', array('player' => $player, 'items' => $this->items, 'view' => 'sermons')); ?>
 	<?php endif; ?>
-	<form action="<?php echo JFilterOutput::ampReplace(Uri::getInstance()->toString()); ?>" method="post"
-		  id="adminForm" name="adminForm" class="form-inline">
-		<?php
-		if ($this->params->get('filter_field') or $this->params->get('show_pagination_limit')) :
-			echo $this->loadTemplate('filtersorder');
-		endif;
+	<form action="<?php echo htmlspecialchars(Uri::getInstance()->toString()); ?>" method="post" name="adminForm"
+		  id="adminForm" class="com-sermonspeaker-sermons__sermons">
+		<?php if ($this->params->get('filter_field') or $this->params->get('show_pagination_limit')) : ?>
+			<?php echo $this->loadTemplate('filtersorder'); ?>
+		<?php endif; ?>
 
-		if (!count($this->items)) : ?>
+		<?php if (!count($this->items)) : ?>
 			<div class="alert alert-info">
 				<span class="icon-info-circle" aria-hidden="true"></span><span
 						class="visually-hidden"><?php echo Text::_('INFO'); ?></span>
 				<?php echo Text::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', Text::_('COM_SERMONSPEAKER_SERMONS')); ?>
 			</div>
 		<?php else : ?>
-			<hr class="ss-sermons-player" style="clear:both"/>
+			<hr>
 			<?php foreach ($this->items as $i => $item) : ?>
-				<div id="sermon<?php echo $i; ?>" class="ss-entry">
+				<div id="sermon<?php echo $i; ?>" class="ss-entry clearfix">
 					<div class="column-picture" onclick="ss_play(<?php echo $i; ?>)">
 						<div class="ss-picture">
 							<?php $picture = SermonspeakerHelperSermonspeaker::insertPicture($item);
@@ -145,7 +146,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 							$link = SermonspeakerHelperSermonspeaker::makeLink($item->addfile);
 
 							// Get extension of file
-							$ext = JFile::getExt($item->addfile);
+							$ext = File::getExt($item->addfile);
 
 							if (file_exists(JPATH_SITE . '/media/com_sermonspeaker/icons/' . $ext . '.png')):
 								$file = Uri::root() . 'media/com_sermonspeaker/icons/' . $ext . '.png';
@@ -199,55 +200,12 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 							</a>
 						<?php endif; ?>
 					</div>
-					<div class="column-detail" onclick="ss_play(<?php echo $i; ?>)">
-						<?php
-						if (in_array('sermons:date', $this->columns) and ($item->sermon_date != '0000-00-00 00:00:00')) : ?>
-							<div class="create">
-								<?php echo HTMLHelper::date($item->sermon_date, Text::_('DATE_FORMAT_LC1'), true); ?>
-							</div>
-						<?php endif;
-
-						if (in_array('sermons:category', $this->columns)) : ?>
-							<div class="category-name">
-								<a href="<?php echo Route::_(SermonspeakerHelperRoute::getSermonsRoute($item->catid, $item->language)); ?>"><?php echo $item->category_title; ?></a>
-							</div>
-						<?php endif;
-
-						if (in_array('sermons:hits', $this->columns)) : ?>
-							<div class="hits">
-								<?php echo Text::_('JGLOBAL_HITS'); ?>:
-								<?php echo $item->hits; ?>
-							</div>
-						<?php endif;
-
-						if (in_array('sermons:length', $this->columns)) : ?>
-							<div class="ss-sermondetail-info">
-								<?php echo Text::_('COM_SERMONSPEAKER_FIELD_LENGTH_LABEL'); ?>:
-								<?php echo SermonspeakerHelperSermonspeaker::insertTime($item->sermon_time); ?>
-							</div>
-						<?php endif;
-
-						if ($this->params->get('custom1') and $item->custom1) : ?>
-							<div class="ss-sermondetail-info">
-								<?php echo Text::_('COM_SERMONSPEAKER_CUSTOM1'); ?>:
-								<?php echo $item->custom1; ?>
-							</div>
-						<?php endif;
-
-						if ($this->params->get('custom2') and $item->custom2) : ?>
-							<div class="ss-sermondetail-info">
-								<?php echo Text::_('COM_SERMONSPEAKER_CUSTOM2'); ?>:
-								<?php echo $item->custom2; ?>
-							</div>
-						<?php endif; ?>
-					</div>
-					<br style="clear:both"/>
 				</div>
-				<hr class="ss-sermons-player"/>
-			<?php endforeach;
-		endif;
+				<hr>
+			<?php endforeach; ?>
+		<?php endif; ?>
 
-		if ($this->params->get('show_pagination') and ($this->pagination->pagesTotal > 1)) : ?>
+		<?php if ($this->params->get('show_pagination') and ($this->pagination->pagesTotal > 1)) : ?>
 			<div class="pagination">
 				<?php if ($this->params->get('show_pagination_results', 1)) : ?>
 					<p class="counter">
@@ -261,9 +219,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 	</form>
 	<?php if (!empty($this->children[$this->category->id]) and $this->maxLevel != 0) : ?>
 		<div class="cat-children">
-			<h3>
-				<?php echo Text::_('JGLOBAL_SUBCATEGORIES'); ?>
-			</h3>
+			<h3><?php echo Text::_('JGLOBAL_SUBCATEGORIES'); ?></h3>
 			<?php echo $this->loadTemplate('children'); ?>
 		</div>
 	<?php endif; ?>
