@@ -47,7 +47,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 				<?php echo Text::sprintf('COM_SERMONSPEAKER_NO_ENTRIES', Text::_('COM_SERMONSPEAKER_SERMONS')); ?>
 			</div>
 		<?php else : ?>
-			<hr class="ss-serie-player" style="clear:both"/>
+			<hr>
 			<?php foreach ($this->items as $i => $item) : ?>
 				<div id="sermon<?php echo $i; ?>" class="ss-entry">
 					<div class="column-picture" onclick="ss_play(<?php echo $i; ?>)">
@@ -190,50 +190,8 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 							</a>
 						<?php endif; ?>
 					</div>
-					<div class="column-detail" onclick="ss_play(<?php echo $i; ?>)">
-						<?php
-						if (in_array('serie:date', $this->columns) and ($item->sermon_date != '0000-00-00 00:00:00')) : ?>
-							<div class="create">
-								<?php echo HTMLHelper::date($item->sermon_date, Text::_('DATE_FORMAT_LC1'), true); ?>
-							</div>
-						<?php endif;
-
-						if (in_array('serie:category', $this->columns)) : ?>
-							<div class="category-name">
-								<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonsRoute($item->catid, $item->language)); ?>"><?php echo $item->category_title; ?></a>
-							</div>
-						<?php endif;
-
-						if (in_array('serie:hits', $this->columns)) : ?>
-							<div class="hits">
-								<?php echo Text::_('JGLOBAL_HITS'); ?>:
-								<?php echo $item->hits; ?>
-							</div>
-						<?php endif;
-
-						if (in_array('serie:length', $this->columns)) : ?>
-							<div class="ss-sermondetail-info">
-								<?php echo SermonspeakerHelperSermonspeaker::insertTime($item->sermon_time); ?>
-							</div>
-						<?php endif;
-
-						if ($this->params->get('custom1') and $item->custom1) : ?>
-							<div class="ss-sermondetail-info">
-								<?php echo Text::_('COM_SERMONSPEAKER_CUSTOM1'); ?>:
-								<?php echo $item->custom1; ?>
-							</div>
-						<?php endif;
-
-						if ($this->params->get('custom2') and $item->custom2) : ?>
-							<div class="ss-sermondetail-info">
-								<?php echo Text::_('COM_SERMONSPEAKER_CUSTOM2'); ?>:
-								<?php echo $item->custom2; ?>
-							</div>
-						<?php endif; ?>
-					</div>
-					<br style="clear:both"/>
 				</div>
-				<hr class="ss-sermons-player"/>
+				<hr>
 			<?php endforeach;
 		endif;
 
