@@ -19,7 +19,7 @@
 		</tags>
 		<maintainer>Thomas Hunziker</maintainer>
 		<maintainerurl>https://www.sermonspeaker.net/</maintainerurl>
-		<targetplatform name="joomla" version="3.[89]|10"/>
+		<targetplatform name="joomla" version="3.([89]|10)"/>
 	</update>
 	<update>
 		<name>SermonSpeaker Component</name>
