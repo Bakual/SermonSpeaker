@@ -85,17 +85,6 @@ class SermonspeakerController extends JControllerLegacy
 			JHtml::_('stylesheet', 'jui/icomoon.css', array('relative' => true));
 		}
 
-		// Make sure the format is raw for feed and sitemap view
-		// Bug: Doesn't take into account additional filters (type, cat)
-		if (($viewName == 'feed' || $viewName == 'sitemap') && $this->input->get('format') != 'raw')
-		{
-			// JFactory::$document = JDocument::getInstance('raw');
-			header('HTTP/1.1 301 Moved Permanently');
-			header('Location: ' . JUri::root() . 'index.php?option=com_sermonspeaker&view=' . $viewName . '&format=raw');
-
-			return $this;
-		}
-
 		$safeurlparams = array(
 			'id'               => 'INT',
 			'catid'            => 'INT',
