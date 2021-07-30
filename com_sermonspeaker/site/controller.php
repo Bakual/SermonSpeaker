@@ -7,6 +7,9 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
+use Joomla\CMS\Factory;
+use Joomla\CMS\Uri\Uri;
+
 defined('_JEXEC') or die();
 
 /**
@@ -76,13 +79,21 @@ class SermonspeakerController extends JControllerLegacy
 			return false;
 		}
 
-		/** @var $app JApplicationSite */
-		$app    = JFactory::getApplication();
+		$app    = Factory::getApplication();
 		$params = $app->getParams();
 
 		if ($params->get('css_icomoon'))
 		{
 			JHtml::_('stylesheet', 'jui/icomoon.css', array('relative' => true));
+		}
+
+		// Make sure the format is raw for feed and sitemap view
+		if (($viewName == 'feed' || $viewName == 'sitemap') && $app->getDocument()->getType() != 'raw')
+		{
+			$uri = Uri::getInstance();
+			$uri->setVar('format', 'raw');
+			$url = $uri->toString();
+			$app->redirect($url, 301);
 		}
 
 		$safeurlparams = array(
