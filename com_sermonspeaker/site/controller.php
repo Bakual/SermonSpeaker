@@ -7,6 +7,9 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
+use Joomla\CMS\Factory;
+use Joomla\CMS\Uri\Uri;
+
 defined('_JEXEC') or die();
 
 use Joomla\CMS\Factory;
@@ -82,13 +85,21 @@ class SermonspeakerController extends BaseController
 			return false;
 		}
 
-		/** @var $app \Joomla\CMS\Application\SiteApplication */
 		$app    = Factory::getApplication();
 		$params = $app->getParams();
 
 		if ($params->get('css_fontawesome'))
 		{
 			HTMLHelper::_('stylesheet', 'vendor/fontawesome-free/fontawesome.css', ['relative' => true]);
+		}
+
+		// Make sure the format is raw for feed and sitemap view
+		if (($viewName == 'feed' || $viewName == 'sitemap') && $app->getDocument()->getType() != 'raw')
+		{
+			$uri = Uri::getInstance();
+			$uri->setVar('format', 'raw');
+			$url = $uri->toString();
+			$app->redirect($url, 301);
 		}
 
 		$safeurlparams = array(
@@ -104,6 +115,7 @@ class SermonspeakerController extends BaseController
 			'filter-search'    => 'STRING',
 			'return'           => 'BASE64',
 			'book'             => 'INT',
+			'type'             => 'STRING',
 			'Itemid'           => 'INT',
 		);
 
