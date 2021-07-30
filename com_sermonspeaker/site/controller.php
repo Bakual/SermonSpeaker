@@ -98,6 +98,7 @@ class SermonspeakerController extends JControllerLegacy
 			'filter-search'    => 'STRING',
 			'return'           => 'BASE64',
 			'book'             => 'INT',
+			'type'             => 'STRING',
 			'Itemid'           => 'INT',
 		);
 
