@@ -47,12 +47,6 @@ zip -r ../build/packages/plg_search_sermonspeaker.zip *
 cd ../plg_sermonspeaker_generic/
 zip -r ../build/packages/plg_sermonspeaker_generic.zip *
 
-cd ../plg_sermonspeaker_jwplayer5/
-zip -r ../build/packages/plg_sermonspeaker_jwplayer5.zip *
-
-cd ../plg_sermonspeaker_jwplayer6/
-zip -r ../build/packages/plg_sermonspeaker_jwplayer6.zip *
-
 cd ../plg_sermonspeaker_jwplayer7/
 zip -r ../build/packages/plg_sermonspeaker_jwplayer7.zip *
 
