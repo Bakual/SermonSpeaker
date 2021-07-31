@@ -3,15 +3,17 @@
  * @package         SermonSpeaker
  * @subpackage      Plugin.SermonSpeaker
  * @author          Thomas Hunziker <admin@sermonspeaker.net>
- * @copyright   © 2020 - Thomas Hunziker
+ * @copyright       © 2020 - Thomas Hunziker
  * @license         http://www.gnu.org/licenses/gpl.html
  **/
 
 defined('_JEXEC') or die();
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\Filesystem\File;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
+use Joomla\Registry\Registry;
 
 JLoader::register('SermonspeakerPluginPlayer', JPATH_SITE . '/components/com_sermonspeaker/plugin/player.php');
 JLoader::register('SermonspeakerHelperSermonspeaker', JPATH_SITE . '/components/com_sermonspeaker/helpers/sermonspeaker.php');
@@ -24,54 +26,64 @@ JLoader::register('SermonspeakerHelperSermonspeaker', JPATH_SITE . '/components/
 class PlgSermonspeakerJwplayer7 extends SermonspeakerPluginPlayer
 {
 	/**
+	 * @var boolean  True if scripts are loaded already
+	 *
+	 * @since 5.x
+	 */
+	private static bool $script_loaded = false;
+	/**
 	 * @var object  Holds the player object
+	 *
+	 * @since 5.x
 	 */
 	protected $player;
-
 	/**
-	 * @var boolean  True if scripts are loaded already
+	 * @var Registry Component Parameters
+	 *
+	 * @since 5.x
 	 */
-	private static $script_loaded = false;
-
+	protected Registry $c_params;
 	/**
 	 * @var string player mode. Either 'audio' or 'video'.
+	 *
+	 * @since 5.x
 	 */
-	private $mode;
-
+	private string $mode;
 	/**
 	 * @var string filetype mode. Either 'audio', 'video' or 'auto' (default).
+	 *
+	 * @since 5.x
 	 */
-	private $type;
-
+	private string $type;
 	/**
 	 * @var int which file to prioritise. Either 0 (audio) or 1 (video).
+	 *
+	 * @since 5.x
 	 */
-	private $fileprio;
-
+	private int $fileprio;
 	/**
 	 * @var array Player options
+	 *
+	 * @since 5.x
 	 */
-	private $options;
-
-	/**
-	 * @var Joomla\Registry\Registry Component Parameters
-	 */
-	protected $c_params;
+	private array $options;
 
 	/**
 	 * Creates the player
 	 *
-	 * @param   string                   $context The context from where it's triggered
-	 * @param   object                   &$player Player object
-	 * @param   array|object             $items   An array of sermnon objects or a single sermon object
-	 * @param   Joomla\Registry\Registry $config  A config object. Special properties:
-	 *                                            - count (id of the player)
-	 *                                            - type (may be audio, video or auto)
-	 *                                            - prio (may be 0 for audio or 1 for video)
-	 *                                            - autostart (overwrites the backend setting)
-	 *                                            - alt_player (overwrites the backend setting)
-	 *                                            - awidth, aheight (width and height for audio)
-	 *                                            - vwidth, vheight (width and height for video)
+	 * @param   string                    $context  The context from where it's triggered
+	 * @param   object                   &$player   Player object
+	 * @param   array|object              $items    An array of sermnon objects or a single sermon object
+	 * @param   Registry                  $config   A config object. Special properties:
+	 *                                              - count (id of the player)
+	 *                                              - type (may be audio, video or auto)
+	 *                                              - prio (may be 0 for audio or 1 for video)
+	 *                                              - autostart (overwrites the backend setting)
+	 *                                              - alt_player (overwrites the backend setting)
+	 *                                              - awidth, aheight (width and height for audio)
+	 *                                              - vwidth, vheight (width and height for video)
+	 *
+	 * @since 5.x
 	 *
 	 * @return  void
 	 */
@@ -240,11 +252,13 @@ class PlgSermonspeakerJwplayer7 extends SermonspeakerPluginPlayer
 	/**
 	 * Checks if either audio or videofile is supported
 	 *
-	 * @param   object $item Sermon object
+	 * @param   object  $item  Sermon object
 	 *
 	 * @return  array  supported files
+	 * @since 5.x
+	 *
 	 */
-	private function isSupported($item)
+	private function isSupported(object $item): array
 	{
 		$supported = array();
 
@@ -257,12 +271,12 @@ class PlgSermonspeakerJwplayer7 extends SermonspeakerPluginPlayer
 		$audio_ext = array('aac', 'm4a', 'f4a', 'mp3', 'ogg', 'oga');
 		$video_ext = array('mp4', 'm4v', 'f4v', 'mov', 'flv', 'webm');
 
-		if (in_array(JFile::getExt(strtok($item->audiofile, '?')), $audio_ext))
+		if (in_array(File::getExt(strtok($item->audiofile, '?')), $audio_ext))
 		{
 			$supported[] = 'audio';
 		}
 
-		if (in_array(JFile::getExt(strtok($item->videofile, '?')), $video_ext))
+		if (in_array(File::getExt(strtok($item->videofile, '?')), $video_ext))
 		{
 			$supported[] = 'video';
 		}
@@ -280,7 +294,7 @@ class PlgSermonspeakerJwplayer7 extends SermonspeakerPluginPlayer
 	/**
 	 * Set generic options
 	 *
-	 * @return  array  Array of options
+	 * @since 5.x
 	 */
 	private function setOptions()
 	{
@@ -344,11 +358,13 @@ class PlgSermonspeakerJwplayer7 extends SermonspeakerPluginPlayer
 	/**
 	 * Generate Playlist for multiple sermons
 	 *
-	 * @param   array $items Array of sermon objects
+	 * @param   array  $items  Array of sermon objects
 	 *
 	 * @return  void
+	 * @since 5.x
+	 *
 	 */
-	private function createMultiPlaylist($items)
+	private function createMultiPlaylist(array $items)
 	{
 		$this->setDimensions('33', '100%');
 
@@ -506,11 +522,13 @@ class PlgSermonspeakerJwplayer7 extends SermonspeakerPluginPlayer
 	/**
 	 * Generate Playlist for single sermon
 	 *
-	 * @param   object $item A single sermon object
+	 * @param   object  $item  A single sermon object
 	 *
 	 * @return  void
+	 * @since 5.x
+	 *
 	 */
-	private function createSinglePlaylist($item)
+	private function createSinglePlaylist(object $item)
 	{
 		$this->setDimensions('33', '100%');
 
