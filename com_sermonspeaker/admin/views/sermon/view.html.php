@@ -244,9 +244,6 @@ class SermonspeakerViewSermon extends JViewLegacy
 					if (pickerApiLoaded && oauthToken) {
 						var picker = new google.picker.PickerBuilder().
 							addView(google.picker.ViewId.DOCS_VIDEOS).
-							addView(google.picker.ViewId.YOUTUBE).
-							addView(google.picker.ViewId.VIDEO_SEARCH).
-							addView(google.picker.ViewId.RECENTLY_PICKED).
 							setOAuthToken(oauthToken).
 							setDeveloperKey(developerKey).
 							setCallback(pickerCallbackVideo).
@@ -258,11 +255,6 @@ class SermonspeakerViewSermon extends JViewLegacy
 					if (pickerApiLoaded && oauthToken) {
 						var picker = new google.picker.PickerBuilder().
 							addView(google.picker.ViewId.DOCS).
-							addView(google.picker.ViewId.PHOTOS).
-							addView(google.picker.ViewId.YOUTUBE).
-							addView(google.picker.ViewId.IMAGE_SEARCH).
-							addView(google.picker.ViewId.VIDEO_SEARCH).
-							addView(google.picker.ViewId.RECENTLY_PICKED).
 							setOAuthToken(oauthToken).
 							setDeveloperKey(developerKey).
 							setCallback(pickerCallbackAddfile).
