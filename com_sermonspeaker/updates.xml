@@ -5,13 +5,13 @@
 		<description>SermonSpeaker Component</description>
 		<element>com_sermonspeaker</element>
 		<type>component</type>
-		<version>5.9.8</version>
+		<version>5.9.9</version>
 		<client>administrator</client>
-		<infourl title="SermonSpeaker Component 5.9.8">https://github.com/Bakual/SermonSpeaker/releases/tag/5.9.8
+		<infourl title="SermonSpeaker Component 5.9.9">https://github.com/Bakual/SermonSpeaker/releases/tag/5.9.9
 		</infourl>
 		<downloads>
 			<downloadurl type="full" format="zip">
-				https://github.com/Bakual/SermonSpeaker/releases/download/5.9.8/com_sermonspeaker.zip
+				https://github.com/Bakual/SermonSpeaker/releases/download/5.9.9/com_sermonspeaker.zip
 			</downloadurl>
 		</downloads>
 		<tags>
