@@ -383,9 +383,6 @@ class SermonspeakerHelperSermonspeaker
 			}
 		}
 
-		// Prepare title link function
-		$options = array('class' => 'hasTooltip');
-
 		// 0: Detailpage, 1: Download, 2: Control Player, 3: Popup
 		$list_title_function = self::$params->get('list_title_function', 0);
 
@@ -398,11 +395,12 @@ class SermonspeakerHelperSermonspeaker
 			switch (self::$params->get('list_title_function', 0))
 			{
 				case 0:
-					$options['title'] = Text::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER');
-					$return           .= HTMLHelper::link(Route::_(SermonspeakerHelperRoute::getSermonRoute($item->slug, $item->catid, $item->language)), $item->title, $options);
+					$return           .= HTMLHelper::link(Route::_(SermonspeakerHelperRoute::getSermonRoute($item->slug, $item->catid, $item->language)), $item->title);
 					break;
 				case 1:
-					$options['title'] = Text::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER');
+					$options = array();
+					$options['class'] = 'hasTooltip';
+					$options['title'] = Text::_('COM_SERMONSPEAKER_PLAYICON_HOOVER');
 					$file             = ($item->videofile && (self::$params->get('fileprio', 0) || !$item->audiofile)) ? $item->videofile : $item->audiofile;
 					$return           .= HTMLHelper::link(self::makeLink($file), $item->title, $options);
 					break;
@@ -416,6 +414,7 @@ class SermonspeakerHelperSermonspeaker
 
 					if (in_array(self::$view . ':player', $cols))
 					{
+						$options = array();
 						$options['onclick']     = 'ss_play(' . $i . ');return false;';
 						$options['title']       = Text::_('COM_SERMONSPEAKER_PLAYICON_HOOVER');
 						$options['class']       = 'ss-play hasTooltip';
@@ -425,12 +424,16 @@ class SermonspeakerHelperSermonspeaker
 					}
 					else
 					{
+						$options = array();
+						$options['class'] = 'hasTooltip';
 						$options['title'] = Text::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER');
 						$return           .= HTMLHelper::link(Route::_(SermonspeakerHelperRoute::getSermonRoute($item->slug, $item->catid, $item->language)), $item->title, $options);
 					}
 
 					break;
 				case 3:
+					$options = array();
+					$options['class'] = 'hasTooltip';
 					$options['onclick'] = "popup=window.open('" . Route::_('index.php?view=sermon&layout=popup&id=' . $item->id . '&tmpl=component')
 						. "', 'PopupPage', 'height=" . $player->popup['height'] . ',width=' . $player->popup['width']
 						. ",scrollbars=yes,resizable=yes'); return false";

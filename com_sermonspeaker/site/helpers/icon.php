@@ -198,7 +198,10 @@ class JHtmlIcon
 			$text = Text::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_' . $attribs['type']);
 		}
 
-		$text = '<i class="icon-download" > </i> ' . $text;
+		if (empty($attribs['hideIcon']))
+		{
+			$text = '<span class="icon-download" > </span> ' . $text;
+		}
 
 		if ($params->get('enable_ga_events'))
 		{
