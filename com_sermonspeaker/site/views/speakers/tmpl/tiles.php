@@ -74,15 +74,8 @@ HTMLHelper::addIncludePath(JPATH_COMPONENT . '/helpers');
 			</div>
 		<?php endif; ?>
 
-		<?php if ($this->params->get('show_pagination') && ($this->pagination->pagesTotal > 1)) : ?>
-			<div class="pagination">
-				<?php if ($this->params->get('show_pagination_results', 1)) : ?>
-					<p class="counter">
-						<?php echo $this->pagination->getPagesCounter(); ?>
-					</p>
-				<?php endif;
-				echo $this->pagination->getPagesLinks(); ?>
-			</div>
+		<?php if (!empty($this->items)) : ?>
+			<?php echo LayoutHelper::render('blocks.pagination', array('view' => 'speakers', 'pagination' => $this->pagination, 'params' => $this->params)); ?>
 		<?php endif; ?>
 		<input type="hidden" name="task" value=""/>
 	</form>

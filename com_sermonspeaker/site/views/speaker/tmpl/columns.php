@@ -195,18 +195,11 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->sermons);
 					</div>
 				</div>
 				<hr>
-			<?php endforeach;
-		endif;
+			<?php endforeach; ?>
+		<?php endif; ?>
 
-		if ($this->params->get('show_pagination') and ($this->pag_sermons->pagesTotal > 1)) : ?>
-			<div class="pagination">
-				<?php if ($this->params->get('show_pagination_results', 1)) : ?>
-					<p class="counter">
-						<?php echo $this->pag_sermons->getPagesCounter(); ?>
-					</p>
-				<?php endif;
-				echo $this->pag_sermons->getPagesLinks(); ?>
-			</div>
+		<?php if (!empty($this->sermons)) : ?>
+			<?php echo LayoutHelper::render('blocks.pagination', array('view' => 'sermons', 'pagination' => $this->pag_sermons, 'params' => $this->params)); ?>
 		<?php endif; ?>
 		<input type="hidden" name="task" value=""/>
 	</form>

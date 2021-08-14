@@ -223,21 +223,14 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 					<?php endforeach; ?>
 					</tbody>
 				</table>
-			<?php endif;
+			<?php endif; ?>
 
-			if ($user->authorise('core.create', 'com_sermonspeaker')) :
-				echo HTMLHelper::_('icon.create', $this->category, $this->params);
-			endif;
+			<?php if ($user->authorise('core.create', 'com_sermonspeaker')) : ?>
+				<?php echo HTMLHelper::_('icon.create', $this->category, $this->params); ?>
+			<?php endif; ?>
 
-			if ($this->params->get('show_pagination') and ($this->pagination->pagesTotal > 1)) : ?>
-				<div class="pagination">
-					<?php if ($this->params->get('show_pagination_results', 1)) : ?>
-						<p class="counter pull-right">
-							<?php echo $this->pagination->getPagesCounter(); ?>
-						</p>
-					<?php endif;
-					echo $this->pagination->getPagesLinks(); ?>
-				</div>
+			<?php if (!empty($this->items)) : ?>
+				<?php echo LayoutHelper::render('blocks.pagination', array('view' => 'serie', 'pagination' => $this->pagination, 'params' => $this->params)); ?>
 			<?php endif; ?>
 			<input type="hidden" name="task" value=""/>
 			<input type="hidden" name="filter_order" value="<?php echo $listOrder; ?>"/>

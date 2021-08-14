@@ -373,6 +373,24 @@ class SermonspeakerRouter extends RouterBase
 				break;
 		}
 
+		if (isset($segments[0]) && is_numeric($segments[0]))
+		{
+			if ($segments[0])
+			{
+				$vars['year'] = (int) $segments[0];
+			}
+			unset($segments[0]);
+
+			if (isset($segments[1]) && is_numeric($segments[1]))
+			{
+				if ($segments[1])
+				{
+					$vars['month'] = (int) $segments[1];
+				}
+				unset($segments[1]);
+			}
+		}
+
 		return $vars;
 	}
 }

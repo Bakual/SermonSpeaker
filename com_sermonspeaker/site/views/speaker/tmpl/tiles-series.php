@@ -13,6 +13,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Filter\OutputFilter;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
 
@@ -87,15 +88,8 @@ $canEditOwn = ($fu_enable and $user->authorise('core.edit.own', 'com_sermonspeak
 			</div>
 		<?php endif; ?>
 
-		<?php if ($this->params->get('show_pagination') && ($this->pag_series->pagesTotal > 1)) : ?>
-			<div class="pagination">
-				<?php if ($this->params->get('show_pagination_results', 1)) : ?>
-					<p class="counter">
-						<?php echo $this->pag_series->getPagesCounter(); ?>
-					</p>
-				<?php endif;
-				echo $this->pag_series->getPagesLinks(); ?>
-			</div>
+		<?php if (!empty($this->series)) : ?>
+			<?php echo LayoutHelper::render('blocks.pagination', array('view' => 'series', 'pagination' => $this->pag_series, 'params' => $this->params)); ?>
 		<?php endif; ?>
 		<input type="hidden" name="task" value=""/>
 	</form>

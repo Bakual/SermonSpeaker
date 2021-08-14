@@ -102,15 +102,8 @@ $listDirn   = $this->state->get('list.direction');
 				<?php echo HTMLHelper::_('icon.create', $this->category, $this->params, 'speaker'); ?>
 			<?php endif; ?>
 
-			<?php if ($this->params->get('show_pagination') and ($this->pagination->pagesTotal > 1)) : ?>
-				<div class="pagination">
-					<?php if ($this->params->get('show_pagination_results', 1)) : ?>
-						<p class="counter float-end">
-							<?php echo $this->pagination->getPagesCounter(); ?>
-						</p>
-					<?php endif;
-					echo $this->pagination->getPagesLinks(); ?>
-				</div>
+			<?php if (!empty($this->items)) : ?>
+				<?php echo LayoutHelper::render('blocks.pagination', array('view' => 'speakers', 'pagination' => $this->pagination, 'params' => $this->params)); ?>
 			<?php endif; ?>
 			<input type="hidden" name="task" value=""/>
 			<input type="hidden" name="filter_order" value="<?php echo $listOrder; ?>"/>

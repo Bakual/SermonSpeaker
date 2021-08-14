@@ -264,21 +264,14 @@ $this->document->addScriptDeclaration("window.onload = function() {
 							<?php endforeach; ?>
 							</tbody>
 						</table>
-					<?php endif;
+					<?php endif; ?>
 
-					if ($user->authorise('core.create', 'com_sermonspeaker')) :
-						echo HTMLHelper::_('icon.create', $this->category, $this->params);
-					endif;
+					<?php if ($user->authorise('core.create', 'com_sermonspeaker')) : ?>
+						<?php echo HTMLHelper::_('icon.create', $this->category, $this->params); ?>
+					<?php endif; ?>
 
-					if ($this->params->get('show_pagination') and ($this->pag_sermons->pagesTotal > 1)) : ?>
-						<div class="pagination">
-							<?php if ($this->params->get('show_pagination_results', 1)) : ?>
-								<p class="counter pull-right">
-									<?php echo $this->pag_sermons->getPagesCounter(); ?>
-								</p>
-							<?php endif;
-							echo $this->pag_sermons->getPagesLinks(); ?>
-						</div>
+					<?php if (!empty($this->sermons)) : ?>
+						<?php echo LayoutHelper::render('blocks.pagination', array('view' => 'sermons', 'pagination' => $this->pag_sermons, 'params' => $this->params)); ?>
 					<?php endif; ?>
 					<input type="hidden" name="task" value=""/>
 					<input type="hidden" name="filter_order" value="<?php echo $listOrderSermons; ?>"/>
@@ -402,21 +395,14 @@ $this->document->addScriptDeclaration("window.onload = function() {
 						<?php endforeach; ?>
 						</tbody>
 					</table>
-				<?php endif;
+				<?php endif; ?>
 
-				if ($user->authorise('core.create', 'com_sermonspeaker')) :
-					echo HTMLHelper::_('icon.create', $this->category, $this->params, 'serie');
-				endif;
+				<?php if ($user->authorise('core.create', 'com_sermonspeaker')) : ?>
+					<?php echo HTMLHelper::_('icon.create', $this->category, $this->params, 'serie'); ?>
+				<?php endif; ?>
 
-				if ($this->params->get('show_pagination') and ($this->pag_series->pagesTotal > 1)) : ?>
-					<div class="pagination">
-						<?php if ($this->params->get('show_pagination_results', 1)) : ?>
-							<p class="counter">
-								<?php echo $this->pag_series->getPagesCounter(); ?>
-							</p>
-						<?php endif;
-						echo $this->pag_series->getPagesLinks(); ?>
-					</div>
+				<?php if (!empty($this->series)) : ?>
+					<?php echo LayoutHelper::render('blocks.pagination', array('view' => 'series', 'pagination' => $this->pag_series, 'params' => $this->params)); ?>
 				<?php endif; ?>
 				<input type="hidden" name="task" value=""/>
 				<input type="hidden" name="filter_order" value="<?php echo $listOrderSeries; ?>"/>
