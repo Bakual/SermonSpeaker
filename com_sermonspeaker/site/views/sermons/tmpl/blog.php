@@ -39,6 +39,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 			  name="adminForm" class="com-sermonspeaker-sermons__sermons">
 			<?php if ($this->params->get('filter_field') or $this->params->get('show_pagination_limit')) : ?>
 				<?php echo $this->loadTemplate('filters'); ?>
+				<?php echo $this->loadTemplate('order'); ?>
 			<?php endif; ?>
 			<div class="clearfix"></div>
 			<?php if (!count($this->items)) : ?>
@@ -61,7 +62,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 							<div class="item-content">
 								<h2><?php echo SermonspeakerHelperSermonspeaker::insertSermonTitle($i, $item, $player, false); ?></h2>
 								<?php if (in_array('sermons:speaker', $this->columns) and $item->speaker_title) : ?>
-									<small class="ss-speaker createdby">
+									<small class="com-sermonspeaker-speaker createdby">
 										<?php echo Text::_('COM_SERMONSPEAKER_SPEAKER'); ?>:
 										<?php echo LayoutHelper::render('titles.speaker', array('item' => $item, 'params' => $this->params)); ?>
 									</small>
@@ -202,8 +203,6 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 				<?php echo LayoutHelper::render('blocks.pagination', array('view' => 'sermons', 'pagination' => $this->pagination, 'params' => $this->params)); ?>
 			<?php endif; ?>
 			<input type="hidden" name="task" value=""/>
-			<input type="hidden" name="filter_order" value="<?php echo $listOrder; ?>"/>
-			<input type="hidden" name="filter_order_Dir" value="<?php echo $listDirn; ?>"/>
 			<input type="hidden" name="limitstart" value=""/>
 		</form>
 	</div>

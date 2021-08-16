@@ -28,11 +28,12 @@ $listDirn   = $this->state->get('list.direction');
 <div class="com-sermonspeaker-speakers<?php echo $this->pageclass_sfx; ?> com-sermonspeaker-speakers-blog blog">
 	<?php echo LayoutHelper::render('blocks.header', array('category' => $this->category, 'params' => $this->params)); ?>
 
-	<div class="com-sermonspeaker-sermons-blog__items blog-items">
+	<div class="com-sermonspeaker-speakers-blog__items blog-items">
 		<form action="<?php echo htmlspecialchars(JUri::getInstance()->toString()); ?>" method="post" id="adminForm"
 			  name="adminForm" class="com-sermonspeaker-speakers__speakers">
 			<?php if ($this->params->get('filter_field') or $this->params->get('show_pagination_limit')) : ?>
 				<?php echo $this->loadTemplate('filters'); ?>
+				<?php echo $this->loadTemplate('order'); ?>
 			<?php endif; ?>
 			<div class="clearfix"></div>
 			<?php if (!count($this->items)) : ?>
@@ -43,11 +44,11 @@ $listDirn   = $this->state->get('list.direction');
 				</div>
 			<?php else : ?>
 				<?php foreach ($this->items as $i => $item) : ?>
-					<div id="sermon<?php echo $i; ?>"
+					<div id="speaker<?php echo $i; ?>"
 						 class="<?php echo ($item->state) ? '' : 'system-unpublished'; ?> image-right">
-						<div class="com-sermonspeaker-sermons-blog__item blog-item">
+						<div class="com-sermonspeaker-speakers-blog__item blog-item">
 							<?php if ($item->pic) : ?>
-								<figure class="item-image sermon-image">
+								<figure class="item-image speaker-image">
 									<img src="<?php echo SermonspeakerHelperSermonspeaker::makeLink($item->pic); ?>" alt="">
 								</figure>
 							<?php endif; ?>
@@ -71,7 +72,7 @@ $listDirn   = $this->state->get('list.direction');
 											<div class="category-name">
 												<span class="icon-folder-open icon-fw"></span>
 												<?php echo Text::_('JCATEGORY'); ?>:
-												<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakersRoute($item->catslug, $item->language)); ?>"><?php echo $item->category_title; ?></a>
+												<a href="<?php echo Route::_(SermonspeakerHelperRoute::getSpeakersRoute($item->catslug, $item->language)); ?>"><?php echo $item->category_title; ?></a>
 											</div>
 										</dd>
 									<?php endif; ?>
@@ -137,8 +138,6 @@ $listDirn   = $this->state->get('list.direction');
 				<?php echo LayoutHelper::render('blocks.pagination', array('view' => 'speakers', 'pagination' => $this->pagination, 'params' => $this->params)); ?>
 			<?php endif; ?>
 			<input type="hidden" name="task" value=""/>
-			<input type="hidden" name="filter_order" value="<?php echo $listOrder; ?>"/>
-			<input type="hidden" name="filter_order_Dir" value="<?php echo $listDirn; ?>"/>
 			<input type="hidden" name="limitstart" value=""/>
 		</form>
 	</div>

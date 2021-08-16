@@ -36,7 +36,8 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 	<form action="<?php echo htmlspecialchars(Uri::getInstance()->toString()); ?>" method="post" name="adminForm"
 		  id="adminForm" class="com-sermonspeaker-sermons__sermons">
 		<?php if ($this->params->get('filter_field') or $this->params->get('show_pagination_limit')) : ?>
-			<?php echo $this->loadTemplate('filtersorder'); ?>
+			<?php echo $this->loadTemplate('filters'); ?>
+			<?php echo $this->loadTemplate('order'); ?>
 		<?php endif; ?>
 
 		<?php if (!count($this->items)) : ?>

@@ -30,6 +30,7 @@ $player = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 		  name="adminForm" id="adminForm" class="com-sermonspeaker-sermons__sermons">
 		<?php if ($this->params->get('filter_field') or $this->params->get('show_pagination_limit')) : ?>
 			<?php echo $this->loadTemplate('filters'); ?>
+			<?php echo $this->loadTemplate('order'); ?>
 		<?php endif; ?>
 		<div class="clearfix"></div>
 

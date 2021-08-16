@@ -23,6 +23,7 @@ HTMLHelper::addIncludePath(JPATH_COMPONENT . '/helpers');
 	<form action="<?php echo htmlspecialchars(Uri::getInstance()->toString()); ?>" method="post" name="adminForm"
 		  id="adminForm" class="com-sermonspeaker-speakers__speakers">
 		<?php echo $this->loadTemplate('filters'); ?>
+		<?php echo $this->loadTemplate('order'); ?>
 		<div class="clearfix"></div>
 		<?php if (!count($this->items)) : ?>
 			<div class="alert alert-info">
