@@ -35,6 +35,7 @@ $listDirn   = $this->state->get('list.direction');
 		<form action="<?php echo htmlspecialchars(Uri::getInstance()->toString()); ?>" method="post" name="adminForm"
 			  id="adminForm" class="com-sermonspeaker-series__series">
 			<?php echo $this->loadTemplate('filters'); ?>
+			<?php echo $this->loadTemplate('order'); ?>
 			<div class="clearfix"></div>
 			<?php if (!count($this->items)) : ?>
 				<div class="alert alert-info">
@@ -83,8 +84,6 @@ $listDirn   = $this->state->get('list.direction');
 				<?php echo LayoutHelper::render('blocks.pagination', array('view' => 'series', 'pagination' => $this->pagination, 'params' => $this->params)); ?>
 			<?php endif; ?>
 			<input type="hidden" name="task" value=""/>
-			<input type="hidden" name="filter_order" value="<?php echo $listOrder; ?>"/>
-			<input type="hidden" name="filter_order_Dir" value="<?php echo $listDirn; ?>"/>
 			<input type="hidden" name="limitstart" value=""/>
 		</form>
 	</div>

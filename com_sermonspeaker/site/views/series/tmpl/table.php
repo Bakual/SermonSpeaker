@@ -31,7 +31,7 @@ $listDirn   = $this->state->get('list.direction');
 
 	<div class="cat-items">
 		<form action="<?php echo htmlspecialchars(JUri::getInstance()->toString()); ?>" method="post" id="adminForm"
-			  name="adminForm" class="com-sermonspeaker-series__series>
+			  name="adminForm" class="com-sermonspeaker-series__series">
 			<?php echo $this->loadTemplate('filters'); ?>
 			<div class="clearfix"></div>
 			<?php if (!count($this->items)) : ?>

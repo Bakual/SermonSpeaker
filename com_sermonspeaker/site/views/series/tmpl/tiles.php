@@ -24,6 +24,7 @@ HTMLHelper::addIncludePath(JPATH_COMPONENT . '/helpers');
 	<form action="<?php echo OutputFilter::ampReplace(Uri::getInstance()->toString()); ?>" method="post"
 		  name="adminForm" id="adminForm" class="com-sermonspeaker-series__series">
 		<?php echo $this->loadTemplate('filters'); ?>
+		<?php echo $this->loadTemplate('order'); ?>
 		<div class="clearfix"></div>
 
 		<?php if (!count($this->items)) : ?>
