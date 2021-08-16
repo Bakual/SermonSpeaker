@@ -26,25 +26,13 @@ $canEditOwn = ($fu_enable and $user->authorise('core.edit.own', 'com_sermonspeak
 $listOrder  = $this->state->get('list.ordering');
 $listDirn   = $this->state->get('list.direction');
 ?>
-<div class="category-list<?php echo $this->pageclass_sfx; ?> ss-series-container<?php echo $this->pageclass_sfx; ?>">
+<div class="com-sermonspeaker-series<?php echo $this->pageclass_sfx; ?> com-sermonspeaker-series-table">
 	<?php echo LayoutHelper::render('blocks.header', array('category' => $this->category, 'params' => $this->params)); ?>
 
 	<div class="cat-items">
 		<form action="<?php echo htmlspecialchars(JUri::getInstance()->toString()); ?>" method="post" id="adminForm"
-			  name="adminForm">
-			<?php
-			if ($this->params->get('filter_field') or $this->params->get('show_pagination_limit')) : ?>
-				<div class="filters btn-toolbar">
-					<?php if ($this->params->get('show_pagination_limit')) : ?>
-						<div class="btn-group pull-right">
-							<label class="element-invisible">
-								<?php echo Text::_('JGLOBAL_DISPLAY_NUM'); ?>
-							</label>
-							<?php echo $this->pagination->getLimitBox(); ?>
-						</div>
-					<?php endif; ?>
-				</div>
-			<?php endif; ?>
+			  name="adminForm" class="com-sermonspeaker-series__series>
+			<?php echo $this->loadTemplate('filters'); ?>
 			<div class="clearfix"></div>
 			<?php if (!count($this->items)) : ?>
 				<div class="alert alert-info">
@@ -134,12 +122,15 @@ $listDirn   = $this->state->get('list.direction');
 							<?php endif;
 
 							if (in_array('series:download', $this->col_serie)) : ?>
-								<td class="ss-col ss-dl hidden-phone"><a
-											href="<?php echo Route::_('index.php?view=serie&layout=download&tmpl=component&id=' . $item->slug); ?>"
-											class="modal hasTooltip" rel="{handler:'iframe',size:{x:400,y:200}}"
-											title="::<?php echo Text::_('COM_SERMONSPEAKER_DOWNLOADSERIES_DESC'); ?>">
-										<i class="icon-download"> </i>
-									</a></td>
+								<td class="ss-col ss-dl hidden-phone">
+									<?php $url = Route::_('index.php?view=serie&layout=download&tmpl=component&id=' . $item->slug); ?>
+									<?php $downloadText = Text::_('COM_SERMONSPEAKER_DOWNLOADSERIES_LABEL'); ?>
+									<?php $modalOptions = array('url' => $url, 'height' => 200, 'width' => 400, 'title' => $downloadText); ?>
+									<?php echo HTMLHelper::_('bootstrap.rendermodal', 'downloadModal' . $i, $modalOptions); ?>
+									<a href="#downloadModal<?php echo $i; ?>" class="downloadModal" data-bs-toggle="modal" title="<?php echo $downloadText; ?>">
+										<span class="icon-download"></span>
+									</a>
+								</td>
 							<?php endif; ?>
 						</tr>
 					<?php endforeach; ?>
