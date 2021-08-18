@@ -1,4 +1,4 @@
 files:
   - source: /**/en-GB/*.ini
-    translation: //**/%locale%/%original_file_name%
+    translation: /**/%locale%/%original_file_name%
     update_option: update_as_unapproved
