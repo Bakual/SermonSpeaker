@@ -44,7 +44,7 @@ $listDirn   = $this->state->get('list.direction');
 				<?php foreach ($this->items as $i => $item) : ?>
 					<div id="serie<?php echo $i; ?>"
 						 class="<?php echo ($item->state) ? '' : 'system-unpublished'; ?> image-right">
-						<div class="com-sermonspeaker-speakers-blog__item blog-item">
+						<div class="com-sermonspeaker-series-blog__item blog-item">
 							<?php if ($item->avatar) : ?>
 								<figure class="item-image serie-image">
 									<img src="<?php echo SermonspeakerHelperSermonspeaker::makeLink($item->avatar); ?>" alt="">
@@ -54,7 +54,7 @@ $listDirn   = $this->state->get('list.direction');
 							<div class="item-content">
 								<h2><?php echo $item->title; ?></h2>
 								<?php if (in_array('series:speaker', $this->col_serie) and $item->speakers) : ?>
-									<small class="com-sermonspeaker-speakers createdby">
+									<small class="com-sermonspeaker-series createdby">
 										<?php echo Text::_('COM_SERMONSPEAKER_SPEAKERS'); ?>:
 										<?php echo $item->speakers; ?>
 									</small>
@@ -63,7 +63,7 @@ $listDirn   = $this->state->get('list.direction');
 								<?php if ($canEdit or ($canEditOwn and ($user->id == $item->created_by))) : ?>
 									<div class="icons">
 										<div class="float-end">
-											<?php echo HTMLHelper::_('icon.edit', $item, $this->params, array('type' => 'speaker')); ?>
+											<?php echo HTMLHelper::_('icon.edit', $item, $this->params, array('type' => 'serie')); ?>
 										</div>
 									</div>
 								<?php endif; ?>

@@ -23,9 +23,6 @@ $showState  = $user->authorise('core.edit', 'com_sermonspeaker');
 $fu_enable  = $this->params->get('fu_enable');
 $canEdit    = ($fu_enable and $user->authorise('core.edit', 'com_sermonspeaker'));
 $canEditOwn = ($fu_enable and $user->authorise('core.edit.own', 'com_sermonspeaker'));
-$listOrder  = $this->state->get('list.ordering');
-$listDirn   = $this->state->get('list.direction');
-$limit      = (int) $this->params->get('limit', '');
 $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 ?>
 <div class="com-sermonspeaker-sermons<?php echo $this->pageclass_sfx; ?> com-sermonspeaker-sermons-blog blog">
