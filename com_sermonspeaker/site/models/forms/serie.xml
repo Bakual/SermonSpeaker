@@ -1,21 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <form>
 	<fieldset name="general">
-		<field name="title" type="text" class="inputbox"
-			size="40" label="JGLOBAL_TITLE"
-			description="COM_SERMONSPEAKER_FIELD_TITLE_DESC" required="true"/>
+		<field
+			name="title"
+			type="text"
+			label="JGLOBAL_TITLE"
+			size="30"
+			required="true"
+		/>
 
-		<field name="alias" type="text" class="inputbox"
-			size="40" label="JFIELD_ALIAS_LABEL"
-			description="JFIELD_ALIAS_DESC"/>
+		<field
+			name="alias"
+			type="text"
+			label="JFIELD_ALIAS_LABEL"
+			description="JFIELD_ALIAS_DESC"
+			hint="JFIELD_ALIAS_PLACEHOLDER"
+			size="45"
+		/>
 
 		<field
 			name="catid"
 			type="categoryedit"
 			label="JCATEGORY"
-			description="JFIELD_CATEGORY_DESC"
 			extension="com_sermonspeaker.series"
-			class="inputbox"
 			required="true"
 			addfieldprefix="Joomla\Component\Categories\Administrator\Field"
 		/>
@@ -24,118 +31,151 @@
 			name="state"
 			type="list"
 			label="JSTATUS"
-			description="JFIELD_PUBLISHED_DESC"
-			class="inputbox"
+			class="form-select-color-state"
 			size="1"
-			default="1">
-			<option
-				value="1">JPUBLISHED
-			</option>
-			<option
-				value="0">JUNPUBLISHED
-			</option>
-			<option
-				value="2">JARCHIVED
-			</option>
-			<option
-				value="-2">JTRASH
-			</option>
+			default="1"
+			validate="options"
+		>
+			<option value="1">JPUBLISHED</option>
+			<option value="0">JUNPUBLISHED</option>
+			<option value="2">JARCHIVED</option>
+			<option value="-2">JTRASH</option>
 		</field>
 
-		<field name="ordering" type="sermonordering" class="inputbox"
-			table="sermon_series" field="title"
+		<field
+			name="ordering"
+			type="sermonordering"
 			label="JFIELD_ORDERING_LABEL"
-			description="JFIELD_ORDERING_DESC"/>
-
-		<field name="series_description" type="editor" buttons="true" hide="pagebreak,readmore"
-			class="inputbox"
-			filter="JComponentHelper::filterText"
-			label="JGLOBAL_DESCRIPTION"/>
+			table="sermon_series"
+			field="title"
+		/>
 
 		<field
-			id="publish_up"
+			name="series_description"
+			type="editor"
+			label="JGLOBAL_DESCRIPTION"
+			hiddenLabel="true"
+			buttons="true"
+			filter="JComponentHelper::filterText"
+			hide="pagebreak,readmore"
+		/>
+
+		<field
 			name="publish_up"
 			type="calendar"
 			label="JGLOBAL_FIELD_PUBLISH_UP_LABEL"
-			description="JGLOBAL_FIELD_PUBLISH_UP_DESC"
-			class="inputbox"
-			format="%Y-%m-%d %H:%M:%S"
+			translateformat="true"
+			showtime="true"
 			size="22"
-			filter="user_utc"/>
+			filter="user_utc"
+		/>
 
 		<field
-			id="publish_down"
 			name="publish_down"
 			type="calendar"
 			label="JGLOBAL_FIELD_PUBLISH_DOWN_LABEL"
-			description="JGLOBAL_FIELD_PUBLISH_DOWN_DESC"
-			class="inputbox"
-			format="%Y-%m-%d %H:%M:%S"
+			translateformat="true"
+			showtime="true"
 			size="22"
-			filter="user_utc"/>
+			filter="user_utc"
+		/>
 
-		<field name="tags" type="tag"
-			label="JTAG" description="JTAG_DESC"
-			class="inputbox"
-			multiple="true"/>
+		<field
+			name="tags"
+			type="tag"
+			label="JTAG"
+			multiple="true"
+			size="45"
+		/>
 
 		<field
 			name="language"
 			type="contentlanguage"
 			label="JFIELD_LANGUAGE_LABEL"
-			description="JFIELD_LANGUAGE_DESC"
-			class="inputbox">
+		>
 			<option value="*">JALL</option>
 		</field>
 	</fieldset>
 
 	<fieldset name="info"
 		addfieldpath="/administrator/components/com_sermonspeaker/models/fields">
-		<field name="id" type="text" class="readonly"
-			label="JGLOBAL_FIELD_ID_LABEL" description="JGLOBAL_FIELD_ID_DESC"
-			size="10" default="0" required="true"
-			readonly="true"/>
+		<field
+			name="id"
+			type="text"
+			class="readonly"
+			label="JGLOBAL_FIELD_ID_LABEL"
+			size="10"
+			default="0"
+			required="true"
+			readonly="true"
+		/>
 
-		<field name="created_by" type="user"
-			label="JGLOBAL_FIELD_CREATED_BY_LABEL" description="JGLOBAL_FIELD_CREATED_BY_DESC"/>
+		<field
+			name="created"
+			type="calendar"
+			translateformat="true"
+			filter="unset"
+		/>
 
-		<field name="created" type="calendar" class="readonly"
-			label="JGLOBAL_FIELD_CREATED_LABEL" description="JGLOBAL_FIELD_CREATED_DESC"
-			format="%Y-%m-%d %H:%M:%S" filter="user_utc"
-			readonly="true"/>
+		<field
+			name="created_by"
+			type="text"
+			filter="unset"
+		/>
 
 		<field
 			name="hits"
 			type="hits"
 			class="readonly"
 			label="JGLOBAL_HITS"
-			description="COM_SERMONSPEAKER_FIELD_HITS_DESC"
 			filter="unset"
 		/>
 
 	</fieldset>
 
 	<fieldset name="detail">
-		<field name="avatar" type="mediawrapper" class="inputbox"
+		<field
+			name="avatar"
+			type="mediawrapper"
 			label="COM_SERMONSPEAKER_FIELD_PICTURE_LABEL"
-			description="COM_SERMONSPEAKER_FIELD_PICTURE_DESC"/>
+		/>
 	</fieldset>
 
-	<fieldset name="metadata" label="JGLOBAL_FIELDSET_METADATA_OPTIONS">
-		<field name="metadesc" type="textarea"
-			label="JFIELD_META_DESCRIPTION_LABEL" description="JFIELD_META_DESCRIPTION_DESC"
-			class="inputbox" rows="3" cols="30"/>
+	<fieldset
+		name="metadata"
+		label="JGLOBAL_FIELDSET_METADATA_OPTIONS"
+	>
+		<field
+			name="metakey"
+			type="textarea"
+			label="JFIELD_META_KEYWORDS_LABEL"
+			rows="5"
+			cols="50"
+		/>
 
-		<field name="metakey" type="textarea"
-			label="JFIELD_META_KEYWORDS_LABEL" description="JFIELD_META_KEYWORDS_DESC"
-			class="inputbox" rows="3" cols="30"/>
-
+		<field
+			name="metadesc"
+			type="textarea"
+			label="JFIELD_META_DESCRIPTION_LABEL"
+			rows="5"
+			cols="50"
+			maxlength="160"
+			charcounter="true"
+		/>
 	</fieldset>
 
 	<fields name="metadata">
-		<fieldset name="jmetadata" label="JGLOBAL_FIELDSET_METADATA_OPTIONS">
-			<field name="robots" type="list"
-				label="JFIELD_METADATA_ROBOTS_LABEL" description="JFIELD_METADATA_ROBOTS_DESC">
+		<fieldset
+			name="jmetadata"
+			label="JGLOBAL_FIELDSET_METADATA_OPTIONS"
+		>
+
+			<field
+				name="robots"
+				type="hidden"
+				label="JFIELD_METADATA_ROBOTS_LABEL"
+				filter="unset"
+			>
 				<option value="">JGLOBAL_USE_GLOBAL</option>
 				<option value="index, follow"></option>
 				<option value="noindex, follow"></option>
@@ -143,12 +183,12 @@
 				<option value="noindex, nofollow"></option>
 			</field>
 
-			<field name="rights" type="text"
-				label="JFIELD_META_RIGHTS_LABEL" description="JFIELD_META_RIGHTS_DESC"
-				required="false"
-				filter="string"
-				cols="30"
-				rows="2"/>
+			<field
+				name="rights"
+				type="hidden"
+				label="JFIELD_META_RIGHTS_LABEL"
+				filter="unset"
+			/>
 		</fieldset>
 	</fields>
 </form>

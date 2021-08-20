@@ -49,18 +49,6 @@ $self = $uri->toString();
 	<form
 			action="<?php echo Route::_('index.php?option=com_sermonspeaker&view=frontendupload&s_id=' . (int) $this->item->id); ?>"
 			method="post" name="adminForm" id="adminForm" class="form-validate form form-vertical">
-		<div class="btn-toolbar">
-			<div class="btn-group">
-				<button type="button" class="btn btn-primary" onclick="Joomla.submitbutton('frontendupload.save')">
-					<i class="icon-ok"></i> <?php echo Text::_('JSAVE') ?>
-				</button>
-			</div>
-			<div class="btn-group">
-				<button type="button" class="btn" onclick="Joomla.submitbutton('frontendupload.cancel')">
-					<i class="icon-cancel"></i> <?php echo Text::_('JCANCEL') ?>
-				</button>
-			</div>
-		</div>
 		<fieldset>
 			<?php echo HTMLHelper::_('bootstrap.startTabSet', $this->tab_name, array('active' => 'editor')); ?>
 
@@ -178,6 +166,19 @@ $self = $uri->toString();
 			<input type="hidden" name="return" value="<?php echo $this->return_page; ?>"/>
 			<?php echo HTMLHelper::_('form.token'); ?>
 		</fieldset>
+		<div class="mb-2">
+			<button type="button" class="btn btn-primary" onclick="Joomla.submitbutton('frontendupload.save')">
+				<span class="icon-check" aria-hidden="true"></span>
+				<?php echo Text::_('JSAVE') ?>
+			</button>
+			<button type="button" class="btn btn-danger" onclick="Joomla.submitbutton('frontendupload.cancel')">
+				<span class="icon-times" aria-hidden="true"></span>
+				<?php echo Text::_('JCANCEL') ?>
+			</button>
+			<?php if ($this->params->get('save_history', 0) && $this->item->id) : ?>
+				<?php echo $this->form->getInput('contenthistory'); ?>
+			<?php endif; ?>
+		</div>
 	</form>
 	<?php if ($this->params->get('enable_non_flash')) : ?>
 		<div id="upload-noflash">
