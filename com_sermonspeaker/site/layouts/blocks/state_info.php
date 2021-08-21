@@ -25,17 +25,11 @@ if (!$show)
 }
 ?>
 <?php if (!$item->state) : ?>
-	<span class="label label-warning">
-		<?php echo Text::_('JUNPUBLISHED'); ?>
-	</span>
+	<span class="badge bg-warning text-light"><?php echo Text::_('JUNPUBLISHED'); ?></span>
 <?php endif; ?>
 <?php if (strtotime($item->publish_up) > strtotime(Factory::getDate())) : ?>
-	<span class="label label-warning">
-		<?php echo Text::_('JNOTPUBLISHEDYET'); ?>
-	</span>
+	<span class="badge bg-warning text-light"><?php echo Text::_('JNOTPUBLISHEDYET'); ?></span>
 <?php endif; ?>
 <?php if ((strtotime($item->publish_down) < strtotime(Factory::getDate())) && $item->publish_down != Factory::getDbo()->getNullDate()) : ?>
-	<span class="label label-warning">
-		<?php echo Text::_('JEXPIRED'); ?>
-	</span>
+	<span class="badge bg-warning text-light"><?php echo Text::_('JEXPIRED'); ?></span>
 <?php endif; ?>
