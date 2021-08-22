@@ -14,9 +14,7 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
 
-HTMLHelper::_('stylesheet', 'com_sermonspeaker/sermonspeaker.css', array('relative' => true));
 HTMLHelper::addIncludePath(JPATH_COMPONENT . '/helpers');
-HTMLHelper::_('bootstrap.tooltip', '.hasTooltip');
 
 $user       = Factory::getUser();
 $fu_enable  = $this->params->get('fu_enable');
@@ -43,57 +41,58 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 	<table border="0" cellpadding="2" cellspacing="0" width="100%">
 		<tr>
 			<?php if (in_array('sermon:scripture', $this->columns) and $this->item->scripture) : ?>
-				<th align="left" valign="bottom"><?php echo Text::_('COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL'); ?></th>
+				<th class="text-start align-bottom"><?php echo Text::_('COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL'); ?></th>
 			<?php endif;
 
 			if (in_array('sermon:notes', $this->columns) and strlen($this->item->notes) > 0) : ?>
-				<th align="left" valign="bottom"> <?php echo Text::_('COM_SERMONSPEAKER_FIELD_NOTES_LABEL'); ?></th>
+				<th class="text-start align-bottom"> <?php echo Text::_('COM_SERMONSPEAKER_FIELD_NOTES_LABEL'); ?></th>
 			<?php endif;
 
 			if (in_array('sermon:addfile', $this->columns) and $this->item->addfile) : ?>
-				<th align="left" valign="bottom"><?php echo Text::_('COM_SERMONSPEAKER_ADDFILE'); ?></th>
+				<th class="text-start align-bottom"><?php echo Text::_('COM_SERMONSPEAKER_ADDFILE'); ?></th>
 			<?php endif;
 
 			if (in_array('sermon:player', $this->columns)) : ?>
-				<th align="left" valign="bottom"><?php echo Text::_('COM_SERMONSPEAKER_SERMON_PLAYER'); ?></th>
+				<th class="text-start align-bottom"><?php echo Text::_('COM_SERMONSPEAKER_SERMON_PLAYER'); ?></th>
 			<?php endif; ?>
 		</tr>
 		<!-- Begin Data -->
 		<tr>
 			<?php if (in_array('sermon:scripture', $this->columns) and $this->item->scripture) : ?>
-				<td align="left" valign="top">
+				<td class="text-start align-top">
 					<?php $scriptures = SermonspeakerHelperSermonspeaker::insertScriptures($this->item->scripture, '; ');
 					echo HTMLHelper::_('content.prepare', $scriptures); ?>
 				</td>
 			<?php endif;
 
 			if (in_array('sermon:notes', $this->columns) and strlen($this->item->notes) > 0) : ?>
-				<td align="left" valign="top"><?php echo HTMLHelper::_('content.prepare', $this->item->notes); ?></td>
+				<td class="text-start align-top"><?php echo HTMLHelper::_('content.prepare', $this->item->notes); ?></td>
 			<?php endif;
 
 			if (in_array('sermon:addfile', $this->columns) and $this->item->addfile) : ?>
-				<td align="left"
-					valign="top"><?php echo SermonspeakerHelperSermonspeaker::insertAddfile($this->item->addfile, $this->item->addfileDesc); ?></td>
+				<td class="text-start align-top">
+					<?php echo SermonspeakerHelperSermonspeaker::insertAddfile($this->item->addfile, $this->item->addfileDesc); ?>
+				</td>
 			<?php endif;
 
 			if (in_array('sermon:player', $this->columns)) : ?>
-				<td align="center" valign="top">
+				<td class="text-center align-top">
 					<?php echo LayoutHelper::render('plugin.player', array('player' => $player, 'items' => $this->item, 'view' => 'sermon')); ?>
 				</td>
 			<?php endif; ?>
 		</tr>
 	</table>
-	<div style="float:left;">
+	<div class="float-start">
 		<?php if (in_array('sermon:download', $this->columns) and $this->item->audiofile) :
 			echo SermonspeakerHelperSermonspeaker::insertdlbutton($this->item->slug, 'audio', 0, $this->item->audiofilesize);
 		endif; ?>
 	</div>
-	<div style="float:left;">
+	<div class="float-start">
 		<?php if (in_array('sermon:download', $this->columns) and $this->item->videofile) :
 			echo SermonspeakerHelperSermonspeaker::insertdlbutton($this->item->slug, 'video', 0, $this->item->videofilesize);
 		endif; ?>
 	</div>
-	<div style="float:right;">
+	<div class="float-end">
 		<?php if ($this->params->get('popup_player') and strlen($this->item->audiofile) > 0) :
 			echo SermonspeakerHelperSermonspeaker::insertPopupButton($this->item->id, $player);
 		endif; ?>

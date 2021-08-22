@@ -13,7 +13,6 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Layout\LayoutHelper;
 
-HTMLHelper::_('stylesheet', 'com_sermonspeaker/sermonspeaker.css', array('relative' => true));
 $config = array('type' => Factory::getApplication()->input->get('type', 'auto'));
 $player = SermonspeakerHelperSermonspeaker::getPlayer($this->item, $config);
 ?>
@@ -26,7 +25,7 @@ $player = SermonspeakerHelperSermonspeaker::getPlayer($this->item, $config);
     }
 </script>
 <div class="ss-sermon-container<?php echo $this->pageclass_sfx; ?>">
-	<div class="popup">
+	<div class="popup text-center p-1">
 		<h2><?php echo $this->item->title; ?></h2>
 		<?php echo LayoutHelper::render('plugin.player', array('player' => $player, 'items' => $this->item, 'view' => 'sermon')); ?>
 	</div>

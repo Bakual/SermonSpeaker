@@ -239,8 +239,8 @@ class SermonspeakerHelperSermonspeaker
 				$onclick = "ga('send', 'event', 'SermonSpeaker Download', '" . $type . "', 'id:" . $id . "');";
 			}
 
-			$html = '<input id="sermon_download" class="btn download_btn" type="button" value="' . $text . '" onclick="'
-				. $onclick . 'window.location.href=\'' . $fileurl . '\';" />';
+			$html = '<button id="sermon_download" class="btn btn-primary download_btn" type="button" onclick="'
+				. $onclick . 'window.location.href=\'' . $fileurl . '\';">' . $text . '</button>';
 		}
 
 		return $html;
@@ -258,10 +258,11 @@ class SermonspeakerHelperSermonspeaker
 	 */
 	public static function insertPopupButton($id, $player)
 	{
-		return '<input class="btn popup_btn" type="button" name="' . Text::_('COM_SERMONSPEAKER_POPUPPLAYER') . '" value="'
+		return '<button class="btn btn-primary popup_btn" type="button" name="'
 			. Text::_('COM_SERMONSPEAKER_POPUPPLAYER') . '" onclick="popup=window.open(\''
 			. Route::_('index.php?view=sermon&layout=popup&id=' . (int) $id . '&tmpl=component') . '\', \'PopupPage\', \'height='
-			. $player->popup['height'] . ',width=' . $player->popup['width'] . ',scrollbars=yes,resizable=yes\'); return false" />';
+			. ($player->popup['height']) . ',width=' . $player->popup['width'] . ',scrollbars=yes,resizable=yes\'); return false" >'
+			. Text::_('COM_SERMONSPEAKER_POPUPPLAYER') . '</button>';
 	}
 
 	/**
