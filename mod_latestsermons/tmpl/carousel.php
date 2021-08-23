@@ -9,8 +9,10 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Router\Route;
 
 /**
  * @var array                     $list
@@ -25,23 +27,22 @@ $id    = 'sermonCarousel' . $module->id;
 
 HTMLHelper::_('bootstrap.carousel');
 ?>
-<div id="<?php echo $id; ?>" class="latestsermons<?php echo $moduleclass_sfx; ?> carousel slide">
+<div class="latestsermons">
 	<?php if ($params->get('show_list')) : ?>
-		<div id="sermonCarousel<?php echo $module->id; ?>" class="latestsermons_list">
-			<ol class="carousel-indicators">
+		<div id="<?php echo $id; ?>" class="carousel carousel-dark slide" data-bs-ride="carousel">
+			<div class="carousel-indicators">
 				<?php for ($j = 0; $j < $count; $j++): ?>
-					<li data-bs-target="#<?php echo $id; ?>"
-						data-bs-slide-to="<?php echo $j; ?>"<?php echo ($j) ? '' : ' class="active"'; ?>></li>
+					<button type="button" data-bs-target="#<?php echo $id; ?>" data-bs-slide-to="<?php echo $j; ?>" <?php echo (!$j) ? 'class="active" aria-current="true"' : ''; ?> aria-label="Slide <?php echo $j + 1; ?>>"></button>
 				<?php endfor; ?>
-			</ol>
+			</div>
 			<div class="carousel-inner">
 				<?php foreach ($list as $i => $row) : ?>
 					<?php if ($itemid) : ?>
-						<?php $link = JRoute::_('index.php?option=com_sermonspeaker&view=sermon&id=' . $row->slug . '&Itemid=' . $itemid); ?>
+						<?php $link = Route::_('index.php?option=com_sermonspeaker&view=sermon&id=' . $row->slug . '&Itemid=' . $itemid); ?>
 					<?php else : ?>
-						<?php $link = JRoute::_(SermonspeakerHelperRoute::getSermonRoute($row->slug, $row->catid, $row->language)); ?>
+						<?php $link = Route::_(SermonspeakerHelperRoute::getSermonRoute($row->slug, $row->catid, $row->language)); ?>
 					<?php endif; ?>
-					<div class="latestsermons_entry<?php echo $i; ?> item <?php echo ($i) ? '' : 'active'; ?>">
+					<div class="carousel-item latestsermons_entry<?php echo $i; ?> item <?php echo ($i) ? '' : 'active'; ?>">
 						<h4><a href="<?php echo $link; ?>">
 								<?php echo $row->title; ?>
 								<?php if ($params->get('show_hits', 0) > 1 and $row->hits) : ?>
@@ -53,7 +54,7 @@ HTMLHelper::_('bootstrap.carousel');
 							<?php if ($params->get('show_category') and $row->category_title) : ?>
 								<dd class="category-name">
 									<?php echo Text::_('JCATEGORY'); ?>:
-									<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonsRoute($row->catid, $row->language)); ?>">
+									<a href="<?php echo Route::_(SermonspeakerHelperRoute::getSermonsRoute($row->catid, $row->language)); ?>">
 										<?php echo $row->category_title; ?>
 									</a>
 								</dd>
@@ -62,7 +63,7 @@ HTMLHelper::_('bootstrap.carousel');
 								<dd class="category-name">
 									<?php echo Text::_('MOD_LATESTSERMONS_SERIE'); ?>:
 									<?php if ($row->series_state) : ?>
-										<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($row->series_slug, $row->series_catid, $row->series_language)); ?>">
+										<a href="<?php echo Route::_(SermonspeakerHelperRoute::getSerieRoute($row->series_slug, $row->series_catid, $row->series_language)); ?>">
 											<?php echo $row->series_title; ?>
 										</a>
 									<?php else : ?>
@@ -80,7 +81,7 @@ HTMLHelper::_('bootstrap.carousel');
 								<dd class="createdby">
 									<?php echo Text::_('MOD_LATESTSERMONS_SPEAKER'); ?>:
 									<?php if ($row->speaker_state): ?>
-										<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($row->speaker_slug, $row->speaker_catid, $row->speaker_language)); ?>">
+										<a href="<?php echo Route::_(SermonspeakerHelperRoute::getSpeakerRoute($row->speaker_slug, $row->speaker_catid, $row->speaker_language)); ?>">
 											<?php echo $row->speaker_title; ?>
 										</a>
 									<?php else :
@@ -114,8 +115,14 @@ HTMLHelper::_('bootstrap.carousel');
 					</div>
 				<?php endforeach; ?>
 			</div>
-			<a class="carousel-control left" href="#<?php echo $id; ?>" data-bs-slide="prev">&lsaquo;</a>
-			<a class="carousel-control right" href="#<?php echo $id; ?>" data-bs-slide="next">&rsaquo;</a>
+			<button class="carousel-control-prev" type="button" data-bs-target="#<?php echo $id; ?>" data-bs-slide="prev">
+				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Previous</span>
+			</button>
+			<button class="carousel-control-next" type="button" data-bs-target="#<?php echo $id; ?>" data-bs-slide="next">
+				<span class="carousel-control-next-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Next</span>
+			</button>
 		</div>
 	<?php endif; ?>
 	<?php if ($params->get('show_player')) : ?>
@@ -123,7 +130,7 @@ HTMLHelper::_('bootstrap.carousel');
 			<br/>
 		<?php endif; ?>
 		<div class="latestsermons_player">
-			<?php $c_params       = JComponentHelper::getParams('com_sermonspeaker');
+			<?php $c_params       = ComponentHelper::getParams('com_sermonspeaker');
 			$config['autostart']  = 0;
 			$config['count']      = 'ls' . $module->id;
 			$config['type']       = $c_params->get('fileprio') ? 'video' : 'audio';
@@ -141,7 +148,7 @@ HTMLHelper::_('bootstrap.carousel');
 		<?php endif; ?>
 		<br/>
 		<div class="latestsermons_link">
-			<a href="<?php echo JRoute::_($link); ?>"><?php echo Text::_('MOD_LATESTSERMONS_LINK'); ?></a>
+			<a href="<?php echo Route::_($link); ?>"><?php echo Text::_('MOD_LATESTSERMONS_LINK'); ?></a>
 		</div>
 	<?php endif; ?>
 </div>

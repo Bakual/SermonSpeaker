@@ -9,6 +9,8 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Helper\ModuleHelper;
+
 /** @var \Joomla\Registry\Registry $params */
 
 require_once __DIR__ . '/helper.php';
@@ -25,4 +27,4 @@ if (!count($list))
 $moduleclass_sfx = htmlspecialchars($params->get('moduleclass_sfx'));
 $itemid          = (int) $params->get('ls_mo_menuitem');
 
-require JModuleHelper::getLayoutPath('mod_latestsermons', $params->get('layout', 'default'));
+require ModuleHelper::getLayoutPath('mod_latestsermons', $params->get('layout', 'default'));

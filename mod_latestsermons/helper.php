@@ -70,20 +70,6 @@ abstract class ModLatestsermonsHelper
 		// Category
 		if ($cat = (int) $params->get('cat', 0))
 		{
-			switch ($params->get('cat_type'))
-			{
-				default:
-				case 'sermons':
-					$type = 'a';
-					break;
-				case 'speakers':
-					$type = 'b';
-					break;
-				case 'series':
-					$type = 'c';
-					break;
-			}
-
 			// Subcategories
 			if ($levels = (int) $params->get('show_subcategory_content', 0))
 			{
@@ -100,12 +86,12 @@ abstract class ModLatestsermonsHelper
 				}
 
 				// Add the subquery to the main query
-				$query->where('(' . $type . '.catid = ' . $cat
-					. ' OR ' . $type . '.catid IN (' . $subQuery->__toString() . '))');
+				$query->where('(a.catid = ' . $cat
+					. ' OR a.catid IN (' . $subQuery->__toString() . '))');
 			}
 			else
 			{
-				$query->where($type . '.catid = ' . $cat);
+				$query->where('a.catid = ' . $cat);
 			}
 		}
 

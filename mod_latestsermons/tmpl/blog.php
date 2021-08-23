@@ -9,8 +9,10 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Router\Route;
 
 /**
  * @var array                     $list
@@ -22,15 +24,15 @@ use Joomla\CMS\Language\Text;
 $i     = 0;
 $count = count($list);
 ?>
-<div class="latestsermons<?php echo $moduleclass_sfx; ?>">
+<div class="latestsermons">
 	<?php if ($params->get('show_list')) : ?>
 		<div class="latestsermons_list">
 			<?php foreach ($list as $row) : ?>
 				<?php $i++; ?>
 				<?php if ($itemid) : ?>
-					<?php $link = JRoute::_('index.php?option=com_sermonspeaker&view=sermon&id=' . $row->slug . '&Itemid=' . $itemid); ?>
+					<?php $link = Route::_('index.php?option=com_sermonspeaker&view=sermon&id=' . $row->slug . '&Itemid=' . $itemid); ?>
 				<?php else : ?>
-					<?php $link = JRoute::_(SermonspeakerHelperRoute::getSermonRoute($row->slug, $row->catid, $row->language)); ?>
+					<?php $link = Route::_(SermonspeakerHelperRoute::getSermonRoute($row->slug, $row->catid, $row->language)); ?>
 				<?php endif; ?>
 				<div class="latestsermons_entry<?php echo $i; ?>">
 					<h4><a href="<?php echo $link; ?>">
@@ -39,12 +41,12 @@ $count = count($list);
 								<small>(<?php echo $row->hits; ?>)</small>
 							<?php endif; ?>
 						</a></h4>
-					<dl class="article-info sermon-info" style="display:block; margin:0;">
+					<dl class="article-info sermon-info text-muted">
 						<dt class="article-info-term"><?php echo Text::_('JDETAILS'); ?></dt>
 						<?php if ($params->get('show_category') and $row->category_title) : ?>
 							<dd class="category-name">
 								<?php echo Text::_('JCATEGORY'); ?>:
-								<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonsRoute($row->catid, $row->language)); ?>">
+								<a href="<?php echo Route::_(SermonspeakerHelperRoute::getSermonsRoute($row->catid, $row->language)); ?>">
 									<?php echo $row->category_title; ?>
 								</a>
 							</dd>
@@ -53,7 +55,7 @@ $count = count($list);
 							<dd class="category-name">
 								<?php echo Text::_('MOD_LATESTSERMONS_SERIE'); ?>:
 								<?php if ($row->series_state) : ?>
-									<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($row->series_slug, $row->series_catid, $row->series_language)); ?>">
+									<a href="<?php echo Route::_(SermonspeakerHelperRoute::getSerieRoute($row->series_slug, $row->series_catid, $row->series_language)); ?>">
 										<?php echo $row->series_title; ?>
 									</a>
 								<?php else : ?>
@@ -71,7 +73,7 @@ $count = count($list);
 							<dd class="createdby">
 								<?php echo Text::_('MOD_LATESTSERMONS_SPEAKER'); ?>:
 								<?php if ($row->speaker_state): ?>
-									<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($row->speaker_slug, $row->speaker_catid, $row->speaker_language)); ?>">
+									<a href="<?php echo Route::_(SermonspeakerHelperRoute::getSpeakerRoute($row->speaker_slug, $row->speaker_catid, $row->speaker_language)); ?>">
 										<?php echo $row->speaker_title; ?>
 									</a>
 								<?php else :
@@ -114,7 +116,7 @@ $count = count($list);
 			<br/>
 		<?php endif; ?>
 		<div class="latestsermons_player">
-			<?php $c_params       = JComponentHelper::getParams('com_sermonspeaker');
+			<?php $c_params       = ComponentHelper::getParams('com_sermonspeaker');
 			$config['autostart']  = 0;
 			$config['count']      = 'ls' . $module->id;
 			$config['type']       = $c_params->get('fileprio') ? 'video' : 'audio';
@@ -132,7 +134,7 @@ $count = count($list);
 		<?php endif; ?>
 		<br/>
 		<div class="latestsermons_link">
-			<a href="<?php echo JRoute::_($link); ?>"><?php echo Text::_('MOD_LATESTSERMONS_LINK'); ?></a>
+			<a href="<?php echo Route::_($link); ?>"><?php echo Text::_('MOD_LATESTSERMONS_LINK'); ?></a>
 		</div>
 	<?php endif; ?>
 </div>

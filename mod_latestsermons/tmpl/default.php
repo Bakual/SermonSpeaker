@@ -9,8 +9,10 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Router\Route;
 
 /**
  * @var array                     $list
@@ -28,9 +30,9 @@ if ($tooltip)
 	HTMLHelper::_('bootstrap.tooltip', '.hasTooltip');
 }
 ?>
-<div class="latestsermons<?php echo $moduleclass_sfx; ?>">
+<div class="latestsermons">
 	<?php if ($params->get('show_list')) : ?>
-		<ul class="latestsermons_list">
+		<ul class="latestsermons-list mod-list">
 			<?php foreach ($list as $row) : ?>
 				<?php $i++; ?>
 				<li class="latestsermons_entry<?php echo $i; ?>">
@@ -44,9 +46,9 @@ if ($tooltip)
 						<?php $text .= ' <small>(' . $row->hits . ')</small>'; ?>
 					<?php endif; ?>
 					<?php if ($itemid) : ?>
-						<?php $link = JRoute::_('index.php?option=com_sermonspeaker&view=sermon&id=' . $row->slug . '&Itemid=' . $itemid); ?>
+						<?php $link = Route::_('index.php?option=com_sermonspeaker&view=sermon&id=' . $row->slug . '&Itemid=' . $itemid); ?>
 					<?php else : ?>
-						<?php $link = JRoute::_(SermonspeakerHelperRoute::getSermonRoute($row->slug, $row->catid, $row->language)); ?>
+						<?php $link = Route::_(SermonspeakerHelperRoute::getSermonRoute($row->slug, $row->catid, $row->language)); ?>
 					<?php endif; ?>
 					<?php if ($tooltip) : ?>
 						<?php $title = ''; ?>
@@ -86,7 +88,7 @@ if ($tooltip)
 	<?php endif; ?>
 	<?php if ($params->get('show_player')) : ?>
 		<div class="latestsermons_player">
-			<?php $c_params       = JComponentHelper::getParams('com_sermonspeaker');
+			<?php $c_params       = ComponentHelper::getParams('com_sermonspeaker');
 			$config['autostart']  = 0;
 			$config['count']      = 'ls' . $module->id;
 			$config['type']       = $c_params->get('fileprio') ? 'video' : 'audio';
@@ -104,7 +106,7 @@ if ($tooltip)
 		<?php endif; ?>
 		<br/>
 		<div class="latestsermons_link">
-			<a href="<?php echo JRoute::_($link); ?>"><?php echo Text::_('MOD_LATESTSERMONS_LINK'); ?></a>
+			<a href="<?php echo Route::_($link); ?>"><?php echo Text::_('MOD_LATESTSERMONS_LINK'); ?></a>
 		</div>
 	<?php endif; ?>
 </div>
