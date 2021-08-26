@@ -87,6 +87,21 @@
 			field="title"
 		/>
 
+		<field name="metadesc"
+			type="textarea"
+			label="JFIELD_META_DESCRIPTION_LABEL"
+			onchange="check(this.value, 160, 0)"
+			rows="3"
+			cols="30"
+		/>
+
+		<field name="metakey"
+			type="textarea"
+			label="JFIELD_META_KEYWORDS_LABEL"
+			onchange="check(this.value, 10, 1)"
+			rows="3"
+			cols="30"
+		/>
 	</fieldset>
 
 	<fieldset name="audiofile" label="COM_SERMONSPEAKER_FIELD_AUDIOFILE_LABEL">
@@ -286,22 +301,6 @@
 		<fieldset name="jmetadata"
 			label="JGLOBAL_FIELDSET_METADATA_OPTIONS"
 		>
-			<field name="metadesc"
-				type="textarea"
-				label="JFIELD_META_DESCRIPTION_LABEL"
-				onchange="check(this.value, 160, 0)"
-				rows="3"
-				cols="30"
-			/>
-
-			<field name="metakey"
-				type="textarea"
-				label="JFIELD_META_KEYWORDS_LABEL"
-				onchange="check(this.value, 10, 1)"
-				rows="3"
-				cols="30"
-			/>
-
 			<field name="robots"
 				type="list"
 				label="JFIELD_METADATA_ROBOTS_LABEL"
