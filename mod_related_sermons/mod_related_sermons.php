@@ -9,6 +9,8 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Helper\ModuleHelper;
+
 require_once __DIR__ . '/helper.php';
 
 $cacheparams = new stdClass;
@@ -18,7 +20,7 @@ $cacheparams->method = 'getList';
 $cacheparams->methodparams = $params;
 $cacheparams->modeparams = array('id' => 'int', 'Itemid' => 'int');
 
-$list = JModuleHelper::moduleCache($module, $params, $cacheparams);
+$list = ModuleHelper::moduleCache($module, $params, $cacheparams);
 
 if (!count($list))
 {
@@ -28,4 +30,4 @@ if (!count($list))
 $moduleclass_sfx = htmlspecialchars($params->get('moduleclass_sfx'));
 $showDate		 = $params->get('showDate', 0);
 
-require JModuleHelper::getLayoutPath('mod_related_sermons', $params->get('layout', 'default'));
+require ModuleHelper::getLayoutPath('mod_related_sermons', $params->get('layout', 'default'));

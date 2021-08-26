@@ -7,9 +7,11 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
-use Joomla\CMS\Factory;
-
 defined('_JEXEC') or die();
+
+use Joomla\CMS\Factory;
+use Joomla\CMS\Router\Route;
+use Joomla\Component\Content\Site\Helper\RouteHelper;
 
 /**
  * Helper class for Related Sermons module
@@ -25,16 +27,20 @@ class ModRelatedSermonsHelper
 	private static $id;
 
 	/**
-	 * @var  JDatabaseDriver
+	 * @var  \Joomla\Database\DatabaseDriver
+	 *
+	 * @since ?
 	 */
 	private static $db;
 
 	/**
 	 * Gets the items from the database
 	 *
-	 * @param   object  $params  parameters
+	 * @param   \Joomla\Registry\Registry  $params  parameters
 	 *
 	 * @return  array  $related  Array of items
+	 *
+	 * @since ?
 	 */
 	public static function getList($params)
 	{
@@ -69,7 +75,7 @@ class ModRelatedSermonsHelper
 				if ($supportContent && $limitSermons > count($related))
 				{
 					$articles = self::getRelatedItemsById($keywords, $limitSermons - count($related));
-					$related = array_merge($related, $articles);
+					$related  = array_merge($related, $articles);
 				}
 			}
 		}
@@ -81,6 +87,8 @@ class ModRelatedSermonsHelper
 	 * Get keywords from current item, either com_content or com_sermonspeaker
 	 *
 	 * @return  array  $keywords  Array of items
+	 *
+	 * @since ?
 	 */
 	private static function getKeywords()
 	{
@@ -100,9 +108,9 @@ class ModRelatedSermonsHelper
 		}
 
 		self::$db->setQuery($query);
-		$metakey	= self::$db->loadResult();
-		$keys		= explode(',', $metakey);
-		$keywords	= array();
+		$metakey  = self::$db->loadResult();
+		$keys     = explode(',', $metakey);
+		$keywords = array();
 
 		foreach ($keys as $key)
 		{
@@ -131,6 +139,8 @@ class ModRelatedSermonsHelper
 	 * @param   int     $limitSermons  Limit
 	 *
 	 * @return  array  $related  Array of items
+	 *
+	 * @since ?
 	 */
 	protected static function getRelatedSermonsById($keywords, $orderBy, $sermonCat, $limitSermons)
 	{
@@ -205,8 +215,8 @@ class ModRelatedSermonsHelper
 
 		foreach ($temp as $row)
 		{
-			$row->route = JRoute::_(SermonspeakerHelperRoute::getSermonRoute($row->slug, $row->catid, $row->language));
-			$related[] = $row;
+			$row->route = Route::_(SermonspeakerHelperRoute::getSermonRoute($row->slug, $row->catid, $row->language));
+			$related[]  = $row;
 		}
 
 		return $related;
@@ -219,19 +229,21 @@ class ModRelatedSermonsHelper
 	 * @param   int    $limit     Limit
 	 *
 	 * @return  array  $related  Array of items
+	 *
+	 * @since ?
 	 */
 	private static function getRelatedItemsById($keywords, $limit)
 	{
-		$user		= Factory::getUser();
-		$groups		= implode(',', $user->getAuthorisedViewLevels());
+		$user   = Factory::getUser();
+		$groups = implode(',', $user->getAuthorisedViewLevels());
 
-		$nullDate	= self::$db->getNullDate();
-		$date		= Factory::getDate();
-		$now		= $date->toSql();
+		$nullDate = self::$db->getNullDate();
+		$date     = Factory::getDate();
+		$now      = $date->toSql();
 
-		$related 	= array();
+		$related = array();
 
-		$query	= self::$db->getQuery(true);
+		$query = self::$db->getQuery(true);
 		$query->select('a.title, a.created');
 		$query->select('CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(":", a.id, a.alias) ELSE a.id END as slug');
 		$query->select('CASE WHEN CHAR_LENGTH(cc.alias) THEN CONCAT_WS(":", cc.id, cc.alias) ELSE cc.id END as catslug');
@@ -262,12 +274,10 @@ class ModRelatedSermonsHelper
 		self::$db->setQuery($query, 0, $limit);
 		$temp = self::$db->loadObjectList();
 
-		require_once JPATH_SITE . '/components/com_content/helpers/route.php';
-
 		foreach ($temp as $row)
 		{
-			$row->route = JRoute::_(ContentHelperRoute::getArticleRoute($row->slug, $row->catslug));
-			$related[] = $row;
+			$row->route = Route::_(RouteHelper::getArticleRoute($row->slug, $row->catslug, $row->language));
+			$related[]  = $row;
 		}
 
 		return $related;
