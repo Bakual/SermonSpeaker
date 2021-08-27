@@ -24,7 +24,6 @@ if (!count($list))
 	return;
 }
 
-$moduleclass_sfx = htmlspecialchars($params->get('moduleclass_sfx'));
 $itemid          = (int) $params->get('ls_mo_menuitem');
 
 require ModuleHelper::getLayoutPath('mod_latestsermons', $params->get('layout', 'default'));
