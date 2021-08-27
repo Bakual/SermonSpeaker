@@ -9,7 +9,11 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Helper\ModuleHelper;
+
 require_once __DIR__ . '/helper.php';
+
+JLoader::discover('SermonspeakerHelper', JPATH_SITE . '/components/com_sermonspeaker/helpers');
 
 $list = modSermonspeakerHelper::getList($params);
 
@@ -18,18 +22,7 @@ if (!count($list))
 	return;
 }
 
-$moduleclass_sfx	= htmlspecialchars($params->get('moduleclass_sfx'));
-$itemid				= (int) $params->get('menuitem');
-$mode				= (int) $params->get('mode');
+$mode         = (int) $params->get('mode');
+$helperMethod = $mode ? 'getSerieRoute' : 'getSpeakerRoute';
 
-if ($mode == 2)
-{
-	$baseURL	= 'index.php?option=com_sermonspeaker&view=sermons&catid=';
-}
-else
-{
-	$view		= $mode ? 'serie' : 'speaker';
-	$baseURL	= 'index.php?option=com_sermonspeaker&view=' . $view . '&id=';
-}
-
-require JModuleHelper::getLayoutPath('mod_sermonspeaker', $params->get('layout', 'default'));
+require ModuleHelper::getLayoutPath('mod_sermonspeaker', $params->get('layout', 'default'));

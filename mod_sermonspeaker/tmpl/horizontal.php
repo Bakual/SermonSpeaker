@@ -9,29 +9,32 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Router\Route;
+
 /**
  * @var array                     $list
  * @var \Joomla\Registry\Registry $params
- * @var int                       $itemid
  * @var stdClass                  $module
+ * @var string                    $helperMethod
  */
 
 $i     = 0;
 $count = count($list);
 ?>
-<div class="sermonspeaker<?php echo $moduleclass_sfx; ?>">
-	<div class="row-fluid">
-		<?php foreach ($list as $row) : ?>
+<div class="mod-sermonspeaker">
+	<div class="row">
+		<?php foreach ($list as $item) : ?>
 			<?php $i++; ?>
-			<div class="sermonspeaker_entry<?php echo $i; ?> text-center span<?php echo (int) 12 / $count; ?>">
-				<?php if ($row->pic) : ?>
-					<a href="<?php echo JRoute::_($baseURL . $row->slug . '&Itemid=' . $itemid); ?>">
-						<img src="<?php echo $row->pic; ?>" class="img-polaroid">
+			<div class="sermonspeaker_entry<?php echo $i; ?> text-center col-<?php echo (int) 12 / $count; ?>">
+				<?php $link = Route::_(SermonspeakerHelperRoute::$helperMethod($item->slug, $item->catid, $item->language)); ?>
+				<?php if ($item->pic) : ?>
+					<a href="<?php echo $link; ?>">
+						<img src="<?php echo $item->pic; ?>" class="img-thumbnail">
 					</a>
 				<?php endif; ?>
 				<h3>
-					<a href="<?php echo JRoute::_($baseURL . $row->slug . '&Itemid=' . $itemid); ?>">
-						<?php echo $row->title; ?>
+					<a href="<?php echo $link; ?>">
+						<?php echo $item->title; ?>
 					</a>
 				</h3>
 			</div>
