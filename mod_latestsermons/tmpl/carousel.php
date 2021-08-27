@@ -29,7 +29,7 @@ HTMLHelper::_('bootstrap.carousel');
 ?>
 <div class="latestsermons">
 	<?php if ($params->get('show_list')) : ?>
-		<div id="<?php echo $id; ?>" class="carousel carousel-dark slide" data-bs-ride="carousel">
+		<div id="<?php echo $id; ?>" class="carousel carousel-dark slide px-5 pb-4" data-bs-ride="carousel">
 			<div class="carousel-indicators">
 				<?php for ($j = 0; $j < $count; $j++): ?>
 					<button type="button" data-bs-target="#<?php echo $id; ?>" data-bs-slide-to="<?php echo $j; ?>" <?php echo (!$j) ? 'class="active" aria-current="true"' : ''; ?> aria-label="Slide <?php echo $j + 1; ?>>"></button>
