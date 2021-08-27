@@ -7,9 +7,9 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
-use Joomla\CMS\Factory;
-
 defined('_JEXEC') or die();
+
+use Joomla\CMS\Factory;
 
 /**
  * Helper class for SermonSpeaker module
@@ -24,6 +24,8 @@ abstract class ModSermonarchiveHelper
 	 * @param   object $params parameters
 	 *
 	 * @return  array  $items  Array of items
+	 *
+	 * @since ?
 	 */
 	public static function getList($params)
 	{

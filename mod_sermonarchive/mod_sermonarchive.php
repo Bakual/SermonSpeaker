@@ -9,7 +9,11 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Helper\ModuleHelper;
+
 require_once __DIR__ . '/helper.php';
+
+JLoader::register('SermonspeakerHelperRoute', JPATH_ROOT . '/components/com_sermonspeaker/helpers/route.php');
 
 $list = modSermonarchiveHelper::getList($params);
 
@@ -18,9 +22,4 @@ if (!count($list))
 	return;
 }
 
-$moduleclass_sfx = htmlspecialchars($params->get('moduleclass_sfx'));
-$itemid          = (int) $params->get('menuitem');
-$mode            = ($params->get('archive_switch') == 'month');
-$state           = (int) $params->get('state', 1);
-
-require JModuleHelper::getLayoutPath('mod_sermonarchive', $params->get('layout', 'default'));
+require ModuleHelper::getLayoutPath('mod_sermonarchive', $params->get('layout', 'default'));
