@@ -18,45 +18,53 @@
 		<folder>tmpl</folder>
 	</files>
 	<updateservers>
-		<server type="extension" priority="1" name="SermonSpeaker.net">https://www.sermonspeaker.net/update/mod_sermoncast.xml</server>
+		<server type="extension" priority="1" name="SermonSpeaker.net">
+			https://www.sermonspeaker.net/update/mod_sermoncast.xml
+		</server>
 	</updateservers>
 	<config>
 		<fields name="params">
 			<fieldset name="basic"
-				addfieldpath="/administrator/components/com_content/models/fields">
-				<field name="sc_introtext" type="text"
-					default="" 
-					label="MOD_SERMONCAST_PARAM_INTROTEXT" 
-					description="MOD_SERMONCAST_PARAM_INTROTEXT_DESC" />
-				<field type="spacer" />
-				<field name="sc_menuitem" type="menuitem" 
-					label="MOD_SERMONCAST_PARAM_MENUITEM" 
-					description="MOD_SERMONCAST_PARAM_MENUITEM_DESC" />
-				<field name="sc_type" type="list" 
-					label="MOD_SERMONCAST_FIELD_TYPE_LABEL" 
+					  addfieldpath="/administrator/components/com_content/models/fields">
+				<field
+					name="sc_introtext"
+					label="MOD_SERMONCAST_PARAM_INTROTEXT"
+					type="text"
+					default=""
+				/>
+				<field type="spacer"/>
+				<field
+					name="sc_menuitem"
+					type="menuitem"
+					label="MOD_SERMONCAST_PARAM_MENUITEM"
+					description="MOD_SERMONCAST_PARAM_MENUITEM_DESC"
+				/>
+				<field
+					name="sc_type"
+					type="list"
+					label="MOD_SERMONCAST_FIELD_TYPE_LABEL"
 					description="MOD_SERMONCAST_FIELD_TYPE_DESC"
-					default="">
+					default=""
+				>
 					<option value="">JGLOBAL_AUTO</option>
 					<option value="audio">MOD_SERMONCAST_FIELD_TYPE_OPTION_AUDIO</option>
 					<option value="video">MOD_SERMONCAST_FIELD_TYPE_OPTION_VIDEO</option>
 				</field>
-				<field type="spacer" />
+				<field type="spacer"/>
 				<field
 					name="sc_showpcast"
 					type="radio"
 					label="MOD_SERMONCAST_PARAM_SHOWPCAST"
-					description="MOD_SERMONCAST_PARAM_SHOWPCAST_DESC"
-					class="btn-group btn-group-yesno"
+					layout="joomla.form.field.radio.switcher"
 					default="1"
-					>
-					<option value="1">JYES</option>
+				>
 					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
 				<field
 					name="logo"
 					type="imagelist"
 					label="MOD_SERMONCAST_FIELD_LOGO_LABEL"
-					description="MOD_SERMONCAST_FIELD_LOGO_DESC"
 					directory="media/com_sermonspeaker/logo"
 					hide_none="true"
 					showon="sc_showpcast:1"
@@ -76,8 +84,9 @@
 					description="MOD_SERMONCAST_PARAM_PCAST_PREFIX_DESC"
 					default="itpc"
 					showon="sc_showpcast:1"
-					>
+				>
 					<option value="http">http://</option>
+					<option value="https">https://</option>
 					<option value="itpc">itpc://</option>
 					<option value="pcast">pcast://</option>
 				</field>
@@ -97,55 +106,77 @@
 					default=""
 					showon="sc_showpcast:1"
 				/>
-				<field type="spacer" />
+				<field type="spacer"/>
 				<field name="sc_showplink" type="radio"
-					default="1"
-					class="btn-group btn-group-yesno"
-					label="MOD_SERMONCAST_PARAM_SHOWPLINK"
-					description="MOD_SERMONCAST_PARAM_SHOWPLINK_DESC">
-					<option value="1">JYES</option>
+					   label="MOD_SERMONCAST_PARAM_SHOWPLINK"
+					   layout="joomla.form.field.radio.switcher"
+					   default="1"
+				>
 					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
-				<field type="spacer" />
+				<field type="spacer"/>
 				<field name="sc_showhelp" type="radio"
-					default="0"
-					class="btn-group btn-group-yesno"
-					label="MOD_SERMONCAST_PARAM_SHOWHELP"
-					description="MOD_SERMONCAST_PARAM_SHOWHELP_DESC">
-					<option value="1">JYES</option>
+					   label="MOD_SERMONCAST_PARAM_SHOWHELP"
+					   layout="joomla.form.field.radio.switcher"
+					   default="0"
+				>
 					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
 				<field
+					addfieldprefix="Joomla\Component\Content\Administrator\Field"
 					name="sc_helpcontent"
 					type="modal_article"
 					label="MOD_SERMONCAST_PARAM_HELPCONTENT"
-					description="MOD_SERMONCAST_PARAM_HELPCONTENT_DESC"
-					default="0"
 					showon="sc_showhelp:1"
+					default="0"
 				/>
 			</fieldset>
 			<fieldset name="advanced">
-				<field name="layout" type="modulelayout"
-					   label="JFIELD_ALT_LAYOUT_LABEL"
-					   description="JFIELD_ALT_MODULE_LAYOUT_DESC"
-					   default="_:default" />
-				<field name="moduleclass_sfx" type="textarea"
-					   label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL"
-					   description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC"
-					   rows="3" />
-				<field name="cache" type="list"
-					   label="COM_MODULES_FIELD_CACHING_LABEL"
-					   description="COM_MODULES_FIELD_CACHING_DESC"
-					   default="1">
+				<field
+					name="layout"
+					type="modulelayout"
+					label="JFIELD_ALT_LAYOUT_LABEL"
+					class="form-select"
+					validate="moduleLayout"
+				/>
+
+				<field
+					name="moduleclass_sfx"
+					type="textarea"
+					label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL"
+					rows="3"
+					validate="CssIdentifier"
+				/>
+
+				<field
+					name="cache"
+					type="list"
+					label="COM_MODULES_FIELD_CACHING_LABEL"
+					default="1"
+					filter="integer"
+					validate="options"
+				>
 					<option value="1">JGLOBAL_USE_GLOBAL</option>
 					<option value="0">COM_MODULES_FIELD_VALUE_NOCACHING</option>
 				</field>
-				<field name="cache_time" type="text"
-					   label="COM_MODULES_FIELD_CACHE_TIME_LABEL"
-					   description="COM_MODULES_FIELD_CACHE_TIME_DESC"
-					   default="900" />
-				<field name="cachemode" type="hidden"
-					   default="static"/>
+
+				<field
+					name="cache_time"
+					type="number"
+					label="COM_MODULES_FIELD_CACHE_TIME_LABEL"
+					default="900"
+					filter="integer"
+				/>
+
+				<field
+					name="cachemode"
+					type="hidden"
+					default="static"
+				>
+					<option value="static"></option>
+				</field>
 			</fieldset>
 		</fields>
 	</config>

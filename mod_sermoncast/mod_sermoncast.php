@@ -9,21 +9,24 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Helper\ModuleHelper;
+use Joomla\CMS\Uri\Uri;
+
 $type            = $params->get('sc_type');
 $menuitem        = (int) $params->get('sc_menuitem');
 $moduleclass_sfx = htmlspecialchars($params->get('moduleclass_sfx'));
-$options         = '';
+
+$feedFile = 'index.php?option=com_sermonspeaker&view=feed&format=raw';
 
 if ($type)
 {
-	$options .= '&amp;type=' . $type;
+	$feedFile .= '&type=' . $type;
 }
 
 if ($menuitem)
 {
-	$options .= '&amp;Itemid=' . $menuitem;
+	$feedFile .= '&Itemid=' . $menuitem;
 }
 
-$feedFile = JUri::root() . 'index.php?option=com_sermonspeaker&amp;view=feed&amp;format=raw' . $options;
 
-require JModuleHelper::getLayoutPath('mod_sermoncast', $params->get('layout', 'default'));
+require ModuleHelper::getLayoutPath('mod_sermoncast', $params->get('layout', 'default'));
