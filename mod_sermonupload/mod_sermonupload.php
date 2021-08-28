@@ -7,10 +7,12 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
-use Joomla\CMS\Factory;
-use Joomla\CMS\HTML\HTMLHelper;
-
 defined('_JEXEC') or die();
+
+use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\Factory;
+use Joomla\CMS\Helper\ModuleHelper;
+use Joomla\CMS\HTML\HTMLHelper;
 
 require_once __DIR__ . '/helper.php';
 
@@ -24,30 +26,27 @@ if (!$user->authorise('core.create', 'com_sermonspeaker'))
 
 // Prepare Upload Script
 HTMLHelper::_('jquery.framework');
-HTMLHelper::Script('media/com_sermonspeaker/plupload/plupload.full.min.js');
+HTMLHelper::_('script', 'com_sermonspeaker/plupload/plupload.full.min.js', array('relative' => true));
 
 // Load localisation
 $tag  = str_replace('-', '_', Factory::getLanguage()->getTag());
-$path = 'media/com_sermonspeaker/plupload/i18n/';
+$path = 'com_sermonspeaker/plupload/i18n/';
 $file = $tag . '.js';
 
-if (file_exists(JPATH_SITE . '/' . $path . $file))
+if (HTMLHelper::_('script', $path . $file, array('relative' => true, 'pathOnly' => true)))
 {
-	HTMLHelper::Script($path . $file);
+	HTMLHelper::_('script', $path . $file, array('relative' => true));
 }
 else
 {
 	$tag_array = explode('_', $tag);
 	$file      = $tag_array[0] . '.js';
 
-	if (file_exists(JPATH_SITE . '/' . $path . $file))
-	{
-		HTMLHelper::Script($path . $file);
-	}
+	HTMLHelper::_('script', $path . $file, array('relative' => true));
 }
 
 $identifier = 'SermonUpload_' . $module->id . '_';
-$c_params   = JComponentHelper::getParams('com_sermonspeaker');
+$c_params   = ComponentHelper::getParams('com_sermonspeaker');
 
 $types = $params->get('types');
 
@@ -61,6 +60,4 @@ foreach ($types as $type)
 	ModSermonuploadHelper::loadUploaderScript($identifier, $type, $c_params);
 }
 
-$moduleclass_sfx = htmlspecialchars($params->get('moduleclass_sfx'));
-
-require JModuleHelper::getLayoutPath('mod_sermonupload', $params->get('layout', 'default'));
+require ModuleHelper::getLayoutPath('mod_sermonupload', $params->get('layout', 'default'));

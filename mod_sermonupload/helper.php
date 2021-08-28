@@ -11,6 +11,8 @@ defined('_JEXEC') or die();
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Session\Session;
+use Joomla\CMS\Uri\Uri;
 
 /**
  * Helper class for SermonUpload module
@@ -22,17 +24,19 @@ abstract class ModSermonuploadHelper
 	/**
 	 * Loads JavaScript for the uploader into Document Header
 	 *
-	 * @param   string                    $identifier  Unique identifier
-	 * @param   string                    $type        Filetype (audio, video, addfile)
-	 * @param   Joomla/Registry/Registry  $type        SermonSpeaker params
+	 * @param   string  $identifier  Unique identifier
+	 * @param   string  $type        Filetype (audio, video, addfile)
+	 * @param   /Joomla/Registry/Registry  $type        SermonSpeaker params
 	 *
 	 * @return  void
+	 *
+	 * @since   ?
 	 */
 	public static function loadUploaderScript($identifier, $type, $params)
 	{
 		$identifier = $identifier . $type;
-		$uploadURL = JUri::base() . 'index.php?option=com_sermonspeaker&task=file.upload&'
-			. JSession::getFormToken() . '=1&format=json';
+		$uploadURL  = Uri::base() . 'index.php?option=com_sermonspeaker&task=file.upload&'
+			. Session::getFormToken() . '=1&format=json';
 
 		$plupload_script = '
 			jQuery(document).ready(function() {
@@ -42,7 +46,7 @@ abstract class ModSermonuploadHelper
 					drop_element: "' . $identifier . '_drop",
 		';
 
-// Add File filters
+		// Add File filters
 		$types = $params->get($type . '_filetypes');
 		$types = array_map('trim', explode(',', $types));
 		$types = implode(',', $types);
@@ -113,6 +117,8 @@ abstract class ModSermonuploadHelper
 	 * Function to determine max upload value
 	 *
 	 * @return  string  Lower PHP Setting Value
+	 *
+	 * @since ?
 	 */
 	static public function getMaxUploadValue()
 	{
@@ -130,6 +136,8 @@ abstract class ModSermonuploadHelper
 	 * @param   string  $val  Value from the PHP setting
 	 *
 	 * @return  int  $val  Value in bytes
+	 *
+	 * @since ?
 	 */
 	static private function return_bytes($val)
 	{

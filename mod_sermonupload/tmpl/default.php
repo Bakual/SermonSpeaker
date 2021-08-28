@@ -12,11 +12,18 @@ defined('_JEXEC') or die();
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 
+/**
+ * @var array                     $types
+ * @var string                    $identifier
+ */
+
 HTMLHelper::_('stylesheet', 'com_sermonspeaker/frontendupload.css', array('relative' => true));
 ?>
-<div class="sermonupload<?php echo $moduleclass_sfx; ?>">
-	<div id="upload_limit" class="well well-small">
-		<?php echo Text::sprintf('MOD_SERMONUPLOAD_UPLOAD_LIMIT', ModSermonuploadHelper::getMaxUploadValue()); ?>
+<div class="sermonupload">
+	<div id="upload_limit" class="card bg-light">
+		<div class="card-body">
+			<?php echo Text::sprintf('MOD_SERMONUPLOAD_UPLOAD_LIMIT', ModSermonuploadHelper::getMaxUploadValue()); ?>
+		</div>
 	</div>
 	<?php foreach ($types as $type): ?>
 		<?php $id = $identifier . $type; ?>
