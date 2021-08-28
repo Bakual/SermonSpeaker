@@ -83,12 +83,12 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 							</div>
 							<div class="page-header">
 								<h2><?php echo SermonspeakerHelperSermonspeaker::insertSermonTitle($i, $item, $player, false); ?></h2>
-								<?php echo JLayoutHelper::render('blocks.state_info', array('item' => $item, 'show' => $showState)); ?>
+								<?php echo LayoutHelper::render('blocks.state_info', array('item' => $item, 'show' => $showState)); ?>
 
 								<?php if (in_array('sermons:speaker', $this->columns) and $item->speaker_title) : ?>
 									<small class="ss-speaker createdby">
 										<?php echo Text::_('COM_SERMONSPEAKER_SPEAKER'); ?>:
-										<?php echo JLayoutHelper::render('titles.speaker', array('item' => $item, 'params' => $this->params)); ?>
+										<?php echo LayoutHelper::render('titles.speaker', array('item' => $item, 'params' => $this->params)); ?>
 									</small>
 								<?php endif; ?>
 							</div>

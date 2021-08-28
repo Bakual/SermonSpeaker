@@ -12,6 +12,8 @@ defined('_JEXEC') or die();
 use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Layout\LayoutHelper;
+use Joomla\CMS\Router\Route;
 
 HTMLHelper::_('bootstrap.tooltip', '.hasTooltip');
 
@@ -29,9 +31,9 @@ if (!$this->item->pic)
 			   target="_parent">
 				<h2><?php echo $this->item->title; ?></h2>
 			</a>
-			<?php echo JLayoutHelper::render('blocks.state_info', array('item' => $this->item, 'show' => $user->authorise('core.edit', 'com_sermonspeaker'))); ?>
+			<?php echo LayoutHelper::render('blocks.state_info', array('item' => $this->item, 'show' => $user->authorise('core.edit', 'com_sermonspeaker'))); ?>
 		</div>
-		<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($this->item->slug, $this->item->catid, $this->item->language)); ?>">
+		<a href="<?php echo Route::_(SermonspeakerHelperRoute::getSpeakerRoute($this->item->slug, $this->item->catid, $this->item->language)); ?>">
 			<img class="img-thumbnail pull-left item-image"
 				 src="<?php echo SermonspeakerHelperSermonspeaker::makeLink($this->item->pic); ?>">
 		</a>

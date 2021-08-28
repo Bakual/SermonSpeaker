@@ -12,6 +12,7 @@ defined('_JEXEC') or die();
 use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Layout\LayoutHelper;
 
 /**
  * HTML View class for the SermonSpeaker Component
@@ -120,7 +121,7 @@ class SermonspeakerViewSerie extends JViewLegacy
 			{
 				$speaker->speaker_slug  = $speaker->slug;
 				$speaker->speaker_state = $speaker->state;
-				$names[]                = JLayoutHelper::render('titles.speaker', array('item' => $speaker, 'params' => $this->params));
+				$names[]                = LayoutHelper::render('titles.speaker', array('item' => $speaker, 'params' => $this->params));
 			}
 
 			$this->item->speakers = implode(', ', $names);

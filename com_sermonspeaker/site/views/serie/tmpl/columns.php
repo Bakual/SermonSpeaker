@@ -10,9 +10,11 @@
 defined('_JEXEC') or die();
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\Filesystem\File;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
+use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
 
 HTMLHelper::addIncludePath(JPATH_COMPONENT . '/helpers');
@@ -62,7 +64,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 					</div>
 					<div class="column-content" onclick="ss_play(<?php echo $i; ?>)">
 						<h3 class="title"><a
-									href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug, $item->catid, $item->language)); ?>"><?php echo $item->title; ?></a>
+									href="<?php echo Route::_(SermonspeakerHelperRoute::getSermonRoute($item->slug, $item->catid, $item->language)); ?>"><?php echo $item->title; ?></a>
 							<?php
 							if ($canEdit or ($canEditOwn && ($user->id == $item->created_by))) :
 								echo HTMLHelper::_('icon.edit', $item, $this->params, array('type' => 'sermon'));
@@ -80,7 +82,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 
 						if (in_array('serie:speaker', $this->columns) && $item->speaker_title) : ?>
 							<span class="speaker <?php echo $class; ?>">
-							<?php echo JLayoutHelper::render('titles.speaker', array('item' => $item, 'params' => $this->params)); ?>
+							<?php echo LayoutHelper::render('titles.speaker', array('item' => $item, 'params' => $this->params)); ?>
 						</span>
 						<?php endif;
 
@@ -100,7 +102,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 
 						if (in_array('serie:category', $this->columns)) : ?>
 							<div class="category-name">
-								<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSermonsRoute($item->catid, $item->language)); ?>"><?php echo $item->category_title; ?></a>
+								<a href="<?php echo Route::_(SermonspeakerHelperRoute::getSermonsRoute($item->catid, $item->language)); ?>"><?php echo $item->category_title; ?></a>
 							</div>
 						<?php endif;
 
@@ -136,12 +138,12 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 							$link = SermonspeakerHelperSermonspeaker::makeLink($item->addfile);
 
 							// Get extension of file
-							$ext = JFile::getExt($item->addfile);
+							$ext = File::getExt($item->addfile);
 
 							if (file_exists(JPATH_SITE . '/media/com_sermonspeaker/icons/' . $ext . '.png')) :
-								$file = JUri::root() . 'media/com_sermonspeaker/icons/' . $ext . '.png';
+								$file = Uri::root() . 'media/com_sermonspeaker/icons/' . $ext . '.png';
 							else :
-								$file = JUri::root() . 'media/com_sermonspeaker/icons/icon.png';
+								$file = Uri::root() . 'media/com_sermonspeaker/icons/icon.png';
 							endif;
 
 							// Show filename if no addfileDesc is set

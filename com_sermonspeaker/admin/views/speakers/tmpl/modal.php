@@ -12,6 +12,7 @@ defined('_JEXEC') or die;
 use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Layout\LayoutHelper;
 
 $app = Factory::getApplication();
 
@@ -38,7 +39,7 @@ $listDirn  = $this->escape($this->state->get('list.direction'));
 	<form action="<?php echo JRoute::_('index.php?option=com_sermonspeaker&view=speakers&layout=modal&tmpl=component&function=' . $function . '&' . JSession::getFormToken() . '=1'); ?>"
 		  method="post" name="adminForm" id="adminForm" class="form-inline">
 
-		<?php echo JLayoutHelper::render('joomla.searchtools.default', array('view' => $this)); ?>
+		<?php echo LayoutHelper::render('joomla.searchtools.default', array('view' => $this)); ?>
 
 		<table class="table table-striped table-condensed">
 			<thead>
@@ -89,7 +90,7 @@ $listDirn  = $this->escape($this->state->get('list.direction'));
 						<?php echo $this->escape($item->category_title); ?>
 					</td>
 					<td class="small">
-						<?php echo JLayoutHelper::render('joomla.content.language', $item); ?>
+						<?php echo LayoutHelper::render('joomla.content.language', $item); ?>
 					</td>
 					<td class="nowrap small hidden-phone">
 						<?php echo (int) $item->id; ?>

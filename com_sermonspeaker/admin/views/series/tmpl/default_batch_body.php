@@ -31,7 +31,7 @@ $published = $this->state->get('filter.published');
 		<?php if ($published >= 0) : ?>
 			<div class="form-group col-md-6">
 				<div class="controls">
-					<?php echo JLayoutHelper::render('joomla.html.batch.item', array('extension' => 'com_sermonspeaker.series')) ?>
+					<?php echo LayoutHelper::render('joomla.html.batch.item', array('extension' => 'com_sermonspeaker.series')) ?>
 				</div>
 			</div>
 		<?php endif; ?>
