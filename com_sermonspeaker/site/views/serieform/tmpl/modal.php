@@ -11,6 +11,7 @@ defined('_JEXEC') or die();
 
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Router\Route;
 
 HTMLHelper::_('bootstrap.tooltip', '.hasTooltip', array('placement' => 'bottom'));
 HTMLHelper::_('behavior.formvalidation');
@@ -38,7 +39,7 @@ HTMLHelper::_('behavior.keepalive');
 	<?php endif; ?>
 
 	<form
-			action="<?php echo JRoute::_('index.php?option=com_sermonspeaker&view=serieform&modal=1&s_id=' . (int) $this->item->id); ?>"
+			action="<?php echo Route::_('index.php?option=com_sermonspeaker&view=serieform&modal=1&s_id=' . (int) $this->item->id); ?>"
 			method="post" name="adminForm" id="adminForm" class="form-validate form form-vertical">
 		<div class="btn-toolbar">
 			<div class="btn-group">

@@ -12,6 +12,7 @@ defined('_JEXEC') or die();
 use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Router\Route;
 
 /**
  * Controller class for the SermonSpeaker Component
@@ -249,7 +250,7 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 
 		if ($task == 'save')
 		{
-			$this->setRedirect(JRoute::_('index.php?option=com_sermonspeaker&view=sermons', false));
+			$this->setRedirect(Route::_('index.php?option=com_sermonspeaker&view=sermons', false));
 		}
 
 		$recordId = (int) $model->getState($this->context . '.id');

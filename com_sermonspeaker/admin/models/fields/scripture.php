@@ -10,8 +10,10 @@
 defined('_JEXEC') or die();
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\Form\FormField;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Router\Route;
 
 jimport('joomla.form.formfield');
 
@@ -20,7 +22,7 @@ jimport('joomla.form.formfield');
  *
  * @since ?
  */
-class JFormFieldScripture extends JFormField
+class JFormFieldScripture extends FormField
 {
 	/**
 	 * The form field type.
@@ -67,7 +69,7 @@ class JFormFieldScripture extends JFormField
 		}
 		else
 		{
-			$url = JRoute::_('index.php?option=com_sermonspeaker&view=scripture&tmpl=component');
+			$url = Route::_('index.php?option=com_sermonspeaker&view=scripture&tmpl=component');
 		}
 
 		$modalId = 'scriptureModal_' . $this->id;

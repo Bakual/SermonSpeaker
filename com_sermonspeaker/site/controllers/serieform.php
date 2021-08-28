@@ -8,6 +8,7 @@
  **/
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\Router\Route;
 
 defined('_JEXEC') or die();
 
@@ -247,7 +248,7 @@ class SermonspeakerControllerSerieform extends JControllerForm
 
 		if ($task == 'save')
 		{
-			$this->setRedirect(JRoute::_('index.php?option=com_sermonspeaker&view=series', false));
+			$this->setRedirect(Route::_('index.php?option=com_sermonspeaker&view=series', false));
 		}
 	}
 

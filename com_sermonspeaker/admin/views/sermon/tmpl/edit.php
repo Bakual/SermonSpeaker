@@ -8,6 +8,7 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Associations;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
+use Joomla\CMS\Router\Route;
 
 // Include the component HTML helpers.
 HTMLHelper::addIncludePath(JPATH_COMPONENT . '/helpers/html');
@@ -33,7 +34,7 @@ $self = $uri->toString();
 $jinput = Factory::getApplication()->input;
 $tmpl   = $jinput->getCmd('tmpl') === 'component' ? '&tmpl=component' : '';
 ?>
-<form action="<?php echo JRoute::_('index.php?option=com_sermonspeaker&layout=edit&id=' . (int) $this->item->id . $tmpl); ?>"
+<form action="<?php echo Route::_('index.php?option=com_sermonspeaker&layout=edit&id=' . (int) $this->item->id . $tmpl); ?>"
 	  method="post" name="adminForm" id="item-form" class="form-validate">
 
 	<?php echo LayoutHelper::render('joomla.edit.title_alias', $this); ?>

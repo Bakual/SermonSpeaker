@@ -101,7 +101,7 @@ class SermonspeakerControllerSermon extends FormController
 		$model = $this->getModel('Sermon', '', array());
 
 		// Preset the redirect
-		$this->setRedirect(JRoute::_('index.php?option=com_sermonspeaker&view=sermons' . $this->getRedirectToListAppend(), false));
+		$this->setRedirect(Route::_('index.php?option=com_sermonspeaker&view=sermons' . $this->getRedirectToListAppend(), false));
 
 		return parent::batch($model);
 	}

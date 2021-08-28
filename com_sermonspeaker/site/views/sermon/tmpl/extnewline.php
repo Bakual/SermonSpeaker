@@ -13,6 +13,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
+use Joomla\CMS\Router\Route;
 
 // HTMLHelper::_('stylesheet', 'com_sermonspeaker/sermonspeaker.css', array('relative' => true));
 HTMLHelper::addIncludePath(JPATH_COMPONENT . '/helpers');
@@ -64,7 +65,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 				<div class="col-4 fw-bold"><?php echo Text::_('COM_SERMONSPEAKER_SERIE_TITLE'); ?>:</div>
 				<div class="col-8">
 					<?php if ($this->item->series_state) : ?>
-						<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSerieRoute($this->item->series_slug, $this->item->series_catid, $this->item->series_language)); ?>">
+						<a href="<?php echo Route::_(SermonspeakerHelperRoute::getSerieRoute($this->item->series_slug, $this->item->series_catid, $this->item->series_language)); ?>">
 							<?php echo $this->escape($this->item->series_title); ?></a>
 					<?php else :
 						echo $this->escape($this->item->series_title);

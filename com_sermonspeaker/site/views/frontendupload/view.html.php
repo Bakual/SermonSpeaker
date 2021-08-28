@@ -11,6 +11,7 @@ defined('_JEXEC') or die();
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Router\Route;
 
 /**
  * HTML View class for the SermonSpeaker Component
@@ -121,7 +122,7 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 		{
 			$redirectUrl = urlencode(base64_encode(JUri::getInstance()->toString()));
 			$app->enqueueMessage(Text::_('JGLOBAL_YOU_MUST_LOGIN_FIRST'), 'error');
-			$app->redirect(JRoute::_('index.php?option=com_users&view=login&return=' . $redirectUrl));
+			$app->redirect(Route::_('index.php?option=com_users&view=login&return=' . $redirectUrl));
 
 			return false;
 		}

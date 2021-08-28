@@ -39,7 +39,7 @@ if ($saveOrder)
 
 $assoc = Associations::isEnabled();
 ?>
-<form action="<?php echo JRoute::_('index.php?option=com_sermonspeaker&view=series'); ?>" method="post" name="adminForm"
+<form action="<?php echo Route::_('index.php?option=com_sermonspeaker&view=series'); ?>" method="post" name="adminForm"
 	  id="adminForm">
 	<div class="row">
 		<div class="col-md-12">

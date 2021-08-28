@@ -12,6 +12,7 @@ defined('_JEXEC') or die();
 use Joomla\CMS\Factory;
 use Joomla\CMS\Helper\TagsHelper;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Router\Route;
 
 /**
  * HTML View class for the SermonSpeaker Component
@@ -242,7 +243,7 @@ class SermonspeakerViewSermons extends JViewLegacy
 		if ($this->params->get('show_feed_link', 1))
 		{
 			$attribs = array('type' => 'application/rss+xml', 'title' => 'RSS 2.0');
-			$this->document->addHeadLink(JRoute::_('&view=feed&format=raw&catid=' . $this->category->id), 'alternate', 'rel', $attribs);
+			$this->document->addHeadLink(Route::_('&view=feed&format=raw&catid=' . $this->category->id), 'alternate', 'rel', $attribs);
 		}
 	}
 }

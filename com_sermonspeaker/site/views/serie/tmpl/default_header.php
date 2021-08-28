@@ -79,7 +79,7 @@ $htag       = $this->params->get('show_page_heading') ? 'h2' : 'h1';
 			<div class="category-name">
 				<span class="icon-folder-open icon-fw"></span>
 				<?php echo Text::_('JCATEGORY'); ?>:
-				<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSeriesRoute($this->item->catslug, $this->item->language)); ?>"><?php echo $this->item->category_title; ?></a>
+				<a href="<?php echo Route::_(SermonspeakerHelperRoute::getSeriesRoute($this->item->catslug, $this->item->language)); ?>"><?php echo $this->item->category_title; ?></a>
 			</div>
 		</dd>
 	<?php endif;

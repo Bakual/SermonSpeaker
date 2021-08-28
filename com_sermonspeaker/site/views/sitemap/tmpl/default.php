@@ -8,6 +8,7 @@
  **/
 
 use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Router\Route;
 
 defined('_JEXEC') or die();
 
@@ -31,7 +32,7 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>'; ?>
 			$date = '';
 		endif; ?>
 		<url>
-			<loc><?php echo $base . JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug, $item->catid, $item->language)); ?></loc>
+			<loc><?php echo $base . Route::_(SermonspeakerHelperRoute::getSermonRoute($item->slug, $item->catid, $item->language)); ?></loc>
 			<?php
 			if ($date) : ?>
 				<lastmod><?php echo HTMLHelper::date($date, 'c'); ?></lastmod><?php endif; ?>

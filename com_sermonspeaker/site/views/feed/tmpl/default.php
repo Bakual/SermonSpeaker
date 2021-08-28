@@ -8,6 +8,7 @@
  **/
 
 use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Router\Route;
 
 defined('_JEXEC') or die();
 
@@ -114,7 +115,7 @@ echo '<?xml version="1.0" encoding="utf-8" ?>'; ?>
 				<link><?php
 					if ($this->params->get('use_sef', 1)) :
 						$uri = JUri::getInstance(JUri::root());
-						echo $this->make_xml_safe($uri->toString(array('scheme', 'host', 'port')) . JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug, $item->catid, $item->language)));
+						echo $this->make_xml_safe($uri->toString(array('scheme', 'host', 'port')) . Route::_(SermonspeakerHelperRoute::getSermonRoute($item->slug, $item->catid, $item->language)));
 					else :
 						echo $this->make_xml_safe(JUri::root() . SermonspeakerHelperRoute::getSermonRoute($item->id, $item->catid, $item->language));
 					endif; ?></link>

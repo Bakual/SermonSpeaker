@@ -13,6 +13,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
+use Joomla\CMS\Router\Route;
 
 /**
  * HTML View class for the SermonSpeaker Component
@@ -38,7 +39,7 @@ class SermonspeakerViewSerie extends JViewLegacy
 		if (!$app->input->get('id', 0, 'int'))
 		{
 			$app->enqueueMessage(Text::_('JGLOBAL_RESOURCE_NOT_FOUND'), 'error');
-			$app->redirect(JRoute::_('index.php?view=series'));
+			$app->redirect(Route::_('index.php?view=series'));
 		}
 
 		// Applying CSS file
@@ -53,7 +54,7 @@ class SermonspeakerViewSerie extends JViewLegacy
 		if (!$this->item)
 		{
 			$app->enqueueMessage(Text::_('JGLOBAL_RESOURCE_NOT_FOUND'), 'error');
-			$app->redirect(JRoute::_('index.php?view=series'));
+			$app->redirect(Route::_('index.php?view=series'));
 		}
 
 		// Get Tags
@@ -68,7 +69,7 @@ class SermonspeakerViewSerie extends JViewLegacy
 			if (!in_array($this->item->category_access, $groups))
 			{
 				$app->enqueueMessage(Text::_('JERROR_ALERTNOAUTHOR'), 'error');
-				$app->redirect(JRoute::_('index.php?view=series'));
+				$app->redirect(Route::_('index.php?view=series'));
 			}
 		}
 

@@ -9,6 +9,7 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Form\FormField;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 
@@ -20,7 +21,7 @@ jimport('joomla.form.formfield');
  * @package        SermonSpeaker
  * @since          4.0
  */
-class JFormFieldColumns extends JFormField
+class JFormFieldColumns extends FormField
 {
 	/**
 	 * The form field type.

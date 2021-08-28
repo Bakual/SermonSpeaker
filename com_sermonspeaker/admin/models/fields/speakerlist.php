@@ -10,8 +10,10 @@
 defined('_JEXEC') or die();
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\Form\Field\GroupedlistField;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Router\Route;
 
 jimport('joomla.html.html');
 jimport('joomla.form.formfield');
@@ -23,7 +25,7 @@ JFormHelper::loadFieldClass('groupedlist');
  *
  * @since  4.0
  */
-class JFormFieldSpeakerlist extends JFormFieldGroupedList
+class JFormFieldSpeakerlist extends GroupedlistField
 {
 	/**
 	 * The form field type.
@@ -195,8 +197,8 @@ class JFormFieldSpeakerlist extends JFormFieldGroupedList
 			}
 			else
 			{
-				$returnpage = base64_encode(JRoute::_('index.php?view=close&tmpl=component'));
-				$url        = JRoute::_('index.php?task=speakerform.add&layout=modal&tmpl=component&return=' . $returnpage);
+				$returnpage = base64_encode(Route::_('index.php?view=close&tmpl=component'));
+				$url        = Route::_('index.php?task=speakerform.add&layout=modal&tmpl=component&return=' . $returnpage);
 				$string     = 'COM_SERMONSPEAKER_BUTTON_NEW_SPEAKER';
 			}
 

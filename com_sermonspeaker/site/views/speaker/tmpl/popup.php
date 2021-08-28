@@ -27,7 +27,7 @@ if (!$this->item->pic)
 <div class="ss-speaker-container<?php echo htmlspecialchars($this->params->get('pageclass_sfx')); ?>">
 	<div class="<?php echo ($this->item->state) ? '' : 'system-unpublished'; ?>">
 		<div class="page-header">
-			<a href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($this->item->slug, $this->item->catid, $this->item->language)); ?>"
+			<a href="<?php echo Route::_(SermonspeakerHelperRoute::getSpeakerRoute($this->item->slug, $this->item->catid, $this->item->language)); ?>"
 			   target="_parent">
 				<h2><?php echo $this->item->title; ?></h2>
 			</a>
@@ -52,14 +52,14 @@ if (!$this->item->pic)
 	<div class="clearfix"></div>
 	<?php if ($this->sermons): ?>
 		<a class="badge hasTooltip" title="<?php echo Text::_('COM_SERMONSPEAKER_SPEAKERS_SERMONSLINK_HOOVER'); ?>"
-		   href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($this->item->slug, $this->item->catid, $this->item->language)); ?>"
+		   href="<?php echo Route::_(SermonspeakerHelperRoute::getSpeakerRoute($this->item->slug, $this->item->catid, $this->item->language)); ?>"
 		   target="_parent">
 			<?php echo Text::_('COM_SERMONSPEAKER_SERMONS'); ?></a>&nbsp;
 	<?php endif;
 
 	if ($this->series) : ?>
 		<a class="badge hasTooltip" title="<?php echo Text::_('COM_SERMONSPEAKER_SPEAKERS_SERIESLINK_HOOVER'); ?>"
-		   href="<?php echo JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($this->item->slug, $this->item->catid, $this->item->language) . '#series'); ?>"
+		   href="<?php echo Route::_(SermonspeakerHelperRoute::getSpeakerRoute($this->item->slug, $this->item->catid, $this->item->language) . '#series'); ?>"
 		   target="_parent">
 			<?php echo Text::_('COM_SERMONSPEAKER_SERIES'); ?></a>&nbsp;
 	<?php endif;

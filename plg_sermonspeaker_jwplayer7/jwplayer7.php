@@ -13,6 +13,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Filesystem\File;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Router\Route;
 use Joomla\Registry\Registry;
 
 JLoader::register('SermonspeakerPluginPlayer', JPATH_SITE . '/components/com_sermonspeaker/plugin/player.php');
@@ -216,9 +217,9 @@ class PlgSermonspeakerJwplayer7 extends SermonspeakerPluginPlayer
 				if (!is_array($items))
 				{
 					$url            = 'index.php?&task=download&id=' . $items->slug . '&type=';
-					$download_video = 'document.getElementById("sermon_download").onclick=function(){window.location.href=\'' . JRoute::_($url . 'video')
+					$download_video = 'document.getElementById("sermon_download").onclick=function(){window.location.href=\'' . Route::_($url . 'video')
 						. '\'};document.getElementById("sermon_download").value="' . Text::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_VIDEO') . '"';
-					$download_audio = 'document.getElementById("sermon_download").onclick=function(){window.location.href=\'' . JRoute::_($url . 'audio')
+					$download_audio = 'document.getElementById("sermon_download").onclick=function(){window.location.href=\'' . Route::_($url . 'audio')
 						. '\'};document.getElementById("sermon_download").value="' . Text::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_AUDIO') . '"';
 				}
 				else

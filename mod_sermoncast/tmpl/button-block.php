@@ -44,7 +44,7 @@ HTMLHelper::_('stylesheet', 'com_sermonspeaker/font.css', array('relative' => tr
 	    <?php if ($params->get('sc_showhelp')) : ?>
 		    <?php $modalParams = array(); ?>
 		    <?php $modalParams['closeButton'] = false; ?>
-		    <?php $modalParams['url'] = JRoute::_('index.php?option=com_content&view=article&tmpl=component&id=' . (int) $params->get('sc_helpcontent')); ?>
+		    <?php $modalParams['url'] = Route::_('index.php?option=com_content&view=article&tmpl=component&id=' . (int) $params->get('sc_helpcontent')); ?>
 		    <?php $modalParams['bodyHeight'] = 70; ?>
 		    <?php $modalParams['modalWidth'] = 80; ?>
 		    <?php echo HTMLHelper::_('bootstrap.renderModal', 'sc_modal', $modalParams); ?>

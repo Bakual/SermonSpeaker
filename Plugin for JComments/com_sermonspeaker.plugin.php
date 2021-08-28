@@ -1,6 +1,7 @@
 <?php
 // Plugin for JComments, manually copy to the JComments folder '/components/com_jcomments/plugins' if you want to use it.
 use Joomla\CMS\Factory;
+use Joomla\CMS\Router\Route;
 
 class jc_com_sermonspeaker extends JCommentsPlugin {
 	function getObjectTitle($id) {
@@ -13,7 +14,7 @@ class jc_com_sermonspeaker extends JCommentsPlugin {
 		// Itemid meaning of our component
 		$_Itemid = JCommentsPlugin::getItemid('com_sermonspeaker');
 		// url link creation for given object by id 
-		return JRoute::_('index.php?option=com_sermonspeaker&view=sermon&id='.$id.'&Itemid='.$_Itemid);
+		return Route::_('index.php?option=com_sermonspeaker&view=sermon&id='.$id.'&Itemid='.$_Itemid);
 	}
 	function getObjectOwner($id) {
 		$db = Factory::getDbo();
