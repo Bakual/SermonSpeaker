@@ -9,6 +9,8 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Helper\ModuleHelper;
+
 // Include the helper functions only once.
 require_once __DIR__ . '/helper.php';
 
@@ -32,4 +34,4 @@ foreach ($types as $type)
 }
 
 // Render the module
-require JModuleHelper::getLayoutPath('mod_sermonspeaker', $params->get('layout', 'default'));
+require ModuleHelper::getLayoutPath('mod_sermonspeaker', $params->get('layout', 'default'));

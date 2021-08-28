@@ -12,77 +12,84 @@ defined('_JEXEC') or die;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 
-$header = count($list) - 1;
-HTMLHelper::_('bootstrap.tooltip', '.hasTooltip');
+/** @var array $list
+ * @var object                    $module
+ * @var \Joomla\Registry\Registry $params
+ */
+
+$moduleId = str_replace(' ', '', $module->title) . $module->id;
 ?>
 <?php if ($list) : ?>
 	<?php foreach ($list as $type => $items) : ?>
-		<?php if ($header) : ?>
-			<div class="nav-header"><?php echo Text::_('MOD_SERMONSPEAKER_' . $type); ?></div>
-		<?php endif; ?>
-		<div class="row-striped">
-			<?php foreach ($items as $i => $item) : ?>
-				<div class="row-fluid">
-					<div class="span9">
-						<?php if ($params->get('show_state', 1)) : ?>
-							<?php echo HTMLHelper::_('jgrid.published', $item->state, $i, '', false); ?>
-						<?php endif; ?>
-						<?php if ($params->get('show_hits')) : ?>
-							<?php $hits = (int) $item->hits; ?>
-							<?php $hits_class = ($hits >= 10000 ? 'important' : ($hits >= 1000 ? 'warning' : ($hits >= 100 ? 'info' : ''))); ?>
-							<span class="badge badge-<?php echo $hits_class; ?> hasTooltip" title="<?php echo Text::_('JGLOBAL_HITS'); ?>">
-								<?php echo $item->hits; ?>
-							</span>
-						<?php endif; ?>
-						<?php if ($item->checked_out) : ?>
-								<?php echo HTMLHelper::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time); ?>
-						<?php endif; ?>
-
-						<strong class="row-title break-word">
-							<?php if ($item->link) : ?>
-								<a href="<?php echo $item->link; ?>">
-									<?php echo htmlspecialchars($item->title, ENT_QUOTES); ?></a>
-							<?php else : ?>
-								<?php echo htmlspecialchars($item->title, ENT_QUOTES); ?>
+		<h4 class="ps-3 pt-3 "><?php echo Text::_('MOD_SERMONSPEAKER_' . $type); ?></h4>
+		<table class="table border-bottom" id="<?php echo $moduleId; ?>">
+			<thead>
+				<tr>
+					<th scope="col" class="w-55"><?php echo Text::_('JGLOBAL_TITLE'); ?></th>
+					<?php if ($params->get('show_hits')) : ?>
+						<th scope="col" class="w-15"><?php echo Text::_('JGLOBAL_HITS'); ?></th>
+					<?php endif; ?>
+					<?php if ($params->get('show_author', 1)) : ?>
+						<th scope="col" class="w-15"><?php echo Text::_('JAUTHOR'); ?></th>
+					<?php endif; ?>
+					<th scope="col" class="w-15"><?php echo Text::_('JDATE'); ?></th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php if (count($items)) : ?>
+					<?php foreach ($items as $i => $item) : ?>
+						<tr>
+							<th scope="row">
+								<?php if ($item->checked_out) : ?>
+									<?php echo HTMLHelper::_('jgrid.checkedout', $moduleId . $i, $item->editor, $item->checked_out_time); ?>
+								<?php endif; ?>
+								<?php if ($item->link) : ?>
+									<a href="<?php echo $item->link; ?>" title="<?php echo Text::_('JACTION_EDIT'); ?> <?php echo htmlspecialchars($item->title, ENT_QUOTES, 'UTF-8'); ?>">
+										<?php echo htmlspecialchars($item->title, ENT_QUOTES, 'UTF-8'); ?>
+									</a>
+								<?php else : ?>
+									<?php echo htmlspecialchars($item->title, ENT_QUOTES, 'UTF-8'); ?>
+								<?php endif; ?>
+								<br>
+								<?php if ($params->get('show_counts')) : ?>
+									<?php if (isset($item->sermons)) : ?>
+										<a href="index.php?option=com_sermonspeaker&view=sermons&filter[<?php echo rtrim($type, 's'); ?>]=<?php echo $item->id; ?>" class="badge bg-info">
+											<?php echo Text::_('MOD_SERMONSPEAKER_SERMONS'); ?>: <?php echo $item->sermons; ?>
+										</a>
+									<?php endif; ?>
+									<?php if (isset($item->series)) : ?>
+										<a href="index.php?option=com_sermonspeaker&view=series" class="badge bg-info">
+											<?php echo Text::_('MOD_SERMONSPEAKER_SERIES'); ?>: <?php echo $item->series; ?>
+										</a>
+									<?php endif; ?>
+								<?php endif; ?>
+							</th>
+							<?php if ($params->get('show_hits')) : ?>
+								<?php $hits = (int) $item->hits; ?>
+								<?php $hits_class = ($hits >= 10000 ? 'danger' : ($hits >= 1000 ? 'warning' : ($hits >= 100 ? 'info' : 'secondary'))); ?>
+								<td>
+									<span class="badge bg-<?php echo $hits_class; ?>"><?php echo $item->hits; ?></span>
+								</td>
 							<?php endif; ?>
-						</strong>
-
-						<?php if ($params->get('show_author', 1)) : ?>
-							<small class="hasTooltip" title="<?php echo Text::_('JGLOBAL_FIELD_CREATED_BY_LABEL'); ?>">
-								<?php echo $item->author_name; ?>
-							</small>
-						<?php endif; ?>
-						<?php if ($params->get('show_counts')) : ?>
-							<?php if (isset($item->sermons)) : ?>
-								<a href="index.php?option=com_sermonspeaker&view=sermons&filter[<?php echo rtrim($type, 's'); ?>]=<?php echo $item->id; ?>">
-									<span class="badge badge-info">
-										<?php echo Text::_('MOD_SERMONSPEAKER_SERMONS'); ?>: <?php echo $item->sermons; ?>
-									</span>
-								</a>
+							<?php if ($params->get('show_author', 1)) : ?>
+								<td>
+									<?php echo $item->author_name; ?>
+								</td>
 							<?php endif; ?>
-							<?php if (isset($item->series)) : ?>
-								<a href="index.php?option=com_sermonspeaker&view=series">
-									<span class="badge badge-info">
-										<?php echo Text::_('MOD_SERMONSPEAKER_SERIES'); ?>: <?php echo $item->series; ?>
-									</span>
-								</a>
-							<?php endif; ?>
-						<?php endif; ?>
-					</div>
-					<div class="span3">
-						<div class="small pull-right hasTooltip" title="<?php echo HTMLHelper::_('tooltipText', 'JGLOBAL_FIELD_CREATED_LABEL'); ?>">
-							<span class="icon-calendar" aria-hidden="true"></span>
-							<?php echo HTMLHelper::_('date', $item->created, Text::_('DATE_FORMAT_LC5')); ?>
-						</div>
-					</div>
-				</div>
-			<?php endforeach; ?>
-		</div>
+							<td>
+								<?php echo HTMLHelper::_('date', $item->created, Text::_('DATE_FORMAT_LC4')); ?>
+							</td>
+						</tr>
+					<?php endforeach; ?>
+				<?php else : ?>
+					<tr>
+						<td colspan="3">
+							<?php echo Text::_('MOD_POPULAR_NO_MATCHING_RESULTS'); ?>
+						</td>
+					</tr>
+				<?php endif; ?>
+			</tbody>
+		</table>
 	<?php endforeach; ?>
-<?php else: ?>
-	<div class="row-fluid">
-		<div class="span12">
-			<div class="alert"><?php echo Text::_('JGLOBAL_NO_MATCHING_RESULTS'); ?></div>
-		</div>
-	</div>
 <?php endif; ?>
+

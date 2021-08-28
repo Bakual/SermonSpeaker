@@ -7,11 +7,12 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
-use Joomla\CMS\Factory;
-
 defined('_JEXEC') or die;
 
-JModelLegacy::addIncludePath(JPATH_ADMINISTRATOR . '/components/com_sermonspeaker/models', 'SermonspeakerModel');
+use Joomla\CMS\Factory;
+use Joomla\CMS\MVC\Model\BaseDatabaseModel;
+
+BaseDatabaseModel::addIncludePath(JPATH_ADMINISTRATOR . '/components/com_sermonspeaker/models', 'SermonspeakerModel');
 
 /**
  * Helper for mod_sermonspeaker
@@ -23,23 +24,25 @@ class ModSermonspeakerHelper
 	/**
 	 * Get a list of SermonSpeaker items
 	 *
-	 * @param   Joomla /Registry/Registry  $params  The module parameters.
+	 * @param   /Joomla/Registry/Registry  $params  The module parameters.
 	 *
-	 * @return  array of items or false
+	 * @return  array array of items or false
+	 *
+	 * @since   ?
 	 */
 	public static function getList($params, $type)
 	{
 		if (!in_array($type, array('sermons', 'series', 'speakers')))
 		{
-			return false;
+			return array();
 		}
 
 		// Get an instance of the SermonSpeaker item model
-		$model = JModelLegacy::getInstance($type, 'SermonspeakerModel', array('ignore_request' => true));
+		$model = BaseDatabaseModel::getInstance($type, 'SermonspeakerModel', array('ignore_request' => true));
 
 		// Set States
 		$model->setState('list.select',
-			$type . '.id, ' . $type . '.catid, ' . $type . '.title, ' . $type . '.state, ' . $type . '.checked_out, '
+			$type . '.id, ' . $type . '.catid, ' . $type . '.title, ' . $type . '.checked_out, '
 			. $type . '.checked_out_time, ' . $type . '.created, ' . $type . '.created_by, ' . $type . '.hits');
 
 		$ordering = $params->get('ordering', 'hits');
@@ -52,14 +55,6 @@ class ModSermonspeakerHelper
 		$model->setState('list.ordering', $type . '.' . $ordering);
 		$model->setState('list.direction', $params->get('direction') ? 'ASC' : 'DESC');
 
-		// Set Category Filter
-		$categoryId = $params->get('catid');
-
-		if (is_numeric($categoryId))
-		{
-			$model->setState('filter.category_id', $categoryId);
-		}
-
 		// Set the Start and Limit
 		$model->setState('list.start', 0);
 		$model->setState('list.limit', $params->get('count', 2));
@@ -70,7 +65,7 @@ class ModSermonspeakerHelper
 		}
 		catch (RuntimeException $e)
 		{
-			return false;
+			return array();
 		}
 
 		// Authenticate and create the links
