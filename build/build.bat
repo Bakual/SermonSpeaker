@@ -59,9 +59,6 @@ zip -r ../build/packages/plg_sermonspeaker_pixelout.zip *
 cd ../plg_sermonspeaker_vimeo/
 zip -r ../build/packages/plg_sermonspeaker_vimeo.zip *
 
-cd ../plg_content_churchtoolsermonspeaker/
-zip -r ../build/packages/plg_content_churchtoolsermonspeaker.zip *
-
 cd ../plg_content_autotweetsermonspeaker/
 zip -r ../build/packages/plg_content_autotweetsermonspeaker.zip *
 
