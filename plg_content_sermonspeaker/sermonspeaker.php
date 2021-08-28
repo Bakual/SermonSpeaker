@@ -10,8 +10,12 @@
 defined('_JEXEC') or die();
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\Helper\ModuleHelper;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Layout\FileLayout;
+use Joomla\CMS\Plugin\CMSPlugin;
+use Joomla\CMS\Router\Route;
 
 /**
  * Plug-in to show a SermonSpeaker player in an article
@@ -19,19 +23,21 @@ use Joomla\CMS\Language\Text;
  *
  * @since  1.0
  */
-class PlgContentSermonspeaker extends JPlugin
+class PlgContentSermonspeaker extends CMSPlugin
 {
 	/**
 	 * Plugin that shows a SermonSpeaker player
 	 *
-	 * @param   string $context  The context of the content being passed to the plugin.
-	 * @param   object &$article The article object.  Note $article->text is also available
-	 * @param   object &$params  The article params
-	 * @param   int    $page     The 'page' number
+	 * @param   string  $context  The context of the content being passed to the plugin.
+	 * @param   object &$item     The item object.  Note $item->text is also available
+	 * @param   object &$params   The article params
+	 * @param   int     $page     The 'page' number
 	 *
 	 * @return void
+	 *
+	 * @since ?
 	 */
-	public function onContentPrepare($context, $article, &$params, $page = 0)
+	public function onContentPrepare($context, &$item, &$params, $page = 0)
 	{
 		// Don't run this plugin when the content is being indexed
 		if ($context == 'com_finder.indexer')
@@ -40,29 +46,26 @@ class PlgContentSermonspeaker extends JPlugin
 		}
 
 		// Don't run if there is no text property (in case of bad calls) or it is empty
-		if (empty($article->text))
+		if (empty($item->text))
 		{
 			return;
 		}
 
 		// Simple performance check to determine whether bot should process further
-		if (strpos($article->text, 'sermonspeaker') === false)
+		if (strpos($item->text, 'sermonspeaker') === false)
 		{
 			return;
 		}
 
-		// Expression to search for (positions)
 		$regex = '/{sermonspeaker\s+(.*?)}/i';
 
-		// Find all instances of plugin and put in $matches for sermonspeaker
 		// $matches[0] is full pattern match, $matches[1] is the id
-		preg_match_all($regex, $article->text, $matches, PREG_SET_ORDER);
+		preg_match_all($regex, $item->text, $matches, PREG_SET_ORDER);
 
 		if ($matches)
 		{
 			$default_mode = $this->params->get('mode', 1);
 			require_once JPATH_ROOT . '/components/com_sermonspeaker/helpers/sermonspeaker.php';
-			require_once JPATH_ROOT . '/components/com_sermonspeaker/helpers/player.php';
 			require_once JPATH_ROOT . '/components/com_sermonspeaker/helpers/route.php';
 
 			$db = Factory::getDbo();
@@ -103,90 +106,88 @@ class PlgContentSermonspeaker extends JPlugin
 				$query->join('LEFT', '#__sermon_series AS series ON series.id = sermons.series_id');
 
 				$db->setQuery($query);
-				$item = $db->loadObject();
+				$sermon = $db->loadObject();
 
 				switch ($mode)
 				{
 					case 1:
 					default:
-						$link   = JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug, $item->catid, $item->language));
-						$output = '<a href="' . $link . '">' . $item->title . '</a>';
+						$link   = Route::_(SermonspeakerHelperRoute::getSermonRoute($sermon->slug, $sermon->catid, $sermon->language));
+						$output = '<a href="' . $link . '">' . $sermon->title . '</a>';
 						break;
 					case 2:
-						$config['count'] = '_plg_' . $item->id . '_' . $i;
-						$player          = SermonspeakerHelperSermonspeaker::getPlayer($item, $config);
+						$config['count'] = '_plg_' . $sermon->id . '_' . $i;
+						$player          = SermonspeakerHelperSermonspeaker::getPlayer($sermon, $config);
 						$output          = $player->mspace;
-						$output .= $player->script;
+						$output          .= $player->script;
 						break;
 					case 3:
 						$this->loadLanguage();
-						$link       = JRoute::_(SermonspeakerHelperRoute::getSermonRoute($item->slug, $item->catid, $item->language));
-						$speakerlnk = JRoute::_(SermonspeakerHelperRoute::getSpeakerRoute($item->speaker_slug, $item->speaker_catid, $item->speaker_language));
-						$serieslnk  = JRoute::_(SermonspeakerHelperRoute::getSerieRoute($item->series_slug, $item->series_catid, $item->series_language));
-						$contents   = '<div class="ss-content-plg">';
-						$contents .= '<table class="table table-striped table-condensed">';
+						$link      = Route::_(SermonspeakerHelperRoute::getSermonRoute($sermon->slug, $sermon->catid, $sermon->language));
+						$serieslnk = Route::_(SermonspeakerHelperRoute::getSerieRoute($sermon->series_slug, $sermon->series_catid, $sermon->series_language));
+						$contents  = '<div class="ss-content-plg">';
+						$contents  .= '<table class="table table-striped table-condensed">';
 
-						if ($item->speaker_title)
+						if ($sermon->speaker_title)
 						{
 							$contents .= '<tr><td>' . Text::_('PLG_CONTENT_SERMONSPEAKER_SPEAKER') . '</td>';
 
-							if ($item->speaker_state)
+							if ($sermon->speaker_state)
 							{
-								// Using legacy mode (MooTools modal) for now. Bootstrap one didn't work properly and there are missing language strings.
-								$layout = new JLayoutFile('titles.speaker', null, array('component' => 'com_sermonspeaker'));
-								$contents .= '<td>' . $layout->render(array('item' => $item, 'params' => $this->params, 'legacy' => true)) . '</td></tr>';
+								$layout   = new FileLayout('titles.speaker', null, array('component' => 'com_sermonspeaker'));
+								$contents .= '<td>' . $layout->render(array('item' => $sermon, 'params' => $this->params)) . '</td></tr>';
 							}
 							else
 							{
-								$contents .= '<td>' . $item->speaker_title . '</td></tr>';
+								$contents .= '<td>' . $sermon->speaker_title . '</td></tr>';
 							}
 						}
 
-						if ($item->series_title)
+						if ($sermon->series_title)
 						{
 							$contents .= '<tr><td>' . Text::_('PLG_CONTENT_SERMONSPEAKER_SERIE') . '</td>';
-							$contents .= '<td><a href="' . $serieslnk . '">' . $item->series_title . '</a></td></tr>';
+							$contents .= '<td><a href="' . $serieslnk . '">' . $sermon->series_title . '</a></td></tr>';
 						}
 
-						if ($item->sermon_date != '0000-00-00 00:00:00')
+						if ($sermon->sermon_date != '0000-00-00 00:00:00')
 						{
 							$contents .= '<tr><td>' . Text::_('JDATE') . '</td>';
-							$contents .= '<td>' . HTMLHelper::date($item->sermon_date, Text::_('DATE_FORMAT_LC3')) . '</td></tr>';
+							$contents .= '<td>' . HTMLHelper::date($sermon->sermon_date, Text::_('DATE_FORMAT_LC3')) . '</td></tr>';
 						}
 
-						if ($item->hits)
+						if ($sermon->hits)
 						{
 							$contents .= '<tr><td>' . Text::_('JGLOBAL_HITS') . '</td>';
-							$contents .= '<td>' . $item->hits . '</td></tr>';
+							$contents .= '<td>' . $sermon->hits . '</td></tr>';
 						}
 
 						$contents .= '</table>';
 
 						if ($this->params->get('show_player'))
 						{
-							$config['count'] = '_plg_' . $item->id . '_' . $i;
-							$player          = SermonspeakerHelperSermonspeaker::getPlayer($item, $config);
-							$contents .= $player->mspace;
-							$contents .= $player->script;
+							$config['count'] = '_plg_' . $sermon->id . '_' . $i;
+							$player          = SermonspeakerHelperSermonspeaker::getPlayer($sermon, $config);
+							$contents        .= $player->mspace;
+							$contents        .= $player->script;
 						}
 
-						$contents .= '</div>';
-						$module_params['style']           = $this->params->get('style', 'rounded');
-						$module_params['moduleclass_sfx'] = $this->params->get('moduleclass_sfx');
+						$contents                         .= '</div>';
+						$attribs['style']                 = $this->params->get('style', 'html5');
 						$module                           = new StdClass;
 						$module->id                       = 0;
-						$module->title                    = '<a href="' . $link . '">' . $item->title . '</a>';
+						$module->title                    = '<a href="' . $link . '">' . $sermon->title . '</a>';
 						$module->module                   = 'mod_custom';
 						$module->position                 = '';
 						$module->content                  = $contents;
 						$module->showtitle                = 1;
 						$module->control                  = '';
+						$module_params['moduleclass_sfx'] = $this->params->get('moduleclass_sfx');
 						$module->params                   = json_encode($module_params);
-						$output                           = JModuleHelper::renderModule($module, $module_params);
+						$output                           = ModuleHelper::renderModule($module, $attribs);
 						break;
 				}
 
-				$article->text = preg_replace("|$match[0]|", addcslashes($output, '\\$'), $article->text, 1);
+				$item->text = preg_replace("|$match[0]|", addcslashes($output, '\\$'), $item->text, 1);
 			}
 		}
 	}
