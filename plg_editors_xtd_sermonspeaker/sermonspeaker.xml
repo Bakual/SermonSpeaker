@@ -19,11 +19,13 @@
 	<config>
 		<fields name="params">
 			<fieldset name="basic">
-				<field name="mode" type="list"
-					default="0"
-					class="btn-group"
+				<field
+					name="mode"
+					type="list"
 					label="PLG_EDITORS-XTD_SERMONSPEAKER_FIELD_MODE_LABEL"
-					description="PLG_EDITORS-XTD_SERMONSPEAKER_FIELD_MODE_DESC" >
+					description="PLG_EDITORS-XTD_SERMONSPEAKER_FIELD_MODE_DESC"
+					default="0"
+				>
 					<option value="0">JOPTION_USE_DEFAULT</option>
 					<option value="1">PLG_EDITORS-XTD_SERMONSPEAKER_FIELD_MODE_OPTION_LINK</option>
 					<option value="2">PLG_EDITORS-XTD_SERMONSPEAKER_FIELD_MODE_OPTION_PLAYER</option>
