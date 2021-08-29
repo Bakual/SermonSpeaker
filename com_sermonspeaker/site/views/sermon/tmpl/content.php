@@ -131,15 +131,6 @@ $htag       = $this->params->get('show_page_heading') ? 'h2' : 'h1';
 			</dd>
 		<?php endif; ?>
 
-		<?php if ($playerid = !empty($player->id) ? $player->id : '') : ?>
-			<dd>
-				<div class="ss-sermondetail-info">
-					<span class="icon-play"></span>
-					<?php echo HTMLHelper::_('icon.play', $this->item, $this->params, array('index' => $i, 'playerid' => $playerid)); ?>
-				</div>
-			</dd>
-		<?php endif; ?>
-
 		<?php if (in_array('sermons:download', $this->columns)) : ?>
 			<?php if ($this->item->audiofile) : ?>
 				<dd>
