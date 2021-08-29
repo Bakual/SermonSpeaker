@@ -29,7 +29,6 @@
 		<folder type="plugin" id="sermonspeaker" group="quickicon">plg_quickicon_sermonspeaker</folder>
 		<folder type="plugin" id="sermonspeaker" group="search">plg_search_sermonspeaker</folder>
 		<folder type="plugin" id="mediaelement" group="sermonspeaker">plg_sermonspeaker_mediaelement</folder>
-		<folder type="plugin" id="pixelout" group="sermonspeaker">plg_sermonspeaker_pixelout</folder>
 	</files>
 	<updateservers>
 		<server type="collection" priority="1" name="SermonSpeaker.net">https://www.sermonspeaker.net/update/package.xml</server>
