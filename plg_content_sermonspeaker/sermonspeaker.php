@@ -108,6 +108,14 @@ class PlgContentSermonspeaker extends CMSPlugin
 				$db->setQuery($query);
 				$sermon = $db->loadObject();
 
+				if (!$sermon)
+				{
+					// Sermon not found, remove plugin tag and return early.
+					$item->text = preg_replace("|$match[0]|", addcslashes('', '\\$'), $item->text, 1);
+
+					return;
+				}
+
 				switch ($mode)
 				{
 					case 1:
