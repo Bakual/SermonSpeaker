@@ -43,7 +43,7 @@ class PlgQuickiconSermonspeaker extends JPlugin
 	{
 		if ($context != $this->params->get('context', 'mod_quickicon') || !Factory::getUser()->authorise('core.manage', 'com_sermonspeaker'))
 		{
-			return;
+			return array();
 		}
 
 		$buttons = array();
@@ -51,18 +51,10 @@ class PlgQuickiconSermonspeaker extends JPlugin
 		if ($this->params->get('sermons', 1))
 		{
 			$buttons[] = array(
-				'link' => 'index.php?option=com_sermonspeaker&task=sermon.add',
-				'image' => 'pencil-2',
-				'text' => Text::_('PLG_QUICKICON_SERMONSPEAKER_NEW_SERMON'),
-				'id' => 'plg_quickicon_sermonspeaker_new_sermon',
-				'access' => array('core.create', 'com_sermonspeaker'),
-				'group' => 'PLG_QUICKICON_SERMONSPEAKER_GROUP'
-			);
-			$buttons[] = array(
+				'image' => 'fas fa-list-alt',
 				'link' => 'index.php?option=com_sermonspeaker&view=sermons',
-				'image' => 'quote-3',
-				'text' => Text::_('PLG_QUICKICON_SERMONSPEAKER_SERMONS_MANAGER'),
-				'id' => 'plg_quickicon_sermonspeaker_sermons_manager',
+				'linkadd' => 'index.php?option=com_sermonspeaker&task=sermon.add',
+				'name' => 'PLG_QUICKICON_SERMONSPEAKER_SERMONS_MANAGER',
 				'group' => 'PLG_QUICKICON_SERMONSPEAKER_GROUP'
 			);
 		}
@@ -70,36 +62,21 @@ class PlgQuickiconSermonspeaker extends JPlugin
 		if ($this->params->get('speakers', 1))
 		{
 			$buttons[] = array(
-				'link'  => 'index.php?option=com_sermonspeaker&task=speaker.add',
-				'image' => 'pencil-2',
-				'text'  => Text::_('PLG_QUICKICON_SERMONSPEAKER_NEW_SPEAKER'),
-				'access' => array('core.create', 'com_sermonspeaker'),
-				'id'    => 'plg_quickicon_sermonspeaker_new_speaker',
-				'group' => 'PLG_QUICKICON_SERMONSPEAKER_GROUP'
-			);
-			$buttons[] = array(
+				'image' => 'fas fa-comment',
 				'link'  => 'index.php?option=com_sermonspeaker&view=speakers',
-				'image' => 'users',
-				'text'  => Text::_('PLG_QUICKICON_SERMONSPEAKER_SPEAKERS_MANAGER'),
-				'id'    => 'plg_quickicon_sermonspeaker_speakers_manager',
+				'linkadd'  => 'index.php?option=com_sermonspeaker&task=speaker.add',
+				'name'  => 'PLG_QUICKICON_SERMONSPEAKER_SPEAKERS_MANAGER',
 				'group' => 'PLG_QUICKICON_SERMONSPEAKER_GROUP'
 			);
 		}
+
 		if ($this->params->get('series', 1))
 		{
 			$buttons[] = array(
-				'link'  => 'index.php?option=com_sermonspeaker&task=serie.add',
-				'image' => 'pencil-2',
-				'text'  => Text::_('PLG_QUICKICON_SERMONSPEAKER_NEW_SERIE'),
-				'access' => array('core.create', 'com_sermonspeaker'),
-				'id'    => 'plg_quickicon_sermonspeaker_new_serie',
-				'group' => 'PLG_QUICKICON_SERMONSPEAKER_GROUP'
-			);
-			$buttons[] = array(
+				'image' => 'fas fa-object-group',
 				'link'  => 'index.php?option=com_sermonspeaker&view=series',
-				'image' => 'drawer-2',
-				'text'  => Text::_('PLG_QUICKICON_SERMONSPEAKER_SERIES_MANAGER'),
-				'id'    => 'plg_quickicon_sermonspeaker_series_manager',
+				'linkadd'  => 'index.php?option=com_sermonspeaker&task=serie.add',
+				'name'  => 'PLG_QUICKICON_SERMONSPEAKER_SERIES_MANAGER',
 				'group' => 'PLG_QUICKICON_SERMONSPEAKER_GROUP'
 			);
 		}

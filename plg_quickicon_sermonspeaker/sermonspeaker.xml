@@ -14,7 +14,9 @@
 		<folder>language</folder>
 	</files>
 	<updateservers>
-		<server type="extension" priority="1" name="SermonSpeaker.net">https://www.sermonspeaker.net/update/plg_quickicon_sermonspeaker.xml</server>
+		<server type="extension" priority="1" name="SermonSpeaker.net">
+			https://www.sermonspeaker.net/update/plg_quickicon_sermonspeaker.xml
+		</server>
 	</updateservers>
 	<config>
 		<fields name="params">
@@ -30,34 +32,31 @@
 					name="sermons"
 					type="radio"
 					label="PLG_QUICKICON_SERMONSPEAKER_FIELD_SERMONS_LABEL"
-					description="PLG_QUICKICON_SERMONSPEAKER_FIELD_SERMONS_DESC"
+					layout="joomla.form.field.radio.switcher"
 					default="1"
-					class="btn-group btn-group-yesno"
-					>
-					<option value="1">JYES</option>
+				>
 					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
 				<field
 					name="speakers"
 					type="radio"
 					label="PLG_QUICKICON_SERMONSPEAKER_FIELD_SPEAKERS_LABEL"
-					description="PLG_QUICKICON_SERMONSPEAKER_FIELD_SPEAKERS_DESC"
+					layout="joomla.form.field.radio.switcher"
 					default="1"
-					class="btn-group btn-group-yesno"
-					>
-					<option value="1">JYES</option>
+				>
 					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
 				<field
 					name="series"
 					type="radio"
 					label="PLG_QUICKICON_SERMONSPEAKER_FIELD_SERIES_LABEL"
-					description="PLG_QUICKICON_SERMONSPEAKER_FIELD_SERIES_DESC"
+					layout="joomla.form.field.radio.switcher"
 					default="1"
-					class="btn-group btn-group-yesno"
-					>
-					<option value="1">JYES</option>
+				>
 					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
 			</fieldset>
 		</fields>
