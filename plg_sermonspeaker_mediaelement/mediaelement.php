@@ -3,13 +3,15 @@
  * @package         SermonSpeaker
  * @subpackage      Plugin.SermonSpeaker
  * @author          Thomas Hunziker <admin@sermonspeaker.net>
- * @copyright   © 2020 - Thomas Hunziker
+ * @copyright       © 2020 - Thomas Hunziker
  * @license         http://www.gnu.org/licenses/gpl.html
  **/
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
+use Joomla\CMS\Filesystem\File;
 use Joomla\CMS\HTML\HTMLHelper as HTMLHelperAlias;
 use Joomla\CMS\Language\Text;
 
@@ -24,19 +26,23 @@ JLoader::register('SermonspeakerHelperSermonspeaker', JPATH_SITE . '/components/
 class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 {
 	/**
-	 * @var object  Holds the player object
-	 *
-	 * @since  1.0.0
-	 */
-	protected $player;
-
-	/**
 	 * @var boolean  True if scripts are loaded already
 	 *
 	 * @since  1.0.0
 	 */
 	private static $script_loaded = false;
-
+	/**
+	 * @var object  Holds the player object
+	 *
+	 * @since  1.0.0
+	 */
+	protected $player;
+	/**
+	 * @var Joomla\Registry\Registry Component Parameters
+	 *
+	 * @since  1.0.0
+	 */
+	protected $c_params;
 	/**
 	 * @var array Player options
 	 *
@@ -45,26 +51,19 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 	private $options;
 
 	/**
-	 * @var Joomla\Registry\Registry Component Parameters
-	 *
-	 * @since  1.0.0
-	 */
-	protected $c_params;
-
-	/**
 	 * Creates the player
 	 *
-	 * @param   string                   $context The context from where it's triggered
-	 * @param   object                   &$player Player object
-	 * @param   array|object             $items   An array of sermnon objects or a single sermon object
-	 * @param   Joomla\Registry\Registry $config  A config object. Special properties:
-	 *                                            - count (id of the player)
-	 *                                            - type (may be audio, video or auto)
-	 *                                            - prio (may be 0 for audio or 1 for video)
-	 *                                            - autostart (overwrites the backend setting)
-	 *                                            - alt_player (overwrites the backend setting)
-	 *                                            - awidth, aheight (width and height for audio)
-	 *                                            - vwidth, vheight (width and height for video)
+	 * @param   string                    $context  The context from where it's triggered
+	 * @param   object                   &$player   Player object
+	 * @param   array|object              $items    An array of sermnon objects or a single sermon object
+	 * @param   Joomla\Registry\Registry  $config   A config object. Special properties:
+	 *                                              - count (id of the player)
+	 *                                              - type (may be audio, video or auto)
+	 *                                              - prio (may be 0 for audio or 1 for video)
+	 *                                              - autostart (overwrites the backend setting)
+	 *                                              - alt_player (overwrites the backend setting)
+	 *                                              - awidth, aheight (width and height for audio)
+	 *                                              - vwidth, vheight (width and height for video)
 	 *
 	 * @return  void
 	 *
@@ -90,7 +89,7 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 		$this->params->merge($config);
 
 		// Get component params
-		$this->c_params = JComponentHelper::getParams('com_sermonspeaker');
+		$this->c_params = ComponentHelper::getParams('com_sermonspeaker');
 
 		$fileprio = $this->params->get('fileprio');
 		$type     = $this->params->get('type', 'auto');
@@ -164,7 +163,7 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 		{
 			foreach ($items as $item)
 			{
-				$file = $item->$field;
+				$file           = $item->$field;
 				$player->mspace .= $this->createSource($item, $file);
 			}
 		}
@@ -179,8 +178,8 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 
 		if ($toggle)
 		{
-			$mode  = ($mode1 == 'audio') ? 'video' : 'audio';
-			$field = $mode . 'file';
+			$mode           = ($mode1 == 'audio') ? 'video' : 'audio';
+			$field          = $mode . 'file';
 			$player->mspace .= '<' . $mode . ' id="' . $player->id . '-other" class="mejs__player hidden"'
 				. $autoplay . ' preload="metadata" controls="controls"'
 				. ' width="' . $dimensions[$mode . 'width'] . '" height="' . $dimensions[$mode . 'height'] . '"'
@@ -193,7 +192,7 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 			{
 				foreach ($items as $item)
 				{
-					$file = $item->$field;
+					$file           = $item->$field;
 					$player->mspace .= $this->createSource($item, $file);
 				}
 			}
@@ -214,29 +213,30 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 		// Loading needed Javascript only once
 		if (!self::$script_loaded)
 		{
+			// TODO: See if I can remove jQuery
 			HTMLHelperAlias::_('jquery.framework');
 
 			Factory::getDocument()->addScriptDeclaration('mejs.i18n.language(\'' . $langCode . '\');');
 			HTMLHelperAlias::_('script', 'plg_sermonspeaker_mediaelement/mediaelement-and-player.min.js', array('relative' => true));
-			HTMLHelperAlias::_('script', 'plg_sermonspeaker_mediaelement/mediaelement-and-player.min.js',  array('relative' => true));
-			HTMLHelperAlias::_('script', 'plg_sermonspeaker_mediaelement/renderers/vimeo.min.js',  array('relative' => true));
-			HTMLHelperAlias::_('script', 'plg_sermonspeaker_mediaelement/renderers/facebook.min.js',  array('relative' => true));
-			HTMLHelperAlias::_('script', 'plg_sermonspeaker_mediaelement/lang/' . $langCode . '.js',  array('relative' => true));
-			HTMLHelperAlias::_('stylesheet', 'plg_sermonspeaker_mediaelement/mediaelementplayer.min.css',  array('relative' => true));
+			HTMLHelperAlias::_('script', 'plg_sermonspeaker_mediaelement/mediaelement-and-player.min.js', array('relative' => true));
+			HTMLHelperAlias::_('script', 'plg_sermonspeaker_mediaelement/renderers/vimeo.min.js', array('relative' => true));
+			HTMLHelperAlias::_('script', 'plg_sermonspeaker_mediaelement/renderers/facebook.min.js', array('relative' => true));
+			HTMLHelperAlias::_('script', 'plg_sermonspeaker_mediaelement/lang/' . $langCode . '.js', array('relative' => true));
+			HTMLHelperAlias::_('stylesheet', 'plg_sermonspeaker_mediaelement/mediaelementplayer.min.css', array('relative' => true));
 
 			if ($this->params->get('speedplugin'))
 			{
-				HTMLHelperAlias::_('script', 'plg_sermonspeaker_mediaelement/speed/speed.min.js',  array('relative' => true));
-				HTMLHelperAlias::_('script', 'plg_sermonspeaker_mediaelement/speed/speed-i18n.js',  array('relative' => true));
-				HTMLHelperAlias::_('stylesheet', 'plg_sermonspeaker_mediaelement/speed/speed.min.css',  array('relative' => true));
+				HTMLHelperAlias::_('script', 'plg_sermonspeaker_mediaelement/speed/speed.min.js', array('relative' => true));
+				HTMLHelperAlias::_('script', 'plg_sermonspeaker_mediaelement/speed/speed-i18n.js', array('relative' => true));
+				HTMLHelperAlias::_('stylesheet', 'plg_sermonspeaker_mediaelement/speed/speed.min.css', array('relative' => true));
 			}
 
 			if (is_array($items))
 			{
-				HTMLHelperAlias::_('script', 'plg_sermonspeaker_mediaelement/playlist/playlist.min.js',  array('relative' => true));
-				HTMLHelperAlias::_('script', 'plg_sermonspeaker_mediaelement/playlist/playlist-i18n.js',  array('relative' => true));
-				HTMLHelperAlias::_('stylesheet', 'plg_sermonspeaker_mediaelement/playlist/playlist.min.css',  array('relative' => true));
-				HTMLHelperAlias::_('script', 'plg_sermonspeaker_mediaelement/sermonspeaker.js',  array('relative' => true));
+				HTMLHelperAlias::_('script', 'plg_sermonspeaker_mediaelement/playlist/playlist.min.js', array('relative' => true));
+				HTMLHelperAlias::_('script', 'plg_sermonspeaker_mediaelement/playlist/playlist-i18n.js', array('relative' => true));
+				HTMLHelperAlias::_('stylesheet', 'plg_sermonspeaker_mediaelement/playlist/playlist.min.css', array('relative' => true));
+				HTMLHelperAlias::_('script', 'plg_sermonspeaker_mediaelement/sermonspeaker.js', array('relative' => true));
 			}
 
 			self::$script_loaded = 1;
@@ -246,7 +246,7 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 	/**
 	 * Checks if either audio or videofile is supported
 	 *
-	 * @param   object $item Sermon object
+	 * @param   object  $item  Sermon object
 	 *
 	 * @return  array  supported files
 	 *
@@ -265,7 +265,7 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 		$audio_ext = array('aac', 'm4a', 'f4a', 'mp3', 'ogg', 'oga');
 		$video_ext = array('mp4', 'm4v', 'f4v', 'mov', 'flv', 'webm');
 
-		if (in_array(JFile::getExt(strtok($item->audiofile, '?')), $audio_ext))
+		if (in_array(File::getExt(strtok($item->audiofile, '?')), $audio_ext))
 		{
 			$supported[] = 'audio';
 		}
@@ -275,7 +275,7 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 			$supported[] = 'audio';
 		}
 
-		if (in_array(JFile::getExt(strtok($item->videofile, '?')), $video_ext))
+		if (in_array(File::getExt(strtok($item->videofile, '?')), $video_ext))
 		{
 			$supported[] = 'video';
 		}
@@ -321,7 +321,7 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 	{
 		if (!$file)
 		{
-			$file = '/media/com_sermonspeaker/media/blank.mp3';
+			$file                = '/media/com_sermonspeaker/media/blank.mp3';
 			$attributes['error'] = Text::_('JGLOBAL_RESOURCE_NOT_FOUND');
 		}
 
@@ -350,12 +350,12 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 			$attributes['data-thumbnail'] = $img;
 		}
 
-		$attributes['src'] = SermonspeakerHelperSermonspeaker::makeLink($file);
-		$attributes['title'] = $item->title;
+		$attributes['src']      = SermonspeakerHelperSermonspeaker::makeLink($file);
+		$attributes['title']    = $item->title;
 		$attributes['duration'] = $item->sermon_time;
 
 
-		$desc           = array();
+		$desc = array();
 
 		if ($item->sermon_date)
 		{
@@ -377,5 +377,5 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 		}
 
 		return '<source' . $attrs . '>';
-}
+	}
 }
