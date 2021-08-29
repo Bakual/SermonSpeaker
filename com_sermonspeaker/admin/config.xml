@@ -176,6 +176,7 @@
 			name="sermonslayout"
 			type="componentlayout"
 			label="COM_SERMONSPEAKER_SERMONS_VIEW_TITLE"
+			class="form-select"
 			default="_:table"
 			useglobal="false"
 			extension="com_sermonspeaker"
@@ -186,6 +187,7 @@
 			name="sermonlayout"
 			type="componentlayout"
 			label="COM_SERMONSPEAKER_SERMON_VIEW_TITLE"
+			class="form-select"
 			default="_:content"
 			useglobal="false"
 			extension="com_sermonspeaker"
@@ -196,6 +198,7 @@
 			name="serieslayout"
 			type="componentlayout"
 			label="COM_SERMONSPEAKER_SERIES_VIEW_TITLE"
+			class="form-select"
 			default="_:normal"
 			useglobal="false"
 			extension="com_sermonspeaker"
@@ -206,6 +209,7 @@
 			name="serielayout"
 			type="componentlayout"
 			label="COM_SERMONSPEAKER_SERIE_VIEW_TITLE"
+			class="form-select"
 			default="_:table"
 			useglobal="false"
 			extension="com_sermonspeaker"
@@ -216,6 +220,7 @@
 			name="speakerslayout"
 			type="componentlayout"
 			label="COM_SERMONSPEAKER_SPEAKERS_VIEW_TITLE"
+			class="form-select"
 			default="_:normal"
 			useglobal="false"
 			extension="com_sermonspeaker"
@@ -226,6 +231,7 @@
 			name="speakerlayout"
 			type="componentlayout"
 			label="COM_SERMONSPEAKER_SPEAKER_VIEW_TITLE"
+			class="form-select"
 			default="_:sermons"
 			useglobal="false"
 			extension="com_sermonspeaker"
@@ -236,6 +242,7 @@
 			name="categorieslayout"
 			type="componentlayout"
 			label="COM_SERMONSPEAKER_CATEGORIES_VIEW_TITLE"
+			class="form-select"
 			default="_:normal"
 			useglobal="false"
 			extension="com_sermonspeaker"
@@ -264,11 +271,17 @@
 	>
 
 		<field
+			name="col_spacer"
+			type="spacer"
+			label="COM_SERMONSPEAKER_SERMON"
+		/>
+
+		<field
 			name="col"
 			type="columns"
 			label="COM_SERMONSPEAKER_SERMON"
-			description="COM_SERMONSPEAKER_FIELD_COL_DESC"
 			cols="num,category,scripture,speaker,date,length,series,addfile,notes,player,hits,download"
+			hiddenLabel="true"
 		>
 			<option value="sermons">COM_SERMONSPEAKER_SERMONS_VIEW_TITLE</option>
 			<option value="sermon">COM_SERMONSPEAKER_SERMON_VIEW_TITLE</option>
@@ -277,11 +290,17 @@
 		</field>
 
 		<field
+			name="col_serie_spacer"
+			type="spacer"
+			label="COM_SERMONSPEAKER_SERIE"
+		/>
+
+		<field
 			name="col_serie"
 			type="columns"
 			label="COM_SERMONSPEAKER_SERIE"
-			description="COM_SERMONSPEAKER_FIELD_COL_DESC"
 			cols="category,description,speaker,hits,download"
+			hiddenLabel="true"
 		>
 			<option value="series">COM_SERMONSPEAKER_SERIES_VIEW_TITLE</option>
 			<option value="serie">COM_SERMONSPEAKER_SERIE_VIEW_TITLE</option>
@@ -289,11 +308,17 @@
 		</field>
 
 		<field
+			name="col_speaker_spacer"
+			type="spacer"
+			label="COM_SERMONSPEAKER_SPEAKER"
+		/>
+
+		<field
 			name="col_speaker"
 			type="columns"
 			label="COM_SERMONSPEAKER_SPEAKER"
-			description="COM_SERMONSPEAKER_FIELD_COL_DESC"
 			cols="category,intro,bio,hits"
+			hiddenLabel="true"
 		>
 			<option value="speakers">COM_SERMONSPEAKER_SPEAKERS_VIEW_TITLE</option>
 			<option value="speaker">COM_SERMONSPEAKER_SPEAKER_VIEW_TITLE</option>
