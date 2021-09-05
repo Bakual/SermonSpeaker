@@ -453,12 +453,13 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 			$catFactory = new Joomla\CMS\Mvc\Factory\MvcFactory('Joomla\Component\Categories');
 			$catModel   = new Joomla\Component\Categories\Administrator\Model\CategoryModel(array(), $catFactory);
 			$oldId      = $category['id'];
+			$oldParent  = $category['parent_id'];
 
 			foreach ($sections as $section)
 			{
-				if (isset($parentIds[$section][$category['parent_id']]))
+				if (isset($parentIds[$section][$oldParent]))
 				{
-					$category['parent_id'] = $parentIds[$section][$oldId];
+					$category['parent_id'] = $parentIds[$section][$oldParent];
 				}
 
 				$category['id']        = 0;
