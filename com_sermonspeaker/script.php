@@ -434,12 +434,10 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 	 *
 	 * @since 6.0.0
 	 */
-	private function moveCategories()
+	public function moveCategories()
 	{
-		$db         = Factory::getDbo();
-		$catFactory = new Joomla\CMS\Mvc\Factory\MvcFactory('Joomla\Component\Categories');
-		$catModel   = new Joomla\Component\Categories\Administrator\Model\CategoryModel(array(), $catFactory);
-		$sections   = array('sermons', 'series', 'speakers');
+		$db       = Factory::getDbo();
+		$sections = array('sermons', 'series', 'speakers');
 
 		$query = $db->getQuery(true);
 		$query->select('*')
@@ -448,10 +446,13 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 		$db->setQuery($query);
 		$categories = $db->loadAssocList();
 
+		$parentIds = array('sermons' => [], 'series' => [], 'speakers' => []);
+
 		foreach ($categories as $category)
 		{
-			$oldId     = $category['id'];
-			$parentIds = array('sermons', 'series', 'speakers');
+			$catFactory = new Joomla\CMS\Mvc\Factory\MvcFactory('Joomla\Component\Categories');
+			$catModel   = new Joomla\Component\Categories\Administrator\Model\CategoryModel(array(), $catFactory);
+			$oldId      = $category['id'];
 
 			foreach ($sections as $section)
 			{
@@ -472,7 +473,7 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 					$this->app->enqueueMessage($e->getMessage(), 'ERROR');
 				}
 
-				$newId = $catModel->getItem()->id;
+				$newId = $catModel->getState('category.id');
 
 				$parentIds[$section][$oldId] = $newId;
 
