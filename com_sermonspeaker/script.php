@@ -442,7 +442,8 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 		$query = $db->getQuery(true);
 		$query->select('*')
 			->from('#__categories')
-			->where($db->quoteName('extension') . ' = ' . $db->quote('com_sermonspeaker'));
+			->where($db->quoteName('extension') . ' = ' . $db->quote('com_sermonspeaker'))
+			->order($db->quoteName('lft') . ' ASC');
 		$db->setQuery($query);
 		$categories = $db->loadAssocList();
 
