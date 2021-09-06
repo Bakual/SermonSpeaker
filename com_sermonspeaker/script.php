@@ -436,8 +436,9 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 	 */
 	public function moveCategories()
 	{
-		$db       = Factory::getDbo();
-		$sections = array('sermons', 'series', 'speakers');
+		$db         = Factory::getDbo();
+		$catFactory = new Joomla\CMS\Mvc\Factory\MvcFactory('Joomla\Component\Categories');
+		$sections   = array('sermons', 'series', 'speakers');
 
 		$query = $db->getQuery(true);
 		$query->select('*')
@@ -451,10 +452,9 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 
 		foreach ($categories as $category)
 		{
-			$catFactory = new Joomla\CMS\Mvc\Factory\MvcFactory('Joomla\Component\Categories');
-			$catModel   = new Joomla\Component\Categories\Administrator\Model\CategoryModel(array(), $catFactory);
-			$oldId      = $category['id'];
-			$oldParent  = $category['parent_id'];
+			$catModel  = new Joomla\Component\Categories\Administrator\Model\CategoryModel(array(), $catFactory);
+			$oldId     = $category['id'];
+			$oldParent = $category['parent_id'];
 
 			foreach ($sections as $section)
 			{
@@ -486,20 +486,36 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 				$db->setQuery($query);
 				$db->execute();
 			}
+		}
 
-			try
-			{
-				// Trash the old category so it can be deleted
-				$category['id']        = $oldId;
-				$category['published'] = -2;
-				$category['extension'] = 'com_sermonspeaker';
-				$catModel->save($category);
-				$catModel->delete($oldId);
-			}
-			catch (Exception $e)
-			{
-				$this->app->enqueueMessage($e->getMessage(), 'ERROR');
-			}
+		// Delete old categories
+		$query = $db->getQuery(true);
+		$query->delete($db->quoteName('#__categories'));
+		$query->where($db->quoteName('extension') . ' = ' . $db->quote('com_sermonspeaker'));
+		$db->setQuery($query);
+
+		try
+		{
+			$db->execute();
+		}
+		catch (Exception $e)
+		{
+			$this->app->enqueueMessage($e->getMessage(), 'ERROR');
+		}
+
+		// Delete old categories
+		$query = $db->getQuery(true);
+		$query->delete($db->quoteName('#__assets'));
+		$query->where($db->quoteName('name') . ' LIKE ' . $db->quote('com_sermonspeaker.category.%'));
+		$db->setQuery($query);
+
+		try
+		{
+			$db->execute();
+		}
+		catch (Exception $e)
+		{
+			$this->app->enqueueMessage($e->getMessage(), 'ERROR');
 		}
 	}
 
