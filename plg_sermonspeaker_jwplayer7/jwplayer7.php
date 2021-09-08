@@ -31,7 +31,7 @@ class PlgSermonspeakerJwplayer7 extends SermonspeakerPluginPlayer
 	 *
 	 * @since 5.x
 	 */
-	private static bool $script_loaded = false;
+	private static $script_loaded = false;
 	/**
 	 * @var object  Holds the player object
 	 *
@@ -43,31 +43,31 @@ class PlgSermonspeakerJwplayer7 extends SermonspeakerPluginPlayer
 	 *
 	 * @since 5.x
 	 */
-	protected Registry $c_params;
+	protected $c_params;
 	/**
 	 * @var string player mode. Either 'audio' or 'video'.
 	 *
 	 * @since 5.x
 	 */
-	private string $mode;
+	private $mode;
 	/**
 	 * @var string filetype mode. Either 'audio', 'video' or 'auto' (default).
 	 *
 	 * @since 5.x
 	 */
-	private string $type;
+	private $type;
 	/**
 	 * @var int which file to prioritise. Either 0 (audio) or 1 (video).
 	 *
 	 * @since 5.x
 	 */
-	private int $fileprio;
+	private $fileprio;
 	/**
 	 * @var array Player options
 	 *
 	 * @since 5.x
 	 */
-	private array $options;
+	private $options;
 
 	/**
 	 * Creates the player
