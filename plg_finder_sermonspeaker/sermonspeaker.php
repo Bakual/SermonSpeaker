@@ -7,9 +7,11 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
-use Joomla\CMS\Factory;
-
 defined('_JEXEC') or die();
+
+use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\Factory;
+use Joomla\Component\Finder\Administrator\Indexer\Helper;
 
 require_once JPATH_ADMINISTRATOR . '/components/com_finder/helpers/indexer/adapter.php';
 
@@ -24,6 +26,8 @@ class PlgFinderSermonspeaker extends FinderIndexerAdapter
 	 * The plugin identifier.
 	 *
 	 * @var  string
+	 *
+	 * @since ?
 	 */
 	protected $context = 'Sermonspeaker';
 
@@ -31,6 +35,8 @@ class PlgFinderSermonspeaker extends FinderIndexerAdapter
 	 * The extension name.
 	 *
 	 * @var  string
+	 *
+	 * @since ?
 	 */
 	protected $extension = 'com_sermonspeaker';
 
@@ -38,6 +44,8 @@ class PlgFinderSermonspeaker extends FinderIndexerAdapter
 	 * The sublayout to use when rendering the results.
 	 *
 	 * @var  string
+	 *
+	 * @since ?
 	 */
 	protected $layout = 'sermon';
 
@@ -45,6 +53,8 @@ class PlgFinderSermonspeaker extends FinderIndexerAdapter
 	 * The type of content that the adapter indexes.
 	 *
 	 * @var  string
+	 *
+	 * @since ?
 	 */
 	protected $type_title = 'Sermon';
 
@@ -52,6 +62,8 @@ class PlgFinderSermonspeaker extends FinderIndexerAdapter
 	 * The table name.
 	 *
 	 * @var  string
+	 *
+	 * @since ?
 	 */
 	protected $table = '#__sermon_sermons';
 
@@ -59,7 +71,9 @@ class PlgFinderSermonspeaker extends FinderIndexerAdapter
 	 * Constructor
 	 *
 	 * @param   object  &$subject  The object to observe
-	 * @param   array   $config    An array that holds the plugin configuration
+	 * @param   array    $config   An array that holds the plugin configuration
+	 *
+	 * @since ?
 	 */
 	public function __construct(&$subject, $config)
 	{
@@ -77,6 +91,8 @@ class PlgFinderSermonspeaker extends FinderIndexerAdapter
 	 * @param   integer  $value      The value of the state that the content has been changed to.
 	 *
 	 * @return  void
+	 *
+	 * @since ?
 	 */
 	public function onFinderCategoryChangeState($extension, $pks, $value)
 	{
@@ -96,6 +112,8 @@ class PlgFinderSermonspeaker extends FinderIndexerAdapter
 	 * @return  boolean  True on success.
 	 *
 	 * @throws  Exception on database error.
+	 *
+	 * @since ?
 	 */
 	public function onFinderAfterDelete($context, $table)
 	{
@@ -111,6 +129,7 @@ class PlgFinderSermonspeaker extends FinderIndexerAdapter
 		{
 			return true;
 		}
+
 		// Remove the items.
 		return $this->remove($id);
 	}
@@ -124,13 +143,13 @@ class PlgFinderSermonspeaker extends FinderIndexerAdapter
 	 *
 	 * @return  boolean  True on success.
 	 *
-	 * @since   2.5
 	 * @throws  Exception on database error.
+	 * @since   2.5
 	 */
 	public function onFinderAfterSave($context, $row, $isNew)
 	{
 		// We only want to handle sermons here. We need to handle front end and back end editing.
-		if ($context == 'com_sermonspeaker.sermon' || $context == 'com_sermonspeaker.frontendupload' )
+		if ($context == 'com_sermonspeaker.sermon' || $context == 'com_sermonspeaker.frontendupload')
 		{
 			// Reindex the item
 			$this->reindex($row->id);
@@ -161,6 +180,7 @@ class PlgFinderSermonspeaker extends FinderIndexerAdapter
 	 * @return  boolean  True on success.
 	 *
 	 * @throws  Exception on database error.
+	 * @since ?
 	 */
 	public function onFinderBeforeSave($context, $row, $isNew)
 	{
@@ -187,6 +207,7 @@ class PlgFinderSermonspeaker extends FinderIndexerAdapter
 	 * @param   integer  $value    The value of the state that the content has been changed to.
 	 *
 	 * @return  void
+	 * @since ?
 	 */
 	public function onFinderChangeState($context, $pks, $value)
 	{
@@ -211,22 +232,23 @@ class PlgFinderSermonspeaker extends FinderIndexerAdapter
 	 * @return  void
 	 *
 	 * @throws  Exception on database error.
+	 * @since ?
 	 */
 	protected function index(FinderIndexerResult $item, $format = 'html')
 	{
 		// Check if the extension is enabled
-		if (JComponentHelper::isEnabled($this->extension) == false)
+		if (ComponentHelper::isEnabled($this->extension) == false)
 		{
 			return;
 		}
 
 		// Trigger the onContentPrepare event.
-		$item->summary = FinderIndexerHelper::prepareContent($item->summary);
+		$item->summary = Helper::prepareContent($item->summary);
 
 		// Build the necessary route and path information.
-		$item->url = $this->getURL($item->id, $this->extension, $this->layout);
+		$item->url   = $this->getURL($item->id, $this->extension, $this->layout);
 		$item->route = SermonspeakerHelperRoute::getSermonRoute($item->slug, $item->catid, $item->language);
-		$item->path = FinderIndexerHelper::getContentPath($item->route);
+		$item->path  = Helper::getContentPath($item->route);
 
 		// Handle the link to the meta-data.
 		$item->addInstruction(FinderIndexer::META_CONTEXT, 'metakey');
@@ -242,7 +264,7 @@ class PlgFinderSermonspeaker extends FinderIndexerAdapter
 		$item->addTaxonomy('Language', $item->language);
 
 		// Get content extras.
-		FinderIndexerHelper::getContentExtras($item);
+		Helper::getContentExtras($item);
 
 		// Index the item.
 		$this->indexer->index($item);
@@ -252,13 +274,15 @@ class PlgFinderSermonspeaker extends FinderIndexerAdapter
 	 * Method to setup the indexer to be run.
 	 *
 	 * @return  boolean  True on success.
+	 *
+	 * @since ?
 	 */
 	protected function setup()
 	{
 		// Load dependent classes.
 		require_once JPATH_SITE . '/components/com_sermonspeaker/helpers/route.php';
-		$params	= JComponentHelper::getParams('com_sermonspeaker');
-		$this->access	= $params->get('access', 1);
+		$params       = ComponentHelper::getParams('com_sermonspeaker');
+		$this->access = $params->get('access', 1);
 
 		return true;
 	}
@@ -314,7 +338,7 @@ class PlgFinderSermonspeaker extends FinderIndexerAdapter
 		$case_when_item_alias = ' CASE WHEN ';
 		$case_when_item_alias .= $sql->charLength('a.alias');
 		$case_when_item_alias .= ' THEN ';
-		$a_id = $sql->castAsChar('a.id');
+		$a_id                 = $sql->castAsChar('a.id');
 		$case_when_item_alias .= $sql->concatenate(array($a_id, 'a.alias'), ':');
 		$case_when_item_alias .= ' ELSE ';
 		$case_when_item_alias .= $a_id . ' END as slug';
@@ -323,7 +347,7 @@ class PlgFinderSermonspeaker extends FinderIndexerAdapter
 		$case_when_category_alias = ' CASE WHEN ';
 		$case_when_category_alias .= $sql->charLength('c.alias');
 		$case_when_category_alias .= ' THEN ';
-		$c_id = $sql->castAsChar('c.id');
+		$c_id                     = $sql->castAsChar('c.id');
 		$case_when_category_alias .= $sql->concatenate(array($c_id, 'c.alias'), ':');
 		$case_when_category_alias .= ' ELSE ';
 		$case_when_category_alias .= $c_id . ' END as catslug';
