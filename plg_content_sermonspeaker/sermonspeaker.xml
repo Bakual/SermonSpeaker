@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension version="3.4.0" type="plugin" group="content" method="upgrade">
+<extension type="plugin" version="4.0.0" group="content" method="upgrade">
 	<name>plg_content_sermonspeaker</name>
 	<author>Thomas Hunziker</author>
-	<creationDate>2021-06-19</creationDate>
+	<creationDate>2021-09-08</creationDate>
 	<copyright>© 2021</copyright>
 	<license>http://www.gnu.org/licenses/gpl.html</license>
 	<authorEmail>admin@sermonspeaker.net</authorEmail>
 	<authorUrl>http://www.sermonspeaker.net</authorUrl>
-	<version>5.3.4</version>
+	<version>6.0.0</version>
 	<description>PLG_CONTENT_SERMONSPEAKER_XML_DESCRIPTION</description>
 	<files>
 		<filename plugin="sermonspeaker">sermonspeaker.php</filename>
