@@ -19,4 +19,24 @@
 		<client>0</client>
 		<folder>content</folder>
 	</update>
+	<update>
+		<name>SermonSpeaker Content Module</name>
+		<description>SermonSpeaker Content Module</description>
+		<element>sermonspeaker</element>
+		<type>plugin</type>
+		<version>6.0.0</version>
+		<downloads>
+			<downloadurl type="full" format="zip">
+				https://github.com/Bakual/SermonSpeaker/releases/download/6.0.0/plg_content_sermonspeaker.zip
+			</downloadurl>
+		</downloads>
+		<tags>
+			<tag>stable</tag>
+		</tags>
+		<maintainer>Thomas Hunziker</maintainer>
+		<maintainerurl>https://www.sermonspeaker.net/</maintainerurl>
+		<targetplatform name="joomla" version="4.[0]"/>
+		<client>0</client>
+		<folder>content</folder>
+	</update>
 </updates>
