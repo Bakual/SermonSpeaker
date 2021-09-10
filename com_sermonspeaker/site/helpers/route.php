@@ -515,6 +515,34 @@ abstract class SermonspeakerHelperRoute
 	}
 
 	/**
+	 * Get the category route. Proxy for category finder plugin
+	 *
+	 * @param   integer  $catid     The category ID.
+	 * @param   integer  $language  The language code.
+	 * @param   string   $layout    The layout value.
+	 *
+	 * @return  string  The sermons route.
+	 *
+	 * @since   1.5
+	 */
+	public static function getCategoryRoute($catid, $language = 0)
+	{
+		$db    = Factory::getDbo();
+		$query = $db->getQuery(true)
+			->select('a.extension')
+			->from('#__categories AS a')
+			->where('`id` = ' . $catid);
+
+		$db->setQuery($query);
+		$extension = $db->loadResult();
+
+		$parts = explode('.', $extension);
+		$method = 'get' . $parts[1] . 'Route';
+
+		return self::$method($catid, $language);
+	}
+
+	/**
 	 * Stores languages
 	 *
 	 * @return void
