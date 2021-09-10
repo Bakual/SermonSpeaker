@@ -5,8 +5,7 @@
 		<element>pkg_sermonspeaker</element>
 		<type>package</type>
 		<version>5.9.9</version>
-		<infourl title="SermonSpeaker Package 5.9.9">https://github.com/Bakual/SermonSpeaker/releases/tag/5.9.9
-		</infourl>
+		<infourl title="SermonSpeaker Package 5.9.9">https://github.com/Bakual/SermonSpeaker/releases/tag/5.9.9</infourl>
 		<downloads>
 			<downloadurl type="full" format="zip">https://github.com/Bakual/SermonSpeaker/archive/5.9.9.zip
 			</downloadurl>
@@ -24,13 +23,14 @@
 		<element>pkg_sermonspeaker</element>
 		<type>package</type>
 		<version>6.0.0</version>
+		<infourl title="SermonSpeaker Package 6.0.0">https://github.com/Bakual/SermonSpeaker/releases/tag/6.0.0</infourl>
 		<downloads>
 			<downloadurl type="full" format="zip">
-				https://github.com/Bakual/SermonSpeaker/archive/6.0.0.zip
+				https://github.com/Bakual/SermonSpeaker/archive/refs/tags/6.0.0.zip
 			</downloadurl>
 		</downloads>
 		<tags>
-			<tag>beta</tag>
+			<tag>stable</tag>
 		</tags>
 		<maintainer>Thomas Hunziker</maintainer>
 		<maintainerurl>https://www.sermonspeaker.net/</maintainerurl>
