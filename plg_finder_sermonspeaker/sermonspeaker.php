@@ -9,18 +9,21 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Categories\Categories;
 use Joomla\CMS\Component\ComponentHelper;
-use Joomla\CMS\Factory;
+use Joomla\CMS\Table\Table;
+use Joomla\Component\Finder\Administrator\Indexer\Adapter;
 use Joomla\Component\Finder\Administrator\Indexer\Helper;
-
-require_once JPATH_ADMINISTRATOR . '/components/com_finder/helpers/indexer/adapter.php';
+use Joomla\Component\Finder\Administrator\Indexer\Result;
+use Joomla\Database\DatabaseQuery;
+use Joomla\Registry\Registry;
 
 /**
  * Finder adapter for SermonSpeaker.
  *
  * @since  1.0
  */
-class PlgFinderSermonspeaker extends FinderIndexerAdapter
+class PlgFinderSermonspeaker extends Adapter
 {
 	/**
 	 * The plugin identifier.
@@ -68,18 +71,20 @@ class PlgFinderSermonspeaker extends FinderIndexerAdapter
 	protected $table = '#__sermon_sermons';
 
 	/**
-	 * Constructor
+	 * The category of an item before save.
 	 *
-	 * @param   object  &$subject  The object to observe
-	 * @param   array    $config   An array that holds the plugin configuration
-	 *
-	 * @since ?
+	 * @var    integer
+	 * @since  6.0.1
 	 */
-	public function __construct(&$subject, $config)
-	{
-		parent::__construct($subject, $config);
-		$this->loadLanguage();
-	}
+	protected $old_category;
+
+	/**
+	 * Load the language file on instantiation.
+	 *
+	 * @var    boolean
+	 * @since  6.0.1
+	 */
+	protected $autoloadLanguage = true;
 
 	/**
 	 * Method to update the item link information when the item category is
@@ -138,19 +143,26 @@ class PlgFinderSermonspeaker extends FinderIndexerAdapter
 	 * Method to determine if the access level of an item changed.
 	 *
 	 * @param   string   $context  The context of the content passed to the plugin.
-	 * @param   JTable   $row      A JTable object
+	 * @param   Table    $row      A JTable object
 	 * @param   boolean  $isNew    If the content has just been created
 	 *
-	 * @return  boolean  True on success.
+	 * @return  void
 	 *
 	 * @throws  Exception on database error.
 	 * @since   2.5
 	 */
-	public function onFinderAfterSave($context, $row, $isNew)
+	public function onFinderAfterSave($context, $row, $isNew): void
 	{
 		// We only want to handle sermons here. We need to handle front end and back end editing.
 		if ($context == 'com_sermonspeaker.sermon' || $context == 'com_sermonspeaker.frontendupload')
 		{
+			// Check if the access levels are different.
+			if (!$isNew && $this->old_catid != $row->catid)
+			{
+				// Process the change.
+				$this->itemAccessChange($row);
+			}
+
 			// Reindex the item
 			$this->reindex($row->id);
 		}
@@ -165,7 +177,7 @@ class PlgFinderSermonspeaker extends FinderIndexerAdapter
 			}
 		}
 
-		return true;
+		return;
 	}
 
 	/**
@@ -174,7 +186,7 @@ class PlgFinderSermonspeaker extends FinderIndexerAdapter
 	 * to queue the item to be indexed later.
 	 *
 	 * @param   string   $context  The context of the content passed to the plugin.
-	 * @param   JTable   $row      A JTable object
+	 * @param   Table   $row      A Table object
 	 * @param   boolean  $isNew    If the content is just about to be created
 	 *
 	 * @return  boolean  True on success.
@@ -185,9 +197,19 @@ class PlgFinderSermonspeaker extends FinderIndexerAdapter
 	public function onFinderBeforeSave($context, $row, $isNew)
 	{
 		// Check for access levels from the category
-		if ($context == 'com_categories.category')
+		if ($context == 'com_sermonspeaker.sermon' || $context == 'com_sermonspeaker.frontendupload' )
 		{
-			// Query the database for the old access level if the item isn't new
+			// Query the database for the old access level if the item isn't new.
+			if (!$isNew)
+			{
+				$this->checkCategory($row);
+			}
+		}
+
+		// Check for access levels from the category.
+		if ($context === 'com_categories.category')
+		{
+			// Query the database for the old access level if the item isn't new.
 			if (!$isNew)
 			{
 				$this->checkCategoryAccess($row);
@@ -195,6 +217,27 @@ class PlgFinderSermonspeaker extends FinderIndexerAdapter
 		}
 
 		return true;
+	}
+
+	/**
+	 * Method to check the existing category (cause of its access level) for items
+	 *
+	 * @param   Table  $row  A Table object
+	 *
+	 * @return  void
+	 *
+	 * @since   2.5
+	 */
+	protected function checkCategory($row)
+	{
+		$query = $this->db->getQuery(true)
+			->select($this->db->quoteName('catid'))
+			->from($this->db->quoteName($this->table))
+			->where($this->db->quoteName('id') . ' = ' . (int) $row->id);
+		$this->db->setQuery($query);
+
+		// Store the access level to determine if it changes
+		$this->old_category = $this->db->loadResult();
 	}
 
 	/**
@@ -216,6 +259,7 @@ class PlgFinderSermonspeaker extends FinderIndexerAdapter
 		{
 			$this->itemStateChange($pks, $value);
 		}
+
 		// Handle when the plugin is disabled
 		if ($context == 'com_plugins.plugin' && $value === 0)
 		{
@@ -227,14 +271,13 @@ class PlgFinderSermonspeaker extends FinderIndexerAdapter
 	 * Method to index an item. The item must be a FinderIndexerResult object.
 	 *
 	 * @param   FinderIndexerResult  $item    The item to index as an FinderIndexerResult object.
-	 * @param   string               $format  The item format
 	 *
 	 * @return  void
 	 *
 	 * @throws  Exception on database error.
 	 * @since ?
 	 */
-	protected function index(FinderIndexerResult $item, $format = 'html')
+	protected function index(Result $item)
 	{
 		// Check if the extension is enabled
 		if (ComponentHelper::isEnabled($this->extension) == false)
@@ -242,15 +285,20 @@ class PlgFinderSermonspeaker extends FinderIndexerAdapter
 			return;
 		}
 
+		$item->context = 'com_sermonspeaker.sermon';
+
+		$item->metadata = new Registry($item->metadata);
+
 		// Trigger the onContentPrepare event.
 		$item->summary = Helper::prepareContent($item->summary);
 
-		// Build the necessary route and path information.
-		$item->url   = $this->getURL($item->id, $this->extension, $this->layout);
-		$item->route = SermonspeakerHelperRoute::getSermonRoute($item->slug, $item->catid, $item->language);
-		$item->path  = Helper::getContentPath($item->route);
+		// Create a URL as identifier to recognise items again.
+		$item->url = $this->getURL($item->id, $this->extension, $this->layout);
 
-		// Handle the link to the meta-data.
+		// Build the necessary route and path information.
+		$item->route = SermonspeakerHelperRoute::getSermonRoute($item->slug, $item->catid, $item->language);
+
+		// Add the metadata processing instructions.
 		$item->addInstruction(FinderIndexer::META_CONTEXT, 'metakey');
 		$item->addInstruction(FinderIndexer::META_CONTEXT, 'metadesc');
 
@@ -258,7 +306,9 @@ class PlgFinderSermonspeaker extends FinderIndexerAdapter
 		$item->addTaxonomy('Type', 'Sermon');
 
 		// Add the category taxonomy data.
-		$item->addTaxonomy('Category', $item->category, $item->cat_state, $item->cat_access);
+		$categories = Categories::getInstance('com_sermonspeaker.sermons', ['published' => false, 'access' => false]);
+		$category = $categories->get($item->catid);
+		$item->addNestedTaxonomy('Category', $category, $category->published, $category->access, $category->language);
 
 		// Add the language taxonomy data.
 		$item->addTaxonomy('Language', $item->language);
@@ -281,17 +331,16 @@ class PlgFinderSermonspeaker extends FinderIndexerAdapter
 	{
 		// Load dependent classes.
 		require_once JPATH_SITE . '/components/com_sermonspeaker/helpers/route.php';
-		$params       = ComponentHelper::getParams('com_sermonspeaker');
-		$this->access = $params->get('access', 1);
 
 		return true;
 	}
 
 	/**
 	 * Method to get a SQL query to load the published and access states for
-	 * an article and category.
+	 * an items and category.
+	 * Needed because we don't use item access
 	 *
-	 * @return  JDatabaseQuery  A database object.
+	 * @return  DatabaseQuery  A database object.
 	 *
 	 * @since   5.0.3
 	 */
@@ -316,49 +365,51 @@ class PlgFinderSermonspeaker extends FinderIndexerAdapter
 	/**
 	 * Method to get the SQL query used to retrieve the list of content items.
 	 *
-	 * @param   mixed  $sql  A JDatabaseQuery object or null.
+	 * @param   mixed  $query  A DatabaseQuery object or null.
 	 *
-	 * @return  JDatabaseQuery  A database object.
+	 * @return  DatabaseQuery  A database object.
 	 *
 	 * @since   2.5
 	 */
-	protected function getListQuery($sql = null)
+	protected function getListQuery($query = null)
 	{
-		$db = Factory::getDbo();
+		$params = ComponentHelper::getParams('com_sermonspeaker');
+		$access = $params->get('access', 1);
 
 		// Check if we can use the supplied SQL query.
-		$sql = is_a($sql, 'JDatabaseQuery') ? $sql : $db->getQuery(true);
-		$sql->select('a.id, a.title AS title, a.alias, a.notes AS summary');
-		$sql->select('a.state, a.catid, a.created AS start_date, a.created_by');
-		$sql->select('a.metakey, a.metadesc, ' . (int) $this->access . ' AS access, a.ordering');
-		$sql->select('a.created AS publish_start_date');
-		$sql->select('c.title AS category, c.published AS cat_state, c.access AS cat_access');
+		$query = $query instanceof DatabaseQuery ? $query : $this->db->getQuery(true)
+			->select('a.id, a.title, a.alias, a.notes AS summary')
+			->select('a.picture')
+			->select('a.state, a.catid, a.created AS start_date, a.created_by')
+			->select('a.metakey, a.metadesc, ' . (int) $access . ' AS access, a.version, a.ordering')
+			->select('a.publish_up AS publish_start_date, a.publish_down AS publish_end_date')
+			->select('c.title AS category, c.published AS cat_state, c.access AS cat_access');
 
 		// Handle the alias CASE WHEN portion of the query
 		$case_when_item_alias = ' CASE WHEN ';
-		$case_when_item_alias .= $sql->charLength('a.alias');
+		$case_when_item_alias .= $query->charLength('a.alias', '!=', '0');
 		$case_when_item_alias .= ' THEN ';
-		$a_id                 = $sql->castAsChar('a.id');
-		$case_when_item_alias .= $sql->concatenate(array($a_id, 'a.alias'), ':');
+		$a_id                 = $query->castAsChar('a.id');
+		$case_when_item_alias .= $query->concatenate(array($a_id, 'a.alias'), ':');
 		$case_when_item_alias .= ' ELSE ';
 		$case_when_item_alias .= $a_id . ' END as slug';
-		$sql->select($case_when_item_alias);
+		$query->select($case_when_item_alias);
 
 		$case_when_category_alias = ' CASE WHEN ';
-		$case_when_category_alias .= $sql->charLength('c.alias');
+		$case_when_category_alias .= $query->charLength('c.alias', '!=', '0');
 		$case_when_category_alias .= ' THEN ';
-		$c_id                     = $sql->castAsChar('c.id');
-		$case_when_category_alias .= $sql->concatenate(array($c_id, 'c.alias'), ':');
+		$c_id                     = $query->castAsChar('c.id');
+		$case_when_category_alias .= $query->concatenate(array($c_id, 'c.alias'), ':');
 		$case_when_category_alias .= ' ELSE ';
 		$case_when_category_alias .= $c_id . ' END as catslug';
-		$sql->select($case_when_category_alias);
+		$query->select($case_when_category_alias);
 
-		$sql->select('u.name AS author');
-		$sql->from('#__sermon_sermons AS a');
-		$sql->join('LEFT', '#__categories AS c ON c.id = a.catid');
-		$sql->join('LEFT', '#__users AS u ON u.id = a.created_by');
+		$query->select('u.name AS author')
+			->from('#__sermon_sermons AS a')
+			->join('LEFT', '#__categories AS c ON c.id = a.catid')
+			->join('LEFT', '#__users AS u ON u.id = a.created_by');
 
-		return $sql;
+		return $query;
 	}
 
 	/**
