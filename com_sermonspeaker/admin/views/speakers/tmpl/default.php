@@ -69,7 +69,7 @@ $assoc = Associations::isEnabled();
 								<?php echo HTMLHelper::_('searchtools.sort', 'JSTATUS', 'speakers.state', $listDirn, $listOrder); ?>
 							</th>
 							<th scope="col" style="width:1%" class="text-center d-none d-md-table-cell">
-								<?php echo HTMLHelper::_('searchtools.sort', 'COM_SERMONSPEAKER_DEFAULT', 'speakers.home', $listDirn, $listOrder); ?>
+								<?php echo HTMLHelper::_('searchtools.sort', 'JDEFAULT', 'speakers.home', $listDirn, $listOrder); ?>
 							</th>
 							<th scope="col" style="min-width:100px">
 								<?php echo HTMLHelper::_('searchtools.sort', 'COM_SERMONSPEAKER_FIELD_NAME_LABEL', 'speakers.title', $listDirn, $listOrder); ?>
