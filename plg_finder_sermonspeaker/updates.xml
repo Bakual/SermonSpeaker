@@ -24,10 +24,10 @@
 		<description>SermonSpeaker Finder Module</description>
 		<element>sermonspeaker</element>
 		<type>plugin</type>
-		<version>6.0.0</version>
+		<version>6.1.0</version>
 		<downloads>
 			<downloadurl type="full" format="zip">
-				https://github.com/Bakual/SermonSpeaker/releases/download/6.0.0/plg_finder_sermonspeaker.zip
+				https://github.com/Bakual/SermonSpeaker/releases/download/6.0.1/plg_finder_sermonspeaker.zip
 			</downloadurl>
 		</downloads>
 		<tags>
