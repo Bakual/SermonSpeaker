@@ -34,7 +34,7 @@ HTMLHelper::_('bootstrap.tooltip', '.hasTooltip');
 		</tr>
 		<tr>
 			<td>
-				<select name="from[book]" class="input-medium advancedSelect" id="book">
+				<select name="from[book]" class="form-select" id="book">
 					<option value="0"><?php echo Text::_('COM_SERMONSPEAKER_SELECT_BOOK'); ?></option>
 					<optgroup label="<?php echo Text::_('COM_SERMONSPEAKER_OLD_TESTAMENT'); ?>">
 						<?php for ($i = 1; $i < 40; $i++): ?>
@@ -60,17 +60,17 @@ HTMLHelper::_('bootstrap.tooltip', '.hasTooltip');
 					<?php endif; ?>
 				</select>
 			</td>
-			<td><input name="from[cap1]" class="span1" id="cap1" type="text" size="3"/></td>
+			<td><input name="from[cap1]" class="form-control" id="cap1" type="text" size="3"/></td>
 			<td><?php echo Text::_('COM_SERMONSPEAKER_SCRIPTURE_SEPARATOR'); ?></td>
-			<td><input name="from[vers1]" class="span1" id="vers1" type="text" size="3"/></td>
+			<td><input name="from[vers1]" class="form-control" id="vers1" type="text" size="3"/></td>
 			<td>-</td>
-			<td><input name="from[cap2]" class="span1" id="cap2" type="text" size="3"/></td>
+			<td><input name="from[cap2]" class="form-control" id="cap2" type="text" size="3"/></td>
 			<td><?php echo Text::_('COM_SERMONSPEAKER_SCRIPTURE_SEPARATOR'); ?></td>
-			<td><input name="from[vers2]" class="span1" id="vers2" type="text" size="3"/></td>
+			<td><input name="from[vers2]" class="form-control" id="vers2" type="text" size="3"/></td>
 		</tr>
 		<tr class="hasTooltip center" title="<?php echo Text::_('COM_SERMONSPEAKER_FREETEXT_DESC'); ?>">
 			<td><label for="text"><?php echo Text::_('COM_SERMONSPEAKER_FREETEXT_LABEL'); ?></label></td>
-			<td colspan="7"><input name="from[text]" class="input-large" id="text" type="text" size="60"/></td>
+			<td colspan="7"><input name="from[text]" class="form-control" id="text" type="text" size="60"/></td>
 		</tr>
 	</table>
 </form>
