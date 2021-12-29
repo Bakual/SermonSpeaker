@@ -7,6 +7,7 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
+use Joomla\CMS\Helper\MediaHelper;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Router\Route;
 
@@ -87,12 +88,14 @@ echo '<?xml version="1.0" encoding="utf-8" ?>'; ?>
 <?php endif;
 
 		if ($params->get('itImage')) : ?>
-	<itunes:image href="<?php echo SermonspeakerHelperSermonspeaker::makeLink($params->get('itImage'), true); ?>" />
+			<?php $value = MediaHelper::getCleanMediaFieldValue($params->get('itImage')); ?>
+	<itunes:image href="<?php echo SermonspeakerHelperSermonspeaker::makeLink($value, true); ?>" />
 	<?php endif;
 
 	if ($params->get('rssImage')) : ?>
 		<image>
-			<url><?php echo SermonspeakerHelperSermonspeaker::makeLink($params->get('rssImage'), true); ?></url>
+			<?php $value = MediaHelper::getCleanMediaFieldValue($params->get('rssImage')); ?>
+			<url><?php echo SermonspeakerHelperSermonspeaker::makeLink($value, true); ?></url>
 			<title><?php echo $this->make_xml_safe($params->get('sc_title')); ?></title>
 			<link><?php echo JUri::root(); ?></link>
 			<description><?php echo $this->make_xml_safe($params->get('description')); ?></description>
