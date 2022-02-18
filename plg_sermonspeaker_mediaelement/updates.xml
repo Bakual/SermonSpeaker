@@ -35,7 +35,7 @@
 		</tags>
 		<maintainer>Thomas Hunziker</maintainer>
 		<maintainerurl>https://www.sermonspeaker.net/</maintainerurl>
-		<targetplatform name="joomla" version="4.[0]"/>
+		<targetplatform name="joomla" version="4.[012]"/>
 		<client>0</client>
 		<folder>sermonspeaker</folder>
 	</update>
