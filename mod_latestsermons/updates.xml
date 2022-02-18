@@ -4,25 +4,6 @@
 		<description>Latest Sermons Module</description>
 		<element>mod_latestsermons</element>
 		<type>module</type>
-		<version>5.7.1</version>
-		<downloads>
-			<downloadurl type="full" format="zip">
-				https://github.com/Bakual/SermonSpeaker/releases/download/5.9.8/mod_latestsermons.zip
-			</downloadurl>
-		</downloads>
-		<tags>
-			<tag>stable</tag>
-		</tags>
-		<maintainer>Thomas Hunziker</maintainer>
-		<maintainerurl>https://www.sermonspeaker.net/</maintainerurl>
-		<targetplatform name="joomla" version="3.[89]|10"/>
-		<client>0</client>
-	</update>
-	<update>
-		<name>Latest Sermons Module</name>
-		<description>Latest Sermons Module</description>
-		<element>mod_latestsermons</element>
-		<type>module</type>
 		<version>6.0.0</version>
 		<downloads>
 			<downloadurl type="full" format="zip">
@@ -35,6 +16,25 @@
 		<maintainer>Thomas Hunziker</maintainer>
 		<maintainerurl>https://www.sermonspeaker.net/</maintainerurl>
 		<targetplatform name="joomla" version="4.[012]"/>
+		<client>0</client>
+	</update>
+	<update>
+		<name>Latest Sermons Module</name>
+		<description>Latest Sermons Module</description>
+		<element>mod_latestsermons</element>
+		<type>module</type>
+		<version>5.7.1</version>
+		<downloads>
+			<downloadurl type="full" format="zip">
+				https://github.com/Bakual/SermonSpeaker/releases/download/5.9.8/mod_latestsermons.zip
+			</downloadurl>
+		</downloads>
+		<tags>
+			<tag>stable</tag>
+		</tags>
+		<maintainer>Thomas Hunziker</maintainer>
+		<maintainerurl>https://www.sermonspeaker.net/</maintainerurl>
+		<targetplatform name="joomla" version="3.[89]|10"/>
 		<client>0</client>
 	</update>
 </updates>
