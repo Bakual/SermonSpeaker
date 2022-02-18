@@ -3,19 +3,24 @@
 	<name>mod_sermonspeaker_categories</name>
 	<author>Thomas Hunziker</author>
 	<creationDate>2022-02-18</creationDate>
-	<copyright>© 2021</copyright>
+	<copyright>© 2022</copyright>
 	<authorEmail>admin@sermonspeaker.net</authorEmail>
 	<authorUrl>http://www.sermonspeaker.net</authorUrl>
-	<version>6.0.0</version>
+	<version>6.0.2</version>
 	<license>http://www.gnu.org/licenses/gpl.html</license>
 	<description>MOD_SERMONSPEAKER_CATEGORIES_XML_DESCRIPTION</description>
-	<namespace path="src">Joomla\Module\SermonspeakerCategories</namespace>
+	<namespace path="src">Bakual\Module\SermonspeakerCategories</namespace>
 	<files>
 		<filename module="mod_sermonspeaker_categories">mod_sermonspeaker_categories.php</filename>
 		<folder>src</folder>
 		<folder>language</folder>
 		<folder>tmpl</folder>
 	</files>
+	<updateservers>
+		<server type="extension" priority="1" name="SermonSpeaker.net">
+			https://www.sermonspeaker.net/update/mod_latestsermons.xml
+		</server>
+	</updateservers>
 	<config>
 		<fields name="params">
 			<fieldset name="basic" addfieldprefix="Joomla\Component\Categories\Administrator\Field">

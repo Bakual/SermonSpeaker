@@ -11,11 +11,13 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\Helper\ModuleHelper;
 
+JLoader::discover('SermonspeakerHelper', JPATH_SITE . '/components/com_sermonspeaker/helpers');
+
 $cacheid = md5($module->id);
 
 $cacheparams               = new \stdClass;
 $cacheparams->cachemode    = 'id';
-$cacheparams->class        = 'Joomla\Module\SermonspeakerCategories\Site\Helper\SermonspeakerCategoriesHelper';
+$cacheparams->class        = 'Bakual\Module\SermonspeakerCategories\Site\Helper\SermonspeakerCategoriesHelper';
 $cacheparams->method       = 'getList';
 $cacheparams->methodparams = $params;
 $cacheparams->modeparams   = $cacheid;
