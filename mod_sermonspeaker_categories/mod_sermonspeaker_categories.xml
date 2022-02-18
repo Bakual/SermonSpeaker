@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" client="site" method="upgrade">
+	<name>mod_sermonspeaker_categories</name>
+	<author>Thomas Hunziker</author>
+	<creationDate>2022-02-18</creationDate>
+	<copyright>© 2021</copyright>
+	<authorEmail>admin@sermonspeaker.net</authorEmail>
+	<authorUrl>http://www.sermonspeaker.net</authorUrl>
+	<version>6.0.0</version>
+	<license>http://www.gnu.org/licenses/gpl.html</license>
+	<description>MOD_SERMONSPEAKER_CATEGORIES_XML_DESCRIPTION</description>
+	<namespace path="src">Joomla\Module\SermonspeakerCategories</namespace>
+	<files>
+		<filename module="mod_sermonspeaker_categories">mod_sermonspeaker_categories.php</filename>
+		<folder>src</folder>
+		<folder>language</folder>
+		<folder>tmpl</folder>
+	</files>
+	<config>
+		<fields name="params">
+			<fieldset name="basic" addfieldprefix="Joomla\Component\Categories\Administrator\Field">
+				<field
+					name="parent_type"
+					type="list"
+					label="MOD_SERMONSPEAKER_CATEGORIES_FIELD_PARENT_TYPE_LABEL"
+					validate="options"
+					default="sermons"
+				>
+					<option value="sermons">MOD_SERMONSPEAKER_CATEGORIES_FIELD_PARENT_TYPE_OPTION_SERMONS_LABEL</option>
+					<option value="series">MOD_SERMONSPEAKER_CATEGORIES_FIELD_PARENT_TYPE_OPTION_SERIES_LABEL</option>
+					<option value="speakers">MOD_SERMONSPEAKER_CATEGORIES_FIELD_PARENT_TYPE_OPTION_SPEAKERS_LABEL</option>
+				</field>
+
+				<field
+					name="parent_sermons"
+					type="modal_category"
+					label="MOD_SERMONSPEAKER_CATEGORIES_FIELD_PARENT_LABEL"
+					extension="com_sermonspeaker.sermons"
+					filter="integer"
+					published=""
+					select="true"
+					new="true"
+					edit="true"
+					clear="true"
+					showon="parent_type:sermons"
+				/>
+
+				<field
+					name="parent_series"
+					type="modal_category"
+					label="MOD_SERMONSPEAKER_CATEGORIES_FIELD_PARENT_LABEL"
+					extension="com_sermonspeaker.series"
+					filter="integer"
+					published=""
+					select="true"
+					new="true"
+					edit="true"
+					clear="true"
+					showon="parent_type:series"
+				/>
+
+				<field
+					name="parent_speakers"
+					type="modal_category"
+					label="MOD_SERMONSPEAKER_CATEGORIES_FIELD_PARENT_LABEL"
+					extension="com_sermonspeaker.speakers"
+					filter="integer"
+					published=""
+					select="true"
+					new="true"
+					edit="true"
+					clear="true"
+					showon="parent_type:speakers"
+				/>
+
+				<field
+					name="show_description"
+					type="radio"
+					layout="joomla.form.field.radio.switcher"
+					label="MOD_SERMONSPEAKER_CATEGORIES_FIELD_SHOW_DESCRIPTION_LABEL"
+					default="0"
+					filter="integer"
+					>
+					<option value="0">JHIDE</option>
+					<option value="1">JSHOW</option>
+				</field>
+
+				<field
+					name="numitems"
+					type="radio"
+					layout="joomla.form.field.radio.switcher"
+					label="MOD_SERMONSPEAKER_CATEGORIES_FIELD_NUMITEMS_LABEL"
+					default="0"
+					filter="integer"
+					>
+					<option value="0">JHIDE</option>
+					<option value="1">JSHOW</option>
+				</field>
+
+				<field
+					name="show_children"
+					type="radio"
+					layout="joomla.form.field.radio.switcher"
+					label="MOD_SERMONSPEAKER_CATEGORIES_FIELD_SHOW_CHILDREN_LABEL"
+					default="0"
+					filter="integer"
+					>
+					<option value="0">JHIDE</option>
+					<option value="1">JSHOW</option>
+				</field>
+
+				<field
+					name="count"
+					type="list"
+					label="MOD_SERMONSPEAKER_CATEGORIES_FIELD_COUNT_LABEL"
+					description="MOD_SERMONSPEAKER_CATEGORIES_FIELD_COUNT_DESC"
+					default="0"
+					filter="integer"
+					validate="options"
+					>
+					<option value="0">JALL</option>
+					<option value="1">J1</option>
+					<option value="2">J2</option>
+					<option value="3">J3</option>
+					<option value="4">J4</option>
+					<option value="5">J5</option>
+					<option value="6">J6</option>
+					<option value="7">J7</option>
+					<option value="8">J8</option>
+					<option value="9">J9</option>
+					<option value="10">J10</option>
+				</field>
+
+				<field
+					name="maxlevel"
+					type="list"
+					label="MOD_SERMONSPEAKER_CATEGORIES_FIELD_MAXLEVEL_LABEL"
+					default="0"
+					filter="integer"
+					validate="options"
+					>
+					<option value="0">JALL</option>
+					<option value="1">J1</option>
+					<option value="2">J2</option>
+					<option value="3">J3</option>
+					<option value="4">J4</option>
+					<option value="5">J5</option>
+					<option value="6">J6</option>
+					<option value="7">J7</option>
+					<option value="8">J8</option>
+					<option value="9">J9</option>
+					<option value="10">J10</option>
+				</field>
+			</fieldset>
+
+			<fieldset name="advanced">
+				<field
+					name="layout"
+					type="modulelayout"
+					label="JFIELD_ALT_LAYOUT_LABEL"
+					class="form-select"
+					validate="moduleLayout"
+				/>
+
+				<field
+					name="item_heading"
+					type="list"
+					label="MOD_SERMONSPEAKER_CATEGORIES_TITLE_HEADING_LABEL"
+					default="4"
+					filter="integer"
+					validate="options"
+					>
+					<option value="1">JH1</option>
+					<option value="2">JH2</option>
+					<option value="3">JH3</option>
+					<option value="4">JH4</option>
+					<option value="5">JH5</option>
+				</field>
+
+				<field
+					name="moduleclass_sfx"
+					type="textarea"
+					label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL"
+					rows="3"
+					validate="CssIdentifier"
+				/>
+
+				<field
+					name="owncache"
+					type="list"
+					label="COM_MODULES_FIELD_CACHING_LABEL"
+					default="1"
+					filter="integer"
+					validate="options"
+					>
+					<option value="1">JGLOBAL_USE_GLOBAL</option>
+					<option value="0">COM_MODULES_FIELD_VALUE_NOCACHING</option>
+				</field>
+
+				<field
+					name="cache_time"
+					type="number"
+					label="COM_MODULES_FIELD_CACHE_TIME_LABEL"
+					default="900"
+					filter="integer"
+				/>
+			</fieldset>
+		</fields>
+	</config>
+</extension>
