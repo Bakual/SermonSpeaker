@@ -31,6 +31,9 @@ zip -r ../build/packages/mod_sermonupload.zip *
 cd ../mod_sermonspeaker_admin/
 zip -r ../build/packages/mod_sermonspeaker_admin.zip *
 
+cd ../mod_sermonspeaker_categories/
+zip -r ../build/packages/mod_sermonspeaker_categories.zip *
+
 REM Plugins
 cd ../plg_content_sermonspeaker/
 zip -r ../build/packages/plg_content_sermonspeaker.zip *
