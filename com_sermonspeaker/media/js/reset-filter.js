@@ -2,7 +2,7 @@
  * @package     SermonSpeaker
  * @subpackage  Component.Media
  * @author      Thomas Hunziker <admin@sermonspeaker.net>
- * @copyright   © 2021 - Thomas Hunziker
+ * @copyright   © 2022 - Thomas Hunziker
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 (document => {

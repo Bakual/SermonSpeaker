@@ -3,7 +3,7 @@
  * @package     SermonSpeaker
  * @subpackage  Module.Sermonspeaker
  * @author      Thomas Hunziker <admin@sermonspeaker.net>
- * @copyright   © 2020 - Thomas Hunziker
+ * @copyright   © 2022 - Thomas Hunziker
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
