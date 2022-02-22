@@ -33,7 +33,7 @@ $saveOrder = $listOrder == 'speakers.ordering';
 
 if ($saveOrder)
 {
-	$saveOrderingUrl = 'index.php?option=com_sermonspeaker&task=speakers.saveOrderAjax&tmpl=component' . Session::getFormToken() . '=1';
+	$saveOrderingUrl = 'index.php?option=com_sermonspeaker&task=speakers.saveOrderAjax&tmpl=component&' . Session::getFormToken() . '=1';
 	HTMLHelper::_('draggablelist.draggable');
 }
 
@@ -95,9 +95,8 @@ $assoc = Associations::isEnabled();
 							</th>
 						</tr>
 						</thead>
-						<tbody>
+						<tbody <?php if ($saveOrder) : ?> class="js-draggable" data-url="<?php echo $saveOrderingUrl; ?>" data-direction="<?php echo strtolower($listDirn); ?>" data-nested="true"<?php endif; ?>>
 						<?php foreach ($this->items as $i => $item) :
-							$ordering = ($listOrder == 'speakers.ordering');
 							$canEdit = $user->authorise('core.edit', 'com_sermonspeaker.category.' . $item->catid);
 							$canCheckin = $user->authorise('core.manage', 'com_checkin') || $item->checked_out == $user->id || $item->checked_out == 0;
 							$canEditOwn = $user->authorise('core.edit.own', 'com_sermonspeaker.category.' . $item->catid) && $item->created_by == $user->id;
@@ -107,7 +106,7 @@ $assoc = Associations::isEnabled();
 							$canEditParCat = $user->authorise('core.edit', 'com_sermonspeaker.category.' . $item->parent_category_id);
 							$canEditOwnParCat = $user->authorise('core.edit.own', 'com_sermonspeaker.category.' . $item->parent_category_id) && $item->parent_category_uid == $user->id;
 							?>
-							<tr class="row<?php echo $i % 2; ?>" data-dragable-group="<?php echo $item->catid; ?>">
+							<tr class="row<?php echo $i % 2; ?>" data-draggable-group="<?php echo $item->catid; ?>">
 								<td class="text-center">
 									<?php echo HTMLHelper::_('grid.id', $i, $item->id, false, 'cid', 'cb', $item->title); ?>
 								</td>
