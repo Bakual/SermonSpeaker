@@ -23,6 +23,7 @@
 		<folder type="module" id="mod_sermonspeaker" client="site">mod_sermonspeaker</folder>
 		<folder type="module" id="mod_sermonspeaker" client="administrator">mod_sermonspeaker_admin</folder>
 		<folder type="module" id="mod_sermonupload" client="site">mod_sermonupload</folder>
+		<folder type="module" id="mod_sermonspeaker_categories" client="site">mod_sermonspeaker_categories</folder>
 		<folder type="plugin" id="sermonspeaker" group="content">plg_content_sermonspeaker</folder>
 		<folder type="plugin" id="sermonspeaker" group="editors-xtd">plg_editors_xtd_sermonspeaker</folder>
 		<folder type="plugin" id="sermonspeaker" group="finder">plg_finder_sermonspeaker</folder>
