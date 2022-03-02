@@ -44,3 +44,10 @@
 .com_sermonspeaker .card-header {
 	background-color: rgba(0, 0, 0, .03);
 }
+
+#audiopathinfo.badge>span,
+#videopathinfo.badge>span,
+#addfilepathinfo.badge>span {
+  -webkit-margin-end: 0;
+  margin-inline-end: 0;
+}

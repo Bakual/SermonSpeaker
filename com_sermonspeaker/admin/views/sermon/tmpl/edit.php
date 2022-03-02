@@ -72,6 +72,7 @@ $tmpl   = $jinput->getCmd('tmpl') === 'component' ? '&tmpl=component' : '';
 				</div>
 
 				<?php foreach (['audiofile', 'videofile', 'addfile'] as $fieldset) : ?>
+					<?php $type = ($fieldset == 'audiofile') ? 'audio' : (($fieldset == 'videofile') ? 'video' : 'addfile'); ?>
 					<?php $fields = $this->form->getFieldset($fieldset); ?>
 					<fieldset id="<?php echo $fieldset; ?>_drop" class="options-form">
 						<legend><?php echo Text::_($this->form->getFieldsets()[$fieldset]->label); ?></legend>
@@ -84,15 +85,16 @@ $tmpl   = $jinput->getCmd('tmpl') === 'component' ? '&tmpl=component' : '';
 								</div>
 								<div class="controls">
 									<?php echo $this->form->getInput($fileFieldName); ?>
-									<div id="audiopathinfo" class="badge badge-info hasTooltip"
+									<div id="<?php echo $type; ?>pathinfo" class="badge bg-info hasTooltip"
 										 title="<?php echo HTMLHelper::tooltipText(Text::_('COM_SERMONSPEAKER_UPLOADINFO_TOOLTIP'), '', 0); ?>">
 										<?php echo Text::_('COM_SERMONSPEAKER_UPLOADINFO');
-										if ($this->s3audio) :
+										if (($fileFieldName == 'audiofile' && $this->s3audio) || ($fileFieldName == 'videofile' && $this->s3video)):
 											echo ' https://' . $this->domain . '/';
 										else :
-											echo ' /' . trim($this->params->get('path_audio'), '/') . '/';
+											$property = 'path_' . $type;
+											echo ' /' . trim($this->params->get($property), '/') . '/';
 										endif;
-										echo '<span id="audiopathdate" class="pathdate">' . $this->append_date . '</span><span id="audiopathlang" class="pathlang">' . $this->append_lang . '</span>'; ?>
+										echo $this->append_user . '<span id="' . $type . 'pathdate" class="pathdate">' . $this->append_date . '</span><span id="audiopathlang" class="pathlang">' . $this->append_lang . '</span>'; ?>
 									</div>
 								</div>
 							</div>

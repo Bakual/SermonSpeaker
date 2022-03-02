@@ -83,7 +83,7 @@ $self = $uri->toString();
 							else :
 								echo ' /' . trim($this->params->get('path_audio'), '/') . '/';
 							endif;
-							echo '<span id="audiopathdate" class="pathdate">' . $this->append_date . '</span><span id="audiopathlang" class="pathlang">' . $this->append_lang . '</span>'; ?>
+							echo $this->append_user . '<span id="audiopathdate" class="pathdate">' . $this->append_date . '</span><span id="audiopathlang" class="pathlang">' . $this->append_lang . '</span>'; ?>
 						</div>
 					<?php endif; ?>
 				</div>
@@ -106,7 +106,7 @@ $self = $uri->toString();
 							else:
 								echo ' /' . trim($this->params->get('path_video'), '/') . '/';
 							endif;
-							echo '<span id="videopathdate" class="pathdate">' . $this->append_date . '</span><span id="videopathlang" class="pathlang">' . $this->append_lang . '</span>'; ?>
+							echo $this->append_user . '<span id="videopathdate" class="pathdate">' . $this->append_date . '</span><span id="videopathlang" class="pathlang">' . $this->append_lang . '</span>'; ?>
 						</div>
 					<?php endif; ?>
 				</div>
@@ -123,7 +123,7 @@ $self = $uri->toString();
 						<div id="addfilepathinfo" class="badge bg-info hasTooltip"
 							 title="<?php echo Text::_('COM_SERMONSPEAKER_UPLOADINFO_TOOLTIP'); ?>">
 							<?php echo Text::_('COM_SERMONSPEAKER_UPLOADINFO') . ' /' . trim($this->params->get('path_addfile'), '/')
-								. '/<span id="addfilepathdate" class="pathdate">' . $this->append_date . '</span>'
+								. '/' . $this->append_user . '<span id="addfilepathdate" class="pathdate">' . $this->append_date . '</span>'
 								. '<span id="addfilepathlang" class="pathlang">' . $this->append_lang . '</span>'; ?>
 						</div>
 					<?php endif; ?>
@@ -208,8 +208,7 @@ $self = $uri->toString();
 					</div>
 					<div class="well well-small">
 						<div><?php echo Text::_('COM_SERMONSPEAKER_UPLOADINFO'); ?>
-							<span
-									class="label label-info">/<?php echo trim($this->params->get('path_audio', $this->params->get('path')), '/') . '/';
+							<span class="label label-info">/<?php echo trim($this->params->get('path_audio', $this->params->get('path')), '/') . '/' . $this->append_user . '/';
 
 								if ($this->params->get('append_path', 0)) :
 									$time = ($this->item->sermon_date and $this->item->sermon_date != '0000-00-00 00:00:00') ? strtotime($this->item->sermon_date) : time();

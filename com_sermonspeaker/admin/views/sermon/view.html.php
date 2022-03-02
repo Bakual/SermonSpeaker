@@ -38,6 +38,8 @@ class SermonspeakerViewSermon extends JViewLegacy
 
 	protected $upload_limit;
 
+	protected $append_user;
+
 	protected $append_date;
 
 	protected $append_lang;
@@ -322,6 +324,15 @@ class SermonspeakerViewSermon extends JViewLegacy
 		}
 
 		// Calculate destination path to show
+		if ($this->params->get('append_path_user', 0))
+		{
+			$this->append_user = Factory::getApplication()->getIdentity()->id . '/';
+		}
+		else
+		{
+			$this->append_user = '';
+		}
+
 		if ($this->params->get('append_path', 0))
 		{
 			$changedate = "function changedate(datestring) {

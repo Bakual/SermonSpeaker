@@ -305,8 +305,17 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 	{
 		if (!$this->mode)
 		{
-			// Fallback to 'path' for B/C with versions < 5.0.3
-			$dir = trim($this->params->get('path_' . $this->file, $this->params->get('path', 'images')), '/');
+			$dir = trim($this->params->get('path_' . $this->file, 'images'), '/');
+
+			// Add user ID to the directory if enabled.
+			if ($this->params->get('append_path_user', 0))
+			{
+				// Always populate the list based on active user.
+				$append = '/' . Factory::getApplication()->getIdentity()->id;
+
+				// Check if directory exists, fallback to base directory if not.
+				$dir = is_dir(JPATH_ROOT . '/' . $dir . $append) ? $dir . $append : $dir;
+			}
 
 			// Add year/month to the directory if enabled.
 			if ($this->params->get('append_path', 0))
@@ -337,9 +346,9 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 
 			if ($filetypes)
 			{
-				$filetypes    = array_map('trim', explode(',', $filetypes));
-				$filter       = '\.' . implode('$|\.', $filetypes) . '$';
-				$this->filter = $filter;
+				$filetypes        = array_map('trim', explode(',', $filetypes));
+				$filter           = '\.' . implode('$|\.', $filetypes) . '$';
+				$this->fileFilter = $filter;
 			}
 
 			// Get the field options.
@@ -388,6 +397,14 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 			// Instantiate the class
 			$s3 = new S3($awsAccessKey, $awsSecretKey);
 			$s3->setRegion($region);
+
+			// Add year/month to the directory if enabled.
+			if ($this->params->get('append_path_user', 0))
+			{
+				// Always populate the list based on active user.
+				$folder .= Factory::getApplication()->getIdentity()->id;
+				$folder .= '/';
+			}
 
 			// Add year/month to the directory if enabled.
 			if ($this->params->get('append_path', 0))

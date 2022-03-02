@@ -139,6 +139,8 @@ class SermonspeakerControllerFile extends JControllerLegacy
 
 			$date   = $jinput->get('date', '', 'string');
 			$time   = ($date) ? strtotime($date) : time();
+
+			$folder .= ($params->get('append_path_user', 0)) ? Factory::getApplication()->getIdentity()->id . '/' : '';
 			$folder .= ($params->get('append_path', 0)) ? date('Y', $time) . '/' . date('m', $time) . '/' : '';
 
 			if ($params->get('append_path_lang', 0))
@@ -198,12 +200,12 @@ class SermonspeakerControllerFile extends JControllerLegacy
 		else
 		{
 			// Regular Upload
-			// Fall back to the old 'path' parameter for B/C versions < 5.0.3
-			$path   = $params->get('path_' . $type, $params->get('path', 'images'));
+			$path   = $params->get('path_' . $type, 'images');
 			$path   = trim($path, '/');
 			$date   = $jinput->get('date', '', 'string');
 			$time   = ($date) ? strtotime($date) : time();
-			$append = ($params->get('append_path', 0)) ? '/' . date('Y', $time) . '/' . date('m', $time) : '';
+			$append = ($params->get('append_path_user', 0)) ? '/' . Factory::getApplication()->getIdentity()->id : '';
+			$append .= ($params->get('append_path', 0)) ? '/' . date('Y', $time) . '/' . date('m', $time) : '';
 
 			if ($params->get('append_path_lang', 0))
 			{
