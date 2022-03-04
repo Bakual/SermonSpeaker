@@ -79,12 +79,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/tpyo/amazon-s3-php-class.git",
-                "reference": "62ae202afaac4cc01feffe6ce54f1b7d36a8d79e"
+                "reference": "81a35c61bf76be7c02c95a57771031d21277b1b5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tpyo/amazon-s3-php-class/zipball/62ae202afaac4cc01feffe6ce54f1b7d36a8d79e",
-                "reference": "62ae202afaac4cc01feffe6ce54f1b7d36a8d79e",
+                "url": "https://api.github.com/repos/tpyo/amazon-s3-php-class/zipball/81a35c61bf76be7c02c95a57771031d21277b1b5",
+                "reference": "81a35c61bf76be7c02c95a57771031d21277b1b5",
                 "shasum": ""
             },
             "require": {
@@ -113,7 +113,7 @@
                 "issues": "https://github.com/tpyo/amazon-s3-php-class/issues",
                 "source": "https://github.com/tpyo/amazon-s3-php-class/tree/master"
             },
-            "time": "2019-05-05T19:32:17+00:00"
+            "time": "2021-01-21T15:50:10+00:00"
         }
     ],
     "packages-dev": [],
@@ -130,5 +130,5 @@
         "ext-zip": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.1.0"
+    "plugin-api-version": "2.0.0"
 }
