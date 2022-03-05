@@ -430,7 +430,10 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 				$folder   .= '/';
 			}
 
-			$bucket_contents = $s3->listObjects(['Bucket' => $bucket, 'Prefix' => $folder])['Contents'];
+			$bucket_contents = $s3->listObjectsV2([
+				'Bucket' => $bucket,
+				'Prefix' => $folder,
+			])['contents'];
 
 			// Fallback to root if folder doesn't exist
 			if (!$bucket_contents)
@@ -439,12 +442,15 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 			}
 
 			// Show last modified files first
-			uasort(
-				$bucket_contents,
-				function ($a, $b) {
-					return (string) $b['LastModified'] - (string) $a['LastModified'];
-				}
-			);
+			if ($bucket_contents)
+			{
+				uasort(
+					$bucket_contents,
+					function ($a, $b) {
+						return (string) $b['LastModified'] - (string) $a['LastModified'];
+					}
+				);
+			}
 
 			$prefix = ($region === 'us-east-1') ? 's3' : 's3-' . $region;
 			$domain = $prefix . '.amazonaws.com/' . $bucket;
