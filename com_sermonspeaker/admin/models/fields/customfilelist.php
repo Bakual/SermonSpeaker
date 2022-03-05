@@ -9,6 +9,8 @@
 
 defined('_JEXEC') or die();
 
+use Aws\Credentials\Credentials;
+use Aws\S3\S3Client;
 use Joomla\CMS\Application\ApplicationHelper;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
@@ -395,8 +397,12 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 			$folder       = $this->params->get('s3_folder') ? trim($this->params->get('s3_folder'), ' /') . '/' : '';
 
 			// Instantiate the class
-			$s3 = new S3($awsAccessKey, $awsSecretKey);
-			$s3->setRegion($region);
+			$credentials = new Credentials($awsAccessKey, $awsSecretKey);
+			$s3          = new S3Client([
+				'version'     => 'latest',
+				'region'      => $region,
+				'credentials' => $credentials,
+			]);
 
 			// Add year/month to the directory if enabled.
 			if ($this->params->get('append_path_user', 0))
