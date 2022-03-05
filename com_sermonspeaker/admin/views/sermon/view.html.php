@@ -315,10 +315,6 @@ class SermonspeakerViewSermon extends JViewLegacy
 				Factory::getApplication()->enqueueMessage(Text::_('COM_SERMONSPEAKER_S3_MISSING_PARAMETER'), 'warning');
 			}
 
-			// Instantiate the class
-			$s3 = new S3($awsAccessKey, $awsSecretKey);
-			$s3->setRegion($region);
-
 			$prefix       = ($region === 'us-east-1') ? 's3' : 's3-' . $region;
 			$this->domain = $prefix . '.amazonaws.com/' . $bucket . $folder;
 		}
