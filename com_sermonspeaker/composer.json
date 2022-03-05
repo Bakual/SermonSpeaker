@@ -23,9 +23,16 @@
   },
   "require": {
     "james-heinrich/getid3": "v1.*",
-    "tpyo/amazon-s3-php-class": "dev-master",
+    "aws/aws-sdk-php": "*",
     "ext-json": "*",
     "ext-simplexml": "*",
     "ext-zip": "*"
+  },
+  "replace": {
+    "symfony/polyfill-mbstring": "*",
+    "psr/http-client": "*",
+    "psr/http-factory": "*",
+    "psr/http-message": "*",
+    "symfony/deprecation-contracts": "*"
   }
 }
