@@ -7,6 +7,8 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
+use Aws\Credentials\Credentials;
+use Aws\S3\S3Client;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Filesystem\Folder;
@@ -112,8 +114,14 @@ class SermonspeakerModelFiles extends JModelLegacy
 			$region       = $params->get('s3_region');
 			$bucket       = $params->get('s3_bucket');
 			$bucketfolder = $params->get('s3_folder') ? trim($params->get('s3_folder'), ' /') . '/' : '';
-			$s3           = new S3($awsAccessKey, $awsSecretKey);
-			$s3->setRegion($region);
+
+			// Instantiate the class
+			$credentials = new Credentials($awsAccessKey, $awsSecretKey);
+			$s3          = new S3Client([
+				'version'     => 'latest',
+				'region'      => $region,
+				'credentials' => $credentials,
+			]);
 
 			$bucket_contents = $s3->getBucket($bucket, $bucketfolder);
 

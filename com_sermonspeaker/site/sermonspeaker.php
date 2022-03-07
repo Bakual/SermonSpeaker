@@ -29,6 +29,9 @@ JLoader::register('JFolder', JPATH_LIBRARIES . '/joomla/filesystem/folder.php');
 // Register Helperclasses for autoloading
 JLoader::discover('SermonspeakerHelper', JPATH_COMPONENT . '/helpers');
 
+// Load Composer Autoloader
+require_once(JPATH_COMPONENT_ADMINISTRATOR . '/vendor/autoload.php');
+
 // Load languages and merge with fallbacks
 $jlang = Factory::getLanguage();
 $jlang->load('com_sermonspeaker', JPATH_COMPONENT, 'en-GB', true);

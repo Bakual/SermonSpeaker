@@ -9,6 +9,8 @@
 
 defined('_JEXEC') or die;
 
+use Aws\Credentials\Credentials;
+use Aws\S3\S3Client;
 use Joomla\CMS\Client\ClientHelper;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
@@ -134,8 +136,12 @@ class SermonspeakerControllerFile extends JControllerLegacy
 			$folder       = $params->get('s3_folder') ? trim($params->get('s3_folder'), ' /') . '/' : '';
 
 			// Instantiate the class
-			$s3 = new S3($awsAccessKey, $awsSecretKey);
-			$s3->setRegion($region);
+			$credentials = new Credentials($awsAccessKey, $awsSecretKey);
+			$s3          = new S3Client([
+				'version'     => 'latest',
+				'region'      => $region,
+				'credentials' => $credentials,
+			]);
 
 			$date   = $jinput->get('date', '', 'string');
 			$time   = ($date) ? strtotime($date) : time();
@@ -176,11 +182,18 @@ class SermonspeakerControllerFile extends JControllerLegacy
 				$prefix = ($region === 'us-east-1') ? 's3' : 's3-' . $region;
 				$domain = $prefix . '.amazonaws.com/' . $bucket;
 
+				$result = $s3->putObject([
+					'Bucket'     => $bucket,
+					'Key'        => $uri,
+					'SourceFile' => $file['tmp_name'],
+					'ACL'        => 'public-read',
+				]);
+
 				$response = array(
 					'status'   => '1',
 					'filename' => $file['name'],
-					'path'     => 'https://' . $domain . '/' . $uri,
-					'error'    => Text::sprintf('COM_SERMONSPEAKER_FU_FILENAME', $domain . '/' . $uri),
+					'path'     => $result['ObjectURL'],
+					'error'    => Text::sprintf('COM_SERMONSPEAKER_FU_FILENAME', $result['ObjectURL']),
 				);
 				echo json_encode($response);
 
