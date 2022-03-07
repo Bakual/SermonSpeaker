@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '6c6d8452476a52b01ae9cf9d4c36151d62cd08a4',
+    'reference' => '05fefbea8e08a838fa7d3a44606a0fba69786beb',
     'name' => 'bakual/sermonspeaker',
   ),
   'versions' => 
@@ -36,7 +36,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '6c6d8452476a52b01ae9cf9d4c36151d62cd08a4',
+      'reference' => '05fefbea8e08a838fa7d3a44606a0fba69786beb',
     ),
     'guzzlehttp/guzzle' => 
     array (
