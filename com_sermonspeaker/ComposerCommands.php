@@ -13,9 +13,9 @@ class ComposerCommands
 {
 	public static function cleanup()
 	{
-		self::deleteDirectory('james-heinrich/getid3/demos');
-		self::deleteDirectory('james-heinrich/getid3/helperapps');
-		self::deleteDirectory('james-heinrich/getid3/licenses');
+		self::deleteDirectory(__DIR__ . '/admin/vendor/james-heinrich/getid3/demos');
+		self::deleteDirectory(__DIR__ . '/admin/vendor/james-heinrich/getid3/helperapps');
+		self::deleteDirectory(__DIR__ . '/admin/vendor/james-heinrich/getid3/licenses');
 		$files = array(
 			'james-heinrich\getid3\getid3\extension.cache.dbm.php',
 			'james-heinrich\getid3\getid3\extension.cache.mysql.php',
@@ -102,12 +102,37 @@ class ComposerCommands
 				echo "File deleted! ({$file})\n";
 			}
 		}
+
+		// Delete AWS files not needed for S3
+		self::scanDirectory(__DIR__ . '/admin/vendor/aws/aws-sdk-php/src/data', 's3');
+	}
+
+	private static function scanDirectory($dir, $except)
+	{
+		$dir_handle = is_dir($dir) ? opendir($dir) : false;
+
+		// Falls Verzeichnis nicht geoeffnet werden kann, mit Fehlermeldung terminieren
+		if (!$dir_handle)
+		{
+			return false;
+		}
+
+		while ($file = readdir($dir_handle))
+		{
+			if ($file != "." && $file != "..")
+			{
+				if (is_dir($dir . "/" . $file) && (strpos($file, $except) === false))
+				{
+					echo "Directory: ({$dir}) matches " . (int) strpos($dir, $except) . "\n";
+
+					self::deleteDirectory($dir . '/' . $file);
+				}
+			}
+		}
 	}
 
 	private static function deleteDirectory($dir)
 	{
-		$dir = __DIR__ . '/admin/vendor/' . $dir;
-
 		$dir_handle = is_dir($dir) ? opendir($dir) : false;
 
 		// Falls Verzeichnis nicht geoeffnet werden kann, mit Fehlermeldung terminieren
