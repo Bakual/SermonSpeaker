@@ -141,6 +141,7 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 			// Remove integrated player classes
 			$this->deleteFiles[]   = '/administrator/components/com_sermonspeaker/models/fields/player.php';
 			$this->deleteFolders[] = '/components/com_sermonspeaker/helpers/player';
+			$this->deleteFolders[] = '/administrator/components/com_sermonspeaker/vendor/tpyo';
 
 			// Remove old SQL files
 			$this->deleteFiles[] = '/administrator/components/com_sermonspeaker/sql/updates/mysql/4.5.0.sql';
