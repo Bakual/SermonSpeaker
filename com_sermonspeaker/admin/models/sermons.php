@@ -101,19 +101,23 @@ class SermonspeakerModelSermons extends ListModel
 
 		$unpublished = $db->loadObjectList();
 
+		$options = array();
+
 		if (count($unpublished))
 		{
 			if (count($published))
 			{
-				array_unshift($published, HTMLHelper::_('select.optgroup', Text::_('JPUBLISHED')));
-				array_push($published, HTMLHelper::_('select.optgroup', Text::_('JPUBLISHED')));
+				$options[Text::_('JPUBLISHED')] = $published;
 			}
 
-			array_unshift($unpublished, HTMLHelper::_('select.optgroup', Text::_('JUNPUBLISHED')));
-			array_push($unpublished, HTMLHelper::_('select.optgroup', Text::_('JUNPUBLISHED')));
+			$options[Text::_('JUNPUBLISHED')] = $unpublished;
+		}
+		else
+		{
+			$options = $published;
 		}
 
-		return array_merge($published, $unpublished);
+		return $options;
 	}
 
 	public function getSeries()
@@ -147,19 +151,23 @@ class SermonspeakerModelSermons extends ListModel
 
 		$unpublished = $db->loadObjectList();
 
+		$options = array();
+
 		if (count($unpublished))
 		{
 			if (count($published))
 			{
-				array_unshift($published, HTMLHelper::_('select.optgroup', Text::_('JPUBLISHED')));
-				array_push($published, HTMLHelper::_('select.optgroup', Text::_('JPUBLISHED')));
+				$options[Text::_('JPUBLISHED')] = $published;
 			}
 
-			array_unshift($unpublished, HTMLHelper::_('select.optgroup', Text::_('JUNPUBLISHED')));
-			array_push($unpublished, HTMLHelper::_('select.optgroup', Text::_('JUNPUBLISHED')));
+			$options[Text::_('JUNPUBLISHED')] = $unpublished;
+		}
+		else
+		{
+			$options = $published;
 		}
 
-		return array_merge($published, $unpublished);
+		return $options;
 	}
 
 	/**
