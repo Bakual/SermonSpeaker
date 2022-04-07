@@ -68,6 +68,8 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionBackupGateway(array $args = [])
  * @method \Aws\Batch\BatchClient createBatch(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionBatch(array $args = [])
+ * @method \Aws\BillingConductor\BillingConductorClient createBillingConductor(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionBillingConductor(array $args = [])
  * @method \Aws\Braket\BraketClient createBraket(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionBraket(array $args = [])
  * @method \Aws\Budgets\BudgetsClient createBudgets(array $args = [])
@@ -240,6 +242,8 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionFraudDetector(array $args = [])
  * @method \Aws\GameLift\GameLiftClient createGameLift(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionGameLift(array $args = [])
+ * @method \Aws\GameSparks\GameSparksClient createGameSparks(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionGameSparks(array $args = [])
  * @method \Aws\Glacier\GlacierClient createGlacier(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionGlacier(array $args = [])
  * @method \Aws\GlobalAccelerator\GlobalAcceleratorClient createGlobalAccelerator(array $args = [])
@@ -436,6 +440,8 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionPinpointEmail(array $args = [])
  * @method \Aws\PinpointSMSVoice\PinpointSMSVoiceClient createPinpointSMSVoice(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionPinpointSMSVoice(array $args = [])
+ * @method \Aws\PinpointSMSVoiceV2\PinpointSMSVoiceV2Client createPinpointSMSVoiceV2(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionPinpointSMSVoiceV2(array $args = [])
  * @method \Aws\Polly\PollyClient createPolly(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionPolly(array $args = [])
  * @method \Aws\Pricing\PricingClient createPricing(array $args = [])
@@ -605,7 +611,7 @@ namespace Aws;
  */
 class Sdk
 {
-    const VERSION = '3.212.2';
+    const VERSION = '3.218.5';
 
     /** @var array Arguments for creating clients */
     private $args;

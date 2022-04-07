@@ -30,7 +30,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '05fefbea8e08a838fa7d3a44606a0fba69786beb',
+    'reference' => '700581a00ce3fe82285d453bfaafd49595681d35',
     'name' => 'bakual/sermonspeaker',
   ),
   'versions' => 
@@ -46,12 +46,12 @@ private static $installed = array (
     ),
     'aws/aws-sdk-php' => 
     array (
-      'pretty_version' => '3.212.2',
-      'version' => '3.212.2.0',
+      'pretty_version' => '3.218.5',
+      'version' => '3.218.5.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'dd2ff1ca2d7c37bfb7c3fed24cb8ad8bad604ec5',
+      'reference' => '7fb005ed6887527028dbcadf52509c8b794aecf3',
     ),
     'bakual/sermonspeaker' => 
     array (
@@ -60,16 +60,16 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '05fefbea8e08a838fa7d3a44606a0fba69786beb',
+      'reference' => '700581a00ce3fe82285d453bfaafd49595681d35',
     ),
     'guzzlehttp/guzzle' => 
     array (
-      'pretty_version' => '7.4.1',
-      'version' => '7.4.1.0',
+      'pretty_version' => '7.4.2',
+      'version' => '7.4.2.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'ee0a041b1760e6a53d2a39c8c34115adc2af2c79',
+      'reference' => 'ac1ec1cd9b5624694c3a40be801d94137afb12b4',
     ),
     'guzzlehttp/promises' => 
     array (
@@ -82,12 +82,12 @@ private static $installed = array (
     ),
     'guzzlehttp/psr7' => 
     array (
-      'pretty_version' => '2.1.0',
-      'version' => '2.1.0.0',
+      'pretty_version' => '2.2.1',
+      'version' => '2.2.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => '089edd38f5b8abba6cb01567c2a8aaa47cec4c72',
+      'reference' => 'c94a94f120803a18554c1805ef2e539f8285f9a2',
     ),
     'james-heinrich/getid3' => 
     array (
