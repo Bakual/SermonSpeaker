@@ -185,7 +185,7 @@ class JHtmlIcon
 	 */
 	public static function download($item, $params, $attribs = array())
 	{
-		$fileurl  = Route::_('index.php?task=download&id=' . $item->id . '&type=' . $attribs['type']);
+		$fileurl  = Route::_('index.php?option=com_sermonspeaker&task=download&id=' . $item->id . '&type=' . $attribs['type']);
 		$filesize = $attribs['type'] . 'filesize';
 
 		if ($item->$filesize)
