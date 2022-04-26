@@ -166,6 +166,23 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 			// Add Dashboard menu on update
 			$this->addDashboardMenu('sermonspeaker', 'sermonspeaker');
 		}
+
+		// Remove "custom1" and "custom2" if present.
+		if (version_compare($this->oldRelease, '6.0.4', '<'))
+		{
+			$db = Factory::getDbo();
+			$db->setQuery('SHOW COLUMNS FROM ' . $db->quoteName('#__sermon_sermons') . ' LIKE ' . $db->quote('custom1'));
+			$result = $db->loadResult();
+
+			if ($result)
+			{
+				$db->setQuery('ALTER TABLE ' . $db->quoteName('#__sermon_sermons') . ' DROP COLUMN ' . $db->quoteName('custom1'));
+				$db->execute();
+
+				$db->setQuery('ALTER TABLE ' . $db->quoteName('#__sermon_sermons') . ' DROP COLUMN ' . $db->quoteName('custom2'));
+				$db->execute();
+			}
+		}
 	}
 
 	private function saveContentTypes()
