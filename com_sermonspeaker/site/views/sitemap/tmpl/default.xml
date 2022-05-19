@@ -19,7 +19,7 @@
 			<field name="cat" type="category"
 				label="JGLOBAL_CHOOSE_CATEGORY_LABEL"
 				description="JGLOBAL_CHOOSE_CATEGORY_DESC"
-				extension="com_sermonspeaker"
+				extension="com_sermonspeaker.sermons"
 				required="true"
 			/>
 
