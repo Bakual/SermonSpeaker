@@ -447,7 +447,7 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 				uasort(
 					$bucket_contents,
 					function ($a, $b) {
-						return (string) $b['LastModified'] - (string) $a['LastModified'];
+						return strtotime($b['LastModified']) - strtotime($a['LastModified']);
 					}
 				);
 			}
