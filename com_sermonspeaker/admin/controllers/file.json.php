@@ -203,7 +203,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 			{
 				$response = array(
 					'status' => '0',
-					'error'  => Text::_('COM_SERMONSPEAKER_FU_ERROR_UNABLE_TO_UPLOAD_FILE'),
+					'error'  => Text::sprintf('COM_SERMONSPEAKER_FU_ERROR_FAIL_WITH_MESSAGE', $e->getMessage()),
 				);
 				echo json_encode($response);
 
