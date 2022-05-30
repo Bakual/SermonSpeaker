@@ -72,7 +72,7 @@ $listDirn   = $this->state->get('list.direction');
 							</th>
 						<?php endif;
 
-						if (in_array('series:download', $this->col_serie)) : ?>
+						if ($this->params->get('seriesdl') && in_array('series:download', $this->col_serie)) : ?>
 							<th class="ss-col ss-dl hidden-phone"></th>
 						<?php endif; ?>
 					</tr>
@@ -121,7 +121,7 @@ $listDirn   = $this->state->get('list.direction');
 								<td class="ss-col ss-hits hidden-phone hidden-tablet"><?php echo $item->hits; ?></td>
 							<?php endif;
 
-							if (in_array('series:download', $this->col_serie)) : ?>
+							if ($this->params->get('seriesdl') && ($item->zip_dl !== -1) && in_array('series:download', $this->col_serie)) : ?>
 								<td class="ss-col ss-dl hidden-phone">
 									<?php $url = Route::_('index.php?view=serie&layout=download&tmpl=component&id=' . $item->slug); ?>
 									<?php $downloadText = Text::_('COM_SERMONSPEAKER_DOWNLOADSERIES_LABEL'); ?>

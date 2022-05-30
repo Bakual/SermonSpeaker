@@ -52,7 +52,11 @@ $listDirn   = $this->state->get('list.direction');
 							<?php endif; ?>
 
 							<div class="item-content">
-								<h2><?php echo $item->title; ?></h2>
+								<h2>
+									<a href="<?php echo Route::_(SermonspeakerHelperRoute::getSerieRoute($item->slug, $item->catid, $item->language)); ?>">
+										<?php echo $item->title; ?>
+									</a>
+								</h2>
 								<?php if (in_array('series:speaker', $this->col_serie) and $item->speakers) : ?>
 									<small class="com-sermonspeaker-series createdby">
 										<?php echo Text::_('COM_SERMONSPEAKER_SPEAKERS'); ?>:
@@ -91,7 +95,7 @@ $listDirn   = $this->state->get('list.direction');
 										</dd>
 									<?php endif; ?>
 
-									<?php if (in_array('series:download', $this->col_serie)) : ?>
+									<?php if ($this->params->get('seriesdl') && ($item->zip_dl !== -1) && in_array('series:download', $this->col_serie)) : ?>
 										<dd>
 											<div class="ss-sermondetail-info">
 												<span class="icon-download"></span>

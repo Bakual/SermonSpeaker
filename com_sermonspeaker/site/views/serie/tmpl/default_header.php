@@ -21,6 +21,7 @@ $fu_enable  = $this->params->get('fu_enable');
 $canEdit    = ($fu_enable and $user->authorise('core.edit', 'com_sermonspeaker'));
 $canEditOwn = ($fu_enable and $user->authorise('core.edit.own', 'com_sermonspeaker'));
 $htag       = $this->params->get('show_page_heading') ? 'h2' : 'h1';
+$limit      = $this->params->get('limitseriesdl');
 ?>
 <?php if ($this->params->get('show_page_heading')) : ?>
 	<div class="page-header">
@@ -45,7 +46,7 @@ $htag       = $this->params->get('show_page_heading') ? 'h2' : 'h1';
 
 <div class="icons">
 	<div class="float-end">
-		<?php if (in_array('serie:download', $this->col_serie)) : ?>
+		<?php if ($this->params->get('seriesdl') && ($this->item->zip_dl !== -1) && (!$limit || (count($rows) <= $limit)) && in_array('serie:download', $this->col_serie)) : ?>
 			<?php $url = Route::_('index.php?view=serie&layout=download&tmpl=component&id=' . $this->item->slug); ?>
 			<?php $downloadText = Text::_('COM_SERMONSPEAKER_DOWNLOADSERIES_LABEL'); ?>
 			<?php $modalOptions = array('url' => $url, 'height' => 200, 'width' => 400, 'title' => $downloadText); ?>

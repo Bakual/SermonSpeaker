@@ -54,7 +54,11 @@ $listDirn   = $this->state->get('list.direction');
 							<?php endif; ?>
 
 							<div class="item-content">
-								<h2><?php echo $item->title; ?></h2>
+								<h2>
+									<a href="<?php echo Route::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug, $item->catid, $item->language)); ?>">
+										<?php echo $item->title; ?>
+									</a>
+								</h2>
 
 								<?php if ($canEdit or ($canEditOwn and ($user->id == $item->created_by))) : ?>
 									<div class="icons">

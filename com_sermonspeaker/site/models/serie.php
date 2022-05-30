@@ -53,7 +53,7 @@ class SermonspeakerModelSerie extends JModelItem
 					. 'serie.checked_out, serie.checked_out_time, serie.language, '
 					. 'serie.hits, serie.state, serie.created, serie.created_by, serie.metakey, serie.metadesc, '
 					. 'CASE WHEN CHAR_LENGTH(serie.alias) THEN CONCAT_WS(\':\', serie.id, serie.alias) ELSE serie.id END as slug, '
-					. 'serie.publish_up, serie.publish_down'
+					. 'serie.publish_up, serie.publish_down, serie.zip_dl'
 				)
 			);
 			$query->from('#__sermon_series AS serie');

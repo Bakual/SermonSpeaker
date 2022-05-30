@@ -297,7 +297,7 @@ class SermonspeakerModelSeries extends ListModel
 				. 'CASE WHEN CHAR_LENGTH(series.alias) THEN CONCAT_WS(\':\', series.id, series.alias) ELSE series.id END as slug, '
 				. 'series.hits, series.series_description, series.alias, series.checked_out, series.checked_out_time, '
 				. 'series.state, series.ordering, series.created, series.created_by, '
-				. 'series.publish_up, series.publish_down'
+				. 'series.publish_up, series.publish_down, series.zip_dl'
 			)
 		);
 		$query->from('`#__sermon_series` AS series');
