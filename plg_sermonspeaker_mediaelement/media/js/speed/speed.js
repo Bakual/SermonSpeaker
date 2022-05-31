@@ -1,90 +1,63 @@
+/*!
+ * MediaElement.js
+ * http://www.mediaelementjs.com/
+ *
+ * Wrapper that mimics native HTML5 MediaElement (audio and video)
+ * using a variety of technologies (pure JavaScript, Flash, iframe)
+ *
+ * Copyright 2010-2017, John Dyer (http://j.hn/)
+ * License: MIT
+ *
+ */(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(_dereq_,module,exports){
 'use strict';
 
-/**
- * Speed button
- *
- * This feature creates a button to speed media in different levels.
- */
-
-// Translations (English required)
 mejs.i18n.en['mejs.speed-rate'] = 'Speed Rate';
 
-// Feature configuration
 Object.assign(mejs.MepDefaults, {
-	/**
-	 * The speeds media can be accelerated
-	 *
-	 * Supports an array of float values or objects with format
-	 * [{name: 'Slow', value: '0.75'}, {name: 'Normal', value: '1.00'}, ...]
-	 * @type {{String[]|Object[]}}
-	 */
 	speeds: ['2.00', '1.50', '1.25', '1.00', '0.75'],
-	/**
-	 * @type {String}
-	 */
+
 	defaultSpeed: '1.00',
-	/**
-	 * @type {String}
-	 */
+
 	speedChar: 'x',
-	/**
-	 * @type {?String}
-	 */
+
 	speedText: null
 });
 
 Object.assign(MediaElementPlayer.prototype, {
-
-	/**
-	 * Feature constructor.
-	 *
-	 * Always has to be prefixed with `build` and the name that will be used in MepDefaults.features list
-	 * @param {MediaElementPlayer} player
-	 * @param {HTMLElement} controls
-	 * @param {HTMLElement} layers
-	 * @param {HTMLElement} media
-	 */
-	buildspeed (player, controls, layers, media)  {
-		const
-			t = this,
-			isNative = t.media.rendererName !== null && /(native|html5)/i.test(t.media.rendererName)
-		;
+	buildspeed: function buildspeed(player, controls, layers, media) {
+		var t = this,
+		    isNative = t.media.rendererName !== null && /(native|html5)/i.test(t.media.rendererName);
 
 		if (!isNative) {
 			return;
 		}
 
-		const
-			speeds = [],
-			speedTitle = mejs.Utils.isString(t.options.speedText) ? t.options.speedText : mejs.i18n.t('mejs.speed-rate'),
-			getSpeedNameFromValue = (value) => {
-				for (let i = 0, total = speeds.length; i < total; i++) {
-					if (speeds[i].value === value) {
-						return speeds[i].name;
-					}
+		var speeds = [],
+		    speedTitle = mejs.Utils.isString(t.options.speedText) ? t.options.speedText : mejs.i18n.t('mejs.speed-rate'),
+		    getSpeedNameFromValue = function getSpeedNameFromValue(value) {
+			for (var i = 0, total = speeds.length; i < total; i++) {
+				if (speeds[i].value === value) {
+					return speeds[i].name;
 				}
 			}
-		;
+		};
 
-		let
-			playbackSpeed,
-			defaultInArray = false
-		;
+		var playbackSpeed = void 0,
+		    defaultInArray = false;
 
-		for (let i = 0, total = t.options.speeds.length; i < total; i++) {
-			const s = t.options.speeds[i];
+		for (var i = 0, total = t.options.speeds.length; i < total; i++) {
+			var s = t.options.speeds[i];
 
 			if (typeof s === 'string') {
 				speeds.push({
-					name: `${s}${t.options.speedChar}`,
+					name: '' + s + t.options.speedChar,
 					value: s
 				});
 
 				if (s === t.options.defaultSpeed) {
 					defaultInArray = true;
 				}
-			}
-			else {
+			} else {
 				speeds.push(s);
 				if (s.value === t.options.defaultSpeed) {
 					defaultInArray = true;
@@ -99,126 +72,104 @@ Object.assign(MediaElementPlayer.prototype, {
 			});
 		}
 
-		speeds.sort((a, b) => {
+		speeds.sort(function (a, b) {
 			return parseFloat(b.value) - parseFloat(a.value);
 		});
 
 		t.cleanspeed(player);
 
 		player.speedButton = document.createElement('div');
-		player.speedButton.className = `${t.options.classPrefix}button ${t.options.classPrefix}speed-button`;
-		player.speedButton.innerHTML = `<button type="button" aria-controls="${t.id}" title="${speedTitle}" ` +
-			`aria-label="${speedTitle}" tabindex="0">${getSpeedNameFromValue(t.options.defaultSpeed)}</button>` +
-			`<div class="${t.options.classPrefix}speed-selector ${t.options.classPrefix}offscreen">` +
-				`<ul class="${t.options.classPrefix}speed-selector-list"></ul>` +
-			`</div>`;
+		player.speedButton.className = t.options.classPrefix + 'button ' + t.options.classPrefix + 'speed-button';
+		player.speedButton.innerHTML = '<button type="button" aria-controls="' + t.id + '" title="' + speedTitle + '" ' + ('aria-label="' + speedTitle + '" tabindex="0">' + getSpeedNameFromValue(t.options.defaultSpeed) + '</button>') + ('<div class="' + t.options.classPrefix + 'speed-selector ' + t.options.classPrefix + 'offscreen">') + ('<ul class="' + t.options.classPrefix + 'speed-selector-list"></ul>') + '</div>';
 
 		t.addControlElement(player.speedButton, 'speed');
 
-		for (let i = 0, total = speeds.length; i < total; i++) {
+		for (var _i = 0, _total = speeds.length; _i < _total; _i++) {
 
-			const inputId = `${t.id}-speed-${speeds[i].value}`;
+			var inputId = t.id + '-speed-' + speeds[_i].value;
 
-			player.speedButton.querySelector('ul').innerHTML += `<li class="${t.options.classPrefix}speed-selector-list-item">` +
-				`<input class="${t.options.classPrefix}speed-selector-input" type="radio" name="${t.id}_speed"` +
-					`disabled="disabled" value="${speeds[i].value}" id="${inputId}"  ` +
-					`${(speeds[i].value === t.options.defaultSpeed ? ' checked="checked"' : '')}/>` +
-				`<label for="${inputId}" class="${t.options.classPrefix}speed-selector-label` +
-					`${(speeds[i].value === t.options.defaultSpeed ? ` ${t.options.classPrefix}speed-selected` : '')}">` +
-					`${speeds[i].name}</label>` +
-				`</li>`;
+			player.speedButton.querySelector('ul').innerHTML += '<li class="' + t.options.classPrefix + 'speed-selector-list-item">' + ('<input class="' + t.options.classPrefix + 'speed-selector-input" type="radio" name="' + t.id + '_speed"') + ('disabled="disabled" value="' + speeds[_i].value + '" id="' + inputId + '"  ') + ((speeds[_i].value === t.options.defaultSpeed ? ' checked="checked"' : '') + '/>') + ('<label for="' + inputId + '" class="' + t.options.classPrefix + 'speed-selector-label') + ((speeds[_i].value === t.options.defaultSpeed ? ' ' + t.options.classPrefix + 'speed-selected' : '') + '">') + (speeds[_i].name + '</label>') + '</li>';
 		}
 
 		playbackSpeed = t.options.defaultSpeed;
 
-		player.speedSelector = player.speedButton.querySelector(`.${t.options.classPrefix}speed-selector`);
+		player.speedSelector = player.speedButton.querySelector('.' + t.options.classPrefix + 'speed-selector');
 
-		const
-			inEvents = ['mouseenter', 'focusin'],
-			outEvents = ['mouseleave', 'focusout'],
-			// Enable inputs after they have been appended to controls to avoid tab and up/down arrow focus issues
-			radios = player.speedButton.querySelectorAll('input[type="radio"]'),
-			labels = player.speedButton.querySelectorAll(`.${t.options.classPrefix}speed-selector-label`)
-		;
+		var inEvents = ['mouseenter', 'focusin'],
+		    outEvents = ['mouseleave', 'focusout'],
+		    radios = player.speedButton.querySelectorAll('input[type="radio"]'),
+		    labels = player.speedButton.querySelectorAll('.' + t.options.classPrefix + 'speed-selector-label');
 
-		// hover or keyboard focus
-		for (let i = 0, total = inEvents.length; i < total; i++) {
-			player.speedButton.addEventListener(inEvents[i], () => {
-				mejs.Utils.removeClass(player.speedSelector, `${t.options.classPrefix}offscreen`);
+		for (var _i2 = 0, _total2 = inEvents.length; _i2 < _total2; _i2++) {
+			player.speedButton.addEventListener(inEvents[_i2], function () {
+				mejs.Utils.removeClass(player.speedSelector, t.options.classPrefix + 'offscreen');
 				player.speedSelector.style.height = player.speedSelector.querySelector('ul').offsetHeight;
-				player.speedSelector.style.top = `${(-1 * parseFloat(player.speedSelector.offsetHeight))}px`;
+				player.speedSelector.style.top = -1 * parseFloat(player.speedSelector.offsetHeight) + 'px';
 			});
 		}
 
-		for (let i = 0, total = outEvents.length; i < total; i++) {
-			player.speedSelector.addEventListener(outEvents[i], function () {
-				mejs.Utils.addClass(this, `${t.options.classPrefix}offscreen`);
+		for (var _i3 = 0, _total3 = outEvents.length; _i3 < _total3; _i3++) {
+			player.speedSelector.addEventListener(outEvents[_i3], function () {
+				mejs.Utils.addClass(this, t.options.classPrefix + 'offscreen');
 			});
 		}
 
-		for (let i = 0, total = radios.length; i < total; i++) {
-			const radio = radios[i];
+		for (var _i4 = 0, _total4 = radios.length; _i4 < _total4; _i4++) {
+			var radio = radios[_i4];
 			radio.disabled = false;
-			radio.addEventListener('click', function() {
-				const
-					self = this,
-					newSpeed = self.value
-				;
+			radio.addEventListener('click', function () {
+				var self = this,
+				    newSpeed = self.value;
 
 				playbackSpeed = newSpeed;
 				media.playbackRate = parseFloat(newSpeed);
-				player.speedButton.querySelector('button').innerHTML = (getSpeedNameFromValue(newSpeed));
-				const selected = player.speedButton.querySelectorAll(`.${t.options.classPrefix}speed-selected`);
-				for (let i = 0, total = selected.length; i < total; i++) {
-					mejs.Utils.removeClass(selected[i], `${t.options.classPrefix}speed-selected`);
+				player.speedButton.querySelector('button').innerHTML = getSpeedNameFromValue(newSpeed);
+				var selected = player.speedButton.querySelectorAll('.' + t.options.classPrefix + 'speed-selected');
+				for (var _i5 = 0, _total5 = selected.length; _i5 < _total5; _i5++) {
+					mejs.Utils.removeClass(selected[_i5], t.options.classPrefix + 'speed-selected');
 				}
 
 				self.checked = true;
-				const siblings = mejs.Utils.siblings(self, (el) => mejs.Utils.hasClass(el, `${t.options.classPrefix}speed-selector-label`));
-				for (let j = 0, total = siblings.length; j < total; j++) {
-					mejs.Utils.addClass(siblings[j], `${t.options.classPrefix}speed-selected`);
+				var siblings = mejs.Utils.siblings(self, function (el) {
+					return mejs.Utils.hasClass(el, t.options.classPrefix + 'speed-selector-label');
+				});
+				for (var j = 0, _total6 = siblings.length; j < _total6; j++) {
+					mejs.Utils.addClass(siblings[j], t.options.classPrefix + 'speed-selected');
 				}
 			});
 		}
 
-		for (let i = 0, total = labels.length; i < total; i++) {
-			labels[i].addEventListener('click',  function () {
-				const
-					radio = mejs.Utils.siblings(this, (el) => el.tagName === 'INPUT')[0],
-					event = mejs.Utils.createEvent('click', radio)
-				;
+		for (var _i6 = 0, _total7 = labels.length; _i6 < _total7; _i6++) {
+			labels[_i6].addEventListener('click', function () {
+				var radio = mejs.Utils.siblings(this, function (el) {
+					return el.tagName === 'INPUT';
+				})[0],
+				    event = mejs.Utils.createEvent('click', radio);
 				radio.dispatchEvent(event);
 			});
 		}
 
 		t.options.keyActions.push({
-			/*
-			 * Need to listen for both because keyActions dispatches
-			 * based on e.which || e.keyCode instead of e.key, so we
-			 * get the same value for comma as for less than.
-			 */
-			keys: [60, 188], // "<" & ","
-			action: (player, media, key, event) => {
-				if (event.key != '<')
-					return;
+			keys: [60, 188],
+			action: function action(player, media, key, event) {
+				if (event.key != '<') return;
 
-				for (let i = 0; i < radios.length - 1; i++) {
-					if (radios[i].checked) {
-						const nextRadio = radios[i+1];
+				for (var _i7 = 0; _i7 < radios.length - 1; _i7++) {
+					if (radios[_i7].checked) {
+						var nextRadio = radios[_i7 + 1];
 						nextRadio.dispatchEvent(mejs.Utils.createEvent('click', nextRadio));
 						break;
 					}
 				}
 			}
 		}, {
-			keys: [62, 190], // ">" & "."
-			action: (player, media, key, event) => {
-				if (event.key != '>')
-					return;
+			keys: [62, 190],
+			action: function action(player, media, key, event) {
+				if (event.key != '>') return;
 
-				for (let i = 1; i < radios.length; i++) {
-					if (radios[i].checked) {
-						const prevRadio = radios[i-1];
+				for (var _i8 = 1; _i8 < radios.length; _i8++) {
+					if (radios[_i8].checked) {
+						var prevRadio = radios[_i8 - 1];
 						prevRadio.dispatchEvent(mejs.Utils.createEvent('click', prevRadio));
 						break;
 					}
@@ -226,24 +177,17 @@ Object.assign(MediaElementPlayer.prototype, {
 			}
 		});
 
-		//Allow up/down arrow to change the selected radio without changing the volume.
-		player.speedSelector.addEventListener('keydown', (e) => {
+		player.speedSelector.addEventListener('keydown', function (e) {
 			e.stopPropagation();
 		});
 
-		media.addEventListener('loadedmetadata', () => {
+		media.addEventListener('loadedmetadata', function () {
 			if (playbackSpeed) {
 				media.playbackRate = parseFloat(playbackSpeed);
 			}
 		});
 	},
-	/**
-	 * Feature destructor.
-	 *
-	 * Always has to be prefixed with `clean` and the name that was used in MepDefaults.features list
-	 * @param {MediaElementPlayer} player
-	 */
-	cleanspeed (player)  {
+	cleanspeed: function cleanspeed(player) {
 		if (player) {
 			if (player.speedButton) {
 				player.speedButton.parentNode.removeChild(player.speedButton);
@@ -254,3 +198,5 @@ Object.assign(MediaElementPlayer.prototype, {
 		}
 	}
 });
+
+},{}]},{},[1]);
