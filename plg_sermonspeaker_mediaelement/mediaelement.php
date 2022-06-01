@@ -156,7 +156,8 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 			. ' width="' . $dimensions[$mode1 . 'width'] . '" height="' . $dimensions[$mode1 . 'height'] . '"'
 			. ' data-mejsoptions=\'{"showPlaylist": false, "stretching": "' . $stretching . '",'
 			. ' "currentMessage": "' . Text::_('PLG_SERMONSPEAKER_MEDIAELEMENT_CURRENT_MESSAGE') . '",'
-			. ' "features": ["playpause", "prevtrack", "nexttrack", "current", "progress", "duration", "volume", "playlist", "fullscreen", "speed"]}\''
+			. ' "features": ["playpause", "prevtrack", "nexttrack", "current", "progress", "duration", "volume", "playlist", "fullscreen", "speed"],'
+			. ' "iconSprite": "/media/plg_sermonspeaker_mediaelement/css/mejs-controls.svg"}\''
 			. '>';
 
 		if (is_array($items))
@@ -185,7 +186,8 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 				. ' width="' . $dimensions[$mode . 'width'] . '" height="' . $dimensions[$mode . 'height'] . '"'
 				. ' data-mejsoptions=\'{"showPlaylist": false, "stretching": "' . $stretching . '",'
 				. ' "currentMessage": "' . Text::_('PLG_SERMONSPEAKER_MEDIAELEMENT_CURRENT_MESSAGE') . '",'
-				. ' "features": ["playpause", "prevtrack", "nexttrack", "current", "progress", "duration", "volume", "playlist", "fullscreen", "speed"]}\''
+				. ' "features": ["playpause", "prevtrack", "nexttrack", "current", "progress", "duration", "volume", "playlist", "fullscreen", "speed"],'
+				. ' "iconSprite": "/media/plg_sermonspeaker_mediaelement/css/mejs-controls.svg"}\''
 				. '>';
 
 			if (is_array($items))
