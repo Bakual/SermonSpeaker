@@ -200,6 +200,8 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionEKS(array $args = [])
  * @method \Aws\EMRContainers\EMRContainersClient createEMRContainers(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionEMRContainers(array $args = [])
+ * @method \Aws\EMRServerless\EMRServerlessClient createEMRServerless(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionEMRServerless(array $args = [])
  * @method \Aws\Ec2\Ec2Client createEc2(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionEc2(array $args = [])
  * @method \Aws\Ecr\EcrClient createEcr(array $args = [])
@@ -368,6 +370,8 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionMacie(array $args = [])
  * @method \Aws\Macie2\Macie2Client createMacie2(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionMacie2(array $args = [])
+ * @method \Aws\MainframeModernization\MainframeModernizationClient createMainframeModernization(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionMainframeModernization(array $args = [])
  * @method \Aws\ManagedBlockchain\ManagedBlockchainClient createManagedBlockchain(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionManagedBlockchain(array $args = [])
  * @method \Aws\ManagedGrafana\ManagedGrafanaClient createManagedGrafana(array $args = [])
@@ -470,6 +474,8 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionRedshift(array $args = [])
  * @method \Aws\RedshiftDataAPIService\RedshiftDataAPIServiceClient createRedshiftDataAPIService(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionRedshiftDataAPIService(array $args = [])
+ * @method \Aws\RedshiftServerless\RedshiftServerlessClient createRedshiftServerless(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionRedshiftServerless(array $args = [])
  * @method \Aws\Rekognition\RekognitionClient createRekognition(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionRekognition(array $args = [])
  * @method \Aws\ResilienceHub\ResilienceHubClient createResilienceHub(array $args = [])
@@ -615,7 +621,7 @@ namespace Aws;
  */
 class Sdk
 {
-    const VERSION = '3.222.20';
+    const VERSION = '3.225.1';
 
     /** @var array Arguments for creating clients */
     private $args;
