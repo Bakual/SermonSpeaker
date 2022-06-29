@@ -14,6 +14,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Filesystem\File;
 use Joomla\CMS\HTML\HTMLHelper as HTMLHelperAlias;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Uri\Uri;
 
 JLoader::register('SermonspeakerPluginPlayer', JPATH_SITE . '/components/com_sermonspeaker/plugin/player.php');
 JLoader::register('SermonspeakerHelperSermonspeaker', JPATH_SITE . '/components/com_sermonspeaker/helpers/sermonspeaker.php');
@@ -157,7 +158,8 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 			. ' data-mejsoptions=\'{"showPlaylist": false, "stretching": "' . $stretching . '",'
 			. ' "currentMessage": "' . Text::_('PLG_SERMONSPEAKER_MEDIAELEMENT_CURRENT_MESSAGE') . '",'
 			. ' "features": ["playpause", "prevtrack", "nexttrack", "current", "progress", "duration", "volume", "playlist", "fullscreen", "speed"],'
-			. ' "iconSprite": "/media/plg_sermonspeaker_mediaelement/css/mejs-controls.svg"}\''
+			. ' "playlist": [],'
+			. ' "iconSprite": "' . URI::root() . '/media/plg_sermonspeaker_mediaelement/css/mejs-controls.svg"}\''
 			. '>';
 
 		if (is_array($items))
@@ -187,7 +189,8 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 				. ' data-mejsoptions=\'{"showPlaylist": false, "stretching": "' . $stretching . '",'
 				. ' "currentMessage": "' . Text::_('PLG_SERMONSPEAKER_MEDIAELEMENT_CURRENT_MESSAGE') . '",'
 				. ' "features": ["playpause", "prevtrack", "nexttrack", "current", "progress", "duration", "volume", "playlist", "fullscreen", "speed"],'
-				. ' "iconSprite": "/media/plg_sermonspeaker_mediaelement/css/mejs-controls.svg"}\''
+				. ' "playlist": [],'
+				. ' "iconSprite": "' . URI::root() . '/media/plg_sermonspeaker_mediaelement/css/mejs-controls.svg"}\''
 				. '>';
 
 			if (is_array($items))
