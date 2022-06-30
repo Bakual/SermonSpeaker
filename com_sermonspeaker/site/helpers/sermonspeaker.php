@@ -362,7 +362,7 @@ class SermonspeakerHelperSermonspeaker
 							$options['onclick'] = 'ss_play(' . $i . ');return false;';
 							$options['title']   = Text::_('COM_SERMONSPEAKER_PLAYICON_HOOVER');
 							$playerId           = !empty($player->id) ? $player->id : '';
-							$return             = '<span class="fas fa-play pointer hasTooltip" data-id="' . $i . '" data-player="' . $playerId . '" onclick="' . $options['onclick'] . '" title="' . $options['title'] . '"> </span> ';
+							$return             = '<span class="fas fa-play pointer ss-play hasTooltip" data-id="' . $i . '" data-player="' . $playerId . '" onclick="' . $options['onclick'] . '" title="' . $options['title'] . '"> </span> ';
 						}
 
 						break;
