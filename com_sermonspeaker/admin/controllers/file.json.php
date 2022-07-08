@@ -110,10 +110,10 @@ class SermonspeakerControllerFile extends JControllerLegacy
 		}
 
 		// Check for file extension
-		$types = $params->get($type . '_filetypes');
+		$types = strtolower($params->get($type . '_filetypes'));
 		$types = array_map('trim', explode(',', $types));
 
-		if (!in_array($ext, $types))
+		if (!in_array(strtolower($ext), $types))
 		{
 			$response = array(
 				'status' => '0',

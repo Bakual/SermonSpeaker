@@ -93,10 +93,10 @@ class SermonspeakerControllerFile extends JControllerLegacy
 			$type = $key ? 'video' : 'audio';
 
 			// Check file extension
-			$types = $params->get($type . '_filetypes');
+			$types = strtolower($params->get($type . '_filetypes'));
 			$types = array_map('trim', explode(',', $types));
 
-			if (!in_array($ext, $types))
+			if (!in_array(strtolower($ext), $types))
 			{
 				$app->enqueueMessage(Text::sprintf('COM_SERMONSPEAKER_FILETYPE_NOT_ALLOWED', $ext), 'error');
 				continue;
