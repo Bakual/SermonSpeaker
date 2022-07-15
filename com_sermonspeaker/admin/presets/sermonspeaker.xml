@@ -42,7 +42,7 @@
 			type="component"
 			element="com_categories"
 			link="index.php?option=com_categories&amp;view=categories&amp;extension=com_sermonspeaker.sermons"
-			quicktask="index.php?option=com_categories&amp;extension=com_sermonspeaker&amp;task=category.add"
+			quicktask="index.php?option=com_categories&amp;extension=com_sermonspeaker.sermons&amp;task=category.add"
 			quicktask-title="COM_SERMONSPEAKER_MENU_ADD_SERMONS_CATEGORY"
 		/>
 
@@ -51,8 +51,8 @@
 			type="component"
 			element="com_categories"
 			link="index.php?option=com_categories&amp;view=categories&amp;extension=com_sermonspeaker.series"
-			quicktask="index.php?option=com_categories&amp;extension=com_sermonspeaker&amp;task=category.add"
-			quicktask-title="COM_SERMONSPEAKER_MENU_ADD_SERIE_CATEGORY"
+			quicktask="index.php?option=com_categories&amp;extension=com_sermonspeaker.series&amp;task=category.add"
+			quicktask-title="COM_SERMONSPEAKER_MENU_ADD_SERIES_CATEGORY"
 		/>
 
 		<menuitem
@@ -60,8 +60,8 @@
 			type="component"
 			element="com_categories"
 			link="index.php?option=com_categories&amp;view=categories&amp;extension=com_sermonspeaker.speakers"
-			quicktask="index.php?option=com_categories&amp;extension=com_sermonspeaker&amp;task=category.add"
-			quicktask-title="COM_SERMONSPEAKER_MENU_ADD_SPEAKER_CATEGORY"
+			quicktask="index.php?option=com_categories&amp;extension=com_sermonspeaker.speakers&amp;task=category.add"
+			quicktask-title="COM_SERMONSPEAKER_MENU_ADD_SPEAKERS_CATEGORY"
 		/>
 
 	</menuitem>
