@@ -56,7 +56,7 @@
 		/>
 
 		<menuitem
-			title="COM_SERMONSPEAKER_MENU_CATEGORIES_SERMONS"
+			title="COM_SERMONSPEAKER_MENU_CATEGORIES_SPEAKERS"
 			type="component"
 			element="com_categories"
 			link="index.php?option=com_categories&amp;view=categories&amp;extension=com_sermonspeaker.speakers"
