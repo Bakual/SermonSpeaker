@@ -2,11 +2,11 @@
 <extension type="module" version="4.0.0" client="site" method="upgrade">
 	<name>MOD_LATESTSERMONS</name>
 	<author>Thomas Hunziker</author>
-	<creationDate>2021-09-08</creationDate>
+	<creationDate>2022-08-05</creationDate>
 	<copyright>© 2022</copyright>
 	<authorEmail>admin@sermonspeaker.net</authorEmail>
 	<authorUrl>http://www.sermonspeaker.net</authorUrl>
-	<version>6.0.0</version>
+	<version>6.0.1</version>
 	<license>http://www.gnu.org/licenses/gpl.html</license>
 	<description>MOD_LATESTSERMONS_XML_DESCRIPTION</description>
 	<files>
