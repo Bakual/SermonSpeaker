@@ -141,6 +141,12 @@ $this->document->addScriptDeclaration("window.onload = function() {
 											</small>
 										</span>&nbsp;
 									<?php endif; ?>
+
+									<?php if (in_array('speaker:notes', $this->col_sermon) and $item->notes) : ?>
+										<div class="ss-notes">
+											<?php echo HTMLHelper::_('content.prepare', $item->notes, '', 'com_sermonspeaker.notes'); ?>
+										</div>
+									<?php endif; ?>
 								</li>
 							<?php endforeach; ?>
 						</ul>
