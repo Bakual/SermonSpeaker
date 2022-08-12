@@ -9,6 +9,7 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Helper\MediaHelper;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
@@ -69,9 +70,9 @@ class SermonspeakerHelperSermonspeaker
 	/**
 	 * Inserts Addfile link
 	 *
-	 * @param   string $addfile     URL
-	 * @param   string $addfileDesc Description
-	 * @param   int    $show_icon   Show an icon
+	 * @param   string  $addfile      URL
+	 * @param   string  $addfileDesc  Description
+	 * @param   int     $show_icon    Show an icon
 	 *
 	 * @return  string  Addfile Link
 	 *
@@ -155,8 +156,8 @@ class SermonspeakerHelperSermonspeaker
 	/**
 	 * Creates full links, adding base path
 	 *
-	 * @param   string $path URL
-	 * @param   bool   $abs  absolute or relative link
+	 * @param   string  $path  URL
+	 * @param   bool    $abs   absolute or relative link
 	 *
 	 * @return  string  URL
 	 *
@@ -175,10 +176,10 @@ class SermonspeakerHelperSermonspeaker
 	/**
 	 * Inserts download button
 	 *
-	 * @param   int    $id   ID of the sermon
-	 * @param   string $type Audio or video download
-	 * @param   int    $mode Various modes
-	 * @param   int    $size Filesize
+	 * @param   int     $id    ID of the sermon
+	 * @param   string  $type  Audio or video download
+	 * @param   int     $mode  Various modes
+	 * @param   int     $size  Filesize
 	 *
 	 * @return  string  button
 	 *
@@ -249,8 +250,8 @@ class SermonspeakerHelperSermonspeaker
 	/**
 	 * Inserts popup button
 	 *
-	 * @param   int    $id     ID of the sermon
-	 * @param   object $player Player object for popup dimensions
+	 * @param   int     $id      ID of the sermon
+	 * @param   object  $player  Player object for popup dimensions
 	 *
 	 * @return  string  button
 	 *
@@ -268,7 +269,7 @@ class SermonspeakerHelperSermonspeaker
 	/**
 	 * Inserts time
 	 *
-	 * @param   string $time Time
+	 * @param   string  $time  Time
 	 *
 	 * @return  string  formatted time
 	 *
@@ -291,10 +292,10 @@ class SermonspeakerHelperSermonspeaker
 	/**
 	 * Inserts sermon title
 	 *
-	 * @param   int    $i      Counter
-	 * @param   object $item   Sermon
-	 * @param   object $player Player
-	 * @param   bool   $icon   Show icon or not
+	 * @param   int     $i       Counter
+	 * @param   object  $item    Sermon
+	 * @param   object  $player  Player
+	 * @param   bool    $icon    Show icon or not
 	 *
 	 * @return  string  title
 	 *
@@ -396,10 +397,10 @@ class SermonspeakerHelperSermonspeaker
 			switch (self::$params->get('list_title_function', 0))
 			{
 				case 0:
-					$return           .= HTMLHelper::link(Route::_(SermonspeakerHelperRoute::getSermonRoute($item->slug, $item->catid, $item->language)), $item->title);
+					$return .= HTMLHelper::link(Route::_(SermonspeakerHelperRoute::getSermonRoute($item->slug, $item->catid, $item->language)), $item->title);
 					break;
 				case 1:
-					$options = array();
+					$options          = array();
 					$options['class'] = 'hasTooltip';
 					$options['title'] = Text::_('COM_SERMONSPEAKER_PLAYICON_HOOVER');
 					$file             = ($item->videofile && (self::$params->get('fileprio', 0) || !$item->audiofile)) ? $item->videofile : $item->audiofile;
@@ -415,7 +416,7 @@ class SermonspeakerHelperSermonspeaker
 
 					if (in_array(self::$view . ':player', $cols))
 					{
-						$options = array();
+						$options                = array();
 						$options['onclick']     = 'ss_play(' . $i . ');return false;';
 						$options['title']       = Text::_('COM_SERMONSPEAKER_PLAYICON_HOOVER');
 						$options['class']       = 'ss-play hasTooltip';
@@ -425,7 +426,7 @@ class SermonspeakerHelperSermonspeaker
 					}
 					else
 					{
-						$options = array();
+						$options          = array();
 						$options['class'] = 'hasTooltip';
 						$options['title'] = Text::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER');
 						$return           .= HTMLHelper::link(Route::_(SermonspeakerHelperRoute::getSermonRoute($item->slug, $item->catid, $item->language)), $item->title, $options);
@@ -433,8 +434,8 @@ class SermonspeakerHelperSermonspeaker
 
 					break;
 				case 3:
-					$options = array();
-					$options['class'] = 'hasTooltip';
+					$options            = array();
+					$options['class']   = 'hasTooltip';
 					$options['onclick'] = "popup=window.open('" . Route::_('index.php?view=sermon&layout=popup&id=' . $item->id . '&tmpl=component')
 						. "', 'PopupPage', 'height=" . $player->popup['height'] . ',width=' . $player->popup['width']
 						. ",scrollbars=yes,resizable=yes'); return false";
@@ -450,8 +451,8 @@ class SermonspeakerHelperSermonspeaker
 	/**
 	 * Inserts Searchtags. Based on code from Douglas Machado
 	 *
-	 * @param   object $item      Item
-	 * @param   string $separator Separator between the tags
+	 * @param   object  $item       Item
+	 * @param   string  $separator  Separator between the tags
 	 *
 	 * @return  string  Searchtags
 	 *
@@ -508,9 +509,9 @@ class SermonspeakerHelperSermonspeaker
 	/**
 	 * Searchs for a matching picture in the order sermon > series > speaker
 	 *
-	 * @param   object $item     Item
-	 * @param   bool   $makeLink Makes a link
-	 * @param   bool   $abs      Makes the link absolute, only relevant together with $makeLink
+	 * @param   object  $item      Item
+	 * @param   bool    $makeLink  Makes a link
+	 * @param   bool    $abs       Makes the link absolute, only relevant together with $makeLink
 	 *
 	 * @return  string  Path to picture
 	 *
@@ -548,7 +549,9 @@ class SermonspeakerHelperSermonspeaker
 				continue;
 			}
 
-			return ($makeLink) ? self::makeLink($item->$pic, $abs) : trim($item->$pic, '/');
+			$picture = MediaHelper::getCleanMediaFieldValue($item->$pic);
+
+			return ($makeLink) ? self::makeLink($picture, $abs) : trim($picture, '/');
 		}
 
 		return '';
@@ -557,9 +560,9 @@ class SermonspeakerHelperSermonspeaker
 	/**
 	 * Inserting the scriptures
 	 *
-	 * @param   string $scripture String containing the scripture
-	 * @param   string $between   Delimiter
-	 * @param   bool   $addTag    Adds plugin tags around scripture
+	 * @param   string  $scripture  String containing the scripture
+	 * @param   string  $between    Delimiter
+	 * @param   bool    $addTag     Adds plugin tags around scripture
 	 *
 	 * @return  string  Scriptures
 	 *
@@ -586,8 +589,8 @@ class SermonspeakerHelperSermonspeaker
 	/**
 	 * Building the scripture
 	 *
-	 * @param   string $scripture String containing the scripture
-	 * @param   bool   $addTag    Adds plugin tags around scripture
+	 * @param   string  $scripture  String containing the scripture
+	 * @param   bool    $addTag     Adds plugin tags around scripture
 	 *
 	 * @return  string  Scripture
 	 *
@@ -667,8 +670,8 @@ class SermonspeakerHelperSermonspeaker
 	/**
 	 * Get MIME type for extension
 	 *
-	 * @param  string         $ext       File extension
-	 * @param  string|false   $default   Default value to be returned, defaults to 'video/mp4'
+	 * @param   string        $ext      File extension
+	 * @param   string|false  $default  Default value to be returned, defaults to 'video/mp4'
 	 *
 	 * @return  string  MIME type
 	 *
@@ -724,15 +727,15 @@ class SermonspeakerHelperSermonspeaker
 	/**
 	 * Loading the correct playerclass and defining some default config
 	 *
-	 * @param   object|array $item   Can be a single sermon object or an array of sermon objects
-	 * @param   array        $config Should be an array of config options. Valid options:
-	 *                               - count (id of the player)
-	 *                               - type (may be audio, video or auto)
-	 *                               - prio (may be 0 for audio or 1 for video)
-	 *                               - autostart (overwrites the backend setting)
-	 *                               - alt_player (overwrites the backend setting)
-	 *                               - awidth, aheight (width and height for audio)
-	 *                               - vwidth, vheight (width and height for video)
+	 * @param   object|array  $item    Can be a single sermon object or an array of sermon objects
+	 * @param   array         $config  Should be an array of config options. Valid options:
+	 *                                 - count (id of the player)
+	 *                                 - type (may be audio, video or auto)
+	 *                                 - prio (may be 0 for audio or 1 for video)
+	 *                                 - autostart (overwrites the backend setting)
+	 *                                 - alt_player (overwrites the backend setting)
+	 *                                 - awidth, aheight (width and height for audio)
+	 *                                 - vwidth, vheight (width and height for video)
 	 *
 	 * @return  object  Player
 	 *
@@ -774,8 +777,8 @@ class SermonspeakerHelperSermonspeaker
 	/**
 	 * Method to convert bytes into Megabytes or what is needed
 	 *
-	 * @param   object $item Item
-	 * @param   bool   $prio True for audio or false for video
+	 * @param   object  $item  Item
+	 * @param   bool    $prio  True for audio or false for video
 	 *
 	 * @return  mixed  filepath or false
 	 *
@@ -799,9 +802,9 @@ class SermonspeakerHelperSermonspeaker
 	 * Method to convert bytes into Megabytes or what is needed
 	 * Based on function "binary_multiples" from Damir Enseleit <info@selfphp.de>
 	 *
-	 * @param   int  $bytes Bytes
-	 * @param   bool $si    use prefix based on SI norm instead the new IEC norm
-	 * @param   bool $short use short prefix
+	 * @param   int   $bytes  Bytes
+	 * @param   bool  $si     use prefix based on SI norm instead the new IEC norm
+	 * @param   bool  $short  use short prefix
 	 *
 	 * @return  string  converted bytes
 	 *
