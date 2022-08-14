@@ -593,7 +593,7 @@ class SermonspeakerControllerTools extends JControllerLegacy
 		}
 
 		// Get the speakers if the teacher is stored as json string.
-		if ($studies[0]->teacher{0} == '{')
+		if ($studies[0]->teacher[0] == '{')
 		{
 			$query = $db->getQuery(true);
 
