@@ -139,7 +139,8 @@ echo '<?xml version="1.0" encoding="utf-8" ?>'; ?>
 				$pic = SermonspeakerHelperSermonspeaker::insertPicture($item, true, true);
 
 				if (!$pic and $params->get('itImage')) :
-					$pic = SermonspeakerHelperSermonspeaker::makeLink($params->get('itImage'), true);
+					$value = MediaHelper::getCleanMediaFieldValue($params->get('itImage'));
+					$pic = SermonspeakerHelperSermonspeaker::makeLink($value, true);
 				endif;
 
 				if ($pic) : ?>
