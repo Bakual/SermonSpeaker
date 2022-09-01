@@ -105,7 +105,6 @@
 			<field
 				name="sermonslayout" type="componentlayout"
 				label="COM_SERMONSPEAKER_SERMONS_VIEW_TITLE"
-				description="COM_SERMONSPEAKER_FIELD_LAYOUT_DESC"
 				useglobal="true"
 				extension="com_sermonspeaker"
 				view="sermons"
@@ -113,7 +112,6 @@
 			<field
 				name="sermonlayout" type="componentlayout"
 				label="COM_SERMONSPEAKER_SERMON_VIEW_TITLE"
-				description="COM_SERMONSPEAKER_FIELD_LAYOUT_DESC"
 				useglobal="true"
 				extension="com_sermonspeaker"
 				view="sermon"
@@ -121,7 +119,6 @@
 			<field
 				name="serieslayout" type="componentlayout"
 				label="COM_SERMONSPEAKER_SERIES_VIEW_TITLE"
-				description="COM_SERMONSPEAKER_FIELD_LAYOUT_DESC"
 				useglobal="true"
 				extension="com_sermonspeaker"
 				view="series"
@@ -129,7 +126,6 @@
 			<field
 				name="serielayout" type="componentlayout"
 				label="COM_SERMONSPEAKER_SERIE_VIEW_TITLE"
-				description="COM_SERMONSPEAKER_FIELD_LAYOUT_DESC"
 				useglobal="true"
 				extension="com_sermonspeaker"
 				view="serie"
@@ -137,7 +133,6 @@
 			<field
 				name="speakerslayout" type="componentlayout"
 				label="COM_SERMONSPEAKER_SPEAKERS_VIEW_TITLE"
-				description="COM_SERMONSPEAKER_FIELD_LAYOUT_DESC"
 				useglobal="true"
 				extension="com_sermonspeaker"
 				view="speakers"
@@ -145,7 +140,6 @@
 			<field
 				name="speakerlayout" type="componentlayout"
 				label="COM_SERMONSPEAKER_SPEAKER_VIEW_TITLE"
-				description="COM_SERMONSPEAKER_FIELD_LAYOUT_DESC"
 				useglobal="true"
 				extension="com_sermonspeaker"
 				view="speaker"
@@ -153,7 +147,6 @@
 			<field
 				name="categorieslayout" type="componentlayout"
 				label="COM_SERMONSPEAKER_CATEGORIES_VIEW_TITLE"
-				description="COM_SERMONSPEAKER_FIELD_LAYOUT_DESC"
 				useglobal="true"
 				extension="com_sermonspeaker"
 				view="categories"
