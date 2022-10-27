@@ -450,7 +450,7 @@ abstract class SermonspeakerHelperRoute
 							if (isset(self::$lookup[$language][$view][(int) $id]))
 							{
 								// Check if active menuitem is part of the valid options
-								if (in_array($active->id, self::$lookup[$language][$view][(int) $id]))
+								if ($active && in_array($active->id, self::$lookup[$language][$view][(int) $id]))
 								{
 									return $active->id;
 								}
