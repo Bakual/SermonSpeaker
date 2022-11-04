@@ -14,7 +14,7 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Router\Route;
 
 HTMLHelper::_('bootstrap.tooltip', '.hasTooltip', array('placement' => 'bottom'));
-HTMLHelper::_('behavior.formvalidation');
+HTMLHelper::_('behavior.formvalidator');
 HTMLHelper::_('behavior.keepalive');
 ?>
 <script type="text/javascript">
