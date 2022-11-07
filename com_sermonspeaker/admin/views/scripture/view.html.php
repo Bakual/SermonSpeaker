@@ -127,7 +127,7 @@ class SermonspeakerViewScripture extends JViewLegacy
 					<input type=\"hidden\" name=\"jform[scripture][' + id + ']\" id=\"jform_scripture_' + id + '\" value=\"' + value + '\" />\
 					<div class=\"input-group\">\
 						<span class=\"input-group-btn\">\
-							<button class=\"btn btn-secondary\" onclick=\"delete_scripture(' + id + ');\"><span class=\"icon-trash\"></span></button>\
+							<button class=\"btn btn-secondary\" onclick=\"delete_scripture(' + id + ');\"><span class=\"fas fa-trash\"></span></button>\
 						</span>\
 						<input readonly=\"readonly\" type=\"text\" class=\"readonly form-control scripture unsaved\" size=\"30\" name=\"jform[scripture_text][' + id + ']\"\
 							id=\"jform_scripture_text_' + id + '\" value=\"' + text + '\" />\
