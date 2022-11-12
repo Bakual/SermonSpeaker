@@ -178,6 +178,11 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 			}
 		}';
 
+		// Push translation to Javascript
+		Text::script('COM_SERMONSPEAKER_SERIE');
+		Text::script('COM_SERMONSPEAKER_SPEAKER');
+		Text::script('COM_SERMONSPEAKER_ID3_NO_MATCH_FOUND');
+
 		// Add Javascript for ID3 Lookup (ajax)
 		$lookup = 'function lookup(elem) {
 			xmlhttp = new XMLHttpRequest();
