@@ -14,6 +14,7 @@ defined('_JEXEC') or die;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Installer\InstallerScript;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Table\Asset;
 use Joomla\CMS\Table\Table;
 
 /**
@@ -550,7 +551,7 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 	public function postflight($type, $parent)
 	{
 		$type = strtolower($type);
-
+$this->addAsset();
 		if ($type == 'install' || $type == 'discover_install')
 		{
 			// Adding Category "Uncategorised" if installing or discovering.
@@ -624,6 +625,45 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 			$query->where($db->quoteName('catid') . ' = 0');
 			$db->setQuery($query);
 			$db->execute();
+		}
+	}
+
+	/**
+	 * Method to add an parent asset entry for the categories so inheritance works.
+	 *
+	 * @return void
+	 *
+	 * @since ?
+	 */
+	private function addAsset()
+	{
+		$db         = Factory::getDbo();
+
+		// Get the Asset ID from SermonSpeaker component to use as parent
+		$query = $db->getQuery(true)
+			->select($db->quoteName('id'))
+			->from($db->quoteName('#__assets'))
+			->where($db->quoteName('name') . ' = ' . $db->quote('com_sermonspeaker'));
+
+		// Get the asset id from the database.
+		$db->setQuery($query);
+
+		if ($result = $db->loadResult()) {
+			$assetId = (int) $result;
+		}
+
+		$sections   = array('sermons', 'series', 'speakers');
+
+		foreach ($sections as $section)
+		{
+			$assetTable = new Asset($db);
+
+			$assetTable->parent_id = $assetId;
+			$assetTable->name = 'com_sermonspeaker.' . $section;
+			$assetTable->title = 'Dummy Asset';
+			$assetTable->level = 2;
+
+			$assetTable->store();
 		}
 	}
 }
