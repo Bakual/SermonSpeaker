@@ -184,6 +184,22 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 				$db->execute();
 			}
 		}
+
+		// Adding Dummy Assets for categories.
+		if (version_compare($this->oldRelease, '6.0.6', '<'))
+		{
+			$db = Factory::getDbo();
+			$query = $db->getQuery(true);
+			$query->select($db->quoteName('id'))
+				->from($db->quoteName('#__assets'))
+				->where($db->quoteName('name') . ' = ' . $db->quote('com_sermonspeaker.sermons'));
+			$result = $db->loadResult();
+
+			if ($result)
+			{
+				$this->addAsset();
+			}
+		}
 	}
 
 	private function saveContentTypes()
@@ -551,9 +567,11 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 	public function postflight($type, $parent)
 	{
 		$type = strtolower($type);
-$this->addAsset();
 		if ($type == 'install' || $type == 'discover_install')
 		{
+			// Adding Dummy Assets for categories.
+			$this->addAsset();
+
 			// Adding Category "Uncategorised" if installing or discovering.
 			$this->addCategory();
 
@@ -658,10 +676,11 @@ $this->addAsset();
 		{
 			$assetTable = new Asset($db);
 
-			$assetTable->parent_id = $assetId;
+			$assetTable->setLocation($assetId, 'first-child');
 			$assetTable->name = 'com_sermonspeaker.' . $section;
 			$assetTable->title = 'Dummy Asset';
 			$assetTable->level = 2;
+			$assetTable->rules = '{}';
 
 			$assetTable->store();
 		}
