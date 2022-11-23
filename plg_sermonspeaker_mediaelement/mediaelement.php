@@ -157,7 +157,7 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 			. ' width="' . $dimensions[$mode1 . 'width'] . '" height="' . $dimensions[$mode1 . 'height'] . '"'
 			. ' data-mejsoptions=\'{"showPlaylist": false, "stretching": "' . $stretching . '",'
 			. ' "currentMessage": "' . Text::_('PLG_SERMONSPEAKER_MEDIAELEMENT_CURRENT_MESSAGE') . '",'
-			. ' "features": ["playpause", "prevtrack", "nexttrack", "current", "progress", "duration", "volume", "playlist", "fullscreen", "speed"],'
+			. ' "features": ["playpause", "prevtrack", "nexttrack", "skipback", "jumpforward", "current", "progress", "duration", "volume", "playlist", "fullscreen", "speed"],'
 			. ' "playlist": [],'
 			. ' "iconSprite": "' . URI::root() . '/media/plg_sermonspeaker_mediaelement/css/mejs-controls.svg"}\''
 			. '>';
@@ -188,7 +188,7 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 				. ' width="' . $dimensions[$mode . 'width'] . '" height="' . $dimensions[$mode . 'height'] . '"'
 				. ' data-mejsoptions=\'{"showPlaylist": false, "stretching": "' . $stretching . '",'
 				. ' "currentMessage": "' . Text::_('PLG_SERMONSPEAKER_MEDIAELEMENT_CURRENT_MESSAGE') . '",'
-				. ' "features": ["playpause", "prevtrack", "nexttrack", "current", "progress", "duration", "volume", "playlist", "fullscreen", "speed"],'
+				. ' "features": ["playpause", "prevtrack", "nexttrack", "skipback", "jumpforward", "current", "progress", "duration", "volume", "playlist", "fullscreen", "speed"],'
 				. ' "playlist": [],'
 				. ' "iconSprite": "' . URI::root() . '/media/plg_sermonspeaker_mediaelement/css/mejs-controls.svg"}\''
 				. '>';
@@ -234,6 +234,20 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 				HTMLHelperAlias::_('script', 'plg_sermonspeaker_mediaelement/speed/speed.min.js', array('relative' => true));
 				HTMLHelperAlias::_('script', 'plg_sermonspeaker_mediaelement/speed/speed-i18n.js', array('relative' => true));
 				HTMLHelperAlias::_('stylesheet', 'plg_sermonspeaker_mediaelement/speed/speed.min.css', array('relative' => true));
+			}
+
+			if ($this->params->get('skipback', 1))
+			{
+				HTMLHelperAlias::_('script', 'plg_sermonspeaker_mediaelement/skip-back/skip-back.min.js', array('relative' => true));
+				HTMLHelperAlias::_('script', 'plg_sermonspeaker_mediaelement/skip-back/skip-back-i18n.js', array('relative' => true));
+				HTMLHelperAlias::_('stylesheet', 'plg_sermonspeaker_mediaelement/skip-back/skip-back.min.css', array('relative' => true));
+			}
+
+			if ($this->params->get('jumpforward', 1))
+			{
+				HTMLHelperAlias::_('script', 'plg_sermonspeaker_mediaelement/jump-forward/jump-forward.min.js', array('relative' => true));
+				HTMLHelperAlias::_('script', 'plg_sermonspeaker_mediaelement/jump-forward/jump-forward-i18n.js', array('relative' => true));
+				HTMLHelperAlias::_('stylesheet', 'plg_sermonspeaker_mediaelement/jump-forward/jump-forward.min.css', array('relative' => true));
 			}
 
 			if (is_array($items))
