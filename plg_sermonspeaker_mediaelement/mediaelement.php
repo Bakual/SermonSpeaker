@@ -159,6 +159,8 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 			. ' "currentMessage": "' . Text::_('PLG_SERMONSPEAKER_MEDIAELEMENT_CURRENT_MESSAGE') . '",'
 			. ' "features": ["playpause", "prevtrack", "nexttrack", "skipback", "jumpforward", "current", "progress", "duration", "volume", "playlist", "fullscreen", "speed"],'
 			. ' "playlist": [],'
+			. ' "jumpForwardInterval": ' . (int) $this->params->get('skipjumpinterval', 30) . ','
+			. ' "skipBackInterval": ' . (int) $this->params->get('skipjumpinterval', 30) . ','
 			. ' "iconSprite": "' . URI::root() . '/media/plg_sermonspeaker_mediaelement/css/mejs-controls.svg"}\''
 			. '>';
 
@@ -190,6 +192,8 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 				. ' "currentMessage": "' . Text::_('PLG_SERMONSPEAKER_MEDIAELEMENT_CURRENT_MESSAGE') . '",'
 				. ' "features": ["playpause", "prevtrack", "nexttrack", "skipback", "jumpforward", "current", "progress", "duration", "volume", "playlist", "fullscreen", "speed"],'
 				. ' "playlist": [],'
+				. ' "jumpForwardInterval": ' . (int) $this->params->get('skipjumpinterval', 30) . ','
+				. ' "skipBackInterval": ' . (int) $this->params->get('skipjumpinterval', 30) . ','
 				. ' "iconSprite": "' . URI::root() . '/media/plg_sermonspeaker_mediaelement/css/mejs-controls.svg"}\''
 				. '>';
 
