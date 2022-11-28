@@ -58,16 +58,19 @@ switch ($type)
 	default:
 	case 'sermon':
 		$view = 'frontendupload';
+		$route = SermonspeakerHelperRoute::getSermonRoute($item->id);
 		break;
 	case 'serie':
 		$view = 'serieform';
+		$route = SermonspeakerHelperRoute::getSerieRoute($item->id);
 		break;
 	case 'speaker':
 		$view = 'speakerform';
+		$route = SermonspeakerHelperRoute::getSpeakerRoute($item->id);
 		break;
 }
 
-$url = 'index.php?option=com_sermonspeaker&task=' . $view . '.edit&s_id=' . $item->id . '&return=' . base64_encode(Uri::getInstance());
+$url = $route . '&task=' . $view . '.edit&s_id=' . $item->id . '&return=' . base64_encode(Uri::getInstance());
 
 if ($item->state == 0)
 {

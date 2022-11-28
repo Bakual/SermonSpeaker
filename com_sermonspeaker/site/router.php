@@ -92,15 +92,23 @@ class SermonspeakerRouter extends RouterBase
 
 		if (isset($query['task']))
 		{
-			$segments[] = str_replace('.', '_', $query['task']);
+			$exclude = array(
+				'frontendupload.add', 'frontendupload.edit',
+				'serieform.add', 'serieform.edit',
+				'speakerform.add', 'speakerform.edit',
+			);
 
-			if (isset($query['type']))
+			if (!in_array($query['task'], $exclude))
 			{
-				$segments[] = $query['type'];
-				unset($query['type']);
-			}
+				$segments[] = str_replace('.', '_', $query['task']);
 
-			unset($query['task']);
+				if (isset($query['type']))
+				{
+					$segments[] = $query['type'];
+					unset($query['type']);
+				}
+				unset($query['task']);
+			}
 		}
 
 		if (isset($query['id']))

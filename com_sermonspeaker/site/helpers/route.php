@@ -536,7 +536,7 @@ abstract class SermonspeakerHelperRoute
 		$db->setQuery($query);
 		$extension = $db->loadResult();
 
-		$parts = explode('.', $extension);
+		$parts  = explode('.', $extension);
 		$method = 'get' . $parts[1] . 'Route';
 
 		return self::$method($catid, $language);
