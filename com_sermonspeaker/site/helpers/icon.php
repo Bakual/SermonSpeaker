@@ -46,19 +46,21 @@ class JHtmlIcon
 		{
 			case 'serie':
 				$controller = 'serieform';
+				$route      = SermonspeakerHelperRoute::getSeriesRoute($category->id);
 				break;
 			case 'speaker':
 				$controller = 'speakerform';
+				$route      = SermonspeakerHelperRoute::getSpeakersRoute($category->id);
 				break;
 			case 'sermon':
 			default:
-				$view       = 'sermon';
 				$controller = 'frontendupload';
+				$route      = SermonspeakerHelperRoute::getSermonsRoute($category->id);
 				break;
 		}
 
 		$uri  = Uri::getInstance();
-		$url  = 'index.php?option=com_sermonspeaker&task=' . $controller . '.add&return=' . base64_encode($uri) . '&s_id=0&catid=' . $category->id;
+		$url  = $route . '&task=' . $controller . '.add&s_id=0&catid=' . $category->id . '&return=' . base64_encode($uri);
 		$text = Text::_('JNEW') . '&#160;';
 
 		return HTMLHelper::_('link', Route::_($url), $text, 'class="btn btn-primary"');
@@ -119,20 +121,20 @@ class JHtmlIcon
 		{
 			default:
 			case 'sermon':
-				$view = 'frontendupload';
-				$route = SermonspeakerHelperRoute::getSermonRoute($item->id);
+				$controller = 'frontendupload';
+				$route      = SermonspeakerHelperRoute::getSermonRoute($item->id);
 				break;
 			case 'serie':
-				$view = 'serieform';
-				$route = SermonspeakerHelperRoute::getSerieRoute($item->id);
+				$controller = 'serieform';
+				$route      = SermonspeakerHelperRoute::getSerieRoute($item->id);
 				break;
 			case 'speaker':
-				$view = 'speakerform';
-				$route = SermonspeakerHelperRoute::getSpeakerRoute($item->id);
+				$controller = 'speakerform';
+				$route      = SermonspeakerHelperRoute::getSpeakerRoute($item->id);
 				break;
 		}
 
-		$url = $route . '&task=' . $view . '.edit&s_id=' . $item->id . '&return=' . base64_encode($uri);
+		$url = $route . '&task=' . $controller . '.edit&s_id=' . $item->id . '&return=' . base64_encode($uri);
 
 		if ($item->state == 0)
 		{
