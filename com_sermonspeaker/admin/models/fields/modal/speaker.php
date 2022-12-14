@@ -92,8 +92,8 @@ class JFormFieldModal_Speaker extends JFormField
 		}
 
 		// Setup variables for display.
-		$linkSpeakers = 'index.php?option=com_sermonspeaker&amp;view=speakers&amp;layout=modal&amp;tmpl=component&amp;' . JSession::getFormToken() . '=1';
-		$linkSpeaker  = 'index.php?option=com_sermonspeaker&amp;view=speaker&amp;layout=modal&amp;tmpl=component&amp;' . JSession::getFormToken() . '=1';
+		$linkSpeakers = JURI::base() . 'index.php?option=com_sermonspeaker&amp;view=speakers&amp;layout=modal&amp;tmpl=component&amp;' . JSession::getFormToken() . '=1';
+		$linkSpeaker  = JURI::base() . 'index.php?option=com_sermonspeaker&amp;view=speaker&amp;layout=modal&amp;tmpl=component&amp;' . JSession::getFormToken() . '=1';
 		$controller   = $isSite ? 'speakerform' : 'speaker';
 		$urlVar       = $isSite ? 's_id' : 'id';
 

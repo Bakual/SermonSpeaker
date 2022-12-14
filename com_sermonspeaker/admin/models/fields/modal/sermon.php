@@ -89,8 +89,8 @@ class JFormFieldModal_Sermon extends JFormField
 		}
 
 		// Setup variables for display.
-		$linkSermons = 'index.php?option=com_sermonspeaker&amp;view=sermons&amp;layout=modal&amp;tmpl=component&amp;' . JSession::getFormToken() . '=1';
-		$linkSermon  = 'index.php?option=com_sermonspeaker&amp;view=sermon&amp;layout=modal&amp;tmpl=component&amp;' . JSession::getFormToken() . '=1';
+		$linkSermons = JURI::base() . 'index.php?option=com_sermonspeaker&amp;view=sermons&amp;layout=modal&amp;tmpl=component&amp;' . JSession::getFormToken() . '=1';
+		$linkSermon  = JURI::base() . 'index.php?option=com_sermonspeaker&amp;view=sermon&amp;layout=modal&amp;tmpl=component&amp;' . JSession::getFormToken() . '=1';
 
 		if (isset($this->element['language']))
 		{

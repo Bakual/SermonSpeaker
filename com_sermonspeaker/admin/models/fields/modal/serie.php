@@ -92,8 +92,8 @@ class JFormFieldModal_Serie extends JFormField
 		}
 
 		// Setup variables for display.
-		$linkSeries = 'index.php?option=com_sermonspeaker&amp;view=series&amp;layout=modal&amp;tmpl=component&amp;' . JSession::getFormToken() . '=1';
-		$linkSerie  = 'index.php?option=com_sermonspeaker&amp;view=serie&amp;layout=modal&amp;tmpl=component&amp;' . JSession::getFormToken() . '=1';
+		$linkSeries = JURI::base() . 'index.php?option=com_sermonspeaker&amp;view=series&amp;layout=modal&amp;tmpl=component&amp;' . JSession::getFormToken() . '=1';
+		$linkSerie  = JURI::base() . 'index.php?option=com_sermonspeaker&amp;view=serie&amp;layout=modal&amp;tmpl=component&amp;' . JSession::getFormToken() . '=1';
 		$controller = $isSite ? 'serieform' : 'serie';
 		$urlVar     = $isSite ? 's_id' : 'id';
 
