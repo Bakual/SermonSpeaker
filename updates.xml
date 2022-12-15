@@ -25,10 +25,10 @@
 		<type>package</type>
 		<version>6.0.6</version>
 		<client>site</client>
-		<infourl title="SermonSpeaker Package 6.0.2">https://github.com/Bakual/SermonSpeaker/releases/tag/6.0.6</infourl>
+		<infourl title="SermonSpeaker Package 6.0.7">https://github.com/Bakual/SermonSpeaker/releases/tag/6.0.7</infourl>
 		<downloads>
 			<downloadurl type="full" format="zip">
-				https://github.com/Bakual/SermonSpeaker/archive/refs/tags/6.0.6.zip
+				https://github.com/Bakual/SermonSpeaker/archive/refs/tags/6.0.7.zip
 			</downloadurl>
 		</downloads>
 		<tags>
@@ -37,6 +37,6 @@
 		<maintainer>Thomas Hunziker</maintainer>
 		<maintainerurl>https://www.sermonspeaker.net/</maintainerurl>
 		<targetplatform name="joomla" version="4.[012]"/>
-		<sha256>53EC903767011763B3FFBF97FB0F62A2AA1553EC72CC1370501F82CF21DA9CE0</sha256>
+		<sha256>A2CF27AD827B137E637DB6B4C271261A4B18FE2EBB580176F4F78358DB15015A</sha256>
 	</update>
 </updates>
