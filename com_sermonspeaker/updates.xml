@@ -25,7 +25,7 @@
 		<description>SermonSpeaker Component</description>
 		<element>com_sermonspeaker</element>
 		<type>component</type>
-		<version>6.0.6</version>
+		<version>6.0.7</version>
 		<client>administrator</client>
 		<infourl title="SermonSpeaker Component 6.0.7">https://github.com/Bakual/SermonSpeaker/releases/tag/6.0.7</infourl>
 		<downloads>
