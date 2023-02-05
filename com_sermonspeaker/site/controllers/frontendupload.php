@@ -193,7 +193,6 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 		$append = parent::getRedirectToItemAppend($recordId, 's_id');
 		$itemId = $jinput->get('Itemid', 0, 'int');
 		$catId  = $jinput->get('catid', 0, 'int');
-		$return = $this->getReturnPage();
 
 		if ($itemId)
 		{
@@ -203,11 +202,6 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 		if ($catId)
 		{
 			$append .= '&catid=' . $catId;
-		}
-
-		if ($return)
-		{
-			$append .= '&return=' . base64_encode($return);
 		}
 
 		return $append;
@@ -250,7 +244,7 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 
 		if ($task == 'save')
 		{
-			$this->setRedirect(Route::_('index.php?option=com_sermonspeaker&view=sermons', false));
+//			$this->setRedirect(Route::_('index.php?option=com_sermonspeaker&view=sermons', false));
 		}
 
 		$recordId = (int) $model->getState($this->context . '.id');
