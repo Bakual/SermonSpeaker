@@ -10,6 +10,7 @@
 defined('_JEXEC') or die();
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\Filesystem\File;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 
@@ -202,7 +203,7 @@ class SermonspeakerViewFeed extends JViewLegacy
 		if ($file)
 		{
 			// MIME type for content
-			$enclosure['type'] = SermonspeakerHelperSermonspeaker::getMime(JFile::getExt($file));
+			$enclosure['type'] = SermonspeakerHelperSermonspeaker::getMime(File::getExt($file));
 
 			if (parse_url($file, PHP_URL_SCHEME))
 			{
