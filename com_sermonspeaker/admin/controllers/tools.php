@@ -812,7 +812,7 @@ class SermonspeakerControllerTools extends BaseController
 	}
 
 	/**
-	 * Imports data from Bible Study
+	 * Imports data from Proclaim / ex Bible Study
 	 *
 	 * @throws Exception
 	 *
@@ -832,7 +832,6 @@ class SermonspeakerControllerTools extends BaseController
 		$query->select('a.studydate, a.studytitle, a.alias, a.studytext');
 		$query->select('a.booknumber, a.chapter_begin, a.chapter_end, a.verse_begin, a.verse_end');
 		$query->select('a.booknumber2, a.chapter_begin2, a.chapter_end2, a.verse_begin2, a.verse_end2');
-		$query->select('CONCAT_WS(":", a.media_hours, a.media_minutes, a.media_seconds) AS duration');
 		$query->select('a.published, a.hits, a.user_id');
 
 		// Join over the series.
@@ -844,11 +843,9 @@ class SermonspeakerControllerTools extends BaseController
 		$query->join('LEFT', '#__bsms_teachers AS c ON c.id = a.teacher_id');
 
 		// Join over the media path.
-		$query->select("IF (e.server_path != '', CONCAT('http://', CONCAT_WS('/', e.server_path, f.folderpath, d.filename)), "
-			. "IF (LEFT(e.server_path, 7) = 'http://', CONCAT(e.server_path, '/', d.filename), CONCAT('/', f.folderpath, '/', d.filename))) AS audiofile");
+		$query->select("e.type AS server_type, e.params AS server_params, e.media AS server_media, d.params AS media_params");
 		$query->join('LEFT', '#__bsms_mediafiles AS d ON d.study_id = a.id');
-		$query->join('LEFT', '#__bsms_servers AS e ON e.id = d.server');
-		$query->join('LEFT', '#__bsms_folders AS f ON f.id = d.path');
+		$query->join('LEFT', '#__bsms_servers AS e ON e.id = d.server_id');
 
 		$db->setQuery($query);
 
@@ -870,9 +867,9 @@ class SermonspeakerControllerTools extends BaseController
 		// Store the Speakers
 		/** @noinspection SqlResolve */
 		$query = "INSERT INTO #__sermon_speakers \n"
-			. "(title, alias, website, intro, state, ordering, created_by, created, pic) \n"
-			. "SELECT a.teachername, a.alias, a.website, a.information, a.published, a.ordering, \n"
-			. '"' . $user->id . '"' . ", NOW(), a.teacher_thumbnail \n"
+			. "(title, alias, website, intro, bio, state, ordering, created_by, created, pic) \n"
+			. "SELECT a.teachername, a.alias, a.website, a.short, a.information, a.published, a.ordering, \n"
+			. '"' . $user->id . '"' . ", NOW(), a.image \n"
 			. "FROM #__bsms_teachers AS a \n";
 
 		$db->setQuery($query);
@@ -888,9 +885,9 @@ class SermonspeakerControllerTools extends BaseController
 			// Prepare Scripture
 			$scripture = array();
 
-			if ($study->study_book)
+			if ($study->booknumber && ($study->booknumber != -1))
 			{
-				$bible['book']     = (int) $study->booknumber;
+				$bible['book']     = (int) $study->booknumber - 100;
 				$bible['cap1']     = (int) $study->chapter_begin;
 				$bible['vers1']    = (int) $study->verse_begin;
 				$bible['cap2']     = (int) $study->chapter_end;
@@ -899,9 +896,9 @@ class SermonspeakerControllerTools extends BaseController
 				$scripture[]       = $bible;
 			}
 
-			if ($study->study_book2)
+			if ($study->booknumber2 && ($study->booknumber2 != -1))
 			{
-				$bible['book']     = (int) $study->booknumber2;
+				$bible['book']     = (int) $study->booknumber2 - 100;
 				$bible['cap1']     = (int) $study->chapter_begin2;
 				$bible['vers1']    = (int) $study->verse_begin2;
 				$bible['cap2']     = (int) $study->chapter_end2;
@@ -910,11 +907,33 @@ class SermonspeakerControllerTools extends BaseController
 				$scripture[]       = $bible;
 			}
 
+			// Prepare Audiofile
+			$server_params = json_decode($study->server_params);
+			$server_media = json_decode($study->server_media);
+			$media_params = json_decode($study->media_params);
+			$audiofile = '';
+			$videofile = '';
+
+			switch ($study->server_type)
+			{
+				case 'youtube':
+					$videofile = $media_params->filename;
+					$image = $media_params->media_image;
+					break;
+				case 'local':
+					$audiofile = $media_params->filename;
+					$image = $media_params->media_image;
+					break;
+				default:
+					$audiofile = $media_params->filename;
+					$image = $media_params->media_image;
+			}
+
 			/** @noinspection SqlResolve */
 			$query = "INSERT INTO #__sermon_sermons \n"
-				. "(`audiofile`, `title`, `alias`, `sermon_date`, `sermon_time`, `notes`, `state`, `hits`, `created_by`, `podcast`, `created`) \n"
-				. 'VALUES (' . $db->quote($study->audiofile) . ',' . $db->quote($study->studytitle) . ',' . $db->quote($study->alias) . ','
-				. $db->quote($study->studydate) . ',' . $db->quote($study->duration) . ',' . $db->quote($study->studytext) . ',' . $db->quote($study->published) . ','
+				. "(`audiofile`, `videofile`, `picture`, `title`, `alias`, `sermon_date`, `notes`, `state`, `hits`, `created_by`, `podcast`, `created`) \n"
+				. 'VALUES (' . $db->quote($audiofile) . ',' . $db->quote($videofile) . ',' . $db->quote($image) . ',' . $db->quote($study->studytitle) . ',' . $db->quote($study->alias) . ','
+				. $db->quote($study->studydate) . ',' . $db->quote($study->studytext) . ',' . $db->quote($study->published) . ','
 				. $db->quote($study->hits) . ',' . $db->quote($study->user_id) . ', 1, NOW())';
 
 			$db->setQuery($query);
