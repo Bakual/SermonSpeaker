@@ -10,6 +10,8 @@
 defined('_JEXEC') or die();
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\Filesystem\File;
+use Joomla\CMS\Filter\OutputFilter;
 use Joomla\CMS\Language\Text;
 
 /**
@@ -79,13 +81,13 @@ class SermonspeakerControllerFile extends JControllerLegacy
 			}
 
 			// Get file extension
-			$ext = JFile::getExt($file['name']);
+			$ext = File::getExt($file['name']);
 
 			// Make filename URL safe. Eg replaces ä with ae.
-			$file['name'] = JFilterOutput::stringURLSafe(JFile::stripExt($file['name'])) . '.' . $ext;
+			$file['name'] = OutputFilter::stringURLSafe(File::stripExt($file['name'])) . '.' . $ext;
 
 			// Check if filename has more chars than only dashes, making a new filename based on current date/time if not.
-			if (count_chars(JFile::stripExt($file['name']), 3) == '-')
+			if (count_chars(File::stripExt($file['name']), 3) == '-')
 			{
 				$file['name'] = Factory::getDate()->format("Y-m-d-H-i-s") . '.' . $ext;
 			}
@@ -111,14 +113,14 @@ class SermonspeakerControllerFile extends JControllerLegacy
 				// The request is valid
 				$filepath = JPath::clean($folder . '/' . strtolower($file['name']));
 
-				if (JFile::exists($filepath))
+				if (File::exists($filepath))
 				{
 					// File exists
 					$app->enqueueMessage(Text::_('COM_SERMONSPEAKER_FU_ERROR_EXISTS'), 'warning');
 					continue;
 				}
 
-				if (!JFile::upload($file['tmp_name'], $filepath))
+				if (!File::upload($file['tmp_name'], $filepath))
 				{
 					// Error in upload
 					$app->enqueueMessage(Text::_('COM_SERMONSPEAKER_FU_ERROR_UNABLE_TO_UPLOAD_FILE'), 'warning');

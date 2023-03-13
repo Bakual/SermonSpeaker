@@ -89,19 +89,22 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 		$html = '';
 
 		// Check Filename for possible problems
-		$filename = File::stripExt(basename($this->value));
-
-		// Remove query part (eg for YouTube URLs
-		if ($pos = strpos($filename, '?'))
+		if ($this->params->get('sanitise_filename', 1))
 		{
-			$filename = substr($filename, 0, $pos);
-		}
+			$filename = File::stripExt(basename($this->value));
 
-		if ($filename != ApplicationHelper::stringURLSafe($filename))
-		{
-			$html .= '<div class="alert alert-warning" role="alert">'
-				. Text::_('COM_SERMONSPEAKER_FILENAME_NOT_IDEAL')
-				. '</div>';
+			// Remove query part (eg for YouTube URLs
+			if ($pos = strpos($filename, '?'))
+			{
+				$filename = substr($filename, 0, $pos);
+			}
+
+			if ($filename != ApplicationHelper::stringURLSafe($filename))
+			{
+				$html .= '<div class="alert alert-warning" role="alert">'
+					. Text::_('COM_SERMONSPEAKER_FILENAME_NOT_IDEAL')
+					. '</div>';
+			}
 		}
 
 		$html .= '<div class="input-group">

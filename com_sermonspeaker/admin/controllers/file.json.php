@@ -83,19 +83,23 @@ class SermonspeakerControllerFile extends JControllerLegacy
 		// Get file extension
 		$ext = File::getExt($file['name']);
 
-		// Make filename URL safe. Eg replaces ä with ae.
-		$file['name'] = OutputFilter::stringURLSafe(JFile::stripExt($file['name'])) . '.' . $ext;
-
-		// Make the filename safe
-		$file['name'] = File::makeSafe($file['name']);
-
-		// Replace spaces in filename as long as makeSafe doesn't do this.
-		$file['name'] = str_replace(' ', '_', $file['name']);
-
-		// Check if filename has more chars than only dashes, making a new filename based on current date/time if not.
-		if (count_chars(File::stripExt($file['name']), 3) == '-')
+		// Optionally sanitising filenames
+		if ($params->get('sanitise_filename', 1))
 		{
-			$file['name'] = Factory::getDate()->format("Y-m-d-H-i-s") . '.' . $ext;
+			// Make filename URL safe. Eg replaces ä with ae.
+			$file['name'] = OutputFilter::stringURLSafe(File::stripExt($file['name'])) . '.' . $ext;
+
+			// Make the filename safe
+			$file['name'] = File::makeSafe($file['name']);
+
+			// Replace spaces in filename as long as makeSafe doesn't do this.
+			$file['name'] = str_replace(' ', '_', $file['name']);
+
+			// Check if filename has more chars than only dashes, making a new filename based on current date/time if not.
+			if (count_chars(File::stripExt($file['name']), 3) == '-')
+			{
+				$file['name'] = Factory::getDate()->format("Y-m-d-H-i-s") . '.' . $ext;
+			}
 		}
 
 		$mode = 0;

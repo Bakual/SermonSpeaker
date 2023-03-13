@@ -12,6 +12,8 @@ defined('_JEXEC') or die();
 use Aws\Credentials\Credentials;
 use Aws\S3\S3Client;
 use Joomla\CMS\Factory;
+use Joomla\CMS\Filesystem\File;
+use Joomla\CMS\Filter\OutputFilter;
 use Joomla\CMS\Language\Text;
 
 /**
@@ -79,15 +81,25 @@ class SermonspeakerControllerFile extends JControllerLegacy
 		}
 
 		// Get file extension
-		$ext = JFile::getExt($file['name']);
+		$ext = File::getExt($file['name']);
 
-		// Make filename URL safe. Eg replaces ä with ae.
-		$file['name'] = JFilterOutput::stringURLSafe(JFile::stripExt($file['name'])) . '.' . $ext;
-
-		// Check if filename has more chars than only dashes, making a new filename based on current date/time if not
-		if (count_chars(JFile::stripExt($file['name']), 3) == '-')
+		// Optionally sanitising filenames
+		if ($params->get('sanitise_filename', 1))
 		{
-			$file['name'] = Factory::getDate()->format("Y-m-d-H-i-s") . '.' . $ext;
+			// Make filename URL safe. Eg replaces ä with ae.
+			$file['name'] = OutputFilter::stringURLSafe(File::stripExt($file['name'])) . '.' . $ext;
+
+			// Make the filename safe
+			$file['name'] = File::makeSafe($file['name']);
+
+			// Replace spaces in filename as long as makeSafe doesn't do this.
+			$file['name'] = str_replace(' ', '_', $file['name']);
+
+			// Check if filename has more chars than only dashes, making a new filename based on current date/time if not
+			if (count_chars(File::stripExt($file['name']), 3) == '-')
+			{
+				$file['name'] = Factory::getDate()->format("Y-m-d-H-i-s") . '.' . $ext;
+			}
 		}
 
 		$mode = 0;
@@ -237,7 +249,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 			$filepath         = JPath::clean($folder . '/' . strtolower($file['name']));
 			$file['filepath'] = $filepath;
 
-			if (JFile::exists($filepath))
+			if (File::exists($filepath))
 			{
 				// File exists
 				$response = array(
@@ -249,7 +261,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 				return;
 			}
 
-			if (!JFile::upload($file['tmp_name'], $file['filepath']))
+			if (!File::upload($file['tmp_name'], $file['filepath']))
 			{
 				// Error in upload
 				$response = array(

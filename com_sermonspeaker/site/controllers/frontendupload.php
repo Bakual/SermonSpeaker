@@ -9,7 +9,9 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
+use Joomla\CMS\Filesystem\File;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Router\Route;
@@ -242,34 +244,32 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 	{
 		$task = $this->getTask();
 
-		if ($task == 'save')
-		{
-//			$this->setRedirect(Route::_('index.php?option=com_sermonspeaker&view=sermons', false));
-		}
-
 		$recordId = (int) $model->getState($this->context . '.id');
-		$params   = JComponentHelper::getParams('com_sermonspeaker');
+		$params   = ComponentHelper::getParams('com_sermonspeaker');
 
 		$app = Factory::getApplication();
 		$db  = Factory::getDbo();
 
 		// Check filenames and show a warning if one isn't save to use in an URL. Store anyway.
-		$files = array('audiofile', 'videofile', 'addfile');
-
-		foreach ($files as $file)
+		if ($params->get('sanitise_filename', 1))
 		{
-			$filename = JFile::stripExt(basename($validData[$file]));
+			$files = array('audiofile', 'videofile', 'addfile');
 
-			// Remove query part (eg for YouTube URLs
-			if ($pos = strpos($filename, '?'))
+			foreach ($files as $file)
 			{
-				$filename = substr($filename, 0, $pos);
-			}
+				$filename = File::stripExt(basename($validData[$file]));
 
-			if ($filename != JApplicationHelper::stringURLSafe($filename))
-			{
-				$text = Text::_('COM_SERMONSPEAKER_FILENAME_NOT_IDEAL') . ': ' . $validData[$file];
-				$app->enqueueMessage($text, 'warning');
+				// Remove query part (eg for YouTube URLs
+				if ($pos = strpos($filename, '?'))
+				{
+					$filename = substr($filename, 0, $pos);
+				}
+
+				if ($filename != JApplicationHelper::stringURLSafe($filename))
+				{
+					$text = Text::_('COM_SERMONSPEAKER_FILENAME_NOT_IDEAL') . ': ' . $validData[$file];
+					$app->enqueueMessage($text, 'warning');
+				}
 			}
 		}
 

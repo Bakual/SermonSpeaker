@@ -401,6 +401,18 @@
 		</field>
 
 		<field
+			name="sanitise_filename"
+			type="radio"
+			label="COM_SERMONSPEAKER_FIELD_SANITISE_FILENAME_LABEL"
+			description="COM_SERMONSPEAKER_FIELD_SANITISE_FILENAME_DESC"
+			layout="joomla.form.field.radio.switcher"
+			default="1"
+		>
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
+		</field>
+
+		<field
 			name="googlepicker"
 			type="radio"
 			label="COM_SERMONSPEAKER_FIELD_GOOGLEPICKER_LABEL"
