@@ -246,7 +246,14 @@ class SermonspeakerControllerFile extends JControllerLegacy
 			jimport('joomla.client.helper');
 			JClientHelper::setCredentialsFromRequest('ftp');
 
-			$filepath         = JPath::clean($folder . '/' . strtolower($file['name']));
+			$filename = $file['name'];
+
+			if ($params->get('sanitise_filename', 1))
+			{
+				$filename = strtolower($filename);
+			}
+
+			$filepath         = JPath::clean($folder . '/' . $filename);
 			$file['filepath'] = $filepath;
 
 			if (File::exists($filepath))
@@ -276,8 +283,8 @@ class SermonspeakerControllerFile extends JControllerLegacy
 			{
 				$response = array(
 					'status'   => '1',
-					'filename' => strtolower($file['name']),
-					'path'     => str_replace('\\', '/', '/' . $path . $append . '/' . strtolower($file['name'])),
+					'filename' => $filename,
+					'path'     => str_replace('\\', '/', '/' . $path . $append . '/' . $filename),
 					'error'    => Text::sprintf('COM_SERMONSPEAKER_FU_FILENAME', substr($file['filepath'], strlen(JPATH_ROOT))),
 				);
 				echo json_encode($response);
