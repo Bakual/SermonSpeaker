@@ -911,11 +911,14 @@ class SermonspeakerControllerTools extends JControllerLegacy
 					$image = $media_params->media_image;
 			}
 
+			// Use studytext if available, otherwise intro.
+			$notes = ($study->studytext) ?: $study->intro;
+
 			/** @noinspection SqlResolve */
 			$query = "INSERT INTO #__sermon_sermons \n"
 				. "(`audiofile`, `videofile`, `picture`, `title`, `alias`, `sermon_date`, `notes`, `state`, `hits`, `created_by`, `podcast`, `created`) \n"
 				. 'VALUES (' . $db->quote($audiofile) . ',' . $db->quote($videofile) . ',' . $db->quote($image) . ',' . $db->quote($study->studytitle) . ',' . $db->quote($study->alias) . ','
-				. $db->quote($study->studydate) . ',' . $db->quote($study->studytext) . ',' . $db->quote($study->published) . ','
+				. $db->quote($study->studydate) . ',' . $db->quote($notes) . ',' . $db->quote($study->published) . ','
 				. $db->quote($study->hits) . ',' . $db->quote($study->user_id) . ', 1, NOW())';
 
 			$db->setQuery($query);
