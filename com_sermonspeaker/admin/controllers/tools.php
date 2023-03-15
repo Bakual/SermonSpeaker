@@ -826,10 +826,16 @@ class SermonspeakerControllerTools extends BaseController
 		$user = Factory::getUser();
 		$db   = Factory::getDbo();
 
+		$params         = ComponentHelper::getParams('com_sermonspeaker');
+		$audioFiletypes = $params->get('audio_filetypes');
+		$audioFiletypes = array_map('trim', explode(',', $audioFiletypes));
+		$videoFiletypes = $params->get('video_filetypes');
+		$videoFiletypes = array_map('trim', explode(',', $videoFiletypes));
+
 		// Get Studies
 		$query = $db->getQuery(true);
 		$query->from('`#__bsms_studies` AS a');
-		$query->select('a.studydate, a.studytitle, a.alias, a.studytext');
+		$query->select('a.id, a.studydate, a.studytitle, a.alias, a.studytext, a.studyintro');
 		$query->select('a.booknumber, a.chapter_begin, a.chapter_end, a.verse_begin, a.verse_end');
 		$query->select('a.booknumber2, a.chapter_begin2, a.chapter_end2, a.verse_begin2, a.verse_end2');
 		$query->select('a.published, a.hits, a.user_id');
@@ -879,9 +885,66 @@ class SermonspeakerControllerTools extends BaseController
 
 		// Prepare and store the Sermons for SermonSpeaker
 		$count = 0;
+		$studyId = 0;
 
 		foreach ($studies as $study)
 		{
+			// Prepare Mediafile
+			$server_params = json_decode($study->server_params);
+			$server_media = json_decode($study->server_media);
+			$media_params = json_decode($study->media_params);
+
+			switch ($study->server_type)
+			{
+				case 'youtube':
+					$type  = 'video';
+					$file  = $media_params->filename;
+					$image = $media_params->media_image;
+					break;
+				case 'local':
+				default:
+					if ($media_params)
+					{
+						$file  = $media_params->filename;
+						$image = $media_params->media_image;
+						$ext   = pathinfo($file, PATHINFO_EXTENSION);
+					}
+					else
+					{
+						$file  = '';
+						$image = '';
+						$ext   = '';
+					}
+
+					if (in_array($ext, $audioFiletypes))
+					{
+						$type = 'audio';
+					}
+					elseif (in_array($ext, $videoFiletypes))
+					{
+						$type = 'video';
+					}
+					else
+					{
+						$type = 'add';
+					}
+			}
+
+			// Check if it's the same study as in the previous iteration and add the mediafile instead of creating new sermon.
+			if ($studyId === $study->id)
+			{
+				$query = "UPDATE #__sermon_sermons \n"
+					. "SET `" . $type . "file` = " . $db->quote($file) . " \n"
+					. "WHERE `id` = " . $db->quote($id);
+
+				$db->setQuery($query);
+				$db->execute();
+
+				continue;
+			}
+
+			$studyId = $study->id;
+
 			// Prepare Scripture
 			$scripture = array();
 
@@ -907,33 +970,14 @@ class SermonspeakerControllerTools extends BaseController
 				$scripture[]       = $bible;
 			}
 
-			// Prepare Audiofile
-			$server_params = json_decode($study->server_params);
-			$server_media = json_decode($study->server_media);
-			$media_params = json_decode($study->media_params);
-			$audiofile = '';
-			$videofile = '';
-
-			switch ($study->server_type)
-			{
-				case 'youtube':
-					$videofile = $media_params->filename;
-					$image = $media_params->media_image;
-					break;
-				case 'local':
-					$audiofile = $media_params->filename;
-					$image = $media_params->media_image;
-					break;
-				default:
-					$audiofile = $media_params->filename;
-					$image = $media_params->media_image;
-			}
+			// Use studytext if available, otherwise studyintro.
+			$notes = ($study->studytext) ?: $study->studyintro;
 
 			/** @noinspection SqlResolve */
 			$query = "INSERT INTO #__sermon_sermons \n"
-				. "(`audiofile`, `videofile`, `picture`, `title`, `alias`, `sermon_date`, `notes`, `state`, `hits`, `created_by`, `podcast`, `created`) \n"
-				. 'VALUES (' . $db->quote($audiofile) . ',' . $db->quote($videofile) . ',' . $db->quote($image) . ',' . $db->quote($study->studytitle) . ',' . $db->quote($study->alias) . ','
-				. $db->quote($study->studydate) . ',' . $db->quote($study->studytext) . ',' . $db->quote($study->published) . ','
+				. "(`" . $type . "file`, `picture`, `title`, `alias`, `sermon_date`, `notes`, `state`, `hits`, `created_by`, `podcast`, `created`) \n"
+				. 'VALUES (' . $db->quote($file) . ',' . $db->quote($image) . ',' . $db->quote($study->studytitle) . ',' . $db->quote($study->alias) . ','
+				. $db->quote($study->studydate) . ',' . $db->quote($notes) . ',' . $db->quote($study->published) . ','
 				. $db->quote($study->hits) . ',' . $db->quote($study->user_id) . ', 1, NOW())';
 
 			$db->setQuery($query);
