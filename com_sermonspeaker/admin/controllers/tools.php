@@ -910,7 +910,16 @@ class SermonspeakerControllerTools extends JControllerLegacy
 					}
 					else
 					{
-						$type = 'add';
+						$host = parse_url($file, PHP_URL_HOST);
+
+						if ($host == 'youtube.com' || $host == 'www.youtube.com' || $host == 'youtu.be')
+						{
+							$type = 'video';
+						}
+						else
+						{
+							$type = 'add';
+						}
 					}
 			}
 
