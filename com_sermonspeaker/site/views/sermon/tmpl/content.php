@@ -56,7 +56,7 @@ $htag       = $this->params->get('show_page_heading') ? 'h2' : 'h1';
 
 	<dl class="article-info sermon-info text-muted">
 		<dt class="article-info-term"><?php echo Text::_('JDETAILS'); ?></dt>
-		<?php if (in_array('sermons:category', $this->columns) and $this->item->category_title) : ?>
+		<?php if (in_array('sermon:category', $this->columns) and $this->item->category_title) : ?>
 			<dd>
 				<div class="category-name">
 					<span class="icon-folder-open icon-fw"></span>
@@ -66,7 +66,7 @@ $htag       = $this->params->get('show_page_heading') ? 'h2' : 'h1';
 			</dd>
 		<?php endif; ?>
 
-		<?php if (in_array('sermons:series', $this->columns) and $this->item->series_title) : ?>
+		<?php if (in_array('sermon:series', $this->columns) and $this->item->series_title) : ?>
 			<dd>
 				<div class="ss-sermondetail-info">
 					<span class="icon-drawer-2"></span>
@@ -81,7 +81,7 @@ $htag       = $this->params->get('show_page_heading') ? 'h2' : 'h1';
 			</dd>
 		<?php endif; ?>
 
-		<?php if (in_array('sermons:date', $this->columns) and ($this->item->sermon_date != '0000-00-00 00:00:00')) : ?>
+		<?php if (in_array('sermon:date', $this->columns) and ($this->item->sermon_date != '0000-00-00 00:00:00')) : ?>
 			<dd>
 				<div class="create">
 					<span class="icon-calendar"></span>
@@ -91,7 +91,7 @@ $htag       = $this->params->get('show_page_heading') ? 'h2' : 'h1';
 			</dd>
 		<?php endif; ?>
 
-		<?php if (in_array('sermons:hits', $this->columns)) : ?>
+		<?php if (in_array('sermon:hits', $this->columns)) : ?>
 			<dd>
 				<div class="hits">
 					<span class="icon-eye-open"></span>
@@ -101,7 +101,7 @@ $htag       = $this->params->get('show_page_heading') ? 'h2' : 'h1';
 			</dd>
 		<?php endif; ?>
 
-		<?php if (in_array('sermons:scripture', $this->columns) and $this->item->scripture) : ?>
+		<?php if (in_array('sermon:scripture', $this->columns) and $this->item->scripture) : ?>
 			<dd>
 				<div class="ss-sermondetail-info">
 					<span class="icon-quote"></span>
@@ -112,7 +112,7 @@ $htag       = $this->params->get('show_page_heading') ? 'h2' : 'h1';
 			</dd>
 		<?php endif; ?>
 
-		<?php if (in_array('sermons:length', $this->columns) and $this->item->sermon_time != '00:00:00') : ?>
+		<?php if (in_array('sermon:length', $this->columns) and $this->item->sermon_time != '00:00:00') : ?>
 			<dd>
 				<div class="ss-sermondetail-info">
 					<span class="icon-clock"></span>
@@ -122,7 +122,7 @@ $htag       = $this->params->get('show_page_heading') ? 'h2' : 'h1';
 			</dd>
 		<?php endif; ?>
 
-		<?php if (in_array('sermons:addfile', $this->columns) and $this->item->addfile) : ?>
+		<?php if (in_array('sermon:addfile', $this->columns) and $this->item->addfile) : ?>
 			<dd>
 				<div class="ss-sermondetail-info">
 					<?php echo Text::_('COM_SERMONSPEAKER_ADDFILE'); ?>:
@@ -131,7 +131,7 @@ $htag       = $this->params->get('show_page_heading') ? 'h2' : 'h1';
 			</dd>
 		<?php endif; ?>
 
-		<?php if (in_array('sermons:download', $this->columns)) : ?>
+		<?php if (in_array('sermon:download', $this->columns)) : ?>
 			<?php if ($this->item->audiofile) : ?>
 				<dd>
 					<div class="ss-sermondetail-info">
