@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => 'ef0189c165532ab6d4e14aa2f22720bc455abb57',
+    'reference' => '2f79ff7b3cd9ef389e94de3ab030264228676a7e',
     'name' => 'bakual/sermonspeaker',
   ),
   'versions' => 
@@ -36,7 +36,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => 'ef0189c165532ab6d4e14aa2f22720bc455abb57',
+      'reference' => '2f79ff7b3cd9ef389e94de3ab030264228676a7e',
     ),
     'guzzlehttp/guzzle' => 
     array (
@@ -58,12 +58,12 @@
     ),
     'guzzlehttp/psr7' => 
     array (
-      'pretty_version' => '2.4.0',
-      'version' => '2.4.0.0',
+      'pretty_version' => '2.5.0',
+      'version' => '2.5.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '13388f00956b1503577598873fffb5ae994b5737',
+      'reference' => 'b635f279edd83fc275f822a1188157ffea568ff6',
     ),
     'james-heinrich/getid3' => 
     array (
