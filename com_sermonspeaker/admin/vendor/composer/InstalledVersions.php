@@ -30,28 +30,28 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '2f79ff7b3cd9ef389e94de3ab030264228676a7e',
+    'reference' => '2a22b364f52d89853e32c23288b6b3aad7c5777b',
     'name' => 'bakual/sermonspeaker',
   ),
   'versions' => 
   array (
     'aws/aws-crt-php' => 
     array (
-      'pretty_version' => 'v1.0.2',
-      'version' => '1.0.2.0',
+      'pretty_version' => 'v1.2.1',
+      'version' => '1.2.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => '3942776a8c99209908ee0b287746263725685732',
+      'reference' => '1926277fc71d253dfa820271ac5987bdb193ccf5',
     ),
     'aws/aws-sdk-php' => 
     array (
-      'pretty_version' => '3.228.0',
-      'version' => '3.228.0.0',
+      'pretty_version' => '3.269.1',
+      'version' => '3.269.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => '4ff51d01da43aa3bd36eef921a9cd4e0ff843fab',
+      'reference' => '03b0b8984c46c469c70bfb05fea7b1ac9b859a8e',
     ),
     'bakual/sermonspeaker' => 
     array (
@@ -60,25 +60,25 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '2f79ff7b3cd9ef389e94de3ab030264228676a7e',
+      'reference' => '2a22b364f52d89853e32c23288b6b3aad7c5777b',
     ),
     'guzzlehttp/guzzle' => 
     array (
-      'pretty_version' => '7.4.5',
-      'version' => '7.4.5.0',
+      'pretty_version' => '7.5.1',
+      'version' => '7.5.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => '1dd98b0564cb3f6bd16ce683cb755f94c10fbd82',
+      'reference' => 'b964ca597e86b752cd994f27293e9fa6b6a95ed9',
     ),
     'guzzlehttp/promises' => 
     array (
-      'pretty_version' => '1.5.1',
-      'version' => '1.5.1.0',
+      'pretty_version' => '1.5.2',
+      'version' => '1.5.2.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'fe752aedc9fd8fcca3fe7ad05d419d32998a06da',
+      'reference' => 'b94b2807d85443f9719887892882d0329d1e2598',
     ),
     'guzzlehttp/psr7' => 
     array (
@@ -91,12 +91,12 @@ private static $installed = array (
     ),
     'james-heinrich/getid3' => 
     array (
-      'pretty_version' => 'v1.9.21',
-      'version' => '1.9.21.0',
+      'pretty_version' => 'v1.9.22',
+      'version' => '1.9.22.0',
       'aliases' => 
       array (
       ),
-      'reference' => '36f5dabb1325415a4b07a401113f8db2eb81eca1',
+      'reference' => '45f20faa0f0a24489740392c5b512ddcc36deccd',
     ),
     'mtdowling/jmespath.php' => 
     array (
