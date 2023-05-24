@@ -29,13 +29,27 @@ if ($tooltip)
 	// Include only if needed...
 	HTMLHelper::_('bootstrap.tooltip', '.hasTooltip');
 }
+if ($params->get('show_player'))
+{
+	$c_params            = ComponentHelper::getParams('com_sermonspeaker');
+	$config['autostart'] = 0;
+	$config['count']     = 'ls' . $module->id;
+	$config['type']      = $c_params->get('fileprio') ? 'video' : 'audio';
+	$config['vheight']   = $params->get('vheight');
+	$player              = SermonspeakerHelperSermonspeaker::getPlayer($list, $config);
+}
+
+
 ?>
 <div class="latestsermons">
 	<?php if ($params->get('show_list')) : ?>
 		<ul class="latestsermons-list mod-list">
-			<?php foreach ($list as $row) : ?>
-				<?php $i++; ?>
+			<?php foreach ($list as $i => $row) : ?>
 				<li class="latestsermons_entry<?php echo $i; ?>">
+					<?php $options['onclick'] = 'ss_play(' . $i . ');return false;';
+					$options['title']   = Text::_('MOD_LATESTSERMONS_PLAYICON_HOOVER');
+					$playerId           = !empty($player->id) ? $player->id : ''; ?>
+					<span class="fas fa-play pointer ss-play hasTooltip" data-id="<?php echo $i; ?>" data-player="<?php echo $playerId; ?>" onclick="<?php $options['onclick']; ?>" title="<?php echo $options['title']; ?>"> </span>
 					<?php if ($params->get('use_date')) : ?>
 						<?php $date_format = Text::_($params->get('ls_mo_date_format', 'DATE_FORMAT_LC4')); ?>
 						<?php $text = HTMLHelper::date($row->sermon_date, $date_format, true); ?>
@@ -87,14 +101,9 @@ if ($tooltip)
 		</ul>
 	<?php endif; ?>
 	<?php if ($params->get('show_player')) : ?>
+		<?php HTMLHelper::_('stylesheet', 'com_sermonspeaker/player.css', array('relative' => true)); ?>
 		<div class="latestsermons_player">
-			<?php $c_params       = ComponentHelper::getParams('com_sermonspeaker');
-			$config['autostart']  = 0;
-			$config['count']      = 'ls' . $module->id;
-			$config['type']       = $c_params->get('fileprio') ? 'video' : 'audio';
-			$config['vheight']    = $params->get('vheight');
-			$player               = SermonspeakerHelperSermonspeaker::getPlayer($list, $config);
-			echo $player->mspace;
+			<?php echo $player->mspace;
 			echo $player->script; ?>
 		</div>
 	<?php endif; ?>

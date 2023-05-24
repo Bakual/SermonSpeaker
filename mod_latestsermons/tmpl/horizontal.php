@@ -85,6 +85,7 @@ $count = count($list);
 		</div>
 	<?php endif; ?>
 	<?php if ($params->get('show_player')) : ?>
+		<?php HTMLHelper::_('stylesheet', 'com_sermonspeaker/player.css', array('relative' => true)); ?>
 		<?php if ($params->get('show_list')) : ?>
 			<br/>
 		<?php endif; ?>
