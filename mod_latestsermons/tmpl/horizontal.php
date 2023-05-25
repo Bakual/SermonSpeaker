@@ -23,12 +23,21 @@ use Joomla\CMS\Router\Route;
 
 $i     = 0;
 $count = count($list);
+
+if ($params->get('show_player'))
+{
+	$c_params            = ComponentHelper::getParams('com_sermonspeaker');
+	$config['autostart'] = 0;
+	$config['count']     = 'ls' . $module->id;
+	$config['type']      = $c_params->get('fileprio') ? 'video' : 'audio';
+	$config['vheight']   = $params->get('vheight');
+	$player              = SermonspeakerHelperSermonspeaker::getPlayer($list, $config);
+}
 ?>
 <div class="latestsermons">
 	<?php if ($params->get('show_list')) : ?>
 		<div class="row">
-			<?php foreach ($list as $row) : ?>
-				<?php $i++; ?>
+			<?php foreach ($list as $i => $row) : ?>
 				<div class="latestsermons_entry<?php echo $i; ?> text-center col-md-<?php echo (int) 12 / $count; ?>">
 					<?php if ($picture = SermonspeakerHelperSermonspeaker::insertPicture($row)) : ?>
 						<a href="<?php echo Route::_(SermonspeakerHelperRoute::getSermonRoute($row->slug, $row->catid, $row->language)); ?>">
@@ -80,6 +89,14 @@ $count = count($list);
 							<?php echo Text::_('JGLOBAL_HITS'); ?>: <?php echo $row->hits; ?>
 						</div>
 					<?php endif; ?>
+					<?php if ($params->get('show_player') and $params->get('control_player')) : ?>
+						<?php $title = Text::_('MOD_LATESTSERMONS_PLAYICON_HOOVER');
+						$playerId = !empty($player->id) ? $player->id : ''; ?>
+						<div class="sermonplay">
+							<span class="fas fa-play pointer ss-play hasTooltip" data-id="<?php echo $i; ?>" data-player="<?php echo $playerId; ?>" title="<?php echo $title; ?>"> </span>
+							<span class="pointer ss-play" data-id="<?php echo $i; ?>" data-player="<?php echo $playerId; ?>"><?php echo $title; ?></span>
+						</div>
+					<?php endif; ?>
 				</div>
 			<?php endforeach; ?>
 		</div>
@@ -90,13 +107,7 @@ $count = count($list);
 			<br/>
 		<?php endif; ?>
 		<div class="latestsermons_player">
-			<?php $c_params       = ComponentHelper::getParams('com_sermonspeaker');
-			$config['autostart']  = 0;
-			$config['count']      = 'ls' . $module->id;
-			$config['type']       = $c_params->get('fileprio') ? 'video' : 'audio';
-			$config['vheight']    = $params->get('vheight');
-			$player               = SermonspeakerHelperSermonspeaker::getPlayer($list, $config);
-			echo $player->mspace;
+			<?php echo $player->mspace;
 			echo $player->script; ?>
 		</div>
 	<?php endif; ?>

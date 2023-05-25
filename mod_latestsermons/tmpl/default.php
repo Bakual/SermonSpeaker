@@ -38,18 +38,17 @@ if ($params->get('show_player'))
 	$config['vheight']   = $params->get('vheight');
 	$player              = SermonspeakerHelperSermonspeaker::getPlayer($list, $config);
 }
-
-
 ?>
 <div class="latestsermons">
 	<?php if ($params->get('show_list')) : ?>
 		<ul class="latestsermons-list mod-list">
 			<?php foreach ($list as $i => $row) : ?>
 				<li class="latestsermons_entry<?php echo $i; ?>">
-					<?php $options['onclick'] = 'ss_play(' . $i . ');return false;';
-					$options['title']   = Text::_('MOD_LATESTSERMONS_PLAYICON_HOOVER');
-					$playerId           = !empty($player->id) ? $player->id : ''; ?>
-					<span class="fas fa-play pointer ss-play hasTooltip" data-id="<?php echo $i; ?>" data-player="<?php echo $playerId; ?>" onclick="<?php $options['onclick']; ?>" title="<?php echo $options['title']; ?>"> </span>
+					<?php if ($params->get('show_player') and $params->get('control_player')) : ?>
+						<?php $title = Text::_('MOD_LATESTSERMONS_PLAYICON_HOOVER');
+						$playerId = !empty($player->id) ? $player->id : ''; ?>
+						<span class="fas fa-play pointer ss-play hasTooltip" data-id="<?php echo $i; ?>" data-player="<?php echo $playerId; ?>" title="<?php echo $title; ?>"> </span>
+					<?php endif; ?>
 					<?php if ($params->get('use_date')) : ?>
 						<?php $date_format = Text::_($params->get('ls_mo_date_format', 'DATE_FORMAT_LC4')); ?>
 						<?php $text = HTMLHelper::date($row->sermon_date, $date_format, true); ?>

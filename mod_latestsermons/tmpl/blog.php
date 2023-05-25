@@ -23,12 +23,21 @@ use Joomla\CMS\Router\Route;
 
 $i     = 0;
 $count = count($list);
+
+if ($params->get('show_player'))
+{
+	$c_params            = ComponentHelper::getParams('com_sermonspeaker');
+	$config['autostart'] = 0;
+	$config['count']     = 'ls' . $module->id;
+	$config['type']      = $c_params->get('fileprio') ? 'video' : 'audio';
+	$config['vheight']   = $params->get('vheight');
+	$player              = SermonspeakerHelperSermonspeaker::getPlayer($list, $config);
+}
 ?>
 <div class="latestsermons">
 	<?php if ($params->get('show_list')) : ?>
 		<div class="latestsermons_list">
-			<?php foreach ($list as $row) : ?>
-				<?php $i++; ?>
+			<?php foreach ($list as $i => $row) : ?>
 				<?php if ($itemid) : ?>
 					<?php $link = Route::_('index.php?option=com_sermonspeaker&view=sermon&id=' . $row->slug . '&Itemid=' . $itemid); ?>
 				<?php else : ?>
@@ -97,6 +106,14 @@ $count = count($list);
 								<?php echo $row->hits; ?>
 							</dd>
 						<?php endif; ?>
+						<?php if ($params->get('show_player') and $params->get('control_player')) : ?>
+							<?php $title = Text::_('MOD_LATESTSERMONS_PLAYICON_HOOVER');
+							$playerId = !empty($player->id) ? $player->id : ''; ?>
+							<dd class="sermonplay">
+								<span class="fas fa-play pointer ss-play hasTooltip" data-id="<?php echo $i; ?>" data-player="<?php echo $playerId; ?>" title="<?php echo $title; ?>"> </span>
+								<span class="pointer ss-play" data-id="<?php echo $i; ?>" data-player="<?php echo $playerId; ?>"><?php echo $title; ?></span>
+							</dd>
+						<?php endif; ?>
 					</dl>
 					<div style="clear:left;"></div>
 					<?php if (strlen($row->notes) > 0) : ?>
@@ -117,13 +134,7 @@ $count = count($list);
 			<br/>
 		<?php endif; ?>
 		<div class="latestsermons_player">
-			<?php $c_params       = ComponentHelper::getParams('com_sermonspeaker');
-			$config['autostart']  = 0;
-			$config['count']      = 'ls' . $module->id;
-			$config['type']       = $c_params->get('fileprio') ? 'video' : 'audio';
-			$config['vheight']    = $params->get('vheight');
-			$player               = SermonspeakerHelperSermonspeaker::getPlayer($list, $config);
-			echo $player->mspace;
+			<?php echo $player->mspace;
 			echo $player->script; ?>
 		</div>
 	<?php endif; ?>
