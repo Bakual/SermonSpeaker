@@ -154,7 +154,6 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 									<?php if ($playerid = !empty($player->id) ? $player->id : '') : ?>
 										<dd>
 											<div class="ss-sermondetail-info">
-												<span class="icon-play"></span>
 												<?php echo HTMLHelper::_('icon.play', $item, $this->params, array('index' => $i, 'playerid' => $playerid)); ?>
 											</div>
 										</dd>
