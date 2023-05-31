@@ -168,6 +168,12 @@ abstract class ModLatestsermonsHelper
 			case 2:
 				$query->order('a.created ' . $dir . ', (sermon_number+0) ' . $dir);
 				break;
+			case 3:
+				$query->order('a.ordering ' . $dir . ', (sermon_number+0) ' . $dir);
+				break;
+			case 4:
+				$query->order('a.title ' . $dir . ', (sermon_number+0) ' . $dir);
+				break;
 		}
 
 		$db->setQuery($query, 0, (int) $params->get('ls_count', 3));

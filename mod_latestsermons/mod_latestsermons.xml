@@ -32,6 +32,8 @@
 					<option value="0">JDATE</option>
 					<option value="1">JGLOBAL_HITS</option>
 					<option value="2">JGLOBAL_CREATED</option>
+					<option value="3">MOD_LATESTSERMONS_FIELD_ORDERING_OPTION_ORDERING</option>
+					<option value="4">MOD_LATESTSERMONS_FIELD_ORDERING_OPTION_TITLE</option>
 				</field>
 				<field name="dir" type="radio"
 					label="JGLOBAL_ORDER_DIRECTION_LABEL"
