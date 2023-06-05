@@ -346,7 +346,7 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 				}
 			";
 			$this->document->addScriptDeclaration($picker);
-			$this->document->addScript('https://apis.google.com/js/api.js?onload=onApiLoad', 'text/javascript', true);
+			$this->document->addScript('https://apis.google.com/js/api.js?onload=onApiLoad');
 		}
 
 		// Destination folder based on mode

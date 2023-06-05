@@ -294,7 +294,7 @@ class SermonspeakerViewSermon extends JViewLegacy
 				}
 			";
 			$document->addScriptDeclaration($picker);
-			$document->addScript('https://apis.google.com/js/api.js?onload=onApiLoad', 'text/javascript', true);
+			$document->addScript('https://apis.google.com/js/api.js?onload=onApiLoad');
 		}
 
 		// Destination folder based on mode
