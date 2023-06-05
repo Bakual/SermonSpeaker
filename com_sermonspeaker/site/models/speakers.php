@@ -9,6 +9,7 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Categories\Categories;
 use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Model\ListModel;
 
@@ -146,14 +147,14 @@ class SermonspeakerModelspeakers extends ListModel
 
 			$options['table'] = '#__sermon_' . $this->state->get('category.type', 'speakers');
 
-			$categories = JCategories::getInstance('sermonspeaker.speakers', $options);
+			$categories = Categories::getInstance('sermonspeaker.speakers', $options);
 			$this->item = $categories->get($this->getState('category.id', 'root'));
 
 			// Compute selected asset permissions
 			if (is_object($this->item))
 			{
 				$user  = Factory::getUser();
-				$asset = 'com_sermonspeaker.category.' . $this->item->id;
+				$asset = 'com_sermonspeaker.speakers.category.' . $this->item->id;
 
 				// Check general create permission
 				if ($user->authorise('core.create', $asset))
