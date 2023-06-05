@@ -23,10 +23,10 @@
 		<description>Latest Sermons Module</description>
 		<element>mod_latestsermons</element>
 		<type>module</type>
-		<version>6.0.1</version>
+		<version>6.1.0</version>
 		<downloads>
 			<downloadurl type="full" format="zip">
-				https://github.com/Bakual/SermonSpeaker/releases/download/6.0.5/mod_latestsermons.zip
+				https://github.com/Bakual/SermonSpeaker/releases/download/6.0.8/mod_latestsermons.zip
 			</downloadurl>
 		</downloads>
 		<tags>
@@ -34,8 +34,8 @@
 		</tags>
 		<maintainer>Thomas Hunziker</maintainer>
 		<maintainerurl>https://www.sermonspeaker.net/</maintainerurl>
-		<targetplatform name="joomla" version="4.[0123]"/>
-		<sha256>527B9421B7532CEB57DD3AE16B68E614E01DC019FCCF35C5B5FD344C149D76EE</sha256>
+		<targetplatform name="joomla" version="4.[01234]"/>
+		<sha256>D94CA5FAABDC9CD572077BC637D220ED48937B395FC59BE7C37F92F160DCEED9</sha256>
 		<client>0</client>
 	</update>
 </updates>
