@@ -37,7 +37,16 @@ class SermonspeakerRouter extends RouterBase
 
 		// We need a menu item.  Either the one specified in the query, or the current active one if none specified
 		$menu     = $app->getMenu();
-		$menuItem = (empty($query['Itemid'])) ? $menu->getActive() : $menu->getItem($query['Itemid']);
+
+		if (empty($query['Itemid']))
+		{
+			$menuItem        = $menu->getActive();
+			$query['Itemid'] = $menuItem->id;
+		}
+		else
+		{
+			$menuItem = $menu->getItem($query['Itemid']);
+		}
 
 		// Calculate View
 		if (isset($query['view']))
