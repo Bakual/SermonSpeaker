@@ -266,15 +266,30 @@ class SermonspeakerRouter extends RouterBase
 				break;
 			case 'sermon':
 				unset($segments[0]);
-				$vars['view'] = 'sermon';
-				$id           = explode('-', $segments[1]);
-				$vars['id']   = (int) $id[0];
-				unset($segments[1]);
 
-				if (isset($segments[2]))
+				if ($segments[1] === 'download')
 				{
-					$vars['layout'] = $segments[2];
+					$vars['task'] = 'download';
+					$vars['type'] = $segments[2];
+					$id           = explode('-', $segments[3]);
+					$vars['id']   = (int) $id[0];
+
+					unset($segments[1]);
 					unset($segments[2]);
+					unset($segments[3]);
+				}
+				else
+				{
+					$vars['view'] = 'sermon';
+					$id           = explode('-', $segments[1]);
+					$vars['id']   = (int) $id[0];
+					unset($segments[1]);
+
+					if (isset($segments[2]))
+					{
+						$vars['layout'] = $segments[2];
+						unset($segments[2]);
+					}
 				}
 
 				break;
