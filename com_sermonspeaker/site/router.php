@@ -36,7 +36,7 @@ class SermonspeakerRouter extends RouterBase
 		$view     = '';
 
 		// We need a menu item.  Either the one specified in the query, or the current active one if none specified
-		$menu     = $app->getMenu();
+		$menu = $app->getMenu();
 
 		if (empty($query['Itemid']))
 		{
@@ -46,6 +46,12 @@ class SermonspeakerRouter extends RouterBase
 		else
 		{
 			$menuItem = $menu->getItem($query['Itemid']);
+		}
+
+		// If there is a task, remove the view query if present.
+		if (isset($query['task']) && isset($query['view']))
+		{
+			unset($query['view']);
 		}
 
 		// Calculate View
@@ -267,29 +273,15 @@ class SermonspeakerRouter extends RouterBase
 			case 'sermon':
 				unset($segments[0]);
 
-				if ($segments[1] === 'download')
-				{
-					$vars['task'] = 'download';
-					$vars['type'] = $segments[2];
-					$id           = explode('-', $segments[3]);
-					$vars['id']   = (int) $id[0];
+				$vars['view'] = 'sermon';
+				$id           = explode('-', $segments[1]);
+				$vars['id']   = (int) $id[0];
+				unset($segments[1]);
 
-					unset($segments[1]);
+				if (isset($segments[2]))
+				{
+					$vars['layout'] = $segments[2];
 					unset($segments[2]);
-					unset($segments[3]);
-				}
-				else
-				{
-					$vars['view'] = 'sermon';
-					$id           = explode('-', $segments[1]);
-					$vars['id']   = (int) $id[0];
-					unset($segments[1]);
-
-					if (isset($segments[2]))
-					{
-						$vars['layout'] = $segments[2];
-						unset($segments[2]);
-					}
 				}
 
 				break;
