@@ -181,7 +181,7 @@ class JFormFieldScripture extends FormField
 			$modalId,
 			array(
 				'title'      => Text::_('COM_SERMONSPEAKER_NEW_SCRIPTURE'),
-				'url'        => $url,
+				'url'        => $url . '&id=0',
 				'height'     => '400px',
 				'width'      => '100%',
 				'modalWidth' => 50,
