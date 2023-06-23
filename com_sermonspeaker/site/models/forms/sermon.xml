@@ -189,6 +189,7 @@
 			type="text"
 			label="COM_SERMONSPEAKER_FIELD_NUM_LABEL"
 			size="5"
+			default="0"
 		/>
 
 		<field
