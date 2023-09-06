@@ -40,6 +40,7 @@
 			>
 				<option value="ordering">COM_SERMONSPEAKER_PARAM_DEFAULT_ORDER_OPTION_ORDERING</option>
 				<option value="sermon_date">COM_SERMONSPEAKER_PARAM_DEFAULT_ORDER_OPTION_DATE</option>
+				<option value="publish_up">COM_SERMONSPEAKER_PARAM_DEFAULT_ORDER_OPTION_PUBLISHING_DATE</option>
 				<option value="title">COM_SERMONSPEAKER_PARAM_DEFAULT_ORDER_OPTION_TITLE</option>
 			</field>
 
