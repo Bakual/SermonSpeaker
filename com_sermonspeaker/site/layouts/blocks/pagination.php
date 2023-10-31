@@ -27,7 +27,7 @@ extract($displayData);
 				<?php echo $pagination->getPagesCounter(); ?>
 			</p>
 		<?php endif; ?>
-		<div class="com-sermonspeaker-<?php echo $view; ?>__pagination"
+		<div class="com-sermonspeaker-<?php echo $view; ?>__pagination">
 			<?php echo $pagination->getPagesLinks(); ?>
 		</div>
 	</div>
