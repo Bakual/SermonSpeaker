@@ -11,6 +11,7 @@ defined('_JEXEC') or die();
 
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Router\Route;
+use Joomla\CMS\Uri\Uri;
 
 /**
  * @var array                     $list
@@ -46,7 +47,7 @@ $level = 1;
 					$pic = $item->pic;
 
 					if (strpos($pic, 'http://') !== 0) :
-						$pic = JUri::root() . trim($pic, ' /');
+						$pic = Uri::root() . trim($pic, ' /');
 					endif;
 					$tip = '<div class="clearfix"><img src="' . $pic . '" alt="" class="pull-right img-rounded">' . $tip . '</div>';
 				endif;

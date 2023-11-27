@@ -7,9 +7,10 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
-use Joomla\CMS\Factory;
-
 defined('_JEXEC') or die();
+
+use Joomla\CMS\Factory;
+use Joomla\Utilities\ArrayHelper;
 
 /**
  * Helper class for Latest Sermons module
@@ -120,7 +121,7 @@ abstract class ModLatestsermonsHelper
 		if ($idlist = $params->get('idlist', 0))
 		{
 			$id_array = explode(',', $idlist);
-			$id_array = Joomla\Utilities\ArrayHelper::toInteger($id_array);
+			$id_array = ArrayHelper::toInteger($id_array);
 			$query->where('a.id IN (' . implode(',', $id_array) . ')');
 		}
 

@@ -11,13 +11,14 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Plugin\CMSPlugin;
 
 /**
  * SermonSpeaker Quickicons plugin
  *
  * @since  1.0
  */
-class PlgQuickiconSermonspeaker extends JPlugin
+class PlgQuickiconSermonspeaker extends CMSPlugin
 {
 	/**
 	 * Load the language file on instantiation.

@@ -14,6 +14,7 @@ use Joomla\CMS\Filesystem\File;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Router\Route;
+use Joomla\CMS\Uri\Uri;
 use Joomla\Registry\Registry;
 
 JLoader::register('SermonspeakerPluginPlayer', JPATH_SITE . '/components/com_sermonspeaker/plugin/player.php');
@@ -439,7 +440,7 @@ class PlgSermonspeakerJwplayer7 extends SermonspeakerPluginPlayer
 			}
 			else
 			{
-				$entry['file']  = JUri::base(true) . '/media/com_sermonspeaker/media/blank.mp3';
+				$entry['file']  = Uri::base(true) . '/media/com_sermonspeaker/media/blank.mp3';
 				$entry['error'] = Text::_('JGLOBAL_RESOURCE_NOT_FOUND');
 			}
 
@@ -488,7 +489,7 @@ class PlgSermonspeakerJwplayer7 extends SermonspeakerPluginPlayer
 				}
 				else
 				{
-					$file           = JUri::base(true) . '/media/com_sermonspeaker/media/blank.mp3';
+					$file           = Uri::base(true) . '/media/com_sermonspeaker/media/blank.mp3';
 					$entry['error'] = "error:'" . Text::_('JGLOBAL_RESOURCE_NOT_FOUND') . "'";
 				}
 
@@ -502,7 +503,7 @@ class PlgSermonspeakerJwplayer7 extends SermonspeakerPluginPlayer
 				}
 				else
 				{
-					$file           = JUri::base(true) . '/media/com_sermonspeaker/media/blank.mp3';
+					$file           = Uri::base(true) . '/media/com_sermonspeaker/media/blank.mp3';
 					$entry['error'] = "error:'" . Text::_('JGLOBAL_RESOURCE_NOT_FOUND') . "'";
 				}
 

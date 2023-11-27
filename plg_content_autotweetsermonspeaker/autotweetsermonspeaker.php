@@ -7,13 +7,15 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
-use Joomla\CMS\Factory;
-use Joomla\CMS\HTML\HTMLHelper;
-
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\Factory;
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Table\Table;
+
 // Check for component
-if (!JComponentHelper::getComponent('com_autotweet', true)->enabled)
+if (!ComponentHelper::getComponent('com_autotweet', true)->enabled)
 {
 	JError::raiseWarning('5', 'AutoTweet NG Component is not installed or not enabled. - ' . __FILE__);
 
@@ -143,7 +145,7 @@ class PlgContentAutotweetSermonspeaker extends plgAutotweetBase
 		if ((($context == 'com_sermonspeaker.sermon') || ($context == 'com_sermonspeaker.frontendupload'))
 			&& ($value == 1))
 		{
-			$item = JTable::getInstance('Sermon', 'SermonspeakerTable');
+			$item = Table::getInstance('Sermon', 'SermonspeakerTable');
 
 			foreach ($pks as $id)
 			{
