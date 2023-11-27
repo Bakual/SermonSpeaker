@@ -1,4 +1,7 @@
 <?php
+
+use Joomla\CMS\MVC\Model\BaseDatabaseModel;
+
 defined('_JEXEC') or die;
 
 /**
@@ -6,7 +9,7 @@ defined('_JEXEC') or die;
  *
  * @since ?
  */
-class SermonspeakerModelStatistics extends JModelLegacy
+class SermonspeakerModelStatistics extends BaseDatabaseModel
 {
 	/**
 	 * @return \object[]

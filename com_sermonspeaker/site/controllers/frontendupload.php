@@ -9,19 +9,23 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Application\ApplicationHelper;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
-use Joomla\CMS\Filesystem\File;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
-use Joomla\CMS\Router\Route;
+use Joomla\CMS\MVC\Controller\FormController;
+use Joomla\CMS\MVC\Model\BaseDatabaseModel;
+use Joomla\CMS\Uri\Uri;
+use Joomla\Filesystem\File;
+use Joomla\Utilities\ArrayHelper;
 
 /**
  * Controller class for the SermonSpeaker Component
  *
  * @since  3.4
  */
-class SermonspeakerControllerFrontendupload extends JControllerForm
+class SermonspeakerControllerFrontendupload extends FormController
 {
 	protected $view_item = 'frontendupload';
 
@@ -58,8 +62,8 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 	 */
 	protected function allowAdd($data = array())
 	{
-		$user       = Factory::getUser();
-		$categoryId = Joomla\Utilities\ArrayHelper::getValue($data, 'catid', Factory::getApplication()->input->get('filter_category_id'), 'int');
+		$user       = Factory::getApplication()->getIdentity();
+		$categoryId = ArrayHelper::getValue($data, 'catid', Factory::getApplication()->input->get('filter_category_id'), 'int');
 		$allow      = null;
 
 		if ($categoryId)
@@ -222,9 +226,9 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 	{
 		$return = Factory::getApplication()->input->get('return', '', 'base64');
 
-		if (empty($return) || !JUri::isInternal(base64_decode($return)))
+		if (empty($return) || !Uri::isInternal(base64_decode($return)))
 		{
-			return JUri::base();
+			return Uri::base();
 		}
 		else
 		{
@@ -235,12 +239,12 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 	/**
 	 * Function that allows child controller access to model data after the data has been saved.
 	 *
-	 * @param \JModel|\JModelLegacy $model     The data model object.
-	 * @param   array               $validData The validated data.
+	 * @param   BaseDatabaseModel  $model      The data model object.
+	 * @param   array              $validData  The validated data.
 	 *
 	 * @since ?
 	 */
-	protected function postSaveHook(JModelLegacy $model, $validData = array())
+	protected function postSaveHook(BaseDatabaseModel $model, $validData = array())
 	{
 		$task = $this->getTask();
 
@@ -265,7 +269,7 @@ class SermonspeakerControllerFrontendupload extends JControllerForm
 					$filename = substr($filename, 0, $pos);
 				}
 
-				if ($filename != JApplicationHelper::stringURLSafe($filename))
+				if ($filename != ApplicationHelper::stringURLSafe($filename))
 				{
 					$text = Text::_('COM_SERMONSPEAKER_FILENAME_NOT_IDEAL') . ': ' . $validData[$file];
 					$app->enqueueMessage($text, 'warning');

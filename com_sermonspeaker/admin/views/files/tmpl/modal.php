@@ -3,8 +3,10 @@
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\Filter\OutputFilter;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Session\Session;
 use Joomla\CMS\Uri\Uri;
 
 HTMLHelper::addIncludePath(JPATH_COMPONENT . '/helpers/html');
@@ -12,7 +14,7 @@ HTMLHelper::_('bootstrap.tooltip', '.hasTooltip');
 
 $session = Factory::getApplication()->getSession();
 ?>
-<form action="<?php echo JFilterOutput::ampReplace(Uri::getInstance()->toString()); ?>" method="post" id="adminForm"
+<form action="<?php echo OutputFilter::ampReplace(Uri::getInstance()->toString()); ?>" method="post" id="adminForm"
 	  name="adminForm">
 	<div id="j-main-container">
 		<div id="filter-bar" class="btn-toolbar">
@@ -47,7 +49,7 @@ $session = Factory::getApplication()->getSession();
 					</td>
 					<td class="text-center">
 						<?php if (strpos($item['file'], 'http') !== 0) : ?>
-							<a href="index.php?option=com_sermonspeaker&task=tools.delete&file=<?php echo $item['file'] . '&' . $session->getName() . '=' . $session->getId() . '&' . JSession::getFormToken(); ?>=1"
+							<a href="index.php?option=com_sermonspeaker&task=tools.delete&file=<?php echo $item['file'] . '&' . $session->getName() . '=' . $session->getId() . '&' . Session::getFormToken(); ?>=1"
 							   target="_parent">
 								<span class="fas fa-trash fa-lg text-danger hasTooltip"
 									  title="<?php echo Text::_('COM_SERMONSPEAKER_DELETE_FILE'); ?>"></span>

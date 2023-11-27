@@ -1,8 +1,17 @@
 <?php
-// No direct access
-use Joomla\CMS\Factory;
+/**
+ * @package     SermonSpeaker
+ * @subpackage  Component.Administrator
+ * @author      Thomas Hunziker <admin@sermonspeaker.net>
+ * @copyright   © 2022 - Thomas Hunziker
+ * @license     http://www.gnu.org/licenses/gpl.html
+ **/
 
+// No direct access
 defined('_JEXEC') or die;
+
+use Joomla\CMS\Factory;
+use Joomla\CMS\MVC\View\HtmlView;
 
 /**
  * View to close a modal.
@@ -11,7 +20,7 @@ defined('_JEXEC') or die;
  *
  * @since          ?
  */
-class SermonspeakerViewClose extends JViewLegacy
+class SermonspeakerViewClose extends HtmlView
 {
 	/**
 	 * Display the view

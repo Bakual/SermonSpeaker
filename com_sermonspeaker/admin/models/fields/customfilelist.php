@@ -15,22 +15,19 @@ use Joomla\CMS\Application\ApplicationHelper;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Filesystem\File;
+use Joomla\CMS\Form\Field\FilelistField;
 use Joomla\CMS\Form\FormHelper;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Session\Session;
 use Joomla\CMS\Uri\Uri;
-
-jimport('joomla.html.html');
-jimport('joomla.form.formfield');
-jimport('joomla.form.helper');
-FormHelper::loadFieldClass('filelist');
 
 /**
  * Creates the filelist dropdown for sermon file select
  *
  * @since ?
  */
-class JFormFieldCustomFileList extends JFormFieldFileList
+class JFormFieldCustomFileList extends FilelistField
 {
 	/**
 	 * The form field type.
@@ -207,7 +204,7 @@ class JFormFieldCustomFileList extends JFormFieldFileList
 		}
 
 		$uploadURL = Uri::base() . 'index.php?option=com_sermonspeaker&task=file.upload&'
-			. JSession::getFormToken() . '=1&format=json';
+			. Session::getFormToken() . '=1&format=json';
 
 		$plupload_script = '
 			jQuery(document).ready(function() {

@@ -11,13 +11,14 @@ defined('_JEXEC') or die();
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\MVC\Model\ItemModel;
 
 /**
  * Model class for the SermonSpeaker Component
  *
  * @since  3.4
  */
-class SermonspeakerModelSpeaker extends JModelItem
+class SermonspeakerModelSpeaker extends ItemModel
 {
 	protected $_context = 'com_sermonspeaker.speaker';
 
@@ -45,7 +46,7 @@ class SermonspeakerModelSpeaker extends JModelItem
 
 		if (!isset($this->_item[$id]))
 		{
-			$db    = $this->getDbo();
+			$db    = $this->getDatabase();
 			$query = $db->getQuery(true);
 
 			$query->select(

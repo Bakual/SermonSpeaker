@@ -7,16 +7,17 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
-use Joomla\CMS\Factory;
-
 defined('_JEXEC') or die();
+
+use Joomla\CMS\Factory;
+use Joomla\CMS\MVC\View\HtmlView;
 
 /**
  * View to close a modal
  *
  * @since  5
  */
-class SermonspeakerViewClose extends JViewLegacy
+class SermonspeakerViewClose extends HtmlView
 {
 	/**
 	 * Execute and display a template script.

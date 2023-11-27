@@ -16,7 +16,7 @@ use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
 
-HTMLHelper::addIncludePath(JPATH_COMPONENT . '/helpers');
+HTMLHelper::addIncludePath(JPATH_BASE . '/components/com_sermonspeaker/helpers');
 
 $player = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 ?>

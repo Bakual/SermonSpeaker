@@ -13,6 +13,7 @@ use Joomla\CMS\Categories\Categories;
 use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Model\ListModel;
 use Joomla\Database\DatabaseQuery;
+use Joomla\Utilities\ArrayHelper;
 
 /**
  * Model class for the SermonSpeaker Component
@@ -117,7 +118,7 @@ class SermonspeakerModelSermons extends Listmodel
 			12 => 'DECEMBER',
 		);
 
-		$db    = $this->getDbo();
+		$db    = $this->getDatabase();
 		$query = $db->getQuery(true);
 		$query->select('DISTINCT MONTH(`sermon_date`) AS `value`');
 		$query->from('`#__sermon_sermons`');
@@ -153,7 +154,7 @@ class SermonspeakerModelSermons extends Listmodel
 	 */
 	public function getYears()
 	{
-		$db    = $this->getDbo();
+		$db    = $this->getDatabase();
 		$query = $db->getQuery(true);
 		$query->select('DISTINCT YEAR(`sermon_date`) AS `year`');
 		$query->from('`#__sermon_sermons`');
@@ -183,7 +184,7 @@ class SermonspeakerModelSermons extends Listmodel
 	 */
 	public function getBooks()
 	{
-		$db    = $this->getDbo();
+		$db    = $this->getDatabase();
 		$query = $db->getQuery(true);
 		$query->select('DISTINCT `book`');
 		$query->from('`#__sermon_scriptures`');
@@ -214,7 +215,7 @@ class SermonspeakerModelSermons extends Listmodel
 	 */
 	public function getTags()
 	{
-		$db    = $this->getDbo();
+		$db    = $this->getDatabase();
 		$query = $db->getQuery(true);
 		$query->select('COUNT(1)');
 		$query->from('`#__contentitem_tag_map`');
@@ -359,7 +360,7 @@ class SermonspeakerModelSermons extends Listmodel
 
 			if ($params->get('orderby_pri') == 'alpha' || $params->get('orderby_pri') == 'ralpha')
 			{
-				$this->children = Joomla\Utilities\ArrayHelper::sortObjects($this->children, 'title', ($params->get('orderby_pri') == 'alpha') ? 1 : -1);
+				$this->children = ArrayHelper::sortObjects($this->children, 'title', ($params->get('orderby_pri') == 'alpha') ? 1 : -1);
 			}
 		}
 
@@ -379,7 +380,7 @@ class SermonspeakerModelSermons extends Listmodel
 		$groups = implode(',', $user->getAuthorisedViewLevels());
 
 		// Create a new query object
-		$db    = $this->getDbo();
+		$db    = $this->getDatabase();
 		$query = $db->getQuery(true);
 
 		// Select required fields from the table

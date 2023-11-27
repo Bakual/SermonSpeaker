@@ -11,7 +11,9 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\MVC\Controller\AdminController;
 use Joomla\CMS\Router\Route;
+use Joomla\CMS\Session\Session;
 use Joomla\Utilities\ArrayHelper;
 
 /**
@@ -21,7 +23,7 @@ use Joomla\Utilities\ArrayHelper;
  *
  * @since          3.4
  */
-class SermonspeakerControllerSermons extends JControllerAdmin
+class SermonspeakerControllerSermons extends AdminController
 {
 	/**
 	 * SermonspeakerControllerSermons constructor.
@@ -48,7 +50,7 @@ class SermonspeakerControllerSermons extends JControllerAdmin
 	function podcast_publish()
 	{
 		// Check for request forgeries
-		JSession::checkToken() or die(Text::_('JINVALID_TOKEN'));
+		Session::checkToken() or die(Text::_('JINVALID_TOKEN'));
 
 		// Get items to podcast from the request.
 		$cid   = Factory::getApplication()->input->get('cid', array(), 'array');

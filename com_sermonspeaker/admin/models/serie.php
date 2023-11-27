@@ -61,7 +61,7 @@ class SermonspeakerModelSerie extends AdminModel
 	 * @param   array    $data      An optional array of data for the form to interogate.
 	 * @param   boolean  $loadData  True if the form is to load its own data (default case), false if not.
 	 *
-	 * @return    bool|Form    A JForm object on success, false on failure
+	 * @return    bool|Form    A Form object on success, false on failure
 	 * @since    1.6
 	 */
 	public function getForm($data = array(), $loadData = true)
@@ -409,7 +409,7 @@ class SermonspeakerModelSerie extends AdminModel
 			// Set ordering to the last item if not set
 			if (empty($table->ordering))
 			{
-				$db = Factory::getDbo();
+				$db = $this->getDatabase();
 				$db->setQuery('SELECT MAX(ordering) FROM #__sermon_series');
 				$max = $db->loadResult();
 
@@ -437,13 +437,13 @@ class SermonspeakerModelSerie extends AdminModel
 	 *
 	 * Note. Calling getState in this method will result in recursion.
 	 *
-	 * @param   JForm   $form
+	 * @param   Form    $form
 	 * @param   mixed   $data
 	 * @param   string  $group
 	 *
 	 * @since    3.0
 	 */
-	protected function preprocessForm(JForm $form, $data, $group = 'sermonspeaker')
+	protected function preprocessForm(Form $form, $data, $group = 'sermonspeaker')
 	{
 		// Association items
 		if (Associations::isEnabled())

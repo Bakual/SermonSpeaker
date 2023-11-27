@@ -89,7 +89,7 @@
 			label="COM_SERMONSPEAKER_FIELD_NOTES_LABEL"
 			buttons="true"
 			hide="pagebreak,readmore"
-			filter="JComponentHelper::filterText"
+			filter="ComponentHelper::filterText"
 		/>
 
 		<field

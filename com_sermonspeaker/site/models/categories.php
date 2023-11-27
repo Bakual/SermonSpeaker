@@ -7,17 +7,19 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
-use Joomla\CMS\Factory;
-use Joomla\Registry\Registry;
-
 defined('_JEXEC') or die();
+
+use Joomla\CMS\Categories\Categories;
+use Joomla\CMS\Factory;
+use Joomla\CMS\MVC\Model\BaseDatabaseModel;
+use Joomla\Registry\Registry;
 
 /**
  * Model class for the SermonSpeaker Component
  *
  * @since  3.4
  */
-class SermonspeakerModelCategories extends JModelLegacy
+class SermonspeakerModelCategories extends BaseDatabaseModel
 {
 	/**
 	 * Model context string.
@@ -87,7 +89,7 @@ class SermonspeakerModelCategories extends JModelLegacy
 			$options               = array();
 			$options['table']      = '#__sermon_sermons';
 			$options['countItems'] = $params->get('show_cat_num_items_cat', 1) || !$params->get('show_empty_categories_cat', 0);
-			$categories            = JCategories::getInstance('sermonspeaker.sermons', $options);
+			$categories            = Categories::getInstance('sermonspeaker.sermons', $options);
 			$this->_parent         = $categories->get($this->getState('filter.parentId', 'root'));
 
 			if (is_object($this->_parent))

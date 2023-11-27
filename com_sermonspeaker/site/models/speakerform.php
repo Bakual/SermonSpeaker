@@ -14,7 +14,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Associations;
 use Joomla\CMS\Uri\Uri;
 
-require_once JPATH_COMPONENT_ADMINISTRATOR . '/models/speaker.php';
+require_once JPATH_ADMINISTRATOR . '/components/com_sermonspeaker/models/speaker.php';
 
 /**
  * Model class for the SermonSpeaker Component

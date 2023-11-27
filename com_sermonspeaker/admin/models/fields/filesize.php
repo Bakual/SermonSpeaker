@@ -7,10 +7,9 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
-defined('_JEXEC') or die();
+use Joomla\CMS\Form\Field\TextField;
 
-jimport('joomla.form.formfield');
-JFormHelper::loadFieldClass('text');
+defined('_JEXEC') or die();
 
 /**
  * Filesize Field class for the SermonSpeaker
@@ -18,7 +17,7 @@ JFormHelper::loadFieldClass('text');
  * @package        SermonSpeaker
  * @since          4.0
  */
-class JFormFieldFilesize extends JFormFieldText
+class JFormFieldFilesize extends TextField
 {
 	/**
 	 * The form field type.

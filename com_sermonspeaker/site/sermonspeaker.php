@@ -7,9 +7,11 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
-use Joomla\CMS\Factory;
-
 defined('_JEXEC') or die();
+
+use Joomla\CMS\Factory;
+use Joomla\CMS\MVC\Controller\BaseController;
+use Joomla\CMS\Uri\Uri;
 
 $jinput = Factory::getApplication()->input;
 
@@ -17,26 +19,22 @@ $jinput = Factory::getApplication()->input;
 if ($jinput->get('task') == 'podcast')
 {
 	header('HTTP/1.1 301 Moved Permanently');
-	header('Location: ' . JUri::root() . 'index.php?option=com_sermonspeaker&view=feed&format=raw');
+	header('Location: ' . Uri::root() . 'index.php?option=com_sermonspeaker&view=feed&format=raw');
 
 	return;
 }
 
-// Joomla doesn't autoload JFile and JFolder
-JLoader::register('JFile', JPATH_LIBRARIES . '/joomla/filesystem/file.php');
-JLoader::register('JFolder', JPATH_LIBRARIES . '/joomla/filesystem/folder.php');
-
 // Register Helperclasses for autoloading
-JLoader::discover('SermonspeakerHelper', JPATH_COMPONENT . '/helpers');
+JLoader::discover('SermonspeakerHelper', JPATH_BASE . '/components/com_sermonspeaker/helpers');
 
 // Load Composer Autoloader
-require_once(JPATH_COMPONENT_ADMINISTRATOR . '/vendor/autoload.php');
+require_once(JPATH_ADMINISTRATOR . '/components/com_sermonspeaker/vendor/autoload.php');
 
 // Load languages and merge with fallbacks
-$jlang = Factory::getLanguage();
-$jlang->load('com_sermonspeaker', JPATH_COMPONENT, 'en-GB', true);
-$jlang->load('com_sermonspeaker', JPATH_COMPONENT, null, true);
+$jlang = Factory::getApplication()->getLanguage();
+$jlang->load('com_sermonspeaker', JPATH_BASE . '/components/com_sermonspeaker', 'en-GB', true);
+$jlang->load('com_sermonspeaker', JPATH_BASE . '/components/com_sermonspeaker', null, true);
 
-$controller = JControllerLegacy::getInstance('Sermonspeaker');
+$controller = BaseController::getInstance('Sermonspeaker');
 $controller->execute($jinput->get('task'));
 $controller->redirect();

@@ -7,12 +7,10 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
-defined('_JEXEC') or die();
+use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\Form\Field\ListField;
 
-jimport('joomla.html.html');
-jimport('joomla.form.formfield');
-jimport('joomla.form.helper');
-JFormHelper::loadFieldClass('list');
+defined('_JEXEC') or die();
 
 /**
  * Fullorderingsermons field class for SermonSpeaker.
@@ -21,7 +19,7 @@ JFormHelper::loadFieldClass('list');
  * @package  SermonSpeaker
  * @since    5.3
  */
-class JFormFieldFullorderingsermons extends JFormFieldList
+class JFormFieldFullorderingsermons extends ListField
 {
 	/**
 	 * The form field type.
@@ -32,7 +30,7 @@ class JFormFieldFullorderingsermons extends JFormFieldList
 	protected $type = 'Fullorderingsermons';
 
 	/**
-	 * Method to attach a JForm object to the field.
+	 * Method to attach a Form object to the field.
 	 *
 	 * @param   SimpleXMLElement  $element  The SimpleXMLElement object representing the <field /> tag for the form
 	 *                                      field object.
@@ -50,7 +48,7 @@ class JFormFieldFullorderingsermons extends JFormFieldList
 		// Set the default value from params.
 		if (!$value)
 		{
-			$params   = JComponentHelper::getParams('com_sermonspeaker');
+			$params   = ComponentHelper::getParams('com_sermonspeaker');
 			$order    = $params->get('default_order', 'ordering');
 			$orderDir = $params->get('default_order_dir', 'asc');
 			$value    = 'sermons.' . $order . ' ' . $orderDir;

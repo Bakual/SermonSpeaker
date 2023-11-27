@@ -14,8 +14,9 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
+use Joomla\CMS\Uri\Uri;
 
-HTMLHelper::addIncludePath(JPATH_COMPONENT . '/helpers');
+HTMLHelper::addIncludePath(JPATH_BASE . '/components/com_sermonspeaker/helpers');
 
 $user       = Factory::getUser();
 $showState  = $user->authorise('core.edit', 'com_sermonspeaker');
@@ -29,7 +30,7 @@ $listDirn   = $this->state->get('list.direction');
 	<?php echo LayoutHelper::render('blocks.header', array('category' => $this->category, 'params' => $this->params)); ?>
 
 	<div class="com-sermonspeaker-series-blog__items blog-items">
-		<form action="<?php echo htmlspecialchars(JUri::getInstance()->toString()); ?>" method="post" id="adminForm"
+		<form action="<?php echo htmlspecialchars(Uri::getInstance()->toString()); ?>" method="post" id="adminForm"
 			  name="adminForm" class="com-sermonspeaker-series__series">
 			<?php echo $this->loadTemplate('filters'); ?>
 			<?php echo $this->loadTemplate('order'); ?>

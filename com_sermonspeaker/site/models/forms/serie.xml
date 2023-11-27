@@ -56,7 +56,7 @@
 			label="JGLOBAL_DESCRIPTION"
 			hiddenLabel="true"
 			buttons="true"
-			filter="JComponentHelper::filterText"
+			filter="ComponentHelper::filterText"
 			hide="pagebreak,readmore"
 		/>
 

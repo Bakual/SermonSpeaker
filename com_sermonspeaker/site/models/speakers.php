@@ -12,6 +12,7 @@ defined('_JEXEC') or die();
 use Joomla\CMS\Categories\Categories;
 use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Model\ListModel;
+use Joomla\Utilities\ArrayHelper;
 
 /**
  * Model class for the SermonSpeaker Component
@@ -93,7 +94,7 @@ class SermonspeakerModelspeakers extends ListModel
 	 */
 	public function getTags()
 	{
-		$db    = $this->getDbo();
+		$db    = $this->getDatabase();
 		$query = $db->getQuery(true);
 		$query->select('COUNT(1)');
 		$query->from('`#__contentitem_tag_map`');
@@ -240,7 +241,7 @@ class SermonspeakerModelspeakers extends ListModel
 
 			if ($params->get('orderby_pri') == 'alpha' || $params->get('orderby_pri') == 'ralpha')
 			{
-				$this->children = Joomla\Utilities\ArrayHelper::sortObjects($this->children, 'title', ($params->get('orderby_pri') == 'alpha') ? 1 : -1);
+				$this->children = ArrayHelper::sortObjects($this->children, 'title', ($params->get('orderby_pri') == 'alpha') ? 1 : -1);
 			}
 		}
 
@@ -260,7 +261,7 @@ class SermonspeakerModelspeakers extends ListModel
 		$groups = implode(',', $user->getAuthorisedViewLevels());
 
 		// Create a new query object.
-		$db    = $this->getDbo();
+		$db    = $this->getDatabase();
 		$query = $db->getQuery(true);
 
 		// Select required fields from the table.

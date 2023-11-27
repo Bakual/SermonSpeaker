@@ -9,12 +9,15 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\MVC\Controller\BaseController;
+use Joomla\CMS\Uri\Uri;
+
 /**
  * Controller class for the SermonSpeaker Component
  *
  * @since  3.4
  */
-class SermonspeakerControllerScript extends JControllerLegacy
+class SermonspeakerControllerScript extends BaseController
 {
 	/**
 	 * Creates sermons automatically
@@ -25,10 +28,10 @@ class SermonspeakerControllerScript extends JControllerLegacy
 	 */
 	public function createAutomatic()
 	{
-		$this->addModelPath(JPATH_COMPONENT_ADMINISTRATOR . '/models');
-		require_once JPATH_COMPONENT_ADMINISTRATOR . '/controllers/tools.php';
+		$this->addModelPath(JPATH_ADMINISTRATOR . '/components/com_sermonspeaker/models');
+		require_once JPATH_ADMINISTRATOR . '/components/com_sermonspeaker/controllers/tools.php';
 		$admin_controller = new SermonspeakerControllerTools;
 		$admin_controller->createAutomatic();
-		$this->setRedirect(JUri::root());
+		$this->setRedirect(Uri::root());
 	}
 }

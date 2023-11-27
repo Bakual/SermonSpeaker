@@ -11,13 +11,14 @@ defined('_JEXEC') or die();
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\MVC\View\HtmlView;
 
 /**
  * HTML View class for the SermonSpeaker Component
  *
  * @since  4.4
  */
-class SermonspeakerViewSpeakerform extends JViewLegacy
+class SermonspeakerViewSpeakerform extends HtmlView
 {
 	protected $form;
 
@@ -105,34 +106,21 @@ class SermonspeakerViewSpeakerform extends JViewLegacy
 
 		$title = $this->params->get('page_title', '');
 
-		if (empty($title))
-		{
-			$title = $app->get('sitename');
-		}
-		elseif ($app->get('sitename_pagetitles', 0) == 1)
-		{
-			$title = Text::sprintf('JPAGETITLE', $app->get('sitename'), $title);
-		}
-		elseif ($app->get('sitename_pagetitles', 0) == 2)
-		{
-			$title = Text::sprintf('JPAGETITLE', $title, $app->get('sitename'));
-		}
-
-		$this->document->setTitle($title);
+		$this->setDocumentTitle($title);
 
 		if ($this->params->get('menu-meta_description'))
 		{
-			$this->document->setDescription($this->params->get('menu-meta_description'));
+			$this->getDocument()->setDescription($this->params->get('menu-meta_description'));
 		}
 
 		if ($this->params->get('menu-meta_keywords'))
 		{
-			$this->document->setMetaData('keywords', $this->params->get('menu-meta_keywords'));
+			$this->getDocument()->setMetaData('keywords', $this->params->get('menu-meta_keywords'));
 		}
 
 		if ($this->params->get('robots'))
 		{
-			$this->document->setMetaData('robots', $this->params->get('robots'));
+			$this->getDocument()->setMetaData('robots', $this->params->get('robots'));
 		}
 	}
 }

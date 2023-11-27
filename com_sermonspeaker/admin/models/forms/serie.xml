@@ -51,7 +51,7 @@
 			label="JGLOBAL_DESCRIPTION"
 			buttons="true"
 			hide="pagebreak,readmore"
-			filter="JComponentHelper::filterText"/>
+			filter="ComponentHelper::filterText"/>
 
 		<field
 			name="language"

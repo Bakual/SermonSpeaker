@@ -16,7 +16,7 @@ use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
 
-HTMLHelper::addIncludePath(JPATH_COMPONENT . '/helpers');
+HTMLHelper::addIncludePath(JPATH_BASE . '/components/com_sermonspeaker/helpers');
 
 HTMLHelper::_('bootstrap.tooltip', '.hasTooltip');
 HTMLHelper::_('bootstrap.tab');
@@ -31,7 +31,7 @@ $listOrderSeries  = $this->state_series->get('list.ordering');
 $listDirnSeries   = $this->state_series->get('list.direction');
 $limit            = (int) $this->params->get('limit', '');
 $player           = SermonspeakerHelperSermonspeaker::getPlayer($this->sermons);
-$this->document->addScriptDeclaration('Joomla.tableOrdering = function(order, dir, task, form) {
+$this->getDocument()->addScriptDeclaration('Joomla.tableOrdering = function(order, dir, task, form) {
 		if (typeof(form) === "undefined") {
 			if (task == "series") {
 				form = document.getElementById("adminFormSeries");
@@ -47,7 +47,7 @@ $this->document->addScriptDeclaration('Joomla.tableOrdering = function(order, di
 	}');
 
 // Determine active tab
-$this->document->addScriptDeclaration("window.onload = function() {
+$this->getDocument()->addScriptDeclaration("window.onload = function() {
 		let tab = 'tabber_sermons';
 		if (location.hash == '#series') {
 			tab = 'tabber_series';
@@ -281,7 +281,7 @@ $this->document->addScriptDeclaration("window.onload = function() {
 			</div>
 		</div>
 		<div class="tab-pane" id="tab_series">
-			<form action="<?php echo htmlspecialchars(JUri::getInstance()->toString() . '#series'); ?>" method="post"
+			<form action="<?php echo htmlspecialchars(Uri::getInstance()->toString() . '#series'); ?>" method="post"
 				  id="adminFormSeries" name="adminFormSeries">
 				<?php
 				if ($this->params->get('filter_field') or $this->params->get('show_pagination_limit')) : ?>

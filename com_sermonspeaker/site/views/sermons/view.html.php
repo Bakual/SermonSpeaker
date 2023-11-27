@@ -12,6 +12,7 @@ defined('_JEXEC') or die();
 use Joomla\CMS\Factory;
 use Joomla\CMS\Helper\TagsHelper;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\MVC\View\HtmlView;
 use Joomla\CMS\Router\Route;
 
 /**
@@ -19,7 +20,7 @@ use Joomla\CMS\Router\Route;
  *
  * @since  3.4
  */
-class SermonspeakerViewSermons extends JViewLegacy
+class SermonspeakerViewSermons extends HtmlView
 {
 	/**
 	 * Execute and display a template script.
@@ -176,7 +177,7 @@ class SermonspeakerViewSermons extends JViewLegacy
 
 		$this->books = $groups;
 
-		$this->pageclass_sfx = htmlspecialchars($this->params->get('pageclass_sfx'));
+		$this->pageclass_sfx = htmlspecialchars($this->params->get('pageclass_sfx', ''));
 		$this->maxLevel      = $this->params->get('maxLevel', -1) < 0 ? PHP_INT_MAX : $this->params->get('maxLevel', PHP_INT_MAX);
 		$this->_prepareDocument();
 
@@ -209,41 +210,28 @@ class SermonspeakerViewSermons extends JViewLegacy
 
 		$title = $this->params->get('page_title', '');
 
-		if (empty($title))
-		{
-			$title = $app->get('sitename');
-		}
-		elseif ($app->get('sitename_pagetitles', 0) == 1)
-		{
-			$title = Text::sprintf('JPAGETITLE', $app->get('sitename'), $title);
-		}
-		elseif ($app->get('sitename_pagetitles', 0) == 2)
-		{
-			$title = Text::sprintf('JPAGETITLE', $title, $app->get('sitename'));
-		}
-
-		$this->document->setTitle($title);
+		$this->setDocumentTitle($title);
 
 		if ($this->params->get('menu-meta_description'))
 		{
-			$this->document->setDescription($this->params->get('menu-meta_description'));
+			$this->getDocument()->setDescription($this->params->get('menu-meta_description'));
 		}
 
 		if ($this->params->get('menu-meta_keywords'))
 		{
-			$this->document->setMetaData('keywords', $this->params->get('menu-meta_keywords'));
+			$this->getDocument()->setMetaData('keywords', $this->params->get('menu-meta_keywords'));
 		}
 
 		if ($this->params->get('robots'))
 		{
-			$this->document->setMetaData('robots', $this->params->get('robots'));
+			$this->getDocument()->setMetaData('robots', $this->params->get('robots'));
 		}
 
 		// Add feed links
 		if ($this->params->get('show_feed_link', 1))
 		{
 			$attribs = array('type' => 'application/rss+xml', 'title' => 'RSS 2.0');
-			$this->document->addHeadLink(Route::_('&view=feed&format=raw&catid=' . $this->category->id), 'alternate', 'rel', $attribs);
+			$this->getDocument()->addHeadLink(Route::_('&view=feed&format=raw&catid=' . $this->category->id), 'alternate', 'rel', $attribs);
 		}
 	}
 }

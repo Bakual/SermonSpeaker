@@ -7,17 +7,21 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
-use Joomla\CMS\Factory;
-use Joomla\CMS\Router\Route;
-
 defined('_JEXEC') or die();
+
+use Joomla\CMS\Factory;
+use Joomla\CMS\MVC\Controller\FormController;
+use Joomla\CMS\MVC\Model\BaseDatabaseModel;
+use Joomla\CMS\Router\Route;
+use Joomla\CMS\Uri\Uri;
+use Joomla\Utilities\ArrayHelper;
 
 /**
  * Controller class for the SermonSpeaker Component
  *
  * @since  3.4
  */
-class SermonspeakerControllerSpeakerform extends JControllerForm
+class SermonspeakerControllerSpeakerform extends FormController
 {
 	protected $view_item = 'speakerform';
 
@@ -56,8 +60,8 @@ class SermonspeakerControllerSpeakerform extends JControllerForm
 	 */
 	protected function allowAdd($data = array())
 	{
-		$user       = Factory::getUser();
-		$categoryId = Joomla\Utilities\ArrayHelper::getValue($data, 'catid', $this->input->get('filter_category_id'), 'int');
+		$user       = Factory::getApplication()->getIdentity();
+		$categoryId = ArrayHelper::getValue($data, 'catid', $this->input->get('filter_category_id'), 'int');
 		$allow      = null;
 
 		if ($categoryId)
@@ -224,7 +228,7 @@ class SermonspeakerControllerSpeakerform extends JControllerForm
 	{
 		$return = $this->input->get('return', '', 'base64');
 
-		if (empty($return) || !JUri::isInternal(base64_decode($return)))
+		if (empty($return) || !Uri::isInternal(base64_decode($return)))
 		{
 			return false;
 		}
@@ -237,12 +241,12 @@ class SermonspeakerControllerSpeakerform extends JControllerForm
 	/**
 	 * Function that allows child controller access to model data after the data has been saved
 	 *
-	 * @param \JModel|\JModelLegacy $model     The data model object
-	 * @param   array               $validData The validated data
+	 * @param   BaseDatabaseModel  $model      The data model object
+	 * @param   array              $validData  The validated data
 	 *
 	 * @since ?
 	 */
-	protected function postSaveHook(JModelLegacy $model, $validData = array())
+	protected function postSaveHook(BaseDatabaseModel $model, $validData = array())
 	{
 		$task = $this->getTask();
 

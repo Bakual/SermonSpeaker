@@ -10,9 +10,12 @@
 defined('_JEXEC') or die();
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\Form\FormField;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\LanguageHelper;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Session\Session;
+use Joomla\CMS\Uri\Uri;
 use Joomla\Database\ParameterType;
 
 /**
@@ -20,7 +23,7 @@ use Joomla\Database\ParameterType;
  *
  * @since ?
  */
-class JFormFieldModal_Sermon extends JFormField
+class JFormFieldModal_Sermon extends FormField
 {
 	/**
 	 * The form field type.
@@ -89,8 +92,8 @@ class JFormFieldModal_Sermon extends JFormField
 		}
 
 		// Setup variables for display.
-		$linkSermons = JURI::base() . 'index.php?option=com_sermonspeaker&amp;view=sermons&amp;layout=modal&amp;tmpl=component&amp;' . JSession::getFormToken() . '=1';
-		$linkSermon  = JURI::base() . 'index.php?option=com_sermonspeaker&amp;view=sermon&amp;layout=modal&amp;tmpl=component&amp;' . JSession::getFormToken() . '=1';
+		$linkSermons = URI::base() . 'index.php?option=com_sermonspeaker&amp;view=sermons&amp;layout=modal&amp;tmpl=component&amp;' . Session::getFormToken() . '=1';
+		$linkSermon  = URI::base() . 'index.php?option=com_sermonspeaker&amp;view=sermon&amp;layout=modal&amp;tmpl=component&amp;' . Session::getFormToken() . '=1';
 
 		if (isset($this->element['language']))
 		{
@@ -109,7 +112,7 @@ class JFormFieldModal_Sermon extends JFormField
 
 		if ($value)
 		{
-			$db    = Factory::getDbo();
+			$db    = $this->getDatabase();
 			$query = $db->getQuery(true)
 				->select($db->quoteName('title'))
 				->from($db->quoteName('#__sermon_sermons'))

@@ -10,7 +10,9 @@
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Application\ApplicationHelper;
+use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
+use Joomla\CMS\Form\Form;
 use Joomla\CMS\Helper\TagsHelper;
 use Joomla\CMS\Language\Associations;
 use Joomla\CMS\Language\LanguageHelper;
@@ -18,6 +20,7 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Model\AdminModel;
 use Joomla\CMS\Table\Table;
 use Joomla\CMS\Versioning\VersionableModelTrait;
+use Joomla\Filesystem\File;
 use Joomla\Utilities\ArrayHelper;
 
 /**
@@ -100,7 +103,7 @@ class SermonspeakerModelSermon extends AdminModel
 				// Only delete file if it's not used in another sermon.
 				if ($db->loadResult() == 1)
 				{
-					JFile::delete(JPATH_ROOT . $table->audiofile);
+					File::delete(JPATH_ROOT . $table->audiofile);
 				}
 			}
 
@@ -118,7 +121,7 @@ class SermonspeakerModelSermon extends AdminModel
 				// Only delete file if it's not used in another sermon.
 				if ($db->loadResult() == 1)
 				{
-					JFile::delete(JPATH_ROOT . $table->videofile);
+					File::delete(JPATH_ROOT . $table->videofile);
 				}
 			}
 		}
@@ -184,7 +187,7 @@ class SermonspeakerModelSermon extends AdminModel
 	 * @param   array    $data      Data for the form.
 	 * @param   boolean  $loadData  True if the form is to load its own data (default case), false if not.
 	 *
-	 * @return  mixed  A JForm object on success, false on failure
+	 * @return  mixed  A Form object on success, false on failure
 	 *
 	 * @since   1.6
 	 */
@@ -479,7 +482,7 @@ class SermonspeakerModelSermon extends AdminModel
 		// Check that the category exists
 		if ($categoryId)
 		{
-			$categoryTable = JTable::getInstance('Category');
+			$categoryTable = Table::getInstance('Category');
 
 			if (!$categoryTable->load($categoryId))
 			{
@@ -718,7 +721,7 @@ class SermonspeakerModelSermon extends AdminModel
 
 			if ($data['id'])
 			{
-				$db    = Factory::getDbo();
+				$db    = $this->getDatabase();
 				$query = $db->getQuery(true)
 					->select($db->quoteName(array('book', 'cap1', 'vers1', 'cap2', 'vers2', 'text')))
 					->from($db->quoteName('#__sermon_scriptures'))
@@ -742,9 +745,9 @@ class SermonspeakerModelSermon extends AdminModel
 				$data->audiofile = $id3_file;
 			}
 
-			require_once JPATH_COMPONENT_SITE . '/helpers/id3.php';
+			require_once JPATH_SITE . '/components/com_sermonspeaker/helpers/id3.php';
 
-			$params = JComponentHelper::getParams('com_sermonspeaker');
+			$params = ComponentHelper::getParams('com_sermonspeaker');
 
 			$id3 = SermonspeakerHelperId3::getID3($id3_file, $params);
 
@@ -786,7 +789,7 @@ class SermonspeakerModelSermon extends AdminModel
 
 		if ($item->id)
 		{
-			$db    = Factory::getDbo();
+			$db    = $this->getDatabase();
 			$query = $db->getQuery(true)
 				->select($db->quoteName(array('book', 'cap1', 'vers1', 'cap2', 'vers2', 'text')))
 				->from($db->quoteName('#__sermon_scriptures'))
@@ -830,7 +833,7 @@ class SermonspeakerModelSermon extends AdminModel
 	/**
 	 * Prepare and sanitise the table data prior to saving.
 	 *
-	 * @param   Table  $table  A JTable object.
+	 * @param   Table  $table  A Table object.
 	 *
 	 * @return  void
 	 *
@@ -934,7 +937,7 @@ class SermonspeakerModelSermon extends AdminModel
 	/**
 	 * Method to allow derived classes to preprocess the form.
 	 *
-	 * @param   JForm   $form   A JForm object.
+	 * @param   Form    $form   A Form object.
 	 * @param   mixed   $data   The data expected for the form.
 	 * @param   string  $group  The name of the plugin group to import (defaults to "content").
 	 *
@@ -942,9 +945,9 @@ class SermonspeakerModelSermon extends AdminModel
 	 *
 	 * @throws  Exception if there is an error in the form event.
 	 * @since   12.2
-	 * @see     JFormField
+	 * @see     FormField
 	 */
-	protected function preprocessForm(JForm $form, $data, $group = 'sermonspeaker')
+	protected function preprocessForm(Form $form, $data, $group = 'sermonspeaker')
 	{
 		// Association items
 		if (Associations::isEnabled())

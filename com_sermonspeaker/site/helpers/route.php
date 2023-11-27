@@ -7,9 +7,13 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
-use Joomla\CMS\Factory;
-
 defined('_JEXEC') or die();
+
+use Joomla\CMS\Categories\Categories;
+use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Multilanguage;
+use Joomla\Utilities\ArrayHelper;
 
 /**
  * Sermonspeaker Component Route Helper
@@ -43,19 +47,19 @@ abstract class SermonspeakerHelperRoute
 
 		if ((int) $catid > 1)
 		{
-			$categories = JCategories::getInstance('sermonspeaker.sermons', array('table' => '#__sermon_sermons'));
+			$categories = Categories::getInstance('sermonspeaker.sermons', array('table' => '#__sermon_sermons'));
 			$category   = $categories->get((int) $catid);
 
 			if ($category)
 			{
 				$path               = array_reverse($category->getPath());
-				$needles['sermons'] = Joomla\Utilities\ArrayHelper::toInteger($path);
+				$needles['sermons'] = ArrayHelper::toInteger($path);
 			}
 
 			$link .= '&catid=' . (int) $catid;
 		}
 
-		if ($language && $language != "*" && JLanguageMultilang::isEnabled())
+		if ($language && $language != "*" && Multilanguage::isEnabled())
 		{
 			if (!isset(self::$langs))
 			{
@@ -103,17 +107,17 @@ abstract class SermonspeakerHelperRoute
 
 		if ((int) $catid > 1)
 		{
-			$categories = JCategories::getInstance('sermonspeaker.sermons', array('table' => '#__sermon_sermons'));
+			$categories = Categories::getInstance('sermonspeaker.sermons', array('table' => '#__sermon_sermons'));
 			$category   = $categories->get((int) $catid);
 
 			if ($category)
 			{
 				$path               = array_reverse($category->getPath());
-				$needles['sermons'] = Joomla\Utilities\ArrayHelper::toInteger($path);
+				$needles['sermons'] = ArrayHelper::toInteger($path);
 			}
 		}
 
-		if ($language && $language != "*" && JLanguageMultilang::isEnabled())
+		if ($language && $language != "*" && Multilanguage::isEnabled())
 		{
 			if (!isset(self::$langs))
 			{
@@ -159,19 +163,19 @@ abstract class SermonspeakerHelperRoute
 
 		if ((int) $catid > 1)
 		{
-			$categories = JCategories::getInstance('sermonspeaker.series', array('table' => '#__sermon_series'));
+			$categories = Categories::getInstance('sermonspeaker.series', array('table' => '#__sermon_series'));
 			$category   = $categories->get((int) $catid);
 
 			if ($category)
 			{
 				$path              = array_reverse($category->getPath());
-				$needles['series'] = Joomla\Utilities\ArrayHelper::toInteger($path);
+				$needles['series'] = ArrayHelper::toInteger($path);
 			}
 
 			$link .= '&catid=' . (int) $catid;
 		}
 
-		if ($language && $language != "*" && JLanguageMultilang::isEnabled())
+		if ($language && $language != "*" && Multilanguage::isEnabled())
 		{
 			if (!isset(self::$langs))
 			{
@@ -219,17 +223,17 @@ abstract class SermonspeakerHelperRoute
 
 		if ((int) $catid > 1)
 		{
-			$categories = JCategories::getInstance('sermonspeaker.series', array('table' => '#__sermon_series'));
+			$categories = Categories::getInstance('sermonspeaker.series', array('table' => '#__sermon_series'));
 			$category   = $categories->get((int) $catid);
 
 			if ($category)
 			{
 				$path              = array_reverse($category->getPath());
-				$needles['series'] = Joomla\Utilities\ArrayHelper::toInteger($path);
+				$needles['series'] = ArrayHelper::toInteger($path);
 			}
 		}
 
-		if ($language && $language != "*" && JLanguageMultilang::isEnabled())
+		if ($language && $language != "*" && Multilanguage::isEnabled())
 		{
 			if (!isset(self::$langs))
 			{
@@ -275,19 +279,19 @@ abstract class SermonspeakerHelperRoute
 
 		if ((int) $catid > 1)
 		{
-			$categories = JCategories::getInstance('sermonspeaker.speakers', array('table' => '#__sermon_speakers'));
+			$categories = Categories::getInstance('sermonspeaker.speakers', array('table' => '#__sermon_speakers'));
 			$category   = $categories->get((int) $catid);
 
 			if ($category)
 			{
 				$path                = array_reverse($category->getPath());
-				$needles['speakers'] = Joomla\Utilities\ArrayHelper::toInteger($path);
+				$needles['speakers'] = ArrayHelper::toInteger($path);
 			}
 
 			$link .= '&catid=' . (int) $catid;
 		}
 
-		if ($language && $language != "*" && JLanguageMultilang::isEnabled())
+		if ($language && $language != "*" && Multilanguage::isEnabled())
 		{
 			if (!isset(self::$langs))
 			{
@@ -335,17 +339,17 @@ abstract class SermonspeakerHelperRoute
 
 		if ((int) $catid > 1)
 		{
-			$categories = JCategories::getInstance('sermonspeaker.speakers', array('table' => '#__sermon_speakers'));
+			$categories = Categories::getInstance('sermonspeaker.speakers', array('table' => '#__sermon_speakers'));
 			$category   = $categories->get((int) $catid);
 
 			if ($category)
 			{
 				$path                = array_reverse($category->getPath());
-				$needles['speakers'] = Joomla\Utilities\ArrayHelper::toInteger($path);
+				$needles['speakers'] = ArrayHelper::toInteger($path);
 			}
 		}
 
-		if ($language && $language != "*" && JLanguageMultilang::isEnabled())
+		if ($language && $language != "*" && Multilanguage::isEnabled())
 		{
 			if (!isset(self::$langs))
 			{
@@ -391,7 +395,7 @@ abstract class SermonspeakerHelperRoute
 		{
 			self::$lookup[$language] = array();
 
-			$component = JComponentHelper::getComponent('com_sermonspeaker');
+			$component = ComponentHelper::getComponent('com_sermonspeaker');
 
 			$attributes = array('component_id');
 			$values     = array($component->id);
@@ -475,7 +479,7 @@ abstract class SermonspeakerHelperRoute
 
 		if ($active && $active->component == 'com_sermonspeaker'
 			&& ($active->language == '*' || $language == '*' || $active->language == $language
-				|| !JLanguageMultilang::isEnabled())
+				|| !Multilanguage::isEnabled())
 		)
 		{
 			return $active->id;

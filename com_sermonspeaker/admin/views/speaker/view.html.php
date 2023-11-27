@@ -5,6 +5,7 @@ defined('_JEXEC') or die;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\MVC\View\HtmlView;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Toolbar\Toolbar;
 use Joomla\CMS\Toolbar\ToolbarHelper;
@@ -16,7 +17,7 @@ use Joomla\CMS\Toolbar\ToolbarHelper;
  *
  * @since          ?
  */
-class SermonspeakerViewSpeaker extends JViewLegacy
+class SermonspeakerViewSpeaker extends HtmlView
 {
 	protected $state;
 	protected $item;

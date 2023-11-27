@@ -15,8 +15,6 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Router\Route;
 
-jimport('joomla.form.formfield');
-
 /**
  * Scripture Field class for the SermonSpeaker
  *

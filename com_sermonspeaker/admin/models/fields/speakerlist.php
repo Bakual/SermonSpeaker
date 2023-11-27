@@ -9,16 +9,12 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Field\GroupedlistField;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Router\Route;
-
-jimport('joomla.html.html');
-jimport('joomla.form.formfield');
-jimport('joomla.form.helper');
-JFormHelper::loadFieldClass('groupedlist');
 
 /**
  * Speakerlist Field class for the SermonSpeaker.
@@ -53,8 +49,8 @@ class JFormFieldSpeakerlist extends GroupedlistField
 	 */
 	public function getGroups()
 	{
-		$db     = Factory::getDbo();
-		$params = JComponentHelper::getParams('com_sermonspeaker');
+		$db     = $this->getDatabase();
+		$params = ComponentHelper::getParams('com_sermonspeaker');
 
 		$query = $db->getQuery(true);
 		$query->select('speakers.id As value, home');

@@ -9,12 +9,15 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\Plugin\CMSPlugin;
+
 /**
  * Baseclass for Sermonspeaker Player Plugins
  *
  * @since  5.3
  */
-abstract class SermonspeakerPluginPlayer extends JPlugin
+abstract class SermonspeakerPluginPlayer extends CMSPlugin
 {
 	/**
 	 * @var  Joomla\Registry\Registry
@@ -89,7 +92,7 @@ abstract class SermonspeakerPluginPlayer extends JPlugin
 		}
 		else
 		{
-			$c_params     = JComponentHelper::getParams('com_sermonspeaker');
+			$c_params     = ComponentHelper::getParams('com_sermonspeaker');
 			$popup_height = (int) $c_params->get('popup_height');
 		}
 

@@ -162,7 +162,7 @@ class SermonspeakerTableSerie extends Table implements VersionableTableInterface
 	 *
 	 * @return null|string null is operation was satisfactory, otherwise returns an error
 	 *
-	 * @see      JTable::bind
+	 * @see      Table::bind
 	 *
 	 * @since    1.5
 	 */

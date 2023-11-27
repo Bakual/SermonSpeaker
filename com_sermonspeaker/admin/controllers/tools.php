@@ -7,6 +7,8 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
+defined('_JEXEC') or die;
+
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
@@ -14,8 +16,7 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Controller\BaseController;
 use Joomla\CMS\Session\Session;
 use Joomla\CMS\Table\Table;
-
-defined('_JEXEC') or die;
+use Joomla\Filesystem\File;
 
 /**
  * Tools Sermonspeaker Controller
@@ -438,9 +439,9 @@ class SermonspeakerControllerTools extends BaseController
 		$file = $app->input->get('file', '', 'string');
 		$file = JPATH_SITE . $file;
 
-		if (JFile::exists($file))
+		if (file_exists($file))
 		{
-			JFile::delete($file);
+			File::delete($file);
 			$app->enqueueMessage($file . ' deleted!');
 		}
 		else

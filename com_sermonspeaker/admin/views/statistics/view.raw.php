@@ -7,16 +7,17 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
-use Joomla\CMS\Factory;
-
 defined('_JEXEC') or die();
+
+use Joomla\CMS\Factory;
+use Joomla\CMS\MVC\View\HtmlView;
 
 /**
  * HTML View class for the SermonSpeaker Component
  *
  * @since  4.x
  */
-class SermonspeakerViewStatistics extends JViewLegacy
+class SermonspeakerViewStatistics extends HtmlView
 {
 	/**
 	 * @var

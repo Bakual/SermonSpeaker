@@ -11,13 +11,14 @@ defined('_JEXEC') or die();
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\MVC\View\HtmlView;
 
 /**
  * JSON View class for the SermonSpeaker Component
  *
  * @since  5.5
  */
-class SermonspeakerViewSermons extends JViewLegacy
+class SermonspeakerViewSermons extends HtmlView
 {
 	/**
 	 * Creates the JSON data.

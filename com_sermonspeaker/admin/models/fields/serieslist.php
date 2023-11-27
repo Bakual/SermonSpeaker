@@ -17,11 +17,6 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Router\Route;
 
-jimport('joomla.html.html');
-jimport('joomla.form.formfield');
-jimport('joomla.form.helper');
-FormHelper::loadFieldClass('groupedlist');
-
 /**
  * Serieslist Field class for the SermonSpeaker.
  *
@@ -55,7 +50,7 @@ class JFormFieldSerieslist extends GroupedlistField
 	 */
 	public function getGroups()
 	{
-		$db     = Factory::getDbo();
+		$db     = $this->getDatabase();
 		$params = ComponentHelper::getParams('com_sermonspeaker');
 
 		$query = $db->getQuery(true);

@@ -13,8 +13,6 @@ use Joomla\CMS\Form\FormField;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 
-jimport('joomla.form.formfield');
-
 /**
  * Columns Field class for the SermonSpeaker
  *
@@ -128,7 +126,7 @@ class JFormFieldColumns extends FormField
 			$tmp->onclick = (string) $option['onclick'];
 
 			// Get the Excludes
-			$excludes     = explode(',', $option['exclude']);
+			$excludes     = !empty($option['exclude']) ? explode(',', $option['exclude']) : array();
 			$tmp->exclude = $excludes;
 
 			// Add the option object to the result set.

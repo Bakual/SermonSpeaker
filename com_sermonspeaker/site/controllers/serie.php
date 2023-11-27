@@ -10,6 +10,7 @@
 defined('_JEXEC') or die();
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\MVC\Controller\BaseController;
 use Joomla\CMS\Router\Route;
 
 /**
@@ -17,7 +18,7 @@ use Joomla\CMS\Router\Route;
  *
  * @since  3.4
  */
-class SermonspeakerControllerSerie extends JControllerLegacy
+class SermonspeakerControllerSerie extends BaseController
 {
 	/**
 	 * Redirecting to new AJAX based download function for backward compatibility

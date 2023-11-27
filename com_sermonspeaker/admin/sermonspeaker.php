@@ -15,16 +15,16 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Controller\BaseController;
 
 // Access check.
-if (!Factory::getUser()->authorise('core.manage', 'com_sermonspeaker'))
+if (!Factory::getApplication()->getIdentity()->authorise('core.manage', 'com_sermonspeaker'))
 {
 	throw new Exception(Text::_('JERROR_ALERTNOAUTHOR'), 403);
 }
 
 // Register Helperclass for autoloading
-JLoader::register('SermonspeakerHelper', JPATH_COMPONENT_ADMINISTRATOR . '/helpers/sermonspeaker.php');
+JLoader::register('SermonspeakerHelper', JPATH_ADMINISTRATOR . '/components/com_sermonspeaker/helpers/sermonspeaker.php');
 
 // Load Composer Autoloader
-require_once(JPATH_COMPONENT_ADMINISTRATOR . '/vendor/autoload.php');
+require_once(JPATH_ADMINISTRATOR . '/components/com_sermonspeaker/vendor/autoload.php');
 
 HTMLHelper::_('stylesheet', 'com_sermonspeaker/sermonspeaker-admin.css', array('relative' => true));
 

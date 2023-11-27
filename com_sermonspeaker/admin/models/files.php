@@ -7,20 +7,22 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
+defined('_JEXEC') or die();
+
 use Aws\Credentials\Credentials;
 use Aws\S3\S3Client;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Filesystem\Folder;
-
-defined('_JEXEC') or die();
+use Joomla\CMS\MVC\Model\BaseDatabaseModel;
+use Joomla\Filesystem\File;
 
 /**
  * Model class for the SermonSpeaker Component
  *
  * @since  ?.?
  */
-class SermonspeakerModelFiles extends JModelLegacy
+class SermonspeakerModelFiles extends BaseDatabaseModel
 {
 	public function getItems()
 	{
@@ -46,7 +48,7 @@ class SermonspeakerModelFiles extends JModelLegacy
 				continue;
 			}
 
-			$ext                 = JFile::getExt($value);
+			$ext                 = File::getExt($value);
 			$items[$key]['file'] = (strpos($value, 'http') === 0) ? $value : '/' . $value;
 
 			if (in_array($ext, $audio_ext))
@@ -155,7 +157,7 @@ class SermonspeakerModelFiles extends JModelLegacy
 
 	private function getSermons()
 	{
-		$db    = Factory::getDbo();
+		$db    = $this->getDatabase();
 		$query = "SELECT `audiofile` AS `file` FROM #__sermon_sermons WHERE `audiofile` != '' \n"
 			. "UNION SELECT `videofile` FROM #__sermon_sermons WHERE `videofile` != '' ";
 
@@ -182,7 +184,7 @@ class SermonspeakerModelFiles extends JModelLegacy
 
 	public function getCategory()
 	{
-		$db    = Factory::getDbo();
+		$db    = $this->getDatabase();
 		$query = $db->getQuery(true);
 
 		$query->select('a.id, a.title');

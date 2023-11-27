@@ -12,8 +12,9 @@ defined('_JEXEC') or die();
 use Joomla\CMS\Application\SiteApplication;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Associations;
+use Joomla\CMS\Uri\Uri;
 
-require_once JPATH_COMPONENT_ADMINISTRATOR . '/models/sermon.php';
+require_once JPATH_ADMINISTRATOR . '/components/com_sermonspeaker/models/sermon.php';
 
 /**
  * Model class for the SermonSpeaker Component
@@ -64,7 +65,7 @@ class SermonspeakerModelFrontendupload extends SermonspeakerModelSermon
 
 		$return = $jinput->get('return', '', 'base64');
 
-		if (!JUri::isInternal(base64_decode($return)))
+		if (!Uri::isInternal(base64_decode($return)))
 		{
 			$return = null;
 		}

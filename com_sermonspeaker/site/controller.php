@@ -15,6 +15,7 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\MVC\Controller\BaseController;
 use Joomla\CMS\Uri\Uri;
+use Joomla\Filesystem\File;
 
 /**
  * SermonSpeaker Component Controller
@@ -48,7 +49,7 @@ class SermonspeakerController extends BaseController
 		if (($view === 'sermons' || $view === 'series' || $view === 'speakers') && $this->input->get('layout') === 'modal')
 		{
 			HTMLHelper::_('stylesheet', 'system/adminlist.css', array('version' => 'auto', 'relative' => true));
-			$config['base_path'] = JPATH_COMPONENT_ADMINISTRATOR;
+			$config['base_path'] = JPATH_ADMINISTRATOR . '/components/com_sermonspeaker';
 		}
 
 		parent::__construct($config);
@@ -59,7 +60,7 @@ class SermonspeakerController extends BaseController
 	 *
 	 * @param   boolean $cachable  If true, the view output will be cached
 	 * @param   array   $urlparams An array of safe url parameters and their variable types, for valid values see
-	 *                             {@link JFilterInput::clean()}.
+	 *                             {@link InputFilter::clean()}.
 	 *
 	 * @return  false|BaseController  A JControllerLegacy object to support chaining.
 	 *
@@ -191,14 +192,14 @@ class SermonspeakerController extends BaseController
 		}
 
 		$file = JPATH_ROOT . $result;
-		$mime = SermonspeakerHelperSermonspeaker::getMime(JFile::getExt($file));
+		$mime = SermonspeakerHelperSermonspeaker::getMime(File::getExt($file));
 
 		if (ini_get('zlib.output_compression'))
 		{
 			ini_set('zlib.output_compression', 'Off');
 		}
 
-		if (JFile::exists($file))
+		if (file_exists($file))
 		{
 			// If present overriding the memory_limit for php so big files can be downloaded
 			if (ini_get('memory_limit'))

@@ -10,9 +10,12 @@
 defined('_JEXEC') or die();
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\Form\FormField;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\LanguageHelper;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Session\Session;
+use Joomla\CMS\Uri\Uri;
 use Joomla\Database\ParameterType;
 
 /**
@@ -20,7 +23,7 @@ use Joomla\Database\ParameterType;
  *
  * @since ?
  */
-class JFormFieldModal_Speaker extends JFormField
+class JFormFieldModal_Speaker extends FormField
 {
 	/**
 	 * The form field type.
@@ -92,8 +95,8 @@ class JFormFieldModal_Speaker extends JFormField
 		}
 
 		// Setup variables for display.
-		$linkSpeakers = JURI::base() . 'index.php?option=com_sermonspeaker&amp;view=speakers&amp;layout=modal&amp;tmpl=component&amp;' . JSession::getFormToken() . '=1';
-		$linkSpeaker  = JURI::base() . 'index.php?option=com_sermonspeaker&amp;view=speaker&amp;layout=modal&amp;tmpl=component&amp;' . JSession::getFormToken() . '=1';
+		$linkSpeakers = URI::base() . 'index.php?option=com_sermonspeaker&amp;view=speakers&amp;layout=modal&amp;tmpl=component&amp;' . Session::getFormToken() . '=1';
+		$linkSpeaker  = URI::base() . 'index.php?option=com_sermonspeaker&amp;view=speaker&amp;layout=modal&amp;tmpl=component&amp;' . Session::getFormToken() . '=1';
 		$controller   = $isSite ? 'speakerform' : 'speaker';
 		$urlVar       = $isSite ? 's_id' : 'id';
 
@@ -112,7 +115,7 @@ class JFormFieldModal_Speaker extends JFormField
 		$urlEdit   = $linkSpeaker . '&amp;task=' . $controller . '.edit&amp;' . $urlVar . '=\' + document.getElementById("' . $this->id . '_id").value + \'';
 		$urlNew    = $linkSpeaker . '&amp;task=' . $controller . '.add';
 
-		$db = Factory::getDbo();
+		$db = $this->getDatabase();
 
 		if ($value === '' && !$this->element['ignoredefault'] && !$this->form->getValue('id'))
 		{

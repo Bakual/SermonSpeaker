@@ -1,12 +1,22 @@
 <?php
+/**
+ * @package     SermonSpeaker
+ * @subpackage  Component.Administrator
+ * @author      Thomas Hunziker <admin@sermonspeaker.net>
+ * @copyright   © 2022 - Thomas Hunziker
+ * @license     http://www.gnu.org/licenses/gpl.html
+ **/
+
 defined('_JEXEC') or die;
+
+use Joomla\CMS\MVC\View\HtmlView;
 
 /**
  * Class SermonspeakerViewFiles
  *
  * @since  ?
  */
-class SermonspeakerViewFiles extends JViewLegacy
+class SermonspeakerViewFiles extends HtmlView
 {
 	/**
 	 * @var object

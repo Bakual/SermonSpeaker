@@ -11,6 +11,7 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\MVC\Controller\AdminController;
 use Joomla\CMS\Session\Session;
 use Joomla\Utilities\ArrayHelper;
 
@@ -21,7 +22,7 @@ use Joomla\Utilities\ArrayHelper;
  *
  * @since          3.4
  */
-class SermonspeakerControllerSeries extends JControllerAdmin
+class SermonspeakerControllerSeries extends AdminController
 {
 	/**
 	 * Method to set the default series. Copied from template styles

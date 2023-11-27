@@ -11,6 +11,7 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\MVC\View\HtmlView;
 use Joomla\CMS\Table\Table;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 
@@ -19,7 +20,7 @@ use Joomla\CMS\Toolbar\ToolbarHelper;
  *
  * @since  3.4
  */
-class SermonspeakerViewHelp extends JViewLegacy
+class SermonspeakerViewHelp extends HtmlView
 {
 	/**
 	 * The HTML code for the sidebar.
@@ -44,7 +45,7 @@ class SermonspeakerViewHelp extends JViewLegacy
 	 *
 	 * @throws Exception
 	 * @since   3.4
-	 * @see     JViewLegacy::loadTemplate()
+	 * @see     HtmlView::loadTemplate()
 	 */
 	public function display($tpl = null)
 	{
