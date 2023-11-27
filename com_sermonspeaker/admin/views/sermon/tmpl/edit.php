@@ -9,6 +9,7 @@ use Joomla\CMS\Language\Associations;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
+use Joomla\CMS\Uri\Uri;
 
 // Include the component HTML helpers.
 HTMLHelper::addIncludePath(JPATH_COMPONENT . '/helpers/html');
@@ -25,7 +26,7 @@ HTMLHelper::_('bootstrap.tooltip', '.hasTooltip');
 $this->ignore_fieldsets = array('general', 'audiofile', 'videofile', 'addfile', 'info', 'detail', 'publishingdata', 'jmetadata', 'item_associations');
 $this->useCoreUI        = true;
 
-$uri = JUri::getInstance();
+$uri = Uri::getInstance();
 $uri->delVar('file');
 $uri->delVar('type');
 $self = $uri->toString();

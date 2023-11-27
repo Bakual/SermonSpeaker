@@ -7,11 +7,12 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
+defined('_JEXEC') or die();
+
 use Joomla\CMS\Helper\MediaHelper;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Router\Route;
-
-defined('_JEXEC') or die();
+use Joomla\CMS\Uri\Uri;
 
 /* @var  Joomla\Registry\Registry $params Component Parameters */
 $params = $this->params;
@@ -22,8 +23,8 @@ echo '<?xml version="1.0" encoding="utf-8" ?>'; ?>
 	 xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
 		<title><?php echo $this->make_xml_safe($params->get('sc_title')); ?></title>
-		<link><?php echo JUri::root(); ?></link>
-		<atom:link href="<?php echo $this->make_xml_safe(JUri::getInstance()->toString()); ?>" rel="self"
+		<link><?php echo Uri::root(); ?></link>
+		<atom:link href="<?php echo $this->make_xml_safe(Uri::getInstance()->toString()); ?>" rel="self"
 				   type="application/rss+xml"/>
 		<description><?php echo $this->make_xml_safe($params->get('description')); ?></description>
 		<?php
@@ -97,7 +98,7 @@ echo '<?xml version="1.0" encoding="utf-8" ?>'; ?>
 			<?php $value = MediaHelper::getCleanMediaFieldValue($params->get('rssImage')); ?>
 			<url><?php echo SermonspeakerHelperSermonspeaker::makeLink($value, true); ?></url>
 			<title><?php echo $this->make_xml_safe($params->get('sc_title')); ?></title>
-			<link><?php echo JUri::root(); ?></link>
+			<link><?php echo Uri::root(); ?></link>
 			<description><?php echo $this->make_xml_safe($params->get('description')); ?></description>
 		</image>
 	<?php endif; ?>
@@ -117,12 +118,12 @@ echo '<?xml version="1.0" encoding="utf-8" ?>'; ?>
 				<title><?php echo $this->make_xml_safe($item->title); ?></title>
 				<link><?php
 					if ($this->params->get('use_sef', 1)) :
-						$uri = JUri::getInstance(JUri::root());
+						$uri = Uri::getInstance(Uri::root());
 						echo $this->make_xml_safe($uri->toString(array('scheme', 'host', 'port')) . Route::_(SermonspeakerHelperRoute::getSermonRoute($item->slug, $item->catid, $item->language)));
 					else :
-						echo $this->make_xml_safe(JUri::root() . SermonspeakerHelperRoute::getSermonRoute($item->id, $item->catid, $item->language));
+						echo $this->make_xml_safe(Uri::root() . SermonspeakerHelperRoute::getSermonRoute($item->id, $item->catid, $item->language));
 					endif; ?></link>
-				<guid><?php echo JUri::root() . 'index.php?option=com_sermonspeaker&amp;view=sermon&amp;id=' . $item->id; ?></guid>
+				<guid><?php echo Uri::root() . 'index.php?option=com_sermonspeaker&amp;view=sermon&amp;id=' . $item->id; ?></guid>
 				<?php
 				// Todo: maybe add email of speaker if present (not yet in database), format is emailadress (name) and then use author instead
 				?>

@@ -52,13 +52,13 @@
 			label="COM_SERMONSPEAKER_FIELD_INTRO_LABEL"
 			buttons="true"
 			hide="pagebreak,readmore"
-			filter="JComponentHelper::filterText"/>
+			filter="ComponentHelper::filterText"/>
 
 		<field name="bio" type="editor"
 			label="COM_SERMONSPEAKER_FIELD_BIO_LABEL"
 			buttons="true"
 			hide="pagebreak,readmore"
-			filter="JComponentHelper::filterText"/>
+			filter="ComponentHelper::filterText"/>
 
 		<field
 			name="language"

@@ -14,10 +14,11 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
+use Joomla\CMS\Session\Session;
 use Joomla\CMS\Uri\Uri;
 
 /** @var Joomla\CMS\WebAsset\WebAssetManager $wa */
-$wa = $this->document->getWebAssetManager();
+$wa = $this->getDocument()->getWebAssetManager();
 $wa->useScript('keepalive');
 $wa->useScript('form.validate');
 
@@ -183,7 +184,7 @@ $self = $uri->toString();
 	<?php if ($this->params->get('enable_non_flash')) : ?>
 		<div id="upload-noflash">
 			<form
-					action="<?php echo Uri::root(); ?>index.php?option=com_sermonspeaker&amp;task=file.upload&amp;tmpl=component&amp;<?php echo Factory::getSession()->getName() . '=' . Factory::getSession()->getId(); ?>&amp;<?php echo JSession::getFormToken(); ?>=1"
+					action="<?php echo Uri::root(); ?>index.php?option=com_sermonspeaker&amp;task=file.upload&amp;tmpl=component&amp;<?php echo Factory::getSession()->getName() . '=' . Factory::getSession()->getId(); ?>&amp;<?php echo Session::getFormToken(); ?>=1"
 					id="uploadForm" name="uploadForm" class="form-validate form form-vertical" method="post"
 					enctype="multipart/form-data">
 				<fieldset>

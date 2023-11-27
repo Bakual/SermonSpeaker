@@ -10,9 +10,12 @@
 defined('_JEXEC') or die();
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\Form\FormField;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\LanguageHelper;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Session\Session;
+use Joomla\CMS\Uri\Uri;
 use Joomla\Database\ParameterType;
 
 /**
@@ -20,7 +23,7 @@ use Joomla\Database\ParameterType;
  *
  * @since ?
  */
-class JFormFieldModal_Serie extends JFormField
+class JFormFieldModal_Serie extends FormField
 {
 	/**
 	 * The form field type.
@@ -92,8 +95,8 @@ class JFormFieldModal_Serie extends JFormField
 		}
 
 		// Setup variables for display.
-		$linkSeries = JURI::base() . 'index.php?option=com_sermonspeaker&amp;view=series&amp;layout=modal&amp;tmpl=component&amp;' . JSession::getFormToken() . '=1';
-		$linkSerie  = JURI::base() . 'index.php?option=com_sermonspeaker&amp;view=serie&amp;layout=modal&amp;tmpl=component&amp;' . JSession::getFormToken() . '=1';
+		$linkSeries = URI::base() . 'index.php?option=com_sermonspeaker&amp;view=series&amp;layout=modal&amp;tmpl=component&amp;' . Session::getFormToken() . '=1';
+		$linkSerie  = URI::base() . 'index.php?option=com_sermonspeaker&amp;view=serie&amp;layout=modal&amp;tmpl=component&amp;' . Session::getFormToken() . '=1';
 		$controller = $isSite ? 'serieform' : 'serie';
 		$urlVar     = $isSite ? 's_id' : 'id';
 
@@ -112,7 +115,7 @@ class JFormFieldModal_Serie extends JFormField
 		$urlEdit   = $linkSerie . '&amp;task=' . $controller . '.edit&amp;' . $urlVar . '=\' + document.getElementById(&quot;' . $this->id . '_id&quot;).value + \'';
 		$urlNew    = $linkSerie . '&amp;task=' . $controller . '.add';
 
-		$db = Factory::getDbo();
+		$db = $this->getDatabase();
 
 		if ($value === '' && !$this->element['ignoredefault'] && !$this->form->getValue('id'))
 		{

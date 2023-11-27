@@ -9,18 +9,16 @@
 
 defined('_JEXEC') or die();
 
-jimport('joomla.html.html');
-jimport('joomla.form.formfield');
-jimport('joomla.form.helper');
-JFormHelper::loadFieldClass('media');
+use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\Form\Field\MediaField;
 
-class JFormFieldMediaWrapper extends JFormFieldMedia
+class JFormFieldMediaWrapper extends MediaField
 {
 	public $type = 'MediaWrapper';
 
 	protected function getInput()
 	{
-		$params = JComponentHelper::getParams('com_sermonspeaker');
+		$params = ComponentHelper::getParams('com_sermonspeaker');
 		switch ($this->fieldname)
 		{
 			case 'picture':

@@ -9,11 +9,9 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Form\Field\NumberField;
 use Joomla\CMS\Form\FormHelper;
 use Joomla\CMS\Language\Text;
-
-jimport('joomla.form.formfield');
-FormHelper::loadFieldClass('number');
 
 /**
  * Hits Field class for the SermonSpeaker
@@ -21,7 +19,7 @@ FormHelper::loadFieldClass('number');
  * @package        SermonSpeaker
  * @since          4.0
  */
-class JFormFieldHits extends JFormFieldNumber
+class JFormFieldHits extends NumberField
 {
 	/**
 	 * The form field type.

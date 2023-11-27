@@ -11,17 +11,19 @@ defined('_JEXEC') or die();
 
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
-use Joomla\CMS\Filesystem\Folder;
 use Joomla\CMS\Filter\OutputFilter;
 use Joomla\CMS\Language\Text;
-use Joomla\CMS\Filesystem\File;
+use Joomla\CMS\MVC\Controller\BaseController;
+use Joomla\CMS\Uri\Uri;
+use Joomla\Filesystem\Folder;
+use Joomla\Filesystem\File;
 
 /**
  * Controller class for the SermonSpeaker Component
  *
  * @since  3.4
  */
-class SermonspeakerControllerSerie extends JControllerLegacy
+class SermonspeakerControllerSerie extends BaseController
 {
 	/**
 	 * AJAX Method to add a new record
@@ -106,7 +108,7 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 
 		foreach ($rows as $row)
 		{
-			if ($row['audiofile'] && !parse_url($row['audiofile'], PHP_URL_SCHEME) && File::exists(JPATH_BASE . '/' . $row['audiofile']))
+			if ($row['audiofile'] && !parse_url($row['audiofile'], PHP_URL_SCHEME) && file_exists(JPATH_BASE . '/' . $row['audiofile']))
 			{
 				$file['path'] = JPATH_BASE . '/' . $row['audiofile'];
 				$slash        = strrpos($row['audiofile'], '/');
@@ -130,7 +132,7 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 				$content[] = 'a' . $row['id'];
 			}
 
-			if ($row['videofile'] && !parse_url($row['videofile'], PHP_URL_SCHEME) && File::exists(JPATH_BASE . '/' . $row['videofile']))
+			if ($row['videofile'] && !parse_url($row['videofile'], PHP_URL_SCHEME) && file_exists(JPATH_BASE . '/' . $row['videofile']))
 			{
 				$file['path'] = JPATH_BASE . '/' . $row['videofile'];
 				$slash        = strrpos($row['videofile'], '/');
@@ -177,11 +179,11 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 		// Compare to saved zip and if file exists, then skip the creating
 		$content = implode(',', $content);
 
-		if (File::exists($filename) && ($content == $zip_content))
+		if (file_exists($filename) && ($content == $zip_content))
 		{
 			$response = array(
 				'status' => '1',
-				'msg'    => JUri::root() . $folder . 'series/' . $name . '.zip',
+				'msg'    => Uri::root() . $folder . 'series/' . $name . '.zip',
 			);
 			echo json_encode($response);
 
@@ -199,7 +201,7 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 		{
 			$response = array(
 				'status' => '1',
-				'msg'    => JUri::root() . $folder . '/series/' . $name . '.zip',
+				'msg'    => Uri::root() . $folder . '/series/' . $name . '.zip',
 			);
 			echo json_encode($response);
 
@@ -248,7 +250,7 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 
 			foreach ($files as $file)
 			{
-				if (File::exists($folder . 'series/stop.txt'))
+				if (file_exists($folder . 'series/stop.txt'))
 				{
 					$response = array(
 						'status' => '0',
@@ -289,7 +291,7 @@ class SermonspeakerControllerSerie extends JControllerLegacy
 
 			$response = array(
 				'status' => '1',
-				'msg'    => JUri::root() . $folder . 'series/' . $name . '.zip',
+				'msg'    => Uri::root() . $folder . 'series/' . $name . '.zip',
 			);
 		}
 		else

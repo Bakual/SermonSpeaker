@@ -1,10 +1,20 @@
 <?php
+/**
+ * @package     SermonSpeaker
+ * @subpackage  Component.Administrator
+ * @author      Thomas Hunziker <admin@sermonspeaker.net>
+ * @copyright   © 2022 - Thomas Hunziker
+ * @license     http://www.gnu.org/licenses/gpl.html
+ **/
+
 
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\MVC\View\HtmlView;
+use Joomla\CMS\Toolbar\ToolbarHelper;
 
-class SermonspeakerViewMain extends JViewLegacy
+class SermonspeakerViewMain extends HtmlView
 {
 	function display($tpl = null)
 	{
@@ -23,11 +33,11 @@ class SermonspeakerViewMain extends JViewLegacy
 	protected function addToolbar()
 	{
 		$canDo = SermonspeakerHelper::getActions();
-		JToolbarHelper::title(Text::_('COM_SERMONSPEAKER'), 'speakers');
+		ToolbarHelper::title(Text::_('COM_SERMONSPEAKER'), 'speakers');
 
 		if ($canDo->get('core.admin') || $canDo->get('core.options'))
 		{
-			JToolbarHelper::preferences('com_sermonspeaker');
+			ToolbarHelper::preferences('com_sermonspeaker');
 		}
 	}
 }

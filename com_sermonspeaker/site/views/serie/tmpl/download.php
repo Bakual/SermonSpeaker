@@ -70,7 +70,7 @@ $js = 'function CheckProgress() {
 	}
 	window.onload = CallZip;
 ';
-$this->document->addScriptDeclaration($js);
+$this->getDocument()->addScriptDeclaration($js);
 ?>
 <div class="ss-seriesdownload-container">
 	<h3><?php echo $this->item->title; ?></h3>

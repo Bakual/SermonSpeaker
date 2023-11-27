@@ -11,14 +11,16 @@ defined('_JEXEC') or die();
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\MVC\View\HtmlView;
 use Joomla\CMS\Router\Route;
+use Joomla\CMS\Uri\Uri;
 
 /**
  * HTML View class for the SermonSpeaker Component
  *
  * @since  3.4
  */
-class SermonspeakerViewFrontendupload extends JViewLegacy
+class SermonspeakerViewFrontendupload extends HtmlView
 {
 	/**
 	 * Injected from the controller
@@ -120,7 +122,7 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 
 		if ($this->user->guest)
 		{
-			$redirectUrl = urlencode(base64_encode(JUri::getInstance()->toString()));
+			$redirectUrl = urlencode(base64_encode(Uri::getInstance()->toString()));
 			$app->enqueueMessage(Text::_('JGLOBAL_YOU_MUST_LOGIN_FIRST'), 'error');
 			$app->redirect(Route::_('index.php?option=com_users&view=login&return=' . $redirectUrl));
 
@@ -241,7 +243,7 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 					}
 				}
 			}
-			xmlhttp.open("POST","' . JUri::root() . 'index.php?option=com_sermonspeaker&task=file.lookup&format=json",true);
+			xmlhttp.open("POST","' . Uri::root() . 'index.php?option=com_sermonspeaker&task=file.lookup&format=json",true);
 			xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
  			xmlhttp.send("file="+elem.value);
 		}';
@@ -249,14 +251,14 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 		// Add Javascript for active tab selection (based on menu item param)
 		if ($tab = $this->params->get('active_tab'))
 		{
-			$this->document->addScriptDeclaration('jQuery(function() {
+			$this->getDocument()->addScriptDeclaration('jQuery(function() {
 					jQuery(\'#sermonEditTab a[href="#' . $tab . '"]\').tab(\'show\');
 				})');
 		}
 
-		$this->document->addScriptDeclaration($enElem);
-		$this->document->addScriptDeclaration($toggle);
-		$this->document->addScriptDeclaration($lookup);
+		$this->getDocument()->addScriptDeclaration($enElem);
+		$this->getDocument()->addScriptDeclaration($toggle);
+		$this->getDocument()->addScriptDeclaration($lookup);
 
 		// Google Picker
 		if ($this->params->get('googlepicker'))
@@ -345,8 +347,8 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 					}
 				}
 			";
-			$this->document->addScriptDeclaration($picker);
-			$this->document->addScript('https://apis.google.com/js/api.js?onload=onApiLoad');
+			$this->getDocument()->addScriptDeclaration($picker);
+			$this->getDocument()->addScript('https://apis.google.com/js/api.js?onload=onApiLoad');
 		}
 
 		// Destination folder based on mode
@@ -412,7 +414,7 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 			$this->append_date = '';
 		}
 
-		$this->document->addScriptDeclaration($changedate);
+		$this->getDocument()->addScriptDeclaration($changedate);
 
 		if ($this->params->get('append_path_lang', 0))
 		{
@@ -442,7 +444,7 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 			$this->append_lang = '';
 		}
 
-		$this->document->addScriptDeclaration($changelang);
+		$this->getDocument()->addScriptDeclaration($changelang);
 
 		// Add javascript validation script
 		Text::script('COM_SERMONSPEAKER_JS_CHECK_KEYWORDS', false, true);
@@ -465,7 +467,7 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 						}
 					}
 				}';
-		$this->document->addScriptDeclaration($valscript);
+		$this->getDocument()->addScriptDeclaration($valscript);
 
 		// Check for errors.
 		if (count($errors = $this->get('Errors')))
@@ -474,7 +476,7 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 		}
 
 		// Escape strings for HTML output
-		$this->pageclass_sfx = htmlspecialchars($this->params->get('pageclass_sfx'));
+		$this->pageclass_sfx = htmlspecialchars($this->params->get('pageclass_sfx', ''));
 
 		$this->_prepareDocument();
 
@@ -538,34 +540,21 @@ class SermonspeakerViewFrontendupload extends JViewLegacy
 
 		$title = $this->params->get('page_title', '');
 
-		if (empty($title))
-		{
-			$title = $app->get('sitename');
-		}
-		elseif ($app->get('sitename_pagetitles', 0) == 1)
-		{
-			$title = Text::sprintf('JPAGETITLE', $app->get('sitename'), $title);
-		}
-		elseif ($app->get('sitename_pagetitles', 0) == 2)
-		{
-			$title = Text::sprintf('JPAGETITLE', $title, $app->get('sitename'));
-		}
-
-		$this->document->setTitle($title);
+		$this->setDocumentTitle($title);
 
 		if ($this->params->get('menu-meta_description'))
 		{
-			$this->document->setDescription($this->params->get('menu-meta_description'));
+			$this->getDocument()->setDescription($this->params->get('menu-meta_description'));
 		}
 
 		if ($this->params->get('menu-meta_keywords'))
 		{
-			$this->document->setMetaData('keywords', $this->params->get('menu-meta_keywords'));
+			$this->getDocument()->setMetaData('keywords', $this->params->get('menu-meta_keywords'));
 		}
 
 		if ($this->params->get('robots'))
 		{
-			$this->document->setMetaData('robots', $this->params->get('robots'));
+			$this->getDocument()->setMetaData('robots', $this->params->get('robots'));
 		}
 	}
 }

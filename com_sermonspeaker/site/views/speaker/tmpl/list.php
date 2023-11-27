@@ -16,7 +16,7 @@ use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
 
-HTMLHelper::addIncludePath(JPATH_COMPONENT . '/helpers');
+HTMLHelper::addIncludePath(JPATH_BASE . '/components/com_sermonspeaker/helpers');
 
 HTMLHelper::_('bootstrap.tooltip', '.hasTooltip');
 HTMLHelper::_('bootstrap.tab');
@@ -34,7 +34,7 @@ $limit            = (int) $this->params->get('limit', '');
 $player           = SermonspeakerHelperSermonspeaker::getPlayer($this->sermons);
 
 // Determine active tab
-$this->document->addScriptDeclaration("window.onload = function() {
+$this->getDocument()->addScriptDeclaration("window.onload = function() {
 		let tab = 'tabber_sermons';
 		if (location.hash == '#series') {
 			tab = 'tabber_series';

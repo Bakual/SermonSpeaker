@@ -7,12 +7,10 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
-use Joomla\CMS\HTML\HTMLHelper;
-
 defined('_JEXEC') or die();
 
-jimport('joomla.html.html');
-jimport('joomla.form.formfield');
+use Joomla\CMS\Form\FormField;
+use Joomla\CMS\HTML\HTMLHelper;
 
 /**
  * Supports an HTML select list of ordering
@@ -22,7 +20,7 @@ jimport('joomla.form.formfield');
  *
  * @since          ?
  */
-class JFormFieldSermonordering extends JFormField
+class JFormFieldSermonordering extends FormField
 {
 	/**
 	 * The form field type.

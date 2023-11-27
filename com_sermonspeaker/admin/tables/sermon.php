@@ -328,7 +328,7 @@ class SermonspeakerTableSermon extends Table implements VersionableTableInterfac
 				$this->checkIn($pk);
 			}
 		}
-		// If the JTable instance value is in the list of primary keys that were set, set the instance.
+		// If the Table instance value is in the list of primary keys that were set, set the instance.
 		if (in_array($this->$k, $pks))
 		{
 			$this->state = $state;

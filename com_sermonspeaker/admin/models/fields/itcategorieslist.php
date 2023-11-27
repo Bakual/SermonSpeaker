@@ -10,12 +10,8 @@
 defined('_JEXEC') or die();
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\Form\Field\ListField;
 use Joomla\CMS\Language\Text;
-
-jimport('joomla.html.html');
-jimport('joomla.form.formfield');
-jimport('joomla.form.helper');
-JFormHelper::loadFieldClass('list');
 
 /**
  * Itcategorieslist Field class for the SermonSpeaker.
@@ -23,7 +19,7 @@ JFormHelper::loadFieldClass('list');
  * @package        SermonSpeaker
  * @since          4.0
  */
-class JFormFieldItcategorieslist extends JFormFieldList
+class JFormFieldItcategorieslist extends ListField
 {
 	/**
 	 * The form field type.

@@ -9,17 +9,22 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Client\ClientHelper;
 use Joomla\CMS\Factory;
-use Joomla\CMS\Filesystem\File;
 use Joomla\CMS\Filter\OutputFilter;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\MVC\Controller\BaseController;
+use Joomla\CMS\Session\Session;
+use Joomla\CMS\Uri\Uri;
+use Joomla\Filesystem\File;
+use Joomla\Filesystem\Path;
 
 /**
  * Controller class for the SermonSpeaker Component
  *
  * @since  3.4
  */
-class SermonspeakerControllerFile extends JControllerLegacy
+class SermonspeakerControllerFile extends BaseController
 {
 	/**
 	 * Upload a file
@@ -32,7 +37,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 	public function upload()
 	{
 		// Check for request forgeries
-		JSession::checkToken('request') or jexit(Text::_('JINVALID_TOKEN'));
+		Session::checkToken('request') or jexit(Text::_('JINVALID_TOKEN'));
 
 		/** @var JApplicationSite $app */
 		$app    = Factory::getApplication();
@@ -67,7 +72,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 
 		// Set FTP credentials, if given
 		jimport('joomla.client.helper');
-		JClientHelper::setCredentialsFromRequest('ftp');
+		ClientHelper::setCredentialsFromRequest('ftp');
 
 		// Get files
 		$files    = $jinput->files->get('Filedata', '', 'array');
@@ -111,9 +116,9 @@ class SermonspeakerControllerFile extends JControllerLegacy
 			if ($file['name'])
 			{
 				// The request is valid
-				$filepath = JPath::clean($folder . '/' . strtolower($file['name']));
+				$filepath = Path::clean($folder . '/' . strtolower($file['name']));
 
-				if (File::exists($filepath))
+				if (file_exists($filepath))
 				{
 					// File exists
 					$app->enqueueMessage(Text::_('COM_SERMONSPEAKER_FU_ERROR_EXISTS'), 'warning');
@@ -137,9 +142,9 @@ class SermonspeakerControllerFile extends JControllerLegacy
 		$return = base64_decode($jinput->post->get('return-url', '', 'base64'));
 
 		// Make sure to only redirect to internal links
-		if (!JUri::isInternal($return))
+		if (!Uri::isInternal($return))
 		{
-			$return = JUri::base();
+			$return = Uri::base();
 		}
 
 		if (!empty($redirect))

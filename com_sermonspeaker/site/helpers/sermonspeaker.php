@@ -17,6 +17,7 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
+use Joomla\Filesystem\File;
 
 /**
  * Sermonspeaker Component Sermonspeaker Helper
@@ -114,7 +115,7 @@ class SermonspeakerHelperSermonspeaker
 			if (!$icon)
 			{
 				// Get extension of file
-				$ext = JFile::getExt($addfile);
+				$ext = File::getExt($addfile);
 
 				if (file_exists(JPATH_SITE . '/media/com_sermonspeaker/icons/' . $ext . '.png'))
 				{

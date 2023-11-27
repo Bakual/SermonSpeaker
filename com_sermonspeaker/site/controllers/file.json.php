@@ -11,17 +11,22 @@ defined('_JEXEC') or die();
 
 use Aws\Credentials\Credentials;
 use Aws\S3\S3Client;
+use Joomla\CMS\Client\ClientHelper;
+use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
-use Joomla\CMS\Filesystem\File;
 use Joomla\CMS\Filter\OutputFilter;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\MVC\Controller\BaseController;
+use Joomla\CMS\Session\Session;
+use Joomla\Filesystem\File;
+use Joomla\Filesystem\Path;
 
 /**
  * Controller class for the SermonSpeaker Component
  *
  * @since  3.4
  */
-class SermonspeakerControllerFile extends JControllerLegacy
+class SermonspeakerControllerFile extends BaseController
 {
 	/**
 	 * Upload a file
@@ -33,7 +38,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 	public function upload()
 	{
 		// Check for request forgeries
-		if (!JSession::checkToken('request'))
+		if (!Session::checkToken('request'))
 		{
 			$response = array(
 				'status' => '0',
@@ -244,7 +249,7 @@ class SermonspeakerControllerFile extends JControllerLegacy
 
 			// Set FTP credentials, if given
 			jimport('joomla.client.helper');
-			JClientHelper::setCredentialsFromRequest('ftp');
+			ClientHelper::setCredentialsFromRequest('ftp');
 
 			$filename = $file['name'];
 
@@ -253,10 +258,10 @@ class SermonspeakerControllerFile extends JControllerLegacy
 				$filename = strtolower($filename);
 			}
 
-			$filepath         = JPath::clean($folder . '/' . $filename);
+			$filepath         = Path::clean($folder . '/' . $filename);
 			$file['filepath'] = $filepath;
 
-			if (File::exists($filepath))
+			if (file_exists($filepath))
 			{
 				// File exists
 				$response = array(
@@ -316,8 +321,8 @@ class SermonspeakerControllerFile extends JControllerLegacy
 			return;
 		}
 
-		require_once JPATH_COMPONENT_SITE . '/helpers/id3.php';
-		$params = JComponentHelper::getParams('com_sermonspeaker');
+		require_once JPATH_SITE . '/components/com_sermonspeaker/helpers/id3.php';
+		$params = ComponentHelper::getParams('com_sermonspeaker');
 		$id3    = SermonspeakerHelperId3::getID3($file, $params);
 
 		if ($id3)

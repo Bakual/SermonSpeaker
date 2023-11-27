@@ -11,13 +11,14 @@ defined('_JEXEC') or die();
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\MVC\Model\ItemModel;
 
 /**
  * Model class for the SermonSpeaker Component
  *
  * @since  3.4
  */
-class SermonspeakerModelSerie extends JModelItem
+class SermonspeakerModelSerie extends ItemModel
 {
 	/**
 	 * Method to get an object
@@ -31,7 +32,7 @@ class SermonspeakerModelSerie extends JModelItem
 	 */
 	public function &getItem($id = null)
 	{
-		$user = Factory::getUser();
+		$user = Factory::getApplication()->getIdentity();
 
 		// Initialise variables
 		$id = ($id) ? $id : (int) $this->getState('serie.id');
@@ -43,7 +44,7 @@ class SermonspeakerModelSerie extends JModelItem
 
 		if (!isset($this->_item[$id]))
 		{
-			$db    = $this->getDbo();
+			$db    = $this->getDatabase();
 			$query = $db->getQuery(true);
 
 			$query->select(
@@ -137,7 +138,7 @@ class SermonspeakerModelSerie extends JModelItem
 	 */
 	public function getSpeakers($series)
 	{
-		$db    = $this->getDbo();
+		$db    = $this->getDatabase();
 		$query = $db->getQuery(true);
 		$query->select(' DISTINCT sermons.speaker_id, speakers.title as speaker_title, speakers.pic, speakers.state');
 		$query->select('speakers.intro, speakers.bio, speakers.website');

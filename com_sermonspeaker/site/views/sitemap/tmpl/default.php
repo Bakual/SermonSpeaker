@@ -7,14 +7,15 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
+defined('_JEXEC') or die();
+
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Router\Route;
-
-defined('_JEXEC') or die();
+use Joomla\CMS\Uri\Uri;
 
 $freq = $this->params->get('freq', 'weekly');
 $prio = $this->params->get('prio', 0.5);
-$uri  = JUri::getInstance();
+$uri  = Uri::getInstance();
 $base = $uri->getScheme() . '://' . $uri->getHost();
 
 if ($port = $uri->getPort())

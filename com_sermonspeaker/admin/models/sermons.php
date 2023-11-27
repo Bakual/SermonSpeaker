@@ -72,7 +72,7 @@ class SermonspeakerModelSermons extends ListModel
 
 	public function getSpeakers()
 	{
-		$db    = Factory::getDbo();
+		$db    = $this->getDatabase();
 		$query = $db->getQuery(true);
 
 		$query->select('speakers.id As value');

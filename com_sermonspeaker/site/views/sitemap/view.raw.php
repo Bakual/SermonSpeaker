@@ -8,6 +8,7 @@
  **/
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\MVC\View\HtmlView;
 
 defined('_JEXEC') or die();
 
@@ -16,7 +17,7 @@ defined('_JEXEC') or die();
  *
  * @since  4.4
  */
-class SermonspeakerViewSitemap extends JViewLegacy
+class SermonspeakerViewSitemap extends HtmlView
 {
 	/**
 	 * Execute and display a template script.
@@ -29,7 +30,7 @@ class SermonspeakerViewSitemap extends JViewLegacy
 	 */
 	public function display($tpl = null)
 	{
-		$this->document->setMimeEncoding('text/xml');
+		$this->getDocument()->setMimeEncoding('text/xml');
 
 		// Get data from the model
 		$this->sermons = $this->get('Sermons');

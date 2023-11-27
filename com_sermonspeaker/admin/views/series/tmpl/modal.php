@@ -7,11 +7,12 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
+use Joomla\CMS\Session\Session;
 
 $app = Factory::getApplication();
 if ($app->isClient('site'))
 {
-	JSession::checkToken('get') or die(Text::_('JINVALID_TOKEN'));
+	Session::checkToken('get') or die(Text::_('JINVALID_TOKEN'));
 	HTMLHelper::_('stylesheet', 'com_sermonspeaker/sermonspeaker.css', array('relative' => true));
 }
 
@@ -29,7 +30,7 @@ $listDirn  = $this->escape($this->state->get('list.direction'));
 ?>
 <div class="container-popup">
 
-	<form action="<?php echo Route::_('index.php?option=com_sermonspeaker&view=series&layout=modal&tmpl=component&function=' . $function . '&' . JSession::getFormToken() . '=1'); ?>"
+	<form action="<?php echo Route::_('index.php?option=com_sermonspeaker&view=series&layout=modal&tmpl=component&function=' . $function . '&' . Session::getFormToken() . '=1'); ?>"
 		  method="post" name="adminForm" id="adminForm" class="form-inline">
 
 		<?php echo LayoutHelper::render('joomla.searchtools.default', array('view' => $this)); ?>

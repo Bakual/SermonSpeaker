@@ -9,13 +9,9 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Form\Field\ListField;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
-
-jimport('joomla.html.html');
-jimport('joomla.form.formfield');
-jimport('joomla.form.helper');
-JFormHelper::loadFieldClass('list');
 
 /**
  * Dateformat Field class for the SermonSpeaker.
@@ -24,7 +20,7 @@ JFormHelper::loadFieldClass('list');
  * @package        SermonSpeaker
  * @since          4.0
  */
-class JFormFieldDateformat extends JFormFieldList
+class JFormFieldDateformat extends ListField
 {
 	/**
 	 * The form field type.

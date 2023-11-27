@@ -11,6 +11,7 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\Application\ApplicationHelper;
 use Joomla\CMS\Factory;
+use Joomla\CMS\Form\Form;
 use Joomla\CMS\Helper\TagsHelper;
 use Joomla\CMS\Language\Associations;
 use Joomla\CMS\Language\LanguageHelper;
@@ -177,12 +178,12 @@ class SermonspeakerModelSpeaker extends AdminModel
 	 * @param   string  $prefix  A prefix for the table class name. Optional.
 	 * @param   array   $config  Configuration array for model. Optional.
 	 *
-	 * @return    JTable    A database object
+	 * @return    Table    A database object
 	 * @since    1.6
 	 */
 	public function getTable($type = 'Speaker', $prefix = 'SermonspeakerTable', $config = array())
 	{
-		return JTable::getInstance($type, $prefix, $config);
+		return Table::getInstance($type, $prefix, $config);
 	}
 
 	/**
@@ -408,7 +409,7 @@ class SermonspeakerModelSpeaker extends AdminModel
 			// Set ordering to the last item if not set
 			if (empty($table->ordering))
 			{
-				$db = Factory::getDbo();
+				$db = $this->getDatabase();
 				$db->setQuery('SELECT MAX(ordering) FROM #__sermon_speakers');
 				$max = $db->loadResult();
 
@@ -436,13 +437,13 @@ class SermonspeakerModelSpeaker extends AdminModel
 	 *
 	 * Note. Calling getState in this method will result in recursion.
 	 *
-	 * @param   JForm   $form
+	 * @param   Form    $form
 	 * @param   mixed   $data
 	 * @param   string  $group
 	 *
 	 * @since    3.0
 	 */
-	protected function preprocessForm(JForm $form, $data, $group = 'sermonspeaker')
+	protected function preprocessForm(Form $form, $data, $group = 'sermonspeaker')
 	{
 		// Association items
 		if (Associations::isEnabled())
@@ -482,7 +483,7 @@ class SermonspeakerModelSpeaker extends AdminModel
 	/**
 	 * A protected method to get a set of ordering conditions.
 	 *
-	 * @param    $table  JTable    A record object.
+	 * @param    $table  Table    A record object.
 	 *
 	 * @return    array    An array of conditions to add to add to ordering queries.
 	 * @since    1.6
@@ -517,7 +518,7 @@ class SermonspeakerModelSpeaker extends AdminModel
 		// Check that the category exists
 		if ($categoryId)
 		{
-			$categoryTable = JTable::getInstance('Category');
+			$categoryTable = Table::getInstance('Category');
 			if (!$categoryTable->load($categoryId))
 			{
 				if ($error = $categoryTable->getError())

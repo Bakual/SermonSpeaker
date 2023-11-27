@@ -8,6 +8,7 @@
  **/
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\MVC\Model\BaseDatabaseModel;
 
 defined('_JEXEC') or die();
 
@@ -16,7 +17,7 @@ defined('_JEXEC') or die();
  *
  * @since  3.4
  */
-class SermonspeakerModelFeed extends JModelLegacy
+class SermonspeakerModelFeed extends BaseDatabaseModel
 {
 	/**
 	 * Method to get an list of object
@@ -27,14 +28,13 @@ class SermonspeakerModelFeed extends JModelLegacy
 	 */
 	function getData()
 	{
-		/** @var JApplicationSite $app */
 		$app    = Factory::getApplication();
 		$params = $app->getParams();
 		$jinput = $app->input;
-		$user   = Factory::getUser();
+		$user   = $app->getIdentity();
 		$groups = implode(',', $user->getAuthorisedViewLevels());
 
-		$db = $this->getDbo();
+		$db = $this->getDatabase();
 
 		// Force utf8 connection
 		$query = "SET character_set_results ='utf8';";

@@ -9,15 +9,17 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\MVC\View\HtmlView;
 
 /**
  * HTML View class for the SermonSpeaker Component
  *
  * @since  5.x
  */
-class SermonspeakerViewScripture extends JViewLegacy
+class SermonspeakerViewScripture extends HtmlView
 {
 	/**
 	 * @var \Joomla\Registry\Registry
@@ -39,7 +41,7 @@ class SermonspeakerViewScripture extends JViewLegacy
 		$separator = Text::_('COM_SERMONSPEAKER_SCRIPTURE_SEPARATOR');
 
 		// Get Params
-		$this->params = JComponentHelper::getParams('com_sermonspeaker');
+		$this->params = ComponentHelper::getParams('com_sermonspeaker');
 
 		// add Javascript for Scripture
 		$javascript = "function AddScripture() {

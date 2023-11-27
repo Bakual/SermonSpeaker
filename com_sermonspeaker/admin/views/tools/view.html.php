@@ -7,18 +7,19 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
+defined('_JEXEC') or die;
+
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\MVC\View\HtmlView;
 use Joomla\CMS\Toolbar\ToolbarHelper;
-
-defined('_JEXEC') or die;
 
 /**
  * HTML View class for the SermonSpeaker Component
  *
  * @since  3.4
  */
-class SermonspeakerViewTools extends JViewLegacy
+class SermonspeakerViewTools extends HtmlView
 {
 	/**
 	 * @var bool
@@ -41,7 +42,7 @@ class SermonspeakerViewTools extends JViewLegacy
 	 *
 	 * @throws Exception
 	 * @since   3.4
-	 * @see     JViewLegacy::loadTemplate()
+	 * @see     HtmlView::loadTemplate()
 	 */
 	public function display($tpl = null)
 	{

@@ -9,9 +9,8 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Form\FormField;
 use Joomla\CMS\Language\Text;
-
-jimport('joomla.form.formfield');
 
 /**
  * Plugintag Field class for the SermonSpeaker
@@ -19,7 +18,7 @@ jimport('joomla.form.formfield');
  * @package        SermonSpeaker
  * @since          4.0
  */
-class JFormFieldPlugintag extends JFormField
+class JFormFieldPlugintag extends FormField
 {
 	/**
 	 * The form field type.

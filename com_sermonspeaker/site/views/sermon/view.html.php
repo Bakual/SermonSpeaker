@@ -7,6 +7,8 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
+defined('_JEXEC') or die();
+
 use Joomla\CMS\Factory;
 use Joomla\CMS\Helper\TagsHelper;
 use Joomla\CMS\Language\Text;
@@ -14,8 +16,6 @@ use Joomla\CMS\MVC\View\HtmlView;
 use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
-
-defined('_JEXEC') or die();
 
 /**
  * HTML View class for the SermonSpeaker Component
@@ -178,7 +178,7 @@ class SermonspeakerViewSermon extends HtmlView
 		$this->item   = $item;
 
 		// Escape strings for HTML output
-		$this->pageclass_sfx = htmlspecialchars($this->params->get('pageclass_sfx'));
+		$this->pageclass_sfx = htmlspecialchars($this->params->get('pageclass_sfx', ''));
 
 		$this->_prepareDocument();
 
@@ -221,26 +221,7 @@ class SermonspeakerViewSermon extends HtmlView
 			}
 		}
 
-		// Check for empty title and add site name if param is set
-		if (empty($title))
-		{
-			$title = $app->get('sitename');
-		}
-		elseif ($app->get('sitename_pagetitles', 0) == 1)
-		{
-			$title = Text::sprintf('JPAGETITLE', $app->get('sitename'), $title);
-		}
-		elseif ($app->get('sitename_pagetitles', 0) == 2)
-		{
-			$title = Text::sprintf('JPAGETITLE', $title, $app->get('sitename'));
-		}
-
-		if (empty($title))
-		{
-			$title = $this->item->title;
-		}
-
-		$this->document->setTitle($title);
+		$this->setDocumentTitle($title);
 
 		// Add Breadcrumbs
 		$pathway = $app->getPathway();
@@ -259,11 +240,11 @@ class SermonspeakerViewSermon extends HtmlView
 		// Set MetaData
 		if ($this->item->metadesc)
 		{
-			$this->document->setDescription($this->item->metadesc);
+			$this->getDocument()->setDescription($this->item->metadesc);
 		}
 		elseif (!$this->item->metadesc && $this->params->get('menu-meta_description'))
 		{
-			$this->document->setDescription($this->params->get('menu-meta_description'));
+			$this->getDocument()->setDescription($this->params->get('menu-meta_description'));
 		}
 
 		$keywords = '';
@@ -298,55 +279,55 @@ class SermonspeakerViewSermon extends HtmlView
 
 		if ($keywords)
 		{
-			$this->document->setMetaData('keywords', $keywords);
+			$this->getDocument()->setMetaData('keywords', $keywords);
 		}
 
 		if ($this->params->get('robots'))
 		{
-			$this->document->setMetaData('robots', $this->params->get('robots'));
+			$this->getDocument()->setMetaData('robots', $this->params->get('robots'));
 		}
 
 		if ($app->get('MetaAuthor'))
 		{
-			$this->document->setMetaData('author', $this->item->speaker_title);
+			$this->getDocument()->setMetaData('author', $this->item->speaker_title);
 		}
 
 		// Add Metadata for Facebook Open Graph API
 		if ($this->params->get('opengraph', 1))
 		{
-			$this->document->addCustomTag('<meta property="og:title" content="' . $this->escape($this->item->title) . '"/>');
-			$this->document->addCustomTag('<meta property="og:url" content="' . htmlspecialchars(Uri::getInstance()->toString()) . '"/>');
-			$this->document->addCustomTag('<meta property="og:description" content="' . $this->document->getDescription() . '"/>');
-			$this->document->addCustomTag('<meta property="og:site_name" content="' . $app->get('sitename') . '"/>');
+			$this->getDocument()->addCustomTag('<meta property="og:title" content="' . $this->escape($this->item->title) . '"/>');
+			$this->getDocument()->addCustomTag('<meta property="og:url" content="' . htmlspecialchars(Uri::getInstance()->toString()) . '"/>');
+			$this->getDocument()->addCustomTag('<meta property="og:description" content="' . $this->getDocument()->getDescription() . '"/>');
+			$this->getDocument()->addCustomTag('<meta property="og:site_name" content="' . $app->get('sitename') . '"/>');
 
 			if ($picture = SermonspeakerHelperSermonspeaker::insertPicture($this->item))
 			{
-				$this->document->addCustomTag('<meta property="og:image" content="' . SermonspeakerHelperSermonspeaker::makeLink($picture, true) . '"/>');
+				$this->getDocument()->addCustomTag('<meta property="og:image" content="' . SermonspeakerHelperSermonspeaker::makeLink($picture, true) . '"/>');
 			}
 
 			if ($this->params->get('fbmode', 0))
 			{
-				$this->document->addCustomTag('<meta property="og:type" content="article"/>');
+				$this->getDocument()->addCustomTag('<meta property="og:type" content="article"/>');
 
 				if ($this->item->speaker_title)
 				{
-					$this->document->addCustomTag(
+					$this->getDocument()->addCustomTag(
 						'<meta property="article:author" content="'
-						. JUri::base() . trim(Route::_(SermonspeakerHelperRoute::getSpeakerRoute($this->item->speaker_slug, $this->item->speaker_catid, $this->item->speaker_language)), '/')
+						. Uri::base() . trim(Route::_(SermonspeakerHelperRoute::getSpeakerRoute($this->item->speaker_slug, $this->item->speaker_catid, $this->item->speaker_language)), '/')
 						. '"/>'
 					);
 				}
 
 				if ($this->item->series_title)
 				{
-					$this->document->addCustomTag('<meta property="article:section" content="' . $this->escape($this->item->series_title) . '"/>');
+					$this->getDocument()->addCustomTag('<meta property="article:section" content="' . $this->escape($this->item->series_title) . '"/>');
 				}
 			}
 			else
 			{
 				if ($this->item->videofile && ($this->params->get('fileprio', 0) || !$this->item->audiofile))
 				{
-					$this->document->addCustomTag('<meta property="og:type" content="movie"/>');
+					$this->getDocument()->addCustomTag('<meta property="og:type" content="movie"/>');
 
 					if ((strpos($this->item->videofile, 'http://vimeo.com') === 0) || (strpos($this->item->videofile, 'http://player.vimeo.com') === 0))
 					{
@@ -359,36 +340,36 @@ class SermonspeakerViewSermon extends HtmlView
 						$file = SermonspeakerHelperSermonspeaker::makeLink($this->item->videofile, true);
 					}
 
-					$this->document->addCustomTag('<meta property="og:video" content="' . $file . '"/>');
+					$this->getDocument()->addCustomTag('<meta property="og:video" content="' . $file . '"/>');
 				}
 				else
 				{
-					$this->document->addCustomTag('<meta property="og:type" content="song"/>');
-					$this->document->addCustomTag(
+					$this->getDocument()->addCustomTag('<meta property="og:type" content="song"/>');
+					$this->getDocument()->addCustomTag(
 						'<meta property="og:audio" content="' . SermonspeakerHelperSermonspeaker::makeLink($this->item->audiofile, true) . '"/>'
 					);
-					$this->document->addCustomTag('<meta property="og:audio:title" content="' . $this->escape($this->item->title) . '"/>');
+					$this->getDocument()->addCustomTag('<meta property="og:audio:title" content="' . $this->escape($this->item->title) . '"/>');
 
 					if ($this->item->speaker_title)
 					{
-						$this->document->addCustomTag('<meta property="og:audio:artist" content="' . $this->escape($this->item->speaker_title) . '"/>');
+						$this->getDocument()->addCustomTag('<meta property="og:audio:artist" content="' . $this->escape($this->item->speaker_title) . '"/>');
 					}
 
 					if ($this->item->series_title)
 					{
-						$this->document->addCustomTag('<meta property="og:audio:album" content="' . $this->escape($this->item->series_title) . '"/>');
+						$this->getDocument()->addCustomTag('<meta property="og:audio:album" content="' . $this->escape($this->item->series_title) . '"/>');
 					}
 				}
 			}
 
 			if ($fbadmins = $this->params->get('fbadmins', ''))
 			{
-				$this->document->addCustomTag('<meta property="fb:admins" content="' . $fbadmins . '"/>');
+				$this->getDocument()->addCustomTag('<meta property="fb:admins" content="' . $fbadmins . '"/>');
 			}
 
 			if ($fbapp_id = $this->params->get('fbapp_id', ''))
 			{
-				$this->document->addCustomTag('<meta property="fb:app_id" content="' . $fbapp_id . '"/>');
+				$this->getDocument()->addCustomTag('<meta property="fb:app_id" content="' . $fbapp_id . '"/>');
 			}
 		}
 	}

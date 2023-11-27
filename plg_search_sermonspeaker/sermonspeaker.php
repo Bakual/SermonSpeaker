@@ -11,6 +11,7 @@ defined('_JEXEC') or die();
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Plugin\CMSPlugin;
 
 require_once JPATH_SITE . '/components/com_sermonspeaker/helpers/route.php';
 
@@ -19,7 +20,7 @@ require_once JPATH_SITE . '/components/com_sermonspeaker/helpers/route.php';
  *
  * @since  1.0
  */
-class PlgSearchSermonspeaker extends JPlugin
+class PlgSearchSermonspeaker extends CMSPlugin
 {
 	/**
 	 * Constructor

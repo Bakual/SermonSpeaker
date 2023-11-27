@@ -8,6 +8,7 @@
  **/
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\MVC\Model\BaseDatabaseModel;
 
 defined('_JEXEC') or die();
 
@@ -16,7 +17,7 @@ defined('_JEXEC') or die();
  *
  * @since  3.4
  */
-class SermonspeakerModelSitemap extends JModelLegacy
+class SermonspeakerModelSitemap extends BaseDatabaseModel
 {
 	/**
 	 * Method to get sermons
@@ -28,9 +29,9 @@ class SermonspeakerModelSitemap extends JModelLegacy
 	public function getSermons()
 	{
 		// Create a new query object.
-		$db     = $this->getDbo();
+		$db     = $this->getDatabase();
 		$query  = $db->getQuery(true);
-		$groups = Factory::getUser()->getAuthorisedViewLevels();
+		$groups = Factory::getApplication()->getIdentity()->getAuthorisedViewLevels();
 
 		$query->select('a.id, a.title, a.sermon_date, a.created, a.catid, a.language');
 		$query->select("CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(':', a.id, a.alias) ELSE a.id END as slug");

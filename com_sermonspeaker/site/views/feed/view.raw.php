@@ -9,17 +9,21 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
-use Joomla\CMS\Filesystem\File;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\MVC\View\HtmlView;
+use Joomla\CMS\Table\Table;
+use Joomla\CMS\Uri\Uri;
+use Joomla\Filesystem\File;
 
 /**
  * HTML View class for the SermonSpeaker Component
  *
  * @since  4
  */
-class SermonspeakerViewFeed extends JViewLegacy
+class SermonspeakerViewFeed extends HtmlView
 {
 	/**
 	 * @var  $params  Joomla\Registry\Registry  Holds the component params
@@ -71,14 +75,14 @@ class SermonspeakerViewFeed extends JViewLegacy
 			$app->redirect('');
 		}
 
-		$this->document->setMimeEncoding('application/rss+xml');
+		$this->getDocument()->setMimeEncoding('application/rss+xml');
 
 		// Get Data from Model (/models/feed.php)
 		$this->items = $this->get('Data');
 
 		// Get current version of SermonSpeaker
-		$component  = JComponentHelper::getComponent('com_sermonspeaker');
-		$extensions = JTable::getInstance('extension');
+		$component  = ComponentHelper::getComponent('com_sermonspeaker');
+		$extensions = Table::getInstance('extension');
 		$extensions->load($component->id);
 		$manifest      = json_decode($extensions->manifest_cache);
 		$this->version = $manifest->version;
@@ -227,7 +231,7 @@ class SermonspeakerViewFeed extends JViewLegacy
 				$path = trim($path, ' /');
 
 				// Url to play
-				$enclosure['url'] = JUri::root() . $path;
+				$enclosure['url'] = Uri::root() . $path;
 
 				// Filesize for length TODO: Get from database if available
 				if (file_exists(JPATH_ROOT . $file))

@@ -10,17 +10,21 @@
 defined('_JEXEC') or die();
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\Helper\TagsHelper;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
+use Joomla\CMS\MVC\View\HtmlView;
+use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\CMS\Router\Route;
+use Joomla\CMS\Uri\Uri;
 
 /**
  * HTML View class for the SermonSpeaker Component
  *
  * @since  3.4
  */
-class SermonspeakerViewSerie extends JViewLegacy
+class SermonspeakerViewSerie extends HtmlView
 {
 	/**
 	 * Execute and display a template script.
@@ -58,7 +62,7 @@ class SermonspeakerViewSerie extends JViewLegacy
 		}
 
 		// Get Tags
-		$this->item->tags = new JHelperTags;
+		$this->item->tags = new TagsHelper;
 		$this->item->tags->getItemTags('com_sermonspeaker.serie', $this->item->id);
 
 		// Check if access is not public
@@ -167,7 +171,7 @@ class SermonspeakerViewSerie extends JViewLegacy
 				document.getElementById(\'filter-search\').value="";
 			}
 		}';
-		$this->document->addScriptDeclaration($js);
+		$this->getDocument()->addScriptDeclaration($js);
 
 		// Build Books
 		$groups = array();
@@ -204,7 +208,7 @@ class SermonspeakerViewSerie extends JViewLegacy
 		$this->books = $groups;
 
 		// Process the content plugins.
-		JPluginHelper::importPlugin('content');
+		PluginHelper::importPlugin('content');
 
 		$this->item->text = $this->item->series_description;
 		$app->triggerEvent('onContentPrepare', array('com_sermonspeaker.serie', &$this->item, &$this->params, 0));
@@ -244,7 +248,7 @@ class SermonspeakerViewSerie extends JViewLegacy
 			$item->event->afterDisplayContent = trim(implode("\n", $results));
 		}
 
-		$this->pageclass_sfx = htmlspecialchars($this->params->get('pageclass_sfx'));
+		$this->pageclass_sfx = htmlspecialchars($this->params->get('pageclass_sfx', ''));
 		$this->maxLevel      = $this->params->get('maxLevel', -1);
 		$this->_prepareDocument();
 
@@ -286,26 +290,7 @@ class SermonspeakerViewSerie extends JViewLegacy
 			}
 		}
 
-		// Check for empty title and add site name if param is set
-		if (empty($title))
-		{
-			$title = $app->get('sitename');
-		}
-		elseif ($app->get('sitename_pagetitles', 0) == 1)
-		{
-			$title = Text::sprintf('JPAGETITLE', $app->get('sitename'), $title);
-		}
-		elseif ($app->get('sitename_pagetitles', 0) == 2)
-		{
-			$title = Text::sprintf('JPAGETITLE', $title, $app->get('sitename'));
-		}
-
-		if (empty($title))
-		{
-			$title = $this->item->title;
-		}
-
-		$this->document->setTitle($title);
+		$this->setDocumentTitle($title);
 
 		// Add Breadcrumbs
 		$pathway = $app->getPathway();
@@ -314,39 +299,39 @@ class SermonspeakerViewSerie extends JViewLegacy
 		// Set MetaData
 		if ($this->item->metadesc)
 		{
-			$this->document->setDescription($this->item->metadesc);
+			$this->getDocument()->setDescription($this->item->metadesc);
 		}
 		elseif (!$this->item->metadesc && $this->params->get('menu-meta_description'))
 		{
-			$this->document->setDescription($this->params->get('menu-meta_description'));
+			$this->getDocument()->setDescription($this->params->get('menu-meta_description'));
 		}
 
 		if ($this->item->metakey)
 		{
-			$this->document->setMetaData('keywords', $this->item->metakey);
+			$this->getDocument()->setMetaData('keywords', $this->item->metakey);
 		}
 		elseif (!$this->item->metakey && $this->params->get('menu-meta_keywords'))
 		{
-			$this->document->setMetaData('keywords', $this->params->get('menu-meta_keywords'));
+			$this->getDocument()->setMetaData('keywords', $this->params->get('menu-meta_keywords'));
 		}
 
 		if ($this->params->get('robots'))
 		{
-			$this->document->setMetaData('robots', $this->params->get('robots'));
+			$this->getDocument()->setMetaData('robots', $this->params->get('robots'));
 		}
 
 		// Add Metadata for Facebook Open Graph API
 		if ($this->params->get('opengraph', 1))
 		{
-			$this->document->addCustomTag('<meta property="og:title" content="' . $this->escape($this->item->title) . '"/>');
-			$this->document->addCustomTag('<meta property="og:url" content="' . JUri::getInstance()->toString() . '"/>');
-			$this->document->addCustomTag('<meta property="og:description" content="' . $this->document->getDescription() . '"/>');
-			$this->document->addCustomTag('<meta property="og:site_name" content="' . $app->get('sitename') . '"/>');
-			$this->document->addCustomTag('<meta property="og:type" content="article"/>');
+			$this->getDocument()->addCustomTag('<meta property="og:title" content="' . $this->escape($this->item->title) . '"/>');
+			$this->getDocument()->addCustomTag('<meta property="og:url" content="' . Uri::getInstance()->toString() . '"/>');
+			$this->getDocument()->addCustomTag('<meta property="og:description" content="' . $this->getDocument()->getDescription() . '"/>');
+			$this->getDocument()->addCustomTag('<meta property="og:site_name" content="' . $app->get('sitename') . '"/>');
+			$this->getDocument()->addCustomTag('<meta property="og:type" content="article"/>');
 
 			if ($this->item->avatar)
 			{
-				$this->document->addCustomTag('<meta property="og:image" content="'
+				$this->getDocument()->addCustomTag('<meta property="og:image" content="'
 					. SermonspeakerHelperSermonspeaker::makeLink($this->item->avatar, true) . '"/>');
 			}
 		}

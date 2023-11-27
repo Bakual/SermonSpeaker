@@ -24,7 +24,7 @@ if (!$this->item->pic)
 	$this->item->pic = 'media/com_sermonspeaker/images/' . $this->params->get('defaultpic', 'nopict.jpg');
 }
 ?>
-<div class="ss-speaker-container<?php echo htmlspecialchars($this->params->get('pageclass_sfx')); ?>">
+<div class="ss-speaker-container<?php echo htmlspecialchars($this->params->get('pageclass_sfx', '')); ?>">
 	<div class="<?php echo ($this->item->state) ? '' : 'system-unpublished'; ?>">
 		<div class="page-header">
 			<a href="<?php echo Route::_(SermonspeakerHelperRoute::getSpeakerRoute($this->item->slug, $this->item->catid, $this->item->language)); ?>"

@@ -10,9 +10,11 @@
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\Form\Form;
 use Joomla\CMS\Language\Multilanguage;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\GenericDataException;
+use Joomla\CMS\MVC\View\HtmlView;
 use Joomla\CMS\Toolbar\Toolbar;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 
@@ -21,12 +23,12 @@ use Joomla\CMS\Toolbar\ToolbarHelper;
  *
  * @since  3.4
  */
-class SermonspeakerViewSeries extends JViewLegacy
+class SermonspeakerViewSeries extends HtmlView
 {
 	/**
 	 * Form object for search filters
 	 *
-	 * @var  \JForm
+	 * @var  Form
 	 *
 	 * @since  ?
 	 */
