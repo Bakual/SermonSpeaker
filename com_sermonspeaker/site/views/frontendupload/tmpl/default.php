@@ -25,10 +25,11 @@ $wa->useScript('form.validate');
 HTMLHelper::_('stylesheet', 'com_sermonspeaker/frontendupload.css', array('relative' => true));
 HTMLHelper::_('bootstrap.tooltip', '.hasTooltip');
 
-// TODO:Replace HTMLHelper::_('bootstrap.modal') with Bootstrap equivalent.
+// TODO:Replace HTMLHelper::_('uitab.modal') with uitab equivalent.
 
 $this->ignore_fieldsets = array('general', 'files', 'info', 'detail', 'publishingdata', 'jmetadata', 'metadata', 'item_associations');
 $this->tab_name         = 'sermonEditTab';
+$this->useCoreUI        = true;
 
 $uri = Uri::getInstance();
 $uri->delVar('file');
@@ -51,9 +52,9 @@ $self = $uri->toString();
 			action="<?php echo Route::_('index.php?option=com_sermonspeaker&view=frontendupload&s_id=' . (int) $this->item->id); ?>"
 			method="post" name="adminForm" id="adminForm" class="form-validate form form-vertical">
 		<fieldset>
-			<?php echo HTMLHelper::_('bootstrap.startTabSet', $this->tab_name, array('active' => 'editor')); ?>
+			<?php echo HTMLHelper::_('uitab.startTabSet', $this->tab_name, array('active' => 'editor')); ?>
 
-			<?php echo HTMLHelper::_('bootstrap.addTab', $this->tab_name, 'editor', Text::_('JEDITOR', true)); ?>
+			<?php echo HTMLHelper::_('uitab.addTab', $this->tab_name, 'editor', Text::_('JEDITOR', true)); ?>
 			<?php echo $this->form->renderField('title'); ?>
 
 			<?php if (is_null($this->item->id)): ?>
@@ -61,9 +62,9 @@ $self = $uri->toString();
 			<?php endif;
 
 			echo $this->form->getInput('notes'); ?>
-			<?php echo HTMLHelper::_('bootstrap.endTab'); ?>
+			<?php echo HTMLHelper::_('uitab.endTab'); ?>
 
-			<?php echo HTMLHelper::_('bootstrap.addTab', $this->tab_name, 'files', Text::_('COM_SERMONSPEAKER_FU_FILES', true)); ?>
+			<?php echo HTMLHelper::_('uitab.addTab', $this->tab_name, 'files', Text::_('COM_SERMONSPEAKER_FU_FILES', true)); ?>
 			<div id="upload_limit" class="well well-small ss-hide">
 				<?php echo Text::sprintf('COM_SERMONSPEAKER_UPLOAD_LIMIT', $this->upload_limit); ?>
 			</div>
@@ -131,17 +132,17 @@ $self = $uri->toString();
 				</div>
 			</div>
 			<?php echo $this->form->renderField('addfileDesc'); ?>
-			<?php echo HTMLHelper::_('bootstrap.endTab'); ?>
+			<?php echo HTMLHelper::_('uitab.endTab'); ?>
 
-			<?php echo HTMLHelper::_('bootstrap.addTab', $this->tab_name, 'details', Text::_('JDETAILS', true)); ?>
+			<?php echo HTMLHelper::_('uitab.addTab', $this->tab_name, 'details', Text::_('JDETAILS', true)); ?>
 			<?php foreach ($this->form->getFieldset('detail') as $field): ?>
 				<?php echo $this->form->renderField($field->fieldname); ?>
 			<?php endforeach; ?>
-			<?php echo HTMLHelper::_('bootstrap.endTab'); ?>
+			<?php echo HTMLHelper::_('uitab.endTab'); ?>
 
 			<?php echo LayoutHelper::render('joomla.edit.params', $this); ?>
 
-			<?php echo HTMLHelper::_('bootstrap.addTab', $this->tab_name, 'publishing', Text::_('COM_SERMONSPEAKER_PUBLISHING', true)); ?>
+			<?php echo HTMLHelper::_('uitab.addTab', $this->tab_name, 'publishing', Text::_('COM_SERMONSPEAKER_PUBLISHING', true)); ?>
 			<?php echo $this->form->renderField('catid'); ?>
 			<?php echo $this->form->renderField('tags'); ?>
 			<?php if ($this->user->authorise('core.edit.state', 'com_sermonspeaker')): ?>
@@ -150,18 +151,18 @@ $self = $uri->toString();
 				<?php echo $this->form->renderField('publish_up'); ?>
 				<?php echo $this->form->renderField('publish_down'); ?>
 			<?php endif; ?>
-			<?php echo HTMLHelper::_('bootstrap.endTab'); ?>
+			<?php echo HTMLHelper::_('uitab.endTab'); ?>
 
-			<?php echo HTMLHelper::_('bootstrap.addTab', $this->tab_name, 'language', Text::_('JFIELD_LANGUAGE_LABEL', true)); ?>
+			<?php echo HTMLHelper::_('uitab.addTab', $this->tab_name, 'language', Text::_('JFIELD_LANGUAGE_LABEL', true)); ?>
 			<?php echo $this->form->renderField('language'); ?>
-			<?php echo HTMLHelper::_('bootstrap.endTab'); ?>
+			<?php echo HTMLHelper::_('uitab.endTab'); ?>
 
-			<?php echo HTMLHelper::_('bootstrap.addTab', $this->tab_name, 'metadata', Text::_('COM_SERMONSPEAKER_METADATA', true)); ?>
+			<?php echo HTMLHelper::_('uitab.addTab', $this->tab_name, 'metadata', Text::_('COM_SERMONSPEAKER_METADATA', true)); ?>
 			<?php echo $this->form->renderField('metadesc'); ?>
 			<?php echo $this->form->renderField('metakey'); ?>
-			<?php echo HTMLHelper::_('bootstrap.endTab'); ?>
+			<?php echo HTMLHelper::_('uitab.endTab'); ?>
 
-			<?php echo HTMLHelper::_('bootstrap.endTabSet'); ?>
+			<?php echo HTMLHelper::_('uitab.endTabSet'); ?>
 
 			<input type="hidden" name="task" value=""/>
 			<input type="hidden" name="return" value="<?php echo $this->return_page; ?>"/>
