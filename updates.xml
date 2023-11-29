@@ -23,12 +23,12 @@
 		<description>SermonSpeaker Package</description>
 		<element>pkg_sermonspeaker</element>
 		<type>package</type>
-		<version>6.0.8</version>
+		<version>6.1.0</version>
 		<client>site</client>
-		<infourl title="SermonSpeaker Package 6.0.8">https://github.com/Bakual/SermonSpeaker/releases/tag/6.0.8</infourl>
+		<infourl title="SermonSpeaker Package 6.1.0">https://github.com/Bakual/SermonSpeaker/releases/tag/6.1.0</infourl>
 		<downloads>
 			<downloadurl type="full" format="zip">
-				https://github.com/Bakual/SermonSpeaker/archive/refs/tags/6.0.8.zip
+				https://github.com/Bakual/SermonSpeaker/archive/refs/tags/6.1.0.zip
 			</downloadurl>
 		</downloads>
 		<tags>
