@@ -102,7 +102,7 @@ class SermonspeakerModelSerieform extends SermonspeakerModelSerie
 
 		if (!Uri::isInternal(base64_decode($return)))
 		{
-			$return = null;
+			$return = '';
 		}
 
 		$this->setState('return_page', base64_decode($return));
