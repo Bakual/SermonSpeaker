@@ -71,7 +71,7 @@ class SermonspeakerViewSpeakerform extends HtmlView
 			throw new Exception(implode("\n", $errors), 500);
 		}
 		// Escape strings for HTML output
-		$this->pageclass_sfx = htmlspecialchars($params->get('pageclass_sfx'));
+		$this->pageclass_sfx = htmlspecialchars($params->get('pageclass_sfx', ''));
 		$this->params        = $params;
 		$this->user          = $user;
 		$this->_prepareDocument();
