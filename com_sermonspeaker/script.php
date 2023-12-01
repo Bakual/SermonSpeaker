@@ -44,7 +44,7 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 	 * @var    string
 	 * @since  6.0.0
 	 */
-	protected $minimumJoomla = '4.0.0';
+	protected $minimumJoomla = '4.4.0';
 	/**
 	 * @var  Joomla\CMS\Application\CMSApplication  Holds the application object
 	 *
