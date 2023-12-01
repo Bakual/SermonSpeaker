@@ -145,6 +145,21 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 			$this->deleteFolders[] = '/administrator/components/com_sermonspeaker/vendor/tpyo';
 
 			// Remove old SQL files
+d			$this->deleteFiles[] = '/administrator/components/com_sermonspeaker/sql/updates/mysql/4.0.sql';
+d			$this->deleteFiles[] = '/administrator/components/com_sermonspeaker/sql/updates/mysql/4.1.sql';
+d			$this->deleteFiles[] = '/administrator/components/com_sermonspeaker/sql/updates/mysql/4.2.sql';
+d			$this->deleteFiles[] = '/administrator/components/com_sermonspeaker/sql/updates/mysql/4.3.sql';
+d			$this->deleteFiles[] = '/administrator/components/com_sermonspeaker/sql/updates/mysql/4.4.sql';
+d			$this->deleteFiles[] = '/administrator/components/com_sermonspeaker/sql/updates/mysql/4.4.2.sql';
+d			$this->deleteFiles[] = '/administrator/components/com_sermonspeaker/sql/updates/mysql/4.4.3.sql';
+d			$this->deleteFiles[] = '/administrator/components/com_sermonspeaker/sql/updates/mysql/4.4.4.sql';
+d			$this->deleteFiles[] = '/administrator/components/com_sermonspeaker/sql/updates/mysql/4.4.5.sql';
+d			$this->deleteFiles[] = '/administrator/components/com_sermonspeaker/sql/updates/mysql/4.4.6.sql';
+d			$this->deleteFiles[] = '/administrator/components/com_sermonspeaker/sql/updates/mysql/4.4.7.sql';
+d			$this->deleteFiles[] = '/administrator/components/com_sermonspeaker/sql/updates/mysql/4.4.8.sql';
+d			$this->deleteFiles[] = '/administrator/components/com_sermonspeaker/sql/updates/mysql/4.4.9.sql';
+d			$this->deleteFiles[] = '/administrator/components/com_sermonspeaker/sql/updates/mysql/4.4.10.sql';
+d			$this->deleteFiles[] = '/administrator/components/com_sermonspeaker/sql/updates/mysql/4.4.11.sql';
 			$this->deleteFiles[] = '/administrator/components/com_sermonspeaker/sql/updates/mysql/4.5.0.sql';
 			$this->deleteFiles[] = '/administrator/components/com_sermonspeaker/sql/updates/mysql/4.5.1.sql';
 			$this->deleteFiles[] = '/administrator/components/com_sermonspeaker/sql/updates/mysql/4.5.2.sql';
