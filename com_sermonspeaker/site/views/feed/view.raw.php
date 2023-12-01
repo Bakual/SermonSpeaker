@@ -16,7 +16,7 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\HtmlView;
 use Joomla\CMS\Table\Table;
 use Joomla\CMS\Uri\Uri;
-use Joomla\Filesystem\File;
+use Joomla\CMS\Filesystem\File;
 
 /**
  * HTML View class for the SermonSpeaker Component

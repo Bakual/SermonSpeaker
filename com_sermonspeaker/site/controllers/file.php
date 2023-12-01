@@ -16,7 +16,7 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Controller\BaseController;
 use Joomla\CMS\Session\Session;
 use Joomla\CMS\Uri\Uri;
-use Joomla\Filesystem\File;
+use Joomla\CMS\Filesystem\File;
 use Joomla\Filesystem\Path;
 
 /**

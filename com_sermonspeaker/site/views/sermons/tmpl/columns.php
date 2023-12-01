@@ -15,7 +15,7 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
-use Joomla\Filesystem\File;
+use Joomla\CMS\Filesystem\File;
 
 HTMLHelper::addIncludePath(JPATH_BASE . '/components/com_sermonspeaker/helpers');
 

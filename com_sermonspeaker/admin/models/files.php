@@ -13,9 +13,9 @@ use Aws\Credentials\Credentials;
 use Aws\S3\S3Client;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
+use Joomla\CMS\Filesystem\File;
 use Joomla\CMS\Filesystem\Folder;
 use Joomla\CMS\MVC\Model\BaseDatabaseModel;
-use Joomla\Filesystem\File;
 
 /**
  * Model class for the SermonSpeaker Component

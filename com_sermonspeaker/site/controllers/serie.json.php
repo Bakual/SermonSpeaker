@@ -16,7 +16,7 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Controller\BaseController;
 use Joomla\CMS\Uri\Uri;
 use Joomla\Filesystem\Folder;
-use Joomla\Filesystem\File;
+use Joomla\CMS\Filesystem\File;
 
 /**
  * Controller class for the SermonSpeaker Component

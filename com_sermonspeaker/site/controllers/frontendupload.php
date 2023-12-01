@@ -17,8 +17,7 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Controller\FormController;
 use Joomla\CMS\MVC\Model\BaseDatabaseModel;
 use Joomla\CMS\Uri\Uri;
-use Joomla\Filesystem\File;
-use Joomla\Utilities\ArrayHelper;
+use Joomla\CMS\Filesystem\File;use Joomla\Utilities\ArrayHelper;
 
 /**
  * Controller class for the SermonSpeaker Component
