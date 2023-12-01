@@ -2,11 +2,11 @@
 <extension type="component" version="4.0.0" method="upgrade">
 	<name>com_sermonspeaker</name>
 	<author>Thomas Hunziker</author>
-	<creationDate>2023-11-29</creationDate>
+	<creationDate>2023-12-01</creationDate>
 	<copyright>© 2023</copyright>
 	<authorEmail>admin@sermonspeaker.net</authorEmail>
 	<authorUrl>http://www.sermonspeaker.net</authorUrl>
-	<version>6.1.2</version>
+	<version>6.1.3</version>
 	<license>http://www.gnu.org/licenses/gpl.html</license>
 	<description>COM_SERMONSPEAKER_DESCRIPTION</description>
 	<scriptfile>script.php</scriptfile>
