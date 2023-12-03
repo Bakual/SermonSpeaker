@@ -192,12 +192,12 @@ class SermonspeakerControllerSerie extends BaseController
 
 		// Check if creating already in progress
 		$query = $db->getQuery(true);
-		$query->select('CASE WHEN `zip_created` < (' . $db->quote(Factory::getDate()->toSql()) . ' - INTERVAL 1 HOUR) THEN 1 ELSE `zip_state` END');
+		$query->select('CASE WHEN `zip_created` < (' . $db->quote(Factory::getDate()->toSql()) . ' - INTERVAL 1 HOUR) THEN 0 ELSE `zip_state` END');
 		$query->from('#__sermon_series');
 		$query->where('`id` = ' . $id);
 		$db->setQuery($query);
 
-		if (!$db->loadResult())
+		if ($db->loadResult())
 		{
 			$response = array(
 				'status' => '1',
@@ -221,7 +221,7 @@ class SermonspeakerControllerSerie extends BaseController
 
 		if ($count = count($files))
 		{
-			if (!Folder::exists($folder . 'series'))
+			if (!is_dir($folder . 'series'))
 			{
 				Folder::create($folder . 'series');
 			}
