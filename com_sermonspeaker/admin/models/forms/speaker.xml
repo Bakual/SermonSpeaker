@@ -52,13 +52,15 @@
 			label="COM_SERMONSPEAKER_FIELD_INTRO_LABEL"
 			buttons="true"
 			hide="pagebreak,readmore"
-			filter="ComponentHelper::filterText"/>
+			filter="\Joomla\CMS\Component\ComponentHelper::filterText"
+		/>
 
 		<field name="bio" type="editor"
 			label="COM_SERMONSPEAKER_FIELD_BIO_LABEL"
 			buttons="true"
 			hide="pagebreak,readmore"
-			filter="ComponentHelper::filterText"/>
+			filter="\Joomla\CMS\Component\ComponentHelper::filterText"
+		/>
 
 		<field
 			name="language"

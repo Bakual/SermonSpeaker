@@ -22,7 +22,7 @@
 			description="COM_SERMONSPEAKER_FIELD_NOTES_DESC"
 			buttons="true"
 			hide="pagebreak,readmore"
-			filter="ComponentHelper::filterText"
+			filter="\Joomla\CMS\Component\ComponentHelper::filterText"
 		/>
 
 		<field name="state"

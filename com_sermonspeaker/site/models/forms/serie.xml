@@ -56,7 +56,7 @@
 			label="JGLOBAL_DESCRIPTION"
 			hiddenLabel="true"
 			buttons="true"
-			filter="ComponentHelper::filterText"
+			filter="\Joomla\CMS\Component\ComponentHelper::filterText"
 			hide="pagebreak,readmore"
 		/>
 
