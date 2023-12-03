@@ -46,12 +46,12 @@
 		<description>SermonSpeaker Component</description>
 		<element>com_sermonspeaker</element>
 		<type>component</type>
-		<version>6.1.3</version>
+		<version>6.1.4</version>
 		<client>administrator</client>
-		<infourl title="SermonSpeaker Component 6.1.3">https://github.com/Bakual/SermonSpeaker/releases/tag/6.1.3</infourl>
+		<infourl title="SermonSpeaker Component 6.1.4">https://github.com/Bakual/SermonSpeaker/releases/tag/6.1.4</infourl>
 		<downloads>
 			<downloadurl type="full" format="zip">
-				https://github.com/Bakual/SermonSpeaker/releases/download/6.1.3/com_sermonspeaker.zip
+				https://github.com/Bakual/SermonSpeaker/releases/download/6.1.4/com_sermonspeaker.zip
 			</downloadurl>
 		</downloads>
 		<tags>
@@ -60,19 +60,19 @@
 		<maintainer>Thomas Hunziker</maintainer>
 		<maintainerurl>https://www.sermonspeaker.net/</maintainerurl>
 		<targetplatform name="joomla" version="4.4"/>
-		<sha256>52c3ada7177b2ca2153bc4779c76b23346700152a1613476b7f5556ea4697b2c</sha256>
+		<sha256>bad7c0ff672ff3012d4be53d39538a4b2d715d39b2e8f436b46452dddd97edd3</sha256>
 	</update>
 	<update>
 		<name>SermonSpeaker Component</name>
 		<description>SermonSpeaker Component</description>
 		<element>com_sermonspeaker</element>
 		<type>component</type>
-		<version>6.1.3</version>
+		<version>6.1.4</version>
 		<client>administrator</client>
-		<infourl title="SermonSpeaker Component 6.1.3">https://github.com/Bakual/SermonSpeaker/releases/tag/6.1.3</infourl>
+		<infourl title="SermonSpeaker Component 6.1.4">https://github.com/Bakual/SermonSpeaker/releases/tag/6.1.4</infourl>
 		<downloads>
 			<downloadurl type="full" format="zip">
-				https://github.com/Bakual/SermonSpeaker/releases/download/6.1.3/com_sermonspeaker.zip
+				https://github.com/Bakual/SermonSpeaker/releases/download/6.1.4/com_sermonspeaker.zip
 			</downloadurl>
 		</downloads>
 		<tags>
@@ -81,6 +81,6 @@
 		<maintainer>Thomas Hunziker</maintainer>
 		<maintainerurl>https://www.sermonspeaker.net/</maintainerurl>
 		<targetplatform name="joomla" version="5.[01234]"/>
-		<sha256>52c3ada7177b2ca2153bc4779c76b23346700152a1613476b7f5556ea4697b2c</sha256>
+		<sha256>bad7c0ff672ff3012d4be53d39538a4b2d715d39b2e8f436b46452dddd97edd3</sha256>
 	</update>
 </updates>
