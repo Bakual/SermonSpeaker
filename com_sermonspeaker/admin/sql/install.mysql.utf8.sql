@@ -68,7 +68,7 @@ CREATE TABLE `#__sermon_series`
     `zip_content`        TEXT             NULL,
     `zip_progress`       INT(11)          NOT NULL DEFAULT '0',
     `zip_state`          TINYINT(3)       NOT NULL DEFAULT '0',
-    `zip_size`           INT(11)          NOT NULL DEFAULT '0',
+    `zip_size`           BIGINT           NOT NULL DEFAULT '0',
     `zip_dl`             TINYINT(3)       NOT NULL DEFAULT '0',
     `language`           CHAR(7)          NOT NULL DEFAULT '*',
     `version`            int(10) unsigned NOT NULL DEFAULT '1',
