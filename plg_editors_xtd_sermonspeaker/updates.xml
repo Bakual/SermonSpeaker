@@ -16,7 +16,7 @@
 		<maintainer>Thomas Hunziker</maintainer>
 		<maintainerurl>https://www.sermonspeaker.net/</maintainerurl>
 		<targetplatform name="joomla" version="3.[89]|10"/>
-		<client>1</client>
+		<client>site</client>
 		<folder>editors-xtd</folder>
 	</update>
 	<update>
@@ -36,7 +36,7 @@
 		<maintainer>Thomas Hunziker</maintainer>
 		<maintainerurl>https://www.sermonspeaker.net/</maintainerurl>
 		<targetplatform name="joomla" version="[45].[01234]"/>
-		<client>1</client>
+		<client>site</client>
 		<folder>editors-xtd</folder>
 	</update>
 </updates>

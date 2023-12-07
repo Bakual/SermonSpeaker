@@ -16,7 +16,7 @@
 		<maintainer>Thomas Hunziker</maintainer>
 		<maintainerurl>https://www.sermonspeaker.net/</maintainerurl>
 		<targetplatform name="joomla" version="3.[89]|10"/>
-		<client>0</client>
+		<client>site</client>
 	</update>
 	<update>
 		<name>SermonArchive Module</name>
@@ -35,6 +35,6 @@
 		<maintainer>Thomas Hunziker</maintainer>
 		<maintainerurl>https://www.sermonspeaker.net/</maintainerurl>
 		<targetplatform name="joomla" version="[45].[01234]"/>
-		<client>0</client>
+		<client>site</client>
 	</update>
 </updates>
