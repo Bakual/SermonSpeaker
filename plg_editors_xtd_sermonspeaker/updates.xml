@@ -1,7 +1,7 @@
 <updates>
 	<update>
-		<name>SermonSpeaker Editor Module</name>
-		<description>SermonSpeaker Editor Module</description>
+		<name>SermonSpeaker Editor Plugin</name>
+		<description>SermonSpeaker Editor Plugin</description>
 		<element>sermonspeaker</element>
 		<type>plugin</type>
 		<version>5.3.3</version>
@@ -20,8 +20,8 @@
 		<folder>editors-xtd</folder>
 	</update>
 	<update>
-		<name>SermonSpeaker Editor Module</name>
-		<description>SermonSpeaker Editor Module</description>
+		<name>SermonSpeaker Editor Plugin</name>
+		<description>SermonSpeaker Editor Plugin</description>
 		<element>sermonspeaker</element>
 		<type>plugin</type>
 		<version>6.0.0</version>
