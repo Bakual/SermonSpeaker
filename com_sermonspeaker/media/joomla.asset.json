@@ -1,0 +1,18 @@
+{
+  "$schema": "https://developer.joomla.org/schemas/json-schema/web_assets.json",
+  "name": "com_sermonspeaker",
+  "version": "6.1.6",
+  "description": "SermonSpeaker",
+  "license": "GPL-2.0-or-later",
+  "assets": [
+    {
+      "name": "com_sermonspeaker.id3-lookup",
+      "type": "script",
+      "uri": "com_sermonspeaker/id3-lookup.js",
+      "attributes": {
+        "type": "module",
+        "defer": true
+      }
+    }
+ ]
+}

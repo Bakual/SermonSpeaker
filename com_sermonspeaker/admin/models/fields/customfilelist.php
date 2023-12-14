@@ -115,10 +115,10 @@ class JFormFieldCustomFileList extends FilelistField
 		// Add Lookup button if not addfile field
 		if ($this->file != 'addfile')
 		{
-			$html .= '<button class="btn btn-secondary"
-							type="button" onclick="lookup(document.getElementById(\'' . $this->id . '_text\'))"
+			$html .= '<button class="btn btn-secondary lookup-button"
+							type="button" data-lookup="' . $this->id . '"
 							title="' . Text::_('COM_SERMONSPEAKER_LOOKUP') . '">
-							<span class="fas fa-magic"></span>
+							<span class="fas fa-magic" data-lookup="' . $this->id . '"></span>
 						</button>
 						<button class="btn btn-secondary"
 							type="button"
@@ -152,10 +152,10 @@ class JFormFieldCustomFileList extends FilelistField
 
 		if (!$this->mode && $this->file != 'addfile')
 		{
-			$html .= '<button class="btn btn-secondary"
-							type="button" onclick="lookup(document.getElementById(\'' . $this->id . '\'))"
+			$html .= '<button class="btn btn-secondary lookup-button"
+							type="button" data-lookup="' . $this->id . '"
 							title="' . Text::_('COM_SERMONSPEAKER_LOOKUP') . '">
-							<span class="fas fa-magic"></span>
+							<span class="fas fa-magic" data-lookup="' . $this->id . '"></span>
 						</button>';
 		}
 
