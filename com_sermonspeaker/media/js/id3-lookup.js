@@ -29,17 +29,11 @@ document.addEventListener('DOMContentLoaded', function () {
                     if(data.sermon_time && document.getElementById("jform_sermon_time")){
                         document.getElementById("jform_sermon_time").value = data.sermon_time;
                     }
-                    if(data.series_id && document.getElementById("jform_series_id")){
-                        document.getElementById("jform_series_id").value = data.series_id;
-                        if(document.getElementById("jform_series_id_chzn")){
-                            jQuery("#jform_series_id").trigger("liszt:updated");
-                        }
+                    if(data.series_id){
+                        window.processModalSelect('Serie', 'jform_series_id', data.series_id, data.series_title);
                     }
-                    if(data.speaker_id && document.getElementById("jform_speaker_id")){
-                        document.getElementById("jform_speaker_id").value = data.speaker_id;
-                        if(document.getElementById("jform_speaker_id_chzn")){
-                            jQuery("#jform_speaker_id").trigger("liszt:updated");
-                        }
+                    if(data.speaker_id){
+                        window.processModalSelect('Speaker', 'jform_speaker_id', data.speaker_id, data.speaker_title);
                     }
                     if(data.notes && document.getElementById("jform_notes")){
                         JoomlaEditor.get("jform_notes").replaceSelection(data.notes);
