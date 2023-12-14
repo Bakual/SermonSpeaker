@@ -185,69 +185,6 @@ class SermonspeakerViewFrontendupload extends HtmlView
 		Text::script('COM_SERMONSPEAKER_SPEAKER');
 		Text::script('COM_SERMONSPEAKER_ID3_NO_MATCH_FOUND');
 
-		// Add Javascript for ID3 Lookup (ajax)
-		$lookup = 'function lookup(elem) {
-			xmlhttp = new XMLHttpRequest();
-			xmlhttp.onreadystatechange=function(){
-				if (xmlhttp.readyState==4 && xmlhttp.status==200){
-					var data = jQuery.parseJSON(xmlhttp.responseText);
-					if (data.status==1){
-						if(data.filename_title==false || document.getElementById("jform_title").value==""){
-							document.getElementById("jform_title").value = data.title;
-							document.getElementById("jform_alias").value = data.alias;
-						}
-						if(data.sermon_number && document.getElementById("jform_sermon_number")){
-							document.getElementById("jform_sermon_number").value = data.sermon_number;
-						}
-						if(data.sermon_date && document.getElementById("jform_sermon_date")){
-							document.getElementById("jform_sermon_date").value = data.sermon_date;
-						}
-						if(data.sermon_time && document.getElementById("jform_sermon_time")){
-							document.getElementById("jform_sermon_time").value = data.sermon_time;
-						}
-						if(data.series_id && document.getElementById("jform_series_id")){
-							document.getElementById("jform_series_id").value = data.series_id;
-						}
-						if(data.speaker_id && document.getElementById("jform_speaker_id")){
-							document.getElementById("jform_speaker_id").value = data.speaker_id;
-						}
-						if(data.notes && document.getElementById("jform_notes")){
-							jInsertEditorText(data.notes, "jform_notes");
-						}
-						if(data.audio){
-							var splits = elem.id.split("_");
-							var field = splits[0]+"_"+splits[1];
-							var info;
-							info = "<dl class=\"dl-horizontal id3-info\">";
-							jQuery.each(data.audio, function(key,val){
-								info += "<dt>"+key+"</dt><dd>"+val+"</dd>";
-							})
-							info += "</dl>";
-							jQuery("#"+field+"-lbl + dl").remove();
-							jQuery("#"+field+"-lbl").after(info);
-						}
-						if(data.not_found){
-							var notice = new Array();
-							if (data.not_found.series){
-								notice.push(Joomla.Text._("COM_SERMONSPEAKER_SERIE") + ": " + data.not_found.series);
-							}
-							if (data.not_found.speakers){
-								notice.push(Joomla.Text._("COM_SERMONSPEAKER_SPEAKER") + ": " + data.not_found.speakers);
-							}
-							notice.push(Joomla.Text._("COM_SERMONSPEAKER_ID3_NO_MATCH_FOUND"));
-							var messages = {"notice":notice};
-							Joomla.renderMessages(messages);
-						}
-					} else {
-						alert(data.msg);
-					}
-				}
-			}
-			xmlhttp.open("POST","' . Uri::root() . 'index.php?option=com_sermonspeaker&task=file.lookup&format=json",true);
-			xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
- 			xmlhttp.send("file="+elem.value);
-		}';
-
 		// Add Javascript for active tab selection (based on menu item param)
 		if ($tab = $this->params->get('active_tab'))
 		{
@@ -258,7 +195,7 @@ class SermonspeakerViewFrontendupload extends HtmlView
 
 		$this->getDocument()->addScriptDeclaration($enElem);
 		$this->getDocument()->addScriptDeclaration($toggle);
-		$this->getDocument()->addScriptDeclaration($lookup);
+		$this->getDocument()->getWebAssetManager()->useScript('com_sermonspeaker.id3-lookup');
 
 		// Google Picker
 		if ($this->params->get('googlepicker'))

@@ -131,7 +131,7 @@ class SermonspeakerViewSermon extends HtmlView
 			}
 		}';
 
-		// Add Javascript for ID3 Lookup (ajax)
+		// Push translation to Javascript
 		Text::script('COM_SERMONSPEAKER_ID3_NO_MATCH_FOUND');
 		Text::script('COM_SERMONSPEAKER_SERIE');
 		Text::script('COM_SERMONSPEAKER_SPEAKER');
