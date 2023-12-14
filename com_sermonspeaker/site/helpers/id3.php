@@ -137,11 +137,13 @@ class SermonspeakerHelperId3
 			if (array_key_exists('album', $FileInfo['comments']))
 			{
 				$query = $db->getQuery(true);
-				$query->select('id');
+				$query->select(['id', 'title']);
 				$query->from('#__sermon_series');
 				$query->where('title like ' . $db->quote($db->escape(end($FileInfo['comments']['album']))));
 				$db->setQuery($query);
-				$id3['series_id'] = $db->loadResult();
+				$result = $db->loadAssoc();
+				$id3['series_id']    = $result['id'];
+				$id3['series_title'] = $result['title'];
 
 				if (!$id3['series_id'])
 				{
@@ -156,11 +158,13 @@ class SermonspeakerHelperId3
 			if (array_key_exists('artist', $FileInfo['comments']))
 			{
 				$query = $db->getQuery(true);
-				$query->select('id');
+				$query->select(['id', 'title']);
 				$query->from('#__sermon_speakers');
 				$query->where('title like ' . $db->quote($db->escape(end($FileInfo['comments']['artist']))));
 				$db->setQuery($query);
-				$id3['speaker_id'] = $db->loadResult();
+				$result = $db->loadAssoc();
+				$id3['speaker_id']    = $result['id'];
+				$id3['speaker_title'] = $result['title'];
 
 				if (!$id3['speaker_id'])
 				{
