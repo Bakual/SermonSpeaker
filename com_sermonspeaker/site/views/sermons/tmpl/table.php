@@ -158,7 +158,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 					<tbody>
 					<?php foreach ($this->items as $i => $item) : ?>
 						<tr id="sermon<?php echo $i; ?>"
-							class="<?php echo ($item->state) ? '' : 'system-unpublished '; ?>cat-list-row<?php echo $i % 2; ?>">
+							class="<?php echo ($item->state) ? '' : 'system-unpublished '; ?>cat-list-row<?php echo $i % 2; ?> sermon-item">
 							<?php
 							if (in_array('sermons:num', $this->columns)) : ?>
 								<td class="num hidden-phone hidden-tablet">

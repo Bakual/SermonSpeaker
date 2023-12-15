@@ -79,7 +79,7 @@ $this->getDocument()->addScriptDeclaration("window.onload = function() {
 							<?php foreach ($this->sermons as $i => $item) :
 								$sep = 0; ?>
 								<li id="sermon<?php echo $i; ?>"
-									class="<?php echo ($item->state) ? '' : 'system-unpublished '; ?>cat-list-row<?php echo $i % 2; ?> list-group-item">
+									class="<?php echo ($item->state) ? '' : 'system-unpublished '; ?>cat-list-row<?php echo $i % 2; ?> sermon-item list-group-item">
 									<?php if ($canEdit or ($canEditOwn and ($user->id == $item->created_by))) : ?>
 										<span class="list-edit">
 											<?php echo LayoutHelper::render('icons.edit', ['item' => $item, 'params' => $this->params, 'type' => 'sermon']); ?>

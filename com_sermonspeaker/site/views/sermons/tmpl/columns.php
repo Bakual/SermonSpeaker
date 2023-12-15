@@ -50,7 +50,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 		<?php else : ?>
 			<hr>
 			<?php foreach ($this->items as $i => $item) : ?>
-				<div id="sermon<?php echo $i; ?>" class="ss-entry">
+				<div id="sermon<?php echo $i; ?>" class="ss-entry sermon-item">
 					<div class="column-picture" onclick="ss_play(<?php echo $i; ?>)">
 						<div class="ss-picture">
 							<?php $picture = SermonspeakerHelperSermonspeaker::insertPicture($item);

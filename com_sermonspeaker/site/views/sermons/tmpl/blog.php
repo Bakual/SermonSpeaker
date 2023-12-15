@@ -48,7 +48,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 			<?php else : ?>
 				<?php foreach ($this->items as $i => $item) : ?>
 					<div id="sermon<?php echo $i; ?>"
-						 class="<?php echo ($item->state) ? '' : 'system-unpublished'; ?> image-right">
+						 class="<?php echo ($item->state) ? '' : 'system-unpublished '; ?>sermon-item image-right">
 						<div class="com-sermonspeaker-sermons-blog__item blog-item">
 							<?php if ($picture = SermonspeakerHelperSermonspeaker::insertPicture($item)) : ?>
 								<figure class="item-image sermon-image">

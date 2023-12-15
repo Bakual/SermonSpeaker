@@ -73,7 +73,7 @@ $listDirn   = $this->state->get('list.direction');
 					<!-- Begin Data -->
 					<tbody>
 					<?php foreach ($this->items as $i => $item) : ?>
-						<tr class="<?php echo ($item->state) ? '' : 'system-unpublished '; ?>cat-list-row<?php echo $i % 2; ?>">
+						<tr class="<?php echo ($item->state) ? '' : 'system-unpublished '; ?>cat-list-row<?php echo $i % 2; ?> speaker-item">
 							<th class="ss-title">
 								<a href="<?php echo Route::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug, $item->catid, $item->language)); ?>">
 									<?php echo $item->title; ?></a>

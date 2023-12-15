@@ -47,7 +47,7 @@ $listDirn   = $this->state->get('list.direction');
 				<ul class="list-group list-group-flush">
 					<?php foreach ($this->items as $i => $item) : ?>
 						<?php $sep = 0; ?>
-						<li class="<?php echo ($item->state) ? '' : 'system-unpublished '; ?>cat-list-row<?php echo $i % 2; ?> list-group-item">
+						<li class="<?php echo ($item->state) ? '' : 'system-unpublished '; ?>cat-list-row<?php echo $i % 2; ?> speaker-item list-group-item">
 							<?php if ($canEdit or ($canEditOwn and ($user->id == $item->created_by))) : ?>
 								<span class="list-edit">
 									<?php echo HTMLHelper::_('icon.edit', $item, $this->params, array('type' => 'speaker')); ?>

@@ -79,7 +79,7 @@ $this->getDocument()->addScriptDeclaration("window.onload = function() {
 					<?php else : ?>
 						<?php foreach ($this->sermons as $i => $item) : ?>
 							<div id="sermon<?php echo $i; ?>"
-								 class="<?php echo ($item->state) ? '' : 'system-unpublished'; ?> image-right">
+								 class="<?php echo ($item->state) ? '' : 'system-unpublished '; ?>sermon-item image-right">
 								<div class="com-sermonspeaker-speaker-blog__item blog-item">
 									<?php if ($picture = SermonspeakerHelperSermonspeaker::insertPicture($item)) : ?>
 										<figure class="item-image sermon-image">
@@ -257,7 +257,7 @@ $this->getDocument()->addScriptDeclaration("window.onload = function() {
 					<?php else : ?>
 						<?php foreach ($this->series as $i => $item) : ?>
 							<div id="serie<?php echo $i; ?>"
-								 class="<?php echo ($item->state) ? '' : 'system-unpublished'; ?> image-right">
+								 class="<?php echo ($item->state) ? '' : 'system-unpublished '; ?>serie-item image-right">
 								<div class="com-sermonspeaker-series-blog__item blog-item">
 									<?php if ($item->avatar) : ?>
 										<figure class="item-image serie-image">

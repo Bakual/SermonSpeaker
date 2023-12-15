@@ -188,7 +188,7 @@ $this->getDocument()->addScriptDeclaration("window.onload = function() {
 							<tbody>
 							<?php foreach ($this->sermons as $i => $item) : ?>
 								<tr id="sermon<?php echo $i; ?>"
-									class="<?php echo ($item->state) ? '' : 'system-unpublished '; ?>cat-list-row<?php echo $i % 2; ?>">
+									class="<?php echo ($item->state) ? '' : 'system-unpublished '; ?>cat-list-row<?php echo $i % 2; ?> sermon-item">
 									<?php if (in_array('speaker:num', $this->col_sermon)) : ?>
 										<td class="num hidden-phone hidden-tablet">
 											<?php echo $item->sermon_number; ?>

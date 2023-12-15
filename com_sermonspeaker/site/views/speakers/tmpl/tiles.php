@@ -37,7 +37,7 @@ HTMLHelper::addIncludePath(JPATH_BASE . '/components/com_sermonspeaker/helpers')
 					<?php $speakerUrl = Route::_(SermonspeakerHelperRoute::getSpeakerRoute($item->slug, $item->catid, $item->language)); ?>
 					<?php $image = ($item->pic) ?: 'media/com_sermonspeaker/images/' . $this->params->get('defaultpic', 'nopict.jpg'); ?>
 					<div class="col">
-						<div id="speaker<?php echo $i; ?>" class="ss-entry card h-100">
+						<div id="speaker<?php echo $i; ?>" class="ss-entry speaker-item card h-100">
 							<a href="<?php echo $speakerUrl; ?>">
 								<img class="card-img-top" src="<?php echo trim($image, '/'); ?>">
 							</a>

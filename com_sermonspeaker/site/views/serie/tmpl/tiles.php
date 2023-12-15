@@ -48,7 +48,7 @@ $player = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 						<?php $picture = 'media/com_sermonspeaker/images/' . $this->params->get('defaultpic', 'nopict.jpg'); ?>
 					<?php endif; ?>
 					<div class="col">
-						<div id="sermon<?php echo $i; ?>" class="ss-entry card h-100">
+						<div id="sermon<?php echo $i; ?>" class="ss-entry sermon-item card h-100">
 							<a href="<?php echo $sermonUrl; ?>">
 								<img class="card-img-top" src="<?php echo trim($picture, '/'); ?>">
 							</a>

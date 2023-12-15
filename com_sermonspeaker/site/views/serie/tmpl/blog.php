@@ -57,7 +57,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 				<div class="items-leading">
 					<?php foreach ($this->items as $i => $item) : ?>
 						<div id="sermon<?php echo $i; ?>"
-							 class="<?php echo ($item->state) ? '' : 'system-unpublished'; ?>">
+							 class="<?php echo ($item->state) ? '' : 'system-unpublished '; ?>sermon-item">
 							<div class="btn-group pull-right">
 								<a class="btn dropdown-toggle" data-bs-toggle="dropdown" href="#">
 									<i class="icon-cog"></i>

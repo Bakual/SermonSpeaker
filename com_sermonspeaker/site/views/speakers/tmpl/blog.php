@@ -46,7 +46,7 @@ $listDirn   = $this->state->get('list.direction');
 			<?php else : ?>
 				<?php foreach ($this->items as $i => $item) : ?>
 					<div id="speaker<?php echo $i; ?>"
-						 class="<?php echo ($item->state) ? '' : 'system-unpublished'; ?> image-right">
+						 class="<?php echo ($item->state) ? '' : 'system-unpublished '; ?>speaker-item image-right">
 						<div class="com-sermonspeaker-speakers-blog__item blog-item">
 							<?php if ($item->pic) : ?>
 								<figure class="item-image speaker-image">
