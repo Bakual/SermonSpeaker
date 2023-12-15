@@ -127,9 +127,15 @@ class SermonspeakerHelperId3
 				switch ($length)
 				{
 					case 4:
+						// "2023" - Year only. Standard ID3v2.3
 						$id3['sermon_date'] = $date . '-01-01 00:00:00';
 						break;
+					case 8:
+						// "20231215" - This is not really a standard format, but we can support it.
+						$id3['sermon_date'] = substr($date, 0, 4) . '-' . substr($date, 4, 2) . '-' . substr($date, 6, 2);
+						break;
 					case 10:
+						// "2023-12-15" - Full Date. Standard ID3v2.4
 						$id3['sermon_date'] = $date . ' 00:00:00';
 						break;
 					default:
@@ -162,44 +168,52 @@ class SermonspeakerHelperId3
 
 			if (array_key_exists('album', $FileInfo['comments']))
 			{
-				$query = $db->getQuery(true);
+				$query = $db->createQuery();
 				$query->select(['id', 'title']);
 				$query->from('#__sermon_series');
 				$query->where('title like ' . $db->quote($db->escape(end($FileInfo['comments']['album']))));
 				$db->setQuery($query);
 				$result = $db->loadAssoc();
-				$id3['series_id']    = $result['id'];
-				$id3['series_title'] = $result['title'];
 
-				if (!$id3['series_id'])
+				if ($result)
+				{
+					$id3['series_id']    = $result['id'];
+					$id3['series_title'] = $result['title'];
+				}
+				else
 				{
 					$id3['not_found']['series'] = end($FileInfo['comments']['album']);
 				}
 			}
 			else
 			{
-				$id3['series_id'] = '';
+				$id3['series_id']    = '';
+				$id3['series_title'] = '';
 			}
 
 			if (array_key_exists('artist', $FileInfo['comments']))
 			{
-				$query = $db->getQuery(true);
+				$query = $db->createQuery();
 				$query->select(['id', 'title']);
 				$query->from('#__sermon_speakers');
 				$query->where('title like ' . $db->quote($db->escape(end($FileInfo['comments']['artist']))));
 				$db->setQuery($query);
 				$result = $db->loadAssoc();
-				$id3['speaker_id']    = $result['id'];
-				$id3['speaker_title'] = $result['title'];
 
-				if (!$id3['speaker_id'])
+				if ($result)
+				{
+					$id3['speaker_id']    = $result['id'];
+					$id3['speaker_title'] = $result['title'];
+				}
+				else
 				{
 					$id3['not_found']['speakers'] = end($FileInfo['comments']['artist']);
 				}
 			}
 			else
 			{
-				$id3['speaker_id'] = '';
+				$id3['speaker_id']    = '';
+				$id3['speaker_title'] = '';
 			}
 		}
 		else
