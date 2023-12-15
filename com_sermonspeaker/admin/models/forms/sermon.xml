@@ -251,9 +251,10 @@
 		<field name="sermon_date"
 			type="calendar"
 			label="COM_SERMONSPEAKER_FIELD_DATE_LABEL"
-			description="COM_SERMONSPEAKER_FIELD_DATE_DESC"
 			onchange="changedate(jform_sermon_date.value)"
-			format="%Y-%m-%d %H:%M:%S"
+			translateformat="true"
+			showtime="true"
+			size="22"
 			filter="user_utc"
 		/>
 

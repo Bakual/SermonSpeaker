@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                     if(data.sermon_date && document.getElementById("jform_sermon_date")){
                         document.getElementById("jform_sermon_date").value = data.sermon_date;
+                        document.getElementById("jform_sermon_date").setAttribute("data-alt-value", data.sermon_date);
                     }
                     if(data.sermon_time && document.getElementById("jform_sermon_time")){
                         document.getElementById("jform_sermon_time").value = data.sermon_time;

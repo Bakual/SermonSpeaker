@@ -12,6 +12,8 @@ defined('_JEXEC') or die();
 use Joomla\CMS\Application\ApplicationHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Filesystem\File;
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
 
 /**
  * Sermonspeaker Component ID3 Helper
@@ -116,9 +118,33 @@ class SermonspeakerHelperId3
 					$id3['sermon_date'] .= ' ' . substr($hhmm, 0, 2) . ':' . substr($hhmm, 2, 2) . ':00';
 				}
 			}
+			elseif (array_key_exists('year', $FileInfo['comments']))
+			{
+				$date = $FileInfo['comments']['year'][0];
+
+				// Check how much information is stored in that field. Can be anything from only a year up to full datetime.
+				$length = strlen($date);
+				switch ($length)
+				{
+					case 4:
+						$id3['sermon_date'] = $date . '-01-01 00:00:00';
+						break;
+					case 10:
+						$id3['sermon_date'] = $date . ' 00:00:00';
+						break;
+					default:
+						$id3['sermon_date'] = '';
+				}
+			}
 			else
 			{
 				$id3['sermon_date'] = '';
+			}
+
+			// Format it to the language specific format
+			if ($id3['sermon_date'])
+			{
+				$id3['sermon_date'] = HTMLHelper::date($id3['sermon_date'], Text::_('DATE_FORMAT_FILTER_DATETIME'));
 			}
 
 			if (array_key_exists('comment', $FileInfo['comments']))
