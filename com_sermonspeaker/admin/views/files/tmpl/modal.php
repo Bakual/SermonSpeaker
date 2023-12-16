@@ -18,8 +18,8 @@ $session = Factory::getApplication()->getSession();
 	  name="adminForm">
 	<div id="j-main-container">
 		<div id="filter-bar" class="btn-toolbar">
-			<div class="btn-group pull-right">
-				<select name="type" class="inputbox" onchange="this.form.submit()">
+			<div class="btn-group float-end">
+				<select name="type" class="form-select" onchange="this.form.submit()">
 					<option value="">- <?php echo Text::_('COM_SERMONSPEAKER_FIELD_TYPE_LABEL'); ?> -</option>
 					<?php echo HTMLHelper::_('select.options', array('audio' => Text::_('COM_SERMONSPEAKER_AUDIO'), 'video' => Text::_('COM_SERMONSPEAKER_VIDEO')), 'value', 'text', $this->state->get('filter.type'), true); ?>
 				</select>

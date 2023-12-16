@@ -182,6 +182,10 @@ class SermonspeakerControllerTools extends BaseController
 		$app->redirect('index.php?option=com_sermonspeaker&view=tools');
 	}
 
+	/**
+	 * @throws \Exception
+	 * @since ?
+	 */
 	public function createAutomatic()
 	{
 		$app    = Factory::getApplication();
@@ -198,7 +202,7 @@ class SermonspeakerControllerTools extends BaseController
 			$app->login($credentials);
 		}
 
-		$user = Factory::getUser();
+		$user = Factory::getApplication()->getIdentity();
 
 		if (!$user->authorise('core.create', 'com_sermonspeaker') || !$user->authorise('com_sermonspeaker.script', 'com_sermonspeaker'))
 		{
@@ -219,10 +223,10 @@ class SermonspeakerControllerTools extends BaseController
 		$state      = $user->authorise('core.edit.state', 'com_sermonspeaker') ? 1 : 0;
 
 		$params = ComponentHelper::getParams('com_sermonspeaker');
-		require_once JPATH_COMPONENT_SITE . '/helpers/id3.php';
+		require_once JPATH_SITE . '/components/com_sermonspeaker/helpers/id3.php';
 
 		// Manually loading sermon model so the correct instance will be used from frontend.
-		require_once JPATH_COMPONENT_ADMINISTRATOR . '/models/sermon.php';
+		require_once JPATH_ADMINISTRATOR . '/components/com_sermonspeaker/models/sermon.php';
 		$i       = 0;
 		$missing = array();
 
