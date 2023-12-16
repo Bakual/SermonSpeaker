@@ -12,8 +12,6 @@ defined('_JEXEC') or die();
 use Joomla\CMS\Application\ApplicationHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Filesystem\File;
-use Joomla\CMS\HTML\HTMLHelper;
-use Joomla\CMS\Language\Text;
 
 /**
  * Sermonspeaker Component ID3 Helper
@@ -147,22 +145,16 @@ class SermonspeakerHelperId3
 				$id3['sermon_date'] = '';
 			}
 
-			// Format it to the language specific format
-			if ($id3['sermon_date'])
-			{
-				$id3['sermon_date'] = HTMLHelper::date($id3['sermon_date'], Text::_('DATE_FORMAT_FILTER_DATETIME'));
-			}
-
 			if (array_key_exists('comment', $FileInfo['comments']))
 			{
 				$id3['notes']     = end($FileInfo['comments']['comment']);
-				$id3['scripture'] = '';
 			}
 			else
 			{
 				$id3['notes']     = '';
-				$id3['scripture'] = '';
 			}
+
+			$id3['scripture'] = '';
 
 			$db = Factory::getDbo();
 

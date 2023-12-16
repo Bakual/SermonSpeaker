@@ -14,6 +14,7 @@ use Aws\S3\S3Client;
 use Joomla\CMS\Client\ClientHelper;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
+use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\Filesystem\Path;
 use Joomla\CMS\Filesystem\File;
 use Joomla\CMS\Filter\OutputFilter;
@@ -317,6 +318,12 @@ class SermonspeakerControllerFile extends BaseController
 		$params = ComponentHelper::getParams('com_sermonspeaker');
 		require_once JPATH_SITE . '/components/com_sermonspeaker/helpers/id3.php';
 		$id3 = SermonspeakerHelperId3::getID3($file, $params);
+
+		// Format the date to the language specific format
+		if ($id3['sermon_date'])
+		{
+			$id3['sermon_date'] = HTMLHelper::date($id3['sermon_date'], Text::_('DATE_FORMAT_FILTER_DATETIME'));
+		}
 
 		if ($id3)
 		{
