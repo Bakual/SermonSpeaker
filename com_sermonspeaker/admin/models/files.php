@@ -190,7 +190,7 @@ class SermonspeakerModelFiles extends BaseDatabaseModel
 		$query->select('a.id, a.title');
 		$query->from('#__categories AS a');
 		$query->where('a.parent_id > 0');
-		$query->where('extension = "com_sermonspeaker"');
+		$query->where('extension = "com_sermonspeaker.sermons"');
 		$query->where('a.published = 1');
 		$query->order('a.lft');
 
