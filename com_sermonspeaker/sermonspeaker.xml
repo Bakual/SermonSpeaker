@@ -40,7 +40,6 @@
 		<folder>views</folder>
 	</files>
 	<media destination="com_sermonspeaker" folder="media">
-		<filename>joomla.asset.json</filename>
 		<folder>css</folder>
 		<folder>fonts</folder>
 		<folder>icons</folder>
@@ -48,6 +47,7 @@
 		<folder>js</folder>
 		<folder>logo</folder>
 		<folder>media</folder>
+		<file>joomla.asset.json</file>
 	</media>
 	<administration>
 		<menu img="class:comment">
