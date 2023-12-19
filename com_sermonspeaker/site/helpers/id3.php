@@ -160,7 +160,7 @@ class SermonspeakerHelperId3
 
 			if (array_key_exists('album', $FileInfo['comments']))
 			{
-				$query = $db->createQuery();
+				$query = $db->getQuery(true);
 				$query->select(['id', 'title']);
 				$query->from('#__sermon_series');
 				$query->where('title like ' . $db->quote($db->escape(end($FileInfo['comments']['album']))));
@@ -185,7 +185,7 @@ class SermonspeakerHelperId3
 
 			if (array_key_exists('artist', $FileInfo['comments']))
 			{
-				$query = $db->createQuery();
+				$query = $db->getQuery(true);
 				$query->select(['id', 'title']);
 				$query->from('#__sermon_speakers');
 				$query->where('title like ' . $db->quote($db->escape(end($FileInfo['comments']['artist']))));
