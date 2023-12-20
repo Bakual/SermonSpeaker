@@ -130,11 +130,19 @@ class SermonspeakerHelperId3
 						break;
 					case 8:
 						// "20231215" - This is not really a standard format, but we can support it.
-						$id3['sermon_date'] = substr($date, 0, 4) . '-' . substr($date, 4, 2) . '-' . substr($date, 6, 2);
+						$id3['sermon_date'] = substr($date, 0, 4) . '-' . substr($date, 4, 2) . '-' . substr($date, 6, 2) . ' 00:00:00';
 						break;
 					case 10:
 						// "2023-12-15" - Full Date. Standard ID3v2.4
 						$id3['sermon_date'] = $date . ' 00:00:00';
+						break;
+					case 16:
+						// "2023-12-15:10:00" - Full Date with HH:MM
+						$id3['sermon_date'] = substr($date, 0, 10) . ' ' . substr($date, 11, 5) . ':00';
+						break;
+					case 19:
+						// "2023-12-15:10:00:00" - Full Date with HH:MM:SS
+						$id3['sermon_date'] = substr($date, 0, 10) . ' ' . substr($date, 11, 8);
 						break;
 					default:
 						$id3['sermon_date'] = '';
