@@ -231,7 +231,7 @@ $assoc = Associations::isEnabled();
 									<?php endif; ?>
 								</td>
 								<td class="small d-none d-md-table-cell">
-									<?php if ($item->scripture) :
+									<?php if ($item->scripture && $item->scripture != ('|||||')) :
 										$passages  = explode('!', $item->scripture);
 										$separator = Text::_('COM_SERMONSPEAKER_SCRIPTURE_SEPARATOR');
 										$j         = 1;

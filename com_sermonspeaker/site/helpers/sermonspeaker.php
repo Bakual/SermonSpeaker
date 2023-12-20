@@ -571,7 +571,7 @@ class SermonspeakerHelperSermonspeaker
 	 */
 	public static function insertScriptures($scripture, $between, $addTag = true)
 	{
-		if (!$scripture)
+		if (!$scripture || $scripture == ('|||||'))
 		{
 			return '';
 		}
