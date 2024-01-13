@@ -170,6 +170,10 @@ class SermonspeakerViewSermons extends HtmlView
 
 			$childBar->archive('sermons.archive')->listCheck(true);
 
+			$childBar->standardButton('feed', 'COM_SERMONSPEAKER_PODCASTED', 'sermons.podcast_publish')->listCheck(true);
+
+			$childBar->standardButton('feed', 'COM_SERMONSPEAKER_UNPODCASTED', 'sermons.podcast_unpublish')->listCheck(true);
+
 			if ($user->authorise('core.admin'))
 			{
 				$childBar->checkin('sermons.checkin')->listCheck(true);
