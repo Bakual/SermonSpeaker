@@ -51,10 +51,11 @@ function ss_changeListItem(event) {
     } else {
         document.getElementById('playing-duration').innerHTML = '';
     }
-    document.getElementById("playing-pic").src = entry['data-thumbnail'];
     if (entry['data-thumbnail']) {
+        document.getElementById("playing-pic").src = entry['data-thumbnail'];
         document.getElementById('playing-pic').style.display = 'block';
     } else {
+        document.getElementById("playing-pic").src = '';
         document.getElementById('playing-pic').style.display = 'none';
     }
     if (entry.error) {
