@@ -348,7 +348,7 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 			$attributes['error'] = Text::_('JGLOBAL_RESOURCE_NOT_FOUND');
 		}
 
-		$attributes['type'] = SermonspeakerHelperSermonspeaker::getMime(JFile::getExt($file), false);
+		$attributes['type'] = SermonspeakerHelperSermonspeaker::getMime(File::getExt($file), false);
 
 		if (!$attributes['type'])
 		{
