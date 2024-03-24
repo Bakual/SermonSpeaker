@@ -140,7 +140,7 @@ $user    = Factory::getUser();
 								</div>
 								<div class="card-body">
 									<a class="stretched-link"
-									   href="index.php?option=com_sermonspeaker&task=tools.piimport&<?php echo $session->getName()
+									   href="index.php?option=com_sermonspeaker&task=tools.bsimport&<?php echo $session->getName()
 										   . '=' . $session->getId() . '&' . Session::getFormToken(); ?>=1">
 										<h3 class="card-title"><?php echo Text::_('COM_SERMONSPEAKER_TOOLS_IMPORT_BS'); ?></h3>
 									</a>
