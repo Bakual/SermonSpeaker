@@ -987,6 +987,9 @@ class SermonspeakerControllerTools extends BaseController
 			// Use studytext if available, otherwise studyintro.
 			$notes = ($study->studytext) ?: $study->studyintro;
 
+			// Make sure user_id for created_by isn't NULL
+			$study->user_id = $study->user_id ?? '0';
+
 			/** @noinspection SqlResolve */
 			$query = "INSERT INTO #__sermon_sermons \n"
 				. "(`" . $type . "file`, `picture`, `title`, `alias`, `sermon_date`, `notes`, `state`, `hits`, `created_by`, `podcast`, `created`) \n"
