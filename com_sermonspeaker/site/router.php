@@ -61,6 +61,12 @@ class SermonspeakerRouter extends RouterBase
 			$view     = $query['view'];
 			unset($query['view']);
 
+			// In Pagination, ID is set to 0 in some cases.
+			if (isset($query['id']) && $query['id'] === '0')
+			{
+				unset($query['id']);
+			}
+
 			// Check if menuitem matches the query
 			if (isset($query['id']))
 			{
