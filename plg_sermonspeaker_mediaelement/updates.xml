@@ -24,10 +24,10 @@
 		<description>SermonSpeaker Mediaelement Player Module</description>
 		<element>mediaelement</element>
 		<type>plugin</type>
-		<version>6.1.0</version>
+		<version>6.1.1</version>
 		<downloads>
 			<downloadurl type="full" format="zip">
-				https://github.com/Bakual/SermonSpeaker/releases/download/6.1.0/plg_sermonspeaker_mediaelement.zip
+				https://github.com/Bakual/SermonSpeaker/releases/download/6.1.6/plg_sermonspeaker_mediaelement.zip
 			</downloadurl>
 		</downloads>
 		<tags>
@@ -35,7 +35,7 @@
 		</tags>
 		<maintainer>Thomas Hunziker</maintainer>
 		<maintainerurl>https://www.sermonspeaker.net/</maintainerurl>
-		<targetplatform name="joomla" version="[45].[01234]"/>
+		<targetplatform name="joomla" version="[45].[0123456789]"/>
 		<sha256>5e7c73081b7ab95649b12ebacc36c43e6ee7a9fb46eaf0ea253a4b785fe802c2</sha256>
 		<client>site</client>
 		<folder>sermonspeaker</folder>
