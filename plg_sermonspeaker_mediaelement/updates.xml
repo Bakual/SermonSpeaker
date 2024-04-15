@@ -36,7 +36,7 @@
 		<maintainer>Thomas Hunziker</maintainer>
 		<maintainerurl>https://www.sermonspeaker.net/</maintainerurl>
 		<targetplatform name="joomla" version="[45].[0123456789]"/>
-		<sha256>5e7c73081b7ab95649b12ebacc36c43e6ee7a9fb46eaf0ea253a4b785fe802c2</sha256>
+		<sha256>f7bdff9c1c4b8e387bffa21f0f46ccedc7fa1873497b4c3d7102b04f85e5fee7</sha256>
 		<client>site</client>
 		<folder>sermonspeaker</folder>
 	</update>
