@@ -28,6 +28,7 @@ $listOrder  = $this->state->get('list.ordering');
 $listDirn   = $this->state->get('list.direction');
 $limit      = (int) $this->params->get('limit', '');
 $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
+$prio       = $this->params->get('fileprio');
 ?>
 <div class="com-sermonspeaker-serie<?php echo $this->pageclass_sfx; ?> com-sermonspeaker-serie-list">
 	<?php echo $this->loadTemplate('header'); ?>
@@ -64,6 +65,13 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 								<?php echo SermonspeakerHelperSermonspeaker::insertSermonTitle($i, $item, $player); ?>
 							</strong>
 							<?php echo LayoutHelper::render('blocks.state_info', array('item' => $item, 'show' => $showState)); ?>
+							<?php if (in_array('sermons:download', $this->columns)) : ?>
+								<?php $type = ($item->videofile and ($prio || !$item->audiofile)) ? 'video' : 'audio'; ?>
+								<?php $filesize = $type . 'filesize'; ?>
+								<span class="ss-dl ms-1 float-end">
+									<?php echo SermonspeakerHelperSermonspeaker::insertdlbutton($item->slug, $type, 3, $item->$filesize); ?>
+								</span>
+							<?php endif; ?>
 							<?php if (in_array('serie:hits', $this->columns)) : ?>
 								<span class="ss-hits badge bg-info float-end">
 									<?php echo Text::sprintf('JGLOBAL_HITS_COUNT', $item->hits); ?>
@@ -105,7 +113,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 								<span class="ss-date float-end">
 									<small class="text-muted">
 										<?php echo HTMLHelper::date($item->sermon_date, Text::_($this->params->get('date_format')), true); ?>
-									</small>&nbsp;
+									</small>
 								</span>
 							<?php endif; ?>
 

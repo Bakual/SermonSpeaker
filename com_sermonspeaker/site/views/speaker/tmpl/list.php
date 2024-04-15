@@ -32,6 +32,7 @@ $listOrderSeries  = $this->state_series->get('list.ordering');
 $listDirnSeries   = $this->state_series->get('list.direction');
 $limit            = (int) $this->params->get('limit', '');
 $player           = SermonspeakerHelperSermonspeaker::getPlayer($this->sermons);
+$prio             = $this->params->get('fileprio');
 
 // Determine active tab
 $this->getDocument()->addScriptDeclaration("window.onload = function() {
@@ -89,6 +90,13 @@ $this->getDocument()->addScriptDeclaration("window.onload = function() {
 										<?php echo SermonspeakerHelperSermonspeaker::insertSermonTitle($i, $item, $player); ?>
 									</strong>
 									<?php echo LayoutHelper::render('blocks.state_info', array('item' => $item, 'show' => $showState)); ?>
+									<?php if (in_array('sermons:download', $this->col_sermon)) : ?>
+										<?php $type = ($item->videofile and ($prio || !$item->audiofile)) ? 'video' : 'audio'; ?>
+										<?php $filesize = $type . 'filesize'; ?>
+										<span class="ss-dl ms-1 float-end">
+											<?php echo SermonspeakerHelperSermonspeaker::insertdlbutton($item->slug, $type, 3, $item->$filesize); ?>
+										</span>
+									<?php endif; ?>
 									<?php if (in_array('speaker:hits', $this->col_sermon)) : ?>
 										<span class="ss-hits badge bg-info float-end">
 											<?php echo Text::sprintf('JGLOBAL_HITS_COUNT', $item->hits); ?>
