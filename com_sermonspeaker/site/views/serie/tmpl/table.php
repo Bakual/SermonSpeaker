@@ -90,7 +90,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 							</th>
 						<?php endif;
 
-						if (in_array('sermons:speaker', $this->columns)) : ?>
+						if (in_array('serie:speaker', $this->columns)) : ?>
 							<th class="ss-col ss-speaker hidden-phone">
 								<?php if (!$limit) :
 									echo HTMLHelper::_('grid.sort', 'COM_SERMONSPEAKER_SPEAKER', 'speaker_title', $listDirn, $listOrder);
@@ -181,7 +181,7 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 								</td>
 							<?php endif;
 
-							if (in_array('sermons:speaker', $this->columns)) : ?>
+							if (in_array('serie:speaker', $this->columns)) : ?>
 								<td class="ss-col ss-speaker hidden-phone">
 									<?php echo LayoutHelper::render('titles.speaker', array('item' => $item, 'params' => $this->params)); ?>
 								</td>

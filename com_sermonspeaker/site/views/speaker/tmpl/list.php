@@ -90,7 +90,7 @@ $this->getDocument()->addScriptDeclaration("window.onload = function() {
 										<?php echo SermonspeakerHelperSermonspeaker::insertSermonTitle($i, $item, $player); ?>
 									</strong>
 									<?php echo LayoutHelper::render('blocks.state_info', array('item' => $item, 'show' => $showState)); ?>
-									<?php if (in_array('sermons:download', $this->col_sermon)) : ?>
+									<?php if (in_array('speaker:download', $this->col_sermon)) : ?>
 										<?php $type = ($item->videofile and ($prio || !$item->audiofile)) ? 'video' : 'audio'; ?>
 										<?php $filesize = $type . 'filesize'; ?>
 										<span class="ss-dl ms-1 float-end">

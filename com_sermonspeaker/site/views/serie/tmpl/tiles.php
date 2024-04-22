@@ -57,47 +57,47 @@ $player = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 									<h5 class="card-title"><?php echo $item->title; ?></h5>
 								</a>
 								<div class="card-text">
-									<?php if (in_array('speaker:num', $this->columns) and $item->sermon_number) : ?>
+									<?php if (in_array('serie:num', $this->columns) and $item->sermon_number) : ?>
 										<?php echo Text::_('COM_SERMONSPEAKER_FIELD_NUM_LABEL') . ': ' . $item->sermon_number; ?>
 										<br>
 									<?php endif; ?>
 
-									<?php if (in_array('speaker:date', $this->columns) and ($item->sermon_date != '0000-00-00 00:00:00')) : ?>
+									<?php if (in_array('serie:date', $this->columns) and ($item->sermon_date != '0000-00-00 00:00:00')) : ?>
 										<?php echo Text::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL'); ?>:
 										<?php echo HTMLHelper::date($item->sermon_date, Text::_($this->params->get('date_format')), true); ?>
 										<br>
 									<?php endif; ?>
 
-									<?php if (in_array('speaker:category', $this->columns)) : ?>
+									<?php if (in_array('serie:category', $this->columns)) : ?>
 										<?php echo Text::_('JCATEGORY'); ?>:
 										<a href="<?php echo Route::_(SermonspeakerHelperRoute::getSermonsRoute($item->catslug, $item->language)); ?>">
 											<?php echo $item->category_title; ?></a>
 										<br>
 									<?php endif; ?>
 
-									<?php if (in_array('sermons:speaker', $this->columns) and $item->speaker_title) : ?>
+									<?php if (in_array('serie:speaker', $this->columns) and $item->speaker_title) : ?>
 										<?php echo Text::_('COM_SERMONSPEAKER_FIELD_SPEAKER_LABEL'); ?>:
 										<?php echo LayoutHelper::render('titles.speaker', array('item' => $item, 'params' => $this->params)); ?>
 										<br>
 									<?php endif; ?>
 
-									<?php if (in_array('speaker:scripture', $this->columns) and $item->scripture) : ?>
+									<?php if (in_array('serie:scripture', $this->columns) and $item->scripture) : ?>
 										<?php echo Text::_('COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL') . ': ' . SermonspeakerHelperSermonspeaker::insertScriptures($item->scripture, '; ', false); ?>
 										<br>
 									<?php endif; ?>
 
-									<?php if (in_array('speaker:length', $this->columns) and $item->sermon_time) : ?>
+									<?php if (in_array('serie:length', $this->columns) and $item->sermon_time) : ?>
 										<?php echo Text::_('COM_SERMONSPEAKER_FIELD_LENGTH_LABEL') . ': ' . SermonspeakerHelperSermonspeaker::insertTime($item->sermon_time); ?>
 										<br>
 									<?php endif; ?>
 
-									<?php if (in_array('speaker:hits', $this->columns) and $item->hits) : ?>
+									<?php if (in_array('serie:hits', $this->columns) and $item->hits) : ?>
 										<?php echo Text::_('JGLOBAL_HITS') . ': ' . $item->hits; ?>
 										<br>
 									<?php endif; ?>
 								</div>
 							</div>
-							<?php if (in_array('speaker:notes', $this->columns) and $item->notes) : ?>
+							<?php if (in_array('serie:notes', $this->columns) and $item->notes) : ?>
 								<div class="card-footer text-muted">
 									<?php echo $item->notes; ?>
 								</div>

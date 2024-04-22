@@ -65,7 +65,7 @@ $prio       = $this->params->get('fileprio');
 								<?php echo SermonspeakerHelperSermonspeaker::insertSermonTitle($i, $item, $player); ?>
 							</strong>
 							<?php echo LayoutHelper::render('blocks.state_info', array('item' => $item, 'show' => $showState)); ?>
-							<?php if (in_array('sermons:download', $this->columns)) : ?>
+							<?php if (in_array('serie:download', $this->columns)) : ?>
 								<?php $type = ($item->videofile and ($prio || !$item->audiofile)) ? 'video' : 'audio'; ?>
 								<?php $filesize = $type . 'filesize'; ?>
 								<span class="ss-dl ms-1 float-end">
@@ -78,7 +78,7 @@ $prio       = $this->params->get('fileprio');
 								</span>
 							<?php endif; ?>
 							<br/>
-							<?php if (in_array('sermons:speaker', $this->columns) and $item->speaker_title) : ?>
+							<?php if (in_array('serie:speaker', $this->columns) and $item->speaker_title) : ?>
 								<?php $sep = 1; ?>
 								<small class="ss-speaker">
 									<?php echo Text::_('COM_SERMONSPEAKER_SPEAKER'); ?>:
