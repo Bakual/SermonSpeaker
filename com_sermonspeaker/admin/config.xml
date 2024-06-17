@@ -139,6 +139,7 @@
 			label="COM_SERMONSPEAKER_FIELD_DEFAULT_PAGINATION_LIMIT_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_DEFAULT_PAGINATION_LIMIT_DESC"
 			useglobal="true"
+			showall="true"
 		/>
 
 		<field
@@ -1174,19 +1175,34 @@
 
 		<field
 			name="feed_limit"
-			type="list"
+			type="limitbox"
 			label="COM_SERMONSPEAKER_PARAM_FEED_LIMIT_LABEL"
-			filter="integer"
 			useglobal="true"
+			showall="true"
+		/>
+
+		<field
+			name="feed_order"
+			type="list"
+			label="COM_SERMONSPEAKER_PARAM_DEFAULT_ORDER_LABEL"
+			default="date"
 		>
-			<option value="5">J5</option>
-			<option value="10">J10</option>
-			<option value="15">J15</option>
-			<option value="20">J20</option>
-			<option value="25">J25</option>
-			<option value="30">J30</option>
-			<option value="50">J50</option>
-			<option value="100">J100</option>
+			<option value="sermon_date">COM_SERMONSPEAKER_PARAM_DEFAULT_ORDER_OPTION_DATE</option>
+			<option value="publish_up">COM_SERMONSPEAKER_PARAM_DEFAULT_ORDER_OPTION_PUBLISHING_DATE</option>
+			<option value="created">JGLOBAL_FIELD_CREATED_LABEL</option>
+			<option value="modified">JGLOBAL_FIELD_MODIFIED_LABEL</option>
+			<option value="ordering">COM_SERMONSPEAKER_PARAM_DEFAULT_ORDER_OPTION_ORDERING</option>
+			<option value="title">COM_SERMONSPEAKER_PARAM_DEFAULT_ORDER_OPTION_TITLE</option>
+		</field>
+
+		<field
+			name="feed_order_dir"
+			type="list"
+			label="COM_SERMONSPEAKER_PARAM_DEFAULT_ORDER_DIR_LABEL"
+			default="DESC"
+		>
+			<option value="ASC">COM_SERMONSPEAKER_PARAM_DEFAULT_ORDER_DIR_OPTION_ASC</option>
+			<option value="DESC">COM_SERMONSPEAKER_PARAM_DEFAULT_ORDER_DIR_OPTION_DESC</option>
 		</field>
 
 		<field

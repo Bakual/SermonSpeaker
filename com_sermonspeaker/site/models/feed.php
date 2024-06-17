@@ -141,10 +141,13 @@ class SermonspeakerModelFeed extends BaseDatabaseModel
 		$query->where('sermons.podcast = 1');
 		$query->where('sermons.state = 1');
 
-		// Grouping
-		$query->order('sermons.sermon_date DESC');
+		// Ordering
+		$orderCol = $params->get('feed_order', 'sermon_date');
+		$orderDir = $params->get('feed_order_dir', 'DESC');
+		$query->order('sermons.' . $orderCol . ' ' . $orderDir);
 
-		$db->setQuery($query, '0', $app->get('feed_limit'));
+		$feed_limit = $params->get('feed_limit', $app->get('feed_limit'));
+		$db->setQuery($query, '0', $feed_limit);
 
 		return $db->loadObjectList();
 	}
