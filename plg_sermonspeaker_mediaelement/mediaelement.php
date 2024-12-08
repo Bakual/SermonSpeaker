@@ -382,7 +382,8 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 
 		if ($item->sermon_date)
 		{
-			$desc[] = Text::_('JDATE') . ': ' . HTMLHelperAlias::date($item->sermon_date, Text::_('DATE_FORMAT_LC4'), true);
+			$dateformat = $this->c_params->get('date_format', 'DATE_FORMAT_LC4');
+			$desc[] = Text::_('JDATE') . ': ' . HTMLHelperAlias::date($item->sermon_date, Text::_($dateformat), true);
 		}
 
 		if ($item->speaker_title)
