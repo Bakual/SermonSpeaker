@@ -50,6 +50,7 @@ class JFormFieldScripture extends FormField
 		$maxLength = $this->element['maxlength'] ? ' maxlength="' . (int) $this->element['maxlength'] . '"' : '';
 		$readonly  = ((string) $this->element['readonly'] == 'true') ? ' readonly="readonly"' : '';
 		$disabled  = ((string) $this->element['disabled'] == 'true') ? ' disabled="disabled"' : '';
+		$modalId   = 'scriptureModal_' . $this->id;
 
 		$app = Factory::getApplication();
 
@@ -57,7 +58,7 @@ class JFormFieldScripture extends FormField
 		function delete_scripture(id){
 			var child = document.getElementById('scripture_span_'+id)
 			document.getElementById('scripture_span').removeChild(child);
-		}");
+		};");
 
 		$admin = $app->isClient('administrator');
 
@@ -70,14 +71,13 @@ class JFormFieldScripture extends FormField
 			$url = Route::_('index.php?option=com_sermonspeaker&view=scripture&tmpl=component');
 		}
 
-		$modalId = 'scriptureModal_' . $this->id;
-		$html    = '<span id="scripture_span">';
-		$i       = 1;
+		$html = '<span id="scripture_span">';
+		$i    = 1;
 
 		foreach ($this->value as $value)
 		{
 			$title = '';
-			$class = '';
+			$class = ' bg-success text-white';
 
 			if ($value['text'])
 			{
@@ -85,7 +85,7 @@ class JFormFieldScripture extends FormField
 
 				if (!$value['book'])
 				{
-					$class = ' old hasTooltip';
+					$class = ' bg-warning text-white hasTooltip';
 					$title = ' title="' . Text::_('COM_SERMONSPEAKER_SCRIPTURE_NOT_SEARCHABLE') . '"';
 				}
 			}

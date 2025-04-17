@@ -12,9 +12,8 @@
 }
 
 .scripture {
-	background-color: #CF9 !important;
 	border-radius: 5px;
-	padding-left: 5px;
+	padding-left: 10px;
 }
 
 /* Plupload */

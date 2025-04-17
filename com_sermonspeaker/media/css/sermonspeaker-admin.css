@@ -12,17 +12,12 @@
 	right: 0;
 }
 
-.scripture {
-	background-color: #CF9 !important;
+.form-control.scripture {
+	cursor: pointer !important;
 }
 
-.scripture.old {
-	background-color: #FF997F !important;
-}
-
-.scripture.unsaved {
-	cursor: not-allowed;
-	background-color: #eee !important;
+.form-control.scripture.unsaved {
+	cursor: not-allowed !important;
 }
 
 .icon.inactive a {
