@@ -1,4 +1,4 @@
-<?php
+	<?php
 /**
  * @package     SermonSpeaker
  * @subpackage  Component.Administrator
@@ -17,7 +17,7 @@ HTMLHelper::_('bootstrap.tooltip', '.hasTooltip');
 <form action="#" method="post" name="adminForm" id="item-form" class="form-validate form-inline">
 	<table>
 		<tr>
-			<th rowspan="2" valign="bottom"><label for="book"><?php echo Text::_('COM_SERMONSPEAKER_BOOK'); ?></label>
+			<th rowspan="2"><label for="book"><?php echo Text::_('COM_SERMONSPEAKER_BOOK'); ?></label>
 			</th>
 			<th colspan="3"><?php echo Text::_('COM_SERMONSPEAKER_SCRIPTURE_START'); ?></th>
 			<th></th>
