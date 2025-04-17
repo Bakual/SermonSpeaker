@@ -57,9 +57,7 @@ $tmpl    = $isModal || $jinput->get('tmpl', '') === 'component' ? '&tmpl=compone
 				</div>
 			</div>
 			<div class="col-12 col-lg-3">
-				<div class="bg-white px-3">
-					<?php echo LayoutHelper::render('joomla.edit.global', $this); ?>
-				</div>
+				<?php echo LayoutHelper::render('joomla.edit.global', $this); ?>
 			</div>
 		</div>
 		<?php echo HTMLHelper::_('uitab.endTab'); ?>

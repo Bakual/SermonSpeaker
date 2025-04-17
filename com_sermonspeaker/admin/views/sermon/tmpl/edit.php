@@ -56,11 +56,9 @@ $tmpl   = $jinput->getCmd('tmpl') === 'component' ? '&tmpl=component' : '';
 				</div>
 			</div>
 			<div class="col-12 col-lg-3">
-				<div class="bg-white px-3">
-					<?php $this->fields = array('state', 'catid', 'podcast', 'language', 'tags', 'version_note'); ?>
-					<?php echo LayoutHelper::render('joomla.edit.global', $this); ?>
-					<?php unset($this->fields); ?>
-				</div>
+				<?php $this->fields = array('state', 'catid', 'podcast', 'language', 'tags', 'version_note'); ?>
+				<?php echo LayoutHelper::render('joomla.edit.global', $this); ?>
+				<?php unset($this->fields); ?>
 			</div>
 		</div>
 		<?php echo HTMLHelper::_('uitab.endTab'); ?>
