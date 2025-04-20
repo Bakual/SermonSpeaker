@@ -87,7 +87,7 @@ class SermonspeakerHelperId3
 		{
 			if (array_key_exists('title', $FileInfo['comments']))
 			{
-				$id3['title'] = end($FileInfo['comments']['title']);
+				$id3['title'] = $FileInfo['comments']['title'][0];
 			}
 			else
 			{
@@ -155,7 +155,7 @@ class SermonspeakerHelperId3
 
 			if (array_key_exists('comment', $FileInfo['comments']))
 			{
-				$id3['notes']     = end($FileInfo['comments']['comment']);
+				$id3['notes']     = $FileInfo['comments']['comment'][0];
 			}
 			else
 			{
@@ -171,7 +171,7 @@ class SermonspeakerHelperId3
 				$query = $db->getQuery(true);
 				$query->select(['id', 'title']);
 				$query->from('#__sermon_series');
-				$query->where('title like ' . $db->quote($db->escape(end($FileInfo['comments']['album']))));
+				$query->where('title like ' . $db->quote($db->escape($FileInfo['comments']['album'][0])));
 				$db->setQuery($query);
 				$result = $db->loadAssoc();
 
@@ -182,7 +182,7 @@ class SermonspeakerHelperId3
 				}
 				else
 				{
-					$id3['not_found']['series'] = end($FileInfo['comments']['album']);
+					$id3['not_found']['series'] = $FileInfo['comments']['album'][0];
 				}
 			}
 			else
@@ -196,7 +196,7 @@ class SermonspeakerHelperId3
 				$query = $db->getQuery(true);
 				$query->select(['id', 'title']);
 				$query->from('#__sermon_speakers');
-				$query->where('title like ' . $db->quote($db->escape(end($FileInfo['comments']['artist']))));
+				$query->where('title like ' . $db->quote($db->escape($FileInfo['comments']['artist'][0])));
 				$db->setQuery($query);
 				$result = $db->loadAssoc();
 
@@ -207,7 +207,7 @@ class SermonspeakerHelperId3
 				}
 				else
 				{
-					$id3['not_found']['speakers'] = end($FileInfo['comments']['artist']);
+					$id3['not_found']['speakers'] = $FileInfo['comments']['artist'][0];
 				}
 			}
 			else
