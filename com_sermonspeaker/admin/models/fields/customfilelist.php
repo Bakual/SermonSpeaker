@@ -116,9 +116,9 @@ class JFormFieldCustomFileList extends FilelistField
 		if ($this->file != 'addfile')
 		{
 			$html .= '<button class="btn btn-secondary lookup-button"
-							type="button" data-lookup="' . $this->id . '"
+							type="button" data-lookup="' . $this->id . '_text"
 							title="' . Text::_('COM_SERMONSPEAKER_LOOKUP') . '">
-							<span class="fas fa-magic" data-lookup="' . $this->id . '"></span>
+							<span class="fas fa-magic" data-lookup="' . $this->id . '_text"></span>
 						</button>
 						<button class="btn btn-secondary"
 							type="button"
