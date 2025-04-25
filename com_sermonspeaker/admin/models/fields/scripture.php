@@ -189,7 +189,11 @@ class JFormFieldScripture extends FormField
 					. '<button type="button" class="btn btn-primary"'
 					. ' onclick="jQuery(\'#' . $modalId . ' .iframe\')[0].contentWindow.AddScripture();'
 					. ' jQuery(\'#' . $modalId . '\').modal(\'hide\'); return false;">'
-					. Text::_('JSAVE') . '</button>',
+					. Text::_('JSAVE') . '</button>'
+					. '<button type="button" class="btn btn-primary"'
+					. ' onclick="jQuery(\'#' . $modalId . ' .iframe\')[0].contentWindow.AddScripture();'
+					. ' return false;">'
+					. Text::_('JTOOLBAR_SAVE_AND_NEW') . '</button>',
 			)
 		);
 
