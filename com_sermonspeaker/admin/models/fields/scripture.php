@@ -192,8 +192,9 @@ class JFormFieldScripture extends FormField
 					. Text::_('JSAVE') . '</button>'
 					. '<button type="button" class="btn btn-primary"'
 					. ' onclick="jQuery(\'#' . $modalId . ' .iframe\')[0].contentWindow.AddScripture();'
+					. ' jQuery(\'#' . $modalId . ' .iframe\')[0].contentWindow.document.getElementById(\'book\').focus();'
 					. ' return false;">'
-					. Text::_('JTOOLBAR_SAVE_AND_NEW') . '</button>',
+					. Text::_('COM_SERMONSPEAKER_SCRIPTURE_SAVE_AND_NEW') . '</button>',
 			)
 		);
 
