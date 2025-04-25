@@ -20,6 +20,11 @@
 	cursor: not-allowed !important;
 }
 
+/* Move scripture modal to the left so added scripture are more lilely visible */
+#scriptureModal_jform_scripture div.modal-dialog {
+	margin-left: 150px;
+}
+
 .icon.inactive a {
 	background-color: #F4F4F4 !important;
 }
