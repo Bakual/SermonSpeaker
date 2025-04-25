@@ -34,6 +34,7 @@ class SermonspeakerViewScripture extends HtmlView
 	{
 		$id        = Factory::getApplication()->input->get('id', 0, 'int');
 		$separator = Text::_('COM_SERMONSPEAKER_SCRIPTURE_SEPARATOR');
+		$wa        = Factory::getApplication()->getDocument()->getWebAssetManager();
 
 		// Get Params
 		$this->params = ComponentHelper::getParams('com_sermonspeaker');
@@ -136,8 +137,22 @@ class SermonspeakerViewScripture extends HtmlView
 			}";
 		}
 
-		$document = Factory::getDocument();
-		$document->addScriptDeclaration($javascript);
+		$wa->addInlineScript($javascript);
+
+		$wa->addInlineScript("document.addEventListener('DOMContentLoaded', function() {
+				setTimeout(function() {document.getElementById('book').focus()}, 500);
+			});
+		");
+		$wa->addInlineScript("document.addEventListener('DOMContentLoaded', function() {
+				let bookDropdown = document.getElementById('book');
+				bookDropdown.addEventListener('change', function() {
+					document.getElementById('cap1').value = '';
+					document.getElementById('vers1').value = '';
+					document.getElementById('cap2').value = '';
+					document.getElementById('vers2').value = '';
+				})
+			});
+		");
 
 		parent::display($tpl);
 	}
