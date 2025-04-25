@@ -146,6 +146,16 @@ class SermonspeakerViewScripture extends HtmlView
 				setTimeout(function() {document.getElementById('book').focus()}, 500);
 			});
 		");
+		$wa->addInlineScript("document.addEventListener('DOMContentLoaded', function() {
+				let bookDropdown = document.getElementById('book');
+				bookDropdown.addEventListener('change', function() {
+					document.getElementById('cap1').value = '';
+					document.getElementById('vers1').value = '';
+					document.getElementById('cap2').value = '';
+					document.getElementById('vers2').value = '';
+				})
+			});
+		");
 
 		parent::display($tpl);
 	}
