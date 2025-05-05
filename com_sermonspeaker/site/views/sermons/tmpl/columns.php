@@ -100,6 +100,12 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 								<?php echo HTMLHelper::_('content.prepare', $item->notes); ?>
 							</div>
 						<?php endif; ?>
+
+						<?php if (in_array('sermons:maintext', $this->columns) and $item->maintext) : ?>
+							<div>
+								<?php echo HTMLHelper::_('content.prepare', $item->maintext); ?>
+							</div>
+						<?php endif; ?>
 					</div>
 					<div class="column-detail" onclick="ss_play(<?php echo $i; ?>)">
 						<?php

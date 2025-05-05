@@ -165,6 +165,12 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->item, $config);
 		</div>
 	<?php endif;
 
+	if (in_array('sermon:maintext', $this->columns) and $this->item->maintext) : ?>
+		<div class="ss-maintext">
+			<?php echo HTMLHelper::_('content.prepare', $this->item->maintext); ?>
+		</div>
+	<?php endif;
+
 	if ($this->params->get('enable_keywords', 0)):
 		$tags = SermonspeakerHelperSermonspeaker::insertSearchTags($this->item);
 

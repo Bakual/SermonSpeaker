@@ -174,6 +174,12 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 								</div>
 							<?php endif; ?>
 
+							<?php if (in_array('serie:maintext', $this->columns) and $item->maintext) : ?>
+								<div>
+									<?php echo HTMLHelper::_('content.prepare', $item->maintext, '', 'com_sermonspeaker.maintext'); ?>
+								</div>
+							<?php endif; ?>
+
 							<?php echo $item->event->afterDisplayContent; ?>
 
 						</div>

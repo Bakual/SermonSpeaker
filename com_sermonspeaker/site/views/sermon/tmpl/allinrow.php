@@ -48,6 +48,10 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 				<th class="text-start align-bottom"> <?php echo Text::_('COM_SERMONSPEAKER_FIELD_NOTES_LABEL'); ?></th>
 			<?php endif;
 
+			if (in_array('sermon:maintext', $this->columns) and strlen($this->item->maintext) > 0) : ?>
+				<th class="text-start align-bottom"> <?php echo Text::_('COM_SERMONSPEAKER_FIELD_MAINTEXT_LABEL'); ?></th>
+			<?php endif;
+
 			if (in_array('sermon:addfile', $this->columns) and $this->item->addfile) : ?>
 				<th class="text-start align-bottom"><?php echo Text::_('COM_SERMONSPEAKER_ADDFILE'); ?></th>
 			<?php endif;
@@ -67,6 +71,10 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 
 			if (in_array('sermon:notes', $this->columns) and strlen($this->item->notes) > 0) : ?>
 				<td class="text-start align-top"><?php echo HTMLHelper::_('content.prepare', $this->item->notes); ?></td>
+			<?php endif;
+
+			if (in_array('sermon:maintext', $this->columns) and strlen($this->item->maintext) > 0) : ?>
+				<td class="text-start align-top"><?php echo HTMLHelper::_('content.prepare', $this->item->maintext); ?></td>
 			<?php endif;
 
 			if (in_array('sermon:addfile', $this->columns) and $this->item->addfile) : ?>

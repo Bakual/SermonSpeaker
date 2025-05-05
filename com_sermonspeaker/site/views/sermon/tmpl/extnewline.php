@@ -106,6 +106,11 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 				<div class="col-md-8"><?php echo HTMLHelper::_('content.prepare', $this->item->notes); ?></div>
 			<?php endif; ?>
 
+			<?php if (in_array('sermon:maintext', $this->columns) and strlen($this->item->maintext) > 0) : ?>
+				<div class="col-md-4 fw-bold"><?php echo Text::_('COM_SERMONSPEAKER_FIELD_MAINTEXT_LABEL'); ?>:</div>
+				<div class="col-md-8"><?php echo HTMLHelper::_('content.prepare', $this->item->maintext); ?></div>
+			<?php endif; ?>
+
 			<?php if (in_array('sermon:player', $this->columns)) : ?>
 				<div class="col-md-4"></div>
 				<div class="col-md-8">

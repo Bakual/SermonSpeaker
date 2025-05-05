@@ -138,6 +138,12 @@ $prio       = $this->params->get('fileprio');
 									<?php echo HTMLHelper::_('content.prepare', $item->notes, '', 'com_sermonspeaker.notes'); ?>
 								</div>
 							<?php endif; ?>
+
+							<?php if (in_array('sermons:maintext', $this->columns) and $item->maintext) : ?>
+								<div class="ss-maintext">
+									<?php echo HTMLHelper::_('content.prepare', $item->maintext, '', 'com_sermonspeaker.maintext'); ?>
+								</div>
+							<?php endif; ?>
 						</li>
 					<?php endforeach; ?>
 				</ul>

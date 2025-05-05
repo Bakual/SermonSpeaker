@@ -172,5 +172,11 @@ $htag       = $this->params->get('show_page_heading') ? 'h2' : 'h1';
 			<?php echo HTMLHelper::_('content.prepare', $this->item->notes, '', 'com_sermonspeaker.notes'); ?>
 		</div>
 	<?php endif; ?>
+
+	<?php if (in_array('sermon:maintext', $this->columns) and $this->item->maintext) : ?>
+		<div>
+			<?php echo HTMLHelper::_('content.prepare', $this->item->maintext, '', 'com_sermonspeaker.maintext'); ?>
+		</div>
+	<?php endif; ?>
 	<?php echo $this->item->event->afterDisplayContent; ?>
 </div>

@@ -46,6 +46,7 @@ $this->useCoreUI        = true;
 			<?php endif; ?>
 
 			<?php echo $this->form->renderField('intro'); ?>
+			<br>
 			<?php echo $this->form->renderField('bio'); ?>
 			<?php echo HTMLHelper::_('uitab.endTab'); ?>
 
