@@ -25,6 +25,15 @@
 			filter="\Joomla\CMS\Component\ComponentHelper::filterText"
 		/>
 
+		<field name="maintext"
+			type="editor"
+			label="COM_SERMONSPEAKER_FIELD_MAINTEXT_LABEL"
+			description="COM_SERMONSPEAKER_FIELD_MAINTEXT_DESC"
+			buttons="true"
+			hide="pagebreak,readmore"
+			filter="\Joomla\CMS\Component\ComponentHelper::filterText"
+		/>
+
 		<field name="state"
 			type="list"
 			label="JSTATUS"

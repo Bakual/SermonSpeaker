@@ -93,6 +93,15 @@
 		/>
 
 		<field
+			name="maintext"
+			type="editor"
+			label="COM_SERMONSPEAKER_FIELD_MAINTEXT_LABEL"
+			buttons="true"
+			hide="pagebreak,readmore"
+			filter="\Joomla\CMS\Component\ComponentHelper::filterText"
+		/>
+
+		<field
 			name="addfile"
 			type="customfilelist"
 			label="COM_SERMONSPEAKER_FIELD_ADDFILE_LABEL"

@@ -390,7 +390,7 @@ class SermonspeakerModelSermons extends Listmodel
 				'sermons.id, sermons.title, sermons.catid, sermons.audiofile, sermons.videofile, '
 				. 'sermons.audiofilesize, sermons.videofilesize, '
 				. 'CASE WHEN CHAR_LENGTH(sermons.alias) THEN CONCAT_WS(\':\', sermons.id, sermons.alias) ELSE sermons.id END as slug,'
-				. 'sermons.picture, sermons.hits, sermons.notes, sermons.checked_out, sermons.checked_out_time,'
+				. 'sermons.picture, sermons.hits, sermons.notes, sermons.maintext, sermons.checked_out, sermons.checked_out_time,'
 				. 'sermons.sermon_date, sermons.alias, sermons.sermon_time,'
 				. 'sermons.state, sermons.ordering, sermons.podcast, sermons.language,'
 				. 'sermons.sermon_number, sermons.addfile, sermons.addfileDesc,'
@@ -407,7 +407,7 @@ class SermonspeakerModelSermons extends Listmodel
 		$query->group(
 			'sermons.id, sermons.title, sermons.catid, sermons.audiofile, sermons.videofile, '
 			. 'sermons.audiofilesize, sermons.videofilesize, '
-			. 'sermons.picture, sermons.hits, sermons.notes, sermons.checked_out, sermons.checked_out_time,'
+			. 'sermons.picture, sermons.hits, sermons.notes, sermons.maintext, sermons.checked_out, sermons.checked_out_time,'
 			. 'sermons.sermon_date, sermons.alias, sermons.sermon_time,'
 			. 'sermons.state, sermons.ordering, sermons.podcast, sermons.language,'
 			. 'sermons.sermon_number, sermons.addfile, sermons.addfileDesc,'

@@ -265,7 +265,7 @@ class SermonspeakerModelSermons extends ListModel
 			$this->getState(
 				'list.select',
 				'sermons.id, sermons.title, sermons.catid, sermons.language, '
-				. 'sermons.hits, sermons.notes, sermons.checked_out, sermons.checked_out_time, '
+				. 'sermons.hits, sermons.notes, sermons.maintext, sermons.checked_out, sermons.checked_out_time, '
 				. 'sermons.sermon_date, sermons.alias, sermons.created, sermons.created_by, '
 				. 'sermons.state, sermons.ordering, sermons.podcast, '
 				. 'sermons.publish_up, sermons.publish_down'
@@ -302,7 +302,7 @@ class SermonspeakerModelSermons extends ListModel
 		$query->join('LEFT', '#__sermon_scriptures AS script ON script.sermon_id = sermons.id');
 		$query->group(
 			'sermons.id, sermons.title, sermons.catid, sermons.language, '
-			. 'sermons.hits, sermons.notes, sermons.checked_out, sermons.checked_out_time, '
+			. 'sermons.hits, sermons.notes, sermons.maintext, sermons.checked_out, sermons.checked_out_time, '
 			. 'sermons.sermon_date, sermons.alias, sermons.created, sermons.created_by, '
 			. 'sermons.state, sermons.ordering, sermons.podcast, '
 			. 'sermons.publish_up, sermons.publish_down, '
