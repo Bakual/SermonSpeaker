@@ -46,14 +46,14 @@ $tmpl   = $jinput->getCmd('tmpl') === 'component' ? '&tmpl=component' : '';
 		<?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'general', Text::_('COM_SERMONSPEAKER_FIELD_NOTES_LABEL', true)); ?>
 		<div class="row">
 			<div class="col-12 col-lg-9">
-				<div class="card">
-					<div class="card-body">
-						<fieldset class="adminform">
-							<?php echo $this->form->getLabel('notes'); ?>
-							<?php echo $this->form->getInput('notes'); ?>
-						</fieldset>
-					</div>
-				</div>
+				<fieldset class="options-form">
+					<legend><?php echo Text::_('COM_SERMONSPEAKER_FIELD_NOTES_LABEL'); ?></legend>
+					<?php echo $this->form->getInput('notes'); ?>
+				</fieldset>
+				<fieldset class="options-form">
+					<legend><?php echo Text::_('COM_SERMONSPEAKER_FIELD_MAINTEXT_LABEL'); ?></legend>
+					<?php echo $this->form->getInput('maintext'); ?>
+				</fieldset>
 			</div>
 			<div class="col-12 col-lg-3">
 				<?php $this->fields = array('state', 'catid', 'podcast', 'language', 'tags', 'version_note'); ?>

@@ -59,9 +59,11 @@ $self = $uri->toString();
 
 			<?php if (is_null($this->item->id)): ?>
 				<?php echo $this->form->renderField('alias'); ?>
-			<?php endif;
+			<?php endif; ?>
 
-			echo $this->form->getInput('notes'); ?>
+			<?php echo $this->form->renderField('notes'); ?>
+			<br>
+			<?php echo $this->form->renderField('maintext'); ?>
 			<?php echo HTMLHelper::_('uitab.endTab'); ?>
 
 			<?php echo HTMLHelper::_('uitab.addTab', $this->tab_name, 'files', Text::_('COM_SERMONSPEAKER_FU_FILES', true)); ?>
