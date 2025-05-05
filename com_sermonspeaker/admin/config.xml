@@ -282,7 +282,7 @@
 			name="col"
 			type="columns"
 			label="COM_SERMONSPEAKER_SERMON"
-			cols="num,category,scripture,speaker,date,length,series,addfile,notes,player,hits,download"
+			cols="num,category,scripture,speaker,date,length,series,addfile,notes,maintext,player,hits,download"
 			hiddenLabel="true"
 		>
 			<option value="sermons">COM_SERMONSPEAKER_SERMONS_VIEW_TITLE</option>
