@@ -183,13 +183,13 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 								<?php echo $item->event->beforeDisplayContent; ?>
 
 								<?php if (in_array('sermons:notes', $this->columns) and $item->notes) : ?>
-									<div>
+									<div class="ss-notes">
 										<?php echo HTMLHelper::_('content.prepare', $item->notes, '', 'com_sermonspeaker.notes'); ?>
 									</div>
 								<?php endif; ?>
 
 								<?php if (in_array('sermons:maintext', $this->columns) and $item->maintext) : ?>
-									<div>
+									<div class="ss-maintext">
 										<?php echo HTMLHelper::_('content.prepare', $item->maintext, '', 'com_sermonspeaker.maintext'); ?>
 									</div>
 								<?php endif; ?>

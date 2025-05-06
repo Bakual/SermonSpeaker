@@ -104,12 +104,12 @@ $player = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 								</div>
 							</div>
 							<?php if (in_array('speaker:notes', $this->columns) and $item->notes) : ?>
-								<div class="card-footer text-muted">
+								<div class="card-footer text-muted ss-notes">
 									<?php echo $item->notes; ?>
 								</div>
 							<?php endif; ?>
 							<?php if (in_array('speaker:maintext', $this->columns) and $item->maintext) : ?>
-								<div class="card-footer text-muted">
+								<div class="card-footer text-muted ss-maintext">
 									<?php echo $item->maintext; ?>
 								</div>
 							<?php endif; ?>

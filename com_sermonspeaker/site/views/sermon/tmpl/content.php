@@ -168,13 +168,13 @@ $htag       = $this->params->get('show_page_heading') ? 'h2' : 'h1';
 	<?php endif; ?>
 
 	<?php if (in_array('sermon:notes', $this->columns) and $this->item->notes) : ?>
-		<div>
+		<div class="ss-notes">
 			<?php echo HTMLHelper::_('content.prepare', $this->item->notes, '', 'com_sermonspeaker.notes'); ?>
 		</div>
 	<?php endif; ?>
 
 	<?php if (in_array('sermon:maintext', $this->columns) and $this->item->maintext) : ?>
-		<div>
+		<div class="ss-maintext">
 			<?php echo HTMLHelper::_('content.prepare', $this->item->maintext, '', 'com_sermonspeaker.maintext'); ?>
 		</div>
 	<?php endif; ?>

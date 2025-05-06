@@ -215,13 +215,13 @@ $this->getDocument()->addScriptDeclaration("window.onload = function() {
 										<?php echo $item->event->beforeDisplayContent; ?>
 
 										<?php if (in_array('speaker:notes', $this->col_sermon) and $item->notes) : ?>
-											<div>
+											<div class="ss-notes">
 												<?php echo HTMLHelper::_('content.prepare', $item->notes, '', 'com_sermonspeaker.notes'); ?>
 											</div>
 										<?php endif; ?>
 
 										<?php if (in_array('speaker:maintext', $this->col_sermon) and $item->maintext) : ?>
-											<div>
+											<div class="ss-maintext">
 												<?php echo HTMLHelper::_('content.prepare', $item->maintext, '', 'com_sermonspeaker.maintext'); ?>
 											</div>
 										<?php endif; ?>

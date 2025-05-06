@@ -38,18 +38,18 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 	<?php endif; ?>
 	<?php echo $this->item->event->beforeDisplayContent; ?>
 	<!-- Begin Header -->
-	<table border="0" cellpadding="2" cellspacing="0" width="100%">
+	<table>
 		<tr>
 			<?php if (in_array('sermon:scripture', $this->columns) and $this->item->scripture) : ?>
 				<th class="text-start align-bottom"><?php echo Text::_('COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL'); ?></th>
 			<?php endif;
 
 			if (in_array('sermon:notes', $this->columns) and strlen($this->item->notes) > 0) : ?>
-				<th class="text-start align-bottom"> <?php echo Text::_('COM_SERMONSPEAKER_FIELD_NOTES_LABEL'); ?></th>
+				<th class="text-start align-bottom ss-notes"> <?php echo Text::_('COM_SERMONSPEAKER_FIELD_NOTES_LABEL'); ?></th>
 			<?php endif;
 
 			if (in_array('sermon:maintext', $this->columns) and strlen($this->item->maintext) > 0) : ?>
-				<th class="text-start align-bottom"> <?php echo Text::_('COM_SERMONSPEAKER_FIELD_MAINTEXT_LABEL'); ?></th>
+				<th class="text-start align-bottom ss-maintext"> <?php echo Text::_('COM_SERMONSPEAKER_FIELD_MAINTEXT_LABEL'); ?></th>
 			<?php endif;
 
 			if (in_array('sermon:addfile', $this->columns) and $this->item->addfile) : ?>
@@ -70,11 +70,11 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->item);
 			<?php endif;
 
 			if (in_array('sermon:notes', $this->columns) and strlen($this->item->notes) > 0) : ?>
-				<td class="text-start align-top"><?php echo HTMLHelper::_('content.prepare', $this->item->notes); ?></td>
+				<td class="text-start align-top ss-notes"><?php echo HTMLHelper::_('content.prepare', $this->item->notes); ?></td>
 			<?php endif;
 
 			if (in_array('sermon:maintext', $this->columns) and strlen($this->item->maintext) > 0) : ?>
-				<td class="text-start align-top"><?php echo HTMLHelper::_('content.prepare', $this->item->maintext); ?></td>
+				<td class="text-start align-top ss-maintext"><?php echo HTMLHelper::_('content.prepare', $this->item->maintext); ?></td>
 			<?php endif;
 
 			if (in_array('sermon:addfile', $this->columns) and $this->item->addfile) : ?>

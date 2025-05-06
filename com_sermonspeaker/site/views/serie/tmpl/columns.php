@@ -87,13 +87,13 @@ $player     = SermonspeakerHelperSermonspeaker::getPlayer($this->items);
 						<?php endif;
 
 						if (in_array('serie:notes', $this->columns) && $item->notes) : ?>
-							<div>
+							<div class="ss-notes">
 								<?php echo HTMLHelper::_('content.prepare', $item->notes); ?>
 							</div>
 						<?php endif;
 
 						if (in_array('serie:maintext', $this->columns) && $item->maintext) : ?>
-							<div>
+							<div class="ss-maintext">
 								<?php echo HTMLHelper::_('content.prepare', $item->maintext); ?>
 							</div>
 						<?php endif; ?>
