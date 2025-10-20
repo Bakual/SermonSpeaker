@@ -15,7 +15,7 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\MVC\Controller\BaseController;
 use Joomla\CMS\Uri\Uri;
-use Joomla\CMS\Filesystem\File;
+use Joomla\Filesystem\File;
 
 /**
  * SermonSpeaker Component Controller

@@ -11,7 +11,7 @@ defined('_JEXEC') or die();
 
 use Joomla\CMS\Application\ApplicationHelper;
 use Joomla\CMS\Factory;
-use Joomla\CMS\Filesystem\File;
+use Joomla\Filesystem\File;
 
 /**
  * Sermonspeaker Component ID3 Helper

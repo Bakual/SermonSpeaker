@@ -20,7 +20,7 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Model\AdminModel;
 use Joomla\CMS\Table\Table;
 use Joomla\CMS\Versioning\VersionableModelTrait;
-use Joomla\CMS\Filesystem\File;use Joomla\Utilities\ArrayHelper;
+use Joomla\Filesystem\File;use Joomla\Utilities\ArrayHelper;
 
 /**
  * Item Model for a Sermon.
