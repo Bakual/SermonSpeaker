@@ -7,14 +7,17 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
+namespace Sermonspeaker\Component\Sermonspeaker\Administrator\View\Main;
+
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
+use Joomla\CMS\Toolbar\ToolbarHelper;
+use Sermonspeaker\Component\Sermonspeaker\Administrator\Helper\SermonspeakerHelper;
+
 
 defined('_JEXEC') or die;
 
-use Joomla\CMS\Language\Text;
-use Joomla\CMS\MVC\View\HtmlView;
-use Joomla\CMS\Toolbar\ToolbarHelper;
-
-class SermonspeakerViewMain extends HtmlView
+class HtmlView extends BaseHtmlView
 {
 	function display($tpl = null)
 	{

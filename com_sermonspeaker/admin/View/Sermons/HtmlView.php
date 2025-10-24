@@ -7,23 +7,26 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
-defined('_JEXEC') or die;
+namespace Sermonspeaker\Component\Sermonspeaker\Administrator\View\Sermons;
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Form;
 use Joomla\CMS\Language\Multilanguage;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\GenericDataException;
-use Joomla\CMS\MVC\View\HtmlView;
+use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Toolbar\Toolbar;
 use Joomla\CMS\Toolbar\ToolbarHelper;
+use Sermonspeaker\Component\Sermonspeaker\Administrator\Helper\SermonspeakerHelper;
+
+defined('_JEXEC') or die;
 
 /**
  * HTML View class for the SermonSpeaker Component
  *
  * @since  3.4
  */
-class SermonspeakerViewSermons extends HtmlView
+class HtmlView extends BaseHtmlView
 {
 	/**
 	 * Form object for search filters
@@ -60,7 +63,7 @@ class SermonspeakerViewSermons extends HtmlView
 	/**
 	 * A state object
 	 *
-	 * @var    JObject
+	 * @var    \JObject
 	 *
 	 * @since  ?
 	 */
@@ -71,7 +74,7 @@ class SermonspeakerViewSermons extends HtmlView
 	 *
 	 * @param   string  $tpl  The name of the template file to parse; automatically searches through the template paths.
 	 *
-	 * @throws Exception
+	 * @throws \Exception
 	 *
 	 * @since  ?
 	 */
@@ -117,7 +120,7 @@ class SermonspeakerViewSermons extends HtmlView
 			if ($forcedLanguage = Factory::getApplication()->input->get('forcedLanguage', '', 'CMD'))
 			{
 				// If the language is forced we can't allow to select the language, so transform the language selector filter into an hidden field.
-				$languageXml = new SimpleXMLElement('<field name="language" type="hidden" default="' . $forcedLanguage . '" />');
+				$languageXml = new \SimpleXMLElement('<field name="language" type="hidden" default="' . $forcedLanguage . '" />');
 				$this->filterForm->setField($languageXml, 'filter', true);
 
 				// Also, unset the active language filter so the search tools is not open by default with this filter.

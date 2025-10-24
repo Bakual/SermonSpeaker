@@ -7,7 +7,7 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
-defined('_JEXEC') or die;
+namespace Sermonspeaker\Component\Sermonspeaker\Administrator\Model;
 
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
@@ -17,7 +17,9 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Model\ListModel;
 use Joomla\CMS\Table\Table;
 
-class SermonspeakerModelSermons extends ListModel
+defined('_JEXEC') or die;
+
+class SermonsModel extends ListModel
 {
 	/**
 	 * Constructor.

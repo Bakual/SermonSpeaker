@@ -7,7 +7,7 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
-defined('_JEXEC') or die;
+namespace Sermonspeaker\Component\Sermonspeaker\Administrator\Controller;
 
 use Joomla\CMS\Access\Exception\Notallowed;
 use Joomla\CMS\Component\ComponentHelper;
@@ -16,7 +16,9 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Controller\BaseController;
 use Joomla\CMS\Plugin\PluginHelper;
 
-class SermonspeakerController extends BaseController
+defined('_JEXEC') or die;
+
+class DisplayController extends BaseController
 {
 	protected $default_view = 'main';
 

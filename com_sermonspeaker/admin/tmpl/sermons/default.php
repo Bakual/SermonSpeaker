@@ -142,7 +142,7 @@ $assoc = Associations::isEnabled();
 									<?php echo HTMLHelper::_('jgrid.published', $item->state, $i, 'sermons.', $canChange, 'cb', $item->publish_up, $item->publish_down); ?>
 								</td>
 								<td class="text-center d-none d-md-table-cell">
-									<?php echo HTMLHelper::_('sermonspeakeradministrator.podcasted', $item->podcast, $i, 'sermons.podcast_', $canChange); ?>
+									<?php echo HTMLHelper::_('sermonspeakericon.podcasted', $item->podcast, $i, 'sermons.podcast_', $canChange); ?>
 								</td>
 								<td class="nowrap has-context">
 									<div class="pull-left">
