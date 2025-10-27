@@ -1,152 +1,106 @@
 <?php
 /**
  * @package     SermonSpeaker
- * @subpackage  Component.Site
+ * @subpackage  Component.Administrator
  * @author      Thomas Hunziker <admin@sermonspeaker.net>
  * @copyright   © 2023 - Thomas Hunziker
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
-defined('_JEXEC') or die();
+namespace Sermonspeaker\Component\Sermonspeaker\Administrator\View\Sermon;
 
+use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
-use Joomla\CMS\MVC\View\HtmlView;
+use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Router\Route;
-use Joomla\CMS\Uri\Uri;
+use Joomla\CMS\Toolbar\Toolbar;
+use Joomla\CMS\Toolbar\ToolbarHelper;
+use Sermonspeaker\Component\Sermonspeaker\Administrator\Helper\SermonspeakerHelper;
+use SermonspeakerHelperRoute;
+
+defined('_JEXEC') or die;
 
 /**
  * HTML View class for the SermonSpeaker Component
  *
  * @since  3.4
  */
-class SermonspeakerViewFrontendupload extends HtmlView
+class HtmlView extends BaseHtmlView
 {
-	/**
-	 * Injected from the controller
-	 *
-	 * @var    JDocument
-	 *
-	 * @since ?
-	 */
-	public $document;
-	protected $form;
-	protected $item;
-	protected $user;
-	protected $pageclass_sfx;
-	/**
-	 * AmazonS3 information
-	 *
-	 * @var    string
-	 *
-	 * @since ?
-	 */
-	protected $s3audio;
-	/**
-	 * AmazonS3 information
-	 *
-	 * @var    string
-	 *
-	 * @since ?
-	 */
-	protected $s3video;
-	/**
-	 * A params object
-	 *
-	 * @var    Joomla\Registry\Registry
-	 *
-	 * @since ?
-	 */
-	protected $params;
-	/**
-	 * The URL to return to
-	 *
-	 * @var    string
-	 *
-	 * @since ?
-	 */
-	protected $return_page;
 	/**
 	 * A state object
 	 *
-	 * @var    JObject
+	 * @var    \JObject
 	 *
-	 * @since ?
+	 * @since  ?
 	 */
 	protected $state;
+
+	protected $item;
+
+	protected $form;
+
+	protected $upload_limit;
+
+	protected $append_user;
+
+	protected $append_date;
+
+	protected $append_lang;
+
+	/**
+	 * AmazonS3 information
+	 *
+	 * @var    string
+	 *
+	 * @since  ?
+	 */
+	protected string $s3audio;
+
+	/**
+	 * AmazonS3 information
+	 *
+	 * @var    string
+	 *
+	 * @since  ?
+	 */
+	protected string $s3video;
+
+	/**
+	 * Amazon S3 domain name
+	 *
+	 * @var    string
+	 *
+	 * @since  ?
+	 */
+	protected $domain;
+
+	/**
+	 * A params object
+	 *
+	 * @var    \Joomla\Registry\Registry
+	 *
+	 * @since  ?
+	 */
+	protected $params;
 
 	/**
 	 * Execute and display a template script.
 	 *
 	 * @param   string  $tpl  The name of the template file to parse; automatically searches through the template paths.
 	 *
-	 * @return  false
+	 * @return  void
 	 *
-	 * @throws Exception
+	 * @throws \Exception
 	 *
-	 * @since ?
+	 * @since  ?
 	 */
-	public function display($tpl = null)
+	public function display($tpl = null): void
 	{
-		// Initialise variables.
-		$app    = Factory::getApplication();
-		$jinput = $app->input;
-
-		// Get the log in credentials.
-		$credentials              = array();
-		$credentials['username']  = $jinput->get->get('username', '', 'USERNAME');
-		$credentials['password']  = $jinput->get->get('password', '', 'RAW');
-		$credentials['secretkey'] = $jinput->get->get('secretkey', '', 'RAW');
-
-		// Perform the log in.
-		if ($credentials['username'] && $credentials['password'])
-		{
-			$app->login($credentials);
-		}
-
-		$this->user = Factory::getUser();
-
-		// Get model data.
-		$this->state       = $this->get('State');
-		$this->item        = $this->get('Item');
-		$this->form        = $this->get('Form');
-		$this->return_page = $this->get('ReturnPage');
-
-		// Create a shortcut to the parameters.
-		$this->params = &$this->state->params;
-
-		if (!$this->params->get('fu_enable', 0))
-		{
-			throw new Exception(Text::_('JERROR_ALERTNOAUTHOR'), 403);
-		}
-
-		if ($this->user->guest)
-		{
-			$redirectUrl = urlencode(base64_encode(Uri::getInstance()->toString()));
-			$app->enqueueMessage(Text::_('JGLOBAL_YOU_MUST_LOGIN_FIRST'), 'error');
-			$app->redirect(Route::_('index.php?option=com_users&view=login&return=' . $redirectUrl));
-
-			return false;
-		}
-
-		if (empty($this->item->id))
-		{
-			$authorised = ($this->user->authorise('core.create', 'com_sermonspeaker'));
-		}
-		else
-		{
-			$authorised = ($this->user->authorise('core.edit', 'com_sermonspeaker.category.' . $this->item->catid));
-
-			if (!$authorised && ($this->item->created_by == $this->user->id))
-			{
-				$authorised = ($this->user->authorise('core.edit.own', 'com_sermonspeaker.category.' . $this->item->catid));
-			}
-		}
-
-		if ($authorised !== true)
-		{
-			throw new Exception(Text::_('JERROR_ALERTNOAUTHOR'), 403);
-		}
+		$this->state = $this->get('State');
+		$this->item  = $this->get('Item');
+		$this->form  = $this->get('Form');
 
 		// Check some PHP settings for upload limit so I can show it as an info
 		$post_max_size       = ini_get('post_max_size');
@@ -181,21 +135,16 @@ class SermonspeakerViewFrontendupload extends HtmlView
 		}';
 
 		// Push translation to Javascript
+		Text::script('COM_SERMONSPEAKER_ID3_NO_MATCH_FOUND');
 		Text::script('COM_SERMONSPEAKER_SERIE');
 		Text::script('COM_SERMONSPEAKER_SPEAKER');
-		Text::script('COM_SERMONSPEAKER_ID3_NO_MATCH_FOUND');
+		Text::script('NOTICE');
+		$this->params = ComponentHelper::getParams('com_sermonspeaker');
 
-		// Add Javascript for active tab selection (based on menu item param)
-		if ($tab = $this->params->get('active_tab'))
-		{
-			$this->getDocument()->addScriptDeclaration('jQuery(function() {
-					jQuery(\'#sermonEditTab a[href="#' . $tab . '"]\').tab(\'show\');
-				})');
-		}
-
-		$this->getDocument()->addScriptDeclaration($enElem);
-		$this->getDocument()->addScriptDeclaration($toggle);
-		$this->getDocument()->getWebAssetManager()->useScript('com_sermonspeaker.id3-lookup');
+		$document = Factory::getApplication()->getDocument();
+		$document->addScriptDeclaration($enElem);
+		$document->addScriptDeclaration($toggle);
+		$document->getWebAssetManager()->useScript('com_sermonspeaker.id3-lookup');
 
 		// Google Picker
 		if ($this->params->get('googlepicker'))
@@ -237,9 +186,6 @@ class SermonspeakerViewFrontendupload extends HtmlView
 					if (pickerApiLoaded && oauthToken) {
 						var picker = new google.picker.PickerBuilder().
 							addView(google.picker.ViewId.DOCS_VIDEOS).
-							addView(google.picker.ViewId.YOUTUBE).
-							addView(google.picker.ViewId.VIDEO_SEARCH).
-							addView(google.picker.ViewId.RECENTLY_PICKED).
 							setOAuthToken(oauthToken).
 							setDeveloperKey(developerKey).
 							setCallback(pickerCallbackVideo).
@@ -251,11 +197,6 @@ class SermonspeakerViewFrontendupload extends HtmlView
 					if (pickerApiLoaded && oauthToken) {
 						var picker = new google.picker.PickerBuilder().
 							addView(google.picker.ViewId.DOCS).
-							addView(google.picker.ViewId.PHOTOS).
-							addView(google.picker.ViewId.YOUTUBE).
-							addView(google.picker.ViewId.IMAGE_SEARCH).
-							addView(google.picker.ViewId.VIDEO_SEARCH).
-							addView(google.picker.ViewId.RECENTLY_PICKED).
 							setOAuthToken(oauthToken).
 							setDeveloperKey(developerKey).
 							setCallback(pickerCallbackAddfile).
@@ -284,8 +225,8 @@ class SermonspeakerViewFrontendupload extends HtmlView
 					}
 				}
 			";
-			$this->getDocument()->addScriptDeclaration($picker);
-			$this->getDocument()->addScript('https://apis.google.com/js/api.js?onload=onApiLoad');
+			$document->addScriptDeclaration($picker);
+			$document->addScript('https://apis.google.com/js/api.js?onload=onApiLoad');
 		}
 
 		// Destination folder based on mode
@@ -294,9 +235,6 @@ class SermonspeakerViewFrontendupload extends HtmlView
 
 		if ($this->s3audio || $this->s3video)
 		{
-			// Add missing constant in PHP < 5.5
-			defined('CURL_SSLVERSION_TLSv1') or define('CURL_SSLVERSION_TLSv1', 1);
-
 			// AWS access info
 			$awsAccessKey = $this->params->get('s3_access_key');
 			$awsSecretKey = $this->params->get('s3_secret_key');
@@ -351,7 +289,7 @@ class SermonspeakerViewFrontendupload extends HtmlView
 			$this->append_date = '';
 		}
 
-		$this->getDocument()->addScriptDeclaration($changedate);
+		$document->addScriptDeclaration($changedate);
 
 		if ($this->params->get('append_path_lang', 0))
 		{
@@ -381,7 +319,7 @@ class SermonspeakerViewFrontendupload extends HtmlView
 			$this->append_lang = '';
 		}
 
-		$this->getDocument()->addScriptDeclaration($changelang);
+		$document->addScriptDeclaration($changelang);
 
 		// Add javascript validation script
 		Text::script('COM_SERMONSPEAKER_JS_CHECK_KEYWORDS', false, true);
@@ -404,7 +342,7 @@ class SermonspeakerViewFrontendupload extends HtmlView
 						}
 					}
 				}';
-		$this->getDocument()->addScriptDeclaration($valscript);
+		$document->addScriptDeclaration($valscript);
 
 		// Check for errors.
 		if (count($errors = $this->get('Errors')))
@@ -412,22 +350,33 @@ class SermonspeakerViewFrontendupload extends HtmlView
 			throw new Exception(implode("\n", $errors), 500);
 		}
 
-		// Escape strings for HTML output
-		$this->pageclass_sfx = htmlspecialchars($this->params->get('pageclass_sfx', ''));
+		// If we are forcing a language in modal (used for associations).
+		if ($this->getLayout() === 'modal' && $forcedLanguage = Factory::getApplication()->input->get('forcedLanguage', ''))
+		{
+			// Set the language field to the forcedLanguage and disable changing it.
+			$this->form->setValue('language', null, $forcedLanguage);
+			$this->form->setFieldAttribute('language', 'readonly', 'true');
 
-		$this->_prepareDocument();
+			// Only allow to select categories with All language or with the forced language.
+			$this->form->setFieldAttribute('catid', 'language', '*,' . $forcedLanguage);
+
+			// Only allow to select tags with All language or with the forced language.
+			$this->form->setFieldAttribute('tags', 'language', '*,' . $forcedLanguage);
+		}
+
+		$this->addToolbar();
 
 		parent::display($tpl);
 	}
 
 	/**
-	 * Function to return bytes from the PHP settings. Taken from the ini_get() manual
+	 * Function to return bytes from the PHP settings. Taken from the ini_get() manual.
 	 *
-	 * @param   string  $val  Value from the PHP setting
+	 * @param   string  $val  PHP setting (eg 2M)
 	 *
-	 * @return  int  $val  Value in bytes
+	 * @return  integer
 	 *
-	 * @since ?
+	 * @since  ?
 	 */
 	protected function return_bytes($val)
 	{
@@ -452,46 +401,108 @@ class SermonspeakerViewFrontendupload extends HtmlView
 	}
 
 	/**
-	 * Prepares the document
+	 * Add the page title and toolbar.
 	 *
 	 * @return  void
 	 *
-	 * @since ?
+	 * @since  ?
 	 */
-	protected function _prepareDocument()
+	protected function addToolbar()
 	{
-		$app   = Factory::getApplication();
-		$menus = $app->getMenu();
+		Factory::getApplication()->input->set('hidemainmenu', true);
+		$user       = Factory::getUser();
+		$isNew      = ($this->item->id == 0);
+		$checkedOut = !($this->item->checked_out == 0 || $this->item->checked_out == $user->id);
+		$canDo      = SermonspeakerHelper::getActions();
+		$toolbar    = Toolbar::getInstance();
 
-		// Because the application sets a default page title, we need to get it from the menu item itself
-		$menu = $menus->getActive();
+		ToolbarHelper::title(
+			Text::sprintf('COM_SERMONSPEAKER_PAGE_' . ($checkedOut ? 'VIEW' : ($isNew ? 'ADD' : 'EDIT')),
+				Text::_('COM_SERMONSPEAKER_SERMONS_TITLE')),
+			'pencil-2 sermons'
+		);
 
-		if ($menu)
+		// Build the actions for new and existing records.
+		if ($isNew)
 		{
-			$this->params->def('page_heading', $this->params->get('page_title', $menu->title));
+			// For new records, check the create permission.
+			if ($canDo->get('core.create'))
+			{
+				$toolbar->apply('sermon.apply');
+
+				$saveGroup = $toolbar->dropdownButton('save-group');
+
+				$saveGroup->configure(
+					function (Toolbar $childBar) use ($user) {
+						$childBar->save('sermon.save');
+
+						if ($user->authorise('core.create', 'com_menus.menu'))
+						{
+							$childBar->save('sermon.save2menu', Text::_('JTOOLBAR_SAVE_TO_MENU'));
+						}
+
+						$childBar->save2new('sermon.save2new');
+					}
+				);
+			}
 		}
 		else
 		{
-			$this->params->def('page_heading', Text::_('COM_SERMONSPEAKER_FU_TITLE'));
+			// Since it's an existing record, check the edit permission, or fall back to edit own if the owner.
+			$itemEditable = $canDo->get('core.edit') || ($canDo->get('core.edit.own') && $this->item->created_by == $user->id);
+
+			if (!$checkedOut && $itemEditable)
+			{
+				$toolbar->apply('sermon.apply');
+			}
+
+			$saveGroup = $toolbar->dropdownButton('save-group');
+
+			$saveGroup->configure(
+				function (Toolbar $childBar) use ($checkedOut, $itemEditable, $canDo, $user) {
+					// Can't save the record if it's checked out and editable
+					if (!$checkedOut && $itemEditable)
+					{
+						$childBar->save('sermon.save');
+
+						// We can save this record, but check the create permission to see if we can return to make a new one.
+						if ($canDo->get('core.create'))
+						{
+							$childBar->save2new('sermon.save2new');
+						}
+					}
+
+					// If checked out, we can still save2menu
+					if ($user->authorise('core.create', 'com_menus.menu'))
+					{
+						$childBar->save('sermon.save2menu', Text::_('JTOOLBAR_SAVE_TO_MENU'));
+					}
+
+					// If checked out, we can still save2copy
+					if ($canDo->get('core.create'))
+					{
+						$childBar->save2copy('sermon.save2copy');
+					}
+				}
+			);
+
+			if (ComponentHelper::isEnabled('com_contenthistory') && $this->state->params->get('save_history') && $itemEditable)
+			{
+				$toolbar->versions('com_sermonspeaker.sermon', $this->item->id);
+			}
+
+			require_once JPATH_COMPONENT_SITE . '/helpers/route.php';
+			$url = Route::link(
+				'site',
+				SermonspeakerHelperRoute::getSermonRoute($this->item->id . ':' . $this->item->alias, $this->item->catid, $this->item->language),
+				true
+			);
+
+			$toolbar->preview($url)
+				->bodyHeight(80)
+				->modalWidth(90);
 		}
 
-		$title = $this->params->get('page_title', '');
-
-		$this->setDocumentTitle($title);
-
-		if ($this->params->get('menu-meta_description'))
-		{
-			$this->getDocument()->setDescription($this->params->get('menu-meta_description'));
-		}
-
-		if ($this->params->get('menu-meta_keywords'))
-		{
-			$this->getDocument()->setMetaData('keywords', $this->params->get('menu-meta_keywords'));
-		}
-
-		if ($this->params->get('robots'))
-		{
-			$this->getDocument()->setMetaData('robots', $this->params->get('robots'));
-		}
+		$toolbar->cancel('sermon.cancel');
 	}
 }

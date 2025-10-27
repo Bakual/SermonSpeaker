@@ -47,7 +47,10 @@ abstract class SermonspeakerHelperRoute
 
 		if ((int) $catid > 1)
 		{
-			$categories = Categories::getInstance('sermonspeaker.sermons', array('table' => '#__sermon_sermons'));
+			$categories = Factory::getApplication()->bootComponent('sermonspeaker')->getCategory(
+				array('table' => '#__sermon_sermons'),
+				'sermons'
+			);
 			$category   = $categories->get((int) $catid);
 
 			if ($category)
@@ -107,7 +110,10 @@ abstract class SermonspeakerHelperRoute
 
 		if ((int) $catid > 1)
 		{
-			$categories = Categories::getInstance('sermonspeaker.sermons', array('table' => '#__sermon_sermons'));
+			$categories = Factory::getApplication()->bootComponent('sermonspeaker')->getCategory(
+				array('table' => '#__sermon_sermons'),
+				'sermons'
+			);
 			$category   = $categories->get((int) $catid);
 
 			if ($category)
@@ -163,7 +169,10 @@ abstract class SermonspeakerHelperRoute
 
 		if ((int) $catid > 1)
 		{
-			$categories = Categories::getInstance('sermonspeaker.series', array('table' => '#__sermon_series'));
+			$categories = Factory::getApplication()->bootComponent('sermonspeaker')->getCategory(
+				array('table' => '#__sermon_series'),
+				'series'
+			);
 			$category   = $categories->get((int) $catid);
 
 			if ($category)
@@ -223,7 +232,10 @@ abstract class SermonspeakerHelperRoute
 
 		if ((int) $catid > 1)
 		{
-			$categories = Categories::getInstance('sermonspeaker.series', array('table' => '#__sermon_series'));
+			$categories = Factory::getApplication()->bootComponent('sermonspeaker')->getCategory(
+				array('table' => '#__sermon_series'),
+				'series'
+			);
 			$category   = $categories->get((int) $catid);
 
 			if ($category)
@@ -279,7 +291,10 @@ abstract class SermonspeakerHelperRoute
 
 		if ((int) $catid > 1)
 		{
-			$categories = Categories::getInstance('sermonspeaker.speakers', array('table' => '#__sermon_speakers'));
+			$categories = Factory::getApplication()->bootComponent('sermonspeaker')->getCategory(
+				array('table' => '#__sermon_speakers'),
+				'speakers'
+			);
 			$category   = $categories->get((int) $catid);
 
 			if ($category)
@@ -339,7 +354,10 @@ abstract class SermonspeakerHelperRoute
 
 		if ((int) $catid > 1)
 		{
-			$categories = Categories::getInstance('sermonspeaker.speakers', array('table' => '#__sermon_speakers'));
+			$categories = Factory::getApplication()->bootComponent('sermonspeaker')->getCategory(
+				array('table' => '#__sermon_speakers'),
+				'speakers'
+			);
 			$category   = $categories->get((int) $catid);
 
 			if ($category)

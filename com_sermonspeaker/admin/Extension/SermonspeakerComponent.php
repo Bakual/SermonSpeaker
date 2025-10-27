@@ -27,6 +27,7 @@ use Joomla\CMS\HTML\HTMLRegistryAwareTrait;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Tag\TagServiceInterface;
 use Joomla\CMS\Tag\TagServiceTrait;
+use Sermonspeaker\Component\Sermonspeaker\Administrator\Helper\SermonspeakerHelper;
 use Sermonspeaker\Component\Sermonspeaker\Administrator\Service\HTML\AdministratorService;
 use Sermonspeaker\Component\Sermonspeaker\Administrator\Service\HTML\Icon;
 use Psr\Container\ContainerInterface;
@@ -241,7 +242,7 @@ class SermonspeakerComponent extends MVCComponent implements
 	public function countItems(array $items, string $section)
 	{
 		$config = (object) [
-			'related_tbl'         => 'sermons',
+			'related_tbl'         => 'sermon_' . $section,
 			'state_col'           => 'state',
 			'group_col'           => 'catid',
 			'relation_type'       => 'category_or_group',
@@ -291,6 +292,7 @@ class SermonspeakerComponent extends MVCComponent implements
 	 */
 	public function prepareForm(Form $form, $data)
 	{
-		ContentHelper::onPrepareForm($form, $data);
+//      Probably Workflow Stuff
+//		SermonspeakerHelper::onPrepareForm($form, $data);
 	}
 }

@@ -14,12 +14,16 @@ use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 use Sermonspeaker\Component\Sermonspeaker\Administrator\Helper\SermonspeakerHelper;
 
-
 defined('_JEXEC') or die;
 
+/**
+ * HTML View class for the SermonSpeaker Component
+ *
+ * @since  3.4
+ */
 class HtmlView extends BaseHtmlView
 {
-	function display($tpl = null)
+	function display($tpl = null): void
 	{
 		$this->addToolbar();
 
@@ -33,7 +37,7 @@ class HtmlView extends BaseHtmlView
 	 *
 	 * @since  ?
 	 */
-	protected function addToolbar()
+	protected function addToolbar(): void
 	{
 		$canDo = SermonspeakerHelper::getActions();
 		ToolbarHelper::title(Text::_('COM_SERMONSPEAKER'), 'speakers');
