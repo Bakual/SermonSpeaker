@@ -7,13 +7,13 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
-defined('_JEXEC') or die();
-
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Router\Route;
 
+defined('_JEXEC') or die();
+
 /** @var stdClass $displayData */
-$url = Route::_(SermonspeakerHelperRoute::getSpeakerRoute($displayData->speaker_slug, $displayData->speaker_catid, $displayData->speaker_language));
+$url = Route::_(Sermonspeaker\Component\Sermonspeaker\Site\Helper\RouteHelper::getSpeakerRoute($displayData->speaker_slug, $displayData->speaker_catid, $displayData->speaker_language));
 ?>
 <a href="<?php echo $url; ?>#sermons" class="btn btn-secondary">
     <?php echo Text::_('COM_SERMONSPEAKER_SERMONS'); ?>

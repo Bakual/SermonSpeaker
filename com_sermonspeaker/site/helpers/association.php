@@ -78,7 +78,7 @@ abstract class SermonspeakerHelperAssociation extends CategoryAssociationHelper
 
 			foreach ($associations as $tag => $item)
 			{
-				$return[$tag] = SermonspeakerHelperRoute::$function($item->id, $item->catid, $item->language);
+				$return[$tag] = Sermonspeaker\Component\Sermonspeaker\Site\Helper\RouteHelper::$function($item->id, $item->catid, $item->language);
 			}
 
 			return $return;

@@ -767,7 +767,7 @@ class SermonspeakerHelper
 		$registry->loadArray($config);
 
 		PluginHelper::importPlugin('sermonspeaker');
-		Factory::getApplication()->triggerEvent('onGetPlayer', array('SermonspeakerHelperSermonspeaker.getPlayer', &$player, $item, $registry));
+		Factory::getApplication()->triggerEvent('onGetPlayer', array('Sermonspeaker\Component\Sermonspeaker\Site\Helper\SermonspeakerHelper.getPlayer', &$player, $item, $registry));
 
 		if (!$player->mspace)
 		{
