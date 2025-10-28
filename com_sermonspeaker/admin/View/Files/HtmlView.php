@@ -18,7 +18,7 @@ defined('_JEXEC') or die;
  *
  * @since  ?
  */
-class HtmlView extends HtmlView
+class HtmlView extends BaseHtmlView
 {
 	/**
 	 * @var object

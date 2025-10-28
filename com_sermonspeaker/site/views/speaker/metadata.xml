@@ -21,7 +21,7 @@
 			/>
 		</fieldset>
 	</fields>
-	<fields name="params">
+	<fields name="params" addfieldprefix="Sermonspeaker\Component\Sermonspeaker\Administrator\Field">
 		<fieldset name="basic">
 			<field name="catid" type="category"
 				label="JGLOBAL_CHOOSE_CATEGORY_LABEL"

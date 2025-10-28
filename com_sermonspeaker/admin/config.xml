@@ -3,6 +3,7 @@
 	<fieldset
 		name="component"
 		label="COM_SERMONSPEAKER_FIELDSET_COMPONENT_LABEL"
+		addfieldprefix="Sermonspeaker\Component\Sermonspeaker\Administrator\Field"
 	>
 
 		<field

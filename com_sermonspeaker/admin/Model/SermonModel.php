@@ -25,6 +25,7 @@ use Joomla\CMS\Versioning\VersionableModelTrait;
 use Joomla\Filesystem\File;
 use Joomla\Registry\Registry;
 use Joomla\Utilities\ArrayHelper;
+use SermonspeakerHelperId3;
 
 /**
  * Item Model for a Sermon.
@@ -73,7 +74,6 @@ class SermonModel extends AdminModel
 	{
 		// Initialise variables.
 		$pks = (array) $pks;
-		/** @var SermonspeakerTableSermon $table */
 		$table = $this->getTable();
 		$db    = $this->getDbo();
 
@@ -136,19 +136,20 @@ class SermonModel extends AdminModel
 	}
 
 	/**
-	 * Returns a Table object, always creating it.
+	 * Method to get a table object, load it if necessary.
 	 *
-	 * @param   string  $type    The table type to instantiate
-	 * @param   string  $prefix  A prefix for the table class name. Optional.
-	 * @param   array   $config  Configuration array for model. Optional.
+	 * @param   string  $name     The table name. Optional.
+	 * @param   string  $prefix   The class prefix. Optional.
+	 * @param   array   $options  Configuration array for model. Optional.
 	 *
-	 * @return  Table|boolean    A database object
+	 * @return  Table  A Table object
 	 *
-	 * @since ?
+	 * @since   ?
+	 * @throws  \Exception
 	 */
-	public function getTable($type = 'Sermon', $prefix = 'SermonspeakerTable', $config = array())
+	public function getTable($name = 'Sermon', $prefix = 'SermonspeakerTable', $options = array())
 	{
-		return Table::getInstance($type, $prefix, $config);
+		return Table::getInstance($name, $prefix, $options);
 	}
 
 	/**
@@ -314,7 +315,7 @@ class SermonModel extends AdminModel
 	 *
 	 * @return  boolean  True on success.
 	 *
-	 * @throws  Exception
+	 * @throws  \Exception
 	 * @since   12.2
 	 */
 	public function podcast(&$pks, $value = 1)
@@ -336,7 +337,7 @@ class SermonModel extends AdminModel
 				{
 					// Prune items that you can't change.
 					unset($pks[$i]);
-					throw new Exception(Text::_('JLIB_APPLICATION_ERROR_EDIT_STATE_NOT_PERMITTED'), 403);
+					throw new \Exception(Text::_('JLIB_APPLICATION_ERROR_EDIT_STATE_NOT_PERMITTED'), 403);
 				}
 			}
 		}
@@ -711,10 +712,10 @@ class SermonModel extends AdminModel
 			if ($this->getState('sermon.id') == 0)
 			{
 				$filters = (array) $app->getUserState('com_sermonspeaker.sermons.filter');
-				$data->set('state', $jinput->getInt('state', ((isset($filters['state']) && $filters['state'] !== '') ? $filters['state'] : null)));
-				$data->set('podcast', $jinput->getInt('podcast', ((isset($filters['podcast']) && $filters['podcast'] !== '') ? $filters['podcast'] : null)));
-				$data->set('catid', $jinput->getInt('catid', (!empty($filters['category_id']) ? $filters['category_id'] : null)));
-				$data->set('language', $jinput->getString('language', (!empty($filters['language']) ? $filters['language'] : null)));
+				$data->state = $jinput->getInt('state', ((isset($filters['state']) && $filters['state'] !== '') ? $filters['state'] : null));
+				$data->podcast = $jinput->getInt('podcast', ((isset($filters['podcast']) && $filters['podcast'] !== '') ? $filters['podcast'] : null));
+				$data->catid = $jinput->getInt('catid', (!empty($filters['category_id']) ? $filters['category_id'] : null));
+				$data->language = $jinput->getString('language', (!empty($filters['language']) ? $filters['language'] : null));
 			}
 		}
 		else
@@ -897,7 +898,7 @@ class SermonModel extends AdminModel
 			$bad_characters = array("\n", "\r", '"', '<', '>');
 
 			// Remove bad characters
-			$after_clean = Joomla\String\StringHelper::str_ireplace($bad_characters, '', $table->metakey);
+			$after_clean = \Joomla\String\StringHelper::str_ireplace($bad_characters, '', $table->metakey);
 
 			// Create array using commas as delimiter
 			$keys       = explode(',', $after_clean);
@@ -946,7 +947,7 @@ class SermonModel extends AdminModel
 	 *
 	 * @return  void
 	 *
-	 * @throws  Exception if there is an error in the form event.
+	 * @throws  \Exception if there is an error in the form event.
 	 * @since   12.2
 	 * @see     FormField
 	 */
@@ -959,7 +960,7 @@ class SermonModel extends AdminModel
 
 			if ($languages)
 			{
-				$addform = new SimpleXMLElement('<form />');
+				$addform = new \SimpleXMLElement('<form />');
 				$fields  = $addform->addChild('fields');
 				$fields->addAttribute('name', 'associations');
 				$fieldset = $fields->addChild('fieldset');

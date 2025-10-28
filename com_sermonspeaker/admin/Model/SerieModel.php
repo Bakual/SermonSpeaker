@@ -311,10 +311,10 @@ class SerieModel extends AdminModel
 			// Pre-select some filters (Status, Category, Language, Podcast) in edit form if those have been selected in Sermon Manager: Sermons
 			if ($this->getState('serie.id') == 0)
 			{
-				$filters = (array) $app->getUserState('com_sermonspeaker.series.filter');
-				$data->set('state', $app->input->getInt('state', ((isset($filters['state']) && $filters['state'] !== '') ? $filters['state'] : null)));
-				$data->set('catid', $app->input->getInt('catid', (!empty($filters['category_id']) ? $filters['category_id'] : null)));
-				$data->set('language', $app->input->getString('language', (!empty($filters['language']) ? $filters['language'] : null)));
+				$filters        = (array) $app->getUserState('com_sermonspeaker.series.filter');
+				$data->state    = $app->input->getInt('state', ((isset($filters['state']) && $filters['state'] !== '') ? $filters['state'] : null));
+				$data->catid    = $app->input->getInt('catid', (!empty($filters['category_id']) ? $filters['category_id'] : null));
+				$data->language = $app->input->getString('language', (!empty($filters['language']) ? $filters['language'] : null));
 			}
 		}
 

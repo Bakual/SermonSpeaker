@@ -311,10 +311,10 @@ class SpeakerModel extends AdminModel
 			if ($this->getState('speaker.id') == 0)
 			{
 				$filters = (array) $app->getUserState('com_sermonspeaker.speakers.filter');
-				$data->set('state', $app->input->getInt('state', ((isset($filters['state']) && $filters['state'] !== '') ? $filters['state'] : null)));
-				$data->set('podcast', $app->input->getInt('podcast', ((isset($filters['podcast']) && $filters['podcast'] !== '') ? $filters['podcast'] : null)));
-				$data->set('catid', $app->input->getInt('catid', (!empty($filters['category_id']) ? $filters['category_id'] : null)));
-				$data->set('language', $app->input->getString('language', (!empty($filters['language']) ? $filters['language'] : null)));
+				$data->state = $app->input->getInt('state', ((isset($filters['state']) && $filters['state'] !== '') ? $filters['state'] : null));
+				$data->podcast = $app->input->getInt('podcast', ((isset($filters['podcast']) && $filters['podcast'] !== '') ? $filters['podcast'] : null));
+				$data->catid = $app->input->getInt('catid', (!empty($filters['category_id']) ? $filters['category_id'] : null));
+				$data->language = $app->input->getString('language', (!empty($filters['language']) ? $filters['language'] : null));
 			}
 		}
 

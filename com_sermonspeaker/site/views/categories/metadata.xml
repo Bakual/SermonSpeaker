@@ -25,7 +25,7 @@
 	</fields>
 
 	<!-- Add fields to the parameters object for the layout. -->
-	<fields name="params">
+	<fields name="params" addfieldprefix="Sermonspeaker\Component\Sermonspeaker\Administrator\Field">
 		<fieldset name="basic" label="JGLOBAL_CATEGORIES_OPTIONS">
 			<field
 				name="show_base_description"

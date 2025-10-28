@@ -28,7 +28,7 @@ class Router extends RouterBase
 	 *
 	 * @return  array  The URL arguments to use to assemble the subsequent URL.
 	 *
-	 * @throws Exception
+	 * @throws \Exception
 	 * @since   5.1.2
 	 */
 	public function build(&$query)

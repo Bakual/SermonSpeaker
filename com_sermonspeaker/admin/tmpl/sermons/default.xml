@@ -5,7 +5,7 @@
 			<![CDATA[COM_SERMONSPEAKER_SERMONS_VIEW_DEFAULT_DESC]]>
 		</message>
 	</layout>
-	<fields name="params">
+	<fields name="params" addfieldprefix="Sermonspeaker\Component\Sermonspeaker\Administrator\Field">
 		<fieldset name="basic">
 			<field
 				name="menu-quicktask"

@@ -17,6 +17,7 @@ use Joomla\CMS\Router\Route;
 use Joomla\CMS\Session\Session;
 use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\Versioning\VersionableControllerTrait;
+use Joomla\Utilities\ArrayHelper;
 
 defined('_JEXEC') or die;
 /**
@@ -131,7 +132,7 @@ class SerieController extends FormController
 	protected function allowAdd($data = array())
 	{
 		$user       = Factory::getUser();
-		$categoryId = Joomla\Utilities\ArrayHelper::getValue($data, 'catid', $this->input->get('filter_category_id'), 'int');
+		$categoryId = ArrayHelper::getValue($data, 'catid', $this->input->get('filter_category_id'), 'int');
 		$allow      = null;
 
 		if ($categoryId)

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <form>
-	<fieldset name="general">
+	<fieldset name="general" addfieldprefix="Sermonspeaker\Component\Sermonspeaker\Administrator\Field">>
 		<field name="title" type="text"
 			label="COM_SERMONSPEAKER_FIELD_NAME_LABEL"
 			size="40"

@@ -17,6 +17,7 @@ use Joomla\CMS\Router\Route;
 use Joomla\CMS\Toolbar\Toolbar;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 use Sermonspeaker\Component\Sermonspeaker\Administrator\Helper\SermonspeakerHelper;
+use Sermonspeaker\Component\Sermonspeaker\Site\Helper\RouteHelper;
 use SermonspeakerHelperRoute;
 
 defined('_JEXEC') or die;
@@ -162,10 +163,9 @@ class HtmlView extends BaseHtmlView
 				$toolbar->versions('com_sermonspeaker.serie', $this->item->id);
 			}
 
-			require_once JPATH_COMPONENT_SITE . '/helpers/route.php';
 			$url = Route::link(
 				'site',
-				SermonspeakerHelperRoute::getSpeakerRoute($this->item->id . ':' . $this->item->alias, $this->item->catid, $this->item->language),
+				RouteHelper::getSpeakerRoute($this->item->id . ':' . $this->item->alias, $this->item->catid, $this->item->language),
 				true
 			);
 

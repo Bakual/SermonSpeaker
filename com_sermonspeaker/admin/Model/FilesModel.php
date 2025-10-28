@@ -14,7 +14,7 @@ use Aws\S3\S3Client;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\Filesystem\File;
-use Joomla\CMS\Filesystem\Folder;
+use Joomla\Filesystem\Folder;
 use Joomla\CMS\MVC\Model\BaseDatabaseModel;
 
 defined('_JEXEC') or die();

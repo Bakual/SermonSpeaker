@@ -218,7 +218,6 @@ class ToolsController extends BaseController
 			return false;
 		}
 
-		/** @var SermonspeakerModelFiles $file_model */
 		$file_model = $this->getModel('Files');
 		$files      = $file_model->getItems();
 		$catid      = $file_model->getCategory();
@@ -228,18 +227,19 @@ class ToolsController extends BaseController
 		$params = ComponentHelper::getParams('com_sermonspeaker');
 		require_once JPATH_SITE . '/components/com_sermonspeaker/helpers/id3.php';
 
-		// Manually loading sermon model so the correct instance will be used from frontend.
-		require_once JPATH_ADMINISTRATOR . '/components/com_sermonspeaker/models/sermon.php';
 		$i       = 0;
 		$missing = array();
 
 		foreach ($files as $file)
 		{
-			$id3 = SermonspeakerHelperId3::getID3($file['file'], $params);
-			/** @var SermonspeakerModelSermon $sermon_model */
-			$sermon_model = $this->getModel('Sermon');
+			$id3          = SermonspeakerHelperId3::getID3($file['file'], $params);
+			$sermon_model = $this->getModel('Sermon', 'Administrator');
 			$sermon       = $sermon_model->getItem();
-			$sermon->setProperties($id3);
+
+			foreach ($id3 as $key => $value)
+			{
+				$sermon->$key = $value;
+			}
 
 			if ($file['type'] == 'audio')
 			{

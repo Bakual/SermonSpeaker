@@ -23,7 +23,7 @@
 			</field>
 		</fieldset>
 	</fields>
-	<fields name="params">
+	<fields name="params" addfieldprefix="Sermonspeaker\Component\Sermonspeaker\Administrator\Field">
 		<fieldset name="advanced"
 			addfieldpath="/administrator/components/com_sermonspeaker/models/fields">
 			<field name="plugin_tag"
