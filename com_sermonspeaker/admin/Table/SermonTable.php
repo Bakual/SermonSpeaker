@@ -164,26 +164,28 @@ class SermonTable extends Table implements VersionableTableInterface, TaggableTa
 	}
 
 	/**
-	 * Overloaded bind function to pre-process the params.
+	 * Method to bind an associative array or object to the Table instance.This
+	 * method only binds properties that are publicly accessible and optionally
+	 * takes an array of properties to ignore when binding.
 	 *
-	 * @param   array   $array
-	 * @param   string  $ignore
+	 * @param   array|object  $src     An associative array or object to bind to the Table instance.
+	 * @param   array|string  $ignore  An optional array or space separated list of properties to ignore while binding.
 	 *
-	 * @return null|string null is operation was satisfactory, otherwise returns an error
+	 * @return  boolean  True on success.
 	 *
 	 * @see      Table::bind
 	 *
 	 * @since    1.5
 	 */
-	public function bind($array, $ignore = '')
+	public function bind($src, $ignore = '')
 	{
-		if (isset($array['metadata']) && is_array($array['metadata']))
+		if (isset($src['metadata']) && is_array($src['metadata']))
 		{
-			$registry          = new Registry($array['metadata']);
-			$array['metadata'] = (string) $registry;
+			$registry          = new Registry($src['metadata']);
+			$src['metadata'] = (string) $registry;
 		}
 
-		return parent::bind($array, $ignore);
+		return parent::bind($src, $ignore);
 	}
 
 	/**
