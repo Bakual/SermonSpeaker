@@ -51,7 +51,7 @@ class JsonView extends BaseHtmlView
 			return;
 		}
 
-		if ($category == false)
+		if (!$category)
 		{
 			Factory::getApplication()->setHeader('status', 404 . ' ' . Text::_('JGLOBAL_CATEGORY_NOT_FOUND'));
 			echo new JResponseJson(null, Text::_('JGLOBAL_CATEGORY_NOT_FOUND'), true);
@@ -59,7 +59,7 @@ class JsonView extends BaseHtmlView
 			return;
 		}
 
-		if ($parent == false && $category->id != 'root')
+		if (!$parent && $category->id != 'root')
 		{
 			Factory::getApplication()->setHeader('status', 404 . ' ' . Text::_('JGLOBAL_CATEGORY_NOT_FOUND'));
 			echo new JResponseJson(null, Text::_('JGLOBAL_CATEGORY_NOT_FOUND'), true);

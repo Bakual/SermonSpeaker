@@ -477,7 +477,7 @@ class PlgFinderSermonspeaker extends Adapter
 	protected function index(Result $item)
 	{
 		// Check if the extension is enabled
-		if (ComponentHelper::isEnabled($this->extension) == false)
+		if (!ComponentHelper::isEnabled($this->extension))
 		{
 			return;
 		}

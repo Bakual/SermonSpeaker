@@ -67,12 +67,12 @@ class HtmlView extends BaseHtmlView
 			throw new Exception(implode("\n", $errors), 500);
 		}
 
-		if ($this->category == false)
+		if (!$this->category)
 		{
 			throw new Exception(Text::_('JGLOBAL_CATEGORY_NOT_FOUND'), 404);
 		}
 
-		if ($this->parent == false && $this->category->id != 'root')
+		if (!$this->parent && $this->category->id != 'root')
 		{
 			throw new Exception(Text::_('JGLOBAL_CATEGORY_NOT_FOUND'), 404);
 		}
