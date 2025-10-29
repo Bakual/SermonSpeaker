@@ -310,7 +310,7 @@ class PlgContentAutotweetSermonspeaker extends plgAutotweetBase
 		);
 
 		// Use speakername as author if available
-		$data['author'] = ($item->speaker_title) ? $item->speaker_title : $this->getArticleAuthor($item);
+		$data['author'] = ($item->speaker_title) ?: $this->getArticleAuthor($item);
 
 		return $data;
 	}

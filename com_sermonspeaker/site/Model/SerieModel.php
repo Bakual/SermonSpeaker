@@ -37,7 +37,7 @@ class SerieModel extends ItemModel
 		$user = Factory::getApplication()->getIdentity();
 
 		// Initialise variables
-		$pk = ($pk) ? $pk : (int) $this->getState('serie.id');
+		$pk = ($pk) ?: (int) $this->getState('serie.id');
 
 		if ($this->_item === null)
 		{

@@ -296,7 +296,7 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 		$table_object          = new stdClass;
 		$table_object->special = $special;
 
-		$contenttype['type_id']                 = ($table->type_id) ? $table->type_id : 0;
+		$contenttype['type_id']                 = ($table->type_id) ?: 0;
 		$contenttype['type_title']              = 'Sermon';
 		$contenttype['type_alias']              = 'com_sermonspeaker.sermon';
 		$contenttype['table']                   = json_encode($table_object);
@@ -326,7 +326,7 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 		$table_object          = new stdClass;
 		$table_object->special = $special;
 
-		$contenttype['type_id']                 = ($table->type_id) ? $table->type_id : 0;
+		$contenttype['type_id']                 = ($table->type_id) ?: 0;
 		$contenttype['type_title']              = 'Speaker';
 		$contenttype['type_alias']              = 'com_sermonspeaker.speaker';
 		$contenttype['table']                   = json_encode($table_object);
@@ -356,7 +356,7 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 		$table_object          = new stdClass;
 		$table_object->special = $special;
 
-		$contenttype['type_id']                 = ($table->type_id) ? $table->type_id : 0;
+		$contenttype['type_id']                 = ($table->type_id) ?: 0;
 		$contenttype['type_title']              = 'Serie';
 		$contenttype['type_alias']              = 'com_sermonspeaker.serie';
 		$contenttype['table']                   = json_encode($table_object);
@@ -435,7 +435,7 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 		$table_object          = new stdClass;
 		$table_object->special = $special;
 
-		$contenttype['type_id']                 = ($table->type_id) ? $table->type_id : 0;
+		$contenttype['type_id']                 = ($table->type_id) ?: 0;
 		$contenttype['type_title']              = 'SermonSpeaker Sermons Category';
 		$contenttype['type_alias']              = 'com_sermonspeaker.sermons.category';
 		$contenttype['table']                   = json_encode($table_object);
@@ -450,7 +450,7 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 		$table->type_id = 0;
 		$table->load(array('type_alias' => 'com_sermonspeaker.series.category'));
 
-		$contenttype['type_id']                 = ($table->type_id) ? $table->type_id : 0;
+		$contenttype['type_id']                 = ($table->type_id) ?: 0;
 		$contenttype['type_title']              = 'SermonSpeaker Series Category';
 		$contenttype['type_alias']              = 'com_sermonspeaker.series.category';
 		$contenttype['table']                   = json_encode($table_object);
@@ -465,7 +465,7 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 		$table->type_id = 0;
 		$table->load(array('type_alias' => 'com_sermonspeaker.speakers.category'));
 
-		$contenttype['type_id']                 = ($table->type_id) ? $table->type_id : 0;
+		$contenttype['type_id']                 = ($table->type_id) ?: 0;
 		$contenttype['type_title']              = 'SermonSpeaker Speakers Category';
 		$contenttype['type_alias']              = 'com_sermonspeaker.speakers.category';
 		$contenttype['table']                   = json_encode($table_object);
