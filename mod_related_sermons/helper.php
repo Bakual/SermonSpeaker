@@ -146,27 +146,15 @@ class ModRelatedSermonsHelper
 	{
 		$related = array();
 
-		switch ($orderBy)
+		$SermonOrder = match ($orderBy)
 		{
-			case 'NameAsc':
-				$SermonOrder = 'a.title ASC';
-				break;
-			case 'NameDes':
-				$SermonOrder = 'a.title DESC';
-				break;
-			case 'SermonDateAsc':
-				$SermonOrder = 'a.sermon_date ASC';
-				break;
-			case 'SermonDateDes':
-				$SermonOrder = 'a.sermon_date DESC';
-				break;
-			case 'CreatedDateAsc':
-				$SermonOrder = 'a.created ASC';
-				break;
-			default:
-				$SermonOrder = 'a.created DESC';
-				break;
-		}
+			'NameAsc' => 'a.title ASC',
+			'NameDes' => 'a.title DESC',
+			'SermonDateAsc' => 'a.sermon_date ASC',
+			'SermonDateDes' => 'a.sermon_date DESC',
+			'CreatedDateAsc' => 'a.created ASC',
+			default => 'a.created DESC',
+		};
 
 		$query = self::$db->getQuery(true);
 		$query->select('a.title, a.created, a.catid, a.language');
