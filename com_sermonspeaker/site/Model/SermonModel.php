@@ -9,9 +9,11 @@
 
 namespace Sermonspeaker\Component\Sermonspeaker\Site\Model;
 
+use Exception;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Model\ItemModel;
+use Joomla\Registry\Registry;
 
 defined('_JEXEC') or die();
 
@@ -27,26 +29,26 @@ class SermonModel extends ItemModel
 	/**
 	 * Method to get an object
 	 *
-	 * @param   integer  $id  The id of the object to get
+	 * @param   integer  $pk  The id of the object to get
 	 *
 	 * @return mixed Object on success, false on failure
 	 *
 	 * @throws Exception
 	 * @since ?
 	 */
-	public function &getItem($id = null)
+	public function &getItem($pk = null): mixed
 	{
 		$user = Factory::getApplication()->getIdentity();
 
 		// Initialise variables.
-		$id = ($id) ? $id : (int) $this->getState('sermon.id');
+		$pk = ($pk) ?: (int) $this->getState('sermon.id');
 
 		if ($this->_item === null)
 		{
 			$this->_item = array();
 		}
 
-		if (!isset($this->_item[$id]))
+		if (!isset($this->_item[$pk]))
 		{
 			$db    = $this->getDatabase();
 			$query = $db->getQuery(true);
@@ -108,7 +110,7 @@ class SermonModel extends ItemModel
 			$query->join('LEFT', '#__categories AS c_series on c_series.id = series.catid');
 			$query->where('(sermon.series_id = 0 OR series.catid = 0 OR c_series.published = 1)');
 
-			$query->where('sermon.id = ' . (int) $id);
+			$query->where('sermon.id = ' . (int) $pk);
 			$query->where('sermon.state > 0');
 
 			$db->setQuery($query);
@@ -119,7 +121,7 @@ class SermonModel extends ItemModel
 			}
 			catch (Exception $e)
 			{
-				$this->_item[$id] = false;
+				$this->_item[$pk] = false;
 
 				throw new Exception($e->getMessage());
 			}
@@ -141,34 +143,34 @@ class SermonModel extends ItemModel
 			$data->scripture = $db->loadResult();
 
 			// Convert the metadata field to an array.
-			$registry = new Joomla\Registry\Registry;
+			$registry = new Registry;
 			$registry->loadString($data->metadata);
 			$data->metadata = $registry;
 
-			$this->_item[$id] = $data;
+			$this->_item[$pk] = $data;
 		}
 
-		return $this->_item[$id];
+		return $this->_item[$pk];
 	}
 
 	/**
 	 * Method to increment the hit counter for the sermon
 	 *
-	 * @param   int  $id  Optional ID of the sermon
+	 * @param   int|null  $id  Optional ID of the sermon
 	 *
 	 * @return  boolean  True on success
 	 *
 	 * @throws Exception
 	 * @since ?
 	 */
-	public function hit($id = null)
+	public function hit(int $id = null): bool
 	{
 		if (!$id)
 		{
 			$id = $this->getState('sermon.id');
 		}
 
-		$sermon = $this->getTable('Sermon', 'SermonspeakerTable');
+		$sermon = $this->getTable('Sermon', 'Administrator');
 
 		return $sermon->hit($id);
 	}
@@ -178,9 +180,10 @@ class SermonModel extends ItemModel
 	 *
 	 * @return  object  sermon object
 	 *
+	 * @throws \Exception
 	 * @since ?
 	 */
-	public function getLatest()
+	public function getLatest(): object
 	{
 		$levels = Factory::getApplication()->getIdentity()->getAuthorisedViewLevels();
 		$db     = $this->getDatabase();
@@ -213,19 +216,19 @@ class SermonModel extends ItemModel
 	}
 
 	/**
-	 * Method to auto-populate the model state
+	 * Method to autopopulate the model state
 	 *
 	 * Note. Calling getState in this method will result in recursion
 	 *
-	 * @param   string  $ordering   Ordering column
-	 * @param   string  $direction  'ASC' or 'DESC'
+	 * @param   string|null  $ordering   Ordering column
+	 * @param   string|null  $direction  'ASC' or 'DESC'
 	 *
 	 * @return  void
 	 *
 	 * @throws Exception
 	 * @since ?
 	 */
-	protected function populateState($ordering = null, $direction = null)
+	protected function populateState(string $ordering = null, string $direction = null): void
 	{
 		/** @var \Joomla\CMS\Application\SiteApplication $app */
 		$app    = Factory::getApplication();

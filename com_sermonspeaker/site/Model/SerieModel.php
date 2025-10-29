@@ -25,26 +25,26 @@ class SerieModel extends ItemModel
 	/**
 	 * Method to get an object
 	 *
-	 * @param   int  $id  The id of the object to get
+	 * @param   int  $pk  The id of the object to get
 	 *
 	 * @return mixed Object on success, false on failure
 	 *
 	 * @throws \Exception
 	 * @since ?
 	 */
-	public function &getItem($id = null)
+	public function &getItem($pk = null)
 	{
 		$user = Factory::getApplication()->getIdentity();
 
 		// Initialise variables
-		$id = ($id) ? $id : (int) $this->getState('serie.id');
+		$pk = ($pk) ? $pk : (int) $this->getState('serie.id');
 
 		if ($this->_item === null)
 		{
 			$this->_item = array();
 		}
 
-		if (!isset($this->_item[$id]))
+		if (!isset($this->_item[$pk]))
 		{
 			$db    = $this->getDatabase();
 			$query = $db->getQuery(true);
@@ -77,7 +77,7 @@ class SerieModel extends ItemModel
 			$query->join('LEFT', '#__categories AS c on c.id = serie.catid');
 			$query->where('(serie.catid = 0 OR c.published = 1)');
 
-			$query->where('serie.id = ' . (int) $id);
+			$query->where('serie.id = ' . (int) $pk);
 			$query->where('serie.state = 1');
 
 			// Join over users for the author names
@@ -92,7 +92,7 @@ class SerieModel extends ItemModel
 			}
 			catch (Exception $e)
 			{
-				$this->_item[$id] = false;
+				$this->_item[$pk] = false;
 
 				throw new Exception($e->getMessage());
 			}
@@ -102,10 +102,10 @@ class SerieModel extends ItemModel
 				throw new Exception(Text::_('JGLOBAL_RESOURCE_NOT_FOUND'));
 			}
 
-			$this->_item[$id] = $data;
+			$this->_item[$pk] = $data;
 		}
 
-		return $this->_item[$id];
+		return $this->_item[$pk];
 	}
 
 	/**

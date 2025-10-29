@@ -27,26 +27,26 @@ class SpeakerModel extends ItemModel
 	/**
 	 * Method to get an object.
 	 *
-	 * @param   int  $id  The id of the object to get.
+	 * @param   int  $pk  The id of the object to get.
 	 *
 	 * @return mixed Object on success, false on failure.
 	 *
 	 * @throws \Exception
 	 * @since ?
 	 */
-	public function &getItem($id = null)
+	public function &getItem($pk = null)
 	{
 		$user = Factory::getApplication()->getIdentity();
 
 		// Initialise variables.
-		$id = ($id) ? $id : (int) $this->getState('speaker.id');
+		$pk = ($pk) ? $pk : (int) $this->getState('speaker.id');
 
 		if ($this->_item === null)
 		{
 			$this->_item = array();
 		}
 
-		if (!isset($this->_item[$id]))
+		if (!isset($this->_item[$pk]))
 		{
 			$db    = $this->getDatabase();
 			$query = $db->getQuery(true);
@@ -80,7 +80,7 @@ class SpeakerModel extends ItemModel
 			$query->join('LEFT', '#__categories AS c on c.id = speaker.catid');
 			$query->where('(speaker.catid = 0 OR c.published = 1)');
 
-			$query->where('speaker.id = ' . (int) $id);
+			$query->where('speaker.id = ' . (int) $pk);
 			$query->where('speaker.state = 1');
 
 			// Join over users for the author names.
@@ -95,7 +95,7 @@ class SpeakerModel extends ItemModel
 			}
 			catch (Exception $e)
 			{
-				$this->_item[$id] = false;
+				$this->_item[$pk] = false;
 
 				throw new Exception($e->getMessage());
 			}
@@ -105,10 +105,10 @@ class SpeakerModel extends ItemModel
 				throw new Exception(Text::_('JGLOBAL_RESOURCE_NOT_FOUND'));
 			}
 
-			$this->_item[$id] = $data;
+			$this->_item[$pk] = $data;
 		}
 
-		return $this->_item[$id];
+		return $this->_item[$pk];
 	}
 
 	/**
