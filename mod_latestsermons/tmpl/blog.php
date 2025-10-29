@@ -75,7 +75,7 @@ if ($params->get('show_player'))
 						<?php if ($params->get('ls_show_mo_date') and $row->sermon_date) : ?>
 							<dd class="published">
 								<?php $date_format = Text::_($params->get('ls_mo_date_format', 'DATE_FORMAT_LC4'));
-								echo Text::_('JDATE') . ': ' . HTMLHelper::date($row->sermon_date, $date_format, true); ?>
+								echo Text::_('JDATE') . ': ' . HTMLHelper::date($row->sermon_date, $date_format); ?>
 							</dd>
 						<?php endif; ?>
 						<?php if ($params->get('ls_show_mo_speaker') and $row->speaker_title) : ?>

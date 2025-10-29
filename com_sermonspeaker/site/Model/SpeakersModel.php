@@ -102,7 +102,7 @@ class SpeakersModel extends ListModel
 		$query->from('`#__contentitem_tag_map`');
 		$query->where("`type_alias` = 'com_sermonspeaker.speaker'");
 
-		$db->setQuery($query, 0);
+		$db->setQuery($query);
 		$count = $db->loadResult();
 
 		return ($count > 0);

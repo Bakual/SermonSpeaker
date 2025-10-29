@@ -223,7 +223,7 @@ class SermonsModel extends Listmodel
 		$query->from('`#__contentitem_tag_map`');
 		$query->where("`type_alias` = 'com_sermonspeaker.sermon'");
 
-		$db->setQuery($query, 0);
+		$db->setQuery($query);
 		$count = $db->loadResult();
 
 		return ($count > 0);

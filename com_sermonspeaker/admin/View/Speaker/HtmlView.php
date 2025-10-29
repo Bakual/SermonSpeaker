@@ -166,8 +166,7 @@ class HtmlView extends BaseHtmlView
 
 			$url = Route::link(
 				'site',
-				RouteHelper::getSpeakerRoute($this->item->id . ':' . $this->item->alias, $this->item->catid, $this->item->language),
-				true
+				RouteHelper::getSpeakerRoute($this->item->id . ':' . $this->item->alias, $this->item->catid, $this->item->language)
 			);
 
 			$toolbar->preview($url)

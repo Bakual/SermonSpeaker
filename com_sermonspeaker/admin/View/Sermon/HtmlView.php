@@ -322,8 +322,8 @@ class HtmlView extends BaseHtmlView
 		$document->addScriptDeclaration($changelang);
 
 		// Add javascript validation script
-		Text::script('COM_SERMONSPEAKER_JS_CHECK_KEYWORDS', false, true);
-		Text::script('COM_SERMONSPEAKER_JS_CHECK_CHARS', false, true);
+		Text::script('COM_SERMONSPEAKER_JS_CHECK_KEYWORDS');
+		Text::script('COM_SERMONSPEAKER_JS_CHECK_CHARS');
 		$valscript = 'function check(string, count, mode){
 					if(mode){
 						split = string.split(",");
@@ -493,8 +493,7 @@ class HtmlView extends BaseHtmlView
 
 			$url = Route::link(
 				'site',
-				RouteHelper::getSermonRoute($this->item->id . ':' . $this->item->alias, $this->item->catid, $this->item->language),
-				true
+				RouteHelper::getSermonRoute($this->item->id . ':' . $this->item->alias, $this->item->catid, $this->item->language)
 			);
 
 			$toolbar->preview($url)

@@ -51,7 +51,7 @@ if ($params->get('show_player'))
 					<?php endif; ?>
 					<?php if ($params->get('use_date')) : ?>
 						<?php $date_format = Text::_($params->get('ls_mo_date_format', 'DATE_FORMAT_LC4')); ?>
-						<?php $text = HTMLHelper::date($row->sermon_date, $date_format, true); ?>
+						<?php $text = HTMLHelper::date($row->sermon_date, $date_format); ?>
 					<?php else : ?>
 						<?php $text = $row->title; ?>
 					<?php endif; ?>
@@ -80,7 +80,7 @@ if ($params->get('show_player'))
 						<?php endif; ?>
 						<?php if ($params->get('ls_show_mo_date') and $row->sermon_date) : ?>
 							<?php $date_format = Text::_($params->get('ls_mo_date_format', 'DATE_FORMAT_LC4')); ?>
-							<?php $tips[] = Text::_('JDATE') . ': ' . HTMLHelper::date($row->sermon_date, $date_format, true); ?>
+							<?php $tips[] = Text::_('JDATE') . ': ' . HTMLHelper::date($row->sermon_date, $date_format); ?>
 						<?php endif; ?>
 						<?php if ($params->get('show_scripture') and $row->scripture) : ?>
 							<?php $tips[] = Text::_('MOD_LATESTSERMONS_SCRIPTURE') . ': ' . SermonspeakerHelperSermonspeaker::insertScriptures($row->scripture, ', ', false);  ?>

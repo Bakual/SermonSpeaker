@@ -450,7 +450,7 @@ class PlgSermonspeakerJwplayer7 extends SermonspeakerPluginPlayer
 			if ($item->sermon_date)
 			{
 				// Todo: Pick correct date format (from component or add param to plugin?)
-				$desc[] = Text::_('JDATE') . ': ' . HTMLHelper::date($item->sermon_date, Text::_($this->c_params->get('date_format')), true);
+				$desc[] = Text::_('JDATE') . ': ' . HTMLHelper::date($item->sermon_date, Text::_($this->c_params->get('date_format')));
 			}
 
 			if ($item->speaker_title)

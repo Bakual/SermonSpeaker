@@ -27,6 +27,6 @@ $url        = SermonspeakerHelperRoute::getSermonsRoute($catid);
 			<?php $url .= '&state=2'; ?>
 		<?php endif; ?>
 		<?php $link = Route::_($url); ?>
-        <li><a href="<?php echo $link; ?>"><?php echo HTMLHelper::date($item->date, $dateformat, true); ?></a></li>
+        <li><a href="<?php echo $link; ?>"><?php echo HTMLHelper::date($item->date, $dateformat); ?></a></li>
 	<?php endforeach; ?>
 </ul>

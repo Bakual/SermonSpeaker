@@ -129,7 +129,7 @@ class SeriesModel extends ListModel
 		$query->from('`#__contentitem_tag_map`');
 		$query->where("`type_alias` = 'com_sermonspeaker.serie'");
 
-		$db->setQuery($query, 0);
+		$db->setQuery($query);
 		$count = $db->loadResult();
 
 		return ($count > 0);
@@ -392,7 +392,7 @@ class SeriesModel extends ListModel
 				$subQuerySeries->where('state = ' . (int) $state);
 			}
 
-			$query->where('series.id IN (' . (string) $subQuerySeries . ')');
+			$query->where('series.id IN (' . $subQuerySeries . ')');
 		}
 
 		// Filter by language

@@ -386,8 +386,8 @@ class HtmlView extends BaseHtmlView
 		$this->getDocument()->addScriptDeclaration($changelang);
 
 		// Add javascript validation script
-		Text::script('COM_SERMONSPEAKER_JS_CHECK_KEYWORDS', false, true);
-		Text::script('COM_SERMONSPEAKER_JS_CHECK_CHARS', false, true);
+		Text::script('COM_SERMONSPEAKER_JS_CHECK_KEYWORDS');
+		Text::script('COM_SERMONSPEAKER_JS_CHECK_CHARS');
 		$valscript = 'function check(string, count, mode){
 					if(mode){
 						split = string.split(",");

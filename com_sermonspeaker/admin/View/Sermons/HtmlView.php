@@ -121,7 +121,7 @@ class HtmlView extends BaseHtmlView
 			{
 				// If the language is forced we can't allow to select the language, so transform the language selector filter into an hidden field.
 				$languageXml = new \SimpleXMLElement('<field name="language" type="hidden" default="' . $forcedLanguage . '" />');
-				$this->filterForm->setField($languageXml, 'filter', true);
+				$this->filterForm->setField($languageXml, 'filter');
 
 				// Also, unset the active language filter so the search tools is not open by default with this filter.
 				unset($this->activeFilters['language']);
