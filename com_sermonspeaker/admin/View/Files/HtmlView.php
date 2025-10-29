@@ -36,7 +36,7 @@ class HtmlView extends BaseHtmlView
 	/**
 	 * @param   null  $tpl
 	 *
-	 * @return mixed
+	 * @return void
 	 *
 	 * @since  ?
 	 */
