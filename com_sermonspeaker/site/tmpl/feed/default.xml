@@ -24,7 +24,7 @@
 	<!-- Add fields to the parameters object for the layout. -->
 	<fields name="params" addfieldprefix="Sermonspeaker\Component\Sermonspeaker\Administrator\Field">
 		<fieldset name="filter" label="COM_SERMONSPEAKER_FIELDSET_FILTER_LABEL">
-			<field name="catid" type="category"
+			<field name="sermons_catid" type="category"
 				label="JGLOBAL_CHOOSE_CATEGORY_LABEL"
 				description="JGLOBAL_CHOOSE_CATEGORY_DESC"
 				extension="com_sermonspeaker.sermons"

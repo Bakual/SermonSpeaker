@@ -610,7 +610,8 @@ class SermonsModel extends Listmodel
 		$jinput = $app->input;
 
 		// Category filter
-		$id = $jinput->get('catid', $params->get('catid', 0), 'int');
+		$MenuCatid = $params->get('sermons_catid', $params->get('catid', 0));
+		$id = $jinput->get('catid', $MenuCatid, 'int');
 		$this->setState('category.id', $id);
 
 		// Filetype filter

@@ -441,7 +441,8 @@ class SeriesModel extends ListModel
 		$jinput = $app->input;
 
 		// Category filter (priority on request so subcategories work)
-		$id = $jinput->get('catid', $params->get('catid', 0), 'int');
+		$MenuCatid = $params->get('series_catid', $params->get('catid', 0));
+		$id = $jinput->get('catid', $MenuCatid, 'int');
 		$this->setState('category.id', $id);
 
 		// Include Subcategories or not

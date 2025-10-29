@@ -150,7 +150,7 @@ class SpeakersModel extends ListModel
 
 			$options['table'] = '#__sermon_' . $this->state->get('category.type', 'speakers');
 
-			$categories = Categories::getInstance('sermonspeaker.speakers', $options);
+			$categories = Categories::getInstance('com_sermonspeaker.speakers', $options);
 			$this->item = $categories->get($this->getState('category.id', 'root'));
 
 			// Compute selected asset permissions
@@ -397,13 +397,13 @@ class SpeakersModel extends ListModel
 	 */
 	protected function populateState($ordering = null, $direction = null)
 	{
-		/** @var JApplicationSite $app */
 		$app    = Factory::getApplication();
 		$params = $app->getParams();
 		$this->setState('params', $params);
 
 		// Category filter (priority on request so subcategories work)
-		$id = $app->input->get('catid', $params->get('catid', 0), 'int');
+		$MenuCatid = $params->get('catid', $params->get('catid', 0));
+		$id = $app->input->get('catid', $MenuCatid, 'int');
 		$this->setState('category.id', $id);
 
 		// Include Subcategories or not
