@@ -408,7 +408,7 @@ abstract class RouteHelper
 		$app      = Factory::getApplication();
 		$menus    = $app->getMenu('site');
 		$active   = $menus->getActive();
-		$language = isset($needles['language']) ? $needles['language'] : '*';
+		$language = $needles['language'] ?? '*';
 
 		// Prepare the reverse lookup array.
 		if (!isset(self::$lookup[$language]))

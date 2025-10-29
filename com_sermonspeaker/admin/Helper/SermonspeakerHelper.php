@@ -106,6 +106,6 @@ class SermonspeakerHelper
 			'serieform'      => 'serie',
 		);
 
-		return isset($mapping[$section]) ? $mapping[$section] : null;
+		return $mapping[$section] ?? null;
 	}
 }

@@ -59,7 +59,7 @@ class Router extends RouterBase
 		// Calculate View
 		if (isset($query['view']))
 		{
-			$menuView = isset($menuItem->query['view']) ? $menuItem->query['view'] : '';
+			$menuView = $menuItem->query['view'] ?? '';
 			$view     = $query['view'];
 			unset($query['view']);
 
@@ -72,7 +72,7 @@ class Router extends RouterBase
 			// Check if menuitem matches the query
 			if (isset($query['id']))
 			{
-				$menuId = isset($menuItem->query['id']) ? $menuItem->query['id'] : 0;
+				$menuId = $menuItem->query['id'] ?? 0;
 
 				if ($menuView == $view && $menuId == (int) $query['id'])
 				{
