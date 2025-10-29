@@ -382,9 +382,10 @@ class ToolsController extends BaseController
 
 					$pic = JPATH_ROOT . '/' . $pic;
 
+					ob_end_clean();
+
 					if ($fd = fopen($pic, 'rb'))
 					{
-						ob_end_clean();
 						$APICdata = fread($fd, filesize($pic));
 						fclose($fd);
 						$image = getimagesize($pic);
@@ -398,7 +399,6 @@ class ToolsController extends BaseController
 					}
 					else
 					{
-						ob_end_clean();
 						$app->enqueueMessage("Couldn't open the picture: $pic", 'notice');
 					}
 				}

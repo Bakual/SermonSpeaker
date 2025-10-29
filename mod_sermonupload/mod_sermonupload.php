@@ -33,17 +33,14 @@ $tag  = str_replace('-', '_', Factory::getLanguage()->getTag());
 $path = 'com_sermonspeaker/plupload/i18n/';
 $file = $tag . '.js';
 
-if (HTMLHelper::_('script', $path . $file, array('relative' => true, 'pathOnly' => true)))
-{
-	HTMLHelper::_('script', $path . $file, array('relative' => true));
-}
-else
+if (!HTMLHelper::_('script', $path . $file, array('relative' => true, 'pathOnly' => true)))
 {
 	$tag_array = explode('_', $tag);
 	$file      = $tag_array[0] . '.js';
 
-	HTMLHelper::_('script', $path . $file, array('relative' => true));
 }
+
+HTMLHelper::_('script', $path . $file, array('relative' => true));
 
 $identifier = 'SermonUpload_' . $module->id . '_';
 $c_params   = ComponentHelper::getParams('com_sermonspeaker');

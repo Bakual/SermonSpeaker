@@ -43,28 +43,21 @@ abstract class ModSermonspeakerHelper
 			$query->select('CASE WHEN CHAR_LENGTH(alias) THEN CONCAT_WS(\':\', id, alias) ELSE id END as slug, 1 as level');
 			$query->from('#__sermon_series');
 
-			if ($sort)
-			{
-				$query->order('ordering ASC');
-			}
-			else
-			{
-				$query->order('title ASC');
-			}
 		}
 		else
 		{
 			$query->select('id, title, catid, language, intro as tooltip, pic, CASE WHEN CHAR_LENGTH(alias) THEN CONCAT_WS(\':\', id, alias) ELSE id END as slug, 1 as level');
 			$query->from('#__sermon_speakers');
 
-			if ($sort)
-			{
-				$query->order('ordering ASC');
-			}
-			else
-			{
-				$query->order('title ASC');
-			}
+		}
+
+		if ($sort)
+		{
+			$query->order('ordering ASC');
+		}
+		else
+		{
+			$query->order('title ASC');
 		}
 
 		$query->where('state = 1');

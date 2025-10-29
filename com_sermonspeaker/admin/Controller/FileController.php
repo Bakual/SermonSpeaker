@@ -279,7 +279,6 @@ class FileController extends BaseController
 					'status' => '0',
 					'error'  => Text::_('COM_SERMONSPEAKER_FU_ERROR_UNABLE_TO_UPLOAD_FILE'),
 				);
-				echo json_encode($response);
 			}
 			else
 			{
@@ -289,8 +288,9 @@ class FileController extends BaseController
 					'path'     => str_replace('\\', '/', '/' . $path . $append . '/' . $filename),
 					'error'    => Text::sprintf('COM_SERMONSPEAKER_FU_FILENAME', substr($file['filepath'], strlen(JPATH_ROOT))),
 				);
-				echo json_encode($response);
 			}
+
+			echo json_encode($response);
 		}
 	}
 

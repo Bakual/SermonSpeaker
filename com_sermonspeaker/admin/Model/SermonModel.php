@@ -478,14 +478,14 @@ class SermonModel extends AdminModel
 					// Fatal error
 					$this->setError($error);
 
-					return false;
 				}
 				else
 				{
 					$this->setError(Text::_('JLIB_APPLICATION_ERROR_BATCH_MOVE_CATEGORY_NOT_FOUND'));
 
-					return false;
 				}
+
+				return false;
 			}
 		}
 

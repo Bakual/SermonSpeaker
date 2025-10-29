@@ -419,9 +419,10 @@ class SermonspeakerHelper
 						$cols = array();
 					}
 
+					$options                = array();
+
 					if (in_array(self::$view . ':player', $cols))
 					{
-						$options                = array();
 						$options['onclick']     = 'ss_play(' . $i . ');return false;';
 						$options['title']       = Text::_('COM_SERMONSPEAKER_PLAYICON_HOOVER');
 						$options['class']       = 'ss-play hasTooltip';
@@ -431,7 +432,6 @@ class SermonspeakerHelper
 					}
 					else
 					{
-						$options          = array();
 						$options['class'] = 'hasTooltip';
 						$options['title'] = Text::_('COM_SERMONSPEAKER_SERMONTITLE_HOOVER');
 						$return           .= HTMLHelper::link(Route::_(RouteHelper::getSermonRoute($item->slug, $item->catid, $item->language)), $item->title, $options);

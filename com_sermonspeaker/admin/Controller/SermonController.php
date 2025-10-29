@@ -347,9 +347,10 @@ class SermonController extends FormController
 				ob_start();
 				$pic = JPATH_ROOT . '/' . trim($item->picture, ' /');
 
+				ob_end_clean();
+
 				if ($fd = fopen($pic, 'rb'))
 				{
-					ob_end_clean();
 					$APICdata = fread($fd, filesize($pic));
 					fclose($fd);
 					$image = getimagesize($pic);
@@ -365,7 +366,6 @@ class SermonController extends FormController
 				}
 				else
 				{
-					ob_end_clean();
 					$app->enqueueMessage("Couldn't open the picture: " . $pic, 'notice');
 				}
 			}
