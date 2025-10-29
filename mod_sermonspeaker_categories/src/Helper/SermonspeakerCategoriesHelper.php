@@ -51,5 +51,7 @@ abstract class SermonspeakerCategoriesHelper
 
 			return $items;
 		}
+
+		return array();
 	}
 }
