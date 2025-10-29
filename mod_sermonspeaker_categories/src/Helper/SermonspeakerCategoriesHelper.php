@@ -29,7 +29,7 @@ abstract class SermonspeakerCategoriesHelper
 	 *
 	 * @since   1.5
 	 */
-	public static function getList(&$params)
+	public static function getList($params)
 	{
 		$type = $params->get('parent_type', 'sermons');
 		$options               = [];

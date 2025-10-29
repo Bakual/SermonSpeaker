@@ -37,7 +37,7 @@ class PlgContentSermonspeaker extends CMSPlugin
 	 *
 	 * @since ?
 	 */
-	public function onContentPrepare($context, &$item, &$params, $page = 0)
+	public function onContentPrepare($context, $item, &$params, $page = 0)
 	{
 		// Don't run this plugin when the content is being indexed
 		if ($context == 'com_finder.indexer')
