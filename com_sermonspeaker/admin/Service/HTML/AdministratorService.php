@@ -11,6 +11,7 @@
 namespace Sermonspeaker\Component\Sermonspeaker\Administrator\Service\HTML;
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Associations;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
@@ -105,7 +106,7 @@ class AdministratorService
 				}
 			}
 
-			\HTMLHelper::_('bootstrap.popover', '.hasPopover', ['trigger' => 'hover focus']);
+			HTMLHelper::_('bootstrap.popover', '.hasPopover', ['trigger' => 'hover focus']);
 
 			$html = LayoutHelper::render('joomla.content.associations', $items);
 		}

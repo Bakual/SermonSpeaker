@@ -13,6 +13,8 @@ use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Router\Route;
+use Sermonspeaker\Component\Sermonspeaker\Site\Helper\RouteHelper;
+use Sermonspeaker\Component\Sermonspeaker\Site\Helper\SermonspeakerHelper;
 
 /**
  * @var array                     $list
@@ -32,7 +34,7 @@ if ($params->get('show_player'))
 	$config['count']     = 'ls' . $module->id;
 	$config['type']      = $c_params->get('fileprio') ? 'video' : 'audio';
 	$config['vheight']   = $params->get('vheight');
-	$player              = SermonspeakerHelperSermonspeaker::getPlayer($list, $config);
+	$player              = SermonspeakerHelper::getPlayer($list, $config);
 }
 
 HTMLHelper::_('bootstrap.carousel');
@@ -50,7 +52,7 @@ HTMLHelper::_('bootstrap.carousel');
 					<?php if ($itemid) : ?>
 						<?php $link = Route::_('index.php?option=com_sermonspeaker&view=sermon&id=' . $row->slug . '&Itemid=' . $itemid); ?>
 					<?php else : ?>
-						<?php $link = Route::_(SermonspeakerHelperRoute::getSermonRoute($row->slug, $row->catid, $row->language)); ?>
+						<?php $link = Route::_(RouteHelper::getSermonRoute($row->slug, $row->catid, $row->language)); ?>
 					<?php endif; ?>
 					<div class="carousel-item latestsermons_entry<?php echo $i; ?> item <?php echo ($i) ? '' : 'active'; ?>">
 						<h4><a href="<?php echo $link; ?>">
@@ -64,7 +66,7 @@ HTMLHelper::_('bootstrap.carousel');
 							<?php if ($params->get('show_category') and $row->category_title) : ?>
 								<dd class="category-name">
 									<?php echo Text::_('JCATEGORY'); ?>:
-									<a href="<?php echo Route::_(SermonspeakerHelperRoute::getSermonsRoute($row->catid, $row->language)); ?>">
+									<a href="<?php echo Route::_(RouteHelper::getSermonsRoute($row->catid, $row->language)); ?>">
 										<?php echo $row->category_title; ?>
 									</a>
 								</dd>
@@ -73,7 +75,7 @@ HTMLHelper::_('bootstrap.carousel');
 								<dd class="category-name">
 									<?php echo Text::_('MOD_LATESTSERMONS_SERIE'); ?>:
 									<?php if ($row->series_state) : ?>
-										<a href="<?php echo Route::_(SermonspeakerHelperRoute::getSerieRoute($row->series_slug, $row->series_catid, $row->series_language)); ?>">
+										<a href="<?php echo Route::_(RouteHelper::getSerieRoute($row->series_slug, $row->series_catid, $row->series_language)); ?>">
 											<?php echo $row->series_title; ?>
 										</a>
 									<?php else : ?>
@@ -91,7 +93,7 @@ HTMLHelper::_('bootstrap.carousel');
 								<dd class="createdby">
 									<?php echo Text::_('MOD_LATESTSERMONS_SPEAKER'); ?>:
 									<?php if ($row->speaker_state): ?>
-										<a href="<?php echo Route::_(SermonspeakerHelperRoute::getSpeakerRoute($row->speaker_slug, $row->speaker_catid, $row->speaker_language)); ?>">
+										<a href="<?php echo Route::_(RouteHelper::getSpeakerRoute($row->speaker_slug, $row->speaker_catid, $row->speaker_language)); ?>">
 											<?php echo $row->speaker_title; ?>
 										</a>
 									<?php else :
@@ -104,7 +106,7 @@ HTMLHelper::_('bootstrap.carousel');
 									<?php echo Text::_('MOD_LATESTSERMONS_SCRIPTURE'); ?>:
 									<ul>
 										<li>
-											<?php echo SermonspeakerHelperSermonspeaker::insertScriptures($row->scripture, '</li><li>'); ?>
+											<?php echo SermonspeakerHelper::insertScriptures($row->scripture, '</li><li>'); ?>
 										</li>
 									</ul>
 								</dd>
@@ -157,7 +159,7 @@ HTMLHelper::_('bootstrap.carousel');
 		<?php if ($itemid) : ?>
 			<?php $link = 'index.php?option=com_sermonspeaker&view=sermons&Itemid=' . $itemid; ?>
 		<?php else : ?>
-			<?php $link = SermonspeakerHelperRoute::getSermonsRoute(); ?>
+			<?php $link = RouteHelper::getSermonsRoute(); ?>
 		<?php endif; ?>
 		<br/>
 		<div class="latestsermons_link">

@@ -203,7 +203,7 @@ class ModRelatedSermonsHelper
 
 		foreach ($temp as $row)
 		{
-			$row->route = Route::_(SermonspeakerHelperRoute::getSermonRoute($row->slug, $row->catid, $row->language));
+			$row->route = Route::_(RouteHelper::getSermonRoute($row->slug, $row->catid, $row->language));
 			$related[]  = $row;
 		}
 

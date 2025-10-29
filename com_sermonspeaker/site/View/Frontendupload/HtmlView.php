@@ -27,7 +27,7 @@ class HtmlView extends BaseHtmlView
 	/**
 	 * Injected from the controller
 	 *
-	 * @var    JDocument
+	 * @var    \JDocument
 	 *
 	 * @since ?
 	 */
@@ -55,7 +55,7 @@ class HtmlView extends BaseHtmlView
 	/**
 	 * A params object
 	 *
-	 * @var    Joomla\Registry\Registry
+	 * @var    \Joomla\Registry\Registry
 	 *
 	 * @since ?
 	 */
@@ -71,7 +71,7 @@ class HtmlView extends BaseHtmlView
 	/**
 	 * A state object
 	 *
-	 * @var    JObject
+	 * @var    \JObject
 	 *
 	 * @since ?
 	 */
@@ -84,7 +84,7 @@ class HtmlView extends BaseHtmlView
 	 *
 	 * @return  void
 	 *
-	 * @throws Exception
+	 * @throws \Exception
 	 *
 	 * @since ?
 	 */
@@ -119,7 +119,7 @@ class HtmlView extends BaseHtmlView
 
 		if (!$this->params->get('fu_enable', 0))
 		{
-			throw new Exception(Text::_('JERROR_ALERTNOAUTHOR'), 403);
+			throw new \Exception(Text::_('JERROR_ALERTNOAUTHOR'), 403);
 		}
 
 		if ($this->user->guest)
@@ -147,7 +147,7 @@ class HtmlView extends BaseHtmlView
 
 		if ($authorised !== true)
 		{
-			throw new Exception(Text::_('JERROR_ALERTNOAUTHOR'), 403);
+			throw new \Exception(Text::_('JERROR_ALERTNOAUTHOR'), 403);
 		}
 
 		// Check some PHP settings for upload limit so I can show it as an info
@@ -411,7 +411,7 @@ class HtmlView extends BaseHtmlView
 		// Check for errors.
 		if (count($errors = $this->get('Errors')))
 		{
-			throw new Exception(implode("\n", $errors), 500);
+			throw new \Exception(implode("\n", $errors), 500);
 		}
 
 		// Escape strings for HTML output

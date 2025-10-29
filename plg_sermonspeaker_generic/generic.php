@@ -8,6 +8,7 @@
  **/
 
 use Joomla\CMS\HTML\HTMLHelper;
+use Sermonspeaker\Component\Sermonspeaker\Site\Helper\SermonspeakerHelper;
 
 defined('_JEXEC') or die();
 
@@ -86,7 +87,7 @@ class PlgSermonspeakerGeneric extends SermonspeakerPluginPlayer
 			$file = ($mode) ? $items->videofile : $items->audiofile;
 		}
 
-		$file = SermonspeakerHelperSermonspeaker::makeLink($file);
+		$file = SermonspeakerHelper::makeLink($file);
 
 		$content = $start . $file . $end;
 

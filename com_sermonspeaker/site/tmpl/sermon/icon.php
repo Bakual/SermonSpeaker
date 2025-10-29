@@ -194,7 +194,7 @@ $player     = SermonspeakerHelper::getPlayer($this->item, $config);
 		<div class="jcomments">
 			<?php
 			require_once $comments;
-			echo JComments::showComments($this->item->id, 'com_sermonspeaker', $this->item->title); ?>
+			echo \JComments::showComments($this->item->id, 'com_sermonspeaker', $this->item->title); ?>
 		</div>
 	<?php endif; ?>
 </div>

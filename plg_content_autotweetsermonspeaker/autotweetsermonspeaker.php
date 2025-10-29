@@ -19,7 +19,7 @@ use Sermonspeaker\Component\Sermonspeaker\Site\Helper\SermonspeakerHelper;
 // Check for component
 if (!ComponentHelper::getComponent('com_autotweet', true)->enabled)
 {
-	JError::raiseWarning('5', 'AutoTweet NG Component is not installed or not enabled. - ' . __FILE__);
+	\JError::raiseWarning('5', 'AutoTweet NG Component is not installed or not enabled. - ' . __FILE__);
 
 	return;
 }

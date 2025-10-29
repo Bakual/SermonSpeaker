@@ -12,6 +12,7 @@ defined('_JEXEC') or die;
 use Joomla\CMS\Helper\ModuleHelper;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Router\Route;
+use Sermonspeaker\Component\Sermonspeaker\Site\Helper\RouteHelper;
 
 $type          = $params->get('parent_type', 'sermons');
 $routeFunction = 'get' . $type . 'Route';
@@ -22,7 +23,7 @@ $catid         = $input->getInt('catid');
 
 foreach ($list as $item) : ?>
 	<li<?php if ($catid == $item->id && $view == $type && $option == 'com_sermonspeaker') echo ' class="active"'; ?>> <?php $levelup = $item->level - $startLevel - 1; ?>
-		<a href="<?php echo Route::_(SermonspeakerHelperRoute::$routeFunction($item->id, $item->language)); ?>">
+		<a href="<?php echo Route::_(RouteHelper::$routeFunction($item->id, $item->language)); ?>">
 		<?php echo $item->title; ?>
 			<?php if ($params->get('numitems')) : ?>
 				(<?php echo $item->numitems; ?>)

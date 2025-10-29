@@ -13,6 +13,8 @@ use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Router\Route;
+use Sermonspeaker\Component\Sermonspeaker\Site\Helper\RouteHelper;
+use Sermonspeaker\Component\Sermonspeaker\Site\Helper\SermonspeakerHelper;
 
 /**
  * @var array                     $list
@@ -36,7 +38,7 @@ if ($params->get('show_player'))
 	$config['count']     = 'ls' . $module->id;
 	$config['type']      = $c_params->get('fileprio') ? 'video' : 'audio';
 	$config['vheight']   = $params->get('vheight');
-	$player              = SermonspeakerHelperSermonspeaker::getPlayer($list, $config);
+	$player              = SermonspeakerHelper::getPlayer($list, $config);
 }
 ?>
 <div class="latestsermons">
@@ -61,7 +63,7 @@ if ($params->get('show_player'))
 					<?php if ($itemid) : ?>
 						<?php $link = Route::_('index.php?option=com_sermonspeaker&view=sermon&id=' . $row->slug . '&Itemid=' . $itemid); ?>
 					<?php else : ?>
-						<?php $link = Route::_(SermonspeakerHelperRoute::getSermonRoute($row->slug, $row->catid, $row->language)); ?>
+						<?php $link = Route::_(RouteHelper::getSermonRoute($row->slug, $row->catid, $row->language)); ?>
 					<?php endif; ?>
 					<?php if ($tooltip) : ?>
 						<?php $title = ''; ?>
@@ -83,7 +85,7 @@ if ($params->get('show_player'))
 							<?php $tips[] = Text::_('JDATE') . ': ' . HTMLHelper::date($row->sermon_date, $date_format); ?>
 						<?php endif; ?>
 						<?php if ($params->get('show_scripture') and $row->scripture) : ?>
-							<?php $tips[] = Text::_('MOD_LATESTSERMONS_SCRIPTURE') . ': ' . SermonspeakerHelperSermonspeaker::insertScriptures($row->scripture, ', ', false);  ?>
+							<?php $tips[] = Text::_('MOD_LATESTSERMONS_SCRIPTURE') . ': ' . SermonspeakerHelper::insertScriptures($row->scripture, ', ', false);  ?>
 						<?php endif; ?>
 						<?php if (($params->get('show_hits') & 1) and $row->hits) : ?>
 							<?php $tips[] = Text::_('JGLOBAL_HITS') . ': ' . $row->hits; ?>
@@ -110,7 +112,7 @@ if ($params->get('show_player'))
 		<?php if ($itemid) : ?>
 			<?php $link = 'index.php?option=com_sermonspeaker&view=sermons&Itemid=' . $itemid; ?>
 		<?php else : ?>
-			<?php $link = SermonspeakerHelperRoute::getSermonsRoute(); ?>
+			<?php $link = RouteHelper::getSermonsRoute(); ?>
 		<?php endif; ?>
 		<br/>
 		<div class="latestsermons_link">

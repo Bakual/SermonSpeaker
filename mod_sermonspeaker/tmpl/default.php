@@ -12,6 +12,7 @@ defined('_JEXEC') or die();
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
+use Sermonspeaker\Component\Sermonspeaker\Site\Helper\RouteHelper;
 
 /**
  * @var array                     $list
@@ -37,7 +38,7 @@ $level = 1;
 			<?php endwhile; ?>
 		<?php endif; ?>
 		<?php $level = $item->level; ?>
-		<?php $link = Route::_(SermonspeakerHelperRoute::$helperMethod($item->slug, $item->catid, $item->language)); ?>
+		<?php $link = Route::_(RouteHelper::$helperMethod($item->slug, $item->catid, $item->language)); ?>
 		<li>
 			<?php if ($params->get('tooltip')) : ?>
 				<?php $options = array('title' => $item->title, 'href' => $link, 'text' => $item->title); ?>

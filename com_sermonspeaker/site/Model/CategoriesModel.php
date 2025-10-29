@@ -118,7 +118,7 @@ class CategoriesModel extends BaseDatabaseModel
 	 */
 	protected function populateState()
 	{
-		/** @var JApplicationSite $app */
+		/** @var \JApplicationSite $app */
 		$app = Factory::getApplication();
 		$this->setState('filter.extension', $this->_extension);
 

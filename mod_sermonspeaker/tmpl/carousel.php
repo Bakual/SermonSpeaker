@@ -11,6 +11,7 @@ defined('_JEXEC') or die();
 
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Router\Route;
+use Sermonspeaker\Component\Sermonspeaker\Site\Helper\RouteHelper;
 
 /**
  * @var array                     $list
@@ -33,7 +34,7 @@ HTMLHelper::_('bootstrap.carousel');
 	</div>
 	<div class="carousel-inner">
 		<?php foreach ($list as $i => $item) : ?>
-			<?php $link = Route::_(SermonspeakerHelperRoute::$helperMethod($item->slug, $item->catid, $item->language)); ?>
+			<?php $link = Route::_(RouteHelper::$helperMethod($item->slug, $item->catid, $item->language)); ?>
 			<div class="carousel-item sermonspeaker_entry<?php echo $i; ?> item <?php echo ($i) ? '' : 'active'; ?>">
 				<h4>
 					<a href="<?php echo $link; ?>"><?php echo $item->title; ?></a>

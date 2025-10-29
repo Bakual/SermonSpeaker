@@ -12,6 +12,8 @@ namespace Sermonspeaker\Component\Sermonspeaker\Site\View\Sermons;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
+use Joomla\CMS\Response\JsonResponse;
+use Sermonspeaker\Component\Sermonspeaker\Site\Helper\SermonspeakerHelper;
 use stdClass;
 
 defined('_JEXEC') or die();
@@ -46,7 +48,7 @@ class JsonView extends BaseHtmlView
 		if (count($errors = $this->get('Errors')))
 		{
 			Factory::getApplication()->setHeader('status', 500 . ' ' . implode("\n", $errors));
-			echo new JResponseJson(null, implode("\n", $errors), true);
+			echo new JsonResponse(null, implode("\n", $errors), true);
 
 			return;
 		}
@@ -54,7 +56,7 @@ class JsonView extends BaseHtmlView
 		if (!$category)
 		{
 			Factory::getApplication()->setHeader('status', 404 . ' ' . Text::_('JGLOBAL_CATEGORY_NOT_FOUND'));
-			echo new JResponseJson(null, Text::_('JGLOBAL_CATEGORY_NOT_FOUND'), true);
+			echo new JsonResponse(null, Text::_('JGLOBAL_CATEGORY_NOT_FOUND'), true);
 
 			return;
 		}
@@ -62,7 +64,7 @@ class JsonView extends BaseHtmlView
 		if (!$parent && $category->id != 'root')
 		{
 			Factory::getApplication()->setHeader('status', 404 . ' ' . Text::_('JGLOBAL_CATEGORY_NOT_FOUND'));
-			echo new JResponseJson(null, Text::_('JGLOBAL_CATEGORY_NOT_FOUND'), true);
+			echo new JsonResponse(null, Text::_('JGLOBAL_CATEGORY_NOT_FOUND'), true);
 
 			return;
 		}
@@ -74,7 +76,7 @@ class JsonView extends BaseHtmlView
 		if (!in_array($category->access, $groups))
 		{
 			Factory::getApplication()->setHeader('status', 403 . ' ' . Text::_('JERROR_ALERTNOAUTHOR'));
-			echo new JResponseJson(null, Text::_('JERROR_ALERTNOAUTHOR'), true);
+			echo new JsonResponse(null, Text::_('JERROR_ALERTNOAUTHOR'), true);
 
 			return;
 		}
@@ -100,7 +102,7 @@ class JsonView extends BaseHtmlView
 			$tmp->sermon_date   = $item->sermon_date;
 			$tmp->sermon_time   = $item->sermon_time;
 			$tmp->sermon_number = $item->sermon_number;
-			$tmp->scripture     = Sermonspeaker\Component\Sermonspeaker\Site\Helper\SermonspeakerHelper::buildScripture($item->scripture, false);
+			$tmp->scripture     = SermonspeakerHelper::buildScripture($item->scripture, false);
 
 			// Category
 			$tmp->category        = new stdClass();
@@ -141,6 +143,6 @@ class JsonView extends BaseHtmlView
 		$app->setHeader('Content-Type', $app->mimeType . '; charset=' . $app->charSet);
 		$app->sendHeaders();
 
-		echo new JResponseJson($response);
+		echo new JsonResponse($response);
 	}
 }

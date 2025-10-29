@@ -15,9 +15,10 @@ use Joomla\Filesystem\File;
 use Joomla\CMS\HTML\HTMLHelper as HTMLHelperAlias;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Uri\Uri;
+use Sermonspeaker\Component\Sermonspeaker\Site\Helper\SermonspeakerHelper;
 
 JLoader::register('SermonspeakerPluginPlayer', JPATH_SITE . '/components/com_sermonspeaker/plugin/player.php');
-JLoader::register('SermonspeakerHelperSermonspeaker', JPATH_SITE . '/components/com_sermonspeaker/helpers/sermonspeaker.php');
+JLoader::register('SermonspeakerHelper', JPATH_SITE . '/components/com_sermonspeaker/helpers/sermonspeaker.php');
 
 /**
  * Plug-in to show the MediaElement from http://www.mediaelementjs.com/
@@ -348,7 +349,7 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 			$attributes['error'] = Text::_('JGLOBAL_RESOURCE_NOT_FOUND');
 		}
 
-		$attributes['type'] = SermonspeakerHelperSermonspeaker::getMime(File::getExt($file), false);
+		$attributes['type'] = SermonspeakerHelper::getMime(File::getExt($file), false);
 
 		if (!$attributes['type'])
 		{
@@ -368,12 +369,12 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 			}
 		}
 
-		if ($img = SermonspeakerHelperSermonspeaker::insertPicture($item, 1))
+		if ($img = SermonspeakerHelper::insertPicture($item, 1))
 		{
 			$attributes['data-thumbnail'] = $img;
 		}
 
-		$attributes['src']      = SermonspeakerHelperSermonspeaker::makeLink($file);
+		$attributes['src']      = SermonspeakerHelper::makeLink($file);
 		$attributes['title']    = $item->title;
 		$attributes['duration'] = $item->sermon_time;
 
@@ -383,7 +384,7 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 		if ($item->sermon_date)
 		{
 			$dateformat = $this->c_params->get('date_format', 'DATE_FORMAT_LC4');
-			$desc[] = Text::_('JDATE') . ': ' . HTMLHelperAlias::date($item->sermon_date, Text::_($dateformat), true);
+			$desc[] = Text::_('JDATE') . ': ' . HTMLHelperAlias::date($item->sermon_date, Text::_($dateformat));
 		}
 
 		if ($item->speaker_title)

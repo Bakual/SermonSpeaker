@@ -16,9 +16,10 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
 use Joomla\Registry\Registry;
+use Sermonspeaker\Component\Sermonspeaker\Site\Helper\SermonspeakerHelper;
 
 JLoader::register('SermonspeakerPluginPlayer', JPATH_SITE . '/components/com_sermonspeaker/plugin/player.php');
-JLoader::register('SermonspeakerHelperSermonspeaker', JPATH_SITE . '/components/com_sermonspeaker/helpers/sermonspeaker.php');
+JLoader::register('SermonspeakerHelper', JPATH_SITE . '/components/com_sermonspeaker/helpers/sermonspeaker.php');
 
 /**
  * Plug-in to show the JW Player 7 from http://www.jwplayer.com/
@@ -426,7 +427,7 @@ class PlgSermonspeakerJwplayer7 extends SermonspeakerPluginPlayer
 			if ($this->type == 'auto')
 			{
 				// Choosing the default file to play based on prio and availabilty
-				$file = SermonspeakerHelperSermonspeaker::getFileByPrio($item, $this->fileprio);
+				$file = SermonspeakerHelper::getFileByPrio($item, $this->fileprio);
 			}
 			else
 			{
@@ -436,7 +437,7 @@ class PlgSermonspeakerJwplayer7 extends SermonspeakerPluginPlayer
 
 			if ($file)
 			{
-				$entry['file'] = addslashes(SermonspeakerHelperSermonspeaker::makeLink($file));
+				$entry['file'] = addslashes(SermonspeakerHelper::makeLink($file));
 			}
 			else
 			{
@@ -467,7 +468,7 @@ class PlgSermonspeakerJwplayer7 extends SermonspeakerPluginPlayer
 				$entry['duration'] = $seconds;
 			}
 
-			if ($img = SermonspeakerHelperSermonspeaker::insertPicture($item, 1))
+			if ($img = SermonspeakerHelper::insertPicture($item, 1))
 			{
 				$entry['image'] = $img;
 			}
@@ -484,7 +485,7 @@ class PlgSermonspeakerJwplayer7 extends SermonspeakerPluginPlayer
 				// Preparing specific playlists for audio and video
 				if ($item->audiofile)
 				{
-					$file = addslashes(SermonspeakerHelperSermonspeaker::makeLink($item->audiofile));
+					$file = addslashes(SermonspeakerHelper::makeLink($item->audiofile));
 					unset($entry['error']);
 				}
 				else
@@ -498,7 +499,7 @@ class PlgSermonspeakerJwplayer7 extends SermonspeakerPluginPlayer
 
 				if ($item->videofile)
 				{
-					$file = addslashes(SermonspeakerHelperSermonspeaker::makeLink($item->videofile));
+					$file = addslashes(SermonspeakerHelper::makeLink($item->videofile));
 					unset($entry['error']);
 				}
 				else
@@ -539,9 +540,9 @@ class PlgSermonspeakerJwplayer7 extends SermonspeakerPluginPlayer
 		$property = $this->mode . 'file';
 		$file     = $item->$property;
 
-		$entry['file'] = SermonspeakerHelperSermonspeaker::makeLink($file);
+		$entry['file'] = SermonspeakerHelper::makeLink($file);
 
-		if ($img = SermonspeakerHelperSermonspeaker::insertPicture($item, 1))
+		if ($img = SermonspeakerHelper::insertPicture($item, 1))
 		{
 			$entry['image'] = $img;
 		}
@@ -564,8 +565,8 @@ class PlgSermonspeakerJwplayer7 extends SermonspeakerPluginPlayer
 		{
 			if ($item->audiofile && $item->videofile)
 			{
-				$this->player->playlist['audio'] = "{file:'" . SermonspeakerHelperSermonspeaker::makeLink($item->audiofile) . "'}";
-				$this->player->playlist['video'] = "{file:'" . SermonspeakerHelperSermonspeaker::makeLink($item->videofile) . "'}";
+				$this->player->playlist['audio'] = "{file:'" . SermonspeakerHelper::makeLink($item->audiofile) . "'}";
+				$this->player->playlist['video'] = "{file:'" . SermonspeakerHelper::makeLink($item->videofile) . "'}";
 			}
 			else
 			{

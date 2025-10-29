@@ -62,7 +62,7 @@ class HtmlView extends BaseHtmlView
 	/**
 	 * A state object
 	 *
-	 * @var    JObject
+	 * @var    \JObject
 	 *
 	 * @since  ?
 	 */
@@ -73,7 +73,7 @@ class HtmlView extends BaseHtmlView
 	 *
 	 * @param   string  $tpl  The name of the template file to parse; automatically searches through the template paths.
 	 *
-	 * @throws Exception
+	 * @throws \Exception
 	 *
 	 * @since  ?
 	 */
@@ -117,7 +117,7 @@ class HtmlView extends BaseHtmlView
 			if ($forcedLanguage = Factory::getApplication()->input->get('forcedLanguage', '', 'CMD'))
 			{
 				// If the language is forced we can't allow to select the language, so transform the language selector filter into an hidden field.
-				$languageXml = new SimpleXMLElement('<field name="language" type="hidden" default="' . $forcedLanguage . '" />');
+				$languageXml = new \SimpleXMLElement('<field name="language" type="hidden" default="' . $forcedLanguage . '" />');
 				$this->filterForm->setField($languageXml, 'filter');
 
 				// Also, unset the active language filter so the search tools is not open by default with this filter.

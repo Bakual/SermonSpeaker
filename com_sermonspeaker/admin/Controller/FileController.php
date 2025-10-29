@@ -21,7 +21,7 @@ use Joomla\CMS\Filter\OutputFilter;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Controller\BaseController;
 use Joomla\CMS\Session\Session;
-use SermonspeakerHelperId3;
+use Sermonspeaker\Component\Sermonspeaker\Site\Helper\Id3Helper;
 
 defined('_JEXEC') or die;
 
@@ -316,7 +316,7 @@ class FileController extends BaseController
 
 		$params = ComponentHelper::getParams('com_sermonspeaker');
 		require_once JPATH_SITE . '/components/com_sermonspeaker/helpers/id3.php';
-		$id3 = SermonspeakerHelperId3::getID3($file, $params);
+		$id3 = Id3Helper::getID3($file, $params);
 
 		// Format the date to the language specific format
 		if ($id3['sermon_date'])

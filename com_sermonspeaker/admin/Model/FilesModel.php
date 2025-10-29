@@ -170,7 +170,7 @@ class FilesModel extends BaseDatabaseModel
 			$sermons = $db->loadColumn();
 
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			Factory::getApplication()->enqueueMessage($e->getMessage(), 'ERROR');
 			$sermons = array();

@@ -9,6 +9,7 @@
 
 namespace Sermonspeaker\Component\Sermonspeaker\Site\View\Series;
 
+use Exception;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Helper\TagsHelper;
 use Joomla\CMS\Language\Text;

@@ -347,7 +347,7 @@ class HtmlView extends BaseHtmlView
 		// Check for errors.
 		if (count($errors = $this->get('Errors')))
 		{
-			throw new Exception(implode("\n", $errors), 500);
+			throw new \Exception(implode("\n", $errors), 500);
 		}
 
 		// If we are forcing a language in modal (used for associations).
