@@ -13,6 +13,8 @@ use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Table\Table;
+use Sermonspeaker\Component\Sermonspeaker\Site\Helper\RouteHelper;
+use Sermonspeaker\Component\Sermonspeaker\Site\Helper\SermonspeakerHelper;
 
 // Check for component
 if (!ComponentHelper::getComponent('com_autotweet', true)->enabled)
@@ -162,7 +164,7 @@ class PlgContentAutotweetSermonspeaker extends plgAutotweetBase
 	 *
 	 * @param   object  $item  The item object.
 	 *
-	 * @return	boolean
+	 * @return	void
 	 *
 	 * @since	1.5
 	 */
@@ -174,7 +176,7 @@ class PlgContentAutotweetSermonspeaker extends plgAutotweetBase
 
 		if (!$this->isCategoryIncluded($catIds) || $this->isCategoryExcluded($catIds))
 		{
-			return true;
+			return;
 		}
 
 		// Determine Publish Up date
@@ -191,7 +193,7 @@ class PlgContentAutotweetSermonspeaker extends plgAutotweetBase
 			$publish_up = Factory::getDate()->toSql();
 		}
 
-		$url = SermonspeakerHelperRoute::getSermonRoute($item->id, $item->catid, $item->language);
+		$url = RouteHelper::getSermonRoute($item->id, $item->catid, $item->language);
 
 		// Get some additional information
 		if ($series_id = (int) $item->series_id)
@@ -227,7 +229,7 @@ class PlgContentAutotweetSermonspeaker extends plgAutotweetBase
 		}
 
 		// Get the image
-		$image_url = SermonspeakerHelperSermonspeaker::insertPicture($item, 1);
+		$image_url = SermonspeakerHelper::insertPicture($item, 1);
 
 		$native_object = json_encode($item);
 		$this->postStatusMessage($item->id, $publish_up, $item->title, self::TYPE_SERMON, $url, $image_url, $native_object);

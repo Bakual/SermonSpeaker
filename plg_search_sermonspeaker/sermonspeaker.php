@@ -12,6 +12,7 @@ defined('_JEXEC') or die();
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Plugin\CMSPlugin;
+use Sermonspeaker\Component\Sermonspeaker\Site\Helper\RouteHelper;
 
 require_once JPATH_SITE . '/components/com_sermonspeaker/helpers/route.php';
 
@@ -267,9 +268,9 @@ class PlgSearchSermonspeaker extends CMSPlugin
 
 				if ($list)
 				{
-					foreach ($list as $key => $item)
+					foreach ($list as $item)
 					{
-						$list[$key]->href = SermonspeakerHelperRoute::getSermonRoute($item->slug, $item->catid, $item->language);
+						$item->href = RouteHelper::getSermonRoute($item->slug, $item->catid, $item->language);
 					}
 				}
 
@@ -356,9 +357,9 @@ class PlgSearchSermonspeaker extends CMSPlugin
 
 				if ($list)
 				{
-					foreach ($list as $key => $item)
+					foreach ($list as $item)
 					{
-						$list[$key]->href = SermonspeakerHelperRoute::getSerieRoute($item->slug, $item->catid, $item->language);
+						$item->href = RouteHelper::getSerieRoute($item->slug, $item->catid, $item->language);
 					}
 				}
 
@@ -447,9 +448,9 @@ class PlgSearchSermonspeaker extends CMSPlugin
 
 				if ($list)
 				{
-					foreach ($list as $key => $item)
+					foreach ($list as $item)
 					{
-						$list[$key]->href = SermonspeakerHelperRoute::getSpeakerRoute($item->slug, $item->catid, $item->language);
+						$item->href = RouteHelper::getSpeakerRoute($item->slug, $item->catid, $item->language);
 					}
 				}
 
