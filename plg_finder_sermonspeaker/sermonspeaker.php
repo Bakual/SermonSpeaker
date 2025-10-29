@@ -346,7 +346,7 @@ class PlgFinderSermonspeaker extends Adapter
 			$this->adjustType('com_sermonspeaker.' . $type);
 
 			// Get the number of content items.
-			$total = (int) $this->getContentCount();
+			$total = $this->getContentCount();
 
 			// Add the content count to the total number of items.
 			$iState->totalItems += $total;

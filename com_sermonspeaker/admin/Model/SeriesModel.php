@@ -231,7 +231,7 @@ class SeriesModel extends ListModel
 		// Filter on the level.
 		if ($level = $this->getState('filter.level'))
 		{
-			$query->where('c.level <= ' . ((int) $level + (int) $baselevel - 1));
+			$query->where('c.level <= ' . ((int) $level + $baselevel - 1));
 		}
 
 		// Filter by search in title

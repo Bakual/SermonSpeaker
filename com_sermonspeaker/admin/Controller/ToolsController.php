@@ -294,7 +294,7 @@ class ToolsController extends BaseController
 		{
 			$message = '<div class="row-fluid">'
 				. '<div class="span12">' . Text::_('COM_SERMONSPEAKER_ID3_NO_MATCH_FOUND') . '</div>';
-			$span    = 'span' . (int) 12 / count($missing);
+			$span    = 'span' . 12 / count($missing);
 
 			foreach ($missing as $key => $values)
 			{

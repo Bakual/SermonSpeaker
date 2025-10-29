@@ -38,7 +38,7 @@ if ($params->get('show_player'))
 	<?php if ($params->get('show_list')) : ?>
 		<div class="row">
 			<?php foreach ($list as $i => $row) : ?>
-				<div class="latestsermons_entry<?php echo $i; ?> text-center col-md-<?php echo (int) 12 / $count; ?>">
+				<div class="latestsermons_entry<?php echo $i; ?> text-center col-md-<?php echo 12 / $count; ?>">
 					<?php if ($picture = SermonspeakerHelperSermonspeaker::insertPicture($row)) : ?>
 						<a href="<?php echo Route::_(SermonspeakerHelperRoute::getSermonRoute($row->slug, $row->catid, $row->language)); ?>">
 							<img src="<?php echo $picture; ?>" class="img-thumbnail">

@@ -262,7 +262,7 @@ class SerieController extends BaseController
 				$zip->addFile($file['path'], $file['name']);
 				set_time_limit(0);
 				$i++;
-				$query = "UPDATE #__sermon_series SET `zip_progress` = " . (int) 100 / $count * $i . " WHERE `id` = " . $id;
+				$query = "UPDATE #__sermon_series SET `zip_progress` = " . 100 / $count * $i . " WHERE `id` = " . $id;
 				$db->setQuery($query);
 				$db->execute();
 			}
@@ -379,7 +379,7 @@ class SerieController extends BaseController
 		{
 			$response = array(
 				'status' => '2',
-				'msg'    => (int) 100 / $series['zip_size'] * $size,
+				'msg'    => 100 / $series['zip_size'] * $size,
 			);
 		}
 		else

@@ -25,7 +25,7 @@ $count = count($list);
 	<div class="row">
 		<?php foreach ($list as $item) : ?>
 			<?php $i++; ?>
-			<div class="sermonspeaker_entry<?php echo $i; ?> text-center col-md-<?php echo (int) 12 / $count; ?>">
+			<div class="sermonspeaker_entry<?php echo $i; ?> text-center col-md-<?php echo 12 / $count; ?>">
 				<?php $link = Route::_(SermonspeakerHelperRoute::$helperMethod($item->slug, $item->catid, $item->language)); ?>
 				<?php if ($item->pic) : ?>
 					<a href="<?php echo $link; ?>">
