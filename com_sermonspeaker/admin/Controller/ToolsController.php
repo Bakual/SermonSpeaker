@@ -161,7 +161,7 @@ class ToolsController extends BaseController
 		{
 			$time   = $jinput->get('time', '', 'string');
 			$config = Factory::getConfig();
-			$user   = Factory::getUser();
+			$user   = Factory::getApplication()->getIdentity();
 			$date   = Factory::getDate($time, $user->getParam('timezone', $config->get('offset')));
 			$date->setTimezone(new \DateTimeZone('UTC'));
 			$t_utc = $date->format('H:i:s', true);
@@ -339,7 +339,7 @@ class ToolsController extends BaseController
 		$query->join('LEFT', '#__sermon_series AS series ON series_id = series.id');
 		$db->setQuery($query);
 		$items = $db->loadObjectList();
-		$user  = Factory::getUser();
+		$user  = Factory::getApplication()->getIdentity();
 
 		$getID3 = new \getID3;
 		$getID3->setOption(array('encoding' => 'UTF-8'));
@@ -834,7 +834,7 @@ class ToolsController extends BaseController
 		// Check for request forgeries
 		Session::checkToken('request') or jexit(Text::_('JINVALID_TOKEN'));
 		$app  = Factory::getApplication();
-		$user = Factory::getUser();
+		$user = Factory::getApplication()->getIdentity();
 		$db   = Factory::getDbo();
 
 		$params         = ComponentHelper::getParams('com_sermonspeaker');

@@ -54,7 +54,7 @@ class SerieController extends FormController
 		/** @var SermonspeakerModelSerie $model */
 		$model      = $this->getModel();
 		$item       = $model->getItem($id);
-		$user       = Factory::getUser();
+		$user       = Factory::getApplication()->getIdentity();
 		$canEdit    = $user->authorise('core.edit', 'com_sermonspeaker.category.' . $item->catid);
 		$canEditOwn = $user->authorise('core.edit.own', 'com_sermonspeaker.category.' . $item->catid) && $item->created_by == $user->id;
 
@@ -131,7 +131,7 @@ class SerieController extends FormController
 	 */
 	protected function allowAdd($data = array())
 	{
-		$user       = Factory::getUser();
+		$user       = Factory::getApplication()->getIdentity();
 		$categoryId = ArrayHelper::getValue($data, 'catid', $this->input->get('filter_category_id'), 'int');
 		$allow      = null;
 
@@ -183,7 +183,7 @@ class SerieController extends FormController
 			return parent::allowEdit($data, $key);
 		}
 
-		$user = Factory::getUser();
+		$user = Factory::getApplication()->getIdentity();
 
 		// The category has been set. Check the category permissions.
 		if ($user->authorise('core.edit', $this->option . '.category.' . $categoryId))

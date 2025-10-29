@@ -19,7 +19,7 @@ use Joomla\CMS\Uri\Uri;
 HTMLHelper::_('bootstrap.tooltip', '.hasTooltip');
 
 $session = Factory::getApplication()->getSession();
-$user    = Factory::getUser();
+$user    = Factory::getApplication()->getIdentity();
 ?>
 <form action="<?php echo Route::_('index.php?option=com_sermonspeaker&view=tools'); ?>" method="post" name="adminForm"
 	  id="adminForm">

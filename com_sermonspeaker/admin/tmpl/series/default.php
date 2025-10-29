@@ -24,7 +24,7 @@ HTMLHelper::addIncludePath(JPATH_COMPONENT . '/helpers/html');
 HTMLHelper::_('bootstrap.tooltip', '.hasTooltip');
 HTMLHelper::_('behavior.multiselect');
 
-$user      = Factory::getUser();
+$user      = Factory::getApplication()->getIdentity();
 $listOrder = $this->escape($this->state->get('list.ordering'));
 $listDirn  = $this->escape($this->state->get('list.direction'));
 $archived  = $this->state->get('filter.state') == 2;

@@ -136,23 +136,6 @@ class SermonModel extends AdminModel
 	}
 
 	/**
-	 * Method to get a table object, load it if necessary.
-	 *
-	 * @param   string  $name     The table name. Optional.
-	 * @param   string  $prefix   The class prefix. Optional.
-	 * @param   array   $options  Configuration array for model. Optional.
-	 *
-	 * @return  Table  A Table object
-	 *
-	 * @since   ?
-	 * @throws  \Exception
-	 */
-	public function getTable($name = 'Sermon', $prefix = 'SermonspeakerTable', $options = array())
-	{
-		return Table::getInstance($name, $prefix, $options);
-	}
-
-	/**
 	 * Method to test whether a record can be deleted.
 	 *
 	 * @param   object  $record  A record object.
@@ -170,7 +153,7 @@ class SermonModel extends AdminModel
 				return false;
 			}
 
-			$user = Factory::getUser();
+			$user = Factory::getApplication()->getIdentity();
 
 			if ($record->catid)
 			{
@@ -256,7 +239,7 @@ class SermonModel extends AdminModel
 	 */
 	protected function canEditState($record)
 	{
-		$user = Factory::getUser();
+		$user = Factory::getApplication()->getIdentity();
 
 		if (!empty($record->catid))
 		{
@@ -321,7 +304,7 @@ class SermonModel extends AdminModel
 	public function podcast(&$pks, $value = 1)
 	{
 		// Initialise variables.
-		$user = Factory::getUser();
+		$user = Factory::getApplication()->getIdentity();
 		/** @var SermonspeakerTableSermon $table */
 		$table = $this->getTable();
 		$pks   = (array) $pks;
@@ -515,7 +498,7 @@ class SermonModel extends AdminModel
 
 		// Check that the user has create permission for the component
 		$extension = Factory::getApplication()->input->get('option', '');
-		$user      = Factory::getUser();
+		$user      = Factory::getApplication()->getIdentity();
 
 		if (!$user->authorise('core.create', $extension . '.category.' . $categoryId))
 		{
@@ -612,7 +595,7 @@ class SermonModel extends AdminModel
 	protected function batchSpeaker($value, $pks, $contexts)
 	{
 		// Set the variables
-		$user  = Factory::getUser();
+		$user  = Factory::getApplication()->getIdentity();
 		$table = $this->getTable();
 
 		foreach ($pks as $pk)
@@ -658,7 +641,7 @@ class SermonModel extends AdminModel
 	protected function batchSerie($value, $pks, $contexts)
 	{
 		// Set the variables
-		$user  = Factory::getUser();
+		$user  = Factory::getApplication()->getIdentity();
 		$table = $this->getTable();
 
 		foreach ($pks as $pk)

@@ -59,7 +59,7 @@ class SermonController extends FormController
 		/** @var SermonspeakerModelSermon $model */
 		$model      = $this->getModel();
 		$item       = $model->getItem($id);
-		$user       = Factory::getUser();
+		$user       = Factory::getApplication()->getIdentity();
 		$canEdit    = $user->authorise('core.edit', 'com_sermonspeaker.category.' . $item->catid);
 		$canEditOwn = $user->authorise('core.edit.own', 'com_sermonspeaker.category.' . $item->catid) && $item->created_by == $user->id;
 		if ($canEdit || $canEditOwn)
@@ -120,7 +120,7 @@ class SermonController extends FormController
 	 */
 	protected function allowAdd($data = array())
 	{
-		$user       = Factory::getUser();
+		$user       = Factory::getApplication()->getIdentity();
 		$categoryId = ArrayHelper::getValue($data, 'catid', Factory::getApplication()->input->get('filter_category_id'), 'int');
 		$allow      = null;
 
@@ -172,7 +172,7 @@ class SermonController extends FormController
 			return parent::allowEdit($data, $key);
 		}
 
-		$user = Factory::getUser();
+		$user = Factory::getApplication()->getIdentity();
 
 		// The category has been set. Check the category permissions.
 		if ($user->authorise('core.edit', $this->option . '.category.' . $categoryId))
@@ -313,7 +313,7 @@ class SermonController extends FormController
 			. "WHERE sermons.id='" . $id . "'";
 		$db->setQuery($query);
 		$item       = $db->loadObject();
-		$user       = Factory::getUser();
+		$user       = Factory::getApplication()->getIdentity();
 		$canEdit    = $user->authorise('core.edit', 'com_sermonspeaker.category.' . $item->catid);
 		$canEditOwn = $user->authorise('core.edit.own', 'com_sermonspeaker.category.' . $item->catid) && $item->created_by == $user->id;
 

@@ -34,7 +34,7 @@ class SermonspeakerHelper
 	 */
 	public static function getActions($categoryId = 0)
 	{
-		$user   = Factory::getUser();
+		$user   = Factory::getApplication()->getIdentity();
 		$result = new CMSObject;
 
 		if (empty($categoryId))

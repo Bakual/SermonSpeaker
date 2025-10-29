@@ -122,7 +122,7 @@ class SerieModel extends AdminModel
 	 */
 	protected function canEditState($record)
 	{
-		$user = Factory::getUser();
+		$user = Factory::getApplication()->getIdentity();
 
 		// Check against the category.
 		if (!empty($record->catid))
@@ -176,21 +176,6 @@ class SerieModel extends AdminModel
 	}
 
 	/**
-	 * Returns a reference to the a Table object, always creating it.
-	 *
-	 * @param   string  $type    The table type to instantiate
-	 * @param   string  $prefix  A prefix for the table class name. Optional.
-	 * @param   array   $config  Configuration array for model. Optional.
-	 *
-	 * @return    Table    A database object
-	 * @since    1.6
-	 */
-	public function getTable($type = 'Serie', $prefix = 'SermonspeakerTable', $config = array())
-	{
-		return Table::getInstance($type, $prefix, $config);
-	}
-
-	/**
 	 * Method to set a default series.
 	 * Copied from template style.
 	 *
@@ -204,7 +189,7 @@ class SerieModel extends AdminModel
 	public function setDefault($id = 0)
 	{
 		// Initialise variables.
-		$user = Factory::getUser();
+		$user = Factory::getApplication()->getIdentity();
 		$db   = $this->getDbo();
 
 		// Access checks.
@@ -256,7 +241,7 @@ class SerieModel extends AdminModel
 	 */
 	public function unsetDefault($id = 0)
 	{
-		$user = Factory::getUser();
+		$user = Factory::getApplication()->getIdentity();
 		$db   = $this->getDbo();
 
 		// Access checks.
@@ -549,7 +534,7 @@ class SerieModel extends AdminModel
 
 		// Check that the user has create permission for the component
 		$extension = Factory::getApplication()->input->get('option', '');
-		$user      = Factory::getUser();
+		$user      = Factory::getApplication()->getIdentity();
 		if (!$user->authorise('core.create', $extension . '.category.' . $categoryId))
 		{
 			$this->setError(Text::_('JLIB_APPLICATION_ERROR_BATCH_CANNOT_CREATE'));
