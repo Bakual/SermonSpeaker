@@ -15,6 +15,7 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Session\Session;
+use Sermonspeaker\Component\Sermonspeaker\Site\Helper\RouteHelper;
 
 $app = Factory::getApplication();
 
@@ -23,10 +24,6 @@ if ($app->isClient('site'))
 	Session::checkToken('get') or die(Text::_('JINVALID_TOKEN'));
 	HTMLHelper::_('stylesheet', 'com_sermonspeaker/sermonspeaker.css', array('relative' => true));
 }
-
-JLoader::register('SermonspeakerHelperRoute', JPATH_ROOT . '/components/com_sermonspeaker/helpers/route.php');
-
-HTMLHelper::addIncludePath(JPATH_COMPONENT . '/helpers/html');
 
 HTMLHelper::_('behavior.core');
 HTMLHelper::_('behavior.polyfill', array('event'), 'lt IE 9');
@@ -85,7 +82,7 @@ $listDirn  = $this->escape($this->state->get('list.direction'));
 						<span class="<?php echo $iconStates[$this->escape($item->state)]; ?>"></span>
 					</td>
 					<td>
-						<a onclick="if (window.parent) window.parent.<?php echo $this->escape($function); ?>('<?php echo $item->id; ?>', '<?php echo $this->escape(addslashes($item->title)); ?>', '<?php echo $this->escape($item->catid); ?>', '<?php echo $this->escape(SermonspeakerHelperRoute::getSermonRoute($item->id)); ?>');">
+						<a onclick="if (window.parent) window.parent.<?php echo $this->escape($function); ?>('<?php echo $item->id; ?>', '<?php echo $this->escape(addslashes($item->title)); ?>', '<?php echo $this->escape($item->catid); ?>', '<?php echo $this->escape(RouteHelper::getSermonRoute($item->id)); ?>');">
 							<?php echo $this->escape($item->title); ?></a>
 					</td>
 					<td class="small hidden-phone">

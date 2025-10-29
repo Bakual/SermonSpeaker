@@ -124,7 +124,7 @@ class HtmlView extends BaseHtmlView
 		// Run plugin events for each item.
 		foreach ($this->items as $item)
 		{
-			$item->event = new \stdClass;
+			$item->event = new stdClass;
 
 			// Old plugins: Ensure that text property is available
 			$item->text = $item->notes;
@@ -163,7 +163,7 @@ class HtmlView extends BaseHtmlView
 				default => 'CUSTOMBOOKS',
 			};
 
-			$object                    = new \stdClass;
+			$object                    = new stdClass;
 			$object->value             = $book;
 			$object->text              = Text::_('COM_SERMONSPEAKER_BOOK_' . $book);
 			$groups[$group]['items'][] = $object;

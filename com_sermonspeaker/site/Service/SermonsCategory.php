@@ -10,8 +10,9 @@
 namespace Sermonspeaker\Component\Sermonspeaker\Site\Service;
 
 use Joomla\CMS\Categories\Categories;
+use function defined;
 
-\defined('_JEXEC') or die;
+defined('_JEXEC') or die;
 
 /**
  * Content Component Category Tree

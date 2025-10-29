@@ -9,6 +9,7 @@
 
 namespace Sermonspeaker\Component\Sermonspeaker\Site\View\Serie;
 
+use Exception;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Helper\TagsHelper;
 use Joomla\CMS\HTML\HTMLHelper;
@@ -18,6 +19,9 @@ use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
+use Sermonspeaker\Component\Sermonspeaker\Site\Helper\SermonspeakerHelper;
+use Sermonspeaker\Component\Sermonspeaker\Site\Model\SerieModel;
+use stdClass;
 
 defined('_JEXEC') or die();
 
@@ -38,7 +42,7 @@ class HtmlView extends BaseHtmlView
 	 * @throws \Exception
 	 * @since ?
 	 */
-	public function display($tpl = null)
+	public function display($tpl = null): void
 	{
 		$app = Factory::getApplication();
 
@@ -55,7 +59,9 @@ class HtmlView extends BaseHtmlView
 		$user = Factory::getApplication()->getIdentity();
 
 		// Get some data from the model
-		$this->item = $this->get('Item');
+		/** @var SerieModel $model */
+		$model = $this->getModel();
+		$this->item = $model->getItem();
 
 		if (!$this->item)
 		{
@@ -80,7 +86,7 @@ class HtmlView extends BaseHtmlView
 		}
 
 		// Get Params
-		$state        = $this->get('State');
+		$state        = $model->getState();
 		$this->params = $state->get('params');
 
 		// Get sermons data from the sermons model
@@ -145,7 +151,7 @@ class HtmlView extends BaseHtmlView
 		}
 
 		// Check for errors.
-		if (count($errors = $this->get('Errors')))
+		if (count($errors = $model->getErrors()))
 		{
 			throw new Exception(implode("\n", $errors), 500);
 		}
@@ -180,23 +186,15 @@ class HtmlView extends BaseHtmlView
 
 		foreach ($books as $book)
 		{
-			switch ($book)
+			$group = match ($book)
 			{
-				case ($book < 40):
-					$group = 'OLD_TESTAMENT';
-					break;
-				case ($book < 67):
-					$group = 'NEW_TESTAMENT';
-					break;
-				case ($book < 74):
-					$group = 'APOCRYPHA';
-					break;
-				default:
-					$group = 'CUSTOMBOOKS';
-					break;
-			}
+				$book < 40 => 'OLD_TESTAMENT',
+				$book < 67 => 'NEW_TESTAMENT',
+				$book < 74 => 'APOCRYPHA',
+				default => 'CUSTOMBOOKS',
+			};
 
-			$object                    = new \stdClass;
+			$object                    = new stdClass;
 			$object->value             = $book;
 			$object->text              = Text::_('COM_SERMONSPEAKER_BOOK_' . $book);
 			$groups[$group]['items'][] = $object;
@@ -217,7 +215,7 @@ class HtmlView extends BaseHtmlView
 		$this->item->series_description = $this->item->text;
 
 		// Store the events for later
-		$this->item->event                    = new \stdClass;
+		$this->item->event                    = new stdClass;
 		$results                              = $app->triggerEvent('onContentAfterTitle', array('com_sermonspeaker.serie', &$this->item, &$this->params, 0));
 		$this->item->event->afterDisplayTitle = trim(implode("\n", $results));
 
@@ -230,7 +228,7 @@ class HtmlView extends BaseHtmlView
 		// Trigger events for Sermons.
 		foreach ($this->items as $item)
 		{
-			$item->event = new \stdClass;
+			$item->event = new stdClass;
 
 			// Old plugins: Ensure that text property is available
 			$item->text = $item->notes;
@@ -262,9 +260,10 @@ class HtmlView extends BaseHtmlView
 	 *
 	 * @return  void
 	 *
+	 * @throws \Exception
 	 * @since ?
 	 */
-	protected function _prepareDocument()
+	protected function _prepareDocument(): void
 	{
 		$app   = Factory::getApplication();
 		$menus = $app->getMenu();
@@ -334,7 +333,7 @@ class HtmlView extends BaseHtmlView
 			if ($this->item->avatar)
 			{
 				$this->getDocument()->addCustomTag('<meta property="og:image" content="'
-					. Sermonspeaker\Component\Sermonspeaker\Site\Helper\SermonspeakerHelper::makeLink($this->item->avatar, true) . '"/>');
+					. SermonspeakerHelper::makeLink($this->item->avatar, true) . '"/>');
 			}
 		}
 	}

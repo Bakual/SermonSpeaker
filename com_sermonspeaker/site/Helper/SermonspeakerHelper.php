@@ -18,6 +18,8 @@ use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
 use Joomla\Filesystem\File;
+use Joomla\Registry\Registry;
+use stdClass;
 
 defined('_JEXEC') or die();
 
@@ -753,7 +755,7 @@ class SermonspeakerHelper
 		}
 
 		// Create player object to pass through plugins
-		$player                  = new \stdClass;
+		$player                  = new stdClass;
 		$player->popup['height'] = 0;
 		$player->popup['width']  = 0;
 		$player->error           = '';
@@ -763,7 +765,7 @@ class SermonspeakerHelper
 		$player->mspace          = '';
 
 		// Convert $config to an Registry object
-		$registry = new \Joomla\Registry\Registry;
+		$registry = new Registry;
 		$registry->loadArray($config);
 
 		PluginHelper::importPlugin('sermonspeaker');

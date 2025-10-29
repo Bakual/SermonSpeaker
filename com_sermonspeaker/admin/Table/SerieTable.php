@@ -239,4 +239,17 @@ class SerieTable extends Table implements VersionableTableInterface, TaggableTab
 	{
 		return $this->typeAlias;
 	}
+
+	/**
+	 * Method to get the database table name for the class.
+	 *
+	 * @return  string  The name of the database table being modeled.
+	 *
+	 * @since   1.7.0
+	 */
+	public function getTableName()
+	{
+		return $this->_tbl;
+	}
+
 }

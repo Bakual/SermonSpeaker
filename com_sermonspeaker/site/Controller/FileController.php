@@ -11,6 +11,7 @@ namespace Sermonspeaker\Component\Sermonspeaker\Site\Controller;
 
 use Aws\Credentials\Credentials;
 use Aws\S3\S3Client;
+use Exception;
 use Joomla\CMS\Client\ClientHelper;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
@@ -21,6 +22,7 @@ use Joomla\CMS\MVC\Controller\BaseController;
 use Joomla\CMS\Session\Session;
 use Joomla\Filesystem\File;
 use Joomla\Filesystem\Path;
+use Sermonspeaker\Component\Sermonspeaker\Site\Helper\Id3Helper;
 
 defined('_JEXEC') or die();
 
@@ -36,9 +38,10 @@ class FileController extends BaseController
 	 *
 	 * @return  void  Echoes an AJAX response
 	 *
+	 * @throws \Exception
 	 * @since ?
 	 */
-	public function upload()
+	public function upload(): void
 	{
 		// Check for request forgeries
 		if (!Session::checkToken('request'))
@@ -67,7 +70,6 @@ class FileController extends BaseController
 		}
 
 		// Initialise variables.
-		/** @var JApplicationSite $app */
 		$app    = Factory::getApplication();
 		$params = $app->getParams();
 		$jinput = $app->input;
@@ -169,7 +171,7 @@ class FileController extends BaseController
 
 				if (!$lang || $lang == '*')
 				{
-					$jlang = Factory::getLanguage();
+					$jlang = Factory::getApplication()->getLanguage();
 					$lang  = $jlang->getTag();
 				}
 
@@ -189,9 +191,6 @@ class FileController extends BaseController
 
 				return;
 			}
-
-			$prefix = ($region === 'us-east-1') ? 's3' : 's3-' . $region;
-			$domain = $prefix . '.amazonaws.com/' . $bucket;
 
 			// Upload the file
 			try
@@ -213,7 +212,7 @@ class FileController extends BaseController
 
 				return;
 			}
-			catch (Exception $e)
+			catch (Exception)
 			{
 				$response = array(
 					'status' => '0',
@@ -241,7 +240,7 @@ class FileController extends BaseController
 
 				if (!$lang || $lang == '*')
 				{
-					$jlang = Factory::getLanguage();
+					$jlang = Factory::getApplication()->getLanguage();
 					$lang  = $jlang->getTag();
 				}
 
@@ -283,9 +282,7 @@ class FileController extends BaseController
 					'status' => '0',
 					'error'  => Text::_('COM_SERMONSPEAKER_FU_ERROR_UNABLE_TO_UPLOAD_FILE'),
 				);
-				echo json_encode($response);
 
-				return;
 			}
 			else
 			{
@@ -295,10 +292,9 @@ class FileController extends BaseController
 					'path'     => str_replace('\\', '/', '/' . $path . $append . '/' . $filename),
 					'error'    => Text::sprintf('COM_SERMONSPEAKER_FU_FILENAME', substr($file['filepath'], strlen(JPATH_ROOT))),
 				);
-				echo json_encode($response);
 
-				return;
 			}
+			echo json_encode($response);
 		}
 	}
 
@@ -307,9 +303,10 @@ class FileController extends BaseController
 	 *
 	 * @return  void  Echoes an AJAX response
 	 *
+	 * @throws \Exception
 	 * @since ?
 	 */
-	public function lookup()
+	public function lookup(): void
 	{
 		$file = Factory::getApplication()->input->get('file', '', 'string');
 
@@ -324,9 +321,8 @@ class FileController extends BaseController
 			return;
 		}
 
-		require_once JPATH_SITE . '/components/com_sermonspeaker/helpers/id3.php';
 		$params = ComponentHelper::getParams('com_sermonspeaker');
-		$id3    = SermonspeakerHelperId3::getID3($file, $params);
+		$id3    = Id3Helper::getID3($file, $params);
 
 		// Format the date to the language specific format
 		if ($id3['sermon_date'])

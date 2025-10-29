@@ -9,6 +9,7 @@
 
 namespace Sermonspeaker\Component\Sermonspeaker\Site\View\Sermon;
 
+use Exception;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Helper\TagsHelper;
 use Joomla\CMS\Language\Text;
@@ -16,6 +17,10 @@ use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
+use Sermonspeaker\Component\Sermonspeaker\Site\Helper\RouteHelper;
+use Sermonspeaker\Component\Sermonspeaker\Site\Helper\SermonspeakerHelper;
+use Sermonspeaker\Component\Sermonspeaker\Site\Model\SermonModel;
+use stdClass;
 
 defined('_JEXEC') or die();
 
@@ -60,16 +65,18 @@ class HtmlView extends BaseHtmlView
 	 * @throws \Exception
 	 * @since ?
 	 */
-	public function display($tpl = null)
+	public function display($tpl = null): void
 	{
 		$app = Factory::getApplication();
 
 		// Get model data (/models/sermon.php)
-		$this->state = $this->get('State');
+		/** @var SermonModel $model */
+		$model = $this->getModel();
+		$this->state = $model->getState();
 
 		if (!$this->state->get('sermon.id'))
 		{
-			$id = $this->get('Latest');
+			$id = $model->getLatest();
 
 			if (!$id)
 			{
@@ -99,7 +106,7 @@ class HtmlView extends BaseHtmlView
 			$this->columns = array();
 		}
 
-		$item = $this->get('Item');
+		$item = $model->getItem();
 
 		if (!$item)
 		{
@@ -140,7 +147,7 @@ class HtmlView extends BaseHtmlView
 		}
 
 		// Check for errors.
-		if (count($errors = $this->get('Errors')))
+		if (count($errors = $model->getErrors()))
 		{
 			throw new Exception(implode("\n", $errors), 500);
 		}
@@ -166,7 +173,7 @@ class HtmlView extends BaseHtmlView
 		$item->notes = $item->text;
 
 		// Store the events for later
-		$item->event                    = new \stdClass;
+		$item->event                    = new stdClass;
 		$results                        = $app->triggerEvent('onContentAfterTitle', array('com_sermonspeaker.sermon', &$item, &$params, 0));
 		$item->event->afterDisplayTitle = trim(implode("\n", $results));
 
@@ -195,7 +202,7 @@ class HtmlView extends BaseHtmlView
 	 * @throws Exception
 	 * @since ?
 	 */
-	protected function _prepareDocument()
+	protected function _prepareDocument(): void
 	{
 		$app   = Factory::getApplication();
 		$menus = $app->getMenu();
@@ -230,11 +237,11 @@ class HtmlView extends BaseHtmlView
 
 		if ($menu && ($menu->query['view'] == 'series'))
 		{
-			$pathway->addItem($this->item->series_title, Route::_(Sermonspeaker\Component\Sermonspeaker\Site\Helper\RouteHelper::getSerieRoute($this->item->series_slug, $this->item->series_catid, $this->item->series_language)));
+			$pathway->addItem($this->item->series_title, Route::_(RouteHelper::getSerieRoute($this->item->series_slug, $this->item->series_catid, $this->item->series_language)));
 		}
 		elseif ($menu && ($menu->query['view'] == 'speakers'))
 		{
-			$pathway->addItem($this->item->speaker_title, Route::_(Sermonspeaker\Component\Sermonspeaker\Site\Helper\RouteHelper::getSpeakerRoute($this->item->speaker_slug, $this->item->speaker_catid, $this->item->speaker_language)));
+			$pathway->addItem($this->item->speaker_title, Route::_(RouteHelper::getSpeakerRoute($this->item->speaker_slug, $this->item->speaker_catid, $this->item->speaker_language)));
 		}
 
 		$pathway->addItem($this->item->title, '');
@@ -302,9 +309,9 @@ class HtmlView extends BaseHtmlView
 			$this->getDocument()->addCustomTag('<meta property="og:description" content="' . $this->getDocument()->getDescription() . '"/>');
 			$this->getDocument()->addCustomTag('<meta property="og:site_name" content="' . $app->get('sitename') . '"/>');
 
-			if ($picture = Sermonspeaker\Component\Sermonspeaker\Site\Helper\SermonspeakerHelper::insertPicture($this->item))
+			if ($picture = SermonspeakerHelper::insertPicture($this->item))
 			{
-				$this->getDocument()->addCustomTag('<meta property="og:image" content="' . Sermonspeaker\Component\Sermonspeaker\Site\Helper\SermonspeakerHelper::makeLink($picture, true) . '"/>');
+				$this->getDocument()->addCustomTag('<meta property="og:image" content="' . SermonspeakerHelper::makeLink($picture, true) . '"/>');
 			}
 
 			if ($this->params->get('fbmode', 0))
@@ -315,7 +322,7 @@ class HtmlView extends BaseHtmlView
 				{
 					$this->getDocument()->addCustomTag(
 						'<meta property="article:author" content="'
-						. Uri::base() . trim(Route::_(Sermonspeaker\Component\Sermonspeaker\Site\Helper\RouteHelper::getSpeakerRoute($this->item->speaker_slug, $this->item->speaker_catid, $this->item->speaker_language)), '/')
+						. Uri::base() . trim(Route::_(RouteHelper::getSpeakerRoute($this->item->speaker_slug, $this->item->speaker_catid, $this->item->speaker_language)), '/')
 						. '"/>'
 					);
 				}
@@ -331,7 +338,7 @@ class HtmlView extends BaseHtmlView
 				{
 					$this->getDocument()->addCustomTag('<meta property="og:type" content="movie"/>');
 
-					if ((strpos($this->item->videofile, 'http://vimeo.com') === 0) || (strpos($this->item->videofile, 'http://player.vimeo.com') === 0))
+					if ((str_starts_with($this->item->videofile, 'http://vimeo.com')) || (str_starts_with($this->item->videofile, 'http://player.vimeo.com')))
 					{
 						$id   = trim(strrchr($this->item->videofile, '/'), '/ ');
 						$file = 'http://vimeo.com/moogaloop.swf?clip_id=' . $id
@@ -339,7 +346,7 @@ class HtmlView extends BaseHtmlView
 					}
 					else
 					{
-						$file = Sermonspeaker\Component\Sermonspeaker\Site\Helper\SermonspeakerHelper::makeLink($this->item->videofile, true);
+						$file = SermonspeakerHelper::makeLink($this->item->videofile, true);
 					}
 
 					$this->getDocument()->addCustomTag('<meta property="og:video" content="' . $file . '"/>');
@@ -348,7 +355,7 @@ class HtmlView extends BaseHtmlView
 				{
 					$this->getDocument()->addCustomTag('<meta property="og:type" content="song"/>');
 					$this->getDocument()->addCustomTag(
-						'<meta property="og:audio" content="' . Sermonspeaker\Component\Sermonspeaker\Site\Helper\SermonspeakerHelper::makeLink($this->item->audiofile, true) . '"/>'
+						'<meta property="og:audio" content="' . SermonspeakerHelper::makeLink($this->item->audiofile, true) . '"/>'
 					);
 					$this->getDocument()->addCustomTag('<meta property="og:audio:title" content="' . $this->escape($this->item->title) . '"/>');
 

@@ -16,6 +16,7 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Session\Session;
+use Sermonspeaker\Component\Sermonspeaker\Site\Helper\RouteHelper;
 
 $app = Factory::getApplication();
 
@@ -23,8 +24,6 @@ if ($app->isClient('site'))
 {
 	Session::checkToken('get') or die(Text::_('JINVALID_TOKEN'));
 }
-
-JLoader::register('SermonspeakerHelperRoute', JPATH_ROOT . '/components/com_sermonspeaker/helpers/route.php');
 
 HTMLHelper::addIncludePath(JPATH_COMPONENT . '/helpers/html');
 
@@ -106,7 +105,7 @@ $multilang = Multilanguage::isEnabled();
 								</span>
 							</td>
 							<th scope="row">
-								<a href="#" onclick="if (window.parent) window.parent.<?php echo $this->escape($function); ?>('<?php echo $item->id; ?>', '<?php echo $this->escape(addslashes($item->title)); ?>', '<?php echo $this->escape($item->catid); ?>', '<?php echo $this->escape(SermonspeakerHelperRoute::getSermonRoute($item->id)); ?>', document.getElementById('mode').value);">
+								<a href="#" onclick="if (window.parent) window.parent.<?php echo $this->escape($function); ?>('<?php echo $item->id; ?>', '<?php echo $this->escape(addslashes($item->title)); ?>', '<?php echo $this->escape($item->catid); ?>', '<?php echo $this->escape(RouteHelper::getSermonRoute($item->id)); ?>', document.getElementById('mode').value);">
 									<?php echo $this->escape($item->title); ?></a>
 								<span class="small break-word">
 									<?php if (empty($item->note)) : ?>

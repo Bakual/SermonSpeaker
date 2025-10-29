@@ -9,14 +9,20 @@
 
 namespace Sermonspeaker\Component\Sermonspeaker\Site\View\Speaker;
 
+use Exception;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Helper\TagsHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
+use Joomla\CMS\Pagination\Pagination;
 use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
+use Joomla\Registry\Registry;
+use Sermonspeaker\Component\Sermonspeaker\Site\Helper\SermonspeakerHelper;
+use Sermonspeaker\Component\Sermonspeaker\Site\Model\SpeakerModel;
+use stdClass;
 
 defined('_JEXEC') or die();
 
@@ -28,40 +34,40 @@ defined('_JEXEC') or die();
 class HtmlView extends BaseHtmlView
 {
 	/**
-	 * @var   stdClass
+	 * @var   \stdClass
 	 * @since 6
 	 */
-	protected $item;
+	protected stdClass $item;
 
 	/**
 	 * @var   \Joomla\Registry\Registry
 	 * @since 6
 	 */
-	protected $state_sermons;
+	protected Registry $state_sermons;
 
 	/**
 	 * @var   \Joomla\CMS\Pagination\Pagination
 	 * @since 6
 	 */
-	protected $pag_sermons;
+	protected Pagination $pag_sermons;
 
 	/**
 	 * @var   \Joomla\Registry\Registry
 	 * @since 6
 	 */
-	protected $state_series;
+	protected Registry $state_series;
 
 	/**
 	 * @var   \Joomla\CMS\Pagination\Pagination
 	 * @since 6
 	 */
-	protected $pag_series;
+	protected Pagination $pag_series;
 
 	/**
 	 * @var  \Joomla\Registry\Registry
 	 * @since 6
 	 */
-	protected $params;
+	protected Registry $params;
 
 	/**
 	 * Execute and display a template script.
@@ -73,7 +79,7 @@ class HtmlView extends BaseHtmlView
 	 * @throws \Exception
 	 * @since ?
 	 */
-	public function display($tpl = null)
+	public function display($tpl = null): void
 	{
 		$app = Factory::getApplication();
 
@@ -84,8 +90,10 @@ class HtmlView extends BaseHtmlView
 		}
 
 		// Get data from the model
-		$state         = $this->get('State');
-		$this->item    = $this->get('Item');
+		/** @var SpeakerModel $model */
+		$model = $this->getModel();
+		$state         = $model->getState();
+		$this->item    = $model->getItem();
 		$user          = Factory::getApplication()->getIdentity();
 		$this->params  = $state->get('params');
 		$this->columns = $this->params->get('col_speaker');
@@ -205,7 +213,7 @@ class HtmlView extends BaseHtmlView
 		}
 
 		// Check for errors.
-		if (count($errors = $this->get('Errors')))
+		if (count($errors = $model->getErrors()))
 		{
 			throw new Exception(implode("\n", $errors), 500);
 		}
@@ -234,23 +242,15 @@ class HtmlView extends BaseHtmlView
 
 		foreach ($books as $book)
 		{
-			switch ($book)
+			$group = match ($book)
 			{
-				case ($book < 40):
-					$group = 'OLD_TESTAMENT';
-					break;
-				case ($book < 67):
-					$group = 'NEW_TESTAMENT';
-					break;
-				case ($book < 74):
-					$group = 'APOCRYPHA';
-					break;
-				default:
-					$group = 'CUSTOMBOOKS';
-					break;
-			}
+				$book < 40 => 'OLD_TESTAMENT',
+				$book < 67 => 'NEW_TESTAMENT',
+				$book < 74 => 'APOCRYPHA',
+				default => 'CUSTOMBOOKS',
+			};
 
-			$object                    = new \stdClass;
+			$object                    = new stdClass;
 			$object->value             = $book;
 			$object->text              = Text::_('COM_SERMONSPEAKER_BOOK_' . $book);
 			$groups[$group]['items'][] = $object;
@@ -275,7 +275,7 @@ class HtmlView extends BaseHtmlView
 		$this->item->bio = $this->item->text;
 
 		// Store the events for later
-		$this->item->event                    = new \stdClass;
+		$this->item->event                    = new stdClass;
 		$results                              = $app->triggerEvent('onContentAfterTitle', array('com_sermonspeaker.speaker', &$this->item, &$this->params, 0));
 		$this->item->event->afterDisplayTitle = trim(implode("\n", $results));
 
@@ -288,7 +288,7 @@ class HtmlView extends BaseHtmlView
 		// Trigger events for Sermons.
 		foreach ($this->sermons as $item)
 		{
-			$item->event = new \stdClass;
+			$item->event = new stdClass;
 
 			// Old plugins: Ensure that text property is available
 			$item->text = $item->notes;
@@ -311,7 +311,7 @@ class HtmlView extends BaseHtmlView
 		// Trigger events for Series.
 		foreach ($this->series as $item)
 		{
-			$item->event = new \stdClass;
+			$item->event = new stdClass;
 
 			// Old plugins: Ensure that text property is available
 			$item->text = $item->series_description;
@@ -343,6 +343,7 @@ class HtmlView extends BaseHtmlView
 	 *
 	 * @return  void
 	 *
+	 * @throws \Exception
 	 * @since ?
 	 */
 	protected function _prepareDocument()
@@ -415,7 +416,7 @@ class HtmlView extends BaseHtmlView
 
 			if ($this->item->pic)
 			{
-				$this->getDocument()->addCustomTag('<meta property="og:image" content="' . Sermonspeaker\Component\Sermonspeaker\Site\Helper\SermonspeakerHelper::makeLink($this->item->pic, true) . '"/>');
+				$this->getDocument()->addCustomTag('<meta property="og:image" content="' . SermonspeakerHelper::makeLink($this->item->pic, true) . '"/>');
 			}
 		}
 	}

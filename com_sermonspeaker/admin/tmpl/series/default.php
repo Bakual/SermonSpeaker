@@ -19,8 +19,6 @@ use Joomla\CMS\Router\Route;
 use Joomla\CMS\Session\Session;
 use Joomla\CMS\Uri\Uri;
 
-HTMLHelper::addIncludePath(JPATH_COMPONENT . '/helpers/html');
-
 HTMLHelper::_('bootstrap.tooltip', '.hasTooltip');
 HTMLHelper::_('behavior.multiselect');
 

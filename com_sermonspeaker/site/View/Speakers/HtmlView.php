@@ -15,6 +15,7 @@ use Joomla\CMS\Helper\TagsHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Sermonspeaker\Component\Sermonspeaker\Site\Model\SpeakersModel;
+use stdClass;
 
 defined('_JEXEC') or die();
 
@@ -101,7 +102,7 @@ class HtmlView extends BaseHtmlView
 		// Run plugin events for each item.
 		foreach ($this->items as $item)
 		{
-			$item->event = new \stdClass;
+			$item->event = new stdClass;
 
 			// Old plugins: Ensure that text property is available
 			$item->text = $item->intro;

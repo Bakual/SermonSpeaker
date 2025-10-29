@@ -18,7 +18,6 @@ use Joomla\CMS\Toolbar\Toolbar;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 use Sermonspeaker\Component\Sermonspeaker\Administrator\Helper\SermonspeakerHelper;
 use Sermonspeaker\Component\Sermonspeaker\Site\Helper\RouteHelper;
-use SermonspeakerHelperRoute;
 
 defined('_JEXEC') or die;
 
