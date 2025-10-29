@@ -138,7 +138,7 @@ class ComposerCommands
 		// Falls Verzeichnis nicht geoeffnet werden kann, mit Fehlermeldung terminieren
 		if (!$dir_handle)
 		{
-			return false;
+			return;
 		}
 
 		while ($file = readdir($dir_handle))
@@ -165,6 +165,6 @@ class ComposerCommands
 
 		echo "Directory deleted! ({$dir})\n";
 
-		return true;
+		return;
 	}
 }
