@@ -173,7 +173,7 @@ class Icon
 			&& $item->checked_out > 0 && $item->checked_out != $user->id
 		)
 		{
-			$checkoutUser = Factory::getApplication()->getIdentity($item->checked_out);
+			$checkoutUser = Factory::getUser($item->checked_out);
 			$button       = HTMLHelper::_('image', 'system/checked_out.png', null, null, true);
 			$date         = HTMLHelper::_('date', $item->checked_out_time);
 			$tooltip      = Text::_('JLIB_HTML_CHECKED_OUT') . ' :: ' . Text::sprintf('COM_SERMONSPEAKER_CHECKED_OUT_BY', $checkoutUser->name)
