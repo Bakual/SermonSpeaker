@@ -271,7 +271,14 @@ $this->getDocument()->addScriptDeclaration("window.onload = function() {
 									<?php endif; ?>
 
 									<div class="item-content">
-										<h2><?php echo $item->title; ?></h2>
+										<h2><a href="<?php echo Route::_(Sermonspeaker\Component\Sermonspeaker\Site\Helper\RouteHelper::getSerieRoute($item->slug, $item->catid, $item->language)); ?>">
+												<?php echo $item->title; ?></a></h2>
+										<?php if ($canEdit or ($canEditOwn and ($user->id == $item->created_by))) : ?>
+											<span class="list-edit">
+											<?php echo LayoutHelper::render('icons.edit', ['item' => $item, 'params' => $this->params, 'type' => 'serie', 'hide_text' => true]); ?>
+										</span>
+											<?php echo LayoutHelper::render('blocks.state_info', array('item' => $item, 'show' => true)); ?>
+										<?php endif; ?>
 										<?php if (in_array('speaker:speaker', $this->col_serie) and $item->speakers) : ?>
 											<small class="com-sermonspeaker-speaker createdby">
 												<?php echo Text::_('COM_SERMONSPEAKER_SPEAKERS'); ?>:
