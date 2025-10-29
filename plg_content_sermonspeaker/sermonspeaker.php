@@ -65,8 +65,6 @@ class PlgContentSermonspeaker extends CMSPlugin
 		if ($matches)
 		{
 			$default_mode = $this->params->get('mode', 1);
-			require_once JPATH_ROOT . '/components/com_sermonspeaker/helpers/sermonspeaker.php';
-			require_once JPATH_ROOT . '/components/com_sermonspeaker/helpers/route.php';
 
 			$db = Factory::getDbo();
 
