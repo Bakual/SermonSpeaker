@@ -52,7 +52,7 @@ class PlgContentSermonspeaker extends CMSPlugin
 		}
 
 		// Simple performance check to determine whether bot should process further
-		if (strpos($item->text, 'sermonspeaker') === false)
+		if (!str_contains($item->text, 'sermonspeaker'))
 		{
 			return;
 		}

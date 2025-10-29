@@ -142,7 +142,7 @@ class Router extends RouterBase
 				|| $view == 'speaker'
 			)
 			{
-				if (strpos($query['id'], ':') === false)
+				if (!str_contains($query['id'], ':'))
 				{
 					$db      = Factory::getDbo();
 					$dbQuery = $db->getQuery(true)

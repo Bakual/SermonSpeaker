@@ -37,7 +37,7 @@ class FilesModel extends BaseDatabaseModel
 
 		foreach ($files as $key => $value)
 		{
-			if (strpos($value, JPATH_SITE) === 0)
+			if (str_starts_with($value, JPATH_SITE))
 			{
 				$value = substr($value, $start);
 			}
@@ -51,7 +51,7 @@ class FilesModel extends BaseDatabaseModel
 			}
 
 			$ext                 = File::getExt($value);
-			$items[$key]['file'] = (strpos($value, 'http') === 0) ? $value : '/' . $value;
+			$items[$key]['file'] = (str_starts_with($value, 'http')) ? $value : '/' . $value;
 
 			if (in_array($ext, $audio_ext))
 			{

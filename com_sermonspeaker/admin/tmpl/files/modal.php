@@ -47,7 +47,7 @@ $session = Factory::getApplication()->getSession();
 						</a>
 					</td>
 					<td class="text-center">
-						<?php if (strpos($item['file'], 'http') !== 0) : ?>
+						<?php if (!str_starts_with($item['file'], 'http')) : ?>
 							<a href="index.php?option=com_sermonspeaker&task=tools.delete&file=<?php echo $item['file'] . '&' . $session->getName() . '=' . $session->getId() . '&' . Session::getFormToken(); ?>=1"
 							   target="_parent">
 								<span class="fas fa-trash fa-lg text-danger hasTooltip"

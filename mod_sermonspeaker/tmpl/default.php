@@ -46,7 +46,7 @@ $level = 1;
 				if ($item->pic) :
 					$pic = $item->pic;
 
-					if (strpos($pic, 'http://') !== 0) :
+					if (!str_starts_with($pic, 'http://')) :
 						$pic = Uri::root() . trim($pic, ' /');
 					endif;
 					$tip = '<div class="clearfix"><img src="' . $pic . '" alt="" class="pull-right img-rounded">' . $tip . '</div>';

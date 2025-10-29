@@ -121,7 +121,7 @@ class ComposerCommands
 		{
 			if ($file != "." && $file != "..")
 			{
-				if (is_dir($dir . "/" . $file) && (strpos($file, $except) === false))
+				if (is_dir($dir . "/" . $file) && (!str_contains($file, $except)))
 				{
 					echo "Directory: ({$dir}) matches " . (int) strpos($dir, $except) . "\n";
 

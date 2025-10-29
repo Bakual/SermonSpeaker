@@ -213,7 +213,7 @@ class RawView extends BaseHtmlView
 			if (parse_url($file, PHP_URL_SCHEME))
 			{
 				// External link
-				if ((strpos($file, 'http://vimeo.com') === 0) || (strpos($file, 'http://player.vimeo.com') === 0))
+				if ((str_starts_with($file, 'http://vimeo.com')) || (str_starts_with($file, 'http://player.vimeo.com')))
 				{
 					// Vimeo
 					$id                = trim(strrchr($file, '/'), '/ ');

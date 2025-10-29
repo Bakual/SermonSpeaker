@@ -375,7 +375,7 @@ class ToolsController extends BaseController
 					ob_start();
 					$pic = $item->picture;
 
-					if (substr($pic, 0, 1) == '/')
+					if (str_starts_with($pic, '/'))
 					{
 						$pic = substr($pic, 1);
 					}

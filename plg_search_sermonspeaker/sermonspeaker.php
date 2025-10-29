@@ -142,7 +142,7 @@ class PlgSearchSermonspeaker extends CMSPlugin
 		{
 			foreach ($areas as $key => $value)
 			{
-				if (strpos($value, 'spspeakers-') === 0)
+				if (str_starts_with($value, 'spspeakers-'))
 				{
 					$speakers[] = (int) substr($value, 11);
 				}
@@ -164,7 +164,7 @@ class PlgSearchSermonspeaker extends CMSPlugin
 
 					foreach ($books as $key => $value)
 					{
-						if (strpos($value, $text) !== false)
+						if (str_contains($value, $text))
 						{
 							$book_ids[] = $key;
 						}
@@ -193,7 +193,7 @@ class PlgSearchSermonspeaker extends CMSPlugin
 
 						foreach ($books as $key => $value)
 						{
-							if (strpos($value, $text) !== false)
+							if (str_contains($value, $text))
 							{
 								$book_ids[] = $key;
 							}
