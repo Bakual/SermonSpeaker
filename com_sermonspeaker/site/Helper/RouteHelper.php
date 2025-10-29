@@ -430,7 +430,7 @@ abstract class RouteHelper
 
 			foreach ($items as $item)
 			{
-				if (isset($item->query) && isset($item->query['view']))
+				if (isset($item->query['view']))
 				{
 					$view = $item->query['view'];
 
