@@ -7,7 +7,7 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
-defined('_JEXEC') or die;
+namespace Sermonspeaker\Component\Sermonspeaker\Administrator\Table;
 
 use Joomla\CMS\Application\ApplicationHelper;
 use Joomla\CMS\Factory;
@@ -19,6 +19,8 @@ use Joomla\CMS\Versioning\VersionableTableInterface;
 use Joomla\Registry\Registry;
 use Joomla\String\StringHelper;
 
+defined('_JEXEC') or die;
+
 /**
  * Serie Table class
  *
@@ -26,7 +28,7 @@ use Joomla\String\StringHelper;
  *
  * @since    ?
  */
-class SermonspeakerTableSerie extends Table implements VersionableTableInterface, TaggableTableInterface
+class SerieTable extends Table implements VersionableTableInterface, TaggableTableInterface
 {
 	use TaggableTableTrait;
 
@@ -194,7 +196,7 @@ class SermonspeakerTableSerie extends Table implements VersionableTableInterface
 	public function store($updateNulls = false)
 	{
 		$date = Factory::getDate();
-		$user = Factory::getUser();
+		$user = Factory::getApplication()->getIdentity();
 
 		if ($this->id)
 		{
