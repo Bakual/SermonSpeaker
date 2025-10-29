@@ -435,7 +435,6 @@ class ToolsController extends BaseController
 			else
 			{
 				$app->enqueueMessage(Text::_('JERROR_ALERTNOAUTHOR') . ' - ' . $item->title, 'error');
-				continue;
 			}
 		}
 		$app->redirect('index.php?option=com_sermonspeaker&view=tools');

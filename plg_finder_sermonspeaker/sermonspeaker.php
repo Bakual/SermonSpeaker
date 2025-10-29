@@ -204,8 +204,6 @@ class PlgFinderSermonspeaker extends Adapter
 				$this->categoryAccessChange($row);
 			}
 		}
-
-		return;
 	}
 
 	/**
