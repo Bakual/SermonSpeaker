@@ -184,7 +184,6 @@ class PlgSearchSermonspeaker extends CMSPlugin
 				case 'any':
 				default:
 					$words  = explode(' ', $text);
-					$wheres = array();
 
 					foreach ($words as $word)
 					{
@@ -296,7 +295,6 @@ class PlgSearchSermonspeaker extends CMSPlugin
 				case 'any':
 				default:
 					$words  = explode(' ', $text);
-					$wheres = array();
 
 					foreach ($words as $word)
 					{
@@ -386,7 +384,6 @@ class PlgSearchSermonspeaker extends CMSPlugin
 				case 'any':
 				default:
 					$words  = explode(' ', $text);
-					$wheres = array();
 
 					foreach ($words as $word)
 					{
