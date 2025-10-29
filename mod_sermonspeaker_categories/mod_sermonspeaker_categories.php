@@ -15,7 +15,7 @@ JLoader::discover('SermonspeakerHelper', JPATH_SITE . '/components/com_sermonspe
 
 $cacheid = md5($module->id);
 
-$cacheparams               = new \stdClass;
+$cacheparams               = new stdClass;
 $cacheparams->cachemode    = 'id';
 $cacheparams->class        = 'Bakual\Module\SermonspeakerCategories\Site\Helper\SermonspeakerCategoriesHelper';
 $cacheparams->method       = 'getList';

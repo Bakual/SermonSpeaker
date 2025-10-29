@@ -23,7 +23,7 @@ use Sermonspeaker\Component\Sermonspeaker\Administrator\Helper\AssociationsHelpe
 use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;
 
-\defined('_JEXEC') or die;
+defined('_JEXEC') or die;
 
 /**
  * The Sermonspeaker service provider.
