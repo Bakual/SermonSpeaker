@@ -960,18 +960,6 @@
 		</field>
 
 		<field
-			name="enable_non_flash"
-			type="radio"
-			label="COM_SERMONSPEAKER_FIELD_ENABLE_NON_FLASH_UPLOADER_LABEL"
-			description="COM_SERMONSPEAKER_FIELD_ENABLE_NON_FLASH_UPLOADER_DESC"
-			layout="joomla.form.field.radio.switcher"
-			default="1"
-		>
-			<option value="0">JNO</option>
-			<option value="1">JYES</option>
-		</field>
-
-		<field
 			name="audio_filetypes"
 			type="textarea"
 			label="COM_SERMONSPEAKER_FIELD_AUDIO_FILETYPES_LABEL"
