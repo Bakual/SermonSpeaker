@@ -82,7 +82,7 @@ class HtmlView extends BaseHtmlView
 
 		// Initialise variables.
 		$params     = $this->state->get('params');
-		$this->user = Factory::getUser();
+		$this->user = Factory::getApplication()->getIdentity();
 		$groups     = $this->user->getAuthorisedViewLevels();
 
 		// Check if access is not public

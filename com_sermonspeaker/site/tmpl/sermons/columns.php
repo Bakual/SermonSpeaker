@@ -16,13 +16,12 @@ use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
 use Joomla\Filesystem\File;
-
-HTMLHelper::addIncludePath(JPATH_BASE . '/components/com_sermonspeaker/helpers');
+use Sermonspeaker\Component\Sermonspeaker\Site\Helper\SermonspeakerHelper;
 
 HTMLHelper::_('bootstrap.tooltip', '.hasTooltip');
 HTMLHelper::_('stylesheet', 'com_sermonspeaker/columns.css', array('relative' => true));
 
-$user       = Factory::getUser();
+$user       = Factory::getApplication()->getIdentity();
 $canEdit    = $user->authorise('core.edit', 'com_sermonspeaker');
 $canEditOwn = $user->authorise('core.edit.own', 'com_sermonspeaker');
 $limit      = (int) $this->params->get('limit', '');
@@ -111,7 +110,7 @@ $player     = SermonspeakerHelper::getPlayer($this->items);
 						<?php
 						if (in_array('sermons:date', $this->columns) and ($item->sermon_date != '0000-00-00 00:00:00')) : ?>
 							<div class="create">
-								<?php echo HTMLHelper::date($item->sermon_date, Text::_('DATE_FORMAT_LC1'), true); ?>
+								<?php echo HTMLHelper::date($item->sermon_date, Text::_('DATE_FORMAT_LC1')); ?>
 							</div>
 						<?php endif;
 

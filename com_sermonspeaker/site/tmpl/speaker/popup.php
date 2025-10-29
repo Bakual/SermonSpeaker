@@ -14,10 +14,11 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
+use Sermonspeaker\Component\Sermonspeaker\Site\Helper\SermonspeakerHelper;
 
 HTMLHelper::_('bootstrap.tooltip', '.hasTooltip');
 
-$user = Factory::getUser();
+$user = Factory::getApplication()->getIdentity();
 
 if (!$this->item->pic)
 {

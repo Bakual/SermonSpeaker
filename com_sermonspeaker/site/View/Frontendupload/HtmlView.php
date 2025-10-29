@@ -106,7 +106,7 @@ class HtmlView extends BaseHtmlView
 			$app->login($credentials);
 		}
 
-		$this->user = Factory::getUser();
+		$this->user = Factory::getApplication()->getIdentity();
 
 		// Get model data.
 		$this->state       = $this->get('State');

@@ -16,8 +16,8 @@ use Joomla\CMS\Router\Route;
 
 HTMLHelper::_('bootstrap.collapse');
 
-$lang   = Factory::getLanguage();
-$user   = Factory::getUser();
+$lang   = Factory::getApplication()->getLanguage();
+$user   = Factory::getApplication()->getIdentity();
 $groups = $user->getAuthorisedViewLevels();
 ?>
 

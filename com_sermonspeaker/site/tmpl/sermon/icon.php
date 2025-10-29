@@ -13,6 +13,7 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
+use Sermonspeaker\Component\Sermonspeaker\Site\Helper\SermonspeakerHelper;
 
 defined('_JEXEC') or die();
 
@@ -20,7 +21,7 @@ HTMLHelper::_('stylesheet', 'com_sermonspeaker/icon.css', array('relative' => tr
 HTMLHelper::addIncludePath(JPATH_BASE . '/components/com_sermonspeaker/helpers');
 HTMLHelper::_('bootstrap.tooltip', '.hasTooltip');
 
-$user       = Factory::getUser();
+$user       = Factory::getApplication()->getIdentity();
 $fu_enable  = $this->params->get('fu_enable');
 $canEdit    = ($fu_enable and $user->authorise('core.edit', 'com_sermonspeaker'));
 $canEditOwn = ($fu_enable and $user->authorise('core.edit.own', 'com_sermonspeaker'));
@@ -122,7 +123,7 @@ $player     = SermonspeakerHelper::getPlayer($this->item, $config);
 					 title="<?php echo Text::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL'); ?>">
 					<time datetime="<?php echo HTMLHelper::_('date', $this->item->sermon_date, 'c'); ?>"
 						  itemprop="dateCreated">
-						<?php echo HTMLHelper::date($this->item->sermon_date, Text::_('DATE_FORMAT_LC1'), true); ?>
+						<?php echo HTMLHelper::date($this->item->sermon_date, Text::_('DATE_FORMAT_LC1')); ?>
 					</time>
 				</div>
 			<?php endif;
@@ -193,7 +194,7 @@ $player     = SermonspeakerHelper::getPlayer($this->item, $config);
 		<div class="jcomments">
 			<?php
 			require_once $comments;
-			echo JComments::showComments($this->item->id, 'com_sermonspeaker', $this->item->title); ?>
+			echo \JComments::showComments($this->item->id, 'com_sermonspeaker', $this->item->title); ?>
 		</div>
 	<?php endif; ?>
 </div>

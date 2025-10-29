@@ -14,8 +14,9 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
+use Sermonspeaker\Component\Sermonspeaker\Site\Helper\SermonspeakerHelper;
 
-$user       = Factory::getUser();
+$user       = Factory::getApplication()->getIdentity();
 $showState  = $user->authorise('core.edit', 'com_sermonspeaker');
 $fu_enable  = $this->params->get('fu_enable');
 $canEdit    = ($fu_enable and $user->authorise('core.edit', 'com_sermonspeaker'));
@@ -45,7 +46,7 @@ $htag       = $this->params->get('show_page_heading') ? 'h2' : 'h1';
 		<?php endif; ?>
 	</div>
 </div>
-<?php echo LayoutHelper::render('blocks.state_info', array('item' => $this->item, 'show' => Factory::getUser()->authorise('core.edit', 'com_sermonspeaker'))); ?>
+<?php echo LayoutHelper::render('blocks.state_info', array('item' => $this->item, 'show' => Factory::getApplication()->getIdentity()->authorise('core.edit', 'com_sermonspeaker'))); ?>
 
 <?php if ($this->item->pic) : ?>
 	<div class="img-thumbnail float-end item-image m-1">

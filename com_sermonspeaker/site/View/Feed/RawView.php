@@ -68,7 +68,7 @@ class RawView extends BaseHtmlView
 		}
 
 		// Check if access is not public
-		$user   = Factory::getUser();
+		$user   = Factory::getApplication()->getIdentity();
 		$groups = $user->getAuthorisedViewLevels();
 
 		if (!in_array($this->params->get('access'), $groups))

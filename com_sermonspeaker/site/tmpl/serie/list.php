@@ -14,12 +14,11 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Uri\Uri;
-
-HTMLHelper::addIncludePath(JPATH_BASE . '/components/com_sermonspeaker/helpers');
+use Sermonspeaker\Component\Sermonspeaker\Site\Helper\SermonspeakerHelper;
 
 HTMLHelper::_('bootstrap.tooltip', '.hasTooltip');
 
-$user       = Factory::getUser();
+$user       = Factory::getApplication()->getIdentity();
 $showState  = $user->authorise('core.edit', 'com_sermonspeaker');
 $fu_enable  = $this->params->get('fu_enable');
 $canEdit    = ($fu_enable and $user->authorise('core.edit', 'com_sermonspeaker'));
@@ -114,7 +113,7 @@ $prio       = $this->params->get('fileprio');
 							<?php if (in_array('serie:date', $this->columns) and ($item->sermon_date != '0000-00-00 00:00:00')) : ?>
 								<span class="ss-date float-end">
 									<small class="text-muted">
-										<?php echo HTMLHelper::date($item->sermon_date, Text::_($this->params->get('date_format')), true); ?>
+										<?php echo HTMLHelper::date($item->sermon_date, Text::_($this->params->get('date_format'))); ?>
 									</small>
 								</span>
 							<?php endif; ?>

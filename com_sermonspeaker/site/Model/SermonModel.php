@@ -36,7 +36,7 @@ class SermonModel extends ItemModel
 	 */
 	public function &getItem($id = null)
 	{
-		$user = Factory::getUser();
+		$user = Factory::getApplication()->getIdentity();
 
 		// Initialise variables.
 		$id = ($id) ? $id : (int) $this->getState('sermon.id');
@@ -182,7 +182,7 @@ class SermonModel extends ItemModel
 	 */
 	public function getLatest()
 	{
-		$levels = Factory::getUser()->getAuthorisedViewLevels();
+		$levels = Factory::getApplication()->getIdentity()->getAuthorisedViewLevels();
 		$db     = $this->getDatabase();
 		$query  = $db->getQuery(true);
 

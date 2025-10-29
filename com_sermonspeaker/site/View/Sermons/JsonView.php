@@ -67,7 +67,7 @@ class JsonView extends BaseHtmlView
 		}
 
 		// Check whether category access level allows access.
-		$user   = Factory::getUser();
+		$user   = Factory::getApplication()->getIdentity();
 		$groups = $user->getAuthorisedViewLevels();
 
 		if (!in_array($category->access, $groups))

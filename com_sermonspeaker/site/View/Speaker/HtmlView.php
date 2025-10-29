@@ -86,7 +86,7 @@ class HtmlView extends BaseHtmlView
 		// Get data from the model
 		$state         = $this->get('State');
 		$this->item    = $this->get('Item');
-		$user          = Factory::getUser();
+		$user          = Factory::getApplication()->getIdentity();
 		$this->params  = $state->get('params');
 		$this->columns = $this->params->get('col_speaker');
 
@@ -195,7 +195,7 @@ class HtmlView extends BaseHtmlView
 		// Update Statistic
 		if ($this->params->get('track_speaker'))
 		{
-			$user = Factory::getUser();
+			$user = Factory::getApplication()->getIdentity();
 
 			if (!$user->authorise('com_sermonspeaker.hit', 'com_sermonspeaker'))
 			{

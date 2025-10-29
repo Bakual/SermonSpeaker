@@ -15,8 +15,7 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
-
-HTMLHelper::addIncludePath(JPATH_BASE . '/components/com_sermonspeaker/helpers');
+use Sermonspeaker\Component\Sermonspeaker\Site\Helper\SermonspeakerHelper;
 
 $player = SermonspeakerHelper::getPlayer($this->items);
 ?>
@@ -63,7 +62,7 @@ $player = SermonspeakerHelper::getPlayer($this->items);
 
 									<?php if (in_array('speaker:date', $this->columns) and ($item->sermon_date != '0000-00-00 00:00:00')) : ?>
 										<?php echo Text::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL'); ?>:
-										<?php echo HTMLHelper::date($item->sermon_date, Text::_($this->params->get('date_format')), true); ?>
+										<?php echo HTMLHelper::date($item->sermon_date, Text::_($this->params->get('date_format'))); ?>
 										<br>
 									<?php endif; ?>
 

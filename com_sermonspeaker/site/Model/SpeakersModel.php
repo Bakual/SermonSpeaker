@@ -156,7 +156,7 @@ class SpeakersModel extends ListModel
 			// Compute selected asset permissions
 			if (is_object($this->item))
 			{
-				$user  = Factory::getUser();
+				$user  = Factory::getApplication()->getIdentity();
 				$asset = 'com_sermonspeaker.speakers.category.' . $this->item->id;
 
 				// Check general create permission
@@ -259,7 +259,7 @@ class SpeakersModel extends ListModel
 	 */
 	protected function getListQuery()
 	{
-		$user   = Factory::getUser();
+		$user   = Factory::getApplication()->getIdentity();
 		$groups = implode(',', $user->getAuthorisedViewLevels());
 
 		// Create a new query object.
@@ -409,7 +409,7 @@ class SpeakersModel extends ListModel
 		// Include Subcategories or not
 		$this->setState('filter.subcategories', $params->get('show_subcategory_content', 0));
 
-		$user = Factory::getUser();
+		$user = Factory::getApplication()->getIdentity();
 
 		if ((!$user->authorise('core.edit.state', 'com_sermonspeaker')) && (!$user->authorise('core.edit', 'com_sermonspeaker')))
 		{

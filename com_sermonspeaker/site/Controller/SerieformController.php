@@ -108,7 +108,7 @@ class SerieformController extends FormController
 
 		if ($categoryId)
 		{
-			$user = Factory::getUser();
+			$user = Factory::getApplication()->getIdentity();
 
 			// The category has been set. Check the category permissions.
 			if ($user->authorise('core.edit', $this->option . '.category.' . $categoryId))

@@ -46,7 +46,7 @@ class SerieController extends BaseController
 		}
 
 		$db     = Factory::getDbo();
-		$user   = Factory::getUser();
+		$user   = Factory::getApplication()->getIdentity();
 		$groups = implode(',', $user->getAuthorisedViewLevels());
 
 		// Checking if file needs to be prepared

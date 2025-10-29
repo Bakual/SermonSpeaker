@@ -52,7 +52,7 @@ class HtmlView extends BaseHtmlView
 		HTMLHelper::_('stylesheet', 'com_sermonspeaker/sermonspeaker.css', array('relative' => true));
 
 		// Initialise variables.
-		$user = Factory::getUser();
+		$user = Factory::getApplication()->getIdentity();
 
 		// Get some data from the model
 		$this->item = $this->get('Item');

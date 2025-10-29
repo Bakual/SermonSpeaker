@@ -53,7 +53,7 @@ class FileController extends BaseController
 		}
 
 		// Authorize User
-		$user = Factory::getUser();
+		$user = Factory::getApplication()->getIdentity();
 
 		if (!$user->authorise('core.create', 'com_sermonspeaker'))
 		{

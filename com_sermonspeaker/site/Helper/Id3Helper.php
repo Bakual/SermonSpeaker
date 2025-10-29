@@ -7,32 +7,36 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
-defined('_JEXEC') or die();
+namespace Sermonspeaker\Component\Sermonspeaker\Site\Helper;
 
+use getID3;
+use getid3_lib;
 use Joomla\CMS\Application\ApplicationHelper;
 use Joomla\CMS\Factory;
 use Joomla\Filesystem\File;
+
+defined('_JEXEC') or die();
 
 /**
  * Sermonspeaker Component ID3 Helper
  *
  * @since  3.4
  */
-class SermonspeakerHelperId3
+class Id3Helper
 {
 	/**
 	 * Read ID3 tags from file
 	 *
-	 * @param   string  $file    Path to the file
-	 * @param   object  $params  Params, deprecated
+	 * @param   string       $file    Path to the file
+	 * @param   object|null  $params  Params, deprecated
 	 *
 	 * @return array|bool
 	 *
 	 * @since ?
 	 */
-	public static function getID3($file, $params = null)
+	public static function getID3(string $file, object $params = null): bool|array
 	{
-		if (strpos($file, 'http://vimeo.com') === 0 || strpos($file, 'http://player.vimeo.com') === 0)
+		if (str_starts_with($file, 'http://vimeo.com') || str_starts_with($file, 'http://player.vimeo.com'))
 		{
 			return self::getVimeo($file);
 		}
@@ -122,31 +126,15 @@ class SermonspeakerHelperId3
 
 				// Check how much information is stored in that field. Can be anything from only a year up to full datetime.
 				$length = strlen($date);
-				switch ($length)
+				$id3['sermon_date'] = match ($length)
 				{
-					case 4:
-						// "2023" - Year only. Standard ID3v2.3
-						$id3['sermon_date'] = $date . '-01-01 00:00:00';
-						break;
-					case 8:
-						// "20231215" - This is not really a standard format, but we can support it.
-						$id3['sermon_date'] = substr($date, 0, 4) . '-' . substr($date, 4, 2) . '-' . substr($date, 6, 2) . ' 00:00:00';
-						break;
-					case 10:
-						// "2023-12-15" - Full Date. Standard ID3v2.4
-						$id3['sermon_date'] = $date . ' 00:00:00';
-						break;
-					case 16:
-						// "2023-12-15:10:00" - Full Date with HH:MM
-						$id3['sermon_date'] = substr($date, 0, 10) . ' ' . substr($date, 11, 5) . ':00';
-						break;
-					case 19:
-						// "2023-12-15:10:00:00" - Full Date with HH:MM:SS
-						$id3['sermon_date'] = substr($date, 0, 10) . ' ' . substr($date, 11, 8);
-						break;
-					default:
-						$id3['sermon_date'] = '';
-				}
+					4 => $date . '-01-01 00:00:00',
+					8 => substr($date, 0, 4) . '-' . substr($date, 4, 2) . '-' . substr($date, 6, 2) . ' 00:00:00',
+					10 => $date . ' 00:00:00',
+					16 => substr($date, 0, 10) . ' ' . substr($date, 11, 5) . ':00',
+					19 => substr($date, 0, 10) . ' ' . substr($date, 11, 8),
+					default => '',
+				};
 			}
 			else
 			{
@@ -237,16 +225,15 @@ class SermonspeakerHelperId3
 	 *
 	 * @param   string  $file  Path to the file
 	 *
-	 * @return  array|bool  Array of Vimeo informations
+	 * @return  array|bool  Array of Vimeo information
 	 *
 	 * @since ?
 	 */
-	private static function getVimeo($file)
+	private static function getVimeo(string $file): bool|array
 	{
 		$id  = trim(strrchr($file, '/'), '/ ');
 		$url = 'http://vimeo.com/api/v2/video/' . $id . '.xml';
 		$xml = simplexml_load_file($url);
-		/** @var SimpleXMLElement $video */
 		$video = $xml->video;
 
 		if (is_object($video))
@@ -254,7 +241,7 @@ class SermonspeakerHelperId3
 			$duration             = (string) $video->duration;
 			$hrs                  = (int) ($duration / 3600);
 			$min                  = (int) (($duration - $hrs * 3600) / 60);
-			$sec                  = (int) ($video->duration - $hrs * 3600 - $min * 60);
+			$sec                  = ((int) $video->duration - $hrs * 3600 - $min * 60);
 			$id3['sermon_time']   = $hrs . ':' . sprintf('%02d', $min) . ':' . sprintf('%02d', $sec);
 			$id3['title']         = (string) $video->title;
 			$id3['alias']         = ApplicationHelper::stringURLSafe($id3['title']);

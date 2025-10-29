@@ -15,15 +15,14 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
-
-HTMLHelper::addIncludePath(JPATH_BASE . '/components/com_sermonspeaker/helpers');
+use Sermonspeaker\Component\Sermonspeaker\Site\Helper\SermonspeakerHelper;
 
 HTMLHelper::_('bootstrap.tab');
 
 // Needed for pictures in blog layout
 HTMLHelper::_('stylesheet', 'com_sermonspeaker/blog.css', array('relative' => true));
 
-$user             = Factory::getUser();
+$user             = Factory::getApplication()->getIdentity();
 $showState        = $user->authorise('core.edit', 'com_sermonspeaker');
 $fu_enable        = $this->params->get('fu_enable');
 $canEdit          = ($fu_enable and $user->authorise('core.edit', 'com_sermonspeaker'));
@@ -137,7 +136,7 @@ $this->getDocument()->addScriptDeclaration("window.onload = function() {
 													<div class="create">
 														<span class="icon-calendar"></span>
 														<?php echo Text::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL'); ?>:
-														<?php echo HTMLHelper::date($item->sermon_date, Text::_($this->params->get('date_format')), true); ?>
+														<?php echo HTMLHelper::date($item->sermon_date, Text::_($this->params->get('date_format'))); ?>
 													</div>
 												</dd>
 											<?php endif; ?>

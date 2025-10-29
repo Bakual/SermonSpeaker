@@ -109,7 +109,7 @@ class FrontenduploadController extends FormController
 
 		if ($categoryId)
 		{
-			$user = Factory::getUser();
+			$user = Factory::getApplication()->getIdentity();
 
 			// The category has been set. Check the category permissions.
 			if ($user->authorise('core.edit', $this->option . '.category.' . $categoryId))
@@ -358,7 +358,7 @@ class FrontenduploadController extends FormController
 		$query->where('sermons.id = ' . $id);
 		$db->setQuery($query);
 		$item       = $db->loadObject();
-		$user       = Factory::getUser();
+		$user       = Factory::getApplication()->getIdentity();
 		$canEdit    = $user->authorise('core.edit', 'com_sermonspeaker.category.' . $item->catid);
 		$canEditOwn = $user->authorise('core.edit.own', 'com_sermonspeaker.category.' . $item->catid) && $item->created_by == $user->id;
 

@@ -13,6 +13,7 @@ use Joomla\CMS\Helper\MediaHelper;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
+use Sermonspeaker\Component\Sermonspeaker\Site\Helper\SermonspeakerHelper;
 
 /* @var  Joomla\Registry\Registry $params Component Parameters */
 $params = $this->params;
@@ -129,7 +130,7 @@ echo '<?xml version="1.0" encoding="utf-8" ?>'; ?>
 				?>
 				<dc:creator><?php echo $this->make_xml_safe($item->speaker_title); ?></dc:creator>
 				<description><?php echo $notes; ?></description>
-				<pubDate><?php echo HTMLHelper::date($item->sermon_date, 'r', true); ?></pubDate>
+				<pubDate><?php echo HTMLHelper::date($item->sermon_date, 'r'); ?></pubDate>
 				<?php
 				if ($enclosure = $this->getEnclosure($item)) : ?>
 					<enclosure url="<?php echo $enclosure['url']; ?>" length="<?php echo $enclosure['length']; ?>"

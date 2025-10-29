@@ -10,8 +10,8 @@
 defined('_JEXEC') or die();
 
 use Joomla\CMS\Factory;
-use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Layout\LayoutHelper;
+use Sermonspeaker\Component\Sermonspeaker\Site\Helper\SermonspeakerHelper;
 
 $config = array('type' => Factory::getApplication()->input->get('type', 'auto'));
 $player = SermonspeakerHelper::getPlayer($this->item, $config);

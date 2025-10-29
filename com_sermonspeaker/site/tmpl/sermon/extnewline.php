@@ -14,12 +14,13 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
+use Sermonspeaker\Component\Sermonspeaker\Site\Helper\SermonspeakerHelper;
 
 // HTMLHelper::_('stylesheet', 'com_sermonspeaker/sermonspeaker.css', array('relative' => true));
 HTMLHelper::addIncludePath(JPATH_BASE . '/components/com_sermonspeaker/helpers');
 HTMLHelper::_('bootstrap.tooltip', '.hasTooltip');
 
-$user       = Factory::getUser();
+$user       = Factory::getApplication()->getIdentity();
 $fu_enable  = $this->params->get('fu_enable');
 $canEdit    = ($fu_enable and $user->authorise('core.edit', 'com_sermonspeaker'));
 $canEditOwn = ($fu_enable and $user->authorise('core.edit.own', 'com_sermonspeaker'));
@@ -48,7 +49,7 @@ $player     = SermonspeakerHelper::getPlayer($this->item);
 				<div class="col-md-8">
 					<time datetime="<?php echo HTMLHelper::_('date', $this->item->sermon_date, 'c'); ?>"
 						  itemprop="dateCreated">
-						<?php echo HTMLHelper::date($this->item->sermon_date, Text::_($this->params->get('date_format')), true); ?>
+						<?php echo HTMLHelper::date($this->item->sermon_date, Text::_($this->params->get('date_format'))); ?>
 					</time>
 				</div>
 			<?php endif; ?>
@@ -160,7 +161,7 @@ $player     = SermonspeakerHelper::getPlayer($this->item);
 		<div class="jcomments">
 			<?php
 			require_once $comments;
-			echo JComments::showComments($this->item->id, 'com_sermonspeaker', $this->item->title); ?>
+			echo \JComments::showComments($this->item->id, 'com_sermonspeaker', $this->item->title); ?>
 		</div>
 	<?php endif; ?>
 </div>

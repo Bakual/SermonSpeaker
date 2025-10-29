@@ -36,7 +36,7 @@ class SpeakerModel extends ItemModel
 	 */
 	public function &getItem($id = null)
 	{
-		$user = Factory::getUser();
+		$user = Factory::getApplication()->getIdentity();
 
 		// Initialise variables.
 		$id = ($id) ? $id : (int) $this->getState('speaker.id');
