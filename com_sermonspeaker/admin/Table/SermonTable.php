@@ -126,10 +126,6 @@ class SermonTable extends Table implements VersionableTableInterface, TaggableTa
 			$this->publish_down = $temp;
 		}
 
-		// Make sure audio- and videofilesize are integers.
-		$this->audiofilesize = $this->audiofilesize;
-		$this->videofilesize = $this->videofilesize;
-
 		// Clean up keywords -- eliminate extra spaces between phrases
 		// and cr (\r) and lf (\n) characters from string
 		if (!empty($this->metakey))
