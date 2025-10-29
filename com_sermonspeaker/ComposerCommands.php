@@ -99,7 +99,7 @@ class ComposerCommands
 			if (file_exists($file))
 			{
 				unlink($file);
-				echo "File deleted! ({$file})\n";
+				echo "File deleted! ($file)\n";
 			}
 		}
 
@@ -123,7 +123,7 @@ class ComposerCommands
 			{
 				if (is_dir($dir . "/" . $file) && (!str_contains($file, $except)))
 				{
-					echo "Directory: ({$dir}) matches " . (int) strpos($dir, $except) . "\n";
+					echo "Directory: ($dir) matches " . (int) strpos($dir, $except) . "\n";
 
 					self::deleteDirectory($dir . '/' . $file);
 				}
@@ -163,7 +163,7 @@ class ComposerCommands
 		//Verzeichnis löschen
 		rmdir($dir);
 
-		echo "Directory deleted! ({$dir})\n";
+		echo "Directory deleted! ($dir)\n";
 
 		return;
 	}
