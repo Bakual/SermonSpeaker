@@ -17,6 +17,7 @@ use Joomla\CMS\Table\Table;
 use Joomla\CMS\Tag\TaggableTableInterface;
 use Joomla\CMS\Tag\TaggableTableTrait;
 use Joomla\CMS\Versioning\VersionableTableInterface;
+use Joomla\Database\DatabaseInterface;
 use Joomla\Registry\Registry;
 use Joomla\String\StringHelper;
 use Joomla\Utilities\ArrayHelper;
@@ -52,7 +53,7 @@ class SermonTable extends Table implements VersionableTableInterface, TaggableTa
 	/**
 	 * Constructor
 	 *
-	 * @param   JDatabaseDriver  $db  JDatabaseDriver object.
+	 * @param   DatabaseInterface  $db  Database connector object
 	 *
 	 * @since ?
 	 */
@@ -238,7 +239,7 @@ class SermonTable extends Table implements VersionableTableInterface, TaggableTa
 		}
 
 		// Verify that the alias is unique
-		$table = Table::getInstance('Sermon', 'SermonspeakerTable');
+		$table = new self($this->getDatabase());
 
 		if ($table->load(array('alias' => $this->alias, 'catid' => $this->catid)) && ($table->id != $this->id || $this->id == 0))
 		{
