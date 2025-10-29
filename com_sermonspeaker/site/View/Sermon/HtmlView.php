@@ -166,7 +166,7 @@ class HtmlView extends BaseHtmlView
 		$item->notes = $item->text;
 
 		// Store the events for later
-		$item->event                    = new stdClass;
+		$item->event                    = new \stdClass;
 		$results                        = $app->triggerEvent('onContentAfterTitle', array('com_sermonspeaker.sermon', &$item, &$params, 0));
 		$item->event->afterDisplayTitle = trim(implode("\n", $results));
 

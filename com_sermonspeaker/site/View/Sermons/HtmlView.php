@@ -15,6 +15,7 @@ use Joomla\CMS\Helper\TagsHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Router\Route;
+use Sermonspeaker\Component\Sermonspeaker\Site\Model\SermonsModel;
 use stdClass;
 
 defined('_JEXEC') or die();
@@ -39,22 +40,24 @@ class HtmlView extends BaseHtmlView
 	public function display($tpl = null): void
 	{
 		// Get some data from the models
-		$this->state      = $this->get('State');
-		$this->items      = $this->get('Items');
-		$this->pagination = $this->get('Pagination');
-		$this->years      = $this->get('Years');
-		$this->months     = $this->get('Months');
-		$books            = $this->get('Books');
-		$this->hasTags    = $this->get('Tags');
-		$this->filterForm = $this->get('FilterForm');
+		/** @var SermonsModel $model */
+		$model = $this->getModel();
+		$this->state      = $model->getState();
+		$this->items      = $model->getItems();
+		$this->pagination = $model->getPagination();
+		$this->years      = $model->getYears();
+		$this->months     = $model->getMonths();
+		$books            = $model->getBooks();
+		$this->hasTags    = $model->getTags();
+		$this->filterForm = $model->getFilterForm();
 
 		// Get Category stuff from models
-		$this->category       = $this->get('Category');
+		$this->category       = $model->getCategory();
 		$this->category->tags = new TagsHelper;
 		$this->category->tags->getItemTags('com_sermonspeaker.sermons.category', $this->category->id);
 
-		$children       = $this->get('Children');
-		$this->parent   = $this->get('Parent');
+		$children       = $model->getChildren();
+		$this->parent   = $model->getParent();
 		$this->children = array($this->category->id => $children);
 
 		// Add view to pagination, needed since it may be called from module?
@@ -81,7 +84,7 @@ class HtmlView extends BaseHtmlView
 		}
 
 		// Check for errors.
-		if (count($errors = $this->get('Errors')))
+		if (count($errors = $model->getErrors()))
 		{
 			throw new Exception(implode("\n", $errors), 500);
 		}
@@ -121,7 +124,7 @@ class HtmlView extends BaseHtmlView
 		// Run plugin events for each item.
 		foreach ($this->items as $item)
 		{
-			$item->event = new stdClass;
+			$item->event = new \stdClass;
 
 			// Old plugins: Ensure that text property is available
 			$item->text = $item->notes;
@@ -160,7 +163,7 @@ class HtmlView extends BaseHtmlView
 				default => 'CUSTOMBOOKS',
 			};
 
-			$object                    = new stdClass;
+			$object                    = new \stdClass;
 			$object->value             = $book;
 			$object->text              = Text::_('COM_SERMONSPEAKER_BOOK_' . $book);
 			$groups[$group]['items'][] = $object;

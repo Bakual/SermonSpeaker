@@ -9,10 +9,12 @@
 
 namespace Sermonspeaker\Component\Sermonspeaker\Site\View\Speakers;
 
+use Exception;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Helper\TagsHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
+use Sermonspeaker\Component\Sermonspeaker\Site\Model\SpeakersModel;
 
 defined('_JEXEC') or die();
 
@@ -33,20 +35,22 @@ class HtmlView extends BaseHtmlView
 	 * @throws \Exception
 	 * @since ?
 	 */
-	public function display($tpl = null)
+	public function display($tpl = null): void
 	{
 		// Get some data from the models
-		$this->state      = $this->get('State');
-		$this->items      = $this->get('Items');
-		$this->pagination = $this->get('Pagination');
-		$this->hasTags    = $this->get('Tags');
+		/** @var SpeakersModel $model */
+		$model = $this->getModel();
+		$this->state      = $model->getState();
+		$this->items      = $model->getItems();
+		$this->pagination = $model->getPagination();
+		$this->hasTags    = $model->getTags();
 
 		// Get Category stuff from models
-		$this->category       = $this->get('Category');
+		$this->category       = $model->getCategory();
 		$this->category->tags = new TagsHelper;
 		$this->category->tags->getItemTags('com_sermonspeaker.speakers.category', $this->category->id);
-		$children          = $this->get('Children');
-		$this->parent      = $this->get('Parent');
+		$children          = $model->getChildren();
+		$this->parent      = $model->getParent();
 		$this->children    = array($this->category->id => $children);
 		$this->params      = $this->state->get('params');
 		$this->col_speaker = $this->params->get('col_speaker');
@@ -57,7 +61,7 @@ class HtmlView extends BaseHtmlView
 		}
 
 		// Check for errors.
-		if (count($errors = $this->get('Errors')))
+		if (count($errors = $model->getErrors()))
 		{
 			throw new Exception(implode("\n", $errors), 500);
 		}
@@ -97,7 +101,7 @@ class HtmlView extends BaseHtmlView
 		// Run plugin events for each item.
 		foreach ($this->items as $item)
 		{
-			$item->event = new stdClass;
+			$item->event = new \stdClass;
 
 			// Old plugins: Ensure that text property is available
 			$item->text = $item->intro;

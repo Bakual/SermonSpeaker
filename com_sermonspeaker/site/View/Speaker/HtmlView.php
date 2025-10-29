@@ -141,7 +141,7 @@ class HtmlView extends BaseHtmlView
 		$sermon_model        = $this->getModel('Sermons');
 		$this->state_sermons = $sermon_model->getState();
 		$this->state_sermons->set('speaker.id', $state->get('speaker.id'));
-		$this->state_sermons->set('category.id', 0);
+		$this->state_sermons->set('category.sermons.id', 0);
 		$this->sermons     = $sermon_model->getItems();
 		$this->pag_sermons = $sermon_model->getPagination();
 		$this->years       = $sermon_model->getYears();
@@ -162,7 +162,7 @@ class HtmlView extends BaseHtmlView
 		$series_model       = $this->getModel('Series');
 		$this->state_series = $series_model->getState();
 		$this->state_series->set('speaker.id', $state->get('speaker.id'));
-		$this->state_series->set('category.id', 0);
+		$this->state_series->set('category.series.id', 0);
 		$this->series     = $series_model->getItems();
 		$this->pag_series = $series_model->getPagination();
 
@@ -250,7 +250,7 @@ class HtmlView extends BaseHtmlView
 					break;
 			}
 
-			$object                    = new stdClass;
+			$object                    = new \stdClass;
 			$object->value             = $book;
 			$object->text              = Text::_('COM_SERMONSPEAKER_BOOK_' . $book);
 			$groups[$group]['items'][] = $object;
@@ -275,7 +275,7 @@ class HtmlView extends BaseHtmlView
 		$this->item->bio = $this->item->text;
 
 		// Store the events for later
-		$this->item->event                    = new stdClass;
+		$this->item->event                    = new \stdClass;
 		$results                              = $app->triggerEvent('onContentAfterTitle', array('com_sermonspeaker.speaker', &$this->item, &$this->params, 0));
 		$this->item->event->afterDisplayTitle = trim(implode("\n", $results));
 
@@ -288,7 +288,7 @@ class HtmlView extends BaseHtmlView
 		// Trigger events for Sermons.
 		foreach ($this->sermons as $item)
 		{
-			$item->event = new stdClass;
+			$item->event = new \stdClass;
 
 			// Old plugins: Ensure that text property is available
 			$item->text = $item->notes;
@@ -311,7 +311,7 @@ class HtmlView extends BaseHtmlView
 		// Trigger events for Series.
 		foreach ($this->series as $item)
 		{
-			$item->event = new stdClass;
+			$item->event = new \stdClass;
 
 			// Old plugins: Ensure that text property is available
 			$item->text = $item->series_description;

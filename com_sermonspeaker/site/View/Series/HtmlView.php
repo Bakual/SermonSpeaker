@@ -125,7 +125,7 @@ class HtmlView extends BaseHtmlView
 		// Run plugin events for each item.
 		foreach ($this->items as $item)
 		{
-			$item->event = new stdClass;
+			$item->event = new \stdClass;
 
 			// Old plugins: Ensure that text property is available
 			$item->text = $item->series_description;

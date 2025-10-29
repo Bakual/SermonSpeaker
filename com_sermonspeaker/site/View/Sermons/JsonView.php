@@ -82,7 +82,7 @@ class JsonView extends BaseHtmlView
 
 		foreach ($items as $item)
 		{
-			$tmp                = new stdClass();
+			$tmp                = new \stdClass();
 			$tmp->id            = $item->id;
 			$tmp->title         = $item->title;
 			$tmp->alias         = $item->alias;
@@ -102,12 +102,12 @@ class JsonView extends BaseHtmlView
 			$tmp->scripture     = Sermonspeaker\Component\Sermonspeaker\Site\Helper\SermonspeakerHelper::buildScripture($item->scripture, false);
 
 			// Category
-			$tmp->category        = new stdClass();
+			$tmp->category        = new \stdClass();
 			$tmp->category->title = $item->category_title;
 			$tmp->category->slug  = $item->catslug;
 
 			// Speaker
-			$tmp->speaker        = new stdClass();
+			$tmp->speaker        = new \stdClass();
 			$tmp->speaker->title = $item->speaker_title;
 
 			// Show only details when speaker is published
@@ -121,7 +121,7 @@ class JsonView extends BaseHtmlView
 			}
 
 			// Series
-			$tmp->series        = new stdClass();
+			$tmp->series        = new \stdClass();
 			$tmp->series->title = $item->series_title;
 
 			// Show only details when series is published
