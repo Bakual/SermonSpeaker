@@ -173,9 +173,8 @@ class RawView extends BaseHtmlView
 	{
 		$string = strip_tags($string);
 		$string = html_entity_decode($string, ENT_NOQUOTES, 'UTF-8');
-		$string = htmlspecialchars($string, ENT_QUOTES, 'UTF-8', false);
 
-		return $string;
+		return htmlspecialchars($string, ENT_QUOTES, 'UTF-8', false);
 	}
 
 	/**

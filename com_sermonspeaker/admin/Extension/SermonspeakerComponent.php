@@ -168,12 +168,10 @@ class SermonspeakerComponent extends MVCComponent implements
 	{
 		Factory::getLanguage()->load('com_sermonspeaker', JPATH_ADMINISTRATOR);
 
-		$contexts = [
+		return [
 			'com_sermonspeaker.sermon'     => Text::_('COM_SERMONSPEAKER'),
 			'com_sermonspeaker.categories' => Text::_('JCATEGORY'),
 		];
-
-		return $contexts;
 	}
 
 	/**

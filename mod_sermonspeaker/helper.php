@@ -83,8 +83,7 @@ abstract class ModSermonspeakerHelper
 		}
 
 		$db->setQuery($query, 0, (int) $params->get('limit', 0));
-		$items = $db->loadObjectList();
 
-		return $items;
+		return $db->loadObjectList();
 	}
 }
