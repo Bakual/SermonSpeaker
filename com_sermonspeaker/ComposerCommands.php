@@ -164,7 +164,5 @@ class ComposerCommands
 		rmdir($dir);
 
 		echo "Directory deleted! ($dir)\n";
-
-		return;
 	}
 }
