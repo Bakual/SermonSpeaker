@@ -116,14 +116,4 @@ $player     = SermonspeakerHelper::getPlayer($this->item);
 		<?php endif;
 	endif; ?>
 	<?php echo $this->item->event->afterDisplayContent; ?>
-	<?php // Support for JComments
-	$comments = JPATH_BASE . '/components/com_jcomments/jcomments.php';
-
-	if ($this->params->get('enable_jcomments') && file_exists($comments)) : ?>
-		<div class="jcomments">
-			<?php
-			require_once $comments;
-			echo \JComments::showComments($this->item->id, 'com_sermonspeaker', $this->item->title); ?>
-		</div>
-	<?php endif; ?>
 </div>
