@@ -16,6 +16,8 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\FileLayout;
 use Joomla\CMS\Plugin\CMSPlugin;
 use Joomla\CMS\Router\Route;
+use Sermonspeaker\Component\Sermonspeaker\Site\Helper\SermonspeakerHelper;
+use Sermonspeaker\Component\Sermonspeaker\Site\Helper\RouteHelper;
 
 /**
  * Plug-in to show a SermonSpeaker player in an article
@@ -118,19 +120,19 @@ class PlgContentSermonspeaker extends CMSPlugin
 				{
 					case 1:
 					default:
-						$link   = Route::_(SermonspeakerHelperRoute::getSermonRoute($sermon->slug, $sermon->catid, $sermon->language));
+						$link   = Route::_(RouteHelper::getSermonRoute($sermon->slug, $sermon->catid, $sermon->language));
 						$output = '<a href="' . $link . '">' . $sermon->title . '</a>';
 						break;
 					case 2:
 						$config['count'] = '_plg_' . $sermon->id . '_' . $i;
-						$player          = SermonspeakerHelperSermonspeaker::getPlayer($sermon, $config);
+						$player          = SermonspeakerHelper::getPlayer($sermon, $config);
 						$output          = $player->mspace;
 						$output          .= $player->script;
 						break;
 					case 3:
 						$this->loadLanguage();
-						$link      = Route::_(SermonspeakerHelperRoute::getSermonRoute($sermon->slug, $sermon->catid, $sermon->language));
-						$serieslnk = Route::_(SermonspeakerHelperRoute::getSerieRoute($sermon->series_slug, $sermon->series_catid, $sermon->series_language));
+						$link      = Route::_(RouteHelper::getSermonRoute($sermon->slug, $sermon->catid, $sermon->language));
+						$serieslnk = Route::_(RouteHelper::getSerieRoute($sermon->series_slug, $sermon->series_catid, $sermon->series_language));
 						$contents  = '<div class="ss-content-plg">';
 						$contents  .= '<table class="table table-striped table-condensed">';
 
@@ -172,7 +174,7 @@ class PlgContentSermonspeaker extends CMSPlugin
 						if ($this->params->get('show_player'))
 						{
 							$config['count'] = '_plg_' . $sermon->id . '_' . $i;
-							$player          = SermonspeakerHelperSermonspeaker::getPlayer($sermon, $config);
+							$player          = SermonspeakerHelper::getPlayer($sermon, $config);
 							$contents        .= $player->mspace;
 							$contents        .= $player->script;
 						}

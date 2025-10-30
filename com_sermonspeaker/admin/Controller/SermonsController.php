@@ -17,6 +17,7 @@ use Joomla\CMS\Router\Route;
 use Joomla\CMS\Session\Session;
 use Joomla\Input\Input;
 use Joomla\Utilities\ArrayHelper;
+use Sermonspeaker\Component\Sermonspeaker\Administrator\Model\SermonModel;
 
 defined('_JEXEC') or die;
 
@@ -103,7 +104,7 @@ class SermonsController extends AdminController
 	 * @param   string  $prefix  The class prefix. Optional.
 	 * @param   array   $config  Configuration array for model. Optional.
 	 *
-	 * @return  SermonspeakerModelSermon|boolean  Model object on success; otherwise false on failure.
+	 * @return  SermonModel|boolean  Model object on success; otherwise false on failure.
 	 *
 	 * @since   4.5
 	 */

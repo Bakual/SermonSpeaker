@@ -12,6 +12,7 @@ namespace Sermonspeaker\Component\Sermonspeaker\Site\Model;
 use Joomla\CMS\Categories\Categories;
 use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Model\ListModel;
+use Joomla\Database\QueryInterface;
 use Joomla\Utilities\ArrayHelper;
 
 defined('_JEXEC') or die();
@@ -278,9 +279,9 @@ class SeriesModel extends ListModel
 	}
 
 	/**
-	 * Get the master query for retrieving a list of items subject to the model state.
+	 * Method to get an object implementing QueryInterface for retrieving the data set from a database.
 	 *
-	 * @return  JDatabaseQuery
+	 * @return  QueryInterface|string  An object implementing QueryInterface to retrieve the data set.
 	 *
 	 * @since ?
 	 */
@@ -434,7 +435,6 @@ class SeriesModel extends ListModel
 	 */
 	protected function populateState($ordering = null, $direction = null)
 	{
-		/** @var JApplicationSite $app */
 		$app    = Factory::getApplication();
 		$params = $app->getParams();
 		$this->setState('params', $params);

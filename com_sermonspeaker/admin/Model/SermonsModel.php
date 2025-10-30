@@ -15,6 +15,7 @@ use Joomla\CMS\Language\Associations;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Model\ListModel;
 use Joomla\CMS\Table\Table;
+use Joomla\Database\QueryInterface;
 
 defined('_JEXEC') or die;
 
@@ -252,7 +253,7 @@ class SermonsModel extends ListModel
 	/**
 	 * Build an SQL query to load the list data.
 	 *
-	 * @return  Joomla\Database\DatabaseQuery
+	 * @return  QueryInterface|string  An object implementing QueryInterface to retrieve the data set.
 	 * @since   1.6
 	 */
 	protected function getListQuery()

@@ -18,6 +18,7 @@ use Joomla\Component\Finder\Administrator\Indexer\Indexer;
 use Joomla\Component\Finder\Administrator\Indexer\Result;
 use Joomla\Database\DatabaseQuery;
 use Joomla\Registry\Registry;
+use Sermonspeaker\Component\Sermonspeaker\Site\Helper\RouteHelper;
 
 /**
  * Finder adapter for SermonSpeaker.
@@ -495,7 +496,7 @@ class PlgFinderSermonspeaker extends Adapter
 
 		// Build the necessary route and path information.
 		$method      = 'get' . ucfirst($this->layout) . 'Route';
-		$item->route = SermonspeakerHelperRoute::$method($item->slug, $item->catid, $item->language);
+		$item->route = RouteHelper::$method($item->slug, $item->catid, $item->language);
 
 		// Add the metadata processing instructions.
 		$item->addInstruction(FinderIndexer::META_CONTEXT, 'metakey');

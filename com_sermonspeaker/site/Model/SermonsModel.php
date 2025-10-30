@@ -603,7 +603,6 @@ class SermonsModel extends Listmodel
 	 */
 	protected function populateState($ordering = null, $direction = null)
 	{
-		/** @var JApplicationSite $app */
 		$app    = Factory::getApplication();
 		$params = $app->getParams();
 		$this->setState('params', $params);

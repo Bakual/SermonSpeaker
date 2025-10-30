@@ -25,7 +25,8 @@ use Joomla\CMS\Versioning\VersionableModelTrait;
 use Joomla\Filesystem\File;
 use Joomla\Registry\Registry;
 use Joomla\Utilities\ArrayHelper;
-use SermonspeakerHelperId3;
+use Sermonspeaker\Component\Sermonspeaker\Administrator\Table\SermonTable;
+use Sermonspeaker\Component\Sermonspeaker\Site\Helper\Id3Helper;
 
 /**
  * Item Model for a Sermon.
@@ -305,7 +306,7 @@ class SermonModel extends AdminModel
 	{
 		// Initialise variables.
 		$user = Factory::getApplication()->getIdentity();
-		/** @var SermonspeakerTableSermon $table */
+		/** @var SermonTable $table */
 		$table = $this->getTable();
 		$pks   = (array) $pks;
 
@@ -736,7 +737,7 @@ class SermonModel extends AdminModel
 
 			$params = ComponentHelper::getParams('com_sermonspeaker');
 
-			$id3 = SermonspeakerHelperId3::getID3($id3_file, $params);
+			$id3 = Id3Helper::getID3($id3_file, $params);
 
 			if ($id3)
 			{

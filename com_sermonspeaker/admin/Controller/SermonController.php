@@ -21,6 +21,7 @@ use Joomla\CMS\Router\Route;
 use Joomla\CMS\Session\Session;
 use Joomla\CMS\Versioning\VersionableControllerTrait;
 use Joomla\Utilities\ArrayHelper;
+use Sermonspeaker\Component\Sermonspeaker\Administrator\Model\SermonModel;
 
 defined('_JEXEC') or die;
 /**
@@ -56,7 +57,7 @@ class SermonController extends FormController
 			return;
 		}
 
-		/** @var SermonspeakerModelSermon $model */
+		/** @var SermonModel $model */
 		$model      = $this->getModel();
 		$item       = $model->getItem($id);
 		$user       = Factory::getApplication()->getIdentity();
@@ -161,7 +162,7 @@ class SermonController extends FormController
 		}
 
 		// Need to do a lookup from the model.
-		/** @var SermonspeakerModelSermon $model */
+		/** @var SermonModel $model */
 		$model      = $this->getModel();
 		$record     = $model->getItem($recordId);
 		$categoryId = (int) $record->catid;
@@ -321,9 +322,9 @@ class SermonController extends FormController
 		{
 			$files[] = $item->audiofile;
 			$files[] = $item->videofile;
-			$getID3  = new getID3;
+			$getID3  = new \getID3;
 			$getID3->setOption(array('encoding' => 'UTF-8'));
-			$writer             = new getid3_writetags;
+			$writer             = new \getid3_writetags;
 			$writer->tagformats = array('id3v2.3');
 
 			// False would merge, but is currently known to be buggy and throws an exception
