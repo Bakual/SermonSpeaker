@@ -21,6 +21,7 @@ use Joomla\CMS\Table\Table;
 use Joomla\CMS\Versioning\VersionableModelTrait;
 use Joomla\Registry\Registry;
 use Joomla\String\StringHelper;
+use Sermonspeaker\Component\Sermonspeaker\Administrator\Table\SerieTable;
 
 defined('_JEXEC') or die;
 
@@ -182,7 +183,7 @@ class SerieModel extends AdminModel
 	 * @param    $id int        The primary key ID for the series.
 	 *
 	 * @return    boolean    True if successful.
-	 * @throws    Exception
+	 * @throws    \Exception
 	 *
 	 * @since ?
 	 */
@@ -195,7 +196,7 @@ class SerieModel extends AdminModel
 		// Access checks.
 		if (!$user->authorise('core.edit.state', 'com_sermonspeaker'))
 		{
-			throw new Exception(Text::_('JLIB_APPLICATION_ERROR_EDITSTATE_NOT_PERMITTED'));
+			throw new \Exception(Text::_('JLIB_APPLICATION_ERROR_EDITSTATE_NOT_PERMITTED'));
 		}
 
 		// Reset the home fields for the client_id.
@@ -207,7 +208,7 @@ class SerieModel extends AdminModel
 
 		if (!$db->execute())
 		{
-			throw new Exception($db->getErrorMsg());
+			throw new \Exception($db->getErrorMsg());
 		}
 
 		// Set the new home style.
@@ -219,7 +220,7 @@ class SerieModel extends AdminModel
 
 		if (!$db->execute())
 		{
-			throw new Exception($db->getErrorMsg());
+			throw new \Exception($db->getErrorMsg());
 		}
 
 		// Clean the cache.
@@ -235,7 +236,7 @@ class SerieModel extends AdminModel
 	 * @param   integer  $id  The primary key ID for the series.
 	 *
 	 * @return  boolean  True if successful.
-	 * @throws  Exception
+	 * @throws  \Exception
 	 *
 	 * @since 5.8.0
 	 */
@@ -247,7 +248,7 @@ class SerieModel extends AdminModel
 		// Access checks.
 		if (!$user->authorise('core.edit.state', 'com_sermonspeaker'))
 		{
-			throw new Exception(Text::_('JLIB_APPLICATION_ERROR_EDITSTATE_NOT_PERMITTED'));
+			throw new \Exception(Text::_('JLIB_APPLICATION_ERROR_EDITSTATE_NOT_PERMITTED'));
 		}
 
 		// Set the new home style.
@@ -457,7 +458,7 @@ class SerieModel extends AdminModel
 
 			if ($languages)
 			{
-				$addform = new SimpleXMLElement('<form />');
+				$addform = new \SimpleXMLElement('<form />');
 				$fields  = $addform->addChild('fields');
 				$fields->addAttribute('name', 'associations');
 				$fieldset = $fields->addChild('fieldset');

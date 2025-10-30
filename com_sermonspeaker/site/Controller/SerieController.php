@@ -9,10 +9,15 @@
 
 namespace Sermonspeaker\Component\Sermonspeaker\Site\Controller;
 
+use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
+use Joomla\Filesystem\File;
+use Joomla\Filesystem\Folder;
+use Joomla\CMS\Filter\OutputFilter;
+use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Controller\BaseController;
-use Joomla\CMS\Router\Route;
-use Sermonspeaker\Component\Sermonspeaker\Site\Helper\RouteHelper;
+use Joomla\CMS\Uri\Uri;
+use ZipArchive;
 
 defined('_JEXEC') or die();
 

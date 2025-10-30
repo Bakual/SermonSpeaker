@@ -18,6 +18,7 @@ use Joomla\CMS\Session\Session;
 use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\Versioning\VersionableControllerTrait;
 use Joomla\Utilities\ArrayHelper;
+use Sermonspeaker\Component\Sermonspeaker\Administrator\Model\SerieModel;
 
 defined('_JEXEC') or die;
 /**
@@ -51,7 +52,7 @@ class SerieController extends FormController
 			return;
 		}
 
-		/** @var SermonspeakerModelSerie $model */
+		/** @var SerieModel $model */
 		$model      = $this->getModel();
 		$item       = $model->getItem($id);
 		$user       = Factory::getApplication()->getIdentity();
@@ -172,7 +173,7 @@ class SerieController extends FormController
 		}
 
 		// Need to do a lookup from the model.
-		/** @var SermonspeakerModelSerie $model */
+		/** @var SerieModel $model */
 		$model      = $this->getModel();
 		$record     = $model->getItem($recordId);
 		$categoryId = (int) $record->catid;

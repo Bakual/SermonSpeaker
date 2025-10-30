@@ -17,6 +17,7 @@ use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Table\Table;
 use Joomla\CMS\Uri\Uri;
 use Joomla\Filesystem\File;
+use Sermonspeaker\Component\Sermonspeaker\Site\Helper\SermonspeakerHelper;
 
 defined('_JEXEC') or die();
 
@@ -28,7 +29,7 @@ defined('_JEXEC') or die();
 class RawView extends BaseHtmlView
 {
 	/**
-	 * @var  $params  Joomla\Registry\Registry  Holds the component params
+	 * @var  $params  \Joomla\Registry\Registry  Holds the component params
 	 *
 	 * @since ?
 	 */
@@ -52,7 +53,7 @@ class RawView extends BaseHtmlView
 	 */
 	public function display($tpl = null)
 	{
-		/* @var  JApplicationSite $app The application */
+		/* @var  \JApplicationSite $app The application */
 		$app          = Factory::getApplication();
 		$this->params = $app->getParams();
 
@@ -202,13 +203,13 @@ class RawView extends BaseHtmlView
 		}
 		else
 		{
-			$file = Sermonspeaker\Component\Sermonspeaker\Site\Helper\SermonspeakerHelper::getFileByPrio($item, $prio);
+			$file = SermonspeakerHelper::getFileByPrio($item, $prio);
 		}
 
 		if ($file)
 		{
 			// MIME type for content
-			$enclosure['type'] = Sermonspeaker\Component\Sermonspeaker\Site\Helper\SermonspeakerHelper::getMime(File::getExt($file));
+			$enclosure['type'] = SermonspeakerHelper::getMime(File::getExt($file));
 
 			if (parse_url($file, PHP_URL_SCHEME))
 			{
@@ -268,7 +269,7 @@ class RawView extends BaseHtmlView
 
 		if ($item->scripture)
 		{
-			$scripture = Sermonspeaker\Component\Sermonspeaker\Site\Helper\SermonspeakerHelper::insertScriptures($item->scripture, '-/*', false);
+			$scripture = SermonspeakerHelper::insertScriptures($item->scripture, '-/*', false);
 
 			if ($this->params->get('prepare_content', 1))
 			{

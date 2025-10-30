@@ -90,16 +90,16 @@ class SerieModel extends ItemModel
 			{
 				$data = $db->loadObject();
 			}
-			catch (Exception $e)
+			catch (\Exception $e)
 			{
 				$this->_item[$pk] = false;
 
-				throw new Exception($e->getMessage());
+				throw new \Exception($e->getMessage());
 			}
 
 			if (!$data)
 			{
-				throw new Exception(Text::_('JGLOBAL_RESOURCE_NOT_FOUND'));
+				throw new \Exception(Text::_('JGLOBAL_RESOURCE_NOT_FOUND'));
 			}
 
 			$this->_item[$pk] = $data;
@@ -172,7 +172,7 @@ class SerieModel extends ItemModel
 	 */
 	protected function populateState($ordering = null, $direction = null)
 	{
-		/** @var JApplicationSite $app */
+		/** @var \JApplicationSite $app */
 		$app    = Factory::getApplication();
 		$params = $app->getParams();
 

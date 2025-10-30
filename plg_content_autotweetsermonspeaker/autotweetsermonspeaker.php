@@ -67,7 +67,7 @@ class PlgContentAutotweetSermonspeaker extends plgAutotweetBase
 	/**
 	 * Constructor
 	 *
-	 * @param   JEventDispatcher  &$subject  JEventDispatcher object
+	 * @param   \JEventDispatcher  &$subject  JEventDispatcher object
 	 * @param   array             $params    Parameter array containing name, type and params
 	 */
 	public function __construct(&$subject, $params)

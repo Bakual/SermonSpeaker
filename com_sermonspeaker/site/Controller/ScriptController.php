@@ -11,6 +11,7 @@ namespace Sermonspeaker\Component\Sermonspeaker\Site\Controller;
 
 use Joomla\CMS\MVC\Controller\BaseController;
 use Joomla\CMS\Uri\Uri;
+use Sermonspeaker\Component\Sermonspeaker\Administrator\Controller\ToolsController;
 
 defined('_JEXEC') or die();
 
@@ -32,7 +33,7 @@ class ScriptController extends BaseController
 	{
 		$this->addModelPath(JPATH_ADMINISTRATOR . '/components/com_sermonspeaker/models');
 		require_once JPATH_ADMINISTRATOR . '/components/com_sermonspeaker/controllers/tools.php';
-		$admin_controller = new SermonspeakerControllerTools;
+		$admin_controller = new ToolsController;
 		$admin_controller->createAutomatic();
 		$this->setRedirect(Uri::root());
 	}
