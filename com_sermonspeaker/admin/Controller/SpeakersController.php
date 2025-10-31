@@ -9,11 +9,13 @@
 
 namespace Sermonspeaker\Component\Sermonspeaker\Administrator\Controller;
 
+use Exception;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Controller\AdminController;
 use Joomla\CMS\Session\Session;
 use Joomla\Utilities\ArrayHelper;
+use Sermonspeaker\Component\Sermonspeaker\Administrator\Model\SpeakerModel;
 
 defined('_JEXEC') or die;
 /**
@@ -68,7 +70,7 @@ class SpeakersController extends AdminController
 	 * @param   string  $prefix  The class prefix. Optional.
 	 * @param   array   $config  Configuration array for model. Optional.
 	 *
-	 * @return  SermonspeakerModelSpeaker|boolean  Model object on success; otherwise false on failure.
+	 * @return  SpeakerModel|boolean  Model object on success; otherwise false on failure.
 	 *
 	 * @since 3.4
 	 */

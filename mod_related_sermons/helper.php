@@ -11,7 +11,7 @@ defined('_JEXEC') or die();
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Router\Route;
-use Joomla\Component\Content\Site\Helper\RouteHelper;
+use Sermonspeaker\Component\Sermonspeaker\Site\Helper\RouteHelper;
 
 /**
  * Helper class for Related Sermons module
@@ -198,8 +198,6 @@ class ModRelatedSermonsHelper
 
 		self::$db->setQuery($query, 0, $limitSermons);
 		$temp = self::$db->loadObjectList();
-
-		require_once JPATH_SITE . '/components/com_sermonspeaker/helpers/route.php';
 
 		foreach ($temp as $row)
 		{

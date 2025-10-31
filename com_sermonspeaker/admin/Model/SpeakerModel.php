@@ -9,6 +9,7 @@
 
 namespace Sermonspeaker\Component\Sermonspeaker\Administrator\Model;
 
+use Exception;
 use Joomla\CMS\Application\ApplicationHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Form;
@@ -20,6 +21,7 @@ use Joomla\CMS\MVC\Model\AdminModel;
 use Joomla\CMS\Table\Table;
 use Joomla\CMS\Versioning\VersionableModelTrait;
 use Joomla\Registry\Registry;
+use Joomla\String\StringHelper;
 
 defined('_JEXEC') or die;
 
@@ -63,7 +65,7 @@ class SpeakerModel extends AdminModel
 	 * @param   array    $data      An optional array of data for the form to interogate.
 	 * @param   boolean  $loadData  True if the form is to load its own data (default case), false if not.
 	 *
-	 * @return bool|JForm
+	 * @return bool|Form
 	 * @since    1.6
 	 */
 	public function getForm($data = array(), $loadData = true)
@@ -396,7 +398,7 @@ class SpeakerModel extends AdminModel
 		{
 			// only process if not empty
 			$bad_characters = array("\n", "\r", "\"", "<", ">"); // array of characters to remove
-			$after_clean    = Joomla\String\StringHelper::str_ireplace($bad_characters, "", $table->metakey); // remove bad characters
+			$after_clean    = StringHelper::str_ireplace($bad_characters, "", $table->metakey); // remove bad characters
 			$keys           = explode(',', $after_clean); // create array using commas as delimiter
 			$clean_keys     = array();
 			foreach ($keys as $key)
@@ -457,7 +459,7 @@ class SpeakerModel extends AdminModel
 
 			if ($languages)
 			{
-				$addform = new SimpleXMLElement('<form />');
+				$addform = new \SimpleXMLElement('<form />');
 				$fields  = $addform->addChild('fields');
 				$fields->addAttribute('name', 'associations');
 				$fieldset = $fields->addChild('fieldset');

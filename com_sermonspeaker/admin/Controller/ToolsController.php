@@ -16,8 +16,9 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Controller\BaseController;
 use Joomla\CMS\Session\Session;
 use Joomla\CMS\Table\Table;
+use Joomla\Component\Categories\Administrator\Model\CategoryModel;
 use Joomla\Filesystem\File;
-use SermonspeakerHelperId3;
+use Sermonspeaker\Component\Sermonspeaker\Site\Helper\Id3Helper;
 
 defined('_JEXEC') or die;
 
@@ -232,7 +233,7 @@ class ToolsController extends BaseController
 
 		foreach ($files as $file)
 		{
-			$id3          = SermonspeakerHelperId3::getID3($file['file'], $params);
+			$id3          = Id3Helper::getID3($file['file'], $params);
 			$sermon_model = $this->getModel('Sermon', 'Administrator');
 			$sermon       = $sermon_model->getItem();
 
@@ -484,10 +485,6 @@ class ToolsController extends BaseController
 		$ministries = $db->loadObjectList();
 
 		// Create categories for our component
-		$basePath = JPATH_ADMINISTRATOR . '/components/com_categories';
-		require_once $basePath . '/models/category.php';
-		$config        = array('table_path' => $basePath . '/tables');
-		$catmodel      = new CategoriesModelCategory($config);
 		$catConversion = array();
 
 		$catData = array(
@@ -495,13 +492,19 @@ class ToolsController extends BaseController
 			'parent_id'   => 0,
 			'level'       => 1,
 			'path'        => 'preachitmigration',
-			'extension'   => 'com_sermonspeaker',
+			'extension'   => 'com_sermonspeaker.sermons',
 			'title'       => 'Preach It Migration',
 			'alias'       => 'preachitmigration',
 			'description' => 'Items migrated from Preach It',
 			'published'   => 1,
 			'language'    => '*',
 		);
+
+		/** @var \Joomla\Component\Categories\Administrator\Model\CategoryModel $catmodel */
+		$catmodel = Factory::getApplication()->bootComponent('com_categories')
+			->getMVCFactory()->createModel('Category', 'Administrator', ['ignore_request' => true]);
+
+		// Get the Category ID.
 		$catmodel->save($catData);
 		$catConversion[0] = $catmodel->getItem()->id;
 
@@ -512,7 +515,7 @@ class ToolsController extends BaseController
 				'parent_id'   => 0,
 				'level'       => 1,
 				'path'        => $ministry->alias,
-				'extension'   => 'com_sermonspeaker',
+				'extension'   => 'com_sermonspeaker.sermons',
 				'title'       => $ministry->name,
 				'alias'       => $ministry->alias,
 				'description' => $ministry->description,

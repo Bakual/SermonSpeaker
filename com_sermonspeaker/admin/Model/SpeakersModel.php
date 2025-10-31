@@ -14,6 +14,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Associations;
 use Joomla\CMS\MVC\Model\ListModel;
 use Joomla\CMS\Table\Table;
+use Joomla\Database\QueryInterface;
 
 defined('_JEXEC') or die;
 
@@ -135,7 +136,7 @@ class SpeakersModel extends ListModel
 	/**
 	 * Build an SQL query to load the list data.
 	 *
-	 * @return    Joomla\Database\DatabaseQuery
+	 * @return    QueryInterface
 	 * @since    1.6
 	 */
 	protected function getListQuery()

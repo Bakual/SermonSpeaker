@@ -11,8 +11,6 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\Helper\ModuleHelper;
 
-JLoader::discover('SermonspeakerHelper', JPATH_SITE . '/components/com_sermonspeaker/helpers');
-
 $cacheid = md5($module->id);
 
 $cacheparams               = new stdClass;

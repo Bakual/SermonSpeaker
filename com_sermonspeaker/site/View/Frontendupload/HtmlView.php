@@ -128,7 +128,7 @@ class HtmlView extends BaseHtmlView
 			$app->enqueueMessage(Text::_('JGLOBAL_YOU_MUST_LOGIN_FIRST'), 'error');
 			$app->redirect(Route::_('index.php?option=com_users&view=login&return=' . $redirectUrl));
 
-			return false;
+			return;
 		}
 
 		if (empty($this->item->id))

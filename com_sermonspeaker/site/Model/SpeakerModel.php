@@ -9,6 +9,7 @@
 
 namespace Sermonspeaker\Component\Sermonspeaker\Site\Model;
 
+use Exception;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Model\ItemModel;
@@ -146,7 +147,6 @@ class SpeakerModel extends ItemModel
 	 */
 	protected function populateState($ordering = null, $direction = null)
 	{
-		/** @var JApplicationSite $app */
 		$app    = Factory::getApplication();
 		$params = $app->getParams();
 

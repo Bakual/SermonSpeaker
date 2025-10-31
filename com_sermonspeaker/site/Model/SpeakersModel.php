@@ -12,6 +12,7 @@ namespace Sermonspeaker\Component\Sermonspeaker\Site\Model;
 use Joomla\CMS\Categories\Categories;
 use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Model\ListModel;
+use Joomla\Database\QueryInterface;
 use Joomla\Utilities\ArrayHelper;
 
 defined('_JEXEC') or die();
@@ -253,7 +254,7 @@ class SpeakersModel extends ListModel
 	/**
 	 * Get the master query for retrieving a list of items subject to the model state.
 	 *
-	 * @return  JDatabaseQuery
+	 * @return  QueryInterface
 	 *
 	 * @since ?
 	 */

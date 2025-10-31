@@ -54,7 +54,6 @@ class SitemapModel extends BaseDatabaseModel
 		$query->where('(a.publish_down = ' . $nullDate . ' OR a.publish_down >= ' . $nowDate . ')');
 
 		// Filter by cat if set
-		/** @var JApplicationSite $app */
 		$app    = Factory::getApplication();
 		$params = $app->getParams();
 		$cat    = (int) $params->get('cat', 0);

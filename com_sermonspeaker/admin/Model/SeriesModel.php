@@ -135,7 +135,7 @@ class SeriesModel extends ListModel
 	/**
 	 * Build an SQL query to load the list data.
 	 *
-	 * @return  QueryInterface|string  An object implementing QueryInterface to retrieve the data set.
+	 * @return  \Joomla\Database\QueryInterface  An object implementing QueryInterface to retrieve the data set.
 	 * @since    1.6
 	 */
 	protected function getListQuery()

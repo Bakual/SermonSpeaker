@@ -531,7 +531,7 @@ class PlgFinderSermonspeaker extends Adapter
 	 * an items and category.
 	 * Needed because we don't use item access
 	 *
-	 * @return  DatabaseQuery  A database object.
+	 * @return  \Joomla\Database\QueryInterface  A database object.
 	 *
 	 * @since   5.0.3
 	 */
@@ -620,7 +620,7 @@ class PlgFinderSermonspeaker extends Adapter
 	 *
 	 * @param   string  $time  The modified timestamp.
 	 *
-	 * @return  JDatabaseQuery  A database object.
+	 * @return  \Joomla\Database\QueryInterface  A database object.
 	 *
 	 * @since   2.5
 	 */

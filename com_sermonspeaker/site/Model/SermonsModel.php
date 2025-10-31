@@ -372,7 +372,7 @@ class SermonsModel extends Listmodel
 	/**
 	 * Get the master query for retrieving a list of items subject to the model state
 	 *
-	 * @return  DatabaseQuery
+	 * @return  \Joomla\Database\QueryInterface
 	 *
 	 * @since ?
 	 */
