@@ -7,33 +7,43 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
-defined('_JEXEC') or die();
+namespace Sermonspeaker\Module\Latestsermons\Site\Helper;
 
+use Joomla\CMS\Application\SiteApplication;
 use Joomla\CMS\Factory;
+use Joomla\Database\DatabaseAwareInterface;
+use Joomla\Database\DatabaseAwareTrait;
+use Joomla\Registry\Registry;
 use Joomla\Utilities\ArrayHelper;
+
+defined('_JEXEC') or die();
 
 /**
  * Helper class for Latest Sermons module
  *
  * @since  1.0
  */
-abstract class ModLatestsermonsHelper
+class LatestsermonsHelper implements DatabaseAwareInterface
 {
+	use DatabaseAwareTrait;
+
 	/**
 	 * Gets the items from the database
 	 *
-	 * @param   object $params parameters
+	 * @param \Joomla\Registry\Registry               $params parameters
+	 * @param \Joomla\CMS\Application\SiteApplication $app
 	 *
 	 * @return  array  $items  Array of items
 	 *
+	 * @throws \Exception
 	 * @since  1.0
 	 */
-	public static function getList($params)
+	public function getSermons(Registry $params, SiteApplication $app)
 	{
-		$user   = Factory::getUser();
+		$db   = $this->getDatabase();
+		$user = $app->getIdentity();
 		$groups = implode(',', $user->getAuthorisedViewLevels());
 
-		$db    = Factory::getDbo();
 		$query = $db->getQuery(true);
 		$query->select('a.title, a.id, a.sermon_date, a.audiofile, a.videofile, a.sermon_time, a.picture, a.notes, a.hits, a.catid, a.language');
 		$query->select('b.title as speaker_title, b.pic, b.state AS speaker_state, b.catid AS speaker_catid, b.language AS speaker_language');
