@@ -9,9 +9,10 @@
 
 namespace Sermonspeaker\Module\SermonspeakerCategories\Site\Helper;
 
-\defined('_JEXEC') or die;
-
 use Joomla\CMS\Categories\Categories;
+use Joomla\Registry\Registry;
+
+defined('_JEXEC') or die;
 
 /**
  * Helper for MOD_SERMONSPEAKER_categories
@@ -23,18 +24,19 @@ abstract class SermonspeakerCategoriesHelper
 	/**
 	 * Get list of Items
 	 *
-	 * @param   \Joomla\Registry\Registry  &$params  module parameters
+	 * @param \Joomla\Registry\Registry  &$params module parameters
 	 *
 	 * @return  array
 	 *
 	 * @since   1.5
 	 */
-	public static function getList($params)
+	public static function getList(Registry $params): array
 	{
 		$type = $params->get('parent_type', 'sermons');
 		$options               = [];
 		$options['countItems'] = $params->get('numitems', 0);
 
+//		To Test: Factory::getApplication()->bootComponent('com_sermonspeaker')->getCategory($options, $type);
 		$categories = Categories::getInstance('Sermonspeaker.' . $type, $options);
 		$category   = $categories->get($params->get('parent', 'root'));
 
@@ -44,9 +46,9 @@ abstract class SermonspeakerCategoriesHelper
 
 			$count = $params->get('count', 0);
 
-			if ($count > 0 && \count($items) > $count)
+			if ($count > 0 && count($items) > $count)
 			{
-				$items = \array_slice($items, 0, $count);
+				$items = array_slice($items, 0, $count);
 			}
 
 			return $items;
