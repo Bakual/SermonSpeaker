@@ -18,9 +18,6 @@ use Joomla\CMS\Uri\Uri;
 use Joomla\Registry\Registry;
 use Sermonspeaker\Component\Sermonspeaker\Site\Helper\SermonspeakerHelper;
 
-JLoader::register('SermonspeakerPluginPlayer', JPATH_SITE . '/components/com_sermonspeaker/plugin/player.php');
-JLoader::register('SermonspeakerHelper', JPATH_SITE . '/components/com_sermonspeaker/helpers/sermonspeaker.php');
-
 /**
  * Plug-in to show the JW Player 7 from http://www.jwplayer.com/
  *
