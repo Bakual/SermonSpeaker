@@ -9,6 +9,7 @@
 	<version>6.1.6</version>
 	<license>http://www.gnu.org/licenses/gpl.html</license>
 	<description>COM_SERMONSPEAKER_DESCRIPTION</description>
+	<namespace path="/">Sermonspeaker\Component\Sermonspeaker</namespace>
 	<scriptfile>script.php</scriptfile>
 	<install>
 		<sql>
