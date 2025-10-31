@@ -154,8 +154,8 @@ class FileController extends BaseController
 				'credentials' => $credentials,
 			]);
 
-			$date   = $jinput->get('date', '', 'string');
-			$time   = ($date) ? strtotime($date) : time();
+			$date = $jinput->get('date', '', 'string');
+			$time = ($date) ? strtotime($date) : time();
 
 			$folder .= ($params->get('append_path_user', 0)) ? Factory::getApplication()->getIdentity()->id . '/' : '';
 			$folder .= ($params->get('append_path', 0)) ? date('Y', $time) . '/' . date('m', $time) . '/' : '';
@@ -315,8 +315,7 @@ class FileController extends BaseController
 		}
 
 		$params = ComponentHelper::getParams('com_sermonspeaker');
-		require_once JPATH_SITE . '/components/com_sermonspeaker/helpers/id3.php';
-		$id3 = Id3Helper::getID3($file, $params);
+		$id3    = Id3Helper::getID3($file, $params);
 
 		// Format the date to the language specific format
 		if ($id3['sermon_date'])

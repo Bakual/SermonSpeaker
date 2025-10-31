@@ -11,9 +11,6 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\Helper\ModuleHelper;
 
-// Include the helper functions only once.
-require_once __DIR__ . '/helper.php';
-
 // Get module data.
 $list  = array();
 $types = $params->get('types');

@@ -14,8 +14,6 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Plugin\CMSPlugin;
 use Sermonspeaker\Component\Sermonspeaker\Site\Helper\RouteHelper;
 
-require_once JPATH_SITE . '/components/com_sermonspeaker/helpers/route.php';
-
 /**
  * SermonSpeaker Search plugin
  *

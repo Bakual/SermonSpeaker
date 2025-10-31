@@ -27,12 +27,11 @@ class ScriptController extends BaseController
 	 *
 	 * @return  void
 	 *
+	 * @throws \Exception
 	 * @since ?
 	 */
 	public function createAutomatic()
 	{
-		$this->addModelPath(JPATH_ADMINISTRATOR . '/components/com_sermonspeaker/models');
-		require_once JPATH_ADMINISTRATOR . '/components/com_sermonspeaker/controllers/tools.php';
 		$admin_controller = new ToolsController;
 		$admin_controller->createAutomatic();
 		$this->setRedirect(Uri::root());

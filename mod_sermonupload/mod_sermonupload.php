@@ -14,8 +14,6 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Helper\ModuleHelper;
 use Joomla\CMS\HTML\HTMLHelper;
 
-require_once __DIR__ . '/helper.php';
-
 // Bail out if user isn't allowed to create a sermon.
 $user = Factory::getUser();
 

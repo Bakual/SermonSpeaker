@@ -481,9 +481,6 @@ class PlgFinderSermonspeaker extends Adapter
 			return;
 		}
 
-		// Load dependent classes.
-		require_once JPATH_SITE . '/components/com_sermonspeaker/helpers/route.php';
-
 		$item->context = 'com_sermonspeaker.' . $this->layout;
 
 		$item->metadata = new Registry($item->metadata);

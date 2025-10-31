@@ -13,10 +13,6 @@ use Joomla\CMS\Helper\ModuleHelper;
 
 /** @var \Joomla\Registry\Registry $params */
 
-require_once __DIR__ . '/helper.php';
-
-JLoader::discover('SermonspeakerHelper', JPATH_SITE . '/components/com_sermonspeaker/helpers');
-
 $list = ModLatestsermonsHelper::getList($params);
 
 if (!count($list))

@@ -225,9 +225,7 @@ class ToolsController extends BaseController
 		$catTable   = Table::getInstance('Category');
 		$state      = $user->authorise('core.edit.state', 'com_sermonspeaker') ? 1 : 0;
 
-		$params = ComponentHelper::getParams('com_sermonspeaker');
-		require_once JPATH_SITE . '/components/com_sermonspeaker/helpers/id3.php';
-
+		$params  = ComponentHelper::getParams('com_sermonspeaker');
 		$i       = 0;
 		$missing = array();
 

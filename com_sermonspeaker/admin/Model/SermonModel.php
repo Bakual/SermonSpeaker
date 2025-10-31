@@ -733,8 +733,6 @@ class SermonModel extends AdminModel
 				$data->audiofile = $id3_file;
 			}
 
-			require_once JPATH_SITE . '/components/com_sermonspeaker/helpers/id3.php';
-
 			$params = ComponentHelper::getParams('com_sermonspeaker');
 
 			$id3 = Id3Helper::getID3($id3_file, $params);

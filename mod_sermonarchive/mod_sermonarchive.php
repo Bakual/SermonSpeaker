@@ -11,10 +11,6 @@ defined('_JEXEC') or die();
 
 use Joomla\CMS\Helper\ModuleHelper;
 
-require_once __DIR__ . '/helper.php';
-
-JLoader::register('SermonspeakerHelperRoute', JPATH_ROOT . '/components/com_sermonspeaker/helpers/route.php');
-
 $list = modSermonarchiveHelper::getList($params);
 
 if (!count($list))

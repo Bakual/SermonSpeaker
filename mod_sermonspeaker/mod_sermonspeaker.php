@@ -11,10 +11,6 @@ defined('_JEXEC') or die();
 
 use Joomla\CMS\Helper\ModuleHelper;
 
-require_once __DIR__ . '/helper.php';
-
-JLoader::discover('SermonspeakerHelper', JPATH_SITE . '/components/com_sermonspeaker/helpers');
-
 $list = modSermonspeakerHelper::getList($params);
 
 if (!count($list))
