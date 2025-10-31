@@ -15,7 +15,7 @@ $cacheid = md5($module->id);
 
 $cacheparams               = new stdClass;
 $cacheparams->cachemode    = 'id';
-$cacheparams->class        = 'Bakual\Module\SermonspeakerCategories\Site\Helper\SermonspeakerCategoriesHelper';
+$cacheparams->class        = 'Sermonspeaker\Module\SermonspeakerCategories\Site\Helper\SermonspeakerCategoriesHelper';
 $cacheparams->method       = 'getList';
 $cacheparams->methodparams = $params;
 $cacheparams->modeparams   = $cacheid;

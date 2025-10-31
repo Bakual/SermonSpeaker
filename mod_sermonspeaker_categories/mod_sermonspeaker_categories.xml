@@ -9,10 +9,10 @@
 	<version>6.0.2</version>
 	<license>http://www.gnu.org/licenses/gpl.html</license>
 	<description>MOD_SERMONSPEAKER_CATEGORIES_XML_DESCRIPTION</description>
-	<namespace path="src">Bakual\Module\SermonspeakerCategories</namespace>
+	<namespace path="/">Sermonspeaker\Module\SermonspeakerCategories</namespace>
 	<files>
 		<filename module="mod_sermonspeaker_categories">mod_sermonspeaker_categories.php</filename>
-		<folder>src</folder>
+		<folder>Helper</folder>
 		<folder>language</folder>
 		<folder>tmpl</folder>
 	</files>
