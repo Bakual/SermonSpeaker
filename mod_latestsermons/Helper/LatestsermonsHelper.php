@@ -9,6 +9,7 @@
 
 namespace Sermonspeaker\Module\Latestsermons\Site\Helper;
 
+use Joomla\CMS\Application\CMSApplicationInterface;
 use Joomla\CMS\Application\SiteApplication;
 use Joomla\CMS\Factory;
 use Joomla\Database\DatabaseAwareInterface;
@@ -30,8 +31,8 @@ class LatestsermonsHelper implements DatabaseAwareInterface
 	/**
 	 * Gets the items from the database
 	 *
-	 * @param \Joomla\Registry\Registry               $params parameters
-	 * @param \Joomla\CMS\Application\SiteApplication $app
+	 * @param \Joomla\Registry\Registry $params parameters
+	 * @param CMSApplicationInterface   $app
 	 *
 	 * @return  array  $items  Array of items
 	 *
@@ -40,8 +41,8 @@ class LatestsermonsHelper implements DatabaseAwareInterface
 	 */
 	public function getSermons(Registry $params, SiteApplication $app)
 	{
-		$db   = $this->getDatabase();
-		$user = $app->getIdentity();
+		$db     = $this->getDatabase();
+		$user   = $app->getIdentity();
 		$groups = implode(',', $user->getAuthorisedViewLevels());
 
 		$query = $db->getQuery(true);

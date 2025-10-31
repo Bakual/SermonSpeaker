@@ -22,21 +22,23 @@ defined('_JEXEC') or die;
  */
 class Dispatcher extends AbstractModuleDispatcher implements HelperFactoryAwareInterface
 {
-    use HelperFactoryAwareTrait;
+	use HelperFactoryAwareTrait;
 
-    /**
-     * Returns the layout data.
-     *
-     * @return  array
-     *
-     * @since   7.0.0
-     */
-    protected function getLayoutData()
-    {
-        $data = parent::getLayoutData();
+	/**
+	 * Returns the layout data.
+	 *
+	 * @return  array
+	 *
+	 * @since   7.0.0
+	 */
+	protected function getLayoutData()
+	{
+		$data = parent::getLayoutData();
 
-        $data['list'] = $this->getHelperFactory()->getHelper('LatestsermonsHelper')->getSermons($data['params'], $this->getApplication());
+		$data['list'] = $this->getHelperFactory()->getHelper('LatestsermonsHelper')->getSermons($data['params'], $this->getApplication());
 
-        return $data;
-    }
+		$data['itemid'] = (int) $data['params']->get('ls_mo_menuitem');
+
+		return $data;
+	}
 }
