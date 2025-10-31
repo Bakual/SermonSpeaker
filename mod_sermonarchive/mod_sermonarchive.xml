@@ -9,6 +9,7 @@
 	<version>6.0.0</version>
 	<license>http://www.gnu.org/licenses/gpl.html</license>
 	<description>MOD_SERMONARCHIVE_XML_DESCRIPTION</description>
+	<namespace path="/">Sermonspeaker\Module\Sermonarchive</namespace>
 	<files>
 		<filename module="mod_sermonarchive">mod_sermonarchive.php</filename>
 		<filename>mod_sermonarchive.xml</filename>

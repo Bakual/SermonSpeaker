@@ -9,6 +9,7 @@
 	<version>6.0.0</version>
 	<license>http://www.gnu.org/licenses/gpl.html</license>
 	<description>MOD_SERMONSPEAKER_XML_DESCRIPTION</description>
+	<namespace path="/">Sermonspeaker\Module\SermonspeakerAdmin</namespace>
 	<files>
 		<filename module="mod_sermonspeaker">mod_sermonspeaker.php</filename>
 		<filename>helper.php</filename>

@@ -9,6 +9,7 @@
 	<version>6.1.1</version>
 	<license>http://www.gnu.org/licenses/gpl.html</license>
 	<description>MOD_LATESTSERMONS_XML_DESCRIPTION</description>
+	<namespace path="/">Sermonspeaker\Module\Latestsermons</namespace>
 	<files>
 		<filename module="mod_latestsermons">mod_latestsermons.php</filename>
 		<filename>mod_latestsermons.xml</filename>

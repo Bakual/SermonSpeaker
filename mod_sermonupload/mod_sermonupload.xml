@@ -9,6 +9,7 @@
 	<version>6.0.0</version>
 	<license>http://www.gnu.org/licenses/gpl.html</license>
 	<description>MOD_SERMONUPLOAD_XML_DESCRIPTION</description>
+	<namespace path="">Sermonspeaker\Module\Sermonupload</namespace>
 	<files>
 		<filename module="mod_sermonupload">mod_sermonupload.php</filename>
 		<filename>mod_sermonupload.xml</filename>

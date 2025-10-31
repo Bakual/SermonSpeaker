@@ -9,6 +9,7 @@
 	<version>6.0.0</version>
 	<license>http://www.gnu.org/licenses/gpl.html</license>
 	<description>MOD_SERMONCAST_XML_DESCRIPTION</description>
+	<namespace path="/">Sermonspeaker\Module\Sermoncast</namespace>
 	<files>
 		<filename module="mod_sermoncast">mod_sermoncast.php</filename>
 		<filename>mod_sermoncast.xml</filename>
