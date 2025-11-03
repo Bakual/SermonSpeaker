@@ -120,8 +120,10 @@ class SermonspeakerComponent extends MVCComponent implements
 		$this->getRegistry()->register('sermonspeakeradministrator', new AdministratorService());
 		$this->getRegistry()->register('sermonspeakericon', new Icon());
 
-		// The layout joomla.content.icons does need a general icon service
-		$this->getRegistry()->register('icon', $this->getRegistry()->getService('sermonspeakericon'));
+		// The layout joomla.content.icons does need a general icon service if not already set.
+		if (!$this->getRegistry()->hasService('icon')) {
+			$this->getRegistry()->register('icon', $this->getRegistry()->getService('sermonspeakericon'));
+		}
 	}
 
 	/**
