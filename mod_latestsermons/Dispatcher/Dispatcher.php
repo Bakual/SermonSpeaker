@@ -31,7 +31,7 @@ class Dispatcher extends AbstractModuleDispatcher implements HelperFactoryAwareI
 	 *
 	 * @since   7.0.0
 	 */
-	protected function getLayoutData()
+	protected function getLayoutData(): array
 	{
 		$data = parent::getLayoutData();
 

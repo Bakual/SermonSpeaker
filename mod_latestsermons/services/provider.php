@@ -16,7 +16,7 @@ use Joomla\DI\ServiceProviderInterface;
 defined('_JEXEC') or die;
 
 /**
- * The latestsermons module service provider.
+ * The relatedsermons module service provider.
  *
  * @since  7.0.0
  */
@@ -30,10 +30,10 @@ return new class () implements ServiceProviderInterface {
      *
      * @since   7.0.0
      */
-    public function register(Container $container)
+    public function register(Container $container): void
     {
-        $container->registerServiceProvider(new ModuleDispatcherFactory('\\Sermonspeaker\\Module\\Latestsermons'));
-        $container->registerServiceProvider(new HelperFactory('\\Sermonspeaker\\Module\\Latestsermons\\Site\\Helper'));
+        $container->registerServiceProvider(new ModuleDispatcherFactory('\\Sermonspeaker\\Module\\RelatedSermons'));
+        $container->registerServiceProvider(new HelperFactory('\\Sermonspeaker\\Module\\RelatedSermons\\Site\\Helper'));
 
         $container->registerServiceProvider(new Module());
     }

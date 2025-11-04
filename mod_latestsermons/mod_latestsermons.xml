@@ -5,9 +5,9 @@
 	<creationDate>2023-11-29</creationDate>
 	<copyright>© 2023</copyright>
 	<authorEmail>admin@sermonspeaker.net</authorEmail>
-	<authorUrl>http://www.sermonspeaker.net</authorUrl>
+	<authorUrl>https://www.sermonspeaker.net</authorUrl>
 	<version>6.1.1</version>
-	<license>http://www.gnu.org/licenses/gpl.html</license>
+	<license>https://www.gnu.org/licenses/gpl.html</license>
 	<description>MOD_LATESTSERMONS_XML_DESCRIPTION</description>
 	<namespace path="/">Sermonspeaker\Module\Latestsermons</namespace>
 	<files>

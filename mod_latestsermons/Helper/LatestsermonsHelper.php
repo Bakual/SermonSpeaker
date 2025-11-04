@@ -31,15 +31,15 @@ class LatestsermonsHelper implements DatabaseAwareInterface
 	/**
 	 * Gets the items from the database
 	 *
-	 * @param \Joomla\Registry\Registry $params parameters
-	 * @param CMSApplicationInterface   $app
+	 * @param \Joomla\Registry\Registry               $params parameters
+	 * @param \Joomla\CMS\Application\SiteApplication $app
 	 *
 	 * @return  array  $items  Array of items
 	 *
 	 * @throws \Exception
 	 * @since  1.0
 	 */
-	public function getSermons(Registry $params, SiteApplication $app)
+	public function getSermons(Registry $params, SiteApplication $app): array
 	{
 		$db     = $this->getDatabase();
 		$user   = $app->getIdentity();
@@ -60,7 +60,7 @@ class LatestsermonsHelper implements DatabaseAwareInterface
 		if ($params->get('show_scripture'))
 		{
 			// Load component language file for bible books
-			$lang = Factory::getLanguage();
+			$lang = $app->getLanguage();
 			$lang->load('com_sermonspeaker')
 			|| $lang->load('com_sermonspeaker', JPATH_BASE . '/components/com_sermonspeaker');
 
