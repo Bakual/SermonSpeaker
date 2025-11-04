@@ -7,53 +7,57 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
-defined('_JEXEC') or die();
+namespace Sermonspeaker\Module\RelatedSermons\Site\Helper;
 
+use Joomla\CMS\Application\SiteApplication;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Router\Route;
+use Joomla\Database\DatabaseAwareInterface;
+use Joomla\Database\DatabaseAwareTrait;
+use Joomla\Registry\Registry;
 use Sermonspeaker\Component\Sermonspeaker\Site\Helper\RouteHelper;
+
+defined('_JEXEC') or die();
 
 /**
  * Helper class for Related Sermons module
  *
  * @since  1.0
  */
-class ModRelatedSermonsHelper
+class RelatedSermonsHelper implements DatabaseAwareInterface
 {
-	private static $option;
+	use DatabaseAwareTrait;
 
-	private static $view;
-
-	private static $id;
-
+	private int $id;
+	private string $option;
 	/**
-	 * @var  \Joomla\Database\DatabaseDriver
-	 *
-	 * @since ?
+	 * @var \Joomla\CMS\Application\SiteApplication
 	 */
-	private static $db;
+	private SiteApplication $app;
 
 	/**
 	 * Gets the items from the database
 	 *
-	 * @param   \Joomla\Registry\Registry  $params  parameters
+	 * @param Registry        $params The module parameters.
+	 * @param SiteApplication $app    The current application.
 	 *
 	 * @return  array  $related  Array of items
 	 *
 	 * @since ?
 	 */
-	public static function getList($params)
+	public function getRelatedSermons(Registry $params, SiteApplication $app): array
 	{
-		$jinput   = Factory::getApplication()->input;
-		self::$id = $jinput->getInt('id');
+		$this->app = $app;
+		$input     = $this->app->getInput();
+		$this->id  = $input->getInt('id');
 
-		if (!self::$id)
+		if (!$this->id)
 		{
 			return array();
 		}
 
-		self::$option = $jinput->getCmd('option');
-		self::$view   = $jinput->getCmd('view');
+		$this->option = $input->getCmd('option');
+		$view         = $input->getCmd('view');
 
 		// Get Params
 		$supportContent = $params->get('supportArticles', 0);
@@ -63,18 +67,18 @@ class ModRelatedSermonsHelper
 
 		$related = array();
 
-		if (($supportContent && self::$option == 'com_content' && self::$view == 'article')
-			|| (self::$option == 'com_sermonspeaker' && self::$view == 'sermon'))
+		if (($supportContent && $this->option == 'com_content' && $view == 'article')
+			|| ($this->option == 'com_sermonspeaker' && $view == 'sermon'))
 		{
-			$keywords = self::getKeywords();
+			$keywords = $this->getKeywords();
 
 			if ($keywords)
 			{
-				$related = self::getRelatedSermonsById($keywords, $orderBy, $sermonCat, $limitSermons);
+				$related = $this->getRelatedSermonsById($keywords, $orderBy, $sermonCat, $limitSermons);
 
 				if ($supportContent && $limitSermons > count($related))
 				{
-					$articles = self::getRelatedItemsById($keywords, $limitSermons - count($related));
+					$articles = $this->getRelatedItemsById($keywords, $limitSermons - count($related));
 					$related  = array_merge($related, $articles);
 				}
 			}
@@ -90,15 +94,15 @@ class ModRelatedSermonsHelper
 	 *
 	 * @since ?
 	 */
-	private static function getKeywords()
+	private function getKeywords(): array
 	{
-		self::$db = Factory::getDbo();
-		$query    = self::$db->getQuery(true);
+		$db    = $this->getDatabase();
+		$query = $db->getQuery(true);
 
 		$query->select('metakey');
-		$query->where('id = ' . self::$id);
+		$query->where('id = ' . $this->id);
 
-		if (self::$option == 'com_content')
+		if ($this->option == 'com_content')
 		{
 			$query->from('#__content');
 		}
@@ -107,8 +111,8 @@ class ModRelatedSermonsHelper
 			$query->from('#__sermon_sermons');
 		}
 
-		self::$db->setQuery($query);
-		$metakey  = self::$db->loadResult();
+		$db->setQuery($query);
+		$metakey  = $db->loadResult();
 		$keys     = explode(',', $metakey);
 		$keywords = array();
 
@@ -124,7 +128,7 @@ class ModRelatedSermonsHelper
 
 		foreach ($keywords as &$keyword)
 		{
-			$keyword = self::$db->escape($keyword);
+			$keyword = $db->escape($keyword);
 		}
 
 		return $keywords;
@@ -133,18 +137,20 @@ class ModRelatedSermonsHelper
 	/**
 	 * Search the sermons
 	 *
-	 * @param   array   $keywords      Keywords
-	 * @param   string  $orderBy       Ordering
-	 * @param   int     $sermonCat     Category
-	 * @param   int     $limitSermons  Limit
+	 * @param array  $keywords     Keywords
+	 * @param string $orderBy      Ordering
+	 * @param int    $sermonCat    Category
+	 * @param int    $limitSermons Limit
 	 *
 	 * @return  array  $related  Array of items
 	 *
 	 * @since ?
 	 */
-	protected static function getRelatedSermonsById($keywords, $orderBy, $sermonCat, $limitSermons)
+	protected
+	function getRelatedSermonsById(array $keywords, string $orderBy, int $sermonCat, int $limitSermons): array
 	{
 		$related = array();
+		$db      = $this->getDatabase();
 
 		$SermonOrder = match ($orderBy)
 		{
@@ -156,24 +162,24 @@ class ModRelatedSermonsHelper
 			default => 'a.created DESC',
 		};
 
-		$query = self::$db->getQuery(true);
+		$query = $this->getDatabase()->getQuery(true);
 		$query->select('a.title, a.created, a.catid, a.language');
 		$query->select('CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(":", a.id, a.alias) ELSE a.id END as slug');
 		$query->select('CASE WHEN CHAR_LENGTH(cc.alias) THEN CONCAT_WS(":", cc.id, cc.alias) ELSE cc.id END as catslug');
 		$query->from('#__sermon_sermons AS a');
 		$query->leftJoin('#__categories AS cc ON cc.id = a.catid');
 
-		if (self::$option == 'com_sermonspeaker')
+		if ($this->option == 'com_sermonspeaker')
 		{
-			$query->where('a.id != ' . self::$id);
+			$query->where('a.id != ' . $this->id);
 		}
 
 		$query->where('a.state = 1');
 		$query->where('(a.catid = 0 OR cc.published = 1)');
 
 		// Define null and now dates
-		$nullDate = self::$db->quote(self::$db->getNullDate());
-		$nowDate  = self::$db->quote(Factory::getDate()->toSql());
+		$nullDate = $db->quote($db->getNullDate());
+		$nowDate  = $db->quote(Factory::getDate()->toSql());
 
 		// Filter by start and end dates.
 		$query->where('(a.publish_up = ' . $nullDate . ' OR a.publish_up <= ' . $nowDate . ')');
@@ -186,18 +192,17 @@ class ModRelatedSermonsHelper
 
 		$query->where('(CONCAT(",", REPLACE(a.metakey, ", ", ","), ",") LIKE "%,'
 			. implode(',%" OR CONCAT(",", REPLACE(a.metakey, ", ", ","), ",") LIKE "%,', $keywords) . ',%")');
-		$app = Factory::getApplication();
 
-		if ($app->getLanguageFilter())
+		if ($this->app->getLanguageFilter())
 		{
-			$query->where('a.language in (' . self::$db->quote(Factory::getLanguage()->getTag()) . ',' . self::$db->quote('*') . ')');
+			$query->where('a.language in (' . $db->quote($this->app->getLanguage()->getTag()) . ',' . $db->quote('*') . ')');
 		}
 
 		$query->group('a.id');
 		$query->order($SermonOrder);
 
-		self::$db->setQuery($query, 0, $limitSermons);
-		$temp = self::$db->loadObjectList();
+		$db->setQuery($query, 0, $limitSermons);
+		$temp = $db->loadObjectList();
 
 		foreach ($temp as $row)
 		{
@@ -211,58 +216,56 @@ class ModRelatedSermonsHelper
 	/**
 	 * Search articles
 	 *
-	 * @param   array  $keywords  Keywords
-	 * @param   int    $limit     Limit
+	 * @param array $keywords Keywords
+	 * @param int   $limit    Limit
 	 *
 	 * @return  array  $related  Array of items
 	 *
 	 * @since ?
 	 */
-	private static function getRelatedItemsById($keywords, $limit)
+	private
+	function getRelatedItemsById(array $keywords, int $limit): array
 	{
-		$user   = Factory::getUser();
-		$groups = implode(',', $user->getAuthorisedViewLevels());
-
-		$nullDate = self::$db->getNullDate();
+		$groups   = $this->app->getIdentity()->getAuthorisedViewLevels();
+		$db       = $this->getDatabase();
+		$nullDate = $db->getNullDate();
 		$date     = Factory::getDate();
 		$now      = $date->toSql();
 
 		$related = array();
 
-		$query = self::$db->getQuery(true);
+		$query = $db->getQuery(true);
 		$query->select('a.title, a.created');
 		$query->select('CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(":", a.id, a.alias) ELSE a.id END as slug');
 		$query->select('CASE WHEN CHAR_LENGTH(cc.alias) THEN CONCAT_WS(":", cc.id, cc.alias) ELSE cc.id END as catslug');
 		$query->from('#__content AS a');
 		$query->leftJoin('#__categories AS cc ON cc.id = a.catid');
 
-		if (self::$option == 'com_content')
+		if ($this->option == 'com_content')
 		{
-			$query->where('a.id != ' . self::$id);
+			$query->where('a.id != ' . $this->id);
 		}
 
 		$query->where('a.state = 1');
-		$query->where('a.access IN (' . $groups . ')');
+		$query->whereIn($db->quoteName('a.access'), $groups);
 		$query->where('cc.published = 1');
 		$query->where('(CONCAT(",", REPLACE(a.metakey, ", ", ","), ",") LIKE "%,'
 			. implode(',%" OR CONCAT(",", REPLACE(a.metakey, ", ", ","), ",") LIKE "%,', $keywords) . ',%")');
-		$query->where('(a.publish_up = ' . self::$db->quote($nullDate) . ' OR a.publish_up <= ' . self::$db->quote($now) . ')');
-		$query->where('(a.publish_down = ' . self::$db->quote($nullDate) . ' OR a.publish_down >= ' . self::$db->quote($now) . ')');
+		$query->where('(a.publish_up = ' . $db->quote($nullDate) . ' OR a.publish_up <= ' . $db->quote($now) . ')');
+		$query->where('(a.publish_down = ' . $db->quote($nullDate) . ' OR a.publish_down >= ' . $db->quote($now) . ')');
 
 		// Filter by language
-		$app = Factory::getApplication();
-
-		if ($app->getLanguageFilter())
+		if ($this->app->getLanguageFilter())
 		{
-			$query->where('a.language in (' . self::$db->quote(Factory::getLanguage()->getTag()) . ',' . self::$db->quote('*') . ')');
+			$query->where('a.language in (' . $db->quote($this->app->getLanguage()->getTag()) . ',' . $db->quote('*') . ')');
 		}
 
-		self::$db->setQuery($query, 0, $limit);
-		$temp = self::$db->loadObjectList();
+		$db->setQuery($query, 0, $limit);
+		$temp = $db->loadObjectList();
 
 		foreach ($temp as $row)
 		{
-			$row->route = Route::_(RouteHelper::getArticleRoute($row->slug, $row->catslug, $row->language));
+			$row->route = Route::_(\Joomla\Component\Content\Site\Helper\RouteHelper::getArticleRoute($row->slug, $row->catslug, $row->language));
 			$related[]  = $row;
 		}
 
