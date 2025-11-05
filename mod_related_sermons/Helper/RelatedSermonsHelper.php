@@ -49,7 +49,7 @@ class RelatedSermonsHelper implements DatabaseAwareInterface
 	{
 		$this->app = $app;
 		$input     = $this->app->getInput();
-		$this->id  = $input->getInt('id');
+		$this->id  = $input->getInt('id', 0);
 
 		if (!$this->id)
 		{
