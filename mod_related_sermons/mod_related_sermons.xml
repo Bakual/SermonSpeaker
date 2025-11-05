@@ -15,7 +15,7 @@
 		<folder>Dispatcher</folder>
 		<folder>Helper</folder>
 		<folder>language</folder>
-		<folder module="mod_relatedsermons">services</folder>
+		<folder module="mod_related_sermons">services</folder>
 		<folder>tmpl</folder>
 	</files>
 	<updateservers>
