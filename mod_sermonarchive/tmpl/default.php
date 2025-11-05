@@ -7,13 +7,12 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
-defined('_JEXEC') or die();
-
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Router\Route;
 use Sermonspeaker\Component\Sermonspeaker\Site\Helper\RouteHelper;
 
-$moduleclass_sfx = htmlspecialchars($params->get('moduleclass_sfx'));
+defined('_JEXEC') or die();
+
 $mode            = ($params->get('archive_switch') == 'month');
 $state           = (int) $params->get('state', 1);
 $catid           = $params->get('sermon_cat');
