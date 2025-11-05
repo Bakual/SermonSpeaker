@@ -1,13 +1,13 @@
 <?php
 /**
  * @package     SermonSpeaker
- * @subpackage  Module.Sermonarchive
+ * @subpackage  Module.Sermoncast
  * @author      Thomas Hunziker <admin@sermonspeaker.net>
  * @copyright   © 2022 - Thomas Hunziker
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
-namespace Sermonspeaker\Module\Sermonarchive\Site\Dispatcher;
+namespace Sermonspeaker\Module\Sermoncast\Site\Dispatcher;
 
 use Joomla\CMS\Dispatcher\AbstractModuleDispatcher;
 use Joomla\CMS\Helper\HelperFactoryAwareInterface;
@@ -20,10 +20,8 @@ defined('_JEXEC') or die;
  *
  * @since  7.0.0
  */
-class Dispatcher extends AbstractModuleDispatcher implements HelperFactoryAwareInterface
+class Dispatcher extends AbstractModuleDispatcher
 {
-	use HelperFactoryAwareTrait;
-
 	/**
 	 * Returns the layout data.
 	 *
