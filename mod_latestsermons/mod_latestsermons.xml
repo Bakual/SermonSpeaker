@@ -25,8 +25,7 @@
 	</updateservers>
 	<config>
 		<fields name="params">
-			<fieldset name="basic"
-				addfieldpath="/administrator/components/com_sermonspeaker/models/fields">
+			<fieldset name="basic" addfieldprefix="Sermonspeaker\Component\Sermonspeaker\Administrator\Field">
 				<field name="mode" type="list"
 					label="JFIELD_ORDERING_LABEL"
 					default="0"

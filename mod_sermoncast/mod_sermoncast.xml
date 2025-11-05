@@ -26,8 +26,7 @@
 	</updateservers>
 	<config>
 		<fields name="params">
-			<fieldset name="basic"
-					  addfieldpath="/administrator/components/com_content/models/fields">
+			<fieldset name="basic">
 				<field
 					name="sc_introtext"
 					label="MOD_SERMONCAST_PARAM_INTROTEXT"
