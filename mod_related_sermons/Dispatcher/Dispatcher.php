@@ -28,11 +28,11 @@ class Dispatcher extends AbstractModuleDispatcher implements HelperFactoryAwareI
 	/**
 	 * Returns the layout data.
 	 *
-	 * @return  array
+	 * @return  array|bool
 	 *
 	 * @since   7.0.0
 	 */
-	protected function getLayoutData(): array
+	protected function getLayoutData(): array|bool
 	{
 		$data   = parent::getLayoutData();
 		$params = $data['params'];
@@ -44,9 +44,13 @@ class Dispatcher extends AbstractModuleDispatcher implements HelperFactoryAwareI
 		$cacheparams->methodparams = [$params, $data['app']];
 		$cacheparams->modeparams   = array('id' => 'int', 'Itemid' => 'int');
 
-		$data['list']            = ModuleHelper::moduleCache($this->module, $params, $cacheparams);
-		$data['moduleclass_sfx'] = htmlspecialchars($params->get('moduleclass_sfx'));
-		$data['showDate']        = $params->get('showDate', 0);
+		$data['showDate'] = $params->get('showDate', 0);
+		$data['list']     = ModuleHelper::moduleCache($this->module, $params, $cacheparams);
+
+		if (!$data['list'])
+		{
+			return false;
+		}
 
 		return $data;
 	}
