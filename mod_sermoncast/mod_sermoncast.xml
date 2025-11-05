@@ -5,9 +5,9 @@
 	<creationDate>2021-09-08</creationDate>
 	<copyright>© 2022</copyright>
 	<authorEmail>admin@sermonspeaker.net</authorEmail>
-	<authorUrl>http://www.sermonspeaker.net</authorUrl>
+	<authorUrl>https://www.sermonspeaker.net</authorUrl>
 	<version>6.0.0</version>
-	<license>http://www.gnu.org/licenses/gpl.html</license>
+	<license>https://www.gnu.org/licenses/gpl.html</license>
 	<description>MOD_SERMONCAST_XML_DESCRIPTION</description>
 	<namespace path="/">Sermonspeaker\Module\Sermoncast</namespace>
 	<files>
@@ -15,7 +15,9 @@
 		<filename>mod_sermoncast.xml</filename>
 		<filename>podcast-mini.gif</filename>
 		<filename>feed_rss.gif</filename>
+		<folder>Dispatcher</folder>
 		<folder>language</folder>
+		<folder module="mod_sermoncast">services</folder>
 		<folder>tmpl</folder>
 	</files>
 	<updateservers>

@@ -14,6 +14,11 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
 
+/**
+ * @var \Joomla\Registry\Registry $params
+ * @var stdClass                  $module
+ * @var string                    $feedFile
+ */
 ?>
 <div class="syndicate-module">
 	<?php if ($params->get('sc_introtext')) : ?>
@@ -30,18 +35,20 @@ use Joomla\CMS\Uri\Uri;
 		<?php endif; ?>
 		<?php $img = $params->get('sc_otherimage'); ?>
 		<?php if (!$img && ($img = $params->get('logo'))) : ?>
-            <?php $img = Uri::root() . 'media/com_sermonspeaker/logo/' . $img; ?>
+			<?php $img = Uri::root() . 'media/com_sermonspeaker/logo/' . $img; ?>
 		<?php endif; ?>
 		<?php if (!$img) : ?>
 			<?php $img = Uri::root() . 'modules/mod_sermoncast/podcast-mini.gif'; ?>
 		<?php endif; ?>
 		<a href="<?php echo $link; ?>">
-			<img src="<?php echo $img; ?>" alt="Podcast" />
-		</a><br />
+			<img src="<?php echo $img; ?>" alt="Podcast"/>
+		</a><br/>
 	<?php endif; ?>
 	<?php if ($params->get('sc_showplink')) : ?>
 		<a href="<?php echo Route::_($feedFile); ?>"><?php echo Text::_('MOD_SERMONCAST_FULLFEED'); ?></a>
-		<a href="<?php echo Route::_($feedFile); ?>"><img src="<?php echo Uri::root(); ?>modules/mod_sermoncast/feed_rss.gif" border="0" alt="rss feed" /></a><br />
+		<a href="<?php echo Route::_($feedFile); ?>"><img
+					src="<?php echo Uri::root(); ?>modules/mod_sermoncast/feed_rss.gif" border="0" alt="rss feed"/></a>
+		<br/>
 	<?php endif; ?>
 	<?php if ($params->get('sc_showhelp')) : ?>
 		<?php $modalParams = array(); ?>
@@ -51,7 +58,7 @@ use Joomla\CMS\Uri\Uri;
 		<?php $modalParams['modalWidth'] = 80; ?>
 		<?php echo HTMLHelper::_('bootstrap.renderModal', 'sc_modal', $modalParams); ?>
 		<p>
-			<button type="button" class="btn btn-secondary btn-sm" data-bs-target="#sc_modal" data-bs-toggle="modal" >
+			<button type="button" class="btn btn-secondary btn-sm" data-bs-target="#sc_modal" data-bs-toggle="modal">
 				<?php echo Text::_('MOD_SERMONCAST_HELP'); ?>
 			</button>
 		</p>
