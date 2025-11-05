@@ -11,7 +11,6 @@
 	<description>MOD_SERMONCAST_XML_DESCRIPTION</description>
 	<namespace path="/">Sermonspeaker\Module\Sermoncast</namespace>
 	<files>
-		<filename module="mod_sermoncast">mod_sermoncast.php</filename>
 		<filename>mod_sermoncast.xml</filename>
 		<filename>podcast-mini.gif</filename>
 		<filename>feed_rss.gif</filename>
