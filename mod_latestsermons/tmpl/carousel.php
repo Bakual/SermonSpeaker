@@ -37,7 +37,7 @@ if ($params->get('show_player'))
 	$player              = SermonspeakerHelper::getPlayer($list, $config);
 }
 
-HTMLHelper::_('bootstrap.carousel');
+HTMLHelper::_('bootstrap.carousel', $id);
 ?>
 <div class="latestsermons">
 	<?php if ($params->get('show_list')) : ?>
