@@ -11,11 +11,12 @@
 	<description>MOD_RELATED_SERMONS_XML_DESCRIPTION</description>
 	<namespace path="/">Sermonspeaker\Module\RelatedSermons</namespace>
 	<files>
-		<filename module="mod_related_sermons">mod_related_sermons.php</filename>
 		<filename>mod_related_sermons.xml</filename>
-		<filename>helper.php</filename>
-		<folder>tmpl</folder>
+		<folder>Dispatcher</folder>
+		<folder>Helper</folder>
 		<folder>language</folder>
+		<folder module="mod_relatedsermons">services</folder>
+		<folder>tmpl</folder>
 	</files>
 	<updateservers>
 		<server type="extension" priority="1" name="SermonSpeaker.net">
