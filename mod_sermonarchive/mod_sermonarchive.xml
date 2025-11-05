@@ -11,10 +11,11 @@
 	<description>MOD_SERMONARCHIVE_XML_DESCRIPTION</description>
 	<namespace path="/">Sermonspeaker\Module\Sermonarchive</namespace>
 	<files>
-		<filename module="mod_sermonarchive">mod_sermonarchive.php</filename>
 		<filename>mod_sermonarchive.xml</filename>
-		<filename>helper.php</filename>
+		<folder>Dispatcher</folder>
+		<folder>Helper</folder>
 		<folder>language</folder>
+		<folder module="mod_sermonarchive">services</folder>
 		<folder>tmpl</folder>
 	</files>
 	<updateservers>

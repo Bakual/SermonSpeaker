@@ -7,34 +7,39 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
-defined('_JEXEC') or die();
+namespace Sermonspeaker\Module\Sermonarchive\Site\Helper;
 
 use Joomla\CMS\Factory;
+use Joomla\Database\DatabaseAwareInterface;
+use Joomla\Database\DatabaseAwareTrait;
+
+defined('_JEXEC') or die();
 
 /**
- * Helper class for SermonSpeaker module
+ * Helper class for Sermonarchive module
  *
  * @since  1.0
  */
-abstract class ModSermonarchiveHelper
+class SermonarchiveHelper implements DatabaseAwareInterface
 {
+	use DatabaseAwareTrait;
 	/**
 	 * Gets the items from the database
 	 *
-	 * @param   object $params parameters
+	 * @param object $params parameters
 	 *
 	 * @return  array  $items  Array of items
 	 *
 	 * @since ?
 	 */
-	public static function getList($params)
+	public function getSermons(object $params): array
 	{
 		// Collect params
 		$mode  = ($params->get('archive_switch') == 'month');
 		$state = (int) ($params->get('state', 1));
 		$state = $state ?: 1;
 
-		$db    = Factory::getDbo();
+		$db    = $this->getDatabase();
 		$query = $db->getQuery(true);
 
 		$query->select('YEAR(`sermon_date`) AS `year`');
