@@ -7,34 +7,40 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
-defined('_JEXEC') or die();
+namespace Sermonspeaker\Module\Sermonspeaker\Site\Helper;
 
 use Joomla\CMS\Factory;
+use Joomla\Database\DatabaseAwareInterface;
+use Joomla\Database\DatabaseAwareTrait;
+
+defined('_JEXEC') or die();
 
 /**
  * Helper class for SermonSpeaker module
  *
  * @since  1.0
  */
-abstract class ModSermonspeakerHelper
+class SermonspeakerHelper implements DatabaseAwareInterface
 {
+	use DatabaseAwareTrait;
+
 	/**
 	 * Gets the items from the database
 	 *
-	 * @param   object  $params  parameters
+	 * @param object $params parameters
 	 *
 	 * @return  array  $items  Array of items
 	 *
 	 * @since ?
 	 */
-	public static function getList($params)
+	public function getItems(object $params): array
 	{
 		// Collect params
 		$mode   = (int) $params->get('mode');
 		$cat_id = ($mode) ? (int) $params->get('catseries') : (int) $params->get('catspeakers');
 		$sort   = (int) $params->get('sort');
 
-		$db    = Factory::getDbo();
+		$db    = $this->getDatabase();
 		$query = $db->getQuery(true);
 
 		if ($mode)

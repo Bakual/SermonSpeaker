@@ -11,11 +11,12 @@
 	<description>MOD_SERMONSPEAKER_XML_DESCRIPTION</description>
 	<namespace path="/">Sermonspeaker\Module\Sermonspeaker</namespace>
 	<files>
-		<filename module="mod_sermonspeaker">mod_sermonspeaker.php</filename>
 		<filename>mod_sermonspeaker.xml</filename>
-		<filename>helper.php</filename>
-		<folder>tmpl</folder>
+		<folder>Dispatcher</folder>
+		<folder>Helper</folder>
 		<folder>language</folder>
+		<folder module="mod_sermonspeaker">services</folder>
+		<folder>tmpl</folder>
 	</files>
 	<updateservers>
 		<server type="extension" priority="1" name="SermonSpeaker.net">
