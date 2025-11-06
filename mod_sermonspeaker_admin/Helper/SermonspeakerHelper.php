@@ -7,30 +7,30 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
+namespace Sermonspeaker\Module\Sermonspeaker\Administrator\Helper;
+
+use Joomla\CMS\Application\CMSApplicationInterface;
+use Joomla\Registry\Registry;
+
 defined('_JEXEC') or die;
-
-use Joomla\CMS\Factory;
-use Joomla\CMS\MVC\Model\BaseDatabaseModel;
-
-BaseDatabaseModel::addIncludePath(JPATH_ADMINISTRATOR . '/components/com_sermonspeaker/models', 'SermonspeakerModel');
 
 /**
  * Helper for mod_sermonspeaker
  *
  * @since  1.0
  */
-class ModSermonspeakerHelper
+class SermonspeakerHelper
 {
 	/**
 	 * Get a list of SermonSpeaker items
 	 *
-	 * @param   /Joomla/Registry/Registry  $params  The module parameters.
+	 * @param Registry $params The module parameters.
 	 *
 	 * @return  array array of items or false
 	 *
 	 * @since   ?
 	 */
-	public static function getList($params, $type)
+	public static function getItems(Registry $params, CMSApplicationInterface $app, $type): array
 	{
 		if (!in_array($type, array('sermons', 'series', 'speakers')))
 		{
@@ -38,7 +38,7 @@ class ModSermonspeakerHelper
 		}
 
 		// Get an instance of the SermonSpeaker item model
-		$model = BaseDatabaseModel::getInstance($type, 'SermonspeakerModel', array('ignore_request' => true));
+		$model = $app->bootComponent('com_sermonspeaker')->getMVCFactory()->createModel(ucfirst($type), 'Administrator', ['ignore_request' => true]);
 
 		// Set States
 		$model->setState('list.select',
@@ -63,13 +63,13 @@ class ModSermonspeakerHelper
 		{
 			$items = $model->getItems();
 		}
-		catch (RuntimeException $e)
+		catch (\RuntimeException)
 		{
 			return array();
 		}
 
 		// Authenticate and create the links
-		$user = Factory::getuser();
+		$user = $app->getIdentity();
 		$view = rtrim($type, 's');
 
 		foreach ($items as $item)
