@@ -66,7 +66,7 @@ $player     = SermonspeakerHelper::getPlayer($this->items);
 									href="<?php echo Route::_(Sermonspeaker\Component\Sermonspeaker\Site\Helper\RouteHelper::getSermonRoute($item->slug, $item->catid, $item->language)); ?>"><?php echo $item->title; ?></a>
 							<?php
 							if ($canEdit or ($canEditOwn && ($user->id == $item->created_by))) :
-								echo HTMLHelper::_('icon.edit', $item, $this->params, array('type' => 'sermon'));
+								echo HTMLHelper::_('sermonspeakericon.edit', $item, $this->params, array('type' => 'sermon'));
 							endif; ?>
 						</h3>
 						<?php $class = '';

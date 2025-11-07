@@ -50,7 +50,7 @@ $listDirn   = $this->escape($this->state->get('list.direction'));
 						<li class="<?php echo ($item->state) ? '' : 'system-unpublished '; ?>cat-list-row<?php echo $i % 2; ?> serie-item list-group-item">
 							<?php if ($canEdit or ($canEditOwn and ($user->id == $item->created_by))) : ?>
 								<span class="list-edit">
-									<?php echo HTMLHelper::_('icon.edit', $item, $this->params, array('type' => 'serie')); ?>
+									<?php echo HTMLHelper::_('sermonspeakericon.edit', $item, $this->params, array('type' => 'serie')); ?>
 								</span>
 							<?php endif; ?>
 							<strong class="ss-title">
@@ -77,7 +77,7 @@ $listDirn   = $this->escape($this->state->get('list.direction'));
 			<?php endif; ?>
 
 			<?php if ($user->authorise('core.create', 'com_sermonspeaker')) : ?>
-				<?php echo HTMLHelper::_('icon.create', $this->category, $this->params, 'serie'); ?>
+				<?php echo HTMLHelper::_('sermonspeakericon.create', $this->category, $this->params, 'serie'); ?>
 			<?php endif; ?>
 
 			<?php if (!empty($this->items)) : ?>

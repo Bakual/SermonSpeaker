@@ -59,7 +59,7 @@ $prio       = $this->params->get('fileprio');
 							class="<?php echo ($item->state) ? '' : 'system-unpublished '; ?>cat-list-row<?php echo $i % 2; ?> sermon-item list-group-item">
 							<?php if ($canEdit or ($canEditOwn and ($user->id == $item->created_by))) : ?>
 								<span class="list-edit">
-									<?php echo HTMLHelper::_('icon.edit', $item, $this->params, array('type' => 'sermon')); ?>
+									<?php echo HTMLHelper::_('sermonspeakericon.edit', $item, $this->params, array('type' => 'sermon')); ?>
 								</span>
 							<?php endif; ?>
 							<strong class="ss-title">
@@ -135,7 +135,7 @@ $prio       = $this->params->get('fileprio');
 			<?php endif; ?>
 
 			<?php if ($user->authorise('core.create', 'com_sermonspeaker')) : ?>
-				<?php echo HTMLHelper::_('icon.create', $this->category, $this->params); ?>
+				<?php echo HTMLHelper::_('sermonspeakericon.create', $this->category, $this->params); ?>
 			<?php endif; ?>
 
 			<?php if (!empty($this->items)) : ?>

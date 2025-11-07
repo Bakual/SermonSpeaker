@@ -62,7 +62,7 @@ $limit      = $this->params->get('limitseriesdl');
 
 		<?php if ($canEdit or ($canEditOwn and ($user->id == $this->item->created_by))) : ?>
 			<div>
-				<span class="edit-icon"><?php echo HTMLHelper::_('icon.edit', $this->item, $this->params, array('type' => 'serie')); ?></span>
+				<span class="edit-icon"><?php echo HTMLHelper::_('sermonspeakericon.edit', $this->item, $this->params, array('type' => 'serie')); ?></span>
 			</div>
 		<?php endif; ?>
 	</div>

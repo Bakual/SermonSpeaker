@@ -67,7 +67,7 @@ $player     = SermonspeakerHelper::getPlayer($this->items);
 								<?php if ($canEdit or ($canEditOwn and ($user->id == $item->created_by))) : ?>
 									<div class="icons">
 										<div class="float-end">
-											<?php echo HTMLHelper::_('icon.edit', $item, $this->params, array('type' => 'sermon')); ?>
+											<?php echo HTMLHelper::_('sermonspeakericon.edit', $item, $this->params, array('type' => 'sermon')); ?>
 										</div>
 									</div>
 								<?php endif; ?>
@@ -153,7 +153,7 @@ $player     = SermonspeakerHelper::getPlayer($this->items);
 									<?php if ($playerid = !empty($player->id) ? $player->id : '') : ?>
 										<dd>
 											<div class="ss-sermondetail-info">
-												<?php echo HTMLHelper::_('icon.play', $item, $this->params, array('index' => $i, 'playerid' => $playerid)); ?>
+												<?php echo HTMLHelper::_('sermonspeakericon.play', $item, $this->params, array('index' => $i, 'playerid' => $playerid)); ?>
 											</div>
 										</dd>
 									<?php endif; ?>
@@ -163,7 +163,7 @@ $player     = SermonspeakerHelper::getPlayer($this->items);
 											<dd>
 												<div class="ss-sermondetail-info">
 													<span class="icon-download"></span>
-													<?php echo HTMLHelper::_('icon.download', $item, $this->params, array('type' => 'audio', 'hideIcon' => true)); ?>
+													<?php echo HTMLHelper::_('sermonspeakericon.download', $item, $this->params, array('type' => 'audio', 'hideIcon' => true)); ?>
 												</div>
 											</dd>
 										<?php endif; ?>
@@ -172,7 +172,7 @@ $player     = SermonspeakerHelper::getPlayer($this->items);
 											<dd>
 												<div class="ss-sermondetail-info">
 													<span class="download-icon"></span>
-													<?php echo HTMLHelper::_('icon.download', $item, $this->params, array('type' => 'video', 'hideIcon' => true)); ?>
+													<?php echo HTMLHelper::_('sermonspeakericon.download', $item, $this->params, array('type' => 'video', 'hideIcon' => true)); ?>
 												</div>
 											</dd>
 										<?php endif; ?>

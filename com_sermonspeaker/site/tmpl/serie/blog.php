@@ -66,21 +66,21 @@ $player     = SermonspeakerHelper::getPlayer($this->items);
 								</a>
 								<ul class="dropdown-menu">
 									<?php if ($playerid = !empty($player->id) ? $player->id : '') : ?>
-										<li class="play-icon"><?php echo HTMLHelper::_('icon.play', $item, $this->params, array('index' => $i, 'playerid' => $playerid)); ?></li>
+										<li class="play-icon"><?php echo HTMLHelper::_('sermonspeakericon.play', $item, $this->params, array('index' => $i, 'playerid' => $playerid)); ?></li>
 									<?php endif; ?>
 									<?php
 									if (in_array('serie:download', $this->columns)) :
 										if ($item->audiofile) : ?>
-											<li class="download-icon"><?php echo HTMLHelper::_('icon.download', $item, $this->params, array('type' => 'audio')); ?></li>
+											<li class="download-icon"><?php echo HTMLHelper::_('sermonspeakericon.download', $item, $this->params, array('type' => 'audio')); ?></li>
 										<?php endif;
 
 										if ($item->videofile) : ?>
-											<li class="download-icon"><?php echo HTMLHelper::_('icon.download', $item, $this->params, array('type' => 'video')); ?></li>
+											<li class="download-icon"><?php echo HTMLHelper::_('sermonspeakericon.download', $item, $this->params, array('type' => 'video')); ?></li>
 										<?php endif;
 									endif; ?>
 									<?php
 									if ($canEdit or ($canEditOwn and ($user->id == $item->created_by))) : ?>
-										<li class="edit-icon"><?php echo HTMLHelper::_('icon.edit', $item, $this->params, array('type' => 'sermon')); ?></li>
+										<li class="edit-icon"><?php echo HTMLHelper::_('sermonspeakericon.edit', $item, $this->params, array('type' => 'sermon')); ?></li>
 									<?php endif; ?>
 								</ul>
 							</div>

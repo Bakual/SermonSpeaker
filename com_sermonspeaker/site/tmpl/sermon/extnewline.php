@@ -37,7 +37,7 @@ $player     = SermonspeakerHelper::getPlayer($this->item);
 	if ($canEdit or ($canEditOwn and ($user->id == $this->item->created_by))) : ?>
 		<ul class="actions">
 			<li class="edit-icon">
-				<?php echo HTMLHelper::_('icon.edit', $this->item, $this->params, array('type' => 'sermon')); ?>
+				<?php echo HTMLHelper::_('sermonspeakericon.edit', $this->item, $this->params, array('type' => 'sermon')); ?>
 			</li>
 		</ul>
 	<?php endif; ?>

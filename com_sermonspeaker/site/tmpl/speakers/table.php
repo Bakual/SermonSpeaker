@@ -133,7 +133,7 @@ $listDirn   = $this->escape($this->state->get('list.direction'));
 			<?php endif; ?>
 
 			<?php if ($user->authorise('core.create', 'com_sermonspeaker')) : ?>
-				<?php echo HTMLHelper::_('icon.create', $this->category, $this->params, 'speaker'); ?>
+				<?php echo HTMLHelper::_('sermonspeakericon.create', $this->category, $this->params, 'speaker'); ?>
 			<?php endif; ?>
 
 			<?php if (!empty($this->items)) : ?>

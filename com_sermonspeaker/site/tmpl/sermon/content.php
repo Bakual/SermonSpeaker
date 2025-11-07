@@ -46,7 +46,7 @@ $htag       = $this->params->get('show_page_heading') ? 'h2' : 'h1';
 	<?php if ($canEdit or ($canEditOwn and ($user->id == $this->item->created_by))) : ?>
 		<div class="icons">
 			<div class="float-end">
-				<?php echo HTMLHelper::_('icon.edit', $this->item, $this->params, array('type' => 'sermon')); ?>
+				<?php echo HTMLHelper::_('sermonspeakericon.edit', $this->item, $this->params, array('type' => 'sermon')); ?>
 			</div>
 		</div>
 	<?php endif; ?>
@@ -135,7 +135,7 @@ $htag       = $this->params->get('show_page_heading') ? 'h2' : 'h1';
 				<dd>
 					<div class="ss-sermondetail-info">
 						<span class="icon-download"></span>
-						<?php echo HTMLHelper::_('icon.download', $this->item, $this->params, array('type' => 'audio', 'hideIcon' => true)); ?>
+						<?php echo HTMLHelper::_('sermonspeakericon.download', $this->item, $this->params, array('type' => 'audio', 'hideIcon' => true)); ?>
 					</div>
 				</dd>
 			<?php endif; ?>
@@ -144,7 +144,7 @@ $htag       = $this->params->get('show_page_heading') ? 'h2' : 'h1';
 				<dd>
 					<div class="ss-sermondetail-info">
 						<span class="download-icon"></span>
-						<?php echo HTMLHelper::_('icon.download', $this->item, $this->params, array('type' => 'video', 'hideIcon' => true)); ?>
+						<?php echo HTMLHelper::_('sermonspeakericon.download', $this->item, $this->params, array('type' => 'video', 'hideIcon' => true)); ?>
 					</div>
 				</dd>
 			<?php endif; ?>

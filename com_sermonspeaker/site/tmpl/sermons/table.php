@@ -245,7 +245,7 @@ $player     = SermonspeakerHelper::getPlayer($this->items);
 			<?php endif; ?>
 
 			<?php if ($user->authorise('core.create', 'com_sermonspeaker')) : ?>
-				<?php echo HTMLHelper::_('icon.create', $this->category, $this->params, 'sermon'); ?>
+				<?php echo HTMLHelper::_('sermonspeakericon.create', $this->category, $this->params, 'sermon'); ?>
 			<?php endif; ?>
 
 			<?php if (!empty($this->items)) : ?>

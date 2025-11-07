@@ -69,7 +69,7 @@ $listDirn   = $this->escape($this->state->get('list.direction'));
 								<?php if ($canEdit or ($canEditOwn and ($user->id == $item->created_by))) : ?>
 									<div class="icons">
 										<div class="float-end">
-											<?php echo HTMLHelper::_('icon.edit', $item, $this->params, array('type' => 'serie')); ?>
+											<?php echo HTMLHelper::_('sermonspeakericon.edit', $item, $this->params, array('type' => 'serie')); ?>
 										</div>
 									</div>
 								<?php endif; ?>

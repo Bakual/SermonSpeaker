@@ -41,7 +41,7 @@ $htag       = $this->params->get('show_page_heading') ? 'h2' : 'h1';
 	<div class="float-end">
 		<?php if ($canEdit or ($canEditOwn and ($user->id == $this->item->created_by))) : ?>
 			<div>
-				<span class="edit-icon"><?php echo HTMLHelper::_('icon.edit', $this->item, $this->params, array('type' => 'speaker')); ?></span>
+				<span class="edit-icon"><?php echo HTMLHelper::_('sermonspeakericon.edit', $this->item, $this->params, array('type' => 'speaker')); ?></span>
 			</div>
 		<?php endif; ?>
 	</div>
