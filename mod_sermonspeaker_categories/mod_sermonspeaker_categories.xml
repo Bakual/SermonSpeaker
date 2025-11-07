@@ -11,9 +11,11 @@
 	<description>MOD_SERMONSPEAKER_CATEGORIES_XML_DESCRIPTION</description>
 	<namespace path="/">Sermonspeaker\Module\SermonspeakerCategories</namespace>
 	<files>
-		<filename module="mod_sermonspeaker_categories">mod_sermonspeaker_categories.php</filename>
+		<filename>mod_sermonspeaker_categories.xml</filename>
+		<folder>Dispatcher</folder>
 		<folder>Helper</folder>
 		<folder>language</folder>
+		<folder module="mod_sermonspeaker_categories">services</folder>
 		<folder>tmpl</folder>
 	</files>
 	<updateservers>

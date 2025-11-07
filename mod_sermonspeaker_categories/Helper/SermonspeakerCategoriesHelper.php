@@ -9,6 +9,7 @@
 
 namespace Sermonspeaker\Module\SermonspeakerCategories\Site\Helper;
 
+use Joomla\CMS\Application\SiteApplication;
 use Joomla\CMS\Categories\Categories;
 use Joomla\Registry\Registry;
 
@@ -30,14 +31,14 @@ abstract class SermonspeakerCategoriesHelper
 	 *
 	 * @since   1.5
 	 */
-	public static function getList(Registry $params): array
+	public static function getCategories(Registry $params, SiteApplication $app): array
 	{
 		$type = $params->get('parent_type', 'sermons');
 		$options               = [];
 		$options['countItems'] = $params->get('numitems', 0);
 
-//		To Test: Factory::getApplication()->bootComponent('com_sermonspeaker')->getCategory($options, $type);
-		$categories = Categories::getInstance('Sermonspeaker.' . $type, $options);
+		$categories = $app->bootComponent('com_categories')->getCategory($options, $type);
+//		$categories = Categories::getInstance('Sermonspeaker.' . $type, $options);
 		$category   = $categories->get($params->get('parent', 'root'));
 
 		if ($category !== null)
