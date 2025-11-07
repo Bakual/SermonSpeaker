@@ -9,9 +9,11 @@
 	<authorUrl>http://www.sermonspeaker.net</authorUrl>
 	<version>6.0.0</version>
 	<description>PLG_CONTENT_SERMONSPEAKER_XML_DESCRIPTION</description>
+	<namespace path="/">Sermonspeaker\Plugin\Content\Sermonspeaker</namespace>
 	<files>
-		<filename plugin="sermonspeaker">sermonspeaker.php</filename>
+		<folder>Extension</folder>
 		<folder>language</folder>
+		<folder plugin="sermonspeaker">services</folder>
 	</files>
 	<updateservers>
 		<server type="extension" priority="1" name="SermonSpeaker.net">https://www.sermonspeaker.net/update/plg_content_sermonspeaker.xml</server>

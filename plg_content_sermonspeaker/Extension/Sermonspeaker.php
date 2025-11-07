@@ -7,17 +7,21 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
-defined('_JEXEC') or die();
+namespace Sermonspeaker\Plugin\Content\Sermonspeaker\Extension;
 
-use Joomla\CMS\Factory;
+use Joomla\CMS\Event\Content\ContentPrepareEvent;
 use Joomla\CMS\Helper\ModuleHelper;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\FileLayout;
 use Joomla\CMS\Plugin\CMSPlugin;
 use Joomla\CMS\Router\Route;
+use Joomla\Database\DatabaseAwareTrait;
+use Joomla\Event\SubscriberInterface;
 use Sermonspeaker\Component\Sermonspeaker\Site\Helper\SermonspeakerHelper;
 use Sermonspeaker\Component\Sermonspeaker\Site\Helper\RouteHelper;
+
+defined('_JEXEC') or die();
 
 /**
  * Plug-in to show a SermonSpeaker player in an article
@@ -25,22 +29,38 @@ use Sermonspeaker\Component\Sermonspeaker\Site\Helper\RouteHelper;
  *
  * @since  1.0
  */
-class PlgContentSermonspeaker extends CMSPlugin
+final class Sermonspeaker extends CMSPlugin implements SubscriberInterface
 {
+	use DatabaseAwareTrait;
+
+	/**
+	 * Returns an array of events this subscriber will listen to.
+	 *
+	 * @return array
+	 *
+	 * @since   7.0.0
+	 */
+	public static function getSubscribedEvents(): array
+	{
+		return [
+			'onContentPrepare' => 'onContentPrepare',
+		];
+	}
+
 	/**
 	 * Plugin that shows a SermonSpeaker player
 	 *
-	 * @param   string  $context  The context of the content being passed to the plugin.
-	 * @param   object &$item     The item object.  Note $item->text is also available
-	 * @param   object &$params   The article params
-	 * @param   int     $page     The 'page' number
+	 * @param ContentPrepareEvent $event The event instance.
 	 *
 	 * @return void
 	 *
 	 * @since ?
 	 */
-	public function onContentPrepare($context, $item, &$params, $page = 0)
+	public function onContentPrepare(ContentPrepareEvent $event): void
 	{
+		$context = $event->getContext();
+		$row     = $event->getItem();
+
 		// Don't run this plugin when the content is being indexed
 		if ($context == 'com_finder.indexer')
 		{
@@ -48,13 +68,13 @@ class PlgContentSermonspeaker extends CMSPlugin
 		}
 
 		// Don't run if there is no text property (in case of bad calls) or it is empty
-		if (empty($item->text))
+		if (empty($row->text))
 		{
 			return;
 		}
 
 		// Simple performance check to determine whether bot should process further
-		if (!str_contains($item->text, 'sermonspeaker'))
+		if (!str_contains($row->text, 'sermonspeaker'))
 		{
 			return;
 		}
@@ -62,13 +82,13 @@ class PlgContentSermonspeaker extends CMSPlugin
 		$regex = '/{sermonspeaker\s+(.*?)}/i';
 
 		// $matches[0] is full pattern match, $matches[1] is the id
-		preg_match_all($regex, $item->text, $matches, PREG_SET_ORDER);
+		preg_match_all($regex, $row->text, $matches, PREG_SET_ORDER);
 
 		if ($matches)
 		{
 			$default_mode = $this->params->get('mode', 1);
 
-			$db = Factory::getDbo();
+			$db = $this->getDatabase();
 
 			foreach ($matches as $i => $match)
 			{
@@ -111,7 +131,7 @@ class PlgContentSermonspeaker extends CMSPlugin
 				if (!$sermon)
 				{
 					// Sermon not found, remove plugin tag and return early.
-					$item->text = preg_replace("|$match[0]|", addcslashes('', '\\$'), $item->text, 1);
+					$row->text = preg_replace("|$match[0]|", addcslashes('', '\\$'), $row->text, 1);
 
 					return;
 				}
@@ -131,6 +151,7 @@ class PlgContentSermonspeaker extends CMSPlugin
 						break;
 					case 3:
 						$this->loadLanguage();
+						$this->loadLanguage('com_sermonspeaker', JPATH_SITE . '/components/com_sermonspeaker');
 						$link      = Route::_(RouteHelper::getSermonRoute($sermon->slug, $sermon->catid, $sermon->language));
 						$serieslnk = Route::_(RouteHelper::getSerieRoute($sermon->series_slug, $sermon->series_catid, $sermon->series_language));
 						$contents  = '<div class="ss-content-plg">';
@@ -181,7 +202,7 @@ class PlgContentSermonspeaker extends CMSPlugin
 
 						$contents                         .= '</div>';
 						$attribs['style']                 = $this->params->get('style', 'html5');
-						$module                           = new StdClass;
+						$module                           = new \StdClass;
 						$module->id                       = 0;
 						$module->title                    = '<a href="' . $link . '">' . $sermon->title . '</a>';
 						$module->module                   = 'mod_custom';
@@ -195,7 +216,7 @@ class PlgContentSermonspeaker extends CMSPlugin
 						break;
 				}
 
-				$item->text = preg_replace("|$match[0]|", addcslashes($output, '\\$'), $item->text, 1);
+				$row->text = preg_replace("|$match[0]|", addcslashes($output, '\\$'), $row->text, 1);
 			}
 		}
 	}
