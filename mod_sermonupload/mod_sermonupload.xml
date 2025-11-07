@@ -11,11 +11,12 @@
 	<description>MOD_SERMONUPLOAD_XML_DESCRIPTION</description>
 	<namespace path="">Sermonspeaker\Module\Sermonupload</namespace>
 	<files>
-		<filename module="mod_sermonupload">mod_sermonupload.php</filename>
 		<filename>mod_sermonupload.xml</filename>
-		<filename>helper.php</filename>
-		<folder>tmpl</folder>
+		<folder>Dispatcher</folder>
+		<folder>Helper</folder>
 		<folder>language</folder>
+		<folder module="mod_sermonupload">services</folder>
+		<folder>tmpl</folder>
 	</files>
 	<updateservers>
 		<server type="extension" priority="1" name="SermonSpeaker.net">https://www.sermonspeaker.net/update/mod_sermonupload.xml</server>

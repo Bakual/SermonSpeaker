@@ -7,32 +7,38 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
-defined('_JEXEC') or die();
+namespace Sermonspeaker\Module\Latestsermons\Site\Helper;
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Session\Session;
 use Joomla\CMS\Uri\Uri;
+use Joomla\Database\DatabaseAwareInterface;
+use Joomla\Database\DatabaseAwareTrait;
+
+defined('_JEXEC') or die();
 
 /**
  * Helper class for SermonUpload module
  *
  * @since  1.0
  */
-abstract class ModSermonuploadHelper
+class SermonuploadHelper implements DatabaseAwareInterface
 {
+	use DatabaseAwareTrait;
+
 	/**
 	 * Loads JavaScript for the uploader into Document Header
 	 *
-	 * @param   string  $identifier  Unique identifier
-	 * @param   string  $type        Filetype (audio, video, addfile)
+	 * @param string $identifier Unique identifier
+	 * @param string $type       Filetype (audio, video, addfile)
 	 * @param   /Joomla/Registry/Registry  $type        SermonSpeaker params
 	 *
 	 * @return  void
 	 *
 	 * @since   ?
 	 */
-	public static function loadUploaderScript($identifier, $type, $params)
+	public function loadUploaderScript(string $identifier, string $type, $params): void
 	{
 		$identifier = $identifier . $type;
 		$uploadURL  = Uri::base() . 'index.php?option=com_sermonspeaker&task=file.upload&'
@@ -120,7 +126,7 @@ abstract class ModSermonuploadHelper
 	 *
 	 * @since ?
 	 */
-	static public function getMaxUploadValue()
+	static public function getMaxUploadValue(): string
 	{
 		// Check some PHP settings for upload limit so I can show it as an info
 		$post_max_size       = ini_get('post_max_size');
@@ -133,13 +139,13 @@ abstract class ModSermonuploadHelper
 	/**
 	 * Function to return bytes from the PHP settings. Taken from the ini_get() manual
 	 *
-	 * @param   string  $val  Value from the PHP setting
+	 * @param string $val Value from the PHP setting
 	 *
 	 * @return  int  $val  Value in bytes
 	 *
 	 * @since ?
 	 */
-	static private function return_bytes($val)
+	static private function return_bytes(string $val): int
 	{
 		$val  = trim($val);
 		$last = strtolower($val[strlen($val) - 1]);
