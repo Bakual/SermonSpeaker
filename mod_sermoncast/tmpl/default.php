@@ -38,7 +38,7 @@ use Joomla\CMS\Uri\Uri;
 			<?php $img = Uri::root() . 'media/com_sermonspeaker/logo/' . $img; ?>
 		<?php endif; ?>
 		<?php if (!$img) : ?>
-			<?php $img = Uri::root() . 'modules/mod_sermoncast/podcast-mini.gif'; ?>
+			<?php $img = Uri::root() . 'media/mod_sermoncast/images/podcast-mini.gif'; ?>
 		<?php endif; ?>
 		<a href="<?php echo $link; ?>">
 			<img src="<?php echo $img; ?>" alt="Podcast"/>
@@ -47,7 +47,7 @@ use Joomla\CMS\Uri\Uri;
 	<?php if ($params->get('sc_showplink')) : ?>
 		<a href="<?php echo Route::_($feedFile); ?>"><?php echo Text::_('MOD_SERMONCAST_FULLFEED'); ?></a>
 		<a href="<?php echo Route::_($feedFile); ?>"><img
-					src="<?php echo Uri::root(); ?>modules/mod_sermoncast/feed_rss.gif" border="0" alt="rss feed"/></a>
+					src="<?php echo Uri::root(); ?>media/mod_sermoncast/images/feed_rss.gif" border="0" alt="rss feed"/></a>
 		<br/>
 	<?php endif; ?>
 	<?php if ($params->get('sc_showhelp')) : ?>

@@ -12,13 +12,14 @@
 	<namespace path="/">Sermonspeaker\Module\Sermoncast</namespace>
 	<files>
 		<filename>mod_sermoncast.xml</filename>
-		<filename>podcast-mini.gif</filename>
-		<filename>feed_rss.gif</filename>
 		<folder>Dispatcher</folder>
 		<folder>language</folder>
 		<folder module="mod_sermoncast">services</folder>
 		<folder>tmpl</folder>
 	</files>
+	<media destination="mod_sermoncast" folder="media">
+		<folder>images</folder>
+	</media>
 	<updateservers>
 		<server type="extension" priority="1" name="SermonSpeaker.net">
 			https://www.sermonspeaker.net/update/mod_sermoncast.xml
