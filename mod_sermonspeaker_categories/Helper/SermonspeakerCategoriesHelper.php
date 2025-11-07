@@ -1,10 +1,10 @@
 <?php
 /**
- * @package     Joomla.Site
- * @subpackage  MOD_SERMONSPEAKER_categories
+ * @package         Joomla.Site
+ * @subpackage      MOD_SERMONSPEAKER_categories
  *
  * @copyright   (C) 2010 Open Source Matters, Inc. <https://www.joomla.org>
- * @license     GNU General Public License version 2 or later; see LICENSE.txt
+ * @license         GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 namespace Sermonspeaker\Module\SermonspeakerCategories\Site\Helper;
@@ -25,7 +25,7 @@ abstract class SermonspeakerCategoriesHelper
 	/**
 	 * Get list of Items
 	 *
-	 * @param \Joomla\Registry\Registry  &$params module parameters
+	 * @param   \Joomla\Registry\Registry  &$params  module parameters
 	 *
 	 * @return  array
 	 *
@@ -33,12 +33,12 @@ abstract class SermonspeakerCategoriesHelper
 	 */
 	public static function getCategories(Registry $params, SiteApplication $app): array
 	{
-		$type = $params->get('parent_type', 'sermons');
+		$type                  = $params->get('parent_type', 'sermons');
+		$items                 = array();
 		$options               = [];
 		$options['countItems'] = $params->get('numitems', 0);
 
-		$categories = $app->bootComponent('com_categories')->getCategory($options, $type);
-//		$categories = Categories::getInstance('Sermonspeaker.' . $type, $options);
+		$categories = $app->bootComponent('sermonspeaker')->getCategory($options, $type);
 		$category   = $categories->get($params->get('parent', 'root'));
 
 		if ($category !== null)
@@ -51,10 +51,8 @@ abstract class SermonspeakerCategoriesHelper
 			{
 				$items = array_slice($items, 0, $count);
 			}
-
-			return $items;
 		}
 
-		return array();
+		return $items;
 	}
 }

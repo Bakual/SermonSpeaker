@@ -44,8 +44,8 @@ class Dispatcher extends AbstractModuleDispatcher implements HelperFactoryAwareI
 		$cacheparams->methodparams = [$params, $data['app']];
 		$cacheparams->modeparams   = md5($this->module->id);
 
-		$list               = ModuleHelper::moduleCache($this->module, $params, $cacheparams);
-		$data['startLevel'] = $list ? reset($list)->getParent()->level : null;
+		$data['list']       = ModuleHelper::moduleCache($this->module, $params, $cacheparams);
+		$data['startLevel'] = $data['list'] ? reset($data['list'])->getParent()->level : null;
 
 		return $data;
 	}
