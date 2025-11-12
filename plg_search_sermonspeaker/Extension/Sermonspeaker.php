@@ -7,38 +7,55 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
-defined('_JEXEC') or die();
+namespace Sermonspeaker\Plugin\Search\Sermonspeaker\Extension;
 
-use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Plugin\CMSPlugin;
+use Joomla\Database\DatabaseAwareTrait;
+use Joomla\Event\SubscriberInterface;
 use Sermonspeaker\Component\Sermonspeaker\Site\Helper\RouteHelper;
+
+defined('_JEXEC') or die();
 
 /**
  * SermonSpeaker Search plugin
  *
  * @since  1.0
  */
-class PlgSearchSermonspeaker extends CMSPlugin
+final class Sermonspeaker extends CMSPlugin implements SubscriberInterface
 {
+	use DatabaseAwareTrait;
+
 	/**
-	 * Constructor
+	 * Load the language file on instantiation.
 	 *
-	 * @param   object &$subject The object to observe
-	 * @param   array  $config   An array that holds the plugin configuration
+	 * @var    boolean
+	 * @since  6.0.1
 	 */
-	public function __construct($subject, $config)
+	protected $autoloadLanguage = true;
+
+	/**
+	 * Returns an array of events this subscriber will listen to.
+	 *
+	 * @return  array
+	 *
+	 * @since   5.0.0
+	 */
+	public static function getSubscribedEvents(): array
 	{
-		parent::__construct($subject, $config);
-		$this->loadLanguage();
+		return [
+			'onContentSearchAreas' => 'onContentSearchAreas',
+			'onContentSearch'      => 'onContentSearch',
+		];
 	}
 
 	/**
 	 * Defines the search areas
 	 *
 	 * @return  array  An array of search areas
+	 * @since 1.0.0
 	 */
-	public function onContentSearchAreas()
+	public function onContentSearchAreas(): array
 	{
 		static $areas = array();
 		$areas['spsermons'] = 'PLG_SEARCH_SERMONSPEAKER_SERMONS';
@@ -55,7 +72,7 @@ class PlgSearchSermonspeaker extends CMSPlugin
 
 		if ($this->params->get('sermons_speaker', 0))
 		{
-			$db    = Factory::getDbo();
+			$db    = $this->getDatabase();
 			$query = "SELECT `id`, `title` FROM #__sermon_speakers WHERE state = '1'";
 			$db->setQuery($query);
 			$speakers = $db->loadAssocList();
@@ -75,18 +92,22 @@ class PlgSearchSermonspeaker extends CMSPlugin
 	 * The sql must return the following fields that are used in a common display
 	 * routine: href, title, section, created, text, browsernav
 	 *
-	 * @param   string $text     Search string
-	 * @param   string $phrase   Phrase matching option, exact|any|all
-	 * @param   string $ordering Ordering option, newest|oldest|popular|alpha|category
-	 * @param   mixed  $areas    An array if the search it to be restricted to areas, null if search all
+	 * @param   object  $event
 	 *
-	 * @return  array   $rows      An array with the search results
+	 * @return  void
+	 * @since 1.0
 	 */
-	public function onContentSearch($text, $phrase = '', $ordering = '', $areas = null)
+	public function onContentSearch(object $event): void
 	{
-		$db     = Factory::getDbo();
-		$app    = Factory::getApplication();
-		$user   = Factory::getUser();
+		// Using numbers since com_search doesn't use new plugin events
+		$text     = $event->getArgument(0);
+		$phrase   = $event->getArgument(1);
+		$ordering = $event->getArgument(2);
+		$areas    = $event->getArgument(3);
+
+		$db     = $this->getDatabase();
+		$app    = $this->getApplication();
+		$user   = $app->getIdentity();
 		$groups = implode(',', $user->getAuthorisedViewLevels());
 		$query  = 'SELECT `book` FROM #__sermon_scriptures ORDER BY `book` DESC LIMIT 1';
 		$db->setQuery($query);
@@ -98,13 +119,11 @@ class PlgSearchSermonspeaker extends CMSPlugin
 			$books[$i] = strtolower(Text::_('COM_SERMONSPEAKER_BOOK_' . $i));
 		}
 
-		$searchText = $text;
-
 		if (is_array($areas))
 		{
 			if (!array_intersect($areas, array_keys($this->onContentSearchAreas())))
 			{
-				return array();
+				return;
 			}
 		}
 		else
@@ -131,18 +150,18 @@ class PlgSearchSermonspeaker extends CMSPlugin
 
 		if ($text == '')
 		{
-			return array();
+			return;
 		}
 
 		$speakers = array();
 
 		if ($this->params->get('sermons_speaker', 0))
 		{
-			foreach ($areas as $key => $value)
+			foreach ($areas as $area)
 			{
-				if (str_starts_with($value, 'spspeakers-'))
+				if (str_starts_with($area, 'spspeakers-'))
 				{
-					$speakers[] = (int) substr($value, 11);
+					$speakers[] = (int) substr($area, 11);
 				}
 			}
 		}
@@ -181,7 +200,7 @@ class PlgSearchSermonspeaker extends CMSPlugin
 				case 'all':
 				case 'any':
 				default:
-					$words  = explode(' ', $text);
+					$words = explode(' ', $text);
 
 					foreach ($words as $word)
 					{
@@ -256,7 +275,7 @@ class PlgSearchSermonspeaker extends CMSPlugin
 				// Filter by language
 				if ($app->isClient('site') && $app->getLanguageFilter())
 				{
-					$tag = Factory::getLanguage()->getTag();
+					$tag = $this->app->getLanguage()->getTag();
 					$query->where('c.language in (' . $db->quote($tag) . ',' . $db->quote('*') . ')');
 				}
 
@@ -292,7 +311,7 @@ class PlgSearchSermonspeaker extends CMSPlugin
 				case 'all':
 				case 'any':
 				default:
-					$words  = explode(' ', $text);
+					$words = explode(' ', $text);
 
 					foreach ($words as $word)
 					{
@@ -344,7 +363,7 @@ class PlgSearchSermonspeaker extends CMSPlugin
 				// Filter by language
 				if ($app->isClient('site') && $app->getLanguageFilter())
 				{
-					$tag = Factory::getLanguage()->getTag();
+					$tag = $this->app->getLanguage()->getTag();
 					$query->where('c.language in (' . $db->quote($tag) . ',' . $db->quote('*') . ')');
 				}
 
@@ -381,7 +400,7 @@ class PlgSearchSermonspeaker extends CMSPlugin
 				case 'all':
 				case 'any':
 				default:
-					$words  = explode(' ', $text);
+					$words = explode(' ', $text);
 
 					foreach ($words as $word)
 					{
@@ -434,7 +453,7 @@ class PlgSearchSermonspeaker extends CMSPlugin
 				// Filter by language
 				if ($app->isClient('site') && $app->getLanguageFilter())
 				{
-					$tag = Factory::getLanguage()->getTag();
+					$tag = $this->app->getLanguage()->getTag();
 					$query->where('c.language in (' . $db->quote($tag) . ',' . $db->quote('*') . ')');
 				}
 
@@ -449,10 +468,10 @@ class PlgSearchSermonspeaker extends CMSPlugin
 					}
 				}
 
-				$rows = array_merge($list, $rows);
+				$result   = $event->getArgument('result', []);
+				$result[] = array_merge($list, $rows);
+				$event->setArgument('result', $result);
 			}
 		}
-
-		return $rows;
 	}
 }
