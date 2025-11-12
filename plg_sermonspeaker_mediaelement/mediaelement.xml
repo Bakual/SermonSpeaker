@@ -9,9 +9,11 @@
 	<authorUrl>http://www.sermonspeaker.net</authorUrl>
 	<version>6.1.1</version>
 	<description>PLG_SERMONSPEAKER_MEDIAELEMENT_XML_DESCRIPTION</description>
+	<namespace path="/">Sermonspeaker\Plugin\Sermonspeaker\Mediaelement</namespace>
 	<files>
-		<filename plugin="mediaelement">mediaelement.php</filename>
+		<folder>Extension</folder>
 		<folder>language</folder>
+		<folder plugin="mediaelement">services</folder>
 	</files>
 	<media destination="plg_sermonspeaker_mediaelement" folder="media">
 		<folder>css</folder>

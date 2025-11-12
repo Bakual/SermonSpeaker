@@ -7,7 +7,7 @@
  * @license         http://www.gnu.org/licenses/gpl.html
  **/
 
-defined('_JEXEC') or die();
+namespace Sermonspeaker\Plugin\Sermonspeaker\Mediaelement\Extension;
 
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
@@ -15,60 +15,61 @@ use Joomla\Filesystem\File;
 use Joomla\CMS\HTML\HTMLHelper as HTMLHelperAlias;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Uri\Uri;
+use Joomla\Registry\Registry;
 use Sermonspeaker\Component\Sermonspeaker\Site\Helper\SermonspeakerHelper;
+use Sermonspeaker\Component\Sermonspeaker\Site\Plugin\Player;
+
+defined('_JEXEC') or die();
 
 /**
  * Plug-in to show the MediaElement from http://www.mediaelementjs.com/
  *
  * @since  1.0.0
  */
-class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
+class Mediaelement extends Player
 {
 	/**
 	 * @var boolean  True if scripts are loaded already
 	 *
 	 * @since  1.0.0
 	 */
-	private static $script_loaded = false;
+	private static bool $script_loaded = false;
+
 	/**
 	 * @var object  Holds the player object
 	 *
 	 * @since  1.0.0
 	 */
 	protected $player;
+
 	/**
-	 * @var Joomla\Registry\Registry Component Parameters
+	 * @var Registry Component Parameters
 	 *
 	 * @since  1.0.0
 	 */
-	protected $c_params;
-	/**
-	 * @var array Player options
-	 *
-	 * @since  1.0.0
-	 */
-	private $options;
+	protected Registry $c_params;
 
 	/**
 	 * Creates the player
 	 *
-	 * @param   string                    $context  The context from where it's triggered
-	 * @param   object                   &$player   Player object
-	 * @param   array|object              $items    An array of sermnon objects or a single sermon object
-	 * @param   Joomla\Registry\Registry  $config   A config object. Special properties:
-	 *                                              - count (id of the player)
-	 *                                              - type (may be audio, video or auto)
-	 *                                              - prio (may be 0 for audio or 1 for video)
-	 *                                              - autostart (overwrites the backend setting)
-	 *                                              - alt_player (overwrites the backend setting)
-	 *                                              - awidth, aheight (width and height for audio)
-	 *                                              - vwidth, vheight (width and height for video)
+	 * @param string         $context  The context from where it's triggered
+	 * @param object        &$player   Player object
+	 * @param array|object   $items    An array of sermnon objects or a single sermon object
+	 * @param Registry       $config   A config object. Special properties:
+	 *                                 - count (id of the player)
+	 *                                 - type (may be audio, video or auto)
+	 *                                 - prio (may be 0 for audio or 1 for video)
+	 *                                 - autostart (overwrites the backend setting)
+	 *                                 - alt_player (overwrites the backend setting)
+	 *                                 - awidth, aheight (width and height for audio)
+	 *                                 - vwidth, vheight (width and height for video)
 	 *
 	 * @return  void
 	 *
 	 * @since  1.0.0
+	 * @throws \Exception
 	 */
-	public function onGetPlayer($context, $player, $items, $config)
+	public function onGetPlayer($context, $player, $items, $config): void
 	{
 		$this->player = $player;
 
@@ -147,7 +148,7 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 
 		$autoplay   = $this->params->get('autostart') ? ' autoplay="autoplay"' : '';
 		$field      = $mode1 . 'file';
-		$langCode   = explode('-', Factory::getLanguage()->getTag())[0];
+		$langCode   = explode('-', Factory::getApplication()->getLanguage()->getTag())[0];
 		$stretching = $this->params->get('responsive') ? 'responsive' : 'none';
 
 		$player->mspace = '<' . $mode1 . ' id="' . $player->id . '" class="mejs__player"'
@@ -223,7 +224,7 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 			// TODO: See if I can remove jQuery
 			HTMLHelperAlias::_('jquery.framework');
 
-			Factory::getDocument()->addScriptDeclaration('mejs.i18n.language(\'' . $langCode . '\');');
+			Factory::getApplication()->getDocument()->addScriptDeclaration('mejs.i18n.language(\'' . $langCode . '\');');
 			HTMLHelperAlias::_('script', 'plg_sermonspeaker_mediaelement/mediaelement-and-player.min.js', array('relative' => true));
 			HTMLHelperAlias::_('script', 'plg_sermonspeaker_mediaelement/mediaelement-and-player.min.js', array('relative' => true));
 			HTMLHelperAlias::_('script', 'plg_sermonspeaker_mediaelement/renderers/vimeo.min.js', array('relative' => true));
@@ -267,13 +268,13 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 	/**
 	 * Checks if either audio or videofile is supported
 	 *
-	 * @param   object  $item  Sermon object
+	 * @param object $item Sermon object
 	 *
 	 * @return  array  supported files
 	 *
 	 * @since  1.0.0
 	 */
-	private function isSupported($item)
+	private function isSupported(object $item): array
 	{
 		$supported = array();
 
@@ -338,7 +339,7 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 	 *
 	 * @since 1.0.0
 	 */
-	private function createSource($item, $file)
+	private function createSource(object $item, string $file): string
 	{
 		if (!$file)
 		{
@@ -381,7 +382,7 @@ class PlgSermonspeakerMediaelement extends SermonspeakerPluginPlayer
 		if ($item->sermon_date)
 		{
 			$dateformat = $this->c_params->get('date_format', 'DATE_FORMAT_LC4');
-			$desc[] = Text::_('JDATE') . ': ' . HTMLHelperAlias::date($item->sermon_date, Text::_($dateformat));
+			$desc[]     = Text::_('JDATE') . ': ' . HTMLHelperAlias::date($item->sermon_date, Text::_($dateformat));
 		}
 
 		if ($item->speaker_title)
