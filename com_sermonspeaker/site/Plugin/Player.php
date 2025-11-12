@@ -7,20 +7,22 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
-defined('_JEXEC') or die();
+namespace Sermonspeaker\Component\Sermonspeaker\Site\Plugin;
 
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Plugin\CMSPlugin;
+
+defined('_JEXEC') or die();
 
 /**
  * Baseclass for Sermonspeaker Player Plugins
  *
  * @since  5.3
  */
-abstract class SermonspeakerPluginPlayer extends CMSPlugin
+abstract class Player extends CMSPlugin
 {
 	/**
-	 * @var  Joomla\Registry\Registry
+	 * @var  \Joomla\Registry\Registry
 	 *
 	 * @since ?
 	 */
@@ -39,7 +41,7 @@ abstract class SermonspeakerPluginPlayer extends CMSPlugin
 	 * @param   string                    $context  The context from where it's triggered
 	 * @param   object                   &$player   Player object
 	 * @param   array|object              $items    An array of sermnon objects or a single sermon object
-	 * @param   Joomla\Registry\Registry  $config   A config object. Special properties:
+	 * @param   \Joomla\Registry\Registry  $config   A config object. Special properties:
 	 *                                              - count (id of the player)
 	 *                                              - type (may be audio, video or auto)
 	 *                                              - prio (may be 0 for audio or 1 for video)
