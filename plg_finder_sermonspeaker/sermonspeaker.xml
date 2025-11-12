@@ -9,9 +9,11 @@
 	<version>6.1.0</version>
 	<license>http://www.gnu.org/licenses/gpl.html</license>
 	<description>PLG_FINDER_SERMONSPEAKER_XML_DESCRIPTION</description>
+	<namespace path="/">Sermonspeaker\Plugin\Finder\Sermonspeaker</namespace>
 	<files>
-		<file plugin="sermonspeaker">sermonspeaker.php</file>
+		<folder>Extension</folder>
 		<folder>language</folder>
+		<folder plugin="sermonspeaker">services</folder>
 	</files>
 	<updateservers>
 		<server type="extension" priority="1" name="SermonSpeaker.net">https://www.sermonspeaker.net/update/plg_sermonspeaker_finder.xml</server>

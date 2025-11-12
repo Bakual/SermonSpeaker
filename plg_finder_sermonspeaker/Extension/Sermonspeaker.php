@@ -7,26 +7,32 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
-defined('_JEXEC') or die();
+namespace Sermonspeaker\Plugin\Finder\Sermonspeaker\Extension;
 
-use Joomla\CMS\Categories\Categories;
+use Joomla\CMS\Event\Finder as FinderEvent;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Table\Table;
 use Joomla\Component\Finder\Administrator\Indexer\Adapter;
 use Joomla\Component\Finder\Administrator\Indexer\Helper;
 use Joomla\Component\Finder\Administrator\Indexer\Indexer;
 use Joomla\Component\Finder\Administrator\Indexer\Result;
-use Joomla\Database\DatabaseQuery;
+use Joomla\Database\DatabaseAwareTrait;
+use Joomla\Database\QueryInterface;
+use Joomla\Event\SubscriberInterface;
 use Joomla\Registry\Registry;
 use Sermonspeaker\Component\Sermonspeaker\Site\Helper\RouteHelper;
+
+defined('_JEXEC') or die();
 
 /**
  * Finder adapter for SermonSpeaker.
  *
  * @since  1.0
  */
-class PlgFinderSermonspeaker extends Adapter
+final class Sermonspeaker extends Adapter implements SubscriberInterface
 {
+	use DatabaseAwareTrait;
+
 	/**
 	 * The plugin identifier.
 	 *
@@ -78,7 +84,7 @@ class PlgFinderSermonspeaker extends Adapter
 	 * @var    integer
 	 * @since  6.0.1
 	 */
-	protected $old_category;
+	protected int $old_category;
 
 	/**
 	 * Load the language file on instantiation.
@@ -94,7 +100,7 @@ class PlgFinderSermonspeaker extends Adapter
 	 * @var    array
 	 * @since  6.0.1
 	 */
-	private $validContexts = [
+	private array $validContexts = [
 		'com_sermonspeaker.sermon',
 		'com_sermonspeaker.frontendupload',
 		'com_sermonspeaker.serie',
@@ -109,48 +115,65 @@ class PlgFinderSermonspeaker extends Adapter
 	 * @var    array
 	 * @since  6.0.1
 	 */
-	private $sermonspeakerTypes = [
+	private array $sermonspeakerTypes = [
 		'Sermons'  => 'sermon',
 		'Series'   => 'serie',
 		'Speakers' => 'speaker',
 	];
 
 	/**
+	 * Returns an array of events this subscriber will listen to.
+	 *
+	 * @return  array
+	 *
+	 * @since   5.0.0
+	 */
+	public static function getSubscribedEvents(): array
+	{
+		return array_merge(parent::getSubscribedEvents(), [
+			'onFinderCategoryChangeState' => 'onFinderCategoryChangeState',
+			'onFinderChangeState'         => 'onFinderChangeState',
+			'onFinderAfterDelete'         => 'onFinderAfterDelete',
+			'onFinderBeforeSave'          => 'onFinderBeforeSave',
+			'onFinderAfterSave'           => 'onFinderAfterSave',
+		]);
+	}
+
+	/**
 	 * Method to update the item link information when the item category is
 	 * changed. This is fired when the item category is published or unpublished
 	 * from the list view.
 	 *
-	 * @param   string   $extension  The extension whose category has been updated.
-	 * @param   array    $pks        A list of primary key ids of the content that has changed state.
-	 * @param   integer  $value      The value of the state that the content has been changed to.
+	 * @param FinderEvent\AfterCategoryChangeStateEvent $event The event instance.
 	 *
 	 * @return  void
 	 *
 	 * @since ?
 	 */
-	public function onFinderCategoryChangeState($extension, $pks, $value)
+	public function onFinderCategoryChangeState(FinderEvent\AfterCategoryChangeStateEvent $event): void
 	{
 		// Make sure we're handling com_sermonspeaker categories
-		if ($extension == 'com_sermonspeaker')
+		if ($event->getExtension() == 'com_sermonspeaker')
 		{
-			$this->categoryStateChange($pks, $value);
+			$this->categoryStateChange($event->getPks(), $event->getValue());
 		}
 	}
 
 	/**
 	 * Method to remove the link information for items that have been deleted.
 	 *
-	 * @param   string  $context  The context of the action being performed.
-	 * @param   JTable  $table    A JTable object containing the record to be deleted
+	 * @param FinderEvent\AfterDeleteEvent $event The event instance.
 	 *
-	 * @return  boolean  True on success.
+	 * @return void
 	 *
-	 * @throws  Exception on database error.
-	 *
+	 * @throws \Exception on database error.
 	 * @since ?
 	 */
-	public function onFinderAfterDelete($context, $table)
+	public function onFinderAfterDelete(FinderEvent\AfterDeleteEvent $event): void
 	{
+		$context = $event->getContext();
+		$table   = $event->getItem();
+
 		if ($context == 'com_sermonspeaker.sermon')
 		{
 			$id = $table->id;
@@ -161,27 +184,33 @@ class PlgFinderSermonspeaker extends Adapter
 		}
 		else
 		{
-			return true;
+			return;
 		}
 
 		// Remove the items.
-		return $this->remove($id);
+		$this->remove($id);
 	}
 
 	/**
-	 * Method to determine if the access level of an item changed.
+	 * Smart Search after save content method.
+	 * * Reindexes the link information for an item that has been saved.
+	 * * It also makes adjustments if the access level of an item or the
+	 * * category to which it belongs has changed.
+	 * *
 	 *
-	 * @param   string   $context  The context of the content passed to the plugin.
-	 * @param   Table    $row      A JTable object
-	 * @param   boolean  $isNew    If the content has just been created
+	 * @param FinderEvent\AfterSaveEvent $event The event instance.
 	 *
 	 * @return  void
 	 *
-	 * @throws  Exception on database error.
+	 * @throws  \Exception on database error.
 	 * @since   2.5
 	 */
-	public function onFinderAfterSave($context, $row, $isNew): void
+	public function onFinderAfterSave(FinderEvent\AfterSaveEvent $event): void
 	{
+		$context = $event->getContext();
+		$row     = $event->getItem();
+		$isNew   = $event->getIsNew();
+
 		// We only want to handle sermons here. We need to handle front end and back end editing.
 		if (in_array($context, $this->validContexts))
 		{
@@ -208,21 +237,22 @@ class PlgFinderSermonspeaker extends Adapter
 	}
 
 	/**
-	 * Method to reindex the link information for an item that has been saved.
-	 * This event is fired before the data is actually saved so we are going
-	 * to queue the item to be indexed later.
+	 * Smart Search before content save method.
+	 * This event is fired before the data is actually saved.
 	 *
-	 * @param   string   $context  The context of the content passed to the plugin.
-	 * @param   Table    $row      A Table object
-	 * @param   boolean  $isNew    If the content is just about to be created
+	 * @param FinderEvent\BeforeSaveEvent $event The event instance.
 	 *
-	 * @return  boolean  True on success.
+	 * @return  void
 	 *
-	 * @throws  Exception on database error.
+	 * @throws  \Exception on database error.
 	 * @since ?
 	 */
-	public function onFinderBeforeSave($context, $row, $isNew)
+	public function onFinderBeforeSave(FinderEvent\BeforeSaveEvent $event): void
 	{
+		$context = $event->getContext();
+		$row     = $event->getItem();
+		$isNew   = $event->getIsNew();
+
 		// Check for access levels from the category
 		if (in_array($context, $this->validContexts))
 		{
@@ -244,12 +274,10 @@ class PlgFinderSermonspeaker extends Adapter
 				$this->checkCategoryAccess($row);
 			}
 		}
-
-		return true;
 	}
 
 	/**
-	 * @param   string  $context
+	 * @param string $context
 	 *
 	 *
 	 * @since version
@@ -282,13 +310,13 @@ class PlgFinderSermonspeaker extends Adapter
 	/**
 	 * Method to check the existing category (cause of its access level) for items
 	 *
-	 * @param   Table  $row  A Table object
+	 * @param Table $row A Table object
 	 *
 	 * @return  void
 	 *
 	 * @since   2.5
 	 */
-	protected function checkCategory($row)
+	protected function checkCategory(Table $row): void
 	{
 		$query = $this->db->getQuery(true)
 			->select($this->db->quoteName('catid'))
@@ -305,15 +333,17 @@ class PlgFinderSermonspeaker extends Adapter
 	 * from outside the edit screen. This is fired when the item is published,
 	 * unpublished, archived, or unarchived from the list view.
 	 *
-	 * @param   string   $context  The context for the content passed to the plugin.
-	 * @param   array    $pks      A list of primary key ids of the content that has changed state.
-	 * @param   integer  $value    The value of the state that the content has been changed to.
+	 * @param FinderEvent\AfterChangeStateEvent $event The event instance.
 	 *
 	 * @return  void
 	 * @since ?
 	 */
-	public function onFinderChangeState($context, $pks, $value)
+	public function onFinderChangeState(FinderEvent\AfterChangeStateEvent $event): void
 	{
+		$context = $event->getContext();
+		$pks     = $event->getPks();
+		$value   = $event->getValue();
+
 		// We only want to handle SermonSpeaker items here
 		if (in_array($context, $this->validContexts))
 		{
@@ -334,10 +364,10 @@ class PlgFinderSermonspeaker extends Adapter
 	 *
 	 * @return  void
 	 *
-	 * @throws  Exception on error.
+	 * @throws  \Exception on error.
 	 * @since   2.5
 	 */
-	public function onStartIndex()
+	public function onStartIndex(): void
 	{
 		// Get the indexer state.
 		$iState = Indexer::getState();
@@ -367,10 +397,10 @@ class PlgFinderSermonspeaker extends Adapter
 	 *
 	 * @return  boolean  True on success.
 	 *
-	 * @throws  Exception on error.
+	 * @throws  \Exception on error.
 	 * @since   2.5
 	 */
-	public function onBeforeIndex()
+	public function onBeforeIndex(): bool
 	{
 		// Get the indexer and adapter state.
 		$iState = Indexer::getState();
@@ -403,7 +433,7 @@ class PlgFinderSermonspeaker extends Adapter
 	 *
 	 * @since ?
 	 */
-	protected function setup()
+	protected function setup(): bool
 	{
 		return true;
 	}
@@ -416,10 +446,10 @@ class PlgFinderSermonspeaker extends Adapter
 	 *
 	 * @return  boolean  True on success.
 	 *
-	 * @throws  Exception on error.
+	 * @throws  \Exception on error.
 	 * @since   2.5
 	 */
-	public function onBuildIndex()
+	public function onBuildIndex(): bool
 	{
 		// Get the indexer and adapter state.
 		$iState = Indexer::getState();
@@ -464,16 +494,16 @@ class PlgFinderSermonspeaker extends Adapter
 	}
 
 	/**
-	 * Method to index an item. The item must be a FinderIndexerResult object.
+	 * Method to index an item. The item must be a Result object.
 	 *
-	 * @param   FinderIndexerResult  $item  The item to index as an FinderIndexerResult object.
+	 * @param Result $item The item to index as a Result object.
 	 *
 	 * @return  void
 	 *
-	 * @throws  Exception on database error.
+	 * @throws  \Exception on database error.
 	 * @since ?
 	 */
-	protected function index(Result $item)
+	protected function index(Result $item): void
 	{
 		// Check if the extension is enabled
 		if (!ComponentHelper::isEnabled($this->extension))
@@ -496,8 +526,8 @@ class PlgFinderSermonspeaker extends Adapter
 		$item->route = RouteHelper::$method($item->slug, $item->catid, $item->language);
 
 		// Add the metadata processing instructions.
-		$item->addInstruction(FinderIndexer::META_CONTEXT, 'metakey');
-		$item->addInstruction(FinderIndexer::META_CONTEXT, 'metadesc');
+		$item->addInstruction(Indexer::META_CONTEXT, 'metakey');
+		$item->addInstruction(Indexer::META_CONTEXT, 'metadesc');
 
 		// Add the type taxonomy data.
 		$item->addTaxonomy('Type', $this->type_title);
@@ -509,7 +539,7 @@ class PlgFinderSermonspeaker extends Adapter
 		}
 
 		// Add the category taxonomy data.
-		$categories = Categories::getInstance('com_sermonspeaker.' . $this->layout . 's', ['published' => false, 'access' => false]);
+		$categories = $this->getApplication()->bootComponent('sermonspeaker')->getCategory(['published' => false, 'access' => false], $this->type_title);
 		$category   = $categories->get($item->catid);
 		$item->addNestedTaxonomy('Category', $category, $category->published, $category->access, $category->language);
 
@@ -532,7 +562,7 @@ class PlgFinderSermonspeaker extends Adapter
 	 *
 	 * @since   5.0.3
 	 */
-	protected function getStateQuery()
+	protected function getStateQuery(): QueryInterface
 	{
 		$query = $this->db->getQuery(true);
 
@@ -553,19 +583,19 @@ class PlgFinderSermonspeaker extends Adapter
 	/**
 	 * Method to get the SQL query used to retrieve the list of content items.
 	 *
-	 * @param   mixed  $query  A DatabaseQuery object or null.
+	 * @param mixed $query A DatabaseQuery object or null.
 	 *
-	 * @return  DatabaseQuery  A database object.
+	 * @return  QueryInterface  A database object.
 	 *
 	 * @since   2.5
 	 */
-	protected function getListQuery($query = null)
+	protected function getListQuery($query = null): QueryInterface
 	{
 		$params = ComponentHelper::getParams('com_sermonspeaker');
 		$access = $params->get('access', 1);
 
 		// Check if we can use the supplied SQL query.
-		$query = $query instanceof DatabaseQuery ? $query : $this->db->getQuery(true)
+		$query = $query instanceof QueryInterface ? $query : $this->getDatabase()->createQuery()
 			->select('a.id, a.title, a.alias')
 			->select('a.state, a.catid, a.created AS start_date, a.created_by')
 			->select('a.metakey, a.metadesc, ' . (int) $access . ' AS access, a.version, a.ordering')
@@ -589,7 +619,7 @@ class PlgFinderSermonspeaker extends Adapter
 		$case_when_item_alias = ' CASE WHEN ';
 		$case_when_item_alias .= $query->charLength('a.alias', '!=', '0');
 		$case_when_item_alias .= ' THEN ';
-		$a_id                 = $query->castAsChar('a.id');
+		$a_id                 = $query->castAs('CHAR', 'a.id');
 		$case_when_item_alias .= $query->concatenate(array($a_id, 'a.alias'), ':');
 		$case_when_item_alias .= ' ELSE ';
 		$case_when_item_alias .= $a_id . ' END as slug';
@@ -598,7 +628,7 @@ class PlgFinderSermonspeaker extends Adapter
 		$case_when_category_alias = ' CASE WHEN ';
 		$case_when_category_alias .= $query->charLength('c.alias', '!=', '0');
 		$case_when_category_alias .= ' THEN ';
-		$c_id                     = $query->castAsChar('c.id');
+		$c_id                     = $query->castAs('CHAR', 'c.id');
 		$case_when_category_alias .= $query->concatenate(array($c_id, 'c.alias'), ':');
 		$case_when_category_alias .= ' ELSE ';
 		$case_when_category_alias .= $c_id . ' END as catslug';
@@ -615,13 +645,13 @@ class PlgFinderSermonspeaker extends Adapter
 	/**
 	 * Method to get the query clause for getting items to update by time.
 	 *
-	 * @param   string  $time  The modified timestamp.
+	 * @param string $time The modified timestamp.
 	 *
 	 * @return  \Joomla\Database\QueryInterface  A database object.
 	 *
 	 * @since   2.5
 	 */
-	protected function getUpdateQueryByTime($time)
+	protected function getUpdateQueryByTime($time): QueryInterface
 	{
 		// Build an SQL query based on the modified time.
 		// We don't have a modified time, so we just give the query back unchanged.
