@@ -7,8 +7,12 @@
  * @license         http://www.gnu.org/licenses/gpl.html
  **/
 
+namespace Sermonspeaker\Plugin\Sermonspeaker\Vimeo\Extension;
+
 use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\Registry\Registry;
+use Sermonspeaker\Component\Sermonspeaker\Site\Plugin\Player;
 
 defined('_JEXEC') or die();
 
@@ -17,7 +21,7 @@ defined('_JEXEC') or die();
  *
  * @since  5.5.0
  */
-class PlgSermonspeakerVimeo extends SermonspeakerPluginPlayer
+class Vimeo extends Player
 {
 	/**
 	 * @var object  Holds the player object
@@ -27,46 +31,27 @@ class PlgSermonspeakerVimeo extends SermonspeakerPluginPlayer
 	/**
 	 * @var boolean  True if scripts are loaded already
 	 */
-	private static $script_loaded = false;
-
-	/**
-	 * @var string player mode. Either 'audio' or 'video'.
-	 */
-	private $mode;
-
-	/**
-	 * @var string filetype mode. Either 'audio', 'video' or 'auto' (default).
-	 */
-	private $type;
-
-	/**
-	 * @var int which file to prioritise. Either 0 (audio) or 1 (video).
-	 */
-	private $fileprio;
-
-	/**
-	 * @var array Player options
-	 */
-	private $options;
+	private static bool $script_loaded = false;
 
 	/**
 	 * Creates the player
 	 *
-	 * @param   string                   $context The context from where it's triggered
-	 * @param   object                   &$player Player object
-	 * @param   array|object             $items   An array of sermnon objects or a single sermon object
-	 * @param   Joomla\Registry\Registry $config  A config object. Special properties:
-	 *                                            - count (id of the player)
-	 *                                            - type (may be audio, video or auto)
-	 *                                            - prio (may be 0 for audio or 1 for video)
-	 *                                            - autostart (overwrites the backend setting)
-	 *                                            - alt_player (overwrites the backend setting)
-	 *                                            - awidth, aheight (width and height for audio)
-	 *                                            - vwidth, vheight (width and height for video)
+	 * @param string         $context   The context from where it's triggered
+	 * @param object        &$player    Player object
+	 * @param array|object   $items     An array of sermnon objects or a single sermon object
+	 * @param Registry       $config    A config object. Special properties:
+	 *                                  - count (id of the player)
+	 *                                  - type (may be audio, video or auto)
+	 *                                  - prio (may be 0 for audio or 1 for video)
+	 *                                  - autostart (overwrites the backend setting)
+	 *                                  - alt_player (overwrites the backend setting)
+	 *                                  - awidth, aheight (width and height for audio)
+	 *                                  - vwidth, vheight (width and height for video)
 	 *
 	 * @return  void
+	 * @throws \Exception
 	 */
-	public function onGetPlayer($context, $player, $items, $config)
+	public function onGetPlayer($context, $player, $items, $config): void
 	{
 		$this->player = $player;
 
@@ -121,7 +106,7 @@ class PlgSermonspeakerVimeo extends SermonspeakerPluginPlayer
 			if ($this->params->get('ga', ''))
 			{
 				HTMLHelper::Script('media/plg_sermonspeaker_vimeo/js/ganalytics.js', true);
-				$doc = Factory::getDocument();
+				$doc = Factory::getApplication()->getDocument();
 				$doc->addScriptDeclaration("window.addEvent('domready', _trackVimeo);");
 			}
 
@@ -132,11 +117,11 @@ class PlgSermonspeakerVimeo extends SermonspeakerPluginPlayer
 	/**
 	 * Checks if either audio or videofile is supported
 	 *
-	 * @param   object $item Sermon object
+	 * @param object $item Sermon object
 	 *
 	 * @return  array  supported files
 	 */
-	private function isSupported($item)
+	private function isSupported(object $item): array
 	{
 		$supported = array();
 

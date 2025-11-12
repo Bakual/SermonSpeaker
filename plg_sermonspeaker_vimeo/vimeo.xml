@@ -9,9 +9,11 @@
 	<authorUrl>http://www.sermonspeaker.net</authorUrl>
 	<version>5.5.2</version>
 	<description>PLG_SERMONSPEAKER_VIMEO_XML_DESCRIPTION</description>
+	<namespace path="/">Sermonspeaker\Plugin\Sermonspeaker\Vimeo</namespace>
 	<files>
-		<filename plugin="vimeo">vimeo.php</filename>
+		<folder>Extension</folder>
 		<folder>language</folder>
+		<folder plugin="vimeo">services</folder>
 	</files>
 	<media destination="plg_sermonspeaker_vimeo" folder="media">
 		<folder>js</folder>
