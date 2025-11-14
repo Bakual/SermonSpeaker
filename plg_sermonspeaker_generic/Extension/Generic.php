@@ -7,8 +7,12 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
+namespace Sermonspeaker\Plugin\Sermonspeaker\Generic\Extension;
+
 use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\Registry\Registry;
 use Sermonspeaker\Component\Sermonspeaker\Site\Helper\SermonspeakerHelper;
+use Sermonspeaker\Component\Sermonspeaker\Site\Plugin\Player;
 
 defined('_JEXEC') or die();
 
@@ -17,7 +21,7 @@ defined('_JEXEC') or die();
  *
  * @since  5.3.0
  */
-class PlgSermonspeakerGeneric extends SermonspeakerPluginPlayer
+class Generic extends Player
 {
 	/**
 	 * Creates the player
@@ -25,7 +29,7 @@ class PlgSermonspeakerGeneric extends SermonspeakerPluginPlayer
 	 * @param   string                    $context  The context from where it's triggered
 	 * @param   object                    &$player  Player object
 	 * @param   array|object              $items    An array of sermnon objects or a single sermon object
-	 * @param   Joomla\Registry\Registry  $config   A config object. Special properties:
+	 * @param   Registry  $config   A config object. Special properties:
 	 *  - count (id of the player)
 	 *  - type (may be audio, video or auto)
 	 *  - prio (may be 0 for audio or 1 for video)
@@ -36,7 +40,7 @@ class PlgSermonspeakerGeneric extends SermonspeakerPluginPlayer
 	 *
 	 * @return  void
 	 */
-	public function onGetPlayer($context, $player, $items, $config)
+	public function onGetPlayer($context, $player, $items, $config): void
 	{
 		// There is already a player loaded
 		if ($player->mspace)
