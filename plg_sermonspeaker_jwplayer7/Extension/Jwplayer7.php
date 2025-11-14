@@ -7,8 +7,9 @@
  * @license         http://www.gnu.org/licenses/gpl.html
  **/
 
-defined('_JEXEC') or die();
+namespace Sermonspeaker\Plugin\Sermonspeaker\Jwplayer7\Extension;
 
+use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\Filesystem\File;
 use Joomla\CMS\HTML\HTMLHelper;
@@ -17,20 +18,23 @@ use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
 use Joomla\Registry\Registry;
 use Sermonspeaker\Component\Sermonspeaker\Site\Helper\SermonspeakerHelper;
+use Sermonspeaker\Component\Sermonspeaker\Site\Plugin\Player;
+
+defined('_JEXEC') or die();
 
 /**
  * Plug-in to show the JW Player 7 from http://www.jwplayer.com/
  *
  * @since  5.4.0
  */
-class PlgSermonspeakerJwplayer7 extends SermonspeakerPluginPlayer
+class Jwplayer7 extends Player
 {
 	/**
 	 * @var boolean  True if scripts are loaded already
 	 *
 	 * @since 5.x
 	 */
-	private static $script_loaded = false;
+	private static bool $script_loaded = false;
 	/**
 	 * @var object  Holds the player object
 	 *
@@ -42,31 +46,31 @@ class PlgSermonspeakerJwplayer7 extends SermonspeakerPluginPlayer
 	 *
 	 * @since 5.x
 	 */
-	protected $c_params;
+	protected Registry $c_params;
 	/**
 	 * @var string player mode. Either 'audio' or 'video'.
 	 *
 	 * @since 5.x
 	 */
-	private $mode;
+	private string $mode;
 	/**
 	 * @var string filetype mode. Either 'audio', 'video' or 'auto' (default).
 	 *
 	 * @since 5.x
 	 */
-	private $type;
+	private string $type;
 	/**
 	 * @var int which file to prioritise. Either 0 (audio) or 1 (video).
 	 *
 	 * @since 5.x
 	 */
-	private $fileprio;
+	private int $fileprio;
 	/**
 	 * @var array Player options
 	 *
 	 * @since 5.x
 	 */
-	private $options;
+	private array $options;
 
 	/**
 	 * Creates the player
@@ -87,7 +91,7 @@ class PlgSermonspeakerJwplayer7 extends SermonspeakerPluginPlayer
 	 *
 	 * @return  void
 	 */
-	public function onGetPlayer($context, $player, $items, $config)
+	public function onGetPlayer($context, $player, $items, $config): void
 	{
 		$this->player = $player;
 
@@ -107,7 +111,7 @@ class PlgSermonspeakerJwplayer7 extends SermonspeakerPluginPlayer
 		$this->params->merge($config);
 
 		// Get component params
-		$this->c_params = JComponentHelper::getParams('com_sermonspeaker');
+		$this->c_params = ComponentHelper::getParams('com_sermonspeaker');
 
 		$this->fileprio = $this->params->get('fileprio');
 		$this->type     = $this->params->get('type', 'auto');
@@ -195,7 +199,7 @@ class PlgSermonspeakerJwplayer7 extends SermonspeakerPluginPlayer
 		// Loading needed Javascript only once
 		if (!self::$script_loaded)
 		{
-			$doc = Factory::getDocument();
+			$doc = Factory::getApplication()->getDocument();
 
 			HTMLHelper::_('jquery.framework');
 
@@ -296,7 +300,7 @@ class PlgSermonspeakerJwplayer7 extends SermonspeakerPluginPlayer
 	 *
 	 * @since 5.x
 	 */
-	private function setOptions()
+	private function setOptions(): void
 	{
 		if (!$this->params->get('mode'))
 		{
@@ -364,7 +368,7 @@ class PlgSermonspeakerJwplayer7 extends SermonspeakerPluginPlayer
 	 * @since 5.x
 	 *
 	 */
-	private function createMultiPlaylist(array $items)
+	private function createMultiPlaylist(array $items): void
 	{
 		$this->setDimensions('33', '100%');
 
@@ -528,7 +532,7 @@ class PlgSermonspeakerJwplayer7 extends SermonspeakerPluginPlayer
 	 * @since 5.x
 	 *
 	 */
-	private function createSinglePlaylist(object $item)
+	private function createSinglePlaylist(object $item): void
 	{
 		$this->setDimensions('33', '100%');
 

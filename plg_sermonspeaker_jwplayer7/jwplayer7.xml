@@ -9,9 +9,11 @@
 	<authorUrl>http://www.sermonspeaker.net</authorUrl>
 	<version>5.4.7</version>
 	<description>PLG_SERMONSPEAKER_JWPLAYER7_XML_DESCRIPTION</description>
+	<namespace path="/">Sermonspeaker\Plugin\Sermonspeaker\Jwplayer7</namespace>
 	<files>
-		<filename plugin="jwplayer7">jwplayer7.php</filename>
+		<folder>Extension</folder>
 		<folder>language</folder>
+		<folder plugin="jwplayer7">services</folder>
 	</files>
 	<media destination="plg_sermonspeaker_jwplayer7" folder="media">
 		<folder>css</folder>
@@ -30,20 +32,17 @@
 					name="hosting"
 					type="radio"
 					label="PLG_SERMONSPEAKER_JWPLAYER7_FIELD_HOSTING_LABEL"
-					description="PLG_SERMONSPEAKER_JWPLAYER7_FIELD_HOSTING_DESC"
-					class="btn-group btn-group-yesno"
+					layout="joomla.form.field.radio.switcher"
 					default="0"
 					>
-					<option value="1">PLG_SERMONSPEAKER_JWPLAYER7_FIELD_HOSTING_OPTION_CLOUD</option>
 					<option value="0">PLG_SERMONSPEAKER_JWPLAYER7_FIELD_HOSTING_OPTION_SELF</option>
+					<option value="1">PLG_SERMONSPEAKER_JWPLAYER7_FIELD_HOSTING_OPTION_CLOUD</option>
 				</field>
 
 				<field
 					name="cloud_library_url"
 					type="url"
 					label="PLG_SERMONSPEAKER_JWPLAYER7_FIELD_CLOUD_LIBRARY_URL_LABEL"
-					description="PLG_SERMONSPEAKER_JWPLAYER7_FIELD_CLOUD_LIBRARY_URL_DESC"
-					class="input-xxlarge"
 					showon="hosting:1"
 				/>
 
@@ -51,8 +50,6 @@
 					name="license_self"
 					type="text"
 					label="PLG_SERMONSPEAKER_JWPLAYER7_FIELD_LICENSE_SELF_LABEL"
-					description="PLG_SERMONSPEAKER_JWPLAYER7_FIELD_LICENSE_SELF_DESC"
-					class="input-xxlarge"
 					showon="hosting:0"
 				/>
 
@@ -60,19 +57,17 @@
 					name="autostart"
 					type="radio"
 					label="PLG_SERMONSPEAKER_COMMON_FIELD_AUTOSTART_LABEL"
-					description="PLG_SERMONSPEAKER_COMMON_FIELD_AUTOSTART_DESC"
-					class="btn-group btn-group-yesno"
+					layout="joomla.form.field.radio.switcher"
 					default="0"
 					>
-					<option value="1">JYES</option>
 					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
 
 				<field
 					name="fileprio"
 					type="list"
 					label="PLG_SERMONSPEAKER_COMMON_FIELD_FILEPRIO_LABEL"
-					description="PLG_SERMONSPEAKER_COMMON_FIELD_FILEPRIO_DESC"
 					default="0"
 					>
 					<option value="1">Video</option>
@@ -83,19 +78,17 @@
 					name="filetoggle"
 					type="radio"
 					label="PLG_SERMONSPEAKER_COMMON_FIELD_FILETOGGLE_LABEL"
-					description="PLG_SERMONSPEAKER_COMMON_FIELD_FILETOGGLE_DESC"
-					class="btn-group btn-group-yesno"
+					layout="joomla.form.field.radio.switcher"
 					default="0"
 					>
-					<option value="1">JYES</option>
 					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
 
 				<field
 					name="mode"
 					type="radio"
 					label="PLG_SERMONSPEAKER_JWPLAYER7_FIELD_MODE_LABEL"
-					description="PLG_SERMONSPEAKER_JWPLAYER7_FIELD_MODE_DESC"
 					class="btn-group"
 					default="1"
 					>
@@ -107,24 +100,22 @@
 					name="ga"
 					type="radio"
 					label="PLG_SERMONSPEAKER_JWPLAYER7_FIELD_GA_LABEL"
-					description="PLG_SERMONSPEAKER_JWPLAYER7_FIELD_GA_DESC"
-					class="btn-group btn-group-yesno"
+					layout="joomla.form.field.radio.switcher"
 					default="0"
 					>
-					<option value="1">JYES</option>
 					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
 
 				<field
 					name="share"
 					type="radio"
 					label="PLG_SERMONSPEAKER_JWPLAYER7_FIELD_SHARE_LABEL"
-					description="PLG_SERMONSPEAKER_JWPLAYER7_FIELD_SHARE_DESC"
-					class="btn-group btn-group-yesno"
+					layout="joomla.form.field.radio.switcher"
 					default="0"
 					>
-					<option value="1">JYES</option>
 					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
 			</fieldset>
 			<fieldset
@@ -137,7 +128,6 @@
 					name="skin"
 					type="list"
 					label="PLG_SERMONSPEAKER_JWPLAYER7_FIELD_SKIN_LABEL"
-					description="PLG_SERMONSPEAKER_JWPLAYER7_FIELD_SKIN_DESC"
 					default="seven"
 					>
 					<option value="seven">Seven</option>
@@ -155,28 +145,24 @@
 					name="skin_active"
 					type="color"
 					label="PLG_SERMONSPEAKER_JWPLAYER7_FIELD_SKIN_ACTIVE_LABEL"
-					description="PLG_SERMONSPEAKER_JWPLAYER7_FIELD_SKIN_ACTIVE_DESC"
 				/>
 
 				<field
 					name="skin_inactive"
 					type="color"
 					label="PLG_SERMONSPEAKER_JWPLAYER7_FIELD_SKIN_INACTIVE_LABEL"
-					description="PLG_SERMONSPEAKER_JWPLAYER7_FIELD_SKIN_INACTIVE_DESC"
 				/>
 
 				<field
 					name="skin_background"
 					type="color"
 					label="PLG_SERMONSPEAKER_JWPLAYER7_FIELD_SKIN_BACKGROUND_LABEL"
-					description="PLG_SERMONSPEAKER_JWPLAYER7_FIELD_SKIN_BACKGROUND_DESC"
 				/>
 
 				<field
 					name="awidth"
 					type="text"
 					label="PLG_SERMONSPEAKER_COMMON_FIELD_AWIDTH_LABEL"
-					description="PLG_SERMONSPEAKER_COMMON_FIELD_AWIDTH_DESC"
 					default="100%"
 					/>
 
@@ -184,7 +170,6 @@
 					name="aheight"
 					type="text"
 					label="PLG_SERMONSPEAKER_COMMON_FIELD_AHEIGHT_LABEL"
-					description="PLG_SERMONSPEAKER_COMMON_FIELD_AHEIGHT_DESC"
 					default="33px"
 					/>
 
@@ -192,19 +177,17 @@
 					name="responsive"
 					type="radio"
 					label="PLG_SERMONSPEAKER_JWPLAYER7_FIELD_RESPONSIVE_LABEL"
-					description="PLG_SERMONSPEAKER_JWPLAYER7_FIELD_RESPONSIVE_DESC"
-					class="btn-group btn-group-yesno"
+					layout="joomla.form.field.radio.switcher"
 					default="0"
 					>
-					<option value="1">JYES</option>
 					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
 
 				<field
 					name="vwidth"
 					type="text"
 					label="PLG_SERMONSPEAKER_COMMON_FIELD_VWIDTH_LABEL"
-					description="PLG_SERMONSPEAKER_COMMON_FIELD_VWIDTH_DESC"
 					default="100%"
 					/>
 
@@ -212,7 +195,6 @@
 					name="vheight"
 					type="text"
 					label="PLG_SERMONSPEAKER_COMMON_FIELD_VHEIGHT_LABEL"
-					description="PLG_SERMONSPEAKER_COMMON_FIELD_VHEIGHT_DESC"
 					default="300px"
 					showon="responsive:0"
 					/>
@@ -221,7 +203,6 @@
 					name="aspectratio"
 					type="list"
 					label="PLG_SERMONSPEAKER_JWPLAYER7_FIELD_ASPECTRATIO_LABEL"
-					description="PLG_SERMONSPEAKER_JWPLAYER7_FIELD_ASPECTRATIO_DESC"
 					default="4:3"
 					showon="responsive:1"
 					>
