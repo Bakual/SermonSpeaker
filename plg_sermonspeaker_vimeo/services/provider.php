@@ -12,7 +12,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;
-use Sermonspeaker\Plugin\Sermonspeaker\Mediaelement\Extension\Mediaelement;
+use Sermonspeaker\Plugin\Sermonspeaker\Vimeo\Extension\Vimeo;
 
 defined('_JEXEC') or die;
 
@@ -31,7 +31,7 @@ return new class () implements ServiceProviderInterface {
         $container->set(
             PluginInterface::class,
             function (Container $container) {
-                $plugin     = new Mediaelement(
+                $plugin     = new Vimeo(
                     (array) PluginHelper::getPlugin('sermonspeaker', 'vimeo')
                 );
                 $plugin->setApplication(Factory::getApplication());
