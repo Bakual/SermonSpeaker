@@ -17,7 +17,7 @@
 		<maintainer>Thomas Hunziker</maintainer>
 		<maintainerurl>https://www.sermonspeaker.net/</maintainerurl>
 		<targetplatform name="joomla" version="3.[89]|10"/>
-		<client>administrator</client>
+		<client>site</client>
 		<folder>quickicon</folder>
 	</update>
 	<update>
@@ -38,7 +38,7 @@
 		<maintainerurl>https://www.sermonspeaker.net/</maintainerurl>
 		<targetplatform name="joomla" version="[45].[01234]"/>
 		<sha256>1330df46fc15a6ba68f67c0649dbe0925384b4e8489fa95cd7c7bf068d2dd23d</sha256>
-		<client>administrator</client>
+		<client>site</client>
 		<folder>quickicon</folder>
 	</update>
 	<update>
@@ -59,7 +59,7 @@
 		<maintainerurl>https://www.sermonspeaker.net/</maintainerurl>
 		<targetplatform name="joomla" version="6.[01234]"/>
 		<sha256>149529da39669286f7bedd8031a4406c534f7909067f686131c15e261427ea64</sha256>
-		<client>administrator</client>
+		<client>site</client>
 		<folder>quickicon</folder>
 	</update>
 </updates>
