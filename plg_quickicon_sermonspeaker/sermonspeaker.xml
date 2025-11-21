@@ -7,7 +7,7 @@
 	<license>http://www.gnu.org/licenses/gpl.html</license>
 	<authorEmail>admin@sermonspeaker.net</authorEmail>
 	<authorUrl>http://www.sermonspeaker.net</authorUrl>
-	<version>6.1.0</version>
+	<version>7.0.0</version>
 	<description>PLG_QUICKICON_SERMONSPEAKER_XML_DESCRIPTION</description>
 	<namespace path="/">Sermonspeaker\Plugin\Quickicon\Sermonspeaker</namespace>
 	<files>

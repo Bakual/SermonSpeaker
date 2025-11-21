@@ -7,7 +7,7 @@
 	<license>http://www.gnu.org/licenses/gpl.html</license>
 	<authorEmail>admin@sermonspeaker.net</authorEmail>
 	<authorUrl>http://www.sermonspeaker.net</authorUrl>
-	<version>5.4.7</version>
+	<version>7.0.0</version>
 	<description>PLG_SERMONSPEAKER_JWPLAYER7_XML_DESCRIPTION</description>
 	<namespace path="/">Sermonspeaker\Plugin\Sermonspeaker\Jwplayer7</namespace>
 	<files>

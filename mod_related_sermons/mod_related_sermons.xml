@@ -6,7 +6,7 @@
 	<copyright>© 2025</copyright>
 	<authorEmail>admin@sermonspeaker.net</authorEmail>
 	<authorUrl>http://www.sermonspeaker.net</authorUrl>
-	<version>6.0.0</version>
+	<version>7.0.0</version>
 	<license>http://www.gnu.org/licenses/gpl.html</license>
 	<description>MOD_RELATED_SERMONS_XML_DESCRIPTION</description>
 	<namespace path="/">Sermonspeaker\Module\RelatedSermons</namespace>
