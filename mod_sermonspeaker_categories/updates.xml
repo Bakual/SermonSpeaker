@@ -19,4 +19,24 @@
 		<targetplatform name="joomla" version="[45].[01234]"/>
 		<client>site</client>
 	</update>
+	<update>
+		<name>SermonSpeaker Categories Module</name>
+		<description>SermonSpeaker Categories Module</description>
+		<element>mod_sermonspeaker_categories</element>
+		<type>module</type>
+		<version>7.0.0</version>
+		<downloads>
+			<downloadurl type="full" format="zip">
+				https://github.com/Bakual/SermonSpeaker/releases/download/7.0.0/mod_sermonspeaker_categories.zip
+			</downloadurl>
+		</downloads>
+		<tags>
+			<tag>stable</tag>
+		</tags>
+		<maintainer>Thomas Hunziker</maintainer>
+		<maintainerurl>https://www.sermonspeaker.net/</maintainerurl>
+		<targetplatform name="joomla" version="6.[01234]"/>
+		<sha256>9f58d9398c6be340edd68a7fa286c72fc74bee77e9a4c3e848598e8e2b5e3cec</sha256>
+		<client>site</client>
+	</update>
 </updates>

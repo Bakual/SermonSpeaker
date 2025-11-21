@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <updates>
 	<update>
-		<name>SermonSpeaker Vimeo Player Module</name>
-		<description>SermonSpeaker Vimeo Player Module</description>
+		<name>SermonSpeaker Vimeo Player Plugin</name>
+		<description>SermonSpeaker Vimeo Player Plugin</description>
 		<element>vimeo</element>
 		<type>plugin</type>
 		<version>5.5.2</version>
@@ -17,6 +17,27 @@
 		<maintainer>Thomas Hunziker</maintainer>
 		<maintainerurl>https://www.sermonspeaker.net/</maintainerurl>
 		<targetplatform name="joomla" version="3.[89]|10"/>
+		<client>site</client>
+		<folder>sermonspeaker</folder>
+	</update>
+	<update>
+		<name>SermonSpeaker Vimeo Player Plugin</name>
+		<description>SermonSpeaker Vimeo Player Plugin</description>
+		<element>vimeo</element>
+		<type>plugin</type>
+		<version>7.0.0</version>
+		<downloads>
+			<downloadurl type="full" format="zip">
+				https://github.com/Bakual/SermonSpeaker/releases/download/7.0.0/plg_sermonspeaker_vimeo.zip
+			</downloadurl>
+		</downloads>
+		<tags>
+			<tag>stable</tag>
+		</tags>
+		<maintainer>Thomas Hunziker</maintainer>
+		<maintainerurl>https://www.sermonspeaker.net/</maintainerurl>
+		<targetplatform name="joomla" version="6.[01234]"/>
+		<sha256>99ad4a10ec8e44c31b39b60a75d679ca0a695ded3cd30862480a45c7d3c507de</sha256>
 		<client>site</client>
 		<folder>sermonspeaker</folder>
 	</update>

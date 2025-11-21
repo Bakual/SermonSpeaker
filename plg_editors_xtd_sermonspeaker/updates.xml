@@ -40,4 +40,25 @@
 		<client>site</client>
 		<folder>editors-xtd</folder>
 	</update>
+	<update>
+		<name>SermonSpeaker Editor Plugin</name>
+		<description>SermonSpeaker Editor Plugin</description>
+		<element>sermonspeaker</element>
+		<type>plugin</type>
+		<version>7.0.0</version>
+		<downloads>
+			<downloadurl type="full" format="zip">
+				https://github.com/Bakual/SermonSpeaker/releases/download/7.0.0/plg_editors_xtd_sermonspeaker.zip
+			</downloadurl>
+		</downloads>
+		<tags>
+			<tag>stable</tag>
+		</tags>
+		<maintainer>Thomas Hunziker</maintainer>
+		<maintainerurl>https://www.sermonspeaker.net/</maintainerurl>
+		<targetplatform name="joomla" version="6.[01234]"/>
+		<sha256>4ffcc32619a0f0037468197bbcfaab61b365c175ae9a29d8ae479449f1b94516</sha256>
+		<client>site</client>
+		<folder>editors-xtd</folder>
+	</update>
 </updates>

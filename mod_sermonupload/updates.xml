@@ -38,4 +38,24 @@
 		<targetplatform name="joomla" version="[45].[01234]"/>
 		<client>site</client>
 	</update>
+	<update>
+		<name>SermonUpload Module</name>
+		<description>SermonUpload Module</description>
+		<element>mod_sermonupload</element>
+		<type>module</type>
+		<version>7.0.0</version>
+		<downloads>
+			<downloadurl type="full" format="zip">
+				https://github.com/Bakual/SermonSpeaker/releases/download/7.0.0/mod_sermonupload.zip
+			</downloadurl>
+		</downloads>
+		<tags>
+			<tag>stable</tag>
+		</tags>
+		<maintainer>Thomas Hunziker</maintainer>
+		<maintainerurl>https://www.sermonspeaker.net/</maintainerurl>
+		<targetplatform name="joomla" version="6.[01234]"/>
+		<sha256>e28037254627335e713c4ee32a17594259f0c6508382eafb1b39cf3874b271a2</sha256>
+		<client>site</client>
+	</update>
 </updates>

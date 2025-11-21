@@ -38,4 +38,24 @@
 		<targetplatform name="joomla" version="[45].[01234]"/>
 		<client>site</client>
 	</update>
+	<update>
+		<name>Related Sermons Module</name>
+		<description>Related Sermons Module</description>
+		<element>mod_related_sermons</element>
+		<type>module</type>
+		<version>7.0.0</version>
+		<downloads>
+			<downloadurl type="full" format="zip">
+				https://github.com/Bakual/SermonSpeaker/releases/download/7.0.0/mod_related_sermons.zip
+			</downloadurl>
+		</downloads>
+		<tags>
+			<tag>stable</tag>
+		</tags>
+		<maintainer>Thomas Hunziker</maintainer>
+		<maintainerurl>https://www.sermonspeaker.net/</maintainerurl>
+		<targetplatform name="joomla" version="6.[01234]"/>
+		<sha256>ac674ec17b1b4610571f1781c3470a8a06670e1fd21a267efeffd17c2dc7c5a9</sha256>
+		<client>site</client>
+	</update>
 </updates>
