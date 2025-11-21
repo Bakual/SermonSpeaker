@@ -1,10 +1,10 @@
 <?php
 /**
- * @package         SermonSpeaker
- * @subpackage      Plugin.SermonSpeaker
- * @author          Thomas Hunziker <admin@sermonspeaker.net>
- * @copyright       © 2020 - Thomas Hunziker
- * @license         http://www.gnu.org/licenses/gpl.html
+ * @package     SermonSpeaker
+ * @subpackage  Plugin.SermonSpeaker
+ * @author      Thomas Hunziker <admin@sermonspeaker.net>
+ * @copyright   © 2025 - Thomas Hunziker
+ * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
 namespace Sermonspeaker\Plugin\Sermonspeaker\Jwplayer7\Extension;
@@ -75,10 +75,10 @@ class Jwplayer7 extends Player
 	/**
 	 * Creates the player
 	 *
-	 * @param   string                    $context  The context from where it's triggered
-	 * @param   object                   &$player   Player object
-	 * @param   array|object              $items    An array of sermnon objects or a single sermon object
-	 * @param   Registry                  $config   A config object. Special properties:
+	 * @param string                    $context    The context from where it's triggered
+	 * @param object                   &$player     Player object
+	 * @param array|object              $items      An array of sermnon objects or a single sermon object
+	 * @param Registry                  $config     A config object. Special properties:
 	 *                                              - count (id of the player)
 	 *                                              - type (may be audio, video or auto)
 	 *                                              - prio (may be 0 for audio or 1 for video)
@@ -256,7 +256,7 @@ class Jwplayer7 extends Player
 	/**
 	 * Checks if either audio or videofile is supported
 	 *
-	 * @param   object  $item  Sermon object
+	 * @param object $item Sermon object
 	 *
 	 * @return  array  supported files
 	 * @since 5.x
@@ -362,7 +362,7 @@ class Jwplayer7 extends Player
 	/**
 	 * Generate Playlist for multiple sermons
 	 *
-	 * @param   array  $items  Array of sermon objects
+	 * @param array $items Array of sermon objects
 	 *
 	 * @return  void
 	 * @since 5.x
@@ -526,7 +526,7 @@ class Jwplayer7 extends Player
 	/**
 	 * Generate Playlist for single sermon
 	 *
-	 * @param   object  $item  A single sermon object
+	 * @param object $item A single sermon object
 	 *
 	 * @return  void
 	 * @since 5.x

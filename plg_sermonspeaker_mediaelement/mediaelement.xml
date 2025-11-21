@@ -2,8 +2,8 @@
 <extension type="plugin" version="4.0.0" group="sermonspeaker" method="upgrade">
 	<name>plg_sermonspeaker_mediaelement</name>
 	<author>Thomas Hunziker</author>
-	<creationDate>2024-04-15</creationDate>
-	<copyright>© 2024</copyright>
+	<creationDate>2025-11-21</creationDate>
+	<copyright>© 2025</copyright>
 	<license>http://www.gnu.org/licenses/gpl.html</license>
 	<authorEmail>admin@sermonspeaker.net</authorEmail>
 	<authorUrl>http://www.sermonspeaker.net</authorUrl>

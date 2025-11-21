@@ -2,8 +2,8 @@
 <extension type="module" version="4.0.0" client="site" method="upgrade">
 	<name>MOD_LATESTSERMONS</name>
 	<author>Thomas Hunziker</author>
-	<creationDate>2023-11-29</creationDate>
-	<copyright>© 2023</copyright>
+	<creationDate>2025-11-21</creationDate>
+	<copyright>© 2025</copyright>
 	<authorEmail>admin@sermonspeaker.net</authorEmail>
 	<authorUrl>https://www.sermonspeaker.net</authorUrl>
 	<version>6.1.1</version>

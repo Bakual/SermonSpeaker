@@ -3,7 +3,7 @@ script.php<?php
  * @package     SermonSpeaker
  * @subpackage  Module.SermonspeakerAdmin
  * @author      Thomas Hunziker <admin@sermonspeaker.net>
- * @copyright   © 2022 - Thomas Hunziker
+ * @copyright   © 2025 - Thomas Hunziker
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 

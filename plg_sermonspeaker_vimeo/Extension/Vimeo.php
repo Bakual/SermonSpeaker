@@ -1,10 +1,10 @@
 <?php
 /**
- * @package         SermonSpeaker
- * @subpackage      Plugin.SermonSpeaker
- * @author          Thomas Hunziker <admin@sermonspeaker.net>
- * @copyright       © 2020 - Thomas Hunziker
- * @license         http://www.gnu.org/licenses/gpl.html
+ * @package     SermonSpeaker
+ * @subpackage  Plugin.SermonSpeaker
+ * @author      Thomas Hunziker <admin@sermonspeaker.net>
+ * @copyright   © 2025 - Thomas Hunziker
+ * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
 namespace Sermonspeaker\Plugin\Sermonspeaker\Vimeo\Extension;
