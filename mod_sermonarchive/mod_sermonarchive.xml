@@ -10,6 +10,7 @@
 	<license>http://www.gnu.org/licenses/gpl.html</license>
 	<description>MOD_SERMONARCHIVE_XML_DESCRIPTION</description>
 	<namespace path="/">Sermonspeaker\Module\Sermonarchive</namespace>
+	<scriptfile>script.php</scriptfile>
 	<files>
 		<filename>mod_sermonarchive.xml</filename>
 		<folder>Dispatcher</folder>

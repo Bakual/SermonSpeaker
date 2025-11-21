@@ -10,6 +10,7 @@
 	<license>http://www.gnu.org/licenses/gpl.html</license>
 	<description>MOD_SERMONSPEAKER_CATEGORIES_XML_DESCRIPTION</description>
 	<namespace path="/">Sermonspeaker\Module\SermonspeakerCategories</namespace>
+	<scriptfile>script.php</scriptfile>
 	<files>
 		<filename>mod_sermonspeaker_categories.xml</filename>
 		<folder>Dispatcher</folder>

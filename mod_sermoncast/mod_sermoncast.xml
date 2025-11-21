@@ -10,6 +10,7 @@
 	<license>https://www.gnu.org/licenses/gpl.html</license>
 	<description>MOD_SERMONCAST_XML_DESCRIPTION</description>
 	<namespace path="/">Sermonspeaker\Module\Sermoncast</namespace>
+	<scriptfile>script.php</scriptfile>
 	<files>
 		<filename>mod_sermoncast.xml</filename>
 		<folder>Dispatcher</folder>

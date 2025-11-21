@@ -6,10 +6,11 @@
 	<copyright>© 2022</copyright>
 	<authorEmail>admin@sermonspeaker.net</authorEmail>
 	<authorUrl>http://www.sermonspeaker.net</authorUrl>
-	<version>6.0.0</version>
+	<version>6.1.0</version>
 	<license>http://www.gnu.org/licenses/gpl.html</license>
 	<description>MOD_SERMONSPEAKER_XML_DESCRIPTION</description>
 	<namespace path="/">Sermonspeaker\Module\Sermonspeaker</namespace>
+	<scriptfile>script.php</scriptfile>
 	<files>
 		<filename>mod_sermonspeaker.xml</filename>
 		<folder>Dispatcher</folder>

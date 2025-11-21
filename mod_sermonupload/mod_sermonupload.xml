@@ -10,6 +10,7 @@
 	<license>http://www.gnu.org/licenses/gpl.html</license>
 	<description>MOD_SERMONUPLOAD_XML_DESCRIPTION</description>
 	<namespace path="">Sermonspeaker\Module\Sermonupload</namespace>
+	<scriptfile>script.php</scriptfile>
 	<files>
 		<filename>mod_sermonupload.xml</filename>
 		<folder>Dispatcher</folder>
