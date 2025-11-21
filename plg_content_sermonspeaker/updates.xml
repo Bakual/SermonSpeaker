@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <updates>
 	<update>
-		<name>SermonSpeaker Content Module</name>
-		<description>SermonSpeaker Content Module</description>
+		<name>SermonSpeaker Content Plugin</name>
+		<description>SermonSpeaker Content Plugin</description>
 		<element>sermonspeaker</element>
 		<type>plugin</type>
 		<version>5.3.4</version>
@@ -21,8 +21,8 @@
 		<folder>content</folder>
 	</update>
 	<update>
-		<name>SermonSpeaker Content Module</name>
-		<description>SermonSpeaker Content Module</description>
+		<name>SermonSpeaker Content Plugin</name>
+		<description>SermonSpeaker Content Plugin</description>
 		<element>sermonspeaker</element>
 		<type>plugin</type>
 		<version>6.0.0</version>
@@ -41,8 +41,8 @@
 		<folder>content</folder>
 	</update>
 	<update>
-		<name>SermonSpeaker Content Module</name>
-		<description>SermonSpeaker Content Module</description>
+		<name>SermonSpeaker Content Plugin</name>
+		<description>SermonSpeaker Content Plugin</description>
 		<element>sermonspeaker</element>
 		<type>plugin</type>
 		<version>7.0.0</version>
