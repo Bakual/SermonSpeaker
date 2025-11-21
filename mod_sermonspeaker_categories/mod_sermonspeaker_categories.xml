@@ -2,18 +2,21 @@
 <extension type="module" client="site" method="upgrade">
 	<name>mod_sermonspeaker_categories</name>
 	<author>Thomas Hunziker</author>
-	<creationDate>2022-02-22</creationDate>
-	<copyright>© 2022</copyright>
+	<creationDate>2025-11-21</creationDate>
+	<copyright>© 2025</copyright>
 	<authorEmail>admin@sermonspeaker.net</authorEmail>
 	<authorUrl>http://www.sermonspeaker.net</authorUrl>
-	<version>6.0.2</version>
+	<version>7.0.0</version>
 	<license>http://www.gnu.org/licenses/gpl.html</license>
 	<description>MOD_SERMONSPEAKER_CATEGORIES_XML_DESCRIPTION</description>
-	<namespace path="src">Bakual\Module\SermonspeakerCategories</namespace>
+	<namespace path="/">Sermonspeaker\Module\SermonspeakerCategories</namespace>
+	<scriptfile>script.php</scriptfile>
 	<files>
-		<filename module="mod_sermonspeaker_categories">mod_sermonspeaker_categories.php</filename>
-		<folder>src</folder>
+		<filename>mod_sermonspeaker_categories.xml</filename>
+		<folder>Dispatcher</folder>
+		<folder>Helper</folder>
 		<folder>language</folder>
+		<folder module="mod_sermonspeaker_categories">services</folder>
 		<folder>tmpl</folder>
 	</files>
 	<updateservers>

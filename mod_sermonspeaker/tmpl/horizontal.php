@@ -3,13 +3,14 @@
  * @package     SermonSpeaker
  * @subpackage  Module.SermonSpeaker
  * @author      Thomas Hunziker <admin@sermonspeaker.net>
- * @copyright   © 2022 - Thomas Hunziker
+ * @copyright   © 2025 - Thomas Hunziker
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
 defined('_JEXEC') or die();
 
 use Joomla\CMS\Router\Route;
+use Sermonspeaker\Component\Sermonspeaker\Site\Helper\RouteHelper;
 
 /**
  * @var array                     $list
@@ -25,8 +26,8 @@ $count = count($list);
 	<div class="row">
 		<?php foreach ($list as $item) : ?>
 			<?php $i++; ?>
-			<div class="sermonspeaker_entry<?php echo $i; ?> text-center col-md-<?php echo (int) 12 / $count; ?>">
-				<?php $link = Route::_(SermonspeakerHelperRoute::$helperMethod($item->slug, $item->catid, $item->language)); ?>
+			<div class="sermonspeaker_entry<?php echo $i; ?> text-center col-md-<?php echo 12 / $count; ?>">
+				<?php $link = Route::_(RouteHelper::$helperMethod($item->slug, $item->catid, $item->language)); ?>
 				<?php if ($item->pic) : ?>
 					<a href="<?php echo $link; ?>">
 						<img src="<?php echo $item->pic; ?>" class="img-thumbnail">

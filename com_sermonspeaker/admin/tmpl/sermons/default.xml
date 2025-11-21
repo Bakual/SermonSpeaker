@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="COM_SERMONSPEAKER_SERMONS_VIEW_DEFAULT_TITLE">
+		<message>
+			<![CDATA[COM_SERMONSPEAKER_SERMONS_VIEW_DEFAULT_DESC]]>
+		</message>
+	</layout>
+	<fields name="params" addfieldprefix="Sermonspeaker\Component\Sermonspeaker\Administrator\Field">
+		<fieldset name="basic">
+			<field
+				name="menu-quicktask"
+				type="radio"
+				label="MOD_MENU_FIELD_SHOWNEW"
+				layout="joomla.form.field.radio.switcher"
+			>
+				<option value="">JHIDE</option>
+				<option value="index.php?option=com_sermonspeaker&amp;task=sermon.add">JSHOW</option>
+			</field>
+			<field
+				name="menu-quicktask-title"
+				type="hidden"
+				default="COM_SERMONSPEAKER_MENU_ADD_SERMON"
+			/>
+		</fieldset>
+	</fields>
+</metadata>

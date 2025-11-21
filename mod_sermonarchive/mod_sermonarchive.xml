@@ -2,18 +2,21 @@
 <extension type="module" version="4.0.0" client="site" method="upgrade">
 	<name>MOD_SERMONARCHIVE</name>
 	<author>Thomas Hunziker, Rajesh K</author>
-	<creationDate>2021-09-08</creationDate>
-	<copyright>© 2022</copyright>
+	<creationDate>2025-11-21</creationDate>
+	<copyright>© 2025</copyright>
 	<authorEmail>admin@sermonspeaker.net</authorEmail>
 	<authorUrl>http://www.sermonspeaker.net</authorUrl>
-	<version>6.0.0</version>
+	<version>7.0.0</version>
 	<license>http://www.gnu.org/licenses/gpl.html</license>
 	<description>MOD_SERMONARCHIVE_XML_DESCRIPTION</description>
+	<namespace path="/">Sermonspeaker\Module\Sermonarchive</namespace>
+	<scriptfile>script.php</scriptfile>
 	<files>
-		<filename module="mod_sermonarchive">mod_sermonarchive.php</filename>
 		<filename>mod_sermonarchive.xml</filename>
-		<filename>helper.php</filename>
+		<folder>Dispatcher</folder>
+		<folder>Helper</folder>
 		<folder>language</folder>
+		<folder module="mod_sermonarchive">services</folder>
 		<folder>tmpl</folder>
 	</files>
 	<updateservers>

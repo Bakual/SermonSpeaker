@@ -2,19 +2,22 @@
 <extension type="module" version="4.0.0" client="site" method="upgrade">
 	<name>MOD_RELATED_SERMONS</name>
 	<author>Thomas Hunziker</author>
-	<creationDate>2021-09-08</creationDate>
-	<copyright>© 2022</copyright>
+	<creationDate>2025-11-21</creationDate>
+	<copyright>© 2025</copyright>
 	<authorEmail>admin@sermonspeaker.net</authorEmail>
 	<authorUrl>http://www.sermonspeaker.net</authorUrl>
-	<version>6.0.0</version>
+	<version>7.0.0</version>
 	<license>http://www.gnu.org/licenses/gpl.html</license>
 	<description>MOD_RELATED_SERMONS_XML_DESCRIPTION</description>
+	<namespace path="/">Sermonspeaker\Module\RelatedSermons</namespace>
+	<scriptfile>script.php</scriptfile>
 	<files>
-		<filename module="mod_related_sermons">mod_related_sermons.php</filename>
 		<filename>mod_related_sermons.xml</filename>
-		<filename>helper.php</filename>
-		<folder>tmpl</folder>
+		<folder>Dispatcher</folder>
+		<folder>Helper</folder>
 		<folder>language</folder>
+		<folder module="mod_related_sermons">services</folder>
+		<folder>tmpl</folder>
 	</files>
 	<updateservers>
 		<server type="extension" priority="1" name="SermonSpeaker.net">

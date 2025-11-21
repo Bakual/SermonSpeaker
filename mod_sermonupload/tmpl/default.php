@@ -3,7 +3,7 @@
  * @package     SermonSpeaker
  * @subpackage  Module.SermonUpload
  * @author      Thomas Hunziker <admin@sermonspeaker.net>
- * @copyright   © 2022 - Thomas Hunziker
+ * @copyright   © 2025 - Thomas Hunziker
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
@@ -11,6 +11,7 @@ defined('_JEXEC') or die();
 
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
+use Sermonspeaker\Module\Sermonupload\Site\Helper\SermonuploadHelper;
 
 /**
  * @var array                     $types
@@ -22,7 +23,7 @@ HTMLHelper::_('stylesheet', 'com_sermonspeaker/frontendupload.css', array('relat
 <div class="sermonupload">
 	<div id="upload_limit" class="card bg-light">
 		<div class="card-body">
-			<?php echo Text::sprintf('MOD_SERMONUPLOAD_UPLOAD_LIMIT', ModSermonuploadHelper::getMaxUploadValue()); ?>
+			<?php echo Text::sprintf('MOD_SERMONUPLOAD_UPLOAD_LIMIT', SermonuploadHelper::getMaxUploadValue()); ?>
 		</div>
 	</div>
 	<?php foreach ($types as $type): ?>

@@ -3,7 +3,7 @@
  * @package     SermonSpeaker
  * @subpackage  Module.LatestSermons
  * @author      Thomas Hunziker <admin@sermonspeaker.net>
- * @copyright   © 2022 - Thomas Hunziker
+ * @copyright   © 2025 - Thomas Hunziker
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
@@ -13,6 +13,8 @@ use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Router\Route;
+use Sermonspeaker\Component\Sermonspeaker\Site\Helper\RouteHelper;
+use Sermonspeaker\Component\Sermonspeaker\Site\Helper\SermonspeakerHelper;
 
 /**
  * @var array                     $list
@@ -31,21 +33,21 @@ if ($params->get('show_player'))
 	$config['count']     = 'ls' . $module->id;
 	$config['type']      = $c_params->get('fileprio') ? 'video' : 'audio';
 	$config['vheight']   = $params->get('vheight');
-	$player              = SermonspeakerHelperSermonspeaker::getPlayer($list, $config);
+	$player              = SermonspeakerHelper::getPlayer($list, $config);
 }
 ?>
 <div class="latestsermons">
 	<?php if ($params->get('show_list')) : ?>
 		<div class="row">
 			<?php foreach ($list as $i => $row) : ?>
-				<div class="latestsermons_entry<?php echo $i; ?> text-center col-md-<?php echo (int) 12 / $count; ?>">
-					<?php if ($picture = SermonspeakerHelperSermonspeaker::insertPicture($row)) : ?>
-						<a href="<?php echo Route::_(SermonspeakerHelperRoute::getSermonRoute($row->slug, $row->catid, $row->language)); ?>">
+				<div class="latestsermons_entry<?php echo $i; ?> text-center col-md-<?php echo 12 / $count; ?>">
+					<?php if ($picture = SermonspeakerHelper::insertPicture($row)) : ?>
+						<a href="<?php echo Route::_(RouteHelper::getSermonRoute($row->slug, $row->catid, $row->language)); ?>">
 							<img src="<?php echo $picture; ?>" class="img-thumbnail">
 						</a>
 					<?php endif; ?>
 					<h3>
-						<a href="<?php echo Route::_(SermonspeakerHelperRoute::getSermonRoute($row->slug, $row->catid, $row->language)); ?>">
+						<a href="<?php echo Route::_(RouteHelper::getSermonRoute($row->slug, $row->catid, $row->language)); ?>">
 							<?php echo $row->title; ?>
 							<?php if ($params->get('show_hits', 0) > 1 and $row->hits) : ?>
 								<small>(<?php echo $row->hits; ?>)</small>
@@ -55,7 +57,7 @@ if ($params->get('show_player'))
 					<?php if ($params->get('ls_show_mo_series') and $row->series_title) : ?>
 						<span>
 							<?php if ($row->series_state) : ?>
-								<a href="<?php echo Route::_(SermonspeakerHelperRoute::getSerieRoute($row->series_slug, $row->series_catid, $row->series_language)); ?>">
+								<a href="<?php echo Route::_(RouteHelper::getSerieRoute($row->series_slug, $row->series_catid, $row->series_language)); ?>">
 									<?php echo $row->series_title; ?></a>
 							<?php else : ?>
 								<?php echo $row->series_title; ?>
@@ -66,7 +68,7 @@ if ($params->get('show_player'))
 						<span>
 							<?php if ($params->get('ls_show_mo_series') and $row->series_title) : ?>|<?php endif; ?>
 							<?php if ($row->speaker_state): ?>
-								<a href="<?php echo Route::_(SermonspeakerHelperRoute::getSpeakerRoute($row->speaker_slug, $row->speaker_catid, $row->speaker_language)); ?>">
+								<a href="<?php echo Route::_(RouteHelper::getSpeakerRoute($row->speaker_slug, $row->speaker_catid, $row->speaker_language)); ?>">
 									<?php echo $row->speaker_title; ?>
 								</a>
 							<?php else : ?>
@@ -76,12 +78,12 @@ if ($params->get('show_player'))
 					<?php endif; ?>
 					<?php if ($params->get('use_date')) : ?>
 						<?php $date_format = Text::_($params->get('ls_mo_date_format', 'DATE_FORMAT_LC4')); ?>
-						<?php echo Text::_('JDATE') . ': ' . HTMLHelper::date($row->sermon_date, $date_format, true); ?>
+						<?php echo Text::_('JDATE') . ': ' . HTMLHelper::date($row->sermon_date, $date_format); ?>
 					<?php endif; ?>
 					<?php if ($params->get('show_scripture') and $row->scripture) : ?>
 						<span>
 							<?php echo Text::_('MOD_LATESTSERMONS_SCRIPTURE'); ?>:
-									<?php echo SermonspeakerHelperSermonspeaker::insertScriptures($row->scripture, ', '); ?>
+									<?php echo SermonspeakerHelper::insertScriptures($row->scripture, ', '); ?>
 						</span>
 					<?php endif; ?>
 					<?php if ($params->get('show_hits', 0) & 1) : ?>
@@ -115,7 +117,7 @@ if ($params->get('show_player'))
 		if ($itemid) : ?>
 			<?php $link = 'index.php?option=com_sermonspeaker&view=sermons&Itemid=' . $itemid; ?>
 		<?php else : ?>
-			<?php $link = SermonspeakerHelperRoute::getSermonsRoute(); ?>
+			<?php $link = RouteHelper::getSermonsRoute(); ?>
 		<?php endif; ?>
 		<br/>
 		<div class="latestsermons_link">

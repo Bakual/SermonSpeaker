@@ -96,6 +96,7 @@ class ComposerStaticInit126059dab1c1fc1a43d94a51ba0b6f25
         'getid3_dsdiff' => __DIR__ . '/..' . '/james-heinrich/getid3/getid3/module.audio.dsdiff.php',
         'getid3_exception' => __DIR__ . '/..' . '/james-heinrich/getid3/getid3/getid3.php',
         'getid3_flv' => __DIR__ . '/..' . '/james-heinrich/getid3/getid3/module.audio-video.flv.php',
+        'getid3_gpx' => __DIR__ . '/..' . '/james-heinrich/getid3/getid3/module.misc.gpx.php',
         'getid3_handler' => __DIR__ . '/..' . '/james-heinrich/getid3/getid3/getid3.php',
         'getid3_hpk' => __DIR__ . '/..' . '/james-heinrich/getid3/getid3/module.archive.hpk.php',
         'getid3_id3v1' => __DIR__ . '/..' . '/james-heinrich/getid3/getid3/module.tag.id3v1.php',

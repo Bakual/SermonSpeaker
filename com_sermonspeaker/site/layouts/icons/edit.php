@@ -3,7 +3,7 @@
  * @package     SermonSpeaker
  * @subpackage  Component.Site
  * @author      Thomas Hunziker <admin@sermonspeaker.net>
- * @copyright   © 2023 - Thomas Hunziker
+ * @copyright   © 2025 - Thomas Hunziker
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
@@ -58,15 +58,15 @@ switch ($type)
 	default:
 	case 'sermon':
 		$view = 'frontendupload';
-		$route = SermonspeakerHelperRoute::getSermonRoute($item->id);
+		$route = Sermonspeaker\Component\Sermonspeaker\Site\Helper\RouteHelper::getSermonRoute($item->id);
 		break;
 	case 'serie':
 		$view = 'serieform';
-		$route = SermonspeakerHelperRoute::getSerieRoute($item->id);
+		$route = Sermonspeaker\Component\Sermonspeaker\Site\Helper\RouteHelper::getSerieRoute($item->id);
 		break;
 	case 'speaker':
 		$view = 'speakerform';
-		$route = SermonspeakerHelperRoute::getSpeakerRoute($item->id);
+		$route = Sermonspeaker\Component\Sermonspeaker\Site\Helper\RouteHelper::getSpeakerRoute($item->id);
 		break;
 }
 

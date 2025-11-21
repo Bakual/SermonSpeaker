@@ -2,16 +2,18 @@
 <extension version="3.6.0" type="plugin" group="sermonspeaker" method="upgrade">
 	<name>plg_sermonspeaker_vimeo</name>
 	<author>Thomas Hunziker</author>
-	<creationDate>2020-05-04</creationDate>
-	<copyright>© 2020</copyright>
+	<creationDate>2025-11-21</creationDate>
+	<copyright>© 2025</copyright>
 	<license>http://www.gnu.org/licenses/gpl.html</license>
 	<authorEmail>admin@sermonspeaker.net</authorEmail>
 	<authorUrl>http://www.sermonspeaker.net</authorUrl>
-	<version>5.5.2</version>
+	<version>7.0.0</version>
 	<description>PLG_SERMONSPEAKER_VIMEO_XML_DESCRIPTION</description>
+	<namespace path="/">Sermonspeaker\Plugin\Sermonspeaker\Vimeo</namespace>
 	<files>
-		<filename plugin="vimeo">vimeo.php</filename>
+		<folder>Extension</folder>
 		<folder>language</folder>
+		<folder plugin="vimeo">services</folder>
 	</files>
 	<media destination="plg_sermonspeaker_vimeo" folder="media">
 		<folder>js</folder>
@@ -26,12 +28,11 @@
 					name="ga"
 					type="radio"
 					label="PLG_SERMONSPEAKER_VIMEO_FIELD_GA_LABEL"
-					description="PLG_SERMONSPEAKER_VIMEO_FIELD_GA_DESC"
-					class="btn-group btn-group-yesno"
+					layout="joomla.form.field.radio.switcher"
 					default="0"
 					>
-					<option value="1">JYES</option>
 					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
 			</fieldset>
 		</fields>

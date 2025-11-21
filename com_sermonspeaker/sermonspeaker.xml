@@ -2,13 +2,14 @@
 <extension type="component" version="4.0.0" method="upgrade">
 	<name>com_sermonspeaker</name>
 	<author>Thomas Hunziker</author>
-	<creationDate>2024-04-15</creationDate>
-	<copyright>© 2024</copyright>
+	<creationDate>2025-11-21</creationDate>
+	<copyright>© 2025</copyright>
 	<authorEmail>admin@sermonspeaker.net</authorEmail>
 	<authorUrl>http://www.sermonspeaker.net</authorUrl>
-	<version>6.1.6</version>
+	<version>7.0.0</version>
 	<license>http://www.gnu.org/licenses/gpl.html</license>
 	<description>COM_SERMONSPEAKER_DESCRIPTION</description>
+	<namespace path="/">Sermonspeaker\Component\Sermonspeaker</namespace>
 	<scriptfile>script.php</scriptfile>
 	<install>
 		<sql>
@@ -27,17 +28,17 @@
 	</update>
 
 	<files folder="site">
-		<filename>controller.php</filename>
-		<filename>router.php</filename>
-		<filename>sermonspeaker.php</filename>
-		<folder>controllers</folder>
-		<folder>helpers</folder>
+		<folder>Controller</folder>
+		<folder>forms</folder>
+		<folder>Helper</folder>
 		<folder>language</folder>
 		<folder>layouts</folder>
 		<folder>media</folder>
-		<folder>models</folder>
-		<folder>plugin</folder>
-		<folder>views</folder>
+		<folder>Model</folder>
+		<folder>Plugin</folder>
+		<folder>Service</folder>
+		<folder>tmpl</folder>
+		<folder>View</folder>
 	</files>
 	<media destination="com_sermonspeaker" folder="media">
 		<folder>css</folder>
@@ -109,17 +110,21 @@
 		<files folder="admin">
 			<filename>access.xml</filename>
 			<filename>config.xml</filename>
-			<filename>controller.php</filename>
-			<filename>sermonspeaker.php</filename>
-			<folder>controllers</folder>
-			<folder>helpers</folder>
+			<folder>Controller</folder>
+			<folder>Extension</folder>
+			<folder>Field</folder>
+			<folder>forms</folder>
+			<folder>Helper</folder>
 			<folder>language</folder>
-			<folder>models</folder>
+			<folder>Model</folder>
 			<folder>presets</folder>
+			<folder>Service</folder>
+			<folder>services</folder>
 			<folder>sql</folder>
-			<folder>tables</folder>
+			<folder>Table</folder>
+			<folder>tmpl</folder>
 			<folder>vendor</folder>
-			<folder>views</folder>
+			<folder>View</folder>
 		</files>
 	</administration>
 	<tables>

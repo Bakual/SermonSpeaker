@@ -40,6 +40,7 @@ return array(
     'getid3_dsdiff' => $vendorDir . '/james-heinrich/getid3/getid3/module.audio.dsdiff.php',
     'getid3_exception' => $vendorDir . '/james-heinrich/getid3/getid3/getid3.php',
     'getid3_flv' => $vendorDir . '/james-heinrich/getid3/getid3/module.audio-video.flv.php',
+    'getid3_gpx' => $vendorDir . '/james-heinrich/getid3/getid3/module.misc.gpx.php',
     'getid3_handler' => $vendorDir . '/james-heinrich/getid3/getid3/getid3.php',
     'getid3_hpk' => $vendorDir . '/james-heinrich/getid3/getid3/module.archive.hpk.php',
     'getid3_id3v1' => $vendorDir . '/james-heinrich/getid3/getid3/module.tag.id3v1.php',

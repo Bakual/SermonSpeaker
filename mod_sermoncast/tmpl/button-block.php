@@ -2,8 +2,8 @@
 /**
  * @package     SermonSpeaker
  * @subpackage  Module.SermonCast
- * @author      Sven Lauch <sven@eyesup.eu>
- * @copyright   © 2020 - Sven Lauch
+ * @author      Thomas Hunziker <admin@sermonspeaker.net>
+ * @copyright   © 2025 - Thomas Hunziker
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 

@@ -1,0 +1,212 @@
+<?php
+/**
+ * @package     SermonSpeaker
+ * @subpackage  Component.Administrator
+ * @author      Thomas Hunziker <admin@sermonspeaker.net>
+ * @copyright   © 2025 - Thomas Hunziker
+ * @license     http://www.gnu.org/licenses/gpl.html
+ **/
+
+namespace Sermonspeaker\Component\Sermonspeaker\Administrator\Model;
+
+use Aws\Credentials\Credentials;
+use Aws\S3\S3Client;
+use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\Factory;
+use Joomla\Filesystem\File;
+use Joomla\Filesystem\Folder;
+use Joomla\CMS\MVC\Model\BaseDatabaseModel;
+
+defined('_JEXEC') or die();
+
+/**
+ * Model class for the SermonSpeaker Component
+ *
+ * @since  ?.?
+ */
+class FilesModel extends BaseDatabaseModel
+{
+	public function getItems()
+	{
+		$audio_ext = array('aac', 'm4a', 'mp3', 'wma', 'ra', 'ram', 'rm', 'rpm');
+		$video_ext = array('mp4', 'mov', 'f4v', 'flv', '3gp', '3g2', 'wmv', 'rv');
+		$start     = strlen(JPATH_SITE) + 1;
+		$files     = $this->getFiles();
+		$sermons   = $this->getSermons();
+		$items     = array();
+
+		foreach ($files as $key => $value)
+		{
+			if (str_starts_with($value, JPATH_SITE))
+			{
+				$value = substr($value, $start);
+			}
+
+			$value = str_replace('\\', '/', $value);
+
+			if (in_array($value, $sermons))
+			{
+				unset($files[$key]);
+				continue;
+			}
+
+			$ext                 = File::getExt($value);
+			$items[$key]['file'] = (str_starts_with($value, 'http')) ? $value : '/' . $value;
+
+			if (in_array($ext, $audio_ext))
+			{
+				$items[$key]['type'] = 'audio';
+			}
+			elseif (in_array($ext, $video_ext))
+			{
+				$items[$key]['type'] = 'video';
+			}
+			else
+			{
+				$items[$key]['type'] = $ext;
+			}
+		}
+
+		return $items;
+	}
+
+	private function getFiles()
+	{
+		// Initialise variables.
+		$app    = Factory::getApplication();
+		$params = ComponentHelper::getParams('com_sermonspeaker');
+
+		$type = $app->getUserStateFromRequest('com_sermonspeaker.tools.filter.type', 'type', 'all', 'string');
+		$this->setState('filter.type', $type);
+
+		switch ($type)
+		{
+			case 'audio':
+				$filters = array('.aac', '.m4a', '.mp3', '.wma');
+				$mode    = $params->get('path_mode_audio', 0);
+
+				break;
+			case 'video':
+				$filters = array('.mp4', '.mov', '.f4v', '.flv', '.3gp', '.3g2', '.wmv');
+				$mode    = $params->get('path_mode_video', 0);
+
+				break;
+			default:
+				$filters = array('');
+
+				if (!$mode = $params->get('path_mode_audio', 0))
+				{
+					$mode = $params->get('path_mode_video', 0);
+				}
+
+				break;
+		}
+
+		$folders[] = JPATH_SITE . '/' . $params->get('path_audio');
+		$files     = array();
+
+		if ($mode == 2)
+		{
+			// Add missing constant in PHP < 5.5
+			defined('CURL_SSLVERSION_TLSv1') or define('CURL_SSLVERSION_TLSv1', 1);
+
+			// Amazon S3
+
+			// AWS access info
+			$awsAccessKey = $params->get('s3_access_key');
+			$awsSecretKey = $params->get('s3_secret_key');
+			$region       = $params->get('s3_region');
+			$bucket       = $params->get('s3_bucket');
+			$bucketfolder = $params->get('s3_folder') ? trim($params->get('s3_folder'), ' /') . '/' : '';
+
+			// Instantiate the class
+			$credentials = new Credentials($awsAccessKey, $awsSecretKey);
+			$s3          = new S3Client([
+				'version'     => 'latest',
+				'region'      => $region,
+				'credentials' => $credentials,
+			]);
+
+			$bucket_contents = $s3->getBucket($bucket, $bucketfolder);
+
+			$prefix = ($region === 'us-east-1') ? 's3' : 's3-' . $region;
+			$domain = $prefix . '.amazonaws.com/' . $bucket;
+
+			foreach ($bucket_contents as $file)
+			{
+				$files[] = $s3->getObjectUrl($bucket, $file['Key']);
+			}
+		}
+
+		// Local files
+		if ($params->get('path_audio') != $params->get('path_video'))
+		{
+			$folders[] = JPATH_SITE . '/' . $params->get('path_video');
+		}
+
+		foreach ($folders as $folder)
+		{
+			foreach ($filters as $filter)
+			{
+				$files = array_merge($files, Folder::files($folder, $filter, true, true));
+			}
+		}
+
+		sort($files);
+
+		return $files;
+	}
+
+	private function getSermons()
+	{
+		$db    = $this->getDatabase();
+		$query = "SELECT `audiofile` AS `file` FROM #__sermon_sermons WHERE `audiofile` != '' \n"
+			. "UNION SELECT `videofile` FROM #__sermon_sermons WHERE `videofile` != '' ";
+
+		$db->setQuery($query);
+
+		try
+		{
+			$sermons = $db->loadColumn();
+
+		}
+		catch (\Exception $e)
+		{
+			Factory::getApplication()->enqueueMessage($e->getMessage(), 'ERROR');
+			$sermons = array();
+		}
+
+		foreach ($sermons as &$sermon)
+		{
+			$sermon = trim($sermon, '/\\');
+		}
+
+		return $sermons;
+	}
+
+	public function getCategory()
+	{
+		$db    = $this->getDatabase();
+		$query = $db->getQuery(true);
+
+		$query->select('a.id, a.title');
+		$query->from('#__categories AS a');
+		$query->where('a.parent_id > 0');
+		$query->where('extension = "com_sermonspeaker.sermons"');
+		$query->where('a.published = 1');
+		$query->order('a.lft');
+
+		$db->setQuery($query);
+		$items = $db->loadObjectList();
+
+		foreach ($items as $item)
+		{
+			if ($item->title == 'Uncategorized')
+			{
+				return $item->id;
+			}
+		}
+
+		return $items[0]->id;
+	}
+}

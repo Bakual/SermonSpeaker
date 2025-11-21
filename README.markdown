@@ -15,5 +15,4 @@ Some features include:
 * Support for Youtube and Vimeo videos.  
 * Supports external storage servers and Amazon S3.  
 * Support for content plugins like Scripture Links and Biblelink XT  
-* Support for JComments  
 * Various modules available  

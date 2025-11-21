@@ -4,7 +4,7 @@ import { JoomlaEditor, JoomlaEditorButton } from 'editor-api';
  * @package     SermonSpeaker
  * @subpackage  Component.Media
  * @author      Thomas Hunziker <admin@sermonspeaker.net>
- * @copyright   © 2023 - Thomas Hunziker
+ * @copyright   © 2025 - Thomas Hunziker
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 document.addEventListener('DOMContentLoaded', function () {

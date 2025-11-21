@@ -1,0 +1,299 @@
+<?php
+/**
+ * @package     SermonSpeaker
+ * @subpackage  Component.Site
+ * @author      Thomas Hunziker <admin@sermonspeaker.net>
+ * @copyright   © 2025 - Thomas Hunziker
+ * @license     http://www.gnu.org/licenses/gpl.html
+ **/
+
+namespace Sermonspeaker\Component\Sermonspeaker\Site\View\Feed;
+
+use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\Factory;
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
+use Joomla\CMS\Table\Table;
+use Joomla\CMS\Uri\Uri;
+use Joomla\Filesystem\File;
+use Sermonspeaker\Component\Sermonspeaker\Site\Helper\SermonspeakerHelper;
+
+defined('_JEXEC') or die();
+
+/**
+ * HTML View class for the SermonSpeaker Component
+ *
+ * @since  4
+ */
+class RawView extends BaseHtmlView
+{
+	/**
+	 * @var  $params  \Joomla\Registry\Registry  Holds the component params
+	 *
+	 * @since ?
+	 */
+	protected $params;
+
+	/**
+	 * @var  $items  array  Array with the item objects
+	 *
+	 * @since ?
+	 */
+	protected $items;
+
+	/**
+	 * Execute and display a template script.
+	 *
+	 * @param   string  $tpl  The name of the template file to parse; automatically searches through the template paths.
+	 *
+	 * @return  void
+	 *
+	 * @since ?
+	 */
+	public function display($tpl = null)
+	{
+		/* @var  \JApplicationSite $app The application */
+		$app          = Factory::getApplication();
+		$this->params = $app->getParams();
+
+		// Get the log in credentials.
+		$credentials             = array();
+		$credentials['username'] = $app->input->get->get('username', '', 'USERNAME');
+		$credentials['password'] = $app->input->get->get('password', '', 'RAW');
+
+		// Perform the log in.
+		if ($credentials['username'] && $credentials['password'])
+		{
+			$app->login($credentials);
+		}
+
+		// Check if access is not public
+		$user   = Factory::getApplication()->getIdentity();
+		$groups = $user->getAuthorisedViewLevels();
+
+		if (!in_array($this->params->get('access'), $groups))
+		{
+			$app->enqueueMessage(Text::_('JERROR_ALERTNOAUTHOR'), 'error');
+			$app->redirect('');
+		}
+
+		$this->getDocument()->setMimeEncoding('application/rss+xml');
+
+		// Get Data from Model (/models/feed.php)
+		$this->items = $this->get('Data');
+
+		// Get current version of SermonSpeaker
+		$component  = ComponentHelper::getComponent('com_sermonspeaker');
+		$extensions = Table::getInstance('extension');
+		$extensions->load($component->id);
+		$manifest      = json_decode($extensions->manifest_cache);
+		$this->version = $manifest->version;
+
+		parent::display($tpl);
+	}
+
+	/**
+	 * Creates an iTunes Category
+	 *
+	 * @param   array  $cat  iTunes categories
+	 *
+	 * @return  string  $tags  The iTunes category tag
+	 *
+	 * @since ?
+	 */
+	protected function make_itCat($cat)
+	{
+		$cat_array = explode(' > ', $cat);
+
+		if (!isset($cat_array[1]))
+		{
+			$tags = htmlspecialchars($cat_array[0]) . "\" />\n";
+		}
+		else
+		{
+			$tags = htmlspecialchars($cat_array[0]) . "\">\n";
+			$tags .= '		<itunes:category text="' . htmlspecialchars($cat_array[1]) . "\" />\n";
+			$tags .= "	</itunes:category>\n";
+		}
+
+		return $tags;
+	}
+
+	/**
+	 * Process notes
+	 *
+	 * @param   string  $text  notes
+	 * @param   string  $meta  meta description
+	 *
+	 * @return  string  $tags  processed notes
+	 *
+	 * @since ?
+	 */
+	protected function getNotes($text, $meta = '')
+	{
+		// If meta description is present, use that one over the notes field.
+		if ($meta)
+		{
+			$text = $meta;
+		}
+
+		if ($this->params->get('prepare_content', 1))
+		{
+			$text = HTMLHelper::_('content.prepare', $text);
+		}
+
+		$text = str_replace(array("\r", "\n", '  '), ' ', $this->make_xml_safe($text));
+
+		if ($this->params->get('limit_text'))
+		{
+			$length = $this->params->get('text_length');
+			$array  = explode(' ', $text, $length + 1);
+
+			if (isset($array[$length]))
+			{
+				$array[$length] = '...';
+			}
+
+			$text = implode(' ', $array);
+		}
+
+		return $text;
+	}
+
+	/**
+	 * Makes a string save to use in a XML file
+	 *
+	 * @param   string  $string  The string to be escaped
+	 *
+	 * @return  string  $string  The escaped string
+	 *
+	 * @since ?
+	 */
+	protected function make_xml_safe($string)
+	{
+		$string = strip_tags($string);
+		$string = html_entity_decode($string, ENT_NOQUOTES, 'UTF-8');
+
+		return htmlspecialchars($string, ENT_QUOTES, 'UTF-8', false);
+	}
+
+	/**
+	 * Creates Enclosure
+	 *
+	 * @param   object  $item  The row
+	 *
+	 * @return  array  $enclosure  Enclosure
+	 *
+	 * @since ?
+	 */
+	protected function getEnclosure($item)
+	{
+		$type = Factory::getApplication()->input->get('type', 'auto');
+		$prio = $this->params->get('fileprio', 0);
+
+		// Create Enclosure
+		if ($type == 'video')
+		{
+			$file = $item->videofile;
+		}
+		elseif ($type == 'audio')
+		{
+			$file = $item->audiofile;
+		}
+		else
+		{
+			$file = SermonspeakerHelper::getFileByPrio($item, $prio);
+		}
+
+		if ($file)
+		{
+			// MIME type for content
+			$enclosure['type'] = SermonspeakerHelper::getMime(File::getExt($file));
+
+			if (parse_url($file, PHP_URL_SCHEME))
+			{
+				// External link
+				if ((str_starts_with($file, 'http://vimeo.com')) || (str_starts_with($file, 'http://player.vimeo.com')))
+				{
+					// Vimeo
+					$id                = trim(strrchr($file, '/'), '/ ');
+					$file              = 'http://vimeo.com/moogaloop.swf?clip_id=' . $id;
+					$enclosure['type'] = 'application/x-shockwave-flash';
+				}
+
+				$enclosure['url']    = $file;
+				$enclosure['length'] = 1;
+			}
+			else
+			{
+				// Internal link
+				// Fix for spaces in the filename
+				$path = str_replace(array(' ', '%20'), array('%20', '%20'), $file);
+				$path = trim($path, ' /');
+
+				// Url to play
+				$enclosure['url'] = Uri::root() . $path;
+
+				// Filesize for length TODO: Get from database if available
+				if (file_exists(JPATH_ROOT . $file))
+				{
+					$enclosure['length'] = filesize(JPATH_ROOT . $file);
+				}
+				else
+				{
+					$enclosure['length'] = 0;
+				}
+			}
+		}
+		else
+		{
+			$enclosure = '';
+		}
+
+		return $enclosure;
+	}
+
+	/**
+	 * Create keywords from series_title and scripture (title and speaker are searchable anyway)
+	 *
+	 * @param   object  $item  The row
+	 *
+	 * @return  string  keywords
+	 *
+	 * @since ?
+	 */
+	protected function getKeywords($item)
+	{
+		$keywords = array();
+
+		if ($item->scripture)
+		{
+			$scripture = SermonspeakerHelper::insertScriptures($item->scripture, '-/*', false);
+
+			if ($this->params->get('prepare_content', 1))
+			{
+				$scripture = HTMLHelper::_('content.prepare', $scripture);
+			}
+
+			// Make english scripture format
+			$scripture = str_replace(',', ':', $scripture);
+			$scripture = str_replace("\n", '', $this->make_xml_safe($scripture));
+			$keywords  = explode('-/*', $scripture);
+		}
+
+		if ($item->series_title)
+		{
+			$keywords[] = $this->make_xml_safe($item->series_title);
+		}
+
+		// Add meta keywords
+		if ($item->metakey)
+		{
+			$metakey  = $this->make_xml_safe($item->metakey);
+			$keywords = array_merge($keywords, explode(',', $metakey));
+		}
+
+		return implode(',', $keywords);
+	}
+}

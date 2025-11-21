@@ -3,7 +3,7 @@
  * @package     SermonSpeaker
  * @subpackage  Module.LatestSermons
  * @author      Thomas Hunziker <admin@sermonspeaker.net>
- * @copyright   © 2022 - Thomas Hunziker
+ * @copyright   © 2025 - Thomas Hunziker
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
@@ -13,6 +13,8 @@ use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Router\Route;
+use Sermonspeaker\Component\Sermonspeaker\Site\Helper\RouteHelper;
+use Sermonspeaker\Component\Sermonspeaker\Site\Helper\SermonspeakerHelper;
 
 /**
  * @var array                     $list
@@ -36,7 +38,7 @@ if ($params->get('show_player'))
 	$config['count']     = 'ls' . $module->id;
 	$config['type']      = $c_params->get('fileprio') ? 'video' : 'audio';
 	$config['vheight']   = $params->get('vheight');
-	$player              = SermonspeakerHelperSermonspeaker::getPlayer($list, $config);
+	$player              = SermonspeakerHelper::getPlayer($list, $config);
 }
 ?>
 <div class="latestsermons">
@@ -46,12 +48,13 @@ if ($params->get('show_player'))
 				<li class="latestsermons_entry<?php echo $i; ?>">
 					<?php if ($params->get('show_player') and $params->get('control_player')) : ?>
 						<?php $title = Text::_('MOD_LATESTSERMONS_PLAYICON_HOOVER');
-						$playerId = !empty($player->id) ? $player->id : ''; ?>
-						<span class="fas fa-play pointer ss-play hasTooltip" data-id="<?php echo $i; ?>" data-player="<?php echo $playerId; ?>" title="<?php echo $title; ?>"> </span>
+						$playerId    = !empty($player->id) ? $player->id : ''; ?>
+						<span class="fas fa-play pointer ss-play hasTooltip" data-id="<?php echo $i; ?>"
+							  data-player="<?php echo $playerId; ?>" title="<?php echo $title; ?>"> </span>
 					<?php endif; ?>
 					<?php if ($params->get('use_date')) : ?>
 						<?php $date_format = Text::_($params->get('ls_mo_date_format', 'DATE_FORMAT_LC4')); ?>
-						<?php $text = HTMLHelper::date($row->sermon_date, $date_format, true); ?>
+						<?php $text = HTMLHelper::date($row->sermon_date, $date_format); ?>
 					<?php else : ?>
 						<?php $text = $row->title; ?>
 					<?php endif; ?>
@@ -61,7 +64,7 @@ if ($params->get('show_player'))
 					<?php if ($itemid) : ?>
 						<?php $link = Route::_('index.php?option=com_sermonspeaker&view=sermon&id=' . $row->slug . '&Itemid=' . $itemid); ?>
 					<?php else : ?>
-						<?php $link = Route::_(SermonspeakerHelperRoute::getSermonRoute($row->slug, $row->catid, $row->language)); ?>
+						<?php $link = Route::_(RouteHelper::getSermonRoute($row->slug, $row->catid, $row->language)); ?>
 					<?php endif; ?>
 					<?php if ($tooltip) : ?>
 						<?php $title = ''; ?>
@@ -80,10 +83,10 @@ if ($params->get('show_player'))
 						<?php endif; ?>
 						<?php if ($params->get('ls_show_mo_date') and $row->sermon_date) : ?>
 							<?php $date_format = Text::_($params->get('ls_mo_date_format', 'DATE_FORMAT_LC4')); ?>
-							<?php $tips[] = Text::_('JDATE') . ': ' . HTMLHelper::date($row->sermon_date, $date_format, true); ?>
+							<?php $tips[] = Text::_('JDATE') . ': ' . HTMLHelper::date($row->sermon_date, $date_format); ?>
 						<?php endif; ?>
 						<?php if ($params->get('show_scripture') and $row->scripture) : ?>
-							<?php $tips[] = Text::_('MOD_LATESTSERMONS_SCRIPTURE') . ': ' . SermonspeakerHelperSermonspeaker::insertScriptures($row->scripture, ', ', false);  ?>
+							<?php $tips[] = Text::_('MOD_LATESTSERMONS_SCRIPTURE') . ': ' . SermonspeakerHelper::insertScriptures($row->scripture, ', ', false); ?>
 						<?php endif; ?>
 						<?php if (($params->get('show_hits') & 1) and $row->hits) : ?>
 							<?php $tips[] = Text::_('JGLOBAL_HITS') . ': ' . $row->hits; ?>
@@ -110,7 +113,7 @@ if ($params->get('show_player'))
 		<?php if ($itemid) : ?>
 			<?php $link = 'index.php?option=com_sermonspeaker&view=sermons&Itemid=' . $itemid; ?>
 		<?php else : ?>
-			<?php $link = SermonspeakerHelperRoute::getSermonsRoute(); ?>
+			<?php $link = RouteHelper::getSermonsRoute(); ?>
 		<?php endif; ?>
 		<br/>
 		<div class="latestsermons_link">

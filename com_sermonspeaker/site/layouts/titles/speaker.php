@@ -3,7 +3,7 @@
  * @package     SermonSpeaker
  * @subpackage  Component.Site.Layouts
  * @author      Thomas Hunziker <admin@sermonspeaker.net>
- * @copyright   © 2023 - Thomas Hunziker
+ * @copyright   © 2025 - Thomas Hunziker
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
@@ -34,13 +34,13 @@ extract($displayData);
 		); ?>
 		<a href="#sermonspeaker-modal-speaker-<?php echo $item->speaker_id; ?>" data-bs-toggle="modal">
 	<?php else : ?>
-		<a href="<?php echo Route::_(SermonspeakerHelperRoute::getSpeakerRoute($item->speaker_slug, $item->speaker_catid, $item->speaker_language)); ?>" itemprop="url">
+		<a href="<?php echo Route::_(Sermonspeaker\Component\Sermonspeaker\Site\Helper\RouteHelper::getSpeakerRoute($item->speaker_slug, $item->speaker_catid, $item->speaker_language)); ?>" itemprop="url">
 	<?php endif; ?>
 	<?php if ($item->pic) : ?>
 		<?php HTMLHelper::_('bootstrap.popover', '.speakerPopover', ['trigger' => 'hover focus']); ?>
-		<meta itemprop="image" content="<?php echo SermonspeakerHelperSermonspeaker::makeLink($item->pic, true); ?>"/>
+		<meta itemprop="image" content="<?php echo Sermonspeaker\Component\Sermonspeaker\Site\Helper\SermonspeakerHelper::makeLink($item->pic, true); ?>"/>
 		<span class="speakerPopover" title="<?php echo $item->speaker_title; ?>"
-			  data-bs-content="<?php echo htmlspecialchars('<img src="' . SermonspeakerHelperSermonspeaker::makeLink($item->pic) . '" />'); ?>">
+			  data-bs-content="<?php echo htmlspecialchars('<img src="' . Sermonspeaker\Component\Sermonspeaker\Site\Helper\SermonspeakerHelper::makeLink($item->pic) . '" />'); ?>">
 			<span itemprop="name"><?php echo $item->speaker_title; ?></span></span></a>
 	<?php else : ?>
 		<span itemprop="name"><?php echo $item->speaker_title; ?></span></a>

@@ -2,21 +2,25 @@
 <extension type="module" version="4.0.0" client="site" method="upgrade">
 	<name>MOD_SERMONCAST</name>
 	<author>Thomas Hunziker</author>
-	<creationDate>2021-09-08</creationDate>
-	<copyright>© 2022</copyright>
+	<creationDate>2025-11-21</creationDate>
+	<copyright>© 2025</copyright>
 	<authorEmail>admin@sermonspeaker.net</authorEmail>
-	<authorUrl>http://www.sermonspeaker.net</authorUrl>
-	<version>6.0.0</version>
-	<license>http://www.gnu.org/licenses/gpl.html</license>
+	<authorUrl>https://www.sermonspeaker.net</authorUrl>
+	<version>7.0.0</version>
+	<license>https://www.gnu.org/licenses/gpl.html</license>
 	<description>MOD_SERMONCAST_XML_DESCRIPTION</description>
+	<namespace path="/">Sermonspeaker\Module\Sermoncast</namespace>
+	<scriptfile>script.php</scriptfile>
 	<files>
-		<filename module="mod_sermoncast">mod_sermoncast.php</filename>
 		<filename>mod_sermoncast.xml</filename>
-		<filename>podcast-mini.gif</filename>
-		<filename>feed_rss.gif</filename>
+		<folder>Dispatcher</folder>
 		<folder>language</folder>
+		<folder module="mod_sermoncast">services</folder>
 		<folder>tmpl</folder>
 	</files>
+	<media destination="mod_sermoncast" folder="media">
+		<folder>images</folder>
+	</media>
 	<updateservers>
 		<server type="extension" priority="1" name="SermonSpeaker.net">
 			https://www.sermonspeaker.net/update/mod_sermoncast.xml
@@ -24,8 +28,7 @@
 	</updateservers>
 	<config>
 		<fields name="params">
-			<fieldset name="basic"
-					  addfieldpath="/administrator/components/com_content/models/fields">
+			<fieldset name="basic">
 				<field
 					name="sc_introtext"
 					label="MOD_SERMONCAST_PARAM_INTROTEXT"

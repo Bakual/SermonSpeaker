@@ -3,7 +3,7 @@
  * @package     SermonSpeaker
  * @subpackage  Module.SermonSpeaker
  * @author      Thomas Hunziker <admin@sermonspeaker.net>
- * @copyright   © 2022 - Thomas Hunziker
+ * @copyright   © 2025 - Thomas Hunziker
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
@@ -12,6 +12,7 @@ defined('_JEXEC') or die();
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
+use Sermonspeaker\Component\Sermonspeaker\Site\Helper\RouteHelper;
 
 /**
  * @var array                     $list
@@ -37,7 +38,7 @@ $level = 1;
 			<?php endwhile; ?>
 		<?php endif; ?>
 		<?php $level = $item->level; ?>
-		<?php $link = Route::_(SermonspeakerHelperRoute::$helperMethod($item->slug, $item->catid, $item->language)); ?>
+		<?php $link = Route::_(RouteHelper::$helperMethod($item->slug, $item->catid, $item->language)); ?>
 		<li>
 			<?php if ($params->get('tooltip')) : ?>
 				<?php $options = array('title' => $item->title, 'href' => $link, 'text' => $item->title); ?>
@@ -46,7 +47,7 @@ $level = 1;
 				if ($item->pic) :
 					$pic = $item->pic;
 
-					if (strpos($pic, 'http://') !== 0) :
+					if (!str_starts_with($pic, 'http://')) :
 						$pic = Uri::root() . trim($pic, ' /');
 					endif;
 					$tip = '<div class="clearfix"><img src="' . $pic . '" alt="" class="pull-right img-rounded">' . $tip . '</div>';

@@ -3,7 +3,7 @@
  * @package     SermonSpeaker
  * @subpackage  Component.Composer
  * @author      Thomas Hunziker <admin@sermonspeaker.net>
- * @copyright   © 2023 - Thomas Hunziker
+ * @copyright   © 2025 - Thomas Hunziker
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
@@ -99,7 +99,7 @@ class ComposerCommands
 			if (file_exists($file))
 			{
 				unlink($file);
-				echo "File deleted! ({$file})\n";
+				echo "File deleted! ($file)\n";
 			}
 		}
 
@@ -114,16 +114,16 @@ class ComposerCommands
 		// Falls Verzeichnis nicht geoeffnet werden kann, mit Fehlermeldung terminieren
 		if (!$dir_handle)
 		{
-			return false;
+			return;
 		}
 
 		while ($file = readdir($dir_handle))
 		{
 			if ($file != "." && $file != "..")
 			{
-				if (is_dir($dir . "/" . $file) && (strpos($file, $except) === false))
+				if (is_dir($dir . "/" . $file) && (!str_contains($file, $except)))
 				{
-					echo "Directory: ({$dir}) matches " . (int) strpos($dir, $except) . "\n";
+					echo "Directory: ($dir) matches " . (int) strpos($dir, $except) . "\n";
 
 					self::deleteDirectory($dir . '/' . $file);
 				}
@@ -138,7 +138,7 @@ class ComposerCommands
 		// Falls Verzeichnis nicht geoeffnet werden kann, mit Fehlermeldung terminieren
 		if (!$dir_handle)
 		{
-			return false;
+			return;
 		}
 
 		while ($file = readdir($dir_handle))
@@ -163,8 +163,6 @@ class ComposerCommands
 		//Verzeichnis löschen
 		rmdir($dir);
 
-		echo "Directory deleted! ({$dir})\n";
-
-		return true;
+		echo "Directory deleted! ($dir)\n";
 	}
 }

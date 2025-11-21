@@ -1,0 +1,385 @@
+<?php
+/**
+ * @package     SermonSpeaker
+ * @subpackage  Component.Site
+ * @author      Thomas Hunziker <admin@sermonspeaker.net>
+ * @copyright   © 2025 - Thomas Hunziker
+ * @license     http://www.gnu.org/licenses/gpl.html
+ **/
+
+namespace Sermonspeaker\Component\Sermonspeaker\Site\View\Sermon;
+
+use Exception;
+use Joomla\CMS\Factory;
+use Joomla\CMS\Helper\TagsHelper;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
+use Joomla\CMS\Plugin\PluginHelper;
+use Joomla\CMS\Router\Route;
+use Joomla\CMS\Uri\Uri;
+use Sermonspeaker\Component\Sermonspeaker\Site\Helper\RouteHelper;
+use Sermonspeaker\Component\Sermonspeaker\Site\Helper\SermonspeakerHelper;
+use Sermonspeaker\Component\Sermonspeaker\Site\Model\SermonModel;
+use stdClass;
+
+defined('_JEXEC') or die();
+
+/**
+ * HTML View class for the SermonSpeaker Component
+ *
+ * @since  3.4
+ */
+class HtmlView extends BaseHtmlView
+{
+	/**
+	 * @var
+	 * @since ?
+	 */
+	protected $state;
+
+	/**
+	 * @var
+	 * @since ?
+	 */
+	protected $item;
+
+	/**
+	 * @var  \Joomla\Registry\Registry
+	 * @since 6
+	 */
+	protected $params;
+
+	/**
+	 * @var  \Joomla\CMS\User\User
+	 * @since 6
+	 */
+	protected $user;
+
+	/**
+	 * Execute and display a template script.
+	 *
+	 * @param   string  $tpl  The name of the template file to parse; automatically searches through the template paths.
+	 *
+	 * @return void
+	 *
+	 * @throws \Exception
+	 * @since ?
+	 */
+	public function display($tpl = null): void
+	{
+		$app = Factory::getApplication();
+
+		// Get model data (/models/sermon.php)
+		/** @var SermonModel $model */
+		$model = $this->getModel();
+		$this->state = $model->getState();
+
+		if (!$this->state->get('sermon.id'))
+		{
+			$id = $model->getLatest();
+
+			if (!$id)
+			{
+				throw new Exception(Text::_('JGLOBAL_RESOURCE_NOT_FOUND'), 404);
+			}
+
+			$this->state->set('sermon.id', $id);
+			$app->input->set('id', $id);
+		}
+
+		// Initialise variables.
+		$params     = $this->state->get('params');
+		$this->user = Factory::getApplication()->getIdentity();
+		$groups     = $this->user->getAuthorisedViewLevels();
+
+		// Check if access is not public
+		if (!in_array($params->get('access'), $groups))
+		{
+			$app->enqueueMessage(Text::_('JERROR_ALERTNOAUTHOR'), 'error');
+			$app->redirect(Route::_('index.php?view=sermons'));
+		}
+
+		$this->columns = $params->get('col');
+
+		if (empty($this->columns))
+		{
+			$this->columns = array();
+		}
+
+		$item = $model->getItem();
+
+		if (!$item)
+		{
+			$app->enqueueMessage(Text::_('JGLOBAL_RESOURCE_NOT_FOUND'), 'error');
+			$app->redirect(Route::_('index.php?view=sermons'));
+		}
+
+		// Get Tags
+		$item->tags = new TagsHelper;
+		$item->tags->getItemTags('com_sermonspeaker.sermon', $item->id);
+
+		// Check for category ACL
+		if ($item->category_access)
+		{
+			if (!in_array($item->category_access, $groups))
+			{
+				$app->enqueueMessage(Text::_('JERROR_ALERTNOAUTHOR'), 'error');
+				$app->redirect(Route::_('index.php?view=sermons'));
+			}
+		}
+
+		if ($item->speaker_category_access)
+		{
+			if (!in_array($item->speaker_category_access, $groups))
+			{
+				$app->enqueueMessage(Text::_('JERROR_ALERTNOAUTHOR'), 'error');
+				$app->redirect(Route::_('index.php?view=sermons'));
+			}
+		}
+
+		if ($item->series_category_access)
+		{
+			if (!in_array($item->series_category_access, $groups))
+			{
+				$app->enqueueMessage(Text::_('JERROR_ALERTNOAUTHOR'), 'error');
+				$app->redirect(Route::_('index.php?view=sermons'));
+			}
+		}
+
+		// Check for errors.
+		if (count($errors = $model->getErrors()))
+		{
+			throw new Exception(implode("\n", $errors), 500);
+		}
+
+		// Set layout from parameters if not already set elsewhere
+		if ($this->getLayout() == 'default')
+		{
+			$this->setLayout($params->get('sermonlayout', 'icon'));
+		}
+
+		// Update Statistic
+		if ($params->get('track_sermon') && !$this->user->authorise('com_sermonspeaker.hit', 'com_sermonspeaker'))
+		{
+			$model = $this->getModel();
+			$model->hit();
+		}
+
+		// Process the content plugins.
+		PluginHelper::importPlugin('content');
+
+		$item->text = $item->notes;
+		$app->triggerEvent('onContentPrepare', array('com_sermonspeaker.sermon', &$item, &$params, 0));
+		$item->notes = $item->text;
+
+		// Store the events for later
+		$item->event                    = new stdClass;
+		$results                        = $app->triggerEvent('onContentAfterTitle', array('com_sermonspeaker.sermon', &$item, &$params, 0));
+		$item->event->afterDisplayTitle = trim(implode("\n", $results));
+
+		$results                           = $app->triggerEvent('onContentBeforeDisplay', array('com_sermonspeaker.sermon', &$item, &$params, 0));
+		$item->event->beforeDisplayContent = trim(implode("\n", $results));
+
+		$results                          = $app->triggerEvent('onContentAfterDisplay', array('com_sermonspeaker.sermon', &$item, &$params, 0));
+		$item->event->afterDisplayContent = trim(implode("\n", $results));
+
+		$this->params = $params;
+		$this->item   = $item;
+
+		// Escape strings for HTML output
+		$this->pageclass_sfx = htmlspecialchars($this->params->get('pageclass_sfx', ''));
+
+		$this->_prepareDocument();
+
+		parent::display($tpl);
+	}
+
+	/**
+	 * Prepares the document
+	 *
+	 * @return  void
+	 *
+	 * @throws Exception
+	 * @since ?
+	 */
+	protected function _prepareDocument(): void
+	{
+		$app   = Factory::getApplication();
+		$menus = $app->getMenu();
+
+		// Because the application sets a default page title, we need to get it from the menu item itself
+		$menu = $menus->getActive();
+
+		if ($menu)
+		{
+			$this->params->def('page_heading', $this->params->get('page_title', $menu->title));
+		}
+		else
+		{
+			$this->params->def('page_heading', Text::_('COM_SERMONSPEAKER_SERMON_TITLE'));
+		}
+
+		$title = $this->params->get('page_title', '');
+
+		// If the menu item does not concern this item
+		if ($menu && ($menu->query['option'] != 'com_sermonspeaker' || $menu->query['view'] != 'sermon' || $menu->query['id'] != $this->item->id))
+		{
+			if ($this->item->title)
+			{
+				$title = $this->item->title;
+			}
+		}
+
+		$this->setDocumentTitle($title);
+
+		// Add Breadcrumbs
+		$pathway = $app->getPathway();
+
+		if ($menu && ($menu->query['view'] == 'series'))
+		{
+			$pathway->addItem($this->item->series_title, Route::_(RouteHelper::getSerieRoute($this->item->series_slug, $this->item->series_catid, $this->item->series_language)));
+		}
+		elseif ($menu && ($menu->query['view'] == 'speakers'))
+		{
+			$pathway->addItem($this->item->speaker_title, Route::_(RouteHelper::getSpeakerRoute($this->item->speaker_slug, $this->item->speaker_catid, $this->item->speaker_language)));
+		}
+
+		$pathway->addItem($this->item->title, '');
+
+		// Set MetaData
+		if ($this->item->metadesc)
+		{
+			$this->getDocument()->setDescription($this->item->metadesc);
+		}
+		elseif (!$this->item->metadesc && $this->params->get('menu-meta_description'))
+		{
+			$this->getDocument()->setDescription($this->params->get('menu-meta_description'));
+		}
+
+		$keywords = '';
+
+		if ($this->item->metakey)
+		{
+			$keywords = $this->item->metakey;
+		}
+		elseif ($this->params->get('menu-meta_keywords'))
+		{
+			$keywords = $this->params->get('menu-meta_keywords');
+		}
+
+		if ($this->item->tags->itemTags && $this->params->get('tags_to_metakey', 0))
+		{
+			$metatags = array();
+
+			foreach ($this->item->tags->itemTags as $tag)
+			{
+				$metatags[] = $this->escape($tag->title);
+			}
+
+			$metatags = implode(', ', $metatags);
+
+			if ($keywords)
+			{
+				$keywords .= ', ';
+			}
+
+			$keywords .= $metatags;
+		}
+
+		if ($keywords)
+		{
+			$this->getDocument()->setMetaData('keywords', $keywords);
+		}
+
+		if ($this->params->get('robots'))
+		{
+			$this->getDocument()->setMetaData('robots', $this->params->get('robots'));
+		}
+
+		if ($app->get('MetaAuthor'))
+		{
+			$this->getDocument()->setMetaData('author', $this->item->speaker_title);
+		}
+
+		// Add Metadata for Facebook Open Graph API
+		if ($this->params->get('opengraph', 1))
+		{
+			$this->getDocument()->addCustomTag('<meta property="og:title" content="' . $this->escape($this->item->title) . '"/>');
+			$this->getDocument()->addCustomTag('<meta property="og:url" content="' . htmlspecialchars(Uri::getInstance()->toString()) . '"/>');
+			$this->getDocument()->addCustomTag('<meta property="og:description" content="' . $this->getDocument()->getDescription() . '"/>');
+			$this->getDocument()->addCustomTag('<meta property="og:site_name" content="' . $app->get('sitename') . '"/>');
+
+			if ($picture = SermonspeakerHelper::insertPicture($this->item))
+			{
+				$this->getDocument()->addCustomTag('<meta property="og:image" content="' . SermonspeakerHelper::makeLink($picture, true) . '"/>');
+			}
+
+			if ($this->params->get('fbmode', 0))
+			{
+				$this->getDocument()->addCustomTag('<meta property="og:type" content="article"/>');
+
+				if ($this->item->speaker_title)
+				{
+					$this->getDocument()->addCustomTag(
+						'<meta property="article:author" content="'
+						. Uri::base() . trim(Route::_(RouteHelper::getSpeakerRoute($this->item->speaker_slug, $this->item->speaker_catid, $this->item->speaker_language)), '/')
+						. '"/>'
+					);
+				}
+
+				if ($this->item->series_title)
+				{
+					$this->getDocument()->addCustomTag('<meta property="article:section" content="' . $this->escape($this->item->series_title) . '"/>');
+				}
+			}
+			else
+			{
+				if ($this->item->videofile && ($this->params->get('fileprio', 0) || !$this->item->audiofile))
+				{
+					$this->getDocument()->addCustomTag('<meta property="og:type" content="movie"/>');
+
+					if ((str_starts_with($this->item->videofile, 'http://vimeo.com')) || (str_starts_with($this->item->videofile, 'http://player.vimeo.com')))
+					{
+						$id   = trim(strrchr($this->item->videofile, '/'), '/ ');
+						$file = 'http://vimeo.com/moogaloop.swf?clip_id=' . $id
+							. '&amp;server=vimeo.com&amp;show_title=0&amp;show_byline=0&amp;show_portrait=0&amp;color=00adef&amp;fullscreen=1&amp;autoplay=0&amp;loop=0';
+					}
+					else
+					{
+						$file = SermonspeakerHelper::makeLink($this->item->videofile, true);
+					}
+
+					$this->getDocument()->addCustomTag('<meta property="og:video" content="' . $file . '"/>');
+				}
+				else
+				{
+					$this->getDocument()->addCustomTag('<meta property="og:type" content="song"/>');
+					$this->getDocument()->addCustomTag(
+						'<meta property="og:audio" content="' . SermonspeakerHelper::makeLink($this->item->audiofile, true) . '"/>'
+					);
+					$this->getDocument()->addCustomTag('<meta property="og:audio:title" content="' . $this->escape($this->item->title) . '"/>');
+
+					if ($this->item->speaker_title)
+					{
+						$this->getDocument()->addCustomTag('<meta property="og:audio:artist" content="' . $this->escape($this->item->speaker_title) . '"/>');
+					}
+
+					if ($this->item->series_title)
+					{
+						$this->getDocument()->addCustomTag('<meta property="og:audio:album" content="' . $this->escape($this->item->series_title) . '"/>');
+					}
+				}
+			}
+
+			if ($fbadmins = $this->params->get('fbadmins', ''))
+			{
+				$this->getDocument()->addCustomTag('<meta property="fb:admins" content="' . $fbadmins . '"/>');
+			}
+
+			if ($fbapp_id = $this->params->get('fbapp_id', ''))
+			{
+				$this->getDocument()->addCustomTag('<meta property="fb:app_id" content="' . $fbapp_id . '"/>');
+			}
+		}
+	}
+}

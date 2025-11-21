@@ -2,16 +2,18 @@
 <extension type="plugin" version="4.0.0" group="quickicon" method="upgrade">
 	<name>plg_quickicon_sermonspeaker</name>
 	<author>Thomas Hunziker</author>
-	<creationDate>2023-11-29</creationDate>
-	<copyright>© 2023</copyright>
+	<creationDate>2025-11-21</creationDate>
+	<copyright>© 2025</copyright>
 	<license>http://www.gnu.org/licenses/gpl.html</license>
 	<authorEmail>admin@sermonspeaker.net</authorEmail>
 	<authorUrl>http://www.sermonspeaker.net</authorUrl>
-	<version>6.1.0</version>
+	<version>7.0.0</version>
 	<description>PLG_QUICKICON_SERMONSPEAKER_XML_DESCRIPTION</description>
+	<namespace path="/">Sermonspeaker\Plugin\Quickicon\Sermonspeaker</namespace>
 	<files>
-		<filename plugin="sermonspeaker">sermonspeaker.php</filename>
+		<folder>Extension</folder>
 		<folder>language</folder>
+		<folder plugin="sermonspeaker">services</folder>
 	</files>
 	<updateservers>
 		<server type="extension" priority="1" name="SermonSpeaker.net">
