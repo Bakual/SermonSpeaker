@@ -1,7 +1,7 @@
 <?php
 /**
  * @package     SermonSpeaker
- * @subpackage  Plugin.Finder
+ * @subpackage  Plugin.Search
  * @author      Thomas Hunziker <admin@sermonspeaker.net>
  * @copyright   © 2025 - Thomas Hunziker
  * @license     http://www.gnu.org/licenses/gpl.html
