@@ -144,7 +144,7 @@ class SermonModel extends ItemModel
 
 			// Convert the metadata field to an array.
 			$registry = new Registry;
-			$registry->loadString($data->metadata);
+			$registry->loadString($data->metadata ?: '');
 			$data->metadata = $registry;
 
 			$this->_item[$pk] = $data;

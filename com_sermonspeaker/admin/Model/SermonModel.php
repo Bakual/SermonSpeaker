@@ -789,7 +789,7 @@ class SermonModel extends AdminModel
 			{
 				// Convert the metadata field to an array.
 				$registry = new Registry;
-				$registry->loadString($item->metadata);
+				$registry->loadString($item->metadata ?: '');
 				$item->metadata = $registry->toArray();
 			}
 
