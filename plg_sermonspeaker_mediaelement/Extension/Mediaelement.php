@@ -333,13 +333,13 @@ class Mediaelement extends Player
 
 	/**
 	 * @param $item  object The sermon item
-	 * @param $file  string The file to use
+	 * @param $file  string The file to use (may be NULL)
 	 *
 	 * @return string
 	 *
 	 * @since 1.0.0
 	 */
-	private function createSource(object $item, string $file): string
+	private function createSource(object $item, ?string $file): string
 	{
 		if (!$file)
 		{
