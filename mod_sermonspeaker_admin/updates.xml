@@ -43,10 +43,10 @@
 		<description>SermonSpeaker Admin Module</description>
 		<element>mod_sermonspeaker</element>
 		<type>module</type>
-		<version>7.0.0</version>
+		<version>7.0.1</version>
 		<downloads>
 			<downloadurl type="full" format="zip">
-				https://github.com/Bakual/SermonSpeaker/releases/download/7.0.0/mod_sermonspeaker_admin.zip
+				https://github.com/Bakual/SermonSpeaker/releases/download/7.0.1/mod_sermonspeaker_admin.zip
 			</downloadurl>
 		</downloads>
 		<tags>
@@ -55,7 +55,7 @@
 		<maintainer>Thomas Hunziker</maintainer>
 		<maintainerurl>https://www.sermonspeaker.net/</maintainerurl>
 		<targetplatform name="joomla" version="6.[01234]"/>
-		<sha256>49b4e814c035d583d3a1d83666a3bc8f6d10f284249ed0114ac0ca5dbc2974b6</sha256>
+		<sha256>00ed80236fa089f7d2bf15a1da47447c296ce5cb324ca5cfc28875ac60b5a300</sha256>
 		<client>administrator</client>
 	</update>
 </updates>
