@@ -1,4 +1,4 @@
-script.php<?php
+<?php
 /**
  * @package     SermonSpeaker
  * @subpackage  Module.SermonspeakerAdmin
