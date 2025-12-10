@@ -13,11 +13,12 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Form;
 use Joomla\CMS\Language\Multilanguage;
 use Joomla\CMS\Language\Text;
-use Joomla\CMS\MVC\View\GenericDataException;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
+use Joomla\CMS\Pagination\Pagination;
 use Joomla\CMS\Toolbar\Toolbar;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 use Sermonspeaker\Component\Sermonspeaker\Administrator\Helper\SermonspeakerHelper;
+use Sermonspeaker\Component\Sermonspeaker\Administrator\Model\SermonsModel;
 
 defined('_JEXEC') or die;
 
@@ -35,7 +36,7 @@ class HtmlView extends BaseHtmlView
 	 *
 	 * @since  ?
 	 */
-	public $filterForm;
+	public Form $filterForm;
 	/**
 	 * The active search filters
 	 *
@@ -43,7 +44,7 @@ class HtmlView extends BaseHtmlView
 	 *
 	 * @since  ?
 	 */
-	public $activeFilters;
+	public array $activeFilters;
 	/**
 	 * Holds an array of item objects
 	 *
@@ -51,19 +52,20 @@ class HtmlView extends BaseHtmlView
 	 *
 	 * @since  ?
 	 */
-	protected $items;
+	protected array $items;
 	/**
 	 * The pagination object
 	 *
-	 * @var  \JPagination
+	 * @var  Pagination
 	 *
 	 * @since  ?
 	 */
-	protected $pagination;
+	protected Pagination $pagination;
+
 	/**
 	 * A state object
 	 *
-	 * @var    \JObject
+	 * @var    \Joomla\Registry\Registry
 	 *
 	 * @since  ?
 	 */
@@ -72,33 +74,29 @@ class HtmlView extends BaseHtmlView
 	/**
 	 * Execute and display a template script.
 	 *
-	 * @param   string  $tpl  The name of the template file to parse; automatically searches through the template paths.
+	 * @param string $tpl The name of the template file to parse; automatically searches through the template paths.
 	 *
 	 * @throws \Exception
 	 *
 	 * @since  ?
 	 */
-	public function display($tpl = null)
+	public function display($tpl = null): void
 	{
+		/** @var SermonsModel $model */
+		$model  = $this->getModel();
 		$layout = $this->getLayout();
 
-		$this->state         = $this->get('State');
-		$this->items         = $this->get('Items');
-		$this->pagination    = $this->get('Pagination');
-		$this->speakers      = $this->get('Speakers');
-		$this->series        = $this->get('Series');
-		$this->filterForm    = $this->get('FilterForm');
-		$this->activeFilters = $this->get('ActiveFilters');
+		$this->state         = $model->getState();
+		$this->items         = $model->getItems();
+		$this->pagination    = $model->getPagination();
+		$this->speakers      = $model->getSpeakers();
+		$this->series        = $model->getSeries();
+		$this->filterForm    = $model->getFilterForm();
+		$this->activeFilters = $model->getActiveFilters();
 
-		if (!count($this->items) && $this->get('IsEmptyState'))
+		if (!$this->items && $model->getIsEmptyState())
 		{
 			$this->setLayout('emptystate');
-		}
-
-		// Check for errors.
-		if (count($errors = $this->get('Errors')))
-		{
-			throw new GenericDataException(implode("\n", $errors), 500);
 		}
 
 		// We don't need toolbar and sidebar in the modal window.
@@ -139,9 +137,10 @@ class HtmlView extends BaseHtmlView
 	 *
 	 * @return  void
 	 *
+	 * @throws \Exception
 	 * @since  ?
 	 */
-	protected function addToolbar()
+	protected function addToolbar(): void
 	{
 		$canDo = SermonspeakerHelper::getActions();
 		$user  = Factory::getApplication()->getIdentity();
@@ -225,7 +224,7 @@ class HtmlView extends BaseHtmlView
 	 *
 	 * @since   3.0
 	 */
-	protected function getSortFields()
+	protected function getSortFields(): array
 	{
 		return array(
 			'sermons.ordering'    => Text::_('JGRID_HEADING_ORDERING'),
