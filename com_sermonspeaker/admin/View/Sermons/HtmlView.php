@@ -46,13 +46,13 @@ class HtmlView extends BaseHtmlView
 	 */
 	public array $activeFilters;
 	/**
-	 * Holds an array of item objects
+	 * Holds an array of item objects or false
 	 *
-	 * @var    array
+	 * @var    mixed
 	 *
 	 * @since  ?
 	 */
-	protected array $items;
+	protected mixed $items;
 	/**
 	 * The pagination object
 	 *

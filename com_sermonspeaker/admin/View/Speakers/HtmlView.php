@@ -46,9 +46,9 @@ class HtmlView extends BaseHtmlView
 	 */
 	public $activeFilters;
 	/**
-	 * Holds an array of item objects
+	 * Holds an array of item objects or false
 	 *
-	 * @var    array
+	 * @var    mixed
 	 *
 	 * @since  ?
 	 */
