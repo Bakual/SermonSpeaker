@@ -147,7 +147,7 @@ class FrontenduploadModel extends AdminSermonModel
 		{
 			if ($categoryId = $this->getState('frontendupload.catid'))
 			{
-				$data->set('catid', $categoryId);
+				$data->catid = $categoryId;
 			}
 		}
 
