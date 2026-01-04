@@ -25,6 +25,8 @@ use Joomla\DI\ServiceProviderInterface;
 
 defined('_JEXEC') or die;
 
+require_once JPATH_ADMINISTRATOR . '/components/com_sermonspeaker/vendor/autoload.php';
+
 /**
  * The Sermonspeaker service provider.
  *

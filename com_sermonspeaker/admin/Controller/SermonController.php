@@ -24,6 +24,7 @@ use Joomla\Utilities\ArrayHelper;
 use Sermonspeaker\Component\Sermonspeaker\Administrator\Model\SermonModel;
 
 defined('_JEXEC') or die;
+
 /**
  * Serie controller class.
  *
