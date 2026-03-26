@@ -269,7 +269,7 @@ class ToolsController extends BaseController
 				$sermon->sermon_date = date('Y-m-d H:i:s', $file_timestamp);
 			}
 
-			if (!$sermon_model->save($sermon->getProperties()))
+			if (!$sermon_model->save((array) $sermon))
 			{
 				$app->enqueueMessage(Text::sprintf('COM_SERMONSPEAKER_TOOLS_AUTOMATIC_FAILED', $file['file'], $sermon_model->getError()), 'error');
 			}
