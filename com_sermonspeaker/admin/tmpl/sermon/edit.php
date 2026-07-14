@@ -81,17 +81,6 @@ $tmpl   = $jinput->getCmd('tmpl') === 'component' ? '&tmpl=component' : '';
 								</div>
 								<div class="controls">
 									<?php echo $this->form->getInput($fileFieldName); ?>
-									<div id="<?php echo $type; ?>pathinfo" class="badge bg-info hasTooltip"
-										 title="<?php echo HTMLHelper::tooltipText(Text::_('COM_SERMONSPEAKER_UPLOADINFO_TOOLTIP'), '', 0); ?>">
-										<?php echo Text::_('COM_SERMONSPEAKER_UPLOADINFO');
-										if (($fileFieldName == 'audiofile' && $this->s3audio) || ($fileFieldName == 'videofile' && $this->s3video)):
-											echo ' https://' . $this->domain . '/';
-										else :
-											$property = 'path_' . $type;
-											echo ' /' . trim($this->params->get($property), '/') . '/';
-										endif;
-										echo $this->append_user . '<span id="' . $type . 'pathdate" class="pathdate">' . $this->append_date . '</span><span id="audiopathlang" class="pathlang">' . $this->append_lang . '</span>'; ?>
-									</div>
 								</div>
 							</div>
 
