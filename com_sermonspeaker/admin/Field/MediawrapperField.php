@@ -18,27 +18,49 @@ class MediawrapperField extends MediaField
 {
 	public $type = 'MediaWrapper';
 
-	protected function getInput(): string
+	/**
+	 * Method to attach a Form object to the field.
+	 *
+	 * @param   \SimpleXMLElement  $element  The SimpleXMLElement object representing the `<field>` tag for the form field object.
+	 * @param   mixed              $value    The form field value to validate.
+	 * @param   string             $group    The field name group control value. This acts as an array container for the field.
+	 *                                       For example if the field has name="foo" and the group value is set to "bar" then the
+	 *                                       full field name would end up being "bar[foo]".
+	 *
+	 * @return  boolean  True on success.
+	 *
+	 * @see     FormField::setup()
+	 * @since   7.0.4
+	 */
+	public function setup(\SimpleXMLElement $element, $value, $group = null)
 	{
-		$params = ComponentHelper::getParams('com_sermonspeaker');
+		$result = parent::setup($element, $value, $group);
 
-		$directory = match ($this->fieldname)
+		if ($result === true)
 		{
-			'picture' => $params->get('path_sermonpic'),
-			'pic' => $params->get('path_speakerpic'),
-			default => $params->get('path_avatar'),
-		};
+			$params = ComponentHelper::getParams('com_sermonspeaker');
 
-		$directory = trim($directory, ' /');
+			$directory = match ($this->fieldname)
+			{
+				'audiofile' => $params->get('path_audio'),
+				'videofile' => $params->get('path_video'),
+				'addfile' => $params->get('path_addfile'),
+				'picture' => $params->get('path_sermonpic'),
+				'pic' => $params->get('path_speakerpic'),
+				default => $params->get('path_avatar'),
+			};
 
-		if (str_starts_with($directory, 'images'))
-		{
-			$directory = substr($directory, 7);
+			$directory = trim($directory, ' /');
+
+			if (str_starts_with($directory, 'images'))
+			{
+				$directory = substr($directory, 7);
+			}
+
+			$this->directory = $directory;
+			$this->value     = trim($this->value, ' /');
 		}
 
-		$this->directory = $directory;
-		$this->value     = trim($this->value, ' /');
-
-		return parent::getInput();
+		return $result;
 	}
 }
