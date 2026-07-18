@@ -11,6 +11,8 @@ namespace Sermonspeaker\Component\Sermonspeaker\Administrator\Field;
 
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Form\Field\MediaField;
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
 
 defined('_JEXEC') or die();
 
@@ -62,5 +64,31 @@ class MediawrapperField extends MediaField
 		}
 
 		return $result;
+	}
+
+	/**
+	 * Method to get the field input markup for a media selector.
+	 * Use attributes to identify specific created_by and asset_id fields
+	 *
+	 * @return  string  The field input markup.
+	 *
+	 * @since   ?
+	 */
+	protected function getInput()
+	{
+		$input = parent::getInput();
+
+		if ($this->fieldname != 'addfile')
+		{
+			HTMLHelper::_('jquery.framework');
+
+			$input .= '<button class="btn btn-secondary lookup-button"
+							type="button" data-lookup="' . $this->id . '"
+							title="' . Text::_('COM_SERMONSPEAKER_LOOKUP') . '">
+							<span class="fas fa-magic" data-lookup="' . $this->id . '"></span>
+						</button>';
+		}
+
+		return $input;
 	}
 }
