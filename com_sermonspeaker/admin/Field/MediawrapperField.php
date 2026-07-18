@@ -78,7 +78,7 @@ class MediawrapperField extends MediaField
 	{
 		$input = parent::getInput();
 
-		if ($this->fieldname != 'addfile')
+		if ($this->fieldname == 'audiofile' || $this->fieldname == 'videofile')
 		{
 			HTMLHelper::_('jquery.framework');
 
