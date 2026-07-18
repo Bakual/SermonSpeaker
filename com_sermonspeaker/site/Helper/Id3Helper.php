@@ -45,7 +45,7 @@ class Id3Helper
 		require_once(JPATH_ADMINISTRATOR . '/components/com_sermonspeaker/vendor/autoload.php');
 
 		$getID3 = new getID3;
-		$path   = JPATH_SITE . $file;
+		$path   = JPATH_SITE . '/' . $file;
 		$path   = str_replace('//', '/', $path);
 
 		if (!file_exists($path))
