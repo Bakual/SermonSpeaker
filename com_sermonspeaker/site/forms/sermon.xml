@@ -64,23 +64,26 @@
 
 		<field
 			name="audiofile"
-			type="customfilelist"
+			type="mediawrapper"
 			label="COM_SERMONSPEAKER_FIELD_AUDIOFILE_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_AUDIOFILE_DESC"
 			file="audio"
 			hide_default="true"
 			hide_none="true"
 			onchange="toggleElement('audiofile', 1);"
+			types="audios"
 		/>
 
 		<field
 			name="videofile"
-			type="customfilelist"
+			type="mediawrapper"
 			label="COM_SERMONSPEAKER_FIELD_VIDEOFILE_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_VIDEOFILE_DESC"
 			file="video"
 			hide_default="true"
 			hide_none="true"
+			onchange="toggleElement('videofile', 1);"
+			types="videos"
 		/>
 
 		<field
@@ -103,7 +106,7 @@
 
 		<field
 			name="addfile"
-			type="customfilelist"
+			type="mediawrapper"
 			label="COM_SERMONSPEAKER_FIELD_ADDFILE_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_ADDFILE_DESC"
 			file="addfile"
