@@ -984,6 +984,18 @@ class SermonModel extends AdminModel
 			}
 		}
 
+		$params = ComponentHelper::getParams('com_sermonspeaker');
+
+		if ($params->get('path_mode_audio'))
+		{
+			$form->setFieldAttribute('audiofile', 'type', 'Customfilelist');
+		}
+
+		if ($params->get('path_mode_video'))
+		{
+			$form->setFieldAttribute('videofile', 'type', 'Customfilelist');
+		}
+
 		parent::preprocessForm($form, $data, $group);
 	}
 
