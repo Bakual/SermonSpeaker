@@ -18,7 +18,7 @@ defined('_JEXEC') or die();
 
 class MediawrapperField extends MediaField
 {
-	public $type = 'MediaWrapper';
+	public $type = 'Mediawrapper';
 
 	/**
 	 * Method to attach a Form object to the field.

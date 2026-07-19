@@ -37,7 +37,7 @@ class CustomfilelistField extends FilelistField
 	 *
 	 * @since ?
 	 */
-	public $type = 'CustomFileList';
+	public $type = 'Customfilelist';
 
 	/**
 	 * The component params.
