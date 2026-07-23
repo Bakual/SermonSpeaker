@@ -342,10 +342,9 @@
 
 		<field
 			name="path_audio"
-			type="text"
+			type="mediamanagerfolder"
 			label="COM_SERMONSPEAKER_FIELD_PATH_AUDIO_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_PATH_AUDIO_DESC"
-			size="50"
 			default="images"
 		/>
 
