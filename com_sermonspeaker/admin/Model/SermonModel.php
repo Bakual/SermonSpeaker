@@ -986,6 +986,7 @@ class SermonModel extends AdminModel
 
 		$params = ComponentHelper::getParams('com_sermonspeaker');
 
+		// TODO: Delete with SermonSpeaker 8.0
 		if ($params->get('path_mode_audio'))
 		{
 			$form->setFieldAttribute('audiofile', 'type', 'Customfilelist');
