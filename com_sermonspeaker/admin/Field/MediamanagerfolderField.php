@@ -9,7 +9,7 @@
 
 namespace Sermonspeaker\Component\Sermonspeaker\Administrator\Field;
 
-use Joomla\CMS\Form\Field\ListField;
+use Joomla\CMS\Form\Field\TextField;
 use Joomla\Component\Media\Administrator\Model\MediaModel;
 use stdClass;
 
@@ -20,7 +20,7 @@ defined('_JEXEC') or die();
  *
  * @since ?
  */
-class MediamanagerfolderField extends ListField
+class MediamanagerfolderField extends TextField
 {
 	/**
 	 * The form field type.

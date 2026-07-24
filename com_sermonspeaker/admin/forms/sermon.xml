@@ -118,6 +118,11 @@
 			type="mediawrapper"
 			label="COM_SERMONSPEAKER_FIELD_AUDIOFILE_LABEL"
 			types="audios"
+			file="audio"
+			class="form-select"
+			hide_default="true"
+			hide_none="true"
+			onchange="toggleElement('audiofile', 1);"
 		/>
 		<field name="audiofilesize"
 			type="filesize"
@@ -128,9 +133,14 @@
 
 	<fieldset name="videofile" label="COM_SERMONSPEAKER_FIELD_VIDEOFILE_LABEL">
 		<field name="videofile"
-			type="mediawrapper"
+			type="customfilelist"
 			label="COM_SERMONSPEAKER_FIELD_VIDEOFILE_LABEL"
 			types="videos"
+			file="video"
+			class="form-select"
+			hide_default="true"
+			hide_none="true"
+			onchange="toggleElement('videofile', 1);"
 		/>
 
 		<field name="videofilesize"
