@@ -64,6 +64,7 @@ class CustomfilelistField extends FilelistField
 	 * @var    integer
 	 *
 	 * @since ?
+	 * @deprecated 8.0
 	 */
 	private int $mode;
 
@@ -297,7 +298,7 @@ class CustomfilelistField extends FilelistField
 	 */
 	protected function getOptions()
 	{
-		if (!$this->mode)
+		if (!$this->mode || $this->mode == '4')
 		{
 			$dir = trim($this->params->get('path_' . $this->file, 'images'), '/');
 
@@ -355,23 +356,6 @@ class CustomfilelistField extends FilelistField
 			}
 
 			return $options;
-		}
-		elseif ($this->mode == 1)
-		{
-			$options = array();
-			$url     = 'http://vimeo.com/api/v2/' . $this->params->get('vimeo_id') . '/videos.xml';
-
-			if ($xml = simplexml_load_file($url))
-			{
-				foreach ($xml->video as $video)
-				{
-					$option['value'] = $video->url;
-					$option['text']  = $video->title;
-					$options[]       = $option;
-				}
-
-				return $options;
-			}
 		}
 		elseif ($this->mode == 2)
 		{
