@@ -446,20 +446,10 @@
 			default="0"
 		>
 			<option value="0">COM_MEDIA_MEDIA_VIEW_DEFAULT_TITLE</option>
-			<option value="1">COM_SERMONSPEAKER_FIELD_PATH_MODE_VIMEO</option>
 			<option value="2">COM_SERMONSPEAKER_FIELD_PATH_MODE_S3</option>
 			<option value="3">COM_SERMONSPEAKER_FIELD_PATH_MODE_EXTERNAL</option>
 			<option value="4">COM_SERMONSPEAKER_FIELD_PATH_MODE_LOCAL</option>
 		</field>
-
-		<field
-			name="vimeo_id"
-			type="text"
-			label="COM_SERMONSPEAKER_FIELD_VIMEO_ID_LABEL"
-			description="COM_SERMONSPEAKER_FIELD_VIMEO_ID_DESC"
-			showon="path_mode_video:1"
-			default=""
-		/>
 
 		<field
 			name="s3_region"
