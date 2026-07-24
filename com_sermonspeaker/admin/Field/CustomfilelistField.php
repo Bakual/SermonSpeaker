@@ -130,16 +130,6 @@ class CustomfilelistField extends FilelistField
 						 </button>';
 		}
 
-		// Add Google Picker if enabled and not audio field
-		if ($this->params->get('googlepicker') && $this->file != 'audio')
-		{
-			$html .= '<button class="btn btn-secondary"
-							type="button" onclick="create' . ucfirst($this->file) . 'Picker();"
-							title="' . Text::_('COM_SERMONSPEAKER_GOOGLEPICKER_TIP') . '">
-							<img src="' . Uri::root() . 'media/com_sermonspeaker/icons/16/drive.png">
-						</button>';
-		}
-
 		$html .= '</div>
 				<div class="input-group">
 					<button class="btn btn-secondary"
