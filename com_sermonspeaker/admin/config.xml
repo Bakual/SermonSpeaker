@@ -345,25 +345,23 @@
 			type="mediamanagerfolder"
 			label="COM_SERMONSPEAKER_FIELD_PATH_AUDIO_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_PATH_AUDIO_DESC"
-			default="images"
+			default="local-images:/"
 		/>
 
 		<field
 			name="path_video"
-			type="text"
+			type="mediamanagerfolder"
 			label="COM_SERMONSPEAKER_FIELD_PATH_VIDEO_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_PATH_VIDEO_DESC"
-			size="50"
-			default="images"
+			default="local-images:/"
 		/>
 
 		<field
 			name="path_addfile"
-			type="text"
+			type="mediamanagerfolder"
 			label="COM_SERMONSPEAKER_PARAM_PATH_ADDFILE"
 			description="COM_SERMONSPEAKER_PARAM_PATH_ADDFILE_DESC"
-			size="50"
-			default="images"
+			default="local-images:/"
 		/>
 
 		<field
@@ -462,9 +460,10 @@
 			description="COM_SERMONSPEAKER_FIELD_PATH_MODE_AUDIO_DESC"
 			default="0"
 		>
-			<option value="0">JDEFAULT</option>
+			<option value="0">COM_MEDIA_MEDIA_VIEW_DEFAULT_TITLE</option>
 			<option value="2">COM_SERMONSPEAKER_FIELD_PATH_MODE_S3</option>
 			<option value="3">COM_SERMONSPEAKER_FIELD_PATH_MODE_EXTERNAL</option>
+			<option value="4">COM_SERMONSPEAKER_FIELD_PATH_MODE_LOCAL</option>
 		</field>
 
 		<field
@@ -474,10 +473,11 @@
 			description="COM_SERMONSPEAKER_FIELD_PATH_MODE_VIDEO_DESC"
 			default="0"
 		>
-			<option value="0">JDEFAULT</option>
+			<option value="0">COM_MEDIA_MEDIA_VIEW_DEFAULT_TITLE</option>
 			<option value="1">COM_SERMONSPEAKER_FIELD_PATH_MODE_VIMEO</option>
 			<option value="2">COM_SERMONSPEAKER_FIELD_PATH_MODE_S3</option>
 			<option value="3">COM_SERMONSPEAKER_FIELD_PATH_MODE_EXTERNAL</option>
+			<option value="4">COM_SERMONSPEAKER_FIELD_PATH_MODE_LOCAL</option>
 		</field>
 
 		<field
@@ -580,29 +580,26 @@
 
 		<field
 			name="path_avatar"
-			type="text"
+			type="mediamanagerfolder"
 			label="COM_SERMONSPEAKER_PARAM_PATH_AVATAR"
 			description="COM_SERMONSPEAKER_PARAM_PATH_AVATAR_DESC"
-			size="50"
-			default="images"
+			default="local-images:/"
 		/>
 
 		<field
 			name="path_speakerpic"
-			type="text"
+			type="mediamanagerfolder"
 			label="COM_SERMONSPEAKER_PARAM_PATH_SPEAKERPIC_LABEL"
 			description="COM_SERMONSPEAKER_PARAM_PATH_SPEAKERPIC_DESC"
-			size="50"
-			default="images"
+			default="local-images:/"
 		/>
 
 		<field
 			name="path_sermonpic"
-			type="text"
+			type="mediamanagerfolder"
 			label="COM_SERMONSPEAKER_PARAM_PATH_SERMONPIC_LABEL"
 			description="COM_SERMONSPEAKER_PARAM_PATH_SERMONPIC_DESC"
-			size="50"
-			default="images"
+			default="local-images:/"
 		/>
 
 	</fieldset>
