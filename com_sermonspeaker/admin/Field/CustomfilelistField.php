@@ -27,6 +27,7 @@ defined('_JEXEC') or die();
  * Creates the filelist dropdown for sermon file select
  *
  * @since ?
+ * @deprecated 8.0
  */
 class CustomfilelistField extends FilelistField
 {
