@@ -46,7 +46,7 @@ class Dispatcher extends AbstractModuleDispatcher implements HelperFactoryAwareI
 
 		foreach ($types as $type)
 		{
-			$items = $helper->getItems($data['params'], $this->getApplication(), $type);
+			$items = $helper->getItems($data['params']);
 
 			if ($items)
 			{

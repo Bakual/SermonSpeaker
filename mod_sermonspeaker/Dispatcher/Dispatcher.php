@@ -35,7 +35,7 @@ class Dispatcher extends AbstractModuleDispatcher implements HelperFactoryAwareI
 	{
 		$data = parent::getLayoutData();
 
-		$data['list'] = $this->getHelperFactory()->getHelper('SermonspeakerHelper')->getItems($data['params'], $this->getApplication());
+		$data['list'] = $this->getHelperFactory()->getHelper('SermonspeakerHelper')->getItems($data['params']);
 
 		$mode                 = (int) $data['params']->get('mode');
 		$data['helperMethod'] = $mode ? 'getSerieRoute' : 'getSpeakerRoute';
