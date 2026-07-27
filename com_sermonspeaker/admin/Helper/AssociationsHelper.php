@@ -13,7 +13,7 @@ use Joomla\CMS\Association\AssociationExtensionHelper;
 use Joomla\CMS\Language\Associations;
 use Joomla\CMS\Table\Table;
 
-\defined('_JEXEC') or die;
+defined('_JEXEC') or die;
 
 Table::addIncludePath(__DIR__ . '/../tables');
 

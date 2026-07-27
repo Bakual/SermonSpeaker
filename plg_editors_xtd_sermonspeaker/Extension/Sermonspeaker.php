@@ -54,7 +54,7 @@ final class Sermonspeaker extends CMSPlugin implements SubscriberInterface
 		$disabled = $event->getDisabledButtons();
 		$name     = $event->getEditorId();
 
-		if (\in_array($this->_name, $disabled))
+		if (in_array($this->_name, $disabled))
 		{
 			return;
 		}

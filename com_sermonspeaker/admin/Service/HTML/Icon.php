@@ -18,7 +18,7 @@ use Joomla\CMS\Uri\Uri;
 use Sermonspeaker\Component\Sermonspeaker\Site\Helper\RouteHelper;
 use Sermonspeaker\Component\Sermonspeaker\Site\Helper\SermonspeakerHelper;
 
-\defined('_JEXEC') or die;
+defined('_JEXEC') or die;
 
 /**
  * Sermonspeaker Component HTML Helper

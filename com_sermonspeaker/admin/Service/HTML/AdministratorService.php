@@ -19,7 +19,7 @@ use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
 use RuntimeException;
 
-\defined('_JEXEC') or die;
+defined('_JEXEC') or die;
 
 /**
  * Sermonspeaker HTML helper
