@@ -133,7 +133,7 @@
 
 	<fieldset name="videofile" label="COM_SERMONSPEAKER_FIELD_VIDEOFILE_LABEL">
 		<field name="videofile"
-			type="customfilelist"
+			type="mediawrapper"
 			label="COM_SERMONSPEAKER_FIELD_VIDEOFILE_LABEL"
 			types="videos"
 			file="video"
