@@ -9,8 +9,6 @@
 
 namespace Sermonspeaker\Component\Sermonspeaker\Site\Controller;
 
-use Exception;
-use Joomla\CMS\Client\ClientHelper;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Filter\OutputFilter;
@@ -19,7 +17,6 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Controller\BaseController;
 use Joomla\CMS\Session\Session;
 use Joomla\Filesystem\File;
-use Joomla\Filesystem\Path;
 use Sermonspeaker\Component\Sermonspeaker\Site\Helper\Id3Helper;
 
 defined('_JEXEC') or die();
