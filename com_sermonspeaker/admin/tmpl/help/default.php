@@ -42,9 +42,6 @@ use Joomla\CMS\Router\Route;
 					<ul>
 						<li><a href="http://http://www.plupload.com/">Plupload</a> for the Uploader.</li>
 						<li><a href="http://getid3.sourceforge.net">GetID3</a> for the ID3 tags lookup.</li>
-						<li><a href="https://aws.amazon.com/de/sdk-for-php/">Amazon AWS SDK for PHP</a>
-							for the Amazon S3 support.
-						</li>
 					</ul>
 				</div>
 			</div>

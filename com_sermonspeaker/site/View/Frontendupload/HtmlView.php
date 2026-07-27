@@ -199,31 +199,6 @@ class HtmlView extends BaseHtmlView
 		$this->getDocument()->addScriptDeclaration($toggle);
 		$this->getDocument()->getWebAssetManager()->useScript('com_sermonspeaker.id3-lookup');
 
-		// Destination folder based on mode
-		$this->s3audio = ($this->params->get('path_mode_audio', 0) == 2) ? 1 : 0;
-		$this->s3video = ($this->params->get('path_mode_video', 0) == 2) ? 1 : 0;
-
-		if ($this->s3audio || $this->s3video)
-		{
-			// Add missing constant in PHP < 5.5
-			defined('CURL_SSLVERSION_TLSv1') or define('CURL_SSLVERSION_TLSv1', 1);
-
-			// AWS access info
-			$awsAccessKey = $this->params->get('s3_access_key');
-			$awsSecretKey = $this->params->get('s3_secret_key');
-			$region       = $this->params->get('s3_region');
-			$bucket       = $this->params->get('s3_bucket');
-			$folder       = $this->params->get('s3_folder') ? '/' . $this->params->get('s3_folder') : '';
-
-			if (!$awsAccessKey || !$awsSecretKey || !$region || !$bucket)
-			{
-				Factory::getApplication()->enqueueMessage(Text::_('COM_SERMONSPEAKER_S3_MISSING_PARAMETER'), 'warning');
-			}
-
-			$prefix       = ($region === 'us-east-1') ? 's3' : 's3-' . $region;
-			$this->domain = $prefix . '.amazonaws.com/' . $bucket . $folder;
-		}
-
 		// Calculate destination path to show
 		if ($this->params->get('append_path_user', 0))
 		{
@@ -270,16 +245,6 @@ class HtmlView extends BaseHtmlView
 					if(!language || language == '*'){
 						language = '" . Factory::getLanguage()->getTag() . "'
 					}";
-
-			if (!$this->s3audio)
-			{
-				$changelang .= "document.id('audiopathlang').innerHTML = language+'/';";
-			}
-
-			if (!$this->s3video)
-			{
-				$changelang .= "document.id('videopathlang').innerHTML = language+'/';";
-			}
 
 			$changelang        .= "document.id('addfilepathlang').innerHTML = language+'/';
 				}";

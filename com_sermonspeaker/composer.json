@@ -23,7 +23,6 @@
   },
   "require": {
     "james-heinrich/getid3": "v1.*",
-    "aws/aws-sdk-php": "*",
     "ext-json": "*",
     "ext-simplexml": "*",
     "ext-zip": "*"

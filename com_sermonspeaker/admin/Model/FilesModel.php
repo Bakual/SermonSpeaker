@@ -9,8 +9,6 @@
 
 namespace Sermonspeaker\Component\Sermonspeaker\Administrator\Model;
 
-use Aws\Credentials\Credentials;
-use Aws\S3\S3Client;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\Filesystem\File;
@@ -83,60 +81,20 @@ class FilesModel extends BaseDatabaseModel
 		{
 			case 'audio':
 				$filters = array('.aac', '.m4a', '.mp3', '.wma');
-				$mode    = $params->get('path_mode_audio', 0);
 
 				break;
 			case 'video':
 				$filters = array('.mp4', '.mov', '.f4v', '.flv', '.3gp', '.3g2', '.wmv');
-				$mode    = $params->get('path_mode_video', 0);
 
 				break;
 			default:
 				$filters = array('');
-
-				if (!$mode = $params->get('path_mode_audio', 0))
-				{
-					$mode = $params->get('path_mode_video', 0);
-				}
 
 				break;
 		}
 
 		$folders[] = JPATH_SITE . '/' . $params->get('path_audio');
 		$files     = array();
-
-		if ($mode == 2)
-		{
-			// Add missing constant in PHP < 5.5
-			defined('CURL_SSLVERSION_TLSv1') or define('CURL_SSLVERSION_TLSv1', 1);
-
-			// Amazon S3
-
-			// AWS access info
-			$awsAccessKey = $params->get('s3_access_key');
-			$awsSecretKey = $params->get('s3_secret_key');
-			$region       = $params->get('s3_region');
-			$bucket       = $params->get('s3_bucket');
-			$bucketfolder = $params->get('s3_folder') ? trim($params->get('s3_folder'), ' /') . '/' : '';
-
-			// Instantiate the class
-			$credentials = new Credentials($awsAccessKey, $awsSecretKey);
-			$s3          = new S3Client([
-				'version'     => 'latest',
-				'region'      => $region,
-				'credentials' => $credentials,
-			]);
-
-			$bucket_contents = $s3->getBucket($bucket, $bucketfolder);
-
-			$prefix = ($region === 'us-east-1') ? 's3' : 's3-' . $region;
-			$domain = $prefix . '.amazonaws.com/' . $bucket;
-
-			foreach ($bucket_contents as $file)
-			{
-				$files[] = $s3->getObjectUrl($bucket, $file['Key']);
-			}
-		}
 
 		// Local files
 		if ($params->get('path_audio') != $params->get('path_video'))

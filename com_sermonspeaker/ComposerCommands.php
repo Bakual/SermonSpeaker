@@ -102,9 +102,6 @@ class ComposerCommands
 				echo "File deleted! ($file)\n";
 			}
 		}
-
-		// Delete AWS files not needed for S3
-		self::scanDirectory(__DIR__ . '/admin/vendor/aws/aws-sdk-php/src/data', 's3');
 	}
 
 	private static function scanDirectory($dir, $except)
