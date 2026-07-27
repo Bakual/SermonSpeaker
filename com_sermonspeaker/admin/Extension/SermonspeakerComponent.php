@@ -27,12 +27,11 @@ use Joomla\CMS\HTML\HTMLRegistryAwareTrait;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Tag\TagServiceInterface;
 use Joomla\CMS\Tag\TagServiceTrait;
-use Sermonspeaker\Component\Sermonspeaker\Administrator\Helper\SermonspeakerHelper;
 use Sermonspeaker\Component\Sermonspeaker\Administrator\Service\HTML\AdministratorService;
 use Sermonspeaker\Component\Sermonspeaker\Administrator\Service\HTML\Icon;
 use Psr\Container\ContainerInterface;
 
-\defined('_JEXEC') or die;
+defined('_JEXEC') or die;
 
 /**
  * Component class for com_sermonspeaker
@@ -212,7 +211,7 @@ class SermonspeakerComponent extends MVCComponent implements
 	{
 		$parts = explode('.', $context);
 
-		if (\count($parts) < 2)
+		if (count($parts) < 2)
 		{
 			return '';
 		}
@@ -262,7 +261,7 @@ class SermonspeakerComponent extends MVCComponent implements
 	public function countTagItems(array $items, string $extension)
 	{
 		$parts   = explode('.', $extension);
-		$section = \count($parts) > 1 ? $parts[1] : null;
+		$section = count($parts) > 1 ? $parts[1] : null;
 
 		$config = (object) [
 			'related_tbl'   => ($section === 'category' ? 'categories' : 'sermons'),
