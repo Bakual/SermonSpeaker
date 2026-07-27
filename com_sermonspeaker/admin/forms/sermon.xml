@@ -118,11 +118,6 @@
 			type="mediawrapper"
 			label="COM_SERMONSPEAKER_FIELD_AUDIOFILE_LABEL"
 			types="audios"
-			file="audio"
-			class="form-select"
-			hide_default="true"
-			hide_none="true"
-			onchange="toggleElement('audiofile', 1);"
 		/>
 		<field name="audiofilesize"
 			type="filesize"
@@ -136,11 +131,6 @@
 			type="mediawrapper"
 			label="COM_SERMONSPEAKER_FIELD_VIDEOFILE_LABEL"
 			types="videos"
-			file="video"
-			class="form-select"
-			hide_default="true"
-			hide_none="true"
-			onchange="toggleElement('videofile', 1);"
 		/>
 
 		<field name="videofilesize"
@@ -154,11 +144,6 @@
 		<field name="addfile"
 			type="mediawrapper"
 			label="COM_SERMONSPEAKER_FIELD_ADDFILE_LABEL"
-			file="addfile"
-			class="form-select"
-			hide_default="true"
-			hide_none="true"
-			onchange="toggleElement('addfile', 1);"
 		/>
 
 		<field name="addfileDesc"
