@@ -11,6 +11,7 @@ namespace Sermonspeaker\Component\Sermonspeaker\Administrator\Field;
 
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Form\Field\ListField;
+use SimpleXMLElement;
 
 defined('_JEXEC') or die();
 
@@ -45,7 +46,7 @@ class FullorderingsermonsField extends ListField
 	 *
 	 * @since   11.1
 	 */
-	public function setup(\SimpleXMLElement $element, $value, $group = null): bool
+	public function setup(SimpleXMLElement $element, $value, $group = null): bool
 	{
 		// Set the default value from params.
 		if (!$value)

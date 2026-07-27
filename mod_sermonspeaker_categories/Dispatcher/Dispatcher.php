@@ -13,6 +13,7 @@ use Joomla\CMS\Dispatcher\AbstractModuleDispatcher;
 use Joomla\CMS\Helper\HelperFactoryAwareInterface;
 use Joomla\CMS\Helper\HelperFactoryAwareTrait;
 use Joomla\CMS\Helper\ModuleHelper;
+use stdClass;
 
 defined('_JEXEC') or die;
 
@@ -37,7 +38,7 @@ class Dispatcher extends AbstractModuleDispatcher implements HelperFactoryAwareI
 		$data   = parent::getLayoutData();
 		$params = $data['params'];
 
-		$cacheparams               = new \stdClass;
+		$cacheparams               = new stdClass;
 		$cacheparams->cachemode    = 'id';
 		$cacheparams->class        = 'Sermonspeaker\Module\SermonspeakerCategories\Site\Helper\SermonspeakerCategoriesHelper';
 		$cacheparams->method       = 'getCategories';

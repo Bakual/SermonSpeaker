@@ -22,6 +22,7 @@ use Joomla\CMS\Table\Table;
 use Joomla\CMS\Versioning\VersionableModelTrait;
 use Joomla\Registry\Registry;
 use Joomla\String\StringHelper;
+use SimpleXMLElement;
 
 defined('_JEXEC') or die;
 
@@ -459,7 +460,7 @@ class SpeakerModel extends AdminModel
 
 			if ($languages)
 			{
-				$addform = new \SimpleXMLElement('<form />');
+				$addform = new SimpleXMLElement('<form />');
 				$fields  = $addform->addChild('fields');
 				$fields->addAttribute('name', 'associations');
 				$fieldset = $fields->addChild('fieldset');

@@ -9,6 +9,7 @@
 
 namespace Sermonspeaker\Component\Sermonspeaker\Administrator\Field;
 
+use Exception;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Field\GroupedlistField;
@@ -123,7 +124,7 @@ class SerieslistField extends GroupedlistField
 			$unpublished = $db->loadObjectList();
 
 		}
-		catch (\Exception $e)
+		catch (Exception $e)
 		{
 			Factory::getApplication()->enqueueMessage($e->getMessage(), 'ERROR');
 

@@ -9,6 +9,7 @@
 
 namespace Sermonspeaker\Component\Sermonspeaker\Administrator\Model;
 
+use Exception;
 use Joomla\CMS\Application\ApplicationHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Form;
@@ -22,6 +23,7 @@ use Joomla\CMS\Versioning\VersionableModelTrait;
 use Joomla\Registry\Registry;
 use Joomla\String\StringHelper;
 use Sermonspeaker\Component\Sermonspeaker\Administrator\Table\SerieTable;
+use SimpleXMLElement;
 
 defined('_JEXEC') or die;
 
@@ -196,7 +198,7 @@ class SerieModel extends AdminModel
 		// Access checks.
 		if (!$user->authorise('core.edit.state', 'com_sermonspeaker'))
 		{
-			throw new \Exception(Text::_('JLIB_APPLICATION_ERROR_EDITSTATE_NOT_PERMITTED'));
+			throw new Exception(Text::_('JLIB_APPLICATION_ERROR_EDITSTATE_NOT_PERMITTED'));
 		}
 
 		// Reset the home fields for the client_id.
@@ -208,7 +210,7 @@ class SerieModel extends AdminModel
 
 		if (!$db->execute())
 		{
-			throw new \Exception($db->getErrorMsg());
+			throw new Exception($db->getErrorMsg());
 		}
 
 		// Set the new home style.
@@ -220,7 +222,7 @@ class SerieModel extends AdminModel
 
 		if (!$db->execute())
 		{
-			throw new \Exception($db->getErrorMsg());
+			throw new Exception($db->getErrorMsg());
 		}
 
 		// Clean the cache.
@@ -248,7 +250,7 @@ class SerieModel extends AdminModel
 		// Access checks.
 		if (!$user->authorise('core.edit.state', 'com_sermonspeaker'))
 		{
-			throw new \Exception(Text::_('JLIB_APPLICATION_ERROR_EDITSTATE_NOT_PERMITTED'));
+			throw new Exception(Text::_('JLIB_APPLICATION_ERROR_EDITSTATE_NOT_PERMITTED'));
 		}
 
 		// Set the new home style.
@@ -458,7 +460,7 @@ class SerieModel extends AdminModel
 
 			if ($languages)
 			{
-				$addform = new \SimpleXMLElement('<form />');
+				$addform = new SimpleXMLElement('<form />');
 				$fields  = $addform->addChild('fields');
 				$fields->addAttribute('name', 'associations');
 				$fieldset = $fields->addChild('fieldset');

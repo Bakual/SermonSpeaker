@@ -9,6 +9,7 @@
 
 namespace Sermonspeaker\Component\Sermonspeaker\Administrator\View\Sermon;
 
+use Exception;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
@@ -232,7 +233,7 @@ class HtmlView extends BaseHtmlView
 		// Check for errors.
 		if (count($errors = $this->get('Errors')))
 		{
-			throw new \Exception(implode("\n", $errors), 500);
+			throw new Exception(implode("\n", $errors), 500);
 		}
 
 		// If we are forcing a language in modal (used for associations).

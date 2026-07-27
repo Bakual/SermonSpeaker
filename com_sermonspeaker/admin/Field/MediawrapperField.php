@@ -13,6 +13,7 @@ use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Form\Field\MediaField;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
+use SimpleXMLElement;
 
 defined('_JEXEC') or die();
 
@@ -34,7 +35,7 @@ class MediawrapperField extends MediaField
 	 * @see     FormField::setup()
 	 * @since   7.0.4
 	 */
-	public function setup(\SimpleXMLElement $element, $value, $group = null)
+	public function setup(SimpleXMLElement $element, $value, $group = null)
 	{
 		$result = parent::setup($element, $value, $group);
 

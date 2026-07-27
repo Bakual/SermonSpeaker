@@ -19,6 +19,7 @@ use Joomla\CMS\Toolbar\Toolbar;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 use Sermonspeaker\Component\Sermonspeaker\Administrator\Helper\SermonspeakerHelper;
 use Sermonspeaker\Component\Sermonspeaker\Administrator\Model\SpeakersModel;
+use SimpleXMLElement;
 
 defined('_JEXEC') or die;
 
@@ -115,7 +116,7 @@ class HtmlView extends BaseHtmlView
 			if ($forcedLanguage = Factory::getApplication()->input->get('forcedLanguage', '', 'CMD'))
 			{
 				// If the language is forced we can't allow to select the language, so transform the language selector filter into an hidden field.
-				$languageXml = new \SimpleXMLElement('<field name="language" type="hidden" default="' . $forcedLanguage . '" />');
+				$languageXml = new SimpleXMLElement('<field name="language" type="hidden" default="' . $forcedLanguage . '" />');
 				$this->filterForm->setField($languageXml, 'filter');
 
 				// Also, unset the active language filter so the search tools is not open by default with this filter.

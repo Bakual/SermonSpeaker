@@ -9,6 +9,7 @@
 
 namespace Sermonspeaker\Component\Sermonspeaker\Site\Model;
 
+use Exception;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Model\ItemModel;
@@ -90,16 +91,16 @@ class SerieModel extends ItemModel
 			{
 				$data = $db->loadObject();
 			}
-			catch (\Exception $e)
+			catch (Exception $e)
 			{
 				$this->_item[$pk] = false;
 
-				throw new \Exception($e->getMessage());
+				throw new Exception($e->getMessage());
 			}
 
 			if (!$data)
 			{
-				throw new \Exception(Text::_('JGLOBAL_RESOURCE_NOT_FOUND'));
+				throw new Exception(Text::_('JGLOBAL_RESOURCE_NOT_FOUND'));
 			}
 
 			$this->_item[$pk] = $data;

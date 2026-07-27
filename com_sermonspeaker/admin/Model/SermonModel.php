@@ -11,6 +11,7 @@ namespace Sermonspeaker\Component\Sermonspeaker\Administrator\Model;
 
 defined('_JEXEC') or die;
 
+use Exception;
 use Joomla\CMS\Application\ApplicationHelper;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
@@ -24,9 +25,11 @@ use Joomla\CMS\Table\Table;
 use Joomla\CMS\Versioning\VersionableModelTrait;
 use Joomla\Filesystem\File;
 use Joomla\Registry\Registry;
+use Joomla\String\StringHelper;
 use Joomla\Utilities\ArrayHelper;
 use Sermonspeaker\Component\Sermonspeaker\Administrator\Table\SermonTable;
 use Sermonspeaker\Component\Sermonspeaker\Site\Helper\Id3Helper;
+use SimpleXMLElement;
 
 /**
  * Item Model for a Sermon.
@@ -321,7 +324,7 @@ class SermonModel extends AdminModel
 				{
 					// Prune items that you can't change.
 					unset($pks[$i]);
-					throw new \Exception(Text::_('JLIB_APPLICATION_ERROR_EDIT_STATE_NOT_PERMITTED'), 403);
+					throw new Exception(Text::_('JLIB_APPLICATION_ERROR_EDIT_STATE_NOT_PERMITTED'), 403);
 				}
 			}
 		}
@@ -897,7 +900,7 @@ class SermonModel extends AdminModel
 			$bad_characters = array("\n", "\r", '"', '<', '>');
 
 			// Remove bad characters
-			$after_clean = \Joomla\String\StringHelper::str_ireplace($bad_characters, '', $table->metakey);
+			$after_clean = StringHelper::str_ireplace($bad_characters, '', $table->metakey);
 
 			// Create array using commas as delimiter
 			$keys       = explode(',', $after_clean);
@@ -959,7 +962,7 @@ class SermonModel extends AdminModel
 
 			if ($languages)
 			{
-				$addform = new \SimpleXMLElement('<form />');
+				$addform = new SimpleXMLElement('<form />');
 				$fields  = $addform->addChild('fields');
 				$fields->addAttribute('name', 'associations');
 				$fieldset = $fields->addChild('fieldset');

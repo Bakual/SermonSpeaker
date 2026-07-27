@@ -9,6 +9,7 @@
 
 namespace Sermonspeaker\Component\Sermonspeaker\Site\View\Frontendupload;
 
+use Exception;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
@@ -119,7 +120,7 @@ class HtmlView extends BaseHtmlView
 
 		if (!$this->params->get('fu_enable', 0))
 		{
-			throw new \Exception(Text::_('JERROR_ALERTNOAUTHOR'), 403);
+			throw new Exception(Text::_('JERROR_ALERTNOAUTHOR'), 403);
 		}
 
 		if ($this->user->guest)
@@ -147,7 +148,7 @@ class HtmlView extends BaseHtmlView
 
 		if ($authorised !== true)
 		{
-			throw new \Exception(Text::_('JERROR_ALERTNOAUTHOR'), 403);
+			throw new Exception(Text::_('JERROR_ALERTNOAUTHOR'), 403);
 		}
 
 		// Check some PHP settings for upload limit so I can show it as an info
@@ -285,7 +286,7 @@ class HtmlView extends BaseHtmlView
 		// Check for errors.
 		if (count($errors = $this->get('Errors')))
 		{
-			throw new \Exception(implode("\n", $errors), 500);
+			throw new Exception(implode("\n", $errors), 500);
 		}
 
 		// Escape strings for HTML output

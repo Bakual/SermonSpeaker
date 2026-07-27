@@ -20,6 +20,7 @@ use Joomla\Database\DatabaseAwareTrait;
 use Joomla\Event\SubscriberInterface;
 use Sermonspeaker\Component\Sermonspeaker\Site\Helper\SermonspeakerHelper;
 use Sermonspeaker\Component\Sermonspeaker\Site\Helper\RouteHelper;
+use StdClass;
 
 defined('_JEXEC') or die();
 
@@ -202,7 +203,7 @@ final class Sermonspeaker extends CMSPlugin implements SubscriberInterface
 
 						$contents                         .= '</div>';
 						$attribs['style']                 = $this->params->get('style', 'html5');
-						$module                           = new \StdClass;
+						$module                           = new StdClass;
 						$module->id                       = 0;
 						$module->title                    = '<a href="' . $link . '">' . $sermon->title . '</a>';
 						$module->module                   = 'mod_custom';

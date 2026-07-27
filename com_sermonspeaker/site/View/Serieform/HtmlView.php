@@ -9,6 +9,7 @@
 
 namespace Sermonspeaker\Component\Sermonspeaker\Site\View\Serieform;
 
+use Exception;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
@@ -65,13 +66,13 @@ class HtmlView extends BaseHtmlView
 
 		if ($authorised !== true)
 		{
-			throw new \Exception(Text::_('JERROR_ALERTNOAUTHOR'), 403);
+			throw new Exception(Text::_('JERROR_ALERTNOAUTHOR'), 403);
 		}
 
 		// Check for errors.
 		if (count($errors = $this->get('Errors')))
 		{
-			throw new \Exception(implode("\n", $errors), 500);
+			throw new Exception(implode("\n", $errors), 500);
 		}
 
 		// Escape strings for HTML output

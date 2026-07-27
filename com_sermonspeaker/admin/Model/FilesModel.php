@@ -9,6 +9,7 @@
 
 namespace Sermonspeaker\Component\Sermonspeaker\Administrator\Model;
 
+use Exception;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\Filesystem\File;
@@ -128,7 +129,7 @@ class FilesModel extends BaseDatabaseModel
 			$sermons = $db->loadColumn();
 
 		}
-		catch (\Exception $e)
+		catch (Exception $e)
 		{
 			Factory::getApplication()->enqueueMessage($e->getMessage(), 'ERROR');
 			$sermons = array();

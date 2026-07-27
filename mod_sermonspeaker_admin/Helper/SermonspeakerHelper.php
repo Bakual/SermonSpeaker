@@ -11,6 +11,7 @@ namespace Sermonspeaker\Module\Sermonspeaker\Administrator\Helper;
 
 use Joomla\CMS\Application\CMSApplicationInterface;
 use Joomla\Registry\Registry;
+use RuntimeException;
 
 defined('_JEXEC') or die;
 
@@ -63,7 +64,7 @@ class SermonspeakerHelper
 		{
 			$items = $model->getItems();
 		}
-		catch (\RuntimeException)
+		catch (RuntimeException)
 		{
 			return array();
 		}
