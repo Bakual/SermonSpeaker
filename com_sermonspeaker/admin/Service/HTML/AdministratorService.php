@@ -10,12 +10,14 @@
 
 namespace Sermonspeaker\Component\Sermonspeaker\Administrator\Service\HTML;
 
+use Exception;
 use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Associations;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
+use RuntimeException;
 
 \defined('_JEXEC') or die;
 
@@ -85,9 +87,9 @@ class AdministratorService
 			{
 				$items = $db->loadObjectList('id');
 			}
-			catch (\RuntimeException $e)
+			catch (RuntimeException $e)
 			{
-				throw new \Exception($e->getMessage(), 500);
+				throw new Exception($e->getMessage(), 500);
 			}
 
 			if ($items)

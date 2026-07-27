@@ -9,6 +9,8 @@
 
 namespace Sermonspeaker\Component\Sermonspeaker\Site\Controller;
 
+use getID3;
+use getid3_writetags;
 use Joomla\CMS\Application\ApplicationHelper;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
@@ -366,9 +368,9 @@ class FrontenduploadController extends FormController
 		{
 			$files[] = $item->audiofile;
 			$files[] = $item->videofile;
-			$getID3 = new \getID3;
+			$getID3 = new getID3;
 			$getID3->setOption(array('encoding' => 'UTF-8'));
-			$writer             = new \getid3_writetags;
+			$writer             = new getid3_writetags;
 			$writer->tagformats = array('id3v2.3');
 
 			// False would merge, but is currently known to be buggy and throws an exception

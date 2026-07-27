@@ -9,6 +9,10 @@
 
 namespace Sermonspeaker\Component\Sermonspeaker\Administrator\Controller;
 
+use DateTimeZone;
+use Exception;
+use getID3;
+use getid3_writetags;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
@@ -51,7 +55,7 @@ class ToolsController extends BaseController
 			$db->execute();
 			$this->setMessage('Successfully reordered the sermons');
 		}
-		catch (\Exception $e)
+		catch (Exception $e)
 		{
 			$this->setMessage('Error: ' . $e->getMessage(), 'error');
 		}
@@ -80,7 +84,7 @@ class ToolsController extends BaseController
 			$db->execute();
 			$this->setMessage('Successfully reordered the series');
 		}
-		catch (\Exception $e)
+		catch (Exception $e)
 		{
 			$this->setMessage('Error: ' . $e->getMessage(), 'error');
 		}
@@ -109,7 +113,7 @@ class ToolsController extends BaseController
 			$db->execute();
 			$this->setMessage('Successfully reordered the speakers');
 		}
-		catch (\Exception $e)
+		catch (Exception $e)
 		{
 			$this->setMessage('Error: ' . $e->getMessage(), 'error');
 		}
@@ -152,7 +156,7 @@ class ToolsController extends BaseController
 					$app->enqueueMessage('Successfully added ' . $hrs . ' hours and ' . $mins . ' minutes to the sermon date!');
 				}
 			}
-			catch (\Exception $e)
+			catch (Exception $e)
 			{
 				$this->setMessage($e->getMessage(), 'error');
 			}
@@ -164,7 +168,7 @@ class ToolsController extends BaseController
 			$config = Factory::getConfig();
 			$user   = Factory::getApplication()->getIdentity();
 			$date   = Factory::getDate($time, $user->getParam('timezone', $config->get('offset')));
-			$date->setTimezone(new \DateTimeZone('UTC'));
+			$date->setTimezone(new DateTimeZone('UTC'));
 			$t_utc = $date->format('H:i:s', true);
 			$query = "UPDATE #__sermon_sermons \n"
 				. "SET sermon_date = CONCAT(DATE(sermon_date), ' " . $t_utc . "') \n"
@@ -177,7 +181,7 @@ class ToolsController extends BaseController
 				$db->execute();
 				$app->enqueueMessage('Successfully set time to ' . $time . ' for each sermon date!');
 			}
-			catch (\Exception $e)
+			catch (Exception $e)
 			{
 				$this->setMessage($e->getMessage(), 'error');
 			}
@@ -340,10 +344,10 @@ class ToolsController extends BaseController
 		$items = $db->loadObjectList();
 		$user  = Factory::getApplication()->getIdentity();
 
-		$getID3 = new \getID3;
+		$getID3 = new getID3;
 		$getID3->setOption(array('encoding' => 'UTF-8'));
 
-		$writer                 = new \getid3_writetags;
+		$writer                 = new getid3_writetags;
 		$writer->tagformats     = array('id3v2.3');
 		$writer->overwrite_tags = true;
 		$writer->tag_encoding   = 'UTF-8';
@@ -605,7 +609,7 @@ class ToolsController extends BaseController
 		{
 			$studies = $db->loadObjectList();
 		}
-		catch (\Exception $e)
+		catch (Exception $e)
 		{
 			$app->enqueueMessage($e->getMessage(), 'error');
 			$studies = array();
@@ -664,7 +668,7 @@ class ToolsController extends BaseController
 			$db->execute();
 			$app->enqueueMessage($db->getAffectedRows() . ' series migrated!');
 		}
-		catch (\Exception $e)
+		catch (Exception $e)
 		{
 			$app->enqueueMessage($e->getMessage(), 'error');
 
@@ -697,7 +701,7 @@ class ToolsController extends BaseController
 			$db->execute();
 			$app->enqueueMessage($db->getAffectedRows() . ' speakers migrated!');
 		}
-		catch (\Exception $e)
+		catch (Exception $e)
 		{
 			$app->enqueueMessage($e->getMessage(), 'error');
 		}
@@ -748,7 +752,7 @@ class ToolsController extends BaseController
 			{
 				$db->execute();
 			}
-			catch (\Exception $e)
+			catch (Exception $e)
 			{
 				$app->enqueueMessage($e->getMessage(), 'error');
 				break;
@@ -770,7 +774,7 @@ class ToolsController extends BaseController
 				{
 					$db->execute();
 				}
-				catch (\Exception $e)
+				catch (Exception $e)
 				{
 					$app->enqueueMessage($e->getMessage(), 'error');
 					break;
@@ -790,7 +794,7 @@ class ToolsController extends BaseController
 				{
 					$db->execute();
 				}
-				catch (\Exception $e)
+				catch (Exception $e)
 				{
 					$app->enqueueMessage($e->getMessage(), 'error');
 				}
@@ -808,7 +812,7 @@ class ToolsController extends BaseController
 				{
 					$db->execute();
 				}
-				catch (\Exception $e)
+				catch (Exception $e)
 				{
 					$app->enqueueMessage($e->getMessage(), 'error');
 				}
