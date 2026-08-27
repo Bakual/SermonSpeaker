@@ -36,12 +36,12 @@ class SermonuploadHelper implements DatabaseAwareInterface
 	/**
 	 * Get Losung from XML
 	 *
-	 * @return  void
+	 * @return  array
 	 *
 	 * @throws \Exception
 	 * @since   1.0
 	 */
-	public static function fileUploadAjax(): void
+	public static function fileUploadAjax(): array
 	{
 		// Check for request forgeries
 		if (!Session::checkToken('request'))
@@ -50,9 +50,8 @@ class SermonuploadHelper implements DatabaseAwareInterface
 				'status' => '0',
 				'error'  => Text::_('JINVALID_TOKEN'),
 			);
-			echo json_encode($response);
 
-			return;
+			return $response;
 		}
 
 		// Authorize User
@@ -64,15 +63,18 @@ class SermonuploadHelper implements DatabaseAwareInterface
 				'status' => '0',
 				'error'  => Text::_('JGLOBAL_AUTH_ACCESS_DENIED'),
 			);
-			echo json_encode($response);
 
-			return;
+			return $response;
 		}
 
 		// Initialise variables.
 		$app    = Factory::getApplication();
 		$cparams = $app->getParams('com_sermonspeaker');
 		$jinput = $app->input;
+
+		// Load language
+		$language = Factory::getApplication()->getLanguage();
+		$language->load('mod_sermonupload', JPATH_BASE . '/modules/mod_sermonupload');
 
 		// Get some data from the request
 		$file = $jinput->files->get('file');
@@ -83,11 +85,10 @@ class SermonuploadHelper implements DatabaseAwareInterface
 		{
 			$response = array(
 				'status' => '0',
-				'error'  => Text::_('COM_SERMONSPEAKER_FU_FAILED'),
+				'error'  => Text::_('MOD_SERMONUPLOAD_UPLOAD_FAILED'),
 			);
-			echo json_encode($response);
 
-			return;
+			return $response;
 		}
 
 		// Get file extension
@@ -120,11 +121,10 @@ class SermonuploadHelper implements DatabaseAwareInterface
 		{
 			$response = array(
 				'status' => '0',
-				'error'  => Text::sprintf('COM_SERMONSPEAKER_FILETYPE_NOT_ALLOWED', $ext),
+				'error'  => Text::sprintf('MOD_SERMONUPLOAD_FILETYPE_NOT_ALLOWED', $ext),
 			);
-			echo json_encode($response);
 
-			return;
+			return $response;
 		}
 
 		$path   = $cparams->get('path_' . $type, 'local-images:/');
@@ -165,11 +165,10 @@ class SermonuploadHelper implements DatabaseAwareInterface
 			// File exists
 			$response = array(
 				'status' => '0',
-				'error'  => Text::_('COM_SERMONSPEAKER_FU_ERROR_EXISTS'),
+				'error'  => Text::_('MOD_SERMONUPLOAD_UPLOAD_ERROR_EXISTS'),
 			);
-			echo json_encode($response);
 
-			return;
+			return $response;
 		}
 
 		$pathinfo = explode(':/', $path);
@@ -184,7 +183,7 @@ class SermonuploadHelper implements DatabaseAwareInterface
 				'status'   => '1',
 				'filename' => $filename,
 				'path'     => str_replace('\\', '/', '/' . $path . $append . '/' . $filename),
-				'error'    => Text::sprintf('COM_SERMONSPEAKER_FU_FILENAME', substr($file['filepath'], strlen(JPATH_ROOT))),
+				'error'    => Text::sprintf('MOD_SERMONUPLOAD_UPLOAD_FILENAME', substr($file['filepath'], strlen(JPATH_ROOT))),
 			);
 		}
 		catch (FileExistsException $e)
@@ -192,7 +191,7 @@ class SermonuploadHelper implements DatabaseAwareInterface
 			// Error in upload
 			$response = array(
 				'status' => '0',
-				'error'  => Text::_('COM_SERMONSPEAKER_FU_ERROR_EXISTS'),
+				'error'  => Text::_('MOD_SERMONUPLOAD_UPLOAD_ERROR_EXISTS'),
 			);
 		}
 		catch (Exception $e)
@@ -200,11 +199,11 @@ class SermonuploadHelper implements DatabaseAwareInterface
 			// Error in upload
 			$response = array(
 				'status' => '0',
-				'error'  => Text::_('COM_SERMONSPEAKER_FU_ERROR_UNABLE_TO_UPLOAD_FILE'),
+				'error'  => Text::_('MOD_SERMONUPLOAD_UPLOAD_ERROR_UNABLE_TO_UPLOAD_FILE'),
 			);
 		}
 
-		echo json_encode($response);
+		return $response;
 	}
 
 	/**
@@ -221,8 +220,6 @@ class SermonuploadHelper implements DatabaseAwareInterface
 	public function loadUploaderScript(string $identifier, string $type, $params): void
 	{
 		$identifier = $identifier . $type;
-		$uploadURL  = Uri::base() . 'index.php?option=com_sermonspeaker&task=file.upload&'
-			. Session::getFormToken() . '=1&format=json';
 		$uploadURL  = Uri::base() . 'index.php?option=com_ajax&module=sermonupload&method=fileUpload&'
 			. Session::getFormToken() . '=1&format=json&mediatypes=1';
 
@@ -238,7 +235,7 @@ class SermonuploadHelper implements DatabaseAwareInterface
 		$types = $params->get($type . '_filetypes');
 		$types = array_map('trim', explode(',', $types));
 		$types = implode(',', $types);
-		$text  = strtoupper('COM_SERMONSPEAKER_FIELD_' . $identifier . '_LABEL');
+		$text  = strtoupper('MOD_SERMONUPLOAD_FIELD_TYPES_OPTION_' . $identifier);
 
 		if ($types)
 		{
@@ -254,7 +251,6 @@ class SermonuploadHelper implements DatabaseAwareInterface
 				});
 
 				uploader_' . $identifier . '.init();
-				var closeButton = "<button type=\"button\" class=\"close\" data-bs-dismiss=\"alert\">&times;</button>";
 
 				uploader_' . $identifier . '.bind("FilesAdded", function(up, files) {
 					var html = "";
@@ -274,20 +270,20 @@ class SermonuploadHelper implements DatabaseAwareInterface
 
 				uploader_' . $identifier . '.bind("FileUploaded", function(up, file, response) {
 					if(response.status == 200){
-						var data = JSON.parse(response.response);
+						var data = JSON.parse(response.response).data;
 						if (data.status == 1){
 							jQuery("#" + file.id).removeClass("alert-info").addClass("alert-success");
-							document.getElementById(file.id).innerHTML = data.error + closeButton;
+							document.getElementById(file.id).innerHTML = data.error;
 						}else{
-							jQuery("#" + file.id).removeClass("alert-info").addClass("alert-error");
-							jQuery("#" + file.id + "_progress").replaceWith(" &raquo; ' . Text::_('ERROR') . ': " + data.error + closeButton);
+							jQuery("#" + file.id).removeClass("alert-info").addClass("alert-danger");
+							jQuery("#" + file.id + "_progress").replaceWith("<br>&raquo; ' . Text::_('ERROR') . ': " + data.error);
 						}
 					}
 				});
 
 				uploader_' . $identifier . '.bind("Error", function(up, err) {
-					document.getElementById("filelist_' . $identifier . '").innerHTML += "<div class=\"alert alert-error\">Error #"
-						+ err.code + ": " + err.message + closeButton + "</div>";
+					document.getElementById("filelist_' . $identifier . '").innerHTML += "<div class=\"alert alert-danger\">Error #"
+						+ err.code + ": " + err.message + "</div>";
 				});
 
 				uploader_' . $identifier . '.bind("PostInit", function(up) {
