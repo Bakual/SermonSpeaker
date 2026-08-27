@@ -21,7 +21,6 @@
 	</files>
 	<media destination="mod_sermonupload" folder="media">
 		<folder>js</folder>
-		<file>joomla.asset.json</file>
 	</media>
 	<updateservers>
 		<server type="extension" priority="1" name="SermonSpeaker.net">https://www.sermonspeaker.net/update/mod_sermonupload.xml</server>
