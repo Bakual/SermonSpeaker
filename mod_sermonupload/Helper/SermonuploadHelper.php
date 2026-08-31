@@ -179,7 +179,7 @@ class SermonuploadHelper implements DatabaseAwareInterface
 		{
 			$mediaManager->createFile($pathinfo[0], $filename, $pathinfo[1] . $append, $file['tmp_name'],false);
 
-			// "Translating" Adapter names
+			// "Translating" Adapter names for displaying upload path
 			$provider_adapter   = explode('-', $pathinfo[0]);
 			$model     = new MediaModel;
 			$providers = $model->getProviders();
@@ -201,7 +201,6 @@ class SermonuploadHelper implements DatabaseAwareInterface
 			$response = array(
 				'status'   => '1',
 				'filename' => $filename,
-				'path'     => $path,
 				'error'    => Text::sprintf('MOD_SERMONUPLOAD_UPLOAD_FILENAME', $path),
 			);
 		}
