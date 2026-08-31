@@ -17,6 +17,7 @@ use Joomla\CMS\Session\Session;
 use Joomla\CMS\Uri\Uri;
 use Joomla\Component\Media\Administrator\Exception\FileExistsException;
 use Joomla\Component\Media\Administrator\Model\ApiModel;
+use Joomla\Component\Media\Administrator\Model\MediaModel;
 use Joomla\Database\DatabaseAwareInterface;
 use Joomla\Database\DatabaseAwareTrait;
 use Joomla\Filesystem\File;
@@ -128,7 +129,6 @@ class SermonuploadHelper implements DatabaseAwareInterface
 		}
 
 		$path   = $cparams->get('path_' . $type, 'local-images:/');
-		$path   = trim($path, '/');
 		$date   = $jinput->get('date', '', 'string');
 		$time   = ($date) ? strtotime($date) : time();
 		$append = ($cparams->get('append_path_user', 0)) ? '/' . Factory::getApplication()->getIdentity()->id : '';
@@ -171,19 +171,38 @@ class SermonuploadHelper implements DatabaseAwareInterface
 			return $response;
 		}
 
-		$pathinfo = explode(':/', $path);
+		$pathinfo = explode(':', $path, 2);
 
 		$mediaManager = new ApiModel();
 
 		try
 		{
-			$result = $mediaManager->createFile($pathinfo[0], $filename, $pathinfo[1], $file['tmp_name'],false);
+			$mediaManager->createFile($pathinfo[0], $filename, $pathinfo[1] . $append, $file['tmp_name'],false);
+
+			// "Translating" Adapter names
+			$provider_adapter   = explode('-', $pathinfo[0]);
+			$model     = new MediaModel;
+			$providers = $model->getProviders();
+
+			foreach ($providers as $provider)
+			{
+				if ($provider_adapter[0] === $provider->name)
+				{
+					$adapterDisplayName = $provider->displayName;
+
+					break;
+				}
+			}
+
+			$path = $adapterDisplayName . ': ' . $provider_adapter[1] . $pathinfo[1] . $append . '/' . $filename;
+			$path = str_replace('\\', '/', $path);
+			$path = str_replace('//', '/', $path);
 
 			$response = array(
 				'status'   => '1',
 				'filename' => $filename,
-				'path'     => str_replace('\\', '/', '/' . $path . $append . '/' . $filename),
-				'error'    => Text::sprintf('MOD_SERMONUPLOAD_UPLOAD_FILENAME', substr($file['filepath'], strlen(JPATH_ROOT))),
+				'path'     => $path,
+				'error'    => Text::sprintf('MOD_SERMONUPLOAD_UPLOAD_FILENAME', $path),
 			);
 		}
 		catch (FileExistsException $e)
@@ -221,7 +240,20 @@ class SermonuploadHelper implements DatabaseAwareInterface
 	{
 		$identifier = $identifier . $type;
 		$uploadURL  = Uri::base() . 'index.php?option=com_ajax&module=sermonupload&method=fileUpload&'
-			. Session::getFormToken() . '=1&format=json&mediatypes=1';
+			. Session::getFormToken() . '=1&format=json';
+
+		switch ($type)
+		{
+			case 'audio':
+				$uploadURL .= '&mediatypes=1';
+				break;
+			case 'video':
+				$uploadURL .= '&mediatypes=2';
+				break;
+			case 'addfile':
+				$uploadURL .= '&mediatypes=0,3';
+				break;
+		}
 
 		$plupload_script = '
 			jQuery(document).ready(function() {
