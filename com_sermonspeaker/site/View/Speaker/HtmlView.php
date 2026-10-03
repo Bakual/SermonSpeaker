@@ -242,7 +242,7 @@ class HtmlView extends BaseHtmlView
 
 		foreach ($books as $book)
 		{
-			$group = match ($book)
+			$group = match (true)
 			{
 				$book < 40 => 'OLD_TESTAMENT',
 				$book < 67 => 'NEW_TESTAMENT',
