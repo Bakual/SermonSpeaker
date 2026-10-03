@@ -47,11 +47,11 @@ class MediamanagerfolderField extends TextField
 
 		foreach ($providers as $provider)
 		{
-			foreach ($provider->adapterNames as $apapter)
+			foreach ($provider->adapterNames as $adapter)
 			{
 				$option        = new stdClass;
-				$option->value = $provider->name . '-' . $apapter . ':/';
-				$option->text  = '[' . $provider->displayName . '] /' . $apapter . '/';
+				$option->value = $provider->name . '-' . $adapter . ':/';
+				$option->text  = '[' . $provider->displayName . '] /' . $adapter . '/';
 				$options[]     = $option;
 			}
 		}

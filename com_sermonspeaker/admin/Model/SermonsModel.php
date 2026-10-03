@@ -290,13 +290,18 @@ class SermonsModel extends ListModel
 		// Join over the associations.
 		if (Associations::isEnabled())
 		{
-			$subquery = $db->getQuery(true);
-			$subquery->select('COUNT(asso2.id)>1');
-			$subquery->from('#__associations as asso');
-			$subquery->where('asso.id = sermons.id');
-			$subquery->join('LEFT', '#__associations AS asso2 ON asso2.key = asso.key');
+			$subQuery = $db->createQuery()
+				->select('COUNT(' . $db->quoteName('asso1.id') . ') > 1')
+				->from($db->quoteName('#__associations', 'asso1'))
+				->join('INNER', $db->quoteName('#__associations', 'asso2'), $db->quoteName('asso1.key') . ' = ' . $db->quoteName('asso2.key'))
+				->where(
+					[
+						$db->quoteName('asso1.id') . ' = ' . $db->quoteName('sermons.id'),
+						$db->quoteName('asso1.context') . ' = ' . $db->quote('com_sermonspeaker.sermon'),
+					]
+				);
 
-			$query->select('(' . $subquery . ') as association');
+			$query->select('(' . $subQuery . ') AS ' . $db->quoteName('association'));
 		}
 
 		// Join over the scriptures.
