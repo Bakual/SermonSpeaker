@@ -132,15 +132,14 @@ class SermonModel extends ItemModel
 			}
 
 			// Query Scripture.
-			$scriptureQuery = $db->getQuery(true);
-			$scriptureQuery->select('GROUP_CONCAT(book,"|",cap1,"|",vers1,"|",cap2,"|",vers2,"|",text '
-				. 'ORDER BY ordering ASC SEPARATOR "!") AS scripture');
-			$scriptureQuery->from('#__sermon_scriptures');
-			$scriptureQuery->where('sermon_id = ' . $data->id);
-			$scriptureQuery->group('sermon_id');
+			$scriptureQuery = $db->getQuery(true)
+				->select('*')
+				->from('#__sermon_scriptures')
+				->where('sermon_id = ' . $data->id)
+				->order($db->quoteName('ordering') . ' ASC');
 
 			$db->setQuery($scriptureQuery);
-			$data->scripture = $db->loadResult();
+			$data->scripture = $db->loadObjectList();
 
 			// Convert the metadata field to an array.
 			$registry = new Registry;
