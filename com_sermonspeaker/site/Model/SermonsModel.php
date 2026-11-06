@@ -13,6 +13,7 @@ use Joomla\CMS\Categories\Categories;
 use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Model\ListModel;
 use Joomla\Database\DatabaseQuery;
+use Joomla\Database\ParameterType;
 use Joomla\Utilities\ArrayHelper;
 
 defined('_JEXEC') or die();
@@ -534,12 +535,18 @@ class SermonsModel extends Listmodel
 		}
 
 		// Filter by scripture
-		$book = $this->getState('filter.book');
+		$book = (int) $this->getState('filter.book');
 
 		if ($book)
 		{
-			$query->join('LEFT', '#__sermon_scriptures AS script ON script.sermon_id = sermons.id');
-			$query->where('script.book = ' . (int) $book);
+			$subQuery = $db->getQuery(true)
+				->select('1')
+				->from($db->quoteName('#__sermon_scriptures', 'script'))
+				->where($db->quoteName('script.sermon_id') . ' = ' . $db->quoteName('sermons.id'))
+				->where($db->quoteName('script.book') . ' = :book');
+
+			$query->where('EXISTS (' . $subQuery . ')')
+				->bind(':book', $book, ParameterType::INTEGER);
 		}
 
 		// Filter by filetype
@@ -584,12 +591,6 @@ class SermonsModel extends Listmodel
 			$query->where('sermons.language in (' . $db->quote(Factory::getLanguage()->getTag()) . ',' . $db->quote('*') . ')');
 		}
 
-		if ($this->getState('list.ordering') == 'book')
-		{
-			$dir = $db->escape($this->getState('list.direction', 'ASC'));
-			$query->order($db->escape('book') . ' ' . $dir . ', ' . $db->escape('cap1') . ' ' . $dir . ', ' . $db->escape('vers1') . ' ' . $dir);
-		}
-
 		// Filter by a single tag.
 		$tagId = $this->getState('filter.tag');
 
@@ -604,7 +605,22 @@ class SermonsModel extends Listmodel
 		}
 
 		// Add the list ordering clause.
-		$query->order($db->escape($this->getState('list.ordering', 'ordering')) . ' ' . $db->escape($this->getState('list.direction', 'ASC')));
+		$ordering = $this->getState('list.ordering', 'ordering');
+		$dir      = strtoupper($this->getState('list.direction', 'ASC')) === 'DESC' ? 'DESC' : 'ASC';
+
+		if (in_array($ordering, ['book', 'script.book'], true))
+		{
+			// Sortierschlüssel der ersten (niedrigsten) Stelle: Buch, Kapitel, Vers
+			$query->order(
+				'(SELECT MIN(script.book * 1000000 + script.cap1 * 1000 + script.vers1) '
+				. 'FROM ' . $db->quoteName('#__sermon_scriptures', 'script')
+				. 'WHERE script.sermon_id = sermons.id) ' . $dir
+			);
+		}
+		else
+		{
+			$query->order($db->escape($ordering) . ' ' . $dir);
+		}
 
 		return $query;
 	}
