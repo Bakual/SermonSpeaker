@@ -53,12 +53,6 @@ class FeedModel extends BaseDatabaseModel
 		$query->select('CASE WHEN CHAR_LENGTH(sermons.alias) THEN CONCAT_WS(\':\', sermons.id, sermons.alias) ELSE sermons.id END as slug');
 		$query->from('`#__sermon_sermons` AS sermons');
 
-		// Join over the scriptures.
-		$query->select('GROUP_CONCAT(script.book,"|",script.cap1,"|",script.vers1,"|",script.cap2,"|",script.vers2,"|",script.text '
-			. 'ORDER BY script.ordering ASC SEPARATOR "!") AS scripture');
-		$query->join('LEFT', '#__sermon_scriptures AS script ON script.sermon_id = sermons.id');
-		$query->group('sermons.id');
-
 		// Join over Speaker
 		$query->select('speakers.title AS speaker_title, speakers.pic AS pic');
 		$query->join('LEFT', '#__sermon_speakers AS speakers ON speakers.id = sermons.speaker_id');
@@ -151,6 +145,32 @@ class FeedModel extends BaseDatabaseModel
 		$feed_limit = $params->get('feed_limit', $app->get('feed_limit'));
 		$db->setQuery($query, '0', $feed_limit);
 
-		return $db->loadObjectList();
+		$items = $db->loadObjectList();
+
+		// Load scriptures in a second query to avoid an expensive GROUP BY
+		if ($items)
+		{
+			$db    = $this->getDatabase();
+			$ids   = array_map('intval', array_column($items, 'id'));
+			$query = $db->getQuery(true)
+				->select('*')
+				->from($db->quoteName('#__sermon_scriptures'))
+				->whereIn($db->quoteName('sermon_id'), $ids)
+				->order($db->quoteName('ordering') . ' ASC');
+
+			$bySermon = [];
+
+			foreach ($db->setQuery($query)->loadObjectList() as $row)
+			{
+				$bySermon[$row->sermon_id][] = $row;
+			}
+
+			foreach ($items as $item)
+			{
+				$item->scripture = $bySermon[$item->id] ?? [];
+			}
+		}
+
+		return $items;
 	}
 }

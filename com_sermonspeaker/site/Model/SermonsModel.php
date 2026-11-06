@@ -13,6 +13,7 @@ use Joomla\CMS\Categories\Categories;
 use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Model\ListModel;
 use Joomla\Database\DatabaseQuery;
+use Joomla\Database\ParameterType;
 use Joomla\Utilities\ArrayHelper;
 
 defined('_JEXEC') or die();
@@ -370,6 +371,45 @@ class SermonsModel extends Listmodel
 	}
 
 	/**
+	 * Method to get an array of data items.
+	 *
+	 * @return  mixed  An array of data items on success, false on failure.
+	 *
+	 * @throws \Exception
+	 * @since   1.6
+	 */
+	public function getItems()
+	{
+		$items = parent::getItems();
+
+		// Load scriptures in a second query to avoid an expensive GROUP BY
+		if ($items)
+		{
+			$db    = $this->getDatabase();
+			$ids   = array_map('intval', array_column($items, 'id'));
+			$query = $db->getQuery(true)
+				->select('*')
+				->from($db->quoteName('#__sermon_scriptures'))
+				->whereIn($db->quoteName('sermon_id'), $ids)
+				->order($db->quoteName('ordering') . ' ASC');
+
+			$bySermon = [];
+
+			foreach ($db->setQuery($query)->loadObjectList() as $row)
+			{
+				$bySermon[$row->sermon_id][] = $row;
+			}
+
+			foreach ($items as $item)
+			{
+				$item->scripture = $bySermon[$item->id] ?? [];
+			}
+		}
+
+		return $items;
+	}
+
+	/**
 	 * Get the master query for retrieving a list of items subject to the model state
 	 *
 	 * @return  \Joomla\Database\QueryInterface
@@ -401,26 +441,6 @@ class SermonsModel extends Listmodel
 			)
 		);
 		$query->from('`#__sermon_sermons` AS sermons');
-
-		// Join over the scriptures
-		$query->select('GROUP_CONCAT(script.book,"|",script.cap1,"|",script.vers1,"|",script.cap2,"|",script.vers2,"|",script.text '
-			. 'ORDER BY script.ordering ASC SEPARATOR "!") AS scripture');
-		$query->join('LEFT', '#__sermon_scriptures AS script ON script.sermon_id = sermons.id');
-		$query->group(
-			'sermons.id, sermons.title, sermons.catid, sermons.audiofile, sermons.videofile, '
-			. 'sermons.audiofilesize, sermons.videofilesize, '
-			. 'sermons.picture, sermons.hits, sermons.notes, sermons.maintext, sermons.checked_out, sermons.checked_out_time,'
-			. 'sermons.sermon_date, sermons.alias, sermons.sermon_time,'
-			. 'sermons.state, sermons.ordering, sermons.podcast, sermons.language,'
-			. 'sermons.sermon_number, sermons.addfile, sermons.addfileDesc,'
-			. 'sermons.created, sermons.created_by,'
-			. 'sermons.publish_up, sermons.publish_down,'
-			. 'speakers.title, speakers.pic, speakers.state, speakers.catid, speakers.language, '
-			. 'speakers.id, speakers.alias, speakers.intro, speakers.bio, speakers.website,'
-			. 'series.title, series.avatar, series.state, series.catid, series.language, series.id, series.alias,'
-			. 'c_sermons.title, c_sermons.id, c_sermons.alias,'
-			. 'user.name'
-		);
 
 		// Join over Speaker
 		$query->select('speakers.title AS speaker_title, speakers.pic AS pic, speakers.state as speaker_state, speakers.bio, speakers.website');
@@ -515,11 +535,18 @@ class SermonsModel extends Listmodel
 		}
 
 		// Filter by scripture
-		$book = $this->getState('filter.book');
+		$book = (int) $this->getState('filter.book');
 
 		if ($book)
 		{
-			$query->where('script.book = ' . (int) $book);
+			$subQuery = $db->getQuery(true)
+				->select('1')
+				->from($db->quoteName('#__sermon_scriptures', 'script'))
+				->where($db->quoteName('script.sermon_id') . ' = ' . $db->quoteName('sermons.id'))
+				->where($db->quoteName('script.book') . ' = :book');
+
+			$query->where('EXISTS (' . $subQuery . ')')
+				->bind(':book', $book, ParameterType::INTEGER);
 		}
 
 		// Filter by filetype
@@ -564,12 +591,6 @@ class SermonsModel extends Listmodel
 			$query->where('sermons.language in (' . $db->quote(Factory::getLanguage()->getTag()) . ',' . $db->quote('*') . ')');
 		}
 
-		if ($this->getState('list.ordering') == 'book')
-		{
-			$dir = $db->escape($this->getState('list.direction', 'ASC'));
-			$query->order($db->escape('book') . ' ' . $dir . ', ' . $db->escape('cap1') . ' ' . $dir . ', ' . $db->escape('vers1') . ' ' . $dir);
-		}
-
 		// Filter by a single tag.
 		$tagId = $this->getState('filter.tag');
 
@@ -584,7 +605,22 @@ class SermonsModel extends Listmodel
 		}
 
 		// Add the list ordering clause.
-		$query->order($db->escape($this->getState('list.ordering', 'ordering')) . ' ' . $db->escape($this->getState('list.direction', 'ASC')));
+		$ordering = $this->getState('list.ordering', 'ordering');
+		$dir      = strtoupper($this->getState('list.direction', 'ASC')) === 'DESC' ? 'DESC' : 'ASC';
+
+		if (in_array($ordering, ['book', 'script.book'], true))
+		{
+			// Sortierschlüssel der ersten (niedrigsten) Stelle: Buch, Kapitel, Vers
+			$query->order(
+				'(SELECT MIN(script.book * 1000000 + script.cap1 * 1000 + script.vers1) '
+				. 'FROM ' . $db->quoteName('#__sermon_scriptures', 'script')
+				. 'WHERE script.sermon_id = sermons.id) ' . $dir
+			);
+		}
+		else
+		{
+			$query->order($db->escape($ordering) . ' ' . $dir);
+		}
 
 		return $query;
 	}

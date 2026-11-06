@@ -565,7 +565,7 @@ class SermonspeakerHelper
 	/**
 	 * Inserting the scriptures
 	 *
-	 * @param   string  $scripture  String containing the scripture
+	 * @param   array   $scripture  String containing the scripture
 	 * @param   string  $between    Delimiter
 	 * @param   bool    $addTag     Adds plugin tags around scripture
 	 *
@@ -575,15 +575,14 @@ class SermonspeakerHelper
 	 */
 	public static function insertScriptures($scripture, $between, $addTag = true)
 	{
-		if (!$scripture || $scripture == ('|||||'))
+		if (!$scripture)
 		{
 			return '';
 		}
 
-		$explode    = explode('!', $scripture);
 		$scriptures = array();
 
-		foreach ($explode as $passage)
+		foreach ($scripture as $passage)
 		{
 			$scriptures[] = self::buildScripture($passage, $addTag);
 		}
@@ -608,49 +607,47 @@ class SermonspeakerHelper
 			self::getParams();
 		}
 
-		$explode = explode('|', $scripture);
-
-		if (count($explode) != 6)
+		if (count((array)$scripture) != 8)
 		{
 			return '';
 		}
 
 		$text = '';
 
-		if ($explode[5])
+		if ($scripture->text)
 		{
-			$text .= $explode[5];
+			$text .= $scripture->text;
 		}
 		else
 		{
 			$separator = Text::_('COM_SERMONSPEAKER_SCRIPTURE_SEPARATOR');
-			$text      .= Text::_('COM_SERMONSPEAKER_BOOK_' . $explode[0]);
+			$text      .= Text::_('COM_SERMONSPEAKER_BOOK_' . $scripture->book);
 
-			if ($explode[1])
+			if ($scripture->cap1)
 			{
-				$text .= ' ' . $explode[1];
+				$text .= ' ' . $scripture->cap1;
 
-				if ($explode[2])
+				if ($scripture->vers1)
 				{
-					$text .= $separator . $explode[2];
+					$text .= $separator . $scripture->vers1;
 				}
 
-				if ($explode[3] || $explode[4])
+				if ($scripture->cap2 || $scripture->vers2)
 				{
 					$text .= '-';
 
-					if ($explode[3])
+					if ($scripture->cap2)
 					{
-						$text .= $explode[3];
+						$text .= $scripture->cap2;
 
-						if ($explode[4])
+						if ($scripture->vers2)
 						{
-							$text .= $separator . $explode[4];
+							$text .= $separator . $scripture->vers2;
 						}
 					}
 					else
 					{
-						$text .= $explode[4];
+						$text .= $scripture->vers2;
 					}
 				}
 			}
