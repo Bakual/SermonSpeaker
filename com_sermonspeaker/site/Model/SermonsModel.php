@@ -370,6 +370,45 @@ class SermonsModel extends Listmodel
 	}
 
 	/**
+	 * Method to get an array of data items.
+	 *
+	 * @return  mixed  An array of data items on success, false on failure.
+	 *
+	 * @throws \Exception
+	 * @since   1.6
+	 */
+	public function getItems()
+	{
+		$items = parent::getItems();
+
+		// Load scriptures in a second query to avoid an expensive GROUP BY
+		if ($items)
+		{
+			$db    = $this->getDatabase();
+			$ids   = array_map('intval', array_column($items, 'id'));
+			$query = $db->getQuery(true)
+				->select('*')
+				->from($db->quoteName('#__sermon_scriptures'))
+				->whereIn($db->quoteName('sermon_id'), $ids)
+				->order($db->quoteName('ordering') . ' ASC');
+
+			$bySermon = [];
+
+			foreach ($db->setQuery($query)->loadObjectList() as $row)
+			{
+				$bySermon[$row->sermon_id][] = $row;
+			}
+
+			foreach ($items as $item)
+			{
+				$item->scripture = $bySermon[$item->id] ?? [];
+			}
+		}
+
+		return $items;
+	}
+
+	/**
 	 * Get the master query for retrieving a list of items subject to the model state
 	 *
 	 * @return  \Joomla\Database\QueryInterface
@@ -401,26 +440,6 @@ class SermonsModel extends Listmodel
 			)
 		);
 		$query->from('`#__sermon_sermons` AS sermons');
-
-		// Join over the scriptures
-		$query->select('GROUP_CONCAT(script.book,"|",script.cap1,"|",script.vers1,"|",script.cap2,"|",script.vers2,"|",script.text '
-			. 'ORDER BY script.ordering ASC SEPARATOR "!") AS scripture');
-		$query->join('LEFT', '#__sermon_scriptures AS script ON script.sermon_id = sermons.id');
-		$query->group(
-			'sermons.id, sermons.title, sermons.catid, sermons.audiofile, sermons.videofile, '
-			. 'sermons.audiofilesize, sermons.videofilesize, '
-			. 'sermons.picture, sermons.hits, sermons.notes, sermons.maintext, sermons.checked_out, sermons.checked_out_time,'
-			. 'sermons.sermon_date, sermons.alias, sermons.sermon_time,'
-			. 'sermons.state, sermons.ordering, sermons.podcast, sermons.language,'
-			. 'sermons.sermon_number, sermons.addfile, sermons.addfileDesc,'
-			. 'sermons.created, sermons.created_by,'
-			. 'sermons.publish_up, sermons.publish_down,'
-			. 'speakers.title, speakers.pic, speakers.state, speakers.catid, speakers.language, '
-			. 'speakers.id, speakers.alias, speakers.intro, speakers.bio, speakers.website,'
-			. 'series.title, series.avatar, series.state, series.catid, series.language, series.id, series.alias,'
-			. 'c_sermons.title, c_sermons.id, c_sermons.alias,'
-			. 'user.name'
-		);
 
 		// Join over Speaker
 		$query->select('speakers.title AS speaker_title, speakers.pic AS pic, speakers.state as speaker_state, speakers.bio, speakers.website');
@@ -519,6 +538,7 @@ class SermonsModel extends Listmodel
 
 		if ($book)
 		{
+			$query->join('LEFT', '#__sermon_scriptures AS script ON script.sermon_id = sermons.id');
 			$query->where('script.book = ' . (int) $book);
 		}
 
