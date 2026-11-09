@@ -9,58 +9,37 @@
 
 defined('_JEXEC') or die;
 
-use Joomla\CMS\Installer\InstallerScript;
+use Joomla\CMS\Installer\InstallerAdapter;
+use Joomla\CMS\Installer\InstallerScriptInterface;
+use Joomla\CMS\Installer\InstallerScriptTrait;
 
-/**
- * Class Mod_Related_SermonsInstallerScript
- *
- * @since  7.0
- */
-class Mod_Related_SermonsInstallerScript extends InstallerScript
-{
-    /**
-     * Minimum PHP version required to install the extension
-     *
-     * @var    string
-     * @since  5.4.0
-     */
-    protected $minimumPhp = '8.3.0';
-    /**
-     * Minimum Joomla! version required to install the extension
-     *
-     * @var    string
-     * @since  6.0.0
-     */
-    protected $minimumJoomla = '6.0.0';
+return new class () implements InstallerScriptInterface {
+	use InstallerScriptTrait;
 
-    /**
-     * method to update the module
-     *
-     * @param Joomla\CMS\Installer\Adapter\ModuleAdapter $parent Installerobject
-     *
-     * @return void
-     *
-     * @since 7.0.0
-     */
-    public function update($parent)
-    {
-        // Remove old MVC files
-        $this->deleteFiles[] = '/modules/mod_related_sermons/mod_related_sermons.php';
-        $this->deleteFiles[] = '/modules/mod_related_sermons/helper.php';
-    }
+	public function __construct()
+	{
+		// Minimum PHP version required to install the extension
+		$this->minimumPhp = '8.3.0';
 
-    /**
-     * method to run after an install/update/uninstall method
-     *
-     * @param string                                     $type   'install', 'update' or 'discover_install'
-     * @param Joomla\CMS\Installer\Adapter\ModuleAdapter $parent Installerobject
-     *
-     * @return void
-     *
-     * @since ?
-     */
-    public function postflight($type, $parent)
-    {
-        $this->removeFiles();
-    }
-}
+		// Minimum Joomla! version required to install the extension
+		$this->minimumJoomla = '6.0.0';
+	}
+
+	/**
+	 * method to update the module
+	 *
+	 * @param InstallerAdapter $adapter The adapter calling this method
+	 *
+	 * @return boolean  True on success
+	 *
+	 * @since 7.0.0
+	 */
+	public function update(InstallerAdapter $adapter): bool
+	{
+		// Remove old MVC files
+		$this->deleteFiles[] = '/modules/mod_related_sermons/mod_related_sermons.php';
+		$this->deleteFiles[] = '/modules/mod_related_sermons/helper.php';
+
+		return true;
+	}
+};
