@@ -12,45 +12,26 @@
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
-use Joomla\CMS\Installer\InstallerScript;
+use Joomla\CMS\Installer\InstallerAdapter;
+use Joomla\CMS\Installer\InstallerScriptInterface;
+use Joomla\CMS\Installer\InstallerScriptTrait;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Table\Asset;
 use Joomla\CMS\Table\Table;
+use Joomla\Database\ParameterType;
 
-/**
- * Class Com_SermonspeakerInstallerScript
- *
- * @since  4.x
- */
-class Com_SermonspeakerInstallerScript extends InstallerScript
-{
-	/**
-	 * The extension name. This should be set in the installer script.
-	 *
-	 * @var    string
-	 * @since  5.4.0
-	 */
-	protected $extension = 'com_sermonspeaker';
-	/**
-	 * Minimum PHP version required to install the extension
-	 *
-	 * @var    string
-	 * @since  5.4.0
-	 */
-	protected $minimumPhp = '7.2.0';
-	/**
-	 * Minimum Joomla! version required to install the extension
-	 *
-	 * @var    string
-	 * @since  6.0.0
-	 */
-	protected $minimumJoomla = '4.4.0';
-	/**
-	 * @var  Joomla\CMS\Application\CMSApplication  Holds the application object
-	 *
-	 * @since ?
-	 */
-	private $app;
+return new class () implements InstallerScriptInterface {
+	use InstallerScriptTrait;
+
+	public function __construct()
+	{
+		// Minimum PHP version required to install the extension
+		$this->minimumPhp = '8.3.0';
+
+		// Minimum Joomla! version required to install the extension
+		$this->minimumJoomla = '6.0.0';
+	}
+
 	/**
 	 * @var  string  During an update, it will be populated with the old release version
 	 *
@@ -59,83 +40,88 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 	private $oldRelease;
 
 	/**
-	 *  Constructor
+	 * Function called before extension installation/update/removal procedure commences.
 	 *
-	 * @since ?
+	 * @param string           $type    The type of change (install or discover_install, update, uninstall)
+	 * @param InstallerAdapter $adapter The adapter calling this method
+	 *
+	 * @return  boolean  True on success
+	 *
+	 * @since 4.0.0
 	 */
-	public function __construct()
+	public function preflight(string $type, InstallerAdapter $adapter): bool
 	{
-		$this->app = Factory::getApplication();
-	}
+		$this->extension = $adapter->getName();
 
-	/**
-	 * method to run before an install/update/uninstall method
-	 *
-	 * @param   string                                         $type    'install', 'update' or 'discover_install'
-	 * @param   Joomla\CMS\Installer\Adapter\ComponentAdapter  $parent  Installerobject
-	 *
-	 * @return  boolean  false will terminate the installation
-	 *
-	 * @since ?
-	 */
-	public function preflight($type, $parent)
-	{
+		if (!$this->checkCompatibility($type, $adapter)) {
+			return false;
+		}
+
+		if (!$this->checkDowngrade($type, $adapter)) {
+			return false;
+		}
+
 		// Storing old release number for process in postflight
 		if (strtolower($type) == 'update')
 		{
-			$manifest         = $this->getItemArray('manifest_cache', '#__extensions', 'element', $this->extension);
+			// Get the DB and query objects
+			$db = Factory::getDbo();
+
+			$paramType = is_numeric($this->extension) ? ParameterType::INTEGER : ParameterType::STRING;
+
+			// Build the query
+			$query = $db->createQuery()
+				->select($db->quoteName('manifest_cache'))
+				->from($db->quoteName('#__extensions'))
+				->where($db->quoteName('element') . ' = :id')
+				->bind(':id', $this->extension, $paramType);
+			$db->setQuery($query);
+
+			// Load the single cell and json_decode data
+			$result = $db->loadResult();
+
+			$manifest         = ($result === null) ? [] : json_decode($result, true);
 			$this->oldRelease = $manifest['version'];
 
 			// Check if update is allowed (only update from 5.6.0 and higher)
 			if (version_compare($this->oldRelease, '5.6.0', '<'))
 			{
-				$this->app->enqueueMessage(Text::sprintf('COM_SERMONSPEAKER_UPDATE_UNSUPPORTED', $this->oldRelease, '5.6.0'), 'error');
+				$this->application->enqueueMessage(Text::sprintf('COM_SERMONSPEAKER_UPDATE_UNSUPPORTED', $this->oldRelease, '5.6.0'), 'error');
 
 				return false;
 			}
 		}
 
-		return parent::preflight($type, $parent);
+		return true;
 	}
 
 	/**
-	 * Method to install the component
+	 * Function called after the extension is installed.
 	 *
-	 * @param   Joomla\CMS\Installer\Adapter\ComponentAdapter  $parent  Installerobject
+	 * @param InstallerAdapter $adapter The adapter calling this method
 	 *
-	 * @return void
+	 * @return  boolean  True on success
 	 *
-	 * @since ?
+	 * @since   4.0.0
 	 */
-	public function install($parent)
+	public function install(InstallerAdapter $adapter): bool
 	{
 		// Add Dashboard menu on install
-		$this->addDashboardMenu('sermonspeaker', 'sermonspeaker');
+		$this->addDashboardMenuModule('sermonspeaker', 'sermonspeaker');
+
+		return true;
 	}
 
 	/**
-	 * Method to uninstall the component
+	 * Function called after the extension is updated.
 	 *
-	 * @param   Joomla\CMS\Installer\Adapter\ComponentAdapter  $parent  Installerobject
+	 * @param InstallerAdapter $adapter The adapter calling this method
 	 *
-	 * @return void
+	 * @return  boolean  True on success
 	 *
-	 * @since ?
+	 * @since   6.0.0
 	 */
-	public function uninstall($parent)
-	{
-	}
-
-	/**
-	 * method to update the component
-	 *
-	 * @param   Joomla\CMS\Installer\Adapter\ComponentAdapter  $parent  Installerobject
-	 *
-	 * @return void
-	 *
-	 * @since ?
-	 */
-	public function update($parent)
+	public function update(InstallerAdapter $adapter): bool
 	{
 		if (version_compare($this->oldRelease, '6.0.0', '<'))
 		{
@@ -180,7 +166,7 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 			$this->moveCategories();
 
 			// Add Dashboard menu on update
-			$this->addDashboardMenu('sermonspeaker', 'sermonspeaker');
+			$this->addDashboardMenuModule('sermonspeaker', 'sermonspeaker');
 		}
 
 		// Remove "custom1" and "custom2" if present.
@@ -203,7 +189,7 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 		// Adding Dummy Assets for categories.
 		if (version_compare($this->oldRelease, '6.0.6', '<'))
 		{
-			$db = Factory::getDbo();
+			$db    = Factory::getDbo();
 			$query = $db->getQuery(true);
 			$query->select($db->quoteName('id'))
 				->from($db->quoteName('#__assets'))
@@ -215,6 +201,8 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 				$this->addAsset();
 			}
 		}
+
+		return true;
 	}
 
 	private function saveContentTypes()
@@ -522,7 +510,7 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 				}
 				catch (Exception $e)
 				{
-					$this->app->enqueueMessage($e->getMessage(), 'ERROR');
+					$this->application->enqueueMessage($e->getMessage(), 'ERROR');
 				}
 
 				$newId = $catModel->getState('category.id');
@@ -550,7 +538,7 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 		}
 		catch (Exception $e)
 		{
-			$this->app->enqueueMessage($e->getMessage(), 'ERROR');
+			$this->application->enqueueMessage($e->getMessage(), 'ERROR');
 		}
 
 		// Delete old categories
@@ -565,23 +553,24 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 		}
 		catch (Exception $e)
 		{
-			$this->app->enqueueMessage($e->getMessage(), 'ERROR');
+			$this->application->enqueueMessage($e->getMessage(), 'ERROR');
 		}
 	}
 
 	/**
-	 * method to run after an install/update/uninstall method
+	 * Function called after extension installation/update/removal procedure commences.
 	 *
-	 * @param   string                                         $type    'install', 'update' or 'discover_install'
-	 * @param   Joomla\CMS\Installer\Adapter\ComponentAdapter  $parent  Installerobject
+	 * @param string           $type    The type of change (install or discover_install, update, uninstall)
+	 * @param InstallerAdapter $adapter The adapter calling this method
 	 *
-	 * @return void
+	 * @return  boolean  True on success
 	 *
-	 * @since ?
+	 * @since   4.0.0
 	 */
-	public function postflight($type, $parent)
+	public function postflight(string $type, InstallerAdapter $adapter): bool
 	{
 		$type = strtolower($type);
+
 		if ($type == 'install' || $type == 'discover_install')
 		{
 			// Adding Dummy Assets for categories.
@@ -618,6 +607,8 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 		}
 
 		$this->removeFiles();
+
+		return true;
 	}
 
 	/**
@@ -670,7 +661,7 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 	 */
 	private function addAsset()
 	{
-		$db         = Factory::getDbo();
+		$db = Factory::getDbo();
 
 		// Get the Asset ID from SermonSpeaker component to use as parent
 		$query = $db->getQuery(true)
@@ -681,18 +672,19 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 		// Get the asset id from the database.
 		$db->setQuery($query);
 
-		if ($result = $db->loadResult()) {
+		if ($result = $db->loadResult())
+		{
 			$assetId = (int) $result;
 		}
 
-		$sections   = array('sermons', 'series', 'speakers');
+		$sections = array('sermons', 'series', 'speakers');
 
 		foreach ($sections as $section)
 		{
 			$assetTable = new Asset($db);
 
 			$assetTable->setLocation($assetId, 'first-child');
-			$assetTable->name = 'com_sermonspeaker.' . $section;
+			$assetTable->name  = 'com_sermonspeaker.' . $section;
 			$assetTable->title = 'Dummy Asset';
 			$assetTable->level = 2;
 			$assetTable->rules = '{}';
@@ -700,4 +692,4 @@ class Com_SermonspeakerInstallerScript extends InstallerScript
 			$assetTable->store();
 		}
 	}
-}
+};
