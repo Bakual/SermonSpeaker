@@ -189,6 +189,37 @@ class LatestsermonsHelper implements DatabaseAwareInterface
 
 		$db->setQuery($query, 0, (int) $params->get('ls_count', 3));
 
-		return $db->loadObjectList();
+		$items = $db->loadObjectList();
+
+		// Load scriptures in a second query to avoid an expensive GROUP BY
+		if ($items && $params->get('show_scripture'))
+		{
+			// Load component language file for bible books
+			$lang = $app->getLanguage();
+			$lang->load('com_sermonspeaker')
+			|| $lang->load('com_sermonspeaker', JPATH_BASE . '/components/com_sermonspeaker');
+
+			$db    = $this->getDatabase();
+			$ids   = array_map('intval', array_column($items, 'id'));
+			$query = $db->getQuery(true)
+				->select('*')
+				->from($db->quoteName('#__sermon_scriptures'))
+				->whereIn($db->quoteName('sermon_id'), $ids)
+				->order($db->quoteName('ordering') . ' ASC');
+
+			$bySermon = [];
+
+			foreach ($db->setQuery($query)->loadObjectList() as $row)
+			{
+				$bySermon[$row->sermon_id][] = $row;
+			}
+
+			foreach ($items as $item)
+			{
+				$item->scripture = $bySermon[$item->id] ?? [];
+			}
+		}
+
+		return $items;
 	}
 }
