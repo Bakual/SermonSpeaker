@@ -273,17 +273,17 @@ class Icon
 			$text = '<span class="icon-download" > </span> ' . $text;
 		}
 
+		$track = '';
+
 		if ($params->get('enable_ga_events'))
 		{
-			$output  = '<meta itemprop="contentUrl" content="' . $fileurl . '" />';
-			$onclick = "ga('send', 'event', 'SermonSpeaker Download', '" . $attribs['type'] . "', 'id:" . $item->id . "');"
-				. "window.location.href='" . $fileurl . "';";
-			$output  .= '<a href="#" onclick="' . $onclick . '">' . $text . '</a>';
+			$track = ' data-ss-event="download" data-ss-type="' . htmlspecialchars($type) . '" data-ss-id="' . $id . '"';
+
+			Factory::getApplication()->getDocument()->getWebAssetManager()
+				->useScript('com_sermonspeaker.tracking');
 		}
-		else
-		{
-			$output = '<a href="' . $fileurl . '" itemprop="contentUrl">' . $text . '</a>';
-		}
+
+		$output = '<a href="' . $fileurl . '" ' . $track . '>' . $text . '</a>';
 
 		return $output;
 	}
