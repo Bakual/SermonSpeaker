@@ -13,6 +13,7 @@ use Joomla\CMS\Access\Access;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Object\CMSObject;
+use Joomla\Database\DatabaseInterface;
 
 defined('_JEXEC') or die;
 
@@ -26,7 +27,7 @@ class SermonspeakerHelper
 	/**
 	 * Get the actions for ACL
 	 *
-	 * @param   int  $categoryId
+	 * @param int $categoryId
 	 *
 	 * @return \JObject
 	 * @since ?
@@ -84,7 +85,7 @@ class SermonspeakerHelper
 	/**
 	 * Map the section for custom fields.
 	 *
-	 * @param   string  $section  The section to get the mapping for
+	 * @param string $section The section to get the mapping for
 	 *
 	 * @return  string  The new section
 	 *
@@ -107,5 +108,40 @@ class SermonspeakerHelper
 		);
 
 		return $mapping[$section] ?? null;
+	}
+
+
+	/**
+	 * @param array             $items Array of sermons
+	 * @param DatabaseInterface $db
+	 *
+	 * @return void
+	 * @since  7.1.0
+	 */
+	public static function attachScriptures(array $items, DatabaseInterface $db): void
+	{
+		if (!$items)
+		{
+			return;
+		}
+
+		$ids   = array_map('intval', array_column($items, 'id'));
+		$query = $db->getQuery(true)
+			->select($db->quoteName(['book', 'cap1', 'vers1', 'cap2', 'vers2', 'text', 'ordering', 'sermon_id']))
+			->from($db->quoteName('#__sermon_scriptures'))
+			->whereIn($db->quoteName('sermon_id'), $ids)
+			->order($db->quoteName('ordering') . ' ASC');
+
+		$bySermon = [];
+
+		foreach ($db->setQuery($query)->loadObjectList() as $row)
+		{
+			$bySermon[$row->sermon_id][] = $row;
+		}
+
+		foreach ($items as $item)
+		{
+			$item->scripture = $bySermon[$item->id] ?? [];
+		}
 	}
 }

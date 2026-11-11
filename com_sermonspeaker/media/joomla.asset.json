@@ -13,6 +13,15 @@
         "type": "module",
         "defer": true
       }
+    },
+    {
+      "name": "com_sermonspeaker.tracking",
+      "type": "script",
+      "uri": "com_sermonspeaker/tracking.js",
+      "version": "auto",
+      "attributes": {
+        "defer": true
+      }
     }
- ]
+  ]
 }

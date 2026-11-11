@@ -37,9 +37,10 @@ CREATE TABLE `#__sermon_speakers`
     KEY `idx_createdby` (`created_by`),
     KEY `idx_language` (`language`),
     KEY `idx_alias` (`alias`(191))
-) ENGINE = MyISAM
+) ENGINE = InnoDB
   AUTO_INCREMENT = 0
-  DEFAULT CHARSET = utf8;
+  DEFAULT CHARSET = utf8mb4
+  DEFAULT COLLATE = utf8mb4_unicode_ci;
 
 CREATE TABLE `#__sermon_series`
 (
@@ -79,9 +80,10 @@ CREATE TABLE `#__sermon_series`
     KEY `idx_createdby` (`created_by`),
     KEY `idx_language` (`language`),
     KEY `idx_alias` (`alias`(191))
-) ENGINE = MyISAM
+) ENGINE = InnoDB
   AUTO_INCREMENT = 0
-  DEFAULT CHARSET = utf8;
+  DEFAULT CHARSET = utf8mb4
+  DEFAULT COLLATE = utf8mb4_unicode_ci;
 
 CREATE TABLE `#__sermon_sermons`
 (
@@ -129,12 +131,14 @@ CREATE TABLE `#__sermon_sermons`
     KEY `idx_alias` (`alias`(191)),
     KEY `idx_speaker_id` (`speaker_id`),
     KEY `idx_series_id` (`series_id`)
-) ENGINE = MyISAM
+) ENGINE = InnoDB
   AUTO_INCREMENT = 0
-  DEFAULT CHARSET = utf8;
+  DEFAULT CHARSET = utf8mb4
+  DEFAULT COLLATE = utf8mb4_unicode_ci;
 
 CREATE TABLE `#__sermon_scriptures`
 (
+    `id`        INT(10)    NOT NULL AUTO_INCREMENT,
     `book`      INT(3)     NOT NULL DEFAULT '0',
     `cap1`      INT(3)     NOT NULL DEFAULT '0',
     `vers1`     INT(4)     NOT NULL DEFAULT '0',
@@ -144,9 +148,10 @@ CREATE TABLE `#__sermon_scriptures`
     `ordering`  INT(11)    NOT NULL DEFAULT '0',
     `sermon_id` INT(10)    NOT NULL DEFAULT '0',
     KEY `idx_sermon_id` (`sermon_id`)
-) ENGINE = MyISAM
+) ENGINE = InnoDB
   AUTO_INCREMENT = 0
-  DEFAULT CHARSET = utf8;
+  DEFAULT CHARSET = utf8mb4
+  DEFAULT COLLATE = utf8mb4_unicode_ci;
 
 INSERT INTO `#__sermon_speakers`
 (`id`, `title`, `alias`, `website`, `intro`, `bio`, `pic`, `state`, `ordering`, `created_by`, `created`, `home`)

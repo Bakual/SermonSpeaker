@@ -51,19 +51,19 @@ $listDirn   = $this->escape($this->state->get('list.direction'));
 							<?php echo HTMLHelper::_('grid.sort', 'COM_SERMONSPEAKER_FIELD_NAME_LABEL', 'title', $listDirn, $listOrder); ?>
 						</th>
 						<?php if (in_array('speakers:category', $this->col_speaker)) : ?>
-							<th class="ss-col ss-category hidden-phone">
+							<th class="ss-col ss-category d-none d-sm-table-cell">
 								<?php echo HTMLHelper::_('grid.sort', 'JCATEGORY', 'category_title', $listDirn, $listOrder); ?>
 							</th>
 						<?php endif;
 
 						if (in_array('speakers:intro', $this->col_speaker)) : ?>
-							<th class="ss-col ss-intro hidden-phone">
+							<th class="ss-col ss-intro d-none d-sm-table-cell">
 								<?php echo HTMLHelper::_('grid.sort', 'COM_SERMONSPEAKER_FIELD_INTRO_LABEL', 'intro', $listDirn, $listOrder); ?>
 							</th>
 						<?php endif;
 
 						if (in_array('speakers:hits', $this->col_speaker)) : ?>
-							<th class="ss-col ss-hits hidden-phone hidden-tablet">
+							<th class="ss-col ss-hits d-none d-md-table-cell">
 								<?php echo HTMLHelper::_('grid.sort', 'JGLOBAL_HITS', 'hits', $listDirn, $listOrder); ?>
 							</th>
 						<?php endif; ?>
@@ -85,17 +85,17 @@ $listDirn   = $this->escape($this->state->get('list.direction'));
 								<?php endif; ?>
 							</th>
 							<?php if (in_array('speakers:category', $this->col_speaker)) : ?>
-								<td class="ss-col ss-category hidden-phone">
+								<td class="ss-col ss-category d-none d-sm-table-cell">
 									<a href="<?php echo Route::_(Sermonspeaker\Component\Sermonspeaker\Site\Helper\RouteHelper::getSpeakersRoute($item->catslug, $item->language)); ?>"><?php echo $item->category_title; ?></a>
 								</td>
 							<?php endif;
 
 							if (in_array('speakers:intro', $this->col_speaker)) : ?>
-								<td class="ss-col ss-intro hidden-phone"><?php echo HTMLHelper::_('content.prepare', $item->intro, '', 'com_sermonspeaker.intro'); ?></td>
+								<td class="ss-col ss-intro d-none d-sm-table-cell"><?php echo HTMLHelper::_('content.prepare', $item->intro, '', 'com_sermonspeaker.intro'); ?></td>
 							<?php endif;
 
 							if (in_array('speakers:hits', $this->col_speaker)) : ?>
-								<td class="ss-col ss-hits hidden-phone hidden-tablet"><?php echo $item->hits; ?></td>
+								<td class="ss-col ss-hits d-none d-md-table-cell"><?php echo $item->hits; ?></td>
 							<?php endif; ?>
 							<td class="ss-col ss-links">
 								<ul class="list-unstyled">

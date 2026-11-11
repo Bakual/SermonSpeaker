@@ -16,6 +16,7 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Model\ListModel;
 use Joomla\CMS\Table\Table;
 use Joomla\Database\QueryInterface;
+use Sermonspeaker\Component\Sermonspeaker\Administrator\Helper\SermonspeakerHelper;
 
 defined('_JEXEC') or die;
 
@@ -263,28 +264,7 @@ class SermonsModel extends ListModel
 		$items = parent::getItems();
 
 		// Load scriptures in a second query to avoid an expensive GROUP BY
-		if ($items)
-		{
-			$db    = $this->getDatabase();
-			$ids   = array_map('intval', array_column($items, 'id'));
-			$query = $db->getQuery(true)
-				->select('*')
-				->from($db->quoteName('#__sermon_scriptures'))
-				->whereIn($db->quoteName('sermon_id'), $ids)
-				->order($db->quoteName('ordering') . ' ASC');
-
-			$bySermon = [];
-
-			foreach ($db->setQuery($query)->loadObjectList() as $row)
-			{
-				$bySermon[$row->sermon_id][] = $row;
-			}
-
-			foreach ($items as $item)
-			{
-				$item->scripture = $bySermon[$item->id] ?? [];
-			}
-		}
+		SermonspeakerHelper::attachScriptures($items, $this->getDatabase());
 
 		return $items;
 	}
@@ -428,7 +408,7 @@ class SermonsModel extends ListModel
 			{
 				$query->where('sermons.id = ' . (int) substr($search, 3));
 			}
-			if (stripos($search, 'file:') === 0)
+			elseif (stripos($search, 'file:') === 0)
 			{
 				$search = $db->quote('%' . $db->escape(substr($search, 5), true) . '%');
 				$query->where('(sermons.audiofile LIKE ' . $search . ' OR sermons.videofile LIKE ' . $search . ')');
@@ -468,7 +448,7 @@ class SermonsModel extends ListModel
 			// Sortierschlüssel der ersten (niedrigsten) Stelle: Buch, Kapitel, Vers
 			$query->order(
 				'(SELECT MIN(script.book * 1000000 + script.cap1 * 1000 + script.vers1) '
-				. 'FROM ' . $db->quoteName('#__sermon_scriptures', 'script')
+				. 'FROM ' . $db->quoteName('#__sermon_scriptures', 'script') . ' '
 				. 'WHERE script.sermon_id = sermons.id) ' . $dir
 			);
 		}

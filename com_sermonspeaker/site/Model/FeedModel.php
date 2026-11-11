@@ -11,6 +11,7 @@ namespace Sermonspeaker\Component\Sermonspeaker\Site\Model;
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Model\BaseDatabaseModel;
+use Sermonspeaker\Component\Sermonspeaker\Administrator\Helper\SermonspeakerHelper;
 
 defined('_JEXEC') or die();
 
@@ -148,28 +149,7 @@ class FeedModel extends BaseDatabaseModel
 		$items = $db->loadObjectList();
 
 		// Load scriptures in a second query to avoid an expensive GROUP BY
-		if ($items)
-		{
-			$db    = $this->getDatabase();
-			$ids   = array_map('intval', array_column($items, 'id'));
-			$query = $db->getQuery(true)
-				->select('*')
-				->from($db->quoteName('#__sermon_scriptures'))
-				->whereIn($db->quoteName('sermon_id'), $ids)
-				->order($db->quoteName('ordering') . ' ASC');
-
-			$bySermon = [];
-
-			foreach ($db->setQuery($query)->loadObjectList() as $row)
-			{
-				$bySermon[$row->sermon_id][] = $row;
-			}
-
-			foreach ($items as $item)
-			{
-				$item->scripture = $bySermon[$item->id] ?? [];
-			}
-		}
+		SermonspeakerHelper::attachScriptures($items, $this->getDatabase());
 
 		return $items;
 	}

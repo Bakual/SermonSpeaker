@@ -183,7 +183,10 @@ class SermonspeakerHelper
 	 *
 	 * @param   int     $id    ID of the sermon
 	 * @param   string  $type  Audio or video download
-	 * @param   int     $mode  Various modes
+	 * @param   int     $mode  0: Bootstrap Button with Text
+	 *                         1|3: Link with Icon
+	 *                         2: Bootstrap Button with Icon
+	 *                         4: Link with Text
 	 * @param   int     $size  Filesize
 	 *
 	 * @return  string  button
@@ -201,52 +204,36 @@ class SermonspeakerHelper
 
 		$text    = ($size) ? Text::sprintf('COM_SERMONSPEAKER_DOWNLOADBUTTON_' . $type . '_WITH_SIZE', self::convertBytes($size))
 			: Text::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_' . $type);
-		$onclick = '';
 		$fileurl = Route::_('index.php?option=com_sermonspeaker&task=download&id=' . $id . '&type=' . $type);
 
-		if ($mode == 2)
-		{
-			// Button with Bootstrap Icon
-			if (self::$params->get('enable_ga_events'))
-			{
-				$onclick = "ga('send', 'event', 'SermonSpeaker Download', '" . $type . "', 'id:" . $id . "');";
-			}
+		$track = '';
 
-			$html = '<button id="sermon_download" class="btn btn-small download_btn" onclick="' . $onclick . 'window.location.href=\'' . $fileurl . '\';" >'
-				. '<i class="icon-download"> </i> ' . $text . '</button>';
+		if (self::$params->get('enable_ga_events'))
+		{
+			$track = ' data-ss-event="download" data-ss-type="' . htmlspecialchars($type) . '" data-ss-id="' . $id . '"';
+
+			Factory::getApplication()->getDocument()->getWebAssetManager()
+				->useScript('com_sermonspeaker.tracking');
 		}
-		elseif ($mode == 1 || $mode == 3)
+
+		$btnClass = '';
+
+		if ($mode == 0 || $mode == 2)
+		{
+			$btnClass = ' btn btn-primary';
+		}
+
+		if ($mode >= 1 && $mode <= 3)
 		{
 			// Link with Bootstrap Icon
-			if (self::$params->get('enable_ga_events'))
-			{
-				$onclick = "onclick=\"ga('send', 'event', 'SermonSpeaker Download', '" . $type . "', 'id:" . $id . "');\"";
-			}
-
-			$html = '<a href="' . $fileurl . '" target="_blank" ' . $onclick . ' class="hasTooltip" title="' . $text . '">'
+			$html = '<a href="' . $fileurl . '" target="_blank" ' . $track . ' class="hasTooltip' . $btnClass . '" title="' . $text . '">'
 				. '<i class="icon-download"> </i>'
 				. '</a>';
 		}
-		elseif ($mode == 4)
-		{
-			// Link with Text
-			if (self::$params->get('enable_ga_events'))
-			{
-				$onclick = "onclick=\"ga('send', 'event', 'SermonSpeaker Download', '" . $type . "', 'id:" . $id . "');\"";
-			}
-
-			$html = '<a href="' . $fileurl . '" target="_blank" ' . $onclick . ' class="download">' . $text . '</a>';
-		}
 		else
 		{
-			// Button with Text
-			if (self::$params->get('enable_ga_events'))
-			{
-				$onclick = "ga('send', 'event', 'SermonSpeaker Download', '" . $type . "', 'id:" . $id . "');";
-			}
-
-			$html = '<button id="sermon_download" class="btn btn-primary download_btn" type="button" onclick="'
-				. $onclick . 'window.location.href=\'' . $fileurl . '\';">' . $text . '</button>';
+			// Link with Text
+			$html = '<a href="' . $fileurl . '" target="_blank" ' . $track . ' class="download' . $btnClass . '">' . $text . '</a>';
 		}
 
 		return $html;
@@ -607,7 +594,7 @@ class SermonspeakerHelper
 			self::getParams();
 		}
 
-		if (count((array)$scripture) != 8)
+		if (!isset($scripture->book))
 		{
 			return '';
 		}
