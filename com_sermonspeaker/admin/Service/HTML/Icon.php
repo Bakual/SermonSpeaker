@@ -277,7 +277,7 @@ class Icon
 
 		if ($params->get('enable_ga_events'))
 		{
-			$track = ' data-ss-event="download" data-ss-type="' . htmlspecialchars($type) . '" data-ss-id="' . $id . '"';
+			$track = ' data-ss-event="download" data-ss-type="' . htmlspecialchars($attribs['type']) . '" data-ss-id="' . $item->id . '"';
 
 			Factory::getApplication()->getDocument()->getWebAssetManager()
 				->useScript('com_sermonspeaker.tracking');
