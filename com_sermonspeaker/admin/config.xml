@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
+	<inlinehelp button="show"/>
 	<fieldset
 		name="component"
 		label="COM_SERMONSPEAKER_FIELDSET_COMPONENT_LABEL"
