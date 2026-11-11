@@ -15,6 +15,7 @@ use Joomla\CMS\MVC\Model\ListModel;
 use Joomla\Database\DatabaseQuery;
 use Joomla\Database\ParameterType;
 use Joomla\Utilities\ArrayHelper;
+use Sermonspeaker\Component\Sermonspeaker\Administrator\Helper\SermonspeakerHelper;
 
 defined('_JEXEC') or die();
 
@@ -383,28 +384,7 @@ class SermonsModel extends Listmodel
 		$items = parent::getItems();
 
 		// Load scriptures in a second query to avoid an expensive GROUP BY
-		if ($items)
-		{
-			$db    = $this->getDatabase();
-			$ids   = array_map('intval', array_column($items, 'id'));
-			$query = $db->getQuery(true)
-				->select('*')
-				->from($db->quoteName('#__sermon_scriptures'))
-				->whereIn($db->quoteName('sermon_id'), $ids)
-				->order($db->quoteName('ordering') . ' ASC');
-
-			$bySermon = [];
-
-			foreach ($db->setQuery($query)->loadObjectList() as $row)
-			{
-				$bySermon[$row->sermon_id][] = $row;
-			}
-
-			foreach ($items as $item)
-			{
-				$item->scripture = $bySermon[$item->id] ?? [];
-			}
-		}
+		SermonspeakerHelper::attachScriptures($items, $this->getDatabase());
 
 		return $items;
 	}

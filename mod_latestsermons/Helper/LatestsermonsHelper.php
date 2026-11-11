@@ -15,6 +15,7 @@ use Joomla\Database\DatabaseAwareInterface;
 use Joomla\Database\DatabaseAwareTrait;
 use Joomla\Registry\Registry;
 use Joomla\Utilities\ArrayHelper;
+use Sermonspeaker\Component\Sermonspeaker\Administrator\Helper\SermonspeakerHelper;
 
 defined('_JEXEC') or die();
 
@@ -185,25 +186,7 @@ class LatestsermonsHelper implements DatabaseAwareInterface
 			$lang->load('com_sermonspeaker')
 			|| $lang->load('com_sermonspeaker', JPATH_BASE . '/components/com_sermonspeaker');
 
-			$db    = $this->getDatabase();
-			$ids   = array_map('intval', array_column($items, 'id'));
-			$query = $db->getQuery(true)
-				->select('*')
-				->from($db->quoteName('#__sermon_scriptures'))
-				->whereIn($db->quoteName('sermon_id'), $ids)
-				->order($db->quoteName('ordering') . ' ASC');
-
-			$bySermon = [];
-
-			foreach ($db->setQuery($query)->loadObjectList() as $row)
-			{
-				$bySermon[$row->sermon_id][] = $row;
-			}
-
-			foreach ($items as $item)
-			{
-				$item->scripture = $bySermon[$item->id] ?? [];
-			}
+			SermonspeakerHelper::attachScriptures($items, $this->getDatabase());
 		}
 
 		return $items;
