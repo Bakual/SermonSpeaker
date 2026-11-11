@@ -85,13 +85,13 @@ $listDirn  = $this->escape($this->state->get('list.direction'));
 						<a onclick="if (window.parent) window.parent.<?php echo $this->escape($function); ?>('<?php echo $item->id; ?>', '<?php echo $this->escape(addslashes($item->title)); ?>', '<?php echo $this->escape($item->catid); ?>', '<?php echo $this->escape(RouteHelper::getSermonRoute($item->id)); ?>');">
 							<?php echo $this->escape($item->title); ?></a>
 					</td>
-					<td class="small hidden-phone">
+					<td class="small d-none d-sm-table-cell">
 						<?php echo $this->escape($item->category_title); ?>
 					</td>
 					<td class="small">
 						<?php echo LayoutHelper::render('joomla.content.language', $item); ?>
 					</td>
-					<td class="nowrap small hidden-phone">
+					<td class="nowrap small d-none d-sm-table-cell">
 						<?php echo (int) $item->id; ?>
 					</td>
 				</tr>
