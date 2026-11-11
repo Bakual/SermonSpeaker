@@ -56,20 +56,6 @@ class LatestsermonsHelper implements DatabaseAwareInterface
 		$query->join('LEFT', '#__sermon_series AS c ON c.id = a.series_id');
 		$query->where('a.state = 1');
 
-		if ($params->get('show_scripture'))
-		{
-			// Load component language file for bible books
-			$lang = $app->getLanguage();
-			$lang->load('com_sermonspeaker')
-			|| $lang->load('com_sermonspeaker', JPATH_BASE . '/components/com_sermonspeaker');
-
-			// Join over the scriptures
-			$query->select('GROUP_CONCAT(script.book,"|",script.cap1,"|",script.vers1,"|",script.cap2,"|",script.vers2,"|",script.text '
-				. 'ORDER BY script.ordering ASC SEPARATOR "!") AS scripture');
-			$query->join('LEFT', '#__sermon_scriptures AS script ON script.sermon_id = a.id');
-			$query->group('a.id');
-		}
-
 		// Define null and now dates
 		$nullDate = $db->quote($db->getNullDate());
 		$nowDate  = $db->quote(Factory::getDate()->toSql());
