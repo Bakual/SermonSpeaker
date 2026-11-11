@@ -594,7 +594,7 @@ class SermonspeakerHelper
 			self::getParams();
 		}
 
-		if (count((array)$scripture) != 8)
+		if (!isset($scripture->book))
 		{
 			return '';
 		}

@@ -268,7 +268,7 @@ class SermonsModel extends ListModel
 			$db    = $this->getDatabase();
 			$ids   = array_map('intval', array_column($items, 'id'));
 			$query = $db->getQuery(true)
-				->select('*')
+				->select($db->quoteName(['book', 'cap1', 'vers1', 'cap2', 'vers2', 'text', 'ordering', 'sermon_id']))
 				->from($db->quoteName('#__sermon_scriptures'))
 				->whereIn($db->quoteName('sermon_id'), $ids)
 				->order($db->quoteName('ordering') . ' ASC');
