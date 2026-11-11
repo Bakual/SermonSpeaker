@@ -428,7 +428,7 @@ class SermonsModel extends ListModel
 			{
 				$query->where('sermons.id = ' . (int) substr($search, 3));
 			}
-			if (stripos($search, 'file:') === 0)
+			elseif (stripos($search, 'file:') === 0)
 			{
 				$search = $db->quote('%' . $db->escape(substr($search, 5), true) . '%');
 				$query->where('(sermons.audiofile LIKE ' . $search . ' OR sermons.videofile LIKE ' . $search . ')');
