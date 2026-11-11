@@ -468,7 +468,7 @@ class SermonsModel extends ListModel
 			// Sortierschlüssel der ersten (niedrigsten) Stelle: Buch, Kapitel, Vers
 			$query->order(
 				'(SELECT MIN(script.book * 1000000 + script.cap1 * 1000 + script.vers1) '
-				. 'FROM ' . $db->quoteName('#__sermon_scriptures', 'script')
+				. 'FROM ' . $db->quoteName('#__sermon_scriptures', 'script') . ' '
 				. 'WHERE script.sermon_id = sermons.id) ' . $dir
 			);
 		}
