@@ -111,7 +111,7 @@ class SerieTable extends Table implements VersionableTableInterface, TaggableTab
 		}
 
 		// Check the publish down date is not earlier than publish up.
-		if ($this->publish_down > $this->getDbo()->getNullDate() && $this->publish_down < $this->publish_up)
+		if (!is_null($this->publish_up) && !is_null($this->publish_down) && $this->publish_down < $this->publish_up)
 		{
 			// Swap the dates.
 			$temp               = $this->publish_up;
