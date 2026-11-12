@@ -52,7 +52,7 @@ class SerieTable extends Table implements VersionableTableInterface, TaggableTab
 	/**
 	 * Constructor
 	 *
-	 * @param   DatabaseInterface  $db  Database connector object
+	 * @param DatabaseInterface $db Database connector object
 	 *
 	 * @since ?
 	 */
@@ -98,22 +98,16 @@ class SerieTable extends Table implements VersionableTableInterface, TaggableTab
 			$this->alias = Factory::getDate()->format('Y-m-d-H-i-s');
 		}
 
-		// Set modified to null date if not set
-		if (!$this->modified)
-		{
-			$this->modified = $this->getDbo()->getNullDate();
-		}
-
 		// Set publish_up to null date if not set
 		if (!$this->publish_up)
 		{
-			$this->publish_up = $this->getDbo()->getNullDate();
+			$this->publish_up = null;
 		}
 
 		// Set publish_down to null date if not set
 		if (!$this->publish_down)
 		{
-			$this->publish_down = $this->getDbo()->getNullDate();
+			$this->publish_down = null;
 		}
 
 		// Check the publish down date is not earlier than publish up.
@@ -163,8 +157,8 @@ class SerieTable extends Table implements VersionableTableInterface, TaggableTab
 	 * method only binds properties that are publicly accessible and optionally
 	 * takes an array of properties to ignore when binding.
 	 *
-	 * @param   array|object  $src     An associative array or object to bind to the Table instance.
-	 * @param   array|string  $ignore  An optional array or space separated list of properties to ignore while binding.
+	 * @param array|object $src    An associative array or object to bind to the Table instance.
+	 * @param array|string $ignore An optional array or space separated list of properties to ignore while binding.
 	 *
 	 * @return  boolean  True on success.
 	 *
@@ -176,7 +170,7 @@ class SerieTable extends Table implements VersionableTableInterface, TaggableTab
 	{
 		if (isset($src['metadata']) && is_array($src['metadata']))
 		{
-			$registry          = new Registry($src['metadata']);
+			$registry        = new Registry($src['metadata']);
 			$src['metadata'] = (string) $registry;
 		}
 
@@ -190,7 +184,7 @@ class SerieTable extends Table implements VersionableTableInterface, TaggableTab
 	 * values. If no primary key value is set a new row will be inserted into the database with the properties from the
 	 * Table instance.
 	 *
-	 * @param   boolean  $updateNulls  True to update fields even if they are null.
+	 * @param boolean $updateNulls True to update fields even if they are null.
 	 *
 	 * @return bool True on success.
 	 *
@@ -199,24 +193,44 @@ class SerieTable extends Table implements VersionableTableInterface, TaggableTab
 	 */
 	public function store($updateNulls = false)
 	{
-		$date = Factory::getDate();
+		$date = Factory::getDate()->toSql();
 		$user = Factory::getApplication()->getIdentity();
+
+		// Set created date if not set.
+		if (!(int) $this->created)
+		{
+			$this->created = $date;
+		}
 
 		if ($this->id)
 		{
-			$this->modified    = $date->toSql();
+			// Existing item
+			$this->modified    = $date;
 			$this->modified_by = $user->id;
-		}
-		else
-		{
-			if (!(int) ($this->created))
-			{
-				$this->created = $date->toSql();
-			}
 
 			if (empty($this->created_by))
 			{
+				$this->created_by = 0;
+			}
+		}
+		else
+		{
+			// Field created_by can be set by the user, so we don't touch it if it's set.
+			if (empty($this->created_by))
+			{
 				$this->created_by = $user->id;
+			}
+
+			// Set modified to created date if not set
+			if (!(int) $this->modified)
+			{
+				$this->modified = $this->created;
+			}
+
+			// Set modified_by to created_by user if not set
+			if (empty($this->modified_by))
+			{
+				$this->modified_by = $this->created_by;
 			}
 		}
 

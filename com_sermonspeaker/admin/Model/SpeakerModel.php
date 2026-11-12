@@ -432,7 +432,7 @@ class SpeakerModel extends AdminModel
 
 		if ($table->state == 1 && intval($table->publish_down) == 0)
 		{
-			$table->publish_down = $this->getDbo()->getNullDate();
+			$table->publish_down = null;
 		}
 
 		// Increment the content version number.
