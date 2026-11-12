@@ -38,6 +38,7 @@
 		<folder>Plugin</folder>
 		<folder>Service</folder>
 		<folder>tmpl</folder>
+		<folder>Trait</folder>
 		<folder>View</folder>
 	</files>
 	<media destination="com_sermonspeaker" folder="media">

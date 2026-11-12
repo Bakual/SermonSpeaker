@@ -15,6 +15,7 @@ use Joomla\CMS\MVC\Model\ListModel;
 use Joomla\Database\ParameterType;
 use Joomla\Database\QueryInterface;
 use Joomla\Utilities\ArrayHelper;
+use Sermonspeaker\Component\Sermonspeaker\Site\Trait\CategoryTreeTrait;
 
 defined('_JEXEC') or die();
 
@@ -25,40 +26,7 @@ defined('_JEXEC') or die();
  */
 class SeriesModel extends ListModel
 {
-	/**
-	 * @var object
-	 *
-	 * @since ?
-	 */
-	private $item;
-
-	/**
-	 * @var
-	 *
-	 * @since ?
-	 */
-	private $children;
-
-	/**
-	 * @var
-	 *
-	 * @since ?
-	 */
-	private $parent;
-
-	/**
-	 * @var
-	 *
-	 * @since ?
-	 */
-	private $leftsibling;
-
-	/**
-	 * @var
-	 *
-	 * @since ?
-	 */
-	private $rightsibling;
+	use CategoryTreeTrait;
 
 	/**
 	 * Constructor
@@ -86,6 +54,16 @@ class SeriesModel extends ListModel
 		}
 
 		parent::__construct($config);
+	}
+
+	/**
+	 * Method to get the category context, used by the trait
+	 *
+	 * @return string
+	 */
+	protected function getCategoryContext(): string
+	{
+		return 'com_sermonspeaker.series';
 	}
 
 	/**
@@ -135,148 +113,6 @@ class SeriesModel extends ListModel
 		$count = $db->loadResult();
 
 		return ($count > 0);
-	}
-
-	/**
-	 * Get the parent category
-	 *
-	 * @return  mixed  An array of categories or false if an error occurs
-	 *
-	 * @since ?
-	 */
-	public function getParent()
-	{
-		if (!is_object($this->item))
-		{
-			$this->getCategory();
-		}
-
-		return $this->parent;
-	}
-
-	/**
-	 * Method to get category data for the current category
-	 *
-	 * @return  object
-	 *
-	 * @since ?
-	 */
-	public function getCategory()
-	{
-		if (!is_object($this->item))
-		{
-			if (isset($this->state->params))
-			{
-				/** @var \Joomla\Registry\Registry $params */
-				$params                = $this->state->params;
-				$options               = array();
-				$options['countItems'] = $params->get('show_cat_num_items', 1) || !$params->get('show_empty_categories', 0);
-			}
-			else
-			{
-				$options['countItems'] = 0;
-			}
-
-			$options['table'] = '#__sermon_series';
-
-			$categories = Categories::getInstance('com_sermonspeaker.series', $options);
-			$this->item = $categories->get($this->getState('category.id', 'root'));
-
-			// Compute selected asset permissions.
-			if (is_object($this->item))
-			{
-				$user  = Factory::getApplication()->getIdentity();
-				$asset = 'com_sermonspeaker.series.category.' . $this->item->id;
-
-				// Check general create permission.
-				if ($user->authorise('core.create', $asset))
-				{
-					$this->item->getParams()->set('access-create', true);
-				}
-
-				// TODO: Why aren't we lazy loading the children and siblings?
-				$this->children = $this->item->getChildren();
-				$this->parent   = false;
-
-				if ($this->item->getParent())
-				{
-					$this->parent = $this->item->getParent();
-				}
-
-				$this->rightsibling = $this->item->getSibling();
-				$this->leftsibling  = $this->item->getSibling(false);
-			}
-			else
-			{
-				$this->children = false;
-				$this->parent   = false;
-			}
-		}
-
-		return $this->item;
-	}
-
-	/**
-	 * Get the left sibling (adjacent) categories
-	 *
-	 * @return  mixed  An array of categories or false if an error occurs
-	 *
-	 * @since ?
-	 */
-	public function &getLeftSibling()
-	{
-		if (!is_object($this->item))
-		{
-			$this->getCategory();
-		}
-
-		return $this->leftsibling;
-	}
-
-	/**
-	 * Get the right sibling (adjacent) categories
-	 *
-	 * @return  mixed  An array of categories or false if an error occurs
-	 *
-	 * @since ?
-	 */
-	public function &getRightSibling()
-	{
-		if (!is_object($this->item))
-		{
-			$this->getCategory();
-		}
-
-		return $this->rightsibling;
-	}
-
-	/**
-	 * Get the child categories
-	 *
-	 * @return  mixed  An array of categories or false if an error occurs
-	 *
-	 * @since ?
-	 */
-	public function &getChildren()
-	{
-		if (!is_object($this->item))
-		{
-			$this->getCategory();
-		}
-
-		// Order subcategories
-		if ($this->children)
-		{
-			/** @var \Joomla\Registry\Registry $params */
-			$params = $this->getState()->get('params');
-
-			if ($params->get('orderby_pri') == 'alpha' || $params->get('orderby_pri') == 'ralpha')
-			{
-				$this->children = ArrayHelper::sortObjects($this->children, 'title', ($params->get('orderby_pri') == 'alpha') ? 1 : -1);
-			}
-		}
-
-		return $this->children;
 	}
 
 	/**
