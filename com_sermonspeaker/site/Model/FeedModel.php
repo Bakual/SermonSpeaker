@@ -149,7 +149,10 @@ class FeedModel extends BaseDatabaseModel
 		$items = $db->loadObjectList();
 
 		// Load scriptures in a second query to avoid an expensive GROUP BY
-		SermonspeakerHelper::attachScriptures($items, $this->getDatabase());
+		if ($items)
+		{
+			SermonspeakerHelper::attachScriptures($items, $this->getDatabase());
+		}
 
 		return $items;
 	}
