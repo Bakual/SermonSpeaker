@@ -142,11 +142,11 @@ class LatestsermonsHelper implements DatabaseAwareInterface
 		{
 			if ($filetype == 2)
 			{
-				$query->where('a.videofile != ""');
+				$query->where('a.videofile != ' . $db->quote(''));
 			}
 			else
 			{
-				$query->where('a.audiofile != ""');
+				$query->where('a.audiofile != ' . $db->quote(''));
 			}
 		}
 

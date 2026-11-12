@@ -200,11 +200,11 @@ class SermonModel extends ItemModel
 
 		if ($filetype == 'video')
 		{
-			$query->where('a.videofile != ""');
+			$query->where('a.videofile != ' . $db->quote(''));
 		}
 		elseif ($filetype == 'audio')
 		{
-			$query->where('a.audiofile != ""');
+			$query->where('a.audiofile != ' . $db->quote(''));
 		}
 
 		$query->order('a.sermon_date DESC');

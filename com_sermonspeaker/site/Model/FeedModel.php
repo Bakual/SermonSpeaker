@@ -127,11 +127,11 @@ class FeedModel extends BaseDatabaseModel
 
 		if ($feedtype == 'video')
 		{
-			$query->where('sermons.videofile != ""');
+			$query->where('sermons.videofile != ' . $db->quote(''));
 		}
 		elseif ($feedtype == 'audio')
 		{
-			$query->where('sermons.audiofile != ""');
+			$query->where('sermons.audiofile != ' . $db->quote(''));
 		}
 
 		// Filter by state

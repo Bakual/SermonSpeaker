@@ -372,11 +372,11 @@ class SermonsModel extends ListModel
 
 		if ($filetype == 'video')
 		{
-			$query->where('sermons.videofile != ""');
+			$query->where('sermons.videofile != ' . $db->quote(''));
 		}
 		elseif ($filetype == 'audio')
 		{
-			$query->where('sermons.audiofile != ""');
+			$query->where('sermons.audiofile != ' . $db->quote(''));
 		}
 
 		// Filter by state
