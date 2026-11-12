@@ -163,7 +163,7 @@ class SermonspeakerComponent extends MVCComponent implements
 	 */
 	public function getContexts(): array
 	{
-		Factory::getLanguage()->load('com_sermonspeaker', JPATH_ADMINISTRATOR);
+		Factory::getApplication()->getLanguage()->load('com_sermonspeaker', JPATH_ADMINISTRATOR);
 
 		return [
 			'com_sermonspeaker.sermon'     => Text::_('COM_SERMONSPEAKER'),

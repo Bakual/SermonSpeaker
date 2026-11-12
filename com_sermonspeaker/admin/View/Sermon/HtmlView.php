@@ -212,7 +212,7 @@ class HtmlView extends BaseHtmlView
 		{
 			$changelang = "function changelang(language) {
 					if(!language || language == '*'){
-						language = '" . Factory::getLanguage()->getTag() . "'
+						language = '" . Factory::getApplication()->getLanguage()->getTag() . "'
 					}";
 
 			if (!$this->s3audio)
@@ -227,7 +227,7 @@ class HtmlView extends BaseHtmlView
 
 			$changelang        .= "document.id('addfilepathlang').innerHTML = language+'/';
 				}";
-			$lang              = ($this->item->language && $this->item->language == '*') ? $this->item->language : Factory::getLanguage()->getTag();
+			$lang              = ($this->item->language && $this->item->language == '*') ? $this->item->language : Factory::getApplication()->getLanguage()->getTag();
 			$this->append_lang = $lang . '/';
 		}
 		else

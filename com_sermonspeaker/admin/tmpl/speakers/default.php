@@ -165,7 +165,7 @@ $assoc = Associations::isEnabled();
 													echo ' &#187; ';
 												endif;
 											endif;
-											if (Factory::getLanguage()->isRtl())
+											if (Factory::getApplication()->getLanguage()->isRtl())
 											{
 												if ($canEditCat || $canEditOwnCat) :
 													echo '<a href="' . $CurrentCatUrl . '" title="' . $EditCatTxt . '">';

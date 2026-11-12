@@ -217,7 +217,7 @@ class HtmlView extends BaseHtmlView
 
 			if (!$awsAccessKey || !$awsSecretKey || !$region || !$bucket)
 			{
-				Factory::getApplication()->enqueueMessage(Text::_('COM_SERMONSPEAKER_S3_MISSING_PARAMETER'), 'warning');
+				$app->enqueueMessage(Text::_('COM_SERMONSPEAKER_S3_MISSING_PARAMETER'), 'warning');
 			}
 
 			$prefix       = ($region === 'us-east-1') ? 's3' : 's3-' . $region;
@@ -227,7 +227,7 @@ class HtmlView extends BaseHtmlView
 		// Calculate destination path to show
 		if ($this->params->get('append_path_user', 0))
 		{
-			$this->append_user = Factory::getApplication()->getIdentity()->id . '/';
+			$this->append_user = $app->getIdentity()->id . '/';
 		}
 		else
 		{
@@ -268,7 +268,7 @@ class HtmlView extends BaseHtmlView
 		{
 			$changelang = "function changelang(language) {
 					if(!language || language == '*'){
-						language = '" . Factory::getLanguage()->getTag() . "'
+						language = '" . $app->getLanguage()->getTag() . "'
 					}";
 
 			if (!$this->s3audio)
@@ -283,7 +283,7 @@ class HtmlView extends BaseHtmlView
 
 			$changelang        .= "document.id('addfilepathlang').innerHTML = language+'/';
 				}";
-			$lang              = ($this->item->language && $this->item->language == '*') ? $this->item->language : Factory::getLanguage()->getTag();
+			$lang              = ($this->item->language && $this->item->language == '*') ? $this->item->language : $app->getLanguage()->getTag();
 			$this->append_lang = $lang . '/';
 		}
 		else

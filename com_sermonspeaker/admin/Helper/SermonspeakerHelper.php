@@ -68,7 +68,7 @@ class SermonspeakerHelper
 	 */
 	public static function getContexts()
 	{
-		$lang = Factory::getLanguage();
+		$lang = Factory::getApplication()->getLanguage();
 		$lang->load('com_sermonspeaker', JPATH_ADMINISTRATOR)
 		|| $lang->load('com_sermonspeaker', JPATH_ADMINISTRATOR . '/components/com_sermonspeaker');
 

@@ -177,7 +177,7 @@ class CustomfilelistField extends FilelistField
 		HTMLHelper::_('script', 'com_sermonspeaker/plupload/plupload.full.min.js', array('relative' => true));
 
 		// Load localisation
-		$tag  = str_replace('-', '_', Factory::getLanguage()->getTag());
+		$tag  = str_replace('-', '_', Factory::getApplication()->getLanguage()->getTag());
 		$path = '/media/com_sermonspeaker/js/plupload/i18n/';
 		$file = $tag . '.js';
 
@@ -327,7 +327,7 @@ class CustomfilelistField extends FilelistField
 			{
 				// In case of an edit, we check for the language set, otherwise we use the active language.
 				$language = $this->form->getValue('language');
-				$jlang    = Factory::getLanguage();
+				$jlang    = Factory::getApplication()->getLanguage();
 				$append   = ($language && ($language != '*')) ? '/' . $language : '/' . $jlang->getTag();
 
 				// Check if directory exists, fallback to base directory if not.
@@ -401,7 +401,7 @@ class CustomfilelistField extends FilelistField
 			{
 				// In case of an edit, we check for the language set, otherwise we use the active language.
 				$language = $this->form->getValue('language');
-				$jlang    = Factory::getLanguage();
+				$jlang    = Factory::getApplication()->getLanguage();
 				$folder   .= ($language && ($language != '*')) ? $language : $jlang->getTag();
 				$folder   .= '/';
 			}
