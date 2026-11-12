@@ -579,12 +579,15 @@ class SermonsModel extends Listmodel
 
 		if (is_numeric($tagId))
 		{
-			$query->where($db->quoteName('tagmap.tag_id') . ' = ' . (int) $tagId)
-				->join(
-					'LEFT', $db->quoteName('#__contentitem_tag_map', 'tagmap')
-					. ' ON ' . $db->quoteName('tagmap.content_item_id') . ' = ' . $db->quoteName('sermons.id')
-					. ' AND ' . $db->quoteName('tagmap.type_alias') . ' = ' . $db->quote('com_sermonspeaker.sermon')
-				);
+			$tagId = (int) $tagId;
+
+			$query->join(
+				'INNER', $db->quoteName('#__contentitem_tag_map', 'tagmap')
+				. ' ON ' . $db->quoteName('tagmap.content_item_id') . ' = ' . $db->quoteName('sermons.id')
+				. ' AND ' . $db->quoteName('tagmap.type_alias') . ' = ' . $db->quote('com_sermonspeaker.sermon')
+			)
+				->where($db->quoteName('tagmap.tag_id') . ' = :tagId')
+				->bind(':tagId', $tagId, ParameterType::INTEGER);
 		}
 
 		// Add the list ordering clause.

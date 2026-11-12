@@ -12,6 +12,7 @@ namespace Sermonspeaker\Component\Sermonspeaker\Site\Model;
 use Joomla\CMS\Categories\Categories;
 use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Model\ListModel;
+use Joomla\Database\ParameterType;
 use Joomla\Database\QueryInterface;
 use Joomla\Utilities\ArrayHelper;
 
@@ -368,12 +369,15 @@ class SpeakersModel extends ListModel
 
 		if (is_numeric($tagId))
 		{
-			$query->where($db->quoteName('tagmap.tag_id') . ' = ' . (int) $tagId)
-				->join(
-					'LEFT', $db->quoteName('#__contentitem_tag_map', 'tagmap')
-					. ' ON ' . $db->quoteName('tagmap.content_item_id') . ' = ' . $db->quoteName('speakers.id')
-					. ' AND ' . $db->quoteName('tagmap.type_alias') . ' = ' . $db->quote('com_sermonspeaker.speaker')
-				);
+			$tagId = (int) $tagId;
+
+			$query->join(
+				'INNER', $db->quoteName('#__contentitem_tag_map', 'tagmap')
+				. ' ON ' . $db->quoteName('tagmap.content_item_id') . ' = ' . $db->quoteName('speakers.id')
+				. ' AND ' . $db->quoteName('tagmap.type_alias') . ' = ' . $db->quote('com_sermonspeaker.speaker')
+			)
+				->where($db->quoteName('tagmap.tag_id') . ' = :tagId')
+				->bind(':tagId', $tagId, ParameterType::INTEGER);
 		}
 
 		// Add the list ordering clause.
