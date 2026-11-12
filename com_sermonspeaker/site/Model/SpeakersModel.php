@@ -9,12 +9,10 @@
 
 namespace Sermonspeaker\Component\Sermonspeaker\Site\Model;
 
-use Joomla\CMS\Categories\Categories;
 use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Model\ListModel;
 use Joomla\Database\ParameterType;
 use Joomla\Database\QueryInterface;
-use Joomla\Utilities\ArrayHelper;
 use Sermonspeaker\Component\Sermonspeaker\Site\Trait\CategoryTreeTrait;
 
 defined('_JEXEC') or die();

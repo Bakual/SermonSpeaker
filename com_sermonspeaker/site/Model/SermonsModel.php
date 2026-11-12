@@ -9,12 +9,9 @@
 
 namespace Sermonspeaker\Component\Sermonspeaker\Site\Model;
 
-use Joomla\CMS\Categories\Categories;
 use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Model\ListModel;
-use Joomla\Database\DatabaseQuery;
 use Joomla\Database\ParameterType;
-use Joomla\Utilities\ArrayHelper;
 use Sermonspeaker\Component\Sermonspeaker\Administrator\Helper\SermonspeakerHelper;
 use Sermonspeaker\Component\Sermonspeaker\Site\Trait\CategoryTreeTrait;
 
@@ -32,7 +29,7 @@ class SermonsModel extends ListModel
 	/**
 	 * Constructor
 	 *
-	 * @param   array  $config  An optional associative array of configuration settings
+	 * @param array $config An optional associative array of configuration settings
 	 *
 	 * @since ?
 	 */
@@ -454,8 +451,8 @@ class SermonsModel extends ListModel
 	 *
 	 * Note. Calling getState in this method will result in recursion.
 	 *
-	 * @param   string  $ordering   Ordering column
-	 * @param   string  $direction  'ASC' or 'DESC'
+	 * @param string $ordering  Ordering column
+	 * @param string $direction 'ASC' or 'DESC'
 	 *
 	 * @return  void
 	 *
@@ -470,7 +467,7 @@ class SermonsModel extends ListModel
 
 		// Category filter
 		$MenuCatid = $params->get('sermons_catid', $params->get('catid', 0));
-		$id = $jinput->get('catid', $MenuCatid, 'int');
+		$id        = $jinput->get('catid', $MenuCatid, 'int');
 		$this->setState('category.id', $id);
 
 		// Filetype filter
@@ -541,7 +538,7 @@ class SermonsModel extends ListModel
 	 * different modules that might need different sets of data or different
 	 * ordering requirements.
 	 *
-	 * @param   string  $id  An identifier string to generate the store id.
+	 * @param string $id An identifier string to generate the store id.
 	 *
 	 * @return  string  A store id.
 	 *
