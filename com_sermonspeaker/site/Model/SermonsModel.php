@@ -426,7 +426,7 @@ class SermonsModel extends Listmodel
 		$query->from('`#__sermon_sermons` AS sermons');
 
 		// Join over Speaker
-		$query->select('speakers.title AS speaker_title, speakers.pic AS pic, speakers.state as speaker_state, speakers.bio, speakers.website');
+		$query->select('speakers.title AS speaker_title, speakers.pic AS pic, speakers.state as speaker_state');
 		$query->select('speakers.catid AS speaker_catid, speakers.language AS speaker_language');
 		$query->select('speakers.id AS speaker_id, speakers.intro, speakers.bio, speakers.website');
 		$query->select('CASE WHEN CHAR_LENGTH(speakers.alias) THEN CONCAT_WS(\':\', speakers.id, speakers.alias) ELSE speakers.id END as speaker_slug');
@@ -712,6 +712,12 @@ class SermonsModel extends Listmodel
 		$id .= ':' . $this->getState('speaker.id');
 		$id .= ':' . $this->getState('serie.id');
 		$id .= ':' . $this->getState('category.id');
+		$id .= ':' . $this->getState('date.year');
+		$id .= ':' . $this->getState('date.month');
+		$id .= ':' . $this->getState('filter.book');
+		$id .= ':' . $this->getState('filter.filetype');
+		$id .= ':' . $this->getState('filter.subcategories');
+		$id .= ':' . $this->getState('filter.tag');
 
 		return parent::getStoreId($id);
 	}
