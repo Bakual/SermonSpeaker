@@ -210,7 +210,7 @@ class Icon
 			$tooltip = Text::_('JPUBLISHED');
 		}
 
-		if ($item->created != Factory::getDbo()->getNullDate())
+		if ($item->created)
 		{
 			$date    = HTMLHelper::_('date', $item->created);
 			$tooltip .= '<br>';
@@ -226,7 +226,7 @@ class Icon
 		$icon = $item->state ? 'edit' : 'eye-slash';
 
 		if (strtotime($item->publish_up) > strtotime(Factory::getDate())
-			|| ((strtotime($item->publish_down) < strtotime(Factory::getDate())) && $item->publish_down != Factory::getDbo()->getNullDate())
+			|| ((strtotime($item->publish_down) < strtotime(Factory::getDate())) && !is_null($item->publish_down))
 		)
 		{
 			$icon = 'eye-slash';
