@@ -62,7 +62,7 @@ class SeriesModel extends ListModel
 	/**
 	 * Constructor
 	 *
-	 * @param   array  $config  An optional associative array of configuration settings
+	 * @param array $config An optional associative array of configuration settings
 	 *
 	 * @since ?
 	 */
@@ -90,7 +90,7 @@ class SeriesModel extends ListModel
 	/**
 	 * Method to get speakers for a series
 	 *
-	 * @param   int  $series  Id of series
+	 * @param int $series Id of series
 	 *
 	 * @return  array
 	 *
@@ -126,11 +126,11 @@ class SeriesModel extends ListModel
 	{
 		$db    = $this->getDatabase();
 		$query = $db->getQuery(true);
-		$query->select('COUNT(1)');
+		$query->select('1');
 		$query->from('`#__contentitem_tag_map`');
 		$query->where("`type_alias` = 'com_sermonspeaker.serie'");
 
-		$db->setQuery($query);
+		$db->setQuery($query, 0, 1);
 		$count = $db->loadResult();
 
 		return ($count > 0);
@@ -426,8 +426,8 @@ class SeriesModel extends ListModel
 	 *
 	 * Note. Calling getState in this method will result in recursion
 	 *
-	 * @param   string  $ordering   Ordering column
-	 * @param   string  $direction  'ASC' or 'DESC'
+	 * @param string $ordering  Ordering column
+	 * @param string $direction 'ASC' or 'DESC'
 	 *
 	 * @return  void
 	 *
@@ -442,7 +442,7 @@ class SeriesModel extends ListModel
 
 		// Category filter (priority on request so subcategories work)
 		$MenuCatid = $params->get('series_catid', $params->get('catid', 0));
-		$id = $jinput->get('catid', $MenuCatid, 'int');
+		$id        = $jinput->get('catid', $MenuCatid, 'int');
 		$this->setState('category.id', $id);
 
 		// Include Subcategories or not

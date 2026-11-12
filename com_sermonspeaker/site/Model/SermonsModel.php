@@ -221,11 +221,11 @@ class SermonsModel extends Listmodel
 	{
 		$db    = $this->getDatabase();
 		$query = $db->getQuery(true);
-		$query->select('COUNT(1)');
+		$query->select('1');
 		$query->from('`#__contentitem_tag_map`');
 		$query->where("`type_alias` = 'com_sermonspeaker.sermon'");
 
-		$db->setQuery($query);
+		$db->setQuery($query, 0, 1);
 		$count = $db->loadResult();
 
 		return ($count > 0);
