@@ -182,11 +182,12 @@ class SeriesModel extends ListModel
 		// Filter by start and end dates.
 		if ((!$user->authorise('core.edit.state', 'com_sermonspeaker')) && (!$user->authorise('core.edit', 'com_sermonspeaker')))
 		{
-			$nullDate = $db->quote($db->getNullDate());
-			$nowDate  = $db->quote(Factory::getDate()->toSql());
+			$nowDate = Factory::getDate()->toSql();
 
-			$query->where('(series.publish_up = ' . $nullDate . ' OR series.publish_up <= ' . $nowDate . ')');
-			$query->where('(series.publish_down = ' . $nullDate . ' OR series.publish_down >= ' . $nowDate . ')');
+			$query->where('(series.publish_up = IS NULL OR series.publish_up <= :publishUp)');
+			$query->where('(series.publish_down = IS NULL OR series.publish_down >= :publishDown)');
+			$query->bind(':publishUp', $nowDate);
+			$query->bind(':publishDown', $nowDate);
 		}
 
 		// Filter by search in title

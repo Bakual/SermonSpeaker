@@ -166,11 +166,12 @@ class SpeakersModel extends ListModel
 		// Filter by start and end dates.
 		if ((!$user->authorise('core.edit.state', 'com_sermonspeaker')) && (!$user->authorise('core.edit', 'com_sermonspeaker')))
 		{
-			$nullDate = $db->quote($db->getNullDate());
-			$nowDate  = $db->quote(Factory::getDate()->toSql());
+			$nowDate = Factory::getDate()->toSql();
 
-			$query->where('(speakers.publish_up = ' . $nullDate . ' OR speakers.publish_up <= ' . $nowDate . ')');
-			$query->where('(speakers.publish_down = ' . $nullDate . ' OR speakers.publish_down >= ' . $nowDate . ')');
+			$query->where('(speakers.publish_up = IS NULL OR speakers.publish_up <= :publishUp)');
+			$query->where('(speakers.publish_down = IS NULL OR speakers.publish_down >= :publishDown)');
+			$query->bind(':publishUp', $nowDate);
+			$query->bind(':publishDown', $nowDate);
 		}
 
 		// Filter by search in title
