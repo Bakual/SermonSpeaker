@@ -264,7 +264,7 @@ class SeriesModel extends ListModel
 		}
 
 		// Order subcategories
-		if (sizeof($this->children))
+		if ($this->children)
 		{
 			/** @var \Joomla\Registry\Registry $params */
 			$params = $this->getState()->get('params');

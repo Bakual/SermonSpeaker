@@ -357,7 +357,7 @@ class SermonsModel extends Listmodel
 		}
 
 		// Order subcategories
-		if (sizeof($this->children))
+		if ($this->children)
 		{
 			/** @var \Joomla\Registry\Registry $params */
 			$params = $this->getState()->get('params');
