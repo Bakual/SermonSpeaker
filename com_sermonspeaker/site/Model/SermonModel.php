@@ -77,11 +77,12 @@ class SermonModel extends ItemModel
 			// Filter by start and end dates.
 			if ((!$user->authorise('core.edit.state', 'com_sermonspeaker')) && (!$user->authorise('core.edit', 'com_sermonspeaker')))
 			{
-				$nullDate = $db->quote($db->getNullDate());
-				$nowDate  = $db->quote(Factory::getDate()->toSql());
+				$nowDate = Factory::getDate()->toSql();
 
-				$query->where('(sermon.publish_up = ' . $nullDate . ' OR sermon.publish_up <= ' . $nowDate . ')');
-				$query->where('(sermon.publish_down = ' . $nullDate . ' OR sermon.publish_down >= ' . $nowDate . ')');
+				$query->where('(sermon.publish_up = IS NULL OR sermon.publish_up <= :publishUp)');
+				$query->where('(sermon.publish_down = IS NULL OR sermon.publish_down >= :publishDown)');
+				$query->bind(':publishUp', $nowDate);
+				$query->bind(':publishDown', $nowDate);
 			}
 
 			// Join on category table.
