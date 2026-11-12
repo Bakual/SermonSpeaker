@@ -31,7 +31,7 @@ HTMLHelper::_('behavior.core');
 HTMLHelper::_('bootstrap.tooltip', '.hasTooltip');
 
 // Load plugin language file
-$jlang = Factory::getLanguage();
+$jlang = Factory::getApplication()->getLanguage();
 $jlang->load('plg_editors-xtd_sermonspeaker', JPATH_PLUGINS . '/editors-xtd/sermonspeaker');
 
 $function  = Factory::getApplication()->input->get('function', 'jSelectSermon');

@@ -38,7 +38,7 @@ class DisplayController extends BaseController
 	/**
 	 * Constructor.
 	 *
-	 * @param   array  $config  An optional associative array of configuration settings.
+	 * @param array $config     An optional associative array of configuration settings.
 	 *                          Recognized key values include 'name', 'default_task', 'model_path', and
 	 *                          'view_path' (this list is not meant to be comprehensive).
 	 *
@@ -63,8 +63,8 @@ class DisplayController extends BaseController
 	/**
 	 * View method.
 	 *
-	 * @param   boolean  $cachable   If true, the view output will be cached
-	 * @param   array    $urlparams  An array of safe url parameters and their variable types, for valid values see
+	 * @param boolean $cachable      If true, the view output will be cached
+	 * @param array   $urlparams     An array of safe url parameters and their variable types, for valid values see
 	 *                               {@link InputFilter::clean()}.
 	 *
 	 * @return  false|BaseController  A JControllerLegacy object to support chaining.
@@ -111,8 +111,8 @@ class DisplayController extends BaseController
 			'catid'            => 'INT',
 			'limit'            => 'INT',
 			'limitstart'       => 'INT',
-            'filter'           => 'STRING',
-            'filter-search'    => 'STRING',
+			'filter'           => 'STRING',
+			'filter-search'    => 'STRING',
 			'filter_order'     => 'CMD',
 			'filter_order_Dir' => 'CMD',
 			'lang'             => 'CMD',
@@ -156,8 +156,7 @@ class DisplayController extends BaseController
 		}
 
 		$db       = Factory::getDbo();
-		$nullDate = $db->quote($db->getNullDate());
-		$nowDate  = $db->quote(Factory::getDate()->toSql());
+		$nowDate  = Factory::getDate()->toSql();
 		$query    = $db->getQuery(true);
 
 		if ($this->input->get('type', 'audio', 'word') == 'video')
@@ -172,8 +171,11 @@ class DisplayController extends BaseController
 		$query->from('#__sermon_sermons');
 		$query->where($db->quoteName('id') . ' = ' . $id);
 		$query->where($db->quoteName('state') . ' = 1');
-		$query->where('(publish_up = ' . $nullDate . ' OR publish_up <= ' . $nowDate . ')');
-		$query->where('(publish_down = ' . $nullDate . ' OR publish_down >= ' . $nowDate . ')');
+
+		$query->where('(publish_up = IS NULL OR publish_up <= :publishUp)');
+		$query->where('(publish_down = IS NULL OR publish_down >= :publishDown)');
+		$query->bind(':publishUp', $nowDate);
+		$query->bind(':publishDown', $nowDate);
 
 		$db->setQuery($query);
 		$result = $db->loadResult() or die ("<html><body onload=\"alert('I haven\'t found a valid file');

@@ -166,7 +166,7 @@ class FileController extends BaseController
 
 				if (!$lang || $lang == '*')
 				{
-					$jlang = Factory::getLanguage();
+					$jlang = Factory::getApplication()->getLanguage();
 					$lang  = $jlang->getTag();
 				}
 
@@ -237,7 +237,7 @@ class FileController extends BaseController
 
 				if (!$lang || $lang == '*')
 				{
-					$jlang = Factory::getLanguage();
+					$jlang = Factory::getApplication()->getLanguage();
 					$lang  = $jlang->getTag();
 				}
 

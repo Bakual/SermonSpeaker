@@ -92,7 +92,7 @@ $this->getDocument()->addScriptDeclaration("window.onload = function() {
 							<thead>
 							<tr>
 								<?php if (in_array('speaker:num', $this->col_sermon)) : ?>
-									<th class="num hidden-phone hidden-tablet">
+									<th class="num d-none d-md-table-cell">
 										<?php if (!$limit) :
 											echo HTMLHelper::_('grid.sort', 'COM_SERMONSPEAKER_SERMONNUMBER', 'sermon_number', $listDirnSermons, $listOrderSermons);
 										else :
@@ -108,7 +108,7 @@ $this->getDocument()->addScriptDeclaration("window.onload = function() {
 									endif; ?>
 								</th>
 								<?php if (in_array('speaker:category', $this->col_sermon)) : ?>
-									<th class="ss-col ss-category hidden-phone">
+									<th class="ss-col ss-category d-none d-sm-table-cell">
 										<?php if (!$limit) :
 											echo HTMLHelper::_('grid.sort', 'JCATEGORY', 'category_title', $listDirnSermons, $listOrderSermons);
 										else :
@@ -118,7 +118,7 @@ $this->getDocument()->addScriptDeclaration("window.onload = function() {
 								<?php endif;
 
 								if (in_array('speaker:scripture', $this->col_sermon)) : ?>
-									<th class="ss-col ss-scripture hidden-phone">
+									<th class="ss-col ss-scripture d-none d-sm-table-cell">
 										<?php if (!$limit) :
 											echo HTMLHelper::_('grid.sort', 'COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL', 'book', $listDirnSermons, $listOrderSermons);
 										else :
@@ -138,7 +138,7 @@ $this->getDocument()->addScriptDeclaration("window.onload = function() {
 								<?php endif;
 
 								if (in_array('speaker:length', $this->col_sermon)) : ?>
-									<th class="ss-col ss-length hidden-phone hidden-tablet">
+									<th class="ss-col ss-length d-none d-md-table-cell">
 										<?php if (!$limit) :
 											echo HTMLHelper::_('grid.sort', 'COM_SERMONSPEAKER_FIELD_LENGTH_LABEL', 'sermon_time', $listDirnSermons, $listOrderSermons);
 										else :
@@ -148,7 +148,7 @@ $this->getDocument()->addScriptDeclaration("window.onload = function() {
 								<?php endif;
 
 								if (in_array('speaker:series', $this->col_sermon)) : ?>
-									<th class="ss-col ss-series hidden-phone">
+									<th class="ss-col ss-series d-none d-sm-table-cell">
 										<?php if (!$limit) :
 											echo HTMLHelper::_('grid.sort', 'COM_SERMONSPEAKER_SERIES', 'series_title', $listDirnSermons, $listOrderSermons);
 										else :
@@ -158,7 +158,7 @@ $this->getDocument()->addScriptDeclaration("window.onload = function() {
 								<?php endif;
 
 								if (in_array('speaker:addfile', $this->col_sermon)) : ?>
-									<th class="ss-col ss-addfile hidden-phone">
+									<th class="ss-col ss-addfile d-none d-sm-table-cell">
 										<?php if (!$limit) :
 											echo HTMLHelper::_('grid.sort', 'COM_SERMONSPEAKER_ADDFILE', 'addfileDesc', $listDirnSermons, $listOrderSermons);
 										else :
@@ -168,7 +168,7 @@ $this->getDocument()->addScriptDeclaration("window.onload = function() {
 								<?php endif;
 
 								if (in_array('speaker:hits', $this->col_sermon)) : ?>
-									<th class="ss-col ss-hits hidden-phone hidden-tablet">
+									<th class="ss-col ss-hits d-none d-md-table-cell">
 										<?php if (!$limit) :
 											echo HTMLHelper::_('grid.sort', 'JGLOBAL_HITS', 'hits', $listDirnSermons, $listOrderSermons);
 										else :
@@ -179,7 +179,7 @@ $this->getDocument()->addScriptDeclaration("window.onload = function() {
 
 								if (in_array('speaker:download', $this->col_sermon)) :
 									$prio = $this->params->get('fileprio'); ?>
-									<th class="ss-col ss-dl hidden-phone"></th>
+									<th class="ss-col ss-dl d-none d-sm-table-cell"></th>
 								<?php endif; ?>
 							</tr>
 							</thead>
@@ -189,7 +189,7 @@ $this->getDocument()->addScriptDeclaration("window.onload = function() {
 								<tr id="sermon<?php echo $i; ?>"
 									class="<?php echo ($item->state) ? '' : 'system-unpublished '; ?>cat-list-row<?php echo $i % 2; ?> sermon-item">
 									<?php if (in_array('speaker:num', $this->col_sermon)) : ?>
-										<td class="num hidden-phone hidden-tablet">
+										<td class="num d-none d-md-table-cell">
 											<?php echo $item->sermon_number; ?>
 										</td>
 									<?php endif; ?>
@@ -204,13 +204,13 @@ $this->getDocument()->addScriptDeclaration("window.onload = function() {
 										<?php endif; ?>
 									</td>
 									<?php if (in_array('speaker:category', $this->col_sermon)) : ?>
-										<td class="ss-col ss-category hidden-phone">
+										<td class="ss-col ss-category d-none d-sm-table-cell">
 											<a href="<?php echo Route::_(Sermonspeaker\Component\Sermonspeaker\Site\Helper\RouteHelper::getSermonsRoute($item->catslug, $item->language)); ?>"><?php echo $item->category_title; ?></a>
 										</td>
 									<?php endif;
 
 									if (in_array('speaker:scripture', $this->col_sermon)) : ?>
-										<td class="ss-col ss-scripture hidden-phone">
+										<td class="ss-col ss-scripture d-none d-sm-table-cell">
 											<?php $scriptures = SermonspeakerHelper::insertScriptures($item->scripture, '<br />');
 											echo HTMLHelper::_('content.prepare', $scriptures); ?>
 										</td>
@@ -218,20 +218,20 @@ $this->getDocument()->addScriptDeclaration("window.onload = function() {
 
 									if (in_array('speaker:date', $this->col_sermon)) : ?>
 										<td class="ss-col ss-date">
-											<?php if ($item->sermon_date != '0000-00-00 00:00:00'):
+											<?php if ($item->sermon_date):
 												echo HTMLHelper::date($item->sermon_date, Text::_($this->params->get('date_format')));
 											endif; ?>
 										</td>
 									<?php endif;
 
 									if (in_array('speaker:length', $this->col_sermon)) : ?>
-										<td class="ss-col ss-length hidden-phone hidden-tablet">
+										<td class="ss-col ss-length d-none d-md-table-cell">
 											<?php echo SermonspeakerHelper::insertTime($item->sermon_time); ?>
 										</td>
 									<?php endif;
 
 									if (in_array('speaker:series', $this->col_sermon)) : ?>
-										<td class="ss-col ss-series hidden-phone">
+										<td class="ss-col ss-series d-none d-sm-table-cell">
 											<?php if ($item->series_state): ?>
 												<a href="<?php echo Route::_(Sermonspeaker\Component\Sermonspeaker\Site\Helper\RouteHelper::getSerieRoute($item->series_slug, $item->series_catid, $item->series_language)); ?>"><?php echo $item->series_title; ?></a>
 											<?php else:
@@ -241,13 +241,13 @@ $this->getDocument()->addScriptDeclaration("window.onload = function() {
 									<?php endif;
 
 									if (in_array('speaker:addfile', $this->col_sermon)) : ?>
-										<td class="ss-col ss-addfile hidden-phone">
+										<td class="ss-col ss-addfile d-none d-sm-table-cell">
 											<?php echo SermonspeakerHelper::insertAddfile($item->addfile, $item->addfileDesc); ?>
 										</td>
 									<?php endif;
 
 									if (in_array('speaker:hits', $this->col_sermon)) : ?>
-										<td class="ss-col ss-hits hidden-phone hidden-tablet">
+										<td class="ss-col ss-hits d-none d-md-table-cell">
 											<?php echo $item->hits; ?>
 										</td>
 									<?php endif;
@@ -255,7 +255,7 @@ $this->getDocument()->addScriptDeclaration("window.onload = function() {
 									if (in_array('speaker:download', $this->col_sermon)) :
 										$type = ($item->videofile and ($prio or !$item->audiofile)) ? 'video' : 'audio';
 										$filesize = $type . 'filesize'; ?>
-										<td class="ss-col ss-dl hidden-phone">
+										<td class="ss-col ss-dl d-none d-sm-table-cell">
 											<?php echo SermonspeakerHelper::insertdlbutton($item->slug, $type, 3, $item->$filesize); ?>
 										</td>
 									<?php endif; ?>
@@ -304,37 +304,37 @@ $this->getDocument()->addScriptDeclaration("window.onload = function() {
 						<thead>
 						<tr>
 							<?php if ($this->av) : ?>
-								<th class="ss-av hidden-phone hidden-tablet"></th>
+								<th class="ss-av d-none d-md-table-cell"></th>
 							<?php endif; ?>
 							<th class="ss-title">
 								<?php echo HTMLHelper::_('grid.sort', 'JGLOBAL_TITLE', 'title', $listDirnSeries, $listOrderSeries, 'series'); ?>
 							</th>
 							<?php if (in_array('speaker:category', $this->col_serie)) : ?>
-								<th class="ss-col ss-category hidden-phone">
+								<th class="ss-col ss-category d-none d-sm-table-cell">
 									<?php echo HTMLHelper::_('grid.sort', 'JCATEGORY', 'category_title', $listDirnSeries, $listOrderSeries, 'series'); ?>
 								</th>
 							<?php endif;
 
 							if (in_array('speaker:description', $this->col_serie)): ?>
-								<th class="ss-col ss-series_desc hidden-phone">
+								<th class="ss-col ss-series_desc d-none d-sm-table-cell">
 									<?php echo HTMLHelper::_('grid.sort', 'JGLOBAL_DESCRIPTION', 'series_description', $listDirnSeries, $listOrderSeries, 'series'); ?>
 								</th>
 							<?php endif;
 
 							if (in_array('speaker:speaker', $this->col_serie)): ?>
-								<th class="ss-col ss-speakers hidden-phone">
+								<th class="ss-col ss-speakers d-none d-sm-table-cell">
 									<?php echo Text::_('COM_SERMONSPEAKER_SPEAKERS'); ?>
 								</th>
 							<?php endif;
 
 							if (in_array('speaker:hits', $this->col_serie)) : ?>
-								<th class="ss-col ss-hits hidden-phone hidden-tablet">
+								<th class="ss-col ss-hits d-none d-md-table-cell">
 									<?php echo HTMLHelper::_('grid.sort', 'JGLOBAL_HITS', 'hits', $listDirnSeries, $listOrderSeries, 'series'); ?>
 								</th>
 							<?php endif;
 
 							if (in_array('speaker:download', $this->col_serie)) : ?>
-								<th class="ss-col ss-dl hidden-phone"></th>
+								<th class="ss-col ss-dl d-none d-sm-table-cell"></th>
 							<?php endif; ?>
 						</tr>
 						</thead>
@@ -345,13 +345,13 @@ $this->getDocument()->addScriptDeclaration("window.onload = function() {
 								<?php
 								if ($this->av) :
 									if ($item->avatar) : ?>
-										<td class="ss-col ss-av hidden-phone hidden-tablet"><a
+										<td class="ss-col ss-av d-none d-md-table-cell"><a
 													href="<?php echo Route::_(Sermonspeaker\Component\Sermonspeaker\Site\Helper\RouteHelper::getSerieRoute($item->slug, $item->catid, $item->language)); ?>"><img
 														class="img-thumbnail "
 														src="<?php echo SermonspeakerHelper::makeLink($item->avatar); ?>"></a>
 										</td>
 									<?php else : ?>
-										<td class="ss-col ss-av hidden-phone hidden-tablet"></td>
+										<td class="ss-col ss-av d-none d-md-table-cell"></td>
 									<?php endif;
 								endif; ?>
 								<td class="ss-title">
@@ -365,25 +365,25 @@ $this->getDocument()->addScriptDeclaration("window.onload = function() {
 									<?php endif; ?>
 								</td>
 								<?php if (in_array('speaker:category', $this->col_serie)) : ?>
-									<td class="ss-col ss-category hidden-phone">
+									<td class="ss-col ss-category d-none d-sm-table-cell">
 										<a href="<?php echo Route::_(Sermonspeaker\Component\Sermonspeaker\Site\Helper\RouteHelper::getSeriesRoute($item->catslug, $item->language)); ?>"><?php echo $item->category_title; ?></a>
 									</td>
 								<?php endif;
 
 								if (in_array('speaker:description', $this->col_serie)): ?>
-									<td class="ss-col ss-series_desc hidden-phone"><?php echo HTMLHelper::_('content.prepare', $item->series_description); ?></td>
+									<td class="ss-col ss-series_desc d-none d-sm-table-cell"><?php echo HTMLHelper::_('content.prepare', $item->series_description); ?></td>
 								<?php endif;
 
 								if (in_array('speaker:speaker', $this->col_serie)): ?>
-									<td class="ss-col ss-speakers hidden-phone"><?php echo $item->speakers; ?></td>
+									<td class="ss-col ss-speakers d-none d-sm-table-cell"><?php echo $item->speakers; ?></td>
 								<?php endif;
 
 								if (in_array('speaker:hits', $this->col_serie)) : ?>
-									<td class="ss-col ss-hits hidden-phone hidden-tablet"><?php echo $item->hits; ?></td>
+									<td class="ss-col ss-hits d-none d-md-table-cell"><?php echo $item->hits; ?></td>
 								<?php endif;
 
 								if (in_array('speaker:download', $this->col_serie)) : ?>
-									<td class="ss-col ss-dl hidden-phone"><a
+									<td class="ss-col ss-dl d-none d-sm-table-cell"><a
 												href="<?php echo Route::_('index.php?view=serie&layout=download&tmpl=component&id=' . $item->slug); ?>"
 												class="modal hasTooltip" rel="{handler:'iframe',size:{x:400,y:200}}"
 												title="::<?php echo Text::_('COM_SERMONSPEAKER_DOWNLOADSERIES_DESC'); ?>">

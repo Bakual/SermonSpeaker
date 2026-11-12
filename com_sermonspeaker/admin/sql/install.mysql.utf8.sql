@@ -13,21 +13,21 @@ CREATE TABLE `#__sermon_speakers`
     `bio`              MEDIUMTEXT,
     `pic`              TEXT,
     `state`            TINYINT(3)       NOT NULL DEFAULT '0',
-    `publish_up`       datetime         NOT NULL DEFAULT '0000-00-00 00:00:00',
-    `publish_down`     datetime         NOT NULL DEFAULT '0000-00-00 00:00:00',
+    `publish_up`       datetime         NULL DEFAULT NULL,
+    `publish_down`     datetime         NULL DEFAULT NULL,
     `home`             TINYINT(3)       NOT NULL DEFAULT '0',
     `ordering`         INT(11)          NOT NULL DEFAULT '0',
     `hits`             INT(10)          NOT NULL DEFAULT '0',
-    `created`          DATETIME         NOT NULL DEFAULT '0000-00-00 00:00:00',
+    `created`          DATETIME         NOT NULL,
     `created_by`       INT(10)          NOT NULL DEFAULT '0',
-    `modified`         DATETIME         NOT NULL DEFAULT '0000-00-00 00:00:00',
+    `modified`         DATETIME         NOT NULL,
     `modified_by`      INT(10)          NOT NULL DEFAULT '0',
     `catid`            INT(10)          NOT NULL DEFAULT '0',
     `metakey`          TEXT             NULL,
     `metadesc`         TEXT             NULL,
     `metadata`         TEXT             NULL,
     `checked_out`      INT(11)          NOT NULL DEFAULT '0',
-    `checked_out_time` DATETIME         NOT NULL DEFAULT '0000-00-00 00:00:00',
+    `checked_out_time` DATETIME         NULL DEFAULT NULL,
     `language`         CHAR(7)          NOT NULL DEFAULT '*',
     `version`          int(10) unsigned NOT NULL DEFAULT '1',
     PRIMARY KEY (`id`),
@@ -37,9 +37,10 @@ CREATE TABLE `#__sermon_speakers`
     KEY `idx_createdby` (`created_by`),
     KEY `idx_language` (`language`),
     KEY `idx_alias` (`alias`(191))
-) ENGINE = MyISAM
+) ENGINE = InnoDB
   AUTO_INCREMENT = 0
-  DEFAULT CHARSET = utf8;
+  DEFAULT CHARSET = utf8mb4
+  DEFAULT COLLATE = utf8mb4_unicode_ci;
 
 CREATE TABLE `#__sermon_series`
 (
@@ -48,14 +49,14 @@ CREATE TABLE `#__sermon_series`
     `alias`              VARCHAR(255)     NOT NULL,
     `series_description` MEDIUMTEXT       NULL,
     `state`              TINYINT(3)       NOT NULL DEFAULT '0',
-    `publish_up`         datetime         NOT NULL DEFAULT '0000-00-00 00:00:00',
-    `publish_down`       datetime         NOT NULL DEFAULT '0000-00-00 00:00:00',
+    `publish_up`         datetime         NULL DEFAULT NULL,
+    `publish_down`       datetime         NULL DEFAULT NULL,
     `home`               TINYINT(3)       NOT NULL DEFAULT '0',
     `ordering`           INT(11)          NOT NULL DEFAULT '0',
     `hits`               INT(10)          NOT NULL DEFAULT '0',
-    `created`            DATETIME         NULL     DEFAULT '0000-00-00 00:00:00',
+    `created`            DATETIME         NOT NULL,
     `created_by`         INT(10)          NOT NULL DEFAULT '0',
-    `modified`           DATETIME         NOT NULL DEFAULT '0000-00-00 00:00:00',
+    `modified`           DATETIME         NOT NULL,
     `modified_by`        INT(10)          NOT NULL DEFAULT '0',
     `avatar`             TEXT,
     `catid`              INT(10)          NOT NULL DEFAULT '0',
@@ -63,8 +64,8 @@ CREATE TABLE `#__sermon_series`
     `metadesc`           TEXT             NULL,
     `metadata`           TEXT             NULL,
     `checked_out`        INT(11)          NOT NULL DEFAULT '0',
-    `checked_out_time`   DATETIME         NOT NULL DEFAULT '0000-00-00 00:00:00',
-    `zip_created`        DATETIME         NOT NULL DEFAULT '0000-00-00 00:00:00',
+    `checked_out_time`   DATETIME         NULL DEFAULT NULL,
+    `zip_created`        DATETIME         NULL DEFAULT NULL,
     `zip_content`        TEXT             NULL,
     `zip_progress`       INT(11)          NOT NULL DEFAULT '0',
     `zip_state`          TINYINT(3)       NOT NULL DEFAULT '0',
@@ -79,9 +80,10 @@ CREATE TABLE `#__sermon_series`
     KEY `idx_createdby` (`created_by`),
     KEY `idx_language` (`language`),
     KEY `idx_alias` (`alias`(191))
-) ENGINE = MyISAM
+) ENGINE = InnoDB
   AUTO_INCREMENT = 0
-  DEFAULT CHARSET = utf8;
+  DEFAULT CHARSET = utf8mb4
+  DEFAULT COLLATE = utf8mb4_unicode_ci;
 
 CREATE TABLE `#__sermon_sermons`
 (
@@ -96,18 +98,18 @@ CREATE TABLE `#__sermon_sermons`
     `title`            VARCHAR(255)     NOT NULL,
     `alias`            VARCHAR(255)     NOT NULL,
     `sermon_number`    INT(10)          NOT NULL DEFAULT '0',
-    `sermon_date`      DATETIME         NOT NULL DEFAULT '0000-00-00 00:00:00',
+    `sermon_date`      DATETIME         NULL DEFAULT NULL,
     `sermon_time`      TIME             NOT NULL DEFAULT '00:00:00',
     `notes`            MEDIUMTEXT       NULL,
     `maintext`         MEDIUMTEXT       NULL,
     `state`            TINYINT(3)       NOT NULL DEFAULT '0',
-    `publish_up`       datetime         NOT NULL DEFAULT '0000-00-00 00:00:00',
-    `publish_down`     datetime         NOT NULL DEFAULT '0000-00-00 00:00:00',
+    `publish_up`       datetime         NULL DEFAULT NULL,
+    `publish_down`     datetime         NULL DEFAULT NULL,
     `ordering`         INT(11)          NOT NULL DEFAULT '0',
     `hits`             INT(10)          NOT NULL DEFAULT '0',
-    `created`          DATETIME         NOT NULL DEFAULT '0000-00-00 00:00:00',
+    `created`          DATETIME         NOT NULL,
     `created_by`       INT(10)          NOT NULL DEFAULT '0',
-    `modified`         DATETIME         NOT NULL DEFAULT '0000-00-00 00:00:00',
+    `modified`         DATETIME         NOT NULL,
     `modified_by`      INT(10)          NOT NULL DEFAULT '0',
     `podcast`          TINYINT(1)       NOT NULL DEFAULT '0',
     `addfile`          TEXT             NULL,
@@ -117,7 +119,7 @@ CREATE TABLE `#__sermon_sermons`
     `metadesc`         TEXT             NULL,
     `metadata`         TEXT             NULL,
     `checked_out`      INT(11)          NOT NULL DEFAULT '0',
-    `checked_out_time` DATETIME         NOT NULL DEFAULT '0000-00-00 00:00:00',
+    `checked_out_time` DATETIME         NULL DEFAULT NULL,
     `language`         CHAR(7)          NOT NULL DEFAULT '*',
     `version`          int(10) unsigned NOT NULL DEFAULT '1',
     PRIMARY KEY (`id`),
@@ -129,12 +131,14 @@ CREATE TABLE `#__sermon_sermons`
     KEY `idx_alias` (`alias`(191)),
     KEY `idx_speaker_id` (`speaker_id`),
     KEY `idx_series_id` (`series_id`)
-) ENGINE = MyISAM
+) ENGINE = InnoDB
   AUTO_INCREMENT = 0
-  DEFAULT CHARSET = utf8;
+  DEFAULT CHARSET = utf8mb4
+  DEFAULT COLLATE = utf8mb4_unicode_ci;
 
 CREATE TABLE `#__sermon_scriptures`
 (
+    `id`        INT(10)    NOT NULL AUTO_INCREMENT,
     `book`      INT(3)     NOT NULL DEFAULT '0',
     `cap1`      INT(3)     NOT NULL DEFAULT '0',
     `vers1`     INT(4)     NOT NULL DEFAULT '0',
@@ -144,9 +148,10 @@ CREATE TABLE `#__sermon_scriptures`
     `ordering`  INT(11)    NOT NULL DEFAULT '0',
     `sermon_id` INT(10)    NOT NULL DEFAULT '0',
     KEY `idx_sermon_id` (`sermon_id`)
-) ENGINE = MyISAM
+) ENGINE = InnoDB
   AUTO_INCREMENT = 0
-  DEFAULT CHARSET = utf8;
+  DEFAULT CHARSET = utf8mb4
+  DEFAULT COLLATE = utf8mb4_unicode_ci;
 
 INSERT INTO `#__sermon_speakers`
 (`id`, `title`, `alias`, `website`, `intro`, `bio`, `pic`, `state`, `ordering`, `created_by`, `created`, `home`)

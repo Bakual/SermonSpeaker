@@ -930,7 +930,7 @@ class SermonModel extends AdminModel
 
 		if ($table->state == 1 && intval($table->publish_down) == 0)
 		{
-			$table->publish_down = $this->getDbo()->getNullDate();
+			$table->publish_down = null;
 		}
 
 		// Increment the content version number.
@@ -982,6 +982,19 @@ class SermonModel extends AdminModel
 
 				$form->load($addform, false);
 			}
+		}
+
+		$params = ComponentHelper::getParams('com_sermonspeaker');
+
+		// TODO: Delete with SermonSpeaker 8.0
+		if ($params->get('path_mode_audio'))
+		{
+			$form->setFieldAttribute('audiofile', 'type', 'Customfilelist');
+		}
+
+		if ($params->get('path_mode_video'))
+		{
+			$form->setFieldAttribute('videofile', 'type', 'Customfilelist');
 		}
 
 		parent::preprocessForm($form, $data, $group);

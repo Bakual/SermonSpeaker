@@ -115,7 +115,7 @@ $player     = SermonspeakerHelper::getPlayer($this->items);
 										</dd>
 									<?php endif;
 
-									if (in_array('serie:date', $this->columns) and ($item->sermon_date != '0000-00-00 00:00:00')) : ?>
+									if (in_array('serie:date', $this->columns) and $item->sermon_date) : ?>
 										<dd>
 											<div class="create">
 												<i class="icon-calendar"></i>

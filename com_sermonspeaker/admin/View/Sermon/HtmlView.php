@@ -146,89 +146,6 @@ class HtmlView extends BaseHtmlView
 		$document->addScriptDeclaration($toggle);
 		$document->getWebAssetManager()->useScript('com_sermonspeaker.id3-lookup');
 
-		// Google Picker
-		if ($this->params->get('googlepicker'))
-		{
-			$picker = "
-				var developerKey = '" . $this->params->get('gapi_developerKey') . "';
-				var clientId = '" . $this->params->get('gapi_clientId') . "';
-				var scope = [
-					'https://www.googleapis.com/auth/drive',
-					'https://www.googleapis.com/auth/photos',
-					'https://www.googleapis.com/auth/youtube'
-				];
-				var pickerApiLoaded = false;
-				var oauthToken;
-				function onApiLoad() {
-					gapi.load('auth', {'callback': onAuthApiLoad});
-					gapi.load('picker', {'callback': onPickerApiLoad});
-				}
-				function onAuthApiLoad() {
-					window.gapi.auth.authorize(
-						{
-							'client_id': clientId,
-							'scope': scope,
-							'immediate': false
-						},
-						handleAuthResult
-					);
-				}
-				function onPickerApiLoad() {
-					pickerApiLoaded = true;
-				}
-				function handleAuthResult(authResult) {
-					if (authResult && !authResult.error) {
-						oauthToken = authResult.access_token;
-					}
-				}
-
-				function createVideoPicker() {
-					if (pickerApiLoaded && oauthToken) {
-						var picker = new google.picker.PickerBuilder().
-							addView(google.picker.ViewId.DOCS_VIDEOS).
-							setOAuthToken(oauthToken).
-							setDeveloperKey(developerKey).
-							setCallback(pickerCallbackVideo).
-							build();
-						picker.setVisible(true);
-					}
-				}
-				function createAddfilePicker() {
-					if (pickerApiLoaded && oauthToken) {
-						var picker = new google.picker.PickerBuilder().
-							addView(google.picker.ViewId.DOCS).
-							setOAuthToken(oauthToken).
-							setDeveloperKey(developerKey).
-							setCallback(pickerCallbackAddfile).
-							build();
-						picker.setVisible(true);
-					}
-				}
-				function pickerCallbackVideo(data) {
-					if (data[google.picker.Response.ACTION] == google.picker.Action.PICKED) {
-						var doc = data[google.picker.Response.DOCUMENTS][0];
-						document.getElementById('jform_videofile_text').value = doc[google.picker.Document.URL];
-					}
-				}
-				function pickerCallbackAddfile(data) {
-					if (data[google.picker.Response.ACTION] == google.picker.Action.PICKED) {
-						var doc = data[google.picker.Response.DOCUMENTS][0];
-						var value = doc[google.picker.Document.URL];
-						if (data.docs[0].iconUrl){
-							if (data.docs[0].url.indexOf('?') == -1){
-								value += '?icon=' + data.docs[0].iconUrl;
-							} else {
-								value += '&icon=' + data.docs[0].iconUrl;
-							}
-						}
-						document.getElementById('jform_addfile_text').value = value;
-					}
-				}
-			";
-			$document->addScriptDeclaration($picker);
-			$document->addScript('https://apis.google.com/js/api.js?onload=onApiLoad');
-		}
-
 		// Destination folder based on mode
 		$this->s3audio = ($this->params->get('path_mode_audio', 0) == 2) ? 1 : 0;
 		$this->s3video = ($this->params->get('path_mode_video', 0) == 2) ? 1 : 0;
@@ -264,7 +181,7 @@ class HtmlView extends BaseHtmlView
 		if ($this->params->get('append_path', 0))
 		{
 			$changedate = "function changedate(datestring) {
-					if(datestring && datestring != '0000-00-00 00:00:00'){
+					if(datestring && datestring IS NOT NULL){
 						year = datestring.substr(0,4);
 						month = datestring.substr(5,2);
 					} else {
@@ -280,7 +197,7 @@ class HtmlView extends BaseHtmlView
 					document.id('addfilepathdate').innerHTML = year+'/'+month+'/';
 				}";
 
-			$time              = ($this->item->sermon_date && $this->item->sermon_date != '0000-00-00 00:00:00') ? strtotime($this->item->sermon_date) : time();
+			$time              = ($this->item->sermon_date) ? strtotime($this->item->sermon_date) : time();
 			$this->append_date = date('Y', $time) . '/' . date('m', $time) . '/';
 		}
 		else
@@ -295,7 +212,7 @@ class HtmlView extends BaseHtmlView
 		{
 			$changelang = "function changelang(language) {
 					if(!language || language == '*'){
-						language = '" . Factory::getLanguage()->getTag() . "'
+						language = '" . Factory::getApplication()->getLanguage()->getTag() . "'
 					}";
 
 			if (!$this->s3audio)
@@ -310,7 +227,7 @@ class HtmlView extends BaseHtmlView
 
 			$changelang        .= "document.id('addfilepathlang').innerHTML = language+'/';
 				}";
-			$lang              = ($this->item->language && $this->item->language == '*') ? $this->item->language : Factory::getLanguage()->getTag();
+			$lang              = ($this->item->language && $this->item->language == '*') ? $this->item->language : Factory::getApplication()->getLanguage()->getTag();
 			$this->append_lang = $lang . '/';
 		}
 		else

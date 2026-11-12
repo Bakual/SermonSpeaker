@@ -28,24 +28,18 @@ class Id3Helper
 	 * Read ID3 tags from file
 	 *
 	 * @param   string       $file    Path to the file
-	 * @param   object|null  $params  Params, deprecated
 	 *
 	 * @return array|bool
 	 *
 	 * @since ?
 	 */
-	public static function getID3(string $file, object $params = null): bool|array
+	public static function getID3(string $file): bool|array
 	{
-		if (str_starts_with($file, 'http://vimeo.com') || str_starts_with($file, 'http://player.vimeo.com'))
-		{
-			return self::getVimeo($file);
-		}
-
 		// Load Composer Autoloader
 		require_once(JPATH_ADMINISTRATOR . '/components/com_sermonspeaker/vendor/autoload.php');
 
 		$getID3 = new getID3;
-		$path   = JPATH_SITE . $file;
+		$path   = JPATH_SITE . '/' . $file;
 		$path   = str_replace('//', '/', $path);
 
 		if (!file_exists($path))
@@ -171,6 +165,8 @@ class Id3Helper
 				else
 				{
 					$id3['not_found']['series'] = $FileInfo['comments']['album'][0];
+					$id3['series_id']    = '';
+					$id3['series_title'] = '';
 				}
 			}
 			else
@@ -196,6 +192,8 @@ class Id3Helper
 				else
 				{
 					$id3['not_found']['speakers'] = $FileInfo['comments']['artist'][0];
+					$id3['speaker_id']    = '';
+					$id3['speaker_title'] = '';
 				}
 			}
 			else
@@ -218,44 +216,5 @@ class Id3Helper
 		$id3['filesize'] = filesize($path);
 
 		return $id3;
-	}
-
-	/**
-	 * Get Vimeo data
-	 *
-	 * @param   string  $file  Path to the file
-	 *
-	 * @return  array|bool  Array of Vimeo information
-	 *
-	 * @since ?
-	 */
-	private static function getVimeo(string $file): bool|array
-	{
-		$id  = trim(strrchr($file, '/'), '/ ');
-		$url = 'http://vimeo.com/api/v2/video/' . $id . '.xml';
-		$xml = simplexml_load_file($url);
-		$video = $xml->video;
-
-		if (is_object($video))
-		{
-			$duration             = (string) $video->duration;
-			$hrs                  = (int) ($duration / 3600);
-			$min                  = (int) (($duration - $hrs * 3600) / 60);
-			$sec                  = ((int) $video->duration - $hrs * 3600 - $min * 60);
-			$id3['sermon_time']   = $hrs . ':' . sprintf('%02d', $min) . ':' . sprintf('%02d', $sec);
-			$id3['title']         = (string) $video->title;
-			$id3['alias']         = ApplicationHelper::stringURLSafe($id3['title']);
-			$id3['sermon_date']   = (string) $video->upload_date;
-			$id3['notes']         = (string) $video->description;
-			$id3['pic']           = $video->thumbnail_medium;
-			$id3['sermon_number'] = '';
-			$id3['scripture']     = '';
-			$id3['series_id']     = '';
-			$id3['speaker_id']    = '';
-
-			return $id3;
-		}
-
-		return false;
 	}
 }

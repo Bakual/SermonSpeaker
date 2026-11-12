@@ -118,7 +118,7 @@ $player     = SermonspeakerHelper::getPlayer($this->item, $config);
 			<?php endif; ?>
 		</div>
 		<div class="ss-fields-container">
-			<?php if (in_array('sermon:date', $this->columns) and ($this->item->sermon_date != '0000-00-00 00:00:00')) : ?>
+			<?php if (in_array('sermon:date', $this->columns) and $this->item->sermon_date) : ?>
 				<div class="ss-field field-calendar"
 					 title="<?php echo Text::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL'); ?>">
 					<time datetime="<?php echo HTMLHelper::_('date', $this->item->sermon_date, 'c'); ?>"

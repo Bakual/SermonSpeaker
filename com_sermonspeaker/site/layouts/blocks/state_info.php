@@ -30,6 +30,6 @@ if (!$show)
 <?php if (strtotime($item->publish_up) > strtotime(Factory::getDate())) : ?>
 	<span class="badge bg-warning text-light"><?php echo Text::_('JNOTPUBLISHEDYET'); ?></span>
 <?php endif; ?>
-<?php if ((strtotime($item->publish_down) < strtotime(Factory::getDate())) && $item->publish_down != Factory::getDbo()->getNullDate()) : ?>
+<?php if ((strtotime($item->publish_down) < strtotime(Factory::getDate())) && !is_null($item->publish_down)) : ?>
 	<span class="badge bg-warning text-light"><?php echo Text::_('JEXPIRED'); ?></span>
 <?php endif; ?>

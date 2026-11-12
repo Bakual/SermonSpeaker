@@ -165,7 +165,7 @@ $assoc = Associations::isEnabled();
 													echo ' &#187; ';
 												endif;
 											endif;
-											if (Factory::getLanguage()->isRtl())
+											if (Factory::getApplication()->getLanguage()->isRtl())
 											{
 												if ($canEditCat || $canEditOwnCat) :
 													echo '<a href="' . $CurrentCatUrl . '" title="' . $EditCatTxt . '">';
@@ -210,7 +210,7 @@ $assoc = Associations::isEnabled();
 									</div>
 								</td>
 								<?php if ($assoc) : ?>
-									<td class="hidden-phone">
+									<td class="d-none d-sm-table-cell">
 										<?php if ($item->association) : ?>
 											<?php echo HTMLHelper::_('sermonspeakeradministrator.association', $item->id, 'speaker'); ?>
 										<?php endif; ?>

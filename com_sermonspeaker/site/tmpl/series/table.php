@@ -47,35 +47,35 @@ $listDirn   = $this->escape($this->state->get('list.direction'));
 					<thead>
 					<tr>
 						<?php if ($this->av) : ?>
-							<th class="ss-av hidden-phone hidden-tablet"></th>
+							<th class="ss-av d-none d-md-table-cell"></th>
 						<?php endif; ?>
 						<th class="ss-title">
 							<?php echo HTMLHelper::_('grid.sort', 'JGLOBAL_TITLE', 'title', $listDirn, $listOrder); ?>
 						</th>
 						<?php if (in_array('series:category', $this->col_serie)) : ?>
-							<th class="ss-col ss-category hidden-phone">
+							<th class="ss-col ss-category d-none d-sm-table-cell">
 								<?php echo HTMLHelper::_('grid.sort', 'JCATEGORY', 'category_title', $listDirn, $listOrder); ?>
 							</th>
 						<?php endif;
 
 						if (in_array('series:description', $this->col_serie)) : ?>
-							<th class="ss-col ss-series_desc hidden-phone">
+							<th class="ss-col ss-series_desc d-none d-sm-table-cell">
 								<?php echo HTMLHelper::_('grid.sort', 'JGLOBAL_DESCRIPTION', 'series_description', $listDirn, $listOrder); ?>
 							</th>
 						<?php endif;
 
 						if (in_array('series:speaker', $this->col_serie)) : ?>
-							<th class="ss-col ss-speakers hidden-phone hidden-tablet"><?php echo Text::_('COM_SERMONSPEAKER_SPEAKERS'); ?></th>
+							<th class="ss-col ss-speakers d-none d-md-table-cell"><?php echo Text::_('COM_SERMONSPEAKER_SPEAKERS'); ?></th>
 						<?php endif;
 
 						if (in_array('series:hits', $this->col_serie)) : ?>
-							<th class="ss-col ss-hits hidden-phone hidden-tablet">
+							<th class="ss-col ss-hits d-none d-md-table-cell">
 								<?php echo HTMLHelper::_('grid.sort', 'JGLOBAL_HITS', 'hits', $listDirn, $listOrder); ?>
 							</th>
 						<?php endif;
 
 						if ($this->params->get('seriesdl') && in_array('series:download', $this->col_serie)) : ?>
-							<th class="ss-col ss-dl hidden-phone"></th>
+							<th class="ss-col ss-dl d-none d-sm-table-cell"></th>
 						<?php endif; ?>
 					</tr>
 					</thead>
@@ -86,13 +86,13 @@ $listDirn   = $this->escape($this->state->get('list.direction'));
 							<?php
 							if ($this->av) :
 								if ($item->avatar) : ?>
-									<td class="ss-col ss-av hidden-phone hidden-tablet"><a
+									<td class="ss-col ss-av d-none d-md-table-cell"><a
 												href="<?php echo Route::_(Sermonspeaker\Component\Sermonspeaker\Site\Helper\RouteHelper::getSerieRoute($item->slug, $item->catid, $item->language)); ?>"><img
 													class="img-thumbnail "
 													src="<?php echo SermonspeakerHelper::makeLink($item->avatar); ?>"></a>
 									</td>
 								<?php else : ?>
-									<td class="ss-col ss-av hidden-phone hidden-tablet"></td>
+									<td class="ss-col ss-av d-none d-md-table-cell"></td>
 								<?php endif;
 							endif; ?>
 							<th class="ss-title">
@@ -106,25 +106,25 @@ $listDirn   = $this->escape($this->state->get('list.direction'));
 								<?php endif; ?>
 							</th>
 							<?php if (in_array('series:category', $this->col_serie)) : ?>
-								<td class="ss-col ss-category hidden-phone">
+								<td class="ss-col ss-category d-none d-sm-table-cell">
 									<a href="<?php echo Route::_(Sermonspeaker\Component\Sermonspeaker\Site\Helper\RouteHelper::getSeriesRoute($item->catslug, $item->language)); ?>"><?php echo $item->category_title; ?></a>
 								</td>
 							<?php endif;
 
 							if (in_array('series:description', $this->col_serie)): ?>
-								<td class="ss-col ss-series_desc hidden-phone"><?php echo HTMLHelper::_('content.prepare', $item->series_description); ?></td>
+								<td class="ss-col ss-series_desc d-none d-sm-table-cell"><?php echo HTMLHelper::_('content.prepare', $item->series_description); ?></td>
 							<?php endif;
 
 							if (in_array('series:speaker', $this->col_serie)) : ?>
-								<td class="ss-col ss-speakers hidden-phone hidden-tablet"><?php echo $item->speakers; ?></td>
+								<td class="ss-col ss-speakers d-none d-md-table-cell"><?php echo $item->speakers; ?></td>
 							<?php endif;
 
 							if (in_array('series:hits', $this->col_serie)) : ?>
-								<td class="ss-col ss-hits hidden-phone hidden-tablet"><?php echo $item->hits; ?></td>
+								<td class="ss-col ss-hits d-none d-md-table-cell"><?php echo $item->hits; ?></td>
 							<?php endif;
 
 							if ($this->params->get('seriesdl') && ($item->zip_dl !== -1) && in_array('series:download', $this->col_serie)) : ?>
-								<td class="ss-col ss-dl hidden-phone">
+								<td class="ss-col ss-dl d-none d-sm-table-cell">
 									<?php $url = Route::_('index.php?view=serie&layout=download&tmpl=component&id=' . $item->slug); ?>
 									<?php $downloadText = Text::_('COM_SERMONSPEAKER_DOWNLOADSERIES_LABEL'); ?>
 									<?php $modalOptions = array('url' => $url, 'height' => 200, 'width' => 400, 'title' => $downloadText); ?>

@@ -11,6 +11,7 @@ namespace Sermonspeaker\Component\Sermonspeaker\Site\Model;
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Model\BaseDatabaseModel;
+use Sermonspeaker\Component\Sermonspeaker\Administrator\Helper\SermonspeakerHelper;
 
 defined('_JEXEC') or die();
 
@@ -52,12 +53,6 @@ class FeedModel extends BaseDatabaseModel
 		$query->select('sermons.metadesc, sermons.metakey');
 		$query->select('CASE WHEN CHAR_LENGTH(sermons.alias) THEN CONCAT_WS(\':\', sermons.id, sermons.alias) ELSE sermons.id END as slug');
 		$query->from('`#__sermon_sermons` AS sermons');
-
-		// Join over the scriptures.
-		$query->select('GROUP_CONCAT(script.book,"|",script.cap1,"|",script.vers1,"|",script.cap2,"|",script.vers2,"|",script.text '
-			. 'ORDER BY script.ordering ASC SEPARATOR "!") AS scripture');
-		$query->join('LEFT', '#__sermon_scriptures AS script ON script.sermon_id = sermons.id');
-		$query->group('sermons.id');
 
 		// Join over Speaker
 		$query->select('speakers.title AS speaker_title, speakers.pic AS pic');
@@ -119,24 +114,24 @@ class FeedModel extends BaseDatabaseModel
 			$query->where('sermons.speaker_id = ' . $speaker);
 		}
 
-		// Define null and now dates
-		$nullDate = $db->quote($db->getNullDate());
-		$nowDate  = $db->quote(Factory::getDate()->toSql());
-
 		// Filter by start and end dates.
-		$query->where('(sermons.publish_up = ' . $nullDate . ' OR sermons.publish_up <= ' . $nowDate . ')');
-		$query->where('(sermons.publish_down = ' . $nullDate . ' OR sermons.publish_down >= ' . $nowDate . ')');
+		$nowDate = Factory::getDate()->toSql();
+
+		$query->where('(sermons.publish_up = IS NULL OR sermons.publish_up <= :publishUp)');
+		$query->where('(sermons.publish_down = IS NULL OR sermons.publish_down >= :publishDown)');
+		$query->bind(':publishUp', $nowDate);
+		$query->bind(':publishDown', $nowDate);
 
 		// Filter by type
 		$feedtype = $jinput->get('type', 'auto');
 
 		if ($feedtype == 'video')
 		{
-			$query->where('sermons.videofile != ""');
+			$query->where('sermons.videofile != ' . $db->quote(''));
 		}
 		elseif ($feedtype == 'audio')
 		{
-			$query->where('sermons.audiofile != ""');
+			$query->where('sermons.audiofile != ' . $db->quote(''));
 		}
 
 		// Filter by state
@@ -151,6 +146,14 @@ class FeedModel extends BaseDatabaseModel
 		$feed_limit = $params->get('feed_limit', $app->get('feed_limit'));
 		$db->setQuery($query, '0', $feed_limit);
 
-		return $db->loadObjectList();
+		$items = $db->loadObjectList();
+
+		// Load scriptures in a second query to avoid an expensive GROUP BY
+		if ($items)
+		{
+			SermonspeakerHelper::attachScriptures($items, $this->getDatabase());
+		}
+
+		return $items;
 	}
 }

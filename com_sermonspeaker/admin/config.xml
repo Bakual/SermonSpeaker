@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
+	<inlinehelp button="show"/>
 	<fieldset
 		name="component"
 		label="COM_SERMONSPEAKER_FIELDSET_COMPONENT_LABEL"
@@ -342,29 +343,26 @@
 
 		<field
 			name="path_audio"
-			type="text"
+			type="mediamanagerfolder"
 			label="COM_SERMONSPEAKER_FIELD_PATH_AUDIO_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_PATH_AUDIO_DESC"
-			size="50"
-			default="images"
+			default="local-images:/"
 		/>
 
 		<field
 			name="path_video"
-			type="text"
+			type="mediamanagerfolder"
 			label="COM_SERMONSPEAKER_FIELD_PATH_VIDEO_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_PATH_VIDEO_DESC"
-			size="50"
-			default="images"
+			default="local-images:/"
 		/>
 
 		<field
 			name="path_addfile"
-			type="text"
+			type="mediamanagerfolder"
 			label="COM_SERMONSPEAKER_PARAM_PATH_ADDFILE"
 			description="COM_SERMONSPEAKER_PARAM_PATH_ADDFILE_DESC"
-			size="50"
-			default="images"
+			default="local-images:/"
 		/>
 
 		<field
@@ -416,34 +414,6 @@
 		</field>
 
 		<field
-			name="googlepicker"
-			type="radio"
-			label="COM_SERMONSPEAKER_FIELD_GOOGLEPICKER_LABEL"
-			description="COM_SERMONSPEAKER_FIELD_GOOGLEPICKER_DESC"
-			layout="joomla.form.field.radio.switcher"
-			default="0"
-		>
-			<option value="0">JNO</option>
-			<option value="1">JYES</option>
-		</field>
-
-		<field
-			name="gapi_developerKey"
-			type="text"
-			label="COM_SERMONSPEAKER_FIELD_GAPI_DEVKEY_LABEL"
-			description="COM_SERMONSPEAKER_FIELD_GAPI_DEVKEY_DESC"
-			showon="googlepicker:1"
-		/>
-
-		<field
-			name="gapi_clientId"
-			type="text"
-			label="COM_SERMONSPEAKER_FIELD_GAPI_CLIENTKEY_LABEL"
-			description="COM_SERMONSPEAKER_FIELD_GAPI_CLIENTKEY_DESC"
-			showon="googlepicker:1"
-		/>
-
-		<field
 			name="spacer1"
 			type="spacer"
 			hr="true"
@@ -463,9 +433,10 @@
 			description="COM_SERMONSPEAKER_FIELD_PATH_MODE_AUDIO_DESC"
 			default="0"
 		>
-			<option value="0">JDEFAULT</option>
+			<option value="0">COM_MEDIA_MEDIA_VIEW_DEFAULT_TITLE</option>
 			<option value="2">COM_SERMONSPEAKER_FIELD_PATH_MODE_S3</option>
 			<option value="3">COM_SERMONSPEAKER_FIELD_PATH_MODE_EXTERNAL</option>
+			<option value="4">COM_SERMONSPEAKER_FIELD_PATH_MODE_LOCAL</option>
 		</field>
 
 		<field
@@ -475,20 +446,11 @@
 			description="COM_SERMONSPEAKER_FIELD_PATH_MODE_VIDEO_DESC"
 			default="0"
 		>
-			<option value="0">JDEFAULT</option>
-			<option value="1">COM_SERMONSPEAKER_FIELD_PATH_MODE_VIMEO</option>
+			<option value="0">COM_MEDIA_MEDIA_VIEW_DEFAULT_TITLE</option>
 			<option value="2">COM_SERMONSPEAKER_FIELD_PATH_MODE_S3</option>
 			<option value="3">COM_SERMONSPEAKER_FIELD_PATH_MODE_EXTERNAL</option>
+			<option value="4">COM_SERMONSPEAKER_FIELD_PATH_MODE_LOCAL</option>
 		</field>
-
-		<field
-			name="vimeo_id"
-			type="text"
-			label="COM_SERMONSPEAKER_FIELD_VIMEO_ID_LABEL"
-			description="COM_SERMONSPEAKER_FIELD_VIMEO_ID_DESC"
-			showon="path_mode_video:1"
-			default=""
-		/>
 
 		<field
 			name="s3_region"
@@ -581,29 +543,26 @@
 
 		<field
 			name="path_avatar"
-			type="text"
+			type="mediamanagerfolder"
 			label="COM_SERMONSPEAKER_PARAM_PATH_AVATAR"
 			description="COM_SERMONSPEAKER_PARAM_PATH_AVATAR_DESC"
-			size="50"
-			default="images"
+			default="local-images:/"
 		/>
 
 		<field
 			name="path_speakerpic"
-			type="text"
+			type="mediamanagerfolder"
 			label="COM_SERMONSPEAKER_PARAM_PATH_SPEAKERPIC_LABEL"
 			description="COM_SERMONSPEAKER_PARAM_PATH_SPEAKERPIC_DESC"
-			size="50"
-			default="images"
+			default="local-images:/"
 		/>
 
 		<field
 			name="path_sermonpic"
-			type="text"
+			type="mediamanagerfolder"
 			label="COM_SERMONSPEAKER_PARAM_PATH_SERMONPIC_LABEL"
 			description="COM_SERMONSPEAKER_PARAM_PATH_SERMONPIC_DESC"
-			size="50"
-			default="images"
+			default="local-images:/"
 		/>
 
 	</fieldset>

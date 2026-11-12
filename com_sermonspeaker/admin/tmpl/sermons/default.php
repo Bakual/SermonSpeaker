@@ -17,6 +17,7 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Session\Session;
+use Sermonspeaker\Component\Sermonspeaker\Site\Helper\SermonspeakerHelper;
 
 HTMLHelper::_('behavior.multiselect');
 
@@ -170,7 +171,7 @@ $assoc = Associations::isEnabled();
 													echo ' &#187; ';
 												endif;
 											endif;
-											if (Factory::getLanguage()->isRtl())
+											if (Factory::getApplication()->getLanguage()->isRtl())
 											{
 												if ($canEditCat || $canEditOwnCat) :
 													echo '<a href="' . $CurrentCatUrl . '" title="' . $EditCatTxt . '">';
@@ -229,44 +230,8 @@ $assoc = Associations::isEnabled();
 									<?php endif; ?>
 								</td>
 								<td class="small d-none d-md-table-cell">
-									<?php if ($item->scripture && $item->scripture != ('|||||')) :
-										$passages  = explode('!', $item->scripture);
-										$separator = Text::_('COM_SERMONSPEAKER_SCRIPTURE_SEPARATOR');
-										$j         = 1;
-										foreach ($passages as $passage) :
-											$explode = explode('|', $passage);
-											if ($explode[5]) :
-												if ($explode[0]) :
-													echo $explode[5];
-												else :
-													echo '<i><u>' . $explode[5] . '</u></i>';
-												endif;
-											else :
-												echo Text::_('COM_SERMONSPEAKER_BOOK_' . $explode[0]);
-												if ($explode[1]) :
-													echo '&nbsp;' . $explode[1];
-													if ($explode[2]) :
-														echo $separator . $explode[2];
-													endif;
-													if ($explode[3] || $explode[4]) :
-														echo '-';
-														if ($explode[3]) :
-															echo $explode[3];
-															if ($explode[4]) :
-																echo $separator . $explode[4];
-															endif;
-														else :
-															echo $explode[4];
-														endif;
-													endif;
-												endif;
-											endif;
-											if ($j < count($passages)) :
-												echo '<br/ >';
-											endif;
-											$j++;
-										endforeach;
-									endif; ?>
+									<?php $scriptures = SermonspeakerHelper::insertScriptures($item->scripture, '<br />');
+									echo HTMLHelper::_('content.prepare', $scriptures); ?>
 								</td>
 								<td class="small d-none d-md-table-cell">
 									<?php if ($item->series_title) : ?>

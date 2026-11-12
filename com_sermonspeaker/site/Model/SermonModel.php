@@ -77,11 +77,12 @@ class SermonModel extends ItemModel
 			// Filter by start and end dates.
 			if ((!$user->authorise('core.edit.state', 'com_sermonspeaker')) && (!$user->authorise('core.edit', 'com_sermonspeaker')))
 			{
-				$nullDate = $db->quote($db->getNullDate());
-				$nowDate  = $db->quote(Factory::getDate()->toSql());
+				$nowDate = Factory::getDate()->toSql();
 
-				$query->where('(sermon.publish_up = ' . $nullDate . ' OR sermon.publish_up <= ' . $nowDate . ')');
-				$query->where('(sermon.publish_down = ' . $nullDate . ' OR sermon.publish_down >= ' . $nowDate . ')');
+				$query->where('(sermon.publish_up = IS NULL OR sermon.publish_up <= :publishUp)');
+				$query->where('(sermon.publish_down = IS NULL OR sermon.publish_down >= :publishDown)');
+				$query->bind(':publishUp', $nowDate);
+				$query->bind(':publishDown', $nowDate);
 			}
 
 			// Join on category table.
@@ -132,15 +133,14 @@ class SermonModel extends ItemModel
 			}
 
 			// Query Scripture.
-			$scriptureQuery = $db->getQuery(true);
-			$scriptureQuery->select('GROUP_CONCAT(book,"|",cap1,"|",vers1,"|",cap2,"|",vers2,"|",text '
-				. 'ORDER BY ordering ASC SEPARATOR "!") AS scripture');
-			$scriptureQuery->from('#__sermon_scriptures');
-			$scriptureQuery->where('sermon_id = ' . $data->id);
-			$scriptureQuery->group('sermon_id');
+			$scriptureQuery = $db->getQuery(true)
+				->select('*')
+				->from('#__sermon_scriptures')
+				->where('sermon_id = ' . $data->id)
+				->order($db->quoteName('ordering') . ' ASC');
 
 			$db->setQuery($scriptureQuery);
-			$data->scripture = $db->loadResult();
+			$data->scripture = $db->loadObjectList();
 
 			// Convert the metadata field to an array.
 			$registry = new Registry;
@@ -201,11 +201,11 @@ class SermonModel extends ItemModel
 
 		if ($filetype == 'video')
 		{
-			$query->where('a.videofile != ""');
+			$query->where('a.videofile != ' . $db->quote(''));
 		}
 		elseif ($filetype == 'audio')
 		{
-			$query->where('a.audiofile != ""');
+			$query->where('a.audiofile != ' . $db->quote(''));
 		}
 
 		$query->order('a.sermon_date DESC');

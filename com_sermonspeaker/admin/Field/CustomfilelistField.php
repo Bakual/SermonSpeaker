@@ -27,6 +27,7 @@ defined('_JEXEC') or die();
  * Creates the filelist dropdown for sermon file select
  *
  * @since ?
+ * @deprecated 8.0
  */
 class CustomfilelistField extends FilelistField
 {
@@ -37,7 +38,7 @@ class CustomfilelistField extends FilelistField
 	 *
 	 * @since ?
 	 */
-	public $type = 'CustomFileList';
+	public $type = 'Customfilelist';
 
 	/**
 	 * The component params.
@@ -63,6 +64,7 @@ class CustomfilelistField extends FilelistField
 	 * @var    integer
 	 *
 	 * @since ?
+	 * @deprecated 8.0
 	 */
 	private int $mode;
 
@@ -129,16 +131,6 @@ class CustomfilelistField extends FilelistField
 						 </button>';
 		}
 
-		// Add Google Picker if enabled and not audio field
-		if ($this->params->get('googlepicker') && $this->file != 'audio')
-		{
-			$html .= '<button class="btn btn-secondary"
-							type="button" onclick="create' . ucfirst($this->file) . 'Picker();"
-							title="' . Text::_('COM_SERMONSPEAKER_GOOGLEPICKER_TIP') . '">
-							<img src="' . Uri::root() . 'media/com_sermonspeaker/icons/16/drive.png">
-						</button>';
-		}
-
 		$html .= '</div>
 				<div class="input-group">
 					<button class="btn btn-secondary"
@@ -185,7 +177,7 @@ class CustomfilelistField extends FilelistField
 		HTMLHelper::_('script', 'com_sermonspeaker/plupload/plupload.full.min.js', array('relative' => true));
 
 		// Load localisation
-		$tag  = str_replace('-', '_', Factory::getLanguage()->getTag());
+		$tag  = str_replace('-', '_', Factory::getApplication()->getLanguage()->getTag());
 		$path = '/media/com_sermonspeaker/js/plupload/i18n/';
 		$file = $tag . '.js';
 
@@ -306,7 +298,7 @@ class CustomfilelistField extends FilelistField
 	 */
 	protected function getOptions()
 	{
-		if (!$this->mode)
+		if (!$this->mode || $this->mode == '4')
 		{
 			$dir = trim($this->params->get('path_' . $this->file, 'images'), '/');
 
@@ -335,7 +327,7 @@ class CustomfilelistField extends FilelistField
 			{
 				// In case of an edit, we check for the language set, otherwise we use the active language.
 				$language = $this->form->getValue('language');
-				$jlang    = Factory::getLanguage();
+				$jlang    = Factory::getApplication()->getLanguage();
 				$append   = ($language && ($language != '*')) ? '/' . $language : '/' . $jlang->getTag();
 
 				// Check if directory exists, fallback to base directory if not.
@@ -364,23 +356,6 @@ class CustomfilelistField extends FilelistField
 			}
 
 			return $options;
-		}
-		elseif ($this->mode == 1)
-		{
-			$options = array();
-			$url     = 'http://vimeo.com/api/v2/' . $this->params->get('vimeo_id') . '/videos.xml';
-
-			if ($xml = simplexml_load_file($url))
-			{
-				foreach ($xml->video as $video)
-				{
-					$option['value'] = $video->url;
-					$option['text']  = $video->title;
-					$options[]       = $option;
-				}
-
-				return $options;
-			}
 		}
 		elseif ($this->mode == 2)
 		{
@@ -426,7 +401,7 @@ class CustomfilelistField extends FilelistField
 			{
 				// In case of an edit, we check for the language set, otherwise we use the active language.
 				$language = $this->form->getValue('language');
-				$jlang    = Factory::getLanguage();
+				$jlang    = Factory::getApplication()->getLanguage();
 				$folder   .= ($language && ($language != '*')) ? $language : $jlang->getTag();
 				$folder   .= '/';
 			}

@@ -42,6 +42,11 @@ class DisplayController extends BaseController
 			Factory::getApplication()->enqueueMessage(Text::_('COM_SERMONSPEAKER_NOTSAVED'), 'warning');
 		}
 
+		if ($params->get('path_mode_audio') || $params->get('path_mode_video'))
+		{
+			Factory::getApplication()->enqueueMessage(Text::_('COM_SERMONSPEAKER_MODE_DEPRECATED'), 'warning');
+		}
+
 		if (!PluginHelper::isEnabled('sermonspeaker'))
 		{
 			Factory::getApplication()->enqueueMessage(Text::_('COM_SERMONSPEAKER_NO_PLAYER_ENABLED'), 'warning');
