@@ -25,7 +25,7 @@ defined('_JEXEC') or die();
  *
  * @since  3.4
  */
-class SermonsModel extends Listmodel
+class SermonsModel extends ListModel
 {
 	use CategoryTreeTrait;
 
