@@ -12,6 +12,7 @@ namespace Sermonspeaker\Component\Sermonspeaker\Site\Model;
 use Joomla\CMS\Categories\Categories;
 use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Model\ListModel;
+use Joomla\Database\ParameterType;
 use Joomla\Database\QueryInterface;
 use Joomla\Utilities\ArrayHelper;
 
@@ -377,23 +378,24 @@ class SeriesModel extends ListModel
 		// Filter by speaker (needed in speaker view)
 		if ($speakerId = $this->getState('speaker.id'))
 		{
-			$subQuerySeries = $db->getQuery(true);
-			$subQuerySeries->select('DISTINCT series_id');
-			$subQuerySeries->from('#__sermon_sermons');
+			$subQuerySeries = $db->getQuery(true)
+				->select('1')
+				->from($db->quoteName('#__sermon_sermons', 'filter_sermons'))
+				->where($db->quoteName('filter_sermons.series_id') . ' = ' . $db->quoteName('series.id'))
+				->where($db->quoteName('filter_sermons.speaker_id') . ' = :speakerId');
 
-			// Filter by speaker
-			if ($speakerId = $this->getState('speaker.id'))
-			{
-				$subQuerySeries->where('speaker_id = ' . (int) $speakerId);
-			}
+			$query->bind(':speakerId', $speakerId, ParameterType::INTEGER);
 
 			// Filter by state
 			if (is_numeric($state))
 			{
-				$subQuerySeries->where('state = ' . (int) $state);
+				$stateInt = (int) $state;
+
+				$subQuerySeries->where($db->quoteName('filter_sermons.state') . ' = :sermonState');
+				$query->bind(':sermonState', $stateInt, ParameterType::INTEGER);
 			}
 
-			$query->where('series.id IN (' . $subQuerySeries . ')');
+			$query->where('EXISTS (' . $subQuerySeries . ')');
 		}
 
 		// Filter by language
