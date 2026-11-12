@@ -44,7 +44,7 @@ $player     = SermonspeakerHelper::getPlayer($this->item);
 	<?php echo $this->item->event->beforeDisplayContent; ?>
 	<div class="container">
 		<div class="row row-cols-2">
-			<?php if (in_array('sermon:date', $this->columns) and ($this->item->sermon_date != '0000-00-00 00:00:00')) : ?>
+			<?php if (in_array('sermon:date', $this->columns) and $this->item->sermon_date) : ?>
 				<div class="col-md-4 fw-bold"><?php echo Text::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL'); ?>:</div>
 				<div class="col-md-8">
 					<time datetime="<?php echo HTMLHelper::_('date', $this->item->sermon_date, 'c'); ?>"

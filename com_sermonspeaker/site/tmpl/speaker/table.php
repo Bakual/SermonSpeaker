@@ -218,7 +218,7 @@ $this->getDocument()->addScriptDeclaration("window.onload = function() {
 
 									if (in_array('speaker:date', $this->col_sermon)) : ?>
 										<td class="ss-col ss-date">
-											<?php if ($item->sermon_date != '0000-00-00 00:00:00'):
+											<?php if ($item->sermon_date):
 												echo HTMLHelper::date($item->sermon_date, Text::_($this->params->get('date_format')));
 											endif; ?>
 										</td>

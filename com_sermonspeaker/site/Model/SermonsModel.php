@@ -101,7 +101,7 @@ class SermonsModel extends ListModel
 		$query = $db->getQuery(true);
 		$query->select('DISTINCT MONTH(`sermon_date`) AS `value`');
 		$query->from('`#__sermon_sermons`');
-		$query->where("`sermon_date` != '0000-00-00'");
+		$query->where("`sermon_date` IS NOT NULL");
 
 		// Filter by state
 		$state = $this->getState('filter.state');
@@ -137,7 +137,7 @@ class SermonsModel extends ListModel
 		$query = $db->getQuery(true);
 		$query->select('DISTINCT YEAR(`sermon_date`) AS `year`');
 		$query->from('`#__sermon_sermons`');
-		$query->where("`sermon_date` != '0000-00-00'");
+		$query->where("`sermon_date` IS NOT NULL");
 
 		// Filter by state
 		$state = $this->getState('filter.state');

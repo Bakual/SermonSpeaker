@@ -237,7 +237,7 @@ class HtmlView extends BaseHtmlView
 		if ($this->params->get('append_path', 0))
 		{
 			$changedate = "function changedate(datestring) {
-					if(datestring && datestring != '0000-00-00 00:00:00'){
+					if(datestring){
 						year = datestring.substr(0,4);
 						month = datestring.substr(5,2);
 					} else {
@@ -253,7 +253,7 @@ class HtmlView extends BaseHtmlView
 					document.id('addfilepathdate').innerHTML = year+'/'+month+'/';
 				}";
 
-			$time              = ($this->item->sermon_date && $this->item->sermon_date != '0000-00-00 00:00:00') ? strtotime($this->item->sermon_date) : time();
+			$time              = ($this->item->sermon_date) ? strtotime($this->item->sermon_date) : time();
 			$this->append_date = date('Y', $time) . '/' . date('m', $time) . '/';
 		}
 		else

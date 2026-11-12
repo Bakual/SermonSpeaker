@@ -178,7 +178,7 @@ final class Sermonspeaker extends CMSPlugin implements SubscriberInterface
 							$contents .= '<td><a href="' . $serieslnk . '">' . $sermon->series_title . '</a></td></tr>';
 						}
 
-						if ($sermon->sermon_date != '0000-00-00 00:00:00')
+						if ($sermon->sermon_date)
 						{
 							$contents .= '<tr><td>' . Text::_('JDATE') . '</td>';
 							$contents .= '<td>' . HTMLHelper::date($sermon->sermon_date, Text::_('DATE_FORMAT_LC3')) . '</td></tr>';
