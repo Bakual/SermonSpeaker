@@ -9,11 +9,11 @@
 
 namespace Sermonspeaker\Component\Sermonspeaker\Site\Model;
 
-use Joomla\CMS\Categories\Categories;
 use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Model\ListModel;
+use Joomla\Database\ParameterType;
 use Joomla\Database\QueryInterface;
-use Joomla\Utilities\ArrayHelper;
+use Sermonspeaker\Component\Sermonspeaker\Site\Trait\CategoryTreeTrait;
 
 defined('_JEXEC') or die();
 
@@ -24,45 +24,12 @@ defined('_JEXEC') or die();
  */
 class SpeakersModel extends ListModel
 {
-	/**
-	 * @var object
-	 *
-	 * @since ?
-	 */
-	private $item;
-
-	/**
-	 * @var
-	 *
-	 * @since ?
-	 */
-	private $children;
-
-	/**
-	 * @var
-	 *
-	 * @since ?
-	 */
-	private $parent;
-
-	/**
-	 * @var
-	 *
-	 * @since ?
-	 */
-	private $leftsibling;
-
-	/**
-	 * @var
-	 *
-	 * @since ?
-	 */
-	private $rightsibling;
+	use CategoryTreeTrait;
 
 	/**
 	 * Constructor.
 	 *
-	 * @param   array  $config  An optional associative array of configuration settings.
+	 * @param array $config An optional associative array of configuration settings.
 	 *
 	 * @since ?
 	 */
@@ -89,6 +56,16 @@ class SpeakersModel extends ListModel
 	}
 
 	/**
+	 * Method to get the category context, used by the trait
+	 *
+	 * @return string
+	 */
+	protected function getCategoryContext(): string
+	{
+		return 'com_sermonspeaker.speakers';
+	}
+
+	/**
 	 * Method to check if there are Tags assigned to the speakers
 	 *
 	 * @return  boolean
@@ -99,156 +76,14 @@ class SpeakersModel extends ListModel
 	{
 		$db    = $this->getDatabase();
 		$query = $db->getQuery(true);
-		$query->select('COUNT(1)');
+		$query->select('1');
 		$query->from('`#__contentitem_tag_map`');
 		$query->where("`type_alias` = 'com_sermonspeaker.speaker'");
 
-		$db->setQuery($query);
+		$db->setQuery($query, 0, 1);
 		$count = $db->loadResult();
 
 		return ($count > 0);
-	}
-
-	/**
-	 * Get the parent category
-	 *
-	 * @return  mixed  An array of categories or false if an error occurs
-	 *
-	 * @since ?
-	 */
-	public function getParent()
-	{
-		if (!is_object($this->item))
-		{
-			$this->getCategory();
-		}
-
-		return $this->parent;
-	}
-
-	/**
-	 * Method to get category data for the current category
-	 *
-	 * @return  object
-	 *
-	 * @since ?
-	 */
-	public function getCategory()
-	{
-		if (!is_object($this->item))
-		{
-			if (isset($this->state->params))
-			{
-				/** @var \Joomla\Registry\Registry $params */
-				$params                = $this->state->params;
-				$options               = array();
-				$options['countItems'] = $params->get('show_cat_numitems', 1) || !$params->get('show_empty_categories', 0);
-			}
-			else
-			{
-				$options['countItems'] = 0;
-			}
-
-			$options['table'] = '#__sermon_' . $this->state->get('category.type', 'speakers');
-
-			$categories = Categories::getInstance('com_sermonspeaker.speakers', $options);
-			$this->item = $categories->get($this->getState('category.id', 'root'));
-
-			// Compute selected asset permissions
-			if (is_object($this->item))
-			{
-				$user  = Factory::getApplication()->getIdentity();
-				$asset = 'com_sermonspeaker.speakers.category.' . $this->item->id;
-
-				// Check general create permission
-				if ($user->authorise('core.create', $asset))
-				{
-					$this->item->getParams()->set('access-create', true);
-				}
-
-				// TODO: Why aren't we lazy loading the children and siblings?
-				$this->children = $this->item->getChildren();
-				$this->parent   = false;
-
-				if ($this->item->getParent())
-				{
-					$this->parent = $this->item->getParent();
-				}
-
-				$this->rightsibling = $this->item->getSibling();
-				$this->leftsibling  = $this->item->getSibling(false);
-			}
-			else
-			{
-				$this->children = false;
-				$this->parent   = false;
-			}
-		}
-
-		return $this->item;
-	}
-
-	/**
-	 * Get the left sibling (adjacent) categories
-	 *
-	 * @return  mixed  An array of categories or false if an error occurs
-	 *
-	 * @since ?
-	 */
-	public function &getLeftSibling()
-	{
-		if (!is_object($this->item))
-		{
-			$this->getCategory();
-		}
-
-		return $this->leftsibling;
-	}
-
-	/**
-	 * Get the right sibling (adjacent) categories
-	 *
-	 * @return  mixed  An array of categories or false if an error occurs
-	 *
-	 * @since ?
-	 */
-	public function &getRightSibling()
-	{
-		if (!is_object($this->item))
-		{
-			$this->getCategory();
-		}
-
-		return $this->rightsibling;
-	}
-
-	/**
-	 * Get the child categories
-	 *
-	 * @return  mixed  An array of categories or false if an error occurs
-	 *
-	 * @since ?
-	 */
-	public function &getChildren()
-	{
-		if (!is_object($this->item))
-		{
-			$this->getCategory();
-		}
-
-		// Order subcategories
-		if (sizeof($this->children))
-		{
-			/** @var \Joomla\Registry\Registry $params */
-			$params = $this->getState()->get('params');
-
-			if ($params->get('orderby_pri') == 'alpha' || $params->get('orderby_pri') == 'ralpha')
-			{
-				$this->children = ArrayHelper::sortObjects($this->children, 'title', ($params->get('orderby_pri') == 'alpha') ? 1 : -1);
-			}
-		}
-
-		return $this->children;
 	}
 
 	/**
@@ -331,11 +166,12 @@ class SpeakersModel extends ListModel
 		// Filter by start and end dates.
 		if ((!$user->authorise('core.edit.state', 'com_sermonspeaker')) && (!$user->authorise('core.edit', 'com_sermonspeaker')))
 		{
-			$nullDate = $db->quote($db->getNullDate());
-			$nowDate  = $db->quote(Factory::getDate()->toSql());
+			$nowDate = Factory::getDate()->toSql();
 
-			$query->where('(speakers.publish_up = ' . $nullDate . ' OR speakers.publish_up <= ' . $nowDate . ')');
-			$query->where('(speakers.publish_down = ' . $nullDate . ' OR speakers.publish_down >= ' . $nowDate . ')');
+			$query->where('(speakers.publish_up = IS NULL OR speakers.publish_up <= :publishUp)');
+			$query->where('(speakers.publish_down = IS NULL OR speakers.publish_down >= :publishDown)');
+			$query->bind(':publishUp', $nowDate);
+			$query->bind(':publishDown', $nowDate);
 		}
 
 		// Filter by search in title
@@ -360,7 +196,7 @@ class SpeakersModel extends ListModel
 		// Filter by language
 		if ($this->getState('filter.language'))
 		{
-			$query->where('speakers.language in (' . $db->quote(Factory::getLanguage()->getTag()) . ',' . $db->quote('*') . ')');
+			$query->where('speakers.language in (' . $db->quote(Factory::getApplication()->getLanguage()->getTag()) . ',' . $db->quote('*') . ')');
 		}
 
 		// Filter by a single tag.
@@ -368,12 +204,15 @@ class SpeakersModel extends ListModel
 
 		if (is_numeric($tagId))
 		{
-			$query->where($db->quoteName('tagmap.tag_id') . ' = ' . (int) $tagId)
-				->join(
-					'LEFT', $db->quoteName('#__contentitem_tag_map', 'tagmap')
-					. ' ON ' . $db->quoteName('tagmap.content_item_id') . ' = ' . $db->quoteName('speakers.id')
-					. ' AND ' . $db->quoteName('tagmap.type_alias') . ' = ' . $db->quote('com_sermonspeaker.speaker')
-				);
+			$tagId = (int) $tagId;
+
+			$query->join(
+				'INNER', $db->quoteName('#__contentitem_tag_map', 'tagmap')
+				. ' ON ' . $db->quoteName('tagmap.content_item_id') . ' = ' . $db->quoteName('speakers.id')
+				. ' AND ' . $db->quoteName('tagmap.type_alias') . ' = ' . $db->quote('com_sermonspeaker.speaker')
+			)
+				->where($db->quoteName('tagmap.tag_id') . ' = :tagId')
+				->bind(':tagId', $tagId, ParameterType::INTEGER);
 		}
 
 		// Add the list ordering clause.
@@ -387,8 +226,8 @@ class SpeakersModel extends ListModel
 	 *
 	 * Note. Calling getState in this method will result in recursion.
 	 *
-	 * @param   string  $ordering   Ordering column
-	 * @param   string  $direction  'ASC' or 'DESC'
+	 * @param string $ordering  Ordering column
+	 * @param string $direction 'ASC' or 'DESC'
 	 *
 	 * @return  void
 	 *
@@ -404,7 +243,7 @@ class SpeakersModel extends ListModel
 
 		// Category filter (priority on request so subcategories work)
 		$MenuCatid = $params->get('catid', $params->get('catid', 0));
-		$id = $app->input->get('catid', $MenuCatid, 'int');
+		$id        = $app->input->get('catid', $MenuCatid, 'int');
 		$this->setState('category.id', $id);
 
 		// Include Subcategories or not

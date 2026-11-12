@@ -57,13 +57,13 @@ class LatestsermonsHelper implements DatabaseAwareInterface
 		$query->join('LEFT', '#__sermon_series AS c ON c.id = a.series_id');
 		$query->where('a.state = 1');
 
-		// Define null and now dates
-		$nullDate = $db->quote($db->getNullDate());
-		$nowDate  = $db->quote(Factory::getDate()->toSql());
-
 		// Filter by start and end dates.
-		$query->where('(a.publish_up = ' . $nullDate . ' OR a.publish_up <= ' . $nowDate . ')');
-		$query->where('(a.publish_down = ' . $nullDate . ' OR a.publish_down >= ' . $nowDate . ')');
+		$nowDate = Factory::getDate()->toSql();
+
+		$query->where('(a.publish_up = IS NULL OR a.publish_up <= :publishUp)');
+		$query->where('(a.publish_down = IS NULL OR a.publish_down >= :publishDown)');
+		$query->bind(':publishUp', $nowDate);
+		$query->bind(':publishDown', $nowDate);
 
 		// Category
 		if ($cat = (int) $params->get('cat', 0))
@@ -142,11 +142,11 @@ class LatestsermonsHelper implements DatabaseAwareInterface
 		{
 			if ($filetype == 2)
 			{
-				$query->where('a.videofile != ""');
+				$query->where('a.videofile != ' . $db->quote(''));
 			}
 			else
 			{
-				$query->where('a.audiofile != ""');
+				$query->where('a.audiofile != ' . $db->quote(''));
 			}
 		}
 

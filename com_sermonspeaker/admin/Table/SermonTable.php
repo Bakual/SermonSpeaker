@@ -100,26 +100,20 @@ class SermonTable extends Table implements VersionableTableInterface, TaggableTa
 			$this->alias = Factory::getDate()->format('Y-m-d-H-i-s');
 		}
 
-		// Set modified to null date if not set
-		if (!$this->modified)
-		{
-			$this->modified = $this->getDbo()->getNullDate();
-		}
-
 		// Set publish_up to null date if not set
 		if (!$this->publish_up)
 		{
-			$this->publish_up = $this->getDbo()->getNullDate();
+			$this->publish_up = null;
 		}
 
 		// Set publish_down to null date if not set
 		if (!$this->publish_down)
 		{
-			$this->publish_down = $this->getDbo()->getNullDate();
+			$this->publish_down = null;
 		}
 
 		// Check the publish down date is not earlier than publish up.
-		if ($this->publish_down > $this->getDbo()->getNullDate() && $this->publish_down < $this->publish_up)
+		if (!is_null($this->publish_up) && !is_null($this->publish_down) && $this->publish_down < $this->publish_up)
 		{
 			// Swap the dates.
 			$temp               = $this->publish_up;
@@ -201,13 +195,25 @@ class SermonTable extends Table implements VersionableTableInterface, TaggableTa
 	 */
 	public function store($updateNulls = false)
 	{
-		$date = Factory::getDate();
+		$date = Factory::getDate()->toSql();
 		$user = Factory::getApplication()->getIdentity();
 
 		if ($this->id)
 		{
-			$this->modified    = $date->toSql();
+			// Existing item
+			$this->modified    = $date;
 			$this->modified_by = $user->id;
+
+			// Set created date if not set.
+			if (!(int) $this->created)
+			{
+				$this->created = $date;
+			}
+
+			if (empty($this->created_by))
+			{
+				$this->created_by = 0;
+			}
 		}
 		else
 		{
@@ -218,12 +224,25 @@ class SermonTable extends Table implements VersionableTableInterface, TaggableTa
 					$this->sermon_date = HTMLHelper::date($date, 'Y-m-d H:i:s', 'UTC');
 				}
 
-				$this->created = $date->toSql();
+				$this->created = $date;
 			}
 
+			// Field created_by can be set by the user, so we don't touch it if it's set.
 			if (empty($this->created_by))
 			{
 				$this->created_by = $user->id;
+			}
+
+			// Set modified to created date if not set
+			if (!(int) $this->modified)
+			{
+				$this->modified = $this->created;
+			}
+
+			// Set modified_by to created_by user if not set
+			if (empty($this->modified_by))
+			{
+				$this->modified_by = $this->created_by;
 			}
 		}
 

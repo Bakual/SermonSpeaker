@@ -108,7 +108,7 @@ $player     = SermonspeakerHelper::getPlayer($this->items);
 					</div>
 					<div class="column-detail" onclick="ss_play(<?php echo $i; ?>)">
 						<?php
-						if (in_array('sermons:date', $this->columns) and ($item->sermon_date != '0000-00-00 00:00:00')) : ?>
+						if (in_array('sermons:date', $this->columns) and $item->sermon_date) : ?>
 							<div class="create">
 								<?php echo HTMLHelper::date($item->sermon_date, Text::_('DATE_FORMAT_LC1')); ?>
 							</div>

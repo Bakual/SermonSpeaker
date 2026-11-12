@@ -114,24 +114,24 @@ class FeedModel extends BaseDatabaseModel
 			$query->where('sermons.speaker_id = ' . $speaker);
 		}
 
-		// Define null and now dates
-		$nullDate = $db->quote($db->getNullDate());
-		$nowDate  = $db->quote(Factory::getDate()->toSql());
-
 		// Filter by start and end dates.
-		$query->where('(sermons.publish_up = ' . $nullDate . ' OR sermons.publish_up <= ' . $nowDate . ')');
-		$query->where('(sermons.publish_down = ' . $nullDate . ' OR sermons.publish_down >= ' . $nowDate . ')');
+		$nowDate = Factory::getDate()->toSql();
+
+		$query->where('(sermons.publish_up = IS NULL OR sermons.publish_up <= :publishUp)');
+		$query->where('(sermons.publish_down = IS NULL OR sermons.publish_down >= :publishDown)');
+		$query->bind(':publishUp', $nowDate);
+		$query->bind(':publishDown', $nowDate);
 
 		// Filter by type
 		$feedtype = $jinput->get('type', 'auto');
 
 		if ($feedtype == 'video')
 		{
-			$query->where('sermons.videofile != ""');
+			$query->where('sermons.videofile != ' . $db->quote(''));
 		}
 		elseif ($feedtype == 'audio')
 		{
-			$query->where('sermons.audiofile != ""');
+			$query->where('sermons.audiofile != ' . $db->quote(''));
 		}
 
 		// Filter by state
@@ -149,7 +149,10 @@ class FeedModel extends BaseDatabaseModel
 		$items = $db->loadObjectList();
 
 		// Load scriptures in a second query to avoid an expensive GROUP BY
-		SermonspeakerHelper::attachScriptures($items, $this->getDatabase());
+		if ($items)
+		{
+			SermonspeakerHelper::attachScriptures($items, $this->getDatabase());
+		}
 
 		return $items;
 	}

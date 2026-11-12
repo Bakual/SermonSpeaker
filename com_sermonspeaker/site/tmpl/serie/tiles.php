@@ -61,7 +61,7 @@ $player = SermonspeakerHelper::getPlayer($this->items);
 										<br>
 									<?php endif; ?>
 
-									<?php if (in_array('serie:date', $this->columns) and ($item->sermon_date != '0000-00-00 00:00:00')) : ?>
+									<?php if (in_array('serie:date', $this->columns) and $item->sermon_date) : ?>
 										<?php echo Text::_('COM_SERMONSPEAKER_FIELD_DATE_LABEL'); ?>:
 										<?php echo HTMLHelper::date($item->sermon_date, Text::_($this->params->get('date_format'))); ?>
 										<br>

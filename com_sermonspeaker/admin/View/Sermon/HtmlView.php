@@ -160,7 +160,7 @@ class HtmlView extends BaseHtmlView
 		if ($this->params->get('append_path', 0))
 		{
 			$changedate = "function changedate(datestring) {
-					if(datestring && datestring != '0000-00-00 00:00:00'){
+					if(datestring && datestring IS NOT NULL){
 						year = datestring.substr(0,4);
 						month = datestring.substr(5,2);
 					} else {
@@ -176,7 +176,7 @@ class HtmlView extends BaseHtmlView
 					document.id('addfilepathdate').innerHTML = year+'/'+month+'/';
 				}";
 
-			$time              = ($this->item->sermon_date && $this->item->sermon_date != '0000-00-00 00:00:00') ? strtotime($this->item->sermon_date) : time();
+			$time              = ($this->item->sermon_date) ? strtotime($this->item->sermon_date) : time();
 			$this->append_date = date('Y', $time) . '/' . date('m', $time) . '/';
 		}
 		else
@@ -191,12 +191,12 @@ class HtmlView extends BaseHtmlView
 		{
 			$changelang = "function changelang(language) {
 					if(!language || language == '*'){
-						language = '" . Factory::getLanguage()->getTag() . "'
+						language = '" . Factory::getApplication()->getLanguage()->getTag() . "'
 					}";
 
 			$changelang        .= "document.id('addfilepathlang').innerHTML = language+'/';
 				}";
-			$lang              = ($this->item->language && $this->item->language == '*') ? $this->item->language : Factory::getLanguage()->getTag();
+			$lang              = ($this->item->language && $this->item->language == '*') ? $this->item->language : Factory::getApplication()->getLanguage()->getTag();
 			$this->append_lang = $lang . '/';
 		}
 		else

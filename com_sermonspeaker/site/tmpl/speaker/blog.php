@@ -131,7 +131,7 @@ $this->getDocument()->addScriptDeclaration("window.onload = function() {
 												</dd>
 											<?php endif; ?>
 
-											<?php if (in_array('speaker:date', $this->col_sermon) and ($item->sermon_date != '0000-00-00 00:00:00')) : ?>
+											<?php if (in_array('speaker:date', $this->col_sermon) and $item->sermon_date) : ?>
 												<dd>
 													<div class="create">
 														<span class="icon-calendar"></span>
