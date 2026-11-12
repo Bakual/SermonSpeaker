@@ -168,8 +168,8 @@ class SpeakersModel extends ListModel
 		{
 			$nowDate = Factory::getDate()->toSql();
 
-			$query->where('(speakers.publish_up = IS NULL OR speakers.publish_up <= :publishUp)');
-			$query->where('(speakers.publish_down = IS NULL OR speakers.publish_down >= :publishDown)');
+			$query->where('(speakers.publish_up IS NULL OR speakers.publish_up <= :publishUp)');
+			$query->where('(speakers.publish_down IS NULL OR speakers.publish_down >= :publishDown)');
 			$query->bind(':publishUp', $nowDate);
 			$query->bind(':publishDown', $nowDate);
 		}

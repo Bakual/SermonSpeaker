@@ -184,8 +184,8 @@ class SeriesModel extends ListModel
 		{
 			$nowDate = Factory::getDate()->toSql();
 
-			$query->where('(series.publish_up = IS NULL OR series.publish_up <= :publishUp)');
-			$query->where('(series.publish_down = IS NULL OR series.publish_down >= :publishDown)');
+			$query->where('(series.publish_up IS NULL OR series.publish_up <= :publishUp)');
+			$query->where('(series.publish_down IS NULL OR series.publish_down >= :publishDown)');
 			$query->bind(':publishUp', $nowDate);
 			$query->bind(':publishDown', $nowDate);
 		}

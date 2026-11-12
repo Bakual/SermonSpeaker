@@ -79,8 +79,8 @@ class SermonModel extends ItemModel
 			{
 				$nowDate = Factory::getDate()->toSql();
 
-				$query->where('(sermon.publish_up = IS NULL OR sermon.publish_up <= :publishUp)');
-				$query->where('(sermon.publish_down = IS NULL OR sermon.publish_down >= :publishDown)');
+				$query->where('(sermon.publish_up IS NULL OR sermon.publish_up <= :publishUp)');
+				$query->where('(sermon.publish_down IS NULL OR sermon.publish_down >= :publishDown)');
 				$query->bind(':publishUp', $nowDate);
 				$query->bind(':publishDown', $nowDate);
 			}

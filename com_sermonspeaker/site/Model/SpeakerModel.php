@@ -70,8 +70,8 @@ class SpeakerModel extends ItemModel
 			{
 				$nowDate = Factory::getDate()->toSql();
 
-				$query->where('(speaker.publish_up = IS NULL OR speaker.publish_up <= :publishUp)');
-				$query->where('(speaker.publish_down = IS NULL OR speaker.publish_down >= :publishDown)');
+				$query->where('(speaker.publish_up IS NULL OR speaker.publish_up <= :publishUp)');
+				$query->where('(speaker.publish_down IS NULL OR speaker.publish_down >= :publishDown)');
 				$query->bind(':publishUp', $nowDate);
 				$query->bind(':publishDown', $nowDate);
 			}

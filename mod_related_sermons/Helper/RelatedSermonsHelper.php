@@ -180,8 +180,8 @@ class RelatedSermonsHelper implements DatabaseAwareInterface
 		// Filter by start and end dates.
 		$nowDate = Factory::getDate()->toSql();
 
-		$query->where('(a.publish_up = IS NULL OR a.publish_up <= :publishUp)');
-		$query->where('(a.publish_down = IS NULL OR a.publish_down >= :publishDown)');
+		$query->where('(a.publish_up IS NULL OR a.publish_up <= :publishUp)');
+		$query->where('(a.publish_down IS NULL OR a.publish_down >= :publishDown)');
 		$query->bind(':publishUp', $nowDate);
 		$query->bind(':publishDown', $nowDate);
 
@@ -250,8 +250,8 @@ class RelatedSermonsHelper implements DatabaseAwareInterface
 		$query->where('(CONCAT(",", REPLACE(a.metakey, ", ", ","), ",") LIKE "%,'
 			. implode(',%" OR CONCAT(",", REPLACE(a.metakey, ", ", ","), ",") LIKE "%,', $keywords) . ',%")');
 
-		$query->where('(a.publish_up = IS NULL OR a.publish_up <= :publishUp)');
-		$query->where('(a.publish_down = IS NULL OR a.publish_down >= :publishDown)');
+		$query->where('(a.publish_up IS NULL OR a.publish_up <= :publishUp)');
+		$query->where('(a.publish_down IS NULL OR a.publish_down >= :publishDown)');
 		$query->bind(':publishUp', $nowDate);
 		$query->bind(':publishDown', $nowDate);
 

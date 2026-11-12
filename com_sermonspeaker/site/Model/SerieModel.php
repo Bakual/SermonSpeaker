@@ -66,8 +66,8 @@ class SerieModel extends ItemModel
 			{
 				$nowDate = Factory::getDate()->toSql();
 
-				$query->where('(serie.publish_up = IS NULL OR serie.publish_up <= :publishUp)');
-				$query->where('(serie.publish_down = IS NULL OR serie.publish_down >= :publishDown)');
+				$query->where('(serie.publish_up IS NULL OR serie.publish_up <= :publishUp)');
+				$query->where('(serie.publish_down IS NULL OR serie.publish_down >= :publishDown)');
 				$query->bind(':publishUp', $nowDate);
 				$query->bind(':publishDown', $nowDate);
 			}

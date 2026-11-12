@@ -117,8 +117,8 @@ class FeedModel extends BaseDatabaseModel
 		// Filter by start and end dates.
 		$nowDate = Factory::getDate()->toSql();
 
-		$query->where('(sermons.publish_up = IS NULL OR sermons.publish_up <= :publishUp)');
-		$query->where('(sermons.publish_down = IS NULL OR sermons.publish_down >= :publishDown)');
+		$query->where('(sermons.publish_up IS NULL OR sermons.publish_up <= :publishUp)');
+		$query->where('(sermons.publish_down IS NULL OR sermons.publish_down >= :publishDown)');
 		$query->bind(':publishUp', $nowDate);
 		$query->bind(':publishDown', $nowDate);
 
