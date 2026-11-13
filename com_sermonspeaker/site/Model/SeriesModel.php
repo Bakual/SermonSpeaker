@@ -76,7 +76,7 @@ class SeriesModel extends ListModel
 	public function getSpeakers($series)
 	{
 		$db    = $this->getDatabase();
-		$query = $db->getQuery(true);
+		$query = $db->createQuery();
 		$query->select('DISTINCT sermons.speaker_id, speakers.title as speaker_title, speakers.pic, speakers.state');
 		$query->select('speakers.intro, speakers.bio, speakers.website');
 		$query->select('speakers.catid as speaker_catid, speakers.language as speaker_language');
@@ -102,7 +102,7 @@ class SeriesModel extends ListModel
 	public function getTags()
 	{
 		$db    = $this->getDatabase();
-		$query = $db->getQuery(true);
+		$query = $db->createQuery();
 		$query->select('1');
 		$query->from('`#__contentitem_tag_map`');
 		$query->where("`type_alias` = 'com_sermonspeaker.serie'");
@@ -127,7 +127,7 @@ class SeriesModel extends ListModel
 
 		// Create a new query object.
 		$db    = $this->getDatabase();
-		$query = $db->getQuery(true);
+		$query = $db->createQuery();
 
 		// Select required fields from the table
 		$query->select(
@@ -154,7 +154,7 @@ class SeriesModel extends ListModel
 			if ($levels = (int) $this->getState('filter.subcategories', 0))
 			{
 				// Create a subquery for the subcategory list
-				$subQuery = $db->getQuery(true);
+				$subQuery = $db->createQuery();
 				$subQuery->select('sub.id');
 				$subQuery->from('#__categories as sub');
 				$subQuery->join('INNER', '#__categories as this ON sub.lft > this.lft AND sub.rgt < this.rgt');
@@ -213,7 +213,7 @@ class SeriesModel extends ListModel
 		// Filter by speaker (needed in speaker view)
 		if ($speakerId = $this->getState('speaker.id'))
 		{
-			$subQuerySeries = $db->getQuery(true)
+			$subQuerySeries = $db->createQuery()
 				->select('1')
 				->from($db->quoteName('#__sermon_sermons', 'filter_sermons'))
 				->where($db->quoteName('filter_sermons.series_id') . ' = ' . $db->quoteName('series.id'))

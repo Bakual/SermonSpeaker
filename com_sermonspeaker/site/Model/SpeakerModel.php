@@ -50,7 +50,7 @@ class SpeakerModel extends ItemModel
 		if (!isset($this->_item[$pk]))
 		{
 			$db    = $this->getDatabase();
-			$query = $db->getQuery(true);
+			$query = $db->createQuery();
 
 			$query->select(
 				$this->getState(

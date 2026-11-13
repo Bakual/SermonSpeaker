@@ -32,7 +32,7 @@ class SitemapModel extends BaseDatabaseModel
 	{
 		// Create a new query object.
 		$db     = $this->getDatabase();
-		$query  = $db->getQuery(true);
+		$query  = $db->createQuery();
 		$groups = Factory::getApplication()->getIdentity()->getAuthorisedViewLevels();
 
 		$query->select('a.id, a.title, a.sermon_date, a.created, a.catid, a.language');

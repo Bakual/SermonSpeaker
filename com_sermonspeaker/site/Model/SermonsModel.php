@@ -98,7 +98,7 @@ class SermonsModel extends ListModel
 		);
 
 		$db    = $this->getDatabase();
-		$query = $db->getQuery(true);
+		$query = $db->createQuery();
 		$query->select('DISTINCT MONTH(`sermon_date`) AS `value`');
 		$query->from('`#__sermon_sermons`');
 		$query->where("`sermon_date` IS NOT NULL");
@@ -134,7 +134,7 @@ class SermonsModel extends ListModel
 	public function getYears()
 	{
 		$db    = $this->getDatabase();
-		$query = $db->getQuery(true);
+		$query = $db->createQuery();
 		$query->select('DISTINCT YEAR(`sermon_date`) AS `year`');
 		$query->from('`#__sermon_sermons`');
 		$query->where("`sermon_date` IS NOT NULL");
@@ -164,7 +164,7 @@ class SermonsModel extends ListModel
 	public function getBooks()
 	{
 		$db    = $this->getDatabase();
-		$query = $db->getQuery(true);
+		$query = $db->createQuery();
 		$query->select('DISTINCT `book`');
 		$query->from('`#__sermon_scriptures`');
 		$query->join('LEFT', '`#__sermon_sermons` AS `sermons` ON `sermon_id` = `sermons`.`id`');
@@ -195,7 +195,7 @@ class SermonsModel extends ListModel
 	public function getTags()
 	{
 		$db    = $this->getDatabase();
-		$query = $db->getQuery(true);
+		$query = $db->createQuery();
 		$query->select('1');
 		$query->from('`#__contentitem_tag_map`');
 		$query->where("`type_alias` = 'com_sermonspeaker.sermon'");
@@ -241,7 +241,7 @@ class SermonsModel extends ListModel
 
 		// Create a new query object
 		$db    = $this->getDatabase();
-		$query = $db->getQuery(true);
+		$query = $db->createQuery();
 
 		// Select required fields from the table
 		$query->select(
@@ -293,7 +293,7 @@ class SermonsModel extends ListModel
 			if ($levels = (int) $this->getState('filter.subcategories', 0))
 			{
 				// Create a subquery for the subcategory list
-				$subQuery = $db->getQuery(true);
+				$subQuery = $db->createQuery();
 				$subQuery->select('sub.id');
 				$subQuery->from('#__categories as sub');
 				$subQuery->join('INNER', '#__categories as this ON sub.lft > this.lft AND sub.rgt < this.rgt');
@@ -358,7 +358,7 @@ class SermonsModel extends ListModel
 
 		if ($book)
 		{
-			$subQuery = $db->getQuery(true)
+			$subQuery = $db->createQuery()
 				->select('1')
 				->from($db->quoteName('#__sermon_scriptures', 'script'))
 				->where($db->quoteName('script.sermon_id') . ' = ' . $db->quoteName('sermons.id'))

@@ -157,7 +157,7 @@ class DisplayController extends BaseController
 
 		$db       = Factory::getDbo();
 		$nowDate  = Factory::getDate()->toSql();
-		$query    = $db->getQuery(true);
+		$query    = $db->createQuery();
 
 		if ($this->input->get('type', 'audio', 'word') == 'video')
 		{

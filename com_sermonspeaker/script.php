@@ -190,7 +190,7 @@ return new class () implements InstallerScriptInterface {
 		if (version_compare($this->oldRelease, '6.0.6', '<'))
 		{
 			$db    = Factory::getDbo();
-			$query = $db->getQuery(true);
+			$query = $db->createQuery();
 			$query->select($db->quoteName('id'))
 				->from($db->quoteName('#__assets'))
 				->where($db->quoteName('name') . ' = ' . $db->quote('com_sermonspeaker.sermons'));
@@ -479,7 +479,7 @@ return new class () implements InstallerScriptInterface {
 		$catFactory = new Joomla\CMS\Mvc\Factory\MvcFactory('Joomla\Component\Categories');
 		$sections   = array('sermons', 'series', 'speakers');
 
-		$query = $db->getQuery(true);
+		$query = $db->createQuery();
 		$query->select('*')
 			->from('#__categories')
 			->where($db->quoteName('extension') . ' = ' . $db->quote('com_sermonspeaker'))
@@ -513,7 +513,7 @@ return new class () implements InstallerScriptInterface {
 
 					$parentIds[$section][$oldId] = $newId;
 
-					$query = $db->getQuery(true);
+					$query = $db->createQuery();
 					$query->update($db->quoteName('#__sermon_' . $section));
 					$query->set($db->quoteName('catid') . ' = ' . (int) $newId);
 					$query->where($db->quoteName('catid') . ' = ' . $oldId);
@@ -530,7 +530,7 @@ return new class () implements InstallerScriptInterface {
 		}
 
 		// Delete old categories
-		$query = $db->getQuery(true);
+		$query = $db->createQuery();
 		$query->delete($db->quoteName('#__categories'));
 		$query->where($db->quoteName('extension') . ' = ' . $db->quote('com_sermonspeaker'));
 		$db->setQuery($query);
@@ -545,7 +545,7 @@ return new class () implements InstallerScriptInterface {
 		}
 
 		// Delete old categories
-		$query = $db->getQuery(true);
+		$query = $db->createQuery();
 		$query->delete($db->quoteName('#__assets'));
 		$query->where($db->quoteName('name') . ' LIKE ' . $db->quote('com_sermonspeaker.category.%'));
 		$db->setQuery($query);
@@ -601,7 +601,7 @@ return new class () implements InstallerScriptInterface {
 			$params['col_speaker'] = '"col_speaker":["speakers:bio","speaker:bio","speaker:intro"]';
 
 			$db    = Factory::getDbo();
-			$query = $db->getQuery(true);
+			$query = $db->createQuery();
 			$query->update($db->quoteName('#__extensions'));
 			$query->set($db->quoteName('params') . ' = ' . $db->quote('{' . implode(',', $params) . '}'));
 			$query->where($db->quoteName('name') . ' = ' . $db->quote('com_sermonspeaker'));
@@ -646,7 +646,7 @@ return new class () implements InstallerScriptInterface {
 			$catModel->save($catData);
 			$id = $catModel->getItem()->id;
 
-			$query = $db->getQuery(true);
+			$query = $db->createQuery();
 			$query->update($db->quoteName('#__sermon_' . $section));
 			$query->set($db->quoteName('catid') . ' = ' . (int) $id);
 			$query->where($db->quoteName('catid') . ' = 0');
@@ -667,7 +667,7 @@ return new class () implements InstallerScriptInterface {
 		$db = Factory::getDbo();
 
 		// Get the Asset ID from SermonSpeaker component to use as parent
-		$query = $db->getQuery(true)
+		$query = $db->createQuery()
 			->select($db->quoteName('id'))
 			->from($db->quoteName('#__assets'))
 			->where($db->quoteName('name') . ' = ' . $db->quote('com_sermonspeaker'));

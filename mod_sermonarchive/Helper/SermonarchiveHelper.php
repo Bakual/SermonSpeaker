@@ -40,7 +40,7 @@ class SermonarchiveHelper implements DatabaseAwareInterface
 		$state = $state ?: 1;
 
 		$db    = $this->getDatabase();
-		$query = $db->getQuery(true);
+		$query = $db->createQuery();
 
 		$query->select('YEAR(`sermon_date`) AS `year`');
 		$query->select("CONCAT_WS('-', YEAR(`sermon_date`), MONTH(`sermon_date`), '15') AS `date`");

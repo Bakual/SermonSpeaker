@@ -145,7 +145,7 @@ class Router extends RouterBase
 				if (!str_contains($query['id'], ':'))
 				{
 					$db      = Factory::getDbo();
-					$dbQuery = $db->getQuery(true)
+					$dbQuery = $db->createQuery()
 						->select('alias')
 						->from('#__sermon_' . $view . 's')
 						->where('id = ' . (int) $query['id']);

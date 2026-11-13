@@ -41,7 +41,7 @@ class SermonspeakerHelper implements DatabaseAwareInterface
 		$sort   = (int) $params->get('sort');
 
 		$db    = $this->getDatabase();
-		$query = $db->getQuery(true);
+		$query = $db->createQuery();
 
 		if ($mode)
 		{

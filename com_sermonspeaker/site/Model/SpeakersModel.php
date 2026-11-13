@@ -75,7 +75,7 @@ class SpeakersModel extends ListModel
 	public function getTags()
 	{
 		$db    = $this->getDatabase();
-		$query = $db->getQuery(true);
+		$query = $db->createQuery();
 		$query->select('1');
 		$query->from('`#__contentitem_tag_map`');
 		$query->where("`type_alias` = 'com_sermonspeaker.speaker'");
@@ -100,7 +100,7 @@ class SpeakersModel extends ListModel
 
 		// Create a new query object.
 		$db    = $this->getDatabase();
-		$query = $db->getQuery(true);
+		$query = $db->createQuery();
 
 		// Select required fields from the table.
 		$query->select(
@@ -129,7 +129,7 @@ class SpeakersModel extends ListModel
 			if ($levels = (int) $this->getState('filter.subcategories', 0))
 			{
 				// Create a subquery for the subcategory list
-				$subQuery = $db->getQuery(true);
+				$subQuery = $db->createQuery();
 				$subQuery->select('sub.id');
 				$subQuery->from('#__categories as sub');
 				$subQuery->join('INNER', '#__categories as this ON sub.lft > this.lft AND sub.rgt < this.rgt');

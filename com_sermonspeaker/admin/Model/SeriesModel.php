@@ -142,7 +142,7 @@ class SeriesModel extends ListModel
 	{
 		// Create a new query object.
 		$db    = $this->getDbo();
-		$query = $db->getQuery(true);
+		$query = $db->createQuery();
 
 		// Select the required fields from the table.
 		$query->select(

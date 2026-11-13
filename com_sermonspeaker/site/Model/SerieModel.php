@@ -47,7 +47,7 @@ class SerieModel extends ItemModel
 		if (!isset($this->_item[$pk]))
 		{
 			$db    = $this->getDatabase();
-			$query = $db->getQuery(true);
+			$query = $db->createQuery();
 
 			$query->select(
 				$this->getState(
@@ -142,7 +142,7 @@ class SerieModel extends ItemModel
 	public function getSpeakers($series)
 	{
 		$db    = $this->getDatabase();
-		$query = $db->getQuery(true);
+		$query = $db->createQuery();
 		$query->select(' DISTINCT sermons.speaker_id, speakers.title as speaker_title, speakers.pic, speakers.state');
 		$query->select('speakers.intro, speakers.bio, speakers.website');
 		$query->select('speakers.catid as speaker_catid, speakers.language as speaker_language');

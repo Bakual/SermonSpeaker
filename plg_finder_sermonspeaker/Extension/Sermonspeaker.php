@@ -318,7 +318,7 @@ final class Sermonspeaker extends Adapter implements SubscriberInterface
 	 */
 	protected function checkCategory(Table $row): void
 	{
-		$query = $this->db->getQuery(true)
+		$query = $this->db->createQuery()
 			->select($this->db->quoteName('catid'))
 			->from($this->db->quoteName($this->table))
 			->where($this->db->quoteName('id') . ' = ' . (int) $row->id);
@@ -564,7 +564,7 @@ final class Sermonspeaker extends Adapter implements SubscriberInterface
 	 */
 	protected function getStateQuery(): QueryInterface
 	{
-		$query = $this->db->getQuery(true);
+		$query = $this->db->createQuery();
 
 		// Item ID
 		$query->select('a.id');
@@ -655,6 +655,6 @@ final class Sermonspeaker extends Adapter implements SubscriberInterface
 	{
 		// Build an SQL query based on the modified time.
 		// We don't have a modified time, so we just give the query back unchanged.
-		return $this->db->getQuery(true);
+		return $this->db->createQuery();
 	}
 }

@@ -76,7 +76,7 @@ class SermonsModel extends ListModel
 	public function getSpeakers()
 	{
 		$db    = $this->getDatabase();
-		$query = $db->getQuery(true);
+		$query = $db->createQuery();
 
 		$query->select('speakers.id As value');
 		$query->select('CASE WHEN CHAR_LENGTH(c_speakers.title) THEN CONCAT(speakers.title, " (", c_speakers.title, ")") ELSE speakers.title END AS text');
@@ -90,7 +90,7 @@ class SermonsModel extends ListModel
 
 		$published = $db->loadObjectList();
 
-		$query = $db->getQuery(true);
+		$query = $db->createQuery();
 
 		$query->select('speakers.id As value');
 		$query->select('CASE WHEN CHAR_LENGTH(c_speakers.title) THEN CONCAT(speakers.title, " (", c_speakers.title, ")") ELSE speakers.title END AS text');
@@ -126,7 +126,7 @@ class SermonsModel extends ListModel
 	public function getSeries()
 	{
 		$db    = $this->getDbo();
-		$query = $db->getQuery(true);
+		$query = $db->createQuery();
 
 		$query->select('series.id As value');
 		$query->select('CASE WHEN CHAR_LENGTH(c_series.title) THEN CONCAT(series.title, " (", c_series.title, ")") ELSE series.title END AS text');
@@ -140,7 +140,7 @@ class SermonsModel extends ListModel
 
 		$published = $db->loadObjectList();
 
-		$query = $db->getQuery(true);
+		$query = $db->createQuery();
 
 		$query->select('series.id As value');
 		$query->select('CASE WHEN CHAR_LENGTH(c_series.title) THEN CONCAT(series.title, " (", c_series.title, ")") ELSE series.title END AS text');
@@ -282,7 +282,7 @@ class SermonsModel extends ListModel
 	{
 		// Create a new query object.
 		$db    = $this->getDbo();
-		$query = $db->getQuery(true);
+		$query = $db->createQuery();
 
 		// Select the required fields from the table.
 		$query->select(

@@ -122,7 +122,7 @@ class SerieField extends FormField
 
 		if ($value === '' && !$this->element['ignoredefault'] && !$this->form->getValue('id'))
 		{
-			$query = $db->getQuery(true)
+			$query = $db->createQuery()
 				->select($db->quoteName('id'))
 				->from($db->quoteName('#__sermon_series'))
 				->where($db->quoteName('home') . ' = 1');
@@ -140,7 +140,7 @@ class SerieField extends FormField
 
 		if ($value)
 		{
-			$query = $db->getQuery(true)
+			$query = $db->createQuery()
 				->select($db->quoteName('title'))
 				->from($db->quoteName('#__sermon_series'))
 				->where($db->quoteName('id') . ' = :value')

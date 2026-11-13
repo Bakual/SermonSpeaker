@@ -42,7 +42,7 @@ class FeedModel extends BaseDatabaseModel
 		$db->setQuery($query);
 
 		// Create a new query object.
-		$query = $db->getQuery(true);
+		$query = $db->createQuery();
 
 		// Select required fields from the table.
 		$query->select('sermons.sermon_date, sermons.title, sermons.audiofile, sermons.videofile, sermons.notes');
@@ -80,7 +80,7 @@ class FeedModel extends BaseDatabaseModel
 			if ($levels = (int) $params->get('show_subcategory_content', 0))
 			{
 				// Create a subquery for the subcategory list
-				$subQuery = $db->getQuery(true);
+				$subQuery = $db->createQuery();
 				$subQuery->select('sub.id');
 				$subQuery->from('#__categories as sub');
 				$subQuery->join('INNER', '#__categories as this ON sub.lft > this.lft AND sub.rgt < this.rgt');

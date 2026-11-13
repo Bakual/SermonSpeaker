@@ -45,7 +45,7 @@ class LatestsermonsHelper implements DatabaseAwareInterface
 		$user   = $app->getIdentity();
 		$groups = implode(',', $user->getAuthorisedViewLevels());
 
-		$query = $db->getQuery(true);
+		$query = $db->createQuery();
 		$query->select('a.title, a.id, a.sermon_date, a.audiofile, a.videofile, a.sermon_time, a.picture, a.notes, a.hits, a.catid, a.language');
 		$query->select('b.title as speaker_title, b.pic, b.state AS speaker_state, b.catid AS speaker_catid, b.language AS speaker_language');
 		$query->select('c.title AS series_title, c.avatar, c.state AS series_state, c.catid AS series_catid, c.language AS series_language');
@@ -72,7 +72,7 @@ class LatestsermonsHelper implements DatabaseAwareInterface
 			if ($levels = (int) $params->get('show_subcategory_content', 0))
 			{
 				// Create a subquery for the subcategory list
-				$subQuery = $db->getQuery(true);
+				$subQuery = $db->createQuery();
 				$subQuery->select('sub.id');
 				$subQuery->from('#__categories as sub');
 				$subQuery->join('INNER', '#__categories as this ON sub.lft > this.lft AND sub.rgt < this.rgt');

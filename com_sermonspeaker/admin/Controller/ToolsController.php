@@ -329,7 +329,7 @@ class ToolsController extends BaseController
 		Session::checkToken('request') or jexit(Text::_('JINVALID_TOKEN'));
 		$app   = Factory::getApplication();
 		$db    = Factory::getDbo();
-		$query = $db->getQuery(true);
+		$query = $db->createQuery();
 		$query->select('audiofile, videofile, sermons.created_by, sermons.catid, sermons.title, speakers.title as speaker_title');
 		$query->select('series.title AS series_title, notes, sermon_number, picture');
 		$query->select('YEAR(sermon_date) AS year, DATE_FORMAT(sermon_date, "%H%i") AS time, DATE_FORMAT(sermon_date, "%d%m") AS date');
@@ -476,7 +476,7 @@ class ToolsController extends BaseController
 		$db  = Factory::getDbo();
 
 		// Get Ministries and create Categories for it
-		$query = $db->getQuery(true);
+		$query = $db->createQuery();
 		$query->select('id, name, alias, description, published, access, language, metakey, metadesc');
 		$query->from('`#__piministry`');
 		$db->setQuery($query);
@@ -533,7 +533,7 @@ class ToolsController extends BaseController
 		$v4 = array_key_exists('date', $db->getTableColumns('#__pistudies'));
 
 		// Get Studies
-		$query = $db->getQuery(true);
+		$query = $db->createQuery();
 		$query->from('`#__pistudies` AS a');
 
 		if ($v4)
@@ -614,7 +614,7 @@ class ToolsController extends BaseController
 		// Get the speakers if the teacher is stored as json string.
 		if ($studies[0]->teacher[0] == '{')
 		{
-			$query = $db->getQuery(true);
+			$query = $db->createQuery();
 
 			if ($v4)
 			{
@@ -844,7 +844,7 @@ class ToolsController extends BaseController
 		$videoFiletypes = array_map('trim', explode(',', $videoFiletypes));
 
 		// Get Studies
-		$query = $db->getQuery(true);
+		$query = $db->createQuery();
 		$query->from('`#__bsms_studies` AS a');
 		$query->select('a.id, a.studydate, a.studytitle, a.alias, a.studytext, a.studyintro');
 		$query->select('a.booknumber, a.chapter_begin, a.chapter_end, a.verse_begin, a.verse_end');

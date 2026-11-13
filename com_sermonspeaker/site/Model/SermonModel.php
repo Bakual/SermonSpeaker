@@ -51,7 +51,7 @@ class SermonModel extends ItemModel
 		if (!isset($this->_item[$pk]))
 		{
 			$db    = $this->getDatabase();
-			$query = $db->getQuery(true);
+			$query = $db->createQuery();
 
 			$query->select(
 				$this->getState(
@@ -133,7 +133,7 @@ class SermonModel extends ItemModel
 			}
 
 			// Query Scripture.
-			$scriptureQuery = $db->getQuery(true)
+			$scriptureQuery = $db->createQuery()
 				->select('*')
 				->from('#__sermon_scriptures')
 				->where('sermon_id = ' . $data->id)
@@ -187,7 +187,7 @@ class SermonModel extends ItemModel
 	{
 		$levels = Factory::getApplication()->getIdentity()->getAuthorisedViewLevels();
 		$db     = $this->getDatabase();
-		$query  = $db->getQuery(true);
+		$query  = $db->createQuery();
 
 		$query->select('a.id');
 		$query->from('#__sermon_sermons AS a');
