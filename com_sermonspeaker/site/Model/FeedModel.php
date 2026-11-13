@@ -39,16 +39,15 @@ class FeedModel extends BaseDatabaseModel
 
 		$db = $this->getDatabase();
 
-		// Force utf8 connection
-		$query = "SET character_set_results ='utf8';";
 		$db->setQuery($query);
 
 		// Create a new query object.
-		$query = $db->getQuery(true);
+		$query = $db->createQuery();
 
 		// Select required fields from the table.
 		$query->select('sermons.sermon_date, sermons.title, sermons.audiofile, sermons.videofile, sermons.notes');
 		$query->select('sermons.sermon_time, sermons.id, sermons.picture');
+		$query->select('sermons.created, sermons.publish_up');
 		$query->select('sermons.catid, sermons.language');
 		$query->select('sermons.metadesc, sermons.metakey');
 		$query->select('CASE WHEN CHAR_LENGTH(sermons.alias) THEN CONCAT_WS(\':\', sermons.id, sermons.alias) ELSE sermons.id END as slug');
@@ -81,7 +80,7 @@ class FeedModel extends BaseDatabaseModel
 			if ($levels = (int) $params->get('show_subcategory_content', 0))
 			{
 				// Create a subquery for the subcategory list
-				$subQuery = $db->getQuery(true);
+				$subQuery = $db->createQuery();
 				$subQuery->select('sub.id');
 				$subQuery->from('#__categories as sub');
 				$subQuery->join('INNER', '#__categories as this ON sub.lft > this.lft AND sub.rgt < this.rgt');
@@ -105,20 +104,20 @@ class FeedModel extends BaseDatabaseModel
 		// Series filter
 		if ($series = $params->get('series_filter', 0))
 		{
-			$query->where('sermons.series_id = ' . $series);
+			$query->where('sermons.series_id = ' . (int) $series);
 		}
 
 		// Speakers filter
 		if ($speaker = $params->get('speaker_filter', 0))
 		{
-			$query->where('sermons.speaker_id = ' . $speaker);
+			$query->where('sermons.speaker_id = ' . (int) $speaker);
 		}
 
 		// Filter by start and end dates.
 		$nowDate = Factory::getDate()->toSql();
 
-		$query->where('(sermons.publish_up = IS NULL OR sermons.publish_up <= :publishUp)');
-		$query->where('(sermons.publish_down = IS NULL OR sermons.publish_down >= :publishDown)');
+		$query->where('(sermons.publish_up IS NULL OR sermons.publish_up <= :publishUp)');
+		$query->where('(sermons.publish_down IS NULL OR sermons.publish_down >= :publishDown)');
 		$query->bind(':publishUp', $nowDate);
 		$query->bind(':publishDown', $nowDate);
 

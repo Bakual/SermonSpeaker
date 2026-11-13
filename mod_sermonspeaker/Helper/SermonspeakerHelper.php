@@ -41,7 +41,7 @@ class SermonspeakerHelper implements DatabaseAwareInterface
 		$sort   = (int) $params->get('sort');
 
 		$db    = $this->getDatabase();
-		$query = $db->getQuery(true);
+		$query = $db->createQuery();
 
 		if ($mode)
 		{
@@ -71,8 +71,8 @@ class SermonspeakerHelper implements DatabaseAwareInterface
 		// Filter by start and end dates.
 		$nowDate = Factory::getDate()->toSql();
 
-		$query->where('(publish_up = IS NULL OR publish_up <= :publishUp)');
-		$query->where('(publish_down = IS NULL OR publish_down >= :publishDown)');
+		$query->where('(publish_up IS NULL OR publish_up <= :publishUp)');
+		$query->where('(publish_down IS NULL OR publish_down >= :publishDown)');
 		$query->bind(':publishUp', $nowDate);
 		$query->bind(':publishDown', $nowDate);
 

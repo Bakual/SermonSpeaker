@@ -86,7 +86,7 @@ return new class () implements InstallerScriptInterface {
 			// Check if update is allowed (only update from 5.6.0 and higher)
 			if (version_compare($this->oldRelease, '5.6.0', '<'))
 			{
-				$this->application->enqueueMessage(Text::sprintf('COM_SERMONSPEAKER_UPDATE_UNSUPPORTED', $this->oldRelease, '5.6.0'), 'error');
+				Factory::getApplication()->enqueueMessage(Text::sprintf('COM_SERMONSPEAKER_UPDATE_UNSUPPORTED', $this->oldRelease, '5.6.0'), 'error');
 
 				return false;
 			}
@@ -190,13 +190,14 @@ return new class () implements InstallerScriptInterface {
 		if (version_compare($this->oldRelease, '6.0.6', '<'))
 		{
 			$db    = Factory::getDbo();
-			$query = $db->getQuery(true);
+			$query = $db->createQuery();
 			$query->select($db->quoteName('id'))
 				->from($db->quoteName('#__assets'))
 				->where($db->quoteName('name') . ' = ' . $db->quote('com_sermonspeaker.sermons'));
+			$db->setQuery($query);
 			$result = $db->loadResult();
 
-			if ($result)
+			if (!$result)
 			{
 				$this->addAsset();
 			}
@@ -242,12 +243,12 @@ return new class () implements InstallerScriptInterface {
 		$field_mappings->common       = $common;
 		$field_mappings->special      = new stdClass;
 		$history                      = new stdClass;
-		$history->form_file           = 'administrator/components/com_sermonspeaker/models/forms/sermon.xml';
-		$history->hide_fields         = array('checked_out', 'checked_out_time', 'version');
-		$history->display_lookup      = array();
+		$history->formFile           = 'administrator/components/com_sermonspeaker/models/forms/sermon.xml';
+		$history->hideFields         = array('checked_out', 'checked_out_time', 'version');
+		$history->displayLookup      = array();
 		$source_user1                 = new stdClass;
-		$source_user1->source_column  = 'created_by';
-		$source_user1->target_table   = '#__users';
+		$source_user1->sourceColumn  = 'created_by';
+		$source_user1->targetTable   = '#__users';
 		$source_user1->target_column  = 'id';
 		$source_user1->display_column = 'name';
 		$source_user2                 = clone $source_user1;
@@ -277,7 +278,7 @@ return new class () implements InstallerScriptInterface {
 		$source_serie->source_column   = 'series_id';
 		$source_serie->target_table    = '#__sermon_series';
 
-		$history->form_file        = 'administrator/components/com_sermonspeaker/models/forms/sermon.xml';
+		$history->formFile        = 'administrator/components/com_sermonspeaker/models/forms/sermon.xml';
 		$history->display_lookup[] = $source_speaker;
 		$history->display_lookup[] = $source_serie;
 
@@ -309,7 +310,7 @@ return new class () implements InstallerScriptInterface {
 		$special->prefix  = 'SermonspeakerTable';
 		$special->config  = 'array()';
 
-		$history->form_file = 'administrator/components/com_sermonspeaker/models/forms/speaker.xml';
+		$history->formFile = 'administrator/components/com_sermonspeaker/models/forms/speaker.xml';
 
 		$table_object          = new stdClass;
 		$table_object->special = $special;
@@ -339,7 +340,7 @@ return new class () implements InstallerScriptInterface {
 		$special->prefix  = 'SermonspeakerTable';
 		$special->config  = 'array()';
 
-		$history->form_file = 'administrator/components/com_sermonspeaker/models/forms/serie.xml';
+		$history->formFile = 'administrator/components/com_sermonspeaker/models/forms/serie.xml';
 
 		$table_object          = new stdClass;
 		$table_object->special = $special;
@@ -392,7 +393,7 @@ return new class () implements InstallerScriptInterface {
 		$special->config  = 'array()';
 
 		$history                = new stdClass;
-		$history->form_file     = 'administrator/components/com_categories/models/forms/category.xml';
+		$history->formFile     = 'administrator/components/com_categories/models/forms/category.xml';
 		$history->hideFields    = array('asset_id', 'checked_out', 'checked_out_time', 'version', 'lft', 'rgt', 'level', 'path', 'extension');
 		$history->ignoreChanges = array('modified_user_id', 'modified_time', 'checked_out', 'checked_out_time', 'version', 'hits', 'path');
 		$history->convertToInt  = array('publish_up', 'publish_down');
@@ -478,7 +479,7 @@ return new class () implements InstallerScriptInterface {
 		$catFactory = new Joomla\CMS\Mvc\Factory\MvcFactory('Joomla\Component\Categories');
 		$sections   = array('sermons', 'series', 'speakers');
 
-		$query = $db->getQuery(true);
+		$query = $db->createQuery();
 		$query->select('*')
 			->from('#__categories')
 			->where($db->quoteName('extension') . ' = ' . $db->quote('com_sermonspeaker'))
@@ -507,27 +508,29 @@ return new class () implements InstallerScriptInterface {
 				try
 				{
 					$catModel->save($category);
+
+					$newId = $catModel->getState('category.id');
+
+					$parentIds[$section][$oldId] = $newId;
+
+					$query = $db->createQuery();
+					$query->update($db->quoteName('#__sermon_' . $section));
+					$query->set($db->quoteName('catid') . ' = ' . (int) $newId);
+					$query->where($db->quoteName('catid') . ' = ' . $oldId);
+					$db->setQuery($query);
+					$db->execute();
 				}
 				catch (Exception $e)
 				{
-					$this->application->enqueueMessage($e->getMessage(), 'ERROR');
+					Factory::getApplication()->enqueueMessage($e->getMessage(), 'ERROR');
+
+					return;
 				}
-
-				$newId = $catModel->getState('category.id');
-
-				$parentIds[$section][$oldId] = $newId;
-
-				$query = $db->getQuery(true);
-				$query->update($db->quoteName('#__sermon_' . $section));
-				$query->set($db->quoteName('catid') . ' = ' . (int) $newId);
-				$query->where($db->quoteName('catid') . ' = ' . $oldId);
-				$db->setQuery($query);
-				$db->execute();
 			}
 		}
 
 		// Delete old categories
-		$query = $db->getQuery(true);
+		$query = $db->createQuery();
 		$query->delete($db->quoteName('#__categories'));
 		$query->where($db->quoteName('extension') . ' = ' . $db->quote('com_sermonspeaker'));
 		$db->setQuery($query);
@@ -538,11 +541,11 @@ return new class () implements InstallerScriptInterface {
 		}
 		catch (Exception $e)
 		{
-			$this->application->enqueueMessage($e->getMessage(), 'ERROR');
+			Factory::getApplication()->enqueueMessage($e->getMessage(), 'ERROR');
 		}
 
 		// Delete old categories
-		$query = $db->getQuery(true);
+		$query = $db->createQuery();
 		$query->delete($db->quoteName('#__assets'));
 		$query->where($db->quoteName('name') . ' LIKE ' . $db->quote('com_sermonspeaker.category.%'));
 		$db->setQuery($query);
@@ -553,7 +556,7 @@ return new class () implements InstallerScriptInterface {
 		}
 		catch (Exception $e)
 		{
-			$this->application->enqueueMessage($e->getMessage(), 'ERROR');
+			Factory::getApplication()->enqueueMessage($e->getMessage(), 'ERROR');
 		}
 	}
 
@@ -598,7 +601,7 @@ return new class () implements InstallerScriptInterface {
 			$params['col_speaker'] = '"col_speaker":["speakers:bio","speaker:bio","speaker:intro"]';
 
 			$db    = Factory::getDbo();
-			$query = $db->getQuery(true);
+			$query = $db->createQuery();
 			$query->update($db->quoteName('#__extensions'));
 			$query->set($db->quoteName('params') . ' = ' . $db->quote('{' . implode(',', $params) . '}'));
 			$query->where($db->quoteName('name') . ' = ' . $db->quote('com_sermonspeaker'));
@@ -643,7 +646,7 @@ return new class () implements InstallerScriptInterface {
 			$catModel->save($catData);
 			$id = $catModel->getItem()->id;
 
-			$query = $db->getQuery(true);
+			$query = $db->createQuery();
 			$query->update($db->quoteName('#__sermon_' . $section));
 			$query->set($db->quoteName('catid') . ' = ' . (int) $id);
 			$query->where($db->quoteName('catid') . ' = 0');
@@ -664,13 +667,15 @@ return new class () implements InstallerScriptInterface {
 		$db = Factory::getDbo();
 
 		// Get the Asset ID from SermonSpeaker component to use as parent
-		$query = $db->getQuery(true)
+		$query = $db->createQuery()
 			->select($db->quoteName('id'))
 			->from($db->quoteName('#__assets'))
 			->where($db->quoteName('name') . ' = ' . $db->quote('com_sermonspeaker'));
 
 		// Get the asset id from the database.
 		$db->setQuery($query);
+
+		$assetId = 0;
 
 		if ($result = $db->loadResult())
 		{

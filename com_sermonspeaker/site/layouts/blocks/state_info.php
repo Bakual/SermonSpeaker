@@ -27,9 +27,9 @@ if (!$show)
 <?php if (!$item->state) : ?>
 	<span class="badge bg-warning text-light"><?php echo Text::_('JUNPUBLISHED'); ?></span>
 <?php endif; ?>
-<?php if (strtotime($item->publish_up) > strtotime(Factory::getDate())) : ?>
+<?php if ($item->publish_up && strtotime($item->publish_up) > strtotime(Factory::getDate())) : ?>
 	<span class="badge bg-warning text-light"><?php echo Text::_('JNOTPUBLISHEDYET'); ?></span>
 <?php endif; ?>
-<?php if ((strtotime($item->publish_down) < strtotime(Factory::getDate())) && !is_null($item->publish_down)) : ?>
+<?php if ($item->publish_down && strtotime($item->publish_down) < strtotime(Factory::getDate())) : ?>
 	<span class="badge bg-warning text-light"><?php echo Text::_('JEXPIRED'); ?></span>
 <?php endif; ?>

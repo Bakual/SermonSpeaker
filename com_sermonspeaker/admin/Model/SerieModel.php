@@ -382,8 +382,6 @@ class SerieModel extends AdminModel
 	 */
 	protected function prepareTable($table)
 	{
-		jimport('joomla.filter.output');
-
 		$table->title = htmlspecialchars_decode($table->title, ENT_QUOTES);
 		$table->alias = ApplicationHelper::stringURLSafe($table->alias);
 		if (empty($table->alias))

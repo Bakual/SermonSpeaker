@@ -146,7 +146,7 @@ class FilesModel extends BaseDatabaseModel
 	public function getCategory()
 	{
 		$db    = $this->getDatabase();
-		$query = $db->getQuery(true);
+		$query = $db->createQuery();
 
 		$query->select('a.id, a.title');
 		$query->from('#__categories AS a');

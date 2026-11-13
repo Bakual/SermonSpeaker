@@ -55,7 +55,7 @@ class SerieslistField extends GroupedlistField
 		$db     = $this->getDatabase();
 		$params = ComponentHelper::getParams('com_sermonspeaker');
 
-		$query = $db->getQuery(true);
+		$query = $db->createQuery();
 		$query->select('series.id As value, home');
 
 		if ($this->element['hidecategory'])
@@ -93,7 +93,7 @@ class SerieslistField extends GroupedlistField
 
 		$published = $db->loadObjectList();
 
-		$query = $db->getQuery(true);
+		$query = $db->createQuery();
 		$query->select('series.id As value, home');
 
 		if ($this->element['hidecategory'])

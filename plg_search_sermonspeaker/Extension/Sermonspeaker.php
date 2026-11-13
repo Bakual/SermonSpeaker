@@ -252,7 +252,7 @@ final class Sermonspeaker extends CMSPlugin implements SubscriberInterface
 
 			if (!empty($state))
 			{
-				$query = $db->getQuery(true);
+				$query = $db->createQuery();
 				$query->select('a.title, a.notes AS text, a.created AS created, a.catid, a.language, '
 					. 'CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(\':\', a.id, a.alias) ELSE a.id END as slug, '
 					. 'CASE WHEN CHAR_LENGTH(c.alias) THEN CONCAT_WS(\':\', c.id, c.alias) ELSE c.id END as catslug, '
@@ -348,7 +348,7 @@ final class Sermonspeaker extends CMSPlugin implements SubscriberInterface
 
 			if (!empty($state))
 			{
-				$query = $db->getQuery(true);
+				$query = $db->createQuery();
 				$query->select('a.title, a.series_description AS text, a.created AS created, a.catid, a.language, '
 					. 'CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(\':\', a.id, a.alias) ELSE a.id END as slug, '
 					. 'CASE WHEN CHAR_LENGTH(c.alias) THEN CONCAT_WS(\':\', c.id, c.alias) ELSE c.id END as catslug, '
@@ -438,7 +438,7 @@ final class Sermonspeaker extends CMSPlugin implements SubscriberInterface
 
 			if (!empty($state))
 			{
-				$query = $db->getQuery(true);
+				$query = $db->createQuery();
 				$query->select('a.title, CONCAT_WS(" ", a.intro, a.bio) AS text, a.created AS created, a.catid, a.language, '
 					. 'CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(\':\', a.id, a.alias) ELSE a.id END as slug, '
 					. 'CASE WHEN CHAR_LENGTH(c.alias) THEN CONCAT_WS(\':\', c.id, c.alias) ELSE c.id END as catslug, '

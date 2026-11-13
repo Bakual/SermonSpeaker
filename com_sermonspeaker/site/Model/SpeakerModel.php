@@ -50,7 +50,7 @@ class SpeakerModel extends ItemModel
 		if (!isset($this->_item[$pk]))
 		{
 			$db    = $this->getDatabase();
-			$query = $db->getQuery(true);
+			$query = $db->createQuery();
 
 			$query->select(
 				$this->getState(
@@ -70,8 +70,8 @@ class SpeakerModel extends ItemModel
 			{
 				$nowDate = Factory::getDate()->toSql();
 
-				$query->where('(speaker.publish_up = IS NULL OR speaker.publish_up <= :publishUp)');
-				$query->where('(speaker.publish_down = IS NULL OR speaker.publish_down >= :publishDown)');
+				$query->where('(speaker.publish_up IS NULL OR speaker.publish_up <= :publishUp)');
+				$query->where('(speaker.publish_down IS NULL OR speaker.publish_down >= :publishDown)');
 				$query->bind(':publishUp', $nowDate);
 				$query->bind(':publishDown', $nowDate);
 			}

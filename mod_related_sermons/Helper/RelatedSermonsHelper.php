@@ -97,7 +97,7 @@ class RelatedSermonsHelper implements DatabaseAwareInterface
 	private function getKeywords(): array
 	{
 		$db    = $this->getDatabase();
-		$query = $db->getQuery(true);
+		$query = $db->createQuery();
 
 		$query->select('metakey');
 		$query->where('id = ' . $this->id);
@@ -162,7 +162,7 @@ class RelatedSermonsHelper implements DatabaseAwareInterface
 			default => 'a.created DESC',
 		};
 
-		$query = $this->getDatabase()->getQuery(true);
+		$query = $this->getDatabase()->createQuery();
 		$query->select('a.title, a.created, a.catid, a.language');
 		$query->select('CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(":", a.id, a.alias) ELSE a.id END as slug');
 		$query->select('CASE WHEN CHAR_LENGTH(cc.alias) THEN CONCAT_WS(":", cc.id, cc.alias) ELSE cc.id END as catslug');
@@ -180,8 +180,8 @@ class RelatedSermonsHelper implements DatabaseAwareInterface
 		// Filter by start and end dates.
 		$nowDate = Factory::getDate()->toSql();
 
-		$query->where('(a.publish_up = IS NULL OR a.publish_up <= :publishUp)');
-		$query->where('(a.publish_down = IS NULL OR a.publish_down >= :publishDown)');
+		$query->where('(a.publish_up IS NULL OR a.publish_up <= :publishUp)');
+		$query->where('(a.publish_down IS NULL OR a.publish_down >= :publishDown)');
 		$query->bind(':publishUp', $nowDate);
 		$query->bind(':publishDown', $nowDate);
 
@@ -232,7 +232,7 @@ class RelatedSermonsHelper implements DatabaseAwareInterface
 
 		$related = array();
 
-		$query = $db->getQuery(true);
+		$query = $db->createQuery();
 		$query->select('a.title, a.created');
 		$query->select('CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(":", a.id, a.alias) ELSE a.id END as slug');
 		$query->select('CASE WHEN CHAR_LENGTH(cc.alias) THEN CONCAT_WS(":", cc.id, cc.alias) ELSE cc.id END as catslug');
@@ -250,8 +250,8 @@ class RelatedSermonsHelper implements DatabaseAwareInterface
 		$query->where('(CONCAT(",", REPLACE(a.metakey, ", ", ","), ",") LIKE "%,'
 			. implode(',%" OR CONCAT(",", REPLACE(a.metakey, ", ", ","), ",") LIKE "%,', $keywords) . ',%")');
 
-		$query->where('(a.publish_up = IS NULL OR a.publish_up <= :publishUp)');
-		$query->where('(a.publish_down = IS NULL OR a.publish_down >= :publishDown)');
+		$query->where('(a.publish_up IS NULL OR a.publish_up <= :publishUp)');
+		$query->where('(a.publish_down IS NULL OR a.publish_down >= :publishDown)');
 		$query->bind(':publishUp', $nowDate);
 		$query->bind(':publishDown', $nowDate);
 

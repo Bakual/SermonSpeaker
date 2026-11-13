@@ -13,8 +13,8 @@ CREATE TABLE `#__sermon_speakers`
     `bio`              MEDIUMTEXT,
     `pic`              TEXT,
     `state`            TINYINT(3)       NOT NULL DEFAULT '0',
-    `publish_up`       datetime         NULL DEFAULT NULL,
-    `publish_down`     datetime         NULL DEFAULT NULL,
+    `publish_up`       datetime         NULL     DEFAULT NULL,
+    `publish_down`     datetime         NULL     DEFAULT NULL,
     `home`             TINYINT(3)       NOT NULL DEFAULT '0',
     `ordering`         INT(11)          NOT NULL DEFAULT '0',
     `hits`             INT(10)          NOT NULL DEFAULT '0',
@@ -27,7 +27,7 @@ CREATE TABLE `#__sermon_speakers`
     `metadesc`         TEXT             NULL,
     `metadata`         TEXT             NULL,
     `checked_out`      INT(11)          NOT NULL DEFAULT '0',
-    `checked_out_time` DATETIME         NULL DEFAULT NULL,
+    `checked_out_time` DATETIME         NULL     DEFAULT NULL,
     `language`         CHAR(7)          NOT NULL DEFAULT '*',
     `version`          int(10) unsigned NOT NULL DEFAULT '1',
     PRIMARY KEY (`id`),
@@ -49,8 +49,8 @@ CREATE TABLE `#__sermon_series`
     `alias`              VARCHAR(255)     NOT NULL,
     `series_description` MEDIUMTEXT       NULL,
     `state`              TINYINT(3)       NOT NULL DEFAULT '0',
-    `publish_up`         datetime         NULL DEFAULT NULL,
-    `publish_down`       datetime         NULL DEFAULT NULL,
+    `publish_up`         datetime         NULL     DEFAULT NULL,
+    `publish_down`       datetime         NULL     DEFAULT NULL,
     `home`               TINYINT(3)       NOT NULL DEFAULT '0',
     `ordering`           INT(11)          NOT NULL DEFAULT '0',
     `hits`               INT(10)          NOT NULL DEFAULT '0',
@@ -64,8 +64,8 @@ CREATE TABLE `#__sermon_series`
     `metadesc`           TEXT             NULL,
     `metadata`           TEXT             NULL,
     `checked_out`        INT(11)          NOT NULL DEFAULT '0',
-    `checked_out_time`   DATETIME         NULL DEFAULT NULL,
-    `zip_created`        DATETIME         NULL DEFAULT NULL,
+    `checked_out_time`   DATETIME         NULL     DEFAULT NULL,
+    `zip_created`        DATETIME         NULL     DEFAULT NULL,
     `zip_content`        TEXT             NULL,
     `zip_progress`       INT(11)          NOT NULL DEFAULT '0',
     `zip_state`          TINYINT(3)       NOT NULL DEFAULT '0',
@@ -98,13 +98,13 @@ CREATE TABLE `#__sermon_sermons`
     `title`            VARCHAR(255)     NOT NULL,
     `alias`            VARCHAR(255)     NOT NULL,
     `sermon_number`    INT(10)          NOT NULL DEFAULT '0',
-    `sermon_date`      DATETIME         NULL DEFAULT NULL,
+    `sermon_date`      DATETIME         NULL     DEFAULT NULL,
     `sermon_time`      TIME             NOT NULL DEFAULT '00:00:00',
     `notes`            MEDIUMTEXT       NULL,
     `maintext`         MEDIUMTEXT       NULL,
     `state`            TINYINT(3)       NOT NULL DEFAULT '0',
-    `publish_up`       datetime         NULL DEFAULT NULL,
-    `publish_down`     datetime         NULL DEFAULT NULL,
+    `publish_up`       datetime         NULL     DEFAULT NULL,
+    `publish_down`     datetime         NULL     DEFAULT NULL,
     `ordering`         INT(11)          NOT NULL DEFAULT '0',
     `hits`             INT(10)          NOT NULL DEFAULT '0',
     `created`          DATETIME         NOT NULL,
@@ -119,7 +119,7 @@ CREATE TABLE `#__sermon_sermons`
     `metadesc`         TEXT             NULL,
     `metadata`         TEXT             NULL,
     `checked_out`      INT(11)          NOT NULL DEFAULT '0',
-    `checked_out_time` DATETIME         NULL DEFAULT NULL,
+    `checked_out_time` DATETIME         NULL     DEFAULT NULL,
     `language`         CHAR(7)          NOT NULL DEFAULT '*',
     `version`          int(10) unsigned NOT NULL DEFAULT '1',
     PRIMARY KEY (`id`),
@@ -147,6 +147,7 @@ CREATE TABLE `#__sermon_scriptures`
     `text`      MEDIUMTEXT NULL,
     `ordering`  INT(11)    NOT NULL DEFAULT '0',
     `sermon_id` INT(10)    NOT NULL DEFAULT '0',
+    PRIMARY KEY (`id`),
     KEY `idx_sermon_id` (`sermon_id`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 0
@@ -154,18 +155,19 @@ CREATE TABLE `#__sermon_scriptures`
   DEFAULT COLLATE = utf8mb4_unicode_ci;
 
 INSERT INTO `#__sermon_speakers`
-(`id`, `title`, `alias`, `website`, `intro`, `bio`, `pic`, `state`, `ordering`, `created_by`, `created`, `home`)
+(`id`, `title`, `alias`, `website`, `intro`, `bio`, `pic`, `state`, `ordering`, `created_by`, `created`, `modified`,
+ `home`)
 VALUES (1, 'Billy Sunday', 'billy-sunday', 'http://www.sermonspeaker.net',
         'Billy Sunday died in Chicago, November 6, 1935; services were held in the Moody Memorial Church with 4,400 present. Take 15 minutes each day to listen to God talking to you; take 15 minutes each day to talk to God; take 15 minutes each day to talk to others about God.',
         "This young convert was deeply impressed and determined to make these the rules of his life. From that day onward throughout his life he made it a rule to spend the first moments of his day alone with God and God's Word. Before he read a letter, looked at a paper or even read a telegram, he went first to the Bible, that the first impression of the day might be what he got directly from God.",
-        'components/com_sermonspeaker/media/default_speaker.jpg', 1, 1, 0, '2006-03-28', '1');
+        'components/com_sermonspeaker/media/default_speaker.jpg', 1, 1, 0, '2006-03-28', '2006-03-28', '1');
 
 INSERT INTO `#__sermon_series`
-(`id`, `title`, `alias`, `series_description`, `state`, `ordering`, `created_by`, `created`, `home`)
-VALUES (1, 'General Topics', 'general-topics', 'Topics of general interest.', 1, 1, 0, '2006-03-28', '1');
+(`id`, `title`, `alias`, `series_description`, `state`, `ordering`, `created_by`, `created`, `modified`, `home`)
+VALUES (1, 'General Topics', 'general-topics', 'Topics of general interest.', 1, 1, 0, '2006-03-28', '2006-03-28', '1');
 
 INSERT INTO `#__sermon_sermons`
 (`id`, `speaker_id`, `series_id`, `audiofile`, `title`, `alias`, `sermon_number`, `sermon_date`, `sermon_time`, `notes`,
- `ordering`, `created_by`, `created`, `state`)
+ `ordering`, `created_by`, `created`, `modified`, `state`)
 VALUES (1, 1, 1, '/components/com_sermonspeaker/media/default_sermon.mp3', 'The Sin of Booze', 'the-sin-of-booze', '1',
-        '2006-03-28', '00:00:05', 'Borrowed from sermonaudio.com', 1, 0, '2006-03-28', 1);
+        '2006-03-28', '00:00:05', 'Borrowed from sermonaudio.com', 1, 0, '2006-03-28', '2006-03-28', 1);

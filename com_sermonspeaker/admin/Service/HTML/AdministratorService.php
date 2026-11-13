@@ -72,7 +72,7 @@ class AdministratorService
 
 			// Get the associated menu items
 			$db    = Factory::getDbo();
-			$query = $db->getQuery(true)
+			$query = $db->createQuery()
 				->select('a.*')
 				->from($table . ' as a')
 				->select('cat.title as category_title')

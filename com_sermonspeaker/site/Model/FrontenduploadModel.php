@@ -132,7 +132,7 @@ class FrontenduploadModel extends AdminSermonModel
 			if ($data['id'])
 			{
 				$db    = Factory::getDbo();
-				$query = $db->getQuery(true);
+				$query = $db->createQuery();
 				$query->select('book, cap1, vers1, cap2, vers2, text');
 				$query->from('#__sermon_scriptures');
 				$query->where('sermon_id = ' . (int) $data['id']);

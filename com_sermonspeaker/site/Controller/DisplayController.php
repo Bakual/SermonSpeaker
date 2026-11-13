@@ -157,7 +157,7 @@ class DisplayController extends BaseController
 
 		$db       = Factory::getDbo();
 		$nowDate  = Factory::getDate()->toSql();
-		$query    = $db->getQuery(true);
+		$query    = $db->createQuery();
 
 		if ($this->input->get('type', 'audio', 'word') == 'video')
 		{
@@ -172,8 +172,8 @@ class DisplayController extends BaseController
 		$query->where($db->quoteName('id') . ' = ' . $id);
 		$query->where($db->quoteName('state') . ' = 1');
 
-		$query->where('(publish_up = IS NULL OR publish_up <= :publishUp)');
-		$query->where('(publish_down = IS NULL OR publish_down >= :publishDown)');
+		$query->where('(publish_up IS NULL OR publish_up <= :publishUp)');
+		$query->where('(publish_down IS NULL OR publish_down >= :publishDown)');
 		$query->bind(':publishUp', $nowDate);
 		$query->bind(':publishDown', $nowDate);
 
