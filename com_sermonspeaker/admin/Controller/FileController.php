@@ -247,7 +247,6 @@ class FileController extends BaseController
 			$folder = JPATH_ROOT . '/' . $path . $append;
 
 			// Set FTP credentials, if given
-			jimport('joomla.client.helper');
 			ClientHelper::setCredentialsFromRequest('ftp');
 
 			$filename = $file['name'];
