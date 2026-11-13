@@ -105,7 +105,7 @@
 		</tags>
 		<maintainer>Thomas Hunziker</maintainer>
 		<maintainerurl>https://www.sermonspeaker.net/</maintainerurl>
-		<targetplatform name="joomla" version="6.[01234]"/>
+		<targetplatform name="joomla" version="6.[0123456789]"/>
 		<sha256>d702516e46d52a451957cc39107311954329c25e0b55166444803e9281d7b70d</sha256>
 	</update>
 </updates>
