@@ -86,7 +86,7 @@ return new class () implements InstallerScriptInterface {
 			// Check if update is allowed (only update from 5.6.0 and higher)
 			if (version_compare($this->oldRelease, '5.6.0', '<'))
 			{
-				$this->application->enqueueMessage(Text::sprintf('COM_SERMONSPEAKER_UPDATE_UNSUPPORTED', $this->oldRelease, '5.6.0'), 'error');
+				Factory::getApplication()->enqueueMessage(Text::sprintf('COM_SERMONSPEAKER_UPDATE_UNSUPPORTED', $this->oldRelease, '5.6.0'), 'error');
 
 				return false;
 			}
@@ -243,12 +243,12 @@ return new class () implements InstallerScriptInterface {
 		$field_mappings->common       = $common;
 		$field_mappings->special      = new stdClass;
 		$history                      = new stdClass;
-		$history->form_file           = 'administrator/components/com_sermonspeaker/models/forms/sermon.xml';
-		$history->hide_fields         = array('checked_out', 'checked_out_time', 'version');
-		$history->display_lookup      = array();
+		$history->formFile           = 'administrator/components/com_sermonspeaker/models/forms/sermon.xml';
+		$history->hideFields         = array('checked_out', 'checked_out_time', 'version');
+		$history->displayLookup      = array();
 		$source_user1                 = new stdClass;
-		$source_user1->source_column  = 'created_by';
-		$source_user1->target_table   = '#__users';
+		$source_user1->sourceColumn  = 'created_by';
+		$source_user1->targetTable   = '#__users';
 		$source_user1->target_column  = 'id';
 		$source_user1->display_column = 'name';
 		$source_user2                 = clone $source_user1;
@@ -278,7 +278,7 @@ return new class () implements InstallerScriptInterface {
 		$source_serie->source_column   = 'series_id';
 		$source_serie->target_table    = '#__sermon_series';
 
-		$history->form_file        = 'administrator/components/com_sermonspeaker/models/forms/sermon.xml';
+		$history->formFile        = 'administrator/components/com_sermonspeaker/models/forms/sermon.xml';
 		$history->display_lookup[] = $source_speaker;
 		$history->display_lookup[] = $source_serie;
 
@@ -310,7 +310,7 @@ return new class () implements InstallerScriptInterface {
 		$special->prefix  = 'SermonspeakerTable';
 		$special->config  = 'array()';
 
-		$history->form_file = 'administrator/components/com_sermonspeaker/models/forms/speaker.xml';
+		$history->formFile = 'administrator/components/com_sermonspeaker/models/forms/speaker.xml';
 
 		$table_object          = new stdClass;
 		$table_object->special = $special;
@@ -340,7 +340,7 @@ return new class () implements InstallerScriptInterface {
 		$special->prefix  = 'SermonspeakerTable';
 		$special->config  = 'array()';
 
-		$history->form_file = 'administrator/components/com_sermonspeaker/models/forms/serie.xml';
+		$history->formFile = 'administrator/components/com_sermonspeaker/models/forms/serie.xml';
 
 		$table_object          = new stdClass;
 		$table_object->special = $special;
@@ -393,7 +393,7 @@ return new class () implements InstallerScriptInterface {
 		$special->config  = 'array()';
 
 		$history                = new stdClass;
-		$history->form_file     = 'administrator/components/com_categories/models/forms/category.xml';
+		$history->formFile     = 'administrator/components/com_categories/models/forms/category.xml';
 		$history->hideFields    = array('asset_id', 'checked_out', 'checked_out_time', 'version', 'lft', 'rgt', 'level', 'path', 'extension');
 		$history->ignoreChanges = array('modified_user_id', 'modified_time', 'checked_out', 'checked_out_time', 'version', 'hits', 'path');
 		$history->convertToInt  = array('publish_up', 'publish_down');
@@ -522,7 +522,7 @@ return new class () implements InstallerScriptInterface {
 				}
 				catch (Exception $e)
 				{
-					$this->application->enqueueMessage($e->getMessage(), 'ERROR');
+					Factory::getApplication()->enqueueMessage($e->getMessage(), 'ERROR');
 
 					return;
 				}
@@ -541,7 +541,7 @@ return new class () implements InstallerScriptInterface {
 		}
 		catch (Exception $e)
 		{
-			$this->application->enqueueMessage($e->getMessage(), 'ERROR');
+			Factory::getApplication()->enqueueMessage($e->getMessage(), 'ERROR');
 		}
 
 		// Delete old categories
@@ -556,7 +556,7 @@ return new class () implements InstallerScriptInterface {
 		}
 		catch (Exception $e)
 		{
-			$this->application->enqueueMessage($e->getMessage(), 'ERROR');
+			Factory::getApplication()->enqueueMessage($e->getMessage(), 'ERROR');
 		}
 	}
 
