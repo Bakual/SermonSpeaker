@@ -13,6 +13,8 @@ use getID3;
 use getid3_lib;
 use Joomla\CMS\Application\ApplicationHelper;
 use Joomla\CMS\Factory;
+use Joomla\Database\DatabaseInterface;
+use Joomla\Database\ParameterType;
 use Joomla\Filesystem\File;
 
 defined('_JEXEC') or die();
@@ -146,16 +148,10 @@ class Id3Helper
 
 			$id3['scripture'] = '';
 
-			$db = Factory::getDbo();
-
 			if (array_key_exists('album', $FileInfo['comments']))
 			{
-				$query = $db->getQuery(true);
-				$query->select(['id', 'title']);
-				$query->from('#__sermon_series');
-				$query->where('title like ' . $db->quote($db->escape($FileInfo['comments']['album'][0])));
-				$db->setQuery($query);
-				$result = $db->loadAssoc();
+				$album  = (string) $FileInfo['comments']['album'][0];
+				$result = self::findByTitle('#__sermon_series', $album);
 
 				if ($result)
 				{
@@ -177,12 +173,8 @@ class Id3Helper
 
 			if (array_key_exists('artist', $FileInfo['comments']))
 			{
-				$query = $db->getQuery(true);
-				$query->select(['id', 'title']);
-				$query->from('#__sermon_speakers');
-				$query->where('title like ' . $db->quote($db->escape($FileInfo['comments']['artist'][0])));
-				$db->setQuery($query);
-				$result = $db->loadAssoc();
+				$artist = (string) $FileInfo['comments']['artist'][0];
+				$result = self::findByTitle('#__sermon_speakers', $artist);
 
 				if ($result)
 				{
@@ -216,5 +208,29 @@ class Id3Helper
 		$id3['filesize'] = filesize($path);
 
 		return $id3;
+	}
+
+	/**
+	 * Sucht einen Datensatz (id, title) anhand des Titels.
+	 *
+	 * @param   string  $table  Tabellenname mit #__-Präfix (fest im Code, nie aus Benutzereingaben)
+	 * @param   string  $title  Gesuchter Titel
+	 *
+	 * @return  array|null
+	 */
+	private static function findByTitle(string $table, string $title): ?array
+	{
+		$db = Factory::getContainer()->get(DatabaseInterface::class);
+
+		$query = $db->createQuery()
+			->select($db->quoteName(['id', 'title']))
+			->from($db->quoteName($table))
+			->where($db->quoteName('title') . ' = :title')
+			->bind(':title', $title, ParameterType::STRING)
+			->setLimit(1);
+
+		$db->setQuery($query);
+
+		return $db->loadAssoc() ?: null;
 	}
 }
