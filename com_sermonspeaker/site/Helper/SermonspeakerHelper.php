@@ -183,7 +183,10 @@ class SermonspeakerHelper
 	 *
 	 * @param   int     $id    ID of the sermon
 	 * @param   string  $type  Audio or video download
-	 * @param   int     $mode  Various modes
+	 * @param   int     $mode  0: Bootstrap Button with Text
+	 *                         1|3: Link with Icon
+	 *                         2: Bootstrap Button with Icon
+	 *                         4: Link with Text
 	 * @param   int     $size  Filesize
 	 *
 	 * @return  string  button
@@ -201,52 +204,36 @@ class SermonspeakerHelper
 
 		$text    = ($size) ? Text::sprintf('COM_SERMONSPEAKER_DOWNLOADBUTTON_' . $type . '_WITH_SIZE', self::convertBytes($size))
 			: Text::_('COM_SERMONSPEAKER_DOWNLOADBUTTON_' . $type);
-		$onclick = '';
 		$fileurl = Route::_('index.php?option=com_sermonspeaker&task=download&id=' . $id . '&type=' . $type);
 
-		if ($mode == 2)
-		{
-			// Button with Bootstrap Icon
-			if (self::$params->get('enable_ga_events'))
-			{
-				$onclick = "ga('send', 'event', 'SermonSpeaker Download', '" . $type . "', 'id:" . $id . "');";
-			}
+		$track = '';
 
-			$html = '<button id="sermon_download" class="btn btn-small download_btn" onclick="' . $onclick . 'window.location.href=\'' . $fileurl . '\';" >'
-				. '<i class="icon-download"> </i> ' . $text . '</button>';
+		if (self::$params->get('enable_ga_events'))
+		{
+			$track = ' data-ss-event="download" data-ss-type="' . htmlspecialchars($type) . '" data-ss-id="' . $id . '"';
+
+			Factory::getApplication()->getDocument()->getWebAssetManager()
+				->useScript('com_sermonspeaker.tracking');
 		}
-		elseif ($mode == 1 || $mode == 3)
+
+		$btnClass = '';
+
+		if ($mode == 0 || $mode == 2)
+		{
+			$btnClass = ' btn btn-primary';
+		}
+
+		if ($mode >= 1 && $mode <= 3)
 		{
 			// Link with Bootstrap Icon
-			if (self::$params->get('enable_ga_events'))
-			{
-				$onclick = "onclick=\"ga('send', 'event', 'SermonSpeaker Download', '" . $type . "', 'id:" . $id . "');\"";
-			}
-
-			$html = '<a href="' . $fileurl . '" target="_blank" ' . $onclick . ' class="hasTooltip" title="' . $text . '">'
+			$html = '<a href="' . $fileurl . '" target="_blank" ' . $track . ' class="hasTooltip' . $btnClass . '" title="' . $text . '">'
 				. '<i class="icon-download"> </i>'
 				. '</a>';
 		}
-		elseif ($mode == 4)
-		{
-			// Link with Text
-			if (self::$params->get('enable_ga_events'))
-			{
-				$onclick = "onclick=\"ga('send', 'event', 'SermonSpeaker Download', '" . $type . "', 'id:" . $id . "');\"";
-			}
-
-			$html = '<a href="' . $fileurl . '" target="_blank" ' . $onclick . ' class="download">' . $text . '</a>';
-		}
 		else
 		{
-			// Button with Text
-			if (self::$params->get('enable_ga_events'))
-			{
-				$onclick = "ga('send', 'event', 'SermonSpeaker Download', '" . $type . "', 'id:" . $id . "');";
-			}
-
-			$html = '<button id="sermon_download" class="btn btn-primary download_btn" type="button" onclick="'
-				. $onclick . 'window.location.href=\'' . $fileurl . '\';">' . $text . '</button>';
+			// Link with Text
+			$html = '<a href="' . $fileurl . '" target="_blank" ' . $track . ' class="download' . $btnClass . '">' . $text . '</a>';
 		}
 
 		return $html;
@@ -565,7 +552,7 @@ class SermonspeakerHelper
 	/**
 	 * Inserting the scriptures
 	 *
-	 * @param   string  $scripture  String containing the scripture
+	 * @param   array   $scripture  String containing the scripture
 	 * @param   string  $between    Delimiter
 	 * @param   bool    $addTag     Adds plugin tags around scripture
 	 *
@@ -575,15 +562,14 @@ class SermonspeakerHelper
 	 */
 	public static function insertScriptures($scripture, $between, $addTag = true)
 	{
-		if (!$scripture || $scripture == ('|||||'))
+		if (!$scripture)
 		{
 			return '';
 		}
 
-		$explode    = explode('!', $scripture);
 		$scriptures = array();
 
-		foreach ($explode as $passage)
+		foreach ($scripture as $passage)
 		{
 			$scriptures[] = self::buildScripture($passage, $addTag);
 		}
@@ -608,49 +594,47 @@ class SermonspeakerHelper
 			self::getParams();
 		}
 
-		$explode = explode('|', $scripture);
-
-		if (count($explode) != 6)
+		if (!isset($scripture->book))
 		{
 			return '';
 		}
 
 		$text = '';
 
-		if ($explode[5])
+		if ($scripture->text)
 		{
-			$text .= $explode[5];
+			$text .= $scripture->text;
 		}
 		else
 		{
 			$separator = Text::_('COM_SERMONSPEAKER_SCRIPTURE_SEPARATOR');
-			$text      .= Text::_('COM_SERMONSPEAKER_BOOK_' . $explode[0]);
+			$text      .= Text::_('COM_SERMONSPEAKER_BOOK_' . $scripture->book);
 
-			if ($explode[1])
+			if ($scripture->cap1)
 			{
-				$text .= ' ' . $explode[1];
+				$text .= ' ' . $scripture->cap1;
 
-				if ($explode[2])
+				if ($scripture->vers1)
 				{
-					$text .= $separator . $explode[2];
+					$text .= $separator . $scripture->vers1;
 				}
 
-				if ($explode[3] || $explode[4])
+				if ($scripture->cap2 || $scripture->vers2)
 				{
 					$text .= '-';
 
-					if ($explode[3])
+					if ($scripture->cap2)
 					{
-						$text .= $explode[3];
+						$text .= $scripture->cap2;
 
-						if ($explode[4])
+						if ($scripture->vers2)
 						{
-							$text .= $separator . $explode[4];
+							$text .= $separator . $scripture->vers2;
 						}
 					}
 					else
 					{
-						$text .= $explode[4];
+						$text .= $scripture->vers2;
 					}
 				}
 			}

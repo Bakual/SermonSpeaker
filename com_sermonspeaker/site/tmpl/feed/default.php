@@ -130,7 +130,8 @@ echo '<?xml version="1.0" encoding="utf-8" ?>'; ?>
 				?>
 				<dc:creator><?php echo $this->make_xml_safe($item->speaker_title); ?></dc:creator>
 				<description><?php echo $notes; ?></description>
-				<pubDate><?php echo HTMLHelper::date($item->sermon_date, 'r'); ?></pubDate>
+				<?php $date = $item->sermon_date ?: $item->publish_up ?: $item->created; ?>
+				<pubDate><?php echo HTMLHelper::date($date, 'r'); ?></pubDate>
 				<?php
 				if ($enclosure = $this->getEnclosure($item)) : ?>
 					<enclosure url="<?php echo $enclosure['url']; ?>" length="<?php echo $enclosure['length']; ?>"

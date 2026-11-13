@@ -25,9 +25,9 @@ if ($port = $uri->getPort())
 echo '<?xml version="1.0" encoding="UTF-8" ?>'; ?>
 <urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">
 	<?php foreach ($this->sermons as $item) :
-		if ($item->created != '0000-00-00 00:00:00'):
+		if ($item->created):
 			$date = $item->created;
-		elseif ($item->sermon_date != '0000-00-00 00:00:00'):
+		elseif ($item->sermon_date):
 			$date = $item->sermon_date;
 		else:
 			$date = '';

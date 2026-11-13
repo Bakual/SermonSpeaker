@@ -348,7 +348,7 @@ class FrontenduploadController extends FormController
 		}
 
 		$db    = Factory::getDbo();
-		$query = $db->getQuery(true);
+		$query = $db->createQuery();
 		$query->select('audiofile, videofile, sermons.created_by, sermons.catid, sermons.title, speakers.title as speaker_title');
 		$query->select('series.title AS series_title, notes, sermon_number, picture');
 		$query->select('YEAR(sermon_date) AS year, DATE_FORMAT(sermon_date, "%H%i") AS time, DATE_FORMAT(sermon_date, "%d%m") AS date');

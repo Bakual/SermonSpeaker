@@ -9,11 +9,11 @@
 
 namespace Sermonspeaker\Component\Sermonspeaker\Site\Model;
 
-use Joomla\CMS\Categories\Categories;
 use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Model\ListModel;
+use Joomla\Database\ParameterType;
 use Joomla\Database\QueryInterface;
-use Joomla\Utilities\ArrayHelper;
+use Sermonspeaker\Component\Sermonspeaker\Site\Trait\CategoryTreeTrait;
 
 defined('_JEXEC') or die();
 
@@ -24,45 +24,12 @@ defined('_JEXEC') or die();
  */
 class SeriesModel extends ListModel
 {
-	/**
-	 * @var object
-	 *
-	 * @since ?
-	 */
-	private $item;
-
-	/**
-	 * @var
-	 *
-	 * @since ?
-	 */
-	private $children;
-
-	/**
-	 * @var
-	 *
-	 * @since ?
-	 */
-	private $parent;
-
-	/**
-	 * @var
-	 *
-	 * @since ?
-	 */
-	private $leftsibling;
-
-	/**
-	 * @var
-	 *
-	 * @since ?
-	 */
-	private $rightsibling;
+	use CategoryTreeTrait;
 
 	/**
 	 * Constructor
 	 *
-	 * @param   array  $config  An optional associative array of configuration settings
+	 * @param array $config An optional associative array of configuration settings
 	 *
 	 * @since ?
 	 */
@@ -88,9 +55,19 @@ class SeriesModel extends ListModel
 	}
 
 	/**
+	 * Method to get the category context, used by the trait
+	 *
+	 * @return string
+	 */
+	protected function getCategoryContext(): string
+	{
+		return 'com_sermonspeaker.series';
+	}
+
+	/**
 	 * Method to get speakers for a series
 	 *
-	 * @param   int  $series  Id of series
+	 * @param int $series Id of series
 	 *
 	 * @return  array
 	 *
@@ -99,7 +76,7 @@ class SeriesModel extends ListModel
 	public function getSpeakers($series)
 	{
 		$db    = $this->getDatabase();
-		$query = $db->getQuery(true);
+		$query = $db->createQuery();
 		$query->select('DISTINCT sermons.speaker_id, speakers.title as speaker_title, speakers.pic, speakers.state');
 		$query->select('speakers.intro, speakers.bio, speakers.website');
 		$query->select('speakers.catid as speaker_catid, speakers.language as speaker_language');
@@ -125,157 +102,15 @@ class SeriesModel extends ListModel
 	public function getTags()
 	{
 		$db    = $this->getDatabase();
-		$query = $db->getQuery(true);
-		$query->select('COUNT(1)');
+		$query = $db->createQuery();
+		$query->select('1');
 		$query->from('`#__contentitem_tag_map`');
 		$query->where("`type_alias` = 'com_sermonspeaker.serie'");
 
-		$db->setQuery($query);
+		$db->setQuery($query, 0, 1);
 		$count = $db->loadResult();
 
 		return ($count > 0);
-	}
-
-	/**
-	 * Get the parent category
-	 *
-	 * @return  mixed  An array of categories or false if an error occurs
-	 *
-	 * @since ?
-	 */
-	public function getParent()
-	{
-		if (!is_object($this->item))
-		{
-			$this->getCategory();
-		}
-
-		return $this->parent;
-	}
-
-	/**
-	 * Method to get category data for the current category
-	 *
-	 * @return  object
-	 *
-	 * @since ?
-	 */
-	public function getCategory()
-	{
-		if (!is_object($this->item))
-		{
-			if (isset($this->state->params))
-			{
-				/** @var \Joomla\Registry\Registry $params */
-				$params                = $this->state->params;
-				$options               = array();
-				$options['countItems'] = $params->get('show_cat_num_items', 1) || !$params->get('show_empty_categories', 0);
-			}
-			else
-			{
-				$options['countItems'] = 0;
-			}
-
-			$options['table'] = '#__sermon_series';
-
-			$categories = Categories::getInstance('com_sermonspeaker.series', $options);
-			$this->item = $categories->get($this->getState('category.id', 'root'));
-
-			// Compute selected asset permissions.
-			if (is_object($this->item))
-			{
-				$user  = Factory::getApplication()->getIdentity();
-				$asset = 'com_sermonspeaker.series.category.' . $this->item->id;
-
-				// Check general create permission.
-				if ($user->authorise('core.create', $asset))
-				{
-					$this->item->getParams()->set('access-create', true);
-				}
-
-				// TODO: Why aren't we lazy loading the children and siblings?
-				$this->children = $this->item->getChildren();
-				$this->parent   = false;
-
-				if ($this->item->getParent())
-				{
-					$this->parent = $this->item->getParent();
-				}
-
-				$this->rightsibling = $this->item->getSibling();
-				$this->leftsibling  = $this->item->getSibling(false);
-			}
-			else
-			{
-				$this->children = false;
-				$this->parent   = false;
-			}
-		}
-
-		return $this->item;
-	}
-
-	/**
-	 * Get the left sibling (adjacent) categories
-	 *
-	 * @return  mixed  An array of categories or false if an error occurs
-	 *
-	 * @since ?
-	 */
-	public function &getLeftSibling()
-	{
-		if (!is_object($this->item))
-		{
-			$this->getCategory();
-		}
-
-		return $this->leftsibling;
-	}
-
-	/**
-	 * Get the right sibling (adjacent) categories
-	 *
-	 * @return  mixed  An array of categories or false if an error occurs
-	 *
-	 * @since ?
-	 */
-	public function &getRightSibling()
-	{
-		if (!is_object($this->item))
-		{
-			$this->getCategory();
-		}
-
-		return $this->rightsibling;
-	}
-
-	/**
-	 * Get the child categories
-	 *
-	 * @return  mixed  An array of categories or false if an error occurs
-	 *
-	 * @since ?
-	 */
-	public function &getChildren()
-	{
-		if (!is_object($this->item))
-		{
-			$this->getCategory();
-		}
-
-		// Order subcategories
-		if (sizeof($this->children))
-		{
-			/** @var \Joomla\Registry\Registry $params */
-			$params = $this->getState()->get('params');
-
-			if ($params->get('orderby_pri') == 'alpha' || $params->get('orderby_pri') == 'ralpha')
-			{
-				$this->children = ArrayHelper::sortObjects($this->children, 'title', ($params->get('orderby_pri') == 'alpha') ? 1 : -1);
-			}
-		}
-
-		return $this->children;
 	}
 
 	/**
@@ -292,7 +127,7 @@ class SeriesModel extends ListModel
 
 		// Create a new query object.
 		$db    = $this->getDatabase();
-		$query = $db->getQuery(true);
+		$query = $db->createQuery();
 
 		// Select required fields from the table
 		$query->select(
@@ -319,7 +154,7 @@ class SeriesModel extends ListModel
 			if ($levels = (int) $this->getState('filter.subcategories', 0))
 			{
 				// Create a subquery for the subcategory list
-				$subQuery = $db->getQuery(true);
+				$subQuery = $db->createQuery();
 				$subQuery->select('sub.id');
 				$subQuery->from('#__categories as sub');
 				$subQuery->join('INNER', '#__categories as this ON sub.lft > this.lft AND sub.rgt < this.rgt');
@@ -347,11 +182,12 @@ class SeriesModel extends ListModel
 		// Filter by start and end dates.
 		if ((!$user->authorise('core.edit.state', 'com_sermonspeaker')) && (!$user->authorise('core.edit', 'com_sermonspeaker')))
 		{
-			$nullDate = $db->quote($db->getNullDate());
-			$nowDate  = $db->quote(Factory::getDate()->toSql());
+			$nowDate = Factory::getDate()->toSql();
 
-			$query->where('(series.publish_up = ' . $nullDate . ' OR series.publish_up <= ' . $nowDate . ')');
-			$query->where('(series.publish_down = ' . $nullDate . ' OR series.publish_down >= ' . $nowDate . ')');
+			$query->where('(series.publish_up IS NULL OR series.publish_up <= :publishUp)');
+			$query->where('(series.publish_down IS NULL OR series.publish_down >= :publishDown)');
+			$query->bind(':publishUp', $nowDate);
+			$query->bind(':publishDown', $nowDate);
 		}
 
 		// Filter by search in title
@@ -377,29 +213,30 @@ class SeriesModel extends ListModel
 		// Filter by speaker (needed in speaker view)
 		if ($speakerId = $this->getState('speaker.id'))
 		{
-			$subQuerySeries = $db->getQuery(true);
-			$subQuerySeries->select('DISTINCT series_id');
-			$subQuerySeries->from('#__sermon_sermons');
+			$subQuerySeries = $db->createQuery()
+				->select('1')
+				->from($db->quoteName('#__sermon_sermons', 'filter_sermons'))
+				->where($db->quoteName('filter_sermons.series_id') . ' = ' . $db->quoteName('series.id'))
+				->where($db->quoteName('filter_sermons.speaker_id') . ' = :speakerId');
 
-			// Filter by speaker
-			if ($speakerId = $this->getState('speaker.id'))
-			{
-				$subQuerySeries->where('speaker_id = ' . (int) $speakerId);
-			}
+			$query->bind(':speakerId', $speakerId, ParameterType::INTEGER);
 
 			// Filter by state
 			if (is_numeric($state))
 			{
-				$subQuerySeries->where('state = ' . (int) $state);
+				$stateInt = (int) $state;
+
+				$subQuerySeries->where($db->quoteName('filter_sermons.state') . ' = :sermonState');
+				$query->bind(':sermonState', $stateInt, ParameterType::INTEGER);
 			}
 
-			$query->where('series.id IN (' . $subQuerySeries . ')');
+			$query->where('EXISTS (' . $subQuerySeries . ')');
 		}
 
 		// Filter by language
 		if ($this->getState('filter.language'))
 		{
-			$query->where('series.language in (' . $db->quote(Factory::getLanguage()->getTag()) . ',' . $db->quote('*') . ')');
+			$query->where('series.language in (' . $db->quote(Factory::getApplication()->getLanguage()->getTag()) . ',' . $db->quote('*') . ')');
 		}
 
 		// Filter by a single tag.
@@ -407,12 +244,15 @@ class SeriesModel extends ListModel
 
 		if (is_numeric($tagId))
 		{
-			$query->where($db->quoteName('tagmap.tag_id') . ' = ' . (int) $tagId)
-				->join(
-					'LEFT', $db->quoteName('#__contentitem_tag_map', 'tagmap')
-					. ' ON ' . $db->quoteName('tagmap.content_item_id') . ' = ' . $db->quoteName('series.id')
-					. ' AND ' . $db->quoteName('tagmap.type_alias') . ' = ' . $db->quote('com_sermonspeaker.serie')
-				);
+			$tagId = (int) $tagId;
+
+			$query->join(
+				'INNER', $db->quoteName('#__contentitem_tag_map', 'tagmap')
+				. ' ON ' . $db->quoteName('tagmap.content_item_id') . ' = ' . $db->quoteName('series.id')
+				. ' AND ' . $db->quoteName('tagmap.type_alias') . ' = ' . $db->quote('com_sermonspeaker.serie')
+			)
+				->where($db->quoteName('tagmap.tag_id') . ' = :tagId')
+				->bind(':tagId', $tagId, ParameterType::INTEGER);
 		}
 
 		// Add the list ordering clause.
@@ -426,8 +266,8 @@ class SeriesModel extends ListModel
 	 *
 	 * Note. Calling getState in this method will result in recursion
 	 *
-	 * @param   string  $ordering   Ordering column
-	 * @param   string  $direction  'ASC' or 'DESC'
+	 * @param string $ordering  Ordering column
+	 * @param string $direction 'ASC' or 'DESC'
 	 *
 	 * @return  void
 	 *
@@ -442,7 +282,7 @@ class SeriesModel extends ListModel
 
 		// Category filter (priority on request so subcategories work)
 		$MenuCatid = $params->get('series_catid', $params->get('catid', 0));
-		$id = $jinput->get('catid', $MenuCatid, 'int');
+		$id        = $jinput->get('catid', $MenuCatid, 'int');
 		$this->setState('category.id', $id);
 
 		// Include Subcategories or not

@@ -552,7 +552,7 @@ abstract class RouteHelper
 	public static function getCategoryRoute($catid, $language = 0)
 	{
 		$db    = Factory::getDbo();
-		$query = $db->getQuery(true)
+		$query = $db->createQuery()
 			->select('a.extension')
 			->from('#__categories AS a')
 			->where('`id` = ' . $catid);
@@ -576,7 +576,7 @@ abstract class RouteHelper
 	protected static function _getLanguages()
 	{
 		$db    = Factory::getDbo();
-		$query = $db->getQuery(true)
+		$query = $db->createQuery()
 			->select('a.sef AS sef')
 			->select('a.lang_code AS lang_code')
 			->from('#__languages AS a');

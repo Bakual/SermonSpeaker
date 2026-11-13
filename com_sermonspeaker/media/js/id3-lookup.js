@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                     if(data.audio){
                         var info;
-                        info = "<div class=\"clearfix\"><dl class=\"row id3-info\">";
+                        info = "<div class=\"clearfix\"><dl class=\"row id3-info bg-info-subtle border border-info-subtle rounded pt-2 \">";
                         jQuery.each(data.audio, function(key,val){
                             info += "<dt class=\"col-sm-3\">"+key+"</dt><dd class=\"col-sm-9\">"+val+"</dd>";
                         })
@@ -58,13 +58,13 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                     if(data.not_found){
                         var notice = new Array();
+                        notice.push(Joomla.Text._("COM_SERMONSPEAKER_ID3_NO_MATCH_FOUND"));
                         if (data.not_found.series){
                             notice.push(Joomla.Text._("COM_SERMONSPEAKER_SERIE") + ": " + data.not_found.series);
                         }
                         if (data.not_found.speakers){
                             notice.push(Joomla.Text._("COM_SERMONSPEAKER_SPEAKER") + ": " + data.not_found.speakers);
                         }
-                        notice.push(Joomla.Text._("COM_SERMONSPEAKER_ID3_NO_MATCH_FOUND"));
                         var messages = {"notice":notice};
                         Joomla.renderMessages(messages);
                     }

@@ -210,7 +210,7 @@ class Icon
 			$tooltip = Text::_('JPUBLISHED');
 		}
 
-		if ($item->created != Factory::getDbo()->getNullDate())
+		if ($item->created)
 		{
 			$date    = HTMLHelper::_('date', $item->created);
 			$tooltip .= '<br>';
@@ -225,8 +225,8 @@ class Icon
 
 		$icon = $item->state ? 'edit' : 'eye-slash';
 
-		if (strtotime($item->publish_up) > strtotime(Factory::getDate())
-			|| ((strtotime($item->publish_down) < strtotime(Factory::getDate())) && $item->publish_down != Factory::getDbo()->getNullDate())
+		if (($item->publish_up && strtotime($item->publish_up) > strtotime(Factory::getDate()))
+			|| ($item->publish_down && strtotime($item->publish_down) < strtotime(Factory::getDate()))
 		)
 		{
 			$icon = 'eye-slash';
@@ -273,17 +273,17 @@ class Icon
 			$text = '<span class="icon-download" > </span> ' . $text;
 		}
 
+		$track = '';
+
 		if ($params->get('enable_ga_events'))
 		{
-			$output  = '<meta itemprop="contentUrl" content="' . $fileurl . '" />';
-			$onclick = "ga('send', 'event', 'SermonSpeaker Download', '" . $attribs['type'] . "', 'id:" . $item->id . "');"
-				. "window.location.href='" . $fileurl . "';";
-			$output  .= '<a href="#" onclick="' . $onclick . '">' . $text . '</a>';
+			$track = ' data-ss-event="download" data-ss-type="' . htmlspecialchars($attribs['type']) . '" data-ss-id="' . $item->id . '"';
+
+			Factory::getApplication()->getDocument()->getWebAssetManager()
+				->useScript('com_sermonspeaker.tracking');
 		}
-		else
-		{
-			$output = '<a href="' . $fileurl . '" itemprop="contentUrl">' . $text . '</a>';
-		}
+
+		$output = '<a href="' . $fileurl . '" ' . $track . '>' . $text . '</a>';
 
 		return $output;
 	}

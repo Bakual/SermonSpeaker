@@ -15,6 +15,7 @@ use Joomla\Database\DatabaseAwareInterface;
 use Joomla\Database\DatabaseAwareTrait;
 use Joomla\Registry\Registry;
 use Joomla\Utilities\ArrayHelper;
+use Sermonspeaker\Component\Sermonspeaker\Administrator\Helper\SermonspeakerHelper;
 
 defined('_JEXEC') or die();
 
@@ -44,7 +45,7 @@ class LatestsermonsHelper implements DatabaseAwareInterface
 		$user   = $app->getIdentity();
 		$groups = implode(',', $user->getAuthorisedViewLevels());
 
-		$query = $db->getQuery(true);
+		$query = $db->createQuery();
 		$query->select('a.title, a.id, a.sermon_date, a.audiofile, a.videofile, a.sermon_time, a.picture, a.notes, a.hits, a.catid, a.language');
 		$query->select('b.title as speaker_title, b.pic, b.state AS speaker_state, b.catid AS speaker_catid, b.language AS speaker_language');
 		$query->select('c.title AS series_title, c.avatar, c.state AS series_state, c.catid AS series_catid, c.language AS series_language');
@@ -56,27 +57,13 @@ class LatestsermonsHelper implements DatabaseAwareInterface
 		$query->join('LEFT', '#__sermon_series AS c ON c.id = a.series_id');
 		$query->where('a.state = 1');
 
-		if ($params->get('show_scripture'))
-		{
-			// Load component language file for bible books
-			$lang = $app->getLanguage();
-			$lang->load('com_sermonspeaker')
-			|| $lang->load('com_sermonspeaker', JPATH_BASE . '/components/com_sermonspeaker');
-
-			// Join over the scriptures
-			$query->select('GROUP_CONCAT(script.book,"|",script.cap1,"|",script.vers1,"|",script.cap2,"|",script.vers2,"|",script.text '
-				. 'ORDER BY script.ordering ASC SEPARATOR "!") AS scripture');
-			$query->join('LEFT', '#__sermon_scriptures AS script ON script.sermon_id = a.id');
-			$query->group('a.id');
-		}
-
-		// Define null and now dates
-		$nullDate = $db->quote($db->getNullDate());
-		$nowDate  = $db->quote(Factory::getDate()->toSql());
-
 		// Filter by start and end dates.
-		$query->where('(a.publish_up = ' . $nullDate . ' OR a.publish_up <= ' . $nowDate . ')');
-		$query->where('(a.publish_down = ' . $nullDate . ' OR a.publish_down >= ' . $nowDate . ')');
+		$nowDate = Factory::getDate()->toSql();
+
+		$query->where('(a.publish_up IS NULL OR a.publish_up <= :publishUp)');
+		$query->where('(a.publish_down IS NULL OR a.publish_down >= :publishDown)');
+		$query->bind(':publishUp', $nowDate);
+		$query->bind(':publishDown', $nowDate);
 
 		// Category
 		if ($cat = (int) $params->get('cat', 0))
@@ -85,7 +72,7 @@ class LatestsermonsHelper implements DatabaseAwareInterface
 			if ($levels = (int) $params->get('show_subcategory_content', 0))
 			{
 				// Create a subquery for the subcategory list
-				$subQuery = $db->getQuery(true);
+				$subQuery = $db->createQuery();
 				$subQuery->select('sub.id');
 				$subQuery->from('#__categories as sub');
 				$subQuery->join('INNER', '#__categories as this ON sub.lft > this.lft AND sub.rgt < this.rgt');
@@ -155,11 +142,11 @@ class LatestsermonsHelper implements DatabaseAwareInterface
 		{
 			if ($filetype == 2)
 			{
-				$query->where('a.videofile != ""');
+				$query->where('a.videofile != ' . $db->quote(''));
 			}
 			else
 			{
-				$query->where('a.audiofile != ""');
+				$query->where('a.audiofile != ' . $db->quote(''));
 			}
 		}
 
@@ -189,6 +176,19 @@ class LatestsermonsHelper implements DatabaseAwareInterface
 
 		$db->setQuery($query, 0, (int) $params->get('ls_count', 3));
 
-		return $db->loadObjectList();
+		$items = $db->loadObjectList();
+
+		// Load scriptures in a second query to avoid an expensive GROUP BY
+		if ($items && $params->get('show_scripture'))
+		{
+			// Load component language file for bible books
+			$lang = $app->getLanguage();
+			$lang->load('com_sermonspeaker')
+			|| $lang->load('com_sermonspeaker', JPATH_BASE . '/components/com_sermonspeaker');
+
+			SermonspeakerHelper::attachScriptures($items, $this->getDatabase());
+		}
+
+		return $items;
 	}
 }

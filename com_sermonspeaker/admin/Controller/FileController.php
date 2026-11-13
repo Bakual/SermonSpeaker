@@ -166,7 +166,7 @@ class FileController extends BaseController
 
 				if (!$lang || $lang == '*')
 				{
-					$jlang = Factory::getLanguage();
+					$jlang = Factory::getApplication()->getLanguage();
 					$lang  = $jlang->getTag();
 				}
 
@@ -237,7 +237,7 @@ class FileController extends BaseController
 
 				if (!$lang || $lang == '*')
 				{
-					$jlang = Factory::getLanguage();
+					$jlang = Factory::getApplication()->getLanguage();
 					$lang  = $jlang->getTag();
 				}
 
@@ -247,7 +247,6 @@ class FileController extends BaseController
 			$folder = JPATH_ROOT . '/' . $path . $append;
 
 			// Set FTP credentials, if given
-			jimport('joomla.client.helper');
 			ClientHelper::setCredentialsFromRequest('ftp');
 
 			$filename = $file['name'];

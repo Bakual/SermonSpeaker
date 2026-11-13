@@ -16,6 +16,7 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Model\ListModel;
 use Joomla\CMS\Table\Table;
 use Joomla\Database\QueryInterface;
+use Sermonspeaker\Component\Sermonspeaker\Administrator\Helper\SermonspeakerHelper;
 
 defined('_JEXEC') or die;
 
@@ -75,7 +76,7 @@ class SermonsModel extends ListModel
 	public function getSpeakers()
 	{
 		$db    = $this->getDatabase();
-		$query = $db->getQuery(true);
+		$query = $db->createQuery();
 
 		$query->select('speakers.id As value');
 		$query->select('CASE WHEN CHAR_LENGTH(c_speakers.title) THEN CONCAT(speakers.title, " (", c_speakers.title, ")") ELSE speakers.title END AS text');
@@ -89,7 +90,7 @@ class SermonsModel extends ListModel
 
 		$published = $db->loadObjectList();
 
-		$query = $db->getQuery(true);
+		$query = $db->createQuery();
 
 		$query->select('speakers.id As value');
 		$query->select('CASE WHEN CHAR_LENGTH(c_speakers.title) THEN CONCAT(speakers.title, " (", c_speakers.title, ")") ELSE speakers.title END AS text');
@@ -125,7 +126,7 @@ class SermonsModel extends ListModel
 	public function getSeries()
 	{
 		$db    = $this->getDbo();
-		$query = $db->getQuery(true);
+		$query = $db->createQuery();
 
 		$query->select('series.id As value');
 		$query->select('CASE WHEN CHAR_LENGTH(c_series.title) THEN CONCAT(series.title, " (", c_series.title, ")") ELSE series.title END AS text');
@@ -139,7 +140,7 @@ class SermonsModel extends ListModel
 
 		$published = $db->loadObjectList();
 
-		$query = $db->getQuery(true);
+		$query = $db->createQuery();
 
 		$query->select('series.id As value');
 		$query->select('CASE WHEN CHAR_LENGTH(c_series.title) THEN CONCAT(series.title, " (", c_series.title, ")") ELSE series.title END AS text');
@@ -251,6 +252,27 @@ class SermonsModel extends ListModel
 	}
 
 	/**
+	 * Method to get an array of data items.
+	 *
+	 * @return  mixed  An array of data items on success, false on failure.
+	 *
+	 * @throws \Exception
+	 * @since   1.6
+	 */
+	public function getItems()
+	{
+		$items = parent::getItems();
+
+		// Load scriptures in a second query to avoid an expensive GROUP BY
+		if ($items)
+		{
+			SermonspeakerHelper::attachScriptures($items, $this->getDatabase());
+		}
+
+		return $items;
+	}
+
+	/**
 	 * Build an SQL query to load the list data.
 	 *
 	 * @return  QueryInterface|string  An object implementing QueryInterface to retrieve the data set.
@@ -260,7 +282,7 @@ class SermonsModel extends ListModel
 	{
 		// Create a new query object.
 		$db    = $this->getDbo();
-		$query = $db->getQuery(true);
+		$query = $db->createQuery();
 
 		// Select the required fields from the table.
 		$query->select(
@@ -290,26 +312,19 @@ class SermonsModel extends ListModel
 		// Join over the associations.
 		if (Associations::isEnabled())
 		{
-			$subquery = $db->getQuery(true);
-			$subquery->select('COUNT(asso2.id)>1');
-			$subquery->from('#__associations as asso');
-			$subquery->where('asso.id = sermons.id');
-			$subquery->join('LEFT', '#__associations AS asso2 ON asso2.key = asso.key');
+			$subQuery = $db->createQuery()
+				->select('COUNT(' . $db->quoteName('asso1.id') . ') > 1')
+				->from($db->quoteName('#__associations', 'asso1'))
+				->join('INNER', $db->quoteName('#__associations', 'asso2'), $db->quoteName('asso1.key') . ' = ' . $db->quoteName('asso2.key'))
+				->where(
+					[
+						$db->quoteName('asso1.id') . ' = ' . $db->quoteName('sermons.id'),
+						$db->quoteName('asso1.context') . ' = ' . $db->quote('com_sermonspeaker.sermon'),
+					]
+				);
 
-			$query->select('(' . $subquery . ') as association');
+			$query->select('(' . $subQuery . ') AS ' . $db->quoteName('association'));
 		}
-
-		// Join over the scriptures.
-		$query->select('GROUP_CONCAT(script.book,"|",script.cap1,"|",script.vers1,"|",script.cap2,"|",script.vers2,"|",script.text ORDER BY script.ordering ASC SEPARATOR "!") AS scripture');
-		$query->join('LEFT', '#__sermon_scriptures AS script ON script.sermon_id = sermons.id');
-		$query->group(
-			'sermons.id, sermons.title, sermons.catid, sermons.language, '
-			. 'sermons.hits, sermons.notes, sermons.maintext, sermons.checked_out, sermons.checked_out_time, '
-			. 'sermons.sermon_date, sermons.alias, sermons.created, sermons.created_by, '
-			. 'sermons.state, sermons.ordering, sermons.podcast, '
-			. 'sermons.publish_up, sermons.publish_down, '
-			. 'l.title, l.image, uc.name, ua.name, c.title, speakers.title, series.title'
-		);
 
 		// Join over the categories.
 		$query->select('c.title AS category_title, c.created_user_id AS category_uid, c.level AS category_level')
@@ -396,7 +411,7 @@ class SermonsModel extends ListModel
 			{
 				$query->where('sermons.id = ' . (int) substr($search, 3));
 			}
-			if (stripos($search, 'file:') === 0)
+			elseif (stripos($search, 'file:') === 0)
 			{
 				$search = $db->quote('%' . $db->escape(substr($search, 5), true) . '%');
 				$query->where('(sermons.audiofile LIKE ' . $search . ' OR sermons.videofile LIKE ' . $search . ')');
@@ -428,15 +443,26 @@ class SermonsModel extends ListModel
 		}
 
 		// Add the list ordering clause.
-		$orderCol  = $this->state->get('list.ordering');
-		$orderDirn = $this->state->get('list.direction');
+		$ordering = $this->getState('list.ordering', 'ordering');
+		$dir      = strtoupper($this->getState('list.direction', 'ASC')) === 'DESC' ? 'DESC' : 'ASC';
 
-		if ($orderCol == 'sermons.ordering' || $orderCol == 'category_title')
+		if (in_array($ordering, ['scripture', 'sermons.scripture'], true))
 		{
-			$orderCol = 'category_title ' . $orderDirn . ', sermons.ordering';
+			// Sortierschlüssel der ersten (niedrigsten) Stelle: Buch, Kapitel, Vers
+			$query->order(
+				'(SELECT MIN(script.book * 1000000 + script.cap1 * 1000 + script.vers1) '
+				. 'FROM ' . $db->quoteName('#__sermon_scriptures', 'script') . ' '
+				. 'WHERE script.sermon_id = sermons.id) ' . $dir
+			);
 		}
-
-		$query->order($db->escape($orderCol . ' ' . $orderDirn));
+		elseif ($ordering == 'sermons.ordering' || $ordering == 'category_title')
+		{
+			$query->order($ordering = 'category_title ' . $dir . ', sermons.ordering ' . $dir) ;
+		}
+		else
+		{
+			$query->order($db->escape($ordering) . ' ' . $dir);
+		}
 
 		return $query;
 	}

@@ -55,7 +55,7 @@ class SerieController extends BaseController
 		$groups = implode(',', $user->getAuthorisedViewLevels());
 
 		// Checking if file needs to be prepared
-		$query = $db->getQuery(true);
+		$query = $db->createQuery();
 		$query->select('zip_content');
 		$query->from('#__sermon_series');
 		$query->where('id = ' . $id);
@@ -65,7 +65,7 @@ class SerieController extends BaseController
 		$db->setQuery($query);
 		$zip_content = $db->loadResult();
 
-		$query = $db->getQuery(true);
+		$query = $db->createQuery();
 		$query->select('sermons.id, sermons.audiofile, sermons.videofile, series.title, series.zip_dl');
 		$query->from('#__sermon_sermons as sermons');
 		$query->join('INNER', '#__sermon_series AS series ON series.id = sermons.series_id');
@@ -194,7 +194,7 @@ class SerieController extends BaseController
 		}
 
 		// Check if creating already in progress
-		$query = $db->getQuery(true);
+		$query = $db->createQuery();
 		$query->select('CASE WHEN `zip_created` < (' . $db->quote(Factory::getDate()->toSql()) . ' - INTERVAL 1 HOUR) THEN 0 ELSE `zip_state` END');
 		$query->from('#__sermon_series');
 		$query->where('`id` = ' . $id);
@@ -212,7 +212,7 @@ class SerieController extends BaseController
 		}
 
 		// Reset Progress
-		$query = $db->getQuery(true);
+		$query = $db->createQuery();
 		$query->update('#__sermon_series');
 		$query->set('`zip_progress` = 0');
 		$query->set('`zip_state` = 0');
@@ -283,7 +283,7 @@ class SerieController extends BaseController
 				return;
 			}
 
-			$query = $db->getQuery(true);
+			$query = $db->createQuery();
 			$query->update('#__sermon_series');
 			$query->set('`zip_state` = 1');
 			$query->set('`zip_created` = "' . Factory::getDate()->toSql() . '"');
@@ -331,7 +331,7 @@ class SerieController extends BaseController
 		}
 
 		$db    = Factory::getDbo();
-		$query = $db->getQuery(true);
+		$query = $db->createQuery();
 		$query->select('title, zip_size, zip_progress, zip_state');
 		$query->from('#__sermon_series');
 		$query->where('`id` = ' . $id);

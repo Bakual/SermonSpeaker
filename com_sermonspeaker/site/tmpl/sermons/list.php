@@ -126,7 +126,7 @@ $prio       = $this->params->get('fileprio');
 								</small>
 							<?php endif; ?>
 
-							<?php if (in_array('sermons:date', $this->columns) and ($item->sermon_date != '0000-00-00 00:00:00')) : ?>
+							<?php if (in_array('sermons:date', $this->columns) and $item->sermon_date) : ?>
 								<span class="ss-date float-end">
 									<small class="text-muted">
 										<?php echo HTMLHelper::date($item->sermon_date, Text::_($this->params->get('date_format'))); ?>

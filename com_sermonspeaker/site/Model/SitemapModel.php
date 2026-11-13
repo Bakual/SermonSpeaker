@@ -32,7 +32,7 @@ class SitemapModel extends BaseDatabaseModel
 	{
 		// Create a new query object.
 		$db     = $this->getDatabase();
-		$query  = $db->getQuery(true);
+		$query  = $db->createQuery();
 		$groups = Factory::getApplication()->getIdentity()->getAuthorisedViewLevels();
 
 		$query->select('a.id, a.title, a.sermon_date, a.created, a.catid, a.language');
@@ -47,11 +47,12 @@ class SitemapModel extends BaseDatabaseModel
 		$query->where('c.access IN (' . implode(',', $groups) . ')');
 
 		// Filter by start and end dates.
-		$nullDate = $db->quote($db->getNullDate());
-		$nowDate  = $db->quote(Factory::getDate()->toSql());
+		$nowDate = Factory::getDate()->toSql();
 
-		$query->where('(a.publish_up = ' . $nullDate . ' OR a.publish_up <= ' . $nowDate . ')');
-		$query->where('(a.publish_down = ' . $nullDate . ' OR a.publish_down >= ' . $nowDate . ')');
+		$query->where('(a.publish_up IS NULL OR a.publish_up <= :publishUp)');
+		$query->where('(a.publish_down IS NULL OR a.publish_down >= :publishDown)');
+		$query->bind(':publishUp', $nowDate);
+		$query->bind(':publishDown', $nowDate);
 
 		// Filter by cat if set
 		$app    = Factory::getApplication();

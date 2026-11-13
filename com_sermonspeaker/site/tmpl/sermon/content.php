@@ -80,7 +80,7 @@ $htag       = $this->params->get('show_page_heading') ? 'h2' : 'h1';
 			</dd>
 		<?php endif; ?>
 
-		<?php if (in_array('sermon:date', $this->columns) and ($this->item->sermon_date != '0000-00-00 00:00:00')) : ?>
+		<?php if (in_array('sermon:date', $this->columns) and $this->item->sermon_date) : ?>
 			<dd>
 				<div class="create">
 					<span class="icon-calendar"></span>

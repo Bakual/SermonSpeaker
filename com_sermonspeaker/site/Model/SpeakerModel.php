@@ -50,7 +50,7 @@ class SpeakerModel extends ItemModel
 		if (!isset($this->_item[$pk]))
 		{
 			$db    = $this->getDatabase();
-			$query = $db->getQuery(true);
+			$query = $db->createQuery();
 
 			$query->select(
 				$this->getState(
@@ -68,11 +68,12 @@ class SpeakerModel extends ItemModel
 			// Filter by start and end dates.
 			if ((!$user->authorise('core.edit.state', 'com_sermonspeaker')) && (!$user->authorise('core.edit', 'com_sermonspeaker')))
 			{
-				$nullDate = $db->quote($db->getNullDate());
-				$nowDate  = $db->quote(Factory::getDate()->toSql());
+				$nowDate = Factory::getDate()->toSql();
 
-				$query->where('(speaker.publish_up = ' . $nullDate . ' OR speaker.publish_up <= ' . $nowDate . ')');
-				$query->where('(speaker.publish_down = ' . $nullDate . ' OR speaker.publish_down >= ' . $nowDate . ')');
+				$query->where('(speaker.publish_up IS NULL OR speaker.publish_up <= :publishUp)');
+				$query->where('(speaker.publish_down IS NULL OR speaker.publish_down >= :publishDown)');
+				$query->bind(':publishUp', $nowDate);
+				$query->bind(':publishDown', $nowDate);
 			}
 
 			// Join on category table.

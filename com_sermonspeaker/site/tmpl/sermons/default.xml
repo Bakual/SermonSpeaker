@@ -124,7 +124,7 @@
 				type="sql"
 				label="COM_SERMONSPEAKER_FIELD_YEAR_LABEL"
 				description="COM_SERMONSPEAKER_FIELD_YEAR_DESC"
-				query="SELECT DISTINCT YEAR(`sermon_date`) AS `year` FROM `#__sermon_sermons` WHERE `sermon_date` != '0000-00-00' ORDER BY `sermon_date` DESC"
+				query="SELECT DISTINCT YEAR(`sermon_date`) AS `year` FROM `#__sermon_sermons` WHERE `sermon_date` IS NOT NULL ORDER BY `sermon_date` DESC"
 				key_field="year"
 				value_field="year"
 			>

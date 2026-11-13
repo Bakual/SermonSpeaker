@@ -13,6 +13,8 @@ use getID3;
 use getid3_lib;
 use Joomla\CMS\Application\ApplicationHelper;
 use Joomla\CMS\Factory;
+use Joomla\Database\DatabaseInterface;
+use Joomla\Database\ParameterType;
 use Joomla\Filesystem\File;
 
 defined('_JEXEC') or die();
@@ -28,24 +30,18 @@ class Id3Helper
 	 * Read ID3 tags from file
 	 *
 	 * @param   string       $file    Path to the file
-	 * @param   object|null  $params  Params, deprecated
 	 *
 	 * @return array|bool
 	 *
 	 * @since ?
 	 */
-	public static function getID3(string $file, object $params = null): bool|array
+	public static function getID3(string $file): bool|array
 	{
-		if (str_starts_with($file, 'http://vimeo.com') || str_starts_with($file, 'http://player.vimeo.com'))
-		{
-			return self::getVimeo($file);
-		}
-
 		// Load Composer Autoloader
 		require_once(JPATH_ADMINISTRATOR . '/components/com_sermonspeaker/vendor/autoload.php');
 
 		$getID3 = new getID3;
-		$path   = JPATH_SITE . $file;
+		$path   = JPATH_SITE . '/' . $file;
 		$path   = str_replace('//', '/', $path);
 
 		if (!file_exists($path))
@@ -152,16 +148,10 @@ class Id3Helper
 
 			$id3['scripture'] = '';
 
-			$db = Factory::getDbo();
-
 			if (array_key_exists('album', $FileInfo['comments']))
 			{
-				$query = $db->getQuery(true);
-				$query->select(['id', 'title']);
-				$query->from('#__sermon_series');
-				$query->where('title like ' . $db->quote($db->escape($FileInfo['comments']['album'][0])));
-				$db->setQuery($query);
-				$result = $db->loadAssoc();
+				$album  = (string) $FileInfo['comments']['album'][0];
+				$result = self::findByTitle('#__sermon_series', $album);
 
 				if ($result)
 				{
@@ -171,6 +161,8 @@ class Id3Helper
 				else
 				{
 					$id3['not_found']['series'] = $FileInfo['comments']['album'][0];
+					$id3['series_id']    = '';
+					$id3['series_title'] = '';
 				}
 			}
 			else
@@ -181,12 +173,8 @@ class Id3Helper
 
 			if (array_key_exists('artist', $FileInfo['comments']))
 			{
-				$query = $db->getQuery(true);
-				$query->select(['id', 'title']);
-				$query->from('#__sermon_speakers');
-				$query->where('title like ' . $db->quote($db->escape($FileInfo['comments']['artist'][0])));
-				$db->setQuery($query);
-				$result = $db->loadAssoc();
+				$artist = (string) $FileInfo['comments']['artist'][0];
+				$result = self::findByTitle('#__sermon_speakers', $artist);
 
 				if ($result)
 				{
@@ -196,6 +184,8 @@ class Id3Helper
 				else
 				{
 					$id3['not_found']['speakers'] = $FileInfo['comments']['artist'][0];
+					$id3['speaker_id']    = '';
+					$id3['speaker_title'] = '';
 				}
 			}
 			else
@@ -221,41 +211,26 @@ class Id3Helper
 	}
 
 	/**
-	 * Get Vimeo data
+	 * Sucht einen Datensatz (id, title) anhand des Titels.
 	 *
-	 * @param   string  $file  Path to the file
+	 * @param   string  $table  Tabellenname mit #__-Präfix (fest im Code, nie aus Benutzereingaben)
+	 * @param   string  $title  Gesuchter Titel
 	 *
-	 * @return  array|bool  Array of Vimeo information
-	 *
-	 * @since ?
+	 * @return  array|null
 	 */
-	private static function getVimeo(string $file): bool|array
+	private static function findByTitle(string $table, string $title): ?array
 	{
-		$id  = trim(strrchr($file, '/'), '/ ');
-		$url = 'http://vimeo.com/api/v2/video/' . $id . '.xml';
-		$xml = simplexml_load_file($url);
-		$video = $xml->video;
+		$db = Factory::getContainer()->get(DatabaseInterface::class);
 
-		if (is_object($video))
-		{
-			$duration             = (string) $video->duration;
-			$hrs                  = (int) ($duration / 3600);
-			$min                  = (int) (($duration - $hrs * 3600) / 60);
-			$sec                  = ((int) $video->duration - $hrs * 3600 - $min * 60);
-			$id3['sermon_time']   = $hrs . ':' . sprintf('%02d', $min) . ':' . sprintf('%02d', $sec);
-			$id3['title']         = (string) $video->title;
-			$id3['alias']         = ApplicationHelper::stringURLSafe($id3['title']);
-			$id3['sermon_date']   = (string) $video->upload_date;
-			$id3['notes']         = (string) $video->description;
-			$id3['pic']           = $video->thumbnail_medium;
-			$id3['sermon_number'] = '';
-			$id3['scripture']     = '';
-			$id3['series_id']     = '';
-			$id3['speaker_id']    = '';
+		$query = $db->createQuery()
+			->select($db->quoteName(['id', 'title']))
+			->from($db->quoteName($table))
+			->where($db->quoteName('title') . ' = :title')
+			->bind(':title', $title, ParameterType::STRING)
+			->setLimit(1);
 
-			return $id3;
-		}
+		$db->setQuery($query);
 
-		return false;
+		return $db->loadAssoc() ?: null;
 	}
 }

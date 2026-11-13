@@ -103,7 +103,7 @@ final class Sermonspeaker extends CMSPlugin implements SubscriberInterface
 				// Check $match for a defined mode, use plugin default if not present.
 				$mode = (isset($explode[1])) ? $explode[1] : $default_mode;
 
-				$query = $db->getQuery(true);
+				$query = $db->createQuery();
 				$query->select('sermons.id, sermons.title, sermon_date, sermon_time, audiofile, videofile, sermons.hits, sermon_date');
 				$query->select('sermons.catid, sermons.language');
 				$query->select('CASE WHEN CHAR_LENGTH(sermons.alias) THEN CONCAT_WS(\':\', sermons.id, sermons.alias) ELSE sermons.id END as slug');
@@ -178,7 +178,7 @@ final class Sermonspeaker extends CMSPlugin implements SubscriberInterface
 							$contents .= '<td><a href="' . $serieslnk . '">' . $sermon->series_title . '</a></td></tr>';
 						}
 
-						if ($sermon->sermon_date != '0000-00-00 00:00:00')
+						if ($sermon->sermon_date)
 						{
 							$contents .= '<tr><td>' . Text::_('JDATE') . '</td>';
 							$contents .= '<td>' . HTMLHelper::date($sermon->sermon_date, Text::_('DATE_FORMAT_LC3')) . '</td></tr>';

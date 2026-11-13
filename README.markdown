@@ -13,6 +13,6 @@ Some features include:
 * Multiple layouts included for the sermon detailpage. Also each view can be customized to what it should show.  
 * Support for audio and video files (see supported Fileformats for JW Player)  
 * Support for Youtube and Vimeo videos.  
-* Supports external storage servers and Amazon S3.  
+* Supports external storage servers and Amazon S3 via Joomla Mediamanager.  
 * Support for content plugins like Scripture Links and Biblelink XT  
 * Various modules available  

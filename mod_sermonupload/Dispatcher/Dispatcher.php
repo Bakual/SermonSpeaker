@@ -46,11 +46,11 @@ class Dispatcher extends AbstractModuleDispatcher implements HelperFactoryAwareI
 
 		// Prepare Upload Script
 		HTMLHelper::_('jquery.framework');
-		HTMLHelper::_('script', 'com_sermonspeaker/plupload/plupload.full.min.js', array('relative' => true));
+		HTMLHelper::_('script', 'mod_sermonupload/plupload/plupload.full.min.js', array('relative' => true));
 
 		// Load localisation
 		$tag  = str_replace('-', '_', $this->app->getLanguage()->getTag());
-		$path = 'com_sermonspeaker/plupload/i18n/';
+		$path = 'mod_sermonupload/plupload/i18n/';
 		$file = $tag . '.js';
 
 		if (!HTMLHelper::_('script', $path . $file, array('relative' => true, 'pathOnly' => true)))

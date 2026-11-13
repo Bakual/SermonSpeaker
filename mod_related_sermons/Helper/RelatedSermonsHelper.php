@@ -97,7 +97,7 @@ class RelatedSermonsHelper implements DatabaseAwareInterface
 	private function getKeywords(): array
 	{
 		$db    = $this->getDatabase();
-		$query = $db->getQuery(true);
+		$query = $db->createQuery();
 
 		$query->select('metakey');
 		$query->where('id = ' . $this->id);
@@ -162,7 +162,7 @@ class RelatedSermonsHelper implements DatabaseAwareInterface
 			default => 'a.created DESC',
 		};
 
-		$query = $this->getDatabase()->getQuery(true);
+		$query = $this->getDatabase()->createQuery();
 		$query->select('a.title, a.created, a.catid, a.language');
 		$query->select('CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(":", a.id, a.alias) ELSE a.id END as slug');
 		$query->select('CASE WHEN CHAR_LENGTH(cc.alias) THEN CONCAT_WS(":", cc.id, cc.alias) ELSE cc.id END as catslug');
@@ -177,13 +177,13 @@ class RelatedSermonsHelper implements DatabaseAwareInterface
 		$query->where('a.state = 1');
 		$query->where('(a.catid = 0 OR cc.published = 1)');
 
-		// Define null and now dates
-		$nullDate = $db->quote($db->getNullDate());
-		$nowDate  = $db->quote(Factory::getDate()->toSql());
-
 		// Filter by start and end dates.
-		$query->where('(a.publish_up = ' . $nullDate . ' OR a.publish_up <= ' . $nowDate . ')');
-		$query->where('(a.publish_down = ' . $nullDate . ' OR a.publish_down >= ' . $nowDate . ')');
+		$nowDate = Factory::getDate()->toSql();
+
+		$query->where('(a.publish_up IS NULL OR a.publish_up <= :publishUp)');
+		$query->where('(a.publish_down IS NULL OR a.publish_down >= :publishDown)');
+		$query->bind(':publishUp', $nowDate);
+		$query->bind(':publishDown', $nowDate);
 
 		if ($sermonCat)
 		{
@@ -226,15 +226,13 @@ class RelatedSermonsHelper implements DatabaseAwareInterface
 	private
 	function getRelatedItemsById(array $keywords, int $limit): array
 	{
-		$groups   = $this->app->getIdentity()->getAuthorisedViewLevels();
-		$db       = $this->getDatabase();
-		$nullDate = $db->getNullDate();
-		$date     = Factory::getDate();
-		$now      = $date->toSql();
+		$groups  = $this->app->getIdentity()->getAuthorisedViewLevels();
+		$db      = $this->getDatabase();
+		$nowDate = Factory::getDate()->toSql();
 
 		$related = array();
 
-		$query = $db->getQuery(true);
+		$query = $db->createQuery();
 		$query->select('a.title, a.created');
 		$query->select('CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(":", a.id, a.alias) ELSE a.id END as slug');
 		$query->select('CASE WHEN CHAR_LENGTH(cc.alias) THEN CONCAT_WS(":", cc.id, cc.alias) ELSE cc.id END as catslug');
@@ -251,8 +249,11 @@ class RelatedSermonsHelper implements DatabaseAwareInterface
 		$query->where('cc.published = 1');
 		$query->where('(CONCAT(",", REPLACE(a.metakey, ", ", ","), ",") LIKE "%,'
 			. implode(',%" OR CONCAT(",", REPLACE(a.metakey, ", ", ","), ",") LIKE "%,', $keywords) . ',%")');
-		$query->where('(a.publish_up = ' . $db->quote($nullDate) . ' OR a.publish_up <= ' . $db->quote($now) . ')');
-		$query->where('(a.publish_down = ' . $db->quote($nullDate) . ' OR a.publish_down >= ' . $db->quote($now) . ')');
+
+		$query->where('(a.publish_up IS NULL OR a.publish_up <= :publishUp)');
+		$query->where('(a.publish_down IS NULL OR a.publish_down >= :publishDown)');
+		$query->bind(':publishUp', $nowDate);
+		$query->bind(':publishDown', $nowDate);
 
 		// Filter by language
 		if ($this->app->getLanguageFilter())

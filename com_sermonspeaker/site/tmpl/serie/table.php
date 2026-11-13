@@ -56,7 +56,7 @@ $player     = SermonspeakerHelper::getPlayer($this->items);
 					<thead>
 					<tr>
 						<?php if (in_array('serie:num', $this->columns)) : ?>
-							<th class="num hidden-phone hidden-tablet">
+							<th class="num d-none d-md-table-cell">
 								<?php if (!$limit) :
 									echo HTMLHelper::_('grid.sort', 'COM_SERMONSPEAKER_SERMONNUMBER', 'sermon_number', $listDirn, $listOrder);
 								else :
@@ -72,7 +72,7 @@ $player     = SermonspeakerHelper::getPlayer($this->items);
 							endif; ?>
 						</th>
 						<?php if (in_array('serie:category', $this->columns)) : ?>
-							<th class="ss-col ss-category hidden-phone">
+							<th class="ss-col ss-category d-none d-sm-table-cell">
 								<?php if (!$limit) :
 									echo HTMLHelper::_('grid.sort', 'JCATEGORY', 'category_title', $listDirn, $listOrder);
 								else :
@@ -82,7 +82,7 @@ $player     = SermonspeakerHelper::getPlayer($this->items);
 						<?php endif;
 
 						if (in_array('serie:scripture', $this->columns)) : ?>
-							<th class="ss-col ss-scripture hidden-phone">
+							<th class="ss-col ss-scripture d-none d-sm-table-cell">
 								<?php if (!$limit) :
 									echo HTMLHelper::_('grid.sort', 'COM_SERMONSPEAKER_FIELD_SCRIPTURE_LABEL', 'book', $listDirn, $listOrder);
 								else :
@@ -92,7 +92,7 @@ $player     = SermonspeakerHelper::getPlayer($this->items);
 						<?php endif;
 
 						if (in_array('serie:speaker', $this->columns)) : ?>
-							<th class="ss-col ss-speaker hidden-phone">
+							<th class="ss-col ss-speaker d-none d-sm-table-cell">
 								<?php if (!$limit) :
 									echo HTMLHelper::_('grid.sort', 'COM_SERMONSPEAKER_SPEAKER', 'speaker_title', $listDirn, $listOrder);
 								else :
@@ -112,7 +112,7 @@ $player     = SermonspeakerHelper::getPlayer($this->items);
 						<?php endif;
 
 						if (in_array('serie:length', $this->columns)) : ?>
-							<th class="ss-col ss-length hidden-phone hidden-tablet">
+							<th class="ss-col ss-length d-none d-md-table-cell">
 								<?php if (!$limit) :
 									echo HTMLHelper::_('grid.sort', 'COM_SERMONSPEAKER_FIELD_LENGTH_LABEL', 'sermon_time', $listDirn, $listOrder);
 								else :
@@ -122,7 +122,7 @@ $player     = SermonspeakerHelper::getPlayer($this->items);
 						<?php endif;
 
 						if (in_array('serie:addfile', $this->columns)) : ?>
-							<th class="ss-col ss-addfile hidden-phone">
+							<th class="ss-col ss-addfile d-none d-sm-table-cell">
 								<?php if (!$limit) :
 									echo HTMLHelper::_('grid.sort', 'COM_SERMONSPEAKER_ADDFILE', 'addfileDesc', $listDirn, $listOrder);
 								else :
@@ -132,7 +132,7 @@ $player     = SermonspeakerHelper::getPlayer($this->items);
 						<?php endif;
 
 						if (in_array('serie:hits', $this->columns)) : ?>
-							<th class="ss-col ss-hits hidden-phone hidden-tablet">
+							<th class="ss-col ss-hits d-none d-md-table-cell">
 								<?php if (!$limit) :
 									echo HTMLHelper::_('grid.sort', 'JGLOBAL_HITS', 'hits', $listDirn, $listOrder);
 								else :
@@ -143,7 +143,7 @@ $player     = SermonspeakerHelper::getPlayer($this->items);
 
 						if (in_array('serie:download', $this->columns)) :
 							$prio = $this->params->get('fileprio'); ?>
-							<th class="ss-col ss-dl hidden-phone"></th>
+							<th class="ss-col ss-dl d-none d-sm-table-cell"></th>
 						<?php endif; ?>
 					</tr>
 					</thead>
@@ -154,7 +154,7 @@ $player     = SermonspeakerHelper::getPlayer($this->items);
 							class="<?php echo ($item->state) ? '' : 'system-unpublished '; ?>cat-list-row<?php echo $i % 2; ?> sermon-item">
 							<?php
 							if (in_array('serie:num', $this->columns)) : ?>
-								<td class="num hidden-phone hidden-tablet">
+								<td class="num d-none d-md-table-cell">
 									<?php echo $item->sermon_number; ?>
 								</td>
 							<?php endif; ?>
@@ -170,46 +170,46 @@ $player     = SermonspeakerHelper::getPlayer($this->items);
 
 							</td>
 							<?php if (in_array('serie:category', $this->columns)) : ?>
-								<td class="ss-col ss-category hidden-phone">
+								<td class="ss-col ss-category d-none d-sm-table-cell">
 									<a href="<?php echo Route::_(Sermonspeaker\Component\Sermonspeaker\Site\Helper\RouteHelper::getSermonsRoute($item->catslug, $item->language)); ?>"><?php echo $item->category_title; ?></a>
 								</td>
 							<?php endif;
 
 							if (in_array('serie:scripture', $this->columns)) : ?>
-								<td class="ss-col ss-scripture hidden-phone">
+								<td class="ss-col ss-scripture d-none d-sm-table-cell">
 									<?php $scriptures = SermonspeakerHelper::insertScriptures($item->scripture, '<br />');
 									echo HTMLHelper::_('content.prepare', $scriptures); ?>
 								</td>
 							<?php endif;
 
 							if (in_array('serie:speaker', $this->columns)) : ?>
-								<td class="ss-col ss-speaker hidden-phone">
+								<td class="ss-col ss-speaker d-none d-sm-table-cell">
 									<?php echo LayoutHelper::render('titles.speaker', array('item' => $item, 'params' => $this->params)); ?>
 								</td>
 							<?php endif;
 
 							if (in_array('serie:date', $this->columns)) : ?>
 								<td class="ss-col ss-date">
-									<?php if ($item->sermon_date != '0000-00-00 00:00:00'):
+									<?php if ($item->sermon_date):
 										echo HTMLHelper::date($item->sermon_date, Text::_($this->params->get('date_format')));
 									endif; ?>
 								</td>
 							<?php endif;
 
 							if (in_array('serie:length', $this->columns)) : ?>
-								<td class="ss-col ss-length hidden-phone hidden-tablet">
+								<td class="ss-col ss-length d-none d-md-table-cell">
 									<?php echo SermonspeakerHelper::insertTime($item->sermon_time); ?>
 								</td>
 							<?php endif;
 
 							if (in_array('serie:addfile', $this->columns)) : ?>
-								<td class="ss-col ss-addfile hidden-phone">
+								<td class="ss-col ss-addfile d-none d-sm-table-cell">
 									<?php echo SermonspeakerHelper::insertAddfile($item->addfile, $item->addfileDesc); ?>
 								</td>
 							<?php endif;
 
 							if (in_array('serie:hits', $this->columns)) : ?>
-								<td class="ss-col ss-hits hidden-phone hidden-tablet">
+								<td class="ss-col ss-hits d-none d-md-table-cell">
 									<?php echo $item->hits; ?>
 								</td>
 							<?php endif;
@@ -217,7 +217,7 @@ $player     = SermonspeakerHelper::getPlayer($this->items);
 							if (in_array('serie:download', $this->columns)) :
 								$type = ($item->videofile and ($prio or !$item->audiofile)) ? 'video' : 'audio';
 								$filesize = $type . 'filesize'; ?>
-								<td class="ss-col ss-dl hidden-phone">
+								<td class="ss-col ss-dl d-none d-sm-table-cell">
 									<?php echo SermonspeakerHelper::insertdlbutton($item->slug, $type, 3, $item->$filesize); ?>
 								</td>
 							<?php endif; ?>

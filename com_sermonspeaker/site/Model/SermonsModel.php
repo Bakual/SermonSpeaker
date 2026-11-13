@@ -9,11 +9,11 @@
 
 namespace Sermonspeaker\Component\Sermonspeaker\Site\Model;
 
-use Joomla\CMS\Categories\Categories;
 use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Model\ListModel;
-use Joomla\Database\DatabaseQuery;
-use Joomla\Utilities\ArrayHelper;
+use Joomla\Database\ParameterType;
+use Sermonspeaker\Component\Sermonspeaker\Administrator\Helper\SermonspeakerHelper;
+use Sermonspeaker\Component\Sermonspeaker\Site\Trait\CategoryTreeTrait;
 
 defined('_JEXEC') or die();
 
@@ -22,47 +22,14 @@ defined('_JEXEC') or die();
  *
  * @since  3.4
  */
-class SermonsModel extends Listmodel
+class SermonsModel extends ListModel
 {
-	/**
-	 * @var object
-	 *
-	 * @since ?
-	 */
-	private $item;
-
-	/**
-	 * @var
-	 *
-	 * @since ?
-	 */
-	private $children;
-
-	/**
-	 * @var
-	 *
-	 * @since ?
-	 */
-	private $parent;
-
-	/**
-	 * @var
-	 *
-	 * @since ?
-	 */
-	private $leftsibling;
-
-	/**
-	 * @var
-	 *
-	 * @since ?
-	 */
-	private $rightsibling;
+	use CategoryTreeTrait;
 
 	/**
 	 * Constructor
 	 *
-	 * @param   array  $config  An optional associative array of configuration settings
+	 * @param array $config An optional associative array of configuration settings
 	 *
 	 * @since ?
 	 */
@@ -97,6 +64,16 @@ class SermonsModel extends Listmodel
 	}
 
 	/**
+	 * Method to get the category context, used by the trait
+	 *
+	 * @return string
+	 */
+	protected function getCategoryContext(): string
+	{
+		return 'com_sermonspeaker.sermons';
+	}
+
+	/**
 	 * Method to get the available months
 	 *
 	 * @return  array  Array of mears
@@ -121,10 +98,10 @@ class SermonsModel extends Listmodel
 		);
 
 		$db    = $this->getDatabase();
-		$query = $db->getQuery(true);
+		$query = $db->createQuery();
 		$query->select('DISTINCT MONTH(`sermon_date`) AS `value`');
 		$query->from('`#__sermon_sermons`');
-		$query->where("`sermon_date` != '0000-00-00'");
+		$query->where("`sermon_date` IS NOT NULL");
 
 		// Filter by state
 		$state = $this->getState('filter.state');
@@ -157,10 +134,10 @@ class SermonsModel extends Listmodel
 	public function getYears()
 	{
 		$db    = $this->getDatabase();
-		$query = $db->getQuery(true);
+		$query = $db->createQuery();
 		$query->select('DISTINCT YEAR(`sermon_date`) AS `year`');
 		$query->from('`#__sermon_sermons`');
-		$query->where("`sermon_date` != '0000-00-00'");
+		$query->where("`sermon_date` IS NOT NULL");
 
 		// Filter by state
 		$state = $this->getState('filter.state');
@@ -187,7 +164,7 @@ class SermonsModel extends Listmodel
 	public function getBooks()
 	{
 		$db    = $this->getDatabase();
-		$query = $db->getQuery(true);
+		$query = $db->createQuery();
 		$query->select('DISTINCT `book`');
 		$query->from('`#__sermon_scriptures`');
 		$query->join('LEFT', '`#__sermon_sermons` AS `sermons` ON `sermon_id` = `sermons`.`id`');
@@ -218,155 +195,36 @@ class SermonsModel extends Listmodel
 	public function getTags()
 	{
 		$db    = $this->getDatabase();
-		$query = $db->getQuery(true);
-		$query->select('COUNT(1)');
+		$query = $db->createQuery();
+		$query->select('1');
 		$query->from('`#__contentitem_tag_map`');
 		$query->where("`type_alias` = 'com_sermonspeaker.sermon'");
 
-		$db->setQuery($query);
+		$db->setQuery($query, 0, 1);
 		$count = $db->loadResult();
 
 		return ($count > 0);
 	}
 
 	/**
-	 * Get the parent category
+	 * Method to get an array of data items.
 	 *
-	 * @return  mixed  An array of categories or false if an error occurs
+	 * @return  mixed  An array of data items on success, false on failure.
 	 *
-	 * @since ?
+	 * @throws \Exception
+	 * @since   1.6
 	 */
-	public function getParent()
+	public function getItems()
 	{
-		if (!is_object($this->item))
+		$items = parent::getItems();
+
+		// Load scriptures in a second query to avoid an expensive GROUP BY
+		if ($items)
 		{
-			$this->getCategory();
+			SermonspeakerHelper::attachScriptures($items, $this->getDatabase());
 		}
 
-		return $this->parent;
-	}
-
-	/**
-	 * Method to get category data for the current category
-	 *
-	 * @return  object
-	 *
-	 * @since ?
-	 */
-	public function getCategory()
-	{
-		if (!is_object($this->item))
-		{
-			if (isset($this->state->params))
-			{
-				$params                = $this->state->params;
-				$options               = array();
-				$options['countItems'] = $params->get('show_cat_num_items', 1) || !$params->get('show_empty_categories', 0);
-				$options['access']     = $params->get('check_access_rights', 1);
-			}
-			else
-			{
-				$options['countItems'] = 0;
-			}
-
-			$categories = Categories::getInstance('com_sermonspeaker.sermons', $options);
-			$this->item = $categories->get($this->getState('category.id', 'root'));
-
-			// Compute selected asset permissions
-			if (is_object($this->item))
-			{
-				$user  = Factory::getApplication()->getIdentity();
-				$asset = 'com_sermonspeaker.sermons.category.' . $this->item->id;
-
-				// Check general create permission
-				if ($user->authorise('core.create', $asset))
-				{
-					$this->item->getParams()->set('access-create', true);
-				}
-
-				// TODO: Why aren't we lazy loading the children and siblings?
-				$this->children = $this->item->getChildren();
-				$this->parent   = false;
-
-				if ($this->item->getParent())
-				{
-					$this->parent = $this->item->getParent();
-				}
-
-				$this->rightsibling = $this->item->getSibling();
-				$this->leftsibling  = $this->item->getSibling(false);
-			}
-			else
-			{
-				$this->children = false;
-				$this->parent   = false;
-			}
-		}
-
-		return $this->item;
-	}
-
-	/**
-	 * Get the left sibling (adjacent) categories
-	 *
-	 * @return  mixed  An array of categories or false if an error occurs
-	 *
-	 * @since ?
-	 */
-	public function &getLeftSibling()
-	{
-		if (!is_object($this->item))
-		{
-			$this->getCategory();
-		}
-
-		return $this->leftsibling;
-	}
-
-	/**
-	 * Get the right sibling (adjacent) categories
-	 *
-	 * @return  mixed  An array of categories or false if an error occurs
-	 *
-	 * @since ?
-	 */
-	public function &getRightSibling()
-	{
-		if (!is_object($this->item))
-		{
-			$this->getCategory();
-		}
-
-		return $this->rightsibling;
-	}
-
-	/**
-	 * Get the child categories
-	 *
-	 * @return  mixed  An array of categories or false if an error occurs
-	 *
-	 * @since ?
-	 */
-	public function &getChildren()
-	{
-		if (!is_object($this->item))
-		{
-			$this->getCategory();
-		}
-
-		// Order subcategories
-		if (sizeof($this->children))
-		{
-			/** @var \Joomla\Registry\Registry $params */
-			$params = $this->getState()->get('params');
-
-			if ($params->get('orderby_pri') == 'alpha' || $params->get('orderby_pri') == 'ralpha')
-			{
-				$this->children = ArrayHelper::sortObjects($this->children, 'title', ($params->get('orderby_pri') == 'alpha') ? 1 : -1);
-			}
-		}
-
-		return $this->children;
+		return $items;
 	}
 
 	/**
@@ -383,7 +241,7 @@ class SermonsModel extends Listmodel
 
 		// Create a new query object
 		$db    = $this->getDatabase();
-		$query = $db->getQuery(true);
+		$query = $db->createQuery();
 
 		// Select required fields from the table
 		$query->select(
@@ -402,28 +260,8 @@ class SermonsModel extends Listmodel
 		);
 		$query->from('`#__sermon_sermons` AS sermons');
 
-		// Join over the scriptures
-		$query->select('GROUP_CONCAT(script.book,"|",script.cap1,"|",script.vers1,"|",script.cap2,"|",script.vers2,"|",script.text '
-			. 'ORDER BY script.ordering ASC SEPARATOR "!") AS scripture');
-		$query->join('LEFT', '#__sermon_scriptures AS script ON script.sermon_id = sermons.id');
-		$query->group(
-			'sermons.id, sermons.title, sermons.catid, sermons.audiofile, sermons.videofile, '
-			. 'sermons.audiofilesize, sermons.videofilesize, '
-			. 'sermons.picture, sermons.hits, sermons.notes, sermons.maintext, sermons.checked_out, sermons.checked_out_time,'
-			. 'sermons.sermon_date, sermons.alias, sermons.sermon_time,'
-			. 'sermons.state, sermons.ordering, sermons.podcast, sermons.language,'
-			. 'sermons.sermon_number, sermons.addfile, sermons.addfileDesc,'
-			. 'sermons.created, sermons.created_by,'
-			. 'sermons.publish_up, sermons.publish_down,'
-			. 'speakers.title, speakers.pic, speakers.state, speakers.catid, speakers.language, '
-			. 'speakers.id, speakers.alias, speakers.intro, speakers.bio, speakers.website,'
-			. 'series.title, series.avatar, series.state, series.catid, series.language, series.id, series.alias,'
-			. 'c_sermons.title, c_sermons.id, c_sermons.alias,'
-			. 'user.name'
-		);
-
 		// Join over Speaker
-		$query->select('speakers.title AS speaker_title, speakers.pic AS pic, speakers.state as speaker_state, speakers.bio, speakers.website');
+		$query->select('speakers.title AS speaker_title, speakers.pic AS pic, speakers.state as speaker_state');
 		$query->select('speakers.catid AS speaker_catid, speakers.language AS speaker_language');
 		$query->select('speakers.id AS speaker_id, speakers.intro, speakers.bio, speakers.website');
 		$query->select('CASE WHEN CHAR_LENGTH(speakers.alias) THEN CONCAT_WS(\':\', speakers.id, speakers.alias) ELSE speakers.id END as speaker_slug');
@@ -455,7 +293,7 @@ class SermonsModel extends Listmodel
 			if ($levels = (int) $this->getState('filter.subcategories', 0))
 			{
 				// Create a subquery for the subcategory list
-				$subQuery = $db->getQuery(true);
+				$subQuery = $db->createQuery();
 				$subQuery->select('sub.id');
 				$subQuery->from('#__categories as sub');
 				$subQuery->join('INNER', '#__categories as this ON sub.lft > this.lft AND sub.rgt < this.rgt');
@@ -483,11 +321,12 @@ class SermonsModel extends Listmodel
 		// Filter by start and end dates.
 		if ((!$user->authorise('core.edit.state', 'com_sermonspeaker')) && (!$user->authorise('core.edit', 'com_sermonspeaker')))
 		{
-			$nullDate = $db->quote($db->getNullDate());
-			$nowDate  = $db->quote(Factory::getDate()->toSql());
+			$nowDate = Factory::getDate()->toSql();
 
-			$query->where('(sermons.publish_up = ' . $nullDate . ' OR sermons.publish_up <= ' . $nowDate . ')');
-			$query->where('(sermons.publish_down = ' . $nullDate . ' OR sermons.publish_down >= ' . $nowDate . ')');
+			$query->where('(sermons.publish_up IS NULL OR sermons.publish_up <= :publishUp)');
+			$query->where('(sermons.publish_down IS NULL OR sermons.publish_down >= :publishDown)');
+			$query->bind(':publishUp', $nowDate);
+			$query->bind(':publishDown', $nowDate);
 		}
 
 		// Filter by search in title
@@ -515,11 +354,18 @@ class SermonsModel extends Listmodel
 		}
 
 		// Filter by scripture
-		$book = $this->getState('filter.book');
+		$book = (int) $this->getState('filter.book');
 
 		if ($book)
 		{
-			$query->where('script.book = ' . (int) $book);
+			$subQuery = $db->createQuery()
+				->select('1')
+				->from($db->quoteName('#__sermon_scriptures', 'script'))
+				->where($db->quoteName('script.sermon_id') . ' = ' . $db->quoteName('sermons.id'))
+				->where($db->quoteName('script.book') . ' = :book');
+
+			$query->where('EXISTS (' . $subQuery . ')')
+				->bind(':book', $book, ParameterType::INTEGER);
 		}
 
 		// Filter by filetype
@@ -527,11 +373,11 @@ class SermonsModel extends Listmodel
 
 		if ($filetype == 'video')
 		{
-			$query->where('sermons.videofile != ""');
+			$query->where('sermons.videofile != ' . $db->quote(''));
 		}
 		elseif ($filetype == 'audio')
 		{
-			$query->where('sermons.audiofile != ""');
+			$query->where('sermons.audiofile != ' . $db->quote(''));
 		}
 
 		// Filter by state
@@ -561,13 +407,7 @@ class SermonsModel extends Listmodel
 		// Filter by language
 		if ($this->getState('filter.language'))
 		{
-			$query->where('sermons.language in (' . $db->quote(Factory::getLanguage()->getTag()) . ',' . $db->quote('*') . ')');
-		}
-
-		if ($this->getState('list.ordering') == 'book')
-		{
-			$dir = $db->escape($this->getState('list.direction', 'ASC'));
-			$query->order($db->escape('book') . ' ' . $dir . ', ' . $db->escape('cap1') . ' ' . $dir . ', ' . $db->escape('vers1') . ' ' . $dir);
+			$query->where('sermons.language in (' . $db->quote(Factory::getApplication()->getLanguage()->getTag()) . ',' . $db->quote('*') . ')');
 		}
 
 		// Filter by a single tag.
@@ -575,16 +415,34 @@ class SermonsModel extends Listmodel
 
 		if (is_numeric($tagId))
 		{
-			$query->where($db->quoteName('tagmap.tag_id') . ' = ' . (int) $tagId)
-				->join(
-					'LEFT', $db->quoteName('#__contentitem_tag_map', 'tagmap')
-					. ' ON ' . $db->quoteName('tagmap.content_item_id') . ' = ' . $db->quoteName('sermons.id')
-					. ' AND ' . $db->quoteName('tagmap.type_alias') . ' = ' . $db->quote('com_sermonspeaker.sermon')
-				);
+			$tagId = (int) $tagId;
+
+			$query->join(
+				'INNER', $db->quoteName('#__contentitem_tag_map', 'tagmap')
+				. ' ON ' . $db->quoteName('tagmap.content_item_id') . ' = ' . $db->quoteName('sermons.id')
+				. ' AND ' . $db->quoteName('tagmap.type_alias') . ' = ' . $db->quote('com_sermonspeaker.sermon')
+			)
+				->where($db->quoteName('tagmap.tag_id') . ' = :tagId')
+				->bind(':tagId', $tagId, ParameterType::INTEGER);
 		}
 
 		// Add the list ordering clause.
-		$query->order($db->escape($this->getState('list.ordering', 'ordering')) . ' ' . $db->escape($this->getState('list.direction', 'ASC')));
+		$ordering = $this->getState('list.ordering', 'ordering');
+		$dir      = strtoupper($this->getState('list.direction', 'ASC')) === 'DESC' ? 'DESC' : 'ASC';
+
+		if (in_array($ordering, ['book', 'script.book'], true))
+		{
+			// Sortierschlüssel der ersten (niedrigsten) Stelle: Buch, Kapitel, Vers
+			$query->order(
+				'(SELECT MIN(script.book * 1000000 + script.cap1 * 1000 + script.vers1) '
+				. 'FROM ' . $db->quoteName('#__sermon_scriptures', 'script') . ' '
+				. 'WHERE script.sermon_id = sermons.id) ' . $dir
+			);
+		}
+		else
+		{
+			$query->order($db->escape($ordering) . ' ' . $dir);
+		}
 
 		return $query;
 	}
@@ -594,8 +452,8 @@ class SermonsModel extends Listmodel
 	 *
 	 * Note. Calling getState in this method will result in recursion.
 	 *
-	 * @param   string  $ordering   Ordering column
-	 * @param   string  $direction  'ASC' or 'DESC'
+	 * @param string $ordering  Ordering column
+	 * @param string $direction 'ASC' or 'DESC'
 	 *
 	 * @return  void
 	 *
@@ -610,7 +468,7 @@ class SermonsModel extends Listmodel
 
 		// Category filter
 		$MenuCatid = $params->get('sermons_catid', $params->get('catid', 0));
-		$id = $jinput->get('catid', $MenuCatid, 'int');
+		$id        = $jinput->get('catid', $MenuCatid, 'int');
 		$this->setState('category.id', $id);
 
 		// Filetype filter
@@ -620,7 +478,7 @@ class SermonsModel extends Listmodel
 		// Include Subcategories or not
 		$this->setState('filter.subcategories', $params->get('show_subcategory_content', 0));
 
-		$user = Factory::getApplication()->getIdentity();
+		$user = $app->getIdentity();
 
 		if ((!$user->authorise('core.edit.state', 'com_sermonspeaker')) && (!$user->authorise('core.edit', 'com_sermonspeaker')))
 		{
@@ -681,7 +539,7 @@ class SermonsModel extends Listmodel
 	 * different modules that might need different sets of data or different
 	 * ordering requirements.
 	 *
-	 * @param   string  $id  An identifier string to generate the store id.
+	 * @param string $id An identifier string to generate the store id.
 	 *
 	 * @return  string  A store id.
 	 *
@@ -693,6 +551,12 @@ class SermonsModel extends Listmodel
 		$id .= ':' . $this->getState('speaker.id');
 		$id .= ':' . $this->getState('serie.id');
 		$id .= ':' . $this->getState('category.id');
+		$id .= ':' . $this->getState('date.year');
+		$id .= ':' . $this->getState('date.month');
+		$id .= ':' . $this->getState('filter.book');
+		$id .= ':' . $this->getState('filter.filetype');
+		$id .= ':' . $this->getState('filter.subcategories');
+		$id .= ':' . $this->getState('filter.tag');
 
 		return parent::getStoreId($id);
 	}

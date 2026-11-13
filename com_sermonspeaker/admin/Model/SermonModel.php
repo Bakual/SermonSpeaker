@@ -95,7 +95,7 @@ class SermonModel extends AdminModel
 
 			if ($table->audiofile && file_exists(JPATH_ROOT . $table->audiofile))
 			{
-				$query = $db->getQuery(true);
+				$query = $db->createQuery();
 				$query->select('count(1)');
 				$query->from($db->quoteName('#__sermon_sermons'));
 				$query->where(
@@ -113,7 +113,7 @@ class SermonModel extends AdminModel
 
 			if ($table->videofile && file_exists(JPATH_ROOT . $table->videofile))
 			{
-				$query = $db->getQuery(true);
+				$query = $db->createQuery();
 				$query->select('count(1)');
 				$query->from($db->quoteName('#__sermon_sermons'));
 				$query->where(
@@ -710,7 +710,7 @@ class SermonModel extends AdminModel
 			if ($data['id'])
 			{
 				$db    = $this->getDatabase();
-				$query = $db->getQuery(true)
+				$query = $db->createQuery()
 					->select($db->quoteName(array('book', 'cap1', 'vers1', 'cap2', 'vers2', 'text')))
 					->from($db->quoteName('#__sermon_scriptures'))
 					->where($db->quoteName('sermon_id') . ' = ' . (int) $data['id'])
@@ -776,7 +776,7 @@ class SermonModel extends AdminModel
 		if ($item->id)
 		{
 			$db    = $this->getDatabase();
-			$query = $db->getQuery(true)
+			$query = $db->createQuery()
 				->select($db->quoteName(array('book', 'cap1', 'vers1', 'cap2', 'vers2', 'text')))
 				->from($db->quoteName('#__sermon_scriptures'))
 				->where($db->quoteName('sermon_id') . ' = ' . (int) $item->id)
@@ -930,7 +930,7 @@ class SermonModel extends AdminModel
 
 		if ($table->state == 1 && intval($table->publish_down) == 0)
 		{
-			$table->publish_down = $this->getDbo()->getNullDate();
+			$table->publish_down = null;
 		}
 
 		// Increment the content version number.
@@ -982,6 +982,19 @@ class SermonModel extends AdminModel
 
 				$form->load($addform, false);
 			}
+		}
+
+		$params = ComponentHelper::getParams('com_sermonspeaker');
+
+		// TODO: Delete with SermonSpeaker 8.0
+		if ($params->get('path_mode_audio'))
+		{
+			$form->setFieldAttribute('audiofile', 'type', 'Customfilelist');
+		}
+
+		if ($params->get('path_mode_video'))
+		{
+			$form->setFieldAttribute('videofile', 'type', 'Customfilelist');
 		}
 
 		parent::preprocessForm($form, $data, $group);

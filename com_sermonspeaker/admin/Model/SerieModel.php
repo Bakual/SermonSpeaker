@@ -380,8 +380,6 @@ class SerieModel extends AdminModel
 	 */
 	protected function prepareTable($table)
 	{
-		jimport('joomla.filter.output');
-
 		$table->title = htmlspecialchars_decode($table->title, ENT_QUOTES);
 		$table->alias = ApplicationHelper::stringURLSafe($table->alias);
 		if (empty($table->alias))
@@ -431,7 +429,7 @@ class SerieModel extends AdminModel
 
 		if ($table->state == 1 && intval($table->publish_down) == 0)
 		{
-			$table->publish_down = $this->getDbo()->getNullDate();
+			$table->publish_down = null;
 		}
 
 		// Increment the content version number.

@@ -55,7 +55,7 @@ class SpeakerlistField extends GroupedlistField
 		$db     = $this->getDatabase();
 		$params = ComponentHelper::getParams('com_sermonspeaker');
 
-		$query = $db->getQuery(true);
+		$query = $db->createQuery();
 		$query->select('speakers.id As value, home');
 
 		if ($this->element['hidecategory'])
@@ -102,7 +102,7 @@ class SpeakerlistField extends GroupedlistField
 			return parent::getGroups();
 		}
 
-		$query = $db->getQuery(true);
+		$query = $db->createQuery();
 		$query->select('speakers.id As value, home');
 
 		if ($this->element['hidecategory'])

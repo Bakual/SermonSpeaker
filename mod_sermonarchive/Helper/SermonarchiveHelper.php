@@ -40,20 +40,20 @@ class SermonarchiveHelper implements DatabaseAwareInterface
 		$state = $state ?: 1;
 
 		$db    = $this->getDatabase();
-		$query = $db->getQuery(true);
+		$query = $db->createQuery();
 
 		$query->select('YEAR(`sermon_date`) AS `year`');
 		$query->select("CONCAT_WS('-', YEAR(`sermon_date`), MONTH(`sermon_date`), '15') AS `date`");
 		$query->from('#__sermon_sermons');
 		$query->where('`state` = ' . $state);
 
-		// Define null and now dates
-		$nullDate = $db->quote($db->getNullDate());
-		$nowDate  = $db->quote(Factory::getDate()->toSql());
-
 		// Filter by start and end dates.
-		$query->where('(`publish_up` = ' . $nullDate . ' OR `publish_up` <= ' . $nowDate . ')');
-		$query->where('(`publish_down` = ' . $nullDate . ' OR `publish_down` >= ' . $nowDate . ')');
+		$nowDate = Factory::getDate()->toSql();
+
+		$query->where('(publish_up IS NULL OR publish_up <= :publishUp)');
+		$query->where('(publish_down IS NULL OR publish_down >= :publishDown)');
+		$query->bind(':publishUp', $nowDate);
+		$query->bind(':publishDown', $nowDate);
 
 		$query->group('`year`');
 		$query->order('`sermon_date` DESC');
