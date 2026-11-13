@@ -362,9 +362,6 @@ class CustomfilelistField extends FilelistField
 			// Initialize variables.
 			$options = array();
 
-			// Add missing constant in PHP < 5.5
-			defined('CURL_SSLVERSION_TLSv1') or define('CURL_SSLVERSION_TLSv1', 1);
-
 			// AWS access info
 			$awsAccessKey = $this->params->get('s3_access_key');
 			$awsSecretKey = $this->params->get('s3_secret_key');

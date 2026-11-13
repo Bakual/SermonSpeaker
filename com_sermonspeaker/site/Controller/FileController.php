@@ -140,9 +140,6 @@ class FileController extends BaseController
 
 		if ($mode == 2)
 		{
-			// Add missing constant in PHP < 5.5
-			defined('CURL_SSLVERSION_TLSv1') or define('CURL_SSLVERSION_TLSv1', 1);
-
 			// Amazon S3 Upload
 
 			// AWS access info
