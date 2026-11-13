@@ -36,7 +36,6 @@ UPDATE `#__sermon_series` SET `publish_down` = NULL WHERE `publish_down` < '1000
 UPDATE `#__sermon_series` SET `checked_out_time` = NULL WHERE `checked_out_time` < '1000-01-01';
 
 ALTER TABLE `#__sermon_speakers`
-    MODIFY `zip_created` DATETIME NULL DEFAULT NULL,
     MODIFY `publish_up` DATETIME NULL DEFAULT NULL,
     MODIFY `publish_down` DATETIME NULL DEFAULT NULL,
     MODIFY `checked_out_time` DATETIME NULL DEFAULT NULL,
