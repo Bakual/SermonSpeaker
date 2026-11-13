@@ -39,8 +39,6 @@ class FeedModel extends BaseDatabaseModel
 
 		$db = $this->getDatabase();
 
-		// Force utf8 connection
-		$query = "SET character_set_results ='utf8';";
 		$db->setQuery($query);
 
 		// Create a new query object.
@@ -106,13 +104,13 @@ class FeedModel extends BaseDatabaseModel
 		// Series filter
 		if ($series = $params->get('series_filter', 0))
 		{
-			$query->where('sermons.series_id = ' . $series);
+			$query->where('sermons.series_id = ' . (int) $series);
 		}
 
 		// Speakers filter
 		if ($speaker = $params->get('speaker_filter', 0))
 		{
-			$query->where('sermons.speaker_id = ' . $speaker);
+			$query->where('sermons.speaker_id = ' . (int) $speaker);
 		}
 
 		// Filter by start and end dates.
