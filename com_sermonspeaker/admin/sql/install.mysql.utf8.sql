@@ -147,6 +147,7 @@ CREATE TABLE `#__sermon_scriptures`
     `text`      MEDIUMTEXT NULL,
     `ordering`  INT(11)    NOT NULL DEFAULT '0',
     `sermon_id` INT(10)    NOT NULL DEFAULT '0',
+    PRIMARY KEY (`id`),
     KEY `idx_sermon_id` (`sermon_id`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 0
