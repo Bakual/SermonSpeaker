@@ -194,9 +194,10 @@ return new class () implements InstallerScriptInterface {
 			$query->select($db->quoteName('id'))
 				->from($db->quoteName('#__assets'))
 				->where($db->quoteName('name') . ' = ' . $db->quote('com_sermonspeaker.sermons'));
+			$db->setQuery($query);
 			$result = $db->loadResult();
 
-			if ($result)
+			if (!$result)
 			{
 				$this->addAsset();
 			}
@@ -507,22 +508,24 @@ return new class () implements InstallerScriptInterface {
 				try
 				{
 					$catModel->save($category);
+
+					$newId = $catModel->getState('category.id');
+
+					$parentIds[$section][$oldId] = $newId;
+
+					$query = $db->getQuery(true);
+					$query->update($db->quoteName('#__sermon_' . $section));
+					$query->set($db->quoteName('catid') . ' = ' . (int) $newId);
+					$query->where($db->quoteName('catid') . ' = ' . $oldId);
+					$db->setQuery($query);
+					$db->execute();
 				}
 				catch (Exception $e)
 				{
 					$this->application->enqueueMessage($e->getMessage(), 'ERROR');
+
+					return;
 				}
-
-				$newId = $catModel->getState('category.id');
-
-				$parentIds[$section][$oldId] = $newId;
-
-				$query = $db->getQuery(true);
-				$query->update($db->quoteName('#__sermon_' . $section));
-				$query->set($db->quoteName('catid') . ' = ' . (int) $newId);
-				$query->where($db->quoteName('catid') . ' = ' . $oldId);
-				$db->setQuery($query);
-				$db->execute();
 			}
 		}
 
@@ -671,6 +674,8 @@ return new class () implements InstallerScriptInterface {
 
 		// Get the asset id from the database.
 		$db->setQuery($query);
+
+		$assetId = 0;
 
 		if ($result = $db->loadResult())
 		{
