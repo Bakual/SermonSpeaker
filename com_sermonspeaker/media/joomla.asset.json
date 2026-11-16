@@ -22,6 +22,14 @@
       "attributes": {
         "defer": true
       }
+    },
+    {
+      "name": "com_sermonspeaker.reset-filter",
+      "type": "script",
+      "uri": "com_sermonspeaker/reset-filter.js",
+      "attributes": {
+        "defer": true
+      }
     }
   ]
 }

@@ -15,7 +15,7 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Multilanguage;
 use Joomla\CMS\Language\Text;
 
-HtmlHelper::script('com_sermonspeaker/reset-filter.js', ['relative' => true]);
+$this->getDocument()->getWebAssetManager()->useScript('com_sermonspeaker.reset-filter');
 
 // Tags filtering based on language filter
 $langFilter = false;
@@ -41,11 +41,6 @@ if (($this->params->get('filter_field') === 'tag') && (Multilanguage::isEnabled(
 			   value="<?php echo $this->escape($this->state->get('filter.search')); ?>" class="inputbox"
 			   onchange="document.adminForm.submit();"
 			   placeholder="<?php echo Text::_('COM_SERMONSPEAKER_FILTER_SEARCH_DESC'); ?>">
-
-		<select name="month" id="filter-month" class="form-select" onchange="document.adminForm.submit()">
-			<option value="0"><?php echo Text::_('COM_SERMONSPEAKER_SELECT_MONTH'); ?></option>
-			<?php echo HTMLHelper::_('select.options', $this->months, 'value', 'text', $this->state->get('date.month'), true); ?>
-		</select>
 
 		<label class="filter-speaker-lbl visually-hidden" for="filter-speakers">
 			<?php echo Text::_('COM_SERMONSPEAKER_SELECT_SPEAKER'); ?>

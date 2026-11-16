@@ -15,7 +15,7 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Multilanguage;
 use Joomla\CMS\Language\Text;
 
-HtmlHelper::script('com_sermonspeaker/reset-filter.js', ['relative' => true]);
+$this->getDocument()->getWebAssetManager()->useScript('com_sermonspeaker.reset-filter');
 
 // Tags filtering based on language filter
 $langFilter = false;
