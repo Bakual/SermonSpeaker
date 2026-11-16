@@ -42,6 +42,40 @@ if (($this->params->get('filter_field') === 'tag') && (Multilanguage::isEnabled(
 			   onchange="document.adminForm.submit();"
 			   placeholder="<?php echo Text::_('COM_SERMONSPEAKER_FILTER_SEARCH_DESC'); ?>">
 
+		<select name="month" id="filter-month" class="form-select" onchange="document.adminForm.submit()">
+			<option value="0"><?php echo Text::_('COM_SERMONSPEAKER_SELECT_MONTH'); ?></option>
+			<?php echo HTMLHelper::_('select.options', $this->months, 'value', 'text', $this->state->get('date.month'), true); ?>
+		</select>
+
+		<label class="filter-speaker-lbl visually-hidden" for="filter-speakers">
+			<?php echo Text::_('COM_SERMONSPEAKER_SELECT_SPEAKER'); ?>
+		</label>
+		<select name="speaker" id="filter-speakers" class="form-select" onchange="this.form.submit()">
+			<option value="0"><?php echo Text::_('COM_SERMONSPEAKER_SELECT_SPEAKER'); ?></option>
+			<?php $db = Factory::getDbo();
+			$query = $db->createQuery()
+				->select('`id`, `title`')
+				->from('`#__sermon_speakers`')
+				->where('`state` = 1');
+			$db->setQuery($query);
+			$speakers = $db->loadAssocList();
+			echo HTMLHelper::_('select.options', $speakers, 'id', 'title', $this->state->get('speaker.id'), true); ?>
+		</select>
+
+		<label class="filter-series-lbl visually-hidden" for="filter-series">
+			<?php echo Text::_('COM_SERMONSPEAKER_SELECT_SERIES'); ?>
+		</label>
+		<select name="serie" id="filter-series" class="form-select" onchange="this.form.submit()">
+			<option value="0"><?php echo Text::_('COM_SERMONSPEAKER_SELECT_SERIES'); ?></option>
+			<?php $query = $db->createQuery()
+				->select('`id`, `title`')
+				->from('`#__sermon_series`')
+				->where('`state` = 1');
+			$db->setQuery($query);
+			$series = $db->loadAssocList();
+			echo HTMLHelper::_('select.options', $series, 'id', 'title', $this->state->get('serie.id'), true); ?>
+		</select>
+
 		<?php if ($this->hasTags) : ?>
 			<label class="filter-tag-lbl visually-hidden" for="filter-tag">
 				<?php echo Text::_('JOPTION_SELECT_TAG'); ?>
@@ -60,6 +94,7 @@ if (($this->params->get('filter_field') === 'tag') && (Multilanguage::isEnabled(
 			<?php $options = array('id' => 'filter-book', 'list.attr' => 'class="form-select" onchange="document.adminForm.submit()"', 'list.select' => $this->state->get('filter.book')); ?>
 			<?php echo HTMLHelper::_('select.groupedlist', $this->books, 'filter[book]', $options); ?>
 		<?php endif; ?>
+
 		<label class="filter-month-lbl visually-hidden" for="filter-month">
 			<?php echo Text::_('COM_SERMONSPEAKER_SELECT_MONTH'); ?>
 		</label>
