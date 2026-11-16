@@ -320,14 +320,14 @@ class FileController extends BaseController
 		$params = ComponentHelper::getParams('com_sermonspeaker');
 		$id3    = Id3Helper::getID3($file, $params);
 
-		// Format the date to the language specific format
-		if ($id3['sermon_date'])
-		{
-			$id3['sermon_date'] = HTMLHelper::date($id3['sermon_date'], Text::_('DATE_FORMAT_FILTER_DATETIME'));
-		}
-
 		if ($id3)
 		{
+			// Format the date to the language specific format
+			if ($id3['sermon_date'])
+			{
+				$id3['sermon_date'] = HTMLHelper::date($id3['sermon_date'], Text::_('DATE_FORMAT_FILTER_DATETIME'));
+			}
+
 			$response           = $id3;
 			$response['status'] = 1;
 		}
