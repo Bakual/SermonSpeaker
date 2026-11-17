@@ -21,7 +21,7 @@ $this->getDocument()->getWebAssetManager()->useScript('com_sermonspeaker.reset-f
 // Tags filtering based on language filter
 $langFilter = false;
 
-if (($this->params->get('filter_field') === 'tag') && (Multilanguage::isEnabled()))
+if ($this->params->get('filter_field') && $this->hasTags && Multilanguage::isEnabled())
 {
 	$tagfilter = ComponentHelper::getParams('com_tags')->get('tag_list_language_filter');
 
@@ -34,7 +34,7 @@ if (($this->params->get('filter_field') === 'tag') && (Multilanguage::isEnabled(
 }
 ?>
 <?php if ($this->params->get('filter_field')) : ?>
-	<div class="com-sermonspeaker__filter btn-group d-flex flex-wrap row-gap-1">
+	<div class="com-sermonspeaker__filter d-flex flex-wrap row-gap-1 mb-2">
 		<label class="filter-search-lbl visually-hidden" for="filter-search">
 			<?php echo Text::_('JGLOBAL_FILTER_LABEL'); ?>
 		</label>
@@ -42,7 +42,7 @@ if (($this->params->get('filter_field') === 'tag') && (Multilanguage::isEnabled(
 			   value="<?php echo $this->escape($this->state->get('filter.search')); ?>" class="form-control w-auto flex-grow-1" onchange="document.adminForm.submit();"
 			   placeholder="<?php echo Text::_('COM_SERMONSPEAKER_FILTER_SEARCH_DESC'); ?>">
 
-		<?php if (!$this->params->get('filter_speaker')) : ?>
+		<?php if ($this->params->get('filter_field_speakers')) : ?>
 			<label class="filter-speaker-lbl visually-hidden" for="filter-speakers">
 				<?php echo Text::_('COM_SERMONSPEAKER_SELECT_SPEAKER'); ?>
 			</label>
@@ -52,7 +52,7 @@ if (($this->params->get('filter_field') === 'tag') && (Multilanguage::isEnabled(
 			</select>
 		<?php endif; ?>
 
-		<?php if (!$this->params->get('filter_series')) : ?>
+		<?php if ($this->params->get('filter_field_series')) : ?>
 			<label class="filter-series-lbl visually-hidden" for="filter-series">
 				<?php echo Text::_('COM_SERMONSPEAKER_SELECT_SERIES'); ?>
 			</label>

@@ -124,6 +124,32 @@
 		</field>
 
 		<field
+			name="filter_field_speakers"
+			type="radio"
+			label="COM_SERMONSPEAKER_FILTER_FIELD_SPEAKERS_LABEL"
+			description="COM_SERMONSPEAKER_FILTER_FIELD_SPEAKERS_DESC"
+			layout="joomla.form.field.radio.switcher"
+			showon="filter_field:1"
+			default="0"
+		>
+			<option value="0">JHIDE</option>
+			<option value="1">JSHOW</option>
+		</field>
+
+		<field
+			name="filter_field_series"
+			type="radio"
+			label="COM_SERMONSPEAKER_FILTER_FIELD_SERIES_LABEL"
+			description="COM_SERMONSPEAKER_FILTER_FIELD_SERIES_DESC"
+			layout="joomla.form.field.radio.switcher"
+			showon="filter_field:1"
+			default="0"
+		>
+			<option value="0">JHIDE</option>
+			<option value="1">JSHOW</option>
+		</field>
+
+		<field
 			name="show_pagination_limit"
 			type="radio"
 			label="JGLOBAL_DISPLAY_SELECT_LABEL"
