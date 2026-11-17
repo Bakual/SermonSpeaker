@@ -858,4 +858,66 @@ class SermonspeakerHelper
 
 		return number_format($bytes, 2) . ' ' . $unit[$x];
 	}
+
+	/**
+	 * Returns an optionlist of speakers.
+	 *
+	 * @return  array
+	 *
+	 * @throws \Exception
+	 * @since   7.1.0
+	 */
+	public static function speakers()
+	{
+		/** @var \Sermonspeaker\Component\Sermonspeaker\Administrator\Extension\SermonspeakerComponent $component */
+		$component = Factory::getApplication()->bootComponent('com_sermonspeaker');
+
+		/** @var \Sermonspeaker\Component\Sermonspeaker\Site\Model\SpeakersModel $model */
+		$model = $component->getMVCFactory()
+			->createModel('Speakers', 'Site', ['ignore_request' => true]);
+
+		$model->setState('list.start', 0);
+		$model->setState('list.limit', -1);
+		$model->setState('list.direction', 'asc');
+		$model->setState('list.filter', '');
+
+		$items = [];
+
+		foreach ($model->getItems() as $item) {
+			$items[] = HTMLHelper::_('select.option', $item->id, $item->title);
+		}
+
+		return $items;
+	}
+
+	/**
+	 * Returns an optionlist of series.
+	 *
+	 * @return  array
+	 *
+	 * @throws \Exception
+	 * @since   7.1.0
+	 */
+	public static function series()
+	{
+		/** @var \Sermonspeaker\Component\Sermonspeaker\Administrator\Extension\SermonspeakerComponent $component */
+		$component = Factory::getApplication()->bootComponent('com_sermonspeaker');
+
+		/** @var \Sermonspeaker\Component\Sermonspeaker\Site\Model\SeriesModel $model */
+		$model = $component->getMVCFactory()
+			->createModel('Series', 'Site', ['ignore_request' => true]);
+
+		$model->setState('list.start', 0);
+		$model->setState('list.limit', -1);
+		$model->setState('list.direction', 'asc');
+		$model->setState('list.filter', '');
+
+		$items = [];
+
+		foreach ($model->getItems() as $item) {
+			$items[] = HTMLHelper::_('select.option', $item->id, $item->title);
+		}
+
+		return $items;
+	}
 }

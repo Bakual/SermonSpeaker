@@ -12,6 +12,12 @@
     if (document.getElementById('filter-search')) {
       document.getElementById('filter-search').value = '';
     }
+    if (document.getElementById('filter-speakers')) {
+      document.getElementById('filter-speakers').value = 0;
+    }
+    if (document.getElementById('filter-series')) {
+      document.getElementById('filter-series').value = 0;
+    }
     if (document.getElementById('filter-tag')) {
       document.getElementById('filter-tag').value = '';
     }

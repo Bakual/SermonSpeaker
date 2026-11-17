@@ -60,6 +60,12 @@ class MediawrapperField extends MediaField
 				$directory = substr($directory, 7);
 			}
 
+			if (mb_substr($directory, -1) == ':')
+			{
+				// Add back a trailing slash if we only have the adapter but no path.
+				$directory .= '/';
+			}
+
 			$this->directory = $directory;
 			$this->value     = trim($this->value, ' /');
 		}

@@ -12,7 +12,7 @@ defined('_JEXEC') or die();
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 
-HtmlHelper::script('com_sermonspeaker/reset-filter.js', ['relative' => true]);
+$this->getDocument()->getWebAssetManager()->useScript('com_sermonspeaker.reset-filter');
 ?>
 <?php if ($this->params->get('filter_field')) : ?>
 	<div class="com-sermonspeaker__filter btn-group">
