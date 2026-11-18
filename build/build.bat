@@ -50,14 +50,8 @@ zip -r ../build/packages/plg_search_sermonspeaker.zip *
 cd ../plg_sermonspeaker_generic/
 zip -r ../build/packages/plg_sermonspeaker_generic.zip *
 
-cd ../plg_sermonspeaker_jwplayer7/
-zip -r ../build/packages/plg_sermonspeaker_jwplayer7.zip *
-
 cd ../plg_sermonspeaker_mediaelement/
 zip -r ../build/packages/plg_sermonspeaker_mediaelement.zip *
-
-cd ../plg_sermonspeaker_vimeo/
-zip -r ../build/packages/plg_sermonspeaker_vimeo.zip *
 
 cd ../plg_quickicon_sermonspeaker/
 zip -r ../build/packages/plg_quickicon_sermonspeaker.zip *
