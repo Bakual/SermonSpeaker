@@ -43,10 +43,10 @@
 		<description>SermonArchive Module</description>
 		<element>mod_sermonarchive</element>
 		<type>module</type>
-		<version>7.0.0</version>
+		<version>7.1.0</version>
 		<downloads>
 			<downloadurl type="full" format="zip">
-				https://github.com/Bakual/SermonSpeaker/releases/download/7.0.0/mod_sermonarchive.zip
+				https://github.com/Bakual/SermonSpeaker/releases/download/7.1.0/mod_sermonarchive.zip
 			</downloadurl>
 		</downloads>
 		<tags>
@@ -54,8 +54,8 @@
 		</tags>
 		<maintainer>Thomas Hunziker</maintainer>
 		<maintainerurl>https://www.sermonspeaker.net/</maintainerurl>
-		<targetplatform name="joomla" version="6.[01234]"/>
-		<sha256>7f769cf299c82275dd5604ea26900e5064ac60015dfb7cec32d8c5fb238e61aa</sha256>
+		<targetplatform name="joomla" version="6.[0123456789]"/>
+		<sha256>45d37ddaa46a11fa6631785c69b9b7ab0dc16002ed45451472cd48f08819c5c8</sha256>
 		<client>site</client>
 	</update>
 </updates>

@@ -46,10 +46,10 @@
 		<description>SermonSpeaker Search Plugin</description>
 		<element>sermonspeaker</element>
 		<type>plugin</type>
-		<version>7.0.0</version>
+		<version>7.1.0</version>
 		<downloads>
 			<downloadurl type="full" format="zip">
-				https://github.com/Bakual/SermonSpeaker/releases/download/7.0.0/plg_search_sermonspeaker.zip
+				https://github.com/Bakual/SermonSpeaker/releases/download/7.1.0/plg_search_sermonspeaker.zip
 			</downloadurl>
 		</downloads>
 		<tags>
@@ -57,8 +57,8 @@
 		</tags>
 		<maintainer>Thomas Hunziker</maintainer>
 		<maintainerurl>https://www.sermonspeaker.net/</maintainerurl>
-		<targetplatform name="joomla" version="6.[01234]"/>
-		<sha256>5d0a0f8da54a7afbe956bd97fd2e3c00148e7117656cb0249915fc4d70650dfc</sha256>
+		<targetplatform name="joomla" version="6.[0123456789]"/>
+		<sha256>1e092b728739fd0366d2399d983cdfc52782abee75e5b03b00141275cebdd70c</sha256>
 		<client>site</client>
 		<folder>search</folder>
 	</update>
