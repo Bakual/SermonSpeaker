@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension type="plugin" version="4.0.0" group="search" method="upgrade">
+<extension type="plugin" version="6.0.0" group="search" method="upgrade">
 	<name>PLG_SEARCH_SERMONSPEAKER</name>
 	<author>Thomas Hunziker</author>
-	<creationDate>2025-11-21</creationDate>
-	<copyright>© 2025</copyright>
+	<creationDate>2026-11-18</creationDate>
+	<copyright>© 2026</copyright>
 	<authorEmail>admin@sermonspeaker.net</authorEmail>
 	<authorUrl>http://www.sermonspeaker.net</authorUrl>
-	<version>7.0.0</version>
+	<version>7.1.0</version>
 	<license>http://www.gnu.org/licenses/gpl.html</license>
 	<description>PLG_SEARCH_SERMONSPEAKER_XML_DESCRIPTION</description>
 	<namespace path="/">Sermonspeaker\Plugin\Search\Sermonspeaker</namespace>
