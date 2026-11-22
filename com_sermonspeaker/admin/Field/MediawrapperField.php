@@ -10,9 +10,13 @@
 namespace Sermonspeaker\Component\Sermonspeaker\Administrator\Field;
 
 use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Field\MediaField;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
+use Joomla\Component\Media\Administrator\Exception\FileNotFoundException;
+use Joomla\Component\Media\Administrator\Model\ApiModel;
+use Lcobucci\JWT\Exception;
 
 defined('_JEXEC') or die();
 
@@ -65,7 +69,48 @@ class MediawrapperField extends MediaField
 				$directory .= '/';
 			}
 
-			$this->directory = $directory;
+			// Append user set in options
+			$append = ($params->get('append_path_user', 0)) ? '/' . Factory::getApplication()->getIdentity()->id : '';
+
+			if ($params->get('append_path', 0))
+			{
+				$date   = Factory::getApplication()->input->get('date', '', 'string');
+				$time   = ($date) ? strtotime($date) : time();
+				$append .= '/' . date('Y', $time) . '/' . date('m', $time);
+			}
+
+			if ($params->get('append_path_lang', 0))
+			{
+				$lang = Factory::getApplication()->input->get('language');
+
+				if (!$lang || $lang == '*')
+				{
+					$jlang = Factory::getApplication()->getLanguage();
+					$lang  = $jlang->getTag();
+				}
+
+				$append .= '/' . $lang;
+			}
+
+			$this->directory = $directory . $append;
+
+			$pathinfo = explode(':', $this->directory, 2);
+
+			$mediaManager = new ApiModel();
+			try
+			{
+				$mediaManager->getFile($pathinfo[0], $pathinfo[1]);
+			}
+			catch (FileNotFoundException $e)
+			{
+				$folders = explode('/', $pathinfo[1]);
+				$lastFolder = array_pop($folders);
+
+				$mediaManager->createFolder($pathinfo[0], $lastFolder, implode('/', $folders), false);
+			}
+
+//			$mediaManager->createFile($pathinfo[0], $filename, $pathinfo[1] . $append, $file['tmp_name'],false);
+
 			$this->value     = trim($this->value, ' /');
 		}
 
