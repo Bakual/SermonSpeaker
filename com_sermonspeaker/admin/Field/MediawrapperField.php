@@ -108,17 +108,21 @@ class MediawrapperField extends MediaField
 
 				$pathinfo = explode(':', $this->directory, 2);
 
-				$mediaManager = new ApiModel();
-				try
+				if (isset($pathinfo[1]) && $pathinfo[1] !== '/')
 				{
-					$mediaManager->getFile($pathinfo[0], $pathinfo[1]);
-				}
-				catch (FileNotFoundException $e)
-				{
-					$folders    = explode('/', $pathinfo[1]);
-					$lastFolder = array_pop($folders);
+					$mediaManager = new ApiModel();
 
-					$mediaManager->createFolder($pathinfo[0], $lastFolder, implode('/', $folders), false);
+					try
+					{
+						$mediaManager->getFile($pathinfo[0], $pathinfo[1]);
+					}
+					catch (FileNotFoundException $e)
+					{
+						$folders    = explode('/', $pathinfo[1]);
+						$lastFolder = array_pop($folders);
+
+						$mediaManager->createFolder($pathinfo[0], $lastFolder, implode('/', $folders), false);
+					}
 				}
 			}
 		}
