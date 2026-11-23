@@ -76,44 +76,50 @@ class MediawrapperField extends MediaField
 				$directory .= '/';
 			}
 
-			// Append user set in options
-			$append = ($params->get('append_path_user', 0)) ? '/' . Factory::getApplication()->getIdentity()->id : '';
+			$this->directory = $directory;
 
-			if ($params->get('append_path', 0))
+			#Only append subdirectories for audio, video and addfile
+			if (in_array($this->fieldname, ['audiofile', 'videofile', 'addfile']))
 			{
-				$date   = Factory::getApplication()->input->get('date', '', 'string');
-				$time   = ($date) ? strtotime($date) : time();
-				$append .= '/' . date('Y', $time) . '/' . date('m', $time);
-			}
+				// Append user set in options
+				$append = ($params->get('append_path_user', 0)) ? '/' . Factory::getApplication()->getIdentity()->id : '';
 
-			if ($params->get('append_path_lang', 0))
-			{
-				$lang = Factory::getApplication()->input->get('language');
-
-				if (!$lang || $lang == '*')
+				if ($params->get('append_path', 0))
 				{
-					$jlang = Factory::getApplication()->getLanguage();
-					$lang  = $jlang->getTag();
+					$date   = Factory::getApplication()->input->get('date', '', 'string');
+					$time   = ($date) ? strtotime($date) : time();
+					$append .= '/' . date('Y', $time) . '/' . date('m', $time);
 				}
 
-				$append .= '/' . $lang;
-			}
+				if ($params->get('append_path_lang', 0))
+				{
+					$lang = Factory::getApplication()->input->get('language');
 
-			$this->directory = $directory . $append;
+					if (!$lang || $lang == '*')
+					{
+						$jlang = Factory::getApplication()->getLanguage();
+						$lang  = $jlang->getTag();
+					}
 
-			$pathinfo = explode(':', $this->directory, 2);
+					$append .= '/' . $lang;
+				}
 
-			$mediaManager = new ApiModel();
-			try
-			{
-				$mediaManager->getFile($pathinfo[0], $pathinfo[1]);
-			}
-			catch (FileNotFoundException $e)
-			{
-				$folders    = explode('/', $pathinfo[1]);
-				$lastFolder = array_pop($folders);
+				$this->directory .= $append;
 
-				$mediaManager->createFolder($pathinfo[0], $lastFolder, implode('/', $folders), false);
+				$pathinfo = explode(':', $this->directory, 2);
+
+				$mediaManager = new ApiModel();
+				try
+				{
+					$mediaManager->getFile($pathinfo[0], $pathinfo[1]);
+				}
+				catch (FileNotFoundException $e)
+				{
+					$folders    = explode('/', $pathinfo[1]);
+					$lastFolder = array_pop($folders);
+
+					$mediaManager->createFolder($pathinfo[0], $lastFolder, implode('/', $folders), false);
+				}
 			}
 		}
 
