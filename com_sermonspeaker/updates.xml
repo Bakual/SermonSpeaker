@@ -90,6 +90,7 @@
 		<type>component</type>
 		<version>7.1.2</version>
 		<client>administrator</client>
+		<changelogurl>https://www.sermonspeaker.net/update/com_sermonspeaker-changelog.xml</changelogurl>
 		<infourl title="SermonSpeaker Component 7.1.2">https://github.com/Bakual/SermonSpeaker/releases/tag/7.1.2</infourl>
 		<downloads>
 			<downloadurl type="full" format="zip">

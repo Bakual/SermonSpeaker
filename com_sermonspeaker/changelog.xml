@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<changelogs>
+	<changelog>
+		<element>com_sermonspeaker</element>
+		<type>component</type>
+		<version>7.1.3</version>
+		<security>
+		</security>
+		<fix>
+			<item>Fix error "Property 'name' of argument 'item' of event onFetchMediaItem has a wrong item. Valid: non empty string" when editing a sermon</item>
+		</fix>
+		<language>
+		</language>
+		<addition>
+		</addition>
+		<change>
+		</change>
+		<remove>
+		</remove>
+		<note>
+		</note>
+	</changelog>
+</changelogs>
