@@ -163,7 +163,7 @@ class SermonModel extends ItemModel
 	 * @throws Exception
 	 * @since ?
 	 */
-	public function hit(int $id = null): bool
+	public function hit(?int $id = null): bool
 	{
 		if (!$id)
 		{
@@ -228,7 +228,7 @@ class SermonModel extends ItemModel
 	 * @throws Exception
 	 * @since ?
 	 */
-	protected function populateState(string $ordering = null, string $direction = null): void
+	protected function populateState(?string $ordering = null, ?string $direction = null): void
 	{
 		/** @var \Joomla\CMS\Application\SiteApplication $app */
 		$app    = Factory::getApplication();
