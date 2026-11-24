@@ -13,9 +13,12 @@ use Aws\Credentials\Credentials;
 use Aws\S3\S3Client;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
+use Joomla\CMS\Uri\Uri;
+use Joomla\Component\Media\Administrator\Model\ApiModel;
 use Joomla\Filesystem\File;
 use Joomla\Filesystem\Folder;
 use Joomla\CMS\MVC\Model\BaseDatabaseModel;
+use stdClass;
 
 defined('_JEXEC') or die();
 
@@ -31,15 +34,27 @@ class FilesModel extends BaseDatabaseModel
 		$audio_ext = array('aac', 'm4a', 'mp3', 'wma', 'ra', 'ram', 'rm', 'rpm');
 		$video_ext = array('mp4', 'mov', 'f4v', 'flv', '3gp', '3g2', 'wmv', 'rv');
 		$start     = strlen(JPATH_SITE) + 1;
+		$root      = Uri::root();
 		$files     = $this->getFiles();
 		$sermons   = $this->getSermons();
 		$items     = array();
 
 		foreach ($files as $key => $value)
 		{
+			if (is_object($value))
+			{
+				$object = $value;
+				$value  = $object->url;
+			}
+
 			if (str_starts_with($value, JPATH_SITE))
 			{
 				$value = substr($value, $start);
+			}
+
+			if (str_starts_with($value, $root))
+			{
+				$value = trim(substr($value, strlen($root)), '/');
 			}
 
 			$value = str_replace('\\', '/', $value);
@@ -50,7 +65,7 @@ class FilesModel extends BaseDatabaseModel
 				continue;
 			}
 
-			$ext                 = File::getExt($value);
+			$ext                 = isset($object) ? $object->extension : File::getExt($value);
 			$items[$key]['file'] = (str_starts_with($value, 'http')) ? $value : '/' . $value;
 
 			if (in_array($ext, $audio_ext))
@@ -153,6 +168,65 @@ class FilesModel extends BaseDatabaseModel
 				foreach ($filters as $filter)
 				{
 					$files = array_merge($files, Folder::files($folder, $filter, true, true));
+				}
+			}
+		}
+		elseif ($mode == 0)
+		{
+			// Media Manager
+			$folders = array();
+
+			if (str_contains($params->get('path_audio'), ':/'))
+			{
+				$folders[] = $params->get('path_audio');
+			}
+
+			if ($params->get('path_audio') != $params->get('path_video'))
+			{
+				if (str_contains($params->get('path_video'), ':/'))
+				{
+					$folders[] = $params->get('path_video');
+				}
+			}
+
+			$mediaManager = new ApiModel();
+
+			foreach ($folders as $folder)
+			{
+				$explodedFolder = explode(':', $folder, 2);
+
+				// I haven't found a way to give a file filter to the mediamanager except this.
+				switch ($type)
+				{
+					case 'audio':
+						Factory::getApplication()->getInput()->set('mediatypes', '1');
+
+						break;
+					case 'video':
+						Factory::getApplication()->getInput()->set('mediatypes', '2');
+
+						break;
+					default:
+						Factory::getApplication()->getInput()->set('mediatypes', '0');
+
+						break;
+				}
+
+				$options = array(
+					'url'       => true,
+					'recursive' => true,
+				);
+
+				$options['search'] = '*';
+
+				$tempFiles         = array_merge($files, $mediaManager->getFiles($explodedFolder[0], $explodedFolder[1], $options));
+
+				foreach ($tempFiles as $tempFile)
+				{
+					if ($tempFile->type == 'file')
+					{
+						$files[] = $tempFile;
+					}
 				}
 			}
 		}
