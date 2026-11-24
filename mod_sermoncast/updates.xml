@@ -43,10 +43,10 @@
 		<description>SermonCast Module</description>
 		<element>mod_sermoncast</element>
 		<type>module</type>
-		<version>7.0.0</version>
+		<version>7.1.0</version>
 		<downloads>
 			<downloadurl type="full" format="zip">
-				https://github.com/Bakual/SermonSpeaker/releases/download/7.0.0/mod_sermoncast.zip
+				https://github.com/Bakual/SermonSpeaker/releases/download/7.1.0/mod_sermoncast.zip
 			</downloadurl>
 		</downloads>
 		<tags>
@@ -54,8 +54,8 @@
 		</tags>
 		<maintainer>Thomas Hunziker</maintainer>
 		<maintainerurl>https://www.sermonspeaker.net/</maintainerurl>
-		<targetplatform name="joomla" version="6.[01234]"/>
-		<sha256>5eca065ad235b26c5c463aac53ac563a823d5714b6c790d34342ad20f8938f5a</sha256>
+		<targetplatform name="joomla" version="6.[0123456789]"/>
+		<sha256>2c31bb42038f6e26a823d6bf0bf760b8f8d157386cf1a0bd9496ad54b2276b00</sha256>
 		<client>site</client>
 	</update>
 </updates>

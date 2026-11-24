@@ -46,10 +46,10 @@
 		<description>SermonSpeaker Quickicon Plugin</description>
 		<element>sermonspeaker</element>
 		<type>plugin</type>
-		<version>7.0.0</version>
+		<version>7.1.0</version>
 		<downloads>
 			<downloadurl type="full" format="zip">
-				https://github.com/Bakual/SermonSpeaker/releases/download/7.0.0/plg_quickicon_sermonspeaker.zip
+				https://github.com/Bakual/SermonSpeaker/releases/download/7.1.0/plg_quickicon_sermonspeaker.zip
 			</downloadurl>
 		</downloads>
 		<tags>
@@ -57,8 +57,8 @@
 		</tags>
 		<maintainer>Thomas Hunziker</maintainer>
 		<maintainerurl>https://www.sermonspeaker.net/</maintainerurl>
-		<targetplatform name="joomla" version="6.[01234]"/>
-		<sha256>149529da39669286f7bedd8031a4406c534f7909067f686131c15e261427ea64</sha256>
+		<targetplatform name="joomla" version="6.[0123456789]"/>
+		<sha256>88583669e7ba493d714c146809e02f48c19e34ecd218e2f25f6beb12e955106e</sha256>
 		<client>site</client>
 		<folder>quickicon</folder>
 	</update>

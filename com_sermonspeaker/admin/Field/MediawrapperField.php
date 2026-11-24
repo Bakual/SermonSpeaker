@@ -10,10 +10,13 @@
 namespace Sermonspeaker\Component\Sermonspeaker\Administrator\Field;
 
 use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Field\MediaField;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
-use SimpleXMLElement;
+use Joomla\Component\Media\Administrator\Exception\FileNotFoundException;
+use Joomla\Component\Media\Administrator\Model\ApiModel;
+use Lcobucci\JWT\Exception;
 
 defined('_JEXEC') or die();
 
@@ -24,11 +27,12 @@ class MediawrapperField extends MediaField
 	/**
 	 * Method to attach a Form object to the field.
 	 *
-	 * @param   \SimpleXMLElement  $element  The SimpleXMLElement object representing the `<field>` tag for the form field object.
-	 * @param   mixed              $value    The form field value to validate.
-	 * @param   string             $group    The field name group control value. This acts as an array container for the field.
-	 *                                       For example if the field has name="foo" and the group value is set to "bar" then the
-	 *                                       full field name would end up being "bar[foo]".
+	 * @param \SimpleXMLElement $element     The SimpleXMLElement object representing the `<field>` tag for the form
+	 *                                       field object.
+	 * @param mixed             $value       The form field value to validate.
+	 * @param string            $group       The field name group control value. This acts as an array container for
+	 *                                       the field. For example if the field has name="foo" and the group value is
+	 *                                       set to "bar" then the full field name would end up being "bar[foo]".
 	 *
 	 * @return  boolean  True on success.
 	 *
@@ -41,6 +45,12 @@ class MediawrapperField extends MediaField
 
 		if ($result === true)
 		{
+			// Leave figuring out current directory to media field
+			if ($this->value)
+			{
+				return $result;
+			}
+
 			$params = ComponentHelper::getParams('com_sermonspeaker');
 
 			$directory = match ($this->fieldname)
@@ -67,7 +77,54 @@ class MediawrapperField extends MediaField
 			}
 
 			$this->directory = $directory;
-			$this->value     = trim($this->value, ' /');
+
+			#Only append subdirectories for audio, video and addfile
+			if (in_array($this->fieldname, ['audiofile', 'videofile', 'addfile']))
+			{
+				// Append user set in options
+				$append = ($params->get('append_path_user', 0)) ? '/' . Factory::getApplication()->getIdentity()->id : '';
+
+				if ($params->get('append_path', 0))
+				{
+					$date   = Factory::getApplication()->input->get('date', '', 'string');
+					$time   = ($date) ? strtotime($date) : time();
+					$append .= '/' . date('Y', $time) . '/' . date('m', $time);
+				}
+
+				if ($params->get('append_path_lang', 0))
+				{
+					$lang = Factory::getApplication()->input->get('language');
+
+					if (!$lang || $lang == '*')
+					{
+						$jlang = Factory::getApplication()->getLanguage();
+						$lang  = $jlang->getTag();
+					}
+
+					$append .= '/' . $lang;
+				}
+
+				$this->directory .= $append;
+
+				$pathinfo = explode(':', $this->directory, 2);
+
+				if (isset($pathinfo[1]) && $pathinfo[1] !== '/')
+				{
+					$mediaManager = new ApiModel();
+
+					try
+					{
+						$mediaManager->getFile($pathinfo[0], $pathinfo[1]);
+					}
+					catch (FileNotFoundException $e)
+					{
+						$folders    = explode('/', $pathinfo[1]);
+						$lastFolder = array_pop($folders);
+
+						$mediaManager->createFolder($pathinfo[0], $lastFolder, implode('/', $folders), false);
+					}
+				}
+			}
 		}
 
 		return $result;

@@ -42,6 +42,41 @@ class DisplayController extends BaseController
 			Factory::getApplication()->enqueueMessage(Text::_('COM_SERMONSPEAKER_NOTSAVED'), 'warning');
 		}
 
+		if ($params->get('path_mode_audio') || $params->get('path_mode_video'))
+		{
+			Factory::getApplication()->enqueueMessage(Text::_('COM_SERMONSPEAKER_MODE_DEPRECATED'), 'warning');
+		}
+
+		if (!$params->get('path_mode_audio') && !str_contains($params->get('path_audio'), ':/'))
+		{
+			Factory::getApplication()->enqueueMessage(Text::sprintf('COM_SERMONSPEAKER_WRONG_FILEPATH', Text::_('COM_SERMONSPEAKER_FIELD_PATH_AUDIO_LABEL')), 'warning');
+		}
+
+		if (!$params->get('path_mode_video') && !str_contains($params->get('path_video'), ':/'))
+		{
+			Factory::getApplication()->enqueueMessage(Text::sprintf('COM_SERMONSPEAKER_WRONG_FILEPATH', Text::_('COM_SERMONSPEAKER_FIELD_PATH_VIDEO_LABEL')), 'warning');
+		}
+
+		if (!str_contains($params->get('path_addfile'), ':/'))
+		{
+			Factory::getApplication()->enqueueMessage(Text::sprintf('COM_SERMONSPEAKER_WRONG_FILEPATH', Text::_('COM_SERMONSPEAKER_FIELD_ADDFILEPATH_LABEL')), 'warning');
+		}
+
+		if (!str_contains($params->get('path_avatar'), ':/'))
+		{
+			Factory::getApplication()->enqueueMessage(Text::sprintf('COM_SERMONSPEAKER_WRONG_FILEPATH', Text::_('COM_SERMONSPEAKER_PARAM_PATH_AVATAR')), 'warning');
+		}
+
+		if (!str_contains($params->get('path_speakerpic'), ':/'))
+		{
+			Factory::getApplication()->enqueueMessage(Text::sprintf('COM_SERMONSPEAKER_WRONG_FILEPATH', Text::_('COM_SERMONSPEAKER_PARAM_PATH_SPEAKERPIC_LABEL')), 'warning');
+		}
+
+		if (!str_contains($params->get('path_sermonpic'), ':/'))
+		{
+			Factory::getApplication()->enqueueMessage(Text::sprintf('COM_SERMONSPEAKER_WRONG_FILEPATH', Text::_('COM_SERMONSPEAKER_PARAM_PATH_SERMONPIC_LABEL')), 'warning');
+		}
+
 		if (!PluginHelper::isEnabled('sermonspeaker'))
 		{
 			Factory::getApplication()->enqueueMessage(Text::_('COM_SERMONSPEAKER_NO_PLAYER_ENABLED'), 'warning');
