@@ -133,7 +133,7 @@ class FilesModel extends BaseDatabaseModel
 		elseif ($mode == 4)
 		{
 			// Local files
-			$folders   = array();
+			$folders = array();
 
 			if (!str_contains($params->get('path_audio'), ':/'))
 			{
