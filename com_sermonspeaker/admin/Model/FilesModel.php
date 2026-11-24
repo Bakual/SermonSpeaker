@@ -102,8 +102,7 @@ class FilesModel extends BaseDatabaseModel
 				break;
 		}
 
-		$folders[] = JPATH_SITE . '/' . $params->get('path_audio');
-		$files     = array();
+		$files = array();
 
 		if ($mode == 2)
 		{
@@ -126,26 +125,35 @@ class FilesModel extends BaseDatabaseModel
 
 			$bucket_contents = $s3->getBucket($bucket, $bucketfolder);
 
-			$prefix = ($region === 'us-east-1') ? 's3' : 's3-' . $region;
-			$domain = $prefix . '.amazonaws.com/' . $bucket;
-
 			foreach ($bucket_contents as $file)
 			{
 				$files[] = $s3->getObjectUrl($bucket, $file['Key']);
 			}
 		}
-
-		// Local files
-		if ($params->get('path_audio') != $params->get('path_video'))
+		elseif ($mode == 4)
 		{
-			$folders[] = JPATH_SITE . '/' . $params->get('path_video');
-		}
+			// Local files
+			$folders   = array();
 
-		foreach ($folders as $folder)
-		{
-			foreach ($filters as $filter)
+			if (!str_contains($params->get('path_audio'), ':/'))
 			{
-				$files = array_merge($files, Folder::files($folder, $filter, true, true));
+				$folders[] = JPATH_SITE . '/' . $params->get('path_audio');
+			}
+
+			if ($params->get('path_audio') != $params->get('path_video'))
+			{
+				if (!str_contains($params->get('path_video'), ':/'))
+				{
+					$folders[] = JPATH_SITE . '/' . $params->get('path_video');
+				}
+			}
+
+			foreach ($folders as $folder)
+			{
+				foreach ($filters as $filter)
+				{
+					$files = array_merge($files, Folder::files($folder, $filter, true, true));
+				}
 			}
 		}
 
