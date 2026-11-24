@@ -861,7 +861,7 @@ class SermonModel extends AdminModel
 		{
 			if (!parse_url($table->audiofile, PHP_URL_SCHEME))
 			{
-				$table->audiofilesize = filesize(JPATH_SITE . $table->audiofile);
+				$table->audiofilesize = filesize(JPATH_SITE . '/' . trim($table->audiofile, '/'));
 			}
 		}
 
@@ -869,7 +869,7 @@ class SermonModel extends AdminModel
 		{
 			if (!parse_url($table->videofile, PHP_URL_SCHEME))
 			{
-				$table->videofilesize = filesize(JPATH_SITE . $table->videofile);
+				$table->videofilesize = filesize(JPATH_SITE . '/' . trim($table->videofile, '/'));
 			}
 		}
 
