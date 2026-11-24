@@ -207,7 +207,7 @@ class FilesModel extends BaseDatabaseModel
 
 						break;
 					default:
-						Factory::getApplication()->getInput()->set('mediatypes', '0');
+						Factory::getApplication()->getInput()->set('mediatypes', '1,2');
 
 						break;
 				}
@@ -219,7 +219,7 @@ class FilesModel extends BaseDatabaseModel
 
 				$options['search'] = '*';
 
-				$tempFiles         = array_merge($files, $mediaManager->getFiles($explodedFolder[0], $explodedFolder[1], $options));
+				$tempFiles = array_merge($files, $mediaManager->getFiles($explodedFolder[0], $explodedFolder[1], $options));
 
 				foreach ($tempFiles as $tempFile)
 				{
