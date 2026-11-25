@@ -41,17 +41,15 @@ $session = Factory::getApplication()->getSession();
 					<td class="text-center"><?php echo $item['type']; ?></td>
 					<td class="text-center">
 						<a href="index.php?option=com_sermonspeaker&view=sermon&layout=edit&type=<?php echo $item['type']; ?>&file=<?php echo $item['file']; ?>"
-						   target="_parent">
-							<span class="fas fa-plus-circle fa-lg text-success hasTooltip"
-								  title="<?php echo Text::_('COM_SERMONSPEAKER_NEW_SERMON'); ?>"></span>
+						   target="_parent" class="btn btn-success w-100 hasTooltip"title="<?php echo Text::_('COM_SERMONSPEAKER_NEW_SERMON'); ?>">
+							<span class="fas fa-plus-circle fa-lg"></span>
 						</a>
 					</td>
 					<td class="text-center">
 						<?php if (!str_starts_with($item['file'], 'http')) : ?>
 							<a href="index.php?option=com_sermonspeaker&task=tools.delete&file=<?php echo $item['file'] . '&' . $session->getName() . '=' . $session->getId() . '&' . Session::getFormToken(); ?>=1"
-							   target="_parent">
-								<span class="fas fa-trash fa-lg text-danger hasTooltip"
-									  title="<?php echo Text::_('COM_SERMONSPEAKER_DELETE_FILE'); ?>"></span>
+							   target="_parent" class="btn btn-danger w-100 hasTooltip" title="<?php echo Text::_('COM_SERMONSPEAKER_DELETE_FILE'); ?>">
+								<span class="fas fa-trash fa-lg"></span>
 							</a>
 						<?php endif; ?>
 					</td>
