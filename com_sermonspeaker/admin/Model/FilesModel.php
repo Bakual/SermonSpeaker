@@ -174,51 +174,56 @@ class FilesModel extends BaseDatabaseModel
 		elseif ($mode == 0)
 		{
 			// Media Manager
-			$folders = array();
-
-			if (str_contains($params->get('path_audio'), ':/'))
-			{
-				$folders[] = $params->get('path_audio');
-			}
-
-			if ($params->get('path_audio') != $params->get('path_video'))
-			{
-				if (str_contains($params->get('path_video'), ':/'))
-				{
-					$folders[] = $params->get('path_video');
-				}
-			}
-
 			$mediaManager = new ApiModel();
+			$options      = array(
+				'search'    => '.',
+				'url'       => true,
+				'recursive' => true,
+			);
 
-			foreach ($folders as $folder)
+			switch ($type)
 			{
-				$explodedFolder = explode(':', $folder, 2);
-
-				// I haven't found a way to give a file filter to the mediamanager except this.
-				switch ($type)
-				{
-					case 'audio':
+				case 'audio':
+					if (str_contains($params->get('path_audio'), ':/'))
+					{
+						// I haven't found a way to give a file filter to the mediamanager except this. 1 -> audio. 2 -> video
 						Factory::getApplication()->getInput()->set('mediatypes', '1');
 
-						break;
-					case 'video':
+						$explodedFolder = explode(':', $params->get('path_audio'), 2);
+						$files          = array_merge($files, $mediaManager->getFiles($explodedFolder[0], $explodedFolder[1], $options));
+					}
+
+					break;
+				case 'video':
+					if (str_contains($params->get('path_video'), ':/'))
+					{
 						Factory::getApplication()->getInput()->set('mediatypes', '2');
 
-						break;
-					default:
-						Factory::getApplication()->getInput()->set('mediatypes', '1,2');
+						$explodedFolder = explode(':', $params->get('path_video'), 2);
+						$files          = array_merge($files, $mediaManager->getFiles($explodedFolder[0], $explodedFolder[1], $options));
+					}
 
-						break;
-				}
+					break;
+				default:
+					if (str_contains($params->get('path_audio'), ':/'))
+					{
+						Factory::getApplication()->getInput()->set('mediatypes', '1');
 
-				$options = array(
-					'search'    => '.',
-					'url'       => true,
-					'recursive' => true,
-				);
+						$explodedFolder = explode(':', $params->get('path_audio'), 2);
+						$files          = array_merge($files, $mediaManager->getFiles($explodedFolder[0], $explodedFolder[1], $options));
+					}
 
-				$files = array_merge($files, $mediaManager->getFiles($explodedFolder[0], $explodedFolder[1], $options));
+					// need new instance of mediaManager due to changed mediatypes
+					$mediaManager = new ApiModel();
+					if (str_contains($params->get('path_video'), ':/'))
+					{
+						Factory::getApplication()->getInput()->set('mediatypes', '2');
+
+						$explodedFolder = explode(':', $params->get('path_video'), 2);
+						$files          = array_merge($files, $mediaManager->getFiles($explodedFolder[0], $explodedFolder[1], $options));
+					}
+
+					break;
 			}
 
 			// Doppelte Einträge entfernen (doppelter Eintrag überschreibt vorherigen)
@@ -230,7 +235,8 @@ class FilesModel extends BaseDatabaseModel
 		return $files;
 	}
 
-	private function getSermons()
+	private
+	function getSermons()
 	{
 		$db    = $this->getDatabase();
 		$query = "SELECT `audiofile` AS `file` FROM #__sermon_sermons WHERE `audiofile` != '' \n"
@@ -257,7 +263,8 @@ class FilesModel extends BaseDatabaseModel
 		return $sermons;
 	}
 
-	public function getCategory()
+	public
+	function getCategory()
 	{
 		$db    = $this->getDatabase();
 		$query = $db->createQuery();
