@@ -213,21 +213,12 @@ class FilesModel extends BaseDatabaseModel
 				}
 
 				$options = array(
+					'search'    => '.',
 					'url'       => true,
 					'recursive' => true,
 				);
 
-				$options['search'] = '*';
-
-				$tempFiles = array_merge($files, $mediaManager->getFiles($explodedFolder[0], $explodedFolder[1], $options));
-
-				foreach ($tempFiles as $tempFile)
-				{
-					if ($tempFile->type == 'file')
-					{
-						$files[] = $tempFile;
-					}
-				}
+				$files = array_merge($files, $mediaManager->getFiles($explodedFolder[0], $explodedFolder[1], $options));
 			}
 		}
 
