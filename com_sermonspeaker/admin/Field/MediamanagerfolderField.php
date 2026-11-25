@@ -73,19 +73,23 @@ class MediamanagerfolderField extends FormField
 		// Try converting legacy string values to new array
 		if (is_string($this->value))
 		{
-			if (str_contains($this->value, ':/'))
+			$oldValue = $this->value;
+			$this->value = array();
+
+			if (str_contains($oldValue, ':/'))
 			{
-				$this->value = explode(':/', $this->value, 2);
+				$this->value = explode(':/', $oldValue, 2);
 				$this->value[0] .= ':/';
 			}
-			elseif (str_starts_with($this->value, 'images'))
+			elseif (str_starts_with($oldValue, 'images'))
 			{
 				$this->value[0] = 'local-images:/';
-				$this->value[1] = substr($this->value, 7);
+				$this->value[1] = substr($oldValue, 7);
 			}
 			else
 			{
-				$this->value[1] = $this->value;
+				$this->value[0] = '';
+				$this->value[1] = $oldValue;
 			}
 		}
 
