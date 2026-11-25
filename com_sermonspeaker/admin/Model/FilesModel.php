@@ -220,6 +220,9 @@ class FilesModel extends BaseDatabaseModel
 
 				$files = array_merge($files, $mediaManager->getFiles($explodedFolder[0], $explodedFolder[1], $options));
 			}
+
+			// Doppelte Einträge entfernen (doppelter Eintrag überschreibt vorherigen)
+			$files = array_column($files, null, 'path');
 		}
 
 		sort($files);
