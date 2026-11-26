@@ -5,6 +5,7 @@
 		name="component"
 		label="COM_SERMONSPEAKER_FIELDSET_COMPONENT_LABEL"
 		addfieldprefix="Sermonspeaker\Component\Sermonspeaker\Administrator\Field"
+		addfilterprefix="Sermonspeaker\Component\Sermonspeaker\Administrator\Filter"
 	>
 
 		<field
@@ -297,7 +298,6 @@
 		name="clientcol"
 		label="COM_SERMONSPEAKER_FIELDSET_CLIENTCOL_LABEL"
 		description="COM_SERMONSPEAKER_FIELDSET_CLIENTCOL_DESC"
-		addfieldpath="/administrator/components/com_sermonspeaker/models/fields"
 	>
 
 		<field
@@ -372,6 +372,7 @@
 			type="mediamanagerfolder"
 			label="COM_SERMONSPEAKER_FIELD_PATH_AUDIO_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_PATH_AUDIO_DESC"
+			filter="mediamanagerfolder"
 			default="local-images:/"
 		/>
 
@@ -380,6 +381,7 @@
 			type="mediamanagerfolder"
 			label="COM_SERMONSPEAKER_FIELD_PATH_VIDEO_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_PATH_VIDEO_DESC"
+			filter="mediamanagerfolder"
 			default="local-images:/"
 		/>
 
@@ -388,6 +390,7 @@
 			type="mediamanagerfolder"
 			label="COM_SERMONSPEAKER_PARAM_PATH_ADDFILE"
 			description="COM_SERMONSPEAKER_PARAM_PATH_ADDFILE_DESC"
+			filter="mediamanagerfolder"
 			default="local-images:/"
 		/>
 
@@ -572,6 +575,7 @@
 			type="mediamanagerfolder"
 			label="COM_SERMONSPEAKER_PARAM_PATH_AVATAR"
 			description="COM_SERMONSPEAKER_PARAM_PATH_AVATAR_DESC"
+			filter="mediamanagerfolder"
 			default="local-images:/"
 		/>
 
@@ -580,6 +584,7 @@
 			type="mediamanagerfolder"
 			label="COM_SERMONSPEAKER_PARAM_PATH_SPEAKERPIC_LABEL"
 			description="COM_SERMONSPEAKER_PARAM_PATH_SPEAKERPIC_DESC"
+			filter="mediamanagerfolder"
 			default="local-images:/"
 		/>
 
@@ -588,6 +593,7 @@
 			type="mediamanagerfolder"
 			label="COM_SERMONSPEAKER_PARAM_PATH_SERMONPIC_LABEL"
 			description="COM_SERMONSPEAKER_PARAM_PATH_SERMONPIC_DESC"
+			filter="mediamanagerfolder"
 			default="local-images:/"
 		/>
 
