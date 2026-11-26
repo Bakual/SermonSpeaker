@@ -73,9 +73,9 @@ class PlugintagField extends FormField
 			$this->value[1] = '';
 		}
 
-		$html .= '<input type="text" size="10" name="' . $this->name . '" id="' . $this->id . '_start" value="' . htmlspecialchars($this->value[0], ENT_COMPAT) . '" class="inputbox input-mini"' . $disabled . ' />'
+		$html .= '<input type="text" size="10" name="' . $this->name . '" id="' . $this->id . '_start" value="' . htmlspecialchars($this->value[0], ENT_COMPAT) . '" class="form-control w-25 d-inline"' . $disabled . ' />'
 			. '<span style="margin-left:5px; margin-right:5px;">John 3,16</span>'
-			. '<input type="text" size="5" name="' . $this->name . '" id="' . $this->id . '_end" value="' . htmlspecialchars($this->value[1], ENT_COMPAT) . '" class="inputbox input-mini"' . $disabled . ' />';
+			. '<input type="text" size="5" name="' . $this->name . '" id="' . $this->id . '_end" value="' . htmlspecialchars($this->value[1], ENT_COMPAT) . '" class="form-control w-25 d-inline"' . $disabled . ' />';
 
 		return $html;
 	}
