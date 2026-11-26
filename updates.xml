@@ -91,12 +91,12 @@
 		<description>SermonSpeaker Package</description>
 		<element>pkg_sermonspeaker</element>
 		<type>package</type>
-		<version>7.1.3</version>
+		<version>7.1.4</version>
 		<client>site</client>
-		<infourl title="SermonSpeaker Package 7.1.2">https://github.com/Bakual/SermonSpeaker/releases/tag/7.1.3</infourl>
+		<infourl title="SermonSpeaker Package 7.1.4">https://github.com/Bakual/SermonSpeaker/releases/tag/7.1.4</infourl>
 		<downloads>
 			<downloadurl type="full" format="zip">
-				https://github.com/Bakual/SermonSpeaker/archive/refs/tags/7.1.3.zip
+				https://github.com/Bakual/SermonSpeaker/archive/refs/tags/7.1.4.zip
 			</downloadurl>
 		</downloads>
 		<tags>
@@ -105,6 +105,6 @@
 		<maintainer>Thomas Hunziker</maintainer>
 		<maintainerurl>https://www.sermonspeaker.net/</maintainerurl>
 		<targetplatform name="joomla" version="6.[0123456789]"/>
-		<sha256>26a15e712b8df6e8a90850a2c757d182090087b709e9da00606076e24ebe85e3</sha256>
+		<sha256>be63250d9d292ab641e59fdefc26ec3e310e9ddc1af2f153b3fe1f82dc886f84</sha256>
 	</update>
 </updates>
