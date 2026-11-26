@@ -20,4 +20,25 @@
 		<note>
 		</note>
 	</changelog>
+	<changelog>
+		<element>com_sermonspeaker</element>
+		<type>component</type>
+		<version>7.1.4</version>
+		<security>
+		</security>
+		<fix>
+			<item>Fixing orphaned files detection.</item>
+		</fix>
+		<language>
+		</language>
+		<addition>
+		</addition>
+		<change>
+			<item>The Mediafolder parameter is now split into two fields, a dropdown for the adapter and a text field for the directory. The path is automatically adjusted to new format.</item>
+		</change>
+		<remove>
+		</remove>
+		<note>
+		</note>
+	</changelog>
 </changelogs>
