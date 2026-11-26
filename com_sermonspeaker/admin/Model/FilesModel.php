@@ -18,7 +18,6 @@ use Joomla\Component\Media\Administrator\Model\ApiModel;
 use Joomla\Filesystem\File;
 use Joomla\Filesystem\Folder;
 use Joomla\CMS\MVC\Model\BaseDatabaseModel;
-use stdClass;
 
 defined('_JEXEC') or die();
 
@@ -191,6 +190,10 @@ class FilesModel extends BaseDatabaseModel
 
 						$explodedFolder = explode(':', $params->get('path_audio'), 2);
 						$files          = array_merge($files, $mediaManager->getFiles($explodedFolder[0], $explodedFolder[1], $options));
+
+						// First search without wildcard (*) as the local adapter escapes it, second search as Akeebas S3 plugin needs *.* :-)
+						$options['search'] = '*.*';
+						$files          = array_merge($files, $mediaManager->getFiles($explodedFolder[0], $explodedFolder[1], $options));
 					}
 
 					break;
@@ -200,6 +203,9 @@ class FilesModel extends BaseDatabaseModel
 						Factory::getApplication()->getInput()->set('mediatypes', '2');
 
 						$explodedFolder = explode(':', $params->get('path_video'), 2);
+						$files          = array_merge($files, $mediaManager->getFiles($explodedFolder[0], $explodedFolder[1], $options));
+
+						$options['search'] = '*.*';
 						$files          = array_merge($files, $mediaManager->getFiles($explodedFolder[0], $explodedFolder[1], $options));
 					}
 
@@ -211,6 +217,9 @@ class FilesModel extends BaseDatabaseModel
 
 						$explodedFolder = explode(':', $params->get('path_audio'), 2);
 						$files          = array_merge($files, $mediaManager->getFiles($explodedFolder[0], $explodedFolder[1], $options));
+
+						$options['search'] = '*.*';
+						$files          = array_merge($files, $mediaManager->getFiles($explodedFolder[0], $explodedFolder[1], $options));
 					}
 
 					// need new instance of mediaManager due to changed mediatypes
@@ -221,7 +230,12 @@ class FilesModel extends BaseDatabaseModel
 
 						$explodedFolder = explode(':', $params->get('path_video'), 2);
 						$files          = array_merge($files, $mediaManager->getFiles($explodedFolder[0], $explodedFolder[1], $options));
+
+						$options['search'] = '*.*';
+						$files          = array_merge($files, $mediaManager->getFiles($explodedFolder[0], $explodedFolder[1], $options));
 					}
+
+
 
 					break;
 			}
