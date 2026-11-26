@@ -114,6 +114,7 @@
 			<folder>Controller</folder>
 			<folder>Extension</folder>
 			<folder>Field</folder>
+			<folder>Filter</folder>
 			<folder>forms</folder>
 			<folder>Helper</folder>
 			<folder>language</folder>
