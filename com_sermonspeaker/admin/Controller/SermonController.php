@@ -12,6 +12,8 @@ namespace Sermonspeaker\Component\Sermonspeaker\Administrator\Controller;
 use Joomla\CMS\Application\ApplicationHelper;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
+use Joomla\CMS\Uri\Uri;
+use Joomla\Component\Media\Administrator\Model\ApiModel;
 use Joomla\Filesystem\File;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
@@ -228,7 +230,18 @@ class SermonController extends FormController
 
 				if ($filename != ApplicationHelper::stringURLSafe($filename))
 				{
-					$text = Text::_('COM_SERMONSPEAKER_FILENAME_NOT_IDEAL') . ': ' . $validData[$file];
+					$uri = Uri::getInstance();
+					$uri->delVar('file');
+					$uri->delVar('type');
+					$uri->setVar('view', 'sermon');
+					$uri->setVar('return', base64_encode($uri->toString()));
+					$uri->delVar('view');
+					$uri->delVar('layout');
+					$uri->setVar('task', 'sermon.sanitise');
+					$uri->setVar('type', $file);
+					$uri->setVar('session', Session::getFormToken());
+					$renameUrl = $uri->toString();
+					$text = Text::_('COM_SERMONSPEAKER_FILENAME_NOT_IDEAL') . ': ' . $validData[$file] . ' <a href="' . $renameUrl . '" class="btn btn-sm btn-warning ms-2">Rename File</a>';
 					$app->enqueueMessage($text, 'warning');
 				}
 			}
@@ -411,5 +424,64 @@ class SermonController extends FormController
 			$app->enqueueMessage(Text::_('JERROR_ALERTNOAUTHOR'), 'error');
 			$app->redirect('index.php?option=com_sermonspeaker&view=sermons');
 		}
+	}
+
+	/**
+	 * Sanitises a filename and update the database table
+	 *
+	 * @throws \Exception
+	 * @since 7.1.5
+	 */
+	public function sanitise()
+	{
+//		Session::checkToken() or die(Text::_('JINVALID_TOKEN'));
+
+		$input = Factory::getApplication()->input;
+		$id = $input->getInt('id');
+		$type = $input->getString('type');
+
+		if (!in_array($type, array('audiofile', 'videofile', 'addfile')))
+		{
+			die('wront type');
+		}
+
+		$model = $this->getModel();
+		$table = $model->getTable();
+		$table->load($id);
+
+		$params = ComponentHelper::getParams('com_sermonspeaker');
+		switch ($type)
+		{
+			case 'audiofile':
+				$basepath = $params->get('path_audio');
+				break;
+			case 'videofile':
+				$basepath = $params->get('path_video');
+				break;
+			case 'addfile':
+				$basepath = $params->get('path_addfile');
+		}
+
+		$basepath = explode(':/', $basepath);
+		$filePath = $table->$type;
+		$info    = pathinfo($filePath); // Braucht MediaManager
+		$fileName = $info['filename'];
+		$newName = ApplicationHelper::stringURLSafe($fileName);
+
+		if ($newName === $fileName)
+		{
+			die('same name');
+		}
+
+		// Build new $filePath
+
+		$newPath = $info['dirname'] . DIRECTORY_SEPARATOR
+			. $newName
+			. (isset($info['extension']) ? '.' . $info['extension'] : '');
+
+		$mediamanager = new ApiModel();
+		$mediamanager->move($basepath[0], $filePath, $newPath);
+
+		$this->setRedirect(base64_decode($input->getBase64('return')));
 	}
 }
