@@ -334,8 +334,15 @@ class SermonsModel extends ListModel
 
 		if (!empty($search))
 		{
-			$search = $db->quote('%' . $db->escape($search, true) . '%');
-			$query->where('(sermons.title LIKE ' . $search . ')');
+			$searchLike = '%' . $search . '%';
+			$query->where(
+				'(' . $db->quoteName('sermons.title') . ' LIKE :search1'
+				. ' OR ' . $db->quoteName('sermons.maintext') . ' LIKE :search2'
+				. ' OR ' . $db->quoteName('sermons.notes') . ' LIKE :search3)'
+			)
+				->bind(':search1', $searchLike)
+				->bind(':search2', $searchLike)
+				->bind(':search3', $searchLike);
 		}
 
 		// Filter by date
