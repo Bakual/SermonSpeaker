@@ -109,6 +109,7 @@
 			type="mediawrapper"
 			label="COM_SERMONSPEAKER_FIELD_ADDFILE_LABEL"
 			description="COM_SERMONSPEAKER_FIELD_ADDFILE_DESC"
+			types="documents,audios,videos,images"
 			file="addfile"
 			hide_default="true"
 			hide_none="true"

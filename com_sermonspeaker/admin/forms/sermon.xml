@@ -154,6 +154,7 @@
 		<field name="addfile"
 			type="mediawrapper"
 			label="COM_SERMONSPEAKER_FIELD_ADDFILE_LABEL"
+			types="documents,audios,videos,images"
 			file="addfile"
 			class="form-select"
 			hide_default="true"
