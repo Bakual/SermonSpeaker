@@ -39,8 +39,6 @@ class FeedModel extends BaseDatabaseModel
 
 		$db = $this->getDatabase();
 
-		$db->setQuery($query);
-
 		// Create a new query object.
 		$query = $db->createQuery();
 
